@@ -732,29 +732,29 @@ void initializeCharacters(int XSize, int YSize,
 						  Character * invincibleGhostPtr,
 						  )
 {
-	initializeCharacter(ghostPtr1,3+rand()%3,3+rand()%3,'O',0);
-	displayCharacter(ghostPtr1);
-
-	initializeCharacter(ghostPtr2,XSize-1-3+rand()%2,YSize-1-3+rand()%2,'O',0);
+	initializeCharacter(ghostPtr2,XSize/6+rand()%4-2,YSize/6+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr2);
 
-	initializeCharacter(ghostPtr3,XSize-1-3+rand()%2,3+rand()%2,'O',0);
+	initializeCharacter(ghostPtr3,XSize/6+rand()%4-2,YSize/2+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr3);
 	
-	initializeCharacter(ghostPtr4,3+rand()%2,        YSize-1-3+rand()%2,'O',0);
+	initializeCharacter(ghostPtr4,XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr4);
 	
-	initializeCharacter(ghostPtr5,6+rand()%2,        6+rand()%2,'O',0);
+	initializeCharacter(ghostPtr5,XSize/2+rand()%4-2,YSize/6+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr5);
 
-	initializeCharacter(ghostPtr6,XSize/4+rand()%2,  YSize/4+rand()%2,'O',0);
+	initializeCharacter(ghostPtr6,XSize/2+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr6);
 
-	initializeCharacter(ghostPtr7,XSize/4+rand()%2,  6+rand()%2,'O',0);
+	initializeCharacter(ghostPtr7,XSize-XSize/6+rand()%4-2,YSize/6+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr7);
 	
-	initializeCharacter(ghostPtr8,6+rand()%2,        YSize/4+rand()%2,'O',0);
+	initializeCharacter(ghostPtr8,XSize-XSize/6+rand()%4-2,YSize/2+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr8);
+	
+	initializeCharacter(ghostPtr1,XSize-XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',0);
+	displayCharacter(ghostPtr1);
 
 	initializeCharacter(bombPtr1,XSize/2,YSize/2,'X',0);
 	relocateCharacter(XSize, YSize, bombPtr1, ghostPtr1, ghostPtr1, ghostPtr1, ghostPtr1, 
@@ -986,6 +986,13 @@ void finalScore(int XSize, int YSize)
 	sleep(3);
 }
 
+int computeInvincibleGhostCountTrigger()
+{
+	if(level<=7)
+		return level/2 + 1;
+	else
+		return 5;
+}
 
 int main (void)
 {
@@ -1040,6 +1047,7 @@ int main (void)
 			invincibleXCountDown = computeInvincibleCountDown();
 			invincibleYCountDown = computeInvincibleCountDown();
 			invincibleSlowDown = computeInvincibleSlowDown(loop);
+			invincibleGhostCountTrigger = computeInvincibleGhostCountTrigger();
 			ghostCount = 8;
 			
 			/* Clear the screen, put cursor in upper left corner */

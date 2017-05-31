@@ -7,23 +7,54 @@
 
 #include <stdlib.h>
 #include <string.h>
+
+#include <stdio.h>
+
 #include <conio.h>
-#include <joystick.h>
 
 #include <unistd.h>
 
 #include <time.h>
 
+// If two ghosts bump into eachother you get 2500 points for each ghost
 #define GHOST_VS_GHOST_BONUS 2500ul
+
+// If a ghost bumps into a bomb
 #define GHOST_VS_BOMBS_BONUS 1000ul
+
+// Extra points for the power up
 #define POWER_UP_BONUS 500ul
+
+// Points for each tick
 #define LOOP_POINTS 10ul
 
-unsigned int ghostLevel = 1u;
-unsigned long points = 0ul;
-unsigned int ghostSmartness = 3u;
+// Points gained at the end of each level
+#define LEVEL_BONUS 5000ul
+
+// Number of levels
+#define FINAL_LEVEL 10
+
 unsigned int ghostSlowDown;
 unsigned int powerUpCoolDown;
+unsigned int ghostLevel = 1u;
+unsigned long points = 0ul;
+unsigned int ghostSmartness = 1u; // 9u is max = impossible 
+
+// Level
+// The level affects:
+// 1. powerUpCoolDown (how long before a new powerUp is spawned)
+// 2. ghostSlowDown (how much the power up slows the enemies down)
+// 3. toggleHunters (how fast the ghosts are woken up at level start-up)
+// 4. ghostSmartness (how smart ghosts are in avoiding their death)
+// 5. invincibleXCountDown (time needed to acticate the invincible ghost)
+// 7. invincibleYCountDown
+// 6. invincibleSlowDown (how much the invincible ghost is slowed-down)
+// 7. microSleep (how fast the game runs)
+unsigned short level = 1;
+
+unsigned int invincibleXCountDown = 100;
+unsigned int invincibleYCountDown = 100;
+unsigned int invincibleSlowDown = 15000;
 
 
 struct CharacterStruct
@@ -68,87 +99,151 @@ void displayCharacter(Character* characterPtr)
 	cputc(characterPtr->_ch);
 }
 
+int isCharacterAtLocation(int x, int y, Character * characterPtr)
+{
+	return(characterPtr->_x==x) && (characterPtr->_y==y);
+}
+
 int areCharctersAtSamePosition(Character* lhs, Character* rhs)
 {
 	return (lhs->_x==rhs->_x)&&(lhs->_y==rhs->_y);
 }
 
-int leftBomb(Character* characterPtr, Character* bombPtr)
+int leftDanger(Character* characterPtr, Character* bombPtr)
 {
 	return (characterPtr->_y == bombPtr->_y) && (characterPtr->_x-1 == bombPtr->_x);
 }
 
-int rightBomb(Character* characterPtr, Character* bombPtr)
+int rightDanger(Character* characterPtr, Character* bombPtr)
 {
 	return (characterPtr->_y == bombPtr->_y) && (characterPtr->_x+1 == bombPtr->_x);	  
 }
 
-int upBomb(Character* characterPtr, Character* bombPtr)
+int upDanger(Character* characterPtr, Character* bombPtr)
 {
 	return (characterPtr->_x == bombPtr->_x) && (characterPtr->_y-1 == bombPtr->_y);
 }
 
-int downBomb(Character* characterPtr, Character* bombPtr)
+int downDanger(Character* characterPtr, Character* bombPtr)
 {
 	return (characterPtr->_x == bombPtr->_x) && (characterPtr->_y+1 == bombPtr->_y);	  
 }
+
 
 int leftBombs(Character* characterPtr, 
               Character* bombPtr1,  Character* bombPtr2, 
               Character* bombPtr3,  Character* bombPtr4)
 {
-	return leftBomb(characterPtr, bombPtr1) || leftBomb(characterPtr, bombPtr2) || 
-	       leftBomb(characterPtr, bombPtr3) || leftBomb(characterPtr, bombPtr4);
+	return leftDanger(characterPtr, bombPtr1) || leftDanger(characterPtr, bombPtr2) || 
+	       leftDanger(characterPtr, bombPtr3) || leftDanger(characterPtr, bombPtr4);
 }
 
 int rightBombs(Character* characterPtr, 
               Character* bombPtr1,  Character* bombPtr2, 
               Character* bombPtr3,  Character* bombPtr4)
 {
-	return rightBomb(characterPtr, bombPtr1) || rightBomb(characterPtr, bombPtr2) || 
-	       rightBomb(characterPtr, bombPtr3) || rightBomb(characterPtr, bombPtr4);
+	return rightDanger(characterPtr, bombPtr1) || rightDanger(characterPtr, bombPtr2) || 
+	       rightDanger(characterPtr, bombPtr3) || rightDanger(characterPtr, bombPtr4);
 }
 
 int upBombs(Character* characterPtr, 
               Character* bombPtr1,  Character* bombPtr2, 
               Character* bombPtr3,  Character* bombPtr4)
 {
-	return upBomb(characterPtr, bombPtr1) || upBomb(characterPtr, bombPtr2) || 
-	       upBomb(characterPtr, bombPtr3) || upBomb(characterPtr, bombPtr4);
+	return upDanger(characterPtr, bombPtr1) || upDanger(characterPtr, bombPtr2) || 
+	       upDanger(characterPtr, bombPtr3) || upDanger(characterPtr, bombPtr4);
 }
 
 int downBombs(Character* characterPtr, 
               Character* bombPtr1,  Character* bombPtr2, 
               Character* bombPtr3,  Character* bombPtr4)
 {
-	return downBomb(characterPtr, bombPtr1) || downBomb(characterPtr, bombPtr2) || 
-	       downBomb(characterPtr, bombPtr3) || downBomb(characterPtr, bombPtr4);
+	return downDanger(characterPtr, bombPtr1) || downDanger(characterPtr, bombPtr2) || 
+	       downDanger(characterPtr, bombPtr3) || downDanger(characterPtr, bombPtr4);
 }
+
+
+
+
+int leftGhosts(Character* characterPtr, 
+              Character* ghostPtr1,  Character* ghostPtr2, 
+              Character* ghostPtr3,  Character* ghostPtr4,
+              Character* ghostPtr5,  Character* ghostPtr6, 
+              Character* ghostPtr7)
+{
+	return leftDanger(characterPtr, ghostPtr1) || leftDanger(characterPtr, ghostPtr2) || 
+	       leftDanger(characterPtr, ghostPtr3) || leftDanger(characterPtr, ghostPtr4) ||
+		   leftDanger(characterPtr, ghostPtr5) || leftDanger(characterPtr, ghostPtr6) || 
+		   leftDanger(characterPtr, ghostPtr7);
+}
+
+int rightGhosts(Character* characterPtr, 
+              Character* ghostPtr1,  Character* ghostPtr2, 
+              Character* ghostPtr3,  Character* ghostPtr4,
+              Character* ghostPtr5,  Character* ghostPtr6, 
+              Character* ghostPtr7)
+{
+	return rightDanger(characterPtr, ghostPtr1) || rightDanger(characterPtr, ghostPtr2) || 
+	       rightDanger(characterPtr, ghostPtr3) || rightDanger(characterPtr, ghostPtr4) ||
+		   rightDanger(characterPtr, ghostPtr5) || rightDanger(characterPtr, ghostPtr6) || 
+		   rightDanger(characterPtr, ghostPtr7);
+}
+
+int upGhosts(Character* characterPtr, 
+              Character* ghostPtr1,  Character* ghostPtr2, 
+              Character* ghostPtr3,  Character* ghostPtr4,
+              Character* ghostPtr5,  Character* ghostPtr6, 
+              Character* ghostPtr7)
+{
+	return upDanger(characterPtr, ghostPtr1) || upDanger(characterPtr, ghostPtr2) || 
+		   upDanger(characterPtr, ghostPtr3) || upDanger(characterPtr, ghostPtr4) || 
+	       upDanger(characterPtr, ghostPtr5) || upDanger(characterPtr, ghostPtr6) ||
+		   upDanger(characterPtr, ghostPtr7);
+}
+
+int downGhosts(Character* characterPtr, 
+              Character* ghostPtr1,  Character* ghostPtr2, 
+              Character* ghostPtr3,  Character* ghostPtr4,
+              Character* ghostPtr5,  Character* ghostPtr6, 
+              Character* ghostPtr7)
+{
+	return downDanger(characterPtr, ghostPtr1) || downDanger(characterPtr, ghostPtr2) || 
+	       downDanger(characterPtr, ghostPtr3) || downDanger(characterPtr, ghostPtr4) ||
+		   downDanger(characterPtr, ghostPtr5) || downDanger(characterPtr, ghostPtr6) ||
+		   downDanger(characterPtr, ghostPtr7);
+}
+
 
 
 void chaseCharacterXAvoidBombStrategy(Character* hunterPtr, Character* preyPtr, 
                     Character* bombPtr1, Character* bombPtr2,
-					Character* bombPtr3, Character* bombPtr4)
+					Character* bombPtr3, Character* bombPtr4,
+					Character* ghostPtr1, Character *ghostPtr2, Character* ghostPtr3, Character *ghostPtr4,
+					Character* ghostPtr5, Character *ghostPtr6, Character* ghostPtr7)
 {
 	if(!rightBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && 
+	   !rightGhosts(hunterPtr, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7) &&
 	   hunterPtr->_x<preyPtr->_x)
 	{
 		deleteCharacter(hunterPtr);
 		++hunterPtr->_x;
 	}
 	else if(!leftBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && 
+	        !leftGhosts(hunterPtr, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7) &&
 	         hunterPtr->_x>preyPtr->_x)
 	{
 		deleteCharacter(hunterPtr);
 		--hunterPtr->_x;
 	}
 	else if(!downBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && 
+			!downGhosts(hunterPtr, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7) &&
 	        hunterPtr->_y<preyPtr->_y)
 	{
 		deleteCharacter(hunterPtr);
 		++hunterPtr->_y;
 	}
 	else if(!upBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && 
+			!upGhosts(hunterPtr, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7) &&
 	        hunterPtr->_y>preyPtr->_y)
 	{
 		deleteCharacter(hunterPtr);
@@ -184,24 +279,34 @@ void chaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 
 void chaseCharacterYAvoidBombStrategy(Character* hunterPtr, Character* preyPtr, 
                     Character* bombPtr1, Character* bombPtr2,
-					Character* bombPtr3, Character* bombPtr4)
+					Character* bombPtr3, Character* bombPtr4,
+					Character* ghostPtr1, Character *ghostPtr2, Character* ghostPtr3, Character *ghostPtr4,
+					Character* ghostPtr5, Character *ghostPtr6, Character* ghostPtr7)
 {
-    if(!downBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && hunterPtr->_y<preyPtr->_y)
+    if(!downBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && 
+	   !downGhosts(hunterPtr, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7) &&
+		hunterPtr->_y<preyPtr->_y)
 	{
 		deleteCharacter(hunterPtr);
 		++hunterPtr->_y;
 	}
-	else if(!upBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && hunterPtr->_y>preyPtr->_y)
+	else if(!upBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && 
+	        !upGhosts(hunterPtr, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7) &&
+	        hunterPtr->_y>preyPtr->_y)
 	{
 		deleteCharacter(hunterPtr);
 		--hunterPtr->_y;
 	}
-	else if(!rightBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && hunterPtr->_x<preyPtr->_x)
+	else if(!rightBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && 
+			!rightGhosts(hunterPtr, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7) &&
+			hunterPtr->_x<preyPtr->_x)
 	{
 		deleteCharacter(hunterPtr);
 		++hunterPtr->_x;
 	}
-	else if(!leftBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && hunterPtr->_x>preyPtr->_x)
+	else if(!leftBombs(hunterPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4) && 
+			!leftGhosts(hunterPtr, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7) &&
+			hunterPtr->_x>preyPtr->_x) 
 	{
 		deleteCharacter(hunterPtr);
 		--hunterPtr->_x;
@@ -238,7 +343,9 @@ void chaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 
 void chaseCharacter(Character* hunterPtr, Character* preyPtr, 
                     Character* bombPtr1, Character* bombPtr2,
-					Character* bombPtr3, Character* bombPtr4)
+					Character* bombPtr3, Character* bombPtr4,
+					Character* ghostPtr1, Character *ghostPtr2, Character* ghostPtr3, Character *ghostPtr4,
+					Character* ghostPtr5, Character *ghostPtr6, Character* ghostPtr7)
 {
 	if(rand()%10 > ghostSmartness)
 	{
@@ -255,69 +362,112 @@ void chaseCharacter(Character* hunterPtr, Character* preyPtr,
 	{
 		if(rand()%2) // Select chase strategy
 		{
-			chaseCharacterXAvoidBombStrategy(hunterPtr, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4);
+			chaseCharacterXAvoidBombStrategy(hunterPtr, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
 		}
 		else
 		{
-			chaseCharacterYAvoidBombStrategy(hunterPtr, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4);
+			chaseCharacterYAvoidBombStrategy(hunterPtr, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
 		}
 	}
 }
 
-void chaseCharacterIf(Character* hunterPtr, Character* preyPtr, 
-                    Character* bombPtr1, Character* bombPtr2,
-					Character* bombPtr3, Character* bombPtr4)
+
+void blindChaseCharacter(Character* hunterPtr, Character* preyPtr)
 {
-	if(((hunterPtr->_status==1) && (hunterPtr->_alive==1)) && rand()>ghostSlowDown)
+	if((hunterPtr->_status==1) && (hunterPtr->_alive==1))
 	{
-		chaseCharacter(hunterPtr, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4);
+		if(rand()>invincibleSlowDown)
+		{
+			if(rand()%2) // Select chase strategy
+			{
+				chaseCharacterXStrategy(hunterPtr, preyPtr);
+			}
+			else
+			{
+				chaseCharacterYStrategy(hunterPtr, preyPtr);
+			}
+		}
 	}
-	else
+}
+
+
+void chaseCharacterIf(Character* ghostPtr1, Character* preyPtr, 
+                    Character* bombPtr1, Character* bombPtr2,
+					Character* bombPtr3, Character* bombPtr4,
+					Character *ghostPtr2, Character* ghostPtr3, Character *ghostPtr4,
+					Character* ghostPtr5, Character *ghostPtr6, Character* ghostPtr7, Character* ghostPtr8)
+{
+	if((ghostPtr1->_status==1) && (ghostPtr1->_alive==1))
 	{
-		displayCharacter(hunterPtr);
+		if(rand()>ghostSlowDown)
+		{
+			chaseCharacter(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+			ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+		}
+		else 
+		{
+			displayCharacter(ghostPtr1);
+		}
 	}
 }					 
 
-void chasePlayer(Character * hunterPtr1, Character * hunterPtr2, 
-                 Character * hunterPtr3, Character * hunterPtr4,
-				 Character * hunterPtr5, Character * hunterPtr6, 
-                 Character * hunterPtr7, Character * hunterPtr8, 
+void chasePlayer(Character * ghostPtr1, Character * ghostPtr2, 
+                 Character * ghostPtr3, Character * ghostPtr4,
+				 Character * ghostPtr5, Character * ghostPtr6, 
+                 Character * ghostPtr7, Character * ghostPtr8, 
                  Character* preyPtr, 
                  Character* bombPtr1, Character* bombPtr2,
 				 Character* bombPtr3, Character* bombPtr4
 				 )
 {
-	chaseCharacterIf(hunterPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4);
-	chaseCharacterIf(hunterPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4);
-	chaseCharacterIf(hunterPtr3, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4);
-	chaseCharacterIf(hunterPtr4, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4);
-    chaseCharacterIf(hunterPtr5, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4);
-	chaseCharacterIf(hunterPtr6, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4);
-	chaseCharacterIf(hunterPtr7, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4);
-	chaseCharacterIf(hunterPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4);
+	chaseCharacterIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr3, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr4, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+    
+	chaseCharacterIf(ghostPtr5, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr6, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr7, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
 }
 
 void displayScore(unsigned long points)
 {
 	// Draw score 
-	gotoxy(2,3);
+	gotoxy(2,2);
 	cputs("SCORE: ");
 	
-	gotoxy(9,3);
+	gotoxy(9,2);
 	cputs("       ");
-	gotoxy(9,3);
+	gotoxy(9,2);
 	cprintf("%lu",points);
 }
 
 void displayGhostLevel()
 {
 	// Draw score 
-	gotoxy(2,2);
+	gotoxy(2,1);
 	cputs("SPEED: ");
 	
-	gotoxy(9,2);
+	gotoxy(9,1);
 	cputs("       ");
-	gotoxy(9,2);
+	gotoxy(9,1);
 	cprintf("%u",ghostLevel);
 }
 
@@ -354,6 +504,16 @@ int powerUpReached(Character * hunterPtr, Character* preyPtr)
 	return(areCharctersAtSamePosition(hunterPtr, preyPtr));
 }
 
+int computeInvincibleCountDown()
+{
+	return 100 - level*5;
+}
+
+int computeInvincibleSlowDown()
+{
+	return 20000 - level * 1000;
+}
+
 
 void movePlayer(Character *playerPtr, char kbInput)
 {
@@ -361,21 +521,25 @@ void movePlayer(Character *playerPtr, char kbInput)
 	{
 		deleteCharacter(playerPtr);
 		--playerPtr->_y;
+		invincibleYCountDown = computeInvincibleCountDown();
 	}
 	else if((kbInput=='S') || (kbInput=='s'))
 	{
 		deleteCharacter(playerPtr);
 		++playerPtr->_y;
+		invincibleYCountDown = computeInvincibleCountDown();
 	}
 	else if((kbInput=='A') || (kbInput=='a'))
 	{
 		deleteCharacter(playerPtr);
 		--playerPtr->_x;
+		invincibleXCountDown = computeInvincibleCountDown();
 	}
 	else if((kbInput=='D') || (kbInput=='d'))
 	{
 		deleteCharacter(playerPtr);
 		++playerPtr->_x;
+		invincibleXCountDown = computeInvincibleCountDown();
 	}
 	displayCharacter(playerPtr);
 }
@@ -425,6 +589,14 @@ void printCenteredMessage(int XSize, int YSize, char *Text)
     cprintf ("%s", Text);
 }
 
+void printLevel(int XSize, int YSize)
+{
+	char levelString[22];
+
+	sprintf(levelString, "LEVEL %d", level);
+
+	printCenteredMessage(XSize, YSize, levelString);
+}
 
 void printPressKeyToStart(int XSize, int YSize)
 {
@@ -443,21 +615,21 @@ void toggleHunters(Character * hunterPtr1, Character * hunterPtr2,
                    Character * hunterPtr7, Character * hunterPtr8, 
 				   int loop)
 {
-	if(loop==5)
-		hunterPtr1->_status = 1;
 	if(loop==10)
+		hunterPtr1->_status = 1;
+	if(loop==25-level*2)
 		hunterPtr2->_status = 1;
-	if(loop==20)
+	if(loop==30-level*2)
 		hunterPtr3->_status = 1;
-	if(loop==30)
+	if(loop==40-level*2)
 		hunterPtr4->_status = 1;
-	if(loop==40)
+	if(loop==50-level*2)
 		hunterPtr5->_status = 1;
-	if(loop==50)
+	if(loop==60-level*2)
 		hunterPtr6->_status = 1;
-	if(loop==60)
+	if(loop==70-level*2)
 		hunterPtr7->_status = 1;
-	if(loop==70)
+	if(loop==80-level*2)
 		hunterPtr8->_status = 1;
 }
 
@@ -494,56 +666,135 @@ void checkBombsVsGhosts(Character * bombPtr1, Character * bombPtr2,
 }
 
 
-void initializeCharacters(Character * playerPtr, Character * powerUpPtr, 
+int safeLocation(int x, int y, 
+				Character * bombPtr1, Character * bombPtr2, 
+				Character * bombPtr3, Character * bombPtr4,
+				Character * ghostPtr1, Character * ghostPtr2, 
+				Character * ghostPtr3, Character * ghostPtr4,
+				Character * ghostPtr5, Character * ghostPtr6, 
+				Character * ghostPtr7, Character * ghostPtr8)
+{
+	return !isCharacterAtLocation(x,y,bombPtr1) && !isCharacterAtLocation(x,y,bombPtr2) &&
+	!isCharacterAtLocation(x,y,bombPtr3) && !isCharacterAtLocation(x,y,bombPtr4) &&
+	!isCharacterAtLocation(x,y,ghostPtr1) && !isCharacterAtLocation(x,y,ghostPtr2) &&
+	!isCharacterAtLocation(x,y,ghostPtr3) && !isCharacterAtLocation(x,y,ghostPtr4) &&
+	!isCharacterAtLocation(x,y,ghostPtr5) && !isCharacterAtLocation(x,y,ghostPtr6) &&
+	!isCharacterAtLocation(x,y,ghostPtr7) && !isCharacterAtLocation(x,y,ghostPtr8);
+}
+
+
+void relocateCharacter(int XSize, int YSize, Character * characterPtr, 
+						Character * bombPtr1, Character * bombPtr2, 
+						Character * bombPtr3, Character * bombPtr4,
+						Character * ghostPtr1, Character * ghostPtr2, 
+						Character * ghostPtr3, Character * ghostPtr4,
+						Character * ghostPtr5, Character * ghostPtr6, 
+						Character * ghostPtr7, Character * ghostPtr8)
+{
+	int x; int y; int x_offset; int y_offset;
+	int safe = 0;
+	while(!safe)
+	{
+	x_offset = rand() % 38;
+	y_offset = rand() % 38;
+	if((x_offset==0) && (y_offset==0))
+		continue;
+	x = characterPtr->_x -19 + x_offset; 
+	y = characterPtr->_y -19 + y_offset;
+	if(y<=3) // Avoid score line
+		continue;
+	if((x<2) || (x>XSize-2))
+		continue;
+	if((y<2) || (y>YSize-2))
+		continue;
+	
+	safe = safeLocation(x,y, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+						ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+						ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	}
+	characterPtr->_x = x;
+	characterPtr->_y = y;
+}
+
+
+void initializeCharacters(int XSize, int YSize,
+						  Character * playerPtr, Character * powerUpPtr, 
 						  Character * ghostPtr1, Character * ghostPtr2,
 						  Character * ghostPtr3, Character * ghostPtr4,
 						  Character * ghostPtr5, Character * ghostPtr6,
 						  Character * ghostPtr7, Character * ghostPtr8,
 						  Character * bombPtr1, Character * bombPtr2,
 						  Character * bombPtr3, Character * bombPtr4,
+						  Character * invincibleGhostPtr,
 						  )
 {
-	initializeCharacter(ghostPtr1,4,4,'1',0);
+	initializeCharacter(ghostPtr1,3+rand()%3,3+rand()%3,'O',0);
 	displayCharacter(ghostPtr1);
 
-	initializeCharacter(ghostPtr2,17,17,'2',0);
+	initializeCharacter(ghostPtr2,XSize-1-3+rand()%2,YSize-1-3+rand()%2,'O',0);
 	displayCharacter(ghostPtr2);
 
-	initializeCharacter(ghostPtr3,17,3,'3',0);
+	initializeCharacter(ghostPtr3,XSize-1-3+rand()%2,3+rand()%2,'O',0);
 	displayCharacter(ghostPtr3);
 	
-	initializeCharacter(ghostPtr4,3,17,'4',0);
+	initializeCharacter(ghostPtr4,3+rand()%2,        YSize-1-3+rand()%2,'O',0);
 	displayCharacter(ghostPtr4);
 	
-	initializeCharacter(ghostPtr5,6,6,'5',0);
+	initializeCharacter(ghostPtr5,6+rand()%2,        6+rand()%2,'O',0);
 	displayCharacter(ghostPtr5);
 
-	initializeCharacter(ghostPtr6,19,19,'6',0);
+	initializeCharacter(ghostPtr6,XSize/4+rand()%2,  YSize/4+rand()%2,'O',0);
 	displayCharacter(ghostPtr6);
 
-	initializeCharacter(ghostPtr7,19,6,'7',0);
+	initializeCharacter(ghostPtr7,XSize/4+rand()%2,  6+rand()%2,'O',0);
 	displayCharacter(ghostPtr7);
 	
-	initializeCharacter(ghostPtr8,6,19,'8',0);
+	initializeCharacter(ghostPtr8,6+rand()%2,        YSize/4+rand()%2,'O',0);
 	displayCharacter(ghostPtr8);
 
-	initializeCharacter(playerPtr,10,10,'*',1);
-	displayCharacter(playerPtr);
-
-	initializeCharacter(powerUpPtr,15,12,'P',1);
-	displayCharacter(powerUpPtr);
-	
-	initializeCharacter(bombPtr1,16,16,'B',0);
+	initializeCharacter(bombPtr1,XSize/2,YSize/2,'X',0);
+	relocateCharacter(XSize, YSize, bombPtr1, ghostPtr1, ghostPtr1, ghostPtr1, ghostPtr1, 
+					   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+					   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
 	displayCharacter(bombPtr1);
 
-	initializeCharacter(bombPtr2,8,8,'B',0);
+	initializeCharacter(bombPtr2,XSize/2,YSize/2,'X',0);
+	relocateCharacter(XSize, YSize, bombPtr2, bombPtr1, ghostPtr1, ghostPtr1, ghostPtr1, 
+				   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+				   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
 	displayCharacter(bombPtr2);
 
-	initializeCharacter(bombPtr3,8,16,'B',0);
+	initializeCharacter(bombPtr3,XSize/2,YSize/2,'X',0);
+	relocateCharacter(XSize, YSize, bombPtr3, bombPtr1, bombPtr2, ghostPtr1, ghostPtr1, 
+				   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+				   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
 	displayCharacter(bombPtr3);
 	
-	initializeCharacter(bombPtr4,16,8,'B',0);
+	initializeCharacter(bombPtr4,XSize/2,YSize/2,'X',0);
+	relocateCharacter(XSize, YSize, bombPtr4, bombPtr1, bombPtr2, bombPtr3, ghostPtr1, 
+				   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+				   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
 	displayCharacter(bombPtr4);
+	
+	initializeCharacter(playerPtr,XSize/2,YSize/2,'*',1);
+	relocateCharacter(XSize, YSize, playerPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+						   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+						   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);					   
+	initializeCharacter(playerPtr,playerPtr->_x,playerPtr->_y,'*',1);
+	displayCharacter(playerPtr);
+
+	initializeCharacter(powerUpPtr,XSize/2,YSize/2,'P',1);
+	relocateCharacter(XSize, YSize, powerUpPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+						   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+						   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
+	initializeCharacter(powerUpPtr,powerUpPtr->_x,powerUpPtr->_y,'P',1);
+	displayCharacter(powerUpPtr);
+	
+	initializeCharacter(invincibleGhostPtr,XSize/2,YSize/2,'+',0);
+	relocateCharacter(XSize, YSize, invincibleGhostPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+						   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+						   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);					   
+	initializeCharacter(invincibleGhostPtr,invincibleGhostPtr->_x,invincibleGhostPtr->_y,'+',0);
 }
 
 int victoryCondition(Character *ghostPtr1, Character *ghostPtr2, Character *ghostPtr3, Character *ghostPtr4,
@@ -571,25 +822,25 @@ void printDefeatMessage(int XSize, int YSize)
 
 unsigned int computeGhostSlowDown()
 {
-   if(ghostLevel<5)
+   if(ghostLevel<10)
    {
-	   return 32000;
+	   return 32000-level*200;
    }
-   else if(ghostLevel<100)
+   else if(ghostLevel<200)
    {
-	   return 32000-ghostLevel*5;
+	   return 32000-ghostLevel*10-level*200;
+   }
+   else if(ghostLevel<300)
+   {
+	   return 32000-ghostLevel*20-level*200;
    }
    else if(ghostLevel<400)
    {
-	   return 32000-ghostLevel*10;
-   }
-   else if(ghostLevel<1000)
-   {
-	   return 32000-ghostLevel*20;
+	   return 32000-ghostLevel*40-level*200;
    }
    else 
    {
-	   return 7000;
+	   return 7000-level*200;
    }
 }
 
@@ -611,8 +862,7 @@ void die(Character * playerPtr)
 void defeat(int XSize, int YSize)
 {
 	printDefeatMessage(XSize, YSize);
-	sleep(2);
-	printGameOver(XSize, YSize);
+	sleep(1);
 }
 
 void win(Character * playerPtr)
@@ -624,8 +874,7 @@ void win(Character * playerPtr)
 void victory(int XSize, int YSize)
 {
 	printVictoryMessage(XSize, YSize);
-	sleep(2);
-	printGameOver(XSize, YSize);
+	sleep(1);
 }
 
 void decreaseGhostLevel(int level)
@@ -690,13 +939,47 @@ void checkGhostsVsGhosts(Character *ghostPtr1, Character *ghostPtr2, Character *
 	}
 }
 
+int computeGhostSmartness()
+{
+	if(level<=4)
+	{
+		return level+3;
+	}
+	else
+	{
+		return 8;
+	}
+}
+
+void computePowerUp(int *coolDownDecreasePtr, int *powerUpInitialCoolDownPtr)
+{
+	*coolDownDecreasePtr = 200-(level-1)*10;
+	*powerUpInitialCoolDownPtr = 200+(level-1)*10;
+}
+
+void gameCompleted(int XSize, int YSize)
+{
+	printCenteredMessage(XSize, YSize, "Y O U  M A D E  I T !"); 
+	sleep(2);
+	printCenteredMessage(XSize, YSize, "    T H E   E N D    "); 
+	sleep(2);
+}
+
+void finalScore(int XSize, int YSize)
+{
+	char scoreString[22];
+	clrscr();
+	sprintf(scoreString, "SCORE:  %lu", points);
+	printCenteredMessage(XSize, YSize, scoreString);
+	sleep(3);
+}
+
+
 int main (void)
 {
     unsigned char XSize, YSize;
 	
 	char kbInput;
-	
-	int loop = 0;
 	
 	Character ghost_1; 	
 	Character ghost_2; 
@@ -715,120 +998,193 @@ int main (void)
 	Character bomb_2;
 	Character bomb_3;
 	Character bomb_4;
-
-	/* Clear the screen, put cursor in upper left corner */
-    clrscr ();
 	
-	// Set Screen Colors
-	setScreenColors();
-
-    /* Ask for the screen size */
-    screensize (&XSize, &YSize);
-
-    /* Wait for the user to press a key */
-	printPressKeyToStart(XSize, YSize);
-	cgetc();
-	deleteCenteredMessage(XSize, YSize);
+	Character invincibleGhost;
 	
-	
-    /* Draw a border around the screen */
-	drawBorders(XSize, YSize);
-	
-	// Initialize characters
-	initializeCharacters(&player, &powerUp, 
-						 &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-						 &ghost_5, &ghost_6, &ghost_7, &ghost_8, 
-						 &bomb_1, &bomb_2, &bomb_3, &bomb_4);	
+	int loop, victoryFlag, ghostLevelDecrease, powerUpInitialCoolDown;
 	while(1)
 	{
-		ghostSlowDown = computeGhostSlowDown();
-		microSleep(250);
-		
-		++loop;
-		toggleHunters(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-		              &ghost_5, &ghost_6, &ghost_7, &ghost_8, loop);
-		
-		if(kbhit())
-		{		
-			kbInput = cgetc();
-			movePlayer(&player, kbInput);
-		}
+		victoryFlag = 0;
+		loop = 0;	
+		points = 0ul;
+		level = 1;
 
-		chasePlayer(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-					&ghost_5, &ghost_6, &ghost_7, &ghost_8, &player, 
-					&bomb_1, &bomb_2, &bomb_3, &bomb_4);
+		// Set Screen Colors
+		setScreenColors();			
 		
-		if(playerReached(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-						 &ghost_5, &ghost_6, &ghost_7, &ghost_8, &player) ||
-		   playerReachedBombs(&bomb_1, &bomb_2, &bomb_3, &bomb_4, &player))
-		{
-			die(&player);
-			defeat(XSize, YSize);
-			return EXIT_SUCCESS;
-		}
-	
-	    checkBombsVsGhosts(&bomb_1, &bomb_2, &bomb_3, &bomb_4, 
-						   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-						   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
-		
-		checkGhostsVsGhosts(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-							&ghost_5, &ghost_6, &ghost_7, &ghost_8);
-
-	    if(powerUp._status == 1)
-		{
-			if(powerUpReached(&player, &powerUp))
-			{
-				decreaseGhostLevel(200);	
-				points+=POWER_UP_BONUS;
-				powerUp._status = 0;	
-				powerUpCoolDown = 20;
-			}
-			else
-			{
-				displayCharacter(&powerUp);
-			}		
-		}
-		else if (powerUpCoolDown == 0)
-		{
-			powerUp._status = 1;
-			powerUp._x = powerUp._x-3 * rand() % 7; 
-			powerUp._y = powerUp._y-3 * rand() % 7; 
-			displayCharacter(&powerUp);
-		}
-		else
-		{
-			--powerUpCoolDown;
-		}
+		clrscr ();
+					
+		/* Wait for the user to press a key */
+		printPressKeyToStart(XSize, YSize);
+		cgetc();
+		deleteCenteredMessage(XSize, YSize);
 			
-		if(wallReached(XSize, YSize, &player))
+		do
 		{
-			die(&player);
-			defeat(XSize, YSize);
-			return EXIT_SUCCESS;
-		}
-		
-		displayScore(points);
-		displayGhostLevel();
-		
-		if(victoryCondition(&ghost_1, &ghost_2, &ghost_3, &ghost_4, &ghost_5, &ghost_6, &ghost_7, &ghost_8))
-		{
-			win(&player);
-			victory(XSize, YSize);
-			return EXIT_SUCCESS;
-		}
-		
-		// Add points to score
-		points+=LOOP_POINTS;
-		
-		// Increase ghost speed
-		++ghostLevel;
-	};
+			loop = 0;
+			ghostLevel = 1u;
+			ghostSmartness = computeGhostSmartness();
+			computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
+			invincibleXCountDown = computeInvincibleCountDown();
+			invincibleYCountDown = computeInvincibleCountDown();
+			invincibleSlowDown = computeInvincibleSlowDown();
+			
+			/* Clear the screen, put cursor in upper left corner */
+			clrscr ();
 
-		
-	/* Clear the screen again */
+			/* Ask for the screen size */
+			screensize (&XSize, &YSize);
+
+			printLevel(XSize, YSize);
+			sleep(2);
+			
+			/* Wait for the user to press a key */
+			printPressKeyToStart(XSize, YSize);
+			cgetc();
+			deleteCenteredMessage(XSize, YSize);
+			
+			/* Draw a border around the screen */
+			drawBorders(XSize, YSize);
+			
+			// Initialize characters
+			initializeCharacters(XSize, YSize,
+								 &player, &powerUp, 
+								 &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+								 &ghost_5, &ghost_6, &ghost_7, &ghost_8, 
+								 &bomb_1, &bomb_2, &bomb_3, &bomb_4, &invincibleGhost);	
+			victoryFlag = 0;
+			while(player._alive && !victoryFlag)
+			{
+				ghostSlowDown = computeGhostSlowDown();
+				microSleep(10-level);
+				
+				++loop;
+				toggleHunters(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+							  &ghost_5, &ghost_6, &ghost_7, &ghost_8, loop);
+				
+				if(kbhit())
+				{		
+					kbInput = cgetc();
+					movePlayer(&player, kbInput);
+				}
+
+				chasePlayer(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+							&ghost_5, &ghost_6, &ghost_7, &ghost_8, &player, 
+							&bomb_1, &bomb_2, &bomb_3, &bomb_4);
+				
+				if(playerReached(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+								 &ghost_5, &ghost_6, &ghost_7, &ghost_8, &player) ||
+				   playerReachedBombs(&bomb_1, &bomb_2, &bomb_3, &bomb_4, &player))
+				{
+					die(&player);
+					defeat(XSize, YSize);
+					sleep(1);
+				}
+			
+				checkBombsVsGhosts(&bomb_1, &bomb_2, &bomb_3, &bomb_4, 
+								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
+				
+				checkGhostsVsGhosts(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+									&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+
+				if(powerUp._status == 1)
+				{
+					if(powerUpReached(&player, &powerUp))
+					{
+						decreaseGhostLevel(ghostLevelDecrease);	
+						points+=POWER_UP_BONUS;
+						powerUp._status = 0;	
+						powerUpCoolDown = powerUpInitialCoolDown;
+					}
+					else
+					{
+						displayCharacter(&powerUp);
+					}		
+				}
+				else if (powerUpCoolDown == 0)
+				{
+					powerUp._status = 1;
+					relocateCharacter(XSize, YSize, &powerUp, &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
+								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
+				}
+				else
+				{
+					--powerUpCoolDown;
+				}
+					
+				if(wallReached(XSize, YSize, &player))
+				{
+					die(&player);
+					defeat(XSize, YSize);
+					sleep(1);
+				}
+				
+				displayCharacter(&bomb_1);
+				displayCharacter(&bomb_2);		
+				displayCharacter(&bomb_3);
+				displayCharacter(&bomb_4);
+				
+				displayScore(points);
+				displayGhostLevel();
+				
+				if(!invincibleGhost._status && ((invincibleXCountDown==0)||(invincibleYCountDown==0)))
+				{
+					invincibleGhost._status = 1;
+					displayCharacter(&invincibleGhost);
+				}
+				else
+				{
+					--invincibleXCountDown;
+					--invincibleYCountDown;
+				}
+				if(invincibleGhost._status)
+				{
+					blindChaseCharacter(&invincibleGhost, &player);
+					if(areCharctersAtSamePosition(&invincibleGhost, &player))
+					{
+						die(&player);
+						defeat(XSize, YSize);
+						sleep(1);
+					}
+				}
+				
+				
+				if(victoryFlag=victoryCondition(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+												&ghost_5, &ghost_6, &ghost_7, &ghost_8))
+				{
+					win(&player);
+					victory(XSize, YSize);
+					sleep(1);
+				}
+				
+				// Add points to score
+				points+=LOOP_POINTS;
+				
+				// Increase ghost speed
+				++ghostLevel;
+			}; // end inner while
+			
+			if(player._alive)
+			{
+				++level;
+				points+= LEVEL_BONUS;
+			}
+		} while (victoryFlag && (level<FINAL_LEVEL+1)); // middle while (one match)
+			
+	if(level==FINAL_LEVEL+1)
+	{
+		gameCompleted(XSize, YSize);
+		sleep(1);
+	}
+	finalScore(XSize, YSize);
+	// GAME OVER	
+	printGameOver(XSize, YSize);
+	sleep(1);
 	clrscr ();
+	}
 
-	/* Done */
 	return EXIT_SUCCESS;
 }
 

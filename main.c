@@ -40,6 +40,7 @@ unsigned int ghostLevel = 1u;
 unsigned long points = 0ul;
 unsigned int ghostSmartness = 1u; // 9u is max = impossible 
 
+
 // Level
 // The level affects:
 // 1. powerUpCoolDown (how long before a new powerUp is spawned)
@@ -54,8 +55,10 @@ unsigned short level = 1;
 
 unsigned int invincibleXCountDown = 100;
 unsigned int invincibleYCountDown = 100;
-unsigned int invincibleSlowDown = 15000;
-
+unsigned int invincibleSlowDown = 30000;
+unsigned int invincibleLoopTrigger = 1000;
+unsigned short ghostCount = 8;
+unsigned short invincibleGhostCountTrigger = 2;
 
 struct CharacterStruct
 {
@@ -509,9 +512,9 @@ int computeInvincibleCountDown()
 	return 100 - level*5;
 }
 
-int computeInvincibleSlowDown()
+int computeInvincibleSlowDown(int loop)
 {
-	return 20000 - level * 1000;
+	return 32000 - level * 1000 - loop;
 }
 
 
@@ -644,6 +647,7 @@ void checkBombsVsGhost(Character * bombPtr1, Character * bombPtr2,
 		ghostPtr->_alive = 0;
 		ghostPtr->_status = 0;
 		points+=GHOST_VS_BOMBS_BONUS;
+		--ghostCount;
 	}
 }
 						
@@ -901,41 +905,49 @@ void checkGhostsVsGhosts(Character *ghostPtr1, Character *ghostPtr2, Character *
 	{
 		die(ghostPtr8);
 		points+=GHOST_VS_GHOST_BONUS;
+	    --ghostCount;
 	}
 	if(ghostPtr1->_alive && charactersMeet(ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1))
 	{
 		die(ghostPtr1);
 		points+=GHOST_VS_GHOST_BONUS;
+		--ghostCount;
 	}
 	if(ghostPtr2->_alive && charactersMeet(ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2))
 	{
 		die(ghostPtr2);
 		points+=GHOST_VS_GHOST_BONUS;
+		--ghostCount;
 	}
 	if(ghostPtr3->_alive && charactersMeet(ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3))
 	{
 		die(ghostPtr3);
 		points+=GHOST_VS_GHOST_BONUS;
+		--ghostCount;
 	}
 	if(ghostPtr4->_alive && charactersMeet(ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4))
 	{
 		die(ghostPtr4);
 		points+=GHOST_VS_GHOST_BONUS;
+		--ghostCount;
 	}
 	if(ghostPtr5->_alive && charactersMeet(ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5))
 	{
 		die(ghostPtr5);
 		points+=GHOST_VS_GHOST_BONUS;
+		--ghostCount;
 	}
 	if(ghostPtr6->_alive && charactersMeet(ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6))
 	{
 		die(ghostPtr6);
 		points+=GHOST_VS_GHOST_BONUS;
+		--ghostCount;
 	}
 	if(ghostPtr7->_alive && charactersMeet(ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7))
 	{
 		die(ghostPtr7);
 		points+=GHOST_VS_GHOST_BONUS;
+		--ghostCount;
 	}
 }
 
@@ -1027,7 +1039,8 @@ int main (void)
 			computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
 			invincibleXCountDown = computeInvincibleCountDown();
 			invincibleYCountDown = computeInvincibleCountDown();
-			invincibleSlowDown = computeInvincibleSlowDown();
+			invincibleSlowDown = computeInvincibleSlowDown(loop);
+			ghostCount = 8;
 			
 			/* Clear the screen, put cursor in upper left corner */
 			clrscr ();
@@ -1129,7 +1142,9 @@ int main (void)
 				displayScore(points);
 				displayGhostLevel();
 				
-				if(!invincibleGhost._status && ((invincibleXCountDown==0)||(invincibleYCountDown==0)))
+				if(!invincibleGhost._status && 
+				  ((invincibleXCountDown==0)||(invincibleYCountDown==0)) || 
+				   (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))
 				{
 					invincibleGhost._status = 1;
 					displayCharacter(&invincibleGhost);

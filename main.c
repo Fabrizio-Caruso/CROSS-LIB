@@ -25,6 +25,9 @@
 // Extra points for the power up
 #define POWER_UP_BONUS 500ul
 
+// Extra points for the power up
+#define GUN_BONUS 500ul
+
 // Points for shooting a ghost
 #define GHOST_VS_MISSILE 100ul
 
@@ -45,6 +48,7 @@
 
 unsigned int ghostSlowDown;
 unsigned int powerUpCoolDown;
+unsigned int gunCoolDown;
 unsigned int ghostLevel = 1u;
 unsigned long points = 0ul;
 unsigned int ghostSmartness = 1u; // 9u is max = impossible 
@@ -754,7 +758,8 @@ void initializeCharacters(int XSize, int YSize,
 						  Character * ghostPtr7, Character * ghostPtr8,
 						  Character * bombPtr1, Character * bombPtr2,
 						  Character * bombPtr3, Character * bombPtr4,
-						  Character * invincibleGhostPtr, Character * missilePtr
+						  Character * invincibleGhostPtr, 
+						  Character * missilePtr, Character * gunPtr
 						  )
 {
 	short corner;
@@ -819,6 +824,11 @@ void initializeCharacters(int XSize, int YSize,
 	
     initializeCharacter(missilePtr, 0, 0, '.',0);
 	
+	initializeCharacter(gunPtr, XSize/2, YSize/2, '!', 0);
+	relocateCharacter(XSize, YSize, gunPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+						  ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+						   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	
 	corner = rand()%4;
 	switch(corner)
 	{
@@ -875,13 +885,13 @@ unsigned int computeGhostSlowDown()
    {
 	   return 32000-ghostLevel*10-level*200;
    }
-   else if(ghostLevel<300)
+   else if(ghostLevel<500)
    {
 	   return 32000-ghostLevel*20-level*200;
    }
-   else if(ghostLevel<400)
+   else if(ghostLevel<600)
    {
-	   return 32000-ghostLevel*40-level*200;
+	   return 32000-ghostLevel*30-level*200;
    }
    else 
    {
@@ -1008,6 +1018,14 @@ void computePowerUp(int *coolDownDecreasePtr, int *powerUpInitialCoolDownPtr)
 {
 	*coolDownDecreasePtr = 200-(level/2-1)*10;
 	*powerUpInitialCoolDownPtr = 200+(level/2-1)*10;
+}
+
+int computeGunInitialCoolDown()
+{
+	if(level<4)
+		return 800;
+	else
+		return 800 + level * 100;
 }
 
 void gameCompleted(int XSize, int YSize)
@@ -1152,7 +1170,7 @@ void printStartMessage(int XSize, int YSize)
 	
 	
 	gotoxy ((XSize - 22) / 2, YSize / 2);
-	cprintf ("%s", "Only 3 bullets!");
+	cprintf ("%s", "Catch ! for bullets!");
 	
 	gotoxy ((XSize - 22) / 2, YSize / 2 +1);
 	cprintf ("%s", "Flee from +!");
@@ -1186,21 +1204,21 @@ int main (void)
 	Character ghost_6; 
     Character ghost_7; 	
 	Character ghost_8; 
-	
-	Character player; 
-	
-	Character powerUp;
+	Character invincibleGhost;
 	
 	Character bomb_1;
 	Character bomb_2;
 	Character bomb_3;
 	Character bomb_4;
 	
-	Character invincibleGhost;
+	Character player; 
+	
+	Character powerUp;
+	Character gun;
 	
 	Character missile;
 		
-	int loop, victoryFlag, ghostLevelDecrease, powerUpInitialCoolDown;
+	int loop, victoryFlag, ghostLevelDecrease, powerUpInitialCoolDown, gunInitialCoolDown;
 				
 	/* Ask for the screen size */
 	screensize (&XSize, &YSize);
@@ -1221,20 +1239,26 @@ int main (void)
 		
 		clrscr ();
 				
+		/* Wait for the user to press a key */
+		//printPressKeyToStart(XSize, YSize);
+		//cgetc();
 		deleteCenteredMessage(XSize, YSize);
 			
-		do
+		do // Level Start
 		{
 			loop = 0;
 			ghostLevel = 1u;
 			ghostSmartness = computeGhostSmartness();
 			computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
+			gunInitialCoolDown = computeGunInitialCoolDown();
 			invincibleXCountDown = computeInvincibleCountDown();
 			invincibleYCountDown = computeInvincibleCountDown();
 			invincibleSlowDown = computeInvincibleSlowDown(loop);
 			invincibleGhostCountTrigger = computeInvincibleGhostCountTrigger();
 			ghostCount = 8;
-			guns = 3;
+			guns = 0;
+			gun._status = 0;
+			gunCoolDown = gunInitialCoolDown;
 			
 			/* Clear the screen, put cursor in upper left corner */
 			clrscr ();
@@ -1256,7 +1280,7 @@ int main (void)
 								 &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 								 &ghost_5, &ghost_6, &ghost_7, &ghost_8, 
 								 &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
-								 &invincibleGhost, &missile);	
+								 &invincibleGhost, &missile, &gun);	
 			victoryFlag = 0;
 			while(player._alive && !victoryFlag)
 			{
@@ -1324,6 +1348,33 @@ int main (void)
 				checkGhostsVsGhosts(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 									&ghost_5, &ghost_6, &ghost_7, &ghost_8);
 
+				if(gun._status==1)
+				{
+					if(powerUpReached(&player, &gun))
+					{
+						guns = 3;
+						points+=GUN_BONUS;
+						gun._status = 0;	
+						gunCoolDown = gunInitialCoolDown;
+					}
+					else
+					{
+						displayCharacter(&gun);
+					}
+				}		
+				else if (gunCoolDown == 0)
+				{
+					
+					gun._status = 1;
+					relocateCharacter(XSize, YSize, &gun, &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
+								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
+				}
+				else
+				{
+					--gunCoolDown;
+				}				
+									
 				if(powerUp._status == 1)
 				{
 					if(powerUpReached(&player, &powerUp))

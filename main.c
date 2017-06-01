@@ -25,6 +25,9 @@
 // Extra points for the power up
 #define POWER_UP_BONUS 500ul
 
+// Points for shooting a ghost
+#define GHOST_VS_MISSILE 100ul
+
 // Points for each tick
 #define LOOP_POINTS 1ul
 
@@ -32,8 +35,9 @@
 #define LEVEL_BONUS 1000ul
 
 // Number of levels
-#define FINAL_LEVEL 10
+#define FINAL_LEVEL 20
 
+// Directions
 #define RIGHT 0
 #define DOWN 1
 #define LEFT 2
@@ -59,7 +63,7 @@ unsigned short guns = 3;
 // 4. ghostSmartness (how smart ghosts are in avoiding their death)
 // 5. invincibleXCountDown (time needed to activate the invincible ghost)
 // 7. invincibleYCountDown
-// 6.  (how much the invincible ghost is slowed-down)
+// 6. invincibleSlowDown (how much the invincible ghost is slowed-down)
 // 7. microSleep (how fast the game runs)
 unsigned short level = 1;
 
@@ -522,10 +526,11 @@ int computeInvincibleCountDown()
 
 int computeInvincibleSlowDown(int loop)
 {
-	if(loop<20000)
+	if(loop<11000)
 	{
 		return 32000 - level * 1000 - loop;
 	}
+	return 0; // You must die!
 }
 
 
@@ -1001,8 +1006,8 @@ int computeGhostSmartness()
 
 void computePowerUp(int *coolDownDecreasePtr, int *powerUpInitialCoolDownPtr)
 {
-	*coolDownDecreasePtr = 200-(level-1)*10;
-	*powerUpInitialCoolDownPtr = 200+(level-1)*10;
+	*coolDownDecreasePtr = 200-(level/2-1)*10;
+	*powerUpInitialCoolDownPtr = 200+(level/2-1)*10;
 }
 
 void gameCompleted(int XSize, int YSize)
@@ -1039,8 +1044,7 @@ void checkMissileVsGhost(Character * missilePtr,
 	{
 		gotoxy(ghostPtr->_x,ghostPtr->_y);
 		die(ghostPtr); 
-		//ghostPtr->_ch='D';
-		points+=GHOST_VS_BOMBS_BONUS;
+		points+=GHOST_VS_MISSILE;
 		--ghostCount;
 	}
 }
@@ -1128,31 +1132,29 @@ void moveMissile(int XSize, int YSize, Character * missilePtr)
 
 void printStartMessage(int XSize, int YSize)
 {
-	//char startString[22] = "A S C I I   C H A S E"
-	//sprintf(startString, "LEVEL %d", level);
-	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 8);
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 9);
 	cprintf ("%s", "A S C I I   C H A S E");
 	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 6);
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 7);
 	cprintf ("%s", "by Fabrizio Caruso");
 	
 	gotoxy ((XSize - 9) / 2, YSize / 2 - 4);
 	cprintf ("%s", "GAME PLAY");
 	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 4);
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 3);
 	cprintf ("%s", "You * are chased by O");
 	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 3);
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 2);
 	cprintf ("%s", "Force O into X");
 	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 2);	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 1);	
 	cprintf ("%s", "Take P to slow O down");
 	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 1);
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2);
 	cprintf ("%s", "Only 3 bullets!");
 	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 0);
+	gotoxy ((XSize - 22) / 2, YSize / 2 +1);
 	cprintf ("%s", "Flee from +!");
 	
 	
@@ -1165,8 +1167,9 @@ void printStartMessage(int XSize, int YSize)
 	gotoxy ((XSize - 22) / 2, YSize / 2 + 5);
 	cprintf("%s",  "and shoot with <SPACE>");
 	
-	
-	//printPressKeyToStart(XSize, YSize);
+	gotoxy ((XSize - 22) / 2, YSize / 2 + 8);
+	cprintf("%s",  "PRESS ANY KEY TO START");
+	cgetc();
 }
 
 int main (void)
@@ -1216,9 +1219,8 @@ int main (void)
 					
 		printStartMessage(XSize,YSize);
 		
-		/* Wait for the user to press a key */
-		printPressKeyToStart(XSize, YSize);
-		cgetc();
+		clrscr ();
+				
 		deleteCenteredMessage(XSize, YSize);
 			
 		do
@@ -1260,7 +1262,7 @@ int main (void)
 			{
 				ghostSlowDown = computeGhostSlowDown();
 				invincibleSlowDown = computeInvincibleSlowDown(loop);
-				microSleep(10-level);
+				microSleep(FINAL_LEVEL-level);
 				
 				++loop;
 				toggleHunters(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 

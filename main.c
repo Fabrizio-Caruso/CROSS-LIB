@@ -40,6 +40,9 @@
 // Number of levels
 #define FINAL_LEVEL 20
 
+// Level from which only to initial bombs are found
+#define TWO_BOMB_START_LEVEL 5
+
 // Directions
 #define RIGHT 0
 #define DOWN 1
@@ -762,8 +765,11 @@ void initializeCharacters(int XSize, int YSize,
 						  Character * missilePtr, Character * gunPtr
 						  )
 {
-	short corner;
-	
+	short corner = rand()%4;
+	short chirality = rand()%2;
+	int b1x, b2x, b3x, b4x;
+	int b1y, b2y, b3y, b4y;
+		
 	initializeCharacter(ghostPtr2,XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'O',0);
 	displayCharacter(ghostPtr2);
 
@@ -791,18 +797,82 @@ void initializeCharacters(int XSize, int YSize,
 	initializeCharacter(playerPtr,XSize/2+rand()%4-2,YSize/2+rand()%4-2,'*',1);
 	displayCharacter(playerPtr);
 	
-	initializeCharacter(bombPtr1,XSize/2-5,YSize/2-5,'X',0);
+	
+
+	
+	if(chirality)
+	{
+		b1x = XSize/2-5;
+		b1y = YSize/2+5;
+		
+		b3x = XSize/2+5;
+		b3y = YSize/2-5;
+	}
+	else
+	{
+		b1x = XSize/2-5;
+		b1y = YSize/2-5;
+		
+		b3x = XSize/2+5;
+		b3y = YSize/2+5;
+	}
+	initializeCharacter(bombPtr1,b1x, b1y,'X',0);
 	relocateCharacter(XSize, YSize, bombPtr1, playerPtr, ghostPtr1, ghostPtr1, ghostPtr1, 
 					   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 					   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
 	displayCharacter(bombPtr1);
+	
+	
+	initializeCharacter(bombPtr3,b3x, b3y,'X',0);
+	relocateCharacter(XSize, YSize, bombPtr3, bombPtr1, bombPtr2, playerPtr, ghostPtr1, 
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+	ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
+	displayCharacter(bombPtr3);
 
+	if(level>=TWO_BOMB_START_LEVEL)
+	{
+		initializeCharacter(bombPtr2, bombPtr1->_x, bombPtr1->_y, 'X', 0);
+		initializeCharacter(bombPtr4, bombPtr3->_x, bombPtr3->_y, 'X', 0);
+	}
+	else
+	{
+		if(chirality)
+		{
+			b2x = XSize/2-5;
+			b2y = YSize/2-5;
+			
+			b4x = XSize/2+5;
+			b4y = YSize/2+5;
+		}
+		else
+		{
+			b2x = XSize/2-5;
+			b2y = YSize/2+5;
+			
+			b4x = XSize/2+5;
+			b4y = YSize/2-5;
+		}
+		initializeCharacter(bombPtr2,b2x, b2y,'X',0);
+		relocateCharacter(XSize, YSize, bombPtr2, playerPtr, ghostPtr1, ghostPtr1, ghostPtr1, 
+						   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+						   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
+		displayCharacter(bombPtr2);
+		
+		initializeCharacter(bombPtr4,b4x, b4y,'X',0);
+		relocateCharacter(XSize, YSize, bombPtr4, bombPtr1, bombPtr2, playerPtr, ghostPtr1, 
+		ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+		ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
+		displayCharacter(bombPtr4);
+	}
+
+	/*
 	initializeCharacter(bombPtr2,XSize/2-5,YSize/2+5,'X',0);
 	relocateCharacter(XSize, YSize, bombPtr2, playerPtr, ghostPtr1, ghostPtr1, ghostPtr1, 
 				   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 				   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
 	displayCharacter(bombPtr2);
-
+	
+	
 	initializeCharacter(bombPtr3,XSize/2+5,YSize/2-5,'X',0);
 	relocateCharacter(XSize, YSize, bombPtr3, bombPtr1, bombPtr2, playerPtr, ghostPtr1, 
 				   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
@@ -814,6 +884,7 @@ void initializeCharacters(int XSize, int YSize,
 				   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 				   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
 	displayCharacter(bombPtr4);
+	*/
 	
 	initializeCharacter(powerUpPtr,XSize/2,YSize/2,'P',1);
 	relocateCharacter(XSize, YSize, powerUpPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
@@ -829,7 +900,7 @@ void initializeCharacters(int XSize, int YSize,
 						  ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 						   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
 	
-	corner = rand()%4;
+
 	switch(corner)
 	{
 		case 0:

@@ -48,6 +48,7 @@ unsigned int ghostSmartness = 1u; // 9u is max = impossible
 unsigned short playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
 unsigned short missileDirection = 0;
 unsigned short playerFire = 0;
+unsigned short guns = 3;
 
 
 // Level
@@ -753,28 +754,28 @@ void initializeCharacters(int XSize, int YSize,
 {
 	short corner;
 	
-	initializeCharacter(ghostPtr2,XSize/6+rand()%4-2,YSize/6+rand()%4-2,'2',0);
+	initializeCharacter(ghostPtr2,XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'O',0);
 	displayCharacter(ghostPtr2);
 
-	initializeCharacter(ghostPtr3,XSize/6+rand()%4-2,YSize/2+rand()%4-2,'3',0);
+	initializeCharacter(ghostPtr3,XSize/6+rand()%4-2,YSize/2+rand()%4-2+1,'O',0);
 	displayCharacter(ghostPtr3);
 	
-	initializeCharacter(ghostPtr4,XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'4',0);
+	initializeCharacter(ghostPtr4,XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2+1,'O',0);
 	displayCharacter(ghostPtr4);
 	
-	initializeCharacter(ghostPtr5,XSize/2+rand()%4-2,YSize/6+rand()%4-2,'5',0);
+	initializeCharacter(ghostPtr5,XSize/2+rand()%4-2,YSize/6+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr5);
 
-	initializeCharacter(ghostPtr6,XSize/2+rand()%4-2,YSize-YSize/6+rand()%4-2,'6',0);
+	initializeCharacter(ghostPtr6,XSize/2+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr6);
 
-	initializeCharacter(ghostPtr7,XSize-XSize/6+rand()%4-2,YSize/6+rand()%4-2,'7',0);
+	initializeCharacter(ghostPtr7,XSize-XSize/6+rand()%4-2,YSize/6+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr7);
 	
-	initializeCharacter(ghostPtr8,XSize-XSize/6+rand()%4-2,YSize/2+rand()%4-2,'8',0);
+	initializeCharacter(ghostPtr8,XSize-XSize/6+rand()%4-2,YSize/2+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr8);
 	
-	initializeCharacter(ghostPtr1,XSize-XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'1',0);
+	initializeCharacter(ghostPtr1,XSize-XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',0);
 	displayCharacter(ghostPtr1);
 
 	initializeCharacter(playerPtr,XSize/2+rand()%4-2,YSize/2+rand()%4-2,'*',1);
@@ -804,8 +805,6 @@ void initializeCharacters(int XSize, int YSize,
 				   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
 	displayCharacter(bombPtr4);
 	
-
-
 	initializeCharacter(powerUpPtr,XSize/2,YSize/2,'P',1);
 	relocateCharacter(XSize, YSize, powerUpPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
 						   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
@@ -1127,6 +1126,48 @@ void moveMissile(int XSize, int YSize, Character * missilePtr)
 	}
 }
 
+void printStartMessage(int XSize, int YSize)
+{
+	//char startString[22] = "A S C I I   C H A S E"
+	//sprintf(startString, "LEVEL %d", level);
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 8);
+	cprintf ("%s", "A S C I I   C H A S E");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 6);
+	cprintf ("%s", "by Fabrizio Caruso");
+	
+	gotoxy ((XSize - 9) / 2, YSize / 2 - 4);
+	cprintf ("%s", "GAME PLAY");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 4);
+	cprintf ("%s", "You * are chased by O");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 3);
+	cprintf ("%s", "Force O into X");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 2);	
+	cprintf ("%s", "Take P to slow O down");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 1);
+	cprintf ("%s", "Only 3 bullets!");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 0);
+	cprintf ("%s", "Flee from +!");
+	
+	
+	gotoxy ((XSize - 4) / 2, YSize / 2 + 3);
+	cprintf ("%s", "KEYS");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 + 4);
+	cprintf ("%s", "Move with W A S D");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 + 5);
+	cprintf("%s",  "and shoot with <SPACE>");
+	
+	
+	//printPressKeyToStart(XSize, YSize);
+}
 
 int main (void)
 {
@@ -1155,8 +1196,12 @@ int main (void)
 	Character invincibleGhost;
 	
 	Character missile;
-	
+		
 	int loop, victoryFlag, ghostLevelDecrease, powerUpInitialCoolDown;
+				
+	/* Ask for the screen size */
+	screensize (&XSize, &YSize);
+	
 	while(1)
 	{
 		victoryFlag = 0;
@@ -1169,6 +1214,8 @@ int main (void)
 		
 		clrscr ();
 					
+		printStartMessage(XSize,YSize);
+		
 		/* Wait for the user to press a key */
 		printPressKeyToStart(XSize, YSize);
 		cgetc();
@@ -1185,12 +1232,10 @@ int main (void)
 			invincibleSlowDown = computeInvincibleSlowDown(loop);
 			invincibleGhostCountTrigger = computeInvincibleGhostCountTrigger();
 			ghostCount = 8;
+			guns = 3;
 			
 			/* Clear the screen, put cursor in upper left corner */
 			clrscr ();
-
-			/* Ask for the screen size */
-			screensize (&XSize, &YSize);
 
 			printLevel(XSize, YSize);
 			sleep(2);
@@ -1226,19 +1271,26 @@ int main (void)
 					kbInput = cgetc();
 					movePlayer(&player, kbInput);
 				}
-				if(playerFire && missile._status==0)
+				if(playerFire && missile._status==0 && guns>0)
 				{
+					--guns;
 					missileDirection = playerDirection;
 					missile._status = setMissileInitialPosition(XSize, YSize, &missile, &player);
 					missile._alive = missile._status;
 					playerFire = 0;
-				}
-				if(missile._status==1 && missile._alive==1)
-				{
+					displayCharacter(&missile);					
 					checkMissileVsGhosts(&missile, 
 					&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 					&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+				}
+				if(missile._status==1 && missile._alive==1)
+				{
+
 					moveMissile(XSize, YSize, &missile);
+					// TODO: Inefficient
+					checkMissileVsGhosts(&missile, 
+					&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+					&ghost_5, &ghost_6, &ghost_7, &ghost_8);
 				}
 			
 				
@@ -1246,7 +1298,13 @@ int main (void)
 							&ghost_5, &ghost_6, &ghost_7, &ghost_8, &player, 
 							&bomb_1, &bomb_2, &bomb_3, &bomb_4);
 				
-				
+				if(missile._status==1 && missile._alive==1)
+				{
+				// TODO: Inefficient
+				checkMissileVsGhosts(&missile, 
+				&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+				&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+				}				
 				
 				if(playerReached(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 								 &ghost_5, &ghost_6, &ghost_7, &ghost_8, &player) ||

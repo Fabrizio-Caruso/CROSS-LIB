@@ -68,7 +68,7 @@
 
 // First level that change ghost strategy
 // LEVEL 1-6: Ghosts chase use by approaching your X and Y coordinates
-// LEVEL 8-20: With more than 3 ghosts, one group will chase your X and the another group your Y coordinate
+// LEVEL 7-20: With more than 3 ghosts there will be up to three different ghost groups 
 
 // Starting from this level, the ghosts use a smarter "collective" strategy
 #define COLLECTIVE_STRATEGY_START_LEVEL 7
@@ -101,6 +101,7 @@ unsigned short guns = 3;
 // 5. invincibleYCountDown
 // 6. invincibleSlowDown (how much the invincible ghost is slowed-down)
 // 7. invincibleLoopTrigger (how long before the invincible ghost appears)
+
 unsigned short level = 1;
 
 unsigned int invincibleXCountDown = 100;
@@ -400,7 +401,7 @@ void chaseCharacterXYStrategy(Character* hunterPtr, Character* preyPtr,
 {
 	if(rand()%10 > ghostSmartness)
 	{
-		if(rand()%2) // Select chase strategy
+		if(rand()%2) // Select blind chase strategy
 		{
 			blindChaseCharacterXStrategy(hunterPtr, preyPtr);
 		}
@@ -411,7 +412,7 @@ void chaseCharacterXYStrategy(Character* hunterPtr, Character* preyPtr,
 	}
 	else
 	{
-		if(rand()%2) // Select chase strategy
+		if(rand()%2) // Select chase strategy that avoids collisions
 		{
 			chaseCharacterXAvoidBombStrategy(hunterPtr, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
 			ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
@@ -547,16 +548,29 @@ void chasePlayer(Character * ghostPtr1, Character * ghostPtr2,
 				 Character* bombPtr3, Character* bombPtr4
 				 )
 {
+	// 1 - 3*: approximate straight line
+	// 4* - 5: get closer in two groups (one approximating x and the other y)
+	// 6* - 8: get closer in three groups (as 4* - 5 and one group as 1-3*)
 	if((level>=COLLECTIVE_STRATEGY_START_LEVEL) && 
 	((ghostCount>=5) || 
 	  ((ghostCount==4) && !(ghostPtr1->_alive && ghostPtr3->_alive && ghostPtr5->_alive && ghostPtr7->_alive))))
 	{
+		if(ghostCount>=6)
+		{
+		chaseCharacterIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+		chaseCharacterIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+		}
+		else
+		{
 	chaseCharacterXStrategyIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
 	ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
 	
 	chaseCharacterYStrategyIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
 	ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-	
+		}
 	chaseCharacterXStrategyIf(ghostPtr3, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
 	ghostPtr1, ghostPtr2, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
 	
@@ -1257,7 +1271,6 @@ void decreaseGhostLevel(int level)
 	else
 		ghostLevel=0;
 }
-
 
 void checkGhostsVsGhosts(Character *ghostPtr1, Character *ghostPtr2, Character *ghostPtr3, Character *ghostPtr4,
 						 Character *ghostPtr5, Character *ghostPtr6, Character *ghostPtr7, Character *ghostPtr8)

@@ -44,9 +44,9 @@
 // LEVEL 1 - 4: Four central bombs
 // LEVEL 5 - 9: Two central bombs
 // LEVEL 10 - 14: Two bombs next to the vertical borders
-// LEVEL 15 - 17: Three bombs attached to the borders
-// LEVEL 18 - 19: Two bombs attached to the vertical borders
-// LEVEL 20: Four bombs at the corners 
+// LEVEL 15 - 16: Three bombs attached to the borders
+// LEVEL 17 - 18: Two bombs attached to the vertical borders
+// LEVEL 19 - 20: Four bombs at the corners 
 
 // Starting from this level 4 central bombs
 #define INITIAL_LEVEL 1
@@ -54,21 +54,24 @@
 // Starting from this level only two central bombs
 #define TWO_BOMB_START_LEVEL 5
 
-// Starting from this level only 2 bombs next to the vertical borders
+// Starting from this level only 2 bombs close to the vertical borders
 #define FIRST_HARD_LEVEL 10
 
-// Starting from this level 3 bombs on the borders
+// Starting from this level 2 bombs close to the botton borders
 #define FIRST_VERY_HARD_LEVEL 15
 
 // Starting from this level only 2 bombs on the vertical borders
-#define FIRST_INSANE_LEVEL 18
+#define FIRST_INSANE_LEVEL 17
 
-// Final level (four bombs at the corners)
+// Ultimate level (four bombs at the corners)
+#define FIRST_ULTIMATE_LEVEL 19
+
+// Final level 
 #define FINAL_LEVEL 20
 
 // First level that change ghost strategy
 // LEVEL 1-6: Ghosts chase use by approaching your X and Y coordinates
-// LEVEL 7-20: With more than 3 ghosts there will be up to three different ghost groups 
+// LEVEL 7-20: With more than 3 ghosts there will be up to 3 different ghost groups 
 
 // Starting from this level, the ghosts use a smarter "collective" strategy
 #define COLLECTIVE_STRATEGY_START_LEVEL 7
@@ -90,6 +93,10 @@ unsigned short playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
 unsigned short missileDirection = 0;
 unsigned short playerFire = 0;
 unsigned short guns = 3;
+
+unsigned short innerVerticalWallY; 
+unsigned short innerVerticalWallX; 
+unsigned short innerVerticalWallLength;
 
 
 // Level
@@ -960,6 +967,104 @@ void relocateCharacter(int XSize, int YSize, Character * characterPtr,
 	characterPtr->_y = y;
 }
 
+void drawInnerVerticalWall(int XSize, int YSize)
+{
+	cvlinexy (XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
+}
+
+/*
+void removeInnerVerticalWall(int XSize, int YSize)
+{
+	innerVerticalWallLength = 0;
+
+	innerVerticalWallX = 0; // TODO: unnecessary?
+	innerVerticalWallY = 0;
+
+}
+*/
+
+short innerWallReached(Character *characterPtr)
+{
+	return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
+}
+
+
+void createInnerVerticalWall(int XSize, int YSize, short length)
+{
+	innerVerticalWallLength = length;
+	innerVerticalWallX = XSize / 2;
+	innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
+	drawInnerVerticalWall(XSize, YSize);
+}
+
+void createInnerVerticalWallIf(XSize,YSize)
+{
+		
+	switch(level)
+	{
+		case 1:
+			createInnerVerticalWall(XSize,YSize, 0);
+		break;
+		case 2:
+			createInnerVerticalWall(XSize,YSize, 8);
+		break;
+		case 3:
+			createInnerVerticalWall(XSize,YSize, 10);
+		break;
+		case 4:
+			createInnerVerticalWall(XSize,YSize, 12);
+		break;
+		case 5:
+			createInnerVerticalWall(XSize,YSize, 0);
+		break;
+		case 6:
+			createInnerVerticalWall(XSize,YSize, 8);
+		break;
+		case 7:
+			createInnerVerticalWall(XSize,YSize, 10);
+		break;
+		case 8:
+			createInnerVerticalWall(XSize,YSize, 12);
+		break;
+		case 9:
+			createInnerVerticalWall(XSize,YSize, 14);
+		break;
+		case 10:
+			createInnerVerticalWall(XSize,YSize, 0);
+		break;
+		case 11:
+			createInnerVerticalWall(XSize,YSize, 8);
+		break;
+		case 12:
+			createInnerVerticalWall(XSize,YSize, 10);
+		break;
+		case 13:
+			createInnerVerticalWall(XSize,YSize, 12);
+		break;
+		case 14:
+			createInnerVerticalWall(XSize,YSize, 14);
+		break;
+		case 15:
+			createInnerVerticalWall(XSize,YSize, 0);
+		break;
+		case 16:
+			createInnerVerticalWall(XSize,YSize, 8);
+		break;
+		case 17:
+			createInnerVerticalWall(XSize,YSize, 0);
+		break;
+		case 18:
+			createInnerVerticalWall(XSize,YSize, 10);
+		break;
+		case 19:
+			createInnerVerticalWall(XSize,YSize, 8);
+		break;
+		case 20:
+			createInnerVerticalWall(XSize,YSize, 14);
+		break;
+	}
+}
+
 
 void initializeCharacters(int XSize, int YSize,
 						  Character * playerPtr, Character * powerUpPtr, 
@@ -977,6 +1082,7 @@ void initializeCharacters(int XSize, int YSize,
 	short chirality = rand()%2;
 	int b1x, b2x, b3x, b4x;
 	int b1y, b2y, b3y, b4y;
+
 	
 	// Ghosts
 	initializeCharacter(ghostPtr2,XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'O',1);
@@ -1005,159 +1111,166 @@ void initializeCharacters(int XSize, int YSize,
 
 	
 	// Player
-	initializeCharacter(playerPtr,XSize/2+rand()%4-2,YSize/2+rand()%4-2,'*',1);
+	do
+	{
+		initializeCharacter(playerPtr,XSize/2+rand()%4-2,YSize/2+rand()%4-2,'*',1);
+	} while(innerWallReached(playerPtr));
 	displayCharacter(playerPtr);
 
 	
-	// Bombs
-	if(level<FIRST_VERY_HARD_LEVEL) // HARD but NOT VERY HARD -> 2 bombs close to vertical borders
-	{	
-		b2x = 1+1;
-		b2y = YSize/2-3+rand()%7;
-		
-		b3x = XSize-2-1;
-		b3y = YSize/2-3+rand()%7;
-		
-		b4x = b3x;
-		b4y = b3y;
-		
-		b1x = b2x;
-		b1y = b2y;
-	}
-	else if (level<FIRST_INSANE_LEVEL) // VERY HARD but NOT INSANE -> 3 bombs placed on the borders
+	do
 	{
-		b1x = XSize/2-3+rand()%7;
-		b1y = YSize-2;
-		
-		b2x = 1;
-		b2y = YSize/2-3+rand()%7;
-		
-		b3x = XSize-2;
-		b3y = YSize/2-3+rand()%7;
-		
-		b4x = b3x;
-		b4y = b3y;
-	}
-	else if (level<FINAL_LEVEL)// INSANE but not FINAL -> 2 bombs placed on the vertical borders
-	{
-		b2x = 1;
-		b2y = YSize/2-3+rand()%7;
-		
-		b3x = XSize-2;
-		b3y = YSize/2-3+rand()%7;
-		
-		b4x = b3x;
-		b4y = b3y;
-		
-		b1x = b3x;
-		b1y = b3y;
-	}
-	else // Final level
-	{
-		b1x = 1;
-		b1y = 1;
-		
-		b2x = 1;
-		b2y = YSize-2;
-		
-		b3x = XSize-2;
-		b3y = 1;
-		
-		b4x = XSize-2;
-		b4y = YSize-2;
-	}
-	
-	if(level>=FIRST_HARD_LEVEL)
-	{
-		initializeCharacter(bombPtr1,b1x, b1y,'X',0);
-		displayCharacter(bombPtr1);
-
-		initializeCharacter(bombPtr2,b2x, b2y,'X',0);
-		displayCharacter(bombPtr2);
-
-		initializeCharacter(bombPtr3,b3x, b3y,'X',0);
-		displayCharacter(bombPtr3);
-
-		initializeCharacter(bombPtr4,b4x, b4y,'X',0);
-		displayCharacter(bombPtr4);
-	}
-	else if(level<FIRST_HARD_LEVEL)
-	{
-		if(chirality)
-		{
-			b1x = XSize/2-5;
-			b1y = YSize/2+5;
+		// Bombs
+		if(level<FIRST_VERY_HARD_LEVEL) // HARD but NOT VERY HARD -> 2 bombs close to vertical borders
+		{	
+			b2x = 1+1;
+			b2y = YSize/2-3+rand()%7;
 			
-			b3x = XSize/2+5;
-			b3y = YSize/2-5;
-		}
-		else
-		{
-			b1x = XSize/2-5;
-			b1y = YSize/2-5;
+			b3x = XSize-2-1;
+			b3y = YSize/2-3+rand()%7;
 			
-			b3x = XSize/2+5;
-			b3y = YSize/2+5;
+			b4x = b3x;
+			b4y = b3y;
+			
+			b1x = b2x;
+			b1y = b2y;
 		}
-		initializeCharacter(bombPtr1,b1x, b1y,'X',0);
-		relocateCharacter(XSize, YSize, bombPtr1, playerPtr, ghostPtr1, ghostPtr1, ghostPtr1, 
-						   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
-						   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
-		displayCharacter(bombPtr1);
-		
-		initializeCharacter(bombPtr3,b3x, b3y,'X',0);
-		relocateCharacter(XSize, YSize, bombPtr3, playerPtr, bombPtr1, ghostPtr1, ghostPtr1, 
-						ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
-					    ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
-		displayCharacter(bombPtr3);
-
-		if(level>=TWO_BOMB_START_LEVEL) // only use bomb1 and bomb3 previously relocated
+		else if (level<FIRST_INSANE_LEVEL) // VERY HARD but NOT INSANE -> 2 bombs close to the botton corners
 		{
-			initializeCharacter(bombPtr2, bombPtr1->_x, bombPtr1->_y, 'X', 0);
-			initializeCharacter(bombPtr4, bombPtr3->_x, bombPtr3->_y, 'X', 0);
+			b2x = 1+1;
+			b2y = YSize-2-1;
+			
+			
+			b4x = XSize-2-1;
+			b4y = YSize-2-1;
+			
+			b1x = b2x;
+			b1y = b2y;
+			
+			b3x = b4x;
+			b3y = b4y;
 		}
-		else // place bomb2 and bomb4
+		else if (level<FIRST_ULTIMATE_LEVEL)// INSANE but not FINAL -> 2 bombs placed on the vertical borders
+		{
+			b2x = 1;
+			b2y = YSize/2-3+rand()%7;
+			
+			b3x = XSize-2;
+			b3y = YSize/2-3+rand()%7;
+			
+			b4x = b3x;
+			b4y = b3y;
+			
+			b1x = b3x;
+			b1y = b3y;
+		}
+		else // ULTIMATE
+		{
+			b1x = 1;
+			b1y = 1;
+			
+			b2x = 1;
+			b2y = YSize-2;
+			
+			b3x = XSize-2;
+			b3y = 1;
+			
+			b4x = XSize-2;
+			b4y = YSize-2;
+		}
+		
+		if(level>=FIRST_HARD_LEVEL)
+		{
+			initializeCharacter(bombPtr1,b1x, b1y,'X',0);
+
+			initializeCharacter(bombPtr2,b2x, b2y,'X',0);
+
+			initializeCharacter(bombPtr3,b3x, b3y,'X',0);
+
+			initializeCharacter(bombPtr4,b4x, b4y,'X',0);
+		}
+		else if(level<FIRST_HARD_LEVEL)
 		{
 			if(chirality)
 			{
-				b2x = XSize/2-5;
-				b2y = YSize/2-5;
+				b1x = XSize/2-5;
+				b1y = YSize/2+5;
 				
-				b4x = XSize/2+5;
-				b4y = YSize/2+5;
+				b3x = XSize/2+5;
+				b3y = YSize/2-5;
 			}
 			else
 			{
-				b2x = XSize/2-5;
-				b2y = YSize/2+5;
+				b1x = XSize/2-5;
+				b1y = YSize/2-5;
 				
-				b4x = XSize/2+5;
-				b4y = YSize/2-5;
+				b3x = XSize/2+5;
+				b3y = YSize/2+5;
 			}
-			initializeCharacter(bombPtr2,b2x, b2y,'X',0);
-			relocateCharacter(XSize, YSize, bombPtr2, playerPtr, bombPtr1, bombPtr3, ghostPtr1, 
+			initializeCharacter(bombPtr1,b1x, b1y,'X',0);
+			relocateCharacter(XSize, YSize, bombPtr1, playerPtr, ghostPtr1, ghostPtr1, ghostPtr1, 
 							   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 							   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
-			displayCharacter(bombPtr2);
 			
-			initializeCharacter(bombPtr4,b4x, b4y,'X',0);
-			relocateCharacter(XSize, YSize, bombPtr4, playerPtr, bombPtr1, bombPtr2, bombPtr3, 
-			ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
-			ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
-			displayCharacter(bombPtr4);
+			initializeCharacter(bombPtr3,b3x, b3y,'X',0);
+			relocateCharacter(XSize, YSize, bombPtr3, playerPtr, bombPtr1, ghostPtr1, ghostPtr1, 
+							ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+							ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
+
+			if(level>=TWO_BOMB_START_LEVEL) // only use bomb1 and bomb3 previously relocated
+			{
+				initializeCharacter(bombPtr2, bombPtr1->_x, bombPtr1->_y, 'X', 0);
+				initializeCharacter(bombPtr4, bombPtr3->_x, bombPtr3->_y, 'X', 0);
+			}
+			else // place bomb2 and bomb4
+			{
+				if(chirality)
+				{
+					b2x = XSize/2-5;
+					b2y = YSize/2-5;
+					
+					b4x = XSize/2+5;
+					b4y = YSize/2+5;
+				}
+				else
+				{
+					b2x = XSize/2-5;
+					b2y = YSize/2+5;
+					
+					b4x = XSize/2+5;
+					b4y = YSize/2-5;
+				}
+				initializeCharacter(bombPtr2,b2x, b2y,'X',0);
+				relocateCharacter(XSize, YSize, bombPtr2, playerPtr, bombPtr1, bombPtr3, ghostPtr1, 
+								   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+								   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
+				
+				initializeCharacter(bombPtr4,b4x, b4y,'X',0);
+				relocateCharacter(XSize, YSize, bombPtr4, playerPtr, bombPtr1, bombPtr2, bombPtr3, 
+				ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+				ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
+			}
 		}
-	}
-
-
-
-	// Power-ups
-	initializeCharacter(powerUpPtr,XSize/2,YSize/2,'P',1);
-	relocateCharacter(XSize, YSize, powerUpPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
-						   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
-						   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
-	initializeCharacter(powerUpPtr,powerUpPtr->_x,powerUpPtr->_y,'P',1);
-	displayCharacter(powerUpPtr);
+	} while(innerWallReached(bombPtr1) || innerWallReached(bombPtr2) || innerWallReached(bombPtr3) || innerWallReached(bombPtr4));
 	
+	displayCharacter(bombPtr1);
+	displayCharacter(bombPtr2);
+	displayCharacter(bombPtr3);
+	displayCharacter(bombPtr4);
+
+
+				
+	do
+	{
+		// Power-ups
+		initializeCharacter(powerUpPtr,XSize/2,YSize/2,'P',1);
+		relocateCharacter(XSize, YSize, powerUpPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+							   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+							   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
+		initializeCharacter(powerUpPtr,powerUpPtr->_x,powerUpPtr->_y,'P',1);
+	} while(innerWallReached(powerUpPtr));
+	displayCharacter(powerUpPtr);
+		
     initializeCharacter(missilePtr, 0, 0, '.',0);
 	
 	initializeCharacter(gunPtr, XSize/2, YSize/2, '!', 0);
@@ -1165,7 +1278,6 @@ void initializeCharacters(int XSize, int YSize,
 						  ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 						   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
 	
-
 	switch(corner)
 	{
 		case 0:
@@ -1611,6 +1723,7 @@ int main (void)
 			drawBorders(XSize, YSize);
 			
 			// Initialize characters
+			createInnerVerticalWallIf(XSize,YSize);
 			initializeCharacters(XSize, YSize,
 								 &player, &powerUp, 
 								 &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
@@ -1622,6 +1735,7 @@ int main (void)
 			{
 				ghostSlowDown = computeGhostSlowDown();
 				invincibleSlowDown = computeInvincibleSlowDown(loop);
+				drawInnerVerticalWall(XSize,YSize);
 				
 				++loop;
 
@@ -1681,6 +1795,13 @@ int main (void)
 					defeat(XSize, YSize);
 					sleep(1);
 				}
+				
+				if(innerWallReached(&player))
+				{
+					die(&player);
+					defeat(XSize, YSize);
+					sleep(1);
+				}
 			
 				checkBombsVsGhosts(&bomb_1, &bomb_2, &bomb_3, &bomb_4, 
 								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
@@ -1707,9 +1828,12 @@ int main (void)
 				{
 					
 					gun._status = 1;
+					do
+					{
 					relocateCharacter(XSize, YSize, &gun, &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
 								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
+					} while(innerWallReached(&gun));
 				}
 				else
 				{
@@ -1733,9 +1857,12 @@ int main (void)
 				else if (powerUpCoolDown == 0)
 				{
 					powerUp._status = 1;
+					do
+					{
 					relocateCharacter(XSize, YSize, &powerUp, &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
 								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
+					} while(innerWallReached(&powerUp));
 				}
 				else
 				{
@@ -1802,8 +1929,8 @@ int main (void)
 								
 				sleep(1);
 				
-				++level;
 				points+= LEVEL_BONUS*level;
+				++level;
 
 			}
 		} while (victoryFlag && (level<FINAL_LEVEL+1)); // middle while (one match) 

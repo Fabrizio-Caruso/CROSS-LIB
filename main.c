@@ -70,7 +70,7 @@
 // LEVEL 8-20: With more than 3 ghosts, one group will chase your X and the another group your Y coordinate
 
 // Starting from this level, the ghosts use a smarter "collective" strategy
-#define COLLECTIVE_STRATEGY_START_LEVEL 8
+#define COLLECTIVE_STRATEGY_START_LEVEL 7
 
 // Directions
 #define RIGHT 0
@@ -547,34 +547,9 @@ void chasePlayer(Character * ghostPtr1, Character * ghostPtr2,
 				 Character* bombPtr3, Character* bombPtr4
 				 )
 {
-	if(ghostCount<=3) // TODO: BOGUS
-	{
-	chaseCharacterIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr3, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr4, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-    
-	chaseCharacterIf(ghostPtr5, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr6, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr6, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr7, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
-	}
-	else if((level>COLLECTIVE_STRATEGY_START_LEVEL) && 
-	       ((ghostCount>5) || !(ghostPtr1->_alive && ghostPtr3->_alive && ghostPtr5->_alive && ghostPtr7->_alive)))
+	if((level>=COLLECTIVE_STRATEGY_START_LEVEL) && 
+	((ghostCount>=5) || 
+	  ((ghostCount==4) && !(ghostPtr1->_alive && ghostPtr3->_alive && ghostPtr5->_alive && ghostPtr7->_alive))))
 	{
 	chaseCharacterXStrategyIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
 	ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
@@ -598,6 +573,32 @@ void chasePlayer(Character * ghostPtr1, Character * ghostPtr2,
 	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr8);
 	
 	chaseCharacterYStrategyIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
+	}
+	else // TODO: BOGUS
+	{
+	chaseCharacterIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr3, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr4, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+    
+	chaseCharacterIf(ghostPtr5, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr6, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr7, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr8);
+	
+	chaseCharacterIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
 	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
 	}
 }

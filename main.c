@@ -41,17 +41,23 @@
 
 // First levels that change initial bombs distribution
 // LEVEL 1 - 4: Four central bombs
-// LEVEL 5 - 11: Two central bombs
-// LEVEL 12 - 17: Three bombs attached to the borders
-// LEVEL 18 - 19: Two bombs attached to the borders
-// LEVEL 20: Four bombs at the corners (not usable)
+// LEVEL 5 - 9: Two central bombs
+// LEVEL 10 - 14: Two bombs next to the vertical borders
+// LEVEL 15 - 17: Three bombs attached to the borders
+// LEVEL 18 - 19: Two bombs attached to the vertical borders
+// LEVEL 20: Four bombs at the corners 
+
+// Starting from this level 4 central bombs
 #define INITIAL_LEVEL 1
 
 // Starting from this level only two central bombs
 #define TWO_BOMB_START_LEVEL 5
 
-// Starting from this level only 3 bombs on the borders
-#define FIRST_HARD_LEVEL 12
+// Starting from this level only 2 bombs next to the vertical borders
+#define FIRST_HARD_LEVEL 10
+
+// Starting from this level 3 bombs on the borders
+#define FIRST_VERY_HARD_LEVEL 15
 
 // Starting from this level only 2 bombs on the vertical borders
 #define FIRST_INSANE_LEVEL 18
@@ -59,6 +65,12 @@
 // Final level (four bombs at the corners)
 #define FINAL_LEVEL 20
 
+// First level that change ghost strategy
+// LEVEL 1-6: Ghosts chase use by approaching your X and Y coordinates
+// LEVEL 8-20: With more than 3 ghosts, one group will chase your X and the another group your Y coordinate
+
+// Starting from this level, the ghosts use a smarter "collective" strategy
+#define COLLECTIVE_STRATEGY_START_LEVEL 8
 
 // Directions
 #define RIGHT 0
@@ -83,10 +95,9 @@ unsigned short guns = 3;
 // The level affects:
 // 1. powerUpCoolDown (how long before a new powerUp is spawned)
 // 2. ghostSlowDown (how much the power up slows the enemies down)
-// 3. toggleHunters (how fast the ghosts are woken up at level start-up)
-// 4. ghostSmartness (how smart ghosts are in avoiding their death)
-// 5. invincibleXCountDown (time needed to activate the invincible ghost)
-// 7. invincibleYCountDown
+// 3. ghostSmartness (how smart ghosts are in avoiding their death)
+// 4. invincibleXCountDown (time needed to activate the invincible ghost)
+// 5. invincibleYCountDown
 // 6. invincibleSlowDown (how much the invincible ghost is slowed-down)
 // 7. invincibleLoopTrigger (how long before the invincible ghost appears)
 // 8. microSleep (how fast the game runs)
@@ -292,7 +303,7 @@ void chaseCharacterXAvoidBombStrategy(Character* hunterPtr, Character* preyPtr,
 	displayCharacter(hunterPtr);
 }
 
-void chaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
+void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 {
 	if(hunterPtr->_x<preyPtr->_x)
 	{
@@ -355,7 +366,7 @@ void chaseCharacterYAvoidBombStrategy(Character* hunterPtr, Character* preyPtr,
 	displayCharacter(hunterPtr);
 }
 
-void chaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
+void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 {
     if(hunterPtr->_y<preyPtr->_y)
 	{
@@ -381,7 +392,7 @@ void chaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 	displayCharacter(hunterPtr);
 }
 
-void chaseCharacter(Character* hunterPtr, Character* preyPtr, 
+void chaseCharacterXYStrategy(Character* hunterPtr, Character* preyPtr, 
                     Character* bombPtr1, Character* bombPtr2,
 					Character* bombPtr3, Character* bombPtr4,
 					Character* ghostPtr1, Character *ghostPtr2, Character* ghostPtr3, Character *ghostPtr4,
@@ -391,11 +402,11 @@ void chaseCharacter(Character* hunterPtr, Character* preyPtr,
 	{
 		if(rand()%2) // Select chase strategy
 		{
-			chaseCharacterXStrategy(hunterPtr, preyPtr);
+			blindChaseCharacterXStrategy(hunterPtr, preyPtr);
 		}
 		else
 		{
-			chaseCharacterYStrategy(hunterPtr, preyPtr);
+			blindChaseCharacterYStrategy(hunterPtr, preyPtr);
 		}
 	}
 	else
@@ -413,6 +424,40 @@ void chaseCharacter(Character* hunterPtr, Character* preyPtr,
 	}
 }
 
+void chaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr, 
+                    Character* bombPtr1, Character* bombPtr2,
+					Character* bombPtr3, Character* bombPtr4,
+					Character* ghostPtr1, Character *ghostPtr2, Character* ghostPtr3, Character *ghostPtr4,
+					Character* ghostPtr5, Character *ghostPtr6, Character* ghostPtr7)
+{
+	if(rand()%10 > ghostSmartness)
+	{
+			blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+	}
+	else
+	{
+			chaseCharacterYAvoidBombStrategy(hunterPtr, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
+	}
+}
+
+void chaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr, 
+                    Character* bombPtr1, Character* bombPtr2,
+					Character* bombPtr3, Character* bombPtr4,
+					Character* ghostPtr1, Character *ghostPtr2, Character* ghostPtr3, Character *ghostPtr4,
+					Character* ghostPtr5, Character *ghostPtr6, Character* ghostPtr7)
+{
+	if(rand()%10 > ghostSmartness)
+	{
+			blindChaseCharacterXStrategy(hunterPtr, preyPtr);
+	}
+	else
+	{
+			chaseCharacterXAvoidBombStrategy(hunterPtr, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);	
+	}
+}
+
 
 void blindChaseCharacter(Character* hunterPtr, Character* preyPtr)
 {
@@ -422,16 +467,56 @@ void blindChaseCharacter(Character* hunterPtr, Character* preyPtr)
 		{
 			if(rand()%2) // Select chase strategy
 			{
-				chaseCharacterXStrategy(hunterPtr, preyPtr);
+				blindChaseCharacterXStrategy(hunterPtr, preyPtr);
 			}
 			else
 			{
-				chaseCharacterYStrategy(hunterPtr, preyPtr);
+				blindChaseCharacterYStrategy(hunterPtr, preyPtr);
 			}
 		}
 	}
 }
 
+
+void chaseCharacterXStrategyIf(Character* ghostPtr1, Character* preyPtr, 
+                    Character* bombPtr1, Character* bombPtr2,
+					Character* bombPtr3, Character* bombPtr4,
+					Character *ghostPtr2, Character* ghostPtr3, Character *ghostPtr4,
+					Character* ghostPtr5, Character *ghostPtr6, Character* ghostPtr7, Character* ghostPtr8)
+{
+	// TODO: to fix
+	
+	if((ghostPtr1->_status==1) && (ghostPtr1->_alive==1))
+	{
+		if(rand()>ghostSlowDown)
+		{
+			chaseCharacterXStrategy(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+			ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+		}
+	}
+	
+	displayCharacter(ghostPtr1);
+}					 
+
+void chaseCharacterYStrategyIf(Character* ghostPtr1, Character* preyPtr, 
+                    Character* bombPtr1, Character* bombPtr2,
+					Character* bombPtr3, Character* bombPtr4,
+					Character *ghostPtr2, Character* ghostPtr3, Character *ghostPtr4,
+					Character* ghostPtr5, Character *ghostPtr6, Character* ghostPtr7, Character* ghostPtr8)
+{
+	// TODO: to fix
+	
+	if((ghostPtr1->_status==1) && (ghostPtr1->_alive==1))
+	{
+		if(rand()>ghostSlowDown)
+		{
+			chaseCharacterYStrategy(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+			ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+		}
+	}
+	
+	displayCharacter(ghostPtr1);
+}
 
 void chaseCharacterIf(Character* ghostPtr1, Character* preyPtr, 
                     Character* bombPtr1, Character* bombPtr2,
@@ -445,13 +530,13 @@ void chaseCharacterIf(Character* ghostPtr1, Character* preyPtr,
 	{
 		if(rand()>ghostSlowDown)
 		{
-			chaseCharacter(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+			chaseCharacterXYStrategy(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
 			ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
 		}
 	}
 	
 	displayCharacter(ghostPtr1);
-}					 
+}	
 
 void chasePlayer(Character * ghostPtr1, Character * ghostPtr2, 
                  Character * ghostPtr3, Character * ghostPtr4,
@@ -462,6 +547,8 @@ void chasePlayer(Character * ghostPtr1, Character * ghostPtr2,
 				 Character* bombPtr3, Character* bombPtr4
 				 )
 {
+	if(ghostCount<=3) // TODO: BOGUS
+	{
 	chaseCharacterIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
 	ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
 	
@@ -485,6 +572,34 @@ void chasePlayer(Character * ghostPtr1, Character * ghostPtr2,
 	
 	chaseCharacterIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
 	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
+	}
+	else if((level>COLLECTIVE_STRATEGY_START_LEVEL) && 
+	       ((ghostCount>5) || !(ghostPtr1->_alive && ghostPtr3->_alive && ghostPtr5->_alive && ghostPtr7->_alive)))
+	{
+	chaseCharacterXStrategyIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterYStrategyIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterXStrategyIf(ghostPtr3, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterYStrategyIf(ghostPtr4, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+    
+	chaseCharacterXStrategyIf(ghostPtr5, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr6, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterYStrategyIf(ghostPtr6, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr7, ghostPtr8);
+	
+	chaseCharacterXStrategyIf(ghostPtr7, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr8);
+	
+	chaseCharacterYStrategyIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
+	}
 }
 
 void displayScore(unsigned long points)
@@ -810,28 +925,28 @@ void initializeCharacters(int XSize, int YSize,
 	int b1y, b2y, b3y, b4y;
 	
 	// Ghosts
-	initializeCharacter(ghostPtr2,XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'O',1);
+	initializeCharacter(ghostPtr2,XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'2',1);
 	displayCharacter(ghostPtr2);
 
-	initializeCharacter(ghostPtr3,XSize/6+rand()%4-2,YSize/2+rand()%4-2,'O',1);
+	initializeCharacter(ghostPtr3,XSize/6+rand()%4-2,YSize/2+rand()%4-2,'3',1);
 	displayCharacter(ghostPtr3);
 	
-	initializeCharacter(ghostPtr4,XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',1);
+	initializeCharacter(ghostPtr4,XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'4',1);
 	displayCharacter(ghostPtr4);
 	
-	initializeCharacter(ghostPtr5,XSize/2+rand()%4-2,YSize/6+rand()%4-2+1,'O',1);
+	initializeCharacter(ghostPtr5,XSize/2+rand()%4-2,YSize/6+rand()%4-2+1,'5',1);
 	displayCharacter(ghostPtr5);
 
-	initializeCharacter(ghostPtr6,XSize/2+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',1);
+	initializeCharacter(ghostPtr6,XSize/2+rand()%4-2,YSize-YSize/6+rand()%4-2,'6',1);
 	displayCharacter(ghostPtr6);
 
-	initializeCharacter(ghostPtr7,XSize-XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'O',1);
+	initializeCharacter(ghostPtr7,XSize-XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'7',1);
 	displayCharacter(ghostPtr7);
 	
-	initializeCharacter(ghostPtr8,XSize-XSize/6+rand()%4-2,YSize/2+rand()%4-2,'O',1);
+	initializeCharacter(ghostPtr8,XSize-XSize/6+rand()%4-2,YSize/2+rand()%4-2,'8',1);
 	displayCharacter(ghostPtr8);
 	
-	initializeCharacter(ghostPtr1,XSize-XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',1);
+	initializeCharacter(ghostPtr1,XSize-XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'1',1);
 	displayCharacter(ghostPtr1);
 
 	
@@ -841,27 +956,41 @@ void initializeCharacters(int XSize, int YSize,
 
 	
 	// Bombs
-	if (level<FIRST_INSANE_LEVEL) // 3 bombs placed on the borders
+	if(level<FIRST_VERY_HARD_LEVEL) // HARD but NOT VERY HARD -> 2 bombs close to vertical borders
+	{	
+		b2x = 1+1;
+		b2y = YSize/2-3+rand()%7;
+		
+		b3x = XSize-2-1;
+		b3y = YSize/2-3+rand()%7;
+		
+		b4x = b3x;
+		b4y = b3y;
+		
+		b1x = b2x;
+		b1y = b2y;
+	}
+	else if (level<FIRST_INSANE_LEVEL) // VERY HARD but NOT INSANE -> 3 bombs placed on the borders
 	{
-		b1x = XSize/2-3+rand()%6;
+		b1x = XSize/2-3+rand()%7;
 		b1y = YSize-2;
 		
 		b2x = 1;
-		b2y = YSize/2-3+rand()%6;
+		b2y = YSize/2-3+rand()%7;
 		
 		b3x = XSize-2;
-		b3y = YSize/2-3+rand()%6;
+		b3y = YSize/2-3+rand()%7;
 		
 		b4x = b3x;
 		b4y = b3y;
 	}
-	else if (level<FINAL_LEVEL)// 2 bombs placed on the vertical borders
+	else if (level<FINAL_LEVEL)// INSANE but not FINAL -> 2 bombs placed on the vertical borders
 	{
 		b2x = 1;
-		b2y = YSize/2-3+rand()%6;
+		b2y = YSize/2-3+rand()%7;
 		
 		b3x = XSize-2;
-		b3y = YSize/2-3+rand()%6;
+		b3y = YSize/2-3+rand()%7;
 		
 		b4x = b3x;
 		b4y = b3y;
@@ -869,7 +998,7 @@ void initializeCharacters(int XSize, int YSize,
 		b1x = b3x;
 		b1y = b3y;
 	}
-	else
+	else // Final level
 	{
 		b1x = 1;
 		b1y = 1;
@@ -1642,4 +1771,5 @@ int main (void)
 
 	return EXIT_SUCCESS;
 }
+
 

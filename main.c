@@ -16,6 +16,7 @@
 #include <unistd.h>
 
 #include <time.h>
+#include <joystick.h>
 
 // If two ghosts bump into eachother you get 2500 points for each ghost
 #define GHOST_VS_GHOST_BONUS 1500ul
@@ -100,7 +101,6 @@ unsigned short guns = 3;
 // 5. invincibleYCountDown
 // 6. invincibleSlowDown (how much the invincible ghost is slowed-down)
 // 7. invincibleLoopTrigger (how long before the invincible ghost appears)
-// 8. microSleep (how fast the game runs)
 unsigned short level = 1;
 
 unsigned int invincibleXCountDown = 100;
@@ -721,6 +721,45 @@ void movePlayer(Character *playerPtr, char kbInput)
 	displayCharacter(playerPtr);
 }
 
+
+void movePlayerByJoystick(Character *playerPtr, unsigned char joyInput)
+{
+	if(JOY_BTN_UP(joyInput))
+	{
+		deleteCharacter(playerPtr);
+		--playerPtr->_y;
+		invincibleYCountDown = computeInvincibleCountDown();
+		playerDirection = UP;
+	}
+	else if(JOY_BTN_DOWN(joyInput))
+	{
+		deleteCharacter(playerPtr);
+		++playerPtr->_y;
+		invincibleYCountDown = computeInvincibleCountDown();
+		playerDirection = DOWN;
+	}
+	else if(JOY_BTN_LEFT(joyInput))
+	{
+		deleteCharacter(playerPtr);
+		--playerPtr->_x;
+		invincibleXCountDown = computeInvincibleCountDown();
+		playerDirection = LEFT;
+	}
+	else if(JOY_BTN_RIGHT(joyInput))
+	{
+		deleteCharacter(playerPtr);
+		++playerPtr->_x;
+		invincibleXCountDown = computeInvincibleCountDown();
+		playerDirection = RIGHT;
+	}
+	else if(JOY_BTN_FIRE(joyInput))
+	{
+		playerFire = 1;
+	}
+	displayCharacter(playerPtr);
+}
+
+
 void initializeCharacter(Character* characterPtr, int x, int y, char ch, short status)
 {
 	characterPtr->_x = x;
@@ -1219,14 +1258,6 @@ void decreaseGhostLevel(int level)
 		ghostLevel=0;
 }
 
-#if defined(CLOCKS_PER_SEC)
-unsigned __fastcall__ microSleep (unsigned int wait)
-{
-    clock_t goal = clock () + ((clock_t) wait / 1000) * (int) (CLOCKS_PER_SEC);
-    while ((long) (goal - clock ()) > 0) ;
-    return 0;
-}
-#endif
 
 void checkGhostsVsGhosts(Character *ghostPtr1, Character *ghostPtr2, Character *ghostPtr3, Character *ghostPtr4,
 						 Character *ghostPtr5, Character *ghostPtr6, Character *ghostPtr7, Character *ghostPtr8)
@@ -1485,6 +1516,7 @@ int main (void)
     unsigned char XSize, YSize;
 	
 	char kbInput;
+	unsigned char joyInput;
 	
 	Character ghost_1; 	
 	Character ghost_2; 
@@ -1509,9 +1541,12 @@ int main (void)
 	Character missile;
 		
 	int loop, victoryFlag, ghostLevelDecrease, powerUpInitialCoolDown, gunInitialCoolDown;
-				
+	unsigned char Err = joy_load_driver (joy_stddrv);
+			
+	joy_install (joy_static_stddrv);	
+	
 	/* Ask for the screen size */
-	screensize (&XSize, &YSize);
+	screensize (&XSize, &YSize);	
 	
 	while(1)
 	{
@@ -1529,9 +1564,6 @@ int main (void)
 		
 		clrscr ();
 				
-		/* Wait for the user to press a key */
-		//printPressKeyToStart(XSize, YSize);
-		//cgetc();
 		deleteCenteredMessage(XSize, YSize);
 			
 		do // Level Start
@@ -1577,16 +1609,21 @@ int main (void)
 			{
 				ghostSlowDown = computeGhostSlowDown();
 				invincibleSlowDown = computeInvincibleSlowDown(loop);
-				microSleep(FINAL_LEVEL-level);
 				
 				++loop;
-				//toggleHunters(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-				//			  &ghost_5, &ghost_6, &ghost_7, &ghost_8, loop);
-				
+
+
 				if(kbhit())
 				{		
 					kbInput = cgetc();
 					movePlayer(&player, kbInput);
+				}
+				
+
+				{
+					joyInput = joy_read (JOY_1);
+					
+					movePlayerByJoystick(&player, joyInput);	
 				}
 				if(playerFire && missile._status==0 && guns>0)
 				{

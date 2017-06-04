@@ -18,7 +18,7 @@
 #include <time.h>
 #include <joystick.h>
 
-// If two ghosts bump into eachother you get 2500 points for each ghost
+// If two or more ghosts bump into eachother for each ghost
 #define GHOST_VS_GHOST_BONUS 1500ul
 
 // If a ghost bumps into a bomb
@@ -40,7 +40,7 @@
 #define LEVEL_BONUS 1000ul
 
 
-// First levels that change initial bombs distribution
+// MINE DISTRIBUTION
 // LEVEL 1 - 4: Four central bombs
 // LEVEL 5 - 9: Two central bombs
 // LEVEL 10 - 14: Two bombs next to the vertical borders
@@ -69,12 +69,14 @@
 // Final level 
 #define FINAL_LEVEL 20
 
-// First level that change ghost strategy
-// LEVEL 1-6: Ghosts chase use by approaching your X and Y coordinates
-// LEVEL 7-20: With more than 3 ghosts there will be up to 3 different ghost groups 
+// GHOST STRATEGIES
+// LEVEL 1-3: Ghosts chase use by approaching randomly either X or Y coordinates (in sort of a direct line)
+// LEVEL 4-9: Most ghosts behave as in 1-3 but 2 may embush the player (starting from at 8 to at least 3 in game)
+// LEVEL 10-20: With more than 3 ghosts there will be up to 3 different ghost groups (x-embush, y-embush, direct line) 
 
 // Starting from this level, the ghosts use a smarter "collective" strategy
-#define COLLECTIVE_STRATEGY_START_LEVEL 7
+#define EASY_COLLECTIVE_STRATEGY_START_LEVEL 4
+#define HARD_COLLECTIVE_STRATEGY_START_LEVEL 10
 
 // Directions
 #define RIGHT 0
@@ -558,70 +560,89 @@ void chasePlayer(Character * ghostPtr1, Character * ghostPtr2,
 	// 1 - 3*: approximate straight line
 	// 4* - 5: get closer in two groups (one approximating x and the other y)
 	// 6* - 8: get closer in three groups (as 4* - 5 and one group as 1-3*)
-	if((level>=COLLECTIVE_STRATEGY_START_LEVEL) && 
-	((ghostCount>=5) || 
-	  ((ghostCount==4) && !(ghostPtr1->_alive && ghostPtr3->_alive && ghostPtr5->_alive && ghostPtr7->_alive))))
-	{
+	if((level>=HARD_COLLECTIVE_STRATEGY_START_LEVEL) && 
+	   ((ghostCount>=5) || 
+	  ((ghostCount==4) && (!ghostPtr1->_alive && !ghostPtr3->_alive && !ghostPtr5->_alive && !ghostPtr7->_alive))))
+	{ // HARD COLLECTIVE STRATEGY
 		if(ghostCount>=6)
 		{
-		chaseCharacterIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-		ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-	
-		chaseCharacterIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-		ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+			chaseCharacterIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+		
+			chaseCharacterIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
 		}
 		else
 		{
-	chaseCharacterXStrategyIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterYStrategyIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+			chaseCharacterXStrategyIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+			
+			chaseCharacterYStrategyIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
 		}
-	chaseCharacterXStrategyIf(ghostPtr3, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+		chaseCharacterXStrategyIf(ghostPtr3, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr2, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+
+		chaseCharacterYStrategyIf(ghostPtr4, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+		
+		chaseCharacterXStrategyIf(ghostPtr5, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr6, ghostPtr7, ghostPtr8);
+
+		chaseCharacterYStrategyIf(ghostPtr6, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr7, ghostPtr8);
+
+		
+		chaseCharacterXStrategyIf(ghostPtr7, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr8);
+		
+		chaseCharacterYStrategyIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
+
+		} // END OF HARD COLLECTIVE STRATEGY
+	else 
+	{ // BEGIN OF NON-HARD COLLECTIVE STRATEGIES (Also a special case of HARD COLLECTIVE for ghostCount=3, 4) 
+		int hardness = level - EASY_COLLECTIVE_STRATEGY_START_LEVEL; // 6 meaningful values: from 0 to 5 
+		if( (ghostCount>=3) && 
+		   ((hardness>=5) || (hardness>=0 && ghostCount>=(8-hardness))))
+		{	// BEGIN OF EASY COLLECTIVE STRATEGY 
+			chaseCharacterXStrategyIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
 	
-	chaseCharacterYStrategyIf(ghostPtr4, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-    
-	chaseCharacterXStrategyIf(ghostPtr5, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr6, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterYStrategyIf(ghostPtr6, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterXStrategyIf(ghostPtr7, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr8);
-	
-	chaseCharacterYStrategyIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
-	}
-	else // TODO: BOGUS
-	{
-	chaseCharacterIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr3, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr4, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
-    
-	chaseCharacterIf(ghostPtr5, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr6, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr6, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr7, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr7, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr8);
-	
-	chaseCharacterIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-	ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
-	}
+			chaseCharacterYStrategyIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+		} // END OF EASY COLLECTIVE STRATEGY
+		else
+		{ // BEGIN OF NON-COLLECTIVE STRATEGY
+						// TODO: DEBUG		
+			chaseCharacterIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7);
+			
+			chaseCharacterIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+			ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+						// TODO: DEBUG
+		} // END OF NON-COLLECTIVE STRATEGY
+
+		chaseCharacterIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+			
+		chaseCharacterIf(ghostPtr3, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr2, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+		
+		chaseCharacterIf(ghostPtr4, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+				
+		chaseCharacterIf(ghostPtr5, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr6, ghostPtr7, ghostPtr8);
+				
+		chaseCharacterIf(ghostPtr6, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr7, ghostPtr8);
+				
+		chaseCharacterIf(ghostPtr7, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr8);
+				
+
+	} // END OF NON-HARD COLLECTIVE STRATEGIES
 }
 
 void displayScore(unsigned long points)
@@ -988,6 +1009,10 @@ short innerWallReached(Character *characterPtr)
 	return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
 }
 
+short nearInnerWall(Character *characterPtr)
+{
+	return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
+}
 
 void createInnerVerticalWall(int XSize, int YSize, short length)
 {
@@ -1009,10 +1034,10 @@ void createInnerVerticalWallIf(XSize,YSize)
 			createInnerVerticalWall(XSize,YSize, 8);
 		break;
 		case 3:
-			createInnerVerticalWall(XSize,YSize, 10);
+			createInnerVerticalWall(XSize,YSize, 12);
 		break;
 		case 4:
-			createInnerVerticalWall(XSize,YSize, 12);
+			createInnerVerticalWall(XSize,YSize, YSize-4);
 		break;
 		case 5:
 			createInnerVerticalWall(XSize,YSize, 0);
@@ -1021,13 +1046,13 @@ void createInnerVerticalWallIf(XSize,YSize)
 			createInnerVerticalWall(XSize,YSize, 8);
 		break;
 		case 7:
-			createInnerVerticalWall(XSize,YSize, 10);
-		break;
-		case 8:
 			createInnerVerticalWall(XSize,YSize, 12);
 		break;
+		case 8:
+			createInnerVerticalWall(XSize,YSize, 16);
+		break;
 		case 9:
-			createInnerVerticalWall(XSize,YSize, 14);
+			createInnerVerticalWall(XSize,YSize, YSize-4);
 		break;
 		case 10:
 			createInnerVerticalWall(XSize,YSize, 0);
@@ -1036,13 +1061,13 @@ void createInnerVerticalWallIf(XSize,YSize)
 			createInnerVerticalWall(XSize,YSize, 8);
 		break;
 		case 12:
-			createInnerVerticalWall(XSize,YSize, 10);
-		break;
-		case 13:
 			createInnerVerticalWall(XSize,YSize, 12);
 		break;
+		case 13:
+			createInnerVerticalWall(XSize,YSize, 16);
+		break;
 		case 14:
-			createInnerVerticalWall(XSize,YSize, 14);
+			createInnerVerticalWall(XSize,YSize, YSize-4);
 		break;
 		case 15:
 			createInnerVerticalWall(XSize,YSize, 0);
@@ -1051,16 +1076,16 @@ void createInnerVerticalWallIf(XSize,YSize)
 			createInnerVerticalWall(XSize,YSize, 8);
 		break;
 		case 17:
-			createInnerVerticalWall(XSize,YSize, 0);
+			createInnerVerticalWall(XSize,YSize, 12);
 		break;
 		case 18:
-			createInnerVerticalWall(XSize,YSize, 10);
+			createInnerVerticalWall(XSize,YSize, YSize-4);
 		break;
 		case 19:
-			createInnerVerticalWall(XSize,YSize, 8);
+			createInnerVerticalWall(XSize,YSize, 12);
 		break;
 		case 20:
-			createInnerVerticalWall(XSize,YSize, 14);
+			createInnerVerticalWall(XSize,YSize, YSize-4);
 		break;
 	}
 }
@@ -1251,14 +1276,12 @@ void initializeCharacters(int XSize, int YSize,
 				ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
 			}
 		}
-	} while(innerWallReached(bombPtr1) || innerWallReached(bombPtr2) || innerWallReached(bombPtr3) || innerWallReached(bombPtr4));
+	} while(nearInnerWall(bombPtr1) || nearInnerWall(bombPtr2) || nearInnerWall(bombPtr3) || nearInnerWall(bombPtr4));
 	
 	displayCharacter(bombPtr1);
 	displayCharacter(bombPtr2);
 	displayCharacter(bombPtr3);
 	displayCharacter(bombPtr4);
-
-
 				
 	do
 	{
@@ -1633,7 +1656,8 @@ void printStartMessage(int XSize, int YSize)
 	
 	gotoxy ((XSize - 22) / 2, YSize / 2 + 8);
 	cprintf("%s",  "PRESS ANY KEY TO START");
-	cgetc();
+	while(!kbhit() && !joy_read(JOY_1))
+	{}
 }
 
 int main (void)
@@ -1716,7 +1740,8 @@ int main (void)
 			
 			/* Wait for the user to press a key */
 			printPressKeyToStart(XSize, YSize);
-			cgetc();
+			while(!kbhit() && !joy_read(JOY_1))
+			{}
 			deleteCenteredMessage(XSize, YSize);
 			
 			/* Draw a border around the screen */
@@ -1745,8 +1770,7 @@ int main (void)
 					kbInput = cgetc();
 					movePlayer(&player, kbInput);
 				}
-				
-
+				//else
 				{
 					joyInput = joy_read (JOY_1);
 					

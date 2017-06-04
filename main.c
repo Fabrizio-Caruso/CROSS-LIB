@@ -1535,8 +1535,7 @@ void checkMissileVsGhost(Character * missilePtr,
 		--ghostCount;
 	}
 }
-						
-
+	
 void checkMissileVsGhosts(Character * missilePtr,
 						Character * ghostPtr1, Character * ghostPtr2, 
 						Character * ghostPtr3, Character * ghostPtr4,
@@ -1658,6 +1657,11 @@ void printStartMessage(int XSize, int YSize)
 	cprintf("%s",  "PRESS ANY KEY TO START");
 	while(!kbhit() && !joy_read(JOY_1))
 	{}
+}
+
+void restoreMissile(Character *missilePtr)
+{
+	missilePtr->_x = 0; missilePtr->_y = 0; missilePtr->_ch = '.';
 }
 
 int main (void)
@@ -1785,31 +1789,37 @@ int main (void)
 					playerFire = 0;
 					displayCharacter(&missile);					
 					checkMissileVsGhosts(&missile, 
-					&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-					&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+						&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+						&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
+						{
+							//missile._status = 0; missile._alive = 0;
+							die(&missile);
+							restoreMissile(&missile);
+							displayCharacter(&invincibleGhost);
+						}		
 				}
 				if(missile._status==1 && missile._alive==1)
 				{
-
 					moveMissile(XSize, YSize, &missile);
 					// TODO: Inefficient
 					checkMissileVsGhosts(&missile, 
-					&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-					&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+						&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
+						&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+					
+					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
+					{
+						die(&missile);
+						restoreMissile(&missile);
+						displayCharacter(&invincibleGhost);
+					}
 				}
 			
 				
 				chasePlayer(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 							&ghost_5, &ghost_6, &ghost_7, &ghost_8, &player, 
 							&bomb_1, &bomb_2, &bomb_3, &bomb_4);
-				
-				if(missile._status==1 && missile._alive==1)
-				{
-				// TODO: Inefficient
-				checkMissileVsGhosts(&missile, 
-				&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-				&ghost_5, &ghost_6, &ghost_7, &ghost_8);
-				}				
+					
 				
 				if(playerReached(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 								 &ghost_5, &ghost_6, &ghost_7, &ghost_8, &player) ||

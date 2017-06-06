@@ -22,6 +22,8 @@ struct CharacterStruct
 
 typedef struct CharacterStruct Character;
 
+void initializeCharacter(Character* characterPtr, int x, int y, char ch, short status);
+
 void setCharacterPosition(Character* characterPtr, short x, short y);
 
 void setCharacterDisplay(Character* characterPtr, char ch);

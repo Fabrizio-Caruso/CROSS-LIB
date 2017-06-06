@@ -1,6 +1,15 @@
 #include "character.h"
 
 
+void initializeCharacter(Character* characterPtr, int x, int y, char ch, short status)
+{
+	characterPtr->_x = x;
+	characterPtr->_y = y;
+	characterPtr->_ch = ch;
+	characterPtr->_status = status;
+	characterPtr->_alive = 1; // TODO: Maybe we should initialize this with a parameter
+}
+
 void setCharacterPosition(Character* characterPtr, short x, short y)
 {
 	characterPtr->_x = x;

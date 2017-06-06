@@ -10,7 +10,7 @@ void checkMissileVsGhost(Character * missilePtr,
 		gotoxy(ghostPtr->_x,ghostPtr->_y);
 		die(ghostPtr); 
 		(*pointsPtr)+=GHOST_VS_MISSILE;
-		--(ghostCountPtr);
+		--(*ghostCountPtr);
 	}
 }
 	

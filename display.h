@@ -49,6 +49,9 @@ void gameCompleted(int XSize, int YSize);
 
 void finalScore(int XSize, int YSize, unsigned long points);
 
+void drawInnerVerticalWall(int XSize, int YSize, 
+						   unsigned short innerVerticalWallLength);
 
+//void drawInnerVerticalWall(int XSize, int YSize, unsigned short length);
 #endif // _DISPLAY
 

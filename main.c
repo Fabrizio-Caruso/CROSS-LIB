@@ -24,6 +24,11 @@
 #include "display.h"
 #include "missile.h"
 
+unsigned int invincibleSlowDown = 30000;
+
+unsigned int invincibleXCountDown = 100;
+unsigned int invincibleYCountDown = 100;
+
 unsigned int ghostSlowDown;
 unsigned int powerUpCoolDown;
 unsigned int gunCoolDown;
@@ -52,12 +57,7 @@ unsigned short innerVerticalWallLength;
 // 5. invincibleYCountDown
 // 6. invincibleSlowDown (how much the invincible ghost is slowed-down)
 // 7. invincibleLoopTrigger (how long before the invincible ghost appears)
-
 unsigned short level = 1;
-unsigned int invincibleSlowDown = 30000;
-
-unsigned int invincibleXCountDown = 100;
-unsigned int invincibleYCountDown = 100;
 
 unsigned int invincibleLoopTrigger = 1000;
 unsigned short ghostCount = 8;
@@ -204,7 +204,7 @@ void movePlayerByJoystick(Character *playerPtr, unsigned char joyInput)
 
 void checkBombsVsGhost(Character * bombPtr1, Character * bombPtr2, 
 					   Character * bombPtr3, Character * bombPtr4,
-					   Character * ghostPtr)
+					   Character * ghostPtr, unsigned short * ghostCountPtr)
 {
 	if(ghostPtr->_alive && playerReachedBombs(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr))
 	{
@@ -214,7 +214,7 @@ void checkBombsVsGhost(Character * bombPtr1, Character * bombPtr2,
 		ghostPtr->_status = 0;
 		ghostPtr->_ch = 'X';
 		points+=GHOST_VS_BOMBS_BONUS;
-		--ghostCount;
+		--(*ghostCountPtr);
 	}
 }
 						
@@ -224,16 +224,17 @@ void checkBombsVsGhosts(Character * bombPtr1, Character * bombPtr2,
 						Character * ghostPtr1, Character * ghostPtr2, 
 						Character * ghostPtr3, Character * ghostPtr4,
 						Character * ghostPtr5, Character * ghostPtr6, 
-						Character * ghostPtr7, Character * ghostPtr8)
+						Character * ghostPtr7, Character * ghostPtr8,
+						unsigned short *ghostCountPtr)
 {
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr1);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr2);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr3);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr4);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr5);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr6);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr7);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr8);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr1, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr2, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr3, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr4, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr5, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr6, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr7, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr8, ghostCountPtr);
 }
 
 
@@ -287,10 +288,6 @@ void relocateCharacter(int XSize, int YSize, Character * characterPtr,
 	characterPtr->_y = y;
 }
 
-void drawInnerVerticalWall(int XSize, int YSize)
-{
-	cvlinexy (XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
-}
 
 
 short innerWallReached(Character *characterPtr)
@@ -303,83 +300,67 @@ short nearInnerWall(Character *characterPtr)
 	return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
 }
 
-void createInnerVerticalWall(int XSize, int YSize, short length)
-{
-	innerVerticalWallLength = length;
-	innerVerticalWallX = XSize / 2;
-	innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
-	drawInnerVerticalWall(XSize, YSize);
-}
 
-void createInnerVerticalWallIf(XSize,YSize)
+
+unsigned short drawInnerVerticalWallForLevel(int XSize,int YSize, unsigned short level)
 {		
+	unsigned short innerVerticalLevel;
 	switch(level)
 	{
-		case 1:
-			createInnerVerticalWall(XSize,YSize, 0);
+		case 1: case 5: case 10: case 15:
+			innerVerticalLevel = 0;
 		break;
 		case 2:
-			createInnerVerticalWall(XSize,YSize, 8);
+			innerVerticalLevel = 8;
 		break;
 		case 3:
-			createInnerVerticalWall(XSize,YSize, 12);
+			innerVerticalLevel = 12;
 		break;
 		case 4:
-			createInnerVerticalWall(XSize,YSize, YSize-4);
-		break;
-		case 5: case 10: case 15:
-			createInnerVerticalWall(XSize,YSize, 0);
+			innerVerticalLevel = YSize-4;
 		break;
 		case 6:
-			createInnerVerticalWall(XSize,YSize, 8);
+			innerVerticalLevel = 8;
 		break;
 		case 7:
-			createInnerVerticalWall(XSize,YSize, 12);
+			innerVerticalLevel = 12;
 		break;
 		case 8:
-			createInnerVerticalWall(XSize,YSize, 16);
+			innerVerticalLevel = 16;
 		break;
 		case 9:
-			createInnerVerticalWall(XSize,YSize, YSize-4);
+			innerVerticalLevel = YSize-4;
 		break;
-		/*
-		case 10:
-			createInnerVerticalWall(XSize,YSize, 0);
-		break;
-		*/
 		case 11:
-			createInnerVerticalWall(XSize,YSize, 8);
+			innerVerticalLevel = 8;
 		break;
 		case 12:
-			createInnerVerticalWall(XSize,YSize, 12);
+			innerVerticalLevel = 12;
 		break;
 		case 13:
-			createInnerVerticalWall(XSize,YSize, 16);
+			innerVerticalLevel =16;
 		break;
 		case 14:
-			createInnerVerticalWall(XSize,YSize, YSize-4);
+			innerVerticalLevel = YSize-4;
 		break;
-		/*
-		case 15:
-			createInnerVerticalWall(XSize,YSize, 0);
-		break;
-		*/
 		case 16:
-			createInnerVerticalWall(XSize,YSize, 8);
+			innerVerticalLevel = 8;
 		break;
 		case 17:
-			createInnerVerticalWall(XSize,YSize, 12);
+			innerVerticalLevel = 12;
 		break;
 		case 18:
-			createInnerVerticalWall(XSize,YSize, YSize-4);
+			innerVerticalLevel = YSize-4;
 		break;
 		case 19:
-			createInnerVerticalWall(XSize,YSize, 12);
+			innerVerticalLevel = 12;
 		break;
 		case 20:
-			createInnerVerticalWall(XSize,YSize, YSize-4);
+			innerVerticalLevel = YSize-4;
 		break;
 	}
+	drawInnerVerticalWall(XSize,YSize, innerVerticalLevel);
+	return innerVerticalLevel;
 }
 
 
@@ -392,8 +373,7 @@ void fillLevelWithCharacters(int XSize, int YSize,
 						  Character * bombPtr1, Character * bombPtr2,
 						  Character * bombPtr3, Character * bombPtr4,
 						  Character * invincibleGhostPtr, 
-						  Character * missilePtr, Character * gunPtr
-						  )
+						  Character * missilePtr, Character * gunPtr)
 {
 	short corner = rand()%4;
 	short chirality = rand()%2;
@@ -640,7 +620,7 @@ unsigned int computeGhostSlowDown()
 }
 
 
-void decreaseGhostLevel(int level)
+void decreaseGhostLevel(unsigned short level)
 {
 	if(ghostLevel>level)
 		ghostLevel-=level;
@@ -649,55 +629,56 @@ void decreaseGhostLevel(int level)
 }
 
 void checkGhostsVsGhosts(Character *ghostPtr1, Character *ghostPtr2, Character *ghostPtr3, Character *ghostPtr4,
-						 Character *ghostPtr5, Character *ghostPtr6, Character *ghostPtr7, Character *ghostPtr8)
+						 Character *ghostPtr5, Character *ghostPtr6, Character *ghostPtr7, Character *ghostPtr8,
+						 unsigned short *ghostCountPtr)
 {
 	if(ghostPtr8->_alive && charactersMeet(ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8))
 	{
 		die(ghostPtr8);
 		points+=GHOST_VS_GHOST_BONUS;
-	    --ghostCount;
+	    --(*ghostCountPtr);
 	}
 	if(ghostPtr1->_alive && charactersMeet(ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1))
 	{
 		die(ghostPtr1);
 		points+=GHOST_VS_GHOST_BONUS;
-		--ghostCount;
+		--(*ghostCountPtr);
 	}
 	if(ghostPtr2->_alive && charactersMeet(ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2))
 	{
 		die(ghostPtr2);
 		points+=GHOST_VS_GHOST_BONUS;
-		--ghostCount;
+		--(*ghostCountPtr);
 	}
 	if(ghostPtr3->_alive && charactersMeet(ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3))
 	{
 		die(ghostPtr3);
 		points+=GHOST_VS_GHOST_BONUS;
-		--ghostCount;
+		--(*ghostCountPtr);
 	}
 	if(ghostPtr4->_alive && charactersMeet(ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4))
 	{
 		die(ghostPtr4);
 		points+=GHOST_VS_GHOST_BONUS;
-		--ghostCount;
+		--(*ghostCountPtr);
 	}
 	if(ghostPtr5->_alive && charactersMeet(ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5))
 	{
 		die(ghostPtr5);
 		points+=GHOST_VS_GHOST_BONUS;
-		--ghostCount;
+		--(*ghostCountPtr);
 	}
 	if(ghostPtr6->_alive && charactersMeet(ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6))
 	{
 		die(ghostPtr6);
 		points+=GHOST_VS_GHOST_BONUS;
-		--ghostCount;
+		--(*ghostCountPtr);
 	}
 	if(ghostPtr7->_alive && charactersMeet(ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7))
 	{
 		die(ghostPtr7);
 		points+=GHOST_VS_GHOST_BONUS;
-		--ghostCount;
+		--(*ghostCountPtr);
 	}
 }
 
@@ -841,7 +822,7 @@ int main (void)
 			drawBorders(XSize, YSize);
 			
 			// Initialize characters
-			createInnerVerticalWallIf(XSize,YSize);
+			innerVerticalWallLength = drawInnerVerticalWallForLevel(XSize,YSize,level);
 			fillLevelWithCharacters(XSize, YSize,
 								 &player, &powerUp, 
 								 &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
@@ -856,7 +837,7 @@ int main (void)
 			{
 				ghostSlowDown = computeGhostSlowDown();
 				invincibleSlowDown = computeInvincibleSlowDown(loop);
-				drawInnerVerticalWall(XSize,YSize);
+				drawInnerVerticalWall(XSize,YSize, innerVerticalWallLength);
 				
 				++loop;
 
@@ -911,7 +892,8 @@ int main (void)
 				
 				chasePlayer(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 							&ghost_5, &ghost_6, &ghost_7, &ghost_8, &player, 
-							&bomb_1, &bomb_2, &bomb_3, &bomb_4, ghostSmartness, ghostSlowDown, ghostCount, level);
+							&bomb_1, &bomb_2, &bomb_3, &bomb_4, 
+							ghostSmartness, ghostSlowDown, ghostCount, level);
 					
 				
 				if(playerReached(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
@@ -932,10 +914,10 @@ int main (void)
 			
 				checkBombsVsGhosts(&bomb_1, &bomb_2, &bomb_3, &bomb_4, 
 								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
+								   &ghost_5, &ghost_6, &ghost_7, &ghost_8, &ghostCount);
 				
 				checkGhostsVsGhosts(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-									&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+									&ghost_5, &ghost_6, &ghost_7, &ghost_8, &ghostCount);
 
 				if(gun._status==1)
 				{

@@ -22,6 +22,7 @@
 #include "character.h"
 #include "strategy.h"
 #include "display.h"
+#include "missile.h"
 
 unsigned int ghostSlowDown;
 unsigned int powerUpCoolDown;
@@ -382,7 +383,7 @@ void createInnerVerticalWallIf(XSize,YSize)
 }
 
 
-void initializeCharacters(int XSize, int YSize,
+void fillLevelWithCharacters(int XSize, int YSize,
 						  Character * playerPtr, Character * powerUpPtr, 
 						  Character * ghostPtr1, Character * ghostPtr2,
 						  Character * ghostPtr3, Character * ghostPtr4,
@@ -615,21 +616,6 @@ void initializeCharacters(int XSize, int YSize,
 }
 
 
-void printGameOver(int XSize, int YSize)
-{
-	printCenteredMessage(XSize, YSize, "G A M E   O V E R");
-}
-
-void printVictoryMessage(int XSize, int YSize)
-{
-	printCenteredMessage(XSize, YSize, "Y O U   W O N ! !");
-}
-
-void printDefeatMessage(int XSize, int YSize)
-{
-	printCenteredMessage(XSize, YSize, "Y O U   L O S T !");
-}
-
 
 unsigned int computeGhostSlowDown()
 {
@@ -653,38 +639,6 @@ unsigned int computeGhostSlowDown()
 	   return 0; // You must die!
 }
 
-int wallReached(int XSize, int YSize, Character *characterPtr)
-{
-	return (characterPtr->_x==0)||(characterPtr->_x==XSize-1) || 
-		   (characterPtr->_y==0)||(characterPtr->_y==YSize-1);
-}
-
-void die(Character * playerPtr)
-{
-	gotoxy(playerPtr->_x,playerPtr->_y);
-	cputc('X');
-	playerPtr->_status = 0;
-	playerPtr->_alive = 0;
-	playerPtr->_ch = 'X';
-}
-
-void defeat(int XSize, int YSize)
-{
-	printDefeatMessage(XSize, YSize);
-	sleep(1);
-}
-
-void win(Character * playerPtr)
-{
-	gotoxy(playerPtr->_x,playerPtr->_y);
-	//cputc('!');
-}
-
-void victory(int XSize, int YSize)
-{
-	printVictoryMessage(XSize, YSize);
-	sleep(1);
-}
 
 void decreaseGhostLevel(int level)
 {
@@ -773,23 +727,6 @@ int computeGunInitialCoolDown()
 		return 600 + level * 10;
 }
 
-void gameCompleted(int XSize, int YSize)
-{
-	printCenteredMessage(XSize, YSize, "Y O U  M A D E  I T !"); 
-	sleep(2);
-	printCenteredMessage(XSize, YSize, "    T H E   E N D    "); 
-	sleep(2);
-}
-
-void finalScore(int XSize, int YSize)
-{
-	char scoreString[22];
-	clrscr();
-	sprintf(scoreString, "SCORE:  %lu", points);
-	printCenteredMessage(XSize, YSize, scoreString);
-	sleep(3);
-}
-
 int computeInvincibleGhostCountTrigger()
 {
 	if(level<=7)
@@ -810,150 +747,7 @@ int computeInvincibleLoopTrigger()
 		return 1000 - level*20;
 }
 
-void checkMissileVsGhost(Character * missilePtr,
-					   Character * ghostPtr)
-{
-	if(ghostPtr->_alive && 
-	areCharctersAtSamePosition(missilePtr, ghostPtr))
-	{
-		gotoxy(ghostPtr->_x,ghostPtr->_y);
-		die(ghostPtr); 
-		points+=GHOST_VS_MISSILE;
-		--ghostCount;
-	}
-}
-	
-void checkMissileVsGhosts(Character * missilePtr,
-						Character * ghostPtr1, Character * ghostPtr2, 
-						Character * ghostPtr3, Character * ghostPtr4,
-						Character * ghostPtr5, Character * ghostPtr6, 
-						Character * ghostPtr7, Character * ghostPtr8)
-{
-	checkMissileVsGhost(missilePtr, ghostPtr1);
-	checkMissileVsGhost(missilePtr, ghostPtr2);
-	checkMissileVsGhost(missilePtr, ghostPtr3);
-	checkMissileVsGhost(missilePtr, ghostPtr4);
-	checkMissileVsGhost(missilePtr, ghostPtr5);
-	checkMissileVsGhost(missilePtr, ghostPtr6);
-	checkMissileVsGhost(missilePtr, ghostPtr7);
-	checkMissileVsGhost(missilePtr, ghostPtr8);
-}
-	
-int setMissileInitialPosition(int XSize, int YSize, Character *missilePtr, Character *playerPtr)
-{
-	int newX = playerPtr->_x; 
-	int newY = playerPtr->_y;
-	switch(missileDirection)
-		{
-			case RIGHT:
-				++newX;
-			break;
-			case DOWN:
-				++newY;
-			break;
-			case UP:
-				--newY;
-			break;
-			case LEFT:
-				--newX;
-			break;
-		}
-	 
-	missilePtr->_x = newX;
-	missilePtr->_y = newY;	
-	if(wallReached(XSize,YSize, missilePtr))
-	{
-		die(missilePtr);
-		missilePtr->_ch = '.';
-		return 0;
-	}
-	return 1;
-}
-	
-void moveMissile(int XSize, int YSize, Character * missilePtr)
-{
-	int newX = missilePtr->_x; 
-	int newY = missilePtr->_y;
-	switch(missileDirection)
-	{
-		case RIGHT:
-			++newX;
-		break;
-		case DOWN:
-			++newY;
-		break;
-		case UP:
-			--newY;
-		break;
-		case LEFT:
-			--newX;
-		break;
-	}
-	deleteCharacter(missilePtr);
-	missilePtr->_x = newX;
-	missilePtr->_y = newY;
-	if(wallReached(XSize,YSize, missilePtr))
-	{
-		die(missilePtr);
-		missilePtr->_ch = '.';
-	}
-	else
-	{
-		displayCharacter(missilePtr);
-	}
-}
 
-void printStartMessage(int XSize, int YSize)
-{
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 9);
-	cprintf ("%s", "A S C I I   C H A S E");
-	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 7);
-	cprintf ("%s", "by Fabrizio Caruso");
-	
-	/*
-	gotoxy ((XSize - 9) / 2, YSize / 2 - 4);
-	cprintf ("%s", "GAME PLAY");
-	*/
-	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 3);
-	cprintf ("%s", "You * are chased by O");
-	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 2);
-	cprintf ("%s", "Force O into X");
-	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 1);	
-	cprintf ("%s", "Take P to slow O down");
-	
-	
-	gotoxy ((XSize - 22) / 2, YSize / 2);
-	cprintf ("%s", "Catch ! for bullets!");
-	
-	gotoxy ((XSize - 22) / 2, YSize / 2 +1);
-	cprintf ("%s", "Flee from +!");
-	
-/*	
-	gotoxy ((XSize - 4) / 2, YSize / 2 + 3);
-	cprintf ("%s", "KEYS");
-	*/
-	gotoxy ((XSize - 22) / 2, YSize / 2 + 4);
-	cprintf ("%s", "Use Joystick in Port 1");
-
-/*	
-	gotoxy ((XSize - 22) / 2, YSize / 2 + 5);
-	cprintf("%s",  "and shoot with SPACE");
-*/
-
-	gotoxy ((XSize - 22) / 2, YSize / 2 + 8);
-	cprintf("%s",  "PRESS ANY KEY TO START");
-	while(!kbhit() && !joy_read(JOY_1))
-	{}
-}
-
-void restoreMissile(Character *missilePtr)
-{
-	missilePtr->_x = 0; missilePtr->_y = 0; missilePtr->_ch = '.';
-}
 
 int main (void)
 {
@@ -1007,7 +801,8 @@ int main (void)
 		clrscr ();
 					
 		printStartMessage(XSize,YSize);
-		
+		while(!kbhit() && !joy_read(JOY_1))
+		{}
 		clrscr ();
 				
 		deleteCenteredMessage(XSize, YSize);
@@ -1047,7 +842,7 @@ int main (void)
 			
 			// Initialize characters
 			createInnerVerticalWallIf(XSize,YSize);
-			initializeCharacters(XSize, YSize,
+			fillLevelWithCharacters(XSize, YSize,
 								 &player, &powerUp, 
 								 &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 								 &ghost_5, &ghost_6, &ghost_7, &ghost_8, 
@@ -1082,13 +877,13 @@ int main (void)
 				{
 					--guns;
 					missileDirection = playerDirection;
-					missile._status = setMissileInitialPosition(XSize, YSize, &missile, &player);
+					missile._status = setMissileInitialPosition(XSize, YSize, &missile, &player, missileDirection);
 					missile._alive = missile._status;
 					playerFire = 0;
 					displayCharacter(&missile);					
 					checkMissileVsGhosts(&missile, 
 						&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-						&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+						&ghost_5, &ghost_6, &ghost_7, &ghost_8, &points, &ghostCount);
 					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 						{
 							//missile._status = 0; missile._alive = 0;
@@ -1099,11 +894,11 @@ int main (void)
 				}
 				if(missile._status==1 && missile._alive==1)
 				{
-					moveMissile(XSize, YSize, &missile);
+					moveMissile(XSize, YSize, &missile, missileDirection);
 					// TODO: Inefficient
 					checkMissileVsGhosts(&missile, 
 						&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-						&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+						&ghost_5, &ghost_6, &ghost_7, &ghost_8, &points, &ghostCount);
 					
 					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 					{
@@ -1240,10 +1035,8 @@ int main (void)
 					}
 				}
 				
-				
 				if(ghostCount<=0)
 				{
-					win(&player);
 					victory(XSize, YSize);
 					sleep(1);
 				}
@@ -1281,7 +1074,7 @@ int main (void)
 		gameCompleted(XSize, YSize);
 		sleep(1);
 	}
-	finalScore(XSize, YSize);
+	finalScore(XSize, YSize, points);
 	// GAME OVER	
 	printGameOver(XSize, YSize);
 	sleep(1);

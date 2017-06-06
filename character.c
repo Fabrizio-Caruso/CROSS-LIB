@@ -145,3 +145,19 @@ int downGhosts(Character* characterPtr,
 		   downDanger(characterPtr, ghostPtr7);
 }
 
+int wallReached(int XSize, int YSize, Character *characterPtr)
+{
+	return (characterPtr->_x==0)||(characterPtr->_x==XSize-1) || 
+		   (characterPtr->_y==0)||(characterPtr->_y==YSize-1);
+}
+
+void die(Character * playerPtr)
+{
+	gotoxy(playerPtr->_x,playerPtr->_y);
+	cputc('X');
+	playerPtr->_status = 0;
+	playerPtr->_alive = 0;
+	playerPtr->_ch = 'X';
+}
+
+

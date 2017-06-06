@@ -84,4 +84,9 @@ int downGhosts(Character* characterPtr,
               Character* ghostPtr5,  Character* ghostPtr6, 
               Character* ghostPtr7);
 
+int wallReached(int XSize, int YSize, Character *characterPtr);
+
+void die(Character * playerPtr);
+
+			  
 #endif

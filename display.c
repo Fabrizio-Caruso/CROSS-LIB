@@ -164,3 +164,96 @@ void deleteCenteredMessage(int XSize, int YSize)
     cputs( "                      ");
 }
 
+
+
+
+void printGameOver(int XSize, int YSize)
+{
+	printCenteredMessage(XSize, YSize, "G A M E   O V E R");
+}
+
+void printVictoryMessage(int XSize, int YSize)
+{
+	printCenteredMessage(XSize, YSize, "Y O U   W O N ! !");
+}
+
+void printDefeatMessage(int XSize, int YSize)
+{
+	printCenteredMessage(XSize, YSize, "Y O U   L O S T !");
+}
+
+void defeat(int XSize, int YSize)
+{
+	printDefeatMessage(XSize, YSize);
+	sleep(1);
+}
+
+void victory(int XSize, int YSize)
+{
+	printVictoryMessage(XSize, YSize);
+	sleep(1);
+}
+
+
+void printStartMessage(int XSize, int YSize)
+{
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 9);
+	cprintf ("%s", "A S C I I   C H A S E");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 7);
+	cprintf ("%s", "by Fabrizio Caruso");
+	
+	/*
+	gotoxy ((XSize - 9) / 2, YSize / 2 - 4);
+	cprintf ("%s", "GAME PLAY");
+	*/
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 3);
+	cprintf ("%s", "You * are chased by O");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 2);
+	cprintf ("%s", "Force O into X");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 - 1);	
+	cprintf ("%s", "Take P to slow O down");
+	
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2);
+	cprintf ("%s", "Catch ! for bullets!");
+	
+	gotoxy ((XSize - 22) / 2, YSize / 2 +1);
+	cprintf ("%s", "Flee from +!");
+	
+/*	
+	gotoxy ((XSize - 4) / 2, YSize / 2 + 3);
+	cprintf ("%s", "KEYS");
+	*/
+	gotoxy ((XSize - 22) / 2, YSize / 2 + 4);
+	cprintf ("%s", "Use Joystick in Port 1");
+
+/*	
+	gotoxy ((XSize - 22) / 2, YSize / 2 + 5);
+	cprintf("%s",  "and shoot with SPACE");
+*/
+
+	gotoxy ((XSize - 22) / 2, YSize / 2 + 8);
+	cprintf("%s",  "PRESS ANY KEY TO START");
+}
+
+void gameCompleted(int XSize, int YSize)
+{
+	printCenteredMessage(XSize, YSize, "Y O U  M A D E  I T !"); 
+	sleep(2);
+	printCenteredMessage(XSize, YSize, "    T H E   E N D    "); 
+	sleep(2);
+}
+
+void finalScore(int XSize, int YSize, unsigned long points)
+{
+	char scoreString[22];
+	clrscr();
+	sprintf(scoreString, "SCORE:  %lu", points);
+	printCenteredMessage(XSize, YSize, scoreString);
+	sleep(3);
+}
+

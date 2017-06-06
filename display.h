@@ -33,5 +33,22 @@ void printPressKeyToStart(int XSize, int YSize);
 
 void deleteCenteredMessage(int XSize, int YSize);
 
+void printGameOver(int XSize, int YSize);
+
+void printVictoryMessage(int XSize, int YSize);
+
+void printDefeatMessage(int XSize, int YSize);
+
+void defeat(int XSize, int YSize);
+
+void victory(int XSize, int YSize);
+
+void printStartMessage(int XSize, int YSize);
+
+void gameCompleted(int XSize, int YSize);
+
+void finalScore(int XSize, int YSize, unsigned long points);
+
+
 #endif // _DISPLAY
 

@@ -289,7 +289,6 @@ void relocateCharacter(int XSize, int YSize, Character * characterPtr,
 }
 
 
-
 short innerWallReached(Character *characterPtr)
 {
 	return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
@@ -359,7 +358,7 @@ unsigned short drawInnerVerticalWallForLevel(int XSize,int YSize, unsigned short
 			innerVerticalLevel = YSize-4;
 		break;
 	}
-	drawInnerVerticalWall(XSize,YSize, innerVerticalLevel);
+	drawInnerVerticalWall(XSize,YSize, innerVerticalLevel, &innerVerticalWallX, &innerVerticalWallY);
 	return innerVerticalLevel;
 }
 
@@ -380,7 +379,6 @@ void fillLevelWithCharacters(int XSize, int YSize,
 	int b1x, b2x, b3x, b4x;
 	int b1y, b2y, b3y, b4y;
 
-	
 	// Ghosts
 	initializeCharacter(ghostPtr2,XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'O',1);
 	displayCharacter(ghostPtr2);
@@ -730,9 +728,9 @@ int computeInvincibleLoopTrigger()
 
 
 
-int main (void)
+int main(void)
 {
-    unsigned char XSize, YSize;
+    unsigned char XSize, YSize; // TODO: Make it global
 	#ifdef _KEYBOARD
 	char kbInput;
 	#endif // _KEYBOARD
@@ -837,7 +835,8 @@ int main (void)
 			{
 				ghostSlowDown = computeGhostSlowDown();
 				invincibleSlowDown = computeInvincibleSlowDown(loop);
-				drawInnerVerticalWall(XSize,YSize, innerVerticalWallLength);
+				drawInnerVerticalWall(XSize,YSize, innerVerticalWallLength, 
+				&innerVerticalWallX, &innerVerticalWallY);
 				
 				++loop;
 

@@ -87,8 +87,6 @@ int downGhosts(Character* characterPtr,
 int wallReached(Character *characterPtr);
 
 
-
-
 void die(Character * playerPtr);
 
 			int playerReached(Character * hunterPtr1, Character * hunterPtr2, Character * hunterPtr3, Character * hunterPtr4, 
@@ -106,7 +104,7 @@ int charactersMeet(Character * hunterPtr1, Character * hunterPtr2, Character * h
   
 void checkBombsVsGhost(Character * bombPtr1, Character * bombPtr2, 
 					   Character * bombPtr3, Character * bombPtr4,
-					   Character * ghostPtr, unsigned short * ghostCountPtr);
+					   Character * ghostPtr);
 						
 
 void checkBombsVsGhosts(Character * bombPtr1, Character * bombPtr2, 
@@ -114,8 +112,7 @@ void checkBombsVsGhosts(Character * bombPtr1, Character * bombPtr2,
 						Character * ghostPtr1, Character * ghostPtr2, 
 						Character * ghostPtr3, Character * ghostPtr4,
 						Character * ghostPtr5, Character * ghostPtr6, 
-						Character * ghostPtr7, Character * ghostPtr8,
-						unsigned short *ghostCountPtr);
+						Character * ghostPtr7, Character * ghostPtr8);
 
 
 int safeLocation(int x, int y, 
@@ -140,8 +137,7 @@ short nearInnerWall(Character *characterPtr);
 
 
 void checkGhostsVsGhosts(Character *ghostPtr1, Character *ghostPtr2, Character *ghostPtr3, Character *ghostPtr4,
-						 Character *ghostPtr5, Character *ghostPtr6, Character *ghostPtr7, Character *ghostPtr8,
-						 unsigned short *ghostCountPtr);
+						 Character *ghostPtr5, Character *ghostPtr6, Character *ghostPtr7, Character *ghostPtr8);
 
 
 #endif

@@ -161,8 +161,8 @@ int main(void)
 			drawBorders();
 			
 			// Initialize characters
-			innerVerticalWallLength = drawInnerVerticalWallForLevel(XSize,YSize,level);
-			fillLevelWithCharacters(XSize, YSize,
+			innerVerticalWallLength = drawInnerVerticalWallForLevel();
+			fillLevelWithCharacters(
 								 &player, &powerUp, 
 								 &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 								 &ghost_5, &ghost_6, &ghost_7, &ghost_8, 
@@ -176,7 +176,7 @@ int main(void)
 			{
 				ghostSlowDown = computeGhostSlowDown();
 				invincibleSlowDown = computeInvincibleSlowDown(loop);
-				drawInnerVerticalWall(XSize,YSize);
+				drawInnerVerticalWall();
 				
 				++loop;
 
@@ -253,10 +253,10 @@ int main(void)
 			
 				checkBombsVsGhosts(&bomb_1, &bomb_2, &bomb_3, &bomb_4, 
 								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-								   &ghost_5, &ghost_6, &ghost_7, &ghost_8, &ghostCount);
+								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
 				
 				checkGhostsVsGhosts(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-									&ghost_5, &ghost_6, &ghost_7, &ghost_8, &ghostCount);
+									&ghost_5, &ghost_6, &ghost_7, &ghost_8);
 
 				if(gun._status==1)
 				{

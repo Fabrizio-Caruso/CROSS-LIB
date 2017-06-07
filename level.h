@@ -1,10 +1,10 @@
 #include "character.h"
 
-void drawInnerVerticalWall(int XSize, int YSize);
+void drawInnerVerticalWall(void);
 
-unsigned short drawInnerVerticalWallForLevel(int XSize,int YSize, unsigned short level);
+unsigned short drawInnerVerticalWallForLevel(void);
 
-void fillLevelWithCharacters(int XSize, int YSize,
+void fillLevelWithCharacters(
 						  Character * playerPtr, Character * powerUpPtr, 
 						  Character * ghostPtr1, Character * ghostPtr2,
 						  Character * ghostPtr3, Character * ghostPtr4,

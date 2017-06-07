@@ -9,8 +9,11 @@ extern unsigned short innerVerticalWallX;
 extern unsigned short innerVerticalWallY;
 extern unsigned short innerVerticalWallLength;
 
-extern unsigned short XSize;
-extern unsigned short YSize;
+extern unsigned char XSize;
+extern unsigned char YSize;
+
+
+extern unsigned short ghostCount;
 
 void initializeCharacter(Character* characterPtr, int x, int y, char ch, short status)
 {
@@ -206,7 +209,7 @@ int charactersMeet(Character * hunterPtr1, Character * hunterPtr2, Character * h
 
 void checkBombsVsGhost(Character * bombPtr1, Character * bombPtr2, 
 					   Character * bombPtr3, Character * bombPtr4,
-					   Character * ghostPtr, unsigned short * ghostCountPtr)
+					   Character * ghostPtr)
 {
 	if(ghostPtr->_alive && playerReachedBombs(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr))
 	{
@@ -216,7 +219,7 @@ void checkBombsVsGhost(Character * bombPtr1, Character * bombPtr2,
 		ghostPtr->_status = 0;
 		ghostPtr->_ch = 'X';
 		points+=GHOST_VS_BOMBS_BONUS;
-		--(*ghostCountPtr);
+		--ghostCount;
 	}
 }
 						
@@ -226,17 +229,16 @@ void checkBombsVsGhosts(Character * bombPtr1, Character * bombPtr2,
 						Character * ghostPtr1, Character * ghostPtr2, 
 						Character * ghostPtr3, Character * ghostPtr4,
 						Character * ghostPtr5, Character * ghostPtr6, 
-						Character * ghostPtr7, Character * ghostPtr8,
-						unsigned short *ghostCountPtr)
+						Character * ghostPtr7, Character * ghostPtr8)
 {
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr1, ghostCountPtr);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr2, ghostCountPtr);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr3, ghostCountPtr);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr4, ghostCountPtr);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr5, ghostCountPtr);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr6, ghostCountPtr);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr7, ghostCountPtr);
-	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr8, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr1);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr2);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr3);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr4);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr5);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr6);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr7);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr8);
 }
 
 
@@ -303,55 +305,54 @@ short nearInnerWall(Character *characterPtr)
 
 
 void checkGhostsVsGhosts(Character *ghostPtr1, Character *ghostPtr2, Character *ghostPtr3, Character *ghostPtr4,
-						 Character *ghostPtr5, Character *ghostPtr6, Character *ghostPtr7, Character *ghostPtr8,
-						 unsigned short *ghostCountPtr)
+						 Character *ghostPtr5, Character *ghostPtr6, Character *ghostPtr7, Character *ghostPtr8)
 {
 	if(ghostPtr8->_alive && charactersMeet(ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8))
 	{
 		die(ghostPtr8);
 		points+=GHOST_VS_GHOST_BONUS;
-	    --(*ghostCountPtr);
+	    --ghostCount;
 	}
 	if(ghostPtr1->_alive && charactersMeet(ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1))
 	{
 		die(ghostPtr1);
 		points+=GHOST_VS_GHOST_BONUS;
-		--(*ghostCountPtr);
+		--ghostCount;
 	}
 	if(ghostPtr2->_alive && charactersMeet(ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2))
 	{
 		die(ghostPtr2);
 		points+=GHOST_VS_GHOST_BONUS;
-		--(*ghostCountPtr);
+		--ghostCount;
 	}
 	if(ghostPtr3->_alive && charactersMeet(ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3))
 	{
 		die(ghostPtr3);
 		points+=GHOST_VS_GHOST_BONUS;
-		--(*ghostCountPtr);
+		--ghostCount;
 	}
 	if(ghostPtr4->_alive && charactersMeet(ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4))
 	{
 		die(ghostPtr4);
 		points+=GHOST_VS_GHOST_BONUS;
-		--(*ghostCountPtr);
+		--ghostCount;
 	}
 	if(ghostPtr5->_alive && charactersMeet(ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5))
 	{
 		die(ghostPtr5);
 		points+=GHOST_VS_GHOST_BONUS;
-		--(*ghostCountPtr);
+		--ghostCount;
 	}
 	if(ghostPtr6->_alive && charactersMeet(ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6))
 	{
 		die(ghostPtr6);
 		points+=GHOST_VS_GHOST_BONUS;
-		--(*ghostCountPtr);
+		--ghostCount;
 	}
 	if(ghostPtr7->_alive && charactersMeet(ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7))
 	{
 		die(ghostPtr7);
 		points+=GHOST_VS_GHOST_BONUS;
-		--(*ghostCountPtr);
+		--ghostCount;
 	}
 }

@@ -8,8 +8,10 @@ extern unsigned short innerVerticalWallX;
 extern unsigned short innerVerticalWallY;
 extern unsigned short innerVerticalWallLength;
 extern unsigned short level;
+extern unsigned char XSize;
+extern unsigned char YSize;
 
-void drawInnerVerticalWall(int XSize, int YSize)
+void drawInnerVerticalWall(void)
 {
 	innerVerticalWallX = XSize / 2;
     innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
@@ -17,7 +19,7 @@ void drawInnerVerticalWall(int XSize, int YSize)
 }
 
 
-unsigned short drawInnerVerticalWallForLevel(int XSize,int YSize, unsigned short level)
+unsigned short drawInnerVerticalWallForLevel(void)
 {		
 	unsigned short innerVerticalLevel;
 	switch(level)
@@ -74,12 +76,12 @@ unsigned short drawInnerVerticalWallForLevel(int XSize,int YSize, unsigned short
 			innerVerticalLevel = YSize-4;
 		break;
 	}
-	drawInnerVerticalWall(XSize,YSize);
+	drawInnerVerticalWall();
 	return innerVerticalLevel;
 }
 
 
-void fillLevelWithCharacters(int XSize, int YSize,
+void fillLevelWithCharacters(
 						  Character * playerPtr, Character * powerUpPtr, 
 						  Character * ghostPtr1, Character * ghostPtr2,
 						  Character * ghostPtr3, Character * ghostPtr4,

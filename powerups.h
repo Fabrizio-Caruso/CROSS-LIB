@@ -4,7 +4,7 @@
 
 int powerUpReached(Character * hunterPtr, Character* preyPtr);
 
-void computePowerUp(int *coolDownDecreasePtr, int *powerUpInitialCoolDownPtr);
+void computePowerUp(unsigned int *coolDownDecreasePtr, unsigned int *powerUpInitialCoolDownPtr);
 
 int computeGunInitialCoolDown(void);
 

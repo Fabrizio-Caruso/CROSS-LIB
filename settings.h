@@ -7,11 +7,11 @@
 #define BORDER_COLOR COLOR_WHITE
 #define TEXT_COLOR COLOR_BLACK
 
-#define PLAYER_COLOR COLOR_BLUE
+#define PLAYER_COLOR COLOR_BLACK
 #define INVINCIBLE_ENEMY COLOR_RED
 
-#define POWER_UP_COLOR COLOR_BLUE
-#define GUN_COLOR COLOR_BLUE
+#define POWER_UP_COLOR COLOR_BLACK
+#define GUN_COLOR COLOR_BLACK
 
 
 // If two or more ghosts bump into eachother for each ghost
@@ -85,6 +85,5 @@
 #define LEFT 2
 #define UP 3
 
-#define _KEYBOARD 
 
 #endif // _SETTINGS

@@ -11,7 +11,7 @@ int powerUpReached(Character * hunterPtr, Character* preyPtr)
 }
 
 
-void computePowerUp(int *coolDownDecreasePtr, int *powerUpInitialCoolDownPtr)
+void computePowerUp(unsigned int *coolDownDecreasePtr, unsigned int *powerUpInitialCoolDownPtr)
 {
 	*coolDownDecreasePtr = 200-(level/2-1)*10;
 	*powerUpInitialCoolDownPtr = 200+(level/2-1)*10;

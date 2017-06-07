@@ -131,7 +131,7 @@ void fillLevelWithCharacters(
 	do
 	{
 		initializeCharacter(playerPtr,XSize/2+rand()%4-2,YSize/2+rand()%4-2,'*',1);
-	} while(innerWallReached(playerPtr));
+	} while(nearInnerWall(playerPtr));
 	SET_TEXT_COLOR(PLAYER_COLOR);
 	displayCharacter(playerPtr);
 	SET_TEXT_COLOR(TEXT_COLOR);
@@ -284,15 +284,18 @@ void fillLevelWithCharacters(
 							   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 							   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
 		initializeCharacter(powerUpPtr,powerUpPtr->_x,powerUpPtr->_y,'P',1);
-	} while(innerWallReached(powerUpPtr));
+	} while(nearInnerWall(powerUpPtr));
 	displayCharacter(powerUpPtr);
 		
     initializeCharacter(missilePtr, 0, 0, '.',0);
 	
-	initializeCharacter(gunPtr, XSize/2, YSize/2, '!', 0);
-	relocateCharacter(gunPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
-						  ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
-						   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	do
+	{
+		initializeCharacter(gunPtr, XSize/2, YSize/2, '!', 0);
+		relocateCharacter(gunPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+							  ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+							   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	} while(nearInnerWall(gunPtr));
 	
 	switch(corner)
 	{

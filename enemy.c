@@ -2,6 +2,7 @@
 
 extern unsigned int ghostLevel;
 extern unsigned short level;
+extern unsigned int ghostLevelDecrease;
 
 unsigned int computeGhostSlowDown(void)
 {
@@ -24,8 +25,8 @@ unsigned int computeGhostSlowDown(void)
 
 void decreaseGhostLevel(void)
 {
-	if(ghostLevel>level)
-		ghostLevel-=level;
+	if(ghostLevel>ghostLevelDecrease)
+		ghostLevel-=ghostLevelDecrease;
 	else
 		ghostLevel=0;
 }

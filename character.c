@@ -319,7 +319,8 @@ short innerWallReached(Character *characterPtr)
 
 short nearInnerWall(Character *characterPtr)
 {
-	return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
+	return (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
+		   (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
 }
 
 

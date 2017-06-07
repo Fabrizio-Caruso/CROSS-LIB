@@ -36,7 +36,13 @@ unsigned short invincibleYCountDown = 100;
 
 unsigned int ghostSlowDown;
 unsigned int powerUpCoolDown;
+	
+unsigned int gunInitialCoolDown;
 unsigned int gunCoolDown;
+
+unsigned int ghostLevelDecrease = 100;
+unsigned int powerUpInitialCoolDown = 100; 
+
 unsigned int ghostLevel = 1u;
 unsigned long points = 0ul;
 unsigned char ghostSmartness = 1u; // 9u is max = impossible 
@@ -75,9 +81,9 @@ unsigned int loop;
 
 int main(void)
 {
-	#ifdef _KEYBOARD
+	#ifndef __PLUS4__
 	char kbInput;
-	#endif // _KEYBOARD
+	#endif // __PLUS4__
 	
 	unsigned char joyInput;
 	
@@ -103,7 +109,7 @@ int main(void)
 	
 	Character missile;
 		
-	int ghostLevelDecrease, powerUpInitialCoolDown, gunInitialCoolDown;
+
 	unsigned char Err = joy_load_driver (joy_stddrv);
 			
 	joy_install (joy_static_stddrv);	
@@ -124,7 +130,11 @@ int main(void)
 		CLEAR_SCREEN();
 					
 		printStartMessage();
-		while(!kbhit() && !joy_read(JOY_1))
+		while(!kbhit() 				
+		#ifndef __PLUS4__	
+		&& !joy_read(JOY_1)
+		#endif //__PLUS4__
+		)
 		{}
 		CLEAR_SCREEN();
 				
@@ -136,7 +146,11 @@ int main(void)
 			loop = 0;
 			ghostLevel = 1u;
 			ghostSmartness = computeGhostSmartness();
-			computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
+			
+			//computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
+			ghostLevelDecrease = 200-(level/2-1)*10;
+			powerUpInitialCoolDown = 200+(level/2-1)*10;
+			
 			gunInitialCoolDown = computeGunInitialCoolDown();
 			invincibleXCountDown = computeInvincibleCountDown();
 			invincibleYCountDown = computeInvincibleCountDown();
@@ -156,7 +170,11 @@ int main(void)
 			
 			/* Wait for the user to press a key */
 			printPressKeyToStart();
-			while(!kbhit() && !joy_read(JOY_1))
+			while(!kbhit() 				
+			#ifndef __PLUS4__	
+			&& !joy_read(JOY_1)
+			#endif //__PLUS4__
+			)
 			{}
 			deleteCenteredMessage();
 			
@@ -183,13 +201,13 @@ int main(void)
 				
 				++loop;
 
-#ifdef _KEYBOARD
+#ifndef __PLUS4__
 				if(kbhit())
 				{		
 					kbInput = cgetc();
 					movePlayer(&player, kbInput);
 				}
-#endif // _KEYBOARD
+#endif // __PLUS4__
 				//else
 				{
 					joyInput = joy_read (JOY_1);
@@ -297,7 +315,7 @@ int main(void)
 				{
 					if(powerUpReached(&player, &powerUp))
 					{
-						decreaseGhostLevel();	
+						decreaseGhostLevel(); 
 						points+=POWER_UP_BONUS;
 						powerUp._status = 0;	
 						powerUpCoolDown = powerUpInitialCoolDown;

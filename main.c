@@ -68,7 +68,10 @@ unsigned int invincibleLoopTrigger = 1000;
 unsigned short ghostCount = 8;
 unsigned short invincibleGhostCountTrigger = 2;
 
-unsigned char XSize, YSize;
+unsigned char XSize;
+unsigned char YSize;
+
+unsigned int loop;
 
 int main(void)
 {
@@ -100,7 +103,7 @@ int main(void)
 	
 	Character missile;
 		
-	int loop, ghostLevelDecrease, powerUpInitialCoolDown, gunInitialCoolDown;
+	int ghostLevelDecrease, powerUpInitialCoolDown, gunInitialCoolDown;
 	unsigned char Err = joy_load_driver (joy_stddrv);
 			
 	joy_install (joy_static_stddrv);	
@@ -137,7 +140,7 @@ int main(void)
 			gunInitialCoolDown = computeGunInitialCoolDown();
 			invincibleXCountDown = computeInvincibleCountDown();
 			invincibleYCountDown = computeInvincibleCountDown();
-			invincibleSlowDown = computeInvincibleSlowDown(loop);
+			invincibleSlowDown = computeInvincibleSlowDown();
 			invincibleGhostCountTrigger = computeInvincibleGhostCountTrigger();
 			invincibleLoopTrigger = computeInvincibleLoopTrigger();
 			ghostCount = 8;
@@ -175,7 +178,7 @@ int main(void)
 			while(player._alive && ghostCount>0)
 			{
 				ghostSlowDown = computeGhostSlowDown();
-				invincibleSlowDown = computeInvincibleSlowDown(loop);
+				invincibleSlowDown = computeInvincibleSlowDown();
 				drawInnerVerticalWall();
 				
 				++loop;
@@ -203,7 +206,7 @@ int main(void)
 					displayCharacter(&missile);					
 					checkMissileVsGhosts(&missile, 
 						&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-						&ghost_5, &ghost_6, &ghost_7, &ghost_8, &points, &ghostCount);
+						&ghost_5, &ghost_6, &ghost_7, &ghost_8);
 					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 						{
 							//missile._status = 0; missile._alive = 0;
@@ -218,7 +221,7 @@ int main(void)
 					// TODO: Inefficient
 					checkMissileVsGhosts(&missile, 
 						&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-						&ghost_5, &ghost_6, &ghost_7, &ghost_8, &points, &ghostCount);
+						&ghost_5, &ghost_6, &ghost_7, &ghost_8);
 					
 					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 					{
@@ -232,7 +235,7 @@ int main(void)
 				chasePlayer(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 							&ghost_5, &ghost_6, &ghost_7, &ghost_8, &player, 
 							&bomb_1, &bomb_2, &bomb_3, &bomb_4, 
-							ghostSmartness, ghostSlowDown, ghostCount, level);
+							ghostSmartness, ghostSlowDown);
 					
 				
 				if(playerReached(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
@@ -346,8 +349,7 @@ int main(void)
 				}
 				if(invincibleGhost._status)
 				{
-					blindChaseCharacterMaxStrategy(&invincibleGhost, &player, 
-												   invincibleSlowDown, level);
+					blindChaseCharacterMaxStrategy(&invincibleGhost, &player);
 					if(areCharctersAtSamePosition(&invincibleGhost, &player))
 					{
 						die(&player);

@@ -5,23 +5,19 @@ extern unsigned short level;
 
 unsigned int computeGhostSlowDown(void)
 {
-   if(ghostLevel<10)
-   {
-	   return 32000-level*200;
-   }
-   else if(ghostLevel<500)
-   {
+	if(ghostLevel<500)
+	{
 	   return 32000-ghostLevel*10-level*200;
-   }
-   else if(ghostLevel<900)
-   {
+	}
+	else if(ghostLevel<1000)
+	{
 	   return 32000-ghostLevel*15-level*200;
-   }
-   else if(ghostLevel<1000)
-   {
+	}
+	else if(ghostLevel<1200)
+	{
 	   return 32000-ghostLevel*20-level*200;
-   }
-   else
+	}
+	else
 	   return 0; // You must die!
 }
 

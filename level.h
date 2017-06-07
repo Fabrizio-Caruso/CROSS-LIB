@@ -1,3 +1,7 @@
+#ifndef _LEVEL
+#define _LEVEL
+
+
 #include "character.h"
 
 void drawInnerVerticalWall(void);
@@ -14,3 +18,6 @@ void fillLevelWithCharacters(
 						  Character * bombPtr3, Character * bombPtr4,
 						  Character * invincibleGhostPtr, 
 						  Character * missilePtr, Character * gunPtr);
+
+						  
+#endif // _LEVEL

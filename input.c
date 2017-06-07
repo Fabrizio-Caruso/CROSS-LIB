@@ -49,15 +49,15 @@ void movePlayer(Character *playerPtr, char kbInput)
 	{
 		playerFire = 1;
 	}
-	/*
-	else if((kbInput=='L') || (kbInput=='l'))
+	#ifdef _TRAINER
+	else if((kbInput=='Z') || (kbInput=='z'))
 	{
 		ghostCount = 0;
 		playerPtr->_ch = 'Z';
 		displayCharacter(playerPtr);
 		sleep(1);
 	}
-	*/
+	#endif // TRAINER
 	displayCharacter(playerPtr);
 }
 

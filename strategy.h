@@ -16,10 +16,9 @@ void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
 					
 void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
 
-void blindChaseCharacterMaxStrategy(Character* hunterPtr, Character* preyPtr, 
-                                    int invincibleSlowDown, int level);
+void blindChaseCharacterMaxStrategy(Character* hunterPtr, Character* preyPtr);
 
-void blindChaseCharacter(Character* hunterPtr, Character* preyPtr, int invincibleSlowDown);
+void blindChaseCharacter(Character* hunterPtr, Character* preyPtr);
 
 
 
@@ -36,8 +35,6 @@ void chaseCharacterYAvoidBombStrategy(Character* hunterPtr, Character* preyPtr,
 					Character* ghostPtr1, Character *ghostPtr2, Character* ghostPtr3, Character *ghostPtr4,
 					Character* ghostPtr5, Character *ghostPtr6, Character* ghostPtr7);
 					
-
-
 
 void chaseCharacterXYStrategy(Character* hunterPtr, Character* preyPtr, 
                     Character* bombPtr1, Character* bombPtr2,
@@ -117,7 +114,6 @@ void chasePlayer(Character * ghostPtr1, Character * ghostPtr2,
                  Character* preyPtr, 
                  Character* bombPtr1, Character* bombPtr2,
 				 Character* bombPtr3, Character* bombPtr4,
-				 int ghostSmartness, int ghostSlowDown, int ghostCount, int level
-				 );
+				 int ghostSmartness, int ghostSlowDown);
 
 #endif // _STRATEGY

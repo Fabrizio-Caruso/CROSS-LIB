@@ -84,7 +84,7 @@ void displayStats(void)
 	gotoxy(16,2);
 	cputs("    ");
 	gotoxy(16,2);
-	cprintf("%u",ghostCount);
+	cprintf("%hu",ghostCount);
 
 	/*
 	// Draw level 

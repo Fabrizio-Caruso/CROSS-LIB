@@ -1,8 +1,12 @@
 
-
 #include "settings.h"
 #include "character.h"
 #include "strategy.h"
+
+
+extern unsigned short level;
+extern unsigned short ghostCount;
+extern unsigned int invincibleSlowDown;
 
 void chaseCharacterXAvoidBombStrategy(Character* hunterPtr, Character* preyPtr, 
                     Character* bombPtr1, Character* bombPtr2,
@@ -130,38 +134,6 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 	displayCharacter(hunterPtr);
 }
 
-void blindChaseCharacterMaxStrategy(Character* hunterPtr, Character* preyPtr, 
-									int invincibleSlowDown, int level)
-{
-	short deltaX = abs(hunterPtr->_x - preyPtr->_x);
-	short deltaY = abs(hunterPtr->_y - preyPtr->_y);
-	
-    if(rand()>invincibleSlowDown)
-        {
-			if(level>NASTY_INVINCIBLE_START_LEVEL)
-			{
-				if(deltaX<deltaY) // Always on the 
-				{
-					blindChaseCharacterXStrategy(hunterPtr, preyPtr);
-				}
-				else
-				{
-					blindChaseCharacterYStrategy(hunterPtr, preyPtr);
-				}
-			}
-			else
-			{
-				if(rand()%2)
-				{
-					blindChaseCharacterXStrategy(hunterPtr, preyPtr);
-				}
-				else
-				{
-					blindChaseCharacterYStrategy(hunterPtr, preyPtr);
-				}	
-			}
-		}
-}
 
 
 void chaseCharacterXYStrategy(Character* hunterPtr, Character* preyPtr, 
@@ -309,23 +281,6 @@ void chaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr,
 }
 
 
-void blindChaseCharacter(Character* hunterPtr, Character* preyPtr, int invincibleSlowDown)
-{
-	if((hunterPtr->_status==1) && (hunterPtr->_alive==1))
-	{
-		if(rand()>invincibleSlowDown)
-		{
-			if(rand()%2) // Select chase strategy
-			{
-				blindChaseCharacterXStrategy(hunterPtr, preyPtr);
-			}
-			else
-			{
-				blindChaseCharacterYStrategy(hunterPtr, preyPtr);
-			}
-		}
-	}
-}
 
 
 void chaseCharacterXStrategyIf(Character* ghostPtr1, Character* preyPtr, 
@@ -447,7 +402,7 @@ void chasePlayer(Character * ghostPtr1, Character * ghostPtr2,
                  Character* preyPtr, 
                  Character* bombPtr1, Character* bombPtr2,
 				 Character* bombPtr3, Character* bombPtr4,
-				 int ghostSmartness, int ghostSlowDown, int ghostCount, int level)
+				 int ghostSmartness, int ghostSlowDown)
 {
 	if(level>=MAX_STRATEGY_START_LEVEL)
 	{
@@ -562,5 +517,58 @@ void chasePlayer(Character * ghostPtr1, Character * ghostPtr2,
 				
 
 	} // END OF NON-HARD COLLECTIVE STRATEGIES
+}
+
+
+// CHASING STRATEGIES FOR THE INVINCIBLE ENEMY
+
+void blindChaseCharacterMaxStrategy(Character* hunterPtr, Character* preyPtr)
+{
+	short deltaX = abs(hunterPtr->_x - preyPtr->_x);
+	short deltaY = abs(hunterPtr->_y - preyPtr->_y);
+	
+    if(rand()>invincibleSlowDown)
+        {
+			if(level>NASTY_INVINCIBLE_START_LEVEL)
+			{
+				if(deltaX<deltaY) // Always on the 
+				{
+					blindChaseCharacterXStrategy(hunterPtr, preyPtr);
+				}
+				else
+				{
+					blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+				}
+			}
+			else
+			{
+				if(rand()%2)
+				{
+					blindChaseCharacterXStrategy(hunterPtr, preyPtr);
+				}
+				else
+				{
+					blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+				}	
+			}
+		}
+}
+
+void blindChaseCharacter(Character* hunterPtr, Character* preyPtr)
+{
+	if((hunterPtr->_status==1) && (hunterPtr->_alive==1))
+	{
+		if(rand()>invincibleSlowDown)
+		{
+			if(rand()%2) // Select chase strategy
+			{
+				blindChaseCharacterXStrategy(hunterPtr, preyPtr);
+			}
+			else
+			{
+				blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+			}
+		}
+	}
 }
 

@@ -2,8 +2,9 @@
 #include "invincible_enemy.h"
 
 extern unsigned short level;
+extern unsigned int loop;
 
-int computeInvincibleSlowDown(int loop)
+int computeInvincibleSlowDown(void)
 {
 	if(loop<1000)
 	{

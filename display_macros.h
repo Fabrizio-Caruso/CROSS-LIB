@@ -3,7 +3,7 @@
 
 #include <conio.h>
 
-#define DRAW(x,y,ch) gotoxy(x,y); cputc(ch); 
+#define DRAW(x,y,ch) {gotoxy((x),(y)); cputc(ch);};
 
 #define PRINT(x,y,str) gotoxy(x,y); cputs(str); 
 

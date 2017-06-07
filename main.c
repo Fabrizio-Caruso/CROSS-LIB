@@ -109,7 +109,6 @@ int main(void)
 	
 	Character missile;
 		
-
 	unsigned char Err = joy_load_driver (joy_stddrv);
 			
 	joy_install (joy_static_stddrv);	
@@ -147,9 +146,7 @@ int main(void)
 			ghostLevel = 1u;
 			ghostSmartness = computeGhostSmartness();
 			
-			//computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
-			ghostLevelDecrease = 200-(level/2-1)*10;
-			powerUpInitialCoolDown = 200+(level/2-1)*10;
+			computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
 			
 			gunInitialCoolDown = computeGunInitialCoolDown();
 			invincibleXCountDown = computeInvincibleCountDown();

@@ -145,7 +145,9 @@ void printStartMessage(void)
 	PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by Fabrizio Caruso");
 	SET_TEXT_COLOR(TEXT_COLOR);
 
+	#ifndef __PLUS4__
 	SET_TEXT_COLOR(COLOR_BLUE);
+	#endif // __PLUS4__
 	PRINT((XSize - 22) / 2, YSize / 2 - 3, "You * are chased by O");
 	
 	PRINT((XSize - 22) / 2, YSize / 2 - 2, "Force O into X");

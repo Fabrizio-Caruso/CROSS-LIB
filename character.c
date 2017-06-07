@@ -54,21 +54,28 @@ void displayDeadGhosts(Character * ghostPtr1, Character * ghostPtr2,
 						Character * ghostPtr7, Character * ghostPtr8)
 {
 	SET_TEXT_COLOR(COLOR_RED);
-	if(!ghostPtr1->_alive)
+	if(!(ghostPtr1->_alive))
 		DRAW(ghostPtr1->_x,ghostPtr1->_y,'X');
-	if(!ghostPtr2->_alive)
+	
+	if(!(ghostPtr2->_alive))
 		DRAW(ghostPtr2->_x,ghostPtr2->_y,'X');
-	if(!ghostPtr3->_alive)
+	
+	if(!(ghostPtr3->_alive))
 		DRAW(ghostPtr3->_x,ghostPtr3->_y,'X');
-	if(!ghostPtr4->_alive)
+	
+	if(!(ghostPtr4->_alive))
 		DRAW(ghostPtr4->_x,ghostPtr4->_y,'X');
-	if(!ghostPtr5->_alive)
+	
+	if(!(ghostPtr5->_alive))
 		DRAW(ghostPtr5->_x,ghostPtr5->_y,'X');
-	if(!ghostPtr6->_alive)
+	
+	if(!(ghostPtr6->_alive))
 		DRAW(ghostPtr6->_x,ghostPtr6->_y,'X');
-	if(!ghostPtr7->_alive)
+
+	if(!(ghostPtr7->_alive))
 		DRAW(ghostPtr7->_x,ghostPtr7->_y,'X');
-	if(!ghostPtr8->_alive)
+
+	if(!(ghostPtr8->_alive))
 		DRAW(ghostPtr8->_x,ghostPtr8->_y,'X');
 	SET_TEXT_COLOR(TEXT_COLOR);
 }

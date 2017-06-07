@@ -2,6 +2,9 @@
 #include "settings.h"
 
 #include <stdlib.h>
+
+#include "display_macros.h"
+
 #include "level.h"
 
 extern unsigned short innerVerticalWallX;
@@ -15,7 +18,7 @@ void drawInnerVerticalWall(void)
 {
 	innerVerticalWallX = XSize / 2;
     innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
-	cvlinexy (XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
+	DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
 }
 
 

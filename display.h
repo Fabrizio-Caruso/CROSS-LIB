@@ -7,8 +7,6 @@
 
 #include <stdio.h>
 
-#include <conio.h>
-
 #include <unistd.h>
 
 #include <time.h>

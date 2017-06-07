@@ -9,7 +9,6 @@ void checkMissileVsGhost(Character * missilePtr,
 	if(ghostPtr->_alive && 
 	areCharctersAtSamePosition(missilePtr, ghostPtr))
 	{
-		gotoxy(ghostPtr->_x,ghostPtr->_y);
 		die(ghostPtr); 
 		points+=GHOST_VS_MISSILE;
 		--ghostCount;

@@ -2,6 +2,8 @@
 #define _SETTINGS
 
 #include <stdlib.h>
+
+
 // If two or more ghosts bump into eachother for each ghost
 #define GHOST_VS_GHOST_BONUS 1500ul
 

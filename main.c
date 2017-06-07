@@ -11,8 +11,6 @@
 
 #include <stdio.h>
 
-#include <conio.h>
-
 #include <unistd.h>
 
 #include <time.h>
@@ -28,6 +26,8 @@
 #include "enemy.h"
 #include "invincible_enemy.h"
 #include "powerups.h"
+
+#include "display_macros.h"
 
 unsigned int invincibleSlowDown = 30000;
 
@@ -121,12 +121,12 @@ int main(void)
 		// Set Screen Colors
 		setScreenColors();			
 		
-		clrscr ();
+		CLEAR_SCREEN();
 					
 		printStartMessage();
 		while(!kbhit() && !joy_read(JOY_1))
 		{}
-		clrscr ();
+		CLEAR_SCREEN();
 				
 		deleteCenteredMessage();
 		
@@ -149,7 +149,7 @@ int main(void)
 			gunCoolDown = gunInitialCoolDown;
 			
 			/* Clear the screen, put cursor in upper left corner */
-			clrscr ();
+			CLEAR_SCREEN();
 
 			printLevel();
 			sleep(2);
@@ -373,7 +373,7 @@ int main(void)
 			
 			if(player._alive)
 			{
-				clrscr();
+				CLEAR_SCREEN();
 				printLevelBonus();
 								
 				sleep(1);
@@ -401,7 +401,7 @@ int main(void)
 	// GAME OVER	
 	printGameOver();
 	sleep(1);
-	clrscr ();
+	CLEAR_SCREEN();
 	}
 
 	return EXIT_SUCCESS;

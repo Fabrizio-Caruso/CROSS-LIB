@@ -1,8 +1,11 @@
 #include <stdlib.h>
 
+
+
 #include "character.h"
 #include "settings.h"
 
+#include "display_macros.h"
 
 extern unsigned long points;
 extern unsigned short innerVerticalWallX;
@@ -14,6 +17,8 @@ extern unsigned char YSize;
 
 
 extern unsigned short ghostCount;
+
+//extern void DRAW(int x, int y, char ch);
 
 void initializeCharacter(Character* characterPtr, int x, int y, char ch, short status)
 {
@@ -37,14 +42,12 @@ void setCharacterDisplay(Character* characterPtr, char ch)
 
 void deleteCharacter(Character* characterPtr)
 {
-	gotoxy(characterPtr->_x,characterPtr->_y);
-	cputc(' ');
+	DRAW(characterPtr->_x,characterPtr->_y,' ');
 }
 
 void displayCharacter(Character* characterPtr)
 {
-	gotoxy(characterPtr->_x,characterPtr->_y);
-	cputc(characterPtr->_ch);
+	DRAW(characterPtr->_x, characterPtr->_y, characterPtr->_ch);
 }
 
 int isCharacterAtLocation(short x, short y, Character * characterPtr)
@@ -167,16 +170,11 @@ int wallReached(Character *characterPtr)
 
 void die(Character * playerPtr)
 {
-	gotoxy(playerPtr->_x,playerPtr->_y);
-	cputc('X');
+	DRAW(playerPtr->_x,playerPtr->_y,'X');
 	playerPtr->_status = 0;
 	playerPtr->_alive = 0;
 	playerPtr->_ch = 'X';
 }
-
-
-
-
 
 int playerReached(Character * hunterPtr1, Character * hunterPtr2, Character * hunterPtr3, Character * hunterPtr4, 
 				  Character * hunterPtr5, Character * hunterPtr6, Character * hunterPtr7, Character * hunterPtr8, 
@@ -213,8 +211,7 @@ void checkBombsVsGhost(Character * bombPtr1, Character * bombPtr2,
 {
 	if(ghostPtr->_alive && playerReachedBombs(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr))
 	{
-		gotoxy(ghostPtr->_x,ghostPtr->_y);
-		cputc('X');
+		DRAW(ghostPtr->_x,ghostPtr->_y,'X');
 		ghostPtr->_alive = 0;
 		ghostPtr->_status = 0;
 		ghostPtr->_ch = 'X';

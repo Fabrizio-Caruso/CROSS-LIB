@@ -1,6 +1,8 @@
 
 #include "display.h"
 
+#include "display_macros.h"
+
 extern unsigned short level;
 extern unsigned char XSize;
 extern unsigned char YSize;
@@ -15,134 +17,62 @@ extern unsigned int ghostLevel;
 
 void displayStatsTitles(void)
 {
-	// Draw score 
-	gotoxy(2,1);
-	cputs("SPEED:");
+	PRINT(2,1,"SPEED:");
 
-	// Draw bullets 
-	gotoxy(14,1);
-	cputs("!:");
-	
-	// Draw score 
-	gotoxy(2,2);
-	cputs("SCORE:");
-	
-	// Draw ghost count
-	gotoxy(14,2);
-	cputs("O:");
-	
-	// Draw level 
-	gotoxy(2,3);
-	cputs("LEVEL:");
+	PRINT(14,1,"!:");
 
-	// Draw lives
-	gotoxy(14,3);
-	cputs("*:");	
+	PRINT(2,2,"SCORE:");
+	
+	PRINT(14,2,"O:");
+
+	PRINT(2,3,"LEVEL:");
+
+	PRINT(14,3,"*:");
 }
 
 
 
 void displayStats(void)
-{
-	/*
-	// Draw score 
-	gotoxy(2,1);
-	cputs("SPEED:");
-	*/
-	
-	gotoxy(8,1);
-	cputs("      ");
-	gotoxy(8,1);
-	cprintf("%u",ghostLevel);
+{	
+	PRINT(8,1,"      ");
 
-	/*
-	// Draw bullets 
-	gotoxy(14,1);
-	cputs("!:");
-	*/
-	
-	gotoxy(16,1);
-	gotoxy(16,1);
-	cprintf("%hu", guns);
+	PRINTF(8,1,"%u",ghostLevel);
 
-	/*
-	// Draw score 
-	gotoxy(2,2);
-	cputs("SCORE:");
-	*/
-	
-	gotoxy(8,2);
-	gotoxy(8,2);
-	cprintf("%lu",points);
+	PRINTF(16,1,"%hu", guns);
 
-	/*
-	// Draw ghost count
-	gotoxy(14,2);
-	cputs("O:");
-	*/
-	
-	gotoxy(16,2);
-	cputs("    ");
-	gotoxy(16,2);
-	cprintf("%hu",ghostCount);
+	PRINTF(8,2,"%lu",points);
 
-	/*
-	// Draw level 
-	gotoxy(2,3);
-	cputs("LEVEL:");
-	*/
-	
-	gotoxy(8,3);
-	gotoxy(8,3);
-	cprintf("%hu", level);
+	PRINT(16,2,"    ");
 
-	/*
-	// Draw lives
-	gotoxy(14,3);
-	cputs("*:");
-	*/
+	PRINTF(16,2,"%hu",ghostCount);
+
+	PRINTF(8,3,"%hu", level);
 	
-	gotoxy(16,3);
-	gotoxy(16,3);
-	cprintf("%hu",lives);
+	PRINTF(16,3,"%hu",lives);
 }
 
 
 
 void drawBorders(void)
 {
-	/* Clear the screen, put cursor in upper left corner */
-    clrscr ();
+	CLEAR_SCREEN();
 	
-	/* Top line */
-    cputc (CH_ULCORNER);
-    chline (XSize - 2);
-    cputc (CH_URCORNER);
-
-    /* Vertical line, left side */
-    cvlinexy (0, 1, YSize - 2);
-
-    /* Bottom line */
-    cputc (CH_LLCORNER);
-    chline (XSize - 2);
-    cputc (CH_LRCORNER);
-
-    /* Vertical line, right side */
-    cvlinexy (XSize - 1, 1, YSize - 2);
+	DRAW_BORDERS();
 }
 
 void setScreenColors(void)
 {
-    (void) textcolor (COLOR_WHITE);
-    (void) bordercolor (COLOR_BLACK);
-    (void) bgcolor (COLOR_BLACK);
+	SET_TEXT_COLOR(COLOR_WHITE);
+	
+	SET_BORDER_COLOR(COLOR_BLACK);
+	
+	SET_BACKGROUND_COLOR(COLOR_BLACK);
 }
 
 
 void printCenteredMessage(char *Text)
 {
-	gotoxy ((XSize - strlen (Text)) / 2, YSize / 2);
-    cprintf ("%s", Text);
+	PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text);
 }
 
 void printLevel(void)
@@ -171,8 +101,7 @@ void printPressKeyToStart(void)
 
 void deleteCenteredMessage(void)
 {
-	gotoxy ((XSize - 22) / 2, YSize / 2);
-    cputs( "                      ");
+	PRINT((XSize - 22) / 2, YSize / 2, "                      ");
 }
 
 
@@ -206,47 +135,23 @@ void victory(void)
 
 void printStartMessage(void)
 {
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 9);
-	cprintf ("%s", "A S C I I   C H A S E");
+	PRINT((XSize - 22) / 2, YSize / 2 - 9, "A S C I I   C H A S E");
 	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 7);
-	cprintf ("%s", "by Fabrizio Caruso");
+	PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by Fabrizio Caruso");
 	
-	/*
-	gotoxy ((XSize - 9) / 2, YSize / 2 - 4);
-	cprintf ("%s", "GAME PLAY");
-	*/
+	PRINT((XSize - 22) / 2, YSize / 2 - 3, "You * are chased by O");
 	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 3);
-	cprintf ("%s", "You * are chased by O");
+	PRINT((XSize - 22) / 2, YSize / 2 - 2, "Force O into X");
 	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 2);
-	cprintf ("%s", "Force O into X");
+	PRINT((XSize - 22) / 2, YSize / 2 - 1, "Take P to slow O down");
 	
-	gotoxy ((XSize - 22) / 2, YSize / 2 - 1);	
-	cprintf ("%s", "Take P to slow O down");
+	PRINT((XSize - 22) / 2, YSize / 2, "Catch ! for bullets!");
 	
+	PRINT((XSize - 22) / 2, YSize / 2 + 1, "Flee from +!");
 	
-	gotoxy ((XSize - 22) / 2, YSize / 2);
-	cprintf ("%s", "Catch ! for bullets!");
-	
-	gotoxy ((XSize - 22) / 2, YSize / 2 +1);
-	cprintf ("%s", "Flee from +!");
-	
-/*	
-	gotoxy ((XSize - 4) / 2, YSize / 2 + 3);
-	cprintf ("%s", "KEYS");
-	*/
-	gotoxy ((XSize - 22) / 2, YSize / 2 + 4);
-	cprintf ("%s", "Use Joystick in Port 1");
+	PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use Joystick in Port 1");
 
-/*	
-	gotoxy ((XSize - 22) / 2, YSize / 2 + 5);
-	cprintf("%s",  "and shoot with SPACE");
-*/
-
-	gotoxy ((XSize - 22) / 2, YSize / 2 + 8);
-	cprintf("%s",  "PRESS ANY KEY TO START");
+	PRINT((XSize - 22) / 2, YSize / 2 + 8, "PRESS ANY KEY TO START");
 }
 
 void gameCompleted(void)

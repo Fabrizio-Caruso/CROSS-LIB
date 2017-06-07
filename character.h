@@ -1,8 +1,6 @@
 #ifndef _CHARACTER
 #define _CHARACTER
 
-#include <conio.h>
-
 struct CharacterStruct
 {
 	// character coordinates

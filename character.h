@@ -84,7 +84,7 @@ int downGhosts(Character* characterPtr,
               Character* ghostPtr5,  Character* ghostPtr6, 
               Character* ghostPtr7);
 
-int wallReached(int XSize, int YSize, Character *characterPtr);
+int wallReached(Character *characterPtr);
 
 
 
@@ -126,7 +126,7 @@ int safeLocation(int x, int y,
 				Character * ghostPtr5, Character * ghostPtr6, 
 				Character * ghostPtr7, Character * ghostPtr8);
 
-void relocateCharacter(int XSize, int YSize, Character * characterPtr, 
+void relocateCharacter(Character * characterPtr, 
 						Character * bombPtr1, Character * bombPtr2, 
 						Character * bombPtr3, Character * bombPtr4,
 						Character * ghostPtr1, Character * ghostPtr2, 

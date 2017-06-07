@@ -9,6 +9,9 @@ extern unsigned short innerVerticalWallX;
 extern unsigned short innerVerticalWallY;
 extern unsigned short innerVerticalWallLength;
 
+extern unsigned short XSize;
+extern unsigned short YSize;
+
 void initializeCharacter(Character* characterPtr, int x, int y, char ch, short status)
 {
 	characterPtr->_x = x;
@@ -153,7 +156,7 @@ int downGhosts(Character* characterPtr,
 		   downDanger(characterPtr, ghostPtr7);
 }
 
-int wallReached(int XSize, int YSize, Character *characterPtr)
+int wallReached(Character *characterPtr)
 {
 	return (characterPtr->_x==0)||(characterPtr->_x==XSize-1) || 
 		   (characterPtr->_y==0)||(characterPtr->_y==YSize-1);
@@ -254,7 +257,7 @@ int safeLocation(int x, int y,
 }
 
 
-void relocateCharacter(int XSize, int YSize, Character * characterPtr, 
+void relocateCharacter(Character * characterPtr, 
 						Character * bombPtr1, Character * bombPtr2, 
 						Character * bombPtr3, Character * bombPtr4,
 						Character * ghostPtr1, Character * ghostPtr2, 

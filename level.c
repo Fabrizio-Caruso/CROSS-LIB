@@ -219,12 +219,12 @@ void fillLevelWithCharacters(int XSize, int YSize,
 				b3y = YSize/2+5;
 			}
 			initializeCharacter(bombPtr1,b1x, b1y,'X',0);
-			relocateCharacter(XSize, YSize, bombPtr1, playerPtr, ghostPtr1, ghostPtr1, ghostPtr1, 
+			relocateCharacter(bombPtr1, playerPtr, ghostPtr1, ghostPtr1, ghostPtr1, 
 							   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 							   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
 			
 			initializeCharacter(bombPtr3,b3x, b3y,'X',0);
-			relocateCharacter(XSize, YSize, bombPtr3, playerPtr, bombPtr1, ghostPtr1, ghostPtr1, 
+			relocateCharacter(bombPtr3, playerPtr, bombPtr1, ghostPtr1, ghostPtr1, 
 							ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 							ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
 
@@ -252,12 +252,12 @@ void fillLevelWithCharacters(int XSize, int YSize,
 					b4y = YSize/2-5;
 				}
 				initializeCharacter(bombPtr2,b2x, b2y,'X',0);
-				relocateCharacter(XSize, YSize, bombPtr2, playerPtr, bombPtr1, bombPtr3, ghostPtr1, 
+				relocateCharacter(bombPtr2, playerPtr, bombPtr1, bombPtr3, ghostPtr1, 
 								   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 								   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
 				
 				initializeCharacter(bombPtr4,b4x, b4y,'X',0);
-				relocateCharacter(XSize, YSize, bombPtr4, playerPtr, bombPtr1, bombPtr2, bombPtr3, 
+				relocateCharacter(bombPtr4, playerPtr, bombPtr1, bombPtr2, bombPtr3, 
 				ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 				ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
 			}
@@ -273,7 +273,7 @@ void fillLevelWithCharacters(int XSize, int YSize,
 	{
 		// Power-ups
 		initializeCharacter(powerUpPtr,XSize/2,YSize/2,'P',1);
-		relocateCharacter(XSize, YSize, powerUpPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+		relocateCharacter(powerUpPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
 							   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 							   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
 		initializeCharacter(powerUpPtr,powerUpPtr->_x,powerUpPtr->_y,'P',1);
@@ -283,7 +283,7 @@ void fillLevelWithCharacters(int XSize, int YSize,
     initializeCharacter(missilePtr, 0, 0, '.',0);
 	
 	initializeCharacter(gunPtr, XSize/2, YSize/2, '!', 0);
-	relocateCharacter(XSize, YSize, gunPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+	relocateCharacter(gunPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
 						  ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
 						   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
 	

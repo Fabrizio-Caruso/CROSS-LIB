@@ -15,39 +15,37 @@
 
 void displayStatsTitles(void);
 
-void displayStats(unsigned short level, unsigned short lives, unsigned short guns, 
-				  unsigned long points, unsigned int ghostCount, unsigned int ghostLevel);
+void displayStats(void);
 
-
-void drawBorders(int XSize, int YSize);
+void drawBorders(void);
 
 void setScreenColors(void);
 
-void printCenteredMessage(int XSize, int YSize, char *Text);
+void printCenteredMessage(char *Text);
 
-void printLevel(int XSize, int YSize, int level);
+void printLevel(void);
 
-void printLevelBonus(int XSize, int YSize, int level);
+void printLevelBonus(void);
 
-void printPressKeyToStart(int XSize, int YSize);
+void printPressKeyToStart(void);
 
-void deleteCenteredMessage(int XSize, int YSize);
+void deleteCenteredMessage(void);
 
-void printGameOver(int XSize, int YSize);
+void printGameOver(void);
 
-void printVictoryMessage(int XSize, int YSize);
+void printVictoryMessage(void);
 
-void printDefeatMessage(int XSize, int YSize);
+void printDefeatMessage(void);
 
-void defeat(int XSize, int YSize);
+void defeat(void);
 
-void victory(int XSize, int YSize);
+void victory(void);
 
-void printStartMessage(int XSize, int YSize);
+void printStartMessage(void);
 
-void gameCompleted(int XSize, int YSize);
+void gameCompleted(void);
 
-void finalScore(int XSize, int YSize, unsigned long points);
+void finalScore(void);
 
 #endif // _DISPLAY
 

@@ -1,6 +1,18 @@
 
 #include "display.h"
 
+extern unsigned short level;
+extern unsigned char XSize;
+extern unsigned char YSize;
+
+extern unsigned short level;
+extern unsigned short lives;
+extern unsigned short guns;
+extern unsigned long points;
+extern unsigned int ghostCount;
+extern unsigned int ghostLevel;
+
+
 void displayStatsTitles(void)
 {
 	// Draw score 
@@ -29,9 +41,8 @@ void displayStatsTitles(void)
 }
 
 
-void displayStats(unsigned short level, unsigned short lives, 
-				  unsigned short guns, unsigned long points, 
-				  unsigned int ghostCount, unsigned int ghostLevel)
+
+void displayStats(void)
 {
 	/*
 	// Draw score 
@@ -98,7 +109,7 @@ void displayStats(unsigned short level, unsigned short lives,
 
 
 
-void drawBorders(int XSize, int YSize)
+void drawBorders(void)
 {
 	/* Clear the screen, put cursor in upper left corner */
     clrscr ();
@@ -128,74 +139,72 @@ void setScreenColors(void)
 }
 
 
-void printCenteredMessage(int XSize, int YSize, char *Text)
+void printCenteredMessage(char *Text)
 {
 	gotoxy ((XSize - strlen (Text)) / 2, YSize / 2);
     cprintf ("%s", Text);
 }
 
-void printLevel(int XSize, int YSize, int level)
+void printLevel(void)
 {
 	char levelString[22];
 
 	sprintf(levelString, "LEVEL %d", level);
 
-	printCenteredMessage(XSize, YSize, levelString);
+	printCenteredMessage(levelString);
 }
 
-void printLevelBonus(int XSize, int YSize, int level)
+void printLevelBonus(void)
 {
 	char levelString[22];
 
 	sprintf(levelString, "LEVEL BONUS = %d", level * 1000);
 
-	printCenteredMessage(XSize, YSize, levelString);
+	printCenteredMessage(levelString);
 	sleep(1);
 }
 
-void printPressKeyToStart(int XSize, int YSize)
+void printPressKeyToStart(void)
 {
-	printCenteredMessage(XSize, YSize, "PRESS ANY KEY TO START");
+	printCenteredMessage("PRESS ANY KEY TO START");
 }
 
-void deleteCenteredMessage(int XSize, int YSize)
+void deleteCenteredMessage(void)
 {
 	gotoxy ((XSize - 22) / 2, YSize / 2);
     cputs( "                      ");
 }
 
 
-
-
-void printGameOver(int XSize, int YSize)
+void printGameOver(void)
 {
-	printCenteredMessage(XSize, YSize, "G A M E   O V E R");
+	printCenteredMessage("G A M E   O V E R");
 }
 
-void printVictoryMessage(int XSize, int YSize)
+void printVictoryMessage(void)
 {
-	printCenteredMessage(XSize, YSize, "Y O U   W O N ! !");
+	printCenteredMessage("Y O U   W O N ! !");
 }
 
-void printDefeatMessage(int XSize, int YSize)
+void printDefeatMessage(void)
 {
-	printCenteredMessage(XSize, YSize, "Y O U   L O S T !");
+	printCenteredMessage("Y O U   L O S T !");
 }
 
-void defeat(int XSize, int YSize)
+void defeat(void)
 {
-	printDefeatMessage(XSize, YSize);
+	printDefeatMessage();
 	sleep(1);
 }
 
-void victory(int XSize, int YSize)
+void victory(void)
 {
-	printVictoryMessage(XSize, YSize);
+	printVictoryMessage();
 	sleep(1);
 }
 
 
-void printStartMessage(int XSize, int YSize)
+void printStartMessage(void)
 {
 	gotoxy ((XSize - 22) / 2, YSize / 2 - 9);
 	cprintf ("%s", "A S C I I   C H A S E");
@@ -240,20 +249,20 @@ void printStartMessage(int XSize, int YSize)
 	cprintf("%s",  "PRESS ANY KEY TO START");
 }
 
-void gameCompleted(int XSize, int YSize)
+void gameCompleted(void)
 {
-	printCenteredMessage(XSize, YSize, "Y O U  M A D E  I T !"); 
+	printCenteredMessage("Y O U  M A D E  I T !"); 
 	sleep(2);
-	printCenteredMessage(XSize, YSize, "    T H E   E N D    "); 
+	printCenteredMessage("    T H E   E N D    "); 
 	sleep(2);
 }
 
-void finalScore(int XSize, int YSize, unsigned long points)
+void finalScore(void)
 {
 	char scoreString[22];
 	clrscr();
 	sprintf(scoreString, "SCORE:  %lu", points);
-	printCenteredMessage(XSize, YSize, scoreString);
+	printCenteredMessage(scoreString);
 	sleep(3);
 }
 

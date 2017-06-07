@@ -68,10 +68,10 @@ unsigned int invincibleLoopTrigger = 1000;
 unsigned short ghostCount = 8;
 unsigned short invincibleGhostCountTrigger = 2;
 
+unsigned char XSize, YSize;
 
 int main(void)
 {
-    unsigned char XSize, YSize; // TODO: Make it global
 	#ifdef _KEYBOARD
 	char kbInput;
 	#endif // _KEYBOARD
@@ -120,12 +120,12 @@ int main(void)
 		
 		clrscr ();
 					
-		printStartMessage(XSize,YSize);
+		printStartMessage();
 		while(!kbhit() && !joy_read(JOY_1))
 		{}
 		clrscr ();
 				
-		deleteCenteredMessage(XSize, YSize);
+		deleteCenteredMessage();
 		
 		lives = 3;
 		do // Level Start
@@ -148,17 +148,17 @@ int main(void)
 			/* Clear the screen, put cursor in upper left corner */
 			clrscr ();
 
-			printLevel(XSize, YSize, level);
+			printLevel();
 			sleep(2);
 			
 			/* Wait for the user to press a key */
-			printPressKeyToStart(XSize, YSize);
+			printPressKeyToStart();
 			while(!kbhit() && !joy_read(JOY_1))
 			{}
-			deleteCenteredMessage(XSize, YSize);
+			deleteCenteredMessage();
 			
 			/* Draw a border around the screen */
-			drawBorders(XSize, YSize);
+			drawBorders();
 			
 			// Initialize characters
 			innerVerticalWallLength = drawInnerVerticalWallForLevel(XSize,YSize,level);
@@ -197,7 +197,7 @@ int main(void)
 				{
 					--guns;
 					missileDirection = playerDirection;
-					missile._status = setMissileInitialPosition(XSize, YSize, &missile, &player, missileDirection);
+					missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
 					missile._alive = missile._status;
 					playerFire = 0;
 					displayCharacter(&missile);					
@@ -214,7 +214,7 @@ int main(void)
 				}
 				if(missile._status==1 && missile._alive==1)
 				{
-					moveMissile(XSize, YSize, &missile, missileDirection);
+					moveMissile(&missile, missileDirection);
 					// TODO: Inefficient
 					checkMissileVsGhosts(&missile, 
 						&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
@@ -240,14 +240,14 @@ int main(void)
 				   playerReachedBombs(&bomb_1, &bomb_2, &bomb_3, &bomb_4, &player))
 				{
 					die(&player);
-					defeat(XSize, YSize);
+					defeat();
 					sleep(1);
 				}
 				
 				if(innerWallReached(&player))
 				{
 					die(&player);
-					defeat(XSize, YSize);
+					defeat();
 					sleep(1);
 				}
 			
@@ -278,7 +278,7 @@ int main(void)
 					gun._status = 1;
 					do
 					{
-					relocateCharacter(XSize, YSize, &gun, &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
+					relocateCharacter(&gun, &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
 								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
 					} while(innerWallReached(&gun));
@@ -307,7 +307,7 @@ int main(void)
 					powerUp._status = 1;
 					do
 					{
-					relocateCharacter(XSize, YSize, &powerUp, &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
+					relocateCharacter(&powerUp, &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
 								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
 								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
 					} while(innerWallReached(&powerUp));
@@ -317,10 +317,10 @@ int main(void)
 					--powerUpCoolDown;
 				}
 					
-				if(wallReached(XSize, YSize, &player))
+				if(wallReached(&player))
 				{
 					die(&player);
-					defeat(XSize, YSize);
+					defeat();
 					sleep(1);
 				}
 				
@@ -330,7 +330,7 @@ int main(void)
 				displayCharacter(&bomb_4);
 				
 				displayStatsTitles();
-				displayStats(level, lives, guns, points, ghostCount, ghostLevel);
+				displayStats();
 				
 				if(!invincibleGhost._status && 
 				  ((invincibleXCountDown==0)||(invincibleYCountDown==0)) || 
@@ -351,14 +351,14 @@ int main(void)
 					if(areCharctersAtSamePosition(&invincibleGhost, &player))
 					{
 						die(&player);
-						defeat(XSize, YSize);
+						defeat();
 						sleep(1);
 					}
 				}
 				
 				if(ghostCount<=0)
 				{
-					victory(XSize, YSize);
+					victory();
 					sleep(1);
 				}
 				
@@ -372,7 +372,7 @@ int main(void)
 			if(player._alive)
 			{
 				clrscr();
-				printLevelBonus(XSize,YSize, level);
+				printLevelBonus();
 								
 				sleep(1);
 				
@@ -392,12 +392,12 @@ int main(void)
 			
 	if(level==FINAL_LEVEL+1)
 	{
-		gameCompleted(XSize, YSize);
+		gameCompleted();
 		sleep(1);
 	}
-	finalScore(XSize, YSize, points);
+	finalScore();
 	// GAME OVER	
-	printGameOver(XSize, YSize);
+	printGameOver();
 	sleep(1);
 	clrscr ();
 	}

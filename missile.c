@@ -31,7 +31,7 @@ void checkMissileVsGhosts(Character * missilePtr,
 	checkMissileVsGhost(missilePtr, ghostPtr8, pointsPtr, ghostCountPtr);
 }
 	
-int setMissileInitialPosition(int XSize, int YSize, Character *missilePtr, Character *playerPtr,
+int setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
 							  unsigned short missileDirection)
 {
 	int newX = playerPtr->_x; 
@@ -54,7 +54,7 @@ int setMissileInitialPosition(int XSize, int YSize, Character *missilePtr, Chara
 	 
 	missilePtr->_x = newX;
 	missilePtr->_y = newY;	
-	if(wallReached(XSize,YSize, missilePtr))
+	if(wallReached(missilePtr))
 	{
 		die(missilePtr);
 		missilePtr->_ch = '.';
@@ -63,7 +63,7 @@ int setMissileInitialPosition(int XSize, int YSize, Character *missilePtr, Chara
 	return 1;
 }
 	
-void moveMissile(int XSize, int YSize, Character * missilePtr, unsigned short missileDirection)
+void moveMissile(Character * missilePtr, unsigned short missileDirection)
 {
 	int newX = missilePtr->_x; 
 	int newY = missilePtr->_y;
@@ -85,7 +85,7 @@ void moveMissile(int XSize, int YSize, Character * missilePtr, unsigned short mi
 	deleteCharacter(missilePtr);
 	missilePtr->_x = newX;
 	missilePtr->_y = newY;
-	if(wallReached(XSize,YSize, missilePtr))
+	if(wallReached(missilePtr))
 	{
 		die(missilePtr);
 		missilePtr->_ch = '.';

@@ -272,7 +272,9 @@ int main(void)
 					}
 					else
 					{
+						SET_TEXT_COLOR(GUN_COLOR);
 						displayCharacter(&gun);
+						SET_TEXT_COLOR(TEXT_COLOR);
 					}
 				}		
 				else if (gunCoolDown == 0)
@@ -302,7 +304,9 @@ int main(void)
 					}
 					else
 					{
+						SET_TEXT_COLOR(POWER_UP_COLOR);
 						displayCharacter(&powerUp);
+						SET_TEXT_COLOR(TEXT_COLOR);
 					}		
 				}
 				else if (powerUpCoolDown == 0)
@@ -327,10 +331,17 @@ int main(void)
 					sleep(1);
 				}
 				
+				SET_TEXT_COLOR(COLOR_RED);
 				displayCharacter(&bomb_1);
 				displayCharacter(&bomb_2);		
 				displayCharacter(&bomb_3);
 				displayCharacter(&bomb_4);
+				SET_TEXT_COLOR(TEXT_COLOR);
+				
+				if(guns>0 || invincibleGhost._status)
+				{
+					displayDeadGhosts(&ghost_1, &ghost_2, &ghost_3, &ghost_4, &ghost_5, &ghost_6, &ghost_7, &ghost_8);
+				}
 				
 				displayStatsTitles();
 				displayStats();

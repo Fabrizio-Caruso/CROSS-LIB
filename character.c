@@ -15,10 +15,8 @@ extern unsigned short innerVerticalWallLength;
 extern unsigned char XSize;
 extern unsigned char YSize;
 
-
 extern unsigned short ghostCount;
 
-//extern void DRAW(int x, int y, char ch);
 
 void initializeCharacter(Character* characterPtr, int x, int y, char ch, short status)
 {
@@ -48,6 +46,31 @@ void deleteCharacter(Character* characterPtr)
 void displayCharacter(Character* characterPtr)
 {
 	DRAW(characterPtr->_x, characterPtr->_y, characterPtr->_ch);
+}
+
+void displayDeadGhosts(Character * ghostPtr1, Character * ghostPtr2, 
+						Character * ghostPtr3, Character * ghostPtr4,
+						Character * ghostPtr5, Character * ghostPtr6, 
+						Character * ghostPtr7, Character * ghostPtr8)
+{
+	SET_TEXT_COLOR(COLOR_RED);
+	if(!ghostPtr1->_alive)
+		DRAW(ghostPtr1->_x,ghostPtr1->_y,'X');
+	if(!ghostPtr2->_alive)
+		DRAW(ghostPtr2->_x,ghostPtr2->_y,'X');
+	if(!ghostPtr3->_alive)
+		DRAW(ghostPtr3->_x,ghostPtr3->_y,'X');
+	if(!ghostPtr4->_alive)
+		DRAW(ghostPtr4->_x,ghostPtr4->_y,'X');
+	if(!ghostPtr5->_alive)
+		DRAW(ghostPtr5->_x,ghostPtr5->_y,'X');
+	if(!ghostPtr6->_alive)
+		DRAW(ghostPtr6->_x,ghostPtr6->_y,'X');
+	if(!ghostPtr7->_alive)
+		DRAW(ghostPtr7->_x,ghostPtr7->_y,'X');
+	if(!ghostPtr8->_alive)
+		DRAW(ghostPtr8->_x,ghostPtr8->_y,'X');
+	SET_TEXT_COLOR(TEXT_COLOR);
 }
 
 int isCharacterAtLocation(short x, short y, Character * characterPtr)
@@ -170,10 +193,11 @@ int wallReached(Character *characterPtr)
 
 void die(Character * playerPtr)
 {
+	SET_TEXT_COLOR(COLOR_RED);
 	DRAW(playerPtr->_x,playerPtr->_y,'X');
+	SET_TEXT_COLOR(TEXT_COLOR);
 	playerPtr->_status = 0;
 	playerPtr->_alive = 0;
-	playerPtr->_ch = 'X';
 }
 
 int playerReached(Character * hunterPtr1, Character * hunterPtr2, Character * hunterPtr3, Character * hunterPtr4, 
@@ -212,9 +236,7 @@ void checkBombsVsGhost(Character * bombPtr1, Character * bombPtr2,
 	if(ghostPtr->_alive && playerReachedBombs(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr))
 	{
 		DRAW(ghostPtr->_x,ghostPtr->_y,'X');
-		ghostPtr->_alive = 0;
-		ghostPtr->_status = 0;
-		ghostPtr->_ch = 'X';
+		die(ghostPtr);
 		points+=GHOST_VS_BOMBS_BONUS;
 		--ghostCount;
 	}

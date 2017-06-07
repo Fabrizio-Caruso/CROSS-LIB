@@ -3,6 +3,8 @@
 
 #include "display_macros.h"
 
+#include "settings.h"
+
 extern unsigned short level;
 extern unsigned char XSize;
 extern unsigned char YSize;
@@ -62,11 +64,11 @@ void drawBorders(void)
 
 void setScreenColors(void)
 {
-	SET_TEXT_COLOR(COLOR_WHITE);
+	SET_TEXT_COLOR(TEXT_COLOR);
 	
-	SET_BORDER_COLOR(COLOR_BLACK);
+	SET_BORDER_COLOR(BORDER_COLOR);
 	
-	SET_BACKGROUND_COLOR(COLOR_BLACK);
+	SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
 }
 
 
@@ -135,10 +137,15 @@ void victory(void)
 
 void printStartMessage(void)
 {
+	SET_TEXT_COLOR(COLOR_BLACK);
 	PRINT((XSize - 22) / 2, YSize / 2 - 9, "A S C I I   C H A S E");
+	SET_TEXT_COLOR(TEXT_COLOR);
 	
+	SET_TEXT_COLOR(COLOR_RED);
 	PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by Fabrizio Caruso");
-	
+	SET_TEXT_COLOR(TEXT_COLOR);
+
+	SET_TEXT_COLOR(COLOR_BLUE);
 	PRINT((XSize - 22) / 2, YSize / 2 - 3, "You * are chased by O");
 	
 	PRINT((XSize - 22) / 2, YSize / 2 - 2, "Force O into X");
@@ -150,7 +157,8 @@ void printStartMessage(void)
 	PRINT((XSize - 22) / 2, YSize / 2 + 1, "Flee from +!");
 	
 	PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use Joystick in Port 1");
-
+	
+	SET_TEXT_COLOR(TEXT_COLOR);
 	PRINT((XSize - 22) / 2, YSize / 2 + 8, "PRESS ANY KEY TO START");
 }
 

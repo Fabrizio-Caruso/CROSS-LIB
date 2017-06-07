@@ -3,6 +3,7 @@
 
 #include <stdlib.h>
 
+#include "settings.h"
 #include "display_macros.h"
 
 #include "level.h"
@@ -131,8 +132,9 @@ void fillLevelWithCharacters(
 	{
 		initializeCharacter(playerPtr,XSize/2+rand()%4-2,YSize/2+rand()%4-2,'*',1);
 	} while(innerWallReached(playerPtr));
+	SET_TEXT_COLOR(PLAYER_COLOR);
 	displayCharacter(playerPtr);
-
+	SET_TEXT_COLOR(TEXT_COLOR);
 	
 	do
 	{

@@ -3,6 +3,16 @@
 
 #include <stdlib.h>
 
+#define BACKGROUND_COLOR COLOR_WHITE
+#define BORDER_COLOR COLOR_WHITE
+#define TEXT_COLOR COLOR_BLACK
+
+#define PLAYER_COLOR COLOR_BLUE
+#define INVINCIBLE_ENEMY COLOR_RED
+
+#define POWER_UP_COLOR COLOR_BLUE
+#define GUN_COLOR COLOR_BLUE
+
 
 // If two or more ghosts bump into eachother for each ghost
 #define GHOST_VS_GHOST_BONUS 1500ul

@@ -42,33 +42,10 @@ void chaseCharacterXAvoidBombStrategy(Character* hunterPtr, Character* preyPtr,
 		deleteCharacter(hunterPtr);
 		--hunterPtr->_y;
 	}
-	displayCharacter(hunterPtr);
+	// displayCharacter(hunterPtr);
 }
 
-void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
-{
-	if(hunterPtr->_x<preyPtr->_x)
-	{
-		deleteCharacter(hunterPtr);
-		++hunterPtr->_x;
-	}
-	else if(hunterPtr->_x>preyPtr->_x)
-	{
-		deleteCharacter(hunterPtr);
-		--hunterPtr->_x;
-	}
-	else if(hunterPtr->_y<preyPtr->_y)
-	{
-		deleteCharacter(hunterPtr);
-		++hunterPtr->_y;
-	}
-	else if(hunterPtr->_y>preyPtr->_y)
-	{
-		deleteCharacter(hunterPtr);
-		--hunterPtr->_y;
-	}
-	displayCharacter(hunterPtr);
-}
+
 
 void chaseCharacterYAvoidBombStrategy(Character* hunterPtr, Character* preyPtr, 
                     Character* bombPtr1, Character* bombPtr2,
@@ -105,6 +82,31 @@ void chaseCharacterYAvoidBombStrategy(Character* hunterPtr, Character* preyPtr,
 		--hunterPtr->_x;
 	}
 
+	// displayCharacter(hunterPtr);
+}
+
+void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
+{
+	if(hunterPtr->_x<preyPtr->_x)
+	{
+		deleteCharacter(hunterPtr);
+		++hunterPtr->_x;
+	}
+	else if(hunterPtr->_x>preyPtr->_x)
+	{
+		deleteCharacter(hunterPtr);
+		--hunterPtr->_x;
+	}
+	else if(hunterPtr->_y<preyPtr->_y)
+	{
+		deleteCharacter(hunterPtr);
+		++hunterPtr->_y;
+	}
+	else if(hunterPtr->_y>preyPtr->_y)
+	{
+		deleteCharacter(hunterPtr);
+		--hunterPtr->_y;
+	}
 	displayCharacter(hunterPtr);
 }
 
@@ -300,9 +302,10 @@ void chaseCharacterXStrategyIf(Character* ghostPtr1, Character* preyPtr,
 									ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8,
 									ghostSmartness);
 		}
+		displayCharacter(ghostPtr1);
 	}
 	
-	displayCharacter(ghostPtr1);
+	// displayCharacter(ghostPtr1);
 }					 
 
 void chaseCharacterYStrategyIf(Character* ghostPtr1, Character* preyPtr, 
@@ -322,9 +325,10 @@ void chaseCharacterYStrategyIf(Character* ghostPtr1, Character* preyPtr,
 									ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, 
 									ghostSmartness);
 		}
+		displayCharacter(ghostPtr1);
 	}
 	
-	displayCharacter(ghostPtr1);
+	// displayCharacter(ghostPtr1);
 }
 
 void chaseCharacterIf(Character* ghostPtr1, Character* preyPtr, 
@@ -344,9 +348,10 @@ void chaseCharacterIf(Character* ghostPtr1, Character* preyPtr,
 									 ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, 
 									 ghostSmartness);
 		}
+		displayCharacter(ghostPtr1);
 	}
 	
-	displayCharacter(ghostPtr1);
+	// displayCharacter(ghostPtr1);
 }	
 
 void chaseCharacterMaxAndXStrategyIf(Character* ghostPtr1, Character* preyPtr, 
@@ -366,9 +371,10 @@ void chaseCharacterMaxAndXStrategyIf(Character* ghostPtr1, Character* preyPtr,
 										  ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, 
 										  ghostSmartness);
 		}
+		displayCharacter(ghostPtr1);
 	}
 	
-	displayCharacter(ghostPtr1);
+	// displayCharacter(ghostPtr1);
 }	
 
 
@@ -389,9 +395,10 @@ void chaseCharacterMaxAndYStrategyIf(Character* ghostPtr1, Character* preyPtr,
 										  ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, 
 										  ghostSmartness);
 		}
+		displayCharacter(ghostPtr1);
 	}
 	
-	displayCharacter(ghostPtr1);
+	//displayCharacter(ghostPtr1);
 }	
 
 

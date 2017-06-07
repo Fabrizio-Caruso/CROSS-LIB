@@ -1,6 +1,8 @@
 #include "character.h"
 #include "settings.h"
 #include <joystick.h>
+#include "display_macros.h"
+
 #include "input.h"
 
 extern unsigned short invincibleXCountDown;
@@ -54,11 +56,15 @@ void movePlayer(Character *playerPtr, char kbInput)
 	{
 		ghostCount = 0;
 		playerPtr->_ch = 'Z';
+		SET_TEXT_COLOR(PLAYER_COLOR);
 		displayCharacter(playerPtr);
+		SET_TEXT_COLOR(TEXT_COLOR);
 		sleep(1);
 	}
 	#endif // TRAINER
+	SET_TEXT_COLOR(PLAYER_COLOR);
 	displayCharacter(playerPtr);
+	SET_TEXT_COLOR(TEXT_COLOR);
 }
 
 
@@ -96,7 +102,9 @@ void movePlayerByJoystick(Character *playerPtr, unsigned char joyInput)
 	{
 		playerFire = 1;
 	}
+	SET_TEXT_COLOR(PLAYER_COLOR);
 	displayCharacter(playerPtr);
+	SET_TEXT_COLOR(TEXT_COLOR);
 }
 
 

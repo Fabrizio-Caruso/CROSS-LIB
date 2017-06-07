@@ -86,7 +86,62 @@ int downGhosts(Character* characterPtr,
 
 int wallReached(int XSize, int YSize, Character *characterPtr);
 
+
+
+
 void die(Character * playerPtr);
 
-			  
+			int playerReached(Character * hunterPtr1, Character * hunterPtr2, Character * hunterPtr3, Character * hunterPtr4, 
+				  Character * hunterPtr5, Character * hunterPtr6, Character * hunterPtr7, Character * hunterPtr8, 
+                  Character* preyPtr);
+
+int playerReachedBombs(Character * bombPtr1, Character * bombPtr2, Character * bombPtr3, Character * bombPtr4,  
+					   Character* ghostPtr);
+
+int charactersMeet(Character * hunterPtr1, Character * hunterPtr2, Character * hunterPtr3, 
+				   Character * hunterPtr4, Character * hunterPtr5, Character * hunterPtr6,
+				   Character * hunterPtr7,
+				   Character* preyPtr);
+  
+  
+void checkBombsVsGhost(Character * bombPtr1, Character * bombPtr2, 
+					   Character * bombPtr3, Character * bombPtr4,
+					   Character * ghostPtr, unsigned short * ghostCountPtr);
+						
+
+void checkBombsVsGhosts(Character * bombPtr1, Character * bombPtr2, 
+						Character * bombPtr3, Character * bombPtr4,
+						Character * ghostPtr1, Character * ghostPtr2, 
+						Character * ghostPtr3, Character * ghostPtr4,
+						Character * ghostPtr5, Character * ghostPtr6, 
+						Character * ghostPtr7, Character * ghostPtr8,
+						unsigned short *ghostCountPtr);
+
+
+int safeLocation(int x, int y, 
+				Character * bombPtr1, Character * bombPtr2, 
+				Character * bombPtr3, Character * bombPtr4,
+				Character * ghostPtr1, Character * ghostPtr2, 
+				Character * ghostPtr3, Character * ghostPtr4,
+				Character * ghostPtr5, Character * ghostPtr6, 
+				Character * ghostPtr7, Character * ghostPtr8);
+
+void relocateCharacter(int XSize, int YSize, Character * characterPtr, 
+						Character * bombPtr1, Character * bombPtr2, 
+						Character * bombPtr3, Character * bombPtr4,
+						Character * ghostPtr1, Character * ghostPtr2, 
+						Character * ghostPtr3, Character * ghostPtr4,
+						Character * ghostPtr5, Character * ghostPtr6, 
+						Character * ghostPtr7, Character * ghostPtr8);
+
+short innerWallReached(Character *characterPtr);
+
+short nearInnerWall(Character *characterPtr);
+
+
+void checkGhostsVsGhosts(Character *ghostPtr1, Character *ghostPtr2, Character *ghostPtr3, Character *ghostPtr4,
+						 Character *ghostPtr5, Character *ghostPtr6, Character *ghostPtr7, Character *ghostPtr8,
+						 unsigned short *ghostCountPtr);
+
+
 #endif

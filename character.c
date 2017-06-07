@@ -1,5 +1,13 @@
-#include "character.h"
+#include <stdlib.h>
 
+#include "character.h"
+#include "settings.h"
+
+
+extern unsigned long points;
+extern unsigned short innerVerticalWallX;
+extern unsigned short innerVerticalWallY;
+extern unsigned short innerVerticalWallLength;
 
 void initializeCharacter(Character* characterPtr, int x, int y, char ch, short status)
 {
@@ -161,3 +169,186 @@ void die(Character * playerPtr)
 }
 
 
+
+
+
+int playerReached(Character * hunterPtr1, Character * hunterPtr2, Character * hunterPtr3, Character * hunterPtr4, 
+				  Character * hunterPtr5, Character * hunterPtr6, Character * hunterPtr7, Character * hunterPtr8, 
+                  Character* preyPtr)
+{
+	return(areCharctersAtSamePosition(hunterPtr1,preyPtr) || areCharctersAtSamePosition(hunterPtr2,preyPtr) ||
+		   areCharctersAtSamePosition(hunterPtr3,preyPtr) || areCharctersAtSamePosition(hunterPtr4,preyPtr) ||
+		   areCharctersAtSamePosition(hunterPtr5,preyPtr) || areCharctersAtSamePosition(hunterPtr6,preyPtr) ||
+		   areCharctersAtSamePosition(hunterPtr7,preyPtr) || areCharctersAtSamePosition(hunterPtr8,preyPtr));
+}
+
+int playerReachedBombs(Character * bombPtr1, Character * bombPtr2, Character * bombPtr3, Character * bombPtr4,  
+					   Character* ghostPtr)
+{
+	return(areCharctersAtSamePosition(bombPtr1,ghostPtr) || areCharctersAtSamePosition(bombPtr2,ghostPtr) ||
+		   areCharctersAtSamePosition(bombPtr3,ghostPtr) || areCharctersAtSamePosition(bombPtr4,ghostPtr));
+}
+
+int charactersMeet(Character * hunterPtr1, Character * hunterPtr2, Character * hunterPtr3, 
+				   Character * hunterPtr4, Character * hunterPtr5, Character * hunterPtr6,
+				   Character * hunterPtr7,
+				   Character* preyPtr)
+{
+	return(areCharctersAtSamePosition(hunterPtr1,preyPtr) || areCharctersAtSamePosition(hunterPtr2,preyPtr) ||
+	       areCharctersAtSamePosition(hunterPtr3,preyPtr) || areCharctersAtSamePosition(hunterPtr4,preyPtr) ||
+	       areCharctersAtSamePosition(hunterPtr5,preyPtr) || areCharctersAtSamePosition(hunterPtr6,preyPtr) ||
+		   areCharctersAtSamePosition(hunterPtr7,preyPtr));
+}
+
+
+void checkBombsVsGhost(Character * bombPtr1, Character * bombPtr2, 
+					   Character * bombPtr3, Character * bombPtr4,
+					   Character * ghostPtr, unsigned short * ghostCountPtr)
+{
+	if(ghostPtr->_alive && playerReachedBombs(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr))
+	{
+		gotoxy(ghostPtr->_x,ghostPtr->_y);
+		cputc('X');
+		ghostPtr->_alive = 0;
+		ghostPtr->_status = 0;
+		ghostPtr->_ch = 'X';
+		points+=GHOST_VS_BOMBS_BONUS;
+		--(*ghostCountPtr);
+	}
+}
+						
+
+void checkBombsVsGhosts(Character * bombPtr1, Character * bombPtr2, 
+						Character * bombPtr3, Character * bombPtr4,
+						Character * ghostPtr1, Character * ghostPtr2, 
+						Character * ghostPtr3, Character * ghostPtr4,
+						Character * ghostPtr5, Character * ghostPtr6, 
+						Character * ghostPtr7, Character * ghostPtr8,
+						unsigned short *ghostCountPtr)
+{
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr1, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr2, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr3, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr4, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr5, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr6, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr7, ghostCountPtr);
+	checkBombsVsGhost(bombPtr1, bombPtr2, bombPtr3, bombPtr4, ghostPtr8, ghostCountPtr);
+}
+
+
+int safeLocation(int x, int y, 
+				Character * bombPtr1, Character * bombPtr2, 
+				Character * bombPtr3, Character * bombPtr4,
+				Character * ghostPtr1, Character * ghostPtr2, 
+				Character * ghostPtr3, Character * ghostPtr4,
+				Character * ghostPtr5, Character * ghostPtr6, 
+				Character * ghostPtr7, Character * ghostPtr8)
+{
+	return !isCharacterAtLocation(x,y,bombPtr1) && !isCharacterAtLocation(x,y,bombPtr2) &&
+	!isCharacterAtLocation(x,y,bombPtr3) && !isCharacterAtLocation(x,y,bombPtr4) &&
+	!isCharacterAtLocation(x,y,ghostPtr1) && !isCharacterAtLocation(x,y,ghostPtr2) &&
+	!isCharacterAtLocation(x,y,ghostPtr3) && !isCharacterAtLocation(x,y,ghostPtr4) &&
+	!isCharacterAtLocation(x,y,ghostPtr5) && !isCharacterAtLocation(x,y,ghostPtr6) &&
+	!isCharacterAtLocation(x,y,ghostPtr7) && !isCharacterAtLocation(x,y,ghostPtr8);
+}
+
+
+void relocateCharacter(int XSize, int YSize, Character * characterPtr, 
+						Character * bombPtr1, Character * bombPtr2, 
+						Character * bombPtr3, Character * bombPtr4,
+						Character * ghostPtr1, Character * ghostPtr2, 
+						Character * ghostPtr3, Character * ghostPtr4,
+						Character * ghostPtr5, Character * ghostPtr6, 
+						Character * ghostPtr7, Character * ghostPtr8)
+{
+	int x; int y; int x_offset; int y_offset;
+	int safe = 0;
+	while(!safe)
+	{
+	x_offset = rand() % 7;
+	y_offset = rand() % 7;
+	if((x_offset==0) && (y_offset==0))
+		continue;
+	x = characterPtr->_x -3 + x_offset; 
+	y = characterPtr->_y -3 + y_offset;
+	if(y<=3) // Avoid score line
+		continue;
+	if((x<2) || (x>XSize-2))
+		continue;
+	if((y<2) || (y>YSize-2))
+		continue;
+	
+	safe = safeLocation(x,y, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
+						ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
+						ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+	}
+	characterPtr->_x = x;
+	characterPtr->_y = y;
+}
+
+
+short innerWallReached(Character *characterPtr)
+{
+	return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
+}
+
+short nearInnerWall(Character *characterPtr)
+{
+	return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
+}
+
+
+void checkGhostsVsGhosts(Character *ghostPtr1, Character *ghostPtr2, Character *ghostPtr3, Character *ghostPtr4,
+						 Character *ghostPtr5, Character *ghostPtr6, Character *ghostPtr7, Character *ghostPtr8,
+						 unsigned short *ghostCountPtr)
+{
+	if(ghostPtr8->_alive && charactersMeet(ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8))
+	{
+		die(ghostPtr8);
+		points+=GHOST_VS_GHOST_BONUS;
+	    --(*ghostCountPtr);
+	}
+	if(ghostPtr1->_alive && charactersMeet(ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1))
+	{
+		die(ghostPtr1);
+		points+=GHOST_VS_GHOST_BONUS;
+		--(*ghostCountPtr);
+	}
+	if(ghostPtr2->_alive && charactersMeet(ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2))
+	{
+		die(ghostPtr2);
+		points+=GHOST_VS_GHOST_BONUS;
+		--(*ghostCountPtr);
+	}
+	if(ghostPtr3->_alive && charactersMeet(ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3))
+	{
+		die(ghostPtr3);
+		points+=GHOST_VS_GHOST_BONUS;
+		--(*ghostCountPtr);
+	}
+	if(ghostPtr4->_alive && charactersMeet(ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4))
+	{
+		die(ghostPtr4);
+		points+=GHOST_VS_GHOST_BONUS;
+		--(*ghostCountPtr);
+	}
+	if(ghostPtr5->_alive && charactersMeet(ghostPtr6, ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5))
+	{
+		die(ghostPtr5);
+		points+=GHOST_VS_GHOST_BONUS;
+		--(*ghostCountPtr);
+	}
+	if(ghostPtr6->_alive && charactersMeet(ghostPtr7, ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6))
+	{
+		die(ghostPtr6);
+		points+=GHOST_VS_GHOST_BONUS;
+		--(*ghostCountPtr);
+	}
+	if(ghostPtr7->_alive && charactersMeet(ghostPtr8, ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7))
+	{
+		die(ghostPtr7);
+		points+=GHOST_VS_GHOST_BONUS;
+		--(*ghostCountPtr);
+	}
+}

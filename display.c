@@ -257,20 +257,3 @@ void finalScore(int XSize, int YSize, unsigned long points)
 	sleep(3);
 }
 
-void drawInnerVerticalWall(int XSize, int YSize, unsigned short innerVerticalWallLength,
-						   unsigned short *innerVerticalWallXPtr, unsigned short *innerVerticalWallYPtr)
-{
-	*innerVerticalWallXPtr = XSize / 2;
-    *innerVerticalWallYPtr = YSize/2-(innerVerticalWallLength/2);
-	cvlinexy (XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
-}
-
-/*
-void drawInnerVerticalWall(int XSize, int YSize, short length)
-{
-	innerVerticalWallLength = length;
-	innerVerticalWallX = XSize / 2;
-	innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
-	drawInnerVerticalWall(XSize, YSize);
-}
-*/

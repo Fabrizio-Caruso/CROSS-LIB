@@ -19,6 +19,9 @@ int computeInvincibleCountDown(void)
 
 void movePlayer(Character *playerPtr, char kbInput)
 {
+	#if defined(__C64__) || defined(__VIC20__)
+	// Do nothing
+	#else
 	if((kbInput=='W') || (kbInput=='w'))
 	{
 		deleteCharacter(playerPtr);
@@ -47,10 +50,13 @@ void movePlayer(Character *playerPtr, char kbInput)
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = RIGHT;
 	}
-	else if(kbInput==' ')
+	else 
+	#endif // defined(__C64__) || defined(__VIC20__)	
+	if(kbInput==' ')
 	{
 		playerFire = 1;
 	}
+
 	#ifdef _TRAINER
 	else if((kbInput=='Z') || (kbInput=='z'))
 	{

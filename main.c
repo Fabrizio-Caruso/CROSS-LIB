@@ -140,8 +140,8 @@ int main(void)
 		deleteCenteredMessage();
 		
 		lives = 3;
-		do // Level Start
-		{
+		do // Level (Re-)Start
+		{ 
 			loop = 0;
 			ghostLevel = 1u;
 			ghostSmartness = computeGhostSmartness();
@@ -190,7 +190,7 @@ int main(void)
 			
 			displayStatsTitles();
 			
-			while(player._alive && ghostCount>0)
+			while(player._alive && ghostCount>0) // while alive && there are still ghosts
 			{
 				ghostSlowDown = computeGhostSlowDown();
 				invincibleSlowDown = computeInvincibleSlowDown();
@@ -396,7 +396,6 @@ int main(void)
 				// Increase ghost speed
 				++ghostLevel;
 			}; // end inner while [while (player._alive && !victoryFlag)]
-			
 			if(player._alive)
 			{
 				CLEAR_SCREEN();
@@ -406,7 +405,7 @@ int main(void)
 				
 				points+= LEVEL_BONUS*level;
 				++level;
-
+				innerVerticalWallLength = drawInnerVerticalWallForLevel();
 			}
 			else
 			{
@@ -416,7 +415,7 @@ int main(void)
 					player._alive = 1;
 				}
 			}
-		} while (player._alive || ((ghostCount<=0) && (level<(FINAL_LEVEL+1)))); // middle while (one match) 
+		} while (player._alive || ((ghostCount<=0) && (level<(FINAL_LEVEL+1)))); // while game not ended (some lives and levels left)
 			
 	if(level==FINAL_LEVEL+1)
 	{

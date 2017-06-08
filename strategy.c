@@ -413,14 +413,16 @@ void chasePlayer(Character * ghostPtr1, Character * ghostPtr2,
 {
 	if(level>=MAX_STRATEGY_START_LEVEL)
 	{
-		chaseCharacterMaxAndYStrategyIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		// Two enemies behave as in first levels
+		chaseCharacterIf(ghostPtr8, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
 		ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostSmartness, ghostSlowDown);
 			
+		chaseCharacterIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
+		ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostSmartness, ghostSlowDown);
+		
+		// The remaining six try to avoid being aligned with the player
 		chaseCharacterMaxAndYStrategyIf(ghostPtr2, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
 		ghostPtr1, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostSmartness, ghostSlowDown);
-			
-		chaseCharacterMaxAndXStrategyIf(ghostPtr1, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
-		ghostPtr2, ghostPtr3, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostSmartness, ghostSlowDown);
 			
 		chaseCharacterMaxAndXStrategyIf(ghostPtr3, preyPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4,
 		ghostPtr1, ghostPtr2, ghostPtr4, ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8, ghostSmartness, ghostSlowDown);

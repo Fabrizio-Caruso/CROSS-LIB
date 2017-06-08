@@ -1,5 +1,5 @@
-set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+set cc65path="D:\personal\cc65-snapshot-win32"
+set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 cd %cc65path%\bin\
 

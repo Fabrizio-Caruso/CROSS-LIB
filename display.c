@@ -5,6 +5,7 @@
 
 #include "settings.h"
 
+
 extern unsigned short level;
 extern unsigned char XSize;
 extern unsigned char YSize;
@@ -21,15 +22,15 @@ void displayStatsTitles(void)
 {
 	PRINT(2,1,"SPEED:");
 
-	PRINT(14,1,"!:");
+	PRINT(15,1,"!:");
 
 	PRINT(2,2,"SCORE:");
 	
-	PRINT(14,2,"O:");
+	PRINT(15,2,"O:");
 
 	PRINT(2,3,"LEVEL:");
 
-	PRINT(14,3,"*:");
+	PRINT(15,3,"*:");
 }
 
 
@@ -37,20 +38,18 @@ void displayStatsTitles(void)
 void displayStats(void)
 {	
 	PRINT(8,1,"      ");
-
 	PRINTF(8,1,"%u",ghostLevel);
 
-	PRINTF(16,1,"%hu", guns);
-
+	PRINTF(17,1,"%hu", guns);
+	
 	PRINTF(8,2,"%lu",points);
 
-	PRINT(16,2,"    ");
-
-	PRINTF(16,2,"%hu",ghostCount);
+	PRINT(17,2,"    ");
+	PRINTF(17,2,"%hu",ghostCount);
 
 	PRINTF(8,3,"%hu", level);
 	
-	PRINTF(16,3,"%hu",lives);
+	PRINTF(17,3,"%hu",lives);
 }
 
 

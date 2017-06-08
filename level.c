@@ -25,63 +25,63 @@ void drawInnerVerticalWall(void)
 
 unsigned short drawInnerVerticalWallForLevel(void)
 {		
-	unsigned short innerVerticalLevel;
+	unsigned short wallLength;
 	switch(level)
 	{
 		case 1: case 5: case 10: case 15:
-			innerVerticalLevel = 0;
+			wallLength = 0;
 		break;
 		case 2:
-			innerVerticalLevel = 8;
+			wallLength = 8;
 		break;
 		case 3:
-			innerVerticalLevel = 12;
+			wallLength = 12;
 		break;
 		case 4:
-			innerVerticalLevel = YSize-4;
+			wallLength = YSize-6;
 		break;
 		case 6:
-			innerVerticalLevel = 8;
+			wallLength = 8;
 		break;
 		case 7:
-			innerVerticalLevel = 12;
+			wallLength = 12;
 		break;
 		case 8:
-			innerVerticalLevel = 16;
+			wallLength = 16;
 		break;
 		case 9:
-			innerVerticalLevel = YSize-4;
+			wallLength = YSize-6;
 		break;
 		case 11:
-			innerVerticalLevel = 8;
+			wallLength = 8;
 		break;
 		case 12:
-			innerVerticalLevel = 12;
+			wallLength = 12;
 		break;
 		case 13:
-			innerVerticalLevel =16;
+			wallLength =16;
 		break;
 		case 14:
-			innerVerticalLevel = YSize-4;
+			wallLength = YSize-4;
 		break;
 		case 16:
-			innerVerticalLevel = 8;
+			wallLength = 8;
 		break;
 		case 17:
-			innerVerticalLevel = 12;
+			wallLength = 12;
 		break;
 		case 18:
-			innerVerticalLevel = YSize-4;
+			wallLength = YSize-4;
 		break;
 		case 19:
-			innerVerticalLevel = 12;
+			wallLength = 12;
 		break;
 		case 20:
-			innerVerticalLevel = YSize-4;
+			wallLength = YSize-4;
 		break;
 	}
 	drawInnerVerticalWall();
-	return innerVerticalLevel;
+	return wallLength;
 }
 
 

@@ -147,18 +147,42 @@ void printStartMessage(void)
 	#ifndef __PLUS4__
 	SET_TEXT_COLOR(COLOR_BLUE);
 	#endif // __PLUS4__
-	PRINT((XSize - 22) / 2, YSize / 2 - 3, "You * are chased by O");
-	
-	PRINT((XSize - 22) / 2, YSize / 2 - 2, "Force O into X");
-	
-	PRINT((XSize - 22) / 2, YSize / 2 - 1, "Take P to slow O down");
-	
-	PRINT((XSize - 22) / 2, YSize / 2, "Catch ! for bullets!");
-	
-	PRINT((XSize - 22) / 2, YSize / 2 + 1, "Flee from +!");
-	
-	PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use Joystick in Port 1");
-	
+
+	#if defined(__VIC20__)
+		PRINT((XSize - 22) / 2, YSize / 2 - 3, "You * are chased by O");
+		
+		PRINT((XSize - 22) / 2, YSize / 2 - 2, "Force O into X");
+		
+		PRINT((XSize - 22) / 2, YSize / 2 - 1, "Take P to slow O down");
+		
+		PRINT((XSize - 22) / 2, YSize / 2, "Catch ! for bullets!");
+		
+		PRINT((XSize - 22) / 2, YSize / 2 + 1, "Flee from +!");
+	#else		
+		PRINT(2, YSize / 2 - 3, "You * are chased by O. Force O into X");
+		
+		PRINT(9, YSize / 2 - 1, "Take P to slow O down.");
+		
+		PRINT(9, YSize / 2,     "Catch ! for bullets.");
+		
+		PRINT(9, YSize / 2 + 1, "Flee from +!");
+	#endif
+
+	#if defined(__C64__) || defined(__C128__)
+		SET_TEXT_COLOR(COLOR_BROWN);
+		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use Joystick in Port 1");
+		SET_TEXT_COLOR(TEXT_COLOR);
+	#elif defined(__C16__) || defined(__PLUS4__)
+		SET_TEXT_COLOR(COLOR_GRAY1);
+		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use Joystick in first port");
+		SET_TEXT_COLOR(TEXT_COLOR);
+	#elif defined(__VIC20__)
+		SET_TEXT_COLOR(COLOR_GREEN);
+		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
+		SET_TEXT_COLOR(TEXT_COLOR);
+	#else
+		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
+	#endif
 	SET_TEXT_COLOR(TEXT_COLOR);
 	PRINT((XSize - 22) / 2, YSize / 2 + 8, "PRESS ANY KEY TO START");
 }

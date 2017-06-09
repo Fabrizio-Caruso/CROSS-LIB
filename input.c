@@ -56,7 +56,6 @@ void movePlayerByKeyboard(Character *playerPtr, char kbInput)
 		SET_TEXT_COLOR(PLAYER_COLOR);
 		displayCharacter(playerPtr);
 		SET_TEXT_COLOR(TEXT_COLOR);
-		sleep(1);
 	}
 	#endif // TRAINER
 	SET_TEXT_COLOR(PLAYER_COLOR);

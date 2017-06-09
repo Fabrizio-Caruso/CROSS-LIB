@@ -97,7 +97,6 @@ void printLevelBonus(void)
 	sprintf(levelString, "LEVEL BONUS = %d", level * 1000);
 
 	printCenteredMessage(levelString);
-	sleep(1);
 }
 
 void printPressKeyToStart(void)
@@ -129,13 +128,11 @@ void printDefeatMessage(void)
 void defeat(void)
 {
 	printDefeatMessage();
-	sleep(1);
 }
 
 void victory(void)
 {
 	printVictoryMessage();
-	sleep(1);
 }
 
 
@@ -195,9 +192,9 @@ void printStartMessage(void)
 void gameCompleted(void)
 {
 	printCenteredMessage("Y O U  M A D E  I T !"); 
-	sleep(2);
-	printCenteredMessage("    T H E   E N D    "); 
-	sleep(2);
+	// sleep(2);
+	// printCenteredMessage("    T H E   E N D    "); 
+	// sleep(2);
 }
 
 void finalScore(void)
@@ -206,6 +203,5 @@ void finalScore(void)
 	clrscr();
 	sprintf(scoreString, "SCORE:  %lu", points);
 	printCenteredMessage(scoreString);
-	sleep(3);
 }
 

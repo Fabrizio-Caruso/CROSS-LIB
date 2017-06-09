@@ -6,8 +6,6 @@
 
 #include <stdio.h>
 
-#include <unistd.h>
-
 #include "character.h"
 
 void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);

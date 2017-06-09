@@ -22,7 +22,7 @@ cl65.exe -O -t cbm510 %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_e
 cl65.exe -O -t atari %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\display.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %mypath%\atari800.xex
 
 REM apple2 has a "sleep" issue
-REM cl65.exe -O -t apple2 %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\display.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %mypath%\apple2.bin
+cl65.exe -O -t apple2 %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\display.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %mypath%\apple2.bin
 
 REM NES needs some INPUT
 REM cl65.exe -O -t nes %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\display.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %mypath%\nes.bin

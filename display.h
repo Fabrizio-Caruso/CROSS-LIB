@@ -7,9 +7,6 @@
 
 #include <stdio.h>
 
-#include <unistd.h>
-
-#include <time.h>
 
 void displayStatsTitles(void);
 

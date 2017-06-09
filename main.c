@@ -11,10 +11,14 @@
 
 #include <stdio.h>
 
-#include <unistd.h>
 
-#include <time.h>
 
+#if defined(__APPLE2__)
+	void sleep(unsigned int sec) { /* BOGUS */ sec = 1; } 
+#else
+	#include <time.h>
+	#include <unistd.h>
+#endif
 
 #include "settings.h"
 #include "character.h"
@@ -78,6 +82,7 @@ unsigned char XSize;
 unsigned char YSize;
 
 unsigned int loop;
+
 
 int main(void)
 {	

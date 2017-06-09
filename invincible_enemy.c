@@ -4,6 +4,12 @@
 extern unsigned short level;
 extern unsigned int loop;
 
+int computeInvincibleCountDown(void)
+{
+	return 125 - level*5;
+}
+
+
 int computeInvincibleSlowDown(void)
 {
 	if(loop<1000)

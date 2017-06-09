@@ -3,10 +3,8 @@
 
 #include "character.h"
 
-void movePlayer(Character *playerPtr, char kbInput);
+void movePlayerByKeyboard(Character *playerPtr, char kbInput);
 
 void movePlayerByJoystick(Character *playerPtr, unsigned char joyInput);
-
-int computeInvincibleCountDown(void);
 
 #endif // _INPUT

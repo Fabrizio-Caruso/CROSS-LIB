@@ -27,7 +27,9 @@
 #include "invincible_enemy.h"
 #include "powerups.h"
 
+// Input input/output driver headers
 #include "display_macros.h"
+#include "input_driver.h"
 
 unsigned int invincibleSlowDown = 30000;
 
@@ -78,13 +80,9 @@ unsigned char YSize;
 unsigned int loop;
 
 int main(void)
-{
-	#ifndef __PLUS4__
-	char kbInput;
-	#endif // __PLUS4__
-	
+{	
 	unsigned char joyInput;
-	int i;
+	char i;
 	
 	Character* ghosts[GHOSTS_NUMBER];
 	
@@ -199,19 +197,24 @@ int main(void)
 				
 				++loop;
 
-#ifndef __PLUS4__
-				if(kbhit())
-				{		
-					kbInput = cgetc();
-					movePlayer(&player, kbInput);
+#if defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__)
+// Do nothing
+#else 
+				IF_KEYBOARD_HIT
+				{	
+					char kbInput;				
+					kbInput = GET_CHAR;
+					movePlayerByKeyboard(&player, kbInput);
 				}
-#endif // __PLUS4__
-				//else
-				{
-					joyInput = joy_read (JOY_1);
-					
-					movePlayerByJoystick(&player, joyInput);	
-				}
+#endif // defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__)
+#if defined(__ATMOS__)	
+// Do nothing here
+#else		
+				//{
+				joyInput = joy_read (JOY_1);			
+				movePlayerByJoystick(&player, joyInput);	
+				//}
+#endif				
 				if(playerFire && missile._status==0 && guns>0)
 				{
 					--guns;

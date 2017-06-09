@@ -30,7 +30,6 @@ void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 		deleteCharacter(hunterPtr);
 		--hunterPtr->_y;
 	}
-	displayCharacter(hunterPtr);
 }
 
 
@@ -56,8 +55,6 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 		deleteCharacter(hunterPtr);
 		--hunterPtr->_x;
 	}
-
-	displayCharacter(hunterPtr);
 }
 
 void chaseCharacter(Character *hunterPtr, Character *preyPtr, int slowDown)
@@ -86,5 +83,6 @@ void chasePlayer(Character ** ghosts,
 	for(;i<GHOSTS_NUMBER;++i)
 	{
 		chaseCharacter(ghosts[i], preyPtr, slowDown);
+		displayCharacter(ghosts[i]);
 	}
 }

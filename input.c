@@ -2,6 +2,7 @@
 #include "settings.h"
 #include <joystick.h>
 #include "display_macros.h"
+#include "invincible_enemy.h"
 
 #include "input.h"
 
@@ -11,17 +12,8 @@ extern unsigned short playerDirection;
 extern unsigned short playerFire;
 extern unsigned short level;
 
-int computeInvincibleCountDown(void)
+void movePlayerByKeyboard(Character *playerPtr, char kbInput)
 {
-	return 125 - level*5;
-}
-
-
-void movePlayer(Character *playerPtr, char kbInput)
-{
-	#if defined(__C64__) || defined(__VIC20__)
-	// Do nothing
-	#else
 	if((kbInput=='W') || (kbInput=='w'))
 	{
 		deleteCharacter(playerPtr);
@@ -50,8 +42,7 @@ void movePlayer(Character *playerPtr, char kbInput)
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = RIGHT;
 	}
-	else 
-	#endif // defined(__C64__) || defined(__VIC20__)	
+	else 	
 	if(kbInput==' ')
 	{
 		playerFire = 1;

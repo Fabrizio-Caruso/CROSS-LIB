@@ -20,6 +20,26 @@ struct CharacterStruct
 
 typedef struct CharacterStruct Character;
 
+#include <stdlib.h>
+
+
+
+#include "character.h"
+#include "settings.h"
+
+#include "display_macros.h"
+
+extern unsigned long points;
+extern unsigned short innerVerticalWallX;
+extern unsigned short innerVerticalWallY;
+extern unsigned short innerVerticalWallLength;
+
+extern unsigned char XSize;
+extern unsigned char YSize;
+
+extern unsigned short ghostCount;
+
+
 void initializeCharacter(Character* characterPtr, int x, int y, char ch, short status);
 
 void setCharacterPosition(Character* characterPtr, short x, short y);
@@ -30,10 +50,7 @@ void deleteCharacter(Character* characterPtr);
 
 void displayCharacter(Character* characterPtr);
 
-void displayDeadGhosts(Character * ghostPtr1, Character * ghostPtr2, 
-						Character * ghostPtr3, Character * ghostPtr4,
-						Character * ghostPtr5, Character * ghostPtr6, 
-						Character * ghostPtr7, Character * ghostPtr8);
+void displayDeadGhosts(Character ** ghosts);
 
 int isCharacterAtLocation(short x, short y, Character * characterPtr);
 
@@ -48,99 +65,64 @@ int upDanger(Character* characterPtr, Character* bombPtr);
 int downDanger(Character* characterPtr, Character* bombPtr);
 
 int leftBombs(Character* characterPtr, 
-              Character* bombPtr1,  Character* bombPtr2, 
-              Character* bombPtr3,  Character* bombPtr4);
+              Character** bombs);
 
 int rightBombs(Character* characterPtr, 
-              Character* bombPtr1,  Character* bombPtr2, 
-              Character* bombPtr3,  Character* bombPtr4);
-
+              Character** bombs);
+			  
 int upBombs(Character* characterPtr, 
-              Character* bombPtr1,  Character* bombPtr2, 
-              Character* bombPtr3,  Character* bombPtr4);
+              Character** bombs);
 
 int downBombs(Character* characterPtr, 
-              Character* bombPtr1,  Character* bombPtr2, 
-              Character* bombPtr3,  Character* bombPtr4);
-
+              Character** bombs);
+			  
 int leftGhosts(Character* characterPtr, 
-              Character* ghostPtr1,  Character* ghostPtr2, 
-              Character* ghostPtr3,  Character* ghostPtr4,
-              Character* ghostPtr5,  Character* ghostPtr6, 
-              Character* ghostPtr7);
+              Character** ghosts);
 			  
 int rightGhosts(Character* characterPtr, 
-              Character* ghostPtr1,  Character* ghostPtr2, 
-              Character* ghostPtr3,  Character* ghostPtr4,
-              Character* ghostPtr5,  Character* ghostPtr6, 
-              Character* ghostPtr7);
+              Character** ghosts);
 			  
 int upGhosts(Character* characterPtr, 
-              Character* ghostPtr1,  Character* ghostPtr2, 
-              Character* ghostPtr3,  Character* ghostPtr4,
-              Character* ghostPtr5,  Character* ghostPtr6, 
-              Character* ghostPtr7);
-
+              Character** ghosts);
+			  
 int downGhosts(Character* characterPtr, 
-              Character* ghostPtr1,  Character* ghostPtr2, 
-              Character* ghostPtr3,  Character* ghostPtr4,
-              Character* ghostPtr5,  Character* ghostPtr6, 
-              Character* ghostPtr7);
+              Character** ghosts);
 
 int wallReached(Character *characterPtr);
 
-
 void die(Character * playerPtr);
 
-			int playerReached(Character * hunterPtr1, Character * hunterPtr2, Character * hunterPtr3, Character * hunterPtr4, 
-				  Character * hunterPtr5, Character * hunterPtr6, Character * hunterPtr7, Character * hunterPtr8, 
+int playerReached(Character ** ghosts, 
                   Character* preyPtr);
-
-int playerReachedBombs(Character * bombPtr1, Character * bombPtr2, Character * bombPtr3, Character * bombPtr4,  
+				  
+int playerReachedBombs(Character ** bombs,  
 					   Character* ghostPtr);
 
-int charactersMeet(Character * hunterPtr1, Character * hunterPtr2, Character * hunterPtr3, 
-				   Character * hunterPtr4, Character * hunterPtr5, Character * hunterPtr6,
-				   Character * hunterPtr7,
-				   Character* preyPtr);
-  
-  
-void checkBombsVsGhost(Character * bombPtr1, Character * bombPtr2, 
-					   Character * bombPtr3, Character * bombPtr4,
+int charactersMeet(short preyIndex, Character **ghosts);
+
+void checkBombsVsGhost(Character ** bombs,
 					   Character * ghostPtr);
 						
 
-void checkBombsVsGhosts(Character * bombPtr1, Character * bombPtr2, 
-						Character * bombPtr3, Character * bombPtr4,
-						Character * ghostPtr1, Character * ghostPtr2, 
-						Character * ghostPtr3, Character * ghostPtr4,
-						Character * ghostPtr5, Character * ghostPtr6, 
-						Character * ghostPtr7, Character * ghostPtr8);
+void checkBombsVsGhosts(Character ** bombs,
+						Character ** ghosts);
 
 
 int safeLocation(int x, int y, 
-				Character * bombPtr1, Character * bombPtr2, 
-				Character * bombPtr3, Character * bombPtr4,
-				Character * ghostPtr1, Character * ghostPtr2, 
-				Character * ghostPtr3, Character * ghostPtr4,
-				Character * ghostPtr5, Character * ghostPtr6, 
-				Character * ghostPtr7, Character * ghostPtr8);
+				Character ** bombs,
+				Character ** ghosts);
+
 
 void relocateCharacter(Character * characterPtr, 
-						Character * bombPtr1, Character * bombPtr2, 
-						Character * bombPtr3, Character * bombPtr4,
-						Character * ghostPtr1, Character * ghostPtr2, 
-						Character * ghostPtr3, Character * ghostPtr4,
-						Character * ghostPtr5, Character * ghostPtr6, 
-						Character * ghostPtr7, Character * ghostPtr8);
+						Character ** bombs,
+						Character ** ghosts);
+
 
 short innerWallReached(Character *characterPtr);
 
 short nearInnerWall(Character *characterPtr);
 
 
-void checkGhostsVsGhosts(Character *ghostPtr1, Character *ghostPtr2, Character *ghostPtr3, Character *ghostPtr4,
-						 Character *ghostPtr5, Character *ghostPtr6, Character *ghostPtr7, Character *ghostPtr8);
-
+void checkGhostsVsGhosts(Character ** ghosts);
 
 #endif

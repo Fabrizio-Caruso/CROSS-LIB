@@ -31,15 +31,3 @@ void decreaseGhostLevel(void)
 		ghostLevel=0;
 }
 
-int computeGhostSmartness(void)
-{
-	if(level<=4)
-	{
-		return level+3;
-	}
-	else
-	{
-		return 8;
-	}
-}
-

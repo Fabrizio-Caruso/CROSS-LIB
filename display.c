@@ -20,7 +20,9 @@ extern unsigned int ghostLevel;
 
 void displayStatsTitles(void)
 {
-	PRINT(2,1,"SPEED:");
+	SET_TEXT_COLOR(COLOR_BLACK);
+	
+	PRINT(2,1,"SP33D:");
 
 	PRINT(15,1,"!:");
 
@@ -37,6 +39,8 @@ void displayStatsTitles(void)
 
 void displayStats(void)
 {	
+	SET_TEXT_COLOR(COLOR_BLACK);
+	
 	PRINT(8,1,"      ");
 	PRINTF(8,1,"%u",ghostLevel);
 
@@ -73,6 +77,7 @@ void setScreenColors(void)
 
 void printCenteredMessage(char *Text)
 {
+	SET_TEXT_COLOR(TEXT_COLOR);
 	PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text);
 }
 

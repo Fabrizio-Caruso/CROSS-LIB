@@ -1,4 +1,5 @@
 #include "missile.h"
+#include "settings.h"
 
 extern unsigned long points;
 extern unsigned short ghostCount;
@@ -16,19 +17,13 @@ void checkMissileVsGhost(Character * missilePtr,
 }
 	
 void checkMissileVsGhosts(Character * missilePtr,
-						Character * ghostPtr1, Character * ghostPtr2, 
-						Character * ghostPtr3, Character * ghostPtr4,
-						Character * ghostPtr5, Character * ghostPtr6, 
-						Character * ghostPtr7, Character * ghostPtr8)
+						Character ** ghosts)
 {
-	checkMissileVsGhost(missilePtr, ghostPtr1);
-	checkMissileVsGhost(missilePtr, ghostPtr2);
-	checkMissileVsGhost(missilePtr, ghostPtr3);
-	checkMissileVsGhost(missilePtr, ghostPtr4);
-	checkMissileVsGhost(missilePtr, ghostPtr5);
-	checkMissileVsGhost(missilePtr, ghostPtr6);
-	checkMissileVsGhost(missilePtr, ghostPtr7);
-	checkMissileVsGhost(missilePtr, ghostPtr8);
+	int i = 0;
+	for(;i<GHOSTS_NUMBER;++i)
+	{
+		checkMissileVsGhost(missilePtr, ghosts[i]);
+	}
 }
 	
 int setMissileInitialPosition(Character *missilePtr, Character *playerPtr,

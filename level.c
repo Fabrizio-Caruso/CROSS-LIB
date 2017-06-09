@@ -87,12 +87,8 @@ unsigned short drawInnerVerticalWallForLevel(void)
 
 void fillLevelWithCharacters(
 						  Character * playerPtr, Character * powerUpPtr, 
-						  Character * ghostPtr1, Character * ghostPtr2,
-						  Character * ghostPtr3, Character * ghostPtr4,
-						  Character * ghostPtr5, Character * ghostPtr6,
-						  Character * ghostPtr7, Character * ghostPtr8,
-						  Character * bombPtr1, Character * bombPtr2,
-						  Character * bombPtr3, Character * bombPtr4,
+						  Character **ghosts,
+						  Character **bombs,
 						  Character * invincibleGhostPtr, 
 						  Character * missilePtr, Character * gunPtr)
 {
@@ -100,31 +96,33 @@ void fillLevelWithCharacters(
 	short chirality = rand()%2;
 	int b1x, b2x, b3x, b4x;
 	int b1y, b2y, b3y, b4y;
-
+	Character *dummyBombs[BOMBS_NUMBER];
+	char i;
+	
 	// Ghosts
-	initializeCharacter(ghostPtr2,XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'O',1);
-	displayCharacter(ghostPtr2);
+	initializeCharacter(ghosts[1],XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'O',1);
+	displayCharacter(ghosts[1]);
 
-	initializeCharacter(ghostPtr3,XSize/6+rand()%4-2,YSize/2+rand()%4-2,'O',1);
-	displayCharacter(ghostPtr3);
+	initializeCharacter(ghosts[2],XSize/6+rand()%4-2,YSize/2+rand()%4-2,'O',1);
+	displayCharacter(ghosts[2]);
 	
-	initializeCharacter(ghostPtr4,XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',1);
-	displayCharacter(ghostPtr4);
+	initializeCharacter(ghosts[3],XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',1);
+	displayCharacter(ghosts[3]);
 	
-	initializeCharacter(ghostPtr5,XSize/2+rand()%4-2,YSize/6+rand()%4-2+1,'O',1);
-	displayCharacter(ghostPtr5);
+	initializeCharacter(ghosts[4],XSize/2+rand()%4-2,YSize/6+rand()%4-2+1,'O',1);
+	displayCharacter(ghosts[4]);
 
-	initializeCharacter(ghostPtr6,XSize/2+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',1);
-	displayCharacter(ghostPtr6);
+	initializeCharacter(ghosts[5],XSize/2+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',1);
+	displayCharacter(ghosts[5]);
 
-	initializeCharacter(ghostPtr7,XSize-XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'O',1);
-	displayCharacter(ghostPtr7);
+	initializeCharacter(ghosts[6],XSize-XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,'O',1);
+	displayCharacter(ghosts[6]);
 	
-	initializeCharacter(ghostPtr8,XSize-XSize/6+rand()%4-2,YSize/2+rand()%4-2,'O',1);
-	displayCharacter(ghostPtr8);
+	initializeCharacter(ghosts[7],XSize-XSize/6+rand()%4-2,YSize/2+rand()%4-2,'O',1);
+	displayCharacter(ghosts[7]);
 	
-	initializeCharacter(ghostPtr1,XSize-XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',1);
-	displayCharacter(ghostPtr1);
+	initializeCharacter(ghosts[0],XSize-XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,'O',1);
+	displayCharacter(ghosts[0]);
 
 	
 	// Player
@@ -199,13 +197,13 @@ void fillLevelWithCharacters(
 		
 		if(level>=FIRST_HARD_LEVEL)
 		{
-			initializeCharacter(bombPtr1,b1x, b1y,'X',0);
+			initializeCharacter(bombs[0],b1x, b1y,'X',0);
 
-			initializeCharacter(bombPtr2,b2x, b2y,'X',0);
+			initializeCharacter(bombs[1],b2x, b2y,'X',0);
 
-			initializeCharacter(bombPtr3,b3x, b3y,'X',0);
+			initializeCharacter(bombs[2],b3x, b3y,'X',0);
 
-			initializeCharacter(bombPtr4,b4x, b4y,'X',0);
+			initializeCharacter(bombs[3],b4x, b4y,'X',0);
 		}
 		else if(level<FIRST_HARD_LEVEL)
 		{
@@ -225,20 +223,31 @@ void fillLevelWithCharacters(
 				b3x = XSize/2+5;
 				b3y = YSize/2+5;
 			}
-			initializeCharacter(bombPtr1,b1x, b1y,'X',0);
-			relocateCharacter(bombPtr1, playerPtr, ghostPtr1, ghostPtr1, ghostPtr1, 
-							   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
-							   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
+			initializeCharacter(bombs[0],b1x, b1y,'X',0);
 			
-			initializeCharacter(bombPtr3,b3x, b3y,'X',0);
-			relocateCharacter(bombPtr3, playerPtr, bombPtr1, ghostPtr1, ghostPtr1, 
-							ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
-							ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
+			dummyBombs[0] = ghosts[0];
+			dummyBombs[1] = ghosts[0];
+			dummyBombs[2] = ghosts[0];
+			dummyBombs[3] = playerPtr;
+			for(i=0;i<BOMBS_NUMBER;++i)
+			{	
+				relocateCharacter(bombs[0], dummyBombs, ghosts);		
+			}
+			
+			initializeCharacter(bombs[2],b3x, b3y,'X',0);
+			//dummyBombs[0] = ghosts[0];
+			//dummyBombs[1] = ghosts[0];
+			dummyBombs[2] = bombs[0];
+			//dummyBombs[3] = playerPtr;
+			for(i=0;i<BOMBS_NUMBER;++i)
+			{	
+				relocateCharacter(bombs[2], dummyBombs, ghosts);		
+			}									
 
 			if(level>=TWO_BOMB_START_LEVEL) // only use bomb1 and bomb3 previously relocated
 			{
-				initializeCharacter(bombPtr2, bombPtr1->_x, bombPtr1->_y, 'X', 0);
-				initializeCharacter(bombPtr4, bombPtr3->_x, bombPtr3->_y, 'X', 0);
+				initializeCharacter(bombs[1], bombs[0]->_x, bombs[0]->_y, 'X', 0);
+				initializeCharacter(bombs[3], bombs[2]->_x, bombs[2]->_y, 'X', 0);
 			}
 			else // place bomb2 and bomb4
 			{
@@ -258,31 +267,41 @@ void fillLevelWithCharacters(
 					b4x = XSize/2+5;
 					b4y = YSize/2-5;
 				}
-				initializeCharacter(bombPtr2,b2x, b2y,'X',0);
-				relocateCharacter(bombPtr2, playerPtr, bombPtr1, bombPtr3, ghostPtr1, 
-								   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
-								   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);		
+				initializeCharacter(bombs[1],b2x, b2y,'X',0);
 				
-				initializeCharacter(bombPtr4,b4x, b4y,'X',0);
-				relocateCharacter(bombPtr4, playerPtr, bombPtr1, bombPtr2, bombPtr3, 
-				ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
-				ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
+				dummyBombs[0] = ghosts[0];
+				dummyBombs[1] = bombs[2];
+				dummyBombs[2] = bombs[0];
+				dummyBombs[3] = playerPtr;
+				for(i=0;i<BOMBS_NUMBER;++i)
+				{	
+					relocateCharacter(bombs[1], dummyBombs, ghosts);		
+				}
+				
+				initializeCharacter(bombs[3],b4x, b4y,'X',0);
+				
+				dummyBombs[0] = bombs[1];
+				//dummyBombs[1] = bombs[2];
+				//dummyBombs[2] = bombs[0];
+				//dummyBombs[3] = playerPtr;
+				for(i=0;i<BOMBS_NUMBER;++i)
+				{
+					relocateCharacter(bombs[1], dummyBombs, ghosts);
+				}				
 			}
 		}
-	} while(nearInnerWall(bombPtr1) || nearInnerWall(bombPtr2) || nearInnerWall(bombPtr3) || nearInnerWall(bombPtr4));
+	} while(nearInnerWall(bombs[0]) || nearInnerWall(bombs[1]) || nearInnerWall(bombs[2]) || nearInnerWall(bombs[3]));
 	
-	displayCharacter(bombPtr1);
-	displayCharacter(bombPtr2);
-	displayCharacter(bombPtr3);
-	displayCharacter(bombPtr4);
-				
+	for(i=0;i<BOMBS_NUMBER;++i)
+	{
+		displayCharacter(bombs[i]);
+	}
+
 	do
 	{
 		// Power-ups
 		initializeCharacter(powerUpPtr,XSize/2,YSize/2,'P',1);
-		relocateCharacter(powerUpPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
-							   ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
-							   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);	
+		relocateCharacter(powerUpPtr, bombs, ghosts);	
 		initializeCharacter(powerUpPtr,powerUpPtr->_x,powerUpPtr->_y,'P',1);
 	} while(nearInnerWall(powerUpPtr));
 	displayCharacter(powerUpPtr);
@@ -292,9 +311,7 @@ void fillLevelWithCharacters(
 	do
 	{
 		initializeCharacter(gunPtr, XSize/2, YSize/2, '!', 0);
-		relocateCharacter(gunPtr, bombPtr1, bombPtr2, bombPtr3, bombPtr4, 
-							  ghostPtr1, ghostPtr2, ghostPtr3, ghostPtr4, 
-							   ghostPtr5, ghostPtr6, ghostPtr7, ghostPtr8);
+		relocateCharacter(gunPtr, bombs, ghosts);
 	} while(nearInnerWall(gunPtr));
 	
 	switch(corner)

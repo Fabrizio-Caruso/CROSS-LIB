@@ -8,7 +8,7 @@ int computeInvincibleSlowDown(void)
 {
 	if(loop<1000)
 	{
-		return 32000 - (level/2+1) * 1000 - loop/2;
+		return 32000 - (level/2+1) * 1000 - loop/2 - 1000;
 	}
 	else if(loop<11000)
 	{

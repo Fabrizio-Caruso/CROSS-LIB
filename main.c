@@ -45,12 +45,11 @@ unsigned int powerUpInitialCoolDown = 100;
 
 unsigned int ghostLevel = 1u;
 unsigned long points = 0ul;
-unsigned char ghostSmartness = 1u; // 9u is max = impossible 
 
 unsigned short playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
 unsigned short missileDirection = 0;
 unsigned short playerFire = 0;
-unsigned short guns = 3;
+unsigned short guns = GUNS_NUMBER;
 
 unsigned short lives;
 
@@ -63,15 +62,14 @@ unsigned short innerVerticalWallLength;
 // The level affects:
 // 1. powerUpCoolDown (how long before a new powerUp is spawned)
 // 2. ghostSlowDown (how much the power up slows the enemies down)
-// 3. ghostSmartness (how smart ghosts are in avoiding their death)
-// 4. invincibleXCountDown (time needed to activate the invincible ghost)
-// 5. invincibleYCountDown
-// 6. invincibleSlowDown (how much the invincible ghost is slowed-down)
-// 7. invincibleLoopTrigger (how long before the invincible ghost appears)
+// 3. invincibleXCountDown (time needed to activate the invincible ghost)
+// 4. invincibleYCountDown
+// 5. invincibleSlowDown (how much the invincible ghost is slowed-down)
+// 6. invincibleLoopTrigger (how long before the invincible ghost appears)
 unsigned short level = 1;
 
 unsigned int invincibleLoopTrigger = 1000;
-unsigned short ghostCount = 8;
+unsigned short ghostCount = GHOSTS_NUMBER;
 unsigned short invincibleGhostCountTrigger = 2;
 
 unsigned char XSize;
@@ -86,21 +84,13 @@ int main(void)
 	#endif // __PLUS4__
 	
 	unsigned char joyInput;
+	int i;
 	
-	Character ghost_1; 	
-	Character ghost_2; 
-    Character ghost_3; 	
-	Character ghost_4; 
-	Character ghost_5; 	
-	Character ghost_6; 
-    Character ghost_7; 	
-	Character ghost_8; 
+	Character* ghosts[GHOSTS_NUMBER];
+	
 	Character invincibleGhost;
 	
-	Character bomb_1;
-	Character bomb_2;
-	Character bomb_3;
-	Character bomb_4;
+	Character* bombs[BOMBS_NUMBER];
 	
 	Character player; 
 	
@@ -115,10 +105,20 @@ int main(void)
 	
 	/* Ask for the screen size */
 	screensize (&XSize, &YSize);	
+
+
+	for(i=0;i<GHOSTS_NUMBER;++i)
+	{
+		ghosts[i] = (Character *) malloc(sizeof(Character));
+	}
+	for(i=0;i<BOMBS_NUMBER;++i)
+	{
+		bombs[i] = (Character *) malloc(sizeof(Character));
+	}
 	
 	while(1)
 	{
-		ghostCount = 8;
+		ghostCount = GHOSTS_NUMBER;
 		loop = 0;	
 		points = 0ul;
 		level = INITIAL_LEVEL; 
@@ -139,12 +139,11 @@ int main(void)
 				
 		deleteCenteredMessage();
 		
-		lives = 3;
+		lives = LIVES_NUMBER;
 		do // Level (Re-)Start
 		{ 
 			loop = 0;
 			ghostLevel = 1u;
-			ghostSmartness = computeGhostSmartness();
 			
 			computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
 			
@@ -154,7 +153,7 @@ int main(void)
 			invincibleSlowDown = computeInvincibleSlowDown();
 			invincibleGhostCountTrigger = computeInvincibleGhostCountTrigger();
 			invincibleLoopTrigger = computeInvincibleLoopTrigger();
-			ghostCount = 8;
+			ghostCount = GHOSTS_NUMBER;
 			guns = 0;
 			gun._status = 0;
 			gunCoolDown = gunInitialCoolDown;
@@ -164,6 +163,8 @@ int main(void)
 
 			printLevel();
 			sleep(2);
+			
+			
 			
 			/* Wait for the user to press a key */
 			printPressKeyToStart();
@@ -180,13 +181,13 @@ int main(void)
 			
 			// Initialize characters
 			innerVerticalWallLength = drawInnerVerticalWallForLevel();
+			
 			fillLevelWithCharacters(
 								 &player, &powerUp, 
-								 &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-								 &ghost_5, &ghost_6, &ghost_7, &ghost_8, 
-								 &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
+								 ghosts, 
+								 bombs, 
 								 &invincibleGhost, &missile, &gun);	
-			ghostCount = 8;
+			ghostCount = GHOSTS_NUMBER;
 			
 			displayStatsTitles();
 			
@@ -219,9 +220,7 @@ int main(void)
 					missile._alive = missile._status;
 					playerFire = 0;
 					displayCharacter(&missile);					
-					checkMissileVsGhosts(&missile, 
-						&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-						&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+					checkMissileVsGhosts(&missile, ghosts);
 					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 						{
 							//missile._status = 0; missile._alive = 0;
@@ -234,9 +233,7 @@ int main(void)
 				{
 					moveMissile(&missile, missileDirection);
 					// TODO: Inefficient
-					checkMissileVsGhosts(&missile, 
-						&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-						&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+					checkMissileVsGhosts(&missile, ghosts);
 					
 					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 					{
@@ -246,16 +243,10 @@ int main(void)
 					}
 				}
 			
+				chasePlayer(ghosts, &player, ghostSlowDown);
 				
-				chasePlayer(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-							&ghost_5, &ghost_6, &ghost_7, &ghost_8, &player, 
-							&bomb_1, &bomb_2, &bomb_3, &bomb_4, 
-							ghostSmartness, ghostSlowDown);
-					
-				
-				if(playerReached(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-								 &ghost_5, &ghost_6, &ghost_7, &ghost_8, &player) ||
-				   playerReachedBombs(&bomb_1, &bomb_2, &bomb_3, &bomb_4, &player))
+				if(playerReached(ghosts, &player) ||
+				   playerReachedBombs(bombs, &player))
 				{
 					die(&player);
 					defeat();
@@ -269,27 +260,23 @@ int main(void)
 					sleep(1);
 				}
 			
-				checkBombsVsGhosts(&bomb_1, &bomb_2, &bomb_3, &bomb_4, 
-								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
+				checkBombsVsGhosts(bombs, 
+								   ghosts);
 				
-				checkGhostsVsGhosts(&ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-									&ghost_5, &ghost_6, &ghost_7, &ghost_8);
+				checkGhostsVsGhosts(ghosts);
 
 				if(gun._status==1)
 				{
 					if(powerUpReached(&player, &gun))
 					{
-						guns = 3;
+						guns = GUNS_NUMBER;
 						points+=GUN_BONUS;
 						gun._status = 0;	
 						gunCoolDown = gunInitialCoolDown;
 					}
 					else
 					{
-						SET_TEXT_COLOR(GUN_COLOR);
 						displayCharacter(&gun);
-						SET_TEXT_COLOR(TEXT_COLOR);
 					}
 				}		
 				else if (gunCoolDown == 0)
@@ -298,9 +285,7 @@ int main(void)
 					gun._status = 1;
 					do
 					{
-					relocateCharacter(&gun, &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
-								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
+					relocateCharacter(&gun, bombs, ghosts);
 					} while(innerWallReached(&gun));
 				}
 				else
@@ -319,9 +304,7 @@ int main(void)
 					}
 					else
 					{
-						SET_TEXT_COLOR(POWER_UP_COLOR);
 						displayCharacter(&powerUp);
-						SET_TEXT_COLOR(TEXT_COLOR);
 					}		
 				}
 				else if (powerUpCoolDown == 0)
@@ -329,9 +312,7 @@ int main(void)
 					powerUp._status = 1;
 					do
 					{
-					relocateCharacter(&powerUp, &bomb_1, &bomb_2, &bomb_3, &bomb_4, 
-								   &ghost_1, &ghost_2, &ghost_3, &ghost_4, 
-								   &ghost_5, &ghost_6, &ghost_7, &ghost_8);
+					relocateCharacter(&powerUp, bombs, ghosts);
 					} while(innerWallReached(&powerUp));
 				}
 				else
@@ -347,15 +328,15 @@ int main(void)
 				}
 				
 				SET_TEXT_COLOR(COLOR_RED);
-				displayCharacter(&bomb_1);
-				displayCharacter(&bomb_2);		
-				displayCharacter(&bomb_3);
-				displayCharacter(&bomb_4);
+				for(i=0;i<BOMBS_NUMBER;++i)
+				{
+					displayCharacter(bombs[i]);
+				}
 				SET_TEXT_COLOR(TEXT_COLOR);
 				
 				if(guns>0 || invincibleGhost._status)
 				{
-					displayDeadGhosts(&ghost_1, &ghost_2, &ghost_3, &ghost_4, &ghost_5, &ghost_6, &ghost_7, &ghost_8);
+					displayDeadGhosts(ghosts);
 				}
 				
 				displayStatsTitles();
@@ -374,8 +355,8 @@ int main(void)
 					--invincibleYCountDown;
 				}
 				if(invincibleGhost._status)
-				{
-					blindChaseCharacterMaxStrategy(&invincibleGhost, &player);
+				{ 
+					chaseCharacter(&invincibleGhost, &player, invincibleSlowDown);
 					if(areCharctersAtSamePosition(&invincibleGhost, &player))
 					{
 						die(&player);

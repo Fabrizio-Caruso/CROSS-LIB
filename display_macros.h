@@ -4,16 +4,7 @@
 #include <conio.h>
 #include "settings.h"
 
-// C16 
-// $0800 Color memory (Text)
-// $0C00 Video matrix (Text)
-
-// Vic 20
-// it depends on memory configuration
-
-// C128
-// In 40cols -> same as C64
-
+#define GET_SCREEN_SIZE(x,y) screensize(x,y);
 
 #define DRAW(x,y,ch) {gotoxy((x),(y)); cputc(ch);};
 

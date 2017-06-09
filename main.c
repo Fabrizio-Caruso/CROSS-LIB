@@ -29,7 +29,7 @@
 
 // Input input/output driver headers
 #include "display_macros.h"
-#include "input_driver.h"
+#include "input_macros.h"
 
 unsigned int invincibleSlowDown = 30000;
 
@@ -102,8 +102,7 @@ int main(void)
 	joy_install (joy_static_stddrv);	
 	
 	/* Ask for the screen size */
-	screensize (&XSize, &YSize);	
-
+	GET_SCREEN_SIZE(&XSize, &YSize);
 
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{

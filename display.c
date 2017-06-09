@@ -73,6 +73,7 @@ void setScreenColors(void)
 
 void printCenteredMessage(char *Text)
 {
+	SET_TEXT_COLOR(TEXT_COLOR);
 	PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text);
 }
 

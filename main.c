@@ -14,7 +14,7 @@
 #include <unistd.h>
 
 #include <time.h>
-#include <joystick.h>
+
 
 #include "settings.h"
 #include "character.h"
@@ -81,7 +81,6 @@ unsigned int loop;
 
 int main(void)
 {	
-	unsigned char joyInput;
 	char i;
 	
 	Character* ghosts[GHOSTS_NUMBER];
@@ -96,11 +95,20 @@ int main(void)
 	Character gun;
 	
 	Character missile;
-		
-	unsigned char Err = joy_load_driver (joy_stddrv);
-			
-	joy_install (joy_static_stddrv);	
 	
+	#if defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
+	// Do nothing
+	#else 
+		unsigned char kbInput;
+	#endif
+	
+	#if defined (__ATMOS__) || defined(__NES__) 
+	// Do nothing
+	#else 
+		unsigned char joyInput;
+		JOY_INSTALL()
+	#endif
+
 	/* Ask for the screen size */
 	GET_SCREEN_SIZE(&XSize, &YSize);
 
@@ -126,12 +134,13 @@ int main(void)
 		CLEAR_SCREEN();
 					
 		printStartMessage();
-		while(!kbhit() 				
-		#ifndef __PLUS4__	
-		&& !joy_read(JOY_1)
-		#endif //__PLUS4__
-		)
-		{}
+		
+		#if defined (__ATMOS__) || defined(__NES__) 
+			// Do nothing
+		#else 
+			WAIT_JOY_PRESS();
+		#endif
+	
 		CLEAR_SCREEN();
 				
 		deleteCenteredMessage();
@@ -165,12 +174,14 @@ int main(void)
 			
 			/* Wait for the user to press a key */
 			printPressKeyToStart();
-			while(!kbhit() 				
-			#ifndef __PLUS4__	
-			&& !joy_read(JOY_1)
-			#endif //__PLUS4__
-			)
-			{}
+			
+			#if defined (__ATMOS__) || defined(__NES__) 
+				// Do nothing
+			#else 
+				WAIT_JOY_PRESS();
+			#endif
+
+
 			deleteCenteredMessage();
 			
 			/* Draw a border around the screen */
@@ -196,24 +207,23 @@ int main(void)
 				
 				++loop;
 
-#if defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__)
-// Do nothing
-#else 
+				#if defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
+					// Do nothing
+				#else 
 				IF_KEYBOARD_HIT
-				{	
-					char kbInput;				
-					kbInput = GET_CHAR;
-					movePlayerByKeyboard(&player, kbInput);
-				}
-#endif // defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__)
-#if defined(__ATMOS__)	
-// Do nothing here
-#else		
-				//{
-				joyInput = joy_read (JOY_1);			
-				movePlayerByJoystick(&player, joyInput);	
-				//}
-#endif				
+					{				
+						kbInput = GET_CHAR();
+						movePlayerByKeyboard(&player, kbInput);
+					}
+				#endif // defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__)
+				#if defined(__ATMOS__) || defined(__NES__)
+					// Do nothing here
+				#else		
+					{
+						joyInput = GET_JOY1();			
+						movePlayerByJoystick(&player, joyInput);	
+					}
+				#endif				
 				if(playerFire && missile._status==0 && guns>0)
 				{
 					--guns;

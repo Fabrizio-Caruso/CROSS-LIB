@@ -7,9 +7,6 @@ struct CharacterStruct
 	short _x;
 	short _y;
 	
-	// how to display the character (i.e., which ASCII character to use
-	char _ch;
-	
 	// _status decides whether the character is active
 	char _status;
 	
@@ -40,51 +37,19 @@ extern unsigned char YSize;
 extern unsigned short ghostCount;
 
 
-void initializeCharacter(Character* characterPtr, int x, int y, char ch, short status);
+void initializeCharacter(Character* characterPtr, int x, int y, short status);//char ch, short status);
 
 void setCharacterPosition(Character* characterPtr, short x, short y);
 
 void setCharacterDisplay(Character* characterPtr, char ch);
 
-void deleteCharacter(Character* characterPtr);
+//void deleteCharacter(Character* characterPtr);
 
-void displayCharacter(Character* characterPtr);
+//void DELETE_CHARACTER(Character* characterPtr);
 
 int isCharacterAtLocation(short x, short y, Character * characterPtr);
 
 int areCharctersAtSamePosition(Character* lhs, Character* rhs);
-
-int leftDanger(Character* characterPtr, Character* bombPtr);
-
-int rightDanger(Character* characterPtr, Character* bombPtr);
-
-int upDanger(Character* characterPtr, Character* bombPtr);
-
-int downDanger(Character* characterPtr, Character* bombPtr);
-
-int leftBombs(Character* characterPtr, 
-              Character** bombs);
-
-int rightBombs(Character* characterPtr, 
-              Character** bombs);
-			  
-int upBombs(Character* characterPtr, 
-              Character** bombs);
-
-int downBombs(Character* characterPtr, 
-              Character** bombs);
-			  
-int leftGhosts(Character* characterPtr, 
-              Character** ghosts);
-			  
-int rightGhosts(Character* characterPtr, 
-              Character** ghosts);
-			  
-int upGhosts(Character* characterPtr, 
-              Character** ghosts);
-			  
-int downGhosts(Character* characterPtr, 
-              Character** ghosts);
 
 int wallReached(Character *characterPtr);
 

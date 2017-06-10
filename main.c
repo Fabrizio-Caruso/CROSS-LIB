@@ -236,14 +236,16 @@ int main(void)
 					missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
 					missile._alive = missile._status;
 					playerFire = 0;
-					displayCharacter(&missile);					
+					//displayCharacter(&missile);
+					DRAW_MISSILE(&missile);					
 					checkMissileVsGhosts(&missile, ghosts);
 					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 						{
 							//missile._status = 0; missile._alive = 0;
 							die(&missile);
 							restoreMissile(&missile);
-							displayCharacter(&invincibleGhost);
+							//displayCharacter(&invincibleGhost);
+							DRAW_INVINCIBLE_GHOST(&invincibleGhost);
 						}		
 				}
 				if(missile._status==1 && missile._alive==1)
@@ -256,7 +258,8 @@ int main(void)
 					{
 						die(&missile);
 						restoreMissile(&missile);
-						displayCharacter(&invincibleGhost);
+						//displayCharacter(&invincibleGhost);
+						DRAW_INVINCIBLE_GHOST(&invincibleGhost);
 					}
 				}
 			
@@ -293,7 +296,8 @@ int main(void)
 					}
 					else
 					{
-						displayCharacter(&gun);
+						//displayCharacter(&gun);
+						DRAW_GUN(&gun);
 					}
 				}		
 				else if (gunCoolDown == 0)
@@ -321,7 +325,8 @@ int main(void)
 					}
 					else
 					{
-						displayCharacter(&powerUp);
+						//displayCharacter(&powerUp);
+						DRAW_POWERUP(&powerUp);
 					}		
 				}
 				else if (powerUpCoolDown == 0)
@@ -347,7 +352,8 @@ int main(void)
 				SET_TEXT_COLOR(COLOR_RED);
 				for(i=0;i<BOMBS_NUMBER;++i)
 				{
-					displayCharacter(bombs[i]);
+					//displayCharacter(bombs[i]);
+					DRAW_BOMB(bombs[i]);
 				}
 				SET_TEXT_COLOR(TEXT_COLOR);
 				
@@ -361,7 +367,8 @@ int main(void)
 				   (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))
 				{
 					invincibleGhost._status = 1;
-					displayCharacter(&invincibleGhost);
+					//displayCharacter(&invincibleGhost);
+					DRAW_INVINCIBLE_GHOST(&invincibleGhost);
 				}
 				else
 				{

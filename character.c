@@ -18,11 +18,10 @@ extern unsigned char YSize;
 extern unsigned short ghostCount;
 
 
-void initializeCharacter(Character* characterPtr, int x, int y, char ch, short status)
+void initializeCharacter(Character* characterPtr, int x, int y, short status)
 {
 	characterPtr->_x = x;
 	characterPtr->_y = y;
-	characterPtr->_ch = ch;
 	characterPtr->_status = status;
 	characterPtr->_alive = 1; // TODO: Maybe we should initialize this with a parameter
 }
@@ -31,21 +30,6 @@ void setCharacterPosition(Character* characterPtr, short x, short y)
 {
 	characterPtr->_x = x;
 	characterPtr->_y = y;
-}
-
-void setCharacterDisplay(Character* characterPtr, char ch)
-{
-	characterPtr->_ch = ch;
-}
-
-void deleteCharacter(Character* characterPtr)
-{
-	DRAW(characterPtr->_x,characterPtr->_y,' ');
-}
-
-void displayCharacter(Character* characterPtr)
-{
-	DRAW(characterPtr->_x, characterPtr->_y, characterPtr->_ch);
 }
 
 int isCharacterAtLocation(short x, short y, Character * characterPtr)
@@ -72,8 +56,6 @@ void die(Character * playerPtr)
 	SET_TEXT_COLOR(TEXT_COLOR);
 	playerPtr->_status = 0;
 	playerPtr->_alive = 0;
-	
-	playerPtr->_ch = 'X';
 }
 
 int playerReached(Character ** ghosts, 

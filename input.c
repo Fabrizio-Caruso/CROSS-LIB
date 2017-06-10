@@ -16,28 +16,28 @@ void movePlayerByKeyboard(Character *playerPtr, char kbInput)
 {
 	if((kbInput=='W') || (kbInput=='w'))
 	{
-		deleteCharacter(playerPtr);
+		DELETE_CHARACTER(playerPtr);
 		--playerPtr->_y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = UP;
 	}
 	else if((kbInput=='S') || (kbInput=='s'))
 	{
-		deleteCharacter(playerPtr);
+		DELETE_CHARACTER(playerPtr);
 		++playerPtr->_y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = DOWN;
 	}
 	else if((kbInput=='A') || (kbInput=='a'))
 	{
-		deleteCharacter(playerPtr);
+		DELETE_CHARACTER(playerPtr);
 		--playerPtr->_x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = LEFT;
 	}
 	else if((kbInput=='D') || (kbInput=='d'))
 	{
-		deleteCharacter(playerPtr);
+		DELETE_CHARACTER(playerPtr);
 		++playerPtr->_x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = RIGHT;
@@ -52,14 +52,13 @@ void movePlayerByKeyboard(Character *playerPtr, char kbInput)
 	else if((kbInput=='Z') || (kbInput=='z'))
 	{
 		ghostCount = 0;
-		playerPtr->_ch = 'Z';
 		SET_TEXT_COLOR(PLAYER_COLOR);
 		displayCharacter(playerPtr);
 		SET_TEXT_COLOR(TEXT_COLOR);
 	}
 	#endif // TRAINER
 	SET_TEXT_COLOR(PLAYER_COLOR);
-	displayCharacter(playerPtr);
+	DRAW_PLAYER(playerPtr);
 	SET_TEXT_COLOR(TEXT_COLOR);
 }
 
@@ -68,28 +67,28 @@ void movePlayerByJoystick(Character *playerPtr, unsigned char joyInput)
 {
 	if(JOY_BTN_UP(joyInput))
 	{
-		deleteCharacter(playerPtr);
+		DELETE_CHARACTER(playerPtr);
 		--playerPtr->_y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = UP;
 	}
 	else if(JOY_BTN_DOWN(joyInput))
 	{
-		deleteCharacter(playerPtr);
+		DELETE_CHARACTER(playerPtr);
 		++playerPtr->_y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = DOWN;
 	}
 	else if(JOY_BTN_LEFT(joyInput))
 	{
-		deleteCharacter(playerPtr);
+		DELETE_CHARACTER(playerPtr);
 		--playerPtr->_x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = LEFT;
 	}
 	else if(JOY_BTN_RIGHT(joyInput))
 	{
-		deleteCharacter(playerPtr);
+		DELETE_CHARACTER(playerPtr);
 		++playerPtr->_x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = RIGHT;
@@ -99,7 +98,7 @@ void movePlayerByJoystick(Character *playerPtr, unsigned char joyInput)
 		playerFire = 1;
 	}
 	SET_TEXT_COLOR(PLAYER_COLOR);
-	displayCharacter(playerPtr);
+	DRAW_PLAYER(playerPtr);
 	SET_TEXT_COLOR(TEXT_COLOR);
 }
 

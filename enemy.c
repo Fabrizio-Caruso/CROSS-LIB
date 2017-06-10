@@ -41,13 +41,13 @@ void displayGhosts(Character ** ghosts)
 		if(!(ghosts[i]->_alive))
 		{	
 			SET_TEXT_COLOR(COLOR_RED);
-			DRAW(ghosts[i]->_x,ghosts[i]->_y,'X');
+			DRAW_DEAD_GHOST(ghosts[i]);
 			SET_TEXT_COLOR(TEXT_COLOR);
 		}
 		else
 		{
 			SET_TEXT_COLOR(COLOR_BLACK);
-			DRAW(ghosts[i]->_x,ghosts[i]->_y,'O');
+			DRAW_LIVING_GHOST(ghosts[i]);
 			SET_TEXT_COLOR(TEXT_COLOR);
 		}
 	}

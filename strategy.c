@@ -12,22 +12,22 @@ void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 {
 	if(hunterPtr->_x<preyPtr->_x)
 	{
-		deleteCharacter(hunterPtr);
+		DELETE_CHARACTER(hunterPtr);
 		++hunterPtr->_x;
 	}
 	else if(hunterPtr->_x>preyPtr->_x)
 	{
-		deleteCharacter(hunterPtr);
+		DELETE_CHARACTER(hunterPtr);
 		--hunterPtr->_x;
 	}
 	else if(hunterPtr->_y<preyPtr->_y)
 	{
-		deleteCharacter(hunterPtr);
+		DELETE_CHARACTER(hunterPtr);
 		++hunterPtr->_y;
 	}
 	else if(hunterPtr->_y>preyPtr->_y)
 	{
-		deleteCharacter(hunterPtr);
+		DELETE_CHARACTER(hunterPtr);
 		--hunterPtr->_y;
 	}
 }
@@ -37,22 +37,22 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 {
     if(hunterPtr->_y<preyPtr->_y)
 	{
-		deleteCharacter(hunterPtr);
+		DELETE_CHARACTER(hunterPtr);
 		++hunterPtr->_y;
 	}
 	else if(hunterPtr->_y>preyPtr->_y)
 	{
-		deleteCharacter(hunterPtr);
+		DELETE_CHARACTER(hunterPtr);
 		--hunterPtr->_y;
 	}
 	else if(hunterPtr->_x<preyPtr->_x)
 	{
-		deleteCharacter(hunterPtr);
+		DELETE_CHARACTER(hunterPtr);
 		++hunterPtr->_x;
 	}
 	else if(hunterPtr->_x>preyPtr->_x)
 	{
-		deleteCharacter(hunterPtr);
+		DELETE_CHARACTER(hunterPtr);
 		--hunterPtr->_x;
 	}
 }

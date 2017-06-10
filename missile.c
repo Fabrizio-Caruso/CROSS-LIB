@@ -52,7 +52,6 @@ int setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
 	if(wallReached(missilePtr))
 	{
 		die(missilePtr);
-		missilePtr->_ch = '.';
 		return 0;
 	}
 	return 1;
@@ -77,21 +76,20 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 			--newX;
 		break;
 	}
-	deleteCharacter(missilePtr);
+	DELETE_CHARACTER(missilePtr);
 	missilePtr->_x = newX;
 	missilePtr->_y = newY;
 	if(wallReached(missilePtr))
 	{
 		die(missilePtr);
-		missilePtr->_ch = '.';
 	}
 	else
 	{
-		displayCharacter(missilePtr);
+		DRAW_MISSILE(missilePtr);
 	}
 }
 
 void restoreMissile(Character *missilePtr)
 {
-	missilePtr->_x = 0; missilePtr->_y = 0; missilePtr->_ch = '.';
+	missilePtr->_x = 0; missilePtr->_y = 0;
 }

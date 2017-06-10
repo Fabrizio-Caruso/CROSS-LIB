@@ -157,17 +157,21 @@ void printStartMessage(void)
 		PRINT((XSize - 22) / 2, YSize / 2, "Catch ! for bullets!");
 		
 		PRINT((XSize - 22) / 2, YSize / 2 + 1, "Flee from +!");
-	#else		
+	#elif defined(__PET__)
+		PRINT(22, YSize / 2 - 3, "You * are chased by O. Force O into X");
+		
+		PRINT(20, YSize / 2 - 1,  "Take P to slow O down. Catch ! for bullets.");
+		
+		PRINT(30, YSize / 2 + 1, "Flee from +!");	
+	#else
 		PRINT(2, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		
-		PRINT(9, YSize / 2 - 1, "Take P to slow O down.");
+		PRINT(0, YSize / 2 - 1, "Take P to slow O down. ! gives 3 bullets");
 		
-		PRINT(9, YSize / 2,     "Catch ! for bullets.");
-		
-		PRINT(9, YSize / 2 + 1, "Flee from +!");
+		PRINT(7, YSize / 2 + 1, "Flee from +!");
 	#endif
 
-	#if defined(__C64__) || defined(__C128__)
+	#if defined(__C64__) || defined(__C128__) || defined(__PET__)
 		SET_TEXT_COLOR(COLOR_BROWN);
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use Joystick in Port 1");
 		SET_TEXT_COLOR(TEXT_COLOR);

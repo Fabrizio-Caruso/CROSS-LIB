@@ -8,17 +8,9 @@
  
 #include <stdlib.h>
 #include <string.h>
-
 #include <stdio.h>
 
 
-
-#if defined(__APPLE2__)
-	void sleep(unsigned int sec) { /* BOGUS */ sec = 1; } 
-#else
-	#include <time.h>
-	#include <unistd.h>
-#endif
 
 #include "settings.h"
 #include "character.h"
@@ -34,6 +26,14 @@
 // Input input/output driver headers
 #include "display_macros.h"
 #include "input_macros.h"
+#include "sleep_macros.h"
+
+// #if defined(__APPLE2__)
+	// void sleep(unsigned int sec) { /* BOGUS */ sec = 1; } 
+// #else
+	// #include <time.h>
+	// #include <unistd.h>
+// #endif
 
 unsigned int invincibleSlowDown = 30000;
 
@@ -266,14 +266,14 @@ int main(void)
 				   playerReachedBombs(bombs, &player))
 				{
 					die(&player);
-					defeat();
+					printDefeatMessage();
 					sleep(1);
 				}
 				
 				if(innerWallReached(&player))
 				{
 					die(&player);
-					defeat();
+					printDefeatMessage();
 					sleep(1);
 				}
 			
@@ -340,7 +340,7 @@ int main(void)
 				if(wallReached(&player))
 				{
 					die(&player);
-					defeat();
+					printDefeatMessage();
 					sleep(1);
 				}
 				
@@ -377,14 +377,14 @@ int main(void)
 					if(areCharctersAtSamePosition(&invincibleGhost, &player))
 					{
 						die(&player);
-						defeat();
+						printDefeatMessage();
 						sleep(1);
 					}
 				}
 				
 				if(ghostCount<=0)
 				{
-					victory();
+					printVictoryMessage();
 					sleep(1);
 				}
 				

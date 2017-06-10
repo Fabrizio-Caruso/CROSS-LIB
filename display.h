@@ -32,10 +32,6 @@ void printVictoryMessage(void);
 
 void printDefeatMessage(void);
 
-void defeat(void);
-
-void victory(void);
-
 void printStartMessage(void);
 
 void gameCompleted(void);

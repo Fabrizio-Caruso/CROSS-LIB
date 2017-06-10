@@ -5,6 +5,8 @@
 
 #include "settings.h"
 
+#include "sleep_macros.h"
+
 
 extern unsigned short level;
 extern unsigned char XSize;
@@ -22,7 +24,7 @@ void displayStatsTitles(void)
 {
 	SET_TEXT_COLOR(COLOR_BLACK);
 	
-	PRINT(2,1,"SP33D:");
+	PRINT(2,1,"SPEED:");
 
 	PRINT(15,1,"!:");
 
@@ -88,6 +90,7 @@ void printLevel(void)
 	sprintf(levelString, "LEVEL %d", level);
 
 	printCenteredMessage(levelString);
+	sleep(1);
 }
 
 void printLevelBonus(void)
@@ -97,11 +100,13 @@ void printLevelBonus(void)
 	sprintf(levelString, "LEVEL BONUS = %d", level * 1000);
 
 	printCenteredMessage(levelString);
+	sleep(1);
 }
 
 void printPressKeyToStart(void)
 {
 	printCenteredMessage("PRESS ANY KEY TO START");
+	sleep(1);
 }
 
 void deleteCenteredMessage(void)
@@ -113,28 +118,20 @@ void deleteCenteredMessage(void)
 void printGameOver(void)
 {
 	printCenteredMessage("G A M E   O V E R");
+	sleep(1);
 }
 
 void printVictoryMessage(void)
 {
 	printCenteredMessage("Y O U   W O N ! !");
+	sleep(1);
 }
 
 void printDefeatMessage(void)
 {
 	printCenteredMessage("Y O U   L O S T !");
+	sleep(1);
 }
-
-void defeat(void)
-{
-	printDefeatMessage();
-}
-
-void victory(void)
-{
-	printVictoryMessage();
-}
-
 
 void printStartMessage(void)
 {
@@ -187,14 +184,15 @@ void printStartMessage(void)
 	#endif
 	SET_TEXT_COLOR(TEXT_COLOR);
 	PRINT((XSize - 22) / 2, YSize / 2 + 8, "PRESS ANY KEY TO START");
+	sleep(1);
 }
 
 void gameCompleted(void)
 {
 	printCenteredMessage("Y O U  M A D E  I T !"); 
-	// sleep(2);
-	// printCenteredMessage("    T H E   E N D    "); 
-	// sleep(2);
+	sleep(2);
+	printCenteredMessage("    T H E   E N D    "); 
+	sleep(2);
 }
 
 void finalScore(void)

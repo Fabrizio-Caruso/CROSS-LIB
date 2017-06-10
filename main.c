@@ -351,11 +351,8 @@ int main(void)
 				}
 				SET_TEXT_COLOR(TEXT_COLOR);
 				
-				if(guns>0 || invincibleGhost._status)
-				{
-					displayDeadGhosts(ghosts);
-				}
-				
+				displayGhosts(ghosts);
+
 				displayStatsTitles();
 				displayStats();
 				

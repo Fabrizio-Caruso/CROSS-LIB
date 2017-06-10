@@ -31,3 +31,24 @@ void decreaseGhostLevel(void)
 		ghostLevel=0;
 }
 
+void displayGhosts(Character ** ghosts)
+{
+	char i;
+
+	
+	for(i=0;i<GHOSTS_NUMBER;++i)
+	{
+		if(!(ghosts[i]->_alive))
+		{	
+			SET_TEXT_COLOR(COLOR_RED);
+			DRAW(ghosts[i]->_x,ghosts[i]->_y,'X');
+			SET_TEXT_COLOR(TEXT_COLOR);
+		}
+		else
+		{
+			SET_TEXT_COLOR(COLOR_BLACK);
+			DRAW(ghosts[i]->_x,ghosts[i]->_y,'O');
+			SET_TEXT_COLOR(TEXT_COLOR);
+		}
+	}
+}

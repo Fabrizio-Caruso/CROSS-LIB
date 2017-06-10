@@ -83,6 +83,5 @@ void chasePlayer(Character ** ghosts,
 	for(;i<GHOSTS_NUMBER;++i)
 	{
 		chaseCharacter(ghosts[i], preyPtr, slowDown);
-		displayCharacter(ghosts[i]);
 	}
 }

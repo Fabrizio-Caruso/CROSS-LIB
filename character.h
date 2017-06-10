@@ -11,10 +11,10 @@ struct CharacterStruct
 	char _ch;
 	
 	// _status decides whether the character is active
-	short _status;
+	char _status;
 	
 	//_alive decides whether it is dead or alive
-	short _alive;
+	char _alive;
 	
 };
 
@@ -49,8 +49,6 @@ void setCharacterDisplay(Character* characterPtr, char ch);
 void deleteCharacter(Character* characterPtr);
 
 void displayCharacter(Character* characterPtr);
-
-void displayDeadGhosts(Character ** ghosts);
 
 int isCharacterAtLocation(short x, short y, Character * characterPtr);
 

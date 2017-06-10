@@ -48,18 +48,6 @@ void displayCharacter(Character* characterPtr)
 	DRAW(characterPtr->_x, characterPtr->_y, characterPtr->_ch);
 }
 
-void displayDeadGhosts(Character ** ghosts)
-{
-	char i;
-	SET_TEXT_COLOR(COLOR_RED);
-	
-	for(i=0;i<GHOSTS_NUMBER;++i)
-	{
-		if(!(ghosts[i]->_alive))
-			DRAW(ghosts[i]->_x,ghosts[i]->_y,'X');
-	}
-}
-
 int isCharacterAtLocation(short x, short y, Character * characterPtr)
 {
 	return(characterPtr->_x==x) && (characterPtr->_y==y);
@@ -84,6 +72,8 @@ void die(Character * playerPtr)
 	SET_TEXT_COLOR(TEXT_COLOR);
 	playerPtr->_status = 0;
 	playerPtr->_alive = 0;
+	
+	playerPtr->_ch = 'X';
 }
 
 int playerReached(Character ** ghosts, 
@@ -112,12 +102,6 @@ int playerReachedBombs(Character ** bombs,
 
 int charactersMeet(short preyIndex, Character **ghosts)
 {
-	/*
-	return(areCharctersAtSamePosition(ghosts[0],preyPtr) || areCharctersAtSamePosition(hunterPtr2,preyPtr) ||
-	       areCharctersAtSamePosition(hunterPtr3,preyPtr) || areCharctersAtSamePosition(hunterPtr4,preyPtr) ||
-	       areCharctersAtSamePosition(hunterPtr5,preyPtr) || areCharctersAtSamePosition(hunterPtr6,preyPtr) ||
-		   areCharctersAtSamePosition(hunterPtr7,preyPtr));
-		   */
 	short i;
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
@@ -156,15 +140,6 @@ int safeLocation(int x, int y,
 				Character ** bombs,
 				Character ** ghosts)
 {
-	/*
-	return 
-	!isCharacterAtLocation(x,y,bombs[0]) && !isCharacterAtLocation(x,y,bombs[1]) &&
-	!isCharacterAtLocation(x,y,bombs[2]) && !isCharacterAtLocation(x,y,bombs[3]) &&
-	!isCharacterAtLocation(x,y,ghosts[0]) && !isCharacterAtLocation(x,y,ghosts[1]) &&
-	!isCharacterAtLocation(x,y,ghosts[2]) && !isCharacterAtLocation(x,y,ghosts[3]) &&
-	!isCharacterAtLocation(x,y,ghosts[4]) && !isCharacterAtLocation(x,y,ghosts[5]) &&
-	!isCharacterAtLocation(x,y,ghosts[6]) && !isCharacterAtLocation(x,y,ghosts[7]);
-	*/
 	char i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
 	{

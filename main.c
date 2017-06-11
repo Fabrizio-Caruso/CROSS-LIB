@@ -1,10 +1,35 @@
-
-/*
-** Portable barely playable chasing game
-**
-** Fabrizio Caruso (fabrizio_caruso@hotmail.com)
-**
-*/
+/*****************************************************************************/
+/*                                                                           */
+/*                                		                                     */
+/*                                                                           */
+/*                                                                           */
+/*                                                                           */
+/*                                                                           */
+/*                                                                           */
+/* (C) 2017      Fabrizio Caruso                                  		     */
+/*                					                                         */
+/*              				                                             */
+/* EMail:        Fabrizio_Caruso@hotmail.com                                 */
+/*                                                                           */
+/*                                                                           */
+/* This software is provided 'as-is', without any expressed or implied       */
+/* warranty.  In no event will the authors be held liable for any damages    */
+/* arising from the use of this software.                                    */
+/*                                                                           */
+/* Permission is granted to anyone to use this software for any purpose,     */
+/* including commercial applications, and to alter it and redistribute it    */
+/* freely, subject to the following restrictions:                            */
+/*                                                                           */
+/* 1. The origin of this software must not be misrepresented; you must not   */
+/*    claim that you wrote the original software. If you use this software   */
+/*    in a product, an acknowledgment in the product documentation would be  */
+/*    appreciated but is not required.                                       */
+/* 2. Altered source versions must be plainly marked as such, and must not   */
+/*    be misrepresented as being the original software.                      */
+/* 3. This notice may not be removed or altered from any source              */
+/*    distribution.                                                          */
+/*                                                                           */
+/*****************************************************************************/
  
 #include <stdlib.h>
 #include <string.h>
@@ -63,7 +88,6 @@ unsigned short innerVerticalWallY;
 unsigned short innerVerticalWallX; 
 unsigned short innerVerticalWallLength;
 
-
 // Level
 // The level affects:
 // 1. powerUpCoolDown (how long before a new powerUp is spawned)
@@ -84,22 +108,55 @@ unsigned char YSize;
 unsigned int loop;
 
 
+
+extern Image PLAYER_IMAGE;
+extern Image GHOST_IMAGE;
+extern Image DEAD_GHOST_IMAGE;
+extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image BOMB_IMAGE;
+extern Image POWERUP_IMAGE;
+extern Image MISSILE_IMAGE;
+extern Image GUN_IMAGE;
+
+
 int main(void)
 {	
-	char i;
-	
 	Character* ghosts[GHOSTS_NUMBER];
-	
 	Character invincibleGhost;
-	
 	Character* bombs[BOMBS_NUMBER];
-	
 	Character player; 
-	
 	Character powerUp;
 	Character gun;
-	
 	Character missile;
+	
+	char i;
+	
+	
+//	PLAYER_IMAGE._imageData = '*';
+// PLAYER_IMAGE._color = COLOR_BLUE;
+
+// GHOST_IMAGE._imageData = 'O';
+// GHOST_IMAGE._color = COLOR_BLACK;
+
+// DEAD_GHOST_IMAGE._imageData = '#';
+// DEAD_GHOST_IMAGE._color = COLOR_RED;
+
+// INVINCIBLE_GHOST_IMAGE._imageData = '+';
+// INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
+
+// BOMB_IMAGE._imageData = 'O';
+// BOMB_IMAGE._color = COLOR_BLACK;
+
+// POWERUP_IMAGE._imageData = '*';
+// POWERUP_IMAGE._color = COLOR_BLUE;
+
+// MISSILE_IMAGE._imageData = 'O';
+// MISSILE_IMAGE._color = COLOR_BLACK;
+
+// GUN_IMAGE._imageData = '*';
+// GUN_IMAGE._color = COLOR_BLUE;
+
+	
 	
 	#if defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
 	// Do nothing
@@ -118,13 +175,20 @@ int main(void)
 	GET_SCREEN_SIZE(&XSize, &YSize);
 
 	for(i=0;i<GHOSTS_NUMBER;++i)
-	{
+	{	
 		ghosts[i] = (Character *) malloc(sizeof(Character));
+		ghosts[i]->_imagePtr = (Image *) malloc(sizeof(Image));
 	}
 	for(i=0;i<BOMBS_NUMBER;++i)
 	{
 		bombs[i] = (Character *) malloc(sizeof(Character));
+		bombs[i]->_imagePtr = (Image *) malloc(sizeof(Image));
 	}
+	player._imagePtr = (Image *) malloc(sizeof(Image));
+	invincibleGhost._imagePtr  = (Image *) malloc(sizeof(Image));
+	powerUp._imagePtr = (Image *) malloc(sizeof(Image));
+	gun._imagePtr  = (Image *) malloc(sizeof(Image));
+
 	
 	while(1)
 	{
@@ -237,7 +301,7 @@ int main(void)
 					missile._alive = missile._status;
 					playerFire = 0;
 					//displayCharacter(&missile);
-					DRAW_MISSILE(&missile);					
+					DRAW(&missile);					
 					checkMissileVsGhosts(&missile, ghosts);
 					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 						{
@@ -245,7 +309,7 @@ int main(void)
 							die(&missile);
 							restoreMissile(&missile);
 							//displayCharacter(&invincibleGhost);
-							DRAW_INVINCIBLE_GHOST(&invincibleGhost);
+							DRAW(&invincibleGhost);
 						}		
 				}
 				if(missile._status==1 && missile._alive==1)
@@ -259,7 +323,7 @@ int main(void)
 						die(&missile);
 						restoreMissile(&missile);
 						//displayCharacter(&invincibleGhost);
-						DRAW_INVINCIBLE_GHOST(&invincibleGhost);
+						DRAW(&invincibleGhost);
 					}
 				}
 			
@@ -297,7 +361,7 @@ int main(void)
 					else
 					{
 						//displayCharacter(&gun);
-						DRAW_GUN(&gun);
+						DRAW(&gun);
 					}
 				}		
 				else if (gunCoolDown == 0)
@@ -326,7 +390,7 @@ int main(void)
 					else
 					{
 						//displayCharacter(&powerUp);
-						DRAW_POWERUP(&powerUp);
+						DRAW(&powerUp);
 					}		
 				}
 				else if (powerUpCoolDown == 0)
@@ -353,7 +417,7 @@ int main(void)
 				for(i=0;i<BOMBS_NUMBER;++i)
 				{
 					//displayCharacter(bombs[i]);
-					DRAW_BOMB(bombs[i]);
+					DRAW(bombs[i]);
 				}
 				SET_TEXT_COLOR(TEXT_COLOR);
 				
@@ -368,7 +432,7 @@ int main(void)
 				{
 					invincibleGhost._status = 1;
 					//displayCharacter(&invincibleGhost);
-					DRAW_INVINCIBLE_GHOST(&invincibleGhost);
+					DRAW(&invincibleGhost);
 				}
 				else
 				{

@@ -1,3 +1,36 @@
+/*****************************************************************************/
+/*                                                                           */
+/*                                		                                     */
+/*                                                                           */
+/*                                                                           */
+/*                                                                           */
+/*                                                                           */
+/*                                                                           */
+/* (C) 2017      Fabrizio Caruso                                  		     */
+/*                					                                         */
+/*              				                                             */
+/* EMail:        Fabrizio_Caruso@hotmail.com                                 */
+/*                                                                           */
+/*                                                                           */
+/* This software is provided 'as-is', without any expressed or implied       */
+/* warranty.  In no event will the authors be held liable for any damages    */
+/* arising from the use of this software.                                    */
+/*                                                                           */
+/* Permission is granted to anyone to use this software for any purpose,     */
+/* including commercial applications, and to alter it and redistribute it    */
+/* freely, subject to the following restrictions:                            */
+/*                                                                           */
+/* 1. The origin of this software must not be misrepresented; you must not   */
+/*    claim that you wrote the original software. If you use this software   */
+/*    in a product, an acknowledgment in the product documentation would be  */
+/*    appreciated but is not required.                                       */
+/* 2. Altered source versions must be plainly marked as such, and must not   */
+/*    be misrepresented as being the original software.                      */
+/* 3. This notice may not be removed or altered from any source              */
+/*    distribution.                                                          */
+/*                                                                           */
+/*****************************************************************************/
+ 
 #include "character.h"
 #include "settings.h"
 
@@ -14,6 +47,15 @@ extern unsigned short innerVerticalWallLength;
 extern unsigned short level;
 extern unsigned char XSize;
 extern unsigned char YSize;
+
+extern Image PLAYER_IMAGE;
+extern Image GHOST_IMAGE;
+extern Image DEAD_GHOST_IMAGE;
+extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image BOMB_IMAGE;
+extern Image POWERUP_IMAGE;
+extern Image MISSILE_IMAGE;
+extern Image GUN_IMAGE;
 
 void drawInnerVerticalWall(void)
 {
@@ -98,39 +140,41 @@ void fillLevelWithCharacters(
 	int b1y, b2y, b3y, b4y;
 	Character *dummyBombs[BOMBS_NUMBER];
 	char i;
+
+	initImages();
 	
 	// Ghosts
-	initializeCharacter(ghosts[1],XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,1);
-	DRAW_LIVING_GHOST(ghosts[1]);
+	initializeCharacter(ghosts[1],XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,1,&GHOST_IMAGE);
+	DRAW(ghosts[1]);
 	
-	initializeCharacter(ghosts[2],XSize/6+rand()%4-2,YSize/2+rand()%4-2,1);
-	DRAW_LIVING_GHOST(ghosts[2]);
+	initializeCharacter(ghosts[2],XSize/6+rand()%4-2,YSize/2+rand()%4-2,1, &GHOST_IMAGE);
+	DRAW(ghosts[2]);
 		
-	initializeCharacter(ghosts[3],XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,1);
-	DRAW_LIVING_GHOST(ghosts[3]);
+	initializeCharacter(ghosts[3],XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,1,&GHOST_IMAGE);
+	DRAW(ghosts[3]);
 		
-	initializeCharacter(ghosts[4],XSize/2+rand()%4-2,YSize/6+rand()%4-2+1,1);
-	DRAW_LIVING_GHOST(ghosts[4]);
+	initializeCharacter(ghosts[4],XSize/2+rand()%4-2,YSize/6+rand()%4-2+1,1,&GHOST_IMAGE);
+	DRAW(ghosts[4]);
 	
-	initializeCharacter(ghosts[5],XSize/2+rand()%4-2,YSize-YSize/6+rand()%4-2,1);
-	DRAW_LIVING_GHOST(ghosts[5]);
+	initializeCharacter(ghosts[5],XSize/2+rand()%4-2,YSize-YSize/6+rand()%4-2,1,&GHOST_IMAGE);
+	DRAW(ghosts[5]);
 	
-	initializeCharacter(ghosts[6],XSize-XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,1);
-	DRAW_LIVING_GHOST(ghosts[6]);
+	initializeCharacter(ghosts[6],XSize-XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,1,&GHOST_IMAGE);
+	DRAW(ghosts[6]);
 		
-	initializeCharacter(ghosts[7],XSize-XSize/6+rand()%4-2,YSize/2+rand()%4-2,1);
-	DRAW_LIVING_GHOST(ghosts[7]);
+	initializeCharacter(ghosts[7],XSize-XSize/6+rand()%4-2,YSize/2+rand()%4-2,1,&GHOST_IMAGE);
+	DRAW(ghosts[7]);
 		
-	initializeCharacter(ghosts[0],XSize-XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,1);
-	DRAW_LIVING_GHOST(ghosts[0]);
+	initializeCharacter(ghosts[0],XSize-XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,1,&GHOST_IMAGE);
+	DRAW(ghosts[0]);
 	
 	// Player
 	do
 	{
-		initializeCharacter(playerPtr,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1);
+		initializeCharacter(playerPtr,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);
 	} while(nearInnerWall(playerPtr));
 	SET_TEXT_COLOR(PLAYER_COLOR);
-	DRAW_PLAYER(playerPtr);
+	DRAW(playerPtr);
 	SET_TEXT_COLOR(TEXT_COLOR);
 	
 	do
@@ -196,13 +240,13 @@ void fillLevelWithCharacters(
 		
 		if(level>=FIRST_HARD_LEVEL)
 		{
-			initializeCharacter(bombs[0],b1x, b1y,0);
+			initializeCharacter(bombs[0],b1x, b1y,0,&BOMB_IMAGE);
 
-			initializeCharacter(bombs[1],b2x, b2y,0);
+			initializeCharacter(bombs[1],b2x, b2y,0,&BOMB_IMAGE);
 
-			initializeCharacter(bombs[2],b3x, b3y,0);
+			initializeCharacter(bombs[2],b3x, b3y,0,&BOMB_IMAGE);
 
-			initializeCharacter(bombs[3],b4x, b4y,0);
+			initializeCharacter(bombs[3],b4x, b4y,0,&BOMB_IMAGE);
 		}
 		else if(level<FIRST_HARD_LEVEL)
 		{
@@ -222,7 +266,7 @@ void fillLevelWithCharacters(
 				b3x = XSize/2+5;
 				b3y = YSize/2+5;
 			}
-			initializeCharacter(bombs[0],b1x, b1y,0);
+			initializeCharacter(bombs[0],b1x, b1y,0,&BOMB_IMAGE);
 			
 			dummyBombs[0] = ghosts[0];
 			dummyBombs[1] = ghosts[0];
@@ -233,7 +277,7 @@ void fillLevelWithCharacters(
 				relocateCharacter(bombs[0], dummyBombs, ghosts);		
 			}
 			
-			initializeCharacter(bombs[2],b3x, b3y,0);
+			initializeCharacter(bombs[2],b3x, b3y,0, &BOMB_IMAGE);
 			//dummyBombs[0] = ghosts[0];
 			//dummyBombs[1] = ghosts[0];
 			dummyBombs[2] = bombs[0];
@@ -245,8 +289,8 @@ void fillLevelWithCharacters(
 
 			if(level>=TWO_BOMB_START_LEVEL) // only use bomb1 and bomb3 previously relocated
 			{
-				initializeCharacter(bombs[1], bombs[0]->_x, bombs[0]->_y, 0);
-				initializeCharacter(bombs[3], bombs[2]->_x, bombs[2]->_y, 0);
+				initializeCharacter(bombs[1], bombs[0]->_x, bombs[0]->_y, 0,&BOMB_IMAGE);
+				initializeCharacter(bombs[3], bombs[2]->_x, bombs[2]->_y, 0,&BOMB_IMAGE);
 			}
 			else // place bomb2 and bomb4
 			{
@@ -266,7 +310,7 @@ void fillLevelWithCharacters(
 					b4x = XSize/2+5;
 					b4y = YSize/2-5;
 				}
-				initializeCharacter(bombs[1],b2x, b2y, 0);
+				initializeCharacter(bombs[1],b2x, b2y, 0, &BOMB_IMAGE);
 				
 				dummyBombs[0] = ghosts[0];
 				dummyBombs[1] = bombs[2];
@@ -277,7 +321,7 @@ void fillLevelWithCharacters(
 					relocateCharacter(bombs[1], dummyBombs, ghosts);		
 				}
 				
-				initializeCharacter(bombs[3],b4x, b4y,0);
+				initializeCharacter(bombs[3],b4x, b4y,0,&BOMB_IMAGE);
 				
 				dummyBombs[0] = bombs[1];
 				//dummyBombs[1] = bombs[2];
@@ -293,23 +337,23 @@ void fillLevelWithCharacters(
 	
 	for(i=0;i<BOMBS_NUMBER;++i)
 	{
-		DRAW_BOMB(bombs[i]);
+		DRAW(bombs[i]);
 	}
 
 	do
 	{
 		// Power-ups
-		initializeCharacter(powerUpPtr,XSize/2,YSize/2,1);
+		initializeCharacter(powerUpPtr,XSize/2,YSize/2,1,&POWERUP_IMAGE);
 		relocateCharacter(powerUpPtr, bombs, ghosts);	
-		initializeCharacter(powerUpPtr,powerUpPtr->_x,powerUpPtr->_y,1);
+		initializeCharacter(powerUpPtr,powerUpPtr->_x,powerUpPtr->_y,1,&POWERUP_IMAGE);
 	} while(nearInnerWall(powerUpPtr));
-	DRAW_POWERUP(powerUpPtr);
+	DRAW(powerUpPtr);
 		
-    initializeCharacter(missilePtr, 0, 0,0);
+    initializeCharacter(missilePtr, 0, 0,0,&MISSILE_IMAGE);
 	
 	do
 	{
-		initializeCharacter(gunPtr, XSize/2, YSize/2, 0);
+		initializeCharacter(gunPtr, XSize/2, YSize/2, 0, &GUN_IMAGE);
 		relocateCharacter(gunPtr, bombs, ghosts);
 	} while(nearInnerWall(gunPtr));
 	
@@ -332,6 +376,6 @@ void fillLevelWithCharacters(
 			invincibleGhostPtr->_y = YSize-2;
 		break;
 	}
-	initializeCharacter(invincibleGhostPtr,invincibleGhostPtr->_x,invincibleGhostPtr->_y,0);
+	initializeCharacter(invincibleGhostPtr,invincibleGhostPtr->_x,invincibleGhostPtr->_y,0, &INVINCIBLE_GHOST_IMAGE);
 }
 

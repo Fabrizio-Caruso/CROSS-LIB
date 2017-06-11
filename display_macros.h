@@ -6,8 +6,9 @@
 
 #define GET_SCREEN_SIZE(x,y) screensize(x,y);
 
-#define DRAW(x,y,ch) {gotoxy((x),(y)); cputc(ch);};
+//#define DRAW(x,y,ch) {gotoxy((x),(y)); cputc(ch);};
 
+// TODO: Maybe the drawing details should be in the Character 
 #define DRAW_GHOST(ghost) {SET_TEXT_COLOR(COLOR_RED); gotoxy(((ghost)->_x),(ghost)->_y)); if((ghost)->_alive) cputc('O'); else cputc('X'); SET_TEXT_COLOR(TEXT_COLOR);};
 
 #define DRAW_LIVING_GHOST(ghost) {SET_TEXT_COLOR(COLOR_BLACK); gotoxy((int)((ghost)->_x),((int)(ghost)->_y)); cputc('O'); SET_TEXT_COLOR(TEXT_COLOR);};
@@ -36,7 +37,7 @@
 	#define DRAW_GUN(ghost) {SET_TEXT_COLOR(COLOR_CYAN); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('!'); SET_TEXT_COLOR(TEXT_COLOR);};
 #endif
 #define DELETE_CHARACTER(ghost) {gotoxy(((ghost)->_x),((ghost)->_y)); cputc(' ');};
-//DELETE_CHARACTER(Character *ghost) {gotoxy(((ghost)->_x),((ghost)->_y)); cputc(' ');};
+
 
 // TODO: Implement color conversion
 #if defined(__C64__)

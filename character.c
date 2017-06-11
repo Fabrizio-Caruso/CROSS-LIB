@@ -52,7 +52,7 @@ int wallReached(Character *characterPtr)
 void die(Character * playerPtr)
 {
 	SET_TEXT_COLOR(COLOR_RED);
-	DRAW(playerPtr->_x,playerPtr->_y,'X');
+	DRAW_BOMB(playerPtr);
 	SET_TEXT_COLOR(TEXT_COLOR);
 	playerPtr->_status = 0;
 	playerPtr->_alive = 0;
@@ -99,7 +99,7 @@ void checkBombsVsGhost(Character ** bombs,
 {
 	if(ghostPtr->_alive && playerReachedBombs(bombs, ghostPtr))
 	{
-		DRAW(ghostPtr->_x,ghostPtr->_y,'X');
+		DRAW_BOMB(ghostPtr);
 		die(ghostPtr);
 		points+=GHOST_VS_BOMBS_BONUS;
 		--ghostCount;

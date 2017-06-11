@@ -43,10 +43,6 @@ void setCharacterPosition(Character* characterPtr, short x, short y);
 
 void setCharacterDisplay(Character* characterPtr, char ch);
 
-//void deleteCharacter(Character* characterPtr);
-
-//void DELETE_CHARACTER(Character* characterPtr);
-
 int isCharacterAtLocation(short x, short y, Character * characterPtr);
 
 int areCharctersAtSamePosition(Character* lhs, Character* rhs);
@@ -55,14 +51,17 @@ int wallReached(Character *characterPtr);
 
 void die(Character * playerPtr);
 
+// TODO: playerReached and playerReachedBombs should be substituted by a generic collision detection routine
 int playerReached(Character ** ghosts, 
                   Character* preyPtr);
 				  
 int playerReachedBombs(Character ** bombs,  
 					   Character* ghostPtr);
 
+
 int charactersMeet(short preyIndex, Character **ghosts);
 
+// TODO: check bombs routines should be substituted by a generic collision detection routine
 void checkBombsVsGhost(Character ** bombs,
 					   Character * ghostPtr);
 						
@@ -70,7 +69,9 @@ void checkBombsVsGhost(Character ** bombs,
 void checkBombsVsGhosts(Character ** bombs,
 						Character ** ghosts);
 
-
+void checkGhostsVsGhosts(Character ** ghosts);
+						
+						
 int safeLocation(int x, int y, 
 				Character ** bombs,
 				Character ** ghosts);
@@ -86,6 +87,5 @@ short innerWallReached(Character *characterPtr);
 short nearInnerWall(Character *characterPtr);
 
 
-void checkGhostsVsGhosts(Character ** ghosts);
 
 #endif

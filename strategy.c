@@ -113,22 +113,33 @@ void chasePlayer(Character ** ghosts,
                  int slowDown)
 {
 	char i;
-	int r = rand();
-	if(r>slowDown)
-	{ 
-		if(r%2)
-		{	
-			for(i=0;i<GHOSTS_NUMBER/2;++i)
+
+	#ifdef ALTERNATE_STRATEGY
+		int r = rand();
+		if(r>slowDown)
+		{ 
+			if(r%2)
+			{	
+				for(i=0;i<GHOSTS_NUMBER/2;++i)
+				{
+					chaseCharacter(ghosts[i], preyPtr);
+				}
+			}
+			else
+			{	
+				for(i=GHOSTS_NUMBER/2;i<GHOSTS_NUMBER;++i)
+				{
+					chaseCharacter(ghosts[i], preyPtr);
+				}
+			}
+		}
+	#else
+		for(i=0;i<GHOSTS_NUMBER;++i)
+		{
+			if(rand()>slowDown)
 			{
 				chaseCharacter(ghosts[i], preyPtr);
 			}
 		}
-		else
-		{	
-			for(i=GHOSTS_NUMBER/2;i<GHOSTS_NUMBER;++i)
-			{
-				chaseCharacter(ghosts[i], preyPtr);
-			}
-		}
-	}
+	#endif
 }

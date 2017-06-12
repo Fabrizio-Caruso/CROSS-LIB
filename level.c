@@ -150,7 +150,7 @@ void fillLevelWithCharacters(
 	int j;
 
 	
-	initImages();
+	INIT_IMAGES();
 	
 
 	// Ghosts

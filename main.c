@@ -35,8 +35,6 @@
 #include <string.h>
 #include <stdio.h>
 
-
-
 #include "settings.h"
 #include "character.h"
 #include "strategy.h"
@@ -52,13 +50,6 @@
 #include "display_macros.h"
 #include "input_macros.h"
 #include "sleep_macros.h"
-
-// #if defined(__APPLE2__)
-	// void sleep(unsigned int sec) { /* BOGUS */ sec = 1; } 
-// #else
-	// #include <time.h>
-	// #include <unistd.h>
-// #endif
 
 unsigned int invincibleSlowDown = 30000;
 
@@ -108,7 +99,6 @@ unsigned char YSize;
 unsigned int loop;
 
 
-
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
@@ -143,7 +133,7 @@ int main(void)
 		unsigned char joyInput;
 		JOY_INSTALL()
 	#endif
-
+	
 	/* Ask for the screen size */
 	GET_SCREEN_SIZE(&XSize, &YSize);
 

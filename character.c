@@ -88,9 +88,9 @@ int wallReached(Character *characterPtr)
 
 void die(Character * playerPtr)
 {
-	SET_TEXT_COLOR(COLOR_RED);
-	DRAW(playerPtr);
-	SET_TEXT_COLOR(TEXT_COLOR);
+	// SET_TEXT_COLOR(COLOR_RED);
+	// DRAW(playerPtr);
+	// SET_TEXT_COLOR(TEXT_COLOR);
 	playerPtr->_status = 0;
 	playerPtr->_alive = 0;
 }

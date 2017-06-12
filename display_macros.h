@@ -45,10 +45,45 @@ struct ImageStruct
 
 typedef struct ImageStruct Image;
 
-void initImages(void);
+//
+
+#define GET_SCREEN_SIZE(x,y) {screensize(x,y);}
 
 
-#define GET_SCREEN_SIZE(x,y) screensize(x,y);
+
+#if defined(__C64__) && defined(C64_HARDWARE_SPRITE_VERSION)
+	#define DRAW(ghost) \
+	{ \
+		short x = (ghost)->_x; \
+		short y = (ghost)->_y; \
+		if((((ghost)->_imagePtr)->_imageData) == '*') \
+		{ \
+			POKE(53248u+21,4); \
+			POKE(2042,13); \
+			if(x*8+16>255) \
+			{ \
+				POKE(53248u+4,x*8+16-256); \
+				POKE(53248u+16,4); \
+			} \
+			else \
+			{ \
+				POKE(53248u+4,x*8+16); \
+				POKE(53248u+16,0); \
+			} \
+			POKE(53248u+5,y*8+36); \
+		} \
+		else \
+		{ \
+			SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); \
+			gotoxy(x,y); \
+			cputc(((ghost)->_imagePtr)->_imageData); \
+			SET_TEXT_COLOR(TEXT_COLOR); \
+		} \
+	}
+#else
+	#define DRAW(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc(((ghost)->_imagePtr)->_imageData); SET_TEXT_COLOR(TEXT_COLOR);};
+#endif
+
 
 // C64 and C128 possible implementation
 // #define DRAW(ghost) \
@@ -57,15 +92,15 @@ void initImages(void);
 	// POKE(55296u+((ghost)->_y)*40+((ghost)->_x),(((ghost)->_imagePtr)->_color)); \
 	// };
 
-
 // CONIO character version	
-#define DRAW(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc(((ghost)->_imagePtr)->_imageData); SET_TEXT_COLOR(TEXT_COLOR);};
+// #define DRAW(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc(((ghost)->_imagePtr)->_imageData); SET_TEXT_COLOR(TEXT_COLOR);};
 
 // CONIO multi-character version
 //#define DRAW(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy((((ghost)->_x)-1),((ghost)->_y)); cputc('('); cputc(((ghost)->_imagePtr)->_imageData); cputc(')'); SET_TEXT_COLOR(TEXT_COLOR);};
 
 #define DELETE_CHARACTER(ghost) {gotoxy(((ghost)->_x),((ghost)->_y)); cputc(' ');};
 
+// CONIO multi-character version
 //#define DELETE_CHARACTER(ghost) {gotoxy((((ghost)->_x)-1),((ghost)->_y)); cputs("   ");};
 
 
@@ -102,6 +137,8 @@ void initImages(void);
 #define SET_BORDER_COLOR(c) (void) bordercolor (c);
 
 #define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
+
+void INIT_IMAGES(void);
 
 	
 #endif // _DISPLAY_MACROS

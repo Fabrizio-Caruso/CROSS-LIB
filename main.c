@@ -233,7 +233,9 @@ int main(void)
 			while(player._alive && ghostCount>0) // while alive && there are still ghosts
 			{
 				ghostSlowDown = computeGhostSlowDown();
-				invincibleSlowDown = computeInvincibleSlowDown();
+				// TODO: This is just an attempt to speed things up
+				// if(invincibleGhost.status)
+					// invincibleSlowDown = computeInvincibleSlowDown();
 				drawInnerVerticalWall();
 				
 				++loop;
@@ -264,15 +266,12 @@ int main(void)
 					missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
 					missile._alive = missile._status;
 					playerFire = 0;
-					//displayCharacter(&missile);
 					DRAW(&missile);					
 					checkMissileVsGhosts(&missile, ghosts);
 					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 						{
-							//missile._status = 0; missile._alive = 0;
 							die(&missile);
 							restoreMissile(&missile);
-							//displayCharacter(&invincibleGhost);
 							DRAW(&invincibleGhost);
 						}		
 				}
@@ -286,7 +285,6 @@ int main(void)
 					{
 						die(&missile);
 						restoreMissile(&missile);
-						//displayCharacter(&invincibleGhost);
 						DRAW(&invincibleGhost);
 					}
 				}
@@ -324,7 +322,6 @@ int main(void)
 					}
 					else
 					{
-						//displayCharacter(&gun);
 						DRAW(&gun);
 					}
 				}		
@@ -353,7 +350,6 @@ int main(void)
 					}
 					else
 					{
-						//displayCharacter(&powerUp);
 						DRAW(&powerUp);
 					}		
 				}
@@ -380,7 +376,6 @@ int main(void)
 				SET_TEXT_COLOR(COLOR_RED);
 				for(i=0;i<BOMBS_NUMBER;++i)
 				{
-					//displayCharacter(bombs[i]);
 					DRAW(bombs[i]);
 				}
 				SET_TEXT_COLOR(TEXT_COLOR);
@@ -404,8 +399,11 @@ int main(void)
 					--invincibleYCountDown;
 				}
 				if(invincibleGhost._status)
-				{ 
-					chaseCharacter(&invincibleGhost, &player, invincibleSlowDown);
+				{ 	
+					invincibleSlowDown = computeInvincibleSlowDown();
+
+					if(rand()>invincibleSlowDown)
+						chaseCharacter(&invincibleGhost, &player);
 					if(areCharctersAtSamePosition(&invincibleGhost, &player))
 					{
 						die(&player);

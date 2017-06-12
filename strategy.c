@@ -89,12 +89,12 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 	}
 }
 
-void chaseCharacter(Character *hunterPtr, Character *preyPtr, int slowDown)
+void chaseCharacter(Character *hunterPtr, Character *preyPtr)
 {
 	if(hunterPtr->_status)
 	{
-		if(rand()>slowDown)
-		{
+		// if(rand()>slowDown)
+		// {
 			if(rand()%2) // Select blind chase strategy
 				{
 					blindChaseCharacterXStrategy(hunterPtr, preyPtr);
@@ -103,17 +103,32 @@ void chaseCharacter(Character *hunterPtr, Character *preyPtr, int slowDown)
 				{
 					blindChaseCharacterYStrategy(hunterPtr, preyPtr);
 				}
-		}
+		//}
 	}
 }
 
+// This is a very experimental optimized version (fewer rand() computations)
 void chasePlayer(Character ** ghosts, 
                  Character* preyPtr, 
                  int slowDown)
 {
-	char i=0;
-	for(;i<GHOSTS_NUMBER;++i)
-	{
-		chaseCharacter(ghosts[i], preyPtr, slowDown);
+	char i;
+	int r = rand();
+	if(r>slowDown)
+	{ 
+		if(r%2)
+		{	
+			for(i=0;i<GHOSTS_NUMBER/2;++i)
+			{
+				chaseCharacter(ghosts[i], preyPtr);
+			}
+		}
+		else
+		{	
+			for(i=GHOSTS_NUMBER/2;i<GHOSTS_NUMBER;++i)
+			{
+				chaseCharacter(ghosts[i], preyPtr);
+			}
+		}
 	}
 }

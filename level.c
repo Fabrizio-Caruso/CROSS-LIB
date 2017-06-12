@@ -148,6 +148,7 @@ void fillLevelWithCharacters(
 	int x1,x2,x3,x4,x5,x6,x7,x0;
 	int y1,y2,y3,y4,y5,y6,y7,y0;
 	int j;
+
 	
 	initImages();
 	
@@ -168,6 +169,7 @@ void fillLevelWithCharacters(
 	{
 		initializeCharacter(ghosts[1+j*8],x1+TWIN_GHOST_SEPARATOR*j,y1+TWIN_GHOST_SEPARATOR*j,1,&GHOST_IMAGE);
 		DRAW(ghosts[1+j*8]);
+		
 		
 		initializeCharacter(ghosts[2+j*8],x2+TWIN_GHOST_SEPARATOR*j,y2+TWIN_GHOST_SEPARATOR*j,1, &GHOST_IMAGE);
 		DRAW(ghosts[2+j*8]);

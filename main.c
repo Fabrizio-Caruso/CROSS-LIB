@@ -40,7 +40,7 @@
 #include "settings.h"
 #include "character.h"
 #include "strategy.h"
-#include "display.h"
+#include "text.h"
 #include "missile.h"
 #include "input.h"
 #include "level.h"

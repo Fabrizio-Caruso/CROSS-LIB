@@ -131,34 +131,7 @@ int main(void)
 	
 	char i;
 	
-	
-//	PLAYER_IMAGE._imageData = '*';
-// PLAYER_IMAGE._color = COLOR_BLUE;
-
-// GHOST_IMAGE._imageData = 'O';
-// GHOST_IMAGE._color = COLOR_BLACK;
-
-// DEAD_GHOST_IMAGE._imageData = '#';
-// DEAD_GHOST_IMAGE._color = COLOR_RED;
-
-// INVINCIBLE_GHOST_IMAGE._imageData = '+';
-// INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
-
-// BOMB_IMAGE._imageData = 'O';
-// BOMB_IMAGE._color = COLOR_BLACK;
-
-// POWERUP_IMAGE._imageData = '*';
-// POWERUP_IMAGE._color = COLOR_BLUE;
-
-// MISSILE_IMAGE._imageData = 'O';
-// MISSILE_IMAGE._color = COLOR_BLACK;
-
-// GUN_IMAGE._imageData = '*';
-// GUN_IMAGE._color = COLOR_BLUE;
-
-	
-	
-	#if defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
+	#if defined (__PLUS4__) || defined(__C16__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
 	// Do nothing
 	#else 
 		unsigned char kbInput;
@@ -204,15 +177,7 @@ int main(void)
 					
 		printStartMessage();
 		
-		#if defined (__ATMOS__) || defined(__NES__) 
-			// No input support
-		#elif defined (__PLUS4__) || defined(__C16__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
-			WAIT_JOY_PRESS();
-		#elif defined(__ATARI__) || defined(__APPLE2__)
-			WAIT_JOY_OR_KEY_PRESS();
-		#else
-			WAIT_KEY_PRESS();
-		#endif
+		WAIT_PRESS();
 		
 		CLEAR_SCREEN();
 				
@@ -241,23 +206,12 @@ int main(void)
 			CLEAR_SCREEN();
 
 			printLevel();
-			sleep(2);
+			sleep(1);
 			
-			
-			
+
 			/* Wait for the user to press a key */
 			printPressKeyToStart();
-			
-			#if defined (__ATMOS__) || defined(__NES__) 
-				// No input support
-			#elif defined (__PLUS4__) || defined(__C16__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
-				WAIT_JOY_PRESS();
-			#elif defined(__ATARI__) || defined(__APPLE2__)
-				WAIT_JOY_OR_KEY_PRESS();
-			#else
-				WAIT_KEY_PRESS();
-			#endif
-
+			WAIT_PRESS();
 
 			deleteCenteredMessage();
 			

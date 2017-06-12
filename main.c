@@ -205,11 +205,15 @@ int main(void)
 		printStartMessage();
 		
 		#if defined (__ATMOS__) || defined(__NES__) 
-			// Do nothing
-		#else 
+			// No input support
+		#elif defined (__PLUS4__) || defined(__C16__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
 			WAIT_JOY_PRESS();
+		#elif defined(__ATARI__) || defined(__APPLE2__)
+			WAIT_JOY_OR_KEY_PRESS();
+		#else
+			WAIT_KEY_PRESS();
 		#endif
-	
+		
 		CLEAR_SCREEN();
 				
 		deleteCenteredMessage();
@@ -245,9 +249,13 @@ int main(void)
 			printPressKeyToStart();
 			
 			#if defined (__ATMOS__) || defined(__NES__) 
-				// Do nothing
-			#else 
+				// No input support
+			#elif defined (__PLUS4__) || defined(__C16__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
 				WAIT_JOY_PRESS();
+			#elif defined(__ATARI__) || defined(__APPLE2__)
+				WAIT_JOY_OR_KEY_PRESS();
+			#else
+				WAIT_KEY_PRESS();
 			#endif
 
 
@@ -276,7 +284,8 @@ int main(void)
 				
 				++loop;
 
-				#if defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
+				#if defined (__PLUS4__) || defined(__C16__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
+					// No keyboard support yet for PLUS4, C16, C64, VIC20
 					// Do nothing
 				#else 
 				IF_KEYBOARD_HIT
@@ -286,6 +295,7 @@ int main(void)
 					}
 				#endif // defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__)
 				#if defined(__ATMOS__) || defined(__NES__)
+					// No joystick support yet for ATMOS and NES (NES has NO implemented INPUT!)
 					// Do nothing here
 				#else		
 					{

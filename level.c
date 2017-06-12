@@ -40,8 +40,12 @@
 
 #include "level.h"
 
-#define TWIN_GHOST_SEPARATOR 2
-
+#if defined(__VIC20__)
+	#define TWIN_GHOST_SEPARATOR 2
+#else
+	#define TWIN_GHOST_SEPARATOR 3
+#endif
+	
 extern unsigned short innerVerticalWallX;
 extern unsigned short innerVerticalWallY;
 extern unsigned short innerVerticalWallLength;

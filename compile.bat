@@ -1,5 +1,8 @@
-set cc65path="D:\personal\cc65-snapshot-win32"
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+
+REM set cc65path="D:\personal\cc65-snapshot-win32"
+REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 set Deliverables=%mypath%\deliverables
 

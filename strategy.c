@@ -57,7 +57,7 @@ void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 		DELETE_CHARACTER(hunterPtr);
 		++hunterPtr->_y;
 	}
-	else if(hunterPtr->_y>preyPtr->_y)
+	else
 	{
 		DELETE_CHARACTER(hunterPtr);
 		--hunterPtr->_y;
@@ -82,7 +82,7 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 		DELETE_CHARACTER(hunterPtr);
 		++hunterPtr->_x;
 	}
-	else if(hunterPtr->_x>preyPtr->_x)
+	else 
 	{
 		DELETE_CHARACTER(hunterPtr);
 		--hunterPtr->_x;
@@ -93,17 +93,14 @@ void chaseCharacter(Character *hunterPtr, Character *preyPtr)
 {
 	if(hunterPtr->_status)
 	{
-		// if(rand()>slowDown)
-		// {
-			if(rand()%2) // Select blind chase strategy
-				{
-					blindChaseCharacterXStrategy(hunterPtr, preyPtr);
-				}
-				else
-				{
-					blindChaseCharacterYStrategy(hunterPtr, preyPtr);
-				}
-		//}
+		if(rand()%2) // Select blind chase strategy
+			{
+				blindChaseCharacterXStrategy(hunterPtr, preyPtr);
+			}
+			else
+			{
+				blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+			}
 	}
 }
 
@@ -114,25 +111,64 @@ void chasePlayer(Character ** ghosts,
 {
 	char i;
 
-	#ifdef ALTERNATE_STRATEGY
+	// Experimental
+	#if ALTERNATE_STRATEGY==1
 		int r = rand();
-		if(r>slowDown)
+		//if(r>slowDown)
+		if(!(r%11)) // BOGUS
 		{ 
+			int mid = GHOSTS_NUMBER/2;
 			if(r%2)
 			{	
-				for(i=0;i<GHOSTS_NUMBER/2;++i)
+				for(i=0;i<mid;++i)
+				{
+					blindChaseCharacterXStrategy(ghosts[i], preyPtr);
+				}
+			}
+			else
+			{	
+				for(i=mid;i<GHOSTS_NUMBER;++i)
+				{
+					blindChaseCharacterYStrategy(ghosts[i], preyPtr);
+				}
+			}
+		}
+	// Experimental
+	#elif ALTERNATE_STRATEGY==2
+		int r = rand();
+		//if(r>slowDown)
+		if(r%11) // BOGUS
+		{ 
+			if(r%4==0)
+			{	
+				for(i=0;i<GHOSTS_NUMBER/4;++i)
+				{
+					chaseCharacter(ghosts[i], preyPtr);
+				}
+			}
+			else if(r%4==1)
+			{	
+				for(i=GHOSTS_NUMBER/4;i<GHOSTS_NUMBER;++i)
+				{
+					chaseCharacter(ghosts[i], preyPtr);
+				}
+			}
+			else if(r%4==2)
+			{	
+				for(i=GHOSTS_NUMBER/2;i<GHOSTS_NUMBER/2+GHOSTS_NUMBER/4;++i)
 				{
 					chaseCharacter(ghosts[i], preyPtr);
 				}
 			}
 			else
 			{	
-				for(i=GHOSTS_NUMBER/2;i<GHOSTS_NUMBER;++i)
+				for(i=GHOSTS_NUMBER/2+GHOSTS_NUMBER/4;i<GHOSTS_NUMBER;++i)
 				{
 					chaseCharacter(ghosts[i], preyPtr);
 				}
 			}
 		}
+	// Standard
 	#else
 		for(i=0;i<GHOSTS_NUMBER;++i)
 		{

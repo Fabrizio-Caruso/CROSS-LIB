@@ -91,7 +91,7 @@ BOMB_IMAGE._imageData = 'X';
 POWERUP_IMAGE._imageData = 'P';
 
 
-MISSILE_IMAGE._imageData = 'O';
+MISSILE_IMAGE._imageData = '.';
 MISSILE_IMAGE._color = COLOR_BLACK;
 
 GUN_IMAGE._imageData = '!';

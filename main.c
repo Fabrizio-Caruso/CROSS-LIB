@@ -201,6 +201,7 @@ int main(void)
 			guns = 0;
 			gun._status = 0;
 			gunCoolDown = gunInitialCoolDown;
+			ghostSlowDown = computeGhostSlowDown();
 			
 			/* Clear the screen, put cursor in upper left corner */
 			CLEAR_SCREEN();
@@ -232,14 +233,14 @@ int main(void)
 			
 			while(player._alive && ghostCount>0) // while alive && there are still ghosts
 			{
-				ghostSlowDown = computeGhostSlowDown();
-				// TODO: This is just an attempt to speed things up
-				// if(invincibleGhost.status)
-					// invincibleSlowDown = computeInvincibleSlowDown();
-				drawInnerVerticalWall();
-				
+								
 				++loop;
+				
+				ghostSlowDown = computeGhostSlowDown();
+				
+				drawInnerVerticalWall();
 
+				// Move player
 				#if defined (__PLUS4__) || defined(__C16__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
 					// No keyboard support yet for PLUS4, C16, C64, VIC20
 					// Do nothing
@@ -258,7 +259,9 @@ int main(void)
 						joyInput = GET_JOY1();			
 						movePlayerByJoystick(&player, joyInput);	
 					}
-				#endif				
+				#endif			
+				
+				// Check if player has fired the gun
 				if(playerFire && missile._status==0 && guns>0)
 				{
 					--guns;
@@ -275,6 +278,8 @@ int main(void)
 							DRAW(&invincibleGhost);
 						}		
 				}
+				
+				// Move missile if fired
 				if(missile._status==1 && missile._alive==1)
 				{
 					moveMissile(&missile, missileDirection);
@@ -289,8 +294,10 @@ int main(void)
 					}
 				}
 			
+				// Chase the player
 				chasePlayer(ghosts, &player, ghostSlowDown);
 				
+				// Check collision player vs ghosts and player vs bombs
 				if(playerReached(ghosts, &player) ||
 				   playerReachedBombs(bombs, &player))
 				{
@@ -299,6 +306,7 @@ int main(void)
 					sleep(1);
 				}
 				
+				// Check collistion player vs inner wall
 				if(innerWallReached(&player))
 				{
 					die(&player);
@@ -306,11 +314,14 @@ int main(void)
 					sleep(1);
 				}
 			
+				// Check collisions bombs vs ghosts
 				checkBombsVsGhosts(bombs, 
 								   ghosts);
 				
+				// Check collisions ghosts vs ghosts
 				checkGhostsVsGhosts(ghosts);
 
+				// Manage gun 
 				if(gun._status==1)
 				{
 					if(powerUpReached(&player, &gun))
@@ -326,8 +337,7 @@ int main(void)
 					}
 				}		
 				else if (gunCoolDown == 0)
-				{
-					
+				{	
 					gun._status = 1;
 					do
 					{
@@ -338,7 +348,8 @@ int main(void)
 				{
 					--gunCoolDown;
 				}				
-									
+				
+				// Manage powerUp
 				if(powerUp._status == 1)
 				{
 					if(powerUpReached(&player, &powerUp))
@@ -366,6 +377,7 @@ int main(void)
 					--powerUpCoolDown;
 				}
 					
+				// Check collision player vs outer wall
 				if(wallReached(&player))
 				{
 					die(&player);
@@ -373,18 +385,20 @@ int main(void)
 					sleep(1);
 				}
 				
-				SET_TEXT_COLOR(COLOR_RED);
+				// Draw all bombs
 				for(i=0;i<BOMBS_NUMBER;++i)
 				{
 					DRAW(bombs[i]);
 				}
-				SET_TEXT_COLOR(TEXT_COLOR);
 				
+				// Display ghosts
 				displayGhosts(ghosts);
 
+				// Display stats and their values
 				displayStatsTitles();
 				displayStats();
 				
+				// Manage invincible ghost
 				if(!invincibleGhost._status && 
 				  ((invincibleXCountDown==0)||(invincibleYCountDown==0)) || 
 				   (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))
@@ -412,6 +426,7 @@ int main(void)
 					}
 				}
 				
+				// Check victory condition
 				if(ghostCount<=0)
 				{
 					printVictoryMessage();

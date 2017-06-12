@@ -38,24 +38,51 @@ extern unsigned int ghostLevel;
 extern unsigned short level;
 extern unsigned int ghostLevelDecrease;
 
-unsigned int computeGhostSlowDown(void)
-{
-	if(ghostLevel<500)
+#if ALTERNATING_STRATEGY==1 
+	unsigned int computeGhostSlowDown(void)
 	{
-	   return 32000-ghostLevel*10-level*200;
+		return 2000;
+		// if(ghostLevel<500)
+		// {
+			// return 10000-ghostLevel*20-level*200;
+		// }
+		// else
+		// {
+			// return 0;
+		// }
 	}
-	else if(ghostLevel<1000)
+#elif ALTERNATING_STRATEGY==2
+	unsigned int computeGhostSlowDown(void)
 	{
-	   return 32000-ghostLevel*15-level*200;
+		return 2000;
+		// if(ghostLevel<250)
+		// {
+			// return 5000-ghostLevel*20-level*200;
+		// }
+		// else
+		// {
+			// return 0;
+		// }
 	}
-	else if(ghostLevel<1200)
+#else
+	unsigned int computeGhostSlowDown(void)
 	{
-	   return 32000-ghostLevel*20-level*200;
+		if(ghostLevel<1000)
+			return 25000-level*200-ghostLevel*25;
+		else
+			return 0;
+		// if(ghostLevel<500)
+		// {
+		   // return 32000-ghostLevel*20-level*200;
+		// }
+		// else if(ghostLevel<1000)
+		// {
+		   // return 32000-ghostLevel*30-level*200;
+		// }
+		// else
+		   // return 0; // You must die!
 	}
-	else
-	   return 0; // You must die!
-}
-
+#endif
 
 void decreaseGhostLevel(void)
 {

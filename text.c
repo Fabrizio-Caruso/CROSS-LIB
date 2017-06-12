@@ -122,7 +122,6 @@ void printLevel(void)
 	sprintf(levelString, "LEVEL %d", level);
 
 	printCenteredMessage(levelString);
-	sleep(1);
 }
 
 void printLevelBonus(void)
@@ -138,7 +137,6 @@ void printLevelBonus(void)
 void printPressKeyToStart(void)
 {
 	printCenteredMessage("PRESS ANY KEY TO START");
-	sleep(1);
 }
 
 void deleteCenteredMessage(void)
@@ -220,15 +218,14 @@ void printStartMessage(void)
 	#endif
 	SET_TEXT_COLOR(TEXT_COLOR);
 	PRINT((XSize - 22) / 2, YSize / 2 + 8, "PRESS ANY KEY TO START");
-	sleep(1);
 }
 
 void gameCompleted(void)
 {
 	printCenteredMessage("Y O U  M A D E  I T !"); 
-	sleep(2);
+	sleep(1);
 	printCenteredMessage("    T H E   E N D    "); 
-	sleep(2);
+	sleep(1);
 }
 
 void finalScore(void)

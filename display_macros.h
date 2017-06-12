@@ -52,37 +52,11 @@ void initImages(void);
 
 #define DRAW(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc(((ghost)->_imagePtr)->_imageData); SET_TEXT_COLOR(TEXT_COLOR);};
 
-// TODO: Make this work!
-//#define DRAW_LIVING_GHOST(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc(((ghost)->_imagePtr)->_imageData); SET_TEXT_COLOR(TEXT_COLOR);};
+//#define DRAW(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy((((ghost)->_x)-1),((ghost)->_y)); cputc('('); cputc(((ghost)->_imagePtr)->_imageData); cputc(')'); SET_TEXT_COLOR(TEXT_COLOR);};
 
-
-// TODO: Maybe the drawing details should be in the Character 
-//#define DRAW_LIVING_GHOST(ghost) {SET_TEXT_COLOR(COLOR_BLACK); gotoxy((int)((ghost)->_x),((int)(ghost)->_y)); cputc('O'); SET_TEXT_COLOR(TEXT_COLOR);};
-
-// #define DRAW_DEAD_GHOST(ghost) {SET_TEXT_COLOR(COLOR_RED); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('X'); SET_TEXT_COLOR(TEXT_COLOR);};
-
-// #define DRAW_BOMB(ghost) {SET_TEXT_COLOR(COLOR_RED); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('X'); SET_TEXT_COLOR(TEXT_COLOR);};
-
-// #define DRAW_MISSILE(ghost) {SET_TEXT_COLOR(COLOR_BLACK); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('.'); SET_TEXT_COLOR(TEXT_COLOR);};
-
-// #if defined(__PLUS4__) || defined(__C16__)
-	// #define DRAW_INVINCIBLE_GHOST(ghost) {SET_TEXT_COLOR(COLOR_BLACK); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('+'); SET_TEXT_COLOR(TEXT_COLOR);};
-
-	// #define DRAW_PLAYER(player)  {SET_TEXT_COLOR(COLOR_BLACK); gotoxy(((player)->_x),((player)->_y)); cputc('*'); SET_TEXT_COLOR(TEXT_COLOR);};
-
-	// #define DRAW_POWERUP(ghost) {SET_TEXT_COLOR(COLOR_BLACK); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('P'); SET_TEXT_COLOR(TEXT_COLOR);};
-
-	// #define DRAW_GUN(ghost) {SET_TEXT_COLOR(COLOR_BLACK); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('!'); SET_TEXT_COLOR(TEXT_COLOR);};
-// #else
-	// #define DRAW_INVINCIBLE_GHOST(ghost) {SET_TEXT_COLOR(COLOR_GREEN); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('+'); SET_TEXT_COLOR(TEXT_COLOR);};
-
-	// #define DRAW_PLAYER(player)  {SET_TEXT_COLOR(COLOR_BLUE); gotoxy(((player)->_x),((player)->_y)); cputc('*'); SET_TEXT_COLOR(TEXT_COLOR);};
-
-	// #define DRAW_POWERUP(ghost) {SET_TEXT_COLOR(COLOR_CYAN); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('P'); SET_TEXT_COLOR(TEXT_COLOR);};
-
-	// #define DRAW_GUN(ghost) {SET_TEXT_COLOR(COLOR_CYAN); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('!'); SET_TEXT_COLOR(TEXT_COLOR);};
-// #endif
 #define DELETE_CHARACTER(ghost) {gotoxy(((ghost)->_x),((ghost)->_y)); cputc(' ');};
+
+//#define DELETE_CHARACTER(ghost) {gotoxy((((ghost)->_x)-1),((ghost)->_y)); cputs("   ");};
 
 
 // TODO: Implement color conversion

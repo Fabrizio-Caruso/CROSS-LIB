@@ -37,7 +37,7 @@
 #include <stdlib.h>
 
 #define BOMBS_NUMBER 4
-#define GHOSTS_NUMBER 8 
+#define GHOSTS_NUMBER (8*2) 
 #define LIVES_NUMBER 3
 #define GUNS_NUMBER 3
 

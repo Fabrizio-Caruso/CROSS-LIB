@@ -36,7 +36,6 @@
 
 #include <stdlib.h>
 
-#include "settings.h"
 #include "display_macros.h"
 
 #include "level.h"
@@ -140,34 +139,52 @@ void fillLevelWithCharacters(
 	int b1y, b2y, b3y, b4y;
 	Character *dummyBombs[BOMBS_NUMBER];
 	char i;
-
+	int x1,x2,x3,x4,x5,x6,x7,x0;
+	int y1,y2,y3,y4,y5,y6,y7,y0;
+	int j;
+	
 	initImages();
 	
+
 	// Ghosts
-	initializeCharacter(ghosts[1],XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,1,&GHOST_IMAGE);
-	DRAW(ghosts[1]);
+
 	
-	initializeCharacter(ghosts[2],XSize/6+rand()%4-2,YSize/2+rand()%4-2,1, &GHOST_IMAGE);
-	DRAW(ghosts[2]);
+	x1 = XSize/6+rand()%4-2;	y1 = YSize/6+rand()%4-2+1;
+	x2 = XSize/6+rand()%4-2; y2 = YSize/2+rand()%4-2;
+	x3 = XSize/6+rand()%4-2; y3 = YSize-YSize/6+rand()%4-2;
+	x4 = XSize/2+rand()%4-2; y4 = YSize/6+rand()%4-2+1;
+	x5 = XSize/2+rand()%4-2; y5 = YSize-YSize/6+rand()%4-2;
+	x6 = XSize-XSize/6+rand()%4-2; y6 = YSize/6+rand()%4-2+1;
+	x7 = XSize-XSize/6+rand()%4-2; y7 = YSize/2+rand()%4-2;
+	x0 = XSize-XSize/6+rand()%4-2; y0 = YSize-YSize/6+rand()%4-2;
+
+	for (j=0;j<(GHOSTS_NUMBER/8);++j)
+	{
+		initializeCharacter(ghosts[1+j*8],x1+2*j,y1+2*j,1,&GHOST_IMAGE);
+		DRAW(ghosts[1+j*8]);
 		
-	initializeCharacter(ghosts[3],XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,1,&GHOST_IMAGE);
-	DRAW(ghosts[3]);
+		initializeCharacter(ghosts[2+j*8],x2+2*j,y2+2*j,1, &GHOST_IMAGE);
+		DRAW(ghosts[2+j*8]);
 		
-	initializeCharacter(ghosts[4],XSize/2+rand()%4-2,YSize/6+rand()%4-2+1,1,&GHOST_IMAGE);
-	DRAW(ghosts[4]);
+		initializeCharacter(ghosts[3+j*8],x3+2*j,y3+2*j,1,&GHOST_IMAGE);
+		DRAW(ghosts[3+j*8]);
+
+		initializeCharacter(ghosts[4+j*8],x4+2,y4+2*j,1,&GHOST_IMAGE);
+		DRAW(ghosts[4+j*8]);
 	
-	initializeCharacter(ghosts[5],XSize/2+rand()%4-2,YSize-YSize/6+rand()%4-2,1,&GHOST_IMAGE);
-	DRAW(ghosts[5]);
+		initializeCharacter(ghosts[5+j*8],x5+2,y5+2*j,1,&GHOST_IMAGE);
+		DRAW(ghosts[5+j*8]);
 	
-	initializeCharacter(ghosts[6],XSize-XSize/6+rand()%4-2,YSize/6+rand()%4-2+1,1,&GHOST_IMAGE);
-	DRAW(ghosts[6]);
-		
-	initializeCharacter(ghosts[7],XSize-XSize/6+rand()%4-2,YSize/2+rand()%4-2,1,&GHOST_IMAGE);
-	DRAW(ghosts[7]);
-		
-	initializeCharacter(ghosts[0],XSize-XSize/6+rand()%4-2,YSize-YSize/6+rand()%4-2,1,&GHOST_IMAGE);
-	DRAW(ghosts[0]);
+		initializeCharacter(ghosts[6+j*8],x6+2,y6+2*j,1,&GHOST_IMAGE);
+		DRAW(ghosts[6+j*8]);
 	
+	initializeCharacter(ghosts[7+j*8],x7+2,y7+2*j,1,&GHOST_IMAGE);
+		DRAW(ghosts[7+j*8]);
+		
+		initializeCharacter(ghosts[0+j*8],x0+2,y0 + 2*j,1,&GHOST_IMAGE);
+		DRAW(ghosts[0+j*8]);
+
+	}
 	// Player
 	do
 	{

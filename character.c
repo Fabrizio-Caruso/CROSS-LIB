@@ -91,6 +91,7 @@ void die(Character * playerPtr)
 	// SET_TEXT_COLOR(COLOR_RED);
 	// DRAW(playerPtr);
 	// SET_TEXT_COLOR(TEXT_COLOR);
+	DELETE_CHARACTER(playerPtr);
 	playerPtr->_status = 0;
 	playerPtr->_alive = 0;
 }

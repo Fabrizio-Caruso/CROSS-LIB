@@ -343,9 +343,10 @@ int main(void)
 				{
 					if(powerUpReached(&player, &powerUp))
 					{
+						die(&powerUp);
 						decreaseGhostLevel(); 
 						points+=POWER_UP_BONUS;
-						powerUp._status = 0;	
+						//powerUp._status = 0;	
 						powerUpCoolDown = powerUpInitialCoolDown;
 					}
 					else

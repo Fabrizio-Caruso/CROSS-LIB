@@ -42,7 +42,7 @@ void checkMissileVsGhost(Character * missilePtr,
 						 Character * ghostPtr)
 {
 	if(ghostPtr->_alive && 
-	areCharctersAtSamePosition(missilePtr, ghostPtr))
+	   areCharctersAtSamePosition(missilePtr, ghostPtr))
 	{
 		ghost_die(ghostPtr); 
 		points+=GHOST_VS_MISSILE;
@@ -86,6 +86,7 @@ int setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
 	if(wallReached(missilePtr))
 	{
 		die(missilePtr);
+		DRAW_BROKEN_WALL(missilePtr);
 		return 0;
 	}
 	return 1;
@@ -116,6 +117,8 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 	if(wallReached(missilePtr))
 	{
 		die(missilePtr);
+		// TODO: Draw broken wall
+		DRAW_BROKEN_WALL(missilePtr);
 	}
 	else
 	{

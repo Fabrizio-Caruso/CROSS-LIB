@@ -57,6 +57,8 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);}
 #endif
 
+#define DRAW_BROKEN_WALL(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('X'); SET_TEXT_COLOR(TEXT_COLOR);};
+
 
 #if ( defined(__C64__) || defined(__C128__)) && defined(C64_HARDWARE_SPRITE_VERSION)
 	#define DRAW(ghost) \

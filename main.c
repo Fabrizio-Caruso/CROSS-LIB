@@ -330,7 +330,8 @@ int main(void)
 					gun._status = 1;
 					do
 					{
-					relocateCharacter(&gun, bombs, ghosts);
+						relocateCharacter(&gun, bombs, ghosts);
+						DRAW(&gun);
 					} while(innerWallReached(&gun));
 				}
 				else
@@ -359,7 +360,7 @@ int main(void)
 					powerUp._status = 1;
 					do
 					{
-					relocateCharacter(&powerUp, bombs, ghosts);
+						relocateCharacter(&powerUp, bombs, ghosts);
 					} while(innerWallReached(&powerUp));
 				}
 				else
@@ -394,7 +395,6 @@ int main(void)
 				   (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))
 				{
 					invincibleGhost._status = 1;
-					//displayCharacter(&invincibleGhost);
 					DRAW(&invincibleGhost);
 				}
 				else

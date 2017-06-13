@@ -46,7 +46,7 @@
 
 void INIT_IMAGES(void)
 {
-#if defined(__C64__) && defined(__C64_HARDWARE_SPRITE_VERSION__) 
+#if defined(__C64__) && defined(C64_HARDWARE_SPRITE_VERSION) 
 	short i;
 	
 	short data[63];
@@ -102,7 +102,7 @@ MISSILE_IMAGE._color = COLOR_BLACK;
 
 GUN_IMAGE._imageData = '!';
 
-#if defined(__C64__) && defined(__C64_HARDWARE_SPRITE_VERSION__)
+#if defined(__C64__) && defined(C64_HARDWARE_SPRITE_VERSION)
 
 	data[0] = 0;
 	data[1] = 127;
@@ -175,7 +175,23 @@ GUN_IMAGE._imageData = '!';
 	// Experimental
 	POKE(53248u+21,4);
 	POKE(2042,13);
-
+	POKE(53248u+41,5);
+	
+	/*
+	// Even more experimental
+	POKE(53248u+21,2);
+	POKE(2041,13);
+	POKE(53248u+40,6);
+	POKE(53248u+3,200);
+	POKE(53248u+2,200);
+	
+	
+	POKE(53248u+21,1);
+	POKE(2040,13);
+	POKE(53248u+39,7);
+	POKE(53248u+1,200);
+	POKE(53248u+0,200);
+	*/
 	for(i=0;i<63;++i)
 	{
 		POKE(832+i,data[i]);

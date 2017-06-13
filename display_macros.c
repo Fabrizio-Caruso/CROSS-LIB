@@ -90,6 +90,8 @@ void INIT_IMAGES(void)
 		0x00,0x15,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x83
 	};
 	
+	// No memory left for this
+	/*
 	static const char gun_data[] = 
 	{
 		0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,
@@ -98,7 +100,7 @@ void INIT_IMAGES(void)
 		0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x00,0x8e
 
 	};
-	
+	*/
 	#endif
 		
 
@@ -106,7 +108,7 @@ void INIT_IMAGES(void)
 		PLAYER_IMAGE._color = COLOR_BLUE;
 		INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
 		POWERUP_IMAGE._color = COLOR_BLUE;
-		GUN_IMAGE._color = COLOR_BLUE;
+		GUN_IMAGE._color = COLOR_BLACK;
 		BOMB_IMAGE._color = COLOR_RED;
 		DEAD_GHOST_IMAGE._color = COLOR_RED;
 	#elif defined(__PET__) || defined(__APPLE2__)
@@ -157,8 +159,8 @@ void INIT_IMAGES(void)
 	
 	
 		// Even more experimental
-		POKE(53248u+21,7); // Enable first 3 sprites (1+2+4)
-		POKE(53248u+28,7); // Enable multicolor on first 3 sprites
+		POKE(53248u+21,1+2+4); // Enable first 3 sprites (1+2+4)
+		POKE(53248u+28,1+2+4); // Enable multicolor on first 3 sprites
 
 		POKE(53248u+32,COLOR_BROWN); 
 		POKE(53248u+33,COLOR_BROWN); 
@@ -166,10 +168,15 @@ void INIT_IMAGES(void)
 		POKE(53248u+37,COLOR_BLACK);
 		POKE(53248u+38,COLOR_WHITE);
 		
+		
 		// PLAYER Sprite (Third sprite)
 		POKE(2042,13);
 		POKE(53248u+41,COLOR_GREEN); 
 		
+		for(i=0;i<63;++i)
+		{
+			POKE(832+i,player_data[i]);
+		}	
 		
 		
 		// POWER-UP SPRITE (Second sprite)
@@ -180,7 +187,10 @@ void INIT_IMAGES(void)
 		POKE(53248u+2,0);
 		POKE(53248u+3,0);
 	
-		
+		for(i=0;i<63;++i)
+		{
+			POKE(832+64*2+i,powerUp_data[i]);
+		}
 		
 		// INVINCIBLE ENEMY SPRITE (First sprite)
 		POKE(2040,14);
@@ -189,22 +199,27 @@ void INIT_IMAGES(void)
 		// Initial positioning
 		POKE(53248u+0,0);
 		POKE(53248u+1,0);
-
-		
-		for(i=0;i<63;++i)
-		{
-			POKE(832+i,player_data[i]);
-		}
-		
 		for(i=0;i<63;++i)
 		{
 			POKE(832+64+i,invincible_enemy_data[i]);
 		}
 		
+		// No memory left for this
+		
+		/*
+		// GUN SPRITE (Fourth sprite)
+		POKE(2043,12);
+		POKE(53248u+42,COLOR_BLUE);
+			
+		// Initial positioning
+		POKE(53248u+6,0);
+		POKE(53248u+7,0);
+		
 		for(i=0;i<63;++i)
 		{
-			POKE(832+64*2+i,powerUp_data[i]);
+			POKE(832+64*3+i,gun_data[i]);
 		}
+		*/
 	#endif
 }
 

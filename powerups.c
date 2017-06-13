@@ -53,8 +53,8 @@ void computePowerUp(unsigned int *coolDownDecreasePtr, unsigned int *powerUpInit
 int computeGunInitialCoolDown(void)
 {
 	if(level<=4)
-		return 300; // TODO: fix this
+		return 250; // TODO: fix this
 	else
-		return 300 + level * 10;
+		return 250 + level * 10;
 }
 

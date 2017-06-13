@@ -46,7 +46,7 @@
 
 void INIT_IMAGES(void)
 {
-#ifdef __C64__ 
+#if defined(__C64__) && defined(__C64_HARDWARE_SPRITE_VERSION__) 
 	short i;
 	
 	short data[63];
@@ -102,7 +102,7 @@ MISSILE_IMAGE._color = COLOR_BLACK;
 
 GUN_IMAGE._imageData = '!';
 
-#ifdef __C64__ 
+#if defined(__C64__) && defined(__C64_HARDWARE_SPRITE_VERSION__)
 
 	data[0] = 0;
 	data[1] = 127;
@@ -176,27 +176,11 @@ GUN_IMAGE._imageData = '!';
 	POKE(53248u+21,4);
 	POKE(2042,13);
 
-	
 	for(i=0;i<63;++i)
 	{
 		POKE(832+i,data[i]);
 	}
 
-	// POKE(53248u+4,100); 
-	// POKE(53248u+5,100);
 #endif
 }
 
-
-// void DRAW(Character *ghost)
-// {
-	// short x = ghost->_x;
-	// short y = ghost->_y;
-	
-	// SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); 
-	// gotoxy(x,y); 
-	// cputc(((ghost)->_imagePtr)->_imageData); 
-	// SET_TEXT_COLOR(TEXT_COLOR);
-	
-	// POKE(53248u+4,x*5); POKE(53248u+5,y*5);
-// }

@@ -39,6 +39,8 @@
 
 void drawInnerVerticalWall(void);
 
+void updateInnerWallVerticalLength(void);
+
 unsigned short drawInnerVerticalWallForLevel(void);
 
 void fillLevelWithCharacters(

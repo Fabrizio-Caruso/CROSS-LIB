@@ -210,7 +210,7 @@ int main(void)
 			drawBorders();
 			
 			// Initialize characters
-			innerVerticalWallLength = drawInnerVerticalWallForLevel();
+			updateInnerWallVerticalLength();
 			
 			fillLevelWithCharacters(
 								 &player, &powerUp, 
@@ -429,16 +429,17 @@ int main(void)
 				// Increase ghost speed
 				++ghostLevel;
 			}; // end inner while [while (player._alive && !victoryFlag)]
+			CLEAR_SCREEN();
 			if(player._alive)
 			{
-				CLEAR_SCREEN();
 				printLevelBonus();
 								
 				sleep(1);
 				
 				points+= LEVEL_BONUS*level;
 				++level;
-				innerVerticalWallLength = drawInnerVerticalWallForLevel();
+				updateInnerWallVerticalLength();
+				drawInnerVerticalWall();
 			}
 			else
 			{

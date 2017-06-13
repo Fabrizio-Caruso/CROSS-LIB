@@ -79,7 +79,7 @@ typedef struct ImageStruct Image;
 		else if((((ghost)->_imagePtr)->_imageData) == '+') \
 		{ \
 			POKE(53248u+21,255); \
-			POKE(2040,13); \
+			POKE(2040,14); \
 			if(x*8+16>255) \
 			{ \
 				POKE(53248u+0,x*8+16-256); \

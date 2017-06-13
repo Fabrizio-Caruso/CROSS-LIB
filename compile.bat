@@ -1,8 +1,8 @@
-REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
 
-set cc65path="D:\personal\cc65-snapshot-win32"
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+REM set cc65path="D:\personal\cc65-snapshot-win32"
+REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 set Deliverables=%mypath%\deliverables
 
@@ -13,7 +13,7 @@ cd %cc65path%\bin\
 
 cl65.exe -O -t c64 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c64.prg
 
-cl65.exe -O -t c128 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c128.prg
+REM cl65.exe -O -t c128 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c128.prg
 
 REM cl65.exe -O -t pet %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cpet.prg
 

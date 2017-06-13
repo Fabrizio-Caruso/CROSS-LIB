@@ -49,14 +49,20 @@
 // TODO: Sprite initialization (to be performed only once) should be separated from level generation
 void INIT_IMAGES(void)
 {
-	#if defined(__C64__) && defined(C64_HARDWARE_SPRITE_VERSION) 
+	#if (defined(__C64__) || defined(__C128__))&& defined(C64_HARDWARE_SPRITE_VERSION) 
 		short i;
 		
-		static const char data[] = {0,127,0,1,255,192,3,255,224,3,231,224,
+		static const char player_data[] = {0,127,0,1,255,192,3,255,224,3,231,224,
 		                           7,217,240,7,223,240,7,217,240,3,231,224,
 								   3,255,224,3,255,224,2,255,160,1,127,64,
 								   1,62,64,0,156,128,0,156,128,0,73,0,0,73,0,
 								   0,62,0,0,62,0,0,62,0,0,28,0};
+								   
+		static const char invincible_enemy_data[] = {0,127,0,1,255,192,3,255,224,3,231,224,
+		                           7,217,240,7,223,240,7,217,240,3,231,224,
+								   3,255,224,3,255,224,2,255,160,1,127,64,
+								   1,62,64,0,156,128,0,156,128,0,73,0,0,73,0,
+								   0,62,0,0,62,0,0,62,0,0,28,0};								   
 		
 	#endif
 		
@@ -110,8 +116,8 @@ void INIT_IMAGES(void)
 
 	GUN_IMAGE._imageData = '!';
 
-
-	#if defined(__C64__) && defined(C64_HARDWARE_SPRITE_VERSION)
+	// This code should be only run once
+	#if (defined(__C64__) || defined(__C128__))&& defined(C64_HARDWARE_SPRITE_VERSION) 
 		// Experimental
 		POKE(53248u+21,4);
 		POKE(2042,13);
@@ -133,9 +139,13 @@ void INIT_IMAGES(void)
 		
 		for(i=0;i<63;++i)
 		{
-			POKE(832+i,data[i]);
+			POKE(832+i,player_data[i]);
 		}
-
+		
+		for(i=0;i<63;++i)
+		{
+			POKE(896+i,invincible_enemy_data[i]);
+		}
 	#endif
 }
 

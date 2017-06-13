@@ -37,6 +37,10 @@
 #include <conio.h>
 #include "settings.h"
 
+#if ( defined(__C64__) || defined(__C128__)) && defined(C64_HARDWARE_SPRITE_VERSION)
+	#include <peekpoke.h>
+#endif
+
 struct ImageStruct
 {
 	char _imageData;
@@ -51,7 +55,7 @@ typedef struct ImageStruct Image;
 
 
 
-#if defined(__C64__) && defined(C64_HARDWARE_SPRITE_VERSION)
+#if ( defined(__C64__) || defined(__C128__)) && defined(C64_HARDWARE_SPRITE_VERSION)
 	#define DRAW(ghost) \
 	{ \
 		short x = (ghost)->_x; \
@@ -121,8 +125,7 @@ typedef struct ImageStruct Image;
 
 
 // TODO: Implement color conversion
-#if defined(__C64__)
-	#include <peekpoke.h>
+#if (defined(__C64__)||defined(__C128__))
 	#define DRAWC(x,y,ch,color) {POKE(1024+40*y+x,(ch & 127)); POKE(55296u+40*y+x, color);}
 #else
 	#define DRAWC(x,y,ch,color) {(void) textcolor (color); gotoxy((x),(y)); cputc(ch); (void) textcolor (TEXT_COLOR);};

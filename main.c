@@ -108,7 +108,6 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
-
 int main(void)
 {	
 	Character* ghosts[GHOSTS_NUMBER];

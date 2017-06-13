@@ -44,159 +44,98 @@
  Image MISSILE_IMAGE;
  Image GUN_IMAGE;
 
+
+ 
+// TODO: Sprite initialization (to be performed only once) should be separated from level generation
 void INIT_IMAGES(void)
 {
-#if defined(__C64__) && defined(C64_HARDWARE_SPRITE_VERSION) 
-	short i;
-	
-	short data[63];
-#endif
-	
+	#if defined(__C64__) && defined(C64_HARDWARE_SPRITE_VERSION) 
+		short i;
+		
+		static const char data[] = {0,127,0,1,255,192,3,255,224,3,231,224,
+		                           7,217,240,7,223,240,7,217,240,3,231,224,
+								   3,255,224,3,255,224,2,255,160,1,127,64,
+								   1,62,64,0,156,128,0,156,128,0,73,0,0,73,0,
+								   0,62,0,0,62,0,0,62,0,0,28,0};
+		
+	#endif
+		
 
-#if defined(__C64__) || defined(__C128__) || defined(__VIC20__)
-	PLAYER_IMAGE._color = COLOR_BLUE;
-	INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
-	POWERUP_IMAGE._color = COLOR_BLUE;
-	GUN_IMAGE._color = COLOR_BLUE;
-	BOMB_IMAGE._color = COLOR_RED;
-	DEAD_GHOST_IMAGE._color = COLOR_RED;
-#elif defined(__PET__) || defined(__APPLE2__)
-	PLAYER_IMAGE._color = COLOR_BLACK;
-	INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
-	POWERUP_IMAGE._color = COLOR_BLACK;
-	GUN_IMAGE._color = COLOR_BLACK;
-	BOMB_IMAGE._color = COLOR_BLACK;
-	DEAD_GHOST_IMAGE._color = COLOR_BLACK;
-#elif defined(__C16__) || defined(__PLUS4__)
-	PLAYER_IMAGE._color = COLOR_BLACK;
-	INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
-	POWERUP_IMAGE._color = COLOR_GRAY1;
-	GUN_IMAGE._color = COLOR_GRAY1;
-	BOMB_IMAGE._color = COLOR_RED;
-	DEAD_GHOST_IMAGE._color = COLOR_RED;
-#else
-	PLAYER_IMAGE._color = COLOR_BLACK;
-	INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
-	POWERUP_IMAGE._color = COLOR_BLACK;
-	GUN_IMAGE._color = COLOR_BLACK;
-	BOMB_IMAGE._color = COLOR_RED;
-	DEAD_GHOST_IMAGE._color = COLOR_RED;
-#endif
-	
-PLAYER_IMAGE._imageData = '*';
+	#if defined(__C64__) || defined(__C128__) || defined(__VIC20__)
+		PLAYER_IMAGE._color = COLOR_BLUE;
+		INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
+		POWERUP_IMAGE._color = COLOR_BLUE;
+		GUN_IMAGE._color = COLOR_BLUE;
+		BOMB_IMAGE._color = COLOR_RED;
+		DEAD_GHOST_IMAGE._color = COLOR_RED;
+	#elif defined(__PET__) || defined(__APPLE2__)
+		PLAYER_IMAGE._color = COLOR_BLACK;
+		INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
+		POWERUP_IMAGE._color = COLOR_BLACK;
+		GUN_IMAGE._color = COLOR_BLACK;
+		BOMB_IMAGE._color = COLOR_BLACK;
+		DEAD_GHOST_IMAGE._color = COLOR_BLACK;
+	#elif defined(__C16__) || defined(__PLUS4__)
+		PLAYER_IMAGE._color = COLOR_BLACK;
+		INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
+		POWERUP_IMAGE._color = COLOR_GRAY1;
+		GUN_IMAGE._color = COLOR_GRAY1;
+		BOMB_IMAGE._color = COLOR_RED;
+		DEAD_GHOST_IMAGE._color = COLOR_RED;
+	#else
+		PLAYER_IMAGE._color = COLOR_BLACK;
+		INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
+		POWERUP_IMAGE._color = COLOR_BLACK;
+		GUN_IMAGE._color = COLOR_BLACK;
+		BOMB_IMAGE._color = COLOR_RED;
+		DEAD_GHOST_IMAGE._color = COLOR_RED;
+	#endif
+		
+	PLAYER_IMAGE._imageData = '*';
 
-GHOST_IMAGE._imageData = 'O';
-GHOST_IMAGE._color = COLOR_BLACK;
+	GHOST_IMAGE._imageData = 'O';
+	GHOST_IMAGE._color = COLOR_BLACK;
 
-// TODO: Maybe a different character could be used
-DEAD_GHOST_IMAGE._imageData = 'X';
+	// TODO: Maybe a different character could be used
+	DEAD_GHOST_IMAGE._imageData = 'X';
 
-INVINCIBLE_GHOST_IMAGE._imageData = '+';
+	INVINCIBLE_GHOST_IMAGE._imageData = '+';
 
-BOMB_IMAGE._imageData = 'X';
+	BOMB_IMAGE._imageData = 'X';
 
-POWERUP_IMAGE._imageData = 'P';
+	POWERUP_IMAGE._imageData = 'P';
 
-MISSILE_IMAGE._imageData = '.';
-MISSILE_IMAGE._color = COLOR_BLACK;
+	MISSILE_IMAGE._imageData = '.';
+	MISSILE_IMAGE._color = COLOR_BLACK;
 
-GUN_IMAGE._imageData = '!';
+	GUN_IMAGE._imageData = '!';
 
-#if defined(__C64__) && defined(C64_HARDWARE_SPRITE_VERSION)
 
-	data[0] = 0;
-	data[1] = 127;
-	data[2] = 0;
-	data[3] = 1;
-	data[4] = 255;
-	data[5] = 192;
-	data[6] = 3;
-	data[7] = 255;
-	data[8] = 224;
-	data[9] = 3;
-	data[10] = 231;
-	data[11] = 224;
-	
-	data[12] = 7;
-	data[13] = 217;
-	data[14] = 240;
-	data[15] = 7;
-	data[16] = 223;
-	data[17] = 240;
-	data[18] = 7;
-	data[19] = 217;
-	data[20] = 240;
-	data[21] = 3;
-	data[22] = 231;
-	data[23] = 224;
-	
-	data[24] = 3;
-	data[25] = 255;
-	data[26] = 224;
-	data[27] = 3;
-	data[28] = 255;
-	data[29] = 224;
-	data[30] = 2;
-	data[31] = 255;
-	data[32] = 160;
-	data[33] = 1;
-	data[34] = 127;
-	data[35] = 64;
-	
-	data[36] = 1;
-	data[37] = 62;
-	data[38] = 64;
-	data[39] = 0;
-	data[40] = 156;
-	data[41] = 128;
-	data[42] = 0;
-	data[43] = 156;
-	data[44] = 128;
-	data[45] = 0;
-	data[46] = 73;
-	data[47] = 0;
-	data[48] = 0;
-	data[49] = 73;
-	data[50] = 0;
-	
-	data[51] = 0;
-	data[52] = 62;
-	data[53] = 0;
-	data[54] = 0;
-	data[55] = 62;
-	data[56] = 0;
-	data[57] = 0;
-	data[58] = 62;
-	data[59] = 0;
-	data[60] = 0;
-	data[61] = 28;
-	data[62] = 0;
+	#if defined(__C64__) && defined(C64_HARDWARE_SPRITE_VERSION)
+		// Experimental
+		POKE(53248u+21,4);
+		POKE(2042,13);
+		POKE(53248u+41,COLOR_BLUE); 
 
-	// Experimental
-	POKE(53248u+21,4);
-	POKE(2042,13);
-	POKE(53248u+41,5);
-	
-	/*
-	// Even more experimental
-	POKE(53248u+21,2);
-	POKE(2041,13);
-	POKE(53248u+40,6);
-	POKE(53248u+3,200);
-	POKE(53248u+2,200);
-	
-	
-	POKE(53248u+21,1);
-	POKE(2040,13);
-	POKE(53248u+39,7);
-	POKE(53248u+1,200);
-	POKE(53248u+0,200);
-	*/
-	for(i=0;i<63;++i)
-	{
-		POKE(832+i,data[i]);
-	}
+		// Even more experimental
+		POKE(53248u+21,7); // Enable first 3 sprites (1+2+4)
+		
+		// Second sprite
+		POKE(2041,13);
+		POKE(53248u+40,6);
 
-#endif
+		// First sprite
+		POKE(2040,13);
+		POKE(53248u+39,COLOR_RED);
+			
+		POKE(53248u+0,0);
+		POKE(53248u+1,0);
+		
+		for(i=0;i<63;++i)
+		{
+			POKE(832+i,data[i]);
+		}
+
+	#endif
 }
 

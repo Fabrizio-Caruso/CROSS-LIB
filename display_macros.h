@@ -58,19 +58,35 @@ typedef struct ImageStruct Image;
 		short y = (ghost)->_y; \
 		if((((ghost)->_imagePtr)->_imageData) == '*') \
 		{ \
-			POKE(53248u+21,4); \
+			POKE(53248u+21,255); \
 			POKE(2042,13); \
 			if(x*8+16>255) \
 			{ \
 				POKE(53248u+4,x*8+16-256); \
-				POKE(53248u+16,4); \
+				POKE(53248u+16,PEEK(53248u+16) | 4); \
 			} \
 			else \
 			{ \
 				POKE(53248u+4,x*8+16); \
-				POKE(53248u+16,0); \
+				POKE(53248u+16,PEEK(53248u+16) & 255-4); \
 			} \
 			POKE(53248u+5,y*8+36); \
+		} \
+		else if((((ghost)->_imagePtr)->_imageData) == '+') \
+		{ \
+			POKE(53248u+21,255); \
+			POKE(2040,13); \
+			if(x*8+16>255) \
+			{ \
+				POKE(53248u+0,x*8+16-256); \
+				POKE(53248u+16,PEEK(53248u+16) | 1); \
+			} \
+			else \
+			{ \
+				POKE(53248u+0,x*8+16); \
+				POKE(53248u+16,PEEK(53248u+16) & 255-1); \
+			} \
+			POKE(53248u+1,y*8+36); \
 		} \
 		else \
 		{ \

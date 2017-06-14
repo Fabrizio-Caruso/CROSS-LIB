@@ -54,12 +54,6 @@ typedef struct ImageStruct Image;
 
 #define GET_SCREEN_SIZE(x,y) {screensize(x,y);}
 
-// TODO: Implement color conversion
-#if (defined(__C64__)||defined(__C128__))
-	#define DRAWC(x,y,ch,color) {POKE(1024+40*y+x,(ch & 127)); POKE(55296u+40*y+x, color);}
-#else
-	#define DRAWC(x,y,ch,color) {(void) textcolor (color); gotoxy((x),(y)); cputc(ch); (void) textcolor (TEXT_COLOR);};
-#endif
 
 #define DRAW_BROKEN_WALL(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('X'); SET_TEXT_COLOR(TEXT_COLOR);};
 
@@ -93,10 +87,7 @@ typedef struct ImageStruct Image;
 
 #define DELETE_MISSILE(x,y,image) {gotoxy(x,y);cputc(' ');};
 
-#define DELETE_CHARACTER(x,y,image) {gotoxy(x,y);cputc(' ');};
 
-
-#define DRAW(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc(((ghost)->_imagePtr)->_imageData); SET_TEXT_COLOR(TEXT_COLOR);};
 
 #define PRINT(x,y,str) {gotoxy(x,y); cputs(str); };
 

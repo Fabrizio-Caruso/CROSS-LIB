@@ -112,7 +112,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 			--newX;
 		break;
 	}
-	DELETE_CHARACTER(missilePtr->_x,missilePtr->_y,missilePtr->_imagePtr);
+	DELETE_MISSILE(missilePtr->_x,missilePtr->_y,missilePtr->_imagePtr);
 	missilePtr->_x = newX;
 	missilePtr->_y = newY;
 	if(wallReached(missilePtr))

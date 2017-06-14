@@ -469,6 +469,8 @@ int main(void)
 	// GAME OVER	
 	printGameOver();
 	sleep(1);
+	finalScore();
+	sleep(2);
 	CLEAR_SCREEN();
 	}
 

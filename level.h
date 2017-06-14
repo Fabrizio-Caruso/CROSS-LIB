@@ -50,5 +50,6 @@ void fillLevelWithCharacters(
 						  Character * invincibleGhostPtr, 
 						  Character * missilePtr, Character * gunPtr);
 
-						  
+void finalScore(void);			
+			  
 #endif // _LEVEL

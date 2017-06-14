@@ -1,0 +1,5 @@
+
+#if defined(__C64__) || defined(__VIC20__)
+     *(char *)0x028a = 0x80;
+#endif
+

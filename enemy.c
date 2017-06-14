@@ -99,19 +99,6 @@ void displayGhosts(Character ** ghosts)
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		DRAW(ghosts[i]);
-		
-		// if(!(ghosts[i]->_alive))
-		// {	
-			// SET_TEXT_COLOR(COLOR_RED);
-			// DRAW(ghosts[i]); // TODO: Dead ghost should be displayed differently
-			// SET_TEXT_COLOR(TEXT_COLOR);
-		// }
-		// else
-		// {
-			// SET_TEXT_COLOR(COLOR_BLACK);
-			// DRAW(ghosts[i]); // TODO: 
-			// SET_TEXT_COLOR(TEXT_COLOR);
-		// }
+		DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
 	}
 }

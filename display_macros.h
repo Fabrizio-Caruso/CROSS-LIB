@@ -50,18 +50,9 @@ struct ImageStruct
 typedef struct ImageStruct Image;
 
 //
-
+ 
 
 #define GET_SCREEN_SIZE(x,y) {screensize(x,y);}
-
-
-#define DRAW_BROKEN_WALL(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('X'); SET_TEXT_COLOR(TEXT_COLOR);};
-
-
-#define DRAW(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc(((ghost)->_imagePtr)->_imageData); SET_TEXT_COLOR(TEXT_COLOR);};
-
-#define DELETE_CHARACTER(ghost) {gotoxy(((ghost)->_x),((ghost)->_y)); cputc(' ');};
-
 
 // TODO: Implement color conversion
 #if (defined(__C64__)||defined(__C128__))
@@ -69,6 +60,43 @@ typedef struct ImageStruct Image;
 #else
 	#define DRAWC(x,y,ch,color) {(void) textcolor (color); gotoxy((x),(y)); cputc(ch); (void) textcolor (TEXT_COLOR);};
 #endif
+
+#define DRAW_BROKEN_WALL(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('X'); SET_TEXT_COLOR(TEXT_COLOR);};
+
+
+#define DRAW_PLAYER(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+
+#define DRAW_GHOST(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+
+#define DRAW_INVINCIBLE_GHOST(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+
+#define DRAW_BOMB(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+
+#define DRAW_POWERUP(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+
+#define DRAW_GUN(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+
+#define DRAW_MISSILE(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+
+
+#define DELETE_PLAYER(x,y,image) {gotoxy(x,y);cputc(' ');};
+
+#define DELETE_GHOST(x,y,image) {gotoxy(x,y);cputc(' ');};
+
+#define DELETE_INVINCIBLE_GHOST(x,y,image) {gotoxy(x,y);cputc(' ');};
+
+#define DELETE_BOMB(x,y,image) {gotoxy(x,y);cputc(' ');};
+
+#define DELETE_POWERUP(x,y,image) {gotoxy(x,y);cputc(' ');};
+
+#define DELETE_GUN(x,y,image) {gotoxy(x,y);cputc(' ');};
+
+#define DELETE_MISSILE(x,y,image) {gotoxy(x,y);cputc(' ');};
+
+#define DELETE_CHARACTER(x,y,image) {gotoxy(x,y);cputc(' ');};
+
+
+#define DRAW(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc(((ghost)->_imagePtr)->_imageData); SET_TEXT_COLOR(TEXT_COLOR);};
 
 #define PRINT(x,y,str) {gotoxy(x,y); cputs(str); };
 

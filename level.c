@@ -165,29 +165,28 @@ void fillLevelWithCharacters(
 	for (j=0;j<(GHOSTS_NUMBER/8);++j)
 	{
 		initializeCharacter(ghosts[1+j*8],x1+TWIN_GHOST_SEPARATOR*j,y1+TWIN_GHOST_SEPARATOR*j,1,&GHOST_IMAGE);
-		DRAW(ghosts[1+j*8]);
-		
+		DRAW_GHOST(ghosts[1+j*8]->_x, ghosts[1+j*8]->_y, ghosts[1+j*8]->_imagePtr);
 		
 		initializeCharacter(ghosts[2+j*8],x2+TWIN_GHOST_SEPARATOR*j,y2+TWIN_GHOST_SEPARATOR*j,1, &GHOST_IMAGE);
-		DRAW(ghosts[2+j*8]);
+		DRAW_GHOST(ghosts[2+j*8]->_x, ghosts[2+j*8]->_y, ghosts[2+j*8]->_imagePtr);
 		
 		initializeCharacter(ghosts[3+j*8],x3+TWIN_GHOST_SEPARATOR*j,y3+TWIN_GHOST_SEPARATOR*j,1,&GHOST_IMAGE);
-		DRAW(ghosts[3+j*8]);
+		DRAW_GHOST(ghosts[3+j*8]->_x, ghosts[3+j*8]->_y, ghosts[3+j*8]->_imagePtr);
 
 		initializeCharacter(ghosts[4+j*8],x4+TWIN_GHOST_SEPARATOR,y4+TWIN_GHOST_SEPARATOR*j,1,&GHOST_IMAGE);
-		DRAW(ghosts[4+j*8]);
+		DRAW_GHOST(ghosts[4+j*8]->_x, ghosts[4+j*8]->_y, ghosts[4+j*8]->_imagePtr);
 	
 		initializeCharacter(ghosts[5+j*8],x5+TWIN_GHOST_SEPARATOR,y5+TWIN_GHOST_SEPARATOR*j,1,&GHOST_IMAGE);
-		DRAW(ghosts[5+j*8]);
+		DRAW_GHOST(ghosts[5+j*8]->_x, ghosts[5+j*8]->_y, ghosts[5+j*8]->_imagePtr);
 	
 		initializeCharacter(ghosts[6+j*8],x6+TWIN_GHOST_SEPARATOR,y6+TWIN_GHOST_SEPARATOR*j,1,&GHOST_IMAGE);
-		DRAW(ghosts[6+j*8]);
+		DRAW_GHOST(ghosts[6+j*8]->_x, ghosts[6+j*8]->_y, ghosts[6+j*8]->_imagePtr);
 	
 		initializeCharacter(ghosts[7+j*8],x7+TWIN_GHOST_SEPARATOR,y7+TWIN_GHOST_SEPARATOR*j,1,&GHOST_IMAGE);
-		DRAW(ghosts[7+j*8]);
+		DRAW_GHOST(ghosts[7+j*8]->_x, ghosts[7+j*8]->_y, ghosts[7+j*8]->_imagePtr);
 		
 		initializeCharacter(ghosts[0+j*8],x0+TWIN_GHOST_SEPARATOR,y0 + TWIN_GHOST_SEPARATOR*j,1,&GHOST_IMAGE);
-		DRAW(ghosts[0+j*8]);
+		DRAW_GHOST(ghosts[0+j*8]->_x, ghosts[0+j*8]->_y, ghosts[0+j*8]->_imagePtr);
 
 	}
 	// Player
@@ -196,7 +195,7 @@ void fillLevelWithCharacters(
 		initializeCharacter(playerPtr,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);
 	} while(nearInnerWall(playerPtr));
 	SET_TEXT_COLOR(PLAYER_COLOR);
-	DRAW(playerPtr);
+	DRAW_PLAYER(playerPtr->_x,playerPtr->_y,playerPtr->_imagePtr);
 	SET_TEXT_COLOR(TEXT_COLOR);
 	
 	do
@@ -359,7 +358,7 @@ void fillLevelWithCharacters(
 	
 	for(i=0;i<BOMBS_NUMBER;++i)
 	{
-		DRAW(bombs[i]);
+		DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr);
 	}
 
 	do
@@ -369,7 +368,7 @@ void fillLevelWithCharacters(
 		relocateCharacter(powerUpPtr, bombs, ghosts);	
 		initializeCharacter(powerUpPtr,powerUpPtr->_x,powerUpPtr->_y,1,&POWERUP_IMAGE);
 	} while(nearInnerWall(powerUpPtr));
-	DRAW(powerUpPtr);
+	DRAW_POWERUP(powerUpPtr->_x, powerUpPtr->_y, powerUpPtr->_imagePtr);
 		
     initializeCharacter(missilePtr, 0, 0,0,&MISSILE_IMAGE);
 	

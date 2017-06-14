@@ -125,5 +125,4 @@ short innerWallReached(Character *characterPtr);
 short nearInnerWall(Character *characterPtr);
 
 
-
 #endif

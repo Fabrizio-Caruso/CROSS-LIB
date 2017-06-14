@@ -258,13 +258,14 @@ int main(void)
 					missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
 					missile._alive = missile._status;
 					playerFire = 0;
-					DRAW(&missile);					
+					DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
 					checkMissileVsGhosts(&missile, ghosts);
 					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 						{
 							die(&missile);
+							DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 							restoreMissile(&missile);
-							DRAW(&invincibleGhost);
+							DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 						}		
 				}
 				
@@ -278,8 +279,9 @@ int main(void)
 					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 					{
 						die(&missile);
+						DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 						restoreMissile(&missile);
-						DRAW(&invincibleGhost);
+						DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 					}
 				}
 			
@@ -291,6 +293,7 @@ int main(void)
 				   playerReachedBombs(bombs, &player))
 				{
 					die(&player);
+					DELETE_PLAYER(player._x,player._y,player._imagePtr);
 					printDefeatMessage();
 					sleep(1);
 				}
@@ -299,6 +302,7 @@ int main(void)
 				if(innerWallReached(&player))
 				{
 					die(&player);
+					DELETE_PLAYER(player._x,player._y,player._imagePtr);
 					printDefeatMessage();
 					sleep(1);
 				}
@@ -322,7 +326,7 @@ int main(void)
 					}
 					else
 					{
-						DRAW(&gun);
+						DRAW_GUN(gun._x, gun._y, gun._imagePtr);
 					}
 				}		
 				else if (gunCoolDown == 0)
@@ -331,7 +335,7 @@ int main(void)
 					do
 					{
 						relocateCharacter(&gun, bombs, ghosts);
-						DRAW(&gun);
+						DRAW_GUN(gun._x, gun._y, gun._imagePtr);
 					} while(innerWallReached(&gun));
 				}
 				else
@@ -345,6 +349,7 @@ int main(void)
 					if(powerUpReached(&player, &powerUp))
 					{
 						die(&powerUp);
+						DELETE_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
 						decreaseGhostLevel(); 
 						points+=POWER_UP_BONUS;
 						//powerUp._status = 0;	
@@ -352,7 +357,7 @@ int main(void)
 					}
 					else
 					{
-						DRAW(&powerUp);
+						DRAW_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
 					}		
 				}
 				else if (powerUpCoolDown == 0)
@@ -372,6 +377,7 @@ int main(void)
 				if(wallReached(&player))
 				{
 					die(&player);
+					DELETE_PLAYER(player._x,player._y,player._imagePtr);
 					printDefeatMessage();
 					sleep(1);
 				}
@@ -379,7 +385,7 @@ int main(void)
 				// Draw all bombs
 				for(i=0;i<BOMBS_NUMBER;++i)
 				{
-					DRAW(bombs[i]);
+					DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr);
 				}
 				
 				// Display ghosts
@@ -395,7 +401,7 @@ int main(void)
 				   (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))
 				{
 					invincibleGhost._status = 1;
-					DRAW(&invincibleGhost);
+					DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 				}
 				else
 				{
@@ -407,10 +413,14 @@ int main(void)
 					invincibleSlowDown = computeInvincibleSlowDown();
 
 					if(rand()>invincibleSlowDown)
-						chaseCharacter(&invincibleGhost, &player);
+					{
+						DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
+						moveTowardCharacter(&invincibleGhost, &player);
+					}
 					if(areCharctersAtSamePosition(&invincibleGhost, &player))
 					{
 						die(&player);
+						DELETE_PLAYER(player._x,player._y,player._imagePtr);
 						printDefeatMessage();
 						sleep(1);
 					}

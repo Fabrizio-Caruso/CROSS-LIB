@@ -41,7 +41,7 @@ extern unsigned short ghostCount;
 void checkMissileVsGhost(Character * missilePtr,
 						 Character * ghostPtr)
 {
-	if(ghostPtr->_alive && 
+	if(ghostPtr->_status && 
 	   areCharctersAtSamePosition(missilePtr, ghostPtr))
 	{
 		ghost_die(ghostPtr); 

@@ -45,9 +45,6 @@ struct CharacterStruct
 	// _status decides whether the character is active
 	char _status;
 	
-	//_alive decides whether it is dead or alive
-	char _alive;
-	
 	Image* _imagePtr;
 };
 

@@ -57,9 +57,6 @@ void initializeCharacter(Character* characterPtr, int x, int y, short status, Im
 	characterPtr->_x = x;
 	characterPtr->_y = y;
 	characterPtr->_status = status;
-	characterPtr->_alive = 1; // TODO: Maybe we should initialize this with a parameter
-	//characterPtr->_imagePtr = 0;//imagePtr;
-	// TODO Bogus
 	characterPtr->_imagePtr = imagePtr;
 }
 
@@ -88,9 +85,7 @@ int wallReached(Character *characterPtr)
 
 void die(Character * playerPtr)
 {
-	//DELETE_CHARACTER(playerPtr);
 	playerPtr->_status = 0;
-	playerPtr->_alive = 0;
 }
 
 void ghost_die(Character * ghostPtr)
@@ -100,7 +95,6 @@ void ghost_die(Character * ghostPtr)
 	DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
 	SET_TEXT_COLOR(TEXT_COLOR);
 	ghostPtr->_status = 0;
-	ghostPtr->_alive = 0;
 }
 
 int playerReached(Character ** ghosts, 
@@ -142,7 +136,7 @@ int charactersMeet(short preyIndex, Character **ghosts)
 void checkBombsVsGhost(Character ** bombs,
 					   Character * ghostPtr)
 {
-	if(ghostPtr->_alive && playerReachedBombs(bombs, ghostPtr))
+	if(ghostPtr->_status && playerReachedBombs(bombs, ghostPtr))
 	{
 		DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
 		ghost_die(ghostPtr);
@@ -229,7 +223,7 @@ void checkGhostsVsGhosts(Character ** ghosts)
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		if(ghosts[i]->_alive && charactersMeet(i, ghosts))
+		if(ghosts[i]->_status && charactersMeet(i, ghosts))
 		{
 			ghost_die(ghosts[i]);
 			points+=GHOST_VS_GHOST_BONUS;

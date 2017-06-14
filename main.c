@@ -220,7 +220,7 @@ int main(void)
 			
 			displayStatsTitles();
 			
-			while(player._alive && ghostCount>0) // while alive && there are still ghosts
+			while(player._status && ghostCount>0) // while alive && there are still ghosts
 			{
 								
 				++loop;
@@ -256,7 +256,6 @@ int main(void)
 					--guns;
 					missileDirection = playerDirection;
 					missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
-					missile._alive = missile._status;
 					playerFire = 0;
 					DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
 					checkMissileVsGhosts(&missile, ghosts);
@@ -270,7 +269,7 @@ int main(void)
 				}
 				
 				// Move missile if fired
-				if(missile._status==1 && missile._alive==1)
+				if(missile._status==1)
 				{
 					moveMissile(&missile, missileDirection);
 					// TODO: Inefficient
@@ -440,7 +439,7 @@ int main(void)
 				++ghostLevel;
 			}; // end inner while [while (player._alive && !victoryFlag)]
 			CLEAR_SCREEN();
-			if(player._alive)
+			if(player._status)
 			{
 				printLevelBonus();
 								
@@ -456,10 +455,10 @@ int main(void)
 				--lives;
 				if(lives>0)
 				{
-					player._alive = 1;
+					player._status = 1;
 				}
 			}
-		} while (player._alive || ((ghostCount<=0) && (level<(FINAL_LEVEL+1)))); // while game not ended (some lives and levels left)
+		} while (player._status || ((ghostCount<=0) && (level<(FINAL_LEVEL+1)))); // while game not ended (some lives and levels left)
 			
 	if(level==FINAL_LEVEL+1)
 	{

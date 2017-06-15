@@ -37,9 +37,12 @@
 #include <conio.h>
 #include "settings.h"
 
-#if ( defined(__C64__) || defined(__C128__)) && defined(C64_HARDWARE_SPRITE_VERSION)
-	#include <peekpoke.h>
+#include "patch/generic_conio_patch.h"
+#if defined(__ATMOS__)
+	#include "atmos/atmos_conio_patch.h"
 #endif
+
+
 
 struct ImageStruct
 {
@@ -87,12 +90,8 @@ typedef struct ImageStruct Image;
 
 #define DELETE_MISSILE(x,y,image) {gotoxy(x,y);cputc(' ');};
 
-// ATMOS lacks cputs in CONIO
-#ifdef __ATMOS__ 
-	#define PRINT(x,y,str) {int i = 0; gotoxy(x,y); while(str[i]!='\0') {cputc(str[i]);++i;} };
-#else
-	#define PRINT(x,y,str) {gotoxy(x,y); cputs(str); };
-#endif
+
+#define PRINT(x,y,str) {gotoxy(x,y); cputs(str); };
 
 #define PRINTF(x,y,...) {gotoxy(x,y); cprintf(##__VA_ARGS__); };
 

@@ -36,11 +36,10 @@
 
 #include <stdlib.h>
 
-#define ALTERNATE_STRATEGY 0
 #define C64_HARDWARE_SPRITE_VERSION 1
 
 #define BOMBS_NUMBER 4
-#define GHOSTS_NUMBER (8*1) 
+#define GHOSTS_NUMBER 7 
 #define LIVES_NUMBER 3
 #define GUNS_NUMBER 3
 

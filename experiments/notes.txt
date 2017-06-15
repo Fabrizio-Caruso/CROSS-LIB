@@ -3,3 +3,9 @@
      *(char *)0x028a = 0x80;
 #endif
 
+10 poke 56576,peek(56576)and252
+20 poke53272,32
+30 poke648,200
+
+
+http://www.lemon64.com/forum/viewtopic.php?t=23355&sid=9e5a5ceccf2a6efc567a3a09637a361a

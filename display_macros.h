@@ -87,9 +87,12 @@ typedef struct ImageStruct Image;
 
 #define DELETE_MISSILE(x,y,image) {gotoxy(x,y);cputc(' ');};
 
-
-
-#define PRINT(x,y,str) {gotoxy(x,y); cputs(str); };
+// ATMOS lacks cputs in CONIO
+#ifdef __ATMOS__ 
+	#define PRINT(x,y,str) {int i = 0; gotoxy(x,y); while(str[i]!='\0') {cputc(str[i]);++i;} };
+#else
+	#define PRINT(x,y,str) {gotoxy(x,y); cputs(str); };
+#endif
 
 #define PRINTF(x,y,...) {gotoxy(x,y); cprintf(##__VA_ARGS__); };
 

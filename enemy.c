@@ -38,51 +38,13 @@ extern unsigned int ghostLevel;
 extern unsigned short level;
 extern unsigned int ghostLevelDecrease;
 
-#if ALTERNATING_STRATEGY==1 
-	unsigned int computeGhostSlowDown(void)
-	{
-		return 2000;
-		// if(ghostLevel<500)
-		// {
-			// return 10000-ghostLevel*20-level*200;
-		// }
-		// else
-		// {
-			// return 0;
-		// }
-	}
-#elif ALTERNATING_STRATEGY==2
-	unsigned int computeGhostSlowDown(void)
-	{
-		return 2000;
-		// if(ghostLevel<250)
-		// {
-			// return 5000-ghostLevel*20-level*200;
-		// }
-		// else
-		// {
-			// return 0;
-		// }
-	}
-#else
-	unsigned int computeGhostSlowDown(void)
-	{
-		if(ghostLevel<1000)
-			return 28000-level*200-ghostLevel*25;
-		else
-			return 0;
-		// if(ghostLevel<500)
-		// {
-		   // return 32000-ghostLevel*20-level*200;
-		// }
-		// else if(ghostLevel<1000)
-		// {
-		   // return 32000-ghostLevel*30-level*200;
-		// }
-		// else
-		   // return 0; // You must die!
-	}
-#endif
+unsigned int computeGhostSlowDown(void)
+{
+	if(ghostLevel<1000)
+		return 28000-level*200-ghostLevel*25;
+	else
+		return 0;
+}
 
 void decreaseGhostLevel(void)
 {
@@ -96,7 +58,6 @@ void displayGhosts(Character ** ghosts)
 {
 	char i;
 
-	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
 		DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);

@@ -1,10 +1,13 @@
-set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
-set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\experiments"
+@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\experiments"
 
-@REM set cc65path="D:\personal\cc65-snapshot-win32"
-@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\experiments"
-@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+@REM 
+set cc65path="D:\personal\cc65-snapshot-win32"
+@REM 
+set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\experiments"
+@REM 
+set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 
 set Deliverables=%mypath%\deliverables
@@ -19,6 +22,9 @@ del %mypath%\patch\*.o
 cd %cc65path%\bin\
 
 cl65.exe -O -t c64 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c64.prg
+
+cl65.exe -O -t c64 --config %configpath%\cfg\c64_HACKED.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c64_hack.prg
+
 
 @REM cl65.exe -O -t c64 --config %configpath%\cfg\c64_HACKED.cfg  --module %configpath%\cfg\sprites.gfx  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c64_hack.prg
 

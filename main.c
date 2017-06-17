@@ -315,16 +315,6 @@ void handle_player_vs_bombs_and_ghosts(void)
 	}	
 }
 
-void check_victory_condition()
-{
-	// Check victory condition
-	if(ghostCount<=0)
-	{
-		printVictoryMessage();
-		sleep(1);
-	}
-}
-
 void computeInvincibleGhostParameters()
 {
 	invincibleSlowDown = computeInvincibleSlowDown();
@@ -351,24 +341,19 @@ int main(void)
 	
 	while(1)
 	{
-		ghostCount = GHOSTS_NUMBER;
-		loop = 0;	
-		points = 0ul;
-		level = INITIAL_LEVEL; 
-
 		// Set Screen Colors
 		setScreenColors();			
-		
 		CLEAR_SCREEN();
 					
 		printStartMessage();
-		
 		WAIT_PRESS();
-		
 		CLEAR_SCREEN();
-				
 		deleteCenteredMessage();
-		
+	
+		ghostCount = GHOSTS_NUMBER;
+		loop = 0;	
+		points = 0ul;
+		level = INITIAL_LEVEL; 	
 		lives = LIVES_NUMBER;
 		do // Level (Re-)Start
 		{ 
@@ -402,7 +387,7 @@ int main(void)
 			
 			// Initialize characters
 			updateInnerWallVerticalLength();
-			drawInnerVerticalWall();			
+			drawInnerVerticalWall(); // TODO: Do not draw the wall	
 			fillLevelWithCharacters();	
 			
 			displayStatsTitles();
@@ -454,12 +439,12 @@ int main(void)
 				
 				// Increase ghost speed
 				++ghostLevel;
-				
-				check_victory_condition();
 			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
 			CLEAR_SCREEN();
 			if(player._status) // if level finished
 			{
+				printVictoryMessage();
+				sleep(1);
 				printLevelBonus();
 								
 				sleep(1);

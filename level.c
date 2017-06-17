@@ -74,13 +74,10 @@ extern Character* bombs[BOMBS_NUMBER];
 
 void drawInnerVerticalWall(void)
 {
-	innerVerticalWallX = XSize / 2;
-    innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
 	DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
 }
 
-
-void updateInnerWallVerticalLength(void)
+void updateInnerWallVerticalData(void)
 {		
 	switch(level)
 	{
@@ -136,6 +133,8 @@ void updateInnerWallVerticalLength(void)
 			innerVerticalWallLength = YSize-4;
 		break;
 	}
+	innerVerticalWallX = XSize / 2;
+    innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
 }
 
 

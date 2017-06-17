@@ -39,7 +39,7 @@
 
 void drawInnerVerticalWall(void);
 
-void updateInnerWallVerticalLength(void);
+void updateInnerWallVerticalData(void);
 
 unsigned short drawInnerVerticalWallForLevel(void);
 

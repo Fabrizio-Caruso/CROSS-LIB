@@ -37,6 +37,12 @@
 extern unsigned short level;
 extern unsigned int loop;
 
+extern unsigned int invincibleSlowDown;
+extern unsigned short invincibleXCountDown;
+extern unsigned short invincibleYCountDown ;
+extern unsigned int invincibleLoopTrigger;
+extern unsigned short invincibleGhostCountTrigger;
+
 int computeInvincibleCountDown(void)
 {
 	return 125 - level*5;
@@ -76,3 +82,11 @@ int computeInvincibleLoopTrigger(void)
 		return 1000 - level*20;
 }
 
+void computeInvincibleGhostParameters(void)
+{
+	invincibleSlowDown = computeInvincibleSlowDown();
+	invincibleXCountDown = computeInvincibleCountDown();
+	invincibleYCountDown = computeInvincibleCountDown();
+	invincibleGhostCountTrigger = computeInvincibleGhostCountTrigger();
+	invincibleLoopTrigger = computeInvincibleLoopTrigger();	
+}

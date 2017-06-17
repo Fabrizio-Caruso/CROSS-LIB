@@ -52,7 +52,6 @@
 #include "sleep_macros.h"
 
 unsigned int invincibleSlowDown = 30000;
-
 unsigned short invincibleXCountDown = 100;
 unsigned short invincibleYCountDown = 100;
 
@@ -90,8 +89,9 @@ unsigned short innerVerticalWallLength;
 unsigned short level = 1;
 
 unsigned int invincibleLoopTrigger = 1000;
-unsigned short ghostCount = GHOSTS_NUMBER;
 unsigned short invincibleGhostCountTrigger = 2;
+
+unsigned short ghostCount = GHOSTS_NUMBER;
 
 unsigned char XSize;
 unsigned char YSize;
@@ -182,6 +182,7 @@ void handle_gun_item()
 	{
 		if(powerUpReached(&player, &gun))
 		{
+			DELETE_GUN(gun._x,gun._y,gun._imagePtr);
 			guns = GUNS_NUMBER;
 			points+=GUN_BONUS;
 			gun._status = 0;	
@@ -284,19 +285,21 @@ void handle_player_vs_outer_wall(void)
 	{
 		die(&player);
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		DRAW_BROKEN_WALL(player._x,player._y);
 		printDefeatMessage();
 		sleep(1);
 	}
 }
 
 
-void handle_player_vs_inner_wall()
+void handle_player_vs_inner_wall(void)
 {
 	// Check collistion player vs inner wall
 	if(innerWallReached(&player))
 	{
 		die(&player);
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		DRAW_BROKEN_WALL(player._x,player._y);		
 		printDefeatMessage();
 		sleep(1);
 	}
@@ -314,22 +317,18 @@ void handle_player_vs_bombs_and_ghosts(void)
 		sleep(1);
 	}	
 }
-
-void computeInvincibleGhostParameters()
-{
-	invincibleSlowDown = computeInvincibleSlowDown();
-	invincibleXCountDown = computeInvincibleCountDown();
-	invincibleYCountDown = computeInvincibleCountDown();
-	invincibleGhostCountTrigger = computeInvincibleGhostCountTrigger();
-	invincibleLoopTrigger = computeInvincibleLoopTrigger();	
-}
 			
-void computeGunParameters()
+void initialScreen(void)
 {
-	gunInitialCoolDown = computeGunInitialCoolDown();
-	gunCoolDown = gunInitialCoolDown;			
+	// Set Screen Colors
+	setScreenColors();			
+	CLEAR_SCREEN();					
+	printStartMessage();
+	WAIT_PRESS();
+	CLEAR_SCREEN();
+	deleteCenteredMessage();
 }
-			
+		
 int main(void)
 {		
 	INIT_INPUT();
@@ -341,17 +340,8 @@ int main(void)
 	
 	while(1)
 	{
-		// Set Screen Colors
-		setScreenColors();			
-		CLEAR_SCREEN();
-					
-		printStartMessage();
-		WAIT_PRESS();
-		CLEAR_SCREEN();
-		deleteCenteredMessage();
-	
-		ghostCount = GHOSTS_NUMBER;
-		loop = 0;	
+		initialScreen();
+
 		points = 0ul;
 		level = INITIAL_LEVEL; 	
 		lives = LIVES_NUMBER;
@@ -359,14 +349,14 @@ int main(void)
 		{ 
 			loop = 0;
 			ghostLevel = 0u;
-			
-			computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
-			computeGunParameters();
-			computeInvincibleGhostParameters();
-			
 			ghostCount = GHOSTS_NUMBER;
 			guns = 0;
 			gun._status = 0;
+			
+			computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
+			gunCoolDown = computeGunInitialCoolDown();
+			
+			computeInvincibleGhostParameters();
 
 			ghostSlowDown = computeGhostSlowDown();
 			
@@ -386,8 +376,8 @@ int main(void)
 			drawBorders();
 			
 			// Initialize characters
-			updateInnerWallVerticalLength();
-			drawInnerVerticalWall(); // TODO: Do not draw the wall	
+			updateInnerWallVerticalData();	
+			
 			fillLevelWithCharacters();	
 			
 			displayStatsTitles();
@@ -451,8 +441,7 @@ int main(void)
 				
 				points+= LEVEL_BONUS*level;
 				++level;
-				updateInnerWallVerticalLength();
-				drawInnerVerticalWall();
+				updateInnerWallVerticalData();
 			}
 			else // if dead
 			{

@@ -87,34 +87,26 @@ void die(Character * playerPtr);
 void ghost_die(Character * playerPtr);
 
 // TODO: playerReached and playerReachedBombs should be substituted by a generic collision detection routine
-int playerReached(Character ** ghosts, 
-                  Character* preyPtr);
+int playerReached(Character* preyPtr);
 				  
-int playerReachedBombs(Character ** bombs,  
-					   Character* ghostPtr);
+int playerReachedBombs(Character* ghostPtr);
 
 
-int charactersMeet(short preyIndex, Character **ghosts);
+int charactersMeet(unsigned char preyIndex);
 
 // TODO: check bombs routines should be substituted by a generic collision detection routine
-void checkBombsVsGhost(Character ** bombs,
-					   Character * ghostPtr);
+void checkBombsVsGhost(Character * ghostPtr);
 						
 
-void checkBombsVsGhosts(Character ** bombs,
-						Character ** ghosts);
+void checkBombsVsGhosts(void);
 
-void checkGhostsVsGhosts(Character ** ghosts);
+void checkGhostsVsGhosts(void);
 						
 						
-int safeLocation(int x, int y, 
-				Character ** bombs,
-				Character ** ghosts);
+int safeLocation(unsigned char x, unsigned char y, Character **bombs);
 
 
-void relocateCharacter(Character * characterPtr, 
-						Character ** bombs,
-						Character ** ghosts);
+void relocateCharacter(Character * characterPtr, Character **bombs);
 
 
 short innerWallReached(Character *characterPtr);

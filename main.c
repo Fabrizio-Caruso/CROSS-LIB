@@ -197,7 +197,7 @@ void handle_gun_item()
 		gun._status = 1;
 		do
 		{
-			relocateCharacter(&gun, bombs, ghosts);
+			relocateCharacter(&gun, bombs);
 			DRAW_GUN(gun._x, gun._y, gun._imagePtr);
 		} while(innerWallReached(&gun));
 	}
@@ -232,7 +232,7 @@ void handle_powerup_item()
 		powerUp._status = 1;
 		do
 		{
-			relocateCharacter(&powerUp, bombs, ghosts);
+			relocateCharacter(&powerUp, bombs);
 		} while(innerWallReached(&powerUp));
 	}
 	else
@@ -305,8 +305,8 @@ void handle_player_vs_inner_wall()
 void handle_player_vs_bombs_and_ghosts(void)
 {
 	// Check collision player vs ghosts and player vs bombs
-	if(playerReached(ghosts, &player) ||
-	   playerReachedBombs(bombs, &player))
+	if(playerReached(&player) ||
+	   playerReachedBombs(&player))
 	{
 		die(&player);
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
@@ -420,18 +420,17 @@ int main(void)
 				handle_missile();
 			
 				// Chase the player
-				chasePlayer(ghosts, &player, ghostSlowDown);
+				chasePlayer(ghostSlowDown);
 				
 				handle_player_vs_bombs_and_ghosts();
 				
 				handle_player_vs_inner_wall();
 			
 				// Check collisions bombs vs ghosts
-				checkBombsVsGhosts(bombs, 
-								   ghosts);
+				checkBombsVsGhosts();
 				
 				// Check collisions ghosts vs ghosts
-				checkGhostsVsGhosts(ghosts);
+				checkGhostsVsGhosts();
 
 				handle_gun_item();
 				
@@ -442,7 +441,7 @@ int main(void)
 				DRAW_BOMBS();
 				
 				// Display ghosts
-				displayGhosts(ghosts);
+				displayGhosts();
 
 				// Display stats and their values
 				displayStatsTitles();

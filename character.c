@@ -52,6 +52,9 @@ extern unsigned short ghostCount;
 
 extern Image DEAD_GHOST_IMAGE;
 
+extern Character* ghosts[GHOSTS_NUMBER];
+extern Character* bombs[BOMBS_NUMBER];
+
 void initializeCharacter(Character* characterPtr, int x, int y, short status, Image * imagePtr)
 {
 	characterPtr->_x = x;
@@ -97,8 +100,7 @@ void ghost_die(Character * ghostPtr)
 	ghostPtr->_status = 0;
 }
 
-int playerReached(Character ** ghosts, 
-                  Character* preyPtr)
+int playerReached(Character* preyPtr)
 {
 	int i=0;
 	for(;i<GHOSTS_NUMBER;++i)
@@ -109,8 +111,7 @@ int playerReached(Character ** ghosts,
 	return 0;
 }
 
-int playerReachedBombs(Character ** bombs,  
-					   Character* preyPtr)
+int playerReachedBombs(Character* preyPtr)
 {
 	int i=0;
 	for(;i<BOMBS_NUMBER;++i)
@@ -121,7 +122,7 @@ int playerReachedBombs(Character ** bombs,
 	return 0;
 }
 
-int charactersMeet(short preyIndex, Character **ghosts)
+int charactersMeet(unsigned char preyIndex)
 {
 	short i;
 	for(i=0;i<GHOSTS_NUMBER;++i)
@@ -133,10 +134,9 @@ int charactersMeet(short preyIndex, Character **ghosts)
 }
 
 
-void checkBombsVsGhost(Character ** bombs,
-					   Character * ghostPtr)
+void checkBombsVsGhost(Character * ghostPtr)
 {
-	if(ghostPtr->_status && playerReachedBombs(bombs, ghostPtr))
+	if(ghostPtr->_status && playerReachedBombs(ghostPtr))
 	{
 		DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
 		ghost_die(ghostPtr);
@@ -146,20 +146,18 @@ void checkBombsVsGhost(Character ** bombs,
 }
 						
 
-void checkBombsVsGhosts(Character ** bombs,
-						Character ** ghosts)
+void checkBombsVsGhosts(void)
 {
 	char i;
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		checkBombsVsGhost(bombs, ghosts[i]);
+		checkBombsVsGhost(ghosts[i]);
 	}
 }
 
-
-int safeLocation(int x, int y, 
-				Character ** bombs,
-				Character ** ghosts)
+// TODO: To be replaced with something cleaner
+// also used with things different from global bombs
+int safeLocation(unsigned char x, unsigned char y, Character **bombs)
 {
 	char i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
@@ -176,11 +174,9 @@ int safeLocation(int x, int y,
 }
 
 
-void relocateCharacter(Character * characterPtr, 
-						Character ** bombs,
-						Character ** ghosts)
+void relocateCharacter(Character * characterPtr, Character **bombs)
 {
-	int x; int y; int x_offset; int y_offset;
+	unsigned char x; unsigned char y; int x_offset; int y_offset;
 	int safe = 0;
 	while(!safe)
 	{
@@ -197,8 +193,7 @@ void relocateCharacter(Character * characterPtr,
 	if((y<2) || (y>YSize-2))
 		continue;
 	
-	safe = safeLocation(x,y, bombs, 
-						ghosts);
+	safe = safeLocation(x,y,bombs);
 	}
 	characterPtr->_x = x;
 	characterPtr->_y = y;
@@ -217,13 +212,13 @@ short nearInnerWall(Character *characterPtr)
 }
 
 
-void checkGhostsVsGhosts(Character ** ghosts)
+void checkGhostsVsGhosts()
 {
 	char i;
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		if(ghosts[i]->_status && charactersMeet(i, ghosts))
+		if(ghosts[i]->_status && charactersMeet(i))
 		{
 			ghost_die(ghosts[i]);
 			points+=GHOST_VS_GHOST_BONUS;

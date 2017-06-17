@@ -197,7 +197,7 @@ void handle_gun_item()
 		gun._status = 1;
 		do
 		{
-			relocateCharacter(&gun, bombs);
+			relocateCharacter(&gun, bombs,4);
 			DRAW_GUN(gun._x, gun._y, gun._imagePtr);
 		} while(innerWallReached(&gun));
 	}
@@ -232,7 +232,7 @@ void handle_powerup_item()
 		powerUp._status = 1;
 		do
 		{
-			relocateCharacter(&powerUp, bombs);
+			relocateCharacter(&powerUp, bombs,4);
 		} while(innerWallReached(&powerUp));
 	}
 	else

@@ -292,7 +292,7 @@ void fillLevelWithCharacters(void)
 			dummyBombs[3] = &player;
 			for(i=0;i<BOMBS_NUMBER;++i)
 			{	
-				relocateCharacter(bombs[0], dummyBombs);		
+				relocateCharacter(bombs[0], dummyBombs,4);		
 			}
 			
 			initializeCharacter(bombs[2],b3x, b3y,0, &BOMB_IMAGE);
@@ -303,7 +303,7 @@ void fillLevelWithCharacters(void)
 			dummyBombs[2] = bombs[0];
 			//dummyBombs[3] = &player;
 
-			relocateCharacter(bombs[2], dummyBombs);		
+			relocateCharacter(bombs[2], dummyBombs,4);		
 								
 
 			if(level>=TWO_BOMB_START_LEVEL) // only use bomb1 and bomb3 previously relocated
@@ -336,7 +336,7 @@ void fillLevelWithCharacters(void)
 				dummyBombs[2] = bombs[0];
 				dummyBombs[3] = &player;
 
-				relocateCharacter(bombs[1], dummyBombs);		
+				relocateCharacter(bombs[1], dummyBombs,4);		
 
 				
 				initializeCharacter(bombs[3],b4x, b4y,0,&BOMB_IMAGE);
@@ -348,7 +348,7 @@ void fillLevelWithCharacters(void)
 				//dummyBombs[3] = &player;
 				for(i=0;i<BOMBS_NUMBER;++i)
 				{
-					relocateCharacter(bombs[1], dummyBombs);
+					relocateCharacter(bombs[1], dummyBombs,4);
 				}				
 			}
 		}
@@ -363,7 +363,7 @@ void fillLevelWithCharacters(void)
 	{
 		// Power-ups
 		initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
-		relocateCharacter(&powerUp, bombs);	
+		relocateCharacter(&powerUp, bombs,4);	
 		initializeCharacter(&powerUp,powerUp._x,powerUp._y,1,&POWERUP_IMAGE);
 	} while(nearInnerWall(&powerUp));
 	DRAW_POWERUP(powerUp._x, powerUp._y, powerUp._imagePtr);
@@ -373,7 +373,7 @@ void fillLevelWithCharacters(void)
 	do
 	{
 		initializeCharacter(&gun, XSize/2, YSize/2, 0, &GUN_IMAGE);
-		relocateCharacter(&gun, bombs);
+		relocateCharacter(&gun, bombs,4);
 	} while(nearInnerWall(&gun));
 	
 	switch(corner)

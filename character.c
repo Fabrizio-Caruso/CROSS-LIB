@@ -157,7 +157,7 @@ void checkBombsVsGhosts(void)
 
 // TODO: To be replaced with something cleaner
 // also used with things different from global bombs
-int safeLocation(unsigned char x, unsigned char y, Character **bombs)
+int safeLocation(unsigned char x, unsigned char y, Character **danger, unsigned char dangerSize)
 {
 	char i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
@@ -165,35 +165,41 @@ int safeLocation(unsigned char x, unsigned char y, Character **bombs)
 		if(isCharacterAtLocation(x,y,ghosts[i]))
 			return 0;
 	}
-	for(i=0;i<BOMBS_NUMBER;++i)
+	for(i=0;i<dangerSize;++i)
 	{
-		if(isCharacterAtLocation(x,y,bombs[i]))
+		if(isCharacterAtLocation(x,y,danger[i]))
 			return 0;
 	}
 	return 1;
 }
 
 
-void relocateCharacter(Character * characterPtr, Character **bombs)
+void relocateCharacter(Character * characterPtr, Character **danger, unsigned char dangerSize)
 {
-	unsigned char x; unsigned char y; int x_offset; int y_offset;
+	unsigned char x; 
+	unsigned char y; 
+	int x_offset; 
+	int y_offset;
 	int safe = 0;
 	while(!safe)
 	{
-	x_offset = rand() % 7;
-	y_offset = rand() % 7;
-	if((x_offset==0) && (y_offset==0))
-		continue;
-	x = characterPtr->_x -3 + x_offset; 
-	y = characterPtr->_y -3 + y_offset;
-	if(y<=3) // Avoid score line
-		continue;
-	if((x<2) || (x>XSize-2))
-		continue;
-	if((y<2) || (y>YSize-2))
-		continue;
-	
-	safe = safeLocation(x,y,bombs);
+		// TODO: This should be separated (at least partially) and moved into display_macros
+		x_offset = rand() % 7;
+		y_offset = rand() % 7;
+		if((x_offset==0) && (y_offset==0))
+			continue;
+		x = characterPtr->_x -3 + x_offset; 
+		y = characterPtr->_y -3 + y_offset;
+		
+		// TODO: This check should be separated and moved into display_macros
+		if(y<=3) // Avoid score line
+			continue;
+		if((x<2) || (x>XSize-2)) // Avoid vertical outer wall
+			continue;
+		if((y<2) || (y>YSize-2)) // Avoid horizontal outer wall 
+			continue;
+		
+		safe = safeLocation(x,y,danger, dangerSize);
 	}
 	characterPtr->_x = x;
 	characterPtr->_y = y;

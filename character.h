@@ -103,10 +103,10 @@ void checkBombsVsGhosts(void);
 void checkGhostsVsGhosts(void);
 						
 						
-int safeLocation(unsigned char x, unsigned char y, Character **bombs);
+int safeLocation(unsigned char x, unsigned char y, Character **danger, unsigned char dangerSize);
 
 
-void relocateCharacter(Character * characterPtr, Character **bombs);
+void relocateCharacter(Character * characterPtr, Character **danger, unsigned char dangerSize);
 
 
 short innerWallReached(Character *characterPtr);

@@ -147,7 +147,7 @@ void handle_missile()
 		missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
 		playerFire = 0;
 		DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
-		checkMissileVsGhosts(&missile, ghosts);
+		checkMissileVsGhosts(&missile);
 		if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 			{
 				die(&missile);
@@ -162,7 +162,7 @@ void handle_missile()
 	{
 		moveMissile(&missile, missileDirection);
 		// TODO: Inefficient
-		checkMissileVsGhosts(&missile, ghosts);
+		checkMissileVsGhosts(&missile);
 		
 		if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 		{

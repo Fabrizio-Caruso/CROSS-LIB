@@ -38,6 +38,10 @@
 extern unsigned long points;
 extern unsigned short ghostCount;
 
+extern Character* ghosts[GHOSTS_NUMBER];
+extern Character* bombs[BOMBS_NUMBER];
+
+
 void checkMissileVsGhost(Character * missilePtr,
 						 Character * ghostPtr)
 {
@@ -50,8 +54,7 @@ void checkMissileVsGhost(Character * missilePtr,
 	}
 }
 	
-void checkMissileVsGhosts(Character * missilePtr,
-						Character ** ghosts)
+void checkMissileVsGhosts(Character * missilePtr)
 {
 	int i = 0;
 	for(;i<GHOSTS_NUMBER;++i)

@@ -60,7 +60,6 @@ typedef struct ImageStruct Image;
 
 #define DRAW_BROKEN_WALL(ghost) {SET_TEXT_COLOR(((ghost)->_imagePtr)->_color); gotoxy(((ghost)->_x),((ghost)->_y)); cputc('X'); SET_TEXT_COLOR(TEXT_COLOR);};
 
-
 #define DRAW_PLAYER(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
 
 #define DRAW_GHOST(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
@@ -75,6 +74,14 @@ typedef struct ImageStruct Image;
 
 #define DRAW_MISSILE(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
 
+#define DRAW_BOMBS() \
+{ \
+	unsigned char i = 0; \
+	for(;i<BOMBS_NUMBER;++i) \
+	{ \
+		DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr); \
+	} \
+}
 
 #define DELETE_PLAYER(x,y,image) {gotoxy(x,y);cputc(' ');};
 

@@ -49,7 +49,7 @@ int computeInvincibleSlowDown(void)
 	{
 		return 32000 - (level/2+1) * 1000 - loop/2 - 1000;
 	}
-	else if(loop<11000)
+	else if(loop<1100)
 	{
 		return 32000 - level * 1000 - loop;
 	}

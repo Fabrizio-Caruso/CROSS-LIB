@@ -62,6 +62,16 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
+extern Character invincibleGhost;
+extern Character player; 
+extern Character powerUp;
+extern Character gun;
+extern Character missile;
+extern Character* ghosts[GHOSTS_NUMBER];
+extern Character* bombs[BOMBS_NUMBER];
+
+
+
 void drawInnerVerticalWall(void)
 {
 	innerVerticalWallX = XSize / 2;
@@ -129,12 +139,7 @@ void updateInnerWallVerticalLength(void)
 }
 
 
-void fillLevelWithCharacters(
-						  Character * playerPtr, Character * powerUpPtr, 
-						  Character **ghosts,
-						  Character **bombs,
-						  Character * invincibleGhostPtr, 
-						  Character * missilePtr, Character * gunPtr)
+void fillLevelWithCharacters(void)
 {
 	short corner = rand()%4;
 	short chirality = rand()%2;
@@ -183,10 +188,10 @@ void fillLevelWithCharacters(
 	// Player
 	do
 	{
-		initializeCharacter(playerPtr,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);
-	} while(nearInnerWall(playerPtr));
+		initializeCharacter(&player,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);
+	} while(nearInnerWall(&player));
 	SET_TEXT_COLOR(PLAYER_COLOR);
-	DRAW_PLAYER(playerPtr->_x,playerPtr->_y,playerPtr->_imagePtr);
+	DRAW_PLAYER(player._x,player._y,player._imagePtr);
 	SET_TEXT_COLOR(TEXT_COLOR);
 	
 	do
@@ -284,7 +289,7 @@ void fillLevelWithCharacters(
 			dummyBombs[0] = ghosts[0];
 			dummyBombs[1] = ghosts[0];
 			dummyBombs[2] = ghosts[0];
-			dummyBombs[3] = playerPtr;
+			dummyBombs[3] = &player;
 			for(i=0;i<BOMBS_NUMBER;++i)
 			{	
 				relocateCharacter(bombs[0], dummyBombs, ghosts);		
@@ -296,7 +301,7 @@ void fillLevelWithCharacters(
 			//dummyBombs[0] = ghosts[0];
 			//dummyBombs[1] = ghosts[0];
 			dummyBombs[2] = bombs[0];
-			//dummyBombs[3] = playerPtr;
+			//dummyBombs[3] = &player;
 
 			relocateCharacter(bombs[2], dummyBombs, ghosts);		
 								
@@ -329,7 +334,7 @@ void fillLevelWithCharacters(
 				dummyBombs[0] = ghosts[0];
 				dummyBombs[1] = bombs[2];
 				dummyBombs[2] = bombs[0];
-				dummyBombs[3] = playerPtr;
+				dummyBombs[3] = &player;
 
 				relocateCharacter(bombs[1], dummyBombs, ghosts);		
 
@@ -340,7 +345,7 @@ void fillLevelWithCharacters(
 				dummyBombs[0] = bombs[1];
 				//dummyBombs[1] = bombs[2];
 				//dummyBombs[2] = bombs[0];
-				//dummyBombs[3] = playerPtr;
+				//dummyBombs[3] = &player;
 				for(i=0;i<BOMBS_NUMBER;++i)
 				{
 					relocateCharacter(bombs[1], dummyBombs, ghosts);
@@ -357,39 +362,39 @@ void fillLevelWithCharacters(
 	do
 	{
 		// Power-ups
-		initializeCharacter(powerUpPtr,XSize/2,YSize/2,1,&POWERUP_IMAGE);
-		relocateCharacter(powerUpPtr, bombs, ghosts);	
-		initializeCharacter(powerUpPtr,powerUpPtr->_x,powerUpPtr->_y,1,&POWERUP_IMAGE);
-	} while(nearInnerWall(powerUpPtr));
-	DRAW_POWERUP(powerUpPtr->_x, powerUpPtr->_y, powerUpPtr->_imagePtr);
+		initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
+		relocateCharacter(&powerUp, bombs, ghosts);	
+		initializeCharacter(&powerUp,powerUp._x,powerUp._y,1,&POWERUP_IMAGE);
+	} while(nearInnerWall(&powerUp));
+	DRAW_POWERUP(powerUp._x, powerUp._y, powerUp._imagePtr);
 		
-    initializeCharacter(missilePtr, 0, 0,0,&MISSILE_IMAGE);
+    initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
 	
 	do
 	{
-		initializeCharacter(gunPtr, XSize/2, YSize/2, 0, &GUN_IMAGE);
-		relocateCharacter(gunPtr, bombs, ghosts);
-	} while(nearInnerWall(gunPtr));
+		initializeCharacter(&gun, XSize/2, YSize/2, 0, &GUN_IMAGE);
+		relocateCharacter(&gun, bombs, ghosts);
+	} while(nearInnerWall(&gun));
 	
 	switch(corner)
 	{
 		case 0:
-			invincibleGhostPtr->_x = 2;
-			invincibleGhostPtr->_y = 2;
+			invincibleGhost._x = 2;
+			invincibleGhost._y = 2;
 		break;
 		case 1:
-			invincibleGhostPtr->_x = 2;
-			invincibleGhostPtr->_y = YSize-2;
+			invincibleGhost._x = 2;
+			invincibleGhost._y = YSize-2;
 		break;
 		case 2:
-			invincibleGhostPtr->_x = XSize-2;
-			invincibleGhostPtr->_y = 1;
+			invincibleGhost._x = XSize-2;
+			invincibleGhost._y = 1;
 		break;
 		case 3:
-			invincibleGhostPtr->_x = XSize-2;
-			invincibleGhostPtr->_y = YSize-2;
+			invincibleGhost._x = XSize-2;
+			invincibleGhost._y = YSize-2;
 		break;
 	}
-	initializeCharacter(invincibleGhostPtr,invincibleGhostPtr->_x,invincibleGhostPtr->_y,0, &INVINCIBLE_GHOST_IMAGE);
+	initializeCharacter(&invincibleGhost,invincibleGhost._x,invincibleGhost._y,0, &INVINCIBLE_GHOST_IMAGE);
 }
 

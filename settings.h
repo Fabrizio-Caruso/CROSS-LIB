@@ -114,12 +114,12 @@
 // LEVEL 10-20: Ghosts will try to avoid to be aligned with the player 
 
 // Starting from this level, the ghosts use a smarter "collective" strategy
-#define EASY_COLLECTIVE_STRATEGY_START_LEVEL 2
-#define HARD_COLLECTIVE_STRATEGY_START_LEVEL 8
-#define MAX_STRATEGY_START_LEVEL 10
+// #define EASY_COLLECTIVE_STRATEGY_START_LEVEL 2
+// #define HARD_COLLECTIVE_STRATEGY_START_LEVEL 8
+// #define MAX_STRATEGY_START_LEVEL 10
 
 // Starting from this level, the invincible ghost will try to be aligned with the player to defend other ghosts
-#define NASTY_INVINCIBLE_START_LEVEL 5
+// #define NASTY_INVINCIBLE_START_LEVEL 5
 
 // Directions
 #define RIGHT 0

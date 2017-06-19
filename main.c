@@ -338,6 +338,10 @@ int main(void)
 	
 	initializeCharacters();
 	
+	//POKE(56576u,0);
+	//POKE(53272u,2);
+	//POKE(648,192);
+	
 	while(1)
 	{
 		initialScreen();

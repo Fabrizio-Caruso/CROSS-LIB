@@ -45,6 +45,15 @@
  Image GUN_IMAGE;
 
 
+void INIT_GRAPHICS(void)
+{
+	#if defined(__C64__)
+		POKE(56576u,0);
+		POKE(53272u,2);
+		POKE(648,192);
+	#endif
+}
+ 
  
 // TODO: Sprite initialization (to be performed only once) should be separated from level generation
 void INIT_IMAGES(void)
@@ -79,23 +88,31 @@ void INIT_IMAGES(void)
 		DEAD_GHOST_IMAGE._color = COLOR_RED;
 	#endif
 		
-	PLAYER_IMAGE._imageData = '*';
 
-	GHOST_IMAGE._imageData = 'O';
+	// TODO: Just experiment of the C64
+	#if defined(__C64__)
+		GHOST_IMAGE._imageData = (char) 0x76;
+		INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x77;
+		BOMB_IMAGE._imageData = (char) 0x78;
+		PLAYER_IMAGE._imageData = (char) 0x79;
+		POWERUP_IMAGE._imageData = (char) 0x7A;
+		GUN_IMAGE._imageData = (char) 0x7B;;
+		MISSILE_IMAGE._imageData = (char) 0x7C;
+		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+	#else
+		GHOST_IMAGE._imageData = 'o';
+		INVINCIBLE_GHOST_IMAGE._imageData = '+';
+		BOMB_IMAGE._imageData = 'X';
+		PLAYER_IMAGE._imageData = '*';
+		POWERUP_IMAGE._imageData = 'S';
+		GUN_IMAGE._imageData = '!';
+		MISSILE_IMAGE._imageData = '.';
+		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+	#endif
+	
+
 	GHOST_IMAGE._color = COLOR_BLACK;
-
-	// TODO: Maybe a different character could be used
-	DEAD_GHOST_IMAGE._imageData = 'X';
-
-	INVINCIBLE_GHOST_IMAGE._imageData = '+';
-
-	BOMB_IMAGE._imageData = 'X';
-
-	POWERUP_IMAGE._imageData = 'P';
-
-	MISSILE_IMAGE._imageData = '.';
 	MISSILE_IMAGE._color = COLOR_BLACK;
 
-	GUN_IMAGE._imageData = '!';
 }
 

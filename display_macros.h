@@ -130,5 +130,6 @@ typedef struct ImageStruct Image;
 
 void INIT_IMAGES(void);
 
+void INIT_GRAPHICS(void);
 	
 #endif // _DISPLAY_MACROS

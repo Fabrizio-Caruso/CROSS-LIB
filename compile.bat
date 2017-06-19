@@ -1,13 +1,13 @@
-@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
-@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\experiments"
+@REM 
+set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM 
+set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+@REM 
+set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\experiments"
 
-@REM 
-set cc65path="D:\personal\cc65-snapshot-win32"
-@REM 
-set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\experiments"
-@REM 
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+@REM set cc65path="D:\personal\cc65-snapshot-win32"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\experiments"
+@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 
 set Deliverables=%mypath%\deliverables
@@ -21,8 +21,7 @@ del %mypath%\patch\*.o
 
 cd %cc65path%\bin\
 
-@REM 
-cl65.exe -O -t c64 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c64.prg
+@REM cl65.exe -O -t c64 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c64.prg
 
 @REM cl65.exe -O -t c64 %configpath%\cfg\sprites.s  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c64_hack1.prg
 
@@ -34,7 +33,8 @@ cl65.exe -O -t c64 --config %configpath%\cfg\c64_HACKED2.cfg  %configpath%\cfg\g
 
 @REM cl65.exe -O -t pet %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cpet.prg
 
-@REM cl65.exe -O -t vic20 --config %cc65path%\cfg\vic20-32k.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cvic20-24k.prg
+@REM 
+cl65.exe -O -t vic20 --config %cc65path%\cfg\vic20-32k.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cvic20-24k.prg
 
 
 @REM cl65.exe -O -t plus4 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cplus4.prg

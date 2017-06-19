@@ -42,6 +42,10 @@
 	#include "atmos/atmos_conio_patch.h"
 #endif
 
+#if defined(__C64__)
+	#include "c64/c64_hardware_sprite.h"
+#endif
+
 
 
 struct ImageStruct

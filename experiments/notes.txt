@@ -9,3 +9,18 @@
 
 
 http://www.lemon64.com/forum/viewtopic.php?t=23355&sid=9e5a5ceccf2a6efc567a3a09637a361a
+
+
+IMHO the best solution for this is to move the active video bank to $c000 ($dd00=0)... 
+then you can use $c000 for screen data, and the complete rest of the bank, 
+minus $d000-$e000, for sprites.
+
+so... poke56576,0:poke53272,2: ... that will put the screen to $c000 (49152) and 
+the charset will be fetched from $c800 (51200) 
+(you can copy the original charset there, or use the opportunity and use a custom one). 
+then there will be space for sprites from $c400-$c800 and from $e000-$ffff.
+
+one thing i dont remember though, you have to tell the basic where the screen is located now 
+(else it will still print to 1024...). 
+a quick look at aay64 says the highbyte of the screen memory location should be written to $0288 ... 
+so poke 648,192 should do the trick. 

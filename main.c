@@ -330,10 +330,10 @@ void initialScreen(void)
 }
 		
 int main(void)
-{		
+{			
 	INIT_INPUT();
 	
-	/* Ask for the screen size */
+	// Ask for the screen size 
 	GET_SCREEN_SIZE(&XSize, &YSize);
 	
 	initializeCharacters();
@@ -360,19 +360,19 @@ int main(void)
 
 			ghostSlowDown = computeGhostSlowDown();
 			
-			/* Clear the screen, put cursor in upper left corner */
+			// Clear the screen, put cursor in upper left corner
 			CLEAR_SCREEN();
 
 			printLevel();
 			sleep(1);
 			
-			/* Wait for the user to press a key */
+			// Wait for the user to press a key 
 			printPressKeyToStart();
 			WAIT_PRESS();
 
 			deleteCenteredMessage();
 			
-			/* Draw a border around the screen */
+			// Draw a border around the screen 
 			drawBorders();
 			
 			// Initialize characters
@@ -469,4 +469,3 @@ int main(void)
 
 	return EXIT_SUCCESS;
 }
-

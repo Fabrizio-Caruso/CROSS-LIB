@@ -51,7 +51,36 @@ extern unsigned long points;
 extern unsigned int ghostCount;
 extern unsigned int ghostLevel;
 
+ extern Image PLAYER_IMAGE;
+ extern Image GHOST_IMAGE;
+ // Image DEAD_GHOST_IMAGE;
+ // Image INVINCIBLE_GHOST_IMAGE;
+ // Image BOMB_IMAGE;
+ // Image POWERUP_IMAGE;
+ // Image MISSILE_IMAGE;
+ extern Image GUN_IMAGE;
 
+#if defined(__C64__)
+void displayStatsTitles(void)
+{
+	SET_TEXT_COLOR(COLOR_BLACK);
+	
+	PRINT(2,1,"speed:");
+
+	gotoxy(15,1); cputc(GUN_IMAGE._imageData);cputc(':');
+	//PRINT(15,1,"!:");
+
+	PRINT(2,2,"score:");
+	
+	gotoxy(15,2); cputc(GHOST_IMAGE._imageData);cputc(':');
+	//PRINT(15,2,"O:");
+
+	PRINT(2,3,"level:");
+	
+	gotoxy(15,1); cputc(PLAYER_IMAGE._imageData);cputc(':');
+	//PRINT(15,3,"*:");
+}
+#else
 void displayStatsTitles(void)
 {
 	SET_TEXT_COLOR(COLOR_BLACK);
@@ -68,7 +97,7 @@ void displayStatsTitles(void)
 
 	PRINT(15,3,"*:");
 }
-
+#endif
 
 
 void displayStats(void)
@@ -115,6 +144,16 @@ void printCenteredMessage(char *Text)
 	PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text);
 }
 
+#ifdef __C64__
+void printLevel(void)
+{
+	char levelString[22];
+
+	sprintf(levelString, "level %d", level);
+
+	printCenteredMessage(levelString);
+}
+#else
 void printLevel(void)
 {
 	char levelString[22];
@@ -123,7 +162,35 @@ void printLevel(void)
 
 	printCenteredMessage(levelString);
 }
+#endif
 
+#ifdef __C64__
+void printLevelBonus(void)
+{
+	char levelString[22];
+
+	sprintf(levelString, "level bonus = %d", level * 1000);
+
+	printCenteredMessage(levelString);
+	sleep(1);
+}
+
+void gameCompleted(void)
+{
+	printCenteredMessage("y o u   m a d e   i t !"); 
+	sleep(1);
+	printCenteredMessage("    t h e   e n d    "); 
+	sleep(1);
+}
+
+void finalScore(void)
+{
+	char scoreString[22];
+	clrscr();
+	sprintf(scoreString, "score:  %lu", points);
+	printCenteredMessage(scoreString);
+}
+#else
 void printLevelBonus(void)
 {
 	char levelString[22];
@@ -134,6 +201,54 @@ void printLevelBonus(void)
 	sleep(1);
 }
 
+void gameCompleted(void)
+{
+	printCenteredMessage("Y O U   M A D E   I T !"); 
+	sleep(1);
+	printCenteredMessage("    T H E   E N D    "); 
+	sleep(1);
+}
+
+void finalScore(void)
+{
+	char scoreString[22];
+	clrscr();
+	sprintf(scoreString, "SCORE:  %lu", points);
+	printCenteredMessage(scoreString);
+}
+
+#endif
+
+#ifdef __C64__
+void printPressKeyToStart(void)
+{
+	printCenteredMessage("press any key to start");
+}
+
+void deleteCenteredMessage(void)
+{
+	PRINT((XSize - 22) / 2, YSize / 2, "                      ");
+}
+
+
+void printGameOver(void)
+{
+	printCenteredMessage("g a m e   o v e r");
+	sleep(1);
+}
+
+void printVictoryMessage(void)
+{
+	printCenteredMessage("y o u   w o n ! !");
+	sleep(1);
+}
+
+void printDefeatMessage(void)
+{
+	printCenteredMessage("y o u   l o s t !");
+	sleep(1);
+}
+#else
 void printPressKeyToStart(void)
 {
 	printCenteredMessage("PRESS ANY KEY TO START");
@@ -163,8 +278,20 @@ void printDefeatMessage(void)
 	sleep(1);
 }
 
+#endif
+
+
 void printStartMessage(void)
 {
+	#ifdef __C64__
+	SET_TEXT_COLOR(COLOR_BLACK);
+	PRINT((XSize - 22) / 2, YSize / 2 - 9, "a s c i i   c h a s e");
+	SET_TEXT_COLOR(TEXT_COLOR);
+	
+	SET_TEXT_COLOR(COLOR_RED);
+	PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
+	SET_TEXT_COLOR(TEXT_COLOR);	
+	#else
 	SET_TEXT_COLOR(COLOR_BLACK);
 	PRINT((XSize - 22) / 2, YSize / 2 - 9, "A S C I I   C H A S E");
 	SET_TEXT_COLOR(TEXT_COLOR);
@@ -172,7 +299,8 @@ void printStartMessage(void)
 	SET_TEXT_COLOR(COLOR_RED);
 	PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by Fabrizio Caruso");
 	SET_TEXT_COLOR(TEXT_COLOR);
-
+	#endif
+	
 	#ifndef __PLUS4__
 	SET_TEXT_COLOR(COLOR_BLUE);
 	#endif // __PLUS4__
@@ -192,7 +320,13 @@ void printStartMessage(void)
 		
 		PRINT(20, YSize / 2 - 1,  "Take P to slow O down. Catch ! for bullets.");
 		
-		PRINT(30, YSize / 2 + 1, "Flee from +!");	
+		PRINT(30, YSize / 2 + 1, "Flee from +!");
+	#elif defined(__C64__)
+		PRINT((XSize - 22) / 2, YSize / 2 - 3, "you * are chased");
+		
+		PRINT((XSize - 22) / 2, YSize / 2 - 2, "force the enemies into the mines");
+		
+		PRINT((XSize - 22) / 2, YSize / 2, "catch the gun for bullets");
 	#else
 		PRINT(2, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		
@@ -203,7 +337,7 @@ void printStartMessage(void)
 
 	#if defined(__C64__) || defined(__C128__) || defined(__PET__)
 		SET_TEXT_COLOR(COLOR_BROWN);
-		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use Joystick in Port 1");
+		PRINT((XSize - 22) / 2, YSize / 2 + 4, "use joystick in port 1");
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__C16__) || defined(__PLUS4__)
 		SET_TEXT_COLOR(COLOR_GRAY1);
@@ -217,22 +351,8 @@ void printStartMessage(void)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 	#endif
 	SET_TEXT_COLOR(TEXT_COLOR);
-	PRINT((XSize - 22) / 2, YSize / 2 + 8, "PRESS ANY KEY TO START");
+	PRINT((XSize - 22) / 2, YSize / 2 + 8, "press any key to start");
 }
 
-void gameCompleted(void)
-{
-	printCenteredMessage("Y O U  M A D E  I T !"); 
-	sleep(1);
-	printCenteredMessage("    T H E   E N D    "); 
-	sleep(1);
-}
 
-void finalScore(void)
-{
-	char scoreString[22];
-	clrscr();
-	sprintf(scoreString, "SCORE:  %lu", points);
-	printCenteredMessage(scoreString);
-}
 

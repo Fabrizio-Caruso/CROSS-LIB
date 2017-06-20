@@ -96,7 +96,7 @@ void INIT_IMAGES(void)
 		BOMB_IMAGE._imageData = (char) 0x78;
 		PLAYER_IMAGE._imageData = (char) 0x79;
 		POWERUP_IMAGE._imageData = (char) 0x7A;
-		GUN_IMAGE._imageData = (char) 0x7B;;
+		GUN_IMAGE._imageData = (char) 0x7B;
 		MISSILE_IMAGE._imageData = (char) 0x7C;
 		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 	#else

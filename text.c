@@ -347,7 +347,9 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_GREEN);
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 		SET_TEXT_COLOR(TEXT_COLOR);
-	#else
+	#elif defined(__ATMOS__)
+		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use W A S D <SPACE>");
+	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 	#endif
 	SET_TEXT_COLOR(TEXT_COLOR);

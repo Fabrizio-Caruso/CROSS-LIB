@@ -50,6 +50,8 @@
 #include "display_macros.h"
 #include "input_macros.h"
 #include "sleep_macros.h"
+#include "sound_macros.h"
+
 
 unsigned int invincibleSlowDown = 30000;
 unsigned short invincibleXCountDown = 100;
@@ -142,6 +144,7 @@ void handle_missile()
 	// Check if player has fired the gun
 	if(playerFire && missile._status==0 && guns>0)
 	{
+		SHOOT_SOUND();
 		--guns;
 		missileDirection = playerDirection;
 		missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
@@ -182,7 +185,9 @@ void handle_gun_item()
 	{
 		if(powerUpReached(&player, &gun))
 		{
+			ZAP_SOUND();
 			DELETE_GUN(gun._x,gun._y,gun._imagePtr);
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 			guns = GUNS_NUMBER;
 			points+=GUN_BONUS;
 			gun._status = 0;	
@@ -216,8 +221,10 @@ void handle_powerup_item()
 	{
 		if(powerUpReached(&player, &powerUp))
 		{
+			ZAP_SOUND();
 			die(&powerUp);
 			DELETE_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 			decreaseGhostLevel(); 
 			points+=POWER_UP_BONUS;
 			//powerUp._status = 0;	
@@ -264,11 +271,13 @@ void handle_invincible_ghost(void)
 
 		if(rand()>invincibleSlowDown)
 		{
+			TOCK_SOUND();
 			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
 			moveTowardCharacter(&invincibleGhost, &player);
 		}
 		if(areCharctersAtSamePosition(&invincibleGhost, &player))
 		{
+			EXPLOSION_SOUND();
 			die(&player);
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			printDefeatMessage();
@@ -283,6 +292,7 @@ void handle_player_vs_outer_wall(void)
 	// Check collision player vs outer wall
 	if(wallReached(&player))
 	{
+		EXPLOSION_SOUND();
 		die(&player);
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		DRAW_BROKEN_WALL(player._x,player._y);
@@ -297,6 +307,7 @@ void handle_player_vs_inner_wall(void)
 	// Check collistion player vs inner wall
 	if(innerWallReached(&player))
 	{
+		EXPLOSION_SOUND();
 		die(&player);
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		DRAW_BROKEN_WALL(player._x,player._y);		
@@ -311,6 +322,7 @@ void handle_player_vs_bombs_and_ghosts(void)
 	if(playerReached(&player) ||
 	   playerReachedBombs(&player))
 	{
+		EXPLOSION_SOUND();
 		die(&player);
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		printDefeatMessage();
@@ -447,9 +459,11 @@ int main(void)
 				// Increase ghost speed
 				++ghostLevel;
 			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
-			CLEAR_SCREEN();
+
 			if(player._status) // if level finished
 			{
+				sleep(1);
+				CLEAR_SCREEN();
 				printVictoryMessage();
 				sleep(1);
 				printLevelBonus();
@@ -462,6 +476,7 @@ int main(void)
 			}
 			else // if dead
 			{
+				CLEAR_SCREEN();
 				--lives;
 				if(lives>0)
 				{

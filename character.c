@@ -39,6 +39,7 @@
 #include "settings.h"
 
 #include "display_macros.h"
+#include "sound_macros.h"
 
 extern unsigned long points;
 extern unsigned short innerVerticalWallX;
@@ -138,6 +139,7 @@ void checkBombsVsGhost(Character * ghostPtr)
 {
 	if(ghostPtr->_status && playerReachedBombs(ghostPtr))
 	{
+		EXPLOSION_SOUND();
 		DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
 		ghost_die(ghostPtr);
 		points+=GHOST_VS_BOMBS_BONUS;
@@ -226,6 +228,7 @@ void checkGhostsVsGhosts()
 	{
 		if(ghosts[i]->_status && charactersMeet(i))
 		{
+			EXPLOSION_SOUND();
 			ghost_die(ghosts[i]);
 			points+=GHOST_VS_GHOST_BONUS;
 			--ghostCount;

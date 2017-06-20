@@ -310,7 +310,7 @@ void printStartMessage(void)
 		
 		PRINT((XSize - 22) / 2, YSize / 2 - 2, "Force O into X");
 		
-		PRINT((XSize - 22) / 2, YSize / 2 - 1, "Take P to slow O down");
+		PRINT((XSize - 22) / 2, YSize / 2 - 1, "Take S to slow O down");
 		
 		PRINT((XSize - 22) / 2, YSize / 2, "Catch ! for bullets!");
 		
@@ -318,7 +318,7 @@ void printStartMessage(void)
 	#elif defined(__PET__)
 		PRINT(22, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		
-		PRINT(20, YSize / 2 - 1,  "Take P to slow O down. Catch ! for bullets.");
+		PRINT(20, YSize / 2 - 1,  "Take S to slow O down. Catch ! for bullets.");
 		
 		PRINT(30, YSize / 2 + 1, "Flee from +!");
 	#elif defined(__C64__)
@@ -330,7 +330,7 @@ void printStartMessage(void)
 	#else
 		PRINT(2, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		
-		PRINT(0, YSize / 2 - 1, "Take P to slow O down. ! gives 3 bullets");
+		PRINT(0, YSize / 2 - 1, "Take S to slow O down. ! gives 3 bullets");
 		
 		PRINT(7, YSize / 2 + 1, "Flee from +!");
 	#endif

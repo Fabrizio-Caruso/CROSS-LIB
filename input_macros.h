@@ -34,11 +34,11 @@
 #include <conio.h>
 #include <joystick.h>
 
-#define IF_KEYBOARD_HIT if(kbhit())
+#define IF_KEYBOARD_HIT if(kbhit()) 
 	
 #define GET_CHAR() cgetc();
 
-#define WAIT_JOY1_OR_KEY_PRESS() 	while(!kbhit() && !joy_read(JOY_1)) {if(kbhit()) cgetc();} 
+#define WAIT_JOY1_OR_KEY_PRESS() 	while(kbhit() && !joy_read(JOY_1)) {cgetc();} 
 
 #define WAIT_JOY1_PRESS() while(!joy_read(JOY_1)){}
 
@@ -48,8 +48,7 @@
 
 
 #if defined (__ATMOS__) || defined(__NES__) 
-	#define WAIT_PRESS()
-	// TODO: Implement some input support
+	#define WAIT_PRESS() WAIT_KEY_PRESS();
 #elif defined(__C64__) || defined(__C128__) || defined(__VIC20__) 
 	#define WAIT_PRESS() WAIT_JOY1_OR_KEY_PRESS();
 #elif defined (__PLUS4__) || defined(__C16__) 

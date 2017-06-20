@@ -94,7 +94,7 @@ void INIT_IMAGES(void)
 		GHOST_IMAGE._imageData = (char) 0x76;
 		INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x77;
 		BOMB_IMAGE._imageData = (char) 0x78;
-		PLAYER_IMAGE._imageData = '*';//(char) 0x79;
+		PLAYER_IMAGE._imageData = '\''; //'*';//(char) 0x79;
 		POWERUP_IMAGE._imageData = (char) 0x7A;
 		GUN_IMAGE._imageData = (char) 0x7B;
 		MISSILE_IMAGE._imageData = (char) 0x7C;

@@ -77,8 +77,8 @@ void displayStatsTitles(void)
 
 	PRINT(2,3,"level:");
 	
-	gotoxy(15,1); cputc(PLAYER_IMAGE._imageData);cputc(':');
-	//PRINT(15,3,"*:");
+	//gotoxy(15,1); cputc(PLAYER_IMAGE._imageData);cputc(':');
+	PRINT(15,3,"*:");
 }
 #else
 void displayStatsTitles(void)

@@ -346,14 +346,16 @@ int main(void)
 		INIT_GRAPHICS();
 		INIT_IMAGES();
 		
-		// CLEAR_SCREEN();
-		// printf("ghost %c\n", GHOST_IMAGE._imageData);
-		// printf("invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
-		// printf("bomb %c\n", BOMB_IMAGE._imageData);
-		// printf("player %c\n", PLAYER_IMAGE._imageData);
-		// printf("powerup %c\n", POWERUP_IMAGE._imageData);
-		// printf("gun %c\n", GUN_IMAGE._imageData);
-		// printf("missile %c\n", MISSILE_IMAGE._imageData);
+		CLEAR_SCREEN();
+		printf("ghost %c\n", GHOST_IMAGE._imageData);
+		printf("invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
+		printf("bomb %c\n", BOMB_IMAGE._imageData);
+		printf("player %c\n", PLAYER_IMAGE._imageData);
+		printf("powerup %c\n", POWERUP_IMAGE._imageData);
+		printf("gun %c\n", GUN_IMAGE._imageData);
+		printf("missile %c\n", MISSILE_IMAGE._imageData);
+		
+		WAIT_PRESS();
 		initialScreen();
 		
 

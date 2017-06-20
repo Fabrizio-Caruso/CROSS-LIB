@@ -46,7 +46,7 @@
 #if defined (__ATMOS__) || defined(__NES__) 
 // Do nothing
 #else 
-	#define INIT_INPUT() unsigned char joyInput; JOY_INSTALL();
+	#define INIT_INPUT() unsigned char kbInput; JOY_INSTALL(); 
 #endif
 
 // Move player
@@ -60,7 +60,7 @@
 	// No joystick support yet for ATMOS and NES (NES has NO implemented INPUT!)
 	// Do nothing here
 #else
-	#define MOVE_PLAYER() { joyInput = GET_JOY1(); movePlayerByJoystick(&player, joyInput);}
+	#define MOVE_PLAYER() { kbInput = GET_JOY1(); movePlayerByJoystick(&player, kbInput);}
 #endif
 
 void movePlayerByKeyboard(Character *playerPtr, char kbInput);

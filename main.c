@@ -324,9 +324,7 @@ void initialScreen(void)
 	setScreenColors();			
 	CLEAR_SCREEN();					
 	printStartMessage();
-	WAIT_PRESS();
-	CLEAR_SCREEN();
-	deleteCenteredMessage();
+
 }
 		
 int main(void)
@@ -357,7 +355,9 @@ int main(void)
 		#endif
 		
 		initialScreen();
-		
+		WAIT_PRESS()
+		CLEAR_SCREEN();
+		deleteCenteredMessage();
 
 		points = 0ul;
 		level = INITIAL_LEVEL; 	

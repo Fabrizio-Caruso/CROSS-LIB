@@ -30,15 +30,12 @@
 /*    distribution.                                                          */
 /*                                                                           */
 /*****************************************************************************/
- 
-#include <peekpoke.h>
-#include "display_macros.h"
 
-#if defined(__C64__)
-	#include "c64/c64_redefined_characters.h"
-#elif defined(__ATMOS__)
-	#include "atmos/atmos_redefined_characters.h"
-#else		
+#ifndef _ATMOS_REDEFINED_CHARACTERS
+#define _ATMOS_REDEFINED_CHARACTERS
+
+	#include <peekpoke.h>
+
 	 Image PLAYER_IMAGE;
 	 Image GHOST_IMAGE;
 	 Image DEAD_GHOST_IMAGE;
@@ -48,58 +45,77 @@
 	 Image MISSILE_IMAGE;
 	 Image GUN_IMAGE;
 
-
-	void INIT_GRAPHICS(void)
-	{
-	}
-	 
-	 
-	// TODO: Sprite initialization (to be performed only once) should be separated from level generation
 	void INIT_IMAGES(void)
 	{		
-		#if defined(__C64__) || defined(__C128__) || defined(__VIC20__)
-			PLAYER_IMAGE._color = COLOR_BLUE;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
-			POWERUP_IMAGE._color = COLOR_BLUE;
-			GUN_IMAGE._color = COLOR_BLACK;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;
-		#elif defined(__PET__) || defined(__APPLE2__)
-			PLAYER_IMAGE._color = COLOR_BLACK;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
-			POWERUP_IMAGE._color = COLOR_BLACK;
-			GUN_IMAGE._color = COLOR_BLACK;
-			BOMB_IMAGE._color = COLOR_BLACK;
-			DEAD_GHOST_IMAGE._color = COLOR_BLACK;
-		#elif defined(__C16__) || defined(__PLUS4__)
-			PLAYER_IMAGE._color = COLOR_BLACK;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
-			POWERUP_IMAGE._color = COLOR_GRAY1;
-			GUN_IMAGE._color = COLOR_GRAY1;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;
-		#else
-			PLAYER_IMAGE._color = COLOR_BLACK;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
-			POWERUP_IMAGE._color = COLOR_BLACK;
-			GUN_IMAGE._color = COLOR_BLACK;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;
-		#endif
+		PLAYER_IMAGE._color = COLOR_BLUE;
+		INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
+		POWERUP_IMAGE._color = COLOR_BLUE;
+		GUN_IMAGE._color = COLOR_BLACK;
+		BOMB_IMAGE._color = COLOR_RED;
+		DEAD_GHOST_IMAGE._color = COLOR_RED;
 			
-
-		GHOST_IMAGE._imageData = 'o';
-		INVINCIBLE_GHOST_IMAGE._imageData = '+';
-		BOMB_IMAGE._imageData = 'X';
-		PLAYER_IMAGE._imageData = '*';
-		POWERUP_IMAGE._imageData = 'S';
-		GUN_IMAGE._imageData = '!';
-		MISSILE_IMAGE._imageData = '.';
+		GHOST_IMAGE._imageData = (char) 0x60;
+		INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x5a;
+		BOMB_IMAGE._imageData = (char) 0x5b;
+		PLAYER_IMAGE._imageData = (char) 0x5c;
+		POWERUP_IMAGE._imageData = (char) 0x5d;
+		GUN_IMAGE._imageData = (char) 0x5e;
+		MISSILE_IMAGE._imageData = (char) 0x5f;
 		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
 		GHOST_IMAGE._color = COLOR_BLACK;
 		MISSILE_IMAGE._color = COLOR_BLACK;
 
 	}
+	
+	void INIT_GRAPHICS(void)
+	{
+		unsigned char i;
+		const unsigned char player[] =                {12,18,12,51,45,12,18,51};
+		const unsigned char ghost[]  =                {33,30,33,51,33,45,33,30};
+		const unsigned char bomb[]  =                 {30,33,51,45,45,51,33,30};
+		const unsigned char powerUp[]  =              { 0,30,51,55,51,26,18,12};
+		const unsigned char invincible_ghost[]  =     {30,33,51,33,33,18,18,12};
+		const unsigned char gun[]  =                  { 0,32,31,40,56,32, 0, 0};
+		const unsigned char missile[]  =              { 0, 0, 4,28,14, 8, 0, 0};
+		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + PLAYER_IMAGE._imageData*8 + i, player[i]);
+		}
+		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + GHOST_IMAGE._imageData*8 + i, ghost[i]);
+		}
+		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + BOMB_IMAGE._imageData*8 + i, bomb[i]);
+		}
+		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + POWERUP_IMAGE._imageData*8 + i, powerUp[i]);
+		}
+		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + INVINCIBLE_GHOST_IMAGE._imageData*8 + i, invincible_ghost[i]);
+		}
+		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + GUN_IMAGE._imageData*8 + i, gun[i]);
+		}
+		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + MISSILE_IMAGE._imageData*8 + i, missile[i]);
+		}
+	}
+	 
+	 
 
-#endif
+	
+#endif // _ATMOS_REDEFINED_CHARACTERS

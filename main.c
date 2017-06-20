@@ -350,9 +350,8 @@ int main(void)
 	
 	while(1)
 	{
-		
-		INIT_GRAPHICS();
 		INIT_IMAGES();
+		INIT_GRAPHICS();
 		
 		CLEAR_SCREEN();
 		

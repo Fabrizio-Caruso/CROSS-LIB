@@ -60,44 +60,27 @@ extern unsigned int ghostLevel;
  // Image MISSILE_IMAGE;
  extern Image GUN_IMAGE;
 
-#if defined(__C64__)
+
 void displayStatsTitles(void)
 {
 	SET_TEXT_COLOR(COLOR_BLACK);
 	
-	PRINT(2,1,"speed:");
-
+	#ifdef __C64__
+		PRINT(2,1,"speed:");
+		PRINT(2,2,"score:");
+		PRINT(2,3,"level:");
+	#else
+		PRINT(2,1,"SPEED:");
+		PRINT(2,2,"SCORE:");
+		PRINT(2,3,"LEVEL:");
+	#endif
+	
 	gotoxy(15,1); cputc(GUN_IMAGE._imageData);cputc(':');
-	//PRINT(15,1,"!:");
-
-	PRINT(2,2,"score:");
-	
 	gotoxy(15,2); cputc(GHOST_IMAGE._imageData);cputc(':');
-	//PRINT(15,2,"O:");
-
-	PRINT(2,3,"level:");
-	
 	gotoxy(15,3); cputc(PLAYER_IMAGE._imageData);cputc(':');
-	//PRINT(15,3,"*:");
+
 }
-#else
-void displayStatsTitles(void)
-{
-	SET_TEXT_COLOR(COLOR_BLACK);
-	
-	PRINT(2,1,"SPEED:");
 
-	PRINT(15,1,"!:");
-
-	PRINT(2,2,"SCORE:");
-	
-	PRINT(15,2,"O:");
-
-	PRINT(2,3,"LEVEL:");
-
-	PRINT(15,3,"*:");
-}
-#endif
 
 
 void displayStats(void)

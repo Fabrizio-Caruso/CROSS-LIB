@@ -37,30 +37,18 @@
 #include "character.h"
 
 
-#if defined (__PLUS4__) || defined(__C16__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
-// Do nothing
+#if defined (__CBM__) 
+	#define INIT_INPUT() unsigned char kbInput; JOY_INSTALL(); 
 #else 
 	#define INIT_INPUT() unsigned char kbInput;
 #endif
 
-#if defined (__ATMOS__) || defined(__NES__) 
-// Do nothing
-#else 
-	#define INIT_INPUT() unsigned char kbInput; JOY_INSTALL(); 
-#endif
 
 // Move player
-#if defined (__PLUS4__) || defined(__C16__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
-	// No keyboard support yet for PLUS4, C16, C64, VIC20
-	// Do nothing
-#else 
-	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(&player, kbInput);}
-#endif // defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__)
-#if defined(__ATMOS__) || defined(__NES__)
-	// No joystick support yet for ATMOS and NES (NES has NO implemented INPUT!)
-	// Do nothing here
-#else
+#if defined(__CBM__)
 	#define MOVE_PLAYER() { kbInput = GET_JOY1(); movePlayerByJoystick(&player, kbInput);}
+#else
+	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(&player, kbInput);}
 #endif
 
 void movePlayerByKeyboard(Character *playerPtr, char kbInput);

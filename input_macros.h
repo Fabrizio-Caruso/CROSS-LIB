@@ -47,14 +47,8 @@
 #define WAIT_KEY_PRESS() {while(!kbhit()){}; cgetc();};
 
 
-#if defined (__ATMOS__) || defined(__NES__) 
-	#define WAIT_PRESS() WAIT_KEY_PRESS();
-#elif defined(__C64__) || defined(__C128__) || defined(__VIC20__) 
+#if defined (__CBM__) 
 	#define WAIT_PRESS() WAIT_JOY1_PRESS();
-#elif defined (__PLUS4__) || defined(__C16__) 
-	#define WAIT_PRESS() WAIT_KEY_PRESS();
-#elif defined(__ATARI__) || defined(__APPLE2__)
-	#define WAIT_PRESS() WAIT_JOY1_OR_KEY_PRESS();
 #else
 	#define WAIT_PRESS() WAIT_KEY_PRESS();
 #endif

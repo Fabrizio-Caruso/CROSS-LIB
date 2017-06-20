@@ -322,11 +322,11 @@ void printStartMessage(void)
 		
 		PRINT(30, YSize / 2 + 1, "Flee from +!");
 	#elif defined(__C64__)
-		PRINT((XSize - 22) / 2, YSize / 2 - 3, "you * are chased");
+		PRINT((XSize - 22) / 2, YSize / 2 - 3, "escape the enemies");
 		
-		PRINT((XSize - 22) / 2, YSize / 2 - 2, "force the enemies into the mines");
+		PRINT((XSize - 22) / 2, YSize / 2 - 1, "force them into the mines");
 		
-		PRINT((XSize - 22) / 2, YSize / 2, "catch the gun for bullets");
+		PRINT((XSize - 22) / 2, YSize / 2 + 1, "catch the gun for bullets");
 	#else
 		PRINT(2, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		

@@ -36,7 +36,8 @@
 
 #include <stdlib.h>
 
-#define C64_HARDWARE_SPRITE_VERSION 1
+#define C64_HARDWARE_SPRITES 0
+#define C64_REDEFINED_CHARACTERS 0
 
 #define BOMBS_NUMBER 4
 #define GHOSTS_NUMBER 7 
@@ -57,19 +58,19 @@
 
 
 // If two or more ghosts bump into eachother for each ghost
-#define GHOST_VS_GHOST_BONUS 1500ul
+#define GHOST_VS_GHOST_BONUS 500ul
 
 // If a ghost bumps into a bomb
-#define GHOST_VS_BOMBS_BONUS 1000ul
+#define GHOST_VS_BOMBS_BONUS 250ul
 
 // Points for shooting a ghost
 #define GHOST_VS_MISSILE 100ul
 
 // Extra points for the power up
-#define POWER_UP_BONUS 500ul
+#define POWER_UP_BONUS 200ul
 
 // Extra points for the power up
-#define GUN_BONUS 750ul
+#define GUN_BONUS 300ul
 
 // Points for each tick
 #define LOOP_POINTS 1ul

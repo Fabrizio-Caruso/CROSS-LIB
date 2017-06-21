@@ -46,13 +46,13 @@
 
 // Move player
 #if defined(__CBM__)
-	#define MOVE_PLAYER() { kbInput = GET_JOY1(); movePlayerByJoystick(&player, kbInput);}
+	#define MOVE_PLAYER() { kbInput = GET_JOY1(); movePlayerByJoystick(kbInput);}
 #else
-	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(&player, kbInput);}
+	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}
 #endif
 
-void movePlayerByKeyboard(Character *playerPtr, char kbInput);
+void movePlayerByKeyboard(char kbInput);
 
-void movePlayerByJoystick(Character *playerPtr, unsigned char joyInput);
+void movePlayerByJoystick(unsigned char joyInput);
 
 #endif // _INPUT

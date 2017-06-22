@@ -51,12 +51,12 @@
 	{		
 	
 		int i;
-		PLAYER_IMAGE._color = COLOR_BLUE;
-		INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
-		POWERUP_IMAGE._color = COLOR_BLUE;
-		GUN_IMAGE._color = COLOR_BLACK;
-		BOMB_IMAGE._color = COLOR_RED;
-		DEAD_GHOST_IMAGE._color = COLOR_RED;
+		PLAYER_IMAGE._color = 0;
+		INVINCIBLE_GHOST_IMAGE._color = 0;
+		POWERUP_IMAGE._color = 128;
+		GUN_IMAGE._color = 128;
+		BOMB_IMAGE._color = 128;
+		DEAD_GHOST_IMAGE._color = 128;
 			
 		GHOST_IMAGE._imageData = (char) 0x60;
 		INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x5a;
@@ -65,10 +65,10 @@
 		POWERUP_IMAGE._imageData = (char) 0x5d;
 		GUN_IMAGE._imageData = (char) 0x5e;
 		MISSILE_IMAGE._imageData = (char) 0x5f;
-		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData + 128;
+		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
-		GHOST_IMAGE._color = COLOR_BLACK;
-		MISSILE_IMAGE._color = COLOR_BLACK;
+		GHOST_IMAGE._color = 0;
+		MISSILE_IMAGE._color = 0;
 
 		// Initialize colors 
 		for(i=0;i<28;++i)
@@ -87,6 +87,7 @@
 		const unsigned char invincible_ghost[]  =     {30,33,51,33,33,18,18,12};
 		const unsigned char gun[]  =                  { 0,32,31,40,56,32, 0, 0};
 		const unsigned char missile[]  =              { 0, 0, 4,28,14, 8, 0, 0};
+		//const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
 		
 		for(i=0;i<8;++i)
 		{
@@ -122,6 +123,11 @@
 		{
 			POKE(0xb400 + MISSILE_IMAGE._imageData*8 + i, missile[i]);
 		}
+		
+		// for(i=0;i<8;++i)
+		// {
+			// POKE(0xb400 + DEAD_GHOST_IMAGE._imageData*8 + i, dead_ghost[i]);
+		// }
 	}
 	 
 	 

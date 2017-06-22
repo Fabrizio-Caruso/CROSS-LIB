@@ -63,5 +63,13 @@ void displayGhosts(void)
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
 		DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
+		// if(ghosts[i]->_status)
+		// {
+			// DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
+		// }
+		// else
+		// {
+			// DRAW_DEAD_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
+		// }
 	}
 }

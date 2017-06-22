@@ -67,21 +67,21 @@ typedef struct ImageStruct Image;
 #endif
 
 #if defined(__ATMOS__)
-	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y)); cputc('X');};
+	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y)); cputc('X' + 128);};
 
-	#define DRAW_PLAYER(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData);};
+	#define DRAW_PLAYER(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
-	#define DRAW_GHOST(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData);};
+	#define DRAW_GHOST(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData);};
+	#define DRAW_BOMB(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
-	#define DRAW_BOMB(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + 128);};
+	#define DRAW_POWERUP(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
-	#define DRAW_POWERUP(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + 128);};
+	#define DRAW_GUN(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
-	#define DRAW_GUN(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + 128);};
-
-	#define DRAW_MISSILE(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData);};
+	#define DRAW_MISSILE(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
 	#define DRAW_BOMBS() \
 	{ \

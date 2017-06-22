@@ -36,7 +36,11 @@
 
 #define IF_KEYBOARD_HIT if(kbhit()) 
 	
-#define GET_CHAR() cgetc();
+#if defined(__ATMOS__)
+	#include "atmos/atmos_input.h"
+#else
+	#define GET_CHAR() cgetc();
+#endif
 
 #define WAIT_JOY1_OR_KEY_PRESS() 	while(!(kbInput = joy_read(JOY_1)) || !(kbInput=kbhit())} 
 

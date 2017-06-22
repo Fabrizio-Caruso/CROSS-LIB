@@ -169,6 +169,7 @@ void handle_missile()
 		
 		if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 		{
+			PING_SOUND();
 			die(&missile);
 			DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 			restoreMissile(&missile);
@@ -435,6 +436,7 @@ int main(void)
 				// Check collisions ghosts vs ghosts
 				checkGhostsVsGhosts();
 
+				
 				handle_gun_item();
 				
 				handle_powerup_item();
@@ -462,9 +464,9 @@ int main(void)
 			if(player._status) // if level finished
 			{
 				sleep(1);
-				CLEAR_SCREEN();
 				printVictoryMessage();
 				sleep(1);
+				CLEAR_SCREEN();
 				printLevelBonus();
 								
 				sleep(1);

@@ -84,7 +84,7 @@ int wallReached(Character *characterPtr);
 
 void die(Character * playerPtr);
 
-void ghost_die(Character * playerPtr);
+//void ghost_die(Character * playerPtr);
 
 // TODO: playerReached and playerReachedBombs should be substituted by a generic collision detection routine
 int playerReached(Character* preyPtr);

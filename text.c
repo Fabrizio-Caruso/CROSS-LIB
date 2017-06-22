@@ -65,24 +65,26 @@ void displayStatsTitles(void)
 {
 	SET_TEXT_COLOR(COLOR_BLACK);
 	
-	#ifdef __C64__
+	#if defined(__C64__) 
 		PRINT(2,1,"speed:");
 		PRINT(2,2,"score:");
 		PRINT(2,3,"level:");
+	#elif defined(__ATARI__) || defined(__ATARIXL__) 
 	#else
 		PRINT(2,1,"SPEED:");
 		PRINT(2,2,"SCORE:");
 		PRINT(2,3,"LEVEL:");
 	#endif
 	
-	#ifndef __ATMOS__
+	#if defined (__ATMOS__)
+		gotoxy(16,1); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(16,2); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(16,3); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+	#elif defined(__ATARI__) || defined(__ATARIXL__) 
+	#else
 		gotoxy(15,1); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(15,2); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(15,3); cputc(PLAYER_IMAGE._imageData);cputc(':');
-	#else
-		gotoxy(16,1); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(16,2); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(16,3); cputc(PLAYER_IMAGE._imageData);cputc(':');		
 	#endif
 
 }
@@ -93,21 +95,25 @@ void displayStats(void)
 {	
 	SET_TEXT_COLOR(COLOR_BLACK);
 	
-	PRINT(8,1,"      ");
-	PRINTF(8,1,"%u",ghostLevel);
-	PRINTF(8,2,"%lu",points);
-	PRINTF(8,3,"%hu", level);
+	#if defined(__ATARI__) || defined(__ATARIXL__)
+	#else	
+		PRINT(8,1,"      ");
+		PRINTF(8,1,"%u",ghostLevel);
+		PRINTF(8,2,"%lu",points);
+		PRINTF(8,3,"%hu", level);
+	#endif
 	
-	#ifndef __ATMOS__
-		PRINTF(17,1,"%hu", guns);
-		PRINT( 17,2,"    ");
-		PRINTF(17,2,"%hu",ghostCount);
-		PRINTF(17,3,"%hu",lives);
-	#else
+	#if defined (__ATMOS__)
 		PRINTF(18,1,"%hu", guns);
 		PRINT( 18,2,"    ");
 		PRINTF(18,2,"%hu",ghostCount);
 		PRINTF(18,3,"%hu",lives);	
+	#elif defined(__ATARI__) || defined(__ATARIXL__) 
+	#else
+		PRINTF(17,1,"%hu", guns);
+		PRINT( 17,2,"    ");
+		PRINTF(17,2,"%hu",ghostCount);
+		PRINTF(17,3,"%hu",lives);
 	#endif		
 }
 

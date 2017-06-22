@@ -9,7 +9,7 @@
 	#include <string.h>
 	#include <unistd.h>
 
-	#define SCRMEM *(unsigned int*) 88
+	//#define SCRMEM *(unsigned int*) 88
 	
 	 Image PLAYER_IMAGE;
 	 Image GHOST_IMAGE;
@@ -26,7 +26,7 @@
 
 		//char * screen = (char *) SCRMEM;
 		
-		//_graphics(12);
+		_graphics(1);
 		
 	}
 	 
@@ -48,11 +48,11 @@
 
 		GHOST_IMAGE._imageData = 'o';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
-		BOMB_IMAGE._imageData = 'X';
-		PLAYER_IMAGE._imageData = '*';
-		POWERUP_IMAGE._imageData = 'S';
-		GUN_IMAGE._imageData = '!';
-		MISSILE_IMAGE._imageData = '.';
+		BOMB_IMAGE._imageData = 'x';
+		PLAYER_IMAGE._imageData = 'p';
+		POWERUP_IMAGE._imageData = 's';
+		GUN_IMAGE._imageData = 'g';
+		MISSILE_IMAGE._imageData = 'm';
 		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
 		GHOST_IMAGE._color = COLOR_BLACK;

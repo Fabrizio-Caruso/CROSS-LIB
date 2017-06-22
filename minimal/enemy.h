@@ -40,6 +40,6 @@ unsigned int computeGhostSlowDown(void);
 
 void decreaseGhostLevel(void);
 
-void displayGhosts(Character ** ghosts);
+void displayGhosts(void);
 
 #endif // _ENEMY

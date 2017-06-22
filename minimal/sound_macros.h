@@ -30,63 +30,17 @@
 /*    distribution.                                                          */
 /*                                                                           */
 /*****************************************************************************/
- 
-#include "settings.h"
-#include "invincible_enemy.h"
 
-extern unsigned short level;
-extern unsigned int loop;
-
-extern unsigned int invincibleSlowDown;
-extern unsigned short invincibleXCountDown;
-extern unsigned short invincibleYCountDown ;
-extern unsigned int invincibleLoopTrigger;
-extern unsigned short invincibleGhostCountTrigger;
-
-int computeInvincibleCountDown(void)
-{
-	return 125 - level*5;
-}
-
-
-int computeInvincibleSlowDown(void)
-{
-	if(loop<1000)
-	{
-		return 32000 - (level/2+1) * 1000 - loop/2 - 1000;
-	}
-	else if(loop<1100)
-	{
-		return 32000 - level * 1000 - loop;
-	}
-	return 0; // You must die!
-}
-
-int computeInvincibleGhostCountTrigger(void)
-{
-	if(level<=7)
-		return level/2 + 1;
-	else
-		return 5;
-}
-
-int computeInvincibleLoopTrigger(void)
-{
-	if(level==FINAL_LEVEL)
-		return 50;
-	else if (level==FINAL_LEVEL - 1)
-		return 250;
-	else if (level==FINAL_LEVEL - 2)
-		return 500;
-	else
-		return 1000 - level*20;
-}
-
-void computeInvincibleGhostParameters(void)
-{
-	invincibleSlowDown = computeInvincibleSlowDown();
-	invincibleXCountDown = computeInvincibleCountDown();
-	invincibleYCountDown = computeInvincibleCountDown();
-	invincibleGhostCountTrigger = computeInvincibleGhostCountTrigger();
-	invincibleLoopTrigger = computeInvincibleLoopTrigger();	
-}
+#ifndef  _SOUNDS_MACROS
+#define _SOUNDS_MACROS
+	#if defined(__ATMOS__)
+		#include "atmos/atmos_sounds.h"
+	#else
+		#define EXPLOSION_SOUND() {};
+		#define PING_SOUND() {};
+		#define SHOOT_SOUND() {};
+		#define TICK_SOUND() {};
+		#define TOCK_SOUND() {};
+		#define ZAP_SOUND() {};
+	#endif
+#endif _SOUNDS_MACROS

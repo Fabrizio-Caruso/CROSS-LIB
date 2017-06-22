@@ -50,9 +50,10 @@
 #include "display_macros.h"
 #include "input_macros.h"
 #include "sleep_macros.h"
+#include "sound_macros.h"
+
 
 unsigned int invincibleSlowDown = 30000;
-
 unsigned short invincibleXCountDown = 100;
 unsigned short invincibleYCountDown = 100;
 
@@ -90,8 +91,9 @@ unsigned short innerVerticalWallLength;
 unsigned short level = 1;
 
 unsigned int invincibleLoopTrigger = 1000;
-unsigned short ghostCount = GHOSTS_NUMBER;
 unsigned short invincibleGhostCountTrigger = 2;
+
+unsigned short ghostCount = GHOSTS_NUMBER;
 
 unsigned char XSize;
 unsigned char YSize;
@@ -108,34 +110,19 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
-int main(void)
-{	
-	Character* ghosts[GHOSTS_NUMBER];
-	Character invincibleGhost;
-	Character* bombs[BOMBS_NUMBER];
-	Character player; 
-	Character powerUp;
-	Character gun;
-	Character missile;
-	
-	char i;
-	
-	#if defined (__PLUS4__) || defined(__C16__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
-	// Do nothing
-	#else 
-		unsigned char kbInput;
-	#endif
-	
-	#if defined (__ATMOS__) || defined(__NES__) 
-	// Do nothing
-	#else 
-		unsigned char joyInput;
-		JOY_INSTALL()
-	#endif
-	
-	/* Ask for the screen size */
-	GET_SCREEN_SIZE(&XSize, &YSize);
 
+Character invincibleGhost;
+Character player; 
+Character powerUp;
+Character gun;
+Character missile;
+Character* ghosts[GHOSTS_NUMBER];
+Character* bombs[BOMBS_NUMBER];
+
+
+void initializeCharacters(void)
+{
+	unsigned char i;
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{	
 		ghosts[i] = (Character *) malloc(sizeof(Character));
@@ -150,317 +137,354 @@ int main(void)
 	invincibleGhost._imagePtr  = (Image *) malloc(sizeof(Image));
 	powerUp._imagePtr = (Image *) malloc(sizeof(Image));
 	gun._imagePtr  = (Image *) malloc(sizeof(Image));
+}
 
+void handle_missile()
+{
+	// Check if player has fired the gun
+	if(playerFire && missile._status==0 && guns>0)
+	{
+		SHOOT_SOUND();
+		--guns;
+		missileDirection = playerDirection;
+		missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
+		playerFire = 0;
+		DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
+		checkMissileVsGhosts(&missile);
+		if(areCharctersAtSamePosition(&missile, &invincibleGhost))
+			{
+				die(&missile);
+				DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
+				restoreMissile(&missile);
+				DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+			}		
+	}
+	
+	// Move missile if fired
+	if(missile._status==1)
+	{
+		moveMissile(&missile, missileDirection);
+		// TODO: Inefficient
+		checkMissileVsGhosts(&missile);
+		
+		if(areCharctersAtSamePosition(&missile, &invincibleGhost))
+		{
+			die(&missile);
+			DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
+			restoreMissile(&missile);
+			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+		}
+	}
+}
+
+
+void handle_gun_item()
+{
+	// Manage gun 
+	if(gun._status==1)
+	{
+		if(powerUpReached(&player, &gun))
+		{
+			ZAP_SOUND();
+			DELETE_GUN(gun._x,gun._y,gun._imagePtr);
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
+			guns = GUNS_NUMBER;
+			points+=GUN_BONUS;
+			gun._status = 0;	
+			gunCoolDown = gunInitialCoolDown;
+		}
+		else
+		{
+			DRAW_GUN(gun._x, gun._y, gun._imagePtr);
+		}
+	}		
+	else if (gunCoolDown == 0)
+	{	
+		gun._status = 1;
+		do
+		{
+			relocateCharacter(&gun, bombs,4);
+			DRAW_GUN(gun._x, gun._y, gun._imagePtr);
+		} while(innerWallReached(&gun));
+	}
+	else
+	{
+		--gunCoolDown;
+	}				
+}
+
+
+void handle_powerup_item()
+{
+	// Manage powerUp
+	if(powerUp._status == 1)
+	{
+		if(powerUpReached(&player, &powerUp))
+		{
+			ZAP_SOUND();
+			die(&powerUp);
+			DELETE_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
+			decreaseGhostLevel(); 
+			points+=POWER_UP_BONUS;
+			//powerUp._status = 0;	
+			powerUpCoolDown = powerUpInitialCoolDown;
+		}
+		else
+		{
+			DRAW_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
+		}		
+	}
+	else if (powerUpCoolDown == 0)
+	{
+		powerUp._status = 1;
+		do
+		{
+			relocateCharacter(&powerUp, bombs,4);
+		} while(innerWallReached(&powerUp));
+	}
+	else
+	{
+		--powerUpCoolDown;
+	}
+}
+
+
+void handle_invincible_ghost(void)
+{
+	// Manage invincible ghost
+	if(!invincibleGhost._status && 
+	  ((invincibleXCountDown==0)||(invincibleYCountDown==0)) || 
+	   (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))
+	{
+		invincibleGhost._status = 1;
+		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+	}
+	else
+	{
+		--invincibleXCountDown;
+		--invincibleYCountDown;
+	}
+	if(invincibleGhost._status)
+	{ 	
+		invincibleSlowDown = computeInvincibleSlowDown();
+
+		if(rand()>invincibleSlowDown)
+		{
+			TOCK_SOUND();
+			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
+			moveTowardCharacter(&invincibleGhost, &player);
+		}
+		if(areCharctersAtSamePosition(&invincibleGhost, &player))
+		{
+			EXPLOSION_SOUND();
+			die(&player);
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			printDefeatMessage();
+			sleep(1);
+		}
+	}
+}
+
+
+void handle_player_vs_outer_wall(void)
+{
+	// Check collision player vs outer wall
+	if(wallReached(&player))
+	{
+		EXPLOSION_SOUND();
+		die(&player);
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		DRAW_BROKEN_WALL(player._x,player._y);
+		printDefeatMessage();
+		sleep(1);
+	}
+}
+
+
+void handle_player_vs_inner_wall(void)
+{
+	// Check collistion player vs inner wall
+	if(innerWallReached(&player))
+	{
+		EXPLOSION_SOUND();
+		die(&player);
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		DRAW_BROKEN_WALL(player._x,player._y);		
+		printDefeatMessage();
+		sleep(1);
+	}
+}
+
+void handle_player_vs_bombs_and_ghosts(void)
+{
+	// Check collision player vs ghosts and player vs bombs
+	if(playerReached(&player) ||
+	   playerReachedBombs(&player))
+	{
+		EXPLOSION_SOUND();
+		die(&player);
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		printDefeatMessage();
+		sleep(1);
+	}	
+}
+			
+void initialScreen(void)
+{
+	// Set Screen Colors
+	setScreenColors();			
+	CLEAR_SCREEN();					
+	printStartMessage();
+
+}
+		
+int main(void)
+{			
+	INIT_INPUT();
+	
+	// Ask for the screen size 
+	GET_SCREEN_SIZE(&XSize, &YSize);
+	
+	initializeCharacters();
 	
 	while(1)
 	{
-		ghostCount = GHOSTS_NUMBER;
-		loop = 0;	
-		points = 0ul;
-		level = INITIAL_LEVEL; 
-
-		// Set Screen Colors
-		setScreenColors();			
+		INIT_IMAGES();
+		INIT_GRAPHICS();
 		
 		CLEAR_SCREEN();
-					
-		printStartMessage();
 		
-		WAIT_PRESS();
+		#ifdef DEBUG_CHARACTERS
+			printf("ghost %c\n", GHOST_IMAGE._imageData);
+			printf("invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
+			printf("bomb %c\n", BOMB_IMAGE._imageData);
+			printf("player %c\n", PLAYER_IMAGE._imageData);
+			printf("powerup %c\n", POWERUP_IMAGE._imageData);
+			printf("gun %c\n", GUN_IMAGE._imageData);
+			printf("missile %c\n", MISSILE_IMAGE._imageData);
+		#endif
 		
+		initialScreen();
+		WAIT_PRESS()
 		CLEAR_SCREEN();
-				
 		deleteCenteredMessage();
-		
+
+		points = 0ul;
+		level = INITIAL_LEVEL; 	
 		lives = LIVES_NUMBER;
 		do // Level (Re-)Start
 		{ 
 			loop = 0;
-			ghostLevel = 1u;
-			
-			computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
-			
-			gunInitialCoolDown = computeGunInitialCoolDown();
-			invincibleXCountDown = computeInvincibleCountDown();
-			invincibleYCountDown = computeInvincibleCountDown();
-			invincibleSlowDown = computeInvincibleSlowDown();
-			invincibleGhostCountTrigger = computeInvincibleGhostCountTrigger();
-			invincibleLoopTrigger = computeInvincibleLoopTrigger();
+			ghostLevel = 0u;
 			ghostCount = GHOSTS_NUMBER;
 			guns = 0;
 			gun._status = 0;
-			gunCoolDown = gunInitialCoolDown;
+			
+			computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
+			gunCoolDown = computeGunInitialCoolDown();
+			
+			computeInvincibleGhostParameters();
+
 			ghostSlowDown = computeGhostSlowDown();
 			
-			/* Clear the screen, put cursor in upper left corner */
+			// Clear the screen, put cursor in upper left corner
 			CLEAR_SCREEN();
 
 			printLevel();
 			sleep(1);
 			
-
-			/* Wait for the user to press a key */
+			// Wait for the user to press a key 
 			printPressKeyToStart();
 			WAIT_PRESS();
 
 			deleteCenteredMessage();
 			
-			/* Draw a border around the screen */
+			// Draw a border around the screen 
 			drawBorders();
 			
 			// Initialize characters
-			updateInnerWallVerticalLength();
+			updateInnerWallVerticalData();	
 			
-			fillLevelWithCharacters(
-								 &player, &powerUp, 
-								 ghosts, 
-								 bombs, 
-								 &invincibleGhost, &missile, &gun);	
-			ghostCount = GHOSTS_NUMBER;
+			fillLevelWithCharacters();	
 			
 			displayStatsTitles();
 			
 			while(player._status && ghostCount>0) // while alive && there are still ghosts
 			{
-								
 				++loop;
 				
 				ghostSlowDown = computeGhostSlowDown();
 				
 				drawInnerVerticalWall();
 
-				// Move player
-				#if defined (__PLUS4__) || defined(__C16__) || defined(__C64__) || defined(__VIC20__) || defined(__NES__)
-					// No keyboard support yet for PLUS4, C16, C64, VIC20
-					// Do nothing
-				#else 
-				IF_KEYBOARD_HIT
-					{				
-						kbInput = GET_CHAR();
-						movePlayerByKeyboard(&player, kbInput);
-					}
-				#endif // defined (__PLUS4__) || defined(__C64__) || defined(__VIC20__)
-				#if defined(__ATMOS__) || defined(__NES__)
-					// No joystick support yet for ATMOS and NES (NES has NO implemented INPUT!)
-					// Do nothing here
-				#else		
-					{
-						joyInput = GET_JOY1();			
-						movePlayerByJoystick(&player, joyInput);	
-					}
-				#endif			
+				MOVE_PLAYER();
 				
-				// Check if player has fired the gun
-				if(playerFire && missile._status==0 && guns>0)
-				{
-					--guns;
-					missileDirection = playerDirection;
-					missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
-					playerFire = 0;
-					DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
-					checkMissileVsGhosts(&missile, ghosts);
-					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
-						{
-							die(&missile);
-							DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
-							restoreMissile(&missile);
-							DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-						}		
-				}
-				
-				// Move missile if fired
-				if(missile._status==1)
-				{
-					moveMissile(&missile, missileDirection);
-					// TODO: Inefficient
-					checkMissileVsGhosts(&missile, ghosts);
-					
-					if(areCharctersAtSamePosition(&missile, &invincibleGhost))
-					{
-						die(&missile);
-						DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
-						restoreMissile(&missile);
-						DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-					}
-				}
+				handle_missile();
 			
 				// Chase the player
-				chasePlayer(ghosts, &player, ghostSlowDown);
+				chasePlayer(ghostSlowDown);
 				
-				// Check collision player vs ghosts and player vs bombs
-				if(playerReached(ghosts, &player) ||
-				   playerReachedBombs(bombs, &player))
-				{
-					die(&player);
-					DELETE_PLAYER(player._x,player._y,player._imagePtr);
-					printDefeatMessage();
-					sleep(1);
-				}
+				handle_player_vs_bombs_and_ghosts();
 				
-				// Check collistion player vs inner wall
-				if(innerWallReached(&player))
-				{
-					die(&player);
-					DELETE_PLAYER(player._x,player._y,player._imagePtr);
-					printDefeatMessage();
-					sleep(1);
-				}
+				handle_player_vs_inner_wall();
 			
 				// Check collisions bombs vs ghosts
-				checkBombsVsGhosts(bombs, 
-								   ghosts);
+				checkBombsVsGhosts();
 				
 				// Check collisions ghosts vs ghosts
-				checkGhostsVsGhosts(ghosts);
+				checkGhostsVsGhosts();
 
-				// Manage gun 
-				if(gun._status==1)
-				{
-					if(powerUpReached(&player, &gun))
-					{
-						guns = GUNS_NUMBER;
-						points+=GUN_BONUS;
-						gun._status = 0;	
-						gunCoolDown = gunInitialCoolDown;
-					}
-					else
-					{
-						DRAW_GUN(gun._x, gun._y, gun._imagePtr);
-					}
-				}		
-				else if (gunCoolDown == 0)
-				{	
-					gun._status = 1;
-					do
-					{
-						relocateCharacter(&gun, bombs, ghosts);
-						DRAW_GUN(gun._x, gun._y, gun._imagePtr);
-					} while(innerWallReached(&gun));
-				}
-				else
-				{
-					--gunCoolDown;
-				}				
+				handle_gun_item();
 				
-				// Manage powerUp
-				if(powerUp._status == 1)
-				{
-					if(powerUpReached(&player, &powerUp))
-					{
-						die(&powerUp);
-						DELETE_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
-						decreaseGhostLevel(); 
-						points+=POWER_UP_BONUS;
-						//powerUp._status = 0;	
-						powerUpCoolDown = powerUpInitialCoolDown;
-					}
-					else
-					{
-						DRAW_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
-					}		
-				}
-				else if (powerUpCoolDown == 0)
-				{
-					powerUp._status = 1;
-					do
-					{
-						relocateCharacter(&powerUp, bombs, ghosts);
-					} while(innerWallReached(&powerUp));
-				}
-				else
-				{
-					--powerUpCoolDown;
-				}
+				handle_powerup_item();
 					
-				// Check collision player vs outer wall
-				if(wallReached(&player))
-				{
-					die(&player);
-					DELETE_PLAYER(player._x,player._y,player._imagePtr);
-					printDefeatMessage();
-					sleep(1);
-				}
+				handle_player_vs_outer_wall();
 				
-				// Draw all bombs
-				for(i=0;i<BOMBS_NUMBER;++i)
-				{
-					DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr);
-				}
+				DRAW_BOMBS();
 				
 				// Display ghosts
-				displayGhosts(ghosts);
+				displayGhosts();
 
 				// Display stats and their values
 				displayStatsTitles();
 				displayStats();
 				
-				// Manage invincible ghost
-				if(!invincibleGhost._status && 
-				  ((invincibleXCountDown==0)||(invincibleYCountDown==0)) || 
-				   (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))
-				{
-					invincibleGhost._status = 1;
-					DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-				}
-				else
-				{
-					--invincibleXCountDown;
-					--invincibleYCountDown;
-				}
-				if(invincibleGhost._status)
-				{ 	
-					invincibleSlowDown = computeInvincibleSlowDown();
-
-					if(rand()>invincibleSlowDown)
-					{
-						DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
-						moveTowardCharacter(&invincibleGhost, &player);
-					}
-					if(areCharctersAtSamePosition(&invincibleGhost, &player))
-					{
-						die(&player);
-						DELETE_PLAYER(player._x,player._y,player._imagePtr);
-						printDefeatMessage();
-						sleep(1);
-					}
-				}
-				
-				// Check victory condition
-				if(ghostCount<=0)
-				{
-					printVictoryMessage();
-					sleep(1);
-				}
+				handle_invincible_ghost();
 				
 				// Add points to score
 				points+=LOOP_POINTS;
 				
 				// Increase ghost speed
 				++ghostLevel;
-			}; // end inner while [while (player._alive && !victoryFlag)]
-			CLEAR_SCREEN();
-			if(player._status)
+			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
+
+			if(player._status) // if level finished
 			{
+				sleep(1);
+				CLEAR_SCREEN();
+				printVictoryMessage();
+				sleep(1);
 				printLevelBonus();
 								
 				sleep(1);
 				
 				points+= LEVEL_BONUS*level;
 				++level;
-				updateInnerWallVerticalLength();
-				drawInnerVerticalWall();
+				updateInnerWallVerticalData();
 			}
-			else
+			else // if dead
 			{
+				CLEAR_SCREEN();
 				--lives;
 				if(lives>0)
 				{
 					player._status = 1;
 				}
 			}
-		} while (player._status || ((ghostCount<=0) && (level<(FINAL_LEVEL+1)))); // while game not ended (some lives and levels left)
+		} while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 
 			
-	if(level==FINAL_LEVEL+1)
+	if(level==FINAL_LEVEL+1) // if completed game
 	{
 		gameCompleted();
 		sleep(1);
@@ -472,8 +496,7 @@ int main(void)
 	finalScore();
 	sleep(2);
 	CLEAR_SCREEN();
-	}
+	} // while(1) -> restart from the beginning
 
 	return EXIT_SUCCESS;
 }
-

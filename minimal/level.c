@@ -62,69 +62,297 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
+extern Character invincibleGhost;
+extern Character player; 
+extern Character powerUp;
+extern Character gun;
+extern Character missile;
+extern Character* ghosts[GHOSTS_NUMBER];
+extern Character* bombs[BOMBS_NUMBER];
+
+
+
 void drawInnerVerticalWall(void)
 {
-	innerVerticalWallX = XSize / 2;
-    innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
 	DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
 }
 
-
-void updateInnerWallVerticalLength(void)
+void updateInnerWallVerticalData(void)
 {		
-
-	innerVerticalWallLength = 8;
-
+	switch(level)
+	{
+		case 1: case 5: case 10: case 15:
+			innerVerticalWallLength = 0;
+		break;
+		case 2:
+			innerVerticalWallLength = 8;
+		break;
+		case 3:
+			innerVerticalWallLength = 12;
+		break;
+		case 4:
+			innerVerticalWallLength = YSize-6;
+		break;
+		case 6:
+			innerVerticalWallLength = 8;
+		break;
+		case 7:
+			innerVerticalWallLength = 12;
+		break;
+		case 8:
+			innerVerticalWallLength = 16;
+		break;
+		case 9:
+			innerVerticalWallLength = YSize-6;
+		break;
+		case 11:
+			innerVerticalWallLength = 8;
+		break;
+		case 12:
+			innerVerticalWallLength = 12;
+		break;
+		case 13:
+			innerVerticalWallLength =16;
+		break;
+		case 14:
+			innerVerticalWallLength = YSize-4;
+		break;
+		case 16:
+			innerVerticalWallLength = 8;
+		break;
+		case 17:
+			innerVerticalWallLength = 12;
+		break;
+		case 18:
+			innerVerticalWallLength = YSize-4;
+		break;
+		case 19:
+			innerVerticalWallLength = 12;
+		break;
+		case 20:
+			innerVerticalWallLength = YSize-4;
+		break;
+	}
+	innerVerticalWallX = XSize / 2;
+    innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
 }
 
 
-void fillLevelWithCharacters(
-						  Character * playerPtr, Character * powerUpPtr, 
-						  Character **ghosts,
-						  Character **bombs,
-						  Character * invincibleGhostPtr, 
-						  Character * missilePtr, Character * gunPtr)
+void fillLevelWithCharacters(void)
 {
+	short corner = rand()%4;
+	short chirality = rand()%2;
+	int b1x, b2x, b3x, b4x;
+	int b1y, b2y, b3y, b4y;
+	Character *dummyBombs[BOMBS_NUMBER];
 	char i;
+	int x1,x2,x3,x4,x5,x6,x0; //x7,x0;
+	int y1,y2,y3,y4,y5,y6,y0; //y7,y0;
 
 	
 	INIT_IMAGES();
 	
-		initializeCharacter(ghosts[1],XSize/6+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+
+	// 7 Ghosts case
+	x1 = XSize/6+rand()%3-1;       y1 = YSize/6+rand()%3-2+1;
+	x2 = XSize/6+rand()%3-1;       y2 = YSize/2+rand()%3-2;
+	x3 = XSize/6+rand()%3-1;       y3 = YSize-YSize/6+rand()%3-3;
+	x4 = XSize/2+rand()%3-1;       y4 = YSize/6+rand()%3-2+1;
+	x5 = XSize/2+rand()%3-1;       y5 = YSize-YSize/6+rand()%3-3;
+	x6 = XSize-XSize/6+rand()%3-3; y6 = YSize/6+rand()%3-2+1;
+	//x7 = XSize-XSize/6+rand()%3-3; y7 = YSize/2+rand()%3-2;
+	x0 = XSize-XSize/6+rand()%3-3; y0 = YSize-YSize/6+rand()%3-3;
+
+		initializeCharacter(ghosts[1],x1,y1,1,&GHOST_IMAGE);
 		DRAW_GHOST(ghosts[1]->_x, ghosts[1]->_y, ghosts[1]->_imagePtr);
 		
-		initializeCharacter(ghosts[2],XSize/6+rand()%3-1,YSize/2+rand()%3-2,1, &GHOST_IMAGE);
+		initializeCharacter(ghosts[2],x2,y2,1, &GHOST_IMAGE);
 		DRAW_GHOST(ghosts[2]->_x, ghosts[2]->_y, ghosts[2]->_imagePtr);
 		
-		initializeCharacter(ghosts[3],XSize/6+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
+		initializeCharacter(ghosts[3],x3,y3,1,&GHOST_IMAGE);
 		DRAW_GHOST(ghosts[3]->_x, ghosts[3]->_y, ghosts[3]->_imagePtr);
 
-		initializeCharacter(ghosts[4],XSize/2+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+		initializeCharacter(ghosts[4],x4,y4,1,&GHOST_IMAGE);
 		DRAW_GHOST(ghosts[4]->_x, ghosts[4]->_y, ghosts[4]->_imagePtr);
 	
-		initializeCharacter(ghosts[5],XSize/2+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
+		initializeCharacter(ghosts[5],x5,y5,1,&GHOST_IMAGE);
 		DRAW_GHOST(ghosts[5]->_x, ghosts[5]->_y, ghosts[5]->_imagePtr);
 	
-		initializeCharacter(ghosts[6],XSize-XSize/6+rand()%3-3,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+		initializeCharacter(ghosts[6],x6,y6,1,&GHOST_IMAGE);
 		DRAW_GHOST(ghosts[6]->_x, ghosts[6]->_y, ghosts[6]->_imagePtr);
 		
-		initializeCharacter(ghosts[0],XSize-XSize/6+rand()%3-3,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
+		initializeCharacter(ghosts[0],x0,y0,1,&GHOST_IMAGE);
 		DRAW_GHOST(ghosts[0]->_x, ghosts[0]->_y, ghosts[0]->_imagePtr);
 
 	// Player
-
-	initializeCharacter(playerPtr,XSize/2+rand()%4-4,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);
-
+	do
+	{
+		initializeCharacter(&player,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);
+	} while(nearInnerWall(&player));
 	SET_TEXT_COLOR(PLAYER_COLOR);
-	DRAW_PLAYER(playerPtr->_x,playerPtr->_y,playerPtr->_imagePtr);
+	DRAW_PLAYER(player._x,player._y,player._imagePtr);
 	SET_TEXT_COLOR(TEXT_COLOR);
 	
-
-	initializeCharacter(bombs[0],1+1, YSize/2-3+rand()%7,0,&BOMB_IMAGE);
-
-	initializeCharacter(bombs[1],XSize-2-1, YSize/2-3+rand()%7,0,&BOMB_IMAGE);
-
+	do
+	{
+		// Bombs
+		if(level<FIRST_VERY_HARD_LEVEL) // HARD but NOT VERY HARD -> 2 bombs close to vertical borders
+		{	
+			b2x = 1+1;
+			b2y = YSize/2-3+rand()%7;
 			
+			b3x = XSize-2-1;
+			b3y = YSize/2-3+rand()%7;
+			
+			b4x = b3x;
+			b4y = b3y;
+			
+			b1x = b2x;
+			b1y = b2y;
+		}
+		else if (level<FIRST_INSANE_LEVEL) // VERY HARD but NOT INSANE -> 2 bombs close to the botton corners
+		{
+			b2x = 1+1;
+			b2y = YSize-2-1;
+			
+			
+			b4x = XSize-2-1;
+			b4y = YSize-2-1;
+			
+			b1x = b2x;
+			b1y = b2y;
+			
+			b3x = b4x;
+			b3y = b4y;
+		}
+		else if (level<FIRST_ULTIMATE_LEVEL)// INSANE but not FINAL -> 2 bombs placed on the vertical borders
+		{
+			b2x = 1;
+			b2y = YSize/2-3+rand()%7;
+			
+			b3x = XSize-2;
+			b3y = YSize/2-3+rand()%7;
+			
+			b4x = b3x;
+			b4y = b3y;
+			
+			b1x = b3x;
+			b1y = b3y;
+		}
+		else // ULTIMATE
+		{
+			b1x = 1;
+			b1y = 1;
+			
+			b2x = 1;
+			b2y = YSize-2;
+			
+			b3x = XSize-2;
+			b3y = 1;
+			
+			b4x = XSize-2;
+			b4y = YSize-2;
+		}
+		
+		if(level>=FIRST_HARD_LEVEL)
+		{
+			initializeCharacter(bombs[0],b1x, b1y,0,&BOMB_IMAGE);
+
+			initializeCharacter(bombs[1],b2x, b2y,0,&BOMB_IMAGE);
+
+			initializeCharacter(bombs[2],b3x, b3y,0,&BOMB_IMAGE);
+
+			initializeCharacter(bombs[3],b4x, b4y,0,&BOMB_IMAGE);
+		}
+		else if(level<FIRST_HARD_LEVEL)
+		{
+			if(chirality)
+			{
+				b1x = XSize/2-5;
+				b1y = YSize/2+5;
+				
+				b3x = XSize/2+5;
+				b3y = YSize/2-5;
+			}
+			else
+			{
+				b1x = XSize/2-5;
+				b1y = YSize/2-5;
+				
+				b3x = XSize/2+5;
+				b3y = YSize/2+5;
+			}
+			initializeCharacter(bombs[0],b1x, b1y,0,&BOMB_IMAGE);
+			
+			// TODO: Remove hard-code size of bomb list
+			dummyBombs[0] = ghosts[0];
+			dummyBombs[1] = ghosts[0];
+			dummyBombs[2] = ghosts[0];
+			dummyBombs[3] = &player;
+			for(i=0;i<BOMBS_NUMBER;++i)
+			{	
+				relocateCharacter(bombs[0], dummyBombs,4);		
+			}
+			
+			initializeCharacter(bombs[2],b3x, b3y,0, &BOMB_IMAGE);
+			
+			// Keep below comments
+			//dummyBombs[0] = ghosts[0];
+			//dummyBombs[1] = ghosts[0];
+			dummyBombs[2] = bombs[0];
+			//dummyBombs[3] = &player;
+
+			relocateCharacter(bombs[2], dummyBombs,4);		
+								
+
+			if(level>=TWO_BOMB_START_LEVEL) // only use bomb1 and bomb3 previously relocated
+			{
+				initializeCharacter(bombs[1], bombs[0]->_x, bombs[0]->_y, 0,&BOMB_IMAGE);
+				initializeCharacter(bombs[3], bombs[2]->_x, bombs[2]->_y, 0,&BOMB_IMAGE);
+			}
+			else // place bomb2 and bomb4
+			{
+				if(chirality)
+				{
+					b2x = XSize/2-5;
+					b2y = YSize/2-5;
+					
+					b4x = XSize/2+5;
+					b4y = YSize/2+5;
+				}
+				else
+				{
+					b2x = XSize/2-5;
+					b2y = YSize/2+5;
+					
+					b4x = XSize/2+5;
+					b4y = YSize/2-5;
+				}
+				initializeCharacter(bombs[1],b2x, b2y, 0, &BOMB_IMAGE);
+				
+				dummyBombs[0] = ghosts[0];
+				dummyBombs[1] = bombs[2];
+				dummyBombs[2] = bombs[0];
+				dummyBombs[3] = &player;
+
+				relocateCharacter(bombs[1], dummyBombs,4);		
+
+				
+				initializeCharacter(bombs[3],b4x, b4y,0,&BOMB_IMAGE);
+				
+				// Keep below comments
+				dummyBombs[0] = bombs[1];
+				//dummyBombs[1] = bombs[2];
+				//dummyBombs[2] = bombs[0];
+				//dummyBombs[3] = &player;
+				for(i=0;i<BOMBS_NUMBER;++i)
+				{
+					relocateCharacter(bombs[1], dummyBombs,4);
+				}				
+			}
+		}
+	} while(nearInnerWall(bombs[0]) || nearInnerWall(bombs[1]) || nearInnerWall(bombs[2]) || nearInnerWall(bombs[3]));
+	
 	for(i=0;i<BOMBS_NUMBER;++i)
 	{
 		DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr);
@@ -133,21 +361,39 @@ void fillLevelWithCharacters(
 	do
 	{
 		// Power-ups
-		initializeCharacter(powerUpPtr,XSize/2,YSize/2,1,&POWERUP_IMAGE);
-		relocateCharacter(powerUpPtr, bombs, ghosts);	
-		initializeCharacter(powerUpPtr,powerUpPtr->_x,powerUpPtr->_y,1,&POWERUP_IMAGE);
-	} while(nearInnerWall(powerUpPtr));
-	DRAW_POWERUP(powerUpPtr->_x, powerUpPtr->_y, powerUpPtr->_imagePtr);
+		initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
+		relocateCharacter(&powerUp, bombs,4);	
+		initializeCharacter(&powerUp,powerUp._x,powerUp._y,1,&POWERUP_IMAGE);
+	} while(nearInnerWall(&powerUp));
+	DRAW_POWERUP(powerUp._x, powerUp._y, powerUp._imagePtr);
 		
-    initializeCharacter(missilePtr, 0, 0,0,&MISSILE_IMAGE);
+    initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
 	
 	do
 	{
-		initializeCharacter(gunPtr, XSize/2, YSize/2, 0, &GUN_IMAGE);
-		relocateCharacter(gunPtr, bombs, ghosts);
-	} while(nearInnerWall(gunPtr));
+		initializeCharacter(&gun, XSize/2, YSize/2, 0, &GUN_IMAGE);
+		relocateCharacter(&gun, bombs,4);
+	} while(nearInnerWall(&gun));
 	
-
-	initializeCharacter(invincibleGhostPtr,XSize-2,YSize-2,0, &INVINCIBLE_GHOST_IMAGE);
+	switch(corner)
+	{
+		case 0:
+			invincibleGhost._x = 2;
+			invincibleGhost._y = 2;
+		break;
+		case 1:
+			invincibleGhost._x = 2;
+			invincibleGhost._y = YSize-2;
+		break;
+		case 2:
+			invincibleGhost._x = XSize-2;
+			invincibleGhost._y = 1;
+		break;
+		case 3:
+			invincibleGhost._x = XSize-2;
+			invincibleGhost._y = YSize-2;
+		break;
+	}
+	initializeCharacter(&invincibleGhost,invincibleGhost._x,invincibleGhost._y,0, &INVINCIBLE_GHOST_IMAGE);
 }
 

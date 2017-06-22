@@ -36,8 +36,23 @@
 
 #include "character.h"
 
-void movePlayerByKeyboard(Character *playerPtr, char kbInput);
 
-void movePlayerByJoystick(Character *playerPtr, unsigned char joyInput);
+#if defined (__CBM__) 
+	#define INIT_INPUT() unsigned char kbInput; JOY_INSTALL(); 
+#else 
+	#define INIT_INPUT() unsigned char kbInput;
+#endif
+
+
+// Move player
+#if defined(__CBM__)
+	#define MOVE_PLAYER() { kbInput = GET_JOY1(); movePlayerByJoystick(kbInput);}
+#else
+	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}
+#endif
+
+void movePlayerByKeyboard(char kbInput);
+
+void movePlayerByJoystick(unsigned char joyInput);
 
 #endif // _INPUT

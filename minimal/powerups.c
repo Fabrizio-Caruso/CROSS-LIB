@@ -38,6 +38,9 @@
 
 extern unsigned short level;
 
+extern unsigned int gunInitialCoolDown;
+
+
 int powerUpReached(Character * hunterPtr, Character* preyPtr)
 {
 	return(areCharctersAtSamePosition(hunterPtr, preyPtr));
@@ -53,8 +56,10 @@ void computePowerUp(unsigned int *coolDownDecreasePtr, unsigned int *powerUpInit
 int computeGunInitialCoolDown(void)
 {
 	if(level<=4)
-		return 250; // TODO: fix this
+	{
+		gunInitialCoolDown = 250;
+	}
 	else
-		return 250 + level * 10;
+		gunInitialCoolDown = 250 + level * 10;
+	return gunInitialCoolDown;
 }
-

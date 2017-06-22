@@ -38,6 +38,8 @@ extern unsigned int ghostLevel;
 extern unsigned short level;
 extern unsigned int ghostLevelDecrease;
 
+extern Character* ghosts[GHOSTS_NUMBER];
+
 unsigned int computeGhostSlowDown(void)
 {
 	if(ghostLevel<1000)
@@ -54,7 +56,7 @@ void decreaseGhostLevel(void)
 		ghostLevel=0;
 }
 
-void displayGhosts(Character ** ghosts)
+void displayGhosts(void)
 {
 	char i;
 

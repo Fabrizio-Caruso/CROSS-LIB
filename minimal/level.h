@@ -39,16 +39,11 @@
 
 void drawInnerVerticalWall(void);
 
-void updateInnerWallVerticalLength(void);
+void updateInnerWallVerticalData(void);
 
 unsigned short drawInnerVerticalWallForLevel(void);
 
-void fillLevelWithCharacters(
-						  Character * playerPtr, Character * powerUpPtr, 
-						  Character **ghosts,
-						  Character **bombs,
-						  Character * invincibleGhostPtr, 
-						  Character * missilePtr, Character * gunPtr);
+void fillLevelWithCharacters(void);
 
 void finalScore(void);			
 			  

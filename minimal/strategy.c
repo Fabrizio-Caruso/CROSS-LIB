@@ -40,6 +40,12 @@ extern unsigned short level;
 extern unsigned short ghostCount;
 extern unsigned int invincibleSlowDown;
 
+extern Character player; 
+extern Character* ghosts[GHOSTS_NUMBER];
+extern Character* bombs[BOMBS_NUMBER];
+
+
+
 // TODO: Design issue: we delete the invincible enemy
 // This should be made generic even though it works
 void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
@@ -97,9 +103,7 @@ void moveTowardCharacter(Character *hunterPtr, Character *preyPtr)
 }
 
 // Ghosts move to new positions if they get their chanche
-void chasePlayer(Character ** ghosts, 
-                 Character* preyPtr, 
-                 int slowDown)
+void chasePlayer(int slowDown)
 {
 	char i;
 
@@ -108,7 +112,7 @@ void chasePlayer(Character ** ghosts,
 		if((ghosts[i]->_status) && (rand()>slowDown))
 		{
 			DELETE_GHOST(ghosts[i]->_x,ghosts[i]->_y,ghosts[i]->_imagePtr);
-			moveTowardCharacter(ghosts[i], preyPtr);
+			moveTowardCharacter(ghosts[i], &player);
 		}
 	}
 }

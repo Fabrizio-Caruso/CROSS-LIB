@@ -170,31 +170,43 @@ typedef struct ImageStruct Image;
 
 	#define PRINTF(x,y,...) {gotoxy(x+2,y); cprintf(##__VA_ARGS__); };
 
-	/*
-		cputc (CH_ULCORNER);\
-		chline (XSize - 2);\
-		cputc (CH_URCORNER);\
-		cvlinexy (0, 1, YSize - 2);\
-		cputc (CH_LLCORNER);\
-		chline (XSize - 2);\
-		cputc (CH_LRCORNER);\
-		cvlinexy (XSize - 1, 1, YSize - 2); \
-	*/
-	
-	
-	#define DRAW_BORDERS()\
-	{ \
-		gotoxy(0+2,0); \
-		cputc (CH_ULCORNER);\
-		chline (XSize - 2);\
-		cputc (CH_URCORNER);\
-		cvlinexy (0+2, 1, YSize - 2);\
-		cputc (CH_LLCORNER);\
-		chline (XSize - 2);\
-		cputc (CH_LRCORNER);\
-		cvlinexy (XSize - 1+2, 1, YSize - 2); \
-	}
 
+
+	#ifndef _DRAW_BORDERS
+		#define _DRAW_BORDERS
+		void DRAW_BORDERS(void)
+		{
+			unsigned char i;
+			gotoxy(0+2,0); 
+			cputc (CH_ULCORNER+128);
+			
+			for(i=0;i<38-2;++i) cputc('-' + 128);
+			
+			gotoxy(40-1,0);
+			cputc (CH_URCORNER+128);
+			
+			for(i=0;i<28-2;++i)
+			{
+				gotoxy(0+2,1+i);
+				cputc('|'+128);
+			}
+			
+			gotoxy(0+2,28-1);
+			cputc (CH_LLCORNER+128);
+			
+			for(i=0;i<38-2;++i) cputc('-' + 128);
+			
+			gotoxy(40-1, 28-1);
+			cputc (CH_LRCORNER+128);
+			
+			for(i=0;i<28-2;++i)
+			{
+				gotoxy(38-1+2,1+i);
+				cputc('|'+128);
+			}
+		}
+	#endif
+	
 	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x+2,y,length);
 	
 #endif

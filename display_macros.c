@@ -38,6 +38,8 @@
 	#include "c64/c64_redefined_characters.h"
 #elif defined(__ATMOS__)
 	#include "atmos/atmos_redefined_characters.h"
+#elif defined(__ATARI__) || defined(__ATARIXL__)
+	#include "atari/atari_graphics.h"
 #else		
 	 Image PLAYER_IMAGE;
 	 Image GHOST_IMAGE;

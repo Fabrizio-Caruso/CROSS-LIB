@@ -45,8 +45,12 @@
 	 Image MISSILE_IMAGE;
 	 Image GUN_IMAGE;
 
+	 extern char YSize; 
+	 
 	void INIT_IMAGES(void)
 	{		
+	
+		int i;
 		PLAYER_IMAGE._color = COLOR_BLUE;
 		INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
 		POWERUP_IMAGE._color = COLOR_BLUE;
@@ -61,11 +65,16 @@
 		POWERUP_IMAGE._imageData = (char) 0x5d;
 		GUN_IMAGE._imageData = (char) 0x5e;
 		MISSILE_IMAGE._imageData = (char) 0x5f;
-		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData + 128;
 
 		GHOST_IMAGE._color = COLOR_BLACK;
 		MISSILE_IMAGE._color = COLOR_BLACK;
 
+		// Initialize colors 
+		for(i=0;i<28;++i)
+		{
+			POKE(0xBB80+i*40,16);POKE(0xBB81+i*40,3);
+		}	
 	}
 	
 	void INIT_GRAPHICS(void)
@@ -116,6 +125,5 @@
 	}
 	 
 	 
-
 	
 #endif // _ATMOS_REDEFINED_CHARACTERS

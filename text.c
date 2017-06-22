@@ -75,9 +75,15 @@ void displayStatsTitles(void)
 		PRINT(2,3,"LEVEL:");
 	#endif
 	
-	gotoxy(15,1); cputc(GUN_IMAGE._imageData);cputc(':');
-	gotoxy(15,2); cputc(GHOST_IMAGE._imageData);cputc(':');
-	gotoxy(15,3); cputc(PLAYER_IMAGE._imageData);cputc(':');
+	#ifndef __ATMOS__
+		gotoxy(15,1); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(15,2); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(15,3); cputc(PLAYER_IMAGE._imageData);cputc(':');
+	#else
+		gotoxy(16,1); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(16,2); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(16,3); cputc(PLAYER_IMAGE._imageData);cputc(':');		
+	#endif
 
 }
 
@@ -89,17 +95,20 @@ void displayStats(void)
 	
 	PRINT(8,1,"      ");
 	PRINTF(8,1,"%u",ghostLevel);
-
-	PRINTF(17,1,"%hu", guns);
-	
 	PRINTF(8,2,"%lu",points);
-
-	PRINT(17,2,"    ");
-	PRINTF(17,2,"%hu",ghostCount);
-
 	PRINTF(8,3,"%hu", level);
 	
-	PRINTF(17,3,"%hu",lives);
+	#ifndef __ATMOS__
+		PRINTF(17,1,"%hu", guns);
+		PRINT( 17,2,"    ");
+		PRINTF(17,2,"%hu",ghostCount);
+		PRINTF(17,3,"%hu",lives);
+	#else
+		PRINTF(18,1,"%hu", guns);
+		PRINT( 18,2,"    ");
+		PRINTF(18,2,"%hu",ghostCount);
+		PRINTF(18,3,"%hu",lives);	
+	#endif		
 }
 
 

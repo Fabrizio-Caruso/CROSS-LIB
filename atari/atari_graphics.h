@@ -2,7 +2,14 @@
 #define _ATARI_GRAPHICS
 
 	#include <atari.h>
-	//#include <peekpoke.h>
+	#include <peekpoke.h>
+	#include <atari.h>
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <string.h>
+	#include <unistd.h>
+
+	#define SCRMEM *(unsigned int*) 88
 	
 	 Image PLAYER_IMAGE;
 	 Image GHOST_IMAGE;
@@ -16,19 +23,27 @@
 
 	void INIT_GRAPHICS(void)
 	{
-		_graphics(0);
+
+		//char * screen = (char *) SCRMEM;
+		
+		//_graphics(12);
+		
 	}
 	 
 	 
 	// TODO: Sprite initialization (to be performed only once) should be separated from level generation
 	void INIT_IMAGES(void)
 	{		
-			PLAYER_IMAGE._color = COLOR_BLUE;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
-			POWERUP_IMAGE._color = COLOR_BLUE;
-			GUN_IMAGE._color = COLOR_BLACK;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;
+	
+		// TODO: Maybe somewhere else
+		//_graphics(12);
+			
+		PLAYER_IMAGE._color = COLOR_BLUE;
+		INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
+		POWERUP_IMAGE._color = COLOR_BLUE;
+		GUN_IMAGE._color = COLOR_BLACK;
+		BOMB_IMAGE._color = COLOR_RED;
+		DEAD_GHOST_IMAGE._color = COLOR_RED;
 
 
 		GHOST_IMAGE._imageData = 'o';

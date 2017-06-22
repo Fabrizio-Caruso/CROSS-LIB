@@ -58,10 +58,12 @@ typedef struct ImageStruct Image;
 
 //
  
-#ifndef __ATMOS__
-	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);}
-#else
+#if defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=2;}
+#elif defined(__ATARIXL__) || defined(__ATARI__)
+	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *y=24;}
+#else
+	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);}
 #endif
 
 #ifndef __ATMOS__
@@ -168,8 +170,29 @@ typedef struct ImageStruct Image;
 
 	#define PRINTF(x,y,...) {gotoxy(x+2,y); cprintf(##__VA_ARGS__); };
 
+	/*
+		cputc (CH_ULCORNER);\
+		chline (XSize - 2);\
+		cputc (CH_URCORNER);\
+		cvlinexy (0, 1, YSize - 2);\
+		cputc (CH_LLCORNER);\
+		chline (XSize - 2);\
+		cputc (CH_LRCORNER);\
+		cvlinexy (XSize - 1, 1, YSize - 2); \
+	*/
+	
+	
 	#define DRAW_BORDERS()\
 	{ \
+		gotoxy(0+2,0); \
+		cputc (CH_ULCORNER);\
+		chline (XSize - 2);\
+		cputc (CH_URCORNER);\
+		cvlinexy (0+2, 1, YSize - 2);\
+		cputc (CH_LLCORNER);\
+		chline (XSize - 2);\
+		cputc (CH_LRCORNER);\
+		cvlinexy (XSize - 1+2, 1, YSize - 2); \
 	}
 
 	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x+2,y,length);

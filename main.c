@@ -491,7 +491,6 @@ int main(void)
 		gameCompleted();
 		sleep(1);
 	}
-	finalScore();
 	// GAME OVER	
 	printGameOver();
 	sleep(1);

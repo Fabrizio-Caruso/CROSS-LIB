@@ -24,3 +24,6 @@ one thing i dont remember though, you have to tell the basic where the screen is
 (else it will still print to 1024...). 
 a quick look at aay64 says the highbyte of the screen memory location should be written to $0288 ... 
 so poke 648,192 should do the trick. 
+
+
+http://atariage.com/forums/topic/149844-cc65-call-to-graphics/

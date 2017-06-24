@@ -70,6 +70,11 @@ typedef struct ImageStruct Image;
 	char powerUp_blink = 1;
 	char gun_blink = 1;
 	
+	extern Image PLAYER_LEFT;
+	extern Image PLAYER_RIGHT;
+	extern Image PLAYER_UP;
+	extern Image PLAYER_DOWN;
+	
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y)); cputc('X' + 128);};
 	
 	void DRAW_PLAYER(char x, char y, Image * image) 
@@ -186,6 +191,11 @@ typedef struct ImageStruct Image;
 		} \
 	}
 	
+	#define SHOW_LEFT() {*player._imagePtr = PLAYER_LEFT; }
+	#define SHOW_RIGHT() {*player._imagePtr = PLAYER_RIGHT; }
+	#define SHOW_UP() {*player._imagePtr = PLAYER_UP; }
+	#define SHOW_DOWN() {*player._imagePtr = PLAYER_DOWN; }
+	
 #elif defined(__ATARI__) || defined(__ATARIXL__)
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y)); cputc('X');};
 
@@ -244,6 +254,11 @@ typedef struct ImageStruct Image;
 	}
 	
 	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x,y,length);
+	
+	#define SHOW_LEFT() {}
+	#define SHOW_RIGHT() {}
+	#define SHOW_UP() {}
+	#define SHOW_DOWN() {}
 	
 #else
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x),(y)); cputc('X');};
@@ -304,6 +319,10 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x,y,length);
 	
+	#define SHOW_LEFT() {}
+	#define SHOW_RIGHT() {}
+	#define SHOW_UP() {}
+	#define SHOW_DOWN() {}	
 #endif
 
 #define CLEAR_SCREEN() clrscr();

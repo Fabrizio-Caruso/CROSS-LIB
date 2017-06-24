@@ -46,11 +46,13 @@ extern unsigned short playerFire;
 extern unsigned short level;
 extern Character player;
 
+/*
 extern Image PLAYER_IMAGE;
 extern Image PLAYER_LEFT;
 extern Image PLAYER_RIGHT;
 extern Image PLAYER_UP;
 extern Image PLAYER_DOWN;
+*/
 
 void movePlayerByKeyboard(char kbInput)
 {
@@ -60,7 +62,8 @@ void movePlayerByKeyboard(char kbInput)
 		--player._y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = UP;
-		*player._imagePtr = PLAYER_UP;
+		SHOW_UP();
+		//*player._imagePtr = PLAYER_UP;
 	}
 	else if((kbInput=='S') || (kbInput=='s'))
 	{
@@ -68,7 +71,8 @@ void movePlayerByKeyboard(char kbInput)
 		++player._y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = DOWN;
-		*player._imagePtr = PLAYER_DOWN;
+		SHOW_DOWN();
+		//*player._imagePtr = PLAYER_DOWN;
 	}
 	else if((kbInput=='A') || (kbInput=='a'))
 	{
@@ -76,7 +80,8 @@ void movePlayerByKeyboard(char kbInput)
 		--player._x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = LEFT;
-		*player._imagePtr = PLAYER_LEFT;
+		SHOW_LEFT();
+		//*player._imagePtr = PLAYER_LEFT;
 	}
 	else if((kbInput=='D') || (kbInput=='d'))
 	{
@@ -84,7 +89,8 @@ void movePlayerByKeyboard(char kbInput)
 		++player._x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = RIGHT;
-		*player._imagePtr = PLAYER_RIGHT;
+		SHOW_RIGHT();
+		//*player._imagePtr = PLAYER_RIGHT;
 	}
 	else 	
 	if(kbInput==' ')
@@ -114,6 +120,7 @@ void movePlayerByJoystick(unsigned char joyInput)
 		--player._y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = UP;
+		SHOW_UP();
 		// *player._imagePtr = PLAYER_UP;
 
 	}
@@ -123,6 +130,7 @@ void movePlayerByJoystick(unsigned char joyInput)
 		++player._y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = DOWN;
+		SHOW_DOWN();
 		// *player._imagePtr = PLAYER_DOWN;
 	}
 	else if(JOY_BTN_LEFT(joyInput))
@@ -131,6 +139,7 @@ void movePlayerByJoystick(unsigned char joyInput)
 		--player._x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = LEFT;
+		SHOW_LEFT();
 		// *player._imagePtr = PLAYER_LEFT;
 	}
 	else if(JOY_BTN_RIGHT(joyInput))
@@ -139,6 +148,7 @@ void movePlayerByJoystick(unsigned char joyInput)
 		++player._x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = RIGHT;
+		SHOW_RIGHT();
 		// *player._imagePtr = PLAYER_RIGHT;
 	}
 	else if(JOY_BTN_FIRE(joyInput))

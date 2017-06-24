@@ -84,10 +84,10 @@
 		PLAYER_UP._color = 0;
 			
 
-		PLAYER_LEFT._imageData = '<';
-		PLAYER_RIGHT._imageData = '>';
-		PLAYER_UP._imageData = 'U';
-		PLAYER_DOWN._imageData = 'D';
+		PLAYER_LEFT._imageData = '*';
+		PLAYER_RIGHT._imageData = ',';
+		PLAYER_UP._imageData = '.';
+		PLAYER_DOWN._imageData = '/';
 		
 		// Initialize colors 
 		for(i=0;i<28;++i)

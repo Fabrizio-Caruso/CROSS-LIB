@@ -69,9 +69,14 @@ typedef struct ImageStruct Image;
 #if defined(__ATMOS__)
 	char powerUp_blink = 1;
 	char gun_blink = 1;
+	
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y)); cputc('X' + 128);};
 	
-	void DRAW_PLAYER(char x, char y, Image * image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	void DRAW_PLAYER(char x, char y, Image * image) 
+	{
+		gotoxy((x+2),(y)); 
+		cputc(image->_imageData + image->_color);
+	};
 
 		
 

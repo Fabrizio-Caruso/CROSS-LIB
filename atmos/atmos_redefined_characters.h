@@ -45,31 +45,50 @@
 	 Image MISSILE_IMAGE;
 	 Image GUN_IMAGE;
 
+	 Image PLAYER_RIGHT;
+	 Image PLAYER_LEFT;
+	 Image PLAYER_UP;
+	 Image PLAYER_DOWN;
+	 
 	 extern char YSize; 
 	 
 	void INIT_IMAGES(void)
 	{		
 	
 		int i;
-		PLAYER_IMAGE._color = 0;
+
+		PLAYER_DOWN._color = 0;		
+		GHOST_IMAGE._color = 0;
+		MISSILE_IMAGE._color = 0;
 		INVINCIBLE_GHOST_IMAGE._color = 0;
 		POWERUP_IMAGE._color = 128;
 		GUN_IMAGE._color = 128;
 		BOMB_IMAGE._color = 128;
-		DEAD_GHOST_IMAGE._color = 128;
+		//DEAD_GHOST_IMAGE._color = 128;
 			
 		GHOST_IMAGE._imageData = (char) 0x60;
 		INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x5a;
 		BOMB_IMAGE._imageData = (char) 0x5b;
 		PLAYER_IMAGE._imageData = (char) 0x5c;
+		
+
 		POWERUP_IMAGE._imageData = (char) 0x5d;
 		GUN_IMAGE._imageData = (char) 0x5e;
 		MISSILE_IMAGE._imageData = (char) 0x5f;
-		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+		//DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
-		GHOST_IMAGE._color = 0;
-		MISSILE_IMAGE._color = 0;
 
+		PLAYER_IMAGE._color = 0;
+		PLAYER_LEFT._color = 0;
+		PLAYER_RIGHT._color = 0;
+		PLAYER_UP._color = 0;
+			
+
+		// PLAYER_LEFT._imageData = '<';
+		// PLAYER_RIGHT._imageData = '>';
+		// PLAYER_UP._imageData = 'U';
+		// PLAYER_DOWN._imageData = 'D';
+		
 		// Initialize colors 
 		for(i=0;i<28;++i)
 		{
@@ -87,12 +106,13 @@
 		const unsigned char invincible_ghost[]  =     {30,33,51,33,33,18,18,12};
 		const unsigned char gun[]  =                  { 0,32,31,40,56,32, 0, 0};
 		const unsigned char missile[]  =              { 0, 0, 4,28,14, 8, 0, 0};
+		
+		const unsigned char player_left[] =           {12,22,12,62,13,12,20,20};
+		const unsigned char player_right[] =          {12,26,12,31,44,12,10,10};		
+		const unsigned char player_up[] =             {12,30,12,51,45,12,18,51};
+		const unsigned char player_down[] =           {12,18,12,51,45,12,18,51};
 		//const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
 		
-		for(i=0;i<8;++i)
-		{
-			POKE(0xb400 + PLAYER_IMAGE._imageData*8 + i, player[i]);
-		}
 		
 		for(i=0;i<8;++i)
 		{
@@ -123,6 +143,31 @@
 		{
 			POKE(0xb400 + MISSILE_IMAGE._imageData*8 + i, missile[i]);
 		}
+
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + PLAYER_IMAGE._imageData*8 + i, player[i]);
+		}
+		
+		// for(i=0;i<8;++i)
+		// {
+			// POKE(0xb400 + PLAYER_LEFT._imageData*8 + i, player_left[i]);
+		// }
+		
+		// for(i=0;i<8;++i)
+		// {
+			// POKE(0xb400 + PLAYER_RIGHT._imageData*8 + i, player_right[i]);
+		// }
+		
+		// for(i=0;i<8;++i)
+		// {
+			// POKE(0xb400 + PLAYER_UP._imageData*8 + i, player_up[i]);
+		// }
+		
+		// for(i=0;i<8;++i)
+		// {
+			// POKE(0xb400 + PLAYER_DOWN._imageData*8 + i, player_down[i]);
+		// }
 		
 		// for(i=0;i<8;++i)
 		// {

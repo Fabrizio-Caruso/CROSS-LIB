@@ -26,8 +26,8 @@
 
 		//char * screen = (char *) SCRMEM;
 		
-		_graphics(1);
-		
+		//_graphics(12);
+		_graphics(0);
 	}
 	 
 	 

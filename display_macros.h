@@ -61,15 +61,19 @@ typedef struct ImageStruct Image;
 #if defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=2;}
 #elif defined(__ATARIXL__) || defined(__ATARI__)
-	#define GET_SCREEN_SIZE(x,y) {*x=20; *y=24;}
+	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);}
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);}
 #endif
 
 #if defined(__ATMOS__)
+	char powerUp_blink = 1;
+	char gun_blink = 1;
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y)); cputc('X' + 128);};
+	
+	void DRAW_PLAYER(char x, char y, Image * image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
-	#define DRAW_PLAYER(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+		
 
 	#define DRAW_GHOST(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 	
@@ -77,10 +81,41 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_BOMB(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
-	#define DRAW_POWERUP(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
-
-	#define DRAW_GUN(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
-
+	//#define DRAW_POWERUP(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	void DRAW_POWERUP(char x, char y, Image * image) 
+	{
+		gotoxy((x+2),(y)); 
+		if(powerUp_blink) 
+		{
+			cputc(image->_imageData + image->_color); 
+			powerUp_blink=0;
+		} 
+		else 
+		{
+			cputc(' '); 
+			powerUp_blink=1;
+		}
+	};
+	
+	
+	//#define DRAW_GUN(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	void DRAW_GUN(char x, char y, Image * image) 
+	{
+		gotoxy((x+2),(y)); 
+		if(gun_blink) 
+		{
+			cputc(image->_imageData + image->_color); 
+			gun_blink=0;
+		} 
+		else 
+		{
+			cputc(' '); 
+			gun_blink=1;
+		}
+	};
+	
+	
+	
 	#define DRAW_MISSILE(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
 	#define DRAW_BOMBS() \
@@ -191,19 +226,16 @@ typedef struct ImageStruct Image;
 
 	#define PRINTF(x,y,...) {gotoxy(x,y); cprintf(##__VA_ARGS__); };
 
-	// #define DRAW_BORDERS()\
-	// { \
-		// cputc (CH_ULCORNER);\
-		// chline (XSize - 2);\
-		// cputc (CH_URCORNER);\
-		// cvlinexy (0, 1, YSize - 2);\
-		// cputc (CH_LLCORNER);\
-		// chline (XSize - 2);\
-		// cputc (CH_LRCORNER);\
-		// cvlinexy (XSize - 1, 1, YSize - 2); \
-	// }
 	#define DRAW_BORDERS()\
 	{ \
+		cputc (CH_ULCORNER);\
+		chline (XSize - 2);\
+		cputc (CH_URCORNER);\
+		cvlinexy (0, 1, YSize - 2);\
+		cputc (CH_LLCORNER);\
+		chline (XSize - 2);\
+		cputc (CH_LRCORNER);\
+		cvlinexy (XSize - 1, 1, YSize - 2); \
 	}
 	
 	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x,y,length);

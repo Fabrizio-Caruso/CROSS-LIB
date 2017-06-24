@@ -53,6 +53,9 @@
 #include "sound_macros.h"
 
 
+//#define DEBUG_ATARI
+// #define DEBUG_CHARACTERS
+
 unsigned int invincibleSlowDown = 30000;
 unsigned short invincibleXCountDown = 100;
 unsigned short invincibleYCountDown = 100;
@@ -364,6 +367,17 @@ int main(void)
 			printf("powerup %c\n", POWERUP_IMAGE._imageData);
 			printf("gun %c\n", GUN_IMAGE._imageData);
 			printf("missile %c\n", MISSILE_IMAGE._imageData);
+		#endif
+
+		#if defined(DEBUG_ATARI) && (defined(__ATARI__) || defined(__ATARIXL__))
+		{
+			int i;
+			for(i=0;i<10;++i)
+			{
+				gotoxy(0,i); cputs("ABCDEFGHIJK");
+				sleep(1);
+			}
+		}
 		#endif
 		
 		initialScreen();

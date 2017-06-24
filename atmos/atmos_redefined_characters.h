@@ -64,7 +64,7 @@
 		POWERUP_IMAGE._color = 128;
 		GUN_IMAGE._color = 128;
 		BOMB_IMAGE._color = 128;
-		//DEAD_GHOST_IMAGE._color = 128;
+		DEAD_GHOST_IMAGE._color = 128;
 			
 		GHOST_IMAGE._imageData = (char) 0x60;
 		INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x5a;
@@ -75,7 +75,7 @@
 		POWERUP_IMAGE._imageData = (char) 0x5d;
 		GUN_IMAGE._imageData = (char) 0x5e;
 		MISSILE_IMAGE._imageData = (char) 0x5f;
-		//DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
 
 		PLAYER_IMAGE._color = 0;

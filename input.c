@@ -114,7 +114,7 @@ void movePlayerByJoystick(unsigned char joyInput)
 		--player._y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = UP;
-		*player._imagePtr = PLAYER_UP;
+		// *player._imagePtr = PLAYER_UP;
 
 	}
 	else if(JOY_BTN_DOWN(joyInput))
@@ -123,7 +123,7 @@ void movePlayerByJoystick(unsigned char joyInput)
 		++player._y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = DOWN;
-		*player._imagePtr = PLAYER_DOWN;
+		// *player._imagePtr = PLAYER_DOWN;
 	}
 	else if(JOY_BTN_LEFT(joyInput))
 	{
@@ -131,7 +131,7 @@ void movePlayerByJoystick(unsigned char joyInput)
 		--player._x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = LEFT;
-		*player._imagePtr = PLAYER_LEFT;
+		// *player._imagePtr = PLAYER_LEFT;
 	}
 	else if(JOY_BTN_RIGHT(joyInput))
 	{
@@ -139,7 +139,7 @@ void movePlayerByJoystick(unsigned char joyInput)
 		++player._x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = RIGHT;
-		*player._imagePtr = PLAYER_RIGHT;
+		// *player._imagePtr = PLAYER_RIGHT;
 	}
 	else if(JOY_BTN_FIRE(joyInput))
 	{

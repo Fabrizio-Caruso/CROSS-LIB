@@ -86,7 +86,7 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_BOMB(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
-	//#define DRAW_POWERUP(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	// #define DRAW_POWERUP(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 	void DRAW_POWERUP(char x, char y, Image * image) 
 	{
 		gotoxy((x+2),(y)); 
@@ -103,7 +103,7 @@ typedef struct ImageStruct Image;
 	};
 	
 	
-	//#define DRAW_GUN(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	// #define DRAW_GUN(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 	void DRAW_GUN(char x, char y, Image * image) 
 	{
 		gotoxy((x+2),(y)); 

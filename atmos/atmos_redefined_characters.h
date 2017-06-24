@@ -84,10 +84,10 @@
 		PLAYER_UP._color = 0;
 			
 
-		// PLAYER_LEFT._imageData = '<';
-		// PLAYER_RIGHT._imageData = '>';
-		// PLAYER_UP._imageData = 'U';
-		// PLAYER_DOWN._imageData = 'D';
+		PLAYER_LEFT._imageData = '<';
+		PLAYER_RIGHT._imageData = '>';
+		PLAYER_UP._imageData = 'U';
+		PLAYER_DOWN._imageData = 'D';
 		
 		// Initialize colors 
 		for(i=0;i<28;++i)
@@ -149,25 +149,27 @@
 			POKE(0xb400 + PLAYER_IMAGE._imageData*8 + i, player[i]);
 		}
 		
-		// for(i=0;i<8;++i)
-		// {
-			// POKE(0xb400 + PLAYER_LEFT._imageData*8 + i, player_left[i]);
-		// }
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + PLAYER_LEFT._imageData*8 + i, player_left[i]);
+		}
 		
-		// for(i=0;i<8;++i)
-		// {
-			// POKE(0xb400 + PLAYER_RIGHT._imageData*8 + i, player_right[i]);
-		// }
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + PLAYER_RIGHT._imageData*8 + i, player_right[i]);
+		}
 		
-		// for(i=0;i<8;++i)
-		// {
-			// POKE(0xb400 + PLAYER_UP._imageData*8 + i, player_up[i]);
-		// }
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + PLAYER_UP._imageData*8 + i, player_up[i]);
+		}
 		
-		// for(i=0;i<8;++i)
-		// {
-			// POKE(0xb400 + PLAYER_DOWN._imageData*8 + i, player_down[i]);
-		// }
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + PLAYER_DOWN._imageData*8 + i, player_down[i]);
+		}
+		
+		
 		
 		// for(i=0;i<8;++i)
 		// {

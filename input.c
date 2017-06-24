@@ -60,7 +60,7 @@ void movePlayerByKeyboard(char kbInput)
 		--player._y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = UP;
-		// *player._imagePtr = PLAYER_UP;
+		*player._imagePtr = PLAYER_UP;
 	}
 	else if((kbInput=='S') || (kbInput=='s'))
 	{
@@ -68,7 +68,7 @@ void movePlayerByKeyboard(char kbInput)
 		++player._y;
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = DOWN;
-		// *player._imagePtr = PLAYER_DOWN;
+		*player._imagePtr = PLAYER_DOWN;
 	}
 	else if((kbInput=='A') || (kbInput=='a'))
 	{
@@ -76,7 +76,7 @@ void movePlayerByKeyboard(char kbInput)
 		--player._x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = LEFT;
-		// *player._imagePtr = PLAYER_LEFT;
+		*player._imagePtr = PLAYER_LEFT;
 	}
 	else if((kbInput=='D') || (kbInput=='d'))
 	{
@@ -84,7 +84,7 @@ void movePlayerByKeyboard(char kbInput)
 		++player._x;
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = RIGHT;
-		// *player._imagePtr = PLAYER_RIGHT;
+		*player._imagePtr = PLAYER_RIGHT;
 	}
 	else 	
 	if(kbInput==' ')

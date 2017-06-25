@@ -53,7 +53,7 @@
 #include "sound_macros.h"
 
 
-//#define DEBUG_ATARI
+// #define DEBUG_ATARI
 // #define DEBUG_CHARACTERS
 
 unsigned int invincibleSlowDown = 30000;
@@ -439,6 +439,12 @@ int main(void)
 			
 				// Chase the player
 				chasePlayer(ghostSlowDown);
+				
+				// TODO: this should fix missile vs ghost detection problem
+				if(missile._status)
+				{
+					checkMissileVsGhosts(&missile);
+				}
 				
 				handle_player_vs_bombs_and_ghosts();
 				

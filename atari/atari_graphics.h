@@ -26,8 +26,8 @@
 
 		//char * screen = (char *) SCRMEM;
 		
-		//_graphics(12);
-		_graphics(0);
+		//_graphics(13);
+		_graphics(12);
 	}
 	 
 	 
@@ -36,7 +36,7 @@
 	{		
 	
 		// TODO: Maybe somewhere else
-		//_graphics(12);
+		//_graphics(13);
 			
 		PLAYER_IMAGE._color = COLOR_BLUE;
 		INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;

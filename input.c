@@ -46,13 +46,6 @@ extern unsigned short playerFire;
 extern unsigned short level;
 extern Character player;
 
-/*
-extern Image PLAYER_IMAGE;
-extern Image PLAYER_LEFT;
-extern Image PLAYER_RIGHT;
-extern Image PLAYER_UP;
-extern Image PLAYER_DOWN;
-*/
 
 void movePlayerByKeyboard(char kbInput)
 {

@@ -35,8 +35,8 @@ $ cl65 -t atarixl --start-addr 0x4000 -o TGIDXL.COM tgidemo.c
 
 http://www.atarimania.com/documents/Understanding-Atari-Graphics.pdf
 
-
-java -jar ac.jar -cc65 mydisk.dsk myprog   bin < myprog
+java -jar ac.jar -cc65 cc65.dsk test B < hello
+java -jar ac.jar -cc65 cc65.dsk [volume name] B < [binary file]
 
 
 http://macgui.com/kb/article/761

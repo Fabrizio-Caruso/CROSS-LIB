@@ -1,20 +1,23 @@
-@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
-@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
+@REM 
+set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM 
+set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+@REM 
+set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
 
-@REM 
-set cc65path="D:\personal\cc65-snapshot-win32"
-@REM 
-set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
-@REM 
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+@REM set cc65path="D:\personal\cc65-snapshot-win32"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
+@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 
 set Deliverables=%mypath%\deliverables
 
 mkdir %deliverables% 2> NUL
 
-del %deliverables%\*
+del %deliverables%\*.prg
+del %deliverables%\*.bin
+del %deliverables%\*.xex
+del %deliverables%\*.tap
 del %mypath%\atmos\*.o
 del %mypath%\c64\*.o
 del %mypath%\patch\*.o

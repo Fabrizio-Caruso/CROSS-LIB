@@ -33,7 +33,11 @@
 
 #include "character.h"
 #include "settings.h"
-#include <joystick.h>
+
+#if defined(__APPLE2__) || defined(__APPLE2ENH__)
+#else
+	#include <joystick.h>
+#endif
 #include "display_macros.h"
 #include "invincible_enemy.h"
 
@@ -45,6 +49,57 @@ extern unsigned short playerDirection;
 extern unsigned short playerFire;
 extern unsigned short level;
 extern Character player;
+
+#if defined(__APPLE2__) || defined(__APPLE2ENH__)
+#else
+	void movePlayerByJoystick(unsigned char joyInput)
+	{
+		if(JOY_BTN_UP(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			--player._y;
+			invincibleYCountDown = computeInvincibleCountDown();
+			playerDirection = UP;
+			SHOW_UP();
+			// *player._imagePtr = PLAYER_UP;
+
+		}
+		else if(JOY_BTN_DOWN(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			++player._y;
+			invincibleYCountDown = computeInvincibleCountDown();
+			playerDirection = DOWN;
+			SHOW_DOWN();
+			// *player._imagePtr = PLAYER_DOWN;
+		}
+		else if(JOY_BTN_LEFT(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			--player._x;
+			invincibleXCountDown = computeInvincibleCountDown();
+			playerDirection = LEFT;
+			SHOW_LEFT();
+			// *player._imagePtr = PLAYER_LEFT;
+		}
+		else if(JOY_BTN_RIGHT(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			++player._x;
+			invincibleXCountDown = computeInvincibleCountDown();
+			playerDirection = RIGHT;
+			SHOW_RIGHT();
+			// *player._imagePtr = PLAYER_RIGHT;
+		}
+		else if(JOY_BTN_FIRE(joyInput))
+		{
+			playerFire = 1;
+		}
+		SET_TEXT_COLOR(PLAYER_COLOR);
+		DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		SET_TEXT_COLOR(TEXT_COLOR);
+	}
+#endif
 
 
 void movePlayerByKeyboard(char kbInput)
@@ -100,54 +155,6 @@ void movePlayerByKeyboard(char kbInput)
 			SET_TEXT_COLOR(TEXT_COLOR);
 		}
 	#endif // TRAINER
-	SET_TEXT_COLOR(PLAYER_COLOR);
-	DRAW_PLAYER(player._x, player._y, player._imagePtr);
-	SET_TEXT_COLOR(TEXT_COLOR);
-}
-
-void movePlayerByJoystick(unsigned char joyInput)
-{
-	if(JOY_BTN_UP(joyInput))
-	{
-		DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		--player._y;
-		invincibleYCountDown = computeInvincibleCountDown();
-		playerDirection = UP;
-		SHOW_UP();
-		// *player._imagePtr = PLAYER_UP;
-
-	}
-	else if(JOY_BTN_DOWN(joyInput))
-	{
-		DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		++player._y;
-		invincibleYCountDown = computeInvincibleCountDown();
-		playerDirection = DOWN;
-		SHOW_DOWN();
-		// *player._imagePtr = PLAYER_DOWN;
-	}
-	else if(JOY_BTN_LEFT(joyInput))
-	{
-		DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		--player._x;
-		invincibleXCountDown = computeInvincibleCountDown();
-		playerDirection = LEFT;
-		SHOW_LEFT();
-		// *player._imagePtr = PLAYER_LEFT;
-	}
-	else if(JOY_BTN_RIGHT(joyInput))
-	{
-		DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		++player._x;
-		invincibleXCountDown = computeInvincibleCountDown();
-		playerDirection = RIGHT;
-		SHOW_RIGHT();
-		// *player._imagePtr = PLAYER_RIGHT;
-	}
-	else if(JOY_BTN_FIRE(joyInput))
-	{
-		playerFire = 1;
-	}
 	SET_TEXT_COLOR(PLAYER_COLOR);
 	DRAW_PLAYER(player._x, player._y, player._imagePtr);
 	SET_TEXT_COLOR(TEXT_COLOR);

@@ -161,7 +161,7 @@ typedef struct ImageStruct Image;
 		gotoxy(0+2,0); \
 		cputc (CH_ULCORNER+128); \
 		for(i=0;i<38-2;++i) cputc('-' + 128); \
-		gotoxy(40-1,0); \
+		gotoxy(38-1+2,0); \
 		cputc (CH_URCORNER+128); \
 		for(i=0;i<28-2;++i) \
 		{ \
@@ -171,7 +171,7 @@ typedef struct ImageStruct Image;
 		gotoxy(0+2,28-1); \
 		cputc (CH_LLCORNER+128); \
 		for(i=0;i<38-2;++i) cputc('-' + 128); \
-		gotoxy(40-1, 28-1); \
+		gotoxy(38-1+2, 28-1); \
 		cputc (CH_LRCORNER+128); \
 		for(i=0;i<28-2;++i) \
 		{ \
@@ -197,7 +197,7 @@ typedef struct ImageStruct Image;
 	#define SHOW_DOWN() {*player._imagePtr = PLAYER_DOWN; }
 	
 #elif defined(__ATARI__) || defined(__ATARIXL__)
-	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y)); cputc('X');};
+	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x),(y)); cputc('X');};
 
 	#define DRAW_PLAYER(x,y,image) {gotoxy((x),(y)); cputc(image->_imageData);};
 

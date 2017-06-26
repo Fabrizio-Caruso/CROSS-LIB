@@ -9,6 +9,8 @@
 	#include <string.h>
 	#include <unistd.h>
 
+	#define GRAPHICS_MODE 0
+	
 	//#define SCRMEM *(unsigned int*) 88
 	
 	 Image PLAYER_IMAGE;
@@ -24,10 +26,10 @@
 	void INIT_GRAPHICS(void)
 	{
 
-		//char * screen = (char *) SCRMEM;
-		
-		//_graphics(13);
-		_graphics(12+16);
+		// Mode 12 with no last monochromatic lines (12+16)
+		_graphics(GRAPHICS_MODE);
+		//_setcolor(TGI_COLOR_BLUE,TGI_COLOR_WHITE,TGI_COLOR_RED);
+		//_setcolor_low(TGI_COLOR_GREEN, TGI_COLOR_BLUE);
 	}
 	 
 	 

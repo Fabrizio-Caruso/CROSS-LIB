@@ -53,14 +53,10 @@ extern unsigned int ghostLevel;
 
  extern Image PLAYER_IMAGE;
  extern Image GHOST_IMAGE;
- // Image DEAD_GHOST_IMAGE;
- // Image INVINCIBLE_GHOST_IMAGE;
- // Image BOMB_IMAGE;
- // Image POWERUP_IMAGE;
- // Image MISSILE_IMAGE;
  extern Image GUN_IMAGE;
 
 
+// TODO: This is SLOW
 void displayStatsTitles(void)
 {
 	SET_TEXT_COLOR(COLOR_BLACK);
@@ -69,7 +65,7 @@ void displayStatsTitles(void)
 		PRINT(2,1,"speed:");
 		PRINT(2,2,"score:");
 		PRINT(2,3,"level:");
-	#elif defined(__ATARI__) || defined(__ATARIXL__) 
+	//#elif defined(__ATARI__) || defined(__ATARIXL__) 
 	#else
 		PRINT(2,1,"SPEED:");
 		PRINT(2,2,"SCORE:");
@@ -80,7 +76,7 @@ void displayStatsTitles(void)
 		gotoxy(16,1); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(16,2); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(16,3); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-	#elif defined(__ATARI__) || defined(__ATARIXL__) 
+	//#elif defined(__ATARI__) || defined(__ATARIXL__) 
 	#else
 		gotoxy(15,1); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(15,2); cputc(GHOST_IMAGE._imageData);cputc(':');
@@ -91,24 +87,25 @@ void displayStatsTitles(void)
 
 
 
+// TODO: This is SLOW
 void displayStats(void)
 {	
 	SET_TEXT_COLOR(COLOR_BLACK);
 	
-	#if defined(__ATARI__) || defined(__ATARIXL__)
-	#else	
+	//#if defined(__ATARI__) || defined(__ATARIXL__)
+	//#else	
 		PRINT(8,1,"      ");
 		PRINTF(8,1,"%u",ghostLevel);
 		PRINTF(8,2,"%lu",points);
 		PRINTF(8,3,"%hu", level);
-	#endif
+	//#endif
 	
 	#if defined (__ATMOS__)
 		PRINTF(18,1,"%hu", guns);
 		PRINT( 18,2,"    ");
 		PRINTF(18,2,"%hu",ghostCount);
 		PRINTF(18,3,"%hu",lives);	
-	#elif defined(__ATARI__) || defined(__ATARIXL__) 
+	//#elif defined(__ATARI__) || defined(__ATARIXL__) 
 	#else
 		PRINTF(17,1,"%hu", guns);
 		PRINT( 17,2,"    ");
@@ -345,7 +342,7 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_GREEN);
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 		SET_TEXT_COLOR(TEXT_COLOR);
-	#elif defined(__ATMOS__) || defined(__ATARI__)
+	#elif defined(__ATMOS__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use W A S D <SPACE>");
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");

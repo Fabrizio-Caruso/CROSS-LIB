@@ -50,16 +50,19 @@
 
 #define WAIT_KEY_PRESS() {while(!kbhit()){}; cgetc();};
 
-
-#if defined (__CBM__) || defined(__ATARI__) || defined(__ATARIXL__)
+#if defined (__CBM610__)
+	#define WAIT_PRESS() WAIT_KEY_PRESS();
+#elif defined (__CBM__) || defined(__ATARI__) || defined(__ATARIXL__)
 	#define WAIT_PRESS() WAIT_JOY1_PRESS();
 #else
 	#define WAIT_PRESS() WAIT_KEY_PRESS();
 #endif
 
+#if defined (__CBM610__)
+#else
+	#define JOY_INSTALL() { joy_load_driver(joy_stddrv); joy_install(joy_static_stddrv); };
 
-#define JOY_INSTALL() { joy_load_driver(joy_stddrv); joy_install(joy_static_stddrv); };
+	#define GET_JOY1() joy_read (JOY_1);
 
-#define GET_JOY1() joy_read (JOY_1);
-
-#define GET_JOY2() joy_read (JOY_2);
+	#define GET_JOY2() joy_read (JOY_2);
+#endif

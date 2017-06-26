@@ -34,7 +34,7 @@
 #include "character.h"
 #include "settings.h"
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
 #else
 	#include <joystick.h>
 #endif
@@ -50,7 +50,7 @@ extern unsigned short playerFire;
 extern unsigned short level;
 extern Character player;
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
 #else
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
@@ -61,8 +61,6 @@ extern Character player;
 			invincibleYCountDown = computeInvincibleCountDown();
 			playerDirection = UP;
 			SHOW_UP();
-			// *player._imagePtr = PLAYER_UP;
-
 		}
 		else if(JOY_BTN_DOWN(joyInput))
 		{
@@ -71,7 +69,6 @@ extern Character player;
 			invincibleYCountDown = computeInvincibleCountDown();
 			playerDirection = DOWN;
 			SHOW_DOWN();
-			// *player._imagePtr = PLAYER_DOWN;
 		}
 		else if(JOY_BTN_LEFT(joyInput))
 		{
@@ -80,7 +77,6 @@ extern Character player;
 			invincibleXCountDown = computeInvincibleCountDown();
 			playerDirection = LEFT;
 			SHOW_LEFT();
-			// *player._imagePtr = PLAYER_LEFT;
 		}
 		else if(JOY_BTN_RIGHT(joyInput))
 		{
@@ -89,7 +85,6 @@ extern Character player;
 			invincibleXCountDown = computeInvincibleCountDown();
 			playerDirection = RIGHT;
 			SHOW_RIGHT();
-			// *player._imagePtr = PLAYER_RIGHT;
 		}
 		else if(JOY_BTN_FIRE(joyInput))
 		{

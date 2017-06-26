@@ -61,7 +61,7 @@ typedef struct ImageStruct Image;
 #if defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=2;}
 #elif defined(__ATARIXL__) || defined(__ATARI__)
-	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);}; //*x=40;*y=20;}
+	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);};
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);}
 #endif

@@ -40,7 +40,8 @@ cd %cc65path%\bin\
 cl65.exe -O -t atari -Wl -D__RESERVED_MEMORY__=0x2000 --config %mypath%\cfg\atari_mode12.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atari800.xex
 
 @REM Atmos has a conio issue (fixed with a patch)
-@REM cl65.exe -O -t atmos --config %mypath%\cfg\atmos_better_tap.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atmos_redefined_characters.tap
+@REM 
+cl65.exe -O -t atmos --config %mypath%\cfg\atmos_better_tap.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atmos_redefined_characters.tap
 
 @REM cl65.exe  -O -t atarixl --start-addr 0x4000 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atariXL.xex
 

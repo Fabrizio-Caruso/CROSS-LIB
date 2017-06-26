@@ -160,7 +160,10 @@ typedef struct ImageStruct Image;
 		unsigned char i; \
 		gotoxy(0+2,0); \
 		cputc (CH_ULCORNER+128); \
-		for(i=0;i<38-2;++i) cputc('-' + 128); \
+		for(i=0;i<38-1;++i) \
+		{ \
+			cputc('-' + 128); \
+		} \
 		gotoxy(38-1+2,0); \
 		cputc (CH_URCORNER+128); \
 		for(i=0;i<28-2;++i) \
@@ -170,7 +173,10 @@ typedef struct ImageStruct Image;
 		} \
 		gotoxy(0+2,28-1); \
 		cputc (CH_LLCORNER+128); \
-		for(i=0;i<38-2;++i) cputc('-' + 128); \
+		for(i=0;i<38-1;++i) \
+		{ \
+			cputc('-' + 128); \
+		} \
 		gotoxy(38-1+2, 28-1); \
 		cputc (CH_LRCORNER+128); \
 		for(i=0;i<28-2;++i) \

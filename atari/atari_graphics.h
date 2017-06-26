@@ -27,7 +27,7 @@
 		//char * screen = (char *) SCRMEM;
 		
 		//_graphics(13);
-		_graphics(12);
+		_graphics(12+16);
 	}
 	 
 	 
@@ -49,10 +49,10 @@
 		GHOST_IMAGE._imageData = 'o';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
 		BOMB_IMAGE._imageData = 'x';
-		PLAYER_IMAGE._imageData = 'p';
+		PLAYER_IMAGE._imageData = '*';
 		POWERUP_IMAGE._imageData = 's';
-		GUN_IMAGE._imageData = 'g';
-		MISSILE_IMAGE._imageData = 'm';
+		GUN_IMAGE._imageData = '!';
+		MISSILE_IMAGE._imageData = '.';
 		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
 		GHOST_IMAGE._color = COLOR_BLACK;

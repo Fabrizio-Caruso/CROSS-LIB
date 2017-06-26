@@ -37,7 +37,7 @@
 #include "character.h"
 
 
-#if defined (__CBM__) 
+#if defined (__CBM__) || defined(__ATARI__) || defined(__ATARIXL__)
 	#define INIT_INPUT() unsigned char kbInput; JOY_INSTALL(); 
 #else
 	#define INIT_INPUT() unsigned char kbInput;
@@ -45,7 +45,7 @@
 
 
 // Move player
-#if defined(__CBM__)
+#if defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__)
 	#define MOVE_PLAYER() { kbInput = GET_JOY1(); movePlayerByJoystick(kbInput);}
 	void movePlayerByJoystick(unsigned char joyInput);
 #else

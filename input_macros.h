@@ -51,7 +51,7 @@
 #define WAIT_KEY_PRESS() {while(!kbhit()){}; cgetc();};
 
 
-#if defined (__CBM__) 
+#if defined (__CBM__) || defined(__ATARI__) || defined(__ATARIXL__)
 	#define WAIT_PRESS() WAIT_JOY1_PRESS();
 #else
 	#define WAIT_PRESS() WAIT_KEY_PRESS();

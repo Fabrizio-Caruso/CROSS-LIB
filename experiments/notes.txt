@@ -29,11 +29,16 @@ so poke 648,192 should do the trick.
 http://atariage.com/forums/topic/149844-cc65-call-to-graphics/
 
 
-
 $ cl65 -t atari -Wl -D__RESERVED_MEMORY__=0x2000 -o TGID.COM tgidemo.c
 
 $ cl65 -t atarixl --start-addr 0x4000 -o TGIDXL.COM tgidemo.c
 
+http://www.atarimania.com/documents/Understanding-Atari-Graphics.pdf
+
+
 java -jar ac.jar -cc65 mydisk.dsk myprog   bin < myprog
 
-http://www.atarimania.com/documents/Understanding-Atari-Graphics.pdf
+
+http://macgui.com/kb/article/761
+
+

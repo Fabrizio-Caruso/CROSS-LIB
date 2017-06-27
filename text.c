@@ -222,6 +222,12 @@ void finalScore(void)
 	sprintf(scoreString, "score:  %lu", points);
 	printCenteredMessage(scoreString);
 }
+
+void printExtraLife(void)
+{
+	printCenteredMessage("e x t r a   l i f e ! ! !"); 
+	sleep(1);
+}
 #else
 void printLevelBonus(void)
 {
@@ -238,6 +244,12 @@ void gameCompleted(void)
 	printCenteredMessage("Y O U   M A D E   I T !"); 
 	sleep(1);
 	printCenteredMessage("    T H E   E N D    "); 
+	sleep(1);
+}
+
+void printExtraLife(void)
+{
+	printCenteredMessage("E X T R A   L I F E ! ! !"); 
 	sleep(1);
 }
 

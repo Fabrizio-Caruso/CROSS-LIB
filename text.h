@@ -68,6 +68,8 @@ void printStartMessage(void);
 
 void gameCompleted(void);
 
+void printExtraLife(void);
+
 void finalScore(void);
 
 #endif // _DISPLAY

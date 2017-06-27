@@ -203,8 +203,8 @@ void handle_gun_item()
 		do
 		{
 			relocateCharacter(&gun, bombs,4);
-			DRAW_GUN(gun._x, gun._y, gun._imagePtr);
 		} while(nearInnerWall(&gun));
+		DRAW_GUN(gun._x, gun._y, gun._imagePtr);
 	}
 	else
 	{
@@ -241,6 +241,7 @@ void handle_powerup_item()
 		{
 			relocateCharacter(&powerUp, bombs,4);
 		} while(nearInnerWall(&powerUp));
+		DRAW_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
 	}
 	else
 	{
@@ -482,6 +483,16 @@ int main(void)
 				
 				points+= LEVEL_BONUS*level;
 				++level;
+				
+				if((level==6) || (level==11) || (level==16))
+				{	
+					PING_SOUND();
+					CLEAR_SCREEN();
+					sleep(1);
+					printExtraLife();
+					sleep(1);
+					++lives;
+				}
 				updateInnerWallVerticalData();
 			}
 			else // if dead

@@ -129,17 +129,11 @@ void initializeCharacters(void)
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{	
 		ghosts[i] = (Character *) malloc(sizeof(Character));
-		// ghosts[i]->_imagePtr = (Image *) malloc(sizeof(Image));
 	}
 	for(i=0;i<BOMBS_NUMBER;++i)
 	{
 		bombs[i] = (Character *) malloc(sizeof(Character));
-		// bombs[i]->_imagePtr = (Image *) malloc(sizeof(Image));
 	}
-	// player._imagePtr = (Image *) malloc(sizeof(Image));
-	// invincibleGhost._imagePtr  = (Image *) malloc(sizeof(Image));
-	// powerUp._imagePtr = (Image *) malloc(sizeof(Image));
-	// gun._imagePtr  = (Image *) malloc(sizeof(Image));
 }
 
 void handle_missile()
@@ -368,17 +362,6 @@ int main(void)
 			printf("gun %c\n", GUN_IMAGE._imageData);
 			printf("missile %c\n", MISSILE_IMAGE._imageData);
 		#endif
-
-		#if defined(DEBUG_ATARI) && (defined(__ATARI__) || defined(__ATARIXL__))
-		{
-			int i;
-			for(i=0;i<10;++i)
-			{
-				gotoxy(0,i); cputs("ABCDEFGHIJK");
-				sleep(1);
-			}
-		}
-		#endif
 		
 		initialScreen();
 		WAIT_PRESS()
@@ -469,8 +452,9 @@ int main(void)
 				displayGhosts();
 
 				// Display stats and their values
-				// TODO: This should be handle elsewhere
-				#ifndef __ATMOS__
+				// TODO: This should be handled elsewhere
+				#if defined(__ATMOS__)
+				#else
 					displayStatsTitles();
 				#endif
 				displayStats();

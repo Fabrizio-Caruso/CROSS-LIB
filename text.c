@@ -72,22 +72,34 @@ void displayStatsTitles(void)
 		PRINT(2,0-3,"SPEED:");
 		PRINT(2,1-3,"SCORE:");
 		PRINT(2,2-3,"LEVEL:");
-		gotoxy(24,1); 
+		
+		POKE(0xBB80+24+0*40,10);
+		POKE(0xBB80+24+1*40,10);	
+		
+		gotoxy(25,0); 
 		cputc('A'+128); 
 		cputc('S'+128);
 		cputc('C'+128); 
 		cputc('I'+128); 
 		cputc('I'+128); 
-		cputc(' '+128);
-		cputc(' '+128);		
+		cputc(' '+128);	
 		cputc('C'+128);
-		cputc(' '+128);		
-		cputc('H'+128);
-		cputc(' '+128);		
-		cputc('A'+128);
-		cputc(' '+128);		
+		cputc('H'+128);		
+		cputc('A'+128);	
+		cputc('S'+128);		
+		cputc('E'+128); 
+		
+		gotoxy(25,1); 
+		cputc('A'+128); 
 		cputc('S'+128);
-		cputc(' '+128);		
+		cputc('C'+128); 
+		cputc('I'+128); 
+		cputc('I'+128); 
+		cputc(' '+128);	
+		cputc('C'+128);	
+		cputc('H'+128);
+		cputc('A'+128);
+		cputc('S'+128);	
 		cputc('E'+128); 		
 	#else
 		PRINT(2,1,"SPEED:");
@@ -96,9 +108,9 @@ void displayStatsTitles(void)
 	#endif
 	
 	#if defined (__ATMOS__)
-		gotoxy(16,0); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(16,1); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(16,2); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+		gotoxy(17,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(17,1); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(17,2); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#else
 		gotoxy(15,1); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(15,2); cputc(GHOST_IMAGE._imageData);cputc(':');
@@ -115,25 +127,25 @@ void displayStats(void)
 	SET_TEXT_COLOR(COLOR_BLACK);
 	
 	#if defined(__ATMOS__) 
-		PRINT( 8,0-3,"      ");
+		//PRINT( 8,0-3,"      ");
 		PRINTF(8,0-3,"%u",ghostLevel);
 		PRINTF(8,1-3,"%lu",points);
 		PRINTF(8,2-3,"%hu", level);
 	#else	
-		PRINT( 8,1,"      ");
+		//PRINT( 8,1,"      ");
 		PRINTF(8,1,"%u",ghostLevel);
 		PRINTF(8,2,"%lu",points);
 		PRINTF(8,3,"%hu", level);
 	#endif
 	
 	#if defined (__ATMOS__)
-		PRINTF(18,0-3,"%hu", guns);
-		PRINT( 18,1-3,"    ");
-		PRINTF(18,1-3,"%hu",ghostCount);
-		PRINTF(18,2-3,"%hu",lives);	
+		PRINTF(19,0-3,"%hu", guns);
+		//PRINT( 19,1-3,"    ");
+		PRINTF(19,1-3,"%hu",ghostCount);
+		PRINTF(19,2-3,"%hu",lives);	
 	#else
 		PRINTF(17,1,"%hu", guns);
-		PRINT( 17,2,"    ");
+		//PRINT( 17,2,"    ");
 		PRINTF(17,2,"%hu",ghostCount);
 		PRINTF(17,3,"%hu",lives);
 	#endif		
@@ -312,8 +324,33 @@ void printStartMessage(void)
 		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
 		SET_TEXT_COLOR(TEXT_COLOR);	
 	#elif defined(__ATMOS__)
-		POKE(0xBB80+6*40,16);POKE(0xBB81+6*40,1); // red on black (inverted: cyan on white)
-		gotoxy(9, 6); 
+		POKE(0xBB80+3*40,16);POKE(0xBB80+1+3*40,1); POKE(0xBB80+2+3*40,10);
+		POKE(0xBB80+4*40,16);POKE(0xBB80+1+4*40,1); POKE(0xBB80+2+4*40,10);
+		POKE(0xBB80+5*40,16);POKE(0xBB80+1+5*40,1); POKE(0xBB80+2+5*40,10);// red on black (inverted: cyan on white)
+		gotoxy(9, 5); 
+		cputc('A'); 
+		cputc(' ');
+		cputc('S');
+		cputc(' ');
+		cputc('C');
+		cputc(' ');		
+		cputc('I');
+		cputc(' ');		
+		cputc('I');
+		cputc(' ');		
+		cputc(' ');
+		cputc(' ');		
+		cputc('C');
+		cputc(' ');		
+		cputc('H');
+		cputc(' ');		
+		cputc('A');
+		cputc(' ');		
+		cputc('S');
+		cputc(' ');		
+		cputc('E'); 
+		
+		gotoxy(9, 4); 
 		cputc('A'); 
 		cputc(' ');
 		cputc('S');

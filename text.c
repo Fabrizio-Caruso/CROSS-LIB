@@ -73,10 +73,10 @@ void displayStatsTitles(void)
 		PRINT(2,1-3,"SCORE:");
 		PRINT(2,2-3,"LEVEL:");
 		
-		POKE(0xBB80+24+0*40,10);
-		POKE(0xBB80+24+1*40,10);	
+		POKE(0xBB80+22+0*40,10);
+		POKE(0xBB80+22+1*40,10);	
 		
-		gotoxy(25,0); 
+		gotoxy(23,0); 
 		cputc('A'+128); 
 		cputc('S'+128);
 		cputc('C'+128); 
@@ -89,7 +89,7 @@ void displayStatsTitles(void)
 		cputc('S'+128);		
 		cputc('E'+128); 
 		
-		gotoxy(25,1); 
+		gotoxy(23,1); 
 		cputc('A'+128); 
 		cputc('S'+128);
 		cputc('C'+128); 
@@ -108,9 +108,9 @@ void displayStatsTitles(void)
 	#endif
 	
 	#if defined (__ATMOS__)
-		gotoxy(17,0); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(17,1); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(17,2); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+		gotoxy(18,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(18,1); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#else
 		gotoxy(15,1); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(15,2); cputc(GHOST_IMAGE._imageData);cputc(':');
@@ -127,25 +127,21 @@ void displayStats(void)
 	SET_TEXT_COLOR(COLOR_BLACK);
 	
 	#if defined(__ATMOS__) 
-		//PRINT( 8,0-3,"      ");
-		PRINTF(8,0-3,"%u",ghostLevel);
-		PRINTF(8,1-3,"%lu",points);
-		PRINTF(8,2-3,"%hu", level);
+		PRINTF(8,0-3,"%04u",ghostLevel);
+		PRINTF(8,1-3,"%06lu",points);
+		PRINTF(8,2-3,"%02hu", level);
 	#else	
-		//PRINT( 8,1,"      ");
-		PRINTF(8,1,"%u",ghostLevel);
-		PRINTF(8,2,"%lu",points);
-		PRINTF(8,3,"%hu", level);
+		PRINTF(8,1,"%04u",ghostLevel);
+		PRINTF(8,2,"%06lu",points);
+		PRINTF(8,3,"%02hu", level);
 	#endif
 	
 	#if defined (__ATMOS__)
-		PRINTF(19,0-3,"%hu", guns);
-		//PRINT( 19,1-3,"    ");
-		PRINTF(19,1-3,"%hu",ghostCount);
-		PRINTF(19,2-3,"%hu",lives);	
+		PRINTF(19-1,0-3,"%hu",guns);
+		PRINTF(19-1,1-3,"%hu",ghostCount);
+		PRINTF(19-1,2-3,"%hu",lives);	
 	#else
-		PRINTF(17,1,"%hu", guns);
-		//PRINT( 17,2,"    ");
+		PRINTF(17,1,"%hu",guns);
 		PRINTF(17,2,"%hu",ghostCount);
 		PRINTF(17,3,"%hu",lives);
 	#endif		

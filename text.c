@@ -39,6 +39,9 @@
 
 #include "sleep_macros.h"
 
+#ifdef __ATMOS__
+	#include<peekpoke.h>
+#endif
 
 extern unsigned short level;
 extern unsigned char XSize;
@@ -59,7 +62,7 @@ extern unsigned int ghostLevel;
 // TODO: This is SLOW
 void displayStatsTitles(void)
 {
-	SET_TEXT_COLOR(COLOR_BLACK);
+	//SET_TEXT_COLOR(COLOR_BLACK);
 	
 	#if defined(__C64__) 
 		PRINT(2,1,"speed:");
@@ -69,7 +72,6 @@ void displayStatsTitles(void)
 		PRINT(2,0-3,"SPEED:");
 		PRINT(2,1-3,"SCORE:");
 		PRINT(2,2-3,"LEVEL:");
-		
 		gotoxy(24,1); 
 		cputc('A'+128); 
 		cputc('S'+128);
@@ -86,8 +88,7 @@ void displayStatsTitles(void)
 		cputc(' '+128);		
 		cputc('S'+128);
 		cputc(' '+128);		
-		cputc('E'+128); 
-										
+		cputc('E'+128); 		
 	#else
 		PRINT(2,1,"SPEED:");
 		PRINT(2,2,"SCORE:");
@@ -311,28 +312,29 @@ void printStartMessage(void)
 		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
 		SET_TEXT_COLOR(TEXT_COLOR);	
 	#elif defined(__ATMOS__)
-		gotoxy((XSize-22)/2,YSize / 2); 
-		cputc('A'+128); 
-		cputc(' '+128);
-		cputc('S'+128);
-		cputc(' '+128);
-		cputc('C'+128);
-		cputc(' '+128);		
-		cputc('I'+128);
-		cputc(' '+128);		
-		cputc('I'+128);
-		cputc(' '+128);		
-		cputc(' '+128);
-		cputc(' '+128);		
-		cputc('C'+128);
-		cputc(' '+128);		
-		cputc('H'+128);
-		cputc(' '+128);		
-		cputc('A'+128);
-		cputc(' '+128);		
-		cputc('S'+128);
-		cputc(' '+128);		
-		cputc('E'+128); 
+		POKE(0xBB80+6*40,16);POKE(0xBB81+6*40,1); // red on black (inverted: cyan on white)
+		gotoxy(9, 6); 
+		cputc('A'); 
+		cputc(' ');
+		cputc('S');
+		cputc(' ');
+		cputc('C');
+		cputc(' ');		
+		cputc('I');
+		cputc(' ');		
+		cputc('I');
+		cputc(' ');		
+		cputc(' ');
+		cputc(' ');		
+		cputc('C');
+		cputc(' ');		
+		cputc('H');
+		cputc(' ');		
+		cputc('A');
+		cputc(' ');		
+		cputc('S');
+		cputc(' ');		
+		cputc('E'); 
 	#else
 		SET_TEXT_COLOR(COLOR_BLACK);
 		PRINT((XSize - 22) / 2, YSize / 2 - 9, "A S C I I   C H A S E");
@@ -363,12 +365,17 @@ void printStartMessage(void)
 		PRINT(20, YSize / 2 - 1,  "Take S to slow O down. Catch ! for bullets.");
 		
 		PRINT(30, YSize / 2 + 1, "Flee from +!");
-	#elif defined(__C64__) || defined(__ATMOS__)
+	#elif defined(__C64__) 
 		PRINT((XSize - 22) / 2, YSize / 2 - 3, "escape the enemies");
 		
 		PRINT((XSize - 22) / 2, YSize / 2 - 1, "force them into the mines");
 		
 		PRINT((XSize - 22) / 2, YSize / 2 + 1, "catch the gun for bullets");
+	#elif defined(__ATMOS__)
+		PRINT(7, YSize / 2 - 3 - 3, "Escape from the enemies");
+		
+		PRINT(7, YSize / 2 - 1 - 3, "Forse them into the mines");
+		
 	#else
 		PRINT(2, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		
@@ -389,8 +396,11 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_GREEN);
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 		SET_TEXT_COLOR(TEXT_COLOR);
-	#elif defined(__ATMOS__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use W A S D <SPACE>");
+	#elif defined(__ATMOS__) 
+		POKE(0xBB80+(YSize / 2 + 4 )*40,16);POKE(0xBB81+(YSize / 2 + 4 )*40,4);
+		PRINT((XSize - 22) / 2-3, YSize / 2 + 4 - 3,"Controls: Use W A S D <SPACE>");	
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 	#endif

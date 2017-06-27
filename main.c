@@ -1,4 +1,4 @@
-/*****************************************************************************/
+/******* *********************************************************************/
 /*                                                                           */
 /*                                		                             */
 /*                                                                           */
@@ -122,7 +122,8 @@ Character missile;
 Character* ghosts[GHOSTS_NUMBER];
 Character* bombs[BOMBS_NUMBER];
 
-
+char strategyArray[GHOSTS_NUMBER];
+	
 void initializeCharacters(void)
 {
 	unsigned char i;
@@ -271,7 +272,7 @@ void handle_invincible_ghost(void)
 		{
 			TOCK_SOUND();
 			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
-			moveTowardCharacter(&invincibleGhost, &player);
+			moveTowardCharacter(&invincibleGhost, &player, 4);
 		}
 		if(areCharctersAtSamePosition(&invincibleGhost, &player))
 		{
@@ -338,7 +339,7 @@ void initialScreen(void)
 }
 		
 int main(void)
-{			
+{		
 	INIT_INPUT();
 	
 	// Ask for the screen size 
@@ -373,6 +374,7 @@ int main(void)
 		lives = LIVES_NUMBER;
 		do // Level (Re-)Start
 		{ 
+			computeStrategy();
 			loop = 0;
 			ghostLevel = 0u;
 			ghostCount = GHOSTS_NUMBER;

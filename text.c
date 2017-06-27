@@ -345,7 +345,8 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
 	
-	#ifndef __PLUS4__
+	#if defined(__PLUS4__) || defined(__C16__)
+	#else
 		SET_TEXT_COLOR(COLOR_BLUE);
 	#endif // __PLUS4__
 

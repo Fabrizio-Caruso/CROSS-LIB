@@ -129,17 +129,17 @@ void initializeCharacters(void)
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{	
 		ghosts[i] = (Character *) malloc(sizeof(Character));
-		ghosts[i]->_imagePtr = (Image *) malloc(sizeof(Image));
+		// ghosts[i]->_imagePtr = (Image *) malloc(sizeof(Image));
 	}
 	for(i=0;i<BOMBS_NUMBER;++i)
 	{
 		bombs[i] = (Character *) malloc(sizeof(Character));
-		bombs[i]->_imagePtr = (Image *) malloc(sizeof(Image));
+		// bombs[i]->_imagePtr = (Image *) malloc(sizeof(Image));
 	}
-	player._imagePtr = (Image *) malloc(sizeof(Image));
-	invincibleGhost._imagePtr  = (Image *) malloc(sizeof(Image));
-	powerUp._imagePtr = (Image *) malloc(sizeof(Image));
-	gun._imagePtr  = (Image *) malloc(sizeof(Image));
+	// player._imagePtr = (Image *) malloc(sizeof(Image));
+	// invincibleGhost._imagePtr  = (Image *) malloc(sizeof(Image));
+	// powerUp._imagePtr = (Image *) malloc(sizeof(Image));
+	// gun._imagePtr  = (Image *) malloc(sizeof(Image));
 }
 
 void handle_missile()

@@ -310,7 +310,30 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_RED);
 		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		#else
+	#elif defined(__ATMOS__)
+		gotoxy((XSize-22)/2,YSize / 2); 
+		cputc('A'+128); 
+		cputc(' '+128);
+		cputc('S'+128);
+		cputc(' '+128);
+		cputc('C'+128);
+		cputc(' '+128);		
+		cputc('I'+128);
+		cputc(' '+128);		
+		cputc('I'+128);
+		cputc(' '+128);		
+		cputc(' '+128);
+		cputc(' '+128);		
+		cputc('C'+128);
+		cputc(' '+128);		
+		cputc('H'+128);
+		cputc(' '+128);		
+		cputc('A'+128);
+		cputc(' '+128);		
+		cputc('S'+128);
+		cputc(' '+128);		
+		cputc('E'+128); 
+	#else
 		SET_TEXT_COLOR(COLOR_BLACK);
 		PRINT((XSize - 22) / 2, YSize / 2 - 9, "A S C I I   C H A S E");
 		SET_TEXT_COLOR(TEXT_COLOR);

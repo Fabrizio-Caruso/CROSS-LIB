@@ -40,11 +40,6 @@
 
 #include "level.h"
 
-#if defined(__VIC20__)
-	#define TWIN_GHOST_SEPARATOR 2
-#else
-	#define TWIN_GHOST_SEPARATOR 3
-#endif
 	
 extern unsigned short innerVerticalWallX;
 extern unsigned short innerVerticalWallY;
@@ -81,7 +76,7 @@ void updateInnerWallVerticalData(void)
 {		
 	switch(level)
 	{
-		case 1: case 5: case 10: case 15:
+		case 1: case 5: case 10:
 			innerVerticalWallLength = 0;
 		break;
 		case 2:
@@ -112,16 +107,19 @@ void updateInnerWallVerticalData(void)
 			innerVerticalWallLength = 12;
 		break;
 		case 13:
-			innerVerticalWallLength =16;
+			innerVerticalWallLength = YSize-6;
 		break;
 		case 14:
 			innerVerticalWallLength = YSize-4;
 		break;
-		case 16:
+		case 15:
 			innerVerticalWallLength = 8;
 		break;
-		case 17:
+		case 16:
 			innerVerticalWallLength = 12;
+		break;
+		case 17:
+			innerVerticalWallLength = YSize-6;
 		break;
 		case 18:
 			innerVerticalWallLength = YSize-4;

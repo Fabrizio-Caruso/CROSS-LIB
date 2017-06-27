@@ -53,14 +53,10 @@ extern unsigned int ghostLevel;
 
  extern Image PLAYER_IMAGE;
  extern Image GHOST_IMAGE;
- // Image DEAD_GHOST_IMAGE;
- // Image INVINCIBLE_GHOST_IMAGE;
- // Image BOMB_IMAGE;
- // Image POWERUP_IMAGE;
- // Image MISSILE_IMAGE;
  extern Image GUN_IMAGE;
 
 
+// TODO: This is SLOW
 void displayStatsTitles(void)
 {
 	SET_TEXT_COLOR(COLOR_BLACK);
@@ -69,7 +65,7 @@ void displayStatsTitles(void)
 		PRINT(2,1,"speed:");
 		PRINT(2,2,"score:");
 		PRINT(2,3,"level:");
-	#elif defined(__ATARI__) || defined(__ATARIXL__) 
+	//#elif defined(__ATARI__) || defined(__ATARIXL__) 
 	#else
 		PRINT(2,1,"SPEED:");
 		PRINT(2,2,"SCORE:");
@@ -80,7 +76,7 @@ void displayStatsTitles(void)
 		gotoxy(16,1); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(16,2); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(16,3); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-	#elif defined(__ATARI__) || defined(__ATARIXL__) 
+	//#elif defined(__ATARI__) || defined(__ATARIXL__) 
 	#else
 		gotoxy(15,1); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(15,2); cputc(GHOST_IMAGE._imageData);cputc(':');
@@ -91,24 +87,25 @@ void displayStatsTitles(void)
 
 
 
+// TODO: This is SLOW
 void displayStats(void)
 {	
 	SET_TEXT_COLOR(COLOR_BLACK);
 	
-	#if defined(__ATARI__) || defined(__ATARIXL__)
-	#else	
+	//#if defined(__ATARI__) || defined(__ATARIXL__)
+	//#else	
 		PRINT(8,1,"      ");
 		PRINTF(8,1,"%u",ghostLevel);
 		PRINTF(8,2,"%lu",points);
 		PRINTF(8,3,"%hu", level);
-	#endif
+	//#endif
 	
 	#if defined (__ATMOS__)
 		PRINTF(18,1,"%hu", guns);
 		PRINT( 18,2,"    ");
 		PRINTF(18,2,"%hu",ghostCount);
 		PRINTF(18,3,"%hu",lives);	
-	#elif defined(__ATARI__) || defined(__ATARIXL__) 
+	//#elif defined(__ATARI__) || defined(__ATARIXL__) 
 	#else
 		PRINTF(17,1,"%hu", guns);
 		PRINT( 17,2,"    ");
@@ -218,63 +215,63 @@ void finalScore(void)
 #endif
 
 #ifdef __C64__
-void printPressKeyToStart(void)
-{
-	printCenteredMessage("press any key to start");
-}
+	void printPressKeyToStart(void)
+	{
+		printCenteredMessage("press any key to start");
+	}
 
-void deleteCenteredMessage(void)
-{
-	PRINT((XSize - 22) / 2, YSize / 2, "                      ");
-}
+	void deleteCenteredMessage(void)
+	{
+		PRINT((XSize - 22) / 2, YSize / 2, "                      ");
+	}
 
 
-void printGameOver(void)
-{
-	printCenteredMessage("g a m e   o v e r");
-	sleep(1);
-}
+	void printGameOver(void)
+	{
+		printCenteredMessage("g a m e   o v e r");
+		sleep(1);
+	}
 
-void printVictoryMessage(void)
-{
-	printCenteredMessage("y o u   w o n ! !");
-	sleep(1);
-}
+	void printVictoryMessage(void)
+	{
+		printCenteredMessage("y o u   w o n ! !");
+		sleep(1);
+	}
 
-void printDefeatMessage(void)
-{
-	printCenteredMessage("y o u   l o s t !");
-	sleep(1);
-}
+	void printDefeatMessage(void)
+	{
+		printCenteredMessage("y o u   l o s t !");
+		sleep(1);
+	}
 #else
-void printPressKeyToStart(void)
-{
-	printCenteredMessage("PRESS ANY KEY TO START");
-}
+	void printPressKeyToStart(void)
+	{
+		printCenteredMessage("PRESS ANY KEY TO START");
+	}
 
-void deleteCenteredMessage(void)
-{
-	PRINT((XSize - 22) / 2, YSize / 2, "                      ");
-}
+	void deleteCenteredMessage(void)
+	{
+		PRINT((XSize - 22) / 2, YSize / 2, "                      ");
+	}
 
 
-void printGameOver(void)
-{
-	printCenteredMessage("G A M E   O V E R");
-	sleep(1);
-}
+	void printGameOver(void)
+	{
+		printCenteredMessage("G A M E   O V E R");
+		sleep(1);
+	}
 
-void printVictoryMessage(void)
-{
-	printCenteredMessage("Y O U   W O N ! !");
-	sleep(1);
-}
+	void printVictoryMessage(void)
+	{
+		printCenteredMessage("Y O U   W O N ! !");
+		sleep(1);
+	}
 
-void printDefeatMessage(void)
-{
-	printCenteredMessage("Y O U   L O S T !");
-	sleep(1);
-}
+	void printDefeatMessage(void)
+	{
+		printCenteredMessage("Y O U   L O S T !");
+		sleep(1);
+	}
 
 #endif
 
@@ -282,25 +279,25 @@ void printDefeatMessage(void)
 void printStartMessage(void)
 {
 	#ifdef __C64__
-	SET_TEXT_COLOR(COLOR_BLACK);
-	PRINT((XSize - 22) / 2, YSize / 2 - 9, "a s c i i   c h a s e");
-	SET_TEXT_COLOR(TEXT_COLOR);
-	
-	SET_TEXT_COLOR(COLOR_RED);
-	PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
-	SET_TEXT_COLOR(TEXT_COLOR);	
-	#else
-	SET_TEXT_COLOR(COLOR_BLACK);
-	PRINT((XSize - 22) / 2, YSize / 2 - 9, "A S C I I   C H A S E");
-	SET_TEXT_COLOR(TEXT_COLOR);
-	
-	SET_TEXT_COLOR(COLOR_RED);
-	PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by Fabrizio Caruso");
-	SET_TEXT_COLOR(TEXT_COLOR);
+		SET_TEXT_COLOR(COLOR_BLACK);
+		PRINT((XSize - 22) / 2, YSize / 2 - 9, "a s c i i   c h a s e");
+		SET_TEXT_COLOR(TEXT_COLOR);
+		
+		SET_TEXT_COLOR(COLOR_RED);
+		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		#else
+		SET_TEXT_COLOR(COLOR_BLACK);
+		PRINT((XSize - 22) / 2, YSize / 2 - 9, "A S C I I   C H A S E");
+		SET_TEXT_COLOR(TEXT_COLOR);
+		
+		SET_TEXT_COLOR(COLOR_RED);
+		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by Fabrizio Caruso");
+		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
 	
 	#ifndef __PLUS4__
-	SET_TEXT_COLOR(COLOR_BLUE);
+		SET_TEXT_COLOR(COLOR_BLUE);
 	#endif // __PLUS4__
 
 	#if defined(__VIC20__)
@@ -319,7 +316,7 @@ void printStartMessage(void)
 		PRINT(20, YSize / 2 - 1,  "Take S to slow O down. Catch ! for bullets.");
 		
 		PRINT(30, YSize / 2 + 1, "Flee from +!");
-	#elif defined(__C64__)
+	#elif defined(__C64__) || defined(__ATMOS__)
 		PRINT((XSize - 22) / 2, YSize / 2 - 3, "escape the enemies");
 		
 		PRINT((XSize - 22) / 2, YSize / 2 - 1, "force them into the mines");
@@ -345,7 +342,7 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_GREEN);
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 		SET_TEXT_COLOR(TEXT_COLOR);
-	#elif defined(__ATMOS__) || defined(__ATARI__)
+	#elif defined(__ATMOS__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use W A S D <SPACE>");
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");

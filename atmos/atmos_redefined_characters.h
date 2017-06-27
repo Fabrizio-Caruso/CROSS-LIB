@@ -90,7 +90,11 @@
 		PLAYER_DOWN._imageData = '/';
 		
 		// Initialize colors 
-		for(i=0;i<28;++i)
+		for(i=0;i<3;++i)
+		{
+			POKE(0xBB80+i*40,16);POKE(0xBB81+i*40,1);
+		}
+		for(i=0+3;i<28;++i)
 		{
 			POKE(0xBB80+i*40,16);POKE(0xBB81+i*40,3);
 		}	

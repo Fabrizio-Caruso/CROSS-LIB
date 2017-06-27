@@ -61,27 +61,72 @@ typedef struct ImageStruct Image;
 #if defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=2;}
 #elif defined(__ATARIXL__) || defined(__ATARI__)
-	#define GET_SCREEN_SIZE(x,y) {*x=20; *y=24;}
+	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);};
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);}
 #endif
 
 #if defined(__ATMOS__)
-	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y)); cputc('X');};
+	char powerUp_blink = 1;
+	char gun_blink = 1;
+	
+	extern Image PLAYER_LEFT;
+	extern Image PLAYER_RIGHT;
+	extern Image PLAYER_UP;
+	extern Image PLAYER_DOWN;
+	
+	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y)); cputc('X' + 128);};
+	
+	void DRAW_PLAYER(char x, char y, Image * image) 
+	{
+		gotoxy((x+2),(y)); 
+		cputc(image->_imageData + image->_color);
+	};
 
-	#define DRAW_PLAYER(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData);};
+		
 
-	#define DRAW_GHOST(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData);};
+	#define DRAW_GHOST(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData);};
+	#define DRAW_BOMB(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
-	#define DRAW_BOMB(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + 128);};
-
-	#define DRAW_POWERUP(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + 128);};
-
-	#define DRAW_GUN(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + 128);};
-
-	#define DRAW_MISSILE(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData);};
+	// #define DRAW_POWERUP(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	void DRAW_POWERUP(char x, char y, Image * image) 
+	{
+		gotoxy((x+2),(y)); 
+		if(powerUp_blink) 
+		{
+			cputc(image->_imageData + image->_color); 
+			powerUp_blink=0;
+		} 
+		else 
+		{
+			cputc(' '); 
+			powerUp_blink=1;
+		}
+	};
+	
+	
+	// #define DRAW_GUN(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	void DRAW_GUN(char x, char y, Image * image) 
+	{
+		gotoxy((x+2),(y)); 
+		if(gun_blink) 
+		{
+			cputc(image->_imageData + image->_color); 
+			gun_blink=0;
+		} 
+		else 
+		{
+			cputc(' '); 
+			gun_blink=1;
+		}
+	};
+	
+	
+	
+	#define DRAW_MISSILE(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
 
 	#define DRAW_BOMBS() \
 	{ \
@@ -115,8 +160,11 @@ typedef struct ImageStruct Image;
 		unsigned char i; \
 		gotoxy(0+2,0); \
 		cputc (CH_ULCORNER+128); \
-		for(i=0;i<38-2;++i) cputc('-' + 128); \
-		gotoxy(40-1,0); \
+		for(i=0;i<38-1;++i) \
+		{ \
+			cputc('-' + 128); \
+		} \
+		gotoxy(38-1+2,0); \
 		cputc (CH_URCORNER+128); \
 		for(i=0;i<28-2;++i) \
 		{ \
@@ -125,8 +173,11 @@ typedef struct ImageStruct Image;
 		} \
 		gotoxy(0+2,28-1); \
 		cputc (CH_LLCORNER+128); \
-		for(i=0;i<38-2;++i) cputc('-' + 128); \
-		gotoxy(40-1, 28-1); \
+		for(i=0;i<38-1;++i) \
+		{ \
+			cputc('-' + 128); \
+		} \
+		gotoxy(38-1+2, 28-1); \
 		cputc (CH_LRCORNER+128); \
 		for(i=0;i<28-2;++i) \
 		{ \
@@ -146,8 +197,13 @@ typedef struct ImageStruct Image;
 		} \
 	}
 	
+	#define SHOW_LEFT() {*player._imagePtr = PLAYER_LEFT; }
+	#define SHOW_RIGHT() {*player._imagePtr = PLAYER_RIGHT; }
+	#define SHOW_UP() {*player._imagePtr = PLAYER_UP; }
+	#define SHOW_DOWN() {*player._imagePtr = PLAYER_DOWN; }
+	
 #elif defined(__ATARI__) || defined(__ATARIXL__)
-	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y)); cputc('X');};
+	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x),(y)); cputc('X');};
 
 	#define DRAW_PLAYER(x,y,image) {gotoxy((x),(y)); cputc(image->_imageData);};
 
@@ -191,22 +247,24 @@ typedef struct ImageStruct Image;
 
 	#define PRINTF(x,y,...) {gotoxy(x,y); cprintf(##__VA_ARGS__); };
 
-	// #define DRAW_BORDERS()\
-	// { \
-		// cputc (CH_ULCORNER);\
-		// chline (XSize - 2);\
-		// cputc (CH_URCORNER);\
-		// cvlinexy (0, 1, YSize - 2);\
-		// cputc (CH_LLCORNER);\
-		// chline (XSize - 2);\
-		// cputc (CH_LRCORNER);\
-		// cvlinexy (XSize - 1, 1, YSize - 2); \
-	// }
 	#define DRAW_BORDERS()\
 	{ \
+		cputc (CH_ULCORNER);\
+		chline (XSize - 2);\
+		cputc (CH_URCORNER);\
+		cvlinexy (0, 1, YSize - 2);\
+		cputc (CH_LLCORNER);\
+		chline (XSize - 2);\
+		cputc (CH_LRCORNER);\
+		cvlinexy (XSize - 1, 1, YSize - 2); \
 	}
 	
 	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x,y,length);
+	
+	#define SHOW_LEFT() {}
+	#define SHOW_RIGHT() {}
+	#define SHOW_UP() {}
+	#define SHOW_DOWN() {}
 	
 #else
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x),(y)); cputc('X');};
@@ -267,6 +325,10 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x,y,length);
 	
+	#define SHOW_LEFT() {}
+	#define SHOW_RIGHT() {}
+	#define SHOW_UP() {}
+	#define SHOW_DOWN() {}	
 #endif
 
 #define CLEAR_SCREEN() clrscr();

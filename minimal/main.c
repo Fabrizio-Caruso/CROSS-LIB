@@ -53,6 +53,9 @@
 #include "sound_macros.h"
 
 
+// #define DEBUG_ATARI
+// #define DEBUG_CHARACTERS
+
 unsigned int invincibleSlowDown = 30000;
 unsigned short invincibleXCountDown = 100;
 unsigned short invincibleYCountDown = 100;
@@ -169,6 +172,7 @@ void handle_missile()
 		
 		if(areCharctersAtSamePosition(&missile, &invincibleGhost))
 		{
+			PING_SOUND();
 			die(&missile);
 			DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 			restoreMissile(&missile);
@@ -205,7 +209,7 @@ void handle_gun_item()
 		{
 			relocateCharacter(&gun, bombs,4);
 			DRAW_GUN(gun._x, gun._y, gun._imagePtr);
-		} while(innerWallReached(&gun));
+		} while(nearInnerWall(&gun));
 	}
 	else
 	{
@@ -241,7 +245,7 @@ void handle_powerup_item()
 		do
 		{
 			relocateCharacter(&powerUp, bombs,4);
-		} while(innerWallReached(&powerUp));
+		} while(nearInnerWall(&powerUp));
 	}
 	else
 	{
@@ -364,6 +368,17 @@ int main(void)
 			printf("gun %c\n", GUN_IMAGE._imageData);
 			printf("missile %c\n", MISSILE_IMAGE._imageData);
 		#endif
+
+		#if defined(DEBUG_ATARI) && (defined(__ATARI__) || defined(__ATARIXL__))
+		{
+			int i;
+			for(i=0;i<10;++i)
+			{
+				gotoxy(0,i); cputs("ABCDEFGHIJK");
+				sleep(1);
+			}
+		}
+		#endif
 		
 		initialScreen();
 		WAIT_PRESS()
@@ -425,6 +440,12 @@ int main(void)
 				// Chase the player
 				chasePlayer(ghostSlowDown);
 				
+				// TODO: this should fix missile vs ghost detection problem
+				if(missile._status)
+				{
+					checkMissileVsGhosts(&missile);
+				}
+				
 				handle_player_vs_bombs_and_ghosts();
 				
 				handle_player_vs_inner_wall();
@@ -435,6 +456,7 @@ int main(void)
 				// Check collisions ghosts vs ghosts
 				checkGhostsVsGhosts();
 
+				
 				handle_gun_item();
 				
 				handle_powerup_item();
@@ -462,9 +484,9 @@ int main(void)
 			if(player._status) // if level finished
 			{
 				sleep(1);
-				CLEAR_SCREEN();
 				printVictoryMessage();
 				sleep(1);
+				CLEAR_SCREEN();
 				printLevelBonus();
 								
 				sleep(1);
@@ -489,7 +511,6 @@ int main(void)
 		gameCompleted();
 		sleep(1);
 	}
-	finalScore();
 	// GAME OVER	
 	printGameOver();
 	sleep(1);

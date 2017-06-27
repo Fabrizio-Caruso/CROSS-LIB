@@ -56,6 +56,7 @@
 #define POWER_UP_COLOR COLOR_BLACK
 #define GUN_COLOR COLOR_BLACK
 
+#define GHOST_VS_GHOST_COLLISION_LEVEL 10
 
 // If two or more ghosts bump into eachother for each ghost
 #define GHOST_VS_GHOST_BONUS 500ul
@@ -121,6 +122,7 @@
 
 // Starting from this level, the invincible ghost will try to be aligned with the player to defend other ghosts
 // #define NASTY_INVINCIBLE_START_LEVEL 5
+
 
 // Directions
 #define RIGHT 0

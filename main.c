@@ -469,7 +469,10 @@ int main(void)
 				displayGhosts();
 
 				// Display stats and their values
-				displayStatsTitles();
+				// TODO: This should be handle elsewhere
+				#ifndef __ATMOS__
+					displayStatsTitles();
+				#endif
 				displayStats();
 				
 				handle_invincible_ghost();

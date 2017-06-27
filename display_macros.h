@@ -59,7 +59,7 @@ typedef struct ImageStruct Image;
 //
  
 #if defined(__ATMOS__)
-	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=2;}
+	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=2; *y-=3;};
 #elif defined(__ATARIXL__) || defined(__ATARI__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);};
 #else
@@ -75,26 +75,26 @@ typedef struct ImageStruct Image;
 	extern Image PLAYER_UP;
 	extern Image PLAYER_DOWN;
 	
-	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y)); cputc('X' + 128);};
+	#define DRAW_BROKEN_WALL(x,y) {gotoxy(x+2,(y+3)); cputc('X' + 128);};
 	
 	void DRAW_PLAYER(char x, char y, Image * image) 
 	{
-		gotoxy((x+2),(y)); 
+		gotoxy(x+2,(y+3)); 
 		cputc(image->_imageData + image->_color);
 	};
 
 		
 
-	#define DRAW_GHOST(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	#define DRAW_GHOST(x,y,image) {gotoxy(x+2,(y+3)); cputc(image->_imageData + image->_color);};
 	
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {gotoxy(x+2,(y+3)); cputc(image->_imageData + image->_color);};
 
-	#define DRAW_BOMB(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	#define DRAW_BOMB(x,y,image) {gotoxy(x+2,(y+3)); cputc(image->_imageData + image->_color);};
 
-	// #define DRAW_POWERUP(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	// #define DRAW_POWERUP(x,y,image) {gotoxy((x+2,(y+3)); cputc(image->_imageData + image->_color);};
 	void DRAW_POWERUP(char x, char y, Image * image) 
 	{
-		gotoxy((x+2),(y)); 
+		gotoxy((x+2),(y+3)); 
 		if(powerUp_blink) 
 		{
 			cputc(image->_imageData + image->_color); 
@@ -108,10 +108,10 @@ typedef struct ImageStruct Image;
 	};
 	
 	
-	// #define DRAW_GUN(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	// #define DRAW_GUN(x,y,image) {gotoxy((x+2,(y+3)); cputc(image->_imageData + image->_color);};
 	void DRAW_GUN(char x, char y, Image * image) 
 	{
-		gotoxy((x+2),(y)); 
+		gotoxy((x+2),(y+3)); 
 		if(gun_blink) 
 		{
 			cputc(image->_imageData + image->_color); 
@@ -126,7 +126,7 @@ typedef struct ImageStruct Image;
 	
 	
 	
-	#define DRAW_MISSILE(x,y,image) {gotoxy((x+2),(y)); cputc(image->_imageData + image->_color);};
+	#define DRAW_MISSILE(x,y,image) {gotoxy((x+2),(y+3)); cputc(image->_imageData + image->_color);};
 
 	#define DRAW_BOMBS() \
 	{ \
@@ -137,38 +137,38 @@ typedef struct ImageStruct Image;
 		} \
 	}
 
-	#define DELETE_PLAYER(x,y,image) {gotoxy(x+2,y);cputc(' ');};
+	#define DELETE_PLAYER(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_GHOST(x,y,image) {gotoxy(x+2,y);cputc(' ');};
+	#define DELETE_GHOST(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) {gotoxy(x+2,y);cputc(' ');};
+	#define DELETE_INVINCIBLE_GHOST(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_BOMB(x,y,image) {gotoxy(x+2,y);cputc(' ');};
+	#define DELETE_BOMB(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_POWERUP(x,y,image) {gotoxy(x+2,y);cputc(' ');};
+	#define DELETE_POWERUP(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_GUN(x,y,image) {gotoxy(x+2,y);cputc(' ');};
+	#define DELETE_GUN(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_MISSILE(x,y,image) {gotoxy(x+2,y);cputc(' ');};
+	#define DELETE_MISSILE(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define PRINT(x,y,str) {gotoxy(x+2,y); cputs(str); };
+	#define PRINT(x,y,str) {gotoxy(x+2,y+3); cputs(str); };
 
-	#define PRINTF(x,y,...) {gotoxy(x+2,y); cprintf(##__VA_ARGS__); };
+	#define PRINTF(x,y,...) {gotoxy(x+2,y+3); cprintf(##__VA_ARGS__); };
 
 	#define DRAW_BORDERS() \
 	{ \
 		unsigned char i; \
-		gotoxy(0+2,0); \
+		gotoxy(0+2,0+3); \
 		cputc (CH_ULCORNER+128); \
 		for(i=0;i<38-1;++i) \
 		{ \
 			cputc('-' + 128); \
 		} \
-		gotoxy(38-1+2,0); \
+		gotoxy(38-1+2,0+3); \
 		cputc (CH_URCORNER+128); \
-		for(i=0;i<28-2;++i) \
+		for(i=0;i<28-2-3;++i) \
 		{ \
-			gotoxy(0+2,1+i); \
+			gotoxy(0+2,1+i+3); \
 			cputc('|'+128); \
 		} \
 		gotoxy(0+2,28-1); \
@@ -179,9 +179,9 @@ typedef struct ImageStruct Image;
 		} \
 		gotoxy(38-1+2, 28-1); \
 		cputc (CH_LRCORNER+128); \
-		for(i=0;i<28-2;++i) \
+		for(i=0;i<28-2-3;++i) \
 		{ \
-			gotoxy(38-1+2,1+i); \
+			gotoxy(38-1+2,1+i+3); \
 			cputc('|'+128); \
 		} \
 	} 
@@ -192,7 +192,7 @@ typedef struct ImageStruct Image;
 		unsigned char i; \
 		for(i=0;i<length;++i) \
 		{ \
-			gotoxy(x+2,y+i); \
+			gotoxy(x+2,y+i+3); \
 			cputc('|'+128); \
 		} \
 	}

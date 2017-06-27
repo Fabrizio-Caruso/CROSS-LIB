@@ -34,6 +34,8 @@
 
 #include "missile.h"
 #include "settings.h"
+#include "sound_macros.h"
+#include "display_macros.h"
 
 extern unsigned long points;
 extern unsigned short ghostCount;
@@ -41,6 +43,7 @@ extern unsigned short ghostCount;
 extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];
 
+extern Image DEAD_GHOST_IMAGE;
 
 void checkMissileVsGhost(Character * missilePtr,
 						 Character * ghostPtr)
@@ -48,7 +51,9 @@ void checkMissileVsGhost(Character * missilePtr,
 	if(ghostPtr->_status && 
 	   areCharctersAtSamePosition(missilePtr, ghostPtr))
 	{
-		ghost_die(ghostPtr); 
+		EXPLOSION_SOUND();
+		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
+		die(ghostPtr); 
 		points+=GHOST_VS_MISSILE;
 		--ghostCount;
 	}

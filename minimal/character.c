@@ -50,8 +50,10 @@ extern unsigned char XSize;
 extern unsigned char YSize;
 
 extern unsigned short ghostCount;
+extern unsigned int loop;
 
 extern Image DEAD_GHOST_IMAGE;
+extern Image BOMB_IMAGE;
 
 extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];
@@ -92,15 +94,6 @@ void die(Character * playerPtr)
 	playerPtr->_status = 0;
 }
 
-void ghost_die(Character * ghostPtr)
-{
-	SET_TEXT_COLOR(COLOR_RED);
-	ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
-	DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
-	SET_TEXT_COLOR(TEXT_COLOR);
-	ghostPtr->_status = 0;
-}
-
 int playerReached(Character* preyPtr)
 {
 	int i=0;
@@ -128,7 +121,9 @@ int charactersMeet(unsigned char preyIndex)
 	short i;
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		if((i!=preyIndex)&&areCharctersAtSamePosition(ghosts[i],ghosts[preyIndex]))
+		if((i!=preyIndex) && 
+		    ((!(ghosts[i]->_status)) || !(loop%GHOST_VS_GHOST_COLLISION_LEVEL)) && 
+		    areCharctersAtSamePosition(ghosts[i],ghosts[preyIndex]))
 			return 1;
 	}
 	return 0;
@@ -140,8 +135,9 @@ void checkBombsVsGhost(Character * ghostPtr)
 	if(ghostPtr->_status && playerReachedBombs(ghostPtr))
 	{
 		EXPLOSION_SOUND();
+		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
 		DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
-		ghost_die(ghostPtr);
+		die(ghostPtr);
 		points+=GHOST_VS_BOMBS_BONUS;
 		--ghostCount;
 	}
@@ -229,7 +225,9 @@ void checkGhostsVsGhosts()
 		if(ghosts[i]->_status && charactersMeet(i))
 		{
 			EXPLOSION_SOUND();
-			ghost_die(ghosts[i]);
+			ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
+			DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
+			die(ghosts[i]);
 			points+=GHOST_VS_GHOST_BONUS;
 			--ghostCount;
 		}

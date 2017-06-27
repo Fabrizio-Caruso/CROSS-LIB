@@ -1,13 +1,13 @@
-@REM 
-set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM 
-set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
-@REM 
-set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
+@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
 
-@REM set cc65path="D:\personal\cc65-snapshot-win32"
-@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
-@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+@REM 
+set cc65path="D:\personal\cc65-snapshot-win32"
+@REM 
+set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
+@REM 
+set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 
 set Deliverables=%mypath%\deliverables
@@ -56,10 +56,6 @@ cl65.exe -O -t atmos --config %mypath%\cfg\atmos_better_tap.cfg %mypath%\display
 @REM apple2enh has a "sleep" issue
 @REM cl65.exe -O -t apple2enh %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\apple2enh.bin
 
-@REM vic20-16k has reached its memory limitations
-@REM 
-cl65.exe -O -t vic20 --config %mypath%\cfg\vic20-16k.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cvic20-16k.prg
-
 
 
 @REM TO EXPERIMENT
@@ -69,6 +65,9 @@ cl65.exe -O -t vic20 --config %mypath%\cfg\vic20-16k.cfg %mypath%\display_macros
 @REM cl65.exe  -lib %cc65path%\target\atarixl\drv\tgi\atrx7.tgi -O -t atarixl %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atariXL_HACK.xex
 
 @REM TARGETS MEMORY LIMITATIONS
+
+@REM vic20-16k has reached its memory limitations
+@REM cl65.exe -O -t vic20 --config %mypath%\cfg\vic20-16k.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cvic20-16k.prg
 
 @REM Atari 5200: Out of memory
 @REM cl65.exe -O -t atari5200 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atari5200.a52

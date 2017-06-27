@@ -65,7 +65,29 @@ void displayStatsTitles(void)
 		PRINT(2,1,"speed:");
 		PRINT(2,2,"score:");
 		PRINT(2,3,"level:");
-	//#elif defined(__ATARI__) || defined(__ATARIXL__) 
+	#elif defined(__ATMOS__)
+		PRINT(2,0-3,"SPEED:");
+		PRINT(2,1-3,"SCORE:");
+		PRINT(2,2-3,"LEVEL:");
+		
+		gotoxy(24,1); 
+		cputc('A'+128); 
+		cputc('S'+128);
+		cputc('C'+128); 
+		cputc('I'+128); 
+		cputc('I'+128); 
+		cputc(' '+128);
+		cputc(' '+128);		
+		cputc('C'+128);
+		cputc(' '+128);		
+		cputc('H'+128);
+		cputc(' '+128);		
+		cputc('A'+128);
+		cputc(' '+128);		
+		cputc('S'+128);
+		cputc(' '+128);		
+		cputc('E'+128); 
+										
 	#else
 		PRINT(2,1,"SPEED:");
 		PRINT(2,2,"SCORE:");
@@ -73,10 +95,9 @@ void displayStatsTitles(void)
 	#endif
 	
 	#if defined (__ATMOS__)
-		gotoxy(16,1); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(16,2); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(16,3); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-	//#elif defined(__ATARI__) || defined(__ATARIXL__) 
+		gotoxy(16,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(16,1); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(16,2); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#else
 		gotoxy(15,1); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(15,2); cputc(GHOST_IMAGE._imageData);cputc(':');
@@ -92,20 +113,23 @@ void displayStats(void)
 {	
 	SET_TEXT_COLOR(COLOR_BLACK);
 	
-	//#if defined(__ATARI__) || defined(__ATARIXL__)
-	//#else	
-		PRINT(8,1,"      ");
+	#if defined(__ATMOS__) 
+		PRINT( 8,0-3,"      ");
+		PRINTF(8,0-3,"%u",ghostLevel);
+		PRINTF(8,1-3,"%lu",points);
+		PRINTF(8,2-3,"%hu", level);
+	#else	
+		PRINT( 8,1,"      ");
 		PRINTF(8,1,"%u",ghostLevel);
 		PRINTF(8,2,"%lu",points);
 		PRINTF(8,3,"%hu", level);
-	//#endif
+	#endif
 	
 	#if defined (__ATMOS__)
-		PRINTF(18,1,"%hu", guns);
-		PRINT( 18,2,"    ");
-		PRINTF(18,2,"%hu",ghostCount);
-		PRINTF(18,3,"%hu",lives);	
-	//#elif defined(__ATARI__) || defined(__ATARIXL__) 
+		PRINTF(18,0-3,"%hu", guns);
+		PRINT( 18,1-3,"    ");
+		PRINTF(18,1-3,"%hu",ghostCount);
+		PRINTF(18,2-3,"%hu",lives);	
 	#else
 		PRINTF(17,1,"%hu", guns);
 		PRINT( 17,2,"    ");

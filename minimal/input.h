@@ -37,22 +37,21 @@
 #include "character.h"
 
 
-#if defined (__CBM__) 
+#if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
 	#define INIT_INPUT() unsigned char kbInput; JOY_INSTALL(); 
-#else 
+#else
 	#define INIT_INPUT() unsigned char kbInput;
 #endif
 
 
 // Move player
-#if defined(__CBM__)
+#if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
 	#define MOVE_PLAYER() { kbInput = GET_JOY1(); movePlayerByJoystick(kbInput);}
+	void movePlayerByJoystick(unsigned char joyInput);
 #else
 	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}
+	void movePlayerByKeyboard(char kbInput);
 #endif
 
-void movePlayerByKeyboard(char kbInput);
-
-void movePlayerByJoystick(unsigned char joyInput);
 
 #endif // _INPUT

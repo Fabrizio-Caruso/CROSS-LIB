@@ -60,7 +60,7 @@
 
 #if defined (__CBM610__)
 #else
-	#define JOY_INSTALL() { joy_load_driver(joy_stddrv); joy_install(joy_static_stddrv); };
+	#define JOY_INSTALL() { joy_load_driver(joy_stddrv);};
 
 	#define GET_JOY1() joy_read (JOY_1);
 

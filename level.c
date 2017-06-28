@@ -392,6 +392,6 @@ void fillLevelWithCharacters(void)
 			invincibleGhost._y = YSize-2;
 		break;
 	}
-	initializeCharacter(&invincibleGhost,invincibleGhost._x,invincibleGhost._y,0, &INVINCIBLE_GHOST_IMAGE);
+	initializeCharacter(&invincibleGhost,invincibleGhost._x,invincibleGhost._y, 0, &INVINCIBLE_GHOST_IMAGE);
 }
 

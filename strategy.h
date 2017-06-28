@@ -45,7 +45,7 @@ void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
 					
 void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
 
-void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, char chirality);
+void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, char strategy);
 
 void computeStrategy(void);
 

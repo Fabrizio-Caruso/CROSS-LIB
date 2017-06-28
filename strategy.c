@@ -89,13 +89,13 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 	}
 }
 
-// chirality: 
+// strategy: 
 // 4 means do no prefer horizontal to vertical movement
 // 0 means always horizontal
 // 9 means always vertical
-void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, char chirality)
+void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, char strategy)
 {
-	if(rand()%10 > chirality) // Select blind chase strategy
+	if(rand()%10 > strategy) // Select blind chase strategy
 		{ // 0 - 4
 			blindChaseCharacterXStrategy(hunterPtr, preyPtr);
 		}
@@ -117,28 +117,18 @@ void computeStrategy(void)
 				strategyArray[i] = 4;
 			}
 		break;
-		default:
-			if(ghostCount>2)
+		default: // Assuming a minimum of 6 ghosts
+			for(i=0; i<3; ++i)
 			{
-				for(i=0; i<3; ++i)
-				{
-					strategyArray[i] = 0;
-				}
-				for(i=3; i<6; ++i)
-				{
-					strategyArray[i] = 8;
-				}
-				for(i=6; i<GHOSTS_NUMBER; ++i)
-				{
-					strategyArray[i] = 4;
-				}
+				strategyArray[i] = 0;
 			}
-			else
+			for(i=3; i<6; ++i)
 			{
-				for(i=0; i<GHOSTS_NUMBER; ++i)
-				{
-					strategyArray[i] = 4;
-				}
+				strategyArray[i] = 8;
+			}
+			for(i=6; i<GHOSTS_NUMBER; ++i)
+			{
+				strategyArray[i] = 4;
 			}
 		break;
 	}

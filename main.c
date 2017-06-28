@@ -103,7 +103,6 @@ unsigned char YSize;
 
 unsigned int loop;
 
-
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
@@ -114,6 +113,7 @@ extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
 
+
 Character invincibleGhost;
 Character player; 
 Character powerUp;
@@ -121,6 +121,9 @@ Character gun;
 Character missile;
 Character* ghosts[GHOSTS_NUMBER];
 Character* bombs[BOMBS_NUMBER];
+
+Character leftEnemyMissile;
+Character rightEnemyMissile;
 
 char strategyArray[GHOSTS_NUMBER];
 	
@@ -280,7 +283,7 @@ void handle_invincible_ghost(void)
 		{
 			EXPLOSION_SOUND();
 			die(&player);
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			//DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			printDefeatMessage();
 			sleep(1);
 		}
@@ -295,7 +298,7 @@ void handle_player_vs_outer_wall(void)
 	{
 		EXPLOSION_SOUND();
 		die(&player);
-		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		//DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		DRAW_BROKEN_WALL(player._x,player._y);
 		printDefeatMessage();
 		sleep(1);
@@ -310,7 +313,7 @@ void handle_player_vs_inner_wall(void)
 	{
 		EXPLOSION_SOUND();
 		die(&player);
-		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		//DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		DRAW_BROKEN_WALL(player._x,player._y);		
 		printDefeatMessage();
 		sleep(1);
@@ -325,7 +328,7 @@ void handle_player_vs_bombs_and_ghosts(void)
 	{
 		EXPLOSION_SOUND();
 		die(&player);
-		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		//DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		printDefeatMessage();
 		sleep(1);
 	}	
@@ -412,6 +415,9 @@ int main(void)
 			
 			displayStatsTitles();
 			
+			rightEnemyMissile._x = XSize-4; rightEnemyMissile._y = 4;
+			leftEnemyMissile._x = 4; leftEnemyMissile._y = YSize-4;
+			
 			while(player._status && ghostCount>0) // while alive && there are still ghosts
 			{
 				++loop;
@@ -420,6 +426,35 @@ int main(void)
 				
 				drawInnerVerticalWall();
 
+				if(level>=FIRST_HORIZONTAL_ARROWS_LEVEL)
+				{
+					DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
+					if(leftEnemyMissile._x==XSize-2)
+						leftEnemyMissile._x=2;
+					else
+						++leftEnemyMissile;
+					DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
+					if(areCharctersAtSamePosition(&leftEnemyMissile,&player))
+					{
+						die(&player);
+						printDefeatMessage();
+						sleep(1);
+					}
+					
+					DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
+					if(rightEnemyMissile._x==2)
+						rightEnemyMissile._x=XSize-2;
+					else
+						--rightEnemyMissile;
+					DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);				
+					if(areCharctersAtSamePosition(&rightEnemyMissile,&player))
+					{
+						die(&player);
+						printDefeatMessage();
+						sleep(1);
+					}
+				}
+				
 				MOVE_PLAYER();
 				
 				handle_missile();

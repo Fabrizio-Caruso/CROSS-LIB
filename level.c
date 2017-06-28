@@ -57,6 +57,9 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
+extern Image LEFT_ENEMY_MISSILE_IMAGE;
+extern Image RIGHT_ENEMY_MISSILE_IMAGE;
+
 extern Character invincibleGhost;
 extern Character player; 
 extern Character powerUp;
@@ -64,6 +67,9 @@ extern Character gun;
 extern Character missile;
 extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];
+
+extern Character leftEnemyMissile;
+extern Character rightEnemyMissile;
 
 
 
@@ -402,6 +408,10 @@ void fillLevelWithCharacters(void)
 			invincibleGhost._y = YSize-2;
 		break;
 	}
-	initializeCharacter(&invincibleGhost,invincibleGhost._x,invincibleGhost._y, 0, &INVINCIBLE_GHOST_IMAGE);
+	initializeCharacter(&invincibleGhost,invincibleGhost._x,invincibleGhost._y, 0,&INVINCIBLE_GHOST_IMAGE);
+
+	initializeCharacter(&leftEnemyMissile,                2,YSize-2,            1,&LEFT_ENEMY_MISSILE_IMAGE);
+	
+	initializeCharacter(&rightEnemyMissile,         XSize-2,YSize-2,            1,&RIGHT_ENEMY_MISSILE_IMAGE);
 }
 

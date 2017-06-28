@@ -209,7 +209,6 @@ int ghostsMeet(unsigned char preyIndex)
 {
 	short i;
 	
-	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
 		if((i!=preyIndex) && // not itself

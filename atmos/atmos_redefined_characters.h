@@ -50,6 +50,9 @@
 	 Image PLAYER_UP;
 	 Image PLAYER_DOWN;
 	 
+	 Image LEFT_ENEMY_MISSILE_IMAGE;
+	 Image RIGHT_ENEMY_MISSILE_IMAGE;
+	 
 	 extern char YSize; 
 	 
 	void INIT_IMAGES(void)
@@ -88,6 +91,11 @@
 		PLAYER_RIGHT._imageData = ',';
 		PLAYER_UP._imageData = '.';
 		PLAYER_DOWN._imageData = '/';
+		
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+		LEFT_ENEMY_MISSILE_IMAGE._color = 0;
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+		RIGHT_ENEMY_MISSILE_IMAGE._color = 0;
 		
 		// Initialize colors 
 		for(i=0;i<3;++i)

@@ -274,6 +274,7 @@ void handle_invincible_ghost(void)
 			TOCK_SOUND();
 			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
 			moveTowardCharacter(&invincibleGhost, &player, 4);
+			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		}
 		if(areCharctersAtSamePosition(&invincibleGhost, &player))
 		{

@@ -50,7 +50,7 @@
 
 struct ImageStruct
 {
-	char _imageData;
+	unsigned char _imageData;
 	unsigned char _color;
 };
 
@@ -67,6 +67,8 @@ typedef struct ImageStruct Image;
 #endif
 
 #if defined(__ATMOS__)
+	#include<peekpoke.h>
+	
 	char powerUp_blink = 1;
 	char gun_blink = 1;
 	
@@ -80,29 +82,32 @@ typedef struct ImageStruct Image;
 	void DRAW_PLAYER(char x, char y, Image * image) 
 	{
 		gotoxy(x+2,(y+3)); 
-		cputc(image->_imageData + image->_color);
+		
+		POKE(0xBB80+(x+2)+(y+3)*40, image->_imageData + image->_color);
+		//cputc(image->_imageData + image->_color);
 	};
 
 		
 
-	#define DRAW_GHOST(x,y,image) {gotoxy(x+2,(y+3)); cputc(image->_imageData + image->_color);};
+	#define DRAW_GHOST(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, image->_imageData + image->_color);};
 	
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {gotoxy(x+2,(y+3)); cputc(image->_imageData + image->_color);};
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, image->_imageData + image->_color);};
 
-	#define DRAW_BOMB(x,y,image) {gotoxy(x+2,(y+3)); cputc(image->_imageData + image->_color);};
+	#define DRAW_BOMB(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, image->_imageData + image->_color);};
 
 	// #define DRAW_POWERUP(x,y,image) {gotoxy((x+2,(y+3)); cputc(image->_imageData + image->_color);};
 	void DRAW_POWERUP(char x, char y, Image * image) 
 	{
-		gotoxy((x+2),(y+3)); 
+		//gotoxy((x+2),(y+3)); 
 		if(powerUp_blink) 
 		{
-			cputc(image->_imageData + image->_color); 
+			POKE(0xBB80+(x+2)+(y+3)*40,image->_imageData + image->_color );
+			//cputc(image->_imageData + image->_color); 
 			powerUp_blink=0;
 		} 
 		else 
 		{
-			cputc(' '); 
+			POKE(0xBB80+(x+2)+(y+3)*40, 32); 
 			powerUp_blink=1;
 		}
 	};
@@ -111,45 +116,46 @@ typedef struct ImageStruct Image;
 	// #define DRAW_GUN(x,y,image) {gotoxy((x+2,(y+3)); cputc(image->_imageData + image->_color);};
 	void DRAW_GUN(char x, char y, Image * image) 
 	{
-		gotoxy((x+2),(y+3)); 
+		//gotoxy((x+2),(y+3)); 
 		if(gun_blink) 
 		{
-			cputc(image->_imageData + image->_color); 
+			POKE(0xBB80+(x+2)+(y+3)*40,image->_imageData + image->_color );
+			//cputc(image->_imageData + image->_color); 
 			gun_blink=0;
 		} 
 		else 
 		{
-			cputc(' '); 
+			POKE(0xBB80+(x+2)+(y+3)*40, 32);
 			gun_blink=1;
 		}
 	};
 	
 	
 	
-	#define DRAW_MISSILE(x,y,image) {gotoxy((x+2),(y+3)); cputc(image->_imageData + image->_color);};
+	#define DRAW_MISSILE(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, image->_imageData + image->_color);};
 
 	#define DRAW_BOMBS() \
 	{ \
-		unsigned char i = 0; \
-		for(;i<BOMBS_NUMBER;++i) \
+		unsigned char i; \
+		for(i=0;i<BOMBS_NUMBER;++i) \
 		{ \
 			DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr); \
 		} \
 	}
 
-	#define DELETE_PLAYER(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
+	#define DELETE_PLAYER(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, 32);};
 
-	#define DELETE_GHOST(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
+	#define DELETE_GHOST(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, 32);};
 
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
+	#define DELETE_INVINCIBLE_GHOST(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, 32);};
 
-	#define DELETE_BOMB(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
+	#define DELETE_BOMB(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, 32);};
 
-	#define DELETE_POWERUP(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
+	#define DELETE_POWERUP(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, 32);};
 
-	#define DELETE_GUN(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
+	#define DELETE_GUN(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, 32);};
 
-	#define DELETE_MISSILE(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
+	#define DELETE_MISSILE(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, 32);};
 
 	#define PRINT(x,y,str) {gotoxy(x+2,y+3); cputs(str); };
 
@@ -192,11 +198,12 @@ typedef struct ImageStruct Image;
 		unsigned char i; \
 		for(i=0;i<length;++i) \
 		{ \
-			gotoxy(x+2,y+i+3); \
-			cputc('|'+128); \
+			POKE(0xBB80+(x+2)+(y+i+3)*40,'|'+128); \
 		} \
 	}
-	
+	//			gotoxy(x+2,y+i+3); \
+	//		cputc('|'+128); \
+			
 	#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
 	#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
 	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }

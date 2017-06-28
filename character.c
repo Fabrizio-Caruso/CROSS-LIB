@@ -132,25 +132,27 @@ int ghostsMeet(unsigned char preyIndex)
 
 void checkBombsVsGhost(Character * ghostPtr)
 {
+	
 	if(ghostPtr->_status && playerReachedBombs(ghostPtr))
 	{
 		EXPLOSION_SOUND();
 		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
-		DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
+		//DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
 		die(ghostPtr);
 		points+=GHOST_VS_BOMBS_BONUS;
 		--ghostCount;
 	}
+	
 }
 						
 
 void checkBombsVsGhosts(void)
 {
-	char i;
+	unsigned char i;
 	for(i=0;i<GHOSTS_NUMBER;++i)
-	{
-		checkBombsVsGhost(ghosts[i]);
-	}
+	  {
+		 checkBombsVsGhost(ghosts[i]);
+	  }
 }
 
 // TODO: To be replaced with something cleaner

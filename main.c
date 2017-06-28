@@ -427,7 +427,7 @@ int main(void)
 				// Chase the player
 				chasePlayer(ghostSlowDown);
 				
-				// TODO: this should fix missile vs ghost detection problem
+				// TODO: this should detect collisions of ghosts that have just moved
 				if(missile._status)
 				{
 					checkMissileVsGhosts(&missile);
@@ -441,8 +441,7 @@ int main(void)
 				checkBombsVsGhosts();
 				
 				// Check collisions ghosts vs ghosts
-				checkGhostsVsGhosts();
-
+			    checkGhostsVsGhosts();
 				
 				handle_gun_item();
 				

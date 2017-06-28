@@ -90,9 +90,7 @@ extern Character player;
 		{
 			playerFire = 1;
 		}
-		SET_TEXT_COLOR(PLAYER_COLOR);
 		DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		SET_TEXT_COLOR(TEXT_COLOR);
 	}
 #endif
 
@@ -106,7 +104,6 @@ void movePlayerByKeyboard(char kbInput)
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = UP;
 		SHOW_UP();
-		//*player._imagePtr = PLAYER_UP;
 	}
 	else if((kbInput=='S') || (kbInput=='s'))
 	{
@@ -115,7 +112,6 @@ void movePlayerByKeyboard(char kbInput)
 		invincibleYCountDown = computeInvincibleCountDown();
 		playerDirection = DOWN;
 		SHOW_DOWN();
-		//*player._imagePtr = PLAYER_DOWN;
 	}
 	else if((kbInput=='A') || (kbInput=='a'))
 	{
@@ -124,7 +120,6 @@ void movePlayerByKeyboard(char kbInput)
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = LEFT;
 		SHOW_LEFT();
-		//*player._imagePtr = PLAYER_LEFT;
 	}
 	else if((kbInput=='D') || (kbInput=='d'))
 	{
@@ -133,7 +128,6 @@ void movePlayerByKeyboard(char kbInput)
 		invincibleXCountDown = computeInvincibleCountDown();
 		playerDirection = RIGHT;
 		SHOW_RIGHT();
-		//*player._imagePtr = PLAYER_RIGHT;
 	}
 	else 	
 	if(kbInput==' ')
@@ -150,9 +144,7 @@ void movePlayerByKeyboard(char kbInput)
 			SET_TEXT_COLOR(TEXT_COLOR);
 		}
 	#endif // TRAINER
-	SET_TEXT_COLOR(PLAYER_COLOR);
 	DRAW_PLAYER(player._x, player._y, player._imagePtr);
-	SET_TEXT_COLOR(TEXT_COLOR);
 }
 
 

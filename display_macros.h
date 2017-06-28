@@ -51,7 +51,7 @@
 struct ImageStruct
 {
 	char _imageData;
-	char _color;
+	unsigned char _color;
 };
 
 typedef struct ImageStruct Image;
@@ -197,10 +197,10 @@ typedef struct ImageStruct Image;
 		} \
 	}
 	
-	#define SHOW_LEFT() {*player._imagePtr = PLAYER_LEFT; }
-	#define SHOW_RIGHT() {*player._imagePtr = PLAYER_RIGHT; }
-	#define SHOW_UP() {*player._imagePtr = PLAYER_UP; }
-	#define SHOW_DOWN() {*player._imagePtr = PLAYER_DOWN; }
+	#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
+	#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
+	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
+	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
 	
 #elif defined(__ATARI__) || defined(__ATARIXL__)
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x),(y)); cputc('X');};

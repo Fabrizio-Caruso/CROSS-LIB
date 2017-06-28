@@ -144,9 +144,17 @@ void fillLevelWithCharacters(void)
 	int b1y, b2y, b3y, b4y;
 	Character *dummyBombs[BOMBS_NUMBER];
 	char i;
-	int x1,x2,x3,x4,x5,x6,x0; //x7,x0;
-	int y1,y2,y3,y4,y5,y6,y0; //y7,y0;
-
+	int x1,x2,x3,x4,x5,x6,x0;
+	int y1,y2,y3,y4,y5,y6,y0;
+	#if GHOSTS_NUMBER == 8
+	{
+		int x7; int y7;
+		x7 = XSize-XSize/6+rand()%3-3; 
+		y7 = YSize/2+rand()%3-2;
+		initializeCharacter(ghosts[7],x7,y7,1,&GHOST_IMAGE);
+		DRAW_GHOST(ghosts[7]->_x, ghosts[7]->_y, ghosts[7]->_imagePtr);
+	}
+	#endif
 	
 	INIT_IMAGES();
 	
@@ -158,29 +166,31 @@ void fillLevelWithCharacters(void)
 	x4 = XSize/2+rand()%3-1;       y4 = YSize/6+rand()%3-2+1;
 	x5 = XSize/2+rand()%3-1;       y5 = YSize-YSize/6+rand()%3-3;
 	x6 = XSize-XSize/6+rand()%3-3; y6 = YSize/6+rand()%3-2+1;
-	//x7 = XSize-XSize/6+rand()%3-3; y7 = YSize/2+rand()%3-2;
 	x0 = XSize-XSize/6+rand()%3-3; y0 = YSize-YSize/6+rand()%3-3;
 
-		initializeCharacter(ghosts[1],x1,y1,1,&GHOST_IMAGE);
-		DRAW_GHOST(ghosts[1]->_x, ghosts[1]->_y, ghosts[1]->_imagePtr);
-		
-		initializeCharacter(ghosts[2],x2,y2,1, &GHOST_IMAGE);
-		DRAW_GHOST(ghosts[2]->_x, ghosts[2]->_y, ghosts[2]->_imagePtr);
-		
-		initializeCharacter(ghosts[3],x3,y3,1,&GHOST_IMAGE);
-		DRAW_GHOST(ghosts[3]->_x, ghosts[3]->_y, ghosts[3]->_imagePtr);
+	
+	initializeCharacter(ghosts[1],x1,y1,1,&GHOST_IMAGE);
+	DRAW_GHOST(ghosts[1]->_x, ghosts[1]->_y, ghosts[1]->_imagePtr);
+	
+	initializeCharacter(ghosts[2],x2,y2,1, &GHOST_IMAGE);
+	DRAW_GHOST(ghosts[2]->_x, ghosts[2]->_y, ghosts[2]->_imagePtr);
+	
+	initializeCharacter(ghosts[3],x3,y3,1,&GHOST_IMAGE);
+	DRAW_GHOST(ghosts[3]->_x, ghosts[3]->_y, ghosts[3]->_imagePtr);
 
-		initializeCharacter(ghosts[4],x4,y4,1,&GHOST_IMAGE);
-		DRAW_GHOST(ghosts[4]->_x, ghosts[4]->_y, ghosts[4]->_imagePtr);
+	initializeCharacter(ghosts[4],x4,y4,1,&GHOST_IMAGE);
+	DRAW_GHOST(ghosts[4]->_x, ghosts[4]->_y, ghosts[4]->_imagePtr);
+
+	initializeCharacter(ghosts[5],x5,y5,1,&GHOST_IMAGE);
+	DRAW_GHOST(ghosts[5]->_x, ghosts[5]->_y, ghosts[5]->_imagePtr);
+
+	initializeCharacter(ghosts[6],x6,y6,1,&GHOST_IMAGE);
+	DRAW_GHOST(ghosts[6]->_x, ghosts[6]->_y, ghosts[6]->_imagePtr);
 	
-		initializeCharacter(ghosts[5],x5,y5,1,&GHOST_IMAGE);
-		DRAW_GHOST(ghosts[5]->_x, ghosts[5]->_y, ghosts[5]->_imagePtr);
+	initializeCharacter(ghosts[0],x0,y0,1,&GHOST_IMAGE);
+	DRAW_GHOST(ghosts[0]->_x, ghosts[0]->_y, ghosts[0]->_imagePtr);
 	
-		initializeCharacter(ghosts[6],x6,y6,1,&GHOST_IMAGE);
-		DRAW_GHOST(ghosts[6]->_x, ghosts[6]->_y, ghosts[6]->_imagePtr);
-		
-		initializeCharacter(ghosts[0],x0,y0,1,&GHOST_IMAGE);
-		DRAW_GHOST(ghosts[0]->_x, ghosts[0]->_y, ghosts[0]->_imagePtr);
+
 
 	// Player
 	do

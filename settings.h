@@ -40,7 +40,7 @@
 #define C64_REDEFINED_CHARACTERS 0
 
 #define BOMBS_NUMBER 4
-#define GHOSTS_NUMBER 7 
+#define GHOSTS_NUMBER 8
 #define LIVES_NUMBER 3
 #define GUNS_NUMBER 3
 

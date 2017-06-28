@@ -92,7 +92,7 @@ int playerReached(Character* preyPtr);
 int playerReachedBombs(Character* ghostPtr);
 
 
-int charactersMeet(unsigned char preyIndex);
+int ghostsMeet(unsigned char preyIndex);
 
 // TODO: check bombs routines should be substituted by a generic collision detection routine
 void checkBombsVsGhost(Character * ghostPtr);

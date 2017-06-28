@@ -116,7 +116,7 @@ int playerReachedBombs(Character* preyPtr)
 	return 0;
 }
 
-int charactersMeet(unsigned char preyIndex)
+int ghostsMeet(unsigned char preyIndex)
 {
 	short i;
 	for(i=0;i<GHOSTS_NUMBER;++i)
@@ -222,7 +222,7 @@ void checkGhostsVsGhosts()
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		if(ghosts[i]->_status && charactersMeet(i))
+		if(ghosts[i]->_status && ghostsMeet(i))
 		{
 			EXPLOSION_SOUND();
 			ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;

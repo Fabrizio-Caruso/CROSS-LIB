@@ -56,7 +56,7 @@
 #define POWER_UP_COLOR COLOR_BLACK
 #define GUN_COLOR COLOR_BLACK
 
-#define GHOST_VS_GHOST_COLLISION_LEVEL 25
+#define GHOST_VS_GHOST_COLLISION_LEVEL 30
 
 // If two or more ghosts bump into eachother for each ghost
 #define GHOST_VS_GHOST_BONUS 500ul

@@ -116,19 +116,6 @@ int playerReachedBombs(Character* preyPtr)
 	return 0;
 }
 
-int ghostsMeet(unsigned char preyIndex)
-{
-	short i;
-	for(i=0;i<GHOSTS_NUMBER;++i)
-	{
-		if((i!=preyIndex) && 
-		    ((!(ghosts[i]->_status)) || !(loop%GHOST_VS_GHOST_COLLISION_LEVEL)) && 
-		    areCharctersAtSamePosition(ghosts[i],ghosts[preyIndex]))
-			return 1;
-	}
-	return 0;
-}
-
 
 void checkBombsVsGhost(Character * ghostPtr)
 {
@@ -217,6 +204,21 @@ short nearInnerWall(Character *characterPtr)
 		   (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
 }
 
+
+int ghostsMeet(unsigned char preyIndex)
+{
+	short i;
+	
+	
+	for(i=0;i<GHOSTS_NUMBER;++i)
+	{
+		if((i!=preyIndex) && // not itself
+		    ((!(ghosts[i]->_status)) || !(loop%GHOST_VS_GHOST_COLLISION_LEVEL)) && // either ghost is dead or ghost-ghost collision possible
+		    areCharctersAtSamePosition(ghosts[i],ghosts[preyIndex])) 
+			return 1;
+	}
+	return 0;
+}
 
 void checkGhostsVsGhosts()
 {

@@ -53,11 +53,11 @@ int computeInvincibleSlowDown(void)
 {
 	if(loop<1000)
 	{
-		return 28000 - (level/2) * 1000 - loop;
+		return 26000 - (level/2) * 1000 - loop*8;
 	}
 	else if(loop<1100)
 	{
-		return 28000 - level * 1000 - loop;
+		return 26000 - level * 1000 - loop*16;
 	}
 	return 0; // You must die!
 }
@@ -75,11 +75,11 @@ int computeInvincibleLoopTrigger(void)
 	if(level==FINAL_LEVEL)
 		return 50;
 	else if (level==FINAL_LEVEL - 1)
-		return 200;
+		return 100;
 	else if (level==FINAL_LEVEL - 2)
-		return 300;
+		return 200;
 	else
-		return 500 - level*20;
+		return 600 - level*20;
 }
 
 void computeInvincibleGhostParameters(void)

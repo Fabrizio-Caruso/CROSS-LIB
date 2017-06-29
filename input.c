@@ -102,7 +102,7 @@ extern unsigned short ghostCount;
 
 void movePlayerByKeyboard(char kbInput)
 {
-	if((kbInput=='W') || (kbInput=='w'))
+	if(/*(kbInput=='W') ||*/ (kbInput=='W'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		--player._y;
@@ -110,7 +110,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = UP;
 		SHOW_UP();
 	}
-	else if((kbInput=='S') || (kbInput=='s'))
+	else if(/*(kbInput=='S') ||*/ (kbInput=='S'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		++player._y;
@@ -118,7 +118,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = DOWN;
 		SHOW_DOWN();
 	}
-	else if((kbInput=='A') || (kbInput=='a'))
+	else if(/*(kbInput=='A') ||*/ (kbInput=='A'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		--player._x;
@@ -126,7 +126,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = LEFT;
 		SHOW_LEFT();
 	}
-	else if((kbInput=='D') || (kbInput=='d'))
+	else if(/*(kbInput=='D') ||*/ (kbInput=='D'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		++player._x;
@@ -135,7 +135,7 @@ void movePlayerByKeyboard(char kbInput)
 		SHOW_RIGHT();
 	}
 	#ifdef _TRAINER
-		else if((kbInput=='Z') || (kbInput=='z'))
+		else if(/*(kbInput=='Z') || */ (kbInput=='Z'))
 		{
 			ghostCount = 0;
 		}

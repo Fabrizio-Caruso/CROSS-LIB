@@ -426,7 +426,7 @@ int main(void)
 				
 				drawInnerVerticalWall();
 
-				if(level>=FIRST_HORIZONTAL_ARROWS_LEVEL)
+				if(level==5 || level == 10 || level == 15 || level >= 18)
 				{
 					DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 					if(leftEnemyMissile._x==XSize-2)

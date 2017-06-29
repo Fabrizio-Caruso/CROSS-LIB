@@ -123,8 +123,6 @@
 // Starting from this level, the invincible ghost will try to be aligned with the player to defend other ghosts
 // #define NASTY_INVINCIBLE_START_LEVEL 5
 
-#define FIRST_HORIZONTAL_ARROWS_LEVEL 5;
-
 // Directions
 #define RIGHT 0
 #define DOWN 1

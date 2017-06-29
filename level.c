@@ -82,35 +82,38 @@ void updateInnerWallVerticalData(void)
 {		
 	switch(level)
 	{
-		case 1: case 5: case 10:
+		case 1: case 5:
 			innerVerticalWallLength = 0;
 		break;
 		case 2:
-			innerVerticalWallLength = 8;
+			innerVerticalWallLength = YSize-12;
 		break;
 		case 3:
-			innerVerticalWallLength = 12;
+			innerVerticalWallLength = YSize-8;
 		break;
 		case 4:
 			innerVerticalWallLength = YSize-6;
 		break;
 		case 6:
-			innerVerticalWallLength = 8;
+			innerVerticalWallLength = YSize-12;
 		break;
 		case 7:
-			innerVerticalWallLength = 12;
+			innerVerticalWallLength = YSize-10;
 		break;
 		case 8:
-			innerVerticalWallLength = 16;
+			innerVerticalWallLength = YSize-8;
 		break;
 		case 9:
 			innerVerticalWallLength = YSize-6;
 		break;
+		case 10:
+			innerVerticalWallLength = YSize-4;
+		break;
 		case 11:
-			innerVerticalWallLength = 8;
+			innerVerticalWallLength = YSize-12;
 		break;
 		case 12:
-			innerVerticalWallLength = 12;
+			innerVerticalWallLength = YSize-8;
 		break;
 		case 13:
 			innerVerticalWallLength = YSize-6;
@@ -119,10 +122,10 @@ void updateInnerWallVerticalData(void)
 			innerVerticalWallLength = YSize-4;
 		break;
 		case 15:
-			innerVerticalWallLength = 8;
+			innerVerticalWallLength = YSize-12;
 		break;
 		case 16:
-			innerVerticalWallLength = 12;
+			innerVerticalWallLength = YSize-8;
 		break;
 		case 17:
 			innerVerticalWallLength = YSize-6;
@@ -131,7 +134,7 @@ void updateInnerWallVerticalData(void)
 			innerVerticalWallLength = YSize-4;
 		break;
 		case 19:
-			innerVerticalWallLength = 12;
+			innerVerticalWallLength = YSize-8;
 		break;
 		case 20:
 			innerVerticalWallLength = YSize-4;

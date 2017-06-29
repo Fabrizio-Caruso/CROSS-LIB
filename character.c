@@ -236,3 +236,29 @@ void checkGhostsVsGhosts()
 		}
 	}
 }
+
+// void partition()
+// {
+	// unsigned char pivot = ghosts[GHOSTS_NUMBER]->_status;
+	// unsigned char left = 0;
+	// unsigned char right = GHOSTS_NUMBER - 1;
+	// unsigned char tmp;
+	
+	// while(left != right)
+	// {
+		// if(ghosts[left]->_status > ghosts[right]->_status)
+		// {
+			// tmp = ghosts[left];
+			// ghost[left] = ghost[right];
+			// ghost[right] = tmp;			
+		// }
+		// if(pivot == ghosts[left]->_status)
+		// {
+			// ++right;
+		// }
+		// else
+		// {	
+			// ++left;
+		// }
+	// }
+// }

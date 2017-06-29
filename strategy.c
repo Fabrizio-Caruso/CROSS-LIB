@@ -124,25 +124,39 @@ void computeStrategy(void)
 			}
 			for(i=5; i<7; ++i) // 2
 			{
+				strategyArray[i] = 2; // prefer X (70%)
+			}
+			for(i=7; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
+			{
+				strategyArray[i] = 6; // prefer Y (70%)
+			}
+		break;
+		case 10: case 11: case 12: case 13: case 14:
+			for(i=0; i<5; ++i) // 4
+			{
+				strategyArray[i] = 4; // no preference (approximate straight line)
+			}
+			for(i=5; i<7; ++i) // 2
+			{
 				strategyArray[i] = 1; // prefer X (80%)
 			}
 			for(i=7; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
 			{
 				strategyArray[i] = 7; // prefer Y (80%)
 			}
-		break;
-		default: // Assuming a minimum of 6 ghosts
+		break;		
+		default: // from level 15 on - Assuming a minimum of 6 ghosts
 			for(i=0; i<2; ++i) // 2
 			{
 				strategyArray[i] = 4; // no preference (approximate straight line)
 			}
 			for(i=2; i<5; ++i) // 3
 			{
-				strategyArray[i] = 0; // strongly prefer X (90%)
+				strategyArray[i] = 1; // strongly prefer X (80%)
 			}
 			for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
 			{
-				strategyArray[i] = 8; // strongly prefer Y (90%)
+				strategyArray[i] = 7; // strongly prefer Y (80%)
 			}
 		break;
 	}

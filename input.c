@@ -43,12 +43,17 @@
 
 #include "input.h"
 
+
+//#define _TRAINER 1
+
 extern unsigned short invincibleXCountDown;
 extern unsigned short invincibleYCountDown;
 extern unsigned short playerDirection;
 extern unsigned short playerFire;
 extern unsigned short level;
 extern Character player;
+
+extern unsigned short ghostCount;
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
 #else
@@ -129,21 +134,17 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = RIGHT;
 		SHOW_RIGHT();
 	}
+	#ifdef _TRAINER
+		else if((kbInput=='Z') || (kbInput=='z'))
+		{
+			ghostCount = 0;
+		}
+	#endif // TRAINER
 	else 	
 	if(kbInput==' ')
 	{
 		playerFire = 1;
 	}
-
-	#ifdef _TRAINER
-		else if((kbInput=='Z') || (kbInput=='z'))
-		{
-			ghostCount = 0;
-			SET_TEXT_COLOR(PLAYER_COLOR);
-			displayCharacter(playerPtr);
-			SET_TEXT_COLOR(TEXT_COLOR);
-		}
-	#endif // TRAINER
 	DRAW_PLAYER(player._x, player._y, player._imagePtr);
 }
 

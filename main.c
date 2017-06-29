@@ -456,7 +456,7 @@ int main(void)
 				}
 				
 				MOVE_PLAYER();
-				
+
 				handle_missile();
 			
 				// Chase the player

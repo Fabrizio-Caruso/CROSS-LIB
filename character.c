@@ -126,6 +126,7 @@ void checkBombsVsGhost(Character * ghostPtr)
 		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
 		//DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
 		die(ghostPtr);
+		ghost_partition();
 		points+=GHOST_VS_BOMBS_BONUS;
 		--ghostCount;
 	}
@@ -231,34 +232,34 @@ void checkGhostsVsGhosts()
 			ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
 			DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
 			die(ghosts[i]);
+			ghost_partition();
 			points+=GHOST_VS_GHOST_BONUS;
 			--ghostCount;
 		}
 	}
 }
 
-// void partition()
-// {
-	// unsigned char pivot = ghosts[GHOSTS_NUMBER]->_status;
-	// unsigned char left = 0;
-	// unsigned char right = GHOSTS_NUMBER - 1;
-	// unsigned char tmp;
+void ghost_partition()
+{
+	short left = 0;
+	short right = GHOSTS_NUMBER - 1;
+	Character * aux;
 	
-	// while(left != right)
-	// {
-		// if(ghosts[left]->_status > ghosts[right]->_status)
-		// {
-			// tmp = ghosts[left];
-			// ghost[left] = ghost[right];
-			// ghost[right] = tmp;			
-		// }
-		// if(pivot == ghosts[left]->_status)
-		// {
-			// ++right;
-		// }
-		// else
-		// {	
-			// ++left;
-		// }
-	// }
-// }
+	if(ghostCount!=0)
+	while(left < right)
+	{
+		while((ghosts[left]->_status==1) && (left<GHOSTS_NUMBER))
+			++left;
+		while((ghosts[right]->_status==0) && (right>=0))
+			--right;
+		if(left<right)
+		{
+			aux = ghosts[left];
+			ghosts[left] = ghosts[right];
+			ghosts[right] = aux;
+			++left;
+			--right;
+		}
+	}
+}
+

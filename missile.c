@@ -54,6 +54,7 @@ void checkMissileVsGhost(Character * missilePtr,
 		EXPLOSION_SOUND();
 		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
 		die(ghostPtr); 
+		ghost_partition();
 		points+=GHOST_VS_MISSILE;
 		--ghostCount;
 	}

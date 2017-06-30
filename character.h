@@ -106,4 +106,6 @@ short innerWallReached(Character *characterPtr);
 
 short nearInnerWall(Character *characterPtr);
 
+void ghost_partition(void);
+
 #endif

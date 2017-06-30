@@ -246,20 +246,20 @@ void ghost_partition()
 	Character * aux;
 	
 	if(ghostCount!=0)
-	while(left < right)
-	{
-		while((ghosts[left]->_status==1) && (left<GHOSTS_NUMBER))
-			++left;
-		while((ghosts[right]->_status==0) && (right>=0))
-			--right;
-		if(left<right)
+		while(left < right)
 		{
-			aux = ghosts[left];
-			ghosts[left] = ghosts[right];
-			ghosts[right] = aux;
-			++left;
-			--right;
+			while((ghosts[left]->_status==1) && (left<GHOSTS_NUMBER))
+				++left;
+			while((ghosts[right]->_status==0) && (right>=0))
+				--right;
+			if(left<right)
+			{
+				aux = ghosts[left];
+				ghosts[left] = ghosts[right];
+				ghosts[right] = aux;
+				++left;
+				--right;
+			}
 		}
-	}
 }
 

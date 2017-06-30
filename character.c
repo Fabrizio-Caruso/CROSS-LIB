@@ -126,7 +126,6 @@ void checkBombsVsGhost(Character * ghostPtr)
 		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
 		//DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
 		die(ghostPtr);
-		ghost_partition();
 		points+=GHOST_VS_BOMBS_BONUS;
 		--ghostCount;
 	}
@@ -141,6 +140,7 @@ void checkBombsVsGhosts(void)
 	  {
 		 checkBombsVsGhost(ghosts[i]);
 	  }
+	ghost_partition();
 }
 
 // TODO: To be replaced with something cleaner
@@ -232,11 +232,11 @@ void checkGhostsVsGhosts()
 			ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
 			DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
 			die(ghosts[i]);
-			ghost_partition();
 			points+=GHOST_VS_GHOST_BONUS;
 			--ghostCount;
 		}
 	}
+	ghost_partition();
 }
 
 void ghost_partition()

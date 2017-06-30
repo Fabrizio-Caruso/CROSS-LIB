@@ -54,7 +54,6 @@ void checkMissileVsGhost(Character * missilePtr,
 		EXPLOSION_SOUND();
 		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
 		die(ghostPtr); 
-		ghost_partition();
 		points+=GHOST_VS_MISSILE;
 		--ghostCount;
 	}
@@ -67,6 +66,7 @@ void checkMissileVsGhosts(Character * missilePtr)
 	{
 		checkMissileVsGhost(missilePtr, ghosts[i]);
 	}
+	ghost_partition();
 }
 	
 int setMissileInitialPosition(Character *missilePtr, Character *playerPtr,

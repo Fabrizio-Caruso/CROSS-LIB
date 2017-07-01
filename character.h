@@ -90,9 +90,9 @@ char playerReached(Character* preyPtr);
 				  
 char playerReachedBombs(Character* ghostPtr);
 
-char ghostsMeet(unsigned char preyIndex);
+char ghostsMeetAlive(unsigned char preyIndex);
 
-char ghostsMeetdead(unsigned char preyIndex);
+char ghostsMeetDead(unsigned char preyIndex);
 
 // TODO: check bombs routines should be substituted by a generic collision detection routine
 void checkBombsVsGhost(Character * ghostPtr);

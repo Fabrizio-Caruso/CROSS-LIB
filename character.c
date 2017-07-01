@@ -214,21 +214,21 @@ char nearInnerWall(Character *characterPtr)
 
 
 // Check whether a moving ghost meets another ghost that is alive
-char ghostsMeet(unsigned char preyIndex)
+char ghostsMeetAlive(unsigned char preyIndex)
 {
 	char i;
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
 		if((i!=preyIndex) && // not itself
-		   ghosts[i]->_status && 
-		   !(loop%GHOST_VS_GHOST_COLLISION_LEVEL) && // ghost-ghost collision possible (we assume ghosts[preyindex] has moved)
+		   ghosts[i]->_status && // ghost-ghost collision possible (we assume ghosts[preyindex] is alive and has moved)
 		   areCharctersAtSamePosition(ghosts[i],ghosts[preyIndex])) 
 			return 1;
 	}
 	return 0;
 }
 
+// Check whether an alive ghost meets another dead ghost (transformed into a bomb)
 char ghostsMeetDead(unsigned char preyIndex)
 {
 	short i;
@@ -249,7 +249,7 @@ void checkGhostsVsGhosts()
 	#if defined(__ATMOS__)
 		unsigned char peek;
 		char i; char j;
-		if(!(loop%GHOST_VS_GHOST_COLLISION_LEVEL && loop>GHOST_VS_GHOST_COLLISION_START))
+		if(!(loop%GHOST_VS_GHOST_COLLISION_LEVEL && loop>GHOST_VS_GHOST_COLLISION_START)) // It should only be used for alive vs alive collision
 		{
 			for(i=0;i<GHOSTS_NUMBER;++i)
 			{	
@@ -270,22 +270,51 @@ void checkGhostsVsGhosts()
 				}
 			}
 		}
+		else // alive vs dead (ghost transformed into a bomb) collision
+		{
+			for(i=0;i<GHOSTS_NUMBER;++i)
+			{	
+				peek = PEEK(0xBB80+(ghosts[i]->_x+2)+(ghosts[i]->_y+3)*40);
+				if(ghosts[i]->_status && ghosts[i]->_moved && (peek == DEAD_GHOST_IMAGE._imageData + 128))
+				{
+					EXPLOSION_SOUND();
+					die(ghosts[i]);
+					points+=GHOST_VS_GHOST_BONUS;
+					ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
+					--ghostCount;					
+					// for(j=0;j<GHOSTS_NUMBER;j++)
+					// {
+						// if((ghosts[j]->_status) && (ghosts[j]->_x==ghosts[i]->_x) && (ghosts[j]->_y==ghosts[i]->_y))
+						// {
+							// die(ghosts[j]);
+							// points+=GHOST_VS_GHOST_BONUS;
+							// ghosts[j]->_imagePtr = &DEAD_GHOST_IMAGE;
+							// --ghostCount;
+						// }
+					// }
+				}
+			}
+		}
 	#else
+		
 	char i;
 	
 	// Check whether an alive moving ghosts meets another alive ghosts
-	for(i=0;i<GHOSTS_NUMBER;++i)
+	if(!(loop%GHOST_VS_GHOST_COLLISION_LEVEL)) // alive vs alive collision possible
 	{
-		if(ghosts[i]->_status)
+		for(i=0;i<GHOSTS_NUMBER;++i)
 		{
-			if(ghosts[i]->_moved && ghostsMeet(i))
+			if(ghosts[i]->_status)
 			{
-				EXPLOSION_SOUND();
-				ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
-				DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
-				die(ghosts[i]);
-				points+=GHOST_VS_GHOST_BONUS;
-				--ghostCount;
+				if(ghosts[i]->_moved && ghostsMeetAlive(i))
+				{
+					EXPLOSION_SOUND();
+					ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
+					DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
+					die(ghosts[i]);
+					points+=GHOST_VS_GHOST_BONUS;
+					--ghostCount;
+				}
 			}
 		}
 	}

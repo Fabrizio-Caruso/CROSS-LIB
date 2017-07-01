@@ -41,6 +41,11 @@
 #include "display_macros.h"
 #include "sound_macros.h"
 
+
+#if defined(__ATMOS__)
+	#include<peekpoke.h>
+#endif
+
 extern unsigned long points;
 extern unsigned short innerVerticalWallX;
 extern unsigned short innerVerticalWallY;
@@ -53,6 +58,7 @@ extern unsigned short ghostCount;
 extern unsigned int loop;
 
 extern Image DEAD_GHOST_IMAGE;
+extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
 extern Character* ghosts[GHOSTS_NUMBER];
@@ -64,6 +70,7 @@ void initializeCharacter(Character* characterPtr, int x, int y, short status, Im
 	characterPtr->_y = y;
 	characterPtr->_status = status;
 	characterPtr->_imagePtr = imagePtr;
+	characterPtr->_moved = 0;
 }
 
 void setCharacterPosition(Character* characterPtr, short x, short y)
@@ -72,18 +79,18 @@ void setCharacterPosition(Character* characterPtr, short x, short y)
 	characterPtr->_y = y;
 }
 
-int isCharacterAtLocation(short x, short y, Character * characterPtr)
+char isCharacterAtLocation(short x, short y, Character * characterPtr)
 {
 	return(characterPtr->_x==x) && (characterPtr->_y==y);
 }
 
-int areCharctersAtSamePosition(Character* lhs, Character* rhs)
+char areCharctersAtSamePosition(Character* lhs, Character* rhs)
 {
 	return (lhs->_x==rhs->_x)&&(lhs->_y==rhs->_y);
 }
 
 
-int wallReached(Character *characterPtr)
+char wallReached(Character *characterPtr)
 {
 	return (characterPtr->_x==0)||(characterPtr->_x==XSize-1) || 
 		   (characterPtr->_y==0)||(characterPtr->_y==YSize-1);
@@ -92,9 +99,10 @@ int wallReached(Character *characterPtr)
 void die(Character * playerPtr)
 {
 	playerPtr->_status = 0;
+	playerPtr->_moved = 0;
 }
 
-int playerReached(Character* preyPtr)
+char playerReached(Character* preyPtr)
 {
 	int i=0;
 	for(;i<GHOSTS_NUMBER;++i)
@@ -105,7 +113,7 @@ int playerReached(Character* preyPtr)
 	return 0;
 }
 
-int playerReachedBombs(Character* preyPtr)
+char playerReachedBombs(Character* preyPtr)
 {
 	int i=0;
 	for(;i<BOMBS_NUMBER;++i)
@@ -140,12 +148,11 @@ void checkBombsVsGhosts(void)
 	  {
 		 checkBombsVsGhost(ghosts[i]);
 	  }
-	ghost_partition();
 }
 
 // TODO: To be replaced with something cleaner
 // also used with things different from global bombs
-int safeLocation(unsigned char x, unsigned char y, Character **danger, unsigned char dangerSize)
+char safeLocation(unsigned char x, unsigned char y, Character **danger, unsigned char dangerSize)
 {
 	char i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
@@ -194,49 +201,112 @@ void relocateCharacter(Character * characterPtr, Character **danger, unsigned ch
 }
 
 
-short innerWallReached(Character *characterPtr)
+char innerWallReached(Character *characterPtr)
 {
 	return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
 }
 
-short nearInnerWall(Character *characterPtr)
+char nearInnerWall(Character *characterPtr)
 {
 	return (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
 		   (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
 }
 
 
-int ghostsMeet(unsigned char preyIndex)
+// Check whether a moving ghost meets another ghost that is alive
+char ghostsMeet(unsigned char preyIndex)
+{
+	char i;
+	
+	for(i=0;i<GHOSTS_NUMBER;++i)
+	{
+		if((i!=preyIndex) && // not itself
+		   ghosts[i]->_status && 
+		   !(loop%GHOST_VS_GHOST_COLLISION_LEVEL) && // ghost-ghost collision possible (we assume ghosts[preyindex] has moved)
+		   areCharctersAtSamePosition(ghosts[i],ghosts[preyIndex])) 
+			return 1;
+	}
+	return 0;
+}
+
+char ghostsMeetDead(unsigned char preyIndex)
 {
 	short i;
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
 		if((i!=preyIndex) && // not itself
-		    ((!(ghosts[i]->_status)) || !(loop%GHOST_VS_GHOST_COLLISION_LEVEL)) && // either ghost is dead or ghost-ghost collision possible
+		    !(ghosts[i]->_status) && // ghost[i] is dead (transformed into a bomb) 
 		    areCharctersAtSamePosition(ghosts[i],ghosts[preyIndex])) 
 			return 1;
 	}
 	return 0;
 }
 
+
 void checkGhostsVsGhosts()
 {
+	#if defined(__ATMOS__)
+		unsigned char peek;
+		char i; char j;
+		if(!(loop%GHOST_VS_GHOST_COLLISION_LEVEL && loop>GHOST_VS_GHOST_COLLISION_START))
+		{
+			for(i=0;i<GHOSTS_NUMBER;++i)
+			{	
+				peek = PEEK(0xBB80+(ghosts[i]->_x+2)+(ghosts[i]->_y+3)*40);
+				if(ghosts[i]->_status && ghosts[i]->_moved && (peek==GHOST_IMAGE._imageData || peek == DEAD_GHOST_IMAGE._imageData + 128))
+				{
+					EXPLOSION_SOUND();
+					for(j=0;j<GHOSTS_NUMBER;j++)
+					{
+						if((ghosts[j]->_status) && (ghosts[j]->_x==ghosts[i]->_x) && (ghosts[j]->_y==ghosts[i]->_y))
+						{
+							die(ghosts[j]);
+							points+=GHOST_VS_GHOST_BONUS;
+							ghosts[j]->_imagePtr = &DEAD_GHOST_IMAGE;
+							--ghostCount;
+						}
+					}
+				}
+			}
+		}
+	#else
 	char i;
 	
+	// Check whether an alive moving ghosts meets another alive ghosts
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		if(ghosts[i]->_status && ghostsMeet(i))
+		if(ghosts[i]->_status)
 		{
-			EXPLOSION_SOUND();
-			ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
-			DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
-			die(ghosts[i]);
-			points+=GHOST_VS_GHOST_BONUS;
-			--ghostCount;
+			if(ghosts[i]->_moved && ghostsMeet(i))
+			{
+				EXPLOSION_SOUND();
+				ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
+				DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
+				die(ghosts[i]);
+				points+=GHOST_VS_GHOST_BONUS;
+				--ghostCount;
+			}
 		}
 	}
-	ghost_partition();
+	
+	// Check whether an alive ghosts meet another dead ghost (including a ghost converted into a bomb in the previous loop)
+	for(i=0;i<GHOSTS_NUMBER;++i)
+	{
+		if(ghosts[i]->_status)
+		{
+			if(ghostsMeetDead(i))
+			{
+				EXPLOSION_SOUND();
+				ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
+				DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
+				die(ghosts[i]);
+				points+=GHOST_VS_GHOST_BONUS;
+				--ghostCount;
+			}
+		}
+	}
+	#endif
 }
 
 void ghost_partition()

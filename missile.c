@@ -65,8 +65,7 @@ void checkMissileVsGhosts(Character * missilePtr)
 	for(;i<GHOSTS_NUMBER;++i)
 	{
 		checkMissileVsGhost(missilePtr, ghosts[i]);
-	}
-	ghost_partition();
+	};
 }
 	
 int setMissileInitialPosition(Character *missilePtr, Character *playerPtr,

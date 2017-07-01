@@ -44,7 +44,12 @@
 	 Image POWERUP_IMAGE;
 	 Image MISSILE_IMAGE;
 	 Image GUN_IMAGE;
-
+	 
+	 Image LEFT_ENEMY_MISSILE_IMAGE;
+	 Image RIGHT_ENEMY_MISSILE_IMAGE;
+	 
+	 extern char YSize; 
+	 
 
 	void INIT_GRAPHICS(void)
 	{
@@ -77,6 +82,10 @@
 		GHOST_IMAGE._color = COLOR_BLACK;
 		MISSILE_IMAGE._color = COLOR_BLACK;
 
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+		LEFT_ENEMY_MISSILE_IMAGE._color = 0;
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+		RIGHT_ENEMY_MISSILE_IMAGE._color = 0;		
 	}
 	
 #endif // C64_REDEFINED_CHARACTERS

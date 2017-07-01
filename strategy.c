@@ -171,8 +171,13 @@ void chasePlayer(int slowDown)
 	{
 		if((ghosts[i]->_status) && (rand()>slowDown))
 		{
+			ghosts[i]->_moved = 1;
 			DELETE_GHOST(ghosts[i]->_x,ghosts[i]->_y,ghosts[i]->_imagePtr);
 			moveTowardCharacter(ghosts[i], &player, strategyArray[i]);
+		}
+		else
+		{
+			ghosts[i]->_moved = 0;
 		}
 	}
 }

@@ -50,7 +50,7 @@
 
 #define WAIT_KEY_PRESS() {while(!kbhit()){}; cgetc();};
 
-#if defined (__CBM610__)
+#if defined (__CBM610__) || defined(__PLUS4__) || defined(__C16__)
 	#define WAIT_PRESS() WAIT_KEY_PRESS();
 #elif defined (__CBM__) || defined(__ATARI__) || defined(__ATARIXL__)
 	#define WAIT_PRESS() WAIT_JOY1_PRESS();

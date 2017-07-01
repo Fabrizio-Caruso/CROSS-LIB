@@ -249,7 +249,7 @@ void checkGhostsVsGhosts()
 	#if defined(__ATMOS__)
 		unsigned char peek;
 		char i; char j;
-		if(!(loop%GHOST_VS_GHOST_COLLISION_LEVEL && loop>GHOST_VS_GHOST_COLLISION_START)) // It should only be used for alive vs alive collision
+		if(loop%GHOST_VS_GHOST_COLLISION_LEVEL==0 && loop>GHOST_VS_GHOST_COLLISION_START) // It should only be used for alive vs alive collision
 		{
 			for(i=0;i<GHOSTS_NUMBER;++i)
 			{	

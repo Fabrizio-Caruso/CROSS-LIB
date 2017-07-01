@@ -521,9 +521,9 @@ int main(void)
 				
 				if((level==6) || (level==11) || (level==16))
 				{	
-					PING_SOUND();
 					CLEAR_SCREEN();
 					sleep(1);
+					PING_SOUND();
 					printExtraLife();
 					sleep(1);
 					++lives;

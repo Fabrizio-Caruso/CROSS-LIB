@@ -246,7 +246,7 @@ char ghostsMeetDead(unsigned char preyIndex)
 
 void checkGhostsVsGhosts()
 {
-	#if defined(__ATMOS__)
+	#if defined(FAST_NONEXACT_COLLISION_DECTION) && defined(__ATMOS__)
 		unsigned char peek;
 		char i; char j;
 		if(loop%GHOST_VS_GHOST_COLLISION_LEVEL==0 && loop>GHOST_VS_GHOST_COLLISION_START) // It should only be used for alive vs alive collision
@@ -282,16 +282,6 @@ void checkGhostsVsGhosts()
 					points+=GHOST_VS_GHOST_BONUS;
 					ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
 					--ghostCount;					
-					// for(j=0;j<GHOSTS_NUMBER;j++)
-					// {
-						// if((ghosts[j]->_status) && (ghosts[j]->_x==ghosts[i]->_x) && (ghosts[j]->_y==ghosts[i]->_y))
-						// {
-							// die(ghosts[j]);
-							// points+=GHOST_VS_GHOST_BONUS;
-							// ghosts[j]->_imagePtr = &DEAD_GHOST_IMAGE;
-							// --ghostCount;
-						// }
-					// }
 				}
 			}
 		}
@@ -300,13 +290,13 @@ void checkGhostsVsGhosts()
 	char i;
 	
 	// Check whether an alive moving ghosts meets another alive ghosts
-	if(!(loop%GHOST_VS_GHOST_COLLISION_LEVEL)) // alive vs alive collision possible
+	if(loop%GHOST_VS_GHOST_COLLISION_LEVEL==0) // alive vs alive collision possible
 	{
 		for(i=0;i<GHOSTS_NUMBER;++i)
 		{
-			if(ghosts[i]->_status)
+			if(ghosts[i]->_moved)
 			{
-				if(ghosts[i]->_moved && ghostsMeetAlive(i))
+				if(ghostsMeetAlive(i))
 				{
 					EXPLOSION_SOUND();
 					ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;

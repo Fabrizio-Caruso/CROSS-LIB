@@ -1,14 +1,14 @@
 /*****************************************************************************/
 /*                                                                           */
-/*                                		                             */
+/*                                                                           */
 /*                                                                           */
 /*                                                                           */
 /*                                                                           */
 /*                                                                           */
 /*                                                                           */
 /* (C) 2017      Fabrizio Caruso                                             */
-/*                					                     */
-/*              				                             */
+/*                                                                           */
+/*                                                                           */
 /* EMail:        Fabrizio_Caruso@hotmail.com                                 */
 /*                                                                           */
 /*                                                                           */
@@ -30,7 +30,7 @@
 /*    distribution.                                                          */
 /*                                                                           */
 /*****************************************************************************/
- 
+
 #ifndef _CHARACTER
 #define _CHARACTER
 
@@ -38,15 +38,15 @@
 
 struct CharacterStruct
 {
-	// character coordinates
-	short _x;
-	short _y;
-	
-	// _status decides whether the character is active
-	char _status;
-	char _moved;
-	
-	Image* _imagePtr;
+        // character coordinates
+        short _x;
+        short _y;
+
+        // _status decides whether the character is active
+        char _status;
+        char _moved;
+
+        Image* _imagePtr;
 };
 
 typedef struct CharacterStruct Character;
@@ -87,7 +87,7 @@ void die(Character * playerPtr);
 
 // TODO: playerReached and playerReachedBombs should be substituted by a generic collision detection routine
 char playerReached(Character* preyPtr);
-				  
+
 char playerReachedBombs(Character* ghostPtr);
 
 char ghostsMeetAlive(unsigned char preyIndex);
@@ -96,11 +96,11 @@ char ghostsMeetDead(unsigned char preyIndex);
 
 // TODO: check bombs routines should be substituted by a generic collision detection routine
 void checkBombsVsGhost(Character * ghostPtr);
-						
+
 void checkBombsVsGhosts(void);
 
 void checkGhostsVsGhosts(void);
-						
+
 char safeLocation(unsigned char x, unsigned char y, Character **danger, unsigned char dangerSize);
 
 void relocateCharacter(Character * characterPtr, Character **danger, unsigned char dangerSize);

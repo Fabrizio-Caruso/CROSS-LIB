@@ -83,6 +83,8 @@ unsigned short innerVerticalWallY;
 unsigned short innerVerticalWallX; 
 unsigned short innerVerticalWallLength;
 
+unsigned char extraLifeThroughPointsCounter = 1;
+
 // Level
 // The level affects:
 // 1. powerUpCoolDown (how long before a new powerUp is spawned)
@@ -441,6 +443,13 @@ int main(void)
 			while(player._status && ghostCount>0) // while alive && there are still ghosts
 			{
 				++loop;
+				
+				if(points>extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS)
+				{
+					++extraLifeThroughPointsCounter;
+					PING_SOUND();
+					++lives;
+				}
 				
 				ghostSlowDown = computeGhostSlowDown();
 				

@@ -65,9 +65,15 @@ void displayStatsTitles(void)
 	//SET_TEXT_COLOR(COLOR_BLACK);
 	
 	#if defined(__C64__) 
-		PRINT(2,1,"speed:");
-		PRINT(2,2,"score:");
-		PRINT(2,3,"level:");
+		SET_TEXT_COLOR(COLOR_RED);		
+		PRINT(2,1-4,"speed:");
+		PRINT(2,2-4,"score:");
+		PRINT(2,3-4,"level:");
+		SET_TEXT_COLOR(TEXT_COLOR);
+		
+		SET_TEXT_COLOR(COLOR_BLUE);		
+		PRINT(22,2-4,"ascii chase");
+		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__ATMOS__)
 		PRINT(2,0-3,"SPEED:");
 		PRINT(2,1-3,"SCORE:");
@@ -102,19 +108,29 @@ void displayStatsTitles(void)
 		cputc('S'+128);	
 		cputc('E'+128); 		
 	#else
-		PRINT(2,1,"SPEED:");
-		PRINT(2,2,"SCORE:");
-		PRINT(2,3,"LEVEL:");
+		SET_TEXT_COLOR(COLOR_BLACK);	
+		PRINT(2,0-3,"SPEED:");
+		PRINT(2,1-3,"SCORE:");
+		PRINT(2,2-3,"LEVEL:");
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		#ifndef __VIC20__
+			SET_TEXT_COLOR(COLOR_BLACK);	
+			PRINT(22,1-3,"ASCII CHASE");
+			SET_TEXT_COLOR(TEXT_COLOR);	
+		#endif
 	#endif
+
 	
 	#if defined (__ATMOS__)
 		gotoxy(18,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(18,1); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#else
-		gotoxy(15,1); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(15,2); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(15,3); cputc(PLAYER_IMAGE._imageData);cputc(':');
+		SET_TEXT_COLOR(COLOR_BLACK);	
+		gotoxy(18,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(18,1); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');
+		SET_TEXT_COLOR(TEXT_COLOR);	
 	#endif
 
 }
@@ -131,9 +147,9 @@ void displayStats(void)
 		PRINTF(8,1-3,"%06lu",points);
 		PRINTF(8,2-3,"%02hu", level);
 	#else	
-		PRINTF(8,1,"%04u",ghostLevel);
-		PRINTF(8,2,"%06lu",points);
-		PRINTF(8,3,"%02hu", level);
+		PRINTF(8,1-4,"%04u",ghostLevel);
+		PRINTF(8,2-4,"%06lu",points);
+		PRINTF(8,3-4,"%02hu", level);
 	#endif
 	
 	#if defined (__ATMOS__)
@@ -141,10 +157,11 @@ void displayStats(void)
 		PRINTF(19-1,1-3,"%hu",ghostCount);
 		PRINTF(19-1,2-3,"%02hu",lives);	
 	#else
-		PRINTF(17,1,"%hu",guns);
-		PRINTF(17,2,"%hu",ghostCount);
-		PRINTF(17,3,"%hu",lives);
+		PRINTF(19-1,1-4,"%hu",guns);
+		PRINTF(19-1,2-4,"%hu",ghostCount);
+		PRINTF(19-1,3-4,"%02hu",lives);
 	#endif		
+		SET_TEXT_COLOR(TEXT_COLOR);
 }
 
 
@@ -169,7 +186,7 @@ void setScreenColors(void)
 void printCenteredMessage(char *Text)
 {
 	SET_TEXT_COLOR(TEXT_COLOR);
-	PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text);
+	PRINTF((XSize - strlen (Text)) / 2 - 2, YSize / 2,"%s", Text);
 }
 
 #ifdef __C64__
@@ -193,11 +210,11 @@ void printLevel(void)
 #endif
 
 #ifdef __C64__
-void printLevelBonus(void)
+void printLevelBonus(unsigned short bonus)
 {
 	char levelString[22];
 
-	sprintf(levelString, "level bonus = %d", level * 1000);
+	sprintf(levelString, "level bonus: %d", bonus);
 
 	printCenteredMessage(levelString);
 	sleep(1);
@@ -225,11 +242,11 @@ void printExtraLife(void)
 	sleep(1);
 }
 #else
-void printLevelBonus(void)
+void printLevelBonus(unsigned short bonus)
 {
 	char levelString[22];
 
-	sprintf(levelString, "LEVEL BONUS = %d", level * 1000);
+	sprintf(levelString, "LEVEL BONUS: %d", bonus);
 
 	printCenteredMessage(levelString);
 	sleep(1);
@@ -267,7 +284,7 @@ void finalScore(void)
 
 	void deleteCenteredMessage(void)
 	{
-		PRINT((XSize - 22) / 2, YSize / 2, "                      ");
+		PRINT((XSize - 22) / 2 - 2, YSize / 2, "                      ");
 	}
 
 
@@ -279,7 +296,7 @@ void finalScore(void)
 
 	void printVictoryMessage(void)
 	{
-		printCenteredMessage("y o u   w o n ! !");
+		printCenteredMessage("y o u   w o n !");
 		sleep(1);
 	}
 
@@ -289,15 +306,27 @@ void finalScore(void)
 		sleep(1);
 	}
 #else
-	void printPressKeyToStart(void)
-	{
-		printCenteredMessage("PRESS ANY KEY TO START");
-	}
-
-	void deleteCenteredMessage(void)
-	{
-		PRINT((XSize - 22) / 2, YSize / 2, "                      ");
-	}
+	#if defined(__VIC20__)
+		void printPressKeyToStart(void)
+		{
+			printCenteredMessage("PRESS ANY KEY");
+		}
+		
+		void deleteCenteredMessage(void)
+		{
+			PRINT(1, YSize / 2, "                      ");
+		}		
+	#else
+		void printPressKeyToStart(void)
+		{
+			printCenteredMessage("PRESS ANY KEY TO START");
+		}	
+		
+		void deleteCenteredMessage(void)
+		{
+			PRINT((XSize - 22) / 2 - 2, YSize / 2, "                      ");
+		}		
+	#endif
 
 
 	void printGameOver(void)
@@ -412,31 +441,31 @@ void printStartMessage(void)
 		
 		PRINT(30, YSize / 2 + 1, "Flee from +!");
 	#elif defined(__C64__) 
-		PRINT((XSize - 22) / 2, YSize / 2 - 3, "escape the enemies");
+		PRINT((XSize - 22) / 2 - 2, YSize / 2 - 3, "escape the enemies");
 		
-		PRINT((XSize - 22) / 2, YSize / 2 - 1, "force them into the mines");
+		PRINT((XSize - 22) / 2 - 2, YSize / 2 - 1, "force them into the mines");
 		
-		PRINT((XSize - 22) / 2, YSize / 2 + 1, "catch the gun for bullets");
+		PRINT((XSize - 22) / 2 - 2, YSize / 2 + 1, "catch the gun for bullets");
 	#elif defined(__ATMOS__)
 		PRINT(7, YSize / 2 - 3 - 3, "Escape from the enemies");
 		
 		PRINT(7, YSize / 2 - 1 - 3, "Forse them into the mines");
 		
 	#else
-		PRINT(2, YSize / 2 - 3, "You * are chased by O. Force O into X");
+		PRINT(2 -2, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		
-		PRINT(0, YSize / 2 - 1, "Take S to slow O down. ! gives 3 bullets");
+		PRINT(0 -2, YSize / 2 - 1, "Take S to slow O down. ! gives 3 bullets");
 		
-		PRINT(7, YSize / 2 + 1, "Flee from +!");
+		PRINT(7 -2, YSize / 2 + 1, "Flee from +!");
 	#endif
 
 	#if defined(__C64__) || defined(__C128__) || defined(__PET__)
 		SET_TEXT_COLOR(COLOR_BROWN);
-		PRINT((XSize - 22) / 2, YSize / 2 + 4, "use joystick in port 1");
+		PRINT((XSize - 22) / 2 - 2, YSize / 2 + 4, "use joystick in port 1");
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__C16__) || defined(__PLUS4__)
 		SET_TEXT_COLOR(COLOR_GRAY1);
-		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use Joystick in first port");
+		PRINT((XSize - 22) / 2 - 2, YSize / 2 + 4, "Use Joystick in first port");
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__VIC20__)
 		SET_TEXT_COLOR(COLOR_GREEN);
@@ -451,7 +480,12 @@ void printStartMessage(void)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 	#endif
 	SET_TEXT_COLOR(TEXT_COLOR);
-	PRINT((XSize - 22) / 2, YSize / 2 + 8, "press any key to start");
+
+	#if defined(__VIC20__)
+		PRINT(3, YSize / 2 + 8, "press any key");
+	#else
+		PRINT((XSize - 22) / 2, YSize / 2 + 8, "press any key");
+	#endif
 }
 
 

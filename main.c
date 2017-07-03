@@ -552,12 +552,6 @@ int main(void)
 				// Display ghosts
 				displayGhosts();
 
-				// Display stats and their values
-				// TODO: This should be handled elsewhere
-				#if defined(__ATMOS__)
-				#else
-					displayStatsTitles();
-				#endif
 				displayStats();
 				
 				handle_invincible_ghost();
@@ -574,12 +568,23 @@ int main(void)
 				sleep(1);
 				printVictoryMessage();
 				sleep(1);
-				CLEAR_SCREEN();
-				printLevelBonus();
-								
+				if(level<=10)
+				{
+					CLEAR_SCREEN();
+					points+= LEVEL_BONUS*level;
+					printLevelBonus(LEVEL_BONUS*level);
+				}
+				else
+				{
+					CLEAR_SCREEN();				
+					points+= LEVEL_BONUS*10;
+					printLevelBonus(LEVEL_BONUS*10);
+				}
 				sleep(1);
+				CLEAR_SCREEN();				
+
 				ghostCount = GHOSTS_NUMBER;
-				points+= LEVEL_BONUS*level;
+
 				++level;
 				
 				if((level==6) || (level==11) || (level==16) || (level==19) || (level==20))

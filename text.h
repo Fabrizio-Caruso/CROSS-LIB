@@ -52,7 +52,7 @@ void printCenteredMessage(char *Text);
 
 void printLevel(void);
 
-void printLevelBonus(void);
+void printLevelBonus(unsigned short bonus);
 
 void printPressKeyToStart(void);
 

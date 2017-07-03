@@ -61,9 +61,9 @@ typedef struct ImageStruct Image;
 #if defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=2; *y-=3;};
 #elif defined(__ATARIXL__) || defined(__ATARI__)
-	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);};
+	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=2; *y-=3;};
 #else
-	#define GET_SCREEN_SIZE(x,y) {screensize(x,y);}
+	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=2; *y-=3;};
 #endif
 
 #if defined(__ATMOS__)
@@ -84,7 +84,6 @@ typedef struct ImageStruct Image;
 		gotoxy(x+2,(y+3)); 
 		
 		POKE(0xBB80+(x+2)+(y+3)*40, image->_imageData + image->_color);
-		//cputc(image->_imageData + image->_color);
 	};
 		
 	#define DRAW_GHOST(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, image->_imageData + image->_color);};
@@ -199,8 +198,6 @@ typedef struct ImageStruct Image;
 			POKE(0xBB80+(x+2)+(y+i+3)*40,'|'+128); \
 		} \
 	}
-	//			gotoxy(x+2,y+i+3); \
-	//		cputc('|'+128); \
 			
 	#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
 	#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
@@ -208,21 +205,21 @@ typedef struct ImageStruct Image;
 	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
 	
 #elif defined(__ATARI__) || defined(__ATARIXL__)
-	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x),(y)); cputc('X');};
+	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y+3)); cputc('X');};
 
-	#define DRAW_PLAYER(x,y,image) {gotoxy((x),(y)); cputc(image->_imageData);};
+	#define DRAW_PLAYER(x,y,image) {gotoxy((x+2),(y+3)); cputc(image->_imageData);};
 
-	#define DRAW_GHOST(x,y,image) {gotoxy((x),(y)); cputc(image->_imageData);};
+	#define DRAW_GHOST(x,y,image) {gotoxy((x+2),(y+3)); cputc(image->_imageData);};
 
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {gotoxy((x),(y)); cputc(image->_imageData);};
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {gotoxy((x+2),(y+3)); cputc(image->_imageData);};
 
-	#define DRAW_BOMB(x,y,image) {gotoxy((x),(y)); cputc(image->_imageData);};
+	#define DRAW_BOMB(x,y,image) {gotoxy((x+2),(y+3)); cputc(image->_imageData);};
 
-	#define DRAW_POWERUP(x,y,image) {gotoxy((x),(y)); cputc(image->_imageData);};
+	#define DRAW_POWERUP(x,y,image) {gotoxy((x+2),(y+3)); cputc(image->_imageData);};
 
-	#define DRAW_GUN(x,y,image) {gotoxy((x),(y)); cputc(image->_imageData);};
+	#define DRAW_GUN(x,y,image) {gotoxy((x+2),(y+3)); cputc(image->_imageData);};
 
-	#define DRAW_MISSILE(x,y,image) {gotoxy((x),(y)); cputc(image->_imageData);};
+	#define DRAW_MISSILE(x,y,image) {gotoxy((x+2),(y+3)); cputc(image->_imageData);};
 
 	#define DRAW_BOMBS() \
 	{ \
@@ -233,38 +230,40 @@ typedef struct ImageStruct Image;
 		} \
 	}
 
-	#define DELETE_PLAYER(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_PLAYER(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_GHOST(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_GHOST(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_INVINCIBLE_GHOST(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_BOMB(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_BOMB(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_POWERUP(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_POWERUP(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_GUN(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_GUN(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_MISSILE(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_MISSILE(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
 
-	#define PRINT(x,y,str) {gotoxy(x,y); cputs(str); };
+	#define PRINT(x,y,str) {gotoxy(x+2,y+3); cputs(str); };
 
-	#define PRINTF(x,y,...) {gotoxy(x,y); cprintf(##__VA_ARGS__); };
+	#define PRINTF(x,y,...) {gotoxy(x+2,y+3); cprintf(##__VA_ARGS__); };
 
 	#define DRAW_BORDERS()\
 	{ \
+		gotoxy(0+2,0+3); \
 		cputc (CH_ULCORNER);\
 		chline (XSize - 2);\
 		cputc (CH_URCORNER);\
-		cvlinexy (0, 1, YSize - 2);\
+		cvlinexy (0+2, 1+3, YSize - 2);\
 		cputc (CH_LLCORNER);\
 		chline (XSize - 2);\
 		cputc (CH_LRCORNER);\
-		cvlinexy (XSize - 1, 1, YSize - 2); \
-	}
+		cvlinexy (XSize - 1+2, 1+3, YSize - 2); \
+	}	
 	
-	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x,y,length);
+	
+	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x+2,y+3,length);
 	
 	#define SHOW_LEFT() {}
 	#define SHOW_RIGHT() {}
@@ -272,21 +271,21 @@ typedef struct ImageStruct Image;
 	#define SHOW_DOWN() {}
 	
 #else
-	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x),(y)); cputc('X');};
+	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+2),(y+3)); cputc('X');};
 
-	#define DRAW_PLAYER(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+	#define DRAW_PLAYER(x,y,image) {(void) textcolor (image->_color); gotoxy((x+2),(y+3)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
 
-	#define DRAW_GHOST(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+	#define DRAW_GHOST(x,y,image) {(void) textcolor (image->_color); gotoxy((x+2),(y+3)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
 
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {(void) textcolor (image->_color); gotoxy((x+2),(y+3)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
 
-	#define DRAW_BOMB(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+	#define DRAW_BOMB(x,y,image) {(void) textcolor (image->_color); gotoxy((x+2),(y+3)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
 
-	#define DRAW_POWERUP(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+	#define DRAW_POWERUP(x,y,image) {(void) textcolor (image->_color); gotoxy((x+2),(y+3)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
 
-	#define DRAW_GUN(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+	#define DRAW_GUN(x,y,image) {(void) textcolor (image->_color); gotoxy((x+2),(y+3)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
 
-	#define DRAW_MISSILE(x,y,image) {(void) textcolor (image->_color); gotoxy((x),(y)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
+	#define DRAW_MISSILE(x,y,image) {(void) textcolor (image->_color); gotoxy((x+2),(y+3)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
 
 	#define DRAW_BOMBS() \
 	{ \
@@ -297,38 +296,39 @@ typedef struct ImageStruct Image;
 		} \
 	}
 
-	#define DELETE_PLAYER(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_PLAYER(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_GHOST(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_GHOST(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_INVINCIBLE_GHOST(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_BOMB(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_BOMB(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_POWERUP(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_POWERUP(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_GUN(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_GUN(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
-	#define DELETE_MISSILE(x,y,image) {gotoxy(x,y);cputc(' ');};
+	#define DELETE_MISSILE(x,y,image) {gotoxy(x+2,y+3);cputc(' ');};
 
 
-	#define PRINT(x,y,str) {gotoxy(x,y); cputs(str); };
+	#define PRINT(x,y,str) {gotoxy(x+2,y+3); cputs(str); };
 
-	#define PRINTF(x,y,...) {gotoxy(x,y); cprintf(##__VA_ARGS__); };
+	#define PRINTF(x,y,...) {gotoxy(x+2,y+3); cprintf(##__VA_ARGS__); };
 
 	#define DRAW_BORDERS()\
 	{ \
+		gotoxy(0+2,0+3); \
 		cputc (CH_ULCORNER);\
 		chline (XSize - 2);\
 		cputc (CH_URCORNER);\
-		cvlinexy (0, 1, YSize - 2);\
+		cvlinexy (0+2, 1+3, YSize - 2);\
 		cputc (CH_LLCORNER);\
 		chline (XSize - 2);\
 		cputc (CH_LRCORNER);\
-		cvlinexy (XSize - 1, 1, YSize - 2); \
+		cvlinexy (XSize - 1+2, 1+3, YSize - 2); \
 	}
 
-	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x,y,length);
+	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x+2,y+3,length);
 	
 	#define SHOW_LEFT() {}
 	#define SHOW_RIGHT() {}

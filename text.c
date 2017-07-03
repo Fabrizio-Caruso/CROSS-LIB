@@ -139,7 +139,7 @@ void displayStats(void)
 	#if defined (__ATMOS__)
 		PRINTF(19-1,0-3,"%hu",guns);
 		PRINTF(19-1,1-3,"%hu",ghostCount);
-		PRINTF(19-1,2-3,"%hu",lives);	
+		PRINTF(19-1,2-3,"%02hu",lives);	
 	#else
 		PRINTF(17,1,"%hu",guns);
 		PRINTF(17,2,"%hu",ghostCount);

@@ -43,7 +43,7 @@
 
 #define BOMBS_NUMBER 4
 #define GHOSTS_NUMBER 8
-#define LIVES_NUMBER 3
+#define LIVES_NUMBER 6
 #define GUNS_NUMBER 3
 
 #define BACKGROUND_COLOR COLOR_WHITE
@@ -59,7 +59,7 @@
 #define GUN_COLOR COLOR_BLACK
 
 #define GHOST_VS_GHOST_COLLISION_LEVEL 16
-#define GHOST_VS_GHOST_COLLISION_START 200
+#define GHOST_VS_GHOST_COLLISION_START 80
 
 // If two or more ghosts bump into eachother for each ghost
 #define GHOST_VS_GHOST_BONUS 500ul

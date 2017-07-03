@@ -57,9 +57,9 @@ int computeGunInitialCoolDown(void)
 {
 	if(level<=4)
 	{
-		gunInitialCoolDown = 240;
+		gunInitialCoolDown = 220;
 	}
 	else
-		gunInitialCoolDown = 240 + level * 8;
+		gunInitialCoolDown = 220 + level * 2;
 	return gunInitialCoolDown;
 }

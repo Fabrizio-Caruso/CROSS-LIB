@@ -354,6 +354,7 @@ int main(void)
 	
 	while(1)
 	{
+		char arrowRange = 3;
 		INIT_IMAGES();
 		INIT_GRAPHICS();
 		
@@ -379,6 +380,24 @@ int main(void)
 		lives = LIVES_NUMBER;
 		do // Level (Re-)Start
 		{ 
+			switch(level)
+			{
+				case 5:
+					arrowRange = 1;
+				break;
+				case 10:
+					arrowRange = 2;
+				break;
+				case 15:
+					arrowRange = 2;
+				break;
+				case 18:
+					arrowRange = 2;
+				break;
+				default:
+					arrowRange = 3;
+				break;
+			}
 			computeStrategy();
 			loop = 0;
 			ghostLevel = 0u;
@@ -418,6 +437,7 @@ int main(void)
 			rightEnemyMissile._x = XSize-4; rightEnemyMissile._y = 4;
 			leftEnemyMissile._x = 4; leftEnemyMissile._y = YSize-4;
 			
+			
 			while(player._status && ghostCount>0) // while alive && there are still ghosts
 			{
 				++loop;
@@ -430,9 +450,25 @@ int main(void)
 				{
 					DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 					if(leftEnemyMissile._x==XSize-2)
+					{
 						leftEnemyMissile._x=2;
+						leftEnemyMissile._y = YSize-4;
+					}
 					else
-						++leftEnemyMissile;
+					{
+						++leftEnemyMissile._x;
+						if(loop%2 && player._y>=YSize-4-arrowRange && player._x>=leftEnemyMissile._x)
+						{
+							if(player._y>leftEnemyMissile._y)
+							{
+								++leftEnemyMissile._y;
+							}
+							else if(player._y<leftEnemyMissile._y)
+							{
+								--leftEnemyMissile._y;
+							}
+						}
+					}
 					DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 					if(areCharctersAtSamePosition(&leftEnemyMissile,&player))
 					{
@@ -443,9 +479,25 @@ int main(void)
 					
 					DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
 					if(rightEnemyMissile._x==2)
+					{
 						rightEnemyMissile._x=XSize-2;
+						rightEnemyMissile._y = 4;
+					}
 					else
-						--rightEnemyMissile;
+					{
+						--rightEnemyMissile._x;
+						if(loop%2 && player._y<=4+arrowRange && player._x<= rightEnemyMissile._x)
+						{
+							if(player._y>rightEnemyMissile._y)
+							{
+								++rightEnemyMissile._y;
+							}
+							else if(player._y<rightEnemyMissile._y)
+							{
+								--rightEnemyMissile._y;
+							}
+						}
+					}
 					DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);				
 					if(areCharctersAtSamePosition(&rightEnemyMissile,&player))
 					{
@@ -519,7 +571,7 @@ int main(void)
 				points+= LEVEL_BONUS*level;
 				++level;
 				
-				if((level==6) || (level==11) || (level==16))
+				if((level==6) || (level==11) || (level==16) || (level==19) || (level==20))
 				{	
 					CLEAR_SCREEN();
 					sleep(1);

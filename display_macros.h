@@ -86,9 +86,7 @@ typedef struct ImageStruct Image;
 		POKE(0xBB80+(x+2)+(y+3)*40, image->_imageData + image->_color);
 		//cputc(image->_imageData + image->_color);
 	};
-
 		
-
 	#define DRAW_GHOST(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, image->_imageData + image->_color);};
 	
 	#define DRAW_INVINCIBLE_GHOST(x,y,image) {POKE(0xBB80+(x+2)+(y+3)*40, image->_imageData + image->_color);};

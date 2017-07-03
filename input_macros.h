@@ -52,7 +52,7 @@
 
 #if defined (__CBM610__) || defined(__PLUS4__) || defined(__C16__)
 	#define WAIT_PRESS() WAIT_KEY_PRESS();
-#elif defined (__CBM__) || defined(__ATARI__) || defined(__ATARIXL__)
+#elif defined (__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__NES__)
 	#define WAIT_PRESS() WAIT_JOY1_PRESS();
 #else
 	#define WAIT_PRESS() WAIT_KEY_PRESS();
@@ -61,12 +61,6 @@
 #if defined (__CBM610__)
 #else
 	#define JOY_INSTALL() { joy_install(joy_static_stddrv); };
-
-	// { joy_load_driver(joy_stddrv); joy_install(joy_static_stddrv); };
-	
-	//{joy_load_driver(joy_stddrv);}
-	
-	//{ joy_load_driver(joy_stddrv); joy_install(joy_static_stddrv); };
 
 	#define GET_JOY1() joy_read (JOY_1);
 

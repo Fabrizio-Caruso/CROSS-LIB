@@ -88,7 +88,8 @@ cl65.exe  -O -t atmos --config %mypath%\cfg\atmos_better_tap.cfg %mypath%\displa
 @REM NES needs some INPUT
 @REM cl65.exe -O -t nes %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\nes.nes
 
-@REM cl65.exe -t nes %mypath%\hello.c -o %mypath%\deliverables\hello.nes
+@REM 
+cl65.exe -t nes %mypath%\experiments\hello.c -o %mypath%\deliverables\hello.nes
 
 @REM BBC fails looking for bbc.lib
 @REM cl65.exe -O -t bbc  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\bbc.bin

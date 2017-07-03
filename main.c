@@ -381,6 +381,7 @@ int main(void)
 		points = 0ul;
 		level = INITIAL_LEVEL; 	
 		lives = LIVES_NUMBER;
+		ghostCount = GHOSTS_NUMBER;
 		do // Level (Re-)Start
 		{ 
 			switch(level)
@@ -404,7 +405,7 @@ int main(void)
 			computeStrategy();
 			loop = 0;
 			ghostLevel = 0u;
-			ghostCount = GHOSTS_NUMBER;
+			//ghostCount = GHOSTS_NUMBER;
 			guns = 0;
 			gun._status = 0;
 			
@@ -433,7 +434,7 @@ int main(void)
 			// Initialize characters
 			updateInnerWallVerticalData();	
 			
-			fillLevelWithCharacters();	
+			fillLevelWithCharacters(ghostCount);	
 			
 			displayStatsTitles();
 			
@@ -577,7 +578,7 @@ int main(void)
 				printLevelBonus();
 								
 				sleep(1);
-				
+				ghostCount = GHOSTS_NUMBER;
 				points+= LEVEL_BONUS*level;
 				++level;
 				

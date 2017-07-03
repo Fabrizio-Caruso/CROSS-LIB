@@ -37,6 +37,7 @@
 #include <stdlib.h>
 
 #include "display_macros.h"
+#include "sound_macros.h" 
 
 #include "level.h"
 
@@ -148,7 +149,7 @@ void updateInnerWallVerticalData(void)
 }
 
 
-void fillLevelWithCharacters(void)
+void fillLevelWithCharacters(unsigned char nGhosts)
 {
 	short corner = rand()%4;
 	short chirality = rand()%2;
@@ -158,51 +159,112 @@ void fillLevelWithCharacters(void)
 	char i;
 	int x1,x2,x3,x4,x5,x6,x0;
 	int y1,y2,y3,y4,y5,y6,y0;
-	#if GHOSTS_NUMBER == 8
-	{
-		int x7; int y7;
-		x7 = XSize-XSize/6+rand()%3-3; 
-		y7 = YSize/2+rand()%3-2;
-		initializeCharacter(ghosts[7],x7,y7,1,&GHOST_IMAGE);
-		DRAW_GHOST(ghosts[7]->_x, ghosts[7]->_y, ghosts[7]->_imagePtr);
-	}
-	#endif
-	
+	int x7; int y7;
+
 	INIT_IMAGES();
-	
 
-	// 7 Ghosts case
-	x1 = XSize/6+rand()%3-1;       y1 = YSize/6+rand()%3-2+1;
-	x2 = XSize/6+rand()%3-1;       y2 = YSize/2+rand()%3-2;
-	x3 = XSize/6+rand()%3-1;       y3 = YSize-YSize/6+rand()%3-3;
-	x4 = XSize/2+rand()%3-1;       y4 = YSize/6+rand()%3-2+1;
-	x5 = XSize/2+rand()%3-1;       y5 = YSize-YSize/6+rand()%3-3;
-	x6 = XSize-XSize/6+rand()%3-3; y6 = YSize/6+rand()%3-2+1;
-	x0 = XSize-XSize/6+rand()%3-3; y0 = YSize-YSize/6+rand()%3-3;
-
-	
-	initializeCharacter(ghosts[1],x1,y1,1,&GHOST_IMAGE);
-	DRAW_GHOST(ghosts[1]->_x, ghosts[1]->_y, ghosts[1]->_imagePtr);
-	
-	initializeCharacter(ghosts[2],x2,y2,1, &GHOST_IMAGE);
-	DRAW_GHOST(ghosts[2]->_x, ghosts[2]->_y, ghosts[2]->_imagePtr);
-	
-	initializeCharacter(ghosts[3],x3,y3,1,&GHOST_IMAGE);
-	DRAW_GHOST(ghosts[3]->_x, ghosts[3]->_y, ghosts[3]->_imagePtr);
-
-	initializeCharacter(ghosts[4],x4,y4,1,&GHOST_IMAGE);
-	DRAW_GHOST(ghosts[4]->_x, ghosts[4]->_y, ghosts[4]->_imagePtr);
-
-	initializeCharacter(ghosts[5],x5,y5,1,&GHOST_IMAGE);
-	DRAW_GHOST(ghosts[5]->_x, ghosts[5]->_y, ghosts[5]->_imagePtr);
-
-	initializeCharacter(ghosts[6],x6,y6,1,&GHOST_IMAGE);
-	DRAW_GHOST(ghosts[6]->_x, ghosts[6]->_y, ghosts[6]->_imagePtr);
-	
+	// 8 Ghosts case
+	x0 = XSize-XSize/6+rand()%3-3; y0 = YSize-YSize/6+rand()%3-3;	
 	initializeCharacter(ghosts[0],x0,y0,1,&GHOST_IMAGE);
 	DRAW_GHOST(ghosts[0]->_x, ghosts[0]->_y, ghosts[0]->_imagePtr);
 	
+	if(nGhosts>1)
+	{
+		x1 = XSize/6+rand()%3-1;       y1 = YSize/6+rand()%3-2+1;
+		initializeCharacter(ghosts[1],x1,y1,1,&GHOST_IMAGE);
+	}
+	else
+	{
+		PING_SOUND();
+		x1 = 7; y1 = 1;
+		initializeCharacter(ghosts[1],x1,y1,1,&DEAD_GHOST_IMAGE);
+		ghosts[1]->_status = 0;
+	}
+	DRAW_GHOST(ghosts[1]->_x, ghosts[1]->_y, ghosts[1]->_imagePtr);
+	
+	if(nGhosts>2)
+	{
+		x2 = XSize/6+rand()%3-1;       y2 = YSize/2+rand()%3-2;
+		initializeCharacter(ghosts[2],x2,y2,1, &GHOST_IMAGE);
+	}
+	else
+	{
+		PING_SOUND();
+		x2 = 6; y2 = 1;
+		initializeCharacter(ghosts[2],x2,y2,1, &DEAD_GHOST_IMAGE);
+		ghosts[2]->_status = 0;
+	}
+	DRAW_GHOST(ghosts[2]->_x, ghosts[2]->_y, ghosts[2]->_imagePtr);
+	
+	if(nGhosts>3)
+	{
+		x3 = XSize/6+rand()%3-1;       y3 = YSize-YSize/6+rand()%3-3;
+		initializeCharacter(ghosts[3],x3,y3,1,&GHOST_IMAGE);
+	}
+	else
+	{
+		PING_SOUND();
+		x3 = 5; y3 = 1;
+		initializeCharacter(ghosts[3],x3,y3,1,&DEAD_GHOST_IMAGE);
+		ghosts[3]->_status = 0;
+	}
+	DRAW_GHOST(ghosts[3]->_x, ghosts[3]->_y, ghosts[3]->_imagePtr);
 
+	if(nGhosts>4)
+	{
+		x4 = XSize/2+rand()%3-1;       y4 = YSize/6+rand()%3-2+1;
+		initializeCharacter(ghosts[4],x4,y4,1,&GHOST_IMAGE);
+	}
+	else
+	{
+		PING_SOUND();
+		x4 = 4; y4=1;
+		initializeCharacter(ghosts[4],x4,y4,1,&DEAD_GHOST_IMAGE);	
+		ghosts[4]->_status = 0;
+	}
+	DRAW_GHOST(ghosts[4]->_x, ghosts[4]->_y, ghosts[4]->_imagePtr);
+
+	if(nGhosts>5)
+	{
+		x5 = XSize/2+rand()%3-1;       y5 = YSize-YSize/6+rand()%3-3;
+		initializeCharacter(ghosts[5],x5,y5,1,&GHOST_IMAGE);
+	}
+	else
+	{
+		PING_SOUND();
+		x5 = 3; y5=1;
+		initializeCharacter(ghosts[5],x5,y5,1,&DEAD_GHOST_IMAGE);	
+		ghosts[5]->_status = 0;		
+	}
+	DRAW_GHOST(ghosts[5]->_x, ghosts[5]->_y, ghosts[5]->_imagePtr);
+
+	if(nGhosts>6)
+	{
+		x6 = XSize-XSize/6+rand()%3-3; y6 = YSize/6+rand()%3-2+1;
+		initializeCharacter(ghosts[6],x6,y6,1,&GHOST_IMAGE);
+	}
+	else
+	{
+		PING_SOUND();
+		x6 = 2; y6=1;
+		initializeCharacter(ghosts[6],x6,y6,1,&DEAD_GHOST_IMAGE);	
+		ghosts[6]->_status = 0;
+	}
+	DRAW_GHOST(ghosts[6]->_x, ghosts[6]->_y, ghosts[6]->_imagePtr);
+	
+	if(nGhosts>7)
+	{
+		x7 = XSize-XSize/6+rand()%3-3; y7 = YSize/2+rand()%3-2;
+		initializeCharacter(ghosts[7],x7,y7,1,&GHOST_IMAGE);
+	}
+	else
+	{
+		PING_SOUND();
+		x7 = 1; y7=1;
+		initializeCharacter(ghosts[7],x7,y7,1,&DEAD_GHOST_IMAGE);	
+		ghosts[7]->_status = 0;		
+	}
+	DRAW_GHOST(ghosts[7]->_x, ghosts[7]->_y, ghosts[7]->_imagePtr);
 
 	// Player
 	do

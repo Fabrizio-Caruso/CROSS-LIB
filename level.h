@@ -43,7 +43,7 @@ void updateInnerWallVerticalData(void);
 
 unsigned short drawInnerVerticalWallForLevel(void);
 
-void fillLevelWithCharacters(void);
+void fillLevelWithCharacters(unsigned char nGhosts);
 
 void finalScore(void);			
 			  

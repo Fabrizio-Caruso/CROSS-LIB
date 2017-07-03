@@ -377,6 +377,7 @@ int main(void)
 		CLEAR_SCREEN();
 		deleteCenteredMessage();
 
+		extraLifeThroughPointsCounter = 1;
 		points = 0ul;
 		level = INITIAL_LEVEL; 	
 		lives = LIVES_NUMBER;

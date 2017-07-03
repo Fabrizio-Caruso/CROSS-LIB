@@ -66,18 +66,18 @@ void displayStatsTitles(void)
 	
 	#if defined(__C64__) 
 		SET_TEXT_COLOR(COLOR_RED);		
-		PRINT(2,1-4,"speed:");
-		PRINT(2,2-4,"score:");
-		PRINT(2,3-4,"level:");
+		PRINT(2-X_OFFSET,0-Y_OFFSET,"speed:");
+		PRINT(2-X_OFFSET,1-Y_OFFSET,"score:");
+		PRINT(2-X_OFFSET,2-Y_OFFSET,"level:");
 		SET_TEXT_COLOR(TEXT_COLOR);
 		
 		SET_TEXT_COLOR(COLOR_BLUE);		
-		PRINT(22,2-4,"ascii chase");
+		PRINT(24,1-Y_OFFSET,"ascii chase");
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__ATMOS__)
-		PRINT(2,0-3,"SPEED:");
-		PRINT(2,1-3,"SCORE:");
-		PRINT(2,2-3,"LEVEL:");
+		PRINT(2,0-Y_OFFSET,"SPEED:");
+		PRINT(2,1-Y_OFFSET,"SCORE:");
+		PRINT(2,2-Y_OFFSET,"LEVEL:");
 		
 		POKE(0xBB80+22+0*40,10);
 		POKE(0xBB80+22+1*40,10);	
@@ -109,13 +109,13 @@ void displayStatsTitles(void)
 		cputc('E'+128); 		
 	#else
 		SET_TEXT_COLOR(COLOR_BLACK);	
-		PRINT(2,0-3,"SPEED:");
-		PRINT(2,1-3,"SCORE:");
-		PRINT(2,2-3,"LEVEL:");
+		PRINT(2,0-Y_OFFSET,"SPEED:");
+		PRINT(2,1-Y_OFFSET,"SCORE:");
+		PRINT(2,2-Y_OFFSET,"LEVEL:");
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		#ifndef __VIC20__
 			SET_TEXT_COLOR(COLOR_BLACK);	
-			PRINT(22,1-3,"ASCII CHASE");
+			PRINT(24,1-Y_OFFSET,"ASCII CHASE");
 			SET_TEXT_COLOR(TEXT_COLOR);	
 		#endif
 	#endif
@@ -143,23 +143,23 @@ void displayStats(void)
 	SET_TEXT_COLOR(COLOR_BLACK);
 	
 	#if defined(__ATMOS__) 
-		PRINTF(8,0-3,"%04u",ghostLevel);
-		PRINTF(8,1-3,"%06lu",points);
-		PRINTF(8,2-3,"%02hu", level);
+		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
+		PRINTF(8,1-Y_OFFSET,"%06lu",points);
+		PRINTF(8,2-Y_OFFSET,"%02hu", level);
 	#else	
-		PRINTF(8,1-4,"%04u",ghostLevel);
-		PRINTF(8,2-4,"%06lu",points);
-		PRINTF(8,3-4,"%02hu", level);
+		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
+		PRINTF(8,1-Y_OFFSET,"%06lu",points);
+		PRINTF(8,2-Y_OFFSET,"%02hu", level);
 	#endif
 	
 	#if defined (__ATMOS__)
-		PRINTF(19-1,0-3,"%hu",guns);
-		PRINTF(19-1,1-3,"%hu",ghostCount);
-		PRINTF(19-1,2-3,"%02hu",lives);	
+		PRINTF(19-1,0-Y_OFFSET,"%hu",guns);
+		PRINTF(19-1,1-Y_OFFSET,"%hu",ghostCount);
+		PRINTF(19-1,2-Y_OFFSET,"%02hu",lives);	
 	#else
-		PRINTF(19-1,1-4,"%hu",guns);
-		PRINTF(19-1,2-4,"%hu",ghostCount);
-		PRINTF(19-1,3-4,"%02hu",lives);
+		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
+		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
+		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
 	#endif		
 		SET_TEXT_COLOR(TEXT_COLOR);
 }
@@ -186,7 +186,7 @@ void setScreenColors(void)
 void printCenteredMessage(char *Text)
 {
 	SET_TEXT_COLOR(TEXT_COLOR);
-	PRINTF((XSize - strlen (Text)) / 2 - 2, YSize / 2,"%s", Text);
+	PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text);
 }
 
 #ifdef __C64__
@@ -284,7 +284,7 @@ void finalScore(void)
 
 	void deleteCenteredMessage(void)
 	{
-		PRINT((XSize - 22) / 2 - 2, YSize / 2, "                      ");
+		PRINT((XSize - 22) / 2, YSize / 2, "                      ");
 	}
 
 
@@ -425,15 +425,15 @@ void printStartMessage(void)
 	#endif // __PLUS4__
 
 	#if defined(__VIC20__)
-		PRINT((XSize - 22) / 2, YSize / 2 - 3, "You * are chased by O");
+		PRINT(0, YSize / 2 - 3, "You * are chased by O");
 		
-		PRINT((XSize - 22) / 2, YSize / 2 - 2, "Force O into X");
+		PRINT(0, YSize / 2 - 2, "Force O into X");
 		
-		PRINT((XSize - 22) / 2, YSize / 2 - 1, "Take S to slow O down");
+		PRINT(0, YSize / 2 - 1, "Take S to slow O down");
 		
-		PRINT((XSize - 22) / 2, YSize / 2, "Catch ! for bullets!");
+		PRINT(0, YSize / 2, "Catch ! for bullets!");
 		
-		PRINT((XSize - 22) / 2, YSize / 2 + 1, "Flee from +!");
+		PRINT(0, YSize / 2 + 1, "Flee from +!");
 	#elif defined(__PET__)
 		PRINT(22, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		
@@ -441,35 +441,35 @@ void printStartMessage(void)
 		
 		PRINT(30, YSize / 2 + 1, "Flee from +!");
 	#elif defined(__C64__) 
-		PRINT((XSize - 22) / 2 - 2, YSize / 2 - 3, "escape the enemies");
+		PRINT((XSize - 22) / 2, YSize / 2 - 3, "escape the enemies");
 		
-		PRINT((XSize - 22) / 2 - 2, YSize / 2 - 1, "force them into the mines");
+		PRINT((XSize - 22) / 2, YSize / 2 - 1, "force them into the mines");
 		
-		PRINT((XSize - 22) / 2 - 2, YSize / 2 + 1, "catch the gun for bullets");
+		PRINT((XSize - 22) / 2, YSize / 2 + 1, "catch the gun for bullets");
+		SET_TEXT_COLOR(COLOR_BROWN);
+		PRINT((XSize - 22) / 2, YSize / 2 + 4, "use joystick in port 1");
+		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__ATMOS__)
 		PRINT(7, YSize / 2 - 3 - 3, "Escape from the enemies");
 		
 		PRINT(7, YSize / 2 - 1 - 3, "Forse them into the mines");
 		
 	#else
-		PRINT(2 -2, YSize / 2 - 3, "You * are chased by O. Force O into X");
+		PRINT(2, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		
-		PRINT(0 -2, YSize / 2 - 1, "Take S to slow O down. ! gives 3 bullets");
+		PRINT(0, YSize / 2 - 1, "Take S to slow O down. ! gives 3 bullets");
 		
-		PRINT(7 -2, YSize / 2 + 1, "Flee from +!");
+		PRINT(7, YSize / 2 + 1, "Flee from +!");
 	#endif
 
 	#if defined(__C64__) || defined(__C128__) || defined(__PET__)
-		SET_TEXT_COLOR(COLOR_BROWN);
-		PRINT((XSize - 22) / 2 - 2, YSize / 2 + 4, "use joystick in port 1");
-		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__C16__) || defined(__PLUS4__)
 		SET_TEXT_COLOR(COLOR_GRAY1);
 		PRINT((XSize - 22) / 2 - 2, YSize / 2 + 4, "Use Joystick in first port");
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__VIC20__)
 		SET_TEXT_COLOR(COLOR_GREEN);
-		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
+		PRINT(0, YSize / 2 + 4, "Use the Joystick");
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use W A S D <SPACE>");
@@ -482,9 +482,11 @@ void printStartMessage(void)
 	SET_TEXT_COLOR(TEXT_COLOR);
 
 	#if defined(__VIC20__)
-		PRINT(3, YSize / 2 + 8, "press any key");
-	#else
+		PRINT(3, YSize / 2 + 8, "Press any key");
+	#elif defined(__C64__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 8, "press any key");
+	#else
+		PRINT((XSize - 22) / 2, YSize / 2 + 8, "Press any key");
 	#endif
 }
 

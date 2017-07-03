@@ -38,6 +38,7 @@
 
 #include "display_macros.h"
 #include "sound_macros.h" 
+#include "sleep_macros.h"
 
 #include "level.h"
 
@@ -129,13 +130,13 @@ void updateInnerWallVerticalData(void)
 			innerVerticalWallLength = YSize-12;
 		break;
 		case 16:
-			innerVerticalWallLength = YSize-10;
-		break;
-		case 17:
 			innerVerticalWallLength = YSize-12;
 		break;
-		case 18:
+		case 17:
 			innerVerticalWallLength = YSize-10;
+		break;
+		case 18:
+			innerVerticalWallLength = YSize-12;
 		break;
 		case 19:
 			innerVerticalWallLength = YSize-12;
@@ -175,12 +176,14 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	}
 	else
 	{
-		PING_SOUND();
+		PING_SOUND(); 
 		x1 = 7; y1 = 1;
 		initializeCharacter(ghosts[1],x1,y1,1,&DEAD_GHOST_IMAGE);
 		ghosts[1]->_status = 0;
 	}
 	DRAW_GHOST(ghosts[1]->_x, ghosts[1]->_y, ghosts[1]->_imagePtr);
+	if(nGhosts<=1)
+		sleep(1);
 	
 	if(nGhosts>2)
 	{
@@ -189,12 +192,14 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	}
 	else
 	{
-		PING_SOUND();
+		PING_SOUND(); 
 		x2 = 6; y2 = 1;
 		initializeCharacter(ghosts[2],x2,y2,1, &DEAD_GHOST_IMAGE);
 		ghosts[2]->_status = 0;
 	}
 	DRAW_GHOST(ghosts[2]->_x, ghosts[2]->_y, ghosts[2]->_imagePtr);
+	if(nGhosts<=2)
+		sleep(1);
 	
 	if(nGhosts>3)
 	{
@@ -203,13 +208,15 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	}
 	else
 	{
-		PING_SOUND();
+		PING_SOUND(); 
 		x3 = 5; y3 = 1;
 		initializeCharacter(ghosts[3],x3,y3,1,&DEAD_GHOST_IMAGE);
 		ghosts[3]->_status = 0;
 	}
 	DRAW_GHOST(ghosts[3]->_x, ghosts[3]->_y, ghosts[3]->_imagePtr);
-
+	if(nGhosts<=3)
+		sleep(1);
+	
 	if(nGhosts>4)
 	{
 		x4 = XSize/2+rand()%3-1;       y4 = YSize/6+rand()%3-2+1;
@@ -217,13 +224,15 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	}
 	else
 	{
-		PING_SOUND();
+		PING_SOUND(); 
 		x4 = 4; y4=1;
 		initializeCharacter(ghosts[4],x4,y4,1,&DEAD_GHOST_IMAGE);	
 		ghosts[4]->_status = 0;
 	}
 	DRAW_GHOST(ghosts[4]->_x, ghosts[4]->_y, ghosts[4]->_imagePtr);
-
+	if(nGhosts<=4)
+		sleep(1);
+	
 	if(nGhosts>5)
 	{
 		x5 = XSize/2+rand()%3-1;       y5 = YSize-YSize/6+rand()%3-3;
@@ -231,13 +240,15 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	}
 	else
 	{
-		PING_SOUND();
+		PING_SOUND(); 
 		x5 = 3; y5=1;
 		initializeCharacter(ghosts[5],x5,y5,1,&DEAD_GHOST_IMAGE);	
 		ghosts[5]->_status = 0;		
 	}
 	DRAW_GHOST(ghosts[5]->_x, ghosts[5]->_y, ghosts[5]->_imagePtr);
-
+	if(nGhosts<=5)
+		sleep(1);
+	
 	if(nGhosts>6)
 	{
 		x6 = XSize-XSize/6+rand()%3-3; y6 = YSize/6+rand()%3-2+1;
@@ -251,6 +262,8 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		ghosts[6]->_status = 0;
 	}
 	DRAW_GHOST(ghosts[6]->_x, ghosts[6]->_y, ghosts[6]->_imagePtr);
+	if(nGhosts<=6)
+		sleep(1);
 	
 	if(nGhosts>7)
 	{
@@ -259,13 +272,15 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	}
 	else
 	{
-		PING_SOUND();
+		PING_SOUND(); 
 		x7 = 1; y7=1;
 		initializeCharacter(ghosts[7],x7,y7,1,&DEAD_GHOST_IMAGE);	
 		ghosts[7]->_status = 0;		
 	}
 	DRAW_GHOST(ghosts[7]->_x, ghosts[7]->_y, ghosts[7]->_imagePtr);
-
+	if(nGhosts<=7)
+		sleep(1);
+	
 	// Player
 	do
 	{

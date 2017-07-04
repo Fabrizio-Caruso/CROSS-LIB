@@ -59,12 +59,12 @@ extern unsigned int ghostLevel;
  extern Image GUN_IMAGE;
  extern Image INVINCIBLE_GHOST_IMAGE;
  extern Image PLAYER_IMAGE;
-
+ extern Image MISSILE_IMAGE;
 
 // TODO: This is SLOW
 void displayStatsTitles(void)
 {	
-	#if defined(__C64__) 
+	#if defined(__CBM__) && !defined(__VIC20__)
 		SET_TEXT_COLOR(COLOR_BLUE);		
 		PRINT(2-X_OFFSET,0-Y_OFFSET,"speed:");
 		PRINT(2-X_OFFSET,1-Y_OFFSET,"score:");
@@ -369,15 +369,15 @@ void printStartMessage(void)
 	#elif defined(__ATMOS__)
 		POKE(0xBB80+3*40,16);POKE(0xBB80+1+3*40,1); POKE(0xBB80+2+3*40,14);
 		POKE(0xBB80+4*40,16);POKE(0xBB80+1+4*40,1); POKE(0xBB80+2+4*40,14);
-		POKE(0xBB80+5*40,16);POKE(0xBB80+1+5*40,1); POKE(0xBB80+2+5*40,14);// red on black (inverted: cyan on white)
+		POKE(0xBB80+5*40,16);POKE(0xBB80+1+5*40,1); POKE(0xBB80+2+5*40,14);
 		
 		POKE(0xBB80+6*40,16);POKE(0xBB80+1+6*40,3); POKE(0xBB80+2+6*40,10);
-		POKE(0xBB80+7*40,16);POKE(0xBB80+1+7*40,3); POKE(0xBB80+2+7*40,10);// red on black (inverted: cyan on white)
+		POKE(0xBB80+7*40,16);POKE(0xBB80+1+7*40,3); POKE(0xBB80+2+7*40,10);
 		
-		POKE(0xBB80+8*40,16);POKE(0xBB80+1+8*40,1); POKE(0xBB80+2+8*40,10);// red on black (inverted: cyan on white)
-		POKE(0xBB80+9*40,16);POKE(0xBB80+1+9*40,1); POKE(0xBB80+2+9*40,10);// red on black (inverted: cyan on white)
-		POKE(0xBB80+10*40,16);POKE(0xBB80+1+10*40,3); POKE(0xBB80+2+10*40,10);// red on black (inverted: cyan on white)
-		POKE(0xBB80+11*40,16);POKE(0xBB80+1+11*40,3); POKE(0xBB80+2+11*40,10);// red on black (inverted: cyan on white)
+		POKE(0xBB80+8*40,16);POKE(0xBB80+1+8*40,1); POKE(0xBB80+2+8*40,10);
+		POKE(0xBB80+9*40,16);POKE(0xBB80+1+9*40,1); POKE(0xBB80+2+9*40,10);
+		POKE(0xBB80+10*40,16);POKE(0xBB80+1+10*40,3); POKE(0xBB80+2+10*40,10);
+		POKE(0xBB80+11*40,16);POKE(0xBB80+1+11*40,3); POKE(0xBB80+2+11*40,10);
 
 		gotoxy(19,6); cputc(PLAYER_IMAGE._imageData);
 		gotoxy(19,7); cputc(PLAYER_IMAGE._imageData);
@@ -436,6 +436,10 @@ void printStartMessage(void)
 		cputc('S');
 		cputc(' ');		
 		cputc('E'); 
+		
+
+	
+
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINT((XSize - 22) / 2, YSize / 2 - 9, "A S C I I   C H A S E");
@@ -508,6 +512,40 @@ void printStartMessage(void)
 		POKE(0xBB80+(YSize / 2 + 4 + 4)*40,16);POKE(0xBB81+(YSize / 2 + 4 +4)*40,12);
 		POKE(0xBB80+(YSize / 2 + 4 + 5)*40,16);POKE(0xBB81+(YSize / 2 + 4 +5)*40,12);
 		POKE(0xBB80+(YSize / 2 + 4 + 6)*40,16);POKE(0xBB81+(YSize / 2 + 4 +6)*40,12);
+		
+		{
+			char i;
+			for(i=0;i<7;++i)
+			{
+				gotoxy(16+i,8); cputc(MISSILE_IMAGE._imageData);
+				gotoxy(16+i,9); cputc(MISSILE_IMAGE._imageData);
+				sleep(1);
+				gotoxy(16+i,8); cputc(' ');
+				gotoxy(16+i,9); cputc(' ');
+				// gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
+				// gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
+				// sleep(1);
+				// gotoxy(19,8); cputc(' ');
+				// gotoxy(19,9); cputc(' ');
+				// gotoxy(20,8); cputc(MISSILE_IMAGE._imageData);
+				// gotoxy(20,9); cputc(MISSILE_IMAGE._imageData);	
+				// sleep(1);
+				// gotoxy(20,8); cputc(' ');
+				// gotoxy(20,9); cputc(' ');
+				// gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
+				// gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);		
+			}
+			for(i=0;i<4;++i)
+			{
+				gotoxy(22-i,8); cputc(MISSILE_IMAGE._imageData);
+				gotoxy(22-i,9); cputc(MISSILE_IMAGE._imageData);
+				sleep(1);
+				gotoxy(22-i,8); cputc(' ');
+				gotoxy(22-i,9); cputc(' ');				
+			}
+			gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
+			gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
+		}
 		
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");

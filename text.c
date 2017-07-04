@@ -57,6 +57,8 @@ extern unsigned int ghostLevel;
  extern Image PLAYER_IMAGE;
  extern Image GHOST_IMAGE;
  extern Image GUN_IMAGE;
+ extern Image INVINCIBLE_GHOST_IMAGE;
+ extern Image PLAYER_IMAGE;
 
 
 // TODO: This is SLOW
@@ -361,9 +363,30 @@ void printStartMessage(void)
 		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
 		SET_TEXT_COLOR(TEXT_COLOR);	
 	#elif defined(__ATMOS__)
-		POKE(0xBB80+3*40,16);POKE(0xBB80+1+3*40,1); POKE(0xBB80+2+3*40,10);
-		POKE(0xBB80+4*40,16);POKE(0xBB80+1+4*40,1); POKE(0xBB80+2+4*40,10);
-		POKE(0xBB80+5*40,16);POKE(0xBB80+1+5*40,1); POKE(0xBB80+2+5*40,10);// red on black (inverted: cyan on white)
+		POKE(0xBB80+3*40,16);POKE(0xBB80+1+3*40,1); POKE(0xBB80+2+3*40,14);
+		POKE(0xBB80+4*40,16);POKE(0xBB80+1+4*40,1); POKE(0xBB80+2+4*40,14);
+		POKE(0xBB80+5*40,16);POKE(0xBB80+1+5*40,1); POKE(0xBB80+2+5*40,14);// red on black (inverted: cyan on white)
+		
+		POKE(0xBB80+6*40,16);POKE(0xBB80+1+6*40,3); POKE(0xBB80+2+6*40,10);
+		POKE(0xBB80+7*40,16);POKE(0xBB80+1+7*40,3); POKE(0xBB80+2+7*40,10);// red on black (inverted: cyan on white)
+		
+		POKE(0xBB80+8*40,16);POKE(0xBB80+1+8*40,1); POKE(0xBB80+2+8*40,10);// red on black (inverted: cyan on white)
+		POKE(0xBB80+9*40,16);POKE(0xBB80+1+9*40,1); POKE(0xBB80+2+9*40,10);// red on black (inverted: cyan on white)
+		POKE(0xBB80+10*40,16);POKE(0xBB80+1+10*40,3); POKE(0xBB80+2+10*40,10);// red on black (inverted: cyan on white)
+		POKE(0xBB80+11*40,16);POKE(0xBB80+1+11*40,3); POKE(0xBB80+2+11*40,10);// red on black (inverted: cyan on white)
+
+		gotoxy(19,6); cputc(PLAYER_IMAGE._imageData);
+		gotoxy(19,7); cputc(PLAYER_IMAGE._imageData);
+		
+		gotoxy(15,10); cputc(GHOST_IMAGE._imageData);
+		gotoxy(15,11); cputc(GHOST_IMAGE._imageData);
+		
+		gotoxy(19,10); cputc(INVINCIBLE_GHOST_IMAGE._imageData);
+		gotoxy(19,11); cputc(INVINCIBLE_GHOST_IMAGE._imageData);
+		
+		gotoxy(23,10); cputc('>');
+		gotoxy(23,11); cputc('>');
+		
 		gotoxy(9, 5); 
 		cputc('A'); 
 		cputc(' ');
@@ -450,9 +473,9 @@ void printStartMessage(void)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "use joystick in port 1");
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__ATMOS__)
-		PRINT(7, YSize / 2 - 3 - 3, "Escape from the enemies");
+		PRINT(7, YSize / 2 - 1, "Escape from the enemies");
 		
-		PRINT(7, YSize / 2 - 1 - 3, "Forse them into the mines");
+		PRINT(7, YSize / 2, "Forse them into the mines");
 		
 	#else
 		PRINT(2, YSize / 2 - 3, "You * are chased by O. Force O into X");
@@ -474,19 +497,25 @@ void printStartMessage(void)
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use W A S D <SPACE>");
 	#elif defined(__ATMOS__) 
-		POKE(0xBB80+(YSize / 2 + 4 )*40,16);POKE(0xBB81+(YSize / 2 + 4 )*40,4);
-		PRINT((XSize - 22) / 2-3, YSize / 2 + 4 - 3,"Controls: Use W A S D <SPACE>");	
+		POKE(0xBB80+(YSize / 2 + 4 + 1)*40,16);POKE(0xBB81+(YSize / 2 + 4 +1)*40,4);
+		POKE(0xBB80+(YSize / 2 + 4 + 2)*40,16);POKE(0xBB81+(YSize / 2 + 4 +2)*40,4);
+		POKE(0xBB80+(YSize / 2 + 4 + 3)*40,16);POKE(0xBB81+(YSize / 2 + 4 +3)*40,4);
+		PRINT((XSize - 22) / 2-2, YSize / 2 + 4 - 1,"Controls: Use W A S D SPACE");	
+		POKE(0xBB80+(YSize / 2 + 4 + 4)*40,16);POKE(0xBB81+(YSize / 2 + 4 +4)*40,12);
+		POKE(0xBB80+(YSize / 2 + 4 + 5)*40,16);POKE(0xBB81+(YSize / 2 + 4 +5)*40,12);
+		POKE(0xBB80+(YSize / 2 + 4 + 6)*40,16);POKE(0xBB81+(YSize / 2 + 4 +6)*40,12);
+		
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 	#endif
 	SET_TEXT_COLOR(TEXT_COLOR);
 
 	#if defined(__VIC20__)
-		PRINT(3, YSize / 2 + 8, "Press any key");
+		PRINT(3, YSize / 2 + 7, "Press any key");
 	#elif defined(__C64__)
-		PRINT((XSize - 22) / 2, YSize / 2 + 8, "press any key");
+		PRINT((XSize - 22) / 2, YSize / 2 + 6, "press any key");
 	#else
-		PRINT((XSize - 22) / 2, YSize / 2 + 8, "Press any key");
+		PRINT((XSize - 22) / 2 + 3, YSize / 2 + 6, "Press any key");
 	#endif
 }
 

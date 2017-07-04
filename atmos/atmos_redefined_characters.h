@@ -75,6 +75,9 @@
 		const unsigned char vertical_bar[] =             {12,12,12,12,12,12,12,12};
 		const unsigned char horizontal_bar[] =           { 0, 0, 0,63,63,00,00,00};
 		const unsigned char corner[] =                   {63,63,63,51,51,63,63,63};
+		
+		const unsigned char left_arrow[] =             { 0, 0,56,31,31,56, 0, 0};
+		const unsigned char right_arrow[] =            { 0, 0, 7,62,62, 7, 0, 0};
 		//const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
 		
 
@@ -88,7 +91,7 @@
 		DEAD_GHOST_IMAGE._color = 128u;
 			
 		GHOST_IMAGE._imageData = (char) 0x60;
-		INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x5a;
+		INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x7b;
 		BOMB_IMAGE._imageData = (char) 0x5b;
 		PLAYER_IMAGE._imageData = (char) 0x5c;
 		
@@ -184,6 +187,17 @@
 		{
 			POKE(0xb400 + '+'*8 + i, corner[i]);
 		}		
+		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + '<'*8 + i, right_arrow[i]);
+		}
+
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + '>'*8 + i, left_arrow[i]);
+		}			
+		
 		// for(i=0;i<8;++i)
 		// {
 			// POKE(0xb400 + DEAD_GHOST_IMAGE._imageData*8 + i, dead_ghost[i]);

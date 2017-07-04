@@ -515,34 +515,20 @@ void printStartMessage(void)
 		
 		{
 			char i;
-			for(i=0;i<7;++i)
+			for(i=0;i<5;++i)
 			{
-				gotoxy(16+i,8); cputc(MISSILE_IMAGE._imageData);
-				gotoxy(16+i,9); cputc(MISSILE_IMAGE._imageData);
+				gotoxy(17+i,8); cputc(MISSILE_IMAGE._imageData);
+				gotoxy(17+i,9); cputc(MISSILE_IMAGE._imageData);
 				sleep(1);
-				gotoxy(16+i,8); cputc(' ');
-				gotoxy(16+i,9); cputc(' ');
-				// gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
-				// gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
-				// sleep(1);
-				// gotoxy(19,8); cputc(' ');
-				// gotoxy(19,9); cputc(' ');
-				// gotoxy(20,8); cputc(MISSILE_IMAGE._imageData);
-				// gotoxy(20,9); cputc(MISSILE_IMAGE._imageData);	
-				// sleep(1);
-				// gotoxy(20,8); cputc(' ');
-				// gotoxy(20,9); cputc(' ');
-				// gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
-				// gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);		
+				gotoxy(17+i,8); cputc(' ');
+				gotoxy(17+i,9); cputc(' ');	
 			}
-			for(i=0;i<4;++i)
-			{
-				gotoxy(22-i,8); cputc(MISSILE_IMAGE._imageData);
-				gotoxy(22-i,9); cputc(MISSILE_IMAGE._imageData);
-				sleep(1);
-				gotoxy(22-i,8); cputc(' ');
-				gotoxy(22-i,9); cputc(' ');				
-			}
+
+			gotoxy(20,8); cputc(MISSILE_IMAGE._imageData);
+			gotoxy(20,9); cputc(MISSILE_IMAGE._imageData);
+			sleep(1);
+			gotoxy(20,8); cputc(' ');
+			gotoxy(20,9); cputc(' ');				
 			gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
 			gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
 		}

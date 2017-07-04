@@ -55,7 +55,7 @@ extern Character player;
 
 extern unsigned short ghostCount;
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
+#if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) 
 #else
 	void movePlayerByJoystick(unsigned char joyInput)
 	{

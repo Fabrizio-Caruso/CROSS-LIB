@@ -71,6 +71,10 @@
 		const unsigned char player_right[] =          {12,26,12,31,44,12,10,10};		
 		const unsigned char player_up[] =             {12,30,12,51,45,12,18,51};
 		const unsigned char player_down[] =           {12,18,12,51,45,12,18,51};
+		
+		const unsigned char vertical_bar[] =             {12,12,12,12,12,12,12,12};
+		const unsigned char horizontal_bar[] =           { 0, 0, 0,63,63,00,00,00};
+		const unsigned char corner[] =                   {63,63,63,51,51,63,63,63};
 		//const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
 		
 
@@ -166,8 +170,20 @@
 			POKE(0xb400 + PLAYER_DOWN._imageData*8 + i, player_down[i]);
 		}
 		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + '|'*8 + i, vertical_bar[i]);
+		}
 		
-		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + '-'*8 + i, horizontal_bar[i]);
+		}
+
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + '+'*8 + i, corner[i]);
+		}		
 		// for(i=0;i<8;++i)
 		// {
 			// POKE(0xb400 + DEAD_GHOST_IMAGE._imageData*8 + i, dead_ghost[i]);

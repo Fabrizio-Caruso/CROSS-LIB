@@ -45,7 +45,7 @@ extern unsigned short invincibleGhostCountTrigger;
 
 int computeInvincibleCountDown(void)
 {
-	return 70 - level*2;
+	return 60 - level*2;
 }
 
 
@@ -57,7 +57,7 @@ int computeInvincibleSlowDown(void)
 	}
 	else if(loop<1100)
 	{
-		return 6000;
+		return 0;
 	}
 	return 0; // You must die!
 }

@@ -32,7 +32,12 @@
 
 		// Mode 12 with no last monochromatic lines (12+16)
 		_graphics(GRAPHICS_MODE);
-		//_setcolor(TGI_COLOR_BLUE,TGI_COLOR_WHITE,TGI_COLOR_RED);
+		SET_TEXT_COLOR(TEXT_COLOR);
+	
+		SET_BORDER_COLOR(BORDER_COLOR);
+	
+		SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
+		//_setcolor(TGI_COLOR_BLACK,TGI_COLOR_WHITE,TGI_COLOR_RED);
 		//_setcolor_low(TGI_COLOR_GREEN, TGI_COLOR_BLUE);
 	}
 	 
@@ -40,34 +45,29 @@
 	// TODO: Sprite initialization (to be performed only once) should be separated from level generation
 	void INIT_IMAGES(void)
 	{		
-	
-		// TODO: Maybe somewhere else
-		//_graphics(13);
-			
-		PLAYER_IMAGE._color = COLOR_BLUE;
-		INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
-		POWERUP_IMAGE._color = COLOR_BLUE;
-		GUN_IMAGE._color = COLOR_BLACK;
-		BOMB_IMAGE._color = COLOR_RED;
-		DEAD_GHOST_IMAGE._color = COLOR_RED;
-
+		PLAYER_IMAGE._color = COLOR_WHITE;
+		INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
+		POWERUP_IMAGE._color = COLOR_WHITE;
+		GUN_IMAGE._color = COLOR_WHITE;
+		BOMB_IMAGE._color = COLOR_WHITE;
+		DEAD_GHOST_IMAGE._color = COLOR_WHITE;
 
 		GHOST_IMAGE._imageData = 'o';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
-		BOMB_IMAGE._imageData = 'x';
+		BOMB_IMAGE._imageData = 'X';
 		PLAYER_IMAGE._imageData = '*';
-		POWERUP_IMAGE._imageData = 's';
+		POWERUP_IMAGE._imageData = 'S';
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';
 		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
-		GHOST_IMAGE._color = COLOR_BLACK;
-		MISSILE_IMAGE._color = COLOR_BLACK;
+		GHOST_IMAGE._color = COLOR_WHITE;
+		MISSILE_IMAGE._color = COLOR_WHITE;
 
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		LEFT_ENEMY_MISSILE_IMAGE._color = 0;
+		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-		RIGHT_ENEMY_MISSILE_IMAGE._color = 0;		
+		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
 	}
 
 

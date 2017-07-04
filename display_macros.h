@@ -259,6 +259,7 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_BORDERS()\
 	{ \
+		SET_TEXT_COLOR(TEXT_COLOR); \
 		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
 		cputc (CH_ULCORNER);\
 		chline (XSize-2);\

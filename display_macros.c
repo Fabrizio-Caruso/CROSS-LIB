@@ -64,32 +64,32 @@
  
 	void INIT_IMAGES(void)
 	{		
-		#if defined(__C64__) || defined(__C128__) || defined(__VIC20__)
-			PLAYER_IMAGE._color = COLOR_BLUE;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;
+		#if defined(__PET__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+			PLAYER_IMAGE._color = COLOR_WHITE;
+			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
+			POWERUP_IMAGE._color = COLOR_WHITE;
+			GUN_IMAGE._color = COLOR_WHITE;
+			BOMB_IMAGE._color = COLOR_WHITE;
+			DEAD_GHOST_IMAGE._color = COLOR_WHITE;
+		#elif defined(__VIC20__)
+			PLAYER_IMAGE._color = COLOR_YELLOW;
+			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 			POWERUP_IMAGE._color = COLOR_BLUE;
-			GUN_IMAGE._color = COLOR_BLACK;
+			GUN_IMAGE._color = COLOR_BLUE;
 			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;
-		#elif defined(__PET__) || defined(__APPLE2__)
-			PLAYER_IMAGE._color = COLOR_BLACK;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
-			POWERUP_IMAGE._color = COLOR_BLACK;
-			GUN_IMAGE._color = COLOR_BLACK;
-			BOMB_IMAGE._color = COLOR_BLACK;
-			DEAD_GHOST_IMAGE._color = COLOR_BLACK;
+			DEAD_GHOST_IMAGE._color = COLOR_RED;		
 		#elif defined(__C16__) || defined(__PLUS4__)
-			PLAYER_IMAGE._color = COLOR_BLACK;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
+			PLAYER_IMAGE._color = COLOR_WHITE;
+			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
 			POWERUP_IMAGE._color = COLOR_GRAY1;
 			GUN_IMAGE._color = COLOR_GRAY1;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
 		#else
-			PLAYER_IMAGE._color = COLOR_BLACK;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_BLACK;
-			POWERUP_IMAGE._color = COLOR_BLACK;
-			GUN_IMAGE._color = COLOR_BLACK;
+			PLAYER_IMAGE._color = COLOR_WHITE;
+			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
+			POWERUP_IMAGE._color = COLOR_WHITE;
+			GUN_IMAGE._color = COLOR_WHITE;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
 		#endif
@@ -104,14 +104,13 @@
 		MISSILE_IMAGE._imageData = '.';
 		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
-		GHOST_IMAGE._color = COLOR_BLACK;
-		MISSILE_IMAGE._color = COLOR_BLACK;
+		GHOST_IMAGE._color = COLOR_WHITE;
+		MISSILE_IMAGE._color = COLOR_WHITE;
 
-				
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		LEFT_ENEMY_MISSILE_IMAGE._color = 0;
+		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-		RIGHT_ENEMY_MISSILE_IMAGE._color = 0;
+		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
 	}
 
 #endif

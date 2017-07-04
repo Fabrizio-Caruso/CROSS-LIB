@@ -441,7 +441,6 @@ int main(void)
 			rightEnemyMissile._x = XSize-4; rightEnemyMissile._y = 4;
 			leftEnemyMissile._x = 4; leftEnemyMissile._y = YSize-4;
 			
-			
 			while(player._status && ghostCount>0) // while alive && there are still ghosts
 			{
 				++loop;

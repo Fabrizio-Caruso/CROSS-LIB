@@ -162,8 +162,10 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	int y1,y2,y3,y4,y5,y6,y0;
 	int x7; int y7;
 
-	INIT_GRAPHICS();
-
+	#if defined(__ATMOS__)
+		INIT_GRAPHICS();
+	#endif
+		
 	// 8 Ghosts case
 	x0 = XSize-XSize/6+rand()%3-3; y0 = YSize-YSize/6+rand()%3-3;	
 	initializeCharacter(ghosts[0],x0,y0,1,&GHOST_IMAGE);

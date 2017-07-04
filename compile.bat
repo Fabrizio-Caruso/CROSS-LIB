@@ -1,13 +1,13 @@
-@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
-@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
+@REM 
+set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM 
+set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+@REM 
+set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
 
-@REM 
-set cc65path="D:\personal\cc65-snapshot-win32"
-@REM 
-set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
-@REM 
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+@REM set cc65path="D:\personal\cc65-snapshot-win32"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
+@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 
 set Deliverables=%mypath%\deliverables
@@ -28,6 +28,10 @@ cd %cc65path%\bin\
 
 @REM 
 cl65.exe -O -t c64 --config %configpath%\c64_GFXat0xC000.cfg  %mypath%\graphics\graphics.s  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c64_redefined_characters.prg
+cd %mypath%\tools
+exomizer sfx basic %deliverables%\c64_redefined_characters.prg -o %deliverables%\c64_redefined_chars.prg
+del %deliverables%\c64_redefined_characters.prg
+cd %cc65path%\bin\
 
 @REM 
 cl65.exe -O -t c128 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c128.prg
@@ -62,10 +66,23 @@ cl65.exe  -O -t atarixl --start-addr 0x4000 %mypath%\display_macros.c %mypath%\p
 @REM apple2 has a "sleep" issue
 @REM 
 cl65.exe -O -t apple2 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\apple2.bin
+cd %mypath%\tools
+cp MASTER.DSK %deliverables%\apple2.dsk
+java -jar ac.jar -cc65 %deliverables%\apple2.dsk aschase B < %deliverables%\apple2.bin
+del %deliverables%\MASTER.DSK
+del %deliverables%\apple2.bin
+cd %cc65path%\bin\
 
 @REM apple2enh has a "sleep" issue
 @REM 
 cl65.exe -O -t apple2enh %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\apple2enh.bin
+cd %mypath%\tools
+cp MASTER.DSK %deliverables%\apple2enh.dsk
+java -jar ac.jar -cc65 %deliverables%\apple2enh.dsk aschase B < %deliverables%\apple2enh.bin
+del %deliverables%\MASTER.DSK
+del %deliverables%\apple2enh.bin
+cd %cc65path%\bin\
+
 
 
 @REM NES has DISPLAY ISSUES
@@ -120,6 +137,8 @@ cl65.exe -O -t apple2enh %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\
 
 @REM BBC fails looking for bbc.lib
 @REM cl65.exe -O -t cbm610  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cbm610.bin
+
+
 
 
 del %mypath%\*.o

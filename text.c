@@ -63,18 +63,18 @@ extern unsigned int ghostLevel;
 
 // TODO: This is SLOW
 void displayStatsTitles(void)
-{
-	//SET_TEXT_COLOR(COLOR_BLACK);
-	
+{	
 	#if defined(__C64__) 
-		SET_TEXT_COLOR(COLOR_RED);		
+		SET_TEXT_COLOR(COLOR_BLUE);		
 		PRINT(2-X_OFFSET,0-Y_OFFSET,"speed:");
 		PRINT(2-X_OFFSET,1-Y_OFFSET,"score:");
 		PRINT(2-X_OFFSET,2-Y_OFFSET,"level:");
 		SET_TEXT_COLOR(TEXT_COLOR);
 		
-		SET_TEXT_COLOR(COLOR_BLUE);		
+		SET_TEXT_COLOR(COLOR_RED);	
+		PRINT(24,0-Y_OFFSET,"-----------");
 		PRINT(24,1-Y_OFFSET,"ascii chase");
+		PRINT(24,2-Y_OFFSET,"-----------");
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__ATMOS__)
 		PRINT(2,0-Y_OFFSET,"SPEED:");
@@ -110,13 +110,12 @@ void displayStatsTitles(void)
 		cputc('S'+128);	
 		cputc('E'+128); 		
 	#else
-		SET_TEXT_COLOR(COLOR_BLACK);	
+		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINT(2,0-Y_OFFSET,"SPEED:");
 		PRINT(2,1-Y_OFFSET,"SCORE:");
 		PRINT(2,2-Y_OFFSET,"LEVEL:");
-		SET_TEXT_COLOR(TEXT_COLOR);	
 		#ifndef __VIC20__
-			SET_TEXT_COLOR(COLOR_BLACK);	
+			SET_TEXT_COLOR(TEXT_COLOR);	
 			PRINT(24,1-Y_OFFSET,"ASCII CHASE");
 			SET_TEXT_COLOR(TEXT_COLOR);	
 		#endif
@@ -128,11 +127,10 @@ void displayStatsTitles(void)
 		gotoxy(18,1); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#else
-		SET_TEXT_COLOR(COLOR_BLACK);	
+		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(18,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(18,1); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');
-		SET_TEXT_COLOR(TEXT_COLOR);	
 	#endif
 
 }
@@ -142,7 +140,7 @@ void displayStatsTitles(void)
 // TODO: This is SLOW
 void displayStats(void)
 {	
-	SET_TEXT_COLOR(COLOR_BLACK);
+	SET_TEXT_COLOR(TEXT_COLOR);
 	
 	#if defined(__ATMOS__) 
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
@@ -163,7 +161,7 @@ void displayStats(void)
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
 		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
 	#endif		
-		SET_TEXT_COLOR(TEXT_COLOR);
+	//	SET_TEXT_COLOR(TEXT_COLOR);
 }
 
 
@@ -183,7 +181,6 @@ void setScreenColors(void)
 	
 	SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
 }
-
 
 void printCenteredMessage(char *Text)
 {
@@ -212,69 +209,76 @@ void printLevel(void)
 #endif
 
 #ifdef __C64__
-void printLevelBonus(unsigned short bonus)
-{
-	char levelString[22];
+	void printLevelBonus(unsigned short bonus)
+	{
+		char levelString[22];
 
-	sprintf(levelString, "level bonus: %d", bonus);
+		sprintf(levelString, "level bonus: %d", bonus);
 
-	printCenteredMessage(levelString);
-	sleep(1);
-}
+		printCenteredMessage(levelString);
+		sleep(1);
+	}
 
-void gameCompleted(void)
-{
-	printCenteredMessage("y o u   m a d e   i t !"); 
-	sleep(1);
-	printCenteredMessage("    t h e   e n d    "); 
-	sleep(1);
-}
+	void gameCompleted(void)
+	{
+		printCenteredMessage("y o u   m a d e   i t !"); 
+		sleep(1);
+		printCenteredMessage("    t h e   e n d    "); 
+		sleep(1);
+	}
 
-void finalScore(void)
-{
-	char scoreString[22];
-	clrscr();
-	sprintf(scoreString, "score:  %lu", points);
-	printCenteredMessage(scoreString);
-}
+	void finalScore(void)
+	{
+		char scoreString[22];
+		clrscr();
+		sprintf(scoreString, "score:  %lu", points);
+		printCenteredMessage(scoreString);
+	}
 
-void printExtraLife(void)
-{
-	printCenteredMessage("e x t r a   l i f e ! ! !"); 
-	sleep(1);
-}
+	void printExtraLife(void)
+	{
+		printCenteredMessage("e x t r a   l i f e ! ! !"); 
+		sleep(1);
+	}
 #else
-void printLevelBonus(unsigned short bonus)
-{
-	char levelString[22];
+	void printLevelBonus(unsigned short bonus)
+	{
+		char levelString[22];
 
-	sprintf(levelString, "LEVEL BONUS: %d", bonus);
+		sprintf(levelString, "LEVEL BONUS: %d", bonus);
 
-	printCenteredMessage(levelString);
-	sleep(1);
-}
+		printCenteredMessage(levelString);
+		sleep(1);
+	}
 
-void gameCompleted(void)
-{
-	printCenteredMessage("Y O U   M A D E   I T !"); 
-	sleep(1);
-	printCenteredMessage("    T H E   E N D    "); 
-	sleep(1);
-}
+	void gameCompleted(void)
+	{
+		printCenteredMessage("Y O U   M A D E   I T !"); 
+		sleep(1);
+		printCenteredMessage("    T H E   E N D    "); 
+		sleep(1);
+	}
 
-void printExtraLife(void)
-{
-	printCenteredMessage("E X T R A   L I F E ! ! !"); 
-	sleep(1);
-}
-
-void finalScore(void)
-{
-	char scoreString[22];
-	clrscr();
-	sprintf(scoreString, "SCORE:  %lu", points);
-	printCenteredMessage(scoreString);
-}
+	#if defined(__VIC20__)
+		void printExtraLife(void)
+		{
+			printCenteredMessage("E X T R A   L I F E !"); 
+			sleep(1);
+		}
+	#else
+		void printExtraLife(void)
+		{
+			printCenteredMessage("E X T R A   L I F E ! ! !"); 
+			sleep(1);
+		}		
+	#endif
+	void finalScore(void)
+	{
+		char scoreString[22];
+		clrscr();
+		sprintf(scoreString, "SCORE:  %lu", points);
+		printCenteredMessage(scoreString);
+	}
 
 #endif
 
@@ -354,12 +358,12 @@ void finalScore(void)
 
 void printStartMessage(void)
 {
-	#ifdef __C64__
-		SET_TEXT_COLOR(COLOR_BLACK);
-		PRINT((XSize - 22) / 2, YSize / 2 - 9, "a s c i i   c h a s e");
-		SET_TEXT_COLOR(TEXT_COLOR);
-		
+	#if defined(__C64__)
 		SET_TEXT_COLOR(COLOR_RED);
+		PRINT((XSize - 22) / 2, 2, "a s c i i   c h a s e");
+		//SET_TEXT_COLOR(TEXT_COLOR);
+		
+		SET_TEXT_COLOR(COLOR_BROWN);
 		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
 		SET_TEXT_COLOR(TEXT_COLOR);	
 	#elif defined(__ATMOS__)
@@ -433,7 +437,7 @@ void printStartMessage(void)
 		cputc(' ');		
 		cputc('E'); 
 	#else
-		SET_TEXT_COLOR(COLOR_BLACK);
+		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINT((XSize - 22) / 2, YSize / 2 - 9, "A S C I I   C H A S E");
 		SET_TEXT_COLOR(TEXT_COLOR);
 		

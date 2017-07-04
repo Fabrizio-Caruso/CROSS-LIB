@@ -43,37 +43,27 @@
 #elif defined(__NES__)
 	#include "nes/nes_graphics.h"
 #else		
-	 Image PLAYER_IMAGE;
-	 Image GHOST_IMAGE;
-	 Image DEAD_GHOST_IMAGE;
-	 Image INVINCIBLE_GHOST_IMAGE;
-	 Image BOMB_IMAGE;
-	 Image POWERUP_IMAGE;
-	 Image MISSILE_IMAGE;
-	 Image GUN_IMAGE;
+	Image PLAYER_IMAGE;
+	Image GHOST_IMAGE;
+	Image DEAD_GHOST_IMAGE;
+	Image INVINCIBLE_GHOST_IMAGE;
+	Image BOMB_IMAGE;
+	Image POWERUP_IMAGE;
+	Image MISSILE_IMAGE;
+	Image GUN_IMAGE;
 
-	 Image LEFT_ENEMY_MISSILE_IMAGE;
-	 Image RIGHT_ENEMY_MISSILE_IMAGE;
-	 
-	 extern char YSize; 
+	Image LEFT_ENEMY_MISSILE_IMAGE;
+	Image RIGHT_ENEMY_MISSILE_IMAGE;
+
+	extern char YSize; 
 	
-#if defined(__NES__)
-	void INIT_GRAPHICS(void)
-	{
-		POKE(0x2001,8);
-	}
-#else	
+
 	void INIT_GRAPHICS(void)
 	{
 	}
-#endif	 
-	 
-	// TODO: Sprite initialization (to be performed only once) should be separated from level generation
+ 
 	void INIT_IMAGES(void)
 	{		
-		#if defined(__NES__)
-			POKE(0x2001,8);
-		#endif
 		#if defined(__C64__) || defined(__C128__) || defined(__VIC20__)
 			PLAYER_IMAGE._color = COLOR_BLUE;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_BLUE;

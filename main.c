@@ -54,7 +54,7 @@
 
 
 // #define DEBUG_ATARI
-// #define DEBUG_CHARACTERS
+#define DEBUG_CHARACTERS
 
 unsigned int invincibleSlowDown = 30000;
 unsigned short invincibleXCountDown = 100;
@@ -279,13 +279,12 @@ void handle_invincible_ghost(void)
 			TOCK_SOUND();
 			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
 			moveTowardCharacter(&invincibleGhost, &player, 4);
-			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		}
+		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		if(areCharctersAtSamePosition(&invincibleGhost, &player))
 		{
 			EXPLOSION_SOUND();
 			die(&player);
-			//DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			printDefeatMessage();
 			sleep(1);
 		}
@@ -364,13 +363,13 @@ int main(void)
 		CLEAR_SCREEN();
 		
 		#ifdef DEBUG_CHARACTERS
-			printf("ghost %c\n", GHOST_IMAGE._imageData);
-			printf("invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
-			printf("bomb %c\n", BOMB_IMAGE._imageData);
-			printf("player %c\n", PLAYER_IMAGE._imageData);
-			printf("powerup %c\n", POWERUP_IMAGE._imageData);
-			printf("gun %c\n", GUN_IMAGE._imageData);
-			printf("missile %c\n", MISSILE_IMAGE._imageData);
+			PRINTF(0,0,"ghost %c\n", GHOST_IMAGE._imageData);
+			PRINTF(0,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
+			PRINTF(0,2,"bomb %c\n", BOMB_IMAGE._imageData);
+			PRINTF(0,3,"player %c\n", PLAYER_IMAGE._imageData);
+			PRINTF(0,4,"powerup %c\n", POWERUP_IMAGE._imageData);
+			PRINTF(0,5,"gun %c\n", GUN_IMAGE._imageData);
+			PRINTF(0,6,"missile %c\n", MISSILE_IMAGE._imageData);
 		#endif
 		
 		initialScreen();

@@ -68,9 +68,8 @@ cl65.exe -O -t apple2 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\ene
 cl65.exe -O -t apple2enh %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\apple2enh.bin
 
 
-@REM NES has NO DISPLAY
-@REM 
-cl65.exe -O -t nes %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\nes.nes
+@REM NES has DISPLAY ISSUES
+@REM cl65.exe -t nes %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\nes.nes
 
 
 @REM TO EXPERIMENT
@@ -100,8 +99,7 @@ cl65.exe -O -t nes %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.
 
 @REM TARGETS WITH OTHER ISSUES
 
-@REM 
-cl65.exe -t nes %mypath%\experiments\hello.c -o %mypath%\deliverables\hello.nes
+@REM cl65.exe -t nes %mypath%\experiments\hello.c -o %mypath%\deliverables\hello.nes
 
 @REM BBC fails looking for bbc.lib
 @REM cl65.exe -O -t bbc  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\bbc.bin

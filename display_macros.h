@@ -42,9 +42,9 @@
 	#include "atmos/atmos_conio_patch.h"
 #endif
 
-#if defined(__C64__)
-	#include "c64/c64_hardware_sprite.h"
-#endif
+// #if defined(__C64__)
+	// #include "c64/c64_hardware_sprite.h"
+// #endif
 
 
 
@@ -69,8 +69,11 @@ typedef struct ImageStruct Image;
 	#define Y_OFFSET 3
 #endif
 
-
-#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
+#if defined(__NES__)
+	#define GET_SCREEN_SIZE(x,y) {*x=32; *y=40;};
+#else
+	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
+#endif
 
 #if defined(__ATMOS__)
 	#include<peekpoke.h>

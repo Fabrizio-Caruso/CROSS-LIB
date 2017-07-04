@@ -357,8 +357,9 @@ int main(void)
 	while(1)
 	{
 		char arrowRange = 3;
-		INIT_IMAGES();
+
 		INIT_GRAPHICS();
+		INIT_IMAGES();
 		
 		CLEAR_SCREEN();
 		

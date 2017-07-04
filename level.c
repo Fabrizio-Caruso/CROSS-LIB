@@ -162,7 +162,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	int y1,y2,y3,y4,y5,y6,y0;
 	int x7; int y7;
 
-	INIT_IMAGES();
+	INIT_GRAPHICS();
 
 	// 8 Ghosts case
 	x0 = XSize-XSize/6+rand()%3-3; y0 = YSize-YSize/6+rand()%3-3;	

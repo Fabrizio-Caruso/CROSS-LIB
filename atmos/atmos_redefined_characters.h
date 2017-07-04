@@ -57,8 +57,22 @@
 	 
 	void INIT_IMAGES(void)
 	{		
-	
-		int i;
+				
+		unsigned char i;
+		const unsigned char player[] =                {12,18,12,51,45,12,18,51};
+		const unsigned char ghost[]  =                {33,30,33,51,33,45,33,30};
+		const unsigned char bomb[]  =                 {30,33,51,45,45,51,33,30};
+		const unsigned char powerUp[]  =              { 0,30,51,55,51,26,18,12};
+		const unsigned char invincible_ghost[]  =     {30,33,51,33,33,18,18,12};
+		const unsigned char gun[]  =                  { 0,32,31,40,56,32, 0, 0};
+		const unsigned char missile[]  =              { 0, 0, 4,28,14, 8, 0, 0};
+		
+		const unsigned char player_left[] =           {12,22,12,62,13,12,20,20};
+		const unsigned char player_right[] =          {12,26,12,31,44,12,10,10};		
+		const unsigned char player_up[] =             {12,30,12,51,45,12,18,51};
+		const unsigned char player_down[] =           {12,18,12,51,45,12,18,51};
+		//const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
+		
 
 		PLAYER_DOWN._color = 0;		
 		GHOST_IMAGE._color = 0;
@@ -96,35 +110,6 @@
 		LEFT_ENEMY_MISSILE_IMAGE._color = 0;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		RIGHT_ENEMY_MISSILE_IMAGE._color = 0;
-		
-		// Initialize colors 
-		for(i=0;i<3;++i)
-		{
-			POKE(0xBB80+i*40,16);POKE(0xBB81+i*40,1); // red on black (inverted: cyan on white)
-		}
-		for(i=0+3;i<28;++i)
-		{
-			POKE(0xBB80+i*40,16);POKE(0xBB81+i*40,3); // yellow on black (inverted: blue on white)
-		}	
-	}
-	
-	void INIT_GRAPHICS(void)
-	{
-		unsigned char i;
-		const unsigned char player[] =                {12,18,12,51,45,12,18,51};
-		const unsigned char ghost[]  =                {33,30,33,51,33,45,33,30};
-		const unsigned char bomb[]  =                 {30,33,51,45,45,51,33,30};
-		const unsigned char powerUp[]  =              { 0,30,51,55,51,26,18,12};
-		const unsigned char invincible_ghost[]  =     {30,33,51,33,33,18,18,12};
-		const unsigned char gun[]  =                  { 0,32,31,40,56,32, 0, 0};
-		const unsigned char missile[]  =              { 0, 0, 4,28,14, 8, 0, 0};
-		
-		const unsigned char player_left[] =           {12,22,12,62,13,12,20,20};
-		const unsigned char player_right[] =          {12,26,12,31,44,12,10,10};		
-		const unsigned char player_up[] =             {12,30,12,51,45,12,18,51};
-		const unsigned char player_down[] =           {12,18,12,51,45,12,18,51};
-		//const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
-		
 		
 		for(i=0;i<8;++i)
 		{
@@ -187,6 +172,21 @@
 		// {
 			// POKE(0xb400 + DEAD_GHOST_IMAGE._imageData*8 + i, dead_ghost[i]);
 		// }
+	}
+	
+	void INIT_GRAPHICS(void)
+	{
+		unsigned char i;
+		
+		// Initialize colors 
+		for(i=0;i<3;++i)
+		{
+			POKE(0xBB80+i*40,16);POKE(0xBB81+i*40,1); // red on black (inverted: cyan on white)
+		}
+		for(i=0+3;i<28;++i)
+		{
+			POKE(0xBB80+i*40,16);POKE(0xBB81+i*40,3); // yellow on black (inverted: blue on white)
+		}		
 	}
 	 
 	 

@@ -42,6 +42,8 @@
 	#include "atari/atari_graphics.h"
 #elif defined(__NES__)
 	#include "nes/nes_graphics.h"
+#elif defined(__C16__) || defined(__PLUS4__)
+	#include "c264/c264_graphics.h"
 #else		
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;

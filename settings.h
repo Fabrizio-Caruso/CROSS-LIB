@@ -61,7 +61,7 @@
 #define GUN_COLOR COLOR_BROWN
 
 #define GHOST_VS_GHOST_COLLISION_LEVEL 16
-#define GHOST_VS_GHOST_COLLISION_START 80
+#define GHOST_VS_GHOST_COLLISION_START 150
 
 // If two or more ghosts bump into eachother for each ghost
 #define GHOST_VS_GHOST_BONUS 500ul

@@ -38,8 +38,6 @@ cd %cc65path%\bin\
 
 @REM cl65.exe -O -t vic20 --config %mypath%\cfg\vic20-24k.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cvic20-24k.prg
 
-@REM 
-cl65.exe -O -t plus4 --config %configpath%\plus4_GFX.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cplus4_redefined_chars.prg
 
 @REM 
 cl65.exe -O -t c16 --config %configpath%\c16_GFX.cfg  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c16-32k_redefined_chars.prg
@@ -78,6 +76,9 @@ cl65.exe -O -t c16 --config %configpath%\c16_GFX.cfg  %mypath%\display_macros.c 
 
 @REM NES has DISPLAY ISSUES
 @REM cl65.exe -t nes %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\nes.nes
+
+@REM BROKEN DUE TO CFG
+@REM cl65.exe -O -t plus4 --config %configpath%\plus4_GFX.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cplus4_redefined_chars.prg
 
 
 @REM TO EXPERIMENT

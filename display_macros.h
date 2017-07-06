@@ -213,6 +213,13 @@ typedef struct ImageStruct Image;
 	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
 	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
 #else
+	#if defined(__C16__) || defined(__PLUS4__)
+		extern Image PLAYER_LEFT;
+		extern Image PLAYER_RIGHT;
+		extern Image PLAYER_UP;
+		extern Image PLAYER_DOWN;
+	#endif
+	
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
 
 	#define DRAW_PLAYER(x,y,image) {(void) textcolor (image->_color); gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
@@ -272,11 +279,18 @@ typedef struct ImageStruct Image;
 	}
 
 	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);
-	
-	#define SHOW_LEFT() {}
-	#define SHOW_RIGHT() {}
-	#define SHOW_UP() {}
-	#define SHOW_DOWN() {}	
+
+	#if defined(__C16__) || defined(__PLUS4__)
+		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
+		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
+		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
+		#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+	#else
+		#define SHOW_LEFT() {}
+		#define SHOW_RIGHT() {}
+		#define SHOW_UP() {}
+		#define SHOW_DOWN() {}	
+	#endif
 #endif
 
 #define CLEAR_SCREEN() clrscr();

@@ -29,14 +29,41 @@
 	void INIT_GRAPHICS(void)
 	{
 		unsigned short i;
+		static char player[8] = {24,36,24,102,153,24,36,102};
+		
 		POKE(1177,62); // disable switch to RAM in PEEK
 		for(i=0;i<1023;++i)
 		{
-			POKE(24576+i,PEEK((unsigned long) (54272ul+(unsigned long) i)));
+			POKE(24576+2048+i,PEEK((unsigned long) (54272ul+(unsigned long) i)));
 		}
 		POKE(1177,63); // re-enable switch to RAM in PEEK
-		POKE(65299ul,(PEEK(65299ul)&3)|((16+8)*4)); // change character base address to 8192
+		POKE(65299ul,(PEEK(65299ul)&3)|((16+8+2)*4)); // change character base address to 8192
 		POKE(65298ul,PEEK(65298ul)&251); // make graphics chip get characters from RAM
+		
+		for(i=0;i<8;++i)
+		{
+			POKE(24576+2048+320+i,player[i]);
+		}
+		
+		// for(i=0;i<8;++i)
+		// {
+			// POKE(24576+320+8+i,player[i]);
+		// }
+		
+		// for(i=0;i<8;++i)
+		// {
+			// POKE(24576+320+8*2+i,player[i]);
+		// }
+
+		// for(i=0;i<8;++i)
+		// {
+			// POKE(24576+320+8*2+i,player[i]);
+		// }
+
+		// for(i=0;i<8;++i)
+		// {
+			// POKE(24576+320+8*3+i,player[i]);
+		// }		
 	}
 	 
 	 
@@ -53,7 +80,7 @@
 		GHOST_IMAGE._imageData = 'o';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
 		BOMB_IMAGE._imageData = 'X';
-		PLAYER_IMAGE._imageData = '*';
+		PLAYER_IMAGE._imageData = '(';
 		POWERUP_IMAGE._imageData = 'S';
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';

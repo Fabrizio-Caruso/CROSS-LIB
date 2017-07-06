@@ -94,7 +94,7 @@
 // LEVEL 19 - 20: Four bombs at the corners 
 
 // Starting from this level 4 central bombs
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 5
 
 // Starting from this level only two central bombs
 #define TWO_BOMB_START_LEVEL 5

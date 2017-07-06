@@ -60,7 +60,7 @@
 		POKE(SELECT,MAX_VOLUME+NOISE); \
 		for(volume=0;volume<=MAX_VOLUME;++volume) \
 		{ \
-			for(j=100;j<255;++j){} \
+			for(j=50;j<255;++j){} \
 			POKE(SELECT,volume+NOISE); \
 		} \
 		for(volume=0;volume<=MAX_VOLUME;++volume) \
@@ -79,7 +79,7 @@
 		POKE(HI_FREQ_1,PEEK(HI_FREQ_1) | 1); \
 		for(freq=100;freq<120;++freq) \
 		{ \
-			for(j=0;j<255;++j) {}; \
+			for(j=0;j<150;++j) {}; \
 			POKE(LO_FREQ_1,freq); \
 		} \
 		POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); \

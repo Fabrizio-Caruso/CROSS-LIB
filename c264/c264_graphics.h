@@ -81,69 +81,69 @@
 		POKE(1177,62); // disable switch to RAM in PEEK
 		for(i=0;i<1023;++i)
 		{
-			POKE(24576+2048+i,PEEK((unsigned long) (54272ul+(unsigned long) i)));
+			POKE(24576+4096+i,PEEK((unsigned long) (54272ul+(unsigned long) i)));
 		}
 		POKE(1177,63); // re-enable switch to RAM in PEEK
-		POKE(65299ul,(PEEK(65299ul)&3)|((16+8+2)*4)); // change character base address to 8192
+		POKE(65299ul,(PEEK(65299ul)&3)|((28)*4)); // change character base address to 28th Kbyte
 		POKE(65298ul,PEEK(65298ul)&251); // make graphics chip get characters from RAM
 		
 		for(i=0;i<8;++i)
 		{
-			POKE(24576+2048+296+i,player_down[i]);
+			POKE(24576+4096+296+i,player_down[i]);
 		}
 		
 		for(i=0;i<8;++i)
 		{
-			POKE(24576+2048+296+8+i,player_up[i]);
+			POKE(24576+4096+296+8+i,player_up[i]);
 		}
 		
 		for(i=0;i<8;++i)
 		{
-			POKE(24576+2048+296+8*2+i,player_right[i]);
+			POKE(24576+4096+296+8*2+i,player_right[i]);
 		}
 		
 		for(i=0;i<8;++i)
 		{
-			POKE(24576+2048+296+8*3+i,player_left[i]);
+			POKE(24576+4096+296+8*3+i,player_left[i]);
 		}
 
 		for(i=0;i<8;++i)
 		{
-			POKE(24576+2048+296+8*4+i,missile_right[i]);
+			POKE(24576+4096+296+8*4+i,missile_right[i]);
 		}
 		for(i=0;i<8;++i)
 		{
-			POKE(24576+2048+296+8*5+i,missile_left[i]);
-		}
-
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+2048+296+8*6+i,invincible_ghost[i]);
+			POKE(24576+4096+296+8*5+i,missile_left[i]);
 		}
 
 		for(i=0;i<8;++i)
 		{
-			POKE(24576+2048+296+8*7+i,gun[i]);
+			POKE(24576+4096+296+8*6+i,invincible_ghost[i]);
+		}
+
+		for(i=0;i<8;++i)
+		{
+			POKE(24576+4096+296+8*7+i,gun[i]);
 		}	
 
 		for(i=0;i<8;++i)
 		{
-			POKE(24576+2048+296-8*2+i,powerUp[i]);
+			POKE(24576+4096+296-8*2+i,powerUp[i]);
 		}		
 		
 		for(i=0;i<8;++i)
 		{
-			POKE(24576+2048+296+8*9+i,missile[i]);
+			POKE(24576+4096+296+8*9+i,missile[i]);
 		}	
 
 		for(i=0;i<8;++i)
 		{
-			POKE(24576+2048+296+8*10+i,bomb[i]);
+			POKE(24576+4096+296+8*10+i,bomb[i]);
 		}	
 		
 		for(i=0;i<8;++i)
 		{
-			POKE(24576+2048+296-8*3+i,ghost[i]);
+			POKE(24576+4096+296-8*3+i,ghost[i]);
 		}	
 	}
 	 

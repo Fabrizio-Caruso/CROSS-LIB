@@ -31,18 +31,88 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef  _SOUNDS_MACROS
-#define _SOUNDS_MACROS
-	#if defined(__ATMOS__)
-		#include "atmos/atmos_sounds.h"
-	#elif defined(__C16__) || defined(__PLUS4__)
-		#include "c264/c264_sounds.h"
-	#else
-		#define EXPLOSION_SOUND() {};
-		#define PING_SOUND() {};
-		#define SHOOT_SOUND() {};
-		#define TICK_SOUND() {};
-		#define TOCK_SOUND() {};
-		#define ZAP_SOUND() {};
-	#endif
-#endif _SOUNDS_MACROS
+#ifndef __C264_SOUNDS
+#define __C264_SOUNDS
+	#include<peekpoke.h>
+	
+	#define NOISE 64
+	#define VOICE_1 16
+	#define MAX_VOLUME 15
+	
+	#define LO_FREQ_1 0xFF0E 
+	#define HI_FREQ_1 0xFF12 	
+	#define SELECT 0xFF11 
+	
+	#define EXPLOSION_SOUND() \
+	{ \
+		unsigned char volume = 0; unsigned char j; \
+		for(;volume<=MAX_VOLUME;++volume) \
+		{ \
+			for(j=0;j<255;++j){} \
+			POKE(SELECT,volume+NOISE); \
+		} \
+		POKE(SELECT,128); \
+	};
+
+	#define SHOOT_SOUND() \
+	{ \
+		unsigned char volume; unsigned char j; \
+		POKE(SELECT,MAX_VOLUME+NOISE); \
+		for(volume=0;volume<=MAX_VOLUME;++volume) \
+		{ \
+			for(j=100;j<255;++j){} \
+			POKE(SELECT,volume+NOISE); \
+		} \
+		for(volume=0;volume<=MAX_VOLUME;++volume) \
+		{ \
+			for(j=0;j<255;++j){} \
+			for(j=0;j<255;++j){} \
+			POKE(SELECT,MAX_VOLUME-volume+NOISE); \
+		} \
+		POKE(SELECT,128); \
+	};
+	
+	#define PING_SOUND() \
+	{ \
+		unsigned char freq; unsigned char j; \
+		POKE(SELECT,MAX_VOLUME+VOICE_1); \
+		POKE(HI_FREQ_1,PEEK(HI_FREQ_1) | 1); \
+		for(freq=100;freq<120;++freq) \
+		{ \
+			for(j=0;j<255;++j) {}; \
+			POKE(LO_FREQ_1,freq); \
+		} \
+		POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); \
+		POKE(SELECT,128); \
+	};
+
+	#define ZAP_SOUND() \
+	{ \
+		unsigned char freq; unsigned char j; \
+		POKE(SELECT,MAX_VOLUME+VOICE_1); \
+		POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); \
+		for(freq=100;freq<255;++freq) \
+		{ \
+			for(j=0;j<25;++j) {}; \
+			POKE(LO_FREQ_1,freq); \
+		} \
+		POKE(SELECT,128); \
+	};	
+	
+	#define TOCK_SOUND() \
+	{ \
+		unsigned char freq; unsigned char j; \
+		POKE(SELECT,MAX_VOLUME+VOICE_1); \
+		POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); \
+		for(freq=12;freq<16;++freq) \
+		{ \
+			for(j=0;j<150;++j) {}; \
+			POKE(LO_FREQ_1,freq); \
+		} \
+		POKE(SELECT,128); \
+	};
+	
+	
+	#define TICK_SOUND() {};
+	
+#endif // __C264_SOUNDS

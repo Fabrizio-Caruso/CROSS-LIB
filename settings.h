@@ -86,27 +86,27 @@
 
 
 // MINE DISTRIBUTION
-// LEVEL 1 - 4: Four central bombs
-// LEVEL 5 - 9: Two central bombs
-// LEVEL 10 - 14: Two bombs next to the vertical borders
-// LEVEL 15 - 16: Three bombs attached to the borders
-// LEVEL 17 - 18: Two bombs attached to the vertical borders
+// LEVEL  1 -  5: Four central bombs
+// LEVEL  5 - 10: Two central bombs
+// LEVEL 11 - 15: Two bombs next to the vertical borders
+// LEVEL 16 - 17: Two bombs next to the lower corners
+// LEVEL 18     : Two bombs attached to the vertical borders
 // LEVEL 19 - 20: Four bombs at the corners 
 
 // Starting from this level 4 central bombs
 #define INITIAL_LEVEL 1
 
 // Starting from this level only two central bombs
-#define TWO_BOMB_START_LEVEL 5
+#define TWO_BOMB_START_LEVEL 6
 
 // Starting from this level only 2 bombs close to the vertical borders
-#define FIRST_HARD_LEVEL 10
+#define FIRST_HARD_LEVEL 11
 
 // Starting from this level 2 bombs close to the botton borders
-#define FIRST_VERY_HARD_LEVEL 15
+#define FIRST_VERY_HARD_LEVEL 16
 
 // Starting from this level only 2 bombs on the vertical borders
-#define FIRST_INSANE_LEVEL 17
+#define FIRST_INSANE_LEVEL 18
 
 // Ultimate level (four bombs at the corners)
 #define FIRST_ULTIMATE_LEVEL 19

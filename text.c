@@ -485,8 +485,14 @@ void printStartMessage(void)
 		
 		PRINT(7, YSize / 2, "Forse them into the mines");
 		
+	#elif defined(__C16__) || defined(__PLUS4__)
+		PRINT(2, YSize / 2 - 3, "You % are chased by \"! Lure \" into /!");
+		
+		PRINT(2, YSize / 2 - 1, "# slows \" down! ,. gives you 3 bullets");
+		
+		PRINT(14, YSize / 2 + 1, "Flee from +!");	
 	#else
-		PRINT(2, YSize / 2 - 3, "You * are chased by O. Force O into X");
+		PRINT(2, YSize / 2 - 3, "You * are chased by O. Lure O into X");
 		
 		PRINT(0, YSize / 2 - 1, "Take S to slow O down. ! gives 3 bullets");
 		

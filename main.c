@@ -384,24 +384,6 @@ int main(void)
 		ghostCount = GHOSTS_NUMBER;
 		do // Level (Re-)Start
 		{ 
-			switch(level)
-			{
-				case 5:
-					arrowRange = 1;
-				break;
-				case 10:
-					arrowRange = 2;
-				break;
-				case 15:
-					arrowRange = 2;
-				break;
-				case 18:
-					arrowRange = 2;
-				break;
-				default:
-					arrowRange = 3;
-				break;
-			}
 			computeStrategy();
 			loop = 0;
 			ghostLevel = 0u;
@@ -456,8 +438,9 @@ int main(void)
 				
 				drawInnerVerticalWall();
 
-				if(level==5 || level == 10 || level == 15 || level >= 18)
+				if(missileLevel())
 				{
+					arrowRange = computeArrowRange();
 					DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 					if(leftEnemyMissile._x==XSize-2)
 					{

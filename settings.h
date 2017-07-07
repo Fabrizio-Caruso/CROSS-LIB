@@ -82,7 +82,7 @@
 #define LOOP_POINTS 1ul
 
 // Points gained at the end of each level (to be multipled by level)
-#define LEVEL_BONUS 1000ul
+#define LEVEL_BONUS 500ul
 
 
 // MINE DISTRIBUTION
@@ -96,23 +96,27 @@
 // Starting from this level 4 central bombs
 #define INITIAL_LEVEL 1
 
+#define THREE_BOMB_START_LEVEL 6
+
 // Starting from this level only two central bombs
-#define TWO_BOMB_START_LEVEL 6
+#define TWO_BOMB_START_LEVEL 11
+
+#define ONE_BOMB_START_LEVEL 16
 
 // Starting from this level only 2 bombs close to the vertical borders
-#define FIRST_HARD_LEVEL 11
+#define FIRST_HARD_LEVEL 21
 
 // Starting from this level 2 bombs close to the botton borders
-#define FIRST_VERY_HARD_LEVEL 16
+#define FIRST_VERY_HARD_LEVEL 26
 
 // Starting from this level only 2 bombs on the vertical borders
-#define FIRST_INSANE_LEVEL 18
+#define FIRST_INSANE_LEVEL 31
 
 // Ultimate level (four bombs at the corners)
-#define FIRST_ULTIMATE_LEVEL 19
+#define FIRST_ULTIMATE_LEVEL 36
 
 // Final level 
-#define FINAL_LEVEL 20
+#define FINAL_LEVEL 40
 
 // GHOST STRATEGIES
 // LEVEL 1: Ghosts chase use by approaching randomly either X or Y coordinates (in sort of a direct line)

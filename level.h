@@ -47,4 +47,7 @@ void fillLevelWithCharacters(unsigned char nGhosts);
 
 void finalScore(void);			
 			  
+unsigned char missileLevel(void);
+
+unsigned char computeArrowRange(void);
 #endif // _LEVEL

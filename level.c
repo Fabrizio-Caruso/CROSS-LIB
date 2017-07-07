@@ -393,6 +393,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				relocateCharacter(bombs[0], dummyBombs,4);		
 			}
 			
+
 			initializeCharacter(bombs[2],b3x, b3y,0, &BOMB_IMAGE);
 			
 			// Keep below comments
@@ -402,12 +403,17 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			//dummyBombs[3] = &player;
 
 			relocateCharacter(bombs[2], dummyBombs,4);		
-								
-
-			if(level>=TWO_BOMB_START_LEVEL) // only use bomb1 and bomb3 previously relocated
+		
+			if(level>=TWO_BOMB_START_LEVEL && level<ONE_BOMB_START_LEVEL) // only use bomb1 and bomb3 previously relocated
 			{
 				initializeCharacter(bombs[1], bombs[0]->_x, bombs[0]->_y, 0,&BOMB_IMAGE);
 				initializeCharacter(bombs[3], bombs[2]->_x, bombs[2]->_y, 0,&BOMB_IMAGE);
+			}
+			else if (level>=ONE_BOMB_START_LEVEL) // only use bomb1 and bomb3 previously relocated
+			{
+				initializeCharacter(bombs[2], bombs[0]->_x, bombs[0]->_y, 0,&BOMB_IMAGE);
+				initializeCharacter(bombs[1], bombs[0]->_x, bombs[0]->_y, 0,&BOMB_IMAGE);
+				initializeCharacter(bombs[3], bombs[0]->_x, bombs[0]->_y, 0,&BOMB_IMAGE);
 			}
 			else // place bomb2 and bomb4
 			{
@@ -415,7 +421,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				{
 					b2x = XSize/2-5;
 					b2y = YSize/2-5;
-					
+
 					b4x = XSize/2+5;
 					b4y = YSize/2+5;
 				}
@@ -423,7 +429,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				{
 					b2x = XSize/2-5;
 					b2y = YSize/2+5;
-					
+
 					b4x = XSize/2+5;
 					b4y = YSize/2-5;
 				}
@@ -436,18 +442,27 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 				relocateCharacter(bombs[1], dummyBombs,4);		
 
-				
-				initializeCharacter(bombs[3],b4x, b4y,0,&BOMB_IMAGE);
-				
-				// Keep below comments
-				dummyBombs[0] = bombs[1];
-				//dummyBombs[1] = bombs[2];
-				//dummyBombs[2] = bombs[0];
-				//dummyBombs[3] = &player;
-				for(i=0;i<BOMBS_NUMBER;++i)
+				if(level<THREE_BOMB_START_LEVEL)
 				{
-					relocateCharacter(bombs[1], dummyBombs,4);
-				}				
+					initializeCharacter(bombs[3],b4x, b4y,0,&BOMB_IMAGE);
+					
+					// Keep below comments
+					dummyBombs[0] = bombs[1];
+					//dummyBombs[1] = bombs[2];
+					//dummyBombs[2] = bombs[0];
+					//dummyBombs[3] = &player;
+					for(i=0;i<BOMBS_NUMBER;++i)
+					{
+						relocateCharacter(bombs[1], dummyBombs,4);
+					}		
+				}
+				else
+				{
+					//initializeCharacter(bombs[3],b2x, b2y,0,&BOMB_IMAGE);
+					bombs[3]->_x = bombs[1]->_x;
+					bombs[3]->_y = bombs[1]->_y;
+					bombs[3]->_imagePtr = &BOMB_IMAGE;
+				}
 			}
 		}
 	} while(nearInnerWall(bombs[0]) || nearInnerWall(bombs[1]) || nearInnerWall(bombs[2]) || nearInnerWall(bombs[3]));
@@ -500,3 +515,33 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	initializeCharacter(&rightEnemyMissile,         XSize-2,YSize-2,            1,&RIGHT_ENEMY_MISSILE_IMAGE);
 }
 
+unsigned char missileLevel(void)
+{
+	switch(level)
+	{
+		case THREE_BOMB_START_LEVEL-1: case TWO_BOMB_START_LEVEL-1: case ONE_BOMB_START_LEVEL-1:
+		case FIRST_HARD_LEVEL-1: case FIRST_VERY_HARD_LEVEL-1: case FIRST_INSANE_LEVEL-1:
+		case FIRST_ULTIMATE_LEVEL: case FINAL_LEVEL:
+			return 1;
+		default:
+			return 0;
+		break;
+	}
+}	
+
+
+unsigned char computeArrowRange(void)
+{
+	switch(level)
+	{
+		case 5: case 10: case 15:
+			return 1;
+		break;
+		case 20: case 25: case 30: case 35:
+			return 2;
+		break;
+		default:
+			return 3;
+		break;
+	}
+}

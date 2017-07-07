@@ -159,7 +159,7 @@ void computeStrategy(void)
 				strategyArray[i] = 7; // strongly prefer Y (80%)
 			}
 		break;		
-		default: // 4,2,2  from level 15 on - Assuming a minimum of 6 ghosts
+		default: // 4,2,2  from level 21 on - Assuming a minimum of 6 ghosts
 			for(i=0; i<2; ++i) // 2
 			{
 				strategyArray[i] = 4; // no preference (approximate straight line)

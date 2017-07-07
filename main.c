@@ -114,18 +114,20 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
-
+extern Image BUBBLE_IMAGE;
 
 Character invincibleGhost;
 Character player; 
 Character powerUp;
 Character gun;
 Character missile;
-Character* ghosts[GHOSTS_NUMBER];
-Character* bombs[BOMBS_NUMBER];
-
 Character leftEnemyMissile;
 Character rightEnemyMissile;
+
+Character* ghosts[GHOSTS_NUMBER];
+Character* bombs[BOMBS_NUMBER];
+Character* bubbles[BUBBLES_NUMBER];
+
 
 char strategyArray[GHOSTS_NUMBER];
 	
@@ -139,6 +141,11 @@ void initializeCharacters(void)
 	for(i=0;i<BOMBS_NUMBER;++i)
 	{
 		bombs[i] = (Character *) malloc(sizeof(Character));
+	}
+	
+	for(i=0;i<BUBBLES_NUMBER;++i)
+	{
+		bubbles[i] = (Character *) malloc(sizeof(Character));
 	}
 }
 
@@ -384,6 +391,7 @@ int main(void)
 		ghostCount = GHOSTS_NUMBER;
 		do // Level (Re-)Start
 		{ 
+			//unsigned char i;
 			computeStrategy();
 			loop = 0;
 			ghostLevel = 0u;
@@ -423,6 +431,15 @@ int main(void)
 			rightEnemyMissile._x = XSize-4; rightEnemyMissile._y = 4;
 			leftEnemyMissile._x = 4; leftEnemyMissile._y = YSize-4;
 			
+			
+			// for(i=0;i<BUBBLES_NUMBER;i++)
+			// {
+				// bubbles[i]->_x = (i+1)*(XSize/4);
+				// bubbles[i]->_y = YSize-2;
+				// bubbles[i]->_status = 1;
+				// bubbles[i]->_imagePtr = &BUBBLE_IMAGE;
+			// }
+	
 			while(player._status && ghostCount>0) // while alive && there are still ghosts
 			{
 				++loop;
@@ -438,6 +455,61 @@ int main(void)
 				
 				drawInnerVerticalWall();
 
+				if(ghostCount<=3 && level >= FIRST_BUBBLES_LEVEL && invincibleGhost._status)
+				{ 
+					unsigned char i;
+
+					for(i=0;i<BUBBLES_NUMBER;i++)
+					{
+						if(bubbles[i]->_status)
+						{
+							unsigned int rnd = rand();
+
+							if(areCharctersAtSamePosition(&player,bubbles[i]))
+							{
+								EXPLOSION_SOUND();
+								die(&player);
+								printDefeatMessage();
+								sleep(1);
+							}
+							
+							if(!(rnd%5))
+							{
+								TICK_SOUND();
+								DELETE_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);					
+								--(bubbles[i]->_y);
+
+								if(!(rnd%3))
+								{
+									if(!(rnd%2))
+									{
+										--(bubbles[i]->_x);
+									}
+									else
+									{
+										++(bubbles[i]->_x);
+									}
+								}
+
+							}
+							TICK_SOUND();
+							DRAW_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);			
+							if((bubbles[i]->_x<=2) || (bubbles[i]->_x>= XSize-2) || (bubbles[i]->_y<=2))
+							{	
+								bubbles[i]->_status = 0;
+								DELETE_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);					
+							}
+						}
+						else
+						{
+							bubbles[i]->_x = (i+1)*8;
+							bubbles[i]->_y = YSize-2;
+							bubbles[i]->_status = 1;
+						}
+					}
+				}
+
+				
 				if(missileLevel())
 				{
 					arrowRange = computeArrowRange();
@@ -465,6 +537,7 @@ int main(void)
 					DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 					if(areCharctersAtSamePosition(&leftEnemyMissile,&player))
 					{
+						EXPLOSION_SOUND()
 						die(&player);
 						printDefeatMessage();
 						sleep(1);
@@ -494,6 +567,7 @@ int main(void)
 					DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);				
 					if(areCharctersAtSamePosition(&rightEnemyMissile,&player))
 					{
+						EXPLOSION_SOUND()
 						die(&player);
 						printDefeatMessage();
 						sleep(1);

@@ -61,6 +61,8 @@
 
 	Image LEFT_ENEMY_MISSILE_IMAGE;
 	Image RIGHT_ENEMY_MISSILE_IMAGE;
+	
+	Image BUBBLE_IMAGE;
 	 	 
 	void INIT_GRAPHICS(void)
 	{
@@ -184,6 +186,9 @@
 		PLAYER_RIGHT._color = COLOR_CYAN;
 		PLAYER_LEFT._imageData = '(';
 		PLAYER_LEFT._color = COLOR_CYAN;
+		
+		BUBBLE_IMAGE._imageData = 'o';
+		BUBBLE_IMAGE._color = COLOR_WHITE;
 	}
 
 

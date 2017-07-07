@@ -58,6 +58,7 @@ extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
+extern Image BUBBLE_IMAGE;
 
 extern Image LEFT_ENEMY_MISSILE_IMAGE;
 extern Image RIGHT_ENEMY_MISSILE_IMAGE;
@@ -69,6 +70,7 @@ extern Character gun;
 extern Character missile;
 extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];
+extern Character* bubbles[BUBBLES_NUMBER];
 
 extern Character leftEnemyMissile;
 extern Character rightEnemyMissile;
@@ -216,15 +218,32 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	int b1x, b2x, b3x, b4x;
 	int b1y, b2y, b3y, b4y;
 	Character *dummyBombs[BOMBS_NUMBER];
-	char i;
+	unsigned char i;
 	int x1,x2,x3,x4,x5,x6,x0;
 	int y1,y2,y3,y4,y5,y6,y0;
 	int x7; int y7;
 
+	// TODO Replace with something else
 	#if defined(__ATMOS__)
 		INIT_GRAPHICS();
 	#endif
+
+	for(i=0;i<BUBBLES_NUMBER;i++)
+	{
+		// initializeCharacter(ghosts[i],(i+1)*(XSize/4),YSize-2,1,&BUBBLE_IMAGE);
+		// bubbles[i]->_x = (i+1)*(XSize/4);
+		// bubbles[i]->_y = YSize-2;
+		// bubbles[i]->_status = 1;
+		// bubbles[i]->_imagePtr = &BUBBLE_IMAGE;
 		
+		// DRAW_MISSILE(ghosts[i]->_x, ghosts[i]->_y, &GHOST_IMAGE);
+		// TOCK_SOUND();
+			
+	initializeCharacter(bubbles[i],(char) (i+1)*8,YSize-2,1,&BUBBLE_IMAGE);
+
+	DRAW_GHOST(bubbles[i]->_x, bubbles[i]->_y,bubbles[i]->_imagePtr);
+	}
+	
 	// 8 Ghosts case
 	x0 = XSize-XSize/6+rand()%3-3; y0 = YSize-YSize/6+rand()%3-3;	
 	initializeCharacter(ghosts[0],x0,y0,1,&GHOST_IMAGE);
@@ -572,6 +591,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	initializeCharacter(&leftEnemyMissile,                2,YSize-2,            1,&LEFT_ENEMY_MISSILE_IMAGE);
 	
 	initializeCharacter(&rightEnemyMissile,         XSize-2,YSize-2,            1,&RIGHT_ENEMY_MISSILE_IMAGE);
+	
 }
 
 unsigned char missileLevel(void)

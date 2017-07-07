@@ -45,6 +45,8 @@
 
 #define BOMBS_NUMBER 4
 #define GHOSTS_NUMBER 8
+#define BUBBLES_NUMBER 4
+
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 3
 
@@ -96,7 +98,7 @@
 // LEVEL 36 - 40: Four bombs at the four corners 
 
 // Starting from this level 4 central bombs
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 11
 
 #define THREE_BOMB_START_LEVEL 6
 
@@ -120,6 +122,8 @@
 // Final level 
 #define FINAL_LEVEL 40
 
+
+#define FIRST_BUBBLES_LEVEL 11
 // GHOST STRATEGIES
 // LEVEL 1: Ghosts chase use by approaching randomly either X or Y coordinates (in sort of a direct line)
 // LEVEL 2-7: Most ghosts behave as in 1-3 but 2 may embush the player (starting from at 8 to at least 3 in game)

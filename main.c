@@ -447,7 +447,7 @@ int main(void)
 				
 				drawInnerVerticalWall();
 
-				if(ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && level >= FIRST_BUBBLES_LEVEL && !missileLevel())
+				if(ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && level >= FIRST_BUBBLES_LEVEL && !missileLevel(level) && !missileLevel(level-1))
 				{ 
 					unsigned char i;
 
@@ -500,7 +500,7 @@ int main(void)
 				}
 
 				
-				if(missileLevel())
+				if(missileLevel(level))
 				{
 					arrowRange = computeArrowRange();
 					DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
@@ -632,7 +632,7 @@ int main(void)
 				ghostCount = GHOSTS_NUMBER;
 
 
-				if(missileLevel())
+				if(missileLevel(level))
 				{	
 					CLEAR_SCREEN();
 					sleep(1);

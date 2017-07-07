@@ -583,9 +583,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	
 }
 
-unsigned char missileLevel(void)
+unsigned char missileLevel(unsigned char levelPar)
 {
-	switch(level)
+	switch(levelPar)
 	{
 		case THREE_BOMB_START_LEVEL-1: case TWO_BOMB_START_LEVEL-1: case ONE_BOMB_START_LEVEL-1:
 		case FIRST_HARD_LEVEL-1: case FIRST_VERY_HARD_LEVEL-1: case FIRST_INSANE_LEVEL-1:

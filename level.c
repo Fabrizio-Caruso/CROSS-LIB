@@ -100,10 +100,10 @@ void updateInnerWallVerticalData(void)
 			innerVerticalWallLength = 0;		
 		break;
 		case 6:
-			innerVerticalWallLength = YSize-12;
+			innerVerticalWallLength = 0;
 		break;
 		case 7:
-			innerVerticalWallLength = YSize-10;
+			innerVerticalWallLength = YSize-12;
 		break;
 		case 8:
 			innerVerticalWallLength = YSize-8;
@@ -112,13 +112,13 @@ void updateInnerWallVerticalData(void)
 			innerVerticalWallLength = YSize-6;
 		break;
 		case 10:
-			innerVerticalWallLength = YSize-10;
+			innerVerticalWallLength = 0;
 		break;
 		case 11:
-			innerVerticalWallLength = YSize-12;
+			innerVerticalWallLength = 0;
 		break;
 		case 12:
-			innerVerticalWallLength = YSize-10;
+			innerVerticalWallLength = YSize-12;
 		break;
 		case 13:
 			innerVerticalWallLength = YSize-8;
@@ -127,23 +127,82 @@ void updateInnerWallVerticalData(void)
 			innerVerticalWallLength = YSize-6;
 		break;
 		case 15:
-			innerVerticalWallLength = YSize-12;
+			innerVerticalWallLength = 0;
 		break;
 		case 16:
-			innerVerticalWallLength = YSize-12;
+			innerVerticalWallLength = 0;
 		break;
 		case 17:
-			innerVerticalWallLength = YSize-10;
+			innerVerticalWallLength = YSize-12;
 		break;
 		case 18:
-			innerVerticalWallLength = YSize-12;
+			innerVerticalWallLength = YSize-8;
 		break;
 		case 19:
-			innerVerticalWallLength = YSize-12;
+			innerVerticalWallLength = YSize-6;
 		break;
 		case 20:
-			innerVerticalWallLength = YSize-10;
+			innerVerticalWallLength = 0;
 		break;
+		case 21:
+			innerVerticalWallLength = YSize-14;
+		break;
+		case 22:
+			innerVerticalWallLength = YSize-12;
+		break;
+		case 23:
+			innerVerticalWallLength = YSize-8;
+		break;
+		case 24:
+			innerVerticalWallLength = YSize-6;
+		break;
+		case 25:
+			innerVerticalWallLength = 0;		
+		break;
+		case 26:
+			innerVerticalWallLength = YSize-14;
+		break;
+		case 27:
+			innerVerticalWallLength = YSize-12;
+		break;
+		case 28:
+			innerVerticalWallLength = YSize-8;
+		break;
+		case 29:
+			innerVerticalWallLength = YSize-6;
+		break;
+		case 30:
+			innerVerticalWallLength = YSize-14;
+		break;
+		case 31:
+			innerVerticalWallLength = YSize-14;
+		break;
+		case 32:
+			innerVerticalWallLength = YSize-12;
+		break;
+		case 33:
+			innerVerticalWallLength = YSize-8;
+		break;
+		case 34:
+			innerVerticalWallLength = YSize-6;
+		break;
+		case 35:
+			innerVerticalWallLength = YSize-14;
+		break;
+		case 36:
+			innerVerticalWallLength = YSize-14;
+		break;
+		case 37:
+			innerVerticalWallLength = YSize-12;
+		break;
+		case 38:
+			innerVerticalWallLength = YSize-8;
+		break;
+		case 39:
+			innerVerticalWallLength = YSize-6;
+		break;
+		case 40:
+			innerVerticalWallLength = YSize-12;		
 	}
 	innerVerticalWallX = XSize / 2;
     innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);

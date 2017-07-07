@@ -111,13 +111,13 @@ void computeStrategy(void)
 	char i;
 	switch(level)
 	{
-		case 1: case 2: case 3: case 4:
+		case 1: case 2: case 3: case 4: case 5:
 			for(i=0; i<GHOSTS_NUMBER; ++i) // 8,0,0
 			{
 				strategyArray[i] = 4; // no preference (approximate straight line)
 			}
 		break;
-		case 5: case 6: case 7: case 8: case 9: // 4,2,2
+		case 6: case 7: case 8: case 9: case 10: // 4,2,2
 			for(i=0; i<5; ++i) // 4
 			{
 				strategyArray[i] = 4; // no preference (approximate straight line)
@@ -131,7 +131,7 @@ void computeStrategy(void)
 				strategyArray[i] = 5; // slightly prefer Y (60%)
 			}
 		break;
-		case 10: case 11: case 12: case 13: case 14:// 4,2,2
+		case 11: case 12: case 13: case 14: case 15: // 4,2,2
 			for(i=0; i<5; ++i) // 4
 			{
 				strategyArray[i] = 4; // no preference (approximate straight line)
@@ -145,7 +145,7 @@ void computeStrategy(void)
 				strategyArray[i] = 6; // prefer Y (70%)
 			}
 		break;
-		case 15: case 16: case 17: case 18: case 19: // 4,2,2
+		case 16: case 17: case 18: case 19: case 20: // 4,2,2
 			for(i=0; i<5; ++i) // 4
 			{
 				strategyArray[i] = 4; // no preference (approximate straight line)

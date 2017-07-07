@@ -431,14 +431,6 @@ int main(void)
 			rightEnemyMissile._x = XSize-4; rightEnemyMissile._y = 4;
 			leftEnemyMissile._x = 4; leftEnemyMissile._y = YSize-4;
 			
-			
-			// for(i=0;i<BUBBLES_NUMBER;i++)
-			// {
-				// bubbles[i]->_x = (i+1)*(XSize/4);
-				// bubbles[i]->_y = YSize-2;
-				// bubbles[i]->_status = 1;
-				// bubbles[i]->_imagePtr = &BUBBLE_IMAGE;
-			// }
 	
 			while(player._status && ghostCount>0) // while alive && there are still ghosts
 			{
@@ -455,7 +447,7 @@ int main(void)
 				
 				drawInnerVerticalWall();
 
-				if(ghostCount<=3 && level >= FIRST_BUBBLES_LEVEL && invincibleGhost._status)
+				if(ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && level >= FIRST_BUBBLES_LEVEL && !missileLevel())
 				{ 
 					unsigned char i;
 
@@ -475,7 +467,6 @@ int main(void)
 							
 							if(!(rnd%5))
 							{
-								TICK_SOUND();
 								DELETE_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);					
 								--(bubbles[i]->_y);
 
@@ -490,9 +481,8 @@ int main(void)
 										++(bubbles[i]->_x);
 									}
 								}
-
 							}
-							TICK_SOUND();
+
 							DRAW_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);			
 							if((bubbles[i]->_x<=2) || (bubbles[i]->_x>= XSize-2) || (bubbles[i]->_y<=2))
 							{	
@@ -502,7 +492,7 @@ int main(void)
 						}
 						else
 						{
-							bubbles[i]->_x = (i+1)*8;
+							bubbles[i]->_x = (i+1)*(XSize/(BUBBLES_NUMBER+1));
 							bubbles[i]->_y = YSize-2;
 							bubbles[i]->_status = 1;
 						}
@@ -641,9 +631,8 @@ int main(void)
 
 				ghostCount = GHOSTS_NUMBER;
 
-				++level;
-				
-				if((level==6) || (level==11) || (level==16) || (level==19) || (level==20))
+
+				if(missileLevel())
 				{	
 					CLEAR_SCREEN();
 					sleep(1);
@@ -652,6 +641,8 @@ int main(void)
 					sleep(1);
 					++lives;
 				}
+				++level;
+				
 				updateInnerWallVerticalData();
 			}
 			else // if dead

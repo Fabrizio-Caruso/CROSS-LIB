@@ -230,18 +230,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 	for(i=0;i<BUBBLES_NUMBER;i++)
 	{
-		// initializeCharacter(ghosts[i],(i+1)*(XSize/4),YSize-2,1,&BUBBLE_IMAGE);
-		// bubbles[i]->_x = (i+1)*(XSize/4);
-		// bubbles[i]->_y = YSize-2;
-		// bubbles[i]->_status = 1;
-		// bubbles[i]->_imagePtr = &BUBBLE_IMAGE;
-		
-		// DRAW_MISSILE(ghosts[i]->_x, ghosts[i]->_y, &GHOST_IMAGE);
-		// TOCK_SOUND();
-			
-	initializeCharacter(bubbles[i],(char) (i+1)*8,YSize-2,1,&BUBBLE_IMAGE);
-
-	DRAW_GHOST(bubbles[i]->_x, bubbles[i]->_y,bubbles[i]->_imagePtr);
+		initializeCharacter(bubbles[i],(char) (i+1)*(XSize/(BUBBLES_NUMBER+1)),YSize-2,1,&BUBBLE_IMAGE);
 	}
 	
 	// 8 Ghosts case

@@ -25,6 +25,7 @@
 	 Image LEFT_ENEMY_MISSILE_IMAGE;
 	 Image RIGHT_ENEMY_MISSILE_IMAGE;
 	 
+	 Image BUBBLE_IMAGE;
 	 extern char YSize; 
 	 
 	void INIT_GRAPHICS(void)
@@ -67,7 +68,10 @@
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
+		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
+
+		BUBBLE_IMAGE._imageData = 'o';
+		BUBBLE_IMAGE._color = COLOR_WHITE;		
 	}
 
 

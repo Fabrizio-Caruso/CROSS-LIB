@@ -53,6 +53,7 @@
 	 Image LEFT_ENEMY_MISSILE_IMAGE;
 	 Image RIGHT_ENEMY_MISSILE_IMAGE;
 	 
+	 Image BUBBLE_IMAGE;
 	 extern char YSize; 
 	 
 	void INIT_IMAGES(void)
@@ -80,7 +81,8 @@
 		const unsigned char right_arrow[] =            { 0, 0, 7,62,62, 7, 0, 0};
 		//const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
 		
-
+		const unsigned char bubble[] =            	   { 30, 33, 33, 45, 45, 33, 33, 30};
+		
 		PLAYER_DOWN._color = 0;		
 		GHOST_IMAGE._color = 0;
 		MISSILE_IMAGE._color = 0;
@@ -117,6 +119,10 @@
 		LEFT_ENEMY_MISSILE_IMAGE._color = 0;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		RIGHT_ENEMY_MISSILE_IMAGE._color = 0;
+		
+		
+		BUBBLE_IMAGE._imageData = (char) 0x23;
+		BUBBLE_IMAGE._color = 0;	
 		
 		for(i=0;i<8;++i)
 		{
@@ -198,6 +204,10 @@
 			POKE(0xb400 + '>'*8 + i, left_arrow[i]);
 		}			
 		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + BUBBLE_IMAGE._imageData*8 + i, bubble[i]);
+		}	
 		// for(i=0;i<8;++i)
 		// {
 			// POKE(0xb400 + DEAD_GHOST_IMAGE._imageData*8 + i, dead_ghost[i]);

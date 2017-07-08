@@ -81,7 +81,8 @@
 		const unsigned char right_arrow[] =            { 0, 0, 7,62,62, 7, 0, 0};
 		//const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
 		
-		const unsigned char bubble[] =            	   { 30, 33, 33, 45, 45, 33, 33, 30};
+		const unsigned char bubble[] =            	   {12,30,30,30,63,45,33,33};
+		//{ 30, 33, 33, 45, 45, 33, 33, 30};
 		
 		PLAYER_DOWN._color = 0;		
 		GHOST_IMAGE._color = 0;

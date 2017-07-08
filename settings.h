@@ -45,7 +45,7 @@
 
 #define BOMBS_NUMBER 4
 #define GHOSTS_NUMBER 8
-#define BUBBLES_NUMBER 3
+#define BUBBLES_NUMBER 4
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 3
@@ -98,7 +98,7 @@
 // LEVEL 36 - 40: Four bombs at the four corners 
 
 // Starting from this level 4 central bombs
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 12
 
 #define THREE_BOMB_START_LEVEL 6
 

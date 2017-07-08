@@ -89,7 +89,7 @@
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
 		
-		BUBBLE_IMAGE._imageData = 'o';
+		BUBBLE_IMAGE._imageData = '^';
 		BUBBLE_IMAGE._color = COLOR_WHITE;
 	}
 	

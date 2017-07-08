@@ -79,6 +79,7 @@
 		static char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
 		static char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
 		static char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
+		static char bubble[8] =          {24,60,60,60,126,90,66,66};
 		
 		POKE(1177,62); // disable switch to RAM in PEEK
 		for(i=0;i<1023;++i)
@@ -147,6 +148,11 @@
 		{
 			POKE(24576+4096+1024+296-8*3+i,ghost[i]);
 		}	
+		
+		for(i=0;i<8;++i)
+		{
+			POKE(24576+4096+1024+296+8*22+i,bubble[i]);
+		}			
 	}
 	 
 	 
@@ -187,7 +193,7 @@
 		PLAYER_LEFT._imageData = '(';
 		PLAYER_LEFT._color = COLOR_CYAN;
 		
-		BUBBLE_IMAGE._imageData = 'o';
+		BUBBLE_IMAGE._imageData = ';';
 		BUBBLE_IMAGE._color = COLOR_WHITE;
 	}
 

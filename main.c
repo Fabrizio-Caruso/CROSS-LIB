@@ -447,7 +447,8 @@ int main(void)
 				
 				drawInnerVerticalWall();
 
-				if(ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && level >= FIRST_BUBBLES_LEVEL && !missileLevel(level) && !missileLevel(level-1))
+				if(ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && level >= FIRST_BUBBLES_LEVEL && 
+				   !missileLevel(level) && !missileLevel(level-1) && !missileLevel(level-2))
 				{ 
 					unsigned char i;
 
@@ -455,7 +456,7 @@ int main(void)
 					{
 						if(bubbles[i]->_status)
 						{
-							unsigned int rnd = rand();
+							//unsigned int rnd = rand();
 
 							if(areCharctersAtSamePosition(&player,bubbles[i]))
 							{
@@ -465,22 +466,22 @@ int main(void)
 								sleep(1);
 							}
 							
-							if(!(rnd%5))
+							if(rand()%2)//if(!(rnd//%5))
 							{
 								DELETE_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);					
 								--(bubbles[i]->_y);
 
-								if(!(rnd%3))
-								{
-									if(!(rnd%2))
-									{
-										--(bubbles[i]->_x);
-									}
-									else
-									{
-										++(bubbles[i]->_x);
-									}
-								}
+								// if(!(rnd%3))
+								// {
+									// if(!(rnd%2))
+									// {
+										// --(bubbles[i]->_x);
+									// }
+									// else
+									// {
+										// ++(bubbles[i]->_x);
+									// }
+								// }
 							}
 
 							DRAW_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);			

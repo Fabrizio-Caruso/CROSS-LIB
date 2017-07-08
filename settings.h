@@ -98,7 +98,7 @@
 // LEVEL 36 - 40: Four bombs at the four corners 
 
 // Starting from this level 4 central bombs
-#define INITIAL_LEVEL 12
+#define INITIAL_LEVEL 1
 
 #define THREE_BOMB_START_LEVEL 6
 
@@ -123,7 +123,7 @@
 #define FINAL_LEVEL 40
 
 
-#define FIRST_BUBBLES_LEVEL 11
+#define FIRST_BUBBLES_LEVEL 11 // 13 because of check on levels after missile level
 
 #define MAX_GHOST_COUNT_FOR_BUBBLES 3
 // GHOST STRATEGIES

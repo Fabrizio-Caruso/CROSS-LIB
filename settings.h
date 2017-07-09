@@ -68,8 +68,10 @@
 
 #define EXTRA_POINTS_COOL_DOWN 900
 
+#define MIN_INVINCIBLE_GHOST_HITS 5
+#define INVINCIBLE_GHOST_POINTS 5000ul;
 
-#define EXTRA_POINTS 1000ul
+#define EXTRA_POINTS 2000ul
 #define EXTRA_POINTS_LEVEL_INCREASE 50ul
 
 // If two or more ghosts bump into eachother for each ghost

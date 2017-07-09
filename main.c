@@ -106,7 +106,9 @@ unsigned char YSize;
 
 unsigned int loop;
 
-unsigned invincibleHits = 0;
+unsigned char invincibleGhostHits = 0;
+
+unsigned char invincibleGhostAlive = 1;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -192,7 +194,24 @@ void handle_missile()
 			DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 			restoreMissile(&missile);
 			extraPointsCoolDown/=2;
-			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+			++invincibleGhostHits;
+			
+			// TODO: to TEST
+			if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
+			{
+				unsigned char i;
+				invincibleGhost._status = 0;
+				DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
+				invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
+				invincibleGhostAlive = 0;
+				for(i=0;i<7;++i)
+					EXPLOSION_SOUND();
+				points+=INVINCIBLE_GHOST_POINTS;
+			}
+			else
+			{
+				DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+			}
 		}
 	}
 }
@@ -311,9 +330,9 @@ void handle_extraPoints_item()
 void handle_invincible_ghost(void)
 {
 	// Manage invincible ghost
-	if(!invincibleGhost._status && 
-	  ((invincibleXCountDown==0)||(invincibleYCountDown==0)) || 
-	   (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))
+	if(!invincibleGhost._status && invincibleGhostAlive &&
+	  ( (invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
+	    (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger)))
 	{
 		invincibleGhost._status = 1;
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
@@ -437,6 +456,8 @@ int main(void)
 		ghostCount = GHOSTS_NUMBER;
 		do // Level (Re-)Start
 		{ 
+			invincibleGhostAlive = 1;
+			invincibleGhostHits = 0;
 			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;
 			//unsigned char i;
 			computeStrategy();

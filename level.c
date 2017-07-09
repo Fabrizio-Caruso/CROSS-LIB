@@ -63,17 +63,22 @@ extern Image BUBBLE_IMAGE;
 extern Image LEFT_ENEMY_MISSILE_IMAGE;
 extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
+extern Image EXTRA_POINTS_IMAGE;
+
 extern Character invincibleGhost;
 extern Character player; 
 extern Character powerUp;
 extern Character gun;
 extern Character missile;
+extern Character leftEnemyMissile;
+extern Character rightEnemyMissile;
+extern Character extraPoints;
+
 extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];
 extern Character* bubbles[BUBBLES_NUMBER];
 
-extern Character leftEnemyMissile;
-extern Character rightEnemyMissile;
+
 
 
 
@@ -555,6 +560,14 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		initializeCharacter(&gun, XSize/2, YSize/2, 0, &GUN_IMAGE);
 		relocateCharacter(&gun, bombs,4);
 	} while(nearInnerWall(&gun));
+
+
+	do
+	{
+		initializeCharacter(&extraPoints, XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
+		relocateCharacter(&extraPoints, bombs,4);
+	} while(nearInnerWall(&extraPoints));
+	//DRAW_EXTRA_POINTS(extraPoints._x, extraPoints._y, extraPoints._imagePtr);
 	
 	switch(corner)
 	{

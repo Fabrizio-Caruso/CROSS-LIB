@@ -65,6 +65,7 @@ unsigned int powerUpCoolDown;
 	
 unsigned int gunInitialCoolDown;
 unsigned int gunCoolDown;
+unsigned int extraPointsCoolDown;
 
 unsigned int ghostLevelDecrease = 100;
 unsigned int powerUpInitialCoolDown = 100; 
@@ -105,6 +106,8 @@ unsigned char YSize;
 
 unsigned int loop;
 
+unsigned invincibleHits = 0;
+
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
@@ -118,8 +121,12 @@ extern Image BUBBLE_IMAGE;
 
 Character invincibleGhost;
 Character player; 
+
 Character powerUp;
 Character gun;
+Character extraPoints;
+//Character extraLife;
+
 Character missile;
 Character leftEnemyMissile;
 Character rightEnemyMissile;
@@ -166,6 +173,7 @@ void handle_missile()
 				die(&missile);
 				DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 				restoreMissile(&missile);
+				extraPointsCoolDown/=4;
 				DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 			}		
 	}
@@ -183,6 +191,7 @@ void handle_missile()
 			die(&missile);
 			DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 			restoreMissile(&missile);
+			extraPointsCoolDown/=4;
 			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		}
 	}
@@ -259,6 +268,41 @@ void handle_powerup_item()
 	{
 		--powerUpCoolDown;
 	}
+}
+
+
+void handle_extraPoints_item()
+{
+	// Manage gun 
+	if(extraPoints._status==1)
+	{
+		if(powerUpReached(&player, &extraPoints))
+		{
+			ZAP_SOUND();
+			DELETE_EXTRA_POINTS(extraPoints._x,extraPoints._y,extraPoints._imagePtr);
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
+			points+=EXTRA_POINTS;
+			extraPoints._status = 0;	
+			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;
+		}
+		else
+		{
+			DRAW_EXTRA_POINTS(extraPoints._x, extraPoints._y, extraPoints._imagePtr);
+		}
+	}		
+	else if (extraPointsCoolDown == 0)
+	{	
+		extraPoints._status = 1;
+		do
+		{
+			relocateCharacter(&extraPoints, bombs,4);
+		} while(nearInnerWall(&extraPoints));
+		DRAW_EXTRA_POINTS(extraPoints._x, extraPoints._y, extraPoints._imagePtr);
+	}
+	else
+	{
+		--extraPointsCoolDown;
+	}				
 }
 
 
@@ -391,6 +435,7 @@ int main(void)
 		ghostCount = GHOSTS_NUMBER;
 		do // Level (Re-)Start
 		{ 
+			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;
 			//unsigned char i;
 			computeStrategy();
 			loop = 0;
@@ -591,7 +636,9 @@ int main(void)
 				handle_gun_item();
 				
 				handle_powerup_item();
-					
+
+				handle_extraPoints_item();
+				
 				handle_player_vs_outer_wall();
 				
 				DRAW_BOMBS();

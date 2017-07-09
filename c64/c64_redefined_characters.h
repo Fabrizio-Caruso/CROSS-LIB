@@ -49,11 +49,14 @@
 	 Image RIGHT_ENEMY_MISSILE_IMAGE;
 	 
 	 Image BUBBLE_IMAGE;
-	 
+
+	Image EXTRA_POINTS_IMAGE;
+	
 	 extern char YSize; 
 	 
 	char powerUp_blink = 1;
 	char gun_blink = 1;
+	char extra_points_blink = 1;
 	
 	void INIT_GRAPHICS(void)
 	{
@@ -93,6 +96,9 @@
 		
 		BUBBLE_IMAGE._imageData = '^';
 		BUBBLE_IMAGE._color = COLOR_WHITE;
+		
+		EXTRA_POINTS_IMAGE._imageData = 'p';
+		EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
 	}
 	
 	void _draw(char x, char y, Image * image) 
@@ -135,6 +141,24 @@
 			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32); 
 			cputc(' '); 
 			gun_blink=1;
+		}	
+	};
+
+	void _blink_extra_points_draw(char x, char y, Image * image) 
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		(void) textcolor (image->_color);
+		if(extra_points_blink) 
+		{
+			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
+			cputc(image->_imageData); 
+			extra_points_blink=0;
+		} 
+		else 
+		{
+			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32); 
+			cputc(' '); 
+			extra_points_blink=1;
 		}	
 	};
 	

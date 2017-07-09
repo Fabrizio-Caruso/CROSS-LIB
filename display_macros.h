@@ -80,6 +80,7 @@ typedef struct ImageStruct Image;
 	
 	char powerUp_blink = 1;
 	char gun_blink = 1;
+	char extra_points_blink = 1;
 	
 	extern Image PLAYER_LEFT;
 	extern Image PLAYER_RIGHT;
@@ -136,7 +137,22 @@ typedef struct ImageStruct Image;
 		}
 	};
 	
-	
+	// #define DRAW_GUN(x,y,image) {gotoxy((x+X_OFFSET,(y+Y_OFFSET)); cputc(image->_imageData + image->_color);};
+	void DRAW_EXTRA_POINTS(char x, char y, Image * image) 
+	{
+		//gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		if(extra_points_blink) 
+		{
+			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
+			//cputc(image->_imageData + image->_color); 
+			extra_points_blink=0;
+		} 
+		else 
+		{
+			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
+			extra_points_blink=1;
+		}
+	};	
 	
 	#define DRAW_MISSILE(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, image->_imageData + image->_color);};
 
@@ -162,7 +178,9 @@ typedef struct ImageStruct Image;
 	#define DELETE_GUN(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
 
 	#define DELETE_MISSILE(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
-
+	
+	#define DELETE_EXTRA_POINTS(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
+	
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 
 	#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
@@ -234,11 +252,13 @@ typedef struct ImageStruct Image;
 	#define DRAW_POWERUP(x,y,image) {_blink_powerUp_draw(x,y,image);};
 	
 	#define DRAW_GUN(x,y,image) {_blink_gun_draw(x,y,image);};
+
+	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_extra_points_draw(x,y,image);};
 	
 	void _draw(char x, char y, Image * image);
 	void _blink_powerUp_draw(char x, char y, Image * image);
 	void _blink_gun_draw(char x, char y, Image * image);
-	
+	void _blink_extra_points_draw(char x, char y, Image * image);	
 	
 	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
 	
@@ -262,7 +282,9 @@ typedef struct ImageStruct Image;
 	#define DELETE_POWERUP(x,y,image)  {_delete(x,y);};
 
 	#define DELETE_GUN(x,y,image)  {_delete(x,y);};
-
+	
+	#define DELETE_EXTRA_POINTS(x,y,image)  {_delete(x,y);};
+	
 	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
 
 	void _delete(char x,char y);
@@ -285,7 +307,7 @@ typedef struct ImageStruct Image;
 		cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
 	}
 
-	#define DRAW_VERTICAL_LINE(x,y,length) cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);
+	#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
 
 	#if defined(__C16__) || defined(__PLUS4__)
 		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }

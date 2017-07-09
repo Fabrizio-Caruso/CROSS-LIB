@@ -54,6 +54,9 @@
 	 Image RIGHT_ENEMY_MISSILE_IMAGE;
 	 
 	 Image BUBBLE_IMAGE;
+	 
+	Image EXTRA_POINTS_IMAGE;
+	
 	 extern char YSize; 
 	 
 	void INIT_IMAGES(void)
@@ -124,6 +127,9 @@
 		
 		BUBBLE_IMAGE._imageData = (char) 0x23;
 		BUBBLE_IMAGE._color = 0;	
+		
+		EXTRA_POINTS_IMAGE._imageData = '$';
+		EXTRA_POINTS_IMAGE._color = 128u;
 		
 		for(i=0;i<8;++i)
 		{

@@ -65,6 +65,11 @@
 #define GHOST_VS_GHOST_COLLISION_LEVEL 16
 #define GHOST_VS_GHOST_COLLISION_START 150
 
+
+#define EXTRA_POINTS_COOL_DOWN 800
+
+#define EXTRA_POINTS 1000ul
+
 // If two or more ghosts bump into eachother for each ghost
 #define GHOST_VS_GHOST_BONUS 500ul
 

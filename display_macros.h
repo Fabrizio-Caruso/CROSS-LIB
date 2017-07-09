@@ -219,23 +219,29 @@ typedef struct ImageStruct Image;
 		extern Image PLAYER_UP;
 		extern Image PLAYER_DOWN;
 	#endif
+
 	
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
 
-	#define DRAW_PLAYER(x,y,image) {(void) textcolor (image->_color); gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
-
-	#define DRAW_GHOST(x,y,image) {(void) textcolor (image->_color); gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
-
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {(void) textcolor (image->_color); gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
-
-	#define DRAW_BOMB(x,y,image) {(void) textcolor (image->_color); gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
-
-	#define DRAW_POWERUP(x,y,image) {(void) textcolor (image->_color); gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
-
-	#define DRAW_GUN(x,y,image) {(void) textcolor (image->_color); gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
-
-	#define DRAW_MISSILE(x,y,image) {(void) textcolor (image->_color); gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(image->_imageData); (void) textcolor (TEXT_COLOR);};
-
+	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
+	
+	#define DRAW_GHOST(x,y,image)  {_draw(x,y,image);};
+	
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
+	
+	#define DRAW_BOMB(x,y,image)  {_draw(x,y,image);};
+	
+	#define DRAW_POWERUP(x,y,image) {_blink_powerUp_draw(x,y,image);};
+	
+	#define DRAW_GUN(x,y,image) {_blink_gun_draw(x,y,image);};
+	
+	void _draw(char x, char y, Image * image);
+	void _blink_powerUp_draw(char x, char y, Image * image);
+	void _blink_gun_draw(char x, char y, Image * image);
+	
+	
+	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
+	
 	#define DRAW_BOMBS() \
 	{ \
 		unsigned char i = 0; \
@@ -245,20 +251,21 @@ typedef struct ImageStruct Image;
 		} \
 	}
 
-	#define DELETE_PLAYER(x,y,image) {gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');};
+	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
 
-	#define DELETE_GHOST(x,y,image) {gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');};
+	#define DELETE_GHOST(x,y,image)  {_delete(x,y);};
 
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) {gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');};
+	#define DELETE_INVINCIBLE_GHOST(x,y,image)  {_delete(x,y);};
 
-	#define DELETE_BOMB(x,y,image) {gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');};
+	#define DELETE_BOMB(x,y,image)  {_delete(x,y);};
 
-	#define DELETE_POWERUP(x,y,image) {gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');};
+	#define DELETE_POWERUP(x,y,image)  {_delete(x,y);};
 
-	#define DELETE_GUN(x,y,image) {gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');};
+	#define DELETE_GUN(x,y,image)  {_delete(x,y);};
 
-	#define DELETE_MISSILE(x,y,image) {gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');};
+	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
 
+	void _delete(char x,char y);
 
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 

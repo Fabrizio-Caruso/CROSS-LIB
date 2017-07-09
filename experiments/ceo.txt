@@ -1,0 +1,34 @@
+Fabrizio Caruso, sicilien de naissance, antibois d'adoption, 
+doctorat en calcul formel (c'est de l'algebre + informatique theorique)
+après de l'institut de recherche RISC de la Johannes Kepler Universit"at.
+Plusieurs post-docs en Espagne, France, Italie.
+Depuis 5 ans, je travaille comme senior developpeur pour une grosse entreprise
+à Sophia Antipolis (06), France. 
+Toujour passioné du retrocomputing. J'ai collectioné 80 "ordinosaures"
+(incluent deux Oric Atoms, un Oric 1 et des betes un petit rares comme le Sharp MZ 711 et
+le Mattel Aquarius).
+
+
+BIOGRAPHIE
+Fabrizio Caruso, sicilien de naissance, antibois d'adoption, 
+doctorat en calcul formel (c'est de l'algèbre + informatique théorique)
+à l'institut de recherche RISC de la Johannes Kepler Universit\"at.
+Plusieurs années de recherche en Espagne, France, Italie.
+Depuis 5 ans, je travaille comme senior développeur 
+pour une grande entreprise à Sophia-Antipolis (06), France. 
+Toujours passionné de retro-computing. J'ai collectionné 80 "ordinosaures"
+(incluant deux Oris Atmos, un Oris 1 et des bêtes un petit peu rares 
+comme le Sharp MZ 711 et le Mattel Aquarius).
+
+CROSS CHASE/ASCII CHASE
+Le but de ce jeu, c'est le plaisir de coder en découvrant les détails
+techniques des ordinateurs des années 80.
+Le code est écrit en ANSI C pour permettre d'avoir un jeu sur beaucoup
+d'ordinateurs 8 bit en utilisant des cross-compilateurs comme
+CC65 (pour les CPU 6502 et similaires) et ZZ88Dk (pour les Z80).
+La base commune du code est agnostique des détails graphiques. Ce noyau, 
+sans modifications significatives, nous donne un jeu avec des caractères ASCII/PETSCII/ATASCII.
+Avec des patches spécifiques pour chaque version je peux rajouter des éléments graphiques et sonores
+(actuellement c'est le cas pour les versions Oric, Commodore 64 et Comomdore 16/116/+4). 
+Le jeu pourrait aussi supporter des vrais sprites à la place de caractères sans modifications
+du noyau du code.

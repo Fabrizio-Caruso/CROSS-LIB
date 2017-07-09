@@ -73,7 +73,7 @@ void displayStatsTitles(void)
 		
 		SET_TEXT_COLOR(COLOR_RED);	
 		PRINT(24,0-Y_OFFSET,"-----------");
-		PRINT(24,1-Y_OFFSET,"ascii chase");
+		PRINT(24,1-Y_OFFSET,"cross chase");
 		PRINT(24,2-Y_OFFSET,"-----------");
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__ATMOS__)
@@ -85,11 +85,11 @@ void displayStatsTitles(void)
 		POKE(0xBB80+22+1*40,10);	
 		
 		gotoxy(23,0); 
-		cputc('A'+128); 
-		cputc('S'+128);
 		cputc('C'+128); 
-		cputc('I'+128); 
-		cputc('I'+128); 
+		cputc('R'+128);
+		cputc('O'+128); 
+		cputc('S'+128); 
+		cputc('S'+128); 
 		cputc(' '+128);	
 		cputc('C'+128);
 		cputc('H'+128);		
@@ -98,11 +98,11 @@ void displayStatsTitles(void)
 		cputc('E'+128); 
 		
 		gotoxy(23,1); 
-		cputc('A'+128); 
-		cputc('S'+128);
 		cputc('C'+128); 
-		cputc('I'+128); 
-		cputc('I'+128); 
+		cputc('R'+128);
+		cputc('O'+128); 
+		cputc('S'+128); 
+		cputc('S'+128); 
 		cputc(' '+128);	
 		cputc('C'+128);	
 		cputc('H'+128);
@@ -392,15 +392,15 @@ void printStartMessage(void)
 		gotoxy(23,11); cputc('>');
 		
 		gotoxy(9, 5); 
-		cputc('A'); 
+		cputc('C'); 
 		cputc(' ');
+		cputc('R');
+		cputc(' ');
+		cputc('O');
+		cputc(' ');		
 		cputc('S');
-		cputc(' ');
-		cputc('C');
 		cputc(' ');		
-		cputc('I');
-		cputc(' ');		
-		cputc('I');
+		cputc('S');
 		cputc(' ');		
 		cputc(' ');
 		cputc(' ');		
@@ -415,15 +415,15 @@ void printStartMessage(void)
 		cputc('E'); 
 		
 		gotoxy(9, 4); 
-		cputc('A'); 
+		cputc('C'); 
 		cputc(' ');
+		cputc('R');
+		cputc(' ');
+		cputc('O');
+		cputc(' ');		
 		cputc('S');
-		cputc(' ');
-		cputc('C');
 		cputc(' ');		
-		cputc('I');
-		cputc(' ');		
-		cputc('I');
+		cputc('S');
 		cputc(' ');		
 		cputc(' ');
 		cputc(' ');		
@@ -442,7 +442,7 @@ void printStartMessage(void)
 
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINT((XSize - 22) / 2, YSize / 2 - 9, "A S C I I   C H A S E");
+		PRINT((XSize - 22) / 2, YSize / 2 - 9, "C R O S S   C H A S E");
 		SET_TEXT_COLOR(TEXT_COLOR);
 		
 		SET_TEXT_COLOR(COLOR_RED);
@@ -518,26 +518,7 @@ void printStartMessage(void)
 		POKE(0xBB80+(YSize / 2 + 4 + 4)*40,16);POKE(0xBB81+(YSize / 2 + 4 +4)*40,12);
 		POKE(0xBB80+(YSize / 2 + 4 + 5)*40,16);POKE(0xBB81+(YSize / 2 + 4 +5)*40,12);
 		POKE(0xBB80+(YSize / 2 + 4 + 6)*40,16);POKE(0xBB81+(YSize / 2 + 4 +6)*40,12);
-		
-		// {
-			// char i;
-			// for(i=0;i<5;++i)
-			// {
-				// gotoxy(17+i,8); cputc(MISSILE_IMAGE._imageData);
-				// gotoxy(17+i,9); cputc(MISSILE_IMAGE._imageData);
-				// sleep(1);
-				// gotoxy(17+i,8); cputc(' ');
-				// gotoxy(17+i,9); cputc(' ');	
-			// }
 
-			// gotoxy(20,8); cputc(MISSILE_IMAGE._imageData);
-			// gotoxy(20,9); cputc(MISSILE_IMAGE._imageData);
-			// sleep(1);
-			// gotoxy(20,8); cputc(' ');
-			// gotoxy(20,9); cputc(' ');				
-			// gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
-			// gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
-		// }
 		gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
 		gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
 		

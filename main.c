@@ -485,7 +485,7 @@ int main(void)
 							}
 
 							DRAW_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);			
-							if((bubbles[i]->_x<=2) || (bubbles[i]->_x>= XSize-2) || (bubbles[i]->_y<=2))
+							if(bubbles[i]->_y<=1)
 							{	
 								bubbles[i]->_status = 0;
 								DELETE_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);					

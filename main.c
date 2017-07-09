@@ -173,7 +173,7 @@ void handle_missile()
 				die(&missile);
 				DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 				restoreMissile(&missile);
-				extraPointsCoolDown/=4;
+				extraPointsCoolDown/=2;
 				DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 			}		
 	}
@@ -191,7 +191,7 @@ void handle_missile()
 			die(&missile);
 			DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 			restoreMissile(&missile);
-			extraPointsCoolDown/=4;
+			extraPointsCoolDown/=2;
 			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		}
 	}
@@ -281,7 +281,9 @@ void handle_extraPoints_item()
 			ZAP_SOUND();
 			DELETE_EXTRA_POINTS(extraPoints._x,extraPoints._y,extraPoints._imagePtr);
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-			points+=EXTRA_POINTS;
+			points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
+			if(missileLevel(level))
+				points+=EXTRA_POINTS;
 			extraPoints._status = 0;	
 			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;
 		}

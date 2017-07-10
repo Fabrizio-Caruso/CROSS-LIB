@@ -109,11 +109,11 @@ void displayStatsTitles(void)
 		cputc('A'+128);
 		cputc('S'+128);	
 		cputc('E'+128); 		
-	#elif defined(__ATARI__) || defined(__ATARIXL)
+	#elif defined(__ATARI__) || defined(__ATARIXL__)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINT(2,0-Y_OFFSET,"SPEED:");
-		PRINT(2,1-Y_OFFSET,"SCORE:");
-		//PRINT(2,1-Y_OFFSET,"LEVEL:");
+		PRINT(1,0-Y_OFFSET,"SPEED:");
+		PRINT(1,1-Y_OFFSET,"SCORE:");
+		PRINT(1,2-Y_OFFSET,"LEVEL:");
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINT(2,0-Y_OFFSET,"SPEED:");
@@ -132,6 +132,10 @@ void displayStatsTitles(void)
 		gotoxy(18,1); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#elif defined(__ATARI__) || defined(__ATARIXL__)
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		gotoxy(15,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(15+20,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(15,1); cputc(PLAYER_IMAGE._imageData);cputc(':');
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(18,0); cputc(GUN_IMAGE._imageData);cputc(':');
@@ -153,9 +157,9 @@ void displayStats(void)
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
 		PRINTF(8,2-Y_OFFSET,"%02hu", level);
 	#elif defined(__ATARI__) || defined(__ATARIXL__)
-		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
-		PRINTF(8,1-Y_OFFSET,"%06lu",points);
-		//PRINTF(8,1-Y_OFFSET,"%02hu", level);
+		PRINTF(7,0-Y_OFFSET,"%04u",ghostLevel);
+		PRINTF(7,1-Y_OFFSET,"%05lu",points);
+		PRINTF(7,2-Y_OFFSET,"%02hu", level);
 	#else	
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
@@ -167,6 +171,9 @@ void displayStats(void)
 		PRINTF(19-1,1-Y_OFFSET,"%hu",ghostCount);
 		PRINTF(19-1,2-Y_OFFSET,"%02hu",lives);	
 	#elif defined(__ATARI__) || defined(__ATARIXL__)
+		PRINTF(15+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
+		PRINTF(15+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
+		PRINTF(15+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
 	#else
 		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);

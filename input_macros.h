@@ -38,6 +38,8 @@
 	
 #if defined(__ATMOS__)
 	#include "atmos/atmos_input.h"
+#elif defined(__APPLE2__) || (__APPLE2ENH__)
+	#include "apple2/apple2_input.h"
 #else
 	#define GET_CHAR() cgetc();
 #endif

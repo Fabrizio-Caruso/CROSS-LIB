@@ -207,6 +207,8 @@ void handle_missile()
 				for(i=0;i<7;++i)
 					EXPLOSION_SOUND();
 				points+=INVINCIBLE_GHOST_POINTS;
+				if(missileLevel(level))
+					points+=INVINCIBLE_GHOST_POINTS;
 			}
 			else
 			{
@@ -453,8 +455,9 @@ int main(void)
 			// gotoxy(20,2);cputs("hello world6");
 			// gotoxy(0,3); cputs("hello world7");
 			// gotoxy(20,3);cputs("hello world8");
+			WAIT_PRESS();
 		#endif
-		WAIT_PRESS()
+
 		
 		initialScreen();
 		WAIT_PRESS()

@@ -43,7 +43,7 @@ extern Character* ghosts[GHOSTS_NUMBER];
 unsigned int computeGhostSlowDown(void)
 {
 	if(ghostLevel<1000)
-		return 28000-level*256-ghostLevel*16;
+		return 28000-level*200-ghostLevel*16;
 	else
 		return 0;
 }

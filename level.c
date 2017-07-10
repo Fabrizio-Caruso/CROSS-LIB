@@ -602,7 +602,7 @@ unsigned char missileLevel(unsigned char levelPar)
 	{
 		case THREE_BOMB_START_LEVEL-1: case TWO_BOMB_START_LEVEL-1: case ONE_BOMB_START_LEVEL-1:
 		case FIRST_HARD_LEVEL-1: case FIRST_VERY_HARD_LEVEL-1: case FIRST_INSANE_LEVEL-1:
-		case FIRST_ULTIMATE_LEVEL: case FINAL_LEVEL:
+		case FIRST_ULTIMATE_LEVEL-1: case FINAL_LEVEL:
 			return 1;
 		default:
 			return 0;

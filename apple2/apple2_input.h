@@ -34,6 +34,11 @@ unsigned char GET_CHAR()
 			POKE(0xC000,0);
 			return ' ';
 		break;
+		default:
+			POKE(0xC010,0);
+			POKE(0xC000,0);
+		return 'X';
+		break;
 	}
 	return '\0';
 }

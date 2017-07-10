@@ -445,14 +445,14 @@ int main(void)
 			PRINTF(0,7,"XSize: %d\n", XSize);
 			PRINTF(0,8,"YSize: %d\n", YSize);
 			
-			gotoxy(0,0); cputs("hello world1");
-			gotoxy(20,0);cputs("hello world2");
-			gotoxy(0,1); cputs("hello world3");
-			gotoxy(20,1);cputs("hello world4");
-			gotoxy(0,2); cputs("hello world5");
-			gotoxy(20,2);cputs("hello world6");
-			gotoxy(0,3); cputs("hello world7");
-			gotoxy(20,3);cputs("hello world8");
+			// gotoxy(0,0); cputs("hello world1");
+			// gotoxy(20,0);cputs("hello world2");
+			// gotoxy(0,1); cputs("hello world3");
+			// gotoxy(20,1);cputs("hello world4");
+			// gotoxy(0,2); cputs("hello world5");
+			// gotoxy(20,2);cputs("hello world6");
+			// gotoxy(0,3); cputs("hello world7");
+			// gotoxy(20,3);cputs("hello world8");
 		#endif
 		WAIT_PRESS()
 		
@@ -681,6 +681,9 @@ int main(void)
 				// Display ghosts
 				displayGhosts();
 
+				#if defined(__ATARI__) || defined(__ATARIXL__)
+					displayStatsTitles();
+				#endif
 				displayStats();
 				
 				handle_invincible_ghost();

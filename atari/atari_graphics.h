@@ -44,7 +44,7 @@
 		SET_BORDER_COLOR(BORDER_COLOR);
 	
 		SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
-		//_setcolor(TGI_COLOR_BLACK,TGI_COLOR_WHITE,TGI_COLOR_RED);
+		_setcolor(TGI_COLOR_BLACK,TGI_COLOR_WHITE,TGI_COLOR_YELLOW);
 		//_setcolor_low(TGI_COLOR_GREEN, TGI_COLOR_BLUE);
 	}
 	 
@@ -53,18 +53,18 @@
 	void INIT_IMAGES(void)
 	{		
 		PLAYER_IMAGE._color = COLOR_WHITE;
-		INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
-		POWERUP_IMAGE._color = COLOR_WHITE;
-		GUN_IMAGE._color = COLOR_WHITE;
-		BOMB_IMAGE._color = COLOR_WHITE;
-		DEAD_GHOST_IMAGE._color = COLOR_WHITE;
+		INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+		POWERUP_IMAGE._color = COLOR_YELLOW;
+		GUN_IMAGE._color = COLOR_BROWN;
+		BOMB_IMAGE._color = COLOR_RED;
+		DEAD_GHOST_IMAGE._color = COLOR_RED;
 
 		GHOST_IMAGE._imageData = 'o';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
 		BOMB_IMAGE._imageData = 'X';
-		PLAYER_IMAGE._imageData = '*';
-		POWERUP_IMAGE._imageData = 'S';
-		GUN_IMAGE._imageData = '!';
+		PLAYER_IMAGE._imageData = '*' - 160;
+		POWERUP_IMAGE._imageData = 'S' - 64-32;
+		GUN_IMAGE._imageData = '!' - 160;
 		MISSILE_IMAGE._imageData = '.';
 		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
@@ -106,54 +106,54 @@
 	
 	void _blink_powerUp_draw(char x, char y, Image * image) 
 	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+//		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
 		if(powerUp_blink) 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			cputc(image->_imageData); 
+			_draw(x,y,image);
+			// cputc(image->_imageData); 
 			powerUp_blink=0;
 		} 
 		else 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32); 
-			cputc(' '); 
+			_delete(x,y);
+			// cputc(' '); 
 			powerUp_blink=1;
 		}	
 	};
 	
 	void _blink_gun_draw(char x, char y, Image * image) 
 	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
 		if(gun_blink) 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			cputc(image->_imageData); 
+			_draw(x,y,image);
+			// cputc(image->_imageData); 
 			gun_blink=0;
 		} 
 		else 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32); 
-			cputc(' '); 
+			_delete(x,y);
+			// cputc(' '); 
 			gun_blink=1;
 		}	
 	};
 
 	void _blink_extra_points_draw(char x, char y, Image * image) 
 	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
 		if(extra_points_blink) 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			cputc(image->_imageData); 
+			_draw(x,y,image);
+			// cputc(image->_imageData); 
 			extra_points_blink=0;
 		} 
 		else 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32); 
-			cputc(' '); 
+			_delete(x,y);
+			// cputc(' '); 
 			extra_points_blink=1;
 		}	
 	};

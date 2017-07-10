@@ -61,9 +61,12 @@ typedef struct ImageStruct Image;
 #if defined(__ATMOS__)
 	#define X_OFFSET 2
 	#define Y_OFFSET 3
-#elif defined(__VIC20__)
+#elif defined(__VIC20__) 
 	#define X_OFFSET 0
 	#define Y_OFFSET 2
+#elif defined(__ATARI__) || defined(__ATARIXL__)
+	#define X_OFFSET 0
+	#define Y_OFFSET 0
 #else
 	#define X_OFFSET 0
 	#define Y_OFFSET 3
@@ -71,6 +74,8 @@ typedef struct ImageStruct Image;
 
 #if defined(__NES__)
 	#define GET_SCREEN_SIZE(x,y) {*x=32; *y=40;};
+#elif  defined(__ATARI__) || defined(__ATARIXL__)
+	#define GET_SCREEN_SIZE(x,y) {*x=20; *y=24;};
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #endif
@@ -230,6 +235,93 @@ typedef struct ImageStruct Image;
 	#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
 	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
 	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+#elif defined(__ATARI__) || defined(__ATARIXL__)
+	
+	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
+
+	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
+	
+	#define DRAW_GHOST(x,y,image)  {_draw(x,y,image);};
+	
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
+	
+	#define DRAW_BOMB(x,y,image)  {_draw(x,y,image);};
+	
+	#define DRAW_POWERUP(x,y,image) {_blink_powerUp_draw(x,y,image);};
+	
+	#define DRAW_GUN(x,y,image) {_blink_gun_draw(x,y,image);};
+
+	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_extra_points_draw(x,y,image);};
+	
+	void _draw(char x, char y, Image * image);
+	void _blink_powerUp_draw(char x, char y, Image * image);
+	void _blink_gun_draw(char x, char y, Image * image);
+	void _blink_extra_points_draw(char x, char y, Image * image);	
+	
+	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
+	
+	#define DRAW_BOMBS() \
+	{ \
+		unsigned char i = 0; \
+		for(;i<BOMBS_NUMBER;++i) \
+		{ \
+			DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr); \
+		} \
+	}
+
+	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
+
+	#define DELETE_GHOST(x,y,image)  {_delete(x,y);};
+
+	#define DELETE_INVINCIBLE_GHOST(x,y,image)  {_delete(x,y);};
+
+	#define DELETE_BOMB(x,y,image)  {_delete(x,y);};
+
+	#define DELETE_POWERUP(x,y,image)  {_delete(x,y);};
+
+	#define DELETE_GUN(x,y,image)  {_delete(x,y);};
+	
+	#define DELETE_EXTRA_POINTS(x,y,image)  {_delete(x,y);};
+	
+	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
+
+	void _delete(char x,char y);
+
+	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
+
+	#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
+
+	#if defined(__ATARI__) || defined(__ATARIXL__)
+		#define DRAW_BORDERS()
+	#else
+		#define DRAW_BORDERS()\
+		{ \
+			SET_TEXT_COLOR(TEXT_COLOR); \
+			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+			cputc (CH_ULCORNER);\
+			chline (XSize-2);\
+			cputc (CH_URCORNER);\
+			cvlinexy (0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
+			cputc (CH_LLCORNER);\
+			chline (XSize-2);\
+			cputc (CH_LRCORNER);\
+			cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
+		}
+	#endif
+
+	#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
+
+	#if defined(__C16__) || defined(__PLUS4__)
+		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
+		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
+		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
+		#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+	#else
+		#define SHOW_LEFT() {}
+		#define SHOW_RIGHT() {}
+		#define SHOW_UP() {}
+		#define SHOW_DOWN() {}	
+	#endif
 #else
 	#if defined(__C16__) || defined(__PLUS4__)
 		extern Image PLAYER_LEFT;

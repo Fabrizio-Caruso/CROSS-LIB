@@ -126,6 +126,7 @@ void displayStatsTitles(void)
 		gotoxy(18,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(18,1); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+	#elif defined(__ATARI__) || defined(__ATARIXL__)
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(18,0); cputc(GUN_IMAGE._imageData);cputc(':');
@@ -156,6 +157,7 @@ void displayStats(void)
 		PRINTF(19-1,0-Y_OFFSET,"%hu",guns);
 		PRINTF(19-1,1-Y_OFFSET,"%hu",ghostCount);
 		PRINTF(19-1,2-Y_OFFSET,"%02hu",lives);	
+	#elif defined(__ATARI__) || defined(__ATARIXL__)
 	#else
 		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);

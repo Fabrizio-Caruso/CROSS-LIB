@@ -9,10 +9,9 @@
 	#include <string.h>
 	#include <unistd.h>
 
-	#define GRAPHICS_MODE 0
-	
-	//#define SCRMEM *(unsigned int*) 88
-	
+	#define GRAPHICS_MODE (1+16)
+	//#define GRAPHICS_MODE 0
+		
 	 Image PLAYER_IMAGE;
 	 Image GHOST_IMAGE;
 	 Image DEAD_GHOST_IMAGE;
@@ -84,13 +83,26 @@
 		EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
 	}
 
+	// void _draw(char x, char y, Image * image) 
+	// {
+		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		// (void) textcolor (image->_color);
+		// cputc(image->_imageData); 
+	// };
+	
 	void _draw(char x, char y, Image * image) 
 	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		if((y+Y_OFFSET)%2==1)
+		{
+			gotoxy((x+20+X_OFFSET),(y/2+Y_OFFSET));
+		}
+		else
+		{
+			gotoxy((x+X_OFFSET),(y/2+Y_OFFSET));
+		}				
 		(void) textcolor (image->_color);
 		cputc(image->_imageData); 
-	};
-	
+	};	
 	
 	void _blink_powerUp_draw(char x, char y, Image * image) 
 	{
@@ -146,9 +158,20 @@
 		}	
 	};
 	
-	void _delete(char x, char y)
+	// void _delete(char x, char y)
+	// {
+		// gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');
+	// };
+	void _delete(char x, char y) 
 	{
-		gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');
-	};
-
+		if((y+Y_OFFSET)%2==1)
+		{
+			gotoxy((x+20+X_OFFSET),(y/2+Y_OFFSET));
+		}
+		else
+		{
+			gotoxy((x+X_OFFSET),(y/2+Y_OFFSET));
+		}				
+		cputc(' ');
+	};	
 #endif // _ATARI_GRAPHICS

@@ -36,20 +36,25 @@
 
 	#include <peekpoke.h>
 
-	 Image PLAYER_IMAGE;
-	 Image GHOST_IMAGE;
-	 Image DEAD_GHOST_IMAGE;
-	 Image INVINCIBLE_GHOST_IMAGE;
-	 Image BOMB_IMAGE;
-	 Image POWERUP_IMAGE;
-	 Image MISSILE_IMAGE;
-	 Image GUN_IMAGE;
-	 
-	 Image LEFT_ENEMY_MISSILE_IMAGE;
-	 Image RIGHT_ENEMY_MISSILE_IMAGE;
-	 
-	 Image BUBBLE_IMAGE;
+	Image PLAYER_IMAGE;
+	Image GHOST_IMAGE;
+	Image DEAD_GHOST_IMAGE;
+	Image INVINCIBLE_GHOST_IMAGE;
+	Image BOMB_IMAGE;
+	Image POWERUP_IMAGE;
+	Image MISSILE_IMAGE;
+	Image GUN_IMAGE;
 
+	Image LEFT_ENEMY_MISSILE_IMAGE;
+	Image RIGHT_ENEMY_MISSILE_IMAGE;
+
+	Image BUBBLE_IMAGE;
+
+	Image PLAYER_DOWN;
+	Image PLAYER_UP;
+	Image PLAYER_RIGHT;
+	Image PLAYER_LEFT;
+	
 	Image EXTRA_POINTS_IMAGE;
 	
 	 extern char YSize; 
@@ -70,7 +75,7 @@
 	 
 	void INIT_IMAGES(void)
 	{		
-		PLAYER_IMAGE._color = COLOR_GRAY3;
+		PLAYER_IMAGE._color = COLOR_CYAN;
 		INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 		POWERUP_IMAGE._color = POWER_UP_COLOR;
 		GUN_IMAGE._color = GUN_COLOR;
@@ -99,6 +104,18 @@
 		
 		EXTRA_POINTS_IMAGE._imageData = 'p';
 		EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
+		
+		PLAYER_UP._imageData = (char) 0x76 - 6;
+		PLAYER_UP._color = PLAYER_IMAGE._color;
+		
+		PLAYER_DOWN._imageData = '\'';
+		PLAYER_DOWN._color = PLAYER_IMAGE._color;
+				
+		PLAYER_RIGHT._imageData = (char) 0x76 - 2;
+		PLAYER_RIGHT._color = PLAYER_IMAGE._color;
+		
+		PLAYER_LEFT._imageData = (char) 0x76 - 4;
+		PLAYER_LEFT._color = PLAYER_IMAGE._color;		
 	}
 	
 	void _draw(char x, char y, Image * image) 

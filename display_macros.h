@@ -375,7 +375,7 @@ typedef struct ImageStruct Image;
 
 	
 	
-	#if defined(__C16__) || defined(__PLUS4__)
+	#if defined(__C16__) || defined(__PLUS4__) || defined(__C64__)
 		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
 		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
 		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
@@ -387,7 +387,7 @@ typedef struct ImageStruct Image;
 		#define SHOW_DOWN() {}	
 	#endif
 #else
-	#if defined(__C16__) || defined(__PLUS4__)
+	#if defined(__C16__) || defined(__PLUS4__) || defined(__C64__)
 		extern Image PLAYER_LEFT;
 		extern Image PLAYER_RIGHT;
 		extern Image PLAYER_UP;
@@ -465,7 +465,7 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
 
-	#if defined(__C16__) || defined(__PLUS4__)
+	#if defined(__C16__) || defined(__PLUS4__) || defined(__C64__)
 		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
 		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
 		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }

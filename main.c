@@ -54,7 +54,7 @@
 
 
 // #define DEBUG_ATARI
-//#define DEBUG_CHARACTERS
+#define DEBUG_CHARACTERS
 
 unsigned int invincibleSlowDown = 30000;
 unsigned short invincibleXCountDown = 100;
@@ -441,11 +441,17 @@ int main(void)
 			PRINTF(0,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
 			PRINTF(0,2,"bomb %c\n", BOMB_IMAGE._imageData);
 			PRINTF(0,3,"player %c\n", PLAYER_IMAGE._imageData);
-			PRINTF(0,4,"powerup %c\n", POWERUP_IMAGE._imageData);
-			PRINTF(0,5,"gun %c\n", GUN_IMAGE._imageData);
-			PRINTF(0,6,"missile %c\n", MISSILE_IMAGE._imageData);
-			PRINTF(0,7,"XSize: %d\n", XSize);
-			PRINTF(0,8,"YSize: %d\n", YSize);
+			#if defined(__C16__) || defined(__PLUS4__) || defined(__C64__)
+				PRINTF(0,4,"player %c\n", PLAYER_UP._imageData);
+				PRINTF(0,5,"player %c\n", PLAYER_DOWN._imageData);
+				PRINTF(0,6,"player %c\n", PLAYER_LEFT._imageData);
+				PRINTF(0,7,"player %c\n", PLAYER_RIGHT._imageData);			
+			#endif
+			PRINTF(0,8,"powerup %c\n", POWERUP_IMAGE._imageData);
+			PRINTF(0,9,"gun %c\n", GUN_IMAGE._imageData);
+			PRINTF(0,10,"missile %c\n", MISSILE_IMAGE._imageData);
+			PRINTF(0,11,"XSize: %d\n", XSize);
+			PRINTF(0,12,"YSize: %d\n", YSize);
 			
 			// gotoxy(0,0); cputs("hello world1");
 			// gotoxy(20,0);cputs("hello world2");

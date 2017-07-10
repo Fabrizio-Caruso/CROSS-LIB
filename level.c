@@ -235,9 +235,14 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 	for(i=0;i<BUBBLES_NUMBER;i++)
 	{
-		initializeCharacter(bubbles[i],(char) (i+1)*(XSize/(BUBBLES_NUMBER+1)),YSize-2,1,&BUBBLE_IMAGE);
+		initializeCharacter(bubbles[i],(char) (i+1)*(XSize/(BUBBLES_NUMBER+1)),YSize-1,1,&BUBBLE_IMAGE);
+		if(level >= FIRST_BUBBLES_LEVEL && 
+				   !missileLevel(level) && !missileLevel(level-1) && !missileLevel(level-2))
+			{
+			DRAW_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);
+			}
 	}
-	
+
 	// 8 Ghosts case
 	x0 = XSize-XSize/6+rand()%3-3; y0 = YSize-YSize/6+rand()%3-3;	
 	initializeCharacter(ghosts[0],x0,y0,1,&GHOST_IMAGE);

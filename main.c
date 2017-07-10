@@ -52,9 +52,7 @@
 #include "sleep_macros.h"
 #include "sound_macros.h"
 
-
-// #define DEBUG_ATARI
-#define DEBUG_CHARACTERS
+//#define DEBUG_CHARACTERS
 
 unsigned int invincibleSlowDown = 30000;
 unsigned short invincibleXCountDown = 100;
@@ -555,22 +553,10 @@ int main(void)
 								sleep(1);
 							}
 							
-							if(rand()%2)//if(!(rnd//%5))
+							if(rand()%2)
 							{
 								DELETE_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);					
 								--(bubbles[i]->_y);
-
-								// if(!(rnd%3))
-								// {
-									// if(!(rnd%2))
-									// {
-										// --(bubbles[i]->_x);
-									// }
-									// else
-									// {
-										// ++(bubbles[i]->_x);
-									// }
-								// }
 							}
 
 							DRAW_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);			

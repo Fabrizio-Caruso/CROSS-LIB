@@ -51,7 +51,8 @@ cl65.exe -O -t c16 --config %configpath%\c16_GFX.cfg  %mypath%\display_macros.c 
 @REM cl65.exe -O -t cbm610 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\cbm610.prg
 
 
-@REM cl65.exe  -O -t atmos --config %mypath%\cfg\atmos_better_tap.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atmos_redefined_chars.tap
+@REM 
+cl65.exe  -O -t atmos --config %mypath%\cfg\atmos_better_tap.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atmos_redefined_chars.tap
 
 @REM 
 cl65.exe  -O -t atarixl --start-addr 0x4000 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atariXL.xex

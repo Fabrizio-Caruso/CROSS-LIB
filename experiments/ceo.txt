@@ -20,7 +20,7 @@ Toujours passionné de retro-computing. J'ai collectionné 80 "ordinosaures"
 (incluant deux Oris Atmos, un Oris 1 et des bêtes un petit peu rares 
 comme le Sharp MZ 711 et le Mattel Aquarius).
 
-CROSS CHASE/ASCII CHASE
+CROSS CHASE - LE PROJET
 Le but de ce jeu, c'est le plaisir de coder en découvrant les détails
 techniques des ordinateurs des années 80.
 Le code est écrit en ANSI C pour permettre d'avoir un jeu sur beaucoup
@@ -32,3 +32,13 @@ Avec des patches spécifiques pour chaque version je peux rajouter des élément
 (actuellement c'est le cas pour les versions Oric, Commodore 64 et Comomdore 16/116/+4). 
 Le jeu pourrait aussi supporter des vrais sprites à la place de caractères sans modifications
 du noyau du code.
+
+CROSS CHASE - LE JEU
+Le but du jeu c'est de se debarasser des 8 enemies qui nous persecutent sur les mines.
+Une tête de mort est un enemi plus fort (presque invincible) et c'est mieux de l'éviter.
+Les énemies ne voient pas les mines. Ils devient toujours plus rapides sauf si le jeur prend le power-up S (slow-down).
+Le jeuer peut trouver un pistolet pour tirer sur les énemies. 
+Il y a d'autres power-ups à decouvrir.
+En total il y 40 niveau avec des obstacles et enemies different.
+Tip 1: Il y a trois methodes pour tuer les enemies normaux.
+Tip 2: Tirer sur la tete de mort peut amener des avantage pour les jeuer.

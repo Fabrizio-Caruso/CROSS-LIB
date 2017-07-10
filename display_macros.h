@@ -287,30 +287,94 @@ typedef struct ImageStruct Image;
 
 	void _delete(char x,char y);
 
-	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
-
-	#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
-
-	#if defined(__ATARI__) || defined(__ATARIXL__)
-		#define DRAW_BORDERS()
-	#else
-		#define DRAW_BORDERS()\
+	#define PRINT(x,y,str) \
+	{ \
+		if((y+Y_OFFSET)%2==1) \
 		{ \
-			SET_TEXT_COLOR(TEXT_COLOR); \
-			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-			cputc (CH_ULCORNER);\
-			chline (XSize-2);\
-			cputc (CH_URCORNER);\
-			cvlinexy (0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
-			cputc (CH_LLCORNER);\
-			chline (XSize-2);\
-			cputc (CH_LRCORNER);\
-			cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
-		}
-	#endif
+			gotoxy(x+20+X_OFFSET,(y+Y_OFFSET)/2); \
+		} \
+		else \
+		{ \
+			gotoxy(x+X_OFFSET, (y+Y_OFFSET)/2); \
+		} \
+		cputs(str); \
+	};
 
-	#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
+	#define PRINTF(x,y,...)  \
+	{ \
+		if((y+Y_OFFSET)%2==1) \
+		{ \
+			gotoxy(x+20+X_OFFSET,(y+Y_OFFSET)/2); \
+		} \
+		else \
+		{ \
+			gotoxy(x+X_OFFSET, (y+Y_OFFSET)/2); \
+		} \
+		cprintf(##__VA_ARGS__); \
+	};
+	//{gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 
+
+	//{(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
+	#define DRAW_VERTICAL_LINE(x,y,length) \
+	{ \
+		unsigned char i; \
+		for(i=0;i<length;i++) \
+		{ \
+			if((y+Y_OFFSET+i)%2==1) \
+			{ \
+				gotoxy(x+20+X_OFFSET,(y+Y_OFFSET+i)/2); \
+			} \
+			else \
+			{ \
+				gotoxy(x+X_OFFSET,(y+Y_OFFSET+i)/2); \
+			} \
+			cputc('o'); \
+		} \
+	}
+	
+	#define DRAW_HORIZONTAL_LINE(x,y,length) \
+	{ \
+		unsigned char i; \
+		if((y+Y_OFFSET)%2==1) \
+		{ \
+			for(i=0;i<length;++i) \
+			{ \
+				gotoxy(x+20+X_OFFSET+i,(y+Y_OFFSET)/2); \
+				cputc('o'); \
+			} \
+		} \
+		else \
+		{ \
+			for(i=0;i<length;++i) \
+			{ \
+				gotoxy(x+X_OFFSET+i,(y+Y_OFFSET)/2); \
+				cputc('o'); \
+			} \
+		} \
+	}
+
+	#define DRAW_BORDERS()\
+	{ \
+		SET_TEXT_COLOR(TEXT_COLOR); \
+		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+		//cputc (CH_ULCORNER);\
+		cputc ('X');\
+		DRAW_HORIZONTAL_LINE (1+X_OFFSET,0+Y_OFFSET, XSize-2);\
+		//cputc (CH_URCORNER);\
+		cputc ('X');\
+		DRAW_VERTICAL_LINE(0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
+		//cputc (CH_LLCORNER);\
+		gotoxy(0+20,(YSize-1)/2); \
+		cputc ('X'); \
+		DRAW_HORIZONTAL_LINE (1+X_OFFSET,YSize-1,XSize-2);\
+		//cputc (CH_LRCORNER);\
+		cputc ('X');\
+		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 2); \
+	}
+
+	
+	
 	#if defined(__C16__) || defined(__PLUS4__)
 		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
 		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }

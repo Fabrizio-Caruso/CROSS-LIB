@@ -41,11 +41,16 @@
 		_graphics(GRAPHICS_MODE);
 		SET_TEXT_COLOR(TEXT_COLOR);
 	
-		SET_BORDER_COLOR(BORDER_COLOR);
+		// SET_BORDER_COLOR(BORDER_COLOR);
 	
-		SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
-		_setcolor(TGI_COLOR_BLACK,TGI_COLOR_WHITE,TGI_COLOR_YELLOW);
-		//_setcolor_low(TGI_COLOR_GREEN, TGI_COLOR_BLUE);
+		// SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
+		//_setcolor(TGI_COLOR_BLACK,TGI_COLOR_WHITE,TGI_COLOR_YELLOW);
+		_setcolor_low(TGI_COLOR_GREEN, TGI_COLOR_BLUE);
+		_setcolor(0,COLOR_BLACK,8);
+		_setcolor(1,COLOR_WHITE,8);
+		_setcolor(2,COLOR_RED,8);
+		_setcolor(3,COLOR_BLUE,8);
+		_setcolor(4, COLOR_YELLOW,8);
 	}
 	 
 	 
@@ -94,11 +99,11 @@
 	{
 		if((y+Y_OFFSET)%2==1)
 		{
-			gotoxy((x+20+X_OFFSET),(y/2+Y_OFFSET));
+			gotoxy((x+20+X_OFFSET),(y+Y_OFFSET)/2);
 		}
 		else
 		{
-			gotoxy((x+X_OFFSET),(y/2+Y_OFFSET));
+			gotoxy((x+X_OFFSET),(y+Y_OFFSET)/2);
 		}				
 		(void) textcolor (image->_color);
 		cputc(image->_imageData); 
@@ -166,11 +171,11 @@
 	{
 		if((y+Y_OFFSET)%2==1)
 		{
-			gotoxy((x+20+X_OFFSET),(y/2+Y_OFFSET));
+			gotoxy((x+20+X_OFFSET),(y+Y_OFFSET)/2);
 		}
 		else
 		{
-			gotoxy((x+X_OFFSET),(y/2+Y_OFFSET));
+			gotoxy((x+X_OFFSET),(y+Y_OFFSET)/2);
 		}				
 		cputc(' ');
 	};	

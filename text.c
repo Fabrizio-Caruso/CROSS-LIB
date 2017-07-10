@@ -109,12 +109,17 @@ void displayStatsTitles(void)
 		cputc('A'+128);
 		cputc('S'+128);	
 		cputc('E'+128); 		
+	#elif defined(__ATARI__) || defined(__ATARIXL)
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		PRINT(2,0-Y_OFFSET,"SPEED:");
+		PRINT(2,1-Y_OFFSET,"SCORE:");
+		//PRINT(2,1-Y_OFFSET,"LEVEL:");
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINT(2,0-Y_OFFSET,"SPEED:");
 		PRINT(2,1-Y_OFFSET,"SCORE:");
 		PRINT(2,2-Y_OFFSET,"LEVEL:");
-		#ifndef __VIC20__
+		#if !defined(__VIC20__) && !defined(__ATARI__) && !defined(__ATARIXL__)
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			PRINT(24,1-Y_OFFSET,"CROSS CHASE");
 			SET_TEXT_COLOR(TEXT_COLOR);	
@@ -147,6 +152,10 @@ void displayStats(void)
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
 		PRINTF(8,2-Y_OFFSET,"%02hu", level);
+	#elif defined(__ATARI__) || defined(__ATARIXL__)
+		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
+		PRINTF(8,1-Y_OFFSET,"%06lu",points);
+		//PRINTF(8,1-Y_OFFSET,"%02hu", level);
 	#else	
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);

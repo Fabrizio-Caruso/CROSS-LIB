@@ -54,7 +54,7 @@
 
 
 // #define DEBUG_ATARI
-#define DEBUG_CHARACTERS
+//#define DEBUG_CHARACTERS
 
 unsigned int invincibleSlowDown = 30000;
 unsigned short invincibleXCountDown = 100;

@@ -47,8 +47,7 @@ cd %cc65path%\bin\
 
 @REM cl65.exe  -O -t atmos --config %mypath%\cfg\atmos_better_tap.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atmos_redefined_chars.tap
 
-@REM 
-cl65.exe  -O -t atarixl --start-addr 0x4000 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atariXL.xex
+@REM cl65.exe  -O -t atarixl --start-addr 0x4000 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atariXL.xex
 
 @REM apple2 has a "sleep" issue
 @REM 
@@ -62,13 +61,20 @@ cl65.exe  -O -t atarixl --start-addr 0x4000 %mypath%\display_macros.c %mypath%\p
 
 @REM apple2enh has a "sleep" issue
 @REM 
-@REM cl65.exe -O -t apple2enh %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\apple2enh.bin
-@REM cd %mypath%\tools
-@REM cp MASTER.DSK %deliverables%\apple2enh.dsk
-@REM java -jar ac.jar -cc65 %deliverables%\apple2enh.dsk aschase B < %deliverables%\apple2enh.bin
-@REM del %deliverables%\MASTER.DSK
-@REM del %deliverables%\apple2enh.bin
-@REM cd %cc65path%\bin\
+@REM 
+cl65.exe -O -t apple2enh %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\apple2enh.bin
+@REM 
+cd %mypath%\tools
+@REM 
+cp MASTER.DSK %deliverables%\apple2enh.dsk
+@REM 
+java -jar ac.jar -cc65 %deliverables%\apple2enh.dsk aschase B < %deliverables%\apple2enh.bin
+@REM 
+del %deliverables%\MASTER.DSK
+@REM 
+del %deliverables%\apple2enh.bin
+@REM 
+cd %cc65path%\bin\
 
 
 

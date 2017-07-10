@@ -40,6 +40,8 @@
 	#include "atmos/atmos_input.h"
 #elif defined(__APPLE2__) || (__APPLE2ENH__)
 	#include "apple2/apple2_input.h"
+#elif defined(__ATARI__) || defined(__ATARIXL__)
+	#include "atari/atari_input.h"
 #else
 	#define GET_CHAR() cgetc();
 #endif
@@ -54,7 +56,9 @@
 
 #if defined (__CBM610__) || defined(__PLUS4__) || defined(__C16__)
 	#define WAIT_PRESS() WAIT_KEY_PRESS();
-#elif defined (__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__NES__)
+#elif defined (__CBM__) || defined(__NES__)
+	#define WAIT_PRESS() WAIT_JOY1_PRESS();
+#elif defined(__ATARI__) || defined(__ATARIXL__) 
 	#define WAIT_PRESS() WAIT_JOY1_PRESS();
 #else
 	#define WAIT_PRESS() WAIT_KEY_PRESS();

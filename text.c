@@ -116,7 +116,7 @@ void displayStatsTitles(void)
 		PRINT(2,2-Y_OFFSET,"LEVEL:");
 		#ifndef __VIC20__
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			PRINT(24,1-Y_OFFSET,"ASCII CHASE");
+			PRINT(24,1-Y_OFFSET,"CROSS CHASE");
 			SET_TEXT_COLOR(TEXT_COLOR);	
 		#endif
 	#endif
@@ -360,7 +360,7 @@ void printStartMessage(void)
 {
 	#if defined(__C64__)
 		SET_TEXT_COLOR(COLOR_RED);
-		PRINT((XSize - 22) / 2, 2, "a s c i i   c h a s e");
+		PRINT((XSize - 22) / 2, 2, "c r o s s   c h a s e");
 		//SET_TEXT_COLOR(TEXT_COLOR);
 		
 		SET_TEXT_COLOR(COLOR_BROWN);

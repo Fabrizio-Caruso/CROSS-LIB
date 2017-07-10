@@ -329,7 +329,7 @@ typedef struct ImageStruct Image;
 			{ \
 				gotoxy(x+X_OFFSET,(y+Y_OFFSET+i)/2); \
 			} \
-			cputc('o'); \
+			cputc('a'+20+12); \
 		} \
 	}
 	
@@ -341,7 +341,7 @@ typedef struct ImageStruct Image;
 			for(i=0;i<length;++i) \
 			{ \
 				gotoxy(x+20+X_OFFSET+i,(y+Y_OFFSET)/2); \
-				cputc('o'); \
+				cputc('-'+64+32); \
 			} \
 		} \
 		else \
@@ -349,7 +349,7 @@ typedef struct ImageStruct Image;
 			for(i=0;i<length;++i) \
 			{ \
 				gotoxy(x+X_OFFSET+i,(y+Y_OFFSET)/2); \
-				cputc('o'); \
+				cputc('-'+64+32); \
 			} \
 		} \
 	}

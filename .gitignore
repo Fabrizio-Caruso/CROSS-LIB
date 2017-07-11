@@ -2,4 +2,5 @@ deliverables
 tools
 graphics/graphics.o
 *.o
+*.def
 

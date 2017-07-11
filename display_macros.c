@@ -31,7 +31,7 @@
 /*                                                                           */
 /*****************************************************************************/
  
-#include <peekpoke.h>
+//#include <peekpoke.h>
 #include "display_macros.h"
 
 #if defined(__C64__)

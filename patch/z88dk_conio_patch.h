@@ -30,31 +30,19 @@
 /*    distribution.                                                          */
 /*                                                                           */
 /*****************************************************************************/
-#ifndef _GENERIC_CONIO_PATH
-#define _GENERIC_CONIO_PATH
 
-	#ifndef COLOR_BLACK
-	#define COLOR_BLACK 0
-	#endif
+#ifndef _Z88DK_CONIO_PATH
+#define _Z88DK_CONIO_PATH
 
-	#ifndef COLOR_WHITE
-	#define COLOR_WHITE 1
-	#endif
+	#include <conio.h>
 
-	#ifndef COLOR_RED
-	#define COLOR_RED 1
-	#endif
-
-
-	#ifndef COLOR_BLUE
-	#define COLOR_BLUE 1
-	#endif
-
-	#ifndef CH_ULCORNER
-		#define CH_ULCORNER 'X'
-		#define CH_URCORNER 'X'
-		#define CH_LLCORNER 'X'
-		#define CH_LRCORNER 'X'	
-	#endif
+	// void cputc(unsigned char c) {};
+	// void cputc(unsigned char c) 
+	// {
+		// char s[2]; 
+		// s[0] = c; 
+		// s[1] ='\0'; 
+		// cputs(s);
+	// };
 	
-#endif // _GENERIC_CONIO_PATH
+#endif // _Z88DK_CONIO_PATH

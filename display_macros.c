@@ -89,11 +89,11 @@
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;	
 			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
-		#elif defined(__C16__) || defined(__PLUS4__)
-			PLAYER_IMAGE._color = COLOR_WHITE;
+		#elif defined(__C128__) 
+			PLAYER_IMAGE._color = COLOR_CYAN;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
-			POWERUP_IMAGE._color = COLOR_GRAY1;
-			GUN_IMAGE._color = COLOR_GRAY1;
+			POWERUP_IMAGE._color = COLOR_YELLOW;
+			GUN_IMAGE._color = COLOR_BROWN;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
 			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;

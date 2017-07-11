@@ -82,7 +82,7 @@ unsigned short innerVerticalWallY;
 unsigned short innerVerticalWallX; 
 unsigned short innerVerticalWallLength;
 
-unsigned char extraLifeThroughPointsCounter = 1;
+unsigned long extraLifeThroughPointsCounter = 1;
 
 // Level
 // The level affects:
@@ -523,7 +523,7 @@ int main(void)
 			{
 				++loop;
 				
-				if(points>extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS)
+				if(points>(long) (extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS))
 				{
 					++extraLifeThroughPointsCounter;
 					PING_SOUND();

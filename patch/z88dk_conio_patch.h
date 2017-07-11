@@ -31,8 +31,8 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef _Z88DK_CONIO_PATH
-#define _Z88DK_CONIO_PATH
+#ifndef _Z88DK_CONIO_PATCH
+#define _Z88DK_CONIO_PATCH
 
 	#include <conio.h>
 
@@ -44,4 +44,4 @@
 		cputs(s);
 	}
 	
-#endif // _Z88DK_CONIO_PATH
+#endif // _Z88DK_CONIO_PATCH

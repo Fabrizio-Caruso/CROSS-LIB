@@ -31,7 +31,7 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef  _SOUNDS_MACROS
+#ifndef _SOUNDS_MACROS
 #define _SOUNDS_MACROS
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_sounds.h"

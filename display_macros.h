@@ -41,13 +41,8 @@
 #if defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
 #elif !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
-	#include "patch/generic_conio_patch.h"
 	#include "patch/z88dk_conio_patch.h"
 #endif
-
-// #if defined(__C64__)
-	// #include "c64/c64_hardware_sprite.h"
-// #endif
 
 
 
@@ -110,14 +105,11 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_BOMB(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, image->_imageData + image->_color);};
 
-	// #define DRAW_POWERUP(x,y,image) {gotoxy((x+X_OFFSET,(y+Y_OFFSET)); cputc(image->_imageData + image->_color);};
 	void DRAW_POWERUP(char x, char y, Image * image) 
 	{
-		//gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		if(powerUp_blink) 
 		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			//cputc(image->_imageData + image->_color); 
+			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color ); 
 			powerUp_blink=0;
 		} 
 		else 
@@ -128,14 +120,11 @@ typedef struct ImageStruct Image;
 	};
 	
 	
-	// #define DRAW_GUN(x,y,image) {gotoxy((x+X_OFFSET,(y+Y_OFFSET)); cputc(image->_imageData + image->_color);};
 	void DRAW_GUN(char x, char y, Image * image) 
 	{
-		//gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		if(gun_blink) 
 		{
 			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			//cputc(image->_imageData + image->_color); 
 			gun_blink=0;
 		} 
 		else 
@@ -145,14 +134,11 @@ typedef struct ImageStruct Image;
 		}
 	};
 	
-	// #define DRAW_GUN(x,y,image) {gotoxy((x+X_OFFSET,(y+Y_OFFSET)); cputc(image->_imageData + image->_color);};
 	void DRAW_EXTRA_POINTS(char x, char y, Image * image) 
 	{
-		//gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		if(extra_points_blink) 
 		{
 			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			//cputc(image->_imageData + image->_color); 
 			extra_points_blink=0;
 		} 
 		else 
@@ -362,17 +348,13 @@ typedef struct ImageStruct Image;
 	{ \
 		SET_TEXT_COLOR(TEXT_COLOR); \
 		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-		//cputc (CH_ULCORNER);\
 		cputc ('X');\
 		DRAW_HORIZONTAL_LINE (1+X_OFFSET,0+Y_OFFSET, XSize-2);\
-		//cputc (CH_URCORNER);\
 		cputc ('X');\
 		DRAW_VERTICAL_LINE(0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
-		//cputc (CH_LLCORNER);\
 		gotoxy(0+20,(YSize-1)/2); \
 		cputc ('X'); \
 		DRAW_HORIZONTAL_LINE (1+X_OFFSET,YSize-1,XSize-2);\
-		//cputc (CH_LRCORNER);\
 		cputc ('X');\
 		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 2); \
 	}

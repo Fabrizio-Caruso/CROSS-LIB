@@ -49,4 +49,4 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection);
 
 void restoreMissile(Character *missilePtr);
 
-#endif _MISSILE
+#endif //_MISSILE

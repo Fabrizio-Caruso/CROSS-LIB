@@ -39,7 +39,7 @@
 #define C64_HARDWARE_SPRITES 0
 #define C64_REDEFINED_CHARACTERS 0
 
-#define EXTRA_LIFE_THROUGH_POINTS 20000ul
+
 
 #define FAST_NONEXACT_COLLISION_DECTION
 
@@ -62,6 +62,8 @@
 #define POWER_UP_COLOR COLOR_BLUE
 #define GUN_COLOR COLOR_BROWN
 
+#define EXTRA_LIFE_THROUGH_POINTS 20000
+
 #define GHOST_VS_GHOST_COLLISION_LEVEL 16
 #define GHOST_VS_GHOST_COLLISION_START 200
 
@@ -69,31 +71,33 @@
 #define EXTRA_POINTS_COOL_DOWN 900
 
 #define MIN_INVINCIBLE_GHOST_HITS 5
-#define INVINCIBLE_GHOST_POINTS 5000ul;
+#define INVINCIBLE_GHOST_POINTS 5000;
 
-#define EXTRA_POINTS 2500ul
-#define EXTRA_POINTS_LEVEL_INCREASE 100ul
+#define EXTRA_POINTS 2500
+#define EXTRA_POINTS_LEVEL_INCREASE 100
+
+
 
 // If two or more ghosts bump into eachother for each ghost
-#define GHOST_VS_GHOST_BONUS 500ul
+#define GHOST_VS_GHOST_BONUS 500
 
 // If a ghost bumps into a bomb
-#define GHOST_VS_BOMBS_BONUS 250ul
+#define GHOST_VS_BOMBS_BONUS 250
 
 // Points for shooting a ghost
-#define GHOST_VS_MISSILE 100ul
+#define GHOST_VS_MISSILE 100
 
 // Extra points for the power up
-#define POWER_UP_BONUS 200ul
+#define POWER_UP_BONUS 200
 
 // Extra points for the power up
-#define GUN_BONUS 300ul
+#define GUN_BONUS 300
 
 // Points for each tick
-#define LOOP_POINTS 1ul
+#define LOOP_POINTS 1
 
 // Points gained at the end of each level (to be multipled by level)
-#define LEVEL_BONUS 500ul
+#define LEVEL_BONUS 500
 
 
 // MINE DISTRIBUTION

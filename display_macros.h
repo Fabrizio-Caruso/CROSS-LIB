@@ -40,6 +40,9 @@
 #include "patch/generic_conio_patch.h"
 #if defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
+#elif !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#include "patch/generic_conio_patch.h"
+	#include "patch/z88dk_conio_patch.h"
 #endif
 
 // #if defined(__C64__)
@@ -448,25 +451,33 @@ typedef struct ImageStruct Image;
 	void _delete(char x,char y);
 
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
-
-	#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
-
-	#define DRAW_BORDERS()\
-	{ \
-		SET_TEXT_COLOR(TEXT_COLOR); \
-		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-		cputc (CH_ULCORNER);\
-		chline (XSize-2);\
-		cputc (CH_URCORNER);\
-		cvlinexy (0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
-		cputc (CH_LLCORNER);\
-		chline (XSize-2);\
-		cputc (CH_LRCORNER);\
-		cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
-	}
-
+	
+	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+		#define PRINTF(x,y,par) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(par); };
+	#else
+		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
+	#endif
+	
+	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+		#define DRAW_BORDERS()
+		#define DRAW_VERTICAL_LINE(x,y,length)
+	#else
+		#define DRAW_BORDERS()\
+		{ \
+			SET_TEXT_COLOR(TEXT_COLOR); \
+			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+			cputc (CH_ULCORNER);\
+			chline (XSize-2);\
+			cputc (CH_URCORNER);\
+			cvlinexy (0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
+			cputc (CH_LLCORNER);\
+			chline (XSize-2);\
+			cputc (CH_LRCORNER);\
+			cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
+		}
 	#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
-
+	#endif
+	
 	#if defined(__C16__) || defined(__PLUS4__) || defined(__C64__)
 		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
 		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }

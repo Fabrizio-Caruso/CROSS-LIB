@@ -31,44 +31,51 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#include <conio.h>
-#include <joystick.h>
+#ifndef _INPUT_MACROS
+#define _INPUT_MACROS
 
-#define IF_KEYBOARD_HIT if(kbhit()) 
-	
-#if defined(__ATMOS__)
-	#include "atmos/atmos_input.h"
-#elif defined(__APPLE2__) || (__APPLE2ENH__)
-	#include "apple2/apple2_input.h"
-#elif defined(__ATARI__) || defined(__ATARIXL__)
-	#include "atari/atari_input.h"
-#else
-	#define GET_CHAR() cgetc();
-#endif
+	#include <conio.h>
+	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
+	#else
+		#include <joystick.h>
+	#endif
 
-#define WAIT_JOY1_OR_KEY_PRESS() 	while(!(kbInput = joy_read(JOY_1)) || !(kbInput=kbhit())} 
+	#define IF_KEYBOARD_HIT if(kbhit()) 
+		
+	#if defined(__ATMOS__)
+		#include "atmos/atmos_input.h"
+	#elif defined(__APPLE2__) || (__APPLE2ENH__)
+		#include "apple2/apple2_input.h"
+	#elif defined(__ATARI__) || defined(__ATARIXL__)
+		#include "atari/atari_input.h"
+	#else
+		#define GET_CHAR() cgetc();
+	#endif
 
-#define WAIT_JOY1_PRESS() while(!(kbInput = joy_read(JOY_1))){}
+	#define WAIT_JOY1_OR_KEY_PRESS() 	while(!(kbInput = joy_read(JOY_1)) || !(kbInput=kbhit())} 
 
-#define WAIT_JOY2_PRESS() while(!(kbInput = joy_read(JOY_2))){}
+	#define WAIT_JOY1_PRESS() while(!(kbInput = joy_read(JOY_1))){}
 
-#define WAIT_KEY_PRESS() {while(!kbhit()){}; cgetc();};
+	#define WAIT_JOY2_PRESS() while(!(kbInput = joy_read(JOY_2))){}
 
-#if defined (__CBM610__) || defined(__PLUS4__) || defined(__C16__)
-	#define WAIT_PRESS() WAIT_KEY_PRESS();
-#elif defined (__CBM__) || defined(__NES__)
-	#define WAIT_PRESS() WAIT_JOY1_PRESS();
-#elif defined(__ATARI__) || defined(__ATARIXL__) 
-	#define WAIT_PRESS() WAIT_JOY1_PRESS();
-#else
-	#define WAIT_PRESS() WAIT_KEY_PRESS();
-#endif
+	#define WAIT_KEY_PRESS() {while(!kbhit()){}; cgetc();};
 
-#if defined (__CBM610__)
-#else
-	#define JOY_INSTALL() { joy_install(joy_static_stddrv); };
+	#if defined (__CBM610__) || defined(__PLUS4__) || defined(__C16__)
+		#define WAIT_PRESS() WAIT_KEY_PRESS();
+	#elif defined (__CBM__) || defined(__NES__)
+		#define WAIT_PRESS() WAIT_JOY1_PRESS();
+	#elif defined(__ATARI__) || defined(__ATARIXL__) 
+		#define WAIT_PRESS() WAIT_JOY1_PRESS();
+	#else
+		#define WAIT_PRESS() WAIT_KEY_PRESS();
+	#endif
 
-	#define GET_JOY1() joy_read (JOY_1);
+	#if defined (__CBM610__)
+	#else
+		#define JOY_INSTALL() { joy_install(joy_static_stddrv); };
 
-	#define GET_JOY2() joy_read (JOY_2);
-#endif
+		#define GET_JOY1() joy_read (JOY_1);
+
+		#define GET_JOY2() joy_read (JOY_2);
+	#endif
+#endif // _INPUT_MACROS

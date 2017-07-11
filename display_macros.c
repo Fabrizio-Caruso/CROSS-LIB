@@ -152,7 +152,13 @@
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
 		cputc(image->_imageData); 
-	};
+	}
+	
+	void _delete(char x, char y)
+	{
+		gotoxy(x+X_OFFSET,y+Y_OFFSET);
+		cputc(' ');
+	}
 	
 	void _blink_powerUp_draw(char x, char y, Image * image) 
 	{
@@ -168,7 +174,7 @@
 			cputc(' '); 
 			powerUp_blink=1;
 		}	
-	};
+	}
 	
 	void _blink_gun_draw(char x, char y, Image * image) 
 	{
@@ -184,7 +190,7 @@
 			cputc(' '); 
 			gun_blink=1;
 		}	
-	};
+	}
 
 	void _blink_extra_points_draw(char x, char y, Image * image) 
 	{
@@ -200,11 +206,6 @@
 			cputc(' '); 
 			extra_points_blink=1;
 		}	
-	};
-	
-	void _delete(char x, char y)
-	{
-		gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');
-	};
+	}
 	
 #endif

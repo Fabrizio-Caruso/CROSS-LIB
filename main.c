@@ -68,8 +68,8 @@ unsigned int extraPointsCoolDown;
 unsigned int ghostLevelDecrease = 100;
 unsigned int powerUpInitialCoolDown = 100; 
 
-unsigned int ghostLevel = 1u;
-unsigned long points = 0ul;
+unsigned int ghostLevel = 1;
+unsigned long points = 0;
 
 unsigned short playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
 unsigned short missileDirection = 0;
@@ -469,7 +469,7 @@ int main(void)
 		deleteCenteredMessage();
 
 		extraLifeThroughPointsCounter = 1;
-		points = 0ul;
+		points = 0;
 		level = INITIAL_LEVEL; 	
 		lives = LIVES_NUMBER;
 		ghostCount = GHOSTS_NUMBER;
@@ -481,7 +481,7 @@ int main(void)
 			//unsigned char i;
 			computeStrategy();
 			loop = 0;
-			ghostLevel = 0u;
+			ghostLevel = 0;
 			//ghostCount = GHOSTS_NUMBER;
 			guns = 0;
 			gun._status = 0;

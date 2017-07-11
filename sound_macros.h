@@ -45,4 +45,4 @@
 		#define TOCK_SOUND() {};
 		#define ZAP_SOUND() {};
 	#endif
-#endif _SOUNDS_MACROS
+#endif // _SOUNDS_MACROS

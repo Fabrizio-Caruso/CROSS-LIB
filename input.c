@@ -35,6 +35,7 @@
 #include "settings.h"
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
+#elif !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
 #else
 	#include <joystick.h>
 #endif
@@ -55,7 +56,8 @@ extern Character player;
 
 extern unsigned short ghostCount;
 
-#if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) 
+#if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
+#elif !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
 #else
 	void movePlayerByJoystick(unsigned char joyInput)
 	{

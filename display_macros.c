@@ -138,6 +138,14 @@
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
 	}
+
+
+	void _draw_broken_wall(char x, char y)
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		(void) textcolor (COLOR_WHITE);
+		cputc('X');
+	}
 	
 	void _draw(char x, char y, Image * image) 
 	{
@@ -152,13 +160,11 @@
 		(void) textcolor (image->_color);
 		if(powerUp_blink) 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
 			cputc(image->_imageData); 
 			powerUp_blink=0;
 		} 
 		else 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32); 
 			cputc(' '); 
 			powerUp_blink=1;
 		}	
@@ -170,13 +176,11 @@
 		(void) textcolor (image->_color);
 		if(gun_blink) 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
 			cputc(image->_imageData); 
 			gun_blink=0;
 		} 
 		else 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32); 
 			cputc(' '); 
 			gun_blink=1;
 		}	
@@ -188,13 +192,11 @@
 		(void) textcolor (image->_color);
 		if(extra_points_blink) 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
 			cputc(image->_imageData); 
 			extra_points_blink=0;
 		} 
 		else 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32); 
 			cputc(' '); 
 			extra_points_blink=1;
 		}	

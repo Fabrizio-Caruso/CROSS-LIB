@@ -4,15 +4,15 @@ après de l'institut de recherche RISC de la Johannes Kepler Universit"at.
 Plusieurs post-docs en Espagne, France, Italie.
 Depuis 5 ans, je travaille comme senior developpeur pour une grosse entreprise
 à Sophia Antipolis (06), France. 
-Toujour passioné du retrocomputing. J'ai collectioné 80 "ordinosaures"
+Toujours passioné du retrocomputing. J'ai collectioné 80 "ordinosaures"
 (incluent deux Oric Atoms, un Oric 1 et des betes un petit rares comme le Sharp MZ 711 et
 le Mattel Aquarius).
 
 
 BIOGRAPHIE
 Fabrizio Caruso, sicilien de naissance, antibois d'adoption, 
-doctorat en calcul formel (c'est de l'algèbre + informatique théorique)
-à l'institut de recherche RISC de la Johannes Kepler Universit\"at.
+doctorat en calcul formel
+à l'institut de recherche RISC de la Johannes Kepler Universität.
 Plusieurs années de recherche en Espagne, France, Italie.
 Depuis 5 ans, je travaille comme senior développeur 
 pour une grande entreprise à Sophia-Antipolis (06), France. 
@@ -34,11 +34,11 @@ Le jeu pourrait aussi supporter des vrais sprites à la place de caractères san
 du noyau du code.
 
 CROSS CHASE - LE JEU
-Le but du jeu c'est de se debarasser des 8 enemies qui nous persecutent sur les mines.
-Une tête de mort est un enemi plus fort (presque invincible) et c'est mieux de l'éviter.
-Les énemies ne voient pas les mines. Ils devient toujours plus rapides sauf si le jeur prend le power-up S (slow-down).
-Le jeuer peut trouver un pistolet pour tirer sur les énemies. 
-Il y a d'autres power-ups à decouvrir.
-En total il y 40 niveau avec des obstacles et enemies different.
-Tip 1: Il y a trois methodes pour tuer les enemies normaux.
-Tip 2: Tirer sur la tete de mort peut amener des avantage pour les jeuer.
+Le but du jeu c'est de se débarrasser des 8 ennemis qui nous persécutent en les faisant écraser sur des mines.
+La tête de mort est un ennemi plus fort et c'est mieux de l'éviter.
+Ils deviennent toujours plus intelligents et plus rapides.
+Le joueur peut les ralentir en prenant le power-up S (slow-down) e peut trouver un pistolet pour tirer sur eux. 
+Il y a d'autres power-ups à découvrir.
+Au total il y 40 niveaux avec des obstacles et ennemis différents.
+Tip 1: Il y a trois méthodes pour tuer les ennemies.
+Tip 2: Tirer sur la tête de mort peut amener des avantages pour le joueur.

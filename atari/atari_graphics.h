@@ -88,12 +88,12 @@
 		EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
 	}
 
-	// void _draw(char x, char y, Image * image) 
-	// {
-		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		// (void) textcolor (image->_color);
-		// cputc(image->_imageData); 
-	// };
+	void _draw_broken_wall(char x, char y)
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		(void) textcolor (COLOR_WHITE);
+		cputc('X');
+	}
 	
 	void _draw(char x, char y, Image * image) 
 	{

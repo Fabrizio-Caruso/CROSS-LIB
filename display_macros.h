@@ -237,7 +237,7 @@ typedef struct ImageStruct Image;
 	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
 #elif defined(__ATARI__) || defined(__ATARIXL__)
 	
-	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
+	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);}; //{gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
 
 	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
 	
@@ -253,6 +253,7 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_extra_points_draw(x,y,image);};
 	
+	void _draw_broken_wall(char x, char y);
 	void _draw(char x, char y, Image * image);
 	void _blink_powerUp_draw(char x, char y, Image * image);
 	void _blink_gun_draw(char x, char y, Image * image);
@@ -395,7 +396,7 @@ typedef struct ImageStruct Image;
 	#endif
 
 	
-	#define DRAW_BROKEN_WALL(x,y) {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
+	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
 
 	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
 	
@@ -410,7 +411,8 @@ typedef struct ImageStruct Image;
 	#define DRAW_GUN(x,y,image) {_blink_gun_draw(x,y,image);};
 
 	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_extra_points_draw(x,y,image);};
-	
+
+	void _draw_broken_wall(char x, char y);	
 	void _draw(char x, char y, Image * image);
 	void _blink_powerUp_draw(char x, char y, Image * image);
 	void _blink_gun_draw(char x, char y, Image * image);

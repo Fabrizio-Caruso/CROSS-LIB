@@ -117,6 +117,13 @@
 		PLAYER_LEFT._imageData = (char) 0x76 - 4;
 		PLAYER_LEFT._color = PLAYER_IMAGE._color;		
 	}
+
+	void _draw_broken_wall(char x, char y)
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		(void) textcolor (COLOR_WHITE);
+		cputc('X');
+	}
 	
 	void _draw(char x, char y, Image * image) 
 	{

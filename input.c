@@ -56,6 +56,8 @@ extern Character player;
 
 extern unsigned short ghostCount;
 
+extern unsigned char player_invincibility;
+
 #if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 #elif !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
 #else
@@ -97,7 +99,14 @@ extern unsigned short ghostCount;
 		{
 			playerFire = 1;
 		}
-		DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		if(player_invincibility)
+		{
+			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
+		}
+		else
+		{
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		}
 	}
 #endif
 
@@ -147,7 +156,14 @@ void movePlayerByKeyboard(char kbInput)
 	{
 		playerFire = 1;
 	}
-	DRAW_PLAYER(player._x, player._y, player._imagePtr);
+	if(player_invincibility)
+	{
+		DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
+	}
+	else
+	{
+		DRAW_PLAYER(player._x, player._y, player._imagePtr);
+	}
 }
 
 

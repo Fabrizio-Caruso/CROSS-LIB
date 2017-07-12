@@ -385,6 +385,8 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
 	
+	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_player_draw(x,y,image);};
+	
 	#define DRAW_GHOST(x,y,image)  {_draw(x,y,image);};
 	
 	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
@@ -408,6 +410,7 @@ typedef struct ImageStruct Image;
 	void _blink_extra_points_draw(char x, char y, Image * image);	
 	void _blink_extra_life_draw(char x, char y, Image * image);
 	void _blink_invincibility_draw(char x, char y, Image * image);
+	void _blink_player_draw(char x, char y, Image * image);
 	
 	
 	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};

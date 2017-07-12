@@ -67,6 +67,9 @@ unsigned int extraPointsCoolDown;
 unsigned int extraLifeCoolDown;
 unsigned int invincibilityCoolDown;
 
+unsigned int playerInvincibilityCoolDown;
+unsigned char playerInvincibility = 0;
+
 unsigned int ghostLevelDecrease = 100;
 unsigned int powerUpInitialCoolDown = 100; 
 
@@ -109,6 +112,8 @@ unsigned int loop;
 unsigned char invincibleGhostHits = 0;
 
 unsigned char invincibleGhostAlive = 1;
+
+unsigned char player_invincibility = 0;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -338,6 +343,7 @@ void handle_extraLife_item()
 		if(powerUpReached(&player, &extraLife))
 		{
 			ZAP_SOUND();
+			// TODO: Use good DELETE
 			DELETE_EXTRA_POINTS(extraLife._x,extraLife._y,extraLife._imagePtr);
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 			++lives;
@@ -373,14 +379,13 @@ void handle_invincibility_item()
 		if(powerUpReached(&player, &invincibility))
 		{
 			ZAP_SOUND();
+			// TODO: Use good DELETE
 			DELETE_EXTRA_POINTS(invincibility._x,invincibility._y,invincibility._imagePtr);
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-			// TODO: Implement invincibility
-			// points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
-			// if(missileLevel(level))
-				// points+=EXTRA_POINTS; 
+			player_invincibility = 1;
 			invincibility._status = 0;	
 			invincibilityCoolDown = INVINCIBILITY_COOL_DOWN;
+			playerInvincibilityCoolDown = PLAYER_INVINCIBILITY_COOL_DOWN;
 		}
 		else
 		{
@@ -428,7 +433,7 @@ void handle_invincible_ghost(void)
 			moveTowardCharacter(&invincibleGhost, &player, 4);
 		}
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-		if(areCharctersAtSamePosition(&invincibleGhost, &player))
+		if(!player_invincibility && areCharctersAtSamePosition(&invincibleGhost, &player))
 		{
 			EXPLOSION_SOUND();
 			die(&player);
@@ -471,8 +476,7 @@ void handle_player_vs_inner_wall(void)
 void handle_player_vs_bombs_and_ghosts(void)
 {
 	// Check collision player vs ghosts and player vs bombs
-	if(playerReached(&player) ||
-	   playerReachedBombs(&player))
+	if(!player_invincibility && (playerReached(&player) || playerReachedBombs(&player)))
 	{
 		EXPLOSION_SOUND();
 		die(&player);
@@ -555,6 +559,7 @@ int main(void)
 			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;
 			extraLifeCoolDown = EXTRA_LIFE_COOL_DOWN;
 			invincibilityCoolDown = INVINCIBILITY_COOL_DOWN;
+			player_invincibility = 0;
 			
 			computeStrategy();
 			loop = 0;
@@ -595,10 +600,20 @@ int main(void)
 			rightEnemyMissile._x = XSize-4; rightEnemyMissile._y = 4;
 			leftEnemyMissile._x = 4; leftEnemyMissile._y = YSize-4;
 			
+			playerInvincibility = 0;
 	
 			while(player._status && ghostCount>0) // while alive && there are still ghosts
 			{
 				++loop;
+				
+				if(playerInvincibility && playerInvincibilityCoolDown<=0)
+				{
+					playerInvincibility = 0;
+				}
+				else
+				{
+					--playerInvincibilityCoolDown;
+				}
 				
 				if(points>(extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS))
 				{
@@ -620,7 +635,7 @@ int main(void)
 					{
 						if(bubbles[i]->_status)
 						{
-							if(areCharctersAtSamePosition(&player,bubbles[i]))
+							if(!player_invincibility && areCharctersAtSamePosition(&player,bubbles[i]))
 							{
 								EXPLOSION_SOUND();
 								die(&player);
@@ -676,7 +691,7 @@ int main(void)
 						}
 					}
 					DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
-					if(areCharctersAtSamePosition(&leftEnemyMissile,&player))
+					if(!player_invincibility && areCharctersAtSamePosition(&leftEnemyMissile,&player))
 					{
 						EXPLOSION_SOUND()
 						die(&player);
@@ -706,7 +721,7 @@ int main(void)
 						}
 					}
 					DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);				
-					if(areCharctersAtSamePosition(&rightEnemyMissile,&player))
+					if(!player_invincibility && areCharctersAtSamePosition(&rightEnemyMissile,&player))
 					{
 						EXPLOSION_SOUND()
 						die(&player);
@@ -743,8 +758,15 @@ int main(void)
 				handle_powerup_item();
 
 				handle_extraPoints_item();
-				handle_extraLife_item();
-				handle_invincibility_item();
+				if (level>=EXTRA_LIFE_FIRST_LEVEL)
+				{
+					handle_invincibility_item();
+					handle_extraLife_item();
+				}
+				else if(level>=INVINCIBILITY_FIRST_LEVEL)
+				{
+					handle_invincibility_item();
+				}
 				
 				handle_player_vs_outer_wall();
 				

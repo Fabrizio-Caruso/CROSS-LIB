@@ -75,6 +75,7 @@
 	char extra_points_blink = 1;
 	char extra_life_blink = 1;
 	char invincibility_blink = 1;
+	char player_blink = 1;
 	
 	void INIT_GRAPHICS(void)
 	{
@@ -313,6 +314,23 @@
 		}	
 	};
 	
+	void _blink_player_draw(char x, char y, Image * image) 
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		(void) textcolor (image->_color);
+		if(player_blink) 
+		{
+			cputc(image->_imageData);
+			player_blink=0;
+		} 
+		else 
+		{
+			cputc(' '); 
+			player_blink=1;
+		}	
+	};
+	
+
 	
 	void _delete(char x, char y)
 	{

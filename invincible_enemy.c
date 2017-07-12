@@ -55,9 +55,9 @@ int computeInvincibleSlowDown(void)
 	{
 		return 25500 - (level/4) * 1000 - loop*4;
 	}
-	else if(loop<1100)
+	else if(loop<1200)
 	{
-		return 6000;
+		return 7000;
 	}
 	return 0; // You must die!
 }

@@ -68,7 +68,6 @@ unsigned int extraLifeCoolDown;
 unsigned int invincibilityCoolDown;
 
 unsigned int playerInvincibilityCoolDown;
-unsigned char playerInvincibility = 0;
 
 unsigned int ghostLevelDecrease = 100;
 unsigned int powerUpInitialCoolDown = 100; 
@@ -462,7 +461,7 @@ void handle_player_vs_outer_wall(void)
 void handle_player_vs_inner_wall(void)
 {
 	// Check collistion player vs inner wall
-	if(innerWallReached(&player))
+	if(!player_invincibility && innerWallReached(&player))
 	{
 		EXPLOSION_SOUND();
 		die(&player);
@@ -600,15 +599,15 @@ int main(void)
 			rightEnemyMissile._x = XSize-4; rightEnemyMissile._y = 4;
 			leftEnemyMissile._x = 4; leftEnemyMissile._y = YSize-4;
 			
-			playerInvincibility = 0;
+			player_invincibility = 0;
 	
 			while(player._status && ghostCount>0) // while alive && there are still ghosts
 			{
 				++loop;
 				
-				if(playerInvincibility && playerInvincibilityCoolDown<=0)
+				if(player_invincibility && playerInvincibilityCoolDown<=0)
 				{
-					playerInvincibility = 0;
+					player_invincibility = 0;
 				}
 				else
 				{

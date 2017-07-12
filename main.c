@@ -523,7 +523,7 @@ int main(void)
 			{
 				++loop;
 				
-				if(points>(long) (extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS))
+				if(points>(extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS))
 				{
 					++extraLifeThroughPointsCounter;
 					PING_SOUND();

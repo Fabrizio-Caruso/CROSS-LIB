@@ -439,7 +439,7 @@ int main(void)
 			PRINTF(0,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
 			PRINTF(0,2,"bomb %c\n", BOMB_IMAGE._imageData);
 			PRINTF(0,3,"player %c\n", PLAYER_IMAGE._imageData);
-			#if defined(__C16__) || defined(__PLUS4__) || defined(__C64__)
+			#if defined(__C16__) || defined(__PLUS4__) || defined(__C64__) || defined(__ATMOS__)
 				PRINTF(0,4,"player %c\n", PLAYER_UP._imageData);
 				PRINTF(0,5,"player %c\n", PLAYER_DOWN._imageData);
 				PRINTF(0,6,"player %c\n", PLAYER_LEFT._imageData);
@@ -478,11 +478,11 @@ int main(void)
 			invincibleGhostAlive = 1;
 			invincibleGhostHits = 0;
 			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;
-			//unsigned char i;
+			
 			computeStrategy();
 			loop = 0;
 			ghostLevel = 0;
-			//ghostCount = GHOSTS_NUMBER;
+			
 			guns = 0;
 			gun._status = 0;
 			
@@ -539,12 +539,10 @@ int main(void)
 				{ 
 					unsigned char i;
 
-					for(i=0;i<BUBBLES_NUMBER;i++)
+					for(i=0;i<BUBBLES_NUMBER;++i)
 					{
 						if(bubbles[i]->_status)
 						{
-							//unsigned int rnd = rand();
-
 							if(areCharctersAtSamePosition(&player,bubbles[i]))
 							{
 								EXPLOSION_SOUND();

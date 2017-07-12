@@ -77,6 +77,15 @@
 	char invincibility_blink = 1;
 	char player_blink = 1;
 	
+	void redefine(unsigned long loc, char * data)
+	{
+		unsigned short i;
+		for(i=0;i<8;++i)
+		{
+			POKE(loc+i,data[i]);
+		}
+	}
+	
 	void INIT_GRAPHICS(void)
 	{
 		unsigned short i;
@@ -103,6 +112,31 @@
 		POKE(65299ul,(PEEK(65299ul)&3)|((29)*4)); // change character base address to 28th Kbyte
 		POKE(65298ul,PEEK(65298ul)&251); // make graphics chip get characters from RAM
 		
+		redefine(24576+4096+1024+296,player_down);
+		redefine(24576+4096+1024+296+8,player_down);		
+		redefine(24576+4096+1024+296+8*2,player_down);
+		redefine(24576+4096+1024+296+8*3,player_down);
+		
+		redefine(24576+4096+1024+296+8*4,missile_right);
+		redefine(24576+4096+1024+296+8*5,missile_left);	
+		
+		redefine(24576+4096+1024+296+8*6,invincible_ghost);
+		redefine(24576+4096+1024+296+8*7,gun);
+
+		redefine(24576+4096+1024+296+8*2,player_down);
+		redefine(24576+4096+1024+296+8*3,player_down);
+
+		redefine(24576+4096+1024+296-8*2,powerUp);
+		redefine(24576+4096+1024+296+8*9,missile);
+
+		redefine(24576+4096+1024+296-8*2,powerUp);
+		redefine(24576+4096+1024+296+8*9,missile);
+
+		redefine(24576+4096+1024+296+8*10,bomb);
+		redefine(24576+4096+1024+296-8*3,ghost);
+		redefine(24576+4096+1024+296+8*22,bubble);
+
+/*		
 		for(i=0;i<8;++i)
 		{
 			POKE(24576+4096+1024+296+i,player_down[i]);
@@ -165,7 +199,8 @@
 		for(i=0;i<8;++i)
 		{
 			POKE(24576+4096+1024+296+8*22+i,bubble[i]);
-		}			
+		}	
+*/		
 	}
 	 
 	 

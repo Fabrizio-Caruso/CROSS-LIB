@@ -181,6 +181,8 @@ void handle_missile()
 				DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 				restoreMissile(&missile);
 				extraPointsCoolDown/=2;
+				extraLifeCoolDown/=2;
+				invincibilityCoolDown/=2;
 				DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 			}		
 	}
@@ -199,6 +201,8 @@ void handle_missile()
 			DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 			restoreMissile(&missile);
 			extraPointsCoolDown/=2;
+			extraLifeCoolDown/=2;
+			invincibilityCoolDown/=2;
 			++invincibleGhostHits;
 			
 			// TODO: to TEST

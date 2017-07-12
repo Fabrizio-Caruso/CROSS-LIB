@@ -56,12 +56,17 @@
 	Image PLAYER_LEFT;
 	
 	Image EXTRA_POINTS_IMAGE;
+	Image EXTRA_LIFE_IMAGE;
+	Image INVINCIBILITY_IMAGE;
 	
 	 extern char YSize; 
 	 
 	char powerUp_blink = 1;
 	char gun_blink = 1;
 	char extra_points_blink = 1;
+	char extra_life_blink = 1;
+	char invincibility_blink = 1;
+	char player_blink = 1;
 	
 	void INIT_GRAPHICS(void)
 	{
@@ -77,8 +82,8 @@
 	{		
 		PLAYER_IMAGE._color = COLOR_CYAN;
 		INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-		POWERUP_IMAGE._color = POWER_UP_COLOR;
-		GUN_IMAGE._color = GUN_COLOR;
+		POWERUP_IMAGE._color = COLOR_GREEN;
+		GUN_IMAGE._color = COLOR_BROWN;
 		BOMB_IMAGE._color = COLOR_YELLOW;
 		DEAD_GHOST_IMAGE._color = COLOR_YELLOW;
 			
@@ -115,7 +120,14 @@
 		PLAYER_RIGHT._color = PLAYER_IMAGE._color;
 		
 		PLAYER_LEFT._imageData = (char) 0x76 - 4;
-		PLAYER_LEFT._color = PLAYER_IMAGE._color;		
+		PLAYER_LEFT._color = PLAYER_IMAGE._color;	
+		
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
+		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+		
+		INVINCIBILITY_IMAGE._imageData = '!';
+		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
+		
 	}
 
 	void _draw_broken_wall(char x, char y)
@@ -174,15 +186,60 @@
 		(void) textcolor (image->_color);
 		if(extra_points_blink) 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
 			cputc(image->_imageData); 
 			extra_points_blink=0;
 		} 
 		else 
 		{
-			//POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32); 
 			cputc(' '); 
 			extra_points_blink=1;
+		}	
+	};
+
+	void _blink_extra_life_draw(char x, char y, Image * image) 
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		(void) textcolor (image->_color);
+		if(extra_life_blink) 
+		{
+			cputc(image->_imageData); 
+			extra_life_blink=0;
+		} 
+		else 
+		{
+			cputc(' '); 
+			extra_life_blink=1;
+		}	
+	};
+	
+	void _blink_invincibility_draw(char x, char y, Image * image) 
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		(void) textcolor (image->_color);
+		if(invincibility_blink) 
+		{
+			cputc(image->_imageData); 
+			invincibility_blink=0;
+		} 
+		else 
+		{
+			cputc(' '); 
+			invincibility_blink=1;
+		}	
+	};
+	void _blink_player_draw(char x, char y, Image * image) 
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		(void) textcolor (image->_color);
+		if(player_blink) 
+		{
+			cputc(image->_imageData); 
+			player_blink=0;
+		} 
+		else 
+		{
+			cputc(' '); 
+			player_blink=1;
 		}	
 	};
 	

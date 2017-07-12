@@ -81,10 +81,6 @@ typedef struct ImageStruct Image;
 #if defined(__ATMOS__)
 	#include<peekpoke.h>
 	
-	char powerUp_blink = 1;
-	char gun_blink = 1;
-	char extra_points_blink = 1;
-	
 	extern Image PLAYER_LEFT;
 	extern Image PLAYER_RIGHT;
 	extern Image PLAYER_UP;
@@ -92,64 +88,31 @@ typedef struct ImageStruct Image;
 	
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy(x+X_OFFSET,(y+Y_OFFSET)); cputc('X' + 128);};
 	
-	void DRAW_PLAYER(char x, char y, Image * image) 
-	{
-		gotoxy(x+X_OFFSET,(y+Y_OFFSET)); 
-		
-		POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, image->_imageData + image->_color);
-	};
-		
-	#define DRAW_GHOST(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, image->_imageData + image->_color);};
+	void _draw(unsigned char x,unsigned char y,Image * image);
 	
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, image->_imageData + image->_color);};
+	#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
 
-	#define DRAW_BOMB(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, image->_imageData + image->_color);};
+	#define DRAW_GHOST(x,y,image) {_draw(x,y,image);}; // TODO: DEBUG
+	
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
+	
+	#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
+	
+	void DRAW_POWERUP(char x, char y, Image * image) ;
+	
+	
+	void DRAW_GUN(char x, char y, Image * image) ;
+	
+	void DRAW_EXTRA_POINTS(char x, char y, Image * image) ;	
 
-	void DRAW_POWERUP(char x, char y, Image * image) 
-	{
-		if(powerUp_blink) 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color ); 
-			powerUp_blink=0;
-		} 
-		else 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32); 
-			powerUp_blink=1;
-		}
-	};
+	void DRAW_EXTRA_LIFE(char x, char y, Image * image);	
 	
-	
-	void DRAW_GUN(char x, char y, Image * image) 
-	{
-		if(gun_blink) 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			gun_blink=0;
-		} 
-		else 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
-			gun_blink=1;
-		}
-	};
-	
-	void DRAW_EXTRA_POINTS(char x, char y, Image * image) 
-	{
-		if(extra_points_blink) 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			extra_points_blink=0;
-		} 
-		else 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
-			extra_points_blink=1;
-		}
-	};	
+	void DRAW_INVINCIBILITY(char x, char y, Image * image);		
+
+	void DRAW_BLINKING_PLAYER(char x, char y, Image * image);		
 	
 	#define DRAW_MISSILE(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, image->_imageData + image->_color);};
-
+	
 	#define DRAW_BOMBS() \
 	{ \
 		unsigned char i; \
@@ -159,21 +122,23 @@ typedef struct ImageStruct Image;
 		} \
 	}
 
-	#define DELETE_PLAYER(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
-
-	#define DELETE_GHOST(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
-
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
-
-	#define DELETE_BOMB(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
-
-	#define DELETE_POWERUP(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
-
-	#define DELETE_GUN(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
-
-	#define DELETE_MISSILE(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
+	void _delete(unsigned char x, unsigned char y);
 	
-	#define DELETE_EXTRA_POINTS(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
+	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
+	
+	#define DELETE_GHOST(x,y,image) {_delete(x,y);};
+	
+	#define DELETE_INVINCIBLE_GHOST(x,y,image) {_delete(x,y);};
+
+	#define DELETE_BOMB(x,y,image) {_delete(x,y);};
+
+	#define DELETE_POWERUP(x,y,image) {_delete(x,y);};
+
+	#define DELETE_GUN(x,y,image) {_delete(x,y);};
+
+	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
+	
+	#define DELETE_EXTRA_POINTS(x,y,image) {_delete(x,y);};
 	
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 
@@ -242,11 +207,20 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_extra_points_draw(x,y,image);};
 	
+	#define DRAW_EXTRA_LIFE(x,y,image) {_blink_extra_life_draw(x,y,image);};
+	
+	#define DRAW_INVINCIBILITY(x,y,image) {_blink_invincibility_draw(x,y,image);};
+
+	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_player_draw(x,y,image);};
+		
 	void _draw_broken_wall(char x, char y);
 	void _draw(char x, char y, Image * image);
 	void _blink_powerUp_draw(char x, char y, Image * image);
 	void _blink_gun_draw(char x, char y, Image * image);
 	void _blink_extra_points_draw(char x, char y, Image * image);	
+	void _blink_extra_life_draw(char x, char y, Image * image);
+	void _blink_invincibility_draw(char x, char y, Image * image);
+	void _blink_player_draw(char x, char y, Image * image);
 	
 	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
 	
@@ -277,19 +251,8 @@ typedef struct ImageStruct Image;
 
 	void _delete(char x,char y);
 
-	#define PRINT(x,y,str) \
-	{ \
-		if((y+Y_OFFSET)%2==1) \
-		{ \
-			gotoxy(x+20+X_OFFSET,(y+Y_OFFSET)/2); \
-		} \
-		else \
-		{ \
-			gotoxy(x+X_OFFSET, (y+Y_OFFSET)/2); \
-		} \
-		cputs(str); \
-	};
-
+	void PRINT(unsigned char x, unsigned char y, char * str);
+	
 	#define PRINTF(x,y,...)  \
 	{ \
 		if((y+Y_OFFSET)%2==1) \
@@ -302,10 +265,7 @@ typedef struct ImageStruct Image;
 		} \
 		cprintf(##__VA_ARGS__); \
 	};
-	//{gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 
-
-	//{(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
 	#define DRAW_VERTICAL_LINE(x,y,length) \
 	{ \
 		unsigned char i; \

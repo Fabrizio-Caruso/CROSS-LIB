@@ -12,28 +12,33 @@
 	#define GRAPHICS_MODE (1+16)
 	//#define GRAPHICS_MODE 0
 		
-	 Image PLAYER_IMAGE;
-	 Image GHOST_IMAGE;
-	 Image DEAD_GHOST_IMAGE;
-	 Image INVINCIBLE_GHOST_IMAGE;
-	 Image BOMB_IMAGE;
-	 Image POWERUP_IMAGE;
-	 Image MISSILE_IMAGE;
-	 Image GUN_IMAGE;
+	Image PLAYER_IMAGE;
+	Image GHOST_IMAGE;
+	Image DEAD_GHOST_IMAGE;
+	Image INVINCIBLE_GHOST_IMAGE;
+	Image BOMB_IMAGE;
+	Image POWERUP_IMAGE;
+	Image MISSILE_IMAGE;
+	Image GUN_IMAGE;
 
-	 Image LEFT_ENEMY_MISSILE_IMAGE;
-	 Image RIGHT_ENEMY_MISSILE_IMAGE;
-	 
-	 Image BUBBLE_IMAGE;
+	Image LEFT_ENEMY_MISSILE_IMAGE;
+	Image RIGHT_ENEMY_MISSILE_IMAGE;
+
+	Image BUBBLE_IMAGE;
 	 
 	Image EXTRA_POINTS_IMAGE;
+	Image EXTRA_LIFE_IMAGE;
+	Image INVINCIBILITY_IMAGE;
 	
-	 extern char YSize; 
+	extern char YSize; 
+
+	char powerUp_blink = 1;
+	char gun_blink = 1;
+	char extra_points_blink = 1;
+	char extra_life_blink = 1;
+	char invincibility_blink = 1;
+	char player_blink = 1;
 	 
-	 char powerUp_blink = 1;
-	 char gun_blink = 1;
-	 char extra_points_blink = 1;
-	
 	void INIT_GRAPHICS(void)
 	{
 
@@ -86,6 +91,10 @@
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
 		EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData + 160;
+		EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
+		INVINCIBILITY_IMAGE._imageData = 'V';
+		INVINCIBILITY_IMAGE._color = COLOR_WHITE;
 	}
 
 	void _draw_broken_wall(char x, char y)
@@ -111,62 +120,95 @@
 	
 	void _blink_powerUp_draw(char x, char y, Image * image) 
 	{
-//		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
 		if(powerUp_blink) 
 		{
-			_draw(x,y,image);
-			// cputc(image->_imageData); 
+			_draw(x,y,image); 
 			powerUp_blink=0;
 		} 
 		else 
 		{
 			_delete(x,y);
-			// cputc(' '); 
 			powerUp_blink=1;
 		}	
 	};
 	
 	void _blink_gun_draw(char x, char y, Image * image) 
 	{
-		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
 		if(gun_blink) 
 		{
 			_draw(x,y,image);
-			// cputc(image->_imageData); 
 			gun_blink=0;
 		} 
 		else 
 		{
 			_delete(x,y);
-			// cputc(' '); 
 			gun_blink=1;
 		}	
 	};
 
 	void _blink_extra_points_draw(char x, char y, Image * image) 
 	{
-		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
 		if(extra_points_blink) 
 		{
 			_draw(x,y,image);
-			// cputc(image->_imageData); 
 			extra_points_blink=0;
 		} 
 		else 
 		{
 			_delete(x,y);
-			// cputc(' '); 
 			extra_points_blink=1;
 		}	
 	};
 	
-	// void _delete(char x, char y)
-	// {
-		// gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');
-	// };
+	void _blink_extra_life_draw(char x, char y, Image * image) 
+	{
+		(void) textcolor (image->_color);
+		if(extra_life_blink) 
+		{
+			_draw(x,y,image); 
+			extra_life_blink=0;
+		} 
+		else 
+		{
+			_delete(x,y);
+			extra_life_blink=1;
+		}	
+	};
+	
+	void _blink_invincibility_draw(char x, char y, Image * image) 
+	{
+		(void) textcolor (image->_color);
+		if(invincibility_blink) 
+		{
+			_draw(x,y,image);
+			invincibility_blink=0;
+		} 
+		else 
+		{
+			_delete(x,y);
+			invincibility_blink=1;
+		}	
+	};
+
+	void _blink_player_draw(char x, char y, Image * image) 
+	{
+		(void) textcolor (image->_color);
+		if(player_blink) 
+		{
+			_draw(x,y,image);
+			player_blink=0;
+		} 
+		else 
+		{
+			_delete(x,y);
+			player_blink=1;
+		}	
+	};
+	
+	
 	void _delete(char x, char y) 
 	{
 		if((y+Y_OFFSET)%2==1)
@@ -178,5 +220,18 @@
 			gotoxy((x+X_OFFSET),(y+Y_OFFSET)/2);
 		}				
 		cputc(' ');
+	};	
+	
+	void PRINT(unsigned char x, unsigned char y, char * str)
+	{ 
+		if((y+Y_OFFSET)%2==1) 
+		{ 
+			gotoxy(x+20+X_OFFSET,(y+Y_OFFSET)/2); 
+		} 
+		else 
+		{ 
+			gotoxy(x+X_OFFSET, (y+Y_OFFSET)/2); 
+		} 
+		cputs(str); 
 	};	
 #endif // _ATARI_GRAPHICS

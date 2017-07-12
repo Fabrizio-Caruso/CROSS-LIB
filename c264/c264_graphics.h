@@ -77,7 +77,7 @@
 	char invincibility_blink = 1;
 	char player_blink = 1;
 	
-	void redefine(unsigned long loc, char * data)
+	void redefine(unsigned long loc, const unsigned char * data)
 	{
 		unsigned short i;
 		for(i=0;i<8;++i)
@@ -89,19 +89,19 @@
 	void INIT_GRAPHICS(void)
 	{
 		unsigned short i;
-		static char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
-		static char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
-		static char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
-		static char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
-		static char ghost[8] =            {129,126,165,129,129,189,129,126};
-		static char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
-		static char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};
-		static char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
-		static char gun[8] =              {  0,128,126,200,248,192,128,  0};
-		static char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
-		static char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
-		static char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
-		static char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
+		static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
+		static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
+		static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
+		static const char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
+		static const char ghost[8] =            {129,126,165,129,129,189,129,126};
+		static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
+		static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};
+		static const char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
+		static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
+		static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
+		static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
+		static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
+		static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
 		
 		POKE(1177,62); // disable switch to RAM in PEEK
 		for(i=0;i<1023;++i)
@@ -113,21 +113,15 @@
 		POKE(65298ul,PEEK(65298ul)&251); // make graphics chip get characters from RAM
 		
 		redefine(24576+4096+1024+296,player_down);
-		redefine(24576+4096+1024+296+8,player_down);		
-		redefine(24576+4096+1024+296+8*2,player_down);
-		redefine(24576+4096+1024+296+8*3,player_down);
+		redefine(24576+4096+1024+296+8,player_up);		
+		redefine(24576+4096+1024+296+8*2,player_right);
+		redefine(24576+4096+1024+296+8*3,player_left);
 		
 		redefine(24576+4096+1024+296+8*4,missile_right);
 		redefine(24576+4096+1024+296+8*5,missile_left);	
 		
 		redefine(24576+4096+1024+296+8*6,invincible_ghost);
 		redefine(24576+4096+1024+296+8*7,gun);
-
-		redefine(24576+4096+1024+296+8*2,player_down);
-		redefine(24576+4096+1024+296+8*3,player_down);
-
-		redefine(24576+4096+1024+296-8*2,powerUp);
-		redefine(24576+4096+1024+296+8*9,missile);
 
 		redefine(24576+4096+1024+296-8*2,powerUp);
 		redefine(24576+4096+1024+296+8*9,missile);
@@ -136,71 +130,6 @@
 		redefine(24576+4096+1024+296-8*3,ghost);
 		redefine(24576+4096+1024+296+8*22,bubble);
 
-/*		
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296+i,player_down[i]);
-		}
-		
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296+8+i,player_up[i]);
-		}
-		
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296+8*2+i,player_right[i]);
-		}
-		
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296+8*3+i,player_left[i]);
-		}
-
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296+8*4+i,missile_right[i]);
-		}
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296+8*5+i,missile_left[i]);
-		}
-
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296+8*6+i,invincible_ghost[i]);
-		}
-
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296+8*7+i,gun[i]);
-		}	
-
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296-8*2+i,powerUp[i]);
-		}		
-		
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296+8*9+i,missile[i]);
-		}	
-
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296+8*10+i,bomb[i]);
-		}	
-		
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296-8*3+i,ghost[i]);
-		}	
-		
-		for(i=0;i<8;++i)
-		{
-			POKE(24576+4096+1024+296+8*22+i,bubble[i]);
-		}	
-*/		
 	}
 	 
 	 
@@ -217,7 +146,7 @@
 		GHOST_IMAGE._imageData = '"';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
 		BOMB_IMAGE._imageData = '/';
-		PLAYER_IMAGE._imageData = '(';
+		PLAYER_IMAGE._imageData = '%';
 		POWERUP_IMAGE._imageData = '#';
 		GUN_IMAGE._imageData = ',';
 		MISSILE_IMAGE._imageData = '.';

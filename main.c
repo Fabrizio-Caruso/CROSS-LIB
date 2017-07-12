@@ -525,13 +525,15 @@ int main(void)
 				PRINTF(0,4,"player %c\n", PLAYER_UP._imageData);
 				PRINTF(0,5,"player %c\n", PLAYER_DOWN._imageData);
 				PRINTF(0,6,"player %c\n", PLAYER_LEFT._imageData);
-				PRINTF(0,7,"player %c\n", PLAYER_RIGHT._imageData);			
+				PRINTF(0,7,"player %c\n", PLAYER_RIGHT._imageData);					
 			#endif
 			PRINTF(0,8,"powerup %c\n", POWERUP_IMAGE._imageData);
 			PRINTF(0,9,"gun %c\n", GUN_IMAGE._imageData);
 			PRINTF(0,10,"missile %c\n", MISSILE_IMAGE._imageData);
 			PRINTF(0,11,"XSize: %d\n", XSize);
 			PRINTF(0,12,"YSize: %d\n", YSize);
+			
+			PRINTF(0,13,"BOMBS_NUMBER: %d\n", BOMBS_NUMBER);		
 			
 			// gotoxy(0,0); cputs("hello world1");
 			// gotoxy(20,0);cputs("hello world2");

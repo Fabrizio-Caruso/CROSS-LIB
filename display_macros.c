@@ -60,12 +60,17 @@
 	Image RIGHT_ENEMY_MISSILE_IMAGE;
 	
 	Image EXTRA_POINTS_IMAGE;
+	Image EXTRA_LIFE_IMAGE;
+	Image INVINCIBILITY_IMAGE;
 
 	//extern char YSize; 
 	
 	char powerUp_blink = 1;
 	char gun_blink = 1;
 	char extra_points_blink = 1;
+	char extra_life_blink = 1;
+	char invincibility_blink = 1;
+	char player_blink = 1;
 	
 	void INIT_GRAPHICS(void)
 	{
@@ -81,7 +86,8 @@
 			BOMB_IMAGE._color = COLOR_WHITE;
 			DEAD_GHOST_IMAGE._color = COLOR_WHITE;
 			EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
-			EXTRA_LIFE._color = COLOR_WHITE;
+			EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
+			INVINCIBILITY_IMAGE._color = COLOR_WHITE;
 		#elif defined(__VIC20__)
 			PLAYER_IMAGE._color = COLOR_YELLOW;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
@@ -90,7 +96,8 @@
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;	
 			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;	
-			EXTRA_LIFE._color = COLOR_YELLOW;			
+			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;	
+			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
 		#elif defined(__C128__) 
 			PLAYER_IMAGE._color = COLOR_CYAN;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
@@ -99,7 +106,8 @@
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
 			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-			EXTRA_LIFE._color = COLOR_YELLOW;	
+			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;	
+			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
 		#elif defined(__ATARI__) || defined(__ATARIXL__)
 			PLAYER_IMAGE._color = COLOR_WHITE;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
@@ -108,7 +116,8 @@
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
 			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-			EXTRA_LIFE._color = COLOR_YELLOW;	
+			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;	
+			INVINCIBILITY_IMAGE._color = COLOR_WHITE;
 		#else
 			PLAYER_IMAGE._color = COLOR_WHITE;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
@@ -117,7 +126,8 @@
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
 			EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
-			EXTRA_LIFE._color = COLOR_WHITE;
+			EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
+			INVINCIBILITY_IMAGE._color = COLOR_WHITE;			
 		#endif
 			
 
@@ -143,7 +153,8 @@
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
 		
-		EXTRA_LIFE._imageData = PLAYER_IMAGE.imageData;
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+		INVINCIBILITY_IMAGE._imageData = 'V';
 	}
 
 
@@ -212,6 +223,55 @@
 		{
 			cputc(' '); 
 			extra_points_blink=1;
+		}	
+	}
+
+	
+	void _blink_extra_life_draw(char x, char y, Image * image) 
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		(void) textcolor (image->_color);
+		if(extra_life_blink) 
+		{
+			cputc(image->_imageData); 
+			extra_life_blink=0;
+		} 
+		else 
+		{
+			cputc(' '); 
+			extra_life_blink=1;
+		}	
+	}
+	
+	void _blink_invincibility_draw(char x, char y, Image * image) 
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		(void) textcolor (image->_color);
+		if(invincibility_blink) 
+		{
+			cputc(image->_imageData); 
+			invincibility_blink=0;
+		} 
+		else 
+		{
+			cputc(' '); 
+			invincibility_blink=1;
+		}	
+	}
+
+	void _blink_player_draw(char x, char y, Image * image) 
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		(void) textcolor (image->_color);
+		if(player_blink) 
+		{
+			cputc(image->_imageData); 
+			player_blink=0;
+		} 
+		else 
+		{
+			cputc(' '); 
+			player_blink=1;
 		}	
 	}
 	

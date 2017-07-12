@@ -397,11 +397,18 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_extra_points_draw(x,y,image);};
 
+	#define DRAW_EXTRA_LIFE(x,y,image) {_blink_extra_life_draw(x,y,image);};
+
+	#define DRAW_INVINCIBILITY(x,y,image) {_blink_invincibility_draw(x,y,image);};	
+	
 	void _draw_broken_wall(char x, char y);	
 	void _draw(char x, char y, Image * image);
 	void _blink_powerUp_draw(char x, char y, Image * image);
 	void _blink_gun_draw(char x, char y, Image * image);
 	void _blink_extra_points_draw(char x, char y, Image * image);	
+	void _blink_extra_life_draw(char x, char y, Image * image);
+	void _blink_invincibility_draw(char x, char y, Image * image);
+	
 	
 	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
 	

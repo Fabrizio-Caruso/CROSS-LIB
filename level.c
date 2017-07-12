@@ -65,6 +65,9 @@ extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
 extern Image EXTRA_POINTS_IMAGE;
 
+extern Image EXTRA_LIFE_IMAGE;
+extern Image INVINCIBILITY_IMAGE;
+
 extern Character invincibleGhost;
 extern Character player; 
 extern Character powerUp;
@@ -73,12 +76,12 @@ extern Character missile;
 extern Character leftEnemyMissile;
 extern Character rightEnemyMissile;
 extern Character extraPoints;
+extern Character extraLife;
+extern Character invincibility;
 
 extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];
 extern Character* bubbles[BUBBLES_NUMBER];
-
-
 
 
 
@@ -216,7 +219,10 @@ void updateInnerWallVerticalData(void)
 }
 
 #if !defined(__ATMOS__) && !defined(__CBM__) && !defined(__ATARIXL__) && !defined(__APPLE2__) && !defined(__APPLE2ENH__)
-	void fillLevelWithCharacters(unsigned char nGhosts) { }
+	void fillLevelWithCharacters(unsigned char nGhosts) 
+	{ 
+		// TODO: TO BE IMPLEMENTED
+	}
 #else
 	void fillLevelWithCharacters(unsigned char nGhosts)
 	{
@@ -574,7 +580,21 @@ void updateInnerWallVerticalData(void)
 			initializeCharacter(&extraPoints, XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
 			relocateCharacter(&extraPoints, bombs,4);
 		} while(nearInnerWall(&extraPoints));
-		//DRAW_EXTRA_POINTS(extraPoints._x, extraPoints._y, extraPoints._imagePtr);
+
+		do
+		{
+			initializeCharacter(&extraLife, XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
+			relocateCharacter(&extraLife, bombs,4);
+		} while(nearInnerWall(&extraLife));
+		//DRAW_EXTRA_LIFE(extraLife._x, extraLife._y, extraLife._imagePtr);
+
+		do
+		{
+			initializeCharacter(&invincibility, XSize/2, YSize/2, 0, &INVINCIBILITY_IMAGE);
+			relocateCharacter(&invincibility, bombs,4);
+		} while(nearInnerWall(&invincibility));
+		//DRAW_INVINCIBILITY(invincibility._x, invincibility._y, invincibility._imagePtr);
+
 		
 		switch(corner)
 		{

@@ -64,6 +64,8 @@ unsigned int powerUpCoolDown;
 unsigned int gunInitialCoolDown;
 unsigned int gunCoolDown;
 unsigned int extraPointsCoolDown;
+unsigned int extraLifeCoolDown;
+unsigned int invincibilityCoolDown;
 
 unsigned int ghostLevelDecrease = 100;
 unsigned int powerUpInitialCoolDown = 100; 
@@ -125,7 +127,8 @@ Character player;
 Character powerUp;
 Character gun;
 Character extraPoints;
-//Character extraLife;
+Character extraLife;
+Character invincibility;
 
 Character missile;
 Character leftEnemyMissile;
@@ -327,6 +330,78 @@ void handle_extraPoints_item()
 }
 
 
+void handle_extraLife_item()
+{
+	// Manage gun 
+	if(extraLife._status==1)
+	{
+		if(powerUpReached(&player, &extraLife))
+		{
+			ZAP_SOUND();
+			DELETE_EXTRA_POINTS(extraLife._x,extraLife._y,extraLife._imagePtr);
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
+			++lives;
+			extraLife._status = 0;	
+			extraLifeCoolDown = EXTRA_LIFE_COOL_DOWN;
+		}
+		else
+		{
+			DRAW_EXTRA_LIFE(extraLife._x, extraLife._y, extraLife._imagePtr);
+		}
+	}		
+	else if (extraLifeCoolDown == 0)
+	{	
+		extraLife._status = 1;
+		do
+		{
+			relocateCharacter(&extraLife, bombs,4);
+		} while(nearInnerWall(&extraLife));
+		DRAW_EXTRA_LIFE(extraLife._x, extraLife._y, extraLife._imagePtr);
+	}
+	else
+	{
+		--extraLifeCoolDown;
+	}				
+}
+
+
+void handle_invincibility_item()
+{
+	// Manage gun 
+	if(invincibility._status==1)
+	{
+		if(powerUpReached(&player, &invincibility))
+		{
+			ZAP_SOUND();
+			DELETE_EXTRA_POINTS(invincibility._x,invincibility._y,invincibility._imagePtr);
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
+			// TODO: Implement invincibility
+			// points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
+			// if(missileLevel(level))
+				// points+=EXTRA_POINTS; 
+			invincibility._status = 0;	
+			invincibilityCoolDown = INVINCIBILITY_COOL_DOWN;
+		}
+		else
+		{
+			DRAW_INVINCIBILITY(invincibility._x, invincibility._y, invincibility._imagePtr);
+		}
+	}		
+	else if (invincibilityCoolDown == 0)
+	{	
+		invincibility._status = 1;
+		do
+		{
+			relocateCharacter(&invincibility, bombs,4);
+		} while(nearInnerWall(&invincibility));
+		DRAW_INVINCIBILITY(invincibility._x, invincibility._y, invincibility._imagePtr);
+	}
+	else
+	{
+		--invincibilityCoolDown;
+	}				
+}
+
 void handle_invincible_ghost(void)
 {
 	// Manage invincible ghost
@@ -478,6 +553,8 @@ int main(void)
 			invincibleGhostAlive = 1;
 			invincibleGhostHits = 0;
 			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;
+			extraLifeCoolDown = EXTRA_LIFE_COOL_DOWN;
+			invincibilityCoolDown = INVINCIBILITY_COOL_DOWN;
 			
 			computeStrategy();
 			loop = 0;
@@ -666,6 +743,8 @@ int main(void)
 				handle_powerup_item();
 
 				handle_extraPoints_item();
+				handle_extraLife_item();
+				handle_invincibility_item();
 				
 				handle_player_vs_outer_wall();
 				

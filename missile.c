@@ -140,14 +140,14 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
 		DRAW_BROKEN_WALL(missilePtr->_x,missilePtr->_y);
-		if(missilePtr->_x==1 && missilePtr->_y==4 && rightEnemyMissilePtr->_status)
+		if(missilePtr->_x==XSize-1 && missilePtr->_y==4 && rightEnemyMissilePtr->_status)
 		{
 			rightEnemyMissilePtr->_status = 0;
 			EXPLOSION_SOUND();
 			DELETE_MISSILE(rightEnemyMissilePtr->_x,rightEnemyMissilePtr->_y,rightEnemyMissilePtr->_imagePtr);
 			points+=HORIZONTAL_MISSILE_BONUS;
 		}
-		else if(missilePtr->_x==XSize-1 && missilePtr->_y==YSize-4 && leftEnemyMissilePtr->_status)
+		else if(missilePtr->_x==0 && missilePtr->_y==YSize-4 && leftEnemyMissilePtr->_status)
 		{
 			leftEnemyMissilePtr->_status = 0;
 			EXPLOSION_SOUND();

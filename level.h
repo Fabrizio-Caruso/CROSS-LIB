@@ -43,6 +43,10 @@ void updateInnerWallVerticalData(void);
 
 unsigned short drawInnerVerticalWallForLevel(void);
 
+char rocketLevel(void);
+
+void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr);
+
 void fillLevelWithCharacters(unsigned char nGhosts);
 
 void finalScore(void);			

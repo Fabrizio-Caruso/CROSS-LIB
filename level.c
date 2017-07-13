@@ -83,7 +83,7 @@ extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];
 extern Character* bubbles[BUBBLES_NUMBER];
 
-
+extern char bubbles_x[BUBBLES_NUMBER];
 
 void drawInnerVerticalWall(void)
 {
@@ -218,6 +218,30 @@ void updateInnerWallVerticalData(void)
     innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
 }
 
+// void prepareGhost(Character * ghost, unsigned char x, unsigned char y)
+// {
+	// initializeCharacter(ghost,x,y,1,&GHOST_IMAGE);
+// }
+
+char rocketLevel(void)
+{
+	return level >= FIRST_BUBBLES_LEVEL && (level%5)>=3; //!missileLevel(level) && !missileLevel(level-1) && !missile(level-2);
+}
+
+void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr)
+{
+	do{
+		initializeCharacter(characterPtr, x, y, status, imagePtr);
+		relocateCharacter(characterPtr,bombs,4);
+	} while(nearInnerWall(characterPtr));
+}
+
+// void prepareDeadGhost(Character *ghost, unsigned char pos)
+// {
+	// PING_SOUND(); 
+	// initializeCharacter(ghosts[1],pos,1,0,&DEAD_GHOST_IMAGE);
+// }
+
 #if !defined(__ATMOS__) && !defined(__CBM__) && !defined(__ATARIXL__) && !defined(__APPLE2__) && !defined(__APPLE2ENH__)
 	void fillLevelWithCharacters(unsigned char nGhosts) 
 	{ 
@@ -232,150 +256,139 @@ void updateInnerWallVerticalData(void)
 		int b1y, b2y, b3y, b4y;
 		Character *dummyBombs[BOMBS_NUMBER];
 		unsigned char i;
-		int x1,x2,x3,x4,x5,x6,x0;
-		int y1,y2,y3,y4,y5,y6,y0;
-		int x7; int y7;
+		// int x1,x2,x3,x4,x5,x6,x0;
+		// int y1,y2,y3,y4,y5,y6,y0;
+		// int x7; int y7;
 
 		// TODO Replace with something else
 		#if defined(__ATMOS__)
 			INIT_GRAPHICS();
 		#endif
 
-		for(i=0;i<BUBBLES_NUMBER;i++)
+		if(rocketLevel())
 		{
-			initializeCharacter(bubbles[i],(char) (i+1)*(XSize/(BUBBLES_NUMBER+1)),YSize-1,1,&BUBBLE_IMAGE);
-			if(level >= FIRST_BUBBLES_LEVEL && 
-					   !missileLevel(level) && !missileLevel(level-1) && !missileLevel(level-2))
-				{
+			for(i=0;i<BUBBLES_NUMBER;i++)
+			{
+				bubbles_x[i] = (unsigned char) (i+1)*(XSize/(BUBBLES_NUMBER+1));
+				initializeCharacter(bubbles[i],bubbles_x[i],YSize-1,1,&BUBBLE_IMAGE);
 				DRAW_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);
-				}
+			}
 		}
 
-		// 8 Ghosts case
-		x0 = XSize-XSize/6+rand()%3-3; y0 = YSize-YSize/6+rand()%3-3;	
-		initializeCharacter(ghosts[0],x0,y0,1,&GHOST_IMAGE);
+		initializeCharacter(ghosts[0],XSize-XSize/6+rand()%3-3,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
 		DRAW_GHOST(ghosts[0]->_x, ghosts[0]->_y, ghosts[0]->_imagePtr);
+		
+		
 		
 		if(nGhosts>1)
 		{
-			x1 = XSize/6+rand()%3-1;       y1 = YSize/6+rand()%3-2+1;
-			initializeCharacter(ghosts[1],x1,y1,1,&GHOST_IMAGE);
+			initializeCharacter(ghosts[1],XSize/6+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			PING_SOUND(); 
-			x1 = 7; y1 = 1;
-			initializeCharacter(ghosts[1],x1,y1,1,&DEAD_GHOST_IMAGE);
-			ghosts[1]->_status = 0;
+			// PING_SOUND(); 
+			initializeCharacter(ghosts[1],7,1,0,&DEAD_GHOST_IMAGE);
 		}
-		DRAW_GHOST(ghosts[1]->_x, ghosts[1]->_y, ghosts[1]->_imagePtr);
-		if(nGhosts<=1)
-			sleep(1);
+		// DRAW_GHOST(ghosts[1]->_x, ghosts[1]->_y, ghosts[1]->_imagePtr);
+		// if(nGhosts<=1)
+			// sleep(1);
 		
 		if(nGhosts>2)
 		{
-			x2 = XSize/6+rand()%3-1;       y2 = YSize/2+rand()%3-2;
-			initializeCharacter(ghosts[2],x2,y2,1, &GHOST_IMAGE);
+			initializeCharacter(ghosts[2],XSize/6+rand()%3-1,YSize/2+rand()%3-2,1, &GHOST_IMAGE);
 		}
 		else
 		{
-			PING_SOUND(); 
-			x2 = 6; y2 = 1;
-			initializeCharacter(ghosts[2],x2,y2,1, &DEAD_GHOST_IMAGE);
-			ghosts[2]->_status = 0;
+			// PING_SOUND(); 
+			initializeCharacter(ghosts[2],6,1,0, &DEAD_GHOST_IMAGE);
 		}
-		DRAW_GHOST(ghosts[2]->_x, ghosts[2]->_y, ghosts[2]->_imagePtr);
-		if(nGhosts<=2)
-			sleep(1);
+		// DRAW_GHOST(ghosts[2]->_x, ghosts[2]->_y, ghosts[2]->_imagePtr);
+		// if(nGhosts<=2)
+			// sleep(1);
 		
 		if(nGhosts>3)
 		{
-			x3 = XSize/6+rand()%3-1;       y3 = YSize-YSize/6+rand()%3-3;
-			initializeCharacter(ghosts[3],x3,y3,1,&GHOST_IMAGE);
+			initializeCharacter(ghosts[3],XSize/6+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			PING_SOUND(); 
-			x3 = 5; y3 = 1;
-			initializeCharacter(ghosts[3],x3,y3,1,&DEAD_GHOST_IMAGE);
-			ghosts[3]->_status = 0;
+			// PING_SOUND(); 
+			initializeCharacter(ghosts[3],5,1,0,&DEAD_GHOST_IMAGE);
 		}
-		DRAW_GHOST(ghosts[3]->_x, ghosts[3]->_y, ghosts[3]->_imagePtr);
-		if(nGhosts<=3)
-			sleep(1);
+		// DRAW_GHOST(ghosts[3]->_x, ghosts[3]->_y, ghosts[3]->_imagePtr);
+		// if(nGhosts<=3)
+			// sleep(1);
 		
 		if(nGhosts>4)
 		{
-			x4 = XSize/2+rand()%3-1;       y4 = YSize/6+rand()%3-2+1;
-			initializeCharacter(ghosts[4],x4,y4,1,&GHOST_IMAGE);
+			initializeCharacter(ghosts[4],XSize/2+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			PING_SOUND(); 
-			x4 = 4; y4=1;
-			initializeCharacter(ghosts[4],x4,y4,1,&DEAD_GHOST_IMAGE);	
-			ghosts[4]->_status = 0;
+			// PING_SOUND(); 
+			initializeCharacter(ghosts[4],4,1,0,&DEAD_GHOST_IMAGE);	
 		}
-		DRAW_GHOST(ghosts[4]->_x, ghosts[4]->_y, ghosts[4]->_imagePtr);
-		if(nGhosts<=4)
-			sleep(1);
+		// DRAW_GHOST(ghosts[4]->_x, ghosts[4]->_y, ghosts[4]->_imagePtr);
+		// if(nGhosts<=4)
+			// sleep(1);
 		
 		if(nGhosts>5)
 		{
-			x5 = XSize/2+rand()%3-1;       y5 = YSize-YSize/6+rand()%3-3;
-			initializeCharacter(ghosts[5],x5,y5,1,&GHOST_IMAGE);
+			initializeCharacter(ghosts[5],XSize/2+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			PING_SOUND(); 
-			x5 = 3; y5=1;
-			initializeCharacter(ghosts[5],x5,y5,1,&DEAD_GHOST_IMAGE);	
-			ghosts[5]->_status = 0;		
+			// PING_SOUND(); 
+			initializeCharacter(ghosts[5],3,1,0,&DEAD_GHOST_IMAGE);	
 		}
-		DRAW_GHOST(ghosts[5]->_x, ghosts[5]->_y, ghosts[5]->_imagePtr);
-		if(nGhosts<=5)
-			sleep(1);
+		// DRAW_GHOST(ghosts[5]->_x, ghosts[5]->_y, ghosts[5]->_imagePtr);
+		// if(nGhosts<=5)
+			// sleep(1);
 		
 		if(nGhosts>6)
 		{
-			x6 = XSize-XSize/6+rand()%3-3; y6 = YSize/6+rand()%3-2+1;
-			initializeCharacter(ghosts[6],x6,y6,1,&GHOST_IMAGE);
+			initializeCharacter(ghosts[6],XSize-XSize/6+rand()%3-3,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			PING_SOUND();
-			x6 = 2; y6=1;
-			initializeCharacter(ghosts[6],x6,y6,1,&DEAD_GHOST_IMAGE);	
-			ghosts[6]->_status = 0;
+			// PING_SOUND();
+			initializeCharacter(ghosts[6],2,1,0,&DEAD_GHOST_IMAGE);	
 		}
-		DRAW_GHOST(ghosts[6]->_x, ghosts[6]->_y, ghosts[6]->_imagePtr);
-		if(nGhosts<=6)
-			sleep(1);
+		// DRAW_GHOST(ghosts[6]->_x, ghosts[6]->_y, ghosts[6]->_imagePtr);
+		// if(nGhosts<=6)
+			// sleep(1);
 		
 		if(nGhosts>7)
 		{
-			x7 = XSize-XSize/6+rand()%3-3; y7 = YSize/2+rand()%3-2;
-			initializeCharacter(ghosts[7],x7,y7,1,&GHOST_IMAGE);
+			initializeCharacter(ghosts[7],XSize-XSize/6+rand()%3-3,YSize/2+rand()%3-2,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			PING_SOUND(); 
-			x7 = 1; y7=1;
-			initializeCharacter(ghosts[7],x7,y7,1,&DEAD_GHOST_IMAGE);	
-			ghosts[7]->_status = 0;		
+			// PING_SOUND(); 
+			initializeCharacter(ghosts[7],1,1,0,&DEAD_GHOST_IMAGE);	
 		}
-		DRAW_GHOST(ghosts[7]->_x, ghosts[7]->_y, ghosts[7]->_imagePtr);
-		if(nGhosts<=7)
-			sleep(1);
+		// DRAW_GHOST(ghosts[7]->_x, ghosts[7]->_y, ghosts[7]->_imagePtr);
+		// if(nGhosts<=7)
+			// sleep(1);
+
+		for(i=0;i<GHOSTS_NUMBER;++i)
+		{
+			// if(i>=nGhosts)
+			// {
+				// PING_SOUND();
+				// sleep(1);
+			// }
+			DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
+		}
+		
 		
 		// Player
 		do
 		{
 			initializeCharacter(&player,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);
 		} while(nearInnerWall(&player));
-		//SET_TEXT_COLOR(PLAYER_COLOR);
 		DRAW_PLAYER(player._x,player._y,player._imagePtr);
-		//SET_TEXT_COLOR(TEXT_COLOR);
+
 		
 		do
 		{
@@ -398,8 +411,7 @@ void updateInnerWallVerticalData(void)
 			{
 				b2x = 1+1;
 				b2y = YSize-2-1;
-				
-				
+						
 				b4x = XSize-2-1;
 				b4y = YSize-2-1;
 				
@@ -557,44 +569,43 @@ void updateInnerWallVerticalData(void)
 			DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr);
 		}
 
-		do
-		{
-			// Power-ups
-			initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
-			relocateCharacter(&powerUp, bombs,4);	
-			initializeCharacter(&powerUp,powerUp._x,powerUp._y,1,&POWERUP_IMAGE);
-		} while(nearInnerWall(&powerUp));
+		// do
+		// {
+			// initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
+			// relocateCharacter(&powerUp, bombs,4);	
+		// } while(nearInnerWall(&powerUp));
+		initializeAwayFromWall(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
 		DRAW_POWERUP(powerUp._x, powerUp._y, powerUp._imagePtr);
 			
 		initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
 		
-		do
-		{
-			initializeCharacter(&gun, XSize/2, YSize/2, 0, &GUN_IMAGE);
-			relocateCharacter(&gun, bombs,4);
-		} while(nearInnerWall(&gun));
+		// do
+		// {
+			// initializeCharacter(&gun, XSize/2, YSize/2, 0, &GUN_IMAGE);
+			// relocateCharacter(&gun, bombs,4);
+		// } while(nearInnerWall(&gun));
+		initializeAwayFromWall(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);
 
-
-		do
-		{
-			initializeCharacter(&extraPoints, XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
-			relocateCharacter(&extraPoints, bombs,4);
-		} while(nearInnerWall(&extraPoints));
-
-		do
-		{
-			initializeCharacter(&extraLife, XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
-			relocateCharacter(&extraLife, bombs,4);
-		} while(nearInnerWall(&extraLife));
-		//DRAW_EXTRA_LIFE(extraLife._x, extraLife._y, extraLife._imagePtr);
-
-		do
-		{
-			initializeCharacter(&invincibility, XSize/2, YSize/2, 0, &INVINCIBILITY_IMAGE);
-			relocateCharacter(&invincibility, bombs,4);
-		} while(nearInnerWall(&invincibility));
-		//DRAW_INVINCIBILITY(invincibility._x, invincibility._y, invincibility._imagePtr);
-
+		// do
+		// {
+			// initializeCharacter(&extraPoints, XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
+			// relocateCharacter(&extraPoints, bombs,4);
+		// } while(nearInnerWall(&extraPoints));
+		initializeAwayFromWall(&extraPoints, XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
+		
+		// do
+		// {
+			// initializeCharacter(&extraLife, XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
+			// relocateCharacter(&extraLife, bombs,4);
+		// } while(nearInnerWall(&extraLife));
+		initializeAwayFromWall(&extraLife, XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
+		
+		// do
+		// {
+			// initializeCharacter(&invincibility, XSize/2, YSize/2, 0, &INVINCIBILITY_IMAGE);
+			// relocateCharacter(&invincibility, bombs,4);
+		// } while(nearInnerWall(&invincibility));
+		initializeAwayFromWall(&invincibility, XSize/2, YSize/2, 0, &INVINCIBILITY_IMAGE);
 		
 		switch(corner)
 		{
@@ -618,14 +629,12 @@ void updateInnerWallVerticalData(void)
 		initializeCharacter(&invincibleGhost,invincibleGhost._x,invincibleGhost._y, 0,&INVINCIBLE_GHOST_IMAGE);
 
 
-		initializeCharacter(&rightEnemyMissile,         XSize-1,      4,            1,&RIGHT_ENEMY_MISSILE_IMAGE);
-
-		initializeCharacter(&leftEnemyMissile,                0,YSize-4,            1,&LEFT_ENEMY_MISSILE_IMAGE);
-
 		if(missileLevel(level))
-		{
+		{	
+			initializeCharacter(&rightEnemyMissile,         XSize-1,      4,            1,&RIGHT_ENEMY_MISSILE_IMAGE);
+			initializeCharacter(&leftEnemyMissile,                0,YSize-4,            1,&LEFT_ENEMY_MISSILE_IMAGE);
 			DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);		
-			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
+			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);			
 		}
 	}
 #endif

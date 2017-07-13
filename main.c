@@ -605,7 +605,9 @@ int main(void)
 			displayStatsTitles();
 			
 			rightEnemyMissile._x = XSize-4; rightEnemyMissile._y = 4;
+			rightEnemyMissile._status = 1;
 			leftEnemyMissile._x = 4; leftEnemyMissile._y = YSize-4;
+			leftEnemyMissile._status = 1;
 			
 			player_invincibility = 0;
 	

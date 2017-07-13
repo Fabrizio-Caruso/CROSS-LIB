@@ -171,7 +171,7 @@ void handle_missile()
 		SHOOT_SOUND();
 		--guns;
 		missileDirection = playerDirection;
-		missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
+		missile._status = setMissileInitialPosition(&missile, &player, missileDirection, &rightEnemyMissile, &leftEnemyMissile);
 		playerFire = 0;
 		DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
 		checkMissileVsGhosts(&missile);
@@ -190,7 +190,7 @@ void handle_missile()
 	// Move missile if fired
 	if(missile._status==1)
 	{
-		moveMissile(&missile, missileDirection);
+		moveMissile(&missile, missileDirection, &rightEnemyMissile, &leftEnemyMissile);
 		// TODO: Inefficient
 		checkMissileVsGhosts(&missile);
 		
@@ -566,6 +566,8 @@ int main(void)
 			invincibilityCoolDown = INVINCIBILITY_COOL_DOWN;
 			player_invincibility = 0;
 			
+			arrowRange = computeArrowRange();
+			
 			computeStrategy();
 			loop = 0;
 			ghostLevel = 0;
@@ -673,65 +675,70 @@ int main(void)
 				
 				if(missileLevel(level))
 				{
-					arrowRange = computeArrowRange();
-					DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
-					if(leftEnemyMissile._x==XSize-2)
+					if(leftEnemyMissile._status)
 					{
-						leftEnemyMissile._x=2;
-						leftEnemyMissile._y = YSize-4;
-					}
-					else
-					{
-						++leftEnemyMissile._x;
-						if(loop%2 && player._y>=YSize-4-arrowRange && player._x>=leftEnemyMissile._x)
+						DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
+						if(leftEnemyMissile._x==XSize-2)
 						{
-							if(player._y>leftEnemyMissile._y)
+							leftEnemyMissile._x=2;
+							leftEnemyMissile._y = YSize-4;
+						}
+						else
+						{
+							++leftEnemyMissile._x;
+							if(loop%2 && player._y>=YSize-4-arrowRange && player._x>=leftEnemyMissile._x)
 							{
-								++leftEnemyMissile._y;
-							}
-							else if(player._y<leftEnemyMissile._y)
-							{
-								--leftEnemyMissile._y;
+								if(player._y>leftEnemyMissile._y)
+								{
+									++leftEnemyMissile._y;
+								}
+								else if(player._y<leftEnemyMissile._y)
+								{
+									--leftEnemyMissile._y;
+								}
 							}
 						}
-					}
-					DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
-					if(!player_invincibility && areCharctersAtSamePosition(&leftEnemyMissile,&player))
-					{
-						EXPLOSION_SOUND()
-						die(&player);
-						printDefeatMessage();
-						sleep(1);
+						DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
+						if(!player_invincibility && areCharctersAtSamePosition(&leftEnemyMissile,&player))
+						{
+							EXPLOSION_SOUND()
+							die(&player);
+							printDefeatMessage();
+							sleep(1);
+						}
 					}
 					
-					DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
-					if(rightEnemyMissile._x==2)
+					if(rightEnemyMissile._status)
 					{
-						rightEnemyMissile._x=XSize-2;
-						rightEnemyMissile._y = 4;
-					}
-					else
-					{
-						--rightEnemyMissile._x;
-						if(loop%2 && player._y<=4+arrowRange && player._x<= rightEnemyMissile._x)
+						DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
+						if(rightEnemyMissile._x==2)
 						{
-							if(player._y>rightEnemyMissile._y)
+							rightEnemyMissile._x=XSize-2;
+							rightEnemyMissile._y = 4;
+						}
+						else
+						{
+							--rightEnemyMissile._x;
+							if(loop%2 && player._y<=4+arrowRange && player._x<= rightEnemyMissile._x)
 							{
-								++rightEnemyMissile._y;
-							}
-							else if(player._y<rightEnemyMissile._y)
-							{
-								--rightEnemyMissile._y;
+								if(player._y>rightEnemyMissile._y)
+								{
+									++rightEnemyMissile._y;
+								}
+								else if(player._y<rightEnemyMissile._y)
+								{
+									--rightEnemyMissile._y;
+								}
 							}
 						}
-					}
-					DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);				
-					if(!player_invincibility && areCharctersAtSamePosition(&rightEnemyMissile,&player))
-					{
-						EXPLOSION_SOUND()
-						die(&player);
-						printDefeatMessage();
-						sleep(1);
+						DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);				
+						if(!player_invincibility && areCharctersAtSamePosition(&rightEnemyMissile,&player))
+						{
+							EXPLOSION_SOUND()
+							die(&player);
+							printDefeatMessage();
+							sleep(1);
+						}
 					}
 				}
 				

@@ -617,10 +617,16 @@ void updateInnerWallVerticalData(void)
 		}
 		initializeCharacter(&invincibleGhost,invincibleGhost._x,invincibleGhost._y, 0,&INVINCIBLE_GHOST_IMAGE);
 
-		initializeCharacter(&leftEnemyMissile,                2,YSize-2,            1,&LEFT_ENEMY_MISSILE_IMAGE);
-		
-		initializeCharacter(&rightEnemyMissile,         XSize-2,YSize-2,            1,&RIGHT_ENEMY_MISSILE_IMAGE);
-		
+
+		initializeCharacter(&leftEnemyMissile,                0,YSize-4,            1,&LEFT_ENEMY_MISSILE_IMAGE);
+	
+		initializeCharacter(&rightEnemyMissile,         XSize-1,      4,            1,&RIGHT_ENEMY_MISSILE_IMAGE);
+
+		if(missileLevel(level))
+		{
+			DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);		
+			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
+		}
 	}
 #endif
 

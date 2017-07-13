@@ -69,7 +69,7 @@ void checkMissileVsGhosts(Character * missilePtr)
 }
 	
 int setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
-							  unsigned short missileDirection)
+							  unsigned short missileDirection, Character *rightEnemyMissilePtr, Character *leftEnemyMissilePtr)
 {
 	int newX = playerPtr->_x; 
 	int newY = playerPtr->_y;
@@ -96,12 +96,24 @@ int setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
 		DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+		if(missilePtr->_x==1 && missilePtr->_y==4)
+		{
+			rightEnemyMissilePtr->_status = 0;
+			EXPLOSION_SOUND();
+			DELETE_MISSILE(rightEnemyMissilePtr->_x,rightEnemyMissilePtr->_y,rightEnemyMissilePtr->_imagePtr);
+		}
+		else if(missilePtr->_x==XSize-1 && missilePtr->_y==YSize-4)
+		{
+			leftEnemyMissilePtr->_status = 0;
+			EXPLOSION_SOUND();
+			DELETE_MISSILE(leftEnemyMissilePtr->_x,leftEnemyMissilePtr->_y,leftEnemyMissilePtr->_imagePtr);
+		}
 		return 0;
 	}
 	return 1;
 }
 	
-void moveMissile(Character * missilePtr, unsigned short missileDirection)
+void moveMissile(Character * missilePtr, unsigned short missileDirection, Character *rightEnemyMissilePtr, Character *leftEnemyMissilePtr)
 {
 	int newX = missilePtr->_x; 
 	int newY = missilePtr->_y;
@@ -128,6 +140,20 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
 		DRAW_BROKEN_WALL(missilePtr->_x,missilePtr->_y);
+		if(missilePtr->_x==1 && missilePtr->_y==4 && rightEnemyMissilePtr->_status)
+		{
+			rightEnemyMissilePtr->_status = 0;
+			EXPLOSION_SOUND();
+			DELETE_MISSILE(rightEnemyMissilePtr->_x,rightEnemyMissilePtr->_y,rightEnemyMissilePtr->_imagePtr);
+			points+=HORIZONTAL_MISSILE_BONUS;
+		}
+		else if(missilePtr->_x==XSize-1 && missilePtr->_y==YSize-4 && leftEnemyMissilePtr->_status)
+		{
+			leftEnemyMissilePtr->_status = 0;
+			EXPLOSION_SOUND();
+			DELETE_MISSILE(leftEnemyMissilePtr->_x,leftEnemyMissilePtr->_y,leftEnemyMissilePtr->_imagePtr);
+			points+=HORIZONTAL_MISSILE_BONUS;
+		}
 	}
 	else
 	{

@@ -73,6 +73,11 @@
 #define EXTRA_LIFE_FIRST_LEVEL 10
 
 #define MIN_INVINCIBLE_GHOST_HITS 5UL
+
+#define HORIZONTAL_MISSILE_BONUS 1000UL
+
+#define VERTICAL_MISSILE_BONUS 500UL
+
 #define INVINCIBLE_GHOST_POINTS 5000UL;
 
 // Points given by extra points bonus: 
@@ -114,7 +119,7 @@
 // LEVEL 36 - 40: Four bombs at the four corners 
 
 // Starting from this level 4 central bombs
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 10
 
 #define THREE_BOMB_START_LEVEL 6
 
@@ -138,23 +143,10 @@
 // Final level 
 #define FINAL_LEVEL 40
 
+#define FIRST_BUBBLES_LEVEL 7 // 8 because of check on levels after missile level
 
-#define FIRST_BUBBLES_LEVEL 11 // 13 because of check on levels after missile level
-
-#define MAX_GHOST_COUNT_FOR_BUBBLES 3
-// GHOST STRATEGIES
-// LEVEL 1: Ghosts chase use by approaching randomly either X or Y coordinates (in sort of a direct line)
-// LEVEL 2-7: Most ghosts behave as in 1-3 but 2 may embush the player (starting from at 8 to at least 3 in game)
-// LEVEL 8-9: With more than 3 ghosts there will be up to 3 different ghost groups (x-embush, y-embush, direct line) 
-// LEVEL 10-20: Ghosts will try to avoid to be aligned with the player 
-
-// Starting from this level, the ghosts use a smarter "collective" strategy
-// #define EASY_COLLECTIVE_STRATEGY_START_LEVEL 2
-// #define HARD_COLLECTIVE_STRATEGY_START_LEVEL 8
-// #define MAX_STRATEGY_START_LEVEL 10
-
-// Starting from this level, the invincible ghost will try to be aligned with the player to defend other ghosts
-// #define NASTY_INVINCIBLE_START_LEVEL 5
+// Maximum number of ghost that co-exist with rockets
+#define MAX_GHOST_COUNT_FOR_BUBBLES 3 
 
 // Directions
 #define RIGHT 0

@@ -36,12 +36,8 @@
 
 	#include <conio.h>
 
-	void cputc(unsigned char c) 
-	{
-		char s[2]; 
-		s[0] = c; 
-		s[1] = '\0'; 
-		cputs(s);
-	}
+    #define cputc(c) 
+	//
+	#define cgetc() getch();
 	
 #endif // _Z88DK_CONIO_PATCH

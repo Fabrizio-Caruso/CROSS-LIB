@@ -53,9 +53,6 @@ typedef struct CharacterStruct Character;
 
 #include <stdlib.h>
 
-
-
-#include "character.h"
 #include "settings.h"
 
 #include "display_macros.h"
@@ -111,4 +108,4 @@ char nearInnerWall(Character *characterPtr);
 
 void ghost_partition(void);
 
-#endif
+#endif // _CHARACTER

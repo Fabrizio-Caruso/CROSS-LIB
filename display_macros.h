@@ -40,7 +40,7 @@
 #include "patch/generic_conio_patch.h"
 #if defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
-#elif !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+#elif !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
 	#include "patch/z88dk_conio_patch.h"
 #endif
 
@@ -405,7 +405,7 @@ typedef struct ImageStruct Image;
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 	
 	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
-		#define PRINTF(x,y,par) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(par); };
+		#define PRINTF(x,y,par)
 	#else
 		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 	#endif

@@ -136,11 +136,13 @@ void displayStatsTitles(void)
 		gotoxy(15,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(15+20,0); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(15,1); cputc(PLAYER_IMAGE._imageData);cputc(':');
-	#else
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(18,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(18,1); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');
+	#else
+		// TODO: to implement
 	#endif
 
 }
@@ -160,10 +162,12 @@ void displayStats(void)
 		PRINTF(7,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(7,1-Y_OFFSET,"%05lu",points);
 		PRINTF(7,2-Y_OFFSET,"%02hu", level);
-	#else	
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
 		PRINTF(8,2-Y_OFFSET,"%02hu", level);
+	#else
+		// TODO: to implement		
 	#endif
 	
 	#if defined (__ATMOS__)
@@ -174,10 +178,12 @@ void displayStats(void)
 		PRINTF(15+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 		PRINTF(15+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
 		PRINTF(15+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
-	#else
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
 		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
+	#else
+		// TODO: to implement		
 	#endif		
 	//	SET_TEXT_COLOR(TEXT_COLOR);
 }
@@ -193,11 +199,14 @@ void drawBorders(void)
 
 void setScreenColors(void)
 {
-	SET_TEXT_COLOR(TEXT_COLOR);
-	
-	SET_BORDER_COLOR(BORDER_COLOR);
-	
-	SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
+	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#else
+		SET_TEXT_COLOR(TEXT_COLOR);
+		
+		SET_BORDER_COLOR(BORDER_COLOR);
+		
+		SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
+	#endif
 }
 
 void printCenteredMessage(char *Text)

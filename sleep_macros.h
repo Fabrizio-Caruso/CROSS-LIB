@@ -35,7 +35,7 @@
 #define _SLEEP_MACROS
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__)
-	void sleep(unsigned int sec); // { unsigned long i; for(i=0;i<sec*5000ul;++i){}; }; 
+	void sleep(unsigned int sec);
 #else
 	#include <time.h>
 	#include <unistd.h>

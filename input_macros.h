@@ -40,6 +40,10 @@
 		#include <joystick.h>
 	#endif
 
+	#if !(defined(__CBM__) || defined(__ATMOS__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+		#include "patch/z88dk_conio_patch.h"
+	#endif 
+	
 	#define IF_KEYBOARD_HIT if(kbhit()) 
 		
 	#if defined(__ATMOS__)

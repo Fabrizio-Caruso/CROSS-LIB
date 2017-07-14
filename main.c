@@ -842,7 +842,7 @@ int main(void)
 				ghostCount = GHOSTS_NUMBER;
 
 
-				if(missileLevel())
+				if(bonusLevel())
 				{	
 					CLEAR_SCREEN();
 					sleep(1);

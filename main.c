@@ -772,7 +772,7 @@ int main(void)
 				handle_powerup_item();
 
 				handle_extraPoints_item();
-				if (level>=EXTRA_LIFE_FIRST_LEVEL)
+				if (level>=EXTRA_LIFE_FIRST_LEVEL && rocketLevel())
 				{
 					handle_invincibility_item();
 					handle_extraLife_item();

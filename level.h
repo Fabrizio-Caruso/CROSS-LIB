@@ -43,7 +43,11 @@ void updateInnerWallVerticalData(void);
 
 unsigned short drawInnerVerticalWallForLevel(void);
 
-char rocketLevel(void);
+unsigned char rocketLevel(void);
+
+unsigned char missileLevel(void);
+
+unsigned char bossLevel(void);
 
 void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr);
 
@@ -51,7 +55,5 @@ void fillLevelWithCharacters(unsigned char nGhosts);
 
 void finalScore(void);			
 			  
-unsigned char missileLevel(unsigned char level);
-
 unsigned char computeArrowRange(void);
 #endif // _LEVEL

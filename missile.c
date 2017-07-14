@@ -151,7 +151,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
 		DRAW_BROKEN_WALL(missilePtr->_x,missilePtr->_y);
-		if(missileLevel(level))
+		if(missileLevel() || bossLevel())
 		{
 			if(missilePtr->_x==XSize-1 && missilePtr->_y==4 && rightEnemyMissilePtr->_status)
 			{
@@ -174,7 +174,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 				extraLifeCoolDown/=2;
 			}
 		}
-		if(rocketLevel() && missilePtr->_y==YSize-1)
+		if((rocketLevel() || bossLevel()) && missilePtr->_y==YSize-1)
 		{
 			unsigned char i;
 			for(i=0;i<BUBBLES_NUMBER;++i)

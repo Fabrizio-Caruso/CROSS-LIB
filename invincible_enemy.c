@@ -33,6 +33,7 @@
  
 #include "settings.h"
 #include "invincible_enemy.h"
+#include "level.h"
 
 extern unsigned short level;
 extern unsigned int loop;
@@ -43,6 +44,8 @@ extern unsigned short invincibleYCountDown ;
 extern unsigned int invincibleLoopTrigger;
 extern unsigned short invincibleGhostCountTrigger;
 
+extern unsigned int ghostLevel;
+
 int computeInvincibleCountDown(void)
 {
 	return 90 - level*2;
@@ -51,13 +54,20 @@ int computeInvincibleCountDown(void)
 
 int computeInvincibleSlowDown(void)
 {
-	if(loop<1000)
+	if(loop<1500)
 	{
-		return 25500 - (level/4) * 1000 - loop*4;
+		return 31000 - (level/4) * 1000 - loop*2 - ghostLevel*16;
 	}
-	else if(loop<1200)
+	else if(loop<2500)
 	{
-		return 7000;
+		if(!bossLevel())
+		{
+			return 31000 - (level/4) * 1000 - 3000;
+		}
+		else
+		{
+			return 31000 - (level/4)*1000 - 3000 - ghostLevel*16;
+		}
 	}
 	return 0; // You must die!
 }
@@ -72,10 +82,13 @@ int computeInvincibleGhostCountTrigger(void)
 
 int computeInvincibleLoopTrigger(void)
 {
+	if(bossLevel())
+		return 500 - (level/4)*10; // TODO: Debugging
+	else
 	if(level==FINAL_LEVEL)
-		return 150;
-	else if (level==FINAL_LEVEL - 1)
 		return 180;
+	else if (level==FINAL_LEVEL - 1)
+		return 190;
 	else if (level==FINAL_LEVEL - 2)
 		return 200;
 	else

@@ -186,6 +186,8 @@ void handle_missile()
 				extraPointsCoolDown/=2;
 				extraLifeCoolDown/=2;
 				invincibilityCoolDown/=2;
+				++invincibleGhostHits;
+				decreaseGhostLevel();
 				DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 			}		
 	}
@@ -207,6 +209,7 @@ void handle_missile()
 			extraLifeCoolDown/=2;
 			invincibilityCoolDown/=2;
 			++invincibleGhostHits;
+			decreaseGhostLevel();
 			
 			// TODO: to TEST
 			if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
@@ -219,7 +222,7 @@ void handle_missile()
 				for(i=0;i<7;++i)
 					EXPLOSION_SOUND();
 				points+=INVINCIBLE_GHOST_POINTS;
-				if(missileLevel(level))
+				if(missileLevel())
 					points+=INVINCIBLE_GHOST_POINTS;
 			}
 			else
@@ -315,7 +318,7 @@ void handle_extraPoints_item()
 			DELETE_EXTRA_POINTS(extraPoints._x,extraPoints._y,extraPoints._imagePtr);
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 			points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
-			if(missileLevel(level))
+			if(missileLevel())
 				points+=EXTRA_POINTS;
 			extraPoints._status = 0;	
 			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;
@@ -416,9 +419,9 @@ void handle_invincibility_item()
 void handle_invincible_ghost(void)
 {
 	// Manage invincible ghost
-	if(!invincibleGhost._status && invincibleGhostAlive &&
+	if((!bossLevel() && !invincibleGhost._status && invincibleGhostAlive &&
 	  ( (invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
-	    (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger)))
+	    (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || (bossLevel() && loop>=invincibleLoopTrigger))
 	{
 		invincibleGhost._status = 1;
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
@@ -615,7 +618,7 @@ int main(void)
 			
 			player_invincibility = 0;
 	
-			while(player._status && ghostCount>0) // while alive && there are still ghosts
+			while(player._status && ((ghostCount>0 && !bossLevel()) || (invincibleGhostAlive && bossLevel()))) // while alive && there are still ghosts
 			{
 				++loop;
 				
@@ -639,7 +642,7 @@ int main(void)
 				
 				drawInnerVerticalWall();
 
-				if(ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && rocketLevel())
+				if((ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && rocketLevel()) || bossLevel())
 				{ 
 					unsigned char i;
 
@@ -675,7 +678,7 @@ int main(void)
 				}
 
 				
-				if(missileLevel(level))
+				if(missileLevel() || bossLevel())
 				{
 					if(leftEnemyMissile._status)
 					{
@@ -749,29 +752,39 @@ int main(void)
 				handle_missile();
 			
 				// Chase the player
-				chasePlayer(ghostSlowDown);
+				if(!bossLevel())
+				{
+					chasePlayer(ghostSlowDown);
+				}
 				
 				// TODO: this should detect collisions of ghosts that have just moved
-				if(missile._status)
+				if(!bossLevel() && missile._status)
 				{
 					checkMissileVsGhosts(&missile);
 				}
 				
-				handle_player_vs_bombs_and_ghosts();
+				if(!bossLevel())
+				{
+					handle_player_vs_bombs_and_ghosts();
+				}
 				
 				handle_player_vs_inner_wall();
 			
-				// Check collisions bombs vs ghosts
-				checkBombsVsGhosts();
-				
-				// Check collisions ghosts vs ghosts
-			    checkGhostsVsGhosts();
+				if(!bossLevel())
+				{
+					// Check collisions bombs vs ghosts
+					checkBombsVsGhosts();
+					
+					// Check collisions ghosts vs ghosts
+					checkGhostsVsGhosts();
+				}
 				
 				handle_gun_item();
 				
 				handle_powerup_item();
 
 				handle_extraPoints_item();
+				
 				if (level>=EXTRA_LIFE_FIRST_LEVEL && rocketLevel())
 				{
 					handle_invincibility_item();
@@ -784,11 +797,14 @@ int main(void)
 				
 				handle_player_vs_outer_wall();
 				
-				DRAW_BOMBS();
+				if(!bossLevel())
+				{
+					DRAW_BOMBS();
 				
-				// Display ghosts
-				displayGhosts();
-
+					// Display ghosts
+					displayGhosts();
+				}
+				
 				#if defined(__ATARI__) || defined(__ATARIXL__)
 					displayStatsTitles();
 				#endif
@@ -826,7 +842,7 @@ int main(void)
 				ghostCount = GHOSTS_NUMBER;
 
 
-				if(missileLevel(level))
+				if(missileLevel())
 				{	
 					CLEAR_SCREEN();
 					sleep(1);

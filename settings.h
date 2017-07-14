@@ -146,7 +146,7 @@
 #define FIRST_BUBBLES_LEVEL 7 // 8 because of check on levels after missile level
 
 // Maximum number of ghost that co-exist with rockets
-#define MAX_GHOST_COUNT_FOR_BUBBLES 3 
+#define MAX_GHOST_COUNT_FOR_BUBBLES 4
 
 // Directions
 #define RIGHT 0

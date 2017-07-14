@@ -636,8 +636,7 @@ int main(void)
 				
 				drawInnerVerticalWall();
 
-				if(ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && level >= FIRST_BUBBLES_LEVEL && 
-				   !missileLevel(level) && !missileLevel(level-1) && !missileLevel(level-2))
+				if(ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && rocketLevel())
 				{ 
 					unsigned char i;
 
@@ -662,15 +661,12 @@ int main(void)
 							DRAW_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);			
 							if(bubbles[i]->_y<=1)
 							{	
-								bubbles[i]->_status = 0;
-								DELETE_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);					
+								//bubbles[i]->_status = 0;
+								DELETE_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);
+								//
+								bubbles[i]->_x = (i+1)*(XSize/(BUBBLES_NUMBER+1));
+								bubbles[i]->_y = YSize-2;							
 							}
-						}
-						else
-						{
-							bubbles[i]->_x = (i+1)*(XSize/(BUBBLES_NUMBER+1));
-							bubbles[i]->_y = YSize-2;
-							bubbles[i]->_status = 1;
 						}
 					}
 				}

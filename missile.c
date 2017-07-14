@@ -36,14 +36,19 @@
 #include "settings.h"
 #include "sound_macros.h"
 #include "display_macros.h"
+#include "level.h"
 
 extern unsigned long points;
 extern unsigned short ghostCount;
 
 extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];
+extern Character* bubbles[BUBBLES_NUMBER];
+
+extern unsigned char bubbles_x[BUBBLES_NUMBER];
 
 extern Image DEAD_GHOST_IMAGE;
+extern unsigned char level;
 
 void checkMissileVsGhost(Character * missilePtr,
 						 Character * ghostPtr)
@@ -140,25 +145,45 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
 		DRAW_BROKEN_WALL(missilePtr->_x,missilePtr->_y);
-		if(missilePtr->_x==XSize-1 && missilePtr->_y==4 && rightEnemyMissilePtr->_status)
+		if(missileLevel(level))
 		{
-			rightEnemyMissilePtr->_status = 0;
-			EXPLOSION_SOUND();
-			DELETE_MISSILE(rightEnemyMissilePtr->_x,rightEnemyMissilePtr->_y,rightEnemyMissilePtr->_imagePtr);
-			points+=HORIZONTAL_MISSILE_BONUS;
+			if(missilePtr->_x==XSize-1 && missilePtr->_y==4 && rightEnemyMissilePtr->_status)
+			{
+				rightEnemyMissilePtr->_status = 0;
+				EXPLOSION_SOUND();
+				DELETE_MISSILE(rightEnemyMissilePtr->_x,rightEnemyMissilePtr->_y,rightEnemyMissilePtr->_imagePtr);
+				points+=HORIZONTAL_MISSILE_BONUS;
+			}
+			else if(missilePtr->_x==0 && missilePtr->_y==YSize-4 && leftEnemyMissilePtr->_status)
+			{
+				leftEnemyMissilePtr->_status = 0;
+				EXPLOSION_SOUND();
+				DELETE_MISSILE(leftEnemyMissilePtr->_x,leftEnemyMissilePtr->_y,leftEnemyMissilePtr->_imagePtr);
+				points+=HORIZONTAL_MISSILE_BONUS;
+			}
 		}
-		else if(missilePtr->_x==0 && missilePtr->_y==YSize-4 && leftEnemyMissilePtr->_status)
+		if(rocketLevel() && missilePtr->_y==YSize-1)
 		{
-			leftEnemyMissilePtr->_status = 0;
-			EXPLOSION_SOUND();
-			DELETE_MISSILE(leftEnemyMissilePtr->_x,leftEnemyMissilePtr->_y,leftEnemyMissilePtr->_imagePtr);
-			points+=HORIZONTAL_MISSILE_BONUS;
+			unsigned char i;
+			for(i=0;i<BUBBLES_NUMBER;++i)
+			{
+				if(missilePtr->_x==bubbles_x[i] && bubbles[i]->_status)
+				{
+					bubbles[i]->_status = 0;
+					EXPLOSION_SOUND();
+					DELETE_MISSILE(bubbles[i]->_x,bubbles[i]->_y,bubbles[i]->_imagePtr);
+					DELETE_MISSILE(leftEnemyMissilePtr->_x,leftEnemyMissilePtr->_y,leftEnemyMissilePtr->_imagePtr);
+					points+=VERTICAL_MISSILE_BONUS;					
+				}
+			}
 		}
 	}
 	else
 	{
 		DRAW_MISSILE(missilePtr->_x, missilePtr->_y, missilePtr->_imagePtr);
 	}
+	
+	
 }
 
 void restoreMissile(Character *missilePtr)

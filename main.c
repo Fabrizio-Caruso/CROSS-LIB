@@ -842,7 +842,7 @@ int main(void)
 				ghostCount = GHOSTS_NUMBER;
 
 
-				if(bonusLevel())
+				if(bossLevel())
 				{	
 					CLEAR_SCREEN();
 					sleep(1);

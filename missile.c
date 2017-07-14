@@ -50,6 +50,12 @@ extern unsigned char bubbles_x[BUBBLES_NUMBER];
 extern Image DEAD_GHOST_IMAGE;
 extern unsigned char level;
 
+extern int extraPointsCoolDown;
+extern int invincibilityCoolDown;
+extern int extraLifeCoolDown;
+
+extern unsigned char dead_bubbles;
+
 void checkMissileVsGhost(Character * missilePtr,
 						 Character * ghostPtr)
 {
@@ -153,6 +159,9 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 				EXPLOSION_SOUND();
 				DELETE_MISSILE(rightEnemyMissilePtr->_x,rightEnemyMissilePtr->_y,rightEnemyMissilePtr->_imagePtr);
 				points+=HORIZONTAL_MISSILE_BONUS;
+				extraPointsCoolDown/=2;
+				invincibilityCoolDown/=2;
+				extraLifeCoolDown/=2;
 			}
 			else if(missilePtr->_x==0 && missilePtr->_y==YSize-4 && leftEnemyMissilePtr->_status)
 			{
@@ -160,6 +169,9 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 				EXPLOSION_SOUND();
 				DELETE_MISSILE(leftEnemyMissilePtr->_x,leftEnemyMissilePtr->_y,leftEnemyMissilePtr->_imagePtr);
 				points+=HORIZONTAL_MISSILE_BONUS;
+				extraPointsCoolDown/=2;
+				invincibilityCoolDown/=2;
+				extraLifeCoolDown/=2;
 			}
 		}
 		if(rocketLevel() && missilePtr->_y==YSize-1)
@@ -170,10 +182,18 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 				if(missilePtr->_x==bubbles_x[i] && bubbles[i]->_status)
 				{
 					bubbles[i]->_status = 0;
+					++dead_bubbles;
 					EXPLOSION_SOUND();
 					DELETE_MISSILE(bubbles[i]->_x,bubbles[i]->_y,bubbles[i]->_imagePtr);
 					DELETE_MISSILE(leftEnemyMissilePtr->_x,leftEnemyMissilePtr->_y,leftEnemyMissilePtr->_imagePtr);
-					points+=VERTICAL_MISSILE_BONUS;					
+					points+=VERTICAL_MISSILE_BONUS;
+					if(dead_bubbles==BUBBLES_NUMBER)
+					{
+						extraPointsCoolDown/=4;
+						invincibilityCoolDown/=4;
+						extraLifeCoolDown/=4;
+						TICK_SOUND();
+					}
 				}
 			}
 		}

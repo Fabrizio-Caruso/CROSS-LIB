@@ -114,6 +114,8 @@ unsigned char invincibleGhostAlive = 1;
 
 unsigned char player_invincibility = 0;
 
+unsigned char dead_bubbles;
+
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
@@ -560,6 +562,7 @@ int main(void)
 		ghostCount = GHOSTS_NUMBER;
 		do // Level (Re-)Start
 		{ 
+			dead_bubbles = 0;
 			invincibleGhostAlive = 1;
 			invincibleGhostHits = 0;
 			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;

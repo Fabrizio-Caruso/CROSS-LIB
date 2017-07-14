@@ -96,8 +96,8 @@
 		 const unsigned char horizontal_bar[] =           { 0, 0, 0,63,63,00,00,00};
 		 const unsigned char corner[] =                   {63,63,63,51,51,63,63,63};
 		
-		 const unsigned char left_arrow[] =             { 0, 0,56,31,31,56, 0, 0};
-		 const unsigned char right_arrow[] =            { 0, 0, 7,62,62, 7, 0, 0};
+		 const unsigned char right_arrow[] =             { 0, 0,56,31,31,56, 0, 0};
+		 const unsigned char left_arrow[] =            { 0, 0, 7,62,62, 7, 0, 0};
 		//const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
 		
 		const unsigned char bubble[] =            	   {12,30,30,30,63,45,33,33};

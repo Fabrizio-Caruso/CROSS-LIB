@@ -58,6 +58,8 @@ extern unsigned short ghostCount;
 
 extern unsigned char player_invincibility;
 
+extern unsigned char guns;
+
 #if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 #elif !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
 #else
@@ -95,7 +97,7 @@ extern unsigned char player_invincibility;
 			playerDirection = RIGHT;
 			SHOW_RIGHT();
 		}
-		else if(JOY_BTN_FIRE(joyInput))
+		else if(JOY_BTN_FIRE(joyInput) && guns>0)
 		{
 			playerFire = 1;
 		}
@@ -152,7 +154,7 @@ void movePlayerByKeyboard(char kbInput)
 		}
 	#endif // TRAINER
 	else 	
-	if(kbInput==' ')
+	if(kbInput==' ' && guns>0)
 	{
 		playerFire = 1;
 	}

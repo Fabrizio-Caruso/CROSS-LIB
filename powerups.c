@@ -56,7 +56,7 @@ void computePowerUp(unsigned int *coolDownDecreasePtr, unsigned int *powerUpInit
 int computeGunInitialCoolDown(void)
 {
 	if(level<=24)
-		gunInitialCoolDown = 220 + level * 4;
+		gunInitialCoolDown = 230 + level * 4;
 	else
 		gunInitialCoolDown = 100 + level * 2;
 	return gunInitialCoolDown;

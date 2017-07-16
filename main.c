@@ -542,15 +542,7 @@ int main(void)
 			PRINTF(0,12,"YSize: %d\n", YSize);
 			
 			PRINTF(0,13,"BOMBS_NUMBER: %d\n", BOMBS_NUMBER);		
-			
-			// gotoxy(0,0); cputs("hello world1");
-			// gotoxy(20,0);cputs("hello world2");
-			// gotoxy(0,1); cputs("hello world3");
-			// gotoxy(20,1);cputs("hello world4");
-			// gotoxy(0,2); cputs("hello world5");
-			// gotoxy(20,2);cputs("hello world6");
-			// gotoxy(0,3); cputs("hello world7");
-			// gotoxy(20,3);cputs("hello world8");
+
 			WAIT_PRESS();
 		#endif
 
@@ -711,7 +703,7 @@ int main(void)
 						DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 						if(!player_invincibility && areCharctersAtSamePosition(&leftEnemyMissile,&player))
 						{
-							EXPLOSION_SOUND()
+							EXPLOSION_SOUND();
 							die(&player);
 							printDefeatMessage();
 							sleep(1);
@@ -744,7 +736,7 @@ int main(void)
 						DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);				
 						if(!player_invincibility && areCharctersAtSamePosition(&rightEnemyMissile,&player))
 						{
-							EXPLOSION_SOUND()
+							EXPLOSION_SOUND();
 							die(&player);
 							printDefeatMessage();
 							sleep(1);

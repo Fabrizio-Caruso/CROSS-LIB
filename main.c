@@ -74,6 +74,7 @@ unsigned int powerUpInitialCoolDown = 100;
 
 unsigned int ghostLevel = 1;
 unsigned long points = 0;
+unsigned long highScore = 0;
 
 unsigned short playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
 unsigned short missileDirection = 0;
@@ -512,6 +513,7 @@ int main(void)
 	GET_SCREEN_SIZE(&XSize, &YSize);
 	
 	initializeCharacters();
+	highScore = 0;
 	
 	while(1)
 	{
@@ -556,8 +558,11 @@ int main(void)
 		initialScreen();
 		WAIT_PRESS()
 		CLEAR_SCREEN();
-		deleteCenteredMessage();
-
+		//deleteCenteredMessage();
+		highScoreScreen();
+		WAIT_PRESS();
+		CLEAR_SCREEN();
+		
 		extraLifeThroughPointsCounter = 1;
 		points = 0;
 		level = INITIAL_LEVEL; 	
@@ -876,6 +881,10 @@ int main(void)
 	sleep(1);
 	finalScore();
 	sleep(2);
+	if(points>highScore)
+	{
+		highScore = points;
+	}
 	CLEAR_SCREEN();
 	} // while(1) -> restart from the beginning
 

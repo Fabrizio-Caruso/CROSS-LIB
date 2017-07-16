@@ -53,13 +53,14 @@ extern unsigned short guns;
 extern unsigned long points;
 extern unsigned int ghostCount;
 extern unsigned int ghostLevel;
+extern unsigned long highScore;
 
- extern Image PLAYER_IMAGE;
- extern Image GHOST_IMAGE;
- extern Image GUN_IMAGE;
- extern Image INVINCIBLE_GHOST_IMAGE;
- extern Image PLAYER_IMAGE;
- extern Image MISSILE_IMAGE;
+extern Image PLAYER_IMAGE;
+extern Image GHOST_IMAGE;
+extern Image GUN_IMAGE;
+extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image PLAYER_IMAGE;
+extern Image MISSILE_IMAGE;
 
 // TODO: This is SLOW
 void displayStatsTitles(void)
@@ -246,6 +247,16 @@ void printLevel(void)
 		sleep(1);
 	}
 
+	void highScoreScreen()
+	{
+		char highScoreString[22];
+
+		sprintf(highScoreString, "high score: %lu", highScore);
+
+		printCenteredMessage(highScoreString);
+		sleep(1);
+	}
+	
 	void gameCompleted(void)
 	{
 		printCenteredMessage("y o u   m a d e   i t !"); 
@@ -278,6 +289,16 @@ void printLevel(void)
 		sleep(1);
 	}
 
+	void highScoreScreen(void)
+	{
+		char highScoreString[22];
+
+		sprintf(highScoreString, "HIGH SCORE: %lu", highScore);
+
+		printCenteredMessage(highScoreString);
+		sleep(1);
+	}
+	
 	void gameCompleted(void)
 	{
 		printCenteredMessage("Y O U   M A D E   I T !"); 

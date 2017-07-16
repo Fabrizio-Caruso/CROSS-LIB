@@ -56,13 +56,38 @@
 		#define GET_CHAR() cgetc();
 	#endif
 
-	#define WAIT_JOY1_OR_KEY_PRESS() 	while(!(kbInput = joy_read(JOY_1)) || !(kbInput=kbhit())} 
+	#define WAIT_JOY1_PRESS() \
+	{ \
+		while(kbInput = joy_read(JOY_1)) \
+		{ \
+			JOY_BTN_UP(kbInput); \
+		} \
+		while(!(kbInput = joy_read(JOY_1))) \
+		{ \
+		} \
+	}	
+	
 
-	#define WAIT_JOY1_PRESS() while(!(kbInput = joy_read(JOY_1))){}
-
-	#define WAIT_JOY2_PRESS() while(!(kbInput = joy_read(JOY_2))){}
-
-	#define WAIT_KEY_PRESS() {while(!kbhit()){}; cgetc();};
+	#define WAIT_JOY2_PRESS() \
+	{ \
+		while(kbInput = joy_read(JOY_2)) \
+		{ \
+			JOY_BTN_UP(kbInput); \
+		} \
+		while(!(kbInput = joy_read(JOY_2))) \
+		{ \
+		} \
+	}	
+	
+	#define WAIT_KEY_PRESS() \
+	{ \
+		while(kbhit()) \
+			cgetc(); \
+		while(!kbhit()) \
+		{ \
+		}; \
+		cgetc(); \
+	};
 
 	#if defined (__CBM610__) || defined(__PLUS4__) || defined(__C16__)
 		#define WAIT_PRESS() WAIT_KEY_PRESS();

@@ -110,7 +110,7 @@ extern unsigned char player_invincibility;
 	}
 #endif
 
-
+#if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 void movePlayerByKeyboard(char kbInput)
 {
 	if(/*(kbInput=='W') ||*/ (kbInput=='W'))
@@ -165,6 +165,6 @@ void movePlayerByKeyboard(char kbInput)
 		DRAW_PLAYER(player._x, player._y, player._imagePtr);
 	}
 }
-
+#endif
 
 

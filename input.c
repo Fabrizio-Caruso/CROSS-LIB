@@ -62,7 +62,7 @@ extern unsigned char player_invincibility;
 extern unsigned char guns;
 
 //#if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
-#if (!defined(__CBM__) || defined(__CBM610__)) && !defined(__ATARI__) && !defined(__ATARIXL__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__)
 void movePlayerByKeyboard(char kbInput)
 {
 	if(/*(kbInput=='W') ||*/ (kbInput=='W'))
@@ -99,6 +99,61 @@ void movePlayerByKeyboard(char kbInput)
 	}
 	#ifdef _TRAINER
 		else if(/*(kbInput=='Z') || */ (kbInput=='Z'))
+		{
+			ghostCount = 0;
+		}
+	#endif // TRAINER
+	else 	
+	if(kbInput==' ' && guns>0 && !missile._status)
+	{
+		playerFire = 1;
+	}
+	if(player_invincibility)
+	{
+		DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
+	}
+	else
+	{
+		DRAW_PLAYER(player._x, player._y, player._imagePtr);
+	}
+}
+#elif defined(__CBM610__)
+void movePlayerByKeyboard(char kbInput)
+{
+	if(/*(kbInput=='W') ||*/ (kbInput=='w'))
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		--player._y;
+		invincibleYCountDown = computeInvincibleCountDown();
+		playerDirection = UP;
+		SHOW_UP();
+	}
+	else if(/*(kbInput=='S') ||*/ (kbInput=='s'))
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		++player._y;
+		invincibleYCountDown = computeInvincibleCountDown();
+		playerDirection = DOWN;
+		SHOW_DOWN();
+	}
+	else if(/*(kbInput=='A') ||*/ (kbInput=='a'))
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		--player._x;
+		invincibleXCountDown = computeInvincibleCountDown();
+		playerDirection = LEFT;
+		SHOW_LEFT();
+	}
+	else if(/*(kbInput=='D') ||*/ (kbInput=='d'))
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		++player._x;
+		invincibleXCountDown = computeInvincibleCountDown();
+		playerDirection = RIGHT;
+		SHOW_RIGHT();
+	}
+	#ifdef _TRAINER
+		else if(/*(kbInput=='Z') || */ (kbInput=='z'))
 		{
 			ghostCount = 0;
 		}

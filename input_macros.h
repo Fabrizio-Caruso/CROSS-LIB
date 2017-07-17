@@ -99,7 +99,7 @@
 		};
 	#endif
 	
-	#if (!defined(__CBM__) || defined(__CBM610__) || defined(__C16__) || defined(__PLUS4__)) && !defined(__ATARI__) && !defined(__ATARIXL__)
+	#if (!defined(__CBM__) || defined(__PET__) || defined(__CBM610__) || defined(__C16__) || defined(__PLUS4__)) && !defined(__ATARI__) && !defined(__ATARIXL__)
 		#define WAIT_PRESS() WAIT_KEY_PRESS();
 	#else
 		#define WAIT_PRESS() WAIT_JOY1_PRESS();

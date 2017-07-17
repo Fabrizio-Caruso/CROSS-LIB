@@ -749,7 +749,7 @@ int main(void)
 				handle_missile();
 			
 				// Chase the player
-				if(!bossLevel())
+				//if(!bossLevel())
 				{
 					chasePlayer(ghostSlowDown);
 				}
@@ -760,7 +760,7 @@ int main(void)
 					checkMissileVsGhosts(&missile);
 				}
 				
-				if(!bossLevel())
+				//if(!bossLevel())
 				{
 					handle_player_vs_bombs_and_ghosts();
 				}
@@ -794,7 +794,7 @@ int main(void)
 				
 				handle_player_vs_outer_wall();
 				
-				if(!bossLevel())
+				//if(!bossLevel())
 				{
 					DRAW_BOMBS();
 				

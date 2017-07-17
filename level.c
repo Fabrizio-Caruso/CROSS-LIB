@@ -296,7 +296,11 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			}
 		}
 
-		if(!bossLevel())
+		if(bossLevel())
+		{
+			nGhosts = level/8;
+		}
+		//if(!bossLevel())
 		{
 			initializeCharacter(ghosts[0],XSize-XSize/6+rand()%3-3,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
 			DRAW_GHOST(ghosts[0]->_x, ghosts[0]->_y, ghosts[0]->_imagePtr);
@@ -410,7 +414,7 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 		} while(nearInnerWall(&player));
 		DRAW_PLAYER(player._x,player._y,player._imagePtr);
 
-		if(!bossLevel())
+		//if(!bossLevel())
 		{
 			do
 			{

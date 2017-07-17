@@ -109,13 +109,13 @@
 
 
 // MINE DISTRIBUTION
-// LEVEL  1 -  4: Four central bombs
-// LEVEL  6 -  9: Three central bombs
-// LEVEL 11 - 14: Two central bombs
-// LEVEL 16 - 19: One central bomb
-// LEVEL 21 - 24: Two bombs next to the vertical borders
-// LEVEL 26 - 29: Two bombs next to the lower corners
-// LEVEL 31 - 34: Two bombs attached to the vertical borders
+// LEVEL  1 -  5: Four central bombs
+// LEVEL  6 - 10: Three central bombs
+// LEVEL 11 - 15: Two central bombs
+// LEVEL 16 - 20: One central bomb
+// LEVEL 21 - 25: Two bombs next to the vertical borders
+// LEVEL 26 - 30: Two bombs next to the lower corners
+// LEVEL 31 - 35: Two bombs attached to the vertical borders
 // LEVEL 36 - 40: Four bombs at the four corners 
 
 // Starting from this level 4 central bombs
@@ -145,7 +145,7 @@
 
 #define FIRST_BUBBLES_LEVEL 7 // 8 because of check on levels after missile level
 
-// Maximum number of ghost that co-exist with rockets
+// Maximum number of ghost that co-exist with rockets (in non-boss levels)
 #define MAX_GHOST_COUNT_FOR_BUBBLES 4
 
 // Directions

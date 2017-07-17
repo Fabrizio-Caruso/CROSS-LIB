@@ -608,9 +608,9 @@ int main(void)
 			
 			displayStatsTitles();
 			
-			rightEnemyMissile._x = XSize-4; rightEnemyMissile._y = 4;
+			rightEnemyMissile._x = XSize-1; rightEnemyMissile._y = 4;
 			rightEnemyMissile._status = 1;
-			leftEnemyMissile._x = 4; leftEnemyMissile._y = YSize-4;
+			leftEnemyMissile._x = 0; leftEnemyMissile._y = YSize-4;
 			leftEnemyMissile._status = 1;
 			
 			player_invincibility = 0;
@@ -682,7 +682,7 @@ int main(void)
 						DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 						if(leftEnemyMissile._x==XSize-2)
 						{
-							leftEnemyMissile._x=2;
+							leftEnemyMissile._x=0;
 							leftEnemyMissile._y = YSize-4;
 						}
 						else
@@ -715,7 +715,7 @@ int main(void)
 						DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
 						if(rightEnemyMissile._x==2)
 						{
-							rightEnemyMissile._x=XSize-2;
+							rightEnemyMissile._x=XSize-1;
 							rightEnemyMissile._y = 4;
 						}
 						else

@@ -74,8 +74,10 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {*x=32; *y=40;};
 #elif  defined(__ATARI__) || defined(__ATARIXL__)
 	#define GET_SCREEN_SIZE(x,y) {*x=20; *y=24;};
-#else
+#elif defined(__CBM__) || defined(__APPLE2__) || defined(__APPL2ENH__) || defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
+#else
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #endif
 
 #if defined(__ATMOS__)
@@ -405,7 +407,7 @@ typedef struct ImageStruct Image;
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 	
 	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
-		#define PRINTF(x,y,par)
+		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); };
 	#else
 		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 	#endif

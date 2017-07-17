@@ -544,6 +544,21 @@ int main(void)
 			PRINTF(0,13,"BOMBS_NUMBER: %d\n", BOMBS_NUMBER);		
 
 			WAIT_PRESS();
+			CLEAR_SCREEN();
+					
+			PRINTF(0,1,"KEYBOARD PRESSED 1!");
+			WAIT_PRESS();
+					
+			PRINTF(0,2,"KEYBOARD PRESSED 2!");
+			WAIT_PRESS();
+					
+			PRINTF(0,3,"KEYBOARD PRESSED 3!");
+			WAIT_PRESS();		
+
+			gotoxy(10,10);cputc('X');
+			gotoxy(15,15);cputc('O');
+			gotoxy(20,20);cputc('!');
+			WAIT_PRESS();
 		#endif
 
 		

@@ -61,7 +61,8 @@ extern unsigned char player_invincibility;
 
 extern unsigned char guns;
 
-#if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
+//#if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
+#if (!defined(__CBM__) || defined(__CBM610__)) && !defined(__ATARI__) && !defined(__ATARIXL__)
 void movePlayerByKeyboard(char kbInput)
 {
 	if(/*(kbInput=='W') ||*/ (kbInput=='W'))

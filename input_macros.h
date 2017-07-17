@@ -78,24 +78,34 @@
 		{ \
 		} \
 	}	
-	
-	#define WAIT_KEY_PRESS() \
-	{ \
-		while(kbhit()) \
-			cgetc(); \
-		while(!kbhit()) \
-		{ \
-		}; \
-		cgetc(); \
-	};
 
-	#if  defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || defined(__C16__) || defined(__PLUS4__)
+	#if !defined(__CBM__) || defined(__CBM610__) || defined(__ATMOS__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+		#define WAIT_KEY_PRESS() \
+		{ \
+			while(!kbhit()) \
+			{ \
+			}; \
+			cgetc(); \
+		};		
+	#else
+		#define WAIT_KEY_PRESS() \
+		{ \
+			while(kbhit()) \
+				cgetc(); \
+			while(!kbhit()) \
+			{ \
+			}; \
+			cgetc(); \
+		};
+	#endif
+	
+	#if (!defined(__CBM__) || defined(__CBM610__) || defined(__C16__) || defined(__PLUS4__)) && !defined(__ATARI__) && !defined(__ATARIXL__)
 		#define WAIT_PRESS() WAIT_KEY_PRESS();
 	#else
 		#define WAIT_PRESS() WAIT_JOY1_PRESS();
 	#endif
 
-	#if defined (__CBM610__)
+	#if (!defined(__CBM__) || defined(__CBM610__)) && !defined(__ATARI__) && !defined(__ATARIXL__)
 	#else
 		#define JOY_INSTALL() { joy_install(joy_static_stddrv); };
 

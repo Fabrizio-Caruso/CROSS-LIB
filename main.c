@@ -768,7 +768,7 @@ int main(void)
 				
 				handle_player_vs_inner_wall();
 			
-				if(!bossLevel())
+				//if(!bossLevel())
 				{
 					// Check collisions bombs vs ghosts
 					checkBombsVsGhosts();

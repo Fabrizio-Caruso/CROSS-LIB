@@ -1,13 +1,13 @@
-@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
-@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
+@REM 
+set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM 
+set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+@REM 
+set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
 
-@REM 
-set cc65path="D:\personal\cc65-snapshot-win32"
-@REM 
-set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
-@REM 
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+@REM set cc65path="D:\personal\cc65-snapshot-win32"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
+@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 
 set Deliverables=%mypath%\deliverables
@@ -81,11 +81,9 @@ cl65.exe -O -t apple2 %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%
 @REM 
 cd %mypath%\tools
 @REM 
-cp MASTER.DSK %deliverables%\apple2.dsk
+cp MASTER_BOOT_ASCHASE.DSK %deliverables%\apple2.dsk
 @REM 
 java -jar ac.jar -cc65 %deliverables%\apple2.dsk aschase B < %deliverables%\apple2.bin
-@REM 
-del %deliverables%\MASTER.DSK
 @REM 
 del %deliverables%\apple2.bin
 @REM 
@@ -98,11 +96,9 @@ cl65.exe -O -t apple2enh %mypath%\sleep_macros.c %mypath%\display_macros.c %mypa
 @REM 
 cd %mypath%\tools
 @REM 
-cp MASTER.DSK %deliverables%\apple2enh.dsk
+cp MASTER_BOOT_ASCHASE.DSK %deliverables%\apple2enh.dsk
 @REM 
 java -jar ac.jar -cc65 %deliverables%\apple2enh.dsk aschase B < %deliverables%\apple2enh.bin
-@REM 
-del %deliverables%\MASTER.DSK
 @REM 
 del %deliverables%\apple2enh.bin
 @REM 

@@ -319,7 +319,7 @@ void handle_extraPoints_item()
 			DELETE_EXTRA_POINTS(extraPoints._x,extraPoints._y,extraPoints._imagePtr);
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 			points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
-			if(missileLevel())
+			if(bossLevel())
 				points+=EXTRA_POINTS;
 			extraPoints._status = 0;	
 			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;

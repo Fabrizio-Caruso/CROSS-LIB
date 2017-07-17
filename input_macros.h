@@ -79,7 +79,7 @@
 		} \
 	}	
 
-	#if !defined(__CBM__) || defined(__CBM610__) || defined(__ATMOS__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#if !(defined(__CBM__) || defined(__ATMOS__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
 		#define WAIT_KEY_PRESS() \
 		{ \
 			while(!kbhit()) \

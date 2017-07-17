@@ -38,6 +38,6 @@
 
     #define cputc(c) putch(c);
 	//
-	#define cgetc() getche();
+	#define cgetc() getch();
 	
 #endif // _Z88DK_CONIO_PATCH

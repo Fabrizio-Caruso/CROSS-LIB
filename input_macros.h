@@ -58,11 +58,11 @@
 
 	#define WAIT_JOY1_PRESS() \
 	{ \
-		while(kbInput = joy_read(JOY_1)) \
+		while(joy_read(JOY_1)) \
 		{ \
 			JOY_BTN_UP(kbInput); \
 		} \
-		while(!(kbInput = joy_read(JOY_1))) \
+		while(!(joy_read(JOY_1))) \
 		{ \
 		} \
 	}	
@@ -89,14 +89,10 @@
 		cgetc(); \
 	};
 
-	#if defined (__CBM610__) || defined(__PLUS4__) || defined(__C16__)
+	#if  defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || defined(__C16__) || defined(__PLUS4__)
 		#define WAIT_PRESS() WAIT_KEY_PRESS();
-	#elif defined (__CBM__) || defined(__NES__)
-		#define WAIT_PRESS() WAIT_JOY1_PRESS();
-	#elif defined(__ATARI__) || defined(__ATARIXL__) 
-		#define WAIT_PRESS() WAIT_JOY1_PRESS();
 	#else
-		#define WAIT_PRESS() WAIT_KEY_PRESS();
+		#define WAIT_PRESS() WAIT_JOY1_PRESS();
 	#endif
 
 	#if defined (__CBM610__)

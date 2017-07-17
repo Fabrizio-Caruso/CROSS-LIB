@@ -62,58 +62,6 @@ extern unsigned char player_invincibility;
 extern unsigned char guns;
 
 #if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
-#elif !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
-#else
-	void movePlayerByJoystick(unsigned char joyInput)
-	{
-		if(JOY_BTN_UP(joyInput))
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._y;
-			invincibleYCountDown = computeInvincibleCountDown();
-			playerDirection = UP;
-			SHOW_UP();
-		}
-		else if(JOY_BTN_DOWN(joyInput))
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._y;
-			invincibleYCountDown = computeInvincibleCountDown();
-			playerDirection = DOWN;
-			SHOW_DOWN();
-		}
-		else if(JOY_BTN_LEFT(joyInput))
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._x;
-			invincibleXCountDown = computeInvincibleCountDown();
-			playerDirection = LEFT;
-			SHOW_LEFT();
-		}
-		else if(JOY_BTN_RIGHT(joyInput))
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._x;
-			invincibleXCountDown = computeInvincibleCountDown();
-			playerDirection = RIGHT;
-			SHOW_RIGHT();
-		}
-		else if(JOY_BTN_FIRE(joyInput) && guns>0 && !missile._status)
-		{
-			playerFire = 1;
-		}
-		if(player_invincibility)
-		{
-			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
-		}
-		else
-		{
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		}
-	}
-#endif
-
-#if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 void movePlayerByKeyboard(char kbInput)
 {
 	if(/*(kbInput=='W') ||*/ (kbInput=='W'))
@@ -168,6 +116,54 @@ void movePlayerByKeyboard(char kbInput)
 		DRAW_PLAYER(player._x, player._y, player._imagePtr);
 	}
 }
+#else
+	void movePlayerByJoystick(unsigned char joyInput)
+	{
+		if(JOY_BTN_UP(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			--player._y;
+			invincibleYCountDown = computeInvincibleCountDown();
+			playerDirection = UP;
+			SHOW_UP();
+		}
+		else if(JOY_BTN_DOWN(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			++player._y;
+			invincibleYCountDown = computeInvincibleCountDown();
+			playerDirection = DOWN;
+			SHOW_DOWN();
+		}
+		else if(JOY_BTN_LEFT(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			--player._x;
+			invincibleXCountDown = computeInvincibleCountDown();
+			playerDirection = LEFT;
+			SHOW_LEFT();
+		}
+		else if(JOY_BTN_RIGHT(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			++player._x;
+			invincibleXCountDown = computeInvincibleCountDown();
+			playerDirection = RIGHT;
+			SHOW_RIGHT();
+		}
+		else if(JOY_BTN_FIRE(joyInput) && guns>0 && !missile._status)
+		{
+			playerFire = 1;
+		}
+		if(player_invincibility)
+		{
+			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
+		}
+		else
+		{
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		}
+	}	
 #endif
 
 

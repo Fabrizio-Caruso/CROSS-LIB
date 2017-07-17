@@ -53,6 +53,7 @@ extern unsigned short playerDirection;
 extern unsigned short playerFire;
 extern unsigned short level;
 extern Character player;
+extern Character missile;
 
 extern unsigned short ghostCount;
 
@@ -97,7 +98,7 @@ extern unsigned char guns;
 			playerDirection = RIGHT;
 			SHOW_RIGHT();
 		}
-		else if(JOY_BTN_FIRE(joyInput) && guns>0)
+		else if(JOY_BTN_FIRE(joyInput) && guns>0 && !missile._status)
 		{
 			playerFire = 1;
 		}
@@ -154,7 +155,7 @@ void movePlayerByKeyboard(char kbInput)
 		}
 	#endif // TRAINER
 	else 	
-	if(kbInput==' ' && guns>0)
+	if(kbInput==' ' && guns>0 && !missile._status)
 	{
 		playerFire = 1;
 	}

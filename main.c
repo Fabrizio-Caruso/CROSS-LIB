@@ -322,7 +322,7 @@ void handle_extraPoints_item()
 			if(bossLevel())
 				points+=EXTRA_POINTS;
 			extraPoints._status = 0;	
-			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;
+			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder
 		}
 		else
 		{
@@ -358,7 +358,7 @@ void handle_extraLife_item()
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 			++lives;
 			extraLife._status = 0;	
-			extraLifeCoolDown = EXTRA_LIFE_COOL_DOWN;
+			extraLifeCoolDown = EXTRA_LIFE_COOL_DOWN*2; // same time is harder
 		}
 		else
 		{

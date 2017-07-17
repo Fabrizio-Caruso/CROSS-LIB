@@ -261,7 +261,7 @@ void handle_gun_item()
 		do
 		{
 			relocateCharacter(&gun, bombs,4);
-		} while(nearInnerWall(&gun));
+		} while(nearInnerWall(&gun)); // TODO: Not enough! In boss level it should be in a reachable position
 		DRAW_GUN(gun._x, gun._y, gun._imagePtr);
 	}
 	else
@@ -755,7 +755,8 @@ int main(void)
 				}
 				
 				// TODO: this should detect collisions of ghosts that have just moved
-				if(!bossLevel() && missile._status)
+				//if(!bossLevel() && missile._status)
+				if(missile._status)
 				{
 					checkMissileVsGhosts(&missile);
 				}

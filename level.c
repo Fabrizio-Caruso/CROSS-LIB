@@ -263,12 +263,12 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 	// initializeCharacter(ghosts[1],pos,1,0,&DEAD_GHOST_IMAGE);
 // }
 
-#if !defined(__ATMOS__) && !defined(__CBM__) && !defined(__ATARIXL__) && !defined(__APPLE2__) && !defined(__APPLE2ENH__)
-	void fillLevelWithCharacters(unsigned char nGhosts) 
-	{ 
-//		TODO: TO BE IMPLEMENTED
-	}
-#else
+// #if !defined(__ATMOS__) && !defined(__CBM__) && !defined(__ATARIXL__) && !defined(__APPLE2__) && !defined(__APPLE2ENH__)
+	// void fillLevelWithCharacters(unsigned char nGhosts) 
+	// { 
+		// TODO: TO BE IMPLEMENTED
+	// }
+// #else
 	void fillLevelWithCharacters(unsigned char nGhosts)
 	{
 		short corner = rand()%4;
@@ -671,7 +671,7 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);			
 		}
 	}
-#endif
+// #endif
 
 
 

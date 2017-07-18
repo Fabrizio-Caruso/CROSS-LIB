@@ -52,6 +52,9 @@
 		#include "apple2/apple2_input.h"
 	#elif defined(__ATARI__) || defined(__ATARIXL__)
 		#include "atari/atari_input.h"
+	#elif defined(__SPECTRUM__)
+		#include <input.h>
+		#define GET_CHAR() in_Inkey();;
 	#else
 		#define GET_CHAR() cgetc();
 	#endif

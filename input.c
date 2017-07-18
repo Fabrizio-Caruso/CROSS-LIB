@@ -65,7 +65,7 @@ extern unsigned char guns;
 #if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__)
 void movePlayerByKeyboard(char kbInput)
 {
-	if(/*(kbInput=='W') ||*/ (kbInput=='W'))
+	if(kbInput=='W')
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		--player._y;
@@ -73,7 +73,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = UP;
 		SHOW_UP();
 	}
-	else if(/*(kbInput=='S') ||*/ (kbInput=='S'))
+	else if(kbInput=='S')
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		++player._y;
@@ -81,7 +81,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = DOWN;
 		SHOW_DOWN();
 	}
-	else if(/*(kbInput=='A') ||*/ (kbInput=='A'))
+	else if(kbInput=='A')
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		--player._x;
@@ -89,7 +89,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = LEFT;
 		SHOW_LEFT();
 	}
-	else if(/*(kbInput=='D') ||*/ (kbInput=='D'))
+	else if(kbInput=='D')
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		++player._x;
@@ -120,7 +120,7 @@ void movePlayerByKeyboard(char kbInput)
 #elif defined(__CBM610__) || defined (__SPECTRUM__)
 void movePlayerByKeyboard(char kbInput)
 {
-	if(/*(kbInput=='W') ||*/ (kbInput=='w'))
+	if(kbInput=='w')
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		--player._y;
@@ -128,7 +128,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = UP;
 		SHOW_UP();
 	}
-	else if(/*(kbInput=='S') ||*/ (kbInput=='s'))
+	else if(kbInput=='s')
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		++player._y;
@@ -136,7 +136,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = DOWN;
 		SHOW_DOWN();
 	}
-	else if(/*(kbInput=='A') ||*/ (kbInput=='a'))
+	else if(kbInput=='a')
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		--player._x;
@@ -144,7 +144,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = LEFT;
 		SHOW_LEFT();
 	}
-	else if(/*(kbInput=='D') ||*/ (kbInput=='d'))
+	else if(kbInput=='d')
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		++player._x;

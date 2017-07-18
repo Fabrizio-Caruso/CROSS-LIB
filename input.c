@@ -62,10 +62,10 @@ extern unsigned char player_invincibility;
 extern unsigned char guns;
 
 //#if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__)
 void movePlayerByKeyboard(char kbInput)
 {
-	if((kbInput=='w') || (kbInput=='W'))
+	if(/*(kbInput=='W') ||*/ (kbInput=='W'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		--player._y;
@@ -73,7 +73,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = UP;
 		SHOW_UP();
 	}
-	else if((kbInput=='s') || (kbInput=='S'))
+	else if(/*(kbInput=='S') ||*/ (kbInput=='S'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		++player._y;
@@ -81,7 +81,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = DOWN;
 		SHOW_DOWN();
 	}
-	else if((kbInput=='a') || (kbInput=='A'))
+	else if(/*(kbInput=='A') ||*/ (kbInput=='A'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		--player._x;
@@ -89,7 +89,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = LEFT;
 		SHOW_LEFT();
 	}
-	else if((kbInput=='d') || (kbInput=='D'))
+	else if(/*(kbInput=='D') ||*/ (kbInput=='D'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		++player._x;
@@ -117,7 +117,7 @@ void movePlayerByKeyboard(char kbInput)
 		DRAW_PLAYER(player._x, player._y, player._imagePtr);
 	}
 }
-#elif defined(__CBM610__)
+#elif defined(__CBM610__) || defined (__SPECTRUM__)
 void movePlayerByKeyboard(char kbInput)
 {
 	if(/*(kbInput=='W') ||*/ (kbInput=='w'))

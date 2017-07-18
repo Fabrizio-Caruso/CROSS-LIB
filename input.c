@@ -39,6 +39,9 @@
 #else
 	#include <joystick.h>
 #endif
+#if defined(__SPECTRUM__)
+	#include <input.h>
+#endif
 #include "display_macros.h"
 #include "invincible_enemy.h"
 

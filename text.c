@@ -306,7 +306,15 @@ void printLevel(void)
 		printCenteredMessage("     T H E   E N D     "); 
 		sleep(1);
 	}
-
+	
+	void finalScore(void)
+	{
+		char scoreString[22];
+		clrscr();
+		sprintf(scoreString, "SCORE:  %lu", points);
+		printCenteredMessage(scoreString);
+	}
+	
 	#if defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__)
 		void printExtraLife(void)
 		{
@@ -320,14 +328,6 @@ void printLevel(void)
 			sleep(1);
 		}		
 	#endif
-	void finalScore(void)
-	{
-		char scoreString[22];
-		clrscr();
-		sprintf(scoreString, "SCORE:  %lu", points);
-		printCenteredMessage(scoreString);
-	}
-
 #endif
 
 #ifdef __C64__

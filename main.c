@@ -421,11 +421,16 @@ void handle_invincible_ghost(void)
 {
 	// Manage invincible ghost
 	if((!bossLevel() && !invincibleGhost._status && invincibleGhostAlive &&
-	  ( (invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
-	    (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || (bossLevel() && loop>=invincibleLoopTrigger))
+	                    ((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
+	                     (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || 
+	   (bossLevel() && loop>=invincibleLoopTrigger))
 	{
 		invincibleGhost._status = 1;
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+		// TODO: REMOVE THIS HACK that avoids a crash in SPECTRUM version
+		#if defined(__SPECTRUM__)
+			sleep(1);
+		#endif
 	}
 	else
 	{

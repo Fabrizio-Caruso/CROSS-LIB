@@ -65,7 +65,7 @@ extern unsigned char guns;
 #if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__)
 void movePlayerByKeyboard(char kbInput)
 {
-	if(/*(kbInput=='W') ||*/ (kbInput=='W'))
+	if((kbInput=='w') || (kbInput=='W'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		--player._y;
@@ -73,7 +73,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = UP;
 		SHOW_UP();
 	}
-	else if(/*(kbInput=='S') ||*/ (kbInput=='S'))
+	else if((kbInput=='s') || (kbInput=='S'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		++player._y;
@@ -81,7 +81,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = DOWN;
 		SHOW_DOWN();
 	}
-	else if(/*(kbInput=='A') ||*/ (kbInput=='A'))
+	else if((kbInput=='a') || (kbInput=='A'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		--player._x;
@@ -89,7 +89,7 @@ void movePlayerByKeyboard(char kbInput)
 		playerDirection = LEFT;
 		SHOW_LEFT();
 	}
-	else if(/*(kbInput=='D') ||*/ (kbInput=='D'))
+	else if((kbInput=='d') || (kbInput=='D'))
 	{
 		DELETE_PLAYER(player._x,player._y,player._imagePtr);
 		++player._x;

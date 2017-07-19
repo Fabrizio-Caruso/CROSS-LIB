@@ -54,7 +54,7 @@
 		#include "atari/atari_input.h"
 	#elif defined(__SPECTRUM__)
 		#include <input.h>
-		#define GET_CHAR() in_Inkey();;
+		#define GET_CHAR() (unsigned int) in_Inkey();
 	#else
 		#define GET_CHAR() cgetc();
 	#endif

@@ -551,13 +551,13 @@ int main(void)
 			WAIT_PRESS();
 			CLEAR_SCREEN();
 					
-			PRINTF(0,1,"KEYBOARD PRESSED 1!");
+			PRINTF(0,1,"KEYBOARD PRESSED %d !\n", 1);
 			WAIT_PRESS();
 					
-			PRINTF(0,2,"KEYBOARD PRESSED 2!");
+			PRINTF(0,2,"KEYBOARD PRESSED %d !\n", 2);
 			WAIT_PRESS();
 					
-			PRINTF(0,3,"KEYBOARD PRESSED 3!");
+			PRINTF(0,3,"KEYBOARD PRESSED %d !\n", 3);
 			WAIT_PRESS();		
 
 			gotoxy(10,10);cputc('X');
@@ -572,8 +572,14 @@ int main(void)
 		CLEAR_SCREEN();
 		//deleteCenteredMessage();
 		highScoreScreen();
-		WAIT_PRESS();
+		//WAIT_PRESS();
 		CLEAR_SCREEN();
+		
+		// TODO: DEBUG
+		// highScoreScreen();
+		// WAIT_PRESS();
+		// CLEAR_SCREEN();
+		// END OF DEBUG
 		
 		extraLifeThroughPointsCounter = 1;
 		points = 0;

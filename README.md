@@ -4,15 +4,15 @@ CROSS CHASE
 by Fabrizio Caruso (Fabrizio_Caruso@hotmail.com)
 
 This is a personal project whose goal is to create a simple playable game that should run
-on 8 bit computers and consoles using 6502-compatible CPUs.
+on 8 bit computers and consoles using 6502-compatible and Z80-compatible CPUs.
 
-The program is written in ANSI C and compiled with CC65 (http://www.cc65.org/).
+The program is written in ANSI C and compiled with CC65 (http://www.cc65.org/) and Z88DK (https://www.z88dk.org/).
 
 The main version should be as portable as possible.
 Therefore it should ONLY use:
 1. ANSI C
-2. conio.h (as found in CC65) but only relying on the intersection of characters between ASCII and PETSCII and ATASCII (for max compatibility with Commodore and Atari 8 bit computers)
-3. joystick.h (as found in CC65)
+2. conio.h (as implemented in CC65 and in Z88DK) but only relying on the intersection of characters between ASCII and PETSCII and ATASCII (for max compatibility with Commodore and Atari 8 bit computers)
+3. joystick-related libraries as found in CC65 and in Z88DK
 
 Some specific target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects.
 

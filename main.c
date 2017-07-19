@@ -53,6 +53,8 @@
 #include "sound_macros.h"
 
 //#define DEBUG_CHARACTERS
+//#define DEBUG_SPECTRUM_HACK
+//#define DEBUG_SHOW_INVINCIBLE_GHOST_ISSUE
 
 unsigned int invincibleSlowDown = 30000;
 unsigned short invincibleXCountDown = 100;
@@ -419,25 +421,32 @@ void handle_invincibility_item()
 
 void handle_invincible_ghost(void)
 {
-	// Manage invincible ghost
-	if((!bossLevel() && !invincibleGhost._status && invincibleGhostAlive &&
-	                    ((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
-	                     (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || 
-	   (bossLevel() && loop>=invincibleLoopTrigger))
+	if(!invincibleGhost._status)
 	{
-		invincibleGhost._status = 1;
-		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-		// TODO: REMOVE THIS HACK that avoids a crash in SPECTRUM version
-		#if defined(__SPECTRUM__)
-			sleep(1);
+		// Manage invincible ghost
+		#if defined(DEBUG_SHOW_INVINCIBLE_GHOST_ISSUE) && defined(__SPECTRUM__)
+			if(1) 
+		#else
+			if((!bossLevel() &&  && invincibleGhostAlive &&
+								((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
+								 (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || 
+			   (bossLevel() && loop>=invincibleLoopTrigger))
 		#endif
+		{
+			invincibleGhost._status = 1;
+			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+			// TODO: REMOVE THIS HACK that avoids a crash in SPECTRUM version
+			#if defined(DEBUG_SPECTRUM_HACK) && defined(__SPECTRUM__)
+				sleep(1);
+			#endif
+		}
+		else
+		{
+			--invincibleXCountDown;
+			--invincibleYCountDown;
+		}
 	}
 	else
-	{
-		--invincibleXCountDown;
-		--invincibleYCountDown;
-	}
-	if(invincibleGhost._status)
 	{ 	
 		invincibleSlowDown = computeInvincibleSlowDown();
 

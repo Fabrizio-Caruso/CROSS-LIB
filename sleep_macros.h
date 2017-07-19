@@ -34,9 +34,11 @@
 #ifndef _SLEEP_MACROS
 #define _SLEEP_MACROS
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__APPLE2__) || defined(__APPLE2ENH__) 
 	void sleep(unsigned int sec);
-#else
+#elif defined(__SC3000__) 
+	#define sleep(sec) {};
+#else	
 	#include <time.h>
 	#include <unistd.h>
 #endif

@@ -360,7 +360,7 @@ void handle_extraLife_item()
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 			++lives;
 			extraLife._status = 0;	
-			extraLifeCoolDown = EXTRA_LIFE_COOL_DOWN*2; // same time is harder
+			extraLifeCoolDown = EXTRA_LIFE_COOL_DOWN*2; // second time is harder
 		}
 		else
 		{
@@ -427,7 +427,7 @@ void handle_invincible_ghost(void)
 		#if defined(DEBUG_SHOW_INVINCIBLE_GHOST_ISSUE) && defined(__SPECTRUM__)
 			if(1) 
 		#else
-			if((!bossLevel() &&  && invincibleGhostAlive &&
+			if((!bossLevel() && invincibleGhostAlive &&
 								((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
 								 (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || 
 			   (bossLevel() && loop>=invincibleLoopTrigger))

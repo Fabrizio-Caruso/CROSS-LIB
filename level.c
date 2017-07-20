@@ -586,13 +586,6 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			break;
 		}
 		initializeCharacter(&invincibleGhost,invincibleGhost._x,invincibleGhost._y, 0, &INVINCIBLE_GHOST_IMAGE);
-// TODO: HACK!
-			// #if defined(DEBUG_SPECTRUM_HACK) && defined(__SPECTRUM__)
-			 // DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-			 // DELETE_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-			// #endif
-//
-		
 		if(missileLevel() || bossLevel())
 		{	
 			initializeCharacter(&rightEnemyMissile,         XSize-1,      4,            1,&RIGHT_ENEMY_MISSILE_IMAGE);

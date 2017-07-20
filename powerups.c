@@ -49,14 +49,14 @@ int powerUpReached(Character * hunterPtr, Character* preyPtr)
 
 void computePowerUp(unsigned int *coolDownDecreasePtr, unsigned int *powerUpInitialCoolDownPtr)
 {
-	*coolDownDecreasePtr = 200-(level/2)*4;
-	*powerUpInitialCoolDownPtr = 200+(level/2)*4;
+	*coolDownDecreasePtr = 140-(level*2);
+	*powerUpInitialCoolDownPtr = 200+(level*2);
 }
 
 int computeGunInitialCoolDown(void)
 {
 	if(level<=24)
-		gunInitialCoolDown = 230 + level * 4;
+		gunInitialCoolDown = 240 + level * 4;
 	else
 		gunInitialCoolDown = 100 + level * 2;
 	return gunInitialCoolDown;

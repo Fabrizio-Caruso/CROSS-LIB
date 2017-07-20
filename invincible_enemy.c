@@ -56,17 +56,17 @@ int computeInvincibleSlowDown(void)
 {
 	if(loop<1500)
 	{
-		return 30000 - (level/4) * 1000 - loop*2 - ghostLevel*16;
+		return 29000 - (level/4) * 1000 - loop*2 - ghostLevel*16;
 	}
-	else if(loop<2500)
+	else if(loop<2000)
 	{
 		if(!bossLevel())
 		{
-			return 27000 - (level/4) * 1000;
+			return 26000 - (level/4) * 1000;
 		}
 		else
 		{
-			return 27000 - (level/4) * 1000 - ghostLevel*16;
+			return 26000 - (level/4) * 1000 - ghostLevel*16;
 		}
 	}
 	return 0; // You must die!

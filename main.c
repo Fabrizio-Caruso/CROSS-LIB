@@ -824,15 +824,15 @@ int main(void)
 				
 				handle_player_vs_outer_wall();
 				
-
 				DRAW_BOMBS();
 				
 				// Display ghosts
 				displayGhosts();
 				
-				#if defined(__ATARI__) || defined(__ATARIXL__)
+				#if defined(__ATARI__) || defined(__ATARIXL__) 
 					displayStatsTitles();
 				#endif
+
 				displayStats();
 				
 				handle_invincible_ghost();

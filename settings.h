@@ -44,7 +44,14 @@
 #define FAST_NONEXACT_COLLISION_DECTION
 
 #define BOMBS_NUMBER 4
-#define GHOSTS_NUMBER 8
+
+// Possible current values are 6,7,8
+#if defined(__SPECTRUM__)
+	#define GHOSTS_NUMBER 7
+#else
+	#define GHOSTS_NUMBER 7
+#endif
+
 #define BUBBLES_NUMBER 4
 
 #define LIVES_NUMBER 5
@@ -62,7 +69,7 @@
 
 #define EXTRA_POINTS_COOL_DOWN 900UL
 
-#define INVINCIBILITY_COOL_DOWN 1200UL
+#define INVINCIBILITY_COOL_DOWN 1800UL
 
 #define INVINCIBILITY_FIRST_LEVEL 5
 

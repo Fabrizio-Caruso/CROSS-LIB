@@ -29,21 +29,49 @@ cd %cc65path%\bin\
 cd %mypath%\
 @REM zcc +zx -compiler=sdcc -DAMALLOC -D_BUILDING_X -clib=ansi -lmalloc -lm -lndos -create-app  -o %deliverables%\ZXSpectrum.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 
-@REM zcc +zx -SO3 -DDEBUG_SHOW_INVINCIBLE_GHOST_ISSUE -vn -DAMALLOC -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_ISSUE.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-
-@REM zcc +zx -SO3 -DDEBUG_SPECTRUM_HACK -DDEBUG_SHOW_INVINCIBLE_GHOST_ISSUE -vn -DAMALLOC -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_FIXED.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM 
+zcc +zx -SO3 -DDEBUG_CHARACTERS -DSPECTRUM_64COL -DDEBUG_SHOW_INVINCIBLE_GHOST_ISSUE -vn -DAMALLOC -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_ISSUE.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 
 @REM 
-zcc +sc3000 -SO3 -vn -DDEBUG_CHARACTERS -DAMALLOC -lmalloc -lndos -create-app  -o %deliverables%\sc3000.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-zcc +cpc -SO3 -vn -DDEBUG_CHARACTERS -DAMALLOC -lmalloc -lndos -create-app  -o %deliverables%\cpc.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-zcc +msx -SO3 -vn -DDEBUG_CHARACTERS -DAMALLOC -lmalloc -lndos -create-app  -o %deliverables%\msx.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-zcc +m5 -SO3 -vn  -DDEBUG_CHARACTERS-DAMALLOC -lmalloc -lndos -create-app  -o %deliverables%\m5.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+zcc +zx -SO3 -DDEBUG_CHARACTERS -DSPECTRUM_64COL -DDEBUG_SPECTRUM_HACK -DDEBUG_SHOW_INVINCIBLE_GHOST_ISSUE -vn -DAMALLOC -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_FIXED.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+
+@REM 
+@REM zcc +sc3000  -vn -DDEBUG_CHARACTERS -DAMALLOC -lmalloc -lndos -create-app  -o %deliverables%\sc3000.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\sc3000.prg
+
+@REM zcc +cpc -vn -DDEBUG_CHARACTERS -DAMALLOC -lmalloc -lndos -create-app  -o %deliverables%\cpc.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\cpc.prg
+
+@REM zcc +msx  -vn -DDEBUG_CHARACTERS -DAMALLOC -lmalloc -lndos -create-app  -o %deliverables%\msx.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\msx.prg
+
+@REM zcc +msx -create-app -D_BUILDING_X  -DAMALLOC -lmalloc -lndos -o %deliverables%\msx-alt.bin %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c 
 
 
-zcc +sc3000 -SO3 -v -DDEBUG_CHARACTERS -DAMALLOC -compiler=sdcc  --reserve-regs-iy -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\sc3000_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-zcc +msx -SO3 -v -DDEBUG_CHARACTERS -DAMALLOC -compiler=sdcc  --reserve-regs-iy -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\msx_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-zcc +cpc -SO3 -v -DDEBUG_CHARACTERS -DAMALLOC -compiler=sdcc  --reserve-regs-iy -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\cpc_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-zcc +m5 -SO3 -v -DDEBUG_CHARACTERS -DAMALLOC -compiler=sdcc  --reserve-regs-iy -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\m5_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM zcc +cpc -subtype=wav -DDEBUG_CHARACTERS -DAMALLOC -lmalloc -lndos -zorg=16384 -create-app -make-app -o %deliverables%\cpc-alt.bin %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c 
+@REM zcc +cpc -subtype=wav -create-app -DAMALLOC -lmalloc -lndos -o %deliverables%\cpc-alt.bin %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c 
+
+@REM zcc +cpc -lndos -lm -subtype=wav -create-app -o program adv_a.c 
+
+@REM zcc +m5 -SO3 -vn  -DDEBUG_CHARACTERS-DAMALLOC -lmalloc -lndos -create-app  -o %deliverables%\m5.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\m5.prg
+
+
+@REM SDCC
+@REM zcc +sc3000 -SO3 -v -DDEBUG_CHARACTERS -DAMALLOC -compiler=sdcc  --reserve-regs-iy -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\sc3000_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\sc3000_SDCC.prg
+
+@REM zcc +msx -SO3 -v -DDEBUG_CHARACTERS -DAMALLOC -compiler=sdcc  --reserve-regs-iy -lmalloc -lndos -create-app  -o %deliverables%\msx_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\msx_SDCC.prg
+
+@REM zcc +cpc -v -DDEBUG_CHARACTERS -DAMALLOC -compiler=sdcc  --reserve-regs-iy -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\cpc_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\cpc_SDCC.prg
+
+@REM zcc +m5 -SO3 -v -DDEBUG_CHARACTERS -DAMALLOC -compiler=sdcc  --reserve-regs-iy -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\m5_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\m5_SDCC.prg
+
+
+
 
 
 @REM zcc +zx -v -DAMALLOC -compiler=sdcc  --reserve-regs-iy -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c

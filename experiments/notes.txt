@@ -57,3 +57,13 @@ $FF11 0-3 Volume
 		7 Soundswitch(0=on,1=off) 
 $FF12 0-1 High 2 bits of frequency for voice 1 
 	  2-7 Non sounduses
+	  
+	  
+SPECTRUM  
+void printAt32Col(unsigned char row, unsigned char col, char* s)
+{
+    row += 0x20; // add displacement
+    col <<= 1; // double column coordinate for 32 column mode
+    col += 0x20; // add displacement
+    printf("\x16%c%c%s", row, col, s);
+}

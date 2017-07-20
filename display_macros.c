@@ -63,6 +63,10 @@
 	Image EXTRA_LIFE_IMAGE;
 	Image INVINCIBILITY_IMAGE;
 
+// TODO: Debugging 
+#if defined(__SPECTRUM__)
+	#include <stdio.h>
+#endif
 	//extern char YSize; 
 	
 	char powerUp_blink = 1;

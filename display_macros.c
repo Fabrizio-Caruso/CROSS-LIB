@@ -162,27 +162,27 @@
 	}
 
 
-	void _draw_broken_wall(char x, char y)
+	void _draw_broken_wall(unsigned char x, unsigned char y)
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (COLOR_WHITE);
 		cputc('X');
 	}
 	
-	void _draw(char x, char y, Image * image) 
+	void _draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
 		cputc(image->_imageData); 
 	}
 	
-	void _delete(char x, char y)
+	void _delete(unsigned char x, unsigned char y)
 	{
 		gotoxy(x+X_OFFSET,y+Y_OFFSET);
 		cputc(' ');
 	}
 	
-	void _blink_powerUp_draw(char x, char y, Image * image) 
+	void _blink_powerUp_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
@@ -198,7 +198,7 @@
 		}	
 	}
 	
-	void _blink_gun_draw(char x, char y, Image * image) 
+	void _blink_gun_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
@@ -214,7 +214,7 @@
 		}	
 	}
 
-	void _blink_extra_points_draw(char x, char y, Image * image) 
+	void _blink_extra_points_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
@@ -231,7 +231,7 @@
 	}
 
 	
-	void _blink_extra_life_draw(char x, char y, Image * image) 
+	void _blink_extra_life_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
@@ -247,7 +247,7 @@
 		}	
 	}
 	
-	void _blink_invincibility_draw(char x, char y, Image * image) 
+	void _blink_invincibility_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
@@ -263,7 +263,7 @@
 		}	
 	}
 
-	void _blink_player_draw(char x, char y, Image * image) 
+	void _blink_player_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);

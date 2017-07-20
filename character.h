@@ -39,8 +39,8 @@
 struct CharacterStruct
 {
 	// character coordinates
-	short _x;
-	short _y;
+	unsigned char _x;
+	unsigned char _y;
 	
 	// _status decides whether the character is active
 	char _status;

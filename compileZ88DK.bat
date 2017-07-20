@@ -29,8 +29,7 @@ cd %cc65path%\bin\
 cd %mypath%\
 @REM zcc +zx -compiler=sdcc -DAMALLOC -D_BUILDING_X -clib=ansi -lmalloc -lm -lndos -create-app  -o %deliverables%\ZXSpectrum.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 
-@REM 
-zcc +zx -SO3 -pragma-define:ansicolumns=32  -DSPECTRUM_32COL -DDEBUG_SHOW_INVINCIBLE_GHOST_ISSUE -vn -DAMALLOC -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_ISSUE.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM zcc +zx -SO3 -pragma-define:ansicolumns=32  -DSPECTRUM_32COL -DDEBUG_SHOW_INVINCIBLE_GHOST_ISSUE -vn -DAMALLOC -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_ISSUE.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 
 @REM 
 zcc +zx -SO3 -pragma-define:ansicolumns=32  -DSPECTRUM_32COL -DDEBUG_SPECTRUM_HACK -DDEBUG_SHOW_INVINCIBLE_GHOST_ISSUE -vn -DAMALLOC -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_FIXED.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c

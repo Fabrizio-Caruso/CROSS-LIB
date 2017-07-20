@@ -569,20 +569,20 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 		switch(corner)
 		{
 			case 0:
-				invincibleGhost._x = 2;
-				invincibleGhost._y = 2;
+				invincibleGhost._x = (unsigned char) 2;
+				invincibleGhost._y = (unsigned char) 2;
 			break;
 			case 1:
-				invincibleGhost._x = 2;
-				invincibleGhost._y = YSize-2;
+				invincibleGhost._x = (unsigned char) 2;
+				invincibleGhost._y = (unsigned char) YSize-2;
 			break;
 			case 2:
-				invincibleGhost._x = XSize-2;
-				invincibleGhost._y = 1;
+				invincibleGhost._x = (unsigned char) XSize-2;
+				invincibleGhost._y = (unsigned char) 1;
 			break;
-			case 3:
-				invincibleGhost._x = XSize-2;
-				invincibleGhost._y = YSize-2;
+			default:
+				invincibleGhost._x = (unsigned char) XSize-2;
+				invincibleGhost._y = (unsigned char) YSize-2;
 			break;
 		}
 		initializeCharacter(&invincibleGhost,invincibleGhost._x,invincibleGhost._y, 0, &INVINCIBLE_GHOST_IMAGE);

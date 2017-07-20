@@ -47,7 +47,7 @@
 
 // Possible current values are 6,7,8
 #if defined(__SPECTRUM__)
-	#define GHOSTS_NUMBER 7
+	#define GHOSTS_NUMBER 6
 #else
 	#define GHOSTS_NUMBER 7
 #endif
@@ -88,7 +88,7 @@
 #define INVINCIBLE_GHOST_POINTS 5000UL;
 
 // Points given by extra points bonus: 
-// EXTRA_POINTS (X 2 in mission levels) + level X EXTRA_POINTS_LEVEL_INCREASE
+// EXTRA_POINTS (X 2 in boss levels) + level X EXTRA_POINTS_LEVEL_INCREASE
 #define EXTRA_POINTS 2500UL 
 #define EXTRA_POINTS_LEVEL_INCREASE 200UL
 

@@ -34,6 +34,8 @@ cd %mypath%\
 @REM 
 zcc +zx -SO3 -pragma-define:ansicolumns=32  -DSPECTRUM_32COL -DDEBUG_SPECTRUM_HACK -DDEBUG_SHOW_INVINCIBLE_GHOST_ISSUE -vn -DAMALLOC -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_FIXED.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 
+zcc +zx -pragma-define:ansicolumns=32  -DSPECTRUM_32COL -DDEBUG_SPECTRUM_HACK -DDEBUG_SHOW_INVINCIBLE_GHOST_ISSUE -v -DAMALLOC -compiler=sdcc  --reserve-regs-iy -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+
 @REM 
 @REM zcc +sc3000  -vn -DDEBUG_CHARACTERS -DAMALLOC -lmalloc -lndos -create-app  -o %deliverables%\sc3000.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 @REM del %deliverables%\sc3000.prg
@@ -73,7 +75,8 @@ zcc +zx -SO3 -pragma-define:ansicolumns=32  -DSPECTRUM_32COL -DDEBUG_SPECTRUM_HA
 
 
 
-@REM zcc +zx -v -DAMALLOC -compiler=sdcc  --reserve-regs-iy -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM 
+zcc +zx -v -DAMALLOC -compiler=sdcc  --reserve-regs-iy -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_SDCC.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 @REM -SO3 --max-allocs-per-node200000
 
 @REM cl65.exe -O -t c64 --config %configpath%\c64_GFXat0xC000.cfg  %mypath%\graphics\graphics.s  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\c64_redefined_characters.prg

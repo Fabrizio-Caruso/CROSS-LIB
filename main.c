@@ -783,11 +783,8 @@ int main(void)
 
 				handle_missile();
 			
-				// Chase the player
-				//if(!bossLevel())
-				{
-					chasePlayer(ghostSlowDown);
-				}
+
+				chasePlayer(ghostSlowDown);
 				
 				// TODO: this should detect collisions of ghosts that have just moved
 				//if(!bossLevel() && missile._status)
@@ -796,21 +793,18 @@ int main(void)
 					checkMissileVsGhosts(&missile);
 				}
 				
-				//if(!bossLevel())
-				{
-					handle_player_vs_bombs_and_ghosts();
-				}
+
+				handle_player_vs_bombs_and_ghosts();
 				
 				handle_player_vs_inner_wall();
 			
-				//if(!bossLevel())
-				{
-					// Check collisions bombs vs ghosts
-					checkBombsVsGhosts();
-					
-					// Check collisions ghosts vs ghosts
-					checkGhostsVsGhosts();
-				}
+
+				// Check collisions bombs vs ghosts
+				checkBombsVsGhosts();
+				
+				// Check collisions ghosts vs ghosts
+				checkGhostsVsGhosts();
+
 				
 				handle_gun_item();
 				
@@ -830,13 +824,11 @@ int main(void)
 				
 				handle_player_vs_outer_wall();
 				
-				//if(!bossLevel())
-				{
-					DRAW_BOMBS();
+
+				DRAW_BOMBS();
 				
-					// Display ghosts
-					displayGhosts();
-				}
+				// Display ghosts
+				displayGhosts();
 				
 				#if defined(__ATARI__) || defined(__ATARIXL__)
 					displayStatsTitles();

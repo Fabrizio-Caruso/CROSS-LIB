@@ -43,11 +43,10 @@
 	#include<peekpoke.h>
 #endif
 
-extern unsigned short level;
 extern unsigned char XSize;
 extern unsigned char YSize;
 
-extern unsigned short level;
+extern unsigned char level;
 extern unsigned short lives;
 extern unsigned short guns;
 extern unsigned long points;

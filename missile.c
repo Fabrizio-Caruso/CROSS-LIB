@@ -48,7 +48,7 @@ extern Character* bubbles[BUBBLES_NUMBER];
 extern unsigned char bubbles_x[BUBBLES_NUMBER];
 
 extern Image DEAD_GHOST_IMAGE;
-extern unsigned short level;
+extern unsigned char level;
 
 extern int extraPointsCoolDown;
 extern int invincibilityCoolDown;

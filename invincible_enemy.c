@@ -35,7 +35,7 @@
 #include "invincible_enemy.h"
 #include "level.h"
 
-extern unsigned short level;
+extern unsigned char level;
 extern unsigned int loop;
 
 extern unsigned int invincibleSlowDown;

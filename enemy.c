@@ -35,7 +35,7 @@
 #include "enemy.h"
 
 extern unsigned int ghostLevel;
-extern unsigned short level;
+extern unsigned char level;
 extern unsigned int ghostLevelDecrease;
 
 extern Character* ghosts[GHOSTS_NUMBER];

@@ -46,7 +46,7 @@
 extern unsigned char innerVerticalWallX;
 extern unsigned char innerVerticalWallY;
 extern unsigned char innerVerticalWallLength;
-extern unsigned short level;
+extern unsigned char level;
 extern unsigned char XSize;
 extern unsigned char YSize;
 

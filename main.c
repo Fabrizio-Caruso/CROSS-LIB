@@ -99,7 +99,7 @@ unsigned long extraLifeThroughPointsCounter = 1;
 // 4. invincibleYCountDown
 // 5. invincibleSlowDown (how much the invincible ghost is slowed-down)
 // 6. invincibleLoopTrigger (how long before the invincible ghost appears)
-unsigned short level;
+unsigned char level;
 
 unsigned int invincibleLoopTrigger;
 unsigned short invincibleGhostCountTrigger;

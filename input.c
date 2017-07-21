@@ -48,13 +48,10 @@
 #include "input.h"
 
 
-//#define _TRAINER 1
-
 extern unsigned short invincibleXCountDown;
 extern unsigned short invincibleYCountDown;
 extern unsigned char playerDirection;
 extern unsigned char playerFire;
-extern unsigned short level;
 extern Character player;
 extern Character missile;
 

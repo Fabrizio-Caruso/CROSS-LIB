@@ -36,7 +36,7 @@
 #include "strategy.h"
 
 
-extern unsigned short level;
+extern unsigned char level;
 extern unsigned char ghostCount;
 extern unsigned int invincibleSlowDown;
 

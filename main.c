@@ -538,6 +538,9 @@ int main(void)
 		
 		CLEAR_SCREEN();
 		
+		#ifdef DEBUG_SPECTRUM_OUT_OF_MEMORY_HACK
+			WAIT_PRESS();
+		#endif 
 		#ifdef DEBUG_CHARACTERS
 			PRINTF(0,0,"ghost %c\n", GHOST_IMAGE._imageData);
 			PRINTF(0,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);

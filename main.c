@@ -81,9 +81,9 @@ unsigned long highScore;
 unsigned char playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
 unsigned char missileDirection;
 unsigned char playerFire = 0;
-unsigned short guns = GUNS_NUMBER;
+unsigned char guns = GUNS_NUMBER;
 
-unsigned short lives;
+unsigned char lives;
 
 unsigned char innerVerticalWallY; 
 unsigned char innerVerticalWallX; 

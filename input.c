@@ -59,7 +59,7 @@ extern unsigned char ghostCount;
 
 extern unsigned char player_invincibility;
 
-extern unsigned short guns;
+extern unsigned char guns;
 
 //#if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 #if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__)

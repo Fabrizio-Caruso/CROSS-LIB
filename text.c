@@ -47,8 +47,8 @@ extern unsigned char XSize;
 extern unsigned char YSize;
 
 extern unsigned char level;
-extern unsigned short lives;
-extern unsigned short guns;
+extern unsigned char lives;
+extern unsigned char guns;
 extern unsigned long points;
 extern unsigned int ghostCount;
 extern unsigned int ghostLevel;

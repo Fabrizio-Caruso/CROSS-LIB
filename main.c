@@ -529,11 +529,12 @@ int main(void)
 	initializeCharacters();
 	highScore = 0;
 	
+	INIT_GRAPHICS();
 	while(1)
 	{
 		char arrowRange = 3;
 
-		INIT_GRAPHICS();
+
 		INIT_IMAGES();
 		
 		CLEAR_SCREEN();

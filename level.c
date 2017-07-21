@@ -43,9 +43,9 @@
 #include "level.h"
 
 	
-extern unsigned short innerVerticalWallX;
-extern unsigned short innerVerticalWallY;
-extern unsigned short innerVerticalWallLength;
+extern unsigned char innerVerticalWallX;
+extern unsigned char innerVerticalWallY;
+extern unsigned char innerVerticalWallLength;
 extern unsigned short level;
 extern unsigned char XSize;
 extern unsigned char YSize;
@@ -231,17 +231,6 @@ unsigned char rocketLevel(void)
 unsigned char missileLevel(void)
 {
 	return level%5==4;
-	// switch(levelPar)
-	// {
-		// case THREE_BOMB_START_LEVEL-1: case TWO_BOMB_START_LEVEL-1: case ONE_BOMB_START_LEVEL-1:
-		// case FIRST_HARD_LEVEL-1: case FIRST_VERY_HARD_LEVEL-1: case FIRST_INSANE_LEVEL-1:
-		// case FIRST_ULTIMATE_LEVEL-1: case FINAL_LEVEL:
-			// return 1;
-		// default:
-			// return 0;
-		// break;
-	// }
-	// return 0;
 }	
 
 unsigned char bossLevel(void)
@@ -600,25 +589,7 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 
 unsigned char computeArrowRange(void)
 {
-	// switch(level)
-	// {
 		return level/10;
-		// if(level<=10)
-			// return 0;
-		// else if (level<=15)
-			// return 1;
-		// else if 
-		// case 5: case 10: case 15:
-			// return 1;
-		// break;
-		// case 20: case 25: case 30: case 35:
-			// return 2;
-		// break;
-		// default:
-			// return 3;
-		// break;
-	// }
-	// return 3;
 }
 
 

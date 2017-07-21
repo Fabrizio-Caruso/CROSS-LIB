@@ -39,7 +39,7 @@
 #include "level.h"
 
 extern unsigned long points;
-extern unsigned short ghostCount;
+extern unsigned char ghostCount;
 
 extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];
@@ -48,7 +48,7 @@ extern Character* bubbles[BUBBLES_NUMBER];
 extern unsigned char bubbles_x[BUBBLES_NUMBER];
 
 extern Image DEAD_GHOST_IMAGE;
-extern unsigned char level;
+extern unsigned short level;
 
 extern int extraPointsCoolDown;
 extern int invincibilityCoolDown;

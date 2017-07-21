@@ -37,7 +37,7 @@
 
 
 extern unsigned short level;
-extern unsigned short ghostCount;
+extern unsigned char ghostCount;
 extern unsigned int invincibleSlowDown;
 
 extern Character player; 

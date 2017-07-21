@@ -52,17 +52,17 @@
 
 extern unsigned short invincibleXCountDown;
 extern unsigned short invincibleYCountDown;
-extern unsigned short playerDirection;
-extern unsigned short playerFire;
+extern unsigned char playerDirection;
+extern unsigned char playerFire;
 extern unsigned short level;
 extern Character player;
 extern Character missile;
 
-extern unsigned short ghostCount;
+extern unsigned char ghostCount;
 
 extern unsigned char player_invincibility;
 
-extern unsigned char guns;
+extern unsigned short guns;
 
 //#if defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 #if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__)

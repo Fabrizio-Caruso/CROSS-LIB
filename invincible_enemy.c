@@ -83,7 +83,7 @@ int computeInvincibleGhostCountTrigger(void)
 int computeInvincibleLoopTrigger(void)
 {
 	if(bossLevel())
-		return 150 - (level/4)*10; // TODO: Debugging
+		return 150 - (level/4)*10;
 	else
 		return 700 - level*15;
 }

@@ -43,8 +43,8 @@ struct CharacterStruct
 	unsigned char _y;
 	
 	// _status decides whether the character is active
-	char _status;
-	char _moved;
+	unsigned char _status;
+	unsigned char _moved;
 	
 	Image* _imagePtr;
 };
@@ -58,23 +58,23 @@ typedef struct CharacterStruct Character;
 #include "display_macros.h"
 
 extern unsigned long points;
-extern unsigned short innerVerticalWallX;
-extern unsigned short innerVerticalWallY;
-extern unsigned short innerVerticalWallLength;
+extern unsigned char innerVerticalWallX;
+extern unsigned char innerVerticalWallY;
+extern unsigned char innerVerticalWallLength;
 
 extern unsigned char XSize;
 extern unsigned char YSize;
 
-extern unsigned short ghostCount;
+extern unsigned char ghostCount;
 
 
-void initializeCharacter(Character* characterPtr, int x, int y, short status, Image * imagePtr);
+void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr);
 
-void setCharacterPosition(Character* characterPtr, short x, short y);
+void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y);
 
 void setCharacterDisplay(Character* characterPtr, char ch);
 
-char isCharacterAtLocation(short x, short y, Character * characterPtr);
+char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr);
 
 char areCharctersAtSamePosition(Character* lhs, Character* rhs);
 

@@ -515,7 +515,7 @@ void printStartMessage(void)
 		PRINT(0, YSize / 2, "Catch ! for bullets");
 		
 		PRINT(0, YSize / 2 + 1, "flee from +!");
-	#elif defined(__PET__)
+	#elif defined(__PET__) || defined(__CBM610__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE))
 		PRINT(22, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		
 		PRINT(20, YSize / 2 - 1,  "Take S to slow O down. Catch ! for bullets.");

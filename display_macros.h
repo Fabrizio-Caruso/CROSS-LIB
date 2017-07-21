@@ -74,6 +74,8 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {*x=32; *y=40;};
 #elif  defined(__ATARI__) || defined(__ATARIXL__)
 	#define GET_SCREEN_SIZE(x,y) {*x=20; *y=24;};
+#elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
+	#define GET_SCREEN_SIZE(x,y) {*x=80-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__CBM__) || defined(__APPLE2__) || defined(__APPL2ENH__) || defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #elif (defined (__SPECTRUM__) && defined(SPECTRUM_64COL))|| defined(__SC3000__) || defined(__CPC__) || defined(__M5__)

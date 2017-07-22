@@ -424,7 +424,7 @@ void handle_invincible_ghost(void)
 	if(!invincibleGhost._status)
 	{
 		// Manage invincible ghost
-		#if defined(DEBUG_SHOW_INVINCIBLE_GHOST_ISSUE) && defined(__SPECTRUM__)
+		#if defined(DEBUG_SHOW_INVINCIBLE_GHOST_ISSUE)
 			if(1) 
 		#else
 			if((!bossLevel() && invincibleGhostAlive &&

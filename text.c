@@ -50,7 +50,7 @@ extern unsigned char level;
 extern unsigned char lives;
 extern unsigned char guns;
 extern unsigned long points;
-extern unsigned int ghostCount;
+extern unsigned char ghostCount;
 extern unsigned int ghostLevel;
 extern unsigned long highScore;
 

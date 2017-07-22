@@ -62,7 +62,7 @@ typedef struct ImageStruct Image;
 #elif defined(__VIC20__) 
 	#define X_OFFSET 0
 	#define Y_OFFSET 2
-#elif defined(__ATARI__) || defined(__ATARIXL__)
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define X_OFFSET 0
 	#define Y_OFFSET 0
 #else
@@ -72,7 +72,7 @@ typedef struct ImageStruct Image;
 
 #if defined(__NES__)
 	#define GET_SCREEN_SIZE(x,y) {*x=32; *y=40;};
-#elif  defined(__ATARI__) || defined(__ATARIXL__)
+#elif  (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define GET_SCREEN_SIZE(x,y) {*x=20; *y=24;};
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	#define GET_SCREEN_SIZE(x,y) {*x=80-X_OFFSET; *y=25-Y_OFFSET;};
@@ -197,7 +197,7 @@ typedef struct ImageStruct Image;
 	#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
 	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
 	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
-#elif defined(__ATARI__) || defined(__ATARIXL__)
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);}; //{gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
 

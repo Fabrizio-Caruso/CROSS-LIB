@@ -38,7 +38,7 @@
 	#include "c64/c64_redefined_characters.h"
 #elif defined(__ATMOS__)
 	#include "atmos/atmos_redefined_characters.h"
-#elif defined(__ATARI__) || defined(__ATARIXL__)
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#include "atari/atari_graphics.h"
 #elif defined(__NES__)
 	#include "nes/nes_graphics.h"

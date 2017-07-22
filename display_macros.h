@@ -62,7 +62,7 @@ typedef struct ImageStruct Image;
 #elif defined(__VIC20__) 
 	#define X_OFFSET 0
 	#define Y_OFFSET 2
-#elif defined(__ATARI__) || defined(__ATARIXL__)
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define X_OFFSET 0
 	#define Y_OFFSET 0
 #else
@@ -72,8 +72,10 @@ typedef struct ImageStruct Image;
 
 #if defined(__NES__)
 	#define GET_SCREEN_SIZE(x,y) {*x=32; *y=40;};
-#elif  defined(__ATARI__) || defined(__ATARIXL__)
+#elif  (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define GET_SCREEN_SIZE(x,y) {*x=20; *y=24;};
+#elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
+	#define GET_SCREEN_SIZE(x,y) {*x=80-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__CBM__) || defined(__APPLE2__) || defined(__APPL2ENH__) || defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #elif (defined (__SPECTRUM__) && defined(SPECTRUM_64COL))|| defined(__SC3000__) || defined(__CPC__) || defined(__M5__)
@@ -195,7 +197,7 @@ typedef struct ImageStruct Image;
 	#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
 	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
 	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
-#elif defined(__ATARI__) || defined(__ATARIXL__)
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);}; //{gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
 
@@ -410,13 +412,13 @@ typedef struct ImageStruct Image;
 
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 	
-	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
 		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); };
 	#else
 		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 	#endif
 	
-	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
 		#define DRAW_BORDERS()
 		#define DRAW_VERTICAL_LINE(x,y,length)
 	#else

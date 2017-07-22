@@ -47,14 +47,14 @@
 #endif
 
 extern unsigned long points;
-extern unsigned short innerVerticalWallX;
-extern unsigned short innerVerticalWallY;
-extern unsigned short innerVerticalWallLength;
+extern unsigned char innerVerticalWallX;
+extern unsigned char innerVerticalWallY;
+extern unsigned char innerVerticalWallLength;
 
 extern unsigned char XSize;
 extern unsigned char YSize;
 
-extern unsigned short ghostCount;
+extern unsigned char ghostCount;
 extern unsigned int loop;
 
 extern Image DEAD_GHOST_IMAGE;
@@ -64,7 +64,7 @@ extern Image BOMB_IMAGE;
 extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];
 
-void initializeCharacter(Character* characterPtr, int x, int y, short status, Image * imagePtr)
+void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr)
 {
 	characterPtr->_x = x;
 	characterPtr->_y = y;
@@ -73,13 +73,13 @@ void initializeCharacter(Character* characterPtr, int x, int y, short status, Im
 	characterPtr->_moved = 0;
 }
 
-void setCharacterPosition(Character* characterPtr, short x, short y)
+void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y)
 {
 	characterPtr->_x = x;
 	characterPtr->_y = y;
 }
 
-char isCharacterAtLocation(short x, short y, Character * characterPtr)
+char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr)
 {
 	return(characterPtr->_x==x) && (characterPtr->_y==y);
 }

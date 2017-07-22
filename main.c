@@ -56,9 +56,9 @@
 //#define DEBUG_SPECTRUM_HACK
 //#define DEBUG_SHOW_INVINCIBLE_GHOST_ISSUE
 
-unsigned int invincibleSlowDown = 30000;
-unsigned short invincibleXCountDown = 100;
-unsigned short invincibleYCountDown = 100;
+unsigned int invincibleSlowDown;
+unsigned short invincibleXCountDown;
+unsigned short invincibleYCountDown;
 
 unsigned int ghostSlowDown;
 unsigned int powerUpCoolDown;
@@ -71,23 +71,23 @@ unsigned int invincibilityCoolDown;
 
 unsigned int playerInvincibilityCoolDown;
 
-unsigned int ghostLevelDecrease = 100;
-unsigned int powerUpInitialCoolDown = 100; 
+unsigned int ghostLevelDecrease;
+unsigned int powerUpInitialCoolDown; 
 
-unsigned int ghostLevel = 1;
-unsigned long points = 0;
-unsigned long highScore = 0;
+unsigned int ghostLevel;
+unsigned long points;
+unsigned long highScore;
 
-unsigned short playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
-unsigned short missileDirection = 0;
-unsigned short playerFire = 0;
-unsigned short guns = GUNS_NUMBER;
+unsigned char playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
+unsigned char missileDirection;
+unsigned char playerFire = 0;
+unsigned char guns = GUNS_NUMBER;
 
-unsigned short lives;
+unsigned char lives;
 
-unsigned short innerVerticalWallY; 
-unsigned short innerVerticalWallX; 
-unsigned short innerVerticalWallLength;
+unsigned char innerVerticalWallY; 
+unsigned char innerVerticalWallX; 
+unsigned char innerVerticalWallLength;
 
 unsigned long extraLifeThroughPointsCounter = 1;
 
@@ -99,12 +99,12 @@ unsigned long extraLifeThroughPointsCounter = 1;
 // 4. invincibleYCountDown
 // 5. invincibleSlowDown (how much the invincible ghost is slowed-down)
 // 6. invincibleLoopTrigger (how long before the invincible ghost appears)
-unsigned short level = 1;
+unsigned char level;
 
-unsigned int invincibleLoopTrigger = 1000;
-unsigned short invincibleGhostCountTrigger = 2;
+unsigned int invincibleLoopTrigger;
+unsigned short invincibleGhostCountTrigger;
 
-unsigned short ghostCount = GHOSTS_NUMBER;
+unsigned char ghostCount = GHOSTS_NUMBER;
 
 unsigned char XSize;
 unsigned char YSize;
@@ -424,7 +424,7 @@ void handle_invincible_ghost(void)
 	if(!invincibleGhost._status)
 	{
 		// Manage invincible ghost
-		#if defined(DEBUG_SHOW_INVINCIBLE_GHOST_ISSUE) && defined(__SPECTRUM__)
+		#if defined(DEBUG_SHOW_INVINCIBLE_GHOST_ISSUE)
 			if(1) 
 		#else
 			if((!bossLevel() && invincibleGhostAlive &&
@@ -529,15 +529,19 @@ int main(void)
 	initializeCharacters();
 	highScore = 0;
 	
+	INIT_GRAPHICS();
 	while(1)
 	{
 		char arrowRange = 3;
 
-		INIT_GRAPHICS();
+
 		INIT_IMAGES();
 		
 		CLEAR_SCREEN();
 		
+		#ifdef DEBUG_SPECTRUM_OUT_OF_MEMORY_HACK
+			WAIT_PRESS();
+		#endif 
 		#ifdef DEBUG_CHARACTERS
 			PRINTF(0,0,"ghost %c\n", GHOST_IMAGE._imageData);
 			PRINTF(0,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
@@ -579,16 +583,9 @@ int main(void)
 		initialScreen();
 		WAIT_PRESS()
 		CLEAR_SCREEN();
-		//deleteCenteredMessage();
 		highScoreScreen();
-		//WAIT_PRESS();
+		WAIT_PRESS();
 		CLEAR_SCREEN();
-		
-		// TODO: DEBUG
-		// highScoreScreen();
-		// WAIT_PRESS();
-		// CLEAR_SCREEN();
-		// END OF DEBUG
 		
 		extraLifeThroughPointsCounter = 1;
 		points = 0;
@@ -829,7 +826,7 @@ int main(void)
 				// Display ghosts
 				displayGhosts();
 				
-				#if defined(__ATARI__) || defined(__ATARIXL__) 
+				#if (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) 
 					displayStatsTitles();
 				#endif
 

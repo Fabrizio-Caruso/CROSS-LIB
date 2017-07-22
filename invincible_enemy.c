@@ -35,7 +35,7 @@
 #include "invincible_enemy.h"
 #include "level.h"
 
-extern unsigned short level;
+extern unsigned char level;
 extern unsigned int loop;
 
 extern unsigned int invincibleSlowDown;
@@ -83,7 +83,7 @@ int computeInvincibleGhostCountTrigger(void)
 int computeInvincibleLoopTrigger(void)
 {
 	if(bossLevel())
-		return 150 - (level/4)*10; // TODO: Debugging
+		return 150 - (level/4)*10;
 	else
 		return 700 - level*15;
 }

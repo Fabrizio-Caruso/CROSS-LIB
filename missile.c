@@ -39,7 +39,7 @@
 #include "level.h"
 
 extern unsigned long points;
-extern unsigned short ghostCount;
+extern unsigned char ghostCount;
 
 extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];

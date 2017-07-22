@@ -43,15 +43,14 @@
 	#include<peekpoke.h>
 #endif
 
-extern unsigned short level;
 extern unsigned char XSize;
 extern unsigned char YSize;
 
-extern unsigned short level;
-extern unsigned short lives;
-extern unsigned short guns;
+extern unsigned char level;
+extern unsigned char lives;
+extern unsigned char guns;
 extern unsigned long points;
-extern unsigned int ghostCount;
+extern unsigned char ghostCount;
 extern unsigned int ghostLevel;
 extern unsigned long highScore;
 
@@ -110,7 +109,7 @@ void displayStatsTitles(void)
 		cputc('A'+128);
 		cputc('S'+128);	
 		cputc('E'+128); 		
-	#elif defined(__ATARI__) || defined(__ATARIXL__)
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINT(1,0-Y_OFFSET,"SPEED:");
 		PRINT(1,1-Y_OFFSET,"SCORE:");
@@ -120,7 +119,7 @@ void displayStatsTitles(void)
 		PRINT(2,0-Y_OFFSET,"SPEED:");
 		PRINT(2,1-Y_OFFSET,"SCORE:");
 		PRINT(2,2-Y_OFFSET,"LEVEL:");
-		#if !defined(__VIC20__) && !defined(__ATARI__) && !defined(__ATARIXL__)
+		#if !defined(__VIC20__) && (!defined(__ATARI__) && !defined(__ATARIXL__) || !defined(ATARI_MODE1))
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			PRINT(24,1-Y_OFFSET,"CROSS CHASE");
 			SET_TEXT_COLOR(TEXT_COLOR);	
@@ -132,7 +131,7 @@ void displayStatsTitles(void)
 		gotoxy(18,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(18,1); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-	#elif defined(__ATARI__) || defined(__ATARIXL__)
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(15,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(15+20,0); cputc(GHOST_IMAGE._imageData);cputc(':');
@@ -144,6 +143,10 @@ void displayStatsTitles(void)
 		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');
 	#else
 		// TODO: to implement
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		gotoxy(18,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(18,1); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');
 	#endif
 
 }
@@ -159,7 +162,7 @@ void displayStats(void)
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
 		PRINTF(8,2-Y_OFFSET,"%02hu", level);
-	#elif defined(__ATARI__) || defined(__ATARIXL__)
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINTF(7,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(7,1-Y_OFFSET,"%05lu",points);
 		PRINTF(7,2-Y_OFFSET,"%02hu", level);
@@ -168,14 +171,17 @@ void displayStats(void)
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
 		PRINTF(8,2-Y_OFFSET,"%02hu", level);
 	#else
-		// TODO: to implement		
+		// TODO: to implement	
+		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
+		PRINTF(8,1-Y_OFFSET,"%06lu",points);
+		PRINTF(8,2-Y_OFFSET,"%02hu", level);	
 	#endif
 	
 	#if defined (__ATMOS__)
 		PRINTF(19-1,0-Y_OFFSET,"%hu",guns);
 		PRINTF(19-1,1-Y_OFFSET,"%hu",ghostCount);
 		PRINTF(19-1,2-Y_OFFSET,"%02hu",lives);	
-	#elif defined(__ATARI__) || defined(__ATARIXL__)
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINTF(15+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 		PRINTF(15+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
 		PRINTF(15+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
@@ -184,7 +190,10 @@ void displayStats(void)
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
 		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
 	#else
-		// TODO: to implement		
+		// TODO: to implement	
+		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
+		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
+		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);	
 	#endif		
 	//	SET_TEXT_COLOR(TEXT_COLOR);
 }
@@ -200,7 +209,7 @@ void drawBorders(void)
 
 void setScreenColors(void)
 {
-	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);
 		
@@ -484,7 +493,7 @@ void printStartMessage(void)
 		cputc('S');
 		cputc(' ');		
 		cputc('E'); 
-	#elif defined(__ATARI__) || defined(__ATARIXL__)
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINT(0, YSize / 2 - 9, "C R O S S  C H A S E");
 		SET_TEXT_COLOR(TEXT_COLOR);
@@ -506,7 +515,7 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_BLUE);
 	#endif // __PLUS4__
 
-	#if defined(__VIC20__)|| defined(__ATARI__) || defined(__ATARIXL__)
+	#if defined(__VIC20__)|| ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 		PRINT(0, YSize / 2 - 3, "you are chased by O");
 		
 		PRINT(0, YSize / 2 - 2, "force O into X");
@@ -516,7 +525,7 @@ void printStartMessage(void)
 		PRINT(0, YSize / 2, "Catch ! for bullets");
 		
 		PRINT(0, YSize / 2 + 1, "flee from +!");
-	#elif defined(__PET__)
+	#elif defined(__PET__) || defined(__CBM610__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE))
 		PRINT(22, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		
 		PRINT(20, YSize / 2 - 1,  "Take S to slow O down. Catch ! for bullets.");
@@ -572,14 +581,14 @@ void printStartMessage(void)
 
 		gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
 		gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
-	#elif defined(__ATARI__) || defined(__ATARIXL__)
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINT(0, YSize / 2 + 4, "use the joystick");
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 	#endif
 	SET_TEXT_COLOR(TEXT_COLOR);
 
-	#if defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__)
+	#if defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 		PRINT(3, YSize / 2 + 7, "press any key");
 	#elif defined(__C64__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 6, "press any key");

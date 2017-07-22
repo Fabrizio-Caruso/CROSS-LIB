@@ -1,5 +1,5 @@
-#ifndef _ATARI_GRAPHICS
-#define _ATARI_GRAPHICS
+#ifndef _ATARI_MODE1_GRAPHICS
+#define _ATARI_MODE1_GRAPHICS
 
 	#include <atari.h>
 	#include <peekpoke.h>
@@ -234,4 +234,4 @@
 		} 
 		cputs(str); 
 	};	
-#endif // _ATARI_GRAPHICS
+#endif // _ATARI_MODE1_GRAPHICS

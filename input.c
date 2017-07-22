@@ -35,7 +35,7 @@
 #include "settings.h"
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
-#elif !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
+#elif !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
 #else
 	#include <joystick.h>
 #endif
@@ -48,17 +48,14 @@
 #include "input.h"
 
 
-//#define _TRAINER 1
-
 extern unsigned short invincibleXCountDown;
 extern unsigned short invincibleYCountDown;
-extern unsigned short playerDirection;
-extern unsigned short playerFire;
-extern unsigned short level;
+extern unsigned char playerDirection;
+extern unsigned char playerFire;
 extern Character player;
 extern Character missile;
 
-extern unsigned short ghostCount;
+extern unsigned char ghostCount;
 
 extern unsigned char player_invincibility;
 

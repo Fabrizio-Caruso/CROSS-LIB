@@ -36,7 +36,7 @@
 #include "powerups.h"
 
 
-extern unsigned short level;
+extern unsigned char level;
 
 extern unsigned int gunInitialCoolDown;
 

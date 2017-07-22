@@ -323,7 +323,7 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			initializeCharacter(ghosts[5],3,1,0,&DEAD_GHOST_IMAGE);	
 		}
 		
-		#if GHOSTS_NUMBER>=7
+		//#if GHOSTS_NUMBER>=7
 		if(nGhosts>6)
 		{
 			initializeCharacter(ghosts[6],XSize-XSize/6+rand()%3-3,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
@@ -332,9 +332,9 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 		{
 			initializeCharacter(ghosts[6],2,1,0,&DEAD_GHOST_IMAGE);	
 		}
-		#endif
+		//#endif
 		
-		#if GHOSTS_NUMBER==8
+		//#if GHOSTS_NUMBER==8
 		if(nGhosts>7)
 		{
 			initializeCharacter(ghosts[7],XSize-XSize/6+rand()%3-3,YSize/2+rand()%3-2,1,&GHOST_IMAGE);
@@ -343,7 +343,7 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 		{
 			initializeCharacter(ghosts[7],1,1,0,&DEAD_GHOST_IMAGE);	
 		}
-		#endif
+		//#endif
 		
 		for(i=0;i<GHOSTS_NUMBER;++i)
 		{

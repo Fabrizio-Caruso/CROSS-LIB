@@ -44,6 +44,8 @@
 	#include "nes/nes_graphics.h"
 #elif defined(__C16__) || defined(__PLUS4__)
 	#include "c264/c264_graphics.h"
+#elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
+	#include "c128/c128_80col_graphics.h"
 #else		
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;
@@ -67,10 +69,6 @@
 #if defined(__SPECTRUM__)
 	#include <stdio.h>
 #endif
-#if defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
-	#include <c128.h>
-#endif
-	//extern char YSize; 
 	
 	char powerUp_blink = 1;
 	char gun_blink = 1;
@@ -81,10 +79,6 @@
 	
 	void INIT_GRAPHICS(void)
 	{
-	#if defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
-		fast();
-		videomode(80);
-	#endif
 	}
  
 	void INIT_IMAGES(void)

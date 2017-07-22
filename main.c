@@ -826,7 +826,7 @@ int main(void)
 				// Display ghosts
 				displayGhosts();
 				
-				#if defined(__ATARI__) || defined(__ATARIXL__) 
+				#if (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) 
 					displayStatsTitles();
 				#endif
 

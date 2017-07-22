@@ -412,13 +412,13 @@ typedef struct ImageStruct Image;
 
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 	
-	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
 		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); };
 	#else
 		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 	#endif
 	
-	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
 		#define DRAW_BORDERS()
 		#define DRAW_VERTICAL_LINE(x,y,length)
 	#else

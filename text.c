@@ -209,7 +209,7 @@ void drawBorders(void)
 
 void setScreenColors(void)
 {
-	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);
 		

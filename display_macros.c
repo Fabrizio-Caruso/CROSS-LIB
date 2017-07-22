@@ -39,7 +39,7 @@
 #elif defined(__ATMOS__)
 	#include "atmos/atmos_redefined_characters.h"
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-	#include "atari/atari_graphics.h"
+	#include "atari/atari_mode1_graphics.h"
 #elif defined(__NES__)
 	#include "nes/nes_graphics.h"
 #elif defined(__C16__) || defined(__PLUS4__)

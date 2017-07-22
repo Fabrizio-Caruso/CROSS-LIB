@@ -35,12 +35,12 @@
 #define _INPUT_MACROS
 
 	#include <conio.h>
-	#if !(defined(__CBM__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
+	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
 	#else
 		#include <joystick.h>
 	#endif
 
-	#if !(defined(__CBM__) || defined(__ATMOS__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#if !(defined(__CBM__) || defined(__ATMOS__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
 		#include "patch/z88dk_conio_patch.h"
 	#endif 
 	

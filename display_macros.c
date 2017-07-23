@@ -166,14 +166,14 @@
 	void _draw_broken_wall(unsigned char x, unsigned char y)
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (COLOR_WHITE);
+		SET_TEXT_COLOR(COLOR_WHITE);
 		cputc('X');
 	}
 	
 	void _draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
+		SET_TEXT_COLOR(image->_color);
 		cputc(image->_imageData); 
 	}
 	
@@ -186,7 +186,7 @@
 	void _blink_powerUp_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
+		SET_TEXT_COLOR(image->_color);
 		if(powerUp_blink) 
 		{
 			cputc(image->_imageData); 
@@ -202,7 +202,7 @@
 	void _blink_gun_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
+		SET_TEXT_COLOR(image->_color);
 		if(gun_blink) 
 		{
 			cputc(image->_imageData); 
@@ -218,7 +218,7 @@
 	void _blink_extra_points_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
+		SET_TEXT_COLOR(image->_color);
 		if(extra_points_blink) 
 		{
 			cputc(image->_imageData); 
@@ -235,7 +235,7 @@
 	void _blink_extra_life_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
+		SET_TEXT_COLOR(image->_color);
 		if(extra_life_blink) 
 		{
 			cputc(image->_imageData); 
@@ -251,7 +251,7 @@
 	void _blink_invincibility_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
+		SET_TEXT_COLOR(image->_color);
 		if(invincibility_blink) 
 		{
 			cputc(image->_imageData); 
@@ -267,7 +267,7 @@
 	void _blink_player_draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
+		SET_TEXT_COLOR(image->_color);
 		if(player_blink) 
 		{
 			cputc(image->_imageData); 

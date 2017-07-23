@@ -459,13 +459,20 @@ typedef struct ImageStruct Image;
 #define CLEAR_SCREEN() clrscr();
 
 
+#if !defined(__SPECTRUM__)
+	#define SET_TEXT_COLOR(c) (void) textcolor (c);
+
+	#define SET_BORDER_COLOR(c) (void) bordercolor (c);
+
+	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
+#else
+	#define SET_TEXT_COLOR(c) {};
+
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
+#endif
 	
-#define SET_TEXT_COLOR(c) (void) textcolor (c);
-
-#define SET_BORDER_COLOR(c) (void) bordercolor (c);
-
-#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
-
 void INIT_IMAGES(void);
 
 void INIT_GRAPHICS(void);

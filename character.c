@@ -170,12 +170,12 @@ char safeLocation(unsigned char x, unsigned char y, Character **danger, unsigned
 
 void relocateCharacter(Character * characterPtr, Character **danger, unsigned char dangerSize)
 {
-	unsigned char x; 
-	unsigned char y; 
+	unsigned char x; // = 0; 
+	unsigned char y; // = 0; 
 	int x_offset; 
 	int y_offset;
 	int safe = 0;
-	while(!safe)
+	do
 	{
 		// TODO: This should be separated (at least partially) and moved into display_macros
 		x_offset = rand() % 7;
@@ -194,7 +194,7 @@ void relocateCharacter(Character * characterPtr, Character **danger, unsigned ch
 			continue;
 		
 		safe = safeLocation(x,y,danger, dangerSize);
-	}
+	} while(!safe);
 	characterPtr->_x = x;
 	characterPtr->_y = y;
 }

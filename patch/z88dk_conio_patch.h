@@ -42,6 +42,8 @@
 	//
 	#define cgetc() (char) getch();
 
+	#define textcolor(c) {};
+	
 	#define COLOR_WHITE 1
 	#define COLOR_BLACK 0
 	#define COLOR_RED 2

@@ -38,8 +38,12 @@
 
 	#define gotoxy(a,b)     printf("\x16%c%c",a+32,b+32)
 	
-    #define cputc(c) putch(c);
+    #define cputc(c) printf("%c",c);
 	//
 	#define cgetc() (char) getch();
-	
+
+	#define COLOR_WHITE 1
+	#define COLOR_BLACK 0
+	#define COLOR_RED 2
+	#define COLOR_BLUE 3
 #endif // _Z88DK_CONIO_PATCH

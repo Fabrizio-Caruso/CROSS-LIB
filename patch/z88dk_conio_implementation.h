@@ -31,93 +31,20 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef _INPUT_MACROS
-#define _INPUT_MACROS
-
-	#include <conio.h>
-	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
-	#else
-		#include <joystick.h>
-	#endif
-
-	#if defined(__SPECTRUM__)
-		#include "patch/z88dk_conio_patch.h"
-	#endif 
+#ifndef _Z88DK_CONIO_IMPLEMENTATION
+#define _Z88DK_CONIO_IMPLEMENTATION
+	#include <arch/zx.h>
 	
-	#if !defined(__SPECTRUM__)
-		#define IF_KEYBOARD_HIT if(kbhit()) 
-	#endif
-
-	#if defined(__ATMOS__)
-		#include "atmos/atmos_input.h"
-	#elif defined(__APPLE2__) || (__APPLE2ENH__)
-		#include "apple2/apple2_input.h"
-	#elif defined(__ATARI__) || defined(__ATARIXL__)
-		#include "atari/atari_input.h"
-	#elif defined(__SPECTRUM__)
-		#include <input.h>
-		#define GET_CHAR() (unsigned int) in_Inkey();
-	#elif defined(__CPC__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__)
-		#define GET_CHAR() (unsigned int) getk();
-	#else
-		#define GET_CHAR() cgetc();
-	#endif
-
-	#define WAIT_JOY1_PRESS() \
-	{ \
-		while(joy_read(JOY_1)) \
-		{ \
-			JOY_BTN_UP(kbInput); \
-		} \
-		while(!(joy_read(JOY_1))) \
-		{ \
-		} \
-	}	
+	#define gotoxy(a,b)     printf("\x16%c%c",a+32,b+32)
 	
+    #define cputc(c) printf("%c",c);
+	//
+	#define cgetc() in_InKey();
 
-	#define WAIT_JOY2_PRESS() \
-	{ \
-		while(kbInput = joy_read(JOY_2)) \
-		{ \
-			JOY_BTN_UP(kbInput); \
-		} \
-		while(!(kbInput = joy_read(JOY_2))) \
-		{ \
-		} \
-	}	
-
-	#if !(defined(__CBM__) || defined(__ATMOS__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
-		#define WAIT_KEY_PRESS() \
-		{ \
-			while(!kbhit()) \
-			{ \
-			}; \
-			cgetc(); \
-		};		
-	#else
-		#define WAIT_KEY_PRESS() \
-		{ \
-			while(kbhit()) \
-				cgetc(); \
-			while(!kbhit()) \
-			{ \
-			}; \
-			cgetc(); \
-		};
-	#endif
+	#define textcolor(c)
 	
-	#if (!defined(__CBM__) || defined(__PET__) || defined(__CBM610__) || defined(__C16__) || defined(__PLUS4__)) && !defined(__ATARI__) && !defined(__ATARIXL__)
-		#define WAIT_PRESS() WAIT_KEY_PRESS();
-	#else
-		#define WAIT_PRESS() WAIT_JOY1_PRESS();
-	#endif
-
-	#if (!defined(__CBM__) || defined(__CBM610__)) && !defined(__ATARI__) && !defined(__ATARIXL__)
-	#else
-		#define JOY_INSTALL() { joy_install(joy_static_stddrv); };
-
-		#define GET_JOY1() joy_read (JOY_1);
-
-		#define GET_JOY2() joy_read (JOY_2);
-	#endif
-#endif // _INPUT_MACROS
+	#define COLOR_WHITE 1
+	#define COLOR_BLACK 0
+	#define COLOR_RED 2
+	#define COLOR_BLUE 3
+#endif // _Z88DK_CONIO_IMPLEMENTATION

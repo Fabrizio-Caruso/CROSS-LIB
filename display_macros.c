@@ -83,7 +83,7 @@
  
 	void INIT_IMAGES(void)
 	{		
-		#if defined(__PET__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+		#if defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 			PLAYER_IMAGE._color = COLOR_WHITE;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
 			POWERUP_IMAGE._color = COLOR_WHITE;

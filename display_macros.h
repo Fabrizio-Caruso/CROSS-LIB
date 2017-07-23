@@ -34,17 +34,22 @@
 #ifndef _DISPLAY_MACROS
 #define _DISPLAY_MACROS
 
-#include <conio.h>
+//#include <conio.h>
 #include "settings.h"
 
-#include "patch/generic_conio_patch.h"
+
+
+#if !defined(__SPECTRUM__)
+	#include <conio.h>
+#endif
+#if defined(__APPLE__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
+	#include "patch/generic_conio_patch.h"
+#endif
 #if defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
-#elif !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+#elif defined(__SPECTRUM__)
 	#include "patch/z88dk_conio_patch.h"
 #endif
-
-
 
 struct ImageStruct
 {
@@ -76,7 +81,7 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {*x=20; *y=24;};
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	#define GET_SCREEN_SIZE(x,y) {*x=80-X_OFFSET; *y=25-Y_OFFSET;};
-#elif defined(__CBM__) || defined(__APPLE2__) || defined(__APPL2ENH__) || defined(__ATMOS__)
+#elif defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #elif (defined (__SPECTRUM__) && defined(SPECTRUM_64COL))|| defined(__SC3000__) || defined(__CPC__) || defined(__M5__)
 	#define GET_SCREEN_SIZE(x,y) {*x=64-X_OFFSET; *y=24-Y_OFFSET;};
@@ -198,7 +203,7 @@ typedef struct ImageStruct Image;
 	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
 	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-	
+
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);}; //{gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
 
 	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};

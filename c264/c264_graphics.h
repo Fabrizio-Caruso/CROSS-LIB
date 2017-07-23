@@ -34,7 +34,7 @@
  
 #ifndef _C264_GRAPHICS
 #define _C264_GRAPHICS
-
+	#include <conio.h>
 	#include <peekpoke.h>
 
 	#include <stdio.h>

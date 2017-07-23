@@ -34,8 +34,10 @@
 #ifndef _Z88DK_CONIO_PATCH
 #define _Z88DK_CONIO_PATCH
 
-	#include <conio.h>
+	//#include <conio.h>
 
+	#define gotoxy(a,b)     printf("\x16%c%c",a+32,b+32)
+	
     #define cputc(c) putch(c);
 	//
 	#define cgetc() (char) getch();

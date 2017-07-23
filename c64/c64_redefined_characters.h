@@ -33,7 +33,7 @@
 
 #ifndef __C64_REDEFINED_CHARACTERS
 #define __C64_REDEFINED_CHARACTERS
-
+	#include<conio.h>
 	#include <peekpoke.h>
 
 	Image PLAYER_IMAGE;

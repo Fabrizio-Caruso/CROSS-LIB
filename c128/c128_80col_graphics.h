@@ -1,6 +1,7 @@
 #ifndef _C128_80_COL_GRAPHIVS
 #define _C128_80_COL_GRAPHIVS
 
+#include <conio.h>
 #include <c128.h>
 
 	Image PLAYER_IMAGE;

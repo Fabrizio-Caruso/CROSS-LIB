@@ -34,9 +34,12 @@ cd %mypath%\
 @REM zcc +zx -SO3 -pragma-define:ansicolumns=32  -DDEBUG_CHARACTERS -DSPECTRUM_32COL -DDEBUG_SPECTRUM_HACK -DDEBUG_SHOW_INVINCIBLE_GHOST_ISSUE -vn -DAMALLOC -clib=ansi -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_FIXED.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 
 @REM -SO3 DEBUG_SKULL_AT_START DEBUG_WAIT_AT_START -lmalloc -lndos
-zcc +zx -startup=1 -pragma-define:ansicolumns=32 -DDEBUG_CHARACTERS -D__SPECTRUM__ -DSPECTRUM_32COL  -vn -DAMALLOC -clib=sdcc_iy  -create-app  -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM del %deliverables%\ZXSpectrum_32col_experimental.prg
-del %deliverables%\ZXSpectrum_32col_experimental_CODE.bin
+@REM zcc +zx -startup=1 -pragma-define:ansicolumns=32 -DDEBUG_CHARACTERS -D__SPECTRUM__ -DSPECTRUM_32COL  -vn -DAMALLOC -clib=sdcc_iy  -create-app  -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\ZXSpectrum_32col_experimental_CODE.bin
+
+zcc +zx -startup=5 -pragma-define:ansicolumns=64 -DDEBUG_CHARACTERS -D__SPECTRUM__ -DSPECTRUM_64COL  -vn -DAMALLOC -clib=sdcc_iy  -create-app  -o %deliverables%\ZXSpectrum_64col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+del %deliverables%\ZXSpectrum_64col_experimental_CODE.bin
+
 
 @REM 
 @REM zcc +zx -SO3 -pragma-define:ansicolumns=64 -DDEBUG_SPECTRUM_OUT_OF_MEMORY_HACK -DSPECTRUM_64COL  -vn -DAMALLOC -clib=sdcc_iy -lmalloc -lndos -create-app  -o %deliverables%\ZXSpectrum_64col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c

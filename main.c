@@ -586,7 +586,9 @@ int main(void)
 		initialScreen();
 		WAIT_PRESS()
 		CLEAR_SCREEN();
-		highScoreScreen();
+		#if !defined(__SPECTRUM__)
+			highScoreScreen();
+		#endif
 		WAIT_PRESS();
 		CLEAR_SCREEN();
 		
@@ -641,7 +643,9 @@ int main(void)
 			
 			fillLevelWithCharacters(ghostCount);	
 			
-			displayStatsTitles();
+			#if(__SPECTRUM__)
+				displayStatsTitles();
+			#endif
 			
 			rightEnemyMissile._x = XSize-1; rightEnemyMissile._y = 4;
 			rightEnemyMissile._status = 1;
@@ -779,8 +783,12 @@ int main(void)
 					}
 				}
 				
+				#if defined(__SPECTRUM__)
+				sleep(1);
+				#else
 				MOVE_PLAYER();
-
+				#endif
+				
 				handle_missile();
 			
 
@@ -833,7 +841,9 @@ int main(void)
 					displayStatsTitles();
 				#endif
 
-				displayStats();
+				#if !defined(__SPECTRUM__)
+					displayStats();
+				#endif
 				
 				handle_invincible_ghost();
 				

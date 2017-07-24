@@ -41,7 +41,7 @@
 	//putchar(c);
 	//printf("%c",c);
 	//
-	#define cgetc() in_InKey();
+	#define cgetc() in_inkey();
 
 	#define textcolor(c)
 	

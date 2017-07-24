@@ -52,6 +52,12 @@
 #include "sleep_macros.h"
 #include "sound_macros.h"
 
+// TODO: Should not be here
+#if defined(__SPECTRUM__)
+	#include <input.h>
+	#include <spectrum.h>
+#endif
+	
 //#define DEBUG_CHARACTERS
 //#define DEBUG_SKULL_AT_START
 //#define DEBUG_WAIT_AT_START

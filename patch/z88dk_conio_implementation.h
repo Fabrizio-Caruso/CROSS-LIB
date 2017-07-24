@@ -33,7 +33,7 @@
 
 #ifndef _Z88DK_CONIO_IMPLEMENTATION
 #define _Z88DK_CONIO_IMPLEMENTATION
-	#include <arch/zx.h>
+	//#include <arch/zx.h>
 	
 	#define gotoxy(a,b)     printf("\x16%c%c",a+32,b+32);
 	

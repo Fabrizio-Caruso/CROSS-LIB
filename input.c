@@ -42,6 +42,7 @@
 #endif
 #if defined(__SPECTRUM__)
 	#include <input.h>
+	#include <spectrum.h>
 #endif
 #include "display_macros.h"
 #include "invincible_enemy.h"

@@ -49,7 +49,7 @@
 	#define MOVE_PLAYER() { kbInput = GET_JOY1(); movePlayerByJoystick(kbInput);}
 	void movePlayerByJoystick(unsigned char joyInput);
 #elif defined(__SPECTRUM__)
-	unsigned int in_Inkey(void);
+	//unsigned int in_Inkey(void);
 	#define MOVE_PLAYER() { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}
 	void movePlayerByKeyboard(char kbInput);
 #else

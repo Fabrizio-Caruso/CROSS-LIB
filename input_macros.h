@@ -34,14 +34,16 @@
 #ifndef _INPUT_MACROS
 #define _INPUT_MACROS
 
-	#include <conio.h>
+
 	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
 	#else
 		#include <joystick.h>
 	#endif
 
 	#if defined(__SPECTRUM__)
-		#include "patch/z88dk_conio_patch.h"
+		#include "patch/z88dk_conio_implementation.h"
+	#else
+		#include <conio.h>
 	#endif 
 	
 	#if !defined(__SPECTRUM__)
@@ -56,7 +58,7 @@
 		#include "atari/atari_input.h"
 	#elif defined(__SPECTRUM__)
 		#include <input.h>
-		#define GET_CHAR() (unsigned int) in_Inkey();
+		#define GET_CHAR() getchar();
 	#elif defined(__CPC__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__)
 		#define GET_CHAR() (unsigned int) getk();
 	#else
@@ -86,14 +88,16 @@
 		} \
 	}	
 
-	#if !(defined(__CBM__) || defined(__ATMOS__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#if defined(__SPECTRUM__)
 		#define WAIT_KEY_PRESS() \
-		{ \
-			while(!kbhit()) \
-			{ \
-			}; \
-			cgetc(); \
-		};		
+			GET_CHAR();
+		// #define WAIT_KEY_PRESS() \
+		// { \
+			// while(!kbhit()) \
+			// { \
+			// }; \
+			// cgetc(); \
+		// };		
 	#else
 		#define WAIT_KEY_PRESS() \
 		{ \

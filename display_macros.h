@@ -48,7 +48,7 @@
 #if defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
 #elif defined(__SPECTRUM__)
-	#include "patch/z88dk_conio_patch.h"
+	#include "patch/z88dk_conio_implementation.h"
 #endif
 
 struct ImageStruct
@@ -345,6 +345,82 @@ typedef struct ImageStruct Image;
 		#define SHOW_UP() {}
 		#define SHOW_DOWN() {}	
 	// #endif
+#elif defined(__SPECTRUM__)
+
+	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
+
+	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
+	
+	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_player_draw(x,y,image);};
+	
+	#define DRAW_GHOST(x,y,image)  {_draw(x,y,image);};
+	
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
+	
+	#define DRAW_BOMB(x,y,image)  {_draw(x,y,image);};
+	
+	#define DRAW_POWERUP(x,y,image) {_blink_powerUp_draw(x,y,image);};
+	
+	#define DRAW_GUN(x,y,image) {_blink_gun_draw(x,y,image);};
+
+	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_extra_points_draw(x,y,image);};
+
+	#define DRAW_EXTRA_LIFE(x,y,image) {_blink_extra_life_draw(x,y,image);};
+
+	#define DRAW_INVINCIBILITY(x,y,image) {_blink_invincibility_draw(x,y,image);};	
+	
+	void _draw_broken_wall(unsigned char x, unsigned char y);	
+	void _draw(unsigned char x, unsigned char y, Image * image);
+	void _blink_powerUp_draw(unsigned char x, unsigned char y, Image * image);
+	void _blink_gun_draw(unsigned char x, unsigned char y, Image * image);
+	void _blink_extra_points_draw(unsigned char x, unsigned char y, Image * image);	
+	void _blink_extra_life_draw(unsigned char x, unsigned char y, Image * image);
+	void _blink_invincibility_draw(unsigned char x, unsigned char y, Image * image);
+	void _blink_player_draw(unsigned char x, unsigned char y, Image * image);
+	
+	
+	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
+	
+	#define DRAW_BOMBS() \
+	{ \
+		unsigned char i = 0; \
+		for(;i<BOMBS_NUMBER;++i) \
+		{ \
+			DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr); \
+		} \
+	}
+
+	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
+
+	#define DELETE_GHOST(x,y,image)  {_delete(x,y);};
+
+	#define DELETE_INVINCIBLE_GHOST(x,y,image)  {_delete(x,y);};
+
+	#define DELETE_BOMB(x,y,image)  {_delete(x,y);};
+
+	#define DELETE_POWERUP(x,y,image)  {_delete(x,y);};
+
+	#define DELETE_GUN(x,y,image)  {_delete(x,y);};
+	
+	#define DELETE_EXTRA_POINTS(x,y,image)  {_delete(x,y);};
+	
+	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
+
+	void _delete(unsigned char x,unsigned char y);
+
+	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); };
+	
+	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
+
+
+	#define DRAW_BORDERS()
+	#define DRAW_VERTICAL_LINE(x,y,length)
+
+	#define SHOW_LEFT() {}
+	#define SHOW_RIGHT() {}
+	#define SHOW_UP() {}
+	#define SHOW_DOWN() {}	
+
 #else
 	#if defined(__C16__) || defined(__PLUS4__) || defined(__C64__)
 		extern Image PLAYER_LEFT;
@@ -456,21 +532,25 @@ typedef struct ImageStruct Image;
 	#endif
 #endif
 
-#define CLEAR_SCREEN() clrscr();
-
-
 #if !defined(__SPECTRUM__)
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 
 	#define SET_BORDER_COLOR(c) (void) bordercolor (c);
 
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
+	
+	#define CLEAR_SCREEN() clrscr();
+
+
 #else
 	#define SET_TEXT_COLOR(c) {};
 
 	#define SET_BORDER_COLOR(c) {};
 
 	#define SET_BACKGROUND_COLOR(c) {};	
+		
+	#define CLEAR_SCREEN() {};
+
 #endif
 	
 void INIT_IMAGES(void);

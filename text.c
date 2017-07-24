@@ -277,7 +277,7 @@ void printLevel(void)
 	void finalScore(void)
 	{
 		char scoreString[22];
-		clrscr();
+		CLEAR_SCREEN();
 		sprintf(scoreString, "score:  %lu", points);
 		printCenteredMessage(scoreString);
 	}
@@ -319,7 +319,7 @@ void printLevel(void)
 	void finalScore(void)
 	{
 		char scoreString[22];
-		clrscr();
+		CLEAR_SCREEN();
 		sprintf(scoreString, "SCORE:  %lu", points);
 		printCenteredMessage(scoreString);
 	}

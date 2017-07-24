@@ -53,8 +53,8 @@
 #include "sound_macros.h"
 
 //#define DEBUG_CHARACTERS
-//#define DEBUG_SPECTRUM_HACK
-//#define DEBUG_SHOW_INVINCIBLE_GHOST_ISSUE
+//#define DEBUG_SKULL_AT_START
+//#define DEBUG_WAIT_AT_START
 
 unsigned int invincibleSlowDown;
 unsigned short invincibleXCountDown;
@@ -424,7 +424,7 @@ void handle_invincible_ghost(void)
 	if(!invincibleGhost._status)
 	{
 		// Manage invincible ghost
-		#if defined(DEBUG_SHOW_INVINCIBLE_GHOST_ISSUE)
+		#if defined(DEBUG_SKULL_AT_START)
 			if(1) 
 		#else
 			if((!bossLevel() && invincibleGhostAlive &&
@@ -436,9 +436,6 @@ void handle_invincible_ghost(void)
 			invincibleGhost._status = 1;
 			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 			// TODO: REMOVE THIS HACK that avoids a crash in SPECTRUM version
-			#if defined(DEBUG_SPECTRUM_HACK) && defined(__SPECTRUM__)
-				sleep(1);
-			#endif
 		}
 		else
 		{
@@ -539,7 +536,7 @@ int main(void)
 		
 		CLEAR_SCREEN();
 		
-		#ifdef DEBUG_SPECTRUM_OUT_OF_MEMORY_HACK
+		#ifdef DEBUG_WAIT_PRESS_AT_START
 			WAIT_PRESS();
 		#endif 
 		#ifdef DEBUG_CHARACTERS

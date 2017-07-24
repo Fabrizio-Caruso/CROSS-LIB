@@ -67,3 +67,9 @@ void printAt32Col(unsigned char row, unsigned char col, char* s)
     col += 0x20; // add displacement
     printf("\x16%c%c%s", row, col, s);
 }
+
+
+1. Compile with sccz80 and the classic C library. This is equivalent to pre-1.99A.
+2. Compile with sccz80 and the new C library. Compile lines include "-clib=new".
+3. Compile with sdcc and the new C library. Compile lines include "-clib=sdcc_ix" or "-clib=sdcc_iy".
+

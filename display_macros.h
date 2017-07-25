@@ -83,7 +83,7 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {*x=80-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
-#elif (defined (__SPECTRUM__) && defined(SPECTRUM_64COL))|| defined(__SC3000__) || defined(__CPC__) || defined(__M5__)
+#elif (defined (__SPECTRUM__) && defined(SPECTRUM_64COL))
 	#define GET_SCREEN_SIZE(x,y) {*x=64-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__MSX__) || (defined (__SPECTRUM__) && defined(SPECTRUM_32COL))
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
@@ -340,7 +340,8 @@ typedef struct ImageStruct Image;
 		#define SHOW_DOWN() {}	
 
 #elif defined(__SPECTRUM__)
-
+	#include <stdio.h>
+	
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
 
 	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
@@ -407,8 +408,22 @@ typedef struct ImageStruct Image;
 	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
 
 
-	#define DRAW_BORDERS()
-	#define DRAW_VERTICAL_LINE(x,y,length)
+	#define DRAW_BORDERS() \
+	{ \
+		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+		printf("----------------------------------------------------------------"); \
+		gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
+		printf("----------------------------------------------------------------"); \
+	}
+	
+	#define DRAW_VERTICAL_LINE(x,y,length) \
+	{ \
+		unsigned char i; \
+		for(i=0;i<length;++i) \
+		{ \
+			gotoxy(x+X_OFFSET,y+Y_OFFSET+i); printf("|"); \
+		} \
+	}
 
 	#define SHOW_LEFT() {}
 	#define SHOW_RIGHT() {}
@@ -534,8 +549,6 @@ typedef struct ImageStruct Image;
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 	
 	#define CLEAR_SCREEN() clrscr();
-
-
 #else
 	#define SET_TEXT_COLOR(c) {};
 

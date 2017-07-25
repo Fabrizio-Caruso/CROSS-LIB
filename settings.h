@@ -123,7 +123,7 @@
 // LEVEL 36 - 40: Four bombs at the four corners 
 
 // Starting from this level 4 central bombs
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 2
 
 #define THREE_BOMB_START_LEVEL 6
 

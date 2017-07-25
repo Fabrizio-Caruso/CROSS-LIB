@@ -775,8 +775,7 @@ int main(void)
 
 				chasePlayer(ghostSlowDown);
 				
-				// TODO: this should detect collisions of ghosts that have just moved
-				//if(!bossLevel() && missile._status)
+				// This detects collisions of ghosts that have just moved
 				if(missile._status)
 				{
 					checkMissileVsGhosts(&missile);

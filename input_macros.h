@@ -52,8 +52,8 @@
 
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_input.h"
-	#elif defined(__APPLE2__) || (__APPLE2ENH__)
-		#include "apple2/apple2_input.h"
+	// #elif defined(__APPLE2__) || (__APPLE2ENH__)
+		// #include "apple2/apple2_input.h"
 	#elif defined(__ATARI__) || defined(__ATARIXL__)
 		#include "atari/atari_input.h"
 	#elif defined(__SPECTRUM__)
@@ -66,7 +66,9 @@
 	#elif defined(__CPC__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__)
 		#define GET_CHAR() (unsigned int) getk();
 	#else
-		#define GET_CHAR() cgetc();
+		#ifndef GET_CHAR()
+			#define GET_CHAR() cgetc();
+		#endif
 	#endif
 
 	#define WAIT_JOY1_PRESS() \

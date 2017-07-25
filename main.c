@@ -52,7 +52,6 @@
 #include "sleep_macros.h"
 #include "sound_macros.h"
 
-	
 //#define DEBUG_CHARACTERS
 
 unsigned int invincibleSlowDown;
@@ -529,6 +528,8 @@ int main(void)
 		INIT_IMAGES();
 		
 		CLEAR_SCREEN();
+		// CLEAR_SCREEN();		
+		printf("%c%c", "\x1\x40");
 		
 		#ifdef DEBUG_CHARACTERS
 			PRINTF(0,0,"ghost %c\n", GHOST_IMAGE._imageData);

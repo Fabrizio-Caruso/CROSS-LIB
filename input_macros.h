@@ -95,6 +95,10 @@
 	}	
 
 	#if defined(__SPECTRUM__)
+		#include <input.h>
+		void in_WaitForKey(void);
+		void in_WaitForNoKey(void);
+		
 		#define WAIT_KEY_PRESS() \
 		{ \
 		in_WaitForKey(); \

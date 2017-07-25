@@ -409,8 +409,8 @@ typedef struct ImageStruct Image;
 
 	//	#define DRAW_BORDERS()
 	
-	#define DRAW_VERTICAL_LINE(x,y,length)
-	//void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
+	// #define DRAW_VERTICAL_LINE(x,y,length)
+	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
 	
 	// #define DRAW_VERTICAL_LINE(x,y,length) \
 	// { \

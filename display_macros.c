@@ -79,6 +79,9 @@
 	
 	void INIT_GRAPHICS(void)
 	{
+		#if defined(__SPECTRUM__) && defined(SPECTRUM_32COL)
+			printf("\x1\x20");
+		#endif
 	}
  
 	void INIT_IMAGES(void)

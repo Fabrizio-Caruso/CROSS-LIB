@@ -51,7 +51,7 @@
 #elif defined(__SPECTRUM__)
 	#include <input.h>
 	#include <spectrum.h>
-	unsigned int in_inkey(void);
+	unsigned int in_Inkey(void);
 	#define MOVE_PLAYER() { kbInput = in_Inkey(); movePlayerByKeyboard(kbInput);}
 	void movePlayerByKeyboard(char kbInput);
 #else

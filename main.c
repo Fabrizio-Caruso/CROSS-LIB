@@ -52,14 +52,8 @@
 #include "sleep_macros.h"
 #include "sound_macros.h"
 
-// TODO: Should not be here
-#if defined(__SPECTRUM__)
-	#include <input.h>
-	#include <spectrum.h>
-#endif
 	
 //#define DEBUG_CHARACTERS
-//#define DEBUG_SKULL_AT_START
 
 unsigned int invincibleSlowDown;
 unsigned short invincibleXCountDown;
@@ -429,14 +423,10 @@ void handle_invincible_ghost(void)
 	if(!invincibleGhost._status)
 	{
 		// Manage invincible ghost
-		#if defined(DEBUG_SKULL_AT_START)
-			if(1) 
-		#else
-			if((!bossLevel() && invincibleGhostAlive &&
-								((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
-								 (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || 
-			   (bossLevel() && loop>=invincibleLoopTrigger))
-		#endif
+		if((!bossLevel() && invincibleGhostAlive &&
+							((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
+							 (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || 
+		   (bossLevel() && loop>=invincibleLoopTrigger))
 		{
 			invincibleGhost._status = 1;
 			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);

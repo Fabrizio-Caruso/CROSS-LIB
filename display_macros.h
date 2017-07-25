@@ -84,7 +84,7 @@ typedef struct ImageStruct Image;
 #elif defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #elif (defined (__SPECTRUM__) && defined(SPECTRUM_64COL))|| defined(__SC3000__) || defined(__CPC__) || defined(__M5__)
-	#define GET_SCREEN_SIZE(x,y) {*x=64-X_OFFSET; *y=24-Y_OFFSET-1;};
+	#define GET_SCREEN_SIZE(x,y) {*x=64-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__MSX__) || (defined (__SPECTRUM__) && defined(SPECTRUM_32COL))
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__SPECTRUM__)
@@ -334,19 +334,11 @@ typedef struct ImageStruct Image;
 		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 2); \
 	}
 
-	
-	
-	// #if defined(__C16__) || defined(__PLUS4__) || defined(__C64__)
-		// #define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
-		// #define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
-		// #define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
-		// #define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
-	// #else
 		#define SHOW_LEFT() {}
 		#define SHOW_RIGHT() {}
 		#define SHOW_UP() {}
 		#define SHOW_DOWN() {}	
-	// #endif
+
 #elif defined(__SPECTRUM__)
 
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};

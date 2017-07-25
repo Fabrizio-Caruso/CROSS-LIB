@@ -408,11 +408,30 @@ typedef struct ImageStruct Image;
 	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
 
 	//	#define DRAW_BORDERS()
+	
 	#define DRAW_VERTICAL_LINE(x,y,length)
+	//void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
+	
+	// #define DRAW_VERTICAL_LINE(x,y,length) \
+	// { \
+		// if(length>0) \
+		// { \
+		// gotoxy(x+X_OFFSET, y+Y_OFFSET); printf("%c",'|'); \
+		// gotoxy(x+X_OFFSET, y+1+Y_OFFSET); printf("%c",'|'); \
+		// gotoxy(x+X_OFFSET, y+2+Y_OFFSET); printf("%c",'|'); \
+		// gotoxy(x+X_OFFSET, y+3+Y_OFFSET); printf("%c",'|'); \
+		// gotoxy(x+X_OFFSET, y+4+Y_OFFSET); printf("%c",'|'); \
+		// gotoxy(x+X_OFFSET, y+5+Y_OFFSET); printf("%c",'|'); \
+		// gotoxy(x+X_OFFSET, y+6+Y_OFFSET); printf("%c",'|'); \
+		// gotoxy(x+X_OFFSET, y+7+Y_OFFSET); printf("%c",'|'); \
+		// gotoxy(x+X_OFFSET, y+8+Y_OFFSET); printf("%c",'|'); \
+		// } \
+	// }
 	
 	
 	#define DRAW_BORDERS() \
 	{ \
+		unsigned char i \
 		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
 		printf("----------------------------------------------------------------"); \
 		gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
@@ -422,9 +441,9 @@ typedef struct ImageStruct Image;
 	// #define DRAW_VERTICAL_LINE(x,y,length) \
 	// { \
 		// unsigned char i; \
-		// for(i=0;i<length;++i) \
+		// for(i=0;i<8;++i) \
 		// { \
-			// gotoxy(x+X_OFFSET,y+Y_OFFSET+i); printf("|"); \
+			// gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); \
 		// } \
 	// }
 

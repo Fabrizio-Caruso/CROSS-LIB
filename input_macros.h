@@ -59,7 +59,7 @@
 	#elif defined(__SPECTRUM__)
 		#include <input.h>
 		#include <spectrum.h>
-		#define GET_CHAR() getchar();
+		#define GET_CHAR() { in_Inkey();};
 		//in_Inkey();
 		//getchar();
 		//in_inkey();
@@ -96,7 +96,11 @@
 
 	#if defined(__SPECTRUM__)
 		#define WAIT_KEY_PRESS() \
-			GET_CHAR();
+		{ \
+		in_WaitForKey(); \
+		in_Inkey(); \
+		in_WaitForNoKey(); \
+		}
 		// #define WAIT_KEY_PRESS() \
 		// { \
 			// while(!kbhit()) \

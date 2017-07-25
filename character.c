@@ -98,8 +98,8 @@ char wallReached(Character *characterPtr)
 
 void die(Character * playerPtr)
 {
-	playerPtr->_status = 0;
-	playerPtr->_moved = 0;
+	playerPtr->_status = (unsigned char ) 0;
+	playerPtr->_moved = (unsigned char ) 0;
 }
 
 char playerReached(Character* preyPtr)

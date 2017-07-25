@@ -220,14 +220,10 @@ void updateInnerWallVerticalData(void)
     innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
 }
 
-// void prepareGhost(Character * ghost, unsigned char x, unsigned char y)
-// {
-	// initializeCharacter(ghost,x,y,1,&GHOST_IMAGE);
-// }
 
 unsigned char rocketLevel(void)
 {
-	return level >= FIRST_BUBBLES_LEVEL && ((level%5)==2 || (level%5)==3); //!missileLevel(level) && !missileLevel(level-1) && !missile(level-2);
+	return level >= FIRST_BUBBLES_LEVEL && ((level%5)==2 || (level%5)==3);
 }
 
 unsigned char missileLevel(void)

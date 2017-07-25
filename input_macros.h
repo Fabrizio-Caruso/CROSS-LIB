@@ -59,7 +59,8 @@
 	#elif defined(__SPECTRUM__)
 		#include <input.h>
 		#include <spectrum.h>
-		#define GET_CHAR() getchar();
+		#define GET_CHAR() in_Inkey();
+		//getchar();
 		//in_inkey();
 	#elif defined(__CPC__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__)
 		#define GET_CHAR() (unsigned int) getk();

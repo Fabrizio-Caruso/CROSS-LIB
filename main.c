@@ -60,7 +60,6 @@
 	
 //#define DEBUG_CHARACTERS
 //#define DEBUG_SKULL_AT_START
-//#define DEBUG_WAIT_AT_START
 
 unsigned int invincibleSlowDown;
 unsigned short invincibleXCountDown;
@@ -542,9 +541,6 @@ int main(void)
 		
 		CLEAR_SCREEN();
 		
-		#ifdef DEBUG_WAIT_PRESS_AT_START
-			WAIT_PRESS();
-		#endif 
 		#ifdef DEBUG_CHARACTERS
 			PRINTF(0,0,"ghost %c\n", GHOST_IMAGE._imageData);
 			PRINTF(0,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
@@ -783,11 +779,7 @@ int main(void)
 					}
 				}
 				
-				#if defined(__SPECTRUM__)
-				sleep(1);
-				#else
 				MOVE_PLAYER();
-				#endif
 				
 				handle_missile();
 			

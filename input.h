@@ -52,7 +52,7 @@
 	#include <input.h>
 	#include <spectrum.h>
 	//unsigned int in_inkey(void);
-	#define MOVE_PLAYER() { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}
+	#define MOVE_PLAYER() { kbInput = in_Inkey(); movePlayerByKeyboard(kbInput);}
 	void movePlayerByKeyboard(char kbInput);
 #else
 	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}

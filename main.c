@@ -582,9 +582,9 @@ int main(void)
 		initialScreen();
 		WAIT_PRESS()
 		CLEAR_SCREEN();
-		#if !defined(__SPECTRUM__)
-			highScoreScreen();
-		#endif
+		
+		highScoreScreen();
+
 		WAIT_PRESS();
 		CLEAR_SCREEN();
 		
@@ -639,9 +639,8 @@ int main(void)
 			
 			fillLevelWithCharacters(ghostCount);	
 			
-			#if(__SPECTRUM__)
-				displayStatsTitles();
-			#endif
+
+			displayStatsTitles();
 			
 			rightEnemyMissile._x = XSize-1; rightEnemyMissile._y = 4;
 			rightEnemyMissile._status = 1;
@@ -833,9 +832,8 @@ int main(void)
 					displayStatsTitles();
 				#endif
 
-				#if !defined(__SPECTRUM__)
-					displayStats();
-				#endif
+				displayStats();
+
 				
 				handle_invincible_ghost();
 				

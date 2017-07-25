@@ -407,7 +407,10 @@ typedef struct ImageStruct Image;
 	
 	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
 
-
+	//	#define DRAW_BORDERS()
+	#define DRAW_VERTICAL_LINE(x,y,length)
+	
+	
 	#define DRAW_BORDERS() \
 	{ \
 		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
@@ -416,14 +419,14 @@ typedef struct ImageStruct Image;
 		printf("----------------------------------------------------------------"); \
 	}
 	
-	#define DRAW_VERTICAL_LINE(x,y,length) \
-	{ \
-		unsigned char i; \
-		for(i=0;i<length;++i) \
-		{ \
-			gotoxy(x+X_OFFSET,y+Y_OFFSET+i); printf("|"); \
-		} \
-	}
+	// #define DRAW_VERTICAL_LINE(x,y,length) \
+	// { \
+		// unsigned char i; \
+		// for(i=0;i<length;++i) \
+		// { \
+			// gotoxy(x+X_OFFSET,y+Y_OFFSET+i); printf("|"); \
+		// } \
+	// }
 
 	#define SHOW_LEFT() {}
 	#define SHOW_RIGHT() {}

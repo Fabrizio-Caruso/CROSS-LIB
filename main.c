@@ -430,7 +430,6 @@ void handle_invincible_ghost(void)
 		{
 			invincibleGhost._status = 1;
 			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-			// TODO: REMOVE THIS HACK that avoids a crash in SPECTRUM version
 		}
 		else
 		{
@@ -572,7 +571,8 @@ int main(void)
 		initialScreen();
 		WAIT_PRESS()
 		CLEAR_SCREEN();
-		
+		// TODO: Bogus but necessary for Spectrum??
+		CLEAR_SCREEN();
 		highScoreScreen();
 
 		WAIT_PRESS();
@@ -662,7 +662,7 @@ int main(void)
 				ghostSlowDown = computeGhostSlowDown();
 				
 				drawInnerVerticalWall();
-
+				
 				if((ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && rocketLevel()) || bossLevel())
 				{ 
 					unsigned char i;

@@ -85,10 +85,12 @@ extern Character* bubbles[BUBBLES_NUMBER];
 
 extern char bubbles_x[BUBBLES_NUMBER];
 
+
 void drawInnerVerticalWall(void)
 {
 	DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
 }
+
 
 void updateInnerWallVerticalData(void)
 {		

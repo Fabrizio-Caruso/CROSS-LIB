@@ -38,7 +38,7 @@ cd %mypath%\
 @REM del %deliverables%\ZXSpectrum_32col_experimental_CODE.bin
 
 
-zcc +zx -startup=1 -compiler=sdcc -vn -DDEBUG_CHARACTERS -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+zcc +zx -vn -DDEBUG_CHARACTERS -DSPECTRUM_64COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 del %deliverables%\ZXSpectrum_32col_experimental.prg
 
 @REM zcc +zx -startup=5 -pragma-define:ansicolumns=64 -DDEBUG_CHARACTERS -D__SPECTRUM__ -DSPECTRUM_64COL  -vn -DAMALLOC -clib=sdcc_iy  -create-app  -o %deliverables%\ZXSpectrum_64col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c

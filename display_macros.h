@@ -84,7 +84,7 @@ typedef struct ImageStruct Image;
 #elif defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #elif (defined (__SPECTRUM__) && defined(SPECTRUM_64COL))|| defined(__SC3000__) || defined(__CPC__) || defined(__M5__)
-	#define GET_SCREEN_SIZE(x,y) {*x=64-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=64-X_OFFSET; *y=24-Y_OFFSET-1;};
 #elif defined(__MSX__) || (defined (__SPECTRUM__) && defined(SPECTRUM_32COL))
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__SPECTRUM__)
@@ -551,7 +551,7 @@ typedef struct ImageStruct Image;
 
 	#define SET_BACKGROUND_COLOR(c) {};	
 		
-	#define CLEAR_SCREEN() {};
+	#define CLEAR_SCREEN() printf("\xc");
 
 #endif
 	

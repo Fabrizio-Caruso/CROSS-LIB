@@ -35,7 +35,7 @@
 #define _Z88DK_CONIO_IMPLEMENTATION
 	//#include <arch/zx.h>
 	
-	#define gotoxy(a,b)     printf("\x16%c%c",a+32,b+32);
+	#define gotoxy(a,b)     printf("\x16%c%c",b+32,a+32);
 	
     #define cputc(c) printf("%c",c);
 	//putchar(c);

@@ -174,7 +174,7 @@ void displayStats(void)
 		// TODO: to implement	
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
-		PRINTF(8,2-Y_OFFSET,"%02hu", level);	
+		PRINTF(8,2-Y_OFFSET,"%02d", level);	
 	#endif
 	
 	#if defined (__ATMOS__)
@@ -191,9 +191,9 @@ void displayStats(void)
 		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
 	#else
 		// TODO: to implement	
-		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
-		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
-		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);	
+		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%d",guns);
+		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%d",ghostCount);
+		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02d",lives);	
 	#endif		
 	//	SET_TEXT_COLOR(TEXT_COLOR);
 }

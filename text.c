@@ -119,7 +119,7 @@ void displayStatsTitles(void)
 		PRINT(2,0-Y_OFFSET,"SPEED:");
 		PRINT(2,1-Y_OFFSET,"SCORE:");
 		PRINT(2,2-Y_OFFSET,"LEVEL:");
-		#if !defined(__VIC20__) && (!defined(__ATARI__) && !defined(__ATARIXL__) || !defined(ATARI_MODE1))
+		#if !(defined(__SPECTRUM__) && defined(SPECTRUM_32COL)) && !defined(__VIC20__) && (!defined(__ATARI__) && !defined(__ATARIXL__) || !defined(ATARI_MODE1))
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			PRINT(24,1-Y_OFFSET,"CROSS CHASE");
 			SET_TEXT_COLOR(TEXT_COLOR);	
@@ -170,7 +170,7 @@ void displayStats(void)
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
 		PRINTF(8,2-Y_OFFSET,"%02hu", level);
-	#elif defined(__SPECTRUM__)
+	#elif defined(__SPECTRUM__) 
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
 		PRINTF(8,2-Y_OFFSET,"%02d", level);		
@@ -192,7 +192,7 @@ void displayStats(void)
 		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
 		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
-	#elif defined(__SPECTRUM__)
+	#elif defined(__SPECTRUM__) 
 		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%d",guns);
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%d",ghostCount);
 		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02d",lives);	

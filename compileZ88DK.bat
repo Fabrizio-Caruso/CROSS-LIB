@@ -34,9 +34,18 @@ zcc +zx -vn -SO3 -DSPECTRUM_64COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -crea
 @REM 
 del %deliverables%\ZXSpectrum_64col_experimental.prg
 
+@REM 
+@REM 
 zcc +zx -vn -SO3 -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM 
+@REM 
 del %deliverables%\ZXSpectrum_32col_experimental.prg
 
+@REM zcc +msx -vn -DDEBUG_CHARACTERS -D__MSX__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\msx_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\msx_experimental.prg
+
+@REM zcc +cpc -vn  -D__CPC__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\amstrad_cpc_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\amstrad_cpc_experimental.prg
 
 del %mypath%\*.o
 del %mypath%\atmos\*.o

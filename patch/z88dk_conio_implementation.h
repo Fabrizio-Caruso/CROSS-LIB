@@ -33,12 +33,19 @@
 
 #ifndef _Z88DK_CONIO_IMPLEMENTATION
 #define _Z88DK_CONIO_IMPLEMENTATION
-	#define gotoxy(x,y)     printf("\x16%c%c",y+32,x+32);
-		
+	
+	#if defined(__SPECTRUM__)
+		#define gotoxy(x,y)     printf("\x16%c%c",y+32,x+32);
+	#endif
+	
 	#define cputc(c) printf("%c",c);
 
-	#define cgetc() in_inkey();
-
+	#if defined(__SPECTRUM__)
+		#define cgetc() in_Inkey();
+	#else
+		#define cgetc() getk();
+	#endif
+		
 	#define textcolor(c)
 	
 	#define COLOR_WHITE 1

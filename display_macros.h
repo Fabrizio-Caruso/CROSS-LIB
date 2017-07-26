@@ -434,6 +434,11 @@ typedef struct ImageStruct Image;
 			printf("----------------------------------------------------------------"); \
 			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
 			printf("----------------------------------------------------------------"); \
+			for(i=0;i<YSize;++i) \
+			{ \
+				gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+				gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+			} \
 		}
 	#else
 		#define DRAW_BORDERS() \
@@ -443,6 +448,11 @@ typedef struct ImageStruct Image;
 			printf("--------------------------------"); \
 			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
 			printf("--------------------------------"); \
+			for(i=0;i<YSize;++i) \
+			{ \
+				gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+				gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+			} \
 		}
 	#endif
 	

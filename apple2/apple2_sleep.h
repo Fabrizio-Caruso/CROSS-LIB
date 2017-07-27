@@ -4,7 +4,7 @@
 void sleep(unsigned int sec) 
 { 
 	unsigned long i; 
-	for(i=0;i<sec*400ul;++i){}; 
-}; 
+	for(i=0;i<sec*400UL;++i){}; 
+} 
 
 #endif // _APPLE2_SLEEP

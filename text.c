@@ -577,7 +577,7 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_GREEN);
 		PRINT(0, YSize / 2 + 4, "Use the Joystick");
 		SET_TEXT_COLOR(TEXT_COLOR);
-	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__SPECTRUM__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use W A S D <SPACE>");
 	#elif defined(__ATMOS__) 
 		POKE(0xBB80+(YSize / 2 + 4 + 1)*40,16);POKE(0xBB81+(YSize / 2 + 4 +1)*40,4);

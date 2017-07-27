@@ -61,13 +61,10 @@
 		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
 			#include <spectrum.h>
 			#define GET_CHAR() {in_Inkey();};
+			//{getk();};
 		#else
 			#define GET_CHAR() {in_inkey();};
 		#endif
-		//{ in_Inkey();};
-		//in_Inkey();
-		//getchar();
-		//in_inkey();
 	#elif defined(__CPC__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__)
 		#define GET_CHAR() (unsigned int) getk();
 	#else
@@ -109,6 +106,7 @@
 			#define WAIT_KEY_PRESS() \
 			{ \
 			in_WaitForKey(); \
+			in_Inkey(); \
 			in_WaitForNoKey(); \
 			}
 		#else

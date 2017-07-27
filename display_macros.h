@@ -411,30 +411,34 @@ typedef struct ImageStruct Image;
 	// #define DRAW_VERTICAL_LINE(x,y,length)
 	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
 
-	#if defined(SPECTRUM_64COL)
-		#define DRAW_BORDERS() \
-		{ \
-			unsigned char i \
-			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-			printf("----------------------------------------------------------------"); \
-			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
-			printf("----------------------------------------------------------------"); \
-		}
-	#else
-		#define DRAW_BORDERS() \
-		{ \
-			unsigned char i \
-			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-			printf("--------------------------------"); \
-			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
-			printf("--------------------------------"); \
-			for(i=0;i<YSize;++i) \
+	#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+		#if defined(SPECTRUM_64COL)
+			#define DRAW_BORDERS() \
 			{ \
-				gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
-				gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
-			} \
-		}
-	#endif	
+				unsigned char i \
+				gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+				printf("----------------------------------------------------------------"); \
+				gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
+				printf("----------------------------------------------------------------"); \
+			}
+		#else
+			#define DRAW_BORDERS() \
+			{ \
+				unsigned char i \
+				gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+				printf("--------------------------------"); \
+				gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
+				printf("--------------------------------"); \
+				for(i=0;i<YSize;++i) \
+				{ \
+					gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+					gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+				} \
+			}
+		#endif	
+	#else
+		#define DRAW_BORDERS() {};
+	#endif
 
 	#define SHOW_LEFT() {}
 	#define SHOW_RIGHT() {}
@@ -553,13 +557,14 @@ typedef struct ImageStruct Image;
 #endif
 
 #if defined(__SPECTRUM__)
+	#include <stdio.h>
 	#define SET_TEXT_COLOR(c) {};
 
 	#define SET_BORDER_COLOR(c) {};
 
 	#define SET_BACKGROUND_COLOR(c) {};	
 
-	#define CLEAR_SCREEN() printf("\xc");
+	#define CLEAR_SCREEN() {printf("\xc");};
 #elif defined(__CPC__) 
 	#define SET_TEXT_COLOR(c) {};
 
@@ -576,7 +581,7 @@ typedef struct ImageStruct Image;
 	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() {};
-#else
+#else // CC65 conio case
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 
 	#define SET_BORDER_COLOR(c) (void) bordercolor (c);

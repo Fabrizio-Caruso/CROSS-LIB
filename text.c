@@ -43,6 +43,9 @@
 	#include<peekpoke.h>
 #endif
 
+// TODO: DEBUG
+	// #include <stdio.h>
+
 extern unsigned char XSize;
 extern unsigned char YSize;
 

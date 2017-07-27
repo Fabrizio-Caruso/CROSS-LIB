@@ -42,7 +42,9 @@
 #endif
 #if defined(__SPECTRUM__)
 	#include <input.h>
-	#include <spectrum.h>
+	#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+		#include <spectrum.h>
+	#endif
 #endif
 #include "display_macros.h"
 #include "invincible_enemy.h"

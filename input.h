@@ -50,9 +50,14 @@
 	void movePlayerByJoystick(unsigned char joyInput);
 #elif defined(__SPECTRUM__)
 	#include <input.h>
-	#include <spectrum.h>
-	unsigned int in_Inkey(void);
-	#define MOVE_PLAYER() { kbInput = in_Inkey(); movePlayerByKeyboard(kbInput);}
+	#if defined(SPECTRUM_NATIVE_DIRECTIVES)	
+		#include <spectrum.h>
+		unsigned int in_Inkey(void);
+		#define MOVE_PLAYER() { kbInput = in_Inkey(); movePlayerByKeyboard(kbInput);}
+	#else
+		unsigned int in_inkey(void);
+		#define MOVE_PLAYER() { kbInput = in_inkey(); movePlayerByKeyboard(kbInput);}
+	#endif
 	void movePlayerByKeyboard(char kbInput);
 #else
 	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}

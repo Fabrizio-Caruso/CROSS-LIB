@@ -58,8 +58,13 @@
 		#include "atari/atari_input.h"
 	#elif defined(__SPECTRUM__)
 		#include <input.h>
-		#include <spectrum.h>
-		#define GET_CHAR() { in_Inkey();};
+		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+			#include <spectrum.h>
+			#define GET_CHAR() {in_Inkey();};
+		#else
+			#define GET_CHAR() {in_inkey();};
+		#endif
+		//{ in_Inkey();};
 		//in_Inkey();
 		//getchar();
 		//in_inkey();
@@ -96,15 +101,19 @@
 
 	#if defined(__SPECTRUM__)
 		#include <input.h>
-		void in_WaitForKey(void);
-		void in_WaitForNoKey(void);
+		// void in_WaitForKey(void);
+		// void in_WaitForNoKey(void);
 		
-		#define WAIT_KEY_PRESS() \
-		{ \
-		in_WaitForKey(); \
-		in_Inkey(); \
-		in_WaitForNoKey(); \
-		}
+
+		#if defined(SPECTRUM_NATIVES_DIRECTIVES)
+			#define WAIT_KEY_PRESS() \
+			{ \
+			in_WaitForKey(); \
+			in_WaitForNoKey(); \
+			}
+		#else
+			#define WAIT_KEY_PRESS() { getchar(); };
+		#endif
 		// #define WAIT_KEY_PRESS() \
 		// { \
 			// while(!kbhit()) \

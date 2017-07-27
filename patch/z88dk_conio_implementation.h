@@ -35,10 +35,15 @@
 #define _Z88DK_CONIO_IMPLEMENTATION
 	
 	#if defined(__SPECTRUM__)
-		#define gotoxy(x,y)     printf("\x16%c%c",y+32,x+32);
-	#endif
-	
+		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+			#define gotoxy(x,y) printf("\x16%c%c",y+32,x+32);
+		#else
+			#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
+		#endif
+		
 	#define cputc(c) printf("%c",c);
+	
+	#endif
 
 	#if defined(__SPECTRUM__)
 		#define cgetc() in_Inkey();

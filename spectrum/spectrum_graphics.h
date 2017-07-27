@@ -64,7 +64,7 @@ char player_blink = 1;
 
 void INIT_GRAPHICS(void)
 {
-	#if defined(SPECTRUM_32COL)
+	#if defined(SPECTRUM_32COL) && defined(SPECTRUM_NATIVE_DIRECTIVES)
 		printf("\x1\x20");
 	#endif
 }

@@ -46,6 +46,17 @@
 		#include <conio.h>
 	#endif 
 	
+	#if defined(__SPECTRUM__) 
+		#if !defined(SPECTRUM_NATIVE_DIRECTIVES)
+			#include <arch/zx.h>
+			void in_wait_key(void);
+			void in_wait_nokey(void); 
+		#else
+			void in_WaitForKey(void);
+			void in_WaitForNoKey(void);
+		#endif
+	#endif
+	
 	#if !defined(__SPECTRUM__)
 		#define IF_KEYBOARD_HIT if(kbhit()) 
 	#endif
@@ -98,27 +109,22 @@
 
 	#if defined(__SPECTRUM__)
 		#include <input.h>
-		// void in_WaitForKey(void);
-		// void in_WaitForNoKey(void);
-		
 
-		#if defined(SPECTRUM_NATIVES_DIRECTIVES)
+		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
 			#define WAIT_KEY_PRESS() \
 			{ \
-			in_WaitForKey(); \
-			in_Inkey(); \
-			in_WaitForNoKey(); \
+				in_WaitForKey(); \
+				in_Inkey(); \
+				in_WaitForNoKey(); \
 			}
 		#else
-			#define WAIT_KEY_PRESS() { getchar(); };
+			#define WAIT_KEY_PRESS() \
+			{ \
+				in_wait_key(); \
+				in_wait_nokey(); \
+			};
 		#endif
-		// #define WAIT_KEY_PRESS() \
-		// { \
-			// while(!kbhit()) \
-			// { \
-			// }; \
-			// cgetc(); \
-		// };		
+	
 	#else
 		#define WAIT_KEY_PRESS() \
 		{ \

@@ -34,10 +34,7 @@
 #ifndef _DISPLAY_MACROS
 #define _DISPLAY_MACROS
 
-//#include <conio.h>
 #include "settings.h"
-
-
 
 #if !defined(__SPECTRUM__)
 	#include <conio.h>
@@ -49,6 +46,10 @@
 	#include "atmos/atmos_conio_patch.h"
 #elif defined(__SPECTRUM__)
 	#include "patch/z88dk_conio_implementation.h"
+#elif defined(__CPC__)
+	#include "patch/z88dk_conio_patch.h"
+#elif defined(__MSX__)
+	#include "patch/z88dk_conio_patch.h"
 #endif
 
 struct ImageStruct
@@ -433,16 +434,7 @@ typedef struct ImageStruct Image;
 				gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
 			} \
 		}
-	#endif
-	
-	// #define DRAW_VERTICAL_LINE(x,y,length) \
-	// { \
-		// unsigned char i; \
-		// for(i=0;i<8;++i) \
-		// { \
-			// gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); \
-		// } \
-	// }
+	#endif	
 
 	#define SHOW_LEFT() {}
 	#define SHOW_RIGHT() {}
@@ -560,15 +552,7 @@ typedef struct ImageStruct Image;
 	#endif
 #endif
 
-#if !defined(__SPECTRUM__)
-	#define SET_TEXT_COLOR(c) (void) textcolor (c);
-
-	#define SET_BORDER_COLOR(c) (void) bordercolor (c);
-
-	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
-	
-	#define CLEAR_SCREEN() clrscr();
-#else
+#if defined(__SPECTRUM__)
 	#define SET_TEXT_COLOR(c) {};
 
 	#define SET_BORDER_COLOR(c) {};
@@ -576,7 +560,30 @@ typedef struct ImageStruct Image;
 	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() printf("\xc");
+#elif defined(__CPC__) 
+	#define SET_TEXT_COLOR(c) {};
 
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
+
+	#define CLEAR_SCREEN() {};
+#elif defined(__MSX)
+	#define SET_TEXT_COLOR(c) {};
+
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
+
+	#define CLEAR_SCREEN() {};
+#else
+	#define SET_TEXT_COLOR(c) (void) textcolor (c);
+
+	#define SET_BORDER_COLOR(c) (void) bordercolor (c);
+
+	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
+	
+	#define CLEAR_SCREEN() clrscr();
 #endif
 	
 void INIT_IMAGES(void);

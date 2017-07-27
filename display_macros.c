@@ -48,7 +48,11 @@
 	#include "c128/c128_80col_graphics.h"
 #elif defined(__SPECTRUM__)
 	#include "spectrum/spectrum_graphics.h"
-#else		
+// #elif defined(__CPC__)
+	// #include "cpc/cpc_graphics.h"
+// #elif defined(__MSX__)
+	// #include "msx/msx_graphics.h"
+#else // default conio graphics
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;
 	Image DEAD_GHOST_IMAGE;

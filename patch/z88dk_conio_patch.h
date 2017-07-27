@@ -36,13 +36,13 @@
 
 	//#include <conio.h>
 
-	#define gotoxy(a,b)     printf("\x16%c%c",a+32,b+32)
+	//define gotoxy(a,b)     printf("\x16%c%c",a+32,b+32)
 	
     #define cputc(c) printf("%c",c);
 	//
 	#define cgetc() (char) getch();
 
-	#define textcolor(c) {};
+	//#define textcolor(c) {};
 	
 	#define COLOR_WHITE 1
 	#define COLOR_BLACK 0

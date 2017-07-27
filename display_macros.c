@@ -46,6 +46,8 @@
 	#include "c264/c264_graphics.h"
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	#include "c128/c128_80col_graphics.h"
+#elif defined(__SPECTRUM__)
+	#include "spectrum/spectrum_graphics.h"
 #else		
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;
@@ -65,11 +67,6 @@
 	Image EXTRA_LIFE_IMAGE;
 	Image INVINCIBILITY_IMAGE;
 
-// TODO: Debugging 
-#if defined(__SPECTRUM__)
-	#include <stdio.h>
-#endif
-	
 	char powerUp_blink = 1;
 	char gun_blink = 1;
 	char extra_points_blink = 1;
@@ -79,9 +76,7 @@
 	
 	void INIT_GRAPHICS(void)
 	{
-		#if defined(__SPECTRUM__) && defined(SPECTRUM_32COL)
-			printf("\x1\x20");
-		#endif
+
 	}
  
 	void INIT_IMAGES(void)
@@ -282,16 +277,5 @@
 			player_blink=1;
 		}	
 	}
-	
-#if defined(__SPECTRUM__)
-	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
-	{ 
-		unsigned char i; 
-		for(i=0;i<length;++i) 
-		{ 
-			gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); 
-		} 
-	}
-#endif
-	
+
 #endif

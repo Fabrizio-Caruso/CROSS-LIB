@@ -409,23 +409,7 @@ typedef struct ImageStruct Image;
 	
 	// #define DRAW_VERTICAL_LINE(x,y,length)
 	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
-	
-	// #define DRAW_VERTICAL_LINE(x,y,length) \
-	// { \
-		// if(length>0) \
-		// { \
-		// gotoxy(x+X_OFFSET, y+Y_OFFSET); printf("%c",'|'); \
-		// gotoxy(x+X_OFFSET, y+1+Y_OFFSET); printf("%c",'|'); \
-		// gotoxy(x+X_OFFSET, y+2+Y_OFFSET); printf("%c",'|'); \
-		// gotoxy(x+X_OFFSET, y+3+Y_OFFSET); printf("%c",'|'); \
-		// gotoxy(x+X_OFFSET, y+4+Y_OFFSET); printf("%c",'|'); \
-		// gotoxy(x+X_OFFSET, y+5+Y_OFFSET); printf("%c",'|'); \
-		// gotoxy(x+X_OFFSET, y+6+Y_OFFSET); printf("%c",'|'); \
-		// gotoxy(x+X_OFFSET, y+7+Y_OFFSET); printf("%c",'|'); \
-		// gotoxy(x+X_OFFSET, y+8+Y_OFFSET); printf("%c",'|'); \
-		// } \
-	// }
-	
+
 	#if defined(SPECTRUM_64COL)
 		#define DRAW_BORDERS() \
 		{ \

@@ -43,6 +43,19 @@ zcc +zx -vn -SO3 -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -D
 del %deliverables%\ZXSpectrum_32col_experimental.prg
 
 
+
+@REM WORKING but with problematic input and not outer wall
+zcc +zx -SO3 --max-allocs-per-node200000 -startup=1 -clib=sdcc_iy -vn  -DDEBUG_CHARACTERS  -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -create-app -o %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\ZXSpectrum_32col_experimental.prg
+del %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg
+del %deliverables%\ZXSpectrum_32col_sdcc_experimental_CODE.bin
+@REM zcc +msx -vn -DDEBUG_CHARACTERS -D__MSX__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\msx_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\msx_experimental.prg
+
+@REM zcc +cpc -vn  -D__CPC__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\amstrad_cpc_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\amstrad_cpc_experimental.prg
+
+
 @REM ANSI 
 @REM WORKING: Hello world
 @REM zcc +zx -startup=5 -clib=sdcc_iy -vn  -DAMALLOC  -create-app -o %deliverables%\hello64.prg hello.c
@@ -53,15 +66,6 @@ del %deliverables%\ZXSpectrum_32col_experimental.prg
 @REM zcc +zx -clib=ansi -pragma-define:ansicolumns=64 -lmalloc -lndos -vn -DAMALLOC  -create-app -o %deliverables%\helloANSI64.prg hello.c
 
 
-@REM ALMOST WORKING 
-zcc +zx -SO3 --max-allocs-per-node200000 -startup=1 -clib=sdcc_iy -vn  -DDEBUG_CHARACTERS  -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -create-app -o %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM del %deliverables%\ZXSpectrum_32col_experimental.prg
-del %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg
-@REM zcc +msx -vn -DDEBUG_CHARACTERS -D__MSX__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\msx_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM del %deliverables%\msx_experimental.prg
-
-@REM zcc +cpc -vn  -D__CPC__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\amstrad_cpc_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM del %deliverables%\amstrad_cpc_experimental.prg
 
 del %mypath%\*.o
 del %mypath%\atmos\*.o

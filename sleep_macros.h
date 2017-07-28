@@ -36,8 +36,8 @@
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES))
 	void sleep(unsigned int sec);
-#elif defined(__SC3000__) || defined(__MSX__) || defined(__CPC__) //|| defined(__SPECTRUM__)
-	 #define sleep(sec) {};
+#elif defined(__SC3000__) || defined(__MSX__) || defined(__CPC__) || defined(__SPECTRUM__)
+	 #define sleep(sec) { { unsigned long ii; for(ii=0;ii<sec*2000UL;++ii){}; } };
 #else	
 	#include <time.h>
 	#include <unistd.h>

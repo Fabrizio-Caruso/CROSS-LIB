@@ -55,7 +55,7 @@ extern unsigned char XSize;
 extern unsigned char YSize;
 
 extern unsigned char ghostCount;
-extern unsigned int loop;
+extern unsigned short loop;
 
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
@@ -104,7 +104,7 @@ void die(Character * playerPtr)
 
 char playerReached(Character* preyPtr)
 {
-	int i=0;
+	unsigned char i=0;
 	for(;i<GHOSTS_NUMBER;++i)
 	{
 		if(areCharctersAtSamePosition(ghosts[i],preyPtr))
@@ -115,7 +115,7 @@ char playerReached(Character* preyPtr)
 
 char playerReachedBombs(Character* preyPtr)
 {
-	int i=0;
+	unsigned char i=0;
 	for(;i<BOMBS_NUMBER;++i)
 	{
 		if(areCharctersAtSamePosition(bombs[i],preyPtr))
@@ -172,9 +172,9 @@ void relocateCharacter(Character * characterPtr, Character **danger, unsigned ch
 {
 	unsigned char x; // = 0; 
 	unsigned char y; // = 0; 
-	int x_offset; 
-	int y_offset;
-	int safe = 0;
+	unsigned char x_offset; 
+	unsigned char y_offset;
+	unsigned char safe = 0;
 	do
 	{
 		// TODO: This should be separated (at least partially) and moved into display_macros

@@ -54,25 +54,25 @@
 
 //#define DEBUG_CHARACTERS
 
-unsigned int invincibleSlowDown;
+unsigned short invincibleSlowDown;
 unsigned short invincibleXCountDown;
 unsigned short invincibleYCountDown;
 
-unsigned int ghostSlowDown;
-unsigned int powerUpCoolDown;
+unsigned short ghostSlowDown;
+unsigned short powerUpCoolDown;
 	
-unsigned int gunInitialCoolDown;
-unsigned int gunCoolDown;
-unsigned int extraPointsCoolDown;
-unsigned int extraLifeCoolDown;
-unsigned int invincibilityCoolDown;
+unsigned short gunInitialCoolDown;
+unsigned short gunCoolDown;
+unsigned short extraPointsCoolDown;
+unsigned short extraLifeCoolDown;
+unsigned short invincibilityCoolDown;
 
-unsigned int playerInvincibilityCoolDown;
+unsigned short playerInvincibilityCoolDown;
 
-unsigned int ghostLevelDecrease;
-unsigned int powerUpInitialCoolDown; 
+unsigned short ghostLevelDecrease;
+unsigned short powerUpInitialCoolDown; 
 
-unsigned int ghostLevel;
+unsigned short ghostLevel;
 unsigned long points;
 unsigned long highScore;
 
@@ -99,7 +99,7 @@ unsigned long extraLifeThroughPointsCounter = 1;
 // 6. invincibleLoopTrigger (how long before the invincible ghost appears)
 unsigned char level;
 
-unsigned int invincibleLoopTrigger;
+unsigned short invincibleLoopTrigger;
 unsigned short invincibleGhostCountTrigger;
 
 unsigned char ghostCount = GHOSTS_NUMBER;
@@ -107,7 +107,7 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 unsigned char XSize;
 unsigned char YSize;
 
-unsigned int loop;
+unsigned short loop;
 
 unsigned char invincibleGhostHits = 0;
 
@@ -421,11 +421,16 @@ void handle_invincible_ghost(void)
 {
 	if(!invincibleGhost._status)
 	{
+		
+	#if defined(DEBUG_EARLY_SKULL)
+		if(1)
+	#else
 		// Manage invincible ghost
 		if((!bossLevel() && invincibleGhostAlive &&
 							((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
 							 (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || 
 		   (bossLevel() && loop>=invincibleLoopTrigger))
+	#endif
 		{
 			invincibleGhost._status = 1;
 			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);

@@ -36,23 +36,23 @@
 #include "level.h"
 
 extern unsigned char level;
-extern unsigned int loop;
+extern unsigned short loop;
 
-extern unsigned int invincibleSlowDown;
+extern unsigned short invincibleSlowDown;
 extern unsigned short invincibleXCountDown;
 extern unsigned short invincibleYCountDown ;
-extern unsigned int invincibleLoopTrigger;
+extern unsigned short invincibleLoopTrigger;
 extern unsigned short invincibleGhostCountTrigger;
 
-extern unsigned int ghostLevel;
+extern unsigned short ghostLevel;
 
-int computeInvincibleCountDown(void)
+unsigned short computeInvincibleCountDown(void)
 {
 	return 90 - level*2;
 }
 
 
-int computeInvincibleSlowDown(void)
+unsigned short computeInvincibleSlowDown(void)
 {
 	if(loop<1500)
 	{
@@ -72,7 +72,7 @@ int computeInvincibleSlowDown(void)
 	return 0; // You must die!
 }
 
-int computeInvincibleGhostCountTrigger(void)
+unsigned short computeInvincibleGhostCountTrigger(void)
 {
 	if(level<=12)
 		return level/4 + 1;
@@ -80,7 +80,7 @@ int computeInvincibleGhostCountTrigger(void)
 		return 4;
 }
 
-int computeInvincibleLoopTrigger(void)
+unsigned short computeInvincibleLoopTrigger(void)
 {
 	if(bossLevel())
 		return 150 - (level/4)*10;

@@ -45,10 +45,10 @@ void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
 					
 void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
 
-void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, char strategy);
+void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, unsigned char strategy);
 
 void computeStrategy(void);
 
-void chasePlayer(int slowDown);
+void chasePlayer(unsigned short slowDown);
 
 #endif // _STRATEGY

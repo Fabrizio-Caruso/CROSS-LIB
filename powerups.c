@@ -38,22 +38,22 @@
 
 extern unsigned char level;
 
-extern unsigned int gunInitialCoolDown;
+extern unsigned short gunInitialCoolDown;
 
 
-int powerUpReached(Character * hunterPtr, Character* preyPtr)
+unsigned short powerUpReached(Character * hunterPtr, Character* preyPtr)
 {
 	return(areCharctersAtSamePosition(hunterPtr, preyPtr));
 }
 
 
-void computePowerUp(unsigned int *coolDownDecreasePtr, unsigned int *powerUpInitialCoolDownPtr)
+void computePowerUp(unsigned short *coolDownDecreasePtr, unsigned short *powerUpInitialCoolDownPtr)
 {
 	*coolDownDecreasePtr = 140-(level*2);
 	*powerUpInitialCoolDownPtr = 200+(level*2);
 }
 
-int computeGunInitialCoolDown(void)
+unsigned short computeGunInitialCoolDown(void)
 {
 	if(level<=24)
 		gunInitialCoolDown = 240 + level * 4;

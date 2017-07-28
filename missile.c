@@ -50,9 +50,9 @@ extern unsigned char bubbles_x[BUBBLES_NUMBER];
 extern Image DEAD_GHOST_IMAGE;
 extern unsigned char level;
 
-extern int extraPointsCoolDown;
-extern int invincibilityCoolDown;
-extern int extraLifeCoolDown;
+extern unsigned short extraPointsCoolDown;
+extern unsigned short invincibilityCoolDown;
+extern unsigned short extraLifeCoolDown;
 
 extern unsigned char dead_bubbles;
 
@@ -72,18 +72,18 @@ void checkMissileVsGhost(Character * missilePtr,
 	
 void checkMissileVsGhosts(Character * missilePtr)
 {
-	int i = 0;
+	unsigned char i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
 	{
 		checkMissileVsGhost(missilePtr, ghosts[i]);
 	};
 }
 	
-int setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
+unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
 							  unsigned short missileDirection, Character *rightEnemyMissilePtr, Character *leftEnemyMissilePtr)
 {
-	int newX = playerPtr->_x; 
-	int newY = playerPtr->_y;
+	unsigned char newX = playerPtr->_x; 
+	unsigned char newY = playerPtr->_y;
 	switch(missileDirection)
 		{
 			case RIGHT:
@@ -126,8 +126,8 @@ int setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
 	
 void moveMissile(Character * missilePtr, unsigned short missileDirection, Character *rightEnemyMissilePtr, Character *leftEnemyMissilePtr)
 {
-	int newX = missilePtr->_x; 
-	int newY = missilePtr->_y;
+	unsigned char newX = missilePtr->_x; 
+	unsigned char newY = missilePtr->_y;
 	switch(missileDirection)
 	{
 		case RIGHT:

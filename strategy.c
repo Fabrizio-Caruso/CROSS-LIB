@@ -38,7 +38,7 @@
 
 extern unsigned char level;
 extern unsigned char ghostCount;
-extern unsigned int invincibleSlowDown;
+extern unsigned short invincibleSlowDown;
 
 extern Character player; 
 extern Character* ghosts[GHOSTS_NUMBER];
@@ -93,7 +93,7 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 // 4 means do no prefer horizontal to vertical movement
 // 0 means always horizontal
 // 9 means always vertical
-void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, char strategy)
+void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, unsigned char strategy)
 {
 	if(rand()%10 > strategy) // Select blind chase strategy
 		{ // 0 - 4
@@ -193,9 +193,9 @@ void computeStrategy(void)
 }
 
 // Ghosts move to new positions if they get their chanche
-void chasePlayer(int slowDown)
+void chasePlayer(unsigned short slowDown)
 {
-	char i;
+	unsigned char i;
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{

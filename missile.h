@@ -42,7 +42,7 @@ void checkMissileVsGhost(Character * missilePtr,
 	
 void checkMissileVsGhosts(Character * missilePtr);
 	
-int setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
+unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
 							  unsigned short missileDirection,  Character *rightEnemyMissilePtr, Character *leftEnemyMissilePtr);
 	
 void moveMissile(Character * missilePtr, unsigned short missileDirection, Character *rightEnemyMissilePtr, Character *leftEnemyMissilePtr);

@@ -636,6 +636,8 @@ int main(void)
 			
 
 			displayStatsTitles();
+			printLevelStats();
+			printLivesStats();
 			
 			rightEnemyMissile._x = XSize-1; rightEnemyMissile._y = 4;
 			rightEnemyMissile._status = 1;
@@ -824,9 +826,13 @@ int main(void)
 				
 				#if (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) 
 					displayStatsTitles();
+					printLevelStats();
+					printLivesStats();
 				#endif
 
 				displayStats();
+				printGunsStats();
+				printGhostCountStats();
 
 				
 				handle_invincible_ghost();

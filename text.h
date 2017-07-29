@@ -44,6 +44,14 @@ void displayStatsTitles(void);
 
 void displayStats(void);
 
+void printGunsStats(void);
+
+void printLevelStats(void);
+
+void printGhostCountStats(void);
+
+void printLivesStats(void);
+
 void drawBorders(void);
 
 void setScreenColors(void);

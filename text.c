@@ -155,8 +155,69 @@ void displayStatsTitles(void)
 }
 
 
+void printGunsStats(void)
+{
+	SET_TEXT_COLOR(TEXT_COLOR);
+	#if defined (__ATMOS__)
+		PRINTF(19-1,0-Y_OFFSET,"%hu",guns);
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+		PRINTF(15+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
+		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
+	#elif defined(__SPECTRUM__) 
+		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%d",guns);
+	#else
+		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
+	#endif		
+}
 
-// TODO: This is SLOW
+void printLevelStats(void)
+{	
+	SET_TEXT_COLOR(TEXT_COLOR);
+	
+	#if defined(__ATMOS__) 
+		PRINTF(8,2-Y_OFFSET,"%02hu", level);
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+		PRINTF(7,2-Y_OFFSET,"%02hu", level);
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
+		PRINTF(8,2-Y_OFFSET,"%02hu", level);
+	#elif defined(__SPECTRUM__) 
+		PRINTF(8,2-Y_OFFSET,"%02d", level);		
+	#else
+		PRINTF(8,2-Y_OFFSET,"%02hu", level);	
+	#endif	
+}
+
+void printGhostCountStats(void)
+{
+	#if defined (__ATMOS__)
+		PRINTF(19-1,1-Y_OFFSET,"%hu",ghostCount);
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+		PRINTF(15+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
+		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
+	#elif defined(__SPECTRUM__) 
+		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%d",ghostCount);	
+	#else
+		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
+	#endif		
+}
+
+void printLivesStats(void)
+{
+	#if defined (__ATMOS__)
+		PRINTF(19-1,2-Y_OFFSET,"%02hu",lives);	
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+		PRINTF(15+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
+		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
+	#elif defined(__SPECTRUM__) 
+		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02d",lives);	
+	#else
+		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
+	#endif		
+}
+
 void displayStats(void)
 {	
 	SET_TEXT_COLOR(TEXT_COLOR);
@@ -164,47 +225,19 @@ void displayStats(void)
 	#if defined(__ATMOS__) 
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
-		PRINTF(8,2-Y_OFFSET,"%02hu", level);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINTF(7,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(7,1-Y_OFFSET,"%05lu",points);
-		PRINTF(7,2-Y_OFFSET,"%02hu", level);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
-		PRINTF(8,2-Y_OFFSET,"%02hu", level);
 	#elif defined(__SPECTRUM__) 
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
-		PRINTF(8,1-Y_OFFSET,"%06lu",points);
-		PRINTF(8,2-Y_OFFSET,"%02d", level);		
+		PRINTF(8,1-Y_OFFSET,"%06lu",points);	
 	#else
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
-		PRINTF(8,2-Y_OFFSET,"%02hu", level);	
 	#endif
-	
-	#if defined (__ATMOS__)
-		PRINTF(19-1,0-Y_OFFSET,"%hu",guns);
-		PRINTF(19-1,1-Y_OFFSET,"%hu",ghostCount);
-		PRINTF(19-1,2-Y_OFFSET,"%02hu",lives);	
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINTF(15+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
-		PRINTF(15+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
-		PRINTF(15+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
-	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
-		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
-		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
-		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
-	#elif defined(__SPECTRUM__) 
-		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%d",guns);
-		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%d",ghostCount);
-		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02d",lives);	
-	#else
-		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
-		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
-		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
-	#endif		
-	//	SET_TEXT_COLOR(TEXT_COLOR);
 }
 
 

@@ -34,23 +34,29 @@ cd %mypath%\
 @REM zcc +zx -vn -SO3 -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_64COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_64col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 @REM del %deliverables%\ZXSpectrum_64col_experimental.prg
 
+
 @REM Working 32 column version with vertical outer wall - SLOW KEYBOARD INPUT with getk() but OK with in_Inkey()
 @REM -DDEBUG_EARLY_SKULL
-@REM zcc +zx -vn -SO3  -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM del %deliverables%\ZXSpectrum_32col_experimental.prg
+@REM 
+zcc +zx -vn -SO3  -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM 
+del %deliverables%\ZXSpectrum_32col_experimental.prg
 
 @REM WORKING but with problematic input and not outer wall - FAST KEYBOARD INPUT
 @REM optimize with:  -SO3 --max-allocs-per-node200000
 @REM 
 @REM 
-zcc +zx  -startup=1 -clib=sdcc_iy -vn  -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -create-app -o %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+zcc +zx -SO3 -startup=1 -clib=sdcc_iy -vn  -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -create-app -o %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 @REM 
 del %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg
 @REM 
 del %deliverables%\ZXSpectrum_32col_sdcc_experimental_CODE.bin
 
 
-@REM zcc +zx  -SO3 --max-allocs-per-node200000 -startup=5 -clib=sdcc_iy -vn  -DSPECTRUM_64COL -D__SPECTRUM__ -DAMALLOC -create-app -o %deliverables%\ZXSpectrum_64col_sdcc_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM WORKING but with problematic input and not outer wall - FAST KEYBOARD INPUT
+@REM optimize with:  -SO3 --max-allocs-per-node200000
+@REM 
+@REM zcc +zx  -SO3 -startup=5 -clib=sdcc_iy -vn  -DSPECTRUM_64COL -D__SPECTRUM__ -DAMALLOC -create-app -o %deliverables%\ZXSpectrum_64col_sdcc_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 @REM del %deliverables%\ZXSpectrum_64col_sdcc_experimental.prg
 @REM 
 @REM del %deliverables%\ZXSpectrum_64col_sdcc_experimental_CODE.bin
@@ -58,6 +64,10 @@ del %deliverables%\ZXSpectrum_32col_sdcc_experimental_CODE.bin
 
 
 
+
+
+
+@REM ----------------------------------------------------------------------------------------------------------------------------------------------------
 @REM NON_WORKING
 
 

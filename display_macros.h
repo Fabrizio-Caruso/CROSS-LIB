@@ -88,6 +88,8 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {*x=64-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_32COL)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
+#elif defined(__CPC__) || defined(__MSX__)
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #endif
@@ -338,7 +340,7 @@ typedef struct ImageStruct Image;
 		#define SHOW_UP() {}
 		#define SHOW_DOWN() {}	
 
-#elif defined(__SPECTRUM__)
+#elif defined(__SPECTRUM__) || defined(__MSX__)
 	#include <stdio.h>
 	
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
@@ -420,6 +422,11 @@ typedef struct ImageStruct Image;
 				printf("----------------------------------------------------------------"); \
 				gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
 				printf("----------------------------------------------------------------"); \
+				for(i=0;i<YSize;++i) \
+				{ \
+					gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+					gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+				} \
 			}
 		#else
 			#define DRAW_BORDERS() \

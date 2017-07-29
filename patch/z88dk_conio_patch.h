@@ -38,7 +38,7 @@
 
 	//define gotoxy(a,b)     printf("\x16%c%c",a+32,b+32)
 	
-    #define cputc(c) printf("%c",c);
+    #define cputc(c) putch(c);
 	//
 	#define cgetc() (char) getch();
 

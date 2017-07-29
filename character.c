@@ -40,7 +40,7 @@
 
 #include "display_macros.h"
 #include "sound_macros.h"
-
+#include "text.h"
 
 #if defined(__ATMOS__)
 	#include<peekpoke.h>
@@ -135,6 +135,7 @@ void checkBombsVsGhost(Character * ghostPtr)
 		die(ghostPtr);
 		points+=GHOST_VS_BOMBS_BONUS;
 		--ghostCount;
+		printGhostCountStats();
 	}
 	
 }
@@ -264,6 +265,7 @@ void checkGhostsVsGhosts()
 							points+=GHOST_VS_GHOST_BONUS;
 							ghosts[j]->_imagePtr = &DEAD_GHOST_IMAGE;
 							--ghostCount;
+							printGhostCountStats();
 						}
 					}
 				}
@@ -279,7 +281,8 @@ void checkGhostsVsGhosts()
 				die(ghosts[i]);
 				points+=GHOST_VS_GHOST_BONUS;
 				ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
-				--ghostCount;					
+				--ghostCount;	
+				printGhostCountStats();
 			}
 		}
 	#else
@@ -301,6 +304,7 @@ void checkGhostsVsGhosts()
 					die(ghosts[i]);
 					points+=GHOST_VS_GHOST_BONUS;
 					--ghostCount;
+					printGhostCountStats();
 				}
 			}
 		}
@@ -319,6 +323,7 @@ void checkGhostsVsGhosts()
 				die(ghosts[i]);
 				points+=GHOST_VS_GHOST_BONUS;
 				--ghostCount;
+				printGhostCountStats();
 			}
 		}
 	}

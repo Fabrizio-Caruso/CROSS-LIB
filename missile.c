@@ -37,6 +37,7 @@
 #include "sound_macros.h"
 #include "display_macros.h"
 #include "level.h"
+#include "text.h"
 
 extern unsigned long points;
 extern unsigned char ghostCount;
@@ -67,6 +68,7 @@ void checkMissileVsGhost(Character * missilePtr,
 		die(ghostPtr); 
 		points+=GHOST_VS_MISSILE;
 		--ghostCount;
+		printGhostCountStats();
 	}
 }
 	

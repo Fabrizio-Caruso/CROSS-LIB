@@ -158,6 +158,7 @@ void displayStatsTitles(void)
 void printGunsStats(void)
 {
 	SET_TEXT_COLOR(TEXT_COLOR);
+	
 	#if defined (__ATMOS__)
 		PRINTF(19-1,0-Y_OFFSET,"%hu",guns);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
@@ -190,6 +191,8 @@ void printLevelStats(void)
 
 void printGhostCountStats(void)
 {
+	SET_TEXT_COLOR(TEXT_COLOR);
+	
 	#if defined (__ATMOS__)
 		PRINTF(19-1,1-Y_OFFSET,"%hu",ghostCount);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
@@ -205,6 +208,8 @@ void printGhostCountStats(void)
 
 void printLivesStats(void)
 {
+	SET_TEXT_COLOR(TEXT_COLOR);
+		
 	#if defined (__ATMOS__)
 		PRINTF(19-1,2-Y_OFFSET,"%02hu",lives);	
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)

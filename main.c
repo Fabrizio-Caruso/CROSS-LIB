@@ -174,6 +174,7 @@ void handle_missile()
 	{
 		SHOOT_SOUND();
 		--guns;
+		printGunsStats();
 		missileDirection = playerDirection;
 		missile._status = setMissileInitialPosition(&missile, &player, missileDirection, &rightEnemyMissile, &leftEnemyMissile);
 		playerFire = 0;
@@ -246,6 +247,7 @@ void handle_gun_item()
 			DELETE_GUN(gun._x,gun._y,gun._imagePtr);
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 			guns = GUNS_NUMBER;
+			printGunsStats();
 			points+=GUN_BONUS;
 			gun._status = 0;	
 			gunCoolDown = gunInitialCoolDown;
@@ -638,6 +640,9 @@ int main(void)
 			displayStatsTitles();
 			printLevelStats();
 			printLivesStats();
+			//
+			printGunsStats();
+			printGhostCountStats();
 			
 			rightEnemyMissile._x = XSize-1; rightEnemyMissile._y = 4;
 			rightEnemyMissile._status = 1;
@@ -828,11 +833,13 @@ int main(void)
 					displayStatsTitles();
 					printLevelStats();
 					printLivesStats();
+					printGunsStats();
+					printGhostCountStats();
 				#endif
 
 				displayStats();
-				printGunsStats();
-				printGhostCountStats();
+				// printGunsStats();
+				// printGhostCountStats();
 
 				
 				handle_invincible_ghost();

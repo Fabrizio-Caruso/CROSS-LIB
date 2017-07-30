@@ -37,20 +37,15 @@ cd %mypath%\
 
 @REM Working 32 column version with vertical outer wall - SLOW KEYBOARD INPUT with getk() but OK with in_Inkey()
 @REM -DDEBUG_EARLY_SKULL
-@REM 
-zcc +zx -vn -SO3  -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM 
-del %deliverables%\ZXSpectrum_32col_experimental.prg
+@REM zcc +zx -vn -SO3  -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\ZXSpectrum_32col_experimental.prg
 
 @REM WORKING but with problematic input and not outer wall - FAST KEYBOARD INPUT
 @REM optimize with:  -SO3 --max-allocs-per-node200000
 @REM 
-@REM 
-zcc +zx -SO3 -startup=1 -clib=sdcc_iy -vn  -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -create-app -o %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM 
-del %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg
-@REM 
-del %deliverables%\ZXSpectrum_32col_sdcc_experimental_CODE.bin
+@REM zcc +zx -SO3 -startup=1 -clib=sdcc_iy -vn  -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -create-app -o %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg
+@REM del %deliverables%\ZXSpectrum_32col_sdcc_experimental_CODE.bin
 
 
 @REM WORKING but with problematic input and not outer wall - FAST KEYBOARD INPUT
@@ -97,10 +92,14 @@ del %deliverables%\ZXSpectrum_32col_sdcc_experimental_CODE.bin
 @REM del %deliverables%\msx.prg
 
 @REM zcc +cpc -subtype=wav -vn -DDEBUG_CHARACTERS -D__CPC__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\cpc.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM del %deliverables%\cpc.prg
+@REM del %deliverables%\cpc.prgdel %deliverables%\cpc.cpc
 
 
 @REM ANSI 
+zcc +cpc -clib=ansi -subtype=wav -lndos -create-app -o %deliverables\cpc_ansitest ansitest.c
+zcc +mz -clib=ansi  -lndos -create-app -o %deliverables\mz_ansitest ansitest.c
+zcc +zx -clib=ansi -lndos -create-app -o %deliverables\zx_ansitest ansitest.c
+
 @REM WORKING: Hello world
 @REM zcc +zx -startup=5 -clib=sdcc_iy -vn  -DAMALLOC  -create-app -o %deliverables%\hello64.prg my_hello.c
 @REM zcc +zx -startup=1 -clib=sdcc_iy -vn  -DAMALLOC  -create-app -o %deliverables%\hello32.prg my_hello.c

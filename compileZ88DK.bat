@@ -1,13 +1,13 @@
-@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
-@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
+@REM 
+set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM 
+set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+@REM 
+set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
 
-@REM 
-set cc65path="D:\personal\cc65-snapshot-win32"
-@REM 
-set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
-@REM 
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+@REM set cc65path="D:\personal\cc65-snapshot-win32"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
+@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 
 set Deliverables=%mypath%\deliverables
@@ -95,10 +95,13 @@ cd %mypath%\
 @REM del %deliverables%\cpc.prgdel %deliverables%\cpc.cpc
 
 
-@REM ANSI 
-zcc +cpc -clib=ansi -subtype=wav -lndos -create-app -o %deliverables\cpc_ansitest ansitest.c
-zcc +mz -clib=ansi  -lndos -create-app -o %deliverables\mz_ansitest ansitest.c
-zcc +zx -clib=ansi -lndos -create-app -o %deliverables\zx_ansitest ansitest.c
+@REM ANSI TEST
+zcc +cpc -clib=ansi -lndos -create-app -o %deliverables%\cpc_ansitest %mypath%\experiments\ansitest.c
+cd %mypath%\tools\2cdt
+2cdt.exe -n -r ansitest %deliverables%\cpc_ansitest.cpc  %deliverables%\ansitest.cdt
+
+@REM zcc +mz -clib=ansi  -lndos -create-app -o %deliverables\mz_ansitest ansitest.c
+@REM zcc +zx -clib=ansi -lndos -create-app -o %deliverables\zx_ansitest ansitest.c
 
 @REM WORKING: Hello world
 @REM zcc +zx -startup=5 -clib=sdcc_iy -vn  -DAMALLOC  -create-app -o %deliverables%\hello64.prg my_hello.c

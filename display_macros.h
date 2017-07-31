@@ -88,8 +88,10 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {*x=64-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_32COL)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
-#elif defined(__CPC__) || defined(__MSX__)
+#elif defined(__MSX__)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
+#elif defined(__CPC__) 
+	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #endif
@@ -579,7 +581,7 @@ typedef struct ImageStruct Image;
 
 	#define SET_BACKGROUND_COLOR(c) {};	
 
-	#define CLEAR_SCREEN() {};
+	#define CLEAR_SCREEN() {printf("\x1B[37;44m\x1B[2J");};
 #elif defined(__MSX)
 	#define SET_TEXT_COLOR(c) {};
 

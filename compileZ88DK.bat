@@ -37,8 +37,10 @@ cd %mypath%\
 
 @REM Working 32 column version with vertical outer wall - SLOW KEYBOARD INPUT with getk() but OK with in_Inkey()
 @REM -DDEBUG_EARLY_SKULL
-@REM zcc +zx -vn -SO3  -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM del %deliverables%\ZXSpectrum_32col_experimental.prg
+@REM 
+zcc +zx -vn -SO3  -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM 
+del %deliverables%\ZXSpectrum_32col_experimental.prg
 
 @REM WORKING but with problematic input and not outer wall - FAST KEYBOARD INPUT
 @REM optimize with:  -SO3 --max-allocs-per-node200000
@@ -62,6 +64,15 @@ cd %mypath%\
 @REM ANSI TESTzcc +cpc -clib=ansi -lndos -create-app -o %deliverables%\cpc_ansitest %mypath%\experiments\ansitest.c
 @REM cd %mypath%\tools\2cdt
 @REM 2cdt.exe -n -r ansitest %deliverables%\cpc_ansitest.cpc  %deliverables%\ansitest.cdt
+
+
+
+@REM HALF-WORKING CPC
+@REM zcc +cpc -vn -DDEBUG_CHARACTERS -D__CPC__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\cpc.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\cpc.prg 
+@REM del %deliverables%\cpc.cpc
+@REM cd %mypath%\tools\2cdt
+@REM 2cdt.exe -n -r cross_chase %deliverables%\cpc.cpc  %deliverables%\cpc.cdt
 
 
 
@@ -94,13 +105,6 @@ cd %mypath%\
 
 @REM zcc +msx -vn -DDEBUG_CHARACTERS -D__MSX__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\msx.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 @REM del %deliverables%\msx.prg
-
-@REM 
-zcc +cpc -clib=ansi -vn -DDEBUG_CHARACTERS -D__CPC__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\cpc.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM del %deliverables%\cpc.prg 
-@REM del %deliverables%\cpc.cpc
-cd %mypath%\tools\2cdt
-2cdt.exe -n -r cross_chase %deliverables%\cpc.cpc  %deliverables%\cpc.cdt
 
 @REM zcc +mz -clib=ansi  -lndos -create-app -o %deliverables\mz_ansitest ansitest.c
 @REM zcc +zx -clib=ansi -lndos -create-app -o %deliverables\zx_ansitest ansitest.c

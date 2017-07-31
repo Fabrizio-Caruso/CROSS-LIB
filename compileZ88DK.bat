@@ -1,13 +1,13 @@
-@REM 
-set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM 
-set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
-@REM 
-set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
+@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
 
-@REM set cc65path="D:\personal\cc65-snapshot-win32"
-@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
-@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+@REM 
+set cc65path="D:\personal\cc65-snapshot-win32"
+@REM 
+set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
+@REM 
+set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 
 set Deliverables=%mypath%\deliverables
@@ -59,6 +59,10 @@ cd %mypath%\
 
 
 
+@REM ANSI TESTzcc +cpc -clib=ansi -lndos -create-app -o %deliverables%\cpc_ansitest %mypath%\experiments\ansitest.c
+@REM cd %mypath%\tools\2cdt
+@REM 2cdt.exe -n -r ansitest %deliverables%\cpc_ansitest.cpc  %deliverables%\ansitest.cdt
+
 
 
 
@@ -91,14 +95,12 @@ cd %mypath%\
 @REM zcc +msx -vn -DDEBUG_CHARACTERS -D__MSX__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\msx.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 @REM del %deliverables%\msx.prg
 
-@REM zcc +cpc -subtype=wav -vn -DDEBUG_CHARACTERS -D__CPC__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\cpc.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM del %deliverables%\cpc.prgdel %deliverables%\cpc.cpc
-
-
-@REM ANSI TEST
-zcc +cpc -clib=ansi -lndos -create-app -o %deliverables%\cpc_ansitest %mypath%\experiments\ansitest.c
+@REM 
+zcc +cpc -vn -DDEBUG_CHARACTERS -D__CPC__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\cpc.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\cpc.prg 
+@REM del %deliverables%\cpc.cpc
 cd %mypath%\tools\2cdt
-2cdt.exe -n -r ansitest %deliverables%\cpc_ansitest.cpc  %deliverables%\ansitest.cdt
+2cdt.exe -n -r cross_chase %deliverables%\cpc.cpc  %deliverables%\cpc.cdt
 
 @REM zcc +mz -clib=ansi  -lndos -create-app -o %deliverables\mz_ansitest ansitest.c
 @REM zcc +zx -clib=ansi -lndos -create-app -o %deliverables\zx_ansitest ansitest.c

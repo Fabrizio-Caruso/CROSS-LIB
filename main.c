@@ -558,7 +558,9 @@ int main(void)
 
 			WAIT_PRESS();
 			CLEAR_SCREEN();
-					
+			PRINTF(0,0,"KEYBOARD PRESSED %d !\n", 0);
+			WAIT_PRESS();				
+			
 			PRINTF(0,1,"KEYBOARD PRESSED %d !\n", 1);
 			WAIT_PRESS();
 					

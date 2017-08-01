@@ -144,6 +144,12 @@ void displayStatsTitles(void)
 		gotoxy(18,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(18,1); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,2); cputc(PLAYER_IMAGE._imageData);cputc(':');
+	#elif defined(__CPC__)
+		// TODO: to implement
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		gotoxy(18,0+1); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(18,1+1); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18,2+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#else
 		// TODO: to implement
 		SET_TEXT_COLOR(TEXT_COLOR);	

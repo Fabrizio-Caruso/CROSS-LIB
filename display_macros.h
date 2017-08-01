@@ -71,6 +71,9 @@ typedef struct ImageStruct Image;
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define X_OFFSET 0
 	#define Y_OFFSET 0
+#elif defined(__CPC__)
+	#define X_OFFSET 0
+	#define Y_OFFSET 3
 #else
 	#define X_OFFSET 0
 	#define Y_OFFSET 3
@@ -342,7 +345,7 @@ typedef struct ImageStruct Image;
 		#define SHOW_UP() {}
 		#define SHOW_DOWN() {}	
 
-#elif defined(__SPECTRUM__) || defined(__MSX__)
+#elif defined(__SPECTRUM__) || defined(__MSX__) || defined(__CPC__)
 	#include <stdio.h>
 	
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
@@ -406,48 +409,78 @@ typedef struct ImageStruct Image;
 
 	void _delete(unsigned char x,unsigned char y);
 
-	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); };
-	
-	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
 
-	//	#define DRAW_BORDERS()
 	
-	// #define DRAW_VERTICAL_LINE(x,y,length)
-	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
+	#if defined(__SPECTRUM__)
+		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
+		#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); };
+	#else
+		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str,val); };
+		#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str); };
+	#endif
 
-	// #if defined(SPECTRUM_NATIVE_DIRECTIVES)
-		#if defined(SPECTRUM_64COL)
-			#define DRAW_BORDERS() \
+	#if defined(__SPECTRUM__)
+		void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
+	#else
+		#define DRAW_VERTICAL_LINE(x, y,  length) \
+		{ \
+			unsigned char i; \
+			for(i=0;i<length;++i) \
 			{ \
-				unsigned char i; \
-				gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-				printf("----------------------------------------------------------------"); \
-				gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
-				printf("----------------------------------------------------------------"); \
-				for(i=0;i<YSize;++i) \
-				{ \
-					gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
-					gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
-				} \
-			}
-		#else
-			#define DRAW_BORDERS() \
+				gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); \
+			} \
+		}
+	#endif
+	
+
+	#if defined(__SPECTRUM__) && defined(SPECTRUM_64COL)
+		#define DRAW_BORDERS() \
+		{ \
+			unsigned char i; \
+			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+			printf("----------------------------------------------------------------"); \
+			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
+			printf("----------------------------------------------------------------"); \
+			for(i=0;i<YSize;++i) \
 			{ \
-				unsigned char i; \
-				gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-				printf("--------------------------------"); \
-				gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
-				printf("--------------------------------"); \
-				for(i=0;i<YSize;++i) \
-				{ \
-					gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
-					gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
-				} \
-			}
-		#endif	
-	// #else
-		// #define DRAW_BORDERS() {};
-	// #endif
+				gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+				gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+			} \
+		}
+	#elif defined(__SPECTRUM__) && defined(SPECTRUM_32COL)
+		#define DRAW_BORDERS() \
+		{ \
+			unsigned char i; \
+			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+			printf("--------------------------------"); \
+			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
+			printf("--------------------------------"); \
+			for(i=0;i<YSize;++i) \
+			{ \
+				gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+				gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+			} \
+		}
+	#elif defined(__CPC__)
+		#define DRAW_BORDERS() \
+		{ \
+			unsigned char i; \
+			for(i=0;i<21;++i) \
+			{ \
+				gotoxy(0,i + 3+1); putch('|'); \
+				gotoxy(39,i + 3+1);putch('|'); \
+			} \
+			\
+			\
+			gotoxy(0+1,0+3); \
+			printf("---------------------------------------"); \
+			gotoxy(0+1,24); \
+			printf("---------------------------------------"); \
+		}
+	#else
+		#define DRAW_BORDERS() {};
+	#endif	
+
 
 	#define SHOW_LEFT() {}
 	#define SHOW_RIGHT() {}

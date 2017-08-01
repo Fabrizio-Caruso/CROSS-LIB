@@ -25,17 +25,10 @@ del %mypath%\patch\*.o
 
 cd %cc65path%\bin\
 
-@REM 
-cd %mypath%\
+@REM cd %mypath%\
 
 
-@REM CPC HALF-WORKINg
-@REM -DDEBUG_CHARACTERS
-zcc +cpc -vn -clib=ansi -D__CPC__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\cpc.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM del %deliverables%\cpc.prg 
-@REM del %deliverables%\cpc.cpc
-cd %mypath%\tools\2cdt
-2cdt.exe -n -r cross_chase %deliverables%\cpc.cpc  %deliverables%\cpc.cdt
+cl65.exe  -O -t telestrat %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\telestrat_redefined_chars.tap
 
 
 del %mypath%\*.o

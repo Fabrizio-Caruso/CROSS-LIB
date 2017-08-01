@@ -246,10 +246,10 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 
 	void fillLevelWithCharacters(unsigned char nGhosts)
 	{
-		short corner = rand()%4;
-		short chirality = rand()%2;
-		int b1x, b2x, b3x, b4x;
-		int b1y, b2y, b3y, b4y;
+		unsigned short corner = rand()%4;
+		unsigned short chirality = rand()%2;
+		unsigned char b1x, b2x, b3x, b4x;
+		unsigned char b1y, b2y, b3y, b4y;
 		Character *dummyBombs[BOMBS_NUMBER];
 		unsigned char i;
 

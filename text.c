@@ -54,7 +54,7 @@ extern unsigned char lives;
 extern unsigned char guns;
 extern unsigned long points;
 extern unsigned char ghostCount;
-extern unsigned int ghostLevel;
+extern unsigned short ghostLevel;
 extern unsigned long highScore;
 
 extern Image PLAYER_IMAGE;

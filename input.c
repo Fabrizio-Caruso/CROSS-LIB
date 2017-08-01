@@ -65,7 +65,7 @@ extern unsigned char player_invincibility;
 
 extern unsigned char guns;
 
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__)
 void movePlayerByKeyboard(char kbInput)
 {
 	if(kbInput=='W')

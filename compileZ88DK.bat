@@ -1,13 +1,13 @@
-@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
-@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
+@REM 
+set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM 
+set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+@REM 
+set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
 
-@REM 
-set cc65path="D:\personal\cc65-snapshot-win32"
-@REM 
-set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
-@REM 
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+@REM set cc65path="D:\personal\cc65-snapshot-win32"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
+@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
 
 
 set Deliverables=%mypath%\deliverables
@@ -37,10 +37,8 @@ cd %mypath%\
 
 @REM Working 32 column version with vertical outer wall - SLOW KEYBOARD INPUT with getk() but OK with in_Inkey()
 @REM -DDEBUG_EARLY_SKULL
-@REM 
-zcc +zx -vn -SO3  -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM 
-del %deliverables%\ZXSpectrum_32col_experimental.prg
+@REM zcc +zx -vn -SO3  -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM del %deliverables%\ZXSpectrum_32col_experimental.prg
 
 @REM WORKING but with problematic input and not outer wall - FAST KEYBOARD INPUT
 @REM optimize with:  -SO3 --max-allocs-per-node200000
@@ -73,6 +71,11 @@ del %deliverables%\ZXSpectrum_32col_experimental.prg
 @REM del %deliverables%\cpc.cpc
 @REM cd %mypath%\tools\2cdt
 @REM 2cdt.exe -n -r cross_chase %deliverables%\cpc.cpc  %deliverables%\cpc.cdt
+
+@REM IT STARTS!
+@REM zcc +vg5k -vn -DDEBUG_CHARACTERS -D__CPC__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\vf5k.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+
+@REM zcc +mz -vn -DDEBUG_CHARACTERS -D__CPC__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\vf5k.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 
 
 

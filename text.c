@@ -165,7 +165,7 @@ void printGunsStats(void)
 		PRINTF(15+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
-	#elif defined(__SPECTRUM__) 
+	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%d",guns);
 	#else
 		PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
@@ -182,7 +182,7 @@ void printLevelStats(void)
 		PRINTF(7,2-Y_OFFSET,"%02hu", level);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(8,2-Y_OFFSET,"%02hu", level);
-	#elif defined(__SPECTRUM__) 
+	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(8,2-Y_OFFSET,"%02d", level);		
 	#else
 		PRINTF(8,2-Y_OFFSET,"%02hu", level);	
@@ -199,7 +199,7 @@ void printGhostCountStats(void)
 		PRINTF(15+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
-	#elif defined(__SPECTRUM__) 
+	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%d",ghostCount);	
 	#else
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%hu",ghostCount);
@@ -216,7 +216,7 @@ void printLivesStats(void)
 		PRINTF(15+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
-	#elif defined(__SPECTRUM__) 
+	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02d",lives);	
 	#else
 		PRINTF(18+2-X_OFFSET,2-Y_OFFSET,"%02hu",lives);
@@ -236,7 +236,7 @@ void displayStats(void)
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
-	#elif defined(__SPECTRUM__) 
+	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);	
 	#else

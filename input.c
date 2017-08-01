@@ -120,7 +120,7 @@ void movePlayerByKeyboard(char kbInput)
 		DRAW_PLAYER(player._x, player._y, player._imagePtr);
 	}
 }
-#elif defined(__CBM610__) || defined (__SPECTRUM__)
+#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__)
 void movePlayerByKeyboard(char kbInput)
 {
 	if(kbInput=='w')

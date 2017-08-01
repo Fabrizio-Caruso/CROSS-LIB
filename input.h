@@ -54,12 +54,14 @@
 		#include <spectrum.h>
 		unsigned int in_Inkey(void);
 		#define MOVE_PLAYER() { kbInput = in_Inkey(); movePlayerByKeyboard(kbInput);}
-		//{ kbInput = getk(); movePlayerByKeyboard(kbInput);}
 	#else
 		unsigned int in_inkey(void);
 		#define MOVE_PLAYER() { kbInput = in_inkey(); movePlayerByKeyboard(kbInput);}
 	#endif
 	void movePlayerByKeyboard(char kbInput);
+// #elif defined(__CPC__)
+	// #define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = getk(); movePlayerByKeyboard(kbInput);}
+	// void movePlayerByKeyboard(char kbInput);
 #else
 	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}
 	void movePlayerByKeyboard(char kbInput);

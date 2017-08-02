@@ -55,6 +55,21 @@ Image INVINCIBILITY_IMAGE;
 
 #include <stdio.h>
 
+#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+	#include <graphics.h>
+	#include <spectrum.h>
+#else
+	#include <arch/zx.h>
+
+	#define PRINT_CLS      "\x0c"
+	#define PRINT_INK_I    "\x10%c"
+	#define PRINT_PAPER_P  "\x11%c"
+	//#define PRINT_AT_CR    "\x16%c%c"
+
+	#define INSIDE_COLOR  INK_BLACK
+	#define OUTSIDE_COLOR INK_WHITE	
+#endif
+
 char powerUp_blink = 1;
 char gun_blink = 1;
 char extra_points_blink = 1;
@@ -67,6 +82,16 @@ void INIT_GRAPHICS(void)
 	#if defined(SPECTRUM_32COL) && defined(SPECTRUM_NATIVE_DIRECTIVES)
 		printf("\x1\x20");
 	#endif
+	
+	#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+		clg();
+		zx_border(0);
+		zx_colour(PAPER_BLACK|INK_WHITE);
+	#else
+		zx_border(PAPER_BLACK);
+		zx_cls(PAPER_BLACK);
+		printf(PRINT_PAPER_P PRINT_INK_I PRINT_CLS, INSIDE_COLOR, INSIDE_COLOR);
+	#endif	
 }
 
 void INIT_IMAGES(void)

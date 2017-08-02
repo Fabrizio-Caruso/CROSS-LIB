@@ -676,11 +676,11 @@ typedef struct ImageStruct Image;
 
 #if defined(__SPECTRUM__)
 	#include <stdio.h>
-	#define SET_TEXT_COLOR(c) {};
+	#define SET_TEXT_COLOR(c) {printf("\020%c",c);};
 
 	#define SET_BORDER_COLOR(c) {};
 
-	#define SET_BACKGROUND_COLOR(c) {};	
+	#define SET_BACKGROUND_COLOR(c) {};
 
 	#define CLEAR_SCREEN() {printf("\xc");};
 #elif defined(__CPC__) 

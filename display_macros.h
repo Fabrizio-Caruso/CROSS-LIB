@@ -50,6 +50,8 @@
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__MSX__)
 	#include "patch/z88dk_conio_patch.h"
+#elif defined(__VG5K__)
+	#include "patch/z88dk_conio_patch.h"
 #endif
 
 struct ImageStruct
@@ -95,6 +97,8 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__CPC__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
+#elif defined(__VG5K__) 
+	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=23-Y_OFFSET;};
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #endif
@@ -210,6 +214,78 @@ typedef struct ImageStruct Image;
 	#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
 	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
 	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+#elif defined(__VG5K__)
+	
+	#define DRAW_BROKEN_WALL(x,y) {};
+	
+	void _draw(unsigned char x,unsigned char y,Image * image);
+	
+	#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
+
+	#define DRAW_GHOST(x,y,image) {_draw(x,y,image);};
+	
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
+	
+	#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
+	
+	void DRAW_POWERUP(unsigned char x, unsigned char y, Image * image) ;
+	
+	void DRAW_GUN(unsigned char x, unsigned char y, Image * image) ;
+	
+	void DRAW_EXTRA_POINTS(unsigned char x, unsigned char y, Image * image) ;	
+
+	void DRAW_EXTRA_LIFE(unsigned char x, unsigned char y, Image * image);	
+	
+	void DRAW_INVINCIBILITY(unsigned char x, unsigned char y, Image * image);		
+
+	void DRAW_BLINKING_PLAYER(unsigned char x, unsigned char y, Image * image);		
+	
+	#define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
+	
+	#define DRAW_BOMBS() \
+	{ \
+		unsigned char i; \
+		for(i=0;i<BOMBS_NUMBER;++i) \
+		{ \
+			DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr); \
+		} \
+	}
+
+	void _delete(unsigned char x, unsigned char y);
+	
+	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
+	
+	#define DELETE_GHOST(x,y,image) {_delete(x,y);};
+	
+	#define DELETE_INVINCIBLE_GHOST(x,y,image) {_delete(x,y);};
+
+	#define DELETE_BOMB(x,y,image) {_delete(x,y);};
+
+	#define DELETE_POWERUP(x,y,image) {_delete(x,y);};
+
+	#define DELETE_GUN(x,y,image) {_delete(x,y);};
+
+	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
+	
+	#define DELETE_EXTRA_POINTS(x,y,image) {_delete(x,y);};
+	
+	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
+	
+	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); };
+
+	#define DRAW_BORDERS() \
+	{ \
+	} 
+
+	
+	#define DRAW_VERTICAL_LINE(x,y,length) \
+	{ \
+	}
+			
+	#define SHOW_LEFT() { }
+	#define SHOW_RIGHT() {}
+	#define SHOW_UP() { }
+	#define SHOW_DOWN() {}
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);}; //{gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
@@ -615,6 +691,14 @@ typedef struct ImageStruct Image;
 	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() {printf("\x1B[37;44m\x1B[2J");};
+#elif defined(__VG5K__) 
+	#define SET_TEXT_COLOR(c) {};
+
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
+
+	#define CLEAR_SCREEN() {};
 #elif defined(__MSX)
 	#define SET_TEXT_COLOR(c) {};
 

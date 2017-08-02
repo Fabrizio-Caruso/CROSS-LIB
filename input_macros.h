@@ -72,11 +72,10 @@
 		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
 			#include <spectrum.h>
 			#define GET_CHAR() {in_Inkey();};
-			//{getk();};
 		#else
 			#define GET_CHAR() {in_inkey();};
 		#endif
-	#elif defined(__CPC__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__)
+	#elif defined(__CPC__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__) || defined(__VG5K__)
 		#define GET_CHAR() (unsigned int) getk();
 	#else
 		#ifndef GET_CHAR()

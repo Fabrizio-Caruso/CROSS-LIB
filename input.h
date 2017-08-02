@@ -35,7 +35,6 @@
 #define _INPUT
 
 #include "character.h"
-//#include "input_macros.h"
 
 #if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
 	#define INIT_INPUT() unsigned char kbInput; JOY_INSTALL(); 
@@ -59,9 +58,6 @@
 		#define MOVE_PLAYER() { kbInput = in_inkey(); movePlayerByKeyboard(kbInput);}
 	#endif
 	void movePlayerByKeyboard(char kbInput);
-// #elif defined(__CPC__)
-	// #define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = getk(); movePlayerByKeyboard(kbInput);}
-	// void movePlayerByKeyboard(char kbInput);
 #else
 	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}
 	void movePlayerByKeyboard(char kbInput);

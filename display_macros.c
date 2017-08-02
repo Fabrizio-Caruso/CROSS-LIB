@@ -50,6 +50,8 @@
 	#include "spectrum/spectrum_graphics.h"
 #elif defined(__MSX__)
 	#include "msx/msx_graphics.h"
+#elif defined(__VG5K__)
+	#include "vg5k/vg5k_graphics.h"
 #else
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;

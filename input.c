@@ -35,8 +35,7 @@
 #include "settings.h"
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
-#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__)
-//!(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
+#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__)
 #else
 	#include <joystick.h>
 #endif

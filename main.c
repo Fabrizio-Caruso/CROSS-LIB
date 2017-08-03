@@ -423,16 +423,11 @@ void handle_invincible_ghost(void)
 {
 	if(!invincibleGhost._status)
 	{
-		
-	#if defined(DEBUG_EARLY_SKULL)
-		if(1)
-	#else
 		// Manage invincible ghost
 		if((!bossLevel() && invincibleGhostAlive &&
 							((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
 							 (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || 
 		   (bossLevel() && loop>=invincibleLoopTrigger))
-	#endif
 		{
 			invincibleGhost._status = 1;
 			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
@@ -538,6 +533,15 @@ int main(void)
 
 		
 		#ifdef DEBUG_CHARACTERS
+			displayStatsTitles();
+			printLivesStats();
+			printLevelStats();
+			printGhostCountStats();
+			printGunsStats();
+			displayStats();
+			WAIT_PRESS();
+			CLEAR_SCREEN();
+			
 			PRINTF(0,0,"ghost %c\n", GHOST_IMAGE._imageData);
 			PRINTF(0,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
 			PRINTF(0,2,"bomb %c\n", BOMB_IMAGE._imageData);

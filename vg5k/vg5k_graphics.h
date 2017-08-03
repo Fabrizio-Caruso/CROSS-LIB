@@ -134,7 +134,6 @@
 		// bpoke(loc, 32);
 		// bpoke(loc+1, 0);
 		gotoxy(x,y);
-		gotoxy(x,y);
 		cputc(' ');
 	}
 	

@@ -269,9 +269,9 @@ typedef struct ImageStruct Image;
 	
 	#define DELETE_EXTRA_POINTS(x,y,image) {_delete(x,y);};
 	
-	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
+	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str,val); };
 	
-	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); };
+	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str); };
 
 	#define DRAW_BORDERS() \
 	{ \
@@ -691,14 +691,22 @@ typedef struct ImageStruct Image;
 	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() {printf("\x1B[37;44m\x1B[2J");};
-#elif defined(__VG5K__) 
-	#define SET_TEXT_COLOR(c) {};
+// #elif defined(__CPC__) 
+	// #define SET_TEXT_COLOR(c) (void) textcolor (c);
 
-	#define SET_BORDER_COLOR(c) {};
+	// #define SET_BORDER_COLOR(c) (void) textcolor (c);
 
-	#define SET_BACKGROUND_COLOR(c) {};	
+	// #define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 
-	#define CLEAR_SCREEN() {};
+	// #define CLEAR_SCREEN() {printf("\x1B[37;44m\x1B[2J");};
+// #elif defined(__VG5K__) 
+	// #define SET_TEXT_COLOR(c) {};
+
+	// #define SET_BORDER_COLOR(c) {};
+
+	// #define SET_BACKGROUND_COLOR(c) {};	
+
+	// #define CLEAR_SCREEN() {};
 #elif defined(__MSX)
 	#define SET_TEXT_COLOR(c) {};
 
@@ -710,7 +718,7 @@ typedef struct ImageStruct Image;
 #else // CC65 conio case
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 
-	#define SET_BORDER_COLOR(c) (void) bordercolor (c);
+	#define SET_BORDER_COLOR(c)(void) textcolor (c);
 
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 	

@@ -64,7 +64,7 @@ extern unsigned char player_invincibility;
 
 extern unsigned char guns;
 
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__) && !defined(__VG5k__)
 void movePlayerByKeyboard(char kbInput)
 {
 	if(kbInput=='W')
@@ -119,7 +119,7 @@ void movePlayerByKeyboard(char kbInput)
 		DRAW_PLAYER(player._x, player._y, player._imagePtr);
 	}
 }
-#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__)
+#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__)
 void movePlayerByKeyboard(char kbInput)
 {
 	if(kbInput=='w')

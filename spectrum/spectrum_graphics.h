@@ -97,15 +97,15 @@ void INIT_GRAPHICS(void)
 void INIT_IMAGES(void)
 {		
 
-	PLAYER_IMAGE._color = COLOR_WHITE;
-	INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
-	POWERUP_IMAGE._color = COLOR_WHITE;
-	GUN_IMAGE._color = COLOR_WHITE;
+	PLAYER_IMAGE._color = COLOR_CYAN;
+	INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+	POWERUP_IMAGE._color = COLOR_MAGENTA;
+	GUN_IMAGE._color = COLOR_MAGENTA;
 	BOMB_IMAGE._color = COLOR_RED;
 	DEAD_GHOST_IMAGE._color = COLOR_RED;
-	EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
-	EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
-	INVINCIBILITY_IMAGE._color = COLOR_WHITE;			
+	EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
+	EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+	INVINCIBILITY_IMAGE._color = COLOR_YELLOW;			
 		
 	GHOST_IMAGE._imageData = 'o';
 	INVINCIBLE_GHOST_IMAGE._imageData = '+';
@@ -254,6 +254,8 @@ void _blink_player_draw(unsigned char x, unsigned char y, Image * image)
 void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
 { 
 	unsigned char i; 
+	
+	SET_TEXT_COLOR(COLOR_WHITE);
 	for(i=0;i<length;++i) 
 	{ 
 		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); 

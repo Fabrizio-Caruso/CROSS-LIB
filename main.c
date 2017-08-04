@@ -524,23 +524,83 @@ int main(void)
 	INIT_GRAPHICS();
 	while(1)
 	{
+		
 		char arrowRange = 3;
 
 
 		INIT_IMAGES();
 		
 		CLEAR_SCREEN();
-
-		
+	
 		#ifdef DEBUG_CHARACTERS
+		
 			displayStatsTitles();
 			printLivesStats();
 			printLevelStats();
 			printGhostCountStats();
-			printGunsStats();
+			printGunsStats(); 
 			displayStats();
 			WAIT_PRESS();
 			CLEAR_SCREEN();
+			
+			#if defined(__VG5K__)
+			{ 
+			
+			unsigned char i;
+			//unsigned short loc = location(0, 0);
+			//bpoke(loc,65);
+
+			PRINT(0,3,"0x4002\n");			
+			for(i=0;i<100;++i)
+			{
+			bpoke(0x4002+2*i,65);
+			bpoke(0x4002+2*i+1,61);
+			}
+			
+			WAIT_PRESS();
+			CLEAR_SCREEN();
+
+			PRINT(0,3,"0x8002\n");				
+			for(i=0;i<100;++i)
+			{
+			bpoke(0x8002+2*i,65);
+			bpoke(0x8002+2*i+1,61);
+			}
+			
+			WAIT_PRESS();
+			CLEAR_SCREEN();
+
+			PRINT(0,3,"0xC002\n");				
+			for(i=0;i<100;++i)
+			{
+			bpoke(0xC002+2*i,65);
+			bpoke(0xC002+2*i+1,61);
+			}
+			
+			//loc = location(20,20);
+			//bpoke(loc,68);
+			}
+			WAIT_PRESS();
+			CLEAR_SCREEN();
+						{
+			//unsigned short loc = location(0, 20);
+			//bpoke(loc,66);
+			bpoke(0x4002+0x5,68);
+			bpoke(0x4002+0x6,61);
+			
+			bpoke(0x8002+0x5,69);
+			bpoke(0x8002+0x6,61);
+
+			bpoke(0xC002+0x5,70);
+			bpoke(0xC002+0x6,61);
+			
+			WAIT_PRESS();
+			CLEAR_SCREEN();
+			//loc = location(20,0);
+			//bpoke(loc,67);
+			}
+			#endif
+			
 			
 			PRINTF(0,0,"ghost %c\n", GHOST_IMAGE._imageData);
 			PRINTF(0,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);

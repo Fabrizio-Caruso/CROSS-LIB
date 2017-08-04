@@ -117,24 +117,27 @@
 	
 	}
 	 
-	 
+	unsigned short location(unsigned char x, unsigned char y)
+	{
+		return VIDEO_MEMORY_BASE+ 2*((x+X_OFFSET)+(y+Y_OFFSET)*40);
+	}
 	
 	void _draw(unsigned char x,unsigned char y,Image * image) 
 	{
-		// unsigned short loc = VIDEO_MEMORY_BASE+ 2*((x+X_OFFSET)+(y+Y_OFFSET)*40);
-		// bpoke(loc, image->_imageData);
-		// bpoke(loc+1, 1);
-		gotoxy(x,y);
-		cputc(image->_imageData);
+		unsigned short loc = location(x,y);
+		bpoke(loc, image->_imageData);
+		bpoke(loc+1, 1);
+		// gotoxy(x,y);
+		// cputc('A');
 	}
 
 	void _delete(unsigned char x, unsigned char y)  
 	{
-		// unsigned short loc = VIDEO_MEMORY_BASE+ 2*((x+X_OFFSET)+(y+Y_OFFSET)*40);
-		// bpoke(loc, 32);
-		// bpoke(loc+1, 0);
-		gotoxy(x,y);
-		cputc(' ');
+		unsigned short loc = location(x,y);
+		bpoke(loc, 32);
+		bpoke(loc+1, 0);
+		// gotoxy(x,y);
+		// cputc(' ');
 	}
 	
 

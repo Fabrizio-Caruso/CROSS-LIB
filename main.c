@@ -543,6 +543,43 @@ int main(void)
 			WAIT_PRESS();
 			CLEAR_SCREEN();
 			
+			#if defined(__SPECTRUM__)
+			{
+				unsigned char i;
+				for(i=0;i<16;++i)
+				{
+					PRINTF(i,i,"- %c\n", (unsigned char) (128+i));
+				}
+				
+				WAIT_PRESS();
+				CLEAR_SCREEN();
+				
+				for(i=0;i<16;++i)
+				{
+					PRINTF(i,i,"- %c\n", 128+16+i);
+				}
+				
+				WAIT_PRESS();
+				CLEAR_SCREEN();
+
+				for(i=0;i<16;++i)
+				{
+					PRINTF(i,i,"- %c\n", 128+32+i);
+				}
+				
+				WAIT_PRESS();
+				CLEAR_SCREEN();
+				
+				for(i=0;i<16;++i)
+				{
+					PRINTF(i,i,"- %c\n", 128+48+i);
+				}
+				
+				WAIT_PRESS();
+				CLEAR_SCREEN();				
+			}
+			#endif
+			
 			#if defined(__VG5K__)
 			{ 
 			

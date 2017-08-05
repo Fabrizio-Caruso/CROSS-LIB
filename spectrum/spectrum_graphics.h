@@ -157,6 +157,7 @@ void INIT_IMAGES(void)
 	EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
 	INVINCIBILITY_IMAGE._color = COLOR_YELLOW;			
 		
+	#if defined(SPECTRUM_UDG)	
 	GHOST_IMAGE._imageData = 139;
 	INVINCIBLE_GHOST_IMAGE._imageData = 134;
 	BOMB_IMAGE._imageData = 138;
@@ -164,17 +165,32 @@ void INIT_IMAGES(void)
 	POWERUP_IMAGE._imageData = 136;
 	GUN_IMAGE._imageData = 135;
 	MISSILE_IMAGE._imageData = 137;
+	LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
+	RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;
+	BUBBLE_IMAGE._imageData = 140;
+	#else
+	GHOST_IMAGE._imageData = 'o';
+	INVINCIBLE_GHOST_IMAGE._imageData = '+';
+	BOMB_IMAGE._imageData = 'X';
+	PLAYER_IMAGE._imageData = '*';
+	POWERUP_IMAGE._imageData = 'S';
+	GUN_IMAGE._imageData = '!';
+	MISSILE_IMAGE._imageData = '.';
+	LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+	RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+	BUBBLE_IMAGE._imageData = '^';		
+	#endif
+	
 	DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
 	GHOST_IMAGE._color = COLOR_WHITE;
 	MISSILE_IMAGE._color = COLOR_WHITE;
 
-	LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
 	LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
-	RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;
+
 	RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
 	
-	BUBBLE_IMAGE._imageData = 140;
+
 	BUBBLE_IMAGE._color = COLOR_WHITE;
 	
 	EXTRA_POINTS_IMAGE._imageData = '$';

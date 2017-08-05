@@ -576,7 +576,32 @@ int main(void)
 				}
 				
 				WAIT_PRESS();
-				CLEAR_SCREEN();				
+				CLEAR_SCREEN();			
+
+				for(i=0;i<16;++i)
+				{
+					PRINTF(i,i,"- %c\n", 128+64+i);
+				}
+				
+				WAIT_PRESS();
+				CLEAR_SCREEN();
+				
+				for(i=0;i<16;++i)
+				{
+					PRINTF(i,i,"- %c\n", 128+80+i);
+				}
+				
+				WAIT_PRESS();
+				CLEAR_SCREEN();
+
+				for(i=0;i<16;++i)
+				{
+					PRINTF(i,i,"- %c\n", 128+96+i);
+				}
+				
+				WAIT_PRESS();
+				CLEAR_SCREEN();
+				
 			}
 			#endif
 			

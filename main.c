@@ -145,9 +145,9 @@ Character* ghosts[GHOSTS_NUMBER];
 Character* bombs[BOMBS_NUMBER];
 Character* bubbles[BUBBLES_NUMBER];
 
-char bubbles_x[BUBBLES_NUMBER];
+unsigned char bubbles_x[BUBBLES_NUMBER];
 
-char strategyArray[GHOSTS_NUMBER];
+unsigned char strategyArray[GHOSTS_NUMBER];
 	
 void initializeCharacters(void)
 {

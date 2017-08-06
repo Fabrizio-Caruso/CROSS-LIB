@@ -44,7 +44,7 @@ extern Character player;
 extern Character* ghosts[GHOSTS_NUMBER];
 extern Character* bombs[BOMBS_NUMBER];
 
-extern char strategyArray[GHOSTS_NUMBER];
+extern unsigned char strategyArray[GHOSTS_NUMBER];
 
 // TODO: Design issue: we delete the invincible enemy
 // This should be made generic even though it works

@@ -72,6 +72,7 @@ Image INVINCIBILITY_IMAGE;
 	#define OUTSIDE_COLOR INK_WHITE	
 #endif
 
+
 #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
 #define PEEK(addr)         (*(unsigned char*) (addr))
@@ -84,15 +85,16 @@ char extra_life_blink = 1;
 char invincibility_blink = 1;
 char player_blink = 1;
 
-	
-void redefine(unsigned long loc, const unsigned char * data)
-{
-	unsigned short i;
-	for(i=0;i<8;++i)
+#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SPECTRUM_UDG)
+	void redefine(unsigned long loc, const unsigned char * data)
 	{
-		POKE(loc+i,data[i]);
+		unsigned short i;
+		for(i=0;i<8;++i)
+		{
+			POKE(loc+i,data[i]);
+		}
 	}
-}
+#endif
 
 void INIT_GRAPHICS(void)
 {
@@ -124,23 +126,25 @@ void INIT_GRAPHICS(void)
 		printf(PRINT_PAPER_P PRINT_INK_I PRINT_CLS, INSIDE_COLOR, INSIDE_COLOR);
 	#endif	
 
-	redefine(UDG_BASE,player_down); // 0x90
-	redefine(UDG_BASE+8,player_up);		// 0x91
-	redefine(UDG_BASE+8*2,player_right); //0x92
-	redefine(UDG_BASE+8*3,player_left); //0x93
-	
-	redefine(UDG_BASE+8*4,missile_right); //0x94
-	redefine(UDG_BASE+8*5,missile_left); //0x95	
-	
-	redefine(UDG_BASE+8*6,invincible_ghost); //0x96
-	redefine(UDG_BASE+8*7,gun); //0x97
+	#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SPECTRUM_UDG)
+		redefine(UDG_BASE,player_down); // 0x90
+		redefine(UDG_BASE+8,player_up);		// 0x91
+		redefine(UDG_BASE+8*2,player_right); //0x92
+		redefine(UDG_BASE+8*3,player_left); //0x93
+		
+		redefine(UDG_BASE+8*4,missile_right); //0x94
+		redefine(UDG_BASE+8*5,missile_left); //0x95	
+		
+		redefine(UDG_BASE+8*6,invincible_ghost); //0x96
+		redefine(UDG_BASE+8*7,gun); //0x97
 
-	redefine(UDG_BASE+8*8,powerUp); // 0x98
-	redefine(UDG_BASE+8*9,missile); //0x99
+		redefine(UDG_BASE+8*8,powerUp); // 0x98
+		redefine(UDG_BASE+8*9,missile); //0x99
 
-	redefine(UDG_BASE+8*10,bomb); //0xA0
-	redefine(UDG_BASE+8*11,ghost); //0xA1
-	redefine(UDG_BASE+8*12,bubble);	//0xA2
+		redefine(UDG_BASE+8*10,bomb); //0xA0
+		redefine(UDG_BASE+8*11,ghost); //0xA1
+		redefine(UDG_BASE+8*12,bubble);	//0xA2
+	#endif
 	
 }
 
@@ -157,28 +161,28 @@ void INIT_IMAGES(void)
 	EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
 	INVINCIBILITY_IMAGE._color = COLOR_YELLOW;			
 		
-	#if defined(SPECTRUM_UDG)	
-	GHOST_IMAGE._imageData = 139;
-	INVINCIBLE_GHOST_IMAGE._imageData = 134;
-	BOMB_IMAGE._imageData = 138;
-	PLAYER_IMAGE._imageData = 128;
-	POWERUP_IMAGE._imageData = 136;
-	GUN_IMAGE._imageData = 135;
-	MISSILE_IMAGE._imageData = 137;
-	LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
-	RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;
-	BUBBLE_IMAGE._imageData = 140;
+	#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SPECTRUM_UDG)	
+		GHOST_IMAGE._imageData = 139;
+		INVINCIBLE_GHOST_IMAGE._imageData = 134;
+		BOMB_IMAGE._imageData = 138;
+		PLAYER_IMAGE._imageData = 128;
+		POWERUP_IMAGE._imageData = 136;
+		GUN_IMAGE._imageData = 135;
+		MISSILE_IMAGE._imageData = 137;
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;
+		BUBBLE_IMAGE._imageData = 140;
 	#else
-	GHOST_IMAGE._imageData = 'o';
-	INVINCIBLE_GHOST_IMAGE._imageData = '+';
-	BOMB_IMAGE._imageData = 'X';
-	PLAYER_IMAGE._imageData = '*';
-	POWERUP_IMAGE._imageData = 'S';
-	GUN_IMAGE._imageData = '!';
-	MISSILE_IMAGE._imageData = '.';
-	LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-	RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-	BUBBLE_IMAGE._imageData = '^';		
+		GHOST_IMAGE._imageData = 'o';
+		INVINCIBLE_GHOST_IMAGE._imageData = '+';
+		BOMB_IMAGE._imageData = 'X';
+		PLAYER_IMAGE._imageData = '*';
+		POWERUP_IMAGE._imageData = 'S';
+		GUN_IMAGE._imageData = '!';
+		MISSILE_IMAGE._imageData = '.';
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+		BUBBLE_IMAGE._imageData = '^';		
 	#endif
 	
 	DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;

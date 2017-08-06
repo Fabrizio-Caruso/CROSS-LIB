@@ -79,18 +79,18 @@ void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned cha
 	characterPtr->_y = y;
 }
 
-char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr)
+unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr)
 {
 	return(characterPtr->_x==x) && (characterPtr->_y==y);
 }
 
-char areCharctersAtSamePosition(Character* lhs, Character* rhs)
+unsigned char areCharctersAtSamePosition(Character* lhs, Character* rhs)
 {
 	return (lhs->_x==rhs->_x)&&(lhs->_y==rhs->_y);
 }
 
 
-char wallReached(Character *characterPtr)
+unsigned char wallReached(Character *characterPtr)
 {
 	return (characterPtr->_x==0)||(characterPtr->_x==XSize-1) || 
 		   (characterPtr->_y==0)||(characterPtr->_y==YSize-1);
@@ -102,7 +102,7 @@ void die(Character * playerPtr)
 	playerPtr->_moved = (unsigned char ) 0;
 }
 
-char playerReached(Character* preyPtr)
+unsigned char playerReached(Character* preyPtr)
 {
 	unsigned char i=0;
 	for(;i<GHOSTS_NUMBER;++i)
@@ -113,7 +113,7 @@ char playerReached(Character* preyPtr)
 	return 0;
 }
 
-char playerReachedBombs(Character* preyPtr)
+unsigned char playerReachedBombs(Character* preyPtr)
 {
 	unsigned char i=0;
 	for(;i<BOMBS_NUMBER;++i)
@@ -152,7 +152,7 @@ void checkBombsVsGhosts(void)
 
 // TODO: To be replaced with something cleaner
 // also used with things different from global bombs
-char safeLocation(unsigned char x, unsigned char y, Character **danger, unsigned char dangerSize)
+unsigned char safeLocation(unsigned char x, unsigned char y, Character **danger, unsigned char dangerSize)
 {
 	char i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
@@ -201,12 +201,12 @@ void relocateCharacter(Character * characterPtr, Character **danger, unsigned ch
 }
 
 
-char innerWallReached(Character *characterPtr)
+unsigned char innerWallReached(Character *characterPtr)
 {
 	return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
 }
 
-char nearInnerWall(Character *characterPtr)
+unsigned char nearInnerWall(Character *characterPtr)
 {
 	return (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
 		   (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
@@ -214,7 +214,7 @@ char nearInnerWall(Character *characterPtr)
 
 
 // Check whether a moving ghost meets another ghost that is alive
-char ghostsMeetAlive(unsigned char preyIndex)
+unsigned char ghostsMeetAlive(unsigned char preyIndex)
 {
 	char i;
 	

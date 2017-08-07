@@ -67,6 +67,7 @@ void checkMissileVsGhost(Character * missilePtr,
 		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
 		die(ghostPtr); 
 		points+=GHOST_VS_MISSILE;
+		displayStats();		
 		--ghostCount;
 		printGhostCountStats();
 	}
@@ -161,6 +162,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 				EXPLOSION_SOUND();
 				DELETE_MISSILE(rightEnemyMissilePtr->_x,rightEnemyMissilePtr->_y,rightEnemyMissilePtr->_imagePtr);
 				points+=HORIZONTAL_MISSILE_BONUS;
+				displayStats();				
 				extraPointsCoolDown/=2;
 				invincibilityCoolDown/=2;
 				extraLifeCoolDown/=2;
@@ -171,6 +173,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 				EXPLOSION_SOUND();
 				DELETE_MISSILE(leftEnemyMissilePtr->_x,leftEnemyMissilePtr->_y,leftEnemyMissilePtr->_imagePtr);
 				points+=HORIZONTAL_MISSILE_BONUS;
+				displayStats();				
 				extraPointsCoolDown/=2;
 				invincibilityCoolDown/=2;
 				extraLifeCoolDown/=2;
@@ -189,6 +192,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 					DELETE_MISSILE(bubbles[i]->_x,bubbles[i]->_y,bubbles[i]->_imagePtr);
 					DELETE_MISSILE(leftEnemyMissilePtr->_x,leftEnemyMissilePtr->_y,leftEnemyMissilePtr->_imagePtr);
 					points+=VERTICAL_MISSILE_BONUS;
+					displayStats();					
 					if(dead_bubbles==BUBBLES_NUMBER)
 					{
 						extraPointsCoolDown/=4;

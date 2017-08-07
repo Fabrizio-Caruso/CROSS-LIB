@@ -226,6 +226,7 @@ void handle_missile()
 				points+=INVINCIBLE_GHOST_POINTS;
 				if(missileLevel())
 					points+=INVINCIBLE_GHOST_POINTS;
+				displayStats();
 			}
 			else
 			{
@@ -249,6 +250,7 @@ void handle_gun_item()
 			guns = GUNS_NUMBER;
 			printGunsStats();
 			points+=GUN_BONUS;
+			displayStats();
 			gun._status = 0;	
 			gunCoolDown = gunInitialCoolDown;
 		}
@@ -286,7 +288,7 @@ void handle_powerup_item()
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 			decreaseGhostLevel(); 
 			points+=POWER_UP_BONUS;
-			//powerUp._status = 0;	
+			displayStats();
 			powerUpCoolDown = powerUpInitialCoolDown;
 		}
 		else
@@ -323,6 +325,7 @@ void handle_extraPoints_item()
 			points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
 			if(bossLevel())
 				points+=EXTRA_POINTS;
+			displayStats();
 			extraPoints._status = 0;	
 			extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder
 		}
@@ -766,6 +769,7 @@ int main(void)
 			
 
 			displayStatsTitles();
+			displayStats();			
 			printLevelStats();
 			printLivesStats();
 			//
@@ -965,7 +969,7 @@ int main(void)
 					printGhostCountStats();
 				#endif
 
-				displayStats();
+				//displayStats();
 				// printGunsStats();
 				// printGhostCountStats();
 
@@ -973,7 +977,7 @@ int main(void)
 				handle_invincible_ghost();
 				
 				// Add points to score
-				points+=LOOP_POINTS;
+				//points+=LOOP_POINTS;
 				
 				// Increase ghost speed
 				++ghostLevel;

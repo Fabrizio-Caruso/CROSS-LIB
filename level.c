@@ -362,10 +362,10 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			if(level<FIRST_VERY_HARD_LEVEL) // HARD but NOT VERY HARD -> 2 bombs close to vertical borders
 			{	
 				b2x = 1+1;
-				b2y = YSize/2-3+rand()%7;
+				b2y = YSize/2-2+rand()%5;
 				
 				b3x = XSize-2-1;
-				b3y = YSize/2-3+rand()%7;
+				b3y = YSize/2-2+rand()%5;
 				
 				b4x = b3x;
 				b4y = b3y;
@@ -390,10 +390,10 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			else if (level<FIRST_ULTIMATE_LEVEL)// INSANE but not FINAL -> 2 bombs placed on the vertical borders
 			{
 				b2x = 1;
-				b2y = YSize/2-3+rand()%7;
+				b2y = YSize/2-2+rand()%5;
 				
 				b3x = XSize-2;
-				b3y = YSize/2-3+rand()%7;
+				b3y = YSize/2-2+rand()%5;
 				
 				b4x = b3x;
 				b4y = b3y;

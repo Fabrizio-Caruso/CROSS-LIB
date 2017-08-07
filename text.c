@@ -69,7 +69,7 @@ void displayStatsTitles(void)
 {	
 	#if defined(__CBM__) && !defined(__VIC20__)
 		SET_TEXT_COLOR(COLOR_BLUE);		
-		PRINT(2-X_OFFSET,0-Y_OFFSET,"speed:");
+		//PRINT(2-X_OFFSET,0-Y_OFFSET,"speed:");
 		PRINT(2-X_OFFSET,1-Y_OFFSET,"score:");
 		PRINT(2-X_OFFSET,2-Y_OFFSET,"level:");
 		SET_TEXT_COLOR(TEXT_COLOR);
@@ -80,7 +80,7 @@ void displayStatsTitles(void)
 		PRINT(24,2-Y_OFFSET,"-----------");
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__ATMOS__)
-		PRINT(2,0-Y_OFFSET,"SPEED:");
+		//PRINT(2,0-Y_OFFSET,"SPEED:");
 		PRINT(2,1-Y_OFFSET,"SCORE:");
 		PRINT(2,2-Y_OFFSET,"LEVEL:");
 		
@@ -114,12 +114,12 @@ void displayStatsTitles(void)
 		cputc('E'+128); 		
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINT(1,0-Y_OFFSET,"SPEED:");
+		//PRINT(1,0-Y_OFFSET,"SPEED:");
 		PRINT(1,1-Y_OFFSET,"SCORE:");
 		PRINT(1,2-Y_OFFSET,"LEVEL:");
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINT(2,0-Y_OFFSET,"SPEED:");
+		//PRINT(2,0-Y_OFFSET,"SPEED:");
 		PRINT(2,1-Y_OFFSET,"SCORE:");
 		PRINT(2,2-Y_OFFSET,"LEVEL:");
 		#if !(defined(__SPECTRUM__) && defined(SPECTRUM_32COL)) && !defined(__VIC20__) && (!defined(__ATARI__) && !defined(__ATARIXL__) || !defined(ATARI_MODE1))
@@ -234,19 +234,19 @@ void displayStats(void)
 	SET_TEXT_COLOR(TEXT_COLOR);
 	
 	#if defined(__ATMOS__) 
-		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
+		//PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINTF(7,0-Y_OFFSET,"%04u",ghostLevel);
+		//PRINTF(7,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(7,1-Y_OFFSET,"%05lu",points);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
-		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
+		//PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
-		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
+		//PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);	
 	#else
-		PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
+		//PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);
 	#endif
 }

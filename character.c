@@ -134,6 +134,7 @@ void checkBombsVsGhost(Character * ghostPtr)
 		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
 		die(ghostPtr);
 		points+=GHOST_VS_BOMBS_BONUS;
+		displayStats();
 		--ghostCount;
 		printGhostCountStats();
 	}
@@ -263,6 +264,7 @@ void checkGhostsVsGhosts()
 						{
 							die(ghosts[j]);
 							points+=GHOST_VS_GHOST_BONUS;
+							displayStats();
 							ghosts[j]->_imagePtr = &DEAD_GHOST_IMAGE;
 							--ghostCount;
 							printGhostCountStats();
@@ -280,6 +282,7 @@ void checkGhostsVsGhosts()
 				EXPLOSION_SOUND();
 				die(ghosts[i]);
 				points+=GHOST_VS_GHOST_BONUS;
+				displayStats();
 				ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
 				--ghostCount;	
 				printGhostCountStats();
@@ -303,6 +306,7 @@ void checkGhostsVsGhosts()
 					DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
 					die(ghosts[i]);
 					points+=GHOST_VS_GHOST_BONUS;
+					displayStats();
 					--ghostCount;
 					printGhostCountStats();
 				}
@@ -322,6 +326,7 @@ void checkGhostsVsGhosts()
 				DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
 				die(ghosts[i]);
 				points+=GHOST_VS_GHOST_BONUS;
+				displayStats();
 				--ghostCount;
 				printGhostCountStats();
 			}

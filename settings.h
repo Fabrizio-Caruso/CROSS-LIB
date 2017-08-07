@@ -46,8 +46,12 @@
 #define BOMBS_NUMBER 4
 
 // Possible current values are 6,7,8
-#define GHOSTS_NUMBER 7
-
+#if defined(__SPECTRUM__)
+	#define GHOSTS_NUMBER 7
+#else
+	#define GHOSTS_NUMBER 8
+#endif
+	
 
 #define BUBBLES_NUMBER 4
 

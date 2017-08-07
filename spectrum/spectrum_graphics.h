@@ -34,6 +34,7 @@
 //#include <peekpoke.h>
 #include "display_macros.h"
 
+#include <string.h>
 
 Image PLAYER_IMAGE;
 Image GHOST_IMAGE;
@@ -56,6 +57,13 @@ Image INVINCIBILITY_IMAGE;
 #include <stdio.h>
 
 #define UDG_BASE 0xFF58
+
+#if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SPECTRUM_UDG)
+	#define UDG_N 13
+	#include <stropts.h>
+	unsigned char my_font[(128-32+UDG_N)*8];
+	extern unsigned char font_8x8_rom[];
+#endif
 
 #if defined(SPECTRUM_NATIVE_DIRECTIVES)
 	#include <graphics.h>
@@ -91,26 +99,45 @@ char player_blink = 1;
 		unsigned short i;
 		for(i=0;i<8;++i)
 		{
-			POKE(loc+i,data[i]);
+			POKE((unsigned short)(loc+i),data[i]);
 		}
 	}
 #endif
 
 void INIT_GRAPHICS(void)
 {
-	static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
-	static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
-	static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
-	static const char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
-	static const char ghost[8] =            {129,126,165,129,129,189,129,126};
-	static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
-	static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};
-	static const char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
-	static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
-	static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
-	static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
-	static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
-	static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
+	#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SPECTRUM_UDG)
+		static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
+		static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
+		static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
+		static const char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
+		static const char ghost[8] =            {129,126,165,129,129,189,129,126};
+		static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
+		static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};
+		static const char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
+		static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
+		static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
+		static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
+		static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
+		static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
+	#endif
+	#if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SPECTRUM_UDG)
+		static const char udg_definitions[] = { 
+			 24, 36, 24,102,153, 24, 36,102, // player_down
+			 24, 60, 24,102,153, 24, 36,102,
+			 24, 52, 25,118,152, 24, 20, 20,	
+			 24, 44,152,110, 25, 24, 40, 40,
+			129,126,165,129,129,189,129,126,
+			  0,  0, 15,252,252, 15,  0,  0,
+			  0,  0,240, 63, 63,240,  0,  0,
+			 60, 66,165,129, 90, 36, 36, 60,
+			  0,128,126,200,248,192,128,  0,
+			  0, 60, 54,223,231,122, 36, 24,
+			  0,  0,  8, 56, 28, 16,  0,  0,
+			 60, 66,165,153,153,165, 66, 60,
+			 24, 60, 60, 60,126, 90, 66, 66
+		};
+	#endif	
 		
 	#if defined(SPECTRUM_32COL) && defined(SPECTRUM_NATIVE_DIRECTIVES)
 		printf("\x1\x20");
@@ -128,9 +155,9 @@ void INIT_GRAPHICS(void)
 
 	#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SPECTRUM_UDG)
 		redefine(UDG_BASE,player_down); // 0x90
-		redefine(UDG_BASE+8,player_up);		// 0x91
-		redefine(UDG_BASE+8*2,player_right); //0x92
-		redefine(UDG_BASE+8*3,player_left); //0x93
+		// redefine(UDG_BASE+8,player_up);		// 0x91
+		// redefine(UDG_BASE+8*2,player_right); //0x92
+		// redefine(UDG_BASE+8*3,player_left); //0x93
 		
 		redefine(UDG_BASE+8*4,missile_right); //0x94
 		redefine(UDG_BASE+8*5,missile_left); //0x95	
@@ -146,6 +173,13 @@ void INIT_GRAPHICS(void)
 		redefine(UDG_BASE+8*12,bubble);	//0xA2
 	#endif
 	
+	
+	#if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SPECTRUM_UDG)
+		memcpy(my_font, font_8x8_rom, (128-32)*8);	
+		//memcpy(&font_8x8_rom[128*8], udg_definitions, UDG_N*8);
+		memcpy(my_font+(128-32)*8, udg_definitions, UDG_N*8);
+		ioctl(1, IOCTL_OTERM_FONT, (void*)(my_font - 256));
+	#endif	
 }
 
 void INIT_IMAGES(void)
@@ -172,6 +206,17 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;
 		BUBBLE_IMAGE._imageData = 140;
+	#elif defined(SPECTRUM_UDG)
+		GHOST_IMAGE._imageData = 139;
+		INVINCIBLE_GHOST_IMAGE._imageData = 134;
+		BOMB_IMAGE._imageData = 138;
+		PLAYER_IMAGE._imageData = 128;
+		POWERUP_IMAGE._imageData = 136;
+		GUN_IMAGE._imageData = 135;
+		MISSILE_IMAGE._imageData = 137;
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;
+		BUBBLE_IMAGE._imageData = 140;	
 	#else
 		GHOST_IMAGE._imageData = 'o';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';

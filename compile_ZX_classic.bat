@@ -37,11 +37,17 @@ cd %mypath%\
 @REM BROKEN!
 @REM Working 32 column version with vertical outer wall - SLOW KEYBOARD INPUT with getk() but OK with in_Inkey()
 @REM -DDEBUG_CHARACTERS
-@REM -DSPECTRUM_UDG -DDEBUG_CHARACTERS
+@REM -DSPECTRUM_UDG 
 @REM 
-zcc +zx  -vn -DDEBUG_CHARACTERS -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+zcc +zx -DDEBUG_CHARACTERS -DSPECTRUM_UDG -vn -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_redefined_characters_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 @REM 
-del %deliverables%\ZXSpectrum_32col_experimental.prg
+del %deliverables%\ZXSpectrum_redefined_characters_experimental.prg
+
+
+zcc +zx -DDEBUG_CHARACTERS -vn -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM 
+del %deliverables%\ZXSpectrum_experimental.prg
+
 
 @REM WORKING but with problematic input and not outer wall - FAST KEYBOARD INPUT
 @REM optimize with:  -SO3 --max-allocs-per-node200000

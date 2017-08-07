@@ -534,6 +534,16 @@ int main(void)
 		INIT_IMAGES();
 		
 		CLEAR_SCREEN();
+		#if defined(DEBUG_SOUNDS)
+			PRINT(0,0,"SHOOT_SOUND");SHOOT_SOUND();WAIT_PRESS();
+			
+			PRINT(0,1,"ZAP_SOUND");ZAP_SOUND();	WAIT_PRESS();
+			
+			PRINT(0,2,"EXPLOSION_SOUND");EXPLOSION_SOUND();WAIT_PRESS();
+			PRINT(0,3,"PING_SOUND");PING_SOUND();WAIT_PRESS();	
+			PRINT(0,4,"TICK_SOUND");TICK_SOUND();WAIT_PRESS();
+			PRINT(0,5,"TOCK_SOUND");TOCK_SOUND();WAIT_PRESS();
+		#endif
 	
 		#ifdef DEBUG_CHARACTERS
 		
@@ -545,6 +555,7 @@ int main(void)
 			displayStats();
 			WAIT_PRESS();
 			CLEAR_SCREEN();
+			
 			
 			#if defined(__SPECTRUM__)
 			{

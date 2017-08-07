@@ -599,11 +599,23 @@ void printStartMessage(void)
 		PRINT(7, YSize / 2, "Forse them into the mines");
 		
 	#elif defined(__C16__) || defined(__PLUS4__)
-		PRINT(2, YSize / 2 - 3, "You % are chased by \"! Lure \" into /!");
+		PRINT(1, YSize / 2 - 3, "You % are chased by \"! Lure \" into /!");
 		
-		PRINT(2, YSize / 2 - 1, "# slows \" down! ,. gives you 3 bullets");
+		PRINT(1, YSize / 2 - 1, "# slows \" down! ,. gives you 3 bullets");
 		
-		PRINT(14, YSize / 2 + 1, "Flee from +!");	
+		PRINT(5, YSize / 2 + 1,     "Use the gun or flee from +!");	
+	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
+		PRINT(0, YSize / 2 - 3, "Lure the enemies into the mines!");
+		
+		PRINT(0, YSize / 2 - 1, "Take the power-ups! Use the gun!");
+		
+		PRINT(2, YSize / 2 + 1,   "Shoot or flee from the skull!");	
+	#elif defined(__SPECTRUM__) && defined(SPECTRUM_NATIVE_DIRECTIVES)
+		PRINT(0, YSize / 2 - 3, "Lure the enemies into the mines!");
+		
+		PRINT(0, YSize / 2 - 1, "Take the power-ups! Use the gun!");
+		
+		PRINT(2, YSize / 2 + 1,   "Shoot or flee from the skull!");			
 	#else
 		PRINT(2, YSize / 2 - 3, "You * are chased by O. Lure O into X");
 		

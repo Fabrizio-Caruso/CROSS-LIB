@@ -46,7 +46,9 @@
 #define BOMBS_NUMBER 4
 
 // Possible current values are 6,7,8
-#if defined(__SPECTRUM__)
+#if defined(__CPC__)
+	#define GHOSTS_NUMBER 6
+#elif defined(__SPECTRUM__) 
 	#define GHOSTS_NUMBER 7
 #else
 	#define GHOSTS_NUMBER 8

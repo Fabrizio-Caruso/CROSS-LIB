@@ -554,53 +554,53 @@ int main(void)
 				WAIT_PRESS();
 				CLEAR_SCREEN();
 				
-				for(i=0;i<16;++i)
-				{
-					PRINTF(i,i,"- %c\n", 128+16+i);
-				}
+				// for(i=0;i<16;++i)
+				// {
+					// PRINTF(i,i,"- %c\n", 128+16+i);
+				// }
 				
-				WAIT_PRESS();
-				CLEAR_SCREEN();
+				// WAIT_PRESS();
+				// CLEAR_SCREEN();
 
-				for(i=0;i<16;++i)
-				{
-					PRINTF(i,i,"- %c\n", 128+32+i);
-				}
+				// for(i=0;i<16;++i)
+				// {
+					// PRINTF(i,i,"- %c\n", 128+32+i);
+				// }
 				
-				WAIT_PRESS();
-				CLEAR_SCREEN();
+				// WAIT_PRESS();
+				// CLEAR_SCREEN();
 				
-				for(i=0;i<16;++i)
-				{
-					PRINTF(i,i,"- %c\n", 128+48+i);
-				}
+				// for(i=0;i<16;++i)
+				// {
+					// PRINTF(i,i,"- %c\n", 128+48+i);
+				// }
 				
-				WAIT_PRESS();
-				CLEAR_SCREEN();			
+				// WAIT_PRESS();
+				// CLEAR_SCREEN();			
 
-				for(i=0;i<16;++i)
-				{
-					PRINTF(i,i,"- %c\n", 128+64+i);
-				}
+				// for(i=0;i<16;++i)
+				// {
+					// PRINTF(i,i,"- %c\n", 128+64+i);
+				// }
 				
-				WAIT_PRESS();
-				CLEAR_SCREEN();
+				// WAIT_PRESS();
+				// CLEAR_SCREEN();
 				
-				for(i=0;i<16;++i)
-				{
-					PRINTF(i,i,"- %c\n", 128+80+i);
-				}
+				// for(i=0;i<16;++i)
+				// {
+					// PRINTF(i,i,"- %c\n", 128+80+i);
+				// }
 				
-				WAIT_PRESS();
-				CLEAR_SCREEN();
+				// WAIT_PRESS();
+				// CLEAR_SCREEN();
 
-				for(i=0;i<16;++i)
-				{
-					PRINTF(i,i,"- %c\n", 128+96+i);
-				}
+				// for(i=0;i<16;++i)
+				// {
+					// PRINTF(i,i,"- %c\n", 128+96+i);
+				// }
 				
-				WAIT_PRESS();
-				CLEAR_SCREEN();
+				// WAIT_PRESS();
+				// CLEAR_SCREEN();
 				
 			}
 			#endif

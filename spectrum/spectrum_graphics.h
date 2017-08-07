@@ -207,15 +207,18 @@ void INIT_IMAGES(void)
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;
 		BUBBLE_IMAGE._imageData = 140;
 	#elif defined(SPECTRUM_UDG)
-		GHOST_IMAGE._imageData = 139;
-		INVINCIBLE_GHOST_IMAGE._imageData = 134;
-		BOMB_IMAGE._imageData = 138;
 		PLAYER_IMAGE._imageData = 128;
-		POWERUP_IMAGE._imageData = 136;
-		GUN_IMAGE._imageData = 135;
-		MISSILE_IMAGE._imageData = 137;
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;
+		// 129
+		// 130
+		// 131
+		GHOST_IMAGE._imageData = 132;		
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = 133;
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = 134;	
+		INVINCIBLE_GHOST_IMAGE._imageData = 135;
+		GUN_IMAGE._imageData = 136;
+		POWERUP_IMAGE._imageData = 137;
+		MISSILE_IMAGE._imageData = 138;	
+		BOMB_IMAGE._imageData = 139;
 		BUBBLE_IMAGE._imageData = 140;	
 	#else
 		GHOST_IMAGE._imageData = 'o';

@@ -31,10 +31,13 @@ cd %mypath%\
 
 @REM CPC HALF-WORKINg
 @REM -DDEBUG_CHARACTERS
-zcc +vg5k -DDEBUG_CHARACTERS -vn -D__VG5K__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\vg5k_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM del %deliverables%\cpc.prg 
-@REM del %deliverables%\cpc.cpc
-
+@REM 
+zcc +vg5k -vn -DDEBUG_CHARACTERS -D__VG5K__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\vg5k_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+@REM 
+del %deliverables%\cpc.prg 
+@REM 
+del %deliverables%\cpc.cpc
+zcc +vg5k -vn -lndos -create-app -o %deliverables%\testVG5K.prg testVG5K.c 
 
 
 del %mypath%\*.o

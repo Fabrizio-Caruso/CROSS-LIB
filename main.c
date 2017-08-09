@@ -52,6 +52,11 @@
 #include "sleep_macros.h"
 #include "sound_macros.h"
 
+
+#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
+#define PEEK(addr)         (*(unsigned char*) (addr))
+#define PEEKW(addr) (*(unsigned*) (addr))
 //#define DEBUG_CHARACTERS
 
 unsigned short invincibleSlowDown;
@@ -533,7 +538,7 @@ int main(void)
 
 		INIT_IMAGES();
 		
-		CLEAR_SCREEN();
+		//CLEAR_SCREEN();
 		#if defined(DEBUG_SOUNDS)
 			PRINT(0,0,"SHOOT_SOUND");SHOOT_SOUND();WAIT_PRESS();
 			
@@ -547,14 +552,14 @@ int main(void)
 	
 		#ifdef DEBUG_CHARACTERS
 		
-			displayStatsTitles();
-			printLivesStats();
-			printLevelStats();
-			printGhostCountStats();
-			printGunsStats(); 
-			displayStats();
-			WAIT_PRESS();
-			CLEAR_SCREEN();
+			// displayStatsTitles();
+			// printLivesStats();
+			// printLevelStats();
+			// printGhostCountStats();
+			// printGunsStats(); 
+			// displayStats();
+			// WAIT_PRESS();
+			// CLEAR_SCREEN();
 			
 			
 			#if defined(__SPECTRUM__)
@@ -567,55 +572,7 @@ int main(void)
 				
 				WAIT_PRESS();
 				CLEAR_SCREEN();
-				
-				// for(i=0;i<16;++i)
-				// {
-					// PRINTF(i,i,"- %c\n", 128+16+i);
-				// }
-				
-				// WAIT_PRESS();
-				// CLEAR_SCREEN();
 
-				// for(i=0;i<16;++i)
-				// {
-					// PRINTF(i,i,"- %c\n", 128+32+i);
-				// }
-				
-				// WAIT_PRESS();
-				// CLEAR_SCREEN();
-				
-				// for(i=0;i<16;++i)
-				// {
-					// PRINTF(i,i,"- %c\n", 128+48+i);
-				// }
-				
-				// WAIT_PRESS();
-				// CLEAR_SCREEN();			
-
-				// for(i=0;i<16;++i)
-				// {
-					// PRINTF(i,i,"- %c\n", 128+64+i);
-				// }
-				
-				// WAIT_PRESS();
-				// CLEAR_SCREEN();
-				
-				// for(i=0;i<16;++i)
-				// {
-					// PRINTF(i,i,"- %c\n", 128+80+i);
-				// }
-				
-				// WAIT_PRESS();
-				// CLEAR_SCREEN();
-
-				// for(i=0;i<16;++i)
-				// {
-					// PRINTF(i,i,"- %c\n", 128+96+i);
-				// }
-				
-				// WAIT_PRESS();
-				// CLEAR_SCREEN();
-				
 			}
 			#endif
 			
@@ -623,57 +580,27 @@ int main(void)
 			{ 
 			
 			unsigned char i;
-			//unsigned short loc = location(0, 0);
-			//bpoke(loc,65);
+			
+			// CLEAR_SCREEN();
 
-			PRINT(0,3,"0x4002\n");			
-			for(i=0;i<100;++i)
-			{
-			bpoke(0x4002+2*i,65);
-			bpoke(0x4002+2*i+1,61);
-			}
+			PRINT(2,3,"0x4002");	
+			// for(j=0;j<=8;++j)
+			// {
+				for(i=0;i<25;++i)
+				{
+				POKE(16384+80*i,32);
+				POKE(16385+80*i,1);
+				}
+				for(i=0;i<100;++i)
+				{
+				POKE(16386+2*i,65);
+				POKE(16387+2*i,7);
+				}
+			WAIT_PRESS();
+			// }
 			
 			WAIT_PRESS();
 			CLEAR_SCREEN();
-
-			PRINT(0,3,"0x8002\n");				
-			for(i=0;i<100;++i)
-			{
-			bpoke(0x8002+2*i,65);
-			bpoke(0x8002+2*i+1,61);
-			}
-			
-			WAIT_PRESS();
-			CLEAR_SCREEN();
-
-			PRINT(0,3,"0xC002\n");				
-			for(i=0;i<100;++i)
-			{
-			bpoke(0xC002+2*i,65);
-			bpoke(0xC002+2*i+1,61);
-			}
-			
-			//loc = location(20,20);
-			//bpoke(loc,68);
-			}
-			WAIT_PRESS();
-			CLEAR_SCREEN();
-						{
-			//unsigned short loc = location(0, 20);
-			//bpoke(loc,66);
-			bpoke(0x4002+0x5,68);
-			bpoke(0x4002+0x6,61);
-			
-			bpoke(0x8002+0x5,69);
-			bpoke(0x8002+0x6,61);
-
-			bpoke(0xC002+0x5,70);
-			bpoke(0xC002+0x6,61);
-			
-			WAIT_PRESS();
-			CLEAR_SCREEN();
-			//loc = location(20,0);
-			//bpoke(loc,67);
 			}
 			#endif
 			

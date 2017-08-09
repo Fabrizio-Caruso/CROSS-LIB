@@ -73,3 +73,16 @@ void printAt32Col(unsigned char row, unsigned char col, char* s)
 2. Compile with sccz80 and the new C library. Compile lines include "-clib=new".
 3. Compile with sdcc and the new C library. Compile lines include "-clib=sdcc_ix" or "-clib=sdcc_iy".
 
+..org $6000   
+
+_debut:
+      ld a,0
+      ld ($47FD),a  ;poke 47FD c'est pour un curseur fixe
+      ld a, 65
+     
+      ld h,20  ; cordonnée y
+      ld l,20    ;coordonnée x
+      ld d,65  ; caractere
+      ld e,1    ; couleur
+      call $0092    ;routine affichage
+      jp _debut

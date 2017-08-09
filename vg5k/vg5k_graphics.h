@@ -13,7 +13,7 @@
 /*                                                                           */
 /*                                                                           */
 /* This software is provided 'as-is', without any expressed or implied       */
-/* warranty.  In no event will the authors be held liable for any damages    */
+/* wazrranty.  In no event will the authors be held liable for any damages    */
 /* arising from the use of this software.                                    */
 /*                                                                           */
 /* Permission is granted to anyone to use this software for any purpose,     */
@@ -38,7 +38,7 @@
 	
 	#define POKE(loc,val) bpoke((loc),(val));
 	
-	#define VIDEO_MEMORY_BASE 0x4002
+	#define VIDEO_MEMORY_BASE 0x4000
 
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;
@@ -114,7 +114,13 @@
 	
 	void INIT_GRAPHICS(void)
 	{
-	
+		unsigned char i;	
+		POKE(0x47FD,0);
+		for(i=0;i<24;++i)
+		{
+			POKE(VIDEO_MEMORY_BASE+80*i,32);
+			POKE(VIDEO_MEMORY_BASE+1+80*i,1);
+		}	
 	}
 	 
 	unsigned short location(unsigned char x, unsigned char y)

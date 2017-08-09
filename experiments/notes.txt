@@ -78,11 +78,63 @@ void printAt32Col(unsigned char row, unsigned char col, char* s)
 _debut:
       ld a,0
       ld ($47FD),a  ;poke 47FD c'est pour un curseur fixe
-      ld a, 65
-     
+
       ld h,20  ; cordonnée y
       ld l,20    ;coordonnée x
       ld d,65  ; caractere
       ld e,1    ; couleur
       call $0092    ;routine affichage
       jp _debut
+
+The parameters are pushed left to right as dom mentioned and followed by a call to the asm subroutine.  This means the asm subroutine sees a stack frame containg pushed parameters followed by a return address.  It is usually (but not always) faster to access the parameters by popping them off the stack.  So for example:
+
+int myfunc(int a, int b)
+{
+   #asm
+   pop bc   ; bc = ret address
+   pop hl   ; hl = int b
+   pop de  ; de = int a
+
+   push de    ; now restore stack
+   push hl
+   push bc
+
+   ; do stuff with return value left in hl
+
+   #endasm
+}  // ret automatically inserted by C compiler at end brace
+
+The push / pops require 63 cycles to get all the parameters into the registers.  Other methods would take longer.
+
+
+The standard C calling convention has the caller responsible for creating the stack frame and removing the stack frame following the call to the subroutine.  This is why you see the asm function above restoring the stack after popping the parameters -- the stack must be left unchanged for the caller to restore it on return.
+
+You can specify an asm function to be callee-linked, meaning the subroutine is responsible for clearing the stack frame from the stack.  Then the above would be written as:
+
+int __CALLEE__ myfunc(int a, int b)
+{
+   #asm
+   pop bc   ; bc = ret address
+   pop hl   ; hl = int b
+   pop de  ; de = int a
+   push bc  ; put the return address back
+
+   ; do stuff with return value left in hl
+
+   #endasm
+}  // ret automatically inserted by C compiler at end brace
+
+Now the asm function has removed the parameters from the stack frame and has left the return address for safe ret at the end of the subroutine.  All asm subroutines should use CALLEE linkage as there is almost never a reason not to use it.
+
+
+One last linkage is FASTCALL where a single parameter can be passed by the compiler in the HL register pair.
+
+int __FASTCALL__ myfunc(int a)
+{
+   #asm
+   ; hl = int a
+   ; return address on stack
+
+   ; do stuff with return value left in hl
+   #endasm
+}  // ret automatically inserted by C compiler at end brace

@@ -578,29 +578,7 @@ int main(void)
 			
 			#if defined(__VG5K__)
 			{ 
-			
-			unsigned char i;
-			
-			// CLEAR_SCREEN();
 
-			PRINT(2,3,"0x4002");	
-			// for(j=0;j<=8;++j)
-			// {
-				for(i=0;i<25;++i)
-				{
-				POKE(16384+80*i,32);
-				POKE(16385+80*i,1);
-				}
-				for(i=0;i<100;++i)
-				{
-				POKE(16386+2*i,65);
-				POKE(16387+2*i,7);
-				}
-			WAIT_PRESS();
-			// }
-			
-			WAIT_PRESS();
-			CLEAR_SCREEN();
 			}
 			#endif
 			

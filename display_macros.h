@@ -222,6 +222,7 @@ typedef struct ImageStruct Image;
 	#define DRAW_BROKEN_WALL(x,y) {};
 	
 	void _draw(unsigned char x,unsigned char y,Image * image);
+	int draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
 	
 	#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
 

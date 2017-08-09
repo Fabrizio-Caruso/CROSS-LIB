@@ -115,33 +115,52 @@
 	void INIT_GRAPHICS(void)
 	{
 		unsigned char i;	
-		POKE(0x47FD,0);
 		for(i=0;i<24;++i)
 		{
 			POKE(VIDEO_MEMORY_BASE+80*i,32);
 			POKE(VIDEO_MEMORY_BASE+1+80*i,1);
 		}	
 	}
-	 
-	unsigned short location(unsigned char x, unsigned char y)
+
+	int _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 	{
-		return VIDEO_MEMORY_BASE+ 2*((x+X_OFFSET)+(y+Y_OFFSET)*40);
+		int xy = 0;
+		int chCol = 0;
+		xy = (y<<8) | x;
+		chCol = (ch<<8) | col;
+		return _draw_ch_aux(chCol,xy);
 	}
+
+	int _draw_ch_aux(int chCol, int xy)
+	{
+		#asm
+		pop bc   ; bc = ret address
+		pop hl   ; hl = int b
+		pop de  ; de = int a
+
+		push de    ; now restore stack
+		push hl
+		push bc
+		
+		call 0x0092	
+		#endasm
+	}
+	
+	// unsigned short location(unsigned char x, unsigned char y)
+	// {
+		// return VIDEO_MEMORY_BASE+ 2*((x+X_OFFSET)+(y+Y_OFFSET)*40);
+	// }
 	
 	void _draw(unsigned char x,unsigned char y,Image * image) 
 	{
-		unsigned short loc = location(x,y);
-		bpoke(loc, image->_imageData);
-		bpoke(loc+1, 1);
+		_draw_ch(x,y,image->_imageData, image->_color);
 		// gotoxy(x,y);
 		// cputc('A');
 	}
 
 	void _delete(unsigned char x, unsigned char y)  
 	{
-		unsigned short loc = location(x,y);
-		bpoke(loc, 32);
-		bpoke(loc+1, 0);
+		_draw_ch(x,y,32, 0);	
 		// gotoxy(x,y);
 		// cputc(' ');
 	}
@@ -150,90 +169,90 @@
 	
 	void DRAW_POWERUP(unsigned char x, unsigned char y, Image * image) 
 	{
-		// if(powerUp_blink) 
-		// {
-			// bpoke(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40),image->_imageData); 
-			// powerUp_blink=0;
-		// } 
-		// else 
-		// {
-			// bpoke(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40), 32); 
-			// powerUp_blink=1;
-		// }
-		_draw(x,y,image);
+		if(powerUp_blink) 
+		{
+			_draw_ch(x,y,image->_imageData, image->_color);
+			powerUp_blink=0;
+		} 
+		else 
+		{
+			_draw_ch(x,y,32, 0);
+			powerUp_blink=1;
+		}
 	}
 	
 	
 	void DRAW_GUN(unsigned char x, unsigned char y, Image * image) 
 	{
-		// if(gun_blink) 
-		// {
-			// POKE(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40),image->_imageData);
-			// gun_blink=0;
-		// } 
-		// else 
-		// {
-			// POKE(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40), 32);
-			// gun_blink=1;
-		// }
-		_draw(x,y,image);
+		if(gun_blink) 
+		{
+			_draw_ch(x,y,image->_imageData, image->_color);
+			gun_blink=0;
+		} 
+		else 
+		{
+			_draw_ch(x,y,32, 0);
+			gun_blink=1;
+		}
+
 	}
 	
 	void DRAW_EXTRA_POINTS(unsigned char x, unsigned char y, Image * image) 
 	{
-		// if(extra_points_blink) 
-		// {
-			// POKE(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40),image->_imageData);
-			// extra_points_blink=0;
-		// } 
-		// else 
-		// {
-			// POKE(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40), 32);
-			// extra_points_blink=1;
-		// }
+		if(extra_points_blink) 
+		{
+			_draw_ch(x,y,image->_imageData, image->_color);
+			extra_points_blink=0;
+		} 
+		else 
+		{
+			_draw_ch(x,y,32, 0);
+			extra_points_blink=1;
+		}
 	}	
 
 	void DRAW_EXTRA_LIFE(unsigned char x, unsigned char y, Image * image) 
 	{
-		// if(extra_life_blink) 
-		// {
-			// POKE(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40),image->_imageData);
-			// extra_life_blink=0;
-		// } 
-		// else 
-		// {
-			// POKE(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40), 32);
-			// extra_life_blink=1;
-		// }
+		if(extra_life_blink) 
+		{
+			_draw_ch(x,y,image->_imageData, image->_color);
+			extra_life_blink=0;
+		} 
+		else 
+		{
+			_draw_ch(x,y,32, 0);
+			extra_life_blink=1;
+		}
 	}	
 	
 	void DRAW_INVINCIBILITY(unsigned char x, unsigned char y, Image * image) 
 	{
-		// if(invincibility_blink) 
-		// {
-			// POKE(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40),image->_imageData);
-			// invincibility_blink=0;
-		// } 
-		// else 
-		// {
-			// POKE(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40), 32);
-			// invincibility_blink=1;
-		// }
+		if(invincibility_blink) 
+		{
+			_draw_ch(x,y,image->_imageData, image->_color);
+			invincibility_blink=0;
+		} 
+		else 
+		{
+			_draw_ch(x,y,32, 0);
+			invincibility_blink=1;
+		}
 	}		
 
 	void DRAW_BLINKING_PLAYER(unsigned char x, unsigned char y, Image * image) 
 	{
-		// if(player_blink) 
-		// {
-			// POKE(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40),image->_imageData);
-			// player_blink=0;
-		// } 
-		// else 
-		// {
-			// POKE(VIDEO_MEMORY_BASE+2*((x+X_OFFSET)+(y+Y_OFFSET)*40), 32);
-			// player_blink=1;
-		// }
+		if(player_blink) 
+		{
+			_draw_ch(x,y,image->_imageData, image->_color);
+			player_blink=0;
+		} 
+		else 
+		{
+			_draw_ch(x,y,32, 0);
+			player_blink=1;
+		}
 	}	
+	
 
 	
 #endif // _VG5K_REDEFINED_CHARACTERS

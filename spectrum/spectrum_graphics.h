@@ -54,6 +54,11 @@ Image EXTRA_POINTS_IMAGE;
 Image EXTRA_LIFE_IMAGE;
 Image INVINCIBILITY_IMAGE;
 
+Image PLAYER_DOWN;
+Image PLAYER_UP;
+Image PLAYER_RIGHT;
+Image PLAYER_LEFT;
+
 #include <stdio.h>
 
 #define UDG_BASE 0xFF58
@@ -123,10 +128,10 @@ void INIT_GRAPHICS(void)
 	#endif
 	#if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SPECTRUM_UDG)
 		static const char udg_definitions[] = { 
-			 24, 36, 24,102,153, 24, 36,102, // player_down
-			 24, 60, 24,102,153, 24, 36,102,
-			 24, 52, 25,118,152, 24, 20, 20,	
-			 24, 44,152,110, 25, 24, 40, 40,
+			 24, 36, 24,102,153, 24, 36,102, // 128: player_down
+			 24, 60, 24,102,153, 24, 36,102, // 129: player_up
+			 24, 52, 25,118,152, 24, 20, 20, // 130: player_right	
+			 24, 44,152,110, 25, 24, 40, 40, // 131: player_left
 			129,126,165,129,129,189,129,126,
 			  0,  0, 15,252,252, 15,  0,  0,
 			  0,  0,240, 63, 63,240,  0,  0,
@@ -155,9 +160,12 @@ void INIT_GRAPHICS(void)
 
 	#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SPECTRUM_UDG)
 		redefine(UDG_BASE,player_down); // 0x90
-		// redefine(UDG_BASE+8,player_up);		// 0x91
-		// redefine(UDG_BASE+8*2,player_right); //0x92
-		// redefine(UDG_BASE+8*3,player_left); //0x93
+		
+		// Crashing BUG appears
+		redefine(UDG_BASE+8,player_up);		// 0x91
+		redefine(UDG_BASE+8*2,player_right); //0x92
+		redefine(UDG_BASE+8*3,player_left); //0x93
+		//
 		
 		redefine(UDG_BASE+8*4,missile_right); //0x94
 		redefine(UDG_BASE+8*5,missile_left); //0x95	
@@ -176,7 +184,6 @@ void INIT_GRAPHICS(void)
 	
 	#if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SPECTRUM_UDG)
 		memcpy(my_font, font_8x8_rom, (128-32)*8);	
-		//memcpy(&font_8x8_rom[128*8], udg_definitions, UDG_N*8);
 		memcpy(my_font+(128-32)*8, udg_definitions, UDG_N*8);
 		ioctl(1, IOCTL_OTERM_FONT, (void*)(my_font - 256));
 	#endif	
@@ -200,6 +207,10 @@ void INIT_IMAGES(void)
 		INVINCIBLE_GHOST_IMAGE._imageData = 134;
 		BOMB_IMAGE._imageData = 138;
 		PLAYER_IMAGE._imageData = 128;
+		PLAYER_DOWN._imageData = 128;
+		PLAYER_UP._imageData = 129;		
+		PLAYER_RIGHT._imageData = 130;
+		PLAYER_LEFT._imageData = 131;			
 		POWERUP_IMAGE._imageData = 136;
 		GUN_IMAGE._imageData = 135;
 		MISSILE_IMAGE._imageData = 137;
@@ -208,9 +219,10 @@ void INIT_IMAGES(void)
 		BUBBLE_IMAGE._imageData = 140;
 	#elif defined(SPECTRUM_UDG)
 		PLAYER_IMAGE._imageData = 128;
-		// 129
-		// 130
-		// 131
+		PLAYER_DOWN._imageData = 128;
+		PLAYER_UP._imageData = 129;		
+		PLAYER_RIGHT._imageData = 130;
+		PLAYER_LEFT._imageData = 131;	
 		GHOST_IMAGE._imageData = 132;		
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = 133;
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = 134;	
@@ -249,6 +261,11 @@ void INIT_IMAGES(void)
 	
 	EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 	INVINCIBILITY_IMAGE._imageData = '!';
+	
+	PLAYER_DOWN._color = COLOR_CYAN;
+	PLAYER_UP._color = COLOR_CYAN;		
+	PLAYER_RIGHT._color = COLOR_CYAN;
+	PLAYER_LEFT._color = COLOR_CYAN;	
 }
 
 

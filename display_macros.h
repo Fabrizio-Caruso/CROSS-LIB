@@ -429,6 +429,13 @@ typedef struct ImageStruct Image;
 		#define SHOW_DOWN() {}	
 
 #elif defined(__SPECTRUM__) || defined(__MSX__) || defined(__CPC__)
+	#if defined(__SPECTRUM__)
+		extern Image PLAYER_LEFT;
+		extern Image PLAYER_RIGHT;
+		extern Image PLAYER_UP;
+		extern Image PLAYER_DOWN;
+	#endif
+
 	#include <stdio.h>
 	
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
@@ -564,11 +571,17 @@ typedef struct ImageStruct Image;
 		#define DRAW_BORDERS() {};
 	#endif	
 
-
-	#define SHOW_LEFT() {}
-	#define SHOW_RIGHT() {}
-	#define SHOW_UP() {}
-	#define SHOW_DOWN() {}	
+	#if defined(__SPECTRUM__) && defined(SPECTRUM_UDG)
+		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
+		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
+		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
+		#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+	#else
+		#define SHOW_LEFT() {}
+		#define SHOW_RIGHT() {}
+		#define SHOW_UP() {}
+		#define SHOW_DOWN() {}			
+	#endif
 
 #else
 	#if defined(__C16__) || defined(__PLUS4__) || defined(__C64__)

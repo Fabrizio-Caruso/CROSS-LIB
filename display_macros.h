@@ -438,17 +438,77 @@ typedef struct ImageStruct Image;
 
 	#include <stdio.h>
 	
-	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
+	// #if defined(SPECTRUM_NATIVE_DIRECTIVES)
+		// #define DRAW_CMD {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }	
+	// #else
+		// #define DRAW_CMD {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }	
+	// #endif
+	
+	#if !defined(SPECTRUM_NATIVE_DIRECTIVES)	
+		#define DRAW_PLAYER(x,y,image)  {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }		
+		//{_draw(x,y,image);};
 
-	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
+		#define DRAW_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};
+		
+		#define DRAW_INVINCIBLE_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
+		//{_draw(x,y,image);};	
+		
+		#define DRAW_BOMB(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};	
+
+		#define DRAW_MISSILE(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};
+		
+		#define DELETE_PLAYER(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
+		// {_delete(x,y);};
+
+		#define DELETE_GHOST(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
+		//	{_delete(x,y);};
+
+		#define DELETE_INVINCIBLE_GHOST(x,y,image)   {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
+		// {_delete(x,y);};
+
+		#define DELETE_BOMB(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
+		//	{_delete(x,y);};	
+		
+		#define DELETE_MISSILE(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
+		// {_delete(x,y);};	
+	#else
+		#define DRAW_PLAYER(x,y,image)  {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }		
+		//{_draw(x,y,image);};
+
+		#define DRAW_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};
+		
+		#define DRAW_INVINCIBLE_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
+		//{_draw(x,y,image);};	
+		
+		#define DRAW_BOMB(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};	
+
+		#define DRAW_MISSILE(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};
+		
+		#define DELETE_PLAYER(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
+		// {_delete(x,y);};
+
+		#define DELETE_GHOST(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
+		//	{_delete(x,y);};
+
+		#define DELETE_INVINCIBLE_GHOST(x,y,image)   {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
+		// {_delete(x,y);};
+
+		#define DELETE_BOMB(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
+		//	{_delete(x,y);};	
+		
+		#define DELETE_MISSILE(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
+		// {_delete(x,y);};			
+	#endif
 	
+	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
+		
 	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_player_draw(x,y,image);};
-	
-	#define DRAW_GHOST(x,y,image)  {_draw(x,y,image);};
-	
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
-	
-	#define DRAW_BOMB(x,y,image)  {_draw(x,y,image);};
 	
 	#define DRAW_POWERUP(x,y,image) {_blink_powerUp_draw(x,y,image);};
 	
@@ -470,7 +530,7 @@ typedef struct ImageStruct Image;
 	void _blink_player_draw(unsigned char x, unsigned char y, Image * image);
 	
 	
-	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
+
 	
 	#define DRAW_BOMBS() \
 	{ \
@@ -481,21 +541,13 @@ typedef struct ImageStruct Image;
 		} \
 	}
 
-	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
 
-	#define DELETE_GHOST(x,y,image)  {_delete(x,y);};
 
-	#define DELETE_INVINCIBLE_GHOST(x,y,image)  {_delete(x,y);};
-
-	#define DELETE_BOMB(x,y,image)  {_delete(x,y);};
-
-	#define DELETE_POWERUP(x,y,image)  {_delete(x,y);};
+	#define DELETE_POWERUP(x,y,image) {_delete(x,y);};
 
 	#define DELETE_GUN(x,y,image)  {_delete(x,y);};
 	
 	#define DELETE_EXTRA_POINTS(x,y,image)  {_delete(x,y);};
-	
-	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
 
 	void _delete(unsigned char x,unsigned char y);
 

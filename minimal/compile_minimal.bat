@@ -46,3 +46,5 @@ cl65.exe -O -t vic20 --config %mypath%\..\cfg\vic20-16k.cfg %mypath%\display_mac
 @REM cl65.exe -O -t supervision  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\supervision.bin
 
 
+
+

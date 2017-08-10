@@ -117,6 +117,17 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 500UL
 
+#if defined(__VIC20__) || defined(__ATARI__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+	#define INITIAL_ENEMY_SLOWDOWN 31000
+#else
+	#define INITIAL_ENEMY_SLOWDOWN 28000
+#endif
+
+#if defined(__VIC20__) || defined(__ATARI__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+	#define INITIAL_SKULL_SLOWDOWN 32000
+#else
+	#define INITIAL_SKULL_SLOWDOWN 29000
+#endif
 
 // MINE DISTRIBUTION
 // LEVEL  1 -  5: Four central bombs

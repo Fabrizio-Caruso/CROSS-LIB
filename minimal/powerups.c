@@ -58,7 +58,7 @@ void computePowerUp(unsigned short *coolDownDecreasePtr, unsigned short *powerUp
 
 unsigned short computeGunInitialCoolDown(void)
 {
-	return 100 + level * 2;
+	return 180 + level * 2;
 }
 
 void reducePowerUpsCoolDowns(void)

@@ -35,22 +35,145 @@
 #include "settings.h"
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
+#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__)
 #else
 	#include <joystick.h>
+#endif
+#if defined(__SPECTRUM__)
+	#include <input.h>
+	#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+		#include <spectrum.h>
+	#endif
 #endif
 #include "display_macros.h"
 #include "invincible_enemy.h"
 
 #include "input.h"
 
+
 extern unsigned short invincibleXCountDown;
 extern unsigned short invincibleYCountDown;
-extern unsigned short playerDirection;
-extern unsigned short playerFire;
-extern unsigned short level;
+extern unsigned char playerDirection;
+extern unsigned char playerFire;
 extern Character player;
+extern Character missile;
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
+extern unsigned char ghostCount;
+
+extern unsigned char player_invincibility;
+
+extern unsigned char guns;
+
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__) && !defined(__VG5k__)
+void movePlayerByKeyboard(char kbInput)
+{
+	if(kbInput=='W')
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		--player._y;
+		invincibleYCountDown = computeInvincibleCountDown();
+		playerDirection = UP;
+		SHOW_UP();
+	}
+	else if(kbInput=='S')
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		++player._y;
+		invincibleYCountDown = computeInvincibleCountDown();
+		playerDirection = DOWN;
+		SHOW_DOWN();
+	}
+	else if(kbInput=='A')
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		--player._x;
+		invincibleXCountDown = computeInvincibleCountDown();
+		playerDirection = LEFT;
+		SHOW_LEFT();
+	}
+	else if(kbInput=='D')
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		++player._x;
+		invincibleXCountDown = computeInvincibleCountDown();
+		playerDirection = RIGHT;
+		SHOW_RIGHT();
+	}
+	#ifdef _TRAINER
+		else if(/*(kbInput=='Z') || */ (kbInput=='Z'))
+		{
+			ghostCount = 0;
+		}
+	#endif // TRAINER
+	else 	
+	if(kbInput==' ' && guns>0 && !missile._status)
+	{
+		playerFire = 1;
+	}
+	if(player_invincibility)
+	{
+		DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
+	}
+	else
+	{
+		DRAW_PLAYER(player._x, player._y, player._imagePtr);
+	}
+}
+#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__)
+void movePlayerByKeyboard(char kbInput)
+{
+	if(kbInput=='w')
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		--player._y;
+		invincibleYCountDown = computeInvincibleCountDown();
+		playerDirection = UP;
+		SHOW_UP();
+	}
+	else if(kbInput=='s')
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		++player._y;
+		invincibleYCountDown = computeInvincibleCountDown();
+		playerDirection = DOWN;
+		SHOW_DOWN();
+	}
+	else if(kbInput=='a')
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		--player._x;
+		invincibleXCountDown = computeInvincibleCountDown();
+		playerDirection = LEFT;
+		SHOW_LEFT();
+	}
+	else if(kbInput=='d')
+	{
+		DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		++player._x;
+		invincibleXCountDown = computeInvincibleCountDown();
+		playerDirection = RIGHT;
+		SHOW_RIGHT();
+	}
+	#ifdef _TRAINER
+		else if(/*(kbInput=='Z') || */ (kbInput=='z'))
+		{
+			ghostCount = 0;
+		}
+	#endif // TRAINER
+	else 	
+	if(kbInput==' ' && guns>0 && !missile._status)
+	{
+		playerFire = 1;
+	}
+	if(player_invincibility)
+	{
+		DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
+	}
+	else
+	{
+		DRAW_PLAYER(player._x, player._y, player._imagePtr);
+	}
+}
 #else
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
@@ -86,74 +209,19 @@ extern Character player;
 			playerDirection = RIGHT;
 			SHOW_RIGHT();
 		}
-		else if(JOY_BTN_FIRE(joyInput))
+		else if(JOY_BTN_FIRE(joyInput) && guns>0 && !missile._status)
 		{
 			playerFire = 1;
 		}
-		SET_TEXT_COLOR(PLAYER_COLOR);
-		DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		SET_TEXT_COLOR(TEXT_COLOR);
-	}
-#endif
-
-
-void movePlayerByKeyboard(char kbInput)
-{
-	if((kbInput=='W') || (kbInput=='w'))
-	{
-		DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		--player._y;
-		invincibleYCountDown = computeInvincibleCountDown();
-		playerDirection = UP;
-		SHOW_UP();
-		//*player._imagePtr = PLAYER_UP;
-	}
-	else if((kbInput=='S') || (kbInput=='s'))
-	{
-		DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		++player._y;
-		invincibleYCountDown = computeInvincibleCountDown();
-		playerDirection = DOWN;
-		SHOW_DOWN();
-		//*player._imagePtr = PLAYER_DOWN;
-	}
-	else if((kbInput=='A') || (kbInput=='a'))
-	{
-		DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		--player._x;
-		invincibleXCountDown = computeInvincibleCountDown();
-		playerDirection = LEFT;
-		SHOW_LEFT();
-		//*player._imagePtr = PLAYER_LEFT;
-	}
-	else if((kbInput=='D') || (kbInput=='d'))
-	{
-		DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		++player._x;
-		invincibleXCountDown = computeInvincibleCountDown();
-		playerDirection = RIGHT;
-		SHOW_RIGHT();
-		//*player._imagePtr = PLAYER_RIGHT;
-	}
-	else 	
-	if(kbInput==' ')
-	{
-		playerFire = 1;
-	}
-
-	#ifdef _TRAINER
-		else if((kbInput=='Z') || (kbInput=='z'))
+		if(player_invincibility)
 		{
-			ghostCount = 0;
-			SET_TEXT_COLOR(PLAYER_COLOR);
-			displayCharacter(playerPtr);
-			SET_TEXT_COLOR(TEXT_COLOR);
+			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
 		}
-	#endif // TRAINER
-	SET_TEXT_COLOR(PLAYER_COLOR);
-	DRAW_PLAYER(player._x, player._y, player._imagePtr);
-	SET_TEXT_COLOR(TEXT_COLOR);
-}
-
+		else
+		{
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		}
+	}	
+#endif
 
 

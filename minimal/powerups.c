@@ -36,30 +36,34 @@
 #include "powerups.h"
 
 
-extern unsigned short level;
+extern unsigned char level;
 
-extern unsigned int gunInitialCoolDown;
+extern unsigned short gunInitialCoolDown;
 
+extern unsigned short extraPointsCoolDown;
+extern unsigned short invincibilityCoolDown;
+extern unsigned short extraLifeCoolDown;
 
-int powerUpReached(Character * hunterPtr, Character* preyPtr)
+unsigned short powerUpReached(Character * hunterPtr, Character* preyPtr)
 {
 	return(areCharctersAtSamePosition(hunterPtr, preyPtr));
 }
 
 
-void computePowerUp(unsigned int *coolDownDecreasePtr, unsigned int *powerUpInitialCoolDownPtr)
+void computePowerUp(unsigned short *coolDownDecreasePtr, unsigned short *powerUpInitialCoolDownPtr)
 {
-	*coolDownDecreasePtr = 200-(level/2-1)*10;
-	*powerUpInitialCoolDownPtr = 200+(level/2-1)*10;
+	*coolDownDecreasePtr = 140-(level*2);
+	*powerUpInitialCoolDownPtr = 200+(level*2);
 }
 
-int computeGunInitialCoolDown(void)
+unsigned short computeGunInitialCoolDown(void)
 {
-	if(level<=4)
-	{
-		gunInitialCoolDown = 250;
-	}
-	else
-		gunInitialCoolDown = 250 + level * 10;
-	return gunInitialCoolDown;
+	return 100 + level * 2;
 }
+
+void reducePowerUpsCoolDowns(void)
+{
+		extraPointsCoolDown/=2;
+		invincibilityCoolDown/=2;
+		extraLifeCoolDown/=2;	
+}	

@@ -34,16 +34,16 @@
 
 #include "enemy.h"
 
-extern unsigned int ghostLevel;
-extern unsigned short level;
-extern unsigned int ghostLevelDecrease;
+extern unsigned short ghostLevel;
+extern unsigned char level;
+extern unsigned short ghostLevelDecrease;
 
-extern Character* ghosts[GHOSTS_NUMBER];
+extern Character ghosts[GHOSTS_NUMBER];
 
-unsigned int computeGhostSlowDown(void)
+unsigned short computeGhostSlowDown(void)
 {
 	if(ghostLevel<1000)
-		return 28000-level*200-ghostLevel*25;
+		return 28000-level*200-ghostLevel*16;
 	else
 		return 0;
 }
@@ -62,14 +62,6 @@ void displayGhosts(void)
 
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
-		// if(ghosts[i]->_status)
-		// {
-			// DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
-		// }
-		// else
-		// {
-			// DRAW_DEAD_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
-		// }
+		DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
 	}
 }

@@ -31,10 +31,14 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef  _SOUNDS_MACROS
+#ifndef _SOUNDS_MACROS
 #define _SOUNDS_MACROS
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_sounds.h"
+	#elif defined(__C16__) || defined(__PLUS4__)
+		#include "c264/c264_sounds.h"
+	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
+		#include "spectrum/spectrum_sounds.h"	
 	#else
 		#define EXPLOSION_SOUND() {};
 		#define PING_SOUND() {};
@@ -43,4 +47,4 @@
 		#define TOCK_SOUND() {};
 		#define ZAP_SOUND() {};
 	#endif
-#endif _SOUNDS_MACROS
+#endif // _SOUNDS_MACROS

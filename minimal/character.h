@@ -39,11 +39,12 @@
 struct CharacterStruct
 {
 	// character coordinates
-	short _x;
-	short _y;
+	unsigned char _x;
+	unsigned char _y;
 	
 	// _status decides whether the character is active
-	char _status;
+	unsigned char _status;
+	unsigned char _moved;
 	
 	Image* _imagePtr;
 };
@@ -52,66 +53,57 @@ typedef struct CharacterStruct Character;
 
 #include <stdlib.h>
 
-
-
-#include "character.h"
 #include "settings.h"
 
 #include "display_macros.h"
 
 extern unsigned long points;
-extern unsigned short innerVerticalWallX;
-extern unsigned short innerVerticalWallY;
-extern unsigned short innerVerticalWallLength;
+extern unsigned char innerVerticalWallX;
+extern unsigned char innerVerticalWallY;
+extern unsigned char innerVerticalWallLength;
 
 extern unsigned char XSize;
 extern unsigned char YSize;
 
-extern unsigned short ghostCount;
+extern unsigned char ghostCount;
 
 
-void initializeCharacter(Character* characterPtr, int x, int y, short status, Image * imagePtr);
+void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr);
 
-void setCharacterPosition(Character* characterPtr, short x, short y);
+void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y);
 
 void setCharacterDisplay(Character* characterPtr, char ch);
 
-int isCharacterAtLocation(short x, short y, Character * characterPtr);
+unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr);
 
-int areCharctersAtSamePosition(Character* lhs, Character* rhs);
+unsigned char areCharctersAtSamePosition(Character* lhs, Character* rhs);
 
-int wallReached(Character *characterPtr);
+unsigned char wallReached(Character *characterPtr);
 
 void die(Character * playerPtr);
 
-//void ghost_die(Character * playerPtr);
-
 // TODO: playerReached and playerReachedBombs should be substituted by a generic collision detection routine
-int playerReached(Character* preyPtr);
+unsigned char playerReached(Character* preyPtr);
 				  
-int playerReachedBombs(Character* ghostPtr);
+unsigned char playerReachedBombs(Character* ghostPtr);
 
+unsigned char ghostsMeetAlive(unsigned char preyIndex);
 
-int charactersMeet(unsigned char preyIndex);
+unsigned char ghostsMeetDead(unsigned char preyIndex);
 
 // TODO: check bombs routines should be substituted by a generic collision detection routine
 void checkBombsVsGhost(Character * ghostPtr);
 						
-
 void checkBombsVsGhosts(void);
 
 void checkGhostsVsGhosts(void);
 						
-						
-int safeLocation(unsigned char x, unsigned char y, Character **danger, unsigned char dangerSize);
+unsigned char safeLocation(unsigned char x, unsigned char y, Character *danger, unsigned char dangerSize);
 
+void relocateCharacter(Character * characterPtr, Character *danger, unsigned char dangerSize);
 
-void relocateCharacter(Character * characterPtr, Character **danger, unsigned char dangerSize);
+unsigned char innerWallReached(Character *characterPtr);
 
+unsigned char nearInnerWall(Character *characterPtr);
 
-short innerWallReached(Character *characterPtr);
-
-short nearInnerWall(Character *characterPtr);
-
-
-#endif
+#endif // _CHARACTER

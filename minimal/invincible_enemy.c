@@ -33,53 +33,48 @@
  
 #include "settings.h"
 #include "invincible_enemy.h"
+#include "level.h"
 
-extern unsigned short level;
-extern unsigned int loop;
+extern unsigned char level;
+extern unsigned short loop;
 
-extern unsigned int invincibleSlowDown;
+extern unsigned short invincibleSlowDown;
 extern unsigned short invincibleXCountDown;
 extern unsigned short invincibleYCountDown ;
-extern unsigned int invincibleLoopTrigger;
+extern unsigned short invincibleLoopTrigger;
 extern unsigned short invincibleGhostCountTrigger;
 
-int computeInvincibleCountDown(void)
+extern unsigned short ghostLevel;
+
+unsigned short computeInvincibleCountDown(void)
 {
-	return 100 - level*4;
+	return 90 - level*2;
 }
 
 
-int computeInvincibleSlowDown(void)
+unsigned short computeInvincibleSlowDown(void)
 {
-	if(loop<1000)
+	if(loop<1500)
 	{
-		return 28000 - (level/2) * 1000 - loop;
-	}
-	else if(loop<1100)
-	{
-		return 28000 - level * 1000 - loop;
+		return 29000 - (level/4) * 1000 - loop*2 - ghostLevel*16;
 	}
 	return 0; // You must die!
 }
 
-int computeInvincibleGhostCountTrigger(void)
+unsigned short computeInvincibleGhostCountTrigger(void)
 {
-	if(level<=6)
-		return level/2 + 3;
+	if(level<=12)
+		return level/4 + 1;
 	else
-		return 6;
+		return 4;
 }
 
-int computeInvincibleLoopTrigger(void)
+unsigned short computeInvincibleLoopTrigger(void)
 {
-	if(level==FINAL_LEVEL)
-		return 50;
-	else if (level==FINAL_LEVEL - 1)
-		return 200;
-	else if (level==FINAL_LEVEL - 2)
-		return 300;
+	if(bossLevel())
+		return 120;
 	else
-		return 500 - level*20;
+		return 700 - level*15;
 }
 
 void computeInvincibleGhostParameters(void)

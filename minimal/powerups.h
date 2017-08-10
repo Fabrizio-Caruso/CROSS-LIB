@@ -34,11 +34,11 @@
 #ifndef _POWERUPS
 #define _POWERUPS
 
+unsigned short powerUpReached(Character * hunterPtr, Character* preyPtr);
 
-int powerUpReached(Character * hunterPtr, Character* preyPtr);
+void computePowerUp(unsigned short *coolDownDecreasePtr, unsigned short *powerUpInitialCoolDownPtr);
 
-void computePowerUp(unsigned int *coolDownDecreasePtr, unsigned int *powerUpInitialCoolDownPtr);
+unsigned short computeGunInitialCoolDown(void);
 
-int computeGunInitialCoolDown(void);
-
+void reducePowerUpsCoolDowns(void);
 #endif // _POWERUPS

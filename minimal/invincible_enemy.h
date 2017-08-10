@@ -34,13 +34,13 @@
 #ifndef _INVINCIBLE_ENEMY
 #define _INVINCIBLE_ENEMY
 
-int computeInvincibleCountDown(void);
+unsigned short computeInvincibleCountDown(void);
 
-int computeInvincibleSlowDown(void);
+unsigned short computeInvincibleSlowDown(void);
 
-int computeInvincibleGhostCountTrigger(void);
+unsigned short computeInvincibleGhostCountTrigger(void);
 
-int computeInvincibleLoopTrigger(void);
+unsigned short computeInvincibleLoopTrigger(void);
 
 void computeInvincibleGhostParameters(void);
 

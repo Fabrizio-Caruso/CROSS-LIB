@@ -36,7 +36,6 @@
 
 #include "character.h"
 
-
 #if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
 	#define INIT_INPUT() unsigned char kbInput; JOY_INSTALL(); 
 #else
@@ -45,9 +44,20 @@
 
 
 // Move player
-#if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
+#if (defined (__CBM__) && !defined(__CBM610__)) || defined(__NES__) || defined(__ATARI__) || defined(__ATARIXL__)
 	#define MOVE_PLAYER() { kbInput = GET_JOY1(); movePlayerByJoystick(kbInput);}
 	void movePlayerByJoystick(unsigned char joyInput);
+#elif defined(__SPECTRUM__)
+	#include <input.h>
+	#if defined(SPECTRUM_NATIVE_DIRECTIVES)	
+		#include <spectrum.h>
+		unsigned int in_Inkey(void);
+		#define MOVE_PLAYER() { kbInput = in_Inkey(); movePlayerByKeyboard(kbInput);}
+	#else
+		unsigned int in_inkey(void);
+		#define MOVE_PLAYER() { kbInput = in_inkey(); movePlayerByKeyboard(kbInput);}
+	#endif
+	void movePlayerByKeyboard(char kbInput);
 #else
 	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}
 	void movePlayerByKeyboard(char kbInput);

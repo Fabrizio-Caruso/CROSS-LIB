@@ -36,7 +36,7 @@
 
 #include "character.h"
 
-unsigned int computeGhostSlowDown(void);
+unsigned short computeGhostSlowDown(void);
 
 void decreaseGhostLevel(void);
 

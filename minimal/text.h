@@ -44,6 +44,14 @@ void displayStatsTitles(void);
 
 void displayStats(void);
 
+void printGunsStats(void);
+
+void printLevelStats(void);
+
+void printGhostCountStats(void);
+
+void printLivesStats(void);
+
 void drawBorders(void);
 
 void setScreenColors(void);
@@ -52,7 +60,7 @@ void printCenteredMessage(char *Text);
 
 void printLevel(void);
 
-void printLevelBonus(void);
+void printLevelBonus(unsigned short bonus);
 
 void printPressKeyToStart(void);
 
@@ -67,6 +75,8 @@ void printDefeatMessage(void);
 void printStartMessage(void);
 
 void gameCompleted(void);
+
+void printExtraLife(void);
 
 void finalScore(void);
 

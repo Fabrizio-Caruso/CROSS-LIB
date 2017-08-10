@@ -42,9 +42,8 @@
 extern unsigned long points;
 extern unsigned char ghostCount;
 
-extern Character* ghosts[GHOSTS_NUMBER];
-extern Character* bombs[BOMBS_NUMBER];
-extern Character* bubbles[BUBBLES_NUMBER];
+extern Character ghosts[GHOSTS_NUMBER];
+extern Character bubbles[BUBBLES_NUMBER];
 
 extern unsigned char bubbles_x[BUBBLES_NUMBER];
 
@@ -78,7 +77,7 @@ void checkMissileVsGhosts(Character * missilePtr)
 	unsigned char i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
 	{
-		checkMissileVsGhost(missilePtr, ghosts[i]);
+		checkMissileVsGhost(missilePtr, &ghosts[i]);
 	};
 }
 	
@@ -184,12 +183,12 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 			unsigned char i;
 			for(i=0;i<BUBBLES_NUMBER;++i)
 			{
-				if(missilePtr->_x==bubbles_x[i] && bubbles[i]->_status)
+				if(missilePtr->_x==bubbles_x[i] && bubbles[i]._status)
 				{
-					bubbles[i]->_status = 0;
+					bubbles[i]._status = 0;
 					++dead_bubbles;
 					EXPLOSION_SOUND();
-					DELETE_MISSILE(bubbles[i]->_x,bubbles[i]->_y,bubbles[i]->_imagePtr);
+					DELETE_MISSILE(bubbles[i]._x,bubbles[i]._y,bubbles[i]._imagePtr);
 					DELETE_MISSILE(leftEnemyMissilePtr->_x,leftEnemyMissilePtr->_y,leftEnemyMissilePtr->_imagePtr);
 					points+=VERTICAL_MISSILE_BONUS;
 					displayStats();					

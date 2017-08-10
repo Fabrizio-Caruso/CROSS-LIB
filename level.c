@@ -79,9 +79,9 @@ extern Character extraPoints;
 extern Character extraLife;
 extern Character invincibility;
 
-extern Character* ghosts[GHOSTS_NUMBER];
-extern Character* bombs[BOMBS_NUMBER];
-extern Character* bubbles[BUBBLES_NUMBER];
+extern Character ghosts[GHOSTS_NUMBER];
+extern Character bombs[BOMBS_NUMBER];
+extern Character bubbles[BUBBLES_NUMBER];
 
 extern char bubbles_x[BUBBLES_NUMBER];
 
@@ -250,7 +250,7 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 		unsigned short chirality = rand()%2;
 		unsigned char b1x, b2x, b3x, b4x;
 		unsigned char b1y, b2y, b3y, b4y;
-		Character *dummyBombs[BOMBS_NUMBER];
+		Character dummyBombs[BOMBS_NUMBER];
 		unsigned char i;
 
 		// TODO Replace with something else
@@ -263,8 +263,8 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			for(i=0;i<BUBBLES_NUMBER;i++)
 			{
 				bubbles_x[i] = (unsigned char) (i+1)*(XSize/(BUBBLES_NUMBER+1));
-				initializeCharacter(bubbles[i],bubbles_x[i],YSize-1,1,&BUBBLE_IMAGE);
-				DRAW_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);
+				initializeCharacter(&bubbles[i],bubbles_x[i],YSize-1,1,&BUBBLE_IMAGE);
+				DRAW_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);
 			}
 		}
 
@@ -273,79 +273,79 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			nGhosts = level/8;
 		}
 
-		initializeCharacter(ghosts[0],XSize-XSize/6+rand()%3-3,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
-		DRAW_GHOST(ghosts[0]->_x, ghosts[0]->_y, ghosts[0]->_imagePtr);
+		initializeCharacter(&ghosts[0],XSize-XSize/6+rand()%3-3,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
+		//DRAW_GHOST(ghosts[0]._x, ghosts[0]._y, ghosts[0]._imagePtr);
 		
 		if(nGhosts>1)
 		{
-			initializeCharacter(ghosts[1],XSize/6+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+			initializeCharacter(&ghosts[1],XSize/6+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			initializeCharacter(ghosts[1],7,1,0,&DEAD_GHOST_IMAGE);
+			initializeCharacter(&ghosts[1],7,1,0,&DEAD_GHOST_IMAGE);
 		}
 		
 		if(nGhosts>2)
 		{
-			initializeCharacter(ghosts[2],XSize/6+rand()%3-1,YSize/2+rand()%3-2,1, &GHOST_IMAGE);
+			initializeCharacter(&ghosts[2],XSize/6+rand()%3-1,YSize/2+rand()%3-2,1, &GHOST_IMAGE);
 		}
 		else
 		{
-			initializeCharacter(ghosts[2],6,1,0, &DEAD_GHOST_IMAGE);
+			initializeCharacter(&ghosts[2],6,1,0, &DEAD_GHOST_IMAGE);
 		}
 		
 		if(nGhosts>3)
 		{
-			initializeCharacter(ghosts[3],XSize/6+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
+			initializeCharacter(&ghosts[3],XSize/6+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			initializeCharacter(ghosts[3],5,1,0,&DEAD_GHOST_IMAGE);
+			initializeCharacter(&ghosts[3],5,1,0,&DEAD_GHOST_IMAGE);
 		}
 		
 		if(nGhosts>4)
 		{
-			initializeCharacter(ghosts[4],XSize/2+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+			initializeCharacter(&ghosts[4],XSize/2+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			initializeCharacter(ghosts[4],4,1,0,&DEAD_GHOST_IMAGE);	
+			initializeCharacter(&ghosts[4],4,1,0,&DEAD_GHOST_IMAGE);	
 		}
 		
 		if(nGhosts>5)
 		{
-			initializeCharacter(ghosts[5],XSize/2+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
+			initializeCharacter(&ghosts[5],XSize/2+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			initializeCharacter(ghosts[5],3,1,0,&DEAD_GHOST_IMAGE);	
+			initializeCharacter(&ghosts[5],3,1,0,&DEAD_GHOST_IMAGE);	
 		}
 		
 		#if GHOSTS_NUMBER>=7
 		if(nGhosts>6)
 		{
-			initializeCharacter(ghosts[6],XSize-XSize/6+rand()%3-3,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+			initializeCharacter(&ghosts[6],XSize-XSize/6+rand()%3-3,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			initializeCharacter(ghosts[6],2,1,0,&DEAD_GHOST_IMAGE);	
+			initializeCharacter(&ghosts[6],2,1,0,&DEAD_GHOST_IMAGE);	
 		}
 		#endif
 		
 		#if GHOSTS_NUMBER==8
 		if(nGhosts>7)
 		{
-			initializeCharacter(ghosts[7],XSize-XSize/6+rand()%3-3,YSize/2+rand()%3-2,1,&GHOST_IMAGE);
+			initializeCharacter(&ghosts[7],XSize-XSize/6+rand()%3-3,YSize/2+rand()%3-2,1,&GHOST_IMAGE);
 		}
 		else
 		{
-			initializeCharacter(ghosts[7],1,1,0,&DEAD_GHOST_IMAGE);	
+			initializeCharacter(&ghosts[7],1,1,0,&DEAD_GHOST_IMAGE);	
 		}
 		#endif
 		
 		for(i=0;i<GHOSTS_NUMBER;++i)
 		{
-			DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
+			DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
 		}
 		
 		// Player
@@ -418,13 +418,13 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			
 			if(level>=FIRST_HARD_LEVEL)
 			{
-				initializeCharacter(bombs[0],b1x, b1y,0,&BOMB_IMAGE);
+				initializeCharacter(&bombs[0],b1x, b1y,0,&BOMB_IMAGE);
 
-				initializeCharacter(bombs[1],b2x, b2y,0,&BOMB_IMAGE);
+				initializeCharacter(&bombs[1],b2x, b2y,0,&BOMB_IMAGE);
 
-				initializeCharacter(bombs[2],b3x, b3y,0,&BOMB_IMAGE);
+				initializeCharacter(&bombs[2],b3x, b3y,0,&BOMB_IMAGE);
 
-				initializeCharacter(bombs[3],b4x, b4y,0,&BOMB_IMAGE);
+				initializeCharacter(&bombs[3],b4x, b4y,0,&BOMB_IMAGE);
 			}
 			else if(level<FIRST_HARD_LEVEL)
 			{
@@ -444,39 +444,44 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 					b3x = XSize/2+5;
 					b3y = YSize/2+5;
 				}
-				initializeCharacter(bombs[0],b1x, b1y,0,&BOMB_IMAGE);
+				initializeCharacter(&bombs[0],b1x, b1y,0,&BOMB_IMAGE);
 				
 				// TODO: Remove hard-code size of bomb list
-				dummyBombs[0] = ghosts[0];
-				dummyBombs[1] = ghosts[0];
-				dummyBombs[2] = ghosts[0];
-				dummyBombs[3] = &player;
+				dummyBombs[0]._x = ghosts[0]._x;				
+				dummyBombs[0]._y = ghosts[0]._y;
+				dummyBombs[1]._x = ghosts[0]._x;
+				dummyBombs[1]._y = ghosts[0]._y;
+				dummyBombs[2]._x = ghosts[0]._x;
+				dummyBombs[2]._y = ghosts[0]._y;
+				dummyBombs[3]._x = player._x;
+				dummyBombs[3]._y = player._y;
 				for(i=0;i<BOMBS_NUMBER;++i)
 				{	
-					relocateCharacter(bombs[0], dummyBombs,4);		
+					relocateCharacter(&bombs[0], dummyBombs,4);		
 				}
 				
 
-				initializeCharacter(bombs[2],b3x, b3y,0, &BOMB_IMAGE);
+				initializeCharacter(&bombs[2],b3x, b3y,0, &BOMB_IMAGE);
 				
 				// Keep below comments
 				//dummyBombs[0] = ghosts[0];
 				//dummyBombs[1] = ghosts[0];
-				dummyBombs[2] = bombs[0];
+				dummyBombs[2]._x = bombs[0]._x;
+				dummyBombs[2]._y = bombs[0]._y;
 				//dummyBombs[3] = &player;
 
-				relocateCharacter(bombs[2], dummyBombs,4);		
+				relocateCharacter(&bombs[2], dummyBombs,4);		
 			
 				if(level>=TWO_BOMB_START_LEVEL && level<ONE_BOMB_START_LEVEL) // only use bomb1 and bomb3 previously relocated
 				{
-					initializeCharacter(bombs[1], bombs[0]->_x, bombs[0]->_y, 0,&BOMB_IMAGE);
-					initializeCharacter(bombs[3], bombs[2]->_x, bombs[2]->_y, 0,&BOMB_IMAGE);
+					initializeCharacter(&bombs[1], bombs[0]._x, bombs[0]._y, 0,&BOMB_IMAGE);
+					initializeCharacter(&bombs[3], bombs[2]._x, bombs[2]._y, 0,&BOMB_IMAGE);
 				}
 				else if (level>=ONE_BOMB_START_LEVEL) // only use bomb1 and bomb3 previously relocated
 				{
-					initializeCharacter(bombs[2], bombs[0]->_x, bombs[0]->_y, 0,&BOMB_IMAGE);
-					initializeCharacter(bombs[1], bombs[0]->_x, bombs[0]->_y, 0,&BOMB_IMAGE);
-					initializeCharacter(bombs[3], bombs[0]->_x, bombs[0]->_y, 0,&BOMB_IMAGE);
+					initializeCharacter(&bombs[2], bombs[0]._x, bombs[0]._y, 0,&BOMB_IMAGE);
+					initializeCharacter(&bombs[1], bombs[0]._x, bombs[0]._y, 0,&BOMB_IMAGE);
+					initializeCharacter(&bombs[3], bombs[0]._x, bombs[0]._y, 0,&BOMB_IMAGE);
 				}
 				else // place bomb2 and bomb4
 				{
@@ -496,43 +501,47 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 						b4x = XSize/2+5;
 						b4y = YSize/2-5;
 					}
-					initializeCharacter(bombs[1],b2x, b2y, 0, &BOMB_IMAGE);
+					initializeCharacter(&bombs[1],b2x, b2y, 0, &BOMB_IMAGE);
 					
-					dummyBombs[0] = ghosts[0];
-					dummyBombs[1] = bombs[2];
-					dummyBombs[2] = bombs[0];
-					dummyBombs[3] = &player;
-
-					relocateCharacter(bombs[1], dummyBombs,4);		
+					dummyBombs[0]._x = ghosts[0]._y;
+					dummyBombs[1]._x = bombs[2]._y;
+					dummyBombs[2]._x = bombs[0]._y;
+					dummyBombs[3]._x = player._y;
+					dummyBombs[0]._y = ghosts[0]._y;
+					dummyBombs[1]._y = bombs[2]._y;
+					dummyBombs[2]._y = bombs[0]._y;
+					dummyBombs[3]._y = player._y;
+					relocateCharacter(&bombs[1], dummyBombs,4);		
 
 					if(level<THREE_BOMB_START_LEVEL)
 					{
-						initializeCharacter(bombs[3],b4x, b4y,0,&BOMB_IMAGE);
+						initializeCharacter(&bombs[3],b4x, b4y,0,&BOMB_IMAGE);
 						
 						// Keep below comments
-						dummyBombs[0] = bombs[1];
+						dummyBombs[0]._x = bombs[1]._x;
+						dummyBombs[0]._y = bombs[1]._y;						
 						//dummyBombs[1] = bombs[2];
 						//dummyBombs[2] = bombs[0];
 						//dummyBombs[3] = &player;
 						for(i=0;i<BOMBS_NUMBER;++i)
 						{
-							relocateCharacter(bombs[1], dummyBombs,4);
+							relocateCharacter(&bombs[1], dummyBombs,4);
 						}		
 					}
 					else
 					{
 						//initializeCharacter(bombs[3],b2x, b2y,0,&BOMB_IMAGE);
-						bombs[3]->_x = bombs[1]->_x;
-						bombs[3]->_y = bombs[1]->_y;
-						bombs[3]->_imagePtr = &BOMB_IMAGE;
+						bombs[3]._x = bombs[1]._x;
+						bombs[3]._y = bombs[1]._y;
+						bombs[3]._imagePtr = &BOMB_IMAGE;
 					}
 				}
 			}
-		} while(nearInnerWall(bombs[0]) || nearInnerWall(bombs[1]) || nearInnerWall(bombs[2]) || nearInnerWall(bombs[3]));
+		} while(nearInnerWall(&bombs[0]) || nearInnerWall(&bombs[1]) || nearInnerWall(&bombs[2]) || nearInnerWall(&bombs[3]));
 		
 		for(i=0;i<BOMBS_NUMBER;++i)
 		{
-			DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr);
+			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr);
 		}
 
 

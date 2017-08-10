@@ -83,7 +83,7 @@ unsigned char wallReached(Character *characterPtr);
 void die(Character * playerPtr);
 
 // TODO: playerReached and playerReachedBombs should be substituted by a generic collision detection routine
-char playerReached(Character* preyPtr);
+unsigned char playerReached(Character* preyPtr);
 				  
 unsigned char playerReachedBombs(Character* ghostPtr);
 
@@ -98,14 +98,12 @@ void checkBombsVsGhosts(void);
 
 void checkGhostsVsGhosts(void);
 						
-unsigned char safeLocation(unsigned char x, unsigned char y, Character **danger, unsigned char dangerSize);
+unsigned char safeLocation(unsigned char x, unsigned char y, Character *danger, unsigned char dangerSize);
 
-void relocateCharacter(Character * characterPtr, Character **danger, unsigned char dangerSize);
+void relocateCharacter(Character * characterPtr, Character *danger, unsigned char dangerSize);
 
 unsigned char innerWallReached(Character *characterPtr);
 
 unsigned char nearInnerWall(Character *characterPtr);
-
-void ghost_partition(void);
 
 #endif // _CHARACTER

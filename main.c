@@ -146,9 +146,9 @@ Character missile;
 Character leftEnemyMissile;
 Character rightEnemyMissile;
 
-Character* ghosts[GHOSTS_NUMBER];
-Character* bombs[BOMBS_NUMBER];
-Character* bubbles[BUBBLES_NUMBER];
+Character ghosts[GHOSTS_NUMBER];
+Character bombs[BOMBS_NUMBER];
+Character bubbles[BUBBLES_NUMBER];
 
 unsigned char bubbles_x[BUBBLES_NUMBER];
 
@@ -156,20 +156,20 @@ unsigned char strategyArray[GHOSTS_NUMBER];
 	
 void initializeCharacters(void)
 {
-	unsigned char i;
-	for(i=0;i<GHOSTS_NUMBER;++i)
-	{	
-		ghosts[i] = (Character *) malloc(sizeof(Character));
-	}
-	for(i=0;i<BOMBS_NUMBER;++i)
-	{
-		bombs[i] = (Character *) malloc(sizeof(Character));
-	}
+	// unsigned char i;
+	// for(i=0;i<GHOSTS_NUMBER;++i)
+	// {	
+		// ghosts[i] = (Character *) malloc(sizeof(Character));
+	// }
+	// for(i=0;i<BOMBS_NUMBER;++i)
+	// {
+		// bombs[i] = (Character *) malloc(sizeof(Character));
+	// }
 	
-	for(i=0;i<BUBBLES_NUMBER;++i)
-	{
-		bubbles[i] = (Character *) malloc(sizeof(Character));
-	}
+	// for(i=0;i<BUBBLES_NUMBER;++i)
+	// {
+		// bubbles[i] = (Character *) malloc(sizeof(Character));
+	// }
 }
 
 void handle_missile()
@@ -729,9 +729,9 @@ int main(void)
 
 					for(i=0;i<BUBBLES_NUMBER;++i)
 					{
-						if(bubbles[i]->_status)
+						if(bubbles[i]._status)
 						{
-							if(!player_invincibility && areCharctersAtSamePosition(&player,bubbles[i]))
+							if(!player_invincibility && areCharctersAtSamePosition(&player,&bubbles[i]))
 							{
 								EXPLOSION_SOUND();
 								die(&player);
@@ -741,18 +741,18 @@ int main(void)
 							
 							if(rand()%2)
 							{
-								DELETE_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);					
-								--(bubbles[i]->_y);
+								DELETE_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);					
+								--(bubbles[i]._y);
 							}
 
-							DRAW_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);			
-							if(bubbles[i]->_y<=1)
+							DRAW_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);			
+							if(bubbles[i]._y<=1)
 							{	
 								//bubbles[i]->_status = 0;
-								DELETE_MISSILE(bubbles[i]->_x, bubbles[i]->_y, bubbles[i]->_imagePtr);
+								DELETE_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);
 								//
-								bubbles[i]->_x = (i+1)*(XSize/(BUBBLES_NUMBER+1));
-								bubbles[i]->_y = YSize-2;							
+								bubbles[i]._x = (i+1)*(XSize/(BUBBLES_NUMBER+1));
+								bubbles[i]._y = YSize-2;							
 							}
 						}
 					}
@@ -828,7 +828,13 @@ int main(void)
 					}
 				}
 				
-				MOVE_PLAYER();
+				//TODO: Remove this DEBUG lines
+				#if defined(__VG5K__)
+					sleep(1);
+					DRAW_PLAYER(player._x, player._y, player._imagePtr);
+				#else
+					MOVE_PLAYER();
+				#endif
 				
 				handle_missile();
 			

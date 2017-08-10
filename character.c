@@ -61,8 +61,8 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
-extern Character* ghosts[GHOSTS_NUMBER];
-extern Character* bombs[BOMBS_NUMBER];
+extern Character ghosts[GHOSTS_NUMBER];
+extern Character bombs[BOMBS_NUMBER];
 
 void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr)
 {
@@ -107,7 +107,7 @@ unsigned char playerReached(Character* preyPtr)
 	unsigned char i=0;
 	for(;i<GHOSTS_NUMBER;++i)
 	{
-		if(areCharctersAtSamePosition(ghosts[i],preyPtr))
+		if(areCharctersAtSamePosition(&ghosts[i],preyPtr))
 			return 1;
 	}
 	return 0;
@@ -118,7 +118,7 @@ unsigned char playerReachedBombs(Character* preyPtr)
 	unsigned char i=0;
 	for(;i<BOMBS_NUMBER;++i)
 	{
-		if(areCharctersAtSamePosition(bombs[i],preyPtr))
+		if(areCharctersAtSamePosition(&bombs[i],preyPtr))
 			return 1;
 	}
 	return 0;
@@ -147,30 +147,30 @@ void checkBombsVsGhosts(void)
 	unsigned char i;
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	  {
-		 checkBombsVsGhost(ghosts[i]);
+		 checkBombsVsGhost(&ghosts[i]);
 	  }
 }
 
 // TODO: To be replaced with something cleaner
 // also used with things different from global bombs
-unsigned char safeLocation(unsigned char x, unsigned char y, Character **danger, unsigned char dangerSize)
+unsigned char safeLocation(unsigned char x, unsigned char y, Character *dangerPtr, unsigned char dangerSize)
 {
 	char i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
 	{
-		if(isCharacterAtLocation(x,y,ghosts[i]))
+		if(isCharacterAtLocation(x,y,&ghosts[i]))
 			return 0;
 	}
 	for(i=0;i<dangerSize;++i)
 	{
-		if(isCharacterAtLocation(x,y,danger[i]))
+		if(isCharacterAtLocation(x,y,&dangerPtr[i]))
 			return 0;
 	}
 	return 1;
 }
 
 
-void relocateCharacter(Character * characterPtr, Character **danger, unsigned char dangerSize)
+void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned char dangerSize)
 {
 	unsigned char x; // = 0; 
 	unsigned char y; // = 0; 
@@ -195,7 +195,7 @@ void relocateCharacter(Character * characterPtr, Character **danger, unsigned ch
 		if((y<2) || (y>YSize-2)) // Avoid horizontal outer wall 
 			continue;
 		
-		safe = safeLocation(x,y,danger, dangerSize);
+		safe = safeLocation(x,y,dangerPtr, dangerSize);
 	} while(!safe);
 	characterPtr->_x = x;
 	characterPtr->_y = y;
@@ -222,23 +222,23 @@ unsigned char ghostsMeetAlive(unsigned char preyIndex)
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
 		if((i!=preyIndex) && // not itself
-		   ghosts[i]->_status && // ghost-ghost collision possible (we assume ghosts[preyindex] is alive and has moved)
-		   areCharctersAtSamePosition(ghosts[i],ghosts[preyIndex])) 
+		   ghosts[i]._status && // ghost-ghost collision possible (we assume ghosts[preyindex] is alive and has moved)
+		   areCharctersAtSamePosition(&ghosts[i],&ghosts[preyIndex])) 
 			return 1;
 	}
 	return 0;
 }
 
 // Check whether an alive ghost meets another dead ghost (transformed into a bomb)
-char ghostsMeetDead(unsigned char preyIndex)
+unsigned char ghostsMeetDead(unsigned char preyIndex)
 {
 	short i;
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
 		if((i!=preyIndex) && // not itself
-		    !(ghosts[i]->_status) && // ghost[i] is dead (transformed into a bomb) 
-		    areCharctersAtSamePosition(ghosts[i],ghosts[preyIndex])) 
+		    !(ghosts[i]._status) && // ghost[i] is dead (transformed into a bomb) 
+		    areCharctersAtSamePosition(&ghosts[i],&ghosts[preyIndex])) 
 			return 1;
 	}
 	return 0;
@@ -254,18 +254,18 @@ void checkGhostsVsGhosts()
 		{
 			for(i=0;i<GHOSTS_NUMBER;++i)
 			{	
-				peek = PEEK(0xBB80+(ghosts[i]->_x+2)+(ghosts[i]->_y+3)*40);
-				if(ghosts[i]->_status && ghosts[i]->_moved && (peek==GHOST_IMAGE._imageData || peek == DEAD_GHOST_IMAGE._imageData + 128))
+				peek = PEEK(0xBB80+(ghosts[i]._x+2)+(ghosts[i]._y+3)*40);
+				if(ghosts[i]._status && ghosts[i]._moved && (peek==GHOST_IMAGE._imageData || peek == DEAD_GHOST_IMAGE._imageData + 128))
 				{
 					EXPLOSION_SOUND();
 					for(j=0;j<GHOSTS_NUMBER;j++)
 					{
-						if((ghosts[j]->_status) && (ghosts[j]->_x==ghosts[i]->_x) && (ghosts[j]->_y==ghosts[i]->_y))
+						if((ghosts[j]._status) && (ghosts[j]._x==ghosts[i]._x) && (ghosts[j]._y==ghosts[i]._y))
 						{
-							die(ghosts[j]);
+							die(&ghosts[j]);
 							points+=GHOST_VS_GHOST_BONUS;
 							displayStats();
-							ghosts[j]->_imagePtr = &DEAD_GHOST_IMAGE;
+							ghosts[j]._imagePtr = &DEAD_GHOST_IMAGE;
 							--ghostCount;
 							printGhostCountStats();
 						}
@@ -276,14 +276,14 @@ void checkGhostsVsGhosts()
 		// alive vs dead (ghost transformed into a bomb) collision
 		for(i=0;i<GHOSTS_NUMBER;++i)
 		{	
-			peek = PEEK(0xBB80+(ghosts[i]->_x+2)+(ghosts[i]->_y+3)*40);
-			if(ghosts[i]->_status && ghosts[i]->_moved && (peek == DEAD_GHOST_IMAGE._imageData + 128))
+			peek = PEEK(0xBB80+(ghosts[i]._x+2)+(ghosts[i]._y+3)*40);
+			if(ghosts[i]._status && ghosts[i]._moved && (peek == DEAD_GHOST_IMAGE._imageData + 128))
 			{
 				EXPLOSION_SOUND();
-				die(ghosts[i]);
+				die(&ghosts[i]);
 				points+=GHOST_VS_GHOST_BONUS;
 				displayStats();
-				ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
+				ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
 				--ghostCount;	
 				printGhostCountStats();
 			}
@@ -297,14 +297,14 @@ void checkGhostsVsGhosts()
 	{
 		for(i=0;i<GHOSTS_NUMBER;++i)
 		{
-			if(ghosts[i]->_moved)
+			if(ghosts[i]._moved)
 			{
 				if(ghostsMeetAlive(i))
 				{
 					EXPLOSION_SOUND();
-					ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
-					DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
-					die(ghosts[i]);
+					ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
+					DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
+					die(&ghosts[i]);
 					points+=GHOST_VS_GHOST_BONUS;
 					displayStats();
 					--ghostCount;
@@ -317,14 +317,14 @@ void checkGhostsVsGhosts()
 	// Check whether an alive ghosts meet another dead ghost (including a ghost converted into a bomb in the previous loop)
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		if(ghosts[i]->_status)
+		if(ghosts[i]._status)
 		{
 			if(ghostsMeetDead(i))
 			{
 				EXPLOSION_SOUND();
-				ghosts[i]->_imagePtr = &DEAD_GHOST_IMAGE;
-				DRAW_GHOST(ghosts[i]->_x, ghosts[i]->_y, ghosts[i]->_imagePtr);
-				die(ghosts[i]);
+				ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
+				DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
+				die(&ghosts[i]);
 				points+=GHOST_VS_GHOST_BONUS;
 				displayStats();
 				--ghostCount;
@@ -335,27 +335,4 @@ void checkGhostsVsGhosts()
 	#endif
 }
 
-void ghost_partition()
-{
-	short left = 0;
-	short right = GHOSTS_NUMBER - 1;
-	Character * aux;
-	
-	if(ghostCount!=0)
-		while(left < right)
-		{
-			while((ghosts[left]->_status==1) && (left<GHOSTS_NUMBER))
-				++left;
-			while((ghosts[right]->_status==0) && (right>=0))
-				--right;
-			if(left<right)
-			{
-				aux = ghosts[left];
-				ghosts[left] = ghosts[right];
-				ghosts[right] = aux;
-				++left;
-				--right;
-			}
-		}
-}
 

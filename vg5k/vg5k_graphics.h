@@ -75,7 +75,7 @@
 	void INIT_IMAGES(void)
 	{		
 		
-		PLAYER_DOWN._color = 1;		
+		PLAYER_IMAGE._color = 1;		
 		GHOST_IMAGE._color = 1;
 		MISSILE_IMAGE._color = 1;
 		INVINCIBLE_GHOST_IMAGE._color = 1;
@@ -120,13 +120,14 @@
 			POKE(VIDEO_MEMORY_BASE+80*i,32);
 			POKE(VIDEO_MEMORY_BASE+1+80*i,1);
 		}	
+		POKE(0x47FD,0);
 	}
 
 	int _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 	{
 		int xy = 0;
 		int chCol = 0;
-		xy = (y<<8) | x;
+		xy = ((y+8+Y_OFFSET)<<8) | (x+X_OFFSET);
 		chCol = (ch<<8) | col;
 		return _draw_ch_aux(chCol,xy);
 	}
@@ -134,6 +135,8 @@
 	int _draw_ch_aux(int chCol, int xy)
 	{
 		#asm
+		di
+		
 		pop bc   ; bc = ret address
 		pop hl   ; hl = int b
 		pop de  ; de = int a
@@ -143,26 +146,20 @@
 		push bc
 		
 		call 0x0092	
+		
+		ei
 		#endasm
 	}
 	
-	// unsigned short location(unsigned char x, unsigned char y)
-	// {
-		// return VIDEO_MEMORY_BASE+ 2*((x+X_OFFSET)+(y+Y_OFFSET)*40);
-	// }
 	
 	void _draw(unsigned char x,unsigned char y,Image * image) 
 	{
 		_draw_ch(x,y,image->_imageData, image->_color);
-		// gotoxy(x,y);
-		// cputc('A');
 	}
 
 	void _delete(unsigned char x, unsigned char y)  
 	{
 		_draw_ch(x,y,32, 0);	
-		// gotoxy(x,y);
-		// cputc(' ');
 	}
 	
 

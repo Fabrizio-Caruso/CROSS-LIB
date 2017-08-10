@@ -41,8 +41,7 @@ extern unsigned char ghostCount;
 extern unsigned short invincibleSlowDown;
 
 extern Character player; 
-extern Character* ghosts[GHOSTS_NUMBER];
-extern Character* bombs[BOMBS_NUMBER];
+extern Character ghosts[GHOSTS_NUMBER];
 
 extern unsigned char strategyArray[GHOSTS_NUMBER];
 
@@ -199,15 +198,15 @@ void chasePlayer(unsigned short slowDown)
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		if((ghosts[i]->_status) && (rand()>slowDown))
+		if((ghosts[i]._status) && (rand()>slowDown))
 		{
-			ghosts[i]->_moved = 1;
-			DELETE_GHOST(ghosts[i]->_x,ghosts[i]->_y,ghosts[i]->_imagePtr);
-			moveTowardCharacter(ghosts[i], &player, strategyArray[i]);
+			ghosts[i]._moved = 1;
+			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
+			moveTowardCharacter(&ghosts[i], &player, strategyArray[i]);
 		}
 		else
 		{
-			ghosts[i]->_moved = 0;
+			ghosts[i]._moved = 0;
 		}
 	}
 }

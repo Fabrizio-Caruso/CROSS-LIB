@@ -56,17 +56,17 @@ unsigned short computeInvincibleSlowDown(void)
 {
 	if(loop<1500)
 	{
-		return 29000 - (level/4) * 1000 - loop*2 - ghostLevel*16;
+		return INITIAL_SKULL_SLOWDOWN - (level/4) * 1000 - loop*2 - ghostLevel*16;
 	}
 	else if(loop<2000)
 	{
 		if(!bossLevel())
 		{
-			return 26000 - (level/4) * 1000;
+			return INITIAL_SKULL_SLOWDOWN - 2000 - (level/4) * 1000;
 		}
 		else
 		{
-			return 26000 - (level/4) * 1000 - ghostLevel*16;
+			return INITIAL_SKULL_SLOWDOWN - 2000 - (level/4) * 1000 - ghostLevel*16;
 		}
 	}
 	return 0; // You must die!

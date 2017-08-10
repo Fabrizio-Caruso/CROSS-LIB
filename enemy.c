@@ -33,6 +33,7 @@
  
 
 #include "enemy.h"
+#include "settings.h"
 
 extern unsigned short ghostLevel;
 extern unsigned char level;
@@ -43,7 +44,7 @@ extern Character ghosts[GHOSTS_NUMBER];
 unsigned short computeGhostSlowDown(void)
 {
 	if(ghostLevel<1000)
-		return 28000-level*200-ghostLevel*16;
+		return INITIAL_ENEMY_SLOWDOWN-level*200-ghostLevel*16;
 	else
 		return 0;
 }

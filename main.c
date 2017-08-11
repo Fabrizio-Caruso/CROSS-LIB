@@ -226,7 +226,7 @@ void handle_missile()
 				DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
 				invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
 				invincibleGhostAlive = 0;
-				for(i=0;i<7;++i)
+				for(i=0;i<4;++i)
 					EXPLOSION_SOUND();
 				points+=INVINCIBLE_GHOST_POINTS;
 				if(missileLevel())

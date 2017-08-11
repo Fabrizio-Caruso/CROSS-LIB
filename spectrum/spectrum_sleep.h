@@ -3,8 +3,8 @@
 
 void sleep(unsigned int sec) 
 { 
-	unsigned long i; 
-	for(i=0;i<sec*400UL;++i){}; 
+	unsigned int i; 
+	for(i=0;i<sec*20000;++i){}; 
 } 
 
 #endif // _SPECTRUM_SLEEP

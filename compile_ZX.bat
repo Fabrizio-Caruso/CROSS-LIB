@@ -41,8 +41,8 @@ cd %mypath%\
 @REM zcc +zx -DDEBUG_CHARACTERS -vn -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -lmalloc -lndos -create-app -o %deliverables%\ZXSpectrum_32col_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 @REM del %deliverables%\ZXSpectrum_32col_experimental.prg
 
-@REM 
-zcc +zx -vn -startup=1 -clib=sdcc_iy experiments\testBUG.c -o %deliverables%\testBUG -create-app
+@REM DEBUGGING
+@REM zcc +zx -vn -startup=1 -clib=sdcc_iy experiments\testBUG.c -o %deliverables%\testBUG -create-app
 
 @REM WORKING but with problematic input and not outer wall - FAST KEYBOARD INPUT
 @REM optimize with:  -SO3 --max-allocs-per-node200000

@@ -553,13 +553,17 @@ void printStartMessage(void)
 		cputc('S');
 		cputc(' ');		
 		cputc('E'); 
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+	#elif defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINT(0, YSize / 2 - 9, "C R O S S  C H A S E");
+		#if defined(__VIC20__)
+			PRINT(1, YSize / 2 - 9, "C R O S S  C H A S E");
+		#else
+			PRINT(0, YSize / 2 - 9, "C R O S S  C H A S E");			
+		#endif
 		SET_TEXT_COLOR(TEXT_COLOR);
 		
 		SET_TEXT_COLOR(COLOR_RED);
-		PRINT(0, YSize / 2 - 7,  "by fabrizio caruso");	
+		PRINT(1, YSize / 2 - 7,  "by fabrizio caruso");	
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINT((XSize - 22) / 2, YSize / 2 - 9, "C R O S S  C H A S E");
@@ -575,16 +579,26 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_BLUE);
 	#endif // __PLUS4__
 
-	#if defined(__VIC20__)|| ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
-		PRINT(0, YSize / 2 - 3, "you are chased by O");
+	#if defined(__VIC20__) 
+		PRINT(1, YSize / 2 - 3, "You are chased by O");
 		
-		PRINT(0, YSize / 2 - 2, "force O into X");
+		PRINT(1, YSize / 2 - 2, "Force O into X");
 		
-		PRINT(0, YSize / 2 - 1, "S to slows O down");
+		PRINT(1, YSize / 2 - 1, "S to slows O down");
 		
-		PRINT(0, YSize / 2, "Catch ! for bullets");
+		PRINT(1, YSize / 2, "Catch ! for bullets");
 		
-		PRINT(0, YSize / 2 + 1, "flee from +!");
+		PRINT(1, YSize / 2 + 1, "Flee from +!");
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+		PRINT(1, YSize / 2 - 3, "you are chased by O");
+		
+		PRINT(1, YSize / 2 - 2, "force O into X");
+		
+		PRINT(1, YSize / 2 - 1, "S to slows O down");
+		
+		PRINT(1, YSize / 2, "catch ! for bullets");
+		
+		PRINT(1, YSize / 2 + 1, "Flee from +!");		
 	#elif defined(__PET__) || defined(__CBM610__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE))
 		PRINT(22, YSize / 2 - 3, "You * are chased by O. Force O into X");
 		
@@ -638,8 +652,8 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__VIC20__)
 		SET_TEXT_COLOR(COLOR_GREEN);
-		PRINT(0, YSize / 2 + 4, "Use the Joystick");
-		SET_TEXT_COLOR(TEXT_COLOR);
+		PRINT(1, YSize / 2 + 4, "Use the Joystick");
+		SET_TEXT_COLOR(TEXT_COLOR);	
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__SPECTRUM__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use W A S D <SPACE>");
 	#elif defined(__ATMOS__) 
@@ -654,7 +668,7 @@ void printStartMessage(void)
 		gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
 		gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINT(0, YSize / 2 + 4, "use the joystick");
+		PRINT(1, YSize / 2 + 4, "use the joystick");
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 	#endif

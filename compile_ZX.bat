@@ -46,7 +46,7 @@ cd %mypath%\
 @REM -DDEBUG_CHARACTERS
 @REM -DDEBUG_SOUNDS
 @REM
-zcc +zx -SO3 --max-allocs-per-node200000 -startup=1 -clib=sdcc_iy -vn -DSPECTRUM_UDG -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
+zcc +zx -startup=1 -clib=sdcc_iy -vn -DSPECTRUM_UDG -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 @REM 
 del %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental.prg
 @REM 

@@ -554,9 +554,12 @@ void printStartMessage(void)
 		cputc(' ');		
 		cputc('E'); 
 	#elif defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
-		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINT(1, YSize / 2 - 9, "C R O S S  C H A S E");
-		SET_TEXT_COLOR(TEXT_COLOR);
+		SET_TEXT_COLOR(TEXT_COLOR);		
+		#if defined(__VIC20__)
+			PRINT(1, YSize / 2 - 9, "C R O S S  C H A S E");
+		#else
+			PRINT(0, YSize / 2 - 9, "C R O S S  C H A S E");			
+		#endif
 		
 		SET_TEXT_COLOR(COLOR_RED);
 		PRINT(1, YSize / 2 - 7,  "by fabrizio caruso");	
@@ -575,7 +578,11 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_BLUE);
 	#endif // __PLUS4__
 
-	#if defined(__VIC20__)|| ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
+	#if defined(__VIC20__)
+		PRINT(1, YSize / 2 - 3, "You are chased by O");
+		
+		PRINT(1, YSize / 2 - 2, "Force O into X");	
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINT(1, YSize / 2 - 3, "you are chased by O");
 		
 		PRINT(1, YSize / 2 - 2, "force O into X");

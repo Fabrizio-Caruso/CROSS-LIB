@@ -369,6 +369,7 @@ void handle_extraLife_item()
 			++lives;
 			extraLife._status = 0;	
 			extraLifeCoolDown = EXTRA_LIFE_COOL_DOWN*2; // second time is harder
+			printLivesStats();
 		}
 		else
 		{
@@ -717,6 +718,7 @@ int main(void)
 					++extraLifeThroughPointsCounter;
 					PING_SOUND();
 					++lives;
+					printLivesStats();
 				}
 				
 				ghostSlowDown = computeGhostSlowDown();

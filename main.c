@@ -632,8 +632,7 @@ int main(void)
 		initialScreen();
 		WAIT_PRESS()
 		CLEAR_SCREEN();
-		// TODO: Bogus but necessary for Spectrum??
-		CLEAR_SCREEN();
+
 		highScoreScreen();
 
 		WAIT_PRESS();
@@ -708,6 +707,12 @@ int main(void)
 	
 			while(player._status && ((ghostCount>0 && !bossLevel()) || (invincibleGhostAlive && bossLevel()))) // while alive && there are still ghosts
 			{
+				#if defined(SLOW_DOWN)
+					unsigned char i;
+					for(i=0;i<GAME_SLOW_DOWN;++i)
+					{
+					}
+				#endif
 				++loop;
 				
 				if(player_invincibility && playerInvincibilityCoolDown<=0)

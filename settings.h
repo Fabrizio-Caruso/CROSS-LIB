@@ -39,7 +39,12 @@
 #define C64_HARDWARE_SPRITES 0
 #define C64_REDEFINED_CHARACTERS 0
 
-
+#if defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 200
+#else
+	#define GAME_SLOW_DOWN 0
+#endif
 
 #define FAST_NONEXACT_COLLISION_DECTION
 

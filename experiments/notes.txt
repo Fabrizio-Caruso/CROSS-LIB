@@ -163,3 +163,11 @@ _debut:
 					//sleep(1);
 					++lives;
 
+How can I avoid prototyping
+unsigned int in_inkey(void) in my code, which is using a macro, (in my own input.h file):
+unsigned int in_inkey(void);
+#define MOVE_PLAYER() {kbInput = in_inkey(); movePlayerByKeyboard(kbInput)} ;
+
+My code is including input.h in multiple files including my own input.h and my main.c.
+
+If I remove the prototype I get in_inkey is not found and the compiler "suggests" to prototype it.

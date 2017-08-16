@@ -57,9 +57,9 @@
 		#endif
 	#endif
 	
-	#if !defined(__SPECTRUM__)
-		#define IF_KEYBOARD_HIT if(kbhit()) 
-	#endif
+	// #if !defined(__SPECTRUM__)
+		// #define IF_KEYBOARD_HIT if(kbhit()) 
+	// #endif
 
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_input.h"

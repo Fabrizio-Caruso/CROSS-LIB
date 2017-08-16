@@ -71,7 +71,7 @@ bit_fx4(7)	Very quick duck squeak
 #define __SPECTRUM_SOUNDS
 	#include <sound.h>
 	
-	void bit_fx(void (*bfx)(void));
+	//void bit_fx(void (*bfx)(void));
 	#define SHOOT_SOUND() bit_fx(bitfx_1);	
 	#define ZAP_SOUND() bit_fx(bitfx_7);	
 	#if defined(DEBUG_CRASH)	

@@ -38,8 +38,10 @@
 
 #if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
 	#define INIT_INPUT() unsigned char kbInput; JOY_INSTALL(); 
-#else
+#elif !defined(__SPECTRUM__)
 	#define INIT_INPUT() unsigned char kbInput;
+#else
+	#define INIT_INPUT()
 #endif
 
 
@@ -51,16 +53,20 @@
 	#include <input.h>
 	#if defined(SPECTRUM_NATIVE_DIRECTIVES)	
 		#include <spectrum.h>
+		void movePlayerByKeyboard(char kbInput);		
+		// TODO: Remove this prototype
 		unsigned int in_Inkey(void);
-		#define MOVE_PLAYER() { kbInput = in_Inkey(); movePlayerByKeyboard(kbInput);}
+		#define MOVE_PLAYER() {movePlayerByKeyboard(in_Inkey());}
 	#else
-		unsigned int in_inkey(void);
-		#define MOVE_PLAYER() { kbInput = in_inkey(); movePlayerByKeyboard(kbInput);}
+		#include<input.h>
+		void movePlayerByKeyboard(char kbInput);
+		unsigned int in_inkey(void);		
+		// TODO: Remove this prototype
+		#define MOVE_PLAYER() {movePlayerByKeyboard(in_inkey());}		
 	#endif
-	void movePlayerByKeyboard(char kbInput);
 #else
-	#define MOVE_PLAYER() IF_KEYBOARD_HIT { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}
 	void movePlayerByKeyboard(char kbInput);
+	#define MOVE_PLAYER() if(kbhit()) { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}
 #endif
 
 

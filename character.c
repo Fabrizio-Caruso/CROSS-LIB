@@ -180,19 +180,15 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 	do
 	{
 		// TODO: This should be separated (at least partially) and moved into display_macros
-		x_offset = rand() % 7;
-		y_offset = rand() % 7;
+		x_offset = rand() % 5;
+		y_offset = rand() % 5;
 		if((x_offset==0) && (y_offset==0))
 			continue;
-		x = characterPtr->_x -3 + x_offset; 
-		y = characterPtr->_y -3 + y_offset;
+		x = characterPtr->_x -2 + x_offset; 
+		y = characterPtr->_y -2 + y_offset;
 		
 		// TODO: This check should be separated and moved into display_macros
-		if(y<=3) // Avoid score line
-			continue;
-		if((x<2) || (x>XSize-2)) // Avoid vertical outer wall
-			continue;
-		if((y<2) || (y>YSize-2)) // Avoid horizontal outer wall 
+		if((x<2) || (x>XSize-2) || (y<=2) || (y>YSize-2))
 			continue;
 		
 		safe = safeLocation(x,y,dangerPtr, dangerSize);
@@ -244,6 +240,18 @@ unsigned char ghostsMeetDead(unsigned char preyIndex)
 	return 0;
 }
 
+void ghostVsGhostCollision(Character * ghostPtr)
+{
+	EXPLOSION_SOUND();
+	ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
+	DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
+	die(ghostPtr);
+	points+=GHOST_VS_GHOST_BONUS;
+	displayStats();
+	--ghostCount;
+	printGhostCountStats();
+}
+
 
 void checkGhostsVsGhosts()
 {
@@ -279,13 +287,14 @@ void checkGhostsVsGhosts()
 			peek = PEEK(0xBB80+(ghosts[i]._x+2)+(ghosts[i]._y+3)*40);
 			if(ghosts[i]._status && ghosts[i]._moved && (peek == DEAD_GHOST_IMAGE._imageData + 128))
 			{
-				EXPLOSION_SOUND();
-				die(&ghosts[i]);
-				points+=GHOST_VS_GHOST_BONUS;
-				displayStats();
-				ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
-				--ghostCount;	
-				printGhostCountStats();
+				// EXPLOSION_SOUND();
+				// die(&ghosts[i]);
+				// points+=GHOST_VS_GHOST_BONUS;
+				// displayStats();
+				// ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
+				// --ghostCount;	
+				// printGhostCountStats();
+				ghostVsGhostCollision(&ghosts[i]);			
 			}
 		}
 	#else
@@ -301,14 +310,15 @@ void checkGhostsVsGhosts()
 			{
 				if(ghostsMeetAlive(i))
 				{
-					EXPLOSION_SOUND();
-					ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
-					DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
-					die(&ghosts[i]);
-					points+=GHOST_VS_GHOST_BONUS;
-					displayStats();
-					--ghostCount;
-					printGhostCountStats();
+					// EXPLOSION_SOUND();
+					// ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
+					// DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
+					// die(&ghosts[i]);
+					// points+=GHOST_VS_GHOST_BONUS;
+					// displayStats();
+					// --ghostCount;
+					// printGhostCountStats();
+					ghostVsGhostCollision(&ghosts[i]);					
 				}
 			}
 		}
@@ -334,5 +344,4 @@ void checkGhostsVsGhosts()
 	}
 	#endif
 }
-
 

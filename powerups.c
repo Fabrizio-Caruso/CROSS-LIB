@@ -40,6 +40,9 @@ extern unsigned char level;
 
 extern unsigned short gunInitialCoolDown;
 
+extern unsigned short extraPointsCoolDown;
+extern unsigned short invincibilityCoolDown;
+extern unsigned short extraLifeCoolDown;
 
 unsigned short powerUpReached(Character * hunterPtr, Character* preyPtr)
 {
@@ -60,4 +63,11 @@ unsigned short computeGunInitialCoolDown(void)
 	else
 		gunInitialCoolDown = 100 + level * 2;
 	return gunInitialCoolDown;
+}
+
+void reducePowerUpsCoolDowns(void)
+{
+                extraPointsCoolDown/=2;
+                invincibilityCoolDown/=2;
+                extraLifeCoolDown/=2;
 }

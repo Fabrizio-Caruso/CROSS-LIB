@@ -54,8 +54,11 @@
 	#define GHOSTS_NUMBER 8
 #endif
 	
-
-#define BUBBLES_NUMBER 4
+#if defined(__SPECTRUM__) || defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+	#define BUBBLES_NUMBER 2
+#else
+	#define BUBBLES_NUMBER 4
+#endif
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 3

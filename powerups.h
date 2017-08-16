@@ -40,4 +40,5 @@ void computePowerUp(unsigned short *coolDownDecreasePtr, unsigned short *powerUp
 
 unsigned short computeGunInitialCoolDown(void);
 
+void reducePowerUpsCoolDowns(void);
 #endif // _POWERUPS

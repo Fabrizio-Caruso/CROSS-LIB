@@ -196,9 +196,10 @@ void handle_missile()
 				die(&missile);
 				DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 				restoreMissile(&missile);
-				extraPointsCoolDown/=2;
-				extraLifeCoolDown/=2;
-				invincibilityCoolDown/=2;
+				// extraPointsCoolDown/=2;
+				// extraLifeCoolDown/=2;
+				// invincibilityCoolDown/=2;
+				reducePowerUpsCoolDowns();
 				++invincibleGhostHits;
 				decreaseGhostLevel();
 				DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
@@ -218,9 +219,10 @@ void handle_missile()
 			die(&missile);
 			DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
 			restoreMissile(&missile);
-			extraPointsCoolDown/=2;
-			extraLifeCoolDown/=2;
-			invincibilityCoolDown/=2;
+			// extraPointsCoolDown/=2;
+			// extraLifeCoolDown/=2;
+			// invincibilityCoolDown/=2;
+			reducePowerUpsCoolDowns();			
 			++invincibleGhostHits;
 			decreaseGhostLevel();
 			
@@ -235,8 +237,6 @@ void handle_missile()
 				for(i=0;i<4;++i)
 					EXPLOSION_SOUND();
 				points+=INVINCIBLE_GHOST_POINTS;
-				if(missileLevel())
-					points+=INVINCIBLE_GHOST_POINTS;
 				displayStats();
 			}
 			else

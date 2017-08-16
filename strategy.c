@@ -108,6 +108,7 @@ void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, unsigned char
 void computeStrategy(void)
 {
 	char i;
+#if !defined(SIMPLE_STRATEGY)	
 	switch(level)
 	{
 		case 1: case 2: case 3: case 4: case 5:
@@ -189,6 +190,31 @@ void computeStrategy(void)
 			strategyArray[GHOSTS_NUMBER-1] = 9; // very strongly prefer Y (90%)
 		break;
 	}
+#else
+	switch(level)
+	{
+		case 1: case 2: case 3: case 4: case 5:
+			for(i=0; i<GHOSTS_NUMBER; ++i) // 8,0,0
+			{
+				strategyArray[i] = 4; // no preference (approximate straight line)
+			}
+		break;
+		default: // 4,2,2
+			for(i=0; i<5; ++i) // 4
+			{
+				strategyArray[i] = 4; // no preference (approximate straight line)
+			}
+			for(i=5; i<7; ++i) // 2
+			{
+				strategyArray[i] = 3; // slightly prefer X (60%)
+			}
+			for(i=7; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
+			{
+				strategyArray[i] = 5; // slightly prefer Y (60%)
+			}
+		break;
+	}		
+#endif
 }
 
 // Ghosts move to new positions if they get their chanche

@@ -47,24 +47,19 @@
 	#endif 
 	
 	#if defined(__SPECTRUM__) 
+		#include <input.h>
 		#if !defined(SPECTRUM_NATIVE_DIRECTIVES)
-			#include <arch/zx.h>
-			void in_wait_key(void);
-			void in_wait_nokey(void); 
+			// #include <arch/zx.h>
+			extern void in_wait_key(void);
+			extern void in_wait_nokey(void); 
 		#else
-			void in_WaitForKey(void);
-			void in_WaitForNoKey(void);
+			extern void in_WaitForKey(void);
+			extern void in_WaitForNoKey(void);
 		#endif
 	#endif
 	
-	// #if !defined(__SPECTRUM__)
-		// #define IF_KEYBOARD_HIT if(kbhit()) 
-	// #endif
-
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_input.h"
-	// #elif defined(__APPLE2__) || (__APPLE2ENH__)
-		// #include "apple2/apple2_input.h"
 	#elif defined(__ATARI__) || defined(__ATARIXL__)
 		#include "atari/atari_input.h"
 	#elif defined(__SPECTRUM__)
@@ -85,6 +80,7 @@
 
 	#define WAIT_JOY1_PRESS() \
 	{ \
+		unsigned char kbInput; \
 		while(joy_read(JOY_1)) \
 		{ \
 			JOY_BTN_UP(kbInput); \
@@ -101,7 +97,7 @@
 		{ \
 			JOY_BTN_UP(kbInput); \
 		} \
-		while(!(kbInput = joy_read(JOY_2))) \
+		while(!(joy_read(JOY_2))) \
 		{ \
 		} \
 	}	

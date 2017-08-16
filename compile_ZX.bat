@@ -1,14 +1,13 @@
-@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
-@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
+@REM 
+set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM 
+set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
+@REM 
+set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
 
+@REM set cc65path="D:\personal\cc65-snapshot-win32"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
 @REM 
-set cc65path="D:\personal\cc65-snapshot-win32"
-@REM 
-set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
-@REM 
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
-
 
 set Deliverables=%mypath%\deliverables
 
@@ -53,20 +52,16 @@ cd %mypath%\
 @REM 
 @REM 
 zcc +zx -startup=1 -clib=sdcc_iy -vn -DSPECTRUM_UDG -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM 
-del %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental.prg
-@REM 
-del %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental_CODE.bin
+@REM del %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental.prg
+@REM del %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental_CODE.bin
 
 @REM zcc +zx -startup=1 -clib=new -vn -DSPECTRUM_UDG -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\ZXSpectrum_32col_new_UDG_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 
 
 @REM 
 zcc +zx -startup=1 -clib=sdcc_iy -vn -DDEBUG_CRASH -DSPECTRUM_UDG -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\ZXSpectrum_CRASH.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
-@REM 
-del %deliverables%\ZXSpectrum_CRASH.prg
-@REM 
-del %deliverables%\ZXSpectrum_CRASH_CODE.bin
+@REM del %deliverables%\ZXSpectrum_CRASH.prg
+@REM del %deliverables%\ZXSpectrum_CRASH_CODE.bin
 
 @REM zcc +zx -startup=1 -clib=sdcc_iy -vn -DSPECTRUM_32COL -D__SPECTRUM__ -DAMALLOC -create-app -o %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c
 @REM del %deliverables%\ZXSpectrum_32col_sdcc_experimental.prg

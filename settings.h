@@ -31,7 +31,7 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef _SETTINGS
+#if !defined(_SETTINGS)
 #define _SETTINGS
 
 #include <stdlib.h>

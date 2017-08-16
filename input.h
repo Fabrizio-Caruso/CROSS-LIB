@@ -37,37 +37,46 @@
 #include "character.h"
 
 #if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
-	#define INIT_INPUT() unsigned char kbInput; JOY_INSTALL(); 
-#elif !defined(__SPECTRUM__)
-	#define INIT_INPUT() unsigned char kbInput;
+	#define INIT_INPUT() JOY_INSTALL(); 
 #else
 	#define INIT_INPUT()
 #endif
 
-
-// Move player
-#if (defined (__CBM__) && !defined(__CBM610__)) || defined(__NES__) || defined(__ATARI__) || defined(__ATARIXL__)
-	#define MOVE_PLAYER() { kbInput = GET_JOY1(); movePlayerByJoystick(kbInput);}
-	void movePlayerByJoystick(unsigned char joyInput);
-#elif defined(__SPECTRUM__)
-	#include <input.h>
-	#if defined(SPECTRUM_NATIVE_DIRECTIVES)	
-		#include <spectrum.h>
-		void movePlayerByKeyboard(char kbInput);		
-		// TODO: Remove this prototype
-		unsigned int in_Inkey(void);
-		#define MOVE_PLAYER() {movePlayerByKeyboard(in_Inkey());}
+#if defined(__SPECTRUM__)
+	#include<input.h>
+	#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+		extern uint __LIB__ in_Inkey(void);
 	#else
-		#include<input.h>
-		void movePlayerByKeyboard(char kbInput);
-		unsigned int in_inkey(void);		
-		// TODO: Remove this prototype
-		#define MOVE_PLAYER() {movePlayerByKeyboard(in_inkey());}		
+		extern int in_inkey(void);		
 	#endif
-#else
-	void movePlayerByKeyboard(char kbInput);
-	#define MOVE_PLAYER() if(kbhit()) { kbInput = GET_CHAR(); movePlayerByKeyboard(kbInput);}
 #endif
+			
+// Move player
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__) && !defined(__VG5k__)
+	void movePlayerByKeyboard(unsigned char kbInput);
+#else
+	void movePlayerByJoystick(unsigned char joyInput);
+#endif
+
+void MOVE_PLAYER(void);
+
+// #elif defined(__SPECTRUM__)
+	// #include <input.h>
+	// #if defined(SPECTRUM_NATIVE_DIRECTIVES)	
+		// #include <spectrum.h>
+		// void movePlayerByKeyboard(char kbInput);		
+		// unsigned int in_Inkey(void);
+		// void MOVE_PLAYER() {movePlayerByKeyboard(in_Inkey());}
+	// #else
+		// #include<input.h>
+		// void movePlayerByKeyboard(char kbInput);
+		// unsigned int in_inkey(void);		
+		// void MOVE_PLAYER() {movePlayerByKeyboard(in_inkey());}		
+	// #endif
+// #else
+	// void movePlayerByKeyboard(char kbInput);
+	// void MOVE_PLAYER() {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
+// #endif
 
 
 #endif // _INPUT

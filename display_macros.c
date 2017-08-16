@@ -31,7 +31,6 @@
 /*                                                                           */
 /*****************************************************************************/
  
-//#include <peekpoke.h>
 #include "display_macros.h"
 
 #if defined(__C64__)
@@ -281,5 +280,4 @@
 			player_blink=1;
 		}	
 	}
-
 #endif

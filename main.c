@@ -35,6 +35,10 @@
 #include <string.h>
 #include <stdio.h>
 
+#if defined(__SPECTRUM__)
+	#include <input.h>
+#endif 
+
 #include "settings.h"
 #include "character.h"
 #include "strategy.h"
@@ -58,6 +62,8 @@
 #define PEEK(addr)         (*(unsigned char*) (addr))
 #define PEEKW(addr) (*(unsigned*) (addr))
 //#define DEBUG_CHARACTERS
+
+
 
 unsigned short invincibleSlowDown;
 unsigned short invincibleXCountDown;

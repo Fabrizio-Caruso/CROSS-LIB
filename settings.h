@@ -82,8 +82,12 @@
 
 #define EXTRA_LIFE_FIRST_LEVEL 10
 
-#define MIN_INVINCIBLE_GHOST_HITS 5
-
+#if defined(DEBUG_CRASH)
+	#define MIN_INVINCIBLE_GHOST_HITS 1
+#else
+	#define MIN_INVINCIBLE_GHOST_HITS 5
+#endif
+	
 #define HORIZONTAL_MISSILE_BONUS 1000UL
 
 #define VERTICAL_MISSILE_BONUS 500UL
@@ -136,7 +140,11 @@
 // LEVEL 36 - 40: Four bombs at the four corners 
 
 // Starting from this level 4 central bombs
-#define INITIAL_LEVEL 1
+#if defined(DEBUG_CRASH)
+	#define INITIAL_LEVEL 5
+#else
+	#define INITIAL_LEVEL 1
+#endif
 
 #define THREE_BOMB_START_LEVEL 6
 

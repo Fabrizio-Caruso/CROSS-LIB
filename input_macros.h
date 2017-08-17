@@ -50,8 +50,8 @@
 		#include <input.h>
 		#if !defined(SPECTRUM_NATIVE_DIRECTIVES)
 			// #include <arch/zx.h>
-			extern void in_wait_key(void);
-			extern void in_wait_nokey(void); 
+			extern void in_wait_key(void) __preserves_regs(b,c,d,e,h,l);
+			extern void in_wait_nokey(void) __preserves_regs(b,c,d,e,h,l);
 		#else
 			extern void in_WaitForKey(void);
 			extern void in_WaitForNoKey(void);

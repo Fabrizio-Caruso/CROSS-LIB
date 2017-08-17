@@ -37,26 +37,6 @@
 
 #include "character.h"
 
-void drawInnerVerticalWall(void);
-
-void updateInnerWallVerticalData(void);
-
-unsigned short drawInnerVerticalWallForLevel(void);
-
-unsigned char rocketLevel(void);
-
-unsigned char missileLevel(void);
-
-unsigned char bossLevel(void);
-
-void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr);
-
 void fillLevelWithCharacters(unsigned char nGhosts);
-
-void finalScore(void);			
-
-void highScoreScreen(void);
-			  
-unsigned char computeArrowRange(void);
 
 #endif // _LEVEL

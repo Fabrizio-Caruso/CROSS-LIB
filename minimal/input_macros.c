@@ -49,7 +49,7 @@
 
 #include "display_macros.h"
 #include "invincible_enemy.h"
-#include "input.h"
+#include "input_macros.h"
 
 
 extern unsigned short invincibleXCountDown;

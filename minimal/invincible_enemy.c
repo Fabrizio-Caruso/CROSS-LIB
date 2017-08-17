@@ -58,6 +58,10 @@ unsigned short computeInvincibleSlowDown(void)
 	{
 		return INITIAL_SKULL_SLOWDOWN - (level/4) * 1000 - loop*2 - ghostLevel*16;
 	}
+	else if(loop<2000)
+	{
+			return INITIAL_SKULL_SLOWDOWN - 2000 - (level/4) * 1000 - ghostLevel*16;
+	}
 	return 0; // You must die!
 }
 
@@ -71,9 +75,6 @@ unsigned short computeInvincibleGhostCountTrigger(void)
 
 unsigned short computeInvincibleLoopTrigger(void)
 {
-	if(bossLevel())
-		return 120;
-	else
 		return 700 - level*15;
 }
 

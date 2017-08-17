@@ -31,7 +31,7 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef _SETTINGS
+#if !defined(_SETTINGS)
 #define _SETTINGS
 
 #include <stdlib.h>
@@ -39,7 +39,12 @@
 #define C64_HARDWARE_SPRITES 0
 #define C64_REDEFINED_CHARACTERS 0
 
-
+#if defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 200
+#else
+	#define GAME_SLOW_DOWN 0
+#endif
 
 #define FAST_NONEXACT_COLLISION_DECTION
 
@@ -54,8 +59,11 @@
 	#define GHOSTS_NUMBER 8
 #endif
 	
-
-#define BUBBLES_NUMBER 4
+#if defined(__SPECTRUM__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+	#define BUBBLES_NUMBER 2
+#else
+	#define BUBBLES_NUMBER 4
+#endif
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 3
@@ -82,8 +90,12 @@
 
 #define EXTRA_LIFE_FIRST_LEVEL 10
 
-#define MIN_INVINCIBLE_GHOST_HITS 5UL
-
+#if defined(DEBUG_CRASH)
+	#define MIN_INVINCIBLE_GHOST_HITS 1
+#else
+	#define MIN_INVINCIBLE_GHOST_HITS 5
+#endif
+	
 #define HORIZONTAL_MISSILE_BONUS 1000UL
 
 #define VERTICAL_MISSILE_BONUS 500UL
@@ -125,7 +137,6 @@
 	#define INITIAL_SKULL_SLOWDOWN 29000
 #endif
 
-
 // MINE DISTRIBUTION
 // LEVEL  1 -  5: Four central bombs
 // LEVEL  6 - 10: Three central bombs
@@ -137,7 +148,11 @@
 // LEVEL 36 - 40: Four bombs at the four corners 
 
 // Starting from this level 4 central bombs
-#define INITIAL_LEVEL 1
+#if defined(DEBUG_CRASH)
+	#define INITIAL_LEVEL 5
+#else
+	#define INITIAL_LEVEL 1
+#endif
 
 #define THREE_BOMB_START_LEVEL 6
 

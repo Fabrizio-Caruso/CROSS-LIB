@@ -31,7 +31,6 @@
 /*                                                                           */
 /*****************************************************************************/
  
-//#include <peekpoke.h>
 #include "display_macros.h"
 
 #if defined(__C64__)
@@ -42,8 +41,6 @@
 	#include "atari/atari_mode1_graphics.h"
 #elif defined(__NES__)
 	#include "nes/nes_graphics.h"
-#elif defined(__C16__) || defined(__PLUS4__)
-	#include "c264/c264_graphics.h"
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	#include "c128/c128_80col_graphics.h"
 #elif defined(__SPECTRUM__)
@@ -281,5 +278,4 @@
 			player_blink=1;
 		}	
 	}
-
 #endif

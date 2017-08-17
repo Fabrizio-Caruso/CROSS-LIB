@@ -44,7 +44,6 @@
 #include "strategy.h"
 #include "text.h"
 #include "missile.h"
-#include "input.h"
 #include "level.h"
 #include "enemy.h"
 #include "invincible_enemy.h"

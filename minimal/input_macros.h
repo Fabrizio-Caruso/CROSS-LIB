@@ -34,7 +34,9 @@
 #ifndef _INPUT_MACROS
 #define _INPUT_MACROS
 
+	#include "character.h"
 
+	
 	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
 	#else
 		#include <joystick.h>
@@ -47,24 +49,19 @@
 	#endif 
 	
 	#if defined(__SPECTRUM__) 
+		#include <input.h>
 		#if !defined(SPECTRUM_NATIVE_DIRECTIVES)
-			#include <arch/zx.h>
-			void in_wait_key(void);
-			void in_wait_nokey(void); 
+			// #include <arch/zx.h>
+			extern void in_wait_key(void) __preserves_regs(b,c,d,e,h,l);
+			extern void in_wait_nokey(void) __preserves_regs(b,c,d,e,h,l);
 		#else
-			void in_WaitForKey(void);
-			void in_WaitForNoKey(void);
+			extern void in_WaitForKey(void);
+			extern void in_WaitForNoKey(void);
 		#endif
 	#endif
 	
-	#if !defined(__SPECTRUM__)
-		#define IF_KEYBOARD_HIT if(kbhit()) 
-	#endif
-
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_input.h"
-	// #elif defined(__APPLE2__) || (__APPLE2ENH__)
-		// #include "apple2/apple2_input.h"
 	#elif defined(__ATARI__) || defined(__ATARIXL__)
 		#include "atari/atari_input.h"
 	#elif defined(__SPECTRUM__)
@@ -85,6 +82,7 @@
 
 	#define WAIT_JOY1_PRESS() \
 	{ \
+		unsigned char kbInput; \
 		while(joy_read(JOY_1)) \
 		{ \
 			JOY_BTN_UP(kbInput); \
@@ -101,7 +99,7 @@
 		{ \
 			JOY_BTN_UP(kbInput); \
 		} \
-		while(!(kbInput = joy_read(JOY_2))) \
+		while(!(joy_read(JOY_2))) \
 		{ \
 		} \
 	}	
@@ -150,4 +148,30 @@
 
 		#define GET_JOY2() joy_read (JOY_2);
 	#endif
+
+	#if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
+		#define INIT_INPUT() JOY_INSTALL(); 
+	#else
+		#define INIT_INPUT()
+	#endif
+
+	#if defined(__SPECTRUM__)
+		#include<input.h>
+		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+			extern uint __LIB__ in_Inkey(void);
+		#else
+			extern int in_inkey(void);		
+		#endif
+	#endif
+				
+	// Move player
+	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__) && !defined(__VG5k__)
+		void movePlayerByKeyboard(unsigned char kbInput);
+	#elif defined(__CBM610__)
+		void movePlayerByKeyboard(unsigned char kbInput);
+	#else
+		void movePlayerByJoystick(unsigned char joyInput);
+	#endif
+
+void MOVE_PLAYER(void);
 #endif // _INPUT_MACROS

@@ -188,7 +188,7 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 		y = characterPtr->_y -2 + y_offset;
 		
 		// TODO: This check should be separated and moved into display_macros
-		if((x<2) || (x>XSize-2) || (y<=3) || (y>YSize-2)) // Avoid horizontal outer wall 
+		if((x<2) || (x>XSize-2) || (y<=2) || (y>YSize-2))
 			continue;
 		
 		safe = safeLocation(x,y,dangerPtr, dangerSize);
@@ -252,6 +252,7 @@ void ghostVsGhostCollision(Character * ghostPtr)
 	printGhostCountStats();
 }
 
+
 void checkGhostsVsGhosts()
 {
 	#if defined(FAST_NONEXACT_COLLISION_DECTION) && defined(__ATMOS__)
@@ -286,13 +287,14 @@ void checkGhostsVsGhosts()
 			peek = PEEK(0xBB80+(ghosts[i]._x+2)+(ghosts[i]._y+3)*40);
 			if(ghosts[i]._status && ghosts[i]._moved && (peek == DEAD_GHOST_IMAGE._imageData + 128))
 			{
-				EXPLOSION_SOUND();
-				die(&ghosts[i]);
-				points+=GHOST_VS_GHOST_BONUS;
-				displayStats();
-				ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
-				--ghostCount;	
-				printGhostCountStats();
+				// EXPLOSION_SOUND();
+				// die(&ghosts[i]);
+				// points+=GHOST_VS_GHOST_BONUS;
+				// displayStats();
+				// ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
+				// --ghostCount;	
+				// printGhostCountStats();
+				ghostVsGhostCollision(&ghosts[i]);			
 			}
 		}
 	#else
@@ -329,19 +331,17 @@ void checkGhostsVsGhosts()
 		{
 			if(ghostsMeetDead(i))
 			{
-				// EXPLOSION_SOUND();
-				// ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
-				// DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
-				// die(&ghosts[i]);
-				// points+=GHOST_VS_GHOST_BONUS;
-				// displayStats();
-				// --ghostCount;
-				// printGhostCountStats();
-				ghostVsGhostCollision(&ghosts[i]);
+				EXPLOSION_SOUND();
+				ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
+				DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
+				die(&ghosts[i]);
+				points+=GHOST_VS_GHOST_BONUS;
+				displayStats();
+				--ghostCount;
+				printGhostCountStats();
 			}
 		}
 	}
 	#endif
 }
-
 

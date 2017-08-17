@@ -58,12 +58,16 @@ void computePowerUp(unsigned short *coolDownDecreasePtr, unsigned short *powerUp
 
 unsigned short computeGunInitialCoolDown(void)
 {
-	return 180 + level * 2;
+	if(level<=24)
+		gunInitialCoolDown = 240 + level * 4;
+	else
+		gunInitialCoolDown = 100 + level * 2;
+	return gunInitialCoolDown;
 }
 
 void reducePowerUpsCoolDowns(void)
 {
-		extraPointsCoolDown/=2;
-		invincibilityCoolDown/=2;
-		extraLifeCoolDown/=2;	
-}	
+                extraPointsCoolDown/=2;
+                invincibilityCoolDown/=2;
+                extraLifeCoolDown/=2;
+}

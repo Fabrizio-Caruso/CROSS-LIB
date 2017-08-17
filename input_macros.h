@@ -34,7 +34,9 @@
 #ifndef _INPUT_MACROS
 #define _INPUT_MACROS
 
+	#include "character.h"
 
+	
 	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
 	#else
 		#include <joystick.h>
@@ -146,4 +148,30 @@
 
 		#define GET_JOY2() joy_read (JOY_2);
 	#endif
+
+	#if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
+		#define INIT_INPUT() JOY_INSTALL(); 
+	#else
+		#define INIT_INPUT()
+	#endif
+
+	#if defined(__SPECTRUM__)
+		#include<input.h>
+		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+			extern uint __LIB__ in_Inkey(void);
+		#else
+			extern int in_inkey(void);		
+		#endif
+	#endif
+				
+	// Move player
+	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__) && !defined(__VG5k__)
+		void movePlayerByKeyboard(unsigned char kbInput);
+	#elif defined(__CBM610__)
+		void movePlayerByKeyboard(unsigned char kbInput);
+	#else
+		void movePlayerByJoystick(unsigned char joyInput);
+	#endif
+
+void MOVE_PLAYER(void);
 #endif // _INPUT_MACROS

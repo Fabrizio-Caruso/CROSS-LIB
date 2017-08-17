@@ -43,9 +43,9 @@ void checkMissileVsGhost(Character * missilePtr,
 void checkMissileVsGhosts(Character * missilePtr);
 	
 unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
-							  unsigned short missileDirection,  Character *rightEnemyMissilePtr, Character *leftEnemyMissilePtr);
+							  unsigned short missileDirection);
 	
-void moveMissile(Character * missilePtr, unsigned short missileDirection, Character *rightEnemyMissilePtr, Character *leftEnemyMissilePtr);
+void moveMissile(Character * missilePtr, unsigned short missileDirection);
 
 void restoreMissile(Character *missilePtr);
 

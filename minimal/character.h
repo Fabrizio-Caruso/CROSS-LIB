@@ -56,7 +56,7 @@ typedef struct CharacterStruct Character;
 
 #include "display_macros.h"
 
-extern unsigned long points;
+extern unsigned int points;
 
 extern unsigned char XSize;
 extern unsigned char YSize;

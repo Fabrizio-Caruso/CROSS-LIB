@@ -78,8 +78,8 @@ unsigned short ghostLevelDecrease;
 unsigned short powerUpInitialCoolDown; 
 
 unsigned short ghostLevel;
-unsigned long points;
-unsigned long highScore;
+unsigned int points;
+unsigned int highScore;
 
 unsigned char lives;
 unsigned char missileDirection;
@@ -138,7 +138,7 @@ unsigned char playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
 unsigned char playerFire = 0;
 unsigned char guns = GUNS_NUMBER;
 
-unsigned long extraLifeThroughPointsCounter = 1;
+unsigned int extraLifeThroughPointsCounter = 1;
 
 unsigned char ghostCount = GHOSTS_NUMBER;
 
@@ -183,7 +183,8 @@ void handle_missile()
 			PING_SOUND();
 			die(&missile);
 			DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
-			restoreMissile(&missile);			
+			//restoreMissile(&missile);
+			missile._x = 0; missile._y = 0;
 			++invincibleGhostHits;
 			decreaseGhostLevel();
 			
@@ -271,7 +272,7 @@ void handle_powerup_item()
 	{
 		powerUp._status = 1;
 
-			relocateCharacter(&powerUp, bombs,4);
+		relocateCharacter(&powerUp, bombs,4);
 
 		DRAW_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
 	}
@@ -327,33 +328,6 @@ void handle_invincible_ghost(void)
 			playerDies();
 		}
 	}
-}
-
-
-void handle_player_vs_outer_wall(void)
-{
-	// Check collision player vs outer wall
-	if(wallReached(&player))
-	{
-		// EXPLOSION_SOUND();
-		// die(&player);
-		// printDefeatMessage();
-		// sleep(1);
-		playerDies();
-	}
-}
-
-void handle_player_vs_bombs_and_ghosts(void)
-{
-	// Check collision player vs ghosts and player vs bombs
-	if((playerReached(&player) || playerReachedBombs(&player)))
-	{
-		// EXPLOSION_SOUND();
-		// die(&player);
-		// printDefeatMessage();
-		// sleep(1);
-		playerDies();
-	}	
 }
 			
 void initialScreen(void)
@@ -481,7 +455,7 @@ int main(void)
 					checkMissileVsGhosts(&missile);
 				}
 				
-				handle_player_vs_bombs_and_ghosts();
+				//handle_player_vs_bombs_and_ghosts();
 
 				// Check collisions bombs vs ghosts
 				checkBombsVsGhosts();
@@ -490,8 +464,14 @@ int main(void)
 				
 				handle_powerup_item();
 
-				handle_player_vs_outer_wall();
+				//handle_player_vs_outer_wall();
 				
+
+				if(wallReached(&player) || playerReached(&player) || playerReachedBombs(&player))
+				{
+					playerDies();
+				}
+			
 				DRAW_BOMBS();
 				
 				// Display ghosts

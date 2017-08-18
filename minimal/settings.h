@@ -44,7 +44,7 @@
 	#define GAME_SLOW_DOWN 600
 #elif defined(__C16__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 300
+	#define GAME_SLOW_DOWN 250
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
@@ -60,9 +60,9 @@
 // Possible current values are 6,7,8
 
 #if defined(__C16__)
-	#define GHOSTS_NUMBER 6
+	#define GHOSTS_NUMBER 7
 #else
-	#define GHOSTS_NUMBER 4
+	#define GHOSTS_NUMBER 5
 #endif
 	
 #define BUBBLES_NUMBER 2

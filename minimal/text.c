@@ -52,10 +52,10 @@ extern unsigned char YSize;
 extern unsigned char level;
 extern unsigned char lives;
 extern unsigned char guns;
-extern unsigned long points;
+extern unsigned int points;
 extern unsigned char ghostCount;
 extern unsigned short ghostLevel;
-extern unsigned long highScore;
+extern unsigned int highScore;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -241,13 +241,13 @@ void displayStats(void)
 	
 	#if defined(__ATMOS__) 
 		//PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
-		PRINTF(8,1-Y_OFFSET,"%06lu",points);
+		PRINTF(8,1-Y_OFFSET,"%06u",points);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		//PRINTF(7,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(7,1-Y_OFFSET,"%05lu",points);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		//PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
-		PRINTF(8,1-Y_OFFSET,"%06lu",points);
+		PRINTF(8,1-Y_OFFSET,"%06d",points);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		//PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
 		PRINTF(8,1-Y_OFFSET,"%06lu",points);	
@@ -320,7 +320,7 @@ void printLevel(void)
 	{
 		char highScoreString[22];
 
-		sprintf(highScoreString, "high score: %lu", highScore);
+		sprintf(highScoreString, "high score: %d", highScore);
 
 		printCenteredMessage(highScoreString);
 		sleep(1);
@@ -352,7 +352,7 @@ void printLevel(void)
 	{
 		char levelString[22];
 
-		sprintf(levelString, "LEVEL BONUS: %d", bonus);
+		sprintf(levelString, "BONUS: %d", bonus);
 
 		printCenteredMessage(levelString);
 		sleep(1);

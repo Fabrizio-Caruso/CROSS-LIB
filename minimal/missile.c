@@ -40,7 +40,7 @@
 #include "text.h"
 #include "powerUps.h"
 
-extern unsigned long points;
+extern unsigned int points;
 extern unsigned char ghostCount;
 
 extern Character ghosts[GHOSTS_NUMBER];
@@ -142,7 +142,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 	}
 }
 
-void restoreMissile(Character *missilePtr)
-{
-	missilePtr->_x = 0; missilePtr->_y = 0;
-}
+// void restoreMissile(Character *missilePtr)
+// {
+	// missilePtr->_x = 0; missilePtr->_y = 0;
+// }

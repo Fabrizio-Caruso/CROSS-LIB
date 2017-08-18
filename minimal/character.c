@@ -46,7 +46,7 @@
 	#include<peekpoke.h>
 #endif
 
-extern unsigned long points;
+extern unsigned int points;
 
 extern unsigned char XSize;
 extern unsigned char YSize;

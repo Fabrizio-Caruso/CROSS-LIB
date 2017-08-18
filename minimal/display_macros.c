@@ -46,11 +46,6 @@
 
 	char powerUp_blink = 1;
 	char gun_blink = 1;
-	
-	void INIT_GRAPHICS(void)
-	{
-
-	}
  
 	void INIT_IMAGES(void)
 	{		

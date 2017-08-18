@@ -371,7 +371,6 @@ int main(void)
 	
 	highScore = 0;
 	
-	INIT_GRAPHICS();
 	while(1)
 	{
 
@@ -446,7 +445,7 @@ int main(void)
 			while(player._status && (ghostCount>0) ) // while alive && there are still ghosts
 			{
 				#if defined(SLOW_DOWN)
-					unsigned char i;
+					unsigned short i;
 					for(i=0;i<GAME_SLOW_DOWN;++i)
 					{
 					}

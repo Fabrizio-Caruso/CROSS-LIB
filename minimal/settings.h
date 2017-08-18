@@ -39,9 +39,12 @@
 #define C64_HARDWARE_SPRITES 0
 #define C64_REDEFINED_CHARACTERS 0
 
-#if defined(__C16__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__VIC20__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 255
+	#define GAME_SLOW_DOWN 600
+#elif defined(__C16__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 300
 #else
 	#define GAME_SLOW_DOWN 0
 #endif

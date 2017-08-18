@@ -466,7 +466,6 @@ int main(void)
 
 				//handle_player_vs_outer_wall();
 				
-
 				if(wallReached(&player) || playerReached(&player) || playerReachedBombs(&player))
 				{
 					playerDies();
@@ -476,14 +475,6 @@ int main(void)
 				
 				// Display ghosts
 				displayGhosts();
-				
-				#if (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) 
-					displayStatsTitles();
-					printLevelStats();
-					printLivesStats();
-					printGunsStats();
-					printGhostCountStats();
-				#endif
 
 				
 				handle_invincible_ghost();

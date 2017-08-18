@@ -161,12 +161,12 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 	DRAW_PLAYER(player._x,player._y,player._imagePtr);
 
-	initializeCharacter(&bombs[0],XSize/3, YSize/3,0,&BOMB_IMAGE);
+	initializeCharacter(&bombs[0],XSize/3-1+rand()%3, ((YSize/3))-1+rand()%3,0,&BOMB_IMAGE);
 
-	initializeCharacter(&bombs[1],XSize/4, YSize/2,0,&BOMB_IMAGE);
+	initializeCharacter(&bombs[1],XSize/3-1+rand()%3, ((YSize/3)<<2)-1+rand()%3,0,&BOMB_IMAGE);
 
 	#if BOMBS_NUMBER>=3
-		initializeCharacter(&bombs[2],XSize-XSize/4, YSize/2,0,&BOMB_IMAGE);
+		initializeCharacter(&bombs[2],((XSize/3)<<2)-1+rand()%3, (YSize/2)-1+rand()%3,0,&BOMB_IMAGE);
 	#endif
 
 	for(i=0;i<BOMBS_NUMBER;++i)

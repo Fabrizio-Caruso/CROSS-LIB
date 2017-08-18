@@ -342,8 +342,12 @@ typedef struct ImageStruct Image;
 	
 	//void _draw_broken_wall(unsigned char x, unsigned char y);	
 	void _draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_powerUp_draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_gun_draw(unsigned char x, unsigned char y, Image * image);
+	
+	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char * blink_counter); 
+	
+	#define _blink_powerUp_draw(x, y,image) _blink_draw(x,y,image, &powerUp_blink);
+	#define _blink_gun_draw(x, y,image) _blink_draw(x,y,image, &gun_blink);	
+
 
 	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
 	

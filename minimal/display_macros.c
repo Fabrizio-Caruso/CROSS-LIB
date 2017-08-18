@@ -44,8 +44,8 @@
 	Image GUN_IMAGE;
 	
 
-	char powerUp_blink = 1;
-	char gun_blink = 1;
+	unsigned char powerUp_blink = 1;
+	unsigned char gun_blink = 1;
  
 	void INIT_IMAGES(void)
 	{		
@@ -107,35 +107,51 @@
 		gotoxy(x+X_OFFSET,y+Y_OFFSET);
 		cputc(' ');
 	}
-	
-	void _blink_powerUp_draw(unsigned char x, unsigned char y, Image * image) 
+
+	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char * blink_counter) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		SET_TEXT_COLOR(image->_color);
-		if(powerUp_blink) 
+		if(*blink_counter) 
 		{
 			cputc(image->_imageData); 
-			powerUp_blink=0;
+			*blink_counter=0;
 		} 
 		else 
 		{
 			cputc(' '); 
-			powerUp_blink=1;
+			*blink_counter=1;
 		}	
 	}
 	
-	void _blink_gun_draw(unsigned char x, unsigned char y, Image * image) 
-	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		SET_TEXT_COLOR(image->_color);
-		if(gun_blink) 
-		{
-			cputc(image->_imageData); 
-			gun_blink=0;
-		} 
-		else 
-		{
-			cputc(' '); 
-			gun_blink=1;
-		}	
-	}
+	// void _blink_powerUp_draw(unsigned char x, unsigned char y, Image * image) 
+	// {
+		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		// SET_TEXT_COLOR(image->_color);
+		// if(powerUp_blink) 
+		// {
+			// cputc(image->_imageData); 
+			// powerUp_blink=0;
+		// } 
+		// else 
+		// {
+			// cputc(' '); 
+			// powerUp_blink=1;
+		// }	
+	// }
+	
+	// void _blink_gun_draw(unsigned char x, unsigned char y, Image * image) 
+	// {
+		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		// SET_TEXT_COLOR(image->_color);
+		// if(gun_blink) 
+		// {
+			// cputc(image->_imageData); 
+			// gun_blink=0;
+		// } 
+		// else 
+		// {
+			// cputc(' '); 
+			// gun_blink=1;
+		// }	
+	// }

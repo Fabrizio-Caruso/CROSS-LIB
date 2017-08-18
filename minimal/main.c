@@ -112,6 +112,9 @@ extern Image GUN_IMAGE;
 
 extern Image BUBBLE_IMAGE;
 
+extern unsigned char powerUp_blink;
+extern unsigned char gun_blink;
+
 Character invincibleGhost;
 Character player; 
 

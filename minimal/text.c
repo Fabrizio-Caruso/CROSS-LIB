@@ -241,20 +241,20 @@ void displayStats(void)
 	
 	#if defined(__ATMOS__) 
 		//PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
-		PRINTF(8,1-Y_OFFSET,"%06u",points);
+		PRINTF(8,1-Y_OFFSET,"%05u0",points);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		//PRINTF(7,0-Y_OFFSET,"%04u",ghostLevel);
-		PRINTF(7,1-Y_OFFSET,"%05lu",points);
+		PRINTF(7,1-Y_OFFSET,"%04u0",points);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		//PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
-		PRINTF(8,1-Y_OFFSET,"%06d",points);
+		PRINTF(8,1-Y_OFFSET,"%05u0",points);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		//PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
-		PRINTF(8,1-Y_OFFSET,"%06lu",points);	
+		PRINTF(8,1-Y_OFFSET,"%05u0",points);	
 	#elif defined(__VG5K__)		
 	#else
 		//PRINTF(8,0-Y_OFFSET,"%04u",ghostLevel);
-		PRINTF(8,1-Y_OFFSET,"%06lu",points);
+		PRINTF(8,1-Y_OFFSET,"%05u0",points);
 	#endif
 }
 
@@ -310,7 +310,7 @@ void printLevel(void)
 	{
 		char levelString[22];
 
-		sprintf(levelString, "level bonus: %d", bonus);
+		sprintf(levelString, "level bonus: %u0", bonus);
 
 		printCenteredMessage(levelString);
 		sleep(1);
@@ -320,7 +320,7 @@ void printLevel(void)
 	{
 		char highScoreString[22];
 
-		sprintf(highScoreString, "high score: %d", highScore);
+		sprintf(highScoreString, "high score: %u0", highScore);
 
 		printCenteredMessage(highScoreString);
 		sleep(1);
@@ -338,7 +338,7 @@ void printLevel(void)
 	{
 		char scoreString[22];
 		CLEAR_SCREEN();
-		sprintf(scoreString, "score:  %lu", points);
+		sprintf(scoreString, "score:  %u0", points);
 		printCenteredMessage(scoreString);
 	}
 
@@ -352,7 +352,7 @@ void printLevel(void)
 	{
 		char levelString[22];
 
-		sprintf(levelString, "BONUS: %d", bonus);
+		sprintf(levelString, "BONUS: %u0", bonus);
 
 		printCenteredMessage(levelString);
 		sleep(1);
@@ -362,7 +362,7 @@ void printLevel(void)
 	{
 		char highScoreString[22];
 
-		sprintf(highScoreString, "HIGH SCORE: %lu", highScore);
+		sprintf(highScoreString, "HIGH SCORE: %u0", highScore);
 
 		printCenteredMessage(highScoreString);
 		sleep(1);
@@ -380,7 +380,7 @@ void printLevel(void)
 	{
 		char scoreString[22];
 		CLEAR_SCREEN();
-		sprintf(scoreString, "SCORE: %lu", points);
+		sprintf(scoreString, "SCORE: %u0", points);
 		printCenteredMessage(scoreString);
 	}
 	

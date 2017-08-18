@@ -79,17 +79,10 @@
 #define GHOST_VS_GHOST_COLLISION_LEVEL 16
 #define GHOST_VS_GHOST_COLLISION_START 200
 
-#define EXTRA_LIFE_THROUGH_POINTS 20000UL
+#define EXTRA_LIFE_THROUGH_POINTS 2000UL
 
-#define EXTRA_POINTS_COOL_DOWN 900UL
-
-#define INVINCIBILITY_COOL_DOWN 2000UL
 
 #define INVINCIBILITY_FIRST_LEVEL 5
-
-#define PLAYER_INVINCIBILITY_COOL_DOWN 150
-
-#define EXTRA_LIFE_COOL_DOWN 4000UL
 
 #define EXTRA_LIFE_FIRST_LEVEL 10
 
@@ -99,38 +92,29 @@
 	#define MIN_INVINCIBLE_GHOST_HITS 5
 #endif
 	
-#define HORIZONTAL_MISSILE_BONUS 1000UL
-
-#define VERTICAL_MISSILE_BONUS 500UL
-
 #define INVINCIBLE_GHOST_POINTS 5000UL;
-
-// Points given by extra points bonus: 
-// EXTRA_POINTS (X 2 in boss levels) + level X EXTRA_POINTS_LEVEL_INCREASE
-#define EXTRA_POINTS 2500UL 
-#define EXTRA_POINTS_LEVEL_INCREASE 200UL
 
 
 // If two or more ghosts bump into eachother for each ghost
-#define GHOST_VS_GHOST_BONUS 500UL
+#define GHOST_VS_GHOST_BONUS 50UL
 
 // If a ghost bumps into a bomb
-#define GHOST_VS_BOMBS_BONUS 250UL
+#define GHOST_VS_BOMBS_BONUS 25UL
 
 // Points for shooting a ghost
-#define GHOST_VS_MISSILE 100UL
+#define GHOST_VS_MISSILE 10UL
 
 // Extra points for the power up
-#define POWER_UP_BONUS 200UL
+#define POWER_UP_BONUS 20UL
 
 // Extra points for the power up
-#define GUN_BONUS 300UL
+#define GUN_BONUS 30UL
 
 // Points for each tick
 #define LOOP_POINTS 1UL
 
 // Points gained at the end of each level (to be multipled by level)
-#define LEVEL_BONUS 500UL
+#define LEVEL_BONUS 50UL
 
 #if defined(__C16__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31500

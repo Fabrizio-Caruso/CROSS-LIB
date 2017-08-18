@@ -41,7 +41,7 @@
 
 #if defined(__C16__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 250
+	#define GAME_SLOW_DOWN 255
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
@@ -52,8 +52,11 @@
 
 // Possible current values are 6,7,8
 
-#define GHOSTS_NUMBER 1
-
+#if defined(__C16__)
+	#define GHOSTS_NUMBER 6
+#else
+	#define GHOSTS_NUMBER 3
+#endif
 	
 #define BUBBLES_NUMBER 2
 
@@ -123,8 +126,8 @@
 #define LEVEL_BONUS 500UL
 
 #if defined(__C16__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
-	#define INITIAL_ENEMY_SLOWDOWN 31000
-	#define INITIAL_SKULL_SLOWDOWN 32000	
+	#define INITIAL_ENEMY_SLOWDOWN 31500
+	#define INITIAL_SKULL_SLOWDOWN 32500	
 #else
 	#define INITIAL_ENEMY_SLOWDOWN 28000
 	#define INITIAL_SKULL_SLOWDOWN 29000

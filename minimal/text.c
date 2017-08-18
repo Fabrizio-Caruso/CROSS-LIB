@@ -385,17 +385,17 @@ void printLevel(void)
 	}
 	
 	#if defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__)
-		void printExtraLife(void)
-		{
-			printCenteredMessage("E X T R A   L I F E!"); 
-			sleep(1);
-		}
+		// void printExtraLife(void)
+		// {
+			// printCenteredMessage("E X T R A   L I F E!"); 
+			// sleep(1);
+		// }
 	#else
-		void printExtraLife(void)
-		{
-			printCenteredMessage("E X T R A   L I F E ! ! !"); 
-			sleep(1);
-		}		
+		// void printExtraLife(void)
+		// {
+			// printCenteredMessage("E X T R A   L I F E ! ! !"); 
+			// sleep(1);
+		// }		
 	#endif
 #endif
 
@@ -580,15 +580,16 @@ void printStartMessage(void)
 	#endif // __PLUS4__
 
 	#if defined(__VIC20__) 
-		PRINT(1, YSize / 2 - 3, "You are chased by O");
+		// PRINT(1, YSize / 2 - 3, "You are chased by O");
 		
-		PRINT(1, YSize / 2 - 2, "Force O into X");
+		// PRINT(1, YSize / 2 - 2, "Force O into X");
 		
-		PRINT(1, YSize / 2 - 1, "S to slows O down");
+		// PRINT(1, YSize / 2 - 1, "S to slows O down");
 		
-		PRINT(1, YSize / 2, "Catch ! for bullets");
+		// PRINT(1, YSize / 2, "Catch ! for bullets");
 		
-		PRINT(1, YSize / 2 + 1, "Flee from +!");
+		// PRINT(1, YSize / 2 + 1, "Flee from +!");
+		PRINT(1, YSize/2 - 2, "Lure the enemies into the mines");
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINT(1, YSize / 2 - 3, "you are chased by O");
 		
@@ -620,11 +621,11 @@ void printStartMessage(void)
 		PRINT(7, YSize / 2, "Forse them into the mines");
 		
 	#elif defined(__C16__) || defined(__PLUS4__)
-		PRINT(1, YSize / 2 - 3, "You % are chased by \"! Lure \" into /!");
+		// PRINT(1, YSize / 2 - 3, "You % are chased by \"! Lure \" into /!");
+		PRINT(1, YSize / 2 - 1, "Lure the enemies into the mines");		
+		// PRINT(1, YSize / 2 - 1, "# slows \" down! ,. gives you 3 bullets");
 		
-		PRINT(1, YSize / 2 - 1, "# slows \" down! ,. gives you 3 bullets");
-		
-		PRINT(5, YSize / 2 + 1,     "Use the gun or flee from +!");	
+		// PRINT(5, YSize / 2 + 1,     "Use the gun or flee from +!");	
 	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
 		PRINT(0, YSize / 2 - 3, "Lure the enemies into the mines!");
 		

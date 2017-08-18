@@ -99,7 +99,7 @@ unsigned short loop;
 unsigned char level;
 
 unsigned short invincibleLoopTrigger;
-unsigned short invincibleGhostCountTrigger;
+//unsigned short invincibleGhostCountTrigger;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -286,7 +286,7 @@ void handle_invincible_ghost(void)
 		// Manage invincible ghost
 		if(invincibleGhostAlive &&
 							((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
-							 (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger)))
+							 (loop>=invincibleLoopTrigger) || (ghostCount<=INVINCIBLE_GHOST_TRIGGER)))
 		{
 			invincibleGhost._status = 1;
 			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);

@@ -183,5 +183,6 @@
 #define LEFT 2
 #define UP 3
 
+#define INVINCIBLE_GHOST_TRIGGER 2
 
 #endif // _SETTINGS

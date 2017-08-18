@@ -370,9 +370,9 @@ void printLevel(void)
 	
 	void gameCompleted(void)
 	{
-		printCenteredMessage("Y O U   M A D E   I T !"); 
+		printCenteredMessage("Y O U  M A D E  I T !"); 
 		sleep(1);
-		printCenteredMessage("     T H E   E N D     "); 
+		printCenteredMessage("  T H E  E N D"); 
 		sleep(1);
 	}
 	
@@ -380,7 +380,7 @@ void printLevel(void)
 	{
 		char scoreString[22];
 		CLEAR_SCREEN();
-		sprintf(scoreString, "SCORE:  %lu", points);
+		sprintf(scoreString, "SCORE: %lu", points);
 		printCenteredMessage(scoreString);
 	}
 	

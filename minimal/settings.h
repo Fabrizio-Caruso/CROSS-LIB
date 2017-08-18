@@ -48,14 +48,18 @@
 
 #define FAST_NONEXACT_COLLISION_DECTION
 
-#define BOMBS_NUMBER 2
-
+#if defined(__C16__)
+	#define BOMBS_NUMBER 3
+#else
+	#define BOMBS_NUMBER 2	
+#endif
+	
 // Possible current values are 6,7,8
 
 #if defined(__C16__)
 	#define GHOSTS_NUMBER 6
 #else
-	#define GHOSTS_NUMBER 3
+	#define GHOSTS_NUMBER 4
 #endif
 	
 #define BUBBLES_NUMBER 2

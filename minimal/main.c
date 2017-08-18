@@ -278,6 +278,13 @@ void handle_powerup_item()
 	}
 }
 
+void playerDies(void)
+{
+	EXPLOSION_SOUND();
+	die(&player);
+	printDefeatMessage();
+	sleep(1);	
+}
 
 void handle_invincible_ghost(void)
 {
@@ -310,10 +317,11 @@ void handle_invincible_ghost(void)
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		if(areCharctersAtSamePosition(&invincibleGhost, &player))
 		{
-			EXPLOSION_SOUND();
-			die(&player);
-			printDefeatMessage();
-			sleep(1);
+			// EXPLOSION_SOUND();
+			// die(&player);
+			// printDefeatMessage();
+			// sleep(1);
+			playerDies();
 		}
 	}
 }
@@ -324,12 +332,11 @@ void handle_player_vs_outer_wall(void)
 	// Check collision player vs outer wall
 	if(wallReached(&player))
 	{
-		EXPLOSION_SOUND();
-		die(&player);
-		//DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		// DRAW_BROKEN_WALL(player._x,player._y);
-		printDefeatMessage();
-		sleep(1);
+		// EXPLOSION_SOUND();
+		// die(&player);
+		// printDefeatMessage();
+		// sleep(1);
+		playerDies();
 	}
 }
 
@@ -338,11 +345,11 @@ void handle_player_vs_bombs_and_ghosts(void)
 	// Check collision player vs ghosts and player vs bombs
 	if((playerReached(&player) || playerReachedBombs(&player)))
 	{
-		EXPLOSION_SOUND();
-		die(&player);
-		//DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		printDefeatMessage();
-		sleep(1);
+		// EXPLOSION_SOUND();
+		// die(&player);
+		// printDefeatMessage();
+		// sleep(1);
+		playerDies();
 	}	
 }
 			

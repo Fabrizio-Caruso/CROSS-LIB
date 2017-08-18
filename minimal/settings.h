@@ -176,4 +176,6 @@
 
 #define INVINCIBLE_GHOST_TRIGGER 2
 
+#define GUN_INITIAL_COOLDOWN (180 + level * 2)
+
 #endif // _SETTINGS

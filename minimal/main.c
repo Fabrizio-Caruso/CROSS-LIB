@@ -225,7 +225,7 @@ void handle_gun_item()
 			points+=GUN_BONUS;
 			displayStats();
 			gun._status = 0;	
-			gunCoolDown = gunInitialCoolDown;
+			gunCoolDown = GUN_INITIAL_COOLDOWN;
 		}
 		else
 		{
@@ -236,7 +236,7 @@ void handle_gun_item()
 	{	
 		gun._status = 1;
 
-			relocateCharacter(&gun, bombs,4);
+		relocateCharacter(&gun, bombs,4);
 
 		DRAW_GUN(gun._x, gun._y, gun._imagePtr);
 	}
@@ -385,7 +385,7 @@ int main(void)
 			powerUpInitialCoolDown = 200+(level*2);
 			
 			
-			gunCoolDown = computeGunInitialCoolDown();
+			gunCoolDown = GUN_INITIAL_COOLDOWN;
 			
 			computeInvincibleGhostParameters();
 

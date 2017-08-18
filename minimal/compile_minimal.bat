@@ -32,10 +32,10 @@ cd %cc65path%\bin\
 
 @REM vic20-16k works on minimal build!
 @REM 
-cl65.exe -O -t vic20 -DVERY_SIMPLE_STRATEGY --config %mypath%\..\cfg\vic20-8k.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_cvic20-8k.prg
+cl65.exe -O -t vic20 -DVERY_SIMPLE_STRATEGY --config %mypath%\..\cfg\vic20-8k.cfg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_cvic20-8k.prg
 
 
-cl65.exe -O -t c16 -DVERY_SIMPLE_STRATEGY --config %mypath%\..\cfg\c16-16k.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_c16-16k.prg
+cl65.exe -O -t c16 -DVERY_SIMPLE_STRATEGY --config %mypath%\..\cfg\c16-16k.cfg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_c16-16k.prg
 
 
 @REM pce runs out of memory

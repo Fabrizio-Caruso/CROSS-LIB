@@ -80,5 +80,7 @@ void printExtraLife(void);
 
 void finalScore(void);
 
+void highScoreScreen(void);
+
 #endif // _DISPLAY
 

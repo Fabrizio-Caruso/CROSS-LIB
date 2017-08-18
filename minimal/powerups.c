@@ -40,34 +40,19 @@ extern unsigned char level;
 
 extern unsigned short gunInitialCoolDown;
 
-extern unsigned short extraPointsCoolDown;
-extern unsigned short invincibilityCoolDown;
-extern unsigned short extraLifeCoolDown;
-
-unsigned short powerUpReached(Character * hunterPtr, Character* preyPtr)
-{
-	return(areCharctersAtSamePosition(hunterPtr, preyPtr));
-}
+// unsigned short powerUpReached(Character * hunterPtr, Character* preyPtr)
+// {
+	// return(areCharctersAtSamePosition(hunterPtr, preyPtr));
+// }
 
 
-void computePowerUp(unsigned short *coolDownDecreasePtr, unsigned short *powerUpInitialCoolDownPtr)
-{
-	*coolDownDecreasePtr = 140-(level*2);
-	*powerUpInitialCoolDownPtr = 200+(level*2);
-}
+// void computePowerUp(unsigned short *coolDownDecreasePtr, unsigned short *powerUpInitialCoolDownPtr)
+// {
+	// *coolDownDecreasePtr = 140-(level*2);
+	// *powerUpInitialCoolDownPtr = 200+(level*2);
+// }
 
-unsigned short computeGunInitialCoolDown(void)
-{
-	if(level<=24)
-		gunInitialCoolDown = 240 + level * 4;
-	else
-		gunInitialCoolDown = 100 + level * 2;
-	return gunInitialCoolDown;
-}
-
-void reducePowerUpsCoolDowns(void)
-{
-                extraPointsCoolDown/=2;
-                invincibilityCoolDown/=2;
-                extraLifeCoolDown/=2;
-}
+// unsigned short computeGunInitialCoolDown(void)
+// {
+	// return gunInitialCoolDown = 180 + level * 2;
+// }

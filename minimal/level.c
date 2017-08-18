@@ -69,14 +69,12 @@ extern Character bombs[BOMBS_NUMBER];
 void fillLevelWithCharacters(unsigned char nGhosts)
 {
 
-	unsigned char b1x, b2x, b3x, b4x;
-	unsigned char b1y, b2y, b3y, b4y;
-
 	unsigned char i;
 
 	initializeCharacter(&ghosts[0],XSize-XSize/6+rand()%3-3,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
 	//DRAW_GHOST(ghosts[0]._x, ghosts[0]._y, ghosts[0]._imagePtr);
-	
+
+	#if GHOSTS_NUMBER>= 2	
 	if(nGhosts>1)
 	{
 		initializeCharacter(&ghosts[1],XSize/6+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
@@ -85,7 +83,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	{
 		initializeCharacter(&ghosts[1],7,1,0,&DEAD_GHOST_IMAGE);
 	}
+	#endif
 	
+	#if GHOSTS_NUMBER>= 3	
 	if(nGhosts>2)
 	{
 		initializeCharacter(&ghosts[2],XSize/6+rand()%3-1,YSize/2+rand()%3-2,1, &GHOST_IMAGE);
@@ -94,7 +94,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	{
 		initializeCharacter(&ghosts[2],6,1,0, &DEAD_GHOST_IMAGE);
 	}
+	#endif
 	
+	#if GHOSTS_NUMBER>= 4
 	if(nGhosts>3)
 	{
 		initializeCharacter(&ghosts[3],XSize/6+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
@@ -103,7 +105,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	{
 		initializeCharacter(&ghosts[3],5,1,0,&DEAD_GHOST_IMAGE);
 	}
+	#endif
 	
+	#if GHOSTS_NUMBER>= 5
 	if(nGhosts>4)
 	{
 		initializeCharacter(&ghosts[4],XSize/2+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
@@ -112,7 +116,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	{
 		initializeCharacter(&ghosts[4],4,1,0,&DEAD_GHOST_IMAGE);	
 	}
+	#endif
 	
+	#if GHOSTS_NUMBER>= 6
 	if(nGhosts>5)
 	{
 		initializeCharacter(&ghosts[5],XSize/2+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
@@ -121,7 +127,8 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	{
 		initializeCharacter(&ghosts[5],3,1,0,&DEAD_GHOST_IMAGE);	
 	}
-	
+	#endif
+
 	#if GHOSTS_NUMBER>=7
 	if(nGhosts>6)
 	{
@@ -144,36 +151,23 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	}
 	#endif
 	
-	for(i=0;i<GHOSTS_NUMBER;++i)
-	{
-		DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
-	}
+	// for(i=0;i<GHOSTS_NUMBER;++i)
+	// {
+		// DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
+	// }
 	
 
 	initializeCharacter(&player,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);
 
 	DRAW_PLAYER(player._x,player._y,player._imagePtr);
 
-	b2x = 1+1;
-	b2y = YSize/2-2+rand()%5;
-	
-	b3x = XSize-2-1;
-	b3y = YSize/2-2+rand()%5;
-	
-	b4x = b3x;
-	b4y = b3y;
-	
-	b1x = b2x;
-	b1y = b2y;
+	initializeCharacter(&bombs[0],XSize/3, YSize/3,0,&BOMB_IMAGE);
 
-	initializeCharacter(&bombs[0],b1x, b1y,0,&BOMB_IMAGE);
+	initializeCharacter(&bombs[1],XSize/4, YSize/2,0,&BOMB_IMAGE);
 
-	initializeCharacter(&bombs[1],b2x, b2y,0,&BOMB_IMAGE);
-
-	initializeCharacter(&bombs[2],b3x, b3y,0,&BOMB_IMAGE);
-
-	initializeCharacter(&bombs[3],b4x, b4y,0,&BOMB_IMAGE);
-
+	#if BOMBS_NUMBER>=3
+		initializeCharacter(&bombs[2],XSize-XSize/4, YSize/2,0,&BOMB_IMAGE);
+	#endif
 
 	for(i=0;i<BOMBS_NUMBER;++i)
 	{
@@ -182,17 +176,17 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 
 	initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
-	DRAW_POWERUP(powerUp._x, powerUp._y, powerUp._imagePtr);
+	//DRAW_POWERUP(powerUp._x, powerUp._y, powerUp._imagePtr);
 		
 	initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
 	
 
 	initializeCharacter(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);
 
-	invincibleGhost._x = (unsigned char) XSize-2;
-	invincibleGhost._y = (unsigned char) YSize-2;
+	// invincibleGhost._x = (unsigned char) XSize-2;
+	// invincibleGhost._y = (unsigned char) YSize-2;
 			
-	initializeCharacter(&invincibleGhost,invincibleGhost._x,invincibleGhost._y, 0, &INVINCIBLE_GHOST_IMAGE);
+	initializeCharacter(&invincibleGhost,XSize-2,YSize-2, 0, &INVINCIBLE_GHOST_IMAGE);
 
 }
 

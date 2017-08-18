@@ -102,7 +102,7 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 	{
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
-		DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+		//DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
 		return 0;
 	}
 	return 1;
@@ -134,7 +134,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 	{
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
-		DRAW_BROKEN_WALL(missilePtr->_x,missilePtr->_y);
+		//DRAW_BROKEN_WALL(missilePtr->_x,missilePtr->_y);
 	}
 	else
 	{

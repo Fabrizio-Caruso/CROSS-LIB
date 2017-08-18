@@ -39,31 +39,24 @@
 #define C64_HARDWARE_SPRITES 0
 #define C64_REDEFINED_CHARACTERS 0
 
-#if defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__C16__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 200
+	#define GAME_SLOW_DOWN 250
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
 
 #define FAST_NONEXACT_COLLISION_DECTION
 
-#define BOMBS_NUMBER 4
+#define BOMBS_NUMBER 2
 
 // Possible current values are 6,7,8
-#if defined(__CPC__)
-	#define GHOSTS_NUMBER 6
-#elif defined(__SPECTRUM__) 
-	#define GHOSTS_NUMBER 7
-#else
-	#define GHOSTS_NUMBER 8
-#endif
+
+#define GHOSTS_NUMBER 1
+
 	
-#if defined(__SPECTRUM__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
-	#define BUBBLES_NUMBER 2
-#else
-	#define BUBBLES_NUMBER 4
-#endif
+#define BUBBLES_NUMBER 2
+
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 3
@@ -129,7 +122,7 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 500UL
 
-#if defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__C16__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000
 	#define INITIAL_SKULL_SLOWDOWN 32000	
 #else

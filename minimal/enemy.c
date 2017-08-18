@@ -59,7 +59,7 @@ void decreaseGhostLevel(void)
 
 void displayGhosts(void)
 {
-	char i;
+	unsigned char i;
 
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{

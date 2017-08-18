@@ -107,8 +107,8 @@ void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, unsigned char
 
 void computeStrategy(void)
 {
-	char i;
-#if !defined(SIMPLE_STRATEGY)	
+#if !defined(SIMPLE_STRATEGY) && !defined(VERY_SIMPLE_STRATEGY)
+	unsigned char i;
 	switch(level)
 	{
 		case 1: case 2: case 3: case 4: case 5:
@@ -190,7 +190,8 @@ void computeStrategy(void)
 			strategyArray[GHOSTS_NUMBER-1] = 9; // very strongly prefer Y (90%)
 		break;
 	}
-#else
+#elif defined(SIMPLE_STRATEGY)
+	unsigned char i;
 	switch(level)
 	{
 		case 1: case 2: case 3: case 4: case 5:
@@ -214,6 +215,12 @@ void computeStrategy(void)
 			}
 		break;
 	}		
+#else
+	unsigned char i;	
+	for(i=0; i<GHOSTS_NUMBER; ++i) // 8,0,0
+	{
+		strategyArray[i] = 4; // no preference (approximate straight line)
+	}	
 #endif
 }
 
@@ -226,13 +233,8 @@ void chasePlayer(unsigned short slowDown)
 	{
 		if((ghosts[i]._status) && (rand()>slowDown))
 		{
-			ghosts[i]._moved = 1;
 			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
 			moveTowardCharacter(&ghosts[i], &player, strategyArray[i]);
-		}
-		else
-		{
-			ghosts[i]._moved = 0;
 		}
 	}
 }

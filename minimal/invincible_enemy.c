@@ -56,33 +56,21 @@ unsigned short computeInvincibleSlowDown(void)
 {
 	if(loop<1500)
 	{
-		return INITIAL_SKULL_SLOWDOWN - (level/4) * 1000 - loop*2 - ghostLevel*16;
-	}
-	else if(loop<2000)
-	{
-			return INITIAL_SKULL_SLOWDOWN - 2000 - (level/4) * 1000 - ghostLevel*16;
+		return INITIAL_SKULL_SLOWDOWN - (level/4) * 1000 - ghostLevel*16;
 	}
 	return 0; // You must die!
 }
 
-unsigned short computeInvincibleGhostCountTrigger(void)
-{
-	if(level<=12)
-		return level/4 + 1;
-	else
-		return 4;
-}
-
-unsigned short computeInvincibleLoopTrigger(void)
-{
-		return 700 - level*15;
-}
+// unsigned short computeInvincibleLoopTrigger(void)
+// {
+		// return 700 - level*15;
+// }
 
 void computeInvincibleGhostParameters(void)
 {
 	invincibleSlowDown = computeInvincibleSlowDown();
 	invincibleXCountDown = computeInvincibleCountDown();
 	invincibleYCountDown = computeInvincibleCountDown();
-	invincibleGhostCountTrigger = computeInvincibleGhostCountTrigger();
+	invincibleGhostCountTrigger = 4;
 	invincibleLoopTrigger = computeInvincibleLoopTrigger();	
 }

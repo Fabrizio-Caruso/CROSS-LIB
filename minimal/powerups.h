@@ -38,7 +38,7 @@ unsigned short powerUpReached(Character * hunterPtr, Character* preyPtr);
 
 void computePowerUp(unsigned short *coolDownDecreasePtr, unsigned short *powerUpInitialCoolDownPtr);
 
-unsigned short computeGunInitialCoolDown(void);
+#define computeGunInitialCoolDown() (180 + level * 2)
 
 void reducePowerUpsCoolDowns(void);
 #endif // _POWERUPS

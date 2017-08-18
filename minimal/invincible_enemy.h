@@ -40,7 +40,7 @@ unsigned short computeInvincibleSlowDown(void);
 
 unsigned short computeInvincibleGhostCountTrigger(void);
 
-unsigned short computeInvincibleLoopTrigger(void);
+#define computeInvincibleLoopTrigger() (700 - level*15)
 
 void computeInvincibleGhostParameters(void);
 

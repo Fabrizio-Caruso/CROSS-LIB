@@ -44,7 +44,6 @@ struct CharacterStruct
 	
 	// _status decides whether the character is active
 	unsigned char _status;
-	unsigned char _moved;
 	
 	Image* _imagePtr;
 };
@@ -58,9 +57,6 @@ typedef struct CharacterStruct Character;
 #include "display_macros.h"
 
 extern unsigned long points;
-extern unsigned char innerVerticalWallX;
-extern unsigned char innerVerticalWallY;
-extern unsigned char innerVerticalWallLength;
 
 extern unsigned char XSize;
 extern unsigned char YSize;
@@ -95,8 +91,6 @@ unsigned char ghostsMeetDead(unsigned char preyIndex);
 void checkBombsVsGhost(Character * ghostPtr);
 						
 void checkBombsVsGhosts(void);
-
-void checkGhostsVsGhosts(void);
 						
 unsigned char safeLocation(unsigned char x, unsigned char y, Character *danger, unsigned char dangerSize);
 

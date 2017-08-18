@@ -36,6 +36,7 @@
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
 #elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__)
+// #elif defined(__VIC20__) || defined(__C16__)
 #else
 	#include <joystick.h>
 #endif
@@ -61,10 +62,9 @@ extern Character missile;
 
 extern unsigned char ghostCount;
 
-extern unsigned char player_invincibility;
-
 extern unsigned char guns;
 
+// #if (defined(__VIC20__) || defined(__C16__)) || 
 #if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__) && !defined(__VG5k__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
@@ -104,14 +104,9 @@ extern unsigned char guns;
 		{
 			playerFire = 1;
 		}
-		if(player_invincibility)
-		{
-			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
-		}
-		else
-		{
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		}
+
+		DRAW_PLAYER(player._x, player._y, player._imagePtr);
+
 	}
 #elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__)
 	void movePlayerByKeyboard(unsigned char kbInput)
@@ -200,14 +195,9 @@ extern unsigned char guns;
 		{
 			playerFire = 1;
 		}
-		if(player_invincibility)
-		{
-			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
-		}
-		else
-		{
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		}
+
+		DRAW_PLAYER(player._x, player._y, player._imagePtr);
+
 	}	
 #endif
 
@@ -221,6 +211,8 @@ extern unsigned char guns;
 	#else
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
 	#endif
+// #elif defined(__VIC20__) || defined(__C16__) 
+	// void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
 #elif defined(__CBM610__)
 	void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
 #else

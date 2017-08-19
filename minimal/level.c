@@ -163,16 +163,16 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 	
 	
-	#if BOMBS_NUMBER>=3	
-	initializeCharacter(&bombs[0],XSize/3-1+rand()%3, ((YSize/3))-1+rand()%3,0,&BOMB_IMAGE);
+	#if BOMBS_NUMBER==3	
+		initializeCharacter(&bombs[0],XSize/3-2+rand()%5, ((YSize/3))-1+rand()%3,0,&BOMB_IMAGE);
 
-	initializeCharacter(&bombs[1],XSize/3-1+rand()%3, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE);
+		initializeCharacter(&bombs[1],XSize/3-2+rand()%5, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE);
 
-	initializeCharacter(&bombs[2],XSize/3+6-1+rand()%3, (YSize/2)-1+rand()%3,0,&BOMB_IMAGE);
+		initializeCharacter(&bombs[2],2*(XSize/3)-2+rand()%5, (YSize/2)-1+rand()%3,0,&BOMB_IMAGE);
 	#elif BOMBS_NUMBER==2
-	initializeCharacter(&bombs[0],XSize/2-3+rand()%7, ((YSize/3))-1+rand()%3,0,&BOMB_IMAGE);
+		initializeCharacter(&bombs[0],XSize/2-3+rand()%7, ((YSize/3))-1+rand()%3,0,&BOMB_IMAGE);
 
-	initializeCharacter(&bombs[1],XSize/2-3+rand()%7, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE);	
+		initializeCharacter(&bombs[1],XSize/2-3+rand()%7, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE);	
 	#endif
 
 	for(i=0;i<BOMBS_NUMBER;++i)

@@ -168,6 +168,13 @@ unsigned char bubbles_x[BUBBLES_NUMBER];
 
 unsigned char strategyArray[GHOSTS_NUMBER];
 
+void playerDies(void)
+{
+        EXPLOSION_SOUND();
+        die(&player);
+        printDefeatMessage();
+        sleep(1);
+}
 
 
 void handle_missile()
@@ -458,10 +465,11 @@ void handle_invincible_ghost(void)
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		if(!player_invincibility && areCharctersAtSamePosition(&invincibleGhost, &player))
 		{
-			EXPLOSION_SOUND();
-			die(&player);
-			printDefeatMessage();
-			sleep(1);
+			// EXPLOSION_SOUND();
+			// die(&player);
+			// printDefeatMessage();
+			// sleep(1);
+			playerDies();
 		}
 	}
 }
@@ -472,12 +480,12 @@ void handle_player_vs_outer_wall(void)
 	// Check collision player vs outer wall
 	if(wallReached(&player))
 	{
-		EXPLOSION_SOUND();
-		die(&player);
-		//DELETE_PLAYER(player._x,player._y,player._imagePtr);
+		// EXPLOSION_SOUND();
+		// die(&player);
+		// printDefeatMessage();
+		// sleep(1);
+		playerDies();
 		DRAW_BROKEN_WALL(player._x,player._y);
-		printDefeatMessage();
-		sleep(1);
 	}
 }
 
@@ -487,12 +495,12 @@ void handle_player_vs_inner_wall(void)
 	// Check collistion player vs inner wall
 	if(!player_invincibility && innerWallReached(&player))
 	{
-		EXPLOSION_SOUND();
-		die(&player);
-		//DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		DRAW_BROKEN_WALL(player._x,player._y);		
-		printDefeatMessage();
-		sleep(1);
+		// EXPLOSION_SOUND();
+		// die(&player);
+		// printDefeatMessage();
+		// sleep(1);
+		playerDies();
+		DRAW_BROKEN_WALL(player._x,player._y);	
 	}
 }
 
@@ -501,11 +509,11 @@ void handle_player_vs_bombs_and_ghosts(void)
 	// Check collision player vs ghosts and player vs bombs
 	if(!player_invincibility && (playerReached(&player) || playerReachedBombs(&player)))
 	{
-		EXPLOSION_SOUND();
-		die(&player);
-		//DELETE_PLAYER(player._x,player._y,player._imagePtr);
-		printDefeatMessage();
-		sleep(1);
+		// EXPLOSION_SOUND();
+		// die(&player);
+		// printDefeatMessage();
+		// sleep(1);
+		playerDies();
 	}	
 }
 			
@@ -737,10 +745,11 @@ int main(void)
 						{
 							if(!player_invincibility && areCharctersAtSamePosition(&player,&bubbles[i]))
 							{
-								EXPLOSION_SOUND();
-								die(&player);
-								printDefeatMessage();
-								sleep(1);
+								// EXPLOSION_SOUND();
+								// die(&player);
+								playerDies();
+								//printDefeatMessage();
+								//sleep(1);
 							}
 							
 							if(rand()%2)
@@ -791,10 +800,11 @@ int main(void)
 						DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 						if(!player_invincibility && areCharctersAtSamePosition(&leftEnemyMissile,&player))
 						{
-							EXPLOSION_SOUND();
-							die(&player);
-							printDefeatMessage();
-							sleep(1);
+							// EXPLOSION_SOUND();
+							// die(&player);
+							// printDefeatMessage();
+							// sleep(1);
+							playerDies();
 						}
 					}
 					
@@ -824,10 +834,11 @@ int main(void)
 						DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);				
 						if(!player_invincibility && areCharctersAtSamePosition(&rightEnemyMissile,&player))
 						{
-							EXPLOSION_SOUND();
-							die(&player);
-							printDefeatMessage();
-							sleep(1);
+							// EXPLOSION_SOUND();
+							// die(&player);
+							// printDefeatMessage();
+							// sleep(1);
+							playerDies();
 						}
 					}
 				}

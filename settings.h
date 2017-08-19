@@ -56,7 +56,7 @@
 #elif defined(__SPECTRUM__) 
 	#define GHOSTS_NUMBER 7
 #elif defined(__VIC20__)
-	#define GHOSTS_NUMBER 6
+	#define GHOSTS_NUMBER 8
 #else
 	#define GHOSTS_NUMBER 8
 #endif

@@ -125,7 +125,16 @@ unsigned char invincibleGhostAlive = 1;
 
 unsigned char player_invincibility = 0;
 
-unsigned char dead_bubbles;
+unsigned char dead_bubbles = 0;
+
+// TODO: It should no be here
+unsigned char powerUp_blink = 1;
+unsigned char gun_blink = 1;
+unsigned char extra_points_blink = 1;
+unsigned char extra_life_blink = 1;
+unsigned char invincibility_blink = 1;
+unsigned char player_blink = 1;	
+
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -158,24 +167,8 @@ Character bubbles[BUBBLES_NUMBER];
 unsigned char bubbles_x[BUBBLES_NUMBER];
 
 unsigned char strategyArray[GHOSTS_NUMBER];
-	
-void initializeCharacters(void)
-{
-	// unsigned char i;
-	// for(i=0;i<GHOSTS_NUMBER;++i)
-	// {	
-		// ghosts[i] = (Character *) malloc(sizeof(Character));
-	// }
-	// for(i=0;i<BOMBS_NUMBER;++i)
-	// {
-		// bombs[i] = (Character *) malloc(sizeof(Character));
-	// }
-	
-	// for(i=0;i<BUBBLES_NUMBER;++i)
-	// {
-		// bubbles[i] = (Character *) malloc(sizeof(Character));
-	// }
-}
+
+
 
 void handle_missile()
 {
@@ -532,7 +525,6 @@ int main(void)
 	// Ask for the screen size 
 	GET_SCREEN_SIZE(&XSize, &YSize);
 	
-	initializeCharacters();
 	highScore = 0;
 	
 	INIT_GRAPHICS();

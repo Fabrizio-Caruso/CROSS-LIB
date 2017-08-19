@@ -51,6 +51,7 @@
 #include "invincible_enemy.h"
 #include "input_macros.h"
 
+extern unsigned char player_blink;
 
 extern unsigned short invincibleXCountDown;
 extern unsigned short invincibleYCountDown;

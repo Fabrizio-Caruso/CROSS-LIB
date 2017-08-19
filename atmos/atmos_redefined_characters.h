@@ -59,13 +59,6 @@
 	Image EXTRA_LIFE_IMAGE;
 	Image INVINCIBILITY_IMAGE;
 	
-	char powerUp_blink = 1;
-	char gun_blink = 1;
-	char extra_points_blink = 1;
-	char extra_life_blink = 1;
-	char invincibility_blink = 1;
-	char player_blink = 1;
-	
 	extern char YSize; 
 
 	void redefine(unsigned long loc, const unsigned char * data)
@@ -201,91 +194,76 @@
 	};
 
 	void _delete(unsigned char x, unsigned char y)  {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
-	
-	
-	void DRAW_POWERUP(char x, char y, Image * image) 
+
+	void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter) 
 	{
-		if(powerUp_blink) 
+		(void) textcolor (image->_color);
+		if(*blinkCounter) 
 		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color ); 
-			powerUp_blink=0;
+			_draw(x,y,image); 
+			*blinkCounter=0;
 		} 
 		else 
 		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32); 
-			powerUp_blink=1;
-		}
+			_delete(x,y);
+			*blinkCounter=1;
+		}	
 	};
 	
-	
-	void DRAW_GUN(char x, char y, Image * image) 
-	{
-		if(gun_blink) 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			gun_blink=0;
-		} 
-		else 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
-			gun_blink=1;
-		}
-	};
-	
-	void DRAW_EXTRA_POINTS(char x, char y, Image * image) 
-	{
-		if(extra_points_blink) 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			extra_points_blink=0;
-		} 
-		else 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
-			extra_points_blink=1;
-		}
-	};	
+	// void (char x, char y, Image * image) 
+	// {
+		// if(extra_points_blink) 
+		// {
+			// POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
+			// extra_points_blink=0;
+		// } 
+		// else 
+		// {
+			// POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
+			// extra_points_blink=1;
+		// }
+	// };	
 
-	void DRAW_EXTRA_LIFE(char x, char y, Image * image) 
-	{
-		if(extra_life_blink) 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			extra_life_blink=0;
-		} 
-		else 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
-			extra_life_blink=1;
-		}
-	};	
+	// void DRAW_EXTRA_LIFE(char x, char y, Image * image) 
+	// {
+		// if(extra_life_blink) 
+		// {
+			// POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
+			// extra_life_blink=0;
+		// } 
+		// else 
+		// {
+			// POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
+			// extra_life_blink=1;
+		// }
+	// };	
 	
-	void DRAW_INVINCIBILITY(char x, char y, Image * image) 
-	{
-		if(invincibility_blink) 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			invincibility_blink=0;
-		} 
-		else 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
-			invincibility_blink=1;
-		}
-	};		
+	// void DRAW_INVINCIBILITY(char x, char y, Image * image) 
+	// {
+		// if(invincibility_blink) 
+		// {
+			// POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
+			// invincibility_blink=0;
+		// } 
+		// else 
+		// {
+			// POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
+			// invincibility_blink=1;
+		// }
+	// };		
 
-	void DRAW_BLINKING_PLAYER(char x, char y, Image * image) 
-	{
-		if(player_blink) 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
-			player_blink=0;
-		} 
-		else 
-		{
-			POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
-			player_blink=1;
-		}
-	};		
+	// void DRAW_BLINKING_PLAYER(char x, char y, Image * image) 
+	// {
+		// if(player_blink) 
+		// {
+			// POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40,image->_imageData + image->_color );
+			// player_blink=0;
+		// } 
+		// else 
+		// {
+			// POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);
+			// player_blink=1;
+		// }
+	// };		
 	
 #endif // _ATMOS_REDEFINED_CHARACTERS

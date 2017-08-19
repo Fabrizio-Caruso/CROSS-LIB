@@ -21,13 +21,6 @@
 	Image EXTRA_POINTS_IMAGE;
 	Image EXTRA_LIFE_IMAGE;
 	Image INVINCIBILITY_IMAGE;
-
-	char powerUp_blink = 1;
-	char gun_blink = 1;
-	char extra_points_blink = 1;
-	char extra_life_blink = 1;
-	char invincibility_blink = 1;
-	char player_blink = 1;
 	
 	void INIT_GRAPHICS(void)
 	{
@@ -95,100 +88,19 @@
 		cputc(' ');
 	}
 	
-	void _blink_powerUp_draw(unsigned char x, unsigned char y, Image * image) 
+	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char * blinkCounter) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (image->_color);
-		if(powerUp_blink) 
+		if(*blinkCounter) 
 		{
 			cputc(image->_imageData); 
-			powerUp_blink=0;
+			*blinkCounter=0;
 		} 
 		else 
 		{
 			cputc(' '); 
-			powerUp_blink=1;
-		}	
-	}
-	
-	void _blink_gun_draw(unsigned char x, unsigned char y, Image * image) 
-	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
-		if(gun_blink) 
-		{
-			cputc(image->_imageData); 
-			gun_blink=0;
-		} 
-		else 
-		{
-			cputc(' '); 
-			gun_blink=1;
-		}	
-	}
-
-	void _blink_extra_points_draw(unsigned char x, unsigned char y, Image * image) 
-	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
-		if(extra_points_blink) 
-		{
-			cputc(image->_imageData); 
-			extra_points_blink=0;
-		} 
-		else 
-		{
-			cputc(' '); 
-			extra_points_blink=1;
-		}	
-	}
-
-	
-	void _blink_extra_life_draw(unsigned char x, unsigned char y, Image * image) 
-	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
-		if(extra_life_blink) 
-		{
-			cputc(image->_imageData); 
-			extra_life_blink=0;
-		} 
-		else 
-		{
-			cputc(' '); 
-			extra_life_blink=1;
-		}	
-	}
-	
-	void _blink_invincibility_draw(unsigned char x, unsigned char y, Image * image) 
-	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
-		if(invincibility_blink) 
-		{
-			cputc(image->_imageData); 
-			invincibility_blink=0;
-		} 
-		else 
-		{
-			cputc(' '); 
-			invincibility_blink=1;
-		}	
-	}
-
-	void _blink_player_draw(unsigned char x, unsigned char y, Image * image) 
-	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (image->_color);
-		if(player_blink) 
-		{
-			cputc(image->_imageData); 
-			player_blink=0;
-		} 
-		else 
-		{
-			cputc(' '); 
-			player_blink=1;
+			*blinkCounter=1;
 		}	
 	}
 	

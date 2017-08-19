@@ -85,6 +85,8 @@ extern Character bubbles[BUBBLES_NUMBER];
 
 extern char bubbles_x[BUBBLES_NUMBER];
 
+extern unsigned char powerUp_blink;
+extern unsigned char gun_blink;
 
 void drawInnerVerticalWall(void)
 {

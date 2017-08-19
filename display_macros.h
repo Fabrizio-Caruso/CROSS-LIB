@@ -447,12 +447,7 @@ typedef struct ImageStruct Image;
 	#endif
 
 	#include <stdio.h>
-	
-	// #if defined(SPECTRUM_NATIVE_DIRECTIVES)
-		// #define DRAW_CMD {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }	
-	// #else
-		// #define DRAW_CMD {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }	
-	// #endif
+
 	
 	#if !defined(SPECTRUM_NATIVE_DIRECTIVES)	
 		#define DRAW_PLAYER(x,y,image)  {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }		
@@ -518,26 +513,21 @@ typedef struct ImageStruct Image;
 	
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
 		
-	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_player_draw(x,y,image);};
-	
-	#define DRAW_POWERUP(x,y,image) {_blink_powerUp_draw(x,y,image);};
-	
-	#define DRAW_GUN(x,y,image) {_blink_gun_draw(x,y,image);};
-
-	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_extra_points_draw(x,y,image);};
-
-	#define DRAW_EXTRA_LIFE(x,y,image) {_blink_extra_life_draw(x,y,image);};
-
-	#define DRAW_INVINCIBILITY(x,y,image) {_blink_invincibility_draw(x,y,image);};	
+	#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
+	#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
+	#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
+	#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
+	#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
+	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 
 	
 	void _draw_broken_wall(unsigned char x, unsigned char y);	
 	void _draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_powerUp_draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_gun_draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_extra_points_draw(unsigned char x, unsigned char y, Image * image);	
-	void _blink_extra_life_draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_invincibility_draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_player_draw(unsigned char x, unsigned char y, Image * image);
+	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter);
+	// void _blink_gun_draw(unsigned char x, unsigned char y, Image * image);
+	// void _blink_extra_points_draw(unsigned char x, unsigned char y, Image * image);	
+	// void _blink_extra_life_draw(unsigned char x, unsigned char y, Image * image);
+	// void _blink_invincibility_draw(unsigned char x, unsigned char y, Image * image);
+	// void _blink_player_draw(unsigned char x, unsigned char y, Image * image);
 	
 	#define DRAW_BOMBS() \
 	{ \

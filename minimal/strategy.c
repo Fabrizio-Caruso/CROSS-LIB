@@ -217,10 +217,12 @@ void computeStrategy(void)
 	}		
 #else
 	unsigned char i;	
-	for(i=0; i<GHOSTS_NUMBER; ++i) // 8,0,0
+	for(i=1; i<GHOSTS_NUMBER-1; ++i) // 8,0,0
 	{
 		strategyArray[i] = 4; // no preference (approximate straight line)
 	}	
+	strategyArray[0] = 3;
+	strategyArray[GHOSTS_NUMBER-1] = 5;
 #endif
 }
 

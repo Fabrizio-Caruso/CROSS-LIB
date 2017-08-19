@@ -431,14 +431,6 @@ typedef struct ImageStruct Image;
 	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() {printf("\x1B[37;44m\x1B[2J");};
-// #elif defined(__CPC__) 
-	// #define SET_TEXT_COLOR(c) (void) textcolor (c);
-
-	// #define SET_BORDER_COLOR(c) (void) textcolor (c);
-
-	// #define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
-
-	// #define CLEAR_SCREEN() {printf("\x1B[37;44m\x1B[2J");};
 #elif defined(__VG5K__) 
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 	

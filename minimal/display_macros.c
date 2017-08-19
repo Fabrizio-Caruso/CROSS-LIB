@@ -64,6 +64,13 @@
 			GUN_IMAGE._color = COLOR_GRAY1;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
+		#elif defined(__C16__)
+			PLAYER_IMAGE._color = COLOR_CYAN;
+			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+			POWERUP_IMAGE._color = COLOR_YELLOW;
+			GUN_IMAGE._color = COLOR_YELLOW;
+			BOMB_IMAGE._color = COLOR_RED;
+			DEAD_GHOST_IMAGE._color = COLOR_RED;				
 		#else
 			PLAYER_IMAGE._color = COLOR_WHITE;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;

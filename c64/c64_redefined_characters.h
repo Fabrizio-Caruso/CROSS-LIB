@@ -113,7 +113,7 @@
 		BUBBLE_IMAGE._imageData = '^';
 		BUBBLE_IMAGE._color = COLOR_WHITE;
 		
-		EXTRA_POINTS_IMAGE._imageData = 'p';
+		EXTRA_POINTS_IMAGE._imageData = '*';
 		EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
 		
 		PLAYER_UP._imageData = (char) 0x76 - 6;

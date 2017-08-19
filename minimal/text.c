@@ -328,7 +328,7 @@ void printLevel(void)
 	{
 		char highScoreString[22];
 
-		sprintf(highScoreString, "high score: %u0", highScore);
+		sprintf(highScoreString, "high score: %06u0", highScore);
 
 		printCenteredMessage(highScoreString);
 		sleep(1);
@@ -370,7 +370,7 @@ void printLevel(void)
 	{
 		char highScoreString[22];
 
-		sprintf(highScoreString, "HIGH SCORE: %u0", highScore);
+		sprintf(highScoreString, "HIGH SCORE: %05u0", highScore);
 
 		printCenteredMessage(highScoreString);
 		sleep(1);
@@ -388,7 +388,7 @@ void printLevel(void)
 	{
 		char scoreString[22];
 		CLEAR_SCREEN();
-		sprintf(scoreString, "SCORE: %u0", points);
+		sprintf(scoreString, "SCORE: %05u0", points);
 		printCenteredMessage(scoreString);
 	}
 	

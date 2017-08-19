@@ -538,9 +538,7 @@ int main(void)
 	INIT_GRAPHICS();
 	while(1)
 	{
-		
-		char arrowRange = 3;
-
+		unsigned char arrowRange;
 
 		INIT_IMAGES();
 		
@@ -557,17 +555,7 @@ int main(void)
 		#endif
 	
 		#ifdef DEBUG_CHARACTERS
-		
-			// displayStatsTitles();
-			// printLivesStats();
-			// printLevelStats();
-			// printGhostCountStats();
-			// printGunsStats(); 
-			// displayStats();
-			// WAIT_PRESS();
-			// CLEAR_SCREEN();
-			
-			
+
 			#if defined(__SPECTRUM__)
 			{
 				unsigned char i;
@@ -674,7 +662,16 @@ int main(void)
 			printLevel();
 			sleep(1);
 			
+			if(bossLevel())
+			{
+				CLEAR_SCREEN();
+				printKillTheSkull();
+				sleep(1);
+
+			}
+			CLEAR_SCREEN();			
 			// Wait for the user to press a key 
+			
 			printPressKeyToStart();
 			WAIT_PRESS();
 
@@ -707,7 +704,7 @@ int main(void)
 			while(player._status && ((ghostCount>0 && !bossLevel()) || (invincibleGhostAlive && bossLevel()))) // while alive && there are still ghosts
 			{
 				#if defined(SLOW_DOWN)
-					unsigned char i;
+					unsigned int i;
 					for(i=0;i<GAME_SLOW_DOWN;++i)
 					{
 					}

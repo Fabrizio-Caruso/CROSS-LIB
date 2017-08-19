@@ -80,5 +80,6 @@ void printExtraLife(void);
 
 void finalScore(void);
 
+void printKillTheSkull(void);
 #endif // _DISPLAY
 

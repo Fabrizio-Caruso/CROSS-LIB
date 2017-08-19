@@ -274,11 +274,25 @@ void setScreenColors(void)
 	#endif
 }
 
+
+
 void printCenteredMessage(char *Text)
 {
 	SET_TEXT_COLOR(TEXT_COLOR);
 	PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text);
 }
+
+#ifdef defined(__C64__)
+void printKillTheSkull(void)
+{
+	printCenteredMessage("kill the skull!");	
+}
+#else
+void printKillTheSkull(void)
+{
+	printCenteredMessage("Kill the skull!");
+}	
+#endif	
 
 #ifdef __C64__
 void printLevel(void)

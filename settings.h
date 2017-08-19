@@ -41,7 +41,7 @@
 
 #if defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 250
+	#define GAME_SLOW_DOWN 300
 #else
 	#define GAME_SLOW_DOWN 0
 #endif

@@ -69,7 +69,7 @@ typedef struct ImageStruct Image;
 	#define Y_OFFSET 3
 #elif defined(__VIC20__) 
 	#define X_OFFSET 0
-	#define Y_OFFSET 2
+	#define Y_OFFSET 1
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define X_OFFSET 0
 	#define Y_OFFSET 0

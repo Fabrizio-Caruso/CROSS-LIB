@@ -54,7 +54,7 @@
 #if defined(__C16__)
 	#define BOMBS_NUMBER 3
 #else
-	#define BOMBS_NUMBER 2	
+	#define BOMBS_NUMBER 2
 #endif
 	
 // Possible current values are 6,7,8

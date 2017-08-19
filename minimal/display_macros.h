@@ -458,7 +458,7 @@ typedef struct ImageStruct Image;
 #else // CC65 conio case
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 
-	#define SET_BORDER_COLOR(c)(void) textcolor (c);
+	#define SET_BORDER_COLOR(c) (void) bordercolor(c);;
 
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 	

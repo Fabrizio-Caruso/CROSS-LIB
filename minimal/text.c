@@ -589,7 +589,9 @@ void printStartMessage(void)
 		// PRINT(1, YSize / 2, "Catch ! for bullets");
 		
 		// PRINT(1, YSize / 2 + 1, "Flee from +!");
-		PRINT(1, YSize/2 - 2, "Lure the enemies into the mines");
+		PRINT(3, YSize/2 - 2, "Lure the enemies");
+
+		PRINT(3, YSize/2 - 1, " into the mines");
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINT(1, YSize / 2 - 3, "you are chased by O");
 		
@@ -622,7 +624,7 @@ void printStartMessage(void)
 		
 	#elif defined(__C16__) || defined(__PLUS4__)
 		// PRINT(1, YSize / 2 - 3, "You % are chased by \"! Lure \" into /!");
-		PRINT(1, YSize / 2 - 1, "Lure the enemies into the mines");		
+		PRINT(5, YSize / 2 - 1, "Lure the enemies into the mines");		
 		// PRINT(1, YSize / 2 - 1, "# slows \" down! ,. gives you 3 bullets");
 		
 		// PRINT(5, YSize / 2 + 1,     "Use the gun or flee from +!");	
@@ -653,7 +655,7 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#elif defined(__VIC20__)
 		SET_TEXT_COLOR(COLOR_GREEN);
-		PRINT(1, YSize / 2 + 4, "Use the Joystick");
+		PRINT(3, YSize / 2 + 4, "Use the Joystick");
 		SET_TEXT_COLOR(TEXT_COLOR);	
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__SPECTRUM__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use W A S D <SPACE>");

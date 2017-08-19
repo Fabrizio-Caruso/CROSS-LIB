@@ -179,21 +179,6 @@ void printGunsStats(void)
 	#else
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#endif			
-	
-	// SET_TEXT_COLOR(TEXT_COLOR);
-	
-	// #if defined (__ATMOS__)
-		// PRINTF(19-1,0-Y_OFFSET,"%hu",guns);
-	// #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		// PRINTF(15+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
-	// #elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
-		// PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
-	// #elif defined(__SPECTRUM__) || defined(__CPC__)
-		// PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%d",guns);
-	// #elif defined(__VG5K__)		
-	// #else
-		// PRINTF(18+2-X_OFFSET,0-Y_OFFSET,"%hu",guns);
-	// #endif		
 }
 
 void printLevelStats(void)

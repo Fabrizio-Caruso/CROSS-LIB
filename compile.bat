@@ -75,15 +75,15 @@ cl65.exe -O -t cbm510 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\ene
 
 @REM 
 @REM 
-cl65.exe  -O -t atmos --config %mypath%\cfg\atmos_better_tap.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atmos_redefined_chars.tap
+cl65.exe  -O -t atmos --config %mypath%\atmos\atmos_input.c %mypath%\cfg\atmos_better_tap.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atmos_redefined_chars.tap
 
 @REM 
-cl65.exe  -O -t atarixl -DATARI_MODE1 --start-addr 0x4000 %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atariXL_mode1.xex
+cl65.exe  -O -t atarixl -DATARI_MODE1 --start-addr 0x4000 %mypath%\atari\atari_input.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atariXL_mode1.xex
 
 @REM 
-cl65.exe  -O -t atarixl %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atariXL_mode0.xex
+cl65.exe  -O -t atarixl %mypath%\atari\atari_input.c  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atariXL_mode0.xex
 
-cl65.exe  -O -t atari %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atari_mode0.xex
+cl65.exe  -O -t atari %mypath%\atari\atari_input.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atari_mode0.xex
 
 
 

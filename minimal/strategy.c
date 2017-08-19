@@ -221,8 +221,8 @@ void computeStrategy(void)
 	{
 		strategyArray[i] = 4; // no preference (approximate straight line)
 	}	
-	strategyArray[0] = 3;
-	strategyArray[GHOSTS_NUMBER-1] = 5;
+	strategyArray[0] = 2;
+	strategyArray[GHOSTS_NUMBER-1] = 6;
 #endif
 }
 

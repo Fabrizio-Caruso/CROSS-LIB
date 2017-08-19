@@ -39,6 +39,8 @@
 		#include "c264/c264_sounds.h"
 	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
 		#include "spectrum/spectrum_sounds.h"	
+	#elif defined(__C64__)
+		#include "c64/c64_sounds.h"
 	#else
 		#define EXPLOSION_SOUND() {};
 		#define PING_SOUND() {};

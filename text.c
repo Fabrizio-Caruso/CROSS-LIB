@@ -114,13 +114,11 @@ void displayStatsTitles(void)
 		cputc('E'+128); 		
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		//PRINT(1,0-Y_OFFSET,"SPEED:");
-		PRINT(1,0-Y_OFFSET,"SCORE:");
-		PRINT(1,1-Y_OFFSET,"LEVEL:");
+		PRINT(0,0-Y_OFFSET,"SCORE:");
+		PRINT(0,1-Y_OFFSET,"LEVEL:");
 	#elif defined(__VG5K__)	
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		//PRINT(2,0-Y_OFFSET,"SPEED:");
 		PRINT(2,0-Y_OFFSET,"SCORE:");
 		PRINT(2,1-Y_OFFSET,"LEVEL:");
 		#if !(defined(__SPECTRUM__) && defined(SPECTRUM_32COL)) && !defined(__VIC20__) && (!defined(__ATARI__) && !defined(__ATARIXL__) || !defined(ATARI_MODE1))
@@ -188,7 +186,7 @@ void printLevelStats(void)
 	#if defined(__ATMOS__) 
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINTF(7,1-Y_OFFSET,"%02hu", level);
+		PRINTF(7-1,1-Y_OFFSET,"%02hu", level);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
@@ -242,7 +240,7 @@ void displayStats(void)
 	#if defined(__ATMOS__) 
 		PRINTF(8,0-Y_OFFSET,"%06lu",points);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINTF(7,0-Y_OFFSET,"%05lu",points);
+		PRINTF(7-1,0-Y_OFFSET,"%05lu",points);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(8,0-Y_OFFSET,"%06lu",points);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)

@@ -43,12 +43,13 @@
 	
 		// SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
 		//_setcolor(TGI_COLOR_BLACK,TGI_COLOR_WHITE,TGI_COLOR_YELLOW);
-		_setcolor_low(TGI_COLOR_GREEN, TGI_COLOR_BLUE);
-		_setcolor(0,COLOR_BLACK,8);
-		_setcolor(1,COLOR_WHITE,8);
-		_setcolor(2,COLOR_RED,8);
-		_setcolor(3,COLOR_BLUE,8);
-		_setcolor(4, COLOR_YELLOW,8);
+		
+		// _setcolor_low(TGI_COLOR_GREEN, TGI_COLOR_BLUE);
+		// _setcolor(0,COLOR_BLACK,8);
+		// _setcolor(1,COLOR_WHITE,8);
+		// _setcolor(2,COLOR_RED,8);
+		// _setcolor(3,COLOR_BLUE,8);
+		// _setcolor(4, COLOR_YELLOW,8);
 	}
 	 
 	 

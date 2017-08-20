@@ -41,6 +41,8 @@
 		#include "spectrum/spectrum_sounds.h"	
 	#elif defined(__C64__) || defined(__C128__)
 		#include "c64/c64_sounds.h"
+	#elif defined(__VIC20__) && defined(VIC20_SOUNDS)
+		#include "vic20/vic20_sounds.h"	
 	#else
 		#define EXPLOSION_SOUND() {};
 		#define PING_SOUND() {};

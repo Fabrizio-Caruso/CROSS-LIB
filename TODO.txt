@@ -1,0 +1,6 @@
+TODO
+
+Implement ghostDies function to save memory
+
+Rewrite level.c (all of it but one could start with a loop to initialize ghosts)
+

@@ -95,13 +95,6 @@
 	}
 
 
-	// void _draw_broken_wall(unsigned char x, unsigned char y)
-	// {
-		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		// SET_TEXT_COLOR(COLOR_WHITE);
-		// cputc('X');
-	// }
-	
 	void _draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
@@ -130,35 +123,3 @@
 			*blink_counter=1;
 		}	
 	}
-	
-	// void _blink_powerUp_draw(unsigned char x, unsigned char y, Image * image) 
-	// {
-		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		// SET_TEXT_COLOR(image->_color);
-		// if(powerUp_blink) 
-		// {
-			// cputc(image->_imageData); 
-			// powerUp_blink=0;
-		// } 
-		// else 
-		// {
-			// cputc(' '); 
-			// powerUp_blink=1;
-		// }	
-	// }
-	
-	// void _blink_gun_draw(unsigned char x, unsigned char y, Image * image) 
-	// {
-		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		// SET_TEXT_COLOR(image->_color);
-		// if(gun_blink) 
-		// {
-			// cputc(image->_imageData); 
-			// gun_blink=0;
-		// } 
-		// else 
-		// {
-			// cputc(' '); 
-			// gun_blink=1;
-		// }	
-	// }

@@ -71,63 +71,107 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 	unsigned char i;
 
-	initializeCharacter(&ghosts[0],XSize-XSize/6+rand()%3-3,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
-	//DRAW_GHOST(ghosts[0]._x, ghosts[0]._y, ghosts[0]._imagePtr);
+	unsigned char ghost_x[GHOSTS_NUMBER];
+	unsigned char ghost_y[GHOSTS_NUMBER];
+	
+	ghost_x[0] = XSize-XSize/6+rand()%2-1;
+	ghost_y[0] = YSize-YSize/6+rand()%2-1;
+	
+	ghost_x[1] = XSize/6+rand()%2-1;
+	ghost_y[1] = YSize/6+rand()%2-1+3;
+	
+	ghost_x[2] = XSize/6+rand()%2-1;
+	ghost_y[2] = YSize/2+rand()%2-1;
+	
+	ghost_x[3] = XSize/6+rand()%2-1;
+	ghost_y[3] = YSize-YSize/6+rand()%2-1;
+	
+	ghost_x[4] = XSize/2+rand()%2-1;
+	ghost_y[4] = YSize/6+rand()%2-1+3;
+	
+	#if GHOSTS_NUMBER>=6
+		ghost_x[5] = XSize/2+rand()%2-1;
+		ghost_y[5] = YSize-YSize/6+rand()%2-1;
+	#elif GHOSTS_NUMBER>=7
+		ghost_x[6] = XSize-XSize/6+rand()%2-1;
+		ghost_y[6] = YSize/6+rand()%2-1+3;
+	#else
+		ghost_x[7] = XSize-XSize/6+rand()%2-1;
+		ghost_y[7] = YSize/2+rand()%2-1;
+    #endif
 
-	#if GHOSTS_NUMBER>= 2	
-	if(nGhosts>1)
+	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		initializeCharacter(&ghosts[1],XSize/6+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+		if(nGhosts>i)
+		{
+			initializeCharacter(&ghosts[i],ghost_x[i],ghost_y[i],1,&GHOST_IMAGE);
+			// DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
+			// sleep(1);
+		}
+		else
+		{
+			initializeCharacter(&ghosts[i],8-i,1,0,&DEAD_GHOST_IMAGE);			
+		}
 	}
-	else
-	{
-		initializeCharacter(&ghosts[1],7,1,0,&DEAD_GHOST_IMAGE);
-	}
-	#endif
 	
-	#if GHOSTS_NUMBER>= 3	
-	if(nGhosts>2)
-	{
-		initializeCharacter(&ghosts[2],XSize/6+rand()%3-1,YSize/2+rand()%3-2,1, &GHOST_IMAGE);
-	}
-	else
-	{
-		initializeCharacter(&ghosts[2],6,1,0, &DEAD_GHOST_IMAGE);
-	}
-	#endif
 	
-	#if GHOSTS_NUMBER>= 4
-	if(nGhosts>3)
-	{
-		initializeCharacter(&ghosts[3],XSize/6+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
-	}
-	else
-	{
-		initializeCharacter(&ghosts[3],5,1,0,&DEAD_GHOST_IMAGE);
-	}
-	#endif
 	
-	#if GHOSTS_NUMBER>= 5
-	if(nGhosts>4)
-	{
-		initializeCharacter(&ghosts[4],XSize/2+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
-	}
-	else
-	{
-		initializeCharacter(&ghosts[4],4,1,0,&DEAD_GHOST_IMAGE);	
-	}
-	#endif
+	// initializeCharacter(&ghosts[0],XSize-XSize/6+rand()%3-3,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
+
+	// #if GHOSTS_NUMBER>= 2	
+	// if(nGhosts>1)
+	// {
+		// initializeCharacter(&ghosts[1],XSize/6+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+	// }
+	// else
+	// {
+		// initializeCharacter(&ghosts[1],7,1,0,&DEAD_GHOST_IMAGE);
+	// }
+	// #endif
 	
-	#if GHOSTS_NUMBER>= 6
-	if(nGhosts>5)
-	{
-		initializeCharacter(&ghosts[5],XSize/2+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
-	}
-	else
-	{
-		initializeCharacter(&ghosts[5],3,1,0,&DEAD_GHOST_IMAGE);	
-	}
-	#endif
+	// #if GHOSTS_NUMBER>= 3	
+	// if(nGhosts>2)
+	// {
+		// initializeCharacter(&ghosts[2],XSize/6+rand()%3-1,YSize/2+rand()%3-2,1, &GHOST_IMAGE);
+	// }
+	// else
+	// {
+		// initializeCharacter(&ghosts[2],6,1,0, &DEAD_GHOST_IMAGE);
+	// }
+	// #endif
+	
+	// #if GHOSTS_NUMBER>= 4
+	// if(nGhosts>3)
+	// {
+		// initializeCharacter(&ghosts[3],XSize/6+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
+	// }
+	// else
+	// {
+		// initializeCharacter(&ghosts[3],5,1,0,&DEAD_GHOST_IMAGE);
+	// }
+	// #endif
+	
+	// #if GHOSTS_NUMBER>= 5
+	// if(nGhosts>4)
+	// {
+		// initializeCharacter(&ghosts[4],XSize/2+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+	// }
+	// else
+	// {
+		// initializeCharacter(&ghosts[4],4,1,0,&DEAD_GHOST_IMAGE);	
+	// }
+	// #endif
+	
+	// #if GHOSTS_NUMBER>= 6
+	// if(nGhosts>5)
+	// {
+		// initializeCharacter(&ghosts[5],XSize/2+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
+	// }
+	// else
+	// {
+		// initializeCharacter(&ghosts[5],3,1,0,&DEAD_GHOST_IMAGE);	
+	// }
+	// #endif
 
 	#if GHOSTS_NUMBER>=7
 	if(nGhosts>6)
@@ -151,12 +195,6 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	}
 	#endif
 	
-	// for(i=0;i<GHOSTS_NUMBER;++i)
-	// {
-		// DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
-	// }
-	
-
 	initializeCharacter(&player,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);
 
 	DRAW_PLAYER(player._x,player._y,player._imagePtr);

@@ -107,115 +107,6 @@ void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, unsigned char
 
 void computeStrategy(void)
 {
-#if !defined(SIMPLE_STRATEGY) && !defined(VERY_SIMPLE_STRATEGY)
-	unsigned char i;
-	switch(level)
-	{
-		case 1: case 2: case 3: case 4: case 5:
-			for(i=0; i<GHOSTS_NUMBER; ++i) // 8,0,0
-			{
-				strategyArray[i] = 4; // no preference (approximate straight line)
-			}
-		break;
-		case 6: case 7: case 8: case 9: case 10: // 4,2,2
-			for(i=0; i<5; ++i) // 4
-			{
-				strategyArray[i] = 4; // no preference (approximate straight line)
-			}
-			for(i=5; i<7; ++i) // 2
-			{
-				strategyArray[i] = 3; // slightly prefer X (60%)
-			}
-			for(i=7; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
-			{
-				strategyArray[i] = 5; // slightly prefer Y (60%)
-			}
-		break;
-		case 11: case 12: case 13: case 14: case 15: // 4,2,2
-			for(i=0; i<5; ++i) // 4
-			{
-				strategyArray[i] = 4; // no preference (approximate straight line)
-			}
-			for(i=5; i<7; ++i) // 2
-			{
-				strategyArray[i] = 2; // prefer X (70%)
-			}
-			for(i=7; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
-			{
-				strategyArray[i] = 6; // prefer Y (70%)
-			}
-		break;
-		case 16: case 17: case 18: case 19: case 20: // 4,2,2
-			for(i=0; i<5; ++i) // 4
-			{
-				strategyArray[i] = 4; // no preference (approximate straight line)
-			}
-			for(i=5; i<7; ++i) // 2
-			{
-				strategyArray[i] = 1; // strongly prefer X (80%)
-			}
-			for(i=7; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
-			{
-				strategyArray[i] = 7; // strongly prefer Y (80%)
-			}
-		break;		
-		case 21: case 22: case 23: case 24: case 25: // 2,3,3  from level 21 to 25 - Assuming a minimum of 6 ghosts
-			for(i=0; i<2; ++i) // 2
-			{
-				strategyArray[i] = 4; // no preference (approximate straight line)
-			}
-			for(i=2; i<5; ++i) // 3
-			{
-				strategyArray[i] = 1; // strongly prefer X (80%)
-			}
-			for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
-			{
-				strategyArray[i] = 7; // strongly prefer Y (80%)
-			}
-		break;
-		default: // 2, 2+1, 2+1 from level 26 on
-			for(i=0; i<2; ++i) // 2
-			{
-				strategyArray[i] = 4; // no preference (approximate straight line)
-			}
-			for(i=2; i<4; ++i) // 2
-			{
-				strategyArray[i] = 1; // strongly prefer X (80%)
-			}
-			strategyArray[4] = 0; // very strongly prefer X (90%)
-			for(i=5; i<GHOSTS_NUMBER-1; ++i) // 3 (if total=8)
-			{
-				strategyArray[i] = 8; // strongly prefer Y (80%)
-			}	
-			strategyArray[GHOSTS_NUMBER-1] = 9; // very strongly prefer Y (90%)
-		break;
-	}
-#elif defined(SIMPLE_STRATEGY)
-	unsigned char i;
-	switch(level)
-	{
-		case 1: case 2: case 3: case 4: case 5:
-			for(i=0; i<GHOSTS_NUMBER; ++i) // 8,0,0
-			{
-				strategyArray[i] = 4; // no preference (approximate straight line)
-			}
-		break;
-		default: // 4,2,2
-			for(i=0; i<5; ++i) // 4
-			{
-				strategyArray[i] = 4; // no preference (approximate straight line)
-			}
-			for(i=5; i<7; ++i) // 2
-			{
-				strategyArray[i] = 3; // slightly prefer X (60%)
-			}
-			for(i=7; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
-			{
-				strategyArray[i] = 5; // slightly prefer Y (60%)
-			}
-		break;
-	}		
-#else
 	unsigned char i;	
 	for(i=1; i<GHOSTS_NUMBER-1; ++i) // 8,0,0
 	{
@@ -223,7 +114,6 @@ void computeStrategy(void)
 	}	
 	strategyArray[0] = 2;
 	strategyArray[GHOSTS_NUMBER-1] = 6;
-#endif
 }
 
 // Ghosts move to new positions if they get their chanche

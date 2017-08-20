@@ -60,9 +60,9 @@
 // Possible current values are 6,7,8
 
 #if defined(__C16__)
-	#define GHOSTS_NUMBER 7
+	#define GHOSTS_NUMBER 8
 #else
-	#define GHOSTS_NUMBER 5
+	#define GHOSTS_NUMBER 6
 #endif
 	
 #define BUBBLES_NUMBER 2

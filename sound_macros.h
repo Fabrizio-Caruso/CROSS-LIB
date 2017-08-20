@@ -43,6 +43,8 @@
 		#include "c64/c64_sounds.h"
 	#elif defined(__VIC20__) && defined(VIC20_SOUNDS)
 		#include "vic20/vic20_sounds.h"	
+	// #elif defined(__ATARI__) || defined(__ATARIXL__)
+		// #include "atari/atari_sounds.h"
 	#else
 		#define EXPLOSION_SOUND() {};
 		#define PING_SOUND() {};

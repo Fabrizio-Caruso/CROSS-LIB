@@ -219,11 +219,13 @@ extern unsigned char guns;
 		#else	
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_inkey());}		
 		#endif
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
+		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#else
-		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
+		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(GET_CHAR());}}
 	#endif
 #elif defined(__CBM610__)
-	void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
+	void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(GET_CHAR());}}
 #else
 	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
 #endif

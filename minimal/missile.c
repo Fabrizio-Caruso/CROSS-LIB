@@ -39,6 +39,7 @@
 #include "level.h"
 #include "text.h"
 #include "powerUps.h"
+#include "character.h"
 
 extern unsigned int points;
 extern unsigned char ghostCount;
@@ -56,13 +57,15 @@ void checkMissileVsGhost(Character * missilePtr,
 	if(ghostPtr->_status && 
 	   areCharctersAtSamePosition(missilePtr, ghostPtr))
 	{
-		EXPLOSION_SOUND();
-		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
-		die(ghostPtr); 
+		// EXPLOSION_SOUND();
+		// ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
+		// die(ghostPtr); 
+		// points+=GHOST_VS_MISSILE;
+		// displayStats();		
+		// --ghostCount;
+		// printGhostCountStats();
 		points+=GHOST_VS_MISSILE;
-		displayStats();		
-		--ghostCount;
-		printGhostCountStats();
+		ghostDies(ghostPtr);
 	}
 }
 	

@@ -212,7 +212,7 @@ extern unsigned char guns;
 	}	
 #endif
 
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__CPC__) && !defined(__VG5k__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__MSX__) && !defined(__CPC__) && !defined(__VG5k__)
 	#if defined(__SPECTRUM__)
 		#if defined(SPECTRUM_NATIVE_DIRECTIVES)	
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}

@@ -176,11 +176,11 @@
 		unsigned char i;
 		
 		// Initialize colors 
-		for(i=0;i<3;++i)
+		for(i=0;i<Y_OFFSET;++i)
 		{
 			POKE(0xBB80+i*40,16);POKE(0xBB81+i*40,1); // red on black (inverted: cyan on white)
 		}
-		for(i=0+3;i<28;++i)
+		for(i=0+Y_OFFSET;i<28;++i)
 		{
 			POKE(0xBB80+i*40,16);POKE(0xBB81+i*40,3); // yellow on black (inverted: blue on white)
 		}		

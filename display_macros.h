@@ -785,7 +785,7 @@ typedef struct ImageStruct Image;
 
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 	
-	#define CLEAR_SCREEN() {clrscr(); INIT_GRAPHICS();}
+	#define CLEAR_SCREEN() clrscr();
 #endif
 	
 void INIT_IMAGES(void);

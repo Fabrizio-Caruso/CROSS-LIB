@@ -24,7 +24,7 @@
 	
 	void INIT_GRAPHICS(void)
 	{
-		fast();
+		//fast();
 		videomode(80);
 	}
  

@@ -31,16 +31,11 @@ cd %mypath%\
 
 @REM CPC HALF-WORKINg
 @REM -DDEBUG_CHARACTERS
-@REM 
-zcc +vg5k -vn  -DDEBUG_CHARACTERS -D__VG5K__ -lndos -create-app -o %deliverables%\vg5k_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
-@REM 
-del %deliverables%\cpc.prg 
-@REM 
-del %deliverables%\cpc.cpc
-
-
-@REM test character drawing
-@REM zcc +vg5k -vn -lndos -create-app -o %deliverables%\testVG5K.prg experiments\testVG5K.c 
+zcc +msx -vn  -D__MSX__ -lndos -create-app -o %deliverables%\cpc_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM del %deliverables%\cpc.prg 
+@REM del %deliverables%\cpc.cpc
+cd %mypath%\tools\2cdt
+2cdt.exe -n -r cross_chase %deliverables%\cpc_experimental.cpc  %deliverables%\cpc_experimental.cdt
 
 
 del %mypath%\*.o

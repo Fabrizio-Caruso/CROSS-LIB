@@ -1,9 +1,11 @@
 #ifndef _C64_SOUNDS
 #define _C64_SOUNDS
 	#if defined(__C64__)
-    #include <c64.h>
+		#include <c64.h>
+	#elif defined(__C128__)
+		#include <c128.h>
 	#else
-	#include <c128.h>
+		#include <cbm510.h>
 	#endif
 
 	#define EXPLOSION_SOUND() \

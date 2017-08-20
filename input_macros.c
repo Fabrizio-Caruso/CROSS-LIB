@@ -226,6 +226,8 @@ extern unsigned char guns;
 	#endif
 #elif defined(__CBM610__)
 	void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
+#elif defined(__CPC__) || defined(__MSX__) || defined(__VG5K__)
+	void MOVE_PLAYER(void) {}
 #else
 	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
 #endif

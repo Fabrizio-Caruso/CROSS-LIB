@@ -39,7 +39,7 @@
 		#include "c264/c264_sounds.h"
 	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
 		#include "spectrum/spectrum_sounds.h"	
-	#elif defined(__C64__) || defined(__C128__)
+	#elif defined(__C64__) || defined(__C128__) || defined(__CBM510__)
 		#include "c64/c64_sounds.h"
 	#elif defined(__VIC20__) && defined(VIC20_SOUNDS)
 		#include "vic20/vic20_sounds.h"	

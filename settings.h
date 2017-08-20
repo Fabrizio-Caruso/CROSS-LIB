@@ -48,6 +48,9 @@
 #elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 200
+#elif defined(__CBM610__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 700
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
@@ -137,7 +140,7 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 500UL
 
-#if defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__CBM610__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000
 	#define INITIAL_SKULL_SLOWDOWN 32000	
 #else

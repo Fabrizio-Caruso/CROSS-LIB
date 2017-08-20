@@ -280,7 +280,7 @@ void printCenteredMessage(char *Text)
 	PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text);
 }
 
-#ifdef defined(__C64__)
+#if defined(__C64__)
 void printKillTheSkull(void)
 {
 	printCenteredMessage("kill the skull!");	

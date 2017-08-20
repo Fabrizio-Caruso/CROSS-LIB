@@ -75,9 +75,7 @@
 	#elif defined(__CPC__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__) || defined(__VG5K__)
 		#define GET_CHAR() (unsigned int) getk();
 	#else
-		#ifndef GET_CHAR()
-			#define GET_CHAR() cgetc();
-		#endif
+		#define GET_CHAR() cgetc();
 	#endif
 
 	#define WAIT_JOY1_PRESS() \

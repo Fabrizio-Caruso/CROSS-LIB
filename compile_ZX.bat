@@ -51,10 +51,10 @@ cd %mypath%\
 @REM -DDEBUG_CRASH
 @REM zcc +zx -c -startup=1 -clib=sdcc_iy -vn -DSPECTRUM_UDG -DSPECTRUM_32COL -D__SPECTRUM__ -o %deliverables%\input.o %mypath%\input_macros.c
 @REM 
-zcc +zx -startup=1 -SO3 --max-allocs-per-node200000 -clib=sdcc_iy -vn -DSPECTRUM_UDG -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +zx -startup=1 -SO3 --max-allocs-per-node200000 -clib=sdcc_iy -vn -DSPECTRUM_UDG -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\zx_spectrum.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM del %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental.prg
 @REM 
-del %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental_CODE.bin
+del %deliverables%\zx_spectrum_CODE.bin
 
 @REM zcc +zx -startup=1 -clib=new -vn -DSPECTRUM_UDG -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\ZXSpectrum_32col_new_UDG_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 

@@ -31,22 +31,28 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef _SOUNDS_MACROS
-#define _SOUNDS_MACROS
-	#if defined(__ATMOS__)
-		#include "atmos/atmos_sounds.h"
-	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
-		#include "spectrum/spectrum_sounds.h"	
-	#elif defined(__VIC20__) && defined(VIC20_SOUNDS)
-		#include "vic20/vic20_sounds.h"
-	#elif defined(__C16__) && defined(C264_SOUNDS)
-		#include "c264/c264_sounds.h"
-	#else
-		#define EXPLOSION_SOUND() {};
-		#define PING_SOUND() {};
-		#define SHOOT_SOUND() {};
-		#define TICK_SOUND() {};
-		#define TOCK_SOUND() {};
-		#define ZAP_SOUND() {};
-	#endif
-#endif // _SOUNDS_MACROS
+#ifndef __C264_SOUNDS
+#define __C264_SOUNDS
+	#include<peekpoke.h>
+	
+	#define NOISE 64
+	#define VOICE_1 16
+	#define MAX_VOLUME 15
+	
+	#define LO_FREQ_1 0xFF0E 
+	#define HI_FREQ_1 0xFF12 	
+	#define SELECT 0xFF11 
+
+	void EXPLOSION_SOUND(void);
+	
+	void SHOOT_SOUND(void);
+	
+	void PING_SOUND(void);
+	
+	void ZAP_SOUND(void);
+	
+	void TOCK_SOUND(void);
+	
+    void TICK_SOUND(void);
+	
+#endif // __C264_SOUNDS

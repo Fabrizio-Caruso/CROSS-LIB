@@ -268,13 +268,6 @@ void displayStats(void)
 	#endif
 }
 
-// void drawBorders(void)
-// {
-	//CLEAR_SCREEN();
-	
-	// DRAW_BORDERS();
-// }
-
 void setScreenColors(void)
 {
 	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
@@ -380,8 +373,6 @@ void printLevel(void)
 	{
 		printCenteredMessage("Y O U  M A D E  I T!"); 
 		sleep(1);
-		printCenteredMessage("  T H E  E N D"); 
-		sleep(1);
 	}
 	
 	void finalScore(void)
@@ -391,20 +382,6 @@ void printLevel(void)
 		sprintf(scoreString, "SCORE: %05u0", points);
 		printCenteredMessage(scoreString);
 	}
-	
-	#if defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__)
-		// void printExtraLife(void)
-		// {
-			// printCenteredMessage("E X T R A   L I F E!"); 
-			// sleep(1);
-		// }
-	#else
-		// void printExtraLife(void)
-		// {
-			// printCenteredMessage("E X T R A   L I F E ! ! !"); 
-			// sleep(1);
-		// }		
-	#endif
 #endif
 
 #ifdef __C64__
@@ -462,19 +439,19 @@ void printLevel(void)
 
 	void printGameOver(void)
 	{
-		printCenteredMessage("G A M E   O V E R");
+		printCenteredMessage("G A M E  O V E R");
 		sleep(1);
 	}
 
 	void printVictoryMessage(void)
 	{
-		printCenteredMessage("Y O U   W O N ! !");
+		printCenteredMessage("Y O U  W O N !");
 		sleep(1);
 	}
 
 	void printDefeatMessage(void)
 	{
-		printCenteredMessage("Y O U   L O S T !");
+		printCenteredMessage("Y O U  L O S T !");
 		sleep(1);
 	}
 

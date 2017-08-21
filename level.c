@@ -254,7 +254,9 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 		unsigned char b1y, b2y, b3y, b4y;
 		Character dummyBombs[BOMBS_NUMBER];
 		unsigned char i;
-
+		unsigned char j;
+		unsigned char count = 0;
+		
 		// TODO Replace with something else
 		#if defined(__ATMOS__)
 			INIT_GRAPHICS();
@@ -274,81 +276,98 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 		{
 			nGhosts = level/8;
 		}
-
-		initializeCharacter(&ghosts[0],XSize-XSize/6+rand()%3-3,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
-		//DRAW_GHOST(ghosts[0]._x, ghosts[0]._y, ghosts[0]._imagePtr);
 		
-		if(nGhosts>1)
+		for(i=0;i<3;++i)
 		{
-			initializeCharacter(&ghosts[1],XSize/6+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
-		}
-		else
-		{
-			initializeCharacter(&ghosts[1],7,1,0,&DEAD_GHOST_IMAGE);
-		}
+			for(j=0;j<3;++j)
+			{
+				if(!((i==1) && (j==1)))
+				{
+					if(nGhosts>count)
+					{
+						initializeCharacter(&ghosts[count],XSize/6+j*2*(XSize/6),YSize/6+i*2*(YSize/6),1,&GHOST_IMAGE);
+					}
+					else
+					{
+						initializeCharacter(&ghosts[count],8-count,1,0,&DEAD_GHOST_IMAGE);
+					}
+					++count;
+				}
+			}
+		}		
+		// initializeCharacter(&ghosts[0],XSize-XSize/6+rand()%3-3,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
 		
-		if(nGhosts>2)
-		{
-			initializeCharacter(&ghosts[2],XSize/6+rand()%3-1,YSize/2+rand()%3-2,1, &GHOST_IMAGE);
-		}
-		else
-		{
-			initializeCharacter(&ghosts[2],6,1,0, &DEAD_GHOST_IMAGE);
-		}
+		// if(nGhosts>1)
+		// {
+			// initializeCharacter(&ghosts[1],XSize/6+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+		// }
+		// else
+		// {
+			// initializeCharacter(&ghosts[1],7,1,0,&DEAD_GHOST_IMAGE);
+		// }
 		
-		if(nGhosts>3)
-		{
-			initializeCharacter(&ghosts[3],XSize/6+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
-		}
-		else
-		{
-			initializeCharacter(&ghosts[3],5,1,0,&DEAD_GHOST_IMAGE);
-		}
+		// if(nGhosts>2)
+		// {
+			// initializeCharacter(&ghosts[2],XSize/6+rand()%3-1,YSize/2+rand()%3-2,1, &GHOST_IMAGE);
+		// }
+		// else
+		// {
+			// initializeCharacter(&ghosts[2],6,1,0, &DEAD_GHOST_IMAGE);
+		// }
 		
-		if(nGhosts>4)
-		{
-			initializeCharacter(&ghosts[4],XSize/2+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
-		}
-		else
-		{
-			initializeCharacter(&ghosts[4],4,1,0,&DEAD_GHOST_IMAGE);	
-		}
+		// if(nGhosts>3)
+		// {
+			// initializeCharacter(&ghosts[3],XSize/6+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
+		// }
+		// else
+		// {
+			// initializeCharacter(&ghosts[3],5,1,0,&DEAD_GHOST_IMAGE);
+		// }
 		
-		if(nGhosts>5)
-		{
-			initializeCharacter(&ghosts[5],XSize/2+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
-		}
-		else
-		{
-			initializeCharacter(&ghosts[5],3,1,0,&DEAD_GHOST_IMAGE);	
-		}
+		// if(nGhosts>4)
+		// {
+			// initializeCharacter(&ghosts[4],XSize/2+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+		// }
+		// else
+		// {
+			// initializeCharacter(&ghosts[4],4,1,0,&DEAD_GHOST_IMAGE);	
+		// }
 		
-		#if GHOSTS_NUMBER>=7
-		if(nGhosts>6)
-		{
-			initializeCharacter(&ghosts[6],XSize-XSize/6+rand()%3-3,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
-		}
-		else
-		{
-			initializeCharacter(&ghosts[6],2,1,0,&DEAD_GHOST_IMAGE);	
-		}
-		#endif
+		// if(nGhosts>5)
+		// {
+			// initializeCharacter(&ghosts[5],XSize/2+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
+		// }
+		// else
+		// {
+			// initializeCharacter(&ghosts[5],3,1,0,&DEAD_GHOST_IMAGE);	
+		// }
 		
-		#if GHOSTS_NUMBER==8
-		if(nGhosts>7)
-		{
-			initializeCharacter(&ghosts[7],XSize-XSize/6+rand()%3-3,YSize/2+rand()%3-2,1,&GHOST_IMAGE);
-		}
-		else
-		{
-			initializeCharacter(&ghosts[7],1,1,0,&DEAD_GHOST_IMAGE);	
-		}
-		#endif
+		// #if GHOSTS_NUMBER>=7
+		// if(nGhosts>6)
+		// {
+			// initializeCharacter(&ghosts[6],XSize-XSize/6+rand()%3-3,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+		// }
+		// else
+		// {
+			// initializeCharacter(&ghosts[6],2,1,0,&DEAD_GHOST_IMAGE);	
+		// }
+		// #endif
 		
-		for(i=0;i<GHOSTS_NUMBER;++i)
-		{
-			DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
-		}
+		// #if GHOSTS_NUMBER==8
+		// if(nGhosts>7)
+		// {
+			// initializeCharacter(&ghosts[7],XSize-XSize/6+rand()%3-3,YSize/2+rand()%3-2,1,&GHOST_IMAGE);
+		// }
+		// else
+		// {
+			// initializeCharacter(&ghosts[7],1,1,0,&DEAD_GHOST_IMAGE);	
+		// }
+		// #endif
+		
+		// for(i=0;i<GHOSTS_NUMBER;++i)
+		// {
+			// DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
+		// }
 		
 		// Player
 		do

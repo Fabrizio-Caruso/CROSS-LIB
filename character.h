@@ -106,4 +106,6 @@ unsigned char innerWallReached(Character *characterPtr);
 
 unsigned char nearInnerWall(Character *characterPtr);
 
+void ghostDies(Character *characterPtr);
+
 #endif // _CHARACTER

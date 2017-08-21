@@ -125,21 +125,41 @@ unsigned char playerReachedBombs(Character* preyPtr)
 }
 
 
+void ghostDies(Character * ghostPtr)
+{
+	EXPLOSION_SOUND();
+	ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
+	die(ghostPtr);
+	displayStats();
+	--ghostCount;
+	printGhostCountStats();
+}
+
 void checkBombsVsGhost(Character * ghostPtr)
 {
 	
 	if(ghostPtr->_status && playerReachedBombs(ghostPtr))
 	{
-		EXPLOSION_SOUND();
-		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
-		die(ghostPtr);
-		points+=GHOST_VS_BOMBS_BONUS;
-		displayStats();
-		--ghostCount;
-		printGhostCountStats();
+		points+=GHOST_VS_BOMBS_BONUS;		
+		ghostDies(ghostPtr);
 	}
 	
 }
+
+// void checkBombsVsGhost(Character * ghostPtr)
+// {
+	
+	// if(ghostPtr->_status && playerReachedBombs(ghostPtr))
+	// {
+		// EXPLOSION_SOUND();
+		// ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
+		// die(ghostPtr);
+		// points+=GHOST_VS_BOMBS_BONUS;
+		// displayStats();
+		// --ghostCount;
+		// printGhostCountStats();
+	// }
+// }
 						
 
 void checkBombsVsGhosts(void)
@@ -240,17 +260,17 @@ unsigned char ghostsMeetDead(unsigned char preyIndex)
 	return 0;
 }
 
-void ghostVsGhostCollision(Character * ghostPtr)
-{
-	EXPLOSION_SOUND();
-	ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
-	DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
-	die(ghostPtr);
-	points+=GHOST_VS_GHOST_BONUS;
-	displayStats();
-	--ghostCount;
-	printGhostCountStats();
-}
+// void ghostVsGhostCollision(Character * ghostPtr)
+// {
+	// EXPLOSION_SOUND();
+	// ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
+	// DRAW_GHOST(ghostPtr->_x, ghostPtr->_y, ghostPtr->_imagePtr);
+	// die(ghostPtr);
+	// points+=GHOST_VS_GHOST_BONUS;
+	// displayStats();
+	// --ghostCount;
+	// printGhostCountStats();
+// }
 
 
 void checkGhostsVsGhosts()
@@ -294,7 +314,8 @@ void checkGhostsVsGhosts()
 				// ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
 				// --ghostCount;	
 				// printGhostCountStats();
-				ghostVsGhostCollision(&ghosts[i]);			
+				points+=GHOST_VS_GHOST_BONUS;
+				ghostDies(&ghosts[i]);			
 			}
 		}
 	#else
@@ -318,7 +339,8 @@ void checkGhostsVsGhosts()
 					// displayStats();
 					// --ghostCount;
 					// printGhostCountStats();
-					ghostVsGhostCollision(&ghosts[i]);					
+					points+=GHOST_VS_GHOST_BONUS;
+					ghostDies(&ghosts[i]);					
 				}
 			}
 		}

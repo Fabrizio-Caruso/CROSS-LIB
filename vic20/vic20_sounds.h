@@ -1,20 +1,15 @@
 #ifndef _VIC_SOUNDS
 #define _VIC_SOUNDS
 
-	void EXPLOSION_SOUND(void);
+	void _ping_sound(unsigned char freq);
+	#define PING_SOUND() _ping_sound(0xF0);	
+	#define TOCK_SOUND() _ping_sound(0x08);
+	#define TICK_SOUND() _ping_sound(0x60);
 	
+	void _explosion_sound(unsigned char freq, unsigned char vol);
+	#define SHOOT_SOUND() _explosion_sound(0xF0, 0x0A);
+	#define EXPLOSION_SOUND() _explosion_sound(0x80, 0x08);
 	
-	void PING_SOUND(void);	
-	
-	
-	void SHOOT_SOUND(void);	
-	
-	
-	void TICK_SOUND();	
-	
-	void TOCK_SOUND();		
-	
-
 	void ZAP_SOUND();	
-	
+
 #endif // _VIC_SOUNDS

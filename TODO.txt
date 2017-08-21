@@ -2,3 +2,4 @@ TODO
 
 Rewrite level.c 
 
+Optimize text.c for memory (highscore, finalScore, levelBonus)

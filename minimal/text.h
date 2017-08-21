@@ -60,7 +60,6 @@ void printCenteredMessage(char *Text);
 
 void printLevel(void);
 
-void printLevelBonus(unsigned short bonus);
 
 void printPressKeyToStart(void);
 
@@ -78,9 +77,27 @@ void gameCompleted(void);
 
 void printExtraLife(void);
 
-void finalScore(void);
+void _printScore(char * text, unsigned int score);
 
-void highScoreScreen(void);
+#if !defined(__C64__)
+	#define printLevelBonus(bonus) _printScore("BONUS: %u0", bonus);
+
+	#define finalScore() _printScore("SCORE: %05u0", points);
+
+	#define highScoreScreen() _printScore("HIGH SCORE: %05u0", highScore);
+#else
+	#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);
+
+	#define finalScore() _printScore("score: %05u0", points);
+
+	#define highScoreScreen() _printScore("high score: %05u0", highScore);	
+#endif
+
+// void printLevelBonus(unsigned short bonus);
+
+// void finalScore(void);
+
+// void highScoreScreen(void);
 
 #endif // _DISPLAY
 

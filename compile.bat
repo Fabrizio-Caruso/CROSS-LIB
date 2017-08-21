@@ -56,7 +56,7 @@ cl65.exe -O -t pet %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.
 cl65.exe -O -t vic20 -DVIC20_SOUNDS  --config %mypath%\cfg\vic20-16k.cfg %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\cvic20-16k_sounds.prg
 
 @REM Not needed so far for sounds
-@REM cl65.exe -O -t vic20 -DVIC20_SOUNDS --config %mypath%\cfg\vic20-24k.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\cvic20-24k_sounds.prg
+@REM cl65.exe -O -t vic20 -DVIC20_SOUNDS --config %mypath%\cfg\vic20-24k.cfg %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\cvic20-24k_sounds.prg
 
 
 @REM cl65.exe -O -t vic20 --config %mypath%\cfg\vic20-24k.cfg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\cvic20-24k.prg

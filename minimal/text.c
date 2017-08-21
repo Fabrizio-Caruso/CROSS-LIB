@@ -253,18 +253,18 @@ void displayStats(void)
 	SET_TEXT_COLOR(TEXT_COLOR);
 	
 	#if defined(__ATMOS__) 
-		PRINTF(8,0-Y_OFFSET,"%06u0",points);
+		PRINTF(8,0-Y_OFFSET,"%05u0",points);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINTF(7,0-Y_OFFSET,"%05u0",points);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__CBM__) && !defined(__VIC20__) && !defined(__C16__)) 
-		PRINTF(8,0-Y_OFFSET,"%06u0",points);
+		PRINTF(8,0-Y_OFFSET,"%05u0",points);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
-		PRINTF(8,0-Y_OFFSET,"%06u0",points);	
+		PRINTF(8,0-Y_OFFSET,"%05u0",points);	
 	#elif defined(__VG5K__)	
 	#elif defined(__VIC20__) || defined(__C16__)
-		PRINTF(8-2,0-Y_OFFSET,"%06u0",points);	
+		PRINTF(8-2,0-Y_OFFSET,"%05u0",points);	
 	#else
-		PRINTF(8,0-Y_OFFSET,"%06u0",points);
+		PRINTF(8,0-Y_OFFSET,"%05u0",points);
 	#endif
 }
 
@@ -306,26 +306,45 @@ void printLevel(void)
 }
 #endif
 
+void _printScore(char * text, unsigned int score)
+{
+	char levelString[22];
+
+	sprintf(levelString, text, score);
+
+	printCenteredMessage(levelString);
+	sleep(1);
+}
+
 #ifdef __C64__
-	void printLevelBonus(unsigned short bonus)
-	{
-		char levelString[22];
+	// void printLevelBonus(unsigned short bonus)
+	// {
+		// char levelString[22];
 
-		sprintf(levelString, "level bonus: %u0", bonus);
+		// sprintf(levelString, "level bonus: %u0", bonus);
 
-		printCenteredMessage(levelString);
-		sleep(1);
-	}
+		// printCenteredMessage(levelString);
+		// sleep(1);
+	// }
 
-	void highScoreScreen()
-	{
-		char highScoreString[22];
+	// void highScoreScreen()
+	// {
+		// char highScoreString[22];
 
-		sprintf(highScoreString, "high score: %06u0", highScore);
+		// sprintf(highScoreString, "high score: %05u0", highScore);
 
-		printCenteredMessage(highScoreString);
-		sleep(1);
-	}
+		// printCenteredMessage(highScoreString);
+		// sleep(1);
+	// }
+
+	// void finalScore(void)
+	// {
+		// char scoreString[22];
+		// CLEAR_SCREEN();
+		// sprintf(scoreString, "score:  %u0", points);
+		// printCenteredMessage(scoreString);
+	// }
+
 	
 	void gameCompleted(void)
 	{
@@ -335,13 +354,6 @@ void printLevel(void)
 		sleep(1);
 	}
 
-	void finalScore(void)
-	{
-		char scoreString[22];
-		CLEAR_SCREEN();
-		sprintf(scoreString, "score:  %u0", points);
-		printCenteredMessage(scoreString);
-	}
 
 	void printExtraLife(void)
 	{
@@ -349,25 +361,33 @@ void printLevel(void)
 		sleep(1);
 	}
 #else
-	void printLevelBonus(unsigned short bonus)
-	{
-		char levelString[22];
+	// void printLevelBonus(unsigned short bonus)
+	// {
+		// char levelString[22];
 
-		sprintf(levelString, "BONUS: %u0", bonus);
+		// sprintf(levelString, "BONUS: %u0", bonus);
 
-		printCenteredMessage(levelString);
-		sleep(1);
-	}
+		// printCenteredMessage(levelString);
+		// sleep(1);
+	// }
 
-	void highScoreScreen(void)
-	{
-		char highScoreString[22];
+	// void highScoreScreen(void)
+	// {
+		// char highScoreString[22];
 
-		sprintf(highScoreString, "HIGH SCORE: %05u0", highScore);
+		// sprintf(highScoreString, "HIGH SCORE: %05u0", highScore);
 
-		printCenteredMessage(highScoreString);
-		sleep(1);
-	}
+		// printCenteredMessage(highScoreString);
+		// sleep(1);
+	// }
+
+	// void finalScore(void)
+	// {
+		// char scoreString[22];
+		// CLEAR_SCREEN();
+		// sprintf(scoreString, "SCORE: %05u0", points);
+		// printCenteredMessage(scoreString);
+	// }
 	
 	void gameCompleted(void)
 	{
@@ -375,13 +395,7 @@ void printLevel(void)
 		sleep(1);
 	}
 	
-	void finalScore(void)
-	{
-		char scoreString[22];
-		CLEAR_SCREEN();
-		sprintf(scoreString, "SCORE: %05u0", points);
-		printCenteredMessage(scoreString);
-	}
+
 #endif
 
 #ifdef __C64__

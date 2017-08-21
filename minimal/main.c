@@ -525,6 +525,7 @@ int main(void)
 	// GAME OVER	
 	printGameOver();
 	sleep(1);
+	CLEAR_SCREEN();
 	finalScore();
 	sleep(2);
 	if(points>highScore)

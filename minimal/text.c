@@ -268,12 +268,12 @@ void displayStats(void)
 	#endif
 }
 
-void drawBorders(void)
-{
-	CLEAR_SCREEN();
+// void drawBorders(void)
+// {
+	//CLEAR_SCREEN();
 	
-	DRAW_BORDERS();
-}
+	// DRAW_BORDERS();
+// }
 
 void setScreenColors(void)
 {

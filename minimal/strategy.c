@@ -92,15 +92,15 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 // 4 means do no prefer horizontal to vertical movement
 // 0 means always horizontal
 // 9 means always vertical
-void moveTowardCharacter(Character *hunterPtr, Character *preyPtr, unsigned char strategy)
+void moveTowardCharacter(Character *hunterPtr, unsigned char strategy)
 {
 	if(rand()%10 > strategy) // Select blind chase strategy
 		{ // 0 - 4
-			blindChaseCharacterXStrategy(hunterPtr, preyPtr);
+			blindChaseCharacterXStrategy(hunterPtr, &player);
 		}
 		else
 		{ // 5 - 9
-			blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+			blindChaseCharacterYStrategy(hunterPtr, &player);
 		}
 }
 
@@ -126,7 +126,7 @@ void chasePlayer(unsigned short slowDown)
 		if((ghosts[i]._status) && (rand()>slowDown))
 		{
 			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
-			moveTowardCharacter(&ghosts[i], &player, strategyArray[i]);
+			moveTowardCharacter(&ghosts[i], strategyArray[i]);
 		}
 	}
 }

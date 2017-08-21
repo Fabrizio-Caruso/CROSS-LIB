@@ -315,7 +315,7 @@ void handle_invincible_ghost(void)
 		{
 			TOCK_SOUND();
 			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
-			moveTowardCharacter(&invincibleGhost, &player, 4);
+			moveTowardCharacter(&invincibleGhost, 4);
 		}
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		if(areCharctersAtSamePosition(&invincibleGhost, &player))
@@ -403,7 +403,7 @@ int main(void)
 			deleteCenteredMessage();
 			
 			// Draw a border around the screen 
-			drawBorders();
+			DRAW_BORDERS();
 
 			
 			fillLevelWithCharacters(ghostCount);	

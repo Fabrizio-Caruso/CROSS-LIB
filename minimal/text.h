@@ -52,7 +52,7 @@ void printGhostCountStats(void);
 
 void printLivesStats(void);
 
-void drawBorders(void);
+// void drawBorders(void);
 
 void setScreenColors(void);
 

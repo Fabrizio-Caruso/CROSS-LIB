@@ -171,3 +171,85 @@ unsigned int in_inkey(void);
 My code is including input.h in multiple files including my own input.h and my main.c.
 
 If I remove the prototype I get in_inkey is not found and the compiler "suggests" to prototype it.
+
+-------------------------------------------------------------------------------------
+
+
+Try something like the following:
+
+Code: Select all
+MEMORY {
+    ZP: start =  $0002, size = $001A, type = rw, define = yes;
+    SCREEN: start =  $1000, size = $0200;
+    STARTRAM: start = $11FF, size = $0201, define = yes, file = %O, fill = yes;
+    RAM: start = $1200, size = $0A00, define = yes, file = %O, fill = yes;
+    CHAR: start = $1C00, size = $0400, type = rw,  define = yes, fill = yes;
+    RAM1: start = $2000, size = $4000, type = rw, file = %O;
+}
+SEGMENTS {
+    STARTUP:  load = STARTRAM, type = ro;
+    LOWCODE:  load = STARTRAM, type = ro,               optional = yes;
+    UDCCHAR:  load = CHAR, type = rw, define = yes, optional = no;
+    INIT:     load = RAM, type = ro, define = yes, optional = yes;
+    CODE:     load = RAM1, type = ro, define = yes;
+    RODATA:   load = RAM, type = ro;
+    DATA:     load = RAM, type = rw;
+    ZPSAVE:   load = RAM,             type = bss, define   = yes;
+    BSS:      load = RAM, type = bss, define = yes;
+    HEAP:     load = RAM, type = bss, optional = yes; # must sit just below stack
+    ZEROPAGE: load = ZP,  type = zp;
+}
+FEATURES {
+    CONDES: segment = INIT,
+       type = constructor,
+       label = __CONSTRUCTOR_TABLE__,
+       count = __CONSTRUCTOR_COUNT__;
+    CONDES: segment = RODATA,
+       type = destructor,
+       label = __DESTRUCTOR_TABLE__,
+       count = __DESTRUCTOR_COUNT__;
+    CONDES: segment = RODATA,
+       type = interruptor,
+       label = __INTERRUPTOR_TABLE__,
+       count = __INTERRUPTOR_COUNT__;
+}
+SYMBOLS {
+    __STACKSIZE__ = $400;   # 1K stack
+}
+
+
+
+Then compile the UDCs @ $1C00 by including them in the appropriate segment:
+
+e.g.
+
+Code: Select all
+   .segment "UDCCHAR"
+      .export _Charset
+
+_Charset:
+
+char0: .byte  $1C,$22,$4A,$56,$4C,$20,$1E,$00
+char1: .byte  $18,$24,$42,$7E,$42,$42,$42,$00
+etc...
+
+
+and reference as..
+
+Code: Select all
+
+typedef unsigned char BYTE;
+
+extern BYTE Charset[];
+
+
+
+finally in your 'c' code something like this to point the VIC-1 chip at the correct location...
+
+Code: Select all
+   
+   
+   BYTE  tmp;
+   tmp = ~0x0F & PEEK(&(VIC.addr));
+   POKE(&(VIC.addr), tmp | 0x0F);
+   

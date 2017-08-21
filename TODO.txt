@@ -1,5 +1,7 @@
 TODO
 
-Rewrite level.c 
+Rewrite level.c from scratch
+
+Change long with int + trailing zero (divide points by 10)
 
 Optimize text.c for memory (highscore, finalScore, levelBonus)

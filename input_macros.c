@@ -35,7 +35,7 @@
 #include "settings.h"
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
-#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__)
+#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__SC3000__)
 #else
 	#include <joystick.h>
 #endif
@@ -114,7 +114,7 @@ extern unsigned char guns;
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 		}
 	}
-#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__)
+#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__) || defined(__MSX__) || defined(__SC3000__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
 		if(kbInput=='w')
@@ -212,7 +212,7 @@ extern unsigned char guns;
 	}	
 #endif
 
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__MSX__) && !defined(__CPC__) && !defined(__VG5k__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__)
 	#if defined(__SPECTRUM__)
 		#if defined(SPECTRUM_NATIVE_DIRECTIVES)	
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}
@@ -221,13 +221,13 @@ extern unsigned char guns;
 		#endif
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
+	#elif defined(__SC3000__) || defined(__CPC__) || defined(__VG5k__) || defined(__MSX__)
+		void MOVE_PLAYER(void) {}
 	#else
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(GET_CHAR());}}
 	#endif
 #elif defined(__CBM610__)
 	void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
-#elif defined(__CPC__) || defined(__MSX__) || defined(__VG5K__)
-	void MOVE_PLAYER(void) {}
 #else
 	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
 #endif

@@ -52,6 +52,8 @@
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__VG5K__)
 	#include "patch/z88dk_conio_patch.h"
+#elif defined(__SC3000__)
+	#include "patch/z88dk_conio_patch.h"
 #endif
 
 // char powerUp_blink = 1;
@@ -109,6 +111,8 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
+#elif defined(__SC3000__) 
+	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};	
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #endif

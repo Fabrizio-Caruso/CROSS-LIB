@@ -38,6 +38,7 @@
 
 	
 	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
+	#elif defined(__SC3000__)
 	#else
 		#include <joystick.h>
 	#endif
@@ -72,7 +73,7 @@
 		#else
 			#define GET_CHAR() {in_inkey();};
 		#endif
-	#elif defined(__CPC__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__) || defined(__VG5K__)
+	#elif defined(__CPC__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__) || defined(__VG5K__) || defined(__SC3000__)
 		#define GET_CHAR() (unsigned int) getk();
 	#else
 		#define GET_CHAR() cgetc();
@@ -165,7 +166,7 @@
 	// Move player
 	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__) && !defined(__VG5k__)
 		void movePlayerByKeyboard(unsigned char kbInput);
-	#elif defined(__CBM610__)
+	#elif defined(__CBM610__) || defined(__SC3000__)
 		void movePlayerByKeyboard(unsigned char kbInput);
 	#else
 		void movePlayerByJoystick(unsigned char joyInput);

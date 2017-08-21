@@ -92,7 +92,7 @@
 	#define MIN_INVINCIBLE_GHOST_HITS 5
 #endif
 	
-#define INVINCIBLE_GHOST_POINTS 5000UL;
+#define INVINCIBLE_GHOST_POINTS 500UL;
 
 
 // If two or more ghosts bump into eachother for each ghost

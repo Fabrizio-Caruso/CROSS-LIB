@@ -157,11 +157,11 @@ void checkBombsVsGhosts(void)
 unsigned char safeLocation(unsigned char x, unsigned char y, Character *dangerPtr, unsigned char dangerSize)
 {
 	char i = 0;
-	for(;i<GHOSTS_NUMBER;++i)
-	{
-		if(isCharacterAtLocation(x,y,&ghosts[i]))
-			return 0;
-	}
+	// for(;i<GHOSTS_NUMBER;++i)
+	// {
+		// if(isCharacterAtLocation(x,y,&ghosts[i]))
+			// return 0;
+	// }
 	for(i=0;i<dangerSize;++i)
 	{
 		if(isCharacterAtLocation(x,y,&dangerPtr[i]))

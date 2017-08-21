@@ -81,7 +81,7 @@ typedef struct ImageStruct Image;
 	#define Y_OFFSET 3
 #else
 	#define X_OFFSET 0
-	#define Y_OFFSET 3
+	#define Y_OFFSET 2
 #endif
 
 #if defined(__NES__)

@@ -70,49 +70,68 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 {
 
 	unsigned char i;
-
-	unsigned char ghost_x[GHOSTS_NUMBER];
-	unsigned char ghost_y[GHOSTS_NUMBER];
+	unsigned char j;
+	unsigned char count = 0;
 	
-	ghost_x[0] = XSize-XSize/6+rand()%2-1;
-	ghost_y[0] = YSize-YSize/6+rand()%2-1;
-	
-	ghost_x[1] = XSize/6+rand()%2-1;
-	ghost_y[1] = YSize/6+rand()%2-1+3;
-	
-	ghost_x[2] = XSize/6+rand()%2-1;
-	ghost_y[2] = YSize/2+rand()%2-1;
-	
-	ghost_x[3] = XSize/6+rand()%2-1;
-	ghost_y[3] = YSize-YSize/6+rand()%2-1;
-	
-	ghost_x[4] = XSize/2+rand()%2-1;
-	ghost_y[4] = YSize/6+rand()%2-1+3;
-	
-	#if GHOSTS_NUMBER>=6
-		ghost_x[5] = XSize/2+rand()%2-1;
-		ghost_y[5] = YSize-YSize/6+rand()%2-1;
-	#elif GHOSTS_NUMBER>=7
-		ghost_x[6] = XSize-XSize/6+rand()%2-1;
-		ghost_y[6] = YSize/6+rand()%2-1+3;
-	#else
-		ghost_x[7] = XSize-XSize/6+rand()%2-1;
-		ghost_y[7] = YSize/2+rand()%2-1;
-    #endif
-
-	for(i=0;i<GHOSTS_NUMBER;++i)
+	for(i=0;i<3;++i)
 	{
-		if(nGhosts>i)
+		for(j=0;j<3;++j)
 		{
-			initializeCharacter(&ghosts[i],ghost_x[i],ghost_y[i],1,&GHOST_IMAGE);
-			// DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
-			// sleep(1);
-		}
-		else
-		{
-			initializeCharacter(&ghosts[i],8-i,1,0,&DEAD_GHOST_IMAGE);			
+			if(!((i==1) && (j==1)))
+			{
+				if(nGhosts>count)
+				{
+					initializeCharacter(&ghosts[count],XSize/6+j*2*(XSize/6),YSize/6+i*2*(YSize/6),1,&GHOST_IMAGE);
+				}
+				else
+				{
+					initializeCharacter(&ghosts[count],8-count,1,0,&DEAD_GHOST_IMAGE);
+				}
+				++count;
+			}
 		}
 	}
+
+	// unsigned char ghost_x[GHOSTS_NUMBER];
+	// unsigned char ghost_y[GHOSTS_NUMBER];
+	
+	// ghost_x[0] = XSize-XSize/6+rand()%2-1;
+	// ghost_y[0] = YSize-YSize/6+rand()%2-1;
+	
+	// ghost_x[1] = XSize/6+rand()%2-1;
+	// ghost_y[1] = YSize/6+rand()%2-1+3;
+	
+	// ghost_x[2] = XSize/6+rand()%2-1;
+	// ghost_y[2] = YSize/2+rand()%2-1;
+	
+	// ghost_x[3] = XSize/6+rand()%2-1;
+	// ghost_y[3] = YSize-YSize/6+rand()%2-1;
+	
+	// ghost_x[4] = XSize/2+rand()%2-1;
+	// ghost_y[4] = YSize/6+rand()%2-1+3;
+	
+	// #if GHOSTS_NUMBER>=6
+		// ghost_x[5] = XSize/2+rand()%2-1;
+		// ghost_y[5] = YSize-YSize/6+rand()%2-1;
+	// #elif GHOSTS_NUMBER>=7
+		// ghost_x[6] = XSize-XSize/6+rand()%2-1;
+		// ghost_y[6] = YSize/6+rand()%2-1+3;
+	// #else
+		// ghost_x[7] = XSize-XSize/6+rand()%2-1;
+		// ghost_y[7] = YSize/2+rand()%2-1;
+    // #endif
+
+	// for(i=0;i<GHOSTS_NUMBER;++i)
+	// {
+		// if(nGhosts>i)
+		// {
+			// initializeCharacter(&ghosts[i],ghost_x[i],ghost_y[i],1,&GHOST_IMAGE);
+		// }
+		// else
+		// {
+			// initializeCharacter(&ghosts[i],8-i,1,0,&DEAD_GHOST_IMAGE);			
+		// }
+	// }
 	
 	
 	
@@ -173,27 +192,31 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	// }
 	// #endif
 
-	#if GHOSTS_NUMBER>=7
-	if(nGhosts>6)
-	{
-		initializeCharacter(&ghosts[6],XSize-XSize/6+rand()%3-3,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
-	}
-	else
-	{
-		initializeCharacter(&ghosts[6],2,1,0,&DEAD_GHOST_IMAGE);	
-	}
-	#endif
+	// #if GHOSTS_NUMBER>=7
+	// if(nGhosts>6)
+	// {
+		// initializeCharacter(&ghosts[6],XSize-XSize/6+rand()%3-3,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
+	// }
+	// else
+	// {
+		// initializeCharacter(&ghosts[6],2,1,0,&DEAD_GHOST_IMAGE);	
+	// }
+	// #endif
 	
-	#if GHOSTS_NUMBER==8
-	if(nGhosts>7)
-	{
-		initializeCharacter(&ghosts[7],XSize-XSize/6+rand()%3-3,YSize/2+rand()%3-2,1,&GHOST_IMAGE);
-	}
-	else
-	{
-		initializeCharacter(&ghosts[7],1,1,0,&DEAD_GHOST_IMAGE);	
-	}
-	#endif
+	// #if GHOSTS_NUMBER==8
+	// if(nGhosts>7)
+	// {
+		// initializeCharacter(&ghosts[7],XSize-XSize/6+rand()%3-3,YSize/2+rand()%3-2,1,&GHOST_IMAGE);
+	// }
+	// else
+	// {
+		// initializeCharacter(&ghosts[7],1,1,0,&DEAD_GHOST_IMAGE);	
+	// }
+	// #endif
+	
+	
+	
+	
 	
 	initializeCharacter(&player,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);
 

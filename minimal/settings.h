@@ -62,7 +62,7 @@
 #if defined(__C16__)
 	#define GHOSTS_NUMBER 8
 #else
-	#define GHOSTS_NUMBER 6
+	#define GHOSTS_NUMBER 8
 #endif
 	
 #define BUBBLES_NUMBER 2

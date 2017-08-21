@@ -99,7 +99,6 @@ unsigned short loop;
 unsigned char level;
 
 unsigned short invincibleLoopTrigger;
-//unsigned short invincibleGhostCountTrigger;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

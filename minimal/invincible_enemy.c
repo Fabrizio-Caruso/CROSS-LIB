@@ -42,14 +42,8 @@ extern unsigned short invincibleSlowDown;
 extern unsigned short invincibleXCountDown;
 extern unsigned short invincibleYCountDown ;
 extern unsigned short invincibleLoopTrigger;
-// extern unsigned short invincibleGhostCountTrigger;
 
 extern unsigned short ghostLevel;
-
-unsigned short computeInvincibleCountDown(void)
-{
-	return 90 - level*2;
-}
 
 
 unsigned short computeInvincibleSlowDown(void)
@@ -61,16 +55,10 @@ unsigned short computeInvincibleSlowDown(void)
 	return 0; // You must die!
 }
 
-// unsigned short computeInvincibleLoopTrigger(void)
-// {
-		// return 700 - level*15;
-// }
-
 void computeInvincibleGhostParameters(void)
 {
 	invincibleSlowDown = computeInvincibleSlowDown();
-	invincibleXCountDown = computeInvincibleCountDown();
-	invincibleYCountDown = computeInvincibleCountDown();
-	// invincibleGhostCountTrigger = 2;
-	invincibleLoopTrigger = computeInvincibleLoopTrigger();	
+	invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
+	invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
+	invincibleLoopTrigger = INVINCIBLE_LOOP_TRIGGER;	
 }

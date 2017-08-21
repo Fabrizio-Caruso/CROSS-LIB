@@ -163,7 +163,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			--player._y;
-			invincibleYCountDown = computeInvincibleCountDown();
+			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = UP;
 			SHOW_UP();
 		}
@@ -171,7 +171,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			++player._y;
-			invincibleYCountDown = computeInvincibleCountDown();
+			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = DOWN;
 			SHOW_DOWN();
 		}
@@ -179,7 +179,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			--player._x;
-			invincibleXCountDown = computeInvincibleCountDown();
+			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = LEFT;
 			SHOW_LEFT();
 		}
@@ -187,7 +187,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			++player._x;
-			invincibleXCountDown = computeInvincibleCountDown();
+			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = RIGHT;
 			SHOW_RIGHT();
 		}

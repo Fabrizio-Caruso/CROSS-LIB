@@ -62,7 +62,7 @@
 #if defined(__C16__)
 	#define GHOSTS_NUMBER 8
 #else
-	#define GHOSTS_NUMBER 6
+	#define GHOSTS_NUMBER 8
 #endif
 	
 #define BUBBLES_NUMBER 2
@@ -178,4 +178,7 @@
 
 #define GUN_INITIAL_COOLDOWN (180 + level * 2)
 
+#define INVINCIBLE_COUNT_DOWN 80
+
+#define INVINCIBLE_LOOP_TRIGGER (700 - level*15)
 #endif // _SETTINGS

@@ -34,13 +34,11 @@
 #ifndef _INVINCIBLE_ENEMY
 #define _INVINCIBLE_ENEMY
 
-unsigned short computeInvincibleCountDown(void);
+// unsigned short computeInvincibleCountDown(void);
 
 unsigned short computeInvincibleSlowDown(void);
 
-unsigned short computeInvincibleGhostCountTrigger(void);
-
-#define computeInvincibleLoopTrigger() (700 - level*15)
+// unsigned short computeInvincibleGhostCountTrigger(void);
 
 void computeInvincibleGhostParameters(void);
 

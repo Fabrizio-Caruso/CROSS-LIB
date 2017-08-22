@@ -312,27 +312,19 @@ void printLevel(void)
 }
 #endif
 
+
+void _printScore(char * text, unsigned int score)
+{
+	char levelString[22];
+
+	sprintf(levelString, text, score);
+
+	printCenteredMessage(levelString);
+	sleep(1);
+}
+
 #ifdef __C64__
-	void printLevelBonus(unsigned short bonus)
-	{
-		char levelString[22];
 
-		sprintf(levelString, "level bonus: %d", bonus);
-
-		printCenteredMessage(levelString);
-		sleep(1);
-	}
-
-	void highScoreScreen()
-	{
-		char highScoreString[22];
-
-		sprintf(highScoreString, "high score: %lu", highScore);
-
-		printCenteredMessage(highScoreString);
-		sleep(1);
-	}
-	
 	void gameCompleted(void)
 	{
 		printCenteredMessage("y o u   m a d e   i t !"); 
@@ -341,54 +333,19 @@ void printLevel(void)
 		sleep(1);
 	}
 
-	void finalScore(void)
-	{
-		char scoreString[22];
-		CLEAR_SCREEN();
-		sprintf(scoreString, "score:  %lu", points);
-		printCenteredMessage(scoreString);
-	}
-
 	void printExtraLife(void)
 	{
 		printCenteredMessage("e x t r a   l i f e ! ! !"); 
 		sleep(1);
 	}
 #else
-	void printLevelBonus(unsigned short bonus)
-	{
-		char levelString[22];
 
-		sprintf(levelString, "LEVEL BONUS: %d", bonus);
-
-		printCenteredMessage(levelString);
-		sleep(1);
-	}
-
-	void highScoreScreen(void)
-	{
-		char highScoreString[22];
-
-		sprintf(highScoreString, "HIGH SCORE: %lu", highScore);
-
-		printCenteredMessage(highScoreString);
-		sleep(1);
-	}
-	
 	void gameCompleted(void)
 	{
 		printCenteredMessage("Y O U   M A D E   I T !"); 
 		sleep(1);
 		printCenteredMessage("     T H E   E N D     "); 
 		sleep(1);
-	}
-	
-	void finalScore(void)
-	{
-		char scoreString[22];
-		CLEAR_SCREEN();
-		sprintf(scoreString, "SCORE:  %lu", points);
-		printCenteredMessage(scoreString);
 	}
 	
 	#if defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__)
@@ -405,6 +362,7 @@ void printLevel(void)
 		}		
 	#endif
 #endif
+
 
 #ifdef __C64__
 	void printPressKeyToStart(void)

@@ -53,9 +53,9 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 
 void fillLevelWithCharacters(unsigned char nGhosts);
 
-void finalScore(void);			
+// void finalScore(void);			
 
-void highScoreScreen(void);
+// void highScoreScreen(void);
 			  
 unsigned char computeArrowRange(void);
 

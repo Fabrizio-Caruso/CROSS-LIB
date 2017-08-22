@@ -95,129 +95,134 @@ void drawInnerVerticalWall(void)
 
 
 void updateInnerWallVerticalData(void)
-{		
-	switch(level)
-	{
-		case 1:
-			innerVerticalWallLength = 0;
-		break;
-		case 2:
-			innerVerticalWallLength = YSize-12;
-		break;
-		case 3:
-			innerVerticalWallLength = YSize-8;
-		break;
-		case 4:
-			innerVerticalWallLength = YSize-6;
-		break;
-		case 5:
-			innerVerticalWallLength = 0;		
-		break;
-		case 6:
-			innerVerticalWallLength = 0;
-		break;
-		case 7:
-			innerVerticalWallLength = YSize-12;
-		break;
-		case 8:
-			innerVerticalWallLength = YSize-8;
-		break;
-		case 9:
-			innerVerticalWallLength = YSize-6;
-		break;
-		case 10:
-			innerVerticalWallLength = 0;
-		break;
-		case 11:
-			innerVerticalWallLength = 0;
-		break;
-		case 12:
-			innerVerticalWallLength = YSize-12;
-		break;
-		case 13:
-			innerVerticalWallLength = YSize-8;
-		break;
-		case 14:
-			innerVerticalWallLength = YSize-6;
-		break;
-		case 15:
-			innerVerticalWallLength = 0;
-		break;
-		case 16:
-			innerVerticalWallLength = 0;
-		break;
-		case 17:
-			innerVerticalWallLength = YSize-12;
-		break;
-		case 18:
-			innerVerticalWallLength = YSize-8;
-		break;
-		case 19:
-			innerVerticalWallLength = YSize-6;
-		break;
-		case 20:
-			innerVerticalWallLength = 0;
-		break;
-		case 21:
-			innerVerticalWallLength = YSize-14;
-		break;
-		case 22:
-			innerVerticalWallLength = YSize-12;
-		break;
-		case 23:
-			innerVerticalWallLength = YSize-8;
-		break;
-		case 24:
-			innerVerticalWallLength = YSize-6;
-		break;
-		case 25:
-			innerVerticalWallLength = 0;		
-		break;
-		case 26:
-			innerVerticalWallLength = YSize-14;
-		break;
-		case 27:
-			innerVerticalWallLength = YSize-12;
-		break;
-		case 28:
-			innerVerticalWallLength = YSize-8;
-		break;
-		case 29:
-			innerVerticalWallLength = YSize-6;
-		break;
-		case 30:
-			innerVerticalWallLength = YSize-14;
-		break;
-		case 31:
-			innerVerticalWallLength = YSize-14;
-		break;
-		case 32:
-			innerVerticalWallLength = YSize-12;
-		break;
-		case 33:
-			innerVerticalWallLength = YSize-8;
-		break;
-		case 34:
-			innerVerticalWallLength = YSize-6;
-		break;
-		case 35:
-			innerVerticalWallLength = YSize-14;
-		break;
-		case 36:
-			innerVerticalWallLength = YSize-14;
-		break;
-		case 37:
-			innerVerticalWallLength = YSize-12;
-		break;
-		case 38:
-			innerVerticalWallLength = YSize-8;
-		break;
-		case 39:
-			innerVerticalWallLength = YSize-6;
-		break;
-		case 40:
-			innerVerticalWallLength = YSize-12;		
-	}
+{	
+unsigned char lvmod = level%5;
+if((lvmod==1)||(lvmod==0))
+	innerVerticalWallLength = 0;
+else
+	innerVerticalWallLength = YSize-12+(lvmod-2)*2;
+	// switch(level)
+	// {
+		// case 1:
+			// innerVerticalWallLength = 0;
+		// break;
+		// case 2:
+			// innerVerticalWallLength = YSize-12;
+		// break;
+		// case 3:
+			// innerVerticalWallLength = YSize-8;
+		// break;
+		// case 4:
+			// innerVerticalWallLength = YSize-6;
+		// break;
+		// case 5:
+			// innerVerticalWallLength = 0;		
+		// break;
+		// case 6:
+			// innerVerticalWallLength = 0;
+		// break;
+		// case 7:
+			// innerVerticalWallLength = YSize-12;
+		// break;
+		// case 8:
+			// innerVerticalWallLength = YSize-8;
+		// break;
+		// case 9:
+			// innerVerticalWallLength = YSize-6;
+		// break;
+		// case 10:
+			// innerVerticalWallLength = 0;
+		// break;
+		// case 11:
+			// innerVerticalWallLength = 0;
+		// break;
+		// case 12:
+			// innerVerticalWallLength = YSize-12;
+		// break;
+		// case 13:
+			// innerVerticalWallLength = YSize-8;
+		// break;
+		// case 14:
+			// innerVerticalWallLength = YSize-6;
+		// break;
+		// case 15:
+			// innerVerticalWallLength = 0;
+		// break;
+		// case 16:
+			// innerVerticalWallLength = 0;
+		// break;
+		// case 17:
+			// innerVerticalWallLength = YSize-12;
+		// break;
+		// case 18:
+			// innerVerticalWallLength = YSize-8;
+		// break;
+		// case 19:
+			// innerVerticalWallLength = YSize-6;
+		// break;
+		// case 20:
+			// innerVerticalWallLength = 0;
+		// break;
+		// case 21:
+			// innerVerticalWallLength = YSize-14;
+		// break;
+		// case 22:
+			// innerVerticalWallLength = YSize-12;
+		// break;
+		// case 23:
+			// innerVerticalWallLength = YSize-8;
+		// break;
+		// case 24:
+			// innerVerticalWallLength = YSize-6;
+		// break;
+		// case 25:
+			// innerVerticalWallLength = 0;		
+		// break;
+		// case 26:
+			// innerVerticalWallLength = YSize-14;
+		// break;
+		// case 27:
+			// innerVerticalWallLength = YSize-12;
+		// break;
+		// case 28:
+			// innerVerticalWallLength = YSize-8;
+		// break;
+		// case 29:
+			// innerVerticalWallLength = YSize-6;
+		// break;
+		// case 30:
+			// innerVerticalWallLength = YSize-14;
+		// break;
+		// case 31:
+			// innerVerticalWallLength = YSize-14;
+		// break;
+		// case 32:
+			// innerVerticalWallLength = YSize-12;
+		// break;
+		// case 33:
+			// innerVerticalWallLength = YSize-8;
+		// break;
+		// case 34:
+			// innerVerticalWallLength = YSize-6;
+		// break;
+		// case 35:
+			// innerVerticalWallLength = YSize-14;
+		// break;
+		// case 36:
+			// innerVerticalWallLength = YSize-14;
+		// break;
+		// case 37:
+			// innerVerticalWallLength = YSize-12;
+		// break;
+		// case 38:
+			// innerVerticalWallLength = YSize-8;
+		// break;
+		// case 39:
+			// innerVerticalWallLength = YSize-6;
+		// break;
+		// case 40:
+			// innerVerticalWallLength = YSize-12;		
+	// }
 	innerVerticalWallX = XSize / 2;
     innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
 }
@@ -250,9 +255,9 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 	{
 		unsigned short corner = rand()%4;
 		unsigned short chirality = rand()%2;
-		unsigned char b1x, b2x, b3x, b4x;
-		unsigned char b1y, b2y, b3y, b4y;
-		Character dummyBombs[BOMBS_NUMBER];
+		// unsigned char b1x, b2x, b3x, b4x;
+		// unsigned char b1y, b2y, b3y, b4y;
+		//Character dummyBombs[BOMBS_NUMBER];
 		unsigned char i;
 		unsigned char j;
 		unsigned char count = 0;
@@ -295,79 +300,7 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 				}
 			}
 		}		
-		// initializeCharacter(&ghosts[0],XSize-XSize/6+rand()%3-3,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
-		
-		// if(nGhosts>1)
-		// {
-			// initializeCharacter(&ghosts[1],XSize/6+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
-		// }
-		// else
-		// {
-			// initializeCharacter(&ghosts[1],7,1,0,&DEAD_GHOST_IMAGE);
-		// }
-		
-		// if(nGhosts>2)
-		// {
-			// initializeCharacter(&ghosts[2],XSize/6+rand()%3-1,YSize/2+rand()%3-2,1, &GHOST_IMAGE);
-		// }
-		// else
-		// {
-			// initializeCharacter(&ghosts[2],6,1,0, &DEAD_GHOST_IMAGE);
-		// }
-		
-		// if(nGhosts>3)
-		// {
-			// initializeCharacter(&ghosts[3],XSize/6+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
-		// }
-		// else
-		// {
-			// initializeCharacter(&ghosts[3],5,1,0,&DEAD_GHOST_IMAGE);
-		// }
-		
-		// if(nGhosts>4)
-		// {
-			// initializeCharacter(&ghosts[4],XSize/2+rand()%3-1,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
-		// }
-		// else
-		// {
-			// initializeCharacter(&ghosts[4],4,1,0,&DEAD_GHOST_IMAGE);	
-		// }
-		
-		// if(nGhosts>5)
-		// {
-			// initializeCharacter(&ghosts[5],XSize/2+rand()%3-1,YSize-YSize/6+rand()%3-3,1,&GHOST_IMAGE);
-		// }
-		// else
-		// {
-			// initializeCharacter(&ghosts[5],3,1,0,&DEAD_GHOST_IMAGE);	
-		// }
-		
-		// #if GHOSTS_NUMBER>=7
-		// if(nGhosts>6)
-		// {
-			// initializeCharacter(&ghosts[6],XSize-XSize/6+rand()%3-3,YSize/6+rand()%3-2+1,1,&GHOST_IMAGE);
-		// }
-		// else
-		// {
-			// initializeCharacter(&ghosts[6],2,1,0,&DEAD_GHOST_IMAGE);	
-		// }
-		// #endif
-		
-		// #if GHOSTS_NUMBER==8
-		// if(nGhosts>7)
-		// {
-			// initializeCharacter(&ghosts[7],XSize-XSize/6+rand()%3-3,YSize/2+rand()%3-2,1,&GHOST_IMAGE);
-		// }
-		// else
-		// {
-			// initializeCharacter(&ghosts[7],1,1,0,&DEAD_GHOST_IMAGE);	
-		// }
-		// #endif
-		
-		// for(i=0;i<GHOSTS_NUMBER;++i)
-		// {
-			// DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
-		// }
+
 		
 		// Player
 		do
@@ -376,10 +309,42 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 		} while(nearInnerWall(&player));
 		DRAW_PLAYER(player._x,player._y,player._imagePtr);
 
-
+		
 		do
 		{
-			// Bombs
+			initializeCharacter(&bombs[0],XSize/2-4+rand()%4, YSize/2-5+rand()%3,0,&BOMB_IMAGE);
+
+			if(level>10)
+			{
+				initializeCharacter(&bombs[1],XSize-2, YSize-2,0,&BOMB_IMAGE);
+			}
+			else
+			{
+				initializeCharacter(&bombs[1],XSize/2-4+rand()%3, YSize/2+5+rand()%3,0,&BOMB_IMAGE);			
+			}
+			if(level>20)
+			{
+				initializeCharacter(&bombs[2],XSize-2, YSize-2,0,&BOMB_IMAGE);
+			}
+			else
+			{
+				initializeCharacter(&bombs[2],XSize/2+4+rand()%3, YSize/2-5+rand()%3,0,&BOMB_IMAGE);
+			}					
+			if(level>30)
+			{
+				initializeCharacter(&bombs[3],XSize-2, YSize-2,0,&BOMB_IMAGE);
+			}
+			else
+			{
+				initializeCharacter(&bombs[3],XSize/2+4+rand()%3, YSize/2+5+rand()%3,0,&BOMB_IMAGE);	
+			}
+				
+		} while(nearInnerWall(&bombs[0]) || nearInnerWall(&bombs[1]) || nearInnerWall(&bombs[2]) || nearInnerWall(&bombs[3]));
+		
+		
+	/*	
+		do
+		{
 			if(level<FIRST_VERY_HARD_LEVEL) // HARD but NOT VERY HARD -> 2 bombs close to vertical borders
 			{	
 				b2x = 1+1;
@@ -485,11 +450,11 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 				initializeCharacter(&bombs[2],b3x, b3y,0, &BOMB_IMAGE);
 				
 				// Keep below comments
-				//dummyBombs[0] = ghosts[0];
-				//dummyBombs[1] = ghosts[0];
+				// dummyBombs[0] = ghosts[0];
+				// dummyBombs[1] = ghosts[0];
 				dummyBombs[2]._x = bombs[0]._x;
 				dummyBombs[2]._y = bombs[0]._y;
-				//dummyBombs[3] = &player;
+				// dummyBombs[3] = &player;
 
 				relocateCharacter(&bombs[2], dummyBombs,4);		
 			
@@ -541,9 +506,9 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 						// Keep below comments
 						dummyBombs[0]._x = bombs[1]._x;
 						dummyBombs[0]._y = bombs[1]._y;						
-						//dummyBombs[1] = bombs[2];
-						//dummyBombs[2] = bombs[0];
-						//dummyBombs[3] = &player;
+						// dummyBombs[1] = bombs[2];
+						// dummyBombs[2] = bombs[0];
+						// dummyBombs[3] = &player;
 						for(i=0;i<BOMBS_NUMBER;++i)
 						{
 							relocateCharacter(&bombs[1], dummyBombs,4);
@@ -551,7 +516,7 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 					}
 					else
 					{
-						//initializeCharacter(bombs[3],b2x, b2y,0,&BOMB_IMAGE);
+						// initializeCharacter(bombs[3],b2x, b2y,0,&BOMB_IMAGE);
 						bombs[3]._x = bombs[1]._x;
 						bombs[3]._y = bombs[1]._y;
 						bombs[3]._imagePtr = &BOMB_IMAGE;
@@ -559,7 +524,7 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 				}
 			}
 		} while(nearInnerWall(&bombs[0]) || nearInnerWall(&bombs[1]) || nearInnerWall(&bombs[2]) || nearInnerWall(&bombs[3]));
-		
+*/		
 		for(i=0;i<BOMBS_NUMBER;++i)
 		{
 			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr);

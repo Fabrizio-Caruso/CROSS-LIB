@@ -163,6 +163,39 @@ _debut:
 					//sleep(1);
 					++lives;
 
+					
+.org $6000   
+     
+     
+_debut:
+        
+	 ld hl,_ef9345;------1 seul foi--------
+      call $00AD
+     
+      
+      
+      ld h,20  ; cordonnée y
+      ld l,20    ;coordonnée x
+      ld d,65  ; caractere
+      ld e,1    ; couleur 
+      call $0092 
+      ld h,20  ; cordonnée y
+      ld l,26    ;coordonnée x
+      ld d,68  ; caractere
+      ld e,4    ; couleur 
+      call $0092 
+     jp _debut 
+     
+_ef9345:     
+.db $04,$20,$82,$29,$00
+;$04 nombre d'octet qui suit soit 4 octets à injecter dans l'EF9345 
+                        ;$20 écriture
+                        ;$82 adresse --MAT--
+                        ;$29 validation donnée
+                        ;00 donnée
+					
+					
+					
 How can I avoid prototyping
 unsigned int in_inkey(void) in my code, which is using a macro, (in my own input.h file):
 unsigned int in_inkey(void);
@@ -252,4 +285,5 @@ Code: Select all
    BYTE  tmp;
    tmp = ~0x0F & PEEK(&(VIC.addr));
    POKE(&(VIC.addr), tmp | 0x0F);
+   
    

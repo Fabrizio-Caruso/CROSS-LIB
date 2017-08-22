@@ -439,14 +439,14 @@ typedef struct ImageStruct Image;
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 
 	#define CLEAR_SCREEN() {clrscr(); INIT_GRAPHICS();};
-#elif defined(__MSX)
+#elif defined(__MSX__)
 	#define SET_TEXT_COLOR(c) {};
 
 	#define SET_BORDER_COLOR(c) {};
 
 	#define SET_BACKGROUND_COLOR(c) {};	
 
-	#define CLEAR_SCREEN() {};
+	#define CLEAR_SCREEN() {clrscr();};
 #else // CC65 conio case
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 

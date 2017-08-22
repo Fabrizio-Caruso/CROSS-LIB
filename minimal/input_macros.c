@@ -72,7 +72,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			--player._y;
-			invincibleYCountDown = computeInvincibleCountDown();
+			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = UP;
 			SHOW_UP();
 		}
@@ -80,7 +80,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			++player._y;
-			invincibleYCountDown = computeInvincibleCountDown();
+			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = DOWN;
 			SHOW_DOWN();
 		}
@@ -88,7 +88,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			--player._x;
-			invincibleXCountDown = computeInvincibleCountDown();
+			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = LEFT;
 			SHOW_LEFT();
 		}
@@ -96,7 +96,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			++player._x;
-			invincibleXCountDown = computeInvincibleCountDown();
+			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = RIGHT;
 			SHOW_RIGHT();
 		}
@@ -115,7 +115,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			--player._y;
-			invincibleYCountDown = computeInvincibleCountDown();
+			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = UP;
 			SHOW_UP();
 		}
@@ -123,7 +123,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			++player._y;
-			invincibleYCountDown = computeInvincibleCountDown();
+			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = DOWN;
 			SHOW_DOWN();
 		}
@@ -131,7 +131,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			--player._x;
-			invincibleXCountDown = computeInvincibleCountDown();
+			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = LEFT;
 			SHOW_LEFT();
 		}
@@ -139,7 +139,7 @@ extern unsigned char guns;
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			++player._x;
-			invincibleXCountDown = computeInvincibleCountDown();
+			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
 			playerDirection = RIGHT;
 			SHOW_RIGHT();
 		}
@@ -208,11 +208,11 @@ extern unsigned char guns;
 		#else	
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_inkey());}		
 		#endif
+	#elif defined(__MSX__)
+		void MOVE_PLAYER(void) {}	
 	#else
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
 	#endif
-// #elif defined(__VIC20__) || defined(__C16__) 
-	// void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
 #elif defined(__CBM610__)
 	void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
 #else

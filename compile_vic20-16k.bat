@@ -30,9 +30,11 @@ cd %cc65path%\bin\
 @REM vic20-16k has reached its memory limitations
 @REM -DSIMPLE_STRATEGY
 @REM 
+@REM 
 cl65.exe -O -t vic20 -DVIC20_SOUNDS  --config %mypath%\cfg\vic20-16k.cfg %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\cvic20-16k_sounds.prg
 
 @REM UDG
+@REM 
 @REM cl65.exe -O -t vic20 -DVIC20_SOUNDS  --config %mypath%\cfg\vic20-16k_GFX.cfg %mypath%\vic20\vic20_UDG.s %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\cvic20-16k_sounds.prg
 
 @REM Atari 5200: Out of memory

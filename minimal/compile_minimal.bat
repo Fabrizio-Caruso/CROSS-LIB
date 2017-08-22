@@ -14,7 +14,7 @@ set Deliverables=%mypath%\deliverables
 
 mkdir %deliverables% 2> NUL
 
-del %deliverables%\*
+@REM del %deliverables%\*
 del %mypath%\atmos\*.o
 del %mypath%\c64\*.o
 del %mypath%\patch\*.o

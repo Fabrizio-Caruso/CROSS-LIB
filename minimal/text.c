@@ -117,7 +117,7 @@ void displayStatsTitles(void)
 		//PRINT(1,0-Y_OFFSET,"SPEED:");
 		PRINT(1,0-Y_OFFSET,"SCORE:");
 		PRINT(1,1-Y_OFFSET,"LEVEL:");
-	#elif defined(__VG5K__)	
+	#elif defined(__VG5K__)	|| defined(__MSX__)
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		#if defined(__VIC20__) || defined(__C16__)
@@ -149,13 +149,13 @@ void displayStatsTitles(void)
 		gotoxy(18+1,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(18-3,0); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,1); cputc(PLAYER_IMAGE._imageData);cputc(':');
-	#elif defined(__CPC__)
+	#elif defined(__CPC__)	 
 		// TODO: to implement
-		SET_TEXT_COLOR(TEXT_COLOR);	
-		gotoxy(18+1,0+1); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(18-3,0+1); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-	#elif defined(__VG5K__)		
+		// SET_TEXT_COLOR(TEXT_COLOR);	
+		// gotoxy(18+1,0+1); cputc(GUN_IMAGE._imageData);cputc(':');
+		// gotoxy(18-3,0+1); cputc(GHOST_IMAGE._imageData);cputc(':');
+		// gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+	#elif defined(__VG5K__)		|| defined(__MSX__)
 	#else
 		#if defined(__VIC20__)
 			SET_TEXT_COLOR(TEXT_COLOR);		
@@ -186,7 +186,7 @@ void printGunsStats(void)
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%d",guns);	
-	#elif defined(__VG5K__)		
+	#elif defined(__VG5K__)	 || defined(__MSX__)		
 	#else
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#endif			
@@ -204,7 +204,7 @@ void printLevelStats(void)
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(8,1-Y_OFFSET,"%02d", level);	
-	#elif defined(__VG5K__)		
+	#elif defined(__VG5K__)	 || defined(__MSX__)		
 	#elif defined(__VIC20__) || defined(__C16__)
 		PRINTF(8-2,1-Y_OFFSET,"%02hu", level);	
 	#else
@@ -224,7 +224,7 @@ void printGhostCountStats(void)
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%hu",ghostCount);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%d",ghostCount);	
-	#elif defined(__VG5K__)		
+	#elif defined(__VG5K__)	 || defined(__MSX__)		
 	#else
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%hu",ghostCount);
 	#endif		
@@ -242,7 +242,7 @@ void printLivesStats(void)
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02d",lives);	
-	#elif defined(__VG5K__)		
+	#elif defined(__VG5K__)	 || defined(__MSX__)		
 	#else
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#endif		
@@ -260,7 +260,7 @@ void displayStats(void)
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);	
-	#elif defined(__VG5K__)	
+	#elif defined(__VG5K__)	 || defined(__MSX__)
 	#elif defined(__VIC20__) || defined(__C16__)
 		PRINTF(8-2,0-Y_OFFSET,"%05u0",points);	
 	#else
@@ -317,35 +317,6 @@ void _printScore(char * text, unsigned int score)
 }
 
 #ifdef __C64__
-	// void printLevelBonus(unsigned short bonus)
-	// {
-		// char levelString[22];
-
-		// sprintf(levelString, "level bonus: %u0", bonus);
-
-		// printCenteredMessage(levelString);
-		// sleep(1);
-	// }
-
-	// void highScoreScreen()
-	// {
-		// char highScoreString[22];
-
-		// sprintf(highScoreString, "high score: %05u0", highScore);
-
-		// printCenteredMessage(highScoreString);
-		// sleep(1);
-	// }
-
-	// void finalScore(void)
-	// {
-		// char scoreString[22];
-		// CLEAR_SCREEN();
-		// sprintf(scoreString, "score:  %u0", points);
-		// printCenteredMessage(scoreString);
-	// }
-
-	
 	void gameCompleted(void)
 	{
 		printCenteredMessage("y o u   m a d e   i t !"); 
@@ -353,52 +324,16 @@ void _printScore(char * text, unsigned int score)
 		printCenteredMessage("    t h e   e n d    "); 
 		sleep(1);
 	}
-
-
-	void printExtraLife(void)
-	{
-		printCenteredMessage("e x t r a   l i f e ! ! !"); 
-		sleep(1);
-	}
 #else
-	// void printLevelBonus(unsigned short bonus)
-	// {
-		// char levelString[22];
-
-		// sprintf(levelString, "BONUS: %u0", bonus);
-
-		// printCenteredMessage(levelString);
-		// sleep(1);
-	// }
-
-	// void highScoreScreen(void)
-	// {
-		// char highScoreString[22];
-
-		// sprintf(highScoreString, "HIGH SCORE: %05u0", highScore);
-
-		// printCenteredMessage(highScoreString);
-		// sleep(1);
-	// }
-
-	// void finalScore(void)
-	// {
-		// char scoreString[22];
-		// CLEAR_SCREEN();
-		// sprintf(scoreString, "SCORE: %05u0", points);
-		// printCenteredMessage(scoreString);
-	// }
-	
 	void gameCompleted(void)
 	{
 		printCenteredMessage("Y O U  M A D E  I T!"); 
 		sleep(1);
 	}
-	
-
 #endif
 
-#ifdef __C64__
+
+#if defined(__C64__)
 	void printPressKeyToStart(void)
 	{
 		printCenteredMessage("press any key to start");
@@ -427,8 +362,7 @@ void _printScore(char * text, unsigned int score)
 		printCenteredMessage("y o u   l o s t !");
 		sleep(1);
 	}
-#else
-	#if defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__)
+#elif defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__)
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessage("PRESS ANY KEY");
@@ -438,7 +372,7 @@ void _printScore(char * text, unsigned int score)
 		{
 			PRINT(1, YSize / 2, "                      ");
 		}		
-	#else
+#elif defined(__C16__)
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessage("PRESS ANY KEY TO START");
@@ -447,8 +381,18 @@ void _printScore(char * text, unsigned int score)
 		void deleteCenteredMessage(void)
 		{
 			PRINT((XSize - 22) / 2 - 2, YSize / 2, "                      ");
-		}		
-	#endif
+		}
+#else
+		void printPressKeyToStart(void)
+		{
+			printCenteredMessage("PRESS ANY KEY TO START");
+		}	
+		
+		void deleteCenteredMessage(void)
+		{
+			printCenteredMessage("                      ");
+		}	
+#endif
 
 
 	void printGameOver(void)
@@ -469,7 +413,6 @@ void _printScore(char * text, unsigned int score)
 		sleep(1);
 	}
 
-#endif
 
 
 void printStartMessage(void)

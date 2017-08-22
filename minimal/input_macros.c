@@ -65,7 +65,7 @@ extern unsigned char ghostCount;
 extern unsigned char guns;
 
 // #if (defined(__VIC20__) || defined(__C16__)) || 
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__) && !defined(__VG5k__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__MSX__) && !defined(__CPC__) && !defined(__VG5k__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
 		if(kbInput=='W')
@@ -108,7 +108,7 @@ extern unsigned char guns;
 		DRAW_PLAYER(player._x, player._y, player._imagePtr);
 
 	}
-#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__)
+#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__) || defined(__MSX__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
 		if(kbInput=='w')
@@ -147,14 +147,9 @@ extern unsigned char guns;
 		{
 			playerFire = 1;
 		}
-		if(player_invincibility)
-		{
-			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
-		}
-		else
-		{
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		}
+
+		DRAW_PLAYER(player._x, player._y, player._imagePtr);
+
 	}
 #else
 	void movePlayerByJoystick(unsigned char joyInput)
@@ -209,7 +204,7 @@ extern unsigned char guns;
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_inkey());}		
 		#endif
 	#elif defined(__MSX__)
-		void MOVE_PLAYER(void) {}	
+		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(getk());}}	
 	#else
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
 	#endif

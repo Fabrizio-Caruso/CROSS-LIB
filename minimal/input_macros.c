@@ -196,7 +196,7 @@ extern unsigned char guns;
 	}	
 #endif
 
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__CPC__) && !defined(__VG5k__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__)
 	#if defined(__SPECTRUM__)
 		#if defined(SPECTRUM_NATIVE_DIRECTIVES)	
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}
@@ -205,6 +205,8 @@ extern unsigned char guns;
 		#endif
 	#elif defined(__MSX__)
 		void MOVE_PLAYER(void) { movePlayerByKeyboard(getk());}
+	#elif defined(__CPC__)
+		void MOVE_PLAYER(void) { movePlayerByKeyboard(getk());}		
 	#else
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
 	#endif

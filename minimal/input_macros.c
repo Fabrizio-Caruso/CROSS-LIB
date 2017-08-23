@@ -35,8 +35,7 @@
 #include "settings.h"
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
-#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__)
-// #elif defined(__VIC20__) || defined(__C16__)
+#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__SC3000__)
 #else
 	#include <joystick.h>
 #endif
@@ -108,7 +107,7 @@ extern unsigned char guns;
 		DRAW_PLAYER(player._x, player._y, player._imagePtr);
 
 	}
-#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__) || defined(__MSX__)
+#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__) || defined(__MSX__) || defined(__SC3000__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
 		if(kbInput=='w')
@@ -205,7 +204,7 @@ extern unsigned char guns;
 		#endif
 	#elif defined(__MSX__)
 		void MOVE_PLAYER(void) { movePlayerByKeyboard(getk());}
-	#elif defined(__CPC__)
+	#elif defined(__CPC__) || defined(__SC3000__)
 		void MOVE_PLAYER(void) { movePlayerByKeyboard(getk());}		
 	#else
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}

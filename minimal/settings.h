@@ -53,16 +53,28 @@
 
 #if defined(__C16__)
 	#define BOMBS_NUMBER 3
-#else
+#elif defined(__VIC20__)
 	#define BOMBS_NUMBER 3
+#elif defined(__MSX__)
+	#define BOMBS_NUMBER 3	
+#elif defined(__CPC__)
+	#define BOMBS_NUMBER 1
+#else
+	#define BOMBS_NUMBER 3		
 #endif
 	
 // Possible current values are 6,7,8
 
 #if defined(__C16__)
 	#define GHOSTS_NUMBER 8
-#else
+#elif defined(__VIC20__)
 	#define GHOSTS_NUMBER 8
+#elif defined(__MSX__)
+	#define GHOSTS_NUMBER 7
+#elif defined(__CPC__)
+	#define GHOSTS_NUMBER 5
+#else
+	#define GHOSTS_NUMBER 8	
 #endif
 	
 #define BUBBLES_NUMBER 2

@@ -52,6 +52,8 @@
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__VG5K__)
 	#include "patch/z88dk_conio_patch.h"
+#elif defined(__SC3000__)
+	#include "patch/z88dk_conio_patch.h"
 #endif
 
 struct ImageStruct
@@ -102,6 +104,8 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
+#elif defined(__SC3000__) 
+	#define GET_SCREEN_SIZE(x,y) {*x=38-X_OFFSET; *y=24-Y_OFFSET;};	
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #endif
@@ -439,7 +443,7 @@ typedef struct ImageStruct Image;
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 
 	#define CLEAR_SCREEN() {clrscr(); INIT_GRAPHICS();};
-#elif defined(__MSX__)
+#elif defined(__MSX__) || defined(__SC3000__)
 	#define SET_TEXT_COLOR(c) {};
 
 	#define SET_BORDER_COLOR(c) {};

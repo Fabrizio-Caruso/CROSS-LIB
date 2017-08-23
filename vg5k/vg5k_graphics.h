@@ -63,12 +63,12 @@
 	Image EXTRA_LIFE_IMAGE;
 	Image INVINCIBILITY_IMAGE;
 	
-	unsigned char powerUp_blink = 1;
-	unsigned char gun_blink = 1;
-	unsigned char extra_points_blink = 1;
-	unsigned char extra_life_blink = 1;
-	unsigned char invincibility_blink = 1;
-	unsigned char player_blink = 1;
+	// unsigned char powerUp_blink = 1;
+	// unsigned char gun_blink = 1;
+	// unsigned char extra_points_blink = 1;
+	// unsigned char extra_life_blink = 1;
+	// unsigned char invincibility_blink = 1;
+	// unsigned char player_blink = 1;
 	
 	extern unsigned char YSize; 
 
@@ -121,6 +121,12 @@
 			POKE(VIDEO_MEMORY_BASE+1+80*i,1);
 		}	
 		POKE(0x47FD,0);
+		
+		// #asm
+		// _ef9345: DEFB 0x04,0x20,0x82,0x29,0x00		
+		// ld hl,_ef9345
+		// call 0x00AD		
+		// #endasm
 	}
 
 	int _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
@@ -134,21 +140,35 @@
 
 	int _draw_ch_aux(int chCol, int xy)
 	{
-		#asm
-		di
+		// #asm
+		// di
 		
+		// pop bc   ; bc = ret address
+		// pop hl   ; hl = int b
+		// pop de  ; de = int a
+
+		// push de    ; now restore stack
+		// push hl
+		// push bc
+		
+		// call 0x0092	
+		
+		// ei
+		// #endasm
+		
+		#asm
 		pop bc   ; bc = ret address
 		pop hl   ; hl = int b
 		pop de  ; de = int a
 
 		push de    ; now restore stack
 		push hl
-		push bc
+		push bc   
 		
-		call 0x0092	
-		
-		ei
+		call 0x0092 
+
 		#endasm
+		
 	}
 	
 	
@@ -164,91 +184,21 @@
 	
 
 	
-	void DRAW_POWERUP(unsigned char x, unsigned char y, Image * image) 
+	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char *blinkCounter)
 	{
-		if(powerUp_blink) 
+		if(*blinkCounter) 
 		{
 			_draw_ch(x,y,image->_imageData, image->_color);
-			powerUp_blink=0;
+			*blinkCounter=0;
 		} 
 		else 
 		{
 			_draw_ch(x,y,32, 0);
-			powerUp_blink=1;
+			*blinkCounter=1;
 		}
 	}
 	
-	
-	void DRAW_GUN(unsigned char x, unsigned char y, Image * image) 
-	{
-		if(gun_blink) 
-		{
-			_draw_ch(x,y,image->_imageData, image->_color);
-			gun_blink=0;
-		} 
-		else 
-		{
-			_draw_ch(x,y,32, 0);
-			gun_blink=1;
-		}
 
-	}
-	
-	void DRAW_EXTRA_POINTS(unsigned char x, unsigned char y, Image * image) 
-	{
-		if(extra_points_blink) 
-		{
-			_draw_ch(x,y,image->_imageData, image->_color);
-			extra_points_blink=0;
-		} 
-		else 
-		{
-			_draw_ch(x,y,32, 0);
-			extra_points_blink=1;
-		}
-	}	
-
-	void DRAW_EXTRA_LIFE(unsigned char x, unsigned char y, Image * image) 
-	{
-		if(extra_life_blink) 
-		{
-			_draw_ch(x,y,image->_imageData, image->_color);
-			extra_life_blink=0;
-		} 
-		else 
-		{
-			_draw_ch(x,y,32, 0);
-			extra_life_blink=1;
-		}
-	}	
-	
-	void DRAW_INVINCIBILITY(unsigned char x, unsigned char y, Image * image) 
-	{
-		if(invincibility_blink) 
-		{
-			_draw_ch(x,y,image->_imageData, image->_color);
-			invincibility_blink=0;
-		} 
-		else 
-		{
-			_draw_ch(x,y,32, 0);
-			invincibility_blink=1;
-		}
-	}		
-
-	void DRAW_BLINKING_PLAYER(unsigned char x, unsigned char y, Image * image) 
-	{
-		if(player_blink) 
-		{
-			_draw_ch(x,y,image->_imageData, image->_color);
-			player_blink=0;
-		} 
-		else 
-		{
-			_draw_ch(x,y,32, 0);
-			player_blink=1;
-		}
-	}	
 	
 
 	

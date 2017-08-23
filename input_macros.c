@@ -66,7 +66,55 @@ extern unsigned char player_invincibility;
 
 extern unsigned char guns;
 
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__) && !defined(__VG5k__)
+#if defined(__VG5K__) 
+	void movePlayerByKeyboard(unsigned char kbInput)
+	{
+		if(kbInput=='i')
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			--player._y;
+			invincibleYCountDown = computeInvincibleCountDown();
+			playerDirection = UP;
+			SHOW_UP();
+		}
+		else if(kbInput=='k')
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			++player._y;
+			invincibleYCountDown = computeInvincibleCountDown();
+			playerDirection = DOWN;
+			SHOW_DOWN();
+		}
+		else if(kbInput=='j')
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			--player._x;
+			invincibleXCountDown = computeInvincibleCountDown();
+			playerDirection = LEFT;
+			SHOW_LEFT();
+		}
+		else if(kbInput=='l')
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			++player._x;
+			invincibleXCountDown = computeInvincibleCountDown();
+			playerDirection = RIGHT;
+			SHOW_RIGHT();
+		}
+		else if(kbInput==' ' && guns>0 && !missile._status)
+		{
+			playerFire = 1;
+		}
+		if(player_invincibility)
+		{
+			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
+		}
+		else
+		{
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		}
+	}
+#elif !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__) && !defined(__VG5k__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
 		if(kbInput=='W')
@@ -114,7 +162,7 @@ extern unsigned char guns;
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 		}
 	}
-#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__) || defined(__MSX__) || defined(__SC3000__)
+#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__SC3000__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
 		if(kbInput=='w')
@@ -221,8 +269,10 @@ extern unsigned char guns;
 		#endif
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
-	#elif defined(__SC3000__) || defined(__CPC__) || defined(__VG5k__) || defined(__MSX__)
-		void MOVE_PLAYER(void) {}
+	#elif defined(__SC3000__) || defined(__CPC__) || defined(__VG5k__) || defined(__MSX__) 
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());} // TODO: TO BE IMPLEMENTED
+	#elif defined(__VG5K__) 
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}
 	#else
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(GET_CHAR());}}
 	#endif

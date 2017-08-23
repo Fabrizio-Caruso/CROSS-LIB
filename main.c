@@ -703,12 +703,17 @@ int main(void)
 	
 			while(player._status && ((ghostCount>0 && !bossLevel()) || (invincibleGhostAlive && bossLevel()))) // while alive && there are still ghosts
 			{
+
 				#if defined(SLOW_DOWN)
+				{
 					unsigned int i;
 					for(i=0;i<GAME_SLOW_DOWN;++i)
 					{
+
 					}
+				}
 				#endif
+
 				++loop;
 				
 				if(player_invincibility && playerInvincibilityCoolDown<=0)
@@ -841,12 +846,12 @@ int main(void)
 				}
 				
 				//TODO: Remove this DEBUG lines
-				#if defined(__VG5K__)
-					sleep(1);
-					DRAW_PLAYER(player._x, player._y, player._imagePtr);
-				#else
+				// #if defined(__VG5K__)
+					// sleep(1);
+					// DRAW_PLAYER(player._x, player._y, player._imagePtr);
+				// #else
 					MOVE_PLAYER();
-				#endif
+				// #endif
 				
 				handle_missile();
 			

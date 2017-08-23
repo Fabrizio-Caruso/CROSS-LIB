@@ -286,4 +286,8 @@ Code: Select all
    tmp = ~0x0F & PEEK(&(VIC.addr));
    POKE(&(VIC.addr), tmp | 0x0F);
    
+
+----------------------------------------
+http://www.atarimagazines.com/compute/issue41/Apple_Sounds_From_Beeps_To_Music.php
+
    

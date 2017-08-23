@@ -1,3 +1,5 @@
+#ifndef GENERIC_CONIO_PATH_H
+#define GENERIC_CONIO_PATH_H
 
 #ifndef COLOR_BLACK
 #define COLOR_BLACK 0
@@ -16,9 +18,16 @@
 #define COLOR_BLUE 1
 #endif
 
+#ifndef cgetc()
+	#include<stdio.h>
+	#define cgetc() getchar();
+#endif
+	
 #ifndef CH_ULCORNER
 	#define CH_ULCORNER 'X'
 	#define CH_URCORNER 'X'
 	#define CH_LLCORNER 'X'
 	#define CH_LRCORNER 'X'	
 #endif
+
+#endif // GENERIC_CONIO_PATH_H

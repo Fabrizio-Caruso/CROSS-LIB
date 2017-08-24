@@ -62,13 +62,7 @@
 	Image EXTRA_POINTS_IMAGE;
 	Image EXTRA_LIFE_IMAGE;
 	Image INVINCIBILITY_IMAGE;
-	
-	// unsigned char powerUp_blink = 1;
-	// unsigned char gun_blink = 1;
-	// unsigned char extra_points_blink = 1;
-	// unsigned char extra_life_blink = 1;
-	// unsigned char invincibility_blink = 1;
-	// unsigned char player_blink = 1;
+
 	
 	extern unsigned char YSize; 
 
@@ -142,51 +136,37 @@
 		#endasm		
 	}
 	
-	int _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
+	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 	{
-		no_cursor();
-		gotoxy(x,y);
-		cputc(ch);
-		// int xy = 0;
-		// int chCol = 0;
-		// xy = ((y+8+Y_OFFSET)<<8) | (x+X_OFFSET);
-		// chCol = (ch<<8) | col;
-		// no_cursor();
-		// return _draw_ch_aux(chCol,xy);
+		no_cursor();		
+		//gotoxy(x+X_OFFSET+1,y+Y_OFFSET+2);
+		//cputc(ch);
+			
+		{			
+			int xy = 0;
+			int chCol = 0;
+			xy = ((y+8+Y_OFFSET)<<8) | (x+X_OFFSET);
+			chCol = (ch<<8) | col;
+			
+			_draw_ch_aux(chCol,xy);
+		}
 	}
 
 	int _draw_ch_aux(int chCol, int xy)
-	{
-		// #asm
-		// di
+	{		
+		#asm
 		
-		// pop bc   ; bc = ret address
-		// pop hl   ; hl = int b
-		// pop de  ; de = int a
+		pop bc   ; bc = ret address
+		pop hl   ; hl = int b
+		pop de  ; de = int a
 
-		// push de    ; now restore stack
-		// push hl
-		// push bc
+		push de    ; now restore stack
+		push hl
+		push bc
 		
-		// call 0x0092	
+		call 0x0092	
 		
-		// ei
-		// #endasm
-		
-		// #asm
-		// di
-		// pop bc   ; bc = ret address
-		// pop hl   ; hl = int b
-		// pop de  ; de = int a
-
-		// push de    ; now restore stack
-		// push hl
-		// push bc   	
-		
-		// call 0x0092 
-		// ei
-		// #endasm
-		
+		#endasm	
 	}
 	
 	

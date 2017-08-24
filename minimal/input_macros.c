@@ -35,7 +35,7 @@
 #include "settings.h"
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
-#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__SC3000__)
+#elif defined(__SPECTRUM__) || defined(__ZX81__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__SC3000__) || defined(__AQUARIUS__)
 #else
 	#include <joystick.h>
 #endif
@@ -64,7 +64,7 @@ extern unsigned char ghostCount;
 extern unsigned char guns;
 
 // #if (defined(__VIC20__) || defined(__C16__)) || 
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__MSX__) && !defined(__CPC__) && !defined(__VG5k__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__ZX81__) && !defined(__MSX__) && !defined(__CPC__) && !defined(__VG5k__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
 		if(kbInput=='W')
@@ -107,7 +107,7 @@ extern unsigned char guns;
 		DRAW_PLAYER(player._x, player._y, player._imagePtr);
 
 	}
-#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__AQUARIUS__) || defined(__VG5K__) || defined(__MSX__) || defined(__SC3000__)
+#elif defined(__CBM610__) || defined(__ZX81__) || defined (__SPECTRUM__) || defined(__AQUARIUS__) || defined(__CPC__) || defined(__AQUARIUS__) || defined(__VG5K__) || defined(__MSX__) || defined(__SC3000__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
 		if(kbInput=='w')
@@ -207,7 +207,11 @@ extern unsigned char guns;
 	#elif defined(__CPC__) || defined(__SC3000__)
 		void MOVE_PLAYER(void) { movePlayerByKeyboard(getk());}		
 	#elif defined(__VG5K__) 
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
+	#elif defined(__AQUARIUS__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
+	#elif defined(__ZX81__) 
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}			
 	#else
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
 	#endif

@@ -72,7 +72,7 @@
 		#else
 			#define GET_CHAR() {in_inkey();};
 		#endif
-	#elif defined(__CPC__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__) || defined(__VG5K__)
+	#elif defined(__CPC__) || defined(__ZX81__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__) || defined(__VG5K__) || defined(__AQUARIUS__)
 		#define GET_CHAR() (unsigned int) getk();
 	#else
 		#ifndef GET_CHAR()
@@ -165,7 +165,7 @@
 	#endif
 				
 	// Move player
-	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__CPC__) && !defined(__VG5k__)
+	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__ZX81__) && !defined(__CPC__) && !defined(__VG5k__)
 		void movePlayerByKeyboard(unsigned char kbInput);
 	// #elif defined(__VIC20__) || defined(__C16__)
 		// void movePlayerByKeyboard(unsigned char kbInput);	

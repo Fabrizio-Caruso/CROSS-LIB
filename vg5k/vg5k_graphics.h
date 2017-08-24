@@ -114,19 +114,28 @@
 	
 	void INIT_GRAPHICS(void)
 	{
-		unsigned char i;	
-		for(i=0;i<24;++i)
+		// TODO: Fix this to disable cursor
+		#asm
+			_ef9345:
+				defb 0x04,0x20,0x82,0x29,0x00		
+				pop bc
+				; pop hl
+				; pop de
+				; push de
+				; push hl
+				push bc
+				ld hl,_ef9345
+				call 0x00AD		
+		#endasm
 		{
-			POKE(VIDEO_MEMORY_BASE+80*i,32);
-			POKE(VIDEO_MEMORY_BASE+1+80*i,1);
-		}	
-		POKE(0x47FD,0);
-		
-		// #asm
-		// _ef9345: DEFB 0x04,0x20,0x82,0x29,0x00		
-		// ld hl,_ef9345
-		// call 0x00AD		
-		// #endasm
+			unsigned char i;	
+			for(i=0;i<24;++i)
+			{
+				POKE(VIDEO_MEMORY_BASE+80*i,32);
+				POKE(VIDEO_MEMORY_BASE+1+80*i,1);
+			}	
+			POKE(0x47FD,0);
+		}
 	}
 
 	int _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)

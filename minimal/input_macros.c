@@ -107,7 +107,7 @@ extern unsigned char guns;
 		DRAW_PLAYER(player._x, player._y, player._imagePtr);
 
 	}
-#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__) || defined(__MSX__) || defined(__SC3000__)
+#elif defined(__CBM610__) || defined (__SPECTRUM__) || defined(__CPC__) || defined(__AQUARIUS__) || defined(__VG5K__) || defined(__MSX__) || defined(__SC3000__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
 		if(kbInput=='w')
@@ -206,6 +206,8 @@ extern unsigned char guns;
 		void MOVE_PLAYER(void) { movePlayerByKeyboard(getk());}
 	#elif defined(__CPC__) || defined(__SC3000__)
 		void MOVE_PLAYER(void) { movePlayerByKeyboard(getk());}		
+	#elif defined(__VG5K__) 
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
 	#else
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
 	#endif

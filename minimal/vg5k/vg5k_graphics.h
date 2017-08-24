@@ -13,7 +13,7 @@
 /*                                                                           */
 /*                                                                           */
 /* This software is provided 'as-is', without any expressed or implied       */
-/* warranty.  In no event will the authors be held liable for any damages    */
+/* wazrranty.  In no event will the authors be held liable for any damages    */
 /* arising from the use of this software.                                    */
 /*                                                                           */
 /* Permission is granted to anyone to use this software for any purpose,     */
@@ -30,11 +30,15 @@
 /*    distribution.                                                          */
 /*                                                                           */
 /*****************************************************************************/
- 
-#include "display_macros.h"
-#if defined(__VG5K__)
-	#include "vg5k/vg5k_graphics.h"
-#else
+
+#ifndef _VG5K_REDEFINED_CHARACTERS
+#define _VG5K_REDEFINED_CHARACTERS
+
+	#include<stdlib.h> 
+	
+	#define POKE(loc,val) bpoke((loc),(val));
+	
+	#define VIDEO_MEMORY_BASE 0x4000
 
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;
@@ -44,42 +48,34 @@
 	Image POWERUP_IMAGE;
 	Image MISSILE_IMAGE;
 	Image GUN_IMAGE;
+
+	Image PLAYER_RIGHT;
+	Image PLAYER_LEFT;
+	Image PLAYER_UP;
+	Image PLAYER_DOWN;
+
+	Image LEFT_ENEMY_MISSILE_IMAGE;
+	Image RIGHT_ENEMY_MISSILE_IMAGE;
+
+	Image BUBBLE_IMAGE;
+
+	Image EXTRA_POINTS_IMAGE;
+	Image EXTRA_LIFE_IMAGE;
+	Image INVINCIBILITY_IMAGE;
 	
-	// unsigned char powerUp_blink = 1;
-	// unsigned char gun_blink = 1;
- 
+	extern unsigned char YSize; 
+
 	void INIT_IMAGES(void)
 	{		
-
-		#if defined(__VIC20__)
-			PLAYER_IMAGE._color = COLOR_YELLOW;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-			POWERUP_IMAGE._color = COLOR_BLUE;
-			GUN_IMAGE._color = COLOR_BLUE;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;	
-		#elif defined(__ATARI__) || defined(__ATARIXL__)
-			PLAYER_IMAGE._color = COLOR_WHITE;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
-			POWERUP_IMAGE._color = COLOR_GRAY1;
-			GUN_IMAGE._color = COLOR_GRAY1;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;
-		#elif defined(__C16__)
-			PLAYER_IMAGE._color = COLOR_CYAN;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-			POWERUP_IMAGE._color = COLOR_YELLOW;
-			GUN_IMAGE._color = COLOR_YELLOW;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;				
-		#else
-			PLAYER_IMAGE._color = COLOR_WHITE;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
-			POWERUP_IMAGE._color = COLOR_WHITE;
-			GUN_IMAGE._color = COLOR_WHITE;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;		
-		#endif
+		
+		PLAYER_IMAGE._color = 1;		
+		GHOST_IMAGE._color = 1;
+		MISSILE_IMAGE._color = 1;
+		INVINCIBLE_GHOST_IMAGE._color = 1;
+		POWERUP_IMAGE._color = 1;
+		GUN_IMAGE._color = 1;
+		BOMB_IMAGE._color = 1;
+		DEAD_GHOST_IMAGE._color = 1;
 			
 
 		GHOST_IMAGE._imageData = 'o';
@@ -93,35 +89,129 @@
 
 		GHOST_IMAGE._color = COLOR_WHITE;
 		MISSILE_IMAGE._color = COLOR_WHITE;
-	}
 
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
+		
+		BUBBLE_IMAGE._imageData = '^';
+		BUBBLE_IMAGE._color = COLOR_WHITE;
+		
+		EXTRA_POINTS_IMAGE._imageData = '$';
+		
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+		INVINCIBILITY_IMAGE._imageData = 'V';
 
-	void _draw(unsigned char x, unsigned char y, Image * image) 
-	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		SET_TEXT_COLOR(image->_color);
-		cputc(image->_imageData); 
 	}
 	
-	void _delete(unsigned char x, unsigned char y)
+	void INIT_GRAPHICS(void)
 	{
-		gotoxy(x+X_OFFSET,y+Y_OFFSET);
-		cputc(' ');
+		{
+			unsigned char i;	
+			for(i=0;i<24;++i)
+			{
+				POKE(VIDEO_MEMORY_BASE+80*i,32);
+				POKE(VIDEO_MEMORY_BASE+1+80*i,1);
+			}	
+			POKE(0x47FD,0);
+		}
+		no_cursor();
 	}
 
-	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char * blink_counter) 
+	void no_cursor(void)
 	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		SET_TEXT_COLOR(image->_color);
-		if(*blink_counter) 
+		//TODO: Fix this to disable cursor
+		#asm
+			_ef9345:
+				defb 0x04,0x20,0x82,0x29,0x00		
+				pop bc
+				pop hl
+				pop de
+				push de
+				push hl
+				push bc
+				ld hl,_ef9345
+				call 0x00AD		
+		#endasm		
+	}
+	
+	int _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
+	{
+		//no_cursor();
+		gotoxy(x,y);
+		cputc(ch);
+		// int xy = 0;
+		// int chCol = 0;
+		// xy = ((y+8+Y_OFFSET)<<8) | (x+X_OFFSET);
+		// chCol = (ch<<8) | col;
+		// no_cursor();
+		// return _draw_ch_aux(chCol,xy);
+	}
+
+	int _draw_ch_aux(int chCol, int xy)
+	{
+		// #asm
+		// di
+		
+		// pop bc   ; bc = ret address
+		// pop hl   ; hl = int b
+		// pop de  ; de = int a
+
+		// push de    ; now restore stack
+		// push hl
+		// push bc
+		
+		// call 0x0092	
+		
+		// ei
+		// #endasm
+		
+		// #asm
+		// di
+		// pop bc   ; bc = ret address
+		// pop hl   ; hl = int b
+		// pop de  ; de = int a
+
+		// push de    ; now restore stack
+		// push hl
+		// push bc   	
+		
+		// call 0x0092 
+		// ei
+		// #endasm
+		
+	}
+	
+	
+	void _draw(unsigned char x,unsigned char y,Image * image) 
+	{
+		_draw_ch(x,y,image->_imageData, image->_color);
+	}
+
+	void _delete(unsigned char x, unsigned char y)  
+	{
+		_draw_ch(x,y,32, 0);	
+	}
+	
+
+	
+	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char *blinkCounter)
+	{
+		if(*blinkCounter) 
 		{
-			cputc(image->_imageData); 
-			*blink_counter=0;
+			_draw_ch(x,y,image->_imageData, image->_color);
+			*blinkCounter=0;
 		} 
 		else 
 		{
-			cputc(' '); 
-			*blink_counter=1;
-		}	
+			_draw_ch(x,y,32, 0);
+			*blinkCounter=1;
+		}
 	}
-#endif
+	
+
+	
+
+	
+#endif // _VG5K_REDEFINED_CHARACTERS

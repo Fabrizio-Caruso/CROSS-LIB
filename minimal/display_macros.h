@@ -54,6 +54,8 @@
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__SC3000__)
 	#include "patch/z88dk_conio_patch.h"
+#elif defined(__AQUARIUS__)
+	#include "patch/z88dk_conio_patch.h"	
 #endif
 
 struct ImageStruct
@@ -117,7 +119,7 @@ typedef struct ImageStruct Image;
 	
 	void _draw(unsigned char x,unsigned char y,Image * image);
 	int _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
-	
+	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);	
 	#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
 
 	#define DRAW_GHOST(x,y,image) {_draw(x,y,image);};
@@ -125,24 +127,20 @@ typedef struct ImageStruct Image;
 	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
 	
 	#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
-	
-	void DRAW_POWERUP(unsigned char x, unsigned char y, Image * image) ;
-	
-	void DRAW_GUN(unsigned char x, unsigned char y, Image * image) ;
-	
-	void DRAW_EXTRA_POINTS(unsigned char x, unsigned char y, Image * image) ;	
 
-	void DRAW_EXTRA_LIFE(unsigned char x, unsigned char y, Image * image);	
-	
-	void DRAW_INVINCIBILITY(unsigned char x, unsigned char y, Image * image);		
-
-	void DRAW_BLINKING_PLAYER(unsigned char x, unsigned char y, Image * image);		
+	#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
+	#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
+	#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
+	#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
+	#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
+	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 		
 	
 	#define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
 	
 	unsigned short location(unsigned char x, unsigned char y);	
+
+	#define DRAW_BOMBS() 
 	
-	#define DRAW_BOMBS() {};
 	// #define DRAW_BOMBS() \
 	// { \
 		// unsigned char i; \
@@ -177,10 +175,22 @@ typedef struct ImageStruct Image;
 	#define DRAW_BORDERS() \
 	{ \
 	} 
-
 	
 	#define DRAW_VERTICAL_LINE(x,y,length) \
 	{ \
+		unsigned char i; \
+		for(i=0;i<length;i++) \
+		{ \
+			if((y+Y_OFFSET+i)%2==1) \
+			{ \
+				gotoxy(x+20+X_OFFSET,(y+Y_OFFSET+i)/2); \
+			} \
+			else \
+			{ \
+				gotoxy(x+X_OFFSET,(y+Y_OFFSET+i)/2); \
+			} \
+			cputc('a'+20+12); \
+		} \
 	}
 			
 	#define SHOW_LEFT() { }

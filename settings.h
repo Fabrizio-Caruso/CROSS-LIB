@@ -51,15 +51,13 @@
 #elif defined(__CBM610__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 700
-#elif defined(__VG5K__)
-	#define GAME_SLOW_DOWN 0
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
 
 //#define FAST_NONEXACT_COLLISION_DECTION
 
-#define BOMBS_NUMBER 4
+#define BOMBS_NUMBER 3
 
 // Possible current values are 6,7,8
 #if defined(__CPC__) 
@@ -68,6 +66,8 @@
 	#define GHOSTS_NUMBER 7
 #elif defined(__VIC20__)
 	#define GHOSTS_NUMBER 8
+#elif defined(__VG5K__)
+	#define GHOSTS_NUMBER 7
 #else
 	#define GHOSTS_NUMBER 8
 #endif

@@ -110,7 +110,7 @@ typedef struct ImageStruct Image;
 #elif defined(__CPC__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=28-Y_OFFSET;};
 #elif defined(__SC3000__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};	
 #else
@@ -243,33 +243,21 @@ typedef struct ImageStruct Image;
 	#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
 	#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
 	#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
-	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 	
-	
-	// void DRAW_POWERUP(unsigned char x, unsigned char y, Image * image) ;
-	
-	// void DRAW_GUN(unsigned char x, unsigned char y, Image * image) ;
-	
-	// void DRAW_EXTRA_POINTS(unsigned char x, unsigned char y, Image * image) ;	
-
-	// void DRAW_EXTRA_LIFE(unsigned char x, unsigned char y, Image * image);	
-	
-	// void DRAW_INVINCIBILITY(unsigned char x, unsigned char y, Image * image);		
-
-	// void DRAW_BLINKING_PLAYER(unsigned char x, unsigned char y, Image * image);		
+	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 		
 	
 	#define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
 	
 	unsigned short location(unsigned char x, unsigned char y);	
 	
-	#define DRAW_BOMBS() {};
-	// #define DRAW_BOMBS() \
-	// { \
-		// unsigned char i; \
-		// for(i=0;i<BOMBS_NUMBER;++i) \
-		// { \
-			// DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr); \
-		// } \
-	// }
+	//#define DRAW_BOMBS() {};
+	#define DRAW_BOMBS() \
+	{ \
+		unsigned char i; \
+		for(i=0;i<BOMBS_NUMBER;++i) \
+		{ \
+			DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr); \
+		} \
+	}
 
 	void _delete(unsigned char x, unsigned char y);
 	
@@ -298,8 +286,13 @@ typedef struct ImageStruct Image;
 	} 
 
 	
-	#define DRAW_VERTICAL_LINE(x,y,length) \
+	#define DRAW_VERTICAL_LINE(x, y,  length) \
 	{ \
+		unsigned char i; \
+		for(i=0;i<length;++i) \
+		{ \
+			gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); \
+		} \
 	}
 			
 	#define SHOW_LEFT() { }
@@ -528,11 +521,6 @@ typedef struct ImageStruct Image;
 	void _draw_broken_wall(unsigned char x, unsigned char y);	
 	void _draw(unsigned char x, unsigned char y, Image * image);
 	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter);
-	// void _blink_gun_draw(unsigned char x, unsigned char y, Image * image);
-	// void _blink_extra_points_draw(unsigned char x, unsigned char y, Image * image);	
-	// void _blink_extra_life_draw(unsigned char x, unsigned char y, Image * image);
-	// void _blink_invincibility_draw(unsigned char x, unsigned char y, Image * image);
-	// void _blink_player_draw(unsigned char x, unsigned char y, Image * image);
 	
 	#define DRAW_BOMBS() \
 	{ \
@@ -667,12 +655,7 @@ typedef struct ImageStruct Image;
 	void _draw_broken_wall(unsigned char x, unsigned char y);	
 	void _draw(unsigned char x, unsigned char y, Image * image);
 	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter);
-	// void _blink_powerUp_draw(unsigned char x, unsigned char y, Image * image);
-	// void _blink_gun_draw(unsigned char x, unsigned char y, Image * image);
-	// void _blink_extra_points_draw(unsigned char x, unsigned char y, Image * image);	
-	// void _blink_extra_life_draw(unsigned char x, unsigned char y, Image * image);
-	// void _blink_invincibility_draw(unsigned char x, unsigned char y, Image * image);
-	// void _blink_player_draw(unsigned char x, unsigned char y, Image * image);
+
 	#define _blink_powerUp_draw(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
 	#define _blink_gun_draw(x, y, image) _blink_draw(x,y,image, &gun_blink); 
 	#define _blink_extra_points_draw(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
@@ -774,7 +757,7 @@ typedef struct ImageStruct Image;
 
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 
-	#define CLEAR_SCREEN() {clrscr(); INIT_GRAPHICS();};
+	#define CLEAR_SCREEN() {clrscr();};
 #elif defined(__MSX)
 	#define SET_TEXT_COLOR(c) {};
 

@@ -59,6 +59,8 @@
 	#define BOMBS_NUMBER 3	
 #elif defined(__CPC__)
 	#define BOMBS_NUMBER 1
+#elif defined(__VG5K__)
+	#define BOMBS_NUMBER 1	
 #else
 	#define BOMBS_NUMBER 3		
 #endif
@@ -73,6 +75,8 @@
 	#define GHOSTS_NUMBER 7
 #elif defined(__CPC__)
 	#define GHOSTS_NUMBER 5
+#elif defined(__VG5K__)
+	#define GHOSTS_NUMBER 1	
 #else
 	#define GHOSTS_NUMBER 8	
 #endif

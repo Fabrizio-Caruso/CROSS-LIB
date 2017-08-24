@@ -53,7 +53,7 @@
 	#define GAME_SLOW_DOWN 700
 #elif defined(__VG5K__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 2000	
+	#define GAME_SLOW_DOWN 100	
 #else
 	#define GAME_SLOW_DOWN 0
 #endif

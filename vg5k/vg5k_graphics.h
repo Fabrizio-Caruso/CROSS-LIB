@@ -114,19 +114,6 @@
 	
 	void INIT_GRAPHICS(void)
 	{
-		// TODO: Fix this to disable cursor
-		#asm
-			_ef9345:
-				defb 0x04,0x20,0x82,0x29,0x00		
-				pop bc
-				; pop hl
-				; pop de
-				; push de
-				; push hl
-				push bc
-				ld hl,_ef9345
-				call 0x00AD		
-		#endasm
 		{
 			unsigned char i;	
 			for(i=0;i<24;++i)
@@ -138,13 +125,34 @@
 		}
 	}
 
+	void no_cursor(void)
+	{
+		//TODO: Fix this to disable cursor
+		#asm
+			_ef9345:
+				defb 0x04,0x20,0x82,0x29,0x00		
+				pop bc
+				pop hl
+				pop de
+				push de
+				push hl
+				push bc
+				ld hl,_ef9345
+				call 0x00AD		
+		#endasm		
+	}
+	
 	int _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 	{
-		int xy = 0;
-		int chCol = 0;
-		xy = ((y+8+Y_OFFSET)<<8) | (x+X_OFFSET);
-		chCol = (ch<<8) | col;
-		return _draw_ch_aux(chCol,xy);
+		no_cursor();
+		gotoxy(x,y);
+		cputc(ch);
+		// int xy = 0;
+		// int chCol = 0;
+		// xy = ((y+8+Y_OFFSET)<<8) | (x+X_OFFSET);
+		// chCol = (ch<<8) | col;
+		// no_cursor();
+		// return _draw_ch_aux(chCol,xy);
 	}
 
 	int _draw_ch_aux(int chCol, int xy)
@@ -165,18 +173,19 @@
 		// ei
 		// #endasm
 		
-		#asm
-		pop bc   ; bc = ret address
-		pop hl   ; hl = int b
-		pop de  ; de = int a
+		// #asm
+		// di
+		// pop bc   ; bc = ret address
+		// pop hl   ; hl = int b
+		// pop de  ; de = int a
 
-		push de    ; now restore stack
-		push hl
-		push bc   
+		// push de    ; now restore stack
+		// push hl
+		// push bc   	
 		
-		call 0x0092 
-
-		#endasm
+		// call 0x0092 
+		// ei
+		// #endasm
 		
 	}
 	

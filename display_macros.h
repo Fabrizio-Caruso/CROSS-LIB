@@ -239,11 +239,24 @@ typedef struct ImageStruct Image;
 	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 		
 	
 	#define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
-	
-	unsigned short location(unsigned char x, unsigned char y);	
-	
+
 	void DRAW_BOMBS(void);
 
+	#define DRAW_BORDERS() \
+	{ \
+		unsigned char i; \
+		gotoxy(1+X_OFFSET,1+0+Y_OFFSET); \
+		printf("---------------------------------------"); \
+		gotoxy(1+X_OFFSET,1+YSize-1+Y_OFFSET); \
+		printf("---------------------------------------"); \
+		for(i=2;i<YSize;++i) \
+		{ \
+			gotoxy(1 + 0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+			gotoxy(1 + XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+		} \
+	}	
+	
+	
 	void _delete(unsigned char x, unsigned char y);
 	
 	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
@@ -265,10 +278,6 @@ typedef struct ImageStruct Image;
 	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str,val); };
 	
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str); };
-
-	#define DRAW_BORDERS() \
-	{ \
-	} 
 
 	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
 

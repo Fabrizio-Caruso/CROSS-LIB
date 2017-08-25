@@ -117,6 +117,12 @@ void displayStatsTitles(void)
 		PRINT(0,0-Y_OFFSET,"SCORE:");
 		PRINT(0,1-Y_OFFSET,"LEVEL:");
 	#elif defined(__VG5K__)	
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		PRINT(2,0-Y_OFFSET,"SCORE:");
+		PRINT(2,1-Y_OFFSET,"LEVEL:");
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		PRINT(24,0-Y_OFFSET,"CROSS CHASE");
+		SET_TEXT_COLOR(TEXT_COLOR);	
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINT(2,0-Y_OFFSET,"SCORE:");
@@ -149,7 +155,14 @@ void displayStatsTitles(void)
 		gotoxy(18+1,0+1); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(18-3,0+1); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-	#elif defined(__VG5K__)		
+	#elif defined(__VG5K__)
+		SET_TEXT_COLOR(TEXT_COLOR);	
+
+		gotoxy(18-3+1,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18+1,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		
+		//18+2+1-X_OFFSET,1-Y_OFFSET
+		gotoxy(18+1,2); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#else
 		// TODO: to implement
 		SET_TEXT_COLOR(TEXT_COLOR);	
@@ -173,7 +186,8 @@ void printGunsStats(void)
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%d",guns);	
-	#elif defined(__VG5K__)		
+	#elif defined(__VG5K__)	
+		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%u",guns);	
 	#else
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#endif			
@@ -191,7 +205,8 @@ void printLevelStats(void)
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(8,1-Y_OFFSET,"%02d", level);	
-	#elif defined(__VG5K__)		
+	#elif defined(__VG5K__)	
+		PRINTF(8,1-Y_OFFSET,"%02u", level);	
 	#else
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);	
 	#endif	
@@ -210,6 +225,7 @@ void printGhostCountStats(void)
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%d",ghostCount);	
 	#elif defined(__VG5K__)		
+		PRINTF(18+1+2-X_OFFSET-3,0-Y_OFFSET,"%u",ghostCount);	
 	#else
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%hu",ghostCount);
 	#endif		
@@ -227,7 +243,8 @@ void printLivesStats(void)
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02d",lives);	
-	#elif defined(__VG5K__)		
+	#elif defined(__VG5K__)	
+		PRINTF(18+2+1-X_OFFSET,1-Y_OFFSET,"%02u",lives);	
 	#else
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#endif		
@@ -245,20 +262,13 @@ void displayStats(void)
 		PRINTF(8,0-Y_OFFSET,"%06lu",points);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(8,0-Y_OFFSET,"%06lu",points);	
-	#elif defined(__VG5K__)		
+	#elif defined(__VG5K__)	
+		PRINTF(8,0-Y_OFFSET,"%06lu",points);	
 	#else
 		PRINTF(8,0-Y_OFFSET,"%06lu",points);
 	#endif
 }
 
-
-
-void drawBorders(void)
-{
-	CLEAR_SCREEN();
-	
-	DRAW_BORDERS();
-}
 
 void setScreenColors(void)
 {

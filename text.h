@@ -52,17 +52,11 @@ void printGhostCountStats(void);
 
 void printLivesStats(void);
 
-void drawBorders(void);
-
 void setScreenColors(void);
 
 void printCenteredMessage(char *Text);
 
 void printLevel(void);
-
-// void printLevelBonus(unsigned short bonus);
-
-// void finalScore(void);
 
 void _printScore(char * text, unsigned int score);
 

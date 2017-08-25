@@ -570,13 +570,6 @@ int main(void)
 			}
 			#endif
 			
-			#if defined(__VG5K__)
-			{ 
-
-			}
-			#endif
-			
-			
 			PRINTF(0,0,"ghost %c\n", GHOST_IMAGE._imageData);
 			PRINTF(0,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
 			PRINTF(0,2,"bomb %c\n", BOMB_IMAGE._imageData);
@@ -678,8 +671,9 @@ int main(void)
 			deleteCenteredMessage();
 			
 			// Draw a border around the screen 
-			drawBorders();
-			
+			CLEAR_SCREEN();
+
+			DRAW_BORDERS();
 			// Initialize characters
 			updateInnerWallVerticalData();	
 			
@@ -845,13 +839,8 @@ int main(void)
 					}
 				}
 				
-				//TODO: Remove this DEBUG lines
-				// #if defined(__VG5K__)
-					// sleep(1);
-					// DRAW_PLAYER(player._x, player._y, player._imagePtr);
-				// #else
-					MOVE_PLAYER();
-				// #endif
+				MOVE_PLAYER();
+
 				
 				handle_missile();
 			
@@ -896,7 +885,7 @@ int main(void)
 				handle_player_vs_outer_wall();
 				
 				DRAW_BOMBS();
-				
+
 				// Display ghosts
 				displayGhosts();
 				
@@ -907,10 +896,6 @@ int main(void)
 					printGunsStats();
 					printGhostCountStats();
 				#endif
-
-				//displayStats();
-				// printGunsStats();
-				// printGhostCountStats();
 
 				
 				handle_invincible_ghost();

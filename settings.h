@@ -53,14 +53,14 @@
 	#define GAME_SLOW_DOWN 700
 #elif defined(__VG5K__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 800	
+	#define GAME_SLOW_DOWN 500	
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
 
 //#define FAST_NONEXACT_COLLISION_DECTION
 
-#define BOMBS_NUMBER 3
+#define BOMBS_NUMBER 4
 
 // Possible current values are 6,7,8
 #if defined(__CPC__) 
@@ -148,6 +148,9 @@
 #if defined(__CBM610__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000
 	#define INITIAL_SKULL_SLOWDOWN 32000	
+#elif defined(__VG5K__)
+	#define INITIAL_ENEMY_SLOWDOWN 29000
+	#define INITIAL_SKULL_SLOWDOWN 30000	
 #else
 	#define INITIAL_ENEMY_SLOWDOWN 28000
 	#define INITIAL_SKULL_SLOWDOWN 29000

@@ -56,13 +56,6 @@
 	#include "patch/z88dk_conio_patch.h"
 #endif
 
-// char powerUp_blink = 1;
-// char gun_blink = 1;
-// char extra_points_blink = 1;
-// char extra_life_blink = 1;
-// char invincibility_blink = 1;
-// char player_blink = 1;
-
 struct ImageStruct
 {
 	unsigned char _imageData;
@@ -249,15 +242,7 @@ typedef struct ImageStruct Image;
 	
 	unsigned short location(unsigned char x, unsigned char y);	
 	
-	//#define DRAW_BOMBS() {};
-	#define DRAW_BOMBS() \
-	{ \
-		unsigned char i; \
-		for(i=0;i<BOMBS_NUMBER;++i) \
-		{ \
-			DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr); \
-		} \
-	}
+	void DRAW_BOMBS(void);
 
 	void _delete(unsigned char x, unsigned char y);
 	
@@ -293,15 +278,6 @@ typedef struct ImageStruct Image;
 			_draw_ch(x,y+i,'|',2); \
 		} \
 	}
-	
-	// #define DRAW_VERTICAL_LINE(x, y,  length) \
-	// { \
-		// unsigned char i; \
-		// for(i=0;i<length;++i) \
-		// { \
-			// gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); \
-		// } \
-	// }
 			
 	#define SHOW_LEFT() { }
 	#define SHOW_RIGHT() {}
@@ -765,7 +741,8 @@ typedef struct ImageStruct Image;
 
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 
-	#define CLEAR_SCREEN() {clrscr();};
+	void CLEAR_SCREEN();
+	
 #elif defined(__MSX)
 	#define SET_TEXT_COLOR(c) {};
 

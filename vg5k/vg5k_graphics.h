@@ -35,11 +35,14 @@
 #define _VG5K_REDEFINED_CHARACTERS
 
 	#include<stdlib.h> 
+	#include "character.h"
 	
 	#define POKE(loc,val) bpoke((loc),(val));
 	
 	#define VIDEO_MEMORY_BASE 0x4000
-
+	
+	extern Character bombs[BOMBS_NUMBER];
+	
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;
 	Image DEAD_GHOST_IMAGE;
@@ -65,6 +68,7 @@
 
 	
 	extern unsigned char YSize; 
+	extern unsigned char XSize;
 
 	void INIT_IMAGES(void)
 	{		
@@ -120,20 +124,7 @@
 	}
 
 	void no_cursor(void)
-	{
-		//TODO: Fix this to disable cursor
-		// #asm
-			// _ef9345:
-				// defb 0x04,0x20,0x82,0x29,0x00		
-				// pop bc
-				// pop hl
-				// pop de
-				// push de
-				// push hl
-				// push bc
-				// ld hl,_ef9345
-				// call 0x00AD		
-		// #endasm		
+	{	
 		#asm
 		jr clean_cursor
 		ef9345:
@@ -145,16 +136,30 @@
 		#endasm		
 	}
 	
+	void CLEAR_SCREEN()
+	{
+		no_cursor();
+		clrscr();
+		INIT_GRAPHICS();
+	}		
+	
+	void DRAW_BOMBS(void)
+	{
+		unsigned char i;
+		for(i=0;i<BOMBS_NUMBER;++i)
+		{
+			 _draw_ch(bombs[i]._x, bombs[i]._y, BOMB_IMAGE._imageData, BOMB_IMAGE._color);
+		}
+	}	
+	
 	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 	{
 		no_cursor();		
-		//gotoxy(x+X_OFFSET+1,y+Y_OFFSET+2);
-		//cputc(ch);
 			
 		{			
 			int xy = 0;
 			int chCol = 0;
-			xy = ((y+8+Y_OFFSET)<<8) | (x+X_OFFSET);
+			xy = ((y+8+Y_OFFSET-1)<<8) | (x+X_OFFSET);
 			chCol = (ch<<8) | col;
 			
 			_draw_ch_aux(chCol,xy);
@@ -172,6 +177,8 @@
 		push de    ; now restore stack
 		push hl
 		push bc
+		
+		ld ix,$47FA	
 		
 		call 0x0092	
 		

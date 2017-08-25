@@ -38,7 +38,6 @@
 
 #include "display_macros.h"
 #include "sound_macros.h" 
-#include "sleep_macros.h"
 
 #include "level.h"
 
@@ -101,130 +100,9 @@ if((lvmod==1)||(lvmod==0))
 	innerVerticalWallLength = 0;
 else
 	innerVerticalWallLength = YSize-12+(lvmod-2)*2;
-	// switch(level)
-	// {
-		// case 1:
-			// innerVerticalWallLength = 0;
-		// break;
-		// case 2:
-			// innerVerticalWallLength = YSize-12;
-		// break;
-		// case 3:
-			// innerVerticalWallLength = YSize-8;
-		// break;
-		// case 4:
-			// innerVerticalWallLength = YSize-6;
-		// break;
-		// case 5:
-			// innerVerticalWallLength = 0;		
-		// break;
-		// case 6:
-			// innerVerticalWallLength = 0;
-		// break;
-		// case 7:
-			// innerVerticalWallLength = YSize-12;
-		// break;
-		// case 8:
-			// innerVerticalWallLength = YSize-8;
-		// break;
-		// case 9:
-			// innerVerticalWallLength = YSize-6;
-		// break;
-		// case 10:
-			// innerVerticalWallLength = 0;
-		// break;
-		// case 11:
-			// innerVerticalWallLength = 0;
-		// break;
-		// case 12:
-			// innerVerticalWallLength = YSize-12;
-		// break;
-		// case 13:
-			// innerVerticalWallLength = YSize-8;
-		// break;
-		// case 14:
-			// innerVerticalWallLength = YSize-6;
-		// break;
-		// case 15:
-			// innerVerticalWallLength = 0;
-		// break;
-		// case 16:
-			// innerVerticalWallLength = 0;
-		// break;
-		// case 17:
-			// innerVerticalWallLength = YSize-12;
-		// break;
-		// case 18:
-			// innerVerticalWallLength = YSize-8;
-		// break;
-		// case 19:
-			// innerVerticalWallLength = YSize-6;
-		// break;
-		// case 20:
-			// innerVerticalWallLength = 0;
-		// break;
-		// case 21:
-			// innerVerticalWallLength = YSize-14;
-		// break;
-		// case 22:
-			// innerVerticalWallLength = YSize-12;
-		// break;
-		// case 23:
-			// innerVerticalWallLength = YSize-8;
-		// break;
-		// case 24:
-			// innerVerticalWallLength = YSize-6;
-		// break;
-		// case 25:
-			// innerVerticalWallLength = 0;		
-		// break;
-		// case 26:
-			// innerVerticalWallLength = YSize-14;
-		// break;
-		// case 27:
-			// innerVerticalWallLength = YSize-12;
-		// break;
-		// case 28:
-			// innerVerticalWallLength = YSize-8;
-		// break;
-		// case 29:
-			// innerVerticalWallLength = YSize-6;
-		// break;
-		// case 30:
-			// innerVerticalWallLength = YSize-14;
-		// break;
-		// case 31:
-			// innerVerticalWallLength = YSize-14;
-		// break;
-		// case 32:
-			// innerVerticalWallLength = YSize-12;
-		// break;
-		// case 33:
-			// innerVerticalWallLength = YSize-8;
-		// break;
-		// case 34:
-			// innerVerticalWallLength = YSize-6;
-		// break;
-		// case 35:
-			// innerVerticalWallLength = YSize-14;
-		// break;
-		// case 36:
-			// innerVerticalWallLength = YSize-14;
-		// break;
-		// case 37:
-			// innerVerticalWallLength = YSize-12;
-		// break;
-		// case 38:
-			// innerVerticalWallLength = YSize-8;
-		// break;
-		// case 39:
-			// innerVerticalWallLength = YSize-6;
-		// break;
-		// case 40:
-			// innerVerticalWallLength = YSize-12;		
-	// }
-	innerVerticalWallX = XSize / 2;
-    innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
+
+innerVerticalWallX = XSize / 2;
+innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
 }
 
 
@@ -255,9 +133,7 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 	{
 		unsigned short corner = rand()%4;
 		unsigned short chirality = rand()%2;
-		// unsigned char b1x, b2x, b3x, b4x;
-		// unsigned char b1y, b2y, b3y, b4y;
-		//Character dummyBombs[BOMBS_NUMBER];
+
 		unsigned char i;
 		unsigned char j;
 		unsigned char count = 0;
@@ -322,6 +198,7 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			{
 				initializeCharacter(&bombs[1],XSize/2-4+rand()%3, YSize/2+5+rand()%3,0,&BOMB_IMAGE);			
 			}
+			
 			if(level>20)
 			{
 				initializeCharacter(&bombs[2],XSize-2, YSize-2,0,&BOMB_IMAGE);
@@ -329,7 +206,8 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			else
 			{
 				initializeCharacter(&bombs[2],XSize/2+4+rand()%3, YSize/2-5+rand()%3,0,&BOMB_IMAGE);
-			}					
+			}	
+			
 			if(level>30)
 			{
 				initializeCharacter(&bombs[3],XSize-2, YSize-2,0,&BOMB_IMAGE);
@@ -340,7 +218,6 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			}
 				
 		} while(nearInnerWall(&bombs[0]) || nearInnerWall(&bombs[1]) || nearInnerWall(&bombs[2]) || nearInnerWall(&bombs[3]));
-		
 		
 	/*	
 		do
@@ -525,10 +402,6 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 			}
 		} while(nearInnerWall(&bombs[0]) || nearInnerWall(&bombs[1]) || nearInnerWall(&bombs[2]) || nearInnerWall(&bombs[3]));
 */		
-		for(i=0;i<BOMBS_NUMBER;++i)
-		{
-			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr);
-		}
 
 
 		initializeAwayFromWall(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);

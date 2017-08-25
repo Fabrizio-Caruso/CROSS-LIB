@@ -114,9 +114,13 @@
 		BUBBLE_IMAGE._color = VG5K_WHITE;
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
+		EXTRA_POINTS_IMAGE._color = VG5K_YELLOW;
 		
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+                EXTRA_LIFE_IMAGE._color = VG5K_YELLOW;
+
 		INVINCIBILITY_IMAGE._imageData = 'V';
+		INVINCIBILITY_IMAGE._color = VG5K_YELLOW;
 
 	}
 	

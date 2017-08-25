@@ -270,15 +270,8 @@ typedef struct ImageStruct Image;
 	{ \
 	} 
 
-	#define DRAW_VERTICAL_LINE(x, y,  length) \
-	{ \
-		unsigned char i; \
-		for(i=0;i<length;++i) \
-		{ \
-			_draw_ch(x,y+i,'|',2); \
-		} \
-	}
-			
+	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
+
 	#define SHOW_LEFT() { }
 	#define SHOW_RIGHT() {}
 	#define SHOW_UP() { }

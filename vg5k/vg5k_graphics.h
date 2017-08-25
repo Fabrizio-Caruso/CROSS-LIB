@@ -70,17 +70,27 @@
 	extern unsigned char YSize; 
 	extern unsigned char XSize;
 
+	
+	#define VG5K_BLACK 0
+	#define VG5K_RED 1
+	#define VG5K_GREEN 2
+	#define VG5K_YELLOW 3
+	#define VG5K_BLUE 4
+	#define VG5K_VIOLET 5
+	#define VG5K_CYAN 6
+	#define VG5K_WHITE 7
+	
 	void INIT_IMAGES(void)
 	{		
 		
-		PLAYER_IMAGE._color = 1;		
-		GHOST_IMAGE._color = 1;
-		MISSILE_IMAGE._color = 1;
-		INVINCIBLE_GHOST_IMAGE._color = 1;
-		POWERUP_IMAGE._color = 1;
-		GUN_IMAGE._color = 1;
-		BOMB_IMAGE._color = 1;
-		DEAD_GHOST_IMAGE._color = 1;
+		PLAYER_IMAGE._color = VG5K_CYAN;		
+		GHOST_IMAGE._color = VG5K_WHITE;
+		MISSILE_IMAGE._color = VG5K_WHITE;
+		INVINCIBLE_GHOST_IMAGE._color = VG5K_YELLOW;
+		POWERUP_IMAGE._color = VG5K_GREEN;
+		GUN_IMAGE._color = VG5K_VIOLET;
+		BOMB_IMAGE._color = VG5K_RED;
+		DEAD_GHOST_IMAGE._color = VG5K_RED;
 			
 
 		GHOST_IMAGE._imageData = 'o';
@@ -92,16 +102,16 @@
 		MISSILE_IMAGE._imageData = '.';
 		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
-		GHOST_IMAGE._color = COLOR_WHITE;
-		MISSILE_IMAGE._color = COLOR_WHITE;
+		GHOST_IMAGE._color = VG5K_WHITE;
+		MISSILE_IMAGE._color = VG5K_WHITE;
 
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+		LEFT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
+		RIGHT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;	
 		
 		BUBBLE_IMAGE._imageData = '^';
-		BUBBLE_IMAGE._color = COLOR_WHITE;
+		BUBBLE_IMAGE._color = VG5K_WHITE;
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
 		
@@ -142,6 +152,15 @@
 		clrscr();
 		INIT_GRAPHICS();
 	}		
+
+	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
+	{ 
+		unsigned char i; 
+		for(i=0;i<length;++i)
+		{ 
+			_draw_ch(x,y+i,'|',VG5K_WHITE); 
+		} 
+	}
 	
 	void DRAW_BOMBS(void)
 	{

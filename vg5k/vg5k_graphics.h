@@ -122,17 +122,26 @@
 	void no_cursor(void)
 	{
 		//TODO: Fix this to disable cursor
+		// #asm
+			// _ef9345:
+				// defb 0x04,0x20,0x82,0x29,0x00		
+				// pop bc
+				// pop hl
+				// pop de
+				// push de
+				// push hl
+				// push bc
+				// ld hl,_ef9345
+				// call 0x00AD		
+		// #endasm		
 		#asm
-			_ef9345:
-				defb 0x04,0x20,0x82,0x29,0x00		
-				pop bc
-				pop hl
-				pop de
-				push de
-				push hl
-				push bc
-				ld hl,_ef9345
-				call 0x00AD		
+		jr clean_cursor
+		ef9345:
+			defb 0x04,0x20,0x82,0x29,0x00
+		clean_cursor:
+			ld hl,ef9345
+			ld ix,$47FA
+			call 0x00AD
 		#endasm		
 	}
 	

@@ -110,7 +110,7 @@ typedef struct ImageStruct Image;
 #elif defined(__CPC__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=28-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__SC3000__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};	
 #else
@@ -285,15 +285,23 @@ typedef struct ImageStruct Image;
 	{ \
 	} 
 
-	
 	#define DRAW_VERTICAL_LINE(x, y,  length) \
 	{ \
 		unsigned char i; \
 		for(i=0;i<length;++i) \
 		{ \
-			gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); \
+			_draw_ch(x,y+i,'|',2); \
 		} \
 	}
+	
+	// #define DRAW_VERTICAL_LINE(x, y,  length) \
+	// { \
+		// unsigned char i; \
+		// for(i=0;i<length;++i) \
+		// { \
+			// gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); \
+		// } \
+	// }
 			
 	#define SHOW_LEFT() { }
 	#define SHOW_RIGHT() {}

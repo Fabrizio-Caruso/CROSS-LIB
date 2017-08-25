@@ -51,6 +51,9 @@
 #elif defined(__CBM610__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 700
+#elif defined(__VG5K__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 800	
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
@@ -67,7 +70,7 @@
 #elif defined(__VIC20__)
 	#define GHOSTS_NUMBER 8
 #elif defined(__VG5K__)
-	#define GHOSTS_NUMBER 7
+	#define GHOSTS_NUMBER 8
 #else
 	#define GHOSTS_NUMBER 8
 #endif

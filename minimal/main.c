@@ -181,7 +181,6 @@ void handle_missile()
 			// TODO: to TEST
 			if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
 			{
-				unsigned char i;
 				invincibleGhost._status = 0;
 				DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
 				invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;

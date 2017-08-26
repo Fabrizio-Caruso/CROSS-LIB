@@ -58,7 +58,7 @@ void checkMissileVsGhost(Character * missilePtr,
 	   areCharctersAtSamePosition(missilePtr, ghostPtr))
 	{
 		points+=GHOST_VS_MISSILE;
-		ghostPtr->_imagePtr = DEAD_GHOST_IMAGE;
+		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
 		ghostDies(ghostPtr);
 	}
 }
@@ -131,15 +131,9 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 	{
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
-		//DRAW_BROKEN_WALL(missilePtr->_x,missilePtr->_y);
 	}
 	else
 	{
 		DRAW_MISSILE(missilePtr->_x, missilePtr->_y, missilePtr->_imagePtr);
 	}
 }
-
-// void restoreMissile(Character *missilePtr)
-// {
-	// missilePtr->_x = 0; missilePtr->_y = 0;
-// }

@@ -124,7 +124,7 @@ typedef struct ImageStruct Image;
 	#define DRAW_BROKEN_WALL(x,y) {};
 	
 	void _draw(unsigned char x,unsigned char y,Image * image);
-	int _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
+	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
 	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);	
 	#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
 
@@ -142,20 +142,24 @@ typedef struct ImageStruct Image;
 	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 		
 	
 	#define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
-	
-	unsigned short location(unsigned char x, unsigned char y);	
 
-	#define DRAW_BOMBS() 
-	
-	// #define DRAW_BOMBS() \
-	// { \
-		// unsigned char i; \
-		// for(i=0;i<BOMBS_NUMBER;++i) \
-		// { \
-			// DRAW_BOMB(bombs[i]->_x, bombs[i]->_y, bombs[i]->_imagePtr); \
-		// } \
-	// }
+	void DRAW_BOMBS(void);
 
+	#define DRAW_BORDERS() \
+	{ \
+		unsigned char i; \
+		gotoxy(1+X_OFFSET,1+0+Y_OFFSET); \
+		printf("---------------------------------------"); \
+		gotoxy(1+X_OFFSET,1+YSize-1+Y_OFFSET); \
+		printf("---------------------------------------"); \
+		for(i=2;i<YSize;++i) \
+		{ \
+			gotoxy(1 + 0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+			gotoxy(1 + XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+		} \
+	}	
+	
+	
 	void _delete(unsigned char x, unsigned char y);
 	
 	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
@@ -178,27 +182,8 @@ typedef struct ImageStruct Image;
 	
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str); };
 
-	#define DRAW_BORDERS() \
-	{ \
-	} 
-	
-	#define DRAW_VERTICAL_LINE(x,y,length) \
-	{ \
-		unsigned char i; \
-		for(i=0;i<length;i++) \
-		{ \
-			if((y+Y_OFFSET+i)%2==1) \
-			{ \
-				gotoxy(x+20+X_OFFSET,(y+Y_OFFSET+i)/2); \
-			} \
-			else \
-			{ \
-				gotoxy(x+X_OFFSET,(y+Y_OFFSET+i)/2); \
-			} \
-			cputc('a'+20+12); \
-		} \
-	}
-			
+	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
+
 	#define SHOW_LEFT() { }
 	#define SHOW_RIGHT() {}
 	#define SHOW_UP() { }
@@ -458,7 +443,8 @@ typedef struct ImageStruct Image;
 
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 
-	#define CLEAR_SCREEN() {clrscr(); INIT_GRAPHICS();};
+	void CLEAR_SCREEN();
+	
 #elif defined(__MSX__) || defined(__SC3000__)
 	#define SET_TEXT_COLOR(c) {};
 

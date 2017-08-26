@@ -35,11 +35,14 @@
 #define _VG5K_REDEFINED_CHARACTERS
 
 	#include<stdlib.h> 
+	#include "character.h"
 	
 	#define POKE(loc,val) bpoke((loc),(val));
 	
 	#define VIDEO_MEMORY_BASE 0x4000
-
+	
+	extern Character bombs[BOMBS_NUMBER];
+	
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;
 	Image DEAD_GHOST_IMAGE;
@@ -62,20 +65,32 @@
 	Image EXTRA_POINTS_IMAGE;
 	Image EXTRA_LIFE_IMAGE;
 	Image INVINCIBILITY_IMAGE;
+
 	
 	extern unsigned char YSize; 
+	extern unsigned char XSize;
 
+	
+	#define VG5K_BLACK 0
+	#define VG5K_RED 1
+	#define VG5K_GREEN 2
+	#define VG5K_YELLOW 3
+	#define VG5K_BLUE 4
+	#define VG5K_VIOLET 5
+	#define VG5K_CYAN 6
+	#define VG5K_WHITE 7
+	
 	void INIT_IMAGES(void)
 	{		
 		
-		PLAYER_IMAGE._color = 1;		
-		GHOST_IMAGE._color = 1;
-		MISSILE_IMAGE._color = 1;
-		INVINCIBLE_GHOST_IMAGE._color = 1;
-		POWERUP_IMAGE._color = 1;
-		GUN_IMAGE._color = 1;
-		BOMB_IMAGE._color = 1;
-		DEAD_GHOST_IMAGE._color = 1;
+		PLAYER_IMAGE._color = VG5K_CYAN;		
+		GHOST_IMAGE._color = VG5K_WHITE;
+		MISSILE_IMAGE._color = VG5K_WHITE;
+		INVINCIBLE_GHOST_IMAGE._color = VG5K_YELLOW;
+		POWERUP_IMAGE._color = VG5K_GREEN;
+		GUN_IMAGE._color = VG5K_VIOLET;
+		BOMB_IMAGE._color = VG5K_RED;
+		DEAD_GHOST_IMAGE._color = VG5K_RED;
 			
 
 		GHOST_IMAGE._imageData = 'o';
@@ -87,21 +102,25 @@
 		MISSILE_IMAGE._imageData = '.';
 		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
-		GHOST_IMAGE._color = COLOR_WHITE;
-		MISSILE_IMAGE._color = COLOR_WHITE;
+		GHOST_IMAGE._color = VG5K_WHITE;
+		MISSILE_IMAGE._color = VG5K_WHITE;
 
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+		LEFT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
+		RIGHT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;	
 		
 		BUBBLE_IMAGE._imageData = '^';
-		BUBBLE_IMAGE._color = COLOR_WHITE;
+		BUBBLE_IMAGE._color = VG5K_WHITE;
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
+		EXTRA_POINTS_IMAGE._color = VG5K_YELLOW;
 		
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+                EXTRA_LIFE_IMAGE._color = VG5K_YELLOW;
+
 		INVINCIBILITY_IMAGE._imageData = 'V';
+		INVINCIBILITY_IMAGE._color = VG5K_YELLOW;
 
 	}
 	
@@ -116,71 +135,77 @@
 			}	
 			POKE(0x47FD,0);
 		}
-		no_cursor();
 	}
 
 	void no_cursor(void)
-	{
-		//TODO: Fix this to disable cursor
+	{	
 		#asm
-			_ef9345:
-				defb 0x04,0x20,0x82,0x29,0x00		
-				pop bc
-				pop hl
-				pop de
-				push de
-				push hl
-				push bc
-				ld hl,_ef9345
-				call 0x00AD		
+		jr clean_cursor
+		ef9345:
+			defb 0x04,0x20,0x82,0x29,0x00
+		clean_cursor:
+			ld hl,ef9345
+			ld ix,$47FA
+			call 0x00AD
 		#endasm		
 	}
 	
-	int _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
+	void CLEAR_SCREEN()
 	{
-		//no_cursor();
-		gotoxy(x,y);
-		cputc(ch);
-		// int xy = 0;
-		// int chCol = 0;
-		// xy = ((y+8+Y_OFFSET)<<8) | (x+X_OFFSET);
-		// chCol = (ch<<8) | col;
-		// no_cursor();
-		// return _draw_ch_aux(chCol,xy);
+		no_cursor();
+		clrscr();
+		INIT_GRAPHICS();
+	}		
+
+	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
+	{ 
+		unsigned char i; 
+		for(i=0;i<length;++i)
+		{ 
+			_draw_ch(x,y+i,'|',VG5K_WHITE); 
+		} 
+	}
+	
+	void DRAW_BOMBS(void)
+	{
+		unsigned char i;
+		for(i=0;i<BOMBS_NUMBER;++i)
+		{
+			 _draw_ch(bombs[i]._x, bombs[i]._y, BOMB_IMAGE._imageData, BOMB_IMAGE._color);
+		}
+	}	
+	
+	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
+	{
+		no_cursor();		
+			
+		{			
+			int xy = 0;
+			int chCol = 0;
+			xy = ((y+8+Y_OFFSET-1)<<8) | (x+X_OFFSET);
+			chCol = (ch<<8) | col;
+			
+			_draw_ch_aux(chCol,xy);
+		}
 	}
 
 	int _draw_ch_aux(int chCol, int xy)
-	{
-		// #asm
-		// di
+	{		
+		#asm
 		
-		// pop bc   ; bc = ret address
-		// pop hl   ; hl = int b
-		// pop de  ; de = int a
+		pop bc   ; bc = ret address
+		pop hl   ; hl = int b
+		pop de  ; de = int a
 
-		// push de    ; now restore stack
-		// push hl
-		// push bc
+		push de    ; now restore stack
+		push hl
+		push bc
 		
-		// call 0x0092	
+		ld ix,$47FA	
 		
-		// ei
-		// #endasm
+		call 0x0092	
 		
-		// #asm
-		// di
-		// pop bc   ; bc = ret address
-		// pop hl   ; hl = int b
-		// pop de  ; de = int a
-
-		// push de    ; now restore stack
-		// push hl
-		// push bc   	
-		
-		// call 0x0092 
-		// ei
-		// #endasm
-		
+		#endasm	
 	}
 	
 	

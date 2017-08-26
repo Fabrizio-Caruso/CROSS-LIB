@@ -45,6 +45,9 @@
 #elif defined(__C16__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 250
+#elif defined(__VG5K__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 500		
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
@@ -60,7 +63,7 @@
 #elif defined(__CPC__)
 	#define BOMBS_NUMBER 1
 #elif defined(__VG5K__)
-	#define BOMBS_NUMBER 1	
+	#define BOMBS_NUMBER 3	
 #else
 	#define BOMBS_NUMBER 3		
 #endif
@@ -76,7 +79,7 @@
 #elif defined(__CPC__)
 	#define GHOSTS_NUMBER 5
 #elif defined(__VG5K__)
-	#define GHOSTS_NUMBER 1	
+	#define GHOSTS_NUMBER 8
 #else
 	#define GHOSTS_NUMBER 8	
 #endif
@@ -134,7 +137,10 @@
 
 #if defined(__C16__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31500
-	#define INITIAL_SKULL_SLOWDOWN 32500	
+	#define INITIAL_SKULL_SLOWDOWN 32500
+#elif defined(__VG5K__)
+	#define INITIAL_ENEMY_SLOWDOWN 29000
+	#define INITIAL_SKULL_SLOWDOWN 30000	
 #else
 	#define INITIAL_ENEMY_SLOWDOWN 28000
 	#define INITIAL_SKULL_SLOWDOWN 29000

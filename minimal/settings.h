@@ -63,7 +63,7 @@
 #elif defined(__CPC__)
 	#define BOMBS_NUMBER 1
 #elif defined(__VG5K__)
-	#define BOMBS_NUMBER 3
+	#define BOMBS_NUMBER 4
 #else
 	#define BOMBS_NUMBER 3		
 #endif

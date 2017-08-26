@@ -97,8 +97,19 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	DRAW_PLAYER(player._x,player._y,player._imagePtr);
 
 	
-	
-	#if BOMBS_NUMBER==3	
+	#if BOMBS_NUMBER==4
+	{
+		count = 0;
+		for(i=1;i<=2;++i)
+		{
+			for(j=1;j<=2;++j)
+			{
+				initializeCharacter(&bombs[count],(XSize/3)*i-1+rand()%3, (YSize/3)*j-1+rand()%3,0,&BOMB_IMAGE);
+				++count;
+			}
+		}
+	}
+	#elif BOMBS_NUMBER==3	
 	{
 		unsigned char rnd = rand()%4;
 		initializeCharacter(&bombs[0],XSize/3-2+rnd, ((YSize/3))-1+rnd,0,&BOMB_IMAGE);

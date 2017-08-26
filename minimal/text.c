@@ -116,11 +116,15 @@ void displayStatsTitles(void)
 		PRINT(1,0-Y_OFFSET,"SCORE:");
 		PRINT(1,1-Y_OFFSET,"LEVEL:");
 	#elif defined(__MSX__)
-			PRINT(2,1+0-Y_OFFSET,"SCORE:");
-			PRINT(2,1+1-Y_OFFSET,"LEVEL:");	
+			PRINT(2,-Y_OFFSET+1,"SCORE:");
+			PRINT(2,-Y_OFFSET+2,"LEVEL:");	
+			// SET_TEXT_COLOR(COLOR_GREEN);	
+			// PRINT(24,-Y_OFFSET+2,"CROSS CHASE");
 	#elif defined(__VG5K__)
-			PRINT(2,0-Y_OFFSET,"SCORE:");
-			PRINT(2,1-Y_OFFSET,"LEVEL:");				
+			PRINT(2,-Y_OFFSET,"SCORE:");
+			PRINT(2,-Y_OFFSET+1,"LEVEL:");
+			SET_TEXT_COLOR(COLOR_BLUE);	
+			PRINT(24,-Y_OFFSET+1,"CROSS CHASE");			
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		#if defined(__VIC20__) || defined(__C16__)
@@ -315,7 +319,8 @@ void printCenteredMessageOnRow(unsigned char row, char *Text)
 
 void printCenteredMessage(char *Text)
 {
-	PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text);
+	printCenteredMessageOnRow(YSize / 2, Text);
+	
 }
 
 #if defined (__VG5K__)

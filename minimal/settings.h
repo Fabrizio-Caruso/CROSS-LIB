@@ -55,13 +55,13 @@
 #define FAST_NONEXACT_COLLISION_DECTION
 
 #if defined(__C16__)
-	#define BOMBS_NUMBER 3
+	#define BOMBS_NUMBER 4
 #elif defined(__VIC20__)
-	#define BOMBS_NUMBER 3
+	#define BOMBS_NUMBER 4
 #elif defined(__MSX__)
-	#define BOMBS_NUMBER 3	
+	#define BOMBS_NUMBER 4	
 #elif defined(__CPC__)
-	#define BOMBS_NUMBER 1
+	#define BOMBS_NUMBER 2
 #elif defined(__VG5K__)
 	#define BOMBS_NUMBER 4
 #else

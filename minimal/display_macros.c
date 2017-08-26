@@ -89,7 +89,13 @@
 		POWERUP_IMAGE._imageData = 'S';
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';
-		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+		
+		// Monochromatic vs color case
+		#if defined(__CPC__) || defined(__MSX__)
+			DEAD_GHOST_IMAGE._imageData = '_';
+		#else
+			DEAD_GHOST_IMAGE._imageData = 'o';
+		#endif
 
 		GHOST_IMAGE._color = COLOR_WHITE;
 		MISSILE_IMAGE._color = COLOR_WHITE;

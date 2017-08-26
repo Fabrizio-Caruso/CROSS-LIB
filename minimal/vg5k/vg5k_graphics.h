@@ -93,7 +93,8 @@
 		POWERUP_IMAGE._imageData = 'S';
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';
-		DEAD_GHOST_IMAGE._imageData = '-';
+		
+		DEAD_GHOST_IMAGE._imageData = 'o';
 
 		GHOST_IMAGE._color = VG5K_WHITE;
 		MISSILE_IMAGE._color = VG5K_WHITE;
@@ -155,6 +156,8 @@
 	void DRAW_BORDERS(void)
 	{ 
 		unsigned char i; 
+		SET_TEXT_COLOR(VG5K_WHITE);
+
 		DRAW_HORIZONTAL_BORDER(0);
 		DRAW_HORIZONTAL_BORDER(YSize-1);	
 		DRAW_VERTICAL_BORDER(0);

@@ -317,6 +317,10 @@ void setScreenColors(void)
 
 void printCenteredMessageOnRow(unsigned char row, char *Text)
 {
+	#if defined(__VG5k__)
+	#else
+		SET_TEXT_COLOR(TEXT_COLOR);
+	#endif
 	PRINTF((XSize - strlen (Text)) / 2, row,"%s", Text);
 }
 

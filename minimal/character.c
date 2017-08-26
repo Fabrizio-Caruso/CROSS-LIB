@@ -54,7 +54,6 @@ extern unsigned char YSize;
 extern unsigned char ghostCount;
 extern unsigned short loop;
 
-extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
@@ -124,7 +123,7 @@ unsigned char playerReachedBombs(Character* preyPtr)
 void ghostDies(Character * ghostPtr)
 {
 	EXPLOSION_SOUND();
-	ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
+	ghostPtr->_imagePtr = &BOMB_IMAGE;
 	die(ghostPtr);
 	displayStats();
 	--ghostCount;
@@ -157,11 +156,6 @@ void checkBombsVsGhosts(void)
 unsigned char safeLocation(unsigned char x, unsigned char y, Character *dangerPtr, unsigned char dangerSize)
 {
 	char i = 0;
-	// for(;i<GHOSTS_NUMBER;++i)
-	// {
-		// if(isCharacterAtLocation(x,y,&ghosts[i]))
-			// return 0;
-	// }
 	for(i=0;i<dangerSize;++i)
 	{
 		if(isCharacterAtLocation(x,y,&dangerPtr[i]))
@@ -198,21 +192,21 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 	characterPtr->_y = y;
 }
 
-
+// TODO: Implement this
 // Check whether an alive ghost meets another dead ghost (transformed into a bomb)
-unsigned char ghostsMeetDead(unsigned char preyIndex)
-{
-	short i;
+// unsigned char ghostsMeetDead(unsigned char preyIndex)
+// {
+	// short i;
 	
-	for(i=0;i<GHOSTS_NUMBER;++i)
-	{
-		if((i!=preyIndex) && // not itself
-		    !(ghosts[i]._status) && // ghost[i] is dead (transformed into a bomb) 
-		    areCharctersAtSamePosition(&ghosts[i],&ghosts[preyIndex])) 
-			return 1;
-	}
-	return 0;
-}
+	// for(i=0;i<GHOSTS_NUMBER;++i)
+	// {
+		// if((i!=preyIndex) && // not itself
+		    // !(ghosts[i]._status) && // ghost[i] is dead (transformed into a bomb) 
+		    // areCharctersAtSamePosition(&ghosts[i],&ghosts[preyIndex])) 
+			// return 1;
+	// }
+	// return 0;
+// }
 
 
 

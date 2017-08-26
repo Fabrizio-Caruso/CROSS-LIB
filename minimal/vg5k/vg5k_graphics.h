@@ -41,11 +41,12 @@
 	
 	#define VIDEO_MEMORY_BASE 0x4000
 	
+	#define NO_BLINK
+	
 	extern Character bombs[BOMBS_NUMBER];
 	
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;
-	Image DEAD_GHOST_IMAGE;
 	Image INVINCIBLE_GHOST_IMAGE;
 	Image BOMB_IMAGE;
 	Image POWERUP_IMAGE;
@@ -61,7 +62,6 @@
 	extern unsigned char YSize; 
 	extern unsigned char XSize;
 
-	
 	#define VG5K_BLACK 0
 	#define VG5K_RED 1
 	#define VG5K_GREEN 2
@@ -80,9 +80,7 @@
 		INVINCIBLE_GHOST_IMAGE._color = VG5K_YELLOW;
 		POWERUP_IMAGE._color = VG5K_GREEN;
 		GUN_IMAGE._color = VG5K_VIOLET;
-		BOMB_IMAGE._color = VG5K_RED;
-		DEAD_GHOST_IMAGE._color = VG5K_RED;
-			
+		BOMB_IMAGE._color = VG5K_RED;			
 
 		GHOST_IMAGE._imageData = 'o';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
@@ -91,7 +89,6 @@
 		POWERUP_IMAGE._imageData = 'S';
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';
-		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
 		GHOST_IMAGE._color = VG5K_WHITE;
 		MISSILE_IMAGE._color = VG5K_WHITE;
@@ -106,7 +103,7 @@
 				POKE(VIDEO_MEMORY_BASE+80*i,32);
 				POKE(VIDEO_MEMORY_BASE+1+80*i,1);
 			}	
-			POKE(0x47FD,0);
+			//POKE(0x47FD,0);
 		}
 	}
 
@@ -175,7 +172,7 @@
 		{			
 			int xy = 0;
 			int chCol = 0;
-			xy = ((y+8+Y_OFFSET-1)<<8) | (x+X_OFFSET);
+			xy = ((Y_OFFSET+y+8-1)<<8) | (X_OFFSET+x);
 			chCol = (ch<<8) | col;
 			
 			_draw_ch_aux(chCol,xy);
@@ -216,17 +213,20 @@
 	
 	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char *blinkCounter)
 	{
-		 _draw_ch(x,y, image->_imageData, image->_color);
-		// if(*blinkCounter) 
-		// {
-			// _draw_ch(x,y,image->_imageData, image->_color);
-			// *blinkCounter=0;
-		// } 
-		// else 
-		// {
-			// _draw_ch(x,y,32, 0);
-			// *blinkCounter=1;
-		// }
+		#if defined(NO_BLINK)
+			_draw_ch(x,y, image->_imageData, image->_color);
+		#else
+			if(*blinkCounter) 
+			{
+				_draw_ch(x,y,image->_imageData, image->_color);
+				*blinkCounter=0;
+			} 
+			else 
+			{
+				_draw_ch(x,y,32, 0);
+				*blinkCounter=1;
+			}
+		#endif
 	}
 	
 

@@ -48,7 +48,6 @@ extern unsigned char YSize;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
-extern Image DEAD_GHOST_IMAGE;
 extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
@@ -85,7 +84,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				}
 				else
 				{
-					initializeCharacter(&ghosts[count],8-count,1,0,&DEAD_GHOST_IMAGE);
+					initializeCharacter(&ghosts[count],8-count,1,0,&BOMB_IMAGE);
 				}
 				++count;
 			}

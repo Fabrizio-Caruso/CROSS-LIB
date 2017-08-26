@@ -102,7 +102,6 @@ unsigned short invincibleLoopTrigger;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
-extern Image DEAD_GHOST_IMAGE;
 extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
@@ -161,16 +160,7 @@ void handle_missile()
 		missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
 		playerFire = 0;
 		DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
-		checkMissileVsGhosts(&missile);
-		// if(areCharctersAtSamePosition(&missile, &invincibleGhost))
-			// {
-				// die(&missile);
-				// DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
-				// restoreMissile(&missile);
-				// ++invincibleGhostHits;
-				// decreaseGhostLevel();
-				// DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-			// }		
+		checkMissileVsGhosts(&missile);	
 	}
 	
 	// Move missile if fired
@@ -198,8 +188,7 @@ void handle_missile()
 				DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
 				invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
 				invincibleGhostAlive = 0;
-				for(i=0;i<4;++i)
-					EXPLOSION_SOUND();
+				EXPLOSION_SOUND();
 				points+=INVINCIBLE_GHOST_POINTS;
 				displayStats();
 			}
@@ -212,6 +201,15 @@ void handle_missile()
 }
 
 
+void powerUpReached(Character * powerup)
+{
+	ZAP_SOUND();
+	DELETE_GUN(powerup->_x,powerup->_y,powerup->_imagePtr);
+	DRAW_PLAYER(player._x, player._y, player._imagePtr);
+	powerup->_status = 0;
+	displayStats();
+}
+
 void handle_gun_item()
 {
 	// Manage gun 
@@ -219,14 +217,10 @@ void handle_gun_item()
 	{
 		if(areCharctersAtSamePosition(&player, &gun))
 		{
-			ZAP_SOUND();
-			DELETE_GUN(gun._x,gun._y,gun._imagePtr);
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 			guns = GUNS_NUMBER;
-			printGunsStats();
-			points+=GUN_BONUS;
-			displayStats();
-			gun._status = 0;	
+			printGunsStats();		
+			points+=GUN_BONUS;			
+			powerUpReached(&gun);	
 			gunCoolDown = GUN_INITIAL_COOLDOWN;
 		}
 		else
@@ -256,13 +250,9 @@ void handle_powerup_item()
 	{	
 		if(areCharctersAtSamePosition(&player, &powerUp))
 		{
-			ZAP_SOUND();
-			die(&powerUp);
-			DELETE_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-			decreaseGhostLevel(); 
 			points+=POWER_UP_BONUS;
-			displayStats();
+			powerUpReached(&powerUp);
+			decreaseGhostLevel(); 
 			powerUpCoolDown = powerUpInitialCoolDown;
 		}
 		else
@@ -323,10 +313,6 @@ void handle_invincible_ghost(void)
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		if(areCharctersAtSamePosition(&invincibleGhost, &player))
 		{
-			// EXPLOSION_SOUND();
-			// die(&player);
-			// printDefeatMessage();
-			// sleep(1);
 			playerDies();
 		}
 	}

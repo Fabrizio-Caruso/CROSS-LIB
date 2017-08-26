@@ -54,6 +54,7 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 extern Image BUBBLE_IMAGE;
+extern Image DEAD_GHOST_IMAGE;
 
 extern Character invincibleGhost;
 extern Character player; 
@@ -84,7 +85,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				}
 				else
 				{
-					initializeCharacter(&ghosts[count],8-count,1,0,&BOMB_IMAGE);
+					initializeCharacter(&ghosts[count],8-count,1,0,&DEAD_GHOST_IMAGE);
 				}
 				++count;
 			}
@@ -95,6 +96,8 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 	DRAW_PLAYER(player._x,player._y,player._imagePtr);
 
+	
+	
 	#if BOMBS_NUMBER==3	
 	{
 		unsigned char rnd = rand()%4;

@@ -108,8 +108,6 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
-extern Image BUBBLE_IMAGE;
-
 extern unsigned char powerUp_blink;
 extern unsigned char gun_blink;
 

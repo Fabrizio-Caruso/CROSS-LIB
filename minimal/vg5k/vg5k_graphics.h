@@ -47,6 +47,7 @@
 	
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;
+	Image DEAD_GHOST_IMAGE;
 	Image INVINCIBLE_GHOST_IMAGE;
 	Image BOMB_IMAGE;
 	Image POWERUP_IMAGE;
@@ -62,6 +63,7 @@
 	extern unsigned char YSize; 
 	extern unsigned char XSize;
 
+	
 	#define VG5K_BLACK 0
 	#define VG5K_RED 1
 	#define VG5K_GREEN 2
@@ -80,7 +82,9 @@
 		INVINCIBLE_GHOST_IMAGE._color = VG5K_YELLOW;
 		POWERUP_IMAGE._color = VG5K_GREEN;
 		GUN_IMAGE._color = VG5K_VIOLET;
-		BOMB_IMAGE._color = VG5K_RED;			
+		BOMB_IMAGE._color = VG5K_RED;
+		DEAD_GHOST_IMAGE._color = VG5K_RED;
+			
 
 		GHOST_IMAGE._imageData = 'o';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
@@ -89,6 +93,7 @@
 		POWERUP_IMAGE._imageData = 'S';
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';
+		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
 		GHOST_IMAGE._color = VG5K_WHITE;
 		MISSILE_IMAGE._color = VG5K_WHITE;

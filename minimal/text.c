@@ -171,7 +171,7 @@ void displayStatsTitles(void)
 			gotoxy(18-3,1+0); cputc(GHOST_IMAGE._imageData);cputc(':');
 			gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#elif defined(__VG5K__)	
-			SET_TEXT_COLOR(TEXT_COLOR);	
+			//SET_TEXT_COLOR(TEXT_COLOR);	
 			gotoxy(1+18+1,1+0); cputc(GUN_IMAGE._imageData);cputc(':');
 			gotoxy(1+18-3,1+0); cputc(GHOST_IMAGE._imageData);cputc(':');
 			gotoxy(1+18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');				
@@ -416,7 +416,7 @@ void _printScore(char * text, unsigned int score)
 		
 		void deleteCenteredMessage(void)
 		{
-			PRINT(1, YSize / 2, "                      ");
+			printCenteredMessage("                      ");
 		}
 		
 		void printGameOver(void)
@@ -440,8 +440,8 @@ void _printScore(char * text, unsigned int score)
 		}	
 		
 		void deleteCenteredMessage(void)
-		{
-			PRINT((XSize - 22) / 2 - 2, YSize / 2, "                      ");
+		{                                           
+			printCenteredMessage("                      ");
 		}
 		
 		void printGameOver(void)
@@ -472,19 +472,16 @@ void _printScore(char * text, unsigned int score)
 		void printGameOver(void)
 		{
 			printCenteredMessage("G A M E  O V E R");
-			sleep(1);
 		}
 
 		void printVictoryMessage(void)
 		{
 			printCenteredMessage("Y O U  W O N !");
-			sleep(1);
 		}
 
 		void printDefeatMessage(void)
 		{
 			printCenteredMessage("Y O U  L O S T !");
-			sleep(1);
 		}		
 #endif
 
@@ -581,7 +578,7 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_RED);
 		PRINT(1, YSize / 2 - 7,  "by fabrizio caruso");	
 	#elif defined(__VG5K__)
-		SET_TEXT_COLOR(COLOR_RED);	
+		// SET_TEXT_COLOR(6);	
 		printCenteredMessageOnRow(3, "C R O S S  C H A S E");
 		printCenteredMessageOnRow(4, "by Fabrizio Caruso");
 	#else
@@ -694,6 +691,7 @@ void printStartMessage(void)
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINT(1, YSize / 2 + 4, "use the joystick");
 	#elif defined(__VG5K__)
+		// SET_TEXT_COLOR(3);		
 		printCenteredMessageOnRow(10, "Use I J K L SPACE");	
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
@@ -705,7 +703,7 @@ void printStartMessage(void)
 	#elif defined(__C64__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 6, "press any key");
 	#else
-		PRINT((XSize - 22) / 2 + 3, YSize / 2 + 6, "Press any key");
+		printCenteredMessageOnRow(12, "Press any key");
 	#endif
 }
 

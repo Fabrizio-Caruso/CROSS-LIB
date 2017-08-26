@@ -81,7 +81,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			{
 				if(nGhosts>count)
 				{
-					initializeCharacter(&ghosts[count],XSize/6+j*2*(XSize/6),YSize/6+i*2*(YSize/6),1,&GHOST_IMAGE);
+					initializeCharacter(&ghosts[count],XSize/6+j*2*(XSize/6),YSize/6+i*2*(YSize/6)+i,1,&GHOST_IMAGE);
 				}
 				else
 				{

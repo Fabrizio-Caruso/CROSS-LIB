@@ -306,9 +306,15 @@ void setScreenColors(void)
 	#endif
 }
 
+
+
+void printCenteredMessageOnRow(unsigned char row, char *Text)
+{
+	PRINTF((XSize - strlen (Text)) / 2, row,"%s", Text);
+}
+
 void printCenteredMessage(char *Text)
 {
-	SET_TEXT_COLOR(TEXT_COLOR);
 	PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text);
 }
 
@@ -373,7 +379,7 @@ void _printScore(char * text, unsigned int score)
 
 	void deleteCenteredMessage(void)
 	{
-		PRINT(1, YSize / 2, "                                ");
+		printCenteredMessage("                                ");
 	}
 
 	void printGameOver(void)
@@ -566,9 +572,9 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_RED);
 		PRINT(1, YSize / 2 - 7,  "by fabrizio caruso");	
 	#elif defined(__VG5K__)
-		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINT((XSize - 22) / 2, YSize / 2 - 9, "C R O S S  C H A S E");
-		PRINT((XSize - 22) / 2, YSize / 2 - 6,  "by Fabrizio Caruso");
+		SET_TEXT_COLOR(COLOR_RED);	
+		printCenteredMessageOnRow(3, "C R O S S  C H A S E");
+		printCenteredMessageOnRow(4, "by Fabrizio Caruso");
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINT((XSize - 22) / 2, YSize / 2 - 9, "C R O S S  C H A S E");
@@ -679,7 +685,7 @@ void printStartMessage(void)
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINT(1, YSize / 2 + 4, "use the joystick");
 	#elif defined(__VG5K__)
-		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use I J K L SPACE");	
+		printCenteredMessageOnRow(10, "Use I J K L SPACE");	
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 	#endif

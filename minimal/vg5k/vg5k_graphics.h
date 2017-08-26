@@ -41,7 +41,7 @@
 	
 	#define VIDEO_MEMORY_BASE 0x4000
 	
-	#define NO_BLINK
+	//#define NO_BLINK
 	
 	extern Character bombs[BOMBS_NUMBER];
 	
@@ -167,7 +167,6 @@
 		for(i=0;i<BOMBS_NUMBER;++i)
 		{
 			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr);
-			 //_draw_ch(bombs[i]._x, bombs[i]._y, bombs[i]._image, BOMB_IMAGE._color);
 		}
 	}	
 	
@@ -178,7 +177,7 @@
 		{			
 			int xy = 0;
 			int chCol = 0;
-			xy = ((Y_OFFSET+y+8-1)<<8) | (X_OFFSET+x);
+			xy = ((Y_OFFSET+y+7)<<8) | (X_OFFSET+x);
 			chCol = (ch<<8) | col;
 			
 			_draw_ch_aux(chCol,xy);

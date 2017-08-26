@@ -129,16 +129,44 @@
 		clrscr();
 		INIT_GRAPHICS();
 	}		
+
+	void DRAW_HORIZONTAL_BORDER(unsigned char y)
+	{
+		unsigned char i;
+		gotoxy(X_OFFSET+1,Y_OFFSET+1+y); 
+		for(i=0;i<XSize;++i)
+		{
+			cputc('-');
+		}
+	}
+	
+	void DRAW_VERTICAL_BORDER(unsigned char x)
+	{
+		unsigned char i;
+		for(i=2;i<YSize;++i) 
+		{ 
+			gotoxy(X_OFFSET+1+x,Y_OFFSET+i); 
+			cputc('|'); 
+		} 		
+	}
+	
+	void DRAW_BORDERS(void)
+	{ 
+		unsigned char i; 
+		DRAW_HORIZONTAL_BORDER(0);
+		DRAW_HORIZONTAL_BORDER(YSize-1);	
+		DRAW_VERTICAL_BORDER(0);
+		DRAW_VERTICAL_BORDER(XSize-1);
+	}	
 	
 	void DRAW_BOMBS(void) 
-	{}
-	// {
-		// unsigned char i;
-		// for(i=0;i<BOMBS_NUMBER;++i)
-		// {
-			 // _draw_ch(bombs[i]._x, bombs[i]._y, BOMB_IMAGE._imageData, BOMB_IMAGE._color);
-		// }
-	// }	
+	{
+		unsigned char i;
+		for(i=0;i<BOMBS_NUMBER;++i)
+		{
+			 _draw_ch(bombs[i]._x, bombs[i]._y, BOMB_IMAGE._imageData, BOMB_IMAGE._color);
+		}
+	}	
 	
 	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 	{

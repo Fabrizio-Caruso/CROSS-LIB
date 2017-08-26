@@ -644,6 +644,8 @@ void printStartMessage(void)
 		gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINT(1, YSize / 2 + 4, "use the joystick");
+	#elif defined(__VG5K__)
+		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use I J K L SPACE");
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 	#endif

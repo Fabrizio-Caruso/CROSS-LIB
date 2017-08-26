@@ -112,8 +112,14 @@ void computeStrategy(void)
 	{
 		strategyArray[i] = 4; // no preference (approximate straight line)
 	}	
-	strategyArray[0] = 2;
-	strategyArray[GHOSTS_NUMBER-1] = 6;
+	#if GHOSTS_NUMBER>=3
+		strategyArray[0] = 2;
+		strategyArray[1] = 6;
+	
+	#else
+		strategyArray[0] = 2;
+		strategyArray[GHOSTS_NUMBER-1] = 6;
+	#endif
 }
 
 // Ghosts move to new positions if they get their chanche

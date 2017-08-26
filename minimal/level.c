@@ -95,14 +95,15 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 	DRAW_PLAYER(player._x,player._y,player._imagePtr);
 
-	
-	
 	#if BOMBS_NUMBER==3	
-		initializeCharacter(&bombs[0],XSize/3-2+rand()%5, ((YSize/3))-1+rand()%3,0,&BOMB_IMAGE);
+	{
+		unsigned char rnd = rand()%4;
+		initializeCharacter(&bombs[0],XSize/3-2+rnd, ((YSize/3))-1+rnd,0,&BOMB_IMAGE);
 
-		initializeCharacter(&bombs[1],XSize/3-2+rand()%5, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE);
+		initializeCharacter(&bombs[1],XSize/3-2-rnd, ((YSize/3)*2)-1+rnd,0,&BOMB_IMAGE);
 
-		initializeCharacter(&bombs[2],2*(XSize/3)-2+rand()%5, (YSize/2)-1+rand()%3,0,&BOMB_IMAGE);
+		initializeCharacter(&bombs[2],2*(XSize/3)-2+rnd, (YSize/2)-1-rnd,0,&BOMB_IMAGE);
+	}
 	#elif BOMBS_NUMBER==2
 		initializeCharacter(&bombs[0],XSize/2-3+rand()%7, ((YSize/3))-1+rand()%3,0,&BOMB_IMAGE);
 
@@ -111,23 +112,12 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		initializeCharacter(&bombs[0],XSize/2-3+rand()%7, ((YSize/2))-1+rand()%3,0,&BOMB_IMAGE);
 	#endif
 
-	for(i=0;i<BOMBS_NUMBER;++i)
-	{
-		DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr);
-	}
-
-
 	initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
-	//DRAW_POWERUP(powerUp._x, powerUp._y, powerUp._imagePtr);
-		
+
 	initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
 	
-
 	initializeCharacter(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);
 
-	// invincibleGhost._x = (unsigned char) XSize-2;
-	// invincibleGhost._y = (unsigned char) YSize-2;
-			
 	initializeCharacter(&invincibleGhost,XSize-2,YSize-2, 0, &INVINCIBLE_GHOST_IMAGE);
 
 }

@@ -57,14 +57,8 @@ void checkMissileVsGhost(Character * missilePtr,
 	if(ghostPtr->_status && 
 	   areCharctersAtSamePosition(missilePtr, ghostPtr))
 	{
-		// EXPLOSION_SOUND();
-		// ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
-		// die(ghostPtr); 
-		// points+=GHOST_VS_MISSILE;
-		// displayStats();		
-		// --ghostCount;
-		// printGhostCountStats();
 		points+=GHOST_VS_MISSILE;
+		ghostPtr->_imagePtr = DEAD_GHOST_IMAGE;
 		ghostDies(ghostPtr);
 	}
 }

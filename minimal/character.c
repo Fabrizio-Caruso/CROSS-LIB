@@ -124,7 +124,6 @@ unsigned char playerReachedBombs(Character* preyPtr)
 void ghostDies(Character * ghostPtr)
 {
 	EXPLOSION_SOUND();
-	ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
 	die(ghostPtr);
 	displayStats();
 	--ghostCount;
@@ -136,7 +135,8 @@ void checkBombsVsGhost(Character * ghostPtr)
 	
 	if(ghostPtr->_status && playerReachedBombs(ghostPtr))
 	{
-		points+=GHOST_VS_BOMBS_BONUS;		
+		points+=GHOST_VS_BOMBS_BONUS;	
+		ghostPtr->_imagePtr = BOMB_IMAGE;
 		ghostDies(ghostPtr);
 	}
 	

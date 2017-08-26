@@ -93,7 +93,7 @@
 		POWERUP_IMAGE._imageData = 'S';
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';
-		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+		DEAD_GHOST_IMAGE._imageData = '-';
 
 		GHOST_IMAGE._color = VG5K_WHITE;
 		MISSILE_IMAGE._color = VG5K_WHITE;
@@ -166,7 +166,8 @@
 		unsigned char i;
 		for(i=0;i<BOMBS_NUMBER;++i)
 		{
-			 _draw_ch(bombs[i]._x, bombs[i]._y, BOMB_IMAGE._imageData, BOMB_IMAGE._color);
+			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr);
+			 //_draw_ch(bombs[i]._x, bombs[i]._y, bombs[i]._image, BOMB_IMAGE._color);
 		}
 	}	
 	

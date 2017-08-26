@@ -471,7 +471,7 @@ int main(void)
 			{
 				sleep(1);
 				printVictoryMessage();
-				sleep(1);
+				sleep(2);
 				if(level<=10)
 				{
 					CLEAR_SCREEN();
@@ -506,11 +506,11 @@ int main(void)
 	if(level==FINAL_LEVEL+1) // if completed game
 	{
 		gameCompleted();
-		sleep(1);
+		sleep(2);
 	}
 	// GAME OVER	
 	printGameOver();
-	sleep(1);
+	sleep(2);
 	CLEAR_SCREEN();
 	finalScore();
 	sleep(2);

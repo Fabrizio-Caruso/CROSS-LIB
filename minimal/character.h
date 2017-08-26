@@ -102,4 +102,5 @@ unsigned char nearInnerWall(Character *characterPtr);
 
 void ghostDies(Character * ghostPtr);
 
+unsigned char sameLocationAstAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length);
 #endif // _CHARACTER

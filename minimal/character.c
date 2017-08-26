@@ -101,24 +101,26 @@ void die(Character * playerPtr)
 
 unsigned char playerReached(Character* preyPtr)
 {
-	unsigned char i=0;
-	for(;i<GHOSTS_NUMBER;++i)
-	{
-		if(areCharctersAtSamePosition(&ghosts[i],preyPtr))
-			return 1;
-	}
-	return 0;
+	return sameLocationAstAnyLocation(preyPtr->_x, preyPtr->_y, ghosts, GHOSTS_NUMBER);
+	// unsigned char i=0;
+	// for(;i<GHOSTS_NUMBER;++i)
+	// {
+		// if(areCharctersAtSamePosition(&ghosts[i],preyPtr))
+			// return 1;
+	// }
+	// return 0;
 }
 
 unsigned char playerReachedBombs(Character* preyPtr)
 {
-	unsigned char i=0;
-	for(;i<BOMBS_NUMBER;++i)
-	{
-		if(areCharctersAtSamePosition(&bombs[i],preyPtr))
-			return 1;
-	}
-	return 0;
+	return sameLocationAstAnyLocation(preyPtr->_x, preyPtr->_y, bombs, BOMBS_NUMBER);
+	// unsigned char i=0;
+	// for(;i<BOMBS_NUMBER;++i)
+	// {
+		// if(areCharctersAtSamePosition(&bombs[i],preyPtr))
+			// return 1;
+	// }
+	// return 0;
 }
 
 void ghostDies(Character * ghostPtr)
@@ -152,22 +154,35 @@ void checkBombsVsGhosts(void)
 	  }
 }
 
+
+unsigned char sameLocationAstAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length)
+{
+	unsigned char i = 0;
+	for(;i<length;++i)
+	{
+		if(isCharacterAtLocation(x,y,&characterList[i]))
+			return 1;
+	}	
+	return 0;
+}
+
 // TODO: To be replaced with something cleaner
 // also used with things different from global bombs
 unsigned char safeLocation(unsigned char x, unsigned char y, Character *dangerPtr, unsigned char dangerSize)
 {
-	char i = 0;
+	// char i = 0;
+	return !(sameLocationAstAnyLocation(x,y,ghosts,GHOSTS_NUMBER) || sameLocationAstAnyLocation(x,y,dangerPtr, dangerSize));
 	// for(;i<GHOSTS_NUMBER;++i)
 	// {
 		// if(isCharacterAtLocation(x,y,&ghosts[i]))
 			// return 0;
 	// }
-	for(i=0;i<dangerSize;++i)
-	{
-		if(isCharacterAtLocation(x,y,&dangerPtr[i]))
-			return 0;
-	}
-	return 1;
+	// for(i=0;i<dangerSize;++i)
+	// {
+		// if(isCharacterAtLocation(x,y,&dangerPtr[i]))
+			// return 0;
+	// }
+	// return 1;
 }
 
 

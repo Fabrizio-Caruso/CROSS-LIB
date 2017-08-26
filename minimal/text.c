@@ -357,8 +357,7 @@ void _printScore(char * text, unsigned int score)
 
 	sprintf(levelString, text, score);
 
-	printCenteredMessage(levelString);
-	sleep(1);	
+	printCenteredMessage(levelString);	
 }
 #else
 void _printScore(char * text, unsigned int score)
@@ -368,43 +367,47 @@ void _printScore(char * text, unsigned int score)
 	sprintf(levelString, text, score);
 
 	printCenteredMessage(levelString);
-	sleep(1);
 }
 #endif
 
 #if defined(__VG5K__)
-	void gameCompleted(void) { }
+	void gameCompleted(void)	
+	{
+		printCenteredMessage("DONE!"); 
+	}
 #else
 	void gameCompleted(void)
 	{
 		printCenteredMessage("Y O U  M A D E  I T!"); 
-		sleep(1);
 	}
 #endif
 
 
 #if defined(__VG5K__)
-	void printPressKeyToStart(void)
-	{
-		printCenteredMessage("PRESS ANY KEY");
-	}
+		void printPressKeyToStart(void)
+		{
+			printCenteredMessage("PRESS ANY KEY");
+		}
 
-	void deleteCenteredMessage(void)
-	{
-		printCenteredMessage("                                ");
-	}
+		void deleteCenteredMessage(void)
+		{
+			printCenteredMessage("                       ");
+		}
 
-	void printGameOver(void)
-	{
-	}
+		void printGameOver(void)
+		{
+			printCenteredMessage("GAME OVER");
+		}
 
-	void printVictoryMessage(void)
-	{
-	}
+		void printVictoryMessage(void)
+		{
+			printCenteredMessage("YOU WON!");
+		}
 
-	void printDefeatMessage(void)
-	{
-	}
+		void printDefeatMessage(void)
+		{
+			printCenteredMessage("YOU LOST!");
+		}	
 #elif defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__)
 		void printPressKeyToStart(void)
 		{
@@ -419,19 +422,16 @@ void _printScore(char * text, unsigned int score)
 		void printGameOver(void)
 		{
 			printCenteredMessage("G A M E  O V E R");
-			sleep(1);
 		}
 
 		void printVictoryMessage(void)
 		{
 			printCenteredMessage("Y O U  W O N !");
-			sleep(1);
 		}
 
 		void printDefeatMessage(void)
 		{
 			printCenteredMessage("Y O U  L O S T !");
-			sleep(1);
 		}		
 #elif defined(__C16__)
 		void printPressKeyToStart(void)
@@ -447,19 +447,16 @@ void _printScore(char * text, unsigned int score)
 		void printGameOver(void)
 		{
 			printCenteredMessage("G A M E  O V E R");
-			sleep(1);
 		}
 
 		void printVictoryMessage(void)
 		{
 			printCenteredMessage("Y O U  W O N !");
-			sleep(1);
 		}
 
 		void printDefeatMessage(void)
 		{
 			printCenteredMessage("Y O U  L O S T !");
-			sleep(1);
 		}		
 #else
 		void printPressKeyToStart(void)

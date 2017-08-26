@@ -57,15 +57,6 @@
 	Image PLAYER_UP;
 	Image PLAYER_DOWN;
 
-	Image LEFT_ENEMY_MISSILE_IMAGE;
-	Image RIGHT_ENEMY_MISSILE_IMAGE;
-
-	Image BUBBLE_IMAGE;
-
-	Image EXTRA_POINTS_IMAGE;
-	Image EXTRA_LIFE_IMAGE;
-	Image INVINCIBILITY_IMAGE;
-
 	
 	extern unsigned char YSize; 
 	extern unsigned char XSize;
@@ -104,24 +95,6 @@
 
 		GHOST_IMAGE._color = VG5K_WHITE;
 		MISSILE_IMAGE._color = VG5K_WHITE;
-
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		LEFT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-		RIGHT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;	
-		
-		BUBBLE_IMAGE._imageData = '^';
-		BUBBLE_IMAGE._color = VG5K_WHITE;
-		
-		EXTRA_POINTS_IMAGE._imageData = '$';
-		EXTRA_POINTS_IMAGE._color = VG5K_YELLOW;
-		
-		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-                EXTRA_LIFE_IMAGE._color = VG5K_YELLOW;
-
-		INVINCIBILITY_IMAGE._imageData = 'V';
-		INVINCIBILITY_IMAGE._color = VG5K_YELLOW;
-
 	}
 	
 	void INIT_GRAPHICS(void)
@@ -156,24 +129,16 @@
 		clrscr();
 		INIT_GRAPHICS();
 	}		
-
-	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
-	{ 
-		unsigned char i; 
-		for(i=0;i<length;++i)
-		{ 
-			_draw_ch(x,y+i,'|',VG5K_WHITE); 
-		} 
-	}
 	
-	void DRAW_BOMBS(void)
-	{
-		unsigned char i;
-		for(i=0;i<BOMBS_NUMBER;++i)
-		{
-			 _draw_ch(bombs[i]._x, bombs[i]._y, BOMB_IMAGE._imageData, BOMB_IMAGE._color);
-		}
-	}	
+	void DRAW_BOMBS(void) 
+	{}
+	// {
+		// unsigned char i;
+		// for(i=0;i<BOMBS_NUMBER;++i)
+		// {
+			 // _draw_ch(bombs[i]._x, bombs[i]._y, BOMB_IMAGE._imageData, BOMB_IMAGE._color);
+		// }
+	// }	
 	
 	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 	{
@@ -223,16 +188,17 @@
 	
 	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char *blinkCounter)
 	{
-		if(*blinkCounter) 
-		{
-			_draw_ch(x,y,image->_imageData, image->_color);
-			*blinkCounter=0;
-		} 
-		else 
-		{
-			_draw_ch(x,y,32, 0);
-			*blinkCounter=1;
-		}
+		 _draw_ch(x,y, image->_imageData, image->_color);
+		// if(*blinkCounter) 
+		// {
+			// _draw_ch(x,y,image->_imageData, image->_color);
+			// *blinkCounter=0;
+		// } 
+		// else 
+		// {
+			// _draw_ch(x,y,32, 0);
+			// *blinkCounter=1;
+		// }
 	}
 	
 

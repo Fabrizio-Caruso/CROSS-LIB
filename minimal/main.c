@@ -147,11 +147,7 @@ unsigned char invincibleGhostAlive = 1;
 
 // TODO: It should no be here
 unsigned char powerUp_blink = 1;
-unsigned char gun_blink = 1;
-unsigned char extra_points_blink = 1;
-unsigned char extra_life_blink = 1;
-unsigned char invincibility_blink = 1;
-unsigned char player_blink = 1;	
+unsigned char gun_blink = 1;	
 
 void handle_missile()
 {

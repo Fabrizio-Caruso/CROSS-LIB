@@ -84,7 +84,7 @@ typedef struct ImageStruct Image;
 	#define Y_OFFSET 3
 #elif defined(__VG5K__)
 	#define X_OFFSET 1
-	#define Y_OFFSET 3
+	#define Y_OFFSET 2
 #else
 	#define X_OFFSET 0
 	#define Y_OFFSET 2
@@ -135,30 +135,27 @@ typedef struct ImageStruct Image;
 	#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
 
 	#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
-	#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
-	#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
-	#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
-	#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
-	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 		
+	#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 	
 	
 	#define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
 
 	void DRAW_BOMBS(void);
-
-	#define DRAW_BORDERS() \
-	{ \
-		unsigned char i; \
-		gotoxy(1+X_OFFSET,1+0+Y_OFFSET); \
-		printf("---------------------------------------"); \
-		gotoxy(1+X_OFFSET,1+YSize-1+Y_OFFSET); \
-		printf("---------------------------------------"); \
-		for(i=2;i<YSize;++i) \
-		{ \
-			gotoxy(1 + 0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
-			gotoxy(1 + XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
-		} \
-	}	
 	
+	#define DRAW_BORDERS() {};
+
+	// #define DRAW_BORDERS() \
+	// { \
+		// unsigned char i; \
+		// gotoxy(1+X_OFFSET,1+0+Y_OFFSET); \
+		// printf("---------------------------------------"); \
+		// gotoxy(1+X_OFFSET,1+YSize-1+Y_OFFSET); \
+		// printf("---------------------------------------"); \
+		// for(i=2;i<YSize;++i) \
+		// { \
+			// gotoxy(1 + 0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+			// gotoxy(1 + XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+		// } \
+	// }	
 	
 	void _delete(unsigned char x, unsigned char y);
 	
@@ -181,8 +178,6 @@ typedef struct ImageStruct Image;
 	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str,val); };
 	
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str); };
-
-	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
 
 	#define SHOW_LEFT() { }
 	#define SHOW_RIGHT() {}

@@ -158,11 +158,16 @@ void displayStatsTitles(void)
 		// gotoxy(18+1,0+1); cputc(GUN_IMAGE._imageData);cputc(':');
 		// gotoxy(18-3,0+1); cputc(GHOST_IMAGE._imageData);cputc(':');
 		// gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-	#elif defined(__VG5K__)		|| defined(__MSX__)
+	#elif defined(__MSX__)
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			gotoxy(18+1,1+0); cputc(GUN_IMAGE._imageData);cputc(':');
 			gotoxy(18-3,1+0); cputc(GHOST_IMAGE._imageData);cputc(':');
 			gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+	#elif defined(__VG5K__)	
+			SET_TEXT_COLOR(TEXT_COLOR);	
+			gotoxy(1+18+1,1+0); cputc(GUN_IMAGE._imageData);cputc(':');
+			gotoxy(1+18-3,1+0); cputc(GHOST_IMAGE._imageData);cputc(':');
+			gotoxy(1+18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');				
 	#else
 		#if defined(__VIC20__)
 			SET_TEXT_COLOR(TEXT_COLOR);		
@@ -195,7 +200,7 @@ void printGunsStats(void)
 	#elif defined(__MSX__)	
 		PRINTF(18+2+1-X_OFFSET,1+0-Y_OFFSET,"%u",guns);	
 	#elif defined(__VG5K__)	
-		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%u",guns);			
+		PRINTF(1+18+2+1-X_OFFSET,0-Y_OFFSET,"%u",guns);			
 	#else
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#endif			
@@ -239,7 +244,7 @@ void printGhostCountStats(void)
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET-3,1+0-Y_OFFSET,"%u",ghostCount);
 	#elif defined(__VG5K__)	
-		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%u",ghostCount);		
+		PRINTF(1+18+2-X_OFFSET-3,0-Y_OFFSET,"%u",ghostCount);		
 	#else
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%hu",ghostCount);
 	#endif		
@@ -260,7 +265,7 @@ void printLivesStats(void)
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET,1+1-Y_OFFSET,"%02u",lives);	
 	#elif defined(__VG5K__)
-		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02u",lives);		
+		PRINTF(1+18+2-X_OFFSET,1-Y_OFFSET,"%02u",lives);		
 	#else
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#endif		
@@ -307,26 +312,37 @@ void printCenteredMessage(char *Text)
 	PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text);
 }
 
-#ifdef __C64__
-void printLevel(void)
-{
-	char levelString[22];
+#if defined (__VG5K__)
+	void printLevel(void)
+	{
+		char levelString[22];
 
-	sprintf(levelString, "level %d", level);
+		sprintf(levelString, "LEVEL %d", level);
 
-	printCenteredMessage(levelString);
-}
+		printCenteredMessage(levelString);
+	}
 #else
-void printLevel(void)
-{
-	char levelString[22];
+	void printLevel(void)
+	{
+		char levelString[22];
 
-	sprintf(levelString, "LEVEL %d", level);
+		sprintf(levelString, "LEVEL %d", level);
 
-	printCenteredMessage(levelString);
-}
+		printCenteredMessage(levelString);
+	}
 #endif
 
+#if defined (__VG5K__)
+void _printScore(char * text, unsigned int score)
+{
+	char levelString[22];
+
+	sprintf(levelString, text, score);
+
+	printCenteredMessage(levelString);
+	sleep(1);	
+}
+#else
 void _printScore(char * text, unsigned int score)
 {
 	char levelString[22];
@@ -336,15 +352,10 @@ void _printScore(char * text, unsigned int score)
 	printCenteredMessage(levelString);
 	sleep(1);
 }
+#endif
 
-#ifdef __C64__
-	void gameCompleted(void)
-	{
-		printCenteredMessage("y o u   m a d e   i t !"); 
-		sleep(1);
-		printCenteredMessage("    t h e   e n d    "); 
-		sleep(1);
-	}
+#if defined(__VG5K__)
+	void gameCompleted(void) { }
 #else
 	void gameCompleted(void)
 	{
@@ -354,34 +365,27 @@ void _printScore(char * text, unsigned int score)
 #endif
 
 
-#if defined(__C64__)
+#if defined(__VG5K__)
 	void printPressKeyToStart(void)
 	{
-		printCenteredMessage("press any key to start");
+		printCenteredMessage("PRESS ANY KEY");
 	}
 
 	void deleteCenteredMessage(void)
 	{
-		PRINT((XSize - 22) / 2, YSize / 2, "                      ");
+		PRINT(1, YSize / 2, "                                ");
 	}
-
 
 	void printGameOver(void)
 	{
-		printCenteredMessage("g a m e   o v e r");
-		sleep(1);
 	}
 
 	void printVictoryMessage(void)
 	{
-		printCenteredMessage("y o u   w o n !");
-		sleep(1);
 	}
 
 	void printDefeatMessage(void)
 	{
-		printCenteredMessage("y o u   l o s t !");
-		sleep(1);
 	}
 #elif defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__)
 		void printPressKeyToStart(void)
@@ -392,6 +396,24 @@ void _printScore(char * text, unsigned int score)
 		void deleteCenteredMessage(void)
 		{
 			PRINT(1, YSize / 2, "                      ");
+		}
+		
+		void printGameOver(void)
+		{
+			printCenteredMessage("G A M E  O V E R");
+			sleep(1);
+		}
+
+		void printVictoryMessage(void)
+		{
+			printCenteredMessage("Y O U  W O N !");
+			sleep(1);
+		}
+
+		void printDefeatMessage(void)
+		{
+			printCenteredMessage("Y O U  L O S T !");
+			sleep(1);
 		}		
 #elif defined(__C16__)
 		void printPressKeyToStart(void)
@@ -403,6 +425,24 @@ void _printScore(char * text, unsigned int score)
 		{
 			PRINT((XSize - 22) / 2 - 2, YSize / 2, "                      ");
 		}
+		
+		void printGameOver(void)
+		{
+			printCenteredMessage("G A M E  O V E R");
+			sleep(1);
+		}
+
+		void printVictoryMessage(void)
+		{
+			printCenteredMessage("Y O U  W O N !");
+			sleep(1);
+		}
+
+		void printDefeatMessage(void)
+		{
+			printCenteredMessage("Y O U  L O S T !");
+			sleep(1);
+		}		
 #else
 		void printPressKeyToStart(void)
 		{
@@ -413,27 +453,25 @@ void _printScore(char * text, unsigned int score)
 		{
 			printCenteredMessage("                      ");
 		}	
+
+		void printGameOver(void)
+		{
+			printCenteredMessage("G A M E  O V E R");
+			sleep(1);
+		}
+
+		void printVictoryMessage(void)
+		{
+			printCenteredMessage("Y O U  W O N !");
+			sleep(1);
+		}
+
+		void printDefeatMessage(void)
+		{
+			printCenteredMessage("Y O U  L O S T !");
+			sleep(1);
+		}		
 #endif
-
-
-	void printGameOver(void)
-	{
-		printCenteredMessage("G A M E  O V E R");
-		sleep(1);
-	}
-
-	void printVictoryMessage(void)
-	{
-		printCenteredMessage("Y O U  W O N !");
-		sleep(1);
-	}
-
-	void printDefeatMessage(void)
-	{
-		printCenteredMessage("Y O U  L O S T !");
-		sleep(1);
-	}
-
 
 
 void printStartMessage(void)
@@ -527,6 +565,10 @@ void printStartMessage(void)
 		
 		SET_TEXT_COLOR(COLOR_RED);
 		PRINT(1, YSize / 2 - 7,  "by fabrizio caruso");	
+	#elif defined(__VG5K__)
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		PRINT((XSize - 22) / 2, YSize / 2 - 9, "C R O S S  C H A S E");
+		PRINT((XSize - 22) / 2, YSize / 2 - 6,  "by Fabrizio Caruso");
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINT((XSize - 22) / 2, YSize / 2 - 9, "C R O S S  C H A S E");
@@ -603,6 +645,7 @@ void printStartMessage(void)
 		PRINT(0, YSize / 2 - 1, "Take the power-ups! Use the gun!");
 		
 		PRINT(2, YSize / 2 + 1,   "Shoot or flee from the skull!");			
+	#elif defined(__VG5K__)
 	#else
 		PRINT(2, YSize / 2 - 3, "You * are chased by O. Lure O into X");
 		
@@ -635,6 +678,8 @@ void printStartMessage(void)
 		gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINT(1, YSize / 2 + 4, "use the joystick");
+	#elif defined(__VG5K__)
+		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use I J K L SPACE");	
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 	#endif

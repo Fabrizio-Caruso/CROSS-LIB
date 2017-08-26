@@ -43,8 +43,6 @@
 	#include<peekpoke.h>
 #endif
 
-// TODO: DEBUG
-	// #include <stdio.h>
 
 extern unsigned char XSize;
 extern unsigned char YSize;
@@ -118,6 +116,8 @@ void displayStatsTitles(void)
 		PRINT(1,0-Y_OFFSET,"SCORE:");
 		PRINT(1,1-Y_OFFSET,"LEVEL:");
 	#elif defined(__VG5K__)	|| defined(__MSX__)
+			PRINT(2,1+0-Y_OFFSET,"SCORE:");
+			PRINT(2,1+1-Y_OFFSET,"LEVEL:");	
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		#if defined(__VIC20__) || defined(__C16__)
@@ -156,13 +156,16 @@ void displayStatsTitles(void)
 		// gotoxy(18-3,0+1); cputc(GHOST_IMAGE._imageData);cputc(':');
 		// gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#elif defined(__VG5K__)		|| defined(__MSX__)
+			SET_TEXT_COLOR(TEXT_COLOR);	
+			gotoxy(18+1,1+0); cputc(GUN_IMAGE._imageData);cputc(':');
+			gotoxy(18-3,1+0); cputc(GHOST_IMAGE._imageData);cputc(':');
+			gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#else
 		#if defined(__VIC20__)
 			SET_TEXT_COLOR(TEXT_COLOR);		
 			gotoxy(18+1-2,0); cputc(GUN_IMAGE._imageData);cputc(':');
 			gotoxy(18-3-2,0); cputc(GHOST_IMAGE._imageData);cputc(':');
 			gotoxy(18-2,1); cputc(PLAYER_IMAGE._imageData);cputc(':');
-	
 		#else
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			gotoxy(18+1,0); cputc(GUN_IMAGE._imageData);cputc(':');
@@ -186,7 +189,8 @@ void printGunsStats(void)
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%d",guns);	
-	#elif defined(__VG5K__)	 || defined(__MSX__)		
+	#elif defined(__VG5K__)	 || defined(__MSX__)	
+		PRINTF(18+2+1-X_OFFSET,1+0-Y_OFFSET,"%u",guns);	
 	#else
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#endif			
@@ -204,7 +208,8 @@ void printLevelStats(void)
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(8,1-Y_OFFSET,"%02d", level);	
-	#elif defined(__VG5K__)	 || defined(__MSX__)		
+	#elif defined(__VG5K__)	 || defined(__MSX__)
+		PRINTF(8,1+1-Y_OFFSET,"%02u", level);	
 	#elif defined(__VIC20__) || defined(__C16__)
 		PRINTF(8-2,1-Y_OFFSET,"%02hu", level);	
 	#else
@@ -224,7 +229,8 @@ void printGhostCountStats(void)
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%hu",ghostCount);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%d",ghostCount);	
-	#elif defined(__VG5K__)	 || defined(__MSX__)		
+	#elif defined(__VG5K__)	 || defined(__MSX__)	
+		PRINTF(18+2-X_OFFSET-3,1+0-Y_OFFSET,"%u",ghostCount);	
 	#else
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%hu",ghostCount);
 	#endif		
@@ -242,7 +248,8 @@ void printLivesStats(void)
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02d",lives);	
-	#elif defined(__VG5K__)	 || defined(__MSX__)		
+	#elif defined(__VG5K__)	 || defined(__MSX__)	
+		PRINTF(18+2-X_OFFSET,1+1-Y_OFFSET,"%02u",lives);	
 	#else
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#endif		
@@ -261,6 +268,7 @@ void displayStats(void)
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);	
 	#elif defined(__VG5K__)	 || defined(__MSX__)
+		PRINTF(8,1+0-Y_OFFSET,"%05u0",points);	
 	#elif defined(__VIC20__) || defined(__C16__)
 		PRINTF(8-2,0-Y_OFFSET,"%05u0",points);	
 	#else

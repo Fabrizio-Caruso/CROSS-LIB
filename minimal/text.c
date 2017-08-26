@@ -123,7 +123,10 @@ void displayStatsTitles(void)
 	#elif defined(__VG5K__)
 			PRINT(2,-Y_OFFSET,"SCORE:");
 			PRINT(2,-Y_OFFSET+1,"LEVEL:");
-			SET_TEXT_COLOR(COLOR_BLUE);	
+			// 2 green
+			// 3 cyan
+			// 4 red
+			SET_TEXT_COLOR(4);	
 			PRINT(24,-Y_OFFSET+1,"CROSS CHASE");			
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	

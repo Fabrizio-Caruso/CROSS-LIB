@@ -1,7 +1,28 @@
 TODO
 
-Rewrite level.c from scratch
+(1) Decide what to do with  
+I. ghost vs ghost collision 
+II. player vs dead ghost
+II. dead ghost image
 
-Change long with int + trailing zero (divide points by 10)
+(2) Better space ghosts
 
-Optimize text.c for memory (highscore, finalScore, levelBonus)
+(3) Implement sameLocationAtAnyLocation (rename it) to save space
+
+(4) Save memory by placing sleep outside print text
+
+(5) Optimize power up code (all power-ups can share the handling code)
+
+(6) Optimize text code: printCenteredAtRow
+
+(7) Remove useless draw bombs in level
+
+(8) Optimize draw border code (draw horizontal and draw vertical)
+
+(9) Optimize constant artihmetic (place constants before and simplify expressions)
+
+(10) Change long with int + trailing zero (divide points by 10)
+
+
+
+

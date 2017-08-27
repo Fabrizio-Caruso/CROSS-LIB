@@ -1,5 +1,7 @@
 TODO
 
+(0) Ghost killed on the gun in boss level?
+
 (1) Decide what to do with  
 I. ghost vs ghost collision 
 II. player vs dead ghost

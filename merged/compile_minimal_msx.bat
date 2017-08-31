@@ -36,11 +36,14 @@ cd %mypath%\
 @REM CPC HALF-WORKINg
 @REM -DDEBUG_CHARACTERS
 @REM -O3
+@REM 
 zcc +msx  -create-app -vn  -D__MSX__ -lndos -create-app -o %deliverables%\MINIMAL_msx_16k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
 del %deliverables%\MINIMAL_msx_16k_experimental.prg 
-@REM del %deliverables%\cpc.cpc
 
+zcc +msx  -create-app -vn  -DFULL_GAME -D__MSX__ -lndos -create-app -o %deliverables%\FULL_msx_16k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM 
+del %deliverables%\FULL_msx_16k_experimental.prg 
 
 del %mypath%\*.o
 del %mypath%\atmos\*.o

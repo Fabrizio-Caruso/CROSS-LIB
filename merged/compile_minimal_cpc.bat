@@ -36,7 +36,7 @@ cd %mypath%\
 @REM CPC HALF-WORKINg
 @REM -DDEBUG_CHARACTERS
 @REM -O3
-zcc +cpc -vn -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\MINIMAL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +cpc -O3 -vn -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\MINIMAL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 cd %mypath%\..\tools\2cdt
 2cdt.exe -n -r cross_chase %deliverables%\MINIMAL_cpc_experimental.cpc  %deliverables%\MINIMAL_cpc_experimental.cdt
@@ -44,8 +44,19 @@ cd %mypath%\..\tools\2cdt
 @REM 
 del %deliverables%\MINIMAL_cpc_experimental.cpc
 del %deliverables%\MINIMAL_cpc_experimental.prg
-@REM del %deliverables%\cpc.cpc
+@REM 
 
+
+@REM -O3
+zcc +cpc -O3 -vn -DFULL_GAME -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\FULL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+
+cd %mypath%\..\tools\2cdt
+2cdt.exe -n -r cross_chase %deliverables%\FULL_cpc_experimental.cpc  %deliverables%\FULL_cpc_experimental.cdt
+
+@REM 
+del %deliverables%\FULL_cpc_experimental.cpc
+del %deliverables%\FULL_cpc_experimental.prg
+@REM 
 
 del %mypath%\*.o
 del %mypath%\atmos\*.o

@@ -44,4 +44,11 @@
 	#define COLOR_BLACK 0
 	#define COLOR_RED 2
 	#define COLOR_BLUE 3
+
+	#ifndef CH_ULCORNER
+		#define CH_ULCORNER 'X'
+		#define CH_URCORNER 'X'
+		#define CH_LLCORNER 'X'
+		#define CH_LRCORNER 'X'	
+	#endif	
 #endif // _Z88DK_CONIO_PATCH

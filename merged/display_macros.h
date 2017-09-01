@@ -39,7 +39,7 @@
 #if !defined(__SPECTRUM__)
 	#include <conio.h>
 #endif
-#if defined(__APPLE__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || defined(__ATARI5200__)
+#if defined(__PET__) || defined(__CBM610__) || defined(__APPLE__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || defined(__ATARI5200__)
 	#include "patch/generic_conio_patch.h"
 #endif
 #if defined(__ATMOS__)
@@ -103,7 +103,7 @@ typedef struct ImageStruct Image;
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_32COL)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__MSX__)
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=38-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__CPC__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 
@@ -377,10 +377,7 @@ typedef struct ImageStruct Image;
 		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 	#endif
 	
-	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
-		#define DRAW_BORDERS()
-		#define DRAW_VERTICAL_LINE(x,y,length)
-	#else
+	#if defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 		#define DRAW_BORDERS()\
 		{ \
 			SET_TEXT_COLOR(TEXT_COLOR); \
@@ -393,14 +390,33 @@ typedef struct ImageStruct Image;
 			chline (XSize-2);\
 			cputc (CH_LRCORNER);\
 			cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
+		}	
+		#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
+	#else
+		#define DRAW_VERTICAL_LINE(x,y,length) {};
+
+		#define DRAW_HORIZONTAL_BORDER(y) \
+		{ \
+			unsigned char i; \
+			gotoxy(X_OFFSET,Y_OFFSET+1+y);  \
+			for(i=0;i<XSize;++i) \
+			{ \
+				cputc('-'); \
+			} \
+		} \
+		
+		#define DRAW_BORDERS() \
+		{ \
+			DRAW_HORIZONTAL_BORDER(0); \
+			DRAW_HORIZONTAL_BORDER(YSize-1); \
 		}
-	#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
+		
 	#endif
 	
-		#define SHOW_LEFT() {}
-		#define SHOW_RIGHT() {}
-		#define SHOW_UP() {}
-		#define SHOW_DOWN() {}	
+	#define SHOW_LEFT() {}
+	#define SHOW_RIGHT() {}
+	#define SHOW_UP() {}
+	#define SHOW_DOWN() {}	
 
 #endif
 

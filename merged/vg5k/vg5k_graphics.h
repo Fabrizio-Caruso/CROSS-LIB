@@ -183,20 +183,8 @@
 		} 
 	}
 	
-
-	// void DRAW_VERTICAL_BORDER(unsigned char x)
-	// {
-		// unsigned char i;
-		// for(i=2;i<YSize;++i) 
-		// { 
-			// gotoxy(X_OFFSET+1+x,Y_OFFSET+i); 
-			// cputc('|'); 
-		// } 		
-	// }
-	
 	void DRAW_BORDERS(void)
 	{ 
-		unsigned char i; 
 		SET_TEXT_COLOR(VG5K_WHITE);
 
 		DRAW_HORIZONTAL_BORDER(0);

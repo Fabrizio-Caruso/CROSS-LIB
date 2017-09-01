@@ -243,9 +243,9 @@ extern unsigned char guns;
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_inkey());}		
 		#endif
 	#elif defined(__MSX__)
-		void MOVE_PLAYER(void) { movePlayerByKeyboard(getk());}
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());} // TODO: use something else
 	#elif defined(__CPC__) || defined(__SC3000__)
-		void MOVE_PLAYER(void) { movePlayerByKeyboard(getk());}		
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
 	#elif defined(__VG5K__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
 	#elif defined(__AQUARIUS__) 
@@ -253,10 +253,17 @@ extern unsigned char guns;
 	#elif defined(__ZX81__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}			
 	#else
-		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
+		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc(););}}
 	#endif
 #elif defined(__CBM610__)
-	void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}
+	void MOVE_PLAYER(void) 
+	{
+		if(kbhit()) 
+		{
+			char kbInput = cgetc();
+			movePlayerByKeyboard(kbInput);
+		}
+	}
 #else
 	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
 #endif

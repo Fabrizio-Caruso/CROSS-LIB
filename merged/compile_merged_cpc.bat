@@ -48,14 +48,13 @@ del %deliverables%\MINIMAL_cpc_experimental.prg
 
 
 @REM -O3
-zcc +cpc -O3 -vn -DFULL_GAME -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\FULL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM zcc +cpc -O3 -vn -DFULL_GAME -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\FULL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
-cd %mypath%\..\tools\2cdt
-2cdt.exe -n -r cross_chase %deliverables%\FULL_cpc_experimental.cpc  %deliverables%\FULL_cpc_experimental.cdt
+@REM cd %mypath%\..\tools\2cdt
+@REM 2cdt.exe -n -r cross_chase %deliverables%\FULL_cpc_experimental.cpc  %deliverables%\FULL_cpc_experimental.cdt
 
-@REM 
-del %deliverables%\FULL_cpc_experimental.cpc
-del %deliverables%\FULL_cpc_experimental.prg
+@REM del %deliverables%\FULL_cpc_experimental.cpc
+@REM del %deliverables%\FULL_cpc_experimental.prg
 @REM 
 
 del %mypath%\*.o

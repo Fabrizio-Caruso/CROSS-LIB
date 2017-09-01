@@ -68,6 +68,52 @@ extern unsigned char guns;
 	extern unsigned char player_blink;	
 #endif
 
+#if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__ZX81__) && !defined(__CPC__) && !defined(__VG5k__))
+	#if defined(__SPECTRUM__)
+		#include <input.h>
+
+		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+			void WAIT_KEY_PRESS(void) 
+			{ 
+				in_WaitForKey();
+				in_Inkey();
+				in_WaitForNoKey();
+			}
+		#else
+			void WAIT_KEY_PRESS(void)
+			{ 
+				in_wait_key();
+				in_wait_nokey();
+			}
+		#endif
+	#else 
+		#include <conio.h>
+		void WAIT_KEY_PRESS(void)
+		{
+			while(kbhit())
+				cgetc();
+			while(!kbhit())
+			{ 
+			}; 
+			cgetc();
+		}
+	#endif	
+#else
+	#include<joystick.h>
+	void WAIT_JOY1_PRESS(void)
+	{
+		unsigned char kbInput;
+		while(joy_read(JOY_1))
+		{
+			JOY_UP(kbInput);
+		}
+		while(!(joy_read(JOY_1)))
+		{
+		}
+	}	
+#endif
+
+
 #if defined(__VG5K__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{

@@ -121,11 +121,12 @@ typedef struct ImageStruct Image;
 
 #if defined(__ATMOS__)
 	#include<peekpoke.h>
-	
-	extern Image PLAYER_LEFT;
-	extern Image PLAYER_RIGHT;
-	extern Image PLAYER_UP;
-	extern Image PLAYER_DOWN;
+	#if defined(ATMOS_REDEFINED_CHARS)
+		extern Image PLAYER_LEFT;
+		extern Image PLAYER_RIGHT;
+		extern Image PLAYER_UP;
+		extern Image PLAYER_DOWN;
+	#endif
 	
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy(x+X_OFFSET,(y+Y_OFFSET)); cputc('X' + 128);};
 	
@@ -220,11 +221,18 @@ typedef struct ImageStruct Image;
 			POKE(0xBB80+(x+X_OFFSET)+(y+i+Y_OFFSET)*40,'|'+128); \
 		} \
 	}
-			
-	#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
-	#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
-	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
-	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+	
+	#if defined(ATMOS_REDEFINED_CHARS)
+		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
+		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
+		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
+		#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+	#else
+		#define SHOW_LEFT() { }
+		#define SHOW_RIGHT() { }
+		#define SHOW_UP() { }
+		#define SHOW_DOWN() { }		
+	#endif
 #elif defined(__VG5K__)
 	
 	#define DRAW_BROKEN_WALL(x,y) {};
@@ -744,6 +752,14 @@ typedef struct ImageStruct Image;
 	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() {clrscr();};
+#elif defined(__ATMOS__)
+	#define SET_TEXT_COLOR(c) (void) textcolor (c);
+
+	#define SET_BORDER_COLOR(c) (void) bordercolor(c);;
+
+	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
+	
+	#define CLEAR_SCREEN() {clrscr(); INIT_GRAPHICS(); };
 #else // CC65 conio case
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 

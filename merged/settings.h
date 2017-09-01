@@ -37,7 +37,6 @@
 #include <stdlib.h>
 
 #define C64_HARDWARE_SPRITES 0
-#define C64_REDEFINED_CHARACTERS 0
 
 #if defined(__VIC20__)
 	#define SLOW_DOWN

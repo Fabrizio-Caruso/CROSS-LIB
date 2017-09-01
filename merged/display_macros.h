@@ -119,7 +119,113 @@ typedef struct ImageStruct Image;
 #endif
 
 
-#if defined(__VG5K__)
+#if defined(__ATMOS__)
+	#include<peekpoke.h>
+	
+	extern Image PLAYER_LEFT;
+	extern Image PLAYER_RIGHT;
+	extern Image PLAYER_UP;
+	extern Image PLAYER_DOWN;
+	
+	#define DRAW_BROKEN_WALL(x,y) {gotoxy(x+X_OFFSET,(y+Y_OFFSET)); cputc('X' + 128);};
+	
+	void _draw(unsigned char x,unsigned char y,Image * image);
+	
+	#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
+
+	#define DRAW_GHOST(x,y,image) {_draw(x,y,image);}; // TODO: DEBUG
+	
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
+	
+	#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
+	
+	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
+	#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
+	#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
+	#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
+	#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
+	#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
+	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 		
+	
+	#define DRAW_MISSILE(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, image->_imageData + image->_color);};
+	
+	#define DRAW_BOMBS() \
+	{ \
+		unsigned char i; \
+		for(i=0;i<BOMBS_NUMBER;++i) \
+		{ \
+			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr); \
+		} \
+	}
+
+	void _delete(unsigned char x, unsigned char y);
+	
+	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
+	
+	#define DELETE_GHOST(x,y,image) {_delete(x,y);};
+	
+	#define DELETE_INVINCIBLE_GHOST(x,y,image) {_delete(x,y);};
+
+	#define DELETE_BOMB(x,y,image) {_delete(x,y);};
+
+	#define DELETE_POWERUP(x,y,image) {_delete(x,y);};
+
+	#define DELETE_GUN(x,y,image) {_delete(x,y);};
+
+	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
+	
+	#define DELETE_EXTRA_POINTS(x,y,image) {_delete(x,y);};
+	
+	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
+
+	#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
+
+	#define DRAW_BORDERS() \
+	{ \
+		unsigned char i; \
+		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+		cputc (CH_ULCORNER+128); \
+		for(i=0;i<38-1;++i) \
+		{ \
+			cputc('-' + 128); \
+		} \
+		gotoxy(38-1+X_OFFSET,0+Y_OFFSET); \
+		cputc (CH_URCORNER+128); \
+		for(i=0;i<28-X_OFFSET-Y_OFFSET;++i) \
+		{ \
+			gotoxy(0+X_OFFSET,1+i+Y_OFFSET); \
+			cputc('|'+128); \
+		} \
+		gotoxy(0+X_OFFSET,28-1); \
+		cputc (CH_LLCORNER+128); \
+		for(i=0;i<38-1;++i) \
+		{ \
+			cputc('-' + 128); \
+		} \
+		gotoxy(38-1+X_OFFSET, 28-1); \
+		cputc (CH_LRCORNER+128); \
+		for(i=0;i<28-X_OFFSET-Y_OFFSET;++i) \
+		{ \
+			gotoxy(38-1+X_OFFSET,1+i+Y_OFFSET); \
+			cputc('|'+128); \
+		} \
+	} 
+
+	
+	#define DRAW_VERTICAL_LINE(x,y,length) \
+	{ \
+		unsigned char i; \
+		for(i=0;i<length;++i) \
+		{ \
+			POKE(0xBB80+(x+X_OFFSET)+(y+i+Y_OFFSET)*40,'|'+128); \
+		} \
+	}
+			
+	#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
+	#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
+	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
+	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+#elif defined(__VG5K__)
 	
 	#define DRAW_BROKEN_WALL(x,y) {};
 
@@ -173,6 +279,174 @@ typedef struct ImageStruct Image;
 	#define SHOW_RIGHT() {}
 	#define SHOW_UP() { }
 	#define SHOW_DOWN() {}
+#elif defined(__SPECTRUM__)
+	#if defined(__SPECTRUM__)
+		extern Image PLAYER_LEFT;
+		extern Image PLAYER_RIGHT;
+		extern Image PLAYER_UP;
+		extern Image PLAYER_DOWN;
+	#endif
+
+	#include <stdio.h>
+
+	
+	#if !defined(SPECTRUM_NATIVE_DIRECTIVES)	
+		#define DRAW_PLAYER(x,y,image)  {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }		
+		//{_draw(x,y,image);};
+
+		#define DRAW_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};
+		
+		#define DRAW_INVINCIBLE_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
+		//{_draw(x,y,image);};	
+		
+		#define DRAW_BOMB(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};	
+
+		#define DRAW_MISSILE(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};
+		
+		#define DELETE_PLAYER(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
+		// {_delete(x,y);};
+
+		#define DELETE_GHOST(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
+		//	{_delete(x,y);};
+
+		#define DELETE_INVINCIBLE_GHOST(x,y,image)   {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
+		// {_delete(x,y);};
+
+		#define DELETE_BOMB(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
+		//	{_delete(x,y);};	
+		
+		#define DELETE_MISSILE(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
+		// {_delete(x,y);};	
+	#else
+		#define DRAW_PLAYER(x,y,image)  {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }		
+		//{_draw(x,y,image);};
+
+		#define DRAW_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};
+		
+		#define DRAW_INVINCIBLE_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
+		//{_draw(x,y,image);};	
+		
+		#define DRAW_BOMB(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};	
+
+		#define DRAW_MISSILE(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
+		//	{_draw(x,y,image);};
+		
+		#define DELETE_PLAYER(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
+		// {_delete(x,y);};
+
+		#define DELETE_GHOST(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
+		//	{_delete(x,y);};
+
+		#define DELETE_INVINCIBLE_GHOST(x,y,image)   {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
+		// {_delete(x,y);};
+
+		#define DELETE_BOMB(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
+		//	{_delete(x,y);};	
+		
+		#define DELETE_MISSILE(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
+		// {_delete(x,y);};			
+	#endif
+	
+	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
+		
+	#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
+	#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
+	#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
+	#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
+	#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
+	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 
+	
+	void _draw_broken_wall(unsigned char x, unsigned char y);	
+	void _draw(unsigned char x, unsigned char y, Image * image);
+	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter);
+	
+	#define DRAW_BOMBS() \
+	{ \
+		unsigned char i = 0; \
+		for(;i<BOMBS_NUMBER;++i) \
+		{ \
+			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr); \
+		} \
+	}
+
+	#define DELETE_POWERUP(x,y,image) {_delete(x,y);};
+
+	#define DELETE_GUN(x,y,image)  {_delete(x,y);};
+	
+	#define DELETE_EXTRA_POINTS(x,y,image)  {_delete(x,y);};
+
+	void _delete(unsigned char x,unsigned char y);
+	
+	#if defined(__SPECTRUM__)
+		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
+		#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); };
+	#else
+		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str,val); };
+		#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str); };
+	#endif
+
+	#if defined(__SPECTRUM__)
+		void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
+	#else
+		#define DRAW_VERTICAL_LINE(x, y,  length) \
+		{ \
+			unsigned char i; \
+			for(i=0;i<length;++i) \
+			{ \
+				gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); \
+			} \
+		}
+	#endif
+	
+
+	#if defined(__SPECTRUM__) && defined(SPECTRUM_64COL)
+		#define DRAW_BORDERS() \
+		{ \
+			unsigned char i; \
+			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+			printf("----------------------------------------------------------------"); \
+			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
+			printf("----------------------------------------------------------------"); \
+			for(i=0;i<YSize;++i) \
+			{ \
+				gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+				gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+			} \
+		}
+	#elif defined(__SPECTRUM__) && defined(SPECTRUM_32COL)
+		#define DRAW_BORDERS() \
+		{ \
+			unsigned char i; \
+			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+			printf("--------------------------------"); \
+			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
+			printf("--------------------------------"); \
+			for(i=0;i<YSize;++i) \
+			{ \
+				gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+				gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+			} \
+		}
+	#else
+		#define DRAW_BORDERS() {};
+	#endif	
+
+	#if defined(__SPECTRUM__) && defined(SPECTRUM_UDG)
+		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
+		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
+		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
+		#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+	#else
+		#define SHOW_LEFT() {}
+		#define SHOW_RIGHT() {}
+		#define SHOW_UP() {}
+		#define SHOW_DOWN() {}			
+	#endif	
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);}; //{gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
@@ -308,6 +582,23 @@ typedef struct ImageStruct Image;
 		#define SHOW_UP() {}
 		#define SHOW_DOWN() {}	
 #else	
+	#if defined(FULL_GAME) && (defined(__C16__) || defined(__PLUS4__) || defined(__C64__))
+		extern Image PLAYER_LEFT;
+		extern Image PLAYER_RIGHT;
+		extern Image PLAYER_UP;
+		extern Image PLAYER_DOWN;
+		
+		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
+		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
+		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
+		#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+	#else
+		#define SHOW_LEFT() {}
+		#define SHOW_RIGHT() {}
+		#define SHOW_UP() {}
+		#define SHOW_DOWN() {}	
+	#endif		
+	
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
 
 	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
@@ -412,11 +703,6 @@ typedef struct ImageStruct Image;
 		}
 		
 	#endif
-	
-	#define SHOW_LEFT() {}
-	#define SHOW_RIGHT() {}
-	#define SHOW_UP() {}
-	#define SHOW_DOWN() {}	
 
 #endif
 

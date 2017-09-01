@@ -31,24 +31,6 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef _SOUNDS_MACROS
-#define _SOUNDS_MACROS
-	#if defined(__ATMOS__)
-		#include "atmos/atmos_sounds.h"
-	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
-		#include "spectrum/spectrum_sounds.h"	
-	#elif defined(__VIC20__) && defined(VIC20_SOUNDS)
-		#include "vic20/vic20_sounds.h"
-	#elif defined(__C16__) && defined(C264_SOUNDS)
-		#include "c264/c264_sounds.h"
-	#elif defined(__C64__) && defined(C64_SOUNDS)
-		#include "c64/c64_sounds.h"
-	#else
-		#define EXPLOSION_SOUND() {};
-		#define PING_SOUND() {};
-		#define SHOOT_SOUND() {};
-		#define TICK_SOUND() {};
-		#define TOCK_SOUND() {};
-		#define ZAP_SOUND() {};
-	#endif
-#endif // _SOUNDS_MACROS
+#if ( defined(__C64__) || defined(__C128__)) && defined(C64_HARDWARE_SPRITES)
+	#include <peekpoke.h>
+#endif

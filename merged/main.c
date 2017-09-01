@@ -491,6 +491,7 @@ void initialScreen(void)
 int main(void)
 {		
 	INIT_INPUT();
+	INIT_GRAPHICS();
 	
 	// Ask for the screen size 
 	GET_SCREEN_SIZE(&XSize, &YSize);

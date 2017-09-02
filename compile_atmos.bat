@@ -31,7 +31,7 @@ cd %cc65path%\bin\
 
 @REM 
 @REM 
-cl65.exe  -t atmos  %mypath%\atmos\atmos_input.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c -o %deliverables%\atmos_redefined_chars.tap
+cl65.exe  -O -t atmos --config %mypath%\cfg\atmos_better_tap.cfg %mypath%\atmos\atmos_input.c  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atmos_redefined_chars.tap
 
 
 @REM NES has DISPLAY ISSUES

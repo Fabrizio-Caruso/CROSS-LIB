@@ -2,12 +2,16 @@
 @REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase"
 @REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\cfg"
 
+@REM set cc65path="D:\personal\cc65-snapshot-win32"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
+@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+
 @REM 
-set cc65path="D:\personal\cc65-snapshot-win32"
+set cc65path="C:\cc65-snapshot-win32"
 @REM 
-set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\cfg"
+set configpath="C:\Users\Brizio\Retro\ASCII-CHASE\cfg"
 @REM 
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE"
+set mypath="C:\Users\Brizio\Retro\ASCII-CHASE"
 
 
 set Deliverables=%mypath%\deliverables

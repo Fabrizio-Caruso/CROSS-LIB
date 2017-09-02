@@ -243,15 +243,16 @@ typedef struct ImageStruct Image;
 	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
 	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);	
 	#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
-
-	#define DRAW_GHOST(x,y,image) {_draw(x,y,image);};
-	
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
-	
+	#define DRAW_GHOST(x,y,image) {_draw(x,y,image);};	
+	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};	
 	#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
 
 	#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
-	#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 	
+	#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
+	#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
+	#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
+	#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
+	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 
 	
 	#define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
 
@@ -283,12 +284,12 @@ typedef struct ImageStruct Image;
 	
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str); };
 
-	#define SHOW_LEFT() { }
+	#define SHOW_LEFT() {}
 	#define SHOW_RIGHT() {}
-	#define SHOW_UP() { }
+	#define SHOW_UP() {}
 	#define SHOW_DOWN() {}
 #elif defined(__SPECTRUM__)
-	#if defined(__SPECTRUM__)
+	#if defined(REDEFINED_CHARS)
 		extern Image PLAYER_LEFT;
 		extern Image PLAYER_RIGHT;
 		extern Image PLAYER_UP;
@@ -590,7 +591,7 @@ typedef struct ImageStruct Image;
 		#define SHOW_UP() {}
 		#define SHOW_DOWN() {}	
 #else	
-	#if defined(FULL_GAME) && (defined(__C16__) || defined(__PLUS4__) || defined(__C64__))
+	#if defined(REDEFINED_CHARS) && (defined(__C16__) || defined(__PLUS4__) || defined(__C64__))
 		extern Image PLAYER_LEFT;
 		extern Image PLAYER_RIGHT;
 		extern Image PLAYER_UP;

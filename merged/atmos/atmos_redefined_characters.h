@@ -72,6 +72,8 @@
 	
 	void INIT_IMAGES(void)
 	{		
+		unsigned char i;
+		
 		 const unsigned char player[] =                {12,18,12,51,45,12,18,51};
 		 const unsigned char ghost[]  =                {33,30,33,51,33,45,33,30};
 		 const unsigned char bomb[]  =                 {30,33,51,45,45,51,33,30};
@@ -91,7 +93,7 @@
 		
 		 const unsigned char right_arrow[] =             { 0, 0,56,31,31,56, 0, 0};
 		 const unsigned char left_arrow[] =            { 0, 0, 7,62,62, 7, 0, 0};
-		//const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
+		const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
 		
 		const unsigned char bubble[] =            	   {12,30,30,30,63,45,33,33};
 		//{ 30, 33, 33, 45, 45, 33, 33, 30};
@@ -114,8 +116,8 @@
 		POWERUP_IMAGE._imageData = (char) 0x5d;
 		GUN_IMAGE._imageData = (char) 0x5e;
 		MISSILE_IMAGE._imageData = (char) 0x5f;
-		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
-
+		// DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+		DEAD_GHOST_IMAGE._imageData = (char) 0x5a;
 
 		PLAYER_IMAGE._color = 0;
 		PLAYER_LEFT._color = 0;
@@ -165,10 +167,10 @@
 		redefine(0xb400 + '<'*8,left_arrow);
 		redefine(0xb400 + '>'*8,right_arrow);		
 
-		// for(i=0;i<8;++i)
-		// {
-			// POKE(0xb400 + DEAD_GHOST_IMAGE._imageData*8 + i, dead_ghost[i]);
-		// }
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + DEAD_GHOST_IMAGE._imageData*8 + i, dead_ghost[i]);
+		}
 	}
 	
 	void INIT_GRAPHICS(void)

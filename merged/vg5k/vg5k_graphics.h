@@ -41,8 +41,6 @@
 	
 	#define VIDEO_MEMORY_BASE 0x4000
 	
-	//#define NO_BLINK
-	
 	extern Character bombs[BOMBS_NUMBER];
 	
 	Image PLAYER_IMAGE;
@@ -54,12 +52,14 @@
 	Image MISSILE_IMAGE;
 	Image GUN_IMAGE;
 
-	#if defined(FULL_GAME)
+	#if defined(REDEFINED_CHARS)
 		Image PLAYER_RIGHT;
 		Image PLAYER_LEFT;
 		Image PLAYER_UP;
-		Image PLAYER_DOWN;
+		Image PLAYER_DOWN;	
+	#endif
 	
+	#if defined(FULL_GAME)	
 		Image LEFT_ENEMY_MISSILE_IMAGE;
 		Image RIGHT_ENEMY_MISSILE_IMAGE;
 
@@ -250,9 +250,7 @@
 	
 	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char *blinkCounter)
 	{
-		#if defined(NO_BLINK)
 			_draw_ch(x,y, image->_imageData, image->_color);
-		#else
 			if(*blinkCounter) 
 			{
 				_draw_ch(x,y,image->_imageData, image->_color);
@@ -263,7 +261,6 @@
 				_draw_ch(x,y,32, 0);
 				*blinkCounter=1;
 			}
-		#endif
 	}
 	
 

@@ -119,15 +119,15 @@
 
 // Points given by extra points bonus: 
 // EXTRA_POINTS (X 2 in boss levels) + level X EXTRA_POINTS_LEVEL_INCREASE
-#define EXTRA_POINTS 2500UL 
-#define EXTRA_POINTS_LEVEL_INCREASE 20UL
+#define EXTRA_POINTS 250UL 
+#define EXTRA_POINTS_LEVEL_INCREASE 2UL
 
 
 // If a ghost bumps into a bomb
 #define GHOST_VS_BOMBS_BONUS 25UL
 
 // Points for shooting a ghost
-#define GHOST_VS_MISSILE 100UL
+#define GHOST_VS_MISSILE 10UL
 
 // Extra points for the power up
 #define POWER_UP_BONUS 20UL
@@ -152,41 +152,8 @@
 	#define INITIAL_SKULL_SLOWDOWN 29000
 #endif
 
-// MINE DISTRIBUTION
-// LEVEL  1 -  5: Four central bombs
-// LEVEL  6 - 10: Three central bombs
-// LEVEL 11 - 15: Two central bombs
-// LEVEL 16 - 20: One central bomb
-// LEVEL 21 - 25: Two bombs next to the vertical borders
-// LEVEL 26 - 30: Two bombs next to the lower corners
-// LEVEL 31 - 35: Two bombs attached to the vertical borders
-// LEVEL 36 - 40: Four bombs at the four corners 
 
-// Starting from this level 4 central bombs
-#if defined(DEBUG_CRASH)
-	#define INITIAL_LEVEL 5
-#else
-	#define INITIAL_LEVEL 1
-#endif
-
-#define THREE_BOMB_START_LEVEL 6
-
-// Starting from this level only two central bombs
-#define TWO_BOMB_START_LEVEL 11
-
-#define ONE_BOMB_START_LEVEL 16
-
-// Starting from this level only 2 bombs close to the vertical borders
-#define FIRST_HARD_LEVEL 21
-
-// Starting from this level 2 bombs close to the botton corners
-#define FIRST_VERY_HARD_LEVEL 26
-
-// Starting from this level only 2 bombs on the vertical borders
-#define FIRST_INSANE_LEVEL 31
-
-// Ultimate level (four bombs at the corners)
-#define FIRST_ULTIMATE_LEVEL 36
+#define INITIAL_LEVEL 1
 
 // Final level 
 #define FINAL_LEVEL 40
@@ -202,7 +169,7 @@
 #define LEFT 2
 #define UP 3
 
-
+// -----------------------------------------------------------------------------------
 #define INVINCIBLE_GHOST_TRIGGER 3
 
 #define GUN_INITIAL_COOLDOWN (180 + level * 2)

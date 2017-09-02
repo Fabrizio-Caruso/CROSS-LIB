@@ -41,7 +41,7 @@ cd %cc65path%\bin\
 
 
 @REM 
-cl65.exe -O -t c64 -DFULL_GAME -DC64_REDEFINED_CHARS -DC64_SOUNDS --config %mypath%\..\cfg\c64_GFXat0xC000.cfg  %mypath%\graphics\graphics.s  %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_c64_redefined_characters.prg
+cl65.exe -O -t c64 -DFULL_GAME -DREDEFINED_CHARS -DSOUNDS --config %mypath%\..\cfg\c64_GFXat0xC000.cfg  %mypath%\graphics\graphics.s  %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_c64_redefined_characters.prg
 @REM 
 @REM 
 cd %mypath%\..\tools

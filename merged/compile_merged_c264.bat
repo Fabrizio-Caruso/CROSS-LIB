@@ -38,7 +38,7 @@ cd %cc65path%\bin\
 
 
 @REM 
-cl65.exe -t c16 -DC264_REDEFINED_CHARS -DFULL_GAME -DC264_SOUNDS -DVERY_SIMPLE_STRATEGY  %mypath%\c264\c264_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_c16-16k_sounds.prg
+cl65.exe -t c16 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS -DVERY_SIMPLE_STRATEGY  %mypath%\c264\c264_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_c16-16k_sounds.prg
 
 
 @REM cl65.exe -O -t c64 --config %mypath%\..\cfg\c64_GFXat0xC000.cfg  %mypath%\graphics\graphics.s  %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\c64_redefined_characters.prg

@@ -121,7 +121,7 @@ typedef struct ImageStruct Image;
 
 #if defined(__ATMOS__)
 	#include<peekpoke.h>
-	#if defined(ATMOS_REDEFINED_CHARS)
+	#if defined(REDEFINED_CHARS)
 		extern Image PLAYER_LEFT;
 		extern Image PLAYER_RIGHT;
 		extern Image PLAYER_UP;
@@ -222,7 +222,7 @@ typedef struct ImageStruct Image;
 		} \
 	}
 	
-	#if defined(ATMOS_REDEFINED_CHARS)
+	#if defined(REDEFINED_CHARS)
 		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
 		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
 		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
@@ -611,7 +611,7 @@ typedef struct ImageStruct Image;
 
 	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
 	
-	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_player_draw(x,y,image);};
+	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_draw(x,y,image, &player_blink); };
 	
 	#define DRAW_GHOST(x,y,image)  {_draw(x,y,image);};
 	
@@ -619,28 +619,20 @@ typedef struct ImageStruct Image;
 	
 	#define DRAW_BOMB(x,y,image)  {_draw(x,y,image);};
 	
-	#define DRAW_POWERUP(x,y,image) {_blink_powerUp_draw(x,y,image);};
+	#define DRAW_POWERUP(x,y,image) {_blink_draw(x,y,image, &powerUp_blink); };
 	
-	#define DRAW_GUN(x,y,image) {_blink_gun_draw(x,y,image);};
+	#define DRAW_GUN(x,y,image) {_blink_draw(x,y,image, &gun_blink);};
 
-	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_extra_points_draw(x,y,image);};
+	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_draw(x,y,image, &extra_points_blink);};
 
-	#define DRAW_EXTRA_LIFE(x,y,image) {_blink_extra_life_draw(x,y,image);};
+	#define DRAW_EXTRA_LIFE(x,y,image) {_blink_draw(x,y,image, &extra_life_blink); };
 
-	#define DRAW_INVINCIBILITY(x,y,image) {_blink_invincibility_draw(x,y,image);};	
+	#define DRAW_INVINCIBILITY(x,y,image) {_blink_draw(x,y,image, &invincibility_blink);};	
 	
 	//void _draw_broken_wall(unsigned char x, unsigned char y);	
 	void _draw(unsigned char x, unsigned char y, Image * image);
 	
 	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter);
-
-	#define _blink_powerUp_draw(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
-	#define _blink_gun_draw(x, y, image) _blink_draw(x,y,image, &gun_blink); 
-	#define _blink_extra_points_draw(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
-	#define _blink_extra_life_draw(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
-	#define _blink_invincibility_draw(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
-	#define _blink_player_draw(x, y, image) _blink_draw(x,y,image, &player_blink); 		
-
 
 	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
 	

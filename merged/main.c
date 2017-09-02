@@ -126,7 +126,7 @@ Character ghosts[GHOSTS_NUMBER];
 Character bombs[BOMBS_NUMBER];
 
 #if defined(FULL_GAME)
-	unsigned short invincibleGhostCountTrigger;
+	unsigned short invincibleGhostCountTrigger = INVINCIBLE_GHOST_TRIGGER;
 
 	unsigned char innerVerticalWallY; 
 	unsigned char innerVerticalWallX; 
@@ -154,6 +154,11 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char dead_bubbles = 0;
 	
 	unsigned char arrowRange;
+	
+	unsigned char extra_points_blink = 1;
+	unsigned char extra_life_blink = 1;
+	unsigned char invincibility_blink = 1;
+	unsigned char player_blink = 1;		
 #endif
 
 unsigned char strategyArray[GHOSTS_NUMBER];
@@ -175,13 +180,6 @@ unsigned char invincibleGhostAlive = 1;
 // TODO: It should not be here
 unsigned char powerUp_blink = 1;
 unsigned char gun_blink = 1;	
-#if defined(FULL_GAME)
-	unsigned char extra_points_blink = 1;
-	unsigned char extra_life_blink = 1;
-	unsigned char invincibility_blink = 1;
-	unsigned char player_blink = 1;	
-#endif
-
 
 void handle_missile()
 {
@@ -349,7 +347,7 @@ void playerDies(void)
 			}
 			else
 			{
-				DRAW_POWERUP(extraPoints._x, extraPoints._y, extraPoints._imagePtr);
+				DRAW_EXTRA_POINTS(extraPoints._x, extraPoints._y, extraPoints._imagePtr);
 			}
 		}		
 		else if (extraPointsCoolDown == 0)
@@ -359,7 +357,7 @@ void playerDies(void)
 			{
 				relocateCharacter(&extraPoints, bombs,4);
 			} while(nearInnerWall(&extraPoints));
-			DRAW_POWERUP(extraPoints._x, extraPoints._y, extraPoints._imagePtr);
+			DRAW_EXTRA_POINTS(extraPoints._x, extraPoints._y, extraPoints._imagePtr);
 		}
 		else
 		{
@@ -382,7 +380,7 @@ void playerDies(void)
 			}
 			else
 			{
-				DRAW_POWERUP(extraLife._x, extraLife._y, extraLife._imagePtr);
+				DRAW_EXTRA_LIFE(extraLife._x, extraLife._y, extraLife._imagePtr);
 			}
 		}		
 		else if (extraLifeCoolDown == 0)
@@ -392,7 +390,7 @@ void playerDies(void)
 			{
 				relocateCharacter(&extraLife, bombs,4);
 			} while(nearInnerWall(&extraLife));
-			DRAW_POWERUP(extraLife._x, extraLife._y, extraLife._imagePtr);
+			DRAW_EXTRA_LIFE(extraLife._x, extraLife._y, extraLife._imagePtr);
 		}
 		else
 		{
@@ -415,7 +413,7 @@ void playerDies(void)
 			}
 			else
 			{
-				DRAW_POWERUP(invincibility._x, invincibility._y, invincibility._imagePtr);
+				DRAW_INVINCIBILITY(invincibility._x, invincibility._y, invincibility._imagePtr);
 			}
 		}		
 		else if (invincibilityCoolDown == 0)
@@ -425,7 +423,7 @@ void playerDies(void)
 			{
 				relocateCharacter(&invincibility, bombs,4);
 			} while(nearInnerWall(&invincibility));
-			DRAW_POWERUP(invincibility._x, invincibility._y, invincibility._imagePtr);
+			DRAW_INVINCIBILITY(invincibility._x, invincibility._y, invincibility._imagePtr);
 		}
 		else
 		{
@@ -568,6 +566,8 @@ int main(void)
 					sleep(1);
 				}
 			CLEAR_SCREEN();
+			
+			updateInnerWallVerticalData();	
 			#endif
 			
 			// Wait for the user to press a key 
@@ -578,10 +578,6 @@ int main(void)
 			
 			// Draw a border around the screen 
 			DRAW_BORDERS();
-
-			#if defined(FULL_GAME)
-				updateInnerWallVerticalData();				
-			#endif
 			
 			fillLevelWithCharacters(ghostCount);	
 			
@@ -721,10 +717,6 @@ int main(void)
 							DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);				
 							if(!player_invincibility && areCharctersAtSamePosition(&rightEnemyMissile,&player))
 							{
-								// EXPLOSION_SOUND();
-								// die(&player);
-								// printDefeatMessage();
-								// sleep(1);
 								playerDies();
 							}
 						}
@@ -770,8 +762,6 @@ int main(void)
 					checkMissileVsGhosts(&missile);
 				}
 				
-				//handle_player_vs_bombs_and_ghosts();
-
 				// Check collisions bombs vs ghosts
 				checkBombsVsGhosts();
 				

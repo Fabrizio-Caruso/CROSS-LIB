@@ -445,7 +445,7 @@ typedef struct ImageStruct Image;
 		#define DRAW_BORDERS() {};
 	#endif	
 
-	#if defined(__SPECTRUM__) && defined(SPECTRUM_UDG)
+	#if defined(__SPECTRUM__) && defined(REDEFINED_CHARS)
 		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
 		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
 		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }

@@ -11,9 +11,6 @@
 	void ZAP_SOUND();	
 	
 	// TODO: Save more memory to implement it
-	#define TICK_SOUND()
-	
-	#define TOCK_SOUND()
-	// void TICK_SOUND();	
+	#define TICK_SOUND()	
 	
 #endif // _VIC_SOUNDS

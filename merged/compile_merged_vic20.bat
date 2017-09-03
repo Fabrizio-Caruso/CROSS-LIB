@@ -31,7 +31,6 @@ cd %cc65path%\bin\
 @REM 
 cl65.exe -O -t vic20 -DSOUNDS --config %mypath%\..\cfg\vic20-8k.cfg %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_cvic20-8k_sounds.prg
 
-
 cl65.exe -t vic20 -DFULL_GAME -DSOUNDS --config %mypath%\..\cfg\vic20-16k.cfg %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_cvic20-8k_sounds.prg
 
 

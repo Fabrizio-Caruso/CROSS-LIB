@@ -39,7 +39,7 @@
 #if !defined(__SPECTRUM__)
 	#include <conio.h>
 #endif
-#if defined(__PET__) || defined(__CBM610__) || defined(__APPLE__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || defined(__ATARI5200__)
+#if defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || defined(__ATARI5200__)
 	#include "patch/generic_conio_patch.h"
 #endif
 #if defined(__ATMOS__)

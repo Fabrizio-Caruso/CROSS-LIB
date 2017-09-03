@@ -98,6 +98,19 @@ extern unsigned char guns;
 			cgetc();
 		}
 	#endif	
+#elif defined(__ATARI__) || defined(__ATARIXL__)
+	#include<joystick.h>
+	void WAIT_JOY1_PRESS(void)
+	{
+		unsigned char kbInput;
+		while(joy_read(JOY_1))
+		{
+			JOY_UP(kbInput);
+		}
+		while(!(joy_read(JOY_1)))
+		{
+		}
+	}
 #else
 	#include<joystick.h>
 	void WAIT_JOY1_PRESS(void)
@@ -270,6 +283,58 @@ extern unsigned char guns;
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 		#endif
 	}
+#elif defined(__ATARI__) || defined(__ATARIXL__)
+	void movePlayerByJoystick(unsigned char joyInput)
+	{
+		if(JOY_UP(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			--player._y;
+			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
+			playerDirection = UP;
+			SHOW_UP();
+		}
+		else if(JOY_DOWN(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			++player._y;
+			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
+			playerDirection = DOWN;
+			SHOW_DOWN();
+		}
+		else if(JOY_LEFT(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			--player._x;
+			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
+			playerDirection = LEFT;
+			SHOW_LEFT();
+		}
+		else if(JOY_RIGHT(joyInput))
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			++player._x;
+			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
+			playerDirection = RIGHT;
+			SHOW_RIGHT();
+		}
+		else if(JOY_BTN_1(joyInput) && guns>0 && !missile._status)
+		{
+			playerFire = 1;
+		}
+		#if defined(FULL_GAME)
+			if(player_invincibility)
+			{
+				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
+			}
+			else
+			{
+				DRAW_PLAYER(player._x, player._y, player._imagePtr);
+			}		
+		#else
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		#endif
+	}	
 #else
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
@@ -340,7 +405,9 @@ extern unsigned char guns;
 	#elif defined(__AQUARIUS__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
 	#elif defined(__ZX81__) 
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}			
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(cgetc());}	
 	#else
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}
 	#endif

@@ -68,7 +68,7 @@ extern unsigned char guns;
 	extern unsigned char player_blink;	
 #endif
 
-#if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__ZX81__) && !defined(__CPC__) && !defined(__VG5k__))
+#if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__))
 	#if defined(__SPECTRUM__)
 		#include <input.h>
 

@@ -38,9 +38,9 @@ cd %mypath%\
 @REM -O3
 zcc +aquarius -vn -D__AQUARIUS__ -lndos -o MINIMAL_aquarius_16k -create-app %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
-del MINIMAL_aquarius_16k
-move MINIMAL_aquarius_16k.caq %deliverables%
-move _MINIMAL_aquarius_16k.caq %deliverables%
+del %mypath%\MINIMAL_aquarius_16k
+move %mypath%\MINIMAL_aquarius_16k.caq %deliverables%
+move %mypath%\_MINIMAL_aquarius_16k.caq %deliverables%
 
 @REM zcc +aquarius -vn -create-app -o %deliverables%\MINIMAL_aquarius_experimental.prg %mypath%\..\experiments\my_hello.c
 @REM zcc +aquarius -lm -create-app -o %deliverables%\MINIMAL_aquarius_experimental.prg

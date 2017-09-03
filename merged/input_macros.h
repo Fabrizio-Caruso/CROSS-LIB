@@ -37,7 +37,7 @@
 	#include "character.h"
 
 	
-	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
+	#if defined(__CBM610__) || !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
 	#else
 		#include <joystick.h>
 	#endif
@@ -80,74 +80,6 @@
 		// #endif
 	#endif
 
-	// #define WAIT_JOY1_PRESS() \
-	// { \
-		// unsigned char kbInput; \
-		// while(joy_read(JOY_1)) \
-		// { \
-			// JOY_UP(kbInput); \
-		// } \
-		// while(!(joy_read(JOY_1))) \
-		// { \
-		// } \
-	// }	
-	
-
-	// #define WAIT_JOY2_PRESS() \
-	// { \
-		// while(kbInput = joy_read(JOY_2)) \
-		// { \
-			// JOY_UP(kbInput); \
-		// } \
-		// while(!(joy_read(JOY_2))) \
-		// { \
-		// } \
-	// }	
-
-	// #if defined(__SPECTRUM__)
-		// #include <input.h>
-
-		// #if defined(SPECTRUM_NATIVE_DIRECTIVES)
-			// #define WAIT_KEY_PRESS() \
-			// { \
-				// in_WaitForKey(); \
-				// in_Inkey(); \
-				// in_WaitForNoKey(); \
-			// }
-		// #else
-			// #define WAIT_KEY_PRESS() \
-			// { \
-				// in_wait_key(); \
-				// in_wait_nokey(); \
-			// };
-		// #endif
-	
-	// #else
-		// #define WAIT_KEY_PRESS() \
-		// { \
-			// while(kbhit()) \
-				// cgetc(); \
-			// while(!kbhit()) \
-			// { \
-			// }; \
-			// cgetc(); \
-		// };
-	// #endif
-	
-	// #if defined(__CBM610__) || ((!defined(__CBM__) || defined(__PET__) || defined(__CBM610__) || defined(__C16__) || defined(__PLUS4__)) && !defined(__ATARI__) && !defined(__ATARIXL__))
-		// #define WAIT_PRESS() WAIT_KEY_PRESS();
-	// #else
-		// #define WAIT_PRESS() WAIT_JOY1_PRESS();
-	// #endif
-
-	// #if (!defined(__CBM__) || defined(__CBM610__)) && !defined(__ATARI__) && !defined(__ATARIXL__)
-	// #else
-		// #define JOY_INSTALL() { joy_install(joy_static_stddrv); };
-
-		// #define GET_JOY1() joy_read (JOY_1);
-
-		// #define GET_JOY2() joy_read (JOY_2);
-	// #endif
 
 	#if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
 		#define JOY_INSTALL() { joy_install(joy_static_stddrv); };
@@ -167,7 +99,7 @@
 	#endif
 				
 	// Move player
-	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__ZX81__) && !defined(__CPC__) && !defined(__VG5k__)
+	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__)
 		void movePlayerByKeyboard(unsigned char kbInput);
 		void WAIT_KEY_PRESS(void);
 		#define WAIT_PRESS() WAIT_KEY_PRESS();
@@ -175,7 +107,7 @@
 		void movePlayerByKeyboard(unsigned char kbInput);
 		void WAIT_KEY_PRESS(void);
 		#define WAIT_PRESS() WAIT_KEY_PRESS();
-	#else
+	#else // All CBM except CBM610
 		void movePlayerByJoystick(unsigned char joyInput);
 		#if defined(__C16__)
 			void WAIT_KEY_PRESS(void);

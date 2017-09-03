@@ -18,10 +18,6 @@
 #define COLOR_BLUE 1
 #endif
 
-#ifndef cgetc()
-	#include<stdio.h>
-	#define cgetc() getchar();
-#endif
 	
 #ifndef CH_ULCORNER
 	#define CH_ULCORNER 'X'

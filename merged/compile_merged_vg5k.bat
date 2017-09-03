@@ -38,11 +38,13 @@ cd %mypath%\
 @REM 
 zcc +vg5k -vn -DFULL_GAME -D__VG5K__ -lndos -create-app -o %deliverables%\FULL_vg5k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
-REM del %deliverables%\FULL_vg5k_experimental.prg
+REM 
+del %deliverables%\FULL_vg5k_experimental.prg
 
 
 @REM del %deliverables%\cpc.cpc
-@REM zcc +vg5k -O3 -vn -D__VG5K__ -lndos -create-app -o %deliverables%\MINIMAL_vg5k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM 
+zcc +vg5k -O3 -vn -D__VG5K__ -lndos -create-app -o %deliverables%\MINIMAL_vg5k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 del %deliverables%\MINIMAL_vg5k_experimental.prg
 

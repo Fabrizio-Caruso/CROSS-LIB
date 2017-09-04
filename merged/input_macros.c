@@ -407,7 +407,7 @@ extern unsigned char guns;
 	#elif defined(__ZX81__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(cgetc());}	
+		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#else
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}
 	#endif

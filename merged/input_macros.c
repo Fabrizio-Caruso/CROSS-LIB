@@ -409,17 +409,11 @@ extern unsigned char guns;
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#else
+		// ATARI and ORIC
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}
 	#endif
 #elif defined(__CBM610__)
-	void MOVE_PLAYER(void) 
-	{
-		if(kbhit()) 
-		{
-			char kbInput = cgetc();
-			movePlayerByKeyboard(kbInput);
-		}
-	}
+		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 #else
 	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
 #endif

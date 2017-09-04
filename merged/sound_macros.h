@@ -35,6 +35,8 @@
 #define _SOUNDS_MACROS
 	#if defined(__ATMOS__) && defined(SOUNDS)
 		#include "atmos/atmos_sounds.h"
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(SOUNDS)
+		#include "atari/atari_sounds.h"
 	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
 		#include "spectrum/spectrum_sounds.h"	
 	#elif defined(__VIC20__) && defined(SOUNDS)

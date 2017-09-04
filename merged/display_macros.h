@@ -467,27 +467,23 @@ typedef struct ImageStruct Image;
 	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
 	
 	#define DRAW_BOMB(x,y,image)  {_draw(x,y,image);};
-	
-	#define DRAW_POWERUP(x,y,image) {_blink_powerUp_draw(x,y,image);};
-	
-	#define DRAW_GUN(x,y,image) {_blink_gun_draw(x,y,image);};
-
-	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_extra_points_draw(x,y,image);};
-	
-	#define DRAW_EXTRA_LIFE(x,y,image) {_blink_extra_life_draw(x,y,image);};
-	
-	#define DRAW_INVINCIBILITY(x,y,image) {_blink_invincibility_draw(x,y,image);};
-
-	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_player_draw(x,y,image);};
 		
 	void _draw_broken_wall(unsigned char x, unsigned char y);
 	void _draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_powerUp_draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_gun_draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_extra_points_draw(unsigned char x, unsigned char y, Image * image);	
-	void _blink_extra_life_draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_invincibility_draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_player_draw(unsigned char x, unsigned char y, Image * image);
+	
+	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter);
+
+	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_draw(x,y,image, &player_blink); };
+	
+	#define DRAW_POWERUP(x,y,image) {_blink_draw(x,y,image, &powerUp_blink); };
+	
+	#define DRAW_GUN(x,y,image) {_blink_draw(x,y,image, &gun_blink);};
+
+	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_draw(x,y,image, &extra_points_blink);};
+
+	#define DRAW_EXTRA_LIFE(x,y,image) {_blink_draw(x,y,image, &extra_life_blink); };
+
+	#define DRAW_INVINCIBILITY(x,y,image) {_blink_draw(x,y,image, &invincibility_blink);};	
 	
 	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
 	
@@ -611,14 +607,14 @@ typedef struct ImageStruct Image;
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
 
 	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
-	
-	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_draw(x,y,image, &player_blink); };
-	
+		
 	#define DRAW_GHOST(x,y,image)  {_draw(x,y,image);};
 	
 	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
 	
 	#define DRAW_BOMB(x,y,image)  {_draw(x,y,image);};
+
+	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_draw(x,y,image, &player_blink); };
 	
 	#define DRAW_POWERUP(x,y,image) {_blink_draw(x,y,image, &powerUp_blink); };
 	
@@ -673,7 +669,7 @@ typedef struct ImageStruct Image;
 		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 	#endif
 	
-	#if defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+	#if defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || (!defined(ATARI_MODE1) && (defined(__ATARI__) || defined(__ATARIXL__)))
 		#define DRAW_BORDERS()\
 		{ \
 			SET_TEXT_COLOR(TEXT_COLOR); \

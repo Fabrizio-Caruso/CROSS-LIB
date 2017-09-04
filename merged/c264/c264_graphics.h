@@ -150,7 +150,7 @@
 		POWERUP_IMAGE._imageData = '#';
 		GUN_IMAGE._imageData = ',';
 		MISSILE_IMAGE._imageData = '.';
-		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+		DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
 
 		GHOST_IMAGE._color = COLOR_WHITE;
 		MISSILE_IMAGE._color = COLOR_WHITE;

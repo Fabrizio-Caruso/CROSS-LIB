@@ -3,4 +3,5 @@ tools
 graphics/graphics.o
 *.o
 *.def
+*.swp
 

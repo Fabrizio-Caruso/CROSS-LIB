@@ -37,7 +37,7 @@ cl65.exe -O -t apple2 -DFULL_GAME %mypath%\sleep_macros.c %mypath%\display_macro
 @REM 
 cd %mypath%\..\tools
 @REM 
-cp MASTER_BOOT_ASCHASE.DSK %deliverables%\apple2.dsk
+copy MASTER_BOOT_ASCHASE.DSK %deliverables%\apple2.dsk
 @REM 
 java -jar ac.jar -cc65 %deliverables%\apple2.dsk aschase B < %deliverables%\apple2.bin
 @REM 
@@ -52,7 +52,7 @@ cl65.exe -O -t apple2enh -DFULL_GAME %mypath%\sleep_macros.c %mypath%\display_ma
 @REM 
 cd %mypath%\..\tools
 @REM 
-cp MASTER_BOOT_ASCHASE.DSK %deliverables%\apple2enh.dsk
+copy MASTER_BOOT_ASCHASE.DSK %deliverables%\apple2enh.dsk
 @REM 
 java -jar ac.jar -cc65 %deliverables%\apple2enh.dsk aschase B < %deliverables%\apple2enh.bin
 @REM 

@@ -71,7 +71,6 @@ unsigned short invincibleYCountDown;
 unsigned short ghostSlowDown;
 unsigned short powerUpCoolDown;
 	
-unsigned short gunInitialCoolDown;
 unsigned short gunCoolDown;
 
 unsigned short ghostLevelDecrease;
@@ -233,13 +232,27 @@ void handle_missile()
 }
 
 
-void powerUpReached(Character * powerup)
+void powerUpReached(Character * powerUpPtr)
 {
 	ZAP_SOUND();
-	DELETE_GUN(powerup->_x,powerup->_y,powerup->_imagePtr);
+	DELETE_GUN(powerUpPtr->_x,powerUpPtr->_y,powerUpPtr->_imagePtr);
 	DRAW_PLAYER(player._x, player._y, player._imagePtr);
-	powerup->_status = 0;
+	powerUpPtr->_status = 0;
 	displayStats();
+}
+
+void relocatePowerUp(Character * powerUpPtr)
+{
+		powerUpPtr->_status = 1;
+		
+		#if defined(FULL_GAME)
+		do
+		{
+			relocateCharacter(powerUpPtr, bombs,4);
+		} while(nearInnerWall(powerUpPtr));		
+		#else
+			relocateCharacter(powerUpPtr, bombs,4);
+		#endif	
 }
 
 void handle_gun_item()
@@ -262,16 +275,7 @@ void handle_gun_item()
 	}		
 	else if (gunCoolDown == 0)
 	{	
-		gun._status = 1;
-		
-		#if defined(FULL_GAME)
-		do
-		{
-			relocateCharacter(&gun, bombs,4);
-		} while(nearInnerWall(&gun));		
-		#else
-			relocateCharacter(&gun, bombs,4);
-		#endif
+		relocatePowerUp(&gun);
 		
 		DRAW_GUN(gun._x, gun._y, gun._imagePtr);
 	}
@@ -301,16 +305,7 @@ void handle_powerup_item()
 	}
 	else if (powerUpCoolDown == 0)
 	{
-		powerUp._status = 1;
-
-		#if defined(FULL_GAME)
-		do
-		{
-			relocateCharacter(&powerUp, bombs,4);
-		} while(nearInnerWall(&powerUp));		
-		#else
-			relocateCharacter(&powerUp, bombs,4);
-		#endif
+		relocatePowerUp(&powerUp);
 
 		DRAW_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
 	}
@@ -352,11 +347,8 @@ void playerDies(void)
 		}		
 		else if (extraPointsCoolDown == 0)
 		{	
-			extraPoints._status = 1;
-			do
-			{
-				relocateCharacter(&extraPoints, bombs,4);
-			} while(nearInnerWall(&extraPoints));
+			relocatePowerUp(&extraPoints);
+			
 			DRAW_EXTRA_POINTS(extraPoints._x, extraPoints._y, extraPoints._imagePtr);
 		}
 		else
@@ -385,11 +377,8 @@ void playerDies(void)
 		}		
 		else if (extraLifeCoolDown == 0)
 		{	
-			extraLife._status = 1;
-			do
-			{
-				relocateCharacter(&extraLife, bombs,4);
-			} while(nearInnerWall(&extraLife));
+			relocatePowerUp(&extraLife);
+		
 			DRAW_EXTRA_LIFE(extraLife._x, extraLife._y, extraLife._imagePtr);
 		}
 		else
@@ -418,11 +407,8 @@ void playerDies(void)
 		}		
 		else if (invincibilityCoolDown == 0)
 		{	
-			invincibility._status = 1;
-			do
-			{
-				relocateCharacter(&invincibility, bombs,4);
-			} while(nearInnerWall(&invincibility));
+			relocatePowerUp(&invincibility);
+			
 			DRAW_INVINCIBILITY(invincibility._x, invincibility._y, invincibility._imagePtr);
 		}
 		else

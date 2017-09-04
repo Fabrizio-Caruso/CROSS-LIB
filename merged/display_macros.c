@@ -119,7 +119,7 @@
 		MISSILE_IMAGE._imageData = '.';
 		
 		// Monochromatic vs color case
-		#if defined(__CPC__) || defined(__MSX__)
+		#if defined(__CPC__) || defined(__MSX__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__PET__) || defined(__CBM610__)
 			DEAD_GHOST_IMAGE._imageData = '_';
 		#else
 			DEAD_GHOST_IMAGE._imageData = 'o';

@@ -50,6 +50,11 @@ extern Character ghosts[GHOSTS_NUMBER];
 extern Image DEAD_GHOST_IMAGE;
 extern unsigned char level;
 
+#if defined(FULL_GAME)
+extern	unsigned short extraPointsCoolDown;
+extern 	unsigned short extraLifeCoolDown;
+extern	unsigned short invincibilityCoolDown;
+#endif
 
 void checkMissileVsGhost(Character * missilePtr,
 						 Character * ghostPtr)
@@ -71,6 +76,15 @@ void checkMissileVsGhosts(Character * missilePtr)
 		checkMissileVsGhost(missilePtr, &ghosts[i]);
 	};
 }
+	
+#if defined(FULL_GAME)
+	void reducePowerUpsCoolDowns(void)
+	{
+		extraPointsCoolDown/=2;
+		invincibilityCoolDown/=2;
+		extraLifeCoolDown/=2;
+	}
+#endif	
 	
 unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
 							  unsigned short missileDirection)
@@ -99,7 +113,10 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 	{
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
-		//DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+		#if defined(FULL_GAME)
+			// TODO: Implement this
+			//DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+		#endif
 		return 0;
 	}
 	return 1;
@@ -131,9 +148,15 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 	{
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
+		#if defined(FULL_GAME)
+			// TODO: Implement this
+			//DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+		#endif		
 	}
 	else
 	{
 		DRAW_MISSILE(missilePtr->_x, missilePtr->_y, missilePtr->_imagePtr);
 	}
 }
+
+

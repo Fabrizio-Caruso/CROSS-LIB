@@ -207,10 +207,12 @@ void handle_missile()
 			PING_SOUND();
 			die(&missile);
 			DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
-			//restoreMissile(&missile);
 			missile._x = 0; missile._y = 0;
 			++invincibleGhostHits;
 			decreaseGhostLevel();
+			#if defined(FULL_GAME)
+				reducePowerUpsCoolDowns();
+			#endif
 			
 			// TODO: to TEST
 			if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
@@ -614,11 +616,7 @@ int main(void)
 							{
 								if(!player_invincibility && areCharctersAtSamePosition(&player,&bubbles[i]))
 								{
-									// EXPLOSION_SOUND();
-									// die(&player);
 									playerDies();
-									//printDefeatMessage();
-									//sleep(1);
 								}
 								
 								if(rand()%2)
@@ -630,7 +628,6 @@ int main(void)
 								DRAW_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);			
 								if(bubbles[i]._y<=1)
 								{	
-									//bubbles[i]->_status = 0;
 									DELETE_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);
 									//
 									bubbles[i]._x = (i+1)*(XSize/(BUBBLES_NUMBER+1));
@@ -669,10 +666,6 @@ int main(void)
 							DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 							if(!player_invincibility && areCharctersAtSamePosition(&leftEnemyMissile,&player))
 							{
-								// EXPLOSION_SOUND();
-								// die(&player);
-								// printDefeatMessage();
-								// sleep(1);
 								playerDies();
 							}
 						}

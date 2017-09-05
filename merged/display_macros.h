@@ -105,8 +105,10 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {*x=64-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_32COL)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
-#elif defined(__MSX__)
+#elif defined(__MSX__) && !defined(MSX_MODE1)
 	#define GET_SCREEN_SIZE(x,y) {*x=37-X_OFFSET; *y=24-Y_OFFSET;};
+#elif defined(__MSX__) && defined(MSX_MODE1)
+	#define GET_SCREEN_SIZE(x,y) {*x=29-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__CPC__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 
@@ -480,7 +482,8 @@ void _delete(unsigned char x, unsigned char y);
 
 	void CLEAR_SCREEN();
 	
-#elif defined(__MSX__) || defined(__SC3000__)
+#elif defined(__MSX__)
+	#include <conio.h>
 	#define SET_TEXT_COLOR(c) {printf("\020%c",c);};
 	
 	#define SET_BORDER_COLOR(c) {};

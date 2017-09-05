@@ -55,9 +55,27 @@ Image INVINCIBILITY_IMAGE;
 
 #include <stdio.h>
 #include <msx/gfx.h>
+extern unsigned char XSize;
+
+#if defined(MSX_MODE1)
+	#define BASE 6144
+#else
+	#define BASE 0
+#endif
+#if defined(VPOKE) 
+	#define _DRAW   msx_vpoke(BASE+x+2+X_OFFSET+(y-1+Y_OFFSET)*(XSize+3),image->_imageData);
+	#define _DELETE msx_vpoke(BASE+x+2+X_OFFSET+(y-1+Y_OFFSET)*(XSize+3),' ');
+#else
+	#define _DRAW 	cputc(image->_imageData);
+	#define _DELETE cputc(' '); 
+
+#endif
+
 void INIT_GRAPHICS(void)
 {	set_color(15, 1, 1);
-	// set_mode(2);
+	#if defined(MSX_MODE1)
+		set_mode(mode_1);
+	#endif
 }
 
 void INIT_IMAGES(void)
@@ -111,15 +129,13 @@ void _draw(unsigned char x, unsigned char y, Image * image)
 {
 	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	SET_TEXT_COLOR(image->_color);
-	//cputc(image->_imageData); 
-	msx_vpoke(x+2+X_OFFSET+(y-1+Y_OFFSET)*40,image->_imageData);
+	_DRAW
 }
 
 void _delete(unsigned char x, unsigned char y)
 {
 	gotoxy(x+1+X_OFFSET,y+Y_OFFSET);
-	//cputc(' ');
-	msx_vpoke(x+2+X_OFFSET+(y-1+Y_OFFSET)*40,' ');
+	_DELETE
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
@@ -127,12 +143,12 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	if(*blinkCounter) 
 	{
-		msx_vpoke(x+2+X_OFFSET+(y-1+Y_OFFSET)*40,image->_imageData);
+		_DRAW
 		*blinkCounter=0;
 	} 
 	else 
 	{
-		msx_vpoke(x+2+X_OFFSET+(y-1+Y_OFFSET)*40,' ');
+		_DELETE
 		*blinkCounter=1;
 	}	
 }

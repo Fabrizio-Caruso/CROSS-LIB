@@ -72,9 +72,14 @@ extern unsigned char XSize;
 #endif
 
 void INIT_GRAPHICS(void)
-{	set_color(15, 1, 1);
+{
+	unsigned char i;	set_color(15, 1, 1);
 	#if defined(MSX_MODE1)
 		set_mode(mode_1);
+		for(i=0;i<8;++i)
+		{
+			msx_vpoke(8192+4+i,16*(i+1));
+		}
 	#endif
 }
 

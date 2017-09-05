@@ -43,7 +43,7 @@
 	#define GAME_SLOW_DOWN 300
 #elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 200
+	#define GAME_SLOW_DOWN 400
 #elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 200

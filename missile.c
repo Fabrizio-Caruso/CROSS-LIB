@@ -166,9 +166,6 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 				DELETE_MISSILE(rightEnemyMissilePtr->_x,rightEnemyMissilePtr->_y,rightEnemyMissilePtr->_imagePtr);
 				points+=HORIZONTAL_MISSILE_BONUS;
 				displayStats();				
-				// extraPointsCoolDown/=2;
-				// invincibilityCoolDown/=2;
-				// extraLifeCoolDown/=2;
 				reducePowerUpsCoolDowns();		
 			}
 			else if(missilePtr->_x==0 && missilePtr->_y==YSize-4 && leftEnemyMissilePtr->_status)
@@ -178,9 +175,6 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 				DELETE_MISSILE(leftEnemyMissilePtr->_x,leftEnemyMissilePtr->_y,leftEnemyMissilePtr->_imagePtr);
 				points+=HORIZONTAL_MISSILE_BONUS;
 				displayStats();				
-				// extraPointsCoolDown/=2;
-				// invincibilityCoolDown/=2;
-				// extraLifeCoolDown/=2;
 				reducePowerUpsCoolDowns();		
 			}
 		}
@@ -200,10 +194,6 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection, Charac
 					displayStats();					
 					if(dead_bubbles==BUBBLES_NUMBER)
 					{
-						// extraPointsCoolDown/=4;
-						// invincibilityCoolDown/=4;
-						// extraLifeCoolDown/=4;
-						reducePowerUpsCoolDowns();
 						reducePowerUpsCoolDowns();		
 						TICK_SOUND();
 					}

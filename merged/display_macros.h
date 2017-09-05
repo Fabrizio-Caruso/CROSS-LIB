@@ -118,15 +118,37 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #endif
 
+#if defined(REDEFINED_CHARS)
+	extern Image PLAYER_LEFT;
+	extern Image PLAYER_RIGHT;
+	extern Image PLAYER_UP;
+	extern Image PLAYER_DOWN;
+
+	#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
+	#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
+	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
+	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+#else
+	#define SHOW_LEFT() { }
+	#define SHOW_RIGHT() { }
+	#define SHOW_UP() { }
+	#define SHOW_DOWN() { }		
+#endif
+
+
+void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
+#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
+#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
+#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
+#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
+#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
+#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 	
+
+
 
 #if defined(__ATMOS__)
 	#include<peekpoke.h>
-	#if defined(REDEFINED_CHARS)
-		extern Image PLAYER_LEFT;
-		extern Image PLAYER_RIGHT;
-		extern Image PLAYER_UP;
-		extern Image PLAYER_DOWN;
-	#endif
+
 	
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy(x+X_OFFSET,(y+Y_OFFSET)); cputc('X' + 128);};
 	
@@ -139,14 +161,6 @@ typedef struct ImageStruct Image;
 	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
 	
 	#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
-	
-	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
-	#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
-	#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
-	#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
-	#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
-	#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
-	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 		
 	
 	#define DRAW_MISSILE(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, image->_imageData + image->_color);};
 	
@@ -222,17 +236,7 @@ typedef struct ImageStruct Image;
 		} \
 	}
 	
-	#if defined(REDEFINED_CHARS)
-		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
-		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
-		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
-		#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
-	#else
-		#define SHOW_LEFT() { }
-		#define SHOW_RIGHT() { }
-		#define SHOW_UP() { }
-		#define SHOW_DOWN() { }		
-	#endif
+
 #elif defined(__VG5K__)
 	
 	#define DRAW_BROKEN_WALL(x,y) {};
@@ -241,18 +245,13 @@ typedef struct ImageStruct Image;
 	
 	void _draw(unsigned char x,unsigned char y,Image * image);
 	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
-	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);	
+	
 	#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
 	#define DRAW_GHOST(x,y,image) {_draw(x,y,image);};	
 	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};	
 	#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
+	
 
-	#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
-	#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
-	#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
-	#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
-	#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
-	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 
 	
 	#define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
 
@@ -284,17 +283,8 @@ typedef struct ImageStruct Image;
 	
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str); };
 
-	#define SHOW_LEFT() {}
-	#define SHOW_RIGHT() {}
-	#define SHOW_UP() {}
-	#define SHOW_DOWN() {}
 #elif defined(__SPECTRUM__)
-	#if defined(REDEFINED_CHARS)
-		extern Image PLAYER_LEFT;
-		extern Image PLAYER_RIGHT;
-		extern Image PLAYER_UP;
-		extern Image PLAYER_DOWN;
-	#endif
+
 
 	#include <stdio.h>
 
@@ -362,17 +352,10 @@ typedef struct ImageStruct Image;
 	#endif
 	
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
-		
-	#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
-	#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
-	#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
-	#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
-	#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
-	#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 
 	
 	void _draw_broken_wall(unsigned char x, unsigned char y);	
 	void _draw(unsigned char x, unsigned char y, Image * image);
-	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter);
+
 	
 	#define DRAW_BOMBS() \
 	{ \
@@ -445,17 +428,6 @@ typedef struct ImageStruct Image;
 		#define DRAW_BORDERS() {};
 	#endif	
 
-	#if defined(__SPECTRUM__) && defined(REDEFINED_CHARS)
-		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
-		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
-		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
-		#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
-	#else
-		#define SHOW_LEFT() {}
-		#define SHOW_RIGHT() {}
-		#define SHOW_UP() {}
-		#define SHOW_DOWN() {}			
-	#endif	
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);}; //{gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
@@ -470,20 +442,6 @@ typedef struct ImageStruct Image;
 		
 	void _draw_broken_wall(unsigned char x, unsigned char y);
 	void _draw(unsigned char x, unsigned char y, Image * image);
-	
-	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter);
-
-	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_draw(x,y,image, &player_blink); };
-	
-	#define DRAW_POWERUP(x,y,image) {_blink_draw(x,y,image, &powerUp_blink); };
-	
-	#define DRAW_GUN(x,y,image) {_blink_draw(x,y,image, &gun_blink);};
-
-	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_draw(x,y,image, &extra_points_blink);};
-
-	#define DRAW_EXTRA_LIFE(x,y,image) {_blink_draw(x,y,image, &extra_life_blink); };
-
-	#define DRAW_INVINCIBILITY(x,y,image) {_blink_draw(x,y,image, &invincibility_blink);};	
 	
 	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
 	
@@ -582,27 +540,9 @@ typedef struct ImageStruct Image;
 		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 2); \
 	}
 
-		#define SHOW_LEFT() {}
-		#define SHOW_RIGHT() {}
-		#define SHOW_UP() {}
-		#define SHOW_DOWN() {}	
+
 #else	
-	#if defined(REDEFINED_CHARS) && (defined(__C16__) || defined(__PLUS4__) || defined(__C64__))
-		extern Image PLAYER_LEFT;
-		extern Image PLAYER_RIGHT;
-		extern Image PLAYER_UP;
-		extern Image PLAYER_DOWN;
-		
-		#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
-		#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
-		#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
-		#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
-	#else
-		#define SHOW_LEFT() {}
-		#define SHOW_RIGHT() {}
-		#define SHOW_UP() {}
-		#define SHOW_DOWN() {}	
-	#endif		
+
 	
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
 
@@ -614,23 +554,10 @@ typedef struct ImageStruct Image;
 	
 	#define DRAW_BOMB(x,y,image)  {_draw(x,y,image);};
 
-	#define DRAW_BLINKING_PLAYER(x,y,image) {_blink_draw(x,y,image, &player_blink); };
-	
-	#define DRAW_POWERUP(x,y,image) {_blink_draw(x,y,image, &powerUp_blink); };
-	
-	#define DRAW_GUN(x,y,image) {_blink_draw(x,y,image, &gun_blink);};
 
-	#define DRAW_EXTRA_POINTS(x,y,image) {_blink_draw(x,y,image, &extra_points_blink);};
-
-	#define DRAW_EXTRA_LIFE(x,y,image) {_blink_draw(x,y,image, &extra_life_blink); };
-
-	#define DRAW_INVINCIBILITY(x,y,image) {_blink_draw(x,y,image, &invincibility_blink);};	
-	
 	//void _draw_broken_wall(unsigned char x, unsigned char y);	
 	void _draw(unsigned char x, unsigned char y, Image * image);
 	
-	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter);
-
 	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
 	
 

@@ -103,7 +103,7 @@ typedef struct ImageStruct Image;
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_32COL)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__MSX__)
-	#define GET_SCREEN_SIZE(x,y) {*x=38-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=37-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__CPC__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 
@@ -404,8 +404,8 @@ void _delete(unsigned char x, unsigned char y);
 		#define DRAW_HORIZONTAL_BORDER(y) \
 		{ \
 			unsigned char i; \
-			gotoxy(X_OFFSET,Y_OFFSET+1+y);  \
-			for(i=0;i<XSize;++i) \
+			gotoxy(X_OFFSET+1,Y_OFFSET+y);  \
+			for(i=0;i<XSize-2;++i) \
 			{ \
 				cputc('-'); \
 			} \

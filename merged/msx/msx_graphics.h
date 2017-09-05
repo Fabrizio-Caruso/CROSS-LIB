@@ -55,16 +55,16 @@ Image INVINCIBILITY_IMAGE;
 
 #include <stdio.h>
 #include <msx/gfx.h>
-char powerUp_blink = 1;
-char gun_blink = 1;
-char extra_points_blink = 1;
-char extra_life_blink = 1;
-char invincibility_blink = 1;
-char player_blink = 1;
+// char powerUp_blink = 1;
+// char gun_blink = 1;
+// char extra_points_blink = 1;
+// char extra_life_blink = 1;
+// char invincibility_blink = 1;
+// char player_blink = 1;
 
 void INIT_GRAPHICS(void)
-{	set_color(15, 1, 1);
-	set_mode(2);
+{	// set_color(15, 1, 1);
+	// set_mode(2);
 }
 
 void INIT_IMAGES(void)
@@ -116,20 +116,20 @@ void _draw_broken_wall(unsigned char x, unsigned char y)
 
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
-	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	SET_TEXT_COLOR(image->_color);
 	cputc(image->_imageData); 
 }
 
 void _delete(unsigned char x, unsigned char y)
 {
-	gotoxy(x+X_OFFSET,y+Y_OFFSET);
+	gotoxy(x+1+X_OFFSET,y+Y_OFFSET);
 	cputc(' ');
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
-	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	if(*blinkCounter) 
 	{
 		cputc(image->_imageData); 
@@ -143,9 +143,11 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 }
 
 
-void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
-{ 
+// void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
+// { 
 
-}
+// }
+
+
 
 

@@ -41,8 +41,7 @@
 			#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 		#endif
 		
-	#define cputc(c) printf("%c",c);
-	
+		#define cputc(c) printf("%c",c);
 	#endif
 
 	#if defined(__SPECTRUM__)

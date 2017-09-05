@@ -46,6 +46,8 @@
 	#include "c128/c128_80col_graphics.h"
 #elif defined(__SPECTRUM__) && defined(REDEFINED_CHARS)
 	#include "spectrum/spectrum_graphics.h"	
+#elif defined(__MSX__)
+	#include "msx/msx_graphics.h"
 #else
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;

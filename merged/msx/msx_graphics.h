@@ -111,13 +111,15 @@ void _draw(unsigned char x, unsigned char y, Image * image)
 {
 	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	SET_TEXT_COLOR(image->_color);
-	cputc(image->_imageData); 
+	//cputc(image->_imageData); 
+	msx_vpoke(x+2+X_OFFSET+(y-1+Y_OFFSET)*40,image->_imageData);
 }
 
 void _delete(unsigned char x, unsigned char y)
 {
 	gotoxy(x+1+X_OFFSET,y+Y_OFFSET);
-	cputc(' ');
+	//cputc(' ');
+	msx_vpoke(x+2+X_OFFSET+(y-1+Y_OFFSET)*40,' ');
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
@@ -125,12 +127,12 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	if(*blinkCounter) 
 	{
-		cputc(image->_imageData); 
+		msx_vpoke(x+2+X_OFFSET+(y-1+Y_OFFSET)*40,image->_imageData);
 		*blinkCounter=0;
 	} 
 	else 
 	{
-		cputc(' '); 
+		msx_vpoke(x+2+X_OFFSET+(y-1+Y_OFFSET)*40,' ');
 		*blinkCounter=1;
 	}	
 }

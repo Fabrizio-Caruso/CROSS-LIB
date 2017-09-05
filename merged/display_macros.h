@@ -428,9 +428,9 @@ void _delete(unsigned char x, unsigned char y);
 		#define DRAW_VERTICAL_LINE(x,y,length) \
 		{ \
 			unsigned char i; \
-			gotoxy(X_OFFSET+x,Y_OFFSET+y); \
 			for(i=0;i<length;++i) \
 			{ \
+				gotoxy(X_OFFSET+x,Y_OFFSET+y+i); \
 				cputc('|'); \
 			} \
 		}

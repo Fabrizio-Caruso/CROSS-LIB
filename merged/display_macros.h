@@ -106,7 +106,7 @@ typedef struct ImageStruct Image;
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_32COL)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__MSX__)
-	#define GET_SCREEN_SIZE(x,y) {*x=38-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=37-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__CPC__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 
@@ -401,9 +401,12 @@ void _delete(unsigned char x, unsigned char y);
 			cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
 		}	
 		#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
-	#else
+	#elif defined(__MSX__)
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 
+		#define DRAW_VERTICAL_BORDER(x) \
+			DRAW_VERTICAL_LINE(x,0,YSize);
+			
 		#define DRAW_HORIZONTAL_BORDER(y) \
 		{ \
 			unsigned char i; \
@@ -418,8 +421,35 @@ void _delete(unsigned char x, unsigned char y);
 		{ \
 			DRAW_HORIZONTAL_BORDER(0); \
 			DRAW_HORIZONTAL_BORDER(YSize-1); \
+			DRAW_VERTICAL_BORDER(0) \
+			DRAW_VERTICAL_BORDER(XSize+1) \
+		}
+	#else
+		#define DRAW_VERTICAL_LINE(x,y,length) \
+		{ \
+			unsigned char i; \
+			gotoxy(X_OFFSET+x,Y_OFFSET+y); \
+			for(i=0;i<length;++i) \
+			{ \
+				cputc('|'); \
+			} \
 		}
 		
+		#define DRAW_HORIZONTAL_BORDER(y) \
+		{ \
+			unsigned char i; \
+			gotoxy(X_OFFSET+1,Y_OFFSET+y);  \
+			for(i=0;i<XSize-1;++i) \
+			{ \
+				cputc('-'); \
+			} \
+		} \
+		
+		#define DRAW_BORDERS() \
+		{ \
+			DRAW_HORIZONTAL_BORDER(0); \
+			DRAW_HORIZONTAL_BORDER(YSize-1); \
+		}		
 	#endif
 
 #endif

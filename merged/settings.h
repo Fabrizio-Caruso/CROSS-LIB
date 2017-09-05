@@ -74,7 +74,7 @@
 	#define GHOSTS_NUMBER 8
 #endif
 	
-#if defined(__SPECTRUM__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define BUBBLES_NUMBER 2
 #else
 	#define BUBBLES_NUMBER 4
@@ -137,7 +137,7 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 50UL
 
-#if defined(__CBM610__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__CBM610__) || defined(__CPC__) || defined(__MSX__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000
 	#define INITIAL_SKULL_SLOWDOWN 32000	
 #elif defined(__VG5K__)
@@ -173,4 +173,5 @@
 #define INVINCIBLE_COUNT_DOWN 80
 
 #define INVINCIBLE_LOOP_TRIGGER (700 - level*15)
+
 #endif // _SETTINGS

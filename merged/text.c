@@ -125,8 +125,8 @@ void displayStatsTitles(void)
 		cputc('S'+128);	
 		cputc('E'+128); 		
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINT(0,0-Y_OFFSET,"SCORE:");
+		//SET_TEXT_COLOR(TEXT_COLOR);	
+		// PRINT(0,0-Y_OFFSET,"SC:");
 		//PRINT(1,1-Y_OFFSET,"LEVEL:");
 	#elif defined(__MSX__)
 			PRINT(2,-Y_OFFSET+1,"SCORE:");
@@ -157,13 +157,14 @@ void displayStatsTitles(void)
 
 	
 	#if defined (__ATMOS__)
-		gotoxy(18+1,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(18+1,0); cputc(GUN_IMAGE._imageData);//cputc(':');
 		gotoxy(18-3,0); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		gotoxy(15+1,0); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(15-3,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(15-3-2-3,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData);cputc(':');		
 		// gotoxy(15+20,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		SET_TEXT_COLOR(TEXT_COLOR);	
@@ -210,7 +211,7 @@ void printGunsStats(void)
 	#if defined (__ATMOS__)
 		PRINTF(19-1+1,0-Y_OFFSET,"%hu",guns);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINTF(15+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
+		PRINTF(15+2+1-5-1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
@@ -231,7 +232,7 @@ void printLevelStats(void)
 	#if defined(__ATMOS__) 
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		// PRINTF(7,1-Y_OFFSET,"%02hu", level);
+		PRINTF(15+2+1-5+4-1+2-X_OFFSET,0-Y_OFFSET,"%02hu",level);	
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__CBM__) && !defined(__VIC20__) && !defined(__C16__)) 
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
@@ -254,7 +255,7 @@ void printGhostCountStats(void)
 	#if defined (__ATMOS__)
 		PRINTF(19-1-3,0-Y_OFFSET,"%hu",ghostCount);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINTF(15+2-X_OFFSET-3,0-Y_OFFSET,"%hu",ghostCount);
+		PRINTF(15+2-X_OFFSET-3-2-3,0-Y_OFFSET,"%hu",ghostCount);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%hu",ghostCount);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
@@ -275,6 +276,7 @@ void printLivesStats(void)
 	#if defined (__ATMOS__)
 		PRINTF(19-1,1-Y_OFFSET,"%02hu",lives);	
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+		PRINTF(15+2+1-5+4-1-X_OFFSET,0-Y_OFFSET,"%hu",lives);		
 		// PRINTF(15+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
@@ -296,7 +298,7 @@ void displayStats(void)
 	#if defined(__ATMOS__) 
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINTF(6,0-Y_OFFSET,"%05u0",points);
+		PRINTF(3-3,0-Y_OFFSET,"%05u0",points);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__CBM__) && !defined(__VIC20__) && !defined(__C16__)) 
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)

@@ -402,7 +402,7 @@ void _delete(unsigned char x, unsigned char y);
 		}	
 		#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
 	#else
-		#define DRAW_VERTICAL_LINE(x,y,length) {};
+		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 
 		#define DRAW_HORIZONTAL_BORDER(y) \
 		{ \
@@ -442,17 +442,17 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define CLEAR_SCREEN() {printf("\x1B[37;44m\x1B[2J");};
 #elif defined(__VG5K__) 
-	#define SET_TEXT_COLOR(c) (void) textcolor (c);
-	
-	#define SET_BORDER_COLOR(c) (void) textcolor (c);
+	#define SET_TEXT_COLOR(c) {};
 
-	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
 
 	void CLEAR_SCREEN();
 	
 #elif defined(__MSX__) || defined(__SC3000__)
-	#define SET_TEXT_COLOR(c) {};
-
+	#define SET_TEXT_COLOR(c) {printf("\020%c",c);};
+	
 	#define SET_BORDER_COLOR(c) {};
 
 	#define SET_BACKGROUND_COLOR(c) {};	

@@ -136,10 +136,15 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 }
 
 
-// void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
-// { 
-
-// }
+void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+{ 
+	unsigned char i;
+	for(i=0;i<length;++i)
+	{
+		gotoxy(x+1+X_OFFSET,y+i+Y_OFFSET);
+		cputc('|');
+	}
+}
 
 
 

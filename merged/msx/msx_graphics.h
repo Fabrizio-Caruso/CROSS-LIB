@@ -55,15 +55,8 @@ Image INVINCIBILITY_IMAGE;
 
 #include <stdio.h>
 #include <msx/gfx.h>
-// char powerUp_blink = 1;
-// char gun_blink = 1;
-// char extra_points_blink = 1;
-// char extra_life_blink = 1;
-// char invincibility_blink = 1;
-// char player_blink = 1;
-
 void INIT_GRAPHICS(void)
-{	// set_color(15, 1, 1);
+{	set_color(15, 1, 1);
 	// set_mode(2);
 }
 

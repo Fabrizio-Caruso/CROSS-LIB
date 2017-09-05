@@ -132,8 +132,6 @@ void displayStatsTitles(void)
 	#elif defined(__MSX__)
 			PRINT(2,-Y_OFFSET+1,"SCORE:");
 			PRINT(2,-Y_OFFSET+2,"LEVEL:");	
-			// SET_TEXT_COLOR(COLOR_GREEN);	
-			// PRINT(24,-Y_OFFSET+2,"CROSS CHASE");
 	#elif defined(__VG5K__)
 			PRINT(2,-Y_OFFSET,"SCORE:");
 			PRINT(2,-Y_OFFSET+1,"LEVEL:");
@@ -651,7 +649,7 @@ void printStartMessage(void)
 	#elif defined(__ATMOS__)
 		PRINT(7, YSize / 2 - 1, "Escape from the enemies");
 		
-		PRINT(7, YSize / 2, "Forse them into the mines");
+		PRINT(7, YSize / 2, "Force them into the mines");
 		
 	#elif defined(__C16__) || defined(__PLUS4__)
 		// PRINT(1, YSize / 2 - 3, "You % are chased by \"! Lure \" into /!");
@@ -672,6 +670,8 @@ void printStartMessage(void)
 		
 		PRINT(2, YSize / 2 + 1,   "Shoot or flee from the skull!");			
 	#elif defined(__VG5K__)
+	#elif defined(__MSX__)
+		PRINT(2, YSize / 2 - 3, "Lure the enemies into the mines!");	
 	#else
 		PRINT(2, YSize / 2 - 3, "You * are chased by O. Lure O into X");
 		
@@ -707,6 +707,8 @@ void printStartMessage(void)
 	#elif defined(__VG5K__)
 		// SET_TEXT_COLOR(3);		
 		printCenteredMessageOnRow(10, "Use I J K L SPACE");	
+	#elif defined(__MSX__)
+		printCenteredMessageOnRow(10, "Use W A S D SPACE");		
 	#else 
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
 	#endif

@@ -59,13 +59,6 @@
 	Image GUN_IMAGE;
 	
 	#if defined(FULL_GAME)
-		// #if defined(PLAYER_IMAGES)
-			// Image PLAYER_RIGHT;
-			// Image PLAYER_LEFT;
-			// Image PLAYER_UP;
-			// Image PLAYER_DOWN;
-		// #endif
-	
 		Image LEFT_ENEMY_MISSILE_IMAGE;
 		Image RIGHT_ENEMY_MISSILE_IMAGE;
 

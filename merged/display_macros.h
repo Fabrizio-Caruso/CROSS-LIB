@@ -135,6 +135,12 @@ typedef struct ImageStruct Image;
 	#define SHOW_DOWN() { }		
 #endif
 
+void _draw(unsigned char x,unsigned char y,Image * image);
+#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
+#define DRAW_GHOST(x,y,image) {_draw(x,y,image);};
+#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
+#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
+#define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
 
 void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
 #define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
@@ -144,26 +150,25 @@ void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * 
 #define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 	
 
-
-
+void _delete(unsigned char x, unsigned char y);
+#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
+#define DELETE_GHOST(x,y,image) {_delete(x,y);};
+#define DELETE_INVINCIBLE_GHOST(x,y,image) {_delete(x,y);};
+#define DELETE_BOMB(x,y,image) {_delete(x,y);};
+#define DELETE_POWERUP(x,y,image) {_delete(x,y);};
+#define DELETE_GUN(x,y,image) {_delete(x,y);};
+#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
+#define DELETE_EXTRA_POINTS(x,y,image) {_delete(x,y);};
+#define DELETE_EXTRA_LIFE(x,y,image) {_delete(x,y);};
+#define DELETE_INVINCIBILITY(x,y,image) {_delete(x,y);};	
+	
+	
 #if defined(__ATMOS__)
 	#include<peekpoke.h>
 
-	
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy(x+X_OFFSET,(y+Y_OFFSET)); cputc('X' + 128);};
 	
-	void _draw(unsigned char x,unsigned char y,Image * image);
-	
-	#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
 
-	#define DRAW_GHOST(x,y,image) {_draw(x,y,image);}; // TODO: DEBUG
-	
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
-	
-	#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
-	
-	#define DRAW_MISSILE(x,y,image) {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, image->_imageData + image->_color);};
-	
 	#define DRAW_BOMBS() \
 	{ \
 		unsigned char i; \
@@ -173,24 +178,6 @@ void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * 
 		} \
 	}
 
-	void _delete(unsigned char x, unsigned char y);
-	
-	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
-	
-	#define DELETE_GHOST(x,y,image) {_delete(x,y);};
-	
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) {_delete(x,y);};
-
-	#define DELETE_BOMB(x,y,image) {_delete(x,y);};
-
-	#define DELETE_POWERUP(x,y,image) {_delete(x,y);};
-
-	#define DELETE_GUN(x,y,image) {_delete(x,y);};
-
-	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
-	
-	#define DELETE_EXTRA_POINTS(x,y,image) {_delete(x,y);};
-	
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 
 	#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
@@ -242,42 +229,14 @@ void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * 
 	#define DRAW_BROKEN_WALL(x,y) {};
 
 	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
-	
-	void _draw(unsigned char x,unsigned char y,Image * image);
-	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
-	
-	#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
-	#define DRAW_GHOST(x,y,image) {_draw(x,y,image);};	
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};	
-	#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
-	
 
-	
-	#define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
+	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
 
 	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1)
 	
 	void DRAW_BOMBS(void);
 	
 	void DRAW_BORDERS(void);
-
-	void _delete(unsigned char x, unsigned char y);
-	
-	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
-	
-	#define DELETE_GHOST(x,y,image) {_delete(x,y);};
-	
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) {_delete(x,y);};
-
-	#define DELETE_BOMB(x,y,image) {_delete(x,y);};
-
-	#define DELETE_POWERUP(x,y,image) {_delete(x,y);};
-
-	#define DELETE_GUN(x,y,image) {_delete(x,y);};
-
-	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
-	
-	#define DELETE_EXTRA_POINTS(x,y,image) {_delete(x,y);};
 	
 	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str,val); };
 	
@@ -285,77 +244,11 @@ void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * 
 
 #elif defined(__SPECTRUM__)
 
-
 	#include <stdio.h>
-
-	
-	#if !defined(SPECTRUM_NATIVE_DIRECTIVES)	
-		#define DRAW_PLAYER(x,y,image)  {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }		
-		//{_draw(x,y,image);};
-
-		#define DRAW_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
-		//	{_draw(x,y,image);};
-		
-		#define DRAW_INVINCIBLE_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
-		//{_draw(x,y,image);};	
-		
-		#define DRAW_BOMB(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
-		//	{_draw(x,y,image);};	
-
-		#define DRAW_MISSILE(x,y,image) {printf("\x16%c%c\020%c%c",x+X_OFFSET+1,y+1+Y_OFFSET,image->_color, image->_imageData); }
-		//	{_draw(x,y,image);};
-		
-		#define DELETE_PLAYER(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
-		// {_delete(x,y);};
-
-		#define DELETE_GHOST(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
-		//	{_delete(x,y);};
-
-		#define DELETE_INVINCIBLE_GHOST(x,y,image)   {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
-		// {_delete(x,y);};
-
-		#define DELETE_BOMB(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
-		//	{_delete(x,y);};	
-		
-		#define DELETE_MISSILE(x,y,image) {printf("\x16%c%c%c",x+X_OFFSET+1,y+1+Y_OFFSET, ' '); }
-		// {_delete(x,y);};	
-	#else
-		#define DRAW_PLAYER(x,y,image)  {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }		
-		//{_draw(x,y,image);};
-
-		#define DRAW_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
-		//	{_draw(x,y,image);};
-		
-		#define DRAW_INVINCIBLE_GHOST(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
-		//{_draw(x,y,image);};	
-		
-		#define DRAW_BOMB(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
-		//	{_draw(x,y,image);};	
-
-		#define DRAW_MISSILE(x,y,image) {printf("\x16%c%c\020%c%c",y+32+Y_OFFSET,x+32+X_OFFSET,image->_color, image->_imageData); }
-		//	{_draw(x,y,image);};
-		
-		#define DELETE_PLAYER(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
-		// {_delete(x,y);};
-
-		#define DELETE_GHOST(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
-		//	{_delete(x,y);};
-
-		#define DELETE_INVINCIBLE_GHOST(x,y,image)   {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
-		// {_delete(x,y);};
-
-		#define DELETE_BOMB(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
-		//	{_delete(x,y);};	
-		
-		#define DELETE_MISSILE(x,y,image) {printf("\x16%c%c%c",y+32+Y_OFFSET,x+32+X_OFFSET, ' '); }
-		// {_delete(x,y);};			
-	#endif
 	
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
 	
 	void _draw_broken_wall(unsigned char x, unsigned char y);	
-	void _draw(unsigned char x, unsigned char y, Image * image);
-
 	
 	#define DRAW_BOMBS() \
 	{ \
@@ -366,84 +259,30 @@ void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * 
 		} \
 	}
 
-	#define DELETE_POWERUP(x,y,image) {_delete(x,y);};
+	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
+	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); };
 
-	#define DELETE_GUN(x,y,image)  {_delete(x,y);};
-	
-	#define DELETE_EXTRA_POINTS(x,y,image)  {_delete(x,y);};
+	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
 
-	void _delete(unsigned char x,unsigned char y);
-	
-	#if defined(__SPECTRUM__)
-		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
-		#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); };
-	#else
-		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str,val); };
-		#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str); };
-	#endif
-
-	#if defined(__SPECTRUM__)
-		void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
-	#else
-		#define DRAW_VERTICAL_LINE(x, y,  length) \
+	#define DRAW_BORDERS() \
+	{ \
+		unsigned char i; \
+		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+		printf("--------------------------------"); \
+		gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
+		printf("--------------------------------"); \
+		for(i=0;i<YSize;++i) \
 		{ \
-			unsigned char i; \
-			for(i=0;i<length;++i) \
-			{ \
-				gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); \
-			} \
-		}
-	#endif
-	
-
-	#if defined(__SPECTRUM__) && defined(SPECTRUM_64COL)
-		#define DRAW_BORDERS() \
-		{ \
-			unsigned char i; \
-			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-			printf("----------------------------------------------------------------"); \
-			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
-			printf("----------------------------------------------------------------"); \
-			for(i=0;i<YSize;++i) \
-			{ \
-				gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
-				gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
-			} \
-		}
-	#elif defined(__SPECTRUM__) && defined(SPECTRUM_32COL)
-		#define DRAW_BORDERS() \
-		{ \
-			unsigned char i; \
-			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-			printf("--------------------------------"); \
-			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
-			printf("--------------------------------"); \
-			for(i=0;i<YSize;++i) \
-			{ \
-				gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
-				gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
-			} \
-		}
-	#else
-		#define DRAW_BORDERS() {};
-	#endif	
+			gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+			gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+		} \
+	}
 
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);}; //{gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
-
-	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
-	
-	#define DRAW_GHOST(x,y,image)  {_draw(x,y,image);};
-	
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
-	
-	#define DRAW_BOMB(x,y,image)  {_draw(x,y,image);};
 		
 	void _draw_broken_wall(unsigned char x, unsigned char y);
-	void _draw(unsigned char x, unsigned char y, Image * image);
-	
-	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
 	
 	#define DRAW_BOMBS() \
 	{ \
@@ -453,25 +292,7 @@ void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * 
 			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr); \
 		} \
 	}
-
-	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
-
-	#define DELETE_GHOST(x,y,image)  {_delete(x,y);};
-
-	#define DELETE_INVINCIBLE_GHOST(x,y,image)  {_delete(x,y);};
-
-	#define DELETE_BOMB(x,y,image)  {_delete(x,y);};
-
-	#define DELETE_POWERUP(x,y,image)  {_delete(x,y);};
-
-	#define DELETE_GUN(x,y,image)  {_delete(x,y);};
 	
-	#define DELETE_EXTRA_POINTS(x,y,image)  {_delete(x,y);};
-	
-	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
-
-	void _delete(unsigned char x,unsigned char y);
-
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	
 	#define PRINTF(x,y,...)  \
@@ -540,26 +361,10 @@ void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * 
 		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 2); \
 	}
 
-
-#else	
-
-	
+#else		
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
 
-	#define DRAW_PLAYER(x,y,image)  {_draw(x,y,image);};
-		
-	#define DRAW_GHOST(x,y,image)  {_draw(x,y,image);};
-	
-	#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
-	
-	#define DRAW_BOMB(x,y,image)  {_draw(x,y,image);};
-
-
 	//void _draw_broken_wall(unsigned char x, unsigned char y);	
-	void _draw(unsigned char x, unsigned char y, Image * image);
-	
-	#define DRAW_MISSILE(x,y,image)  {_draw(x,y,image);};
-	
 
 	#define DRAW_BOMBS() \
 	{ \
@@ -569,24 +374,6 @@ void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * 
 			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr); \
 		} \
 	}
-
-	#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
-
-	#define DELETE_GHOST(x,y,image)  {_delete(x,y);};
-
-	#define DELETE_INVINCIBLE_GHOST(x,y,image)  {_delete(x,y);};
-
-	#define DELETE_BOMB(x,y,image)  {_delete(x,y);};
-
-	#define DELETE_POWERUP(x,y,image)  {_delete(x,y);};
-
-	#define DELETE_GUN(x,y,image)  {_delete(x,y);};
-	
-	#define DELETE_EXTRA_POINTS(x,y,image)  {_delete(x,y);};
-	
-	#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
-
-	void _delete(unsigned char x,unsigned char y);
 
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 	

@@ -91,44 +91,8 @@ void checkMissileVsGhosts(Character * missilePtr)
 		extraLifeCoolDown/=2;
 	}
 #endif	
-	
-unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
-							  unsigned short missileDirection)
-{
-	unsigned char newX = playerPtr->_x; 
-	unsigned char newY = playerPtr->_y;
-	switch(missileDirection)
-		{
-			case RIGHT:
-				++newX;
-			break;
-			case DOWN:
-				++newY;
-			break;
-			case UP:
-				--newY;
-			break;
-			case LEFT:
-				--newX;
-			break;
-		}
-	 
-	missilePtr->_x = newX;
-	missilePtr->_y = newY;	
-	if(wallReached(missilePtr))
-	{
-		die(missilePtr);
-		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
-		#if defined(FULL_GAME)
-			// TODO: Implement this
-			//DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
-		#endif
-		return 0;
-	}
-	return 1;
-}
-	
-void moveMissile(Character * missilePtr, unsigned short missileDirection)
+
+void _moveMissile(Character *missilePtr, unsigned short missileDirection)
 {
 	DELETE_MISSILE(missilePtr->_x,missilePtr->_y,missilePtr->_imagePtr);
 	switch(missileDirection)
@@ -145,7 +109,31 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 		case LEFT:
 			--missilePtr->_x;
 		break;
+	}	
+}
+
+unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
+							  unsigned short missileDirection)
+{
+	missilePtr->_x = playerPtr->_x; 
+	missilePtr->_y = playerPtr->_y;
+	_moveMissile(missilePtr, missileDirection);
+	if(wallReached(missilePtr))
+	{
+		die(missilePtr);
+		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
+		#if defined(FULL_GAME)
+			// TODO: Implement this
+			//DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+		#endif
+		return 0;
 	}
+	return 1;
+}
+	
+void moveMissile(Character * missilePtr, unsigned short missileDirection)
+{
+	_moveMissile(missilePtr, missileDirection);
 	if(wallReached(missilePtr))
 	{
 		die(missilePtr);

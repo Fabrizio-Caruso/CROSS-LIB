@@ -126,9 +126,8 @@ void displayStatsTitles(void)
 		cputc('E'+128); 		
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		//PRINT(1,0-Y_OFFSET,"SPEED:");
-		PRINT(1,0-Y_OFFSET,"SCORE:");
-		PRINT(1,1-Y_OFFSET,"LEVEL:");
+		PRINT(0,0-Y_OFFSET,"SCORE:");
+		//PRINT(1,1-Y_OFFSET,"LEVEL:");
 	#elif defined(__MSX__)
 			PRINT(2,-Y_OFFSET+1,"SCORE:");
 			PRINT(2,-Y_OFFSET+2,"LEVEL:");	
@@ -165,7 +164,7 @@ void displayStatsTitles(void)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(15+1,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(15-3,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(15+20,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
+		// gotoxy(15+20,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(18+1,0); cputc(GUN_IMAGE._imageData);cputc(':');
@@ -232,7 +231,7 @@ void printLevelStats(void)
 	#if defined(__ATMOS__) 
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINTF(7,1-Y_OFFSET,"%02hu", level);
+		// PRINTF(7,1-Y_OFFSET,"%02hu", level);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__CBM__) && !defined(__VIC20__) && !defined(__C16__)) 
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
@@ -276,7 +275,7 @@ void printLivesStats(void)
 	#if defined (__ATMOS__)
 		PRINTF(19-1,1-Y_OFFSET,"%02hu",lives);	
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINTF(15+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
+		// PRINTF(15+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
@@ -297,7 +296,7 @@ void displayStats(void)
 	#if defined(__ATMOS__) 
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINTF(7,0-Y_OFFSET,"%05u0",points);
+		PRINTF(6,0-Y_OFFSET,"%05u0",points);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__CBM__) && !defined(__VIC20__) && !defined(__C16__)) 
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);
 	#elif defined(__SPECTRUM__) || defined(__CPC__)
@@ -508,7 +507,7 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_BROWN);
 		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
 		SET_TEXT_COLOR(TEXT_COLOR);	
-	#elif defined(__ATMOS__)
+	#elif defined(__ATMOS__) 
 		POKE(0xBB80+3*40,16);POKE(0xBB80+1+3*40,1); POKE(0xBB80+2+3*40,14);
 		POKE(0xBB80+4*40,16);POKE(0xBB80+1+4*40,1); POKE(0xBB80+2+4*40,14);
 		POKE(0xBB80+5*40,16);POKE(0xBB80+1+5*40,1); POKE(0xBB80+2+5*40,14);
@@ -609,15 +608,6 @@ void printStartMessage(void)
 	#endif // __PLUS4__
 
 	#if defined(__VIC20__) 
-		// PRINT(1, YSize / 2 - 3, "You are chased by O");
-		
-		// PRINT(1, YSize / 2 - 2, "Force O into X");
-		
-		// PRINT(1, YSize / 2 - 1, "S to slows O down");
-		
-		// PRINT(1, YSize / 2, "Catch ! for bullets");
-		
-		// PRINT(1, YSize / 2 + 1, "Flee from +!");
 		PRINT(3, YSize/2 - 2, "Lure the enemies");
 
 		PRINT(3, YSize/2 - 1, " into the mines");

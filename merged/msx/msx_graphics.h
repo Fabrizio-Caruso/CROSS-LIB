@@ -81,7 +81,7 @@ void INIT_GRAPHICS(void)
 		// {
 			// msx_vpoke(8192+4+i,16*(i+1));
 		// }
-		msx_vpoke(8192+ 4,11*16); // White !, $ -- 32 - 39
+		msx_vpoke(8192+ 4,10*16); // White !, $ -- 32 - 39
 		msx_vpoke(8192+ 5, 2*16); // Green  -- 40 - 47
 		msx_vpoke(8192+ 6, 4*16); // Green -- 48 - 55
 		msx_vpoke(8192+ 7, 4*16); // Green -- 56 - 63

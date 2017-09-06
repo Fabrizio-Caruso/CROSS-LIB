@@ -479,12 +479,14 @@ void _delete(unsigned char x, unsigned char y);
 	#define CLEAR_SCREEN() {printf("\xc");};
 #elif defined(__CPC__) 
 	#define SET_TEXT_COLOR(c) {};
+	//printf("\020%c",c);
+	//{printf("\x1B[%d;40m",c);};
 
 	#define SET_BORDER_COLOR(c) {};
 
 	#define SET_BACKGROUND_COLOR(c) {};	
 
-	#define CLEAR_SCREEN() {printf("\x1B[37;44m\x1B[2J");};
+	#define CLEAR_SCREEN() {printf("\x1B[37;40m\x1B[2J");};
 #elif defined(__VG5K__) 
 	#define SET_TEXT_COLOR(c) {};
 
@@ -496,7 +498,7 @@ void _delete(unsigned char x, unsigned char y);
 	
 #elif defined(__MSX__)
 	#include <conio.h>
-	#define SET_TEXT_COLOR(c) {printf("\020%c",c);};
+	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};
 

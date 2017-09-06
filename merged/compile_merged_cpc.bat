@@ -37,7 +37,7 @@ cd %mypath%\
 @REM -DDEBUG_CHARACTERS
 @REM -O3
 @REM 
-zcc +cpc -vn -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\MINIMAL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +cpc -O3 -vn -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\MINIMAL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 @REM 
 cd %mypath%\..\tools\2cdt

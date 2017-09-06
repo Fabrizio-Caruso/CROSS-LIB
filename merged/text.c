@@ -140,6 +140,8 @@ void displayStatsTitles(void)
 			SET_TEXT_COLOR(4);	
 			PRINT(24,-Y_OFFSET+1,"CROSS CHASE");	
 	#elif defined(__CPC__)
+			PRINT(0,0-Y_OFFSET,"SCORE:");
+			PRINT(0,1-Y_OFFSET,"LEVEL:");
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		#if defined(__VIC20__) || defined(__C16__)
@@ -240,6 +242,7 @@ void printLevelStats(void)
 	#elif defined(__SPECTRUM__) 
 		PRINTF(8,1-Y_OFFSET,"%02d", level);	
 	#elif defined(__CPC__)
+		PRINTF(8,2-Y_OFFSET,"%02u", level);
 	#elif defined(__MSX__)
 		PRINTF(8,1+1-Y_OFFSET,"%02u", level);	
 	#elif defined(__VG5K__)
@@ -309,6 +312,7 @@ void displayStats(void)
 	#elif defined(__SPECTRUM__)
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);
 	#elif defined(__CPC__)
+		PRINTF(8,1-Y_OFFSET,"%05u0",points);		
 	#elif defined(__MSX__)
 		PRINTF(8,1+0-Y_OFFSET,"%05u0",points);	
 	#elif defined(__VG5K__)

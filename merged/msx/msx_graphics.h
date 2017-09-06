@@ -116,7 +116,7 @@ void INIT_IMAGES(void)
 	POWERUP_IMAGE._imageData = 'S';
 	GUN_IMAGE._imageData = '!';
 	MISSILE_IMAGE._imageData = '.';
-	DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+	DEAD_GHOST_IMAGE._imageData = 'O';
 
 	GHOST_IMAGE._color = COLOR_WHITE;
 	MISSILE_IMAGE._color = COLOR_WHITE;

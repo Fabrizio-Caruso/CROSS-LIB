@@ -138,7 +138,8 @@ void displayStatsTitles(void)
 			// 3 cyan
 			// 4 red
 			SET_TEXT_COLOR(4);	
-			PRINT(24,-Y_OFFSET+1,"CROSS CHASE");			
+			PRINT(24,-Y_OFFSET+1,"CROSS CHASE");	
+	#elif defined(__CPC__)
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		#if defined(__VIC20__) || defined(__C16__)
@@ -214,8 +215,9 @@ void printGunsStats(void)
 		PRINTF(15+2+1-5-1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
-	#elif defined(__SPECTRUM__) || defined(__CPC__)
+	#elif defined(__SPECTRUM__) 
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%d",guns);	
+	#elif defined(__CPC__) 	
 	#elif defined(__MSX__)	
 		PRINTF(18+2+1-X_OFFSET,1+0-Y_OFFSET,"%u",guns);	
 	#elif defined(__VG5K__)	
@@ -235,8 +237,9 @@ void printLevelStats(void)
 		PRINTF(15+2+1-5+4-1+2-X_OFFSET,0-Y_OFFSET,"%02hu",level);	
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__CBM__) && !defined(__VIC20__) && !defined(__C16__)) 
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
-	#elif defined(__SPECTRUM__) || defined(__CPC__)
+	#elif defined(__SPECTRUM__) 
 		PRINTF(8,1-Y_OFFSET,"%02d", level);	
+	#elif defined(__CPC__)
 	#elif defined(__MSX__)
 		PRINTF(8,1+1-Y_OFFSET,"%02u", level);	
 	#elif defined(__VG5K__)
@@ -258,8 +261,9 @@ void printGhostCountStats(void)
 		PRINTF(15+2-X_OFFSET-3-2-3,0-Y_OFFSET,"%hu",ghostCount);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%hu",ghostCount);
-	#elif defined(__SPECTRUM__) || defined(__CPC__)
-		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%d",ghostCount);	
+	#elif defined(__SPECTRUM__)
+		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%d",ghostCount);
+	#elif defined(__CPC__)
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET-3,1+0-Y_OFFSET,"%u",ghostCount);
 	#elif defined(__VG5K__)	
@@ -280,8 +284,9 @@ void printLivesStats(void)
 		// PRINTF(15+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
-	#elif defined(__SPECTRUM__) || defined(__CPC__)
-		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02d",lives);	
+	#elif defined(__SPECTRUM__)
+		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02d",lives);
+	#elif defined(__CPC__)
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET,1+1-Y_OFFSET,"%02u",lives);	
 	#elif defined(__VG5K__)
@@ -301,8 +306,9 @@ void displayStats(void)
 		PRINTF(3-3,0-Y_OFFSET,"%05u0",points);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__CBM__) && !defined(__VIC20__) && !defined(__C16__)) 
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);
-	#elif defined(__SPECTRUM__) || defined(__CPC__)
-		PRINTF(8,0-Y_OFFSET,"%05u0",points);	
+	#elif defined(__SPECTRUM__)
+		PRINTF(8,0-Y_OFFSET,"%05u0",points);
+	#elif defined(__CPC__)
 	#elif defined(__MSX__)
 		PRINTF(8,1+0-Y_OFFSET,"%05u0",points);	
 	#elif defined(__VG5K__)
@@ -352,6 +358,8 @@ void printCenteredMessage(char *Text)
 
 		printCenteredMessage(levelString);
 	}
+#elif defined(__CPC__)
+	void printLevel(void) {}
 #else
 	void printLevel(void)
 	{

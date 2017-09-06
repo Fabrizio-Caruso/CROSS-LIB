@@ -61,12 +61,10 @@ Image INVINCIBILITY_IMAGE;
 
 extern unsigned char XSize;
 
-#define CPC_WHITE 255
-#define CPC_BLACK 0
-#define CPC_RED 128
-#define CPC_YELLOW 160
-#define CPC_BROWN 180
-#define CPC_CYAN 8
+#define CPC_BLUE 2
+#define CPC_RED 4
+#define CPC_YELLOW 0
+#define CPC_CYAN 3
 
 void INIT_GRAPHICS(void)
 {
@@ -79,7 +77,7 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._color = CPC_CYAN;
 	INVINCIBLE_GHOST_IMAGE._color = CPC_YELLOW;
 	POWERUP_IMAGE._color = CPC_YELLOW;
-	GUN_IMAGE._color = CPC_BROWN;
+	GUN_IMAGE._color = CPC_CYAN;
 	BOMB_IMAGE._color = CPC_RED;
 	DEAD_GHOST_IMAGE._color = CPC_RED;
 	EXTRA_POINTS_IMAGE._color = CPC_YELLOW;
@@ -95,16 +93,16 @@ void INIT_IMAGES(void)
 	MISSILE_IMAGE._imageData = '.';
 	DEAD_GHOST_IMAGE._imageData = 'O';
 
-	GHOST_IMAGE._color = CPC_WHITE;
-	MISSILE_IMAGE._color = CPC_WHITE;
+	GHOST_IMAGE._color = CPC_CYAN;
+	MISSILE_IMAGE._color = CPC_CYAN;
 
 	LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-	LEFT_ENEMY_MISSILE_IMAGE._color = CPC_WHITE;
+	LEFT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;
 	RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-	RIGHT_ENEMY_MISSILE_IMAGE._color = CPC_WHITE;	
+	RIGHT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;	
 	
 	BUBBLE_IMAGE._imageData = '^';
-	BUBBLE_IMAGE._color = CPC_WHITE;
+	BUBBLE_IMAGE._color = CPC_CYAN;
 	
 	EXTRA_POINTS_IMAGE._imageData = '$';
 	
@@ -116,15 +114,14 @@ void INIT_IMAGES(void)
 void _draw_broken_wall(unsigned char x, unsigned char y)
 {
 	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-	SET_TEXT_COLOR(COLOR_WHITE);
+	SET_TEXT_COLOR(CPC_CYAN);
 	cputc('X');
 }
 
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
 	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
-	// TODO: Implement colors 
-	//SET_TEXT_COLOR(image->_color);
+	SET_TEXT_COLOR(image->_color);
 	_DRAW
 }
 
@@ -139,6 +136,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	if(*blinkCounter) 
 	{
+		SET_TEXT_COLOR(image->_color);
 		_DRAW
 		*blinkCounter=0;
 	} 

@@ -60,8 +60,6 @@
 #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
 #define PEEK(addr)         (*(unsigned char*) (addr))
 #define PEEKW(addr) (*(unsigned*) (addr))
-//#define DEBUG_CHARACTERS
-
 
 
 unsigned short invincibleSlowDown;

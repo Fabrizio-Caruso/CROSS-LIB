@@ -478,7 +478,7 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define CLEAR_SCREEN() {printf("\xc");};
 #elif defined(__CPC__) 
-	#define SET_TEXT_COLOR(c) {};
+	#define SET_TEXT_COLOR(c) textcolor(c);
 	//printf("\020%c",c);
 	//{printf("\x1B[%d;40m",c);};
 

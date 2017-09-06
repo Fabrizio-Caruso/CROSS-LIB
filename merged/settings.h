@@ -63,7 +63,9 @@
 
 // Possible current values are 6,7,8
 #if defined(__CPC__) 
-	#define GHOSTS_NUMBER 6
+	#define GHOSTS_NUMBER 7
+#elif defined(__MSX__) 
+	#define GHOSTS_NUMBER 7	
 #elif defined(__SPECTRUM__) 
 	#define GHOSTS_NUMBER 7
 #elif defined(__VIC20__)

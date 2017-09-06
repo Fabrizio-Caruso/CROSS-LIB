@@ -177,31 +177,29 @@ void displayStatsTitles(void)
 	#elif defined(__CPC__)	 
 		// TODO: to implement
 		// SET_TEXT_COLOR(TEXT_COLOR);	
-		// gotoxy(18+1,0+1); cputc(GUN_IMAGE._imageData);cputc(':');
-		// gotoxy(18-3,0+1); cputc(GHOST_IMAGE._imageData);cputc(':');
-		// gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+		gotoxy(18+1,0+1); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(18-3,0+1); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#elif defined(__MSX__)
-			SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(18+1,1+0); cputc(GUN_IMAGE._imageData);cputc(':');
-			gotoxy(18-3,1+0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		gotoxy(18+1,1+0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(18-3,1+0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#elif defined(__VG5K__)	
-			//SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(1+18+1,1+0); cputc(GUN_IMAGE._imageData);cputc(':');
-			gotoxy(1+18-3,1+0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(1+18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');				
+		//SET_TEXT_COLOR(TEXT_COLOR);	
+		gotoxy(1+18+1,1+0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(1+18-3,1+0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(1+18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');				
+	#elif defined(__VIC20__)
+		SET_TEXT_COLOR(TEXT_COLOR);		
+		gotoxy(18+1-2,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(18-3-2,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18-2,1); cputc(PLAYER_IMAGE._imageData);cputc(':');
 	#else
-		#if defined(__VIC20__)
-			SET_TEXT_COLOR(TEXT_COLOR);		
-			gotoxy(18+1-2,0); cputc(GUN_IMAGE._imageData);cputc(':');
-			gotoxy(18-3-2,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(18-2,1); cputc(PLAYER_IMAGE._imageData);cputc(':');
-		#else
-			SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(18+1,0); cputc(GUN_IMAGE._imageData);cputc(':');
-			gotoxy(18-3,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(18,1); cputc(PLAYER_IMAGE._imageData);cputc(':');
-		#endif
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		gotoxy(18+1,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(18-3,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18,1); cputc(PLAYER_IMAGE._imageData);cputc(':');
 	#endif
 
 }
@@ -220,6 +218,7 @@ void printGunsStats(void)
 	#elif defined(__SPECTRUM__) 
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%d",guns);	
 	#elif defined(__CPC__) 	
+		PRINTF(18+2+1-X_OFFSET,1+0-Y_OFFSET,"%u",guns);		
 	#elif defined(__MSX__)	
 		PRINTF(18+2+1-X_OFFSET,1+0-Y_OFFSET,"%u",guns);	
 	#elif defined(__VG5K__)	
@@ -267,6 +266,7 @@ void printGhostCountStats(void)
 	#elif defined(__SPECTRUM__)
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%d",ghostCount);
 	#elif defined(__CPC__)
+		PRINTF(18+2-X_OFFSET-3,1+0-Y_OFFSET,"%u",ghostCount);	
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET-3,1+0-Y_OFFSET,"%u",ghostCount);
 	#elif defined(__VG5K__)	
@@ -290,6 +290,7 @@ void printLivesStats(void)
 	#elif defined(__SPECTRUM__)
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02d",lives);
 	#elif defined(__CPC__)
+		PRINTF(18+2-X_OFFSET,1+1-Y_OFFSET,"%02u",lives);	
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET,1+1-Y_OFFSET,"%02u",lives);	
 	#elif defined(__VG5K__)
@@ -314,7 +315,7 @@ void displayStats(void)
 	#elif defined(__CPC__)
 		PRINTF(8,1-Y_OFFSET,"%05u0",points);		
 	#elif defined(__MSX__)
-		PRINTF(8,1+0-Y_OFFSET,"%05u0",points);	
+		PRINTF(8,1-Y_OFFSET,"%05u0",points);	
 	#elif defined(__VG5K__)
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);			
 	#elif defined(__VIC20__) || defined(__C16__)

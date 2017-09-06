@@ -36,30 +36,30 @@ cd %mypath%\
 @REM CPC HALF-WORKINg
 @REM -DDEBUG_CHARACTERS
 @REM -O3
-@REM zcc +cpc -vn -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\MINIMAL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
-
-@REM cd %mypath%\..\tools\2cdt
-@REM 2cdt.exe -n -r cross_chase %deliverables%\MINIMAL_cpc_experimental.cpc  %deliverables%\MINIMAL_cpc_experimental.cdt
-
 @REM 
-@REM del %deliverables%\MINIMAL_cpc_experimental.cpc
-@REM del %deliverables%\MINIMAL_cpc_experimental.prg
-@REM 
-
-
-@REM -O3
-@REM 
-zcc +cpc -vn -DFULL_GAME -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\FULL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +cpc -vn -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\MINIMAL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 @REM 
 cd %mypath%\..\tools\2cdt
 @REM 
-2cdt.exe -n -r cross_chase %deliverables%\FULL_cpc_experimental.cpc  %deliverables%\FULL_cpc_experimental.cdt
+2cdt.exe -n -r cross_chase %deliverables%\MINIMAL_cpc_experimental.cpc  %deliverables%\MINIMAL_cpc_experimental.cdt
 
 @REM 
-del %deliverables%\FULL_cpc_experimental.cpc
 @REM 
-del %deliverables%\FULL_cpc_experimental.prg
+del %deliverables%\MINIMAL_cpc_experimental.cpc
+@REM 
+del %deliverables%\MINIMAL_cpc_experimental.prg
+@REM 
+
+
+@REM -O3
+@REM zcc +cpc -vn -DFULL_GAME -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\FULL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+
+@REM cd %mypath%\..\tools\2cdt
+@REM 2cdt.exe -n -r cross_chase %deliverables%\FULL_cpc_experimental.cpc  %deliverables%\FULL_cpc_experimental.cdt
+
+@REM del %deliverables%\FULL_cpc_experimental.cpc
+@REM del %deliverables%\FULL_cpc_experimental.prg
 @REM 
 
 del %mypath%\*.o

@@ -397,7 +397,7 @@ extern unsigned char guns;
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_inkey());}		
 		#endif
 	#elif defined(__MSX__)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());} // TODO: use something else
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}
 	#elif defined(__CPC__) || defined(__SC3000__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
 	#elif defined(__VG5K__) 

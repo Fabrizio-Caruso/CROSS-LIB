@@ -116,7 +116,7 @@
 // Points given by extra points bonus: 
 // EXTRA_POINTS (X 2 in boss levels) + level X EXTRA_POINTS_LEVEL_INCREASE
 #define EXTRA_POINTS 250UL 
-#define EXTRA_POINTS_LEVEL_INCREASE 2UL
+#define EXTRA_POINTS_LEVEL_INCREASE 5UL
 
 
 // If a ghost bumps into a bomb

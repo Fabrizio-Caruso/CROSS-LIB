@@ -77,11 +77,21 @@ void INIT_GRAPHICS(void)
 	#if defined(MSX_MODE1)
 		set_mode(mode_1);
 		
-		for(i=0;i<8;++i)
-		{
-			msx_vpoke(8192+4+i,16*(i+1));
-		}
-		msx_vpoke(8192+4,11*16);
+		// for(i=0;i<8;++i)
+		// {
+			// msx_vpoke(8192+4+i,16*(i+1));
+		// }
+		msx_vpoke(8192+ 4,11*16); // White !, $ -- 32 - 39
+		msx_vpoke(8192+ 5, 2*16); // Green  -- 40 - 47
+		msx_vpoke(8192+ 6, 4*16); // Green -- 48 - 55
+		msx_vpoke(8192+ 7, 4*16); // Green -- 56 - 63
+		
+		msx_vpoke(8192+ 8, 8*16); // Red 64 --
+		msx_vpoke(8192+ 9, 8*16); // Red 72 --
+		msx_vpoke(8192+10, 8*16); // Red 80 --
+		msx_vpoke(8192+11, 8*16); // Red 88 --
+		
+		
 
 	#endif
 }

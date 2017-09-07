@@ -64,20 +64,6 @@
 		#include "atmos/atmos_input.h"
 	#elif defined(__ATARI__) || defined(__ATARIXL__)
 		#include "atari/atari_input.h"
-	// #elif defined(__SPECTRUM__)
-		// #include <input.h>
-		// #if defined(SPECTRUM_NATIVE_DIRECTIVES)
-			// #include <spectrum.h>
-			// #define GET_CHAR() {in_Inkey();};
-		// #else
-			// #define GET_CHAR() {in_inkey();};
-		// #endif
-	// #elif defined(__CPC__) || defined(__ZX81__) || defined(__MSX__) || defined(__SC3000__) || defined(__M5__) || defined(__VG5K__) || defined(__AQUARIUS__)
-		// #define GET_CHAR() (unsigned int) getk();
-	// #else
-		// #ifndef GET_CHAR()
-			// #define GET_CHAR() cgetc();
-		// #endif
 	#endif
 
 
@@ -99,7 +85,7 @@
 	#endif
 				
 	// Move player
-	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__)
+	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__MSX__)
 		void movePlayerByKeyboard(unsigned char kbInput);
 		void WAIT_KEY_PRESS(void);
 		#define WAIT_PRESS() WAIT_KEY_PRESS();
@@ -107,6 +93,10 @@
 		void movePlayerByKeyboard(unsigned char kbInput);
 		void WAIT_KEY_PRESS(void);
 		#define WAIT_PRESS() WAIT_KEY_PRESS();
+	#elif defined(__MSX__)
+		void movePlayerByJoystick(unsigned char joyInput);
+		void WAIT_KEY_PRESS(void);
+		#define WAIT_PRESS() WAIT_KEY_PRESS();	
 	#else // All CBM except CBM610 + ATARI + ATARI XL
 		void movePlayerByJoystick(unsigned char joyInput);
 		#if defined(__C16__)

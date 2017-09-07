@@ -180,9 +180,9 @@ extern unsigned char guns;
 		#endif
 	}
 #elif defined(__MSX__)
-	void movePlayerByKeyboard(unsigned char kbInput)
+	void movePlayerByJoystick(unsigned char joyInput)
 	{
-		if(kbInput=='i')
+		if(joyInput==1)
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			--player._y;
@@ -190,7 +190,7 @@ extern unsigned char guns;
 			playerDirection = UP;
 			SHOW_UP();
 		}
-		else if(kbInput=='k')
+		else if(joyInput==5)
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			++player._y;
@@ -198,7 +198,7 @@ extern unsigned char guns;
 			playerDirection = DOWN;
 			SHOW_DOWN();
 		}
-		else if(kbInput=='j')
+		else if(joyInput==7)
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			--player._x;
@@ -206,7 +206,7 @@ extern unsigned char guns;
 			playerDirection = LEFT;
 			SHOW_LEFT();
 		}
-		else if(kbInput=='l')
+		else if(joyInput==3)
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			++player._x;
@@ -214,7 +214,7 @@ extern unsigned char guns;
 			playerDirection = RIGHT;
 			SHOW_RIGHT();
 		}
-		else if(kbInput=='z' && guns>0 && !missile._status)
+		else if(joyInput==9 && guns>0 && !missile._status)
 		{
 			playerFire = 1;
 		}
@@ -501,7 +501,8 @@ extern unsigned char guns;
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_inkey());}		
 		#endif
 	#elif defined(__MSX__)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}
+		#include<msx/gfx.h>
+		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByJoystick(get_stick(0));} else movePlayerByJoystick(9);}
 	#elif defined(__CPC__) || defined(__SC3000__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
 	#elif defined(__VG5K__) 

@@ -34,10 +34,6 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
-#include <stdlib.h>
-
-#define C64_HARDWARE_SPRITES 0
-
 #if defined(__VIC20__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 300
@@ -58,12 +54,10 @@
 	#define GAME_SLOW_DOWN 1200	
 #elif defined(__MSX__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 300		
+	#define GAME_SLOW_DOWN 250		
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
-
-//#define FAST_NONEXACT_COLLISION_DECTION
 
 #define BOMBS_NUMBER 4
 
@@ -80,7 +74,7 @@
 	#define GHOSTS_NUMBER 8
 #endif
 	
-#if defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__SPECTRUM__) || defined(__CPC__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define BUBBLES_NUMBER 2
 #else
 	#define BUBBLES_NUMBER 4
@@ -97,9 +91,6 @@
 #else
 	#define TEXT_COLOR COLOR_WHITE
 #endif
-
-#define GHOST_VS_GHOST_COLLISION_LEVEL 16
-#define GHOST_VS_GHOST_COLLISION_START 200
 
 #define EXTRA_LIFE_THROUGH_POINTS 2000UL
 
@@ -128,7 +119,6 @@
 #define EXTRA_POINTS 250UL 
 #define EXTRA_POINTS_LEVEL_INCREASE 5UL
 
-
 // If a ghost bumps into a bomb
 #define GHOST_VS_BOMBS_BONUS 25UL
 
@@ -141,23 +131,19 @@
 // Extra points for the power up
 #define GUN_BONUS 30UL
 
-// Points for each tick
-#define LOOP_POINTS 1UL
-
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 50UL
 
-#if defined(__CBM610__) || defined(__CPC__) || defined(__MSX__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__CBM610__) || defined(__CPC__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000
 	#define INITIAL_SKULL_SLOWDOWN 32000	
-#elif defined(__VG5K__)
+#elif defined(__VG5K__) || defined(__MSX__) 
 	#define INITIAL_ENEMY_SLOWDOWN 29000
 	#define INITIAL_SKULL_SLOWDOWN 30000	
 #else
 	#define INITIAL_ENEMY_SLOWDOWN 28000
 	#define INITIAL_SKULL_SLOWDOWN 29000
 #endif
-
 
 #define INITIAL_LEVEL 1
 
@@ -182,6 +168,6 @@
 
 #define INVINCIBLE_COUNT_DOWN 80
 
-#define INVINCIBLE_LOOP_TRIGGER (700 - level*15)
+#define INVINCIBLE_LOOP_TRIGGER (610 - level*15)
 
 #endif // _SETTINGS

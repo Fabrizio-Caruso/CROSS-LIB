@@ -167,21 +167,19 @@ void _delete(unsigned char x, unsigned char y);
 #define DELETE_EXTRA_LIFE(x,y,image) {_delete(x,y);};
 #define DELETE_INVINCIBILITY(x,y,image) {_delete(x,y);};	
 	
+#define DRAW_BOMBS() \
+{ \
+	unsigned char i = 0; \
+	for(;i<BOMBS_NUMBER;++i) \
+	{ \
+		DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr); \
+	} \
+}
 	
 #if defined(__ATMOS__)
 	#include<peekpoke.h>
 
 	#define DRAW_BROKEN_WALL(x,y) {gotoxy(x+X_OFFSET,(y+Y_OFFSET)); cputc('X' + 128);};
-	
-
-	#define DRAW_BOMBS() \
-	{ \
-		unsigned char i; \
-		for(i=0;i<BOMBS_NUMBER;++i) \
-		{ \
-			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr); \
-		} \
-	}
 
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 
@@ -238,9 +236,7 @@ void _delete(unsigned char x, unsigned char y);
 	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
 
 	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1)
-	
-	void DRAW_BOMBS(void);
-	
+
 	void DRAW_BORDERS(void);
 	
 	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str,val); };
@@ -254,15 +250,6 @@ void _delete(unsigned char x, unsigned char y);
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
 	
 	void _draw_broken_wall(unsigned char x, unsigned char y);	
-	
-	#define DRAW_BOMBS() \
-	{ \
-		unsigned char i = 0; \
-		for(;i<BOMBS_NUMBER;++i) \
-		{ \
-			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr); \
-		} \
-	}
 
 	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); };
@@ -288,15 +275,6 @@ void _delete(unsigned char x, unsigned char y);
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);}; //{gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
 		
 	void _draw_broken_wall(unsigned char x, unsigned char y);
-	
-	#define DRAW_BOMBS() \
-	{ \
-		unsigned char i = 0; \
-		for(;i<BOMBS_NUMBER;++i) \
-		{ \
-			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr); \
-		} \
-	}
 	
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	
@@ -370,15 +348,6 @@ void _delete(unsigned char x, unsigned char y);
 	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
 
 	//void _draw_broken_wall(unsigned char x, unsigned char y);	
-
-	#define DRAW_BOMBS() \
-	{ \
-		unsigned char i = 0; \
-		for(;i<BOMBS_NUMBER;++i) \
-		{ \
-			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr); \
-		} \
-	}
 
 	// #if defined(__AQUARIUS__)
 		// #define PRINT(x,y,str)

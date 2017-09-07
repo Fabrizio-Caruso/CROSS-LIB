@@ -193,15 +193,6 @@
 		DRAW_VERTICAL_BORDER(XSize-1);
 	}	
 	
-	void DRAW_BOMBS(void) 
-	{
-		unsigned char i;
-		for(i=0;i<BOMBS_NUMBER;++i)
-		{
-			DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr);
-		}
-	}	
-	
 	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 	{
 		no_cursor();		

@@ -66,6 +66,7 @@ extern unsigned char XSize;
 #define CPC_YELLOW 0
 #define CPC_CYAN 3
 
+
 void INIT_GRAPHICS(void)
 {
 
@@ -74,10 +75,10 @@ void INIT_GRAPHICS(void)
 void INIT_IMAGES(void)
 {		
 
-	PLAYER_IMAGE._color = CPC_CYAN;
+	PLAYER_IMAGE._color = CPC_YELLOW;
 	INVINCIBLE_GHOST_IMAGE._color = CPC_YELLOW;
 	POWERUP_IMAGE._color = CPC_YELLOW;
-	GUN_IMAGE._color = CPC_CYAN;
+	GUN_IMAGE._color = CPC_YELLOW;
 	BOMB_IMAGE._color = CPC_RED;
 	DEAD_GHOST_IMAGE._color = CPC_RED;
 	EXTRA_POINTS_IMAGE._color = CPC_YELLOW;
@@ -114,15 +115,20 @@ void INIT_IMAGES(void)
 void _draw_broken_wall(unsigned char x, unsigned char y)
 {
 	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-	SET_TEXT_COLOR(CPC_CYAN);
+	#if defined(CPC_NO_COLOR)
+	#else
+		SET_TEXT_COLOR(CPC_CYAN);
+	#endif
 	cputc('X');
 }
 
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
 	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
-	SET_TEXT_COLOR(image->_color);
-	//vtrendition(CPC_CYAN);
+	#if defined(CPC_NO_COLOR)
+	#else
+		SET_TEXT_COLOR(image->_color);
+	#endif
 	_DRAW
 }
 
@@ -137,7 +143,10 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	if(*blinkCounter) 
 	{
-		SET_TEXT_COLOR(image->_color);
+		#if defined(CPC_NO_COLOR)
+		#else
+			SET_TEXT_COLOR(image->_color);
+		#endif
 		_DRAW
 		*blinkCounter=0;
 	} 
@@ -151,6 +160,10 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 { 
 	unsigned char i;
+	#if defined(CPC_NO_COLOR)
+	#else
+		SET_TEXT_COLOR(CPC_CYAN);
+	#endif	
 	for(i=0;i<length;++i)
 	{
 		gotoxy(x+1+X_OFFSET,y+i+Y_OFFSET);
@@ -161,6 +174,10 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 {
 	unsigned char i;
+	#if defined(CPC_NO_COLOR)
+	#else
+		SET_TEXT_COLOR(CPC_CYAN);
+	#endif	
 	gotoxy(X_OFFSET+1+x,Y_OFFSET+y); 
 	for(i=0;i<length;++i)
 	{

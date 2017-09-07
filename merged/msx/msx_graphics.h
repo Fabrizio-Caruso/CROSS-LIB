@@ -63,12 +63,13 @@ extern unsigned char XSize;
 	#define BASE 0
 #endif
 #if defined(VPOKE) 
-	#define _DRAW   msx_vpoke(BASE+x+2+X_OFFSET+(y-1+Y_OFFSET)*(XSize+3),image->_imageData);
-	#define _DELETE msx_vpoke(BASE+x+2+X_OFFSET+(y-1+Y_OFFSET)*(XSize+3),' ');
+	#define _DRAW(x,y,image) msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),image->_imageData);
+	#define _DELETE(x,y)     msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),' ');
+	#define _DRAW_WALL(x,y)  msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),'|');
 #else
-	#define _DRAW 	cputc(image->_imageData);
-	#define _DELETE cputc(' '); 
-
+	#define _DRAW(x,y,image) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData);}
+	#define _DELETE(x,y)     {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' ');} 
+	#define _DRAW_WALL(x,y)  {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|');}
 #endif
 
 void INIT_GRAPHICS(void)
@@ -76,11 +77,7 @@ void INIT_GRAPHICS(void)
 	unsigned char i;	set_color(15, 1, 1);
 	#if defined(MSX_MODE1)
 		set_mode(mode_1);
-		
-		// for(i=0;i<8;++i)
-		// {
-			// msx_vpoke(8192+4+i,16*(i+1));
-		// }
+
 		msx_vpoke(8192+ 4,10*16); // White !, $ -- 32 - 39
 		msx_vpoke(8192+ 5, 2*16); // Green  -- 40 - 47
 		msx_vpoke(8192+ 6, 4*16); // Green -- 48 - 55
@@ -90,9 +87,6 @@ void INIT_GRAPHICS(void)
 		msx_vpoke(8192+ 9, 8*16); // Red 72 --
 		msx_vpoke(8192+10, 8*16); // Red 80 --
 		msx_vpoke(8192+11, 8*16); // Red 88 --
-		
-		
-
 	#endif
 }
 
@@ -145,15 +139,12 @@ void _draw_broken_wall(unsigned char x, unsigned char y)
 
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
-	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
-	SET_TEXT_COLOR(image->_color);
-	_DRAW
+	_DRAW(x,y,image);
 }
 
 void _delete(unsigned char x, unsigned char y)
 {
-	gotoxy(x+1+X_OFFSET,y+Y_OFFSET);
-	_DELETE
+	_DELETE(x,y);
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
@@ -161,12 +152,12 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	if(*blinkCounter) 
 	{
-		_DRAW
+		_DRAW(x,y,image);
 		*blinkCounter=0;
 	} 
 	else 
 	{
-		_DELETE
+		_DELETE(x,y);
 		*blinkCounter=1;
 	}	
 }
@@ -177,8 +168,7 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	unsigned char i;
 	for(i=0;i<length;++i)
 	{
-		gotoxy(x+1+X_OFFSET,y+i+Y_OFFSET);
-		cputc('|');
+		_DRAW_WALL(x,y+i)
 	}
 }
 

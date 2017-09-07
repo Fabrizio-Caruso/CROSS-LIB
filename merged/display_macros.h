@@ -106,9 +106,9 @@ typedef struct ImageStruct Image;
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_32COL)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__MSX__) && !defined(MSX_MODE1)
-	#define GET_SCREEN_SIZE(x,y) {*x=37-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=40-1-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__MSX__) && defined(MSX_MODE1)
-	#define GET_SCREEN_SIZE(x,y) {*x=29-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=32-1-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__CPC__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 
@@ -421,7 +421,7 @@ void _delete(unsigned char x, unsigned char y);
 		{ \
 			unsigned char i; \
 			gotoxy(X_OFFSET+1,Y_OFFSET+y);  \
-			for(i=0;i<XSize-1;++i) \
+			for(i=0;i<29;++i) \
 			{ \
 				cputc('-'); \
 			} \
@@ -432,8 +432,6 @@ void _delete(unsigned char x, unsigned char y);
 			{ \
 				DRAW_HORIZONTAL_BORDER(0); \
 				DRAW_HORIZONTAL_BORDER(YSize-1); \
-				DRAW_VERTICAL_BORDER(0) \
-				DRAW_VERTICAL_BORDER(XSize+1) \
 			}
 		#else
 			#define DRAW_BORDERS() \

@@ -55,7 +55,10 @@
 	#define GAME_SLOW_DOWN 500	
 #elif defined(__AQUARIUS__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 1200		
+	#define GAME_SLOW_DOWN 1200	
+#elif defined(__MSX__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 300		
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
@@ -67,8 +70,6 @@
 // Possible current values are 6,7,8
 #if defined(__CPC__) 
 	#define GHOSTS_NUMBER 7
-#elif defined(__MSX__) 
-	#define GHOSTS_NUMBER 7	
 #elif defined(__SPECTRUM__) 
 	#define GHOSTS_NUMBER 7
 #elif defined(__VIC20__)

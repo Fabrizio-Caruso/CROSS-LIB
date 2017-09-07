@@ -53,6 +53,9 @@
 #elif defined(__VG5K__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 500	
+#elif defined(__AQUARIUS__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 1200		
 #else
 	#define GAME_SLOW_DOWN 0
 #endif

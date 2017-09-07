@@ -116,7 +116,7 @@ typedef struct ImageStruct Image;
 #elif defined(__SC3000__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=38-X_OFFSET; *y=24-Y_OFFSET;};	
 #elif defined(__AQUARIUS__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=38-X_OFFSET; *y=24-Y_OFFSET;};	
+	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=24-Y_OFFSET;};	
 #elif defined(__ZX81__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=20-Y_OFFSET;};		
 #else
@@ -380,12 +380,18 @@ void _delete(unsigned char x, unsigned char y);
 		} \
 	}
 
-	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
+	// #if defined(__AQUARIUS__)
+		// #define PRINT(x,y,str)
+	// #else
+		#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
+	// #endif
 	
 	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
 		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); };
 	#elif defined(__CPC__)
 		#define PRINTF(x,y,str,val) {gotoxy(x+1+X_OFFSET,y+1+Y_OFFSET); cprintf(str,val); };
+	// #elif defined(__AQUARIUS__)
+		// #define PRINTF(x,y,str,val)
 	#else
 		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 	#endif
@@ -438,6 +444,10 @@ void _delete(unsigned char x, unsigned char y);
 				DRAW_VERTICAL_BORDER(XSize-1) \
 			}			
 		#endif
+	#elif defined(__AQUARIUS__)
+		#define DRAW_VERTICAL_LINE(x,y,length)
+		#define DRAW_HORIZONTAL_BORDER(y)
+		#define DRAW_BORDERS()
 	#else
 		#define DRAW_VERTICAL_LINE(x,y,length) \
 		{ \
@@ -479,6 +489,17 @@ void _delete(unsigned char x, unsigned char y);
 	#define CLEAR_SCREEN() {printf("\xc");};
 #elif defined(__CPC__) 
 	#define SET_TEXT_COLOR(c) textcolor(c);
+	// #define SET_TEXT_COLOR(c) \
+	// { \
+		// if(c==0) \
+			// vtrendition(0) \
+		// else if (c==3) \
+			// vtrendition(3) \
+		// else \
+			// vtrendition(4) \
+	// }
+	//{vtrendition(c);};
+	//textcolor(c);
 	//printf("\020%c",c);
 	//{printf("\x1B[%d;40m",c);};
 
@@ -505,6 +526,15 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() {clrscr();};
+#elif defined(__AQUARIUS__)
+	#include <conio.h>
+	#define SET_TEXT_COLOR(c) {};
+	
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
+
+	#define CLEAR_SCREEN() {clrscr();};	
 #elif defined(__ATMOS__)
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 

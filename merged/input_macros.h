@@ -107,7 +107,7 @@
 		void movePlayerByKeyboard(unsigned char kbInput);
 		void WAIT_KEY_PRESS(void);
 		#define WAIT_PRESS() WAIT_KEY_PRESS();
-	#else // All CBM except CBM610
+	#else // All CBM except CBM610 + ATARI + ATARI XL
 		void movePlayerByJoystick(unsigned char joyInput);
 		#if defined(__C16__)
 			void WAIT_KEY_PRESS(void);

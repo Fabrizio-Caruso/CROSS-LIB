@@ -50,6 +50,8 @@
 	#include "msx/msx_graphics.h"
 #elif defined(__CPC__)
 	#include "cpc/cpc_graphics.h"
+#elif defined(__AQUARIUS__)
+	#include "aquarius/aquarius_graphics.h"
 #else
 	Image PLAYER_IMAGE;
 	Image GHOST_IMAGE;

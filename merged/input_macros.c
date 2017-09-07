@@ -231,6 +231,58 @@ extern unsigned char guns;
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 		#endif
 	}
+#elif defined(__AQUARIUS__)
+	void movePlayerByKeyboard(unsigned char kbInput)
+	{
+		if(kbInput=='i')
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			--player._y;
+			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
+			playerDirection = UP;
+			SHOW_UP();
+		}
+		else if(kbInput=='k')
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			++player._y;
+			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
+			playerDirection = DOWN;
+			SHOW_DOWN();
+		}
+		else if(kbInput=='j')
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			--player._x;
+			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
+			playerDirection = LEFT;
+			SHOW_LEFT();
+		}
+		else if(kbInput=='l')
+		{
+			DELETE_PLAYER(player._x,player._y,player._imagePtr);
+			++player._x;
+			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
+			playerDirection = RIGHT;
+			SHOW_RIGHT();
+		}
+		else if(kbInput=='z' && guns>0 && !missile._status)
+		{
+			playerFire = 1;
+		}
+		#if defined(FULL_GAME)
+			if(player_invincibility)
+			{
+				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
+			}
+			else
+			{
+				DRAW_PLAYER(player._x, player._y, player._imagePtr);
+			}		
+		#else
+			DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		#endif
+	}
 #elif !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__ZX81__) && !defined(__CPC__) && !defined(__VG5k__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
@@ -283,7 +335,7 @@ extern unsigned char guns;
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 		#endif
 	}
-#elif defined(__CBM610__) || defined(__ZX81__) || defined (__SPECTRUM__) || defined(__AQUARIUS__) || defined(__CPC__) || defined(__AQUARIUS__) || defined(__MSX__) || defined(__SC3000__)
+#elif defined(__CBM610__) || defined(__ZX81__) || defined (__SPECTRUM__)  || defined(__CPC__) || defined(__AQUARIUS__) || defined(__MSX__) || defined(__SC3000__)
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
 		if(kbInput=='w')

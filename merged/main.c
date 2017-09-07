@@ -56,10 +56,10 @@
 #include "sound_macros.h"
 
 
-#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
-#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
-#define PEEK(addr)         (*(unsigned char*) (addr))
-#define PEEKW(addr) (*(unsigned*) (addr))
+// #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+// #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
+// #define PEEK(addr)         (*(unsigned char*) (addr))
+// #define PEEKW(addr) (*(unsigned*) (addr))
 
 
 unsigned short invincibleSlowDown;

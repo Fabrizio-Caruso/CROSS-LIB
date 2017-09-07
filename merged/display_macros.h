@@ -418,8 +418,6 @@ void _delete(unsigned char x, unsigned char y);
 		#define DRAW_VERTICAL_BORDER(x) \
 			DRAW_VERTICAL_LINE(x,0,YSize-1);
 			
-
-		
 		#if defined(__MSX__)
 			#define DRAW_BORDERS() \
 			{ \

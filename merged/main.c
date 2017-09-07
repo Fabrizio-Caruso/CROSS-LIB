@@ -456,7 +456,11 @@ void handle_invincible_ghost(void)
 			moveTowardCharacter(&invincibleGhost, 4);
 		}
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+		#if defined(FULL_GAME)
+		if(!player_invincibility && areCharctersAtSamePosition(&invincibleGhost, &player))
+		#else
 		if(areCharctersAtSamePosition(&invincibleGhost, &player))
+		#endif
 		{
 			playerDies();
 		}

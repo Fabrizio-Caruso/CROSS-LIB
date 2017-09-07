@@ -149,7 +149,6 @@ void _delete(unsigned char x, unsigned char y)
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
-	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	if(*blinkCounter) 
 	{
 		_DRAW(x,y,image);

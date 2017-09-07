@@ -36,7 +36,7 @@ cd %mypath%\
 @REM CPC HALF-WORKINg
 @REM -DDEBUG_CHARACTERS
 @REM -O3
-zcc +aquarius -vn -D__AQUARIUS__ -lndos -o MINIMAL_aquarius_16k -create-app %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +aquarius -vn -D__AQUARIUS__ -lndos -o MINIMAL_aquarius_16k -create-app %mypath%\aquarius\aquarius_input.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
 del %mypath%\MINIMAL_aquarius_16k
 move %mypath%\MINIMAL_aquarius_16k.caq %deliverables%

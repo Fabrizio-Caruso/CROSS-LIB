@@ -63,6 +63,8 @@
 		#include "atmos/atmos_input.h"
 	#elif defined(__ATARI__) || defined(__ATARIXL__)
 		#include "atari/atari_input.h"
+	#elif defined(__AQUARIUS__)
+		#include "aquarius/aquarius_input.h"
 	#endif
 
 

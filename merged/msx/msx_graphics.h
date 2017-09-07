@@ -172,6 +172,15 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	}
 }
 
-
+void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+{
+	unsigned char i;
+	gotoxy(X_OFFSET+1+x,Y_OFFSET+y); 
+	for(i=0;i<length;++i)
+	{
+		cputc('-');
+	}
+}
+		
 
 

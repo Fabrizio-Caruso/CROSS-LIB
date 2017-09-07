@@ -413,26 +413,23 @@ void _delete(unsigned char x, unsigned char y);
 		#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
 	#elif defined(__MSX__) || defined(__CPC__)
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-
+		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
+		
 		#define DRAW_VERTICAL_BORDER(x) \
 			DRAW_VERTICAL_LINE(x,0,YSize-1);
 			
-		#define DRAW_HORIZONTAL_BORDER(y) \
-		{ \
-			unsigned char i; \
-			gotoxy(X_OFFSET+1,Y_OFFSET+y);  \
-			for(i=0;i<29;++i) \
-			{ \
-				cputc('-'); \
-			} \
-		} \
+
 		
 		#if defined(__MSX__)
 			#define DRAW_BORDERS() \
 			{ \
 				DRAW_HORIZONTAL_BORDER(0); \
 				DRAW_HORIZONTAL_BORDER(YSize-1); \
+				DRAW_VERTICAL_BORDER(0) \
+				DRAW_VERTICAL_BORDER(XSize-1) \
 			}
+			#define DRAW_HORIZONTAL_BORDER(y) \
+				DRAW_HORIZONTAL_LINE(0,y,XSize-2);
 		#else
 			#define DRAW_BORDERS() \
 			{ \
@@ -440,7 +437,9 @@ void _delete(unsigned char x, unsigned char y);
 				DRAW_HORIZONTAL_BORDER(YSize-1); \
 				DRAW_VERTICAL_BORDER(0) \
 				DRAW_VERTICAL_BORDER(XSize-1) \
-			}			
+			}
+			#define DRAW_HORIZONTAL_BORDER(y) \
+				DRAW_HORIZONTAL_LINE(0,y,XSize-1);			
 		#endif
 	#elif defined(__AQUARIUS__)
 		#define DRAW_VERTICAL_LINE(x,y,length)

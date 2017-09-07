@@ -508,7 +508,7 @@ extern unsigned char guns;
 	#elif defined(__VG5K__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
 	#elif defined(__AQUARIUS__) 
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this is wrong (turn-based)
 	#elif defined(__ZX81__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)

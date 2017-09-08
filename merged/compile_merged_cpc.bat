@@ -37,18 +37,18 @@ cd %mypath%\
 @REM -DDEBUG_CHARACTERS
 @REM -O3
 @REM 
-zcc +cpc -O3 -vn -clib=ansi -DCPC_NO_COLOR -D__CPC__ -lndos -create-app -o %deliverables%\MINIMAL_cpc_experimental_MONOCHROME.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +cpc -O3 -vn -clib=ansi  -D__CPC__ -lndos -create-app -o %deliverables%\MINIMAL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 @REM 
 cd %mypath%\..\tools\2cdt
 @REM 
-2cdt.exe -n -r cross_chase %deliverables%\MINIMAL_cpc_experimental_MONOCHROME.cpc  %deliverables%\MINIMAL_cpc_experimental_MONOCHROME.cdt
+2cdt.exe -n -r cross_chase %deliverables%\MINIMAL_cpc_experimental.cpc  %deliverables%\MINIMAL_cpc_experimental.cdt
 
 @REM 
 @REM 
-del %deliverables%\MINIMAL_cpc_experimental_MONOCHROME.cpc
+del %deliverables%\MINIMAL_cpc_experimental.cpc
 @REM 
-del %deliverables%\MINIMAL_cpc_experimental_MONOCHROME.prg
+del %deliverables%\MINIMAL_cpc_experimental.prg
 @REM 
 
 

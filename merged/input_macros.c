@@ -73,22 +73,22 @@ extern unsigned char guns;
 		#include <input.h>
 
 		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
-			void WAIT_KEY_PRESS(void) 
+			void WAIT_PRESS(void) 
 			{ 
 				in_WaitForKey();
 				in_Inkey();
 				in_WaitForNoKey();
 			}
 		#else
-			void WAIT_KEY_PRESS(void)
+			void WAIT_PRESS(void)
 			{ 
 				in_wait_key();
 				in_wait_nokey();
 			}
 		#endif
-	#else 
+	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		#include <conio.h>
-		void WAIT_KEY_PRESS(void)
+		void WAIT_PRESS(void)
 		{
 			while(kbhit())
 				cgetc();
@@ -98,22 +98,9 @@ extern unsigned char guns;
 			cgetc();
 		}
 	#endif	
-#elif defined(__ATARI__) || defined(__ATARIXL__)
-	#include<joystick.h>
-	void WAIT_JOY1_PRESS(void)
-	{
-		unsigned char kbInput;
-		while(joy_read(JOY_1))
-		{
-			JOY_UP(kbInput);
-		}
-		while(!(joy_read(JOY_1)))
-		{
-		}
-	}
 #else
 	#include<joystick.h>
-	void WAIT_JOY1_PRESS(void)
+	void WAIT_PRESS(void)
 	{
 		unsigned char kbInput;
 		while(joy_read(JOY_1))
@@ -127,267 +114,7 @@ extern unsigned char guns;
 #endif
 
 
-#if defined(__VG5K__)
-	void movePlayerByKeyboard(unsigned char kbInput)
-	{
-		if(kbInput=='i')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = UP;
-			SHOW_UP();
-		}
-		else if(kbInput=='k')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = DOWN;
-			SHOW_DOWN();
-		}
-		else if(kbInput=='j')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = LEFT;
-			SHOW_LEFT();
-		}
-		else if(kbInput=='l')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = RIGHT;
-			SHOW_RIGHT();
-		}
-		else if(kbInput==' ' && guns>0 && !missile._status)
-		{
-			playerFire = 1;
-		}
-		#if defined(FULL_GAME)
-			if(player_invincibility)
-			{
-				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
-			}
-			else
-			{
-				DRAW_PLAYER(player._x, player._y, player._imagePtr);
-			}		
-		#else
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		#endif
-	}
-#elif defined(__MSX__)
-	void movePlayerByJoystick(unsigned char joyInput)
-	{
-		if(joyInput==1)
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = UP;
-			SHOW_UP();
-		}
-		else if(joyInput==5)
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = DOWN;
-			SHOW_DOWN();
-		}
-		else if(joyInput==7)
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = LEFT;
-			SHOW_LEFT();
-		}
-		else if(joyInput==3)
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = RIGHT;
-			SHOW_RIGHT();
-		}
-		else if(joyInput==9 && guns>0 && !missile._status)
-		{
-			playerFire = 1;
-		}
-		#if defined(FULL_GAME)
-			if(player_invincibility)
-			{
-				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
-			}
-			else
-			{
-				DRAW_PLAYER(player._x, player._y, player._imagePtr);
-			}		
-		#else
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		#endif
-	}
-#elif defined(__AQUARIUS__)
-	void movePlayerByKeyboard(unsigned char kbInput)
-	{
-		if(kbInput=='i')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = UP;
-			SHOW_UP();
-		}
-		else if(kbInput=='k')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = DOWN;
-			SHOW_DOWN();
-		}
-		else if(kbInput=='j')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = LEFT;
-			SHOW_LEFT();
-		}
-		else if(kbInput=='l')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = RIGHT;
-			SHOW_RIGHT();
-		}
-		else if(kbInput=='z' && guns>0 && !missile._status)
-		{
-			playerFire = 1;
-		}
-		#if defined(FULL_GAME)
-			if(player_invincibility)
-			{
-				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
-			}
-			else
-			{
-				DRAW_PLAYER(player._x, player._y, player._imagePtr);
-			}		
-		#else
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		#endif
-	}
-#elif !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__SPECTRUM__) && !defined(__ZX81__) && !defined(__CPC__) && !defined(__VG5k__)
-	void movePlayerByKeyboard(unsigned char kbInput)
-	{
-		if(kbInput=='W')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = UP;
-			SHOW_UP();
-		}
-		else if(kbInput=='S')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = DOWN;
-			SHOW_DOWN();
-		}
-		else if(kbInput=='A')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = LEFT;
-			SHOW_LEFT();
-		}
-		else if(kbInput=='D')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = RIGHT;
-			SHOW_RIGHT();
-		}
-		else if(kbInput==' ' && guns>0 && !missile._status)
-		{
-			playerFire = 1;
-		}
-		#if defined(FULL_GAME)
-			if(player_invincibility)
-			{
-				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
-			}
-			else
-			{
-				DRAW_PLAYER(player._x, player._y, player._imagePtr);
-			}		
-		#else
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		#endif
-	}
-#elif defined(__CBM610__) || defined(__ZX81__) || defined (__SPECTRUM__)  || defined(__CPC__) || defined(__AQUARIUS__) || defined(__MSX__) || defined(__SC3000__)
-	void movePlayerByKeyboard(unsigned char kbInput)
-	{
-		if(kbInput=='w')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = UP;
-			SHOW_UP();
-		}
-		else if(kbInput=='s')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = DOWN;
-			SHOW_DOWN();
-		}
-		else if(kbInput=='a')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = LEFT;
-			SHOW_LEFT();
-		}
-		else if(kbInput=='d')
-		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = RIGHT;
-			SHOW_RIGHT();
-		}
-		else if(kbInput==' ' && guns>0 && !missile._status)
-		{
-			playerFire = 1;
-		}
-		#if defined(FULL_GAME)
-			if(player_invincibility)
-			{
-				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
-			}
-			else
-			{
-				DRAW_PLAYER(player._x, player._y, player._imagePtr);
-			}		
-		#else
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		#endif
-	}
-#elif defined(__ATARI__) || defined(__ATARIXL__)
+#if (defined(__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
 		if(JOY_UP(joyInput))
@@ -440,9 +167,29 @@ extern unsigned char guns;
 		#endif
 	}	
 #else
-	void movePlayerByJoystick(unsigned char joyInput)
+	#if defined(__VG5K__) || defined(__AQUARIUS__) || defined(__CBM610__) || defined(__CPC__)
+		#define _MOVE_UP 'i'
+		#define _MOVE_DOWN 'k'
+		#define _MOVE_LEFT 'j'
+		#define _MOVE_RIGHT 'l'
+		#define _FIRE ' '
+	#elif defined(__ATMOS__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+		#define _MOVE_UP 'I'
+		#define _MOVE_DOWN 'K'
+		#define _MOVE_LEFT 'J'
+		#define _MOVE_RIGHT 'L'
+		#define _FIRE ' '
+	#elif defined(__MSX__)
+		#define _MOVE_UP 1
+		#define _MOVE_DOWN 5
+		#define _MOVE_LEFT 7
+		#define _MOVE_RIGHT 3
+		#define _FIRE 9
+	#else
+	#endif
+	void movePlayerByKeyboard(unsigned char kbInput)
 	{
-		if(JOY_UP(joyInput))
+		if(kbInput==_MOVE_UP)
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			--player._y;
@@ -450,7 +197,7 @@ extern unsigned char guns;
 			playerDirection = UP;
 			SHOW_UP();
 		}
-		else if(JOY_DOWN(joyInput))
+		else if(kbInput==_MOVE_DOWN)
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			++player._y;
@@ -458,7 +205,7 @@ extern unsigned char guns;
 			playerDirection = DOWN;
 			SHOW_DOWN();
 		}
-		else if(JOY_LEFT(joyInput))
+		else if(kbInput==_MOVE_LEFT)
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			--player._x;
@@ -466,7 +213,7 @@ extern unsigned char guns;
 			playerDirection = LEFT;
 			SHOW_LEFT();
 		}
-		else if(JOY_RIGHT(joyInput))
+		else if(kbInput==_MOVE_RIGHT)
 		{
 			DELETE_PLAYER(player._x,player._y,player._imagePtr);
 			++player._x;
@@ -474,7 +221,7 @@ extern unsigned char guns;
 			playerDirection = RIGHT;
 			SHOW_RIGHT();
 		}
-		else if(JOY_FIRE(joyInput) && guns>0 && !missile._status)
+		else if(kbInput==_FIRE && guns>0 && !missile._status)
 		{
 			playerFire = 1;
 		}
@@ -490,7 +237,7 @@ extern unsigned char guns;
 		#else
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 		#endif
-	}	
+	}
 #endif
 
 #if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__)
@@ -502,7 +249,7 @@ extern unsigned char guns;
 		#endif
 	#elif defined(__MSX__)
 		#include<msx/gfx.h>
-		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByJoystick(get_stick(0));} else movePlayerByJoystick(9);}
+		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByKeyboard(get_stick(0));} else movePlayerByKeyboard(9);}
 	#elif defined(__CPC__) || defined(__SC3000__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
 	#elif defined(__VG5K__) 

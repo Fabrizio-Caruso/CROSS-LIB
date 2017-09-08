@@ -59,11 +59,17 @@
 	#define GAME_SLOW_DOWN 0
 #endif
 
-#define BOMBS_NUMBER 4
+#if defined(__CPC__) && !defined(CPC_NO_COLOR)
+	#define BOMBS_NUMBER 2
+#else
+	#define BOMBS_NUMBER 4
+#endif
 
 // Possible current values are 6,7,8
-#if defined(__CPC__) 
+#if defined(__CPC__) && defined(CPC_NO_COLOR)
 	#define GHOSTS_NUMBER 7
+#elif defined(__CPC__) && !defined(CPC_NO_COLOR)
+	#define GHOSTS_NUMBER 6
 #elif defined(__SPECTRUM__) 
 	#define GHOSTS_NUMBER 7
 #elif defined(__VIC20__)
@@ -134,7 +140,7 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 50UL
 
-#if defined(__CBM610__) || defined(__CPC__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__CBM610__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000
 	#define INITIAL_SKULL_SLOWDOWN 32000	
 #elif defined(__VG5K__) || defined(__MSX__) 

@@ -75,39 +75,30 @@
 	#else
 		#define INIT_INPUT()
 	#endif
-
-	#if defined(__SPECTRUM__)
-		#include<input.h>
-		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
-			extern uint __LIB__ in_Inkey(void);
-		#else
-			extern int in_inkey(void);		
-		#endif
-	#endif
 				
 	// Move player
+	
+	void WAIT_PRESS(void);
+	
+	
+	
 	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__MSX__)
 		void movePlayerByKeyboard(unsigned char kbInput);
-		void WAIT_KEY_PRESS(void);
-		#define WAIT_PRESS() WAIT_KEY_PRESS();
+		// void WAIT_PRESS(void);
 	#elif defined(__CBM610__)
 		void movePlayerByKeyboard(unsigned char kbInput);
-		void WAIT_KEY_PRESS(void);
-		#define WAIT_PRESS() WAIT_KEY_PRESS();
+		// void WAIT_PRESS(void);
 	#elif defined(__MSX__)
-		void movePlayerByJoystick(unsigned char joyInput);
-		void WAIT_KEY_PRESS(void);
-		#define WAIT_PRESS() WAIT_KEY_PRESS();	
+		void movePlayerByKeyboard(unsigned char joyInput); // joystick and built-in keyboard arrows
+		// void WAIT_PRESS(void);
 	#else // All CBM except CBM610 + ATARI + ATARI XL
 		void movePlayerByJoystick(unsigned char joyInput);
-		#if defined(__C16__)
-			void WAIT_KEY_PRESS(void);
-			#define WAIT_PRESS() WAIT_KEY_PRESS();		
-		#else
-			void WAIT_JOY1_PRESS(void);
-			#define WAIT_PRESS() WAIT_JOY1_PRESS();
-		#endif
+		// #if defined(__C16__)
+			// void WAIT_PRESS(void);
+		// #else
+			// void WAIT_PRESS(void);
+		// #endif
 	#endif
 
-void MOVE_PLAYER(void);
+	void MOVE_PLAYER(void);
 #endif // _INPUT_MACROS

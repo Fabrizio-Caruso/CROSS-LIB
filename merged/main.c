@@ -492,7 +492,7 @@ int main(void)
 		INIT_IMAGES();
 
 		initialScreen();
-		WAIT_PRESS()
+		WAIT_PRESS();
 		CLEAR_SCREEN();
 
 		// TODO:

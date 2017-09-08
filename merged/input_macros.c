@@ -173,7 +173,7 @@ extern unsigned char guns;
 		#define _MOVE_LEFT 'j'
 		#define _MOVE_RIGHT 'l'
 		#define _FIRE ' '
-	#elif defined(__ATMOS__) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+	#elif defined(__ATMOS__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__SPECTRUM__)
 		#define _MOVE_UP 'I'
 		#define _MOVE_DOWN 'K'
 		#define _MOVE_LEFT 'J'

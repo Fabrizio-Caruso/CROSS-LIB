@@ -91,12 +91,14 @@
 		INVINCIBILITY_IMAGE._color = COLOR_WHITE;
 	}
 
-	void _draw_broken_wall(char x, char y)
-	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (COLOR_WHITE);
-		cputc('X');
-	}
+	#if defined(FULL_GAME)
+		void DRAW_BROKEN_WALL(char x, char y)
+		{
+			gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+			(void) textcolor (COLOR_WHITE);
+			cputc('X');
+		}
+	#endif
 	
 	void _draw(char x, char y, Image * image) 
 	{

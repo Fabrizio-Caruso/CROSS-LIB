@@ -43,15 +43,18 @@ cd %mypath%\
 @REM -DDEBUG_CHARACTERS
 @REM -DSPECTRUM_UDG 
 @REM 
-zcc +zx -D -vn -DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -lndos -create-app -o %deliverables%\FULL_zx_spectrum_redefined_characters_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +zx -D -vn -DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__ -lndos -create-app -o %deliverables%\FULL_zx_spectrum_redefined_characters_classic.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
-del %deliverables%\FULL_zx_spectrum_redefined_characters_experimental.prg
+del %deliverables%\FULL_zx_spectrum_redefined_characters_classic.prg
+del %deliverables%\FULL_zx_spectrum_redefined_characters_classic_BANK_07.bin
 
 
-@REM zcc +zx -SO3 -vn -DFULL_GAME -DSOUNDS -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__  -lndos -create-app -o %deliverables%\ZXSpectrum_experimental.prg %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
-@REM del %deliverables%\FULL_zx_spectrum_experimental.prg
-
+zcc +zx -SO3 -vn -DFULL_GAME -DSOUNDS -DSPECTRUM_NATIVE_DIRECTIVES -DSPECTRUM_32COL -D__SPECTRUM__  -lndos -create-app -o %deliverables%\ZXSpectrum_classic.prg %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM 
+@REM 
+del %deliverables%\FULL_zx_spectrum_classic.prg
+del %deliverables%\FULL_zx_spectrum_classic_BANK_07.bin
 
 @REM WORKING but with problematic input and not outer wall - FAST KEYBOARD INPUT
 @REM optimize with:  -SO3 --max-allocs-per-node200000

@@ -45,15 +45,17 @@ Image POWERUP_IMAGE;
 Image MISSILE_IMAGE;
 Image GUN_IMAGE;
 
-Image BUBBLE_IMAGE;
+#if defined(FULL_GAME)
+	Image BUBBLE_IMAGE;
 
-Image LEFT_ENEMY_MISSILE_IMAGE;
-Image RIGHT_ENEMY_MISSILE_IMAGE;
+	Image LEFT_ENEMY_MISSILE_IMAGE;
+	Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-Image EXTRA_POINTS_IMAGE;
-Image EXTRA_LIFE_IMAGE;
-Image INVINCIBILITY_IMAGE;
-
+	Image EXTRA_POINTS_IMAGE;
+	Image EXTRA_LIFE_IMAGE;
+	Image INVINCIBILITY_IMAGE;
+#endif
+	
 Image PLAYER_DOWN;
 Image PLAYER_UP;
 Image PLAYER_RIGHT;
@@ -79,7 +81,6 @@ Image PLAYER_LEFT;
 	#define PRINT_CLS      "\x0c"
 	#define PRINT_INK_I    "\x10%c"
 	#define PRINT_PAPER_P  "\x11%c"
-	//#define PRINT_AT_CR    "\x16%c%c"
 
 	#define INSIDE_COLOR  INK_BLACK
 	#define OUTSIDE_COLOR INK_WHITE	
@@ -191,9 +192,12 @@ void INIT_IMAGES(void)
 	GUN_IMAGE._color = COLOR_MAGENTA;
 	BOMB_IMAGE._color = COLOR_RED;
 	DEAD_GHOST_IMAGE._color = COLOR_RED;
-	EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-	EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
-	INVINCIBILITY_IMAGE._color = COLOR_YELLOW;			
+	
+	#if defined(FULL_GAME)
+		EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
+		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
+	#endif
 		
 	#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)	
 		GHOST_IMAGE._imageData = 139;
@@ -209,7 +213,9 @@ void INIT_IMAGES(void)
 		MISSILE_IMAGE._imageData = 137;
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;
-		BUBBLE_IMAGE._imageData = 140;
+		#if defined(FULL_GAME)
+			BUBBLE_IMAGE._imageData = 140;
+		#endif
 	#elif defined(REDEFINED_CHARS)
 		PLAYER_IMAGE._imageData = 128;
 		PLAYER_DOWN._imageData = 128;
@@ -224,7 +230,9 @@ void INIT_IMAGES(void)
 		POWERUP_IMAGE._imageData = 137;
 		MISSILE_IMAGE._imageData = 138;	
 		BOMB_IMAGE._imageData = 139;
-		BUBBLE_IMAGE._imageData = 140;	
+		#if defined(FULL_GAME)
+			BUBBLE_IMAGE._imageData = 140;
+		#endif
 	#else
 		GHOST_IMAGE._imageData = 'o';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
@@ -235,25 +243,25 @@ void INIT_IMAGES(void)
 		MISSILE_IMAGE._imageData = '.';
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-		BUBBLE_IMAGE._imageData = '^';		
+		#if defined(FULL_GAME)
+			BUBBLE_IMAGE._imageData = '^';
+		#endif	
 	#endif
 	
 	DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
 
 	GHOST_IMAGE._color = COLOR_WHITE;
 	MISSILE_IMAGE._color = COLOR_WHITE;
-
-	LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
-
-	RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
 	
-
-	BUBBLE_IMAGE._color = COLOR_WHITE;
-	
-	EXTRA_POINTS_IMAGE._imageData = '$';
-	
-	EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-	INVINCIBILITY_IMAGE._imageData = '!';
+	#if defined(FULL_GAME)
+		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
+		
+		BUBBLE_IMAGE._color = COLOR_WHITE;
+		EXTRA_POINTS_IMAGE._imageData = '$';
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+		INVINCIBILITY_IMAGE._imageData = '!';
+	#endif
 	
 	PLAYER_DOWN._color = COLOR_CYAN;
 	PLAYER_UP._color = COLOR_CYAN;		
@@ -261,14 +269,15 @@ void INIT_IMAGES(void)
 	PLAYER_LEFT._color = COLOR_CYAN;	
 }
 
-
-void _draw_broken_wall(unsigned char x, unsigned char y)
-{
-	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-	SET_TEXT_COLOR(COLOR_WHITE);
-	cputc('X');
-}
-
+#if defined(FULL_GAME)	
+	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		SET_TEXT_COLOR(COLOR_WHITE);
+		cputc('X');
+	}
+#endif
+	
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
 	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 

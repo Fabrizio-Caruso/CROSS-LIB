@@ -124,7 +124,7 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
 		#if defined(FULL_GAME)
 			// TODO: Implement this
-			//DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+			DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
 		#endif
 		return 0;
 	}
@@ -139,51 +139,50 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
 		#if defined(FULL_GAME)
-			// TODO: Implement this
-			//DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
-		if(missileLevel() || bossLevel())
-		{
-			if(missilePtr->_x==XSize-1 && missilePtr->_y==4 && rightEnemyMissile._status)
+			DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+			if(missileLevel() || bossLevel())
 			{
-				rightEnemyMissile._status = 0;
-				EXPLOSION_SOUND();
-				DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
-				points+=HORIZONTAL_MISSILE_BONUS;
-				displayStats();				
-				reducePowerUpsCoolDowns();		
-			}
-			else if(missilePtr->_x==0 && missilePtr->_y==YSize-4 && leftEnemyMissile._status)
-			{
-				leftEnemyMissile._status = 0;
-				EXPLOSION_SOUND();
-				DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
-				points+=HORIZONTAL_MISSILE_BONUS;
-				displayStats();				
-				reducePowerUpsCoolDowns();		
-			}
-		}
-		if((rocketLevel() || bossLevel()) && missilePtr->_y==YSize-1)
-		{
-			unsigned char i;
-			for(i=0;i<BUBBLES_NUMBER;++i)
-			{
-				if(missilePtr->_x==bubbles_x[i] && bubbles[i]._status)
+				if(missilePtr->_x==XSize-1 && missilePtr->_y==4 && rightEnemyMissile._status)
 				{
-					bubbles[i]._status = 0;
-					++dead_bubbles;
+					rightEnemyMissile._status = 0;
 					EXPLOSION_SOUND();
-					DELETE_MISSILE(bubbles[i]._x,bubbles[i]._y,bubbles[i]._imagePtr);
+					DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
+					points+=HORIZONTAL_MISSILE_BONUS;
+					displayStats();				
+					reducePowerUpsCoolDowns();		
+				}
+				else if(missilePtr->_x==0 && missilePtr->_y==YSize-4 && leftEnemyMissile._status)
+				{
+					leftEnemyMissile._status = 0;
+					EXPLOSION_SOUND();
 					DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
-					points+=VERTICAL_MISSILE_BONUS;
-					displayStats();					
-					if(dead_bubbles==BUBBLES_NUMBER)
-					{
-						reducePowerUpsCoolDowns();		
-						TICK_SOUND();
-					}
+					points+=HORIZONTAL_MISSILE_BONUS;
+					displayStats();				
+					reducePowerUpsCoolDowns();		
 				}
 			}
-		}			
+			if((rocketLevel() || bossLevel()) && missilePtr->_y==YSize-1)
+			{
+				unsigned char i;
+				for(i=0;i<BUBBLES_NUMBER;++i)
+				{
+					if(missilePtr->_x==bubbles_x[i] && bubbles[i]._status)
+					{
+						bubbles[i]._status = 0;
+						++dead_bubbles;
+						EXPLOSION_SOUND();
+						DELETE_MISSILE(bubbles[i]._x,bubbles[i]._y,bubbles[i]._imagePtr);
+						DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
+						points+=VERTICAL_MISSILE_BONUS;
+						displayStats();					
+						if(dead_bubbles==BUBBLES_NUMBER)
+						{
+							reducePowerUpsCoolDowns();		
+							TICK_SOUND();
+						}
+					}
+				}
+			}			
 		#endif		
 	}
 	else

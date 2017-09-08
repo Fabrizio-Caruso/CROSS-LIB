@@ -71,6 +71,8 @@
 		Image EXTRA_POINTS_IMAGE;
 		Image EXTRA_LIFE_IMAGE;
 		Image INVINCIBILITY_IMAGE;	
+		
+		Image BROKEN_WALL_IMAGE;
 	#endif
  
 	void INIT_GRAPHICS() {}
@@ -139,10 +141,21 @@
 			EXTRA_POINTS_IMAGE._imageData = '$';
 			
 			EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-			INVINCIBILITY_IMAGE._imageData = 'V';		
+			INVINCIBILITY_IMAGE._imageData = 'V';
+
+			BROKEN_WALL_IMAGE._imageData = 'X';
+			BROKEN_WALL_IMAGE._color = COLOR_WHITE;
 		#endif
 	}
 
+	#if defined(FULL_GAME)
+		void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
+		{
+			gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+			SET_TEXT_COLOR(BROKEN_WALL_IMAGE._color);
+			cputc(BROKEN_WALL_IMAGE._imageData); 		
+		}
+	#endif
 
 	void _draw(unsigned char x, unsigned char y, Image * image) 
 	{

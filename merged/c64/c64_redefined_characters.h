@@ -45,14 +45,16 @@
 	Image MISSILE_IMAGE;
 	Image GUN_IMAGE;
 
-	Image LEFT_ENEMY_MISSILE_IMAGE;
-	Image RIGHT_ENEMY_MISSILE_IMAGE;
+	#if defined(FULL_GAME)
+		Image LEFT_ENEMY_MISSILE_IMAGE;
+		Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	Image BUBBLE_IMAGE;
+		Image BUBBLE_IMAGE;
 
-	Image EXTRA_POINTS_IMAGE;
-	Image EXTRA_LIFE_IMAGE;
-	Image INVINCIBILITY_IMAGE;
+		Image EXTRA_POINTS_IMAGE;
+		Image EXTRA_LIFE_IMAGE;
+		Image INVINCIBILITY_IMAGE;
+	#endif
 	
 	Image PLAYER_DOWN;
 	Image PLAYER_UP;
@@ -98,22 +100,24 @@
 		GHOST_IMAGE._color = COLOR_WHITE;
 		MISSILE_IMAGE._color = COLOR_BLUE;
 
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
-		
-		BUBBLE_IMAGE._imageData = '^';
-		BUBBLE_IMAGE._color = COLOR_WHITE;
-		
-		EXTRA_POINTS_IMAGE._imageData = '*';
-		EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
-		
-		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
-		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
-		
-		INVINCIBILITY_IMAGE._imageData = '!';
-		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
+		#if defined(FULL_GAME)
+			LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
+			
+			BUBBLE_IMAGE._imageData = '^';
+			BUBBLE_IMAGE._color = COLOR_WHITE;
+			
+			EXTRA_POINTS_IMAGE._imageData = '*';
+			EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
+			
+			EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
+			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+			
+			INVINCIBILITY_IMAGE._imageData = '!';
+			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
+		#endif
 		
 		PLAYER_UP._imageData = (char) 0x76 - 6;
 		PLAYER_UP._color = PLAYER_IMAGE._color;
@@ -128,7 +132,7 @@
 		PLAYER_LEFT._color = PLAYER_IMAGE._color;			
 	}
 
-	void _draw_broken_wall(char x, char y)
+	void DRAW_BROKEN_WALL(char x, char y)
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		(void) textcolor (COLOR_WHITE);

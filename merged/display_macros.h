@@ -147,6 +147,10 @@ void _draw(unsigned char x,unsigned char y,Image * image);
 #define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
 #define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
 
+#if defined(FULL_GAME)
+	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y);
+#endif
+	
 void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
 #define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
 #define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
@@ -167,6 +171,7 @@ void _delete(unsigned char x, unsigned char y);
 #define DELETE_EXTRA_LIFE(x,y,image) {_delete(x,y);};
 #define DELETE_INVINCIBILITY(x,y,image) {_delete(x,y);};	
 	
+	
 #define DRAW_BOMBS() \
 { \
 	unsigned char i = 0; \
@@ -178,8 +183,6 @@ void _delete(unsigned char x, unsigned char y);
 	
 #if defined(__ATMOS__)
 	#include<peekpoke.h>
-
-	#define DRAW_BROKEN_WALL(x,y) {gotoxy(x+X_OFFSET,(y+Y_OFFSET)); cputc('X' + 128);};
 
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 
@@ -229,8 +232,6 @@ void _delete(unsigned char x, unsigned char y);
 
 #elif defined(__VG5K__)
 	
-	#define DRAW_BROKEN_WALL(x,y) {};
-
 	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
 
 	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
@@ -247,15 +248,24 @@ void _delete(unsigned char x, unsigned char y);
 
 	#include <stdio.h>
 	
-	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
-	
-	void _draw_broken_wall(unsigned char x, unsigned char y);	
-
 	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
 	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); };
 
-	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
-
+	#if defined(REDEFINED_CHARS)
+		void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
+	#else
+		#define DRAW_VERTICAL_LINE(x, y, length) \
+		{ \
+			unsigned char i; \
+			\
+			SET_TEXT_COLOR(COLOR_WHITE); \
+			for(i=0;i<length;++i) \
+			{ \
+				gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); \
+			} \
+		}		
+	#endif
+		
 	#define DRAW_BORDERS() \
 	{ \
 		unsigned char i; \
@@ -271,11 +281,6 @@ void _delete(unsigned char x, unsigned char y);
 	}
 
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-
-	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);}; //{gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('X');};
-		
-	void _draw_broken_wall(unsigned char x, unsigned char y);
-	
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	
 	#define PRINTF(x,y,...)  \
@@ -345,10 +350,6 @@ void _delete(unsigned char x, unsigned char y);
 	}
 
 #else		
-	#define DRAW_BROKEN_WALL(x,y) {_draw_broken_wall(x,y);};
-
-	//void _draw_broken_wall(unsigned char x, unsigned char y);	
-
 	// #if defined(__AQUARIUS__)
 		// #define PRINT(x,y,str)
 	// #else

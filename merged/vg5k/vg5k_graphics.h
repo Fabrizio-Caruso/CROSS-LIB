@@ -144,6 +144,13 @@
 		}
 	}
 
+	#if defined(FULL_GAME)
+		void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
+		{
+			// TODO: TO BE IMPLEMENTED
+		}
+	#endif
+	
 	void no_cursor(void)
 	{	
 		#asm

@@ -60,6 +60,7 @@ zcc +zx -startup=1 -clib=sdcc_iy -vn -DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DSP
 @REM del %deliverables%\ZXSpectrum_32col_sdcc_UDG_experimental.prg
 @REM 
 del %deliverables%\FULL_zx_spectrum_redefined_chars_CODE.bin
+del %deliverables%\FULL_zx_spectrum_redefined_chars_BANK_07.bin
 
 @REM zcc +zx -startup=1 -clib=new -vn -DSPECTRUM_UDG -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\ZXSpectrum_32col_new_UDG_experimental.prg %mypath%\sleep_macros.c %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 

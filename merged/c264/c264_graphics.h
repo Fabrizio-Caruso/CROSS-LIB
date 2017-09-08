@@ -59,23 +59,19 @@
 	Image RIGHT_ENEMY_MISSILE_IMAGE;
 	Image GUN_IMAGE;
 
-	Image LEFT_ENEMY_MISSILE_IMAGE;
-	Image RIGHT_ENEMY_MISSILE_IMAGE;
-	
-	Image BUBBLE_IMAGE;
+	#if defined(FULL_GAME)
+		Image LEFT_ENEMY_MISSILE_IMAGE;
+		Image RIGHT_ENEMY_MISSILE_IMAGE;
+		
+		Image BUBBLE_IMAGE;
 
-	Image EXTRA_POINTS_IMAGE;
-	
-	Image EXTRA_LIFE_IMAGE;
-	
-	Image INVINCIBILITY_IMAGE;
-	
-	// char powerUp_blink = 1;
-	// char gun_blink = 1;
-	// char extra_points_blink = 1;
-	// char extra_life_blink = 1;
-	// char invincibility_blink = 1;
-	// char player_blink = 1;
+		Image EXTRA_POINTS_IMAGE;
+		
+		Image EXTRA_LIFE_IMAGE;
+		
+		Image INVINCIBILITY_IMAGE;
+	#endif
+
 	
 	void redefine(unsigned long loc, const unsigned char * data)
 	{
@@ -154,13 +150,7 @@
 
 		GHOST_IMAGE._color = COLOR_WHITE;
 		MISSILE_IMAGE._color = COLOR_WHITE;
-		
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = ')';
-		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = '*';
-		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 
-		
 		PLAYER_DOWN._imageData = '%';
 		PLAYER_DOWN._color = COLOR_CYAN;
 		PLAYER_UP._imageData = '&';
@@ -169,26 +159,35 @@
 		PLAYER_RIGHT._color = COLOR_CYAN;
 		PLAYER_LEFT._imageData = '(';
 		PLAYER_LEFT._color = COLOR_CYAN;
-		
-		BUBBLE_IMAGE._imageData = ';';
-		BUBBLE_IMAGE._color = COLOR_WHITE;
-		
-		EXTRA_POINTS_IMAGE._imageData = '$';
-		EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-		
-		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
-		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
-		
-		INVINCIBILITY_IMAGE._imageData = '!';
-		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
+			
+		#if defined(FULL_GAME)
+			RIGHT_ENEMY_MISSILE_IMAGE._imageData = ')';
+			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
+			LEFT_ENEMY_MISSILE_IMAGE._imageData = '*';
+			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+			
+			BUBBLE_IMAGE._imageData = ';';
+			BUBBLE_IMAGE._color = COLOR_WHITE;
+			
+			EXTRA_POINTS_IMAGE._imageData = '$';
+			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
+			
+			EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
+			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+			
+			INVINCIBILITY_IMAGE._imageData = '!';
+			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
+		#endif
 	}
 
-	void _draw_broken_wall(char x, char y)
-	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (COLOR_WHITE);
-		cputc('X');
-	}
+	#if defined(FULL_GAME)
+		void DRAW_BROKEN_WALL(char x, char y)
+		{
+			gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+			(void) textcolor (COLOR_WHITE);
+			cputc('X');
+		}
+	#endif
 	
 	void _draw(char x, char y, Image * image) 
 	{

@@ -129,14 +129,15 @@ void INIT_IMAGES(void)
 	INVINCIBILITY_IMAGE._imageData = 'V';
 }
 
-
-void _draw_broken_wall(unsigned char x, unsigned char y)
-{
-	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-	SET_TEXT_COLOR(COLOR_WHITE);
-	cputc('X');
-}
-
+#if defined(FULL_GAME)
+	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
+	{
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		SET_TEXT_COLOR(COLOR_WHITE);
+		cputc('X');
+	}
+#endif
+	
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
 	_DRAW(x,y,image);

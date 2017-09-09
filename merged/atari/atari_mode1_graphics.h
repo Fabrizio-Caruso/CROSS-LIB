@@ -38,6 +38,7 @@
 	// TODO: Sprite initialization (to be performed only once) should be separated from level generation
 	void INIT_IMAGES(void)
 	{		
+		// TODO: Do something with the colors
 		PLAYER_IMAGE._color = COLOR_WHITE;
 		INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 		POWERUP_IMAGE._color = COLOR_YELLOW;
@@ -52,7 +53,7 @@
 		POWERUP_IMAGE._imageData = 'S' - 64-32;
 		GUN_IMAGE._imageData = '!' - 160;
 		MISSILE_IMAGE._imageData = '.';
-		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+		DEAD_GHOST_IMAGE._imageData = 'O';
 
 		GHOST_IMAGE._color = COLOR_WHITE;
 		MISSILE_IMAGE._color = COLOR_WHITE;
@@ -79,7 +80,6 @@
 		void DRAW_BROKEN_WALL(char x, char y)
 		{
 			gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-			(void) textcolor (COLOR_WHITE);
 			cputc('X');
 		}
 	#endif

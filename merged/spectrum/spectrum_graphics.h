@@ -228,7 +228,7 @@ void INIT_IMAGES(void)
 		#endif	
 	#endif
 	
-	DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+	DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
 
 	GHOST_IMAGE._color = COLOR_WHITE;
 	MISSILE_IMAGE._color = COLOR_WHITE;

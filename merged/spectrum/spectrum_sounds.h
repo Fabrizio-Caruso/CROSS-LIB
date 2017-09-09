@@ -74,11 +74,9 @@ bit_fx4(7)	Very quick duck squeak
 	//void bit_fx(void (*bfx)(void));
 	#define SHOOT_SOUND() bit_fx(bitfx_1);	
 	#define ZAP_SOUND() bit_fx(bitfx_7);	
-	#if defined(DEBUG_CRASH)	
-		#define PING_SOUND() bit_fx(bitfx_19);
-	#else
-		#define PING_SOUND() {};
-	#endif
+
+	#define PING_SOUND() bit_fx(bitfx_19);
+
 	
 	// TODO: Improve this sound
 	#define EXPLOSION_SOUND() bit_fx(bitfx_16);
@@ -87,7 +85,7 @@ bit_fx4(7)	Very quick duck squeak
 	#define TICK_SOUND() bit_fx(bitfx_0);
 	
 	// TODO: Find a sound for this (skull moving)
-	#define TOCK_SOUND() {};
+	#define TOCK_SOUND() {}//bit_fx(bitfx_23);
 	
 
 #endif // __SPECTRUM_SOUNDS

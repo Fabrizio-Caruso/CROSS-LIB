@@ -67,7 +67,12 @@ void INIT_IMAGES(void)
 	POWERUP_IMAGE._imageData = 'S';
 	GUN_IMAGE._imageData = '!';
 	MISSILE_IMAGE._imageData = '.';
-	DEAD_GHOST_IMAGE._imageData = 'O';
+	
+	#if defined(CPC_NO_COLOR)
+		DEAD_GHOST_IMAGE._imageData = 'O';
+	#else
+		DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE;
+	#endif
 
 	GHOST_IMAGE._color = CPC_CYAN;
 	MISSILE_IMAGE._color = CPC_CYAN;

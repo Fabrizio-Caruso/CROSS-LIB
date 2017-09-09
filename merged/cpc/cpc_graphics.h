@@ -71,7 +71,7 @@ void INIT_IMAGES(void)
 	#if defined(CPC_NO_COLOR)
 		DEAD_GHOST_IMAGE._imageData = 'O';
 	#else
-		DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE;
+		DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
 	#endif
 
 	GHOST_IMAGE._color = CPC_CYAN;

@@ -40,8 +40,9 @@
 		#else
 			#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 		#endif
-	#else	
+	#elif defined(__ZX81__)	
 		#define gotoxy(x,y) zx_setcursorpos(y,x)
+	#else
 	#endif
 	
 	#define cputc(c) printf("%c",c);
@@ -51,8 +52,6 @@
 	#else
 		#define cgetc() getk();
 	#endif
-		
-	#define textcolor(c)
 
 	#define COLOR_BLACK 0	
 	#define COLOR_BLUE 1

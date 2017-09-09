@@ -30,7 +30,7 @@ cd %cc65path%\bin\
 
 @REM Atari 5200: Out of memory (fixable) - CONIO and joystick issues
 @REM -lib %cc65path%\lib\atari5200.lib 
-cl65.exe -O -t atari5200 %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atari5200.a52
+cl65.exe -O -t atari5200 %mypath%\test_atari5200.c  -o %deliverables%\test_atari5200.a52
 
 @REM Atari 2600: Out of memory  CONIO and joystick issues?
 @REM cl65.exe -O -t atari2600 -lib %cc65path%\lib\atari2600.lib %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\atari2600.a26

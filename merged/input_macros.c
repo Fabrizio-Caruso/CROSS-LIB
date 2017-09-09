@@ -40,6 +40,7 @@
 	#include <joystick.h>
 #endif
 
+
 #if defined(__SPECTRUM__)
 	#include <input.h>
 	#if defined(SPECTRUM_NATIVE_DIRECTIVES)
@@ -68,7 +69,7 @@ extern unsigned char guns;
 	extern unsigned char oddBlink;	
 #endif
 
-#if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__))
+#if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__))
 	#if defined(__SPECTRUM__)
 		#include <input.h>
 
@@ -114,7 +115,7 @@ extern unsigned char guns;
 #endif
 
 
-#if (defined(__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
+#if (defined(__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__)
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
 		if(JOY_UP(joyInput))
@@ -198,6 +199,11 @@ extern unsigned char guns;
 		#define _MOVE_RIGHT 'L'
 		#define _FIRE ' '	
 	#else
+		#define _MOVE_UP 'I'
+		#define _MOVE_DOWN 'K'
+		#define _MOVE_LEFT 'J'
+		#define _MOVE_RIGHT 'L'
+		#define _FIRE ' '		
 	#endif
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
@@ -252,7 +258,7 @@ extern unsigned char guns;
 	}
 #endif
 
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__)
 	#if defined(__SPECTRUM__)
 		#if defined(SPECTRUM_NATIVE_DIRECTIVES)	
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}

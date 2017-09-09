@@ -2,20 +2,20 @@
 #define GENERIC_CONIO_PATH_H
 
 #ifndef COLOR_BLACK
-#define COLOR_BLACK 0
+	#define COLOR_BLACK 0
 #endif
 
 #ifndef COLOR_WHITE
-#define COLOR_WHITE 1
+	#define COLOR_WHITE 1
 #endif
 
 #ifndef COLOR_RED
-#define COLOR_RED 1
+	#define COLOR_RED 1
 #endif
 
 
 #ifndef COLOR_BLUE
-#define COLOR_BLUE 1
+	#define COLOR_BLUE 1
 #endif
 
 	

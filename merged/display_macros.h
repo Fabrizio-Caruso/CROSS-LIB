@@ -36,10 +36,14 @@
 
 #include "settings.h"
 
-#if !defined(__SPECTRUM__) && !defined(__ZX81__)
+#if defined(__ATARI5200__)
+	#include <atari5200.h>
+#endif
+	
+#if !defined(__SPECTRUM__)
 	#include <conio.h>
 #endif
-#if defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || defined(__ATARI5200__)
+#if defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#include "patch/generic_conio_patch.h"
 #endif
 #if defined(__ATMOS__)
@@ -76,7 +80,7 @@ typedef struct ImageStruct Image;
 #elif defined(__VIC20__) 
 	#define X_OFFSET 0
 	#define Y_OFFSET 1
-#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+#elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 	#define X_OFFSET 0
 	#define Y_OFFSET 0
 #elif defined(__CPC__)
@@ -95,7 +99,7 @@ typedef struct ImageStruct Image;
 
 #if defined(__NES__)
 	#define GET_SCREEN_SIZE(x,y) {*x=32; *y=40;};
-#elif  (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+#elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 	#define GET_SCREEN_SIZE(x,y) {*x=20; *y=24;};
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	#define GET_SCREEN_SIZE(x,y) {*x=80-X_OFFSET; *y=25-Y_OFFSET;};
@@ -500,6 +504,14 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define CLEAR_SCREEN() {clrscr();};	
 #elif defined(__ZX81__)
+	#define SET_TEXT_COLOR(c) {};
+	
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
+
+	#define CLEAR_SCREEN() {clrscr();};	
+#elif defined(__ATARI5200__)
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};

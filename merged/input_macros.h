@@ -48,21 +48,8 @@
 		#include <conio.h>
 	#endif 
 	
-	// #if defined(__SPECTRUM__) 
-		// #include <input.h>
-		// #if !defined(SPECTRUM_NATIVE_DIRECTIVES)
-			// extern void in_wait_key(void) __preserves_regs(b,c,d,e,h,l);
-			// extern void in_wait_nokey(void) __preserves_regs(b,c,d,e,h,l);
-		// #else
-			// extern void in_WaitForKey(void);
-			// extern void in_WaitForNoKey(void);
-		// #endif
-	// #endif
-	
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_input.h"
-	// #elif defined(__ATARI__) || defined(__ATARIXL__)
-		// #include "atari/atari_input.h"
 	// #elif defined(__AQUARIUS__)
 		// #include "aquarius/aquarius_input.h"
 	#endif
@@ -77,27 +64,16 @@
 	#endif
 				
 	// Move player
-	
 	void WAIT_PRESS(void);
 	
-	
-	
-	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__MSX__)
+	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__MSX__)
 		void movePlayerByKeyboard(unsigned char kbInput);
-		// void WAIT_PRESS(void);
 	#elif defined(__CBM610__)
 		void movePlayerByKeyboard(unsigned char kbInput);
-		// void WAIT_PRESS(void);
 	#elif defined(__MSX__)
 		void movePlayerByKeyboard(unsigned char joyInput); // joystick and built-in keyboard arrows
-		// void WAIT_PRESS(void);
 	#else // All CBM except CBM610 + ATARI + ATARI XL
 		void movePlayerByJoystick(unsigned char joyInput);
-		// #if defined(__C16__)
-			// void WAIT_PRESS(void);
-		// #else
-			// void WAIT_PRESS(void);
-		// #endif
 	#endif
 
 	void MOVE_PLAYER(void);

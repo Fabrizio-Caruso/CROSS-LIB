@@ -1,9 +1,9 @@
 #ifndef _ATARI_MODE1_GRAPHICS
 #define _ATARI_MODE1_GRAPHICS
 	#include <conio.h>
-	#include <atari.h>
 	#include <peekpoke.h>
 	#include <atari.h>
+
 	#include <stdio.h>
 	#include <stdlib.h>
 	#include <string.h>

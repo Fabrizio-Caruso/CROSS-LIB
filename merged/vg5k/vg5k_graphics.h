@@ -43,15 +43,6 @@
 	
 	extern Character bombs[BOMBS_NUMBER];
 	
-	Image PLAYER_IMAGE;
-	Image GHOST_IMAGE;
-	Image DEAD_GHOST_IMAGE;
-	Image INVINCIBLE_GHOST_IMAGE;
-	Image BOMB_IMAGE;
-	Image POWERUP_IMAGE;
-	Image MISSILE_IMAGE;
-	Image GUN_IMAGE;
-
 	#if defined(REDEFINED_CHARS)
 		Image PLAYER_RIGHT;
 		Image PLAYER_LEFT;
@@ -59,20 +50,8 @@
 		Image PLAYER_DOWN;	
 	#endif
 	
-	#if defined(FULL_GAME)	
-		Image LEFT_ENEMY_MISSILE_IMAGE;
-		Image RIGHT_ENEMY_MISSILE_IMAGE;
-
-		Image BUBBLE_IMAGE;
-
-		Image EXTRA_POINTS_IMAGE;
-		Image EXTRA_LIFE_IMAGE;
-		Image INVINCIBILITY_IMAGE;	
-	#endif
-	
 	extern unsigned char YSize; 
 	extern unsigned char XSize;
-
 	
 	#define VG5K_BLACK 0
 	#define VG5K_RED 1
@@ -110,7 +89,6 @@
 		MISSILE_IMAGE._color = VG5K_WHITE;
 		
 		#if defined(FULL_GAME)
-		
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 			LEFT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
@@ -127,7 +105,6 @@
 
 			INVINCIBILITY_IMAGE._imageData = 'V';
 			INVINCIBILITY_IMAGE._color = VG5K_YELLOW;		
-		
 		#endif
 	}
 	
@@ -261,8 +238,5 @@
 			}
 	}
 	
-
-	
-
 	
 #endif // _VG5K_REDEFINED_CHARACTERS

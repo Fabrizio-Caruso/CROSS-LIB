@@ -29,10 +29,10 @@ cd %cc65path%\bin\
 
 
 @REM 
-cl65.exe -O -t c16 -DSOUNDS --config %mypath%\..\cfg\c16-16k.cfg %mypath%\c264\c264_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_c16-16k_sounds.prg
+cl65.exe -O -t c16 -DSOUNDS --config %mypath%\..\cfg\c16-16k.cfg %mypath%\c264\c264_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_c16_sounds.prg
 
 
 
 @REM 
-cl65.exe -t c16 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS  %mypath%\c264\c264_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_c16-16k_sounds.prg
+cl65.exe -t c16 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS  %mypath%\c264\c264_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_c16_redefined_chars.prg
 

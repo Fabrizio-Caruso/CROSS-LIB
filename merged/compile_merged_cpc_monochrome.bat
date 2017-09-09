@@ -35,18 +35,19 @@ cd %mypath%\
 
 @REM -O3
 @REM 
-zcc +cpc -O3 -vn -DFULL_GAME -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\FULL_cpc_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +cpc -O3 -vn -DFULL_GAME -DCPC_NO_COLOR -clib=ansi -D__CPC__ -lndos -create-app -o %deliverables%\FULL_cpc_experimental_NO_COLOR.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 @REM 
 cd %mypath%\..\tools\2cdt
 @REM 
-2cdt.exe -n -r cross_chase %deliverables%\FULL_cpc_experimental.cpc  %deliverables%\FULL_cpc_experimental.cdt
+2cdt.exe -n -r cross_chase %deliverables%\FULL_cpc_experimental_NO_COLOR.cpc  %deliverables%\FULL_cpc_experimental_NO_COLOR.cdt
 
 @REM 
-del %deliverables%\FULL_cpc_experimental.cpc
+del %deliverables%\FULL_cpc_experimental_NO_COLOR.cpc
 @REM 
-del %deliverables%\FULL_cpc_experimental.prg
+del %deliverables%\FULL_cpc_experimental_NO_COLOR.prg
 @REM 
+
 
 del %mypath%\*.o
 del %mypath%\atmos\*.o

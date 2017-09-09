@@ -34,25 +34,6 @@
 //#include <peekpoke.h>
 #include "display_macros.h"
 
-
-Image PLAYER_IMAGE;
-Image GHOST_IMAGE;
-Image DEAD_GHOST_IMAGE;
-Image INVINCIBLE_GHOST_IMAGE;
-Image BOMB_IMAGE;
-Image POWERUP_IMAGE;
-Image MISSILE_IMAGE;
-Image GUN_IMAGE;
-
-Image BUBBLE_IMAGE;
-
-Image LEFT_ENEMY_MISSILE_IMAGE;
-Image RIGHT_ENEMY_MISSILE_IMAGE;
-
-Image EXTRA_POINTS_IMAGE;
-Image EXTRA_LIFE_IMAGE;
-Image INVINCIBILITY_IMAGE;
-
 #include <stdio.h>
 #include <conio.h>
 
@@ -66,24 +47,18 @@ extern unsigned char XSize;
 #define CPC_YELLOW 0
 #define CPC_CYAN 3
 
-
 void INIT_GRAPHICS(void)
 {
-
 }
 
 void INIT_IMAGES(void)
 {		
-
 	PLAYER_IMAGE._color = CPC_YELLOW;
 	INVINCIBLE_GHOST_IMAGE._color = CPC_YELLOW;
 	POWERUP_IMAGE._color = CPC_YELLOW;
 	GUN_IMAGE._color = CPC_YELLOW;
 	BOMB_IMAGE._color = CPC_RED;
 	DEAD_GHOST_IMAGE._color = CPC_RED;
-	EXTRA_POINTS_IMAGE._color = CPC_YELLOW;
-	EXTRA_LIFE_IMAGE._color = CPC_YELLOW;
-	INVINCIBILITY_IMAGE._color = CPC_YELLOW;			
 		
 	GHOST_IMAGE._imageData = 'o';
 	INVINCIBLE_GHOST_IMAGE._imageData = '+';
@@ -97,18 +72,24 @@ void INIT_IMAGES(void)
 	GHOST_IMAGE._color = CPC_CYAN;
 	MISSILE_IMAGE._color = CPC_CYAN;
 
-	LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-	LEFT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;
-	RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-	RIGHT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;	
-	
-	BUBBLE_IMAGE._imageData = '^';
-	BUBBLE_IMAGE._color = CPC_CYAN;
-	
-	EXTRA_POINTS_IMAGE._imageData = '$';
-	
-	EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-	INVINCIBILITY_IMAGE._imageData = 'V';
+	#if defined(FULL_GAME)
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+		LEFT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+		RIGHT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;	
+		
+		BUBBLE_IMAGE._imageData = '^';
+		BUBBLE_IMAGE._color = CPC_CYAN;
+		
+		EXTRA_POINTS_IMAGE._imageData = '$';
+		
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+		INVINCIBILITY_IMAGE._imageData = 'V';
+		
+		EXTRA_POINTS_IMAGE._color = CPC_YELLOW;
+		EXTRA_LIFE_IMAGE._color = CPC_YELLOW;
+		INVINCIBILITY_IMAGE._color = CPC_YELLOW;			
+	#endif
 }
 
 #if defined(FULL_GAME)

@@ -106,8 +106,8 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
-extern unsigned char powerUp_blink;
-extern unsigned char gun_blink;
+extern unsigned char evenBlink;
+extern unsigned char oddBlink;
 
 Character invincibleGhost;
 Character player; 
@@ -152,10 +152,10 @@ Character bombs[BOMBS_NUMBER];
 	
 	unsigned char arrowRange;
 	
-	unsigned char extra_points_blink = 1;
-	unsigned char extra_life_blink = 1;
-	unsigned char invincibility_blink = 1;
-	unsigned char player_blink = 1;		
+	// unsigned char extra_points_blink = 1;
+	// unsigned char extra_life_blink = 1;
+	// unsigned char invincibility_blink = 1;
+	// unsigned char player_blink = 1;		
 #endif
 
 unsigned char strategyArray[GHOSTS_NUMBER];
@@ -175,8 +175,8 @@ unsigned char invincibleGhostHits = 0;
 unsigned char invincibleGhostAlive = 1;
 
 // TODO: It should not be here
-unsigned char powerUp_blink = 1;
-unsigned char gun_blink = 1;	
+// unsigned char powerUp_blink = 1;
+// unsigned char gun_blink = 1;	
 
 void handle_missile()
 {

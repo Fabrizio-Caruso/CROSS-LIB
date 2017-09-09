@@ -41,37 +41,12 @@
 	#include <stdlib.h>
 	#include <string.h>
 	#include <unistd.h>
-
 	
 	Image PLAYER_IMAGE;
 	Image PLAYER_DOWN;
 	Image PLAYER_UP;
 	Image PLAYER_RIGHT;
 	Image PLAYER_LEFT;
-	
-	Image GHOST_IMAGE;
-	Image DEAD_GHOST_IMAGE;
-	Image INVINCIBLE_GHOST_IMAGE;
-	Image BOMB_IMAGE;
-	Image POWERUP_IMAGE;
-	Image MISSILE_IMAGE;
-	Image LEFT_ENEMY_MISSILE_IMAGE;
-	Image RIGHT_ENEMY_MISSILE_IMAGE;
-	Image GUN_IMAGE;
-
-	#if defined(FULL_GAME)
-		Image LEFT_ENEMY_MISSILE_IMAGE;
-		Image RIGHT_ENEMY_MISSILE_IMAGE;
-		
-		Image BUBBLE_IMAGE;
-
-		Image EXTRA_POINTS_IMAGE;
-		
-		Image EXTRA_LIFE_IMAGE;
-		
-		Image INVINCIBILITY_IMAGE;
-	#endif
-
 	
 	void redefine(unsigned long loc, const unsigned char * data)
 	{

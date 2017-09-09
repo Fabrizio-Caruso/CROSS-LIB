@@ -36,34 +36,10 @@
 
 	#include <peekpoke.h>
 
-	Image PLAYER_IMAGE;
-	Image GHOST_IMAGE;
-	Image DEAD_GHOST_IMAGE;
-	Image INVINCIBLE_GHOST_IMAGE;
-	Image BOMB_IMAGE;
-	Image POWERUP_IMAGE;
-	Image MISSILE_IMAGE;
-	Image GUN_IMAGE;
-
-	
 	Image PLAYER_RIGHT;
 	Image PLAYER_LEFT;
 	Image PLAYER_UP;
-	Image PLAYER_DOWN;
-	
-	#if defined(FULL_GAME)
-		Image LEFT_ENEMY_MISSILE_IMAGE;
-		Image RIGHT_ENEMY_MISSILE_IMAGE;
-
-		Image BUBBLE_IMAGE;
-
-		Image EXTRA_POINTS_IMAGE;
-		Image EXTRA_LIFE_IMAGE;
-		Image INVINCIBILITY_IMAGE;
-
-		Image BROKEN_WALL_IMAGE;
-	#endif	
-	
+	Image PLAYER_DOWN;	
 	extern char YSize; 
 
 	void redefine(unsigned long loc, const unsigned char * data)
@@ -94,11 +70,11 @@
 		const unsigned char player_up[] =             {12,30,12,51,45,12,18,51};
 		const unsigned char player_down[] =           {12,18,12,51,45,12,18,51};
 
+		const unsigned char vertical_bar[] =             {12,12,12,12,12,12,12,12};
+		const unsigned char horizontal_bar[] =           { 0, 0, 0,63,63,00,00,00};
+		const unsigned char corner[] =                   {63,63,63,51,51,63,63,63};
+		
 		#if defined(FULL_GAME)
-			const unsigned char vertical_bar[] =             {12,12,12,12,12,12,12,12};
-			const unsigned char horizontal_bar[] =           { 0, 0, 0,63,63,00,00,00};
-			const unsigned char corner[] =                   {63,63,63,51,51,63,63,63};
-
 			const unsigned char right_arrow[] =             { 0, 0,56,31,31,56, 0, 0};
 			const unsigned char left_arrow[] =            { 0, 0, 7,62,62, 7, 0, 0};
 			
@@ -131,7 +107,6 @@
 		PLAYER_RIGHT._color = 0;
 		PLAYER_UP._color = 0;
 			
-
 		PLAYER_LEFT._imageData = '*';
 		PLAYER_RIGHT._imageData = ',';
 		PLAYER_UP._imageData = '.';
@@ -155,35 +130,32 @@
 			INVINCIBILITY_IMAGE._imageData = '!';
 			INVINCIBILITY_IMAGE._color = 128u;
 			
-			#if defined(REDEFINED_CHARS)
-				redefine(0xb400 + BUBBLE_IMAGE._imageData*8,bubble);
-				redefine(0xb400 + '<'*8,left_arrow);
-				redefine(0xb400 + '>'*8,right_arrow);
-			#endif
+			redefine(0xb400 + BUBBLE_IMAGE._imageData*8,bubble);
+			redefine(0xb400 + '<'*8,left_arrow);
+			redefine(0xb400 + '>'*8,right_arrow);
 		#endif 
 		
-		#if defined(REDEFINED_CHARS)
-			redefine(0xb400 + GHOST_IMAGE._imageData*8, ghost);		
-			redefine(0xb400 + BOMB_IMAGE._imageData*8,bomb);
-			redefine(0xb400 + POWERUP_IMAGE._imageData*8,powerUp);		
-			redefine(0xb400 + INVINCIBLE_GHOST_IMAGE._imageData*8,invincible_ghost);
-			redefine(0xb400 + GUN_IMAGE._imageData*8,gun);		
-			redefine(0xb400 + MISSILE_IMAGE._imageData*8,missile);
-			redefine(0xb400 + PLAYER_IMAGE._imageData*8,player);		
-			redefine(0xb400 + PLAYER_LEFT._imageData*8,player_left);
-			redefine(0xb400 + PLAYER_RIGHT._imageData*8,player_right);
-			redefine(0xb400 + PLAYER_UP._imageData*8,player_up);		
-			redefine(0xb400 + PLAYER_DOWN._imageData*8,player_down);
-			
-			redefine(0xb400 + '|'*8,vertical_bar);
-			redefine(0xb400 + '-'*8,horizontal_bar);		
-			redefine(0xb400 + '+'*8,corner);
-			
-			for(i=0;i<8;++i)
-			{
-				POKE(0xb400 + DEAD_GHOST_IMAGE._imageData*8 + i, dead_ghost[i]);
-			}
-		#endif
+		redefine(0xb400 + GHOST_IMAGE._imageData*8, ghost);		
+		redefine(0xb400 + BOMB_IMAGE._imageData*8,bomb);
+		redefine(0xb400 + POWERUP_IMAGE._imageData*8,powerUp);		
+		redefine(0xb400 + INVINCIBLE_GHOST_IMAGE._imageData*8,invincible_ghost);
+		redefine(0xb400 + GUN_IMAGE._imageData*8,gun);		
+		redefine(0xb400 + MISSILE_IMAGE._imageData*8,missile);
+		redefine(0xb400 + PLAYER_IMAGE._imageData*8,player);		
+		redefine(0xb400 + PLAYER_LEFT._imageData*8,player_left);
+		redefine(0xb400 + PLAYER_RIGHT._imageData*8,player_right);
+		redefine(0xb400 + PLAYER_UP._imageData*8,player_up);		
+		redefine(0xb400 + PLAYER_DOWN._imageData*8,player_down);
+		
+		redefine(0xb400 + '|'*8,vertical_bar);
+		redefine(0xb400 + '-'*8,horizontal_bar);		
+		redefine(0xb400 + '+'*8,corner);
+		
+		for(i=0;i<8;++i)
+		{
+			POKE(0xb400 + DEAD_GHOST_IMAGE._imageData*8 + i, dead_ghost[i]);
+		}
+
 		
 		#if defined(FULL_GAME)
 			BROKEN_WALL_IMAGE._imageData = 'X';

@@ -65,7 +65,7 @@ extern unsigned char guns;
 
 #if defined(FULL_GAME)
 	extern unsigned char player_invincibility;
-	extern unsigned char player_blink;	
+	extern unsigned char oddBlink;	
 #endif
 
 #if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__))
@@ -167,18 +167,24 @@ extern unsigned char guns;
 		#endif
 	}	
 #else
-	#if defined(__VG5K__) || defined(__AQUARIUS__) || defined(__CBM610__) || defined(__CPC__)
+	#if defined(__VG5K__) || defined(__AQUARIUS__) || defined(__CBM610__) || defined(__CPC__) || defined(__SPECTRUM__)
 		#define _MOVE_UP 'i'
 		#define _MOVE_DOWN 'k'
 		#define _MOVE_LEFT 'j'
 		#define _MOVE_RIGHT 'l'
 		#define _FIRE ' '
-	#elif defined(__ATMOS__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__SPECTRUM__)
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) 
 		#define _MOVE_UP 'I'
 		#define _MOVE_DOWN 'K'
 		#define _MOVE_LEFT 'J'
 		#define _MOVE_RIGHT 'L'
 		#define _FIRE ' '
+	#elif defined(__ATMOS__)
+		#define _MOVE_UP 'W'
+		#define _MOVE_DOWN 'S'
+		#define _MOVE_LEFT 'A'
+		#define _MOVE_RIGHT 'D'
+		#define _FIRE ' '	
 	#elif defined(__MSX__)
 		#define _MOVE_UP 1
 		#define _MOVE_DOWN 5

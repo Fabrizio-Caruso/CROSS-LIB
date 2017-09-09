@@ -1,29 +1,9 @@
 #ifndef _C128_80_COL_GRAPHIVS
 #define _C128_80_COL_GRAPHIVS
 
-#include <conio.h>
-#include <c128.h>
+	#include <conio.h>
+	#include <c128.h>
 
-	Image PLAYER_IMAGE;
-	Image GHOST_IMAGE;
-	Image DEAD_GHOST_IMAGE;
-	Image INVINCIBLE_GHOST_IMAGE;
-	Image BOMB_IMAGE;
-	Image POWERUP_IMAGE;
-	Image MISSILE_IMAGE;
-	Image GUN_IMAGE;
-	
-	#if defined(FULL_GAME)
-		Image BUBBLE_IMAGE;
-
-		Image LEFT_ENEMY_MISSILE_IMAGE;
-		Image RIGHT_ENEMY_MISSILE_IMAGE;
-		
-		Image EXTRA_POINTS_IMAGE;
-		Image EXTRA_LIFE_IMAGE;
-		Image INVINCIBILITY_IMAGE;
-	#endif
-	
 	void INIT_GRAPHICS(void)
 	{
 		fast();
@@ -32,16 +12,12 @@
  
 	void INIT_IMAGES(void)
 	{		
-
 		PLAYER_IMAGE._color = COLOR_CYAN;
 		INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
 		POWERUP_IMAGE._color = COLOR_YELLOW;
 		GUN_IMAGE._color = COLOR_BROWN;
 		BOMB_IMAGE._color = COLOR_RED;
 		DEAD_GHOST_IMAGE._color = COLOR_RED;
-		EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;	
-		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
 
 		GHOST_IMAGE._imageData = 'o';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
@@ -68,6 +44,10 @@
 			
 			EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 			INVINCIBILITY_IMAGE._imageData = 'V';
+			
+			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
+			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;	
+			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
 		#endif
 	}
 

@@ -34,25 +34,6 @@
 //#include <peekpoke.h>
 #include "display_macros.h"
 
-
-Image PLAYER_IMAGE;
-Image GHOST_IMAGE;
-Image DEAD_GHOST_IMAGE;
-Image INVINCIBLE_GHOST_IMAGE;
-Image BOMB_IMAGE;
-Image POWERUP_IMAGE;
-Image MISSILE_IMAGE;
-Image GUN_IMAGE;
-
-Image BUBBLE_IMAGE;
-
-Image LEFT_ENEMY_MISSILE_IMAGE;
-Image RIGHT_ENEMY_MISSILE_IMAGE;
-
-Image EXTRA_POINTS_IMAGE;
-Image EXTRA_LIFE_IMAGE;
-Image INVINCIBILITY_IMAGE;
-
 #include <stdio.h>
 #include <msx/gfx.h>
 extern unsigned char XSize;
@@ -99,9 +80,7 @@ void INIT_IMAGES(void)
 	GUN_IMAGE._color = COLOR_WHITE;
 	BOMB_IMAGE._color = COLOR_RED;
 	DEAD_GHOST_IMAGE._color = COLOR_RED;
-	EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
-	EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
-	INVINCIBILITY_IMAGE._color = COLOR_WHITE;			
+		
 		
 	GHOST_IMAGE._imageData = 'o';
 	INVINCIBLE_GHOST_IMAGE._imageData = '+';
@@ -115,18 +94,24 @@ void INIT_IMAGES(void)
 	GHOST_IMAGE._color = COLOR_WHITE;
 	MISSILE_IMAGE._color = COLOR_WHITE;
 
-	LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-	LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
-	RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-	RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
-	
-	BUBBLE_IMAGE._imageData = '^';
-	BUBBLE_IMAGE._color = COLOR_WHITE;
-	
-	EXTRA_POINTS_IMAGE._imageData = '$';
-	
-	EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-	INVINCIBILITY_IMAGE._imageData = 'V';
+	#if defined(FULL_GAME)
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
+		
+		BUBBLE_IMAGE._imageData = '^';
+		BUBBLE_IMAGE._color = COLOR_WHITE;
+		
+		EXTRA_POINTS_IMAGE._imageData = '$';
+		
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+		INVINCIBILITY_IMAGE._imageData = 'V';
+		
+		EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
+		EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
+		INVINCIBILITY_IMAGE._color = COLOR_WHITE;	
+	#endif
 }
 
 #if defined(FULL_GAME)

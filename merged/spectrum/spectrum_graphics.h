@@ -35,26 +35,6 @@
 #include "display_macros.h"
 
 #include <string.h>
-
-Image PLAYER_IMAGE;
-Image GHOST_IMAGE;
-Image DEAD_GHOST_IMAGE;
-Image INVINCIBLE_GHOST_IMAGE;
-Image BOMB_IMAGE;
-Image POWERUP_IMAGE;
-Image MISSILE_IMAGE;
-Image GUN_IMAGE;
-
-#if defined(FULL_GAME)
-	Image BUBBLE_IMAGE;
-
-	Image LEFT_ENEMY_MISSILE_IMAGE;
-	Image RIGHT_ENEMY_MISSILE_IMAGE;
-
-	Image EXTRA_POINTS_IMAGE;
-	Image EXTRA_LIFE_IMAGE;
-	Image INVINCIBILITY_IMAGE;
-#endif
 	
 Image PLAYER_DOWN;
 Image PLAYER_UP;
@@ -211,9 +191,9 @@ void INIT_IMAGES(void)
 		POWERUP_IMAGE._imageData = 136;
 		GUN_IMAGE._imageData = 135;
 		MISSILE_IMAGE._imageData = 137;
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;
 		#if defined(FULL_GAME)
+			LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
+			RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;		
 			BUBBLE_IMAGE._imageData = 140;
 		#endif
 	#elif defined(REDEFINED_CHARS)
@@ -223,14 +203,14 @@ void INIT_IMAGES(void)
 		PLAYER_RIGHT._imageData = 130;
 		PLAYER_LEFT._imageData = 131;	
 		GHOST_IMAGE._imageData = 132;		
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = 133;
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = 134;	
 		INVINCIBLE_GHOST_IMAGE._imageData = 135;
 		GUN_IMAGE._imageData = 136;
 		POWERUP_IMAGE._imageData = 137;
 		MISSILE_IMAGE._imageData = 138;	
 		BOMB_IMAGE._imageData = 139;
 		#if defined(FULL_GAME)
+			RIGHT_ENEMY_MISSILE_IMAGE._imageData = 133;
+			LEFT_ENEMY_MISSILE_IMAGE._imageData = 134;	
 			BUBBLE_IMAGE._imageData = 140;
 		#endif
 	#else
@@ -241,9 +221,9 @@ void INIT_IMAGES(void)
 		POWERUP_IMAGE._imageData = 'S';
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		#if defined(FULL_GAME)
+			LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 			BUBBLE_IMAGE._imageData = '^';
 		#endif	
 	#endif

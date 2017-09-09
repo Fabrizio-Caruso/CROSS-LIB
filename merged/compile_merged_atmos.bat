@@ -28,5 +28,6 @@ cd %cc65path%\bin\
 
 cl65.exe  -O -DSOUNDS -DREDEFINED_CHARS -DFULL_GAME -t atmos --config %mypath%\..\cfg\atmos_better_tap.cfg %mypath%\atmos\atmos_input.c  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_atmos_redefined_chars.tap
 
+cl65.exe  -O -DSOUNDS -DREDEFINED_CHARS -t atmos --config %mypath%\..\cfg\atmos_better_tap.cfg %mypath%\atmos\atmos_input.c  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_atmos_redefined_chars.tap
 
-cl65.exe  -O -t atmos --config %mypath%\..\cfg\atmos_better_tap.cfg %mypath%\atmos\atmos_input.c  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_atmos_redefined_chars.tap
+cl65.exe  -O -t atmos --config %mypath%\..\cfg\atmos_better_tap.cfg %mypath%\atmos\atmos_input.c  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_atmos.tap

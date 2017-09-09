@@ -529,7 +529,7 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(COLOR_BROWN);
 		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
 		SET_TEXT_COLOR(TEXT_COLOR);	
-	#elif defined(__ATMOS__) 
+	#elif defined(__ATMOS__) && defined(FULL_GAME)
 		POKE(0xBB80+3*40,16);POKE(0xBB80+1+3*40,1); POKE(0xBB80+2+3*40,14);
 		POKE(0xBB80+4*40,16);POKE(0xBB80+1+4*40,1); POKE(0xBB80+2+4*40,14);
 		POKE(0xBB80+5*40,16);POKE(0xBB80+1+5*40,1); POKE(0xBB80+2+5*40,14);
@@ -703,7 +703,7 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__SPECTRUM__)
 		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use W A S D <SPACE>");
-	#elif defined(__ATMOS__) 
+	#elif defined(__ATMOS__) && defined(FULL_GAME)
 		POKE(0xBB80+(YSize / 2 + 4 + 1)*40,16);POKE(0xBB81+(YSize / 2 + 4 +1)*40,4);
 		POKE(0xBB80+(YSize / 2 + 4 + 2)*40,16);POKE(0xBB81+(YSize / 2 + 4 +2)*40,4);
 		POKE(0xBB80+(YSize / 2 + 4 + 3)*40,16);POKE(0xBB81+(YSize / 2 + 4 +3)*40,4);

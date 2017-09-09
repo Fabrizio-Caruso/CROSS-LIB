@@ -48,23 +48,23 @@
 		#include <conio.h>
 	#endif 
 	
-	#if defined(__SPECTRUM__) 
-		#include <input.h>
-		#if !defined(SPECTRUM_NATIVE_DIRECTIVES)
-			extern void in_wait_key(void) __preserves_regs(b,c,d,e,h,l);
-			extern void in_wait_nokey(void) __preserves_regs(b,c,d,e,h,l);
-		#else
-			extern void in_WaitForKey(void);
-			extern void in_WaitForNoKey(void);
-		#endif
-	#endif
+	// #if defined(__SPECTRUM__) 
+		// #include <input.h>
+		// #if !defined(SPECTRUM_NATIVE_DIRECTIVES)
+			// extern void in_wait_key(void) __preserves_regs(b,c,d,e,h,l);
+			// extern void in_wait_nokey(void) __preserves_regs(b,c,d,e,h,l);
+		// #else
+			// extern void in_WaitForKey(void);
+			// extern void in_WaitForNoKey(void);
+		// #endif
+	// #endif
 	
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_input.h"
-	#elif defined(__ATARI__) || defined(__ATARIXL__)
-		#include "atari/atari_input.h"
-	#elif defined(__AQUARIUS__)
-		#include "aquarius/aquarius_input.h"
+	// #elif defined(__ATARI__) || defined(__ATARIXL__)
+		// #include "atari/atari_input.h"
+	// #elif defined(__AQUARIUS__)
+		// #include "aquarius/aquarius_input.h"
 	#endif
 
 

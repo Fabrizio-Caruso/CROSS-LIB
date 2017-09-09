@@ -152,12 +152,12 @@ void _draw(unsigned char x,unsigned char y,Image * image);
 #endif
 	
 void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
-#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUp_blink); 
-#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gun_blink); 
-#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extra_points_blink); 
-#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extra_life_blink); 
-#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibility_blink); 
-#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &player_blink); 	
+#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &evenBlink); 
+#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &oddBlink); 
+#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &evenBlink); 
+#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &evenBlink); 
+#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &oddBlink); 
+#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &oddBlink); 	
 
 void _delete(unsigned char x, unsigned char y);
 #define DELETE_PLAYER(x,y,image) {_delete(x,y);};
@@ -219,7 +219,6 @@ void _delete(unsigned char x, unsigned char y);
 		} \
 	} 
 
-	
 	#define DRAW_VERTICAL_LINE(x,y,length) \
 	{ \
 		unsigned char i; \

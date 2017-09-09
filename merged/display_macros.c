@@ -32,6 +32,32 @@
 /*****************************************************************************/
  
 #include "display_macros.h"
+
+unsigned char evenBlink = 0;
+unsigned char oddBlink = 1;	
+
+Image PLAYER_IMAGE;
+Image GHOST_IMAGE;
+Image DEAD_GHOST_IMAGE;
+Image INVINCIBLE_GHOST_IMAGE;
+Image BOMB_IMAGE;
+Image POWERUP_IMAGE;
+Image MISSILE_IMAGE;
+Image GUN_IMAGE;
+
+#if defined(FULL_GAME)
+	Image LEFT_ENEMY_MISSILE_IMAGE;
+	Image RIGHT_ENEMY_MISSILE_IMAGE;
+
+	Image BUBBLE_IMAGE;
+
+	Image EXTRA_POINTS_IMAGE;
+	Image EXTRA_LIFE_IMAGE;
+	Image INVINCIBILITY_IMAGE;	
+	
+	Image BROKEN_WALL_IMAGE;
+#endif
+
 #if defined(__VG5K__)
 	#include "vg5k/vg5k_graphics.h"
 #elif defined(__C64__) && defined(REDEFINED_CHARS)
@@ -53,28 +79,6 @@
 #elif defined(__AQUARIUS__)
 	#include "aquarius/aquarius_graphics.h"
 #else
-	Image PLAYER_IMAGE;
-	Image GHOST_IMAGE;
-	Image DEAD_GHOST_IMAGE;
-	Image INVINCIBLE_GHOST_IMAGE;
-	Image BOMB_IMAGE;
-	Image POWERUP_IMAGE;
-	Image MISSILE_IMAGE;
-	Image GUN_IMAGE;
-	
-	#if defined(FULL_GAME)
-		Image LEFT_ENEMY_MISSILE_IMAGE;
-		Image RIGHT_ENEMY_MISSILE_IMAGE;
-
-		Image BUBBLE_IMAGE;
-
-		Image EXTRA_POINTS_IMAGE;
-		Image EXTRA_LIFE_IMAGE;
-		Image INVINCIBILITY_IMAGE;	
-		
-		Image BROKEN_WALL_IMAGE;
-	#endif
- 
 	void INIT_GRAPHICS() {}
 	
 	void INIT_IMAGES(void)
@@ -119,10 +123,10 @@
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';
 		
-		// Monochromatic vs color case
+		// Monochromatic 
 		#if defined(__CPC__) || defined(__MSX__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__PET__) || defined(__CBM610__)
 			DEAD_GHOST_IMAGE._imageData = '_';
-		#else
+		#else // Color
 			DEAD_GHOST_IMAGE._imageData = 'o';
 		#endif
 

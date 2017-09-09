@@ -36,7 +36,7 @@
 
 #include "settings.h"
 
-#if !defined(__SPECTRUM__)
+#if !defined(__SPECTRUM__) && !defined(__ZX81__)
 	#include <conio.h>
 #endif
 #if defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || defined(__ATARI5200__)
@@ -57,7 +57,7 @@
 #elif defined(__AQUARIUS__)
 	#include "patch/z88dk_conio_patch.h"	
 #elif defined(__ZX81__)
-	#include "patch/z88dk_conio_patch.h"		
+	#include "patch/z88dk_conio_implementation.h"		
 #endif
 
 struct ImageStruct
@@ -492,6 +492,14 @@ void _delete(unsigned char x, unsigned char y);
 	#define CLEAR_SCREEN() {clrscr();};
 #elif defined(__AQUARIUS__)
 	#include <conio.h>
+	#define SET_TEXT_COLOR(c) {};
+	
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
+
+	#define CLEAR_SCREEN() {clrscr();};	
+#elif defined(__ZX81__)
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};

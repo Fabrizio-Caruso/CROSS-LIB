@@ -40,10 +40,12 @@
 		#else
 			#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 		#endif
-		
-		#define cputc(c) printf("%c",c);
+	#else	
+		#define gotoxy(x,y) zx_setcursorpos(y,x)
 	#endif
-
+	
+	#define cputc(c) printf("%c",c);
+		
 	#if defined(__SPECTRUM__)
 		#define cgetc() in_Inkey();
 	#else

@@ -191,6 +191,12 @@ extern unsigned char guns;
 		#define _MOVE_LEFT 7
 		#define _MOVE_RIGHT 3
 		#define _FIRE 9
+	#elif defined(__ZX81__)
+		#define _MOVE_UP 'I'
+		#define _MOVE_DOWN 'K'
+		#define _MOVE_LEFT 'J'
+		#define _MOVE_RIGHT 'L'
+		#define _FIRE ' '	
 	#else
 	#endif
 	void movePlayerByKeyboard(unsigned char kbInput)

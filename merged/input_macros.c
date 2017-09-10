@@ -50,6 +50,34 @@ extern unsigned char guns;
 	extern unsigned char oddBlink;	
 #endif
 
+#define _DO_MOVE_UP \
+	DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+	--player._y; \
+	invincibleYCountDown = INVINCIBLE_COUNT_DOWN; \
+	playerDirection = UP; \
+	SHOW_UP();
+	
+#define _DO_MOVE_DOWN \
+	DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+	++player._y; \
+	invincibleYCountDown = INVINCIBLE_COUNT_DOWN; \
+	playerDirection = DOWN; \
+	SHOW_DOWN(); 
+	
+#define _DO_MOVE_LEFT \
+	DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+	--player._x; \
+	invincibleXCountDown = INVINCIBLE_COUNT_DOWN; \
+	playerDirection = LEFT; \
+	SHOW_LEFT();
+ 
+#define _DO_MOVE_RIGHT \
+	DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+	++player._x; \
+	invincibleXCountDown = INVINCIBLE_COUNT_DOWN; \
+	playerDirection = RIGHT; \
+	SHOW_RIGHT();
+	
 #if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__SUPERVISION__))
 	#if defined(__SPECTRUM__)
 		#include <input.h>
@@ -68,7 +96,7 @@ extern unsigned char guns;
 				in_wait_nokey();
 			}
 		#endif
-	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__VZ__) || defined(__ACE__)
+	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__VZ__) || defined(__ACE__) || defined(__ENTERPRICE__)
 		#include <conio.h>
 		void WAIT_PRESS(void)
 		{
@@ -113,35 +141,19 @@ extern unsigned char guns;
 	{
 		if(JOY_UP(joyInput))
 		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = UP;
-			SHOW_UP();
+			_DO_MOVE_UP
 		}
 		else if(JOY_DOWN(joyInput))
 		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = DOWN;
-			SHOW_DOWN();
+			_DO_MOVE_DOWN
 		}
 		else if(JOY_LEFT(joyInput))
 		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = LEFT;
-			SHOW_LEFT();
+			_DO_MOVE_LEFT
 		}
 		else if(JOY_RIGHT(joyInput))
 		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = RIGHT;
-			SHOW_RIGHT();
+			_DO_MOVE_RIGHT
 		}
 		else if(JOY_BTN_1(joyInput) && guns>0 && !missile._status)
 		{
@@ -161,7 +173,7 @@ extern unsigned char guns;
 		#endif
 	}	
 #else
-	#if defined(__VG5K__) || defined(__AQUARIUS__) || defined(__CBM610__) || defined(__CPC__) || defined(__SPECTRUM__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
+	#if defined(__VG5K__) || defined(__AQUARIUS__) || defined(__CBM610__) || defined(__CPC__) || defined(__SPECTRUM__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) || defined(__ENTERPRICE__)
 		#define _MOVE_UP 'i'
 		#define _MOVE_DOWN 'k'
 		#define _MOVE_LEFT 'j'
@@ -196,35 +208,19 @@ extern unsigned char guns;
 	{
 		if(kbInput==_MOVE_UP)
 		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = UP;
-			SHOW_UP();
+			_DO_MOVE_UP
 		}
 		else if(kbInput==_MOVE_DOWN)
 		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._y;
-			invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = DOWN;
-			SHOW_DOWN();
+			_DO_MOVE_DOWN
 		}
 		else if(kbInput==_MOVE_LEFT)
 		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			--player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = LEFT;
-			SHOW_LEFT();
+			_DO_MOVE_LEFT
 		}
 		else if(kbInput==_MOVE_RIGHT)
 		{
-			DELETE_PLAYER(player._x,player._y,player._imagePtr);
-			++player._x;
-			invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-			playerDirection = RIGHT;
-			SHOW_RIGHT();
+			_DO_MOVE_RIGHT
 		}
 		else if(kbInput==_FIRE && guns>0 && !missile._status)
 		{
@@ -255,20 +251,10 @@ extern unsigned char guns;
 	#elif defined(__MSX__)
 		#include<msx/gfx.h>
 		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByKeyboard(get_stick(0));} else movePlayerByKeyboard(9);}
-	#elif defined(__CPC__) || defined(__SC3000__)
+	#elif defined(__CPC__) || defined(__SC3000__) || defined(__VZ__)  || defined(__VG5K__) || defined(__ZX81__) || defined(__ACE__) || defined(__ENTERPRICE__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
-	#elif defined(__VG5K__) 
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
-	#elif defined(__AQUARIUS__) 
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this is wrong (turn-based)
-	#elif defined(__ZX81__) 
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
-	#elif defined(__ZX80__) 
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());}				
-	#elif defined(__VZ__) 
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
-	#elif defined(__ACE__) 
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}			
+	#elif defined(__AQUARIUS__) || defined(__ZX80__) 
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this is wrong (turn-based)			
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#elif defined(__ATMOS__)

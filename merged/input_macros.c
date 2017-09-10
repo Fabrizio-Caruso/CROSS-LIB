@@ -35,7 +35,7 @@
 #include "settings.h"
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
-#elif defined(__SPECTRUM__) || defined(__ZX81__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__SC3000__) || defined(__AQUARIUS__)
+#elif defined(__SPECTRUM__) || defined(__ZX81__) || defined(__VZ__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__SC3000__) || defined(__AQUARIUS__)
 #else
 	#include <joystick.h>
 #endif
@@ -87,7 +87,7 @@ extern unsigned char guns;
 				in_wait_nokey();
 			}
 		#endif
-	#elif defined(__ZX81__)
+	#elif defined(__ZX81__) || defined(__VZ__)
 		#include <conio.h>
 		void WAIT_PRESS(void)
 		{
@@ -287,6 +287,8 @@ extern unsigned char guns;
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this is wrong (turn-based)
 	#elif defined(__ZX81__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
+	#elif defined(__VZ__) 
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}			
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#elif defined(__ATMOS__)

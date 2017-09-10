@@ -67,6 +67,10 @@
 #elif defined(__VZ__)
 	#include "patch/z88dk_conio_patch.h"			
 #elif defined(__ZX81__)
+	#include "patch/z88dk_conio_implementation.h"	
+#elif defined(__ZX80__)
+	#include "patch/z88dk_conio_implementation.h"		
+#elif defined(__ACE__)
 	#include "patch/z88dk_conio_implementation.h"		
 #endif
 
@@ -128,6 +132,10 @@ typedef struct ImageStruct Image;
 #elif defined(__AQUARIUS__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=24-Y_OFFSET;};	
 #elif defined(__ZX81__) 
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;};	
+#elif defined(__ZX80__) 
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;};	
+#elif defined(__ACE__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;};	
 #elif defined(__VZ__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=16-Y_OFFSET;};		
@@ -512,6 +520,22 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define CLEAR_SCREEN() {clrscr();};	
 #elif defined(__ZX81__)
+	#define SET_TEXT_COLOR(c) {};
+	
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
+
+	#define CLEAR_SCREEN() {clrscr();};	
+#elif defined(__ZX80__)
+	#define SET_TEXT_COLOR(c) {};
+	
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
+
+	#define CLEAR_SCREEN() {clrscr();};		
+#elif defined(__ACE__)
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};

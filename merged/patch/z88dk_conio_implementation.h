@@ -42,10 +42,16 @@
 		#endif
 	#elif defined(__ZX81__)	
 		#define gotoxy(x,y) zx_setcursorpos(y,x)
+	#elif defined(__ZX80__)	
+		#define gotoxy(x,y) zx_setcursorpos(y,x)		
 	#else
 	#endif
-	
-	#define cputc(c) printf("%c",c);
+
+	#if defined(__ZX80__)
+		#define cputc(c) {gen_tv_field(); printf("%c",c); gen_tv_field();}
+	#else
+		#define cputc(c) printf("%c",c);
+	#endif
 		
 	#if defined(__SPECTRUM__)
 		#define cgetc() in_Inkey();

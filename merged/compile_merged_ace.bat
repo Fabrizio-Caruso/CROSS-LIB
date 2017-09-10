@@ -44,7 +44,9 @@ cd %mypath%\
 
 @REM -O3
 
-zcc +zx80 -vn -D__ZX80__ -lndos -create-app -o  %deliverables%\MINIMAL_zx80_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +ace -D__ACE__ -clib=ansi -create-app -o  %deliverables%\MINIMAL_ace.bin %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+
+@REM zcc +ace -vn -D__ACE__ -lndos -create-app -o  %deliverables%\MINIMAL_ace_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 @REM zcc +aquarius -vn -create-app -o %deliverables%\MINIMAL_aquarius_experimental.prg %mypath%\..\experiments\my_hello.c
 

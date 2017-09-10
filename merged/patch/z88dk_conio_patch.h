@@ -36,7 +36,11 @@
 
 	#include <conio.h>
 
-    #define cputc(c) putch(c);
+	#if defined(__ZX80__)
+		#define cputc(c) {gen_tv_field(); putch(c);}
+	#else
+		#define cputc(c) putch(c);
+	#endif
 	//
 	#define cgetc() (char) getch();
 

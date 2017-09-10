@@ -34,13 +34,6 @@
 #include "character.h"
 #include "settings.h"
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) 
-#elif defined(__SPECTRUM__) || defined(__ZX81__) || defined(__VZ__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__SC3000__) || defined(__AQUARIUS__)
-#else
-	#include <joystick.h>
-#endif
-
-
 #if defined(__SPECTRUM__)
 	#include <input.h>
 	#if defined(SPECTRUM_NATIVE_DIRECTIVES)
@@ -51,7 +44,6 @@
 #include "display_macros.h"
 #include "invincible_enemy.h"
 #include "input_macros.h"
-
 
 extern unsigned short invincibleXCountDown;
 extern unsigned short invincibleYCountDown;
@@ -87,7 +79,7 @@ extern unsigned char guns;
 				in_wait_nokey();
 			}
 		#endif
-	#elif defined(__ZX81__) || defined(__VZ__)
+	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__VZ__) || defined(__ACE__)
 		#include <conio.h>
 		void WAIT_PRESS(void)
 		{
@@ -127,6 +119,7 @@ extern unsigned char guns;
 
 
 #if (defined(__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) || defined(__LYNX__) || defined(__SUPERVISION__)
+	#include <joystick.h>
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
 		if(JOY_UP(joyInput))
@@ -179,7 +172,7 @@ extern unsigned char guns;
 		#endif
 	}	
 #else
-	#if defined(__VG5K__) || defined(__AQUARIUS__) || defined(__CBM610__) || defined(__CPC__) || defined(__SPECTRUM__)
+	#if defined(__VG5K__) || defined(__AQUARIUS__) || defined(__CBM610__) || defined(__CPC__) || defined(__SPECTRUM__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
 		#define _MOVE_UP 'i'
 		#define _MOVE_DOWN 'k'
 		#define _MOVE_LEFT 'j'
@@ -202,13 +195,7 @@ extern unsigned char guns;
 		#define _MOVE_DOWN 5
 		#define _MOVE_LEFT 7
 		#define _MOVE_RIGHT 3
-		#define _FIRE 9
-	#elif defined(__ZX81__)
-		#define _MOVE_UP 'i'
-		#define _MOVE_DOWN 'k'
-		#define _MOVE_LEFT 'j'
-		#define _MOVE_RIGHT 'l'
-		#define _FIRE ' '	
+		#define _FIRE 9		
 	#else
 		#define _MOVE_UP 'I'
 		#define _MOVE_DOWN 'K'
@@ -286,8 +273,12 @@ extern unsigned char guns;
 	#elif defined(__AQUARIUS__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this is wrong (turn-based)
 	#elif defined(__ZX81__) 
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
+	#elif defined(__ZX80__) 
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());}				
 	#elif defined(__VZ__) 
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
+	#elif defined(__ACE__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}			
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	

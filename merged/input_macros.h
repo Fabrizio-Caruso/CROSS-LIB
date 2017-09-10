@@ -36,7 +36,6 @@
 
 	#include "character.h"
 
-	
 	#if defined(__CBM610__) || !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI52000__) && !defined(__LYNX__) && !defined(__SUPERVISION__) 
 	#else
 		#include <joystick.h>
@@ -50,28 +49,19 @@
 	
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_input.h"
-	// #elif defined(__AQUARIUS__)
-		// #include "aquarius/aquarius_input.h"
 	#endif
 
 
 	#if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
-		#define JOY_INSTALL() { joy_install(joy_static_stddrv); };
-		#define GET_JOY1() joy_read (JOY_1);
-		#define INIT_INPUT() JOY_INSTALL(); 
+		#define INIT_INPUT() { joy_install(joy_static_stddrv); };
 	#else
 		#define INIT_INPUT()
 	#endif
 				
-	// Move player
 	void WAIT_PRESS(void);
 	
-	#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__MSX__)
+	#if defined(__CBM610__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__))
 		void movePlayerByKeyboard(unsigned char kbInput);
-	#elif defined(__CBM610__)
-		void movePlayerByKeyboard(unsigned char kbInput);
-	#elif defined(__MSX__)
-		void movePlayerByKeyboard(unsigned char joyInput); // joystick and built-in keyboard arrows
 	#else // All CBM except CBM610 + ATARI + ATARI XL
 		void movePlayerByJoystick(unsigned char joyInput);
 	#endif

@@ -143,7 +143,8 @@ void displayStatsTitles(void)
 			PRINT(0,0-Y_OFFSET,"SCORE:");
 			PRINT(0,1-Y_OFFSET,"LEVEL:");
 	#elif defined(__AQUARIUS__)		
-	#elif defined(__ZX81__)		
+	#elif defined(__ZX81__)	
+	#elif defined(__ZX80__)		
 	#elif defined(__ATARI5200__)			
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
@@ -185,6 +186,7 @@ void displayStatsTitles(void)
 		gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#elif defined(__AQUARIUS__)		
 	#elif defined(__ZX81__)		
+	#elif defined(__ZX80__)	
 	#elif defined(__ATARI5200__)	
 	#elif defined(__MSX__)
 		SET_TEXT_COLOR(TEXT_COLOR);	
@@ -227,6 +229,7 @@ void printGunsStats(void)
 		PRINTF(18+2+1-X_OFFSET,1+0-Y_OFFSET,"%u",guns);	
 	#elif defined(__AQUARIUS__)		
 	#elif defined(__ZX81__)	
+	#elif defined(__ZX80__)	
 	#elif defined(__ATARI5200__)
 	#elif defined(__MSX__)	
 		PRINTF(18+2+1-X_OFFSET,1+0-Y_OFFSET,"%u",guns);	
@@ -253,6 +256,7 @@ void printLevelStats(void)
 		PRINTF(8,2-Y_OFFSET,"%02u", level);
 	#elif defined(__AQUARIUS__)
 	#elif defined(__ZX81__)	
+	#elif defined(__ZX80__)	
 	#elif defined(__ATARI5200__)
 	#elif defined(__MSX__)
 		PRINTF(8,1+1-Y_OFFSET,"%02u", level);	
@@ -281,6 +285,7 @@ void printGhostCountStats(void)
 		PRINTF(18+2-X_OFFSET-3,1+0-Y_OFFSET,"%u",ghostCount);
 	#elif defined(__AQUARIUS__)
 	#elif defined(__ZX81__)	
+	#elif defined(__ZX80__)	
 	#elif defined(__ATARI5200__)
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET-3,1+0-Y_OFFSET,"%u",ghostCount);
@@ -308,6 +313,7 @@ void printLivesStats(void)
 		PRINTF(18+2-X_OFFSET,1+1-Y_OFFSET,"%02u",lives);
 	#elif defined(__AQUARIUS__)		
 	#elif defined(__ZX81__)	
+	#elif defined(__ZX80__)	
 	#elif defined(__ATARI5200__)
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET,1+1-Y_OFFSET,"%02u",lives);	
@@ -334,6 +340,7 @@ void displayStats(void)
 		PRINTF(8,1-Y_OFFSET,"%05u0",points);
 	#elif defined(__AQUARIUS__)		
 	#elif defined(__ZX81__)	
+	#elif defined(__ZX80__)	
 	#elif defined(__ATARI5200__)
 	#elif defined(__MSX__)
 		PRINTF(8,1-Y_OFFSET,"%05u0",points);	

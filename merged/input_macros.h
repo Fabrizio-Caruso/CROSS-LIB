@@ -34,13 +34,6 @@
 #ifndef _INPUT_MACROS
 #define _INPUT_MACROS
 
-	#include "character.h"
-
-	#if defined(__CBM610__) || !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI52000__) && !defined(__LYNX__) && !defined(__SUPERVISION__) 
-	#else
-		#include <joystick.h>
-	#endif
-
 	#if defined(__SPECTRUM__)
 		#include "patch/z88dk_conio_implementation.h"
 	#else
@@ -50,20 +43,16 @@
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_input.h"
 	#endif
-
-
-	#if (defined (__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__)
-		#define INIT_INPUT() { joy_install(joy_static_stddrv); };
-	#else
-		#define INIT_INPUT()
-	#endif
 				
 	void WAIT_PRESS(void);
 	
 	#if defined(__CBM610__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__))
 		void movePlayerByKeyboard(unsigned char kbInput);
+		#define INIT_INPUT()
 	#else // All CBM except CBM610 + ATARI + ATARI XL
+		#include <joystick.h>
 		void movePlayerByJoystick(unsigned char joyInput);
+		#define INIT_INPUT() { joy_install(joy_static_stddrv); };		
 	#endif
 
 	void MOVE_PLAYER(void);

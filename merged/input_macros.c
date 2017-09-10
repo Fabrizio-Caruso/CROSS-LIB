@@ -33,14 +33,6 @@
 
 #include "character.h"
 #include "settings.h"
-
-#if defined(__SPECTRUM__)
-	#include <input.h>
-	#if defined(SPECTRUM_NATIVE_DIRECTIVES)
-		#include <spectrum.h>
-	#endif
-#endif
-
 #include "display_macros.h"
 #include "invincible_enemy.h"
 #include "input_macros.h"
@@ -51,9 +43,6 @@ extern unsigned char playerDirection;
 extern unsigned char playerFire;
 extern Character player;
 extern Character missile;
-
-extern unsigned char ghostCount;
-
 extern unsigned char guns;
 
 #if defined(FULL_GAME)

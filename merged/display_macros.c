@@ -131,6 +131,8 @@ Image GUN_IMAGE;
 		// Color
 		#elif defined(__APPLE2__) 
 			DEAD_GHOST_IMAGE._imageData = '_';
+		#elif defined(__ZX81__)
+			DEAD_GHOST_IMAGE._imageData = 'x';		
 		#else
 			DEAD_GHOST_IMAGE._imageData = 'o';
 		#endif

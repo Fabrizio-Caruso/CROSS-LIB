@@ -32,18 +32,16 @@ cd %cc65path%\bin\
 @REM -lib %cc65path%\lib\atari5200.lib 
 @REM cl65.exe -O -t atari5200 %mypath%\test_a5200.c -o %deliverables%\test_atari5200.rom
 
-@REM 
-cl65.exe -O -t atari5200 %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atari5200.rom
-
-
+@REM cl65.exe -O -t atari5200 %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\atari5200.rom
 
 
 @REM conio issues
-@REM cl65.exe -O -t lynx  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\lynx.bin
+@REM cl65.exe -O -t lynx  %mypath%\input_macros.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c  %mypath%\main.c  -o %deliverables%\lynx.bin
 
 
 @REM conio issues + color unrecognized 
-@REM cl65.exe -O -t supervision  %mypath%\display_macros.c %mypath%\powerUps.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input.c %mypath%\main.c  -o %deliverables%\supervision.bin
+@REM 
+cl65.exe -O -t supervision  %mypath%\input_macros.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\main.c  -o %deliverables%\supervision.bin
 
 
 

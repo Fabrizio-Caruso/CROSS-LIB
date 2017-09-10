@@ -37,7 +37,7 @@
 	#include "character.h"
 
 	
-	#if defined(__CBM610__) || !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__)) 
+	#if defined(__CBM610__) || !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI52000__) && !defined(__LYNX__) && !defined(__SUPERVISION__) 
 	#else
 		#include <joystick.h>
 	#endif

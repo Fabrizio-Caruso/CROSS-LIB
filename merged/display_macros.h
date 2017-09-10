@@ -60,6 +60,10 @@
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__AQUARIUS__)
 	#include "patch/z88dk_conio_patch.h"	
+// #elif defined(__LYNX__)
+	// #include "patch/z88dk_conio_patch.h"	
+#elif defined(__SUPERVISION__)
+	#include "patch/z88dk_conio_patch.h"		
 #elif defined(__ZX81__)
 	#include "patch/z88dk_conio_implementation.h"		
 #endif

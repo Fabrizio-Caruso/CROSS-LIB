@@ -69,7 +69,7 @@ extern unsigned char guns;
 	extern unsigned char oddBlink;	
 #endif
 
-#if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__))
+#if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__SUPERVISION__))
 	#if defined(__SPECTRUM__)
 		#include <input.h>
 
@@ -126,7 +126,7 @@ extern unsigned char guns;
 #endif
 
 
-#if (defined(__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__)
+#if (defined(__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) || defined(__LYNX__) || defined(__SUPERVISION__)
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
 		if(JOY_UP(joyInput))
@@ -269,7 +269,7 @@ extern unsigned char guns;
 	}
 #endif
 
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__SUPERVISION__)
 	#if defined(__SPECTRUM__)
 		#if defined(SPECTRUM_NATIVE_DIRECTIVES)	
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}
@@ -289,9 +289,10 @@ extern unsigned char guns;
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
+	#elif defined(__ATMOS__)
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}	
 	#else
-		// ATARI and ORIC
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(' ');} // TODO: Implement it
 	#endif
 #elif defined(__CBM610__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	

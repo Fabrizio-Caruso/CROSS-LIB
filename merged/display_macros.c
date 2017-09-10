@@ -124,13 +124,14 @@ Image GUN_IMAGE;
 		MISSILE_IMAGE._imageData = '.';
 		
 		// Monochromatic and no capital letters
-		#if defined(__APPLE2__) 
-			DEAD_GHOST_IMAGE._imageData = '_';
+
 		// Monochromatic and capital letters
-		#elif defined(__APPLE2ENH__) || defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
+		#if defined(__APPLE2ENH__) || defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
 			DEAD_GHOST_IMAGE._imageData = 'O';
 		// Color
-		#else 
+		#elif defined(__APPLE2__) 
+			DEAD_GHOST_IMAGE._imageData = '_';
+		#else
 			DEAD_GHOST_IMAGE._imageData = 'o';
 		#endif
 

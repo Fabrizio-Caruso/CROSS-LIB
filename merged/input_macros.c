@@ -88,8 +88,16 @@ extern unsigned char guns;
 			}
 		#endif
 	#elif defined(__ZX81__)
-		void WAIT_PRESS(void) // TODO: JUST DEBUGGING
-		{}		
+		#include <conio.h>
+		void WAIT_PRESS(void)
+		{
+			while(kbhit())
+				cgetc();
+			while(!kbhit())
+			{ 
+			}; 
+			cgetc();
+		}	
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		#include <conio.h>
 		void WAIT_PRESS(void)

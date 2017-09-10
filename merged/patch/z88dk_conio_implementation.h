@@ -50,7 +50,7 @@
 	#if defined(__SPECTRUM__)
 		#define cgetc() in_Inkey();
 	#else
-		#define cgetc() getk();
+		#define cgetc() (char) getch();
 	#endif
 
 	#define COLOR_BLACK 0	

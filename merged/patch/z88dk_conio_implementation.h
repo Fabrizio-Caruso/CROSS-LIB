@@ -40,10 +40,10 @@
 		#else
 			#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 		#endif
-	#elif defined(__ZX81__)	
+	#elif defined(__ZX81__)	|| defined(__ZX80__)
 		#define gotoxy(x,y) zx_setcursorpos(y,x)
-	#elif defined(__ZX80__)	
-		#define gotoxy(x,y) zx_setcursorpos(y,x)		
+	#elif defined(__ENTERPRISE__)
+		#define gotoxy(x,y)
 	#else
 	#endif
 

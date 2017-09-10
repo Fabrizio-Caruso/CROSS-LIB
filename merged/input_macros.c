@@ -96,7 +96,7 @@ extern unsigned char guns;
 				in_wait_nokey();
 			}
 		#endif
-	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__VZ__) || defined(__ACE__) || defined(__ENTERPRICE__)
+	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__VZ__) || defined(__ACE__) || defined(__ENTERPRISE__)
 		#include <conio.h>
 		void WAIT_PRESS(void)
 		{
@@ -173,7 +173,7 @@ extern unsigned char guns;
 		#endif
 	}	
 #else
-	#if defined(__VG5K__) || defined(__AQUARIUS__) || defined(__CBM610__) || defined(__CPC__) || defined(__SPECTRUM__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) || defined(__ENTERPRICE__)
+	#if defined(__VG5K__) || defined(__AQUARIUS__) || defined(__CBM610__) || defined(__CPC__) || defined(__SPECTRUM__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) || defined(__ENTERPRISE__)
 		#define _MOVE_UP 'i'
 		#define _MOVE_DOWN 'k'
 		#define _MOVE_LEFT 'j'
@@ -251,7 +251,7 @@ extern unsigned char guns;
 	#elif defined(__MSX__)
 		#include<msx/gfx.h>
 		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByKeyboard(get_stick(0));} else movePlayerByKeyboard(9);}
-	#elif defined(__CPC__) || defined(__SC3000__) || defined(__VZ__)  || defined(__VG5K__) || defined(__ZX81__) || defined(__ACE__) || defined(__ENTERPRICE__)
+	#elif defined(__CPC__) || defined(__SC3000__) || defined(__VZ__)  || defined(__VG5K__) || defined(__ZX81__) || defined(__ACE__) || defined(__ENTERPRISE__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
 	#elif defined(__AQUARIUS__) || defined(__ZX80__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this is wrong (turn-based)			

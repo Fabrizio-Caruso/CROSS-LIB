@@ -386,6 +386,8 @@ void printCenteredMessage(char *Text)
 	}
 #elif defined(__CPC__)
 	void printLevel(void) {}
+#elif defined(__ZX81__)
+	void printLevel(void) {}
 #else
 	void printLevel(void)
 	{

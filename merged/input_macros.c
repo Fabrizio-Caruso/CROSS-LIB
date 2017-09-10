@@ -87,6 +87,9 @@ extern unsigned char guns;
 				in_wait_nokey();
 			}
 		#endif
+	#elif defined(__ZX81__)
+		void WAIT_PRESS(void) // TODO: JUST DEBUGGING
+		{}		
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		#include <conio.h>
 		void WAIT_PRESS(void)
@@ -193,10 +196,10 @@ extern unsigned char guns;
 		#define _MOVE_RIGHT 3
 		#define _FIRE 9
 	#elif defined(__ZX81__)
-		#define _MOVE_UP 'I'
-		#define _MOVE_DOWN 'K'
-		#define _MOVE_LEFT 'J'
-		#define _MOVE_RIGHT 'L'
+		#define _MOVE_UP 'i'
+		#define _MOVE_DOWN 'k'
+		#define _MOVE_LEFT 'j'
+		#define _MOVE_RIGHT 'l'
 		#define _FIRE ' '	
 	#else
 		#define _MOVE_UP 'I'

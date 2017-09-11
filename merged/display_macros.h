@@ -374,6 +374,11 @@ void _delete(unsigned char x, unsigned char y);
 		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 2); \
 	}
 
+#elif defined(__SC3000__)
+	#define PRINT(x,y,str)
+	#define PRINTF(x,y,str,val)
+	#define DRAW_BORDERS()
+	#define DRAW_VERTICAL_LINE()
 #else		
 	// #if defined(__AQUARIUS__)
 		// #define PRINT(x,y,str)
@@ -508,7 +513,6 @@ void _delete(unsigned char x, unsigned char y);
 	void CLEAR_SCREEN();
 	
 #elif defined(__MSX__)
-	#include <conio.h>
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};
@@ -517,7 +521,6 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define CLEAR_SCREEN() {clrscr();};
 #elif defined(__AQUARIUS__)
-	#include <conio.h>
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};

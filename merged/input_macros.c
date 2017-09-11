@@ -97,7 +97,6 @@ extern unsigned char guns;
 			}
 		#endif
 	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__VZ__) || defined(__ACE__) || defined(__ENTERPRISE__) || defined(__MTX__)
-		#include <conio.h>
 		void WAIT_PRESS(void)
 		{
 			while(kbhit())
@@ -108,7 +107,6 @@ extern unsigned char guns;
 			cgetc();
 		}	
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
-		#include <conio.h>
 		void WAIT_PRESS(void)
 		{
 			while(kbhit())

@@ -40,9 +40,10 @@
 	#include <atari5200.h>
 #endif
 	
-#if !defined(__SPECTRUM__) && !defined(__SC3000__) && !defined(__TRS80__)
+#if !defined(__SPECTRUM__)
 	#include <conio.h>
 #endif
+
 #if defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#include "patch/generic_conio_patch.h"
 #endif
@@ -75,6 +76,8 @@
 #elif defined(__ENTERPRISE__)
 	#include "patch/z88dk_conio_implementation.h"		
 #elif defined(__MTX__)
+	#include "patch/z88dk_conio_implementation.h"		
+#elif defined(__M5__)
 	#include "patch/z88dk_conio_implementation.h"		
 #endif
 
@@ -150,7 +153,9 @@ typedef struct ImageStruct Image;
 #elif defined(__MTX__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};		
 #elif defined(__TRS80__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};			
+	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};		
+#elif defined(__M5__) 
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};		
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #endif
@@ -504,7 +509,7 @@ void _delete(unsigned char x, unsigned char y);
 
 	void CLEAR_SCREEN();
 	
-#elif defined(__SC3000__) || defined(__MSX__) || defined(__SVI__) || defined(__AQUARIUS__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) || defined(__VZ__)
+#elif defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__SVI__) || defined(__AQUARIUS__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) || defined(__VZ__)
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};

@@ -43,7 +43,7 @@
 	#if defined(__CBM610__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__))
 		void movePlayerByKeyboard(unsigned char kbInput);
 		#define INIT_INPUT()
-	#else // All CBM except CBM610 + ATARI + ATARI XL
+	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200
 		#include <joystick.h>
 		void movePlayerByJoystick(unsigned char joyInput);
 		#define INIT_INPUT() { joy_install(joy_static_stddrv); };		

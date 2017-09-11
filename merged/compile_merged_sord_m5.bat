@@ -44,7 +44,10 @@ cd %mypath%\
 
 @REM -O3
 
-zcc +ace -O3 -D__ACE__ -clib=ansi -Cz--audio -create-app -o  %deliverables%\a.bin %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM 
+zcc  +m5 -D__M5__ -lndos -lm -create-app -Cz--audio -o %deliverables%\MINIMAL_m5 %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+
+@REM zcc  +m5 -D__M5__ -lndos -lm -create-app -Cz--audio -o %deliverables%\test_m5 %mypath%\test_a5200.c
 
 @REM zcc +ace -vn -D__ACE__ -lndos -create-app -o  %deliverables%\MINIMAL_ace_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 

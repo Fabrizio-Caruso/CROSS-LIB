@@ -51,13 +51,6 @@
 #include "sleep_macros.h"
 #include "sound_macros.h"
 
-
-// #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
-// #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
-// #define PEEK(addr)         (*(unsigned char*) (addr))
-// #define PEEKW(addr) (*(unsigned*) (addr))
-
-
 unsigned short invincibleSlowDown;
 unsigned short invincibleXCountDown;
 unsigned short invincibleYCountDown;

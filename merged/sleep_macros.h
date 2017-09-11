@@ -36,7 +36,7 @@
 
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES))
 	void sleep(unsigned int sec);
-#elif defined(__VZ__) || defined(__SC3000__) || defined(__MSX__) || defined(__CPC__) || defined(__SPECTRUM__) || defined(__VG5K__) || defined(__AQUARIUS__)
+#elif defined(__MTX__) || defined(__VZ__) || defined(__SC3000__) || defined(__MSX__) || defined(__CPC__) || defined(__SPECTRUM__) || defined(__VG5K__) || defined(__AQUARIUS__)
 	 #define sleep(sec) { { unsigned int ii; for(ii=0;ii<sec*5000UL;++ii){}; } };
 #else	
 	#include <time.h>

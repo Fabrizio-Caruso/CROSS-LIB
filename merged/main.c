@@ -35,10 +35,6 @@
 #include <string.h>
 #include <stdio.h>
 
-#if defined(__SPECTRUM__)
-	#include <input.h>
-#endif 
-
 #include "settings.h"
 #include "character.h"
 #include "strategy.h"

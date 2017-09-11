@@ -96,7 +96,7 @@ extern unsigned char guns;
 				in_wait_nokey();
 			}
 		#endif
-	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__VZ__) || defined(__ACE__) || defined(__ENTERPRISE__)
+	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__VZ__) || defined(__ACE__) || defined(__ENTERPRISE__) || defined(__MTX__)
 		#include <conio.h>
 		void WAIT_PRESS(void)
 		{
@@ -173,13 +173,7 @@ extern unsigned char guns;
 		#endif
 	}	
 #else
-	#if defined(__VG5K__) || defined(__AQUARIUS__) || defined(__CBM610__) || defined(__CPC__) || defined(__SPECTRUM__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) || defined(__ENTERPRISE__)
-		#define _MOVE_UP 'i'
-		#define _MOVE_DOWN 'k'
-		#define _MOVE_LEFT 'j'
-		#define _MOVE_RIGHT 'l'
-		#define _FIRE ' '
-	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) 
+	#if defined(__APPLE2__) || defined(__APPLE2ENH__) 
 		#define _MOVE_UP 'I'
 		#define _MOVE_DOWN 'K'
 		#define _MOVE_LEFT 'J'
@@ -198,10 +192,10 @@ extern unsigned char guns;
 		#define _MOVE_RIGHT 3
 		#define _FIRE 9		
 	#else
-		#define _MOVE_UP 'I'
-		#define _MOVE_DOWN 'K'
-		#define _MOVE_LEFT 'J'
-		#define _MOVE_RIGHT 'L'
+		#define _MOVE_UP 'i'
+		#define _MOVE_DOWN 'k'
+		#define _MOVE_LEFT 'j'
+		#define _MOVE_RIGHT 'l'
 		#define _FIRE ' '		
 	#endif
 	void movePlayerByKeyboard(unsigned char kbInput)
@@ -250,9 +244,7 @@ extern unsigned char guns;
 		#endif
 	#elif defined(__MSX__)
 		#include<msx/gfx.h>
-		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByKeyboard(get_stick(0));} else movePlayerByKeyboard(9);}
-	#elif defined(__CPC__) || defined(__SC3000__) || defined(__VZ__)  || defined(__VG5K__) || defined(__ZX81__) || defined(__ACE__) || defined(__ENTERPRISE__)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}		
+		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByKeyboard(get_stick(0));} else movePlayerByKeyboard(9);}	
 	#elif defined(__AQUARIUS__) || defined(__ZX80__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this is wrong (turn-based)			
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
@@ -260,7 +252,7 @@ extern unsigned char guns;
 	#elif defined(__ATMOS__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}	
 	#else
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(' ');} // TODO: Implement it
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
 	#endif
 #elif defined(__CBM610__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	

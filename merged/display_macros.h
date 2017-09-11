@@ -73,7 +73,9 @@
 #elif defined(__ACE__)
 	#include "patch/z88dk_conio_implementation.h"		
 #elif defined(__ENTERPRISE__)
-	#include "patch/z88dk_conio_implementation.h"			
+	#include "patch/z88dk_conio_implementation.h"		
+#elif defined(__MTX__)
+	#include "patch/z88dk_conio_implementation.h"		
 #endif
 
 struct ImageStruct
@@ -142,7 +144,9 @@ typedef struct ImageStruct Image;
 #elif defined(__ENTERPRISE__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-1-Y_OFFSET;};		
 #elif defined(__VZ__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=16-Y_OFFSET;};		
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=16-Y_OFFSET;};	
+#elif defined(__MTX__) 
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};			
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #endif

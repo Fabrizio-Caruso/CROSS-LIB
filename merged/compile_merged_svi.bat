@@ -14,6 +14,7 @@ set configpath="C:\Users\Brizio\Retro\ASCII-CHASE\merged\cfg"
 set mypath="C:\Users\Brizio\Retro\ASCII-CHASE\merged"
 
 
+
 set Deliverables=%mypath%\deliverables
 
 mkdir %deliverables% 2> NUL
@@ -35,14 +36,13 @@ cd %mypath%\
 
 @REM CPC HALF-WORKINg
 @REM -DDEBUG_CHARACTERS
-@REM -O3
 @REM 
-zcc +sc3000 -vn -Cz--audio -D__SC3000__ -lndos -create-app -o %deliverables%\MINIMAL_sc3000_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
-@REM zcc +sc3000 -vn -Cz--audio -D__SC3000__ -lndos -create-app -o %deliverables%\test_sc3000.prg %mypath%\test_a5200.c
 
-del %deliverables%\MINIMAL_sc3000_experimental.prg
-@REM del %deliverables%\cpc.cpc
+@REM 
+zcc +svi  -vn -lndos -D__MTX__ -create-app -subtype=wav -o  %deliverables%\MINIMAL_svi %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
+
+@REM zcc +svi  -vn -lndos -D__MTX__ -create-app -subtype=wav -o  %deliverables%\MINIMAL_svi %mypath%\test_a5200.c
 
 del %mypath%\*.o
 del %mypath%\atmos\*.o

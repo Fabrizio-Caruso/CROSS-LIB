@@ -34,8 +34,6 @@
 #ifndef _Z88DK_CONIO_PATCH
 #define _Z88DK_CONIO_PATCH
 
-	#include <conio.h>
-
 	#if defined(__ZX80__)
 		#define cputc(c) {gen_tv_field(); putch(c);}
 	#else

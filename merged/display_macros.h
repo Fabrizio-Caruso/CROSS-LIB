@@ -40,7 +40,7 @@
 	#include <atari5200.h>
 #endif
 	
-#if !defined(__SPECTRUM__) && !defined(__SC3000__)
+#if !defined(__SPECTRUM__) && !defined(__SC3000__) && !defined(__TRS80__)
 	#include <conio.h>
 #endif
 #if defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
@@ -56,6 +56,8 @@
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__VG5K__)
 	#include "patch/z88dk_conio_patch.h"
+#elif defined(__TRS80__)
+	#include "patch/z88dk_conio_implementation.h"
 #elif defined(__SC3000__)
 	#include "patch/z88dk_conio_implementation.h"	
 #elif defined(__AQUARIUS__)
@@ -125,6 +127,8 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) {*x=40-1-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__MSX__) && defined(MSX_MODE1)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-1-X_OFFSET; *y=24-Y_OFFSET;};
+#elif defined(__SVI__) 
+	#define GET_SCREEN_SIZE(x,y) {*x=32-1-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__CPC__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 
@@ -144,7 +148,9 @@ typedef struct ImageStruct Image;
 #elif defined(__VZ__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=16-Y_OFFSET;};	
 #elif defined(__MTX__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};			
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};		
+#elif defined(__TRS80__) 
+	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};			
 #else
 	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
 #endif
@@ -196,7 +202,6 @@ void _delete(unsigned char x, unsigned char y);
 #define DELETE_EXTRA_POINTS(x,y,image) {_delete(x,y);};
 #define DELETE_EXTRA_LIFE(x,y,image) {_delete(x,y);};
 #define DELETE_INVINCIBILITY(x,y,image) {_delete(x,y);};	
-	
 	
 #define DRAW_BOMBS() \
 { \
@@ -484,19 +489,6 @@ void _delete(unsigned char x, unsigned char y);
 	#define CLEAR_SCREEN() {printf("\xc");};
 #elif defined(__CPC__) 
 	#define SET_TEXT_COLOR(c) textcolor(c);
-	// #define SET_TEXT_COLOR(c) \
-	// { \
-		// if(c==0) \
-			// vtrendition(0) \
-		// else if (c==3) \
-			// vtrendition(3) \
-		// else \
-			// vtrendition(4) \
-	// }
-	//{vtrendition(c);};
-	//textcolor(c);
-	//printf("\020%c",c);
-	//{printf("\x1B[%d;40m",c);};
 
 	#define SET_BORDER_COLOR(c) {};
 
@@ -512,15 +504,7 @@ void _delete(unsigned char x, unsigned char y);
 
 	void CLEAR_SCREEN();
 	
-#elif defined(__MSX__)
-	#define SET_TEXT_COLOR(c) {};
-	
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};	
-
-	#define CLEAR_SCREEN() {clrscr();};
-#elif defined(__AQUARIUS__)
+#elif defined(__SC3000__) || defined(__MSX__) || defined(__SVI__) || defined(__AQUARIUS__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) || defined(__VZ__)
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};
@@ -528,44 +512,12 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() {clrscr();};	
-#elif defined(__ZX81__)
-	#define SET_TEXT_COLOR(c) {};
-	
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};	
-
-	#define CLEAR_SCREEN() {clrscr();};	
-#elif defined(__ZX80__)
-	#define SET_TEXT_COLOR(c) {};
-	
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};	
-
-	#define CLEAR_SCREEN() {clrscr();};		
-#elif defined(__ACE__)
-	#define SET_TEXT_COLOR(c) {};
-	
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};	
-
-	#define CLEAR_SCREEN() {clrscr();};	
-#elif defined(__VZ__)
-	#define SET_TEXT_COLOR(c) {};
-	
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};	
-
-	#define CLEAR_SCREEN() {clrscr();};		
 #elif defined(__ATARI5200__)
 	#define SET_TEXT_COLOR(c) {};
 	
-	#define SET_BORDER_COLOR(c) {};
+	#define SET_BORDER_COLOR(c) (void) bordercolor(c);;
 
-	#define SET_BACKGROUND_COLOR(c) {};	
+	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 
 	#define CLEAR_SCREEN() {clrscr();};	
 #elif defined(__ATMOS__)

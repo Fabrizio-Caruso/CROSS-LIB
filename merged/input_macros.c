@@ -78,7 +78,7 @@ extern unsigned char guns;
 	playerDirection = RIGHT; \
 	SHOW_RIGHT();
 	
-#if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__SUPERVISION__))
+#if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__))
 	#if defined(__SPECTRUM__)
 		#include <input.h>
 
@@ -96,16 +96,6 @@ extern unsigned char guns;
 				in_wait_nokey();
 			}
 		#endif
-	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__VZ__) || defined(__ACE__) || defined(__ENTERPRISE__) || defined(__MTX__)
-		void WAIT_PRESS(void)
-		{
-			while(kbhit())
-				cgetc();
-			while(!kbhit())
-			{ 
-			}; 
-			cgetc();
-		}	
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		void WAIT_PRESS(void)
 		{

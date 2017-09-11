@@ -34,6 +34,33 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
+#if defined(__APPLE2__) || defined(__APPLE2ENH__) 
+	#define _MOVE_UP 'I'
+	#define _MOVE_DOWN 'K'
+	#define _MOVE_LEFT 'J'
+	#define _MOVE_RIGHT 'L'
+	#define _FIRE ' '
+#elif defined(__ATMOS__)
+	#define _MOVE_UP 'W'
+	#define _MOVE_DOWN 'S'
+	#define _MOVE_LEFT 'A'
+	#define _MOVE_RIGHT 'D'
+	#define _FIRE ' '	
+#elif defined(__MSX__)
+	#define _MOVE_UP 1
+	#define _MOVE_DOWN 5
+	#define _MOVE_LEFT 7
+	#define _MOVE_RIGHT 3
+	#define _FIRE 9		
+#else
+	#define _MOVE_UP 'i'
+	#define _MOVE_DOWN 'k'
+	#define _MOVE_LEFT 'j'
+	#define _MOVE_RIGHT 'l'
+	#define _FIRE ' '		
+#endif
+
+
 #if defined(__VIC20__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 300

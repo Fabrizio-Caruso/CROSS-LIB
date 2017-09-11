@@ -77,6 +77,16 @@ extern unsigned char guns;
 	invincibleXCountDown = INVINCIBLE_COUNT_DOWN; \
 	playerDirection = RIGHT; \
 	SHOW_RIGHT();
+
+#define _DRAW_PLAYER \
+	if(player_invincibility) \
+	{ \
+		DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
+	} \
+	else \
+	{ \
+		DRAW_PLAYER(player._x, player._y, player._imagePtr); \
+	}
 	
 #if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__))
 	#if defined(__SPECTRUM__)
@@ -148,44 +158,12 @@ extern unsigned char guns;
 			playerFire = 1;
 		}
 		#if defined(FULL_GAME)
-			if(player_invincibility)
-			{
-				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
-			}
-			else
-			{
-				DRAW_PLAYER(player._x, player._y, player._imagePtr);
-			}		
+			_DRAW_PLAYER	
 		#else
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 		#endif
 	}	
 #else
-	#if defined(__APPLE2__) || defined(__APPLE2ENH__) 
-		#define _MOVE_UP 'I'
-		#define _MOVE_DOWN 'K'
-		#define _MOVE_LEFT 'J'
-		#define _MOVE_RIGHT 'L'
-		#define _FIRE ' '
-	#elif defined(__ATMOS__)
-		#define _MOVE_UP 'W'
-		#define _MOVE_DOWN 'S'
-		#define _MOVE_LEFT 'A'
-		#define _MOVE_RIGHT 'D'
-		#define _FIRE ' '	
-	#elif defined(__MSX__)
-		#define _MOVE_UP 1
-		#define _MOVE_DOWN 5
-		#define _MOVE_LEFT 7
-		#define _MOVE_RIGHT 3
-		#define _FIRE 9		
-	#else
-		#define _MOVE_UP 'i'
-		#define _MOVE_DOWN 'k'
-		#define _MOVE_LEFT 'j'
-		#define _MOVE_RIGHT 'l'
-		#define _FIRE ' '		
-	#endif
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
 		if(kbInput==_MOVE_UP)
@@ -209,14 +187,7 @@ extern unsigned char guns;
 			playerFire = 1;
 		}
 		#if defined(FULL_GAME)
-			if(player_invincibility)
-			{
-				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr);
-			}
-			else
-			{
-				DRAW_PLAYER(player._x, player._y, player._imagePtr);
-			}		
+			_DRAW_PLAYER
 		#else
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 		#endif

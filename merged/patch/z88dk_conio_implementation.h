@@ -44,6 +44,8 @@
 		#define gotoxy(x,y) zx_setcursorpos(y,x)
 	#elif defined(__ENTERPRISE__) || defined(__MTX__)
 		#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
+	#elif defined(__SC3000__)
+		#define gotoxy(x,y)
 	#else
 	#endif
 

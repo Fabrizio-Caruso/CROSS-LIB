@@ -34,7 +34,7 @@
 #ifndef _INPUT_MACROS
 #define _INPUT_MACROS
 
-	#if defined(__SPECTRUM__)
+	#if defined(__SPECTRUM__) || defined(__SC3000__)
 		#include "patch/z88dk_conio_implementation.h"
 	#else
 		#include <conio.h>

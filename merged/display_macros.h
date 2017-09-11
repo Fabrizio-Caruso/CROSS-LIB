@@ -40,7 +40,7 @@
 	#include <atari5200.h>
 #endif
 	
-#if !defined(__SPECTRUM__)
+#if !defined(__SPECTRUM__) && !defined(__SC3000__)
 	#include <conio.h>
 #endif
 #if defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
@@ -57,11 +57,9 @@
 #elif defined(__VG5K__)
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__SC3000__)
-	#include "patch/z88dk_conio_patch.h"
+	#include "patch/z88dk_conio_implementation.h"	
 #elif defined(__AQUARIUS__)
 	#include "patch/z88dk_conio_patch.h"	
-// #elif defined(__LYNX__)
-	// #include "patch/z88dk_conio_patch.h"	
 #elif defined(__SUPERVISION__)
 	#include "patch/z88dk_conio_patch.h"		
 #elif defined(__VZ__)

@@ -36,7 +36,7 @@ cd %mypath%\
 @REM CPC HALF-WORKINg
 @REM -DDEBUG_CHARACTERS
 @REM -O3
-zcc +sc3000 -vn -D__SC3000__ -lndos -create-app -o %deliverables%\MINIMAL_sc3000_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +sc3000 -vn -Cz--audio -D__SC3000__ -lndos -create-app -o %deliverables%\MINIMAL_sc3000_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 del %deliverables%\MINIMAL_sc3000_experimental.prg
 @REM del %deliverables%\cpc.cpc

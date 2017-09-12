@@ -55,6 +55,8 @@
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__MSX__)
 	#include "patch/z88dk_conio_patch.h"
+#elif defined(__SVI__)
+	#include "patch/z88dk_conio_patch.h"	
 #elif defined(__VG5K__)
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__TRS80__)
@@ -63,8 +65,8 @@
 	#include "patch/z88dk_conio_implementation.h"	
 #elif defined(__AQUARIUS__)
 	#include "patch/z88dk_conio_patch.h"	
-#elif defined(__SUPERVISION__)
-	#include "patch/z88dk_conio_patch.h"		
+// #elif defined(__SUPERVISION__)
+	// #include "patch/z88dk_conio_patch.h"		
 #elif defined(__VZ__)
 	#include "patch/z88dk_conio_patch.h"			
 #elif defined(__ZX81__)

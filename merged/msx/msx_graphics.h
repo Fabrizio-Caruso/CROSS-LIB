@@ -47,10 +47,12 @@ extern unsigned char XSize;
 	#define _DRAW(x,y,image) msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),image->_imageData);
 	#define _DELETE(x,y)     msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),' ');
 	#define _DRAW_WALL(x,y)  msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),'|');
+	#define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),'X');	
 #else
 	#define _DRAW(x,y,image) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData);}
 	#define _DELETE(x,y)     {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' ');} 
 	#define _DRAW_WALL(x,y)  {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|');}
+	#define _DRAW_BROKEN_WALL(x,y)  {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X');}
 #endif
 
 void INIT_GRAPHICS(void)
@@ -80,8 +82,7 @@ void INIT_IMAGES(void)
 	GUN_IMAGE._color = COLOR_WHITE;
 	BOMB_IMAGE._color = COLOR_RED;
 	DEAD_GHOST_IMAGE._color = COLOR_RED;
-		
-		
+			
 	GHOST_IMAGE._imageData = 'o';
 	INVINCIBLE_GHOST_IMAGE._imageData = '+';
 	BOMB_IMAGE._imageData = 'X';
@@ -117,9 +118,7 @@ void INIT_IMAGES(void)
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
 	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		SET_TEXT_COLOR(COLOR_WHITE);
-		cputc('X');
+		_DRAW_BROKEN_WALL(x,y);
 	}
 #endif
 	

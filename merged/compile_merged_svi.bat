@@ -39,7 +39,7 @@ cd %mypath%\
 @REM 
 
 @REM 
-zcc +svi  -vn -lndos -D__MTX__ -create-app -subtype=wav -o  %deliverables%\MINIMAL_svi %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +svi  -vn -lndos -D__SVI__ -create-app -subtype=wav -o  %deliverables%\MINIMAL_svi %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 
 @REM zcc +svi  -vn -lndos -D__MTX__ -create-app -subtype=wav -o  %deliverables%\MINIMAL_svi %mypath%\test_a5200.c

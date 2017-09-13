@@ -82,6 +82,9 @@
 #elif defined(__MSX__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 250		
+#elif defined(__SVI__) && defined(VPOKE)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 500			
 #else
 	#define GAME_SLOW_DOWN 0
 #endif

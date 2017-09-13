@@ -48,7 +48,8 @@ extern unsigned char XSize;
 #if defined(VPOKE) 
 	#define _DRAW(x,y,image) msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,image->_imageData);
 	#define _DELETE(x,y)     msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,' ');
-	#define _DRAW_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,'|');
+	#define _DRAW_VERTICAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,'|');
+	#define _DRAW_HORIZONTAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,'-');	
 	#define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,'X');	
 #else
 	#define _DRAW(x,y,image) {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData);}
@@ -154,18 +155,17 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	unsigned char i;
 	for(i=0;i<length;++i)
 	{
-		_DRAW_WALL(x,y+i)
+		_DRAW_VERTICAL_WALL(x,y+i);
 	}
 }
 
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 {
-	// unsigned char i;
-	// gotoxy(X_OFFSET+x,Y_OFFSET+y); 
-	// for(i=0;i<length;++i)
-	// {
-		// cputc('-');
-	// }
+	unsigned char i;
+	for(i=0;i<length;++i)
+	{
+		_DRAW_HORIZONTAL_WALL(x+i,y);
+	}
 }
 		
 

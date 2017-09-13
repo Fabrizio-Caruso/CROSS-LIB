@@ -36,18 +36,27 @@ cd %mypath%\
 @REM CPC HALF-WORKINg
 @REM -DDEBUG_CHARACTERS
 @REM -O3
-zcc +aquarius -vn -D__AQUARIUS__ -lndos -o MINIMAL_aquarius_16k -create-app %mypath%\aquarius\aquarius_input.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM %mypath%\aquarius\aquarius_input.c
+@REM
+@REM 
+@REM 
+zcc +aquarius -clib=ansi -vn -D__AQUARIUS__ -lndos -o MINIMAL_aquarius_16k -create-app %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM zcc +aquarius -clib=ansi -vn -D__AQUARIUS__ -lndos -create-app -o MINIMAL_aquarius_16k test_getk.c
 @REM 
 del %mypath%\MINIMAL_aquarius_16k
+@REM 
 move %mypath%\MINIMAL_aquarius_16k.caq %deliverables%
+@REM 
 move %mypath%\_MINIMAL_aquarius_16k.caq %deliverables%
 
+zcc +aquarius -clib=ansi -vn -D__AQUARIUS__ -lndos -o test test_getk.c
 
-zcc +aquarius -vn -D__AQUARIUS__ -DFULL_GAME -lndos -o FULL_aquarius_16k -create-app %mypath%\aquarius\aquarius_input.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+
+@REM zcc +aquarius -vn -D__AQUARIUS__ -DFULL_GAME -lndos -o FULL_aquarius_16k -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
-del %mypath%\FULL_aquarius_16k
-move %mypath%\FULL_aquarius_16k.caq %deliverables%
-move %mypath%\_FULL_aquarius_16k.caq %deliverables%
+@REM del %mypath%\FULL_aquarius_16k
+@REM move %mypath%\FULL_aquarius_16k.caq %deliverables%
+@REM move %mypath%\_FULL_aquarius_16k.caq %deliverables%
 
 
 del %mypath%\*.o

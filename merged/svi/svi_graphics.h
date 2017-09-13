@@ -35,44 +35,34 @@
 #include "display_macros.h"
 
 #include <stdio.h>
-#if defined(__MSX__)
-	#include <msx/gfx.h>#endif
+// #if defined(__MSX__)
+	// #include <msx/gfx.h>// #endif
 	
 extern unsigned char XSize;
 
-#if defined(MSX_MODE1)
-	#define BASE 6144
-#else
-	#define BASE 0
-#endif
-#if defined(VPOKE) 
-	#define _DRAW(x,y,image) msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),image->_imageData);
-	#define _DELETE(x,y)     msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),' ');
-	#define _DRAW_WALL(x,y)  msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),'|');
-	#define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),'X');	
-#else
-	#define _DRAW(x,y,image) {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData);}
-	#define _DELETE(x,y)     {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); cputc(' ');} 
-	#define _DRAW_WALL(x,y)  {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); cputc('|');}
-	#define _DRAW_BROKEN_WALL(x,y)  {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); cputc('X');}
-#endif
+
+#define _DRAW(x,y,image) {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); putch(image->_imageData);}
+#define _DELETE(x,y)     {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); putch(' ');} 
+#define _DRAW_WALL(x,y)  {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); putch('|');}
+#define _DRAW_BROKEN_WALL(x,y)  {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); putch('X');}
+
 
 void INIT_GRAPHICS(void)
 {
-	unsigned char i;	set_color(15, 1, 1);
-	#if defined(MSX_MODE1)
-		set_mode(mode_1);
+	// unsigned char i;	// set_color(15, 1, 1);
+	// #if defined(MSX_MODE1)
+		// set_mode(mode_1);
 
-		msx_vpoke(8192+ 4,10*16); // White !, $ -- 32 - 39
-		msx_vpoke(8192+ 5, 2*16); // Green  -- 40 - 47
-		msx_vpoke(8192+ 6, 4*16); // Green -- 48 - 55
-		msx_vpoke(8192+ 7, 4*16); // Green -- 56 - 63
+		// msx_vpoke(8192+ 4,10*16); // White !, $ -- 32 - 39
+		// msx_vpoke(8192+ 5, 2*16); // Green  -- 40 - 47
+		// msx_vpoke(8192+ 6, 4*16); // Green -- 48 - 55
+		// msx_vpoke(8192+ 7, 4*16); // Green -- 56 - 63
 		
-		msx_vpoke(8192+ 8, 8*16); // Red 64 --
-		msx_vpoke(8192+ 9, 8*16); // Red 72 --
-		msx_vpoke(8192+10, 8*16); // Red 80 --
-		msx_vpoke(8192+11, 8*16); // Red 88 --
-	#endif
+		// msx_vpoke(8192+ 8, 8*16); // Red 64 --
+		// msx_vpoke(8192+ 9, 8*16); // Red 72 --
+		// msx_vpoke(8192+10, 8*16); // Red 80 --
+		// msx_vpoke(8192+11, 8*16); // Red 88 --
+	// #endif
 }
 
 void INIT_IMAGES(void)
@@ -117,22 +107,26 @@ void INIT_IMAGES(void)
 	#endif
 }
 
-#if defined(FULL_GAME)
-	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
-	{
-		_DRAW_BROKEN_WALL(x,y);
-	}
-#endif
-	
-void _draw(unsigned char x, unsigned char y, Image * image) 
-{
-	_DRAW(x,y,image);
-}
+// void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+// { 
+	// unsigned char i;
+	// for(i=0;i<length;++i)
+	// {
+		// _DRAW_WALL(x,y+i)
+	// }
+// }
 
-void _delete(unsigned char x, unsigned char y)
-{
-	_DELETE(x,y);
-}
+// void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+// {
+	// unsigned char i;
+	// gotoxy(X_OFFSET+1+x,Y_OFFSET+y); 
+	// for(i=0;i<length;++i)
+	// {
+		// cputc('-');
+	// }
+// }
+
+
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
@@ -148,25 +142,26 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
-
-void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-{ 
-	unsigned char i;
-	for(i=0;i<length;++i)
-	{
-		_DRAW_WALL(x,y+i)
-	}
-}
-
-void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+void _draw(unsigned char x, unsigned char y, Image * image) 
 {
-	unsigned char i;
-	gotoxy(X_OFFSET+1+x,Y_OFFSET+y); 
-	for(i=0;i<length;++i)
-	{
-		cputc('-');
-	}
+	_DRAW(x,y,image);
 }
+
+void _delete(unsigned char x, unsigned char y)
+{
+	_DELETE(x,y);
+}
+
+
+#if defined(FULL_GAME)
+	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
+	{
+		_DRAW_BROKEN_WALL(x,y);
+	}
+#endif
+	
+
+
 		
 
 

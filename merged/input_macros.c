@@ -204,12 +204,14 @@ extern unsigned char guns;
 	#elif defined(__MSX__)
 		#include<msx/gfx.h>
 		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByKeyboard(get_stick(0));} else movePlayerByKeyboard(9);}	
-	#elif defined(__AQUARIUS__) || defined(__ZX80__) 
+	#elif defined(__ZX80__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based		
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#elif defined(__ATMOS__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}	
+	#elif defined(__AQUARIUS__)
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based		
 	#else
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
 	#endif

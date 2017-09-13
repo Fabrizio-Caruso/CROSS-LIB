@@ -74,6 +74,8 @@ Image GUN_IMAGE;
 	#include "spectrum/spectrum_graphics.h"	
 #elif defined(__MSX__)
 	#include "msx/msx_graphics.h"
+#elif defined(__SVI__)
+	#include "svi/svi_graphics.h"	
 #elif defined(__CPC__)
 	#include "cpc/cpc_graphics.h"
 #elif defined(__AQUARIUS__)

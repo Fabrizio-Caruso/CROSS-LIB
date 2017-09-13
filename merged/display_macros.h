@@ -65,8 +65,6 @@
 	#include "patch/z88dk_conio_implementation.h"	
 #elif defined(__AQUARIUS__)
 	#include "patch/z88dk_conio_patch.h"	
-// #elif defined(__SUPERVISION__)
-	// #include "patch/z88dk_conio_patch.h"		
 #elif defined(__VZ__)
 	#include "patch/z88dk_conio_patch.h"			
 #elif defined(__ZX81__)
@@ -133,7 +131,7 @@ typedef struct ImageStruct Image;
 #elif defined(__MSX__) && defined(MSX_MODE1)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-1-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__SVI__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-1-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=40-1-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__CPC__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 

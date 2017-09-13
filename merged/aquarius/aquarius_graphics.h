@@ -98,6 +98,15 @@ void INIT_IMAGES(void)
 	}
 #endif
 
+void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+{ 
+	unsigned char i;
+	for(i=0;i<length;++i)
+	{
+		POKE(VIDEO_BASE+x+X_OFFSET+(y+i+Y_OFFSET)*40,'|');
+	}
+}
+
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
 	POKE(VIDEO_BASE+x+X_OFFSET+(y+Y_OFFSET)*40,image->_imageData);

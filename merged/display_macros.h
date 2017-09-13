@@ -406,7 +406,7 @@ void _delete(unsigned char x, unsigned char y);
 		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 	#endif
 	
-	#if defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || (!defined(ATARI_MODE1) && (defined(__ATARI__) || defined(__ATARIXL__)))
+	#if defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || (!defined(ATARI_MODE1) && (defined(__ATARI__) || defined(__ATARIXL__))) || defined(__ATARI5200__)
 		#define DRAW_BORDERS()\
 		{ \
 			SET_TEXT_COLOR(TEXT_COLOR); \
@@ -453,8 +453,8 @@ void _delete(unsigned char x, unsigned char y);
 				DRAW_HORIZONTAL_LINE(0,y,XSize-1);			
 		#endif
 	#elif defined(__AQUARIUS__)
-		#define DRAW_VERTICAL_LINE(x,y,length)
-		#define DRAW_HORIZONTAL_BORDER(y)
+		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
+		// #define DRAW_HORIZONTAL_BORDER(y)
 		#define DRAW_BORDERS()
 	#elif defined(__ZX81__) || defined(__ZX80__)
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);

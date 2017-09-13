@@ -44,7 +44,7 @@ cd %mypath%\
 
 @REM -O3
 
-zcc +vz  -subtype=basic -vn -D__VZ__ -lndos -Cz--audio -create-app -o  %deliverables%\MINIMAL_vz200_experimental %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +vz -vn -D__VZ__ -clib=ansi -lndos -create-app -o  %deliverables%\MINIMAL_vz200_experimental.vz %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 @REM zcc +aquarius -vn -create-app -o %deliverables%\MINIMAL_aquarius_experimental.prg %mypath%\..\experiments\my_hello.c
 

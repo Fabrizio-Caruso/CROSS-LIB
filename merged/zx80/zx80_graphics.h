@@ -36,14 +36,13 @@
 
 #include <stdio.h>
 
-#define _DRAW 	{cputc(image->_imageData);}
-#define _DELETE {cputc(' '); }
+
 extern unsigned char XSize;
 
 
 void INIT_GRAPHICS(void)
 {
-	gen_tv_field_init();
+	gen_tv_field_init(0);
 }
 
 void INIT_IMAGES(void)
@@ -92,7 +91,7 @@ void INIT_IMAGES(void)
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
 	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		gotoxy((x+X_OFFSET),(x+X_OFFSET)); 
 		SET_TEXT_COLOR(COLOR_WHITE);
 		cputc('X');
 	}
@@ -100,42 +99,44 @@ void INIT_IMAGES(void)
 	
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
-	_DRAW(x,y,image);
+	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+	cputc(image->_imageData);
 }
 
 void _delete(unsigned char x, unsigned char y)
 {
-	_DELETE(x,y);
+	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+	cputc(' ');
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
 	if(*blinkCounter) 
 	{
-		_DRAW(x,y,image);
+		_draw(x,y,image);
 		*blinkCounter=0;
 	} 
 	else 
 	{
-		_DELETE(x,y);
+		_delete(x,y);
 		*blinkCounter=1;
 	}	
 }
-
 
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 { 
 	unsigned char i;
 	for(i=0;i<length;++i)
 	{
-		_DRAW_WALL(x,y+i)
+		gotoxy((x+X_OFFSET),(y+i+Y_OFFSET));  
+		cputc('|');		
 	}
 }
 
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 {
 	unsigned char i;
-	gotoxy(X_OFFSET+1+x,Y_OFFSET+y); 
+	gotoxy(X_OFFSET+x,Y_OFFSET+y); 
 	for(i=0;i<length;++i)
 	{
 		cputc('-');

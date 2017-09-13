@@ -80,6 +80,8 @@ Image GUN_IMAGE;
 	#include "cpc/cpc_graphics.h"
 #elif defined(__AQUARIUS__)
 	#include "aquarius/aquarius_graphics.h"
+#elif defined(__ZX80__) || defined(__ZX81__)
+	#include "zx81/zx81_graphics.h"
 #else
 	void INIT_GRAPHICS() {}
 	

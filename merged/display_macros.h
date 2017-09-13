@@ -424,8 +424,6 @@ void _delete(unsigned char x, unsigned char y);
 	#elif defined(__MSX__) || defined(__CPC__)
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-		
-
 			
 		#if defined(__MSX__)
 			#define DRAW_VERTICAL_BORDER(x) \
@@ -458,6 +456,25 @@ void _delete(unsigned char x, unsigned char y);
 		#define DRAW_VERTICAL_LINE(x,y,length)
 		#define DRAW_HORIZONTAL_BORDER(y)
 		#define DRAW_BORDERS()
+	#elif defined(__ZX81__) || defined(__ZX80__)
+		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
+		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
+	
+		#define DRAW_HORIZONTAL_BORDER(y) \
+		{ \
+			unsigned char i; \
+			gotoxy(X_OFFSET+1,Y_OFFSET+y);  \
+			for(i=0;i<XSize-1;++i) \
+			{ \
+				cputc('-'); \
+			} \
+		} \
+		
+		#define DRAW_BORDERS() \
+		{ \
+			DRAW_HORIZONTAL_BORDER(0); \
+			DRAW_HORIZONTAL_BORDER(YSize-1); \
+		}		
 	#else
 		#define DRAW_VERTICAL_LINE(x,y,length) \
 		{ \

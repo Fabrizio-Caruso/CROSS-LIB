@@ -127,7 +127,7 @@ typedef struct ImageStruct Image;
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_32COL)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__MSX__) && !defined(MSX_MODE1)
-	#define GET_SCREEN_SIZE(x,y) {*x=40-1-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__MSX__) && defined(MSX_MODE1)
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__SVI__) 
@@ -425,10 +425,12 @@ void _delete(unsigned char x, unsigned char y);
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		
-		#define DRAW_VERTICAL_BORDER(x) \
-			DRAW_VERTICAL_LINE(x,0,YSize);
+
 			
 		#if defined(__MSX__)
+			#define DRAW_VERTICAL_BORDER(x) \
+				DRAW_VERTICAL_LINE(x,0,YSize);
+			
 			#define DRAW_BORDERS() \
 			{ \
 				DRAW_HORIZONTAL_BORDER(0); \
@@ -439,6 +441,9 @@ void _delete(unsigned char x, unsigned char y);
 			#define DRAW_HORIZONTAL_BORDER(y) \
 				DRAW_HORIZONTAL_LINE(0,y,XSize);
 		#else
+			#define DRAW_VERTICAL_BORDER(x) \
+				DRAW_VERTICAL_LINE(x,0,YSize - 1);
+				
 			#define DRAW_BORDERS() \
 			{ \
 				DRAW_HORIZONTAL_BORDER(0); \

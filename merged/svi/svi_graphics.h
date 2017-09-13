@@ -37,26 +37,15 @@
 #include <stdio.h>
 
 #include <msx/gfx.h>
-	
 extern unsigned char XSize;
 
+#define BASE 0
 
-#if defined(MSX_MODE1)
-	#define BASE 6144
-#else
-	#define BASE 0
-#endif
-#if defined(VPOKE) 
-	#define _DRAW(x,y,image) msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),image->_imageData-32);
-	#define _DELETE(x,y)     msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),0); // ' '
-	#define _DRAW_WALL(x,y)  msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),'|'-32);
-	#define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),56); // 'X'	
-#else
-	#define _DRAW(x,y,image) {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData);}
-	#define _DELETE(x,y)     {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); cputc(' ');} 
-	#define _DRAW_WALL(x,y)  {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); cputc('|');}
-	#define _DRAW_BROKEN_WALL(x,y)  {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); cputc('X');}
-#endif
+#define _DRAW(x,y,image) msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),image->_imageData-32);
+#define _DELETE(x,y)     msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),0); // ' '
+#define _DRAW_WALL(x,y)  msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),'|'-32);
+#define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+1+X_OFFSET+(y-1+Y_OFFSET)*(XSize+1),56); // 'X'	
+
 
 void INIT_GRAPHICS(void)
 {	set_color(15, 1, 1);

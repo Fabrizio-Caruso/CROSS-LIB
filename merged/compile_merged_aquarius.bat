@@ -37,10 +37,10 @@ cd %mypath%\
 @REM -DDEBUG_CHARACTERS
 @REM -O3
 @REM %mypath%\aquarius\aquarius_input.c
-@REM
+@REM -clib=ansi
 @REM 
 @REM 
-zcc +aquarius -clib=ansi -vn -D__AQUARIUS__ -lndos -o MINIMAL_aquarius_16k -create-app %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +aquarius  -vn -D__AQUARIUS__ -lndos -o MINIMAL_aquarius_16k -create-app %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM zcc +aquarius -clib=ansi -vn -D__AQUARIUS__ -lndos -create-app -o MINIMAL_aquarius_16k test_getk.c
 @REM 
 del %mypath%\MINIMAL_aquarius_16k
@@ -49,7 +49,7 @@ move %mypath%\MINIMAL_aquarius_16k.caq %deliverables%
 @REM 
 move %mypath%\_MINIMAL_aquarius_16k.caq %deliverables%
 
-zcc +aquarius -clib=ansi -vn -D__AQUARIUS__ -lndos -o test test_getk.c
+@REM zcc +aquarius -clib=ansi -vn -D__AQUARIUS__ -lndos -o test test_getk.c
 
 
 @REM zcc +aquarius -vn -D__AQUARIUS__ -DFULL_GAME -lndos -o FULL_aquarius_16k -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c

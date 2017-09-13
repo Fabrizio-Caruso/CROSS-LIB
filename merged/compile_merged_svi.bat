@@ -33,9 +33,6 @@ cd %cc65path%\bin\
 @REM 
 cd %mypath%\
 
-
-@REM CPC HALF-WORKINg
-@REM -DDEBUG_CHARACTERS
 @REM 
 
 @REM 

@@ -100,7 +100,7 @@ void INIT_IMAGES(void)
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
 	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 		#if defined(CPC_NO_COLOR)
 		#else
 			SET_TEXT_COLOR(CPC_CYAN);

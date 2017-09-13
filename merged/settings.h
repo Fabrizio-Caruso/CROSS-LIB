@@ -81,13 +81,13 @@
 	#define GAME_SLOW_DOWN 1200	
 #elif defined(__MSX__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 250		
-#elif defined(__SVI__) && defined(VPOKE)
+	#define GAME_SLOW_DOWN 350		
+#elif defined(__SVI__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 500			
 #elif defined(__VZ__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 1200		
+	#define GAME_SLOW_DOWN 800		
 #else
 	#define GAME_SLOW_DOWN 0
 #endif

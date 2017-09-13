@@ -129,9 +129,9 @@ typedef struct ImageStruct Image;
 #elif defined(__MSX__) && !defined(MSX_MODE1)
 	#define GET_SCREEN_SIZE(x,y) {*x=40-1-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__MSX__) && defined(MSX_MODE1)
-	#define GET_SCREEN_SIZE(x,y) {*x=32-1-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__SVI__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=40-1-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__CPC__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
 #elif defined(__VG5K__) 
@@ -149,7 +149,7 @@ typedef struct ImageStruct Image;
 #elif defined(__ENTERPRISE__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-1-Y_OFFSET;};		
 #elif defined(__VZ__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=16-Y_OFFSET;};	
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=17-Y_OFFSET;};	
 #elif defined(__MTX__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};		
 #elif defined(__TRS80__) 

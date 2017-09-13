@@ -211,7 +211,9 @@ extern unsigned char guns;
 	#elif defined(__ATMOS__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}	
 	#elif defined(__AQUARIUS__)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based		
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based	
+	// #elif defined(__VZ__)
+		// void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based			
 	#else
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
 	#endif

@@ -150,6 +150,7 @@ void displayStatsTitles(void)
 	#elif defined(__SC3000__)		
 	#elif defined(__TRS80__)	
 	#elif defined(__SVI__)		
+	#elif defined(__VZ__)	
 	#elif defined(__MTX__)	
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
@@ -197,7 +198,8 @@ void displayStatsTitles(void)
 	#elif defined(__SC3000__)			
 	#elif defined(__MTX__)	
 	#elif defined(__TRS80__)	
-	#elif defined(__SVI__)		
+	#elif defined(__SVI__)	
+	#elif defined(__VZ__)	
 	#elif defined(__MSX__)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(18+1,1+0); cputc(GUN_IMAGE._imageData);cputc(':');
@@ -245,7 +247,8 @@ void printGunsStats(void)
 	#elif defined(__SC3000__)			
 	#elif defined(__MTX__)	
 	#elif defined(__TRS80__)	
-	#elif defined(__SVI__)		
+	#elif defined(__SVI__)	
+	#elif defined(__VZ__)	
 	#elif defined(__MSX__)	
 		PRINTF(18+2+1-X_OFFSET,1+0-Y_OFFSET,"%u",guns);	
 	#elif defined(__VG5K__)	
@@ -278,6 +281,7 @@ void printLevelStats(void)
 	#elif defined(__MTX__)	
 	#elif defined(__TRS80__)		
 	#elif defined(__SVI__)	
+	#elif defined(__VZ__)	
 	#elif defined(__MSX__)
 		PRINTF(8,1+1-Y_OFFSET,"%02u", level);	
 	#elif defined(__VG5K__)
@@ -312,6 +316,7 @@ void printGhostCountStats(void)
 	#elif defined(__MTX__)	
 	#elif defined(__TRS80__)
 	#elif defined(__SVI__)	
+	#elif defined(__VZ__)	
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET-3,1+0-Y_OFFSET,"%u",ghostCount);
 	#elif defined(__VG5K__)	
@@ -345,6 +350,7 @@ void printLivesStats(void)
 	#elif defined(__MTX__)	
 	#elif defined(__TRS80__)
 	#elif defined(__SVI__)		
+	#elif defined(__VZ__)	
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET,1+1-Y_OFFSET,"%02u",lives);	
 	#elif defined(__VG5K__)
@@ -377,6 +383,7 @@ void displayStats(void)
 	#elif defined(__MTX__)	
 	#elif defined(__TRS80__)	
 	#elif defined(__SVI__)		
+	#elif defined(__VZ__)	
 	#elif defined(__MSX__)
 		PRINTF(8,1-Y_OFFSET,"%05u0",points);	
 	#elif defined(__VG5K__)
@@ -430,6 +437,8 @@ void printCenteredMessage(char *Text)
 	void printLevel(void) {}
 #elif defined(__ZX81__)
 	void printLevel(void) {}
+#elif defined(__VZ__)
+	void printLevel(void) {}
 #else
 	void printLevel(void)
 	{
@@ -450,6 +459,8 @@ void _printScore(char * text, unsigned int score)
 
 	printCenteredMessage(levelString);	
 }
+#elif defined(__VZ__)
+	void _printScore(char * text, unsigned int score) {}
 #else
 void _printScore(char * text, unsigned int score)
 {
@@ -466,6 +477,9 @@ void _printScore(char * text, unsigned int score)
 	{
 		printCenteredMessage("DONE!"); 
 	}
+#elif defined(__VZ__)
+	void gameCompleted(void)
+	{}
 #else
 	void gameCompleted(void)
 	{
@@ -479,6 +493,29 @@ void _printScore(char * text, unsigned int score)
 		{
 			printCenteredMessage("PRESS ANY KEY");
 		}
+
+		void deleteCenteredMessage(void)
+		{
+			printCenteredMessage("                       ");
+		}
+
+		void printGameOver(void)
+		{
+			printCenteredMessage("GAME OVER");
+		}
+
+		void printVictoryMessage(void)
+		{
+			printCenteredMessage("YOU WON!");
+		}
+
+		void printDefeatMessage(void)
+		{
+			printCenteredMessage("YOU LOST!");
+		}	
+#elif defined(__VZ__)
+		void printPressKeyToStart(void)
+		{}
 
 		void deleteCenteredMessage(void)
 		{

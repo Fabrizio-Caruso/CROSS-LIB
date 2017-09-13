@@ -34,7 +34,7 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__) 
+#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__)
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'
@@ -46,7 +46,7 @@
 	#define _MOVE_LEFT 'A'
 	#define _MOVE_RIGHT 'D'
 	#define _FIRE ' '	
-#elif defined(__MSX__)
+#elif defined(__MSX__) // Special Joystick 
 	#define _MOVE_UP 1
 	#define _MOVE_DOWN 5
 	#define _MOVE_LEFT 7
@@ -85,6 +85,9 @@
 #elif defined(__SVI__) && defined(VPOKE)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 500			
+#elif defined(__VZ__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 1200		
 #else
 	#define GAME_SLOW_DOWN 0
 #endif

@@ -88,7 +88,7 @@ extern unsigned char guns;
 		DRAW_PLAYER(player._x, player._y, player._imagePtr); \
 	}
 	
-#if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__))
+#if defined(__CBM610__) || defined(__C16__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__NES__))
 	#if defined(__SPECTRUM__)
 		#include <input.h>
 
@@ -133,7 +133,7 @@ extern unsigned char guns;
 #endif
 
 
-#if (defined(__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) || defined(__LYNX__) || defined(__SUPERVISION__)
+#if (defined(__CBM__) && !defined(__CBM610__)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) || defined(__LYNX__) || defined(__SUPERVISION__) || defined(__NES__)
 	#include <joystick.h>
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
@@ -194,7 +194,7 @@ extern unsigned char guns;
 	}
 #endif
 
-#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__SUPERVISION__)
+#if !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__SUPERVISION__) && !defined(__NES__)
 	#if defined(__SPECTRUM__)
 		#if defined(SPECTRUM_NATIVE_DIRECTIVES)	
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}
@@ -211,7 +211,7 @@ extern unsigned char guns;
 	#elif defined(__ATMOS__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}	
 	#elif defined(__AQUARIUS__)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based	
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());} // TODO: this makes the game turned-based	
 	// #elif defined(__VZ__)
 		// void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based			
 	#else

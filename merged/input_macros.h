@@ -40,7 +40,7 @@
 				
 	void WAIT_PRESS(void);
 	
-	#if defined(__CBM610__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__))
+	#if defined(__CBM610__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__NES__))
 		void movePlayerByKeyboard(unsigned char kbInput);
 		#define INIT_INPUT()
 	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200

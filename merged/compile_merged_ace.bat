@@ -1,13 +1,13 @@
-@REM 
-set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM 
-set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged"
-@REM 
-set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged\experiments"
+@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged"
+@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged\experiments"
 
-@REM set cc65path="D:\personal\cc65-snapshot-win32"
-@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\minimal\cfg"
-@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\minimal"
+@REM 
+set cc65path="D:\personal\cc65-snapshot-win32"
+@REM 
+set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged\cfg"
+@REM 
+set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged"
 
 @REM set cc65path="C:\cc65-snapshot-win32"
 @REM set configpath="C:\Users\Brizio\Retro\ASCII-CHASE\merged\cfg"
@@ -42,9 +42,9 @@ cd %mypath%\
 @REM 
 @REM zcc +zx81 -O3 -vn -clib=ansi -D__ZX81__ -lndos -create-app -o %deliverables%\MINIMAL_zx81_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
-@REM -O3
+@REM -O3 -Cz--audio
 
-zcc +ace -O3 -D__ACE__ -clib=ansi -Cz--audio -create-app -o  %deliverables%\a.bin %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +ace -O3 -D__ACE__ -clib=ansi  -create-app -o  %deliverables%\a.bin %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 @REM zcc +ace -vn -D__ACE__ -lndos -create-app -o  %deliverables%\MINIMAL_ace_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 

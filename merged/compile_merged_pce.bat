@@ -1,10 +1,10 @@
 @REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged"
-@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged\experiments"
+@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase\minimal"
+@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\minimal\experiments"
 
 @REM set cc65path="D:\personal\cc65-snapshot-win32"
-@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\minimal\experiments"
-@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\minimal"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged\experiments"
+@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged"
 
 @REM 
 set cc65path="C:\cc65-snapshot-win32"
@@ -26,12 +26,15 @@ del %mypath%\patch\*.o
 cd %cc65path%\bin\
 
 
+@REM 
+cl65.exe -O -t pce %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_pce.pce
+@REM cl65.exe -t nes %mypath%\my_hello.c  -o %deliverables%\my_hello.nes
+
+cl65.exe -O -t pce -DFULL_GAME %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_pce.pce
+
 @REM vic20-16k works on minimal build!
 @REM -O
-@REM 
-cl65.exe -O -t vic20 -DSOUNDS --config %mypath%\..\cfg\vic20-8k.cfg %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_cvic20-8k_sounds.prg
-
-cl65.exe -t vic20 -DFULL_GAME -DSOUNDS --config %mypath%\..\cfg\vic20-16k.cfg %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_cvic20-16k_sounds.prg
+@REM cl65.exe -O -t vic20 -DVIC_SOUNDS -DVERY_SIMPLE_STRATEGY --config %mypath%\..\cfg\vic20-8k.cfg %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_cvic20-8k_sounds.prg
 
 
 @REM cl65.exe -O -t c16 -DC264_SOUNDS -DVERY_SIMPLE_STRATEGY --config %mypath%\..\cfg\c16-16k.cfg %mypath%\c264\c264_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_c16-16k_sounds.prg

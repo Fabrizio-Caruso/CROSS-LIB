@@ -44,7 +44,7 @@
 	#include <conio.h>
 #endif
 
-#if defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
+#if defined(__ATARI5200__) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#include "patch/generic_conio_patch.h"
 #endif
 #if defined(__ATMOS__)
@@ -115,7 +115,7 @@ typedef struct ImageStruct Image;
 #endif
 
 #if defined(__NES__)
-	#define GET_SCREEN_SIZE(x,y) {*x=32; *y=40;};
+	#define GET_SCREEN_SIZE(x,y) {*x=32; *y=24;};
 #elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 	#define GET_SCREEN_SIZE(x,y) {*x=20; *y=24;};
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)

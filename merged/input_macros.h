@@ -33,6 +33,7 @@
 
 #ifndef _INPUT_MACROS
 #define _INPUT_MACROS
+	#include "settings.h"
 	
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_input.h"
@@ -40,7 +41,7 @@
 				
 	void WAIT_PRESS(void);
 	
-	#if defined(__CBM610__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__NES__))
+	#if defined(KEYBOARD_CONTROL)
 		void movePlayerByKeyboard(unsigned char kbInput);
 		#define INIT_INPUT()
 	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200

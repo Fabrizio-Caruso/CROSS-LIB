@@ -1,17 +1,17 @@
-@REM 
-set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
-@REM 
-set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged"
-@REM 
-set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged\experiments"
+@REM set cc65path="C:\Retro\DEV\cc65-snapshot-win32"
+@REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged"
+@REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged\experiments"
 
 @REM set cc65path="D:\personal\cc65-snapshot-win32"
 @REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\minimal\cfg"
 @REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\minimal"
 
-@REM set cc65path="C:\cc65-snapshot-win32"
-@REM set configpath="C:\Users\Brizio\Retro\ASCII-CHASE\merged\cfg"
-@REM set mypath="C:\Users\Brizio\Retro\ASCII-CHASE\merged"
+@REM 
+set cc65path="C:\cc65-snapshot-win32"
+@REM 
+set configpath="C:\Users\Brizio\Retro\ASCII-CHASE\merged\cfg"
+@REM 
+set mypath="C:\Users\Brizio\Retro\ASCII-CHASE\merged"
 
 set Deliverables=%mypath%\deliverables
 
@@ -36,7 +36,7 @@ cd %mypath%\
 @REM -DDEBUG_CHARACTERS
 @REM -O3
 @REM 
-zcc +vg5k -vn -DFULL_GAME -D__VG5K__ -lndos -create-app -o %deliverables%\FULL_vg5k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +vg5k -O3 -vn -DFULL_GAME -D__VG5K__ -lndos -create-app -o %deliverables%\FULL_vg5k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 REM 
 del %deliverables%\FULL_vg5k_experimental.prg

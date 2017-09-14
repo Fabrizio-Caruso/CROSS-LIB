@@ -75,7 +75,7 @@
 		POWERUP_IMAGE._imageData = (char) 0x7A;
 		GUN_IMAGE._imageData = (char) 0x7B;
 		MISSILE_IMAGE._imageData = (char) 0x7C;
-		DEAD_GHOST_IMAGE._imageData = BOMB_IMAGE._imageData;
+		DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
 
 		GHOST_IMAGE._color = COLOR_WHITE;
 		MISSILE_IMAGE._color = COLOR_BLUE;

@@ -92,6 +92,19 @@
 	#define GAME_SLOW_DOWN 0
 #endif
 
+#if defined(__CBM610__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__NES__) && !defined(__PCE__))
+	#define KEYBOARD_CONTROL
+#else
+	#define JOYSTICK_CONTROL
+#endif
+
+#if defined(KEYBOARD_CONTROL) || defined(__C16__) || defined(__PLUS4__)
+	#define WAIT_FOR_KEY
+#else
+	#define WAIT_FOR_JOY
+#endif
+
+
 #if defined(__CPC__) && !defined(CPC_NO_COLOR)
 	#define BOMBS_NUMBER 2
 #else

@@ -2,16 +2,16 @@
 @REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase\minimal"
 @REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\minimal\experiments"
 
-@REM 
-set cc65path="D:\personal\cc65-snapshot-win32"
-@REM 
-set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged\experiments"
-@REM 
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged"
+@REM set cc65path="D:\personal\cc65-snapshot-win32"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged\experiments"
+@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged"
 
-@REM set cc65path="C:\cc65-snapshot-win32"
-@REM set configpath="C:\Users\Brizio\Retro\ASCII-CHASE\merged\cfg"
-@REM set mypath="C:\Users\Brizio\Retro\ASCII-CHASE\merged"
+@REM 
+set cc65path="C:\cc65-snapshot-win32"
+@REM 
+set configpath="C:\Users\Brizio\Retro\ASCII-CHASE\merged\cfg"
+@REM 
+set mypath="C:\Users\Brizio\Retro\ASCII-CHASE\merged"
 
 
 set Deliverables=%mypath%\deliverables
@@ -27,8 +27,10 @@ cd %cc65path%\bin\
 
 
 @REM 
-cl65.exe -t nes %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\nes.nes
+cl65.exe -O -t nes %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_nes.nes
 @REM cl65.exe -t nes %mypath%\my_hello.c  -o %deliverables%\my_hello.nes
+
+cl65.exe -O -t nes -DFULL_GAME %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_nes.nes
 
 @REM vic20-16k works on minimal build!
 @REM -O

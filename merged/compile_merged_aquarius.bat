@@ -2,16 +2,16 @@
 @REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged"
 @REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged\experiments"
 
-@REM 
-set cc65path="D:\personal\cc65-snapshot-win32"
-@REM 
-set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged\cfg"
-@REM 
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged"
+@REM set cc65path="D:\personal\cc65-snapshot-win32"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged\cfg"
+@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged"
 
-@REM set cc65path="C:\cc65-snapshot-win32"
-@REM set configpath="C:\Users\Brizio\Retro\ASCII-CHASE\merged\cfg"
-@REM set mypath="C:\Users\Brizio\Retro\ASCII-CHASE\merged"
+@REM 
+set cc65path="C:\cc65-snapshot-win32"
+@REM 
+set configpath="C:\Users\Brizio\Retro\ASCII-CHASE\merged\cfg"
+@REM 
+set mypath="C:\Users\Brizio\Retro\ASCII-CHASE\merged"
 
 
 set Deliverables=%mypath%\deliverables

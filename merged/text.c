@@ -124,7 +124,7 @@ void displayStatsTitles(void)
 		cputc('A'+128);
 		cputc('S'+128);	
 		cputc('E'+128); 		
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+	#elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 		//SET_TEXT_COLOR(TEXT_COLOR);	
 		// PRINT(0,0-Y_OFFSET,"SC:");
 		//PRINT(1,1-Y_OFFSET,"LEVEL:");
@@ -173,7 +173,7 @@ void displayStatsTitles(void)
 		gotoxy(18+1,0); cputc(GUN_IMAGE._imageData);//cputc(':');
 		gotoxy(18-3,0); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+	#elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(15-3-2-3,0); cputc(GHOST_IMAGE._imageData);cputc(':');
@@ -231,7 +231,7 @@ void printGunsStats(void)
 	
 	#if defined (__ATMOS__)
 		PRINTF(19-1+1,0-Y_OFFSET,"%hu",guns);
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+	#elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 		PRINTF(15+2+1-5-1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%hu",guns);
@@ -264,7 +264,7 @@ void printLevelStats(void)
 	
 	#if defined(__ATMOS__) 
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+	#elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 		PRINTF(15+2+1-5+4-1+2-X_OFFSET,0-Y_OFFSET,"%02hu",level);	
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__CBM__) && !defined(__VIC20__) && !defined(__C16__)) 
 		PRINTF(8,1-Y_OFFSET,"%02hu", level);
@@ -299,7 +299,7 @@ void printGhostCountStats(void)
 	
 	#if defined (__ATMOS__)
 		PRINTF(19-1-3,0-Y_OFFSET,"%hu",ghostCount);
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+	#elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 		PRINTF(15+2-X_OFFSET-3-2-3,0-Y_OFFSET,"%hu",ghostCount);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%hu",ghostCount);
@@ -332,7 +332,7 @@ void printLivesStats(void)
 		
 	#if defined (__ATMOS__)
 		PRINTF(19-1,1-Y_OFFSET,"%02hu",lives);	
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+	#elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 		PRINTF(15+2+1-5+4-1-X_OFFSET,0-Y_OFFSET,"%hu",lives);		
 		// PRINTF(15+2-X_OFFSET,1-Y_OFFSET,"%02hu",lives);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM__) 
@@ -366,7 +366,7 @@ void displayStats(void)
 	
 	#if defined(__ATMOS__) 
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+	#elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 		PRINTF(3-3,0-Y_OFFSET,"%05u0",points);
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__CBM__) && !defined(__VIC20__) && !defined(__C16__)) 
 		PRINTF(8,0-Y_OFFSET,"%05u0",points);
@@ -424,12 +424,12 @@ void printCenteredMessage(char *Text)
 	
 }
 
-#if defined (__VG5K__)
+#if defined (__C64__)
 	void printLevel(void)
 	{
 		char levelString[22];
 
-		sprintf(levelString, "LEVEL %d", level);
+		sprintf(levelString, "level %d", level);
 
 		printCenteredMessage(levelString);
 	}
@@ -476,6 +476,11 @@ void _printScore(char * text, unsigned int score)
 	void gameCompleted(void)	
 	{
 		printCenteredMessage("DONE!"); 
+	}
+#elif defined(__C64__)
+	void gameCompleted(void)
+	{
+		printCenteredMessage("y o u   m a d e   i t !"); 
 	}
 #elif defined(__VZ__)
 	void gameCompleted(void)
@@ -586,6 +591,31 @@ void _printScore(char * text, unsigned int score)
 		{
 			printCenteredMessage("Y O U  L O S T !");
 		}		
+#elif defined(__C64__)
+		void printPressKeyToStart(void)
+		{
+			printCenteredMessage("press any key to start");
+		}	
+		
+		void deleteCenteredMessage(void)
+		{
+			printCenteredMessage("                      ");
+		}	
+
+		void printGameOver(void)
+		{
+			printCenteredMessage("g a m e   o v e r");
+		}
+
+		void printVictoryMessage(void)
+		{
+			printCenteredMessage("y o u   w o n !");
+		}
+
+		void printDefeatMessage(void)
+		{
+			printCenteredMessage("y o u   l o s t !");
+		}
 #else
 		void printPressKeyToStart(void)
 		{
@@ -694,7 +724,7 @@ void printStartMessage(void)
 		cputc('S');
 		cputc(' ');		
 		cputc('E'); 
-	#elif defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
+	#elif defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__ATARI5200__)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		#if defined(__VIC20__)
 			PRINT(1, YSize / 2 - 9, "C R O S S  C H A S E");
@@ -811,13 +841,13 @@ void printStartMessage(void)
 		gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		PRINT(1, YSize / 2 + 4, "use the joystick");
-	#elif defined(__VG5K__)
+	#elif defined(__VG5K__) 
 		// SET_TEXT_COLOR(3);		
 		printCenteredMessageOnRow(10, "Use I J K L SPACE");	
 	#elif defined(__MSX__)
-		printCenteredMessageOnRow(10, "Use W A S D SPACE");		
+		printCenteredMessageOnRow(10, "Use the joystick");		
 	#else 
-		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the Joystick");
+		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the joystick");
 	#endif
 	SET_TEXT_COLOR(TEXT_COLOR);
 

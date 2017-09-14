@@ -2,16 +2,16 @@
 @REM set mypath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged"
 @REM set configpath="C:\Users\Brizio\Documents\GitHub\PortableChase\merged\experiments"
 
-@REM 
-set cc65path="D:\personal\cc65-snapshot-win32"
-@REM 
-set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged\cfg"
-@REM 
-set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged"
+@REM set cc65path="D:\personal\cc65-snapshot-win32"
+@REM set configpath="D:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged\cfg"
+@REM set mypath="d:\Userfiles\fcaruso\Documents\GitHub\ASCII-CHASE\merged"
 
-@REM set cc65path="C:\cc65-snapshot-win32"
-@REM set configpath="C:\Users\Brizio\Retro\ASCII-CHASE\merged\cfg"
-@REM set mypath="C:\Users\Brizio\Retro\ASCII-CHASE\merged"
+@REM 
+set cc65path="C:\cc65-snapshot-win32"
+@REM 
+set configpath="C:\Users\Brizio\Retro\ASCII-CHASE\merged\cfg"
+@REM 
+set mypath="C:\Users\Brizio\Retro\ASCII-CHASE\merged"
 
 
 
@@ -45,10 +45,14 @@ cd %mypath%\
 @REM -O3 -Cz--audio
 
 @REM FILE NAME CONTAINS FULL PATH
+@REM -clib=ansi 
 @REM load command: 
 @REM 0 0 bload a.bin
 @REM load a.wav
-zcc +ace -O3 -D__ACE__ -clib=ansi -Cz--audio -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM zcc +ace -O3 -D__ACE__ -clib=ansi  -Cz--audio -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+
+@REM 
+zcc +ace -O3 -D__ACE__ -DFULL_GAME -clib=ansi  -Cz--audio -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 @REM zcc +ace -vn -D__ACE__ -lndos -create-app -o  %deliverables%\MINIMAL_ace_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 

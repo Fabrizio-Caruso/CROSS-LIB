@@ -40,6 +40,9 @@ cd %mypath%\
 zcc +sc3000 -vn -Cz--audio -D__SC3000__ -lndos -create-app -o %deliverables%\MINIMAL_sc3000_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM zcc +sc3000 -vn -Cz--audio -D__SC3000__ -lndos -create-app -o %deliverables%\test_sc3000.prg %mypath%\test_a5200.c
 
+zcc +sc3000 -subtype=rom -o %deliverables%\MINIMAL_sc3000_experimental.sc   %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+
+
 del %deliverables%\MINIMAL_sc3000_experimental.prg
 @REM del %deliverables%\cpc.cpc
 

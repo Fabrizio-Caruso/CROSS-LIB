@@ -28,7 +28,7 @@ cd %cc65path%\bin\
 
 @REM 
 cl65.exe -t nes %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\nes.nes
-
+@REM cl65.exe -t nes %mypath%\my_hello.c  -o %deliverables%\my_hello.nes
 
 @REM vic20-16k works on minimal build!
 @REM -O

@@ -12,9 +12,10 @@ For other targets, CMOC or GCC6809 for 6809 targets and C99C for TI-99 will be t
 The main version should be as portable as possible.
 Therefore it should ONLY use:
 1. ANSI C
-2. All input/output and any other hardware-dependent code should be separated from the gameplay code.
-3. If no specialized code for a specific target is implemented, conio.h (as implemented in CC65 and in Z88DK) should be used.
-4. joystick-related libraries as found in CC65 and in Z88DK
+2. separated input/output and hardware-dependent code from the gameplay code;
+3. conio.h (as implemented in CC65 and in Z88DK), if no specialized code for a specific target is implemented;
+4. joystick-related libraries as found in CC65 and in Z88DK;
+5. whatever possible for TI-99 and 6809 targets (ideally conio.h as found in CMOC and whatever found in C99C).
 
 Some specific target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects.
 

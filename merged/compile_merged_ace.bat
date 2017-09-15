@@ -47,13 +47,30 @@ cd %mypath%\
 @REM FILE NAME CONTAINS FULL PATH
 @REM -clib=ansi 
 @REM load command: 
-@REM 0 0 bload a.bin
-@REM load a.wav
+@REM 0 0 bload min
+@REM load MINIMAL_ace_experimental.wav
 @REM 
 zcc +ace -O3 -D__ACE__ -clib=ansi  -Cz--audio -o min -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
-@REM 
+copy min.wav %deliverables%\MINIMAL_ace_experimental.wav
+del min.wav
+del min.tap
+del min.bin
+del min
+
+@REM FILE NAME CONTAINS FULL PATH
+@REM -clib=ansi 
+@REM load command: 
+@REM 0 0 bload full
+@REM load FULL_ace_experimental.wav
+@REM
 zcc +ace -O3 -D__ACE__ -DFULL_GAME -clib=ansi -o full -Cz--audio -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+
+copy full.wav %deliverables%\FULL_ace_experimental.wav
+del full.wav
+del full.tap
+del full.bin
+del full
 
 @REM zcc +ace -vn -D__ACE__ -lndos -create-app -o  %deliverables%\MINIMAL_ace_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 

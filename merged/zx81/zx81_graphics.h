@@ -124,25 +124,28 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
-void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-{ 
-	unsigned char i;
-	for(i=0;i<length;++i)
-	{
-		gotoxy((x+X_OFFSET),(y+i+Y_OFFSET));  
-		cputc('I');		
+#if defined(__ACE__)
+#else
+	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+	{ 
+		unsigned char i;
+		for(i=0;i<length;++i)
+		{
+			gotoxy((x+X_OFFSET),(y+i+Y_OFFSET));  
+			cputc('I');		
+		}
 	}
-}
 
-void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-{
-	unsigned char i;
-	gotoxy(X_OFFSET+x,Y_OFFSET+y); 
-	for(i=0;i<length;++i)
+	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	{
-		cputc('-');
+		unsigned char i;
+		gotoxy(X_OFFSET+x,Y_OFFSET+y); 
+		for(i=0;i<length;++i)
+		{
+			cputc('-');
+		}
 	}
-}
+#endif
 		
 
 

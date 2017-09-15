@@ -79,6 +79,9 @@
 #elif defined(__AQUARIUS__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 1200	
+#elif defined(__ACE__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 500	
 #elif defined(__MSX__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 350		

@@ -57,6 +57,9 @@ del min.wav
 del min.tap
 del min.bin
 del min
+del min_BBS.bin
+del min_DATA.bin
+del 
 
 @REM FILE NAME CONTAINS FULL PATH
 @REM -clib=ansi 
@@ -71,6 +74,8 @@ del full.wav
 del full.tap
 del full.bin
 del full
+del full_BBS.bin
+del full_DATA.bin
 
 @REM zcc +ace -vn -D__ACE__ -lndos -create-app -o  %deliverables%\MINIMAL_ace_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 

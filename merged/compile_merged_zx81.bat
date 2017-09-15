@@ -46,8 +46,11 @@ cd %mypath%\
 
 zcc +zx81 -vn -D__ZX81__ -lndos -create-app -o  %deliverables%\MINIMAL_zx81_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
+del %deliverables%\MINIMAL_zx81_experimental.prg
+
 zcc +zx81 -vn -D__ZX81__ -DFULL_GAME -lndos -create-app -o  %deliverables%\FULL_zx81_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
+del %deliverables%\FULL_zx81_experimental.prg
 @REM zcc +aquarius -vn -create-app -o %deliverables%\MINIMAL_aquarius_experimental.prg %mypath%\..\experiments\my_hello.c
 
 @REM del %deliverables%\MINIMAL_aquarius_experimental.prg

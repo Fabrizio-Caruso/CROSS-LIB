@@ -93,22 +93,16 @@ typedef struct ImageStruct Image;
  
 #if defined(__ATMOS__)
 	#define X_OFFSET 2
-	#define Y_OFFSET 3
-#elif defined(__VIC20__) 
+	#define Y_OFFSET 2
+#elif defined(__VIC20__) ||defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__) || defined(__VZ__)
 	#define X_OFFSET 0
 	#define Y_OFFSET 1
 #elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 	#define X_OFFSET 0
 	#define Y_OFFSET 0
-#elif defined(__CPC__)
-	#define X_OFFSET 0
-	#define Y_OFFSET 3
 #elif defined(__VG5K__)
 	#define X_OFFSET 1
 	#define Y_OFFSET 2
-#elif defined(__MSX__)
-	#define X_OFFSET 0
-	#define Y_OFFSET 3	
 #else
 	#define X_OFFSET 0
 	#define Y_OFFSET 2
@@ -145,7 +139,7 @@ typedef struct ImageStruct Image;
 #elif defined(__ZX80__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;};	
 #elif defined(__ACE__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
 #elif defined(__ENTERPRISE__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-1-Y_OFFSET;};		
 #elif defined(__VZ__) 
@@ -531,14 +525,23 @@ void _delete(unsigned char x, unsigned char y);
 
 	void CLEAR_SCREEN();
 	
-#elif defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__SVI__) || defined(__AQUARIUS__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) || defined(__VZ__)
+#elif defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__SVI__) || defined(__AQUARIUS__) || defined(__VZ__) || defined(__ZX81__) || defined(__ZX80__) 
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};
 
 	#define SET_BACKGROUND_COLOR(c) {};	
 
-	#define CLEAR_SCREEN() {clrscr();};	
+	#define CLEAR_SCREEN() {clrscr();};		
+#elif defined(__ACE__)
+	#define SET_TEXT_COLOR(c) {};
+	
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
+
+	#define CLEAR_SCREEN() {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}};	
+
 #elif defined(__ATARI5200__)
 	#define SET_TEXT_COLOR(c) {};
 	

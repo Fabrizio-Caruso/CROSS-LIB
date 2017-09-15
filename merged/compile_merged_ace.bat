@@ -49,10 +49,11 @@ cd %mypath%\
 @REM load command: 
 @REM 0 0 bload a.bin
 @REM load a.wav
-@REM zcc +ace -O3 -D__ACE__ -clib=ansi  -Cz--audio -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM 
+zcc +ace -O3 -D__ACE__ -clib=ansi  -Cz--audio -o min -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 @REM 
-zcc +ace -O3 -D__ACE__ -DFULL_GAME -clib=ansi  -Cz--audio -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +ace -O3 -D__ACE__ -DFULL_GAME -clib=ansi -o full -Cz--audio -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 
 @REM zcc +ace -vn -D__ACE__ -lndos -create-app -o  %deliverables%\MINIMAL_ace_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 

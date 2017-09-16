@@ -388,8 +388,6 @@ void _delete(unsigned char x, unsigned char y);
 	
 	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__))
 		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); };
-	// #elif defined(__CPC__)
-		// #define PRINTF(x,y,str,val) {gotoxy(x+1+X_OFFSET,y+1+Y_OFFSET); cprintf(str,val); };
 	#else
 		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 	#endif

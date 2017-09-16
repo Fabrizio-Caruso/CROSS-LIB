@@ -428,10 +428,6 @@ void setScreenColors(void)
 
 void printCenteredMessageOnRow(unsigned char row, char *Text)
 {
-	#if defined(__VG5k__) || defined(__ACE__)
-	#else
-		SET_TEXT_COLOR(TEXT_COLOR);
-	#endif
 	PRINTF((XSize - strlen (Text)) / 2, row,"%s", Text);
 }
 
@@ -661,17 +657,24 @@ void _printScore(char * text, unsigned int score)
 #endif
 
 
-void printStartMessage(void)
-{
-	#if defined(__C64__)
+
+// SPLASH SCREEN
+
+#if defined(__C64__) && defined(REDEFINED_CHARS)
+	void c64_splash_title(void)
+	{
 		SET_TEXT_COLOR(COLOR_RED);
 		PRINT((XSize - 22) / 2, 2, "c r o s s   c h a s e");
-		//SET_TEXT_COLOR(TEXT_COLOR);
-		
 		SET_TEXT_COLOR(COLOR_BROWN);
 		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
 		SET_TEXT_COLOR(TEXT_COLOR);	
-	#elif defined(__ATMOS__) && defined(FULL_GAME)
+	}
+#endif
+
+	
+#if defined(__ATMOS__) && defined(FULL_GAME)
+	void atmos_splash_title(void)
+	{
 		POKE(0xBB80+3*40,16);POKE(0xBB80+1+3*40,1); POKE(0xBB80+2+3*40,14);
 		POKE(0xBB80+4*40,16);POKE(0xBB80+1+4*40,1); POKE(0xBB80+2+4*40,14);
 		POKE(0xBB80+5*40,16);POKE(0xBB80+1+5*40,1); POKE(0xBB80+2+5*40,14);
@@ -740,141 +743,83 @@ void printStartMessage(void)
 		cputc(' ');		
 		cputc('S');
 		cputc(' ');		
-		cputc('E'); 
-	#elif defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__ATARI5200__)
-		SET_TEXT_COLOR(TEXT_COLOR);	
-		#if defined(__VIC20__)
-			PRINT(1, YSize / 2 - 9, "C R O S S  C H A S E");
-		#else
-			PRINT(0, YSize / 2 - 9, "C R O S S  C H A S E");			
-		#endif
-		SET_TEXT_COLOR(TEXT_COLOR);
-		
-		SET_TEXT_COLOR(COLOR_RED);
-		PRINT(1, YSize / 2 - 7,  "by fabrizio caruso");	
-	#elif defined(__VG5K__)
-		// SET_TEXT_COLOR(6);	
-		printCenteredMessageOnRow(3, "C R O S S  C H A S E");
-		printCenteredMessageOnRow(4, "by Fabrizio Caruso");
-	#else
-		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINT((XSize - 22) / 2, YSize / 2 - 9, "C R O S S  C H A S E");
-		SET_TEXT_COLOR(TEXT_COLOR);
-		
-		SET_TEXT_COLOR(COLOR_RED);
-		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by Fabrizio Caruso");
-		SET_TEXT_COLOR(TEXT_COLOR);
-	#endif
-	
-	#if defined(__PLUS4__) || defined(__C16__)
-	#else
-		SET_TEXT_COLOR(COLOR_BLUE);
-	#endif // __PLUS4__
+		cputc('E'); 		
+	}
+#endif
 
-	#if defined(__VIC20__) 
-		PRINT(3, YSize/2 - 2, "Lure the enemies");
 
-		PRINT(3, YSize/2 - 1, " into the mines");
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINT(1, YSize / 2 - 3, "you are chased by O");
-		
-		PRINT(1, YSize / 2 - 2, "force O into X");
-		
-		PRINT(1, YSize / 2 - 1, "S to slows O down");
-		
-		PRINT(1, YSize / 2, "catch ! for bullets");
-		
-		PRINT(1, YSize / 2 + 1, "Flee from +!");		
-	#elif defined(__PET__) || defined(__CBM610__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE))
-		PRINT(22, YSize / 2 - 3, "You * are chased by O. Force O into X");
-		
-		PRINT(20, YSize / 2 - 1,  "Take S to slow O down. Catch ! for bullets.");
-		
-		PRINT(30, YSize / 2 + 1, "Flee from +!");
-	#elif defined(__C64__) 
+#if defined(__C64__)
+	void c64_splash_instructions(void)
+	{
 		PRINT((XSize - 22) / 2, YSize / 2 - 3, "escape the enemies");
 		
 		PRINT((XSize - 22) / 2, YSize / 2 - 1, "force them into the mines");
 		
 		PRINT((XSize - 22) / 2, YSize / 2 + 1, "catch the gun for bullets");
-		SET_TEXT_COLOR(COLOR_BROWN);
-		PRINT((XSize - 22) / 2, YSize / 2 + 4, "use joystick in port 1");
-		SET_TEXT_COLOR(TEXT_COLOR);
-	#elif defined(__ATMOS__)
+	}
+#endif
+
+
+#if defined(__ATMOS__) && defined(FULL_GAME)
+	void atmos_splash_instructions(void)
+	{
 		PRINT(7, YSize / 2 - 1, "Escape from the enemies");
 		
 		PRINT(7, YSize / 2, "Force them into the mines");
-		
-	#elif defined(__C16__) || defined(__PLUS4__)
-		// PRINT(1, YSize / 2 - 3, "You % are chased by \"! Lure \" into /!");
-		PRINT(5, YSize / 2 - 1, "Lure the enemies into the mines");		
-		// PRINT(1, YSize / 2 - 1, "# slows \" down! ,. gives you 3 bullets");
-		
-		// PRINT(5, YSize / 2 + 1,     "Use the gun or flee from +!");	
-	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
-		PRINT(0, YSize / 2 - 3, "Lure the enemies into the mines!");
-		
-		PRINT(0, YSize / 2 - 1, "Take the power-ups! Use the gun!");
-		
-		PRINT(2, YSize / 2 + 1,   "Shoot or flee from the skull!");	
-	#elif defined(__SPECTRUM__) && defined(SPECTRUM_NATIVE_DIRECTIVES)
-		PRINT(0, YSize / 2 - 3, "Lure the enemies into the mines!");
-		
-		PRINT(0, YSize / 2 - 1, "Take the power-ups! Use the gun!");
-		
-		PRINT(2, YSize / 2 + 1,   "Shoot or flee from the skull!");			
-	#elif defined(__VG5K__)
-	#elif defined(__MSX__)
-		PRINT(2, YSize / 2 - 3, "Lure the enemies into the mines!");	
-	#else
-		PRINT(2, YSize / 2 - 3, "You * are chased by O. Lure O into X");
-		
-		PRINT(0, YSize / 2 - 1, "Take S to slow O down. ! gives 3 bullets");
-		
-		PRINT(7, YSize / 2 + 1, "Flee from +!");
-	#endif
-
-	#if defined(__C64__) || defined(__C128__) || defined(__PET__)
-	#elif defined(__C16__) || defined(__PLUS4__)
-		SET_TEXT_COLOR(COLOR_GRAY1);
-		PRINT((XSize - 22) / 2 - 2, YSize / 2 + 4, "Use Joystick in first port");
-		SET_TEXT_COLOR(TEXT_COLOR);
-	#elif defined(__VIC20__)
-		SET_TEXT_COLOR(COLOR_GREEN);
-		PRINT(3, YSize / 2 + 4, "Use the Joystick");
-		SET_TEXT_COLOR(TEXT_COLOR);	
-	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__SPECTRUM__)
-		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use W A S D <SPACE>");
-	#elif defined(__ATMOS__) && defined(FULL_GAME)
 		POKE(0xBB80+(YSize / 2 + 4 + 1)*40,16);POKE(0xBB81+(YSize / 2 + 4 +1)*40,4);
 		POKE(0xBB80+(YSize / 2 + 4 + 2)*40,16);POKE(0xBB81+(YSize / 2 + 4 +2)*40,4);
-		POKE(0xBB80+(YSize / 2 + 4 + 3)*40,16);POKE(0xBB81+(YSize / 2 + 4 +3)*40,4);
-		PRINT((XSize - 22) / 2-2, YSize / 2 + 4 - 1,"Controls: Use W A S D SPACE");	
+		POKE(0xBB80+(YSize / 2 + 4 + 3)*40,16);POKE(0xBB81+(YSize / 2 + 4 +3)*40,4);	
+
 		POKE(0xBB80+(YSize / 2 + 4 + 4)*40,16);POKE(0xBB81+(YSize / 2 + 4 +4)*40,12);
 		POKE(0xBB80+(YSize / 2 + 4 + 5)*40,16);POKE(0xBB81+(YSize / 2 + 4 +5)*40,12);
 		POKE(0xBB80+(YSize / 2 + 4 + 6)*40,16);POKE(0xBB81+(YSize / 2 + 4 +6)*40,12);
 
 		gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
-		gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		PRINT(1, YSize / 2 + 4, "use the joystick");
-	#elif defined(__VG5K__) 
-		// SET_TEXT_COLOR(3);		
-		printCenteredMessageOnRow(10, "Use I J K L SPACE");	
-	#elif defined(__MSX__)
-		printCenteredMessageOnRow(10, "Use the joystick");		
-	#else 
-		PRINT((XSize - 22) / 2, YSize / 2 + 4, "Use the joystick");
-	#endif
-	SET_TEXT_COLOR(TEXT_COLOR);
+		gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);			
+	}
+#endif
 
-	#if defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
-		PRINT(3, YSize / 2 + 7, "press any key");
-	#elif defined(__C64__)
-		PRINT((XSize - 22) / 2, YSize / 2 + 6, "press any key");
+ 
+void printStartMessage(void)
+{
+	#if defined(__C64__) && defined(REDEFINED_CHARS)
+		c64_splash_title();
+	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
+		atmos_splash_title();
 	#else
-		printCenteredMessageOnRow(12, "Press any key");
+		SET_TEXT_COLOR(COLOR_RED);
+		printCenteredMessageOnRow(3, "C R O S S  C H A S E");
+		SET_TEXT_COLOR(TEXT_COLOR);			
+		printCenteredMessageOnRow(5, "by Fabrizio Caruso");
 	#endif
+	
+	#if defined(__PLUS4__) || defined(__C16__)
+		SET_TEXT_COLOR(COLOR_CYAN);	
+	#else
+		SET_TEXT_COLOR(COLOR_BLUE);
+	#endif // __PLUS4__
+
+	#if defined(__C64__) 
+		c64_splash_instructions();
+	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
+		atmos_splash_instructions();
+	#else
+		printCenteredMessageOnRow(YSize/2-1, "Lure the enemies");
+		printCenteredMessageOnRow(YSize/2+1, "into the mines");
+	#endif
+
+	SET_TEXT_COLOR(TEXT_COLOR);		
+	
+	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
+		printCenteredMessageOnRow(YSize-2, "use the joystick");
+	#else
+		#if defined(__ATMOS__)
+			printCenteredMessageOnRow(YSize-8, "use w a s d space");
+		#else
+			printCenteredMessageOnRow(YSize-4, "use i j k l space");			
+		#endif
+	#endif	
+
 }
 
 

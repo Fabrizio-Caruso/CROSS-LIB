@@ -1,7 +1,7 @@
 HOW TO LOAD THE GAME
 
 This document only describes some non-obvious procedures on how to load the game
-on some emulators:
+on some emulators (similar procedures can be followed on the real machines):
 
 ---------------------------------------------------------
 JUPITER ACE
@@ -35,7 +35,13 @@ Type CLOAD
 Select the game file
 Type CALL 20480
 
+---------------------------------------------------------
+AQUARIUS
 
-
-
+Unzip the .zip file.
+Type CLOAD 
+First load the file starting underscore
+Type RUN
+Type CLOAD
+Then load the other file
 

@@ -30,6 +30,7 @@
 /*    distribution.                                                          */
 /*                                                                           */
 /*****************************************************************************/
+
 /*
 bit_fx(0)	Short hi-pitch decreasing "gulp/fall" sound
 bit_fx(1)	Fast increasing scale

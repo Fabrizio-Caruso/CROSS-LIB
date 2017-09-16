@@ -143,7 +143,7 @@ void displayStatsTitles(void)
 			PRINT(0,0-Y_OFFSET,"SCORE:");
 			PRINT(0,1-Y_OFFSET,"LEVEL:");
 	#elif defined(__AQUARIUS__)		
-	#elif defined(__ZX81__)	
+	#elif defined(__ZX81__)		
 	#elif defined(__ZX80__)		
 	#elif defined(__ATARI5200__)
 	#elif defined(__ENTERPRISE__)
@@ -153,6 +153,8 @@ void displayStatsTitles(void)
 	#elif defined(__VZ__)	
 	#elif defined(__MTX__)	
 	#elif defined(__ACE__)	
+			PRINT(2,-Y_OFFSET+1,"SCORE:");
+			PRINT(2,-Y_OFFSET+2,"LEVEL:");		
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		#if defined(__VIC20__) || defined(__C16__)
@@ -202,6 +204,9 @@ void displayStatsTitles(void)
 	#elif defined(__SVI__)	
 	#elif defined(__VZ__)	
 	#elif defined(__ACE__)	
+		gotoxy(18+1,1+0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(18-3,1+0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18,1+1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#elif defined(__MSX__)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(18+1,1+0); cputc(GUN_IMAGE._imageData);cputc(':');
@@ -251,7 +256,8 @@ void printGunsStats(void)
 	#elif defined(__TRS80__)	
 	#elif defined(__SVI__)	
 	#elif defined(__VZ__)	
-	#elif defined(__ACE__)	
+	#elif defined(__ACE__)
+		PRINTF(18+2+1-X_OFFSET,1+0-Y_OFFSET,"%u",guns);		
 	#elif defined(__MSX__)	
 		PRINTF(18+2+1-X_OFFSET,1+0-Y_OFFSET,"%u",guns);	
 	#elif defined(__VG5K__)	
@@ -286,6 +292,7 @@ void printLevelStats(void)
 	#elif defined(__SVI__)	
 	#elif defined(__VZ__)	
 	#elif defined(__ACE__)	
+		PRINTF(8,1+1-Y_OFFSET,"%02u", level);		
 	#elif defined(__MSX__)
 		PRINTF(8,1+1-Y_OFFSET,"%02u", level);	
 	#elif defined(__VG5K__)
@@ -321,7 +328,8 @@ void printGhostCountStats(void)
 	#elif defined(__TRS80__)
 	#elif defined(__SVI__)	
 	#elif defined(__VZ__)	
-	#elif defined(__ACE__)		
+	#elif defined(__ACE__)	
+		PRINTF(18+2-X_OFFSET-3,1+0-Y_OFFSET,"%u",ghostCount);	
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET-3,1+0-Y_OFFSET,"%u",ghostCount);
 	#elif defined(__VG5K__)	
@@ -356,7 +364,8 @@ void printLivesStats(void)
 	#elif defined(__TRS80__)
 	#elif defined(__SVI__)		
 	#elif defined(__VZ__)	
-	#elif defined(__ACE__)	
+	#elif defined(__ACE__)
+		PRINTF(18+2-X_OFFSET,1+1-Y_OFFSET,"%02u",lives);	
 	#elif defined(__MSX__)	
 		PRINTF(18+2-X_OFFSET,1+1-Y_OFFSET,"%02u",lives);	
 	#elif defined(__VG5K__)
@@ -391,6 +400,7 @@ void displayStats(void)
 	#elif defined(__SVI__)		
 	#elif defined(__VZ__)	
 	#elif defined(__ACE__)	
+		PRINTF(8,1-Y_OFFSET,"%05u0",points);	
 	#elif defined(__MSX__)
 		PRINTF(8,1-Y_OFFSET,"%05u0",points);	
 	#elif defined(__VG5K__)

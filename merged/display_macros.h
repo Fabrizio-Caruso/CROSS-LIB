@@ -384,18 +384,12 @@ void _delete(unsigned char x, unsigned char y);
 	#define DRAW_BORDERS()
 	#define DRAW_VERTICAL_LINE()
 #else		
-	// #if defined(__AQUARIUS__)
-		// #define PRINT(x,y,str)
-	// #else
-		#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
-	// #endif
+	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
 	
-	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__))
+	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__))
 		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); };
-	#elif defined(__CPC__)
-		#define PRINTF(x,y,str,val) {gotoxy(x+1+X_OFFSET,y+1+Y_OFFSET); cprintf(str,val); };
-	// #elif defined(__AQUARIUS__)
-		// #define PRINTF(x,y,str,val)
+	// #elif defined(__CPC__)
+		// #define PRINTF(x,y,str,val) {gotoxy(x+1+X_OFFSET,y+1+Y_OFFSET); cprintf(str,val); };
 	#else
 		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
 	#endif

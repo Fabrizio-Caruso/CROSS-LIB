@@ -1,0 +1,31 @@
+HOW TO LOAD THE GAME
+
+This document only describes some non-obvious procedures on how to load the game
+on some emulators:
+
+---------------------------------------------------------
+JUPITER ACE
+Use EightOne emulator.
+For the MINIMAL version game
+"0 0 bload min"
+Open the MINIMAL .wav version.
+
+For the FULL version game 
+"0 0 bload FULL"
+Open the FULL .wav version.
+
+
+---------------------------------------------------------
+ATARI 5200
+Use Atari800 emulator with the Atari 5200 bios roms and select Atari 5200 emulation.
+Load as one chip 16k cartridge.
+
+---------------------------------------------------------
+CBM 610
+
+Use WinVice 3.1 and try multiple times.
+Sometimes load"*",8 helps.
+There must be a bug in WinVice disk drive emulation for this target.
+
+
+

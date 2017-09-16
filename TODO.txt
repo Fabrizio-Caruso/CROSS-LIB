@@ -1,29 +1,14 @@
-TODO
+TODO (Common code)
 
-(0) Ghost killed on the gun in boss level?
+(1) General and more memory-efficient draw border code (draw horizontal and draw vertical)
 
-(1) Decide what to do with  
-I. ghost vs ghost collision 
-II. player vs dead ghost
-II. dead ghost image
+(2) General and cleaner solution for splash screen
 
-(2) Better space ghosts
+(3) General and cleaner solution for score text
 
-(3) Implement sameLocationAtAnyLocation (rename it) to save space
+(4) Use portable types instead of char, short, int
 
-(4) Save memory by placing sleep outside print text
 
-(5) Optimize power up code (all power-ups can share the handling code)
-
-(6) Optimize text code: printCenteredAtRow
-
-(7) Remove useless draw bombs in level
-
-(8) Optimize draw border code (draw horizontal and draw vertical)
-
-(9) Optimize constant artihmetic (place constants before and simplify expressions)
-
-(10) Change long with int + trailing zero (divide points by 10)
 
 
 

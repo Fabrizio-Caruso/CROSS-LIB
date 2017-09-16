@@ -31,7 +31,7 @@ cd %cc65path%\bin\
 @REM 
 cl65.exe -O -t vic20 -DSOUNDS --config %mypath%\..\cfg\vic20-8k.cfg %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_cvic20-8k_sounds.prg
 
-cl65.exe -t vic20 -DFULL_GAME -DSOUNDS --config %mypath%\..\cfg\vic20-16k.cfg %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_cvic20-16k_sounds.prg
+cl65.exe -O -t vic20 -DFULL_GAME -DSOUNDS --config %mypath%\..\cfg\vic20-16k.cfg %mypath%\vic20\vic20_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\FULL_cvic20-16k_sounds.prg
 
 
 @REM cl65.exe -O -t c16 -DC264_SOUNDS -DVERY_SIMPLE_STRATEGY --config %mypath%\..\cfg\c16-16k.cfg %mypath%\c264\c264_sounds.c %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c  -o %deliverables%\MINIMAL_c16-16k_sounds.prg

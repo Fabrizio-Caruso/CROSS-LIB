@@ -85,9 +85,12 @@ typedef struct ImageStruct Image;
 #if defined(__ATMOS__)
 	#define X_OFFSET 2
 	#define Y_OFFSET 2
-#elif defined(__VIC20__) ||defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__) || defined(__VZ__)
+#elif defined(__VIC20__) 
 	#define X_OFFSET 0
 	#define Y_OFFSET 1
+#elif defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__) || defined(__VZ__)
+	#define X_OFFSET 0
+	#define Y_OFFSET 2
 #elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 	#define X_OFFSET 0
 	#define Y_OFFSET 0

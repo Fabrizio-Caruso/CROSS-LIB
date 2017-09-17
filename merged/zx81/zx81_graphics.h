@@ -123,7 +123,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		for(i=0;i<length;++i)
 		{
 			gotoxy((x+X_OFFSET),(y+i+Y_OFFSET));  
-			cputc('I');		
+			cputc('i');		
 		}
 	}
 

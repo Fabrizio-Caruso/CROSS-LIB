@@ -436,21 +436,23 @@ void _delete(unsigned char x, unsigned char y);
 	#elif defined(__ZX81__) || defined(__ZX80__)
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-	
+		
 		#define DRAW_HORIZONTAL_BORDER(y) \
 		{ \
-			unsigned char i; \
-			gotoxy(X_OFFSET+1,Y_OFFSET+y);  \
-			for(i=0;i<XSize-1;++i) \
-			{ \
-				cputc('-'); \
-			} \
-		} \
+			DRAW_HORIZONTAL_LINE(0,y,XSize-1); \
+		}		
+
+		#define DRAW_VERTICAL_BORDER(x) \
+		{ \
+			DRAW_VERTICAL_LINE(x,0,YSize-1); \
+		}		
 		
 		#define DRAW_BORDERS() \
 		{ \
 			DRAW_HORIZONTAL_BORDER(0); \
 			DRAW_HORIZONTAL_BORDER(YSize-1); \
+			DRAW_VERTICAL_BORDER(0) \
+			DRAW_VERTICAL_BORDER(XSize-1) \
 		}		
 	#else
 		#define DRAW_VERTICAL_LINE(x,y,length) \

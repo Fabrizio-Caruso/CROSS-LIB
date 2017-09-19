@@ -480,12 +480,12 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define CLEAR_SCREEN() {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}};	
 
-#elif defined(__ATARI5200__)
+#elif defined(__ATARI5200__) || defined(ATARI_MODE1)
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) (void) bordercolor(c);;
 
-	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
+	#define SET_BACKGROUND_COLOR(c) {};
 
 	#define CLEAR_SCREEN() {clrscr();};	
 #elif defined(__ATMOS__)

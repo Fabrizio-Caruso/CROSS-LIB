@@ -40,22 +40,13 @@
 	 
 	void INIT_GRAPHICS(void)
 	{
-
 		// Mode 12 with no last monochromatic lines (12+16)
 		_graphics(GRAPHICS_MODE);
-		SET_TEXT_COLOR(TEXT_COLOR);
-	
-		// SET_BORDER_COLOR(BORDER_COLOR);
-	
-		// SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
-		//_setcolor(TGI_COLOR_BLACK,TGI_COLOR_WHITE,TGI_COLOR_YELLOW);
-		
-		// _setcolor_low(TGI_COLOR_GREEN, TGI_COLOR_BLUE);
-		// _setcolor(0,COLOR_BLACK,8);
-		// _setcolor(1,COLOR_WHITE,8);
-		// _setcolor(2,COLOR_RED,8);
-		// _setcolor(3,COLOR_BLUE,8);
-		// _setcolor(4, COLOR_YELLOW,8);
+		_setcolor_low(0, TGI_COLOR_RED);
+		_setcolor_low(1, TGI_COLOR_WHITE);
+		_setcolor_low(2, TGI_COLOR_CYAN);
+		_setcolor_low(3, TGI_COLOR_YELLOW);
+		_setcolor_low(4, TGI_COLOR_BLACK);
 	}
 	 
 	 
@@ -71,9 +62,9 @@
 		DEAD_GHOST_IMAGE._color = COLOR_RED;
 
 		GHOST_IMAGE._imageData = 'o';
-		INVINCIBLE_GHOST_IMAGE._imageData = '+';
+		INVINCIBLE_GHOST_IMAGE._imageData = '+'-160;
 		BOMB_IMAGE._imageData = 'X';
-		PLAYER_IMAGE._imageData = '*' - 160;
+		PLAYER_IMAGE._imageData = 170; // *
 		POWERUP_IMAGE._imageData = 'S' - 64-32;
 		GUN_IMAGE._imageData = '!' - 160;
 		MISSILE_IMAGE._imageData = '.';
@@ -118,7 +109,6 @@
 		{
 			gotoxy((x+X_OFFSET),(y+Y_OFFSET)/2);
 		}				
-		(void) textcolor (image->_color);
 		cputc(image->_imageData); 
 	};	
 	

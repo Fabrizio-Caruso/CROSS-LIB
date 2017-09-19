@@ -84,7 +84,7 @@ void INIT_IMAGES(void)
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
 	{
-		gotoxy((x+X_OFFSET),(x+X_OFFSET)); 
+		gotoxy((x+X_OFFSET),(y+X_OFFSET)); 
 		cputc('X');
 	}
 #endif

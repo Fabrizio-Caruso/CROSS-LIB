@@ -37,11 +37,11 @@ extern unsigned char XSize;
 	#define BASE 0
 #endif
 
-#define _DRAW(x,y,image) msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,image->_imageData);
-#define _DELETE(x,y)     msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,' ');
-#define _DRAW_VERTICAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,'|');
-#define _DRAW_HORIZONTAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,'-');	
-#define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,'X');	
+#define _DRAW(x,y,image) msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,image->_imageData);
+#define _DELETE(x,y)     msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,' ');
+#define _DRAW_VERTICAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'|');
+#define _DRAW_HORIZONTAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'-');	
+#define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'X');	
 
 
 void INIT_GRAPHICS(void)

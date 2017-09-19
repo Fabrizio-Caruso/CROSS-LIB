@@ -81,26 +81,20 @@ struct ImageStruct
 typedef struct ImageStruct Image;
 
 //
- 
+#if defined(NARROW)
+	#define Y_OFFSET 0 
+#else
+	#define Y_OFFSET 2		
+#endif
+
 #if defined(__ATMOS__)
 	#define X_OFFSET 2
-	#define Y_OFFSET 2
-#elif defined(__VIC20__) 
-	#define X_OFFSET 0
-	#define Y_OFFSET 1
-#elif defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__) || defined(__VZ__)
-	#define X_OFFSET 0
-	#define Y_OFFSET 2
-#elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
-	#define X_OFFSET 0
-	#define Y_OFFSET 0
 #elif defined(__VG5K__)
 	#define X_OFFSET 1
-	#define Y_OFFSET 2
 #else
 	#define X_OFFSET 0
-	#define Y_OFFSET 2
 #endif
+
 
 #if defined(__NES__)
 	#define GET_SCREEN_SIZE(x,y) {*x=32; *y=24;};
@@ -129,7 +123,7 @@ typedef struct ImageStruct Image;
 #elif defined(__AQUARIUS__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=24-Y_OFFSET;};	
 #elif defined(__ZX81__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;};	
+	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};	
 #elif defined(__ZX80__) 
 	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;};	
 #elif defined(__ACE__) 
@@ -204,14 +198,18 @@ void _delete(unsigned char x, unsigned char y);
 		DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr); \
 	} \
 }
-	
+
+// VERTICAL AND HORIZONTAL BORDER
+#if defined(__MSX__) || defined(__AQUARIUS__)
+	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize);
+	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize);	
+#else
+	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1);
+	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize-1);	
+#endif
+
+// FULL BORDER
 #if defined(__ATMOS__)
-	#include<peekpoke.h>
-
-	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
-
-	#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
-
 	#define DRAW_BORDERS() \
 	{ \
 		unsigned char i; \
@@ -242,6 +240,88 @@ void _delete(unsigned char x, unsigned char y);
 			cputc('|'+128); \
 		} \
 	} 
+#elif defined(__SPECTRUM__)
+		
+	#define DRAW_BORDERS() \
+	{ \
+		unsigned char i; \
+		SET_TEXT_COLOR(TEXT_COLOR); \
+		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+		printf("--------------------------------"); \
+		gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
+		printf("--------------------------------"); \
+		for(i=0;i<YSize;++i) \
+		{ \
+			gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
+			gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
+		} \
+	}
+#elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
+	#define DRAW_BORDERS()\
+	{ \
+		SET_TEXT_COLOR(TEXT_COLOR); \
+		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+		cputc ('X');\
+		DRAW_HORIZONTAL_LINE (1+X_OFFSET,0+Y_OFFSET, XSize-2);\
+		cputc ('X');\
+		DRAW_VERTICAL_LINE(0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
+		gotoxy(0+20,(YSize-1)/2); \
+		cputc ('X'); \
+		DRAW_HORIZONTAL_LINE (1+X_OFFSET,YSize-1,XSize-2);\
+		cputc ('X');\
+		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 2); \
+	}
+#elif defined(CC65) && (defined(WIDE) || defined(__VIC20__))
+	#define DRAW_BORDERS()\
+		{ \
+			SET_TEXT_COLOR(TEXT_COLOR); \
+			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+			cputc (CH_ULCORNER);\
+			chline (XSize-2);\
+			cputc (CH_URCORNER);\
+			cvlinexy (0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
+			cputc (CH_LLCORNER);\
+			chline (XSize-2);\
+			cputc (CH_LRCORNER);\
+			cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
+		}	
+#else
+		#define DRAW_BORDERS() \
+		{ \
+			SET_TEXT_COLOR(TEXT_COLOR); \
+			DRAW_HORIZONTAL_BORDER(0); \
+			DRAW_HORIZONTAL_BORDER(YSize-1); \
+			DRAW_VERTICAL_BORDER(0) \
+			DRAW_VERTICAL_BORDER(XSize-1) \
+		}	
+#endif
+
+
+// PRINT AND PRINTF
+#if defined(ATARI_MODE1) && (defined(__ATARI__) || defined(__ATARIXL__))
+	void PRINT(unsigned char x, unsigned char y, char * str);
+	
+	#define PRINTF(x,y,...)  \
+	{ \
+		if((y+Y_OFFSET)%2==1) \
+		{ \
+			gotoxy(x+20+X_OFFSET,(y+Y_OFFSET)/2); \
+		} \
+		else \
+		{ \
+			gotoxy(x+X_OFFSET, (y+Y_OFFSET)/2); \
+		} \
+		cprintf(##__VA_ARGS__); \
+	};
+#else
+	#define PRINT(x,y,str) {gotoxy(x,y+Y_OFFSET + ADJUST); printf(str); };
+	#define PRINTF(x,y,str,val) {gotoxy(x,y+Y_OFFSET + ADJUST); printf(str,val); };
+#endif
+
+	
+// DRAW HORIZONTAL AND VERTICAL LINES
+#if defined(__ATMOS__)
+	#include<peekpoke.h>
 
 	#define DRAW_VERTICAL_LINE(x,y,length) \
 	{ \
@@ -251,28 +331,16 @@ void _delete(unsigned char x, unsigned char y);
 			POKE(0xBB80+(x+X_OFFSET)+(y+i+Y_OFFSET)*40,'|'+128); \
 		} \
 	}
-	
 
 #elif defined(__VG5K__)
-	
+	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length);
+
 	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
 
 	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
 
-	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1)
-
-	void DRAW_BORDERS(void);
-	
-	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str,val); };
-	
-	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET+1); printf(str); };
-
 #elif defined(__SPECTRUM__)
-
 	#include <stdio.h>
-	
-	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); };
-	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); };
 
 	#if defined(REDEFINED_CHARS)
 		void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
@@ -288,37 +356,9 @@ void _delete(unsigned char x, unsigned char y);
 			} \
 		}		
 	#endif
-		
-	#define DRAW_BORDERS() \
-	{ \
-		unsigned char i; \
-		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-		printf("--------------------------------"); \
-		gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
-		printf("--------------------------------"); \
-		for(i=0;i<YSize;++i) \
-		{ \
-			gotoxy(0 + X_OFFSET,i + Y_OFFSET); printf("|"); \
-			gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);printf("|"); \
-		} \
-	}
+
 
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-	void PRINT(unsigned char x, unsigned char y, char * str);
-	
-	#define PRINTF(x,y,...)  \
-	{ \
-		if((y+Y_OFFSET)%2==1) \
-		{ \
-			gotoxy(x+20+X_OFFSET,(y+Y_OFFSET)/2); \
-		} \
-		else \
-		{ \
-			gotoxy(x+X_OFFSET, (y+Y_OFFSET)/2); \
-		} \
-		cprintf(##__VA_ARGS__); \
-	};
-
 	#define DRAW_VERTICAL_LINE(x,y,length) \
 	{ \
 		unsigned char i; \
@@ -357,106 +397,19 @@ void _delete(unsigned char x, unsigned char y);
 		} \
 	}
 
-	#define DRAW_BORDERS()\
-	{ \
-		SET_TEXT_COLOR(TEXT_COLOR); \
-		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-		cputc ('X');\
-		DRAW_HORIZONTAL_LINE (1+X_OFFSET,0+Y_OFFSET, XSize-2);\
-		cputc ('X');\
-		DRAW_VERTICAL_LINE(0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
-		gotoxy(0+20,(YSize-1)/2); \
-		cputc ('X'); \
-		DRAW_HORIZONTAL_LINE (1+X_OFFSET,YSize-1,XSize-2);\
-		cputc ('X');\
-		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 2); \
-	}
-
-#elif defined(__SC3000__)
-	#define PRINT(x,y,str)
-	#define PRINTF(x,y,str,val)
-	#define DRAW_BORDERS()
-	#define DRAW_VERTICAL_LINE()
+#elif defined(__CBM__) || defined(__ATARI5200__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
+	#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};	
 #else		
-	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cputs(str); };
-	
-	#if !(defined(__CBM__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__))
-		#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); };
-	#else
-		#define PRINTF(x,y,...) {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(##__VA_ARGS__); };
-	#endif
-	
-	#if defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || (!defined(ATARI_MODE1) && (defined(__ATARI__) || defined(__ATARIXL__))) || defined(__ATARI5200__)
-		#define DRAW_BORDERS()\
-		{ \
-			SET_TEXT_COLOR(TEXT_COLOR); \
-			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-			cputc (CH_ULCORNER);\
-			chline (XSize-2);\
-			cputc (CH_URCORNER);\
-			cvlinexy (0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
-			cputc (CH_LLCORNER);\
-			chline (XSize-2);\
-			cputc (CH_LRCORNER);\
-			cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
-		}	
-		#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};
-	#elif defined(__MSX__) || defined(__CPC__)
+	#if defined(__MSX__) || defined(__CPC__)
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-			
-		#if defined(__MSX__)
-			#define DRAW_VERTICAL_BORDER(x) \
-				DRAW_VERTICAL_LINE(x,0,YSize);
-			
-			#define DRAW_BORDERS() \
-			{ \
-				DRAW_HORIZONTAL_BORDER(0); \
-				DRAW_HORIZONTAL_BORDER(YSize-1); \
-				DRAW_VERTICAL_BORDER(0) \
-				DRAW_VERTICAL_BORDER(XSize-1) \
-			}
-			#define DRAW_HORIZONTAL_BORDER(y) \
-				DRAW_HORIZONTAL_LINE(0,y,XSize);
-		#else
-			#define DRAW_VERTICAL_BORDER(x) \
-				DRAW_VERTICAL_LINE(x,0,YSize - 1);
-				
-			#define DRAW_BORDERS() \
-			{ \
-				DRAW_HORIZONTAL_BORDER(0); \
-				DRAW_HORIZONTAL_BORDER(YSize-1); \
-				DRAW_VERTICAL_BORDER(0) \
-				DRAW_VERTICAL_BORDER(XSize-1) \
-			}
-			#define DRAW_HORIZONTAL_BORDER(y) \
-				DRAW_HORIZONTAL_LINE(0,y,XSize-1);			
-		#endif
+
 	#elif defined(__AQUARIUS__)
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-		// #define DRAW_HORIZONTAL_BORDER(y)
-		#define DRAW_BORDERS()
+		#define DRAW_HORIZONTAL_BORDER(y)
 	#elif defined(__ZX81__) || defined(__ZX80__)
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-		
-		#define DRAW_HORIZONTAL_BORDER(y) \
-		{ \
-			DRAW_HORIZONTAL_LINE(0,y,XSize-1); \
-		}		
-
-		#define DRAW_VERTICAL_BORDER(x) \
-		{ \
-			DRAW_VERTICAL_LINE(x,0,YSize-1); \
-		}		
-		
-		#define DRAW_BORDERS() \
-		{ \
-			DRAW_HORIZONTAL_BORDER(0); \
-			DRAW_HORIZONTAL_BORDER(YSize-1); \
-			DRAW_VERTICAL_BORDER(0) \
-			DRAW_VERTICAL_BORDER(XSize-1) \
-		}		
 	#else
 		#define DRAW_VERTICAL_LINE(x,y,length) \
 		{ \
@@ -468,25 +421,22 @@ void _delete(unsigned char x, unsigned char y);
 			} \
 		}
 		
-		#define DRAW_HORIZONTAL_BORDER(y) \
+		#define DRAW_HORIZONTAL_LINE(x,y,length) \
 		{ \
 			unsigned char i; \
-			gotoxy(X_OFFSET+1,Y_OFFSET+y);  \
-			for(i=0;i<XSize-1;++i) \
+			gotoxy(X_OFFSET+x,Y_OFFSET+y);  \
+			for(i=0;i<length;++i) \
 			{ \
 				cputc('-'); \
 			} \
 		} \
-		
-		#define DRAW_BORDERS() \
-		{ \
-			DRAW_HORIZONTAL_BORDER(0); \
-			DRAW_HORIZONTAL_BORDER(YSize-1); \
-		}		
+			
 	#endif
 
 #endif
 
+
+// COLORS AND CLEAR SCREEN
 #if defined(__SPECTRUM__)
 	#include <stdio.h>
 	#define SET_TEXT_COLOR(c) {printf("\020%c",c);};

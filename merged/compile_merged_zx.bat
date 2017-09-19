@@ -40,8 +40,8 @@ cd %mypath%\
 @REM -pragma-define:REGISTER_SP=-1 -pragma-define:CLIB_MALLOC_HEAP_SIZE=0
 @REM -DDEBUG_CRASH
 @REM 
-@REM 
-zcc +zx -startup=1 -SO3 --max-allocs-per-node200000 -clib=sdcc_iy -vn -DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\FULL_zx_spectrum_redefined_chars.prg %mypath%\sleep_macros.c %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM -SO3 --max-allocs-per-node200000
+zcc +zx -startup=1  -clib=sdcc_iy -vn -DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\FULL_zx_spectrum_redefined_chars.prg %mypath%\sleep_macros.c %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
 @REM 
 @REM 
@@ -50,24 +50,19 @@ del %deliverables%\FULL_zx_spectrum_redefined_chars_CODE.bin
 del %deliverables%\FULL_zx_spectrum_redefined_chars_BANK_07.bin
 
 
+@REM -SO3 --max-allocs-per-node200000
+@REM zcc +zx -startup=1  -clib=sdcc_iy -vn -DREDEFINED_CHARS -DSOUNDS -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\MINIMAL_zx_spectrum_redefined_chars.prg %mypath%\sleep_macros.c %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
-zcc +zx -startup=1 -SO3 --max-allocs-per-node200000 -clib=sdcc_iy -vn -DREDEFINED_CHARS -DSOUNDS -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\MINIMAL_zx_spectrum_redefined_chars.prg %mypath%\sleep_macros.c %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
-@REM 
-@REM 
-del %deliverables%\MINIMAL_zx_spectrum_redefined_chars_CODE.bin
-@REM 
-del %deliverables%\MINIMAL_zx_spectrum_redefined_chars_BANK_07.bin
+@REM del %deliverables%\MINIMAL_zx_spectrum_redefined_chars_CODE.bin
+@REM del %deliverables%\MINIMAL_zx_spectrum_redefined_chars_BANK_07.bin
 
 
-@REM 
-zcc +zx -startup=1 -SO3 --max-allocs-per-node200000 -clib=sdcc_iy -vn -DSOUNDS -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\MINIMAL_zx_spectrum.prg %mypath%\sleep_macros.c %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
-@REM 
+@REM zcc +zx -startup=1 -SO3 --max-allocs-per-node200000 -clib=sdcc_iy -vn -DSOUNDS -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o %deliverables%\MINIMAL_zx_spectrum.prg %mypath%\sleep_macros.c %mypath%\display_macros.c  %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
 @REM 
-del %deliverables%\MINIMAL_zx_spectrum_CODE.bin
-@REM 
-del %deliverables%\MINIMAL_zx_spectrum_BANK_07.bin
+@REM del %deliverables%\MINIMAL_zx_spectrum_CODE.bin
+@REM del %deliverables%\MINIMAL_zx_spectrum_BANK_07.bin
 
 
 del %mypath%\*.o

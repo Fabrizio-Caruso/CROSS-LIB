@@ -98,6 +98,25 @@
 	#define WAIT_FOR_JOY
 #endif
 
+#if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1))
+	#define CC65
+	#define WIDE
+#elif defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
+	#define CC65
+	#define NARROW
+#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ZX81__)
+	#define Z88DK
+	#define WIDE
+#else 
+	#define Z88DK
+	#define NARROW
+#endif
+
+#if defined(CC65) || defined(__SPECTRUM__) || defined(__VG5000__) || defined(__MSX__) || defined(__SVI__) || defined(__AQUARIUS__)
+	#define ADJUST 0
+#else
+	#define ADJUST 1
+#endif
 
 #if defined(__CPC__) && !defined(CPC_NO_COLOR)
 	#define BOMBS_NUMBER 2
@@ -112,19 +131,13 @@
 	#define GHOSTS_NUMBER 6
 #elif defined(__SPECTRUM__) 
 	#define GHOSTS_NUMBER 7
-#elif defined(__VIC20__)
-	#define GHOSTS_NUMBER 8
-#elif defined(__VG5K__)
-	#define GHOSTS_NUMBER 8
 #else
 	#define GHOSTS_NUMBER 8
 #endif
 	
-#if defined(__SPECTRUM__) || defined(__CPC__) || defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
-	#define BUBBLES_NUMBER 2
-#else
-	#define BUBBLES_NUMBER 4
-#endif
+
+#define BUBBLES_NUMBER 4
+
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 3

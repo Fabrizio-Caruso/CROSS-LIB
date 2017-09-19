@@ -139,14 +139,13 @@
 		INIT_GRAPHICS();
 	}		
 
-	void DRAW_HORIZONTAL_BORDER(unsigned char y)
+	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 	{
-		unsigned char i;
-		gotoxy(X_OFFSET+1,Y_OFFSET+1+y); 
-		for(i=0;i<XSize;++i)
-		{
-			cputc('-');
-		}
+		unsigned char i; 
+		for(i=0;i<length;++i)
+		{ 
+			_draw_ch(x+i,y,'-',VG5K_WHITE); 
+		} 
 	}
 
 	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
@@ -157,17 +156,7 @@
 			_draw_ch(x,y+i,'|',VG5K_WHITE); 
 		} 
 	}
-	
-	void DRAW_BORDERS(void)
-	{ 
-		SET_TEXT_COLOR(VG5K_WHITE);
 
-		DRAW_HORIZONTAL_BORDER(0);
-		DRAW_HORIZONTAL_BORDER(YSize-1);	
-		DRAW_VERTICAL_BORDER(0);
-		DRAW_VERTICAL_BORDER(XSize-1);
-	}	
-	
 	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 	{
 		no_cursor();		

@@ -251,6 +251,12 @@ void _printScore(char * text, unsigned int score)
 
 
 #if defined(__VG5K__)
+		void printExtraLife(void)
+		{
+			printCenteredMessage("EXTRA LIFE!"); 
+			sleep(1);
+		}
+	
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessage("PRESS ANY KEY");
@@ -276,8 +282,14 @@ void _printScore(char * text, unsigned int score)
 			printCenteredMessage("YOU LOST!");
 		}	
 #elif defined(__VZ__)
+		void printExtraLife(void)
+		{
+		}
+		
 		void printPressKeyToStart(void)
-		{}
+		{
+			
+		}
 
 		void deleteCenteredMessage(void)
 		{
@@ -299,6 +311,12 @@ void _printScore(char * text, unsigned int score)
 			printCenteredMessage("YOU LOST!");
 		}	
 #elif defined(__VIC20__) || defined(__C16__) 
+		void printExtraLife(void)
+		{
+			printCenteredMessage("EXTRA LIFE!"); 
+			sleep(1);
+		}
+		
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessage("PRESS ANY KEY");
@@ -324,6 +342,12 @@ void _printScore(char * text, unsigned int score)
 			printCenteredMessage("Y O U  L O S T !");
 		}				
 #elif defined(NO_CASE_LETTERS)
+		void printExtraLife(void)
+		{
+			printCenteredMessage("e x t r a  l i f e !"); 
+			sleep(1);
+		}
+		
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessage("press any key");
@@ -349,6 +373,12 @@ void _printScore(char * text, unsigned int score)
 			printCenteredMessage("y o u   l o s t !");
 		}
 #else
+		void printExtraLife(void)
+		{
+			printCenteredMessage("e x t r a  l i f e !"); 
+			sleep(1);
+		}
+		
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessage("PRESS ANY KEY");

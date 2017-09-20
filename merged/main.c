@@ -774,7 +774,16 @@ int main(void)
 				CLEAR_SCREEN();				
 
 				ghostCount = GHOSTS_NUMBER;
-
+				
+				if(bossLevel())
+				{	
+					CLEAR_SCREEN();
+					sleep(1);
+					PING_SOUND();
+					printExtraLife();
+					sleep(1);
+					++lives;
+				}
 				++level;
 
 			}

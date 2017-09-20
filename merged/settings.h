@@ -112,6 +112,12 @@
 	#define NARROW
 #endif
 
+#if defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ZX81__) || defined(__ZX80__)
+	#define NO_CASE_LETTERS
+#else
+	#define CASE_LETTERS
+#endif
+
 #if defined(CC65) || defined(__SPECTRUM__) || defined(__VG5000__) || defined(__MSX__) || defined(__SVI__) || defined(__AQUARIUS__)
 	#define ADJUST 0
 #else

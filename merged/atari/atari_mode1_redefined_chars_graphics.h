@@ -103,7 +103,7 @@
 		_setcolor_low(0, TGI_COLOR_RED);
 		_setcolor_low(1, TGI_COLOR_WHITE);
 		_setcolor_low(2, TGI_COLOR_CYAN);
-		_setcolor_low(3, TGI_COLOR_YELLOW);
+		_setcolor_low(3, TGI_COLOR_BROWN); // TGI_COLOR_GRAY1
 		_setcolor_low(4, TGI_COLOR_BLACK);
 
 		// for(j=0;j<1023;++j)

@@ -54,7 +54,7 @@ extern Image PLAYER_IMAGE;
 extern Image MISSILE_IMAGE;
 
 #if defined(FULL_GAME)
-	#if defined(__C64__)
+	#if defined(NO_CASE_LETTERS)
 		void printKillTheSkull(void)
 		{
 			printCenteredMessage("kill the skull!");	
@@ -71,7 +71,7 @@ extern Image MISSILE_IMAGE;
 // TODO: This is SLOW
 void displayStatsTitles(void)
 {	
-	#if defined(CC65) && defined(WIDE)
+	#if defined(NO_CASE_LETTERS) && defined(WIDE)
 		SET_TEXT_COLOR(COLOR_BLUE);		
 		PRINT(2-X_OFFSET,0-Y_OFFSET,"score:");
 		PRINT(2-X_OFFSET,1-Y_OFFSET,"level:");
@@ -181,7 +181,7 @@ void printCenteredMessage(char *Text)
 	
 }
 
-#if defined (__C64__)
+#if defined (NO_CASE_LETTERS)
 	void printLevel(void)
 	{
 		char levelString[22];
@@ -298,7 +298,7 @@ void _printScore(char * text, unsigned int score)
 		{
 			printCenteredMessage("YOU LOST!");
 		}	
-#elif defined(__VIC20__) || defined(__ATARI__) || defined(__ATARIXL__)
+#elif defined(__VIC20__) || defined(__C16__) 
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessage("PRESS ANY KEY");
@@ -322,36 +322,11 @@ void _printScore(char * text, unsigned int score)
 		void printDefeatMessage(void)
 		{
 			printCenteredMessage("Y O U  L O S T !");
-		}		
-#elif defined(__C16__)
+		}				
+#elif defined(NO_CASE_LETTERS)
 		void printPressKeyToStart(void)
 		{
-			printCenteredMessage("PRESS ANY KEY TO START");
-		}	
-		
-		void deleteCenteredMessage(void)
-		{                                           
-			printCenteredMessage("                      ");
-		}
-		
-		void printGameOver(void)
-		{
-			printCenteredMessage("G A M E  O V E R");
-		}
-
-		void printVictoryMessage(void)
-		{
-			printCenteredMessage("Y O U  W O N !");
-		}
-
-		void printDefeatMessage(void)
-		{
-			printCenteredMessage("Y O U  L O S T !");
-		}		
-#elif defined(__C64__)
-		void printPressKeyToStart(void)
-		{
-			printCenteredMessage("press any key to start");
+			printCenteredMessage("press any key");
 		}	
 		
 		void deleteCenteredMessage(void)
@@ -376,7 +351,7 @@ void _printScore(char * text, unsigned int score)
 #else
 		void printPressKeyToStart(void)
 		{
-			printCenteredMessage("PRESS ANY KEY TO START");
+			printCenteredMessage("PRESS ANY KEY");
 		}	
 		
 		void deleteCenteredMessage(void)
@@ -537,8 +512,12 @@ void printStartMessage(void)
 	#else
 		SET_TEXT_COLOR(COLOR_RED);
 		printCenteredMessageOnRow(3, "C R O S S  C H A S E");
-		SET_TEXT_COLOR(TEXT_COLOR);			
-		printCenteredMessageOnRow(5, "by Fabrizio Caruso");
+		SET_TEXT_COLOR(TEXT_COLOR);		
+		#if defined(NO_CASE_LETTERS)
+			printCenteredMessageOnRow(5, "by fabrizio caruso");		
+		#else
+			printCenteredMessageOnRow(5, "by Fabrizio Caruso");
+		#endif
 	#endif
 	
 	#if !defined(__ATMOS__)
@@ -554,7 +533,11 @@ void printStartMessage(void)
 	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
 		// atmos_splash_instructions();
 	#else
-		printCenteredMessageOnRow(YSize/2-1, "Lure the enemies");
+		#if defined(NO_CASE_LETTERS)
+			printCenteredMessageOnRow(YSize/2-1, "lure the enemies");
+		#else
+			printCenteredMessageOnRow(YSize/2-1, "Lure the enemies");
+		#endif		
 		printCenteredMessageOnRow(YSize/2+1, "into the mines");
 	#endif
 
@@ -567,7 +550,7 @@ void printStartMessage(void)
 	#else
 		#if defined(__ATMOS__)
 			printCenteredMessageOnRow(YSize-4, "use w a s d space");
-		#else
+		#else			
 			printCenteredMessageOnRow(YSize-4, "use i j k l space");			
 		#endif
 	#endif	

@@ -86,8 +86,13 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
-extern unsigned char evenBlink;
-extern unsigned char oddBlink;
+extern unsigned char powerUpBlink;
+extern unsigned char gunBlink;	
+extern unsigned char extraPointsBlink;
+extern unsigned char extraLifeBlink;	
+extern unsigned char invincibilityBlink;
+extern unsigned char playerBlink;	
+
 
 Character invincibleGhost;
 Character player; 
@@ -132,10 +137,6 @@ Character bombs[BOMBS_NUMBER];
 	
 	unsigned char arrowRange;
 	
-	// unsigned char extra_points_blink = 1;
-	// unsigned char extra_life_blink = 1;
-	// unsigned char invincibility_blink = 1;
-	// unsigned char player_blink = 1;		
 #endif
 
 unsigned char strategyArray[GHOSTS_NUMBER];

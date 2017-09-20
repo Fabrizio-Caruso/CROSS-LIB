@@ -38,7 +38,7 @@ extern unsigned char guns;
 
 #if defined(FULL_GAME)
 	extern unsigned char player_invincibility;
-	extern unsigned char oddBlink;	
+	extern unsigned char playerBlink;	
 #endif
 
 #define _DO_MOVE_UP \

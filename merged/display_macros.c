@@ -22,8 +22,13 @@
  
 #include "display_macros.h"
 
-unsigned char evenBlink = 0;
-unsigned char oddBlink = 1;	
+unsigned char powerUpBlink = 0;
+unsigned char gunBlink = 0;	
+unsigned char extraPointsBlink = 0;
+unsigned char extraLifeBlink = 0;	
+unsigned char invincibilityBlink = 0;
+unsigned char playerBlink = 0;	
+	
 
 Image PLAYER_IMAGE;
 Image GHOST_IMAGE;

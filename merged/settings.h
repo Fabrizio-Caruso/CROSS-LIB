@@ -57,7 +57,7 @@
 	#define GAME_SLOW_DOWN 300
 #elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 400
+	#define GAME_SLOW_DOWN 800
 #elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 200
@@ -204,7 +204,7 @@
 	#define INITIAL_SKULL_SLOWDOWN 29000
 #endif
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 5
 
 // Final level 
 #define FINAL_LEVEL 40

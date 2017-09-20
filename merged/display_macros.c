@@ -53,8 +53,10 @@ Image GUN_IMAGE;
 	#include "c64/c64_redefined_characters.h"
 #elif defined(__ATMOS__) && defined(REDEFINED_CHARS)
 	#include "atmos/atmos_redefined_characters.h"
-#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) && !defined(REDEFINED_CHARS)
 	#include "atari/atari_mode1_graphics.h"
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) && defined(REDEFINED_CHARS)
+	#include "atari/atari_mode1_redefined_chars_graphics.h"
 #elif (defined(__C16__)   || defined(__PLUS4__))   && defined(REDEFINED_CHARS)
 	#include "c264/c264_graphics.h"
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)

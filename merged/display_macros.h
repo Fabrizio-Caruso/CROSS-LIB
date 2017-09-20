@@ -372,7 +372,7 @@ void _delete(unsigned char x, unsigned char y);
 			{ \
 				gotoxy(x+X_OFFSET,(y+Y_OFFSET+i)/2); \
 			} \
-			cputc('a'+20+12); \
+			cputc('a'-64-128); \
 		} \
 	}
 	
@@ -384,7 +384,7 @@ void _delete(unsigned char x, unsigned char y);
 			for(i=0;i<length;++i) \
 			{ \
 				gotoxy(x+20+X_OFFSET+i,(y+Y_OFFSET)/2); \
-				cputc('-'+64+32); \
+				cputc('-'-128); \
 			} \
 		} \
 		else \
@@ -392,7 +392,7 @@ void _delete(unsigned char x, unsigned char y);
 			for(i=0;i<length;++i) \
 			{ \
 				gotoxy(x+X_OFFSET+i,(y+Y_OFFSET)/2); \
-				cputc('-'+64+32); \
+				cputc('-'-128); \
 			} \
 		} \
 	}

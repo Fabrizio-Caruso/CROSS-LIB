@@ -37,13 +37,15 @@
 	//#define GRAPHICS_MODE 0
 	
 	#define ROM_BASE 57344u		
-	#define CHARS_BASE ROM_BASE-16384u
+	#define CHARS_BASE 8192
 
+	Image PLAYER_DOWN;
+	Image PLAYER_UP;
+	Image PLAYER_RIGHT;
+	Image PLAYER_LEFT;
 	
 	extern char YSize; 
 	 
-	
-	#if defined(FULL_GAME)	
 	void redefine(char old_char, const char *new_char)
 	{
 		unsigned char i;
@@ -52,11 +54,9 @@
 			POKE(CHARS_BASE+old_char*8+i,new_char[i]);
 		}
 	}
-	#endif
 	
 	void INIT_GRAPHICS(void)
-	{
-		#if defined(FULL_GAME)	
+	{	
 		unsigned int j;
 		
 		static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
@@ -72,41 +72,41 @@
 		static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
 		static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
 		static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
-		#endif 
 		
 		// Mode 12 with no last monochromatic lines (12+16)
 		_graphics(GRAPHICS_MODE);
-		SET_TEXT_COLOR(TEXT_COLOR);
-	
-		// SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
-		//_setcolor(TGI_COLOR_BLACK,TGI_COLOR_WHITE,TGI_COLOR_YELLOW);		
-		// _setcolor_low(TGI_COLOR_GREEN, TGI_COLOR_BLUE);
+		
+		_setcolor_low(0, TGI_COLOR_RED);
+		_setcolor_low(1, TGI_COLOR_WHITE);
+		_setcolor_low(2, TGI_COLOR_CYAN);
+		_setcolor_low(3, TGI_COLOR_YELLOW);
+		_setcolor_low(4, TGI_COLOR_BLACK);
 
 		for(j=0;j<1023;++j)
 		{
 			POKE(CHARS_BASE+j,PEEK(ROM_BASE+j));
 		}
-		POKE(756,CHARS_BASE/256); // -> 30720
-		#if defined(FULL_GAME)
+		POKE(756,CHARS_BASE/256); // Point to chars_base
+
 			// redefine(24576+4096+1024+296+8,player_up);		
 			// redefine(24576+4096+1024+296+8*2,player_right);
 			// redefine(24576+4096+1024+296+8*3,player_left);
 			
-			redefine('*' - 160,player_down);
-		
-			redefine('>',missile_left);
-			redefine('<',missile_right);	
-		
-			redefine('+',invincible_ghost);
-			redefine('!' - 160,gun);
+		redefine('*' - 160,player_down);
+	
+		redefine('>',missile_left);
+		redefine('<',missile_right);	
+	
+		redefine('+',invincible_ghost);
+		redefine('!' - 160,gun);
 
-			redefine('S' - 64-32,powerUp);
-			redefine('.',missile);
+		redefine('S' - 64-32,powerUp);
+		redefine('.',missile);
 
-			redefine('X',bomb);
-			redefine('o',ghost);
-			redefine('^',bubble);
-		#endif
+		redefine('X',bomb);
+		redefine('o',ghost);
+		redefine('^',bubble);
+
 	}
 	 
 	 
@@ -170,13 +170,11 @@
 		{
 			gotoxy((x+X_OFFSET),(y+Y_OFFSET)/2);
 		}				
-		(void) textcolor (image->_color);
 		cputc(image->_imageData); 
 	};	
 	
 	void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter) 
 	{
-		(void) textcolor (image->_color);
 		if(*blinkCounter) 
 		{
 			_draw(x,y,image); 

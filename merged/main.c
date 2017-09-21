@@ -86,6 +86,15 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
+#if defined(DEBUG_CHARS)
+	extern Image EXTRA_LIFE_IMAGE;
+	extern Image INVINCIBILITY_IMAGE;
+	extern Image EXTRA_POINTS_IMAGE;
+	extern Image BUBBLE_IMAGE;
+	extern Image LEFT_ENEMY_MISSILE_IMAGE;
+	extern Image RIGHT_ENEMY_MISSILE_IMAGE;	
+#endif
+
 extern unsigned char powerUpBlink;
 extern unsigned char gunBlink;	
 extern unsigned char extraPointsBlink;
@@ -471,6 +480,35 @@ int main(void)
 	{
 
 		INIT_IMAGES();
+		
+		#if defined(DEBUG_CHARS)
+			PRINTF(0,0,"ghost %c\n", GHOST_IMAGE._imageData);
+			PRINTF(0,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
+			PRINTF(0,2,"bomb %c\n", BOMB_IMAGE._imageData);
+			PRINTF(0,3,"player %c\n", PLAYER_IMAGE._imageData);
+			#if defined(REDEFINED_CHARS)
+				PRINTF(0,4,"player %c\n", PLAYER_UP._imageData);
+				PRINTF(0,5,"player %c\n", PLAYER_DOWN._imageData);
+				PRINTF(0,6,"player %c\n", PLAYER_LEFT._imageData);
+				PRINTF(0,7,"player %c\n", PLAYER_RIGHT._imageData);					
+			#endif
+			#if defined(FULL_GAME)
+				PRINTF(0,8,"extra life %c\n", EXTRA_LIFE_IMAGE._imageData);
+				PRINTF(0,9,"invincibility %c\n", INVINCIBILITY_IMAGE._imageData);
+				PRINTF(0,10,"extra points %c\n", EXTRA_POINTS_IMAGE._imageData);
+				PRINTF(0,11,"bubble %c\n", BUBBLE_IMAGE._imageData);		
+				PRINTF(0,12,"left missile %c\n", LEFT_ENEMY_MISSILE_IMAGE._imageData);
+				PRINTF(0,13,"right missile %c\n", RIGHT_ENEMY_MISSILE_IMAGE._imageData);					
+			#endif
+			PRINTF(0,15,"powerup %c\n", POWERUP_IMAGE._imageData);
+			PRINTF(0,16,"gun %c\n", GUN_IMAGE._imageData);
+			PRINTF(0,17,"missile %c\n", MISSILE_IMAGE._imageData);
+			PRINTF(0,18,"XSize: %d\n", XSize);
+			PRINTF(0,19,"YSize: %d\n", YSize);
+			
+			WAIT_PRESS();
+			CLEAR_SCREEN();
+		#endif
 
 		initialScreen();
 		WAIT_PRESS();

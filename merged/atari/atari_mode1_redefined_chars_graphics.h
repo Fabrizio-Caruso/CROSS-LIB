@@ -173,7 +173,7 @@
 			RIGHT_ENEMY_MISSILE_IMAGE._color = 0;	
 			BUBBLE_IMAGE._color = 0;	
 			EXTRA_POINTS_IMAGE._color = 0;
-			EXTRA_LIFE_IMAGE._color = 0;
+			EXTRA_LIFE_IMAGE._color = 32;
 			INVINCIBILITY_IMAGE._color = 128;
 			
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE + LEFT_ENEMY_MISSILE_IMAGE._color;
@@ -184,7 +184,7 @@
 			
 			EXTRA_POINTS_IMAGE._imageData = '$'+INVINCIBILITY_IMAGE._color;
 
-			EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN + 0;
+			EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN + EXTRA_LIFE_IMAGE._color;
 
 			INVINCIBILITY_IMAGE._imageData = 'v';
 

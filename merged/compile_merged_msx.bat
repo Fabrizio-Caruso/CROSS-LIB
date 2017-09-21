@@ -36,22 +36,18 @@ cd %mypath%\
 @REM CPC HALF-WORKINg
 @REM -DDEBUG_CHARACTERS
 @REM -O3
-@REM 
-zcc +msx -O3 -create-app -vn -DMSX_MODE1 -D__MSX__ -lndos -create-app -o %deliverables%\MINIMAL_msx_16k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
-@REM 
-del %deliverables%\MINIMAL_msx_16k_experimental.prg 
+@REM zcc +msx -O3 -create-app -vn -DMSX_MODE1 -D__MSX__ -lndos -create-app -o %deliverables%\MINIMAL_msx_16k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM del %deliverables%\MINIMAL_msx_16k_experimental.prg 
 
+@REM zcc +msx -O3 -create-app -vn -D__MSX__ -lndos -create-app -o %deliverables%\MINIMAL_msx_16k_experimental_MODE0.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
-zcc +msx -O3 -create-app -vn -D__MSX__ -lndos -create-app -o %deliverables%\MINIMAL_msx_16k_experimental_MODE0.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
-@REM 
-@REM 
-del %deliverables%\MINIMAL_msx_16k_experimental_MODE0.prg 
+@REM del %deliverables%\MINIMAL_msx_16k_experimental_MODE0.prg 
 
 
 @REM 
 @REM -O3
 @REM 
-zcc +msx -O3 -create-app -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -lndos -create-app -o %deliverables%\FULL_msx_16k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +msx -DDEBUG_CHARS -DREDEFINED_CHARS -create-app -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -lndos -create-app -o %deliverables%\FULL_msx_16k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
 @REM 
 @REM 

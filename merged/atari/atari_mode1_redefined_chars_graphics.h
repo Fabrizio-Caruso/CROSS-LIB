@@ -89,7 +89,7 @@
 		static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};
 		static const char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
 		static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
-		static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
+		static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};	
 		static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
 		static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
 		static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
@@ -106,12 +106,6 @@
 		_setcolor_low(3, TGI_COLOR_BROWN); // TGI_COLOR_GRAY1
 		_setcolor_low(4, TGI_COLOR_BLACK);
 
-		// for(j=0;j<1023;++j)
-		// {
-			// POKE(CHARS_BASE+j,PEEK(ROM_BASE+j));
-		// }
-		// POKE(756,CHARS_BASE/256); // Point to chars_base
-		
 		memcpy(_FONT_START__, (void *)0xE000, 512);
 		
 		/* modify your font at _FONT_START__, etc, then set the new font: */		
@@ -125,22 +119,20 @@
 		redefine(_FONT_START__+_POWERUP*8, powerUp);		
 		redefine(_FONT_START__+_INVINCIBLE_GHOST*8, invincible_ghost);
 		redefine(_FONT_START__+_BOMB*8, bomb);	
-		
-		
+					
 		redefine(_FONT_START__+_MISSILE*8, missile);
 		redefine(_FONT_START__+_GUN*8, gun);
 		
-		redefine(_FONT_START__+_LEFT_ENEMY_MISSILE*8, missile_left);
-		redefine(_FONT_START__+_RIGHT_ENEMY_MISSILE*8, missile_right);		
-		redefine(_FONT_START__+_BUBBLE*8, bubble);
-		redefine(_FONT_START__+_INVINCIBLE_GHOST*8, invincible_ghost);			
+		#if defined(FULL_GAME)
+			redefine(_FONT_START__+_LEFT_ENEMY_MISSILE*8, missile_left);
+			redefine(_FONT_START__+_RIGHT_ENEMY_MISSILE*8, missile_right);		
+			redefine(_FONT_START__+_BUBBLE*8, bubble);
+		#endif
 		
 		*CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */	
 	}
 	 
 	 
-	 
-	// TODO: Sprite initialization (to be performed only once) should be separated from level generation
 	void INIT_IMAGES(void)
 	{		
 		// TODO: Do something with the colors

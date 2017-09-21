@@ -35,6 +35,12 @@
 #endif
 
 
+#define CPC_BLUE 2
+#define CPC_RED 4
+#define CPC_YELLOW 0
+#define CPC_CYAN 3
+
+
 extern unsigned char XSize;
 extern unsigned char YSize;
 
@@ -540,7 +546,11 @@ void printStartMessage(void)
 		printCenteredMessageOnRow(3, "C R O S S  C H A S E");		
 		printCenteredMessageOnRow(5, "by Fabrizio Caruso");		
 	#else
-		SET_TEXT_COLOR(COLOR_RED);
+		#if defined(__CPC__)
+			SET_TEXT_COLOR(CPC_RED);			
+		#else
+			SET_TEXT_COLOR(COLOR_RED);
+		#endif
 		printCenteredMessageOnRow(3, "C R O S S  C H A S E");
 		SET_TEXT_COLOR(TEXT_COLOR);		
 		#if defined(NO_CASE_LETTERS)

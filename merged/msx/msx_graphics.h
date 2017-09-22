@@ -29,23 +29,39 @@
 #if defined(__MSX__)
 	#include <msx/gfx.h>#endif
 	
-#define _PLAYER '*'
-#define _PLAYER_DOWN '*'
-#define _PLAYER_UP ((unsigned char) 0x2C)
-#define _PLAYER_RIGHT ((unsigned char)0x2D)
-#define _PLAYER_LEFT ((unsigned char)0x2E)
+// GREEN
+#define _PLAYER 0x3B
+#define _PLAYER_DOWN 0x3B
+#define _PLAYER_UP ((unsigned char) 0x3C)
+#define _PLAYER_RIGHT ((unsigned char) 0x3D) 
+#define _PLAYER_LEFT ((unsigned char)0x3E)
 
-#define _GHOST ((unsigned char)0x3A)
-#define _INVINCIBLE_GHOST '+'
-#define _BOMB ((unsigned char)0x3B)
-#define _POWERUP ((unsigned char)28) // S
-#define _GUN ((unsigned char)0x7F)
-#define _MISSILE ((unsigned char)0x27)
+#define _EXTRA_LIFE ((unsigned char)0x5C)
 
-#define _LEFT_ENEMY_MISSILE ((unsigned char)0x3C)
-#define _RIGHT_ENEMY_MISSILE ((unsigned char)0x3E)
-#define _BUBBLE ((unsigned char)0x7E)
-	
+// WHITE
+#define _GHOST ((unsigned char)0x7E)
+
+// YELLOW
+#define _INVINCIBLE_GHOST ((unsigned char)0x27)
+#define _POWERUP ((unsigned char)0x22)
+
+// RED
+#define _BOMB ((unsigned char)0x5E)
+#define _DEAD_GHOST 0x5B
+// 3B BLUE
+
+#define _GUN ((unsigned char) 0x25)
+
+#define _MISSILE 0x5F
+
+#define _INVINCIBILITY ((unsigned char) 0x96)
+
+#define _LEFT_ENEMY_MISSILE ((unsigned char)0x7B)
+#define _RIGHT_ENEMY_MISSILE ((unsigned char)0x7D)
+#define _BUBBLE ((unsigned char)0x60)
+	// green ((unsigned char)0x23) 
+
+	// blue ((unsigned char)0x3C)
 extern unsigned char XSize;
 
 Image PLAYER_DOWN;
@@ -100,6 +116,7 @@ void INIT_GRAPHICS(void)
 	static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};	
 	static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
 	static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};	
+	static const char invincibility[8] =    { 24,  0, 24,  0,153,  0, 36,  0};
 		set_color(15, 1, 1);
 	#if defined(MSX_MODE1)
 		set_mode(mode_1);
@@ -122,10 +139,14 @@ void INIT_GRAPHICS(void)
 	redefine(CHAR_BASE+8*_PLAYER_RIGHT, player_right);	
 	
 	redefine(CHAR_BASE+8*_BOMB, bomb);
+	redefine(CHAR_BASE+8*_GUN, gun);
+	redefine(CHAR_BASE+8*_POWERUP, powerUp);		
 	redefine(CHAR_BASE+8*_GHOST,ghost);
 	redefine(CHAR_BASE+8*_INVINCIBLE_GHOST,invincible_ghost);	
 	redefine(CHAR_BASE+8*_MISSILE,missile);	
-	redefine(CHAR_BASE+8*_POWERUP, powerUp);	
+	
+	redefine(CHAR_BASE+8*_EXTRA_LIFE,player_down);	
+	redefine(CHAR_BASE+8*_INVINCIBILITY,invincibility);	
 
 	#if defined(FULL_GAME)
 		redefine(CHAR_BASE+8*_LEFT_ENEMY_MISSILE,missile_left);	
@@ -155,8 +176,8 @@ void INIT_IMAGES(void)
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
 		
-		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-		INVINCIBILITY_IMAGE._imageData = 'V';	
+		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
+		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
 		
 		PLAYER_DOWN._imageData = _PLAYER_DOWN;
 		PLAYER_UP._imageData = _PLAYER_UP;	

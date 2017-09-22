@@ -58,7 +58,7 @@ Image PLAYER_LEFT;
 	#define CHAR_BASE 0x0100
 #else
 	#define BASE 0
-	#define CHAR_BASE 
+	#define CHAR_BASE 0
 #endif
 
 
@@ -80,7 +80,7 @@ void redefine(unsigned short loc, const char *new_char)
 	
 	for(i=0;i<8;++i)
 	{
-		msx_vpoke(loc+i,new_char[i]);
+		msx_vpoke(loc+i-32*8,new_char[i]);
 	}
 }
 
@@ -152,7 +152,6 @@ void INIT_IMAGES(void)
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
 		BUBBLE_IMAGE._imageData = _BUBBLE;
-		BUBBLE_IMAGE._color = COLOR_WHITE;
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
 		

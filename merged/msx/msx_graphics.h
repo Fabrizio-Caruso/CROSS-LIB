@@ -67,19 +67,20 @@ Image PLAYER_LEFT;
 #define PEEK(addr)         (*(unsigned char*) (addr))
 #define PEEKW(addr) (*(unsigned*) (addr))
 
-
 #define _DRAW(x,y,image) msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,image->_imageData);
 #define _DELETE(x,y)     msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,' ');
 #define _DRAW_VERTICAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'|');
 #define _DRAW_HORIZONTAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'-');	
 #define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'X');	
 
-void redefine(unsigned char * loc, const char *new_char)
+
+void redefine(unsigned short loc, const char *new_char)
 {
 	unsigned char i;
+	
 	for(i=0;i<8;++i)
 	{
-		msx_vpoke((unsigned char *)(loc+i),new_char[i]);
+		msx_vpoke(loc+i,new_char[i]);
 	}
 }
 
@@ -114,17 +115,17 @@ void INIT_GRAPHICS(void)
 		msx_vpoke(8192+11, 8*16); // Red 88 --
 	#endif
 	
-	redefine((unsigned char *)(CHAR_BASE+8*_PLAYER),player_down);
-	redefine(CHAR_BASE+8*_PLAYER_DOWN,player_down);
-	redefine(CHAR_BASE+8*_PLAYER_UP,player_up);	
-	redefine(CHAR_BASE+8*_PLAYER_LEFT,player_left);	
-	redefine(CHAR_BASE+8*_PLAYER_RIGHT, player_right);	
+	redefine(CHAR_BASE+8*_PLAYER,player_down);
+	// redefine(CHAR_BASE+8*_PLAYER_DOWN,player_down);
+	// redefine(CHAR_BASE+8*_PLAYER_UP,player_up);	
+	// redefine(CHAR_BASE+8*_PLAYER_LEFT,player_left);	
+	// redefine(CHAR_BASE+8*_PLAYER_RIGHT, player_right);	
 	
-	redefine(CHAR_BASE+8*_BOMB, bomb);
-	redefine(CHAR_BASE+8*_GHOST,ghost);
-	redefine(CHAR_BASE+8*_INVINCIBLE_GHOST,invincible_ghost);	
-	redefine(CHAR_BASE+8*_MISSILE,missile);	
-	redefine(CHAR_BASE+8*_POWERUP, powerUp);	
+	// redefine(CHAR_BASE+8*_BOMB, bomb);
+	// redefine(CHAR_BASE+8*_GHOST,ghost);
+	// redefine(CHAR_BASE+8*_INVINCIBLE_GHOST,invincible_ghost);	
+	// redefine(CHAR_BASE+8*_MISSILE,missile);	
+	// redefine(CHAR_BASE+8*_POWERUP, powerUp);	
 
 	#if defined(FULL_GAME)
 		redefine(CHAR_BASE+8*_LEFT_ENEMY_MISSILE,missile_left);	

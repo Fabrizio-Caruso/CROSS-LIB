@@ -116,16 +116,16 @@ void INIT_GRAPHICS(void)
 	#endif
 	
 	redefine(CHAR_BASE+8*_PLAYER,player_down);
-	// redefine(CHAR_BASE+8*_PLAYER_DOWN,player_down);
-	// redefine(CHAR_BASE+8*_PLAYER_UP,player_up);	
-	// redefine(CHAR_BASE+8*_PLAYER_LEFT,player_left);	
-	// redefine(CHAR_BASE+8*_PLAYER_RIGHT, player_right);	
+	redefine(CHAR_BASE+8*_PLAYER_DOWN,player_down);
+	redefine(CHAR_BASE+8*_PLAYER_UP,player_up);	
+	redefine(CHAR_BASE+8*_PLAYER_LEFT,player_left);	
+	redefine(CHAR_BASE+8*_PLAYER_RIGHT, player_right);	
 	
-	// redefine(CHAR_BASE+8*_BOMB, bomb);
-	// redefine(CHAR_BASE+8*_GHOST,ghost);
-	// redefine(CHAR_BASE+8*_INVINCIBLE_GHOST,invincible_ghost);	
-	// redefine(CHAR_BASE+8*_MISSILE,missile);	
-	// redefine(CHAR_BASE+8*_POWERUP, powerUp);	
+	redefine(CHAR_BASE+8*_BOMB, bomb);
+	redefine(CHAR_BASE+8*_GHOST,ghost);
+	redefine(CHAR_BASE+8*_INVINCIBLE_GHOST,invincible_ghost);	
+	redefine(CHAR_BASE+8*_MISSILE,missile);	
+	redefine(CHAR_BASE+8*_POWERUP, powerUp);	
 
 	#if defined(FULL_GAME)
 		redefine(CHAR_BASE+8*_LEFT_ENEMY_MISSILE,missile_left);	
@@ -137,47 +137,32 @@ void INIT_GRAPHICS(void)
 void INIT_IMAGES(void)
 {		
 
-	PLAYER_IMAGE._color = COLOR_WHITE;
-	INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
-	POWERUP_IMAGE._color = COLOR_WHITE;
-	GUN_IMAGE._color = COLOR_WHITE;
-	BOMB_IMAGE._color = COLOR_RED;
-	DEAD_GHOST_IMAGE._color = COLOR_RED;
-			
-	GHOST_IMAGE._imageData = 'o';
-	INVINCIBLE_GHOST_IMAGE._imageData = '+';
-	BOMB_IMAGE._imageData = 'X';
-	PLAYER_IMAGE._imageData = '*';
-	POWERUP_IMAGE._imageData = 'S';
-	GUN_IMAGE._imageData = '!';
-	MISSILE_IMAGE._imageData = '.';
+	GHOST_IMAGE._imageData = _GHOST;
+	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
+	BOMB_IMAGE._imageData = _BOMB;
+	PLAYER_IMAGE._imageData = _PLAYER;
+	POWERUP_IMAGE._imageData = _POWERUP;
+	GUN_IMAGE._imageData = _GUN;
+	MISSILE_IMAGE._imageData = _MISSILE;
 	DEAD_GHOST_IMAGE._imageData = 'O';
 
-	GHOST_IMAGE._color = COLOR_WHITE;
-	MISSILE_IMAGE._color = COLOR_WHITE;
 
 	#if defined(FULL_GAME)
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
-		BUBBLE_IMAGE._imageData = '^';
+		BUBBLE_IMAGE._imageData = _BUBBLE;
 		BUBBLE_IMAGE._color = COLOR_WHITE;
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
 		
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-		INVINCIBILITY_IMAGE._imageData = 'V';
+		INVINCIBILITY_IMAGE._imageData = 'V';	
 		
-		EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
-		EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
-		INVINCIBILITY_IMAGE._color = COLOR_WHITE;	
-		
-		PLAYER_DOWN._color = PLAYER_IMAGE._color;
-		PLAYER_UP._color = PLAYER_IMAGE._color;	
-		PLAYER_RIGHT._color = PLAYER_IMAGE._color;
-		PLAYER_LEFT._color = PLAYER_IMAGE._color;		
+		PLAYER_DOWN._imageData = _PLAYER_DOWN;
+		PLAYER_UP._imageData = _PLAYER_UP;	
+		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+		PLAYER_LEFT._imageData = _PLAYER_LEFT;		
 	#endif
 }
 

@@ -94,15 +94,13 @@ Sel	Pulse
 			
 		set_psg(ENV_WAVE, 3);
 		
-		control = get_psg(CONTROL);
-		set_psg(CONTROL, control || 0x08);
+				
+		set_psg(CONTROL, get_psg(CONTROL)|| 0x01);
 	}
 
 	
 	void _ping_sound(unsigned char freq)
 	{ 
-		unsigned char control;
-		
 		set_psg(A_VOLUME,15+16);
 		set_psg(A_PERIOD_LOW,255);
 		set_psg(A_PERIOD_HI, 15);		
@@ -110,27 +108,33 @@ Sel	Pulse
 		set_psg(ENV_PERIOD_LOW ,255);
 		set_psg(ENV_PERIOD_HIGH, 15);
 
-		set_psg(ENV_WAVE, 3);
-		
-		control = get_psg(CONTROL);
-		set_psg(CONTROL, control || 0x01);
+		set_psg(ENV_WAVE, 1);		
+				
+		set_psg(CONTROL, get_psg(CONTROL)|| 0x01);
 	}			
 	
 
 	void ZAP_SOUND(void) 
 	{ 
-		unsigned char control;
+		unsigned char i;
+		unsigned char j;
 		
 		set_psg(A_VOLUME,15+16);
 		set_psg(A_PERIOD_LOW,255);
 		set_psg(A_PERIOD_HI, 15);	
+	
+		set_psg(ENV_WAVE, 2);
 		
 		set_psg(ENV_PERIOD_LOW ,255);
-		set_psg(ENV_PERIOD_HIGH, 15);
-	
-		set_psg(ENV_WAVE, 3);
 				
-		control = get_psg(CONTROL);
-		set_psg(CONTROL, control || 0x01);	
+		set_psg(CONTROL, get_psg(CONTROL)|| 0x01);			
+		
+		for(i=0;i<15;++i)
+		{
+			set_psg(ENV_PERIOD_HIGH, i);
+			for(j=0;j<25;++j){}
+		}
+	
+
 	}
 	

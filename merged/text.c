@@ -34,12 +34,12 @@
 	#include<peekpoke.h>
 #endif
 
-
+// CPC
 #define CPC_BLUE 2
 #define CPC_RED 4
 #define CPC_YELLOW 0
 #define CPC_CYAN 3
-
+// END OF CPC DEFINITIONS
 
 extern unsigned char XSize;
 extern unsigned char YSize;
@@ -77,13 +77,13 @@ extern Image MISSILE_IMAGE;
 // TODO: This is SLOW
 void displayStatsTitles(void)
 {	
-	#if defined(NO_CASE_LETTERS) && defined(WIDE)
-		SET_TEXT_COLOR(COLOR_BLUE);		
-		PRINT(2-X_OFFSET,0-Y_OFFSET,"score:");
-		PRINT(2-X_OFFSET,1-Y_OFFSET,"level:");
-	#elif defined(Z88DK) && defined(WIDE)
-		PRINT(2,-Y_OFFSET,"SCORE:");
-		PRINT(2,-Y_OFFSET+1,"LEVEL:");	
+	SET_TEXT_COLOR(COLOR_BLUE);
+	#if defined(NO_CASE_LETTERS) && defined(WIDE)		
+		PRINT(2-X_OFFSET,-Y_OFFSET,  "score:");
+		PRINT(2-X_OFFSET,-Y_OFFSET+1,"level:");
+	#elif defined(WIDE)
+		PRINT(2-X_OFFSET,-Y_OFFSET,"SCORE:");
+		PRINT(2-X_OFFSET,-Y_OFFSET+1,"LEVEL:");	
 	#else
 		// Nothing
 	#endif

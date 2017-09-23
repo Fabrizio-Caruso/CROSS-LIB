@@ -29,39 +29,39 @@
 #if defined(__MSX__)
 	#include <msx/gfx.h>#endif
 	
-// GREEN
+// BLUE
 #define _PLAYER 0x3B
 #define _PLAYER_DOWN 0x3B
 #define _PLAYER_UP ((unsigned char) 0x3C)
 #define _PLAYER_RIGHT ((unsigned char) 0x3D) 
 #define _PLAYER_LEFT ((unsigned char)0x3E)
 
-#define _EXTRA_LIFE ((unsigned char)0x5C)
-
-// WHITE
-#define _GHOST ((unsigned char)0x7E)
+#define _GUN 0x3F
 
 // YELLOW
-#define _INVINCIBLE_GHOST ((unsigned char)0x27)
-#define _POWERUP ((unsigned char)0x22)
+#define _INVINCIBLE_GHOST 0x27
+#define _EXTRA_LIFE 0x25
+
+// GREEN
+#define _POWERUP  0x2C
 
 // RED
-#define _BOMB ((unsigned char)0x5E)
+#define _BOMB 0x5E
 #define _DEAD_GHOST 0x5B
-// 3B BLUE
+// #define _MISSILE 0x5F
 
-#define _GUN ((unsigned char) 0x25)
+// CYAN
+#define _INVINCIBILITY 0x08
+#define _MISSILE 0x09
 
-#define _MISSILE 0x5F
-
-#define _INVINCIBILITY ((unsigned char) 0x96)
+// WHITE
+#define _GHOST 0x7E
 
 #define _LEFT_ENEMY_MISSILE ((unsigned char)0x7B)
 #define _RIGHT_ENEMY_MISSILE ((unsigned char)0x7D)
 #define _BUBBLE ((unsigned char)0x60)
-	// green ((unsigned char)0x23) 
 
-	// blue ((unsigned char)0x3C)
+	
 extern unsigned char XSize;
 
 Image PLAYER_DOWN;
@@ -116,11 +116,18 @@ void INIT_GRAPHICS(void)
 	static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};	
 	static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
 	static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};	
-	static const char invincibility[8] =    { 24,  0, 24,  0,153,  0, 36,  0};
+	static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};
+	
+	static const char dead_ghost[8] =       {129,126,165,129,129,189,129,126};
 		set_color(15, 1, 1);
 	#if defined(MSX_MODE1)
 		set_mode(mode_1);
-
+		
+		msx_vpoke(8192+ 0, 9*16); // 
+		msx_vpoke(8192+ 1, 7*16); // 
+		msx_vpoke(8192+ 2, 9*16); // 
+		msx_vpoke(8192+ 3, 11*16); // 
+		
 		msx_vpoke(8192+ 4,10*16); // White !, $ -- 32 - 39
 		msx_vpoke(8192+ 5, 2*16); // Green  -- 40 - 47
 		msx_vpoke(8192+ 6, 4*16); // Green -- 48 - 55
@@ -147,7 +154,8 @@ void INIT_GRAPHICS(void)
 	
 	redefine(CHAR_BASE+8*_EXTRA_LIFE,player_down);	
 	redefine(CHAR_BASE+8*_INVINCIBILITY,invincibility);	
-
+	redefine(CHAR_BASE+8*_DEAD_GHOST,dead_ghost);	
+	
 	#if defined(FULL_GAME)
 		redefine(CHAR_BASE+8*_LEFT_ENEMY_MISSILE,missile_left);	
 		redefine(CHAR_BASE+8*_RIGHT_ENEMY_MISSILE,missile_right);	
@@ -165,7 +173,7 @@ void INIT_IMAGES(void)
 	POWERUP_IMAGE._imageData = _POWERUP;
 	GUN_IMAGE._imageData = _GUN;
 	MISSILE_IMAGE._imageData = _MISSILE;
-	DEAD_GHOST_IMAGE._imageData = 'O';
+	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
 
 
 	#if defined(FULL_GAME)

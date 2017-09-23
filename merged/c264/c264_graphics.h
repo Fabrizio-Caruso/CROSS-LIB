@@ -64,6 +64,7 @@
 		static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
 		static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
 		static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
+		static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};		
 		
 		POKE(1177,62); // disable switch to RAM in PEEK
 		for(i=0;i<1023;++i)
@@ -91,7 +92,7 @@
 		redefine(24576+4096+1024+296+8*10,bomb);
 		redefine(24576+4096+1024+296-8*3,ghost);
 		redefine(24576+4096+1024+296+8*22,bubble);
-
+		redefine(24576+4096+1024+296+8*23,invincibility);
 	}
 	 
 	 
@@ -141,7 +142,7 @@
 			EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
 			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
 			
-			INVINCIBILITY_IMAGE._imageData = '!';
+			INVINCIBILITY_IMAGE._imageData = '<';
 			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
 		#endif
 	}

@@ -51,9 +51,12 @@
 	#define _GUN 11
 	#define _MISSILE 10
 	
+	#define _INVINCIBILITY 12
+	
 	#define _LEFT_ENEMY_MISSILE 9
 	#define _RIGHT_ENEMY_MISSILE 8	
 	#define _BUBBLE 7
+
 
 	// 128 -> YELLOW; 32 -> RED; 160-> BLUE; 0 -> WHITE
 	#define _ATARI_MODE1_WHITE 0
@@ -94,6 +97,8 @@
 		static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
 		static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
 		
+		static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};		
+		
 		extern char _FONT_START__[];
 		unsigned char *CHBAS = (unsigned char *)0x2f4;
 		
@@ -127,6 +132,7 @@
 			redefine(_FONT_START__+_LEFT_ENEMY_MISSILE*8, missile_left);
 			redefine(_FONT_START__+_RIGHT_ENEMY_MISSILE*8, missile_right);		
 			redefine(_FONT_START__+_BUBBLE*8, bubble);
+			redefine(_FONT_START__+_INVINCIBILITY*8, invincibility);				
 		#endif
 		
 		*CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */	
@@ -178,7 +184,7 @@
 
 			EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN + EXTRA_LIFE_IMAGE._color;
 
-			INVINCIBILITY_IMAGE._imageData = 'v';
+			INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY + 128;
 
 		#endif
 	}

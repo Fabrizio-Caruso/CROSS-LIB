@@ -75,66 +75,88 @@ Sel	Pulse
 #define C_VOLUME 10
 	
 #define ENV_PERIOD_LOW 11
-#define ENV_PERIOD_HIGH 12
+#define ENV_PERIOD_HI 12
 
 #define ENV_WAVE 13
 		
-	void _explosion_sound(unsigned char freq)
+	void ZAP_SOUND(void) 
 	{
 		unsigned char control;
+		unsigned char i;
+		unsigned char j;
 		
-		set_psg(NOISE,31);
-		set_psg(A_VOLUME,15+16);
+		set_psg(NOISE,15);
+		set_psg(A_VOLUME,15);
 		
-		set_psg(A_PERIOD_LOW,255);
-		set_psg(A_PERIOD_HI, 15);
-
-		set_psg(ENV_PERIOD_LOW ,255);
-		set_psg(ENV_PERIOD_HIGH, 15);
-			
-		set_psg(ENV_WAVE, 3);
+		// set_psg(A_PERIOD_LOW,255);
+		// set_psg(A_PERIOD_HI, 15);
 		
-				
-		set_psg(CONTROL, get_psg(CONTROL)|| 0x01);
+		control = get_psg(CONTROL);
+		set_psg(CONTROL, get_psg(CONTROL) | 0x08);
+		
+		for(i=0;i<16;i++)
+		{
+			set_psg(A_VOLUME,15-i);		
+			for(j=0;j<200;++j)
+			{
+			}
+		}
+		
+		set_psg(CONTROL, control);
 	}
 
 	
 	void _ping_sound(unsigned char freq)
 	{ 
-		set_psg(A_VOLUME,15+16);
-		set_psg(A_PERIOD_LOW,255);
-		set_psg(A_PERIOD_HI, 15);		
+		unsigned char control;
+		unsigned char i;
 		
-		set_psg(ENV_PERIOD_LOW ,255);
-		set_psg(ENV_PERIOD_HIGH, 15);
+		set_psg(C_VOLUME,15);
+		set_psg(C_PERIOD_LOW,255);
+		set_psg(C_PERIOD_HI, freq>>4);		
 
-		set_psg(ENV_WAVE, 1);		
-				
-		set_psg(CONTROL, get_psg(CONTROL)|| 0x01);
+		control = get_psg(CONTROL);		
+		set_psg(CONTROL, control | 0x04);
+		
+		for(i=0;i<160;++i)
+		{
+		}
+		
+		set_psg(CONTROL, control);		
+		set_psg(C_VOLUME,0);		
 	}			
 	
 
-	void ZAP_SOUND(void) 
+	void _explosion_sound(unsigned char freq)
 	{ 
+		unsigned char control;
 		unsigned char i;
 		unsigned char j;
 		
-		set_psg(A_VOLUME,15+16);
-		set_psg(A_PERIOD_LOW,255);
-		set_psg(A_PERIOD_HI, 15);	
-	
-		set_psg(ENV_WAVE, 2);
+		//set_psg(NOISE,15);
+		set_psg(C_VOLUME,15);
 		
-		set_psg(ENV_PERIOD_LOW ,255);
-				
-		set_psg(CONTROL, get_psg(CONTROL)|| 0x01);			
-		
-		for(i=0;i<15;++i)
-		{
-			set_psg(ENV_PERIOD_HIGH, i);
-			for(j=0;j<25;++j){}
-		}
-	
+		set_psg(C_PERIOD_LOW,255);
+		set_psg(C_PERIOD_HI, freq>>4);
 
+		set_psg(ENV_PERIOD_LOW ,255);
+		set_psg(ENV_PERIOD_HI, 15);
+			
+		set_psg(ENV_WAVE, 3);
+		
+		control = get_psg(CONTROL);
+		set_psg(CONTROL, get_psg(CONTROL) | 0x04);
+		
+		for(i=0;i<15;i++)
+		{
+			set_psg(C_VOLUME,15-i);		
+			for(j=0;j<250;++j)
+			{
+			}		
+		}
+		
+		set_psg(CONTROL, control);
+		set_psg(C_VOLUME,0);		
+		set_psg(ENV_WAVE, 0);		
 	}
 	

@@ -38,7 +38,8 @@
 		// Remove keyboard click sound
 			#define INIT_INPUT() { POKE(0x26A,PEEK(0x26A) | 8); };
 		#elif defined(__MSX__)
-			#define INIT_INPUT() { POKE(731,255); };			
+			#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))		
+			#define INIT_INPUT() { POKE(0xF3DB,0); };			
 		#else
 			#define INIT_INPUT()
 		#endif

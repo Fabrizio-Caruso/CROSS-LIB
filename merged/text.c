@@ -585,12 +585,8 @@ void printStartMessage(void)
 	
 	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
 		printCenteredMessageOnRow(YSize-2, "use the joystick");
-	#else
-		#if defined(__ATMOS__)
-			printCenteredMessageOnRow(YSize-4, "use w a s d space");
-		#else			
-			printCenteredMessageOnRow(YSize-4, "use i j k l space");			
-		#endif
+	#else		
+		printCenteredMessageOnRow(YSize-4, "use i j k l space");				
 	#endif	
 
 }

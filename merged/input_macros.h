@@ -36,7 +36,9 @@
 		void movePlayerByKeyboard(unsigned char kbInput);
 		#if defined(__ATMOS__)
 		// Remove keyboard click sound
-			#define INIT_INPUT() { POKE(0x26a,PEEK(0x26a) | 8); };
+			#define INIT_INPUT() { POKE(0x26A,PEEK(0x26A) | 8); };
+		#elif defined(__MSX__)
+			#define INIT_INPUT() { POKE(731,255); };			
 		#else
 			#define INIT_INPUT()
 		#endif

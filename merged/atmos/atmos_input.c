@@ -31,17 +31,17 @@ unsigned char GET_CHAR(void)
 
 	switch(polledValue)
 	{
-		case 174:
-			return 'A';
+		case 141:
+			return 'I';
 		break;
-		case 190:
-			return 'W';
+		case 129:
+			return 'J';
 		break;
-		case 182:
-			return 'S';
+		case 131:
+			return 'K';
 		break;
-		case 185:
-			return 'D';
+		case 143:
+			return 'L';
 		break;
 		case 132:
 			return ' ';

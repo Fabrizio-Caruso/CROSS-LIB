@@ -63,12 +63,12 @@ extern Image MISSILE_IMAGE;
 	#if defined(NO_CASE_LETTERS)
 		void printKillTheSkull(void)
 		{
-			printCenteredMessage("kill the skull!");	
+			printCenteredMessage("kill the skull");	
 		}
 	#else
 		void printKillTheSkull(void)
 		{
-			printCenteredMessage("Kill the skull!");
+			printCenteredMessage("Kill the skull");
 		}	
 	#endif	
 #endif
@@ -79,11 +79,11 @@ void displayStatsTitles(void)
 {	
 	SET_TEXT_COLOR(COLOR_BLUE);
 	#if defined(NO_CASE_LETTERS) && defined(WIDE)		
-		PRINT(2-X_OFFSET,-Y_OFFSET,  "score:");
-		PRINT(2-X_OFFSET,-Y_OFFSET+1,"level:");
+		PRINT(-X_OFFSET+2, -Y_OFFSET,   "score:");
+		PRINT(-X_OFFSET+2, -Y_OFFSET+1, "level:");
 	#elif defined(WIDE)
-		PRINT(2-X_OFFSET,-Y_OFFSET,"SCORE:");
-		PRINT(2-X_OFFSET,-Y_OFFSET+1,"LEVEL:");	
+		PRINT(-X_OFFSET+2, -Y_OFFSET,   "SCORE:");
+		PRINT(-X_OFFSET+2, -Y_OFFSET+1, "LEVEL:");	
 	#else
 		// Nothing
 	#endif
@@ -91,8 +91,8 @@ void displayStatsTitles(void)
 	
 	#if defined(CC65) && !defined(NARROW)
 		SET_TEXT_COLOR(COLOR_RED);	
-		PRINT(24,0-Y_OFFSET,"-----------");
-		PRINT(24,1-Y_OFFSET,"cross chase");	
+		PRINT(24,-Y_OFFSET,"-----------");
+		PRINT(24,-Y_OFFSET+1,"cross chase");	
 	#endif	
 
 
@@ -238,12 +238,12 @@ void _printScore(char * text, unsigned int score)
 #if defined(__VG5K__)
 	void gameCompleted(void)	
 	{
-		printCenteredMessage("DONE!"); 
+		printCenteredMessage("DONE"); 
 	}
 #elif defined(__C64__)
 	void gameCompleted(void)
 	{
-		printCenteredMessage("y o u   m a d e   i t !"); 
+		printCenteredMessage("y o u   m a d e   i t"); 
 	}
 #elif defined(__VZ__)
 	void gameCompleted(void)
@@ -251,7 +251,7 @@ void _printScore(char * text, unsigned int score)
 #else
 	void gameCompleted(void)
 	{
-		printCenteredMessage("Y O U  M A D E  I T!"); 
+		printCenteredMessage("Y O U  M A D E  I T"); 
 	}
 #endif
 
@@ -259,7 +259,7 @@ void _printScore(char * text, unsigned int score)
 #if defined(__VG5K__)
 		void printExtraLife(void)
 		{
-			printCenteredMessage("EXTRA LIFE!"); 
+			printCenteredMessage("EXTRA LIFE"); 
 			sleep(1);
 		}
 	
@@ -280,12 +280,12 @@ void _printScore(char * text, unsigned int score)
 
 		void printVictoryMessage(void)
 		{
-			printCenteredMessage("YOU WON!");
+			printCenteredMessage("YOU WON");
 		}
 
 		void printDefeatMessage(void)
 		{
-			printCenteredMessage("YOU LOST!");
+			printCenteredMessage("YOU LOST");
 		}	
 #elif defined(__VZ__)
 		void printExtraLife(void)
@@ -309,17 +309,17 @@ void _printScore(char * text, unsigned int score)
 
 		void printVictoryMessage(void)
 		{
-			printCenteredMessage("YOU WON!");
+			printCenteredMessage("YOU WON");
 		}
 
 		void printDefeatMessage(void)
 		{
-			printCenteredMessage("YOU LOST!");
+			printCenteredMessage("YOU LOST");
 		}	
 #elif defined(__VIC20__) || defined(__C16__) 
 		void printExtraLife(void)
 		{
-			printCenteredMessage("EXTRA LIFE!"); 
+			printCenteredMessage("EXTRA LIFE"); 
 			sleep(1);
 		}
 		
@@ -340,17 +340,17 @@ void _printScore(char * text, unsigned int score)
 
 		void printVictoryMessage(void)
 		{
-			printCenteredMessage("Y O U  W O N !");
+			printCenteredMessage("Y O U  W O N");
 		}
 
 		void printDefeatMessage(void)
 		{
-			printCenteredMessage("Y O U  L O S T !");
+			printCenteredMessage("Y O U  L O S T");
 		}				
 #elif defined(NO_CASE_LETTERS)
 		void printExtraLife(void)
 		{
-			printCenteredMessage("e x t r a  l i f e !"); 
+			printCenteredMessage("e x t r a  l i f e"); 
 			sleep(1);
 		}
 		
@@ -371,17 +371,17 @@ void _printScore(char * text, unsigned int score)
 
 		void printVictoryMessage(void)
 		{
-			printCenteredMessage("y o u   w o n !");
+			printCenteredMessage("y o u   w o n");
 		}
 
 		void printDefeatMessage(void)
 		{
-			printCenteredMessage("y o u   l o s t !");
+			printCenteredMessage("y o u   l o s t");
 		}
 #else
 		void printExtraLife(void)
 		{
-			printCenteredMessage("e x t r a  l i f e !"); 
+			printCenteredMessage("e x t r a  l i f e"); 
 			sleep(1);
 		}
 		
@@ -402,12 +402,12 @@ void _printScore(char * text, unsigned int score)
 
 		void printVictoryMessage(void)
 		{
-			printCenteredMessage("Y O U  W O N !");
+			printCenteredMessage("Y O U  W O N");
 		}
 
 		void printDefeatMessage(void)
 		{
-			printCenteredMessage("Y O U  L O S T !");
+			printCenteredMessage("Y O U  L O S T");
 		}		
 #endif
 
@@ -542,7 +542,6 @@ void printStartMessage(void)
 	#if defined(__C64__) && defined(REDEFINED_CHARS)
 		c64_splash_title();
 	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
-		// atmos_splash_title();
 		printCenteredMessageOnRow(3, "C R O S S  C H A S E");		
 		printCenteredMessageOnRow(5, "by Fabrizio Caruso");		
 	#else
@@ -571,7 +570,7 @@ void printStartMessage(void)
 	#if defined(__C64__) 
 		c64_splash_instructions();
 	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
-		// atmos_splash_instructions();
+		atmos_splash_instructions();
 	#else
 		#if defined(NO_CASE_LETTERS)
 			printCenteredMessageOnRow(YSize/2-1, "lure the enemies");

@@ -314,8 +314,8 @@ void _delete(unsigned char x, unsigned char y);
 		cprintf(##__VA_ARGS__); \
 	};
 #else
-	#define PRINT(x,y,str) {gotoxy(x,y+Y_OFFSET + ADJUST); printf(str); };
-	#define PRINTF(x,y,str,val) {gotoxy(x,y+Y_OFFSET + ADJUST); printf(str,val); };
+	#define PRINT(x,y,str) {gotoxy(x,y+Y_OFFSET + ADJUST); cprintf(str); };
+	#define PRINTF(x,y,str,val) {gotoxy(x,y+Y_OFFSET + ADJUST); cprintf(str,val); };
 #endif
 
 	

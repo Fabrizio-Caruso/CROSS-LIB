@@ -542,8 +542,7 @@ void printStartMessage(void)
 	#if defined(__C64__) && defined(REDEFINED_CHARS)
 		c64_splash_title();
 	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
-		printCenteredMessageOnRow(3, "C R O S S  C H A S E");		
-		printCenteredMessageOnRow(5, "by Fabrizio Caruso");		
+		atmos_splash_title();
 	#else
 		#if defined(__CPC__)
 			SET_TEXT_COLOR(CPC_RED);			

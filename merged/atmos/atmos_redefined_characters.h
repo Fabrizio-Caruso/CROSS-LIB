@@ -64,6 +64,8 @@
 		const unsigned char vertical_bar[] =             {12,12,12,12,12,12,12,12};
 		const unsigned char horizontal_bar[] =           { 0, 0, 0,63,63,00,00,00};
 		const unsigned char corner[] =                   {63,63,63,51,51,63,63,63};
+
+		const unsigned char invincibility[] =           {12,18,12,51, 0,12, 0,51};
 		
 		#if defined(FULL_GAME)
 			const unsigned char right_arrow[] =             { 0, 0,56,31,31,56, 0, 0};
@@ -118,9 +120,10 @@
 			EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
 			EXTRA_LIFE_IMAGE._color = 128u;
 			
-			INVINCIBILITY_IMAGE._imageData = '!';
+			INVINCIBILITY_IMAGE._imageData = 0x3B;
 			INVINCIBILITY_IMAGE._color = 128u;
 			
+			redefine(0xb400 + INVINCIBILITY_IMAGE._imageData*8,invincibility);					
 			redefine(0xb400 + BUBBLE_IMAGE._imageData*8,bubble);
 			redefine(0xb400 + '<'*8,left_arrow);
 			redefine(0xb400 + '>'*8,right_arrow);
@@ -137,7 +140,7 @@
 		redefine(0xb400 + PLAYER_RIGHT._imageData*8,player_right);
 		redefine(0xb400 + PLAYER_UP._imageData*8,player_up);		
 		redefine(0xb400 + PLAYER_DOWN._imageData*8,player_down);
-		
+	
 		redefine(0xb400 + '|'*8,vertical_bar);
 		redefine(0xb400 + '-'*8,horizontal_bar);		
 		redefine(0xb400 + '+'*8,corner);

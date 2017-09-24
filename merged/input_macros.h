@@ -34,7 +34,12 @@
 	
 	#if defined(KEYBOARD_CONTROL)
 		void movePlayerByKeyboard(unsigned char kbInput);
-		#define INIT_INPUT()
+		#if defined(__ATMOS__)
+		// Remove keyboard click sound
+			#define INIT_INPUT() { POKE(0x26a,PEEK(0x26a) | 8); };
+		#else
+			#define INIT_INPUT()
+		#endif
 	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200
 		#include <joystick.h>
 		void movePlayerByJoystick(unsigned char joyInput);

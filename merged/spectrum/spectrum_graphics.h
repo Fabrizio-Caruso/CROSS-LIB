@@ -37,7 +37,7 @@ Image PLAYER_LEFT;
 #define UDG_BASE 0xFF58
 
 #if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)
-	#define UDG_N 13
+	#define UDG_N 14
 	#include <stropts.h>
 	unsigned char my_font[(128-32+UDG_N)*8];
 	extern unsigned char font_8x8_rom[];
@@ -90,6 +90,8 @@ void INIT_GRAPHICS(void)
 		static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
 		static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
 		static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
+		static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};
+		
 	#endif
 	#if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)
 		static const char udg_definitions[] = { 
@@ -105,7 +107,8 @@ void INIT_GRAPHICS(void)
 			  0, 60, 54,223,231,122, 36, 24,
 			  0,  0,  8, 56, 28, 16,  0,  0,
 			 60, 66,165,153,153,165, 66, 60,
-			 24, 60, 60, 60,126, 90, 66, 66
+			 24, 60, 60, 60,126, 90, 66, 66,
+			 24, 36, 24,  0,153,  0, 36,102
 		};
 	#endif	
 		
@@ -144,6 +147,7 @@ void INIT_GRAPHICS(void)
 		redefine(UDG_BASE+8*10,bomb); //0xA0
 		redefine(UDG_BASE+8*11,ghost); //0xA1
 		redefine(UDG_BASE+8*12,bubble);	//0xA2
+		redefine(UDG_BASE+8*13,invincibility);	//0xA3
 	#endif
 	
 	
@@ -171,14 +175,15 @@ void INIT_IMAGES(void)
 	#endif
 		
 	#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)	
-		GHOST_IMAGE._imageData = 139;
-		INVINCIBLE_GHOST_IMAGE._imageData = 134;
-		BOMB_IMAGE._imageData = 138;
 		PLAYER_IMAGE._imageData = 128;
 		PLAYER_DOWN._imageData = 128;
 		PLAYER_UP._imageData = 129;		
 		PLAYER_RIGHT._imageData = 130;
-		PLAYER_LEFT._imageData = 131;			
+		PLAYER_LEFT._imageData = 131;	
+		
+		GHOST_IMAGE._imageData = 139;
+		INVINCIBLE_GHOST_IMAGE._imageData = 134;
+		BOMB_IMAGE._imageData = 138;		
 		POWERUP_IMAGE._imageData = 136;
 		GUN_IMAGE._imageData = 135;
 		MISSILE_IMAGE._imageData = 137;
@@ -186,6 +191,7 @@ void INIT_IMAGES(void)
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;		
 			BUBBLE_IMAGE._imageData = 140;
+			INVINCIBILITY_IMAGE._imageData = 141;
 		#endif
 	#elif defined(REDEFINED_CHARS)
 		PLAYER_IMAGE._imageData = 128;
@@ -193,6 +199,7 @@ void INIT_IMAGES(void)
 		PLAYER_UP._imageData = 129;		
 		PLAYER_RIGHT._imageData = 130;
 		PLAYER_LEFT._imageData = 131;	
+		
 		GHOST_IMAGE._imageData = 132;		
 		INVINCIBLE_GHOST_IMAGE._imageData = 135;
 		GUN_IMAGE._imageData = 136;
@@ -200,9 +207,10 @@ void INIT_IMAGES(void)
 		MISSILE_IMAGE._imageData = 138;	
 		BOMB_IMAGE._imageData = 139;
 		#if defined(FULL_GAME)
-			RIGHT_ENEMY_MISSILE_IMAGE._imageData = 133;
-			LEFT_ENEMY_MISSILE_IMAGE._imageData = 134;	
+			LEFT_ENEMY_MISSILE_IMAGE._imageData = 134;		
+			RIGHT_ENEMY_MISSILE_IMAGE._imageData = 133;	
 			BUBBLE_IMAGE._imageData = 140;
+			INVINCIBILITY_IMAGE._imageData = 141;
 		#endif
 	#else
 		GHOST_IMAGE._imageData = 'o';

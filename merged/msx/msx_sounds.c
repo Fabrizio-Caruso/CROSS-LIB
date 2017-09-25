@@ -85,14 +85,22 @@ Sel	Pulse
 		unsigned char i;
 		unsigned char j;
 		
-		set_psg(NOISE,15);
+		//set_psg(NOISE,15);
 		set_psg(A_VOLUME,15);
 		
-		// set_psg(A_PERIOD_LOW,255);
-		// set_psg(A_PERIOD_HI, 15);
+		set_psg(A_PERIOD_LOW,255);
+		set_psg(A_PERIOD_HI, 15);
 		
 		control = get_psg(CONTROL);
-		set_psg(CONTROL, get_psg(CONTROL) | 0x08);
+		set_psg(CONTROL, get_psg(CONTROL) & (0xFF  - 0x01));
+		
+		for(i=0;i<16;i++)
+		{
+			set_psg(A_PERIOD_HI,15-i);		
+			for(j=0;j<150;++j)
+			{
+			}
+		}
 		
 		for(i=0;i<16;i++)
 		{
@@ -111,19 +119,19 @@ Sel	Pulse
 		unsigned char control;
 		unsigned char i;
 		
-		set_psg(C_VOLUME,15);
-		set_psg(C_PERIOD_LOW,255);
-		set_psg(C_PERIOD_HI, freq>>4);		
+		set_psg(A_VOLUME,15);
+		set_psg(A_PERIOD_LOW,255);
+		set_psg(A_PERIOD_HI, 15 - (freq>>4));		
 
 		control = get_psg(CONTROL);		
-		set_psg(CONTROL, control | 0x04);
+		set_psg(CONTROL, control & (0xFF - 0x01));
 		
-		for(i=0;i<160;++i)
+		for(i=0;i<220;++i)
 		{
 		}
 		
 		set_psg(CONTROL, control);		
-		set_psg(C_VOLUME,0);		
+		set_psg(A_VOLUME,0);		
 	}			
 	
 
@@ -133,30 +141,26 @@ Sel	Pulse
 		unsigned char i;
 		unsigned char j;
 		
-		//set_psg(NOISE,15);
-		set_psg(C_VOLUME,15);
+		set_psg(NOISE,15);
+		set_psg(A_VOLUME,15);
 		
-		set_psg(C_PERIOD_LOW,255);
-		set_psg(C_PERIOD_HI, freq>>4);
-
-		set_psg(ENV_PERIOD_LOW ,255);
-		set_psg(ENV_PERIOD_HI, 15);
-			
-		set_psg(ENV_WAVE, 3);
+		set_psg(A_PERIOD_LOW,0);
+		set_psg(A_PERIOD_HI, 15 - (freq>>4));
 		
 		control = get_psg(CONTROL);
-		set_psg(CONTROL, get_psg(CONTROL) | 0x04);
+		set_psg(CONTROL, get_psg(CONTROL) & (0xFF - 0x08));
 		
-		for(i=0;i<15;i++)
+		for(i=0;i<13;i++)
 		{
-			set_psg(C_VOLUME,15-i);		
+			set_psg(A_VOLUME,15-i);		
 			for(j=0;j<250;++j)
 			{
 			}		
 		}
-		
+		for(j=0;j<250;++j)
+			{
+			}			
 		set_psg(CONTROL, control);
-		set_psg(C_VOLUME,0);		
-		set_psg(ENV_WAVE, 0);		
+		set_psg(A_VOLUME,0);		
 	}
 	

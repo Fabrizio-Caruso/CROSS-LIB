@@ -31,12 +31,6 @@
 	#define _MOVE_LEFT 'J'
 	#define _MOVE_RIGHT 'L'
 	#define _FIRE ' '
-// #elif defined(__ATMOS__)
-	// #define _MOVE_UP 'W'
-	// #define _MOVE_DOWN 'S'
-	// #define _MOVE_LEFT 'A'
-	// #define _MOVE_RIGHT 'D'
-	// #define _FIRE ' '	
 #elif defined(__MSX__) // Special Joystick 
 	#define _MOVE_UP 1
 	#define _MOVE_DOWN 5
@@ -118,7 +112,7 @@
 	#define CASE_LETTERS
 #endif
 
-#if defined(CC65) || defined(__SPECTRUM__) || defined(__VG5000__) || defined(__SVI__) || defined(__AQUARIUS__)
+#if defined(CC65) || defined(__SPECTRUM__) || defined(__SVI__) || defined(__AQUARIUS__)
 	#define ADJUST 0
 #else
 	#define ADJUST 1
@@ -136,6 +130,8 @@
 #elif defined(__CPC__) && !defined(CPC_NO_COLOR)
 	#define GHOSTS_NUMBER 6
 #elif defined(__SPECTRUM__) 
+	#define GHOSTS_NUMBER 7
+#elif defined(__ZX81__)
 	#define GHOSTS_NUMBER 7
 #else
 	#define GHOSTS_NUMBER 8

@@ -112,7 +112,7 @@
 	#define CASE_LETTERS
 #endif
 
-#if defined(CC65) || defined(__SPECTRUM__) || defined(__SVI__) || defined(__AQUARIUS__)
+#if defined(CC65) || defined(__SPECTRUM__) || defined(__SVI__)
 	#define ADJUST 0
 #else
 	#define ADJUST 1

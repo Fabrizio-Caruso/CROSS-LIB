@@ -285,6 +285,10 @@ void _delete(unsigned char x, unsigned char y);
 			cputc (CH_LRCORNER);\
 			cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
 		}	
+#elif defined(__AQUARIUS__)
+		#define DRAW_BORDERS() \
+		{ \
+		}	
 #else
 		#define DRAW_BORDERS() \
 		{ \

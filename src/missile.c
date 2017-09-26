@@ -29,7 +29,7 @@
 #include "display_macros.h"
 #include "level.h"
 #include "text.h"
-#include "powerUps.h"
+#include "powerups.h"
 #include "character.h"
 
 extern unsigned int points;

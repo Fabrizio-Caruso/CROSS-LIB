@@ -52,7 +52,7 @@ cd %mypath%\
 
 
 @REM 
-zcc +aquarius -vn -D__AQUARIUS__ -DFULL_GAME -lndos -o FULL_aquarius_16k -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+zcc +aquarius -clib=ansi -vn -D__AQUARIUS__ -DFULL_GAME -lndos -o FULL_aquarius_16k -create-app  %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
 @REM 
 del %mypath%\FULL_aquarius_16k

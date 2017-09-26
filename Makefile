@@ -87,25 +87,25 @@ nes:
 # ------------------------------------------------------------------------------------------
 #Z88DK
 
-ace_11k:
-	$(Z88DK_PATH)$(MYZ88DK) +ace -O3 -D__ACE__ -clib=ansi  -Cz--audio -o min -create-app  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	cp min.wav $(BUILD_PATH)/MINIMAL_ace_experimental.wav
-	rm min.wav
-	rm min.tap
-	rm min.bin
-	rm min
-	rm min_BBS.bin
-	rm min_DATA.bin
+# ace_11k:
+	# $(Z88DK_PATH)$(MYZ88DK) +ace -O3 -D__ACE__ -clib=ansi  -Cz--audio -o min -create-app  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	# cp min.wav $(BUILD_PATH)/MINIMAL_ace_experimental.wav
+	# rm min.wav
+	# rm min.tap
+	# rm min.bin
+	# rm min
+	# rm min_BBS.bin
+	# rm min_DATA.bin
 
-ace_19k:
-	$(Z88DK_PATH)$(MYZ88DK) +ace -O3 -D__ACE__ -DFULL_GAME -clib=ansi -o full -Cz--audio -create-app  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	cp full.wav $(BUILD_PATH)/FULL_ace_experimental.wav
-	rm full.wav
-	rm full.tap
-	rm full.bin
-	rm full
-	rm full_BBS.bin
-	rm full_DATA.bin
+# ace_19k:
+	# $(Z88DK_PATH)$(MYZ88DK) +ace -O3 -D__ACE__ -DFULL_GAME -clib=ansi -o full -Cz--audio -create-app  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	# cp full.wav $(BUILD_PATH)/FULL_ace_experimental.wav
+	# rm full.wav
+	# rm full.tap
+	# rm full.bin
+	# rm full
+	# rm full_BBS.bin
+	# rm full_DATA.bin
 
 .PHONY: vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos atmos_16k c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes
 

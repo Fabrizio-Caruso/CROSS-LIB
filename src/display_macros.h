@@ -213,32 +213,27 @@ void _delete(unsigned char x, unsigned char y);
 	#define DRAW_BORDERS() \
 	{ \
 		unsigned char i; \
-		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-		cputc (CH_ULCORNER+128); \
+		\
 		for(i=0;i<38-1;++i) \
 		{ \
-			cputc('-' + 128); \
+			POKE(0xBB80+(i+X_OFFSET)+(0+Y_OFFSET)*40,'-' + 128); \
 		} \
-		gotoxy(38-1+X_OFFSET,0+Y_OFFSET); \
-		cputc (CH_URCORNER+128); \
-		for(i=0;i<28-X_OFFSET-Y_OFFSET;++i) \
+		for(i=0;i<YSize-Y_OFFSET;++i) \
 		{ \
-			gotoxy(0+X_OFFSET,1+i+Y_OFFSET); \
-			cputc('|'+128); \
+			POKE(0xBB80+(0+X_OFFSET)+(1+i+Y_OFFSET)*40,'|' + 128); \
 		} \
-		gotoxy(0+X_OFFSET,28-1); \
-		cputc (CH_LLCORNER+128); \
 		for(i=0;i<38-1;++i) \
 		{ \
-			cputc('-' + 128); \
+			POKE(0xBB80+(i+X_OFFSET)+(YSize-1+Y_OFFSET)*40,'-' + 128); \
 		} \
-		gotoxy(38-1+X_OFFSET, 28-1); \
-		cputc (CH_LRCORNER+128); \
-		for(i=0;i<28-X_OFFSET-Y_OFFSET;++i) \
+		for(i=0;i<YSize-Y_OFFSET;++i) \
 		{ \
-			gotoxy(38-1+X_OFFSET,1+i+Y_OFFSET); \
-			cputc('|'+128); \
+			POKE(0xBB80+(38-1+X_OFFSET)+(1+i+Y_OFFSET)*40,'|' + 128); \
 		} \
+		POKE(0xBB80+(0+X_OFFSET)+(0+Y_OFFSET)*40,CH_ULCORNER+128); \
+		POKE(0xBB80+(38-1+X_OFFSET)+(0+Y_OFFSET)*40,CH_URCORNER+128); \
+		POKE(0xBB80+(0+X_OFFSET)+(YSize-1+Y_OFFSET)*40,CH_LLCORNER+128); \
+		POKE(0xBB80+(38-1+X_OFFSET)+(YSize-1+Y_OFFSET)*40,CH_LRCORNER+128); \
 	} 
 #elif defined(__SPECTRUM__)
 		

@@ -4,4 +4,5 @@ graphics/graphics.o
 *.o
 *.def
 *.swp
+build
 

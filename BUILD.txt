@@ -2,6 +2,35 @@ BUILD INSTRUCTIONS
 
 The game is compiled through different C cross-compilers (currently CC65's compiler and Z88DK's compilers). 
 
+USE THE MAKEFILE
+
+In order to build your desired target simply type
+
+make <target_name>
+
+LIST OF TARGETS
+vic20exp_8k : Vic 20 with an 8k ram expansion (total ram: 13k)
+vic20exp_16k : Vic 20 with a 16k ram expansion (total ram: 21k)
+atari_color : Atari 800/XL with 32k in 5-color 20x24 text mode (mode 1)
+atari_no_color : Atari 800/XL with 32k in monochromatic 40x24 text mode (mode 0)
+atari_no_color_16k : Atari 800 16k in monochromatic 40x24 text mode (mode 0)
+atari5200 : Atari 5200 in 5-color 20x24 text mode (mode 1)
+atmos : Oric Atmos or Orc 1 (with Atmos rom)
+atmos_16k : Oric 1 16k (with Atmos rom)
+c128_40col : native Commodore 128 in VIC-II 40 column mode
+c128_80col : native Commodore 128 in VDC 80 column mode
+c16_16k : unexpanded Commodore 16
+c16_32k : expanded Commodore 16 with at least 32k of ram
+c64 : Commodore 64
+pet : Commodore PET
+cbm510 : Commodore CBM 510
+cbm610 : Commodore CBM 610 (aka CBM-II) 
+nes : NES
+
+
+
+MANUAL BUILD WITHOUT THE MAKEFILE
+
 The different versions are produced by the cross-compilers and by parameters pased to these compilers
 through the -D option.
 

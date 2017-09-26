@@ -100,4 +100,6 @@ all: vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k ata
 clean:
 	rm -rf $(BUILD_PATH)/*
 
+help:
+	cat BUILD.txt
 

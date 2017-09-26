@@ -1,0 +1,35 @@
+BUILD INSTRUCTIONS
+
+The game is compiled through different C cross-compilers (currently CC65's compiler and Z88DK's compilers). 
+
+The different versions are produced thanks to the cross-compilers and parameters pased to these compilers
+through the -D option.
+
+PARAMETERS
+
+General parameters:
+
+- FULL_GAME [all systems]
+If this parameter is passed to the compiler, then the full-fledged version of the game (different levels and enemies)
+will be generated. Otherwise the "minimal" version (all levels look like the first one) will be generated.
+
+- REDEFINED_CHARS [some systems]
+This parameter activates redefined characters including the "animation" of the player's characters
+
+- SOUNDS [some systems]
+This parameter activates in-game sounds.
+
+System-specific parameters:
+
+- ATARI_MODE1 [for ATARI and ATARIXL]
+It toggles 5-color 20x24 text mode for ATARI and ATARIXL.
+
+- C128_80COL_VIDEO_MODE [for COMMODORE128]
+It toggles VDC 80 column mode for COMMODORE128
+
+- SPECTRUM_32COL / SPECTRUM_64COL [for SPECTRUM]
+It toggles 32 and 64 column mode for SPECTRUM.
+
+- MSX_MODE1 [for MSX]
+It activates MODE1 for MSX
+

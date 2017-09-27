@@ -55,17 +55,17 @@ Image GUN_IMAGE;
 #if defined(__VG5K__)
 	#include "vg5k/vg5k_graphics.h"
 #elif defined(__C64__) && defined(REDEFINED_CHARS)
-	#include "c64/c64_redefined_characters.h"
+	// #include "c64/c64_redefined_characters.h"
 #elif defined(__ATMOS__) && defined(REDEFINED_CHARS)
-	#include "atmos/atmos_redefined_characters.h"
+	// #include "atmos/atmos_redefined_characters.h"
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) && !defined(REDEFINED_CHARS)
 	#include "atari/atari_mode1_graphics.h"
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) && defined(REDEFINED_CHARS)
-	#include "atari/atari_mode1_redefined_chars_graphics.h"
+	// #include "atari/atari_mode1_redefined_chars_graphics.h"
 #elif (defined(__C16__)   || defined(__PLUS4__))   && defined(REDEFINED_CHARS)
-	#include "c264/c264_graphics.h"
+	// #include "c264/c264_graphics.h"
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
-	#include "c128/c128_80col_graphics.h"
+	// #include "c128/c128_80col_graphics.h"
 #elif defined(__SPECTRUM__) && defined(REDEFINED_CHARS)
 	#include "spectrum/spectrum_graphics.h"	
 #elif defined(__MSX__)

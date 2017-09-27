@@ -68,8 +68,8 @@ Image GUN_IMAGE;
 	// 
 #elif defined(__SPECTRUM__) && defined(REDEFINED_CHARS)
 	#include "spectrum/spectrum_graphics.h"	
-#elif defined(__MSX__)
-	#include "msx/msx_graphics.h"
+#elif defined(__MSX__) && defined(REDEFINED_CHARS)
+	// 
 #elif defined(__SVI__)
 	#include "svi/svi_graphics.h"	
 #elif defined(__CPC__)

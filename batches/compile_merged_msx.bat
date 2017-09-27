@@ -39,9 +39,11 @@ cd %mypath%\
 @REM zcc +msx -O3 -create-app -vn -DMSX_MODE1 -D__MSX__ -lndos -create-app -o %deliverables%\MINIMAL_msx_16k_experimental.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM del %deliverables%\MINIMAL_msx_16k_experimental.prg 
 
-@REM zcc +msx -O3 -create-app -vn -D__MSX__ -lndos -create-app -o %deliverables%\MINIMAL_msx_16k_experimental_MODE0.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
 @REM 
-@REM del %deliverables%\MINIMAL_msx_16k_experimental_MODE0.prg 
+zcc +msx -O3 -create-app -vn -D__MSX__ -lndos -create-app -o %deliverables%\MINIMAL_msx_16k_experimental_MODE0.prg %mypath%\display_macros.c %mypath%\enemy.c %mypath%\invincible_enemy.c %mypath%\level.c %mypath%\character.c %mypath%\text.c %mypath%\missile.c %mypath%\strategy.c %mypath%\input_macros.c %mypath%\main.c
+@REM 
+@REM 
+del %deliverables%\MINIMAL_msx_16k_experimental_MODE0.prg 
 
 
 @REM 

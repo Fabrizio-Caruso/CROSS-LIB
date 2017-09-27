@@ -9,6 +9,7 @@ In order to build your desired target simply type
 make <target_name>
 
 LIST OF TARGETS
+[6502]
 apple2 : Apple ][ 
 apple2enh: Apple //e
 vic20exp_8k : Vic 20 with an 8k ram expansion (total ram: 13k)
@@ -28,6 +29,26 @@ pet : Commodore PET
 cbm510 : Commodore CBM 510
 cbm610 : Commodore CBM 610 (aka CBM-II) 
 nes : NES
+
+[Z80]
+aquarius_exp_16k : Mattel Aquarius with 16k expansion
+ace_exp_16k : Jupiter Ace with 16k expansion
+zx80_exp_16k : Sinclair ZX80 with 16k expansion
+zx80_exp_32k : Sinclair ZX80 with 32k expansion 
+zx81_exp_16k : Sinclair ZX81 with 16k expansion 
+zx81_exp_32k : Sinclair ZX81 with 32k expansion 
+cpc_no_color : Amstrad CPC in no color mode (faster than color mode)
+cpc_color : Amstra CPC in color mode (slower than no color mode)
+msx_no_color_16k : MSX with 16k of total ram in no color mode 
+msx_color_32k : MSX with 32k of total ram in color mode 
+
+TODO:
+spectrum : Sinclair ZX Spectrum
+spectrum_16: Sinclair ZX Spectrum with 16k of total ram
+svi_16k: Spectravideo with 16k of total ram
+svi_32k: Spectravideo with 32k of total ram
+vg5k: unexpanded VG-5000
+vg5k_exp_16k: VG-5000 with 16k memory expansion (32k of total ram)
 
 
 USE THE WINDOWS BATCH FILES
@@ -68,4 +89,6 @@ It toggles 32 and 64 column mode for SPECTRUM.
 - MSX_MODE1 [for MSX]
 It activates MODE1 for MSX.
 
+- CPC_NO_COLOR [for CPC]
+It activates no color mode for CPC (used to gain performance)
 

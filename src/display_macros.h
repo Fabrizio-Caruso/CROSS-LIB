@@ -210,6 +210,11 @@ void _delete(unsigned char x, unsigned char y);
 	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize-1)	
 #endif
 
+#if defined(__MSX__) && !defined(REDEFINED_CHARS)
+	#define DRAW_HORIZONTAL_LINE(x,y,length)
+	#define DRAW_VERTICAL_LINE(x,y,length)
+#endif
+
 // FULL BORDER
 #if defined(__ATMOS__)
 	#define DRAW_BORDERS() \
@@ -292,8 +297,8 @@ void _delete(unsigned char x, unsigned char y);
 			SET_TEXT_COLOR(TEXT_COLOR); \
 			DRAW_HORIZONTAL_BORDER(0); \
 			DRAW_HORIZONTAL_BORDER(YSize-1); \
-			DRAW_VERTICAL_BORDER(0) \
-			DRAW_VERTICAL_BORDER(XSize-1) \
+			DRAW_VERTICAL_BORDER(0); \
+			DRAW_VERTICAL_BORDER(XSize-1); \
 		}	
 #endif
 

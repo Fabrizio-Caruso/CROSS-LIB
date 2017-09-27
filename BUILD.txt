@@ -9,6 +9,8 @@ In order to build your desired target simply type
 make <target_name>
 
 LIST OF TARGETS
+apple2 : Apple ][ 
+apple2enh: Apple //e
 vic20exp_8k : Vic 20 with an 8k ram expansion (total ram: 13k)
 vic20exp_16k : Vic 20 with a 16k ram expansion (total ram: 21k)
 atari_color : Atari 800/XL with 32k in 5-color 20x24 text mode (mode 1)
@@ -27,6 +29,11 @@ cbm510 : Commodore CBM 510
 cbm610 : Commodore CBM 610 (aka CBM-II) 
 nes : NES
 
+
+USE THE WINDOWS BATCH FILES
+
+Adapt the Windows batch files to your paths and run them to 
+compile the game for your desidered target.
 
 
 MANUAL BUILD WITHOUT THE MAKEFILE

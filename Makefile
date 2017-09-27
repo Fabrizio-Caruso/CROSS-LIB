@@ -16,6 +16,7 @@ SOURCE_PATH := src
 
 CC65_PATH ?= /cygdrive/c/cc65-snapshot-win32/bin/
 Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
+Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
 BUILD_PATH ?= build
 MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
@@ -112,15 +113,15 @@ apple2enh:
 # ------------------------------------------------------------------------------------------
 #Z88DK
 
-# ace_11k:
-	# $(Z88DK_PATH)$(MYZ88DK) +ace -O3 -D__ACE__ -clib=ansi  -Cz--audio -o min -create-app  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	# cp min.wav $(BUILD_PATH)/MINIMAL_ace_experimental.wav
-	# rm min.wav
-	# rm min.tap
-	# rm min.bin
-	# rm min
-	# rm min_BBS.bin
-	# rm min_DATA.bin
+ace_11k:
+	$(Z88DK_PATH)$(MYZ88DK) +ace -O3 -D__ACE__ -clib=ansi  -Cz--audio -isystem$(Z88DK_INCLUDE) -o min -create-app  $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	cp min.wav $(BUILD_PATH)/MINIMAL_ace_experimental.wav
+	rm min.wav
+	rm min.tap
+	rm min.bin
+	rm min
+	rm min_BBS.bin
+	rm min_DATA.bin
 
 # ace_19k:
 	# $(Z88DK_PATH)$(MYZ88DK) +ace -O3 -D__ACE__ -DFULL_GAME -clib=ansi -o full -Cz--audio -create-app  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -138,6 +139,7 @@ all: vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k ata
 
 clean:
 	rm -rf $(BUILD_PATH)/*
+	rm -rf $(SOURCE_PATH)/*.o
 
 help:
 	cat BUILD.txt

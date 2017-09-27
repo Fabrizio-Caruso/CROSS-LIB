@@ -97,49 +97,49 @@ typedef struct ImageStruct Image;
 
 
 #if defined(__NES__)
-	#define GET_SCREEN_SIZE(x,y) {*x=32; *y=24;};
+	#define GET_SCREEN_SIZE(x,y) do {*x=32; *y=24;} while(0)
 #elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
-	#define GET_SCREEN_SIZE(x,y) {*x=20; *y=24;};
+	#define GET_SCREEN_SIZE(x,y) do {*x=20; *y=24;} while(0)
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
-	#define GET_SCREEN_SIZE(x,y) {*x=80-X_OFFSET; *y=25-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) do {*x=80-X_OFFSET; *y=25-Y_OFFSET;} while(0)
 #elif defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
-	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) do {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;} while(0)
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_64COL)
-	#define GET_SCREEN_SIZE(x,y) {*x=64-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) do {*x=64-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_32COL)
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__MSX__) && !defined(MSX_MODE1)
-	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__MSX__) && defined(MSX_MODE1)
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__SVI__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__CPC__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)
 #elif defined(__VG5K__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)
 #elif defined(__SC3000__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=38-X_OFFSET; *y=24-Y_OFFSET;};	
+	#define GET_SCREEN_SIZE(x,y) do {*x=38-X_OFFSET; *y=24-Y_OFFSET;} while(0)	
 #elif defined(__AQUARIUS__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=24-Y_OFFSET;};	
+	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)	
 #elif defined(__ZX81__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};	
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__ZX80__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;};	
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;} while(0)	
 #elif defined(__ACE__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__ENTERPRISE__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-1-Y_OFFSET;};		
+	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-1-Y_OFFSET;} while(0)		
 #elif defined(__VZ__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=17-Y_OFFSET;};	
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=17-Y_OFFSET;} while(0)	
 #elif defined(__MTX__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};		
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
 #elif defined(__TRS80__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=40-X_OFFSET; *y=25-Y_OFFSET;};		
+	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)		
 #elif defined(__M5__) 
-	#define GET_SCREEN_SIZE(x,y) {*x=32-X_OFFSET; *y=24-Y_OFFSET;};		
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
 #else
-	#define GET_SCREEN_SIZE(x,y) {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;};
+	#define GET_SCREEN_SIZE(x,y) do {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;} while(0)
 #endif
 
 #if defined(REDEFINED_CHARS)
@@ -148,10 +148,10 @@ typedef struct ImageStruct Image;
 	extern Image PLAYER_UP;
 	extern Image PLAYER_DOWN;
 
-	#define SHOW_LEFT() {player._imagePtr = &PLAYER_LEFT; }
-	#define SHOW_RIGHT() {player._imagePtr = &PLAYER_RIGHT; }
-	#define SHOW_UP() {player._imagePtr = &PLAYER_UP; }
-	#define SHOW_DOWN() {player._imagePtr = &PLAYER_DOWN; }
+	#define SHOW_LEFT() do {player._imagePtr = &PLAYER_LEFT; } while(0)
+	#define SHOW_RIGHT() do {player._imagePtr = &PLAYER_RIGHT; } while(0)
+	#define SHOW_UP() do {player._imagePtr = &PLAYER_UP; } while(0)
+	#define SHOW_DOWN() do {player._imagePtr = &PLAYER_DOWN; } while(0)
 #else
 	#define SHOW_LEFT() { }
 	#define SHOW_RIGHT() { }
@@ -159,36 +159,38 @@ typedef struct ImageStruct Image;
 	#define SHOW_DOWN() { }		
 #endif
 
+
+
 void _draw(unsigned char x,unsigned char y,Image * image);
-#define DRAW_PLAYER(x,y,image) {_draw(x,y,image);};
-#define DRAW_GHOST(x,y,image) {_draw(x,y,image);};
-#define DRAW_INVINCIBLE_GHOST(x,y,image) {_draw(x,y,image);};
-#define DRAW_BOMB(x,y,image) {_draw(x,y,image);};
-#define DRAW_MISSILE(x,y,image) {_draw(x,y,image);};
+#define DRAW_PLAYER(x,y,image) _draw(x,y,image)
+#define DRAW_GHOST(x,y,image) _draw(x,y,image)
+#define DRAW_INVINCIBLE_GHOST(x,y,image) _draw(x,y,image)
+#define DRAW_BOMB(x,y,image) _draw(x,y,image)
+#define DRAW_MISSILE(x,y,image) _draw(x,y,image)
 
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y);
 #endif
 	
 void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
-#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUpBlink); 
-#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gunBlink); 
-#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extraPointsBlink); 
-#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extraLifeBlink); 
-#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibilityBlink); 
-#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink); 
+#define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUpBlink) 
+#define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gunBlink)
+#define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extraPointsBlink) 
+#define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extraLifeBlink)
+#define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibilityBlink) 
+#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
 
 void _delete(unsigned char x, unsigned char y);
-#define DELETE_PLAYER(x,y,image) {_delete(x,y);};
-#define DELETE_GHOST(x,y,image) {_delete(x,y);};
-#define DELETE_INVINCIBLE_GHOST(x,y,image) {_delete(x,y);};
-#define DELETE_BOMB(x,y,image) {_delete(x,y);};
-#define DELETE_POWERUP(x,y,image) {_delete(x,y);};
-#define DELETE_GUN(x,y,image) {_delete(x,y);};
-#define DELETE_MISSILE(x,y,image) {_delete(x,y);};
-#define DELETE_EXTRA_POINTS(x,y,image) {_delete(x,y);};
-#define DELETE_EXTRA_LIFE(x,y,image) {_delete(x,y);};
-#define DELETE_INVINCIBILITY(x,y,image) {_delete(x,y);};	
+#define DELETE_PLAYER(x,y,image) _delete(x,y)
+#define DELETE_GHOST(x,y,image) _delete(x,y)
+#define DELETE_INVINCIBLE_GHOST(x,y,image) _delete(x,y)
+#define DELETE_BOMB(x,y,image) _delete(x,y)
+#define DELETE_POWERUP(x,y,image) _delete(x,y)
+#define DELETE_GUN(x,y,image) _delete(x,y)
+#define DELETE_MISSILE(x,y,image) _delete(x,y)
+#define DELETE_EXTRA_POINTS(x,y,image) _delete(x,y)
+#define DELETE_EXTRA_LIFE(x,y,image) _delete(x,y)
+#define DELETE_INVINCIBILITY(x,y,image) _delete(x,y)	
 	
 #define DRAW_BOMBS() \
 { \
@@ -201,11 +203,11 @@ void _delete(unsigned char x, unsigned char y);
 
 // VERTICAL AND HORIZONTAL BORDER
 #if defined(__MSX__) || defined(__AQUARIUS__)
-	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize);
-	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize);	
+	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize)
+	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize)	
 #else
-	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1);
-	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize-1);	
+	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1)
+	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize-1)	
 #endif
 
 // FULL BORDER
@@ -313,8 +315,8 @@ void _delete(unsigned char x, unsigned char y);
 		cprintf(##__VA_ARGS__); \
 	};
 #else
-	#define PRINT(x,y,str) {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); cprintf(str); };
-	#define PRINTF(x,y,str,val) {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); cprintf(str,val); };
+	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); cprintf(str); } while(0);
+	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); cprintf(str,val); } while(0);
 #endif
 
 	
@@ -397,7 +399,7 @@ void _delete(unsigned char x, unsigned char y);
 	}
 
 #elif defined(__CBM__) || defined(__ATARI5200__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
-	#define DRAW_VERTICAL_LINE(x,y,length) {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);};	
+	#define DRAW_VERTICAL_LINE(x,y,length) do {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);} while(0)	
 #else		
 	#if defined(__MSX__) || defined(__CPC__)
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
@@ -438,13 +440,13 @@ void _delete(unsigned char x, unsigned char y);
 // COLORS AND CLEAR SCREEN
 #if defined(__SPECTRUM__)
 	#include <stdio.h>
-	#define SET_TEXT_COLOR(c) {printf("\020%c",c);};
+	#define SET_TEXT_COLOR(c) printf("\020%c",c)
 
 	#define SET_BORDER_COLOR(c) {};
 
 	#define SET_BACKGROUND_COLOR(c) {};
 
-	#define CLEAR_SCREEN() {printf("\xc");};
+	#define CLEAR_SCREEN() printf("\xc")
 #elif defined(__CPC__) 
 	#define SET_TEXT_COLOR(c) textcolor(c);
 
@@ -452,7 +454,7 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define SET_BACKGROUND_COLOR(c) {};	
 
-	#define CLEAR_SCREEN() {printf("\x1B[37;40m\x1B[2J");};
+	#define CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__VG5K__) 
 	#define SET_TEXT_COLOR(c) {};
 
@@ -477,28 +479,28 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define SET_BACKGROUND_COLOR(c) {};	
 
-	#define CLEAR_SCREEN() {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}};	
+	#define CLEAR_SCREEN() do {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}} while(0)
 
 #elif defined(__ATARI5200__) || defined(ATARI_MODE1)
 	#define SET_TEXT_COLOR(c) {};
 	
-	#define SET_BORDER_COLOR(c) (void) bordercolor(c);;
+	#define SET_BORDER_COLOR(c) (void) bordercolor(c);
 
 	#define SET_BACKGROUND_COLOR(c) {};
 
 	#define CLEAR_SCREEN() {clrscr();};	
 #elif defined(__ATMOS__)
-	#define SET_TEXT_COLOR(c) (void) textcolor (c);
+	#define SET_TEXT_COLOR(c) textcolor(c)
 
-	#define SET_BORDER_COLOR(c) (void) bordercolor(c);;
+	#define SET_BORDER_COLOR(c) bordercolor(c)
 
-	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
+	#define SET_BACKGROUND_COLOR(c) bgcolor(c)
 	
-	#define CLEAR_SCREEN() {clrscr(); INIT_GRAPHICS(); };
+	#define CLEAR_SCREEN() do {clrscr(); INIT_GRAPHICS(); } while(0)
 #else // CC65 conio case
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 
-	#define SET_BORDER_COLOR(c) (void) bordercolor(c);;
+	#define SET_BORDER_COLOR(c) (void) bordercolor(c)
 
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 	

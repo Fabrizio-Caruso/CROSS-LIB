@@ -44,9 +44,12 @@ cd %mypath%\
 
 @REM ANSI 
 @REM zcc +aquarius -clib=ansi -vn -D__AQUARIUS__ -lndos -create-app -o MINIMAL_aquarius_16k test_getk.c
-@REM del %mypath%\MINIMAL_aquarius_16k
-@REM move %mypath%\MINIMAL_aquarius_16k.caq %deliverables%
-@REM move %mypath%\_MINIMAL_aquarius_16k.caq %deliverables%
+
+del %mypath%\MINIMAL_aquarius_16k
+
+move %mypath%\MINIMAL_aquarius_16k.caq %deliverables%
+
+move %mypath%\_MINIMAL_aquarius_16k.caq %deliverables%
 
 @REM zcc +aquarius -clib=ansi -vn -D__AQUARIUS__ -lndos -o test test_getk.c
 

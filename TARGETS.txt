@@ -3,8 +3,8 @@ LIST OF TARGETS
 [6502]
 apple2 : Apple ][ 
 apple2enh: Apple //e
-vic20exp_8k : [LIGHT] Vic 20 with an 8k ram expansion (total ram: 13k)
-vic20exp_16k : Vic 20 with a 16k ram expansion (total ram: 21k)
+vic20_exp_8k : [LIGHT] Vic 20 with an 8k ram expansion (total ram: 13k)
+vic20_exp_16k : Vic 20 with a 16k ram expansion (total ram: 21k)
 atari_color : Atari 800/XL with 32k in 5-color 20x24 text mode (mode 1)
 atari_no_color : Atari 800/XL with 32k in monochromatic 40x24 text mode (mode 0)
 atari_no_color_16k : [LIGHT] Atari 800 16k in monochromatic 40x24 text mode (mode 0)
@@ -38,9 +38,9 @@ svi_16k: [LIGHT] Spectravideo with 16k of total ram
 svi_32k: Spectravideo with 32k of total ram
 vg5k: [LIGHT] unexpanded VG-5000
 vg5k_exp_16k: VG-5000 with 16k memory expansion (32k of total ram)
-spectrum : Sinclair ZX Spectrum
-spectrum_16k: [LIGHT] Sinclair ZX Spectrum with 16k of total ram
-
+spectrum : Sinclair ZX Spectrum (Z88DK with newlib)
+spectrum_16k: [LIGHT] Sinclair ZX Spectrum with 16k of total ram (Z88DK with newlib)
 
 DEBUG
-spectrum_clib : Spectrum compiled with Z88DK's classic lib 
+spectrum_clib_udg : Spectrum, user-defined characters and compiled with Z88DK's classic lib 
+spectrum_clib_no_udg : Spectrum, no user-defined characters and compiled with Z88DK's classic lib 

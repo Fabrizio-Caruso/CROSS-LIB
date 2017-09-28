@@ -319,6 +319,9 @@ void _delete(unsigned char x, unsigned char y);
 		} \
 		cprintf(##__VA_ARGS__); \
 	};
+#elif defined(__SPECTRUM__)
+	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); printf(str); } while(0);
+	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); printf(str,val); } while(0);
 #else
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); cprintf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); cprintf(str,val); } while(0);

@@ -1,0 +1,46 @@
+LIST OF TARGETS
+
+[6502]
+apple2 : Apple ][ 
+apple2enh: Apple //e
+vic20exp_8k : [LIGHT] Vic 20 with an 8k ram expansion (total ram: 13k)
+vic20exp_16k : Vic 20 with a 16k ram expansion (total ram: 21k)
+atari_color : Atari 800/XL with 32k in 5-color 20x24 text mode (mode 1)
+atari_no_color : Atari 800/XL with 32k in monochromatic 40x24 text mode (mode 0)
+atari_no_color_16k : [LIGHT] Atari 800 16k in monochromatic 40x24 text mode (mode 0)
+atari5200 : [LIGHT] Atari 5200 in 5-color 20x24 text mode (mode 1)
+atmos : Oric Atmos or Orc 1 (with Atmos rom)
+atmos_16k : [LIGHT] Oric 1 16k (with Atmos rom)
+c128_40col : native Commodore 128 in VIC-II 40 column mode
+c128_80col : native Commodore 128 in VDC 80 column mode
+c16_16k : [LIGHT] unexpanded Commodore 16
+c16_32k : expanded Commodore 16 with at least 32k of ram
+c64 : Commodore 64
+pet : Commodore PET
+cbm510 : Commodore CBM 510
+cbm610 : Commodore CBM 610 (aka CBM-II) 
+nes : NES
+
+[Z80]
+aquarius_exp_16k : Mattel Aquarius with 16k expansion
+ace_exp_16k : Jupiter Ace with 16k expansion
+zx80_exp_16k : [LIGHT] Sinclair ZX80 with 16k expansion
+zx80_exp_32k : Sinclair ZX80 with 32k expansion 
+zx81_exp_16k : [LIGHT] Sinclair ZX81 with 16k expansion 
+zx81_exp_32k : Sinclair ZX81 with 32k expansion 
+cpc_no_color : Amstrad CPC in no color mode (faster than color mode)
+cpc_color : Amstra CPC in color mode (slower than no color mode)
+msx_no_color_16k : [LIGHT] MSX with 16k of total ram in no color mode 
+msx_color_32k : MSX with 32k of total ram in color mode 
+vz200_16k: VZ-200 with 16k of total ram
+vz200_32k: VZ-200 with 32k of total ram
+svi_16k: [LIGHT] Spectravideo with 16k of total ram
+svi_32k: Spectravideo with 32k of total ram
+vg5k: [LIGHT] unexpanded VG-5000
+vg5k_exp_16k: VG-5000 with 16k memory expansion (32k of total ram)
+spectrum : Sinclair ZX Spectrum
+spectrum_16k: [LIGHT] Sinclair ZX Spectrum with 16k of total ram
+
+
+DEBUG
+spectrum_clib : Spectrum compiled with Z88DK's classic lib 

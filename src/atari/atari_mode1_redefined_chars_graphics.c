@@ -220,15 +220,56 @@ void INIT_IMAGES(void)
 
 void _draw(char x, char y, Image * image) 
 {
-	if((y+Y_OFFSET)%2==1)
+	unsigned char screen_code = image->_imageData;
+	// if((y+Y_OFFSET)%2==1)
+	// {
+		// POKE(752,1);
+		// gotoxy((x+20+X_OFFSET),(y+Y_OFFSET)/2);
+		// POKE(752,1);
+	// }
+	// else
+	// {
+		// POKE(752,1);
+		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)/2);
+		// POKE(752,1);
+	// }	
+	//POKE(752,1);	
+	//cputc(image->_imageData); 
+//	POKE(752,1);
+	/*
+	ATASCII 0-31    Screen code 64-95
+	ATASCII 32-95  Screen code 0-63
+	ATASCII 96-127  Screen code 96-127	
+	*/
+	
+	if(screen_code<128)
 	{
-		gotoxy((x+20+X_OFFSET),(y+Y_OFFSET)/2);
+		if(image->_imageData<32)
+		{
+			screen_code+=32;
+		}
+		else if(image->_imageData<96)
+		{
+			screen_code-=32;
+		}
 	}
 	else
 	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)/2);
-	}				
-	cputc(image->_imageData); 
+		if(image->_imageData-128<32)
+		{
+			//screen_code+=32;
+		}
+		else if(image->_imageData-128<96)
+		{
+			screen_code-=32;
+		}
+		else
+		{
+			screen_code+=32;
+		}
+	}		
+	POKE(PEEK(88)+PEEK(89)*256+(x+X_OFFSET)+(y+Y_OFFSET)*20,screen_code);
+//POKE(752,1);
 };	
 
 void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter) 
@@ -247,15 +288,16 @@ void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter)
 
 void _delete(char x, char y) 
 {
-	if((y+Y_OFFSET)%2==1)
-	{
-		gotoxy((x+20+X_OFFSET),(y+Y_OFFSET)/2);
-	}
-	else
-	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)/2);
-	}				
-	cputc(' ');
+	// if((y+Y_OFFSET)%2==1)
+	// {
+		// gotoxy((x+20+X_OFFSET),(y+Y_OFFSET)/2);
+	// }
+	// else
+	// {
+		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)/2);
+	// }				
+	// cputc(' ');
+	POKE(PEEK(88)+PEEK(89)*256+(x+X_OFFSET)+(y+Y_OFFSET)*20,0);	
 };	
 
 void PRINT(unsigned char x, unsigned char y, char * str)

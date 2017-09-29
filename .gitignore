@@ -1,5 +1,4 @@
 deliverables
-graphics/graphics.o
 *.o
 *.def
 *.swp

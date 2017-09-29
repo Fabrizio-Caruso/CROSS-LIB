@@ -228,6 +228,8 @@ clean:
 	rm -rf $(SOURCE_PATH)/svi/*.o
 	rm -rf $(SOURCE_PATH)/vg5k/*.o
 	rm -rf $(SOURCE_PATH)/spectrum/*.o
+	rm -rf $(SOURCE_PATH)/graphics/*.o
+	rm -rf $(SOURCE_PATH)/patch/*.o
 
 
 help:

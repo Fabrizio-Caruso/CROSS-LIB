@@ -38,7 +38,7 @@ svi_16k: [LIGHT] Spectravideo with 16k of total ram
 svi_32k: Spectravideo with 32k of total ram
 vg5k: [LIGHT] unexpanded VG-5000
 vg5k_exp_16k: VG-5000 with 16k memory expansion (32k of total ram)
-spectrum : Sinclair ZX Spectrum (Z88DK with newlib)
+spectrum_48k : Sinclair ZX Spectrum (Z88DK with newlib)
 spectrum_16k: [LIGHT] Sinclair ZX Spectrum with 16k of total ram (Z88DK with newlib)
 
 DEBUG

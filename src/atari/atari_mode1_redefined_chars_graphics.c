@@ -57,12 +57,11 @@
 #define _BUBBLE 7
 
 
-// 128 -> YELLOW; 32 -> RED; 160-> BLUE; 0 -> WHITE
-#define _ATARI_MODE1_WHITE 0
-#define _ATARI_MODE1_WHITE2	64
-#define _ATARI_MODE1_RED 32
-#define _ATARI_MODE1_YELLOW 128
-#define _ATARI_MODE1_BLUE 160
+// 0 -> RED; 64-> WHITE; 128-> BLUE; 192-> YELLOW
+#define _ATARI_MODE1_RED 0
+#define _ATARI_MODE1_WHITE	64
+#define _ATARI_MODE1_BLUE 128
+#define _ATARI_MODE1_YELLOW 192
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -130,7 +129,7 @@ void INIT_GRAPHICS(void)
 	_setcolor_low(0, TGI_COLOR_RED);
 	_setcolor_low(1, TGI_COLOR_WHITE);
 	_setcolor_low(2, TGI_COLOR_CYAN);
-	_setcolor_low(3, TGI_COLOR_BROWN); // TGI_COLOR_GRAY1
+	_setcolor_low(3, TGI_COLOR_BROWN);
 	_setcolor_low(4, TGI_COLOR_BLACK);
 
 	memcpy(_FONT_START__, (void *)0xE000, 512);
@@ -164,49 +163,53 @@ void INIT_GRAPHICS(void)
 void INIT_IMAGES(void)
 {		
 	// TODO: Do something with the colors
-	PLAYER_IMAGE._color = 160; // BLUE
-	INVINCIBLE_GHOST_IMAGE._color = 128; // 128 -> YELLOW; 32 -> RED; 160-> BLUE; 0 -> WHITE
-	POWERUP_IMAGE._color = 128; //
-	GUN_IMAGE._color = 128; // 
-	BOMB_IMAGE._color = 32; // RED
-	DEAD_GHOST_IMAGE._color = 128;
-	GHOST_IMAGE._color = 64; // WHITE
-	MISSILE_IMAGE._color = 32;
+	PLAYER_IMAGE._color = _ATARI_MODE1_BLUE; // BLUE
+	PLAYER_DOWN._color = _ATARI_MODE1_BLUE;
+	PLAYER_UP._color = _ATARI_MODE1_BLUE;
+	PLAYER_RIGHT._color = _ATARI_MODE1_BLUE;		
+	PLAYER_LEFT._color = _ATARI_MODE1_BLUE;
+	INVINCIBLE_GHOST_IMAGE._color = _ATARI_MODE1_YELLOW; // 128 -> YELLOW; 32 -> RED; 160-> BLUE; 0 -> WHITE
+	POWERUP_IMAGE._color = _ATARI_MODE1_YELLOW; //
+	GUN_IMAGE._color = _ATARI_MODE1_YELLOW; // 
+	BOMB_IMAGE._color = _ATARI_MODE1_RED; // RED
+	DEAD_GHOST_IMAGE._color = _ATARI_MODE1_YELLOW;
+	GHOST_IMAGE._color = _ATARI_MODE1_WHITE; // WHITE
+	MISSILE_IMAGE._color = _ATARI_MODE1_RED;
 
-	PLAYER_DOWN._imageData = _PLAYER_DOWN+PLAYER_IMAGE._color;
-	PLAYER_UP._imageData = _PLAYER_UP+PLAYER_IMAGE._color;
-	PLAYER_RIGHT._imageData = _PLAYER_RIGHT+PLAYER_IMAGE._color;		
-	PLAYER_LEFT._imageData = _PLAYER_LEFT+PLAYER_IMAGE._color;
+	PLAYER_DOWN._imageData = _PLAYER_DOWN;
+	PLAYER_UP._imageData = _PLAYER_UP;
+	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;		
+	PLAYER_LEFT._imageData = _PLAYER_LEFT;
 	PLAYER_IMAGE._imageData = PLAYER_DOWN._imageData;
 	
-	POWERUP_IMAGE._imageData = _POWERUP + POWERUP_IMAGE._color;
-	GUN_IMAGE._imageData = _GUN + GUN_IMAGE._color;
+	POWERUP_IMAGE._imageData = _POWERUP;
+	GUN_IMAGE._imageData = _GUN;
 	
-	GHOST_IMAGE._imageData = _GHOST + GHOST_IMAGE._color;
-	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST + INVINCIBLE_GHOST_IMAGE._color;
-	BOMB_IMAGE._imageData = _BOMB + BOMB_IMAGE._color;		
-	MISSILE_IMAGE._imageData = _MISSILE + MISSILE_IMAGE._color;
-	DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData + DEAD_GHOST_IMAGE._color;
+	GHOST_IMAGE._imageData = _GHOST;
+	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
+	BOMB_IMAGE._imageData = _BOMB;		
+	MISSILE_IMAGE._imageData = _MISSILE;
+	DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
 
 	#if defined(FULL_GAME)
-		LEFT_ENEMY_MISSILE_IMAGE._color = 0;
-		RIGHT_ENEMY_MISSILE_IMAGE._color = 0;	
-		BUBBLE_IMAGE._color = 0;	
-		EXTRA_POINTS_IMAGE._color = 0;
-		EXTRA_LIFE_IMAGE._color = 32;
-		INVINCIBILITY_IMAGE._color = 128;
+		LEFT_ENEMY_MISSILE_IMAGE._color = _ATARI_MODE1_WHITE;
+		RIGHT_ENEMY_MISSILE_IMAGE._color = _ATARI_MODE1_WHITE;	
+		BUBBLE_IMAGE._color = _ATARI_MODE1_WHITE;	
+		EXTRA_POINTS_IMAGE._color = _ATARI_MODE1_YELLOW;
+		EXTRA_LIFE_IMAGE._color = _ATARI_MODE1_YELLOW;
+		INVINCIBILITY_IMAGE._color = _ATARI_MODE1_YELLOW;
 		
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE + LEFT_ENEMY_MISSILE_IMAGE._color;
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE + RIGHT_ENEMY_MISSILE_IMAGE._color;
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 
 		BUBBLE_IMAGE._imageData = _BUBBLE;
 		
-		EXTRA_POINTS_IMAGE._imageData = '$'+INVINCIBILITY_IMAGE._color;
+		EXTRA_POINTS_IMAGE._imageData = '$';
 
-		EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN + EXTRA_LIFE_IMAGE._color;
+		EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN;
 
-		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY + 128;
+		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
 
 	#endif
 }
@@ -220,56 +223,8 @@ void INIT_IMAGES(void)
 
 void _draw(char x, char y, Image * image) 
 {
-	unsigned char screen_code = image->_imageData;
-	// if((y+Y_OFFSET)%2==1)
-	// {
-		// POKE(752,1);
-		// gotoxy((x+20+X_OFFSET),(y+Y_OFFSET)/2);
-		// POKE(752,1);
-	// }
-	// else
-	// {
-		// POKE(752,1);
-		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)/2);
-		// POKE(752,1);
-	// }	
-	//POKE(752,1);	
-	//cputc(image->_imageData); 
-//	POKE(752,1);
-	/*
-	ATASCII 0-31    Screen code 64-95
-	ATASCII 32-95  Screen code 0-63
-	ATASCII 96-127  Screen code 96-127	
-	*/
-	
-	if(screen_code<128)
-	{
-		if(image->_imageData<32)
-		{
-			screen_code+=32;
-		}
-		else if(image->_imageData<96)
-		{
-			screen_code-=32;
-		}
-	}
-	else
-	{
-		if(image->_imageData-128<32)
-		{
-			//screen_code+=32;
-		}
-		else if(image->_imageData-128<96)
-		{
-			screen_code-=32;
-		}
-		else
-		{
-			screen_code+=32;
-		}
-	}		
-	POKE(PEEK(88)+PEEK(89)*256+(x+X_OFFSET)+(y+Y_OFFSET)*20,screen_code);
-//POKE(752,1);
+	POKE(PEEK(88)+PEEK(89)*256+(x+X_OFFSET)+(y+Y_OFFSET)*20,image->_imageData + image->_color);
+
 };	
 
 void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter) 

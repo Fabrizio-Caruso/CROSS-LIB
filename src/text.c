@@ -101,6 +101,11 @@ void displayStatsTitles(void)
 		gotoxy(18+1,0 + ADJUST ); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(18-3,0 + ADJUST); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,1 + ADJUST); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		gotoxy(15+1-5,0 + ADJUST); cputc(GUN_IMAGE._imageData+160);cputc(':');
+		gotoxy(15-3-2-3,0 + ADJUST); cputc(GHOST_IMAGE._imageData+160);cputc(':');
+		gotoxy(15+1-5+4-1,0 + ADJUST); cputc(PLAYER_IMAGE._imageData+64);cputc(':');		
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(15+1-5,0 + ADJUST); cputc(GUN_IMAGE._imageData);cputc(':');

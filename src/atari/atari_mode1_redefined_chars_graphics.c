@@ -56,6 +56,10 @@
 #define _RIGHT_ENEMY_MISSILE 8	
 #define _BUBBLE 7
 
+#define _EXTRA_POINTS_IMAGE 4
+#define _VERTICAL_BRICK 5
+#define _HORIZONTAL_BRICK 6
+
 // 0 -> RED; 64-> WHITE; 128-> BLUE; 192-> YELLOW
 #define _ATARI_MODE1_RED 0
 #define _ATARI_MODE1_WHITE	64
@@ -103,6 +107,25 @@ void redefine(unsigned char * loc, const char *new_char)
 	}
 }
 
+void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+{
+	unsigned char i = 0;
+	for(;i<length;++i)
+	{
+		POKE(BASE_MEMORY+(x+X_OFFSET)+(y+i+Y_OFFSET)*20,_VERTICAL_BRICK+_ATARI_MODE1_BLUE);
+	}
+}
+
+void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+{
+	unsigned char i = 0;
+	for(;i<length;++i)
+	{
+		POKE(BASE_MEMORY+(x+i+X_OFFSET)+(y+Y_OFFSET)*20,_HORIZONTAL_BRICK+_ATARI_MODE1_BLUE);
+	}
+}
+
+
 void INIT_GRAPHICS(void)
 {	
 	static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
@@ -118,8 +141,9 @@ void INIT_GRAPHICS(void)
 	static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
 	static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
 	static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
-	
-	static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};		
+	static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};	
+	static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
+	static const char horizontal_brick[8] = {  0, 96, 48,255,255, 24, 12,  0};		
 	
 	extern char _FONT_START__[];
 	unsigned char *CHBAS = (unsigned char *)0x2f4;
@@ -149,6 +173,9 @@ void INIT_GRAPHICS(void)
 				
 	redefine(_FONT_START__+_MISSILE*8, missile);
 	redefine(_FONT_START__+_GUN*8, gun);
+	
+	redefine(_FONT_START__+_HORIZONTAL_BRICK*8, horizontal_brick);
+	redefine(_FONT_START__+_VERTICAL_BRICK*8, vertical_brick);
 	
 	#if defined(FULL_GAME)
 		redefine(_FONT_START__+_LEFT_ENEMY_MISSILE*8, missile_left);
@@ -208,7 +235,7 @@ void INIT_IMAGES(void)
 
 		BUBBLE_IMAGE._imageData = _BUBBLE;
 		
-		EXTRA_POINTS_IMAGE._imageData = '$';
+		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS_IMAGE;
 
 		EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN;
 

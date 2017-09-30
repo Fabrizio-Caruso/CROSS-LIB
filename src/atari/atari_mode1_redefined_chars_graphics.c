@@ -56,12 +56,13 @@
 #define _RIGHT_ENEMY_MISSILE 8	
 #define _BUBBLE 7
 
-
 // 0 -> RED; 64-> WHITE; 128-> BLUE; 192-> YELLOW
 #define _ATARI_MODE1_RED 0
 #define _ATARI_MODE1_WHITE	64
 #define _ATARI_MODE1_BLUE 128
 #define _ATARI_MODE1_YELLOW 192
+
+unsigned short BASE_MEMORY;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -122,7 +123,7 @@ void INIT_GRAPHICS(void)
 	
 	extern char _FONT_START__[];
 	unsigned char *CHBAS = (unsigned char *)0x2f4;
-	
+
 	// Mode 12 with no last monochromatic lines (12+16)
 	_graphics(GRAPHICS_MODE);
 	
@@ -157,6 +158,8 @@ void INIT_GRAPHICS(void)
 	#endif
 	
 	*CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */	
+	
+	BASE_MEMORY = (unsigned short) PEEK(88)+ ((unsigned short) PEEK(89))*256;	
 }
  
  
@@ -223,8 +226,7 @@ void INIT_IMAGES(void)
 
 void _draw(char x, char y, Image * image) 
 {
-	POKE(PEEK(88)+PEEK(89)*256+(x+X_OFFSET)+(y+Y_OFFSET)*20,image->_imageData + image->_color);
-
+	POKE(BASE_MEMORY+(x+X_OFFSET)+(y+Y_OFFSET)*20,image->_imageData + image->_color);
 };	
 
 void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter) 
@@ -243,16 +245,7 @@ void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter)
 
 void _delete(char x, char y) 
 {
-	// if((y+Y_OFFSET)%2==1)
-	// {
-		// gotoxy((x+20+X_OFFSET),(y+Y_OFFSET)/2);
-	// }
-	// else
-	// {
-		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)/2);
-	// }				
-	// cputc(' ');
-	POKE(PEEK(88)+PEEK(89)*256+(x+X_OFFSET)+(y+Y_OFFSET)*20,0);	
+	POKE(BASE_MEMORY+(x+X_OFFSET)+(y+Y_OFFSET)*20,0);		
 };	
 
 void PRINT(unsigned char x, unsigned char y, char * str)

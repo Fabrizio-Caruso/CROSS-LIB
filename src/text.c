@@ -124,7 +124,11 @@ void printGunsStats(void)
 		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%u",guns);
 	#else
 		PRINTF(15+2+1-5-1-X_OFFSET,0-Y_OFFSET,"%u",guns);
-	#endif			
+	#endif
+	// HACK to fix cursor interference
+	#if defined(ATARI_MODE1)
+		gotoxy(19,23);
+	#endif	
 }
 
 void printLevelStats(void)
@@ -144,6 +148,10 @@ void printGhostCountStats(void)
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%u",ghostCount);
 	#else
 		PRINTF(15+2-X_OFFSET-3-2-3,0-Y_OFFSET,"%u",ghostCount);	
+	#endif
+	// HACK to fix cursor interference
+	#if defined(ATARI_MODE1)
+		gotoxy(19,23);
 	#endif	
 }
 
@@ -154,6 +162,10 @@ void printLivesStats(void)
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02u",lives);
 	#else
 		PRINTF(15+2+1-5+4-1-X_OFFSET,0-Y_OFFSET,"%u",lives);	
+	#endif
+	// HACK to fix cursor interference
+	#if defined(ATARI_MODE1)
+		gotoxy(19,23);
 	#endif	
 }
 
@@ -165,6 +177,10 @@ void displayStats(void)
 	#else
 		PRINTF(3-3,0-Y_OFFSET,"%05u0",points);	
 	#endif	
+	// HACK to fix cursor interference
+	#if defined(ATARI_MODE1)
+		gotoxy(19,23);
+	#endif
 }
 
 void setScreenColors(void)

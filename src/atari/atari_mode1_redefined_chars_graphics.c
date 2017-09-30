@@ -112,7 +112,7 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	unsigned char i = 0;
 	for(;i<length;++i)
 	{
-		POKE(BASE_MEMORY+(x+X_OFFSET)+(y+i+Y_OFFSET)*20,_VERTICAL_BRICK+_ATARI_MODE1_BLUE);
+		POKE(BASE_MEMORY+(x+X_OFFSET)+(y+i+Y_OFFSET)*20,_VERTICAL_BRICK+_ATARI_MODE1_YELLOW);
 	}
 }
 
@@ -121,7 +121,7 @@ void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	unsigned char i = 0;
 	for(;i<length;++i)
 	{
-		POKE(BASE_MEMORY+(x+i+X_OFFSET)+(y+Y_OFFSET)*20,_HORIZONTAL_BRICK+_ATARI_MODE1_BLUE);
+		POKE(BASE_MEMORY+(x+i+X_OFFSET)+(y+Y_OFFSET)*20,_HORIZONTAL_BRICK+_ATARI_MODE1_YELLOW);
 	}
 }
 
@@ -143,7 +143,8 @@ void INIT_GRAPHICS(void)
 	static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
 	static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};	
 	static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
-	static const char horizontal_brick[8] = {  0, 96, 48,255,255, 24, 12,  0};		
+	static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};
+	//{  0, 96, 48,255,255, 24, 12,  0};		
 	
 	extern char _FONT_START__[];
 	unsigned char *CHBAS = (unsigned char *)0x2f4;

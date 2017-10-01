@@ -114,27 +114,27 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._color = CPC_RED;
 	DEAD_GHOST_IMAGE._color = CPC_RED;
 		
-	GHOST_IMAGE._imageData = 0xE1; // 'o'; //0x07;//'o';
-	INVINCIBLE_GHOST_IMAGE._imageData = 0xFD; // '+';
-	BOMB_IMAGE._imageData = 0xEE;//'X';
+	GHOST_IMAGE._imageData = 'o'; //0xE1; 
+	INVINCIBLE_GHOST_IMAGE._imageData = '+';0xFD; 
+	BOMB_IMAGE._imageData = 'X';0xEE;
 	
-	PLAYER_IMAGE._imageData = 0xF9;//'*';
-	PLAYER_DOWN._imageData = 0xF8;	
-	PLAYER_UP._imageData = 0xF8;
-	PLAYER_RIGHT._imageData = 0xFA;
-	PLAYER_LEFT._imageData = 0xFB;
+	PLAYER_IMAGE._imageData = '*'; 0xF9;
+	PLAYER_DOWN._imageData = '*';0xF8;	
+	PLAYER_UP._imageData = '*';0xF8;
+	PLAYER_RIGHT._imageData = '*';0xFA;
+	PLAYER_LEFT._imageData = '*';0xFB;
 	PLAYER_DOWN._color = PLAYER_IMAGE._color;
 	PLAYER_UP._color = PLAYER_IMAGE._color;	
 	PLAYER_RIGHT._color = PLAYER_IMAGE._color;
 	PLAYER_LEFT._color = PLAYER_IMAGE._color;
 	
 	
-	POWERUP_IMAGE._imageData = 0xE3; // 'S'; //0x18;//'S';
-	GUN_IMAGE._imageData = 0xB9; // '!'; //0x04;//'!';
-	MISSILE_IMAGE._imageData = 0x90;//'.';
+	POWERUP_IMAGE._imageData = 'S';//0xE3; 
+	GUN_IMAGE._imageData = '!';0xB9; 
+	MISSILE_IMAGE._imageData = '.';0x90;
 	
 	#if defined(CPC_NO_COLOR)
-		DEAD_GHOST_IMAGE._imageData = 0x9F;//'O';
+		DEAD_GHOST_IMAGE._imageData = '-';0x9F;
 	#else
 		DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
 	#endif

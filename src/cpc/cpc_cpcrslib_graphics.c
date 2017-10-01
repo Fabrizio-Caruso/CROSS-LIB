@@ -168,7 +168,8 @@ void INIT_IMAGES(void)
 	
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
-    cpc_PrintGphStrXY("A",(x+X_OFFSET),(y+Y_OFFSET)*8);
+	cpc_PrintGphStrStdXY(1,"A",(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
+    // cpc_PrintGphStrXY("A",(x+X_OFFSET)*2,(y+Y_OFFSET)*8);
 	//cpc_PutSpXOR(full,8,8,cpc_GetScrAddress(8*(x+X_OFFSET),8*(y+Y_OFFSET)));	
 
 	/*
@@ -183,7 +184,8 @@ void _draw(unsigned char x, unsigned char y, Image * image)
 
 void _delete(unsigned char x, unsigned char y)
 {
-    cpc_PrintGphStrXY(" ",(x+X_OFFSET),(y+Y_OFFSET)*8);
+    cpc_PrintGphStrStdXY(1," ",(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
+    // cpc_PrintGphStrXY(" ",(x+X_OFFSET)*2,(y+Y_OFFSET)*8);
 //	cpc_PutSpXOR(full,8,8,cpc_GetScrAddress(8*(x+X_OFFSET),8*(y+Y_OFFSET)));	
 	
 	/*

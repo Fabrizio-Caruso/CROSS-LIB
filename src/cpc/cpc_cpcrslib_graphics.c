@@ -26,15 +26,22 @@
 #include <conio.h>
 #include "cpcrslib.h"
 
-#define _DRAW 	cputc(image->_imageData);
-#define _DELETE cputc(' '); 
+// #define _DRAW 	cputc(image->_imageData);
+// #define _DELETE cputc(' '); 
 
 extern unsigned char XSize;
 
-#define CPC_BLUE 2
-#define CPC_RED 4
-#define CPC_YELLOW 0
-#define CPC_CYAN 3
+// #define CPC_BLUE 2
+// #define CPC_RED 4
+// #define CPC_YELLOW 0
+// #define CPC_CYAN 3
+
+
+#define CPC_RED 3
+#define CPC_CYAN 4
+#define CPC_BLUE 0
+#define CPC_YELLOW 2 
+
 
 #include "../display_macros.h"
 
@@ -67,6 +74,7 @@ Image PLAYER_LEFT;
 
 unsigned char full[] =  {255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255};	
 unsigned char empty[] = {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};	
+char space_str[2] = {' ', '\0'};
 
 void INIT_GRAPHICS(void)
 {
@@ -168,7 +176,10 @@ void INIT_IMAGES(void)
 	
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
-	cpc_PrintGphStrStdXY(1,"A",(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
+	char str[2];
+	str[0] = image->_imageData;
+	str[1] = '\0';
+	cpc_PrintGphStrStdXY(image->_color,str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
     // cpc_PrintGphStrXY("A",(x+X_OFFSET)*2,(y+Y_OFFSET)*8);
 	//cpc_PutSpXOR(full,8,8,cpc_GetScrAddress(8*(x+X_OFFSET),8*(y+Y_OFFSET)));	
 
@@ -184,7 +195,7 @@ void _draw(unsigned char x, unsigned char y, Image * image)
 
 void _delete(unsigned char x, unsigned char y)
 {
-    cpc_PrintGphStrStdXY(1," ",(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
+    cpc_PrintGphStrStdXY(1,space_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
     // cpc_PrintGphStrXY(" ",(x+X_OFFSET)*2,(y+Y_OFFSET)*8);
 //	cpc_PutSpXOR(full,8,8,cpc_GetScrAddress(8*(x+X_OFFSET),8*(y+Y_OFFSET)));	
 	
@@ -196,19 +207,22 @@ void _delete(unsigned char x, unsigned char y)
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
-	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
+	char str[2];	
+	// gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	if(*blinkCounter) 
 	{
 		#if defined(CPC_NO_COLOR)
 		#else
 			SET_TEXT_COLOR(image->_color);
 		#endif
-		_DRAW
+		str[0] = image->_imageData;
+		str[1] = '\0';
+		cpc_PrintGphStrStdXY(image->_color,str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
 		*blinkCounter=0;
 	} 
 	else 
 	{
-		_DELETE
+		cpc_PrintGphStrStdXY(1,space_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);
 		*blinkCounter=1;
 	}	
 }

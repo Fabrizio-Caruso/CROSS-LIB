@@ -79,27 +79,21 @@ char vertical_brick_str[2] = {'|', '\0' };
 char horizontal_brick_str[2] = {'-', '\0'};
 char broken_wall_str[2] = {'X', '\0'};
 
-#define UDG_N 17
-
-char char_list[UDG_N*2] = 
+char char_list[13*2] = 
 { 
-33, '\0', // PLAYER
-37, '\0', // GHOST
-44, '\0', // BOMB
-40, '\0', // SKULL
-43, '\0', // MISSILE
-42, '\0', // POWERUP
-41, '\0', // GUN
-'p', '\0', // EXTRA_POINTS_IMAGE
-46, '\0', // INVINCIBILITY
-33, '\0', // EXTRA LIFE
-39, '\0', // LEFT_MISSILE
-38, '\0', // RIGHT_MISSILE
-45, '\0', // BUBBLE
-33, '\0', // DOWN
-34, '\0', // UP
-35, '\0', // RIGHT
-36, '\0'  // LEFT
+'*', '\0', // POWERUP
+'o', '\0', 
+'x', '\0', 
+'+', '\0', 
+'.', '\0', 
+'s', '\0', // PLAYER
+'!', '\0', 
+'$', '\0', 
+'v', '\0', 
+'*', '\0', 
+'>', '\0', 
+'<', '\0', 
+'^', '\0'
 };
 
 #define _PLAYER 0*2
@@ -115,10 +109,6 @@ char char_list[UDG_N*2] =
 #define _LEFT_MISSILE 10*2
 #define _RIGHT_MISSILE 11*2
 #define _BUBBLE 12*2
-#define _PLAYER_DOWN 13*2
-#define _PLAYER_UP 14*2
-#define _PLAYER_RIGHT 15*2
-#define _PLAYER_LEFT 16*2
 
 void INIT_GRAPHICS(void)
 {
@@ -147,14 +137,13 @@ void INIT_GRAPHICS(void)
 	// cpc_EnableFirmware();
 	
 	// WAIT_PRESS();
-	#if defined(DEBUG_CHARS)
-		unsigned char jj;
-		
-		for(jj=0;jj<UDG_N;++jj)
-		{
-			cpc_PrintGphStrStdXY(2,char_list+jj*2,jj*2,0);				
-		}	
-	#endif
+	unsigned char jj;
+	
+	for(jj=0;jj<13;++jj)
+	{
+		cpc_PrintGphStrStdXY(2,char_list+jj*2,jj*2,0);				
+	}	
+	WAIT_PRESS();
 }
 
 void INIT_IMAGES(void)

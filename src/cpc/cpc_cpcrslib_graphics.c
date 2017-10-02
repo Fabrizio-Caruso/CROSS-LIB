@@ -38,8 +38,8 @@ extern unsigned char XSize;
 
 
 #define CPC_RED 3
-#define CPC_CYAN 4
-#define CPC_BLUE 0
+#define CPC_CYAN 1
+#define CPC_BLUE 4
 #define CPC_YELLOW 2 
 
 
@@ -72,9 +72,11 @@ Image PLAYER_UP;
 Image PLAYER_RIGHT;
 Image PLAYER_LEFT;
 
-unsigned char full[] =  {255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255};	
-unsigned char empty[] = {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};	
+// unsigned char full[] =  {255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255};	
+// unsigned char empty[] = {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};	
 char space_str[2] = {' ', '\0'};
+char vertical_brick_str[2] = {'|', '\0' };
+char horizontal_brick_str[2] = {'-', '\0'};
 
 void INIT_GRAPHICS(void)
 {
@@ -148,7 +150,7 @@ void INIT_IMAGES(void)
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		RIGHT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;	
 		
-		BUBBLE_IMAGE._imageData = 0xEF;//'^';
+		BUBBLE_IMAGE._imageData = '^'; //0xEF;//'^';
 		BUBBLE_IMAGE._color = CPC_CYAN;
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
@@ -179,30 +181,15 @@ void _draw(unsigned char x, unsigned char y, Image * image)
 	char str[2];
 	str[0] = image->_imageData;
 	str[1] = '\0';
-	cpc_PrintGphStrStdXY(image->_color,str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
-    // cpc_PrintGphStrXY("A",(x+X_OFFSET)*2,(y+Y_OFFSET)*8);
-	//cpc_PutSpXOR(full,8,8,cpc_GetScrAddress(8*(x+X_OFFSET),8*(y+Y_OFFSET)));	
-
-	/*
-	gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
-	#if defined(CPC_NO_COLOR)
-	#else
-		SET_TEXT_COLOR(image->_color);
-	#endif
-	_DRAW
-	*/
+	//cpc_PrintGphStrStdXY(image->_color,str,(x+X_OFFSET),(y+Y_OFFSET)*4);		
+    cpc_PrintGphStrStdXY(image->_color,str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
 }
 
 void _delete(unsigned char x, unsigned char y)
 {
-    cpc_PrintGphStrStdXY(1,space_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
-    // cpc_PrintGphStrXY(" ",(x+X_OFFSET)*2,(y+Y_OFFSET)*8);
-//	cpc_PutSpXOR(full,8,8,cpc_GetScrAddress(8*(x+X_OFFSET),8*(y+Y_OFFSET)));	
-	
-	/*
-	gotoxy(x+1+X_OFFSET,y+Y_OFFSET);
-	_DELETE
-	*/
+//    cpc_PrintGphStrStdXY(1,space_str,(x+X_OFFSET),(y+Y_OFFSET)*4);		
+    cpc_PrintGphStrStdXY(CPC_BLUE,space_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
+
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
@@ -230,28 +217,38 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 { 
 	unsigned char i;
-	#if defined(CPC_NO_COLOR)
-	#else
-		SET_TEXT_COLOR(CPC_CYAN);
-	#endif	
+	// #if defined(CPC_NO_COLOR)
+	// #else
+		// SET_TEXT_COLOR(CPC_CYAN);
+	// #endif	
+	// for(i=0;i<length;++i)
+	// {
+		// gotoxy(x+1+X_OFFSET,y+i+Y_OFFSET);
+		// cputc('|');
+	// }
+	
 	for(i=0;i<length;++i)
 	{
-		gotoxy(x+1+X_OFFSET,y+i+Y_OFFSET);
-		cputc('|');
-	}
+		cpc_PrintGphStrStdXY(CPC_CYAN,vertical_brick_str,(x+X_OFFSET)*2,(y+i+Y_OFFSET)*8);			
+	}	
 }
 
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 {
 	unsigned char i;
-	#if defined(CPC_NO_COLOR)
-	#else
-		SET_TEXT_COLOR(CPC_CYAN);
-	#endif	
-	gotoxy(X_OFFSET+1+x,Y_OFFSET+y); 
+	// #if defined(CPC_NO_COLOR)
+	// #else
+		// SET_TEXT_COLOR(CPC_CYAN);
+	// #endif	
+	// gotoxy(X_OFFSET+1+x,Y_OFFSET+y); 
+	// for(i=0;i<length;++i)
+	// {
+		// cputc('-');
+	// }
+	
 	for(i=0;i<length;++i)
 	{
-		cputc('-');
+		cpc_PrintGphStrStdXY(CPC_CYAN,horizontal_brick_str,(x+i+X_OFFSET)*2,(y+Y_OFFSET)*8);			
 	}
 }
 

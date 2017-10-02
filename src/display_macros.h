@@ -114,8 +114,12 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__SVI__) 
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)
-#elif defined(__CPC__) 
+#elif defined(__CPC__) && !defined(CPCRSLIB)
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)
+// #elif defined(__CPC__) && defined(CPCRSLIB)
+	// #define GET_SCREEN_SIZE(x,y) do {*x=(40-X_OFFSET)*2; *y=(25-Y_OFFSET)*2;} while(0)		
+#elif defined(__CPC__) && defined(CPCRSLIB)
+	#define GET_SCREEN_SIZE(x,y) do {*x=(40-X_OFFSET); *y=(25-Y_OFFSET);} while(0)	
 #elif defined(__VG5K__) 
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)
 #elif defined(__SC3000__) 
@@ -202,7 +206,7 @@ void _delete(unsigned char x, unsigned char y);
 }
 
 // VERTICAL AND HORIZONTAL BORDER
-#if defined(__MSX__) || defined(__AQUARIUS__)
+#if defined(__MSX__) || defined(__AQUARIUS__) || defined(__CPC__)
 	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize)
 	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize)	
 #else

@@ -118,16 +118,16 @@
 	#define ADJUST 1
 #endif
 
-#if defined(__CPC__) && !defined(CPC_NO_COLOR)
+#if defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define BOMBS_NUMBER 2
 #else
 	#define BOMBS_NUMBER 4
 #endif
 
 // Possible current values are 6,7,8
-#if defined(__CPC__) && defined(CPC_NO_COLOR)
+#if defined(__CPC__) && defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define GHOSTS_NUMBER 7
-#elif defined(__CPC__) && !defined(CPC_NO_COLOR)
+#elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define GHOSTS_NUMBER 6
 #elif defined(__SPECTRUM__) 
 	#define GHOSTS_NUMBER 7

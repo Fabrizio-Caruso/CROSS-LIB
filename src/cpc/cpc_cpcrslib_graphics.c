@@ -76,7 +76,7 @@ Image PLAYER_LEFT;
 
 char space_str[2] = {' ', '\0'};
 char vertical_brick_str[2] = {'|', '\0' };
-char horizontal_brick_str[2] = {'-', '\0'};
+char horizontal_brick_str[2] = {'=', '\0'};
 char broken_wall_str[2] = {'X', '\0'};
 
 #define UDG_N 17
@@ -124,7 +124,7 @@ void INIT_GRAPHICS(void)
 {
     //cpc_DisableFirmware();          //Now, I don't gonna use any firmware routine so I modify interrupts jump to nothing
     // cpc_ClrScr();                           //fills scr with ink 0
-    // cpc_SetMode(1);                         //hardware call to set mode 1	
+    cpc_SetMode(1);                         //hardware call to set mode 1	
 	
 	// WAIT_PRESS();
 	// cpc_ClrScr();	
@@ -147,14 +147,14 @@ void INIT_GRAPHICS(void)
 	// cpc_EnableFirmware();
 	
 	// WAIT_PRESS();
-	#if defined(DEBUG_CHARS)
-		unsigned char jj;
+	// #if defined(DEBUG_CHARS)
+		// unsigned char jj;
 		
-		for(jj=0;jj<UDG_N;++jj)
-		{
-			cpc_PrintGphStrStdXY(2,char_list+jj*2,jj*2,0);				
-		}	
-	#endif
+		// for(jj=0;jj<UDG_N;++jj)
+		// {
+			// cpc_PrintGphStrStdXY(2,char_list+jj*2,jj*2,0);				
+		// }	
+	// #endif
 }
 
 void INIT_IMAGES(void)
@@ -173,10 +173,10 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._imageData = _PLAYER;
 	
 	#if defined(REDEFINED_CHARS)
-		PLAYER_DOWN._imageData = _PLAYER;
-		PLAYER_UP._imageData = _PLAYER;
-		PLAYER_RIGHT._imageData = _PLAYER;
-		PLAYER_LEFT._imageData = _PLAYER;
+		PLAYER_DOWN._imageData = _PLAYER_DOWN;
+		PLAYER_UP._imageData = _PLAYER_UP;
+		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+		PLAYER_LEFT._imageData = _PLAYER_LEFT;
 		PLAYER_DOWN._color = PLAYER_IMAGE._color;
 		PLAYER_UP._color = PLAYER_IMAGE._color;	
 		PLAYER_RIGHT._color = PLAYER_IMAGE._color;
@@ -251,7 +251,7 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 
 	for(i=0;i<length;++i)
 	{
-		cpc_PrintGphStrStdXY(CPC_CYAN,vertical_brick_str,(x+X_OFFSET)*2,(y+i+Y_OFFSET)*8);			
+		cpc_PrintGphStrStdXY(CPC_YELLOW,vertical_brick_str,(x+X_OFFSET)*2,(y+i+Y_OFFSET)*8);			
 	}	
 }
 
@@ -261,7 +261,7 @@ void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 
 	for(i=0;i<length;++i)
 	{
-		cpc_PrintGphStrStdXY(CPC_CYAN,horizontal_brick_str,(x+i+X_OFFSET)*2,(y+Y_OFFSET)*8);			
+		cpc_PrintGphStrStdXY(CPC_YELLOW,horizontal_brick_str,(x+i+X_OFFSET)*2,(y+Y_OFFSET)*8);			
 	}
 }
 

@@ -77,6 +77,38 @@ Image PLAYER_LEFT;
 char space_str[2] = {' ', '\0'};
 char vertical_brick_str[2] = {'|', '\0' };
 char horizontal_brick_str[2] = {'-', '\0'};
+char broken_wall_str[2] = {'X', '\0'};
+
+char char_list[13*2] = 
+{ 
+'*', '\0', 
+'o', '\0', 
+'x', '\0', 
+'+', '\0', 
+'.', '\0', 
+'s', '\0', 
+'!', '\0', 
+'$', '\0', 
+'v', '\0', 
+'*', '\0', 
+'>', '\0', 
+'<', '\0', 
+'^', '\0'
+};
+
+#define _PLAYER 0
+#define _GHOST 2
+#define _BOMB 4
+#define _INVINCIBLE_GHOST 6
+#define _MISSILE 8
+#define _POWERUP 10
+#define _GUN 12
+#define _EXTRA_POINTS 14
+#define _INVINCIBILITY 16
+#define _EXTRA_LIFE 18
+#define _LEFT_MISSILE 20
+#define _RIGHT_MISSILE 22
+#define _BUBBLE 24
 
 void INIT_GRAPHICS(void)
 {
@@ -116,47 +148,43 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._color = CPC_RED;
 	DEAD_GHOST_IMAGE._color = CPC_RED;
 		
-	GHOST_IMAGE._imageData = 'o'; //0xE1; 
-	INVINCIBLE_GHOST_IMAGE._imageData = '+';0xFD; 
-	BOMB_IMAGE._imageData = 'X';0xEE;
+	GHOST_IMAGE._imageData = _GHOST;
+	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
+	BOMB_IMAGE._imageData = _BOMB;
 	
-	PLAYER_IMAGE._imageData = '*'; 0xF9;
-	PLAYER_DOWN._imageData = '*';0xF8;	
-	PLAYER_UP._imageData = '*';0xF8;
-	PLAYER_RIGHT._imageData = '*';0xFA;
-	PLAYER_LEFT._imageData = '*';0xFB;
+	PLAYER_IMAGE._imageData = _PLAYER;
+	PLAYER_DOWN._imageData = _PLAYER;
+	PLAYER_UP._imageData = _PLAYER;
+	PLAYER_RIGHT._imageData = _PLAYER;
+	PLAYER_LEFT._imageData = _PLAYER;
 	PLAYER_DOWN._color = PLAYER_IMAGE._color;
 	PLAYER_UP._color = PLAYER_IMAGE._color;	
 	PLAYER_RIGHT._color = PLAYER_IMAGE._color;
 	PLAYER_LEFT._color = PLAYER_IMAGE._color;
 	
 	
-	POWERUP_IMAGE._imageData = 'S';//0xE3; 
-	GUN_IMAGE._imageData = '!';0xB9; 
-	MISSILE_IMAGE._imageData = '.';0x90;
-	
-	#if defined(CPC_NO_COLOR)
-		DEAD_GHOST_IMAGE._imageData = '-';0x9F;
-	#else
-		DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
-	#endif
+	POWERUP_IMAGE._imageData = _POWERUP;
+	GUN_IMAGE._imageData = _GUN;
+	MISSILE_IMAGE._imageData = _MISSILE;
+
+	DEAD_GHOST_IMAGE._imageData = _GHOST;
 
 	GHOST_IMAGE._color = CPC_CYAN;
 	MISSILE_IMAGE._color = CPC_CYAN;
 
 	#if defined(FULL_GAME)
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_MISSILE;
 		LEFT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;	
 		
-		BUBBLE_IMAGE._imageData = '^'; //0xEF;//'^';
+		BUBBLE_IMAGE._imageData = _BUBBLE;
 		BUBBLE_IMAGE._color = CPC_CYAN;
 		
-		EXTRA_POINTS_IMAGE._imageData = '$';
+		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-		INVINCIBILITY_IMAGE._imageData = 'V';0x05;//'V';
+		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
 		
 		EXTRA_POINTS_IMAGE._color = CPC_YELLOW;
 		EXTRA_LIFE_IMAGE._color = CPC_YELLOW;
@@ -167,29 +195,29 @@ void INIT_IMAGES(void)
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
 	{
-		gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
-		#if defined(CPC_NO_COLOR)
-		#else
-			SET_TEXT_COLOR(CPC_CYAN);
-		#endif
-		cputc('X');
+		// gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
+		// #if defined(CPC_NO_COLOR)
+		// #else
+			// SET_TEXT_COLOR(CPC_CYAN);
+		// #endif
+		// cputc('X');
+		cpc_PrintGphStrStdXY(CPC_BLUE,broken_wall_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);			
 	}
 #endif
 	
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
-	char str[2];
-	str[0] = image->_imageData;
-	str[1] = '\0';
+	// char str[2];
+	// str[0] = image->_imageData;
+	// str[1] = '\0';
 	//cpc_PrintGphStrStdXY(image->_color,str,(x+X_OFFSET),(y+Y_OFFSET)*4);		
-    cpc_PrintGphStrStdXY(image->_color,str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
+    cpc_PrintGphStrStdXY(image->_color,char_list+image->_imageData,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
 }
 
 void _delete(unsigned char x, unsigned char y)
 {
 //    cpc_PrintGphStrStdXY(1,space_str,(x+X_OFFSET),(y+Y_OFFSET)*4);		
     cpc_PrintGphStrStdXY(CPC_BLUE,space_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
-
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
@@ -198,13 +226,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	// gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	if(*blinkCounter) 
 	{
-		#if defined(CPC_NO_COLOR)
-		#else
-			SET_TEXT_COLOR(image->_color);
-		#endif
-		str[0] = image->_imageData;
-		str[1] = '\0';
-		cpc_PrintGphStrStdXY(image->_color,str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
+		cpc_PrintGphStrStdXY(image->_color,char_list+image->_imageData,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
 		*blinkCounter=0;
 	} 
 	else 

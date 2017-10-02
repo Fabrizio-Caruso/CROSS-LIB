@@ -96,7 +96,12 @@ void displayStatsTitles(void)
 	#endif	
 
 
-	#if defined(WIDE)
+	#if defined(__CPC__) && defined(CPCRSLIB)
+		SET_TEXT_COLOR(TEXT_COLOR);	
+		gotoxy(18+1,0 + ADJUST ); cputc('!');cputc(':');
+		gotoxy(18-3,0 + ADJUST); cputc('o');cputc(':');
+		gotoxy(18,1 + ADJUST); cputc('*');cputc(':');		
+	#elif defined(WIDE)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(18+1,0 + ADJUST ); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(18-3,0 + ADJUST); cputc(GHOST_IMAGE._imageData);cputc(':');

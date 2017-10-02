@@ -34,8 +34,7 @@
 #include "../display_macros.h"
 
 #define GRAPHICS_MODE (1+16)
-
-#define ROM_BASE 57344u		
+	
 #define CHARS_BASE 8192
 
 #define _PLAYER_DOWN 60

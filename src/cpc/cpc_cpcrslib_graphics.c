@@ -67,13 +67,13 @@ extern Image GUN_IMAGE;
 	extern Image BROKEN_WALL_IMAGE;
 #endif
 
+#if defined(REDEFINED_CHARS)
 Image PLAYER_DOWN;
 Image PLAYER_UP;
 Image PLAYER_RIGHT;
 Image PLAYER_LEFT;
+#endif
 
-// unsigned char full[] =  {255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255,255};	
-// unsigned char empty[] = {  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0,  0};	
 char space_str[2] = {' ', '\0'};
 char vertical_brick_str[2] = {'|', '\0' };
 char horizontal_brick_str[2] = {'-', '\0'};
@@ -153,15 +153,17 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._imageData = _BOMB;
 	
 	PLAYER_IMAGE._imageData = _PLAYER;
-	PLAYER_DOWN._imageData = _PLAYER;
-	PLAYER_UP._imageData = _PLAYER;
-	PLAYER_RIGHT._imageData = _PLAYER;
-	PLAYER_LEFT._imageData = _PLAYER;
-	PLAYER_DOWN._color = PLAYER_IMAGE._color;
-	PLAYER_UP._color = PLAYER_IMAGE._color;	
-	PLAYER_RIGHT._color = PLAYER_IMAGE._color;
-	PLAYER_LEFT._color = PLAYER_IMAGE._color;
 	
+	#if defined(REDEFINED_CHARS)
+		PLAYER_DOWN._imageData = _PLAYER;
+		PLAYER_UP._imageData = _PLAYER;
+		PLAYER_RIGHT._imageData = _PLAYER;
+		PLAYER_LEFT._imageData = _PLAYER;
+		PLAYER_DOWN._color = PLAYER_IMAGE._color;
+		PLAYER_UP._color = PLAYER_IMAGE._color;	
+		PLAYER_RIGHT._color = PLAYER_IMAGE._color;
+		PLAYER_LEFT._color = PLAYER_IMAGE._color;
+	#endif
 	
 	POWERUP_IMAGE._imageData = _POWERUP;
 	GUN_IMAGE._imageData = _GUN;
@@ -195,35 +197,24 @@ void INIT_IMAGES(void)
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
 	{
-		// gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
-		// #if defined(CPC_NO_COLOR)
-		// #else
-			// SET_TEXT_COLOR(CPC_CYAN);
-		// #endif
-		// cputc('X');
 		cpc_PrintGphStrStdXY(CPC_BLUE,broken_wall_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);			
 	}
 #endif
 	
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
-	// char str[2];
-	// str[0] = image->_imageData;
-	// str[1] = '\0';
-	//cpc_PrintGphStrStdXY(image->_color,str,(x+X_OFFSET),(y+Y_OFFSET)*4);		
     cpc_PrintGphStrStdXY(image->_color,char_list+image->_imageData,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
 }
 
 void _delete(unsigned char x, unsigned char y)
-{
-//    cpc_PrintGphStrStdXY(1,space_str,(x+X_OFFSET),(y+Y_OFFSET)*4);		
+{	
     cpc_PrintGphStrStdXY(CPC_BLUE,space_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
 	char str[2];	
-	// gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
+
 	if(*blinkCounter) 
 	{
 		cpc_PrintGphStrStdXY(image->_color,char_list+image->_imageData,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
@@ -239,16 +230,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 { 
 	unsigned char i;
-	// #if defined(CPC_NO_COLOR)
-	// #else
-		// SET_TEXT_COLOR(CPC_CYAN);
-	// #endif	
-	// for(i=0;i<length;++i)
-	// {
-		// gotoxy(x+1+X_OFFSET,y+i+Y_OFFSET);
-		// cputc('|');
-	// }
-	
+
 	for(i=0;i<length;++i)
 	{
 		cpc_PrintGphStrStdXY(CPC_CYAN,vertical_brick_str,(x+X_OFFSET)*2,(y+i+Y_OFFSET)*8);			
@@ -258,16 +240,7 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 {
 	unsigned char i;
-	// #if defined(CPC_NO_COLOR)
-	// #else
-		// SET_TEXT_COLOR(CPC_CYAN);
-	// #endif	
-	// gotoxy(X_OFFSET+1+x,Y_OFFSET+y); 
-	// for(i=0;i<length;++i)
-	// {
-		// cputc('-');
-	// }
-	
+
 	for(i=0;i<length;++i)
 	{
 		cpc_PrintGphStrStdXY(CPC_CYAN,horizontal_brick_str,(x+i+X_OFFSET)*2,(y+Y_OFFSET)*8);			

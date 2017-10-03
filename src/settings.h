@@ -78,7 +78,7 @@
 	#define GAME_SLOW_DOWN 800	
 #elif defined(__CPC__) && defined(CPCRSLIB)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 200		
+	#define GAME_SLOW_DOWN 400		
 #else
 	#define GAME_SLOW_DOWN 0
 #endif

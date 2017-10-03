@@ -22,32 +22,21 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#ifndef _SOUNDS_MACROS
-#define _SOUNDS_MACROS
-	#if defined(__ATMOS__) && defined(SOUNDS)
-		#include "atmos/atmos_sounds.h"
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(SOUNDS)
-		#include "atari/atari_sounds.h"
-	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
-		#include "spectrum/spectrum_sounds.h"	
-	#elif defined(__VIC20__) && defined(SOUNDS)
-		#include "vic20/vic20_sounds.h"
-	#elif defined(__C16__) && defined(SOUNDS)
-		#include "c264/c264_sounds.h"
-	#elif defined(__C64__) && defined(SOUNDS)
-		#include "c64/c64_sounds.h"
-	#elif defined(__C128__) && defined(SOUNDS)
-		#include "c64/c64_sounds.h"		
-	#elif defined(__MSX__) && defined(SOUNDS)
-		#include "msx/msx_sounds.h"
-	#elif defined(__CPC__) && defined(SOUNDS)
-		#include "cpc/cpc_sounds.h"
-	#else
-		#define EXPLOSION_SOUND() {};
-		#define PING_SOUND() {};
-		#define SHOOT_SOUND() {};
-		#define TICK_SOUND() {};
-		#define TOCK_SOUND() {};
-		#define ZAP_SOUND() {};
-	#endif
-#endif // _SOUNDS_MACROS
+#ifndef _CPC_SOUNDS
+#define _CPC_SOUNDS
+
+	#include "cpcrslib.h"
+	#include "cpcwyzlib.h"
+
+	void _ping_sound(unsigned char freq);
+	#define PING_SOUND() _ping_sound(0xF0);	
+	#define TOCK_SOUND() _ping_sound(0x02);
+	#define TICK_SOUND() _ping_sound(0x60);
+	
+	void _explosion_sound(unsigned char freq);
+	#define SHOOT_SOUND() _explosion_sound(0xF0);
+	#define EXPLOSION_SOUND() _explosion_sound(0x80);
+	
+	void ZAP_SOUND(void);	
+
+#endif // _CPC_SOUNDS

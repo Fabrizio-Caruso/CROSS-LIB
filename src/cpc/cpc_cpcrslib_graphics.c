@@ -26,22 +26,12 @@
 #include <conio.h>
 #include "cpcrslib.h"
 
-// #define _DRAW 	cputc(image->_imageData);
-// #define _DELETE cputc(' '); 
-
 extern unsigned char XSize;
-
-// #define CPC_BLUE 2
-// #define CPC_RED 4
-// #define CPC_YELLOW 0
-// #define CPC_CYAN 3
-
 
 #define CPC_RED 3
 #define CPC_CYAN 1
 #define CPC_BLUE 4
 #define CPC_YELLOW 2 
-
 
 #include "../display_macros.h"
 
@@ -74,12 +64,7 @@ Image PLAYER_RIGHT;
 Image PLAYER_LEFT;
 #endif
 
-char space_str[2] = {' ', '\0'};
-char vertical_brick_str[2] = {'|', '\0' };
-char horizontal_brick_str[2] = {'=', '\0'};
-char broken_wall_str[2] = {'X', '\0'};
-
-#define UDG_N 17
+#define UDG_N 20
 
 char char_list[UDG_N*2] = 
 { 
@@ -90,7 +75,7 @@ char char_list[UDG_N*2] =
 43, '\0', // MISSILE
 42, '\0', // POWERUP
 41, '\0', // GUN
-'p', '\0', // EXTRA_POINTS_IMAGE
+49, '\0', // EXTRA_POINTS_IMAGE
 46, '\0', // INVINCIBILITY
 33, '\0', // EXTRA LIFE
 39, '\0', // LEFT_MISSILE
@@ -99,9 +84,12 @@ char char_list[UDG_N*2] =
 33, '\0', // DOWN
 34, '\0', // UP
 35, '\0', // RIGHT
-36, '\0'  // LEFT
+36, '\0', // LEFT
+47, '\0', // VERTICAL_BRICK
+48, '\0' // HORIZONTAL_BRICK 
 };
 
+// Offsets in the "meta-string" 
 #define _PLAYER 0*2
 #define _GHOST 1*2
 #define _BOMB 2*2
@@ -119,52 +107,23 @@ char char_list[UDG_N*2] =
 #define _PLAYER_UP 14*2
 #define _PLAYER_RIGHT 15*2
 #define _PLAYER_LEFT 16*2
+#define _VERTICAL_BRICK 17*2
+#define _HORIZONTAL_BRICK 18*2
+
+#define _DRAW(color,str,x,y) cpc_PrintGphStrStdXY(color,str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);
+
+char space_str[2] = {' ', '\0'};
+
+char *vertical_brick_str;
+char *horizontal_brick_str;
+char *broken_wall_str;
+
 
 void INIT_GRAPHICS(void)
 {
-    //cpc_DisableFirmware();          //Now, I don't gonna use any firmware routine so I modify interrupts jump to nothing
-    // cpc_ClrScr();                           //fills scr with ink 0
-    //cpc_SetMode(1);	//hardware call to set mode 1	
-	
-	// #asm
-		// di
-	// #endasm
-	// cpc_SetModo(1);
-	// cpc_SetInk(0,4);
-	// cpc_SetInk(1,5);
-	// cpc_SetInk(2,6);
-	// cpc_SetInk(3,7);
-	// while(1);	
-
-	// WAIT_PRESS();
-	// cpc_ClrScr();	
-	
-
-	// draw(172,0,172,40);	
-	//cpc_DisableFirmware();
-	// cpc_SetColour(16,20); //background
-	// cpc_SetColour(0,20); //border
-	// cpc_SetColour(1,10); //
-	
-	// cpc_SetMode(0);
-	// cpc_SetInkGphStr(0,0);
-	// cpc_SetInkGphStr(2,2);
-	// cpc_SetInkGphStr(1,8);
-	
-	// cpc_PrintGphStrXY("GAME;OF;LIFE",50,10);
-	// cpc_PrintGphStrXY("ARTABURU;2009",49,19);
-	
-	// cpc_EnableFirmware();
-	
-	// WAIT_PRESS();
-	// #if defined(DEBUG_CHARS)
-		// unsigned char jj;
-		
-		// for(jj=0;jj<UDG_N;++jj)
-		// {
-			// cpc_PrintGphStrStdXY(2,char_list+jj*2,jj*2,0);				
-		// }	
-	// #endif
+	vertical_brick_str = (char *) char_list + _VERTICAL_BRICK;
+	horizontal_brick_str = (char *) char_list +  _HORIZONTAL_BRICK;
+	broken_wall_str = (char *) char_list + _BOMB;	
 }
 
 void INIT_IMAGES(void)
@@ -181,17 +140,16 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._imageData = _BOMB;
 	
 	PLAYER_IMAGE._imageData = _PLAYER;
-	
-	#if defined(REDEFINED_CHARS)
-		PLAYER_DOWN._imageData = _PLAYER_DOWN;
-		PLAYER_UP._imageData = _PLAYER_UP;
-		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-		PLAYER_LEFT._imageData = _PLAYER_LEFT;
-		PLAYER_DOWN._color = PLAYER_IMAGE._color;
-		PLAYER_UP._color = PLAYER_IMAGE._color;	
-		PLAYER_RIGHT._color = PLAYER_IMAGE._color;
-		PLAYER_LEFT._color = PLAYER_IMAGE._color;
-	#endif
+
+	PLAYER_DOWN._imageData = _PLAYER_DOWN;
+	PLAYER_UP._imageData = _PLAYER_UP;
+	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+	PLAYER_LEFT._imageData = _PLAYER_LEFT;
+	PLAYER_DOWN._color = PLAYER_IMAGE._color;
+	PLAYER_UP._color = PLAYER_IMAGE._color;	
+	PLAYER_RIGHT._color = PLAYER_IMAGE._color;
+	PLAYER_LEFT._color = PLAYER_IMAGE._color;
+
 	
 	POWERUP_IMAGE._imageData = _POWERUP;
 	GUN_IMAGE._imageData = _GUN;
@@ -224,19 +182,19 @@ void INIT_IMAGES(void)
 
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
-	{
-		cpc_PrintGphStrStdXY(CPC_RED,broken_wall_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);			
+	{		
+		_DRAW(CPC_RED,broken_wall_str,x,y);
 	}
 #endif
 	
 void _draw(unsigned char x, unsigned char y, Image * image) 
-{	
-    cpc_PrintGphStrStdXY(image->_color,char_list+image->_imageData,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
+{		
+	_DRAW(image->_color,char_list+image->_imageData,x,y);	
 }
 
 void _delete(unsigned char x, unsigned char y)
 {
-    cpc_PrintGphStrStdXY(CPC_BLUE,space_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
+	_DRAW(CPC_BLUE,space_str,x,y);	
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
@@ -244,13 +202,13 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	char str[2];	
 
 	if(*blinkCounter) 
-	{
-		cpc_PrintGphStrStdXY(image->_color,char_list+image->_imageData,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
+	{	
+		_DRAW(image->_color,char_list+image->_imageData,x,y);			
 		*blinkCounter=0;
 	} 
 	else 
 	{
-		cpc_PrintGphStrStdXY(1,space_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);
+		_DRAW(CPC_BLUE,space_str,x,y);			
 		*blinkCounter=1;
 	}	
 }
@@ -261,7 +219,7 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 
 	for(i=0;i<length;++i)
 	{
-		cpc_PrintGphStrStdXY(CPC_YELLOW,vertical_brick_str,(x+X_OFFSET)*2,(y+i+Y_OFFSET)*8);			
+		_DRAW(CPC_YELLOW,vertical_brick_str,x,y+i);		
 	}	
 }
 
@@ -271,7 +229,7 @@ void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 
 	for(i=0;i<length;++i)
 	{
-		cpc_PrintGphStrStdXY(CPC_YELLOW,horizontal_brick_str,(x+i+X_OFFSET)*2,(y+Y_OFFSET)*8);			
+		_DRAW(CPC_YELLOW,horizontal_brick_str,x+i,y);		
 	}
 }
 

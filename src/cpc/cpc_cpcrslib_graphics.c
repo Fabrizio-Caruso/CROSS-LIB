@@ -124,8 +124,18 @@ void INIT_GRAPHICS(void)
 {
     //cpc_DisableFirmware();          //Now, I don't gonna use any firmware routine so I modify interrupts jump to nothing
     // cpc_ClrScr();                           //fills scr with ink 0
-    cpc_SetMode(1);                         //hardware call to set mode 1	
+    //cpc_SetMode(1);	//hardware call to set mode 1	
 	
+	// #asm
+		// di
+	// #endasm
+	// cpc_SetModo(1);
+	// cpc_SetInk(0,4);
+	// cpc_SetInk(1,5);
+	// cpc_SetInk(2,6);
+	// cpc_SetInk(3,7);
+	// while(1);	
+
 	// WAIT_PRESS();
 	// cpc_ClrScr();	
 	
@@ -220,12 +230,12 @@ void INIT_IMAGES(void)
 #endif
 	
 void _draw(unsigned char x, unsigned char y, Image * image) 
-{
+{	
     cpc_PrintGphStrStdXY(image->_color,char_list+image->_imageData,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
 }
 
 void _delete(unsigned char x, unsigned char y)
-{	
+{
     cpc_PrintGphStrStdXY(CPC_BLUE,space_str,(x+X_OFFSET)*2,(y+Y_OFFSET)*8);	
 }
 

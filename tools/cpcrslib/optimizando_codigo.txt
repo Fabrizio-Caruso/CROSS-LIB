@@ -1,0 +1,10 @@
+Rutinas en las que se puede optimizar usando código específico para multiplicar:
+
+cpc_SuperbufferAddress
+cpc_SetTile
+cpc_SetTouchTileXY
+cpc_PutMaskSpTileMap2b
+cpc_PutTrSpTileMap2b
+cpc_PutSpTileMap2b
+cpc_ReadTile
+

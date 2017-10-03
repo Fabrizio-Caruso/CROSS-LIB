@@ -20,6 +20,7 @@ Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
 BUILD_PATH ?= build
 MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
+MYZ88DKASM ?= z80asm$(EXEEXT)
 TOOLS_PATH ?= ./tools
 
 
@@ -141,7 +142,9 @@ cpc_no_color:
 	rm $(BUILD_PATH)/FULL_cpc_no_color.prg
 
 cpc_cpcrslib:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -DFULL_GAME -vn -clib=ansi -D__CPC__ -DCPCRSLIB -lcpcrslib -lndos -create-app -o $(BUILD_PATH)/FULL_cpc_cpcrslib.prg $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DKASM) -v   -x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib   @$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst
+	$(Z88DK_PATH)$(MYZ88DKASM) -v -x$(SOURCE_PATH)/../tools/cpcwyzlib/cpcwyzlib.lib @$(SOURCE_PATH)/../tools/cpcwyzlib/cpcwyzlib.lst
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -DFULL_GAME -vn -clib=ansi -D__CPC__ -DCPCRSLIB -l$(SOURCE_PATH)/../tools/cpcwyzlib/cpcwyzlib -l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos -create-app -o $(BUILD_PATH)/FULL_cpc_cpcrslib.prg $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_cpcrslib.cpc  $(BUILD_PATH)/FULL_cpc_cpcrslib.cdt
 	rm $(BUILD_PATH)/FULL_cpc_cpcrslib.cpc 
 	rm $(BUILD_PATH)/FULL_cpc_cpcrslib.prg
@@ -205,7 +208,9 @@ spectrum_clib_no_udg:
 	rm $(BUILD_PATH)/FULL_spectrum_48k_no_udg_clib_BANK_07.bin
 
 cpc_cpcrslib_light:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -vn -clib=ansi -DREDEFINED_CHARS -D__CPC__ -DCPCRSLIB -lcpcrslib -lndos -create-app -o $(BUILD_PATH)/LIGHT_cpc_cpcrslib.prg $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DKASM) -v   -x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib   @$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst
+	$(Z88DK_PATH)$(MYZ88DKASM) -v -x$(SOURCE_PATH)/../tools/cpcwyzlib/cpcwyzlib.lib @$(SOURCE_PATH)/../tools/cpcwyzlib/cpcwyzlib.lst	
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -vn -clib=ansi -DREDEFINED_CHARS -D__CPC__ -DCPCRSLIB -l$(SOURCE_PATH)/../tools/cpcwyzlib/cpcwyzlib -l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos -create-app -o $(BUILD_PATH)/LIGHT_cpc_cpcrslib.prg $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/LIGHT_cpc_cpcrslib.cpc  $(BUILD_PATH)/LIGHT_cpc_cpcrslib.cdt
 	rm $(BUILD_PATH)/LIGHT_cpc_cpcrslib.cpc 
 	rm $(BUILD_PATH)/LIGHT_cpc_cpcrslib.prg

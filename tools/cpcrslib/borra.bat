@@ -1,0 +1,2 @@
+del *.obj
+del *.sym

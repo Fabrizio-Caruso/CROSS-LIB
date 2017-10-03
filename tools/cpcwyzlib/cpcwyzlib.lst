@@ -1,0 +1,11 @@
+cpc_WyzPlayer
+cpc_WyzLoadSong
+cpc_WyzStartEffect
+cpc_WyzSetPlayerOn
+cpc_WyzSetPlayerOff
+cpc_WyzInitPlayer
+cpc_WyzConfigurePlayer
+cpc_WyzTestPlayer
+cpc_WyzStartSound
+cpc_WyzStopMusic
+cpc_WyzSetTempo

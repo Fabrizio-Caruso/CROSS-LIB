@@ -28,10 +28,10 @@
 
 extern unsigned char XSize;
 
-#define CPC_RED 3
 #define CPC_WHITE 1
-#define CPC_BLACK 4
 #define CPC_YELLOW 2 
+#define CPC_RED 3
+#define CPC_BLACK 4
 
 #include "../display_macros.h"
 

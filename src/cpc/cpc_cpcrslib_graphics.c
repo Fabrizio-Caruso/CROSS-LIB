@@ -29,8 +29,8 @@
 extern unsigned char XSize;
 
 #define CPC_RED 3
-#define CPC_CYAN 1
-#define CPC_BLUE 4
+#define CPC_WHITE 1
+#define CPC_BLACK 4
 #define CPC_YELLOW 2 
 
 #include "../display_macros.h"
@@ -159,17 +159,17 @@ void INIT_IMAGES(void)
 
 	DEAD_GHOST_IMAGE._imageData = _GHOST;
 
-	GHOST_IMAGE._color = CPC_CYAN;
-	MISSILE_IMAGE._color = CPC_CYAN;
+	GHOST_IMAGE._color = CPC_WHITE;
+	MISSILE_IMAGE._color = CPC_WHITE;
 
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_MISSILE;
-		LEFT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;
+		LEFT_ENEMY_MISSILE_IMAGE._color = CPC_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_MISSILE;
-		RIGHT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;	
+		RIGHT_ENEMY_MISSILE_IMAGE._color = CPC_WHITE;	
 		
 		BUBBLE_IMAGE._imageData = _BUBBLE;
-		BUBBLE_IMAGE._color = CPC_CYAN;
+		BUBBLE_IMAGE._color = CPC_WHITE;
 		
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
@@ -223,7 +223,7 @@ void _draw(unsigned char x, unsigned char y, Image * image)
 
 void _delete(unsigned char x, unsigned char y)
 {
-	_DRAW(CPC_BLUE,space_str,x,y);	
+	_DRAW(CPC_BLACK,space_str,x,y);	
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
@@ -237,7 +237,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	} 
 	else 
 	{
-		_DRAW(CPC_BLUE,space_str,x,y);			
+		_DRAW(CPC_BLACK,space_str,x,y);			
 		*blinkCounter=1;
 	}	
 }

@@ -465,7 +465,12 @@ void initialScreen(void)
 	setScreenColors();			
 	CLEAR_SCREEN();					
 	printStartMessage();
-
+	
+	#if defined(FULL_GAME)
+		WAIT_PRESS();
+		CLEAR_SCREEN();
+		printHints();	
+	#endif
 }
 		
 int main(void)
@@ -514,8 +519,6 @@ int main(void)
 				msx_vpoke(6147+32, MISSILE_IMAGE._imageData);
 				msx_vpoke(6148+32, DEAD_GHOST_IMAGE._imageData);
 			#endif
-			
-			
 			
 			WAIT_PRESS();
 			CLEAR_SCREEN();

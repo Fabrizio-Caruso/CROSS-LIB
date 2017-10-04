@@ -86,11 +86,7 @@ void printKillTheSkull(void);
 	#define highScoreScreen() _printScore("high score: %05u0", highScore);	
 #endif
 
-// void printLevelBonus(unsigned short bonus);
-
-// void finalScore(void);
-
-// void highScoreScreen(void);
+void printHints(void);
 
 #endif // _DISPLAY
 

@@ -558,10 +558,35 @@ void _printScore(char * text, unsigned int score)
 		PRINT(7, YSize / 2 - 1, "Escape from the enemies");
 		
 		PRINT(7, YSize / 2, "Force them into the mines");
-		
 	}
 #endif
 
+
+void printHints(void)
+{
+	#if defined(__CPC__)
+		SET_TEXT_COLOR(CPC_RED);			
+	#else
+		SET_TEXT_COLOR(COLOR_RED);
+	#endif
+	printCenteredMessageOnRow(3, "C R O S S  C H A S E");	
+	SET_TEXT_COLOR(TEXT_COLOR);		
+
+	#if defined(NO_CASE_LETTERS)
+		printCenteredMessageOnRow(5,  "use the gun against");
+	#else
+		printCenteredMessageOnRow(5,  "Use the gun against");
+	#endif	
+		
+	printCenteredMessageOnRow(8,  "1. the skull or ");
+
+	printCenteredMessageOnRow(10,  "2. missile bases");	
+	
+	printCenteredMessageOnRow(12, "for points and  ");
+
+	printCenteredMessageOnRow(14, "extra power-ups ");
+	
+}
  
 void printStartMessage(void)
 {
@@ -610,11 +635,10 @@ void printStartMessage(void)
 	#endif
 	
 	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
-		printCenteredMessageOnRow(YSize-2, "use the joystick");
+		printCenteredMessageOnRow(YSize-3, "use the joystick");
 	#else		
-		printCenteredMessageOnRow(YSize-4, "use i j k l space");				
+		printCenteredMessageOnRow(YSize-3, "use i j k l space");				
 	#endif	
-
 }
 
 

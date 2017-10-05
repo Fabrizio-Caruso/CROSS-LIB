@@ -96,7 +96,8 @@ void displayStatsTitles(void)
 		PRINT(24,-Y_OFFSET,"-----------");
 		PRINT(24,-Y_OFFSET+1,"cross chase");
 	#elif defined(__CPC__) && defined(CPCRSLIB)
-		SET_TEXT_COLOR(COLOR_RED);	
+		SET_TEXT_COLOR(CPC_RED);	
+		PRINT(24,-Y_OFFSET,"-----------");		
 		PRINT(24,-Y_OFFSET+1,"cross chase");	
 	#endif	
 

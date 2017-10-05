@@ -186,7 +186,11 @@ void set_palette()
 { 
 #asm
     EXTERN firmware
-    
+
+	ld bc,$0000
+    call firmware
+	defw 0xbc38	
+ 
     ld  a,$00
     ld  bc,$0000
     call firmware

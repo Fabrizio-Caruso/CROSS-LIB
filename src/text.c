@@ -32,6 +32,8 @@
 
 #ifdef __ATMOS__
 	#include<peekpoke.h>
+#elif defined(__CPC__) && defined(CPCRSLIB)
+	#include "cpc/cpcrslib.h"	
 #endif
 
 // CPC
@@ -92,15 +94,18 @@ void displayStatsTitles(void)
 	#if defined(CC65) && !defined(NARROW)
 		SET_TEXT_COLOR(COLOR_RED);	
 		PRINT(24,-Y_OFFSET,"-----------");
+		PRINT(24,-Y_OFFSET+1,"cross chase");
+	#elif defined(__CPC__) && defined(CPCRSLIB)
+		SET_TEXT_COLOR(COLOR_RED);	
 		PRINT(24,-Y_OFFSET+1,"cross chase");	
 	#endif	
 
 
 	#if defined(__CPC__) && defined(CPCRSLIB)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		gotoxy(18+1,0 + ADJUST ); cputc('!');cputc(':');
-		gotoxy(18-3,0 + ADJUST); cputc('o');cputc(':');
-		gotoxy(18,1 + ADJUST); cputc('*');cputc(':');		
+		cpc_PrintGphStrStdXY(2,")",(18)*2,0*8);gotoxy(18+2,0 + ADJUST ); cputc(':');
+		cpc_PrintGphStrStdXY(1,"%",(18-4)*2,0*8);gotoxy(18-2,0 + ADJUST); cputc(':');
+		cpc_PrintGphStrStdXY(2,"!",(18-1)*2,1*8);gotoxy(18+1,1 + ADJUST); cputc(':');	
 	#elif defined(WIDE)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(18+1,0 + ADJUST ); cputc(GUN_IMAGE._imageData);cputc(':');

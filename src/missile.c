@@ -80,6 +80,7 @@ void checkMissileVsGhosts(Character * missilePtr)
 		extraPointsCoolDown/=2;
 		invincibilityCoolDown/=2;
 		extraLifeCoolDown/=2;
+		TICK_SOUND();		
 	}
 #endif	
 
@@ -169,7 +170,6 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 						if(dead_bubbles==BUBBLES_NUMBER)
 						{
 							reducePowerUpsCoolDowns();		
-							TICK_SOUND();
 						}
 					}
 				}

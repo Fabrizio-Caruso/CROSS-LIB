@@ -163,12 +163,22 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				}
 				else
 				{
-					initializeCharacter(&ghosts[count],8-count,1,0,&DEAD_GHOST_IMAGE);
+					initializeCharacter(&ghosts[count],GHOSTS_NUMBER-count,1,0,&DEAD_GHOST_IMAGE);
 				}
 				++count;
 			}
 		}
 	}
+	#if GHOSTS_NUMBER>8
+		if(nGhosts>=9)
+		{
+			initializeCharacter(&ghosts[count],XSize-3,YSize-3,1,&GHOST_IMAGE);
+		}
+		else
+		{
+			initializeCharacter(&ghosts[count],1,1,0,&DEAD_GHOST_IMAGE);
+		}
+	#endif
 
 
 	#if BOMBS_NUMBER==4

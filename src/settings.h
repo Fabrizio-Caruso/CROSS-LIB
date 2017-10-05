@@ -136,6 +136,8 @@
 	#define GHOSTS_NUMBER 7
 #elif defined(__ZX81__)
 	#define GHOSTS_NUMBER 7
+#elif defined(__VG5K__) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB))
+	#define GHOSTS_NUMBER 9
 #else
 	#define GHOSTS_NUMBER 8
 #endif

@@ -30,6 +30,24 @@ http://www.cpcwiki.eu/index.php/BIOS_Sound_Functions
  7  Duration, lower 8bit (in 1/100 seconds)  ;\0=endless/until end of ENV?
  8  Duration, upper 8bit                     ;/negative=repeat ENV -N times? 
 */
+void __stop_sound(void)
+{
+#asm
+	EXTERN firmware
+	
+	jr stop_code
+	
+	stop_data: 
+		defb 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00  
+		
+	stop_code:
+		ld hl,stop_data
+		call firmware
+		defw 0xbcaa
+#endasm	
+}
+
+
 void __ping_sound(unsigned char freq)
 {
 #asm
@@ -50,11 +68,13 @@ void __ping_sound(unsigned char freq)
 void _ping_sound(unsigned char freq)
 {
 	unsigned char i=0;
-	
-	for(;i<240;++i)
+
+
+	for(;i<120;++i)
 	{
-		__ping_sound(freq);
-	}
+		__ping_sound(freq);			
+	}	
+	__stop_sound();
 }
 
 void __explosion_sound(unsigned char freq)
@@ -77,11 +97,12 @@ void __explosion_sound(unsigned char freq)
 void _explosion_sound(unsigned char freq)
 {
 	unsigned char i=0;
-	
-	for(;i<4;++i)
+
+	for(;i<240;++i)
 	{
-		__explosion_sound(freq);
+		__explosion_sound(freq);			
 	}
+	__stop_sound
 }
 
 
@@ -104,11 +125,12 @@ void _ZAP_SOUND(void)
 
 void ZAP_SOUND(void)
 {
-	// unsigned char i=0;
+	unsigned char i=0;
 	
-	// for(;i<220;++i)
-	// {
-		_ZAP_SOUND();
-	// }
+	for(;i<240;++i)
+	{
+		_ZAP_SOUND();			
+	}
+	__stop_sound
 }
 

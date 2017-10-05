@@ -209,7 +209,7 @@
 	#define INITIAL_SKULL_SLOWDOWN 29000
 #endif
 
-#define INITIAL_LEVEL 4
+#define INITIAL_LEVEL 1
 
 // Final level 
 #define FINAL_LEVEL 40

@@ -98,7 +98,7 @@
 #if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1))
 	#define CC65
 	#define WIDE
-#elif defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
+#elif defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__ATARI5200__)
 	#define CC65
 	#define NARROW
 #elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ZX81__)

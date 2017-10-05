@@ -88,9 +88,17 @@ extern Character bombs[BOMBS_NUMBER];
 	{	
 	unsigned char lvmod = level%5;
 	if((lvmod==1)||(lvmod==0))
+	{
 		innerVerticalWallLength = 0;
+	}
 	else
-		innerVerticalWallLength = YSize-12+(lvmod-2)*2;
+	{
+		#if defined(WIDE)
+			innerVerticalWallLength = YSize-12+(lvmod-2)*2;
+		#else
+			innerVerticalWallLength = YSize-12+(lvmod-2)*2-4;			
+		#endif
+	}
 
 	innerVerticalWallX = XSize / 2;
 	innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);

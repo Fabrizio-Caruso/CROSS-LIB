@@ -89,6 +89,10 @@ Image GUN_IMAGE;
 			GUN_IMAGE._color = COLOR_BLUE;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;	
+
+			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
+			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;				
 		#elif defined(__ATARI__) || defined(__ATARIXL__)
 			PLAYER_IMAGE._color = COLOR_WHITE;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
@@ -96,20 +100,33 @@ Image GUN_IMAGE;
 			GUN_IMAGE._color = COLOR_GRAY1;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
+
+			EXTRA_POINTS_IMAGE._color = COLOR_WHITE;			
+			EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
+			INVINCIBILITY_IMAGE._color = COLOR_WHITE;				
+			
 		#elif defined(__C16__)
 			PLAYER_IMAGE._color = COLOR_CYAN;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 			POWERUP_IMAGE._color = COLOR_YELLOW;
 			GUN_IMAGE._color = COLOR_YELLOW;
 			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;				
+			DEAD_GHOST_IMAGE._color = COLOR_RED;
+
+			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
+			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;				
 		#else
 			PLAYER_IMAGE._color = COLOR_WHITE;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
 			POWERUP_IMAGE._color = COLOR_WHITE;
 			GUN_IMAGE._color = COLOR_WHITE;
 			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;		
+			DEAD_GHOST_IMAGE._color = COLOR_RED;	
+
+			EXTRA_POINTS_IMAGE._color = COLOR_WHITE;			
+			EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
+			INVINCIBILITY_IMAGE._color = COLOR_WHITE;				
 		#endif
 			
 
@@ -148,8 +165,9 @@ Image GUN_IMAGE;
 			BUBBLE_IMAGE._color = COLOR_WHITE;
 			
 			EXTRA_POINTS_IMAGE._imageData = '$';
-			
+		
 			EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+
 			INVINCIBILITY_IMAGE._imageData = 'V';
 
 			BROKEN_WALL_IMAGE._imageData = 'X';

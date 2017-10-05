@@ -209,7 +209,7 @@
 	#define INITIAL_SKULL_SLOWDOWN 29000
 #endif
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 4
 
 // Final level 
 #define FINAL_LEVEL 40
@@ -224,6 +224,12 @@
 #define DOWN 1
 #define LEFT 2
 #define UP 3
+
+#if defined(WIDE)
+	#define ENEMY_MISSILE_OFFSET 3
+#else
+	#define ENEMY_MISSILE_OFFSET 2
+#endif
 
 // -----------------------------------------------------------------------------------
 #define INVINCIBLE_GHOST_TRIGGER 3

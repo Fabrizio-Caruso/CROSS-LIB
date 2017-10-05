@@ -569,13 +569,17 @@ void printHints(void)
 	#else
 		SET_TEXT_COLOR(COLOR_RED);
 	#endif
-	printCenteredMessageOnRow(3, "C R O S S  C H A S E");	
+	#if defined(NO_CASE_LETTERS)
+		printCenteredMessageOnRow(3, "c r o s s  c h a s e");		
+	#else
+		printCenteredMessageOnRow(3, "C R O S S  C H A S E");	
+	#endif
 	SET_TEXT_COLOR(TEXT_COLOR);		
 
 	#if defined(NO_CASE_LETTERS)
-		printCenteredMessageOnRow(5,  "use the gun against");
+		printCenteredMessageOnRow(6,  "use the gun against");
 	#else
-		printCenteredMessageOnRow(5,  "Use the gun against");
+		printCenteredMessageOnRow(6,  "Use the gun against");
 	#endif	
 		
 	printCenteredMessageOnRow(8,  "1. the skull or ");

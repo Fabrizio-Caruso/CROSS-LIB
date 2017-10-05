@@ -681,12 +681,12 @@ int main(void)
 							if(leftEnemyMissile._x==XSize-2)
 							{
 								leftEnemyMissile._x=0;
-								leftEnemyMissile._y = YSize-4;
+								leftEnemyMissile._y = YSize-1-ENEMY_MISSILE_OFFSET;
 							}
 							else
 							{
 								++leftEnemyMissile._x;
-								if(loop%2 && player._y>=YSize-4-arrowRange && player._x>=leftEnemyMissile._x)
+								if(loop%2 && player._y>=YSize-1-ENEMY_MISSILE_OFFSET-arrowRange && player._x>=leftEnemyMissile._x)
 								{
 									if(player._y>leftEnemyMissile._y)
 									{
@@ -708,15 +708,15 @@ int main(void)
 						if(rightEnemyMissile._status)
 						{
 							DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
-							if(rightEnemyMissile._x==2)
+							if(rightEnemyMissile._x==1)
 							{
-								rightEnemyMissile._x=XSize-1;
-								rightEnemyMissile._y = 4;
+								rightEnemyMissile._x= XSize-1;
+								rightEnemyMissile._y = ENEMY_MISSILE_OFFSET;
 							}
 							else
 							{
 								--rightEnemyMissile._x;
-								if(loop%2 && player._y<=4+arrowRange && player._x<= rightEnemyMissile._x)
+								if(loop%2 && player._y<=ENEMY_MISSILE_OFFSET+arrowRange && player._x<= rightEnemyMissile._x)
 								{
 									if(player._y>rightEnemyMissile._y)
 									{

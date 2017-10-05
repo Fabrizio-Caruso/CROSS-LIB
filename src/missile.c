@@ -133,7 +133,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 			DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
 			if(missileLevel() || bossLevel())
 			{
-				if(missilePtr->_x==XSize-1 && missilePtr->_y==4 && rightEnemyMissile._status)
+				if(missilePtr->_x==XSize-1 && missilePtr->_y==ENEMY_MISSILE_OFFSET && rightEnemyMissile._status)
 				{
 					rightEnemyMissile._status = 0;
 					EXPLOSION_SOUND();
@@ -142,7 +142,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 					displayStats();				
 					reducePowerUpsCoolDowns();		
 				}
-				else if(missilePtr->_x==0 && missilePtr->_y==YSize-4 && leftEnemyMissile._status)
+				else if(missilePtr->_x==0 && missilePtr->_y==YSize-1-ENEMY_MISSILE_OFFSET && leftEnemyMissile._status)
 				{
 					leftEnemyMissile._status = 0;
 					EXPLOSION_SOUND();

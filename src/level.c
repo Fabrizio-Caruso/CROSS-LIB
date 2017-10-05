@@ -149,19 +149,19 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			nGhosts = level/8;
 		}	
 		
-		if(missileLevel() || bossLevel())
-		{	
-			initializeCharacter(&rightEnemyMissile,         XSize-1,      4,            1,&RIGHT_ENEMY_MISSILE_IMAGE);
-			initializeCharacter(&leftEnemyMissile,                0,YSize-4,            1,&LEFT_ENEMY_MISSILE_IMAGE);
-			DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);		
-			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);			
-		}		
+		// if(missileLevel() || bossLevel())
+		// {	
+			// initializeCharacter(&rightEnemyMissile,         XSize-1,      4,            1,&RIGHT_ENEMY_MISSILE_IMAGE);
+			// initializeCharacter(&leftEnemyMissile,                0,YSize-4,            1,&LEFT_ENEMY_MISSILE_IMAGE);
+			// DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);		
+			// DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);			
+		// }		
 		
-		initializeAwayFromWall(&extraPoints, XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
+		// initializeAwayFromWall(&extraPoints, XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
 		
-		initializeAwayFromWall(&extraLife, XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
+		// initializeAwayFromWall(&extraLife, XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
 
-		initializeAwayFromWall(&invincibility, XSize/2, YSize/2, 0, &INVINCIBILITY_IMAGE);		
+		// initializeAwayFromWall(&invincibility, XSize/2, YSize/2, 0, &INVINCIBILITY_IMAGE);		
 		
 	#endif
 	
@@ -238,10 +238,10 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 		if(missileLevel() || bossLevel())
 		{	
-			initializeCharacter(&rightEnemyMissile,         XSize-1,      4,            1,&RIGHT_ENEMY_MISSILE_IMAGE);
-			initializeCharacter(&leftEnemyMissile,                0,YSize-4,            1,&LEFT_ENEMY_MISSILE_IMAGE);
-			DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);		
-			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);			
+			initializeCharacter(&rightEnemyMissile,         XSize-1,         ENEMY_MISSILE_OFFSET, 1,&RIGHT_ENEMY_MISSILE_IMAGE);
+			initializeCharacter(&leftEnemyMissile,                0, YSize-1-ENEMY_MISSILE_OFFSET, 1,&LEFT_ENEMY_MISSILE_IMAGE);
+			// DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);		
+			// DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);			
 		}		
 		
 	#else

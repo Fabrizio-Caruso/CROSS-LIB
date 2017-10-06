@@ -69,7 +69,7 @@
 	#define GAME_SLOW_DOWN 500	
 #elif defined(__MSX__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 350		
+	#define GAME_SLOW_DOWN 400		
 #elif defined(__SVI__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 500			
@@ -136,7 +136,7 @@
 	#define GHOSTS_NUMBER 7
 #elif defined(__ZX81__)
 	#define GHOSTS_NUMBER 7
-#elif defined(__VG5K__) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB))
+#elif defined(__VG5K__) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)
 	#define GHOSTS_NUMBER 9
 #else
 	#define GHOSTS_NUMBER 8

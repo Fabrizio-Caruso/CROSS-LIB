@@ -180,7 +180,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#if GHOSTS_NUMBER>8
 		if(nGhosts>=9)
 		{
-			initializeCharacter(&ghosts[count],XSize-3,YSize-3,1,&GHOST_IMAGE);
+			initializeCharacter(&ghosts[count],XSize-4,YSize-4,1,&GHOST_IMAGE);
 		}
 		else
 		{

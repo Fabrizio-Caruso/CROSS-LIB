@@ -121,7 +121,7 @@
 	#define ADJUST 1
 #endif
 
-#if defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
+#if defined(__ZX81__) || defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define BOMBS_NUMBER 2
 #else
 	#define BOMBS_NUMBER 4
@@ -135,16 +135,19 @@
 #elif defined(__SPECTRUM__) 
 	#define GHOSTS_NUMBER 7
 #elif defined(__ZX81__)
-	#define GHOSTS_NUMBER 7
-#elif defined(__VG5K__) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)
+	#define GHOSTS_NUMBER 6
+#elif defined(__ZX80__) || defined(__VG5K__) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)
 	#define GHOSTS_NUMBER 9
 #else
 	#define GHOSTS_NUMBER 8
 #endif
 	
 
-#define BUBBLES_NUMBER 4
-
+#if defined(__ZX81__)
+	#define BUBBLES_NUMBER 2
+#else
+	#define BUBBLES_NUMBER 4
+#endif
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 3

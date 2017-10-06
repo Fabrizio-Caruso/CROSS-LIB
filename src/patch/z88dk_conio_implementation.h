@@ -50,7 +50,7 @@
 	#if defined(__ZX80__)
 		#define cputc(c) {gen_tv_field(); printf("%c",c); gen_tv_field();}
 	#else
-		#define cputc(c) printf("%c",c);
+		#define cputc(c) fputc_cons(c);
 	#endif
 		
 	#if defined(__SPECTRUM__)

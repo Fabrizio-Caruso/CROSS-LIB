@@ -25,6 +25,25 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
+#if defined(__ZX81__) 
+	#define SKIP_DRAW \
+		if((ghostLevel%4)==0) 
+
+	#define SKIP_MORE_DRAW \
+		if((ghostLevel%16)==0)
+#elif defined(__SPECTRUM__)
+	#define SKIP_DRAW \
+		if((ghostLevel%2)==0) 
+
+	#define SKIP_MORE_DRAW \
+		if((ghostLevel%4)==0)	
+#else
+	#define SKIP_DRAW 
+
+	#define SKIP_MORE_DRAW 
+#endif
+	
+
 #if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__)
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
@@ -123,6 +142,8 @@
 
 #if defined(__ZX81__) || defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define BOMBS_NUMBER 2
+#elif defined(__SPECTRUM__)
+	#define BOMBS_NUMBER 4
 #else
 	#define BOMBS_NUMBER 4
 #endif

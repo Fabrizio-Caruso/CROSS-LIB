@@ -639,7 +639,8 @@ int main(void)
 						--playerInvincibilityCoolDown;
 					}
 					
-					DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
+					SKIP_MORE_DRAW
+						DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
 					
 					if((ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && rocketLevel()) || bossLevel())
 					{ 
@@ -794,10 +795,13 @@ int main(void)
 					playerDies();
 				}
 			
-				DRAW_BOMBS();
+				SKIP_MORE_DRAW
+					DRAW_BOMBS();
 				
 				// Display ghosts
-				displayGhosts();
+				
+				SKIP_DRAW
+					displayGhosts();
 
 				
 				handle_invincible_ghost();

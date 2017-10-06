@@ -34,6 +34,7 @@
 	#include<peekpoke.h>
 #elif defined(__CPC__) && defined(CPCRSLIB)
 	#include "cpc/cpcrslib.h"	
+#elif defined(__ZX81__) || defined(__ZX80__)
 #endif
 
 // CPC
@@ -107,10 +108,15 @@ void displayStatsTitles(void)
 		cpc_PrintGphStrStdXY(2,")",(18)*2,0*8);gotoxy(18+2,0 + ADJUST ); cputc(':');
 		cpc_PrintGphStrStdXY(1,"%",(18-4)*2,0*8);gotoxy(18-2,0 + ADJUST); cputc(':');
 		cpc_PrintGphStrStdXY(2,"!",(18-1)*2,1*8);gotoxy(18+1,1 + ADJUST); cputc(':');	
+	#elif defined(__ZX81__) || defined(__ZX80__)
+		SET_TEXT_COLOR(TEXT_COLOR);		
+		zx_setcursorpos(0+ADJUST-1, 19); cputc(GUN_IMAGE._imageData);cputc(':');
+		zx_setcursorpos(0+ADJUST-1, 15); cputc(GHOST_IMAGE._imageData);cputc(':');
+		zx_setcursorpos(1+ADJUST-1, 18); cputc(PLAYER_IMAGE._imageData);cputc(':');			
 	#elif defined(WIDE)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		gotoxy(18+1,0 + ADJUST ); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(18-3,0 + ADJUST); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(19,0 + ADJUST ); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(15,0 + ADJUST); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(18,1 + ADJUST); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		SET_TEXT_COLOR(TEXT_COLOR);	

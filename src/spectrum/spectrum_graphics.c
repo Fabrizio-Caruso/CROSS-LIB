@@ -61,7 +61,8 @@ extern Image GUN_IMAGE;
 #define UDG_BASE 0xFF58
 
 #if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)
-	#define UDG_N 14
+	// #define UDG_N 14
+	#define UDG_N 16
 	#include <stropts.h>
 	unsigned char my_font[(128-32+UDG_N)*8];
 	extern unsigned char font_8x8_rom[];
@@ -115,6 +116,8 @@ void INIT_GRAPHICS(void)
 		static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
 		static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
 		static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};
+		static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
+		static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};		
 		
 	#endif
 	#if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)
@@ -132,7 +135,9 @@ void INIT_GRAPHICS(void)
 			  0,  0,  8, 56, 28, 16,  0,  0,
 			 60, 66,165,153,153,165, 66, 60,
 			 24, 60, 60, 60,126, 90, 66, 66,
-			 24, 36, 24,  0,153,  0, 36,102
+			 24, 36, 24,  0,153,  0, 36,102,
+	         24, 24, 24, 48, 24, 12, 24, 24,
+	         0,  0,  0,255,  0,  0,  0,  0		 
 		};
 	#endif	
 		

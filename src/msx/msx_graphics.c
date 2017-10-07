@@ -37,6 +37,8 @@
 
 // YELLOW
 #define _INVINCIBLE_GHOST 0x27
+#define _VERTICAL_BRICK 0x26
+#define _HORIZONTAL_BRICK 0x24
 #define _EXTRA_LIFE 0x25
 
 // GREEN
@@ -106,8 +108,8 @@ Image PLAYER_LEFT;
 
 #define _DRAW(x,y,image) msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,image->_imageData);
 #define _DELETE(x,y)     msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,' ');
-#define _DRAW_VERTICAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'|');
-#define _DRAW_HORIZONTAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'-');	
+#define _DRAW_VERTICAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize, _VERTICAL_BRICK); //'|');
+#define _DRAW_HORIZONTAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize, _HORIZONTAL_BRICK); //'-');	
 #define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'X');	
 
 
@@ -140,6 +142,9 @@ void INIT_GRAPHICS(void)
 	static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};
 	
 	static const char dead_ghost[8] =       {129,126,165,129,129,189,129,126};
+	
+	static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
+	static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};	
 		set_color(15, 1, 1);
 	#if defined(MSX_MODE1)
 		set_mode(mode_1);
@@ -177,6 +182,9 @@ void INIT_GRAPHICS(void)
 	redefine(CHAR_BASE+8*_INVINCIBILITY,invincibility);	
 	redefine(CHAR_BASE+8*_DEAD_GHOST,dead_ghost);	
 	
+	redefine(CHAR_BASE+8*_VERTICAL_BRICK,vertical_brick);	
+	redefine(CHAR_BASE+8*_HORIZONTAL_BRICK,horizontal_brick);	
+		
 	#if defined(FULL_GAME)
 		redefine(CHAR_BASE+8*_LEFT_ENEMY_MISSILE,missile_left);	
 		redefine(CHAR_BASE+8*_RIGHT_ENEMY_MISSILE,missile_right);	

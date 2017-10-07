@@ -85,7 +85,9 @@ void INIT_GRAPHICS(void)
 	static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
 	static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
 	static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
-	static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};		
+	static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};	
+	static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
+	static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};	
 	
 	POKE(1177,62); // disable switch to RAM in PEEK
 	for(i=0;i<1023;++i)
@@ -114,6 +116,8 @@ void INIT_GRAPHICS(void)
 	redefine(24576+4096+1024+296-8*3,ghost);
 	redefine(24576+4096+1024+296+8*22,bubble);
 	redefine(24576+4096+1024+296+8*23,invincibility);
+	redefine(24576+4096+1024+296+8*87,vertical_brick);
+	redefine(24576+4096+1024+296+8*25,horizontal_brick);	
 }
  
  
@@ -148,6 +152,9 @@ void INIT_IMAGES(void)
 	PLAYER_LEFT._imageData = '(';
 	PLAYER_LEFT._color = COLOR_CYAN;
 		
+	#define VERTICAL_BRICK 124
+	#define HORIZONTAL_BRICK 62
+	
 	#if defined(FULL_GAME)
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = ')';
 		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		

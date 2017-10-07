@@ -216,6 +216,7 @@ void INIT_IMAGES(void)
 		POWERUP_IMAGE._imageData = 136;
 		GUN_IMAGE._imageData = 135;
 		MISSILE_IMAGE._imageData = 137;
+		#define VERTICAL_BRICK 142
 		#if defined(FULL_GAME)
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;		
@@ -235,6 +236,7 @@ void INIT_IMAGES(void)
 		POWERUP_IMAGE._imageData = 137;
 		MISSILE_IMAGE._imageData = 138;	
 		BOMB_IMAGE._imageData = 139;
+		#define VERTICAL_BRICK 142
 		#if defined(FULL_GAME)
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = 134;		
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = 133;	
@@ -282,7 +284,7 @@ void INIT_IMAGES(void)
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		SET_TEXT_COLOR(COLOR_WHITE);
-		cputc('X');
+		cputc(BOMB_IMAGE._imageData);
 	}
 #endif
 	
@@ -322,7 +324,7 @@ void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 	SET_TEXT_COLOR(COLOR_WHITE);
 	for(i=0;i<length;++i) 
 	{ 
-		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); 
+		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  putchar(VERTICAL_BRICK);//printf("%c",'|'); 
 	} 
 }
 

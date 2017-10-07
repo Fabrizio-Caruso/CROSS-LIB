@@ -154,7 +154,7 @@
 #elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define GHOSTS_NUMBER 6
 #elif defined(__SPECTRUM__) 
-	#define GHOSTS_NUMBER 8
+	#define GHOSTS_NUMBER 9
 #elif defined(__ZX81__)
 	#define GHOSTS_NUMBER 6
 #elif defined(__ZX80__) || defined(__VG5K__) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)

@@ -246,16 +246,11 @@ void _delete(unsigned char x, unsigned char y);
 		POKE(0xBB80+(0+X_OFFSET)+(YSize-1+Y_OFFSET)*40,CH_LLCORNER+128); \
 		POKE(0xBB80+(38-1+X_OFFSET)+(YSize-1+Y_OFFSET)*40,CH_LRCORNER+128); \
 	} 
-#elif defined(__SPECTRUM__)
-		
+#elif defined(__SPECTRUM__)	
 	#define DRAW_BORDERS() \
 	{ \
-		unsigned char i; \
-		SET_TEXT_COLOR(TEXT_COLOR); \
-		gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-		printf("--------------------------------"); \
-		gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
-		printf("--------------------------------"); \
+		DRAW_HORIZONTAL_BORDER(0); \
+		DRAW_HORIZONTAL_BORDER(YSize-1); \
 		DRAW_VERTICAL_LINE(0, 1, YSize - 1);\
 		DRAW_VERTICAL_LINE(XSize - 1, 1, YSize - 1); \
 	}
@@ -358,6 +353,7 @@ void _delete(unsigned char x, unsigned char y);
 
 	#if defined(REDEFINED_CHARS)
 		void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
+		void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length);		
 	#else
 		#define DRAW_VERTICAL_LINE(x, y, length) \
 		{ \

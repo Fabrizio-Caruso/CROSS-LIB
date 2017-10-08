@@ -217,6 +217,7 @@ void INIT_IMAGES(void)
 		GUN_IMAGE._imageData = 135;
 		MISSILE_IMAGE._imageData = 137;
 		#define VERTICAL_BRICK 142
+		#define HORIZONTAL_BRICK 143
 		#if defined(FULL_GAME)
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;		
@@ -237,6 +238,7 @@ void INIT_IMAGES(void)
 		MISSILE_IMAGE._imageData = 138;	
 		BOMB_IMAGE._imageData = 139;
 		#define VERTICAL_BRICK 142
+		#define HORIZONTAL_BRICK 143
 		#if defined(FULL_GAME)
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = 134;		
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = 133;	
@@ -316,6 +318,19 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		*blinkCounter=1;
 	}	
 }
+
+
+void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
+{ 
+	unsigned char i; 
+	
+	SET_TEXT_COLOR(COLOR_WHITE);
+	for(i=0;i<length;++i) 
+	{ 
+		gotoxy(x+X_OFFSET+i,y+Y_OFFSET);  putchar(HORIZONTAL_BRICK);; 
+	} 
+}
+
 
 void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
 { 

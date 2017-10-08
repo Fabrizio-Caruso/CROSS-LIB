@@ -489,6 +489,16 @@ int main(void)
 		INIT_IMAGES();
 		
 		#if defined(DEBUG_CHARS)
+		{
+			unsigned char i;
+			for(i=32;i<255;++i)
+			{
+				printf(" %d: %c", i, i);
+				WAIT_PRESS();
+			}
+		}
+		
+		
 			PRINTF(1,0,"ghost %c\n", GHOST_IMAGE._imageData);
 			PRINTF(1,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
 			PRINTF(1,2,"bomb %c\n", BOMB_IMAGE._imageData);

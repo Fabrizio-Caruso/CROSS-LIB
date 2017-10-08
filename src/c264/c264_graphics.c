@@ -112,11 +112,11 @@ void INIT_GRAPHICS(void)
 	redefine(24576+4096+1024+296-8*2,powerUp);
 	redefine(24576+4096+1024+296+8*9,missile);
 
-	redefine(24576+4096+1024+296+8*10,bomb);
+	redefine(24576+4096+1024+296+8*10,bomb); //47
 	redefine(24576+4096+1024+296-8*3,ghost);
 	redefine(24576+4096+1024+296+8*22,bubble);
 	redefine(24576+4096+1024+296+8*23,invincibility);
-	redefine(24576+4096+1024+296+8*87,vertical_brick);
+	redefine(24576+4096+1024+296+8*24,vertical_brick); 
 	redefine(24576+4096+1024+296+8*25,horizontal_brick);	
 }
  
@@ -133,7 +133,7 @@ void INIT_IMAGES(void)
 
 	GHOST_IMAGE._imageData = '"';
 	INVINCIBLE_GHOST_IMAGE._imageData = '+';
-	BOMB_IMAGE._imageData = '/';
+	BOMB_IMAGE._imageData = '/'; //47
 	PLAYER_IMAGE._imageData = '%';
 	POWERUP_IMAGE._imageData = '#';
 	GUN_IMAGE._imageData = ',';
@@ -152,7 +152,7 @@ void INIT_IMAGES(void)
 	PLAYER_LEFT._imageData = '(';
 	PLAYER_LEFT._color = COLOR_CYAN;
 		
-	#define VERTICAL_BRICK 124
+	#define VERTICAL_BRICK '='
 	#define HORIZONTAL_BRICK 62
 	
 	#if defined(FULL_GAME)
@@ -213,14 +213,14 @@ void _delete(char x, char y)
 	gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');
 };
 
+void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
+{
+	unsigned char i;
+	SET_TEXT_COLOR(COLOR_WHITE);
 
-// void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
-// { 
-	// unsigned char i; 
-	
-	// SET_TEXT_COLOR(COLOR_WHITE);
-	// for(i=0;i<length-1;++i) 
-	// { 
-		// gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  putchar('|'); //putchar(VERTICAL_BRICK);//printf("%c",'|'); 
-	// } 
-// }
+	for(i=0;i<length;++i) 
+	{ 
+		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  putchar(VERTICAL_BRICK);
+	} 	
+}
+

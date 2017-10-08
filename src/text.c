@@ -594,9 +594,9 @@ void printHints(void)
 		printCenteredMessageOnRow(6,  "Use the gun against");
 	#endif	
 		
-	printCenteredMessageOnRow(8,  "1. the skull or ");
+	printCenteredMessageOnRow(8,  "the skull and");
 
-	printCenteredMessageOnRow(10,  "2. missile bases");	
+	printCenteredMessageOnRow(10, "missile bases");	
 	
 	printCenteredMessageOnRow(12, "for points and  ");
 

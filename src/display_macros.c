@@ -90,9 +90,11 @@ Image GUN_IMAGE;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;	
 
-			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
-			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
-			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;				
+			#if defined(FULL_GAME)
+				EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
+				EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
+			#endif
 		#elif defined(__ATARI__) || defined(__ATARIXL__)
 			PLAYER_IMAGE._color = COLOR_WHITE;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
@@ -101,9 +103,11 @@ Image GUN_IMAGE;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
 
-			EXTRA_POINTS_IMAGE._color = COLOR_WHITE;			
-			EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
-			INVINCIBILITY_IMAGE._color = COLOR_WHITE;				
+			#if defined(FULL_GAME)
+				EXTRA_POINTS_IMAGE._color = COLOR_WHITE;			
+				EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
+				INVINCIBILITY_IMAGE._color = COLOR_WHITE;		
+			#endif
 			
 		#elif defined(__C16__)
 			PLAYER_IMAGE._color = COLOR_CYAN;
@@ -113,9 +117,11 @@ Image GUN_IMAGE;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
 
-			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
-			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
-			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;				
+			#if defined(FULL_GAME)
+				EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
+				EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
+			#endif
 		#else
 			PLAYER_IMAGE._color = COLOR_WHITE;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
@@ -124,9 +130,11 @@ Image GUN_IMAGE;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;	
 
-			EXTRA_POINTS_IMAGE._color = COLOR_WHITE;			
-			EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
-			INVINCIBILITY_IMAGE._color = COLOR_WHITE;				
+			#if defined(FULL_GAME)
+				EXTRA_POINTS_IMAGE._color = COLOR_WHITE;			
+				EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
+				INVINCIBILITY_IMAGE._color = COLOR_WHITE;		
+			#endif
 		#endif
 			
 

@@ -267,14 +267,17 @@ void _delete(unsigned char x, unsigned char y);
 		DRAW_HORIZONTAL_LINE (1+X_OFFSET,YSize-1,XSize-1);\
 		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 1); \
 	}
-// #elif defined(__C16__) || defined(__PLUS4__)
-		// #define DRAW_BORDERS() \
-		// { \
-			// SET_TEXT_COLOR(TEXT_COLOR); \
-			// DRAW_VERTICAL_LINE(0, 1, YSize - 1);\
-			// DRAW_VERTICAL_LINE(XSize - 1, 1, YSize - 1); \
-		// }	
-//#elif !defined(__C16__) && !defined(__PLUS4__) && 
+#elif defined(__C16__) || defined(__PLUS4__)
+		#define DRAW_BORDERS() \
+		{ \
+			SET_TEXT_COLOR(TEXT_COLOR); \
+			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+			chline (XSize-1);\
+			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
+			chline (XSize-1);\
+			DRAW_VERTICAL_LINE(0, 1, YSize - 2);\
+			DRAW_VERTICAL_LINE(XSize - 2, 1, YSize - 2); \
+		}	
 #elif defined(CC65) && (defined(WIDE) || defined(__VIC20__))
 	#define DRAW_BORDERS()\
 		{ \

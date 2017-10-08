@@ -639,9 +639,6 @@ int main(void)
 						--playerInvincibilityCoolDown;
 					}
 					
-					SKIP_MORE_DRAW
-						DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
-					
 					if((ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && rocketLevel()) || bossLevel())
 					{ 
 						unsigned char i;
@@ -762,13 +759,10 @@ int main(void)
 				
 				ghostSlowDown = computeGhostSlowDown();
 
-
 				MOVE_PLAYER();
-
-				
+	
 				handle_missile();
 			
-
 				chasePlayer(ghostSlowDown);
 				
 				// This detects collisions of ghosts that have just moved
@@ -795,11 +789,17 @@ int main(void)
 					playerDies();
 				}
 			
-				SKIP_MORE_DRAW
-					DRAW_BOMBS();
-				
+				#if defined(FULL_GAME)
+					SKIP_MORE_DRAW
+					{
+						DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);			
+						DRAW_BOMBS();	
+					}
+				#else
+					SKIP_MORE_DRAW
+						DRAW_BOMBS();
+				#endif
 				// Display ghosts
-				
 				SKIP_DRAW
 					displayGhosts();
 

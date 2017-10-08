@@ -256,11 +256,8 @@ void _delete(unsigned char x, unsigned char y);
 		printf("--------------------------------"); \
 		gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
 		printf("--------------------------------"); \
-		for(i=0;i<YSize;++i) \
-		{ \
-			gotoxy(0 + X_OFFSET,i + Y_OFFSET); putchar('|'); \
-			gotoxy(XSize-1+X_OFFSET,i+Y_OFFSET);putchar('|'); \
-		} \
+		DRAW_VERTICAL_LINE(0, 1, YSize - 1);\
+		DRAW_VERTICAL_LINE(XSize - 1, 1, YSize - 1); \
 	}
 #elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
 	#define DRAW_BORDERS()\
@@ -270,6 +267,14 @@ void _delete(unsigned char x, unsigned char y);
 		DRAW_HORIZONTAL_LINE (1+X_OFFSET,YSize-1,XSize-1);\
 		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 1); \
 	}
+// #elif defined(__C16__) || defined(__PLUS4__)
+		// #define DRAW_BORDERS() \
+		// { \
+			// SET_TEXT_COLOR(TEXT_COLOR); \
+			// DRAW_VERTICAL_LINE(0+X_OFFSET, 1+Y_OFFSET, YSize - 1);\
+			// DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 1); \
+		// }	
+//#elif !defined(__C16__) && !defined(__PLUS4__) && 
 #elif defined(CC65) && (defined(WIDE) || defined(__VIC20__))
 	#define DRAW_BORDERS()\
 		{ \

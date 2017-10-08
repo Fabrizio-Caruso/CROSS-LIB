@@ -212,3 +212,15 @@ void _delete(char x, char y)
 {
 	gotoxy(x+X_OFFSET,y+Y_OFFSET);cputc(' ');
 };
+
+
+// void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
+// { 
+	// unsigned char i; 
+	
+	// SET_TEXT_COLOR(COLOR_WHITE);
+	// for(i=0;i<length-1;++i) 
+	// { 
+		// gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  putchar('|'); //putchar(VERTICAL_BRICK);//printf("%c",'|'); 
+	// } 
+// }

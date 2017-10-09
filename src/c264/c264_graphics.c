@@ -179,8 +179,8 @@ void INIT_IMAGES(void)
 	void DRAW_BROKEN_WALL(char x, char y)
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (COLOR_WHITE);
-		cputc('X');
+		(void) textcolor (COLOR_RED);
+		cputc(BOMB_IMAGE._imageData);
 	}
 #endif
 

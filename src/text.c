@@ -48,34 +48,38 @@ extern unsigned char XSize;
 extern unsigned char YSize;
 
 #if defined(COLOR)
+	void printCenteredMessageOnRow(unsigned char row, char *Text)
+	{
+		PRINTF((XSize - strlen (Text)) / 2, row,"%s", Text)		
+	}
+	
 	void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text)
 	{
 		SET_TEXT_COLOR(col);
-		PRINTF((XSize - strlen (Text)) / 2, row,"%s", Text);	
+		printCenteredMessageOnRow(row, Text);
 	}
+		
 #else
+	void printCenteredMessageOnRow(unsigned char row, char *Text)
+	{
+		PRINTF((XSize - strlen (Text)) / 2, row,"%s", Text)		
+	}
 	#define printCenteredMessageOnRowWithCol(row, col, Text) \
-		PRINTF((XSize - strlen (Text)) / 2, row,"%s", Text)
+		printCenteredMessageOnRow(row, Text)
 #endif
 
 #if defined(COLOR)
 	#define printCenteredMessage(Text) \
-		printCenteredMessageOnRowWithCol(YSize / 2, COLOR_WHITE, Text)
-
-	#define printCenteredMessageOnRow(row,Text) \
-		printCenteredMessageOnRowWithCol(row, COLOR_WHITE, Text)
+		printCenteredMessageOnRow(YSize / 2, Text)
 
 	#define printCenteredMessageWithCol(col, Text) \
 		printCenteredMessageOnRowWithCol(YSize / 2, col, Text)	
 #else
 	#define printCenteredMessage(Text) \
-		PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text)	
-
-	#define printCenteredMessageOnRow(row,Text) \
-		PRINTF((XSize - strlen (Text)) / 2, row,"%s", Text)	
+		printCenteredMessageOnRow(YSize/2, Text)
 		
 	#define printCenteredMessageWithCol(col, Text) \
-		PRINTF((XSize - strlen (Text)) / 2, YSize / 2,"%s", Text)
+		printCenteredMessageOnRow(YSize/2, Text)
 #endif
 	
 

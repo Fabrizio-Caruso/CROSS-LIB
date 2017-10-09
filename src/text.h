@@ -47,7 +47,7 @@ void printLivesStats(void);
 
 void setScreenColors(void);
 
-// void printCenteredMessage(char *Text);
+void printCenteredMessageOnRow(unsigned char row, char *Text);
 
 #if defined(COLOR)
 	void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text);

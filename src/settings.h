@@ -159,14 +159,16 @@
 	#define GHOSTS_NUMBER 9
 #elif defined(__ZX81__)
 	#define GHOSTS_NUMBER 6
-#elif defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__VG5K__) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)
+#elif defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)
 	#define GHOSTS_NUMBER 9
+#elif defined(__VG5k__)
+	#define GHOSTS_NUMBER 8
 #else
 	#define GHOSTS_NUMBER 8
 #endif
 	
 
-#if defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
+#if defined(__VG5k__) || defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
 	#define NO_COLOR
 #else
 	#define COLOR

@@ -247,8 +247,8 @@ void _delete(unsigned char x, unsigned char y);
 	{ \
 		DRAW_HORIZONTAL_BORDER(0); \
 		DRAW_HORIZONTAL_BORDER(YSize-1); \
-		DRAW_VERTICAL_LINE(0, 1, YSize - 1);\
-		DRAW_VERTICAL_LINE(XSize - 1, 1, YSize - 1); \
+		DRAW_VERTICAL_LINE(0, 1, YSize);\
+		DRAW_VERTICAL_LINE(XSize - 1, 1, YSize); \
 	}
 #elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
 	#define DRAW_BORDERS()\

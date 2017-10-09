@@ -205,7 +205,7 @@ void INIT_GRAPHICS(void)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y) 
 		{
 			gotoxy(x+X_OFFSET,(y+Y_OFFSET)); 
-			cputc('X' + 128);
+			cputc(BOMB_IMAGE._imageData + BOMB_IMAGE._color);
 		};	 
 #endif
 

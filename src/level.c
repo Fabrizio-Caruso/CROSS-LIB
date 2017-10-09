@@ -104,6 +104,10 @@ extern Character bombs[BOMBS_NUMBER];
 	innerVerticalWallY = YSize/2-(innerVerticalWallLength/2);
 	}
 
+	unsigned char oneMissileLevel(void)
+	{
+		return level%5==3;		
+	}
 
 	unsigned char rocketLevel(void)
 	{
@@ -239,6 +243,10 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 		initializeAwayFromWall(&invincibility, XSize/2, YSize/2, 0, &INVINCIBILITY_IMAGE);
 
+		if(oneMissileLevel())
+		{
+			initializeCharacter(&rightEnemyMissile,         XSize-1,                      YSize/2, 1,&RIGHT_ENEMY_MISSILE_IMAGE);			
+		}
 		if(missileLevel() || bossLevel())
 		{	
 			initializeCharacter(&rightEnemyMissile,         XSize-1,         ENEMY_MISSILE_OFFSET, 1,&RIGHT_ENEMY_MISSILE_IMAGE);

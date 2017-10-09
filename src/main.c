@@ -681,9 +681,9 @@ int main(void)
 					}
 
 					
-					if(missileLevel() || bossLevel())
+					if(missileLevel() || bossLevel() || oneMissileLevel())
 					{
-						if(leftEnemyMissile._status)
+						if(!oneMissileLevel() && leftEnemyMissile._status)
 						{
 							DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 							if(leftEnemyMissile._x==XSize-2)
@@ -719,12 +719,20 @@ int main(void)
 							if(rightEnemyMissile._x==1)
 							{
 								rightEnemyMissile._x= XSize-1;
-								rightEnemyMissile._y = ENEMY_MISSILE_OFFSET;
+								if(oneMissileLevel())
+								{
+									rightEnemyMissile._y = YSize/2;					
+								}
+								else
+								{
+									rightEnemyMissile._y = ENEMY_MISSILE_OFFSET;
+								}
 							}
 							else
 							{
 								--rightEnemyMissile._x;
-								if(loop%2 && player._y<=ENEMY_MISSILE_OFFSET+arrowRange && player._x<= rightEnemyMissile._x)
+								if((!oneMissileLevel() && loop%2 && player._y<=ENEMY_MISSILE_OFFSET+arrowRange && player._x<= rightEnemyMissile._x) ||
+								    (oneMissileLevel() && loop%2 && player._y<=YSize/2+arrowRange && player._y>=YSize/2-arrowRange && player._x<= rightEnemyMissile._x))
 								{
 									if(player._y>rightEnemyMissile._y)
 									{

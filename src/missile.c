@@ -132,6 +132,18 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
 		#if defined(FULL_GAME)
 			DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+			if(oneMissileLevel())
+			{
+				if(missilePtr->_x==XSize-1 && missilePtr->_y==YSize/2 && rightEnemyMissile._status)
+				{
+					rightEnemyMissile._status = 0;
+					EXPLOSION_SOUND();
+					DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
+					points+=HORIZONTAL_MISSILE_BONUS;
+					displayStats();				
+					reducePowerUpsCoolDowns();		
+				}
+			}				
 			if(missileLevel() || bossLevel())
 			{
 				if(missilePtr->_x==XSize-1 && missilePtr->_y==ENEMY_MISSILE_OFFSET && rightEnemyMissile._status)

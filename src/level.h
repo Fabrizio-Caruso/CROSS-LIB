@@ -32,7 +32,9 @@ void fillLevelWithCharacters(unsigned char nGhosts);
 
 #if defined(FULL_GAME)
 	void updateInnerWallVerticalData(void);
-
+	
+	unsigned char oneMissileLevel(void);
+	
 	unsigned char rocketLevel(void);
 
 	unsigned char missileLevel(void);	

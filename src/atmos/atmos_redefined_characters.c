@@ -89,6 +89,9 @@ void INIT_IMAGES(void)
 
 	const unsigned char invincibility[] =           {12,18,12,51, 0,12, 0,51};
 	
+	static const char vertical_brick[] =   { 24, 24, 24, 48, 24, 12, 24, 24};
+	static const char horizontal_brick[] = {  0,  0,  0,255,  0,  0,  0,  0};		
+	
 	#if defined(FULL_GAME)
 		const unsigned char right_arrow[] =             { 0, 0,56,31,31,56, 0, 0};
 		const unsigned char left_arrow[] =            { 0, 0, 7,62,62, 7, 0, 0};
@@ -149,6 +152,10 @@ void INIT_IMAGES(void)
 		redefine(0xb400 + BUBBLE_IMAGE._imageData*8,bubble);
 		redefine(0xb400 + '<'*8,left_arrow);
 		redefine(0xb400 + '>'*8,right_arrow);
+		
+		redefine(0xb400 + '|'*8,vertical_brick);		
+		redefine(0xb400 + '-'*8,horizontal_brick);
+		
 	#endif 
 	
 	redefine(0xb400 + GHOST_IMAGE._imageData*8, ghost);		
@@ -163,8 +170,8 @@ void INIT_IMAGES(void)
 	redefine(0xb400 + PLAYER_UP._imageData*8,player_up);		
 	redefine(0xb400 + PLAYER_DOWN._imageData*8,player_down);
 
-	redefine(0xb400 + '|'*8,vertical_bar);
-	redefine(0xb400 + '-'*8,horizontal_bar);		
+	// redefine(0xb400 + '|'*8,vertical_bar);
+	// redefine(0xb400 + '-'*8,horizontal_bar);		
 	redefine(0xb400 + '+'*8,corner);
 	
 	for(i=0;i<8;++i)

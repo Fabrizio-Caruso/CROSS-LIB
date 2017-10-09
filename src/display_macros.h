@@ -225,26 +225,22 @@ void _delete(unsigned char x, unsigned char y);
 	{ \
 		unsigned char i; \
 		\
-		for(i=0;i<38-1;++i) \
+		for(i=0;i<38;++i) \
 		{ \
-			POKE(0xBB80+(i+X_OFFSET)+(0+Y_OFFSET)*40,'-' + 128); \
+			POKE(0xBB80+(i+X_OFFSET)+(0+Y_OFFSET)*40,'-'); \
 		} \
 		for(i=0;i<YSize-Y_OFFSET;++i) \
 		{ \
-			POKE(0xBB80+(0+X_OFFSET)+(1+i+Y_OFFSET)*40,'|' + 128); \
+			POKE(0xBB80+(0+X_OFFSET)+(1+i+Y_OFFSET)*40,'|'); \
 		} \
-		for(i=0;i<38-1;++i) \
+		for(i=0;i<38;++i) \
 		{ \
-			POKE(0xBB80+(i+X_OFFSET)+(YSize-1+Y_OFFSET)*40,'-' + 128); \
+			POKE(0xBB80+(i+X_OFFSET)+(YSize-1+Y_OFFSET)*40,'-'); \
 		} \
 		for(i=0;i<YSize-Y_OFFSET;++i) \
 		{ \
-			POKE(0xBB80+(38-1+X_OFFSET)+(1+i+Y_OFFSET)*40,'|' + 128); \
+			POKE(0xBB80+(38-1+X_OFFSET)+(1+i+Y_OFFSET)*40,'|'); \
 		} \
-		POKE(0xBB80+(0+X_OFFSET)+(0+Y_OFFSET)*40,CH_ULCORNER+128); \
-		POKE(0xBB80+(38-1+X_OFFSET)+(0+Y_OFFSET)*40,CH_URCORNER+128); \
-		POKE(0xBB80+(0+X_OFFSET)+(YSize-1+Y_OFFSET)*40,CH_LLCORNER+128); \
-		POKE(0xBB80+(38-1+X_OFFSET)+(YSize-1+Y_OFFSET)*40,CH_LRCORNER+128); \
 	} 
 #elif defined(__SPECTRUM__)	
 	#define DRAW_BORDERS() \
@@ -337,7 +333,7 @@ void _delete(unsigned char x, unsigned char y);
 		unsigned char i; \
 		for(i=0;i<length;++i) \
 		{ \
-			POKE(0xBB80+(x+X_OFFSET)+(y+i+Y_OFFSET)*40,'|'+128); \
+			POKE(0xBB80+(x+X_OFFSET)+(y+i+Y_OFFSET)*40,'|'); \
 		} \
 	}
 

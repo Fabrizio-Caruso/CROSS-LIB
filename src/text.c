@@ -530,7 +530,12 @@ void _printScore(char * text, unsigned int score)
 		POKE(0xBB80+9*40,16);POKE(0xBB80+1+9*40,1); POKE(0xBB80+2+9*40,10);
 		POKE(0xBB80+10*40,16);POKE(0xBB80+1+10*40,3); POKE(0xBB80+2+10*40,10);
 		POKE(0xBB80+11*40,16);POKE(0xBB80+1+11*40,3); POKE(0xBB80+2+11*40,10);
-
+		
+		POKE(0xBB80+12*40,16);POKE(0xBB80+1+12*40,4); 
+		POKE(0xBB80+13*40,16);POKE(0xBB80+1+13*40,4); 
+		POKE(0xBB80+14*40,16);POKE(0xBB80+1+14*40,4); 
+		POKE(0xBB80+15*40,16);POKE(0xBB80+1+15*40,4); 
+		
 		gotoxy(19,6); cputc(PLAYER_IMAGE._imageData);
 		gotoxy(19,7); cputc(PLAYER_IMAGE._imageData);
 		

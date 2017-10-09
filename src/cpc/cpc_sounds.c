@@ -30,25 +30,25 @@ http://www.cpcwiki.eu/index.php/BIOS_Sound_Functions
  7  Duration, lower 8bit (in 1/100 seconds)  ;\0=endless/until end of ENV?
  8  Duration, upper 8bit                     ;/negative=repeat ENV -N times? 
 */
-void __stop_sound(void)
-{
-#asm
-	EXTERN firmware
+// void __stop_sound(void)
+// {
+// #asm
+	// EXTERN firmware
 	
-	jr stop_code
+	// jr stop_code
 	
-	stop_data: 
-		defb 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00  
+	// stop_data: 
+		// defb 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00  
 		
-	stop_code:
-		ld hl,stop_data
-		call firmware
-		defw 0xbcaa
-#endasm	
-}
+	// stop_code:
+		// ld hl,stop_data
+		// call firmware
+		// defw 0xbcaa
+// #endasm	
+// }
 
 
-void __ping_sound(unsigned char freq)
+void __ping_sound(void)
 {
 #asm
 	EXTERN firmware
@@ -56,7 +56,7 @@ void __ping_sound(unsigned char freq)
 	jr ping_code
 	
 	ping_data: 
-		defb 0x01, 0x00, 0x00, 0xf0, 0x01, 0x00, 0x0f, 0x60, 0x00  
+		defb 1,0,0,142,0,0,12,50,0  
 		
 	ping_code:
 		ld hl,ping_data
@@ -65,19 +65,18 @@ void __ping_sound(unsigned char freq)
 #endasm	
 }
 
-void _ping_sound(unsigned char freq)
+void _ping_sound(void)
 {
 	unsigned char i=0;
 
-
-	for(;i<120;++i)
-	{
-		__ping_sound(freq);			
+	__ping_sound();
+	for(;i<250;++i)
+	{		
 	}	
-	__stop_sound();
+	// __stop_sound();
 }
 
-void __explosion_sound(unsigned char freq)
+void __explosion_sound(void)
 {
 #asm
 	EXTERN firmware
@@ -85,8 +84,8 @@ void __explosion_sound(unsigned char freq)
 	jr explosion_code
 	
 	explosion_data: 
-		defb 0x01, 0x00, 0x00, 0xa0, 0x01, 0xff, 0x0f, 0x60, 0x00  
-	
+		defb 1,0,0,142,0,0,12,50,0
+		
 	explosion_code:	
 		ld hl,explosion_data
 		call firmware
@@ -94,15 +93,15 @@ void __explosion_sound(unsigned char freq)
 #endasm		
 }
 
-void _explosion_sound(unsigned char freq)
+void _explosion_sound(void)
 {
 	unsigned char i=0;
 
+	__explosion_sound();
 	for(;i<240;++i)
 	{
-		__explosion_sound(freq);			
 	}
-	__stop_sound
+    // __stop_sound
 }
 
 
@@ -114,7 +113,7 @@ void _ZAP_SOUND(void)
 	jr zap_code
 	
 	zap_data: 
-		defb 0x01, 0x00, 0x00, 0xb0, 0x01, 0x00, 0x0f, 0x60, 0x00  
+		defb 1,0,0,142,0,0,12,50,0
 	
 	zap_code:	
 		ld hl,zap_data
@@ -127,10 +126,11 @@ void ZAP_SOUND(void)
 {
 	unsigned char i=0;
 	
-	for(;i<240;++i)
-	{
-		_ZAP_SOUND();			
-	}
-	__stop_sound
+
+	_ZAP_SOUND();			
+	
+	for(;i<250;++i)
+	{}
+	// __stop_sound
 }
 

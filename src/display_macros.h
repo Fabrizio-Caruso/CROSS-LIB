@@ -261,7 +261,6 @@ void _delete(unsigned char x, unsigned char y);
 #elif (defined(__C16__) || defined(__PLUS4__)) && defined(REDEFINED_CHARS)
 		#define DRAW_BORDERS() \
 		{ \
-			SET_TEXT_COLOR(TEXT_COLOR); \
 			DRAW_HORIZONTAL_LINE (0,0, XSize);\
 			DRAW_VERTICAL_LINE(XSize - 1, 1, YSize - 2); \
 			DRAW_VERTICAL_LINE(0,1,YSize-2); \

@@ -262,12 +262,10 @@ void _delete(unsigned char x, unsigned char y);
 		#define DRAW_BORDERS() \
 		{ \
 			SET_TEXT_COLOR(TEXT_COLOR); \
-			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-			chline (XSize-1);\
-			gotoxy(0+X_OFFSET,YSize-1+Y_OFFSET); \
-			chline (XSize-1);\
-			DRAW_VERTICAL_LINE(0, 1, YSize - 2);\
-			DRAW_VERTICAL_LINE(XSize - 2, 1, YSize - 2); \
+			DRAW_HORIZONTAL_LINE (0,0, XSize);\
+			DRAW_VERTICAL_LINE(XSize - 1, 1, YSize - 2); \
+			DRAW_VERTICAL_LINE(0,1,YSize-2); \
+			DRAW_HORIZONTAL_LINE (0,YSize-1,XSize);\
 		}	
 #elif defined(CC65) && (defined(WIDE) || defined(__VIC20__))
 	#define DRAW_BORDERS()\
@@ -367,6 +365,7 @@ void _delete(unsigned char x, unsigned char y);
 	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 #elif defined(__C16__) || defined(__PLUS4__)
 	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);	
+	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);	
 #elif defined(__CBM__) || defined(__ATARI5200__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#define DRAW_VERTICAL_LINE(x,y,length) do {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);} while(0)	
 #else		

@@ -258,7 +258,7 @@ void _delete(unsigned char x, unsigned char y);
 		DRAW_HORIZONTAL_LINE (1+X_OFFSET,YSize-1,XSize-1);\
 		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 1); \
 	}
-#elif defined(__C16__) || defined(__PLUS4__)
+#elif (defined(__C16__) || defined(__PLUS4__)) && defined(REDEFINED_CHARS)
 		#define DRAW_BORDERS() \
 		{ \
 			SET_TEXT_COLOR(TEXT_COLOR); \
@@ -453,7 +453,7 @@ void _delete(unsigned char x, unsigned char y);
 #elif defined(__ATARI5200__) || defined(ATARI_MODE1)
 	#define SET_TEXT_COLOR(c) {};
 	
-	#define SET_BORDER_COLOR(c) (void) bordercolor(c);
+	#define SET_BORDER_COLOR(c) {};
 
 	#define SET_BACKGROUND_COLOR(c) {};
 

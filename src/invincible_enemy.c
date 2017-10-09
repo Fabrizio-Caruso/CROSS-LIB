@@ -39,11 +39,11 @@ extern unsigned short ghostLevel;
 
 unsigned short computeInvincibleSlowDown(void)
 {
-	if(loop<1500)
+	if(loop<1600)
 	{
 		return INITIAL_SKULL_SLOWDOWN - (level/4) * 1000 - ghostLevel*16;
 	}
-	return 0; // You must die!
+	return 1000; // You must die!
 }
 
 void computeInvincibleGhostParameters(void)

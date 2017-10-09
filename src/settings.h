@@ -161,8 +161,8 @@
 	#define GHOSTS_NUMBER 6
 #elif defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)
 	#define GHOSTS_NUMBER 9
-#elif defined(__VG5k__)
-	#define GHOSTS_NUMBER 8
+#elif defined(__VG5K__)
+	#define GHOSTS_NUMBER 9
 #else
 	#define GHOSTS_NUMBER 8
 #endif

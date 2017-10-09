@@ -167,30 +167,24 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	{
 		for(j=0;j<3;++j)
 		{
-			if(!((i==1) && (j==1)))
+			if(nGhosts>count)
 			{
-				if(nGhosts>count)
-				{
+				if(!((i==1) && (j==1)))
+				{				
 					initializeCharacter(&ghosts[count],XSize/6+j*2*(XSize/6),YSize/6+i*2*(YSize/6)+i,1,&GHOST_IMAGE);
 				}
 				else
 				{
-					initializeCharacter(&ghosts[count],GHOSTS_NUMBER-count,1,0,&DEAD_GHOST_IMAGE);
+					initializeCharacter(&ghosts[count],XSize-4,YSize-4,1,&GHOST_IMAGE);					
 				}
-				++count;
 			}
+			else
+			{
+				initializeCharacter(&ghosts[count],GHOSTS_NUMBER-count,1,0,&DEAD_GHOST_IMAGE);
+			}
+			++count;
 		}
 	}
-	#if GHOSTS_NUMBER>8
-		if(nGhosts>=9)
-		{
-			initializeCharacter(&ghosts[count],XSize-4,YSize-4,1,&GHOST_IMAGE);
-		}
-		else
-		{
-			initializeCharacter(&ghosts[count],1,1,0,&DEAD_GHOST_IMAGE);
-		}
-	#endif
 
 
 	#if BOMBS_NUMBER==4

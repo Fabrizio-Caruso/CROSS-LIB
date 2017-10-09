@@ -47,10 +47,13 @@ void printLivesStats(void);
 
 void setScreenColors(void);
 
-void printCenteredMessage(char *Text);
+// void printCenteredMessage(char *Text);
 
+#if defined(COLOR)
+	void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text);
+#endif
+	
 void printLevel(void);
-
 
 void printPressKeyToStart(void);
 

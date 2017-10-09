@@ -166,6 +166,12 @@
 #endif
 	
 
+#if defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
+	#define NO_COLOR
+#else
+	#define COLOR
+#endif
+	
 #if defined(__ZX81__)
 	#define BUBBLES_NUMBER 2
 #else

@@ -30,7 +30,7 @@
 		if((ghostLevel%4)==0) 
 
 	#define SKIP_MORE_DRAW \
-		if((ghostLevel%16)==0)
+		if((ghostLevel%20)==0)
 	#elif defined(__SPECTRUM__)
 		#define SKIP_DRAW \
 			if((ghostLevel%2)==0) 
@@ -158,7 +158,7 @@
 #elif defined(__ATMOS__)
 	#define GHOSTS_NUMBER 9
 #elif defined(__ZX81__)
-	#define GHOSTS_NUMBER 6
+	#define GHOSTS_NUMBER 7
 #elif defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)
 	#define GHOSTS_NUMBER 9
 #elif defined(__VG5K__)

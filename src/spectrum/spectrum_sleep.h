@@ -2,12 +2,11 @@
 #ifndef _SPECTRUM_SLEEP
 #define _SPECTRUM_SLEEP
 
-void sleep(unsigned int sec) 
-{ 
-	unsigned short i;
-	for(i=0;i<sec*400;++i)
-	{
-	}
-} 
+#include <z80.h>
+
+void sleep(unsigned int sec)
+{
+	z80_delay_ms(1000);
+}
 
 #endif // _SPECTRUM_SLEEP

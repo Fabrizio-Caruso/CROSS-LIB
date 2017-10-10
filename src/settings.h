@@ -75,6 +75,9 @@
 #elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 200
+#elif defined(__C16__) || defined(__PLUS4__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 100	
 #elif defined(__CBM610__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 700

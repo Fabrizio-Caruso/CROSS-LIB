@@ -38,11 +38,31 @@
 #endif
 
 // CPC
-#define CPC_BLUE 2
-#define CPC_RED 4
-#define CPC_YELLOW 0
-#define CPC_CYAN 3
-// END OF CPC DEFINITIONS
+#define CPC_WHITE 1
+#define CPC_YELLOW 2 
+#define CPC_RED 3
+#define CPC_BLACK 4
+
+// VG5K
+#define VG5K_BLACK 0
+#define VG5K_RED 1
+#define VG5K_GREEN 2
+#define VG5K_YELLOW 3
+#define VG5K_BLUE 4
+#define VG5K_VIOLET 5
+#define VG5K_CYAN 6
+#define VG5K_WHITE 7
+
+#if defined(__CPC__)
+	#define _WHITE CPC_WHITE
+	#define _RED   CPC_RED
+#elif defined(__VG5k__)
+	#define _WHITE VG5K_WHITE
+	#define _RED   VG5K_RED
+#else
+	#define _WHITE COLOR_WHITE
+	#define _RED   CPC_RED
+#endif
 
 extern unsigned char XSize;
 extern unsigned char YSize;
@@ -82,8 +102,6 @@ extern unsigned char YSize;
 		printCenteredMessageOnRow(YSize/2, Text)
 #endif
 	
-
-
 
 extern unsigned char level;
 extern unsigned char lives;
@@ -249,31 +267,6 @@ void setScreenColors(void)
 		SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
 	#endif
 }
-
-
-
-
-
-
-// void printCenteredMessageOnRow(unsigned char row, char *Text) 
-// {
-	// printCenteredMessageOnRowWithCol(row, COLOR_WHITE, Text);
-// }
-
-
-	
-// void printCenteredMessage(char *Text)
-// { 
-	// printCenteredMessageOnRow(YSize / 2, Text);
-// }	
-	
-// void printCenteredMessageWithCol(unsigned char col, char *Text) 
-// { 
-	// SET_TEXT_COLOR(col); 
-	// printCenteredMessageOnRow(YSize / 2, Text); 
-// }
-	
-
 	
 	
 #if defined (NO_CASE_LETTERS)
@@ -283,7 +276,7 @@ void setScreenColors(void)
 
 		sprintf(levelString, "level %d", level);
 
-		printCenteredMessageWithCol(COLOR_WHITE,levelString);
+		printCenteredMessageWithCol(_WHITE,levelString);
 	}
 #elif defined(__CPC__)
 	void printLevel(void) {}
@@ -298,7 +291,7 @@ void setScreenColors(void)
 
 		sprintf(levelString, "LEVEL %d", level);
 
-		printCenteredMessageWithCol(COLOR_WHITE,levelString);
+		printCenteredMessageWithCol(_WHITE,levelString);
 	}
 #endif
 
@@ -348,13 +341,13 @@ void _printScore(char * text, unsigned int score)
 #if defined(__VG5K__)
 		void printExtraLife(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "EXTRA LIFE"); 
+			printCenteredMessageWithCol(_RED, "EXTRA LIFE"); 
 			sleep(1);
 		}
 	
 		void printPressKeyToStart(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "PRESS ANY KEY");
+			printCenteredMessageWithCol(_WHITE, "PRESS ANY KEY");
 		}
 
 		void deleteCenteredMessage(void)
@@ -369,12 +362,12 @@ void _printScore(char * text, unsigned int score)
 
 		void printVictoryMessage(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "YOU WON");
+			printCenteredMessageWithCol(_WHITE, "YOU WON");
 		}
 
 		void printDefeatMessage(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "YOU LOST");
+			printCenteredMessageWithCol(_WHITE, "YOU LOST");
 		}	
 #elif defined(__VZ__)
 		void printExtraLife(void)
@@ -398,17 +391,17 @@ void _printScore(char * text, unsigned int score)
 
 		void printVictoryMessage(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "YOU WON");
+			printCenteredMessageWithCol(_WHITE, "YOU WON");
 		}
 
 		void printDefeatMessage(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "YOU LOST");
+			printCenteredMessageWithCol(_WHITE, "YOU LOST");
 		}	
 #elif defined(__VIC20__) || defined(__C16__) 
 		void printExtraLife(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "EXTRA LIFE"); 
+			printCenteredMessageWithCol(_RED, "EXTRA LIFE"); 
 			sleep(1);
 		}
 		
@@ -424,22 +417,22 @@ void _printScore(char * text, unsigned int score)
 		
 		void printGameOver(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "G A M E  O V E R");
+			printCenteredMessageWithCol(_WHITE, "G A M E  O V E R");
 		}
 
 		void printVictoryMessage(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "Y O U  W O N");
+			printCenteredMessageWithCol(_WHITE, "Y O U  W O N");
 		}
 
 		void printDefeatMessage(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "Y O U  L O S T");
+			printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
 		}				
 #elif defined(NO_CASE_LETTERS)
 		void printExtraLife(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "e x t r a  l i f e"); 
+			printCenteredMessageWithCol(_RED, "e x t r a  l i f e"); 
 			sleep(1);
 		}
 		
@@ -455,22 +448,22 @@ void _printScore(char * text, unsigned int score)
 
 		void printGameOver(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "g a m e   o v e r");
+			printCenteredMessageWithCol(_WHITE, "g a m e   o v e r");
 		}
 
 		void printVictoryMessage(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "y o u   w o n");
+			printCenteredMessageWithCol(_WHITE, "y o u   w o n");
 		}
 
 		void printDefeatMessage(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "y o u   l o s t");
+			printCenteredMessageWithCol(_WHITE, "y o u   l o s t");
 		}
 #else
 		void printExtraLife(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "e x t r a  l i f e"); 
+			printCenteredMessageWithCol(_RED, "e x t r a  l i f e"); 
 			sleep(1);
 		}
 		
@@ -486,17 +479,17 @@ void _printScore(char * text, unsigned int score)
 
 		void printGameOver(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "G A M E  O V E R");
+			printCenteredMessageWithCol(_WHITE, "G A M E  O V E R");
 		}
 
 		void printVictoryMessage(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "Y O U  W O N");
+			printCenteredMessageWithCol(_WHITE, "Y O U  W O N");
 		}
 
 		void printDefeatMessage(void)
 		{
-			printCenteredMessageWithCol(COLOR_WHITE, "Y O U  L O S T");
+			printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
 		}		
 #endif
 

@@ -242,11 +242,17 @@ void _delete(unsigned char x, unsigned char y);
 			POKE(0xBB80+(38-1+X_OFFSET)+(1+i+Y_OFFSET)*40,'|'); \
 		} \
 	} 
-#elif defined(__SPECTRUM__)	
+#elif defined(__SPECTRUM__)	&& defined(REDEFINED_CHARS)
 	#define DRAW_BORDERS() \
 	{ \
 		DRAW_HORIZONTAL_BORDER(0); \
 		DRAW_HORIZONTAL_BORDER(YSize-1); \
+		DRAW_VERTICAL_LINE(0, 1, YSize);\
+		DRAW_VERTICAL_LINE(XSize - 1, 1, YSize); \
+	}
+#elif defined(__SPECTRUM__)	&& !defined(REDEFINED_CHARS)
+	#define  DRAW_BORDERS() \
+	{ \
 		DRAW_VERTICAL_LINE(0, 1, YSize);\
 		DRAW_VERTICAL_LINE(XSize - 1, 1, YSize); \
 	}

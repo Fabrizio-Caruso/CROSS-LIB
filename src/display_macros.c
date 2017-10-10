@@ -66,6 +66,8 @@ Image GUN_IMAGE;
 	// 
 #elif defined(__SPECTRUM__) && defined(REDEFINED_CHARS)
 	// 
+#elif defined(__SPECTRUM__) && !defined(REDEFINED_CHARS)
+	//	
 #elif defined(__MSX__) && defined(REDEFINED_CHARS)
 	// 
 #elif defined(__SVI__)

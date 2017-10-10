@@ -31,7 +31,7 @@
 
 	#define SKIP_MORE_DRAW \
 		if((ghostLevel%20)==0)
-	#elif defined(__SPECTRUM__)
+	#elif defined(__SPECTRUM__) && defined(FULL_GAME)
 		#define SKIP_DRAW \
 			if((ghostLevel%2)==0) 
 
@@ -97,7 +97,7 @@
 	#define GAME_SLOW_DOWN 800	
 #elif defined(__CPC__) && defined(CPCRSLIB)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 400		
+	#define GAME_SLOW_DOWN 320		
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
@@ -153,8 +153,10 @@
 	#define GHOSTS_NUMBER 7
 #elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define GHOSTS_NUMBER 6
-#elif defined(__SPECTRUM__) 
+#elif defined(__SPECTRUM__) && defined(FULL_GAME)
 	#define GHOSTS_NUMBER 9
+#elif defined(__SPECTRUM__) && !defined(FULL_GAME)
+	#define GHOSTS_NUMBER 7
 #elif defined(__ATMOS__)
 	#define GHOSTS_NUMBER 9
 #elif defined(__ZX81__)

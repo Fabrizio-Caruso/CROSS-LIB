@@ -275,10 +275,12 @@ void INIT_IMAGES(void)
 		INVINCIBILITY_IMAGE._imageData = '!';
 	#endif
 	
-	PLAYER_DOWN._color = COLOR_CYAN;
-	PLAYER_UP._color = COLOR_CYAN;		
-	PLAYER_RIGHT._color = COLOR_CYAN;
-	PLAYER_LEFT._color = COLOR_CYAN;	
+	#if defined(REDEFINED_CHARS)
+		PLAYER_DOWN._color = COLOR_CYAN;
+		PLAYER_UP._color = COLOR_CYAN;		
+		PLAYER_RIGHT._color = COLOR_CYAN;
+		PLAYER_LEFT._color = COLOR_CYAN;
+	#endif
 }
 
 #if defined(FULL_GAME)	
@@ -319,29 +321,53 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
-
-void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
-{ 
-	unsigned char i; 
-	
-	SET_TEXT_COLOR(COLOR_YELLOW);
-	for(i=0;i<length;++i) 
+#if defined(REDEFINED_CHARS)
+	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
 	{ 
-		gotoxy(x+X_OFFSET+i,y+Y_OFFSET);  putchar(HORIZONTAL_BRICK);; 
-	} 
-}
+		unsigned char i; 
+		
+		SET_TEXT_COLOR(COLOR_YELLOW);
+		for(i=0;i<length;++i) 
+		{ 
+			gotoxy(x+X_OFFSET+i,y+Y_OFFSET);  putchar(HORIZONTAL_BRICK); 
+		} 
+	}
 
 
-void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
-{ 
-	unsigned char i; 
-	
-	SET_TEXT_COLOR(COLOR_YELLOW);
-	for(i=0;i<length;++i) 
+	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
 	{ 
-		gotoxy(x+X_OFFSET,y-1+Y_OFFSET+i);  putchar(VERTICAL_BRICK);; 
-	} 
-}
+		unsigned char i; 
+		
+		SET_TEXT_COLOR(COLOR_YELLOW);
+		for(i=0;i<length;++i) 
+		{ 
+			gotoxy(x+X_OFFSET,y-1+Y_OFFSET+i);  putchar(VERTICAL_BRICK); 
+		} 
+	}
+#else
+	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
+	{ 
+		unsigned char i; 
+		
+		SET_TEXT_COLOR(COLOR_YELLOW);
+		for(i=0;i<length;++i) 
+		{ 
+			gotoxy(x+X_OFFSET+i,y+Y_OFFSET);  putchar('-'); 
+		} 
+	}
+
+
+	// void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
+	// { 
+		// unsigned char i; 
+		
+		// SET_TEXT_COLOR(COLOR_YELLOW);
+		// for(i=0;i<length;++i) 
+		// { 
+			// gotoxy(x+X_OFFSET,y-1+Y_OFFSET+i);  putchar('|'); 
+		// } 
+	// }	
+#endif
 
 
 

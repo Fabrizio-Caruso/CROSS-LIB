@@ -148,7 +148,7 @@ void displayStatsTitles(void)
 		// Nothing
 	#endif
 
-	#if defined(WIDE) && !defined(__ZX80__) && !defined(__ZX81__)
+	#if defined(WIDE) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__SPECTRUM__) && !defined(__MSX__) && !(defined(__VG5K__) && !defined(FULL_GAME))
 		SET_TEXT_COLOR(_RED);	
 		PRINT(24,-Y_OFFSET,"-----------");		
 		PRINT(24,-Y_OFFSET+1,"cross chase");	
@@ -341,23 +341,23 @@ void _printScore(char * text, unsigned int score)
 #if defined(__VG5K__)
 		void printExtraLife(void)
 		{
-			printCenteredMessageWithCol(_RED, "EXTRA LIFE"); 
+			printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 
 			sleep(1);
 		}
 	
 		void printPressKeyToStart(void)
 		{
-			printCenteredMessageWithCol(_WHITE, "PRESS ANY KEY");
+			printCenteredMessageWithCol(_WHITE, "PRESS A KEY");
 		}
 
 		void deleteCenteredMessage(void)
 		{
-			printCenteredMessage("                       ");
+			printCenteredMessage(               "           ");
 		}
 
 		void printGameOver(void)
 		{
-			printCenteredMessage("GAME OVER");
+			printCenteredMessage(               "GAME OVER");
 		}
 
 		void printVictoryMessage(void)

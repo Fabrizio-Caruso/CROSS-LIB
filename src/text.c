@@ -61,7 +61,7 @@
 	#define _RED   VG5K_RED
 #else
 	#define _WHITE COLOR_WHITE
-	#define _RED   CPC_RED
+	#define _RED   COLOR_RED
 #endif
 
 extern unsigned char XSize;
@@ -147,18 +147,12 @@ void displayStatsTitles(void)
 	#else
 		// Nothing
 	#endif
-	
-	
-	#if defined(CC65) && !defined(NARROW)
-		SET_TEXT_COLOR(COLOR_RED);	
-		PRINT(24,-Y_OFFSET,"-----------");
-		PRINT(24,-Y_OFFSET+1,"cross chase");
-	#elif defined(__CPC__) && defined(CPCRSLIB)
-		SET_TEXT_COLOR(CPC_RED);	
+
+	#if defined(WIDE) && !defined(__ZX80__) && !defined(__ZX81__)
+		SET_TEXT_COLOR(_RED);	
 		PRINT(24,-Y_OFFSET,"-----------");		
 		PRINT(24,-Y_OFFSET+1,"cross chase");	
-	#endif	
-
+	#endif
 
 	#if defined(__CPC__) && defined(CPCRSLIB)
 		SET_TEXT_COLOR(TEXT_COLOR);	
@@ -217,8 +211,8 @@ void printLevelStats(void)
 
 void printGhostCountStats(void)
 {
+	SET_TEXT_COLOR(TEXT_COLOR);		
 	#if defined(WIDE)
-		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%u",ghostCount);
 	#else
 		PRINTF(15+2-X_OFFSET-3-2-3,0-Y_OFFSET,"%u",ghostCount);	
@@ -231,8 +225,8 @@ void printGhostCountStats(void)
 
 void printLivesStats(void)
 {
+	SET_TEXT_COLOR(TEXT_COLOR);		
 	#if defined(WIDE)
-		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02u",lives);
 	#else
 		PRINTF(15+2+1-5+4-1-X_OFFSET,0-Y_OFFSET,"%u",lives);	
@@ -245,8 +239,8 @@ void printLivesStats(void)
 
 void displayStats(void)
 {	
+	SET_TEXT_COLOR(TEXT_COLOR);	
 	#if defined(WIDE)
-		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINTF(8-X_OFFSET,0-Y_OFFSET,"%05u0",points);
 	#else
 		PRINTF(3-3,0-Y_OFFSET,"%05u0",points);	
@@ -537,7 +531,7 @@ void _printScore(char * text, unsigned int score)
 #if defined(__C64__) && defined(REDEFINED_CHARS)
 	void c64_splash_title(void)
 	{
-		SET_TEXT_COLOR(COLOR_RED);
+		SET_TEXT_COLOR(_RED);
 		PRINT((XSize - 22) / 2, 2, "c r o s s   c h a s e");
 		SET_TEXT_COLOR(COLOR_BROWN);
 		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
@@ -663,11 +657,11 @@ void _printScore(char * text, unsigned int score)
 void printHints(void)
 {
 	#if defined(__CPC__)
-		printCenteredMessageOnRowWithCol(3, CPC_RED, "c r o s s  c h a s e");	
+		printCenteredMessageOnRowWithCol(3, _RED,  "c r o s s  c h a s e");	
 	#elif defined(NO_CASE_LETTERS) 
-		printCenteredMessageOnRowWithCol(3, COLOR_RED, "c r o s s  c h a s e");		
+		printCenteredMessageOnRowWithCol(3, _RED, "c r o s s  c h a s e");		
 	#else
-		printCenteredMessageOnRowWithCol(3, COLOR_RED, "C R O S S  C H A S E");	
+		printCenteredMessageOnRowWithCol(3, _RED, "C R O S S  C H A S E");	
 	#endif
 	SET_TEXT_COLOR(TEXT_COLOR);		
 
@@ -694,11 +688,7 @@ void printStartMessage(void)
 	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
 		atmos_splash_title();
 	#else
-		#if defined(__CPC__)
-			printCenteredMessageOnRowWithCol(3, CPC_RED, "C R O S S  C H A S E");		
-		#else
-			printCenteredMessageOnRowWithCol(3, COLOR_RED, "C R O S S  C H A S E");
-		#endif
+		printCenteredMessageOnRowWithCol(3, _RED,  "C R O S S  C H A S E");		
 		SET_TEXT_COLOR(TEXT_COLOR);		
 		#if defined(NO_CASE_LETTERS)
 			printCenteredMessageOnRow(5, "by fabrizio caruso");		

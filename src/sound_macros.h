@@ -28,7 +28,7 @@
 		#include "atmos/atmos_sounds.h"
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(SOUNDS)
 		#include "atari/atari_sounds.h"
-	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
+	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SOUNDS)
 		#include "spectrum/spectrum_sounds.h"	
 	#elif defined(__VIC20__) && defined(SOUNDS)
 		#include "vic20/vic20_sounds.h"

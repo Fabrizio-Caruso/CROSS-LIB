@@ -253,8 +253,8 @@ void _delete(unsigned char x, unsigned char y);
 #elif defined(__SPECTRUM__)	&& !defined(REDEFINED_CHARS)
 	#define  DRAW_BORDERS() \
 	{ \
-		DRAW_VERTICAL_LINE(0, 1, YSize);\
-		DRAW_VERTICAL_LINE(XSize - 1, 1, YSize); \
+		DRAW_VERTICAL_LINE(0, 1, YSize-1);\
+		DRAW_VERTICAL_LINE(XSize - 1, 1, YSize-1); \
 	}
 #elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
 	#define DRAW_BORDERS()\

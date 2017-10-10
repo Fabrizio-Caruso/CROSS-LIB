@@ -25,18 +25,19 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
+
 #if defined(__ZX81__) 
 	#define SKIP_DRAW \
-		if((ghostLevel%4)==0) 
+		if((loop%4)==0) 
 
 	#define SKIP_MORE_DRAW \
-		if((ghostLevel%20)==0)
+		if((loop%20)==0)
 	#elif defined(__SPECTRUM__) && defined(FULL_GAME)
 		#define SKIP_DRAW \
-			if((ghostLevel%2)==0) 
+			if((loop%2)==0) 
 
 		#define SKIP_MORE_DRAW \
-			if((ghostLevel%4)==0)	
+			if((loop%4)==0)	
 #else
 	#define SKIP_DRAW 
 
@@ -128,6 +129,14 @@
 	#define NARROW
 #endif
 
+#if defined(WIDE)
+	#define ADVANCED_LEFT_MISSILE()  ++leftEnemyMissile._x
+	#define ADVANCED_RIGHT_MISSILE() --rightEnemyMissile._x	
+#else
+	#define ADVANCED_LEFT_MISSILE()  do{if(loop%2)++leftEnemyMissile._x;}while(0)
+	#define ADVANCED_RIGHT_MISSILE() do{if(loop%2)--rightEnemyMissile._x;}while(0)
+#endif
+
 #if defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ZX81__) || defined(__ZX80__)
 	#define NO_CASE_LETTERS
 #else
@@ -148,7 +157,7 @@
 	#define BOMBS_NUMBER 4
 #endif
 
-// Possible current values are 6,7,8
+// Possible current values are 6,7,8,9
 #if defined(__CPC__) && defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define GHOSTS_NUMBER 7
 #elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)

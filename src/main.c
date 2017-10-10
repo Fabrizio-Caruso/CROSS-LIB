@@ -693,7 +693,7 @@ int main(void)
 							}
 							else
 							{
-								++leftEnemyMissile._x;
+								ADVANCED_LEFT_MISSILE();
 								if(loop%2 && player._y>=YSize-1-ENEMY_MISSILE_OFFSET-arrowRange && player._x>=leftEnemyMissile._x)
 								{
 									if(player._y>leftEnemyMissile._y)
@@ -730,7 +730,7 @@ int main(void)
 							}
 							else
 							{
-								--rightEnemyMissile._x;
+								ADVANCED_RIGHT_MISSILE();
 								if((!oneMissileLevel() && loop%2 && player._y<=ENEMY_MISSILE_OFFSET+arrowRange && player._x<= rightEnemyMissile._x) ||
 								    (oneMissileLevel() && loop%2 && player._y<=YSize/2+arrowRange && player._y>=YSize/2-arrowRange && player._x<= rightEnemyMissile._x))
 								{

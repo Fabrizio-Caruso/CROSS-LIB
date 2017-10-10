@@ -832,15 +832,14 @@ int main(void)
 				sleep(1);
 				printVictoryMessage();
 				sleep(2);
+				CLEAR_SCREEN();			
 				if(level<=10)
 				{
-					CLEAR_SCREEN();
 					points+= LEVEL_BONUS*level;
 					printLevelBonus(LEVEL_BONUS*level);
 				}
 				else
-				{
-					CLEAR_SCREEN();				
+				{				
 					points+= LEVEL_BONUS*10;
 					printLevelBonus(LEVEL_BONUS*10);
 				}

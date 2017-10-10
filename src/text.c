@@ -136,11 +136,12 @@ extern Image MISSILE_IMAGE;
 // TODO: This is SLOW
 void displayStatsTitles(void)
 {	
-	SET_TEXT_COLOR(COLOR_BLUE);
-	#if defined(NO_CASE_LETTERS) && defined(WIDE)		
+	#if defined(NO_CASE_LETTERS) && defined(WIDE)	
+		SET_TEXT_COLOR(COLOR_BLUE);	
 		PRINT(-X_OFFSET+2, -Y_OFFSET,   "score:");
 		PRINT(-X_OFFSET+2, -Y_OFFSET+1, "level:");
 	#elif defined(WIDE)
+		SET_TEXT_COLOR(COLOR_BLUE);	
 		PRINT(-X_OFFSET+2, -Y_OFFSET,   "SCORE:");
 		PRINT(-X_OFFSET+2, -Y_OFFSET+1, "LEVEL:");	
 	#else
@@ -330,6 +331,11 @@ void _printScore(char * text, unsigned int score)
 #elif defined(__VZ__)
 	void gameCompleted(void)
 	{}
+#elif defined(__VIC20__) && !defined(FULL_GAME)
+	void gameCompleted(void)
+	{
+		printCenteredMessage("YOU MADE IT"); 
+	}
 #else
 	void gameCompleted(void)
 	{
@@ -398,7 +404,7 @@ void _printScore(char * text, unsigned int score)
 		{
 			printCenteredMessageWithCol(_WHITE, "YOU LOST");
 		}	
-#elif defined(__VIC20__) || defined(__C16__) 
+#elif (defined(__VIC20__) || defined(__C16__) ) && defined(FULL_GAME)
 		void printExtraLife(void)
 		{
 			printCenteredMessageWithCol(_RED, "EXTRA LIFE"); 
@@ -428,7 +434,38 @@ void _printScore(char * text, unsigned int score)
 		void printDefeatMessage(void)
 		{
 			printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
-		}				
+		}	
+#elif (defined(__VIC20__) || defined(__C16__) ) && !defined(FULL_GAME)
+		void printExtraLife(void)
+		{
+			printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 
+			sleep(1);
+		}
+		
+		void printPressKeyToStart(void)
+		{
+			printCenteredMessage(               "PRESS ANY KEY");
+		}
+		
+		void deleteCenteredMessage(void)
+		{
+			printCenteredMessage(               "             ");
+		}
+		
+		void printGameOver(void)
+		{
+			printCenteredMessageWithCol(_WHITE, "GAME OVER");
+		}
+
+		void printVictoryMessage(void)
+		{
+			printCenteredMessageWithCol(_WHITE, "YOU WON");
+		}
+
+		void printDefeatMessage(void)
+		{
+			printCenteredMessageWithCol(_WHITE, "YOU LOST");
+		}		
 #elif defined(NO_CASE_LETTERS)
 		void printExtraLife(void)
 		{

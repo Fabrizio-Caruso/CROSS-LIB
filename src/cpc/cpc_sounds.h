@@ -28,6 +28,8 @@
 	#include "cpcrslib.h"
 	#include "cpcwyzlib.h"
 
+	void _init_sound(void);
+	
 	void _ping_sound(void);
 	#define PING_SOUND() _ping_sound();	
 	#define TOCK_SOUND() _ping_sound();

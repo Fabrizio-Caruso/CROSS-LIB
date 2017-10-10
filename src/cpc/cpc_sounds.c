@@ -30,23 +30,32 @@ http://www.cpcwiki.eu/index.php/BIOS_Sound_Functions
  7  Duration, lower 8bit (in 1/100 seconds)  ;\0=endless/until end of ENV?
  8  Duration, upper 8bit                     ;/negative=repeat ENV -N times? 
 */
-// void __stop_sound(void)
-// {
-// #asm
-	// EXTERN firmware
-	
-	// jr stop_code
-	
-	// stop_data: 
-		// defb 0x01, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00, 0x00  
-		
-	// stop_code:
-		// ld hl,stop_data
-		// call firmware
-		// defw 0xbcaa
-// #endasm	
-// }
 
+void _init_sound(void)
+{
+#asm
+	EXTERN firmware
+	
+	jr init_code
+	
+	env1: 
+		defb 0x02,0x05,0x03,0x02,0x0f,0x0ff,0x08
+	
+	env2: 
+		defb 0x03,0x01,0x00,0x18,0x05,0x0fd,0x01
+	
+	init_code:
+		ld   a,0x01 
+		ld   hl,env1
+		call firmware
+		defw  0bcbch 
+		ld   a,0x02  
+		ld   hl,env2
+		call firmware
+		defw 0bcbch	
+		
+#endasm		
+}
 
 void __ping_sound(void)
 {
@@ -56,12 +65,13 @@ void __ping_sound(void)
 	jr ping_code
 	
 	ping_data: 
-		defb 1,0,0,142,0,0,12,50,0  
-		
+		defb 0x82,0x02,0x00,0x90,0x00,0x00,0x0f,0x00,0x00
+
 	ping_code:
 		ld hl,ping_data
 		call firmware
 		defw 0xbcaa
+		
 #endasm	
 }
 
@@ -73,7 +83,6 @@ void _ping_sound(void)
 	for(;i<250;++i)
 	{		
 	}	
-	// __stop_sound();
 }
 
 void __explosion_sound(void)
@@ -84,12 +93,14 @@ void __explosion_sound(void)
 	jr explosion_code
 	
 	explosion_data: 
-		defb 1,0,0,142,0,0,12,50,0
-		
+		defb 0x81,0x01,0x00,0xc0,0x01,0x1f,0x00,0x00,0x00
+
+	
 	explosion_code:	
 		ld hl,explosion_data
 		call firmware
 		defw 0xbcaa	
+	
 #endasm		
 }
 
@@ -101,7 +112,6 @@ void _explosion_sound(void)
 	for(;i<240;++i)
 	{
 	}
-    // __stop_sound
 }
 
 
@@ -113,7 +123,7 @@ void _ZAP_SOUND(void)
 	jr zap_code
 	
 	zap_data: 
-		defb 1,0,0,142,0,0,12,50,0
+		defb 0x82,0x02,0x00,0x90,0x00,0x00,0x0f,0x00,0x00
 	
 	zap_code:	
 		ld hl,zap_data
@@ -131,6 +141,5 @@ void ZAP_SOUND(void)
 	
 	for(;i<250;++i)
 	{}
-	// __stop_sound
 }
 

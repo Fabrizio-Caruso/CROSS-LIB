@@ -154,8 +154,11 @@ void INIT_GRAPHICS(void)
 	set_palette();
 	
 	vertical_brick_str = (char *) char_list + _VERTICAL_BRICK;
-	horizontal_brick_str = (char *) char_list +  _HORIZONTAL_BRICK;
+	horizontal_brick_str = (char *) char_list + _HORIZONTAL_BRICK;
 	broken_wall_str = (char *) char_list + _BOMB;	
+	
+	// TODO: Remove this because it should be in an INIT_SOUND function
+	// _init_sound();	
 }
 
 void INIT_IMAGES(void)

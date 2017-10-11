@@ -27,11 +27,10 @@
 
 
 #if defined(__ZX81__) 
-	#define SKIP_DRAW \
-		if((loop%4)==0) 
-
+	#define SKIP_DRAW
+	
 	#define SKIP_MORE_DRAW \
-		if((loop%20)==0)
+		if((loop%8)==0)
 	#elif defined(__SPECTRUM__) && defined(FULL_GAME)
 		#define SKIP_DRAW \
 			if((loop%2)==0) 
@@ -77,13 +76,19 @@
 	#define GAME_SLOW_DOWN 200
 #elif defined(__C16__) || defined(__PLUS4__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 100	
+	#define GAME_SLOW_DOWN 110	
+#elif defined(__C64__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 50		
+#elif defined(__ATMOS__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 50		
 #elif defined(__CBM610__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 700
 #elif defined(__VG5K__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 500	
+	#define GAME_SLOW_DOWN 700	
 #elif defined(__AQUARIUS__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 1200	
@@ -92,7 +97,7 @@
 	#define GAME_SLOW_DOWN 500	
 #elif defined(__MSX__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 400		
+	#define GAME_SLOW_DOWN 550		
 #elif defined(__SVI__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 500			

@@ -211,7 +211,7 @@ void INIT_IMAGES(void)
 		
 		BUBBLE_IMAGE._imageData = _BUBBLE;
 		
-		EXTRA_POINTS_IMAGE._imageData = '$';
+		EXTRA_POINTS_IMAGE._imageData = 'P'; // TODO: Make it look like $
 		
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	

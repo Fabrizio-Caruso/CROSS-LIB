@@ -43,6 +43,15 @@
 #define CPC_RED 3
 #define CPC_BLACK 4
 
+// 3 -> white
+// 2 -> black 
+// 1 -> black
+// 0 -> yellow
+// 4 -> red
+#define CPC_TEXT_WHITE 3
+#define CPC_TEXT_RED 4
+
+
 // VG5K
 #define VG5K_BLACK 0
 #define VG5K_RED 1
@@ -54,8 +63,8 @@
 #define VG5K_WHITE 7
 
 #if defined(__CPC__)
-	#define _WHITE CPC_WHITE
-	#define _RED   CPC_RED
+	#define _WHITE CPC_TEXT_WHITE
+	#define _RED   CPC_TEXT_RED
 #elif defined(__VG5k__)
 	#define _WHITE VG5K_WHITE
 	#define _RED   VG5K_RED
@@ -156,9 +165,9 @@ void displayStatsTitles(void)
 
 	#if defined(__CPC__) && defined(CPCRSLIB)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		cpc_PrintGphStrStdXY(2,")",(18)*2,0*8);gotoxy(18+2,0 + ADJUST ); cputc(':');
-		cpc_PrintGphStrStdXY(1,"%",(18-4)*2,0*8);gotoxy(18-2,0 + ADJUST); cputc(':');
-		cpc_PrintGphStrStdXY(2,"!",(18-1)*2,1*8);gotoxy(18+1,1 + ADJUST); cputc(':');	
+		cpc_PrintGphStrStdXY(CPC_YELLOW,")",(18)*2,0*8);gotoxy(18+2,0 + ADJUST ); cputc(':');
+		cpc_PrintGphStrStdXY(CPC_WHITE,"%",(18-4)*2,0*8);gotoxy(18-2,0 + ADJUST); cputc(':');
+		cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1)*2,1*8);gotoxy(18+1,1 + ADJUST); cputc(':');	
 	#elif defined(__ZX81__) || defined(__ZX80__)
 		SET_TEXT_COLOR(TEXT_COLOR);		
 		zx_setcursorpos(0+ADJUST-1, 19); cputc(GUN_IMAGE._imageData);cputc(':');
@@ -273,8 +282,6 @@ void setScreenColors(void)
 
 		printCenteredMessageWithCol(_WHITE,levelString);
 	}
-#elif defined(__CPC__)
-	void printLevel(void) {}
 #elif defined(__ZX81__)
 	void printLevel(void) {}
 #elif defined(__VZ__)

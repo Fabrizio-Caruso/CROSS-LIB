@@ -29,9 +29,9 @@
 // BLUE
 #define _PLAYER 0x3B
 #define _PLAYER_DOWN 0x3B
-#define _PLAYER_UP ((unsigned char) 0x3C)
-#define _PLAYER_RIGHT ((unsigned char) 0x3D) 
-#define _PLAYER_LEFT ((unsigned char)0x3E)
+#define _PLAYER_UP 0x3C
+#define _PLAYER_RIGHT 0x3D 
+#define _PLAYER_LEFT 0x3E
 
 #define _GUN 0x3F
 
@@ -40,6 +40,7 @@
 #define _VERTICAL_BRICK 0x26
 #define _HORIZONTAL_BRICK 0x24
 #define _EXTRA_LIFE 0x25
+#define _EXTRA_POINTS 0x22
 
 // GREEN
 #define _POWERUP  0x2C
@@ -145,6 +146,7 @@ void INIT_GRAPHICS(void)
 	
 	static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
 	static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};	
+	static const char extra_points[8]     = { 16, 62, 32, 60,  4,124,  8,  0};
 		set_color(15, 1, 1);
 	#if defined(MSX_MODE1)
 		set_mode(mode_1);
@@ -189,6 +191,7 @@ void INIT_GRAPHICS(void)
 		redefine(CHAR_BASE+8*_LEFT_ENEMY_MISSILE,missile_left);	
 		redefine(CHAR_BASE+8*_RIGHT_ENEMY_MISSILE,missile_right);	
 		redefine(CHAR_BASE+8*_BUBBLE, bubble);
+		redefine(CHAR_BASE+8*_EXTRA_POINTS, extra_points);
 	#endif
 }
 
@@ -211,7 +214,7 @@ void INIT_IMAGES(void)
 		
 		BUBBLE_IMAGE._imageData = _BUBBLE;
 		
-		EXTRA_POINTS_IMAGE._imageData = 'P'; // TODO: Make it look like $
+		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS; //'P'; // TODO: Make it look like $
 		
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	

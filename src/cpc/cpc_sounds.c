@@ -31,64 +31,116 @@ http://www.cpcwiki.eu/index.php/BIOS_Sound_Functions
  8  Duration, upper 8bit                     ;/negative=repeat ENV -N times? 
 */
 
-// void _init_sound(void)
-// {
-// #asm
-	// EXTERN firmware
-	
-	// jr init_code
-	
-	// env1: 
-		// defb 0x02,0x05,0x03,0x02,0x0f,0x0ff,0x08
-	
-	// env2: 
-		// defb 0x03,0x01,0x00,0x18,0x05,0x0fd,0x01
-	
-	// init_code:
-		// ld   a,0x01 
-		// ld   hl,env1
-		// call firmware
-		// defw  0bcbch 
-		// ld   a,0x02  
-		// ld   hl,env2
-		// call firmware
-		// defw 0bcbch	
-		
-// #endasm		
-// }
+/*
+ 
+ld bc,0x0738
+call writepsg  ;enable all tone channels and disable noises (register 7)
+ld bc,0x0100
+call writepsg  ;set chn1 freq high to 0
+ld bc,0x00c0
+call writepsg  ;set chn1 freq low to 192
+ld bc,0x080f
+call writepsg  ;set chn1 volume to max
+ret
 
-// void __ping_sound(void)
-// {
-// #asm
-	// EXTERN firmware
-	
-	// jr ping_code
-	
-	// ping_data: 
-		// defb 0x82,0x02,0x00,0x90,0x00,0x00,0x0f,0x00,0x00
+*/
 
-	// ping_code:
-		// ld hl,ping_data
-		// call firmware
-		// defw 0xbcaa
+void __low_vol(void)
+{
+#asm 
+	ld bc,0x0805
+	call writepsg_low_vol 
+	ret
+	 
+	writepsg_low_vol:
+	  ld   a,b
+	  di  
+	  ld    b, 0xf4
+	  out   (c), a
+	  ld    b, 0xf6
+	  in    a, (c)
+	  or    0xc0
+	  out   (c), a
+	  and   0x3f
+	  out   (c), a
+	  ld    b, 0xf4
+	  out   (c), c
+	  ld    b,0xf6
+	  ld    c, a
+	  or    0x80
+	  out   (c), a
+	  out   (c), c
+	  ei  
+	  ret
 		
-// #endasm	
-// }
+#endasm	
+}
+
+void __stop_sound(void)
+{
+#asm 
+	ld bc,0x0800
+	call writepsg_stop 
+	ret
+	 
+	writepsg_stop:
+	  ld   a,b
+	  di  
+	  ld    b, 0xf4
+	  out   (c), a
+	  ld    b, 0xf6
+	  in    a, (c)
+	  or    0xc0
+	  out   (c), a
+	  and   0x3f
+	  out   (c), a
+	  ld    b, 0xf4
+	  out   (c), c
+	  ld    b,0xf6
+	  ld    c, a
+	  or    0x80
+	  out   (c), a
+	  out   (c), c
+	  ei  
+	  ret
+		
+#endasm	
+}
+
 
 void __ping_sound(void)
 {
 #asm
-	EXTERN firmware
-	
-	jr ping_code
-	
-	ping_data: 
-		defb 0x82,0x00,0x00,0x90,0x00,0x00,0x0f,0x80,0x00
-
-	ping_code:
-		ld hl,ping_data
-		call firmware
-		defw 0xbcaa
+	ld bc,0x0738
+	call writepsg_ping  
+	ld bc,0x0100
+	call writepsg_ping  
+	ld bc,0x00c0
+	call writepsg_ping  
+	ld bc,0x080f
+	call writepsg_ping  
+	ret
+	 
+	writepsg_ping:
+	  ld   a,b
+	  di  
+	  ld    b, 0xf4
+	  out   (c), a
+	  ld    b, 0xf6
+	  in    a, (c)
+	  or    0xc0
+	  out   (c), a
+	  and   0x3f
+	  out   (c), a
+	  ld    b, 0xf4
+	  out   (c), c
+	  ld    b,0xf6
+	  ld    c, a
+	  or    0x80
+	  out   (c), a
+	  out   (c), c
+	  ei  
+	  ret
 		
 #endasm	
 }
@@ -102,88 +154,99 @@ void _ping_sound(void)
 	for(;i<250;++i)
 	{		
 	}	
+	__stop_sound();
 }
 
-// void __explosion_sound(void)
-// {
-// #asm
-	// EXTERN firmware
-
-	// jr explosion_code
-	
-	// explosion_data: 
-		// defb 0x81,0x01,0x00,0xc0,0x01,0x1f,0x00,0x00,0x00
-
-	
-	// explosion_code:	
-		// ld hl,explosion_data
-		// call firmware
-		// defw 0xbcaa	
-	
-// #endasm		
-// }
 
 void __explosion_sound(void)
 {
 #asm
-	EXTERN firmware
-
-	jr explosion_code
-	
-	explosion_data: 
-		defb 0x81,0x00,0x00,0xc0,0x01,0x1f,0x00,0xA0,0x00
-
-	
-	explosion_code:	
-		ld hl,explosion_data
-		call firmware
-		defw 0xbcaa	
-	
+	ld bc,0x0703
+	call writepsg_ping  
+	ld bc,0x0100
+	call writepsg_ping  
+	ld bc,0x0030
+	call writepsg_ping  
+	ld bc,0x080f
+	call writepsg_ping  
+	ret
+	 
+	writepsg_explosion:
+	  ld   a,b
+	  di  
+	  ld    b, 0xf4
+	  out   (c), a
+	  ld    b, 0xf6
+	  in    a, (c)
+	  or    0xc0
+	  out   (c), a
+	  and   0x3f
+	  out   (c), a
+	  ld    b, 0xf4
+	  out   (c), c
+	  ld    b,0xf6
+	  ld    c, a
+	  or    0x80
+	  out   (c), a
+	  out   (c), c
+	  ei  
+	  ret
+		
 #endasm		
 }
 
 void _explosion_sound(void)
 {
-	unsigned char i=0;
+	unsigned short i;
+
 
 	__explosion_sound();
-	for(;i<240;++i)
+	for(i=0;i<400;++i)
 	{
 	}
+	__low_vol();
+	for(i=0;i<400;++i)
+	{
+	}	
+	__stop_sound();
 }
 
 
-// void _ZAP_SOUND(void)
-// {
-// #asm
-	// EXTERN firmware
-
-	// jr zap_code
-	
-	// zap_data: 
-		// defb 0x82,0x02,0x00,0x90,0x00,0x00,0x0f,0x00,0x00
-	
-	// zap_code:	
-		// ld hl,zap_data
-		// call firmware
-		// defw 0xbcaa		
-// #endasm	
-// }
 
 void _ZAP_SOUND(void)
 {
 #asm
-	EXTERN firmware
-
-	jr zap_code
-	
-	zap_data: 
-		defb 0x82,0x00,0x00,0x90,0x00,0x00,0x0f,0xc0,0x00
-	
-	zap_code:	
-		ld hl,zap_data
-		call firmware
-		defw 0xbcaa		
+	ld bc,0x0738
+	call writepsg_ping  
+	ld bc,0x0100
+	call writepsg_ping  
+	ld bc,0x0090
+	call writepsg_ping  
+	ld bc,0x080f
+	call writepsg_ping  
+	ret
+	 
+	writepsg_zap:
+	  ld   a,b
+	  di  
+	  ld    b, 0xf4
+	  out   (c), a
+	  ld    b, 0xf6
+	  in    a, (c)
+	  or    0xc0
+	  out   (c), a
+	  and   0x3f
+	  out   (c), a
+	  ld    b, 0xf4
+	  out   (c), c
+	  ld    b,0xf6
+	  ld    c, a
+	  or    0x80
+	  out   (c), a
+	  out   (c), c
+	  ei  
+	  ret
+		
 #endasm	
 }
 
@@ -193,8 +256,12 @@ void ZAP_SOUND(void)
 	
 
 	_ZAP_SOUND();			
-	
 	for(;i<250;++i)
-	{	_ZAP_SOUND();	}
+	{}
+	__stop_sound();
+	__ping_sound();
+	for(;i<250;++i)
+	{}	
+	__stop_sound();
 }
 

@@ -161,14 +161,12 @@ void _ping_sound(void)
 void __explosion_sound(void)
 {
 #asm
-	ld bc,0x0703
-	call writepsg_ping  
-	ld bc,0x0100
-	call writepsg_ping  
-	ld bc,0x0030
-	call writepsg_ping  
+	ld bc,0x0707
+	call writepsg_explosion  
+	ld bc,0x0618
+	call writepsg_explosion  
 	ld bc,0x080f
-	call writepsg_ping  
+	call writepsg_explosion  
 	ret
 	 
 	writepsg_explosion:
@@ -201,11 +199,11 @@ void _explosion_sound(void)
 
 
 	__explosion_sound();
-	for(i=0;i<400;++i)
+	for(i=0;i<600;++i)
 	{
 	}
 	__low_vol();
-	for(i=0;i<400;++i)
+	for(i=0;i<600;++i)
 	{
 	}	
 	__stop_sound();
@@ -252,15 +250,16 @@ void _ZAP_SOUND(void)
 
 void ZAP_SOUND(void)
 {
-	unsigned char i=0;
+	unsigned char i;
 	
 
 	_ZAP_SOUND();			
-	for(;i<250;++i)
+	for(i=0;i<250;++i)
 	{}
 	__stop_sound();
+	
 	__ping_sound();
-	for(;i<250;++i)
+	for(i=0;i<250;++i)
 	{}	
 	__stop_sound();
 }

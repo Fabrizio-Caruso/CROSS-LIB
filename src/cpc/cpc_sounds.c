@@ -120,34 +120,6 @@ void ZAP_SOUND(void)
 	
 	_write_psg(CONTROL, 0x3f);		
 	_write_psg(A_VOLUME,0);			
-	// unsigned char i;
-	// unsigned char j;
-	// _write_psg(NOISE,0);	
-	// _write_psg(A_VOLUME,15);
-	
-	// _write_psg(A_PERIOD_LOW,255);
-	// _write_psg(A_PERIOD_HI, 15);
-	
-	// _write_psg(CONTROL, 0x07, 0x38);
-	
-	// for(i=0;i<16;i++)
-	// {
-		// _write_psg(A_PERIOD_HI,15-i);		
-		// for(j=0;j<150;++j)
-		// {
-		// }
-	// }
-	
-	// for(i=0;i<16;i++)
-	// {
-		// _write_psg(A_VOLUME,15-i);		
-		// for(j=0;j<200;++j)
-		// {
-		// }
-	// }
-	
-	// _write_psg(CONTROL, 0x3ff);		
-	// _write_psg(A_VOLUME,0);
 }
 
 
@@ -182,7 +154,7 @@ void _explosion_sound(unsigned char freq)
 	_write_psg(A_PERIOD_HI, 15 - (freq>>4));
 	
 
-	_write_psg(CONTROL, 0x07, 0x07);
+	_write_psg(CONTROL, 0x07);
 	
 	for(i=0;i<13;i++)
 	{

@@ -42,6 +42,8 @@
 		#include "msx/msx_sounds.h"
 	#elif defined(__CPC__) && defined(SOUNDS)
 		#include "cpc/cpc_sounds.h"
+	#elif defined(__VG5K__) && defined(SOUNDS)
+		#include "vg5k/vg5k_sounds.h"		
 	#else
 		#define EXPLOSION_SOUND() {};
 		#define PING_SOUND() {};

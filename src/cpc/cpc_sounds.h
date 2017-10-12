@@ -28,16 +28,14 @@
 	#include "cpcrslib.h"
 	#include "cpcwyzlib.h"
 
-	void _init_sound(void);
+	void _ping_sound(unsigned char freq);
+	#define PING_SOUND() _ping_sound(0xF0);	
+	#define TOCK_SOUND() _ping_sound(0x02);
+	#define TICK_SOUND() _ping_sound(0x60);
 	
-	void _ping_sound(void);
-	#define PING_SOUND() _ping_sound();	
-	#define TOCK_SOUND() _ping_sound();
-	#define TICK_SOUND() _ping_sound();
-	
-	void _explosion_sound(void);
-	#define SHOOT_SOUND() _explosion_sound();
-	#define EXPLOSION_SOUND() _explosion_sound();
+	void _explosion_sound(unsigned char freq);
+	#define SHOOT_SOUND() _explosion_sound(0xF0);
+	#define EXPLOSION_SOUND() _explosion_sound(0x80);
 	
 	void ZAP_SOUND(void);	
 

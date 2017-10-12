@@ -45,222 +45,157 @@ ret
 
 */
 
-void __low_vol(void)
+
+#define A_PERIOD_LOW 0
+#define A_PERIOD_HI 1
+
+#define B_PERIOD_LOW 2
+#define B_PERIOD_HI 3
+
+#define C_PERIOD_LOW 4
+#define C_PERIOD_HI 5
+	
+#define NOISE 6
+#define CONTROL 7
+
+#define A_VOLUME 8
+#define B_VOLUME 9
+#define C_VOLUME 10
+	
+#define ENV_PERIOD_LOW 11
+#define ENV_PERIOD_HI 12
+
+#define ENV_WAVE 13
+
+
+void _write_psg_aux(int value, int reg)
 {
-#asm 
-	ld bc,0x0805
-	call writepsg_low_vol 
-	ret
-	 
-	writepsg_low_vol:
-	  ld   a,b
-	  di  
-	  ld    b, 0xf4
-	  out   (c), a
-	  ld    b, 0xf6
-	  in    a, (c)
-	  or    0xc0
-	  out   (c), a
-	  and   0x3f
-	  out   (c), a
-	  ld    b, 0xf4
-	  out   (c), c
-	  ld    b,0xf6
-	  ld    c, a
-	  or    0x80
-	  out   (c), a
-	  out   (c), c
-	  ei  
-	  ret
-		
-#endasm	
+	#asm
+	pop af
+	pop hl ; reg
+	pop bc ; value
+	push bc
+	push hl
+	push af
+	
+	ld b,l
+	
+	ld   a,b
+	di  
+	ld    b, 0xf4
+	out   (c), a
+	ld    b, 0xf6
+	in    a, (c)
+	or    0xc0
+	out   (c), a
+	and   0x3f
+	out   (c), a
+	ld    b, 0xf4
+	out   (c), c
+	ld    b,0xf6
+	ld    c, a
+	or    0x80
+	out   (c), a
+	out   (c), c
+	ei  
+	ret	
+	#endasm
 }
 
-void __stop_sound(void)
-{
-#asm 
-	ld bc,0x0800
-	call writepsg_stop 
-	ret
-	 
-	writepsg_stop:
-	  ld   a,b
-	  di  
-	  ld    b, 0xf4
-	  out   (c), a
-	  ld    b, 0xf6
-	  in    a, (c)
-	  or    0xc0
-	  out   (c), a
-	  and   0x3f
-	  out   (c), a
-	  ld    b, 0xf4
-	  out   (c), c
-	  ld    b,0xf6
-	  ld    c, a
-	  or    0x80
-	  out   (c), a
-	  out   (c), c
-	  ei  
-	  ret
-		
-#endasm	
-}
+#define _write_psg(reg,value) _write_psg_aux(value,reg)
 
-
-void __ping_sound(void)
-{
-#asm
-	ld bc,0x0738
-	call writepsg_ping  
-	ld bc,0x0100
-	call writepsg_ping  
-	ld bc,0x00c0
-	call writepsg_ping  
-	ld bc,0x080f
-	call writepsg_ping  
-	ret
-	 
-	writepsg_ping:
-	  ld   a,b
-	  di  
-	  ld    b, 0xf4
-	  out   (c), a
-	  ld    b, 0xf6
-	  in    a, (c)
-	  or    0xc0
-	  out   (c), a
-	  and   0x3f
-	  out   (c), a
-	  ld    b, 0xf4
-	  out   (c), c
-	  ld    b,0xf6
-	  ld    c, a
-	  or    0x80
-	  out   (c), a
-	  out   (c), c
-	  ei  
-	  ret
-		
-#endasm	
-}
-
-
-void _ping_sound(void)
-{
-	unsigned char i=0;
-
-	__ping_sound();
-	for(;i<250;++i)
-	{		
-	}	
-	__stop_sound();
-}
-
-
-void __explosion_sound(void)
-{
-#asm
-	ld bc,0x0707
-	call writepsg_explosion  
-	ld bc,0x0618
-	call writepsg_explosion  
-	ld bc,0x080f
-	call writepsg_explosion  
-	ret
-	 
-	writepsg_explosion:
-	  ld   a,b
-	  di  
-	  ld    b, 0xf4
-	  out   (c), a
-	  ld    b, 0xf6
-	  in    a, (c)
-	  or    0xc0
-	  out   (c), a
-	  and   0x3f
-	  out   (c), a
-	  ld    b, 0xf4
-	  out   (c), c
-	  ld    b,0xf6
-	  ld    c, a
-	  or    0x80
-	  out   (c), a
-	  out   (c), c
-	  ei  
-	  ret
-		
-#endasm		
-}
-
-void _explosion_sound(void)
-{
-	unsigned short i;
-
-
-	__explosion_sound();
-	for(i=0;i<600;++i)
-	{
-	}
-	__low_vol();
-	for(i=0;i<600;++i)
-	{
-	}	
-	__stop_sound();
-}
-
-
-
-void _ZAP_SOUND(void)
-{
-#asm
-	ld bc,0x0738
-	call writepsg_ping  
-	ld bc,0x0100
-	call writepsg_ping  
-	ld bc,0x0090
-	call writepsg_ping  
-	ld bc,0x080f
-	call writepsg_ping  
-	ret
-	 
-	writepsg_zap:
-	  ld   a,b
-	  di  
-	  ld    b, 0xf4
-	  out   (c), a
-	  ld    b, 0xf6
-	  in    a, (c)
-	  or    0xc0
-	  out   (c), a
-	  and   0x3f
-	  out   (c), a
-	  ld    b, 0xf4
-	  out   (c), c
-	  ld    b,0xf6
-	  ld    c, a
-	  or    0x80
-	  out   (c), a
-	  out   (c), c
-	  ei  
-	  ret
-		
-#endasm	
-}
-
-void ZAP_SOUND(void)
+void ZAP_SOUND(void) 
 {
 	unsigned char i;
+	_write_psg(NOISE,0);	
+	_write_psg(A_VOLUME,15);
+	_write_psg(A_PERIOD_LOW,255);
+	_write_psg(A_PERIOD_HI, 1);		
+
+	_write_psg(CONTROL, 0x38);
+	
+	for(i=0;i<220;++i)
+	{
+	}
+	
+	_write_psg(CONTROL, 0x3f);		
+	_write_psg(A_VOLUME,0);			
+	// unsigned char i;
+	// unsigned char j;
+	// _write_psg(NOISE,0);	
+	// _write_psg(A_VOLUME,15);
+	
+	// _write_psg(A_PERIOD_LOW,255);
+	// _write_psg(A_PERIOD_HI, 15);
+	
+	// _write_psg(CONTROL, 0x07, 0x38);
+	
+	// for(i=0;i<16;i++)
+	// {
+		// _write_psg(A_PERIOD_HI,15-i);		
+		// for(j=0;j<150;++j)
+		// {
+		// }
+	// }
+	
+	// for(i=0;i<16;i++)
+	// {
+		// _write_psg(A_VOLUME,15-i);		
+		// for(j=0;j<200;++j)
+		// {
+		// }
+	// }
+	
+	// _write_psg(CONTROL, 0x3ff);		
+	// _write_psg(A_VOLUME,0);
+}
+
+
+void _ping_sound(unsigned char freq)
+{ 
+	unsigned char i;
+	_write_psg(NOISE,0);	
+	_write_psg(A_VOLUME,15);
+	_write_psg(A_PERIOD_LOW,255);
+	_write_psg(A_PERIOD_HI, 15 - (freq>>4));		
+
+	_write_psg(CONTROL, 0x38);
+	
+	for(i=0;i<220;++i)
+	{
+	}
+	
+	_write_psg(CONTROL, 0x3f);		
+	_write_psg(A_VOLUME,0);		
+}			
+
+
+void _explosion_sound(unsigned char freq)
+{ 
+	unsigned char i;
+	unsigned char j;
+	
+	_write_psg(NOISE,15);
+	_write_psg(A_VOLUME,15);
+	
+	_write_psg(A_PERIOD_LOW,0);
+	_write_psg(A_PERIOD_HI, 15 - (freq>>4));
 	
 
-	_ZAP_SOUND();			
-	for(i=0;i<250;++i)
-	{}
-	__stop_sound();
+	_write_psg(CONTROL, 0x07, 0x07);
 	
-	__ping_sound();
-	for(i=0;i<250;++i)
-	{}	
-	__stop_sound();
+	for(i=0;i<13;i++)
+	{
+		_write_psg(A_VOLUME,15-i);		
+		for(j=0;j<250;++j)
+		{
+		}		
+	}
+	for(j=0;j<250;++j)
+		{
+		}
+		
+	_write_psg(CONTROL, 0x3f);				
+	_write_psg(A_VOLUME,0);		
 }
 

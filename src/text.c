@@ -28,8 +28,6 @@
 
 #include "settings.h"
 
-#include "sleep_macros.h"
-
 #ifdef __ATMOS__
 	#include<peekpoke.h>
 #elif defined(__CPC__) && defined(CPCRSLIB)
@@ -157,7 +155,7 @@ void displayStatsTitles(void)
 		// Nothing
 	#endif
 
-	#if defined(WIDE) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__SPECTRUM__) && !defined(__MSX__) && !(defined(__VG5K__) && !defined(FULL_GAME))
+	#if defined(WIDE) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__SPECTRUM__) && !defined(__MSX__)
 		SET_TEXT_COLOR(_RED);	
 		PRINT(24,-Y_OFFSET,"-----------");		
 		PRINT(24,-Y_OFFSET+1,"cross chase");	
@@ -282,8 +280,6 @@ void setScreenColors(void)
 
 		printCenteredMessageWithCol(_WHITE,levelString);
 	}
-#elif defined(__ZX81__)
-	void printLevel(void) {}
 #elif defined(__VZ__)
 	void printLevel(void) {}
 #else
@@ -349,7 +345,6 @@ void _printScore(char * text, unsigned int score)
 		void printExtraLife(void)
 		{
 			printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 
-			sleep(1);
 		}
 	
 		void printPressKeyToStart(void)
@@ -409,7 +404,6 @@ void _printScore(char * text, unsigned int score)
 		void printExtraLife(void)
 		{
 			printCenteredMessageWithCol(_RED, "EXTRA LIFE"); 
-			sleep(1);
 		}
 		
 		void printPressKeyToStart(void)
@@ -440,7 +434,6 @@ void _printScore(char * text, unsigned int score)
 		void printExtraLife(void)
 		{
 			printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 
-			sleep(1);
 		}
 		
 		void printPressKeyToStart(void)
@@ -471,7 +464,6 @@ void _printScore(char * text, unsigned int score)
 		void printExtraLife(void)
 		{
 			printCenteredMessageWithCol(_RED, "e x t r a  l i f e"); 
-			sleep(1);
 		}
 		
 		void printPressKeyToStart(void)
@@ -502,7 +494,6 @@ void _printScore(char * text, unsigned int score)
 		void printExtraLife(void)
 		{
 			printCenteredMessageWithCol(_RED, "e x t r a  l i f e"); 
-			sleep(1);
 		}
 		
 		void printPressKeyToStart(void)

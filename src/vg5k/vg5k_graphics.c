@@ -181,21 +181,7 @@ void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 	} 
 }
 
-void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
-{
-	no_cursor();		
-		
-	{			
-		int xy = 0;
-		int chCol = 0;
-		xy = ((Y_OFFSET+y+7)<<8) | (X_OFFSET+x);
-		chCol = (ch<<8) | col;
-		
-		_draw_ch_aux(chCol,xy);
-	}
-}
-
-int _draw_ch_aux(int chCol, int xy)
+void _draw_ch_aux(int chCol, int xy)
 {		
 	#asm
 	
@@ -214,6 +200,17 @@ int _draw_ch_aux(int chCol, int xy)
 	#endasm	
 }
 
+void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
+{
+	no_cursor();		
+		
+	{			
+		int xy = ((Y_OFFSET+y+7)<<8) | (X_OFFSET+x);
+		int chCol = (ch<<8) | col;
+		
+		_draw_ch_aux(chCol,xy);
+	}
+}
 
 void _draw(unsigned char x,unsigned char y,Image * image) 
 {

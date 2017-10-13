@@ -855,7 +855,7 @@ int main(void)
 						sleep(1);
 						PING_SOUND();
 						printExtraLife();
-						sleep(1);
+						sleep(2);
 						++lives;
 					}
 				#endif

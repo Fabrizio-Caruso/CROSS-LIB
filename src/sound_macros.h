@@ -29,7 +29,11 @@
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(SOUNDS)
 		#include "atari/atari_sounds.h"
 	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SOUNDS)
+		#include "spectrum/spectrum_sounds.h"			
+	#elif defined(__VG5K__) && defined(SOUNDS)
 		#include "spectrum/spectrum_sounds.h"	
+	#elif defined(__AQUARIUS__) && defined(SOUNDS)
+		#include "spectrum/spectrum_sounds.h"			
 	#elif defined(__VIC20__) && defined(SOUNDS)
 		#include "vic20/vic20_sounds.h"
 	#elif defined(__C16__) && defined(SOUNDS)
@@ -43,9 +47,7 @@
 	#elif defined(__MSX__) && defined(SOUNDS)
 		#include "psg/psg_sounds.h"
 	#elif defined(__CPC__) && defined(SOUNDS)
-		#include "psg/psg_sounds.h"
-	#elif defined(__VG5K__) && defined(SOUNDS)
-		#include "vg5k/vg5k_sounds.h"		
+		#include "psg/psg_sounds.h"	
 	#else
 		#define EXPLOSION_SOUND() {};
 		#define PING_SOUND() {};

@@ -33,10 +33,6 @@
 #include "sound_macros.h"
 #include "text.h"
 
-#if defined(__ATMOS__)
-	#include<peekpoke.h>
-#endif
-
 extern unsigned int points;
 
 extern unsigned char XSize;

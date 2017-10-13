@@ -22,8 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#ifndef _C64_SOUNDS
-#define _C64_SOUNDS
+#ifndef _SID_SOUNDS
+#define _SID_SOUNDS
 	#if defined(__C64__)
 		#include <c64.h>
 	#elif defined(__C128__)
@@ -139,4 +139,5 @@
 	    SID.v3.ctrl  = 0x08; \
 	};
 
-#endif
+#endif // SID_SOUNDS
+

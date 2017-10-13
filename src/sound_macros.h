@@ -35,13 +35,15 @@
 	#elif defined(__C16__) && defined(SOUNDS)
 		#include "c264/c264_sounds.h"
 	#elif defined(__C64__) && defined(SOUNDS)
-		#include "c64/c64_sounds.h"
+		#include "sid/sid_sounds.h"
 	#elif defined(__C128__) && defined(SOUNDS)
-		#include "c64/c64_sounds.h"		
+		#include "sid/sid_sounds.h"		
+	#elif defined(__CBM510__) && defined(SOUNDS)
+		#include "sid/sid_sounds.h"			
 	#elif defined(__MSX__) && defined(SOUNDS)
-		#include "msx/msx_sounds.h"
+		#include "psg/psg_sounds.h"
 	#elif defined(__CPC__) && defined(SOUNDS)
-		#include "cpc/cpc_sounds.h"
+		#include "psg/psg_sounds.h"
 	#elif defined(__VG5K__) && defined(SOUNDS)
 		#include "vg5k/vg5k_sounds.h"		
 	#else

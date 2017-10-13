@@ -22,8 +22,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#include "msx_sounds.h"
-#include <msx/gfx.h>
+#include "psg_sounds.h"
 
 /*
 R0	Channel A Period	pa7	pa6	pa5	pa4	pa3	pa2	pa1	pa0

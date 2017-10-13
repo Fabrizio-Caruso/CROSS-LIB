@@ -22,11 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#ifndef _CPC_SOUNDS
-#define _CPC_SOUNDS
-
-	#include "cpcrslib.h"
-	#include "cpcwyzlib.h"
+#ifndef _PSG_SOUNDS
+#define _PSG_SOUNDS
 
 	void _ping_sound(unsigned char freq);
 	#define PING_SOUND() _ping_sound(0xF0);	
@@ -39,4 +36,4 @@
 	
 	void ZAP_SOUND(void);	
 
-#endif // _CPC_SOUNDS
+#endif // _PSG_SOUNDS

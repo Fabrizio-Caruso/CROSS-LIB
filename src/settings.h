@@ -27,10 +27,11 @@
 
 
 #if defined(__ZX81__) 
-	#define SKIP_DRAW
+		#define SKIP_DRAW \
+			if((loop%4)==0) 
 	
 	#define SKIP_MORE_DRAW \
-		if((loop%8)==0)
+		if((loop%16)==0)
 	#elif defined(__SPECTRUM__) && defined(FULL_GAME)
 		#define SKIP_DRAW \
 			if((loop%2)==0) 

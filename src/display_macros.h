@@ -385,16 +385,20 @@ void _delete(unsigned char x, unsigned char y);
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 	#else
+		#if defined(__VZ__)
+			#define VERTICAL_BRICK '#'
+		#else
+			#define VERTICAL_BRICK '|'
+		#endif
 		#define DRAW_VERTICAL_LINE(x,y,length) \
 		{ \
 			unsigned char i; \
 			for(i=0;i<length;++i) \
 			{ \
 				gotoxy(X_OFFSET+x,Y_OFFSET+y+i); \
-				cputc('|'); \
+				cputc(VERTICAL_BRICK); \
 			} \
-		}
-		
+		}		
 		#define DRAW_HORIZONTAL_LINE(x,y,length) \
 		{ \
 			unsigned char i; \

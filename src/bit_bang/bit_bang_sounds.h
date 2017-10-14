@@ -68,25 +68,23 @@ bit_fx4(5)	Short high pitch slightly noisy decreasing sound
 bit_fx4(6)	Short jump sound
 bit_fx4(7)	Very quick duck squeak
 */
-#ifndef __SPECTRUM_SOUNDS
-#define __SPECTRUM_SOUNDS
+#ifndef __BIT_BANG_SOUNDS
+#define __BIT_BANG_SOUNDS
 	#include <sound.h>
 	
-	//void bit_fx(void (*bfx)(void));
-	#define SHOOT_SOUND() bit_fx(bitfx_1);	
-	#define ZAP_SOUND() bit_fx(bitfx_7);	
-
-	#define PING_SOUND() bit_fx(bitfx_19);
-
-	
-	// TODO: Improve this sound
-	#define EXPLOSION_SOUND() bit_fx(bitfx_16);
-	
-	// TODO: ??
-	#define TICK_SOUND() bit_fx(bitfx_0);
-	
-	// TODO: Find a sound for this (skull moving)
-	#define TOCK_SOUND() {}//bit_fx(bitfx_23);
-	
-
-#endif // __SPECTRUM_SOUNDS
+	#if defined(__SPECTRUM__) && !defined(NATIVE_DIRECTIVES)
+		#define SHOOT_SOUND() bit_fx(bitfx_1);	
+		#define ZAP_SOUND() bit_fx(bitfx_7);	
+		#define PING_SOUND() bit_fx(bitfx_19);
+		#define EXPLOSION_SOUND() bit_fx(bitfx_16);	// TODO: Improve this sound
+		#define TICK_SOUND() bit_fx(bitfx_0);
+		#define TOCK_SOUND() {} 	// TODO: (skull moving)
+	#else
+		#define SHOOT_SOUND() bit_fx(1);	
+		#define ZAP_SOUND() bit_fx(7);	
+		#define PING_SOUND() bit_fx3(3);
+		#define EXPLOSION_SOUND() bit_fx3(0);	// TODO: Improve this sound
+		#define TICK_SOUND() bit_fx(0);
+		#define TOCK_SOUND() {} 	// TODO: (skull moving)
+	#endif
+#endif // __BIT_BANG_SOUNDS

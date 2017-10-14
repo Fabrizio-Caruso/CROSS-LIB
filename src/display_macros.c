@@ -157,7 +157,11 @@ Image GUN_IMAGE;
 		#elif defined(__APPLE2__) 
 			DEAD_GHOST_IMAGE._imageData = '_';
 		#elif defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
-			DEAD_GHOST_IMAGE._imageData = 'x';		
+			DEAD_GHOST_IMAGE._imageData = 'x';	
+		#elif defined(__VZ__)
+			DEAD_GHOST_IMAGE._imageData = '#';				
+		#elif defined(NO_COLOR)
+			DEAD_GHOST_IMAGE._imageData = '_';		 
 		#else
 			DEAD_GHOST_IMAGE._imageData = 'o';
 		#endif

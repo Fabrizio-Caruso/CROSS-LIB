@@ -72,6 +72,9 @@
 #elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 700
+#elif defined(__VZ__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 800
 #elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 200
@@ -155,7 +158,7 @@
 #if defined(CC65) || defined(__SPECTRUM__) || defined(__SVI__)
 	#define ADJUST 0
 #else
-	#define ADJUST 1
+	#define ADJUST 0
 #endif
 
 #if defined(__ZX81__) || defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
@@ -179,7 +182,7 @@
 	#define GHOSTS_NUMBER 9
 #elif defined(__ZX81__)
 	#define GHOSTS_NUMBER 7
-#elif defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)
+#elif defined(__VZ__) || defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)
 	#define GHOSTS_NUMBER 9
 #elif defined(__VG5K__)
 	#define GHOSTS_NUMBER 9
@@ -188,7 +191,7 @@
 #endif
 	
 
-#if defined(__ATARI5200__) || defined(__VG5k__) || defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
+#if defined(__VZ__) || defined(__ATARI5200__) || defined(__VG5k__) || defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
 	#define NO_COLOR
 #else
 	#define COLOR
@@ -254,7 +257,7 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 50UL
 
-#if defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000
 	#define INITIAL_SKULL_SLOWDOWN 32000	
 #elif defined(__VG5K__) || defined(__MSX__) 
@@ -288,7 +291,11 @@
 #endif
 
 // -----------------------------------------------------------------------------------
-#define INVINCIBLE_GHOST_TRIGGER 3
+#if GHOSTS_NUMBER>=8
+	#define INVINCIBLE_GHOST_TRIGGER 4
+#else
+	#define INVINCIBLE_GHOST_TRIGGER 3
+#endif 
 
 #define GUN_INITIAL_COOLDOWN (180 + level * 2)
 

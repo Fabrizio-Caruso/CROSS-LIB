@@ -135,7 +135,7 @@ typedef struct ImageStruct Image;
 #elif defined(__ENTERPRISE__) 
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-1-Y_OFFSET;} while(0)		
 #elif defined(__VZ__) 
-	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=17-Y_OFFSET;} while(0)	
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=16-Y_OFFSET;} while(0)	
 #elif defined(__MTX__) 
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
 #elif defined(__TRS80__) 
@@ -436,8 +436,15 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_BACKGROUND_COLOR(c) {};	
 
 	void CLEAR_SCREEN();
+#elif defined(__VZ__)	
+	#define SET_TEXT_COLOR(c) textcolor(c);
 	
-#elif defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__SVI__) || defined(__AQUARIUS__) || defined(__VZ__) || defined(__ZX81__) || defined(__ZX80__) 
+	#define SET_BORDER_COLOR(c) {};
+
+	#define SET_BACKGROUND_COLOR(c) {};	
+
+	#define CLEAR_SCREEN() {clrscr();};	
+#elif defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__SVI__) || defined(__AQUARIUS__) || defined(__ZX81__) || defined(__ZX80__) 
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};

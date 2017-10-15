@@ -174,7 +174,7 @@ svi_16k:
 # TODO: Adapt code to work with -compiler=sdcc
 # -SO3 --max-allocs-per-node200000
 vg5k:
-	$(Z88DK_PATH)$(MYZ88DK) +vg5k -compiler=sdcc -O3 -vn -D__VG5K__ -lndos -create-app -o $(BUILD_PATH)/LIGHT_vg5k.prg $(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k -O3 -vn -D__VG5K__ -lndos -create-app -o $(BUILD_PATH)/LIGHT_vg5k.prg $(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_vg5k.prg
 
 # Optimize with [VERY SLOW]: -SO3 --max-allocs-per-node200000

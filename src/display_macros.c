@@ -64,17 +64,11 @@ Image GUN_IMAGE;
 	// 
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	// 
-#elif defined(__SPECTRUM__) && defined(REDEFINED_CHARS)
-	// 
-#elif defined(__SPECTRUM__) && !defined(REDEFINED_CHARS)
+#elif defined(__SPECTRUM__)
 	//	
 #elif defined(__MSX__) && defined(REDEFINED_CHARS)
 	// 
-#elif defined(__SVI__)
-	// 
 #elif defined(__CPC__)
-	//
-#elif defined(__AQUARIUS__)
 	//
 #elif defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__)
 	//
@@ -97,6 +91,19 @@ Image GUN_IMAGE;
 				EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
 				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
 			#endif
+		#elif defined(__AQUARIUS__)
+			PLAYER_IMAGE._color = COLOR_CYAN;
+			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
+			POWERUP_IMAGE._color = COLOR_YELLOW;
+			GUN_IMAGE._color = COLOR_BLUE;
+			BOMB_IMAGE._color = COLOR_RED;
+			DEAD_GHOST_IMAGE._color = COLOR_RED;
+
+			#if defined(FULL_GAME)
+				EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
+				EXTRA_LIFE_IMAGE._color = COLOR_BLUE;
+				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;		
+			#endif		
 		#elif defined(__ATARI__) || defined(__ATARIXL__)
 			PLAYER_IMAGE._color = COLOR_WHITE;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;

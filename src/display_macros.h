@@ -31,7 +31,7 @@
 	#include <atari5200.h>
 #endif
 	
-#if !defined(__SPECTRUM__)
+#if !defined(__SPECTRUM__) && !defined(__MSX__)
 	#include <conio.h>
 #endif
 
@@ -45,9 +45,9 @@
 #elif defined(__CPC__)
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__MSX__)
-	#include "patch/z88dk_conio_patch.h"
+	#include "patch/z88dk_conio_implementation.h"
 #elif defined(__SVI__)
-	#include "patch/z88dk_conio_patch.h"	
+	#include "patch/z88dk_conio_patch.h"
 #elif defined(__VG5K__)
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__TRS80__)
@@ -113,7 +113,7 @@ typedef struct ImageStruct Image;
 #elif defined(__MSX__) && defined(MSX_MODE1)
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__SVI__) 
-	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__CPC__) && !defined(CPCRSLIB)
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)
 // #elif defined(__CPC__) && defined(CPCRSLIB)
@@ -379,7 +379,8 @@ void _delete(unsigned char x, unsigned char y);
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 
 	#elif defined(__AQUARIUS__)
-		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
+		//void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
+		#define DRAW_VERTICAL_LINE(x, y, length)		
 		#define DRAW_HORIZONTAL_BORDER(y)
 	#elif defined(__ZX81__) || defined(__ZX80__)
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
@@ -424,6 +425,14 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_BACKGROUND_COLOR(c) {};
 
 	#define CLEAR_SCREEN() printf("\xc")
+#elif defined(__AQUARIUS__) || defined(__SVI__)
+	#define SET_TEXT_COLOR(c) textcolor(c)
+
+	#define SET_BORDER_COLOR(c) {}
+
+	#define SET_BACKGROUND_COLOR(c) {}
+
+	#define CLEAR_SCREEN() clrscr()	
 #elif defined(__CPC__) 
 	#define SET_TEXT_COLOR(c) textcolor(c);
 
@@ -448,7 +457,7 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() {clrscr();};	
-#elif defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__SVI__) || defined(__AQUARIUS__) || defined(__ZX81__) || defined(__ZX80__) 
+#elif defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) 
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};

@@ -95,16 +95,13 @@
 	#define GAME_SLOW_DOWN 700	
 #elif defined(__AQUARIUS__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 1200	
+	#define GAME_SLOW_DOWN 800	
 #elif defined(__ACE__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 500	
 #elif defined(__MSX__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 550		
-#elif defined(__SVI__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 500			
+	#define GAME_SLOW_DOWN 550				
 #elif defined(__VZ__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 800	

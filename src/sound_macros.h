@@ -49,7 +49,7 @@
 	#elif defined(__CBM510__) && defined(SOUNDS)
 		#include "sid/sid_sounds.h"		
 	#elif defined(__SVI__) && defined(SOUNDS)
-		#include "bit_bang/bit_bang_sounds.h"	
+		#include "psg/psg_sounds.h"
 	#elif defined(__MSX__) && defined(SOUNDS)
 		#include "psg/psg_sounds.h"
 	#elif defined(__CPC__) && defined(SOUNDS)

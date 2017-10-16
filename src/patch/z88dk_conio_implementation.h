@@ -44,6 +44,15 @@
 		#define gotoxy(x,y) zx_setcursorpos(y-1,x)
 	#elif defined(__ENTERPRISE__) || defined(__MTX__)
 		#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
+	#elif defined __SVI__ || defined __MSX__
+		#define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
+		#define clrscr() printf("\033E")
+		#define cprintf printf
+		#define _cprintf printf
+		#define cputs puts_cons
+		#define _cputs puts_cons
+		#define cgets gets
+		#define _cgets gets	
 	#else
 	#endif
 

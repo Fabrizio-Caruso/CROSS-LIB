@@ -109,8 +109,8 @@ Image PLAYER_LEFT;
 
 #define _DRAW(x,y,image) msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,image->_imageData);
 #define _DELETE(x,y)     msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,' ');
-#define _DRAW_VERTICAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize, _VERTICAL_BRICK); //'|');
-#define _DRAW_HORIZONTAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize, _HORIZONTAL_BRICK); //'-');	
+#define _DRAW_VERTICAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize, _VERTICAL_BRICK);
+#define _DRAW_HORIZONTAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize, _HORIZONTAL_BRICK);
 #define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,BOMB_IMAGE._imageData);	
 
 
@@ -126,27 +126,29 @@ void redefine(unsigned short loc, const char *new_char)
 
 void INIT_GRAPHICS(void)
 {
-	static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
-	static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
-	static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
-	static const char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
-	static const char ghost[8] =            {129,126,165,129,129,189,129,126};
-	static const char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
-	static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
-	static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
-	static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
-	static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
-	
-	static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};	
-	static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
-	static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};	
-	static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};
-	
-	static const char dead_ghost[8] =       {129,126,165,129,129,189,129,126};
-	
-	static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
-	static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};	
-	static const char extra_points[8]     = { 16, 62, 32, 60,  4,124,  8,  0};
+	#if defined(REDEFINED_CHARS)
+		static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
+		static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
+		static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
+		static const char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
+		static const char ghost[8] =            {129,126,165,129,129,189,129,126};
+		static const char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
+		static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
+		static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
+		static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
+		static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
+		
+		static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};	
+		static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
+		static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};	
+		static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};
+		
+		static const char dead_ghost[8] =       {129,126,165,129,129,189,129,126};
+		
+		static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
+		static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};	
+		static const char extra_points[8]     = { 16, 62, 32, 60,  4,124,  8,  0};
+	#endif
 		set_color(15, 1, 1);
 	#if defined(MSX_MODE1)
 		set_mode(mode_1);
@@ -167,31 +169,33 @@ void INIT_GRAPHICS(void)
 		msx_vpoke(8192+11, 8*16); // Red 88 --
 	#endif
 	
-	redefine(CHAR_BASE+8*_PLAYER,player_down);
-	redefine(CHAR_BASE+8*_PLAYER_DOWN,player_down);
-	redefine(CHAR_BASE+8*_PLAYER_UP,player_up);	
-	redefine(CHAR_BASE+8*_PLAYER_LEFT,player_left);	
-	redefine(CHAR_BASE+8*_PLAYER_RIGHT, player_right);	
-	
-	redefine(CHAR_BASE+8*_BOMB, bomb);
-	redefine(CHAR_BASE+8*_GUN, gun);
-	redefine(CHAR_BASE+8*_POWERUP, powerUp);		
-	redefine(CHAR_BASE+8*_GHOST,ghost);
-	redefine(CHAR_BASE+8*_INVINCIBLE_GHOST,invincible_ghost);	
-	redefine(CHAR_BASE+8*_MISSILE,missile);	
-	
-	redefine(CHAR_BASE+8*_EXTRA_LIFE,player_down);	
-	redefine(CHAR_BASE+8*_INVINCIBILITY,invincibility);	
-	redefine(CHAR_BASE+8*_DEAD_GHOST,dead_ghost);	
-	
-	redefine(CHAR_BASE+8*_VERTICAL_BRICK,vertical_brick);	
-	redefine(CHAR_BASE+8*_HORIZONTAL_BRICK,horizontal_brick);	
+	#if defined(REDEFINED_CHARS)
+		redefine(CHAR_BASE+8*_PLAYER,player_down);
+		redefine(CHAR_BASE+8*_PLAYER_DOWN,player_down);
+		redefine(CHAR_BASE+8*_PLAYER_UP,player_up);	
+		redefine(CHAR_BASE+8*_PLAYER_LEFT,player_left);	
+		redefine(CHAR_BASE+8*_PLAYER_RIGHT, player_right);	
 		
-	#if defined(FULL_GAME)
-		redefine(CHAR_BASE+8*_LEFT_ENEMY_MISSILE,missile_left);	
-		redefine(CHAR_BASE+8*_RIGHT_ENEMY_MISSILE,missile_right);	
-		redefine(CHAR_BASE+8*_BUBBLE, bubble);
-		redefine(CHAR_BASE+8*_EXTRA_POINTS, extra_points);
+		redefine(CHAR_BASE+8*_BOMB, bomb);
+		redefine(CHAR_BASE+8*_GUN, gun);
+		redefine(CHAR_BASE+8*_POWERUP, powerUp);		
+		redefine(CHAR_BASE+8*_GHOST,ghost);
+		redefine(CHAR_BASE+8*_INVINCIBLE_GHOST,invincible_ghost);	
+		redefine(CHAR_BASE+8*_MISSILE,missile);	
+		
+		redefine(CHAR_BASE+8*_EXTRA_LIFE,player_down);	
+		redefine(CHAR_BASE+8*_INVINCIBILITY,invincibility);	
+		redefine(CHAR_BASE+8*_DEAD_GHOST,dead_ghost);	
+		
+		redefine(CHAR_BASE+8*_VERTICAL_BRICK,vertical_brick);	
+		redefine(CHAR_BASE+8*_HORIZONTAL_BRICK,horizontal_brick);	
+	
+		#if defined(FULL_GAME)
+			redefine(CHAR_BASE+8*_LEFT_ENEMY_MISSILE,missile_left);	
+			redefine(CHAR_BASE+8*_RIGHT_ENEMY_MISSILE,missile_right);	
+			redefine(CHAR_BASE+8*_BUBBLE, bubble);
+			redefine(CHAR_BASE+8*_EXTRA_POINTS, extra_points);
+		#endif
 	#endif
 }
 
@@ -257,24 +261,24 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
-
-void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-{ 
-	unsigned char i;
-	for(i=0;i<length;++i)
-	{
-		_DRAW_VERTICAL_WALL(x,y+i);
+#if defined(REDEFINED_CHARS)
+	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+	{ 
+		unsigned char i;
+		for(i=0;i<length;++i)
+		{
+			_DRAW_VERTICAL_WALL(x,y+i);
+		}
 	}
-}
 
-void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-{
-	unsigned char i;
-	for(i=0;i<length;++i)
+	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	{
-		_DRAW_HORIZONTAL_WALL(x+i,y);
+		unsigned char i;
+		for(i=0;i<length;++i)
+		{
+			_DRAW_HORIZONTAL_WALL(x+i,y);
+		}
 	}
-}
-		
+#endif	
 
 

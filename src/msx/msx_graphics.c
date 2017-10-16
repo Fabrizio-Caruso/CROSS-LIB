@@ -207,6 +207,10 @@ void INIT_IMAGES(void)
 	MISSILE_IMAGE._imageData = _MISSILE;
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
 
+	PLAYER_DOWN._imageData = _PLAYER_DOWN;
+	PLAYER_UP._imageData = _PLAYER_UP;	
+	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+	PLAYER_LEFT._imageData = _PLAYER_LEFT;		
 
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
@@ -214,15 +218,11 @@ void INIT_IMAGES(void)
 		
 		BUBBLE_IMAGE._imageData = _BUBBLE;
 		
-		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS; //'P'; // TODO: Make it look like $
+		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
-		
-		PLAYER_DOWN._imageData = _PLAYER_DOWN;
-		PLAYER_UP._imageData = _PLAYER_UP;	
-		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-		PLAYER_LEFT._imageData = _PLAYER_LEFT;		
+			
 	#endif
 }
 

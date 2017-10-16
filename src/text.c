@@ -280,8 +280,8 @@ void setScreenColors(void)
 
 		printCenteredMessageWithCol(_WHITE,levelString);
 	}
-// #elif defined(__VZ__)
-	// void printLevel(void) {}
+#elif defined(__SVI__) && !defined(FULL_GAME)
+	void printLevel(void) {}
 #else
 	void printLevel(void)
 	{
@@ -302,8 +302,8 @@ void _printScore(char * text, unsigned int score)
 
 	printCenteredMessage(levelString);	
 }
-// #elif defined(__VZ__)
-	// void _printScore(char * text, unsigned int score) {}
+#elif defined(__SVI__) && !defined(FULL_GAME)
+	void _printScore(char * text, unsigned int score) {}
 #else
 void _printScore(char * text, unsigned int score)
 {
@@ -325,9 +325,9 @@ void _printScore(char * text, unsigned int score)
 	{
 		printCenteredMessage("y o u   m a d e   i t"); 
 	}
-// #elif defined(__VZ__)
-	// void gameCompleted(void)
-	// {}
+#elif defined(__SVI__) && !defined(FULL_GAME)
+	void gameCompleted(void)
+	{}
 #elif defined(__VIC20__) && !defined(FULL_GAME)
 	void gameCompleted(void)
 	{
@@ -341,7 +341,7 @@ void _printScore(char * text, unsigned int score)
 #endif
 
 
-#if defined(__VG5K__) || defined(__VZ200__)
+#if defined(__VG5K__) || defined(__VZ__)
 		void printExtraLife(void)
 		{
 			printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 
@@ -371,35 +371,35 @@ void _printScore(char * text, unsigned int score)
 		{
 			printCenteredMessageWithCol(_WHITE, "YOU LOST");
 		}	
-// #elif defined(__VZ__)
-		// void printExtraLife(void)
-		// {
-		// }
+#elif defined(__SVI__) && !defined(FULL_GAME)
+		void printExtraLife(void)
+		{
+		}
 		
-		// void printPressKeyToStart(void)
-		// {
+		void printPressKeyToStart(void)
+		{
 			
-		// }
+		}
 
-		// void deleteCenteredMessage(void)
-		// {
-			// printCenteredMessage("                       ");
-		// }
+		void deleteCenteredMessage(void)
+		{
+			printCenteredMessage("                       ");
+		}
 
-		// void printGameOver(void)
-		// {
-			// printCenteredMessage("GAME OVER");
-		// }
+		void printGameOver(void)
+		{
+			printCenteredMessage("GAME OVER");
+		}
 
-		// void printVictoryMessage(void)
-		// {
-			// printCenteredMessageWithCol(_WHITE, "YOU WON");
-		// }
+		void printVictoryMessage(void)
+		{
+			printCenteredMessageWithCol(_WHITE, "YOU WON");
+		}
 
-		// void printDefeatMessage(void)
-		// {
-			// printCenteredMessageWithCol(_WHITE, "YOU LOST");
-		// }	
+		void printDefeatMessage(void)
+		{
+			printCenteredMessageWithCol(_WHITE, "YOU LOST");
+		}	
 #elif (defined(__VIC20__) || defined(__C16__) ) && defined(FULL_GAME)
 		void printExtraLife(void)
 		{

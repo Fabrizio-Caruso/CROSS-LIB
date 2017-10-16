@@ -31,7 +31,7 @@
 	#include <atari5200.h>
 #endif
 	
-#if !defined(__SPECTRUM__) && !defined(__MSX__)
+#if !defined(__SPECTRUM__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0))
 	#include <conio.h>
 #endif
 
@@ -46,8 +46,10 @@
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__MSX__)
 	#include "patch/z88dk_conio_implementation.h"
-#elif defined(__SVI__)
+#elif defined(__SVI__) && !defined(MSX_MODE0)
 	#include "patch/z88dk_conio_patch.h"
+#elif defined(__SVI__) && defined(MSX_MODE0)
+	#include "patch/z88dk_conio_implementation.h"
 #elif defined(__VG5K__)
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__TRS80__)
@@ -75,7 +77,9 @@
 struct ImageStruct
 {
 	unsigned char _imageData;
-	unsigned char _color;
+	#if !defined(NO_COLOR)
+		unsigned char _color;
+	#endif
 };
 
 typedef struct ImageStruct Image;
@@ -112,8 +116,10 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__MSX__) && defined(MSX_MODE1)
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
-#elif defined(__SVI__) 
+#elif defined(__SVI__) && !defined(MSX_MODE0)
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
+#elif defined(__SVI__) && defined(MSX_MODE0)
+	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
 #elif defined(__CPC__) && !defined(CPCRSLIB)
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)
 // #elif defined(__CPC__) && defined(CPCRSLIB)
@@ -286,7 +292,7 @@ void _delete(unsigned char x, unsigned char y);
 			cputc (CH_LRCORNER);\
 			cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
 		}	
-#elif defined(__AQUARIUS__) || defined(__ATARI5200__)
+#elif defined(__AQUARIUS__) || defined(__ATARI5200__) || (defined(__SVI__) && defined(MSX_MODE0))
 		#define DRAW_BORDERS() \
 		{ \
 		}	
@@ -425,7 +431,7 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_BACKGROUND_COLOR(c) {};
 
 	#define CLEAR_SCREEN() printf("\xc")
-#elif defined(__AQUARIUS__) || defined(__SVI__)
+#elif defined(__AQUARIUS__) || (defined(__SVI__) && !defined(MSX_MODE0))
 	#define SET_TEXT_COLOR(c) textcolor(c)
 
 	#define SET_BORDER_COLOR(c) {}
@@ -433,6 +439,14 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_BACKGROUND_COLOR(c) {}
 
 	#define CLEAR_SCREEN() clrscr()	
+#elif defined(__SVI__) && defined(MSX_MODE0)
+	#define SET_TEXT_COLOR(c) {}
+
+	#define SET_BORDER_COLOR(c) {}
+
+	#define SET_BACKGROUND_COLOR(c) {}
+
+	#define CLEAR_SCREEN() clrscr()		
 #elif defined(__CPC__) 
 	#define SET_TEXT_COLOR(c) textcolor(c);
 

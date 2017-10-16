@@ -107,7 +107,10 @@
 	#define GAME_SLOW_DOWN 800	
 #elif defined(__CPC__) && defined(CPCRSLIB)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 320		
+	#define GAME_SLOW_DOWN 320	
+#elif defined(__SVI__) && defined(MSX_MODE0)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 800
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
@@ -183,12 +186,14 @@
 	#define GHOSTS_NUMBER 9
 #elif defined(__VG5K__)
 	#define GHOSTS_NUMBER 9
+// #elif defined(__SVI__) && defined(MSX_MODE0)
+	// #define GHOSTS_NUMBER 6
 #else
 	#define GHOSTS_NUMBER 8
 #endif
 	
 
-#if defined(__VZ__) || defined(__ATARI5200__) || defined(__VG5k__) || defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
+#if (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
 	#define NO_COLOR
 #else
 	#define COLOR

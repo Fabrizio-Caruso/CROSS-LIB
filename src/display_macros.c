@@ -68,6 +68,8 @@ Image GUN_IMAGE;
 	//	
 #elif defined(__MSX__) && defined(REDEFINED_CHARS)
 	// 
+#elif defined(__SVI__) && defined(MSX_MODE0)
+	//
 #elif defined(__CPC__)
 	//
 #elif defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__)
@@ -104,20 +106,6 @@ Image GUN_IMAGE;
 				EXTRA_LIFE_IMAGE._color = COLOR_BLUE;
 				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;		
 			#endif		
-		#elif defined(__ATARI__) || defined(__ATARIXL__)
-			PLAYER_IMAGE._color = COLOR_WHITE;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
-			POWERUP_IMAGE._color = COLOR_GRAY1;
-			GUN_IMAGE._color = COLOR_GRAY1;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;
-
-			#if defined(FULL_GAME)
-				EXTRA_POINTS_IMAGE._color = COLOR_WHITE;			
-				EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
-				INVINCIBILITY_IMAGE._color = COLOR_WHITE;		
-			#endif
-			
 		#elif defined(__C16__)
 			PLAYER_IMAGE._color = COLOR_CYAN;
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
@@ -132,17 +120,19 @@ Image GUN_IMAGE;
 				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
 			#endif
 		#else
-			PLAYER_IMAGE._color = COLOR_WHITE;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
-			POWERUP_IMAGE._color = COLOR_WHITE;
-			GUN_IMAGE._color = COLOR_WHITE;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;	
+			#if !defined(NO_COLOR)
+				PLAYER_IMAGE._color = COLOR_WHITE;
+				INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
+				POWERUP_IMAGE._color = COLOR_WHITE;
+				GUN_IMAGE._color = COLOR_WHITE;
+				BOMB_IMAGE._color = COLOR_RED;
+				DEAD_GHOST_IMAGE._color = COLOR_RED;	
 
-			#if defined(FULL_GAME)
-				EXTRA_POINTS_IMAGE._color = COLOR_WHITE;			
-				EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
-				INVINCIBILITY_IMAGE._color = COLOR_WHITE;		
+				#if defined(FULL_GAME)
+					EXTRA_POINTS_IMAGE._color = COLOR_WHITE;			
+					EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
+					INVINCIBILITY_IMAGE._color = COLOR_WHITE;		
+				#endif
 			#endif
 		#endif
 			
@@ -173,17 +163,22 @@ Image GUN_IMAGE;
 			DEAD_GHOST_IMAGE._imageData = 'o';
 		#endif
 
-		GHOST_IMAGE._color = COLOR_WHITE;
-		MISSILE_IMAGE._color = COLOR_WHITE;
+		#if !defined(NO_COLOR)
+			GHOST_IMAGE._color = COLOR_WHITE;
+			MISSILE_IMAGE._color = COLOR_WHITE;
+		#endif
 		
 		#if defined(FULL_GAME)
+			#if !defined(NO_COLOR)
+				LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+				RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+				BUBBLE_IMAGE._color = COLOR_WHITE;	
+				BROKEN_WALL_IMAGE._color = COLOR_WHITE;		
+			#endif
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
-			
+		
 			BUBBLE_IMAGE._imageData = '^';
-			BUBBLE_IMAGE._color = COLOR_WHITE;
 			
 			EXTRA_POINTS_IMAGE._imageData = '$';
 		
@@ -192,7 +187,6 @@ Image GUN_IMAGE;
 			INVINCIBILITY_IMAGE._imageData = 'V';
 
 			BROKEN_WALL_IMAGE._imageData = 'X';
-			BROKEN_WALL_IMAGE._color = COLOR_WHITE;
 		#endif
 	}
 
@@ -200,7 +194,9 @@ Image GUN_IMAGE;
 		void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
 		{
 			gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-			SET_TEXT_COLOR(BROKEN_WALL_IMAGE._color);
+			#if !defined(NO_COLOR)
+				SET_TEXT_COLOR(BROKEN_WALL_IMAGE._color);
+			#endif
 			cputc(BROKEN_WALL_IMAGE._imageData); 		
 		}
 	#endif
@@ -208,7 +204,9 @@ Image GUN_IMAGE;
 	void _draw(unsigned char x, unsigned char y, Image * image) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		SET_TEXT_COLOR(image->_color);
+		#if !defined(NO_COLOR)
+			SET_TEXT_COLOR(image->_color);
+		#endif
 		cputc(image->_imageData); 
 	}
 	
@@ -221,7 +219,9 @@ Image GUN_IMAGE;
 	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char * blink_counter) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		SET_TEXT_COLOR(image->_color);
+		#if !defined(NO_COLOR)
+			SET_TEXT_COLOR(image->_color);
+		#endif
 		if(*blink_counter) 
 		{
 			cputc(image->_imageData); 

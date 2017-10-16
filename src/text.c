@@ -679,6 +679,11 @@ void printHints(void)
 	
 }
  
+#if defined(__SVI__) && !defined(FULL_GAME)
+void printStartMessage(void)
+{
+}
+#else
 void printStartMessage(void)
 {
 	#if defined(__C64__) && defined(REDEFINED_CHARS)
@@ -726,6 +731,6 @@ void printStartMessage(void)
 		printCenteredMessageOnRow(YSize-3, "use i j k l space");				
 	#endif	
 }
-
+#endif
 
 

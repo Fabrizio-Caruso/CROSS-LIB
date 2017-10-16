@@ -34,8 +34,8 @@ msx_no_color_16k : [LIGHT] MSX with 16k of total ram in no color mode
 msx_color_32k : MSX with 32k of total ram in color mode 
 vz200_16k: VZ-200 with 16k of total ram
 vz200_32k: VZ-200 with 32k of total ram
-svi_16k: [LIGHT] Spectravideo with 16k of total ram
-svi_32k: Spectravideo with 32k of total ram
+svi_318: [LIGHT] Spectravideo with 16k of total ram
+svi_328: Spectravideo with 32k of total ram
 vg5k: [LIGHT] unexpanded VG-5000
 vg5k_exp_16k: VG-5000 with 16k memory expansion (32k of total ram)
 spectrum_48k : Sinclair ZX Spectrum (Z88DK with newlib)

@@ -31,7 +31,8 @@
 	#include <atari5200.h>
 #endif
 	
-#if !defined(__SPECTRUM__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0))
+// !defined(__SPECTRUM__) &&
+#if !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0))
 	#include <conio.h>
 #endif
 
@@ -41,7 +42,8 @@
 #if defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
 #elif defined(__SPECTRUM__)
-	#include "patch/z88dk_conio_implementation.h"
+	//#include "patch/z88dk_conio_implementation.h"
+	#include "patch/z88dk_conio_patch.h"	
 #elif defined(__CPC__)
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__MSX__)
@@ -422,7 +424,7 @@ void _delete(unsigned char x, unsigned char y);
 
 
 // COLORS AND CLEAR SCREEN
-#if defined(__SPECTRUM__)
+#if defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
 	#include <stdio.h>
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
 
@@ -431,6 +433,15 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_BACKGROUND_COLOR(c) {};
 
 	#define CLEAR_SCREEN() printf("\xc")
+
+// #elif defined(__SPECTRUM__)
+	// #define SET_TEXT_COLOR(c) textcolor(c)
+
+	// #define SET_BORDER_COLOR(c) {}
+
+	// #define SET_BACKGROUND_COLOR(c) {}
+
+	// #define CLEAR_SCREEN() clrscr()	
 #elif defined(__AQUARIUS__) || (defined(__SVI__) && !defined(MSX_MODE0))
 	#define SET_TEXT_COLOR(c) textcolor(c)
 
@@ -504,6 +515,14 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_BACKGROUND_COLOR(c) bgcolor(c)
 	
 	#define CLEAR_SCREEN() do {clrscr(); INIT_GRAPHICS(); } while(0)
+#elif defined(__SPECTRUM__)
+	#define SET_TEXT_COLOR(c) textcolor(c);
+
+	#define SET_BORDER_COLOR(c) {}
+
+	#define SET_BACKGROUND_COLOR(c) {}
+	
+	#define CLEAR_SCREEN() do {clrscr(); printf("\x1B[37;40m\x1B[2J"); } while(0)
 #else // CC65 conio case
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 

@@ -50,7 +50,7 @@
 	// OTHER RED 4 but should be YELLOW
 	// OTHER CYAN 9
 	// OTHER GREEN 10
-	#if defined(__AQUARIUS__)
+	#if defined(__AQUARIUS__) || defined(__SPECTRUM__)
 
 		#define COLOR_BLACK 0
 		#define COLOR_BLUE 1		

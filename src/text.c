@@ -260,14 +260,14 @@ void displayStats(void)
 
 void setScreenColors(void)
 {
-	#if !defined(CC65) && !defined(__ATMOS__)
-	#else
+	// #if !defined(CC65) && !defined(__ATMOS__)
+	// #else
 		SET_TEXT_COLOR(TEXT_COLOR);
 		
 		SET_BORDER_COLOR(BORDER_COLOR);
 		
 		SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
-	#endif
+	// #endif
 }
 	
 	

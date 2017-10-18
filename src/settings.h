@@ -32,12 +32,6 @@
 	
 	#define SKIP_MORE_DRAW \
 		if((loop%16)==0)
-	#elif defined(__SPECTRUM__) && defined(FULL_GAME)
-		#define SKIP_DRAW \
-			if((loop%2)==0) 
-
-		#define SKIP_MORE_DRAW \
-			if((loop%4)==0)	
 #else
 	#define SKIP_DRAW 
 
@@ -174,10 +168,8 @@
 	#define GHOSTS_NUMBER 7
 #elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define GHOSTS_NUMBER 6
-#elif defined(__SPECTRUM__) && defined(FULL_GAME)
+#elif defined(__SPECTRUM__)
 	#define GHOSTS_NUMBER 9
-#elif defined(__SPECTRUM__) && !defined(FULL_GAME)
-	#define GHOSTS_NUMBER 7
 #elif defined(__ATMOS__)
 	#define GHOSTS_NUMBER 9
 #elif defined(__ZX81__)

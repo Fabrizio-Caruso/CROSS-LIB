@@ -99,6 +99,9 @@
 #elif defined(__VZ__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 800	
+#elif defined(__SPECTRUM__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 400		
 #elif defined(__CPC__) && defined(CPCRSLIB)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 320	

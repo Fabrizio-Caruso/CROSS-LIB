@@ -72,19 +72,19 @@ bit_fx4(7)	Very quick duck squeak
 #define __BIT_BANG_SOUNDS
 	#include <sound.h>
 	
-	#if defined(__SPECTRUM__) && !defined(NATIVE_DIRECTIVES)
-		#define SHOOT_SOUND() bit_fx(bitfx_1);	
-		#define ZAP_SOUND() bit_fx(bitfx_7);	
-		#define PING_SOUND() bit_fx(bitfx_19);
-		#define EXPLOSION_SOUND() bit_fx(bitfx_16);	// TODO: Improve this sound
-		#define TICK_SOUND() bit_fx(bitfx_0);
-		#define TOCK_SOUND() {} 	// TODO: (skull moving)
-	#else
+	// #if defined(__SPECTRUM__) && !defined(NATIVE_DIRECTIVES)
+		// #define SHOOT_SOUND() bit_fx(bitfx_1);	
+		// #define ZAP_SOUND() bit_fx(bitfx_7);	
+		// #define PING_SOUND() bit_fx(bitfx_19);
+		// #define EXPLOSION_SOUND() bit_fx(bitfx_16);	// TODO: Improve this sound
+		// #define TICK_SOUND() bit_fx(bitfx_0);
+		// #define TOCK_SOUND() {} 	// TODO: (skull moving)
+	// #else
 		#define SHOOT_SOUND() bit_fx(1);	
 		#define ZAP_SOUND() bit_fx(7);	
 		#define PING_SOUND() bit_fx3(3);
 		#define EXPLOSION_SOUND() bit_fx3(0);	// TODO: Improve this sound
 		#define TICK_SOUND() bit_fx(0);
 		#define TOCK_SOUND() {} 	// TODO: (skull moving)
-	#endif
+	// #endif
 #endif // __BIT_BANG_SOUNDS

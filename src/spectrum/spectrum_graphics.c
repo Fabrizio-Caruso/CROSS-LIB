@@ -99,9 +99,9 @@ struct redefine_struct
 // YELLOW
 #define _INVINCIBLE_GHOST 0x27
 #define _VERTICAL_BRICK 0x26
-#define _HORIZONTAL_BRICK 0x24
+#define _HORIZONTAL_BRICK 0x2B
 #define _EXTRA_LIFE 0x25
-#define _EXTRA_POINTS 0x22
+#define _EXTRA_POINTS 0x24
 
 // GREEN
 #define _POWERUP  0x2C
@@ -112,8 +112,8 @@ struct redefine_struct
 // #define _MISSILE 0x5F
 
 // CYAN
-#define _INVINCIBILITY 0x08
-#define _MISSILE 0x09
+#define _INVINCIBILITY 0x21
+#define _MISSILE 0x23
 
 // WHITE
 #define _GHOST 0x7E
@@ -147,69 +147,19 @@ struct redefine_struct redefine_map[] =
 
 void INIT_GRAPHICS(void)
 {
-#if defined(REDEFINED_CHARS)
-
-unsigned char i;
-for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
-{
-   memcpy(udg + (redefine_map[i].ascii - 32)*8, redefine_map[i].bitmap, 8);
-}
-
-	// static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
-	// static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
-	// static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
-	// static const char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
-	// static const char ghost[8] =            {129,126,165,129,129,189,129,126};
-	// static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
-	// static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};
-	// static const char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
-	// static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
-	// static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
-	// static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
-	// static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
-	// static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
-	// static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};
-	// static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
-	// static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};		
-
-	// unsigned char i;
-	// for(i=0;i<100;++i)
-		// redefine(udg+i*8, player_down); // 0x90
+	#if defined(REDEFINED_CHARS)
+		unsigned char i;
+		for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
+		{
+		   memcpy(udg + (redefine_map[i].ascii - 32)*8, redefine_map[i].bitmap, 8);
+		}
+	#endif
 	
-	// Crashing BUG appears
-	// redefine(UDG_BASE+8,player_up);		// 0x91
-	// redefine(UDG_BASE+8*2,player_right); //0x92
-	// redefine(UDG_BASE+8*3,player_left); //0x93
+	printf("\x1\x20");
 	
-	
-	// redefine(UDG_BASE+8*4,missile_right); //0x94
-	// redefine(UDG_BASE+8*5,missile_left); //0x95	
-	
-	// redefine(UDG_BASE+8*6,invincible_ghost); //0x96
-	// redefine(UDG_BASE+8*7,gun); //0x97
-
-	// redefine(UDG_BASE+8*8,powerUp); // 0x98
-	// redefine(UDG_BASE+8*9,missile); //0x99
-
-	// redefine(UDG_BASE+8*10,bomb); //0xA0
-	// redefine(UDG_BASE+8*11,ghost); //0xA1
-	// redefine(UDG_BASE+8*12,bubble);	//0xA2
-	// redefine(UDG_BASE+8*13,invincibility);	//0xA3
-
-	// #if !defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
-		// memcpy(my_font, font_8x8_rom, (128-32)*8);	
-		// memcpy(my_font+(128-32)*8, udg_definitions, UDG_N*8);
-		// ioctl(1, IOCTL_OTERM_FONT, (void*)(my_font - 256));
-	// #endif	
-
-	
-#endif
-printf("\x1\x20");
-
-
-clg();
-zx_border(0);
-zx_colour(PAPER_BLACK|INK_WHITE);	
+	clg();
+	zx_border(0);
+	zx_colour(PAPER_BLACK|INK_WHITE);	
 }
 
 void INIT_IMAGES(void)
@@ -289,9 +239,7 @@ void INIT_IMAGES(void)
 #if defined(FULL_GAME)	
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
 	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		SET_TEXT_COLOR(COLOR_WHITE);
-		cputc(BOMB_IMAGE._imageData);
+		_draw(x,y,&BOMB_IMAGE);
 	}
 #endif
 	

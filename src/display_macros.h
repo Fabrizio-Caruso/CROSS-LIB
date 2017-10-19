@@ -424,7 +424,7 @@ void _delete(unsigned char x, unsigned char y);
 
 
 // COLORS AND CLEAR SCREEN
-#if defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES)
+#if defined(__SPECTRUM__) && !defined(CLIB_ANSI)
 	#include <stdio.h>
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
 
@@ -522,7 +522,7 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define SET_BACKGROUND_COLOR(c) {}
 	
-	#define CLEAR_SCREEN() do {clrscr(); printf("\x1B[37;40m\x1B[2J"); } while(0)
+	#define CLEAR_SCREEN() clrscr()
 #else // CC65 conio case
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 

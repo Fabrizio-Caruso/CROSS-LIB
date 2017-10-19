@@ -60,7 +60,7 @@ extern Image GUN_IMAGE;
 
 #define UDG_BASE 0xFF58
 
-#if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)
+#if !defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
 	// #define UDG_N 14
 	#define UDG_N 16
 	#include <stropts.h>
@@ -68,7 +68,7 @@ extern Image GUN_IMAGE;
 	extern unsigned char font_8x8_rom[];
 #endif
 
-#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+#if defined(CLIB_ANSI)
 	#include <graphics.h>
 	#include <spectrum.h>
 #else
@@ -88,7 +88,7 @@ extern Image GUN_IMAGE;
 #define PEEK(addr)         (*(unsigned char*) (addr))
 #define PEEKW(addr) (*(unsigned*) (addr))
 
-#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)
+#if defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
 	void redefine(unsigned long loc, const unsigned char * data)
 	{
 		unsigned short i;
@@ -101,7 +101,7 @@ extern Image GUN_IMAGE;
 
 void INIT_GRAPHICS(void)
 {
-	#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)
+	#if defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
 		static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
 		static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
 		static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
@@ -120,7 +120,7 @@ void INIT_GRAPHICS(void)
 		static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};		
 		
 	#endif
-	#if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)
+	#if !defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
 		static const char udg_definitions[] = { 
 			 24, 36, 24,102,153, 24, 36,102, // 128: player_down
 			 24, 60, 24,102,153, 24, 36,102, // 129: player_up
@@ -141,11 +141,11 @@ void INIT_GRAPHICS(void)
 		};
 	#endif	
 		
-	#if defined(SPECTRUM_32COL) && defined(SPECTRUM_NATIVE_DIRECTIVES)
+	#if defined(SPECTRUM_32COL) && defined(CLIB_ANSI)
 		printf("\x1\x20");
 	#endif
 	
-	#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+	#if defined(CLIB_ANSI)
 		clg();
 		zx_border(0);
 		zx_colour(PAPER_BLACK|INK_WHITE);
@@ -155,7 +155,7 @@ void INIT_GRAPHICS(void)
 		printf(PRINT_PAPER_P PRINT_INK_I PRINT_CLS, INSIDE_COLOR, INSIDE_COLOR);
 	#endif	
 
-	#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)
+	#if defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
 		redefine(UDG_BASE,player_down); // 0x90
 		
 		// Crashing BUG appears
@@ -180,7 +180,7 @@ void INIT_GRAPHICS(void)
 	#endif
 	
 	
-	#if !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)
+	#if !defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
 		memcpy(my_font, font_8x8_rom, (128-32)*8);	
 		memcpy(my_font+(128-32)*8, udg_definitions, UDG_N*8);
 		ioctl(1, IOCTL_OTERM_FONT, (void*)(my_font - 256));
@@ -203,7 +203,7 @@ void INIT_IMAGES(void)
 		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
 	#endif
 		
-	#if defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(REDEFINED_CHARS)	
+	#if defined(CLIB_ANSI) && defined(REDEFINED_CHARS)	
 		PLAYER_IMAGE._imageData = 128;
 		PLAYER_DOWN._imageData = 128;
 		PLAYER_UP._imageData = 129;		

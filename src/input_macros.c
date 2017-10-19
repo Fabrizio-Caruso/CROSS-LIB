@@ -83,7 +83,7 @@ extern unsigned char guns;
 	#if defined(__SPECTRUM__)
 		#include <input.h>
 
-		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
+		#if defined(CLIB_ANSI)
 			void WAIT_PRESS(void) 
 			{ 
 				in_WaitForKey();
@@ -187,7 +187,7 @@ extern unsigned char guns;
 
 #if defined(KEYBOARD_CONTROL)
 	#if defined(__SPECTRUM__)
-		#if defined(SPECTRUM_NATIVE_DIRECTIVES)	
+		#if defined(CLIB_ANSI)	
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}
 		#else	
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_inkey());}		

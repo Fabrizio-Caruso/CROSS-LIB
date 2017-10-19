@@ -28,7 +28,7 @@
 		#include "atmos/atmos_sounds.h"
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(SOUNDS)
 		#include "atari/atari_sounds.h"
-	#elif defined(__SPECTRUM__) && !defined(SPECTRUM_NATIVE_DIRECTIVES) && defined(SOUNDS)
+	#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI) && defined(SOUNDS)
 		#include "bit_bang/bit_bang_sounds.h"			
 	#elif defined(__VG5K__) && defined(SOUNDS)
 		#include "bit_bang/bit_bang_sounds.h"

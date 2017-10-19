@@ -60,131 +60,78 @@ extern Image GUN_IMAGE;
 
 #define UDG_BASE 0xFF58
 
-#if !defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
-	// #define UDG_N 14
-	#define UDG_N 16
-	#include <stropts.h>
-	unsigned char my_font[(128-32+UDG_N)*8];
-	extern unsigned char font_8x8_rom[];
-#endif
-
-#if defined(CLIB_ANSI)
-	#include <graphics.h>
-	#include <spectrum.h>
-#else
-	#include <arch/zx.h>
-
-	#define PRINT_CLS      "\x0c"
-	#define PRINT_INK_I    "\x10%c"
-	#define PRINT_PAPER_P  "\x11%c"
-
-	#define INSIDE_COLOR  INK_BLACK
-	#define OUTSIDE_COLOR INK_WHITE	
-#endif
-
+#include <graphics.h>
+#include <spectrum.h>
 
 #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
 #define PEEK(addr)         (*(unsigned char*) (addr))
 #define PEEKW(addr) (*(unsigned*) (addr))
 
-#if defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
-	void redefine(unsigned long loc, const unsigned char * data)
+
+void redefine(unsigned long loc, const unsigned char * data)
+{
+	unsigned short i;
+	for(i=0;i<8;++i)
 	{
-		unsigned short i;
-		for(i=0;i<8;++i)
-		{
-			POKE((unsigned short)(loc+i),data[i]);
-		}
+		POKE((unsigned short)(loc+i),data[i]);
 	}
-#endif
+}
+
 
 void INIT_GRAPHICS(void)
 {
-	#if defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
-		static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
-		static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
-		static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
-		static const char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
-		static const char ghost[8] =            {129,126,165,129,129,189,129,126};
-		static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
-		static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};
-		static const char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
-		static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
-		static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
-		static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
-		static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
-		static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
-		static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};
-		static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
-		static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};		
-		
-	#endif
-	#if !defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
-		static const char udg_definitions[] = { 
-			 24, 36, 24,102,153, 24, 36,102, // 128: player_down
-			 24, 60, 24,102,153, 24, 36,102, // 129: player_up
-			 24, 52, 25,118,152, 24, 20, 20, // 130: player_right	
-			 24, 44,152,110, 25, 24, 40, 40, // 131: player_left
-			129,126,165,129,129,189,129,126,
-			  0,  0, 15,252,252, 15,  0,  0,
-			  0,  0,240, 63, 63,240,  0,  0,
-			 60, 66,165,129, 90, 36, 36, 60,
-			  0,128,126,200,248,192,128,  0,
-			  0, 60, 54,223,231,122, 36, 24,
-			  0,  0,  8, 56, 28, 16,  0,  0,
-			 60, 66,165,153,153,165, 66, 60,
-			 24, 60, 60, 60,126, 90, 66, 66,
-			 24, 36, 24,  0,153,  0, 36,102,
-	         24, 24, 24, 48, 24, 12, 24, 24,
-	         0,  0,  0,255,  0,  0,  0,  0		 
-		};
-	#endif	
-		
-	#if defined(SPECTRUM_32COL) && defined(CLIB_ANSI)
-		printf("\x1\x20");
-	#endif
-	
-	#if defined(CLIB_ANSI)
-		clg();
-		zx_border(0);
-		zx_colour(PAPER_BLACK|INK_WHITE);
-	#else
-		zx_border(PAPER_BLACK);
-		zx_cls(PAPER_BLACK);
-		printf(PRINT_PAPER_P PRINT_INK_I PRINT_CLS, INSIDE_COLOR, INSIDE_COLOR);
-	#endif	
+	static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
+	static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
+	static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
+	static const char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
+	static const char ghost[8] =            {129,126,165,129,129,189,129,126};
+	static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
+	static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};
+	static const char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
+	static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
+	static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
+	static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
+	static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
+	static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
+	static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};
+	static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
+	static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};		
 
-	#if defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
-		redefine(UDG_BASE,player_down); // 0x90
-		
-		// Crashing BUG appears
-		redefine(UDG_BASE+8,player_up);		// 0x91
-		redefine(UDG_BASE+8*2,player_right); //0x92
-		redefine(UDG_BASE+8*3,player_left); //0x93
-		//
-		
-		redefine(UDG_BASE+8*4,missile_right); //0x94
-		redefine(UDG_BASE+8*5,missile_left); //0x95	
-		
-		redefine(UDG_BASE+8*6,invincible_ghost); //0x96
-		redefine(UDG_BASE+8*7,gun); //0x97
+	printf("\x1\x20");
 
-		redefine(UDG_BASE+8*8,powerUp); // 0x98
-		redefine(UDG_BASE+8*9,missile); //0x99
 
-		redefine(UDG_BASE+8*10,bomb); //0xA0
-		redefine(UDG_BASE+8*11,ghost); //0xA1
-		redefine(UDG_BASE+8*12,bubble);	//0xA2
-		redefine(UDG_BASE+8*13,invincibility);	//0xA3
-	#endif
+	clg();
+	zx_border(0);
+	zx_colour(PAPER_BLACK|INK_WHITE);
+
+	redefine(UDG_BASE,player_down); // 0x90
 	
+	// Crashing BUG appears
+	redefine(UDG_BASE+8,player_up);		// 0x91
+	redefine(UDG_BASE+8*2,player_right); //0x92
+	redefine(UDG_BASE+8*3,player_left); //0x93
+	//
 	
-	#if !defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
-		memcpy(my_font, font_8x8_rom, (128-32)*8);	
-		memcpy(my_font+(128-32)*8, udg_definitions, UDG_N*8);
-		ioctl(1, IOCTL_OTERM_FONT, (void*)(my_font - 256));
-	#endif	
+	redefine(UDG_BASE+8*4,missile_right); //0x94
+	redefine(UDG_BASE+8*5,missile_left); //0x95	
+	
+	redefine(UDG_BASE+8*6,invincible_ghost); //0x96
+	redefine(UDG_BASE+8*7,gun); //0x97
+
+	redefine(UDG_BASE+8*8,powerUp); // 0x98
+	redefine(UDG_BASE+8*9,missile); //0x99
+
+	redefine(UDG_BASE+8*10,bomb); //0xA0
+	redefine(UDG_BASE+8*11,ghost); //0xA1
+	redefine(UDG_BASE+8*12,bubble);	//0xA2
+	redefine(UDG_BASE+8*13,invincibility);	//0xA3
+
+	// #if !defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
+		// memcpy(my_font, font_8x8_rom, (128-32)*8);	
+		// memcpy(my_font+(128-32)*8, udg_definitions, UDG_N*8);
+		// ioctl(1, IOCTL_OTERM_FONT, (void*)(my_font - 256));
+	// #endif	
 }
 
 void INIT_IMAGES(void)

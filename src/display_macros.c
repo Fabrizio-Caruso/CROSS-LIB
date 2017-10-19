@@ -64,7 +64,7 @@ Image GUN_IMAGE;
 	// 
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	// 
-#elif defined(__SPECTRUM__) && defined(REDEFINED_CHARS)
+#elif defined(__SPECTRUM__)
 	//	
 #elif defined(__MSX__) && defined(REDEFINED_CHARS)
 	// 
@@ -147,12 +147,8 @@ Image GUN_IMAGE;
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';
 		
-		// Monochromatic and no capital letters
-
-		// Monochromatic and capital letters
 		#if defined(__APPLE2ENH__) || defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
 			DEAD_GHOST_IMAGE._imageData = 'O';
-		// Color
 		#elif defined(__APPLE2__) 
 			DEAD_GHOST_IMAGE._imageData = '_';
 		#elif defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)

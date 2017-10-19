@@ -35,6 +35,8 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
+extern char udg[];
+
 #if defined(FULL_GAME)
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
@@ -58,7 +60,7 @@ extern Image GUN_IMAGE;
 
 #include <stdio.h>
 
-#define UDG_BASE 0xFF58
+// #define UDG_BASE 0xFF58
 
 #include <graphics.h>
 #include <spectrum.h>
@@ -68,8 +70,8 @@ extern Image GUN_IMAGE;
 #define PEEK(addr)         (*(unsigned char*) (addr))
 #define PEEKW(addr) (*(unsigned*) (addr))
 
-
-void redefine(unsigned long loc, const unsigned char * data)
+#if defined(REDEFINED_CHARS)
+void redefine(unsigned char * loc, const unsigned char * data)
 {
 	unsigned short i;
 	for(i=0;i<8;++i)
@@ -77,10 +79,11 @@ void redefine(unsigned long loc, const unsigned char * data)
 		POKE((unsigned short)(loc+i),data[i]);
 	}
 }
-
+#endif
 
 void INIT_GRAPHICS(void)
 {
+#if defined(REDEFINED_CHARS)
 	static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
 	static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
 	static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
@@ -98,40 +101,43 @@ void INIT_GRAPHICS(void)
 	static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
 	static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};		
 
-	printf("\x1\x20");
-
-
-	clg();
-	zx_border(0);
-	zx_colour(PAPER_BLACK|INK_WHITE);
-
-	redefine(UDG_BASE,player_down); // 0x90
+	unsigned char i;
+	for(i=0;i<100;++i)
+		redefine(udg+i*8, player_down); // 0x90
 	
 	// Crashing BUG appears
-	redefine(UDG_BASE+8,player_up);		// 0x91
-	redefine(UDG_BASE+8*2,player_right); //0x92
-	redefine(UDG_BASE+8*3,player_left); //0x93
-	//
+	// redefine(UDG_BASE+8,player_up);		// 0x91
+	// redefine(UDG_BASE+8*2,player_right); //0x92
+	// redefine(UDG_BASE+8*3,player_left); //0x93
 	
-	redefine(UDG_BASE+8*4,missile_right); //0x94
-	redefine(UDG_BASE+8*5,missile_left); //0x95	
 	
-	redefine(UDG_BASE+8*6,invincible_ghost); //0x96
-	redefine(UDG_BASE+8*7,gun); //0x97
+	// redefine(UDG_BASE+8*4,missile_right); //0x94
+	// redefine(UDG_BASE+8*5,missile_left); //0x95	
+	
+	// redefine(UDG_BASE+8*6,invincible_ghost); //0x96
+	// redefine(UDG_BASE+8*7,gun); //0x97
 
-	redefine(UDG_BASE+8*8,powerUp); // 0x98
-	redefine(UDG_BASE+8*9,missile); //0x99
+	// redefine(UDG_BASE+8*8,powerUp); // 0x98
+	// redefine(UDG_BASE+8*9,missile); //0x99
 
-	redefine(UDG_BASE+8*10,bomb); //0xA0
-	redefine(UDG_BASE+8*11,ghost); //0xA1
-	redefine(UDG_BASE+8*12,bubble);	//0xA2
-	redefine(UDG_BASE+8*13,invincibility);	//0xA3
+	// redefine(UDG_BASE+8*10,bomb); //0xA0
+	// redefine(UDG_BASE+8*11,ghost); //0xA1
+	// redefine(UDG_BASE+8*12,bubble);	//0xA2
+	// redefine(UDG_BASE+8*13,invincibility);	//0xA3
 
 	// #if !defined(CLIB_ANSI) && defined(REDEFINED_CHARS)
 		// memcpy(my_font, font_8x8_rom, (128-32)*8);	
 		// memcpy(my_font+(128-32)*8, udg_definitions, UDG_N*8);
 		// ioctl(1, IOCTL_OTERM_FONT, (void*)(my_font - 256));
 	// #endif	
+	
+#endif
+printf("\x1\x20");
+
+
+clg();
+zx_border(0);
+zx_colour(PAPER_BLACK|INK_WHITE);	
 }
 
 void INIT_IMAGES(void)
@@ -150,7 +156,7 @@ void INIT_IMAGES(void)
 		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
 	#endif
 		
-	#if defined(CLIB_ANSI) && defined(REDEFINED_CHARS)	
+	#if defined(REDEFINED_CHARS)	
 		PLAYER_IMAGE._imageData = 128;
 		PLAYER_DOWN._imageData = 128;
 		PLAYER_UP._imageData = 129;		
@@ -168,27 +174,6 @@ void INIT_IMAGES(void)
 		#if defined(FULL_GAME)
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = 133;
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = 132;		
-			BUBBLE_IMAGE._imageData = 140;
-			INVINCIBILITY_IMAGE._imageData = 141;
-		#endif
-	#elif defined(REDEFINED_CHARS)
-		PLAYER_IMAGE._imageData = 128;
-		PLAYER_DOWN._imageData = 128;
-		PLAYER_UP._imageData = 129;		
-		PLAYER_RIGHT._imageData = 130;
-		PLAYER_LEFT._imageData = 131;	
-		
-		GHOST_IMAGE._imageData = 132;		
-		INVINCIBLE_GHOST_IMAGE._imageData = 135;
-		GUN_IMAGE._imageData = 136;
-		POWERUP_IMAGE._imageData = 137;
-		MISSILE_IMAGE._imageData = 138;	
-		BOMB_IMAGE._imageData = 139;
-		#define VERTICAL_BRICK 142
-		#define HORIZONTAL_BRICK 143
-		#if defined(FULL_GAME)
-			LEFT_ENEMY_MISSILE_IMAGE._imageData = 134;		
-			RIGHT_ENEMY_MISSILE_IMAGE._imageData = 133;	
 			BUBBLE_IMAGE._imageData = 140;
 			INVINCIBILITY_IMAGE._imageData = 141;
 		#endif

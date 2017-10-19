@@ -112,7 +112,7 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) do {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;} while(0)
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_64COL)
 	#define GET_SCREEN_SIZE(x,y) do {*x=64-X_OFFSET; *y=24-Y_OFFSET;} while(0)
-#elif defined (__SPECTRUM__) && defined(SPECTRUM_32COL)
+#elif defined (__SPECTRUM__)
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__MSX__) && !defined(MSX_MODE1)
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)

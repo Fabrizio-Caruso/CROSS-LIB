@@ -40,7 +40,7 @@
 		#else
 			#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 		#endif
-	#elif defined(__ZX81__)	|| defined(__ZX80__)
+	#elif defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
 		#define gotoxy(x,y) zx_setcursorpos(y-1,x)
 	#elif defined(__ENTERPRISE__) || defined(__MTX__)
 		#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
@@ -58,7 +58,7 @@
 
 	#if defined(__ZX80__)
 		#define cputc(c) {gen_tv_field(); printf("%c",c); gen_tv_field();}
-	#elif defined(__ZX81__)
+	#elif defined(__ZX81__) || defined(__LAMBDA__)
 	    #define cputc(c) fputc_cons(c);
 	#else
 		#define cputc(c) putchar(c); 

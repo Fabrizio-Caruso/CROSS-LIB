@@ -82,7 +82,7 @@ void INIT_IMAGES(void)
 	#endif
 }
 
-#if defined(__ZX81__)	|| defined(__ZX80__)
+#if defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
 	#define zxgotoxy(x,y) zx_setcursorpos(y,x)
 #else
 	#define zxgotoxy(x,y) gotoxy(x,y)

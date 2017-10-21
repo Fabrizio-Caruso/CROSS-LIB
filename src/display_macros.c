@@ -74,7 +74,7 @@ Image GUN_IMAGE;
 	//
 #elif defined(__CPC__)
 	//
-#elif defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__)
+#elif defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__) || defined(__LAMBDA__)
 	//
 #else
 	void INIT_GRAPHICS() {}
@@ -151,7 +151,7 @@ Image GUN_IMAGE;
 			DEAD_GHOST_IMAGE._imageData = 'O';
 		#elif defined(__APPLE2__) 
 			DEAD_GHOST_IMAGE._imageData = '_';
-		#elif defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
+		#elif defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
 			DEAD_GHOST_IMAGE._imageData = 'x';	
 		#elif defined(__VZ__)
 			DEAD_GHOST_IMAGE._imageData = '#';				

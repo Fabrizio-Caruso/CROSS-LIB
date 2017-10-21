@@ -32,7 +32,7 @@
 	#include<peekpoke.h>
 #elif defined(__CPC__) && defined(CPCRSLIB)
 	#include "cpc/cpcrslib.h"	
-#elif defined(__ZX81__) || defined(__ZX80__)
+#elif defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) 
 #endif
 
 // CPC
@@ -155,7 +155,7 @@ void displayStatsTitles(void)
 		// Nothing
 	#endif
 
-	#if defined(WIDE) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__SPECTRUM__) && !defined(__MSX__)
+	#if defined(WIDE) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__) && !defined(__SPECTRUM__) && !defined(__MSX__)
 		SET_TEXT_COLOR(_RED);	
 		PRINT(24,-Y_OFFSET,"-----------");		
 		PRINT(24,-Y_OFFSET+1,"cross chase");	
@@ -166,7 +166,7 @@ void displayStatsTitles(void)
 		cpc_PrintGphStrStdXY(CPC_YELLOW,")",(18)*2,0*8);gotoxy(18+2,0 + ADJUST ); cputc(':');
 		cpc_PrintGphStrStdXY(CPC_WHITE,"%",(18-4)*2,0*8);gotoxy(18-2,0 + ADJUST); cputc(':');
 		cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1)*2,1*8);gotoxy(18+1,1 + ADJUST); cputc(':');	
-	#elif defined(__ZX81__) || defined(__ZX80__)
+	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 		SET_TEXT_COLOR(TEXT_COLOR);		
 		zx_setcursorpos(0+ADJUST-1, 19); cputc(GUN_IMAGE._imageData);cputc(':');
 		zx_setcursorpos(0+ADJUST-1, 15); cputc(GHOST_IMAGE._imageData);cputc(':');

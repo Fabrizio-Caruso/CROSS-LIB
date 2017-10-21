@@ -62,7 +62,7 @@
 	#include "patch/z88dk_conio_patch.h"	
 #elif defined(__VZ__)
 	#include "patch/z88dk_conio_patch.h"			
-#elif defined(__ZX81__)
+#elif defined(__ZX81__) || defined(__LAMBDA__)
 	#include "patch/z88dk_conio_implementation.h"	
 #elif defined(__ZX80__)
 	#include "patch/z88dk_conio_implementation.h"		
@@ -134,7 +134,7 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) do {*x=38-X_OFFSET; *y=24-Y_OFFSET;} while(0)	
 #elif defined(__AQUARIUS__) 
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)	
-#elif defined(__ZX81__) 
+#elif defined(__ZX81__) || defined(__LAMBDA__)
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__ZX80__) 
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;} while(0)	
@@ -390,7 +390,7 @@ void _delete(unsigned char x, unsigned char y);
 		//void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		#define DRAW_VERTICAL_LINE(x, y, length)		
 		#define DRAW_HORIZONTAL_BORDER(y)
-	#elif defined(__ZX81__) || defined(__ZX80__)
+	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 	#else
@@ -482,7 +482,7 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() {clrscr();};	
-#elif defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) 
+#elif defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 	#define SET_TEXT_COLOR(c) {};
 	
 	#define SET_BORDER_COLOR(c) {};

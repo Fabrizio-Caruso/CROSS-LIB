@@ -26,12 +26,18 @@
 #define _SETTINGS
 
 
-#if defined(__ZX81__) 
-		#define SKIP_DRAW \
-			if((loop%4)==0) 
+#if defined(__ZX81__) || defined(__LAMBDA__)
+	#define SKIP_DRAW \
+		if((loop%4)==0) 
 	
 	#define SKIP_MORE_DRAW \
 		if((loop%16)==0)
+#elif defined(__SVI__) || !defined(MSX_MODE0)
+	#define SKIP_DRAW \
+		if((loop%2)==0) 
+	
+	#define SKIP_MORE_DRAW \
+		if((loop%8)==0)
 #else
 	#define SKIP_DRAW 
 
@@ -158,7 +164,7 @@
 	#define ADJUST 0
 #endif
 
-#if defined(__ZX81__) || defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
+#if defined(__ZX81__) || defined(__LAMBDA__) || defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define BOMBS_NUMBER 3
 #elif defined(__SPECTRUM__)
 	#define BOMBS_NUMBER 4
@@ -175,26 +181,26 @@
 	#define GHOSTS_NUMBER 9
 #elif defined(__ATMOS__)
 	#define GHOSTS_NUMBER 9
-#elif defined(__ZX81__)
+#elif defined(__ZX81__) || defined(__LAMBDA__)
 	#define GHOSTS_NUMBER 7
 #elif defined(__VZ__) || defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)
 	#define GHOSTS_NUMBER 9
 #elif defined(__VG5K__)
 	#define GHOSTS_NUMBER 9
-// #elif defined(__SVI__) && defined(MSX_MODE0)
-	// #define GHOSTS_NUMBER 6
+#elif defined(__SVI__) && !defined(MSX_MODE0)
+	#define GHOSTS_NUMBER 7
 #else
 	#define GHOSTS_NUMBER 8
 #endif
 	
 
-#if (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) || (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
+#if defined(__LAMBDA__) || (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) || (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
 	#define NO_COLOR
 #else
 	#define COLOR
 #endif
 	
-#if defined(__ZX81__)
+#if defined(__ZX81__) || defined(__LAMBDA__)
 	#define BUBBLES_NUMBER 2
 #else
 	#define BUBBLES_NUMBER 4

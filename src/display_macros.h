@@ -292,7 +292,8 @@ void _delete(unsigned char x, unsigned char y);
 			cputc (CH_LRCORNER);\
 			cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
 		}	
-#elif defined(__AQUARIUS__) || defined(__ATARI5200__) || (defined(__SVI__) && defined(MSX_MODE0))
+//#elif defined(__AQUARIUS__) || defined(__ATARI5200__) || (defined(__SVI__) && defined(MSX_MODE0))
+#elif defined(__ATARI5200__) || (defined(__SVI__) && defined(MSX_MODE0))
 		#define DRAW_BORDERS() \
 		{ \
 		}	
@@ -384,21 +385,21 @@ void _delete(unsigned char x, unsigned char y);
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 
-	#elif defined(__AQUARIUS__)
-		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))	
-		#define VIDEO_BASE 12289		
-		#define DRAW_VERTICAL_LINE(x, y, length) \
-			{ \
-				unsigned char i; \
-				SET_TEXT_COLOR(COLOR_WHITE); \
-				for(i=0;i<length;++i) \
-				{ \
-					gotoxy(x,y+i); \
-					cputc('|'); \
-				} \
-			}		
+	// #elif defined(__AQUARIUS__)
+		// #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))	
+		// #define VIDEO_BASE 12289		
+		// #define DRAW_VERTICAL_LINE(x, y, length) \
+			// { \
+				// unsigned char i; \
+				// SET_TEXT_COLOR(COLOR_WHITE); \
+				// for(i=0;i<length;++i) \
+				// { \
+					// gotoxy(x,y+i); \
+					// cputc('|'); \
+				// } \
+			// }		
 			
-		#define DRAW_HORIZONTAL_BORDER(y)
+		// #define DRAW_HORIZONTAL_BORDER(y)
 	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);

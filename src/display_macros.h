@@ -390,9 +390,11 @@ void _delete(unsigned char x, unsigned char y);
 		#define DRAW_VERTICAL_LINE(x, y, length) \
 			{ \
 				unsigned char i; \
+				SET_TEXT_COLOR(COLOR_WHITE); \
 				for(i=0;i<length;++i) \
 				{ \
-					POKE(VIDEO_BASE+x-1+X_OFFSET+(y+i+Y_OFFSET+1)*40,'|'); \
+					gotoxy(x,y+i); \
+					cputc('|'); \
 				} \
 			}		
 			

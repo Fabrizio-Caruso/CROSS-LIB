@@ -188,7 +188,7 @@
 #elif defined(__VG5K__)
 	#define GHOSTS_NUMBER 9
 #elif defined(__SVI__) && !defined(MSX_MODE0)
-	#define GHOSTS_NUMBER 7
+	#define GHOSTS_NUMBER 8
 #else
 	#define GHOSTS_NUMBER 8
 #endif

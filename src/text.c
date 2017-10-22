@@ -200,10 +200,6 @@ void printGunsStats(void)
 	#else
 		PRINTF(15+2+1-5-1-X_OFFSET,0-Y_OFFSET,"%u",guns);
 	#endif
-	// HACK to fix cursor interference
-	// #if defined(ATARI_MODE1)
-		// gotoxy(19,23);
-	// #endif	
 }
 
 void printLevelStats(void)
@@ -223,11 +219,7 @@ void printGhostCountStats(void)
 		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%u",ghostCount);
 	#else
 		PRINTF(15+2-X_OFFSET-3-2-3,0-Y_OFFSET,"%u",ghostCount);	
-	#endif
-	// HACK to fix cursor interference
-	// #if defined(ATARI_MODE1)
-		// gotoxy(19,23);
-	// #endif	
+	#endif	
 }
 
 void printLivesStats(void)
@@ -238,10 +230,6 @@ void printLivesStats(void)
 	#else
 		PRINTF(15+2+1-5+4-1-X_OFFSET,0-Y_OFFSET,"%u",lives);	
 	#endif
-	// HACK to fix cursor interference
-	// #if defined(ATARI_MODE1)
-		// gotoxy(19,23);
-	// #endif	
 }
 
 void displayStats(void)
@@ -252,22 +240,13 @@ void displayStats(void)
 	#else
 		PRINTF(3-3,0-Y_OFFSET,"%05u0",points);	
 	#endif	
-	// HACK to fix cursor interference
-	// #if defined(ATARI_MODE1)
-		// gotoxy(19,23);
-	// #endif
 }
 
 void setScreenColors(void)
 {
-	// #if !defined(CC65) && !defined(__ATMOS__)
-	// #else
-		SET_TEXT_COLOR(TEXT_COLOR);
-		
-		SET_BORDER_COLOR(BORDER_COLOR);
-		
-		SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
-	// #endif
+	SET_TEXT_COLOR(TEXT_COLOR);
+	SET_BORDER_COLOR(BORDER_COLOR);
+	SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
 }
 	
 	
@@ -280,7 +259,7 @@ void setScreenColors(void)
 
 		printCenteredMessageWithCol(_WHITE,levelString);
 	}
-#elif defined(__SVI__) && !defined(FULL_GAME)
+#elif (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
 	void printLevel(void) {}
 #else
 	void printLevel(void)
@@ -302,7 +281,7 @@ void _printScore(char * text, unsigned int score)
 
 	printCenteredMessage(levelString);	
 }
-#elif defined(__SVI__) && !defined(FULL_GAME)
+#elif (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
 	void _printScore(char * text, unsigned int score) {}
 #else
 void _printScore(char * text, unsigned int score)
@@ -325,7 +304,7 @@ void _printScore(char * text, unsigned int score)
 	{
 		printCenteredMessage("y o u   m a d e   i t"); 
 	}
-#elif defined(__SVI__) && !defined(FULL_GAME)
+#elif (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
 	void gameCompleted(void)
 	{}
 #elif defined(__VIC20__) && !defined(FULL_GAME)
@@ -371,7 +350,7 @@ void _printScore(char * text, unsigned int score)
 		{
 			printCenteredMessageWithCol(_WHITE, "YOU LOST");
 		}	
-#elif defined(__SVI__) && !defined(FULL_GAME)
+#elif (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
 		void printExtraLife(void)
 		{
 		}
@@ -679,7 +658,7 @@ void printHints(void)
 	
 }
  
-#if defined(__SVI__) && !defined(FULL_GAME)
+#if (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
 void printStartMessage(void)
 {
 }

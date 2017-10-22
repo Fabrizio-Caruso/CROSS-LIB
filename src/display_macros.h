@@ -124,8 +124,6 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
 #elif defined(__CPC__) && !defined(CPCRSLIB)
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)
-// #elif defined(__CPC__) && defined(CPCRSLIB)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=(40-X_OFFSET)*2; *y=(25-Y_OFFSET)*2;} while(0)		
 #elif defined(__CPC__) && defined(CPCRSLIB)
 	#define GET_SCREEN_SIZE(x,y) do {*x=(40-X_OFFSET); *y=(25-Y_OFFSET);} while(0)	
 #elif defined(__VG5K__) 
@@ -327,11 +325,11 @@ void _delete(unsigned char x, unsigned char y);
 		cprintf(##__VA_ARGS__); \
 	};
 #elif defined(__SPECTRUM__)
-	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); printf(str); } while(0);
-	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); printf(str,val); } while(0);
+	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
+	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
 #else
-	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); cprintf(str); } while(0);
-	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET + ADJUST); cprintf(str,val); } while(0);
+	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
+	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);
 #endif
 
 	
@@ -387,8 +385,17 @@ void _delete(unsigned char x, unsigned char y);
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 
 	#elif defined(__AQUARIUS__)
-		//void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-		#define DRAW_VERTICAL_LINE(x, y, length)		
+		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))	
+		#define VIDEO_BASE 12289		
+		#define DRAW_VERTICAL_LINE(x, y, length) \
+			{ \
+				unsigned char i; \
+				for(i=0;i<length;++i) \
+				{ \
+					POKE(VIDEO_BASE+x-1+X_OFFSET+(y+i+Y_OFFSET+1)*40,'|'); \
+				} \
+			}		
+			
 		#define DRAW_HORIZONTAL_BORDER(y)
 	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);

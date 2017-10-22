@@ -32,7 +32,7 @@
 	
 	#define SKIP_MORE_DRAW \
 		if((loop%16)==0)
-#elif defined(__SVI__) || !defined(MSX_MODE0)
+#elif defined(__SVI__) && !defined(MSX_MODE0)
 	#define SKIP_DRAW \
 		if((loop%2)==0) 
 	

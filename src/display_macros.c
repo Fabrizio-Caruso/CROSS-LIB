@@ -81,24 +81,10 @@ Image GUN_IMAGE;
 	
 	void INIT_IMAGES(void)
 	{		
-
-		#if defined(__VIC20__)
-			PLAYER_IMAGE._color = COLOR_YELLOW;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-			POWERUP_IMAGE._color = COLOR_BLUE;
-			GUN_IMAGE._color = COLOR_BLUE;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;	
-
-			#if defined(FULL_GAME)
-				EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
-				EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
-				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
-			#endif
-		#elif defined(__AQUARIUS__)
+		#if defined(COLOR)
 			PLAYER_IMAGE._color = COLOR_CYAN;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
-			POWERUP_IMAGE._color = COLOR_YELLOW;
+			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+			POWERUP_IMAGE._color = COLOR_GREEN;
 			GUN_IMAGE._color = COLOR_BLUE;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
@@ -108,37 +94,8 @@ Image GUN_IMAGE;
 				EXTRA_LIFE_IMAGE._color = COLOR_BLUE;
 				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;		
 			#endif		
-		#elif defined(__C16__)
-			PLAYER_IMAGE._color = COLOR_CYAN;
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-			POWERUP_IMAGE._color = COLOR_YELLOW;
-			GUN_IMAGE._color = COLOR_YELLOW;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;
-
-			#if defined(FULL_GAME)
-				EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
-				EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
-				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
-			#endif
-		#else
-			#if !defined(NO_COLOR)
-				PLAYER_IMAGE._color = COLOR_WHITE;
-				INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
-				POWERUP_IMAGE._color = COLOR_WHITE;
-				GUN_IMAGE._color = COLOR_WHITE;
-				BOMB_IMAGE._color = COLOR_RED;
-				DEAD_GHOST_IMAGE._color = COLOR_RED;	
-
-				#if defined(FULL_GAME)
-					EXTRA_POINTS_IMAGE._color = COLOR_WHITE;			
-					EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
-					INVINCIBILITY_IMAGE._color = COLOR_WHITE;		
-				#endif
-			#endif
 		#endif
 			
-
 		GHOST_IMAGE._imageData = 'o';
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
 		BOMB_IMAGE._imageData = 'X';
@@ -171,7 +128,7 @@ Image GUN_IMAGE;
 				LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 				RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 				BUBBLE_IMAGE._color = COLOR_WHITE;	
-				BROKEN_WALL_IMAGE._color = COLOR_WHITE;		
+				BROKEN_WALL_IMAGE._color = COLOR_RED;		
 			#endif
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';

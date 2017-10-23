@@ -41,8 +41,13 @@
 #endif
 #if defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
+#elif defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) || defined(__TI86__) || defined(__TI86S__)
+	#include "patch/z88dk_conio_patch.h"
+#elif defined(__GAL__)
+	#include "patch/z88dk_conio_patch.h"	
 #elif defined(__SPECTRUM__)
-	//#include "patch/z88dk_conio_implementation.h"
+	#include "patch/z88dk_conio_patch.h"	
+#elif defined(__SAM__)
 	#include "patch/z88dk_conio_patch.h"	
 #elif defined(__CPC__)
 	#include "patch/z88dk_conio_patch.h"
@@ -418,110 +423,64 @@ void _delete(unsigned char x, unsigned char y);
 	#include <stdio.h>
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
 
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};
-
 	#define CLEAR_SCREEN() printf("\xc")
 
-// #elif defined(__SPECTRUM__)
-	// #define SET_TEXT_COLOR(c) textcolor(c)
-
-	// #define SET_BORDER_COLOR(c) {}
-
-	// #define SET_BACKGROUND_COLOR(c) {}
-
-	// #define CLEAR_SCREEN() clrscr()	
 #elif defined(__AQUARIUS__) || (defined(__SVI__) && !defined(MSX_MODE0))
 	#define SET_TEXT_COLOR(c) textcolor(c)
-
-	#define SET_BORDER_COLOR(c) {}
-
-	#define SET_BACKGROUND_COLOR(c) {}
 
 	#define CLEAR_SCREEN() clrscr()	
 #elif defined(__SVI__) && defined(MSX_MODE0)
 	#define SET_TEXT_COLOR(c) {}
 
-	#define SET_BORDER_COLOR(c) {}
-
-	#define SET_BACKGROUND_COLOR(c) {}
-
 	#define CLEAR_SCREEN() clrscr()		
 #elif defined(__CPC__) 
 	#define SET_TEXT_COLOR(c) textcolor(c);
-
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__VG5K__) 
 	#define SET_TEXT_COLOR(c) {};
 
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};	
-
 	void CLEAR_SCREEN();
 #elif defined(__VZ__)	
 	#define SET_TEXT_COLOR(c) textcolor(c);
-	
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() {clrscr();};	
 #elif defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 	#define SET_TEXT_COLOR(c) {};
-	
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() {clrscr();};		
-#elif defined(__ACE__)
+#elif defined(__ACE__) || defined(__GAL__)
 	#define SET_TEXT_COLOR(c) {};
-	
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};	
 
 	#define CLEAR_SCREEN() do {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}} while(0)
 
 #elif defined(__ATARI5200__) || defined(ATARI_MODE1)
 	#define SET_TEXT_COLOR(c) {};
-	
-	#define SET_BORDER_COLOR(c) {};
-
-	#define SET_BACKGROUND_COLOR(c) {};
 
 	#define CLEAR_SCREEN() {clrscr();};	
 #elif defined(__ATMOS__)
 	#define SET_TEXT_COLOR(c) textcolor(c)
-
-	#define SET_BORDER_COLOR(c) bordercolor(c)
-
-	#define SET_BACKGROUND_COLOR(c) bgcolor(c)
 	
 	#define CLEAR_SCREEN() do {clrscr(); INIT_GRAPHICS(); } while(0)
 #elif defined(__SPECTRUM__)
 	#define SET_TEXT_COLOR(c) textcolor(c);
 
-	#define SET_BORDER_COLOR(c) {}
-
-	#define SET_BACKGROUND_COLOR(c) {}
-	
 	#define CLEAR_SCREEN() clrscr()
 #else // CC65 conio case
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
-
-	#define SET_BORDER_COLOR(c) (void) bordercolor(c)
-
-	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 	
 	#define CLEAR_SCREEN() clrscr();
 #endif
+	
+#if defined(CC65) && !defined(__ATARI5200__)
+	#define SET_BORDER_COLOR(c) (void) bordercolor(c)
+
+	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
+#else
+	#define SET_BORDER_COLOR(c) {}
+
+	#define SET_BACKGROUND_COLOR(c) {}	
+#endif	
 	
 void INIT_IMAGES(void);
 

@@ -46,6 +46,7 @@
 // 1 -> black
 // 0 -> yellow
 // 4 -> red
+#define CPC_TEXT_YELLOW 0
 #define CPC_TEXT_WHITE 3
 #define CPC_TEXT_RED 4
 
@@ -61,6 +62,7 @@
 #define VG5K_WHITE 7
 
 #if defined(__CPC__)
+	#define _YELLOW CPC_TEXT_YELLOW
 	#define _WHITE CPC_TEXT_WHITE
 	#define _RED   CPC_TEXT_RED
 #elif defined(__VG5k__)
@@ -148,7 +150,11 @@ void displayStatsTitles(void)
 		PRINT(-X_OFFSET+2, -Y_OFFSET,   "score:");
 		PRINT(-X_OFFSET+2, -Y_OFFSET+1, "level:");
 	#elif defined(WIDE)
-		SET_TEXT_COLOR(COLOR_BLUE);	
+		#if defined(__CPC__)
+			SET_TEXT_COLOR(_YELLOW);			
+		#else 
+			SET_TEXT_COLOR(COLOR_BLUE);	
+		#endif
 		PRINT(-X_OFFSET+2, -Y_OFFSET,   "SCORE:");
 		PRINT(-X_OFFSET+2, -Y_OFFSET+1, "LEVEL:");	
 	#else
@@ -163,9 +169,9 @@ void displayStatsTitles(void)
 
 	#if defined(__CPC__) && defined(CPCRSLIB)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		cpc_PrintGphStrStdXY(CPC_YELLOW,")",(18)*2,0*8);gotoxy(18+2,0 + ADJUST ); cputc(':');
-		cpc_PrintGphStrStdXY(CPC_WHITE,"%",(18-4)*2,0*8);gotoxy(18-2,0 + ADJUST); cputc(':');
-		cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1)*2,1*8);gotoxy(18+1,1 + ADJUST); cputc(':');	
+		cpc_PrintGphStrStdXY(CPC_YELLOW,")",(18+1)*2,0*8);gotoxy(18+2,0); cputc(':');
+		cpc_PrintGphStrStdXY(CPC_WHITE,"%",(18-4+1)*2,0*8);gotoxy(18-2,0); cputc(':');
+		cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1+1)*2,1*8);gotoxy(18+1,1); cputc(':');	
 	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 		SET_TEXT_COLOR(TEXT_COLOR);		
 		zx_setcursorpos(0+ADJUST-1, 19); cputc(GUN_IMAGE._imageData);cputc(':');
@@ -173,19 +179,19 @@ void displayStatsTitles(void)
 		zx_setcursorpos(1+ADJUST-1, 18); cputc(PLAYER_IMAGE._imageData);cputc(':');			
 	#elif defined(WIDE)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		gotoxy(19,0 + ADJUST ); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(15,0 + ADJUST); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(18,1 + ADJUST); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+		gotoxy(19,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(15,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		gotoxy(15+1-5,0 + ADJUST); cputc(GUN_IMAGE._imageData+160);cputc(':');
-		gotoxy(15-3-2-3,0 + ADJUST); cputc(GHOST_IMAGE._imageData+160);cputc(':');
-		gotoxy(15+1-5+4-1,0 + ADJUST); cputc(PLAYER_IMAGE._imageData+64);cputc(':');		
+		gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData+160);cputc(':');
+		gotoxy(15-3-2-3,0); cputc(GHOST_IMAGE._imageData+160);cputc(':');
+		gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData+64);cputc(':');		
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		gotoxy(15+1-5,0 + ADJUST); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(15-3-2-3,0 + ADJUST); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(15+1-5+4-1,0 + ADJUST); cputc(PLAYER_IMAGE._imageData);cputc(':');
+		gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(15-3-2-3,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
 	#endif
 
 
@@ -682,6 +688,8 @@ void printStartMessage(void)
 	#if !defined(__ATMOS__)
 		#if defined(__PLUS4__) || defined(__C16__)
 			SET_TEXT_COLOR(COLOR_CYAN);	
+		#elif defined(__CPC__)
+			SET_TEXT_COLOR(_YELLOW);			
 		#else
 			SET_TEXT_COLOR(COLOR_BLUE);
 		#endif 

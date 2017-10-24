@@ -43,6 +43,10 @@
 	#include "atmos/atmos_conio_patch.h"
 #elif defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) || defined(__TI86__) || defined(__TI86S__)
 	#include "patch/z88dk_conio_patch.h"
+#elif defined(__BEE__)
+	#include "patch/z88dk_conio_patch.h"		
+#elif defined(__MZ__)
+	#include "patch/z88dk_conio_patch.h"		
 #elif defined(__GAL__)
 	#include "patch/z88dk_conio_patch.h"	
 #elif defined(__SPECTRUM__)

@@ -147,24 +147,35 @@ void displayStatsTitles(void)
 {	
 	#if defined(NO_CASE_LETTERS) && defined(WIDE)	
 		SET_TEXT_COLOR(COLOR_BLUE);	
-		PRINT(-X_OFFSET+2, -Y_OFFSET,   "score:");
-		PRINT(-X_OFFSET+2, -Y_OFFSET+1, "level:");
+		PRINT(-X_OFFSET+2-2, -Y_OFFSET,   "score:");
+		PRINT(-X_OFFSET+2-2, -Y_OFFSET+1, "level:");
 	#elif defined(WIDE)
 		#if defined(__CPC__)
 			SET_TEXT_COLOR(_YELLOW);			
 		#else 
 			SET_TEXT_COLOR(COLOR_BLUE);	
 		#endif
-		PRINT(-X_OFFSET+2, -Y_OFFSET,   "SCORE:");
-		PRINT(-X_OFFSET+2, -Y_OFFSET+1, "LEVEL:");	
+		#if defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0))
+			PRINT(-X_OFFSET+2-1, -Y_OFFSET,   "SCORE:");
+			PRINT(-X_OFFSET+2-1, -Y_OFFSET+1, "LEVEL:");			
+		#else
+			PRINT(-X_OFFSET+2-2, -Y_OFFSET,   "SCORE:");
+			PRINT(-X_OFFSET+2-2, -Y_OFFSET+1, "LEVEL:");	
+		#endif
 	#else
 		// Nothing
 	#endif
 
-	#if defined(WIDE) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__) && !defined(__SPECTRUM__) && !defined(__MSX__)
-		SET_TEXT_COLOR(_RED);	
-		PRINT(24,-Y_OFFSET,"-----------");		
-		PRINT(24,-Y_OFFSET+1,"cross chase");	
+	// && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__) && !defined(__SPECTRUM__) && !defined(__MSX__)
+	#if defined(WIDE)
+		#if !defined(__MSX__)
+			SET_TEXT_COLOR(_RED);	
+			PRINT(24-3,-Y_OFFSET,"-----------");		
+			PRINT(24-3,-Y_OFFSET+1,"cross chase");	
+		#else
+			PRINT(24-3-1,-Y_OFFSET,  "cross-----");		
+			PRINT(24-3-1,-Y_OFFSET+1,"----chase");			
+		#endif
 	#endif
 
 	#if defined(__CPC__) && defined(CPCRSLIB)
@@ -174,14 +185,14 @@ void displayStatsTitles(void)
 		cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1+1)*2,1*8);gotoxy(18+1,1); cputc(':');	
 	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 		SET_TEXT_COLOR(TEXT_COLOR);		
-		zx_setcursorpos(0+ADJUST-1, 19); cputc(GUN_IMAGE._imageData);cputc(':');
-		zx_setcursorpos(0+ADJUST-1, 15); cputc(GHOST_IMAGE._imageData);cputc(':');
-		zx_setcursorpos(1+ADJUST-1, 18); cputc(PLAYER_IMAGE._imageData);cputc(':');			
+		zx_setcursorpos(0-1, 19); cputc(GUN_IMAGE._imageData);cputc(':');
+		zx_setcursorpos(0-1, 15); cputc(GHOST_IMAGE._imageData);cputc(':');
+		zx_setcursorpos(1-1, 18); cputc(PLAYER_IMAGE._imageData);cputc(':');			
 	#elif defined(WIDE)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		gotoxy(19,0); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(15,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(18,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+		gotoxy(19-2,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(15-2,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(18-2,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData+160);cputc(':');
@@ -202,7 +213,7 @@ void printGunsStats(void)
 {
 	#if defined(WIDE)
 		SET_TEXT_COLOR(TEXT_COLOR);
-		PRINTF(18+2+1-X_OFFSET,0-Y_OFFSET,"%u",guns);
+		PRINTF(18+2+1-2-X_OFFSET,0-Y_OFFSET,"%u",guns);
 	#else
 		PRINTF(15+2+1-5-1-X_OFFSET,0-Y_OFFSET,"%u",guns);
 	#endif
@@ -212,7 +223,7 @@ void printLevelStats(void)
 {	
 	#if defined(WIDE)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINTF(8-X_OFFSET,1-Y_OFFSET,"%02u", level);
+		PRINTF(8-2-X_OFFSET,1-Y_OFFSET,"%02u", level);
 	#else
 		PRINTF(15+2+1-5+4-1+2-X_OFFSET,0-Y_OFFSET,"%02u",level);	
 	#endif	
@@ -222,7 +233,7 @@ void printGhostCountStats(void)
 {
 	SET_TEXT_COLOR(TEXT_COLOR);		
 	#if defined(WIDE)
-		PRINTF(18+2-X_OFFSET-3,0-Y_OFFSET,"%u",ghostCount);
+		PRINTF(18+2-2-X_OFFSET-3,0-Y_OFFSET,"%u",ghostCount);
 	#else
 		PRINTF(15+2-X_OFFSET-3-2-3,0-Y_OFFSET,"%u",ghostCount);	
 	#endif	
@@ -232,7 +243,7 @@ void printLivesStats(void)
 {
 	SET_TEXT_COLOR(TEXT_COLOR);		
 	#if defined(WIDE)
-		PRINTF(18+2-X_OFFSET,1-Y_OFFSET,"%02u",lives);
+		PRINTF(18+2-2-X_OFFSET,1-Y_OFFSET,"%02u",lives);
 	#else
 		PRINTF(15+2+1-5+4-1-X_OFFSET,0-Y_OFFSET,"%u",lives);	
 	#endif
@@ -242,7 +253,7 @@ void displayStats(void)
 {	
 	SET_TEXT_COLOR(TEXT_COLOR);	
 	#if defined(WIDE)
-		PRINTF(8-X_OFFSET,0-Y_OFFSET,"%05u0",points);
+		PRINTF(8-2-X_OFFSET,0-Y_OFFSET,"%05u0",points);
 	#else
 		PRINTF(3-3,0-Y_OFFSET,"%05u0",points);	
 	#endif	
@@ -265,8 +276,6 @@ void setScreenColors(void)
 
 		printCenteredMessageWithCol(_WHITE,levelString);
 	}
-#elif (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
-	void printLevel(void) {}
 #else
 	void printLevel(void)
 	{
@@ -287,8 +296,6 @@ void _printScore(char * text, unsigned int score)
 
 	printCenteredMessage(levelString);	
 }
-#elif (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
-	void _printScore(char * text, unsigned int score) {}
 #else
 void _printScore(char * text, unsigned int score)
 {
@@ -310,9 +317,6 @@ void _printScore(char * text, unsigned int score)
 	{
 		printCenteredMessage("y o u   m a d e   i t"); 
 	}
-#elif (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
-	void gameCompleted(void)
-	{}
 #elif defined(__VIC20__) && !defined(FULL_GAME)
 	void gameCompleted(void)
 	{
@@ -356,35 +360,35 @@ void _printScore(char * text, unsigned int score)
 		{
 			printCenteredMessageWithCol(_WHITE, "YOU LOST");
 		}	
-#elif (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
-		void printExtraLife(void)
-		{
-		}
+// #elif (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
+		// void printExtraLife(void)
+		// {
+		// }
 		
-		void printPressKeyToStart(void)
-		{
+		// void printPressKeyToStart(void)
+		// {
 			
-		}
+		// }
 
-		void deleteCenteredMessage(void)
-		{
-			printCenteredMessage("                       ");
-		}
+		// void deleteCenteredMessage(void)
+		// {
+			// printCenteredMessage("                       ");
+		// }
 
-		void printGameOver(void)
-		{
-			printCenteredMessage("GAME OVER");
-		}
+		// void printGameOver(void)
+		// {
+			// printCenteredMessage("GAME OVER");
+		// }
 
-		void printVictoryMessage(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "YOU WON");
-		}
+		// void printVictoryMessage(void)
+		// {
+			// printCenteredMessageWithCol(_WHITE, "YOU WON");
+		// }
 
-		void printDefeatMessage(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "YOU LOST");
-		}	
+		// void printDefeatMessage(void)
+		// {
+			// printCenteredMessageWithCol(_WHITE, "YOU LOST");
+		// }	
 #elif (defined(__VIC20__) || defined(__C16__) ) && defined(FULL_GAME)
 		void printExtraLife(void)
 		{
@@ -664,11 +668,6 @@ void printHints(void)
 	
 }
  
-#if (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
-void printStartMessage(void)
-{
-}
-#else
 void printStartMessage(void)
 {
 	#if defined(__C64__) && defined(REDEFINED_CHARS)
@@ -718,6 +717,6 @@ void printStartMessage(void)
 		printCenteredMessageOnRow(YSize-3, "use i j k l space");				
 	#endif	
 }
-#endif
+
 
 

@@ -45,7 +45,7 @@
 #endif
 	
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__)
+#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__)
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'
@@ -75,6 +75,9 @@
 #elif defined(__VZ__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 800
+#elif defined(__MZ__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 500		
 #elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 200
@@ -136,7 +139,7 @@
 #elif defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__ATARI5200__)
 	#define CC65
 	#define NARROW
-#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ZX81__)
+#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__ZX81__) || defined(__ZX80__) || defined(__AQUARIUS__) || defined(__SVI__) || defined(__MZ__)
 	#define Z88DK
 	#define WIDE
 #else 
@@ -187,7 +190,7 @@
 	#define GHOSTS_NUMBER 9
 #elif defined(__VG5K__)
 	#define GHOSTS_NUMBER 9
-#elif defined(__SVI__) && !defined(MSX_MODE0)
+#elif defined(__SVI__) && !defined(FULL_GAME)
 	#define GHOSTS_NUMBER 8
 #else
 	#define GHOSTS_NUMBER 8

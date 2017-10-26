@@ -45,7 +45,7 @@
 #endif
 	
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__)
+#if defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__)
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'

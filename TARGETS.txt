@@ -28,18 +28,24 @@ zx80_exp_16k : [LIGHT] Sinclair ZX80 with 16k expansion
 zx80_exp_32k : Sinclair ZX80 with 32k expansion 
 zx81_exp_16k : [LIGHT] Sinclair ZX81 with 16k expansion 
 zx81_exp_32k : Sinclair ZX81 with 32k expansion 
-cpc_no_color : Amstrad CPC in no color mode (faster than color mode)
-cpc_color : Amstra CPC in color mode (slower than no color mode)
-msx_no_color_16k : [LIGHT] MSX with 16k of total ram in no color mode 
+cpc : Amstrad CPC in color mode 
+msx_color_16k : [LIGHT] MSX with 16k of total ram 
 msx_color_32k : MSX with 32k of total ram in color mode 
 vz200_16k: VZ-200 with 16k of total ram
 vz200_32k: VZ-200 with 32k of total ram
-svi_318: [LIGHT] Spectravideo with 16k of total ram
-svi_328: Spectravideo with 32k of total ram
+svi_318_mode0: [LIGHT] Spectravideo 318 with 16k of total ram in monochromatic color mode 0
+svi_328: Spectravideo 328 with 32k of total ram or any Spectravideo model with at least 32k or ram
 vg5k: [LIGHT] unexpanded VG-5000
 vg5k_exp_16k: VG-5000 with 16k memory expansion (32k of total ram)
+lambda_16k : [LIGHT] Lambda 8300
+sharp_mz : Sharp MZ 
+microbee: [LIGHT] Microbee
+simcoupe: Sim Coupe
+mtx: MTX
 spectrum_48k : Sinclair ZX Spectrum (Z88DK with newlib)
 spectrum_16k: [LIGHT] Sinclair ZX Spectrum with 16k of total ram (Z88DK with newlib)
+
+
 
 DEBUG
 spectrum_clib_udg : Spectrum, user-defined characters and compiled with Z88DK's classic lib 

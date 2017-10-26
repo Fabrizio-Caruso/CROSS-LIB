@@ -113,9 +113,9 @@ typedef struct ImageStruct Image;
 #endif
 
 
-#if defined(__NES__)
-	#define GET_SCREEN_SIZE(x,y) do {*x=32; *y=24;} while(0)
-#elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
+// #if defined(__NES__)
+	// #define GET_SCREEN_SIZE(x,y) do {*x=32; *y=24;} while(0)
+#if defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 	#define GET_SCREEN_SIZE(x,y) do {*x=20; *y=24;} while(0)
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	#define GET_SCREEN_SIZE(x,y) do {*x=80-X_OFFSET; *y=25-Y_OFFSET;} while(0)

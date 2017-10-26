@@ -75,6 +75,9 @@
 #elif defined(__VZ__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 800
+#elif defined(__NES__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 700
 #elif defined(__MZ__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 500		

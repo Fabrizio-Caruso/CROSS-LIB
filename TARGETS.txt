@@ -39,12 +39,11 @@ vg5k: [LIGHT] unexpanded VG-5000
 vg5k_exp_16k: VG-5000 with 16k memory expansion (32k of total ram)
 lambda_16k : [LIGHT] Lambda 8300
 sharp_mz : Sharp MZ 
-microbee: [LIGHT] Microbee
+microbee_16k: [LIGHT] Microbee
+microbee: Microbee with more than 16k of ram
 simcoupe: Sim Coupe
-mtx: MTX
-spectrum_48k : Sinclair ZX Spectrum (Z88DK with newlib)
-spectrum_16k: [LIGHT] Sinclair ZX Spectrum with 16k of total ram (Z88DK with newlib)
-
+mtx: Memotech MTX 512
+spectrum_48k : Sinclair ZX Spectrum 
 
 
 DEBUG

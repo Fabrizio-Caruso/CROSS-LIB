@@ -82,7 +82,7 @@
 #elif defined(__ENTERPRISE__)
 	#include "patch/z88dk_conio_implementation.h"		
 #elif defined(__MTX__)
-	#include "patch/z88dk_conio_implementation.h"		
+	#include "patch/z88dk_conio_patch.h"		
 #elif defined(__M5__)
 	#include "patch/z88dk_conio_implementation.h"		
 #endif
@@ -467,6 +467,10 @@ void _delete(unsigned char x, unsigned char y);
 	
 	#define CLEAR_SCREEN() do {clrscr(); INIT_GRAPHICS(); } while(0)
 #elif defined(__SPECTRUM__)
+	#define SET_TEXT_COLOR(c) textcolor(c);
+
+	#define CLEAR_SCREEN() clrscr()
+#elif defined(__MTX__)
 	#define SET_TEXT_COLOR(c) textcolor(c);
 
 	#define CLEAR_SCREEN() clrscr()

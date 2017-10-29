@@ -97,6 +97,8 @@ extern unsigned char guns;
 				in_wait_nokey();
 			}
 		#endif
+	#elif defined(__Z9001__)
+		void WAIT_PRESS(void) {}
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		void WAIT_PRESS(void)
 		{
@@ -200,7 +202,9 @@ extern unsigned char guns;
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#elif defined(__ATMOS__)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}				
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}		
+	#elif defined(__Z9001__) 
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());}
 	#else
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
 	#endif	

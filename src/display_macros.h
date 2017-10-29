@@ -45,7 +45,7 @@
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__BEE__)
 	#include "patch/z88dk_conio_patch.h"	
-#elif defined(__MC1000__) || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__)
+#elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__)
 	#include "patch/z88dk_conio_patch.h"		
 #elif defined(__MZ__)
 	#include "patch/z88dk_conio_patch.h"		

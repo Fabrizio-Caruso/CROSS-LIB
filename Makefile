@@ -243,6 +243,15 @@ spectrum_48k:
 	
 # DEBUG
 
+# -startup=2
+mc1000_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3  -clib=ansi -D__MC1000__ -vn -DSOUNDS -DCLIB_ANSI -lndos -create-app -Cz--audio -Cz--fast  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+# -o $(BUILD_PATH)/LIGHT_mc1000.bin
+	
+mc1000_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3 -clib=ansi -D__MC1000__ -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI -lndos -create-app -Cz--audio $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+# -o $(BUILD_PATH)/FULL_mc1000.bin
+
 # Warning at file 'c:/z88dk/\lib\pc6001_crt0.asm' line 112: integer '66384' out of range
 # Warning at file 'stdio/ansi/pc6001/f_ansi_char.asm' line 46: integer '66657' out of range
 pc6001:

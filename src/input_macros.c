@@ -187,7 +187,7 @@ extern unsigned char guns;
 
 #if defined(KEYBOARD_CONTROL)
 	#if defined(__SPECTRUM__)
-		#if defined(CLIB_ANSI)	
+		#if defined(CLIB_ANSI)
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}
 		#else	
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_inkey());}		
@@ -201,6 +201,9 @@ extern unsigned char guns;
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#elif defined(__ATMOS__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}		
+	#elif defined(__CMOC__) // It is now working as expected: it waits for input, which is wrong
+		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
+		//{movePlayerByKeyboard((unsigned char) getch());}		
 	#else
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
 	#endif	

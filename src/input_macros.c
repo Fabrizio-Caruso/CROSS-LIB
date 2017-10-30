@@ -201,9 +201,8 @@ extern unsigned char guns;
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#elif defined(__ATMOS__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}		
-	#elif defined(__CMOC__) // It is now working as expected: it waits for input, which is wrong
-		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
-		//{movePlayerByKeyboard((unsigned char) getch());}		
+	#elif defined(__CMOC__)
+		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard((unsigned char) cgetc());}}		
 	#else
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
 	#endif	

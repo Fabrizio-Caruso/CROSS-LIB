@@ -505,7 +505,7 @@ int main(void)
 			// Wait for the user to press a key 
 			//printPressKeyToStart();
 			WAIT_PRESS();
-
+ 
 			//deleteCenteredMessage();
 			
 			// Draw a border around the screen 

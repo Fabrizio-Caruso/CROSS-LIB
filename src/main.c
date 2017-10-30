@@ -41,7 +41,7 @@
 #include "input_macros.h"
 #include "sleep_macros.h"
 #include "sound_macros.h"
-
+ 
 #if defined(__CMOC__)
 	#include "patch/cmoc_conio_patch.h"	
 	#include "display_macros.c"

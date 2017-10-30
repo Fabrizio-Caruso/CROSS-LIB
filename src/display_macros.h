@@ -113,24 +113,17 @@ typedef struct ImageStruct Image;
 #endif
 
 
-// #if defined(__NES__)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=32; *y=24;} while(0)
+
 #if defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 	#define GET_SCREEN_SIZE(x,y) do {*x=20; *y=24;} while(0)
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	#define GET_SCREEN_SIZE(x,y) do {*x=80-X_OFFSET; *y=25-Y_OFFSET;} while(0)
-// #elif defined(__CBM__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
-	// #define GET_SCREEN_SIZE(x,y) do {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;} while(0)
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_64COL)
 	#define GET_SCREEN_SIZE(x,y) do {*x=64-X_OFFSET; *y=24-Y_OFFSET;} while(0)
-// #elif defined (__SPECTRUM__)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__MSX__) && !defined(MSX_MODE1)
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__MSX__) && defined(MSX_MODE1)
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
-// #elif defined(__SVI__) && !defined(MSX_MODE0)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__SVI__) && defined(MSX_MODE0)
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
 #elif defined(__CPC__) && !defined(CPCRSLIB)
@@ -139,16 +132,12 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) do {*x=(40-X_OFFSET); *y=(25-Y_OFFSET);} while(0)	
 #elif defined(__VG5K__) 
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)
-// #elif defined(__SC3000__) 
-	// #define GET_SCREEN_SIZE(x,y) do {*x=38-X_OFFSET; *y=24-Y_OFFSET;} while(0)	
 #elif defined(__ZX81__) || defined(__LAMBDA__)
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__ZX80__) 
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;} while(0)	
 #elif defined(__ENTERPRISE__) 
-	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-1-Y_OFFSET;} while(0)		
-// #elif defined(__MTX__) 
-	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
+	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-1-Y_OFFSET;} while(0)			
 #elif defined(__TRS80__) 
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)		
 #elif defined(__M5__) 
@@ -392,7 +381,7 @@ void _delete(unsigned char x, unsigned char y);
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 	#else
-		#if defined(__VZ__)
+		#if defined(__VZ__) || defined(__CMOC__)
 			#define VERTICAL_BRICK '#'
 		#else
 			#define VERTICAL_BRICK '|'

@@ -58,7 +58,7 @@
 	extern Character bombs[BOMBS_NUMBER];
 #endif
 
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(__CMOC__)
 	extern unsigned char innerVerticalWallX;
 	extern unsigned char innerVerticalWallY;
 	extern unsigned char innerVerticalWallLength;
@@ -230,7 +230,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			initializeAwayFromWall(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);
 		}
 		
-		initializeAwayFromWall(&player,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);
+		initializeAwayFromWall(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);
 		
 		initializeAwayFromWall(&extraPoints, XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
 		

@@ -25,6 +25,9 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
+#if defined(__CMOC__)
+	#define FULL_GAME
+#endif
 
 #if defined(__ZX81__) || defined(__LAMBDA__)
 	#define SKIP_DRAW \
@@ -71,7 +74,7 @@
 	#define GAME_SLOW_DOWN 300
 #elif defined(__CMOC__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 300
+	#define GAME_SLOW_DOWN 900
 #elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 700
@@ -164,17 +167,12 @@
 	#define ADVANCED_RIGHT_MISSILE() do{if(loop%2)--rightEnemyMissile._x;}while(0)
 #endif
 
-#if defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ZX81__) || defined(__ZX80__)
+#if defined(__CMOC__) || defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ZX81__) || defined(__ZX80__)
 	#define NO_CASE_LETTERS
 #else
 	#define CASE_LETTERS
 #endif
 
-// #if defined(CC65) || defined(__SPECTRUM__) || defined(__SVI__)
-	// #define ADJUST 0
-// #else
-	// #define ADJUST 0
-// #endif
 
 #if defined(__ZX81__) || defined(__LAMBDA__) || defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define BOMBS_NUMBER 3

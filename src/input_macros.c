@@ -36,7 +36,7 @@ extern Character player;
 extern Character missile;
 extern unsigned char guns;
 
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(__CMOC__)
 	extern unsigned char player_invincibility;
 	extern unsigned char playerBlink;	
 #endif

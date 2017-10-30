@@ -40,15 +40,15 @@
 	extern unsigned char level;
 #endif
 	
-#if defined(FULL_GAME)
-extern	unsigned short extraPointsCoolDown;
-extern 	unsigned short extraLifeCoolDown;
-extern	unsigned short invincibilityCoolDown;
-extern Character leftEnemyMissile;
-extern Character rightEnemyMissile;
-extern unsigned char bubbles_x[BUBBLES_NUMBER];
-extern Character bubbles[BUBBLES_NUMBER];
-extern unsigned char dead_bubbles;
+#if defined(FULL_GAME) && !defined(__CMOC__)
+	extern	unsigned short extraPointsCoolDown;
+	extern 	unsigned short extraLifeCoolDown;
+	extern	unsigned short invincibilityCoolDown;
+	extern Character leftEnemyMissile;
+	extern Character rightEnemyMissile;
+	extern unsigned char bubbles_x[BUBBLES_NUMBER];
+	extern Character bubbles[BUBBLES_NUMBER];
+	extern unsigned char dead_bubbles;
 #endif
 
 void checkMissileVsGhost(Character * missilePtr,

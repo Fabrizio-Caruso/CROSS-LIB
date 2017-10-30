@@ -110,7 +110,7 @@ Image GUN_IMAGE;
 			DEAD_GHOST_IMAGE._imageData = '_';
 		#elif defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
 			DEAD_GHOST_IMAGE._imageData = 'x';	
-		#elif defined(__VZ__)
+		#elif defined(__VZ__) || defined(__CMOC__)
 			DEAD_GHOST_IMAGE._imageData = '#';				
 		#elif defined(NO_COLOR)
 			DEAD_GHOST_IMAGE._imageData = '_';		 

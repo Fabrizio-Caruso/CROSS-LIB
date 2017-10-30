@@ -21,7 +21,7 @@
 
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
- 
+
 #include <stdlib.h>
 #include <string.h>
 #include <stdio.h>
@@ -49,7 +49,10 @@ void _printScore(char * text, unsigned int score)
 #include "patch/cmoc_conio_patch.h"	
 #include "display_macros.c"
 #include "input_macros.c"
-
+#include "strategy.c"
+#include "enemy.c"
+// #include "character.c"
+// #include "text.c"
 
 
 unsigned short invincibleSlowDown;
@@ -117,126 +120,6 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 unsigned char invincibleGhostHits = 0;
 
 unsigned char invincibleGhostAlive = 1;
-
-void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
-{
-	if(hunterPtr->_x<preyPtr->_x)
-	{
-		++hunterPtr->_x;
-	}
-	else if(hunterPtr->_x>preyPtr->_x)
-	{
-		--hunterPtr->_x;
-	}
-	else if(hunterPtr->_y<preyPtr->_y)
-	{
-		++hunterPtr->_y;
-	}
-	else
-	{
-		--hunterPtr->_y;
-	}
-}
-
-
-void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
-{
-    if(hunterPtr->_y<preyPtr->_y)
-	{
-		++hunterPtr->_y;
-	}
-	else if(hunterPtr->_y>preyPtr->_y)
-	{
-		--hunterPtr->_y;
-	}
-	else if(hunterPtr->_x<preyPtr->_x)
-	{
-		++hunterPtr->_x;
-	}
-	else 
-	{
-		--hunterPtr->_x;
-	}
-}
-
-// strategy: 
-// 4 means do no prefer horizontal to vertical movement
-// 0 means always horizontal
-// 9 means always vertical
-void moveTowardCharacter(Character *hunterPtr, unsigned char strategy)
-{
-	if(rand()%10 > strategy) // Select blind chase strategy
-		{ // 0 - 4
-			blindChaseCharacterXStrategy(hunterPtr, &player);
-		}
-		else
-		{ // 5 - 9
-			blindChaseCharacterYStrategy(hunterPtr, &player);
-		}
-}
-
-
-void computeStrategy(void)
-{
-	unsigned char i;
-
-	for(i=1; i<GHOSTS_NUMBER-1; ++i) // 6,1,1
-	{
-		strategyArray[i] = 4; // no preference (approximate straight line)
-	}	
-	#if GHOSTS_NUMBER>=3
-		strategyArray[0] = 2;
-		strategyArray[1] = 6;
-	
-	#else
-		strategyArray[0] = 2;
-		strategyArray[GHOSTS_NUMBER-1] = 6;
-	#endif
-
-}
-
-// Ghosts move to new positions if they get their chanche
-void chasePlayer(unsigned short slowDown)
-{
-	unsigned char i;
-	
-	for(i=0;i<GHOSTS_NUMBER;++i)
-	{
-		if((ghosts[i]._status) && (rand()>slowDown))
-		{
-			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
-			moveTowardCharacter(&ghosts[i], strategyArray[i]);
-		}
-	}
-}
-
-
-
-unsigned short computeGhostSlowDown(void)
-{
-	if(ghostLevel<1000)
-		return INITIAL_ENEMY_SLOWDOWN-level*200-ghostLevel*16;
-	else
-		return 1000;
-}
-
-void decreaseGhostLevel(void)
-{
-	if(ghostLevel>ghostLevelDecrease)
-		ghostLevel-=ghostLevelDecrease;
-	else
-		ghostLevel=0;
-}
-
-void displayGhosts(void)
-{
-	unsigned char i;
-
-	for(i=0;i<GHOSTS_NUMBER;++i)
-	{
-		DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
-	}
-}
 
 
 void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr)
@@ -362,7 +245,6 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 	characterPtr->_x = x;
 	characterPtr->_y = y;
 }
-
 
 void fillLevelWithCharacters(unsigned char nGhosts)
 {

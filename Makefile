@@ -235,9 +235,13 @@ p2000_32k:
 # KEYBOARD INPUT PROBLEM
 # -DFULL_GAME -DSOUNDS
 z9001_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi -D__Z9001__ -vn  -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/FULL_z9001.z80  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
-		
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi -D__Z9001__ -vn  -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/LIGHT_z9001.z80  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	rm $(BUILD_PATH)/LIGHT_z9001.z80
 	
+z9001_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi -D__Z9001__ -vn -DFULL_GAME -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/FULL_z9001.z80  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	rm $(BUILD_PATH)/FULL_z9001.z80	
+		
 # -pragma-redirect:ansifont=_font_8x8_zx_system -pragma-define:ansifont_is_packed=0
 spectrum_48k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -D -clib=ansi  -pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 -vn -DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DCLIB_ANSI  -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/FULL_spectrum_48k.prg $(SOURCE_PATH)/spectrum/udg.asm $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -326,8 +330,12 @@ lambda_light:
 	rm $(BUILD_PATH)/LIGHT_lambda.prg	
 
 # ---- (null)Error at file 'src/main.c' line 2972: symbol 'gotoxy_callee' not defined
-gal:
-	$(Z88DK_PATH)$(MYZ88DK) +gal  -vn -D__GAL__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+gal_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +gal -subtype=ansi -vn -D__GAL__ -lndos -create-app -o  $(BUILD_PATH)/LIGHT_galaksija.prg $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/LIGHT_galaksija.prg
+	
+gal_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +gal -clib=ansi -vn -D__GAL__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_galaksija.prg
 	
 msx_no_color_16k:

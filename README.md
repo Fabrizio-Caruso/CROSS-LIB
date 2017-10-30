@@ -6,8 +6,11 @@ by Fabrizio Caruso (Fabrizio_Caruso@hotmail.com)
 This is a personal project whose goal is to create a simple playable game that should run
 on 8 bit computers and consoles using 6502-compatible and Z80-compatible CPUs.
 
-The program is written in ANSI C and currently compiled with CC65 for 6502 targets (http://www.cc65.org/) and Z88DK for Z80 targets (https://www.z88dk.org/).
-For other targets, CMOC or GCC6809 for 6809 targets and C99C for TI-99 will be taken into consideration. Such cross compilers are less advanced and lack the same level of support. 
+The program is written in ANSI C and currently compiled with 
+- CC65 for 6502 targets (http://www.cc65.org/), 
+- Z88DK for Z80 targets (https://www.z88dk.org/),
+- WinCMOC for 6809 targets (https://sourceforge.net/projects/cmoc-win32/) or CMOC (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html).  
+For other targets, GCC6809 for other 6809 targets and C99C for TI-99 will be taken into consideration. Such cross compilers are less advanced and lack the same level of support. 
 
 The main version should be as portable as possible.
 Therefore it should ONLY use:

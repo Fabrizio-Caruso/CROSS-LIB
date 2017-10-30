@@ -33,29 +33,30 @@
 
 #include "level.h"
 
-extern unsigned char level;
-extern unsigned char XSize;
-extern unsigned char YSize;
+#if !defined(__CMOC__)
+	extern unsigned char level;
+	extern unsigned char XSize;
+	extern unsigned char YSize;
 
-extern Image PLAYER_IMAGE;
-extern Image GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
-extern Image BOMB_IMAGE;
-extern Image POWERUP_IMAGE;
-extern Image MISSILE_IMAGE;
-extern Image GUN_IMAGE;
-extern Image DEAD_GHOST_IMAGE;
+	extern Image PLAYER_IMAGE;
+	extern Image GHOST_IMAGE;
+	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image BOMB_IMAGE;
+	extern Image POWERUP_IMAGE;
+	extern Image MISSILE_IMAGE;
+	extern Image GUN_IMAGE;
+	extern Image DEAD_GHOST_IMAGE;
 
 
-extern Character invincibleGhost;
-extern Character player; 
-extern Character powerUp;
-extern Character gun;
-extern Character missile;
+	extern Character invincibleGhost;
+	extern Character player; 
+	extern Character powerUp;
+	extern Character gun;
+	extern Character missile;
 
-extern Character ghosts[GHOSTS_NUMBER];
-extern Character bombs[BOMBS_NUMBER];
-
+	extern Character ghosts[GHOSTS_NUMBER];
+	extern Character bombs[BOMBS_NUMBER];
+#endif
 
 #if defined(FULL_GAME)
 	extern unsigned char innerVerticalWallX;
@@ -171,16 +172,16 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			{
 				if(!((i==1) && (j==1)))
 				{				
-					initializeCharacter(&ghosts[count],XSize/6+j*2*(XSize/6),YSize/6+i*2*(YSize/6)+i,1,&GHOST_IMAGE);
+					initializeCharacter(&ghosts[count],(unsigned char) (XSize/6+j*2*(XSize/6)),(unsigned char) (YSize/6+i*2*(YSize/6)+i),1,&GHOST_IMAGE);
 				}
 				else
 				{
-					initializeCharacter(&ghosts[count],XSize-4,YSize-4,1,&GHOST_IMAGE);					
+					initializeCharacter(&ghosts[count],(unsigned char) (XSize-4),(unsigned char) (YSize-4),1,&GHOST_IMAGE);					
 				}
 			}
 			else
 			{
-				initializeCharacter(&ghosts[count],GHOSTS_NUMBER-count,1,0,&DEAD_GHOST_IMAGE);
+				initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
 			}
 			++count;
 		}
@@ -194,7 +195,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		{
 			for(j=1;j<=2;++j)
 			{
-				initializeCharacter(&bombs[count],(XSize/3)*i-1+rand()%3, (YSize/3)*j-1+rand()%3,0,&BOMB_IMAGE);
+				initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i-1+rand()%3), (unsigned char) ((YSize/3)*j-1+rand()%3),0,&BOMB_IMAGE);
 				++count;
 			}
 		}
@@ -252,7 +253,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		
 		initializeCharacter(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);		
 		
-		initializeCharacter(&player,XSize/2+rand()%4-2,YSize/2+rand()%4-2,1,&PLAYER_IMAGE);	
+		initializeCharacter(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);	
 	#endif
 	DRAW_PLAYER(player._x,player._y,player._imagePtr);
 		

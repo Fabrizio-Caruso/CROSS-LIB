@@ -42,18 +42,15 @@
 #include "sleep_macros.h"
 #include "sound_macros.h"
 
-void _printScore(char * text, unsigned int score)
-{
-}
 
 #include "patch/cmoc_conio_patch.h"	
 #include "display_macros.c"
 #include "input_macros.c"
 #include "strategy.c"
 #include "enemy.c"
-// #include "character.c"
-// #include "text.c"
-
+#include "text.c"
+#include "character.c"
+#include "level.c"
 
 unsigned short invincibleSlowDown;
 unsigned short invincibleXCountDown;
@@ -122,207 +119,11 @@ unsigned char invincibleGhostHits = 0;
 unsigned char invincibleGhostAlive = 1;
 
 
-void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr)
-{
-	characterPtr->_x = x;
-	characterPtr->_y = y;
-	characterPtr->_status = status;
-	characterPtr->_imagePtr = imagePtr;
-}
-
-void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y)
-{
-	characterPtr->_x = x;
-	characterPtr->_y = y;
-}
-
-unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr)
-{
-	return(characterPtr->_x==x) && (characterPtr->_y==y);
-}
-
-unsigned char areCharctersAtSamePosition(Character* lhs, Character* rhs)
-{
-	return (lhs->_x==rhs->_x)&&(lhs->_y==rhs->_y);
-}
-
-
-unsigned char wallReached(Character *characterPtr)
-{
-	return (characterPtr->_x==0)||(characterPtr->_x==XSize-1) || 
-		   (characterPtr->_y==0)||(characterPtr->_y==YSize-1);
-}
-
-void die(Character * playerPtr)
-{
-	playerPtr->_status = (unsigned char ) 0;
-}
-
-unsigned char playerReached(Character* preyPtr)
-{
-	return sameLocationAstAnyLocation(preyPtr->_x, preyPtr->_y, ghosts, GHOSTS_NUMBER);
-}
-
-unsigned char playerReachedBombs(Character* preyPtr)
-{
-	return sameLocationAstAnyLocation(preyPtr->_x, preyPtr->_y, bombs, BOMBS_NUMBER);
-}
-
-void ghostDies(Character * ghostPtr)
-{
-	EXPLOSION_SOUND();
-	die(ghostPtr);
-	//displayStats();
-	--ghostCount;
-	//printGhostCountStats();
-}
-
-void checkBombsVsGhost(Character * ghostPtr)
-{
-	
-	if(ghostPtr->_status && playerReachedBombs(ghostPtr))
-	{
-		points+=GHOST_VS_BOMBS_BONUS;	
-		ghostPtr->_imagePtr = &BOMB_IMAGE;
-		ghostDies(ghostPtr);
-	}
-	
-}
-						
-
-void checkBombsVsGhosts(void)
-{
-	unsigned char i;
-	for(i=0;i<GHOSTS_NUMBER;++i)
-	  {
-		 checkBombsVsGhost(&ghosts[i]);
-	  }
-}
-
-
-unsigned char sameLocationAstAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length)
-{
-	unsigned char i = 0;
-	for(;i<length;++i)
-	{
-		if(isCharacterAtLocation(x,y,&characterList[i]))
-			return 1;
-	}	
-	return 0;
-}
-
-// TODO: To be replaced with something cleaner
-// also used with things different from global bombs
-unsigned char safeLocation(unsigned char x, unsigned char y, Character *dangerPtr, unsigned char dangerSize)
-{
-	return !(sameLocationAstAnyLocation(x,y,ghosts,GHOSTS_NUMBER) || sameLocationAstAnyLocation(x,y,dangerPtr, dangerSize));
-}
-
-
-void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned char dangerSize)
-{
-	unsigned char x; // = 0; 
-	unsigned char y; // = 0; 
-	unsigned char x_offset; 
-	unsigned char y_offset;
-	unsigned char safe = 0;
-	do
-	{
-		// TODO: This should be separated (at least partially) and moved into display_macros
-		x_offset = rand() % 5;
-		y_offset = rand() % 5;
-		if((x_offset==0) && (y_offset==0))
-			continue;
-		x = characterPtr->_x -2 + x_offset; 
-		y = characterPtr->_y -2 + y_offset;
-		
-		// TODO: This check should be separated and moved into display_macros
-		if((x<2) || (x>XSize-2) || (y<=2) || (y>YSize-2))
-			continue;
-		
-		safe = safeLocation(x,y,dangerPtr, dangerSize);
-	} while(!safe);
-	characterPtr->_x = x;
-	characterPtr->_y = y;
-}
-
-void fillLevelWithCharacters(unsigned char nGhosts)
-{
-
-	unsigned char i;
-	unsigned char j;
-	unsigned char count = 0;
-
-	
-	for(i=0;i<3;++i)
-	{
-		for(j=0;j<3;++j)
-		{
-			if(nGhosts>count)
-			{
-				if(!((i==1) && (j==1)))
-				{				
-					initializeCharacter(&ghosts[count],(unsigned char) ( XSize/6+j*2*(XSize/6)),(unsigned char) (YSize/6+i*2*(YSize/6)+i),1,&GHOST_IMAGE);
-					DRAW_GHOST(ghosts[count]._x, ghosts[count]._y, ghosts[count]._imagePtr);
-				}
-				else
-				{
-					initializeCharacter(&ghosts[count],(unsigned char) (XSize-4),(unsigned char) (YSize-4),1,&GHOST_IMAGE);					
-				}
-			}
-			else
-			{
-				initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) (1),0,&DEAD_GHOST_IMAGE);
-			}
-			++count;
-		}
-	}
-
-
-	#if BOMBS_NUMBER==4
-	{
-		count = 0;
-		for(i=1;i<=2;++i)
-		{
-			for(j=1;j<=2;++j)
-			{
-				initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i-1+rand()%3), (unsigned char) ((YSize/3)*j-1+rand()%3),0,&BOMB_IMAGE);
-				++count;
-			}
-		}
-	}
-	#elif BOMBS_NUMBER==3	
-	{
-		unsigned char rnd = rand()%4;
-		initializeCharacter(&bombs[0],(unsigned char) XSize/3-2+rnd, (unsigned char) (YSize/3)-1+rnd,0,&BOMB_IMAGE);
-
-		initializeCharacter(&bombs[1],(unsigned char) XSize/2-2+rnd, (unsigned char) ((YSize/3)*2)-1+rnd,0,&BOMB_IMAGE);
-
-		initializeCharacter(&bombs[2],(unsigned char) 2*(XSize/3)-2+rnd, (unsigned char) (YSize/3)-1-rnd,0,&BOMB_IMAGE);
-	}
-	#elif BOMBS_NUMBER==2
-		initializeCharacter(&bombs[0],(unsigned char) XSize/2-3+rand()%7, (unsigned char) ((YSize/3))-1+rand()%3,0,&BOMB_IMAGE);
-
-		initializeCharacter(&bombs[1],(unsigned char) XSize/2-3+rand()%7,(unsigned char)  ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE);
-	#elif BOMBS_NUMBER==1
-		initializeCharacter(&bombs[0],(unsigned char) XSize/2-3+rand()%7,(unsigned char)  ((YSize/2))-1+rand()%3,0,&BOMB_IMAGE);
-	#endif
-
-
-
-	
-	initializeCharacter(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);	
-
-	DRAW_PLAYER(player._x,player._y,player._imagePtr);
-
-	
-}
-
 void playerDies(void)
 {
 	EXPLOSION_SOUND();
 	die(&player);
-	//printDefeatMessage();
+	printDefeatMessage();
 	sleep(1);	
 }
 		
@@ -380,15 +181,15 @@ int main(void)
 			// Clear the screen, put cursor in upper left corner
 			CLEAR_SCREEN();
 
-			//printLevel();
+			printLevel();
 			sleep(1);
 	
 			
 			// Wait for the user to press a key 
-			//printPressKeyToStart();
+			printPressKeyToStart();
 			WAIT_PRESS();
  
-			//deleteCenteredMessage();
+			deleteCenteredMessage();
 			
 			// Draw a border around the screen 
 			DRAW_BORDERS();
@@ -396,13 +197,13 @@ int main(void)
 			fillLevelWithCharacters(ghostCount);	
 			
 
-			// displayStatsTitles();
-			// displayStats();			
-			// printLevelStats();
-			// printLivesStats();
+			displayStatsTitles();
+			displayStats();			
+			printLevelStats();
+			printLivesStats();
 			
-			// printGunsStats();
-			// printGhostCountStats();
+			printGunsStats();
+			printGhostCountStats();
 			
 
 			while(player._status && (ghostCount>0) )
@@ -423,7 +224,7 @@ int main(void)
 					++extraLifeThroughPointsCounter;
 					PING_SOUND();
 					++lives;
-					//printLivesStats();
+					printLivesStats();
 				}
 				
 				ghostSlowDown = computeGhostSlowDown();
@@ -454,18 +255,18 @@ int main(void)
 			if(player._status) // if level finished
 			{
 				sleep(1);
-				//printVictoryMessage();
+				printVictoryMessage();
 				sleep(2);
 				CLEAR_SCREEN();			
 				if(level<=10)
 				{
 					points+= LEVEL_BONUS*level;
-					//printLevelBonus(LEVEL_BONUS*level);
+					printLevelBonus(LEVEL_BONUS*level);
 				}
 				else
 				{				
 					points+= LEVEL_BONUS*10;
-					//printLevelBonus(LEVEL_BONUS*10);
+					printLevelBonus(LEVEL_BONUS*10);
 				}
 				sleep(1);
 				CLEAR_SCREEN();				
@@ -488,14 +289,14 @@ int main(void)
 			
 	if(level==FINAL_LEVEL+1) // if completed game
 	{
-		//gameCompleted();
+		gameCompleted();
 		sleep(2);
 	}
 	// GAME OVER	
-	//printGameOver();
+	printGameOver();
 	sleep(2);
 	CLEAR_SCREEN();
-	//finalScore();
+	finalScore();
 	sleep(2);
 	if(points>highScore)
 	{

@@ -140,7 +140,7 @@ int main(void)
 	
 	while(1)
 	{
-		//initialScreen();
+		initialScreen();
 		WAIT_PRESS();
 		CLEAR_SCREEN();
 
@@ -168,7 +168,7 @@ int main(void)
 			guns = 0;
 			gun._status = 0;
 			
-			// computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
+			//computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
 			ghostLevelDecrease = 140-(level*2);
 			powerUpInitialCoolDown = 200+(level*2);
 			

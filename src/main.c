@@ -42,6 +42,19 @@
 #include "sleep_macros.h"
 #include "sound_macros.h"
 
+#if defined(__CMOC__)
+	#include "patch/cmoc_conio_patch.h"	
+	#include "display_macros.c"
+	#include "input_macros.c"
+	#include "strategy.c"
+	#include "enemy.c"
+	#include "text.c"
+	#include "character.c"
+	#include "level.c"
+	#include "missile.c"
+	#include "invincible_enemy.c"
+#endif
+
 unsigned short invincibleSlowDown;
 unsigned short invincibleXCountDown;
 unsigned short invincibleYCountDown;
@@ -77,16 +90,24 @@ unsigned char level;
 
 unsigned short invincibleLoopTrigger;
 
+#if !defined(__CMOC__)
+	extern Image PLAYER_IMAGE;
+	extern Image GHOST_IMAGE;
+	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image BOMB_IMAGE;
+	extern Image POWERUP_IMAGE;
+	extern Image MISSILE_IMAGE;
+	extern Image GUN_IMAGE;
 
-extern Image PLAYER_IMAGE;
-extern Image GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
-extern Image BOMB_IMAGE;
-extern Image POWERUP_IMAGE;
-extern Image MISSILE_IMAGE;
-extern Image GUN_IMAGE;
+	extern Image DEAD_GHOST_IMAGE;
 
-extern Image DEAD_GHOST_IMAGE;
+	extern unsigned char powerUpBlink;
+	extern unsigned char gunBlink;	
+	extern unsigned char extraPointsBlink;
+	extern unsigned char extraLifeBlink;	
+	extern unsigned char invincibilityBlink;
+	extern unsigned char playerBlink;	
+#endif
 
 #if defined(DEBUG_CHARS)
 	extern Image EXTRA_LIFE_IMAGE;
@@ -97,12 +118,7 @@ extern Image DEAD_GHOST_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;	
 #endif
 
-extern unsigned char powerUpBlink;
-extern unsigned char gunBlink;	
-extern unsigned char extraPointsBlink;
-extern unsigned char extraLifeBlink;	
-extern unsigned char invincibilityBlink;
-extern unsigned char playerBlink;	
+
 
 
 Character invincibleGhost;
@@ -479,7 +495,12 @@ int main(void)
 	INIT_GRAPHICS();
 	
 	// Ask for the screen size 
-	GET_SCREEN_SIZE(&XSize, &YSize);
+	#if defined(__CMOC__)
+		XSize = 32;
+		YSize = 16;
+	#else
+		GET_SCREEN_SIZE(&XSize, &YSize);
+	#endif
 	
 	highScore = 0;
 	

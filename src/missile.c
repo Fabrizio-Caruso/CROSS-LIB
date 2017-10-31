@@ -32,15 +32,15 @@
 #include "powerups.h"
 #include "character.h"
 
-#if !defined(__CMOC__)
-	extern unsigned int points;
-	extern unsigned char ghostCount;
-	extern Character ghosts[GHOSTS_NUMBER];
-	extern Image DEAD_GHOST_IMAGE;
-	extern unsigned char level;
-#endif
+
+extern unsigned int points;
+extern unsigned char ghostCount;
+extern Character ghosts[GHOSTS_NUMBER];
+extern Image DEAD_GHOST_IMAGE;
+extern unsigned char level;
+
 	
-#if defined(FULL_GAME) && !defined(__CMOC__)
+#if defined(FULL_GAME) 
 	extern	unsigned short extraPointsCoolDown;
 	extern 	unsigned short extraLifeCoolDown;
 	extern	unsigned short invincibilityCoolDown;

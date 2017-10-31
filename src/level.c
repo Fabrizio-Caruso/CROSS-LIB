@@ -33,32 +33,32 @@
 
 #include "level.h"
 
-#if !defined(__CMOC__)
-	extern unsigned char level;
-	extern unsigned char XSize;
-	extern unsigned char YSize;
 
-	extern Image PLAYER_IMAGE;
-	extern Image GHOST_IMAGE;
-	extern Image INVINCIBLE_GHOST_IMAGE;
-	extern Image BOMB_IMAGE;
-	extern Image POWERUP_IMAGE;
-	extern Image MISSILE_IMAGE;
-	extern Image GUN_IMAGE;
-	extern Image DEAD_GHOST_IMAGE;
+extern unsigned char level;
+extern unsigned char XSize;
+extern unsigned char YSize;
+
+extern Image PLAYER_IMAGE;
+extern Image GHOST_IMAGE;
+extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image BOMB_IMAGE;
+extern Image POWERUP_IMAGE;
+extern Image MISSILE_IMAGE;
+extern Image GUN_IMAGE;
+extern Image DEAD_GHOST_IMAGE;
 
 
-	extern Character invincibleGhost;
-	extern Character player; 
-	extern Character powerUp;
-	extern Character gun;
-	extern Character missile;
+extern Character invincibleGhost;
+extern Character player; 
+extern Character powerUp;
+extern Character gun;
+extern Character missile;
 
-	extern Character ghosts[GHOSTS_NUMBER];
-	extern Character bombs[BOMBS_NUMBER];
-#endif
+extern Character ghosts[GHOSTS_NUMBER];
+extern Character bombs[BOMBS_NUMBER];
 
-#if defined(FULL_GAME) && !defined(__CMOC__)
+
+#if defined(FULL_GAME) 
 	extern unsigned char innerVerticalWallX;
 	extern unsigned char innerVerticalWallY;
 	extern unsigned char innerVerticalWallLength;

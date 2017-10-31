@@ -41,6 +41,8 @@
 #endif
 #if defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
+#elif defined(__CMOC__)
+	#include "patch/cmoc_conio_patch.h"		
 #elif defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) || defined(__TI86__) || defined(__TI86S__)
 	#include "patch/z88dk_conio_patch.h"
 #elif defined(__BEE__)
@@ -116,6 +118,8 @@ typedef struct ImageStruct Image;
 
 #if defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 	#define GET_SCREEN_SIZE(x,y) do {*x=20; *y=24;} while(0)
+#elif defined(__CMOC__)
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=16-Y_OFFSET;} while(0)
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	#define GET_SCREEN_SIZE(x,y) do {*x=80-X_OFFSET; *y=25-Y_OFFSET;} while(0)
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_64COL)

@@ -107,7 +107,7 @@ Image GUN_IMAGE;
 		#if defined(__APPLE2ENH__) || defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
 			DEAD_GHOST_IMAGE._imageData = 'O';
 		#elif defined(__APPLE2__) 
-			DEAD_GHOST_IMAGE._imageData = '_';
+			DEAD_GHOST_IMAGE._imageData = '#';
 		#elif defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
 			DEAD_GHOST_IMAGE._imageData = 'x';	
 		#elif defined(__VZ__) || defined(__CMOC__)

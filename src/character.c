@@ -41,14 +41,12 @@ extern unsigned char YSize;
 extern unsigned char ghostCount;
 extern unsigned short loop;
 
-#if !defined(__CMOC__)
-	extern Image DEAD_GHOST_IMAGE;
-	extern Image GHOST_IMAGE;
-	extern Image BOMB_IMAGE;
+extern Image DEAD_GHOST_IMAGE;
+extern Image GHOST_IMAGE;
+extern Image BOMB_IMAGE;
 
-	extern Character ghosts[GHOSTS_NUMBER];
-	extern Character bombs[BOMBS_NUMBER];
-#endif
+extern Character ghosts[GHOSTS_NUMBER];
+extern Character bombs[BOMBS_NUMBER];
 
 #if defined(FULL_GAME)
 	extern unsigned char innerVerticalWallX;

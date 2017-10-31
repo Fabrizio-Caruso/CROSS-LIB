@@ -26,17 +26,16 @@
 #include "invincible_enemy.h"
 #include "level.h"
 
-#if !defined(__CMOC__)
-	extern unsigned char level;
-	extern unsigned short loop;
+extern unsigned char level;
+extern unsigned short loop;
 
-	extern unsigned short invincibleSlowDown;
-	extern unsigned short invincibleXCountDown;
-	extern unsigned short invincibleYCountDown ;
-	extern unsigned short invincibleLoopTrigger;
+extern unsigned short invincibleSlowDown;
+extern unsigned short invincibleXCountDown;
+extern unsigned short invincibleYCountDown ;
+extern unsigned short invincibleLoopTrigger;
 
-	extern unsigned short ghostLevel;
-#endif
+extern unsigned short ghostLevel;
+
 
 unsigned short computeInvincibleSlowDown(void)
 {

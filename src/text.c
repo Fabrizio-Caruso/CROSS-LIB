@@ -73,25 +73,25 @@
 	#define _RED   COLOR_RED
 #endif
 
-#if !defined(__CMOC__)
-	extern unsigned char XSize;
-	extern unsigned char YSize;
 
-	extern unsigned char level;
-	extern unsigned char lives;
-	extern unsigned char guns;
-	extern unsigned int points;
-	extern unsigned char ghostCount;
-	extern unsigned short ghostLevel;
-	extern unsigned int highScore;
+extern unsigned char XSize;
+extern unsigned char YSize;
 
-	extern Image PLAYER_IMAGE;
-	extern Image GHOST_IMAGE;
-	extern Image GUN_IMAGE;
-	extern Image INVINCIBLE_GHOST_IMAGE;
-	extern Image PLAYER_IMAGE;
-	extern Image MISSILE_IMAGE;
-#endif
+extern unsigned char level;
+extern unsigned char lives;
+extern unsigned char guns;
+extern unsigned int points;
+extern unsigned char ghostCount;
+extern unsigned short ghostLevel;
+extern unsigned int highScore;
+
+extern Image PLAYER_IMAGE;
+extern Image GHOST_IMAGE;
+extern Image GUN_IMAGE;
+extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image PLAYER_IMAGE;
+extern Image MISSILE_IMAGE;
+
 
 #if defined(COLOR)
 	void printCenteredMessageOnRow(unsigned char row, char *Text)

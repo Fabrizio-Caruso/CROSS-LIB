@@ -70,7 +70,7 @@
 	#else
 		#define cgetc() (char) getch();
 	#endif
-
+	
 	#define COLOR_BLACK 0	
 	#define COLOR_BLUE 1
 

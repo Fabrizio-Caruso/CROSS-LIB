@@ -187,8 +187,10 @@
 	#define GHOSTS_NUMBER 7
 #elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define GHOSTS_NUMBER 6
-#elif defined(__SPECTRUM__)
+#elif defined(__SPECTRUM__) && defined(FULL_GAME)
 	#define GHOSTS_NUMBER 9
+#elif defined(__SPECTRUM__) && defined(TINY_GAME)
+	#define GHOSTS_NUMBER 7
 #elif defined(__ATMOS__)
 	#define GHOSTS_NUMBER 9
 #elif defined(__ZX81__) || defined(__LAMBDA__)
@@ -204,7 +206,7 @@
 #endif
 	
 
-#if defined(__CMOC__) || defined(__MC1000__) || defined(__LAMBDA__) || (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) || (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
+#if defined(TINY_GAME) || defined(__CMOC__) || defined(__MC1000__) || defined(__LAMBDA__) || (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) || (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
 	#define NO_COLOR
 #else
 	#define COLOR

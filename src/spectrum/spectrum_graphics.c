@@ -35,8 +35,10 @@ extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
-extern char udg[];
-
+#if defined(REDEFINED_CHARS)
+	extern char udg[];
+#endif
+	
 #if defined(FULL_GAME)
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
@@ -60,26 +62,18 @@ extern char udg[];
 
 #include <stdio.h>
 
-// #define UDG_BASE 0xFF58
+#if defined(CLIB_ANSI)
+	#include <graphics.h>
 
-#include <graphics.h>
-#include <spectrum.h>
+	#include <spectrum.h>
+#endif
+	
 
 #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
 #define PEEK(addr)         (*(unsigned char*) (addr))
 #define PEEKW(addr) (*(unsigned*) (addr))
 
-#if defined(REDEFINED_CHARS)
-// void redefine(unsigned char * loc, const unsigned char * data)
-// {
-	// unsigned short i;
-	// for(i=0;i<8;++i)
-	// {
-		// POKE((unsigned short)(loc+i),data[i]);
-	// }
-// }
-#endif
 
 struct redefine_struct
 {
@@ -157,20 +151,24 @@ void INIT_GRAPHICS(void)
 	
 	printf("\x1\x20");
 	
-	clg();
-	zx_border(0);
-	zx_colour(PAPER_BLACK|INK_WHITE);	
+	#if defined(CLIB_ANSI)
+		clg();
+		zx_border(0);
+		zx_colour(PAPER_BLACK|INK_WHITE);	
+	#endif
 }
 
 void INIT_IMAGES(void)
 {		
 
-	PLAYER_IMAGE._color = COLOR_CYAN;
-	INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-	POWERUP_IMAGE._color = COLOR_MAGENTA;
-	GUN_IMAGE._color = COLOR_MAGENTA;
-	BOMB_IMAGE._color = COLOR_RED;
-	DEAD_GHOST_IMAGE._color = COLOR_RED;
+	#if defined(COLOR)
+		PLAYER_IMAGE._color = COLOR_CYAN;
+		INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+		POWERUP_IMAGE._color = COLOR_MAGENTA;
+		GUN_IMAGE._color = COLOR_MAGENTA;
+		BOMB_IMAGE._color = COLOR_RED;
+		DEAD_GHOST_IMAGE._color = COLOR_RED;
+	#endif
 	
 	#if defined(FULL_GAME)
 		EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
@@ -215,8 +213,10 @@ void INIT_IMAGES(void)
 	
 	DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
 
-	GHOST_IMAGE._color = COLOR_WHITE;
-	MISSILE_IMAGE._color = COLOR_WHITE;
+	#if defined(COLOR)
+		GHOST_IMAGE._color = COLOR_WHITE;
+		MISSILE_IMAGE._color = COLOR_WHITE;
+	#endif
 	
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
@@ -246,7 +246,9 @@ void INIT_IMAGES(void)
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
 	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-	SET_TEXT_COLOR(image->_color);
+	#if defined(COLOR)
+		SET_TEXT_COLOR(image->_color);
+	#endif
 	cputc(image->_imageData); 
 }
 
@@ -259,7 +261,9 @@ void _delete(unsigned char x, unsigned char y)
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
 	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-	SET_TEXT_COLOR(image->_color);
+	#if defined(COLOR)
+		SET_TEXT_COLOR(image->_color);
+	#endif
 	if(*blinkCounter) 
 	{
 		cputc(image->_imageData); 
@@ -300,24 +304,15 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	{ 
 		unsigned char i; 
 		
-		SET_TEXT_COLOR(COLOR_YELLOW);
+		#if defined(COLOR)
+			SET_TEXT_COLOR(COLOR_YELLOW);
+		#endif
 		for(i=0;i<length;++i) 
 		{ 
 			gotoxy(x+X_OFFSET+i,y+Y_OFFSET);  putchar('-'); 
 		} 
 	}
 
-
-	// void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
-	// { 
-		// unsigned char i; 
-		
-		// SET_TEXT_COLOR(COLOR_YELLOW);
-		// for(i=0;i<length;++i) 
-		// { 
-			// gotoxy(x+X_OFFSET,y-1+Y_OFFSET+i);  putchar('|'); 
-		// } 
-	// }	
 #endif
 
 

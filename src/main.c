@@ -173,6 +173,7 @@ unsigned char invincibleGhostAlive = 1;
 // unsigned char powerUp_blink = 1;
 // unsigned char gun_blink = 1;	
 
+#if !defined(TINY_GAME)
 void handle_missile()
 {
 	// Check if player has fired the gun
@@ -250,6 +251,7 @@ void relocatePowerUp(Character * powerUpPtr)
 		#endif	
 }
 
+
 void handle_gun_item()
 {
 	// Manage gun 
@@ -309,6 +311,7 @@ void handle_powerup_item()
 		--powerUpCoolDown;
 	}
 }
+#endif
 
 void playerDies(void)
 {
@@ -414,6 +417,7 @@ void playerDies(void)
 #endif
 
 
+#if !defined(TINY_GAME)
 void handle_invincible_ghost(void)
 {
 	if(!invincibleGhost._status)
@@ -461,6 +465,7 @@ void handle_invincible_ghost(void)
 		}
 	}
 }
+#endif
 			
 void initialScreen(void)
 {
@@ -554,9 +559,7 @@ int main(void)
 		ghostCount = GHOSTS_NUMBER;
 		do // Level (Re-)Start
 		{ 
-			invincibleGhostAlive = 1;
-			invincibleGhostHits = 0;
-						
+
 			#if defined(FULL_GAME)
 				dead_bubbles = 0;
 				extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN;
@@ -570,18 +573,23 @@ int main(void)
 			
 			loop = 0;
 			ghostLevel = 0;
+
 			
+			ghostLevelDecrease = 140-(level*2);
+			
+			#if !defined(TINY_GAME)
+			invincibleGhostAlive = 1;
+			invincibleGhostHits = 0;
+									
 			guns = 0;
 			gun._status = 0;
 			
-			// computePowerUp(&ghostLevelDecrease, &powerUpInitialCoolDown);
-			ghostLevelDecrease = 140-(level*2);
 			powerUpInitialCoolDown = 200+(level*2);
-			
-			
+						
 			gunCoolDown = GUN_INITIAL_COOLDOWN;
 			
 			computeInvincibleGhostParameters();
+			#endif
 
 			ghostSlowDown = computeGhostSlowDown();
 			
@@ -782,22 +790,28 @@ int main(void)
 
 				MOVE_PLAYER();
 	
+				#if !defined(TINY_GAME)
 				handle_missile();
-			
+				#endif
+				
 				chasePlayer(ghostSlowDown);
 				
+				#if !defined(TINY_GAME)
 				// This detects collisions of ghosts that have just moved
 				if(missile._status)
 				{
 					checkMissileVsGhosts(&missile);
 				}
+				#endif
 				
 				// Check collisions bombs vs ghosts
 				checkBombsVsGhosts();
 				
+				#if !defined(TINY_GAME)
 				handle_gun_item();
 				
 				handle_powerup_item();
+				#endif
 
 				#if defined(FULL_GAME)
 				if(wallReached(&player) || 
@@ -824,9 +838,10 @@ int main(void)
 				SKIP_DRAW
 					displayGhosts();
 
-				
+				#if !defined(TINY_GAME)
 				handle_invincible_ghost();
-
+				#endif
+				
 				++ghostLevel;
 			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
 

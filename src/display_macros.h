@@ -31,8 +31,8 @@
 	#include <atari5200.h>
 #endif
 	
-// !defined(__SPECTRUM__) &&
-#if !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0))
+
+#if !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
 	#include <conio.h>
 #endif
 
@@ -53,8 +53,10 @@
 	#include "patch/z88dk_conio_patch.h"		
 #elif defined(__GAL__)
 	#include "patch/z88dk_conio_patch.h"	
-#elif defined(__SPECTRUM__)
+#elif defined(__SPECTRUM__) && defined(CLIB_ANSI)
 	#include "patch/z88dk_conio_patch.h"	
+#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
+	#include "patch/z88dk_conio_implementation.h"		
 #elif defined(__SAM__)
 	#include "patch/z88dk_conio_patch.h"	
 #elif defined(__CPC__)
@@ -124,6 +126,8 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) do {*x=80-X_OFFSET; *y=25-Y_OFFSET;} while(0)
 #elif defined (__SPECTRUM__) && defined(SPECTRUM_64COL)
 	#define GET_SCREEN_SIZE(x,y) do {*x=64-X_OFFSET; *y=24-Y_OFFSET;} while(0)
+#elif defined (__SPECTRUM__)
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
 #elif defined(__MSX__) && !defined(MSX_MODE1)
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__MSX__) && defined(MSX_MODE1)

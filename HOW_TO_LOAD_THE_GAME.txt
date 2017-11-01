@@ -60,3 +60,11 @@ Rename FULL_MTX.mtx to FULL and place it in the same folder as the Mess emulator
 In Basic do:
 LOAD"FULL"
 RUN
+
+---------------------------------------------------------
+
+MC1000
+
+Use the MESS emulator
+In BASIC do:
+TLOAD

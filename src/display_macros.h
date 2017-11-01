@@ -36,7 +36,7 @@
 	#include <conio.h>
 #endif
 
-#if defined(__ATARI5200__) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
+#if defined(__OSIC1P__) || defined(__ATARI5200__) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#include "patch/generic_conio_patch.h"
 #endif
 #if defined(__ATMOS__)

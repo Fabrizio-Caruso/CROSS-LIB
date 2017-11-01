@@ -13,6 +13,18 @@
 	#define COLOR_RED 1
 #endif
 
+#ifndef COLOR_CYAN
+	#define COLOR_CYAN 1
+#endif
+
+#ifndef COLOR_YELLOW
+	#define COLOR_YELLOW 1
+#endif
+
+#ifndef COLOR_GREEN
+	#define COLOR_GREEN 1
+#endif
+
 
 #ifndef COLOR_BLUE
 	#define COLOR_BLUE 1

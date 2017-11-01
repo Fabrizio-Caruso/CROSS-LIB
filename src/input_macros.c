@@ -197,7 +197,7 @@ extern unsigned char guns;
 		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByKeyboard(get_stick(0));} else movePlayerByKeyboard(9);}	
 	#elif defined(__ZX80__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based		
-	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__)
+	#elif defined(__OSIC1P__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#elif defined(__ATMOS__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}		

@@ -74,6 +74,8 @@ Image GUN_IMAGE;
 	//
 #elif defined(__CPC__)
 	//
+#elif defined(__NES__) && defined(NES_COLOR)
+	//	
 #elif defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__) || defined(__LAMBDA__)
 	//
 #else

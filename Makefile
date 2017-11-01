@@ -258,6 +258,29 @@ pce_light:
 	$(CC65_PATH)$(MYCC65) -O -t pce $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_pce.pce
 
 	
+nes_color:
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/nes/reset.s
+	$(CC65_PATH)cc65 -D__NES__ -DNES_COLOR $(SOURCE_PATH)/display_macros.c
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/display_macros.s
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/enemy.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/enemy.s
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/level.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/level.s
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/character.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/character.s	
+	$(CC65_PATH)cc65 -D__NES__ $(SOURCE_PATH)/text.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/text.s 	
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/strategy.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/strategy.s	
+	$(CC65_PATH)cc65 -D__NES__ $(SOURCE_PATH)/input_macros.c
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/input_macros.s	
+	$(CC65_PATH)cc65 -D__NES__ -DTINY_GAME $(SOURCE_PATH)/main.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/main.s		
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/nes/nes_graphics.c
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/nes/nes_graphics.s		
+	$(CC65_PATH)ld65 -t nes -o $(BUILD_PATH)/TINY_nes_color.nes $(SOURCE_PATH)/nes/reset.o $(SOURCE_PATH)/display_macros.o $(SOURCE_PATH)/nes/nes_graphics.o $(SOURCE_PATH)/enemy.o $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/text.o $(SOURCE_PATH)/strategy.o $(SOURCE_PATH)/input_macros.o nes.lib
+	#$(CC65_PATH)$(MYCC65) -O -t nes -DTINY_GAME --config $(SOURCE_PATH)/nes/nes.cfg -DNES_COLOR $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/nes/reset.s $(SOURCE_PATH)/nes/nes_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_nes_color.nes
+	# -C $(SOURCE_PATH)/nes/nes.cfg
 	
 nes_16k:
 	$(CC65_PATH)$(MYCC65) -O -t nes $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_nes.nes

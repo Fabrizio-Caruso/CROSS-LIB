@@ -6,4 +6,7 @@ build
 src/cmoc_main.c
 *.bin
 *.asm
+src/*.s
+src/nes/*.o
+src/nes/nes_graphics.s
 

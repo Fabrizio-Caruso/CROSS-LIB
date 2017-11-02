@@ -97,6 +97,10 @@ extern unsigned char guns;
 				in_wait_nokey();
 			}
 		#endif
+	#elif defined(__GAL__)
+		void WAIT_PRESS(void)
+		{
+		}
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		void WAIT_PRESS(void)
 		{

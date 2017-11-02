@@ -66,5 +66,19 @@ RUN
 MC1000
 
 Use the MESS emulator
-In BASIC do:
-TLOAD
+Use File Manager to attach the WAV file
+In BASIC do: TLOAD
+
+---------------------------------------------------------
+
+Galaksija
+
+Use the MESS emulator
+
+Use File Manager to attach the WAV file
+In BASIC run: OLD
+Start the tape
+In BASIC run: RUN
+
+
+

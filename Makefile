@@ -374,6 +374,10 @@ lambda_light:
 	rm $(BUILD_PATH)/LIGHT_lambda.prg	
 
 # ---- (null)Error at file 'src/main.c' line 2972: symbol 'gotoxy_callee' not defined
+gal_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +gal -pragma-need=ansiterminal -vn -DTINY_GAME -D__GAL__ -lndos -create-app -o  $(BUILD_PATH)/TINY_galaksija.prg $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_galaksija.prg
+
 gal_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal -pragma-need=ansiterminal -vn -D__GAL__ -lndos -create-app -o  $(BUILD_PATH)/LIGHT_galaksija.prg $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_galaksija.prg

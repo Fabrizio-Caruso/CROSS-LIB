@@ -46,7 +46,7 @@ AQUARIUS
 
 Unzip the .zip file.
 Type CLOAD 
-First load the file starting underscore
+First load the file starting with underscore
 Type RUN
 Type CLOAD
 Then load the other file
@@ -61,9 +61,48 @@ In Basic do:
 LOAD"FULL"
 RUN
 
+
 ---------------------------------------------------------
 
-MC1000
+Sharp MZ
+
+Use mz800Emu
+Press C
+Select .mzf file
+
+---------------------------------------------------------
+
+Philips 2000
+
+Use m2000-allegro5 emulator
+Place the game file into the same directory as the m2000.exe and rename it into p2000.cas
+In BASIC execute:
+CLOAD
+RUN
+
+---------------------------------------------------------
+
+Luxor ABC 80 
+
+Use the ABC80SIM emulator 
+
+Pass the ihx file as a parameter to the emulator
+Run it directly with the command “A=CALL(49200)”
+
+---------------------------------------------------------
+
+Robotron Z 9001
+
+Use the JKCEMU emulator.
+Go to settings 
+Choose "Einstellungen"
+Select Z9001
+Press "Schliessen"
+Load file with "Laden"s
+
+---------------------------------------------------------
+
+CCE MC1000
 
 Use the MESS emulator
 Use File Manager to attach the WAV file

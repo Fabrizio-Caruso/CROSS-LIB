@@ -205,7 +205,7 @@ extern unsigned char guns;
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#elif defined(__ATMOS__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}		
-	#elif defined(__CMOC__)
+	#elif defined(__WINCMOC__) || defined(__CMOC__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard((unsigned char) cgetc());}}		
 	#else
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	

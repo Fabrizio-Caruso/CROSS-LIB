@@ -3,7 +3,7 @@ deliverables
 *.def
 *.swp
 build
-src/cmoc_main.c
+src/wincmoc_main.c
 *.bin
 *.asm
 src/*.s

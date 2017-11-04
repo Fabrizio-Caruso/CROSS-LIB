@@ -25,7 +25,7 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
-#if defined(__CMOC__)
+#if defined(__WINCMOC__) || defined(__CMOC__)
 	#define FULL_GAME
 #endif
 
@@ -48,7 +48,7 @@
 #endif
 	
 
-#if defined(__CMOC__) ||  defined(__GAL__) ||defined(__MC1000__) || defined(__Z9001__) || defined(__ABC80__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__)
+#if defined(__WINCMOC__) || defined(__CMOC__) ||  defined(__GAL__) ||defined(__MC1000__) || defined(__Z9001__) || defined(__ABC80__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__)
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'
@@ -72,7 +72,7 @@
 #if defined(__VIC20__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 300
-#elif defined(__CMOC__)
+#elif defined(__WINCMOC__) || defined(__CMOC__) 
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 900
 #elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
@@ -167,7 +167,7 @@
 	#define ADVANCED_RIGHT_MISSILE() do{if(loop%2)--rightEnemyMissile._x;}while(0)
 #endif
 
-#if defined(__CMOC__) || defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ZX81__) || defined(__ZX80__)
+#if defined(__WINCMOC__) || defined(__CMOC__) || defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ZX81__) || defined(__ZX80__)
 	#define NO_CASE_LETTERS
 #else
 	#define CASE_LETTERS
@@ -206,7 +206,7 @@
 #endif
 	
 
-#if defined(TINY_GAME) || defined(__CMOC__) || defined(__MC1000__) || defined(__LAMBDA__) || (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) || (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
+#if defined(TINY_GAME) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__MC1000__) || defined(__LAMBDA__) || (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) || (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
 	#define NO_COLOR
 #else
 	#define COLOR
@@ -272,7 +272,7 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 50UL
 
-#if defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__WINCMOC__) || defined(__CMOC__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000
 	#define INITIAL_SKULL_SLOWDOWN 32000	
 #elif defined(__VG5K__) || defined(__MSX__) 

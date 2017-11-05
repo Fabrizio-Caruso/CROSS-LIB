@@ -9,4 +9,6 @@ src/wincmoc_main.c
 src/*.s
 src/nes/*.o
 src/nes/nes_graphics.s
+*.swp
+*.swo
 

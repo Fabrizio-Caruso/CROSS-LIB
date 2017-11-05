@@ -97,7 +97,7 @@ extern unsigned char guns;
 				in_wait_nokey();
 			}
 		#endif
-	#elif defined(__GAL__) || defined(__NASCOM__)
+	#elif defined(__GAL__) || defined(__NASCOM__) || defined(__OSIC1P__)
 		void WAIT_PRESS(void)
 		{
 		}

@@ -100,7 +100,21 @@ apple2enh:
 	java -jar $(SOURCE_PATH)/../tools/ac.jar -cc65 $(BUILD_PATH)/FULL_apple2enh.dsk aschase B < $(BUILD_PATH)/apple2enh.bin
 	rm $(BUILD_PATH)/apple2enh.bin
 
+osic1p:
+	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_osic1p.lod
+	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/FULL_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/FULL_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/FULL_osic1p.lod
 
+osic1p_light:
+	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p  $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_osic1p.lod
+	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/LIGHT_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/LIGHT_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/LIGHT_osic1p.lod
+
+osic1p_tiny:
+	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_osic1p.lod
+	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/TINY_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/TINY_osic1p.lod
+		
 	
 # ------------------------------------------------------------------------------------------
 #Z88DK
@@ -271,6 +285,17 @@ spectrum_48k:
 	
 # DEBUG
 
+gamate_tiny:
+	$(CC65_PATH)$(MYCC65) -O -t gamate -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_gamate.bin
+
+gamate_light:
+	$(CC65_PATH)$(MYCC65) -O -t gamate $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_gamate.bin
+
+# TODO: Reduce size in order to compile
+gamate_full:
+	$(CC65_PATH)$(MYCC65) -O -t gamate -DFULL_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_gamate.bin
+
+
 # Not working version - LIGHT version works fine except for the space bar
 mc1000_32k_sound:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3 -clib=ansi -D__MC1000__ -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI -lndos -create-app -Cz--audio $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -287,21 +312,6 @@ mc1000_32k:
 # osic1p:
 	# $(CC65_PATH)$(MYCC65) -O -t osic1p $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_osic1p.lod
 
-osic1p:
-	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_osic1p.lod
-	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/FULL_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/FULL_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
-	rm $(BUILD_PATH)/FULL_osic1p.lod
-
-osic1p_light:
-	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p  $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_osic1p.lod
-	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/LIGHT_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/LIGHT_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
-	rm $(BUILD_PATH)/LIGHT_osic1p.lod
-
-osic1p_tiny:
-	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_osic1p.lod
-	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/TINY_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
-	rm $(BUILD_PATH)/TINY_osic1p.lod
-		
 	
 pce_tiny:
 	$(CC65_PATH)$(MYCC65) -O -t pce -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_PCE.pce

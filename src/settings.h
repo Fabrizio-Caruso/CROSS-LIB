@@ -133,7 +133,7 @@
 	#define GAME_SLOW_DOWN 0
 #endif
 
-#if defined(__CBM610__) || (!defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__NES__) && !defined(__PCE__))
+#if defined(__CBM610__) || (!defined(__GAMATE__) && !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__NES__) && !defined(__PCE__))
 	#define KEYBOARD_CONTROL
 #else
 	#define JOYSTICK_CONTROL

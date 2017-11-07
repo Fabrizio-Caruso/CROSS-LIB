@@ -124,9 +124,14 @@ Image GUN_IMAGE;
 			DEAD_GHOST_IMAGE._imageData = 'o';
 		#endif
 
-		#if !defined(NO_COLOR)
+		#if defined(COLOR)
+			#if !defined(__GAMATE__)
 			GHOST_IMAGE._color = COLOR_WHITE;
 			MISSILE_IMAGE._color = COLOR_WHITE;
+			#else
+			GHOST_IMAGE._color = COLOR_YELLOW;
+			MISSILE_IMAGE._color = COLOR_YELLOW;
+			#endif
 		#endif
 		
 		#if defined(FULL_GAME)

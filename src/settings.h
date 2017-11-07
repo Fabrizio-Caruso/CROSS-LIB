@@ -75,6 +75,9 @@
 #elif defined(__WINCMOC__) || defined(__CMOC__) 
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 900
+#elif defined(__GAMATE__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 900
 #elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 700
@@ -147,7 +150,7 @@
 	#define WAIT_FOR_JOY
 #endif
 
-#if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1))
+#if (defined(__CBM__) && !defined(__VIC20__)) || defined(__GAMATE__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1))
 	#define CC65
 	#define WIDE
 #elif defined(__VIC20__) || defined(__GAMATE__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__ATARI5200__)

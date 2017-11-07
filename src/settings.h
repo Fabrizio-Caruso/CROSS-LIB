@@ -141,6 +141,8 @@
 
 #if defined(KEYBOARD_CONTROL) || defined(__C16__) || defined(__PLUS4__)
 	#define WAIT_FOR_KEY
+#elif defined(__GAMATE__)
+	#define WAIT_FOR_KEY
 #else
 	#define WAIT_FOR_JOY
 #endif
@@ -148,7 +150,7 @@
 #if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1))
 	#define CC65
 	#define WIDE
-#elif defined(__VIC20__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__ATARI5200__)
+#elif defined(__VIC20__) || defined(__GAMATE__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__ATARI5200__)
 	#define CC65
 	#define NARROW
 #elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__ZX81__) || defined(__ZX80__) || defined(__AQUARIUS__) || defined(__SVI__) || defined(__MZ__)
@@ -167,14 +169,14 @@
 	#define ADVANCED_RIGHT_MISSILE() do{if(loop%2)--rightEnemyMissile._x;}while(0)
 #endif
 
-#if defined(__WINCMOC__) || defined(__CMOC__) || defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ZX81__) || defined(__ZX80__)
+#if defined(__WINCMOC__) || defined(__CMOC__) || defined(__GAMATE__) || defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__ZX81__) || defined(__ZX80__)
 	#define NO_CASE_LETTERS
 #else
 	#define CASE_LETTERS
 #endif
 
 
-#if defined(__ZX81__) || defined(__LAMBDA__) || defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
+#if defined(__GAMATE__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define BOMBS_NUMBER 3
 #elif defined(__SPECTRUM__)
 	#define BOMBS_NUMBER 4
@@ -187,6 +189,8 @@
 	#define GHOSTS_NUMBER 7
 #elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define GHOSTS_NUMBER 6
+#elif defined(__GAMATE__) 
+	#define GHOSTS_NUMBER 5
 #elif defined(__SPECTRUM__) && defined(FULL_GAME)
 	#define GHOSTS_NUMBER 9
 #elif defined(__SPECTRUM__) && defined(TINY_GAME)

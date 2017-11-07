@@ -97,8 +97,12 @@ Image GUN_IMAGE;
 				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;		
 			#endif		
 		#endif
-			
-		GHOST_IMAGE._imageData = 'o';
+		
+		#if defined(NO_CASE_LETTERS)
+			GHOST_IMAGE._imageData = 'O';
+		#else
+			GHOST_IMAGE._imageData = 'o';
+		#endif
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';
 		BOMB_IMAGE._imageData = 'X';
 		PLAYER_IMAGE._imageData = '*';
@@ -108,14 +112,14 @@ Image GUN_IMAGE;
 		
 		#if defined(__APPLE2ENH__) || defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
 			DEAD_GHOST_IMAGE._imageData = 'O';
-		#elif defined(__APPLE2__) 
+		#elif defined(__APPLE2__) || defined(__GAMATE__)
 			DEAD_GHOST_IMAGE._imageData = '#';
 		#elif defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
 			DEAD_GHOST_IMAGE._imageData = 'x';	
 		#elif defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__)
 			DEAD_GHOST_IMAGE._imageData = '#';				
 		#elif defined(NO_COLOR)
-			DEAD_GHOST_IMAGE._imageData = '_';		 
+			DEAD_GHOST_IMAGE._imageData = '#';		 
 		#else
 			DEAD_GHOST_IMAGE._imageData = 'o';
 		#endif

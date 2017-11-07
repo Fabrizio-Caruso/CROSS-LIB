@@ -60,7 +60,6 @@ void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char
 	characterPtr->_y = y;
 	characterPtr->_status = status;
 	characterPtr->_imagePtr = imagePtr;
-	//characterPtr->_moved = 0;
 }
 
 void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y)
@@ -162,12 +161,22 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 	do
 	{
 		// TODO: This should be separated (at least partially) and moved into display_macros
-		x_offset = rand() % 5;
-		y_offset = rand() % 5;
+		#if defined(WIDE)
+			x_offset = rand() % 5;
+			y_offset = rand() % 5;
+		#else
+			x_offset = rand() % 3;
+			y_offset = rand() % 3;
+		#endif
 		if((x_offset==0) && (y_offset==0))
 			continue;
-		x = characterPtr->_x -2 + x_offset; 
-		y = characterPtr->_y -2 + y_offset;
+		#if defined(WIDE)
+			x = characterPtr->_x -2 + x_offset; 
+			y = characterPtr->_y -2 + y_offset;
+		#else
+			x = characterPtr->_x -1 + x_offset; 
+			y = characterPtr->_y -1 + y_offset;
+		#endif	
 		
 		// TODO: This check should be separated and moved into display_macros
 		if((x<2) || (x>XSize-2) || (y<=2) || (y>YSize-2))

@@ -202,7 +202,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	}
 	#elif BOMBS_NUMBER==3	
 	{
-		unsigned char rnd = rand()%4;
+		unsigned char rnd = rand()%3;
 		initializeCharacter(&bombs[0],XSize/3-2+rnd, (YSize/3)-1+rnd,0,&BOMB_IMAGE);
 
 		initializeCharacter(&bombs[1],XSize/2-2+rnd, ((YSize/3)*2)-1+rnd,0,&BOMB_IMAGE);

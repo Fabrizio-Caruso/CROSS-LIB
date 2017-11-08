@@ -286,7 +286,7 @@ spectrum_48k:
 # DEBUG
 
 conio:
-	$(CC65_PATH)$(MYCC65) -O -t gamate conio.c -o  $(BUILD_PATH)/conio.bin
+	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/conio.c -o  $(BUILD_PATH)/conio.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/conio.bin
 
 creativision_tiny:

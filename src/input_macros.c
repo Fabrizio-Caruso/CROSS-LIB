@@ -97,11 +97,12 @@ extern unsigned char guns;
 				in_wait_nokey();
 			}
 		#endif
-	#elif defined(__GAMATE__) || defined(__GAL__) || defined(__NASCOM__) || defined(__OSIC1P__)
+	#elif defined(__GAL__) || defined(__NASCOM__) || defined(__OSIC1P__)
 		void WAIT_PRESS(void)
 		{
 		}
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
+		#include<conio.h>
 		void WAIT_PRESS(void)
 		{
 			while(kbhit())
@@ -116,12 +117,10 @@ extern unsigned char guns;
 	#include<joystick.h>
 	void WAIT_PRESS(void)
 	{
-		unsigned char kbInput;
-		while(joy_read(JOY_1))
+		while ((joy_read(JOY_1) & JOY_BTN_1_MASK))
 		{
-			JOY_UP(kbInput);
 		}
-		while(!(joy_read(JOY_1)))
+		while (! (joy_read(JOY_1) & JOY_BTN_1_MASK))
 		{
 		}
 	}	

@@ -36,8 +36,7 @@ unsigned short computeGhostSlowDown(void)
 {
 	if(ghostLevel<1000)
 		return INITIAL_ENEMY_SLOWDOWN-level*200-ghostLevel*16;
-	else
-		return 1000;
+	return 1000;
 }
 
 void decreaseGhostLevel(void)

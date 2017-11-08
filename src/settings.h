@@ -142,9 +142,7 @@
 	#define JOYSTICK_CONTROL
 #endif
 
-#if defined(KEYBOARD_CONTROL) || defined(__C16__) || defined(__PLUS4__)
-	#define WAIT_FOR_KEY
-#elif defined(__GAMATE__)
+#if defined(KEYBOARD_CONTROL)
 	#define WAIT_FOR_KEY
 #else
 	#define WAIT_FOR_JOY

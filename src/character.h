@@ -85,10 +85,6 @@ unsigned char safeLocation(unsigned char x, unsigned char y, Character *danger, 
 
 void relocateCharacter(Character * characterPtr, Character *danger, unsigned char dangerSize);
 
-unsigned char innerWallReached(Character *characterPtr);
-
-unsigned char nearInnerWall(Character *characterPtr);
-
 void ghostDies(Character * ghostPtr);
 
 unsigned char sameLocationAstAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length);

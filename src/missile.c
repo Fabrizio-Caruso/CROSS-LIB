@@ -58,7 +58,7 @@ void checkMissileVsGhost(Character * missilePtr,
 	   areCharctersAtSamePosition(missilePtr, ghostPtr))
 	{
 		points+=GHOST_VS_MISSILE;
-		ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
+		ghostPtr->_imagePtr = (Image *)&DEAD_GHOST_IMAGE;
 		ghostDies(ghostPtr);
 	}
 }

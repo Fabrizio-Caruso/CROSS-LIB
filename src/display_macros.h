@@ -162,10 +162,10 @@ typedef struct ImageStruct Image;
 	extern Image PLAYER_UP;
 	extern Image PLAYER_DOWN;
 
-	#define SHOW_LEFT() do {player._imagePtr = &PLAYER_LEFT; } while(0)
-	#define SHOW_RIGHT() do {player._imagePtr = &PLAYER_RIGHT; } while(0)
-	#define SHOW_UP() do {player._imagePtr = &PLAYER_UP; } while(0)
-	#define SHOW_DOWN() do {player._imagePtr = &PLAYER_DOWN; } while(0)
+	#define SHOW_LEFT() do {player._imagePtr = (Image *)&PLAYER_LEFT; } while(0)
+	#define SHOW_RIGHT() do {player._imagePtr = (Image *)&PLAYER_RIGHT; } while(0)
+	#define SHOW_UP() do {player._imagePtr = (Image *) &PLAYER_UP; } while(0)
+	#define SHOW_DOWN() do {player._imagePtr = (Image *)&PLAYER_DOWN; } while(0)
 #else
 	#define SHOW_LEFT() { }
 	#define SHOW_RIGHT() { }

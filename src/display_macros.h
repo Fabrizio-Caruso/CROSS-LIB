@@ -282,7 +282,7 @@ void _delete(unsigned char x, unsigned char y);
 			DRAW_VERTICAL_LINE(0,1,YSize-2); \
 			DRAW_HORIZONTAL_LINE (0,YSize-1,XSize);\
 		}	
-#elif defined(CC65) && (defined(WIDE) || defined(__VIC20__))
+#elif defined(CC65) && (defined(WIDE) || defined(__VIC20__) || defined(__GAMATE__))
 	#define DRAW_BORDERS()\
 		{ \
 			SET_TEXT_COLOR(TEXT_COLOR); \

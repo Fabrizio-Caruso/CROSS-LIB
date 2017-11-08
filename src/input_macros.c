@@ -130,6 +130,7 @@ extern unsigned char guns;
 
 #if defined(JOYSTICK_CONTROL)
 	#include <joystick.h>
+	
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
 		if(JOY_UP(joyInput))
@@ -211,7 +212,11 @@ extern unsigned char guns;
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
 	#endif	
 #else
-	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
+	#if defined(__GAMATE__)
+		void MOVE_PLAYER(void) { movePlayerByJoystick(~joy_read(JOY_1));}
+	#else
+		void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
+	#endif
 #endif
 
 

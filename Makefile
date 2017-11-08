@@ -285,6 +285,10 @@ spectrum_48k:
 	
 # DEBUG
 
+conio:
+	$(CC65_PATH)$(MYCC65) -O -t gamate conio.c -o  $(BUILD_PATH)/conio.bin
+	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/conio.bin
+
 creativision_tiny:
 	$(CC65_PATH)$(MYCC65) -O -t creativision -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_creativision.bin
 

@@ -211,11 +211,7 @@ extern unsigned char guns;
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
 	#endif	
 #else
-	#if defined(__GAMATE__)
-		void MOVE_PLAYER(void) { movePlayerByJoystick(~joy_read(JOY_1));}
-	#else
-		void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
-	#endif
+	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
 #endif
 
 

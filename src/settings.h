@@ -275,7 +275,7 @@
 #define GUN_BONUS 30UL
 
 // Points gained at the end of each level (to be multipled by level)
-#define LEVEL_BONUS 50UL
+#define LEVEL_BONUS 50U
 
 #if defined(__WINCMOC__) || defined(__CMOC__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000

@@ -200,11 +200,16 @@ void displayStatsTitles(void)
 		gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData+160);cputc(':');
 		gotoxy(15-3-2-3,0); cputc(GHOST_IMAGE._imageData+160);cputc(':');
 		gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData+64);cputc(':');		
+	#elif defined(__GAMATE__)
+		SET_TEXT_COLOR(3);	
+		gotoxy(11,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#else
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(15-3-2-3,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
+		gotoxy(11,0); cputc(GUN_IMAGE._imageData);cputc(':');
+		gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+		gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
 	#endif
 
 
@@ -319,7 +324,7 @@ void _printScore(char * text, unsigned int score)
 	{
 		printCenteredMessage("y o u   m a d e   i t"); 
 	}
-#elif defined(__VIC20__) && !defined(FULL_GAME)
+#elif defined(__GAMATE__) || (defined(__VIC20__) && !defined(FULL_GAME))
 	void gameCompleted(void)
 	{
 		printCenteredMessage("YOU MADE IT"); 
@@ -332,7 +337,7 @@ void _printScore(char * text, unsigned int score)
 #endif
 
 
-#if defined(__VG5K__) || defined(__VZ__)
+#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__)
 		void printExtraLife(void)
 		{
 			printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 
@@ -362,35 +367,6 @@ void _printScore(char * text, unsigned int score)
 		{
 			printCenteredMessageWithCol(_WHITE, "YOU LOST");
 		}	
-// #elif (defined(__SVI__) && !defined(FULL_GAME)) || (defined(__LAMBDA__) && !defined(FULL_GAME))
-		// void printExtraLife(void)
-		// {
-		// }
-		
-		// void printPressKeyToStart(void)
-		// {
-			
-		// }
-
-		// void deleteCenteredMessage(void)
-		// {
-			// printCenteredMessage("                       ");
-		// }
-
-		// void printGameOver(void)
-		// {
-			// printCenteredMessage("GAME OVER");
-		// }
-
-		// void printVictoryMessage(void)
-		// {
-			// printCenteredMessageWithCol(_WHITE, "YOU WON");
-		// }
-
-		// void printDefeatMessage(void)
-		// {
-			// printCenteredMessageWithCol(_WHITE, "YOU LOST");
-		// }	
 #elif (defined(__VIC20__) || defined(__C16__) ) && defined(FULL_GAME)
 		void printExtraLife(void)
 		{

@@ -34,7 +34,6 @@
 #include "level.h"
 #include "enemy.h"
 #include "invincible_enemy.h"
-#include "powerups.h"
 
 // Input input/output driver headers
 #include "display_macros.h"
@@ -43,16 +42,14 @@
 #include "sound_macros.h"
 
 unsigned short invincibleSlowDown;
-unsigned short invincibleXCountDown;
-unsigned short invincibleYCountDown;
+unsigned char invincibleXCountDown;
+unsigned char invincibleYCountDown;
 
 unsigned short ghostSlowDown;
-unsigned short powerUpCoolDown;
-	
-unsigned short gunCoolDown;
+unsigned char powerUpCoolDown;	
+unsigned char gunCoolDown;
 
 unsigned short ghostLevelDecrease;
-unsigned short powerUpInitialCoolDown; 
 
 unsigned short ghostLevel;
 unsigned int points;
@@ -293,7 +290,7 @@ void handle_powerup_item()
 			points+=POWER_UP_BONUS;
 			powerUpReached(&powerUp);
 			decreaseGhostLevel(); 
-			powerUpCoolDown = powerUpInitialCoolDown;
+			powerUpCoolDown = POWER_UP_INITIAL_COOLDOWN;
 		}
 		else
 		{
@@ -583,8 +580,6 @@ int main(void)
 									
 			guns = 0;
 			gun._status = 0;
-			
-			powerUpInitialCoolDown = 200+(level*2);
 						
 			gunCoolDown = GUN_INITIAL_COOLDOWN;
 			

@@ -29,7 +29,6 @@
 #include "display_macros.h"
 #include "level.h"
 #include "text.h"
-#include "powerups.h"
 #include "character.h"
 
 

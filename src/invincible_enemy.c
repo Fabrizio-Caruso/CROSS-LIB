@@ -30,8 +30,8 @@ extern unsigned char level;
 extern unsigned short loop;
 
 extern unsigned short invincibleSlowDown;
-extern unsigned short invincibleXCountDown;
-extern unsigned short invincibleYCountDown ;
+extern unsigned char invincibleXCountDown;
+extern unsigned char invincibleYCountDown ;
 extern unsigned short invincibleLoopTrigger;
 
 extern unsigned short ghostLevel;

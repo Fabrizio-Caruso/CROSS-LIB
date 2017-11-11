@@ -184,11 +184,6 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
 			}
 			++count;
-			#if defined(DEBUG)
-				// TODO: REMOVE THIS
-				DRAW_GHOST(ghosts[count]->_x, ghosts[count]->_y, ghosts[count]->_imagePtr);
-				sleep(1);
-			#endif
 		}
 	}
 
@@ -202,11 +197,6 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			{
 				initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i-1+rand()%3), (unsigned char) ((YSize/3)*j-1+rand()%3),0,&BOMB_IMAGE);
 				++count;
-				#if defined(DEBUG)
-					// TODO: REMOVE THIS
-					DRAW_BOMB(bombs[count]->_x, bombs[count]->_y, bombs[count]->_imagePtr);	
-					sleep(1);
-				#endif
 			}
 		}
 	}
@@ -242,11 +232,6 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		
 		initializeAwayFromWall(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);
 		
-		#if defined(DEBUG)
-			// TODO: REMOVE THIS
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);	
-		#endif
-		
 		initializeAwayFromWall(&extraPoints, XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
 		
 		initializeAwayFromWall(&extraLife, XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
@@ -262,7 +247,6 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			initializeCharacter(&rightEnemyMissile,         XSize-1,         ENEMY_MISSILE_OFFSET, 1,&RIGHT_ENEMY_MISSILE_IMAGE);
 			initializeCharacter(&leftEnemyMissile,                0, YSize-1-ENEMY_MISSILE_OFFSET, 1,&LEFT_ENEMY_MISSILE_IMAGE);		
 		}		
-		
 	#else
 		initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
 		

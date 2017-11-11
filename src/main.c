@@ -615,10 +615,12 @@ int main(void)
 			deleteCenteredMessage();
 			
 			// Draw a border around the screen 
-			DRAW_BORDERS();
+			// TODO: RESTORE 
+			#if !defined(DEBUG)
+				DRAW_BORDERS();
+			#endif
 			
-			fillLevelWithCharacters(ghostCount);	
-			
+			fillLevelWithCharacters(ghostCount);				
 
 			displayStatsTitles();
 			displayStats();			

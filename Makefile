@@ -260,6 +260,12 @@ mc1000:
 	rm a.bin
 	rm a.cas
 
+mc1000_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -DTINY_GAME -O3 -pragma-define:ansicolumns=32 -subtype=gaming -clib=ansi -D__MC1000__ -vn -DCLIB_ANSI -lndos -create-app -Cz--audio $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	mv a.wav $(BUILD_PATH)/TINY_mc1000.wav
+	rm a.bin
+	rm a.cas	
+	
 # ISSUE with kbhit and getk: the game is turned-based
 gal_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +gal -pragma-need=ansiterminal -vn -DTINY_GAME -D__GAL__ -lndos -create-app -o  $(BUILD_PATH)/TINY_galaksija.prg $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c

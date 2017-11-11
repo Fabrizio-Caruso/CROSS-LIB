@@ -23,6 +23,7 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include "psg_sounds.h"
+#include <psg.h>
 
 /*
 R0	Channel A Period	pa7	pa6	pa5	pa4	pa3	pa2	pa1	pa0

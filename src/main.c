@@ -423,11 +423,7 @@ void handle_invincible_ghost(void)
 		
 		#if defined(FULL_GAME)
 		if((!bossLevel() && invincibleGhostAlive &&
-							(
-							 (invincibleXCountDown==0)     || (invincibleYCountDown==0) 
-							 || 
-							 (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger)
-							)) || 
+							((invincibleXCountDown==0)|| (invincibleYCountDown==0) || (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || 
 		   (bossLevel() && loop>=invincibleLoopTrigger))		
 		#else
 		if(invincibleGhostAlive &&

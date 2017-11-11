@@ -28,8 +28,8 @@
 #include "invincible_enemy.h"
 #include "input_macros.h"
 
-extern unsigned short invincibleXCountDown;
-extern unsigned short invincibleYCountDown;
+extern unsigned char invincibleXCountDown;
+extern unsigned char invincibleYCountDown;
 extern unsigned char playerDirection;
 extern unsigned char playerFire;
 extern Character player;

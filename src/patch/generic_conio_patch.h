@@ -10,15 +10,15 @@
 #endif
 
 #ifndef COLOR_RED
-	#define COLOR_RED 1
+	#define COLOR_RED 2
 #endif
 
 #ifndef COLOR_CYAN
-	#define COLOR_CYAN 1
+	#define COLOR_CYAN 3
 #endif
 
 #ifndef COLOR_YELLOW
-	#define COLOR_YELLOW 1
+	#define COLOR_YELLOW 3
 #endif
 
 #ifndef COLOR_GREEN

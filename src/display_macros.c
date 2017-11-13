@@ -80,6 +80,8 @@ Image GUN_IMAGE;
 	//
 #elif defined(__ATARI_LYNX__)
 	//
+#elif defined(__GAMATE__)
+	//	
 #else
 	void INIT_GRAPHICS() {}
 	

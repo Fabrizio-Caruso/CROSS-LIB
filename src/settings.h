@@ -41,6 +41,11 @@
 	
 	#define SKIP_MORE_DRAW \
 		if((loop%8)==0)
+#elif defined(__MC1000__)
+	#define SKIP_DRAW
+	
+	#define SKIP_MORE_DRAW \
+		if((loop%8)==0)			
 #else
 	#define SKIP_DRAW 
 
@@ -48,18 +53,12 @@
 #endif
 	
 
-#if defined(__OSIC1P__) || defined(__WINCMOC__) || defined(__CMOC__) ||  defined(__GAL__)  || defined(__Z9001__) || defined(__ABC80__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__)
+#if defined(__MC1000__) || defined(__OSIC1P__) || defined(__WINCMOC__) || defined(__CMOC__) ||  defined(__GAL__)  || defined(__Z9001__) || defined(__ABC80__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__)
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'
 	#define _MOVE_RIGHT 'L'
 	#define _FIRE ' '
-#elif defined(__MC1000__) // MC1000 uses 92 as code for the SPACE BAR
-	#define _MOVE_UP 'I'
-	#define _MOVE_DOWN 'K'
-	#define _MOVE_LEFT 'J'
-	#define _MOVE_RIGHT 'L'
-	#define _FIRE 92	
 #elif defined(__MSX__) // Special Joystick 
 	#define _MOVE_UP 1
 	#define _MOVE_DOWN 5

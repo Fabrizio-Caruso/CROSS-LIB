@@ -321,7 +321,7 @@ mc1000_tiny:
 	
 # -subtype=gaming
 mc1000_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3  -pragma-define:ansicolumns=32 -DFULL_GAME  -clib=ansi -D__MC1000__ -DSOUNDS -vn -DCLIB_ANSI -lndos -create-app -Cz--audio $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3 -subtype=gaming -pragma-define:ansicolumns=32 -DFULL_GAME  -clib=ansi -D__MC1000__ -DSOUNDS -vn -DCLIB_ANSI -lndos -create-app -Cz--audio $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k.wav
 	rm a.bin
 	rm a.cas	

@@ -160,14 +160,9 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 	unsigned char safe = 0;
 	do
 	{
-		// TODO: This should be separated (at least partially) and moved into display_macros
-		#if defined(WIDE)
-			x_offset = rand() % 5;
-			y_offset = rand() % 5;
-		#else
-			x_offset = rand() % 3;
-			y_offset = rand() % 3;
-		#endif
+		x_offset = rand() % 5;
+		y_offset = rand() % 5;
+
 		if((x_offset==0) && (y_offset==0))
 			continue;
 		#if defined(WIDE)

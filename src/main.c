@@ -495,7 +495,6 @@ void DEBUG_PRINT()
 		for(i=32;i<255;++i)
 		{
 			printf(" %d: %c", i, i);
-			WAIT_PRESS();
 		}
 	}
 		

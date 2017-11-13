@@ -78,6 +78,8 @@ Image GUN_IMAGE;
 	//	
 #elif defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__) || defined(__LAMBDA__)
 	//
+#elif defined(__ATARI_LYNX__)
+	//
 #else
 	void INIT_GRAPHICS() {}
 	

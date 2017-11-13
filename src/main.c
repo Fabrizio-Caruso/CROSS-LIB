@@ -629,9 +629,6 @@ int main(void)
 			WAIT_PRESS();
 
 			deleteCenteredMessage();
-			
-			// Draw a border around the screen 
-			// TODO: RESTORE 
 
 			DRAW_BORDERS();
 			

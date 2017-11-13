@@ -32,7 +32,7 @@
 #endif
 	
 
-#if !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
+#if !defined(__ATARI_LYNX__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
 	#include <conio.h>
 #endif
 
@@ -41,6 +41,8 @@
 #endif
 #if defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
+#elif defined(__ATARI_LYNX__)
+	#include "patch/atari_lynx_conio_implementation.h"	
 #elif defined(__WINCMOC__)
 	#include "patch/wincmoc_conio_patch.h"	
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
@@ -122,6 +124,8 @@ typedef struct ImageStruct Image;
 
 #if defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 	#define GET_SCREEN_SIZE(x,y) do {*x=20; *y=24;} while(0)
+#elif defined(__ATARI_LYNX__)
+	#define GET_SCREEN_SIZE(x,y) do {*x=20-X_OFFSET; *y=13-Y_OFFSET;} while(0)
 #elif defined(__WINCMOC__) || defined(__CMOC__)
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=16-Y_OFFSET;} while(0)
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)

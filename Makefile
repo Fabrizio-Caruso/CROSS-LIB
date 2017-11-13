@@ -116,7 +116,8 @@ osic1p_tiny:
 	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/TINY_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
 	rm $(BUILD_PATH)/TINY_osic1p.lod
 		
-	
+
+		
 # ------------------------------------------------------------------------------------------
 #Z88DK
 
@@ -308,15 +309,19 @@ joy-test:
 	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/joy-test.c -o  $(BUILD_PATH)/joy-test.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/joy-test.bin
 
+atari_lynx:
+	$(CC65_PATH)$(MYCC65) -O -t lynx -D__ATARI_LYNX__ $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/atari_lynx/atari_lynx_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_ATARI_LYNX.lnx
 
+# -subtype=gaming
 mc1000_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -DDEBUG -DTINY_GAME -O3 -pragma-define:ansicolumns=32 -subtype=gaming -clib=ansi -D__MC1000__ -vn -DCLIB_ANSI -lndos -create-app -Cz--audio $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -DDEBUG -DTINY_GAME -O3 -pragma-define:ansicolumns=32  -clib=ansi -D__MC1000__ -vn -DCLIB_ANSI -lndos -create-app -Cz--audio $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	mv a.wav $(BUILD_PATH)/TINY_mc1000.wav
 	rm a.bin
 	rm a.cas	
 	
+# -subtype=gaming
 mc1000_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3  -pragma-define:ansicolumns=32 -DFULL_GAME -subtype=gaming -clib=ansi -D__MC1000__ -DSOUNDS -vn -DCLIB_ANSI -lndos -create-app -Cz--audio $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3  -pragma-define:ansicolumns=32 -DFULL_GAME  -clib=ansi -D__MC1000__ -DSOUNDS -vn -DCLIB_ANSI -lndos -create-app -Cz--audio $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k.wav
 	rm a.bin
 	rm a.cas	

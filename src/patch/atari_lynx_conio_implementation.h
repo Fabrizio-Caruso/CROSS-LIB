@@ -31,44 +31,25 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef _Z88DK_CONIO_IMPLEMENTATION
-#define _Z88DK_CONIO_IMPLEMENTATION
+#ifndef _ATARI_LYNX_CONIO_IMPLEMENTATION
+#define _ATARI_LYNX_CONIO_IMPLEMENTATION
+	#include <tgi.h>
 	
-	#if defined(__SPECTRUM__)
-		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
-			#define gotoxy(x,y) printf("\x16%c%c",y+32,x+32);
-		#else
-			#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
-		#endif
-	#elif defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
-		#define gotoxy(x,y) zx_setcursorpos(y-1,x)
-	#elif defined(__ENTERPRISE__) || defined(__MTX__)
-		#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
-	#elif defined __SVI__ || defined __MSX__
-		#define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
-		#define clrscr() printf("\033E")
-		#define cprintf printf
-		#define _cprintf printf
-		#define cputs puts_cons
-		#define _cputs puts_cons
-		#define cgets gets
-		#define _cgets gets	
-	#else
-	#endif
+	#define gotoxy(a,b) tgi_gotoxy(a*8,b*8)
+	
+	#define clrscr() tgi_clear()
+	
+	#define cprintf 
+	//printf
+	//tgi_outtext
 
-	#if defined(__ZX80__)
-		#define cputc(c) {gen_tv_field(); printf("%c",c); gen_tv_field();}
-	#elif defined(__ZX81__) || defined(__LAMBDA__)
-	    #define cputc(c) fputc_cons(c);
-	#else
-		#define cputc(c) putchar(c); 
-	#endif
-		
-	#if defined(__SPECTRUM__)
-		#define cgetc() in_Inkey();
-	#else
-		#define cgetc() (char) getch();
-	#endif
+	#define cputc(c) 
+	//putchar(c); 	
+
+	#define cgetc() (char) getch();
+	
+	#define textcolor tgi_setcolor
+
 	
 	#define COLOR_BLACK 0	
 	#define COLOR_BLUE 1
@@ -81,4 +62,4 @@
 	
 	#define COLOR_YELLOW 6
 	#define COLOR_WHITE 7
-#endif // _Z88DK_CONIO_IMPLEMENTATION
+#endif // _ATARI_LYNX_CONIO_IMPLEMENTATION

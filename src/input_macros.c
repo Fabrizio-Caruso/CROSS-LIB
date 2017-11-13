@@ -115,6 +115,11 @@ extern unsigned char guns;
 	#endif	
 #else
 	#include<joystick.h>
+	#if defined(__ATARI_LYNX__)
+	void WAIT_PRESS(void)
+	{
+	}
+	#else
 	void WAIT_PRESS(void)
 	{
 		while ((joy_read(JOY_1) & JOY_BTN_1_MASK))
@@ -124,12 +129,18 @@ extern unsigned char guns;
 		{
 		}
 	}	
+	#endif
 #endif
 
 
 #if defined(JOYSTICK_CONTROL)
 	#include <joystick.h>
 	
+	#if defined(__ATARI_LYNX__)
+	void movePlayerByJoystick(unsigned char joyInput)
+	{
+	}		
+	#else
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
 		if(JOY_UP(joyInput))
@@ -158,6 +169,7 @@ extern unsigned char guns;
 			DRAW_PLAYER(player._x, player._y, player._imagePtr);
 		#endif
 	}	
+	#endif
 #else
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{

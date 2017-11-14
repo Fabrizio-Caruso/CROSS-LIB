@@ -199,9 +199,17 @@ void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * 
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
 
 void _delete(unsigned char x, unsigned char y);
-#define DELETE_PLAYER(x,y,image) _delete(x,y)
+#if defined(__GAMATE__)
+	#define DELETE_PLAYER(x,y,image) do {textcolor(COLOR_CYAN); _delete(x,y);} while(0)
+#else
+	#define DELETE_PLAYER(x,y,image) _delete(x,y)
+#endif
 #define DELETE_GHOST(x,y,image) _delete(x,y)
-#define DELETE_INVINCIBLE_GHOST(x,y,image) _delete(x,y)
+#if defined(__GAMATE__)
+	#define DELETE_INVINCIBLE_GHOST(x,y,image) do {textcolor(COLOR_YELLOW); _delete(x,y);} while(0)
+#else
+	#define DELETE_INVINCIBLE_GHOST(x,y,image) _delete(x,y)	
+#endif
 #define DELETE_BOMB(x,y,image) _delete(x,y)
 #define DELETE_POWERUP(x,y,image) _delete(x,y)
 #define DELETE_GUN(x,y,image) _delete(x,y)
@@ -387,6 +395,8 @@ void _delete(unsigned char x, unsigned char y);
 	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);	
 #elif defined(__CBM__) || defined(__ATARI5200__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#define DRAW_VERTICAL_LINE(x,y,length) do {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);} while(0)	
+#elif defined(__GAMATE__)
+	#define DRAW_VERTICAL_LINE(x,y,length) do {(void) textcolor (COLOR_BLACK);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);} while(0)			
 #else		
 	#if defined(__MSX__) || defined(__CPC__)
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
@@ -395,7 +405,7 @@ void _delete(unsigned char x, unsigned char y);
 		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 	#else
-		#if defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__)
+		#if defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__)
 			#define VERTICAL_BRICK '#'
 		#else
 			#define VERTICAL_BRICK '|'

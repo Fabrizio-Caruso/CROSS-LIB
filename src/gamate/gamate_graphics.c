@@ -25,15 +25,7 @@
 
 #include <stdio.h>
 
-
 extern unsigned char XSize;
-
-#define BASE 0
-
-// #define _DRAW(x,y,image) msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,image->_imageData-32);
-// #define _DELETE(x,y)     msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,0); // ' '
-// #define _DRAW_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'|'-32);
-// #define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,56); 	
 
 #define _DRAW(x,y,image)  do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); textcolor(image->_color); cputc(image->_imageData);} while(0); 
 #define _DELETE(x,y)     do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(' ');} while(0); 

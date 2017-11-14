@@ -82,7 +82,7 @@
 	#define GAME_SLOW_DOWN 900
 #elif defined(__GAMATE__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 1400
+	#define GAME_SLOW_DOWN 1200
 #elif defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 700

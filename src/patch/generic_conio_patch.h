@@ -5,7 +5,7 @@
 	#define COLOR_BLACK 0
 #endif
 
-#ifndef COLOR_WHITE
+#ifndef COLOR_WHITE 
 	#define COLOR_WHITE 1
 #endif
 

@@ -121,7 +121,10 @@ gamate_full:
 	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(SOURCE_PATH)/../cfg/gamate_reduced_stack.cfg -DFULL_GAME $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/gamate/gamate_graphics.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_gamate.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
 
-		
+creativision_tiny:
+	$(CC65_PATH)$(MYCC65) -O -t creativision --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_creativision.bin
+
+	
 # ------------------------------------------------------------------------------------------
 #Z88DK
 
@@ -329,9 +332,6 @@ mc1000_tiny:
 	rm a.bin
 	rm a.cas	
 	
-creativision_tiny:
-	$(CC65_PATH)$(MYCC65) -O -t creativision --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_creativision.bin
-
 creativision_light:
 	$(CC65_PATH)$(MYCC65) -O -t creativision --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_creativision.bin	
 
@@ -352,7 +352,7 @@ supervision_full:
 
 	
 pce_tiny:
-	$(CC65_PATH)$(MYCC65) -O -t pce -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_PCE.pce
+	$(CC65_PATH)$(MYCC65) -O -t pce --config $(SOURCE_PATH)/../cfg/pce_reduced_stack.cfg -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_PCE.pce
 
 pce_light:
 	$(CC65_PATH)$(MYCC65) -O -t pce $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_pce.pce

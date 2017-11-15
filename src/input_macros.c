@@ -115,7 +115,7 @@ extern unsigned char guns;
 	#endif	
 #else
 	#include<joystick.h>
-	#if defined(__ATARI_LYNX__)
+	#if defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
 	void WAIT_PRESS(void)
 	{
 	}
@@ -136,7 +136,7 @@ extern unsigned char guns;
 #if defined(JOYSTICK_CONTROL)
 	#include <joystick.h>
 	
-	#if defined(__ATARI_LYNX__)
+	#if defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
 	}		
@@ -159,10 +159,12 @@ extern unsigned char guns;
 		{
 			_DO_MOVE_RIGHT
 		}
+		#if !defined(TINY_GAME)
 		else if(JOY_BTN_1(joyInput) && guns>0 && !missile._status)
 		{
 			playerFire = 1;
 		}
+		#endif
 		#if defined(FULL_GAME)
 			_DRAW_PLAYER	
 		#else
@@ -189,10 +191,12 @@ extern unsigned char guns;
 		{
 			_DO_MOVE_RIGHT
 		}
+		#if !defined(TINY_GAME)
 		else if(kbInput==_FIRE && guns>0 && !missile._status)
 		{
 			playerFire = 1;
 		}
+		#endif
 		#if defined(FULL_GAME)
 			_DRAW_PLAYER
 		#else
@@ -213,7 +217,7 @@ extern unsigned char guns;
 		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByKeyboard(get_stick(0));} else movePlayerByKeyboard(9);}	
 	#elif defined(__ZX80__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based		
-	#elif defined(__CREATIVISION__) || defined(__OSIC1P__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__)
+	#elif defined(__SUPERVISION__) || defined(__CREATIVISION__) || defined(__OSIC1P__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__)
 		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
 	#elif defined(__ATMOS__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}		

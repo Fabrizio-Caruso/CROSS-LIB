@@ -29,7 +29,9 @@
 
 unsigned short computeGhostSlowDown(void);
 
+#if !defined(TINY_GAME)
 void decreaseGhostLevel(void);
+#endif
 
 void displayGhosts(void);
 

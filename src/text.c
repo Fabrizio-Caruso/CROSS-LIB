@@ -215,7 +215,7 @@ void displayStatsTitles(void)
 
 }
 
-
+#if !defined(TINY_GAME)
 void printGunsStats(void)
 {
 	#if defined(WIDE)
@@ -225,6 +225,7 @@ void printGunsStats(void)
 		PRINTF(15+2+1-5-1-X_OFFSET,0-Y_OFFSET,"%u",guns);
 	#endif
 }
+#endif
 
 void printLevelStats(void)
 {	
@@ -314,7 +315,7 @@ void _printScore(char * text, unsigned int score)
 }
 #endif
 
-#if defined(__VG5K__)
+#if defined(__VG5K__) || defined(__CREATIVISION__)
 	void gameCompleted(void)	
 	{
 		printCenteredMessage("DONE"); 
@@ -337,7 +338,7 @@ void _printScore(char * text, unsigned int score)
 #endif
 
 
-#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__)
+#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__) || defined(__CREATIVISION__)
 		void printExtraLife(void)
 		{
 			printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 

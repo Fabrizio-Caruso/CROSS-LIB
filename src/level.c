@@ -248,17 +248,21 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			initializeCharacter(&leftEnemyMissile,                0, YSize-1-ENEMY_MISSILE_OFFSET, 1,&LEFT_ENEMY_MISSILE_IMAGE);		
 		}		
 	#else
+		#if !defined(TINY_GAME)
 		initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
 		
-		initializeCharacter(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);		
+		initializeCharacter(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);	
+		#endif
 		
 		initializeCharacter(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);	
 	#endif
 	DRAW_PLAYER(player._x,player._y,player._imagePtr);
 		
+	#if !defined(TINY_GAME)
 	initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
 
 	initializeCharacter(&invincibleGhost,XSize-2,YSize-2, 0, &INVINCIBLE_GHOST_IMAGE);
+	#endif
 	
 }
 

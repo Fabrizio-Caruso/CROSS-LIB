@@ -141,7 +141,7 @@
 	#define GAME_SLOW_DOWN 0
 #endif
 
-#if defined(__CBM610__) || (!defined(__ATARI_LYNX__) && !defined(__GAMATE__) && !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__NES__) && !defined(__PCE__))
+#if defined(__CBM610__) || (!defined(__CREATIVISION__) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__GAMATE__) && !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__NES__) && !defined(__PCE__))
 	#define KEYBOARD_CONTROL
 #else
 	#define JOYSTICK_CONTROL
@@ -211,6 +211,8 @@
 	#define GHOSTS_NUMBER 9
 #elif defined(__SVI__) && !defined(FULL_GAME)
 	#define GHOSTS_NUMBER 8
+#elif defined(__CREATIVISION__)
+	#define GHOSTS_NUMBER 4	
 #else
 	#define GHOSTS_NUMBER 8
 #endif

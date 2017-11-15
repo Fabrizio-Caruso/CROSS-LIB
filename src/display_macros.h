@@ -32,7 +32,7 @@
 #endif
 	
 
-#if !defined(__ATARI_LYNX__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
+#if !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
 	#include <conio.h>
 #endif
 
@@ -41,7 +41,9 @@
 #endif
 #if defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
-#elif defined(__ATARI_LYNX__)
+#elif defined(__SUPERVISION__) 
+	#include "patch/supervision_conio_implementation.h"	
+#elif defined(__ATARI_LYNX__) 
 	#include "patch/atari_lynx_conio_implementation.h"	
 #elif defined(__WINCMOC__)
 	#include "patch/wincmoc_conio_patch.h"	

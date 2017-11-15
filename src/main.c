@@ -102,18 +102,14 @@ extern unsigned char playerBlink;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;	
 #endif
 
-
-
-
-Character invincibleGhost;
 Character player; 
 
+#if !defined(TINY_GAME)
+Character invincibleGhost;
 Character powerUp;
 Character gun;
-
-
 Character missile;
-
+#endif
 
 Character ghosts[GHOSTS_NUMBER];
 Character bombs[BOMBS_NUMBER];
@@ -155,16 +151,18 @@ unsigned char strategyArray[GHOSTS_NUMBER];
 
 unsigned char playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
 
-unsigned char playerFire = 0;
-unsigned char guns = GUNS_NUMBER;
-
 unsigned int extraLifeThroughPointsCounter = 1;
 
 unsigned char ghostCount = GHOSTS_NUMBER;
 
-unsigned char invincibleGhostHits = 0;
+#if !defined(TINY_GAME)
+unsigned char playerFire = 0;
+unsigned char guns = GUNS_NUMBER;
 
+
+unsigned char invincibleGhostHits = 0;
 unsigned char invincibleGhostAlive = 1;
+#endif
 
 // TODO: It should not be here
 // unsigned char powerUp_blink = 1;
@@ -557,11 +555,12 @@ int main(void)
 		WAIT_PRESS();
 		CLEAR_SCREEN();
 
-		// TODO:
+		#if !defined(TINY_GAME)
 		highScoreScreen();
 
 		WAIT_PRESS();
 		CLEAR_SCREEN();
+		#endif
 		
 		extraLifeThroughPointsCounter = 1;
 		points = 0;
@@ -585,10 +584,10 @@ int main(void)
 			loop = 0;
 			ghostLevel = 0;
 
-			
+			#if !defined(TINY_GAME)
 			ghostLevelDecrease = 140-(level*2);
 			
-			#if !defined(TINY_GAME)
+
 			invincibleGhostAlive = 1;
 			invincibleGhostHits = 0;
 									
@@ -629,18 +628,24 @@ int main(void)
 
 			deleteCenteredMessage();
 
+			#if !defined(TINY_GAME)
 			DRAW_BORDERS();
+
+			#endif
 			
 			fillLevelWithCharacters(ghostCount);				
 
+			#if !defined(TINY_GAME)
 			displayStatsTitles();
+			#endif
 			displayStats();			
 			printLevelStats();
 			printLivesStats();
 			//
+			#if !defined(TINY_GAME)
 			printGunsStats();
 			printGhostCountStats();
-			
+			#endif
 
 			#if defined(FULL_GAME)
 			while(player._status && ((ghostCount>0 && !bossLevel()) || (invincibleGhostAlive && bossLevel()))) // while alive && there are still ghosts

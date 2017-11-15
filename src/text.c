@@ -145,6 +145,7 @@ extern Image MISSILE_IMAGE;
 
 
 // TODO: This is SLOW
+#if !defined(TINY_GAME)
 void displayStatsTitles(void)
 {	
 	#if defined(NO_CASE_LETTERS) && defined(WIDE)	
@@ -211,11 +212,9 @@ void displayStatsTitles(void)
 		gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
 	#endif
-
-
 }
 
-#if !defined(TINY_GAME)
+
 void printGunsStats(void)
 {
 	#if defined(WIDE)

@@ -45,26 +45,25 @@
 
 #include "sound_macros.h"
 
-unsigned short invincibleSlowDown;
-unsigned char invincibleXCountDown;
-unsigned char invincibleYCountDown;
-
 unsigned short ghostSlowDown;
-unsigned char powerUpCoolDown;	
-unsigned char gunCoolDown;
-
-unsigned short ghostLevelDecrease;
 
 unsigned short ghostLevel;
 unsigned int points;
 unsigned int highScore;
-
 unsigned char lives;
-unsigned char missileDirection;
 unsigned char XSize;
 unsigned char YSize;
-
 unsigned short loop;
+
+#if !defined(TINY_GAME)
+unsigned short invincibleSlowDown;
+unsigned char invincibleXCountDown;
+unsigned char invincibleYCountDown;
+unsigned char powerUpCoolDown;	
+unsigned char gunCoolDown;
+unsigned short ghostLevelDecrease;
+unsigned char missileDirection;
+#endif
 
 // Level
 // The level affects:
@@ -76,28 +75,33 @@ unsigned short loop;
 // 6. invincibleLoopTrigger (how long before the invincible ghost appears)
 unsigned char level;
 
-unsigned short invincibleLoopTrigger;
-
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
+
+#if !defined(TINY_GAME)
+unsigned short invincibleLoopTrigger;
+extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
-
 extern Image DEAD_GHOST_IMAGE;
+#endif
 
+#if !defined(TINY_GAME)
 extern unsigned char powerUpBlink;
 extern unsigned char gunBlink;	
+#endif
+
+#if defined(FULL_GAME)
 extern unsigned char extraPointsBlink;
 extern unsigned char extraLifeBlink;	
 extern unsigned char invincibilityBlink;
 extern unsigned char playerBlink;	
+#endif
 
-
-#if defined(DEBUG)
+#if defined(DEBUG) && defined(FULL_GAME)
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
@@ -426,7 +430,9 @@ void handle_invincible_ghost(void)
 		#if defined(FULL_GAME)
 		if((!bossLevel() && invincibleGhostAlive &&
 							((invincibleXCountDown==0)|| (invincibleYCountDown==0) || (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || 
-		   (bossLevel() && loop>=invincibleLoopTrigger))		
+		   (bossLevel() && loop>=invincibleLoopTrigger))
+		#elif defined(TINY_GAME)
+		if(loop>=invincibleLoopTrigger) || (ghostCount<=INVINCIBLE_GHOST_TRIGGER))
 		#else
 		if(invincibleGhostAlive &&
 							((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
@@ -483,16 +489,16 @@ void initialScreen(void)
 void DEBUG_PRINT()
 {
 	{
-		unsigned ch;
+		// unsigned ch;
 		
 		unsigned char i;
 		
 		CLEAR_SCREEN();			
-		for(i=0;i<8;++i)
-		{
-			ch = cgetc();
-			printf("%d\n", ch);
-		}
+		// for(i=0;i<8;++i)
+		// {
+			// ch = cgetc();
+			// printf("%d\n", ch);
+		// }
 		
 		for(i=32;i<255;++i)
 		{
@@ -500,39 +506,39 @@ void DEBUG_PRINT()
 		}
 	}
 		
-	PRINTF(1,0,"ghost %c\n", GHOST_IMAGE._imageData);
-	PRINTF(1,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
-	PRINTF(1,2,"bomb %c\n", BOMB_IMAGE._imageData);
-	PRINTF(1,3,"player %c\n", PLAYER_IMAGE._imageData);
-	#if defined(REDEFINED_CHARS)
-		PRINTF(1,4,"player %c\n", PLAYER_UP._imageData);
-		PRINTF(1,5,"player %c\n", PLAYER_DOWN._imageData);
-		PRINTF(1,6,"player %c\n", PLAYER_LEFT._imageData);
-		PRINTF(1,7,"player %c\n", PLAYER_RIGHT._imageData);					
-	#endif
-	#if defined(FULL_GAME)
-		PRINTF(1,8,"extra life %c\n", EXTRA_LIFE_IMAGE._imageData); 
-		PRINTF(1,9,"invincibility %c\n", INVINCIBILITY_IMAGE._imageData); 
-		PRINTF(1,10,"extra points %c\n", EXTRA_POINTS_IMAGE._imageData);
-		PRINTF(1,11,"bubble %c\n", BUBBLE_IMAGE._imageData);		
-		PRINTF(1,12,"left missile %c\n", LEFT_ENEMY_MISSILE_IMAGE._imageData);
-		PRINTF(1,13,"right missile %c\n", RIGHT_ENEMY_MISSILE_IMAGE._imageData);					
-	#endif
-	PRINTF(1,15,"powerup %c\n", POWERUP_IMAGE._imageData);
-	PRINTF(1,16,"gun %c\n", GUN_IMAGE._imageData); 
-	PRINTF(1,17,"missile %c\n", MISSILE_IMAGE._imageData); 
-	PRINTF(1,18,"dead ghost %c\n", DEAD_GHOST_IMAGE._imageData); 
+	// PRINTF(1,0,"ghost %c\n", GHOST_IMAGE._imageData);
+	// PRINTF(1,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
+	// PRINTF(1,2,"bomb %c\n", BOMB_IMAGE._imageData);
+	// PRINTF(1,3,"player %c\n", PLAYER_IMAGE._imageData);
+	// #if defined(REDEFINED_CHARS)
+		// PRINTF(1,4,"player %c\n", PLAYER_UP._imageData);
+		// PRINTF(1,5,"player %c\n", PLAYER_DOWN._imageData);
+		// PRINTF(1,6,"player %c\n", PLAYER_LEFT._imageData);
+		// PRINTF(1,7,"player %c\n", PLAYER_RIGHT._imageData);					
+	// #endif
+	// #if defined(FULL_GAME)
+		// PRINTF(1,8,"extra life %c\n", EXTRA_LIFE_IMAGE._imageData); 
+		// PRINTF(1,9,"invincibility %c\n", INVINCIBILITY_IMAGE._imageData); 
+		// PRINTF(1,10,"extra points %c\n", EXTRA_POINTS_IMAGE._imageData);
+		// PRINTF(1,11,"bubble %c\n", BUBBLE_IMAGE._imageData);		
+		// PRINTF(1,12,"left missile %c\n", LEFT_ENEMY_MISSILE_IMAGE._imageData);
+		// PRINTF(1,13,"right missile %c\n", RIGHT_ENEMY_MISSILE_IMAGE._imageData);					
+	// #endif
+	// PRINTF(1,15,"powerup %c\n", POWERUP_IMAGE._imageData);
+	// PRINTF(1,16,"gun %c\n", GUN_IMAGE._imageData); 
+	// PRINTF(1,17,"missile %c\n", MISSILE_IMAGE._imageData); 
+	// PRINTF(1,18,"dead ghost %c\n", DEAD_GHOST_IMAGE._imageData); 
 	
-	#if defined(__MSX__)
-		msx_vpoke(6144+32,EXTRA_LIFE_IMAGE._imageData);			
-		msx_vpoke(6145+32,INVINCIBILITY_IMAGE._imageData);
-		msx_vpoke(6146+32,GHOST_IMAGE._imageData);
-		msx_vpoke(6147+32, MISSILE_IMAGE._imageData);
-		msx_vpoke(6148+32, DEAD_GHOST_IMAGE._imageData);
-	#endif
+	// #if defined(__MSX__)
+		// msx_vpoke(6144+32,EXTRA_LIFE_IMAGE._imageData);			
+		// msx_vpoke(6145+32,INVINCIBILITY_IMAGE._imageData);
+		// msx_vpoke(6146+32,GHOST_IMAGE._imageData);
+		// msx_vpoke(6147+32, MISSILE_IMAGE._imageData);
+		// msx_vpoke(6148+32, DEAD_GHOST_IMAGE._imageData);
+	// #endif
 	
-	WAIT_PRESS();
-	CLEAR_SCREEN();	
+	// WAIT_PRESS();
+	// CLEAR_SCREEN();	
 }
 #endif
 
@@ -554,7 +560,7 @@ int main(void)
 		#if defined(DEBUG)
 			DEBUG_PRINT();
 		#endif
-
+		
 		initialScreen();
 		WAIT_PRESS();
 		CLEAR_SCREEN();

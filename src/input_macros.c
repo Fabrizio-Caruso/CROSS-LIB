@@ -28,56 +28,80 @@
 #include "invincible_enemy.h"
 #include "input_macros.h"
 
+extern Character player;
+
+#if !defined(TINY_GAME)
 extern unsigned char invincibleXCountDown;
 extern unsigned char invincibleYCountDown;
-extern unsigned char playerDirection;
 extern unsigned char playerFire;
-extern Character player;
 extern Character missile;
 extern unsigned char guns;
+extern unsigned char playerDirection;
+#endif
 
 #if defined(FULL_GAME)
 	extern unsigned char player_invincibility;
 	extern unsigned char playerBlink;	
 #endif
 
-#define _DO_MOVE_UP \
-	DELETE_PLAYER(player._x,player._y,player._imagePtr); \
-	--player._y; \
-	invincibleYCountDown = INVINCIBLE_COUNT_DOWN; \
-	playerDirection = UP; \
-	SHOW_UP();
-	
-#define _DO_MOVE_DOWN \
-	DELETE_PLAYER(player._x,player._y,player._imagePtr); \
-	++player._y; \
-	invincibleYCountDown = INVINCIBLE_COUNT_DOWN; \
-	playerDirection = DOWN; \
-	SHOW_DOWN(); 
-	
-#define _DO_MOVE_LEFT \
-	DELETE_PLAYER(player._x,player._y,player._imagePtr); \
-	--player._x; \
-	invincibleXCountDown = INVINCIBLE_COUNT_DOWN; \
-	playerDirection = LEFT; \
-	SHOW_LEFT();
- 
-#define _DO_MOVE_RIGHT \
-	DELETE_PLAYER(player._x,player._y,player._imagePtr); \
-	++player._x; \
-	invincibleXCountDown = INVINCIBLE_COUNT_DOWN; \
-	playerDirection = RIGHT; \
-	SHOW_RIGHT();
+#if !defined(TINY_GAME)
+	#define _DO_MOVE_UP \
+		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		--player._y; \
+		invincibleYCountDown = INVINCIBLE_COUNT_DOWN; \
+		playerDirection = UP; \
+		SHOW_UP();
+		
+	#define _DO_MOVE_DOWN \
+		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		++player._y; \
+		invincibleYCountDown = INVINCIBLE_COUNT_DOWN; \
+		playerDirection = DOWN; \
+		SHOW_DOWN(); 
+		
+	#define _DO_MOVE_LEFT \
+		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		--player._x; \
+		invincibleXCountDown = INVINCIBLE_COUNT_DOWN; \
+		playerDirection = LEFT; \
+		SHOW_LEFT();
+	 
+	#define _DO_MOVE_RIGHT \
+		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		++player._x; \
+		invincibleXCountDown = INVINCIBLE_COUNT_DOWN; \
+		playerDirection = RIGHT; \
+		SHOW_RIGHT();
 
-#define _DRAW_PLAYER \
-	if(player_invincibility) \
-	{ \
-		DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
-	} \
-	else \
-	{ \
-		DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-	}
+	#define _DRAW_PLAYER \
+		if(player_invincibility) \
+		{ \
+			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
+		} \
+		else \
+		{ \
+			DRAW_PLAYER(player._x, player._y, player._imagePtr); \
+		}
+#else
+	#define _DO_MOVE_UP \
+		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		--player._y;
+		
+	#define _DO_MOVE_DOWN \
+		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		++player._y;
+		
+	#define _DO_MOVE_LEFT \
+		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		--player._x;
+	 
+	#define _DO_MOVE_RIGHT \
+		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		++player._x;
+
+	#define _DRAW_PLAYER \
+		DRAW_PLAYER(player._x, player._y, player._imagePtr); \	
+#endif
 	
 #if defined(WAIT_FOR_KEY)
 	#if defined(__SPECTRUM__)

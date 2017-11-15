@@ -136,7 +136,7 @@ extern unsigned char guns;
 #if defined(JOYSTICK_CONTROL)
 	#include <joystick.h>
 	
-	#if defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
+	#if defined(__SUPERVISION__)
 	void movePlayerByJoystick(unsigned char joyInput)
 	{
 	}		

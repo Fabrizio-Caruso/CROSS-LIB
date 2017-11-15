@@ -31,8 +31,8 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef _ATARI_LYNX_CONIO_IMPLEMENTATION
-#define _ATARI_LYNX_CONIO_IMPLEMENTATION
+#ifndef _SUPERVISION_CONIO_IMPLEMENTATION
+#define _SUPERVISION_CONIO_IMPLEMENTATION
 	#include <tgi.h>
 	#include <stdio.h>
 	
@@ -63,4 +63,4 @@
 	
 	#define COLOR_YELLOW 6
 	#define COLOR_WHITE 7
-#endif // _ATARI_LYNX_CONIO_IMPLEMENTATION
+#endif // SUPERVISION_CONIO_IMPLEMENTATION

@@ -30,15 +30,19 @@
 #include "character.h"
 #include "strategy.h"
 #include "text.h"
-#include "missile.h"
 #include "level.h"
 #include "enemy.h"
-#include "invincible_enemy.h"
 
+#if !defined(TINY_GAME)
+	#include "missile.h"
+	#include "invincible_enemy.h"
+#endif
+	
 // Input input/output driver headers
 #include "display_macros.h"
 #include "input_macros.h"
 #include "sleep_macros.h"
+
 #include "sound_macros.h"
 
 unsigned short invincibleSlowDown;
@@ -601,11 +605,13 @@ int main(void)
 
 			ghostSlowDown = computeGhostSlowDown();
 			
+			#if !defined(TINY_GAME)
 			// Clear the screen, put cursor in upper left corner
 			CLEAR_SCREEN();
 
 			printLevel();
 			sleep(1);
+			#endif
 			
 			#if defined(FULL_GAME)
 						
@@ -859,9 +865,11 @@ int main(void)
 
 			if(player._status) // if level finished
 			{
+				#if !defined(TINY_GAME)
 				sleep(1);
 				printVictoryMessage();
 				sleep(2);
+				#endif
 				CLEAR_SCREEN();			
 				if(level<=10)
 				{
@@ -908,9 +916,11 @@ int main(void)
 		gameCompleted();
 		sleep(2);
 	}
+	#if !defined(TINY_GAME)
 	// GAME OVER	
 	printGameOver();
 	sleep(2);
+	#endif
 	CLEAR_SCREEN();
 	finalScore();
 	sleep(2);

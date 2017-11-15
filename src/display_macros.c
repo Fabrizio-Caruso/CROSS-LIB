@@ -186,6 +186,7 @@ Image GUN_IMAGE;
 		cputc(' ');
 	}
 
+	#if !defined(TINY_GAME)
 	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char * blink_counter) 
 	{
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
@@ -203,4 +204,5 @@ Image GUN_IMAGE;
 			*blink_counter=1;
 		}	
 	}
+	#endif
 #endif

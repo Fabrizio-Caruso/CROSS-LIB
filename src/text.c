@@ -274,27 +274,28 @@ void setScreenColors(void)
 	SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
 }
 	
-	
-#if defined (NO_CASE_LETTERS)
-	void printLevel(void)
-	{
-		char levelString[22];
+#if !defined(TINY_GAME)	
+	#if defined (NO_CASE_LETTERS)
+		void printLevel(void)
+		{
+			char levelString[22];
 
-		sprintf(levelString, "level %d", level);
+			sprintf(levelString, "level %d", level);
 
-		printCenteredMessageWithCol(_WHITE,levelString);
-	}
-#else
-	void printLevel(void)
-	{
-		char levelString[22];
+			printCenteredMessageWithCol(_WHITE,levelString);
+		}
+	#else
+		void printLevel(void)
+		{
+			char levelString[22];
 
-		sprintf(levelString, "LEVEL %d", level);
+			sprintf(levelString, "LEVEL %d", level);
 
-		printCenteredMessageWithCol(_WHITE,levelString);
-	}
+			printCenteredMessageWithCol(_WHITE,levelString);
+		}
+	#endif
 #endif
-
+	
 #if defined (__VG5K__)
 void _printScore(char * text, unsigned int score)
 {
@@ -315,7 +316,7 @@ void _printScore(char * text, unsigned int score)
 }
 #endif
 
-#if defined(__VG5K__) || defined(__CREATIVISION__)
+#if defined(__VG5K__) || defined(__CREATIVISION__) || defined(__PCE__)
 	void gameCompleted(void)	
 	{
 		printCenteredMessage("DONE"); 
@@ -337,13 +338,61 @@ void _printScore(char * text, unsigned int score)
 	}
 #endif
 
+#if !defined(TINY_GAME)
+	#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__) || defined(__CREATIVISION__)
+			void printExtraLife(void)
+			{
+				printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 
+			}
+
+			void printVictoryMessage(void)
+			{
+				printCenteredMessageWithCol(_WHITE, "YOU WON");
+			}
+	#elif (defined(__VIC20__) || defined(__C16__) ) && defined(FULL_GAME)
+			void printExtraLife(void)
+			{
+				printCenteredMessageWithCol(_RED, "EXTRA LIFE"); 
+			}
+
+			void printVictoryMessage(void)
+			{
+				printCenteredMessageWithCol(_WHITE, "Y O U  W O N");
+			}
+	#elif (defined(__VIC20__) || defined(__C16__) ) && !defined(FULL_GAME)
+			void printExtraLife(void)
+			{
+				printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 
+			}
+			
+			void printVictoryMessage(void)
+			{
+				printCenteredMessageWithCol(_WHITE, "YOU WON");
+			}		
+	#elif defined(NO_CASE_LETTERS)
+			void printExtraLife(void)
+			{
+				printCenteredMessageWithCol(_RED, "e x t r a  l i f e"); 
+			}
+
+			void printVictoryMessage(void)
+			{
+				printCenteredMessageWithCol(_WHITE, "y o u   w o n");
+			}
+	#else
+			void printExtraLife(void)
+			{
+				printCenteredMessageWithCol(_RED, "e x t r a  l i f e"); 
+			}
+
+			void printVictoryMessage(void)
+			{
+				printCenteredMessageWithCol(_WHITE, "Y O U  W O N");
+			}	
+	#endif
+#endif
 
 #if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__) || defined(__CREATIVISION__)
-		void printExtraLife(void)
-		{
-			printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 
-		}
-	
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessageWithCol(_WHITE, "PRESS A KEY");
@@ -359,21 +408,11 @@ void _printScore(char * text, unsigned int score)
 			printCenteredMessage(               "GAME OVER");
 		}
 
-		void printVictoryMessage(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "YOU WON");
-		}
-
 		void printDefeatMessage(void)
 		{
 			printCenteredMessageWithCol(_WHITE, "YOU LOST");
 		}	
 #elif (defined(__VIC20__) || defined(__C16__) ) && defined(FULL_GAME)
-		void printExtraLife(void)
-		{
-			printCenteredMessageWithCol(_RED, "EXTRA LIFE"); 
-		}
-		
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessage("PRESS ANY KEY");
@@ -389,21 +428,11 @@ void _printScore(char * text, unsigned int score)
 			printCenteredMessageWithCol(_WHITE, "G A M E  O V E R");
 		}
 
-		void printVictoryMessage(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "Y O U  W O N");
-		}
-
 		void printDefeatMessage(void)
 		{
 			printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
 		}	
-#elif (defined(__VIC20__) || defined(__C16__) ) && !defined(FULL_GAME)
-		void printExtraLife(void)
-		{
-			printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 
-		}
-		
+#elif (defined(__VIC20__) || defined(__C16__) ) && !defined(FULL_GAME)		
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessage(               "PRESS ANY KEY");
@@ -419,21 +448,11 @@ void _printScore(char * text, unsigned int score)
 			printCenteredMessageWithCol(_WHITE, "GAME OVER");
 		}
 
-		void printVictoryMessage(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "YOU WON");
-		}
-
 		void printDefeatMessage(void)
 		{
 			printCenteredMessageWithCol(_WHITE, "YOU LOST");
 		}		
 #elif defined(NO_CASE_LETTERS)
-		void printExtraLife(void)
-		{
-			printCenteredMessageWithCol(_RED, "e x t r a  l i f e"); 
-		}
-		
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessage("press any key");
@@ -449,21 +468,11 @@ void _printScore(char * text, unsigned int score)
 			printCenteredMessageWithCol(_WHITE, "g a m e   o v e r");
 		}
 
-		void printVictoryMessage(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "y o u   w o n");
-		}
-
 		void printDefeatMessage(void)
 		{
 			printCenteredMessageWithCol(_WHITE, "y o u   l o s t");
 		}
 #else
-		void printExtraLife(void)
-		{
-			printCenteredMessageWithCol(_RED, "e x t r a  l i f e"); 
-		}
-		
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessage("PRESS ANY KEY");
@@ -479,16 +488,13 @@ void _printScore(char * text, unsigned int score)
 			printCenteredMessageWithCol(_WHITE, "G A M E  O V E R");
 		}
 
-		void printVictoryMessage(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "Y O U  W O N");
-		}
-
 		void printDefeatMessage(void)
 		{
 			printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
 		}		
 #endif
+
+
 
 
 
@@ -663,31 +669,33 @@ void printStartMessage(void)
 		#endif
 	#endif
 	
-	#if !defined(__ATMOS__)
-		#if defined(__PLUS4__) || defined(__C16__)
-			SET_TEXT_COLOR(COLOR_CYAN);	
-		#elif defined(__CPC__)
-			SET_TEXT_COLOR(_YELLOW);			
-		#else
-			SET_TEXT_COLOR(COLOR_BLUE);
-		#endif 
-	#endif
+	#if !defined(TINY_GAME)
+		#if !defined(__ATMOS__)
+			#if defined(__PLUS4__) || defined(__C16__)
+				SET_TEXT_COLOR(COLOR_CYAN);	
+			#elif defined(__CPC__)
+				SET_TEXT_COLOR(_YELLOW);			
+			#else
+				SET_TEXT_COLOR(COLOR_BLUE);
+			#endif 
+		#endif
 
-	#if defined(__C64__) 
-		c64_splash_instructions();
-	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
-		atmos_splash_instructions();
-	#else
-		#if defined(NO_CASE_LETTERS)
-			printCenteredMessageOnRow(YSize/2-1, "lure the enemies");
+		#if defined(__C64__) 
+			c64_splash_instructions();
+		#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
+			atmos_splash_instructions();
 		#else
-			printCenteredMessageOnRow(YSize/2-1, "Lure the enemies");
-		#endif		
-		printCenteredMessageOnRow(YSize/2+1, "into the mines");
-	#endif
+			#if defined(NO_CASE_LETTERS)
+				printCenteredMessageOnRow(YSize/2-1, "lure the enemies");
+			#else
+				printCenteredMessageOnRow(YSize/2-1, "Lure the enemies");
+			#endif		
+			printCenteredMessageOnRow(YSize/2+1, "into the mines");
+		#endif
 
-	#if !defined(__ATMOS__)
-		SET_TEXT_COLOR(TEXT_COLOR);		
+		#if !defined(__ATMOS__)
+			SET_TEXT_COLOR(TEXT_COLOR);		
+		#endif
 	#endif
 	
 	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)

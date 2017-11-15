@@ -31,11 +31,21 @@
 #include <stdio.h>
 
 
-void displayStatsTitles(void);
 
 void displayStats(void);
 
+#if !defined(TINY_GAME)
+void displayStatsTitles(void);
+
 void printGunsStats(void);
+	
+void printLevel(void);
+
+void printVictoryMessage(void);
+
+void printExtraLife(void);
+
+#endif
 
 void printLevelStats(void);
 
@@ -52,8 +62,7 @@ void printCenteredMessageOnRow(unsigned char row, char *Text);
 #if defined(COLOR)
 	void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text);
 #endif
-	
-void printLevel(void);
+
 
 void printPressKeyToStart(void);
 
@@ -61,7 +70,7 @@ void deleteCenteredMessage(void);
 
 void printGameOver(void);
 
-void printVictoryMessage(void);
+
 
 void printDefeatMessage(void);
 
@@ -69,7 +78,6 @@ void printStartMessage(void);
 
 void gameCompleted(void);
 
-void printExtraLife(void);
 
 void _printScore(char * text, unsigned int score);
 

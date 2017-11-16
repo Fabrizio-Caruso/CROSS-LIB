@@ -195,7 +195,11 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		{
 			for(j=1;j<=2;++j)
 			{
-				initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i-1+rand()%3), (unsigned char) ((YSize/3)*j-1+rand()%3),0,&BOMB_IMAGE);
+				#if defined(TINY_GAME)
+				initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);				
+				#else
+				initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);
+				#endif
 				++count;
 			}
 		}
@@ -254,11 +258,15 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		initializeCharacter(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);	
 		#endif
 		
-		initializeCharacter(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);	
+		#if defined(TINY_GAME)
+			initializeCharacter(&player,(unsigned char) (XSize/2),(unsigned char) (YSize/2),1,&PLAYER_IMAGE);			
+		#else
+			initializeCharacter(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);	
+		#endif
 	#endif
+	#if !defined(TINY_GAME)
 	DRAW_PLAYER(player._x,player._y,player._imagePtr);
 		
-	#if !defined(TINY_GAME)
 	initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
 
 	initializeCharacter(&invincibleGhost,XSize-2,YSize-2, 0, &INVINCIBLE_GHOST_IMAGE);

@@ -54,6 +54,7 @@ unsigned char lives;
 unsigned char XSize;
 unsigned char YSize;
 unsigned short loop;
+unsigned char level;
 
 #if !defined(TINY_GAME)
 unsigned short invincibleSlowDown;
@@ -73,7 +74,7 @@ unsigned char missileDirection;
 // 4. invincibleYCountDown
 // 5. invincibleSlowDown (how much the invincible ghost is slowed-down)
 // 6. invincibleLoopTrigger (how long before the invincible ghost appears)
-unsigned char level;
+
 
 
 extern Image PLAYER_IMAGE;
@@ -566,8 +567,9 @@ int main(void)
 		#if !defined(NO_INITIAL_SCREEN)
 		initialScreen();
 		WAIT_PRESS();
-		CLEAR_SCREEN();
 		#endif
+		CLEAR_SCREEN();
+
 
 		#if !defined(TINY_GAME)
 		highScoreScreen();

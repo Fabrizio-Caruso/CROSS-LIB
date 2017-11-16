@@ -470,7 +470,8 @@ void handle_invincible_ghost(void)
 	}
 }
 #endif
-			
+
+#if !defined(NO_INITIAL_SCREEN)			
 void initialScreen(void)
 {
 	// Set Screen Colors
@@ -484,6 +485,7 @@ void initialScreen(void)
 		printHints();	
 	#endif
 }
+#endif
 
 #if defined(DEBUG)
 void DEBUG_PRINT()
@@ -561,9 +563,11 @@ int main(void)
 			DEBUG_PRINT();
 		#endif
 		
+		#if !defined(NO_INITIAL_SCREEN)
 		initialScreen();
 		WAIT_PRESS();
 		CLEAR_SCREEN();
+		#endif
 
 		#if !defined(TINY_GAME)
 		highScoreScreen();

@@ -108,7 +108,7 @@ struct ImageStruct
 typedef struct ImageStruct Image;
 
 //
-#if defined(NARROW)
+#if defined(NARROW) || defined(TINY_GAME)
 	#define Y_OFFSET 0 
 #else
 	#define Y_OFFSET 2		
@@ -244,6 +244,7 @@ void _delete(unsigned char x, unsigned char y);
 #endif
 
 // FULL BORDER
+#if !defined(TINY_GAME)
 #if defined(__ATMOS__)
 	#define DRAW_BORDERS() \
 	{ \
@@ -324,7 +325,7 @@ void _delete(unsigned char x, unsigned char y);
 			DRAW_VERTICAL_BORDER(XSize-1); \
 		}	
 #endif
-
+#endif
 
 // PRINT AND PRINTF
 #if defined(ATARI_MODE1) && (defined(__ATARI__) || defined(__ATARIXL__))
@@ -352,6 +353,7 @@ void _delete(unsigned char x, unsigned char y);
 
 	
 // DRAW HORIZONTAL AND VERTICAL LINES
+#if !defined(TINY_GAME)
 #if defined(__ATMOS__)
 	#include<peekpoke.h>
 
@@ -435,7 +437,7 @@ void _delete(unsigned char x, unsigned char y);
 	#endif
 
 #endif
-
+#endif
 
 // COLORS AND CLEAR SCREEN
 #if defined(__SPECTRUM__) && !defined(CLIB_ANSI)
@@ -507,6 +509,9 @@ void _delete(unsigned char x, unsigned char y);
 	
 void INIT_IMAGES(void);
 
-void INIT_GRAPHICS(void);
-	
+#if defined(TINY_GAME)
+	#define INIT_GRAPHICS()
+#else
+	void INIT_GRAPHICS(void);
+#endif	
 #endif // _DISPLAY_MACROS

@@ -22,22 +22,26 @@
  
 #include "display_macros.h"
 
+#if !defined(TINY_GAME)
 unsigned char powerUpBlink = 0;
 unsigned char gunBlink = 0;	
 unsigned char extraPointsBlink = 0;
 unsigned char extraLifeBlink = 0;	
 unsigned char invincibilityBlink = 0;
 unsigned char playerBlink = 0;	
-	
+#endif
 
 Image PLAYER_IMAGE;
 Image GHOST_IMAGE;
 Image DEAD_GHOST_IMAGE;
-Image INVINCIBLE_GHOST_IMAGE;
 Image BOMB_IMAGE;
+
+#if !defined(TINY_GAME)
 Image POWERUP_IMAGE;
 Image MISSILE_IMAGE;
 Image GUN_IMAGE;
+Image INVINCIBLE_GHOST_IMAGE;
+#endif
 
 #if defined(FULL_GAME)
 	Image LEFT_ENEMY_MISSILE_IMAGE;
@@ -83,17 +87,23 @@ Image GUN_IMAGE;
 #elif defined(__GAMATE__)
 	//	
 #else
-	void INIT_GRAPHICS() {}
+	#if defined(TINY_GAME)
+	#else
+		void INIT_GRAPHICS() {}
+	#endif
 	
 	void INIT_IMAGES(void)
 	{		
 		#if defined(COLOR)
 			PLAYER_IMAGE._color = COLOR_CYAN;
+			BOMB_IMAGE._color = COLOR_RED;
+			DEAD_GHOST_IMAGE._color = COLOR_RED;
+
+			#if !defined(TINY_GAME)
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 			POWERUP_IMAGE._color = COLOR_GREEN;
 			GUN_IMAGE._color = COLOR_BLUE;
-			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;
+			#endif
 
 			#if defined(FULL_GAME)
 				EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
@@ -107,12 +117,16 @@ Image GUN_IMAGE;
 		#else
 			GHOST_IMAGE._imageData = 'o';
 		#endif
-		INVINCIBLE_GHOST_IMAGE._imageData = '+';
 		BOMB_IMAGE._imageData = 'X';
 		PLAYER_IMAGE._imageData = '*';
+
+		
+		#if !defined(TINY_GAME)
+		INVINCIBLE_GHOST_IMAGE._imageData = '+';
 		POWERUP_IMAGE._imageData = 'S';
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';
+		#endif
 		
 		#if defined(__APPLE2ENH__) || defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
 			DEAD_GHOST_IMAGE._imageData = 'O';
@@ -130,11 +144,15 @@ Image GUN_IMAGE;
 
 		#if defined(COLOR)
 			#if !defined(__GAMATE__)
-			GHOST_IMAGE._color = COLOR_WHITE;
-			MISSILE_IMAGE._color = COLOR_WHITE;
+				GHOST_IMAGE._color = COLOR_WHITE;
+				#if !defined(TINY_GAME)
+					MISSILE_IMAGE._color = COLOR_WHITE;
+				#endif
 			#else
-			GHOST_IMAGE._color = COLOR_YELLOW;
-			MISSILE_IMAGE._color = COLOR_YELLOW;
+				GHOST_IMAGE._color = COLOR_YELLOW;
+				#if !defined(TINY_GAME)
+					MISSILE_IMAGE._color = COLOR_YELLOW;
+				#endif
 			#endif
 		#endif
 		

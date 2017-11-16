@@ -391,7 +391,7 @@ void _printScore(char * text, unsigned int score)
 	#endif
 #endif
 
-#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__) || defined(__CREATIVISION__)
+#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__) || defined(__CREATIVISION__) 
 		void printPressKeyToStart(void)
 		{
 			printCenteredMessageWithCol(_WHITE, "PRESS A KEY");
@@ -624,7 +624,7 @@ void _printScore(char * text, unsigned int score)
 	}
 #endif
 
-
+#if defined(FULL_GAME)
 void printHints(void)
 {
 	#if defined(__CPC__)
@@ -651,7 +651,9 @@ void printHints(void)
 	printCenteredMessageOnRow(14, "extra powerups ");
 	
 }
- 
+#endif
+
+#if !defined(NO_INITIAL_SCREEN)
 void printStartMessage(void)
 {
 	#if defined(__C64__) && defined(REDEFINED_CHARS)
@@ -703,6 +705,6 @@ void printStartMessage(void)
 		printCenteredMessageOnRow(YSize-3, "use i j k l space");				
 	#endif	
 }
-
+#endif
 
 

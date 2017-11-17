@@ -95,7 +95,7 @@ void moveTowardCharacter(Character *hunterPtr, unsigned char strategy)
 		}
 }
 
-
+#if !defined(TINY_GAME)
 void computeStrategy(void)
 {
 	unsigned char i;
@@ -188,6 +188,7 @@ void computeStrategy(void)
 		#endif
 	#endif
 }
+#endif
 
 // Ghosts move to new positions if they get their chanche
 void chasePlayer(unsigned short slowDown)
@@ -199,7 +200,11 @@ void chasePlayer(unsigned short slowDown)
 		if((ghosts[i]._status) && (rand()>slowDown))
 		{
 			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
-			moveTowardCharacter(&ghosts[i], strategyArray[i]);
+			#if defined(TINY_GAME)
+				moveTowardCharacter(&ghosts[i], 4);
+			#else
+				moveTowardCharacter(&ghosts[i], strategyArray[i]);
+			#endif
 		}
 	}
 }

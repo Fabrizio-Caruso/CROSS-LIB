@@ -186,6 +186,8 @@
 	#define BOMBS_NUMBER 3
 #elif defined(__SPECTRUM__)
 	#define BOMBS_NUMBER 4
+#elif defined(__PCE__)
+	#define BOMBS_NUMBER 1
 #else
 	#define BOMBS_NUMBER 4
 #endif
@@ -193,6 +195,8 @@
 // Possible current values are 6,7,8,9
 #if defined(__CPC__) && defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define GHOSTS_NUMBER 7
+#elif defined(__PCE__)
+	#define GHOSTS_NUMBER 8
 #elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define GHOSTS_NUMBER 6
 #elif defined(__GAMATE__) 

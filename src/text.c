@@ -207,7 +207,9 @@ void displayStatsTitles(void)
 		gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 	#else
-		SET_TEXT_COLOR(TEXT_COLOR);	
+		#if defined(COLOR)
+		SET_TEXT_COLOR(TEXT_COLOR);
+		#endif
 		gotoxy(11,0); cputc(GUN_IMAGE._imageData);cputc(':');
 		gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
 		gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
@@ -238,7 +240,9 @@ void printLevelStats(void)
 
 void printGhostCountStats(void)
 {
-	SET_TEXT_COLOR(TEXT_COLOR);		
+	#if defined(COLOR)
+		SET_TEXT_COLOR(TEXT_COLOR);		
+	#endif
 	#if defined(WIDE)
 		PRINTF(18+2-2-X_OFFSET-3,0-Y_OFFSET,"%u",ghostCount);
 	#else
@@ -248,7 +252,9 @@ void printGhostCountStats(void)
 
 void printLivesStats(void)
 {
-	SET_TEXT_COLOR(TEXT_COLOR);		
+	#if defined(COLOR)
+		SET_TEXT_COLOR(TEXT_COLOR);
+	#endif
 	#if defined(WIDE)
 		PRINTF(18+2-2-X_OFFSET,1-Y_OFFSET,"%02u",lives);
 	#else
@@ -258,7 +264,9 @@ void printLivesStats(void)
 
 void displayStats(void)
 {	
-	SET_TEXT_COLOR(TEXT_COLOR);	
+	#if defined(COLOR)
+		SET_TEXT_COLOR(TEXT_COLOR);
+	#endif
 	#if defined(WIDE)
 		PRINTF(8-2-X_OFFSET,0-Y_OFFSET,"%05u0",points);
 	#else
@@ -391,10 +399,12 @@ void _printScore(char * text, unsigned int score)
 	#endif
 #endif
 
-#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__) || defined(__CREATIVISION__) 
+#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__) || defined(__CREATIVISION__) || defined(__PCE__)
 		void printPressKeyToStart(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "PRESS A KEY");
+		{	
+			#if !defined(NO_TEXT)
+				printCenteredMessageWithCol(_WHITE, "PRESS A KEY");
+			#endif
 		}
 
 		void deleteCenteredMessage(void)
@@ -403,13 +413,17 @@ void _printScore(char * text, unsigned int score)
 		}
 
 		void printGameOver(void)
-		{
-			printCenteredMessage(               "GAME OVER");
+		{	
+			#if !defined(NO_TEXT)
+				printCenteredMessage(               "GAME OVER");
+			#endif
 		}
 
 		void printDefeatMessage(void)
 		{
-			printCenteredMessageWithCol(_WHITE, "YOU LOST");
+			#if !defined(NO_TEXT)
+				printCenteredMessageWithCol(_WHITE, "YOU LOST");
+			#endif
 		}	
 #elif (defined(__VIC20__) || defined(__C16__) ) && defined(FULL_GAME)
 		void printPressKeyToStart(void)
@@ -694,7 +708,7 @@ void printStartMessage(void)
 			printCenteredMessageOnRow(YSize/2+1, "into the mines");
 		#endif
 
-		#if !defined(__ATMOS__)
+		#if !defined(__ATMOS__) && !defined(NO_TEXT)
 			SET_TEXT_COLOR(TEXT_COLOR);		
 		#endif
 	#endif

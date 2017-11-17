@@ -594,8 +594,9 @@ int main(void)
 				player_invincibility = 0;
 			#endif			
 						
-			
-			computeStrategy();
+			#if !defined(TINY_GAME)
+				computeStrategy();
+			#endif
 			
 			loop = 0;
 			ghostLevel = 0;
@@ -648,7 +649,6 @@ int main(void)
 
 			#if !defined(TINY_GAME)
 			DRAW_BORDERS();
-
 			#endif
 			
 			fillLevelWithCharacters(ghostCount);				
@@ -882,7 +882,9 @@ int main(void)
 				printVictoryMessage();
 				sleep(2);
 				#endif
-				CLEAR_SCREEN();			
+				CLEAR_SCREEN();		
+
+				#if !defined(TINY_GAME)
 				if(level<=10)
 				{
 					points+= LEVEL_BONUS*level;
@@ -893,6 +895,9 @@ int main(void)
 					points+= LEVEL_BONUS*10;
 					printLevelBonus(LEVEL_BONUS*10);
 				}
+				#else
+					points+= LEVEL_BONUS*level;
+				#endif
 				sleep(1);
 				CLEAR_SCREEN();				
 

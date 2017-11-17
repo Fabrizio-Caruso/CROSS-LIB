@@ -26,14 +26,21 @@
 
 #include "../display_macros.h"
 
+#if !defined(CLIB_ANSI)
+	#include<arch/zx.h>
+#endif
+
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
+
+#if !defined(TINY_GAME)
+extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
+#endif
 
 #if defined(REDEFINED_CHARS)
 	extern char udg[];
@@ -74,12 +81,13 @@ extern Image GUN_IMAGE;
 #define PEEK(addr)         (*(unsigned char*) (addr))
 #define PEEKW(addr) (*(unsigned*) (addr))
 
-
+#if defined(REDEFINED_CHARS)
 struct redefine_struct
 {
    unsigned char ascii;
    unsigned char bitmap[8];
 } ;
+#endif
 
 // BLUE
 #define _PLAYER 0x3B
@@ -116,7 +124,7 @@ struct redefine_struct
 #define _RIGHT_ENEMY_MISSILE ((unsigned char)0x7D)
 #define _BUBBLE ((unsigned char)0x60)
 
-
+#if defined(REDEFINED_CHARS)
 struct redefine_struct redefine_map[] =
 {
 	{_PLAYER_DOWN, { 24, 36, 24,102,153, 24, 36,102}},
@@ -136,7 +144,7 @@ struct redefine_struct redefine_map[] =
 	{_VERTICAL_BRICK, { 24, 24, 24, 48, 24, 12, 24, 24}},
 	{_HORIZONTAL_BRICK, {  0,  0,  0,255,  0,  0,  0,  0}}			
 };
-
+#endif
 
 
 void INIT_GRAPHICS(void)
@@ -149,12 +157,15 @@ void INIT_GRAPHICS(void)
 		}
 	#endif
 	
-	printf("\x1\x20");
+	//printf("\x1\x20");
 	
 	#if defined(CLIB_ANSI)
 		clg();
 		zx_border(0);
 		zx_colour(PAPER_BLACK|INK_WHITE);	
+	#else
+		zx_border(INK_BLACK);
+		zx_cls(PAPER_BLACK|INK_WHITE);		
 	#endif
 }
 
@@ -163,11 +174,14 @@ void INIT_IMAGES(void)
 
 	#if defined(COLOR)
 		PLAYER_IMAGE._color = COLOR_CYAN;
-		INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-		POWERUP_IMAGE._color = COLOR_MAGENTA;
-		GUN_IMAGE._color = COLOR_MAGENTA;
 		BOMB_IMAGE._color = COLOR_RED;
 		DEAD_GHOST_IMAGE._color = COLOR_RED;
+		
+		#if !defined(TINY_GAME)
+			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+			POWERUP_IMAGE._color = COLOR_MAGENTA;
+			GUN_IMAGE._color = COLOR_MAGENTA;
+		#endif
 	#endif
 	
 	#if defined(FULL_GAME)
@@ -198,12 +212,15 @@ void INIT_IMAGES(void)
 		#endif
 	#else
 		GHOST_IMAGE._imageData = 'o';
-		INVINCIBLE_GHOST_IMAGE._imageData = '+';
 		BOMB_IMAGE._imageData = 'X';
 		PLAYER_IMAGE._imageData = '*';
-		POWERUP_IMAGE._imageData = 'S';
-		GUN_IMAGE._imageData = '!';
-		MISSILE_IMAGE._imageData = '.';
+		
+		#if !defined(TINY_GAME)
+			INVINCIBLE_GHOST_IMAGE._imageData = '+';
+			POWERUP_IMAGE._imageData = 'S';
+			GUN_IMAGE._imageData = '!';
+			MISSILE_IMAGE._imageData = '.';
+		#endif
 		#if defined(FULL_GAME)
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
@@ -215,7 +232,10 @@ void INIT_IMAGES(void)
 
 	#if defined(COLOR)
 		GHOST_IMAGE._color = COLOR_WHITE;
+		
+		#if !defined(TINY_GAME)
 		MISSILE_IMAGE._color = COLOR_WHITE;
+		#endif
 	#endif
 	
 	#if defined(FULL_GAME)

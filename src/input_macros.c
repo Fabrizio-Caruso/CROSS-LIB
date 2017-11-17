@@ -100,7 +100,7 @@ extern unsigned char playerDirection;
 		++player._x;
 
 	#define _DRAW_PLAYER \
-		DRAW_PLAYER(player._x, player._y, player._imagePtr); \	
+		DRAW_PLAYER(player._x, player._y, player._imagePtr);
 #endif
 	
 #if defined(WAIT_FOR_KEY)

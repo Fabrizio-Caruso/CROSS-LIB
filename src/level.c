@@ -196,9 +196,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			for(j=1;j<=2;++j)
 			{
 				#if defined(NO_RANDOM_INIT)
-				initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);				
+					initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);				
 				#else
-				initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);
+					initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i)-1+rand()%3, (unsigned char) ((YSize/3)*j)-1+rand()%3,0,&BOMB_IMAGE);
 				#endif
 				++count;
 			}

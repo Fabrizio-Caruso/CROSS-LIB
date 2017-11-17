@@ -289,12 +289,21 @@ gal_32k:
 	
 # -pragma-redirect:ansifont=_font_8x8_zx_system -pragma-define:ansifont_is_packed=0
 spectrum_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -D -clib=ansi  -pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 -vn -DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DCLIB_ANSI  -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/FULL_spectrum_48k.prg $(SOURCE_PATH)/spectrum/udg.asm $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi  -pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 -vn -DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DCLIB_ANSI  -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/FULL_spectrum_48k.prg $(SOURCE_PATH)/spectrum/udg.asm $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_spectrum_48k.prg
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin	
 
 
+spectrum_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi -pragma-define:ansicolumns=32 -vn -DTINY_GAME -DCLIB_ANSI  -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg  $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_spectrum_16k.prg
+	rm $(BUILD_PATH)/TINY_spectrum_16k_BANK_7.bin	
 
+# -startup=1 -SO3 -pragma-define:ansicolumns=32
+spectrum_tiny_no_clib:
+	$(Z88DK_PATH)$(MYZ88DK) +zx -startup=1 -clib=sdcc_iy  -vn -DTINY_GAME -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg  $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_spectrum_16k_UNASSIGNED.bin
+	rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin	
 	
 	
 # DEBUG

@@ -132,8 +132,6 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=16-Y_OFFSET;} while(0)
 #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	#define GET_SCREEN_SIZE(x,y) do {*x=80-X_OFFSET; *y=25-Y_OFFSET;} while(0)
-#elif defined (__SPECTRUM__) && defined(SPECTRUM_64COL)
-	#define GET_SCREEN_SIZE(x,y) do {*x=64-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined (__SPECTRUM__)
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
 #elif defined(__MSX__) && !defined(MSX_MODE1)
@@ -442,9 +440,11 @@ void _delete(unsigned char x, unsigned char y);
 // COLORS AND CLEAR SCREEN
 #if defined(__SPECTRUM__) && !defined(CLIB_ANSI)
 	#include <stdio.h>
+	#include <arch/zx.h>
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
 
-	#define CLEAR_SCREEN() printf("\xc")
+	#define CLEAR_SCREEN() 	zx_cls(INK_WHITE | PAPER_BLACK)
+	//printf("\xc")
 
 #elif defined(__AQUARIUS__) || (defined(__SVI__) && !defined(MSX_MODE0))
 	#define SET_TEXT_COLOR(c) textcolor(c)
@@ -509,9 +509,6 @@ void _delete(unsigned char x, unsigned char y);
 	
 void INIT_IMAGES(void);
 
-#if defined(TINY_GAME)
-	#define INIT_GRAPHICS()
-#else
-	void INIT_GRAPHICS(void);
-#endif	
+void INIT_GRAPHICS(void);
+	
 #endif // _DISPLAY_MACROS

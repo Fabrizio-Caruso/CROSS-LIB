@@ -73,11 +73,6 @@ unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character 
 	return(characterPtr->_x==x) && (characterPtr->_y==y);
 }
 
-unsigned char areCharctersAtSamePosition(Character* lhs, Character* rhs)
-{
-	return (lhs->_x==rhs->_x)&&(lhs->_y==rhs->_y);
-}
-
 
 unsigned char wallReached(Character *characterPtr)
 {
@@ -90,15 +85,6 @@ void die(Character * playerPtr)
 	playerPtr->_status = (unsigned char ) 0;
 }
 
-unsigned char playerReached(Character* preyPtr)
-{
-	return sameLocationAstAnyLocation(preyPtr->_x, preyPtr->_y, ghosts, GHOSTS_NUMBER);
-}
-
-unsigned char playerReachedBombs(Character* preyPtr)
-{
-	return sameLocationAstAnyLocation(preyPtr->_x, preyPtr->_y, bombs, BOMBS_NUMBER);
-}
 
 void ghostDies(Character * ghostPtr)
 {
@@ -132,7 +118,7 @@ void checkBombsVsGhosts(void)
 }
 
 
-unsigned char sameLocationAstAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length)
+unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length)
 {
 	unsigned char i = 0;
 	for(;i<length;++i)
@@ -147,7 +133,7 @@ unsigned char sameLocationAstAnyLocation(unsigned char x, unsigned char y, Chara
 // also used with things different from global bombs
 unsigned char safeLocation(unsigned char x, unsigned char y, Character *dangerPtr, unsigned char dangerSize)
 {
-	return !(sameLocationAstAnyLocation(x,y,ghosts,GHOSTS_NUMBER) || sameLocationAstAnyLocation(x,y,dangerPtr, dangerSize));
+	return !(sameLocationAsAnyLocation(x,y,ghosts,GHOSTS_NUMBER) || sameLocationAsAnyLocation(x,y,dangerPtr, dangerSize));
 }
 
 

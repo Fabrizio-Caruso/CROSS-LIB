@@ -45,6 +45,12 @@ typedef struct CharacterStruct Character;
 
 #include "display_macros.h"
 
+#define playerReached(preyPtr) sameLocationAsAnyLocation((preyPtr)->_x, (preyPtr)->_y, ghosts, GHOSTS_NUMBER)
+
+#define  playerReachedBombs(preyPtr) sameLocationAsAnyLocation((preyPtr)->_x, (preyPtr)->_y, bombs, BOMBS_NUMBER)
+
+#define areCharctersAtSamePosition(lhs, rhs)isCharacterAtLocation((rhs)->_x, (rhs)->_y,lhs)
+
 extern unsigned int points;
 
 extern unsigned char XSize;
@@ -61,16 +67,14 @@ void setCharacterDisplay(Character* characterPtr, char ch);
 
 unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr);
 
-unsigned char areCharctersAtSamePosition(Character* lhs, Character* rhs);
-
 unsigned char wallReached(Character *characterPtr);
 
 void die(Character * playerPtr);
 
 // TODO: playerReached and playerReachedBombs should be substituted by a generic collision detection routine
-unsigned char playerReached(Character* preyPtr);
+// unsigned char playerReached(Character* preyPtr);
 				  
-unsigned char playerReachedBombs(Character* ghostPtr);
+// unsigned char playerReachedBombs(Character* ghostPtr);
 
 unsigned char ghostsMeetAlive(unsigned char preyIndex);
 
@@ -87,7 +91,7 @@ void relocateCharacter(Character * characterPtr, Character *danger, unsigned cha
 
 void ghostDies(Character * ghostPtr);
 
-unsigned char sameLocationAstAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length);
+unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length);
 
 #if defined(FULL_GAME)
 	unsigned char innerWallReached(Character *characterPtr);

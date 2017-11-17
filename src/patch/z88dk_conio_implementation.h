@@ -44,7 +44,7 @@
 		#define gotoxy(x,y) zx_setcursorpos(y-1,x)
 	#elif defined(__ENTERPRISE__) || defined(__MTX__)
 		#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
-	#elif defined __SVI__ || defined __MSX__
+	#elif defined(__SVI__) || defined(__MSX__)
 		#define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
 		#define clrscr() printf("\033E")
 		#define cprintf printf
@@ -59,9 +59,9 @@
 	#if defined(__ZX80__)
 		#define cputc(c) {gen_tv_field(); printf("%c",c); gen_tv_field();}
 	#elif defined(__ZX81__) || defined(__LAMBDA__)
-	    #define cputc(c) fputc_cons(c);
+	    #define cputc(c) fputc_cons(c)
 	#else
-		#define cputc(c) putchar(c); 
+		#define cputc(c) printf("\x11%c%c",COLOR_BLACK,c)
 	#endif
 		
 	#if defined(__SPECTRUM__)

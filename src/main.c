@@ -561,8 +561,9 @@ int main(void)
 		#if !defined(NO_INITIAL_SCREEN)
 			initialScreen();
 			WAIT_PRESS();
+			CLEAR_SCREEN();			
 		#endif
-		CLEAR_SCREEN();
+
 
 
 		#if !defined(TINY_GAME)

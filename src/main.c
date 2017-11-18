@@ -823,11 +823,11 @@ int main(void)
 				chasePlayer(ghostSlowDown);
 				
 				#if !defined(TINY_GAME)
-				// This detects collisions of ghosts that have just moved
-				if(missile._status)
-				{
-					checkMissileVsGhosts(&missile);
-				}
+					// This detects collisions of ghosts that have just moved
+					if(missile._status)
+					{
+						checkMissileVsGhosts(&missile);
+					}
 				#endif
 				
 				// Check collisions bombs vs ghosts
@@ -857,15 +857,19 @@ int main(void)
 						DRAW_BOMBS();	
 					}
 				#else
+					#if !defined(TINY_GAME)
 					SKIP_MORE_DRAW
 						DRAW_BOMBS();
+					#endif
 				#endif
 				// Display ghosts
+
 				SKIP_DRAW
 					displayGhosts();
 
+
 				#if !defined(TINY_GAME)
-				handle_invincible_ghost();
+					handle_invincible_ghost();
 				#endif
 				
 				++ghostLevel;
@@ -914,7 +918,9 @@ int main(void)
 			}
 			else // if dead
 			{
-				CLEAR_SCREEN();
+				#if !defined(TINY_GAME)
+					CLEAR_SCREEN();
+				#endif
 				--lives;
 				if(lives>0)
 				{

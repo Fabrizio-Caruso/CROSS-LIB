@@ -59,11 +59,11 @@
 	#elif defined(__MC1000__) && defined(SOUNDS)
 		#include "psg/psg_sounds.h"			
 	#else
-		#define EXPLOSION_SOUND() {};
-		#define PING_SOUND() {};
-		#define SHOOT_SOUND() {};
-		#define TICK_SOUND() {};
-		#define TOCK_SOUND() {};
-		#define ZAP_SOUND() {};
+		#define EXPLOSION_SOUND() 
+		#define PING_SOUND() 
+		#define SHOOT_SOUND() 
+		#define TICK_SOUND() 
+		#define TOCK_SOUND() 
+		#define ZAP_SOUND() 
 	#endif
 #endif // _SOUNDS_MACROS

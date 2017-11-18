@@ -320,7 +320,11 @@ joy-test:
 
 vic20_tiny:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DEXP_3K -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL  -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20-3k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20.prg
+
+# vic20_tiny:
+	# $(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL  -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20-8k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20.prg
 		
+	
 # -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL
 pce_tiny:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t pce -DTINY_GAME  --config $(SOURCE_PATH)/../cfg/pce_extra.cfg -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_PCE.pce

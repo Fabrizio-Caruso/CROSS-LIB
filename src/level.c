@@ -179,14 +179,21 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				{				
 					initializeCharacter(&ghosts[count],(unsigned char) (XSize/6+j*2*(XSize/6)),(unsigned char) (YSize/6+i*2*(YSize/6)+i),1,&GHOST_IMAGE);
 				}
+				#if defined(TINY_GAME)
+				#else
 				else
 				{
 					initializeCharacter(&ghosts[count],(unsigned char) (XSize-4),(unsigned char) (YSize-4),1,&GHOST_IMAGE);					
 				}
+				#endif
 			}
 			else
 			{
-				initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+				#if defined(TINY_GAME)
+					initializeCharacter(&ghosts[count], (unsigned char) 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+				#else
+					initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+				#endif
 			}
 			++count;
 		}

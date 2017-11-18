@@ -155,10 +155,12 @@ Character bombs[BOMBS_NUMBER];
 	
 #endif
 
+#if !defined(TINY_GAME)
 unsigned char strategyArray[GHOSTS_NUMBER];
 
 
 unsigned char playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
+#endif
 
 unsigned int extraLifeThroughPointsCounter = 1;
 
@@ -316,14 +318,6 @@ void handle_powerup_item()
 	}
 }
 #endif
-
-void playerDies(void)
-{
-	EXPLOSION_SOUND();
-	die(&player);
-	printDefeatMessage();
-	sleep(1);	
-}
 
 #if defined(FULL_GAME)
 	unsigned char computeArrowRange(void)
@@ -565,17 +559,17 @@ int main(void)
 		#endif
 		
 		#if !defined(NO_INITIAL_SCREEN)
-		initialScreen();
-		WAIT_PRESS();
+			initialScreen();
+			WAIT_PRESS();
 		#endif
 		CLEAR_SCREEN();
 
 
 		#if !defined(TINY_GAME)
-		highScoreScreen();
+			highScoreScreen();
 
-		WAIT_PRESS();
-		CLEAR_SCREEN();
+			WAIT_PRESS();
+			CLEAR_SCREEN();
 		#endif
 		
 		extraLifeThroughPointsCounter = 1;
@@ -602,28 +596,28 @@ int main(void)
 			ghostLevel = 0;
 
 			#if !defined(TINY_GAME)
-			ghostLevelDecrease = 140-(level*2);
-			
+				ghostLevelDecrease = 140-(level*2);
+				
 
-			invincibleGhostAlive = 1;
-			invincibleGhostHits = 0;
-									
-			guns = 0;
-			gun._status = 0;
-						
-			gunCoolDown = GUN_INITIAL_COOLDOWN;
-			
-			computeInvincibleGhostParameters();
+				invincibleGhostAlive = 1;
+				invincibleGhostHits = 0;
+										
+				guns = 0;
+				gun._status = 0;
+							
+				gunCoolDown = GUN_INITIAL_COOLDOWN;
+				
+				computeInvincibleGhostParameters();
 			#endif
 
 			ghostSlowDown = computeGhostSlowDown();
 			
-			#if !defined(TINY_GAME)
-			// Clear the screen, put cursor in upper left corner
 			CLEAR_SCREEN();
+			#if !defined(TINY_GAME)
+				// Clear the screen, put cursor in upper left corner
 
-			printLevel();
-			sleep(1);
+				printLevel();
+				sleep(1);
 			#endif
 			
 			#if defined(FULL_GAME)
@@ -636,33 +630,34 @@ int main(void)
 					printKillTheSkull();
 					sleep(1);
 				}
-			CLEAR_SCREEN();
-			
-			updateInnerWallVerticalData();	
+				CLEAR_SCREEN();
+				
+				updateInnerWallVerticalData();	
 			#endif
 			
-			// Wait for the user to press a key 
-			printPressKeyToStart();
-			WAIT_PRESS();
-
-			deleteCenteredMessage();
-
 			#if !defined(TINY_GAME)
-			DRAW_BORDERS();
+				// Wait for the user to press a key 
+				printPressKeyToStart();
+				WAIT_PRESS();
+
+				deleteCenteredMessage();
+
+				DRAW_BORDERS();
 			#endif
 			
 			fillLevelWithCharacters(ghostCount);				
 
 			#if !defined(TINY_GAME)
-			displayStatsTitles();
+				displayStatsTitles();
+				displayStats();			
+				printLevelStats();
+				printLivesStats();				
 			#endif
-			displayStats();			
-			printLevelStats();
-			printLivesStats();
+
 			//
 			#if !defined(TINY_GAME)
-			printGunsStats();
-			printGhostCountStats();
+				printGunsStats();
+				printGhostCountStats();
 			#endif
 
 			#if defined(FULL_GAME)
@@ -821,7 +816,7 @@ int main(void)
 				MOVE_PLAYER();
 	
 				#if !defined(TINY_GAME)
-				handle_missile();
+					handle_missile();
 				#endif
 				
 				chasePlayer(ghostSlowDown);
@@ -838,9 +833,9 @@ int main(void)
 				checkBombsVsGhosts();
 				
 				#if !defined(TINY_GAME)
-				handle_gun_item();
+					handle_gun_item();
 				
-				handle_powerup_item();
+					handle_powerup_item();
 				#endif
 
 				#if defined(FULL_GAME)
@@ -878,28 +873,27 @@ int main(void)
 			if(player._status) // if level finished
 			{
 				#if !defined(TINY_GAME)
-				sleep(1);
-				printVictoryMessage();
-				sleep(2);
-				#endif
-				CLEAR_SCREEN();		
+					sleep(1);
+					printVictoryMessage();
+					sleep(2);
 
-				#if !defined(TINY_GAME)
-				if(level<=10)
-				{
-					points+= LEVEL_BONUS*level;
-					printLevelBonus(LEVEL_BONUS*level);
-				}
-				else
-				{				
-					points+= LEVEL_BONUS*10;
-					printLevelBonus(LEVEL_BONUS*10);
-				}
+					CLEAR_SCREEN();		
+
+					if(level<=10)
+					{
+						points+= LEVEL_BONUS*level;
+						printLevelBonus(LEVEL_BONUS*level);
+					}
+					else
+					{				
+						points+= LEVEL_BONUS*10;
+						printLevelBonus(LEVEL_BONUS*10);
+					}
+					sleep(1);
+					CLEAR_SCREEN();						
 				#else
 					points+= LEVEL_BONUS*level;
-				#endif
-				sleep(1);
-				CLEAR_SCREEN();				
+				#endif			
 
 				ghostCount = GHOSTS_NUMBER;
 				

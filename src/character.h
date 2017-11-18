@@ -71,6 +71,15 @@ unsigned char wallReached(Character *characterPtr);
 
 void die(Character * playerPtr);
 
+void playerDies(void);
+// {
+	// EXPLOSION_SOUND();
+	// die(&player);
+	// printDefeatMessage();
+	// sleep(1);	
+// }
+
+
 // TODO: playerReached and playerReachedBombs should be substituted by a generic collision detection routine
 // unsigned char playerReached(Character* preyPtr);
 				  

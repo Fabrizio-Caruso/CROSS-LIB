@@ -21,6 +21,10 @@
 
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
+
+#if defined(__VIC20__) && defined(TINY_GAME) && defined(EXP_3K)
+	#pragma code-name (push, "EXP")
+#endif
  
 #include <stdlib.h>
 
@@ -32,6 +36,7 @@
 #include "display_macros.h"
 #include "sound_macros.h"
 #include "text.h"
+#include "sleep_macros.h"
 
 extern unsigned int points;
 
@@ -47,12 +52,24 @@ extern Image BOMB_IMAGE;
 
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
+extern Character player;
 
 #if defined(FULL_GAME)
 	extern unsigned char innerVerticalWallX;
 	extern unsigned char innerVerticalWallY;
 	extern unsigned char innerVerticalWallLength;
 #endif 
+
+void playerDies(void)
+{
+	EXPLOSION_SOUND();
+	die(&player);
+	#if !defined(NO_TEXT)
+		printDefeatMessage();
+	#endif
+	sleep(1);	
+}
+
 
 void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr)
 {

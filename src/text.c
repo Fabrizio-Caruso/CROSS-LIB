@@ -21,6 +21,10 @@
 
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
+
+#if defined(__VIC20__) && defined(TINY_GAME) && defined(EXP_3K)
+	#pragma code-name (push, "EXP")
+#endif
  
 #include "text.h"
 
@@ -399,114 +403,109 @@ void _printScore(char * text, unsigned int score)
 	#endif
 #endif
 
-#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__) || defined(__CREATIVISION__) || defined(__PCE__)
-		void printPressKeyToStart(void)
-		{	
-			#if !defined(NO_TEXT)
-				printCenteredMessageWithCol(_WHITE, "PRESS A KEY");
-			#endif
-		}
+#if !defined(NO_TEXT)
+	#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__) || defined(__CREATIVISION__) || defined(__PCE__)
+			void printPressKeyToStart(void)
+			{	
+					printCenteredMessageWithCol(_WHITE, "PRESS A KEY");
+			}
 
-		void deleteCenteredMessage(void)
-		{
-			printCenteredMessage(               "           ");
-		}
-
-		void printGameOver(void)
-		{	
-			#if !defined(NO_TEXT)
+			void deleteCenteredMessage(void)
+			{
+				printCenteredMessage(               "           ");
+			}
+			
+			void printGameOver(void)
+			{	
 				printCenteredMessage(               "GAME OVER");
-			#endif
-		}
+			}
 
-		void printDefeatMessage(void)
-		{
-			#if !defined(NO_TEXT)
+			void printDefeatMessage(void)
+			{
 				printCenteredMessageWithCol(_WHITE, "YOU LOST");
-			#endif
-		}	
-#elif (defined(__VIC20__) || defined(__C16__) ) && defined(FULL_GAME)
-		void printPressKeyToStart(void)
-		{
-			printCenteredMessage("PRESS ANY KEY");
-		}
-		
-		void deleteCenteredMessage(void)
-		{
-			printCenteredMessage("                      ");
-		}
-		
-		void printGameOver(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "G A M E  O V E R");
-		}
+			}	
+	#elif (defined(__VIC20__) || defined(__C16__) ) && defined(FULL_GAME)
+			void printPressKeyToStart(void)
+			{			
+				printCenteredMessage("PRESS ANY KEY");
+			}
+			
+			void deleteCenteredMessage(void)
+			{
+				printCenteredMessage("                      ");
+			}
+			
+			void printGameOver(void)
+			{			
+				printCenteredMessageWithCol(_WHITE, "G A M E  O V E R");
+			}
 
-		void printDefeatMessage(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
-		}	
-#elif (defined(__VIC20__) || defined(__C16__) ) && !defined(FULL_GAME)		
-		void printPressKeyToStart(void)
-		{
-			printCenteredMessage(               "PRESS ANY KEY");
-		}
-		
-		void deleteCenteredMessage(void)
-		{
-			printCenteredMessage(               "             ");
-		}
-		
-		void printGameOver(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "GAME OVER");
-		}
+			void printDefeatMessage(void)
+			{
+				printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
+			}	
+	#elif (defined(__VIC20__) || defined(__C16__) ) && !defined(FULL_GAME)		
+			void printPressKeyToStart(void)
+			{		
+				printCenteredMessage(               "PRESS ANY KEY");
+			}
+			
+			void deleteCenteredMessage(void)
+			{
+				printCenteredMessage(               "             ");
+			}
+						
+			void printGameOver(void)
+			{		
+				printCenteredMessageWithCol(_WHITE, "GAME OVER");
+			}
+			
+			void printDefeatMessage(void)
+			{			
+				printCenteredMessageWithCol(_WHITE, "YOU LOST");
+			}		
+	#elif defined(NO_CASE_LETTERS)
+			void printPressKeyToStart(void)
+			{
+				printCenteredMessage("press any key");
+			}	
+			
+			void deleteCenteredMessage(void)
+			{
+				printCenteredMessage("                      ");
+			}	
 
-		void printDefeatMessage(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "YOU LOST");
-		}		
-#elif defined(NO_CASE_LETTERS)
-		void printPressKeyToStart(void)
-		{
-			printCenteredMessage("press any key");
-		}	
-		
-		void deleteCenteredMessage(void)
-		{
-			printCenteredMessage("                      ");
-		}	
+			void printGameOver(void)
+			{
+				printCenteredMessageWithCol(_WHITE, "g a m e   o v e r");
+			}
 
-		void printGameOver(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "g a m e   o v e r");
-		}
+			void printDefeatMessage(void)
+			{
+				printCenteredMessageWithCol(_WHITE, "y o u   l o s t");
+			}
+	#else
+			void printPressKeyToStart(void)
+			{
+				printCenteredMessage("PRESS ANY KEY");
+			}	
+			
+			void deleteCenteredMessage(void)
+			{
+				printCenteredMessage("                      ");
+			}	
 
-		void printDefeatMessage(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "y o u   l o s t");
-		}
-#else
-		void printPressKeyToStart(void)
-		{
-			printCenteredMessage("PRESS ANY KEY");
-		}	
-		
-		void deleteCenteredMessage(void)
-		{
-			printCenteredMessage("                      ");
-		}	
+			void printGameOver(void)
+			{
+				printCenteredMessageWithCol(_WHITE, "G A M E  O V E R");
+			}
 
-		void printGameOver(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "G A M E  O V E R");
-		}
-
-		void printDefeatMessage(void)
-		{
-			printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
-		}		
+			void printDefeatMessage(void)
+			{
+				printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
+			}		
+	#endif
 #endif
-
 
 
 

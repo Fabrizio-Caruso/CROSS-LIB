@@ -862,11 +862,12 @@ int main(void)
 						DRAW_BOMBS();
 					#endif
 				#endif
+				
+				// #if !defined(TINY_GAME)
 				// Display ghosts
-
 				SKIP_DRAW
 					displayGhosts();
-
+				// #endif
 
 				#if !defined(TINY_GAME)
 					handle_invincible_ghost();
@@ -931,16 +932,20 @@ int main(void)
 			
 	if(level==FINAL_LEVEL+1) // if completed game
 	{
+		#if !defined(TINY_GAME)
 		gameCompleted();
 		sleep(2);
+		#endif
 	}
 	#if !defined(TINY_GAME)
 	// GAME OVER	
 	printGameOver();
 	sleep(2);
-	#endif
+	
 	CLEAR_SCREEN();
+	#endif	
 	finalScore();
+
 	sleep(2);
 	if(points>highScore)
 	{

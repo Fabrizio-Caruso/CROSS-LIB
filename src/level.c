@@ -232,7 +232,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#elif BOMBS_NUMBER==1
 		initializeCharacter(&bombs[0],XSize/2-3+rand()%7, ((YSize/2))-1+rand()%3,0,&BOMB_IMAGE);
 	#endif
-
+	#if defined(TINY_GAME)
+		DRAW_BOMBS();
+	#endif
 	
 	#if defined(FULL_GAME)
 		initializeAwayFromWall(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);

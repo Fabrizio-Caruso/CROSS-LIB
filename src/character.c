@@ -199,4 +199,8 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 	}
 #endif
 
+#if defined(__VIC20__) && defined(TINY_GAME) && defined(EXP_3K)
+	#pragma code-name (pop)
+#endif
+
 

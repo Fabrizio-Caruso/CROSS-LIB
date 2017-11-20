@@ -61,3 +61,9 @@ void displayGhosts(void)
 		DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
 	}
 }
+
+
+#if defined(__VIC20__) && defined(TINY_GAME) && defined(EXP_3K)
+	#pragma code-name (pop)
+#endif
+

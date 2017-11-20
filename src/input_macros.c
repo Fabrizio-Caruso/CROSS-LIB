@@ -259,4 +259,8 @@ extern unsigned char playerDirection;
 	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
 #endif
 
+#if defined(__VIC20__) && defined(TINY_GAME) && defined(EXP_3K)
+	#pragma code-name (pop)
+#endif
+
 

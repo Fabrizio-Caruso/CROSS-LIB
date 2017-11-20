@@ -220,10 +220,10 @@ void _delete(unsigned char x, unsigned char y);
 	
 #define DRAW_BOMBS() \
 { \
-	unsigned char i = 0; \
-	for(;i<BOMBS_NUMBER;++i) \
+	unsigned char ij = 0; \
+	for(;ij<BOMBS_NUMBER;++ij) \
 	{ \
-		DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr); \
+		DRAW_BOMB(bombs[ij]._x, bombs[ij]._y, bombs[ij]._imagePtr); \
 	} \
 }
 

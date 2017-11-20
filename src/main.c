@@ -541,8 +541,10 @@ void DEBUG_PRINT()
 
 int main(void)
 {		
-	INIT_INPUT();
-	INIT_GRAPHICS();
+	#if !defined(TINY_GAME)
+		INIT_INPUT();
+		INIT_GRAPHICS();
+	#endif
 	
 	// Ask for the screen size 
 	GET_SCREEN_SIZE(&XSize, &YSize);
@@ -563,8 +565,6 @@ int main(void)
 			WAIT_PRESS();
 			CLEAR_SCREEN();			
 		#endif
-
-
 
 		#if !defined(TINY_GAME)
 			highScoreScreen();
@@ -863,11 +863,11 @@ int main(void)
 					#endif
 				#endif
 				
-				// #if !defined(TINY_GAME)
+				#if !defined(TINY_GAME)
 				// Display ghosts
 				SKIP_DRAW
 					displayGhosts();
-				// #endif
+				#endif
 
 				#if !defined(TINY_GAME)
 					handle_invincible_ghost();

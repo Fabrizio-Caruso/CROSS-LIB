@@ -274,13 +274,15 @@ void displayStats(void)
 	#endif	
 }
 
+#if !defined(TINY_GAME)
 void setScreenColors(void)
 {
 	SET_TEXT_COLOR(TEXT_COLOR);
 	SET_BORDER_COLOR(BORDER_COLOR);
 	SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
 }
-	
+#endif
+
 #if !defined(TINY_GAME)	
 	#if defined (NO_CASE_LETTERS)
 		void printLevel(void)

@@ -644,6 +644,8 @@ int main(void)
 				deleteCenteredMessage();
 
 				DRAW_BORDERS();
+			#else
+				WAIT_PRESS();	
 			#endif
 			
 			fillLevelWithCharacters(ghostCount);				
@@ -863,11 +865,9 @@ int main(void)
 					#endif
 				#endif
 				
-				// #if !defined(TINY_GAME)
 				// Display ghosts
 				SKIP_DRAW
 					displayGhosts();
-				// #endif
 
 				#if !defined(TINY_GAME)
 					handle_invincible_ghost();

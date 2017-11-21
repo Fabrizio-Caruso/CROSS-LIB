@@ -87,7 +87,9 @@ Image INVINCIBLE_GHOST_IMAGE;
 #elif defined(__GAMATE__)
 	//	
 #else
+	#if defined(TINY_GAME)
 	void INIT_GRAPHICS() {}
+	#endif
 	
 	void INIT_IMAGES(void)
 	{		

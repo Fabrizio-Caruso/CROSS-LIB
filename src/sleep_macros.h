@@ -25,7 +25,7 @@
 #ifndef _SLEEP_MACROS
 #define _SLEEP_MACROS
 
-#if defined(TINY_GAME)
+#if defined(NO_SLEEP)
 	#define sleep(sec)
 #elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__SPECTRUM__) && !defined(CLIB_ANSI))
 	void sleep(unsigned int sec);

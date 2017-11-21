@@ -22,11 +22,6 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#if defined(__VIC20__) && defined(TINY_GAME) && defined(EXP_3K)
-	#pragma code-name (push, "EXP")
-#endif
-
-
 #include "character.h"
 #include "settings.h"
 #include "display_macros.h"
@@ -258,9 +253,4 @@ extern unsigned char playerDirection;
 #else
 	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
 #endif
-
-#if defined(__VIC20__) && defined(TINY_GAME) && defined(EXP_3K)
-	#pragma code-name (pop)
-#endif
-
 

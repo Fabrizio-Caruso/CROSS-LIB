@@ -22,10 +22,6 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#if defined(__VIC20__) && defined(TINY_GAME) && defined(EXP_3K)
-	#pragma code-name (push, "EXP")
-#endif
- 
 #include "settings.h"
 #include "character.h"
 #include "strategy.h"
@@ -212,9 +208,4 @@ void chasePlayer(unsigned short slowDown)
 		}
 	}
 }
-
-#if defined(__VIC20__) && defined(TINY_GAME) && defined(EXP_3K)
-	#pragma code-name (pop)
-#endif
-
 

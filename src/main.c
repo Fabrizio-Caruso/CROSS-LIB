@@ -863,11 +863,11 @@ int main(void)
 					#endif
 				#endif
 				
-				#if !defined(TINY_GAME)
+				// #if !defined(TINY_GAME)
 				// Display ghosts
 				SKIP_DRAW
 					displayGhosts();
-				#endif
+				// #endif
 
 				#if !defined(TINY_GAME)
 					handle_invincible_ghost();

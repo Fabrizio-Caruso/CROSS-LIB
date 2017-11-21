@@ -74,9 +74,12 @@
 #endif
 
 
-#if defined(__VIC20__)
+#if defined(__VIC20__) && !defined(TINY_GAME)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 300
+#elif defined(__VIC20__) && defined(TINY_GAME)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 900
 #elif defined(__WINCMOC__) || defined(__CMOC__) 
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 900
@@ -141,7 +144,7 @@
 	#define GAME_SLOW_DOWN 0
 #endif
 
-#if (defined(__VIC20__) && defined(TINY_GAME)) ||defined(__CBM610__) || (!defined(__CREATIVISION__) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__GAMATE__) && !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__NES__) && !defined(__PCE__))
+#if (defined(__VIC20__) && defined(TINY_GAME)) || defined(__CBM610__) || (!defined(__CREATIVISION__) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__GAMATE__) && !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__NES__) && !defined(__PCE__))
 	#define KEYBOARD_CONTROL
 #else
 	#define JOYSTICK_CONTROL

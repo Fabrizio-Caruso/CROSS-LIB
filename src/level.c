@@ -175,6 +175,10 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 					initializeCharacter(&ghosts[count],(unsigned char) (XSize/6+j*2*(XSize/6)),(unsigned char) (YSize/6+i*2*(YSize/6)+i),1,&GHOST_IMAGE);
 				}
 				#if defined(TINY_GAME)
+				else
+				{
+					--count;
+				}
 				#else
 				else
 				{

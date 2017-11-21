@@ -636,7 +636,7 @@ int main(void)
 				updateInnerWallVerticalData();	
 			#endif
 			
-			#if !defined(NO_TEXT)
+			#if !defined(TINY_GAME)
 				// Wait for the user to press a key 
 				printPressKeyToStart();
 				WAIT_PRESS();

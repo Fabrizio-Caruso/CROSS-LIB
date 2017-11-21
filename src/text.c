@@ -274,7 +274,7 @@ void displayStats(void)
 	#endif	
 }
 
-#if !defined(TINY_GAME)
+#if !defined(NO_INITIAL_SCREEN)
 void setScreenColors(void)
 {
 	SET_TEXT_COLOR(TEXT_COLOR);

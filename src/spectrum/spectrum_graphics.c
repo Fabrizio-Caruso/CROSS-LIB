@@ -146,7 +146,7 @@ struct redefine_struct redefine_map[] =
 };
 #endif
 
-
+#if !defined(TINY_GAME)
 void INIT_GRAPHICS(void)
 {
 	#if defined(REDEFINED_CHARS)
@@ -168,6 +168,7 @@ void INIT_GRAPHICS(void)
 		zx_cls(PAPER_BLACK|INK_WHITE);		
 	#endif
 }
+#endif
 
 void INIT_IMAGES(void)
 {		
@@ -268,6 +269,8 @@ void _draw(unsigned char x, unsigned char y, Image * image)
 	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 	#if defined(COLOR)
 		SET_TEXT_COLOR(image->_color);
+	#else
+		SET_TEXT_COLOR(COLOR_WHITE);		
 	#endif
 	cputc(image->_imageData); 
 }
@@ -320,6 +323,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		} 
 	}
 #else
+	#if !defined(TINY_GAME)
 	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
 	{ 
 		unsigned char i; 
@@ -332,7 +336,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 			gotoxy(x+X_OFFSET+i,y+Y_OFFSET);  putchar('-'); 
 		} 
 	}
-
+	#endif
 #endif
 
 

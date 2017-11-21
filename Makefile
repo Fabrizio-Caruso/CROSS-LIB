@@ -490,7 +490,7 @@ msx_no_color_16k:
 	
 # Optimize with [VERY SLOW]: -SO3 --max-allocs-per-node200000
 spectrum_newlib_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx -startup=1 -clib=sdcc_iy -vn -DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/FULL_spectrum_newlib_48k.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +zx -startup=1 -clib=sdcc_iy -vn -DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DSPECTRUM_32COL -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/FULL_spectrum_newlib_48k.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_spectrum_newlib_48k_CODE.bin 
 	rm $(BUILD_PATH)/FULL_spectrum_newlib_48k_UNASSIGNED.bin
 	
@@ -499,8 +499,9 @@ spectrum_newlib_16k_LIGHT:
 	rm $(BUILD_PATH)/LIGHT_spectrum_newlib_16k_CODE.bin 
 	rm $(BUILD_PATH)/LIGHT_spectrum_newlib_16k_UNASSIGNED.bin
 
+# -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
 spectrum_newlib_16k_TINY:
-	$(Z88DK_PATH)$(MYZ88DK) +zx -startup=1 -clib=sdcc_iy -vn  -DSPECTRUM_32COL -DTINY_GAME -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_newlib_16k.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +zx -startup=1 -SO3 --max-allocs-per-node200000 -clib=sdcc_iy -vn -DNO_SLEEP -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DNO_TEXT -DSPECTRUM_32COL -DTINY_GAME -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_newlib_16k.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_spectrum_newlib_16k_CODE.bin 
 	rm $(BUILD_PATH)/TINY_spectrum_newlib_16k_UNASSIGNED.bin
 	
@@ -521,7 +522,7 @@ spectrum_16k_clib_no_udg:
 	# rm $(BUILD_PATH)/LIGHT_spectrum_16k_no_udg_clib_BANK_7.bin	
 
 spectrum_16k_clib_no_udg_TINY:
-	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi -DTINY_GAME -pragma-define:ansicolumns=32 -vn -DCLIB_ANSI  -D__SPECTRUM__  -lndos -create-app -o $(BUILD_PATH)/LIGHT_spectrum_16k_no_udg_clib.prg $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -pragma-define:ansicolumns=32 -vn -DCLIB_ANSI  -D__SPECTRUM__  -lndos -create-app -o $(BUILD_PATH)/LIGHT_spectrum_16k_no_udg_clib.prg $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	# rm $(BUILD_PATH)/LIGHT_spectrum_16k_no_udg_clib.prg
 	# rm $(BUILD_PATH)/LIGHT_spectrum_16k_no_udg_clib_BANK_7.bin	
 	

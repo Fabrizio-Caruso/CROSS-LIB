@@ -228,17 +228,19 @@ void _delete(unsigned char x, unsigned char y);
 }
 
 // VERTICAL AND HORIZONTAL BORDER
-#if defined(__MSX__) || defined(__AQUARIUS__) || defined(__CPC__)
-	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize)
-	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize)	
-#else
-	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1)
-	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize-1)	
-#endif
+#if !defined(TINY_GAME)
+	#if defined(__MSX__) || defined(__AQUARIUS__) || defined(__CPC__)
+		#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize)
+		#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize)	
+	#else
+		#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1)
+		#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize-1)	
+	#endif
 
-#if defined(__MSX__) && !defined(REDEFINED_CHARS)
-	#define DRAW_HORIZONTAL_LINE(x,y,length)
-	#define DRAW_VERTICAL_LINE(x,y,length)
+	#if defined(__MSX__) && !defined(REDEFINED_CHARS)
+		#define DRAW_HORIZONTAL_LINE(x,y,length)
+		#define DRAW_VERTICAL_LINE(x,y,length)
+	#endif
 #endif
 
 // FULL BORDER
@@ -442,10 +444,13 @@ void _delete(unsigned char x, unsigned char y);
 	#include <stdio.h>
 	#include <arch/zx.h>
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
-
-	#define CLEAR_SCREEN() 	zx_cls(INK_WHITE | PAPER_BLACK)
-	//printf("\xc")
-
+	
+	#if !defined(TINY_GAME)
+		#define CLEAR_SCREEN() 	zx_cls(INK_WHITE | PAPER_BLACK)
+	#else
+		#define CLEAR_SCREEN()  printf("\xc")
+	#endif
+	
 #elif defined(__AQUARIUS__) || (defined(__SVI__) && !defined(MSX_MODE0))
 	#define SET_TEXT_COLOR(c) textcolor(c)
 

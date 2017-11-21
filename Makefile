@@ -500,8 +500,9 @@ spectrum_newlib_16k_LIGHT:
 	rm $(BUILD_PATH)/LIGHT_spectrum_newlib_16k_UNASSIGNED.bin
 
 # -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
+# -SO3 --max-allocs-per-node200000
 spectrum_newlib_16k_TINY:
-	$(Z88DK_PATH)$(MYZ88DK) +zx -startup=1 -SO3 --max-allocs-per-node200000 -clib=sdcc_iy -vn -DNO_SLEEP -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DNO_TEXT -DSPECTRUM_32COL -DTINY_GAME -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_newlib_16k.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +zx -startup=1  -clib=sdcc_iy -vn -DNO_SLEEP -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DNO_TEXT -DSPECTRUM_32COL -DTINY_GAME -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_newlib_16k.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_spectrum_newlib_16k_CODE.bin 
 	rm $(BUILD_PATH)/TINY_spectrum_newlib_16k_UNASSIGNED.bin
 	

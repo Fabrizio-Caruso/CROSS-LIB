@@ -190,7 +190,7 @@
 #elif defined(__SPECTRUM__) && !defined(TINY_GAME)
 	#define BOMBS_NUMBER 4
 #elif defined(__PCE__) || (defined(__VIC20__) && defined(TINY_GAME)) || (defined(__SPECTRUM__) && defined(TINY_GAME))
-	#define BOMBS_NUMBER 1
+	#define BOMBS_NUMBER 2
 #else
 	#define BOMBS_NUMBER 4
 #endif

@@ -945,7 +945,10 @@ int main(void)
 	CLEAR_SCREEN();
 	#endif	
 	finalScore();
-
+	#if defined(NO_SLEEP)
+		WAIT_PRESS();
+	#endif
+	
 	sleep(2);
 	if(points>highScore)
 	{

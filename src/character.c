@@ -93,7 +93,7 @@ unsigned char wallReached(Character *characterPtr)
 
 void die(Character * playerPtr)
 {
-	playerPtr->_status = (unsigned char ) 0;
+	playerPtr->_status = 0;
 }
 
 

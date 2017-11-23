@@ -53,8 +53,6 @@ void printGhostCountStats(void);
 
 void printLivesStats(void);
 
-// void drawBorders(void);
-
 void setScreenColors(void);
 
 void printCenteredMessageOnRow(unsigned char row, char *Text);
@@ -83,7 +81,14 @@ void _printScore(char * text, unsigned int score);
 
 void printKillTheSkull(void);
 
-#if !defined(__C64__)
+
+#if defined(TINY_GAME)
+	#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);
+
+	#define finalScore() _printScore("%05u0", points);
+
+	#define highScoreScreen() _printScore("best: %05u0", highScore);	
+#elif !defined(__C64__)
 	#define printLevelBonus(bonus) _printScore("BONUS: %u0", bonus);
 
 	#define finalScore() _printScore("SCORE: %05u0", points);

@@ -647,18 +647,21 @@ int main(void)
 
 				DRAW_BORDERS();
 			#else
-				WAIT_PRESS();	
+				// TODO: Save a couple of bytes 
+				printPressKeyToStart();
+				WAIT_PRESS();
+				CLEAR_SCREEN();
 			#endif
 			
 			fillLevelWithCharacters(ghostCount);				
 
 			#if !defined(TINY_GAME)
 				displayStatsTitles();
-				displayStats();			
-				printLevelStats();
-				printLivesStats();				
 			#endif
-
+			displayStats();			
+			printLevelStats();
+			printLivesStats();				
+			
 			//
 			#if !defined(TINY_GAME)
 				printGunsStats();
@@ -900,7 +903,7 @@ int main(void)
 					sleep(1);
 					CLEAR_SCREEN();						
 				#else
-					points+= LEVEL_BONUS*level;
+					points+= LEVEL_BONUS*5;
 				#endif			
 
 				ghostCount = GHOSTS_NUMBER;
@@ -945,8 +948,10 @@ int main(void)
 	sleep(2);
 	
 	CLEAR_SCREEN();
-	#endif	
+	
 	finalScore();
+	#endif
+	
 	#if defined(NO_SLEEP)
 		WAIT_PRESS();
 	#endif

@@ -503,6 +503,11 @@ void _printScore(char * text, unsigned int score)
 				printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
 			}		
 	#endif
+#else
+	void printPressKeyToStart(void)
+	{
+		printCenteredMessage("READY");
+	}		
 #endif
 
 
@@ -710,7 +715,7 @@ void printStartMessage(void)
 		#endif
 	#endif
 	
-	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
+	#if !defined(NO_TEXT) && (defined(JOYSTICK_CONTROL) || defined(__MSX__))
 		printCenteredMessageOnRow(YSize-3, "use the joystick");
 	#else		
 		printCenteredMessageOnRow(YSize-3, "use i j k l space");				

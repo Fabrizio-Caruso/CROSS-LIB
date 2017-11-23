@@ -203,7 +203,7 @@
 #elif defined(__SPECTRUM__) && defined(TINY_GAME)
 	#define GHOSTS_NUMBER 2	
 #elif defined(__VIC20__) && defined(TINY_GAME)
-	#define GHOSTS_NUMBER 8
+	#define GHOSTS_NUMBER 3
 #elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 	#define GHOSTS_NUMBER 6
 #elif defined(__GAMATE__) 

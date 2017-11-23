@@ -566,10 +566,10 @@ int main(void)
 			CLEAR_SCREEN();			
 		#endif
 
+		highScoreScreen();	
+		WAIT_PRESS();		
 		#if !defined(TINY_GAME)
-			highScoreScreen();
 
-			WAIT_PRESS();
 			CLEAR_SCREEN();
 		#endif
 		

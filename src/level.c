@@ -165,7 +165,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		
 	#endif
 	
-	#if GHOSTS_NUMBER>=5
+	#if !defined(TINY_GAME) && GHOSTS_NUMBER>=5
 	for(i=0;i<3;++i)
 	{
 		for(j=0;j<3;++j)
@@ -176,7 +176,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				{				
 					initializeCharacter(&ghosts[count],(unsigned char) (XSize/6+j*2*(XSize/6)),(unsigned char) (YSize/6+i*2*(YSize/6)+i),1,&GHOST_IMAGE);
 				}
-				#if defined(TINY_GAME)
+				#if GHOSTS_NUMBER>8
 				else
 				{
 					--count;
@@ -199,6 +199,22 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			++count;
 		}
 	}
+	#elif GHOSTS_NUMBER>=5
+	for(i=1;i<=2;++i)
+	{
+		for(j=1;j<=4;++j)
+		{		
+			if(nGhosts>count)
+			{			
+				initializeCharacter(&ghosts[count],(unsigned char) (j*(XSize/4)),(unsigned char) (i*(YSize/3)),1,&GHOST_IMAGE);
+			}
+			else
+			{	
+				initializeCharacter(&ghosts[count], (unsigned char) 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+			}
+			++count;				
+		}
+	}	
 	#else
 	for(i=0;i<2;++i)
 	{

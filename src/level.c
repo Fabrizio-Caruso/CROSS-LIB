@@ -141,9 +141,10 @@ extern Character bombs[BOMBS_NUMBER];
 
 void fillLevelWithCharacters(unsigned char nGhosts)
 {
-
 	unsigned char i;
+	
 	unsigned char j;
+		
 	unsigned char count = 0;
 
 	#if defined(FULL_GAME)
@@ -164,6 +165,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		
 	#endif
 	
+	#if GHOSTS_NUMBER>=5
 	for(i=0;i<3;++i)
 	{
 		for(j=0;j<3;++j)
@@ -197,6 +199,27 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			++count;
 		}
 	}
+	#else
+	for(i=0;i<2;++i)
+	{
+		for(j=0;j<2;++j)
+		{		
+			if(nGhosts>count)
+			{			
+				initializeCharacter(&ghosts[count],(unsigned char) (XSize/4+j*2*(XSize/4)),(unsigned char) (YSize/4+i*2*(YSize/4)+i),1,&GHOST_IMAGE);
+			}
+			else
+			{
+				#if defined(TINY_GAME)
+					initializeCharacter(&ghosts[count], (unsigned char) 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+				#else
+					initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+				#endif
+			}
+			++count;				
+		}
+	}
+	#endif
 
 
 	#if BOMBS_NUMBER==4

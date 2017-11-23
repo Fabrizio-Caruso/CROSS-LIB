@@ -541,8 +541,10 @@ void DEBUG_PRINT()
 
 int main(void)
 {		
+
+	INIT_INPUT();
+
 	#if !defined(TINY_GAME)
-		INIT_INPUT();
 		INIT_GRAPHICS();
 	#endif
 	

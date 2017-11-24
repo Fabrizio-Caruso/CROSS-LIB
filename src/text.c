@@ -507,7 +507,7 @@ void _printScore(char * text, unsigned int score)
 	void printPressKeyToStart(void)
 	{
 		printCenteredMessage("READY");
-	}		
+	}	
 #endif
 
 

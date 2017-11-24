@@ -565,7 +565,11 @@ int main(void)
 		#if !defined(NO_INITIAL_SCREEN)
 			initialScreen();
 			WAIT_PRESS();
-			CLEAR_SCREEN();			
+			CLEAR_SCREEN();	
+		#else
+			CLEAR_SCREEN();	
+			
+			printPressKeyToStart();				
 		#endif
 
 		highScoreScreen();	

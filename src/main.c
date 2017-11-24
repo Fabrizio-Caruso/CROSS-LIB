@@ -544,9 +544,8 @@ int main(void)
 
 	INIT_INPUT();
 
-	#if !defined(TINY_GAME)
-		INIT_GRAPHICS();
-	#endif
+	INIT_GRAPHICS();
+
 	
 	// Ask for the screen size 
 	GET_SCREEN_SIZE(&XSize, &YSize);

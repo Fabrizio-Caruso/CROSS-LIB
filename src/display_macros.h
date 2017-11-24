@@ -445,11 +445,11 @@ void _delete(unsigned char x, unsigned char y);
 	#include <arch/zx.h>
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
 	
-	#if !defined(TINY_GAME)
-		#define CLEAR_SCREEN() 	zx_cls(INK_WHITE | PAPER_BLACK)
-	#else
-		#define CLEAR_SCREEN()  printf("\xc")
-	#endif
+	// #if !defined(TINY_GAME)
+		// #define CLEAR_SCREEN() 	zx_cls(INK_WHITE | PAPER_BLACK)
+	// #else
+	#define CLEAR_SCREEN()  printf("\xc")
+	// #endif
 	
 #elif defined(__AQUARIUS__) || (defined(__SVI__) && !defined(MSX_MODE0))
 	#define SET_TEXT_COLOR(c) textcolor(c)
@@ -511,6 +511,7 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define SET_BACKGROUND_COLOR(c) {}	
 #endif	
+
 	
 void INIT_IMAGES(void);
 

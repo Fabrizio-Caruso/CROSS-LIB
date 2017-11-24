@@ -156,9 +156,7 @@ void INIT_GRAPHICS(void)
 		   memcpy(udg + (redefine_map[i].ascii - 32)*8, redefine_map[i].bitmap, 8);
 		}
 	#endif
-	
-	//printf("\x1\x20");
-	
+
 	#if defined(CLIB_ANSI)
 		clg();
 		zx_border(0);
@@ -168,6 +166,11 @@ void INIT_GRAPHICS(void)
 		zx_cls(PAPER_BLACK|INK_WHITE);		
 	#endif
 }
+#else
+void INIT_GRAPHICS(void)
+{
+	zx_cls(PAPER_BLACK|INK_WHITE);
+}	
 #endif
 
 void INIT_IMAGES(void)

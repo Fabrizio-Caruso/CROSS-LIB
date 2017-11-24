@@ -715,10 +715,12 @@ void printStartMessage(void)
 		#endif
 	#endif
 	
-	#if !defined(NO_TEXT) && (defined(JOYSTICK_CONTROL) || defined(__MSX__))
+	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
 		printCenteredMessageOnRow(YSize-3, "use the joystick");
-	#else		
-		printCenteredMessageOnRow(YSize-3, "use i j k l space");				
+	#elif !defined(TINY_GAME)		
+		printCenteredMessageOnRow(YSize-3, "use i j k l space");		
+	#else
+		printCenteredMessageOnRow(YSize-3, "use i j k l");				
 	#endif	
 }
 #endif

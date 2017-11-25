@@ -218,8 +218,10 @@
 	#define GHOSTS_NUMBER 7
 #elif defined(__MZ__) || defined(__VZ__) || defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__)
 	#define GHOSTS_NUMBER 9
-#elif defined(__VG5K__)
+#elif defined(__VG5K__) || defined(FULL_GAME)
 	#define GHOSTS_NUMBER 9
+#elif defined(__VG5K__) || !defined(FULL_GAME)
+	#define GHOSTS_NUMBER 8
 #elif defined(__SVI__) && !defined(FULL_GAME)
 	#define GHOSTS_NUMBER 8
 #elif defined(__CREATIVISION__)

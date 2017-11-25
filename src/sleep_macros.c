@@ -29,4 +29,9 @@
 #elif defined(__SPECTRUM__)
 	#include "spectrum/spectrum_sleep.h"
 #else
+	void sleep(unsigned int sec) 
+	{ 
+		unsigned int ii; 
+		for(ii=0;ii<sec*1000UL;++ii){}; 
+	}
 #endif

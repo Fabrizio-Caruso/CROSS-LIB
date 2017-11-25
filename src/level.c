@@ -165,7 +165,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		
 	#endif
 	
-	#if defined(FULL_GAME)
+	#if defined(FULL_GAME) && GHOSTS_NUMBER >= 7
 	for(i=0;i<3;++i)
 	{
 		for(j=0;j<3;++j)

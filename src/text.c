@@ -289,7 +289,7 @@ void setScreenColors(void)
 		{
 			char levelString[22];
 
-			sprintf(levelString, "level %d", level);
+			sprintf(levelString, "level %u", level);
 
 			printCenteredMessageWithCol(_WHITE,levelString);
 		}
@@ -298,7 +298,7 @@ void setScreenColors(void)
 		{
 			char levelString[22];
 
-			sprintf(levelString, "LEVEL %d", level);
+			sprintf(levelString, "LEVEL %u", level);
 
 			printCenteredMessageWithCol(_WHITE,levelString);
 		}

@@ -491,15 +491,10 @@ void DEBUG_PRINT()
 		unsigned char i;
 		
 		CLEAR_SCREEN();			
-		// for(i=0;i<8;++i)
-		// {
-			// ch = cgetc();
-			// printf("%d\n", ch);
-		// }
 		
 		for(i=32;i<255;++i)
 		{
-			printf(" %d: %c", i, i);
+			printf(" %u: %c", i, i);
 		}
 	}
 		

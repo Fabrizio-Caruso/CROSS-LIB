@@ -35,16 +35,15 @@
 void displayStats(void);
 
 #if !defined(TINY_GAME)
-void displayStatsTitles(void);
+	void displayStatsTitles(void);
 
-void printGunsStats(void);
-	
-void printLevel(void);
+	void printGunsStats(void);
+		
+	void printLevel(void);
 
-void printVictoryMessage(void);
+	void printVictoryMessage(void);
 
-void printExtraLife(void);
-
+	void printExtraLife(void);
 #endif
 
 void printLevelStats(void);
@@ -64,10 +63,11 @@ void printCenteredMessageOnRow(unsigned char row, char *Text);
 
 void printPressKeyToStart(void);
 
-void deleteCenteredMessage(void);
+#if !defined(NO_TEXT)
+	void deleteCenteredMessage(void);
 
-void printGameOver(void);
-
+	void printGameOver(void);
+#endif
 
 
 void printDefeatMessage(void);

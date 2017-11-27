@@ -406,11 +406,6 @@ void setScreenColors(void)
 			{	
 					printCenteredMessageWithCol(_WHITE, "PRESS A KEY");
 			}
-
-			void deleteCenteredMessage(void)
-			{
-				printCenteredMessage(               "           ");
-			}
 			
 			void printGameOver(void)
 			{	
@@ -427,11 +422,6 @@ void setScreenColors(void)
 				printCenteredMessage("PRESS ANY KEY");
 			}
 			
-			void deleteCenteredMessage(void)
-			{
-				printCenteredMessage("                      ");
-			}
-			
 			void printGameOver(void)
 			{			
 				printCenteredMessageWithCol(_WHITE, "G A M E  O V E R");
@@ -445,11 +435,6 @@ void setScreenColors(void)
 			void printPressKeyToStart(void)
 			{		
 				printCenteredMessage(               "PRESS ANY KEY");
-			}
-			
-			void deleteCenteredMessage(void)
-			{
-				printCenteredMessage(               "             ");
 			}
 						
 			void printGameOver(void)
@@ -466,11 +451,6 @@ void setScreenColors(void)
 			{
 				printCenteredMessage("press any key");
 			}	
-			
-			void deleteCenteredMessage(void)
-			{
-				printCenteredMessage("                      ");
-			}	
 
 			void printGameOver(void)
 			{
@@ -485,11 +465,6 @@ void setScreenColors(void)
 			void printPressKeyToStart(void)
 			{
 				printCenteredMessage("PRESS ANY KEY");
-			}	
-			
-			void deleteCenteredMessage(void)
-			{
-				printCenteredMessage("                      ");
 			}	
 
 			void printGameOver(void)

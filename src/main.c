@@ -636,19 +636,22 @@ int main(void)
 				updateInnerWallVerticalData();	
 			#endif
 			
-			#if !defined(TINY_GAME)
+			#if !defined(NO_TEXT)
 				// Wait for the user to press a key 
 				printPressKeyToStart();
 				WAIT_PRESS();
-
-				deleteCenteredMessage();
-
-				DRAW_BORDERS();
+				
+				CLEAR_SCREEN();
+				
 			#else
-				// TODO: Save a couple of bytes 
+				// TODO: Save a couple of bytes let
 				printPressKeyToStart();
 				WAIT_PRESS();
 				CLEAR_SCREEN();
+			#endif
+			
+			#if !defined(TINY_GAME)
+				DRAW_BORDERS();
 			#endif
 			
 			fillLevelWithCharacters(ghostCount);				
@@ -940,11 +943,13 @@ int main(void)
 		sleep(2);
 		#endif
 	}
-	#if !defined(TINY_GAME)
+	#if !defined(NO_TEXT)
 	// GAME OVER	
 	printGameOver();
 	sleep(2);
+	#endif
 	
+	#if !defined(TINY_GAME)
 	CLEAR_SCREEN();
 	
 	finalScore();

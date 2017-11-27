@@ -83,11 +83,11 @@ void printKillTheSkull(void);
 
 
 #if defined(TINY_GAME)
-	#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);
+	#define printLevelBonus(bonus) _printScore("%u0", bonus);
 
 	#define finalScore() _printScore("%05u0", points);
 
-	#define highScoreScreen() _printScore("best: %05u0", highScore);	
+	#define highScoreScreen() _printScore("%05u0", highScore);	
 #elif !defined(__C64__)
 	#define printLevelBonus(bonus) _printScore("BONUS: %u0", bonus);
 

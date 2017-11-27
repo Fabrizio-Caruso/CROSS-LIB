@@ -146,86 +146,85 @@ extern Image MISSILE_IMAGE;
 
 // TODO: This is SLOW
 #if !defined(TINY_GAME)
-void displayStatsTitles(void)
-{	
-	#if defined(NO_CASE_LETTERS) && defined(WIDE)	
-		SET_TEXT_COLOR(COLOR_BLUE);	
-		PRINT(-X_OFFSET+2-2, -Y_OFFSET,   "score:");
-		PRINT(-X_OFFSET+2-2, -Y_OFFSET+1, "level:");
-	#elif defined(WIDE)
-		#if defined(__CPC__)
-			SET_TEXT_COLOR(_YELLOW);			
-		#else 
+	void displayStatsTitles(void)
+	{	
+		#if defined(NO_CASE_LETTERS) && defined(WIDE)	
 			SET_TEXT_COLOR(COLOR_BLUE);	
-		#endif
-		#if defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0))
-			PRINT(-X_OFFSET+2-1, -Y_OFFSET,   "SCORE:");
-			PRINT(-X_OFFSET+2-1, -Y_OFFSET+1, "LEVEL:");			
+			PRINT(-X_OFFSET+2-2, -Y_OFFSET,   "score:");
+			PRINT(-X_OFFSET+2-2, -Y_OFFSET+1, "level:");
+		#elif defined(WIDE)
+			#if defined(__CPC__)
+				SET_TEXT_COLOR(_YELLOW);			
+			#else 
+				SET_TEXT_COLOR(COLOR_BLUE);	
+			#endif
+			#if defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0))
+				PRINT(-X_OFFSET+2-1, -Y_OFFSET,   "SCORE:");
+				PRINT(-X_OFFSET+2-1, -Y_OFFSET+1, "LEVEL:");			
+			#else
+				PRINT(-X_OFFSET+2-2, -Y_OFFSET,   "SCORE:");
+				PRINT(-X_OFFSET+2-2, -Y_OFFSET+1, "LEVEL:");	
+			#endif
 		#else
-			PRINT(-X_OFFSET+2-2, -Y_OFFSET,   "SCORE:");
-			PRINT(-X_OFFSET+2-2, -Y_OFFSET+1, "LEVEL:");	
+			// Nothing
 		#endif
-	#else
-		// Nothing
-	#endif
 
-	// && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__) && !defined(__SPECTRUM__) && !defined(__MSX__)
-	#if defined(WIDE)
-		#if !defined(__MSX__)
-			SET_TEXT_COLOR(_RED);	
-			PRINT(24-3,-Y_OFFSET,"-----------");		
-			PRINT(24-3,-Y_OFFSET+1,"cross chase");	
+		// && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__) && !defined(__SPECTRUM__) && !defined(__MSX__)
+		#if defined(WIDE)
+			#if !defined(__MSX__)
+				SET_TEXT_COLOR(_RED);	
+				PRINT(24-3,-Y_OFFSET,"-----------");		
+				PRINT(24-3,-Y_OFFSET+1,"cross chase");	
+			#else
+				PRINT(24-3-1,-Y_OFFSET,  "cross-----");		
+				PRINT(24-3-1,-Y_OFFSET+1,"----chase");			
+			#endif
+		#endif
+
+		#if defined(__CPC__) && defined(CPCRSLIB)
+			SET_TEXT_COLOR(TEXT_COLOR);	
+			cpc_PrintGphStrStdXY(CPC_YELLOW,")",(18+1)*2,0*8);gotoxy(18+2,0); cputc(':');
+			cpc_PrintGphStrStdXY(CPC_WHITE,"%",(18-4+1)*2,0*8);gotoxy(18-2,0); cputc(':');
+			cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1+1)*2,1*8);gotoxy(18+1,1); cputc(':');	
+		#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
+			SET_TEXT_COLOR(TEXT_COLOR);		
+			zx_setcursorpos(0-1, 19); cputc(GUN_IMAGE._imageData);cputc(':');
+			zx_setcursorpos(0-1, 15); cputc(GHOST_IMAGE._imageData);cputc(':');
+			zx_setcursorpos(1-1, 18); cputc(PLAYER_IMAGE._imageData);cputc(':');			
+		#elif defined(WIDE)
+			SET_TEXT_COLOR(TEXT_COLOR);	
+			gotoxy(19-2,0); cputc(GUN_IMAGE._imageData);cputc(':');
+			gotoxy(15-2,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+			gotoxy(18-2,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+		#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+			SET_TEXT_COLOR(TEXT_COLOR);	
+			gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData+160);cputc(':');
+			gotoxy(15-3-2-3,0); cputc(GHOST_IMAGE._imageData+160);cputc(':');
+			gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData+64);cputc(':');		
+		#elif defined(__GAMATE__)
+			SET_TEXT_COLOR(3);	
+			gotoxy(11,0); cputc(GUN_IMAGE._imageData);cputc(':');
+			gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+			gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 		#else
-			PRINT(24-3-1,-Y_OFFSET,  "cross-----");		
-			PRINT(24-3-1,-Y_OFFSET+1,"----chase");			
+			#if defined(COLOR)
+			SET_TEXT_COLOR(TEXT_COLOR);
+			#endif
+			gotoxy(11,0); cputc(GUN_IMAGE._imageData);cputc(':');
+			gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+			gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
 		#endif
-	#endif
+	}
 
-	#if defined(__CPC__) && defined(CPCRSLIB)
-		SET_TEXT_COLOR(TEXT_COLOR);	
-		cpc_PrintGphStrStdXY(CPC_YELLOW,")",(18+1)*2,0*8);gotoxy(18+2,0); cputc(':');
-		cpc_PrintGphStrStdXY(CPC_WHITE,"%",(18-4+1)*2,0*8);gotoxy(18-2,0); cputc(':');
-		cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1+1)*2,1*8);gotoxy(18+1,1); cputc(':');	
-	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
-		SET_TEXT_COLOR(TEXT_COLOR);		
-		zx_setcursorpos(0-1, 19); cputc(GUN_IMAGE._imageData);cputc(':');
-		zx_setcursorpos(0-1, 15); cputc(GHOST_IMAGE._imageData);cputc(':');
-		zx_setcursorpos(1-1, 18); cputc(PLAYER_IMAGE._imageData);cputc(':');			
-	#elif defined(WIDE)
-		SET_TEXT_COLOR(TEXT_COLOR);	
-		gotoxy(19-2,0); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(15-2,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(18-2,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-		SET_TEXT_COLOR(TEXT_COLOR);	
-		gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData+160);cputc(':');
-		gotoxy(15-3-2-3,0); cputc(GHOST_IMAGE._imageData+160);cputc(':');
-		gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData+64);cputc(':');		
-	#elif defined(__GAMATE__)
-		SET_TEXT_COLOR(3);	
-		gotoxy(11,0); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-	#else
-		#if defined(COLOR)
-		SET_TEXT_COLOR(TEXT_COLOR);
+	void printGunsStats(void)
+	{
+		#if defined(WIDE)
+			SET_TEXT_COLOR(TEXT_COLOR);
+			PRINTF(18+2+1-2-X_OFFSET,0-Y_OFFSET,"%u",guns);
+		#else
+			PRINTF(15+2+1-5-1-X_OFFSET,0-Y_OFFSET,"%u",guns);
 		#endif
-		gotoxy(11,0); cputc(GUN_IMAGE._imageData);cputc(':');
-		gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-		gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
-	#endif
-}
-
-
-void printGunsStats(void)
-{
-	#if defined(WIDE)
-		SET_TEXT_COLOR(TEXT_COLOR);
-		PRINTF(18+2+1-2-X_OFFSET,0-Y_OFFSET,"%u",guns);
-	#else
-		PRINTF(15+2+1-5-1-X_OFFSET,0-Y_OFFSET,"%u",guns);
-	#endif
-}
+	}
 #endif
 
 void printLevelStats(void)
@@ -306,23 +305,23 @@ void setScreenColors(void)
 #endif
 	
 #if defined (__VG5K__)
-void _printScore(char * text, unsigned int score)
-{
-	char levelString[22];
+	void _printScore(char * text, unsigned int score)
+	{
+		char levelString[22];
 
-	sprintf(levelString, text, score);
+		sprintf(levelString, text, score);
 
-	printCenteredMessage(levelString);	
-}
+		printCenteredMessage(levelString);	
+	}
 #else
-void _printScore(char * text, unsigned int score)
-{
-	char levelString[22];
+	void _printScore(char * text, unsigned int score)
+	{
+		char levelString[22];
 
-	sprintf(levelString, text, score);
+		sprintf(levelString, text, score);
 
-	printCenteredMessage(levelString);
-}
+		printCenteredMessage(levelString);
+	}
 #endif
 
 #if defined(__VG5K__) || defined(__CREATIVISION__) || defined(__PCE__)
@@ -720,7 +719,7 @@ void printStartMessage(void)
 	#elif !defined(TINY_GAME)		
 		printCenteredMessageOnRow(YSize-3, "use i j k l space");		
 	#else
-		printCenteredMessageOnRow(YSize-3, "use i j k l");				
+		printCenteredMessageOnRow(YSize-3, "use ijkl");				
 	#endif	
 }
 #endif

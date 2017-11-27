@@ -619,6 +619,7 @@ int main(void)
 
 				printLevel();
 				sleep(1);
+				CLEAR_SCREEN();
 			#endif
 			
 			#if defined(FULL_GAME)
@@ -627,7 +628,6 @@ int main(void)
 			
 				if(bossLevel())
 				{
-					CLEAR_SCREEN();
 					printKillTheSkull();
 					sleep(1);
 				}
@@ -636,19 +636,11 @@ int main(void)
 				updateInnerWallVerticalData();	
 			#endif
 			
-			#if !defined(NO_TEXT)
-				// Wait for the user to press a key 
-				printPressKeyToStart();
-				WAIT_PRESS();
-				
-				CLEAR_SCREEN();
-				
-			#else
-				// TODO: Save a couple of bytes let
-				printPressKeyToStart();
-				WAIT_PRESS();
-				CLEAR_SCREEN();
-			#endif
+
+			printPressKeyToStart();
+			WAIT_PRESS();
+			CLEAR_SCREEN();
+			
 			
 			#if !defined(TINY_GAME)
 				DRAW_BORDERS();

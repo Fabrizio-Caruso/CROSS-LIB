@@ -165,7 +165,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		
 	#endif
 	
-	#if defined(FULL_GAME) && GHOSTS_NUMBER >= 7
+	#if defined(FULL_GAME) || GHOSTS_NUMBER >= 9
 	for(i=0;i<3;++i)
 	{
 		for(j=0;j<3;++j)
@@ -189,17 +189,17 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		}
 	}
 	#elif GHOSTS_NUMBER>=5
-	for(i=1;i<=2;++i)
+	for(j=1;j<=4;++j)
 	{
-		for(j=1;j<=4;++j)
+		for(i=1;i<=2;++i)
 		{		
 			if(nGhosts>count)
 			{			
-				initializeCharacter(&ghosts[count],(unsigned char) (j*(XSize/5)),(unsigned char) (i*(YSize/3)),1,&GHOST_IMAGE);
+				initializeCharacter(&ghosts[count],(j*(XSize/5)),(i*(YSize/3)),1,&GHOST_IMAGE);
 			}
 			else
 			{	
-				initializeCharacter(&ghosts[count], (unsigned char) 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+				initializeCharacter(&ghosts[count], 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
 			}
 			++count;				
 		}

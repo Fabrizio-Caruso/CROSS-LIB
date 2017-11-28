@@ -468,9 +468,7 @@ void handle_invincible_ghost(void)
 
 #if !defined(NO_INITIAL_SCREEN)			
 void initialScreen(void)
-{
-	// Set Screen Colors
-	setScreenColors();			
+{	
 	CLEAR_SCREEN();					
 	printStartMessage();
 	
@@ -556,10 +554,18 @@ int main(void)
 			DEBUG_PRINT();
 		#endif
 		
+		#if !defined(NO_SET_SCREEN_COLORS)
+			// Set Screen Colors
+			setScreenColors();				
+		#endif
+		
 		#if !defined(NO_INITIAL_SCREEN)
 			initialScreen();
+			
+			#if !defined(TINY_GAME)
 			WAIT_PRESS();
 			CLEAR_SCREEN();	
+			#endif
 		#else
 			CLEAR_SCREEN();	
 			
@@ -614,7 +620,7 @@ int main(void)
 			ghostSlowDown = computeGhostSlowDown();
 			
 			CLEAR_SCREEN();
-			#if !defined(TINY_GAME)
+			#if !defined(NO_TEXT)
 				// Clear the screen, put cursor in upper left corner
 
 				printLevel();

@@ -273,7 +273,7 @@ void displayStats(void)
 	#endif	
 }
 
-#if !defined(NO_INITIAL_SCREEN)
+#if !defined(NO_SET_SCREEN_COLORS)
 void setScreenColors(void)
 {
 	SET_TEXT_COLOR(TEXT_COLOR);
@@ -282,7 +282,7 @@ void setScreenColors(void)
 }
 #endif
 
-#if !defined(TINY_GAME)	
+#if !defined(NO_TEXT)	
 	#if defined (NO_CASE_LETTERS)
 		void printLevel(void)
 		{
@@ -650,7 +650,7 @@ void printStartMessage(void)
 		c64_splash_title();
 	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
 		atmos_splash_title();
-	#else
+	#elif !defined(TINY_GAME)
 		printCenteredMessageOnRowWithCol(3, _RED,  "C R O S S  C H A S E");		
 		SET_TEXT_COLOR(TEXT_COLOR);		
 		#if defined(NO_CASE_LETTERS)
@@ -658,6 +658,13 @@ void printStartMessage(void)
 		#else
 			printCenteredMessageOnRow(5, "by Fabrizio Caruso");
 		#endif
+	#else
+		printCenteredMessageOnRowWithCol(3, _RED,  "CROSS CHASE");	
+		#if defined(NO_CASE_LETTERS)
+			printCenteredMessageOnRow(5, "by fabrizio caruso");		
+		#else
+			printCenteredMessageOnRow(5, "by Fabrizio Caruso");
+		#endif		
 	#endif
 	
 	#if !defined(TINY_GAME)
@@ -689,13 +696,15 @@ void printStartMessage(void)
 		#endif
 	#endif
 	
-	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
-		printCenteredMessageOnRow(YSize-3, "use the joystick");
-	#elif !defined(TINY_GAME)		
-		printCenteredMessageOnRow(YSize-3, "use i j k l space");		
-	#else
-		printCenteredMessageOnRow(YSize-3, "use ijkl");				
-	#endif	
+	// #if !defined(NO_TEXT)
+		#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
+			printCenteredMessageOnRow(YSize-3, "use the joystick");
+		#elif !defined(TINY_GAME)		
+			printCenteredMessageOnRow(YSize-3, "use i j k l space");		
+		#else
+			printCenteredMessageOnRow(YSize-3, "use ijkl");				
+		#endif	
+	// #endif
 }
 #endif
 

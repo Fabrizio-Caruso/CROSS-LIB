@@ -37,15 +37,16 @@ extern Character ghosts[GHOSTS_NUMBER];
 extern unsigned char strategyArray[GHOSTS_NUMBER];
 
 
-unsigned char moveX(Character* hunterPtr, Character* preyPtr)
+
+unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
 {
-	if(hunterPtr->_x<preyPtr->_x)
+	if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)preyPtr+offset))
 	{
-		++hunterPtr->_x;
+		++((unsigned char) *((unsigned char *)hunterPtr+offset));
 	}
-	else if(hunterPtr->_x>preyPtr->_x)
+	else if((unsigned char) *((unsigned char *) hunterPtr+offset) > (unsigned char) *((unsigned char *)preyPtr+offset))
 	{
-		--hunterPtr->_x;
+		--((unsigned char) *((unsigned char *) hunterPtr+offset));
 	}	
 	else
 	{
@@ -54,46 +55,63 @@ unsigned char moveX(Character* hunterPtr, Character* preyPtr)
 	return 1;
 }
 
-unsigned char moveY(Character* hunterPtr, Character* preyPtr)
-{
-    if(hunterPtr->_y<preyPtr->_y)
-	{
-		++hunterPtr->_y;
-	}
-	else if(hunterPtr->_y>preyPtr->_y)
-	{
-		--hunterPtr->_y;
-	}	
-	else
-	{
-		return 0;
-	}
-	return 1;
-}
+// unsigned char moveX(Character* hunterPtr, Character* preyPtr)
+// {
+	// if(hunterPtr->_x<preyPtr->_x)
+	// {
+		// ++hunterPtr->_x;
+	// }
+	// else if(hunterPtr->_x>preyPtr->_x)
+	// {
+		// --hunterPtr->_x;
+	// }	
+	// else
+	// {
+		// return 0;
+	// }
+	// return 1;
+// }
+
+// unsigned char moveY(Character* hunterPtr, Character* preyPtr)
+// {
+    // if(hunterPtr->_y<preyPtr->_y)
+	// {
+		// ++hunterPtr->_y;
+	// }
+	// else if(hunterPtr->_y>preyPtr->_y)
+	// {
+		// --hunterPtr->_y;
+	// }	
+	// else
+	// {
+		// return 0;
+	// }
+	// return 1;
+// }
 
 // TODO: Design issue: we delete the invincible enemy
 // This should be made generic even though it works
 void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 {
-	if(moveX(hunterPtr, preyPtr))
+	if(move(hunterPtr, preyPtr,0))
 	{
 		return;
 	}
 	else
 	{
-		moveY(hunterPtr, preyPtr);
+		move(hunterPtr, preyPtr,1);
 	}
 }
 
 void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 {
-	if(moveY(hunterPtr, preyPtr))
+	if(move(hunterPtr, preyPtr,1))
 	{
 		return;
 	}
 	else
 	{
-		moveX(hunterPtr, preyPtr);
+		move(hunterPtr, preyPtr,0);
 	}
 }
 

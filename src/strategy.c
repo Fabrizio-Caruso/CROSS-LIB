@@ -36,9 +36,8 @@ extern Character ghosts[GHOSTS_NUMBER];
 
 extern unsigned char strategyArray[GHOSTS_NUMBER];
 
-// TODO: Design issue: we delete the invincible enemy
-// This should be made generic even though it works
-void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
+
+unsigned char moveX(Character* hunterPtr, Character* preyPtr)
 {
 	if(hunterPtr->_x<preyPtr->_x)
 	{
@@ -47,19 +46,15 @@ void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 	else if(hunterPtr->_x>preyPtr->_x)
 	{
 		--hunterPtr->_x;
-	}
-	else if(hunterPtr->_y<preyPtr->_y)
-	{
-		++hunterPtr->_y;
-	}
+	}	
 	else
 	{
-		--hunterPtr->_y;
+		return 0;
 	}
+	return 1;
 }
 
-
-void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
+unsigned char moveY(Character* hunterPtr, Character* preyPtr)
 {
     if(hunterPtr->_y<preyPtr->_y)
 	{
@@ -68,16 +63,40 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 	else if(hunterPtr->_y>preyPtr->_y)
 	{
 		--hunterPtr->_y;
-	}
-	else if(hunterPtr->_x<preyPtr->_x)
+	}	
+	else
 	{
-		++hunterPtr->_x;
+		return 0;
 	}
-	else 
+	return 1;
+}
+
+// TODO: Design issue: we delete the invincible enemy
+// This should be made generic even though it works
+void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
+{
+	if(moveX(hunterPtr, preyPtr))
 	{
-		--hunterPtr->_x;
+		return;
+	}
+	else
+	{
+		moveY(hunterPtr, preyPtr);
 	}
 }
+
+void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
+{
+	if(moveY(hunterPtr, preyPtr))
+	{
+		return;
+	}
+	else
+	{
+		moveX(hunterPtr, preyPtr);
+	}
+}
+
 
 // strategy: 
 // 4 means do no prefer horizontal to vertical movement
@@ -88,7 +107,7 @@ void moveTowardCharacter(Character *hunterPtr, unsigned char strategy)
 {
 	if(rand()%10 > strategy) // Select blind chase strategy
 		{ // 0 - 4
-			blindChaseCharacterXStrategy(hunterPtr, &player);
+			blindChaseCharacterXStrategy(hunterPtr, &player);	
 		}
 		else
 		{ // 5 - 9

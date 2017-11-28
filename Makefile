@@ -302,7 +302,7 @@ aquarius_exp_4k:
 # -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
 # -SO3 --max-allocs-per-node200000
 spectrum_newlib_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -SO3 --max-allocs-per-node200000 -zorg=24060 -pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc -clib=sdcc_iy -DNO_SLEEP -DNO_RANDOM_LEVEL -DNO_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_newlib.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -SO3 --max-allocs-per-node200000 -zorg=24060 -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -clib=sdcc_iy -DNO_SLEEP -DNO_RANDOM_LEVEL -DNO_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_newlib.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_spectrum_newlib_CODE.bin 
 	rm $(BUILD_PATH)/TINY_spectrum_newlib_UNASSIGNED.bin
 

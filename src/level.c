@@ -234,8 +234,10 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		{
 			for(j=1;j<=2;++j)
 			{
-				#if defined(NO_RANDOM_LEVEL)
+				#if defined(NO_RANDOM_LEVEL) && !defined(TINY_GAME)
 					initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);				
+				#elif !defined(NO_RANDOM_LEVEL) && defined(TINY_GAME)
+					initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i)-rand()%2, (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);								
 				#else
 					initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i)-1+rand()%3, (unsigned char) ((YSize/3)*j)-1+rand()%3,0,&BOMB_IMAGE);
 				#endif
@@ -273,6 +275,8 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#elif BOMBS_NUMBER==1
 		initializeCharacter(&bombs[0],XSize/2-3+rand()%7, ((YSize/2))-1+rand()%3,0,&BOMB_IMAGE);
 	#endif
+	
+	// Bombs are not redrawn afterwards
 	#if defined(TINY_GAME)
 		DRAW_BOMBS();
 	#endif
@@ -308,12 +312,12 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		}		
 	#else
 		#if !defined(TINY_GAME)
-		initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
-		
-		initializeCharacter(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);	
+			initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
+			
+			initializeCharacter(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);	
 		#endif
 		
-		#if defined(NO_RANDOM_LEVEL)
+		#if defined(NO_RANDOM_LEVEL) || defined(TINY_GAME)
 			initializeCharacter(&player,(unsigned char) (XSize/2),(unsigned char) (YSize/2),1,&PLAYER_IMAGE);			
 		#else
 			initializeCharacter(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);	

@@ -65,9 +65,9 @@ void printPressKeyToStart(void);
 
 #if !defined(NO_TEXT)
 	void deleteCenteredMessage(void);
-
-	void printGameOver(void);
 #endif
+void printGameOver(void);
+
 
 
 void printDefeatMessage(void);

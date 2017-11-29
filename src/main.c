@@ -941,11 +941,12 @@ int main(void)
 		sleep(2);
 		#endif
 	}
-	#if !defined(NO_TEXT)
+	// #if !defined(NO_TEXT)
 	// GAME OVER	
 	printGameOver();
+	
 	sleep(2);
-	#endif
+	// #endif
 	
 	#if !defined(TINY_GAME)
 	CLEAR_SCREEN();

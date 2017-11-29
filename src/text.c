@@ -482,6 +482,11 @@ void setScreenColors(void)
 	{
 		printCenteredMessage("READY");
 	}	
+	
+	void printGameOver(void)
+	{
+		printCenteredMessage("GAME OVER");
+	}		
 #endif
 
 

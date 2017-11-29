@@ -327,7 +327,7 @@ void setScreenColors(void)
 #if defined(__VG5K__) || defined(__CREATIVISION__) || defined(__PCE__)
 	void gameCompleted(void)	
 	{
-		printCenteredMessage("DONE"); 
+		printCenteredMessage("YOU MADE IT"); 
 	}
 #elif defined(__C64__)
 	void gameCompleted(void)
@@ -481,12 +481,12 @@ void setScreenColors(void)
 	void printPressKeyToStart(void)
 	{
 		printCenteredMessage("READY");
-	}	
+	}		
 	
 	void printGameOver(void)
 	{
-		printCenteredMessage("GAME OVER");
-	}		
+		printCenteredMessage(" GAME OVER ");
+	}			
 #endif
 
 

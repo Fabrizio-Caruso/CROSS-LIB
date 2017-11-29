@@ -936,22 +936,23 @@ int main(void)
 			
 	if(level==FINAL_LEVEL+1) // if completed game
 	{
-		#if !defined(TINY_GAME)
 		gameCompleted();
-		sleep(2);
+		#if !defined(NO_SLEEP)
+			sleep(2);
+		#else
+			WAIT_PRESS();
 		#endif
 	}
 	// #if !defined(NO_TEXT)
-	// GAME OVER	
-	printGameOver();
-	
-	sleep(2);
+		// GAME OVER	
+		printGameOver();
+		sleep(2);
 	// #endif
 	
 	#if !defined(TINY_GAME)
-	CLEAR_SCREEN();
+		CLEAR_SCREEN();
 	
-	finalScore();
+		finalScore();
 	#endif
 	
 	#if defined(NO_SLEEP)

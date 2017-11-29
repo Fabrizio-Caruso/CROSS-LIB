@@ -129,7 +129,7 @@ creativision_8k:
 #Z88DK
 
 aquarius_exp_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn -DSOUNDS -D__AQUARIUS__ -DFULL_GAME -lndos -o FULL_aquarius_exp_16k -create-app $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn -DSOUNDS -D__AQUARIUS__ -DFULL_GAME -lndos -o FULL_aquarius_exp_16k -create-app $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(SOURCE_PATH)/../FULL_aquarius_exp_16k
 	mv $(SOURCE_PATH)/../FULL_aquarius_exp_16k.caq $(BUILD_PATH)
 	mv $(SOURCE_PATH)/../_FULL_aquarius_exp_16k.caq $(BUILD_PATH)
@@ -295,7 +295,7 @@ vg5k_tiny:
 	
 
 aquarius_exp_4k:
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn -D__AQUARIUS__ -DTINY_GAME -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -lndos -o TINY_aquarius_exp_4k -create-app $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -compiler=sdcc -SO3 --max-allocs-per-node200000 -vn -D__AQUARIUS__ -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc -lndos -o TINY_aquarius_exp_4k -create-app $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/aquarius/aquarius_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(SOURCE_PATH)/../TINY_aquarius_exp_4k
 	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)
 	mv $(SOURCE_PATH)/../_TINY_aquarius_exp_4k.caq $(BUILD_PATH)
@@ -321,7 +321,7 @@ vic20_debug:
 	
 # ISSUE with kbhit and getk: the game is turned-based
 gal_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +gal -pragma-need=ansiterminal -vn -DTINY_GAME -D__GAL__ -lndos -create-app -o  $(BUILD_PATH)/TINY_galaksija.prg $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +gal -compiler=sdcc -SO3 --max-allocs-per-node200000 -pragma-need=ansiterminal -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -vn -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -D__GAL__ -lndos -create-app -o  $(BUILD_PATH)/TINY_galaksija.prg $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_galaksija.prg
 	rm $(BUILD_PATH)/TINY_galaksija.wav	
 
@@ -367,8 +367,9 @@ mc1000_tiny:
 	rm a.bin
 	rm a.cas	
 	
+# -DNO_TEXT
 creativision_light:
-	$(CC65_PATH)$(MYCC65) -O -t creativision --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_creativision.bin	
+	$(CC65_PATH)$(MYCC65) -O -t creativision -DNO_SLEEP  -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_creativision.bin	
 
 # NO Image displayed
 creativision_full:

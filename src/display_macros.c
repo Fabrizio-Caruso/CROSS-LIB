@@ -78,6 +78,8 @@ Image INVINCIBLE_GHOST_IMAGE;
 	//
 #elif defined(__CPC__)
 	//
+#elif defined(__AQUARIUS__) && defined(TINY_GAME)
+	//	
 #elif defined(__NES__) && defined(NES_COLOR)
 	//	
 #elif defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__) || defined(__LAMBDA__)

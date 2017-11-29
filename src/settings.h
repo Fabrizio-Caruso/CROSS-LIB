@@ -191,6 +191,8 @@
 	#define BOMBS_NUMBER 4
 #elif defined(__PCE__) || (defined(__VIC20__) && defined(TINY_GAME)) || (defined(__SPECTRUM__) && defined(TINY_GAME))
 	#define BOMBS_NUMBER 4
+#elif defined(__AQUARIUS__) && defined(TINY_GAME)
+	#define BOMBS_NUMBER 1
 #else
 	#define BOMBS_NUMBER 4
 #endif
@@ -228,6 +230,8 @@
 	#define GHOSTS_NUMBER 8
 #elif defined(__CREATIVISION__)
 	#define GHOSTS_NUMBER 8	
+#elif defined(__AQUARIUS__) && defined(TINY_GAME)
+	#define GHOSTS_NUMBER 1
 #else
 	#define GHOSTS_NUMBER 8
 #endif

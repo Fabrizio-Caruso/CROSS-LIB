@@ -29,6 +29,7 @@
 	#elif defined(__C128__)
 		#include <c128.h>
 	#else
+		// TODO: USE pokebsys and pokewsys for the CBM510
 		#include <cbm510.h>
 	#endif
 

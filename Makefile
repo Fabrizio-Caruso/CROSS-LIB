@@ -103,17 +103,17 @@ apple2enh:
 	rm $(BUILD_PATH)/apple2enh.bin
 
 osic1p:
-	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_osic1p.lod
+	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME $(SOURCE_PATH)/sleep_macros.c  $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_osic1p.lod
 	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/FULL_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/FULL_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
 	rm $(BUILD_PATH)/FULL_osic1p.lod
 
 osic1p_light:
-	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p  $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_osic1p.lod
+	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p  $(SOURCE_PATH)/sleep_macros.c  $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_osic1p.lod
 	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/LIGHT_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/LIGHT_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
 	rm $(BUILD_PATH)/LIGHT_osic1p.lod
 
 osic1p_tiny:
-	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_osic1p.lod
+	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DTINY_GAME $(SOURCE_PATH)/sleep_macros.c  $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_osic1p.lod
 	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/TINY_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
 	rm $(BUILD_PATH)/TINY_osic1p.lod
 		
@@ -122,7 +122,7 @@ gamate:
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
 
 creativision_8k:
-	$(CC65_PATH)$(MYCC65) -O -t creativision --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_creativision_8k.bin
+	$(CC65_PATH)$(MYCC65) -O -t creativision --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg -DTINY_GAME $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_creativision_8k.bin
 
 	
 # ------------------------------------------------------------------------------------------
@@ -277,12 +277,7 @@ gal_22k:
 	rm $(BUILD_PATH)/FULL_galaksija.prg	
 	rm $(BUILD_PATH)/FULL_galaksija.wav
 	
-# -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
-# -SO3 --max-allocs-per-node200000
-spectrum_newlib_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -DNO_SET_SCREEN_COLORS -DNO_SLEEP -DNO_TEXT -DTINY_GAME -SO3 --max-allocs-per-node200000 -zorg=24060 -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -clib=sdcc_iy -vn -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_newlib.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_spectrum_newlib_CODE.bin 
-	rm $(BUILD_PATH)/TINY_spectrum_newlib_UNASSIGNED.bin	
+	
 	
 # -pragma-redirect:ansifont=_font_8x8_zx_system -pragma-define:ansifont_is_packed=0
 spectrum_48k:
@@ -291,10 +286,6 @@ spectrum_48k:
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin	
 
 
-	
-	
-	
-	
 
 # DEBUG
 
@@ -309,6 +300,13 @@ aquarius_exp_4k:
 	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)
 	mv $(SOURCE_PATH)/../_TINY_aquarius_exp_4k.caq $(BUILD_PATH)
 
+
+# -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
+# -SO3 --max-allocs-per-node200000
+spectrum_newlib_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -SO3 --max-allocs-per-node200000 -zorg=24060 -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -clib=sdcc_iy -DNO_SLEEP -DNO_RANDOM_LEVEL -DNO_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_newlib.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_spectrum_newlib_CODE.bin 
+	rm $(BUILD_PATH)/TINY_spectrum_newlib_UNASSIGNED.bin
 
 spectrum_clib_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi -pragma-define:ansicolumns=32 -vn                           -DCLIB_ANSI -DNO_SLEEP -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DNO_TEXT -DTINY_GAME -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/TINY_spectrum_clib.prg  $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -536,7 +534,7 @@ msx_color_32k_msxdos:
 	
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos atmos_16k c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
-cc65_targets: gamate creativision_8k osic1p osic1p_light osic1p vic20_exp_3k vic20_exp_8k vic20_exp_16k atari_color atari_no_color atari_no_color_16k atari5200 atmos atmos_16k c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
+cc65_targets: gamate creativision_8k osic1p osic1p_light osic1p_tiny vic20_exp_3k vic20_exp_8k vic20_exp_16k atari_color atari_no_color atari_no_color_16k atari5200 atmos atmos_16k c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 z88dk_targets: aquarius_exp_16k ace_exp_16k zx80_exp_16k zx80_exp_32k zx81_exp_16k zx81_exp_32k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 msx_color_16k msx_color_32k_rom msx_color_32k lambda_16k sharp_mz microbee simcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k spectrum_48k
 

@@ -346,7 +346,7 @@ void setScreenColors(void)
 	}
 #endif
 
-#if !defined(TINY_GAME)
+#if !defined(NO_TEXT)
 	#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__) || defined(__CREATIVISION__)
 			void printExtraLife(void)
 			{

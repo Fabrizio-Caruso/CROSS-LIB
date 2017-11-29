@@ -38,14 +38,16 @@ void displayStats(void);
 	void displayStatsTitles(void);
 
 	void printGunsStats(void);
-		
+#endif
+
+#if !defined(NO_TEXT)
 	void printLevel(void);
 
 	void printVictoryMessage(void);
 
 	void printExtraLife(void);
 #endif
-
+	
 void printLevelStats(void);
 
 void printGhostCountStats(void);

@@ -234,12 +234,14 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		{
 			for(j=1;j<=2;++j)
 			{
-				#if defined(NO_RANDOM_LEVEL) && !defined(TINY_GAME)
+				#if defined(NO_RANDOM_LEVEL)
 					initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);				
-				#elif !defined(NO_RANDOM_LEVEL) && defined(TINY_GAME)
-					initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i)-rand()%2, (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);								
 				#else
-					initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i)-1+rand()%3, (unsigned char) ((YSize/3)*j)-1+rand()%3,0,&BOMB_IMAGE);
+					#if defined(TINY_GAME)
+						initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i)-rand()%3, (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);								
+					#else
+						initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i)-1+rand()%3, (unsigned char) ((YSize/3)*j)-1+rand()%3,0,&BOMB_IMAGE);
+					#endif
 				#endif
 				++count;
 			}

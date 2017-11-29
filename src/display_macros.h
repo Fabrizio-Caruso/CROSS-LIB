@@ -448,7 +448,8 @@ void _delete(unsigned char x, unsigned char y);
 	// #if !defined(TINY_GAME)
 		// #define CLEAR_SCREEN() 	zx_cls(INK_WHITE | PAPER_BLACK)
 	// #else
-	#define CLEAR_SCREEN()  printf("\xc")
+	#define CLEAR_SCREEN()  {zx_cls(PAPER_BLACK|INK_WHITE);}
+//printf("\xc")
 	// #endif
 	
 #elif defined(__AQUARIUS__) || (defined(__SVI__) && !defined(MSX_MODE0))

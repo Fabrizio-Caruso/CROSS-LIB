@@ -147,30 +147,30 @@ struct redefine_struct redefine_map[] =
 #endif
 
 #if !defined(TINY_GAME)
-void INIT_GRAPHICS(void)
-{
-	#if defined(REDEFINED_CHARS)
-		unsigned char i;
-		for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
-		{
-		   memcpy(udg + (redefine_map[i].ascii - 32)*8, redefine_map[i].bitmap, 8);
-		}
-	#endif
+	void INIT_GRAPHICS(void)
+	{
+		#if defined(REDEFINED_CHARS)
+			unsigned char i;
+			for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
+			{
+			   memcpy(udg + (redefine_map[i].ascii - 32)*8, redefine_map[i].bitmap, 8);
+			}
+		#endif
 
-	#if defined(CLIB_ANSI)
-		clg();
-		zx_border(0);
-		zx_colour(PAPER_BLACK|INK_WHITE);	
-	#else
-		zx_border(INK_BLACK);
-		zx_cls(PAPER_BLACK|INK_WHITE);		
-	#endif
-}
+		#if defined(CLIB_ANSI)
+			clg();
+			zx_border(0);
+			zx_colour(PAPER_BLACK|INK_WHITE);	
+		#else
+			zx_border(INK_BLACK);
+			// zx_cls(PAPER_BLACK|INK_WHITE);		
+		#endif
+	}
 #else
-void INIT_GRAPHICS(void)
-{
-	zx_cls(PAPER_BLACK|INK_WHITE);
-}	
+	void INIT_GRAPHICS(void)
+	{
+		// zx_cls(PAPER_BLACK|INK_WHITE);
+	}	
 #endif
 
 void INIT_IMAGES(void)

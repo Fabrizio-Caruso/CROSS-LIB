@@ -315,8 +315,8 @@ spectrum_clib_tiny:
 
 
 	
-vic20_debug:
-	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DUSE_JOYSTICK -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL  -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20-8k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_DEBUG.prg
+# vic20_debug:
+	# $(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DUSE_JOYSTICK -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL  -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20-8k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_DEBUG.prg
 	
 	
 # ISSUE with kbhit and getk: the game is turned-based
@@ -369,7 +369,7 @@ mc1000_tiny:
 	
 # -DNO_TEXT
 creativision_light:
-	$(CC65_PATH)$(MYCC65) -O -t creativision -DNO_SLEEP  -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_creativision.bin	
+	$(CC65_PATH)$(MYCC65) -O -t creativision -Cl -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_creativision.bin	
 
 # NO Image displayed
 creativision_full:

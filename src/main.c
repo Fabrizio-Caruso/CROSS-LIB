@@ -883,11 +883,13 @@ int main(void)
 			if(player._status) // if level finished
 			{
 				#if !defined(TINY_GAME)
-					sleep(1);
-					printVictoryMessage();
-					sleep(2);
+					#if !defined(NO_TEXT)
+						sleep(1);
+						printVictoryMessage();
+						sleep(2);
 
-					CLEAR_SCREEN();		
+						CLEAR_SCREEN();
+					#endif
 
 					if(level<=10)
 					{
@@ -943,11 +945,10 @@ int main(void)
 			WAIT_PRESS();
 		#endif
 	}
-	// #if !defined(NO_TEXT)
-		// GAME OVER	
-		printGameOver();
-		sleep(2);
-	// #endif
+
+	// GAME OVER	
+	printGameOver();
+	sleep(2);
 	
 	#if !defined(TINY_GAME)
 		CLEAR_SCREEN();

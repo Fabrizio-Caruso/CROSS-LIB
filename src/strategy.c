@@ -37,16 +37,38 @@ extern Character ghosts[GHOSTS_NUMBER];
 extern unsigned char strategyArray[GHOSTS_NUMBER];
 
 
-
+// #if defined(__WINCMOC__) || defined(__CMOC__)
+// unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
+// {
+	// unsigned char hunterPos = *((unsigned char *)hunterPtr+offset);
+	// unsigned char preyPos = *((unsigned char *)preyPtr+offset);
+	
+	// if(hunterPos < preyPos)
+	// {
+		// ++(*((unsigned char *) hunterPtr+offset));
+	// }
+	// else if(hunterPos > preyPos)
+	// {
+		// --(*((unsigned char *) hunterPtr+offset));
+	// }	
+	// else
+	// {
+		// return 0;
+	// }
+	// return 1;
+// }
+// #else
 unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
 {
 	if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)preyPtr+offset))
 	{
-		++((unsigned char) *((unsigned char *)hunterPtr+offset));
+		// ++((unsigned char) *((unsigned char *)hunterPtr+offset));
+		++(*((unsigned char *) hunterPtr+offset));		
 	}
 	else if((unsigned char) *((unsigned char *) hunterPtr+offset) > (unsigned char) *((unsigned char *)preyPtr+offset))
 	{
-		--((unsigned char) *((unsigned char *) hunterPtr+offset));
+		//--((unsigned char) *((unsigned char *) hunterPtr+offset));
+		--(*((unsigned char *) hunterPtr+offset));		
 	}	
 	else
 	{
@@ -54,6 +76,7 @@ unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offse
 	}
 	return 1;
 }
+// #endif
 
 // unsigned char moveX(Character* hunterPtr, Character* preyPtr)
 // {

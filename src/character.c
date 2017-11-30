@@ -131,8 +131,9 @@ void checkBombsVsGhosts(void)
 
 unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length)
 {
-	unsigned char i = 0;
-	for(;i<length;++i)
+	unsigned char i;
+
+	for(i=0;i<length;++i)
 	{
 		if(isCharacterAtLocation(x,y,&characterList[i]))
 			return 1;
@@ -162,14 +163,10 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 
 		if((x_offset==0) && (y_offset==0))
 			continue;
-		#if defined(WIDE)
-			x = characterPtr->_x -2 + x_offset; 
-			y = characterPtr->_y -2 + y_offset;
-		#else
-			x = characterPtr->_x -1 + x_offset; 
-			y = characterPtr->_y -1 + y_offset;
-		#endif	
 		
+		x = characterPtr->_x -2 + x_offset; 
+		y = characterPtr->_y -2 + y_offset;
+
 		// TODO: This check should be separated and moved into display_macros
 		if((x<2) || (x>XSize-2) || (y<=2) || (y>YSize-2))
 			continue;

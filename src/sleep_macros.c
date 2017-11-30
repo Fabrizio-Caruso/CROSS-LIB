@@ -28,6 +28,8 @@
 	#include "apple2/apple2_sleep.h"
 #elif defined(__SPECTRUM__)
 	#include "spectrum/spectrum_sleep.h"
+#elif defined(__CMOC__) || defined(__WINCMOC__)
+	// Do nothing
 #else
 	void sleep(unsigned int sec) 
 	{ 

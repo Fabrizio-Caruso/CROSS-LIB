@@ -153,7 +153,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			for(i=0;i<BUBBLES_NUMBER;i++)
 			{
 				bubbles_x[i] = (unsigned char) (i+1)*(XSize/(BUBBLES_NUMBER+1));
-				initializeCharacter(&bubbles[i],bubbles_x[i],YSize-1,1,&BUBBLE_IMAGE);
+				initializeCharacter(&bubbles[i],(unsigned char) bubbles_x[i],(unsigned char)(YSize-1),1,&BUBBLE_IMAGE);
 				DRAW_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);
 			}
 		}
@@ -195,7 +195,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		{		
 			if(nGhosts>count)
 			{			
-				initializeCharacter(&ghosts[count],(j*(XSize/5)),(i*(YSize/3)),1,&GHOST_IMAGE);
+				initializeCharacter(&ghosts[count],(unsigned char) (j*(XSize/5)),(i*(YSize/3)),1,&GHOST_IMAGE);
 			}
 			else
 			{	
@@ -238,9 +238,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 					initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);				
 				#else
 					#if defined(TINY_GAME)
-						initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i)-rand()%3, (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);								
+						initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-rand()%3), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);								
 					#else
-						initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i)-1+rand()%3, (unsigned char) ((YSize/3)*j)-1+rand()%3,0,&BOMB_IMAGE);
+						initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-1+rand()%3), (unsigned char) (((YSize/3)*j)-1+rand()%3),0,&BOMB_IMAGE);
 					#endif
 				#endif
 				++count;

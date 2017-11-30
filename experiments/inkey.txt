@@ -1,0 +1,10 @@
+Salut Pierre
+
+Les binaires produits par WinCMOC (et probablement aussi CMOC) sont bien compatibles avec CoCo1/2/3 et Dragon32/64.
+
+Par contre je n'arrive pas a comprendre comment lire le clavier.
+INKEY ne lit pas l'etat du clavier: si je mantiens une touche pressée, INKEY ne lira pas qu'une seule pression (la toute premiere)...
+Est-ce qu'il y a une fonction qui me permet de lire l'etat instantané du clavier?
+C'est à dire: 0 (ou autre valeur speciale) si aucune touche est pressé et une valeur differente pour tous les autres touches.
+
+   Fabrizio

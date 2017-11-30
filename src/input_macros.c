@@ -246,7 +246,12 @@ extern unsigned char playerDirection;
 	#elif defined(__ATMOS__)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}		
 	#elif defined(__WINCMOC__) || defined(__CMOC__)
-		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard((unsigned char) cgetc());}}		
+		#if defined(USE_INKEY)
+			#include <basic.h>
+			void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard((char) INKEY());}}	
+		#else
+			void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard((char) cgetc());}}				
+		#endif
 	#else
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
 	#endif	

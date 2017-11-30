@@ -92,9 +92,9 @@ Image INVINCIBLE_GHOST_IMAGE;
 	void INIT_GRAPHICS() 
 	{
 		#if defined(__VIC20__) && defined(TINY_GAME)
-			// #include<peekpoke.h>
+			#include<peekpoke.h>
 			// POKE(646,1);
-			// POKE(36879L,8);
+			POKE(36879L,9);
 		#endif	
 	}
 	

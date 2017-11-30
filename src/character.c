@@ -157,8 +157,8 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 	unsigned char safe = 0;
 	do
 	{
-		x_offset = rand() % 5;
-		y_offset = rand() % 5;
+		x_offset = (unsigned char)(rand() % 5);
+		y_offset = (unsigned char)(rand() % 5);
 
 		if((x_offset==0) && (y_offset==0))
 			continue;

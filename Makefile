@@ -278,6 +278,12 @@ gal_22k:
 	rm $(BUILD_PATH)/FULL_galaksija.wav
 	
 	
+# -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
+# -SO3 --max-allocs-per-node200000
+spectrum_newlib_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -SO3 --max-allocs-per-node200000 -zorg=24060 -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -clib=sdcc_iy -DNO_SLEEP -DNO_RANDOM_LEVEL -DNO_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_newlib.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_spectrum_newlib_CODE.bin 
+	rm $(BUILD_PATH)/TINY_spectrum_newlib_UNASSIGNED.bin
 	
 # -pragma-redirect:ansifont=_font_8x8_zx_system -pragma-define:ansifont_is_packed=0
 spectrum_48k:
@@ -300,13 +306,6 @@ aquarius_exp_4k:
 	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)
 	mv $(SOURCE_PATH)/../_TINY_aquarius_exp_4k.caq $(BUILD_PATH)
 
-
-# -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
-# -SO3 --max-allocs-per-node200000
-spectrum_newlib_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -SO3 --max-allocs-per-node200000 -zorg=24060 -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -clib=sdcc_iy -DNO_SLEEP -DNO_RANDOM_LEVEL -DNO_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_newlib.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_spectrum_newlib_CODE.bin 
-	rm $(BUILD_PATH)/TINY_spectrum_newlib_UNASSIGNED.bin
 
 spectrum_clib_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi -pragma-define:ansicolumns=32 -vn                           -DCLIB_ANSI -DNO_SLEEP -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DNO_TEXT -DTINY_GAME -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/TINY_spectrum_clib.prg  $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c

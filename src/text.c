@@ -229,7 +229,7 @@ extern Image MISSILE_IMAGE;
 
 void printLevelStats(void)
 {	
-	#if defined(WIDE)
+	#if defined(WIDE) && !defined(TINY_GAME)
 		SET_TEXT_COLOR(TEXT_COLOR);	
 		PRINTF(8-2-X_OFFSET,1-Y_OFFSET,"%02u", level);
 	#else
@@ -242,7 +242,7 @@ void printGhostCountStats(void)
 	#if defined(COLOR)
 		SET_TEXT_COLOR(TEXT_COLOR);		
 	#endif
-	#if defined(WIDE)
+	#if defined(WIDE) && !defined(TINY_GAME)
 		PRINTF(18+2-2-X_OFFSET-3,0-Y_OFFSET,"%u",ghostCount);
 	#else
 		PRINTF(15+2-X_OFFSET-3-2-3,0-Y_OFFSET,"%u",ghostCount);	
@@ -254,7 +254,7 @@ void printLivesStats(void)
 	#if defined(COLOR)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
-	#if defined(WIDE)
+	#if defined(WIDE) && !defined(TINY_GAME)
 		PRINTF(18+2-2-X_OFFSET,1-Y_OFFSET,"%02u",lives);
 	#else
 		PRINTF(15+2+1-5+4-1-X_OFFSET,0-Y_OFFSET,"%u",lives);	
@@ -266,7 +266,7 @@ void displayStats(void)
 	#if defined(COLOR)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
-	#if defined(WIDE)
+	#if defined(WIDE) && !defined(TINY_GAME)
 		PRINTF(8-2-X_OFFSET,0-Y_OFFSET,"%05u0",points);
 	#else
 		PRINTF(3-3,0-Y_OFFSET,"%05u0",points);	
@@ -324,7 +324,7 @@ void setScreenColors(void)
 	}
 #endif
 
-#if defined(__VG5K__) || defined(__CREATIVISION__) || defined(__PCE__)
+#if defined(__VG5K__) || defined(__CREATIVISION__) || defined(__PCE__) || defined(__GAMATE__) || (defined(__VIC20__) && !defined(FULL_GAME))
 	void gameCompleted(void)	
 	{
 		printCenteredMessage("YOU MADE IT"); 
@@ -333,11 +333,6 @@ void setScreenColors(void)
 	void gameCompleted(void)
 	{
 		printCenteredMessage("y o u   m a d e   i t"); 
-	}
-#elif defined(__GAMATE__) || (defined(__VIC20__) && !defined(FULL_GAME))
-	void gameCompleted(void)
-	{
-		printCenteredMessage("YOU MADE IT"); 
 	}
 #else
 	void gameCompleted(void)
@@ -701,15 +696,13 @@ void printStartMessage(void)
 		#endif
 	#endif
 	
-	// #if !defined(NO_TEXT)
-		#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
-			printCenteredMessageOnRow(YSize-3, "use the joystick");
-		#elif !defined(TINY_GAME)		
-			printCenteredMessageOnRow(YSize-3, "use i j k l space");		
-		#else
-			printCenteredMessageOnRow(YSize-3, "use ijkl");				
-		#endif	
-	// #endif
+	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
+		printCenteredMessageOnRow(YSize-3, "use the joystick");
+	#elif !defined(TINY_GAME)		
+		printCenteredMessageOnRow(YSize-3, "use i j k l space");		
+	#else
+		printCenteredMessageOnRow(YSize-3, "use ijkl");				
+	#endif	
 }
 #endif
 

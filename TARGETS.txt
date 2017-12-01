@@ -1,8 +1,9 @@
 LIST OF TARGETS
 
-[6502]
+[MOS 6502 and derivatives]
 apple2 : Apple ][ 
 apple2enh: Apple //e
+vic20_exp_3k: [TINY] Vic 20 with a 3k ram expansion (total ram: 8k)
 vic20_exp_8k : [LIGHT] Vic 20 with an 8k ram expansion (total ram: 13k)
 vic20_exp_16k : Vic 20 with a 16k ram expansion (total ram: 21k)
 atari_color : Atari 800/XL with 32k in 5-color 20x24 text mode (mode 1)
@@ -20,8 +21,13 @@ pet : Commodore PET
 cbm510 : Commodore CBM 510
 cbm610 : Commodore CBM 610 (aka CBM-II) 
 nes : NES
+gamate : Gamate handheld
+osic1p_tiny: [TINY] Ohio Scientific 1P with 8k of ram
+osic1p_light: [LIGHT] Ohio Scientific 1P with 16 of ram
+osic1p: [FULL] Ohio Scientific 1P with more than 16k of ram
+creativision: [TINY] Creativision (8k rom image)
 
-[Z80]
+[Zilog Z80 and derivatives]
 aquarius_exp_16k : Mattel Aquarius with 16k expansion
 ace_exp_16k : Jupiter Ace with 16k expansion
 zx80_exp_16k : [LIGHT] Sinclair ZX80 with 16k expansion
@@ -37,15 +43,25 @@ svi_318_mode0: [LIGHT] Spectravideo 318 with 16k of total ram in monochromatic c
 svi_328: Spectravideo 328 with 32k of total ram or any Spectravideo model with at least 32k or ram
 vg5k: [LIGHT] unexpanded VG-5000
 vg5k_exp_16k: VG-5000 with 16k memory expansion (32k of total ram)
-lambda_16k : [LIGHT] Lambda 8300
+lambda_16k : [LIGHT] Lambda 8300 with 16k of ram
+lambda : Lambda 8300 with more than 16k of ram
 sharp_mz : Sharp MZ 
 microbee_16k: [LIGHT] Microbee
 microbee: Microbee with more than 16k of ram
 simcoupe: Sim Coupe
 mtx: Memotech MTX 512
+abc_light: [LIGHT] Luxor ABC with 16k of ram
+abc_full: Luxor ABC with more than 16k of ram
+p2000_light: [LIGHT] Philips P2000 with 16k of ram
+p2000_full: Philips P2000 with more than 16k of ram
+z9001_light: [LIGHT] Robotron Z 9001 with 16k of ram
+z9001: Robotron Z 9001 with more than 16k of ram
+mc1000_16k: [LIGHT] CCE MC-1000 with 16k of ram
+mc1000_48k: CCE MC-1000 with 48k of ram
+gal_22k: Galaksija with 22k of ram
+spectrum_16k: [TINY] Sinclair ZX Spectrum 16k
 spectrum_48k : Sinclair ZX Spectrum 
 
-
-DEBUG
-spectrum_clib_udg : Spectrum, user-defined characters and compiled with Z88DK's classic lib 
-spectrum_clib_no_udg : Spectrum, no user-defined characters and compiled with Z88DK's classic lib 
+[Motorola 6809]
+coco_16k: [LIGHT] CoCo 1/2/3 with 16k of ram
+coco: CoCo 1/2/3 and Dragon 32/64 

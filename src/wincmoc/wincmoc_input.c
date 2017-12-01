@@ -24,6 +24,8 @@
 
 #include "wincmoc/wincmoc_input.h"
 
+#include <conio.h>
+
 unsigned char GET_CHAR(void)
 {
 	unsigned char end;
@@ -34,9 +36,13 @@ unsigned char GET_CHAR(void)
 		lda #239
 		sta $FF02
 		lda $FF00
-		anda #$7F
-		sta $400
 		sta end
 	}
+	
+		// anda #$7F
+		// sta $400
+		
+	// gotoxy(0,0);
+	// cputc(end);
 	return end;
 }

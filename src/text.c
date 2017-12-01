@@ -231,9 +231,9 @@ void printLevelStats(void)
 {	
 	#if defined(WIDE) && !defined(TINY_GAME)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINTF(8-2-X_OFFSET,1-Y_OFFSET,"%02u", level);
+		PRINTF(6-X_OFFSET,1-Y_OFFSET,"%02u", level);
 	#else
-		PRINTF(15+2+1-5+4-1+2-X_OFFSET,0-Y_OFFSET,"%02u",level);	
+		PRINTF(18-X_OFFSET,0-Y_OFFSET,"%02u",level);	
 	#endif	
 }
 
@@ -243,9 +243,9 @@ void printGhostCountStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);		
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(18+2-2-X_OFFSET-3,0-Y_OFFSET,"%u",ghostCount);
+		PRINTF(18+2-2-3-X_OFFSET,0-Y_OFFSET,"%u",ghostCount);
 	#else
-		PRINTF(15+2-X_OFFSET-3-2-3,0-Y_OFFSET,"%u",ghostCount);	
+		PRINTF(15+2-3-2-3-X_OFFSET,0-Y_OFFSET,"%u",ghostCount);	
 	#endif	
 }
 
@@ -255,9 +255,9 @@ void printLivesStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(18+2-2-X_OFFSET,1-Y_OFFSET,"%02u",lives);
+		PRINTF(18+2-2-X_OFFSET,-Y_OFFSET+1,"%02u",lives);
 	#else
-		PRINTF(15+2+1-5+4-1-X_OFFSET,0-Y_OFFSET,"%u",lives);	
+		PRINTF(15+2+1-5+4-1-X_OFFSET,-Y_OFFSET,"%u",lives);	
 	#endif
 }
 
@@ -267,7 +267,7 @@ void displayStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(8-2-X_OFFSET,0-Y_OFFSET,"%05u0",points);
+		PRINTF(8-2-X_OFFSET,-Y_OFFSET,"%05u0",points);
 	#else
 		PRINTF(3-3,0-Y_OFFSET,"%05u0",points);	
 	#endif	
@@ -475,7 +475,7 @@ void setScreenColors(void)
 #else
 	void printPressKeyToStart(void)
 	{
-		printCenteredMessage("READY");
+		printCenteredMessage("GO");
 	}		
 	
 	void printGameOver(void)

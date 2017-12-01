@@ -247,8 +247,9 @@ extern unsigned char playerDirection;
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}		
 	#elif defined(__WINCMOC__) || defined(__CMOC__)
 		#if defined(USE_INKEY)
-			#include <basic.h>
-			void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard((char) INKEY());}}	
+			// #include <basic.h>
+			#include "wincmoc/wincmoc_input.h"			
+			void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard((char) GET_CHAR());}}	
 		#else
 			void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard((char) cgetc());}}				
 		#endif

@@ -27,6 +27,7 @@
 
 #if defined(__WINCMOC__) || defined(__CMOC__)
 	#define FULL_GAME
+	// #define USE_INKEY
 #endif
 
 #if defined(__ZX81__) || defined(__LAMBDA__)

@@ -11,4 +11,4 @@ src/nes/*.o
 src/nes/nes_graphics.s
 *.swp
 *.swo
-
+src/wincmoc_input.c

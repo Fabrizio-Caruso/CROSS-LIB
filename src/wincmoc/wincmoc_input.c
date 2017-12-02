@@ -22,27 +22,34 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+// REMARK: The Assembly routine is an adapted version of an Assembly routine provided
+// by Simon Jonassen
+
+
 #include "wincmoc/wincmoc_input.h"
 
 #include <conio.h>
 
 unsigned char GET_CHAR(void)
 {
-	unsigned char end;
+	unsigned char res;
 	
 	asm {
 		lda #$1
 		sta $FF00
-		lda #239
+		lda #253
 		sta $FF02
-		lda $FF00
-		sta end
+		ldb #73
+		coma
+test    bita $ff00
+		beq out
+		incb
+		rol $ff02
+		cmpb #77
+		bne test
+		clrb 
+out		stb res
 	}
 	
-		// anda #$7F
-		// sta $400
-		
-	// gotoxy(0,0);
-	// cputc(end);
-	return end;
+	return res;
 }

@@ -249,7 +249,23 @@ extern unsigned char playerDirection;
 		#if defined(ASM_KEY_DETECT)
 			// #include <basic.h>
 			#include "wincmoc/wincmoc_input.h"			
-			void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard((char) GET_CHAR());}}	
+			void MOVE_PLAYER(void) 
+				{
+					// if(kbhit()) 
+					// { 
+						char ch = (char) GET_CHAR(); 
+						if(ch!='')
+						{
+							movePlayerByKeyboard(ch); 
+						}
+						else
+						{
+							if(kbhit())
+								if(cgetc()==' ')
+									movePlayerByKeyboard(' ');
+						}
+					// }
+				}
 		#else
 			void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard((char) cgetc());}}				
 		#endif

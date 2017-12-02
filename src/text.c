@@ -661,9 +661,9 @@ void printStartMessage(void)
 	#else
 		printCenteredMessageOnRowWithCol(3, _RED,  "CROSS CHASE");	
 		#if defined(NO_CASE_LETTERS)
-			printCenteredMessageOnRow(5, "by fabrizio caruso");		
+			printCenteredMessageOnRow(5, "fabrizio caruso");		
 		#else
-			printCenteredMessageOnRow(5, "by Fabrizio Caruso");
+			printCenteredMessageOnRow(5, "Fabrizio Caruso");
 		#endif		
 	#endif
 	

@@ -123,15 +123,25 @@ Image INVINCIBLE_GHOST_IMAGE;
 		#else
 			GHOST_IMAGE._imageData = 'o';
 		#endif
-		BOMB_IMAGE._imageData = 'X';
+		#if defined(__WINCMOC__) || defined(__CMOC__)
+			BOMB_IMAGE._imageData = 'x';		
+		#else
+			BOMB_IMAGE._imageData = 'X';
+		#endif
 		PLAYER_IMAGE._imageData = '*';
 
 		
 		#if !defined(TINY_GAME)
-		INVINCIBLE_GHOST_IMAGE._imageData = '+';
-		POWERUP_IMAGE._imageData = 'S';
-		GUN_IMAGE._imageData = '!';
-		MISSILE_IMAGE._imageData = '.';
+			INVINCIBLE_GHOST_IMAGE._imageData = '+';
+			#if defined(__WINCMOC__) || defined(__CMOC__)
+				POWERUP_IMAGE._imageData = 's';	
+				GUN_IMAGE._imageData = '!';				
+			#else
+				POWERUP_IMAGE._imageData = 'S';
+				GUN_IMAGE._imageData = '!';			
+			#endif
+
+			MISSILE_IMAGE._imageData = '.';
 		#endif
 		
 		#if defined(__APPLE2ENH__) || defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
@@ -173,13 +183,15 @@ Image INVINCIBLE_GHOST_IMAGE;
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		
 			BUBBLE_IMAGE._imageData = '^';
-			
-			EXTRA_POINTS_IMAGE._imageData = '$';
-		
-			EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-
-			INVINCIBILITY_IMAGE._imageData = 'V';
-
+			#if defined(__WINCMOC__) || defined(__CMOC__)			
+				EXTRA_POINTS_IMAGE._imageData = '$';
+				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+				INVINCIBILITY_IMAGE._imageData = 'v';			
+			#else
+				EXTRA_POINTS_IMAGE._imageData = '$';
+				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+				INVINCIBILITY_IMAGE._imageData = 'V';						
+			#endif
 			BROKEN_WALL_IMAGE._imageData = 'X';
 		#endif
 	}

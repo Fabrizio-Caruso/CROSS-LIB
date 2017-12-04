@@ -495,40 +495,7 @@ void DEBUG_PRINT()
 			printf(" %u: %c", i, i);
 		}
 	}
-		
-	// PRINTF(1,0,"ghost %c\n", GHOST_IMAGE._imageData);
-	// PRINTF(1,1,"invincible %c\n", INVINCIBLE_GHOST_IMAGE._imageData);
-	// PRINTF(1,2,"bomb %c\n", BOMB_IMAGE._imageData);
-	// PRINTF(1,3,"player %c\n", PLAYER_IMAGE._imageData);
-	// #if defined(REDEFINED_CHARS)
-		// PRINTF(1,4,"player %c\n", PLAYER_UP._imageData);
-		// PRINTF(1,5,"player %c\n", PLAYER_DOWN._imageData);
-		// PRINTF(1,6,"player %c\n", PLAYER_LEFT._imageData);
-		// PRINTF(1,7,"player %c\n", PLAYER_RIGHT._imageData);					
-	// #endif
-	// #if defined(FULL_GAME)
-		// PRINTF(1,8,"extra life %c\n", EXTRA_LIFE_IMAGE._imageData); 
-		// PRINTF(1,9,"invincibility %c\n", INVINCIBILITY_IMAGE._imageData); 
-		// PRINTF(1,10,"extra points %c\n", EXTRA_POINTS_IMAGE._imageData);
-		// PRINTF(1,11,"bubble %c\n", BUBBLE_IMAGE._imageData);		
-		// PRINTF(1,12,"left missile %c\n", LEFT_ENEMY_MISSILE_IMAGE._imageData);
-		// PRINTF(1,13,"right missile %c\n", RIGHT_ENEMY_MISSILE_IMAGE._imageData);					
-	// #endif
-	// PRINTF(1,15,"powerup %c\n", POWERUP_IMAGE._imageData);
-	// PRINTF(1,16,"gun %c\n", GUN_IMAGE._imageData); 
-	// PRINTF(1,17,"missile %c\n", MISSILE_IMAGE._imageData); 
-	// PRINTF(1,18,"dead ghost %c\n", DEAD_GHOST_IMAGE._imageData); 
-	
-	// #if defined(__MSX__)
-		// msx_vpoke(6144+32,EXTRA_LIFE_IMAGE._imageData);			
-		// msx_vpoke(6145+32,INVINCIBILITY_IMAGE._imageData);
-		// msx_vpoke(6146+32,GHOST_IMAGE._imageData);
-		// msx_vpoke(6147+32, MISSILE_IMAGE._imageData);
-		// msx_vpoke(6148+32, DEAD_GHOST_IMAGE._imageData);
-	// #endif
-	
-	// WAIT_PRESS();
-	// CLEAR_SCREEN();	
+	WAIT_PRESS();
 }
 #endif
 

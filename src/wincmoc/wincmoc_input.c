@@ -33,10 +33,15 @@
 unsigned char GET_CHAR(void)
 {
 	unsigned char res;
-	
+
 	asm {
+		ldd $8000
+		cmpd #$7EBB
+		beq dragon
 		lda #$1
-		sta $FF00
+		bra pia
+dragon  lda #$3		
+pia		sta $FF00
 		lda #253
 		sta $FF02
 		ldb #73

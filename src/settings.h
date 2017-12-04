@@ -28,6 +28,7 @@
 #if defined(__WINCMOC__) || defined(__CMOC__)
 	#define FULL_GAME
 	#define ASM_KEY_DETECT
+	#define SOUNDS
 #endif
 
 #if defined(__ZX81__) || defined(__LAMBDA__)
@@ -83,7 +84,7 @@
 	#define GAME_SLOW_DOWN 900
 #elif defined(__WINCMOC__) || defined(__CMOC__) 
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 900
+	#define GAME_SLOW_DOWN 600
 #elif defined(__GAMATE__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 1200
@@ -305,10 +306,10 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 50U
 
-#if defined(__WINCMOC__) || defined(__CMOC__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000
 	#define INITIAL_SKULL_SLOWDOWN 32000	
-#elif defined(__VG5K__) || defined(__MSX__) 
+#elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
 	#define INITIAL_ENEMY_SLOWDOWN 29000
 	#define INITIAL_SKULL_SLOWDOWN 30000	
 #else

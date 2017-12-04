@@ -57,7 +57,9 @@
 	#elif defined(__CPC__) && defined(SOUNDS)
 		#include "psg/psg_sounds.h"	
 	#elif defined(__MC1000__) && defined(SOUNDS)
-		#include "psg/psg_sounds.h"			
+		#include "psg/psg_sounds.h"		
+	#elif (defined(__WINCMOC__) || defined(__CMOC__)) && defined(SOUNDS)
+		#include "wincmoc/wincmoc_sounds.h"					
 	#else
 		#define EXPLOSION_SOUND() 
 		#define PING_SOUND() 

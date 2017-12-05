@@ -120,4 +120,18 @@ Start the tape
 In BASIC run: RUN
 
 
+---------------------------------------------------------
+
+Ohio Scientific C1P
+
+Start the WinOSI executable.
+Under "Options" select "System Configuration...".
+Select "OSI C1P / Superboard II (600 BOard)" as machine type.
+On the "System ROMs" tab under "Specify ROM Type" select SYN600.
+Press "OK"
+Under "File" select "Attach Serial Input File...".
+Select the file "FULL_osic1p.c1p".
+In the emulator window you should see the "D/C/W/M" prompt. Press "M" to run the monitor. You then should see the "0000 00" prompt of the machine monitor.
+Press "l" (lowercase L). This will load the program and start it.
+
 

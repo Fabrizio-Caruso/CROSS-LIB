@@ -169,6 +169,9 @@
 #elif defined(__VIC20__) || defined(__GAMATE__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__ATARI5200__)
 	#define CC65
 	#define NARROW
+#elif defined(__WINCMOC__) || defined(__CMOC__)
+	#define CMOC
+	#define NARROW
 #elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__MSX__) || defined(__VG5K__) || defined(__ZX81__) || defined(__ZX80__) || defined(__AQUARIUS__) || defined(__SVI__) || defined(__MZ__)
 	#define Z88DK
 	#define WIDE
@@ -244,7 +247,6 @@
 #endif
 	
 
-// (defined(__SPECTRUM__) && defined(TINY_GAME)) ||
 #if (defined(__AQUARIUS__) && defined(TINY_GAME)) || (defined(__SPECTRUM__) && defined(TINY_GAME)) || (defined(__VIC20__) && defined(TINY_GAME)) || defined(__PCE__) || defined(__CREATIVISION__) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__) || defined(__MC1000__) || defined(__LAMBDA__) || (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) || (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
 	#define NO_COLOR
 #else

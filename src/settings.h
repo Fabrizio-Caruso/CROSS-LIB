@@ -240,7 +240,7 @@
 	#define GHOSTS_NUMBER 8
 #elif defined(__CREATIVISION__)
 	#define GHOSTS_NUMBER 8	
-#elif defined(__AQUARIUS__) && defined(TINY_GAME)
+#elif (defined(__OSIC1P__) && defined(TINY_GAME)) || (defined(__AQUARIUS__) && defined(TINY_GAME) )
 	#define GHOSTS_NUMBER 1
 #else
 	#define GHOSTS_NUMBER 8

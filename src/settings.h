@@ -204,7 +204,7 @@
 #elif defined(__AQUARIUS__) && defined(TINY_GAME)
 	#define BOMBS_NUMBER 1
 #elif defined(__OSIC1P__) && defined(TINY_GAME)
-	#define BOMBS_NUMBER 2
+	#define BOMBS_NUMBER 4
 #else
 	#define BOMBS_NUMBER 4
 #endif

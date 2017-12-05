@@ -28,26 +28,31 @@
 #if defined(__WINCMOC__) || defined(__CMOC__)
 	#define FULL_GAME
 	#define ASM_KEY_DETECT
-	#define SOUNDS
+	//#define SOUNDS
 #endif
 
 #if defined(__ZX81__) || defined(__LAMBDA__)
 	#define SKIP_DRAW \
-		if((loop%4)==0) 
+		if((loop%4)==1) 
 	
 	#define SKIP_MORE_DRAW \
-		if((loop%16)==0)
+		if((loop%16)==1)
 #elif defined(__SVI__) && !defined(MSX_MODE0)
 	#define SKIP_DRAW \
-		if((loop%2)==0) 
+		if((loop%2)==1) 
 	
 	#define SKIP_MORE_DRAW \
-		if((loop%8)==0)
+		if((loop%8)==1)
 #elif defined(__MC1000__)
 	#define SKIP_DRAW
 	
 	#define SKIP_MORE_DRAW \
-		if((loop%8)==0)			
+		if((loop%8)==1)			
+#elif defined(__WINCMOC__) || defined(__CMOC__)
+	#define SKIP_DRAW
+	
+	#define SKIP_MORE_DRAW \
+		if((loop%8)==1)					
 #else
 	#define SKIP_DRAW 
 

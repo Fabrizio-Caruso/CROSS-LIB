@@ -26,14 +26,14 @@
 #define _WINCMOC_SOUNDS
 	#include <basic.h>
 	
-	#define EXPLOSION_SOUND() do {beep(100,0);} while(0);
+	#define EXPLOSION_SOUND() do {beep(100,3);} while(0);
 
-	#define SHOOT_SOUND() do {beep(100,0);} while(0);
+	#define SHOOT_SOUND() do {beep(100,2);} while(0);
 	
 	#define PING_SOUND() do {beep(200,0);} while(0);
-	#define TICK_SOUND() do {beep(200,0);} while(0);
-	#define TOCK_SOUND() do {beep(200,0);} while(0);
-	#define ZAP_SOUND() do {beep(150,0);} while(0);
+	#define TICK_SOUND() do {beep(220,0);} while(0);
+	#define TOCK_SOUND() do {beep(140,0);} while(0);
+	#define ZAP_SOUND() do {beep(160,4);} while(0);
 	
 	// TODO: Save more memory to implement it
 	#define TICK_SOUND()	

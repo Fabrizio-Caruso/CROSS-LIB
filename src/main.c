@@ -788,6 +788,8 @@ int main(void)
 				ghostSlowDown = computeGhostSlowDown();
 
 				MOVE_PLAYER();
+				
+				_DRAW_PLAYER	
 	
 				#if !defined(TINY_GAME)
 					handle_missile();

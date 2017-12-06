@@ -187,6 +187,21 @@ void _draw(unsigned char x,unsigned char y,Image * image);
 #define DRAW_MISSILE(x,y,image) _draw(x,y,image)
 
 #if defined(FULL_GAME)
+	#define _DRAW_PLAYER \
+		if(player_invincibility) \
+		{ \
+			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
+		} \
+		else \
+		{ \
+			DRAW_PLAYER(player._x, player._y, player._imagePtr); \
+		}
+#else
+	#define _DRAW_PLAYER \
+		DRAW_PLAYER(player._x, player._y, player._imagePtr); 
+#endif
+		
+#if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y);
 #endif
 	

@@ -72,16 +72,6 @@ extern unsigned char playerDirection;
 		invincibleXCountDown = INVINCIBLE_COUNT_DOWN; \
 		playerDirection = RIGHT; \
 		SHOW_RIGHT();
-
-	#define _DRAW_PLAYER \
-		if(player_invincibility) \
-		{ \
-			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
-		} \
-		else \
-		{ \
-			DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-		}
 #else
 	#define _DO_MOVE_UP \
 		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
@@ -99,8 +89,6 @@ extern unsigned char playerDirection;
 		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
 		++player._x;
 
-	#define _DRAW_PLAYER \
-		DRAW_PLAYER(player._x, player._y, player._imagePtr);
 #endif
 	
 #if defined(WAIT_FOR_KEY)
@@ -121,6 +109,7 @@ extern unsigned char playerDirection;
 				in_wait_nokey();
 			}
 		#endif
+	// TO DO: REMOVE THIS, once the bug in kbhit is fixed
 	#elif defined(__OSIC1P__)
 		void WAIT_PRESS(void)
 		{
@@ -140,9 +129,9 @@ extern unsigned char playerDirection;
 #else
 	#include<joystick.h>
 	#if defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
-	void WAIT_PRESS(void)
-	{
-	}
+		void WAIT_PRESS(void)
+		{
+		}
 	#else
 	void WAIT_PRESS(void)
 	{
@@ -189,11 +178,11 @@ extern unsigned char playerDirection;
 			playerFire = 1;
 		}
 		#endif
-		#if defined(FULL_GAME)
-			_DRAW_PLAYER	
-		#else
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		#endif
+		// #if defined(FULL_GAME)
+			// _DRAW_PLAYER	
+		// #else
+			// DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		// #endif
 	}	
 	#endif
 #else
@@ -221,11 +210,11 @@ extern unsigned char playerDirection;
 			playerFire = 1;
 		}
 		#endif
-		#if defined(FULL_GAME)
-			_DRAW_PLAYER
-		#else
-			DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		#endif
+		// #if defined(FULL_GAME)
+			// _DRAW_PLAYER
+		// #else
+			// DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		// #endif
 	}
 #endif
 
@@ -242,35 +231,52 @@ extern unsigned char playerDirection;
 	#elif defined(__ZX80__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based		
 	#elif (defined(__VIC20__) && defined(TINY_GAME))||defined(__SUPERVISION__) || defined(__CREATIVISION__) || defined(__OSIC1P__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__)
-		void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard(cgetc());}}	
+		void MOVE_PLAYER(void) 
+		{
+			if(kbhit()) 
+			{ 
+				movePlayerByKeyboard(cgetc());
+			}
+			
+		}	
 	#elif defined(__ATMOS__)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(GET_CHAR());}		
+		void MOVE_PLAYER(void) 
+		{
+			movePlayerByKeyboard(GET_CHAR());
+		}		
 	#elif defined(__WINCMOC__) || defined(__CMOC__)
 		#if defined(ASM_KEY_DETECT)
 			// #include <basic.h>
 			#include "wincmoc/wincmoc_input.h"			
 			void MOVE_PLAYER(void) 
 				{
-					// if(kbhit()) 
-					// { 
-						char ch = (char) GET_CHAR(); 
-						if(ch!='')
+					char ch = (char) GET_CHAR(); 
+					if(ch!='')
+					{
+						movePlayerByKeyboard(ch); 
+					}
+					else
+					{
+						if(kbhit() && cgetc()==' ')
 						{
-							movePlayerByKeyboard(ch); 
+							movePlayerByKeyboard(' ');
 						}
-						else
-						{
-							if(kbhit())
-								if(cgetc()==' ')
-									movePlayerByKeyboard(' ');
-						}
-					// }
+					}
 				}
 		#else
-			void MOVE_PLAYER(void) {if(kbhit()) { movePlayerByKeyboard((char) cgetc());}}				
+			void MOVE_PLAYER(void) 
+			{
+				if(kbhit()) 
+				{ 
+					movePlayerByKeyboard((char) cgetc());
+				}			
+			}				
 		#endif
 	#else
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getk());}	
+		void MOVE_PLAYER(void) 
+		{
+			movePlayerByKeyboard(getk());	
+		}	
 	#endif	
 #else
 	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}

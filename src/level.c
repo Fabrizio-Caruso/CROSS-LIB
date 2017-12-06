@@ -207,6 +207,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 					initializeCharacter(&ghosts[count], 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
 				#else
 					initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+					++count;
 				#endif
 			}
 		

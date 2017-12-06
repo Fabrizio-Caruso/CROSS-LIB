@@ -33,23 +33,26 @@
 unsigned char GET_CHAR(void)
 {
 	unsigned char res;
-
+	unsigned char machine;
+	
 	asm {
 		ldd $8000
 		cmpd #$7EBB
 		beq dragon
-		lda #$1
-		bra pia
-dragon  lda #$3		
-pia		sta $FF00
 		lda #253
+		sta machine
+		bra pia
+dragon	lda #247
+		sta machine
+pia		lda #253		
 		sta $FF02
 		ldb #73
-		coma
-test    bita $ff00
+test    lda $ff00
+		cmpa machine
 		beq out
 		incb
 		rol $ff02
+		inc $ff02
 		cmpb #77
 		bne test
 		clrb 

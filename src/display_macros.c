@@ -131,8 +131,12 @@ Image BOMB_IMAGE;
 		#else
 			BOMB_IMAGE._imageData = 'X';
 		#endif
-		PLAYER_IMAGE._imageData = '*';
-
+		
+		#if !defined(__CREATIVISION__)
+			PLAYER_IMAGE._imageData = '*';			
+		#else
+			PLAYER_IMAGE._imageData = 'I';
+		#endif
 		
 		#if !defined(TINY_GAME)
 			INVINCIBLE_GHOST_IMAGE._imageData = '+';
@@ -151,7 +155,7 @@ Image BOMB_IMAGE;
 			DEAD_GHOST_IMAGE._imageData = 'O';
 		#elif defined(__APPLE2__) || defined(__GAMATE__)
 			DEAD_GHOST_IMAGE._imageData = '#';
-		#elif defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
+		#elif defined(__CREATIVISION__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
 			DEAD_GHOST_IMAGE._imageData = 'x';	
 		#elif defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__)
 			DEAD_GHOST_IMAGE._imageData = '#';				

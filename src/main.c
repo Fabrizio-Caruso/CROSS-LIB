@@ -57,13 +57,13 @@ unsigned short loop;
 unsigned char level;
 
 #if !defined(TINY_GAME)
-unsigned short invincibleSlowDown;
-unsigned char invincibleXCountDown;
-unsigned char invincibleYCountDown;
-unsigned char powerUpCoolDown;	
-unsigned char gunCoolDown;
-unsigned short ghostLevelDecrease;
-unsigned char missileDirection;
+	unsigned short invincibleSlowDown;
+	unsigned char invincibleXCountDown;
+	unsigned char invincibleYCountDown;
+	unsigned char powerUpCoolDown;	
+	unsigned char gunCoolDown;
+	unsigned short ghostLevelDecrease;
+	unsigned char missileDirection;
 #endif
 
 // Level
@@ -75,31 +75,29 @@ unsigned char missileDirection;
 // 5. invincibleSlowDown (how much the invincible ghost is slowed-down)
 // 6. invincibleLoopTrigger (how long before the invincible ghost appears)
 
-
-
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
-unsigned short invincibleLoopTrigger;
-extern Image INVINCIBLE_GHOST_IMAGE;
-extern Image POWERUP_IMAGE;
-extern Image MISSILE_IMAGE;
-extern Image GUN_IMAGE;
-extern Image DEAD_GHOST_IMAGE;
+	unsigned short invincibleLoopTrigger;
+	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image POWERUP_IMAGE;
+	extern Image MISSILE_IMAGE;
+	extern Image GUN_IMAGE;
+	extern Image DEAD_GHOST_IMAGE;
 #endif
 
 #if !defined(TINY_GAME)
-extern unsigned char powerUpBlink;
-extern unsigned char gunBlink;	
+	extern unsigned char powerUpBlink;
+	extern unsigned char gunBlink;	
 #endif
 
 #if defined(FULL_GAME)
-extern unsigned char extraPointsBlink;
-extern unsigned char extraLifeBlink;	
-extern unsigned char invincibilityBlink;
-extern unsigned char playerBlink;	
+	extern unsigned char extraPointsBlink;
+	extern unsigned char extraLifeBlink;	
+	extern unsigned char invincibilityBlink;
+	extern unsigned char playerBlink;	
 #endif
 
 #if defined(DEBUG) && defined(FULL_GAME)
@@ -114,10 +112,10 @@ extern unsigned char playerBlink;
 Character player; 
 
 #if !defined(TINY_GAME)
-Character invincibleGhost;
-Character powerUp;
-Character gun;
-Character missile;
+	Character invincibleGhost;
+	Character powerUp;
+	Character gun;
+	Character missile;
 #endif
 
 Character ghosts[GHOSTS_NUMBER];
@@ -156,10 +154,9 @@ Character bombs[BOMBS_NUMBER];
 #endif
 
 #if !defined(TINY_GAME)
-unsigned char strategyArray[GHOSTS_NUMBER];
+	unsigned char strategyArray[GHOSTS_NUMBER];
 
-
-unsigned char playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
+	unsigned char playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
 #endif
 
 unsigned int extraLifeThroughPointsCounter = 1;
@@ -167,12 +164,12 @@ unsigned int extraLifeThroughPointsCounter = 1;
 unsigned char ghostCount = GHOSTS_NUMBER;
 
 #if !defined(TINY_GAME)
-unsigned char playerFire = 0;
-unsigned char guns = GUNS_NUMBER;
+	unsigned char playerFire = 0;
+	unsigned char guns = GUNS_NUMBER;
 
 
-unsigned char invincibleGhostHits = 0;
-unsigned char invincibleGhostAlive = 1;
+	unsigned char invincibleGhostHits = 0;
+	unsigned char invincibleGhostAlive = 1;
 #endif
 
 // TODO: It should not be here
@@ -916,6 +913,7 @@ int main(void)
 	}
 
 	// GAME OVER	
+	printGameOver();
 	printGameOver();
 	sleep(2);
 	

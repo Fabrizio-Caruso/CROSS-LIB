@@ -1,0 +1,13 @@
+CREDITS
+
+I have helped by some people.
+
+This is just a partial list.
+
+Stefano Bodrato: lots of help on all Z80 targets including development on the Z88Dk to support my game.
+
+Simon Jonassen: Help on getting a good routine for the keyboard input for all CoCo and Dragon models.
+
+Christian Groessler: has helped me to improve the Makefile and fix an issue on the Atari 8-bit color version.
+
+

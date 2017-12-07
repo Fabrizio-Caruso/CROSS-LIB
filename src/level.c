@@ -275,29 +275,29 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#elif BOMBS_NUMBER==3	
 	{
 		#if defined(NO_RANDOM_LEVEL)
-		initializeCharacter(&bombs[0],XSize/3, (YSize/3),0,&BOMB_IMAGE);
+			initializeCharacter(&bombs[0],XSize/3, (YSize/3),0,&BOMB_IMAGE);
 
-		initializeCharacter(&bombs[1],XSize/2, ((YSize/3)*2),0,&BOMB_IMAGE);
+			initializeCharacter(&bombs[1],XSize/2, ((YSize/3)*2),0,&BOMB_IMAGE);
 
-		initializeCharacter(&bombs[2],2*(XSize/3), (YSize/3),0,&BOMB_IMAGE);		
+			initializeCharacter(&bombs[2],2*(XSize/3), (YSize/3),0,&BOMB_IMAGE);		
 		#else
-		unsigned char rnd = rand()%3;
-		initializeCharacter(&bombs[0],XSize/3-2+rnd, (YSize/3)-1+rnd,0,&BOMB_IMAGE);
+			unsigned char rnd = rand()%3;
+			initializeCharacter(&bombs[0],XSize/3-2+rnd, (YSize/3)-1+rnd,0,&BOMB_IMAGE);
 
-		initializeCharacter(&bombs[1],XSize/2-2+rnd, ((YSize/3)*2)-1+rnd,0,&BOMB_IMAGE);
+			initializeCharacter(&bombs[1],XSize/2-2+rnd, ((YSize/3)*2)-1+rnd,0,&BOMB_IMAGE);
 
-		initializeCharacter(&bombs[2],2*(XSize/3)-2+rnd, (YSize/3)-1-rnd,0,&BOMB_IMAGE);
+			initializeCharacter(&bombs[2],2*(XSize/3)-2+rnd, (YSize/3)-1-rnd,0,&BOMB_IMAGE);
 		#endif
 	}
 	#elif BOMBS_NUMBER==2
 		#if defined(NO_RANDOM_LEVEL)
-		initializeCharacter(&bombs[0],XSize/2, ((YSize/3)),0,&BOMB_IMAGE);
+			initializeCharacter(&bombs[0],XSize/2, ((YSize/3)),0,&BOMB_IMAGE);
 
-		initializeCharacter(&bombs[1],XSize/2, ((YSize/3)*2),0,&BOMB_IMAGE);		
+			initializeCharacter(&bombs[1],XSize/2, ((YSize/3)*2),0,&BOMB_IMAGE);		
 		#else
-		initializeCharacter(&bombs[0],XSize/2, ((YSize/3))-1+rand()%3,0,&BOMB_IMAGE);
+			initializeCharacter(&bombs[0],XSize/2, ((YSize/3))-1+rand()%3,0,&BOMB_IMAGE);
 
-		initializeCharacter(&bombs[1],XSize/2-3+rand()%7, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE);
+			initializeCharacter(&bombs[1],XSize/2-3+rand()%7, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE);
 		#endif
 	#elif BOMBS_NUMBER==1
 		initializeCharacter(&bombs[0],XSize/2-3+rand()%7, ((YSize/2))-1+rand()%3,0,&BOMB_IMAGE);
@@ -351,11 +351,11 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		#endif
 	#endif
 	#if !defined(TINY_GAME)
-	DRAW_PLAYER(player._x,player._y,player._imagePtr);
-		
-	initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
+		DRAW_PLAYER(player._x,player._y,player._imagePtr);
+			
+		initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
 
-	initializeCharacter(&invincibleGhost,XSize-2,YSize-2, 0, &INVINCIBLE_GHOST_IMAGE);
+		initializeCharacter(&invincibleGhost,XSize-2,YSize-2, 0, &INVINCIBLE_GHOST_IMAGE);
 	#endif
 	
 }

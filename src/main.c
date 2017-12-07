@@ -534,7 +534,7 @@ int main(void)
 			CLEAR_SCREEN();	
 			#endif
 		#else
-			CLEAR_SCREEN();	
+			CLEAR_SCREEN();			
 			
 			printPressKeyToStart();				
 		#endif

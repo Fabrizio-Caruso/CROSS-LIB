@@ -36,10 +36,10 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
-extern Image INVINCIBLE_GHOST_IMAGE;
-extern Image POWERUP_IMAGE;
-extern Image MISSILE_IMAGE;
-extern Image GUN_IMAGE;
+	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image POWERUP_IMAGE;
+	extern Image MISSILE_IMAGE;
+	extern Image GUN_IMAGE;
 #endif
 
 #if defined(REDEFINED_CHARS)
@@ -163,13 +163,12 @@ struct redefine_struct redefine_map[] =
 			zx_colour(PAPER_BLACK|INK_WHITE);	
 		#else
 			zx_border(INK_BLACK);
-			// zx_cls(PAPER_BLACK|INK_WHITE);		
 		#endif
 	}
 #else
 	void INIT_GRAPHICS(void)
 	{
-		// zx_cls(PAPER_BLACK|INK_WHITE);
+		printf("\x11%c",COLOR_BLACK);		
 	}	
 #endif
 

@@ -33,7 +33,15 @@
 	#define PING_SOUND() do {beep(200,0);} while(0);
 	#define TICK_SOUND() do {beep(220,0);} while(0);
 	#define TOCK_SOUND() do {beep(140,0);} while(0);
-	#define ZAP_SOUND() do {beep(160,4);} while(0);
+	#define ZAP_SOUND() \
+		do \
+			{ \
+				unsigned char i; \
+				\
+				for(i=0;i<70;++i) \
+					beep(80+i,0); \
+			} \
+		while(0);
 	
 	// TODO: Save more memory to implement it
 	#define TICK_SOUND()	

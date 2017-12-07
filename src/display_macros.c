@@ -23,12 +23,15 @@
 #include "display_macros.h"
 
 #if !defined(TINY_GAME)
-unsigned char powerUpBlink = 0;
-unsigned char gunBlink = 0;	
-unsigned char extraPointsBlink = 0;
-unsigned char extraLifeBlink = 0;	
-unsigned char invincibilityBlink = 0;
-unsigned char playerBlink = 0;	
+	unsigned char powerUpBlink = 0;
+	unsigned char gunBlink = 0;	
+#endif
+
+#if defined(FULL_GAME)
+	unsigned char extraPointsBlink = 0;
+	unsigned char extraLifeBlink = 0;	
+	unsigned char invincibilityBlink = 0;
+	unsigned char playerBlink = 0;	
 #endif
 
 Image PLAYER_IMAGE;
@@ -37,10 +40,10 @@ Image DEAD_GHOST_IMAGE;
 Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
-Image POWERUP_IMAGE;
-Image MISSILE_IMAGE;
-Image GUN_IMAGE;
-Image INVINCIBLE_GHOST_IMAGE;
+	Image POWERUP_IMAGE;
+	Image MISSILE_IMAGE;
+	Image GUN_IMAGE;
+	Image INVINCIBLE_GHOST_IMAGE;
 #endif
 
 #if defined(FULL_GAME)

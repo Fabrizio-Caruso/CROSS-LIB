@@ -27,9 +27,9 @@
 
 	#if defined(NO_SLEEP)
 		#define sleep(sec)
-	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__SPECTRUM__) && !defined(CLIB_ANSI))
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__SPECTRUM__)
 		void sleep(unsigned int sec);
-	#elif defined(__CREATIVISION__) || defined(__SUPERVISION__) || defined(__MC1000__) || defined(__OSIC1P__) || defined(__GAL__) || defined(__Z9001__) || defined(__PC6001__) || defined(__P2000__) ||defined(__NASCOM__) || defined(__BEE__) || defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) || defined(__TI86__) || defined(__TI86S__) || defined(__MZ__) || defined(__SVI__) ||defined(__TRS80__) || defined(__M5__) || defined(__MTX__) || defined(__VZ__) || defined(__SC3000__) || defined(__MSX__) || defined(__CPC__) || defined(__SPECTRUM__) || defined(__VG5K__) || defined(__AQUARIUS__)
+	#elif defined(__CREATIVISION__) || defined(__SUPERVISION__) || defined(__MC1000__) || defined(__OSIC1P__) || defined(__GAL__) || defined(__Z9001__) || defined(__PC6001__) || defined(__P2000__) ||defined(__NASCOM__) || defined(__BEE__) || defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) || defined(__TI86__) || defined(__TI86S__) || defined(__MZ__) || defined(__SVI__) ||defined(__TRS80__) || defined(__M5__) || defined(__MTX__) || defined(__VZ__) || defined(__SC3000__) || defined(__MSX__) || defined(__CPC__) || defined(__VG5K__) || defined(__AQUARIUS__)
 		void sleep(unsigned int sec);
 	#else	
 		#include <time.h>

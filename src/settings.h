@@ -28,7 +28,9 @@
 #if defined(__WINCMOC__) || defined(__CMOC__)
 	#define FULL_GAME
 	#define ASM_KEY_DETECT
-	//#define SOUNDS
+	// #define SOUNDS
+	// #define NO_TEXT
+	// #define NO_SLEEP
 #endif
 
 #if defined(__ZX81__) || defined(__LAMBDA__)

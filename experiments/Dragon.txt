@@ -1,0 +1,11 @@
+cross.vdk
+
+dskinit1
+
+SAVE "TEST.BIN",&H2800,&H72B5,&H2800
+
+LOAD "TEST.BIN"
+
+EXEC
+
+

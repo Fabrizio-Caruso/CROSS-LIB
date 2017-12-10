@@ -881,7 +881,9 @@ int main(void)
 						CLEAR_SCREEN();
 						sleep(1);
 						PING_SOUND();
-						printExtraLife();
+						#if !defined(NO_TEXT)
+							printExtraLife();
+						#endif
 						sleep(2);
 						++lives;
 					}

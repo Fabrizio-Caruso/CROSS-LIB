@@ -531,7 +531,7 @@ int main(void)
 			CLEAR_SCREEN();	
 			#endif
 		#else
-			CLEAR_SCREEN();			
+			CLEAR_SCREEN();	
 			
 			printPressKeyToStart();				
 		#endif
@@ -914,7 +914,7 @@ int main(void)
 
 	// GAME OVER	
 	printGameOver();
-	printGameOver();
+
 	sleep(2);
 	
 	#if !defined(TINY_GAME)

@@ -628,17 +628,29 @@ void printHints(void)
 
 	#if defined(NO_CASE_LETTERS)
 		printCenteredMessageOnRow(6,  "use the gun against");
+	#elif defined(__PC6001__)
+		printCenteredMessageOnRow(6,  "USE THE GUN AGAINST");	
 	#else
 		printCenteredMessageOnRow(6,  "Use the gun against");
 	#endif	
 		
-	printCenteredMessageOnRow(8,  "the skull and");
+	#if !defined(__PC6001__)
+		printCenteredMessageOnRow(8,  "the skull and");
 
-	printCenteredMessageOnRow(10, "missile bases");	
-	
-	printCenteredMessageOnRow(12, "for points and  ");
+		printCenteredMessageOnRow(10, "missile bases");	
+		
+		printCenteredMessageOnRow(12, "for points and  ");
 
-	printCenteredMessageOnRow(14, "extra powerups ");
+		printCenteredMessageOnRow(14, "extra powerups ");
+	#else
+		printCenteredMessageOnRow(8,  "THE SKULL AND");
+
+		printCenteredMessageOnRow(10, "MISSILE BASES");	
+		
+		printCenteredMessageOnRow(12, "FOR POINTS  ");
+
+		printCenteredMessageOnRow(14, "EXTRA POWERUPS  ");		
+	#endif
 	
 }
 #endif
@@ -655,13 +667,17 @@ void printStartMessage(void)
 		SET_TEXT_COLOR(TEXT_COLOR);		
 		#if defined(NO_CASE_LETTERS)
 			printCenteredMessageOnRow(5, "by fabrizio caruso");		
+		#elif defined(__PC6001__)
+			printCenteredMessageOnRow(5, "BY FABRIZIO CARUSO");				
 		#else
 			printCenteredMessageOnRow(5, "by Fabrizio Caruso");
 		#endif
 	#else
 		printCenteredMessageOnRowWithCol(3, _RED,  "CROSS CHASE");	
 		#if defined(NO_CASE_LETTERS)
-			printCenteredMessageOnRow(5, "fabrizio caruso");		
+			printCenteredMessageOnRow(5, "fabrizio caruso");	
+		#elif  defined(__PC6001__)
+			printCenteredMessageOnRow(5, "FABRIZIO CARUSO");				
 		#else
 			printCenteredMessageOnRow(5, "Fabrizio Caruso");
 		#endif		
@@ -685,10 +701,16 @@ void printStartMessage(void)
 		#else
 			#if defined(NO_CASE_LETTERS)
 				printCenteredMessageOnRow(YSize/2-1, "lure the enemies");
+			#elif defined(__PC6001__)
+				printCenteredMessageOnRow(YSize/2-1, "LURE THE ENEMIES");					
 			#else
 				printCenteredMessageOnRow(YSize/2-1, "Lure the enemies");
 			#endif		
-			printCenteredMessageOnRow(YSize/2+1, "into the mines");
+			#if !defined(__PC6001__)
+				printCenteredMessageOnRow(YSize/2+1, "into the mines");
+			#else
+				printCenteredMessageOnRow(YSize/2+1, "INTO THE MINES");
+			#endif
 		#endif
 
 		#if !defined(__ATMOS__) && !defined(NO_TEXT)
@@ -699,9 +721,17 @@ void printStartMessage(void)
 	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
 		printCenteredMessageOnRow(YSize-3, "use the joystick");
 	#elif !defined(TINY_GAME)		
-		printCenteredMessageOnRow(YSize-3, "use i j k l space");		
+		#if !defined(__PC6001__)
+			printCenteredMessageOnRow(YSize-3, "use i j k l space");
+		#else
+			printCenteredMessageOnRow(YSize-3, "USE I J K L SPACE");
+		#endif
 	#else
-		printCenteredMessageOnRow(YSize-3, "use ijkl");				
+		#if !defined(__PC6001__)
+			printCenteredMessageOnRow(YSize-3, "use ijkl");		
+		#else
+			printCenteredMessageOnRow(YSize-3, "USE IJKL");
+		#endif			
 	#endif	
 }
 #endif

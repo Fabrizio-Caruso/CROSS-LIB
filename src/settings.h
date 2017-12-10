@@ -95,6 +95,9 @@
 #elif defined(__WINCMOC__) || defined(__CMOC__) 
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 600
+#elif defined(__PC6001__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 500	
 #elif defined(__GAMATE__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 1200
@@ -201,8 +204,8 @@
 	#define CASE_LETTERS
 #endif
 
-
-#if defined(__GAMATE__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
+// || defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
+#if defined(__GAMATE__) || defined(__ZX81__) || defined(__LAMBDA__) 
 	#define BOMBS_NUMBER 3
 #elif defined(__SPECTRUM__) && !defined(TINY_GAME)
 	#define BOMBS_NUMBER 4
@@ -217,16 +220,16 @@
 #endif
 
 // Possible current values are 6,7,8,9
-#if defined(__CPC__) && defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
-	#define GHOSTS_NUMBER 7
-#elif defined(__PCE__)
+// #if defined(__CPC__) && defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
+	// #define GHOSTS_NUMBER 7
+#if defined(__PCE__)
 	#define GHOSTS_NUMBER 8
 #elif defined(__SPECTRUM__) && defined(TINY_GAME)
 	#define GHOSTS_NUMBER 8	
 #elif defined(__VIC20__) && defined(TINY_GAME)
 	#define GHOSTS_NUMBER 8
-#elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
-	#define GHOSTS_NUMBER 6
+// #elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
+	// #define GHOSTS_NUMBER 6
 #elif defined(__GAMATE__) 
 	#define GHOSTS_NUMBER 8
 #elif defined(__SPECTRUM__) && defined(FULL_GAME)
@@ -258,7 +261,7 @@
 #endif
 	
 
-#if defined(__ATARI5200__) || (defined(__AQUARIUS__) && defined(TINY_GAME)) || (defined(__VIC20__) && defined(TINY_GAME)) || defined(__PCE__) || defined(__CREATIVISION__) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__) || defined(__MC1000__) || defined(__LAMBDA__) || (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) || (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
+#if defined(__PC6001__) || defined(__ATARI5200__) || (defined(__AQUARIUS__) && defined(TINY_GAME)) || (defined(__VIC20__) && defined(TINY_GAME)) || defined(__PCE__) || defined(__CREATIVISION__) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__) || defined(__MC1000__) || defined(__LAMBDA__) || (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) || (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
 	#define NO_COLOR
 #else
 	#define COLOR
@@ -324,7 +327,7 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 50U
 
-#if defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000
 	#define INITIAL_SKULL_SLOWDOWN 32000	
 #elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)

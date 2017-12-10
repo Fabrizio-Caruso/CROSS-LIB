@@ -124,7 +124,13 @@ Image BOMB_IMAGE;
 		#if defined(NO_CASE_LETTERS)
 			GHOST_IMAGE._imageData = 'O';
 		#else
-			GHOST_IMAGE._imageData = 'o';
+		{
+			#if !defined(__PC6001__)
+				GHOST_IMAGE._imageData = 'o';
+			#else
+				GHOST_IMAGE._imageData = 'O';			
+			#endif
+		}
 		#endif
 		#if defined(__WINCMOC__) || defined(__CMOC__)
 			BOMB_IMAGE._imageData = 'x';		

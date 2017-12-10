@@ -36,3 +36,4 @@ void decreaseGhostLevel(void);
 void displayGhosts(void);
 
 #endif // _ENEMY
+

@@ -34,3 +34,4 @@ unsigned short computeInvincibleSlowDown(void);
 void computeInvincibleGhostParameters(void);
 
 #endif // _INVINCIBLE_ENEMY
+

@@ -47,3 +47,4 @@ void restoreMissile(Character *missilePtr);
 #endif
 	
 #endif //_MISSILE
+

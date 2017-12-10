@@ -75,3 +75,4 @@
 		#define CH_LRCORNER 'X'	
 	#endif	
 #endif // _CMOC_CONIO_PATCH
+

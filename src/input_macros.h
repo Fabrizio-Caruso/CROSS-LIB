@@ -57,3 +57,4 @@
 
 	void MOVE_PLAYER(void);
 #endif // _INPUT_MACROS
+

@@ -82,3 +82,4 @@
 	#define COLOR_YELLOW 6
 	#define COLOR_WHITE 7
 #endif // _Z88DK_CONIO_IMPLEMENTATION
+

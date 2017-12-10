@@ -29,6 +29,9 @@
 
 #if defined(__ATARI5200__)
 	#include <atari5200.h>
+	#if defined(FULL_GAME) && defined(NO_COLOR)
+		unsigned char __fastcall__ textcolor (unsigned char color) {return 0;};	
+	#endif
 #endif
 	
 
@@ -534,3 +537,4 @@ void INIT_IMAGES(void);
 void INIT_GRAPHICS(void);
 	
 #endif // _DISPLAY_MACROS
+

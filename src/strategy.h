@@ -48,3 +48,4 @@ void computeStrategy(void);
 void chasePlayer(unsigned short slowDown);
 
 #endif // _STRATEGY
+

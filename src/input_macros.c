@@ -28,6 +28,7 @@
 #include "invincible_enemy.h"
 #include "input_macros.h"
 
+
 extern Character player;
 
 #if !defined(TINY_GAME)
@@ -110,9 +111,14 @@ extern unsigned char playerDirection;
 			}
 		#endif
 	// TO DO: REMOVE THIS, once the bug in kbhit is fixed
-	#elif defined(__OSIC1P__)
+	#elif defined(__OSIC1P__) || defined(__NASCOM__)
+		#include "sleep_macros.h"		
+				
 		void WAIT_PRESS(void)
 		{
+			#if !defined(NO_SLEEP)
+				sleep(3);
+			#endif
 		}
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		#include<conio.h>

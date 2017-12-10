@@ -29,6 +29,7 @@
 
 #if defined(__ATARI5200__)
 	#include <atari5200.h>
+	// TODO: This is a hack to get Atari5200 to compile in FULL GAME mode
 	#if defined(FULL_GAME) && defined(NO_COLOR)
 		unsigned char __fastcall__ textcolor (unsigned char color) {return 0;};	
 	#endif

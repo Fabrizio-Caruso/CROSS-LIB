@@ -121,17 +121,19 @@ Image BOMB_IMAGE;
 			#endif		
 		#endif
 		
-		#if defined(NO_CASE_LETTERS)
-			GHOST_IMAGE._imageData = 'O';
-		#else
-		{
-			#if !defined(__PC6001__)
-				GHOST_IMAGE._imageData = 'o';
-			#else
-				GHOST_IMAGE._imageData = 'O';			
-			#endif
-		}
-		#endif
+		// #if defined(NO_CASE_LETTERS)
+			// GHOST_IMAGE._imageData = 'O';
+		// #else
+		// {
+			// #if !defined(__PC6001__)
+				// GHOST_IMAGE._imageData = 'o';
+			// #else
+				// GHOST_IMAGE._imageData = 'O';			
+			// #endif
+		// }
+		// #endif
+		GHOST_IMAGE._imageData = 'o';		
+		
 		#if defined(__WINCMOC__) || defined(__CMOC__)
 			BOMB_IMAGE._imageData = 'x';		
 		#else
@@ -157,9 +159,9 @@ Image BOMB_IMAGE;
 			MISSILE_IMAGE._imageData = '.';
 		#endif
 		
-		#if defined(__APPLE2ENH__) || defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
+		#if defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
 			DEAD_GHOST_IMAGE._imageData = 'O';
-		#elif defined(__APPLE2__) || defined(__GAMATE__)
+		#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__GAMATE__)
 			DEAD_GHOST_IMAGE._imageData = '#';
 		#elif defined(__CREATIVISION__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
 			DEAD_GHOST_IMAGE._imageData = 'x';	

@@ -24,16 +24,18 @@
 
 #include "sleep_macros.h"
 
-#if defined(__APPLE2__) || defined(__APPLE2ENH__)
-	#include "apple2/apple2_sleep.h"
-// #elif defined(__SPECTRUM__)
-	// #include "spectrum/spectrum_sleep.h"
-#elif defined(__CMOC__) || defined(__WINCMOC__)
+#if defined(__OSIC1P__)
+	#define CYCLES 500UL
+#else
+	#define CYCLES 1000UL
+#endif
+
+#if defined(__CMOC__) || defined(__WINCMOC__)
 	// Do nothing
 #else
 	void sleep(unsigned int sec) 
 	{ 
 		unsigned int ii; 
-		for(ii=0;ii<sec*1000UL;++ii){}; 
+		for(ii=0;ii<sec*CYCLES;++ii){}; 
 	}
 #endif

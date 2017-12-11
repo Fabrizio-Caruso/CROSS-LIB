@@ -102,17 +102,20 @@ apple2enh:
 	java -jar $(SOURCE_PATH)/../tools/ac.jar -cc65 $(BUILD_PATH)/FULL_apple2enh.dsk aschase B < $(BUILD_PATH)/apple2enh.bin
 	rm $(BUILD_PATH)/apple2enh.bin
 
-osic1p:
-	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME $(SOURCE_PATH)/sleep_macros.c  $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_osic1p.lod
-	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/FULL_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/FULL_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
-	rm $(BUILD_PATH)/FULL_osic1p.lod
+osic1p_32k:
+	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME $(SOURCE_PATH)/sleep_macros.c  $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_osic1p_32k.lod
+	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/FULL_osic1p_32k.lod -binary -offset 0x200 -o $(BUILD_PATH)/FULL_osic1p_32k.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/FULL_osic1p_32k.lod
+	mv $(BUILD_PATH)/FULL_osic1p_32k.c1p $(BUILD_PATH)/FULL_osic1p_32k.lod
 
 # -Wl -D,__HIMEM__=0x8000	
 # -DNO_INITIAL_SCREEN
-osic1p_tiny:
-	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(SOURCE_PATH)/../cfg/osic1p_less_stack.cfg -t osic1p -DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DNO_TEXT -DNO_SET_SCREEN_COLOR -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_osic1p.lod
-	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/TINY_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
-	rm $(BUILD_PATH)/TINY_osic1p.lod
+osic1p_8k:
+	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(SOURCE_PATH)/../cfg/osic1p_less_stack.cfg -t osic1p -DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DNO_TEXT -DNO_SET_SCREEN_COLOR -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_osic1p_8k.lod
+	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/TINY_osic1p_8k.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p_8k.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/TINY_osic1p_8k.lod
+	mv $(BUILD_PATH)/TINY_osic1p_8k.c1p $(BUILD_PATH)/TINY_osic1p_8k.lod
+	
 		
 gamate:
 	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(SOURCE_PATH)/../cfg/gamate_reduced_stack.cfg -DFULL_GAME $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/gamate/gamate_graphics.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_gamate.bin
@@ -175,7 +178,7 @@ zx81_exp_32k:
 
 cpc:
 	$(Z88DK_PATH)$(MYZ88DKASM) -v   -x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib   @$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -DSOUNDS -DFULL_GAME -vn -clib=ansi -D__CPC__ -DCPCRSLIB    -l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos -create-app -o $(BUILD_PATH)/FULL_cpc.prg $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -DSOUNDS -DFULL_GAME -vn -clib=ansi -D__CPC__ -DCPCRSLIB    -l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos -create-app -o $(BUILD_PATH)/FULL_cpc.prg  $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt
 	rm $(BUILD_PATH)/FULL_cpc.cpc 
 	rm $(BUILD_PATH)/FULL_cpc.prg
@@ -285,10 +288,10 @@ pc6001_32k:
 	
 # -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
 # -SO3 --max-allocs-per-node200000
-spectrum_newlib_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -zorg=24055 -SO3 --max-allocs-per-node200000 -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -clib=sdcc_iy -DNO_SLEEP -DNO_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_newlib.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_spectrum_newlib_CODE.bin 
-	rm $(BUILD_PATH)/TINY_spectrum_newlib_UNASSIGNED.bin
+spectrum_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -zorg=24055 -SO3 --max-allocs-per-node200000 -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -clib=sdcc_iy -DNO_SLEEP -DNO_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin 
+	rm $(BUILD_PATH)/TINY_spectrum_16k_UNASSIGNED.bin
 	
 # -pragma-redirect:ansifont=_font_8x8_zx_system -pragma-define:ansifont_is_packed=0
 spectrum_48k:
@@ -348,11 +351,6 @@ spectrum_clib_tiny:
 	rm $(BUILD_PATH)/TINY_spectrum_clib_BANK_7.bin	
 
 
-# osic1p_light:
-	# $(CC65_PATH)$(MYCC65) --start-addr 0x100 -Wl -D,__HIMEM__=0x8000 -O -t osic1p  $(SOURCE_PATH)/sleep_macros.c  $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_osic1p.lod
-	# $(TOOLS_PATH)/srec_cat $(BUILD_PATH)/LIGHT_osic1p.lod -binary -offset 0x200 -o $(BUILD_PATH)/LIGHT_osic1p.c1p -Ohio_Scientific -execution-start-address=0x200	
-	# rm $(BUILD_PATH)/LIGHT_osic1p.lod
-	
 # ISSUE with kbhit and getk: the game is turned-based
 gal_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +gal -compiler=sdcc -SO3 --max-allocs-per-node200000 -pragma-need=ansiterminal -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -vn -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -D__GAL__ -lndos -create-app -o  $(BUILD_PATH)/TINY_galaksija.prg $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -409,10 +407,6 @@ supervision_full:
 		
 		
 			
-	
-# osic1p:
-	# $(CC65_PATH)$(MYCC65) -O -t osic1p $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_osic1p.lod
-
 	
 
 pce_light:
@@ -541,11 +535,11 @@ msx_color_32k_msxdos:
 	
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos atmos_16k c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
-cc65_targets: gamate creativision_8k osic1p osic1p_tiny vic20_exp_3k vic20_exp_8k vic20_exp_16k atari_color atari_no_color atari_no_color_16k atari5200 atmos atmos_16k c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
+cc65_targets: gamate creativision_8k osic1p_8k osic1p_32k vic20_exp_3k vic20_exp_8k vic20_exp_16k atari_color atari_no_color atari_no_color_16k atari5200 atmos atmos_16k c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 # OK: aquarius_exp_16k ace_exp_16k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz microbee simcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k spectrum_newlib_tiny spectrum_48k
 # KO: zx80_exp_16k zx80_exp_32k zx81_exp_16k zx81_exp_32k msx_color_16k msx_color_32k_rom msx_color_32k lambda_16k
-z88dk_targets:  aquarius_exp_16k ace_exp_16k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz microbee simcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k pc6001_32k spectrum_newlib_tiny spectrum_48k zx80_exp_16k zx80_exp_32k zx81_exp_16k zx81_exp_32k msx_color_16k msx_color_32k_rom msx_color_32k lambda_16k
+z88dk_targets:  aquarius_exp_16k ace_exp_16k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz microbee simcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k pc6001_32k spectrum_16k spectrum_48k zx80_exp_16k zx80_exp_32k zx81_exp_16k zx81_exp_32k msx_color_16k msx_color_32k_rom msx_color_32k lambda_16k
 
 all: cc65_targets z88dk_targets
 

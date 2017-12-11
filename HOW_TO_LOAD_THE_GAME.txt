@@ -3,6 +3,17 @@ HOW TO LOAD THE GAME
 This document only describes some non-obvious procedures on how to load the game
 on some emulators (similar procedures can be followed on the real machines):
 
+
+---------------------------------------------------------
+AMSTRAD CPC
+
+You can use WinAPE
+You need to attach the image as a tape
+In BASIC type
+|tape
+run"
+Start PLAY on the virtual tape player
+
 ---------------------------------------------------------
 NES
 

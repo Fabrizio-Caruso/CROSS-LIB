@@ -253,7 +253,7 @@ void INIT_IMAGES(void)
 
 void _draw(char x, char y, Image * image) 
 {
-	POKE(BASE_MEMORY+(x+X_OFFSET)+(y+Y_OFFSET)*20,image->_imageData + image->_color);
+	POKE(BASE_MEMORY+(x+X_OFFSET)+(y+Y_OFFSET)*20,(unsigned char) ((unsigned char) image->_imageData + (unsigned char) image->_color));
 };	
 
 void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter) 

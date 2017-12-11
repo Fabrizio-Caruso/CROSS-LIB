@@ -197,7 +197,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			{
 				if(!((i==2) && (j==2)))
 				{				
-					initializeCharacter(&ghosts[count],(unsigned char) ((2*j-1)*(XSize/6)),(unsigned char) ((2*i-1)*(YSize/6)+i),1,&GHOST_IMAGE);
+					initializeCharacter(&ghosts[count],(unsigned char) ((2*j-1)*XSize)/6,(unsigned char) ((2*i-1)*YSize)/6,1,&GHOST_IMAGE);
 					++count;						
 				}
 			}
@@ -230,13 +230,13 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		}
 	}	
 	#else
-	for(i=0;i<2;++i)
+	for(i=1;i<3;++i)
 	{
-		for(j=0;j<2;++j)
+		for(j=1;j<3;++j)
 		{		
 			if(nGhosts>count)
 			{			
-				initializeCharacter(&ghosts[count],(unsigned char) (XSize/4+j*2*(XSize/4)),(unsigned char) (YSize/4+i*2*(YSize/4)+i),1,&GHOST_IMAGE);
+				initializeCharacter(&ghosts[count],(unsigned char) ((2*j-1)*XSize)/4,(unsigned char) ((2*i-1)*YSize)/4,1,&GHOST_IMAGE);
 			}
 			else
 			{

@@ -132,12 +132,14 @@ Image BOMB_IMAGE;
 			// #endif
 		// }
 		// #endif
-		GHOST_IMAGE._imageData = 'o';		
+	
 		
 		#if defined(__WINCMOC__) || defined(__CMOC__)
-			BOMB_IMAGE._imageData = 'x';		
+			BOMB_IMAGE._imageData = 'x';	
+			GHOST_IMAGE._imageData = 'O';				
 		#else
 			BOMB_IMAGE._imageData = 'X';
+			GHOST_IMAGE._imageData = 'o';			
 		#endif
 		
 		#if !defined(__CREATIVISION__)

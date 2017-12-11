@@ -503,7 +503,15 @@ void _delete(unsigned char x, unsigned char y);
 #elif defined(__ATARI5200__) || defined(ATARI_MODE1)
 	#define SET_TEXT_COLOR(c) {};
 
-	#define CLEAR_SCREEN() {clrscr();};	
+	// WORK AROUND - BUG FIX
+	#define CLEAR_SCREEN() { \
+	clrscr(); \
+	_setcolor_low(0, TGI_COLOR_RED); \
+	_setcolor_low(1, TGI_COLOR_WHITE); \
+	_setcolor_low(2, TGI_COLOR_CYAN); 	\
+	_setcolor_low(3, TGI_COLOR_BROWN); \
+	_setcolor_low(4, TGI_COLOR_BLACK);	};
+	
 #elif defined(__ATMOS__)
 	#define SET_TEXT_COLOR(c) textcolor(c)
 	

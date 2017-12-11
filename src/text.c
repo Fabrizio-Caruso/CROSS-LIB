@@ -183,9 +183,9 @@ extern Image MISSILE_IMAGE;
 
 		#if defined(__CPC__) && defined(CPCRSLIB)
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			cpc_PrintGphStrStdXY(CPC_YELLOW,")",(18+1)*2,0*8);gotoxy(18+2,0); cputc(':');
-			cpc_PrintGphStrStdXY(CPC_WHITE,"%",(18-4+1)*2,0*8);gotoxy(18-2,0); cputc(':');
-			cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1+1)*2,1*8);gotoxy(18+1,1); cputc(':');	
+			cpc_PrintGphStrStdXY(CPC_YELLOW,")",(18+1-2)*2,0*8);gotoxy(18+2-2,0); cputc(':');
+			cpc_PrintGphStrStdXY(CPC_WHITE,"%",(18-4+1-2)*2,0*8);gotoxy(18-2-2,0); cputc(':');
+			cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1+1-2)*2,1*8);gotoxy(18+1-2,1); cputc(':');	
 		#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 			SET_TEXT_COLOR(TEXT_COLOR);		
 			zx_setcursorpos(0-1, 19); cputc(GUN_IMAGE._imageData);cputc(':');

@@ -150,8 +150,8 @@ extern Image MISSILE_IMAGE;
 	{	
 		#if defined(NO_CASE_LETTERS) && defined(WIDE)	
 			SET_TEXT_COLOR(COLOR_BLUE);	
-			PRINT(-X_OFFSET+2-2, -Y_OFFSET,   "score:");
-			PRINT(-X_OFFSET+2-2, -Y_OFFSET+1, "level:");
+			PRINT(2-2, -Y_OFFSET,   "score:");
+			PRINT(2-2, -Y_OFFSET+1, "level:");
 		#elif defined(WIDE)
 			#if defined(__CPC__)
 				SET_TEXT_COLOR(_YELLOW);			
@@ -159,11 +159,11 @@ extern Image MISSILE_IMAGE;
 				SET_TEXT_COLOR(COLOR_BLUE);	
 			#endif
 			#if defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0))
-				PRINT(-X_OFFSET+2-1, -Y_OFFSET,   "SCORE:");
-				PRINT(-X_OFFSET+2-1, -Y_OFFSET+1, "LEVEL:");			
+				PRINT(2-1, -Y_OFFSET,   "SCORE:");
+				PRINT(2-1, -Y_OFFSET+1, "LEVEL:");			
 			#else
-				PRINT(-X_OFFSET+2-2, -Y_OFFSET,   "SCORE:");
-				PRINT(-X_OFFSET+2-2, -Y_OFFSET+1, "LEVEL:");	
+				PRINT(2-2, -Y_OFFSET,   "SCORE:");
+				PRINT(2-2, -Y_OFFSET+1, "LEVEL:");	
 			#endif
 		#else
 			// Nothing
@@ -193,9 +193,9 @@ extern Image MISSILE_IMAGE;
 			zx_setcursorpos(1-1, 18); cputc(PLAYER_IMAGE._imageData);cputc(':');			
 		#elif defined(WIDE)
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(19-2,0); cputc(GUN_IMAGE._imageData);cputc(':');
-			gotoxy(15-2,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(18-2,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+			gotoxy(19-2+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');
+			gotoxy(15-2+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+			gotoxy(18-2+X_OFFSET,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 		#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData+160);cputc(':');
@@ -210,9 +210,9 @@ extern Image MISSILE_IMAGE;
 			#if defined(COLOR)
 			SET_TEXT_COLOR(TEXT_COLOR);
 			#endif
-			gotoxy(11,0); cputc(GUN_IMAGE._imageData);cputc(':');
-			gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
+			gotoxy(11+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');
+			gotoxy(7+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+			gotoxy(14+X_OFFSET,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
 		#endif
 	}
 
@@ -220,9 +220,9 @@ extern Image MISSILE_IMAGE;
 	{
 		#if defined(WIDE)
 			SET_TEXT_COLOR(TEXT_COLOR);
-			PRINTF(18+2+1-2-X_OFFSET,0-Y_OFFSET,"%u",guns);
+			PRINTF(18+2+1-2,0-Y_OFFSET,"%u",guns);
 		#else
-			PRINTF(15+2+1-5-1-X_OFFSET,0-Y_OFFSET,"%u",guns);
+			PRINTF(15+2+1-5-1,0-Y_OFFSET,"%u",guns);
 		#endif
 	}
 #endif
@@ -231,9 +231,9 @@ void printLevelStats(void)
 {	
 	#if defined(WIDE) && !defined(TINY_GAME)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINTF(6-X_OFFSET,1-Y_OFFSET,"%02u", level);
+		PRINTF(6,1-Y_OFFSET,"%02u", level);
 	#else
-		PRINTF(18-X_OFFSET,0-Y_OFFSET,"%02u",level);	
+		PRINTF(18,0-Y_OFFSET,"%02u",level);	
 	#endif	
 }
 
@@ -243,9 +243,9 @@ void printGhostCountStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);		
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(18+2-2-3-X_OFFSET,0-Y_OFFSET,"%u",ghostCount);
+		PRINTF(18+2-2-3,0-Y_OFFSET,"%u",ghostCount);
 	#else
-		PRINTF(15+2-3-2-3-X_OFFSET,0-Y_OFFSET,"%u",ghostCount);	
+		PRINTF(15+2-3-2-3,0-Y_OFFSET,"%u",ghostCount);	
 	#endif	
 }
 
@@ -255,9 +255,9 @@ void printLivesStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(18+2-2-X_OFFSET,-Y_OFFSET+1,"%02u",lives);
+		PRINTF(18+2-2,-Y_OFFSET+1,"%02u",lives);
 	#else
-		PRINTF(15+2+1-5+4-1-X_OFFSET,-Y_OFFSET,"%u",lives);	
+		PRINTF(15+2+1-5+4-1,-Y_OFFSET,"%u",lives);	
 	#endif
 }
 
@@ -267,9 +267,9 @@ void displayStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(8-2-X_OFFSET,-Y_OFFSET,"%05u0",points);
+		PRINTF(8-2,-Y_OFFSET,"%05u0",points);
 	#else
-		PRINTF(3-3,0-Y_OFFSET,"%05u0",points);	
+		PRINTF(3-3,0,"%05u0",points);	
 	#endif	
 }
 

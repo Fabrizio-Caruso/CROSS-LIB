@@ -188,9 +188,9 @@ extern Image MISSILE_IMAGE;
 			cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1+1-2)*2,1*8);gotoxy(18+1-2,1); cputc(':');	
 		#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 			SET_TEXT_COLOR(TEXT_COLOR);		
-			zx_setcursorpos(0-1, 19); cputc(GUN_IMAGE._imageData);cputc(':');
-			zx_setcursorpos(0-1, 15); cputc(GHOST_IMAGE._imageData);cputc(':');
-			zx_setcursorpos(1-1, 18); cputc(PLAYER_IMAGE._imageData);cputc(':');			
+			zx_setcursorpos(0-1+1, 19-2); cputc(GUN_IMAGE._imageData);cputc(':');
+			zx_setcursorpos(0-1+1, 15-2); cputc(GHOST_IMAGE._imageData);cputc(':');
+			zx_setcursorpos(1-1+1, 18-2); cputc(PLAYER_IMAGE._imageData);cputc(':');			
 		#elif defined(WIDE)
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			gotoxy(19-2+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');

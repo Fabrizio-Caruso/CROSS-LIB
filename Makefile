@@ -160,22 +160,19 @@ ace_exp_16k:
 	rm full.tap
 	rm full
 
-zx80_exp_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx80 -O3 -vn -D__ZX80__ -lndos -create-app -o  $(BUILD_PATH)/LIGHT_zx80.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/LIGHT_zx80.prg
-
-zx80_exp_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx80 -O3 -vn -D__ZX80__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_zx80.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_zx80.prg
 	
-zx81_exp_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 -O3 -vn -D__ZX81__ -lndos -create-app -o  $(BUILD_PATH)/LIGHT_zx81.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/LIGHT_zx81.prg
+zx80_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 -O3 -vn -D__ZX80__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_zx80_16k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_zx80_16k.prg
 
-zx81_exp_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 -vn -D__ZX81__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_zx81.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_zx81.prg
+zx81_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 -O3 -vn -D__ZX81__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_zx81_16k.prg
 
+lambda_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +lambda -vn -D__LAMBDA__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_lambda_16k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_lambda_16k.prg		
+	
 cpc:
 	$(Z88DK_PATH)$(MYZ88DKASM) -v   -x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib   @$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -DSOUNDS -DFULL_GAME -vn -clib=ansi -D__CPC__ -DCPCRSLIB    -l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos -create-app -o $(BUILD_PATH)/FULL_cpc.prg  $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -204,10 +201,6 @@ svi_318_mode0:
 svi_328:
 	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 -clib=ansi -pragma-define:ansicolumns=32 -vn -lndos -DSOUNDS -DFULL_GAME -D__SVI__ -create-app -o $(BUILD_PATH)/FULL_svi_328  $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_svi_328
-
-lambda_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +lambda -vn -D__LAMBDA__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_lambda_16k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_lambda_16k.prg		
 
 sharp_mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz -O3 -D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/FULL_sharp_mz.prg $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -307,9 +300,19 @@ spectrum_48k:
 # DEBUG
 
 # It works more or less fine (as 16k version) BUT it may not exist as a real model or real expansion
+zx80_8k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 -O3 -vn -D__ZX80__ -DROUND_ENEMIES -DTINY_GAME -lndos -create-app -o  $(BUILD_PATH)/TINY_zx80_8k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_zx80_8k.prg
+	
+zx81_8k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 -O3 -vn -D__ZX81__ -DROUND_ENEMIES -DTINY_GAME -lndos -create-app -o  $(BUILD_PATH)/TINY_zx81_8k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_zx81_8k.prg
+
 lambda_8k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLOR -DNO_TEXT -DNO_SLEEP -lndos -create-app -o  $(BUILD_PATH)/TINY_lambda_8k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_lambda_8k.prg	
+	
+# -----------------------------------------------------------------------------------------------
 	
 
 pc6001_16k:
@@ -545,7 +548,7 @@ cc65_targets: gamate creativision_8k osic1p_8k osic1p_32k vic20_exp_3k vic20_exp
 
 # OK: aquarius_exp_16k ace_exp_16k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz microbee simcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k spectrum_newlib_tiny spectrum_48k
 # KO: zx80_exp_16k zx80_exp_32k zx81_exp_16k zx81_exp_32k msx_color_16k msx_color_32k_rom msx_color_32k lambda_16k
-z88dk_targets:  aquarius_exp_16k ace_exp_16k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz microbee simcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k pc6001_32k spectrum_16k spectrum_48k zx80_exp_16k zx80_exp_32k zx81_exp_16k zx81_exp_32k msx_color_16k msx_color_32k_rom msx_color_32k lambda_16k 
+z88dk_targets:  aquarius_exp_16k ace_exp_16k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz microbee simcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k pc6001_32k spectrum_16k spectrum_48k zx80_16k zx81_16k lambda_16k  msx_color_16k msx_color_32k_rom msx_color_32k 
 
 all: cc65_targets z88dk_targets
 

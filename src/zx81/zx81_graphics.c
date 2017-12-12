@@ -29,11 +29,14 @@
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
+
+#if !defined(TINY_GAME)
+extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
+#endif
 
 #if defined(FULL_GAME)
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
@@ -60,13 +63,16 @@ void INIT_GRAPHICS(void)
 void INIT_IMAGES(void)
 {		
 	GHOST_IMAGE._imageData = 'o';
-	INVINCIBLE_GHOST_IMAGE._imageData = '+';
 	BOMB_IMAGE._imageData = 'X';
 	PLAYER_IMAGE._imageData = '*';
+	DEAD_GHOST_IMAGE._imageData = 'O';
+	
+	#if !defined(TINY_GAME)
+	INVINCIBLE_GHOST_IMAGE._imageData = '+';	
 	POWERUP_IMAGE._imageData = 'S';
 	GUN_IMAGE._imageData = '!';
 	MISSILE_IMAGE._imageData = '.';
-	DEAD_GHOST_IMAGE._imageData = 'O';
+	#endif
 
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
@@ -108,6 +114,7 @@ void _delete(unsigned char x, unsigned char y)
 	cputc(' ');
 }
 
+#if !defined(TINY_GAME)
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
 	if(*blinkCounter) 
@@ -121,9 +128,12 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		*blinkCounter=1;
 	}	
 }
+#endif
+
 
 #if defined(__ACE__)
 #else
+	#if !defined(TINY_GAME)
 	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	{ 
 		unsigned char i;
@@ -143,6 +153,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 			cputc('-');
 		}
 	}
+	#endif
 #endif
 		
 

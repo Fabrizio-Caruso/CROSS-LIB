@@ -367,7 +367,20 @@ void _delete(unsigned char x, unsigned char y);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
 #elif defined(__ORIC1__)
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
-	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(""); } while(0);
+	
+	#define _oric1_draw_digit(c,x,y) POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, c+48);
+	#define _oric1_draw(n,x,y) \
+	{ \
+		_oric1_draw_digit((n/100000),x,y) \
+		_oric1_draw_digit((n/10000),x+1,y) \
+		_oric1_draw_digit((n/1000),x+2,y) \
+		_oric1_draw_digit((n/100),x+3,y) \
+		_oric1_draw_digit((n/10),x+4,y) \
+		_oric1_draw_digit(n,x+5,y) \
+	}
+	
+	// TODO: PRINTF needs to be redefined for ORIC-1 in order to avoid the rom routine
+	#define PRINTF(x,y,str,val) _oric1_draw(val,x,y)
 #else
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);

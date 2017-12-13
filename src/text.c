@@ -96,7 +96,7 @@ extern Image MISSILE_IMAGE;
 #if defined(COLOR)
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
-		PRINTF((XSize - strlen (Text)) / 2, row,"%s", Text)		
+		PRINT((XSize - strlen (Text)) / 2, row, Text)		
 	}
 	
 	void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text)
@@ -108,7 +108,7 @@ extern Image MISSILE_IMAGE;
 #else
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
-		PRINTF((XSize - strlen (Text)) / 2, row,"%s", Text)		
+		PRINT((XSize - strlen (Text)) / 2, row, Text)		
 	}
 	#define printCenteredMessageOnRowWithCol(row, col, Text) \
 		printCenteredMessageOnRow(row, Text)

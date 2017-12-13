@@ -170,7 +170,7 @@ zx81_16k:
 	rm $(BUILD_PATH)/FULL_zx81_16k.prg
 
 lambda_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +lambda -vn -D__LAMBDA__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_lambda_16k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +lambda -O3 -vn -D__LAMBDA__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_lambda_16k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_lambda_16k.prg		
 	
 cpc:
@@ -309,7 +309,7 @@ zx81_8k:
 	rm $(BUILD_PATH)/TINY_zx81_8k.prg
 
 lambda_8k:
-	$(Z88DK_PATH)$(MYZ88DK) +lambda -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLOR -DNO_TEXT -DNO_SLEEP -lndos -create-app -o  $(BUILD_PATH)/TINY_lambda_8k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +lambda -O3 -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLOR -DNO_TEXT -DNO_SLEEP -lndos -create-app -o  $(BUILD_PATH)/TINY_lambda_8k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_lambda_8k.prg	
 	
 # -----------------------------------------------------------------------------------------------
@@ -366,6 +366,9 @@ gal_tiny:
 	rm $(BUILD_PATH)/TINY_galaksija.prg
 	rm $(BUILD_PATH)/TINY_galaksija.wav	
 
+conio_nascom:
+	$(Z88DK_PATH)$(MYZ88DK) +nascom experiments/coniotest.c -create-app -o  $(BUILD_PATH)/conio.nas
+			
 conio:
 	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/conio.c -o  $(BUILD_PATH)/conio.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/conio.bin

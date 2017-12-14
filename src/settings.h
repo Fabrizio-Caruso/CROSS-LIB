@@ -65,7 +65,7 @@
 #endif
 	
 
-#if defined(__MC1000__) || defined(__OSIC1P__) || defined(__WINCMOC__) || defined(__CMOC__) ||  defined(__GAL__)  || defined(__Z9001__) || defined(__ABC80__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__)
+#if defined(__NASCOM__) || defined(__MC1000__) || defined(__OSIC1P__) || defined(__WINCMOC__) || defined(__CMOC__) ||  defined(__GAL__)  || defined(__Z9001__) || defined(__ABC80__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__)
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'
@@ -98,6 +98,9 @@
 #elif defined(__PC6001__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 500	
+#elif defined(__NASCOM__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 2500
 #elif defined(__GAMATE__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 1200

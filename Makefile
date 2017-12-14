@@ -49,7 +49,7 @@ atmos_16k:
 
 
 oric1_16k:
-	$(CC65_PATH)$(MYCC65) -O  -t atmos -D__ORIC1__ --config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg $(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_atmos_16k.tap
+	$(CC65_PATH)$(MYCC65) -O  -t atmos -D__ORIC1__ --config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg $(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_oric1_16k.tap
 	
 	
 vic20_exp_16k:
@@ -327,13 +327,15 @@ pc6001_16k:
 # kbhit KO
 # Everything displayed on the same line
 nascom_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +nascom -O3  -pragma-define:ansicolumns=32 -Cz-audio -D__NASCOM__ -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/FULL_nascom.prg $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_nascom.prg
+	$(Z88DK_PATH)$(MYZ88DK) +nascom -O3 -clib=ansi -vn -lndos -D__NASCOM__ -DCLIB_ANSI -D__NASCOM__ -DSOUNDS -DFULL_GAME -lndos -create-app -o $(BUILD_PATH)/FULL_nascom_32k.prg $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_nascom_32k.prg
 	
 	
+# -DSOUNDS
+# -pragma-define:ansicolumns=32  -Cz-audio 
 nascom_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +nascom -O3  -pragma-define:ansicolumns=32 -D__NASCOM__ -Cz-audio -vn -DSOUNDS -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/LIGHT_nascom.prg $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
-	rm $(BUILD_PATH)/LIGHT_nascom.prg
+	$(Z88DK_PATH)$(MYZ88DK) +nascom -O3 -clib=ansi -vn -lndos -D__NASCOM__ -DCLIB_ANSI -D__NASCOM__ -DSOUNDS  -create-app -o $(BUILD_PATH)/LIGHT_nascom_16k.prg $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	rm $(BUILD_PATH)/LIGHT_nascom_16k.prg
 	
 
 	

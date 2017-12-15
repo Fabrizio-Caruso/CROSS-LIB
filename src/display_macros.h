@@ -365,35 +365,48 @@ void _delete(unsigned char x, unsigned char y);
 #elif defined(__SPECTRUM__)
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
-#elif defined(__ORIC1__)
-	#define PRINT(x,y,str) \
-	
-		// do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
-	
-	#define _oric1_draw_digit(c,x,y) \
-		POKE(0xBB80+((x)+X_OFFSET)+((y)+Y_OFFSET)*40, (unsigned char)((c)+48))
-	
-	
-	#define _oric1_draw_2digits(n,x,y) \
-	{ \
-		_oric1_draw_digit(((n)/10),(x),(y)); \
-		_oric1_draw_digit((n),((x)+1),(y)); \
-	}
-	
-	#define _oric1_draw_score(n,x,y) \
-	{ \
-		_oric1_draw_digit((n/10000),x,y); \
-		_oric1_draw_digit((n/1000),x+1,y); \
-		_oric1_draw_digit((n/100),x+2,y); \
-		_oric1_draw_digit((n/10),x+3,y); \
-		_oric1_draw_digit(n,x+4,y); \
-		_oric1_draw_digit(0,x+5,y); \
-	}
-	
-	// TODO: PRINTF needs to be redefined for ORIC-1 in order to avoid th        vvve rom routine
-	#define PRINTF(x,y,str,val) \
-	{ \
-	}
+// #elif defined(__ORIC1__)
+
+        // #define _oric1_draw_ch(c,x,y) \
+                // POKE(0xBB80+((x)+X_OFFSET)+((y)+Y_OFFSET)*40, c)
+
+        // #define PRINT(x,y,str) \
+                // do \
+                // { \
+                        // unsigned char i = 0; \
+                        // while(str[i]!='\0') \
+                        // { \
+                                // _oric1_draw_ch(str[i],x+i,y); \
+                                // ++i; \
+                        // } \
+                // } \
+                // while(0);
+
+
+        // #define _oric1_draw_digit(c,x,y) \
+                // _oric1_draw_ch((c+48),x,y)
+
+
+        // #define _oric1_draw_2digits(n,x,y) \
+        // { \
+                // _oric1_draw_digit(((n)/10),(x),(y)); \
+                // _oric1_draw_digit((n),((x)+1),(y)); \
+        // }
+
+        // #define _oric1_draw_score(n,x,y) \
+        // { \
+                // _oric1_draw_digit((n/10000),x,y); \
+                // _oric1_draw_digit((n/1000),x+1,y); \
+                // _oric1_draw_digit((n/100),x+2,y); \
+                // _oric1_draw_digit((n/10),x+3,y); \
+                // _oric1_draw_digit(n,x+4,y); \
+                // _oric1_draw_digit(0,x+5,y); \
+        // }
+
+        // #define PRINTF(x,y,str,val) \
+        // { \
+        // }
+
 #else
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);

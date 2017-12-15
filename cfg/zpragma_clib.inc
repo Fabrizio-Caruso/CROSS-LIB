@@ -14,5 +14,5 @@
 #pragma output CLIB_STDIO_HEAP_SIZE = 0
 
 // eliminate unused printf converters
-#pragma printf = "%s %0u"    // placed used converters here, empty string if none
+#pragma printf = "%0u"    // placed used converters here, empty string if none
 

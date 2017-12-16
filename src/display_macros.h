@@ -500,7 +500,12 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define CLEAR_SCREEN() do {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}} while(0)
 
-#elif defined(__ATARI5200__) || defined(ATARI_MODE1)
+#elif defined(__ATARI5200__)
+	#define SET_TEXT_COLOR(c) {};
+
+	#define CLEAR_SCREEN() clrscr()
+		
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define SET_TEXT_COLOR(c) {};
 
 	// WORK AROUND - BUG FIX

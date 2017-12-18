@@ -34,16 +34,31 @@
 	#define HI_FREQ_1 0xFF12 	
 	#define SELECT 0xFF11 
 
-	void EXPLOSION_SOUND(void);
 	
-	void SHOOT_SOUND(void);
+	void _noise_sound(unsigned char type);
 	
-	void PING_SOUND(void);
+	// void EXPLOSION_SOUND(void);
+	
+	// void SHOOT_SOUND(void);
+	
+	#define EXPLOSION_SOUND() _noise_sound(220)
+	
+	#define SHOOT_SOUND() _noise_sound(160)
+	
+	void _short_sound(unsigned char freq);
+	
+	// void PING_SOUND(void);
+	
+	// void TOCK_SOUND(void);
+	
+    // void TICK_SOUND(void);
+
+	#define PING_SOUND() _short_sound(120)
+	
+	#define TOCK_SOUND() _short_sound(80)
+	
+	#define TICK_SOUND() _short_sound(170)
 	
 	void ZAP_SOUND(void);
-	
-	void TOCK_SOUND(void);
-	
-    void TICK_SOUND(void);
-	
+		
 #endif // __C264_SOUNDS

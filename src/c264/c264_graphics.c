@@ -33,6 +33,12 @@
 
 #include "../display_macros.h"
 
+#if defined(FULL_GAME)
+	#define UDG_BASE_FACTOR 29
+#else
+	#define UDG_BASE_FACTOR 15
+#endif
+
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
@@ -92,32 +98,32 @@ void INIT_GRAPHICS(void)
 	POKE(1177,62); // disable switch to RAM in PEEK
 	for(i=0;i<1023;++i)
 	{
-		POKE(24576+4096+1024+i,PEEK((unsigned long) (54272ul+(unsigned long) i)));
+		POKE(UDG_BASE_FACTOR*1024+i,PEEK((unsigned long) (54272ul+(unsigned long) i)));
 	}
 	POKE(1177,63); // re-enable switch to RAM in PEEK
-	POKE(65299ul,(PEEK(65299ul)&3)|((29)*4)); // change character base address to 28th Kbyte
+	POKE(65299ul,(PEEK(65299ul)&3)|((UDG_BASE_FACTOR)*4)); // change character base address to 28th Kbyte
 	POKE(65298ul,PEEK(65298ul)&251); // make graphics chip get characters from RAM
 	
-	redefine(24576+4096+1024+296,player_down);
-	redefine(24576+4096+1024+296+8,player_up);		
-	redefine(24576+4096+1024+296+8*2,player_right);
-	redefine(24576+4096+1024+296+8*3,player_left);
+	redefine(UDG_BASE_FACTOR*1024+296,player_down);
+	redefine(UDG_BASE_FACTOR*1024+296+8,player_up);		
+	redefine(UDG_BASE_FACTOR*1024+296+8*2,player_right);
+	redefine(UDG_BASE_FACTOR*1024+296+8*3,player_left);
 	
-	redefine(24576+4096+1024+296+8*4,missile_right);
-	redefine(24576+4096+1024+296+8*5,missile_left);	
+	redefine(UDG_BASE_FACTOR*1024+296+8*4,missile_right);
+	redefine(UDG_BASE_FACTOR*1024+296+8*5,missile_left);	
 	
-	redefine(24576+4096+1024+296+8*6,invincible_ghost);
-	redefine(24576+4096+1024+296+8*7,gun);
+	redefine(UDG_BASE_FACTOR*1024+296+8*6,invincible_ghost);
+	redefine(UDG_BASE_FACTOR*1024+296+8*7,gun);
 
-	redefine(24576+4096+1024+296-8*2,powerUp);
-	redefine(24576+4096+1024+296+8*9,missile);
+	redefine(UDG_BASE_FACTOR*1024+296-8*2,powerUp);
+	redefine(UDG_BASE_FACTOR*1024+296+8*9,missile);
 
-	redefine(24576+4096+1024+296+8*10,bomb); //47
-	redefine(24576+4096+1024+296-8*3,ghost);
-	redefine(24576+4096+1024+296+8*22,bubble);
-	redefine(24576+4096+1024+296+8*23,invincibility);
-	redefine(24576+4096+1024+296+8*24,vertical_brick); 
-	redefine(24576+4096+1024+296+8*25,horizontal_brick);	
+	redefine(UDG_BASE_FACTOR*1024+296+8*10,bomb); //47
+	redefine(UDG_BASE_FACTOR*1024+296-8*3,ghost);
+	redefine(UDG_BASE_FACTOR*1024+296+8*22,bubble);
+	redefine(UDG_BASE_FACTOR*1024+296+8*23,invincibility);
+	redefine(UDG_BASE_FACTOR*1024+296+8*24,vertical_brick); 
+	redefine(UDG_BASE_FACTOR*1024+296+8*25,horizontal_brick);	
 }
  
  

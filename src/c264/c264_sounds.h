@@ -55,9 +55,9 @@
 
 	#define PING_SOUND() _short_sound(120)
 	
-	#define TOCK_SOUND() _short_sound(80)
+	#define TOCK_SOUND() _short_sound(60)
 	
-	#define TICK_SOUND() _short_sound(170)
+	#define TICK_SOUND() _short_sound(220)
 	
 	void ZAP_SOUND(void);
 		

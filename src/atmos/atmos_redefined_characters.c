@@ -64,6 +64,41 @@ void redefine(unsigned long loc, const unsigned char * data)
 	}
 }
 
+// struct redefine_struct
+// {
+   // unsigned char ascii;
+   // unsigned char bitmap[8];
+// } ;
+
+// struct redefine_struct redefine_map[] =
+// {
+	// {GHOST_IMAGE,                {33,30,33,51,33,45,33,30}},
+	// {BOMB_IMAGE,                 {30,33,51,45,45,51,33,30};
+	// {POWERUP_IMAGE,              {0,30,51,55,51,26,18,12};
+	// {INVINCIBLE_GHOST_IMAGE,     {30,33,51,33,33,18,18,12};
+	// {GUN_IMAGE,                  { 0,32,31,40,56,32, 0, 0};
+	// {MISSILE_IMAGE,              { 0, 0, 4,28,14, 8, 0, 0};
+	// {DEAD_GHOST_IMAGE,           {18,30,33,51,33,45,51,30};
+	// {PLAYER_LEFT,                {12,22,12,62,13,12,20,20};
+	// {PLAYER_RIGHT,               {12,26,12,31,44,12,10,10};		
+	// {PLAYER_UP,                  {12,30,12,51,45,12,18,51};
+	// {PLAYER_DOWN,	             {12,18,12,51,45,12,18,51};
+	// {VERTICAL_BAR,               {12,12,12,12,12,12,12,12};
+	// {HORIZONTAL_BAR,             { 0, 0, 0,63,63,00,00,00};
+	// {CORNER,                     {63,63,63,51,51,63,63,63};
+
+	// static const char vertical_brick[] =   { 24, 24, 24, 48, 24, 12, 24, 24};
+	// static const char horizontal_brick[] = {  0,  0,  0,255,  0,  0,  0,  0};		
+	
+	// #if defined(FULL_GAME)
+		// const unsigned char right_arrow[] =             { 0, 0,56,31,31,56, 0, 0};
+		// const unsigned char left_arrow[] =            { 0, 0, 7,62,62, 7, 0, 0};
+		
+		// const unsigned char bubble[] =            	   {12,30,30,30,63,45,33,33};
+		// const unsigned char invincibility[] =           {12,18,12,51, 0,12, 0,51};		
+	// #endif		
+// };
+
 void INIT_IMAGES(void)
 {		
 	unsigned char i;
@@ -87,8 +122,6 @@ void INIT_IMAGES(void)
 	const unsigned char horizontal_bar[] =           { 0, 0, 0,63,63,00,00,00};
 	const unsigned char corner[] =                   {63,63,63,51,51,63,63,63};
 
-	const unsigned char invincibility[] =           {12,18,12,51, 0,12, 0,51};
-	
 	static const char vertical_brick[] =   { 24, 24, 24, 48, 24, 12, 24, 24};
 	static const char horizontal_brick[] = {  0,  0,  0,255,  0,  0,  0,  0};		
 	
@@ -97,7 +130,7 @@ void INIT_IMAGES(void)
 		const unsigned char left_arrow[] =            { 0, 0, 7,62,62, 7, 0, 0};
 		
 		const unsigned char bubble[] =            	   {12,30,30,30,63,45,33,33};
-		//{ 30, 33, 33, 45, 45, 33, 33, 30};
+		const unsigned char invincibility[] =           {12,18,12,51, 0,12, 0,51};		
 	#endif
 	
 	PLAYER_DOWN._color = 0;		

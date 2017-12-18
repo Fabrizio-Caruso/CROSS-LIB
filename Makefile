@@ -44,11 +44,6 @@ atari5200:
 atmos:
 	$(CC65_PATH)$(MYCC65)  -O  -DSOUNDS -DREDEFINED_CHARS -DFULL_GAME -t atmos --config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg $(SOURCE_PATH)/atmos/atmos_redefined_characters.c $(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_atmos.tap
 
-	
-atmos_16k:
-	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DREDEFINED_CHARS -t atmos --config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg $(SOURCE_PATH)/atmos/atmos_redefined_characters.c $(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_atmos_16k.tap
-
-
 oric1_16k:
 	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DREDEFINED_CHARS -t atmos --config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg $(SOURCE_PATH)/atmos/atmos_redefined_characters.c $(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_oric1_16k.tap
 
@@ -317,6 +312,9 @@ c16_16k_plus:
 
 
 # It works more or less fine (as 16k version) BUT it may not exist as a real model or real expansion
+atmos_16k:
+	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DREDEFINED_CHARS -t atmos --config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg $(SOURCE_PATH)/atmos/atmos_redefined_characters.c $(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_atmos_16k.tap
+
 zx80_8k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 -O3 -vn -D__ZX80__ -DROUND_ENEMIES -DTINY_GAME -lndos -create-app -o  $(BUILD_PATH)/TINY_zx80_8k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_zx80_8k.prg
@@ -556,13 +554,13 @@ cpc_no_color_no_udg:
 msx_color_32k_msxdos:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -O3 -DSOUNDS -DREDEFINED_CHARS -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -lndos -subtype=msxdos -o $(BUILD_PATH)/FULL_msx_color_32k.com $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	
-.PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos atmos_16k c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
+.PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
-cc65_targets: gamate creativision_8k osic1p_8k osic1p_32k vic20_exp_3k vic20_exp_8k vic20_exp_16k atari_color atari_no_color atari_no_color_16k atari5200 atmos atmos_16k c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
+cc65_targets: gamate creativision_8k osic1p_8k osic1p_32k vic20_exp_3k vic20_exp_8k vic20_exp_16k atari_color atari_no_color atari_no_color_16k atari5200 atmos oric1_48k oric1_16k c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 # OK: aquarius_exp_16k ace_exp_16k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz microbee simcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k spectrum_newlib_tiny spectrum_48k
 # KO: zx80_exp_16k zx80_exp_32k zx81_exp_16k zx81_exp_32k msx_color_16k msx_color_32k_rom msx_color_32k lambda_16k
-z88dk_targets:  aquarius_exp_16k ace_exp_16k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz microbee simcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k pc6001_32k spectrum_16k spectrum_48k zx80_16k zx81_16k lambda_16k  msx_color_16k msx_color_32k_rom msx_color_32k 
+z88dk_targets:  aquarius_exp_16k ace_exp_16k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz microbee samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k pc6001_32k nascom_16k nascom_32k spectrum_16k spectrum_48k zx80_16k zx81_16k lambda_16k  msx_color_16k msx_color_32k_rom msx_color_32k 
 
 all: cc65_targets z88dk_targets
 

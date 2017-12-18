@@ -36,7 +36,7 @@
 #if defined(FULL_GAME)
 	#define UDG_BASE_FACTOR 29
 #else
-	#define UDG_BASE_FACTOR 15
+	#define UDG_BASE_FACTOR 17
 #endif
 
 extern Image PLAYER_IMAGE;

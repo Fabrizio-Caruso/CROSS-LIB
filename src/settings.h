@@ -122,9 +122,12 @@
 #elif defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 200
-#elif defined(__C16__) || defined(__PLUS4__)
+#elif (defined(__C16__) || defined(__PLUS4__)) && defined(FULL_GAME)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 110	
+	#define GAME_SLOW_DOWN 80	
+#elif (defined(__C16__) || defined(__PLUS4__)) && !defined(FULL_GAME)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 140		
 #elif defined(__C64__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 50		

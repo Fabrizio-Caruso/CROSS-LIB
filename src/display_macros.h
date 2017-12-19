@@ -413,7 +413,7 @@ void _delete(unsigned char x, unsigned char y);
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-#elif defined(__C16__) || defined(__PLUS4__)
+#elif (defined(__C16__) || defined(__PLUS4__)) && defined(REDEFINED_CHARS)
 	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);	
 	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);	
 #elif defined(__CBM__) || defined(__ATARI5200__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)

@@ -186,7 +186,7 @@ void INIT_GRAPHICS(void)
 	
 	for(i=0;i<sizeof(redefine_map)/sizeof(*redefine_map);++i)
 	{
-		memcpy(UDG_BASE_FACTOR*1024 + (redefine_map[i].ascii)*8, redefine_map[i].bitmap, 8);		
+		memcpy((unsigned char *)(UDG_BASE_FACTOR*1024 + (redefine_map[i].ascii)*8), redefine_map[i].bitmap, 8);		
 	}
 	
 	// redefine(UDG_BASE_FACTOR*1024+296,player_down);

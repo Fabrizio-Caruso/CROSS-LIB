@@ -12,5 +12,6 @@ src/nes/nes_graphics.s
 *.swp
 *.swo
 src/wincmoc_input.c
+src/wincmoc_graphics.c
 ./tools/cpcrslib/cpcrslib.lib
 

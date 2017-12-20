@@ -102,7 +102,7 @@ Image PLAYER_LEFT;
 	unsigned char i; \
 	for (i=0;i<8;++i) \
 	{ \
-		POKE(BASE_ADDR+x+X_OFFSET+(y+i+Y_OFFSET)*XSize,Table[char_map[image].bitmap[i]]); \
+		POKE(BASE_ADDR+x+X_OFFSET+(y+i+Y_OFFSET)*XSize,char_map[image].bitmap[i]); \
 	} \
 }
 

@@ -30,34 +30,34 @@
 #define _PLAYER_RIGHT 2
 #define _PLAYER_LEFT 3
 
-#define _GUN 
+#define _GUN 4
 
 // YELLOW
-#define _INVINCIBLE_GHOST 4 
-#define _VERTICAL_BRICK 5
-#define _HORIZONTAL_BRICK 6
-#define _EXTRA_LIFE 7
-#define _EXTRA_POINTS 8
+#define _INVINCIBLE_GHOST 5
+#define _VERTICAL_BRICK 6
+#define _HORIZONTAL_BRICK 7
+#define _EXTRA_LIFE 8
+#define _EXTRA_POINTS 9
 
 // GREEN
-#define _POWERUP  9
+#define _POWERUP  10
 
 // RED
-#define _BOMB 10
-#define _DEAD_GHOST 11 
+#define _BOMB 11
+#define _DEAD_GHOST 12
 
 
-#define _INVINCIBILITY 12
-#define _MISSILE 13
+#define _INVINCIBILITY 13
+#define _MISSILE 14
 
 
-#define _GHOST 14
+#define _GHOST 15
 
-#define _LEFT_ENEMY_MISSILE 15
-#define _RIGHT_ENEMY_MISSILE 16
-#define _BUBBLE 17
+#define _LEFT_ENEMY_MISSILE 16
+#define _RIGHT_ENEMY_MISSILE 17
+#define _BUBBLE 18
 
-#include "../display_macros.h"
+#include "display_macros.h"
 
 extern unsigned char XSize;
 
@@ -230,24 +230,24 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
-#if defined(REDEFINED_CHARS)
-	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-	{ 
-		unsigned char i;
-		for(i=0;i<length;++i)
-		{
-			_DRAW_VERTICAL_WALL(x,y+i);
-		}
-	}
+// #if defined(REDEFINED_CHARS)
+	// void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+	// { 
+		// unsigned char i;
+		// for(i=0;i<length;++i)
+		// {
+			// _DRAW_VERTICAL_WALL(x,y+i);
+		// }
+	// }
 
-	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-	{
-		unsigned char i;
-		for(i=0;i<length;++i)
-		{
-			_DRAW_HORIZONTAL_WALL(x+i,y);
-		}
-	}
-#endif	
+	// void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+	// {
+		// unsigned char i;
+		// for(i=0;i<length;++i)
+		// {
+			// _DRAW_HORIZONTAL_WALL(x+i,y);
+		// }
+	// }
+// #endif	
 
 

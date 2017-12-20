@@ -7,7 +7,7 @@ rm -f src/wincmoc_graphics.c
 
 cp src/wincmoc/wincmoc_input.c  src/wincmoc_input.c
 
-cp src/wincmoc/wincmoc_graphics.c  src/wincmoc_graphics.c
+cp src/wincmoc/wincmoc_graphics.c src/wincmoc_graphics.c
 
 for file in $(ls src/*.c)
 do 

@@ -22,6 +22,10 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+#if defined(__VIC20__) && defined(REDEFINED_CHARS) && !defined(FULL_GAME)
+	#pragma code-name(push, "CODE2")
+#endif
+
 #include "enemy.h"
 #include "settings.h"
 
@@ -57,3 +61,7 @@ void displayGhosts(void)
 		DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
 	}
 }
+
+#if defined(__VIC20__) && defined(REDEFINED_CHARS) && !defined(FULL_GAME)
+	#pragma code-name(pop)
+#endif

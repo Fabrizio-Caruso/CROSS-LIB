@@ -22,6 +22,11 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+#if defined(__VIC20__) && defined(REDEFINED_CHARS) && !defined(FULL_GAME)
+	#pragma code-name(push, "CODE2")
+#endif
+
+
 #include "character.h"
 #include "settings.h"
 #include "display_macros.h"
@@ -288,3 +293,7 @@ extern unsigned char playerDirection;
 	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
 #endif
 
+
+#if defined(__VIC20__) && defined(REDEFINED_CHARS) && !defined(FULL_GAME)
+	#pragma code-name(pop)
+#endif

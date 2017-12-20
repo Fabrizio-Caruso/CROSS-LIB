@@ -29,39 +29,47 @@
 #include <vic20.h>
 	
 // BLUE
-#define _PLAYER 0x3B
-#define _PLAYER_DOWN 0x3B
-#define _PLAYER_UP 0x3C
-#define _PLAYER_RIGHT 0x3D 
-#define _PLAYER_LEFT 0x3E
+#define _PLAYER '\'';
+#define _PLAYER_DOWN '\'';
+#define _PLAYER_UP 0x70
+#define _PLAYER_RIGHT 0x74 
+#define _PLAYER_LEFT 0x72
 
-#define _GUN 0x3F
+#define _GUN 0x7B
 
 // YELLOW
-#define _INVINCIBLE_GHOST 0x27
+#define _INVINCIBLE_GHOST 0x77
 #define _VERTICAL_BRICK 0x26
-#define _HORIZONTAL_BRICK 0x24
-#define _EXTRA_LIFE 0x25
-#define _EXTRA_POINTS 0x22
+#define _HORIZONTAL_BRICK 0x2B
+#define _EXTRA_LIFE _PLAYER
+#define _EXTRA_POINTS '*'
 
 // GREEN
-#define _POWERUP  0x2C
+#define _POWERUP  0x7A;
 
 // RED
-#define _BOMB 0x5E
-#define _DEAD_GHOST 0x5B
-// #define _MISSILE 0x5F
+#define _BOMB 0x78
+//0x5E
+
 
 // CYAN
-#define _INVINCIBILITY 0x08
-#define _MISSILE 0x09
+#define _INVINCIBILITY '!'
+#define _MISSILE 0x7C
 
 // WHITE
-#define _GHOST 0x7E
+#define _GHOST 0x76
+//_GHOST 0x7E
 
-#define _LEFT_ENEMY_MISSILE ((unsigned char)0x7B)
-#define _RIGHT_ENEMY_MISSILE ((unsigned char)0x7D)
-#define _BUBBLE ((unsigned char)0x60)
+#define _DEAD_GHOST _GHOST
+
+
+#define _LEFT_ENEMY_MISSILE '>'
+
+//((unsigned char)0x7B)
+#define _RIGHT_ENEMY_MISSILE '<'
+
+//((unsigned char)0x7D)
+#define _BUBBLE '^'
 
 #include "../display_macros.h"
 
@@ -96,7 +104,7 @@ Image PLAYER_RIGHT;
 Image PLAYER_LEFT;
 
 
-#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData); } while(0)
+#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); textcolor(image->_color); cputc(image->_imageData); } while(0)
 #define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
 #define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
 #define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
@@ -114,6 +122,35 @@ void INIT_GRAPHICS(void)
 
 void INIT_IMAGES(void)
 {		
+	PLAYER_IMAGE._color = COLOR_CYAN;
+	INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+	POWERUP_IMAGE._color = COLOR_BLUE;
+	GUN_IMAGE._color = COLOR_BLUE;
+	BOMB_IMAGE._color = COLOR_RED;
+	DEAD_GHOST_IMAGE._color = COLOR_RED;
+
+
+	GHOST_IMAGE._color = COLOR_WHITE;
+	MISSILE_IMAGE._color = COLOR_WHITE;
+
+	PLAYER_DOWN._color = COLOR_CYAN;
+	PLAYER_UP._color = COLOR_CYAN;
+	PLAYER_RIGHT._color = COLOR_CYAN;
+	PLAYER_LEFT._color = COLOR_CYAN;
+
+	#if defined(FULL_GAME)
+		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
+		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+		
+		BUBBLE_IMAGE._color = COLOR_WHITE;
+		
+		EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
+		
+		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+		
+		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
+	#endif	
+
 
 	GHOST_IMAGE._imageData = _GHOST;
 	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;

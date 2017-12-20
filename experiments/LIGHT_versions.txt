@@ -1,0 +1,13 @@
+29.8 KB LIGHT_abc.ihx
+10.5 KB LIGHT_atari_no_color_16k.xex
+10.7 KB LIGHT_c16_16k.prg
+6.38 MB LIGHT_mc1000_16k.wav
+10.4 KB LIGHT_msx_color_16k.cas
+41.0 KB LIGHT_nascom_16k.nas
+11.4 KB LIGHT_oric1_16k.tap
+13.8 KB LIGHT_p2000.cas
+24.7 KB LIGHT_svi_318_mode0.cas
+11.6 KB LIGHT_vg5k.k7
+10.1 KB LIGHT_vic20_exp_8k.prg
+11.2 KB LIGHT_vz200_16k.vz
+11.1 KB LIGHT_Z9001.TAP

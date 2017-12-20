@@ -91,6 +91,8 @@ Image BOMB_IMAGE;
 	//
 #elif defined(__GAMATE__)
 	//	
+#elif defined(__VIC20__) && defined(REDEFINED_CHARS)
+	//
 #elif (defined(__WINCMOC__) || defined(__CMOC__)) && defined(REDEFINED_CHARS)
 	//
 #else

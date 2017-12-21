@@ -427,7 +427,9 @@ void _delete(unsigned char x, unsigned char y);
 	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
 #elif (defined(__C16__) || defined(__PLUS4__)) && defined(REDEFINED_CHARS)
 	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);	
-	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);	
+	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
+#elif defined(__C64__) || defined(__VIC20__)
+	#define DRAW_VERTICAL_LINE(x,y,length) do {(void) textcolor (COLOR_YELLOW);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);} while(0)		
 #elif defined(__CBM__) || defined(__ATARI5200__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#define DRAW_VERTICAL_LINE(x,y,length) do {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);} while(0)	
 #elif defined(__GAMATE__)

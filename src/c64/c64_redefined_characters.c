@@ -108,7 +108,7 @@ void INIT_IMAGES(void)
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
 		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
 		
-		INVINCIBILITY_IMAGE._imageData = '!';
+		INVINCIBILITY_IMAGE._imageData = 0x73;
 		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
 	#endif
 	

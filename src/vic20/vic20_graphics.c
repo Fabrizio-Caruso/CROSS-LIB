@@ -53,7 +53,7 @@
 
 
 // CYAN
-#define _INVINCIBILITY '!'
+#define _INVINCIBILITY 0x73
 #define _MISSILE 0x7C
 
 // WHITE

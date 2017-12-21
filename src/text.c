@@ -353,16 +353,39 @@ void setScreenColors(void)
 				printCenteredMessageWithCol(_WHITE, "YOU WON");
 			}
 	#elif (defined(__VIC20__) || defined(__C16__) ) && defined(FULL_GAME)
-			void printExtraLife(void)
-			{
-				printCenteredMessageWithCol(_RED, "EXTRA LIFE"); 
-			}
+			#if defined(NO_CASE_LETTERS)
+				void printExtraLife(void)
+				{
+					printCenteredMessageWithCol(_RED, "extra life"); 
+				}
 
-			void printVictoryMessage(void)
-			{
-				printCenteredMessageWithCol(_WHITE, "Y O U  W O N");
-			}
+				void printVictoryMessage(void)
+				{
+					printCenteredMessageWithCol(_WHITE, "y o u  w o n");
+				}		
+			#else
+				void printExtraLife(void)
+				{
+					printCenteredMessageWithCol(_RED, "EXTRA LIFE"); 
+				}
+
+				void printVictoryMessage(void)
+				{
+					printCenteredMessageWithCol(_WHITE, "Y O U  W O N");
+				}
+			#endif
 	#elif (defined(__VIC20__) || defined(__C16__) ) && !defined(FULL_GAME)
+			#if defined(NO_CASE_LETTERS)
+				void printExtraLife(void)
+				{
+					printCenteredMessageWithCol(_RED, "extra life"); 
+				}
+
+				void printVictoryMessage(void)
+				{
+					printCenteredMessageWithCol(_WHITE, "you won");
+				}			
+			#else
 			void printExtraLife(void)
 			{
 				printCenteredMessageWithCol(_RED,   "EXTRA LIFE"); 
@@ -372,16 +395,17 @@ void setScreenColors(void)
 			{
 				printCenteredMessageWithCol(_WHITE, "YOU WON");
 			}		
+			#endif
 	#elif defined(NO_CASE_LETTERS)
-			void printExtraLife(void)
-			{
-				printCenteredMessageWithCol(_RED, "e x t r a  l i f e"); 
-			}
+				void printExtraLife(void)
+				{
+					printCenteredMessageWithCol(_RED, "e x t r a  l i f e"); 
+				}
 
-			void printVictoryMessage(void)
-			{
-				printCenteredMessageWithCol(_WHITE, "y o u   w o n");
-			}
+				void printVictoryMessage(void)
+				{
+					printCenteredMessageWithCol(_WHITE, "y o u   w o n");
+				}
 	#else
 			void printExtraLife(void)
 			{
@@ -412,35 +436,69 @@ void setScreenColors(void)
 				printCenteredMessageWithCol(_WHITE, "YOU LOST");
 			}	
 	#elif (defined(__VIC20__) || defined(__C16__) ) && defined(FULL_GAME)
-			void printPressKeyToStart(void)
-			{			
-				printCenteredMessage("PRESS ANY KEY");
-			}
-			
-			void printGameOver(void)
-			{			
-				printCenteredMessageWithCol(_WHITE, "G A M E  O V E R");
-			}
+			#if defined(NO_CASE_LETTERS)
+				void printPressKeyToStart(void)
+				{			
+					printCenteredMessage("press any key");
+				}
+				
+				void printGameOver(void)
+				{			
+					printCenteredMessageWithCol(_WHITE, "g a m e  o v e r");
+				}
 
-			void printDefeatMessage(void)
-			{
-				printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
-			}	
-	#elif (defined(__VIC20__) || defined(__C16__) ) && !defined(FULL_GAME)		
-			void printPressKeyToStart(void)
-			{		
-				printCenteredMessage(               "PRESS ANY KEY");
-			}
-						
-			void printGameOver(void)
-			{		
-				printCenteredMessageWithCol(_WHITE, "GAME OVER");
-			}
-			
-			void printDefeatMessage(void)
-			{			
-				printCenteredMessageWithCol(_WHITE, "YOU LOST");
-			}		
+				void printDefeatMessage(void)
+				{
+					printCenteredMessageWithCol(_WHITE, "y o u  l o s t");
+				}	
+			#else
+				void printPressKeyToStart(void)
+				{			
+					printCenteredMessage("PRESS ANY KEY");
+				}
+				
+				void printGameOver(void)
+				{			
+					printCenteredMessageWithCol(_WHITE, "G A M E  O V E R");
+				}
+
+				void printDefeatMessage(void)
+				{
+					printCenteredMessageWithCol(_WHITE, "Y O U  L O S T");
+				}	
+			#endif
+	#elif (defined(__VIC20__) || defined(__C16__) ) && !defined(FULL_GAME)	
+			#if defined(NO_CASE_LETTERS)
+				void printPressKeyToStart(void)
+				{			
+					printCenteredMessage("press any key");
+				}
+				
+				void printGameOver(void)
+				{			
+					printCenteredMessageWithCol(_WHITE, "game over");
+				}
+
+				void printDefeatMessage(void)
+				{
+					printCenteredMessageWithCol(_WHITE, "you lost");
+				}	
+			#else		
+				void printPressKeyToStart(void)
+				{		
+					printCenteredMessage(               "PRESS ANY KEY");
+				}
+							
+				void printGameOver(void)
+				{		
+					printCenteredMessageWithCol(_WHITE, "GAME OVER");
+				}
+				
+				void printDefeatMessage(void)
+				{			
+					printCenteredMessageWithCol(_WHITE, "YOU LOST");
+				}		
+			#endif
 	#elif defined(NO_CASE_LETTERS)
 			void printPressKeyToStart(void)
 			{
@@ -474,25 +532,25 @@ void setScreenColors(void)
 	#endif
 #else
 	#if defined(NO_CASE_LETTERS)
-	void printPressKeyToStart(void)
-	{
-		printCenteredMessage("go");
-	}		
-	
-	void printGameOver(void)
-	{
-		printCenteredMessage(" game over ");
-	}	
+		void printPressKeyToStart(void)
+		{
+			printCenteredMessage("go");
+		}		
+		
+		void printGameOver(void)
+		{
+			printCenteredMessage(" game over ");
+		}	
 	#else
-	void printPressKeyToStart(void)
-	{
-		printCenteredMessage("GO");
-	}		
-	
-	void printGameOver(void)
-	{
-		printCenteredMessage(" GAME OVER ");
-	}	
+		void printPressKeyToStart(void)
+		{
+			printCenteredMessage("GO");
+		}		
+		
+		void printGameOver(void)
+		{
+			printCenteredMessage(" GAME OVER ");
+		}	
 	#endif
 #endif
 

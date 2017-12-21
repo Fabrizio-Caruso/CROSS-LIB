@@ -90,18 +90,27 @@ void printKillTheSkull(void);
 	#define finalScore() _printScore("%05u0", points);
 
 	#define highScoreScreen() _printScore("%05u0", highScore);	
-#elif !defined(__C64__)
-	#define printLevelBonus(bonus) _printScore("BONUS: %u0", bonus);
-
-	#define finalScore() _printScore("SCORE: %05u0", points);
-
-	#define highScoreScreen() _printScore("HIGH SCORE: %05u0", highScore);
-#else
+#elif defined(__C64__)
 	#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);
 
 	#define finalScore() _printScore("score: %05u0", points);
 
-	#define highScoreScreen() _printScore("high score: %05u0", highScore);	
+	#define highScoreScreen() _printScore("high score: %05u0", highScore);
+#else
+	#if defined(NO_CASE_LETTERS)
+		#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);
+
+		#define finalScore() _printScore("score: %05u0", points);
+
+		#define highScoreScreen() _printScore("high score: %05u0", highScore);	
+
+	#else
+		#define printLevelBonus(bonus) _printScore("BONUS: %u0", bonus);
+
+		#define finalScore() _printScore("SCORE: %05u0", points);
+
+		#define highScoreScreen() _printScore("HIGH SCORE: %05u0", highScore);	
+	#endif
 #endif
 
 void printHints(void);

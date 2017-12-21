@@ -473,6 +473,17 @@ void setScreenColors(void)
 			}		
 	#endif
 #else
+	#if defined(NO_CASE_LETTERS)
+	void printPressKeyToStart(void)
+	{
+		printCenteredMessage("go");
+	}		
+	
+	void printGameOver(void)
+	{
+		printCenteredMessage(" game over ");
+	}	
+	#else
 	void printPressKeyToStart(void)
 	{
 		printCenteredMessage("GO");
@@ -481,7 +492,8 @@ void setScreenColors(void)
 	void printGameOver(void)
 	{
 		printCenteredMessage(" GAME OVER ");
-	}			
+	}	
+	#endif
 #endif
 
 
@@ -663,7 +675,11 @@ void printStartMessage(void)
 	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
 		atmos_splash_title();
 	#elif !defined(TINY_GAME)
-		printCenteredMessageOnRowWithCol(3, _RED,  "C R O S S  C H A S E");		
+		#if defined(NO_CASE_LETTERS)
+			printCenteredMessageOnRowWithCol(3, _RED,  "c r o s s  c h a s e");				
+		#else
+			printCenteredMessageOnRowWithCol(3, _RED,  "C R O S S  C H A S E");		
+		#endif
 		SET_TEXT_COLOR(TEXT_COLOR);		
 		#if defined(NO_CASE_LETTERS)
 			printCenteredMessageOnRow(5, "by fabrizio caruso");		

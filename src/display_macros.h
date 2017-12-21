@@ -316,20 +316,32 @@ void _delete(unsigned char x, unsigned char y);
 			DRAW_VERTICAL_LINE(0,1,YSize-2); \
 			DRAW_HORIZONTAL_LINE (0,YSize-1,XSize);\
 		}	
-#elif defined(CC65) && (defined(WIDE) || defined(__VIC20__) || defined(__GAMATE__))
-	#define DRAW_BORDERS()\
-		{ \
-			SET_TEXT_COLOR(TEXT_COLOR); \
-			gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-			cputc (CH_ULCORNER);\
-			chline (XSize-2);\
-			cputc (CH_URCORNER);\
-			cvlinexy (0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
-			cputc (CH_LLCORNER);\
-			chline (XSize-2);\
-			cputc (CH_LRCORNER);\
-			cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
-		}	
+#elif defined(CC65) && (defined(WIDE) || defined(__VIC20__)) || defined(__GAMATE__)
+	#if defined(__C64__) || defined(__VIC20__)
+		#define DRAW_BORDERS()\
+			{ \
+				SET_TEXT_COLOR(COLOR_YELLOW); \
+				gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+				chline (XSize);\
+				cvlinexy (0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
+				chline (XSize);\
+				cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
+			}		
+	#else
+		#define DRAW_BORDERS()\
+			{ \
+				SET_TEXT_COLOR(TEXT_COLOR); \
+				gotoxy(0+X_OFFSET,0+Y_OFFSET); \
+				cputc (CH_ULCORNER);\
+				chline (XSize-1);\
+				cputc (CH_URCORNER);\
+				cvlinexy (0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
+				cputc (CH_LLCORNER);\
+				chline (XSize-1);\
+				cputc (CH_LRCORNER);\
+				cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
+			}	
+	#endif
 #elif defined(__ATARI5200__) || (defined(__SVI__) && defined(MSX_MODE0))
 		#define DRAW_BORDERS() \
 		{ \

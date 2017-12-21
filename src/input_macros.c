@@ -22,7 +22,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#if defined(__VIC20__) && defined(REDEFINED_CHARS) && !defined(FULL_GAME)
+#if defined(__VIC20__) && defined(REDEFINED_CHARS) && !defined(FULL_GAME) && !defined(TINY_GAME)
 	#pragma code-name(push, "CODE2")
 #endif
 
@@ -161,40 +161,35 @@ extern unsigned char playerDirection;
 	#include <joystick.h>
 	
 	#if defined(__SUPERVISION__)
-	void movePlayerByJoystick(unsigned char joyInput)
-	{
-	}		
+		void movePlayerByJoystick(unsigned char joyInput)
+		{
+		}		
 	#else
-	void movePlayerByJoystick(unsigned char joyInput)
-	{
-		if(JOY_UP(joyInput))
+		void movePlayerByJoystick(unsigned char joyInput)
 		{
-			_DO_MOVE_UP
-		}
-		else if(JOY_DOWN(joyInput))
-		{
-			_DO_MOVE_DOWN
-		}
-		else if(JOY_LEFT(joyInput))
-		{
-			_DO_MOVE_LEFT
-		}
-		else if(JOY_RIGHT(joyInput))
-		{
-			_DO_MOVE_RIGHT
-		}
-		#if !defined(TINY_GAME)
-		else if(JOY_BTN_1(joyInput) && guns>0 && !missile._status)
-		{
-			playerFire = 1;
-		}
-		#endif
-		// #if defined(FULL_GAME)
-			// _DRAW_PLAYER	
-		// #else
-			// DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		// #endif
-	}	
+			if(JOY_UP(joyInput))
+			{
+				_DO_MOVE_UP
+			}
+			else if(JOY_DOWN(joyInput))
+			{
+				_DO_MOVE_DOWN
+			}
+			else if(JOY_LEFT(joyInput))
+			{
+				_DO_MOVE_LEFT
+			}
+			else if(JOY_RIGHT(joyInput))
+			{
+				_DO_MOVE_RIGHT
+			}
+			#if !defined(TINY_GAME)
+			else if(JOY_BTN_1(joyInput) && guns>0 && !missile._status)
+			{
+				playerFire = 1;
+			}
+			#endif
+		}	
 	#endif
 #else
 	void movePlayerByKeyboard(unsigned char kbInput)
@@ -221,11 +216,6 @@ extern unsigned char playerDirection;
 			playerFire = 1;
 		}
 		#endif
-		// #if defined(FULL_GAME)
-			// _DRAW_PLAYER
-		// #else
-			// DRAW_PLAYER(player._x, player._y, player._imagePtr);
-		// #endif
 	}
 #endif
 
@@ -294,6 +284,6 @@ extern unsigned char playerDirection;
 #endif
 
 
-#if defined(__VIC20__) && defined(REDEFINED_CHARS) && !defined(FULL_GAME)
+#if defined(__VIC20__) && defined(REDEFINED_CHARS) && !defined(FULL_GAME) && !defined(TINY_GAME)
 	#pragma code-name(pop)
 #endif

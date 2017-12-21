@@ -103,13 +103,16 @@ Image PLAYER_UP;
 Image PLAYER_RIGHT;
 Image PLAYER_LEFT;
 
-
-#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); textcolor(image->_color); cputc(image->_imageData); } while(0)
-#define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
-#define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
-#define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
-#define _DRAW_BROKEN_WALL(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
-
+#if !defined(NO_COLOR)
+	#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); textcolor(image->_color); cputc(image->_imageData); } while(0)
+	#define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
+	#define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
+	#define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
+	#define _DRAW_BROKEN_WALL(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
+#else
+	#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData); } while(0)
+	#define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
+#endif
 
 
 void INIT_GRAPHICS(void)
@@ -122,49 +125,55 @@ void INIT_GRAPHICS(void)
 
 void INIT_IMAGES(void)
 {		
-	PLAYER_IMAGE._color = COLOR_CYAN;
-	INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-	POWERUP_IMAGE._color = COLOR_BLUE;
-	GUN_IMAGE._color = COLOR_BLUE;
-	BOMB_IMAGE._color = COLOR_RED;
-	DEAD_GHOST_IMAGE._color = COLOR_RED;
+	#if !defined(NO_COLOR)
+		PLAYER_IMAGE._color = COLOR_CYAN;
+		INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+		POWERUP_IMAGE._color = COLOR_BLUE;
+		GUN_IMAGE._color = COLOR_BLUE;
+		BOMB_IMAGE._color = COLOR_RED;
+		DEAD_GHOST_IMAGE._color = COLOR_RED;
 
 
-	GHOST_IMAGE._color = COLOR_WHITE;
-	MISSILE_IMAGE._color = COLOR_WHITE;
+		GHOST_IMAGE._color = COLOR_WHITE;
+		MISSILE_IMAGE._color = COLOR_WHITE;
 
-	PLAYER_DOWN._color = COLOR_CYAN;
-	PLAYER_UP._color = COLOR_CYAN;
-	PLAYER_RIGHT._color = COLOR_CYAN;
-	PLAYER_LEFT._color = COLOR_CYAN;
+		PLAYER_DOWN._color = COLOR_CYAN;
+		PLAYER_UP._color = COLOR_CYAN;
+		PLAYER_RIGHT._color = COLOR_CYAN;
+		PLAYER_LEFT._color = COLOR_CYAN;
 
-	#if defined(FULL_GAME)
-		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
-		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
-		
-		BUBBLE_IMAGE._color = COLOR_WHITE;
-		
-		EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-		
-		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
-		
-		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
-	#endif	
+		#if defined(FULL_GAME)
+			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
+			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+			
+			BUBBLE_IMAGE._color = COLOR_WHITE;
+			
+			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
+			
+			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+			
+			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
+		#endif	
+	#endif
 
-
+	
 	GHOST_IMAGE._imageData = _GHOST;
-	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
-	PLAYER_IMAGE._imageData = _PLAYER;
-	POWERUP_IMAGE._imageData = _POWERUP;
-	GUN_IMAGE._imageData = _GUN;
-	MISSILE_IMAGE._imageData = _MISSILE;
-	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
+	PLAYER_IMAGE._imageData = _PLAYER;	
+	
+	#if !defined(TINY_GAME)
+		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 
-	PLAYER_DOWN._imageData = _PLAYER_DOWN;
-	PLAYER_UP._imageData = _PLAYER_UP;	
-	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-	PLAYER_LEFT._imageData = _PLAYER_LEFT;		
+		POWERUP_IMAGE._imageData = _POWERUP;
+		GUN_IMAGE._imageData = _GUN;
+		MISSILE_IMAGE._imageData = _MISSILE;
+		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
+
+		PLAYER_DOWN._imageData = _PLAYER_DOWN;
+		PLAYER_UP._imageData = _PLAYER_UP;	
+		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+		PLAYER_LEFT._imageData = _PLAYER_LEFT;		
+	#endif
 
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;

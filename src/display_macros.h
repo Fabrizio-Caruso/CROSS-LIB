@@ -164,7 +164,7 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) do {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;} while(0)
 #endif
 
-#if defined(REDEFINED_CHARS)
+#if defined(REDEFINED_CHARS) && !defined(TINY_GAME)
 	extern Image PLAYER_LEFT;
 	extern Image PLAYER_RIGHT;
 	extern Image PLAYER_UP;

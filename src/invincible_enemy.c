@@ -46,7 +46,7 @@ unsigned short computeInvincibleSlowDown(void)
 {
 	if(loop<1600)
 	{
-		return INITIAL_SKULL_SLOWDOWN - (level/4) * 1000 - ghostLevel*16;
+		return INITIAL_SKULL_SLOWDOWN - level * 250 - ghostLevel*16;		
 	}
 	return INVINCIBLE_MAX_SPEED; // You must die!
 }

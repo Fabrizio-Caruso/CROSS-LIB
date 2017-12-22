@@ -32,6 +32,9 @@
 #include "strategy.h"
 
 
+#define X_MOVE 0
+#define Y_MOVE 1
+
 extern unsigned char level;
 extern unsigned char ghostCount;
 extern unsigned short invincibleSlowDown;
@@ -41,28 +44,6 @@ extern Character ghosts[GHOSTS_NUMBER];
 
 extern unsigned char strategyArray[GHOSTS_NUMBER];
 
-
-// #if defined(__WINCMOC__) || defined(__CMOC__)
-// unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
-// {
-	// unsigned char hunterPos = *((unsigned char *)hunterPtr+offset);
-	// unsigned char preyPos = *((unsigned char *)preyPtr+offset);
-	
-	// if(hunterPos < preyPos)
-	// {
-		// ++(*((unsigned char *) hunterPtr+offset));
-	// }
-	// else if(hunterPos > preyPos)
-	// {
-		// --(*((unsigned char *) hunterPtr+offset));
-	// }	
-	// else
-	// {
-		// return 0;
-	// }
-	// return 1;
-// }
-// #else
 unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
 {
 	if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)preyPtr+offset))
@@ -81,65 +62,31 @@ unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offse
 	}
 	return 1;
 }
-// #endif
 
-// unsigned char moveX(Character* hunterPtr, Character* preyPtr)
-// {
-	// if(hunterPtr->_x<preyPtr->_x)
-	// {
-		// ++hunterPtr->_x;
-	// }
-	// else if(hunterPtr->_x>preyPtr->_x)
-	// {
-		// --hunterPtr->_x;
-	// }	
-	// else
-	// {
-		// return 0;
-	// }
-	// return 1;
-// }
-
-// unsigned char moveY(Character* hunterPtr, Character* preyPtr)
-// {
-    // if(hunterPtr->_y<preyPtr->_y)
-	// {
-		// ++hunterPtr->_y;
-	// }
-	// else if(hunterPtr->_y>preyPtr->_y)
-	// {
-		// --hunterPtr->_y;
-	// }	
-	// else
-	// {
-		// return 0;
-	// }
-	// return 1;
-// }
 
 // TODO: Design issue: we delete the invincible enemy
 // This should be made generic even though it works
 void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 {
-	if(move(hunterPtr, preyPtr,0))
+	if(move(hunterPtr, preyPtr,X_MOVE))
 	{
 		return;
 	}
 	else
 	{
-		move(hunterPtr, preyPtr,1);
+		move(hunterPtr, preyPtr,Y_MOVE);
 	}
 }
 
 void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 {
-	if(move(hunterPtr, preyPtr,1))
+	if(move(hunterPtr, preyPtr,Y_MOVE))
 	{
 		return;
 	}
 	else
 	{
-		move(hunterPtr, preyPtr,0);
+		move(hunterPtr, preyPtr,X_MOVE);
 	}
 }
 
@@ -149,29 +96,29 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 // 0 means always horizontal
 // 9 means always vertical
 #if !defined(TINY_GAME)
-void moveTowardCharacter(Character *hunterPtr, unsigned char strategy)
-{
-	if(rand()%10 > strategy) // Select blind chase strategy
-		{ // 0 - 4
-			blindChaseCharacterXStrategy(hunterPtr, &player);	
-		}
-		else
-		{ // 5 - 9
-			blindChaseCharacterYStrategy(hunterPtr, &player);
-		}
-}
+	void moveTowardCharacter(Character *hunterPtr, unsigned char strategy)
+	{
+		if(rand()%10 > strategy) // Select blind chase strategy
+			{ // 0 - 4
+				blindChaseCharacterXStrategy(hunterPtr, &player);	
+			}
+			else
+			{ // 5 - 9
+				blindChaseCharacterYStrategy(hunterPtr, &player);
+			}
+	}
 #else
-void moveTowardCharacter(Character *hunterPtr)
-{
-	if(rand()%10 > 4) // Select blind chase strategy
-		{ // 0 - 4
-			blindChaseCharacterXStrategy(hunterPtr, &player);
-		}
-		else
-		{ // 5 - 9
-			blindChaseCharacterYStrategy(hunterPtr, &player);
-		}
-}	
+	void moveTowardCharacter(Character *hunterPtr)
+	{
+		if(rand()%10 > 4) // Select blind chase strategy
+			{ // 0 - 4
+				blindChaseCharacterXStrategy(hunterPtr, &player);
+			}
+			else
+			{ // 5 - 9
+				blindChaseCharacterYStrategy(hunterPtr, &player);
+			}
+	}	
 #endif
 
 #if !defined(TINY_GAME)
@@ -183,43 +130,43 @@ void computeStrategy(void)
 		switch(level)
 		{
 			case 1: case 2: case 3: case 4: case 5:
-				for(i=0; i<5; ++i) // 4
+				for(i=0; i<4; ++i) // 4
 				{
 					strategyArray[i] = 4; // no preference (approximate straight line)
 				}
-				for(i=5; i<7; ++i) // 2
+				for(i=4; i<6; ++i) // 2
 				{
 					strategyArray[i] = 3; // slightly prefer X (60%)
 				}
-				for(i=7; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
+				for(i=6; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
 				{
 					strategyArray[i] = 5; // slightly prefer Y (60%)
 				}
 			break;
 			case 6: case 7: case 8: case 9: case 10: // 4,2,2
-				for(i=0; i<5; ++i) // 4
+				for(i=0; i<4; ++i) // 4
 				{
 					strategyArray[i] = 4; // no preference (approximate straight line)
 				}
-				for(i=5; i<7; ++i) // 2
+				for(i=4; i<6; ++i) // 2
 				{
 					strategyArray[i] = 2; // prefer X (70%)
 				}
-				for(i=7; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
+				for(i=6; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
 				{
 					strategyArray[i] = 6; // prefer Y (70%)
 				}
 			break;
 			case 11: case 12: case 13: case 14: case 15: // 4,2,2		
-				for(i=0; i<5; ++i) // 4
+				for(i=0; i<4; ++i) // 4
 				{
 					strategyArray[i] = 4; // no preference (approximate straight line)
 				}
-				for(i=5; i<7; ++i) // 2
+				for(i=4; i<6; ++i) // 2
 				{
 					strategyArray[i] = 1; // strongly prefer X (80%)
 				}
-				for(i=7; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
+				for(i=6; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
 				{
 					strategyArray[i] = 7; // strongly prefer Y (80%)
 				}

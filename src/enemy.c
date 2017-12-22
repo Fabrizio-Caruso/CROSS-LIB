@@ -39,7 +39,7 @@ unsigned short computeGhostSlowDown(void)
 {
 	if(ghostLevel<1000)
 		return INITIAL_ENEMY_SLOWDOWN-level*200-ghostLevel*16;
-	return 1000;
+	return ENEMY_MAX_SPEED;
 }
 
 #if !defined(TINY_GAME)

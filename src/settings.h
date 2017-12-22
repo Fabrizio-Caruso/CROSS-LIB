@@ -382,4 +382,8 @@
 
 #define INVINCIBLE_LOOP_TRIGGER (610 - level*15)
 
+#define INVINCIBLE_MAX_SPEED 2500
+
+#define ENEMY_MAX_SPEED 1200
+
 #endif // _SETTINGS

@@ -527,8 +527,8 @@ int main(void)
 			initialScreen();
 			
 			#if !defined(TINY_GAME)
-			WAIT_PRESS();
-			CLEAR_SCREEN();	
+				WAIT_PRESS();
+				CLEAR_SCREEN();	
 			#endif
 		#else
 			CLEAR_SCREEN();	
@@ -536,8 +536,10 @@ int main(void)
 			printPressKeyToStart();				
 		#endif
 
-		highScoreScreen();	
-		WAIT_PRESS();		
+		#if defined(TINY_GAME) || defined(FULL_GAME)
+			highScoreScreen();	
+			WAIT_PRESS();	
+		#endif
 		#if !defined(TINY_GAME)
 
 			CLEAR_SCREEN();

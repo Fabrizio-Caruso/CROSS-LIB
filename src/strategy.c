@@ -136,28 +136,13 @@ void computeStrategy(void)
 				}
 				for(i=4; i<6; ++i) // 2
 				{
-					strategyArray[i] = 2; // slightly prefer X (70%)
+					strategyArray[i] = 2; // prefer X (70%)
 				}
 				for(i=6; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
 				{
-					strategyArray[i] = 6; // slightly prefer Y (70%)
+					strategyArray[i] = 6; // prefer Y (70%)
 				}
 			break;
-			// case 6: case 7: case 8: case 9: case 10: // 4,2,2
-				// for(i=0; i<4; ++i) // 4
-				// {
-					// strategyArray[i] = 4; // no preference (approximate straight line)
-				// }
-				// for(i=4; i<6; ++i) // 2
-				// {
-					// strategyArray[i] = 2; // prefer X (70%)
-				// }
-				// for(i=6; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
-				// {
-					// strategyArray[i] = 6; // prefer Y (70%)
-				// }
-			// break;
-			//case 11: case 12: case 13: case 14: case 15: // 4,2,2
 			case 6: case 7: case 8: case 9: case 10: // 4,2,2			
 				for(i=0; i<4; ++i) // 4
 				{
@@ -172,7 +157,7 @@ void computeStrategy(void)
 					strategyArray[i] = 7; // strongly prefer Y (80%)
 				}
 			break;		
-			default: // 2, 3, 3 from level 21 on
+			default: // 2, 3, 3 from level 11 on
 				for(i=0; i<2; ++i) // 2
 				{
 					strategyArray[i] = 4; // no preference (approximate straight line)

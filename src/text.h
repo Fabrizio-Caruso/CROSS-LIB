@@ -83,6 +83,9 @@ void _printScore(char * text, unsigned int score);
 
 void printKillTheSkull(void);
 
+#if !defined(TINY_GAME)
+	#define _printTopScore() _printScoreOnRow(0,"%05u0", highScore);
+#endif
 
 #if defined(TINY_GAME)
 	#define printLevelBonus(bonus) _printScore("%u0", bonus);

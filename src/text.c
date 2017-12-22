@@ -304,14 +304,21 @@ void setScreenColors(void)
 	#endif
 #endif
 	
-#if defined (__VG5K__)
-	void _printScore(char * text, unsigned int score)
+
+
+#if !defined(TINY_GAME)
+	void _printScoreOnRow(unsigned char row, char * text, unsigned int score)
 	{
 		char levelString[22];
 
 		sprintf(levelString, text, score);
 
-		printCenteredMessage(levelString);	
+		printCenteredMessageOnRow(row, levelString);	
+	}	
+	
+	void _printScore(char * text, unsigned int score)
+	{
+		_printScoreOnRow(YSize/2, text, score);
 	}
 #else
 	void _printScore(char * text, unsigned int score)
@@ -320,9 +327,10 @@ void setScreenColors(void)
 
 		sprintf(levelString, text, score);
 
-		printCenteredMessage(levelString);
-	}
+		printCenteredMessage(levelString);	
+	}	
 #endif
+
 
 #if defined(__VG5K__) || defined(__CREATIVISION__) || defined(__PCE__) || defined(__GAMATE__) || (defined(__VIC20__) && !defined(FULL_GAME))
 	void gameCompleted(void)	
@@ -733,6 +741,7 @@ void printStartMessage(void)
 	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
 		atmos_splash_title();
 	#elif !defined(TINY_GAME)
+		_printTopScore();
 		#if defined(NO_CASE_LETTERS)
 			printCenteredMessageOnRowWithCol(3, _RED,  "c r o s s  c h a s e");				
 		#else

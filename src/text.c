@@ -41,6 +41,30 @@
 #define CPC_RED 3
 #define CPC_BLACK 4
 
+#if defined(NO_CASE_LETTERS)
+	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
+		#define PRESS_STRING "press fire"
+	#else
+		#define PRESS_STRING "press any key"
+	#endif
+	#define GAME_OVER_STRING "game over"
+	#define DEFEAT_STRING "you lost"
+	#define VICTORY_STRING "you won"
+	#define EXTRA_LIFE_STRING "extra life"
+	#define YOU_MADE_IT_STRING "you made it"
+#else
+	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
+		#define PRESS_STRING "PRESS FIRE"
+	#else
+		#define PRESS_STRING "PRESS ANY KEY"
+	#endif
+	#define GAME_OVER_STRING "GAME OVER"
+	#define DEFEAT_STRING "YOU LOST"	
+	#define VICTORY_STRING "YOU WON"
+	#define EXTRA_LIFE_STRING "EXTRA LIFE"
+	#define YOU_MADE_IT_STRING "YOU MADE IT"	
+#endif
+
 // 3 -> white
 // 2 -> black 
 // 1 -> black
@@ -218,8 +242,10 @@ extern Image MISSILE_IMAGE;
 
 	void printGunsStats(void)
 	{
+		#if defined(COLOR)		
+			SET_TEXT_COLOR(TEXT_COLOR);	
+		#endif
 		#if defined(WIDE)
-			SET_TEXT_COLOR(TEXT_COLOR);
 			PRINTF(18+2+1-2,0-Y_OFFSET,"%u",guns);
 		#else
 			PRINTF(15+2+1-5-1,0-Y_OFFSET,"%u",guns);
@@ -335,7 +361,7 @@ void setScreenColors(void)
 #if defined(__VG5K__) || defined(__CREATIVISION__) || defined(__PCE__) || defined(__GAMATE__) || (defined(__VIC20__) && !defined(FULL_GAME))
 	void gameCompleted(void)	
 	{
-		printCenteredMessage("YOU MADE IT"); 
+		printCenteredMessage(YOU_MADE_IT_STRING); 
 	}
 #elif defined(__C64__)
 	void gameCompleted(void)
@@ -431,7 +457,7 @@ void setScreenColors(void)
 	#if defined(__VG5K__) || defined(__VZ__) || defined(__GAMATE__) || defined(__CREATIVISION__) || defined(__PCE__)
 			void printPressKeyToStart(void)
 			{	
-					printCenteredMessageWithCol(_WHITE, "PRESS A KEY");
+					printCenteredMessageWithCol(_WHITE, PRESS_STRING);
 			}
 			
 			void printGameOver(void)
@@ -447,7 +473,7 @@ void setScreenColors(void)
 			#if defined(NO_CASE_LETTERS)
 				void printPressKeyToStart(void)
 				{			
-					printCenteredMessage("press any key");
+					printCenteredMessage(PRESS_STRING);
 				}
 				
 				void printGameOver(void)
@@ -462,7 +488,7 @@ void setScreenColors(void)
 			#else
 				void printPressKeyToStart(void)
 				{			
-					printCenteredMessage("PRESS ANY KEY");
+					printCenteredMessage(PRESS_STRING);
 				}
 				
 				void printGameOver(void)
@@ -479,7 +505,7 @@ void setScreenColors(void)
 			#if defined(NO_CASE_LETTERS)
 				void printPressKeyToStart(void)
 				{			
-					printCenteredMessage("press any key");
+					printCenteredMessage(PRESS_STRING);
 				}
 				
 				void printGameOver(void)
@@ -494,7 +520,7 @@ void setScreenColors(void)
 			#else		
 				void printPressKeyToStart(void)
 				{		
-					printCenteredMessage(               "PRESS ANY KEY");
+					printCenteredMessage(               PRESS_STRING);
 				}
 							
 				void printGameOver(void)
@@ -510,7 +536,7 @@ void setScreenColors(void)
 	#elif defined(NO_CASE_LETTERS)
 			void printPressKeyToStart(void)
 			{
-				printCenteredMessage("press any key");
+				printCenteredMessage(PRESS_STRING);
 			}	
 
 			void printGameOver(void)
@@ -525,7 +551,7 @@ void setScreenColors(void)
 	#else
 			void printPressKeyToStart(void)
 			{
-				printCenteredMessage("PRESS ANY KEY");
+				printCenteredMessage(PRESS_STRING);
 			}	
 
 			void printGameOver(void)

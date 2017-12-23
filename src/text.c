@@ -601,7 +601,10 @@ void printStartMessage(void)
 			printCenteredMessageOnRow(5, "by Fabrizio Caruso");
 		#endif
 	#else
-		printCenteredMessageOnRowWithCol(3, _RED,  "CROSS CHASE");	
+		printCenteredMessageOnRowWithCol(3, _RED,  "CROSS CHASE");
+		#if !defined(NO_COLOR)
+			SET_TEXT_COLOR(TEXT_COLOR);
+		#endif
 		#if defined(NO_CASE_LETTERS)
 			printCenteredMessageOnRow(5, "fabrizio caruso");	
 		#elif  defined(__PC6001__)

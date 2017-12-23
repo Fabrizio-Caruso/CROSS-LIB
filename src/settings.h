@@ -211,7 +211,6 @@
 	#define CASE_LETTERS
 #endif
 
-// || defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
 #if defined(__GAMATE__) || defined(__ZX81__) || defined(__LAMBDA__) 
 	#define BOMBS_NUMBER 3
 #elif defined(__SPECTRUM__) && !defined(TINY_GAME)
@@ -227,16 +226,12 @@
 #endif
 
 // Possible current values are 6,7,8,9
-// #if defined(__CPC__) && defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
-	// #define GHOSTS_NUMBER 7
 #if defined(__PCE__)
 	#define GHOSTS_NUMBER 8
 #elif defined(__SPECTRUM__) && defined(TINY_GAME)
 	#define GHOSTS_NUMBER 8	
 #elif defined(__VIC20__) && defined(TINY_GAME)
 	#define GHOSTS_NUMBER 8
-// #elif defined(__CPC__) && !defined(CPC_NO_COLOR) && !defined(CPCRSLIB)
-	// #define GHOSTS_NUMBER 6
 #elif defined(__GAMATE__) 
 	#define GHOSTS_NUMBER 8
 #elif defined(__SPECTRUM__) && defined(FULL_GAME)
@@ -267,8 +262,8 @@
 	#define GHOSTS_NUMBER 8
 #endif
 	
-
-#if (defined(__VIC20__) && defined(TINY_GAME)) || defined(__PC6001__) || defined(__ATARI5200__) || (defined(__AQUARIUS__) && defined(TINY_GAME)) || defined(__PCE__) || defined(__CREATIVISION__) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__) || defined(__MC1000__) || defined(__LAMBDA__) || (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) || (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
+// (defined(__VIC20__) && defined(TINY_GAME)) || 
+#if defined(__PC6001__) || defined(__ATARI5200__) || (defined(__AQUARIUS__) && defined(TINY_GAME)) || defined(__PCE__) || defined(__CREATIVISION__) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__) || defined(__MC1000__) || defined(__LAMBDA__) || (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) || (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) || ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__)
 	#define NO_COLOR
 #else
 	#define COLOR

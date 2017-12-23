@@ -306,7 +306,7 @@ void displayStats(void)
 	#if defined(WIDE) && !defined(TINY_GAME)
 		PRINTF(8-2,-Y_OFFSET,"%05u0",points);
 	#else
-		PRINTF(3-3,0,"%05u0",points);	
+		PRINTF(0,0,"%05u0",points);	
 	#endif	
 }
 

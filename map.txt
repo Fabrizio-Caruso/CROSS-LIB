@@ -1,0 +1,1413 @@
+Modules list:
+-------------
+udc.o:
+    UDCCHAR           Offs=000000  Size=000400  Align=00001  Fill=0000
+vic20_graphics.o:
+    CODE              Offs=000000  Size=000139  Align=00001  Fill=0000
+    BSS               Offs=000000  Size=000008  Align=00001  Fill=0000
+vic20_sounds.o:
+    CODE              Offs=000139  Size=000142  Align=00001  Fill=0000
+display_macros.o:
+    BSS               Offs=000008  Size=000010  Align=00001  Fill=0000
+    DATA              Offs=000000  Size=000002  Align=00001  Fill=0000
+enemy.o:
+    CODE2             Offs=000000  Size=0000CE  Align=00001  Fill=0000
+invincible_enemy.o:
+    CODE2             Offs=0000CE  Size=000064  Align=00001  Fill=0000
+level.o:
+    CODE              Offs=00027B  Size=000292  Align=00001  Fill=0000
+character.o:
+    CODE              Offs=00050D  Size=00036D  Align=00001  Fill=0000
+text.o:
+    CODE              Offs=00087A  Size=00029A  Align=00001  Fill=0000
+    RODATA            Offs=000000  Size=0000AA  Align=00001  Fill=0000
+missile.o:
+    CODE2             Offs=000132  Size=00020F  Align=00001  Fill=0000
+strategy.o:
+    CODE2             Offs=000341  Size=0001E5  Align=00001  Fill=0000
+input_macros.o:
+    CODE2             Offs=000526  Size=0000E9  Align=00001  Fill=0000
+main.o:
+    CODE              Offs=000B14  Size=0006F6  Align=00001  Fill=0000
+    RODATA            Offs=0000AA  Size=000018  Align=00001  Fill=0000
+    BSS               Offs=000018  Size=000076  Align=00001  Fill=0000
+    DATA              Offs=000002  Size=000008  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(_directerrno.o):
+    CODE              Offs=00120A  Size=00000A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(_hextab.o):
+    RODATA            Offs=0000C2  Size=000010  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(_longminstr.o):
+    RODATA            Offs=0000D2  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(_oserror.o):
+    BSS               Offs=00008E  Size=000001  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(_printf.o):
+    CODE              Offs=001214  Size=0003A5  Align=00001  Fill=0000
+    BSS               Offs=00008F  Size=00002B  Align=00001  Fill=0000
+    DATA              Offs=00000A  Size=000003  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(_scrsize.o):
+C:\cc65-snapshot-win32\lib/vic20.lib(_seterrno.o):
+    CODE              Offs=0015B9  Size=000009  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(add.o):
+    CODE              Offs=0015C2  Size=00001C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(addeqsp.o):
+    CODE              Offs=0015DE  Size=000011  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(addysp.o):
+    CODE              Offs=0015EF  Size=00000E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(and.o):
+    CODE              Offs=0015FD  Size=000010  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(aslax4.o):
+    CODE              Offs=00160D  Size=000011  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(axlong.o):
+    CODE              Offs=00161E  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(bneg.o):
+    CODE              Offs=00162B  Size=00000E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(callirq.o):
+    DATA              Offs=00000D  Size=00001E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(callmain.o):
+    CODE              Offs=001639  Size=000017  Align=00001  Fill=0000
+    DATA              Offs=00002B  Size=000004  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(chline.o):
+    CODE              Offs=001650  Size=000015  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(clinechars.o):
+C:\cc65-snapshot-win32\lib/vic20.lib(clock.o):
+    CODE              Offs=001665  Size=00000A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(clrscr.o):
+C:\cc65-snapshot-win32\lib/vic20.lib(color.o):
+    CODE              Offs=00166F  Size=000034  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(condes.o):
+    CODE              Offs=0016A3  Size=00000C  Align=00001  Fill=0000
+    DATA              Offs=00002F  Size=000025  Align=00001  Fill=0000
+    ONCE              Offs=000000  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(conio.o):
+C:\cc65-snapshot-win32\lib/vic20.lib(cprintf.o):
+    CODE              Offs=0016AF  Size=00002A  Align=00001  Fill=0000
+    BSS               Offs=0000BA  Size=000001  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(cputc.o):
+    CODE              Offs=0016D9  Size=00006F  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(crt0.o):
+    BSS               Offs=0000BB  Size=000001  Align=00001  Fill=0000
+    STARTUP           Offs=000000  Size=00003A  Align=00001  Fill=0000
+    INIT              Offs=000000  Size=00001A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(ctype.o):
+    RODATA            Offs=0000DE  Size=000100  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(cvline.o):
+    CODE              Offs=001748  Size=000018  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(decax1.o):
+    CODE              Offs=001760  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(decax2.o):
+    CODE              Offs=001767  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(decsp1.o):
+    CODE              Offs=00176E  Size=000009  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(decsp2.o):
+    CODE              Offs=001777  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(decsp4.o):
+    CODE              Offs=001784  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(decsp6.o):
+    CODE              Offs=001791  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(errno.o):
+    BSS               Offs=0000BC  Size=000002  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(exehdr.o):
+    EXEHDR            Offs=000000  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(gotoxy.o):
+    CODE              Offs=00179E  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(icmp.o):
+    CODE              Offs=0017AB  Size=00002E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(incaxy.o):
+    CODE              Offs=0017D9  Size=00000B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(incsp1.o):
+    CODE              Offs=0017E4  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(incsp2.o):
+    CODE              Offs=0017EB  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(incsp3.o):
+    CODE              Offs=001801  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(incsp4.o):
+    CODE              Offs=001806  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(incsp5.o):
+    CODE              Offs=00180B  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(incsp6.o):
+    CODE              Offs=001810  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(incsp7.o):
+    CODE              Offs=001815  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(irq.o):
+    CODE              Offs=00181A  Size=00000F  Align=00001  Fill=0000
+    DATA              Offs=000054  Size=000003  Align=00001  Fill=0000
+    ONCE              Offs=00000C  Size=000013  Align=00001  Fill=0000
+    LOWCODE           Offs=000000  Size=000007  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(joy-kernel.o):
+    CODE              Offs=001829  Size=000060  Align=00001  Fill=0000
+    RODATA            Offs=0001DE  Size=000004  Align=00001  Fill=0000
+    BSS               Offs=0000BE  Size=000002  Align=00001  Fill=0000
+    DATA              Offs=000057  Size=00000F  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(joy_read.o):
+C:\cc65-snapshot-win32\lib/vic20.lib(joy_stat_stddrv.o):
+C:\cc65-snapshot-win32\lib/vic20.lib(kernal.o):
+C:\cc65-snapshot-win32\lib/vic20.lib(kplot.o):
+    CODE              Offs=001889  Size=00000B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(ladd.o):
+    CODE              Offs=001894  Size=000025  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(lcmp.o):
+    CODE              Offs=0018B9  Size=00003B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(ldaxi.o):
+    CODE              Offs=0018F4  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(ldaxsp.o):
+    CODE              Offs=001901  Size=000009  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(ldeaxysp.o):
+    CODE              Offs=00190A  Size=000013  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(leaaxsp.o):
+    CODE              Offs=00191D  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(lge.o):
+    CODE              Offs=001929  Size=000006  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(libref.o):
+C:\cc65-snapshot-win32\lib/vic20.lib(lmul.o):
+    CODE              Offs=00192F  Size=00005C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(loadaddr.o):
+    LOADADDR          Offs=000000  Size=000002  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(lpush.o):
+    CODE              Offs=00198B  Size=000021  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(lsub.o):
+    CODE              Offs=0019AC  Size=000027  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(ltoa.o):
+    CODE              Offs=0019D3  Size=0000AF  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(lugt.o):
+    CODE              Offs=001A82  Size=000006  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(makebool.o):
+    CODE              Offs=001A88  Size=00002C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(memcpy.o):
+    CODE              Offs=001AB4  Size=000041  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(mod.o):
+    CODE              Offs=001AF5  Size=000014  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(mul8.o):
+    CODE              Offs=001B09  Size=00003A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(mulax5.o):
+    CODE              Offs=001B43  Size=000014  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(neg.o):
+    CODE              Offs=001B57  Size=00000E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(popa.o):
+    CODE              Offs=001B65  Size=00000C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(popsreg.o):
+    CODE              Offs=001B71  Size=000010  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(push1.o):
+    CODE              Offs=001B81  Size=000005  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(pusha.o):
+    CODE              Offs=001B86  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(pushax.o):
+    CODE              Offs=001B9C  Size=00001A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(pushwsp.o):
+    CODE              Offs=001BB6  Size=00001C  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(rand.o):
+    CODE              Offs=001BD2  Size=00004A  Align=00001  Fill=0000
+    DATA              Offs=000066  Size=000004  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(scrsize.o):
+    CODE              Offs=001C1C  Size=000013  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(shelp.o):
+    CODE              Offs=001C2F  Size=00001E  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(shrax1.o):
+    CODE              Offs=001C4D  Size=000008  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(sleep.o):
+    CODE              Offs=001C55  Size=000043  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(sprintf.o):
+    CODE              Offs=001C98  Size=00002B  Align=00001  Fill=0000
+    BSS               Offs=0000C0  Size=000001  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(staspidx.o):
+    CODE              Offs=001CC3  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(status.o):
+C:\cc65-snapshot-win32\lib/vic20.lib(staxsp.o):
+    CODE              Offs=001CD9  Size=00000B  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(strlen.o):
+    CODE              Offs=001CE4  Size=000016  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(strlower.o):
+    CODE              Offs=001CFA  Size=000028  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(sub.o):
+    CODE              Offs=001D22  Size=000015  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(subysp.o):
+    CODE              Offs=001D37  Size=00000D  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(toslong.o):
+    CODE              Offs=001D44  Size=000038  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(udiv.o):
+    CODE              Offs=001D7C  Size=00004F  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(vcprintf.o):
+    CODE              Offs=001DCB  Size=00007E  Align=00001  Fill=0000
+    DATA              Offs=00006A  Size=000008  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(vsnprintf.o):
+    CODE              Offs=001E49  Size=0000DA  Align=00001  Fill=0000
+    DATA              Offs=000072  Size=000008  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(vsprintf.o):
+    CODE              Offs=001F23  Size=000012  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(zerobss.o):
+    CODE              Offs=001F35  Size=000023  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(zeropage.o):
+    ZEROPAGE          Offs=000000  Size=00001A  Align=00001  Fill=0000
+C:\cc65-snapshot-win32\lib/vic20.lib(vic20-stdjoy-joy.o):
+    CODE              Offs=001F58  Size=000040  Align=00001  Fill=0000
+    DATA              Offs=00007A  Size=000010  Align=00001  Fill=0000
+
+
+Segment list:
+-------------
+Name                   Start     End    Size  Align
+----------------------------------------------------
+ZEROPAGE              000002  00001B  00001A  00001
+LOADADDR              0011FF  001200  000002  00001
+EXEHDR                001201  00120C  00000C  00001
+STARTUP               00120D  001246  00003A  00001
+LOWCODE               001247  00124D  000007  00001
+ONCE                  00124E  00126E  000021  00001
+RODATA                00126F  001454  0001E6  00001
+DATA                  001455  0014DE  00008A  00001
+BSS                   0014DF  00159F  0000C1  00001
+CODE2                 0015A0  001BAE  00060F  00001
+UDCCHAR               001C00  001FFF  000400  00001
+CODE                  002000  003F97  001F98  00001
+INIT                  003F98  003FB1  00001A  00001
+
+
+Exports list by name:
+---------------------
+BSOUT                     00FFD2 REA    CURS_X                    0000D3 RLZ    
+CURS_Y                    0000D6 RLZ    PLOT                      003889 RLA    
+RDTIM                     00FFDE REA    SCREEN                    00FFED REA    
+ST                        000090 RLZ    _BOMB_IMAGE               0014ED RLA    
+_DEAD_GHOST_IMAGE         0014EB RLA    _GHOST_IMAGE              0014E9 RLA    
+_GUN_IMAGE                0014F3 RLA    _INIT_GRAPHICS            002125 RLA    
+_INIT_IMAGES              0020B6 RLA    _INVINCIBLE_GHOST_IMAGE   0014F5 RLA    
+_MISSILE_IMAGE            0014F1 RLA    _MOVE_PLAYER              001BA7 RLA    
+_PLAYER_DOWN              0014E5 RLA    _PLAYER_IMAGE             0014E7 RLA    
+_PLAYER_LEFT              0014DF RLA    _PLAYER_RIGHT             0014E1 RLA    
+_PLAYER_UP                0014E3 RLA    _POWERUP_IMAGE            0014EF RLA    
+_WAIT_PRESS               001AC6 RLA    _XSize                    0014F9 RLA    
+_YSize                    0014FA RLA    _ZAP_SOUND                002218 RLA    
+__BSS_RUN__               0014DF RLA    __BSS_SIZE__              0000C1 REA    
+__CALLIRQ__               000001 REA    __CONSTRUCTOR_COUNT__     000001 REA    
+__CONSTRUCTOR_TABLE__     00126D RLA    __DESTRUCTOR_COUNT__      000001 REA    
+__DESTRUCTOR_TABLE__      001451 RLA    __EXEHDR__                000001 REA    
+__INTERRUPTOR_COUNT__     000001 REA    __INTERRUPTOR_TABLE__     001453 RLA    
+__LOADADDR__              000001 REA    __MAIN_SIZE__             0009E3 REA    
+__MAIN_START__            00120D RLA    __STACKSIZE__             000010 REA    
+__STARTUP__               000001 REA    __blink_draw              002030 RLA    
+__ctype                   00134D RLA    __delete                  00209D RLA    
+__directerrno             00320A RLA    __draw                    002000 RLA    
+__errno                   00159B RLA    __explosion_sound         002139 RLA    
+__hextab                  001331 RLA    __longminstr              001341 RLA    
+__oserror                 00156D RLA    __ping_sound              0021D9 RLA    
+__printScore              002AAC RLA    __printf                  003307 RLA    
+__seterrno                0035B9 RLA    _bgcolor                  003677 RLA    
+_bombs                    001551 RLA    _bordercolor              003690 RLA    
+_chasePlayer              001999 RLA    _checkBombsVsGhosts       0026AA RLA    
+_checkMissileVsGhosts     001737 RLA    _chline                   003655 RLA    
+_clock                    003665 RLA    _clrscr                   00E55F REA    
+_computeGhostSlowDown     0015A0 RLA    _computeInvincibleGhostParameters 0016A5 RLA    
+_computeInvincibleSlowDown 00166E RLA    _computeStrategy          00196D RLA    
+_cprintf                  0036AF RLA    _cputc                    0036DE RLA    
+_cvlinexy                 003748 RLA    _decreaseGhostLevel       0015D7 RLA    
+_die                      002613 RLA    _displayGhosts            00160D RLA    
+_displayStats             00287A RLA    _displayStatsTitles       00289C RLA    
+_exit                     001231 RLA    _fillLevelWithCharacters  00227B RLA    
+_gameCompleted            002A9E RLA    _ghostCount               00145A RLA    
+_ghostDies                00280E RLA    _ghostLevel               0014FD RLA    
+_ghostLevelDecrease       00150B RLA    _ghosts                   001529 RLA    
+_gotoxy                   0037A1 RLA    _gun                      00151F RLA    
+_gunBlink                 001456 RLA    _guns                     00145C RLA    
+_highScore                0014FF RLA    _initializeCharacter      00250D RLA    
+_invincibleGhost          001515 RLA    _invincibleLoopTrigger    00150E RLA    
+_invincibleSlowDown       001505 RLA    _invincibleXCountDown     001507 RLA    
+_invincibleYCountDown     001508 RLA    _isCharacterAtLocation    00257E RLA    
+_joy_install              003829 RLA    _joy_read                 0014B5 REA    
+_joy_static_stddrv        0014CF RLA    _level                    001504 RLA    
+_lives                    001501 RLA    _loop                     001502 RLA    
+_ltoa                     0039EF RLA    _main                     002E7B RLA    
+_memcpy                   003AB4 RLA    _missile                  001524 RLA    
+_moveMissile              00186B RLA    _moveTowardCharacter      00192F RLA    
+_player                   001510 RLA    _playerDies               002626 RLA    
+_playerDirection          001457 RLA    _playerFire               00145B RLA    
+_points                   0014F7 RLA    _powerUp                  00151A RLA    
+_powerUpBlink             001455 RLA    _printDefeatMessage       002A18 RLA    
+_printGameOver            002A05 RLA    _printGhostCountStats     00297A RLA    
+_printGunsStats           0028E0 RLA    _printLevel               002901 RLA    
+_printLevelStats          00295E RLA    _printLivesStats          00299B RLA    
+_printPressKeyToStart     0029F7 RLA    _printStartMessage        002A2B RLA    
+_printVictoryMessage      002938 RLA    _rand                     003BD2 RLA    
+_relocateCharacter        00271B RLA    _sameLocationAsAnyLocation 00282D RLA    
+_screensize               003C1C RLA    _setMissileInitialPosition 00176F RLA    
+_setScreenColors          0029BC RLA    _sleep                    003C55 RLA    
+_sprintf                  003C98 RLA    _strategyArray            001565 RLA    
+_strlen                   003CE4 RLA    _strlower                 003CFA RLA    
+_textcolor                00366F RLA    _ultoa                    003A46 RLA    
+_vcprintf                 003E19 RLA    _vic20_stdjoy_joy         0014CF RLA    
+_vsprintf                 003F23 RLA    _wallReached              0025AD RLA    
+addeq0sp                  0035DE RLA    addeqysp                  0035E0 RLA    
+addysp                    0035F0 RLA    addysp1                   0035EF RLA    
+axlong                    00361E RLA    axulong                   003624 RLA    
+bnega                     00362F RLA    boolge                    003A9F RLA    
+boolugt                   003AAD RLA    callirq                   001462 RLA    
+callmain                  003639 RLA    chlinechar                000040 REZ    
+cputdirect                0036FD RLA    cvlinechar                00005D REZ    
+decax1                    003760 RLA    decax2                    003767 RLA    
+decsp1                    00376E RLA    decsp2                    003777 RLA    
+decsp4                    003784 RLA    decsp6                    003791 RLA    
+doneirq                   00381A RLA    donelib                   0036A3 RLA    
+gotoxy                    00379E RLA    incaxy                    0037DB RLA    
+incsp1                    0037E4 RLA    incsp2                    0037F3 RLA    
+incsp3                    003801 RLA    incsp4                    003806 RLA    
+incsp5                    00380B RLA    incsp6                    003810 RLA    
+incsp7                    003815 RLA    initirq                   00125A RLA    
+initlib                   00124E RLA    irq_done                  00381A  LAI   
+irq_init                  00125A  LAI   joy_irq                   0014B8  LAI   
+joy_libref                001231 RLA    joy_read                  0014B5 RLA    
+ldax0sp                   003901 RLA    ldaxidx                   0038F6 RLA    
+ldaxysp                   003903 RLA    ldeax0sp                  00390A RLA    
+leaa0sp                   00391D RLA    mulax5                    003B43 RLA    
+negax                     003B57 RLA    newline                   00370D RLA    
+plot                      003734 RLA    popa                      003B65 RLA    
+popax                     0037EB RLA    popsargs                  003C2F RLA    
+popsreg                   003B71 RLA    ptr1                      00000A RLZ    
+ptr2                      00000C RLZ    ptr3                      00000E RLZ    
+ptr4                      000010 RLZ    push1                     003B81 RLA    
+pusha                     003B8A RLA    pusha0                    003B9E RLA    
+pushax                    003BA0 RLA    pusheax                   003994 RLA    
+pushw0sp                  003BB6 RLA    pushwysp                  003BB8 RLA    
+putchar                   00373C RLA    regbank                   000016 RLZ    
+screensize                00FFED REA    shlax4                    00360D RLA    
+shrax1                    003C4D RLA    sp                        000002 RLZ    
+sreg                      000004 RLZ    staspidx                  003CC3 RLA    
+stax0sp                   003CD9 RLA    staxysp                   003CDB RLA    
+subysp                    003D37 RLA    tmp1                      000012 RLZ    
+tmp2                      000013 RLZ    tmp3                      000014 RLZ    
+tmp4                      000015 RLZ    tosaddax                  0035C4 RLA    
+tosaddeax                 00389A RLA    tosandax                  0035FF RLA    
+tosgeeax                  003929 RLA    tosicmp                   0037AD RLA    
+tosicmp0                  0037AB RLA    toslcmp                   0038B9 RLA    
+tosmoda0                  003AF5 RLA    tossubax                  003D24 RLA    
+tossubeax                 0039B2 RLA    tosudiva0                 003D7C RLA    
+tosugteax                 003A82 RLA    tosulong                  003D44 RLA    
+tosumul0ax                00392F RLA    tosumula0                 003B09 RLA    
+udiv16                    003D8D RLA    vsnprintf                 003E4C RLA    
+zerobss                   003F35 RLA    
+
+
+Exports list by value:
+----------------------
+__LOADADDR__              000001 REA    __STARTUP__               000001 REA    
+__CALLIRQ__               000001 REA    __INTERRUPTOR_COUNT__     000001 REA    
+__EXEHDR__                000001 REA    __DESTRUCTOR_COUNT__      000001 REA    
+__CONSTRUCTOR_COUNT__     000001 REA    sp                        000002 RLZ    
+sreg                      000004 RLZ    ptr1                      00000A RLZ    
+ptr2                      00000C RLZ    ptr3                      00000E RLZ    
+__STACKSIZE__             000010 REA    ptr4                      000010 RLZ    
+tmp1                      000012 RLZ    tmp2                      000013 RLZ    
+tmp3                      000014 RLZ    tmp4                      000015 RLZ    
+regbank                   000016 RLZ    chlinechar                000040 REZ    
+cvlinechar                00005D REZ    ST                        000090 RLZ    
+__BSS_SIZE__              0000C1 REA    CURS_X                    0000D3 RLZ    
+CURS_Y                    0000D6 RLZ    __MAIN_SIZE__             0009E3 REA    
+__MAIN_START__            00120D RLA    joy_libref                001231 RLA    
+_exit                     001231 RLA    initlib                   00124E RLA    
+initirq                   00125A RLA    irq_init                  00125A  LAI   
+__CONSTRUCTOR_TABLE__     00126D RLA    __hextab                  001331 RLA    
+__longminstr              001341 RLA    __ctype                   00134D RLA    
+__DESTRUCTOR_TABLE__      001451 RLA    __INTERRUPTOR_TABLE__     001453 RLA    
+_powerUpBlink             001455 RLA    _gunBlink                 001456 RLA    
+_playerDirection          001457 RLA    _ghostCount               00145A RLA    
+_playerFire               00145B RLA    _guns                     00145C RLA    
+callirq                   001462 RLA    joy_read                  0014B5 RLA    
+_joy_read                 0014B5 REA    joy_irq                   0014B8  LAI   
+_vic20_stdjoy_joy         0014CF RLA    _joy_static_stddrv        0014CF RLA    
+__BSS_RUN__               0014DF RLA    _PLAYER_LEFT              0014DF RLA    
+_PLAYER_RIGHT             0014E1 RLA    _PLAYER_UP                0014E3 RLA    
+_PLAYER_DOWN              0014E5 RLA    _PLAYER_IMAGE             0014E7 RLA    
+_GHOST_IMAGE              0014E9 RLA    _DEAD_GHOST_IMAGE         0014EB RLA    
+_BOMB_IMAGE               0014ED RLA    _POWERUP_IMAGE            0014EF RLA    
+_MISSILE_IMAGE            0014F1 RLA    _GUN_IMAGE                0014F3 RLA    
+_INVINCIBLE_GHOST_IMAGE   0014F5 RLA    _points                   0014F7 RLA    
+_XSize                    0014F9 RLA    _YSize                    0014FA RLA    
+_ghostLevel               0014FD RLA    _highScore                0014FF RLA    
+_lives                    001501 RLA    _loop                     001502 RLA    
+_level                    001504 RLA    _invincibleSlowDown       001505 RLA    
+_invincibleXCountDown     001507 RLA    _invincibleYCountDown     001508 RLA    
+_ghostLevelDecrease       00150B RLA    _invincibleLoopTrigger    00150E RLA    
+_player                   001510 RLA    _invincibleGhost          001515 RLA    
+_powerUp                  00151A RLA    _gun                      00151F RLA    
+_missile                  001524 RLA    _ghosts                   001529 RLA    
+_bombs                    001551 RLA    _strategyArray            001565 RLA    
+__oserror                 00156D RLA    __errno                   00159B RLA    
+_computeGhostSlowDown     0015A0 RLA    _decreaseGhostLevel       0015D7 RLA    
+_displayGhosts            00160D RLA    _computeInvincibleSlowDown 00166E RLA    
+_computeInvincibleGhostParameters 0016A5 RLA    _checkMissileVsGhosts     001737 RLA    
+_setMissileInitialPosition 00176F RLA    _moveMissile              00186B RLA    
+_moveTowardCharacter      00192F RLA    _computeStrategy          00196D RLA    
+_chasePlayer              001999 RLA    _WAIT_PRESS               001AC6 RLA    
+_MOVE_PLAYER              001BA7 RLA    __draw                    002000 RLA    
+__blink_draw              002030 RLA    __delete                  00209D RLA    
+_INIT_IMAGES              0020B6 RLA    _INIT_GRAPHICS            002125 RLA    
+__explosion_sound         002139 RLA    __ping_sound              0021D9 RLA    
+_ZAP_SOUND                002218 RLA    _fillLevelWithCharacters  00227B RLA    
+_initializeCharacter      00250D RLA    _isCharacterAtLocation    00257E RLA    
+_wallReached              0025AD RLA    _die                      002613 RLA    
+_playerDies               002626 RLA    _checkBombsVsGhosts       0026AA RLA    
+_relocateCharacter        00271B RLA    _ghostDies                00280E RLA    
+_sameLocationAsAnyLocation 00282D RLA    _displayStats             00287A RLA    
+_displayStatsTitles       00289C RLA    _printGunsStats           0028E0 RLA    
+_printLevel               002901 RLA    _printVictoryMessage      002938 RLA    
+_printLevelStats          00295E RLA    _printGhostCountStats     00297A RLA    
+_printLivesStats          00299B RLA    _setScreenColors          0029BC RLA    
+_printPressKeyToStart     0029F7 RLA    _printGameOver            002A05 RLA    
+_printDefeatMessage       002A18 RLA    _printStartMessage        002A2B RLA    
+_gameCompleted            002A9E RLA    __printScore              002AAC RLA    
+_main                     002E7B RLA    __directerrno             00320A RLA    
+__printf                  003307 RLA    __seterrno                0035B9 RLA    
+tosaddax                  0035C4 RLA    addeq0sp                  0035DE RLA    
+addeqysp                  0035E0 RLA    addysp1                   0035EF RLA    
+addysp                    0035F0 RLA    tosandax                  0035FF RLA    
+shlax4                    00360D RLA    axlong                    00361E RLA    
+axulong                   003624 RLA    bnega                     00362F RLA    
+callmain                  003639 RLA    _chline                   003655 RLA    
+_clock                    003665 RLA    _textcolor                00366F RLA    
+_bgcolor                  003677 RLA    _bordercolor              003690 RLA    
+donelib                   0036A3 RLA    _cprintf                  0036AF RLA    
+_cputc                    0036DE RLA    cputdirect                0036FD RLA    
+newline                   00370D RLA    plot                      003734 RLA    
+putchar                   00373C RLA    _cvlinexy                 003748 RLA    
+decax1                    003760 RLA    decax2                    003767 RLA    
+decsp1                    00376E RLA    decsp2                    003777 RLA    
+decsp4                    003784 RLA    decsp6                    003791 RLA    
+gotoxy                    00379E RLA    _gotoxy                   0037A1 RLA    
+tosicmp0                  0037AB RLA    tosicmp                   0037AD RLA    
+incaxy                    0037DB RLA    incsp1                    0037E4 RLA    
+popax                     0037EB RLA    incsp2                    0037F3 RLA    
+incsp3                    003801 RLA    incsp4                    003806 RLA    
+incsp5                    00380B RLA    incsp6                    003810 RLA    
+incsp7                    003815 RLA    doneirq                   00381A RLA    
+irq_done                  00381A  LAI   _joy_install              003829 RLA    
+PLOT                      003889 RLA    tosaddeax                 00389A RLA    
+toslcmp                   0038B9 RLA    ldaxidx                   0038F6 RLA    
+ldax0sp                   003901 RLA    ldaxysp                   003903 RLA    
+ldeax0sp                  00390A RLA    leaa0sp                   00391D RLA    
+tosgeeax                  003929 RLA    tosumul0ax                00392F RLA    
+pusheax                   003994 RLA    tossubeax                 0039B2 RLA    
+_ltoa                     0039EF RLA    _ultoa                    003A46 RLA    
+tosugteax                 003A82 RLA    boolge                    003A9F RLA    
+boolugt                   003AAD RLA    _memcpy                   003AB4 RLA    
+tosmoda0                  003AF5 RLA    tosumula0                 003B09 RLA    
+mulax5                    003B43 RLA    negax                     003B57 RLA    
+popa                      003B65 RLA    popsreg                   003B71 RLA    
+push1                     003B81 RLA    pusha                     003B8A RLA    
+pusha0                    003B9E RLA    pushax                    003BA0 RLA    
+pushw0sp                  003BB6 RLA    pushwysp                  003BB8 RLA    
+_rand                     003BD2 RLA    _screensize               003C1C RLA    
+popsargs                  003C2F RLA    shrax1                    003C4D RLA    
+_sleep                    003C55 RLA    _sprintf                  003C98 RLA    
+staspidx                  003CC3 RLA    stax0sp                   003CD9 RLA    
+staxysp                   003CDB RLA    _strlen                   003CE4 RLA    
+_strlower                 003CFA RLA    tossubax                  003D24 RLA    
+subysp                    003D37 RLA    tosulong                  003D44 RLA    
+tosudiva0                 003D7C RLA    udiv16                    003D8D RLA    
+_vcprintf                 003E19 RLA    vsnprintf                 003E4C RLA    
+_vsprintf                 003F23 RLA    zerobss                   003F35 RLA    
+_clrscr                   00E55F REA    BSOUT                     00FFD2 REA    
+RDTIM                     00FFDE REA    SCREEN                    00FFED REA    
+screensize                00FFED REA    
+
+
+Imports list:
+-------------
+BSOUT (kernal.o):
+    crt0.o                    vic20/crt0.s(10)
+CURS_X (conio.o):
+    gotoxy.o                  cbm/gotoxy.s(9)
+CURS_Y (conio.o):
+    gotoxy.o                  cbm/gotoxy.s(9)
+PLOT (kplot.o):
+    cputc.o                   vic20/cputc.s(11)
+RDTIM (kernal.o):
+    clock.o                   cbm/clock.s(8)
+SCREEN (kernal.o):
+    _scrsize.o                vic20/_scrsize.s(8)
+ST (status.o):
+    crt0.o                    vic20/crt0.s(13)
+_BOMB_IMAGE (display_macros.o):
+    character.o               src/character.s(35)
+    level.o                   src/level.s(22)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(29)
+_DEAD_GHOST_IMAGE (display_macros.o):
+    missile.o                 src/missile.s(26)
+    level.o                   src/level.s(26)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(27)
+_GHOST_IMAGE (display_macros.o):
+    text.o                    src/text.s(47)
+    level.o                   src/level.s(20)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(26)
+_GUN_IMAGE (display_macros.o):
+    text.o                    src/text.s(48)
+    level.o                   src/level.s(25)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(32)
+_INIT_GRAPHICS (vic20_graphics.o):
+    main.o                    src/main.s(25)
+_INIT_IMAGES (vic20_graphics.o):
+    main.o                    src/main.s(24)
+_INVINCIBLE_GHOST_IMAGE (display_macros.o):
+    level.o                   src/level.s(21)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(28)
+_MISSILE_IMAGE (display_macros.o):
+    level.o                   src/level.s(24)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(31)
+_MOVE_PLAYER (input_macros.o):
+    main.o                    src/main.s(66)
+_PLAYER_DOWN (vic20_graphics.o):
+    input_macros.o            src/input_macros.s(16)
+_PLAYER_IMAGE (display_macros.o):
+    text.o                    src/text.s(46)
+    level.o                   src/level.s(19)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(25)
+_PLAYER_LEFT (vic20_graphics.o):
+    input_macros.o            src/input_macros.s(13)
+_PLAYER_RIGHT (vic20_graphics.o):
+    input_macros.o            src/input_macros.s(14)
+_PLAYER_UP (vic20_graphics.o):
+    input_macros.o            src/input_macros.s(15)
+_POWERUP_IMAGE (display_macros.o):
+    level.o                   src/level.s(23)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(30)
+_WAIT_PRESS (input_macros.o):
+    main.o                    src/main.s(63)
+_XSize (main.o):
+    text.o                    src/text.s(38)
+    character.o               src/character.s(15)
+    level.o                   src/level.s(15)
+_YSize (main.o):
+    text.o                    src/text.s(39)
+    character.o               src/character.s(16)
+    level.o                   src/level.s(16)
+_ZAP_SOUND (vic20_sounds.o):
+    main.o                    src/main.s(70)
+__BSS_RUN__ ([linker generated]):
+    zerobss.o                 common/zerobss.s(8)
+__BSS_SIZE__ ([linker generated]):
+    zerobss.o                 common/zerobss.s(8)
+__CALLIRQ__ (callirq.o):
+    joy-kernel.o              joystick/joy-kernel.s(29)
+__CONSTRUCTOR_COUNT__ ([linker generated]):
+    condes.o                  runtime/condes.s(18)
+__CONSTRUCTOR_TABLE__ ([linker generated]):
+    condes.o                  runtime/condes.s(18)
+__DESTRUCTOR_COUNT__ ([linker generated]):
+    condes.o                  runtime/condes.s(19)
+__DESTRUCTOR_TABLE__ ([linker generated]):
+    condes.o                  runtime/condes.s(19)
+__EXEHDR__ (exehdr.o):
+    [linker generated]        src/../cfg/vic20-8k_GFX.cfg(5)
+__INTERRUPTOR_COUNT__ ([linker generated]):
+    callirq.o                 runtime/callirq.s(36)
+__INTERRUPTOR_TABLE__ ([linker generated]):
+    callirq.o                 runtime/callirq.s(36)
+__LOADADDR__ (loadaddr.o):
+    [linker generated]        src/../cfg/vic20-8k_GFX.cfg(4)
+__MAIN_SIZE__ ([linker generated]):
+    crt0.o                    vic20/crt0.s(11)
+__MAIN_START__ ([linker generated]):
+    crt0.o                    vic20/crt0.s(11)
+__STACKSIZE__ ([linker generated]):
+    crt0.o                    vic20/crt0.s(12)
+    [linker generated]        src/../cfg/vic20-8k_GFX.cfg(14)
+    [linker generated]        src/../cfg/vic20-8k_GFX.cfg(14)
+    [linker generated]        src/../cfg/vic20-8k_GFX.cfg(13)
+__STARTUP__ (crt0.o):
+    main.o                    src/main.s(13)
+__blink_draw (vic20_graphics.o):
+    main.o                    src/main.s(22)
+__ctype (ctype.o):
+    strlower.o                common/strlower.s(13)
+__delete (vic20_graphics.o):
+    main.o                    src/main.s(23)
+    input_macros.o            src/input_macros.s(17)
+    strategy.o                src/strategy.s(13)
+    missile.o                 src/missile.s(14)
+__directerrno (_directerrno.o):
+    vsnprintf.o               /home/travis/build/cc65/cc65/asminc/errno.inc(10)
+__draw (vic20_graphics.o):
+    main.o                    src/main.s(21)
+    missile.o                 src/missile.s(13)
+    level.o                   src/level.s(13)
+    enemy.o                   src/enemy.s(13)
+__errno (errno.o):
+    _seterrno.o               /home/travis/build/cc65/cc65/asminc/errno.inc(7)
+__explosion_sound (vic20_sounds.o):
+    main.o                    src/main.s(69)
+    character.o               src/character.s(30)
+__hextab (_hextab.o):
+    ltoa.o                    common/ltoa.s(10)
+__longminstr (_longminstr.o):
+    ltoa.o                    common/ltoa.s(10)
+__oserror (_oserror.o):
+    _directerrno.o            /home/travis/build/cc65/cc65/asminc/errno.inc(7)
+__ping_sound (vic20_sounds.o):
+    main.o                    src/main.s(68)
+__printScore (text.o):
+    main.o                    src/main.s(53)
+__printf (_printf.o):
+    vsnprintf.o               common/vsnprintf.s(10)
+    vcprintf.o                conio/vcprintf.s(9)
+__seterrno (_seterrno.o):
+    _directerrno.o            /home/travis/build/cc65/cc65/asminc/errno.inc(9)
+_bgcolor (color.o):
+    text.o                    src/text.s(36)
+_bombs (main.o):
+    character.o               src/character.s(37)
+    level.o                   src/level.s(33)
+_bordercolor (color.o):
+    text.o                    src/text.s(37)
+_chasePlayer (strategy.o):
+    main.o                    src/main.s(39)
+_checkBombsVsGhosts (character.o):
+    main.o                    src/main.s(34)
+_checkMissileVsGhosts (missile.o):
+    main.o                    src/main.s(58)
+_chline (chline.o):
+    main.o                    src/main.s(18)
+_clock (clock.o):
+    sleep.o                   ../libwrk/vic20/sleep.s(13)
+_clrscr (clrscr.o):
+    main.o                    src/main.s(15)
+_computeGhostSlowDown (enemy.o):
+    main.o                    src/main.s(55)
+_computeInvincibleGhostParameters (invincible_enemy.o):
+    main.o                    src/main.s(62)
+_computeInvincibleSlowDown (invincible_enemy.o):
+    main.o                    src/main.s(61)
+_computeStrategy (strategy.o):
+    main.o                    src/main.s(38)
+_cprintf (cprintf.o):
+    text.o                    src/text.s(34)
+_cputc (cputc.o):
+    vcprintf.o                conio/vcprintf.s(9)
+    text.o                    src/text.s(33)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(14)
+_cvlinexy (cvline.o):
+    main.o                    src/main.s(19)
+_decreaseGhostLevel (enemy.o):
+    main.o                    src/main.s(56)
+_die (character.o):
+    main.o                    src/main.s(32)
+    missile.o                 src/missile.s(18)
+_displayGhosts (enemy.o):
+    main.o                    src/main.s(57)
+_displayStats (text.o):
+    main.o                    src/main.s(40)
+    character.o               src/character.s(31)
+_displayStatsTitles (text.o):
+    main.o                    src/main.s(41)
+_exit (crt0.o):
+    libref.o                  vic20/libref.s(6)
+_fillLevelWithCharacters (level.o):
+    main.o                    src/main.s(54)
+_gameCompleted (text.o):
+    main.o                    src/main.s(52)
+_ghostCount (main.o):
+    text.o                    src/text.s(44)
+    character.o               src/character.s(17)
+_ghostDies (character.o):
+    missile.o                 src/missile.s(19)
+_ghostLevel (main.o):
+    invincible_enemy.o        src/invincible_enemy.s(21)
+    enemy.o                   src/enemy.s(17)
+_ghostLevelDecrease (main.o):
+    enemy.o                   src/enemy.s(19)
+_ghosts (main.o):
+    strategy.o                src/strategy.s(21)
+    missile.o                 src/missile.s(25)
+    character.o               src/character.s(36)
+    level.o                   src/level.s(32)
+    enemy.o                   src/enemy.s(20)
+_gotoxy (gotoxy.o):
+    main.o                    src/main.s(16)
+    text.o                    src/text.s(32)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(13)
+_gun (main.o):
+    level.o                   src/level.s(30)
+_gunBlink (display_macros.o):
+    main.o                    src/main.s(86)
+_guns (main.o):
+    input_macros.o            src/input_macros.s(27)
+    text.o                    src/text.s(42)
+_highScore (main.o):
+    text.o                    src/text.s(45)
+_initializeCharacter (character.o):
+    level.o                   src/level.s(17)
+_invincibleGhost (main.o):
+    level.o                   src/level.s(27)
+_invincibleLoopTrigger (main.o):
+    invincible_enemy.o        src/invincible_enemy.s(20)
+_invincibleSlowDown (main.o):
+    invincible_enemy.o        src/invincible_enemy.s(17)
+_invincibleXCountDown (main.o):
+    input_macros.o            src/input_macros.s(23)
+    invincible_enemy.o        src/invincible_enemy.s(18)
+_invincibleYCountDown (main.o):
+    input_macros.o            src/input_macros.s(24)
+    invincible_enemy.o        src/invincible_enemy.s(19)
+_isCharacterAtLocation (character.o):
+    main.o                    src/main.s(30)
+    missile.o                 src/missile.s(16)
+_joy_install (joy-kernel.o):
+    main.o                    src/main.s(65)
+_joy_read (joy_read.o):
+    input_macros.o            src/input_macros.s(19)
+_joy_static_stddrv (joy_stat_stddrv.o):
+    main.o                    src/main.s(64)
+_level (main.o):
+    text.o                    src/text.s(40)
+    invincible_enemy.o        src/invincible_enemy.s(15)
+    enemy.o                   src/enemy.s(18)
+_lives (main.o):
+    text.o                    src/text.s(41)
+_loop (main.o):
+    invincible_enemy.o        src/invincible_enemy.s(16)
+_ltoa (ltoa.o):
+    _printf.o                 common/_printf.s(12)
+_main (main.o):
+    callmain.o                runtime/callmain.s(11)
+_memcpy (memcpy.o):
+    vsnprintf.o               common/vsnprintf.s(10)
+_missile (main.o):
+    input_macros.o            src/input_macros.s(26)
+    level.o                   src/level.s(31)
+_moveMissile (missile.o):
+    main.o                    src/main.s(60)
+_moveTowardCharacter (strategy.o):
+    main.o                    src/main.s(37)
+_player (main.o):
+    input_macros.o            src/input_macros.s(22)
+    strategy.o                src/strategy.s(20)
+    character.o               src/character.s(38)
+    level.o                   src/level.s(28)
+_playerDies (character.o):
+    main.o                    src/main.s(33)
+_playerDirection (main.o):
+    input_macros.o            src/input_macros.s(28)
+_playerFire (main.o):
+    input_macros.o            src/input_macros.s(25)
+_points (main.o):
+    missile.o                 src/missile.s(15)
+    text.o                    src/text.s(43)
+    character.o               src/character.s(14)
+_powerUp (main.o):
+    level.o                   src/level.s(29)
+_powerUpBlink (display_macros.o):
+    main.o                    src/main.s(85)
+_printDefeatMessage (text.o):
+    character.o               src/character.s(33)
+_printGameOver (text.o):
+    main.o                    src/main.s(50)
+_printGhostCountStats (text.o):
+    main.o                    src/main.s(46)
+    character.o               src/character.s(32)
+_printGunsStats (text.o):
+    main.o                    src/main.s(42)
+_printLevel (text.o):
+    main.o                    src/main.s(43)
+_printLevelStats (text.o):
+    main.o                    src/main.s(45)
+_printLivesStats (text.o):
+    main.o                    src/main.s(47)
+_printPressKeyToStart (text.o):
+    main.o                    src/main.s(49)
+_printStartMessage (text.o):
+    main.o                    src/main.s(51)
+_printVictoryMessage (text.o):
+    main.o                    src/main.s(44)
+_rand (rand.o):
+    main.o                    src/main.s(14)
+    strategy.o                src/strategy.s(14)
+    character.o               src/character.s(13)
+    level.o                   src/level.s(14)
+_relocateCharacter (character.o):
+    main.o                    src/main.s(35)
+_sameLocationAsAnyLocation (character.o):
+    main.o                    src/main.s(36)
+_screensize (scrsize.o):
+    main.o                    src/main.s(20)
+_setMissileInitialPosition (missile.o):
+    main.o                    src/main.s(59)
+_setScreenColors (text.o):
+    main.o                    src/main.s(48)
+_sleep (sleep.o):
+    main.o                    src/main.s(67)
+    character.o               src/character.s(34)
+_sprintf (sprintf.o):
+    text.o                    src/text.s(14)
+_strategyArray (main.o):
+    strategy.o                src/strategy.s(22)
+_strlen (strlen.o):
+    _printf.o                 common/_printf.s(13)
+    text.o                    src/text.s(13)
+_strlower (strlower.o):
+    _printf.o                 common/_printf.s(13)
+_textcolor (color.o):
+    main.o                    src/main.s(17)
+    text.o                    src/text.s(35)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(15)
+_ultoa (ltoa.o):
+    _printf.o                 common/_printf.s(12)
+_vcprintf (vcprintf.o):
+    cprintf.o                 conio/cprintf.s(8)
+_vic20_stdjoy_joy (vic20-stdjoy-joy.o):
+    joy_stat_stddrv.o         vic20/joy_stat_stddrv.s(10)
+_vsprintf (vsprintf.o):
+    sprintf.o                 common/sprintf.s(8)
+_wallReached (character.o):
+    main.o                    src/main.s(31)
+    missile.o                 src/missile.s(17)
+addeq0sp (addeqsp.o):
+    main.o                    src/main.s(1001)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+addeqysp (addeqsp.o):
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+addysp (addysp.o):
+    sprintf.o                 common/sprintf.s(8)
+    incsp7.o                  runtime/incsp7.s(8)
+    incsp6.o                  runtime/incsp6.s(8)
+    incsp5.o                  runtime/incsp5.s(8)
+    incsp4.o                  runtime/incsp4.s(8)
+    incsp3.o                  runtime/incsp3.s(8)
+    cprintf.o                 conio/cprintf.s(8)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    character.o               src/character.s(589)
+addysp1 (addysp.o):
+    lsub.o                    runtime/lsub.s(11)
+    ladd.o                    runtime/ladd.s(8)
+    sub.o                     runtime/sub.s(8)
+    lmul.o                    runtime/lmul.s(9)
+    and.o                     runtime/and.s(8)
+axlong (axlong.o):
+    _printf.o                 common/_printf.s(11)
+axulong (axlong.o):
+    _printf.o                 common/_printf.s(11)
+    sleep.o                   ../libwrk/vic20/sleep.s(54)
+    main.o                    src/main.s(1001)
+bnega (bneg.o):
+    character.o               src/character.s(589)
+    level.o                   src/level.s(335)
+boolge (makebool.o):
+    lge.o                     runtime/lge.s(8)
+boolugt (makebool.o):
+    lugt.o                    runtime/lugt.s(8)
+callirq (callirq.o):
+    irq.o                     vic20/irq.s(6)
+callmain (callmain.o):
+    crt0.o                    vic20/crt0.s(9)
+chlinechar (clinechars.o):
+    chline.o                  cbm/chline.s(10)
+cputdirect (cputc.o):
+    chline.o                  cbm/chline.s(9)
+cvlinechar (clinechars.o):
+    cvline.o                  cbm/cvline.s(10)
+decax1 (decax1.o):
+    character.o               src/character.s(589)
+    level.o                   src/level.s(335)
+decax2 (decax2.o):
+    character.o               src/character.s(589)
+decsp1 (decsp1.o):
+    strategy.o                src/strategy.s(333)
+    strategy.o                src/strategy.s(333)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    enemy.o                   src/enemy.s(154)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+decsp2 (decsp2.o):
+    toslong.o                 runtime/toslong.s(8)
+    main.o                    src/main.s(1001)
+    level.o                   src/level.s(335)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+decsp4 (decsp4.o):
+    sprintf.o                 common/sprintf.s(8)
+    lpush.o                   runtime/lpush.s(12)
+    character.o               src/character.s(589)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+decsp6 (decsp6.o):
+    _printf.o                 common/_printf.s(11)
+doneirq (irq.o):
+    callirq.o                 runtime/callirq.s(38)
+donelib (condes.o):
+    crt0.o                    vic20/crt0.s(7)
+gotoxy (gotoxy.o):
+    cvline.o                  cbm/cvline.s(9)
+    cputc.o                   vic20/cputc.s(10)
+    chline.o                  cbm/chline.s(9)
+incaxy (incaxy.o):
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+incsp1 (incsp1.o):
+    main.o                    src/main.s(1001)
+    input_macros.o            src/input_macros.s(159)
+    strategy.o                src/strategy.s(333)
+    character.o               src/character.s(589)
+    enemy.o                   src/enemy.s(154)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+incsp2 (incsp2.o):
+    vsnprintf.o               common/vsnprintf.s(9)
+    staspidx.o                runtime/staspidx.s(8)
+    popsreg.o                 runtime/popsreg.s(8)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+incsp3 (incsp3.o):
+    strategy.o                src/strategy.s(333)
+    strategy.o                src/strategy.s(333)
+    missile.o                 src/missile.s(324)
+    text.o                    src/text.s(604)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+incsp4 (incsp4.o):
+    lcmp.o                    runtime/lcmp.s(9)
+    strategy.o                src/strategy.s(333)
+    strategy.o                src/strategy.s(333)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    level.o                   src/level.s(335)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+incsp5 (incsp5.o):
+    strategy.o                src/strategy.s(333)
+    character.o               src/character.s(589)
+incsp6 (incsp6.o):
+    vsnprintf.o               common/vsnprintf.s(9)
+    sleep.o                   ../libwrk/vic20/sleep.s(54)
+    missile.o                 src/missile.s(324)
+    character.o               src/character.s(589)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+incsp7 (incsp7.o):
+    character.o               src/character.s(589)
+initirq (irq.o):
+    callirq.o                 runtime/callirq.s(37)
+initlib (condes.o):
+    crt0.o                    vic20/crt0.s(7)
+joy_libref (libref.o):
+    joy-kernel.o              joystick/joy-kernel.s(7)
+joy_read (joy-kernel.o):
+    joy_read.o                /home/travis/build/cc65/cc65/asminc/joy-kernel.inc(72)
+ldax0sp (ldaxsp.o):
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+ldaxidx (ldaxi.o):
+    main.o                    src/main.s(1001)
+    missile.o                 src/missile.s(324)
+    enemy.o                   src/enemy.s(154)
+ldaxysp (ldaxsp.o):
+    vsnprintf.o               common/vsnprintf.s(9)
+    sleep.o                   ../libwrk/vic20/sleep.s(54)
+    main.o                    src/main.s(1001)
+    strategy.o                src/strategy.s(333)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+ldeax0sp (ldeaxysp.o):
+    sleep.o                   ../libwrk/vic20/sleep.s(54)
+leaa0sp (leaaxsp.o):
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+mulax5 (mulax5.o):
+    main.o                    src/main.s(1001)
+    strategy.o                src/strategy.s(333)
+    missile.o                 src/missile.s(324)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    level.o                   src/level.s(335)
+    enemy.o                   src/enemy.s(154)
+negax (neg.o):
+    shelp.o                   runtime/shelp.s(11)
+    mod.o                     runtime/mod.s(11)
+newline (cputc.o):
+    cvline.o                  cbm/cvline.s(9)
+plot (cputc.o):
+    gotoxy.o                  cbm/gotoxy.s(8)
+popa (popa.o):
+    gotoxy.o                  cbm/gotoxy.s(8)
+popax (incsp2.o):
+    memcpy.o                  common/memcpy.s(14)
+    vsnprintf.o               common/vsnprintf.s(9)
+    ltoa.o                    common/ltoa.s(9)
+    _printf.o                 common/_printf.s(11)
+    vcprintf.o                conio/vcprintf.s(8)
+    shelp.o                   runtime/shelp.s(11)
+popsargs (shelp.o):
+    mod.o                     runtime/mod.s(11)
+popsreg (popsreg.o):
+    udiv.o                    runtime/udiv.s(8)
+    scrsize.o                 conio/scrsize.s(9)
+    mul8.o                    runtime/mul8.s(9)
+ptr1 (zeropage.o):
+    memcpy.o                  common/memcpy.s(15)
+    vsnprintf.o               common/vsnprintf.s(11)
+    strlower.o                common/strlower.s(14)
+    ltoa.o                    common/ltoa.s(11)
+    lcmp.o                    runtime/lcmp.s(10)
+    _printf.o                 /home/travis/build/cc65/cc65/asminc/zeropage.inc(12)
+    zerobss.o                 common/zerobss.s(9)
+    vcprintf.o                conio/vcprintf.s(10)
+    udiv.o                    runtime/udiv.s(9)
+    strlen.o                  common/strlen.s(12)
+    staspidx.o                runtime/staspidx.s(9)
+    sprintf.o                 common/sprintf.s(9)
+    scrsize.o                 conio/scrsize.s(11)
+    mulax5.o                  runtime/mulax5.s(8)
+    mod.o                     runtime/mod.s(12)
+    lmul.o                    runtime/lmul.s(10)
+    ldaxi.o                   runtime/ldaxi.s(8)
+    joy-kernel.o              joystick/joy-kernel.s(8)
+    cprintf.o                 conio/cprintf.s(9)
+    main.o                    src/main.s(11)
+    strategy.o                src/strategy.s(11)
+    missile.o                 src/missile.s(11)
+    character.o               src/character.s(11)
+    enemy.o                   src/enemy.s(11)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(11)
+ptr2 (zeropage.o):
+    memcpy.o                  common/memcpy.s(15)
+    strlower.o                common/strlower.s(14)
+    ltoa.o                    common/ltoa.s(11)
+    _printf.o                 /home/travis/build/cc65/cc65/asminc/zeropage.inc(12)
+    vcprintf.o                conio/vcprintf.s(10)
+ptr3 (zeropage.o):
+    memcpy.o                  common/memcpy.s(15)
+    ltoa.o                    common/ltoa.s(11)
+    vcprintf.o                conio/vcprintf.s(10)
+    lmul.o                    runtime/lmul.s(10)
+ptr4 (zeropage.o):
+    udiv.o                    runtime/udiv.s(9)
+    shelp.o                   runtime/shelp.s(12)
+    mul8.o                    runtime/mul8.s(10)
+    lmul.o                    runtime/lmul.s(10)
+push1 (push1.o):
+    _printf.o                 common/_printf.s(11)
+pusha (pusha.o):
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    input_macros.o            src/input_macros.s(159)
+    strategy.o                src/strategy.s(333)
+    strategy.o                src/strategy.s(333)
+    strategy.o                src/strategy.s(333)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    level.o                   src/level.s(335)
+    enemy.o                   src/enemy.s(154)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+pusha0 (pushax.o):
+    push1.o                   runtime/push1.s(8)
+    main.o                    src/main.s(1001)
+    strategy.o                src/strategy.s(333)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    character.o               src/character.s(589)
+    level.o                   src/level.s(335)
+    invincible_enemy.o        src/invincible_enemy.s(87)
+    invincible_enemy.o        src/invincible_enemy.s(87)
+    enemy.o                   src/enemy.s(154)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+pushax (pushax.o):
+    callmain.o                runtime/callmain.s(11)
+    _printf.o                 common/_printf.s(11)
+    vcprintf.o                conio/vcprintf.s(8)
+    sleep.o                   ../libwrk/vic20/sleep.s(54)
+    cprintf.o                 conio/cprintf.s(8)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    main.o                    src/main.s(1001)
+    strategy.o                src/strategy.s(333)
+    strategy.o                src/strategy.s(333)
+    strategy.o                src/strategy.s(333)
+    strategy.o                src/strategy.s(333)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    level.o                   src/level.s(335)
+    invincible_enemy.o        src/invincible_enemy.s(87)
+    invincible_enemy.o        src/invincible_enemy.s(87)
+    enemy.o                   src/enemy.s(154)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(238)
+pusheax (lpush.o):
+    _printf.o                 common/_printf.s(11)
+    sleep.o                   ../libwrk/vic20/sleep.s(54)
+    main.o                    src/main.s(1001)
+pushw0sp (pushwsp.o):
+    vsprintf.o                common/vsprintf.s(8)
+    main.o                    src/main.s(1001)
+    text.o                    src/text.s(604)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+pushwysp (pushwsp.o):
+    strategy.o                src/strategy.s(333)
+    strategy.o                src/strategy.s(333)
+    strategy.o                src/strategy.s(333)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    missile.o                 src/missile.s(324)
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+    character.o               src/character.s(589)
+putchar (cputc.o):
+    cvline.o                  cbm/cvline.s(9)
+regbank (zeropage.o):
+    _printf.o                 /home/travis/build/cc65/cc65/asminc/zeropage.inc(14)
+screensize (_scrsize.o):
+    scrsize.o                 conio/scrsize.s(10)
+shlax4 (aslax4.o):
+    invincible_enemy.o        src/invincible_enemy.s(87)
+    enemy.o                   src/enemy.s(154)
+shrax1 (shrax1.o):
+    text.o                    src/text.s(604)
+sp (zeropage.o):
+    memcpy.o                  common/memcpy.s(15)
+    vsnprintf.o               common/vsnprintf.s(11)
+    lsub.o                    runtime/lsub.s(12)
+    ldeaxysp.o                runtime/ldeaxysp.s(12)
+    lcmp.o                    runtime/lcmp.s(10)
+    ladd.o                    runtime/ladd.s(9)
+    decsp6.o                  runtime/decsp6.s(8)
+    _printf.o                 /home/travis/build/cc65/cc65/asminc/zeropage.inc(11)
+    vcprintf.o                conio/vcprintf.s(10)
+    toslong.o                 runtime/toslong.s(9)
+    subysp.o                  runtime/subysp.s(9)
+    sub.o                     runtime/sub.s(9)
+    staxsp.o                  runtime/staxsp.s(8)
+    staspidx.o                runtime/staspidx.s(9)
+    sprintf.o                 common/sprintf.s(9)
+    pushwsp.o                 runtime/pushwsp.s(8)
+    pushax.o                  runtime/pushax.s(8)
+    pusha.o                   runtime/pusha.s(8)
+    popsreg.o                 runtime/popsreg.s(9)
+    popa.o                    runtime/popa.s(8)
+    lpush.o                   runtime/lpush.s(13)
+    lmul.o                    runtime/lmul.s(10)
+    leaaxsp.o                 runtime/leaaxsp.s(8)
+    ldaxsp.o                  runtime/ldaxsp.s(8)
+    incsp2.o                  runtime/incsp2.s(8)
+    incsp1.o                  runtime/incsp1.s(8)
+    icmp.o                    runtime/icmp.s(9)
+    decsp4.o                  runtime/decsp4.s(8)
+    decsp2.o                  runtime/decsp2.s(8)
+    decsp1.o                  runtime/decsp1.s(8)
+    crt0.o                    /home/travis/build/cc65/cc65/asminc/zeropage.inc(11)
+    cprintf.o                 conio/cprintf.s(9)
+    and.o                     runtime/and.s(9)
+    addysp.o                  runtime/addysp.s(8)
+    addeqsp.o                 runtime/addeqsp.s(8)
+    add.o                     runtime/add.s(12)
+    main.o                    src/main.s(10)
+    input_macros.o            src/input_macros.s(10)
+    strategy.o                src/strategy.s(10)
+    missile.o                 src/missile.s(10)
+    text.o                    src/text.s(10)
+    character.o               src/character.s(10)
+    level.o                   src/level.s(10)
+    enemy.o                   src/enemy.s(10)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(10)
+    vic20_graphics.o          src/vic20/vic20_graphics.s(10)
+sreg (zeropage.o):
+    ltoa.o                    common/ltoa.s(11)
+    lsub.o                    runtime/lsub.s(12)
+    ldeaxysp.o                runtime/ldeaxysp.s(12)
+    lcmp.o                    runtime/lcmp.s(10)
+    ladd.o                    runtime/ladd.s(9)
+    clock.o                   cbm/clock.s(9)
+    _printf.o                 /home/travis/build/cc65/cc65/asminc/zeropage.inc(11)
+    udiv.o                    runtime/udiv.s(9)
+    sleep.o                   ../libwrk/vic20/sleep.s(10)
+    shelp.o                   runtime/shelp.s(12)
+    scrsize.o                 conio/scrsize.s(11)
+    popsreg.o                 runtime/popsreg.s(9)
+    mul8.o                    runtime/mul8.s(10)
+    lpush.o                   runtime/lpush.s(13)
+    lmul.o                    runtime/lmul.s(10)
+    icmp.o                    runtime/icmp.s(9)
+    axlong.o                  runtime/axlong.s(9)
+staspidx (staspidx.o):
+    missile.o                 src/missile.s(324)
+stax0sp (staxsp.o):
+    main.o                    src/main.s(1001)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+staxysp (staxsp.o):
+    vsprintf.o                common/vsprintf.s(8)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+subysp (subysp.o):
+    text.o                    src/text.s(604)
+    text.o                    src/text.s(604)
+tmp1 (zeropage.o):
+    ltoa.o                    common/ltoa.s(11)
+    ladd.o                    runtime/ladd.s(9)
+    _printf.o                 /home/travis/build/cc65/cc65/asminc/zeropage.inc(13)
+    vic20-stdjoy-joy.o        /home/travis/build/cc65/cc65/asminc/zeropage.inc(13)
+    vcprintf.o                conio/vcprintf.s(10)
+    staspidx.o                runtime/staspidx.s(9)
+    shrax1.o                  runtime/shrax1.s(8)
+    shelp.o                   runtime/shelp.s(12)
+    mod.o                     runtime/mod.s(12)
+    incaxy.o                  runtime/incaxy.s(8)
+    cvline.o                  cbm/cvline.s(10)
+    color.o                   vic20/color.s(12)
+    chline.o                  cbm/chline.s(10)
+    aslax4.o                  runtime/aslax4.s(8)
+    add.o                     runtime/add.s(12)
+    main.o                    src/main.s(11)
+    strategy.o                src/strategy.s(11)
+    enemy.o                   src/enemy.s(11)
+tmp2 (zeropage.o):
+    shelp.o                   runtime/shelp.s(12)
+    lmul.o                    runtime/lmul.s(10)
+tmp3 (zeropage.o):
+    lmul.o                    runtime/lmul.s(10)
+tmp4 (zeropage.o):
+    lmul.o                    runtime/lmul.s(10)
+tosaddax (add.o):
+    character.o               src/character.s(589)
+    level.o                   src/level.s(335)
+tosaddeax (ladd.o):
+    sleep.o                   ../libwrk/vic20/sleep.s(54)
+tosandax (and.o):
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+tosgeeax (lge.o):
+    sleep.o                   ../libwrk/vic20/sleep.s(54)
+tosicmp (icmp.o):
+    character.o               src/character.s(589)
+tosicmp0 (icmp.o):
+    strategy.o                src/strategy.s(333)
+toslcmp (lcmp.o):
+    lge.o                     runtime/lge.s(8)
+    lugt.o                    runtime/lugt.s(8)
+tosmoda0 (mod.o):
+    strategy.o                src/strategy.s(333)
+    character.o               src/character.s(589)
+    level.o                   src/level.s(335)
+tossubax (sub.o):
+    main.o                    src/main.s(1001)
+    text.o                    src/text.s(604)
+    invincible_enemy.o        src/invincible_enemy.s(87)
+    invincible_enemy.o        src/invincible_enemy.s(87)
+    enemy.o                   src/enemy.s(154)
+tossubeax (lsub.o):
+    sleep.o                   ../libwrk/vic20/sleep.s(54)
+tosudiva0 (udiv.o):
+    level.o                   src/level.s(335)
+tosugteax (lugt.o):
+    main.o                    src/main.s(1001)
+tosulong (toslong.o):
+    main.o                    src/main.s(1001)
+tosumul0ax (lmul.o):
+    sleep.o                   ../libwrk/vic20/sleep.s(54)
+    main.o                    src/main.s(1001)
+tosumula0 (mul8.o):
+    main.o                    src/main.s(1001)
+    level.o                   src/level.s(335)
+    invincible_enemy.o        src/invincible_enemy.s(87)
+    invincible_enemy.o        src/invincible_enemy.s(87)
+    enemy.o                   src/enemy.s(154)
+    vic20_sounds.o            src/vic20/vic20_sounds.s(202)
+udiv16 (udiv.o):
+    mod.o                     runtime/mod.s(11)
+vsnprintf (vsnprintf.o):
+    vsprintf.o                common/vsprintf.s(9)
+zerobss (zerobss.o):
+    crt0.o                    vic20/crt0.s(8)
+

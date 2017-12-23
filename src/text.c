@@ -358,14 +358,14 @@ void setScreenColors(void)
 		_printScoreOnRow(YSize/2, text, score);
 	}
 #else
-	void _printScore(char * text, unsigned int score)
-	{
-		char levelString[22];
+	// void _printScore(char * text, unsigned int score)
+	// {
+		// char levelString[22];
 
-		sprintf(levelString, text, score);
+		// sprintf(levelString, text, score);
 
-		printCenteredMessage(levelString);	
-	}	
+		// printCenteredMessage(levelString);	
+	// }	
 #endif
 
 void gameCompleted(void)	

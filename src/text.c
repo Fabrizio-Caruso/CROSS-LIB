@@ -233,9 +233,15 @@ extern Image MISSILE_IMAGE;
 			gotoxy(18-2+X_OFFSET,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 		#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData+160);cputc(':');
+			gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData+160);
+			#if defined(WIDE)
+				cputc(':');
+			#endif			
 			gotoxy(15-3-2-3,0); cputc(GHOST_IMAGE._imageData+160);cputc(':');
-			gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData+64);cputc(':');		
+			gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData+64);
+			#if defined(WIDE)
+				cputc(':');
+			#endif			
 		#elif defined(__GAMATE__)
 			SET_TEXT_COLOR(3);	
 			gotoxy(11,0); cputc(GUN_IMAGE._imageData);cputc(':');
@@ -245,9 +251,17 @@ extern Image MISSILE_IMAGE;
 			#if defined(COLOR)
 			SET_TEXT_COLOR(TEXT_COLOR);
 			#endif
-			gotoxy(11+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');
+			gotoxy(11+X_OFFSET,0); 
+			cputc(GUN_IMAGE._imageData);
+			#if defined(WIDE)
+				cputc(':');
+			#endif
 			gotoxy(7+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(14+X_OFFSET,0); cputc(PLAYER_IMAGE._imageData);cputc(':');
+			gotoxy(14+X_OFFSET,0); cputc(PLAYER_IMAGE._imageData);
+			#if defined(WIDE)
+				cputc(':');
+			#endif
+			cputc(':');
 		#endif
 	}
 
@@ -294,7 +308,7 @@ void printLivesStats(void)
 	#if defined(WIDE) && !defined(TINY_GAME)
 		PRINTF(18+2-2,-Y_OFFSET+1,"%02u",lives);
 	#else
-		PRINTF(15+2+1-5+4-1,-Y_OFFSET,"%u",lives);	
+		PRINTF(15,-Y_OFFSET,"%02u",lives);	
 	#endif
 }
 

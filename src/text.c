@@ -41,30 +41,42 @@
 #define CPC_RED 3
 #define CPC_BLACK 4
 
-#if defined(NO_CASE_LETTERS)
-	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
-		#define PRESS_STRING "press fire"
+#if defined(NO_TEXT)
+	#if defined(NO_CASE_LETTERS)
+		#define PRESS_STRING "go"
+		#define GAME_OVER_STRING "game over"
+		#define YOU_MADE_IT_STRING "the end"		
 	#else
-		#define PRESS_STRING "press any key"
+		#define PRESS_STRING "GO"	
+		#define GAME_OVER_STRING "GAME OVER"
+		#define YOU_MADE_IT_STRING "THE END"		
 	#endif
-	#define GAME_OVER_STRING "game over"
-	#define DEFEAT_STRING "you lost"
-	#define VICTORY_STRING "you won"
-	#define EXTRA_LIFE_STRING "extra life"
-	#define YOU_MADE_IT_STRING "you made it"
 #else
-	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
-		#define PRESS_STRING "PRESS FIRE"
+	#if defined(NO_CASE_LETTERS)
+		#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
+			#define PRESS_STRING "press fire"
+		#else
+			#define PRESS_STRING "press any key"
+		#endif
+		#define GAME_OVER_STRING "game over"
+		#define DEFEAT_STRING "you lost"
+		#define VICTORY_STRING "you won"
+		#define EXTRA_LIFE_STRING "extra life"
+		#define YOU_MADE_IT_STRING "you made it"
 	#else
-		#define PRESS_STRING "PRESS ANY KEY"
+		#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
+			#define PRESS_STRING "PRESS FIRE"
+		#else
+			#define PRESS_STRING "PRESS ANY KEY"
+		#endif
+		#define GAME_OVER_STRING "GAME OVER"
+		#define DEFEAT_STRING "YOU LOST"	
+		#define VICTORY_STRING "YOU WON"
+		#define EXTRA_LIFE_STRING "EXTRA LIFE"
+		#define YOU_MADE_IT_STRING "YOU MADE IT"	
 	#endif
-	#define GAME_OVER_STRING "GAME OVER"
-	#define DEFEAT_STRING "YOU LOST"	
-	#define VICTORY_STRING "YOU WON"
-	#define EXTRA_LIFE_STRING "EXTRA LIFE"
-	#define YOU_MADE_IT_STRING "YOU MADE IT"	
 #endif
-
+	
 // 3 -> white
 // 2 -> black 
 // 1 -> black
@@ -193,7 +205,6 @@ extern Image MISSILE_IMAGE;
 			// Nothing
 		#endif
 
-		// && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__) && !defined(__SPECTRUM__) && !defined(__MSX__)
 		#if defined(WIDE)
 			#if !defined(__MSX__)
 				SET_TEXT_COLOR(_RED);	
@@ -374,12 +385,12 @@ void gameCompleted(void)
 	}	
 #endif
 
-#if !defined(NO_TEXT)
-	void printPressKeyToStart(void)
-	{		
-		printCenteredMessage(               PRESS_STRING);
-	}
-				
+void printPressKeyToStart(void)
+{
+	printCenteredMessage(PRESS_STRING);
+}		
+
+#if !defined(NO_TEXT)	
 	void printGameOver(void)
 	{		
 		printCenteredMessageWithCol(_WHITE, GAME_OVER_STRING);
@@ -390,27 +401,10 @@ void gameCompleted(void)
 		printCenteredMessageWithCol(_WHITE, DEFEAT_STRING);
 	}	
 #else
-	#if defined(NO_CASE_LETTERS)
-		void printPressKeyToStart(void)
-		{
-			printCenteredMessage("go");
-		}		
-		
-		void printGameOver(void)
-		{
-			printCenteredMessage(" game over ");
-		}	
-	#else
-		void printPressKeyToStart(void)
-		{
-			printCenteredMessage("GO");
-		}		
-		
-		void printGameOver(void)
-		{
-			printCenteredMessage(" GAME OVER ");
-		}	
-	#endif
+	void printGameOver(void)
+	{
+		printCenteredMessage(GAME_OVER_STRING);
+	}	
 #endif
 
 

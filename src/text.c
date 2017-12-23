@@ -228,40 +228,26 @@ extern Image MISSILE_IMAGE;
 			zx_setcursorpos(1-1+1, 18-2); cputc(PLAYER_IMAGE._imageData);cputc(':');			
 		#elif defined(WIDE)
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(19-2+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');
-			gotoxy(15-2+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(18-2+X_OFFSET,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+			gotoxy(17+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');
+			gotoxy(13+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+			gotoxy(16+X_OFFSET,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 		#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData+160);
-			#if defined(WIDE)
-				cputc(':');
-			#endif			
+			gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData+160);	
 			gotoxy(15-3-2-3,0); cputc(GHOST_IMAGE._imageData+160);cputc(':');
-			gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData+64);
-			#if defined(WIDE)
-				cputc(':');
-			#endif			
+			gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData+64);		
 		#elif defined(__GAMATE__)
 			SET_TEXT_COLOR(3);	
-			gotoxy(11,0); cputc(GUN_IMAGE._imageData);cputc(':');
+			gotoxy(11,0); cputc(GUN_IMAGE._imageData);
 			gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+			gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);
 		#else
 			#if defined(COLOR)
 			SET_TEXT_COLOR(TEXT_COLOR);
 			#endif
-			gotoxy(11+X_OFFSET,0); 
-			cputc(GUN_IMAGE._imageData);
-			#if defined(WIDE)
-				cputc(':');
-			#endif
+			gotoxy(11+X_OFFSET,0); cputc(GUN_IMAGE._imageData);
 			gotoxy(7+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
 			gotoxy(14+X_OFFSET,0); cputc(PLAYER_IMAGE._imageData);
-			#if defined(WIDE)
-				cputc(':');
-			#endif
-			cputc(':');
 		#endif
 	}
 

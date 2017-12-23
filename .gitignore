@@ -14,4 +14,4 @@ src/nes/nes_graphics.s
 src/wincmoc_input.c
 src/wincmoc_graphics.c
 ./tools/cpcrslib/cpcrslib.lib
-
+./map.txt

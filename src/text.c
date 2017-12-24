@@ -246,7 +246,9 @@ extern Image MISSILE_IMAGE;
 			SET_TEXT_COLOR(TEXT_COLOR);		
 			zx_setcursorpos(0, 17); cputc(GUN_IMAGE._imageData);cputc(':');
 			zx_setcursorpos(0, 13); cputc(GHOST_IMAGE._imageData);cputc(':');
-			zx_setcursorpos(1, 16); cputc(PLAYER_IMAGE._imageData);cputc(':');			
+			zx_setcursorpos(1, 16); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+		#elif defined(__ATARI5200__)
+			// TODO: to implement
 		#elif defined(WIDE)
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			gotoxy(17+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');

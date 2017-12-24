@@ -583,7 +583,7 @@ msx_color_32k_msxdos:
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 #KO: atari5200 (display list issue??)
-cc65_targets: gamate creativision_8k osic1p_8k osic1p_32k vic20_exp_3k vic20_exp_8k vic20_exp_16k atari_color atari_no_color atari_no_color_16k atmos oric1_16k c128_40col c128_80col c16_16k c16_32k c64 pet_8k pet_16k cbm510 cbm610 nes apple2 apple2enh
+cc65_targets: gamate creativision_8k osic1p_8k osic1p_32k vic20_exp_3k vic20_exp_8k vic20_exp_16k atari5200 atari_color atari_no_color atari_no_color_16k atmos oric1_16k c128_40col c128_80col c16_16k c16_32k c64 pet_8k pet_16k cbm510 cbm610 nes apple2 apple2enh
 
 
 

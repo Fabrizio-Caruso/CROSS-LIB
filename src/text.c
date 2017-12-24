@@ -366,19 +366,6 @@ void printPressKeyToStart(void)
 
 
 // SPLASH SCREEN
-
-#if defined(__C64__) && defined(REDEFINED_CHARS)
-	void c64_splash_title(void)
-	{
-		SET_TEXT_COLOR(_RED);
-		PRINT((XSize - 22) / 2, 2, CROSS_CHASE_STRING);
-		SET_TEXT_COLOR(COLOR_BROWN);
-		PRINT((XSize - 22) / 2, YSize / 2 - 7,  AUTHOR_STRING);
-		SET_TEXT_COLOR(TEXT_COLOR);	
-	}
-#endif
-
-	
 #if defined(__ATMOS__) && defined(FULL_GAME)
 	void atmos_splash_title(void)
 	{

@@ -36,6 +36,15 @@
 	#include "cpc/cpcrslib.h"	
 #endif
 
+// Instructions color
+#if defined(__PLUS4__) || defined(__C16__)
+	#define SPLASH_COLOR COLOR_CYAN	
+#elif defined(__CPC__)
+	#define SPLASH_COLOR _YELLOW			
+#else
+	#define SPLASH_COLOR COLOR_BLUE
+#endif 
+
 // CPC
 #define CPC_WHITE 1
 #define CPC_YELLOW 2 
@@ -511,45 +520,18 @@ void printHints(void)
 #if !defined(NO_INITIAL_SCREEN)
 void printStartMessage(void)
 {
-	#if !defined(TINY_GAME)
-		_printTopScore();
-	#endif
+	printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);
 	
-	// #if defined(__C64__) && defined(REDEFINED_CHARS)
-		// c64_splash_title();
-	// #elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
-		// atmos_splash_title();
-	// #else
-		printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);
-	// #endif
-	
-	#if !defined(NO_COLOR)
-		SET_TEXT_COLOR(TEXT_COLOR);
-	#endif
-	
+	SET_TEXT_COLOR(TEXT_COLOR);
 	printCenteredMessageOnRow(5, AUTHOR_STRING);	
 
 	#if !defined(TINY_GAME)
-		#if !defined(__ATMOS__)
-			#if defined(__PLUS4__) || defined(__C16__)
-				SET_TEXT_COLOR(COLOR_CYAN);	
-			#elif defined(__CPC__)
-				SET_TEXT_COLOR(_YELLOW);			
-			#else
-				SET_TEXT_COLOR(COLOR_BLUE);
-			#endif 
-		#endif
-
-		// #if defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
-			// atmos_splash_instructions();
-		// #else
-			printCenteredMessageOnRow(YSize/2-1, LURE_THE_ENEMIES_STRING);
-			printCenteredMessageOnRow(YSize/2+1, INTO_THE_MINES_STRING);
-		// #endif
-
-		// #if !defined(__ATMOS__) && !defined(NO_TEXT)
-		SET_TEXT_COLOR(TEXT_COLOR);		
-		// #endif
+		_printTopScore();
+		
+		SET_TEXT_COLOR(SPLASH_COLOR);
+		printCenteredMessageOnRow(YSize/2-1, LURE_THE_ENEMIES_STRING);
+		printCenteredMessageOnRow(YSize/2+1, INTO_THE_MINES_STRING);
+		SET_TEXT_COLOR(TEXT_COLOR);				
 	#endif
 
 	printCenteredMessageOnRow(YSize-3, USE_STRING);

@@ -28,11 +28,12 @@
 
 #include "settings.h"
 
+#include "text_strings.h"
+
 #ifdef __ATMOS__
 	#include<peekpoke.h>
 #elif defined(__CPC__) && defined(CPCRSLIB)
 	#include "cpc/cpcrslib.h"	
-#elif defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) 
 #endif
 
 // CPC
@@ -41,63 +42,6 @@
 #define CPC_RED 3
 #define CPC_BLACK 4
 
-#if defined(NO_CASE_LETTERS)
-	#if defined(TINY_GAME)
-		#define CROSS_CHASE_STRING "cross chase"
-		#define AUTHOR_STRING "fabrizio caruso"
-	#else
-		#define CROSS_CHASE_STRING "c r o s s  c h a s e"	
-		#define AUTHOR_STRING "by fabrizio caruso"
-	#endif
-#elif defined(__PC6001__)
-	#define CROSS_CHASE_STRING "C R O S S  C H A S E"		
-	#define AUTHOR_STRING "BY FABRIZIO CARUSO"
-#else
-	#if defined(TINY_GAME)
-		#define CROSS_CHASE_STRING "CROSS CHASE"
-		#define AUTHOR_STRING "Fabrizio Caruso"
-	#else
-		#define CROSS_CHASE_STRING "C R O S S  C H A S E"		
-		#define AUTHOR_STRING "by Fabrizio caruso"
-	#endif
-#endif
-
-#if defined(NO_TEXT)
-	#if defined(NO_CASE_LETTERS)
-		#define PRESS_STRING "go"
-		#define GAME_OVER_STRING "game over"
-		#define YOU_MADE_IT_STRING "the end"		
-	#else
-		#define PRESS_STRING "GO"	
-		#define GAME_OVER_STRING "GAME OVER"
-		#define YOU_MADE_IT_STRING "THE END"		
-	#endif
-#else
-	#if defined(NO_CASE_LETTERS)
-		#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
-			#define PRESS_STRING "press fire"
-		#else
-			#define PRESS_STRING "press any key"
-		#endif
-		#define GAME_OVER_STRING "game over"
-		#define DEFEAT_STRING "you lost"
-		#define VICTORY_STRING "you won"
-		#define EXTRA_LIFE_STRING "extra life"
-		#define YOU_MADE_IT_STRING "you made it"
-	#else
-		#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
-			#define PRESS_STRING "PRESS FIRE"
-		#else
-			#define PRESS_STRING "PRESS ANY KEY"
-		#endif
-		#define GAME_OVER_STRING "GAME OVER"
-		#define DEFEAT_STRING "YOU LOST"	
-		#define VICTORY_STRING "YOU WON"
-		#define EXTRA_LIFE_STRING "EXTRA LIFE"
-		#define YOU_MADE_IT_STRING "YOU MADE IT"	
-	#endif
-#endif
-	
 // 3 -> white
 // 2 -> black 
 // 1 -> black
@@ -187,17 +131,10 @@ extern Image MISSILE_IMAGE;
 	
 
 #if defined(FULL_GAME)
-	#if defined(NO_CASE_LETTERS)
-		void printKillTheSkull(void)
-		{
-			printCenteredMessage("kill the skull");	
-		}
-	#else
-		void printKillTheSkull(void)
-		{
-			printCenteredMessage("Kill the skull");
-		}	
-	#endif	
+	void printKillTheSkull(void)
+	{
+		printCenteredMessage(KILL_THE_SKULL_STRING);	
+	}
 #endif
 
 
@@ -525,24 +462,13 @@ void printPressKeyToStart(void)
 #endif
 
 
-#if defined(__C64__)
-	void c64_splash_instructions(void)
-	{
-		PRINT((XSize - 22) / 2, YSize / 2 - 3, "escape the enemies");
-		
-		PRINT((XSize - 22) / 2, YSize / 2 - 1, "force them into the mines");
-		
-		PRINT((XSize - 22) / 2, YSize / 2 + 1, "catch the gun for bullets");
-	}
-#endif
-
 
 #if defined(__ATMOS__) && defined(FULL_GAME)
 	void atmos_splash_instructions(void)
 	{
-		PRINT(7, YSize / 2 - 1, "Escape from the enemies");
+		PRINT(7, YSize / 2 - 1, LURE_THE_ENEMIES_STRING);
 		
-		PRINT(7, YSize / 2, "Force them into the mines");
+		PRINT(7, YSize / 2, INTO_THE_MINES_STRING);
 	}
 #endif
 
@@ -585,18 +511,22 @@ void printHints(void)
 #if !defined(NO_INITIAL_SCREEN)
 void printStartMessage(void)
 {
-	#if defined(__C64__) && defined(REDEFINED_CHARS)
-		c64_splash_title();
-	#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
-		atmos_splash_title();
-	#elif !defined(TINY_GAME)
+	#if !defined(TINY_GAME)
 		_printTopScore();
 	#endif
-
-	printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);
+	
+	// #if defined(__C64__) && defined(REDEFINED_CHARS)
+		// c64_splash_title();
+	// #elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
+		// atmos_splash_title();
+	// #else
+		printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);
+	// #endif
+	
 	#if !defined(NO_COLOR)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
+	
 	printCenteredMessageOnRow(5, AUTHOR_STRING);	
 
 	#if !defined(TINY_GAME)
@@ -610,45 +540,19 @@ void printStartMessage(void)
 			#endif 
 		#endif
 
-		#if defined(__C64__) 
-			c64_splash_instructions();
-		#elif defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
-			atmos_splash_instructions();
-		#else
-			#if defined(NO_CASE_LETTERS)
-				printCenteredMessageOnRow(YSize/2-1, "lure the enemies");
-			#elif defined(__PC6001__)
-				printCenteredMessageOnRow(YSize/2-1, "LURE THE ENEMIES");					
-			#else
-				printCenteredMessageOnRow(YSize/2-1, "Lure the enemies");
-			#endif		
-			#if !defined(__PC6001__)
-				printCenteredMessageOnRow(YSize/2+1, "into the mines");
-			#else
-				printCenteredMessageOnRow(YSize/2+1, "INTO THE MINES");
-			#endif
-		#endif
+		// #if defined(__ATMOS__) && defined(FULL_GAME) && defined(REDEFINED_CHARS)
+			// atmos_splash_instructions();
+		// #else
+			printCenteredMessageOnRow(YSize/2-1, LURE_THE_ENEMIES_STRING);
+			printCenteredMessageOnRow(YSize/2+1, INTO_THE_MINES_STRING);
+		// #endif
 
-		#if !defined(__ATMOS__) && !defined(NO_TEXT)
-			SET_TEXT_COLOR(TEXT_COLOR);		
-		#endif
+		// #if !defined(__ATMOS__) && !defined(NO_TEXT)
+		SET_TEXT_COLOR(TEXT_COLOR);		
+		// #endif
 	#endif
-	
-	#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
-		printCenteredMessageOnRow(YSize-3, "use the joystick");
-	#elif !defined(TINY_GAME)		
-		#if !defined(__PC6001__)
-			printCenteredMessageOnRow(YSize-3, "use i j k l space");
-		#else
-			printCenteredMessageOnRow(YSize-3, "USE I J K L SPACE");
-		#endif
-	#else
-		#if !defined(__PC6001__)
-			printCenteredMessageOnRow(YSize-3, "use ijkl");		
-		#else
-			printCenteredMessageOnRow(YSize-3, "USE IJKL");
-		#endif			
-	#endif	
+
+	printCenteredMessageOnRow(YSize-3, USE_STRING);
 }
 #endif
 

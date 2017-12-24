@@ -377,6 +377,9 @@ void _delete(unsigned char x, unsigned char y);
 #elif defined(__SPECTRUM__)
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
+// #elif defined(__MSX__)
+	// #define PRINT(x,y,str) do {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
+	// #define PRINTF(x,y,str,val) do {gotoxy(x+1+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
 #else
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);

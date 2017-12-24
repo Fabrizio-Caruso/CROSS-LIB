@@ -41,6 +41,27 @@
 #define CPC_RED 3
 #define CPC_BLACK 4
 
+#if defined(NO_CASE_LETTERS)
+	#if defined(TINY_GAME)
+		#define CROSS_CHASE_STRING "cross chase"
+		#define AUTHOR_STRING "fabrizio caruso"
+	#else
+		#define CROSS_CHASE_STRING "c r o s s  c h a s e"	
+		#define AUTHOR_STRING "by fabrizio caruso"
+	#endif
+#elif defined(__PC6001__)
+	#define CROSS_CHASE_STRING "C R O S S  C H A S E"		
+	#define AUTHOR_STRING "BY FABRIZIO CARUSO"
+#else
+	#if defined(TINY_GAME)
+		#define CROSS_CHASE_STRING "CROSS CHASE"
+		#define AUTHOR_STRING "Fabrizio Caruso"
+	#else
+		#define CROSS_CHASE_STRING "C R O S S  C H A S E"		
+		#define AUTHOR_STRING "by Fabrizio caruso"
+	#endif
+#endif
+
 #if defined(NO_TEXT)
 	#if defined(NO_CASE_LETTERS)
 		#define PRESS_STRING "go"
@@ -198,8 +219,8 @@ extern Image MISSILE_IMAGE;
 				PRINT(2-1, -Y_OFFSET,   "SCORE:");
 				PRINT(2-1, -Y_OFFSET+1, "LEVEL:");			
 			#else
-				PRINT(2-2, -Y_OFFSET,   "SCORE:");
-				PRINT(2-2, -Y_OFFSET+1, "LEVEL:");	
+				PRINT(0, -Y_OFFSET,   "SCORE:");
+				PRINT(0, -Y_OFFSET+1, "LEVEL:");	
 			#endif
 		#else
 			// Nothing
@@ -211,7 +232,7 @@ extern Image MISSILE_IMAGE;
 				PRINT(24-3,-Y_OFFSET,"-----------");		
 				PRINT(24-3,-Y_OFFSET+1,"cross chase");	
 			#else
-				PRINT(24-3-1,-Y_OFFSET,  "cross-----");		
+				PRINT(24-3-1,-Y_OFFSET,  "cross----");		
 				PRINT(24-3-1,-Y_OFFSET+1,"----chase");			
 			#endif
 		#endif
@@ -223,9 +244,9 @@ extern Image MISSILE_IMAGE;
 			cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1+1-2)*2,1*8);gotoxy(18+1-2,1); cputc(':');	
 		#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 			SET_TEXT_COLOR(TEXT_COLOR);		
-			zx_setcursorpos(0-1+1, 19-2); cputc(GUN_IMAGE._imageData);cputc(':');
-			zx_setcursorpos(0-1+1, 15-2); cputc(GHOST_IMAGE._imageData);cputc(':');
-			zx_setcursorpos(1-1+1, 18-2); cputc(PLAYER_IMAGE._imageData);cputc(':');			
+			zx_setcursorpos(0, 17); cputc(GUN_IMAGE._imageData);cputc(':');
+			zx_setcursorpos(0, 13); cputc(GHOST_IMAGE._imageData);cputc(':');
+			zx_setcursorpos(1, 16); cputc(PLAYER_IMAGE._imageData);cputc(':');			
 		#elif defined(WIDE)
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			gotoxy(17+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');
@@ -233,17 +254,12 @@ extern Image MISSILE_IMAGE;
 			gotoxy(16+X_OFFSET,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 		#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(15+1-5,0); cputc(GUN_IMAGE._imageData+160);	
-			gotoxy(15-3-2-3,0); cputc(GHOST_IMAGE._imageData+160);cputc(':');
-			gotoxy(15+1-5+4-1,0); cputc(PLAYER_IMAGE._imageData+64);		
-		#elif defined(__GAMATE__)
-			SET_TEXT_COLOR(3);	
-			gotoxy(11,0); cputc(GUN_IMAGE._imageData);
-			gotoxy(7,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(14,0); cputc(PLAYER_IMAGE._imageData);
+			gotoxy(11,0); cputc(GUN_IMAGE._imageData+160);	
+			gotoxy(7,0); cputc(GHOST_IMAGE._imageData+160);cputc(':');
+			gotoxy(14,0); cputc(PLAYER_IMAGE._imageData+64);		
 		#else
 			#if defined(COLOR)
-			SET_TEXT_COLOR(TEXT_COLOR);
+				SET_TEXT_COLOR(TEXT_COLOR);
 			#endif
 			gotoxy(11+X_OFFSET,0); cputc(GUN_IMAGE._imageData);
 			gotoxy(7+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
@@ -357,15 +373,6 @@ void setScreenColors(void)
 	{
 		_printScoreOnRow(YSize/2, text, score);
 	}
-#else
-	// void _printScore(char * text, unsigned int score)
-	// {
-		// char levelString[22];
-
-		// sprintf(levelString, text, score);
-
-		// printCenteredMessage(levelString);	
-	// }	
 #endif
 
 void gameCompleted(void)	
@@ -416,9 +423,9 @@ void printPressKeyToStart(void)
 	void c64_splash_title(void)
 	{
 		SET_TEXT_COLOR(_RED);
-		PRINT((XSize - 22) / 2, 2, "c r o s s   c h a s e");
+		PRINT((XSize - 22) / 2, 2, CROSS_CHASE_STRING);
 		SET_TEXT_COLOR(COLOR_BROWN);
-		PRINT((XSize - 22) / 2, YSize / 2 - 7,  "by fabrizio caruso");
+		PRINT((XSize - 22) / 2, YSize / 2 - 7,  AUTHOR_STRING);
 		SET_TEXT_COLOR(TEXT_COLOR);	
 	}
 #endif
@@ -540,13 +547,8 @@ void printPressKeyToStart(void)
 #if defined(FULL_GAME)
 void printHints(void)
 {
-	#if defined(__CPC__)
-		printCenteredMessageOnRowWithCol(3, _RED,  "c r o s s  c h a s e");	
-	#elif defined(NO_CASE_LETTERS) 
-		printCenteredMessageOnRowWithCol(3, _RED, "c r o s s  c h a s e");		
-	#else
-		printCenteredMessageOnRowWithCol(3, _RED, "C R O S S  C H A S E");	
-	#endif
+	printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);		
+
 	SET_TEXT_COLOR(TEXT_COLOR);		
 
 	#if defined(NO_CASE_LETTERS)
@@ -587,33 +589,14 @@ void printStartMessage(void)
 		atmos_splash_title();
 	#elif !defined(TINY_GAME)
 		_printTopScore();
-		#if defined(NO_CASE_LETTERS)
-			printCenteredMessageOnRowWithCol(3, _RED,  "c r o s s  c h a s e");				
-		#else
-			printCenteredMessageOnRowWithCol(3, _RED,  "C R O S S  C H A S E");		
-		#endif
-		SET_TEXT_COLOR(TEXT_COLOR);		
-		#if defined(NO_CASE_LETTERS)
-			printCenteredMessageOnRow(5, "by fabrizio caruso");		
-		#elif defined(__PC6001__)
-			printCenteredMessageOnRow(5, "BY FABRIZIO CARUSO");				
-		#else
-			printCenteredMessageOnRow(5, "by Fabrizio Caruso");
-		#endif
-	#else
-		printCenteredMessageOnRowWithCol(3, _RED,  "CROSS CHASE");
-		#if !defined(NO_COLOR)
-			SET_TEXT_COLOR(TEXT_COLOR);
-		#endif
-		#if defined(NO_CASE_LETTERS)
-			printCenteredMessageOnRow(5, "fabrizio caruso");	
-		#elif  defined(__PC6001__)
-			printCenteredMessageOnRow(5, "FABRIZIO CARUSO");				
-		#else
-			printCenteredMessageOnRow(5, "Fabrizio Caruso");
-		#endif		
 	#endif
-	
+
+	printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);
+	#if !defined(NO_COLOR)
+		SET_TEXT_COLOR(TEXT_COLOR);
+	#endif
+	printCenteredMessageOnRow(5, AUTHOR_STRING);	
+
 	#if !defined(TINY_GAME)
 		#if !defined(__ATMOS__)
 			#if defined(__PLUS4__) || defined(__C16__)

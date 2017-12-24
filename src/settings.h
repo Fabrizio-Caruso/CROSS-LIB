@@ -280,7 +280,7 @@
 #define BACKGROUND_COLOR COLOR_BLACK
 #define BORDER_COLOR COLOR_BLACK
 
-#if defined(__CPC__)
+#if defined(__CPC__) || defined(__GAMATE__)
 	#define TEXT_COLOR 3
 #else
 	#define TEXT_COLOR COLOR_WHITE

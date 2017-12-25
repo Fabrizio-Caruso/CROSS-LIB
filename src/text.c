@@ -60,7 +60,6 @@
 #define CPC_TEXT_WHITE 3
 #define CPC_TEXT_RED 4
 
-
 // VG5K
 #define VG5K_BLACK 0
 #define VG5K_RED 1
@@ -95,13 +94,13 @@
 	#define PLAYER_IMAGE_Y 1
 	#define LEVEL_X 6
 #else
-	#define GUN_IMAGE_X 10+1
+	#define GUN_IMAGE_X 11
 	#define GUN_IMAGE_Y 0
-	#define GHOST_IMAGE_X 7+1
+	#define GHOST_IMAGE_X 8
 	#define GHOST_IMAGE_Y 0
-	#define PLAYER_IMAGE_X 13+1
+	#define PLAYER_IMAGE_X 14
 	#define PLAYER_IMAGE_Y 0
-	#define LEVEL_X 17+1
+	#define LEVEL_X 18
 #endif
 	
 extern unsigned char XSize;
@@ -133,8 +132,7 @@ extern Image MISSILE_IMAGE;
 	{
 		SET_TEXT_COLOR(col);
 		printCenteredMessageOnRow(row, Text);
-	}
-		
+	}		
 #else
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
@@ -143,6 +141,7 @@ extern Image MISSILE_IMAGE;
 	#define printCenteredMessageOnRowWithCol(row, col, Text) \
 		printCenteredMessageOnRow(row, Text)
 #endif
+
 
 #if defined(COLOR)
 	#define printCenteredMessage(Text) \
@@ -177,15 +176,15 @@ extern Image MISSILE_IMAGE;
 			PRINT(0, -Y_OFFSET+1, LEVEL_STRING);
 	
 			SET_TEXT_COLOR(_RED);	
-			PRINT(21,-Y_OFFSET,"-----------");		
-			PRINT(21,-Y_OFFSET+1,"cross chase");				
+			PRINT(XSize-11,-Y_OFFSET,  "-----------");		
+			PRINT(XSize-11,-Y_OFFSET+1,"cross chase");				
 		#endif
 
 		#if defined(__CPC__) && defined(CPCRSLIB)
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			cpc_PrintGphStrStdXY(CPC_YELLOW,")",GUN_IMAGE_X*2,0*8);gotoxy(17+1,0); cputc(':');
-			cpc_PrintGphStrStdXY(CPC_WHITE,"%",GHOST_IMAGE_X*2,0*8);gotoxy(13+1,0); cputc(':');
-			cpc_PrintGphStrStdXY(CPC_YELLOW,"!",PLAYER_IMAGE_X*2,1*8);gotoxy(16+1,1); cputc(':');	
+			cpc_PrintGphStrStdXY(CPC_YELLOW,")",GUN_IMAGE_X*2,0*8);gotoxy(GUN_IMAGE_X+1,0); cputc(':');
+			cpc_PrintGphStrStdXY(CPC_WHITE,"%",GHOST_IMAGE_X*2,0*8);gotoxy(GHOST_IMAGE_X+1,0); cputc(':');
+			cpc_PrintGphStrStdXY(CPC_YELLOW,"!",PLAYER_IMAGE_X*2,1*8);gotoxy(PLAYER_IMAGE_X+1,1); cputc(':');	
 		#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 			SET_TEXT_COLOR(TEXT_COLOR);		
 			zx_setcursorpos(0, GUN_IMAGE_X); cputc(GUN_IMAGE._imageData);cputc(':');
@@ -201,14 +200,14 @@ extern Image MISSILE_IMAGE;
 		#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			gotoxy(GUN_IMAGE_X,0); cputc(GUN_IMAGE._imageData+160);	
-			gotoxy(GHOST_IMAGE_X,0); cputc(GHOST_IMAGE._imageData+160);cputc(':');
+			gotoxy(GHOST_IMAGE_X,0); cputc(GHOST_IMAGE._imageData+160);
 			gotoxy(PLAYER_IMAGE_X,0); cputc(PLAYER_IMAGE._imageData+64);		
 		#else
 			#if defined(COLOR)
 				SET_TEXT_COLOR(TEXT_COLOR);
 			#endif
 			gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc(GUN_IMAGE._imageData);
-			gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+			gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);
 			gotoxy(PLAYER_IMAGE_X+X_OFFSET,0); cputc(PLAYER_IMAGE._imageData);
 		#endif
 	}
@@ -226,6 +225,7 @@ extern Image MISSILE_IMAGE;
 	}
 #endif
 
+
 void printLevelStats(void)
 {	
 	#if defined(WIDE) && !defined(TINY_GAME)
@@ -235,6 +235,7 @@ void printLevelStats(void)
 		PRINTF(LEVEL_X,-Y_OFFSET,"%02u",level);	
 	#endif	
 }
+
 
 void printGhostCountStats(void)
 {
@@ -248,6 +249,7 @@ void printGhostCountStats(void)
 	#endif	
 }
 
+
 void printLivesStats(void)
 {
 	#if defined(COLOR)
@@ -259,6 +261,7 @@ void printLivesStats(void)
 		PRINTF(PLAYER_IMAGE_X+1,-Y_OFFSET,"%02u",lives);	
 	#endif
 }
+
 
 void displayStats(void)
 {	
@@ -272,14 +275,16 @@ void displayStats(void)
 	#endif	
 }
 
+
 #if !defined(NO_SET_SCREEN_COLORS)
-void setScreenColors(void)
-{
-	SET_TEXT_COLOR(TEXT_COLOR);
-	SET_BORDER_COLOR(BORDER_COLOR);
-	SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
-}
+	void setScreenColors(void)
+	{
+		SET_TEXT_COLOR(TEXT_COLOR);
+		SET_BORDER_COLOR(BORDER_COLOR);
+		SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
+	}
 #endif
+
 
 #if !defined(NO_TEXT)	
 	void printLevel(void)
@@ -291,7 +296,6 @@ void setScreenColors(void)
 		printCenteredMessageWithCol(_WHITE,levelString);
 	}
 #endif
-	
 
 
 #if !defined(TINY_GAME)
@@ -310,10 +314,12 @@ void setScreenColors(void)
 	}
 #endif
 
+
 void gameCompleted(void)	
 {
 	printCenteredMessage(YOU_MADE_IT_STRING); 
 }
+
 
 #if !defined(NO_TEXT)
 	void printExtraLife(void)
@@ -331,6 +337,7 @@ void printPressKeyToStart(void)
 {
 	printCenteredMessage(PRESS_STRING);
 }		
+
 
 #if !defined(NO_TEXT)	
 	void printGameOver(void)
@@ -353,42 +360,43 @@ void printPressKeyToStart(void)
 
 
 #if defined(FULL_GAME)
-void printHints(void)
-{
-	printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);		
+	void printHints(void)
+	{
+		printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);		
 
-	SET_TEXT_COLOR(TEXT_COLOR);		
+		SET_TEXT_COLOR(TEXT_COLOR);		
 
-	printCenteredMessageOnRow(6,  USE_THE_GUN_AGAINST_STRING);
+		printCenteredMessageOnRow(6,  USE_THE_GUN_AGAINST_STRING);
 
-	printCenteredMessageOnRow(8,  THE_SKULL_AND_STRING);
+		printCenteredMessageOnRow(8,  THE_SKULL_AND_STRING);
 
-	printCenteredMessageOnRow(10, MISSILE_BASES_STRING);	
-	
-	printCenteredMessageOnRow(12, FOR_POINTS_AND___STRING);
+		printCenteredMessageOnRow(10, MISSILE_BASES_STRING);	
+		
+		printCenteredMessageOnRow(12, FOR_POINTS_AND___STRING);
 
-	printCenteredMessageOnRow(14, EXTRA_POWERUPS__STRING);
-}
+		printCenteredMessageOnRow(14, EXTRA_POWERUPS__STRING);
+	}
 #endif
 
 #if !defined(NO_INITIAL_SCREEN)
-void printStartMessage(void)
-{
-	printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);
-	
-	SET_TEXT_COLOR(TEXT_COLOR);
-	printCenteredMessageOnRow(5, AUTHOR_STRING);	
-
-	#if !defined(TINY_GAME)
-		_printTopScore();
+	void printStartMessage(void)
+	{
+		printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);
 		
-		SET_TEXT_COLOR(SPLASH_COLOR);
-		printCenteredMessageOnRow(YSize/2-1, LURE_THE_ENEMIES_STRING);
-		printCenteredMessageOnRow(YSize/2+1, INTO_THE_MINES_STRING);
-		SET_TEXT_COLOR(TEXT_COLOR);				
-	#endif
+		SET_TEXT_COLOR(TEXT_COLOR);
+		printCenteredMessageOnRow(5, AUTHOR_STRING);	
 
-	printCenteredMessageOnRow(YSize-3, USE_STRING);
-}
+		#if !defined(TINY_GAME)
+			_printTopScore();
+			
+			SET_TEXT_COLOR(SPLASH_COLOR);
+			printCenteredMessageOnRow(YSize/2-1, LURE_THE_ENEMIES_STRING);
+			printCenteredMessageOnRow(YSize/2+1, INTO_THE_MINES_STRING);
+			
+			SET_TEXT_COLOR(TEXT_COLOR);				
+		#endif
+
+		printCenteredMessageOnRow(YSize-3, USE_STRING);
+	}
 #endif
 

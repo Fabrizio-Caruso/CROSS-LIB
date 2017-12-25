@@ -135,3 +135,22 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
+
+void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
+{
+	unsigned char i;
+	SET_TEXT_COLOR(COLOR_YELLOW);
+
+	for(i=0;i<length;++i) 
+	{ 
+		gotoxy(x+i+X_OFFSET,y+Y_OFFSET);  cputc('-');
+	} 	
+}
+
+void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
+{
+	textcolor (COLOR_YELLOW);
+	cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);		
+}
+
+

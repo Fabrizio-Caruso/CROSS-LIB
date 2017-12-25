@@ -58,7 +58,9 @@
 	#endif
 
 	#if defined(__ZX80__)
-		#define cputc(c) {gen_tv_field(); printf("%c",c); gen_tv_field();}
+		#define cputc(c) do {gen_tv_field(); fputc_cons(c); gen_tv_field(); } while(0)
+//do {fputc_cons(c); gen_tv_field(); } while(0)
+//{gen_tv_field(); printf("%c",c); gen_tv_field();}
 	#elif defined(__ZX81__) || defined(__LAMBDA__)
 	    #define cputc(c) fputc_cons(c)
 	#else

@@ -248,114 +248,94 @@ void _delete(unsigned char x, unsigned char y);
 
 // VERTICAL AND HORIZONTAL BORDER
 #if !defined(TINY_GAME)
-	#if defined(__MSX__) || defined(__AQUARIUS__) || defined(__CPC__)
-		#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize)
-		#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize)	
-	#else
-		#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1)
-		#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize-1)	
-	#endif
-
-	#if defined(__MSX__) && !defined(REDEFINED_CHARS)
-		#define DRAW_HORIZONTAL_LINE(x,y,length)
-		#define DRAW_VERTICAL_LINE(x,y,length)
-	#endif
+	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize)
+	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize)
+#else	
+	#define DRAW_VERTICAL_BORDER(x)	
+	#define DRAW_HORIZONTAL_BORDER(y)
 #endif
 
 // FULL BORDER
 #if !defined(TINY_GAME)
-#if defined(__ATMOS__)
-	#define DRAW_BORDERS() \
-	{ \
-		unsigned char i; \
-		\
-		for(i=0;i<38;++i) \
-		{ \
-			POKE(0xBB80+(i+X_OFFSET)+(0+Y_OFFSET)*40,'-'); \
-		} \
-		for(i=0;i<YSize-Y_OFFSET;++i) \
-		{ \
-			POKE(0xBB80+(0+X_OFFSET)+(1+i+Y_OFFSET)*40,'|'); \
-		} \
-		for(i=0;i<38;++i) \
-		{ \
-			POKE(0xBB80+(i+X_OFFSET)+(YSize-1+Y_OFFSET)*40,'-'); \
-		} \
-		for(i=0;i<YSize-Y_OFFSET;++i) \
-		{ \
-			POKE(0xBB80+(38-1+X_OFFSET)+(1+i+Y_OFFSET)*40,'|'); \
-		} \
-	} 
-#elif defined(__SPECTRUM__)	&& defined(REDEFINED_CHARS)
-	#define DRAW_BORDERS() \
-	{ \
-		DRAW_HORIZONTAL_BORDER(0); \
-		DRAW_HORIZONTAL_BORDER(YSize-1); \
-		DRAW_VERTICAL_LINE(0, 1, YSize);\
-		DRAW_VERTICAL_LINE(XSize - 1, 1, YSize); \
-	}
-#elif defined(__SPECTRUM__)	&& !defined(REDEFINED_CHARS)
-	#define  DRAW_BORDERS() \
-	{ \
-		DRAW_VERTICAL_LINE(0, 1, YSize-1);\
-		DRAW_VERTICAL_LINE(XSize - 1, 1, YSize-1); \
-	}
-#elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
-	#define DRAW_BORDERS()\
-	{ \
-		DRAW_HORIZONTAL_LINE (1+X_OFFSET,0+Y_OFFSET, XSize-1);\
-		DRAW_VERTICAL_LINE(0+X_OFFSET, 1+Y_OFFSET, YSize - 1);\
-		DRAW_HORIZONTAL_LINE (1+X_OFFSET,YSize-1,XSize-1);\
-		DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 1); \
-	}
-#elif (defined(__C16__) || defined(__PLUS4__)) && defined(REDEFINED_CHARS)
+	#if defined(__ATMOS__)
 		#define DRAW_BORDERS() \
-		{ \
-			DRAW_HORIZONTAL_LINE (0,0, XSize);\
-			DRAW_VERTICAL_LINE(XSize - 1, 1, YSize - 2); \
-			DRAW_VERTICAL_LINE(0,1,YSize-2); \
-			DRAW_HORIZONTAL_LINE (0,YSize-1,XSize);\
-		}	
-#elif defined(CC65) && (defined(WIDE) || defined(__VIC20__)) || defined(__GAMATE__)
-	#if defined(__C64__) || defined(__VIC20__)
-		#define DRAW_BORDERS()\
-			{ \
-				SET_TEXT_COLOR(COLOR_YELLOW); \
-				gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-				chline (XSize);\
-				cvlinexy (0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
-				chline (XSize);\
-				cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
-			}		
-	#else
-		#define DRAW_BORDERS()\
-			{ \
-				SET_TEXT_COLOR(TEXT_COLOR); \
-				gotoxy(0+X_OFFSET,0+Y_OFFSET); \
-				cputc (CH_ULCORNER);\
-				chline (XSize-1);\
-				cputc (CH_URCORNER);\
-				cvlinexy (0+X_OFFSET, 1+Y_OFFSET, YSize - 2);\
-				cputc (CH_LLCORNER);\
-				chline (XSize-1);\
-				cputc (CH_LRCORNER);\
-				cvlinexy (XSize - 1, 1+Y_OFFSET, YSize - 2); \
-			}	
-	#endif
-#elif defined(__ATARI5200__) || (defined(__SVI__) && defined(MSX_MODE0))
-		#define DRAW_BORDERS() \
-		{ \
-		}	
-#else
-		#define DRAW_BORDERS() \
-		{ \
 			SET_TEXT_COLOR(TEXT_COLOR); \
 			DRAW_HORIZONTAL_BORDER(0); \
 			DRAW_HORIZONTAL_BORDER(YSize-1); \
 			DRAW_VERTICAL_BORDER(0); \
-			DRAW_VERTICAL_BORDER(XSize-1); \
-		}	
-#endif
+			DRAW_VERTICAL_BORDER(XSize-1); 
+	#elif defined(__SPECTRUM__)	&& defined(REDEFINED_CHARS)
+		#define DRAW_BORDERS() \
+		{ \
+			DRAW_VERTICAL_LINE(0, 1, YSize); \
+			DRAW_VERTICAL_LINE(XSize - 1, 1, YSize); \
+			DRAW_HORIZONTAL_BORDER(0); \
+			DRAW_HORIZONTAL_BORDER(YSize-1); \
+		}
+	#elif defined(__SPECTRUM__)	&& !defined(REDEFINED_CHARS)
+		#define  DRAW_BORDERS() \
+		{ \
+			DRAW_VERTICAL_LINE(0, 1, YSize-1);\
+			DRAW_VERTICAL_LINE(XSize - 1, 1, YSize-1); \
+		}
+	#elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
+		#define DRAW_BORDERS()\
+		{ \
+			DRAW_HORIZONTAL_LINE (1+X_OFFSET,0+Y_OFFSET, XSize-1);\
+			DRAW_VERTICAL_LINE(0+X_OFFSET, 1+Y_OFFSET, YSize - 1);\
+			DRAW_HORIZONTAL_LINE (1+X_OFFSET,YSize-1,XSize-1);\
+			DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 1); \
+		}
+	#elif (defined(__C16__) || defined(__PLUS4__)) && defined(REDEFINED_CHARS)
+			#define DRAW_BORDERS() \
+			{ \
+				DRAW_HORIZONTAL_LINE (0,0, XSize);\
+				DRAW_VERTICAL_LINE(XSize - 1, 1, YSize - 2); \
+				DRAW_VERTICAL_LINE(0,1,YSize-2); \
+				DRAW_HORIZONTAL_LINE (0,YSize-1,XSize);\
+			}	
+	#elif defined(CC65) && (defined(WIDE) || defined(__VIC20__)) || defined(__GAMATE__)
+		#if defined(__C64__) || defined(__VIC20__)
+			#define DRAW_BORDERS()\
+				{ \
+					SET_TEXT_COLOR(COLOR_YELLOW); \
+					DRAW_HORIZONTAL_BORDER(0); \
+					DRAW_HORIZONTAL_BORDER(YSize-1); \
+					DRAW_VERTICAL_BORDER(0); \
+					DRAW_VERTICAL_BORDER(XSize-1); \
+				}		
+		#else
+			#define DRAW_BORDERS()\
+				{ \
+					SET_TEXT_COLOR(TEXT_COLOR); \
+					DRAW_HORIZONTAL_BORDER(0); \
+					DRAW_HORIZONTAL_BORDER(YSize-1); \
+					DRAW_VERTICAL_BORDER(0); \
+					DRAW_VERTICAL_BORDER(XSize-1); \
+				}	
+		#endif
+	#elif defined(__ATARI5200__) || (defined(__SVI__) && defined(MSX_MODE0))
+			#define DRAW_BORDERS() \
+			{ \
+			}	
+	#elif defined(__ZX81__)
+			#define DRAW_BORDERS() \
+			{ \
+				DRAW_HORIZONTAL_LINE (0,0, XSize-1);\
+				DRAW_VERTICAL_LINE(XSize - 1, 1, YSize - 2); \
+				DRAW_VERTICAL_LINE(0,1,YSize-2); \
+				DRAW_HORIZONTAL_LINE (0,YSize-1,XSize-1);\
+			}			
+	#else
+			#define DRAW_BORDERS() \
+			{ \
+				SET_TEXT_COLOR(TEXT_COLOR); \
+				DRAW_HORIZONTAL_BORDER(0); \
+				DRAW_HORIZONTAL_BORDER(YSize-1); \
+				DRAW_VERTICAL_BORDER(0); \
+				DRAW_VERTICAL_BORDER(XSize-1); \
+			}	
+	#endif
 #endif
 
 // PRINT AND PRINTF
@@ -385,91 +365,14 @@ void _delete(unsigned char x, unsigned char y);
 	
 // DRAW HORIZONTAL AND VERTICAL LINES
 #if !defined(TINY_GAME)
-#if defined(__ATMOS__)
-	#include<peekpoke.h>
-
-	#define DRAW_VERTICAL_LINE(x,y,length) \
-	{ \
-		unsigned char i; \
-		for(i=0;i<length;++i) \
-		{ \
-			POKE(0xBB80+(x+X_OFFSET)+(y+i+Y_OFFSET)*40,'|'); \
-		} \
-	}
-
-#elif defined(__VG5K__)
+	#if defined(__VG5K__)
+		void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);
+	#endif
 	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length);
-
-	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
-
-	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);	
-
-#elif defined(__SPECTRUM__)
-	#include <stdio.h>
-
-	#if defined(REDEFINED_CHARS)
-		void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);
-		void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length);		
-	#else
-		#define DRAW_VERTICAL_LINE(x, y, length) \
-		{ \
-			unsigned char i; \
-			\
-			SET_TEXT_COLOR(COLOR_WHITE); \
-			for(i=0;i<length;++i) \
-			{ \
-				gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  printf("%c",'|'); \
-			} \
-		}		
-	#endif
-#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-#elif (defined(__C16__) || defined(__PLUS4__)) && defined(REDEFINED_CHARS)
-	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);	
-	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-#elif defined(__C64__) || defined(__VIC20__)
-	#define DRAW_VERTICAL_LINE(x,y,length) do {(void) textcolor (COLOR_YELLOW);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);} while(0)		
-#elif defined(__CBM__) || defined(__ATARI5200__) || defined(__ATARI__) || defined(__ATARIXL__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
-	#define DRAW_VERTICAL_LINE(x,y,length) do {(void) textcolor (COLOR_WHITE);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);} while(0)	
-#elif defined(__GAMATE__)
-	#define DRAW_VERTICAL_LINE(x,y,length) do {(void) textcolor (COLOR_BLACK);cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);} while(0)			
-#else		
-	#if defined(__MSX__) || defined(__CPC__)
-		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-	#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
-		void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-		void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length);
-	#else
-		#if defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__)
-			#define VERTICAL_BRICK '#'
-		#else
-			#define VERTICAL_BRICK '|'
-		#endif
-		#define DRAW_VERTICAL_LINE(x,y,length) \
-		{ \
-			unsigned char i; \
-			SET_TEXT_COLOR(COLOR_WHITE); \
-			for(i=0;i<length;++i) \
-			{ \
-				gotoxy(X_OFFSET+x,Y_OFFSET+y+i); \
-				cputc(VERTICAL_BRICK); \
-			} \
-		}		
-		#define DRAW_HORIZONTAL_LINE(x,y,length) \
-		{ \
-			unsigned char i; \
-			gotoxy(X_OFFSET+x,Y_OFFSET+y);  \
-			for(i=0;i<length;++i) \
-			{ \
-				cputc('-'); \
-			} \
-		} \
-			
-	#endif
-
-#endif
+	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);	
+#else
+	#define DRAW_HORIZONTAL_LINE(x,y,length)
+	#define DRAW_VERTICAL_LINE(x,y,length)
 #endif
 
 // COLORS AND CLEAR SCREEN
@@ -477,14 +380,9 @@ void _delete(unsigned char x, unsigned char y);
 	#include <stdio.h>
 	#include <arch/zx.h>
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
-	
-	// #if !defined(TINY_GAME)
-		// #define CLEAR_SCREEN() 	zx_cls(INK_WHITE | PAPER_BLACK)
-	// #else
+
 	#define CLEAR_SCREEN()  {zx_cls(PAPER_BLACK|INK_WHITE);}
-//printf("\xc")
-	// #endif
-	
+
 #elif defined(__AQUARIUS__) || (defined(__SVI__) && !defined(MSX_MODE0))
 	#define SET_TEXT_COLOR(c) textcolor(c)
 

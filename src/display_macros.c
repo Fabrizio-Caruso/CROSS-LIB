@@ -24,8 +24,13 @@
 	#pragma code-name(push, "CODE2")
 #endif
 
-
 #include "display_macros.h"
+
+#if defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__)
+	#define VERTICAL_BRICK '#'
+#else
+	#define VERTICAL_BRICK '|'
+#endif
 
 #if !defined(TINY_GAME)
 	unsigned char powerUpBlink = 0;
@@ -267,9 +272,34 @@ Image BOMB_IMAGE;
 		}	
 	}
 	#endif
+
+	#if !defined(TINY_GAME)
+	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
+		{ 
+			unsigned char i; 
+			SET_TEXT_COLOR(COLOR_WHITE); 
+			for(i=0;i<length;++i) 
+			{ 
+				gotoxy(X_OFFSET+x,Y_OFFSET+y+i);
+				cputc(VERTICAL_BRICK);
+			} 
+		}
+		
+	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length)
+		{ 
+			unsigned char i; 
+			gotoxy(X_OFFSET+x,Y_OFFSET+y); 
+			for(i=0;i<length;++i)
+			{
+				cputc('-');
+			}
+		}
+	#endif
+
 #endif
 
-
+	
+	
 #if defined(__VIC20__) && defined(REDEFINED_CHARS) && !defined(FULL_GAME) && !defined(TINY_GAME)
 	#pragma code-name(pop)
 #endif

@@ -123,23 +123,7 @@ void INIT_IMAGES(void)
 	#endif
 }
 
-// #if defined(FULL_GAME)
-// void define_udg(void)
-// {
-	// #asm
-	// jr _udg
-	
-	// _graphic:
-		// defb 255,0,255,0,255,0,255,0,255,0
-	
-	// _udg:
-        // ld hl,_graphic
-        // ld a,33
-        // call $001B
 
-	// #endasm			
-// }
-// #endif
 
 void INIT_GRAPHICS(void)
 {

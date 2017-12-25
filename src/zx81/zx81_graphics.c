@@ -68,10 +68,10 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._imageData = 'O';
 	
 	#if !defined(TINY_GAME)
-	INVINCIBLE_GHOST_IMAGE._imageData = '+';	
-	POWERUP_IMAGE._imageData = 'S';
-	GUN_IMAGE._imageData = '!';
-	MISSILE_IMAGE._imageData = '.';
+		INVINCIBLE_GHOST_IMAGE._imageData = '+';	
+		POWERUP_IMAGE._imageData = 'S';
+		GUN_IMAGE._imageData = '!';
+		MISSILE_IMAGE._imageData = '.';
 	#endif
 
 	#if defined(FULL_GAME)
@@ -131,9 +131,8 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 #endif
 
 
-#if defined(__ACE__)
-#else
-	#if !defined(TINY_GAME)
+
+#if !defined(TINY_GAME)
 	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	{ 
 		unsigned char i;
@@ -153,8 +152,8 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 			cputc('-');
 		}
 	}
-	#endif
 #endif
+
 		
 
 

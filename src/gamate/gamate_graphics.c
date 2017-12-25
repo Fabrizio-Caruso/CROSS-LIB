@@ -101,27 +101,6 @@ void INIT_IMAGES(void)
 
 }
 
-// void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-// { 
-	// unsigned char i;
-	// for(i=0;i<length;++i)
-	// {
-		// _DRAW_WALL(x,y+i)
-	// }
-// }
-
-// void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-// {
-	// unsigned char i;
-	// gotoxy(X_OFFSET+1+x,Y_OFFSET+y); 
-	// for(i=0;i<length;++i)
-	// {
-		// cputc('-');
-	// }
-// }
-
-
-
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
 	if(*blinkCounter) 
@@ -154,8 +133,21 @@ void _delete(unsigned char x, unsigned char y)
 	}
 #endif
 	
+#if !defined(TINY_GAME)
+	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length)
+	{
+		// TODO: To implement
+	}
 
+	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
+	{
+		textcolor (COLOR_BLACK);
+		cvlinexy (x+X_OFFSET,y+Y_OFFSET,length);
+	}
+#endif
 
+	
+	
 		
 
 

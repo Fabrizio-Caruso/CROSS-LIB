@@ -47,12 +47,28 @@
 	#define KILL_THE_SKULL_STRING "kill the skull"
 	#define LURE_THE_ENEMIES_STRING "lure the enemies"
 	#define INTO_THE_MINES_STRING 	"into the mines"
+	#define SCORE_STRING "score:"
+	#define LEVEL_STRING "level:"
+	#define START_LEVEL_STRING "level %u"
+	#define USE_THE_GUN_AGAINST_STRING "use the gun against"
+	#define THE_SKULL_AND_STRING "the skull and"
+	#define MISSILE_BASES_STRING "missile bases"
+	#define FOR_POINTS_AND___STRING "for points and  "
+	#define EXTRA_POWERUPS__STRING "extra powerups "
 #elif defined(__PC6001__)
 	#define CROSS_CHASE_STRING "C R O S S  C H A S E"		
 	#define AUTHOR_STRING "BY FABRIZIO CARUSO"
 	#define KILL_THE_SKULL_STRING "KILL THE SKULL"	
 	#define LURE_THE_ENEMIES_STRING "LURE THE ENEMIES"
 	#define INTO_THE_MINES_STRING 	"INTO THE MINES"
+	#define SCORE_STRING "SCORE:"
+	#define LEVEL_STRING "LEVEL:"
+	#define START_LEVEL_STRING "LEVEL %u"
+	#define USE_THE_GUN_AGAINST_STRING "USE THE GUN AGAINST"
+	#define THE_SKULL_AND_STRING "THE SKULL AND"
+	#define MISSILE_BASES_STRING "MISSILE BASES"
+	#define FOR_POINTS_AND___STRING "FOR POINTS AND  "
+	#define EXTRA_POWERUPS__STRING "EXTRA POWERUPS "	
 #else
 	#if defined(TINY_GAME)
 		#define CROSS_CHASE_STRING "CROSS CHASE"
@@ -64,6 +80,14 @@
 	#define KILL_THE_SKULL_STRING "Kill the skull"	
 	#define LURE_THE_ENEMIES_STRING "Lure the enemies"
 	#define INTO_THE_MINES_STRING "into the mines"
+	#define SCORE_STRING "SCORE:"
+	#define LEVEL_STRING "LEVEL:"	
+	#define START_LEVEL_STRING "LEVEL %u"	
+	#define USE_THE_GUN_AGAINST_STRING "Use the gun against"
+	#define THE_SKULL_AND_STRING "the skull and"
+	#define MISSILE_BASES_STRING "missile bases"
+	#define FOR_POINTS_AND___STRING "for points and  "
+	#define EXTRA_POWERUPS__STRING "extra powerups "	
 #endif
 
 #if defined(JOYSTICK_CONTROL) || defined(__MSX__)

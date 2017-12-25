@@ -75,12 +75,15 @@
 	#define _YELLOW CPC_TEXT_YELLOW
 	#define _WHITE CPC_TEXT_WHITE
 	#define _RED   CPC_TEXT_RED
+	#define SCORE_COLOR _YELLOW
 #elif defined(__VG5k__)
 	#define _WHITE VG5K_WHITE
 	#define _RED   VG5K_RED
+	#define SCORE_COLOR COLOR_BLUE
 #else
 	#define _WHITE COLOR_WHITE
 	#define _RED   COLOR_RED
+	#define SCORE_COLOR COLOR_BLUE	
 #endif
 
 
@@ -151,36 +154,14 @@ extern Image MISSILE_IMAGE;
 #if !defined(TINY_GAME)
 	void displayStatsTitles(void)
 	{	
-		#if defined(NO_CASE_LETTERS) && defined(WIDE)	
-			SET_TEXT_COLOR(COLOR_BLUE);	
-			PRINT(2-2, -Y_OFFSET,   "score:");
-			PRINT(2-2, -Y_OFFSET+1, "level:");
-		#elif defined(WIDE)
-			#if defined(__CPC__)
-				SET_TEXT_COLOR(_YELLOW);			
-			#else 
-				SET_TEXT_COLOR(COLOR_BLUE);	
-			#endif
-			#if defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0))
-				PRINT(2-1, -Y_OFFSET,   "SCORE:");
-				PRINT(2-1, -Y_OFFSET+1, "LEVEL:");			
-			#else
-				PRINT(0, -Y_OFFSET,   "SCORE:");
-				PRINT(0, -Y_OFFSET+1, "LEVEL:");	
-			#endif
-		#else
-			// Nothing
-		#endif
-
 		#if defined(WIDE)
-			#if !defined(__MSX__)
-				SET_TEXT_COLOR(_RED);	
-				PRINT(24-3,-Y_OFFSET,"-----------");		
-				PRINT(24-3,-Y_OFFSET+1,"cross chase");	
-			#else
-				PRINT(24-3-1,-Y_OFFSET,  "cross----");		
-				PRINT(24-3-1,-Y_OFFSET+1,"----chase");			
-			#endif
+			SET_TEXT_COLOR(SCORE_COLOR);	
+			PRINT(0, -Y_OFFSET,   SCORE_STRING);
+			PRINT(0, -Y_OFFSET+1, LEVEL_STRING);
+	
+			SET_TEXT_COLOR(_RED);	
+			PRINT(21,-Y_OFFSET,"-----------");		
+			PRINT(21,-Y_OFFSET+1,"cross chase");				
 		#endif
 
 		#if defined(__CPC__) && defined(CPCRSLIB)
@@ -256,7 +237,7 @@ void printLivesStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(18+2-2,-Y_OFFSET+1,"%02u",lives);
+		PRINTF(18,-Y_OFFSET+1,"%02u",lives);
 	#else
 		PRINTF(15,-Y_OFFSET,"%02u",lives);	
 	#endif
@@ -268,7 +249,7 @@ void displayStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(8-2,-Y_OFFSET,"%05u0",points);
+		PRINTF(6,-Y_OFFSET,"%05u0",points);
 	#else
 		PRINTF(0,0,"%05u0",points);	
 	#endif	
@@ -284,25 +265,14 @@ void setScreenColors(void)
 #endif
 
 #if !defined(NO_TEXT)	
-	#if defined (NO_CASE_LETTERS)
-		void printLevel(void)
-		{
-			char levelString[22];
+	void printLevel(void)
+	{
+		char levelString[22];
 
-			sprintf(levelString, "level %u", level);
+		sprintf(levelString, START_LEVEL_STRING, level);
 
-			printCenteredMessageWithCol(_WHITE,levelString);
-		}
-	#else
-		void printLevel(void)
-		{
-			char levelString[22];
-
-			sprintf(levelString, "LEVEL %u", level);
-
-			printCenteredMessageWithCol(_WHITE,levelString);
-		}
-	#endif
+		printCenteredMessageWithCol(_WHITE,levelString);
+	}
 #endif
 	
 
@@ -365,109 +335,6 @@ void printPressKeyToStart(void)
 
 
 
-// SPLASH SCREEN
-#if defined(__ATMOS__) && defined(FULL_GAME)
-	void atmos_splash_title(void)
-	{
-		POKE(0xBB80+3*40,16);POKE(0xBB80+1+3*40,1); POKE(0xBB80+2+3*40,14);
-		POKE(0xBB80+4*40,16);POKE(0xBB80+1+4*40,1); POKE(0xBB80+2+4*40,14);
-		POKE(0xBB80+5*40,16);POKE(0xBB80+1+5*40,1); POKE(0xBB80+2+5*40,14);
-		
-		POKE(0xBB80+6*40,16);POKE(0xBB80+1+6*40,3); POKE(0xBB80+2+6*40,10);
-		POKE(0xBB80+7*40,16);POKE(0xBB80+1+7*40,3); POKE(0xBB80+2+7*40,10);
-		
-		POKE(0xBB80+8*40,16);POKE(0xBB80+1+8*40,1); POKE(0xBB80+2+8*40,10);
-		POKE(0xBB80+9*40,16);POKE(0xBB80+1+9*40,1); POKE(0xBB80+2+9*40,10);
-		POKE(0xBB80+10*40,16);POKE(0xBB80+1+10*40,3); POKE(0xBB80+2+10*40,10);
-		POKE(0xBB80+11*40,16);POKE(0xBB80+1+11*40,3); POKE(0xBB80+2+11*40,10);
-		
-		POKE(0xBB80+12*40,16);POKE(0xBB80+1+12*40,4); 
-		POKE(0xBB80+13*40,16);POKE(0xBB80+1+13*40,4); 
-		POKE(0xBB80+14*40,16);POKE(0xBB80+1+14*40,4); 
-		POKE(0xBB80+15*40,16);POKE(0xBB80+1+15*40,4); 
-		
-		gotoxy(19,6); cputc(PLAYER_IMAGE._imageData);
-		gotoxy(19,7); cputc(PLAYER_IMAGE._imageData);
-		
-		gotoxy(15,10); cputc(GHOST_IMAGE._imageData);
-		gotoxy(15,11); cputc(GHOST_IMAGE._imageData);
-		
-		gotoxy(19,10); cputc(INVINCIBLE_GHOST_IMAGE._imageData);
-		gotoxy(19,11); cputc(INVINCIBLE_GHOST_IMAGE._imageData);
-		
-		gotoxy(23,10); cputc('>');
-		gotoxy(23,11); cputc('>');
-		
-		gotoxy(9, 5); 
-		cputc('C'); 
-		cputc(' ');
-		cputc('R');
-		cputc(' ');
-		cputc('O');
-		cputc(' ');		
-		cputc('S');
-		cputc(' ');		
-		cputc('S');
-		cputc(' ');		
-		cputc(' ');
-		cputc(' ');		
-		cputc('C');
-		cputc(' ');		
-		cputc('H');
-		cputc(' ');		
-		cputc('A');
-		cputc(' ');		
-		cputc('S');
-		cputc(' ');		
-		cputc('E'); 
-		
-		gotoxy(9, 4); 
-		cputc('C'); 
-		cputc(' ');
-		cputc('R');
-		cputc(' ');
-		cputc('O');
-		cputc(' ');		
-		cputc('S');
-		cputc(' ');		
-		cputc('S');
-		cputc(' ');		
-		cputc(' ');
-		cputc(' ');		
-		cputc('C');
-		cputc(' ');		
-		cputc('H');
-		cputc(' ');		
-		cputc('A');
-		cputc(' ');		
-		cputc('S');
-		cputc(' ');		
-		cputc('E'); 
-		
-		POKE(0xBB80+(YSize / 2 + 4 + 1)*40,16);POKE(0xBB81+(YSize / 2 + 4 +1)*40,4);
-		POKE(0xBB80+(YSize / 2 + 4 + 2)*40,16);POKE(0xBB81+(YSize / 2 + 4 +2)*40,4);
-		POKE(0xBB80+(YSize / 2 + 4 + 3)*40,16);POKE(0xBB81+(YSize / 2 + 4 +3)*40,4);	
-
-		POKE(0xBB80+(YSize / 2 + 4 + 4)*40,16);POKE(0xBB81+(YSize / 2 + 4 +4)*40,12);
-		POKE(0xBB80+(YSize / 2 + 4 + 5)*40,16);POKE(0xBB81+(YSize / 2 + 4 +5)*40,12);
-		POKE(0xBB80+(YSize / 2 + 4 + 6)*40,16);POKE(0xBB81+(YSize / 2 + 4 +6)*40,12);
-
-		gotoxy(19,8); cputc(MISSILE_IMAGE._imageData);
-		gotoxy(19,9); cputc(MISSILE_IMAGE._imageData);			
-	}
-#endif
-
-
-
-#if defined(__ATMOS__) && defined(FULL_GAME)
-	void atmos_splash_instructions(void)
-	{
-		PRINT(7, YSize / 2 - 1, LURE_THE_ENEMIES_STRING);
-		
-		PRINT(7, YSize / 2, INTO_THE_MINES_STRING);
-	}
-#endif
-
 #if defined(FULL_GAME)
 void printHints(void)
 {
@@ -475,32 +342,15 @@ void printHints(void)
 
 	SET_TEXT_COLOR(TEXT_COLOR);		
 
-	#if defined(NO_CASE_LETTERS)
-		printCenteredMessageOnRow(6,  "use the gun against");
-	#elif defined(__PC6001__)
-		printCenteredMessageOnRow(6,  "USE THE GUN AGAINST");	
-	#else
-		printCenteredMessageOnRow(6,  "Use the gun against");
-	#endif	
-		
-	#if !defined(__PC6001__)
-		printCenteredMessageOnRow(8,  "the skull and");
+	printCenteredMessageOnRow(6,  USE_THE_GUN_AGAINST_STRING);
 
-		printCenteredMessageOnRow(10, "missile bases");	
-		
-		printCenteredMessageOnRow(12, "for points and  ");
+	printCenteredMessageOnRow(8,  THE_SKULL_AND_STRING);
 
-		printCenteredMessageOnRow(14, "extra powerups ");
-	#else
-		printCenteredMessageOnRow(8,  "THE SKULL AND");
-
-		printCenteredMessageOnRow(10, "MISSILE BASES");	
-		
-		printCenteredMessageOnRow(12, "FOR POINTS  ");
-
-		printCenteredMessageOnRow(14, "EXTRA POWERUPS  ");		
-	#endif
+	printCenteredMessageOnRow(10, MISSILE_BASES_STRING);	
 	
+	printCenteredMessageOnRow(12, FOR_POINTS_AND___STRING);
+
+	printCenteredMessageOnRow(14, EXTRA_POWERUPS__STRING);
 }
 #endif
 

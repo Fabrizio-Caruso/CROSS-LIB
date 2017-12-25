@@ -128,11 +128,20 @@ extern Image MISSILE_IMAGE;
 		PRINT((XSize - strlen (Text)) / 2, row, Text);	
 	}
 	
-	void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text)
-	{
-		SET_TEXT_COLOR(col);
-		printCenteredMessageOnRow(row, Text);
-	}		
+	#if defined(__ATMOS__)
+		void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text)
+		{
+			POKE(0xBB80+3+(row+Y_OFFSET)*40,16);POKE(0xBB80+3+1+(row+Y_OFFSET)*40,col); 	
+			printCenteredMessageOnRow(row, Text);
+			POKE(0xBB80+35+(row+Y_OFFSET)*40,16);POKE(0xBB80+35+1+(row+Y_OFFSET)*40,3);			
+		}			
+	#else
+		void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text)
+		{
+			SET_TEXT_COLOR(col);
+			printCenteredMessageOnRow(row, Text);
+		}		
+	#endif
 #else
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
@@ -329,7 +338,7 @@ void gameCompleted(void)
 
 	void printVictoryMessage(void)
 	{
-		printCenteredMessageWithCol(_WHITE, VICTORY_STRING);
+		printCenteredMessageWithCol(_RED, VICTORY_STRING);
 	}	
 #endif
 
@@ -347,7 +356,7 @@ void printPressKeyToStart(void)
 	
 	void printDefeatMessage(void)
 	{			
-		printCenteredMessageWithCol(_WHITE, DEFEAT_STRING);
+		printCenteredMessageWithCol(_RED, DEFEAT_STRING);
 	}	
 #else
 	void printGameOver(void)

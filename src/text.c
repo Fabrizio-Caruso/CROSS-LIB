@@ -86,7 +86,24 @@
 	#define SCORE_COLOR COLOR_BLUE	
 #endif
 
-
+#if defined(WIDE)
+	#define GUN_IMAGE_X 17
+	#define GUN_IMAGE_Y 0
+	#define GHOST_IMAGE_X 13
+	#define GHOST_IMAGE_Y 0
+	#define PLAYER_IMAGE_X 16
+	#define PLAYER_IMAGE_Y 1
+	#define LEVEL_X 6
+#else
+	#define GUN_IMAGE_X 10+1
+	#define GUN_IMAGE_Y 0
+	#define GHOST_IMAGE_X 7+1
+	#define GHOST_IMAGE_Y 0
+	#define PLAYER_IMAGE_X 13+1
+	#define PLAYER_IMAGE_Y 0
+	#define LEVEL_X 17+1
+#endif
+	
 extern unsigned char XSize;
 extern unsigned char YSize;
 
@@ -166,33 +183,33 @@ extern Image MISSILE_IMAGE;
 
 		#if defined(__CPC__) && defined(CPCRSLIB)
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			cpc_PrintGphStrStdXY(CPC_YELLOW,")",(18+1-2)*2,0*8);gotoxy(18+2-2,0); cputc(':');
-			cpc_PrintGphStrStdXY(CPC_WHITE,"%",(18-4+1-2)*2,0*8);gotoxy(18-2-2,0); cputc(':');
-			cpc_PrintGphStrStdXY(CPC_YELLOW,"!",(18-1+1-2)*2,1*8);gotoxy(18+1-2,1); cputc(':');	
+			cpc_PrintGphStrStdXY(CPC_YELLOW,")",GUN_IMAGE_X*2,0*8);gotoxy(17+1,0); cputc(':');
+			cpc_PrintGphStrStdXY(CPC_WHITE,"%",GHOST_IMAGE_X*2,0*8);gotoxy(13+1,0); cputc(':');
+			cpc_PrintGphStrStdXY(CPC_YELLOW,"!",PLAYER_IMAGE_X*2,1*8);gotoxy(16+1,1); cputc(':');	
 		#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 			SET_TEXT_COLOR(TEXT_COLOR);		
-			zx_setcursorpos(0, 17); cputc(GUN_IMAGE._imageData);cputc(':');
-			zx_setcursorpos(0, 13); cputc(GHOST_IMAGE._imageData);cputc(':');
-			zx_setcursorpos(1, 16); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+			zx_setcursorpos(0, GUN_IMAGE_X); cputc(GUN_IMAGE._imageData);cputc(':');
+			zx_setcursorpos(0, GHOST_IMAGE_X); cputc(GHOST_IMAGE._imageData);cputc(':');
+			zx_setcursorpos(1, PLAYER_IMAGE_X); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 		#elif defined(__ATARI5200__)
 			// TODO: to implement
 		#elif defined(WIDE)
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(17+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');
-			gotoxy(13+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(16+X_OFFSET,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+			gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');
+			gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+			gotoxy(PLAYER_IMAGE_X+X_OFFSET,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 		#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(11,0); cputc(GUN_IMAGE._imageData+160);	
-			gotoxy(7,0); cputc(GHOST_IMAGE._imageData+160);cputc(':');
-			gotoxy(14,0); cputc(PLAYER_IMAGE._imageData+64);		
+			gotoxy(GUN_IMAGE_X,0); cputc(GUN_IMAGE._imageData+160);	
+			gotoxy(GHOST_IMAGE_X,0); cputc(GHOST_IMAGE._imageData+160);cputc(':');
+			gotoxy(PLAYER_IMAGE_X,0); cputc(PLAYER_IMAGE._imageData+64);		
 		#else
 			#if defined(COLOR)
 				SET_TEXT_COLOR(TEXT_COLOR);
 			#endif
-			gotoxy(11+X_OFFSET,0); cputc(GUN_IMAGE._imageData);
-			gotoxy(7+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(14+X_OFFSET,0); cputc(PLAYER_IMAGE._imageData);
+			gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc(GUN_IMAGE._imageData);
+			gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+			gotoxy(PLAYER_IMAGE_X+X_OFFSET,0); cputc(PLAYER_IMAGE._imageData);
 		#endif
 	}
 
@@ -202,9 +219,9 @@ extern Image MISSILE_IMAGE;
 			SET_TEXT_COLOR(TEXT_COLOR);	
 		#endif
 		#if defined(WIDE)
-			PRINTF(18+2+1-2,0-Y_OFFSET,"%u",guns);
+			PRINTF(GUN_IMAGE_X+2,0-Y_OFFSET,"%u",guns);
 		#else
-			PRINTF(15+2+1-5-1,0-Y_OFFSET,"%u",guns);
+			PRINTF(GUN_IMAGE_X+1,0-Y_OFFSET,"%u",guns);
 		#endif
 	}
 #endif
@@ -213,9 +230,9 @@ void printLevelStats(void)
 {	
 	#if defined(WIDE) && !defined(TINY_GAME)
 		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINTF(6,1-Y_OFFSET,"%02u", level);
+		PRINTF(LEVEL_X,1-Y_OFFSET,"%02u", level);
 	#else
-		PRINTF(18,0-Y_OFFSET,"%02u",level);	
+		PRINTF(LEVEL_X,-Y_OFFSET,"%02u",level);	
 	#endif	
 }
 
@@ -225,9 +242,9 @@ void printGhostCountStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);		
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(18+2-2-3,0-Y_OFFSET,"%u",ghostCount);
+		PRINTF(GHOST_IMAGE_X+2,-Y_OFFSET,"%u",ghostCount);
 	#else
-		PRINTF(15+2-3-2-3,0-Y_OFFSET,"%u",ghostCount);	
+		PRINTF(GHOST_IMAGE_X+1,-Y_OFFSET,"%u",ghostCount);	
 	#endif	
 }
 
@@ -237,9 +254,9 @@ void printLivesStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(18,-Y_OFFSET+1,"%02u",lives);
+		PRINTF(PLAYER_IMAGE_X+2,-Y_OFFSET+1,"%02u",lives);
 	#else
-		PRINTF(15,-Y_OFFSET,"%02u",lives);	
+		PRINTF(PLAYER_IMAGE_X+1,-Y_OFFSET,"%02u",lives);	
 	#endif
 }
 
@@ -251,7 +268,7 @@ void displayStats(void)
 	#if defined(WIDE) && !defined(TINY_GAME)
 		PRINTF(6,-Y_OFFSET,"%05u0",points);
 	#else
-		PRINTF(0,0,"%05u0",points);	
+		PRINTF(1,0,"%05u0",points);	
 	#endif	
 }
 

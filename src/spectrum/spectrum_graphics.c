@@ -182,7 +182,7 @@ void INIT_IMAGES(void)
 		
 		#if !defined(TINY_GAME)
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-			POWERUP_IMAGE._color = COLOR_MAGENTA;
+			POWERUP_IMAGE._color = COLOR_GREEN;
 			GUN_IMAGE._color = COLOR_MAGENTA;
 		#endif
 	#endif
@@ -301,7 +301,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
-#if defined(REDEFINED_CHARS)
+#if !defined(TINY_GAME)
 	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
 	{ 
 		unsigned char i; 
@@ -321,24 +321,9 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		SET_TEXT_COLOR(COLOR_YELLOW);
 		for(i=0;i<length;++i) 
 		{ 
-			gotoxy(x+X_OFFSET,y-1+Y_OFFSET+i);  putchar(_VERTICAL_BRICK); 
+			gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  putchar(_VERTICAL_BRICK); 
 		} 
 	}
-#else
-	#if !defined(TINY_GAME)
-	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length) 
-	{ 
-		unsigned char i; 
-		
-		#if defined(COLOR)
-			SET_TEXT_COLOR(COLOR_YELLOW);
-		#endif
-		for(i=0;i<length;++i) 
-		{ 
-			gotoxy(x+X_OFFSET+i,y+Y_OFFSET);  putchar('-'); 
-		} 
-	}
-	#endif
 #endif
 
 

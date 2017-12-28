@@ -192,7 +192,7 @@
 #elif defined(__WINCMOC__) || defined(__CMOC__)
 	#define CMOC
 	#define NARROW
-#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__) || defined(__ZX81__) || defined(__ZX80__) || defined(__AQUARIUS__) || defined(__SVI__) || defined(__MZ__)
+#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__) || defined(__ZX81__) || defined(__ZX80__) || defined(__AQUARIUS__) || (defined(__SVI__) && !defined(MSX_MODE0)) || defined(__MZ__)
 	#define Z88DK
 	#define WIDE
 #else 

@@ -131,7 +131,7 @@ typedef struct ImageStruct Image;
 
 
 
-#if defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
+#if (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define GET_SCREEN_SIZE(x,y) do {*x=20; *y=24;} while(0)
 #elif defined(__ATARI_LYNX__)
 	#define GET_SCREEN_SIZE(x,y) do {*x=20-X_OFFSET; *y=13-Y_OFFSET;} while(0)
@@ -147,22 +147,14 @@ typedef struct ImageStruct Image;
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__SVI__) && defined(MSX_MODE0)
 	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
-#elif defined(__CPC__) && !defined(CPCRSLIB)
-	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)
 #elif defined(__CPC__) && defined(CPCRSLIB)
 	#define GET_SCREEN_SIZE(x,y) do {*x=(40-X_OFFSET); *y=(25-Y_OFFSET);} while(0)	
-#elif defined(__VG5K__) 
-	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)
 #elif defined(__ZX81__) || defined(__LAMBDA__)
 	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
 #elif defined(__ZX80__) 
-	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;} while(0)	
-#elif defined(__ENTERPRISE__) 
-	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-1-Y_OFFSET;} while(0)			
+	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;} while(0)				
 #elif defined(__TRS80__) 
-	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)		
-#elif defined(__M5__) 
-	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
+	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)				
 #else
 	#define GET_SCREEN_SIZE(x,y) do {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;} while(0)
 #endif
@@ -312,15 +304,6 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
 
 	#define CLEAR_SCREEN()  {zx_cls(PAPER_BLACK|INK_WHITE);}
-
-#elif defined(__AQUARIUS__) || (defined(__SVI__) && !defined(MSX_MODE0))
-	#define SET_TEXT_COLOR(c) textcolor(c)
-
-	#define CLEAR_SCREEN() clrscr()	
-#elif defined(__SVI__) && defined(MSX_MODE0)
-	#define SET_TEXT_COLOR(c) {}
-
-	#define CLEAR_SCREEN() clrscr()		
 #elif defined(__CPC__) 
 	#define SET_TEXT_COLOR(c) textcolor(c);
 
@@ -329,11 +312,7 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_TEXT_COLOR(c) {};
 
 	void CLEAR_SCREEN();
-#elif defined(__VZ__)	
-	#define SET_TEXT_COLOR(c) textcolor(c);
-
-	#define CLEAR_SCREEN() {clrscr();};	
-#elif defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
+#elif  defined(__ATARI5200__) || (defined(__SVI__) && defined(MSX_MODE0)) || defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 	#define SET_TEXT_COLOR(c) {};
 
 	#define CLEAR_SCREEN() {clrscr();};		
@@ -341,16 +320,10 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_TEXT_COLOR(c) {};
 
 	#define CLEAR_SCREEN() do {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}} while(0)
-
-#elif defined(__ATARI5200__)
-	#define SET_TEXT_COLOR(c) {};
-
-	#define CLEAR_SCREEN() clrscr()
-		
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define SET_TEXT_COLOR(c) {};
 
-	// WORK AROUND - BUG FIX
+	// WORK AROUND to fix what clrscr destroys
 	#define CLEAR_SCREEN() { \
 	clrscr(); \
 	_setcolor_low(0, TGI_COLOR_RED); \
@@ -363,14 +336,6 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_TEXT_COLOR(c) textcolor(c)
 	
 	#define CLEAR_SCREEN() do {clrscr(); INIT_GRAPHICS(); } while(0)
-#elif defined(__SPECTRUM__)
-	#define SET_TEXT_COLOR(c) textcolor(c);
-
-	#define CLEAR_SCREEN() clrscr()
-#elif defined(__MTX__)
-	#define SET_TEXT_COLOR(c) textcolor(c);
-
-	#define CLEAR_SCREEN() clrscr()
 #else // CC65 conio case
 	#define SET_TEXT_COLOR(c) (void) textcolor (c);
 	

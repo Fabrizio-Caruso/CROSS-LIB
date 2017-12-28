@@ -114,9 +114,6 @@ typedef struct ImageStruct Image;
 //
 #if defined(NARROW) || defined(TINY_GAME)
 	#define Y_OFFSET 0 
-// TODO: This is a HACK for the ZX81
-// #elif defined(__ZX81__)
-	// #define Y_OFFSET 3
 #else
 	#define Y_OFFSET 2		
 #endif
@@ -131,7 +128,7 @@ typedef struct ImageStruct Image;
 
 
 
-#if (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+#if defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
 	#define GET_SCREEN_SIZE(x,y) do {*x=20; *y=24;} while(0)
 #elif defined(__ATARI_LYNX__)
 	#define GET_SCREEN_SIZE(x,y) do {*x=20-X_OFFSET; *y=13-Y_OFFSET;} while(0)

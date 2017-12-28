@@ -114,6 +114,9 @@ typedef struct ImageStruct Image;
 //
 #if defined(NARROW) || defined(TINY_GAME)
 	#define Y_OFFSET 0 
+// TODO: This is a HACK for the ZX81
+// #elif defined(__ZX81__)
+	// #define Y_OFFSET 3
 #else
 	#define Y_OFFSET 2		
 #endif
@@ -248,95 +251,22 @@ void _delete(unsigned char x, unsigned char y);
 
 // VERTICAL AND HORIZONTAL BORDER
 #if !defined(TINY_GAME)
-	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize)
-	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize)
+	#define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1)
+	#define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize-1)
 #else	
 	#define DRAW_VERTICAL_BORDER(x)	
 	#define DRAW_HORIZONTAL_BORDER(y)
 #endif
 
-// FULL BORDER
-#if !defined(TINY_GAME)
-	#if defined(__ATMOS__)
-		#define DRAW_BORDERS() \
-			SET_TEXT_COLOR(TEXT_COLOR); \
-			DRAW_HORIZONTAL_BORDER(0); \
-			DRAW_HORIZONTAL_BORDER(YSize-1); \
-			DRAW_VERTICAL_BORDER(0); \
-			DRAW_VERTICAL_BORDER(XSize-1); 
-	#elif defined(__SPECTRUM__)	&& defined(REDEFINED_CHARS)
-		#define DRAW_BORDERS() \
-		{ \
-			DRAW_VERTICAL_LINE(0, 1, YSize); \
-			DRAW_VERTICAL_LINE(XSize - 1, 1, YSize); \
-			DRAW_HORIZONTAL_BORDER(0); \
-			DRAW_HORIZONTAL_BORDER(YSize-1); \
-		}
-	#elif defined(__SPECTRUM__)	&& !defined(REDEFINED_CHARS)
-		#define  DRAW_BORDERS() \
-		{ \
-			DRAW_VERTICAL_LINE(0, 1, YSize-1);\
-			DRAW_VERTICAL_LINE(XSize - 1, 1, YSize-1); \
-		}
-	#elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
-		#define DRAW_BORDERS()\
-		{ \
-			DRAW_HORIZONTAL_LINE (1+X_OFFSET,0+Y_OFFSET, XSize-1);\
-			DRAW_VERTICAL_LINE(0+X_OFFSET, 1+Y_OFFSET, YSize - 1);\
-			DRAW_HORIZONTAL_LINE (1+X_OFFSET,YSize-1,XSize-1);\
-			DRAW_VERTICAL_LINE(XSize - 1, 1+Y_OFFSET, YSize - 1); \
-		}
-	#elif (defined(__C16__) || defined(__PLUS4__)) && defined(REDEFINED_CHARS)
-			#define DRAW_BORDERS() \
-			{ \
-				DRAW_HORIZONTAL_LINE (0,0, XSize);\
-				DRAW_VERTICAL_LINE(XSize - 1, 1, YSize - 2); \
-				DRAW_VERTICAL_LINE(0,1,YSize-2); \
-				DRAW_HORIZONTAL_LINE (0,YSize-1,XSize);\
-			}	
-	#elif defined(CC65) && (defined(WIDE) || defined(__VIC20__)) || defined(__GAMATE__)
-		#if defined(__C64__) || defined(__VIC20__)
-			#define DRAW_BORDERS()\
-				{ \
-					SET_TEXT_COLOR(COLOR_YELLOW); \
-					DRAW_HORIZONTAL_BORDER(0); \
-					DRAW_HORIZONTAL_BORDER(YSize-1); \
-					DRAW_VERTICAL_BORDER(0); \
-					DRAW_VERTICAL_BORDER(XSize-1); \
-				}		
-		#else
-			#define DRAW_BORDERS()\
-				{ \
-					SET_TEXT_COLOR(TEXT_COLOR); \
-					DRAW_HORIZONTAL_BORDER(0); \
-					DRAW_HORIZONTAL_BORDER(YSize-1); \
-					DRAW_VERTICAL_BORDER(0); \
-					DRAW_VERTICAL_BORDER(XSize-1); \
-				}	
-		#endif
-	#elif defined(__ATARI5200__) || (defined(__SVI__) && defined(MSX_MODE0))
-			#define DRAW_BORDERS() \
-			{ \
-			}	
-	#elif defined(__ZX81__)
-			#define DRAW_BORDERS() \
-			{ \
-				DRAW_HORIZONTAL_LINE (0,0, XSize-1);\
-				DRAW_VERTICAL_LINE(XSize - 1, 1, YSize - 2); \
-				DRAW_VERTICAL_LINE(0,1,YSize-2); \
-				DRAW_HORIZONTAL_LINE (0,YSize-1,XSize-1);\
-			}			
-	#else
-			#define DRAW_BORDERS() \
-			{ \
-				SET_TEXT_COLOR(TEXT_COLOR); \
-				DRAW_HORIZONTAL_BORDER(0); \
-				DRAW_HORIZONTAL_BORDER(YSize-1); \
-				DRAW_VERTICAL_BORDER(0); \
-				DRAW_VERTICAL_BORDER(XSize-1); \
-			}	
-	#endif
-#endif
+#define WALL_COLOR COLOR_YELLOW
+
+#define DRAW_BORDERS() \
+	SET_TEXT_COLOR(WALL_COLOR); \
+	DRAW_HORIZONTAL_BORDER(0); \
+	DRAW_HORIZONTAL_BORDER(YSize-1); \
+	DRAW_VERTICAL_BORDER(0); \
+	DRAW_VERTICAL_BORDER(XSize-1); 
+
 
 // PRINT AND PRINTF
 #if defined(ATARI_MODE1) && (defined(__ATARI__) || defined(__ATARIXL__))

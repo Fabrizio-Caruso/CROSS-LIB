@@ -42,7 +42,7 @@
 		#endif
 	#elif defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
 		#undef gotoxy
-		#define gotoxy(x,y) zx_setcursorpos(y-1+1,x)
+		#define gotoxy(x,y) zx_setcursorpos(y,x)
 	#elif defined(__ENTERPRISE__) || defined(__MTX__)
 		#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 	#elif defined(__SVI__) || defined(__MSX__)

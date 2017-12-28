@@ -164,6 +164,9 @@
 #elif defined(__SVI__) && defined(MSX_MODE0)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 800
+#elif defined(__SVI__) && !defined(MSX_MODE0)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 800	
 #else
 	#define GAME_SLOW_DOWN 0
 #endif
@@ -278,6 +281,7 @@
 #define GUNS_NUMBER 3
 
 #define BACKGROUND_COLOR COLOR_BLACK
+
 #define BORDER_COLOR COLOR_BLACK
 
 #if defined(__CPC__) || defined(__GAMATE__)

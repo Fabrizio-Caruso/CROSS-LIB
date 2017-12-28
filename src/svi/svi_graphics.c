@@ -165,7 +165,25 @@ void _delete(unsigned char x, unsigned char y)
 #endif
 	
 
+#if !defined(TINY_GAME)
+	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+	{ 
+		unsigned char i;
+		for(i=0;i<length;++i)
+		{
+			_DRAW_VERTICAL_WALL(x,y+i);
+		}
+	}
 
-		
+	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+	{
+		unsigned char i;
+		for(i=0;i<length;++i)
+		{
+			_DRAW_HORIZONTAL_WALL(x+i,y);
+		}
+	}
+#endif
+	
 
 

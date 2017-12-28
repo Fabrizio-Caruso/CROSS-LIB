@@ -88,29 +88,29 @@ void INIT_IMAGES(void)
 	#endif
 }
 
-#if defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
-	#define zxgotoxy(x,y) zx_setcursorpos(y,x)
-#else
-	#define zxgotoxy(x,y) gotoxy(x,y)
-#endif
+// #if defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
+	// #define zxgotoxy(x,y) zx_setcursorpos(y,x)
+// #else
+	// #define zxgotoxy(x,y) gotoxy(x,y)
+// #endif
 	
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
 	{
-		zxgotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 		cputc('X');
 	}
 #endif
 	
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
-	zxgotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 	cputc(image->_imageData);
 }
 
 void _delete(unsigned char x, unsigned char y)
 {
-	zxgotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 	cputc(' ');
 }
 
@@ -138,7 +138,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		unsigned char i;
 		for(i=0;i<length;++i)
 		{
-			zxgotoxy((x+X_OFFSET),(y+i+Y_OFFSET));  
+			gotoxy((x+X_OFFSET),(y+i+Y_OFFSET));  
 			cputc('i');		
 		}
 	}
@@ -146,7 +146,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	{
 		unsigned char i;
-		zxgotoxy(X_OFFSET+x,Y_OFFSET+y); 
+		gotoxy(X_OFFSET+x,Y_OFFSET+y); 
 		for(i=0;i<length;++i)
 		{
 			cputc('-');

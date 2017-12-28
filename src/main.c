@@ -827,6 +827,7 @@ int main(void)
 				#if defined(FULL_GAME)
 					SKIP_MORE_DRAW
 					{
+						SET_TEXT_COLOR(WALL_COLOR);
 						DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);			
 						DRAW_BOMBS();	
 					}

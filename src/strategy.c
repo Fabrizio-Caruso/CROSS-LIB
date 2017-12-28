@@ -48,12 +48,10 @@ unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offse
 {
 	if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)preyPtr+offset))
 	{
-		// ++((unsigned char) *((unsigned char *)hunterPtr+offset));
 		++(*((unsigned char *) hunterPtr+offset));		
 	}
 	else if((unsigned char) *((unsigned char *) hunterPtr+offset) > (unsigned char) *((unsigned char *)preyPtr+offset))
 	{
-		//--((unsigned char) *((unsigned char *) hunterPtr+offset));
 		--(*((unsigned char *) hunterPtr+offset));		
 	}	
 	else
@@ -127,51 +125,19 @@ void computeStrategy(void)
 	unsigned char i;
 
 	#if defined(FULL_GAME)
-		switch(level)
+		unsigned char skew = ((level - 1) / 5) % 4;
+		for(i=0; i<2; ++i) // 2
 		{
-			case 1: case 2: case 3: case 4: case 5:
-				for(i=0; i<4; ++i) // 4
-				{
-					strategyArray[i] = 4; // no preference (approximate straight line)
-				}
-				for(i=4; i<6; ++i) // 2
-				{
-					strategyArray[i] = 2; // prefer X (70%)
-				}
-				for(i=6; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
-				{
-					strategyArray[i] = 6; // prefer Y (70%)
-				}
-			break;
-			case 6: case 7: case 8: case 9: case 10: // 4,2,2			
-				for(i=0; i<4; ++i) // 4
-				{
-					strategyArray[i] = 4; // no preference (approximate straight line)
-				}
-				for(i=4; i<6; ++i) // 2
-				{
-					strategyArray[i] = 1; // strongly prefer X (80%)
-				}
-				for(i=6; i<GHOSTS_NUMBER; ++i) // 2 (if total=8)
-				{
-					strategyArray[i] = 7; // strongly prefer Y (80%)
-				}
-			break;		
-			default: // 2, 3, 3 from level 11 on
-				for(i=0; i<2; ++i) // 2
-				{
-					strategyArray[i] = 4; // no preference (approximate straight line)
-				}
-				for(i=2; i<5; ++i) // 3
-				{
-					strategyArray[i] = 1; // strongly prefer X (80%)
-				}
-				for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
-				{
-					strategyArray[i] = 7; // strongly prefer Y (80%)
-				}
-			break;
-		}	
+			strategyArray[i] = 4; // no preference (approximate straight line)
+		}
+		for(i=2; i<5; ++i) // 3
+		{
+			strategyArray[i] = 3-skew; // strongly prefer X (60%, 70%, 80%, 90%)
+		}
+		for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
+		{
+			strategyArray[i] = 5+skew; // strongly prefer Y (60%, 70%, 80%, 90%)
+		}
 	#else
 		#if !defined(TINY_GAME)
 			for(i=1; i<GHOSTS_NUMBER-1; ++i) // 6,1,1

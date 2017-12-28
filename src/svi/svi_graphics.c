@@ -32,7 +32,8 @@ extern unsigned char XSize;
 
 #define _DRAW(x,y,image) msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,image->_imageData-32);
 #define _DELETE(x,y)     msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,0); // ' '
-#define _DRAW_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'|'-32);
+#define _DRAW_VERTICAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'|'-32);
+#define _DRAW_HORIZONTAL_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,'-'-32);
 #define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,56); // 'X'	
 
 

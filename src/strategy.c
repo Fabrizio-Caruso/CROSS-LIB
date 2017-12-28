@@ -132,32 +132,19 @@ void computeStrategy(void)
 		}
 		for(i=2; i<5; ++i) // 3
 		{
-			strategyArray[i] = 3-skew; // strongly prefer X (60%, 70%, 80%, 90%)
+			strategyArray[i] = 3-skew; // prefer X (60%, 70%, 80%, 90%)
 		}
 		for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
 		{
-			strategyArray[i] = 5+skew; // strongly prefer Y (60%, 70%, 80%, 90%)
+			strategyArray[i] = 5+skew; // prefer Y (60%, 70%, 80%, 90%)
 		}
 	#else
-		#if !defined(TINY_GAME)
-			for(i=1; i<GHOSTS_NUMBER-1; ++i) // 6,1,1
-			{
-				strategyArray[i] = 4; // no preference (approximate straight line)
-			}	
-			#if GHOSTS_NUMBER>=3
-				strategyArray[0] = 2;
-				strategyArray[1] = 6;
-			
-			#else
-				strategyArray[0] = 2;
-				strategyArray[GHOSTS_NUMBER-1] = 6;
-			#endif
-		#else
-			for(i=0; i<GHOSTS_NUMBER; ++i) 
-			{
-				strategyArray[i] = 4; // no preference (approximate straight line)
-			}				
-		#endif
+		for(i=1; i<GHOSTS_NUMBER-1; ++i) // 6,1,1
+		{
+			strategyArray[i] = 4; // no preference (approximate straight line)
+		}	
+		strategyArray[0] = 2;
+		strategyArray[1] = 6;				
 	#endif
 }
 #endif

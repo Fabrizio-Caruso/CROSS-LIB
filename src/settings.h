@@ -228,7 +228,7 @@
 	#define BOMBS_NUMBER 4
 #endif
 
-// Possible current values are 6,7,8,9
+// Possible current values are 8,9
 #if defined(__PCE__)
 	#define GHOSTS_NUMBER 8
 #elif defined(__SPECTRUM__) && defined(TINY_GAME)
@@ -240,11 +240,11 @@
 #elif defined(__SPECTRUM__) && defined(FULL_GAME)
 	#define GHOSTS_NUMBER 9
 #elif defined(__SPECTRUM__) && defined(TINY_GAME)
-	#define GHOSTS_NUMBER 7
+	#define GHOSTS_NUMBER 8
 #elif defined(__ATMOS__)
 	#define GHOSTS_NUMBER 9
 #elif defined(__ZX81__) || defined(__LAMBDA__)
-	#define GHOSTS_NUMBER 7
+	#define GHOSTS_NUMBER 8
 #elif defined(FULL_GAME) && (defined(__MZ__) || defined(__VZ__) || defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__) )
 	#define GHOSTS_NUMBER 9
 #elif !defined(FULL_GAME) && (defined(__MZ__) || defined(__VZ__) || defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__) )

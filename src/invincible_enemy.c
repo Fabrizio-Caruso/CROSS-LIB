@@ -22,11 +22,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#if defined(__VIC20__) && defined(REDEFINED_CHARS) && !defined(FULL_GAME) && !defined(TINY_GAME)
-	#pragma code-name(push, "CODE2")
-#endif
- 
- 
+
 #include "settings.h"
 #include "invincible_enemy.h"
 #include "level.h"
@@ -59,7 +55,3 @@ void computeInvincibleGhostParameters(void)
 	invincibleLoopTrigger = INVINCIBLE_LOOP_TRIGGER;	
 }
 
-
-#if defined(__VIC20__) && defined(REDEFINED_CHARS) && !defined(FULL_GAME) && !defined(TINY_GAME)
-	#pragma code-name(pop)
-#endif

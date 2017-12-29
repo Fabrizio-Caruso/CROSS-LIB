@@ -305,7 +305,7 @@ spectrum_48k:
 # DEBUG
 
 vic20_exp_8k_2:
-	$(CC65_PATH)$(MYCC65) -O -t vic20 -Cl -DREDEFINED_CHARS -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-8k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s --code-name CODE2 $(SOURCE_PATH)/vic20/vic20_graphics.c --code-name CODE $(SOURCE_PATH)/vic20/vic20_sounds.c --code-name CODE2 $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
+	$(CC65_PATH)$(MYCC65) -O -t vic20 -Cl -DREDEFINED_CHARS -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-8k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c  $(SOURCE_PATH)/vic20/vic20_sounds.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/main.c --code-name CODE2 $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
 
 pet_8k_LIGHT:

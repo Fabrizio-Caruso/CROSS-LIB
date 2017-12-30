@@ -124,23 +124,26 @@ void computeStrategy(void)
 		for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
 		{
 			strategyArray[i] = 5+skew; // 6,7,8,(9 if GHOSTS are 9) (prefer Y (60%, 70%, 80%, 90
-			strategyArray[9-i] = 3-skew; // 4,3,2,(1 if GHOSTS are 9) prefer X (60%, 70%, 80%, 90%)			
+			strategyArray[9-i] = 3-skew; // 4,3,2,(1 if GHOSTS are 9) prefer X (60%, 70%, 80%, 90%)
+				
 		}
 		// for(i=2; i<5; ++i) // 3
 		// {
 			// strategyArray[i] = 3-skew; // prefer X (60%, 70%, 80%, 90%)
 		// }		
-		for(i=0; i<2; ++i) // 2
-		{
-			strategyArray[i] = 4; // no preference (approximate straight line)
-		}		
+		strategyArray[0] = 4;
+		strategyArray[1] = 4;		
+		// for(i=0; i<2; ++i) // 2
+		// {
+			// strategyArray[i] = 4; // no preference (approximate straight line)
+		// }		
 	#else
-		for(i=1; i<GHOSTS_NUMBER-1; ++i) // 6,1,1
+		for(i=1; i<GHOSTS_NUMBER; ++i) // 6,1,1
 		{
-			strategyArray[i] = 4; // no preference (approximate straight line)
+			strategyArray[i] = i; // no preference (approximate straight line)
 		}	
-		strategyArray[0] = 2;
-		strategyArray[1] = 6;				
+		// strategyArray[0] = 2;
+		// strategyArray[1] = 6;				
 	#endif
 }
 #endif

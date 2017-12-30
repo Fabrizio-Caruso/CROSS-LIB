@@ -137,42 +137,18 @@ struct redefine_struct redefine_map[] =
 	{_VERTICAL_BRICK, { 24, 24, 24, 48, 24, 12, 24, 24}},
 	{_HORIZONTAL_BRICK, {  0,  0,  0,255,  0,  0,  0,  0}},	
 	#if defined(FULL_GAME)
-	{_RIGHT_ENEMY_MISSILE, {  0,  0, 15,252,252, 15,  0,  0}},
-	{_LEFT_ENEMY_MISSILE, {  0,  0,240, 63, 63,240,  0,  0}},	
-	{_BUBBLE, { 24, 60, 60, 60,126, 90, 66, 66}},
-	{_INVINCIBILITY, { 24, 36, 24,  0,153,  0, 36,102}},
+		{_RIGHT_ENEMY_MISSILE, {  0,  0, 15,252,252, 15,  0,  0}},
+		{_LEFT_ENEMY_MISSILE, {  0,  0,240, 63, 63,240,  0,  0}},	
+		{_BUBBLE, { 24, 60, 60, 60,126, 90, 66, 66}},
+		{_INVINCIBILITY, { 24, 36, 24,  0,153,  0, 36,102}},
 	#endif
 };
 #endif
 
-// void redefine(unsigned long loc, const unsigned char * data)
-// {
-	// unsigned short i;
-	// for(i=0;i<8;++i)
-	// {
-		// POKE(loc+i,data[i]);
-	// }
-// }
 
 void INIT_GRAPHICS(void)
 {
 	unsigned short i;
-	// static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
-	// static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
-	// static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
-	// static const char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
-	// static const char ghost[8] =            {129,126,165,129,129,189,129,126};
-	// static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
-	// static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};
-	// static const char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
-	// static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
-	// static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
-	// static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
-	// static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
-	// static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};
-	// static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};	
-	// static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
-	// static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};	
 	
 	POKE(1177,62); // disable switch to RAM in PEEK
 	for(i=0;i<1023;++i)
@@ -182,33 +158,11 @@ void INIT_GRAPHICS(void)
 	POKE(1177,63); // re-enable switch to RAM in PEEK
 	POKE(65299ul,(PEEK(65299ul)&3)|((UDG_BASE_FACTOR)*4)); // change character base address to 28th Kbyte
 	POKE(65298ul,PEEK(65298ul)&251); // make graphics chip get characters from RAM
-	
-	
+		
 	for(i=0;i<sizeof(redefine_map)/sizeof(*redefine_map);++i)
 	{
 		memcpy((unsigned char *)(UDG_BASE_FACTOR*1024 + (redefine_map[i].ascii)*8), redefine_map[i].bitmap, 8);		
 	}
-	
-	// redefine(UDG_BASE_FACTOR*1024+296,player_down);
-	// redefine(UDG_BASE_FACTOR*1024+296+8,player_up);		
-	// redefine(UDG_BASE_FACTOR*1024+296+8*2,player_right);
-	// redefine(UDG_BASE_FACTOR*1024+296+8*3,player_left);
-	
-	// redefine(UDG_BASE_FACTOR*1024+296+8*4,missile_right);
-	// redefine(UDG_BASE_FACTOR*1024+296+8*5,missile_left);	
-	
-	// redefine(UDG_BASE_FACTOR*1024+296+8*6,invincible_ghost);
-	// redefine(UDG_BASE_FACTOR*1024+296+8*7,gun);
-
-	// redefine(UDG_BASE_FACTOR*1024+296-8*2,powerUp);
-	// redefine(UDG_BASE_FACTOR*1024+296+8*9,missile);
-
-	// redefine(UDG_BASE_FACTOR*1024+296+8*10,bomb); //47
-	// redefine(UDG_BASE_FACTOR*1024+296-8*3,ghost);
-	// redefine(UDG_BASE_FACTOR*1024+296+8*22,bubble);
-	// redefine(UDG_BASE_FACTOR*1024+296+8*23,invincibility);
-	// redefine(UDG_BASE_FACTOR*1024+296+8*24,vertical_brick); 
-	// redefine(UDG_BASE_FACTOR*1024+296+8*25,horizontal_brick);	
 }
  
  
@@ -217,11 +171,10 @@ void INIT_IMAGES(void)
 {		
 	PLAYER_IMAGE._color = COLOR_CYAN;
 	INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-	POWERUP_IMAGE._color = COLOR_BLUE;
+	POWERUP_IMAGE._color = COLOR_GREEN;
 	GUN_IMAGE._color = COLOR_BLUE;
 	BOMB_IMAGE._color = COLOR_RED;
 	DEAD_GHOST_IMAGE._color = COLOR_RED;
-
 
 	GHOST_IMAGE._color = COLOR_WHITE;
 	MISSILE_IMAGE._color = COLOR_WHITE;
@@ -231,8 +184,6 @@ void INIT_IMAGES(void)
 	PLAYER_RIGHT._color = COLOR_CYAN;
 	PLAYER_LEFT._color = COLOR_CYAN;
 		
-
-	
 	#if defined(FULL_GAME)
 		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
 		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;

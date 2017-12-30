@@ -228,8 +228,10 @@
 	#define BOMBS_NUMBER 4
 #endif
 
-// Possible current values are 8,9
-#if defined(__PCE__)
+// Possible current values are FULL: 8,9, LIGHT: 8, TINY: 8,7,6
+#if !defined(FULL_GAME) && !defined(TINT_GAME)
+	#define GHOSTS_NUMBER 8
+#elif defined(__PCE__)
 	#define GHOSTS_NUMBER 8
 #elif defined(__SPECTRUM__) && defined(TINY_GAME)
 	#define GHOSTS_NUMBER 8	
@@ -259,8 +261,6 @@
 	#define GHOSTS_NUMBER 8	
 #elif (defined(__OSIC1P__) && defined(TINY_GAME)) 
 	#define GHOSTS_NUMBER 8
-#elif (defined(__AQUARIUS__) && defined(TINY_GAME))
-	#define GHOSTS_NUMBER 1
 #else
 	#define GHOSTS_NUMBER 8
 #endif

@@ -125,7 +125,7 @@ extern Image MISSILE_IMAGE;
 #if defined(COLOR)
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
-		PRINT((XSize - strlen (Text)) / 2, row, Text);	
+		PRINT((XSize - strlen(Text)) / 2, row, Text);	
 	}
 	
 	#if defined(__ATMOS__)
@@ -298,11 +298,7 @@ void displayStats(void)
 #if !defined(NO_TEXT)	
 	void printLevel(void)
 	{
-		char levelString[22];
-
-		sprintf(levelString, START_LEVEL_STRING, level);
-
-		printCenteredMessageWithCol(_WHITE,levelString);
+		PRINTF((XSize -7) / 2, YSize/2, START_LEVEL_STRING, level);
 	}
 #endif
 
@@ -310,11 +306,7 @@ void displayStats(void)
 #if !defined(TINY_GAME)
 	void _printScoreOnRow(unsigned char row, char * text, unsigned int score)
 	{
-		char levelString[22];
-
-		sprintf(levelString, text, score);
-
-		printCenteredMessageOnRow(row, levelString);	
+		PRINTF((XSize-strlen(text))/2, row, text, score);
 	}	
 	
 	void _printScore(char * text, unsigned int score)

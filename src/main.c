@@ -60,8 +60,8 @@ unsigned char level;
 	unsigned short invincibleSlowDown;
 	unsigned char invincibleXCountDown;
 	unsigned char invincibleYCountDown;
-	unsigned char powerUpCoolDown;	
-	unsigned char gunCoolDown;
+	unsigned short powerUpCoolDown;	
+	unsigned short gunCoolDown;
 	unsigned short ghostLevelDecrease;
 	unsigned char missileDirection;
 #endif
@@ -172,10 +172,6 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 	unsigned char invincibleGhostAlive = 1;
 #endif
 
-// TODO: It should not be here
-// unsigned char powerUp_blink = 1;
-// unsigned char gun_blink = 1;	
-
 #if !defined(TINY_GAME)
 void handle_missile()
 {
@@ -255,65 +251,53 @@ void relocatePowerUp(Character * powerUpPtr)
 }
 
 
-void handle_gun_item()
+void powerUpEffect()
 {
-	// Manage gun 
-	if(gun._status==1)
-	{
-		if(areCharctersAtSamePosition(&player, &gun))
-		{
-			guns = GUNS_NUMBER;
-			printGunsStats();		
-			points+=GUN_BONUS;			
-			powerUpReached(&gun);	
-			gunCoolDown = GUN_INITIAL_COOLDOWN;
-		}
-		else
-		{
-			DRAW_GUN(gun._x, gun._y, gun._imagePtr);
-		}
-	}		
-	else if (gunCoolDown == 0)
-	{	
-		relocatePowerUp(&gun);
-		
-		DRAW_GUN(gun._x, gun._y, gun._imagePtr);
-	}
-	else
-	{
-		--gunCoolDown;
-	}				
+	points+=POWER_UP_BONUS;
+	powerUpReached(&powerUp);
+	decreaseGhostLevel(); 
+	powerUpCoolDown = POWER_UP_INITIAL_COOLDOWN;	
 }
 
 
-void handle_powerup_item()
+void gunEffect()
 {
-	// Manage powerUp
-	if(powerUp._status == 1)
+	guns = GUNS_NUMBER;
+	printGunsStats();		
+	points+=GUN_BONUS;			
+	powerUpReached(&gun);	
+	gunCoolDown = GUN_INITIAL_COOLDOWN;	
+}
+
+void handle_item(void (*itemEffect)(void), Character *itemPtr, unsigned short *coolDownPtr, unsigned char *blinkCounter)
+{
+	// Manage item
+	if(itemPtr->_status == 1)
 	{	
-		if(areCharctersAtSamePosition(&player, &powerUp))
+		if(areCharctersAtSamePosition(&player, itemPtr))
 		{
-			points+=POWER_UP_BONUS;
-			powerUpReached(&powerUp);
-			decreaseGhostLevel(); 
-			powerUpCoolDown = POWER_UP_INITIAL_COOLDOWN;
+			itemEffect();
 		}
 		else
 		{
-			DRAW_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
+			_blink_draw(itemPtr->_x,itemPtr->_y,itemPtr->_imagePtr, blinkCounter);
 		}		
 	}
-	else if (powerUpCoolDown == 0)
+	else if (*coolDownPtr == 0)
 	{
-		relocatePowerUp(&powerUp);
+		relocatePowerUp(itemPtr);
 
-		DRAW_POWERUP(powerUp._x,powerUp._y,powerUp._imagePtr);
+		_blink_draw(itemPtr->_x,itemPtr->_y,itemPtr->_imagePtr, blinkCounter);
 	}
 	else
 	{
-		--powerUpCoolDown;
+		--(*coolDownPtr);
 	}
 }
+
+#define handle_gun_item() handle_item(gunEffect, &gun, &gunCoolDown, &gunBlink);
+#define handle_powerup_item() handle_item(powerUpEffect, &powerUp, &powerUpCoolDown, &powerUpBlink);
+
 #endif
 
 #if defined(FULL_GAME)
@@ -322,93 +306,33 @@ void handle_powerup_item()
 			return level/10;
 	}
 
-	void handle_extraPoints_item()
+	void extraPointsEffect()
 	{
-		// Manage gun 
-		if(extraPoints._status==1)
-		{
-			if(areCharctersAtSamePosition(&player, &extraPoints))
-			{
-				points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
-				powerUpReached(&extraPoints);	
-				extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder
-			}
-			else
-			{
-				DRAW_EXTRA_POINTS(extraPoints._x, extraPoints._y, extraPoints._imagePtr);
-			}
-		}		
-		else if (extraPointsCoolDown == 0)
-		{	
-			relocatePowerUp(&extraPoints);
-			
-			DRAW_EXTRA_POINTS(extraPoints._x, extraPoints._y, extraPoints._imagePtr);
-		}
-		else
-		{
-			--extraPointsCoolDown;
-		}				
+		points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
+		powerUpReached(&extraPoints);	
+		extraPointsCoolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder		
+	}
+	
+	void extraLifeEffect()
+	{
+		powerUpReached(&extraLife);
+		++lives;
+		extraLifeCoolDown = EXTRA_LIFE_COOL_DOWN*2; // second time is harder
+		printLivesStats();		
 	}
 
-
-	void handle_extraLife_item()
+	void invincibilityEffect()
 	{
-		// Manage gun 
-		if(extraLife._status==1)
-		{
-			if(areCharctersAtSamePosition(&player, &extraLife))
-			{
-				powerUpReached(&extraLife);
-				++lives;
-				extraLifeCoolDown = EXTRA_LIFE_COOL_DOWN*2; // second time is harder
-				printLivesStats();
-			}
-			else
-			{
-				DRAW_EXTRA_LIFE(extraLife._x, extraLife._y, extraLife._imagePtr);
-			}
-		}		
-		else if (extraLifeCoolDown == 0)
-		{	
-			relocatePowerUp(&extraLife);
-		
-			DRAW_EXTRA_LIFE(extraLife._x, extraLife._y, extraLife._imagePtr);
-		}
-		else
-		{
-			--extraLifeCoolDown;
-		}				
+		powerUpReached(&invincibility);
+		player_invincibility = 1;
+		invincibilityCoolDown = INVINCIBILITY_COOL_DOWN;
+		playerInvincibilityCoolDown = PLAYER_INVINCIBILITY_COOL_DOWN;		
 	}
+	
+	#define handle_extraPoints_item() handle_item(extraPointsEffect, &extraPoints, &extraPointsCoolDown, &extraPointsBlink);
+	#define handle_extraLife_item() handle_item(extraLifeEffect, &extraLife, &extraLifeCoolDown, &extraLifeBlink);
+	#define handle_invincibility_item() handle_item(invincibilityEffect, &invincibility, &invincibilityCoolDown, &invincibilityBlink);
 
-
-	void handle_invincibility_item()
-	{
-		// Manage gun 
-		if(invincibility._status==1)
-		{
-			if(areCharctersAtSamePosition(&player, &invincibility))
-			{
-				powerUpReached(&invincibility);
-				player_invincibility = 1;
-				invincibilityCoolDown = INVINCIBILITY_COOL_DOWN;
-				playerInvincibilityCoolDown = PLAYER_INVINCIBILITY_COOL_DOWN;
-			}
-			else
-			{
-				DRAW_INVINCIBILITY(invincibility._x, invincibility._y, invincibility._imagePtr);
-			}
-		}		
-		else if (invincibilityCoolDown == 0)
-		{	
-			relocatePowerUp(&invincibility);
-			
-			DRAW_INVINCIBILITY(invincibility._x, invincibility._y, invincibility._imagePtr);
-		}
-		else
-		{
-			--invincibilityCoolDown;
-		}				
-	}
 #endif
 
 

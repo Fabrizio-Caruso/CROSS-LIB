@@ -39,9 +39,13 @@ extern unsigned char level;
 
 	
 #if defined(FULL_GAME) 
-	extern	unsigned short extraPointsCoolDown;
-	extern 	unsigned short extraLifeCoolDown;
-	extern	unsigned short invincibilityCoolDown;
+	// extern	unsigned short extraPointsCoolDown;
+	// extern 	unsigned short extraLifeCoolDown;
+	// extern	unsigned short invincibilityCoolDown;
+	extern Item extraPoints;
+	extern Item extraLife;
+	extern Item invincibility;
+	
 	extern Character leftEnemyMissile;
 	extern Character rightEnemyMissile;
 	extern unsigned char bubbles_x[BUBBLES_NUMBER];
@@ -73,9 +77,9 @@ void checkMissileVsGhosts(Character * missilePtr)
 #if defined(FULL_GAME)
 	void reducePowerUpsCoolDowns(void)
 	{
-		extraPointsCoolDown/=2;
-		invincibilityCoolDown/=2;
-		extraLifeCoolDown/=2;
+		extraPoints._coolDown/=2;
+		extraLife._coolDown/=2;
+		invincibility._coolDown/=2;
 		TICK_SOUND();		
 	}
 #endif	

@@ -50,8 +50,11 @@ extern Image DEAD_GHOST_IMAGE;
 
 extern Character invincibleGhost;
 extern Character player; 
-extern Character powerUp;
-extern Character gun;
+
+extern Item powerUp;
+extern Item gun;
+
+
 extern Character missile;
 
 extern Character ghosts[GHOSTS_NUMBER];
@@ -74,9 +77,10 @@ extern Character bombs[BOMBS_NUMBER];
 
 	extern Character leftEnemyMissile;
 	extern Character rightEnemyMissile;
-	extern Character extraPoints;
-	extern Character extraLife;
-	extern Character invincibility;
+	
+	extern Item extraPoints;
+	extern Item extraLife;
+	extern Item invincibility;
 	
 	extern Character bubbles[BUBBLES_NUMBER];
 
@@ -309,24 +313,24 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#endif
 	
 	#if defined(FULL_GAME)
-		initializeAwayFromWall(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
+		initializeAwayFromWall(&(powerUp._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
 		
 		if(bossLevel())
 		{
-			initializeAwayFromWall(&gun,XSize/2, YSize/2, 1, &GUN_IMAGE);
+			initializeAwayFromWall(&(gun._character),XSize/2, YSize/2, 1, &GUN_IMAGE);
 		}
 		else
 		{
-			initializeAwayFromWall(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);
+			initializeAwayFromWall(&(gun._character),XSize/2, YSize/2, 0, &GUN_IMAGE);
 		}
 		
 		initializeAwayFromWall(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);
 		
-		initializeAwayFromWall(&extraPoints, XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
+		initializeAwayFromWall(&(extraPoints._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
 		
-		initializeAwayFromWall(&extraLife, XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
+		initializeAwayFromWall(&(extraLife._character), XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
 
-		initializeAwayFromWall(&invincibility, XSize/2, YSize/2, 0, &INVINCIBILITY_IMAGE);
+		initializeAwayFromWall(&(invincibility._character), XSize/2, YSize/2, 0, &INVINCIBILITY_IMAGE);
 
 		if(oneMissileLevel())
 		{
@@ -339,9 +343,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		}		
 	#else
 		#if !defined(TINY_GAME)
-			initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
+			initializeCharacter(&(powerUp._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
 			
-			initializeCharacter(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);	
+			initializeCharacter(&(gun._character),XSize/2, YSize/2, 0, &GUN_IMAGE);	
 		#endif
 		
 		#if defined(NO_RANDOM_LEVEL) || defined(TINY_GAME)

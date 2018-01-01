@@ -29,8 +29,8 @@
 #endif
 
 #if !defined(TINY_GAME)
-	unsigned char powerUpBlink = 0;
-	unsigned char gunBlink = 0;	
+	// unsigned char powerUpBlink = 0;
+	// unsigned char gunBlink = 0;	
 #endif
 
 #if defined(FULL_GAME)
@@ -250,23 +250,23 @@ Image BOMB_IMAGE;
 	}
 
 	#if !defined(TINY_GAME)
-	void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char * blink_counter) 
-	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		#if !defined(NO_COLOR)
-			SET_TEXT_COLOR(image->_color);
-		#endif
-		if(*blink_counter) 
+		void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char * blink_counter) 
 		{
-			cputc(image->_imageData); 
-			*blink_counter=0;
-		} 
-		else 
-		{
-			cputc(' '); 
-			*blink_counter=1;
-		}	
-	}
+			gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+			#if !defined(NO_COLOR)
+				SET_TEXT_COLOR(image->_color);
+			#endif
+			if(*blink_counter) 
+			{
+				cputc(image->_imageData); 
+				*blink_counter=0;
+			} 
+			else 
+			{
+				cputc(' '); 
+				*blink_counter=1;
+			}	
+		}
 	#endif
 
 	#if !defined(TINY_GAME)

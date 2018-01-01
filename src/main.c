@@ -253,7 +253,6 @@ void relocatePowerUp(Character * powerUpPtr)
 void powerUpEffect()
 {
 	points+=POWER_UP_BONUS;
-	powerUpReached((Character *)&powerUp);
 	decreaseGhostLevel(); 
 	powerUp._coolDown = POWER_UP_INITIAL_COOLDOWN;	
 }
@@ -264,7 +263,6 @@ void gunEffect()
 	guns = GUNS_NUMBER;
 	printGunsStats();		
 	points+=GUN_BONUS;			
-	powerUpReached((Character *)&gun);	
 	gun._coolDown = GUN_INITIAL_COOLDOWN;	
 }
 
@@ -276,6 +274,7 @@ void handle_item(Item *itemPtr) //, unsigned short *coolDownPtr, unsigned char *
 		if(areCharctersAtSamePosition(&player, &(itemPtr->_character)))
 		{
 			itemPtr->_effect();
+			powerUpReached(&(itemPtr->_character));			
 		}
 		else
 		{
@@ -302,13 +301,11 @@ void handle_item(Item *itemPtr) //, unsigned short *coolDownPtr, unsigned char *
 	void extraPointsEffect()
 	{
 		points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
-		powerUpReached(&(extraPoints._character));	
 		extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder		
 	}
 	
 	void extraLifeEffect()
 	{
-		powerUpReached(&(extraLife._character));
 		++lives;
 		extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*2; // second time is harder
 		printLivesStats();		
@@ -316,7 +313,6 @@ void handle_item(Item *itemPtr) //, unsigned short *coolDownPtr, unsigned char *
 
 	void invincibilityEffect()
 	{
-		powerUpReached(&(invincibility._character));
 		player_invincibility = 1;
 		invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
 		playerInvincibilityCoolDown = PLAYER_INVINCIBILITY_COOL_DOWN;		

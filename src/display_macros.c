@@ -49,7 +49,9 @@ Image BOMB_IMAGE;
 	Image POWERUP_IMAGE;
 	Image MISSILE_IMAGE;
 	Image GUN_IMAGE;
-	Image INVINCIBLE_GHOST_IMAGE;
+	Image EXTRA_POINTS_IMAGE;
+	
+	Image INVINCIBLE_GHOST_IMAGE;	
 #endif
 
 #if defined(FULL_GAME)
@@ -58,7 +60,6 @@ Image BOMB_IMAGE;
 
 	Image BUBBLE_IMAGE;
 
-	Image EXTRA_POINTS_IMAGE;
 	Image EXTRA_LIFE_IMAGE;
 	Image INVINCIBILITY_IMAGE;	
 	
@@ -119,30 +120,17 @@ Image BOMB_IMAGE;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
 
 			#if !defined(TINY_GAME)
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-			POWERUP_IMAGE._color = COLOR_GREEN;
-			GUN_IMAGE._color = COLOR_BLUE;
+				INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+				POWERUP_IMAGE._color = COLOR_GREEN;
+				GUN_IMAGE._color = COLOR_BLUE;
+				EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
 			#endif
 
 			#if defined(FULL_GAME)
-				EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
 				EXTRA_LIFE_IMAGE._color = COLOR_BLUE;
 				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;		
 			#endif		
 		#endif
-		
-		// #if defined(NO_CASE_LETTERS)
-			// GHOST_IMAGE._imageData = 'O';
-		// #else
-		// {
-			// #if !defined(__PC6001__)
-				// GHOST_IMAGE._imageData = 'o';
-			// #else
-				// GHOST_IMAGE._imageData = 'O';			
-			// #endif
-		// }
-		// #endif
-	
 		
 		#if defined(__WINCMOC__) || defined(__CMOC__)
 			BOMB_IMAGE._imageData = 'x';	
@@ -160,6 +148,7 @@ Image BOMB_IMAGE;
 		
 		#if !defined(TINY_GAME)
 			INVINCIBLE_GHOST_IMAGE._imageData = '+';
+			EXTRA_POINTS_IMAGE._imageData = '$';			
 			#if defined(__WINCMOC__) || defined(__CMOC__)
 				POWERUP_IMAGE._imageData = 's';	
 				GUN_IMAGE._imageData = '!';				
@@ -211,11 +200,9 @@ Image BOMB_IMAGE;
 		
 			BUBBLE_IMAGE._imageData = '^';
 			#if defined(__WINCMOC__) || defined(__CMOC__)			
-				EXTRA_POINTS_IMAGE._imageData = '$';
 				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 				INVINCIBILITY_IMAGE._imageData = 'v';			
 			#else
-				EXTRA_POINTS_IMAGE._imageData = '$';
 				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 				INVINCIBILITY_IMAGE._imageData = 'V';						
 			#endif

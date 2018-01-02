@@ -69,10 +69,13 @@ extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
 extern Image INVINCIBLE_GHOST_IMAGE;
-extern Image BOMB_IMAGE;
-extern Image POWERUP_IMAGE;
+extern Image BOMB_IMAGE
+
 extern Image MISSILE_IMAGE;
+
+extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
+extern Image EXTRA_POINTS_IMAGE;
 
 #if defined(FULL_GAME)
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
@@ -80,7 +83,6 @@ extern Image GUN_IMAGE;
 
 	extern Image BUBBLE_IMAGE;
 
-	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
 	
@@ -208,6 +210,8 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._imageData = _PLAYER;
 	POWERUP_IMAGE._imageData = _POWERUP;
 	GUN_IMAGE._imageData = _GUN;
+	EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
+	
 	MISSILE_IMAGE._imageData = _MISSILE;
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
 
@@ -221,9 +225,7 @@ void INIT_IMAGES(void)
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
 		BUBBLE_IMAGE._imageData = _BUBBLE;
-		
-		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
-		
+				
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
 			

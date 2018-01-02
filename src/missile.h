@@ -42,7 +42,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection);
 
 void restoreMissile(Character *missilePtr);
 
-#if defined(FULL_GAME)
+#if !defined(TINY_GAME)
 	void reducePowerUpsCoolDowns(void);
 #endif
 	

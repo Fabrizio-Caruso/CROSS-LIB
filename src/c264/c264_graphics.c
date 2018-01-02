@@ -94,6 +94,7 @@ extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
+extern Image EXTRA_POINTS_IMAGE;
 
 #if defined(FULL_GAME)
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
@@ -101,7 +102,6 @@ extern Image GUN_IMAGE;
 
 	extern Image BUBBLE_IMAGE;
 
-	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
 	
@@ -173,6 +173,9 @@ void INIT_IMAGES(void)
 	INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 	POWERUP_IMAGE._color = COLOR_GREEN;
 	GUN_IMAGE._color = COLOR_BLUE;
+	EXTRA_POINTS_IMAGE._imageData = '$';
+	EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
+	
 	BOMB_IMAGE._color = COLOR_RED;
 	DEAD_GHOST_IMAGE._color = COLOR_RED;
 
@@ -189,10 +192,7 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 		
 		BUBBLE_IMAGE._color = COLOR_WHITE;
-		
-		EXTRA_POINTS_IMAGE._imageData = '$';
-		EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-		
+			
 		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
 		
 		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
@@ -207,7 +207,6 @@ void INIT_IMAGES(void)
 		GHOST_IMAGE._imageData = _GHOST;
 		
 		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
-	
 	
 		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 		BOMB_IMAGE._imageData = _BOMB;		

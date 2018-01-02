@@ -42,9 +42,12 @@ extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
-extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
+
+extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
+extern Image EXTRA_POINTS_IMAGE;
+	
 extern Image DEAD_GHOST_IMAGE;
 
 
@@ -53,13 +56,12 @@ extern Character player;
 
 extern Item powerUp;
 extern Item gun;
-
+extern Item extraPoints;
 
 extern Character missile;
 
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
-
 
 #if defined(FULL_GAME) 
 	extern unsigned char innerVerticalWallX;
@@ -71,14 +73,12 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;
 
 	extern Character leftEnemyMissile;
 	extern Character rightEnemyMissile;
 	
-	extern Item extraPoints;
 	extern Item extraLife;
 	extern Item invincibility;
 	
@@ -315,6 +315,8 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#if defined(FULL_GAME)
 		initializeAwayFromWall(&(powerUp._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
 		
+		initializeAwayFromWall(&(extraPoints._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
+		
 		if(bossLevel())
 		{
 			initializeAwayFromWall(&(gun._character),XSize/2, YSize/2, 1, &GUN_IMAGE);
@@ -325,8 +327,6 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		}
 		
 		initializeAwayFromWall(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);
-		
-		initializeAwayFromWall(&(extraPoints._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
 		
 		initializeAwayFromWall(&(extraLife._character), XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
 
@@ -346,6 +346,8 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			initializeCharacter(&(powerUp._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
 			
 			initializeCharacter(&(gun._character),XSize/2, YSize/2, 0, &GUN_IMAGE);	
+		
+			initializeCharacter(&(extraPoints._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);			
 		#endif
 		
 		#if defined(NO_RANDOM_LEVEL) || defined(TINY_GAME)

@@ -68,12 +68,13 @@ void INIT_GRAPHICS(void)
 
 void INIT_IMAGES(void)
 {		
-
 	#if !defined(NO_COLOR)
 		PLAYER_IMAGE._color = COLOR_WHITE;
 		INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
 		POWERUP_IMAGE._color = COLOR_WHITE;
 		GUN_IMAGE._color = COLOR_WHITE;
+		EXTRA_POINTS_IMAGE._color = COLOR_WHITE;	
+		
 		BOMB_IMAGE._color = COLOR_RED;
 		DEAD_GHOST_IMAGE._color = COLOR_RED;
 		GHOST_IMAGE._color = COLOR_WHITE;
@@ -86,6 +87,8 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._imageData = '*';
 	POWERUP_IMAGE._imageData = 'S';
 	GUN_IMAGE._imageData = '!';
+	EXTRA_POINTS_IMAGE._imageData = '$';
+	
 	MISSILE_IMAGE._imageData = '.';
 	DEAD_GHOST_IMAGE._imageData = 'O';
 
@@ -95,9 +98,7 @@ void INIT_IMAGES(void)
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 
 		BUBBLE_IMAGE._imageData = '^';
-		
-		EXTRA_POINTS_IMAGE._imageData = '$';
-		
+				
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 		INVINCIBILITY_IMAGE._imageData = 'V';
 		
@@ -105,32 +106,11 @@ void INIT_IMAGES(void)
 			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
 			BUBBLE_IMAGE._color = COLOR_WHITE;				
-			EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
 			EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
 			INVINCIBILITY_IMAGE._color = COLOR_WHITE;	
 		#endif
 	#endif
 }
-
-// void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-// { 
-	// unsigned char i;
-	// for(i=0;i<length;++i)
-	// {
-		// _DRAW_WALL(x,y+i)
-	// }
-// }
-
-// void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-// {
-	// unsigned char i;
-	// gotoxy(X_OFFSET+1+x,Y_OFFSET+y); 
-	// for(i=0;i<length;++i)
-	// {
-		// cputc('-');
-	// }
-// }
-
 
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
@@ -186,5 +166,4 @@ void _delete(unsigned char x, unsigned char y)
 	}
 #endif
 	
-
 

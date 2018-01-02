@@ -85,25 +85,17 @@ extern Image BOMB_IMAGE;
 	extern Image POWERUP_IMAGE;
 	extern Image MISSILE_IMAGE;
 	extern Image GUN_IMAGE;
+	extern Image EXTRA_POINTS_IMAGE;	
 	extern Image DEAD_GHOST_IMAGE;
 #endif
 
-#if !defined(TINY_GAME)
-	// extern unsigned char powerUpBlink;
-	// extern unsigned char gunBlink;	
-#endif
-
 #if defined(FULL_GAME)
-	// extern unsigned char extraPointsBlink;
-	// extern unsigned char extraLifeBlink;	
-	// extern unsigned char invincibilityBlink;
 	extern unsigned char playerBlink;	
 #endif
 
 #if defined(DEBUG) && defined(FULL_GAME)
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;
-	extern Image EXTRA_POINTS_IMAGE;
 	extern Image BUBBLE_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;	
@@ -115,6 +107,7 @@ Character player;
 	Character invincibleGhost;
 	Item powerUp;
 	Item gun;
+	Item extraPoints;	
 	Character missile;
 #endif
 
@@ -127,15 +120,10 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char innerVerticalWallY; 
 	unsigned char innerVerticalWallX; 
 	unsigned char innerVerticalWallLength;
-	
-	Item extraPoints;
+
 	Item extraLife;
 	Item invincibility;
 	
-	// unsigned short extraPointsCoolDown;
-	// unsigned short extraLifeCoolDown;
-	// unsigned short invincibilityCoolDown;
-
 	unsigned short playerInvincibilityCoolDown;	
 
 	Character leftEnemyMissile;
@@ -202,9 +190,9 @@ void handle_missile()
 			missile._x = 0; missile._y = 0;
 			++invincibleGhostHits;
 			decreaseGhostLevel();
-			#if defined(FULL_GAME)
-				reducePowerUpsCoolDowns();
-			#endif
+			// #if defined(FULL_GAME)
+			reducePowerUpsCoolDowns();
+			// #endif
 			
 			// TODO: to TEST
 			if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
@@ -266,6 +254,12 @@ void gunEffect()
 	gun._coolDown = GUN_INITIAL_COOLDOWN;	
 }
 
+void extraPointsEffect()
+{
+	points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
+	extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder		
+}
+
 void handle_item(Item *itemPtr) //, unsigned short *coolDownPtr, unsigned char *blinkCounter)
 {
 	// Manage item
@@ -293,16 +287,11 @@ void handle_item(Item *itemPtr) //, unsigned short *coolDownPtr, unsigned char *
 	}
 }
 
-
 #define handle_gun_item() handle_item(&gun);
 #define handle_powerup_item() handle_item(&powerUp);
-
+#define handle_extraPoints_item() handle_item(&extraPoints);
+	
 #if defined(FULL_GAME)
-	void extraPointsEffect()
-	{
-		points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
-		extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder		
-	}
 	
 	void extraLifeEffect()
 	{
@@ -318,7 +307,6 @@ void handle_item(Item *itemPtr) //, unsigned short *coolDownPtr, unsigned char *
 		playerInvincibilityCoolDown = PLAYER_INVINCIBILITY_COOL_DOWN;		
 	}
 
-	#define handle_extraPoints_item() handle_item(&extraPoints);
 	#define handle_extraLife_item() handle_item(&extraLife);
 	#define handle_invincibility_item() handle_item(&invincibility);	
 #endif
@@ -330,11 +318,11 @@ void handle_item(Item *itemPtr) //, unsigned short *coolDownPtr, unsigned char *
 		powerUp._effect = powerUpEffect;
 		gun._blink = 0;
 		gun._effect = gunEffect;
+		extraPoints._blink = 0;	
+		extraPoints._effect = extraPointsEffect;
 		#if defined(FULL_GAME)
-			extraPoints._blink = 0;
 			extraLife._blink = 0;
 			invincibility._blink = 0;
-			extraPoints._effect = extraPointsEffect;
 			extraLife._effect = extraLifeEffect;
 			invincibility._effect = invincibilityEffect;
 		#endif	
@@ -486,15 +474,16 @@ int main(void)
 		do // Level (Re-)Start
 		{ 
 
+			
 			#if defined(FULL_GAME)
 				dead_bubbles = 0;
-				extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;
 				extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
 				invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
 				player_invincibility = 0;
 			#endif			
 						
 			#if !defined(TINY_GAME)
+				extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;			
 				computeStrategy();
 			#endif
 			
@@ -581,7 +570,9 @@ int main(void)
 					}
 				}
 				#endif
-				
+									
+				handle_extraPoints_item();
+					
 				#if defined(FULL_GAME)
 					if(player_invincibility && playerInvincibilityCoolDown<=0)
 					{
@@ -694,9 +685,7 @@ int main(void)
 							}
 						}
 					}	
-					
-					handle_extraPoints_item();
-					
+
 					if (level>=EXTRA_LIFE_FIRST_LEVEL && rocketLevel())
 					{
 						handle_invincibility_item();

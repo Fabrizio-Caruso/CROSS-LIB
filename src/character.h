@@ -39,6 +39,18 @@ struct CharacterStruct
 
 typedef struct CharacterStruct Character;
 
+struct ItemStruct
+{
+	Character _character;
+	void (*_effect)(void);
+	unsigned short _coolDown;
+	unsigned char _blink;
+};
+
+typedef struct ItemStruct Item;
+
+
+
 #include <stdlib.h>
 
 #include "settings.h"

@@ -26,7 +26,7 @@
 #define _SETTINGS
 
 #if defined(__WINCMOC__) || defined(__CMOC__)
-	#define FULL_GAME
+	//#define FULL_GAME
 	#define ASM_KEY_DETECT
 	// #define REDEFINED_CHARS
 	// #define SOUNDS

@@ -113,8 +113,10 @@ Character player;
 
 #if !defined(TINY_GAME)
 	Character invincibleGhost;
-	Character powerUp;
-	Character gun;
+	
+	Item powerUp;
+	Item gun;
+	
 	Character missile;
 #endif
 
@@ -166,7 +168,6 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 #if !defined(TINY_GAME)
 	unsigned char playerFire = 0;
 	unsigned char guns = GUNS_NUMBER;
-
 
 	unsigned char invincibleGhostHits = 0;
 	unsigned char invincibleGhostAlive = 1;
@@ -238,23 +239,22 @@ void powerUpReached(Character * powerUpPtr)
 
 void relocatePowerUp(Character * powerUpPtr)
 {
-		powerUpPtr->_status = 1;
-		
-		#if defined(FULL_GAME)
-		do
-		{
-			relocateCharacter(powerUpPtr, bombs,4);
-		} while(nearInnerWall(powerUpPtr));		
-		#else
-			relocateCharacter(powerUpPtr, bombs,4);
-		#endif	
+	powerUpPtr->_status = 1;
+	
+	#if defined(FULL_GAME)
+	do
+	{
+		relocateCharacter(powerUpPtr, bombs,4);
+	} while(nearInnerWall(powerUpPtr));		
+	#else
+		relocateCharacter(powerUpPtr, bombs,4);
+	#endif	
 }
 
 
 void powerUpEffect()
 {
 	points+=POWER_UP_BONUS;
-	powerUpReached(&powerUp);
 	decreaseGhostLevel(); 
 	powerUpCoolDown = POWER_UP_INITIAL_COOLDOWN;	
 }
@@ -265,38 +265,41 @@ void gunEffect()
 	guns = GUNS_NUMBER;
 	printGunsStats();		
 	points+=GUN_BONUS;			
-	powerUpReached(&gun);	
 	gunCoolDown = GUN_INITIAL_COOLDOWN;	
 }
 
-void handle_item(void (*itemEffect)(void), Character *itemPtr, unsigned short *coolDownPtr, unsigned char *blinkCounter)
+void handle_item(Item* itemPtr)
 {
 	// Manage item
-	if(itemPtr->_status == 1)
+	if((itemPtr->_character)._status == 1)
 	{	
-		if(areCharctersAtSamePosition(&player, itemPtr))
+		if(areCharctersAtSamePosition(&player, (Character *)&(itemPtr->_character)))
 		{
-			itemEffect();
+			// itemPtr->_effect();
+			powerUpReached((Character *)&(itemPtr->_character));
 		}
 		else
 		{
-			_blink_draw(itemPtr->_x,itemPtr->_y,itemPtr->_imagePtr, blinkCounter);
+			_blink_draw((itemPtr->_character)._x,(itemPtr->_character)._y,(itemPtr->_character)._imagePtr, itemPtr->_blink);
 		}		
 	}
-	else if (*coolDownPtr == 0)
+	else if (itemPtr->_coolDown == 0)
 	{
-		relocatePowerUp(itemPtr);
+		relocatePowerUp(&(itemPtr->_character));
 
-		_blink_draw(itemPtr->_x,itemPtr->_y,itemPtr->_imagePtr, blinkCounter);
+		_blink_draw((itemPtr->_character)._x,(itemPtr->_character)._y,(itemPtr->_character)._imagePtr, itemPtr->_blink);
 	}
 	else
 	{
-		--(*coolDownPtr);
+		--(itemPtr->_coolDown);
 	}
 }
 
-#define handle_gun_item() handle_item(gunEffect, &gun, &gunCoolDown, &gunBlink);
-#define handle_powerup_item() handle_item(powerUpEffect, &powerUp, &powerUpCoolDown, &powerUpBlink);
+// #define handle_gun_item() handle_item(gunEffect, &gun, &gunCoolDown, &gunBlink);
+// #define handle_powerup_item() handle_item(powerUpEffect, &powerUp, &powerUpCoolDown, &powerUpBlink);
+
+#define handle_gun_item() handle_item(&gun);
+#define handle_powerup_item() handle_item(&powerUp);
 
 #endif
 
@@ -500,7 +503,7 @@ int main(void)
 				invincibleGhostHits = 0;
 										
 				guns = 0;
-				gun._status = 0;
+				gun._character._status = 0;
 							
 				gunCoolDown = GUN_INITIAL_COOLDOWN;
 				

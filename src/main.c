@@ -313,16 +313,16 @@ void handle_item(Item *itemPtr) //, unsigned short *coolDownPtr, unsigned char *
 	void initItems()
 	{
 		powerUp._blink = 0;
-		powerUp._effect = powerUpEffect;
+		powerUp._effect = &powerUpEffect;
 		gun._blink = 0;
-		gun._effect = gunEffect;
+		gun._effect = &gunEffect;
 		extraPoints._blink = 0;	
-		extraPoints._effect = extraPointsEffect;
+		extraPoints._effect = &extraPointsEffect;
 		#if defined(FULL_GAME)
 			extraLife._blink = 0;
 			invincibility._blink = 0;
-			extraLife._effect = extraLifeEffect;
-			invincibility._effect = invincibilityEffect;
+			extraLife._effect = &extraLifeEffect;
+			invincibility._effect = &invincibilityEffect;
 		#endif	
 	}
 #endif

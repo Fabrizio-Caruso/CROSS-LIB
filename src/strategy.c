@@ -133,7 +133,8 @@ void computeStrategy(void)
 		for(i=1; i<GHOSTS_NUMBER; ++i) // 6,1,1
 		{
 			strategyArray[i] = i; // no preference (approximate straight line)
-		}				
+		}	
+		strategyArray[0] = 4;		
 	#endif
 }
 #endif

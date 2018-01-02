@@ -190,9 +190,7 @@ void handle_missile()
 			missile._x = 0; missile._y = 0;
 			++invincibleGhostHits;
 			decreaseGhostLevel();
-			// #if defined(FULL_GAME)
 			reducePowerUpsCoolDowns();
-			// #endif
 			
 			// TODO: to TEST
 			if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
@@ -570,9 +568,7 @@ int main(void)
 					}
 				}
 				#endif
-									
-				handle_extraPoints_item();
-					
+													
 				#if defined(FULL_GAME)
 					if(player_invincibility && playerInvincibilityCoolDown<=0)
 					{
@@ -731,6 +727,8 @@ int main(void)
 				checkBombsVsGhosts();
 				
 				#if !defined(TINY_GAME)
+					handle_extraPoints_item();
+				
 					handle_gun_item();
 				
 					handle_powerup_item();

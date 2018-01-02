@@ -25,13 +25,12 @@
 #ifndef _INVINCIBLE_ENEMY
 #define _INVINCIBLE_ENEMY
 
-// unsigned short computeInvincibleCountDown(void);
-
+#if !defined(TINY_GAME)
 unsigned short computeInvincibleSlowDown(void);
 
-// unsigned short computeInvincibleGhostCountTrigger(void);
-
 void computeInvincibleGhostParameters(void);
+#endif
 
 #endif // _INVINCIBLE_ENEMY
+
 

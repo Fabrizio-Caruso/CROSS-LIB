@@ -21,7 +21,7 @@
 
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
-
+#if !defined(TINY_GAME)
 
 #include "settings.h"
 #include "invincible_enemy.h"
@@ -54,4 +54,6 @@ void computeInvincibleGhostParameters(void)
 	invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
 	invincibleLoopTrigger = INVINCIBLE_LOOP_TRIGGER;	
 }
+
+#endif
 

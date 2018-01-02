@@ -25,6 +25,8 @@
 #ifndef _MISSILE
 #define _MISSILE
 
+#if !defined(TINY_GAME)
+
 #include "character.h"
 #include "settings.h"
 
@@ -46,5 +48,7 @@ void restoreMissile(Character *missilePtr);
 	void reducePowerUpsCoolDowns(void);
 #endif
 	
+#endif	
+
 #endif //_MISSILE
 

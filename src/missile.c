@@ -22,6 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
  
+#if !defined(TINY_GAME) 
+ 
 #include "missile.h"
 #include "settings.h"
 #include "sound_macros.h"
@@ -29,7 +31,6 @@
 #include "level.h"
 #include "text.h"
 #include "character.h"
-
 
 extern unsigned int points;
 extern unsigned char ghostCount;
@@ -198,3 +199,4 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 	}
 }
 
+#endif

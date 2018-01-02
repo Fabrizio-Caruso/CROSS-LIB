@@ -44,9 +44,11 @@ extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
 extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
-extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
+
+extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
+extern Image EXTRA_POINTS_IMAGE;
 
 #if defined(FULL_GAME)
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
@@ -54,7 +56,6 @@ extern Image GUN_IMAGE;
 
 	extern Image BUBBLE_IMAGE;
 
-	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
 	

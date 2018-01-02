@@ -69,7 +69,7 @@ extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
 extern Image INVINCIBLE_GHOST_IMAGE;
-extern Image BOMB_IMAGE
+extern Image BOMB_IMAGE;
 
 extern Image MISSILE_IMAGE;
 

@@ -593,9 +593,8 @@ cc65_targets: gamate creativision_8k osic1p_8k osic1p_32k vic20_exp_3k vic20_exp
 # OK: aquarius_exp_16k ace_exp_16k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz microbee simcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k spectrum_newlib_tiny spectrum_48k
 # KO: zx80_exp_16k zx80_exp_32k zx81_exp_16k zx81_exp_32k msx_color_16k msx_color_32k_rom msx_color_32k lambda_16k
 # ------------
-# OK 
-# KO 
-z88dk_targets: ace_exp_16k aquarius_exp_16k cpc vg5k vg5k_exp_16k vz200_16k vz200_32k svi_318_mode0 svi_328 sharp_mz microbee samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k pc6001_32k nascom_16k nascom_32k  zx80_16k zx81_16k lambda_16k  msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k
+# OK # KO svi_318_mode0 spectrum_16k
+z88dk_targets: ace_exp_16k aquarius_exp_16k cpc vg5k vg5k_exp_16k vz200_16k vz200_32k svi_328 sharp_mz microbee samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k pc6001_32k nascom_16k nascom_32k  zx80_16k zx81_16k lambda_16k msx_color_16k msx_color_32k_rom msx_color_32k spectrum_48k
 
 all: cc65_targets z88dk_targets
 

@@ -68,7 +68,7 @@ unsigned char level;
 	unsigned short invincibleSlowDown;
 	unsigned char invincibleXCountDown;
 	unsigned char invincibleYCountDown;
-	unsigned short ghostLevelDecrease;
+	// unsigned short ghostLevelDecrease;
 	unsigned char missileDirection;
 #endif
 
@@ -506,7 +506,7 @@ int main(void)
 			ghostLevel = 0;
 
 			#if !defined(TINY_GAME)
-				ghostLevelDecrease = 140-(level*2);
+				// ghostLevelDecrease = 140-(level*2);
 				
 
 				invincibleGhostAlive = 1;

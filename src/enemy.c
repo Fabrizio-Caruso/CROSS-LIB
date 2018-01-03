@@ -28,7 +28,7 @@
 
 extern unsigned short ghostLevel;
 extern unsigned char level;
-extern unsigned short ghostLevelDecrease;
+// extern unsigned short ghostLevelDecrease;
 
 extern Character ghosts[GHOSTS_NUMBER];
 
@@ -44,8 +44,8 @@ unsigned short computeGhostSlowDown(void)
 #if !defined(TINY_GAME)
 void decreaseGhostLevel(void)
 {
-	if(ghostLevel>ghostLevelDecrease)
-		ghostLevel-=ghostLevelDecrease;
+	if(ghostLevel>GHOST_LEVEL_DECREASE)
+		ghostLevel-=GHOST_LEVEL_DECREASE;
 	else
 		ghostLevel=0;
 }

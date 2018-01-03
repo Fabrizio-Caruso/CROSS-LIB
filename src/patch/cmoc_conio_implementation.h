@@ -34,6 +34,9 @@
 #ifndef _CMOC_CONIO_PATCH
 #define _CMOC_CONIO_PATCH
 
+	#define cprintf 
+	#define gotoxy
+	#define cputc
 	// #if defined(__ZX80__)
 		// #define cputc(c) {gen_tv_field(); putch(c);}
 	// #else

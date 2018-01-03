@@ -298,7 +298,10 @@ spectrum_48k:
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin	
 
 
+# CMOC
 
+cmoc:
+	cmoc -D __CMOC__ -DNO_SLEEP -DNO_TEXT -DNO_RANDOM_LEVEL $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/cmoc/cmoc_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	
 	
 	

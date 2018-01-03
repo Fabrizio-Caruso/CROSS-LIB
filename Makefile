@@ -304,11 +304,14 @@ spectrum_48k:
 # DEBUG
 
 error_cc65:
-	$(CC65_PATH)$(MYCC65) -t vic20 $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error.prg
+	$(CC65_PATH)$(MYCC65) -t vic20 $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_cc65.prg
 
 error_z88dk:
-	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error.prg
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_z88dk.prg
 
+error_cmoc:
+	cmoc $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_cmoc.prg
+#	rm -f cmoc.exe.stackdump
 
 # CMOC
 

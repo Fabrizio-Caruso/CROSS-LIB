@@ -316,7 +316,7 @@ error_cmoc:
 # CMOC
 
 coco:
-	cmoc -D __CMOC__ -DNO_SLEEP -DNO_TEXT -DNO_RANDOM_LEVEL -o $(BUILD_PATH)/coco.bin $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/cmoc/cmoc_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/cmoc/cmoc_input.c  $(SOURCE_PATH)/main.c
+	cmoc -D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_RANDOM_LEVEL -o $(BUILD_PATH)/coco.bin $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/cmoc/cmoc_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/cmoc/cmoc_input.c  $(SOURCE_PATH)/main.c
 	
 
 

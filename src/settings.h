@@ -25,7 +25,7 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
-#if defined(__WINCMOC__) || defined(__CMOC__)
+#if defined(__WINCMOC__)
 	//#define FULL_GAME
 	#define TINY_GAME	
 	#define ASM_KEY_DETECT

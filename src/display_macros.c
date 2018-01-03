@@ -28,15 +28,7 @@
 	#define VERTICAL_BRICK '|'
 #endif
 
-#if !defined(TINY_GAME)
-	// unsigned char powerUpBlink = 0;
-	// unsigned char gunBlink = 0;	
-#endif
-
 #if defined(FULL_GAME)
-	unsigned char extraPointsBlink = 0;
-	unsigned char extraLifeBlink = 0;	
-	unsigned char invincibilityBlink = 0;
 	unsigned char playerBlink = 0;	
 #endif
 

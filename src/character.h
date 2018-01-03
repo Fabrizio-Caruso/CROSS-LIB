@@ -63,7 +63,7 @@ typedef struct ItemStruct Item;
 
 #define  playerReachedBombs(preyPtr) sameLocationAsAnyLocation((preyPtr)->_x, (preyPtr)->_y, bombs, BOMBS_NUMBER)
 
-#define areCharctersAtSamePosition(lhs, rhs)isCharacterAtLocation((rhs)->_x, (rhs)->_y,lhs)
+#define areCharctersAtSamePosition(lhs, rhs)isCharacterAtLocation((lhs)->_x, (lhs)->_y,rhs)
 
 extern unsigned int points;
 

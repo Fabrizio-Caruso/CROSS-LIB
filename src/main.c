@@ -271,7 +271,7 @@ void handle_item(Item *itemPtr)
 	// Manage item
 	if(itemPtr->_character._status == 1)
 	{	
-		if(areCharctersAtSamePosition(&player, &(itemPtr->_character)))
+		if(areCharctersAtSamePosition(&player, (Character *) itemPtr))
 		{
 			itemPtr->_effect();
 			powerUpReached((Character *) itemPtr);			

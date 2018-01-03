@@ -25,7 +25,11 @@
 #include "character.h"
 #include "settings.h"
 
-#include <stdlib.h>
+#if defined(__CMOC__) && !defined(__WINCMOC__)
+	#include <cmoc.h>
+#else
+	#include <stdlib.h>
+#endif
 
 #include "display_macros.h"
 #include "sound_macros.h" 

@@ -81,7 +81,7 @@ extern Image GUN_IMAGE;
 	extern Image BROKEN_WALL_IMAGE;
 #endif
 
-#define BASE_ADDR
+#define BASE_ADDR 0xb800
 
 Image PLAYER_DOWN;
 Image PLAYER_UP;

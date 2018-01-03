@@ -36,7 +36,7 @@
 #endif
 	
 
-#if !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
+#if (!defined(__CMOC__) || defined(__WINCMOC__)) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
 	#include <conio.h>
 #endif
 
@@ -276,6 +276,9 @@ void _delete(unsigned char x, unsigned char y);
 #elif defined(__SPECTRUM__)
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
+#elif defined(__CMOC__) && !defined(__WINCMOC__)
+	#define PRINT(x,y,str)
+	#define PRINTF(x,y,str,val)
 #else
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);
@@ -317,6 +320,10 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_TEXT_COLOR(c) {};
 
 	#define CLEAR_SCREEN() do {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}} while(0)
+#elif defined(__CMOC__) && !defined(__WINCMOC__)
+	#define SET_TEXT_COLOR(c) {}
+	
+	#define CLEAR_SCREEN() {}
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define SET_TEXT_COLOR(c) {};
 

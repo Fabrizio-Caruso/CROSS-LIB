@@ -22,9 +22,17 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#include <stdlib.h>
-#include <string.h>
-#include <stdio.h>
+#if defined(__CMOC__) && !defined(__WINCMOC__)
+	#include <cmoc.h>
+#else
+	#include <stdlib.h>
+	#include <string.h>
+	#include <stdio.h>
+#endif
+
+#if !defined EXIT_SUCCESS
+	#define EXIT_SUCCESS 0
+#endif
 
 #include "settings.h"
 #include "character.h"

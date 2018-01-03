@@ -121,6 +121,8 @@ extern unsigned char playerDirection;
 				sleep(3);
 			#endif
 		}
+	#elif defined(__CMOC__) && !defined(__WINCMOC__)
+		// TODO: Implement this
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		#include<conio.h>
 		void WAIT_PRESS(void)
@@ -241,7 +243,7 @@ extern unsigned char playerDirection;
 		{
 			movePlayerByKeyboard(GET_CHAR());
 		}		
-	#elif defined(__WINCMOC__) || defined(__CMOC__)
+	#elif defined(__WINCMOC__) && defined(__CMOC__)
 		#if defined(ASM_KEY_DETECT)
 			// #include <basic.h>
 			#include "wincmoc/wincmoc_input.h"			
@@ -269,6 +271,34 @@ extern unsigned char playerDirection;
 				}			
 			}				
 		#endif
+	#elif !defined(__WINCMOC__) && defined(__CMOC__)
+		#if defined(ASM_KEY_DETECT)
+			// #include <basic.h>
+			#include "wincmoc/wincmoc_input.h"			
+			void MOVE_PLAYER(void) 
+				{
+					char ch = (char) GET_CHAR(); 
+					if(ch!='')
+					{
+						movePlayerByKeyboard(ch); 
+					}
+					// else
+					// {
+						// if(kbhit() && cgetc()==' ')
+						// {
+							// movePlayerByKeyboard(' ');
+						// }
+					// }
+				}
+		#else
+			void MOVE_PLAYER(void) 
+			{
+				if(kbhit()) 
+				{ 
+					movePlayerByKeyboard((char) cgetc());
+				}			
+			}				
+		#endif	
 	#else
 		void MOVE_PLAYER(void) 
 		{

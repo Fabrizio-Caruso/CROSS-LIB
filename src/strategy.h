@@ -25,10 +25,15 @@
 #ifndef _STRATEGY
 #define _STRATEGY
 
-#include <stdlib.h>
-#include <string.h>
 
-#include <stdio.h>
+
+#if defined(__CMOC__) && !defined(__WINCMOC__)
+	#include <cmoc.h>
+#else
+	#include <stdlib.h>
+	#include <string.h>
+	#include <stdio.h>
+#endif
 
 #include "character.h"
 

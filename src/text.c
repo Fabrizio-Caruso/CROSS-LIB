@@ -211,6 +211,8 @@ extern Image MISSILE_IMAGE;
 			gotoxy(GUN_IMAGE_X,0); cputc(GUN_IMAGE._imageData+160);	
 			gotoxy(GHOST_IMAGE_X,0); cputc(GHOST_IMAGE._imageData+160);
 			gotoxy(PLAYER_IMAGE_X,0); cputc(PLAYER_IMAGE._imageData+64);		
+		#elif defined(__CMOC__) && !defined(__WINCMOC__)
+			// TODO: Implement this
 		#else
 			#if defined(COLOR)
 				SET_TEXT_COLOR(TEXT_COLOR);

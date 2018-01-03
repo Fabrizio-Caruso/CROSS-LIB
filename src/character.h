@@ -49,7 +49,11 @@ struct ItemStruct
 
 typedef struct ItemStruct Item;
 
-#include <stdlib.h>
+#if defined(__CMOC__) && !defined(__WINCMOC__)
+	#include <cmoc.h>
+#else
+	#include <stdlib.h>
+#endif
 
 #include "settings.h"
 

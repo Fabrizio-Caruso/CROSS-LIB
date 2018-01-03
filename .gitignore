@@ -15,3 +15,6 @@ src/wincmoc_input.c
 src/wincmoc_graphics.c
 ./tools/cpcrslib/cpcrslib.lib
 ./map.txt
+*.s
+*.stackdump
+

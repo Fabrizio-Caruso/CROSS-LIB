@@ -33,12 +33,12 @@
 extern Character player;
 
 #if !defined(TINY_GAME)
-extern unsigned char invincibleXCountDown;
-extern unsigned char invincibleYCountDown;
-extern unsigned char playerFire;
-extern Character missile;
-extern unsigned char guns;
-extern unsigned char playerDirection;
+	extern unsigned char invincibleXCountDown;
+	extern unsigned char invincibleYCountDown;
+	extern unsigned char playerFire;
+	extern Character missile;
+	extern unsigned char guns;
+	extern unsigned char playerDirection;
 #endif
 
 #if defined(FULL_GAME)
@@ -123,6 +123,14 @@ extern unsigned char playerDirection;
 		}
 	#elif defined(__CMOC__) && !defined(__WINCMOC__)
 		// TODO: Implement this
+		#include "sleep_macros.h"		
+				
+		void WAIT_PRESS(void)
+		{
+			#if !defined(NO_SLEEP)
+				sleep(3);
+			#endif
+		}		
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		#include<conio.h>
 		void WAIT_PRESS(void)

@@ -61,20 +61,25 @@ extern unsigned char XSize;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
-extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
-extern Image POWERUP_IMAGE;
-extern Image MISSILE_IMAGE;
-extern Image GUN_IMAGE;
 
+#if !defined(TINY_GAME)
+	extern Image DEAD_GHOST_IMAGE;
+	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image MISSILE_IMAGE;
+	
+	extern Image POWERUP_IMAGE;	
+	extern Image GUN_IMAGE;
+	extern Image EXTRA_POINTS_IMAGE;
+	
+#endif
+	
 #if defined(FULL_GAME)
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
 	extern Image BUBBLE_IMAGE;
 
-	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
 	
@@ -83,11 +88,15 @@ extern Image GUN_IMAGE;
 
 #define BASE_ADDR 0xb800
 
-Image PLAYER_DOWN;
-Image PLAYER_UP;
-Image PLAYER_RIGHT;
-Image PLAYER_LEFT;
 
+
+#if defined(REDEFINED_CHARS)
+	Image PLAYER_DOWN;
+	Image PLAYER_UP;
+	Image PLAYER_RIGHT;
+	Image PLAYER_LEFT;
+#endif
+	
 #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
 #define PEEK(addr)         (*(unsigned char*) (addr))
@@ -123,29 +132,33 @@ void INIT_GRAPHICS(void)
 
 void INIT_IMAGES(void)
 {		
-
 	GHOST_IMAGE._imageData = _GHOST;
-	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
 	PLAYER_IMAGE._imageData = _PLAYER;
-	POWERUP_IMAGE._imageData = _POWERUP;
-	GUN_IMAGE._imageData = _GUN;
-	MISSILE_IMAGE._imageData = _MISSILE;
-	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
+	
+	#if !defined(TINY_GAME)
+		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;	
+		MISSILE_IMAGE._imageData = _MISSILE;
+		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
+		
+		POWERUP_IMAGE._imageData = _POWERUP;
+		GUN_IMAGE._imageData = _GUN;
+		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;		
+	#endif
 
-	PLAYER_DOWN._imageData = _PLAYER_DOWN;
-	PLAYER_UP._imageData = _PLAYER_UP;	
-	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-	PLAYER_LEFT._imageData = _PLAYER_LEFT;		
-
+	#if defined(REDEFINED_CHARS)
+		PLAYER_DOWN._imageData = _PLAYER_DOWN;
+		PLAYER_UP._imageData = _PLAYER_UP;	
+		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+		PLAYER_LEFT._imageData = _PLAYER_LEFT;		
+	#endif
+		
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
 		BUBBLE_IMAGE._imageData = _BUBBLE;
-		
-		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
-		
+				
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
 			

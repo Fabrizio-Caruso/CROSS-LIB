@@ -28,8 +28,10 @@
 	
 	#if defined(__ATMOS__)
 		#include "atmos/atmos_input.h"
-	#elif defined(__WINCMOC__) || defined(__CMOC__)
+	#elif defined(__WINCMOC__) && defined(__CMOC__)
 		#include "wincmoc/wincmoc_input.h"
+	#elif !defined(__WINCMOC__) && defined(__CMOC__)
+		#include "cmoc/cmoc_input.h"		
 	#else
 	#endif
 				

@@ -326,6 +326,8 @@
 
 // Extra points for the power up
 #define POWER_UP_BONUS 20UL
+#define POWER_UP2_BONUS 40UL
+
 
 // Extra points for the power up
 #define GUN_BONUS 30UL
@@ -376,6 +378,8 @@
 #define GUN_INITIAL_COOLDOWN (175 + level * 2)
 
 #define POWER_UP_INITIAL_COOLDOWN (130 + level * 2)
+#define POWER_UP2_INITIAL_COOLDOWN 400
+
 
 #define INVINCIBLE_COUNT_DOWN 80
 

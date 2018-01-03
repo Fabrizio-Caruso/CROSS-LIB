@@ -68,8 +68,6 @@ unsigned char level;
 	unsigned short invincibleSlowDown;
 	unsigned char invincibleXCountDown;
 	unsigned char invincibleYCountDown;
-	// unsigned short powerUpCoolDown;	
-	// unsigned short gunCoolDown;
 	unsigned short ghostLevelDecrease;
 	unsigned char missileDirection;
 #endif
@@ -114,6 +112,7 @@ Character player;
 #if !defined(TINY_GAME)
 	Character invincibleGhost;
 	Item powerUp;
+	Item powerUp2;
 	Item gun;
 	Item extraPoints;	
 	Character missile;
@@ -251,6 +250,13 @@ void powerUpEffect(void)
 	powerUp._coolDown = POWER_UP_INITIAL_COOLDOWN;	
 }
 
+void powerUp2Effect(void)
+{
+	points+=POWER_UP_BONUS;
+	decreaseGhostLevel(); 
+	powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;	
+}
+
 
 void gunEffect(void)
 {
@@ -295,6 +301,7 @@ void handle_item(Item *itemPtr)
 
 #define handle_gun_item() handle_item(&gun);
 #define handle_powerup_item() handle_item(&powerUp);
+#define handle_powerup2_item() handle_item(&powerUp2);
 #define handle_extraPoints_item() handle_item(&extraPoints);
 	
 #if defined(FULL_GAME)
@@ -322,6 +329,8 @@ void handle_item(Item *itemPtr)
 	{
 		powerUp._blink = 0;
 		powerUp._effect = &powerUpEffect;
+		powerUp2._blink = 0;
+		powerUp2._effect = &powerUp2Effect;
 		gun._blink = 0;
 		gun._effect = &gunEffect;
 		extraPoints._blink = 0;	
@@ -507,6 +516,7 @@ int main(void)
 				gun._character._status = 0;
 							
 				gun._coolDown = GUN_INITIAL_COOLDOWN;
+				powerUp2._coolDown = POWER_UP_INITIAL_COOLDOWN*2;
 				
 				computeInvincibleGhostParameters();
 			#endif
@@ -689,16 +699,7 @@ int main(void)
 							}
 						}
 					}	
-
-					if (level>=EXTRA_LIFE_FIRST_LEVEL && rocketLevel())
-					{
-						handle_invincibility_item();
-						handle_extraLife_item();
-					}
-					else if(level>=INVINCIBILITY_FIRST_LEVEL)
-					{
-						handle_invincibility_item();
-					}		
+		
 				#endif
 						
 				++loop;
@@ -736,11 +737,23 @@ int main(void)
 				
 				#if !defined(TINY_GAME)
 					handle_extraPoints_item();
-				
 					handle_gun_item();
-				
 					handle_powerup_item();
+					handle_powerup2_item();					
 				#endif
+				
+				#if defined(FULL_GAME)
+					if (level>=EXTRA_LIFE_FIRST_LEVEL && rocketLevel())
+					{
+						handle_invincibility_item();
+						handle_extraLife_item();
+					}
+					else if(level>=INVINCIBILITY_FIRST_LEVEL)
+					{
+						handle_invincibility_item();
+					}				
+				#endif
+				
 
 				#if defined(FULL_GAME)
 				if(wallReached(&player) || 

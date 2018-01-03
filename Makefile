@@ -310,7 +310,7 @@ error_z88dk:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_z88dk.prg
 
 error_cmoc:
-	cmoc $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_cmoc.prg
+	cmoc -o $(BUILD_PATH)/error_cmoc.bin $(SOURCE_PATH)/../experiments/error.c 
 #	rm -f cmoc.exe.stackdump
 
 # CMOC

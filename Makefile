@@ -298,14 +298,24 @@ spectrum_48k:
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin	
 
 
+
+	
+	
+# DEBUG
+
+error_cc65:
+	$(CC65_PATH)$(MYCC65) -t vic20 $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error.prg
+
+error_z88dk:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error.prg
+
+
 # CMOC
 
 cmoc:
 	cmoc -D __CMOC__ -DNO_SLEEP -DNO_TEXT -DNO_RANDOM_LEVEL $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/cmoc/cmoc_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	
-	
-	
-# DEBUG
+
 
 vic20_exp_8k_2:
 	$(CC65_PATH)$(MYCC65) -O -t vic20 -Cl -DREDEFINED_CHARS -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-8k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c  $(SOURCE_PATH)/vic20/vic20_sounds.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/main.c --code-name CODE2 $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg

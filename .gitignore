@@ -17,4 +17,5 @@ src/wincmoc_graphics.c
 ./map.txt
 *.s
 *.stackdump
+src/wincmoc_tmp.c
 

@@ -1,3 +1,3 @@
 // Necessary to select WINCMOC code
 
-#define WINCMOC
+#define __WINCMOC__

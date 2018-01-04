@@ -538,8 +538,7 @@ void DEBUG_PRINT()
 			else
 			{
 				ADVANCED_RIGHT_MISSILE();
-				if((!oneMissileLevel() && loop%2 && player._y<=ENEMY_MISSILE_OFFSET+arrowRange && player._x<= rightEnemyMissile._x) ||
-					(oneMissileLevel() && loop%2 && player._y<=YSize/2+arrowRange && player._y>=YSize/2-arrowRange && player._x<= rightEnemyMissile._x))
+				if((loop%2 && (player._x<= rightEnemyMissile._x)) && ((!oneMissileLevel() && player._y<=ENEMY_MISSILE_OFFSET+arrowRange) || (oneMissileLevel() && player._y<=YSize/2+arrowRange && player._y>=YSize/2-arrowRange)))			
 				{
 					if(player._y>rightEnemyMissile._y)
 					{

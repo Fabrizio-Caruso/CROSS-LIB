@@ -86,7 +86,7 @@ extern Image BOMB_IMAGE;
 	extern Image BROKEN_WALL_IMAGE;
 #endif
 
-#define BASE_ADDR 0xb800
+#define BASE_ADDR 0x0400
 
 
 

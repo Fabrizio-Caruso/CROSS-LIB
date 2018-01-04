@@ -34,7 +34,7 @@
 #ifndef _CMOC_CONIO_PATCH
 #define _CMOC_CONIO_PATCH
 
-	#define cprintf 
+	#define cprintf printf
 	#define gotoxy
 	#define cputc
 	// #if defined(__ZX80__)

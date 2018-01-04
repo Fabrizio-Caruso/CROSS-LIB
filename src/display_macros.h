@@ -309,7 +309,7 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__VG5K__) 
-	#define SET_TEXT_COLOR(c) {};
+	#define SET_TEXT_COLOR(c) textcolor(c)
 
 	void CLEAR_SCREEN();
 #elif  defined(__ATARI5200__) || (defined(__SVI__) && defined(MSX_MODE0)) || defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)

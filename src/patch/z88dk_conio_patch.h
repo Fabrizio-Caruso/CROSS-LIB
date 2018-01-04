@@ -36,7 +36,7 @@
 
 	#if defined(__ZX80__)
 		#define cputc(c) {gen_tv_field(); putch(c);}
-	#elif defined(__NASCOM__)
+	#elif defined(__NASCOM__) || defined(__VG5K__)
 		#define cputc(c) fputc_cons(c)		
 	#else
 		#define cputc(c) putch(c);

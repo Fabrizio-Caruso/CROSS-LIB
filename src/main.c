@@ -242,18 +242,21 @@ void relocatePowerUp(Character * powerUpPtr)
 		#endif	
 }
 
+void _commonPowerUpEffect(void)
+{
+	points+=POWER_UP_BONUS;
+	decreaseGhostLevel();
+}
 
 void powerUpEffect(void)
 {
-	points+=POWER_UP_BONUS;
-	decreaseGhostLevel(); 
+	_commonPowerUpEffect();
 	powerUp._coolDown = POWER_UP_INITIAL_COOLDOWN;	
 }
 
 void powerUp2Effect(void)
 {
-	points+=POWER_UP_BONUS;
-	decreaseGhostLevel(); 
+	_commonPowerUpEffect();
 	powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;	
 }
 

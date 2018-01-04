@@ -485,7 +485,7 @@ void DEBUG_PRINT()
 		}
 	}
 
-	void handle_enemy_missile_from_the_left(void)
+	void _handle_enemy_missile_from_the_left(void)
 	{
 		if(!oneMissileLevel() && leftEnemyMissile._status)
 		{
@@ -518,7 +518,7 @@ void DEBUG_PRINT()
 		}		
 	}
 	
-	void handle_enemy_missile_from_the_right(void)
+	void _handle_enemy_missile_from_the_right(void)
 	{
 		if(rightEnemyMissile._status)
 		{
@@ -562,8 +562,8 @@ void DEBUG_PRINT()
 	{	
 		if(missileLevel() || bossLevel() || oneMissileLevel())
 		{
-			handle_enemy_missile_from_the_left();	
-			handle_enemy_missile_from_the_right();
+			_handle_enemy_missile_from_the_left();	
+			_handle_enemy_missile_from_the_right();
 		}	
 	}
 #endif
@@ -645,7 +645,7 @@ int main(void)
 				gun._character._status = 0;
 							
 				gun._coolDown = GUN_INITIAL_COOLDOWN;
-				powerUp2._coolDown = POWER_UP_INITIAL_COOLDOWN*2;
+				powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;
 				
 				computeInvincibleGhostParameters();
 			#endif
@@ -687,7 +687,8 @@ int main(void)
 			fillLevelWithCharacters(ghostCount);	
 			
 			#if !defined(TINY_GAME)
-				initItems();			
+				initItems();	
+				
 				displayStatsTitles();
 			#endif
 			displayStats();			
@@ -833,7 +834,7 @@ int main(void)
 					sleep(1);
 					CLEAR_SCREEN();						
 				#else
-					points+= LEVEL_BONUS*5;
+					points+= LEVEL_BONUS*4;
 				#endif			
 
 				ghostCount = GHOSTS_NUMBER;

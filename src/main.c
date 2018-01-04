@@ -639,9 +639,6 @@ int main(void)
 			ghostLevel = 0;
 
 			#if !defined(TINY_GAME)
-				// ghostLevelDecrease = 140-(level*2);
-				
-
 				invincibleGhostAlive = 1;
 				invincibleGhostHits = 0;
 										
@@ -679,7 +676,6 @@ int main(void)
 				updateInnerWallVerticalData();	
 			#endif
 			
-
 			printPressKeyToStart();
 			WAIT_PRESS();
 			CLEAR_SCREEN();

@@ -35,15 +35,11 @@
 extern unsigned int points;
 extern unsigned char ghostCount;
 extern Character ghosts[GHOSTS_NUMBER];
+extern Item items[ITEMS_NUMBER];
 extern Image DEAD_GHOST_IMAGE;
 extern unsigned char level;
 
-extern Item extraPoints;
-	
 #if defined(FULL_GAME) 
-	extern Item extraLife;
-	extern Item invincibility;
-	
 	extern Character leftEnemyMissile;
 	extern Character rightEnemyMissile;
 	extern unsigned char bubbles_x[BUBBLES_NUMBER];
@@ -75,15 +71,15 @@ void checkMissileVsGhosts(Character * missilePtr)
 #if defined(FULL_GAME)
 	void reducePowerUpsCoolDowns(void)
 	{
-		extraPoints._coolDown/=2;
-		extraLife._coolDown/=2;
-		invincibility._coolDown/=2;
+		items[_EXTRA_POINTS]._coolDown/=2;
+		items[_EXTRA_LIFE]._coolDown/=2;
+		items[_INVINCIBILITY]._coolDown/=2;
 		TICK_SOUND();		
 	}
 #elif !defined(TINY_GAME)
 	void reducePowerUpsCoolDowns(void)
 	{
-		extraPoints._coolDown/=2;
+		items[_EXTRA_POINTS]._coolDown/=2;
 		TICK_SOUND();		
 	}
 #else	

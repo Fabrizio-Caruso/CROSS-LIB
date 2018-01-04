@@ -49,6 +49,21 @@ struct ItemStruct
 
 typedef struct ItemStruct Item;
 
+#if defined(FULL_GAME)
+	#define ITEMS_NUMBER 6
+#else
+	#define ITEMS_NUMBER 4
+#endif
+	
+#define _POWER_UP_1 0 
+#define _POWER_UP_2 1
+#define _GUN 2
+#define _EXTRA_POINTS 3
+
+#define _EXTRA_LIFE 4
+#define _INVINCIBILITY 5
+
+
 #if defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <cmoc.h>
 #else

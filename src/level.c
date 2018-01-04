@@ -58,10 +58,7 @@ extern Image DEAD_GHOST_IMAGE;
 extern Character invincibleGhost;
 extern Character player; 
 
-extern Item powerUp;
-extern Item powerUp2;
-extern Item gun;
-extern Item extraPoints;
+extern Item items[ITEMS_NUMBER];
 
 extern Character missile;
 
@@ -83,9 +80,6 @@ extern Character bombs[BOMBS_NUMBER];
 
 	extern Character leftEnemyMissile;
 	extern Character rightEnemyMissile;
-	
-	extern Item extraLife;
-	extern Item invincibility;
 	
 	extern Character bubbles[BUBBLES_NUMBER];
 
@@ -318,26 +312,26 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#endif
 	
 	#if defined(FULL_GAME)
-		initializeAwayFromWall(&(powerUp._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
-		initializeAwayFromWall(&(powerUp2._character),XSize/2,YSize/2,0,&POWERUP_IMAGE);
+		initializeAwayFromWall(&(items[_POWER_UP_1]._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
+		initializeAwayFromWall(&(items[_POWER_UP_2]._character),XSize/2,YSize/2,0,&POWERUP_IMAGE);
 				
 		
-		initializeAwayFromWall(&(extraPoints._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
+		initializeAwayFromWall(&(items[_EXTRA_POINTS]._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
 		
 		if(bossLevel())
 		{
-			initializeAwayFromWall(&(gun._character),XSize/2, YSize/2, 1, &GUN_IMAGE);
+			initializeAwayFromWall(&(items[_GUN]._character),XSize/2, YSize/2, 1, &GUN_IMAGE);
 		}
 		else
 		{
-			initializeAwayFromWall(&(gun._character),XSize/2, YSize/2, 0, &GUN_IMAGE);
+			initializeAwayFromWall(&(items[_GUN]._character),XSize/2, YSize/2, 0, &GUN_IMAGE);
 		}
 		
 		initializeAwayFromWall(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);
 		
-		initializeAwayFromWall(&(extraLife._character), XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
+		initializeAwayFromWall(&(items[_EXTRA_LIFE]._character), XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
 
-		initializeAwayFromWall(&(invincibility._character), XSize/2, YSize/2, 0, &INVINCIBILITY_IMAGE);
+		initializeAwayFromWall(&(items[_INVINCIBILITY]._character), XSize/2, YSize/2, 0, &INVINCIBILITY_IMAGE);
 
 		if(oneMissileLevel())
 		{
@@ -350,12 +344,12 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		}		
 	#else
 		#if !defined(TINY_GAME)
-			initializeCharacter(&(powerUp._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
-			initializeCharacter(&(powerUp2._character),XSize/2,YSize/2,0,&POWERUP_IMAGE);
+			initializeCharacter(&(items[_POWER_UP_1]._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
+			initializeCharacter(&(items[_POWER_UP_2]._character),XSize/2,YSize/2,0,&POWERUP_IMAGE);
 			
-			initializeCharacter(&(gun._character),XSize/2, YSize/2, 0, &GUN_IMAGE);	
+			initializeCharacter(&(items[_GUN]._character),XSize/2, YSize/2, 0, &GUN_IMAGE);	
 		
-			initializeCharacter(&(extraPoints._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);			
+			initializeCharacter(&(items[_EXTRA_POINTS]._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);			
 		#endif
 		
 		#if defined(NO_RANDOM_LEVEL) || defined(TINY_GAME)

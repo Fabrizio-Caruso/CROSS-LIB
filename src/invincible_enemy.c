@@ -40,7 +40,7 @@ extern unsigned short ghostLevel;
 
 unsigned short computeInvincibleSlowDown(void)
 {
-	if(loop<1600)
+	if(loop<MAX_INVINCIBLE_LOOP)
 	{
 		return INITIAL_SKULL_SLOWDOWN - level * 250 - ghostLevel*16;		
 	}

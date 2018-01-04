@@ -326,8 +326,6 @@
 
 // Extra points for the power up
 #define POWER_UP_BONUS 20UL
-#define POWER_UP2_BONUS 40UL
-
 
 // Extra points for the power up
 #define GUN_BONUS 30UL
@@ -392,5 +390,9 @@
 #define ENEMY_MAX_SPEED 1200
 
 #define GHOST_LEVEL_DECREASE 120
+
+#define MAX_GHOST_LEVEL 1000
+
+#define MAX_INVINCIBLE_LOOP 1600
 
 #endif // _SETTINGS

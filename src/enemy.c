@@ -34,7 +34,7 @@ extern Character ghosts[GHOSTS_NUMBER];
 
 unsigned short computeGhostSlowDown(void)
 {
-	if(ghostLevel<1000)
+	if(ghostLevel<MAX_GHOST_LEVEL)
 	{
 		return INITIAL_ENEMY_SLOWDOWN-level*200-ghostLevel*16;
 	}

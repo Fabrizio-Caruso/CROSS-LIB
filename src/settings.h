@@ -373,7 +373,8 @@
 	#define INVINCIBLE_GHOST_TRIGGER 3
 #endif 
 
-#define GUN_INITIAL_COOLDOWN (175 + level * 2)
+#define GUN_INITIAL_COOLDOWN 220
+//(175 + level * 2)
 
 #define POWER_UP_INITIAL_COOLDOWN 150
 //(130 + level * 2)

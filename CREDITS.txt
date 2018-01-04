@@ -1,6 +1,6 @@
 CREDITS
 
-I have helped by some people.
+I have been helped by people who are involved in the cross compilers Z88Dk, CC65, CMOC development, as well as other people from different 8 bit "scenes".
 
 This is just a partial list.
 

@@ -330,17 +330,11 @@ void handle_item(Item *itemPtr)
 	// TODO: This has to be moved into level.c
 	void initItems()
 	{
-		powerUp._blink = 0;
 		powerUp._effect = &powerUpEffect;
-		powerUp2._blink = 0;
 		powerUp2._effect = &powerUp2Effect;
-		gun._blink = 0;
 		gun._effect = &gunEffect;
-		extraPoints._blink = 0;	
 		extraPoints._effect = &extraPointsEffect;
 		#if defined(FULL_GAME)
-			extraLife._blink = 0;
-			invincibility._blink = 0;
 			extraLife._effect = &extraLifeEffect;
 			invincibility._effect = &invincibilityEffect;
 		#endif	
@@ -642,7 +636,6 @@ int main(void)
 				invincibleGhostHits = 0;
 										
 				guns = 0;
-				gun._character._status = 0;
 							
 				gun._coolDown = GUN_INITIAL_COOLDOWN;
 				powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;
@@ -763,14 +756,13 @@ int main(void)
 				#endif
 				
 				#if defined(FULL_GAME)
-					if (level>=EXTRA_LIFE_FIRST_LEVEL && rocketLevel())
+					if(level>=INVINCIBILITY_FIRST_LEVEL)
 					{
 						handle_invincibility_item();
-						handle_extraLife_item();
-					}
-					else if(level>=INVINCIBILITY_FIRST_LEVEL)
-					{
-						handle_invincibility_item();
+						if (rocketLevel())
+						{
+							handle_extraLife_item();
+						}
 					}				
 				#endif		
 

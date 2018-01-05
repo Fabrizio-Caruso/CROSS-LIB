@@ -52,7 +52,7 @@ vic20_exp_16k:
 
 # -m map.txt 
 vic20_exp_8k: 
-	$(CC65_PATH)$(MYCC65) -O -t vic20 -DREDEFINED_CHARS -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-8k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c  $(SOURCE_PATH)/vic20/vic20_sounds.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/main.c --code-name CODE2 $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
+	$(CC65_PATH)$(MYCC65) -O -t vic20 -DREDEFINED_CHARS -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-8k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c  $(SOURCE_PATH)/vic20/vic20_sounds.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/main.c --code-name CODE2 $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
 # -DNO_INITIAL_SCREEN
 # -DNO_RANDOM_LEVEL
@@ -318,22 +318,10 @@ error_cmoc:
 
 coco:
 	cmoc -D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_RANDOM_LEVEL -o $(BUILD_PATH)/coco.bin $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/cmoc/cmoc_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/cmoc/cmoc_input.c  $(SOURCE_PATH)/main.c
-	
-
-
-vic20_exp_8k_2:
-	$(CC65_PATH)$(MYCC65) -O -t vic20 -Cl -DREDEFINED_CHARS -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-8k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c  $(SOURCE_PATH)/vic20/vic20_sounds.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/main.c --code-name CODE2 $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
 
 pet_8k_LIGHT:
 	$(CC65_PATH)$(MYCC65) -O -t pet -DNO_TEXT -DNO_SLEEP $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_pet_8k.prg
-
-	
-vic20_exp_16k_NO_GFX:
-	$(CC65_PATH)$(MYCC65) -O -t vic20 -DFULL_GAME -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-16k.cfg $(SOURCE_PATH)/vic20/vic20_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_vic20_exp_16k_NO_GFX.prg
-
-vic20_exp_8k_NO_GFX:
-	$(CC65_PATH)$(MYCC65) -O -t vic20  -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-8k.cfg $(SOURCE_PATH)/vic20/vic20_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_vic20_exp_8k_NO_GFX.prg
 
 	
 # oric1_48k:

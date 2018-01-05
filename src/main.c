@@ -64,6 +64,9 @@ unsigned char YSize;
 unsigned short loop;
 unsigned char level;
 
+unsigned char frozen;
+unsigned short frozenCountDown;
+
 #if !defined(TINY_GAME)
 	unsigned short invincibleSlowDown;
 	unsigned char invincibleXCountDown;
@@ -113,6 +116,8 @@ Character player;
 	Character invincibleGhost;
 	Item powerUp;
 	Item powerUp2;
+	Item powerUp3;
+	Item freeze;
 	Item gun;
 	Item extraPoints;	
 	Character missile;
@@ -261,6 +266,33 @@ void powerUp2Effect(void)
 }
 
 
+void powerUp3Effect(void)
+{
+	_commonPowerUpEffect();
+	powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;	
+}
+
+void freezeEffect(void)
+{
+	_commonPowerUpEffect();
+	frozen = 1;
+	freeze._coolDown = FREEZE_INITIAL_COOLDOWN;
+	frozenCountDown = FROZEN_COUNT_DOWN;
+}
+
+
+void handle_frozen(void)
+{
+	if(frozen && frozenCountDown==0)
+	{
+		frozen = 0;
+	}
+	else
+	{
+		--frozenCountDown;
+	}
+}
+
 void gunEffect(void)
 {
 	guns = GUNS_NUMBER;
@@ -305,6 +337,8 @@ void handle_item(Item *itemPtr)
 #define handle_gun_item() handle_item(&gun);
 #define handle_powerup_item() handle_item(&powerUp);
 #define handle_powerup2_item() handle_item(&powerUp2);
+#define handle_powerup3_item() handle_item(&powerUp3);
+#define handle_freeze_item() handle_item(&freeze);
 #define handle_extraPoints_item() handle_item(&extraPoints);
 	
 #if defined(FULL_GAME)
@@ -332,8 +366,10 @@ void handle_item(Item *itemPtr)
 	{
 		powerUp._effect = &powerUpEffect;
 		powerUp2._effect = &powerUp2Effect;
+		powerUp3._effect = &powerUp3Effect;
 		gun._effect = &gunEffect;
 		extraPoints._effect = &extraPointsEffect;
+		freeze._effect = &freezeEffect;
 		#if defined(FULL_GAME)
 			extraLife._effect = &extraLifeEffect;
 			invincibility._effect = &invincibilityEffect;
@@ -632,6 +668,8 @@ int main(void)
 			ghostLevel = 0;
 
 			#if !defined(TINY_GAME)
+				frozen = 0;
+
 				invincibleGhostAlive = 1;
 				invincibleGhostHits = 0;
 										
@@ -639,6 +677,8 @@ int main(void)
 							
 				gun._coolDown = GUN_INITIAL_COOLDOWN;
 				powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;
+				powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;
+				freeze._coolDown = FREEZE_INITIAL_COOLDOWN;
 				
 				computeInvincibleGhostParameters();
 			#endif
@@ -735,7 +775,15 @@ int main(void)
 					handle_missile();
 				#endif
 				
-				chasePlayer(ghostSlowDown);
+				if(!frozen)
+				{
+					chasePlayer(ghostSlowDown);
+					#if !defined(TINY_GAME)
+						handle_invincible_ghost();
+					#endif					
+				}
+				
+				handle_frozen();
 				
 				#if !defined(TINY_GAME)
 					// This detects collisions of ghosts that have just moved
@@ -752,7 +800,9 @@ int main(void)
 					handle_extraPoints_item();
 					handle_gun_item();
 					handle_powerup_item();
-					handle_powerup2_item();					
+					handle_powerup2_item();		
+					handle_powerup3_item();	
+					handle_freeze_item();
 				#endif
 				
 				#if defined(FULL_GAME)
@@ -794,10 +844,6 @@ int main(void)
 				// Display ghosts
 				SKIP_DRAW
 					displayGhosts();
-
-				#if !defined(TINY_GAME)
-					handle_invincible_ghost();
-				#endif
 				
 				++ghostLevel;
 			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]

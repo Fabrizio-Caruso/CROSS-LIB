@@ -39,6 +39,7 @@ Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
 	Image POWERUP_IMAGE;
+	Image FREEZE_IMAGE;
 	Image MISSILE_IMAGE;
 	Image GUN_IMAGE;
 	Image EXTRA_POINTS_IMAGE;
@@ -116,6 +117,7 @@ Image BOMB_IMAGE;
 			#if !defined(TINY_GAME)
 				INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 				POWERUP_IMAGE._color = COLOR_GREEN;
+				FREEZE_IMAGE._color = COLOR_CYAN;
 				GUN_IMAGE._color = COLOR_BLUE;
 				EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
 			#endif
@@ -145,9 +147,11 @@ Image BOMB_IMAGE;
 			EXTRA_POINTS_IMAGE._imageData = '$';			
 			#if defined(__WINCMOC__) || defined(__CMOC__)
 				POWERUP_IMAGE._imageData = 's';	
+				FREEZE_IMAGE._imageData = 'f';					
 				GUN_IMAGE._imageData = '!';				
 			#else
 				POWERUP_IMAGE._imageData = 'S';
+				FREEZE_IMAGE._imageData = 'f';								
 				GUN_IMAGE._imageData = '!';			
 			#endif
 

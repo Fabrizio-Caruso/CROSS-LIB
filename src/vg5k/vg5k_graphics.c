@@ -145,7 +145,7 @@ void INIT_GRAPHICS(void)
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
 	{
-		// TODO: TO BE IMPLEMENTED
+		_draw_ch(x,y,'X',VG5K_WHITE);
 	}
 #endif
 

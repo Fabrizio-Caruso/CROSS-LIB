@@ -43,6 +43,7 @@ extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
+extern Image FREEZE_IMAGE;
 
 extern Image MISSILE_IMAGE;
 
@@ -89,6 +90,7 @@ void INIT_IMAGES(void)
 	GUN_IMAGE._color = VG5K_VIOLET;
 		
 	EXTRA_POINTS_IMAGE._color = VG5K_YELLOW;
+	FREEZE_IMAGE._color = VG5K_CYAN;
 			
 	BOMB_IMAGE._color = VG5K_RED;
 	DEAD_GHOST_IMAGE._color = VG5K_RED;
@@ -100,6 +102,7 @@ void INIT_IMAGES(void)
 	POWERUP_IMAGE._imageData = 'S';
 	GUN_IMAGE._imageData = '!';
 	EXTRA_POINTS_IMAGE._imageData = '$';
+	FREEZE_IMAGE._imageData = POWERUP_IMAGE._imageData;
 	
 	MISSILE_IMAGE._imageData = '.';
 	

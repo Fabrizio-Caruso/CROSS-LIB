@@ -141,7 +141,7 @@
 	#define GAME_SLOW_DOWN 700
 #elif defined(__VG5K__)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 700	
+	#define GAME_SLOW_DOWN 800	
 #elif defined(__AQUARIUS__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 800	

@@ -48,6 +48,7 @@
 // RED
 #define _BOMB 0x5E
 #define _DEAD_GHOST 0x5B
+#define _FREEZE 0x5C
 // #define _MISSILE 0x5F
 
 // CYAN
@@ -74,6 +75,7 @@ extern Image BOMB_IMAGE;
 extern Image MISSILE_IMAGE;
 
 extern Image POWERUP_IMAGE;
+extern Image FREEZE_IMAGE;
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 
@@ -181,6 +183,8 @@ void INIT_GRAPHICS(void)
 		redefine(CHAR_BASE+8*_BOMB, bomb);
 		redefine(CHAR_BASE+8*_GUN, gun);
 		redefine(CHAR_BASE+8*_POWERUP, powerUp);		
+		redefine(CHAR_BASE+8*_FREEZE, powerUp);
+		
 		redefine(CHAR_BASE+8*_GHOST,ghost);
 		redefine(CHAR_BASE+8*_INVINCIBLE_GHOST,invincible_ghost);	
 		redefine(CHAR_BASE+8*_MISSILE,missile);	
@@ -190,7 +194,7 @@ void INIT_GRAPHICS(void)
 		redefine(CHAR_BASE+8*_DEAD_GHOST,dead_ghost);	
 		
 		redefine(CHAR_BASE+8*_VERTICAL_BRICK,vertical_brick);	
-		redefine(CHAR_BASE+8*_HORIZONTAL_BRICK,horizontal_brick);	
+		redefine(CHAR_BASE+8*_HORIZONTAL_BRICK,horizontal_brick);		
 	
 		#if defined(FULL_GAME)
 			redefine(CHAR_BASE+8*_LEFT_ENEMY_MISSILE,missile_left);	
@@ -209,6 +213,7 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._imageData = _BOMB;
 	PLAYER_IMAGE._imageData = _PLAYER;
 	POWERUP_IMAGE._imageData = _POWERUP;
+	FREEZE_IMAGE._imageData = _FREEZE;
 	GUN_IMAGE._imageData = _GUN;
 	EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 	

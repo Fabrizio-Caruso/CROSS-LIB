@@ -72,7 +72,6 @@ unsigned char level;
 	unsigned short invincibleSlowDown;
 	unsigned char invincibleXCountDown;
 	unsigned char invincibleYCountDown;
-	// unsigned short ghostLevelDecrease;
 	unsigned char missileDirection;
 #endif
 
@@ -117,7 +116,6 @@ Character player;
 	Character invincibleGhost;
 	Item powerUp;
 	Item powerUp2;
-	Item powerUp3;
 	Item freeze;
 	Item gun;
 	Item extraPoints;	
@@ -134,6 +132,7 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char innerVerticalWallX; 
 	unsigned char innerVerticalWallLength;
 
+	Item powerUp3;
 	Item extraLife;
 	Item invincibility;
 	
@@ -268,13 +267,6 @@ void powerUp2Effect(void)
 	powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;	
 }
 
-
-void powerUp3Effect(void)
-{
-	_commonPowerUpEffect();
-	powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;	
-}
-
 void freezeEffect(void)
 {
 	unsigned char i;
@@ -343,12 +335,16 @@ void handle_item(Item *itemPtr)
 #define handle_gun_item() handle_item(&gun);
 #define handle_powerup_item() handle_item(&powerUp);
 #define handle_powerup2_item() handle_item(&powerUp2);
-#define handle_powerup3_item() handle_item(&powerUp3);
 #define handle_freeze_item() handle_item(&freeze);
 #define handle_extraPoints_item() handle_item(&extraPoints);
 	
 #if defined(FULL_GAME)
-	
+
+	void powerUp3Effect(void)
+	{
+		_commonPowerUpEffect();
+		powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;	
+	}	
 	void extraLifeEffect(void)
 	{
 		++lives;
@@ -362,7 +358,8 @@ void handle_item(Item *itemPtr)
 		invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
 		playerInvincibilityCoolDown = PLAYER_INVINCIBILITY_COOL_DOWN;		
 	}
-
+	
+	#define handle_powerup3_item() handle_item(&powerUp3);
 	#define handle_extraLife_item() handle_item(&extraLife);
 	#define handle_invincibility_item() handle_item(&invincibility);	
 #endif
@@ -372,11 +369,11 @@ void handle_item(Item *itemPtr)
 	{
 		powerUp._effect = &powerUpEffect;
 		powerUp2._effect = &powerUp2Effect;
-		powerUp3._effect = &powerUp3Effect;
 		gun._effect = &gunEffect;
 		extraPoints._effect = &extraPointsEffect;
 		freeze._effect = &freezeEffect;
 		#if defined(FULL_GAME)
+			powerUp3._effect = &powerUp3Effect;		
 			extraLife._effect = &extraLifeEffect;
 			invincibility._effect = &invincibilityEffect;
 		#endif	
@@ -663,6 +660,8 @@ int main(void)
 				extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
 				invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
 				player_invincibility = 0;
+				
+				powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;				
 			#endif			
 						
 			#if !defined(TINY_GAME)
@@ -683,7 +682,6 @@ int main(void)
 							
 				gun._coolDown = GUN_INITIAL_COOLDOWN;
 				powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;
-				powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;
 				freeze._coolDown = FREEZE_INITIAL_COOLDOWN;
 				
 				frozenCountDown = 0;
@@ -811,11 +809,12 @@ int main(void)
 					handle_gun_item();
 					handle_powerup_item();
 					handle_powerup2_item();		
-					handle_powerup3_item();	
 					handle_freeze_item();
 				#endif
 				
 				#if defined(FULL_GAME)
+					handle_powerup3_item();	
+				
 					if(level>=INVINCIBILITY_FIRST_LEVEL)
 					{
 						handle_invincibility_item();

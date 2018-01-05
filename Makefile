@@ -52,7 +52,7 @@ vic20_exp_16k:
 
 # -m map.txt 
 vic20_exp_8k: 
-	$(CC65_PATH)$(MYCC65) -O -t vic20 -DREDEFINED_CHARS -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-8k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c  $(SOURCE_PATH)/vic20/vic20_sounds.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/main.c --code-name CODE2 $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
+	$(CC65_PATH)$(MYCC65) -O -t vic20 -Cl -DREDEFINED_CHARS -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-8k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c  $(SOURCE_PATH)/vic20/vic20_sounds.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/main.c --code-name CODE2 $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
 # -DNO_INITIAL_SCREEN
 # -DNO_RANDOM_LEVEL
@@ -595,12 +595,14 @@ msx_color_32k_msxdos:
 # ------------
 cc65_targets: gamate creativision_8k osic1p_8k osic1p_32k vic20_exp_3k vic20_exp_8k vic20_exp_16k atari5200 atari_color atari_no_color atari_no_color_16k atmos oric1_16k c128_40col c128_80col c16_16k c16_32k c64 pet_8k pet_16k cbm510 cbm610 nes apple2 apple2enh
 
-# OK: aquarius_exp_16k ace_exp_16k cpc vz200_16k vz200_32k vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz microbee simcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k spectrum_newlib_tiny spectrum_48k
-# KO: zx80_exp_16k zx80_exp_32k zx81_exp_16k zx81_exp_32k msx_color_16k msx_color_32k_rom msx_color_32k lambda_16k
-# ------------
 # OK 
 # KO 
-z88dk_targets: ace_exp_16k aquarius_exp_16k cpc vg5k vg5k_exp_16k vz200_16k vz200_32k svi_318_mode0 svi_328 sharp_mz microbee samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k pc6001_32k nascom_16k nascom_32k zx80_16k zx81_16k lambda_16k msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k
+z88dk_targets: \
+	ace_exp_16k aquarius_exp_16k cpc vg5k vg5k_exp_16k vz200_16k vz200_32k \
+	svi_318_mode0 svi_328 sharp_mz microbee samcoupe mtx abc80_16k abc80_32k \
+	p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k \
+	pc6001_32k nascom_16k nascom_32k zx80_16k zx81_16k lambda_16k \
+	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k
 
 all: cc65_targets z88dk_targets
 

@@ -69,6 +69,7 @@ extern Image BOMB_IMAGE;
 	extern Image MISSILE_IMAGE;
 	
 	extern Image POWERUP_IMAGE;	
+	extern Image FREEZE_IMAGE;
 	extern Image GUN_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
 	
@@ -142,6 +143,8 @@ void INIT_IMAGES(void)
 		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
 		
 		POWERUP_IMAGE._imageData = _POWERUP;
+		FREEZE_IMAGE._imageData = _POWERUP;
+		
 		GUN_IMAGE._imageData = _GUN;
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;		
 	#endif

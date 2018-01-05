@@ -34,6 +34,7 @@ extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
+extern Image FREEZE_IMAGE;
 
 #if !defined(TINY_GAME)
 	extern Image INVINCIBLE_GHOST_IMAGE;
@@ -183,6 +184,7 @@ void INIT_IMAGES(void)
 		#if !defined(TINY_GAME)
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 			POWERUP_IMAGE._color = COLOR_GREEN;
+			FREEZE_IMAGE._color = COLOR_CYAN;			
 			GUN_IMAGE._color = COLOR_MAGENTA;
 		#endif
 	#endif
@@ -204,6 +206,7 @@ void INIT_IMAGES(void)
 		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 		BOMB_IMAGE._imageData = _BOMB;		
 		POWERUP_IMAGE._imageData = _POWERUP;
+		FREEZE_IMAGE._imageData = _POWERUP; 		
 		GUN_IMAGE._imageData = _GUN;
 		MISSILE_IMAGE._imageData = _MISSILE;
 

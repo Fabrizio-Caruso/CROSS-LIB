@@ -34,6 +34,7 @@ extern Image BOMB_IMAGE;
 extern Image MISSILE_IMAGE;
 
 extern Image POWERUP_IMAGE;
+extern Image FREEZE_IMAGE;
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 
@@ -104,6 +105,7 @@ void INIT_IMAGES(void)
 	MISSILE_IMAGE._color = 0;
 	INVINCIBLE_GHOST_IMAGE._color = 0;
 	POWERUP_IMAGE._color = 128u;
+	FREEZE_IMAGE._color = 0;	
 	GUN_IMAGE._color = 128u;
 	EXTRA_POINTS_IMAGE._color = 128u;
 	
@@ -116,6 +118,7 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._imageData = (char) 0x5c;
 	
 	POWERUP_IMAGE._imageData = (char) 0x5d;
+	FREEZE_IMAGE._imageData = (char) 0x5d;
 	GUN_IMAGE._imageData = (char) 0x5e;
 	EXTRA_POINTS_IMAGE._imageData = '$';
 		

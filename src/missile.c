@@ -39,6 +39,7 @@ extern Image DEAD_GHOST_IMAGE;
 extern unsigned char level;
 
 extern Item extraPoints;
+extern Item freeze;
 	
 #if defined(FULL_GAME) 
 	extern Item extraLife;
@@ -78,12 +79,14 @@ void checkMissileVsGhosts(Character * missilePtr)
 		extraPoints._coolDown/=2;
 		extraLife._coolDown/=2;
 		invincibility._coolDown/=2;
+		freeze._coolDown/=2;
 		TICK_SOUND();		
 	}
 #elif !defined(TINY_GAME)
 	void reducePowerUpsCoolDowns(void)
 	{
 		extraPoints._coolDown/=2;
+		freeze._coolDown/=2;		
 		TICK_SOUND();		
 	}
 #else	

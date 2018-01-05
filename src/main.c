@@ -64,10 +64,11 @@ unsigned char YSize;
 unsigned short loop;
 unsigned char level;
 
-unsigned char frozen;
-unsigned short frozenCountDown;
+
 
 #if !defined(TINY_GAME)
+	unsigned char frozen;
+	unsigned short frozenCountDown;
 	unsigned short invincibleSlowDown;
 	unsigned char invincibleXCountDown;
 	unsigned char invincibleYCountDown;
@@ -251,12 +252,14 @@ void _commonPowerUpEffect(void)
 {
 	points+=POWER_UP_BONUS;
 	decreaseGhostLevel();
+	frozen = 1;	
+	frozenCountDown += FROZEN_COUNT_DOWN;	
 }
 
 void powerUpEffect(void)
 {
 	_commonPowerUpEffect();
-	powerUp._coolDown = POWER_UP_INITIAL_COOLDOWN;	
+	powerUp._coolDown = POWER_UP_INITIAL_COOLDOWN;		
 }
 
 void powerUp2Effect(void)
@@ -274,20 +277,23 @@ void powerUp3Effect(void)
 
 void freezeEffect(void)
 {
-	_commonPowerUpEffect();
-	frozen = 1;
+	unsigned char i;
+	for(i=0;i<4;++i)
+	{
+		_commonPowerUpEffect();
+	}
 	freeze._coolDown = FREEZE_INITIAL_COOLDOWN;
-	frozenCountDown = FROZEN_COUNT_DOWN;
+	
 }
 
 
 void handle_frozen(void)
 {
-	if(frozen && frozenCountDown==0)
+	if(frozen && (frozenCountDown<=0))
 	{
 		frozen = 0;
 	}
-	else
+	else if(frozenCountDown>0)
 	{
 		--frozenCountDown;
 	}
@@ -322,7 +328,7 @@ void handle_item(Item *itemPtr)
 			_blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
 		}		
 	}
-	else if (itemPtr->_coolDown == 0)
+	else if (itemPtr->_coolDown <= 0)
 	{
 		relocatePowerUp((Character *) itemPtr);
 
@@ -680,6 +686,7 @@ int main(void)
 				powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;
 				freeze._coolDown = FREEZE_INITIAL_COOLDOWN;
 				
+				frozenCountDown = 0;
 				computeInvincibleGhostParameters();
 			#endif
 
@@ -775,22 +782,25 @@ int main(void)
 					handle_missile();
 				#endif
 				
-				if(!frozen)
-				{
-					chasePlayer(ghostSlowDown);
-					#if !defined(TINY_GAME)
-						handle_invincible_ghost();
-					#endif					
-				}
+				#if !defined(TINY_GAME)				
+					if(!frozen)
+					{
+						chasePlayer(ghostSlowDown);
+						++ghostLevel;				
+					}
 				
-				handle_frozen();
+					handle_invincible_ghost();
 				
-				#if !defined(TINY_GAME)
+					handle_frozen();
+
 					// This detects collisions of ghosts that have just moved
 					if(missile._status)
 					{
 						checkMissileVsGhosts(&missile);
 					}
+				#else
+					chasePlayer(ghostSlowDown);
+					++ghostLevel;						
 				#endif
 				
 				// Check collisions bombs vs ghosts
@@ -845,7 +855,6 @@ int main(void)
 				SKIP_DRAW
 					displayGhosts();
 				
-				++ghostLevel;
 			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
 
 			if(player._status) // if level finished

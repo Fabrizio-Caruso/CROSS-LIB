@@ -68,6 +68,7 @@ unsigned char level;
 	unsigned short invincibleSlowDown;
 	unsigned char invincibleXCountDown;
 	unsigned char invincibleYCountDown;
+	// unsigned short ghostLevelDecrease;
 	unsigned char missileDirection;
 #endif
 
@@ -110,15 +111,15 @@ Character player;
 
 #if !defined(TINY_GAME)
 	Character invincibleGhost;
+	Item powerUp;
+	Item powerUp2;
+	Item gun;
+	Item extraPoints;	
 	Character missile;
 #endif
 
 Character ghosts[GHOSTS_NUMBER];
 Character bombs[BOMBS_NUMBER];
-
-#if !defined(TINY_GAME)
-	Item items[ITEMS_NUMBER];
-#endif
 
 #if defined(FULL_GAME)
 	unsigned short invincibleGhostCountTrigger = INVINCIBLE_GHOST_TRIGGER;
@@ -127,6 +128,9 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char innerVerticalWallX; 
 	unsigned char innerVerticalWallLength;
 
+	Item extraLife;
+	Item invincibility;
+	
 	unsigned short playerInvincibilityCoolDown;	
 
 	Character leftEnemyMissile;
@@ -215,26 +219,26 @@ void handle_missile()
 }
 
 
-void powerUpReached(Character * itemPtr)
+void powerUpReached(Character * powerUpPtr)
 {
 	ZAP_SOUND();
-	DELETE_GUN(itemPtr->_x,itemPtr->_y,itemPtr->_imagePtr);
+	DELETE_GUN(powerUpPtr->_x,powerUpPtr->_y,powerUpPtr->_imagePtr);
 	DRAW_PLAYER(player._x, player._y, player._imagePtr);
-	itemPtr->_status = 0;
+	powerUpPtr->_status = 0;
 	displayStats();
 }
 
-void relocateItem(Character * itemPtr)
+void relocatePowerUp(Character * powerUpPtr)
 {
-		itemPtr->_status = 1;
+		powerUpPtr->_status = 1;
 		
 		#if defined(FULL_GAME)
 		do
 		{
-			relocateCharacter(itemPtr, bombs,4);
-		} while(nearInnerWall(itemPtr));		
+			relocateCharacter(powerUpPtr, bombs,4);
+		} while(nearInnerWall(powerUpPtr));		
 		#else
-			relocateCharacter(itemPtr, bombs,4);
+			relocateCharacter(powerUpPtr, bombs,4);
 		#endif	
 }
 
@@ -247,13 +251,13 @@ void _commonPowerUpEffect(void)
 void powerUpEffect(void)
 {
 	_commonPowerUpEffect();
-	items[_POWER_UP_1]._coolDown = POWER_UP_INITIAL_COOLDOWN;	
+	powerUp._coolDown = POWER_UP_INITIAL_COOLDOWN;	
 }
 
 void powerUp2Effect(void)
 {
 	_commonPowerUpEffect();
-	items[_POWER_UP_2]._coolDown = POWER_UP2_INITIAL_COOLDOWN;	
+	powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;	
 }
 
 
@@ -262,13 +266,13 @@ void gunEffect(void)
 	guns = GUNS_NUMBER;
 	printGunsStats();		
 	points+=GUN_BONUS;			
-	items[_GUN]._coolDown = GUN_INITIAL_COOLDOWN;	
+	gun._coolDown = GUN_INITIAL_COOLDOWN;	
 }
 
 void extraPointsEffect(void)
 {
 	points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
-	items[_EXTRA_POINTS]._coolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder		
+	extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder		
 }
 
 void handle_item(Item *itemPtr)
@@ -288,7 +292,7 @@ void handle_item(Item *itemPtr)
 	}
 	else if (itemPtr->_coolDown == 0)
 	{
-		relocateItem((Character *) itemPtr);
+		relocatePowerUp((Character *) itemPtr);
 
 		_blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
 	}
@@ -298,55 +302,47 @@ void handle_item(Item *itemPtr)
 	}
 }
 
-void handle_items(void)
-{
-	unsigned char i;
+#define handle_gun_item() handle_item(&gun);
+#define handle_powerup_item() handle_item(&powerUp);
+#define handle_powerup2_item() handle_item(&powerUp2);
+#define handle_extraPoints_item() handle_item(&extraPoints);
 	
-	for(i=0;i<ITEMS_NUMBER;++i)
-	{
-		handle_item(&items[i]);
-	}
-}
-
-
 #if defined(FULL_GAME)
+	
 	void extraLifeEffect(void)
 	{
-		if(level>=EXTRA_LIFE_FIRST_LEVEL && rocketLevel())
-		{
-			++lives;
-			items[_EXTRA_LIFE]._coolDown = EXTRA_LIFE_COOL_DOWN*2; // second time is harder
-			printLivesStats();
-		}		
+		++lives;
+		extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*2; // second time is harder
+		printLivesStats();		
 	}
 
 	void invincibilityEffect(void)
 	{
-		if(level>=INVINCIBILITY_FIRST_LEVEL)
-		{			
-			player_invincibility = 1;
-			items[_INVINCIBILITY]._coolDown = INVINCIBILITY_COOL_DOWN;
-			playerInvincibilityCoolDown = PLAYER_INVINCIBILITY_COOL_DOWN;
-		}
+		player_invincibility = 1;
+		invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
+		playerInvincibilityCoolDown = PLAYER_INVINCIBILITY_COOL_DOWN;		
 	}
+
+	#define handle_extraLife_item() handle_item(&extraLife);
+	#define handle_invincibility_item() handle_item(&invincibility);	
 #endif
 
 	// TODO: This has to be moved into level.c
 	void initItems()
 	{
-		// unsigned char i;
-		// for(i=0;i<ITEMS_NUMBER;++i)
-		// {
-			// items[i]._blink = 0;
-		// }
-		items[_POWER_UP_1]._effect = &powerUpEffect;
-		items[_POWER_UP_2]._effect = &powerUpEffect;
-		items[_GUN]._effect = &gunEffect;
-		items[_EXTRA_POINTS]._effect = &extraPointsEffect;
-
+		powerUp._blink = 0;
+		powerUp._effect = &powerUpEffect;
+		powerUp2._blink = 0;
+		powerUp2._effect = &powerUp2Effect;
+		gun._blink = 0;
+		gun._effect = &gunEffect;
+		extraPoints._blink = 0;	
+		extraPoints._effect = &extraPointsEffect;
 		#if defined(FULL_GAME)
-			items[_EXTRA_LIFE]._effect = &extraLifeEffect;
-			items[_INVINCIBILITY]._effect = &invincibilityEffect;
+			extraLife._blink = 0;
+			invincibility._blink = 0;
+			extraLife._effect = &extraLifeEffect;
+			invincibility._effect = &invincibilityEffect;
 		#endif	
 	}
 #endif
@@ -634,7 +630,7 @@ int main(void)
 			#endif			
 						
 			#if !defined(TINY_GAME)
-				items[_EXTRA_POINTS]._coolDown = EXTRA_POINTS_COOL_DOWN;			
+				extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;			
 				computeStrategy();
 			#endif
 			
@@ -646,10 +642,10 @@ int main(void)
 				invincibleGhostHits = 0;
 										
 				guns = 0;
-				// items[_GUN]._character._status = 0;
+				gun._character._status = 0;
 							
-				items[_GUN]._coolDown = GUN_INITIAL_COOLDOWN;
-				items[_POWER_UP_2]._coolDown = POWER_UP2_INITIAL_COOLDOWN;
+				gun._coolDown = GUN_INITIAL_COOLDOWN;
+				powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;
 				
 				computeInvincibleGhostParameters();
 			#endif
@@ -760,8 +756,23 @@ int main(void)
 				checkBombsVsGhosts();
 				
 				#if !defined(TINY_GAME)
-					handle_items();					
+					handle_extraPoints_item();
+					handle_gun_item();
+					handle_powerup_item();
+					handle_powerup2_item();					
 				#endif
+				
+				#if defined(FULL_GAME)
+					if (level>=EXTRA_LIFE_FIRST_LEVEL && rocketLevel())
+					{
+						handle_invincibility_item();
+						handle_extraLife_item();
+					}
+					else if(level>=INVINCIBILITY_FIRST_LEVEL)
+					{
+						handle_invincibility_item();
+					}				
+				#endif		
 
 				#if defined(FULL_GAME)
 				if(wallReached(&player) || 

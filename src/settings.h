@@ -25,6 +25,9 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
+#define INITIAL_LEVEL 40
+
+
 #if defined(__WINCMOC__)
 	//#define FULL_GAME
 	#define TINY_GAME	
@@ -344,7 +347,6 @@
 	#define INITIAL_SKULL_SLOWDOWN 29000
 #endif
 
-#define INITIAL_LEVEL 1
 
 // Final level 
 #define FINAL_LEVEL 40
@@ -373,8 +375,8 @@
 	#define INVINCIBLE_GHOST_TRIGGER 3
 #endif 
 
-#define GUN_INITIAL_COOLDOWN 220
-//(175 + level * 2)
+
+
 
 #define POWER_UP_INITIAL_COOLDOWN 150
 //(130 + level * 2)
@@ -382,15 +384,22 @@
 
 #define POWER_UP3_INITIAL_COOLDOWN 600
 
-#define FREEZE_INITIAL_COOLDOWN 800
+
 //550
 
-#define FROZEN_COUNT_DOWN 8
+#define FROZEN_COUNT_DOWN 20
 
-#define INVINCIBLE_COUNT_DOWN 60
+#define INVINCIBLE_COUNT_DOWN 50
 
-#define INVINCIBLE_LOOP_TRIGGER 600
-//(610 - level*15)
+#if defined(FULL_GAME)
+	#define INVINCIBLE_LOOP_TRIGGER 600-level*4
+	#define FREEZE_INITIAL_COOLDOWN 800-level*16
+	#define GUN_INITIAL_COOLDOWN 220-level*2
+#else
+	#define INVINCIBLE_LOOP_TRIGGER 500
+	#define FREEZE_INITIAL_COOLDOWN 700
+	#define GUN_INITIAL_COOLDOWN 200	
+#endif	
 
 #define INVINCIBLE_MAX_SPEED 2500
 

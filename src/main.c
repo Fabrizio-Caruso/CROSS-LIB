@@ -119,6 +119,7 @@ Character player;
 	Item freeze;
 	Item gun;
 	Item extraPoints;	
+	Item super;
 	Character missile;
 #endif
 
@@ -145,14 +146,13 @@ Character bombs[BOMBS_NUMBER];
 
 	unsigned char bubbles_x[BUBBLES_NUMBER];
 	
-	unsigned char player_invincibility = 0;
+	unsigned char player_invincibility;
 
-	unsigned char dead_bubbles = 0;
+	unsigned char dead_bubbles;
 	
 	unsigned char arrowRange;
 	
-	// unsigned char horizontal_offset;
-	// unsigned short horizontal_walls_counter;
+	unsigned char skullsKilled;
 #endif
 
 #if !defined(TINY_GAME)
@@ -213,6 +213,12 @@ void handle_missile()
 				DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
 				invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
 				invincibleGhostAlive = 0;
+				#if defined(FULL_GAME)
+					if(!bossLevel())
+					{
+						++skullsKilled;
+					}
+				#endif
 				EXPLOSION_SOUND();
 				points+=INVINCIBLE_GHOST_POINTS;
 				displayStats();
@@ -269,15 +275,19 @@ void powerUp2Effect(void)
 	powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;	
 }
 
-void freezeEffect(void)
+void _freezeEffect(void)
 {
 	unsigned char i;
 	for(i=0;i<4;++i)
 	{
 		_commonPowerUpEffect();
-	}
-	freeze._coolDown = FREEZE_INITIAL_COOLDOWN;
-	
+	}	
+}
+
+void freezeEffect(void)
+{
+	_freezeEffect();
+	freeze._coolDown = FREEZE_INITIAL_COOLDOWN;	
 }
 
 void handle_frozen(void)
@@ -292,11 +302,16 @@ void handle_frozen(void)
 	}
 }
 
-void gunEffect(void)
+void _gunEffect(void)
 {
 	guns = GUNS_NUMBER;
 	printGunsStats();		
-	points+=GUN_BONUS;			
+	points+=GUN_BONUS;		
+}
+
+void gunEffect(void)
+{
+	_gunEffect();
 	gun._coolDown = GUN_INITIAL_COOLDOWN;	
 }
 
@@ -346,23 +361,39 @@ void handle_item(Item *itemPtr)
 		_commonPowerUpEffect();
 		powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;	
 	}	
+	
 	void extraLifeEffect(void)
 	{
 		++lives;
+		skullsKilled=0;
 		extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*2; // second time is harder
 		printLivesStats();		
 	}
 
-	void invincibilityEffect(void)
+	void _invincibilityEffect(void)
 	{
 		player_invincibility = 1;
-		invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
-		playerInvincibilityCoolDown = PLAYER_INVINCIBILITY_COOL_DOWN;		
+		playerInvincibilityCoolDown = PLAYER_INVINCIBILITY_COOL_DOWN;			
 	}
 	
-	#define handle_powerup3_item() handle_item(&powerUp3);
-	#define handle_extraLife_item() handle_item(&extraLife);
-	#define handle_invincibility_item() handle_item(&invincibility);	
+	void invincibilityEffect(void)
+	{
+		_invincibilityEffect();
+		invincibility._coolDown = INVINCIBILITY_COOL_DOWN;		
+	}
+	
+	void superEffect(void)
+	{
+		_freezeEffect();
+		_gunEffect();
+		_invincibilityEffect();
+		super._coolDown = SUPER_COOL_DOWN*10;
+	}
+	
+	#define handle_powerup3_item() handle_item(&powerUp3)
+	#define handle_extraLife_item() handle_item(&extraLife)
+	#define handle_invincibility_item() handle_item(&invincibility)
+	#define handle_super_item() handle_item(&super)
 #endif
 
 	// TODO: This has to be moved into level.c
@@ -377,6 +408,7 @@ void handle_item(Item *itemPtr)
 			powerUp3._effect = &powerUp3Effect;		
 			extraLife._effect = &extraLifeEffect;
 			invincibility._effect = &invincibilityEffect;
+			super._effect = &superEffect;
 		#endif	
 	}
 #endif
@@ -654,6 +686,9 @@ int main(void)
 		level = INITIAL_LEVEL; 	
 		lives = LIVES_NUMBER;
 		ghostCount = GHOSTS_NUMBER;
+		#if defined(FULL_GAME)
+			skullsKilled = 0;
+		#endif
 		do // Level (Re-)Start
 		{ 	
 			#if defined(FULL_GAME)
@@ -662,7 +697,8 @@ int main(void)
 				invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
 				player_invincibility = 0;
 				
-				powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;				
+				powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;	
+				super._coolDown = SUPER_COOL_DOWN;
 			#endif			
 						
 			#if !defined(TINY_GAME)
@@ -815,11 +851,15 @@ int main(void)
 				
 				#if defined(FULL_GAME)
 					handle_powerup3_item();	
+					if(skullsKilled>1)
+					{
+						handle_super_item();
+					}
 				
 					if(level>=INVINCIBILITY_FIRST_LEVEL)
 					{
 						handle_invincibility_item();
-						if (rocketLevel())
+						if (skullsKilled>2)
 						{
 							handle_extraLife_item();
 						}
@@ -831,7 +871,7 @@ int main(void)
 							DRAW_HORIZONTAL_WALLS();
 						}
 											
-						if(horizontalWallsReached(&player))
+						if(!player_invincibility && horizontalWallsReached(&player))
 							{
 								playerDies();
 							}
@@ -920,6 +960,9 @@ int main(void)
 					CLEAR_SCREEN();
 				#endif
 				--lives;
+				#if defined(FULL_GAME)
+					skullsKilled = 0;
+				#endif
 				if(lives>0)
 				{
 					player._status = 1;

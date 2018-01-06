@@ -55,6 +55,7 @@ Image BOMB_IMAGE;
 
 	Image EXTRA_LIFE_IMAGE;
 	Image INVINCIBILITY_IMAGE;	
+	Image SUPER_IMAGE;
 	
 	Image BROKEN_WALL_IMAGE;
 #endif
@@ -124,7 +125,7 @@ Image BOMB_IMAGE;
 
 			#if defined(FULL_GAME)
 				EXTRA_LIFE_IMAGE._color = COLOR_BLUE;
-				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;		
+				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
 			#endif		
 		#endif
 		

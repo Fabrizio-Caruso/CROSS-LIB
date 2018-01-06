@@ -44,7 +44,7 @@ unsigned short computeInvincibleSlowDown(void)
 	{
 		return INITIAL_SKULL_SLOWDOWN - level * 250 - ghostLevel*16;		
 	}
-	return INVINCIBLE_MAX_SPEED; // You must die!
+	return INVINCIBLE_MIN_SLOWDOWN; // You must die!
 }
 
 void computeInvincibleGhostParameters(void)

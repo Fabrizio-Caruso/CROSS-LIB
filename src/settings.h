@@ -25,7 +25,7 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
-#define INITIAL_LEVEL 40
+#define INITIAL_LEVEL 1
 
 
 #if defined(__WINCMOC__)

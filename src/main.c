@@ -151,6 +151,8 @@ Character bombs[BOMBS_NUMBER];
 	
 	unsigned char arrowRange;
 	
+	// unsigned char horizontal_offset;
+	// unsigned short horizontal_walls_counter;
 #endif
 
 #if !defined(TINY_GAME)
@@ -167,8 +169,8 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 	unsigned char playerFire = 0;
 	unsigned char guns = GUNS_NUMBER;
 
-	unsigned char invincibleGhostHits = 0;
-	unsigned char invincibleGhostAlive = 1;
+	unsigned char invincibleGhostHits;
+	unsigned char invincibleGhostAlive;
 #endif
 
 #if !defined(TINY_GAME)
@@ -277,7 +279,6 @@ void freezeEffect(void)
 	freeze._coolDown = FREEZE_INITIAL_COOLDOWN;
 	
 }
-
 
 void handle_frozen(void)
 {

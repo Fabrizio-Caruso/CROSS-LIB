@@ -131,6 +131,16 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 	return 1;
 }
 	
+void destroyEnemyMissile(Character * enemyMissilePtr)
+{
+	enemyMissilePtr->_status = 0;
+	EXPLOSION_SOUND();
+	DELETE_MISSILE(enemyMissilePtr->_x,enemyMissilePtr->_y,enemyMissilePtr->_imagePtr);
+	points+=HORIZONTAL_MISSILE_BONUS;
+	displayStats();				
+	reducePowerUpsCoolDowns();		
+}
+
 void moveMissile(Character * missilePtr, unsigned short missileDirection)
 {
 	_moveMissile(missilePtr, missileDirection);
@@ -144,33 +154,18 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 			{
 				if(missilePtr->_x==XSize-1 && missilePtr->_y==YSize/2 && rightEnemyMissile._status)
 				{
-					rightEnemyMissile._status = 0;
-					EXPLOSION_SOUND();
-					DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
-					points+=HORIZONTAL_MISSILE_BONUS;
-					displayStats();				
-					reducePowerUpsCoolDowns();		
+					destroyEnemyMissile(&rightEnemyMissile);
 				}
 			}				
-			if(missileLevel() || bossLevel())
+			else if(missileLevel() || bossLevel())
 			{
 				if(missilePtr->_x==XSize-1 && missilePtr->_y==ENEMY_MISSILE_OFFSET && rightEnemyMissile._status)
 				{
-					rightEnemyMissile._status = 0;
-					EXPLOSION_SOUND();
-					DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
-					points+=HORIZONTAL_MISSILE_BONUS;
-					displayStats();				
-					reducePowerUpsCoolDowns();		
+					destroyEnemyMissile(&rightEnemyMissile);	
 				}
 				else if(missilePtr->_x==0 && missilePtr->_y==YSize-1-ENEMY_MISSILE_OFFSET && leftEnemyMissile._status)
 				{
-					leftEnemyMissile._status = 0;
-					EXPLOSION_SOUND();
-					DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
-					points+=HORIZONTAL_MISSILE_BONUS;
-					displayStats();				
-					reducePowerUpsCoolDowns();		
+					destroyEnemyMissile(&leftEnemyMissile);	
 				}
 			}
 			if((rocketLevel() || bossLevel()) && missilePtr->_y==YSize-1)

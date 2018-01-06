@@ -119,7 +119,7 @@ extern Character bombs[BOMBS_NUMBER];
 
 	unsigned char oneMissileLevel(void)
 	{
-		return level%5==3;		
+		return (level%5==3) || (level==5);		
 	}
 
 	unsigned char rocketLevel(void)
@@ -139,7 +139,7 @@ extern Character bombs[BOMBS_NUMBER];
 	
 	unsigned char horizontalWallsLevel(void)
 	{
-		return (level >= FIRST_HORIZONTAL_WALLS_LEVEL) && (level%5==1) && (level%5==4);
+		return (level >= FIRST_HORIZONTAL_WALLS_LEVEL) && ((level%5==1) || (level%5==4));
 	}	
 
 	void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr)
@@ -351,7 +351,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		{
 			initializeCharacter(&rightEnemyMissile,         XSize-1,                      YSize/2, 1,&RIGHT_ENEMY_MISSILE_IMAGE);			
 		}
-		if(missileLevel() || bossLevel())
+		else if(missileLevel() || bossLevel())
 		{	
 			initializeCharacter(&rightEnemyMissile,         XSize-1,         ENEMY_MISSILE_OFFSET, 1,&RIGHT_ENEMY_MISSILE_IMAGE);
 			initializeCharacter(&leftEnemyMissile,                0, YSize-1-ENEMY_MISSILE_OFFSET, 1,&LEFT_ENEMY_MISSILE_IMAGE);		

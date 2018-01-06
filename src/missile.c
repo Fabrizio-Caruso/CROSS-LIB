@@ -130,16 +130,18 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 	}
 	return 1;
 }
-	
-void destroyEnemyMissile(Character * enemyMissilePtr)
-{
-	enemyMissilePtr->_status = 0;
-	EXPLOSION_SOUND();
-	DELETE_MISSILE(enemyMissilePtr->_x,enemyMissilePtr->_y,enemyMissilePtr->_imagePtr);
-	points+=HORIZONTAL_MISSILE_BONUS;
-	displayStats();				
-	reducePowerUpsCoolDowns();		
-}
+
+#if defined(FULL_GAME)
+	void destroyEnemyMissile(Character * enemyMissilePtr)
+	{
+		enemyMissilePtr->_status = 0;
+		EXPLOSION_SOUND();
+		DELETE_MISSILE(enemyMissilePtr->_x,enemyMissilePtr->_y,enemyMissilePtr->_imagePtr);
+		points+=HORIZONTAL_MISSILE_BONUS;
+		displayStats();				
+		reducePowerUpsCoolDowns();		
+	}
+#endif
 
 void moveMissile(Character * missilePtr, unsigned short missileDirection)
 {

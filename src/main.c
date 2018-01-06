@@ -161,7 +161,7 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
 #endif
 
-unsigned int extraLifeThroughPointsCounter = 1;
+unsigned int extraLifeThroughPointsCounter;
 
 unsigned char ghostCount = GHOSTS_NUMBER;
 

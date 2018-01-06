@@ -119,7 +119,7 @@ extern Character bombs[BOMBS_NUMBER];
 
 	unsigned char oneMissileLevel(void)
 	{
-		return (level%5==3) || (level==5);		
+		return ((level%5)==3) || (level==5) || ((level%5==1) && (level>10));		
 	}
 
 	unsigned char rocketLevel(void)

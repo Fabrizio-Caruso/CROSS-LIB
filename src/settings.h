@@ -300,8 +300,6 @@
 
 #define INVINCIBILITY_COOL_DOWN 2000UL
 
-#define INVINCIBILITY_FIRST_LEVEL 5
-
 #define PLAYER_INVINCIBILITY_COOL_DOWN 150
 
 #define EXTRA_LIFE_COOL_DOWN 3400UL
@@ -350,6 +348,10 @@
 
 // Final level 
 #define FINAL_LEVEL 40
+
+#define INVINCIBILITY_FIRST_LEVEL 5
+
+#define FIRST_HORIZONTAL_WALLS_LEVEL 6
 
 #define FIRST_BUBBLES_LEVEL 7 // 8 because of check on levels after missile level
 

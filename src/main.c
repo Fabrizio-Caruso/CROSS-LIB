@@ -822,7 +822,19 @@ int main(void)
 						{
 							handle_extraLife_item();
 						}
-					}				
+					}	
+					if(horizontalWallsLevel())
+					{
+						SKIP_MORE_DRAW
+						{						
+							DRAW_HORIZONTAL_WALLS();
+						}
+											
+						if(horizontalWallsReached(&player))
+							{
+								playerDies();
+							}
+					}
 				#endif		
 
 				#if defined(FULL_GAME)

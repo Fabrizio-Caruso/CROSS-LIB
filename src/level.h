@@ -41,6 +41,8 @@ void fillLevelWithCharacters(unsigned char nGhosts);
 
 	unsigned char bossLevel(void);
 	
+	unsigned char horizontalWallsLevel(void);
+	
 	void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr);
 
 #endif 

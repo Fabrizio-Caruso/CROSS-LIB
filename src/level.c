@@ -136,6 +136,11 @@ extern Character bombs[BOMBS_NUMBER];
 	{
 		return level%5==0;
 	}
+	
+	unsigned char horizontalWallsLevel(void)
+	{
+		return (level >= FIRST_HORIZONTAL_WALLS_LEVEL) && (level%5==1) && (level%5==4);
+	}	
 
 	void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr)
 	{

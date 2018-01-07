@@ -105,6 +105,7 @@ extern Image EXTRA_POINTS_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+	extern Image SUPER_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -195,35 +196,37 @@ void INIT_IMAGES(void)
 		
 		BUBBLE_IMAGE._color = COLOR_WHITE;
 			
-		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+		EXTRA_LIFE_IMAGE._color = COLOR_RED;
 		
 		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
+		SUPER_IMAGE._color = COLOR_RED;
 	#endif
 	
-		PLAYER_IMAGE._imageData = _PLAYER_DOWN;
-		PLAYER_DOWN._imageData = _PLAYER_DOWN;
-		PLAYER_UP._imageData = _PLAYER_UP;		
-		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-		PLAYER_LEFT._imageData = _PLAYER_LEFT;	
-		
-		GHOST_IMAGE._imageData = _GHOST;
-		
-		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
+	PLAYER_IMAGE._imageData = _PLAYER_DOWN;
+	PLAYER_DOWN._imageData = _PLAYER_DOWN;
+	PLAYER_UP._imageData = _PLAYER_UP;		
+	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+	PLAYER_LEFT._imageData = _PLAYER_LEFT;	
 	
-		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
-		BOMB_IMAGE._imageData = _BOMB;		
-		POWERUP_IMAGE._imageData = _POWERUP;
-		FREEZE_IMAGE._imageData = _POWERUP;		
-		GUN_IMAGE._imageData = _GUN;
-		MISSILE_IMAGE._imageData = _MISSILE;
+	GHOST_IMAGE._imageData = _GHOST;
+	
+	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
 
-		#if defined(FULL_GAME)
-			LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
-			RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;		
-			BUBBLE_IMAGE._imageData = _BUBBLE;
-			INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
-			EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;			
-		#endif	
+	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
+	BOMB_IMAGE._imageData = _BOMB;		
+	POWERUP_IMAGE._imageData = _POWERUP;
+	FREEZE_IMAGE._imageData = _POWERUP;		
+	GUN_IMAGE._imageData = _GUN;
+	MISSILE_IMAGE._imageData = _MISSILE;
+
+	#if defined(FULL_GAME)
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;		
+		BUBBLE_IMAGE._imageData = _BUBBLE;
+		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;	
+		SUPER_IMAGE._imageData = _POWERUP;
+	#endif	
 }
 
 #if defined(FULL_GAME)

@@ -46,6 +46,7 @@ extern Image EXTRA_POINTS_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+	extern Image SUPER_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -105,7 +106,7 @@ void INIT_IMAGES(void)
 	MISSILE_IMAGE._color = 0;
 	INVINCIBLE_GHOST_IMAGE._color = 0;
 	POWERUP_IMAGE._color = 128u;
-	FREEZE_IMAGE._color = 0;	
+	FREEZE_IMAGE._color = 128u;	
 	GUN_IMAGE._color = 128u;
 	EXTRA_POINTS_IMAGE._color = 128u;
 	
@@ -118,7 +119,7 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._imageData = (char) 0x5c;
 	
 	POWERUP_IMAGE._imageData = (char) 0x5d;
-	FREEZE_IMAGE._imageData = (char) 0x5d;
+	FREEZE_IMAGE._imageData = 'F';
 	GUN_IMAGE._imageData = (char) 0x5e;
 	EXTRA_POINTS_IMAGE._imageData = '$';
 		
@@ -149,6 +150,8 @@ void INIT_IMAGES(void)
 		
 		INVINCIBILITY_IMAGE._imageData = 0x3B;
 		INVINCIBILITY_IMAGE._color = 128u;
+		SUPER_IMAGE._imageData = 'H';		
+		SUPER_IMAGE._color = 128u;
 		
 		redefine(0xb400 + INVINCIBILITY_IMAGE._imageData*8,invincibility);					
 		redefine(0xb400 + BUBBLE_IMAGE._imageData*8,bubble);

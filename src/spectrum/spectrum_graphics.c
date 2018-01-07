@@ -56,6 +56,7 @@ extern Image FREEZE_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+	extern Image SUPER_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -191,8 +192,9 @@ void INIT_IMAGES(void)
 	
 	#if defined(FULL_GAME)
 		EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
-		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
+		EXTRA_LIFE_IMAGE._color = COLOR_RED;
+		INVINCIBILITY_IMAGE._color = COLOR_RED;	
+		SUPER_IMAGE._color = COLOR_RED;
 	#endif
 		
 	#if defined(REDEFINED_CHARS)	
@@ -215,6 +217,7 @@ void INIT_IMAGES(void)
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;		
 			BUBBLE_IMAGE._imageData = _BUBBLE;
 			INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
+			SUPER_IMAGE._imageData = _POWERUP;
 		#endif
 	#else
 		GHOST_IMAGE._imageData = 'o';

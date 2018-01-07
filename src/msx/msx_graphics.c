@@ -39,7 +39,7 @@
 #define _INVINCIBLE_GHOST 0x27
 #define _VERTICAL_BRICK 0x26
 #define _HORIZONTAL_BRICK 0x24
-#define _EXTRA_LIFE 0x25
+// #define _EXTRA_LIFE 0x25
 #define _EXTRA_POINTS 0x22
 
 // GREEN
@@ -48,12 +48,15 @@
 // RED
 #define _BOMB 0x5E
 #define _DEAD_GHOST 0x5B
-#define _FREEZE 0x5C
+#define _SUPER 0x5C
+#define _EXTRA_LIFE 0x5D
+
 // #define _MISSILE 0x5F
 
 // CYAN
 #define _INVINCIBILITY 0x08
 #define _MISSILE 0x09
+#define _FREEZE 0x0A
 
 // WHITE
 #define _GHOST 0x7E
@@ -87,6 +90,7 @@ extern Image EXTRA_POINTS_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+	extern Image SUPER_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -233,6 +237,7 @@ void INIT_IMAGES(void)
 				
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
+		SUPER_IMAGE._imageData = _SUPER;
 			
 	#endif
 }

@@ -47,6 +47,7 @@ extern Image GUN_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+	extern Image SUPER_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -93,10 +94,12 @@ void INIT_IMAGES(void)
 		
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 		INVINCIBILITY_IMAGE._imageData = 'V';
+		SUPER_IMAGE._imageData = 'H';
 		
 		EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
 		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;	
 		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
+		SUPER_IMAGE._color = COLOR_RED;
 	#endif
 }
 

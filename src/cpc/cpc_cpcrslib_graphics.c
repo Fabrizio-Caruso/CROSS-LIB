@@ -43,6 +43,7 @@ extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
+extern Image FREEZE_IMAGE;
 
 #if defined(FULL_GAME)
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
@@ -53,15 +54,16 @@ extern Image GUN_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+	extern Image SUPER_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
 
 #if defined(REDEFINED_CHARS)
-Image PLAYER_DOWN;
-Image PLAYER_UP;
-Image PLAYER_RIGHT;
-Image PLAYER_LEFT;
+	Image PLAYER_DOWN;
+	Image PLAYER_UP;
+	Image PLAYER_RIGHT;
+	Image PLAYER_LEFT;
 #endif
 
 #define UDG_N 20
@@ -163,6 +165,7 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._color = CPC_YELLOW;
 	INVINCIBLE_GHOST_IMAGE._color = CPC_YELLOW;
 	POWERUP_IMAGE._color = CPC_YELLOW;
+	FREEZE_IMAGE._color = CPC_WHITE;
 	GUN_IMAGE._color = CPC_YELLOW;
 	BOMB_IMAGE._color = CPC_RED;
 	DEAD_GHOST_IMAGE._color = CPC_RED;
@@ -184,6 +187,7 @@ void INIT_IMAGES(void)
 
 	
 	POWERUP_IMAGE._imageData = _POWERUP;
+	FREEZE_IMAGE._imageData = _POWERUP;
 	GUN_IMAGE._imageData = _GUN;
 	MISSILE_IMAGE._imageData = _MISSILE;
 
@@ -205,10 +209,12 @@ void INIT_IMAGES(void)
 		
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
+		SUPER_IMAGE._imageData = _POWERUP;
 		
 		EXTRA_POINTS_IMAGE._color = CPC_YELLOW;
-		EXTRA_LIFE_IMAGE._color = CPC_YELLOW;
-		INVINCIBILITY_IMAGE._color = CPC_YELLOW;			
+		EXTRA_LIFE_IMAGE._color = CPC_RED;
+		INVINCIBILITY_IMAGE._color = CPC_YELLOW;	
+		SUPER_IMAGE._color = CPC_RED;
 	#endif
 }
 

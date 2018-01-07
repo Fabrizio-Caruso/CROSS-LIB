@@ -87,7 +87,7 @@ void INIT_IMAGES(void)
 		
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 		INVINCIBILITY_IMAGE._imageData = 'V';
-		SUPER_IMAGE._imageData = 'T';
+		SUPER_IMAGE._imageData = 'H';
 		
 	#endif
 }

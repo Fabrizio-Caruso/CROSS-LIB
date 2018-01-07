@@ -158,7 +158,7 @@ Character bombs[BOMBS_NUMBER];
 #if !defined(TINY_GAME)
 	unsigned char strategyArray[GHOSTS_NUMBER];
 
-	unsigned char playerDirection = 0; // 0: right, 1: down, 2: left, 3: up
+	unsigned char playerDirection; // 0: right, 1: down, 2: left, 3: up
 #endif
 
 unsigned int extraLifeThroughPointsCounter;
@@ -166,7 +166,7 @@ unsigned int extraLifeThroughPointsCounter;
 unsigned char ghostCount = GHOSTS_NUMBER;
 
 #if !defined(TINY_GAME)
-	unsigned char playerFire = 0;
+	unsigned char playerFire;
 	unsigned char guns = GUNS_NUMBER;
 
 	unsigned char invincibleGhostHits;
@@ -849,10 +849,6 @@ int main(void)
 				
 				#if defined(FULL_GAME)
 					handle_powerup3_item();	
-					// if(skullsKilled>1)
-					// {
-						// handle_super_item();
-					// }
 				
 					handle_invincibility_item();
 
@@ -952,7 +948,7 @@ int main(void)
 						#endif
 						sleep(2);
 						++lives;
-						skullsKilled = 0;
+						skullsKilled = 1;
 					}
 					else
 					{
@@ -971,10 +967,6 @@ int main(void)
 					CLEAR_SCREEN();
 				#endif
 				--lives;
-				#if defined(FULL_GAME)
-					// TODO: REMOVE
-					// skullsKilled = 0;
-				#endif
 				if(lives>0)
 				{
 					player._status = 1;

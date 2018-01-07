@@ -27,6 +27,27 @@
 
 #include "../display_macros.h"
 
+#define _POWERUP (char) 0x7A
+#define _GHOST (char) 0x76
+#define _BOMB (char) 0x78
+#define _GUN (char) 0x7B
+
+#define _PLAYER_DOWN '\''
+#define _PLAYER_UP ((char) 0x76 - 6)
+#define _PLAYER_RIGHT ((char) 0x76 - 2)
+#define _PLAYER_LEFT ((char) 0x76 - 4)
+	
+
+#define _MISSILE (char) 0x7C
+#define _BUBBLE '^'
+#define _EXTRA_POINTS '*'
+#define _LEFT_MISSILE '>'
+#define _RIGHT_MISSILE '<'
+#define _INVINCIBILITY 0x73
+
+#define _INVINCIBLE_GHOST (char) 0x77
+
+
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
@@ -46,6 +67,7 @@ extern Image GUN_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+	extern Image SUPER_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -83,48 +105,51 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._color = COLOR_RED;
 	DEAD_GHOST_IMAGE._color = COLOR_RED;
 		
-	GHOST_IMAGE._imageData = (char) 0x76;
-	INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x77;
-	BOMB_IMAGE._imageData = (char) 0x78;
-	PLAYER_IMAGE._imageData = '\'';
-	POWERUP_IMAGE._imageData = (char) 0x7A;
-	FREEZE_IMAGE._imageData = (char) 0x7A;	
-	GUN_IMAGE._imageData = (char) 0x7B;
-	MISSILE_IMAGE._imageData = (char) 0x7C;
+	GHOST_IMAGE._imageData = _GHOST;
+	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
+	BOMB_IMAGE._imageData = _BOMB;
+	PLAYER_IMAGE._imageData = _PLAYER_DOWN;
+	POWERUP_IMAGE._imageData = _POWERUP;
+	FREEZE_IMAGE._imageData = _POWERUP;	
+	GUN_IMAGE._imageData = _GUN;
+	MISSILE_IMAGE._imageData = _MISSILE;
 	DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
 
 	GHOST_IMAGE._color = COLOR_WHITE;
 	MISSILE_IMAGE._color = COLOR_BLUE;
 
 	#if defined(FULL_GAME)
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_MISSILE;
 		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
 		
-		BUBBLE_IMAGE._imageData = '^';
+		BUBBLE_IMAGE._imageData = _BUBBLE;
 		BUBBLE_IMAGE._color = COLOR_WHITE;
 		
-		EXTRA_POINTS_IMAGE._imageData = '*';
+		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
 		
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
-		EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+		EXTRA_LIFE_IMAGE._color = COLOR_RED;
 		
-		INVINCIBILITY_IMAGE._imageData = 0x73;
+		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
 		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
+		
+		SUPER_IMAGE._imageData = _POWERUP;
+		SUPER_IMAGE._color = COLOR_RED;		
 	#endif
 	
-	PLAYER_UP._imageData = (char) 0x76 - 6;
+	PLAYER_UP._imageData = _PLAYER_UP;
 	PLAYER_UP._color = PLAYER_IMAGE._color;
 	
-	PLAYER_DOWN._imageData = '\'';
+	PLAYER_DOWN._imageData = _PLAYER_DOWN;
 	PLAYER_DOWN._color = PLAYER_IMAGE._color;
 			
-	PLAYER_RIGHT._imageData = (char) 0x76 - 2;
+	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
 	PLAYER_RIGHT._color = PLAYER_IMAGE._color;
 	
-	PLAYER_LEFT._imageData = (char) 0x76 - 4;
+	PLAYER_LEFT._imageData = _PLAYER_LEFT;
 	PLAYER_LEFT._color = PLAYER_IMAGE._color;			
 }
 

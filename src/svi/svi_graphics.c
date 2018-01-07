@@ -61,6 +61,7 @@ extern Image EXTRA_POINTS_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+	extern Image SUPER_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -109,13 +110,15 @@ void INIT_IMAGES(void)
 				
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 		INVINCIBILITY_IMAGE._imageData = 'V';
+		SUPER_IMAGE._imageData = 'H';
 		
 		#if !defined(NO_COLOR)
 			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
 			BUBBLE_IMAGE._color = COLOR_WHITE;				
-			EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
+			EXTRA_LIFE_IMAGE._color = COLOR_RED;
 			INVINCIBILITY_IMAGE._color = COLOR_WHITE;	
+			SUPER_IMAGE._color = COLOR_RED;
 		#endif
 	#endif
 }

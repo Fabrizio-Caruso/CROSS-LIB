@@ -86,7 +86,8 @@ extern Image MISSILE_IMAGE;
 	extern Image BUBBLE_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
-	extern Image INVINCIBILITY_IMAGE;	
+	extern Image INVINCIBILITY_IMAGE;
+	extern Image SUPER_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -235,6 +236,7 @@ void INIT_IMAGES(void)
 		BUBBLE_IMAGE._color = _ATARI_MODE1_WHITE;	
 		EXTRA_LIFE_IMAGE._color = _ATARI_MODE1_YELLOW;
 		INVINCIBILITY_IMAGE._color = _ATARI_MODE1_YELLOW;
+		SUPER_IMAGE._color = _ATARI_MODE1_RED;
 		
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 
@@ -245,6 +247,7 @@ void INIT_IMAGES(void)
 		EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN;
 
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
+		SUPER_IMAGE._imageData = _POWERUP;
 
 	#endif
 }

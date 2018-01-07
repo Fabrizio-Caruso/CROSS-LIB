@@ -138,7 +138,7 @@ extern Character bombs[BOMBS_NUMBER];
 
 	unsigned char bossLevel(void)
 	{
-		return level%5==0;
+		return !(level%5);
 	}
 	
 	unsigned char horizontalWallsLevel(void)

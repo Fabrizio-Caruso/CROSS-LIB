@@ -281,7 +281,7 @@ void _freezeEffect(void)
 void freezeEffect(void)
 {
 	_freezeEffect();
-	freeze._coolDown = FREEZE_INITIAL_COOLDOWN;	
+	freeze._coolDown = FREEZE_INITIAL_COOLDOWN*2;	
 }
 
 void handle_frozen(void)

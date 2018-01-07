@@ -365,8 +365,8 @@ void handle_item(Item *itemPtr)
 	void extraLifeEffect(void)
 	{
 		++lives;
-		skullsKilled=0;
-		extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*2; // second time is harder
+		skullsKilled=1;
+		extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*10; // second time is harder
 		printLivesStats();		
 	}
 

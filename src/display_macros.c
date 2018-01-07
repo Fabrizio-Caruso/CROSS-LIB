@@ -126,6 +126,7 @@ Image BOMB_IMAGE;
 			#if defined(FULL_GAME)
 				EXTRA_LIFE_IMAGE._color = COLOR_BLUE;
 				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
+				SUPER_IMAGE._color = COLOR_RED;
 			#endif		
 		#endif
 		
@@ -200,10 +201,12 @@ Image BOMB_IMAGE;
 			BUBBLE_IMAGE._imageData = '^';
 			#if defined(__WINCMOC__) || defined(__CMOC__)			
 				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-				INVINCIBILITY_IMAGE._imageData = 'v';			
+				INVINCIBILITY_IMAGE._imageData = 'v';	
+				SUPER_IMAGE._imageData = 'h';
 			#else
 				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-				INVINCIBILITY_IMAGE._imageData = 'V';						
+				INVINCIBILITY_IMAGE._imageData = 'V';	
+				SUPER_IMAGE._imageData = 'H';				
 			#endif
 			BROKEN_WALL_IMAGE._imageData = 'X';
 		#endif

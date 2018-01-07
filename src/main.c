@@ -213,12 +213,6 @@ void handle_missile()
 				DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
 				invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
 				invincibleGhostAlive = 0;
-				#if defined(FULL_GAME)
-					if(!bossLevel())
-					{
-						++skullsKilled;
-					}
-				#endif
 				EXPLOSION_SOUND();
 				points+=INVINCIBLE_GHOST_POINTS;
 				displayStats();
@@ -699,6 +693,10 @@ int main(void)
 				
 				powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;	
 				super._coolDown = SUPER_COOL_DOWN;
+				if(skullsKilled==1)
+				{
+					invincibility._coolDown/=8;
+				}
 			#endif			
 						
 			#if !defined(TINY_GAME)
@@ -851,19 +849,24 @@ int main(void)
 				
 				#if defined(FULL_GAME)
 					handle_powerup3_item();	
-					if(skullsKilled>1)
+					// if(skullsKilled>1)
+					// {
+						// handle_super_item();
+					// }
+				
+					handle_invincibility_item();
+
+					if(skullsKilled==2)
 					{
 						handle_super_item();
 					}
-				
-					if(level>=INVINCIBILITY_FIRST_LEVEL)
+					else if(skullsKilled>=3)
 					{
-						handle_invincibility_item();
-						if (skullsKilled>2)
-						{
-							handle_extraLife_item();
-						}
-					}	
+						handle_super_item();
+						handle_extraLife_item();
+					}
+						
+					
 					if(horizontalWallsLevel())
 					{
 						SKIP_MORE_DRAW
@@ -938,7 +941,7 @@ int main(void)
 
 				ghostCount = GHOSTS_NUMBER;
 				
-				#if defined(FULL_GAME)
+				#if defined(FULL_GAME)			
 					if(bossLevel())
 					{	
 						CLEAR_SCREEN();
@@ -949,6 +952,14 @@ int main(void)
 						#endif
 						sleep(2);
 						++lives;
+						skullsKilled = 0;
+					}
+					else
+					{
+						if(!invincibleGhostAlive)
+						{
+							++skullsKilled;
+						}
 					}
 				#endif
 				++level;
@@ -961,7 +972,8 @@ int main(void)
 				#endif
 				--lives;
 				#if defined(FULL_GAME)
-					skullsKilled = 0;
+					// TODO: REMOVE
+					// skullsKilled = 0;
 				#endif
 				if(lives>0)
 				{

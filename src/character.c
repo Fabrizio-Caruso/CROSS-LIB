@@ -161,17 +161,19 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 	unsigned char y; // = 0; 
 	unsigned char x_offset; 
 	unsigned char y_offset;
-	unsigned char safe = 0;
+	unsigned char safe;
 	do
 	{
-		x_offset = (unsigned char)(rand() % 5);
-		y_offset = (unsigned char)(rand() % 5);
+		x_offset = (unsigned char)(rand() % RELOCATE_RANGE);
+		y_offset = (unsigned char)(rand() % RELOCATE_RANGE);
 
-		if((x_offset==0) && (y_offset==0))
-			continue;
+		#if defined(NARROW)
+			if((x_offset==0) && (y_offset==0))
+				continue;
+		#endif
 		
-		x = characterPtr->_x -2 + x_offset; 
-		y = characterPtr->_y -2 + y_offset;
+		x = characterPtr->_x -(RELOCATE_RANGE/2) + x_offset; 
+		y = characterPtr->_y -(RELOCATE_RANGE/2) + y_offset;
 
 		// TODO: This check should be separated and moved into display_macros
 		if((x<2) || (x>XSize-2) || (y<=2) || (y>YSize-2))

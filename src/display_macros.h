@@ -202,11 +202,6 @@ void _draw(unsigned char x,unsigned char y,Image * image);
 #endif
 	
 void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
-// #define DRAW_POWERUP(x, y, image) _blink_draw(x,y,image, &powerUpBlink) 
-// #define DRAW_GUN(x, y, image) _blink_draw(x,y,image, &gunBlink)
-// #define DRAW_EXTRA_POINTS(x, y, image) _blink_draw(x,y,image, &extraPointsBlink) 
-// #define DRAW_EXTRA_LIFE(x, y, image) _blink_draw(x,y,image, &extraLifeBlink)
-// #define DRAW_INVINCIBILITY(x, y, image) _blink_draw(x,y,image, &invincibilityBlink) 
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
 
 void _delete(unsigned char x, unsigned char y);
@@ -257,14 +252,14 @@ void _delete(unsigned char x, unsigned char y);
 	DRAW_VERTICAL_BORDER(XSize-1); 
 
 #if defined(WIDE)
-	#define HORIZONTAL_WALL_LENGTH 6
+	#define HORIZONTAL_WALL_LENGTH 7
 #else
 	#define HORIZONTAL_WALL_LENGTH 3	
 #endif
 #define DRAW_HORIZONTAL_WALLS() \
 	SET_TEXT_COLOR(WALL_COLOR); \
-	DRAW_HORIZONTAL_LINE(2,YSize/2,HORIZONTAL_WALL_LENGTH); \
-	DRAW_HORIZONTAL_LINE(XSize-2-HORIZONTAL_WALL_LENGTH,YSize/2,HORIZONTAL_WALL_LENGTH);
+	DRAW_HORIZONTAL_LINE(1,YSize/2,HORIZONTAL_WALL_LENGTH); \
+	DRAW_HORIZONTAL_LINE(XSize-1-HORIZONTAL_WALL_LENGTH,YSize/2,HORIZONTAL_WALL_LENGTH);
 
 
 // PRINT AND PRINTF

@@ -325,6 +325,21 @@ error_cmoc:
 coco:
 	cmoc -D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_RANDOM_LEVEL -o $(BUILD_PATH)/coco.bin $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/cmoc/cmoc_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/cmoc/cmoc_input.c  $(SOURCE_PATH)/main.c
 
+cmoc_link:
+	cmoc display_macros.o cmoc_graphics.o \
+	enemy.o \
+	level.o character.o text.o \
+	strategy.o \
+	input_macros.o cmoc_input.o \
+	main.o
+
+lwlink_link:
+	lwlink display_macros.o cmoc_graphics.o \
+	enemy.o \
+	level.o character.o text.o \
+	strategy.o \
+	input_macros.o cmoc_input.o \
+	main.o	
 
 pet_8k_LIGHT:
 	$(CC65_PATH)$(MYCC65) -O -t pet -DNO_TEXT -DNO_SLEEP $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_pet_8k.prg

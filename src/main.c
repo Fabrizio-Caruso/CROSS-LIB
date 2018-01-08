@@ -855,13 +855,12 @@ int main(void)
 				
 					handle_invincibility_item();
 
-					if(skullsKilled==2)
+					if(skullsKilled>=2)
 					{
 						handle_super_item();
 					}
-					else if(skullsKilled>=3)
+					if(skullsKilled>=3)
 					{
-						handle_super_item();
 						handle_extraLife_item();
 					}
 						

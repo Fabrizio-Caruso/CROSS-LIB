@@ -699,7 +699,7 @@ int main(void)
 					invincibility._coolDown/=8;
 				}
 				
-				horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/10;
+				// horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/10 + loop/10;
 			#endif			
 						
 			#if !defined(TINY_GAME)
@@ -869,7 +869,9 @@ int main(void)
 					if(horizontalWallsLevel())
 					{
 						SKIP_MORE_DRAW
-						{						
+						{				
+							horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/10 + (loop/250);
+						
 							DRAW_HORIZONTAL_WALLS(horizontalWallsLength);
 						}
 											

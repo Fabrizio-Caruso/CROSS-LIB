@@ -25,7 +25,7 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 6
 
 
 #if defined(__WINCMOC__)
@@ -355,9 +355,9 @@
 #define FIRST_HORIZONTAL_WALLS_LEVEL 6
 
 #if defined(WIDE)
-	#define HORIZONTAL_WALLS_INITIAL_LENGTH 7
+	#define HORIZONTAL_WALLS_INITIAL_LENGTH 6
 #else
-	#define HORIZONTAL_WALLS_INITIAL_LENGTH 2	
+	#define HORIZONTAL_WALLS_INITIAL_LENGTH 1	
 #endif
 
 #define FIRST_BUBBLES_LEVEL 7 // 8 because of check on levels after missile level

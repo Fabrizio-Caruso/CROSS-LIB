@@ -44,6 +44,8 @@ extern unsigned char YSize;
 extern unsigned char ghostCount;
 extern unsigned short loop;
 
+extern unsigned char horizontalWallsLength;
+
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
@@ -190,8 +192,8 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 	unsigned char horizontalWallsReached(Character *characterPtr)
 	{
 		return (characterPtr->_y==YSize/2) && 
-		       ((characterPtr->_x<=HORIZONTAL_WALL_LENGTH) ||
-			    (characterPtr->_x>=-1-HORIZONTAL_WALL_LENGTH+XSize));
+		       ((characterPtr->_x<=horizontalWallsLength) ||
+			    (characterPtr->_x>=-1+XSize-horizontalWallsLength));
 	}	
 	
 	unsigned char nearInnerWall(Character *characterPtr)

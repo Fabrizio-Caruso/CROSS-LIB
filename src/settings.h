@@ -297,13 +297,13 @@
 
 #define EXTRA_LIFE_THROUGH_POINTS 2000UL
 
-#define EXTRA_POINTS_COOL_DOWN 1200UL
+#define EXTRA_POINTS_COOL_DOWN 1500UL
 
-#define INVINCIBILITY_COOL_DOWN 1800UL
+#define INVINCIBILITY_COOL_DOWN 2000UL
 
 #define PLAYER_INVINCIBILITY_COOL_DOWN 150
 
-#define EXTRA_LIFE_COOL_DOWN 2600UL
+#define EXTRA_LIFE_COOL_DOWN 2500UL
 
 // #define EXTRA_LIFE_FIRST_LEVEL 10
 
@@ -354,6 +354,12 @@
 
 #define FIRST_HORIZONTAL_WALLS_LEVEL 6
 
+#if defined(WIDE)
+	#define HORIZONTAL_WALLS_INITIAL_LENGTH 7
+#else
+	#define HORIZONTAL_WALLS_INITIAL_LENGTH 2	
+#endif
+
 #define FIRST_BUBBLES_LEVEL 7 // 8 because of check on levels after missile level
 
 // Maximum number of ghost that co-exist with rockets (in non-boss levels)
@@ -397,7 +403,7 @@
 
 #if defined(FULL_GAME)
 	#define INVINCIBLE_LOOP_TRIGGER 600-level*4
-	#define FREEZE_INITIAL_COOLDOWN 900-level*16
+	#define FREEZE_INITIAL_COOLDOWN 1000-level*16
 	#define GUN_INITIAL_COOLDOWN 220-level*4
 #else
 	#define INVINCIBLE_LOOP_TRIGGER 500

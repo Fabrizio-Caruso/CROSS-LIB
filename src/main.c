@@ -65,7 +65,6 @@ unsigned short loop;
 unsigned char level;
 
 
-
 #if !defined(TINY_GAME)
 	unsigned char frozen;
 	unsigned short frozenCountDown;
@@ -153,6 +152,8 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char arrowRange;
 	
 	unsigned char skullsKilled;
+	
+	unsigned char horizontalWallsLength;
 #endif
 
 #if !defined(TINY_GAME)
@@ -360,7 +361,7 @@ void handle_item(Item *itemPtr)
 	{
 		++lives;
 		skullsKilled=1;
-		extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*10; // second time is harder
+		// extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*10; // second time is harder
 		printLivesStats();		
 	}
 
@@ -697,6 +698,8 @@ int main(void)
 				{
 					invincibility._coolDown/=8;
 				}
+				
+				horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/10;
 			#endif			
 						
 			#if !defined(TINY_GAME)
@@ -867,7 +870,7 @@ int main(void)
 					{
 						SKIP_MORE_DRAW
 						{						
-							DRAW_HORIZONTAL_WALLS();
+							DRAW_HORIZONTAL_WALLS(horizontalWallsLength);
 						}
 											
 						if(!player_invincibility && horizontalWallsReached(&player))

@@ -272,7 +272,7 @@ void powerUp2Effect(void)
 void _freezeEffect(void)
 {
 	unsigned char i;
-	for(i=0;i<4;++i)
+	for(i=0;i<3;++i)
 	{
 		_commonPowerUpEffect();
 	}	

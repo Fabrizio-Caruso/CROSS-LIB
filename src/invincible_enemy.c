@@ -33,7 +33,7 @@ extern unsigned short loop;
 extern unsigned short invincibleSlowDown;
 extern unsigned char invincibleXCountDown;
 extern unsigned char invincibleYCountDown ;
-extern unsigned short invincibleLoopTrigger;
+// extern unsigned short invincibleLoopTrigger;
 
 extern unsigned short ghostLevel;
 
@@ -52,7 +52,7 @@ void computeInvincibleGhostParameters(void)
 	invincibleSlowDown = computeInvincibleSlowDown();
 	invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
 	invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-	invincibleLoopTrigger = INVINCIBLE_LOOP_TRIGGER;	
+	// invincibleLoopTrigger = INVINCIBLE_LOOP_TRIGGER;	
 }
 
 #endif

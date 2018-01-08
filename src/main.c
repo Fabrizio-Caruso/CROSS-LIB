@@ -88,7 +88,7 @@ extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
-	unsigned short invincibleLoopTrigger;
+	// unsigned short invincibleLoopTrigger;
 	extern Image INVINCIBLE_GHOST_IMAGE;
 	extern Image POWERUP_IMAGE;
 	extern Image MISSILE_IMAGE;
@@ -425,14 +425,14 @@ void handle_invincible_ghost(void)
 		
 		#if defined(FULL_GAME)
 		if((!bossLevel() && invincibleGhostAlive &&
-							((invincibleXCountDown==0)|| (invincibleYCountDown==0) || (loop>=invincibleLoopTrigger) || (ghostCount<=invincibleGhostCountTrigger))) || 
-		   (bossLevel() && loop>=invincibleLoopTrigger))
-		#elif defined(TINY_GAME)
-		if(loop>=invincibleLoopTrigger) || (ghostCount<=INVINCIBLE_GHOST_TRIGGER))
+							((invincibleXCountDown==0)|| (invincibleYCountDown==0) || (loop>=INVINCIBLE_LOOP_TRIGGER) || (ghostCount<=invincibleGhostCountTrigger))) || 
+		   (bossLevel() && loop>=INVINCIBLE_LOOP_TRIGGER))
+		// #elif defined(TINY_GAME)
+		// if(loop>=INVINCIBLE_LOOP_TRIGGER) || (ghostCount<=INVINCIBLE_GHOST_TRIGGER))
 		#else
 		if(invincibleGhostAlive &&
 							((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
-							 (loop>=invincibleLoopTrigger) || (ghostCount<=INVINCIBLE_GHOST_TRIGGER)))
+							 (loop>=INVINCIBLE_LOOP_TRIGGER) || (ghostCount<=INVINCIBLE_GHOST_TRIGGER)))
 		#endif
 		{
 			invincibleGhost._status = 1;

@@ -870,7 +870,7 @@ int main(void)
 					{
 						SKIP_MORE_DRAW
 						{				
-							horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/10 + (loop/250);
+							horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/10 + (loop/HORIZONTAL_WALLS_INCREASE_LOOP);
 						
 							DRAW_HORIZONTAL_WALLS(horizontalWallsLength);
 						}

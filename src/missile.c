@@ -70,7 +70,10 @@ void checkMissileVsGhosts(Character * missilePtr)
 	unsigned char i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
 	{
-		checkMissileVsGhost(missilePtr, &ghosts[i]);
+		if(ghosts[i]._status)
+		{
+			checkMissileVsGhost(missilePtr, &ghosts[i]);
+		}
 	};
 }
 	

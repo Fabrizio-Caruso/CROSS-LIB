@@ -26,10 +26,6 @@
 #include "character.h"
 #include "strategy.h"
 
-
-#define X_MOVE 0
-#define Y_MOVE 1
-
 extern unsigned char level;
 extern unsigned char ghostCount;
 extern unsigned short invincibleSlowDown;

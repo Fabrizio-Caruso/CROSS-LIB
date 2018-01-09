@@ -70,6 +70,10 @@ void playerDies(void)
 	sleep(1);	
 }
 
+// void playerKilledBy(Character *enemyPtr)
+// {
+	// return !player_invincibility && areCharctersAtSamePosition(&enemyPtr,&player);
+// }
 
 void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr)
 {

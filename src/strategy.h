@@ -26,6 +26,8 @@
 #define _STRATEGY
 
 
+#define X_MOVE 0
+#define Y_MOVE 1
 
 #if defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <cmoc.h>
@@ -36,6 +38,8 @@
 #endif
 
 #include "character.h"
+
+unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset);
 
 void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
 					

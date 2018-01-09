@@ -621,14 +621,7 @@ void DEBUG_PRINT()
 				ADVANCED_LEFT_MISSILE();
 				if(loop%2 && player._y>=YSize-1-ENEMY_MISSILE_OFFSET-arrowRange && player._x>=leftEnemyMissile._x)
 				{
-					if(player._y>leftEnemyMissile._y)
-					{
-						++leftEnemyMissile._y;
-					}
-					else if(player._y<leftEnemyMissile._y)
-					{
-						--leftEnemyMissile._y;
-					}
+					move(&leftEnemyMissile, &player,Y_MOVE);			
 				}
 			}
 			DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
@@ -661,14 +654,7 @@ void DEBUG_PRINT()
 				ADVANCED_RIGHT_MISSILE();
 				if((loop%2 && (player._x<= rightEnemyMissile._x)) && ((!oneMissileLevel() && player._y<=ENEMY_MISSILE_OFFSET+arrowRange) || (oneMissileLevel() && player._y<=YSize/2+arrowRange && player._y>=YSize/2-arrowRange)))			
 				{
-					if(player._y>rightEnemyMissile._y)
-					{
-						++rightEnemyMissile._y;
-					}
-					else if(player._y<rightEnemyMissile._y)
-					{
-						--rightEnemyMissile._y;
-					}
+					move(&rightEnemyMissile, &player,Y_MOVE);			
 				}
 			}
 			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);				

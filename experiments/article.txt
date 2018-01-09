@@ -1,0 +1,134 @@
+CROSS CHASE
+A massively 8-bit multi-system game
+
+MYSELF
+My name is Fabrizio Caruso, I am a software engineer and a retro-computing enthusiast and collector.
+I have collected about 80 computers from the late '70s, '80s and early '90.
+I am mostly interested in the 8-bit era.
+
+CROSS CHASE is my personal project 
+whose main purpose is to create a simple, yet fun, game
+for literally ALL 8-bit computers (and many 8-bit consoles, computer-console hybrids and hand-helds)
+from the '70s and '80s.
+By ALL I mean any 8-bit computers with enough RAM and for which a capable ANSI C cross compiler exists.
+My project is open source and it can be followed at:
+https://github.com/Fabrizio-Caruso/CROSS-CHASE
+where both the source code and pre-compiled binaries for more than 60 different systems and configurations
+are freely available.
+Please go back often to the GitHub page if you want the latest version because I make frequent updates.
+
+
+HISTORY
+This idea came to me when I found out about the CC65 cross development toolkit for 6502-based systems
+(https://github.com/cc65/cc65).
+I realized that CC65 provided a common language (ANSI C) for all its supported targets 
+and some common APIs for most of its targets.
+I started playing around with it by modifying the "hello world" example, which is provided with it.
+After 1100 Git commits from the "hello world" I have now an arcade-like game that can run on about 60 different
+systems.
+CC65 was clearly not enough and I had to resort to other toolkits such as:
+Z88DK (https://github.com/z88dk/z88dk) which comes with two ANSI C cross compilers (ZSDCC and SCCZ80) for Z80-based systems 
+and WinCMOC and CMOC proper (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html) which are development tools for 6809-based computers.
+I also plan to use GCC for TI for the TMS9000-based Texas Ti-99/4A, which I intend to support even if it is
+a 16 bit system but for the same 8-bit era.
+
+THE GAME
+The idea of the game is original. 
+You are chased by some bad guys. You can kill by luring them into some mines that they do not see.
+I was not inspired by anything but I later found out that similar games exist.
+The closest one may be Robots (https://wiki.gnome.org/Apps/Robots) as included in Gnome. 
+The main difference between my game and Robots is that
+my game is an action game and Robots is turn-based.
+
+With respect to the gameplay the game has three versions in order to fit into as many different memory (and in some cases video) configurations as possible.
+The VERY SAME code (or meta-code) produces all three versions:
+- TINY: just you, the bad guys chasing you and the mines;
+- LIGHT: same as TINY but: 1. there is an enemy (the skull) who does not die on the mines and 2. you can get some power-ups
+including a gun that can kill all including the skull;
+- FULL: as as LIGHT but with different enemy types, more power-ups and multiple levels with different walls and missiles.
+
+THE SUPPORTED SYSTEMS
+The supported systems are in principle ALL 8-bit systems but the game currently only works for just about 70 systems and configurations.
+I am actively adding new systems all the time, so I can only provide the partial list:
+
+Partial list of FULL versions:
+- Luxor ABC80 32k
+- Jupiter Ace 16k 
+- Apple //c
+- Apple ][e
+- Mattel Aquarius 16k
+- Atari 5200 (console)
+- Atari 400/800 (color low resolution)
+- Atari 400/800 (high resolution)
+- Tangerine Atmos and Oric 1 48K
+- Commodore 128 (native 40 column mode)
+- Commodore 128 (native 80 column mode)
+- Commodore 16/116/+4 (32k min)
+- Commodore 64
+- Commodore CBM 510
+- Commodore CBM 610
+- CoCo 1/2/3 and Dragon 32/64 (multiple versions)
+- Amstrad CPC
+- Galaksija 22k
+- Gamate (console)
+- Lambda 8300 16k
+- CCE MC-1000 48k
+- MicroBee
+- MSX 32K (cassette and rom version)
+- MTX
+- Nascom computer series 32k
+- NES (console)
+- Ohio Scientific 1P 32k
+- Philips P2000
+- PC-6001 32K
+- Commodore PET 16k
+- Sam Coupe
+- Sharp MZ series
+- Sinclair Spectrum 48K
+- Spectravideo SVI 328
+- VG-5000 with 16k expansion
+- Vic 20 with 16k expansion
+- VZ 200 family (Vtech Laser 200/310 and VZ 200/300) with 32K
+- Robotron Z 9001 32k
+- Sinclair ZX80 with 16k expansion
+- Sinclair ZX81 with 16k expansion
+
+Partial list of LIGHT versions:
+ 
+- Luxor ABC80 16k
+- Atari 400/800 (high resolution)
+- Commodore 16/116 (unexpanded)
+- CCE MC-1000 16k (unexpanded)
+- MSX 16k
+- Nascom computer series 16k
+- Oric 1 16k (unexpanded)
+- Philips P2000 16k (unexpanded)
+- Spectravideo 318 16k (unexpanded)
+- VG-5000 16k (unexpanded)
+- Vic 20 with 8k expansion
+- VZ 200 family (Vtech Laser 200/310 and VZ 200/300) with 16K
+- Robotron Z 9001 16k
+
+Partial list of TINY versions:
+- Creativision (computer/console hybrid) 8k rom version
+- Ohio Scientific 1P 8k
+- Commodore PET 8k
+- Sinclair Spectrum 16k (unexpanded)
+- Commodore Vic 20 with 3k expansion
+
+SAME CODE FOR 100 SYSTEMS
+I am using the very same code for all systems. 
+This is possible because 
+1. I am using ANSI C, which is a universal language
+2. I have created a sort of universal 8-bit framework for very simple graphics and sounds.
+The framework provides an abstraction layer so that hardware-specific code is used for graphics and sounds.
+
+
+ACKKNOWLEDGEMENTS
+This is a personal project but I have been helped and supported by different people.
+I have got a lot of support and help from Stefano Bodrato from the Z88DK team.
+I have also been supported by some people from the "scene" (Simon Jonassen from the CoCo/Dragon scene) 
+and from some of the authors of the other toolkits 
+(Christian Groessler from the CC65 team and Pierre Sarrazin who is the author of the CMOC).
+
+

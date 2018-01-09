@@ -83,10 +83,6 @@ unsigned char level;
 // 5. invincibleSlowDown (how much the invincible ghost is slowed-down)
 // 6. invincibleLoopTrigger (how long before the invincible ghost appears)
 
-extern Image PLAYER_IMAGE;
-extern Image GHOST_IMAGE;
-extern Image BOMB_IMAGE;
-
 #if !defined(TINY_GAME)
 	extern Image INVINCIBLE_GHOST_IMAGE;
 	extern Image POWERUP_IMAGE;
@@ -129,12 +125,12 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char innerVerticalWallX; 
 	unsigned char innerVerticalWallLength;
 
-	// Item powerUp3;
 	Item freeze;	
 	Item extraLife;
 	Item invincibility;
 	Item super;
 	Item confuse;
+	Item zombie;
 	
 	unsigned short playerInvincibilityCoolDown;	
 
@@ -160,6 +156,10 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char chaseSkull;
 	
 	unsigned short confuseCountDown;
+	
+	unsigned short zombieCountDown;
+	
+	unsigned char rebirth;
 #endif
 
 #if !defined(TINY_GAME)
@@ -291,22 +291,6 @@ void handle_count_down(unsigned char * flagPtr, unsigned short * countDownPtr)
 	}
 }
 
-#define handle_frozen() handle_count_down(&frozen,&frozenCountDown)
-// void handle_frozen(void)
-// {
-	// if(frozen)
-	// {
-		// if(frozenCountDown<=0)		
-		// {
-			// frozen = 0;
-		// }
-		// else
-		// {
-			// --frozenCountDown;
-		// }
-	// }
-// }
-
 void _gunEffect(void)
 {
 	guns = GUNS_NUMBER;
@@ -361,12 +345,6 @@ void handle_item(Item *itemPtr)
 	
 #if defined(FULL_GAME)
 
-	// void powerUp3Effect(void)
-	// {
-		// _commonPowerUpEffect();
-		// powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;	
-	// }	
-
 	void _freezeEffect(void)
 	{
 		unsigned char i;
@@ -412,35 +390,38 @@ void handle_item(Item *itemPtr)
 		super._coolDown = SUPER_COOL_DOWN*10;
 	}
 	
-	// void handle_chase_skull(void)
-	// {
-		// if(chaseSkull)
-		// {
-			// if(confuseCountDown<=0)
-			// {
-				// chaseSkull = 0;
-			// }
-			// else
-			// {
-				// --confuseCountDown;
-			// }	
-		// }		
-	// }
 	#define handle_chase_skull() handle_count_down(&chaseSkull, &confuseCountDown)
+	#define handle_frozen() handle_count_down(&frozen,&frozenCountDown)
+	#define handle_rebirth() handle_count_down(&rebirth,&zombieCountDown)
 	
 	void confuseEffect(void)
 	{
 		chaseSkull = 1;
 		confuse._coolDown = CONFUSE_COOL_DOWN*20;
 		confuseCountDown = CONFUSE_COUNT_DOWN;
-		// invincibleGhostHits+=3;
 	}
 	
-	// #define handle_powerup3_item() handle_item(&powerUp3)
+	void zombieEffect(void)
+	{
+		unsigned char i;
+		
+		rebirth = 1;
+		zombie._coolDown = ZOMBIE_COOL_DOWN;
+		zombieCountDown = ZOMBIE_COUNT_DOWN;
+		for(i=ghostCount;i<GHOSTS_NUMBER;++i)
+		{
+			ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
+			points+=ZOMBIE_BONUS;
+			sleep(1);
+		}
+	}
+	
+	
 	#define handle_extraLife_item() handle_item(&extraLife)
 	#define handle_invincibility_item() handle_item(&invincibility)
 	#define handle_super_item() handle_item(&super)
 	#define handle_confuse() handle_item(&confuse);
+	#define handle_zombie() handle_item(&zombie);
 #endif
 
 	// Constructor for all items
@@ -451,12 +432,12 @@ void handle_item(Item *itemPtr)
 		gun._effect = &gunEffect;
 		extraPoints._effect = &extraPointsEffect;
 		#if defined(FULL_GAME)
-			// powerUp3._effect = &powerUp3Effect;	
 			freeze._effect = &freezeEffect;
 			extraLife._effect = &extraLifeEffect;
 			invincibility._effect = &invincibilityEffect;
 			super._effect = &superEffect;
 			confuse._effect = &confuseEffect;
+			zombie._effect = &zombieEffect;
 		#endif	
 	}
 #endif
@@ -561,18 +542,6 @@ void DEBUG_PRINT()
 
 #if defined(FULL_GAME)
 
-	// void handle_player_invincibility(void)
-	// {
-
-		// if(player_invincibility && playerInvincibilityCoolDown<=0)
-		// {
-			// player_invincibility = 0;
-		// }
-		// else
-		// {
-			// --playerInvincibilityCoolDown;
-		// }
-	// }
 	#define handle_player_invincibility() handle_count_down(&player_invincibility, &playerInvincibilityCoolDown)
 
 	void handle_rockets(void)
@@ -742,17 +711,25 @@ int main(void)
 		do // Level (Re-)Start
 		{ 	
 			#if defined(FULL_GAME)
+				player_invincibility = 0;
+			
 				dead_bubbles = 0;
+				
+				freeze._coolDown = FREEZE_INITIAL_COOLDOWN;				
 				extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
 				invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
-				player_invincibility = 0;
-
-				freeze._coolDown = FREEZE_INITIAL_COOLDOWN;
 				
-				// powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;	
 				super._coolDown = SUPER_COOL_DOWN;
 				confuse._coolDown = CONFUSE_COOL_DOWN;
+				zombie._coolDown = ZOMBIE_COOL_DOWN;
+				
 				chaseSkull = 0;
+				
+				rebirth = 0; 
+				// TODO: REMOVE
+				// rebirth = 1;
+				// zombieCountDown = ZOMBIE_COUNT_DOWN;
+				//
 				
 				if(skullsKilled==1)
 				{
@@ -761,27 +738,24 @@ int main(void)
 				
 				// horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/10 + loop/10;
 			#endif			
-						
-			#if !defined(TINY_GAME)
-				extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;			
-				computeStrategy();
-			#endif
 			
 			loop = 0;
 			ghostLevel = 0;
 
 			#if !defined(TINY_GAME)
 				frozen = 0;
-
 				invincibleGhostAlive = 1;
-				invincibleGhostHits = 0;
-										
+				invincibleGhostHits = 0;						
 				guns = 0;
+				
+				frozenCountDown = 0;				
 							
 				gun._coolDown = GUN_INITIAL_COOLDOWN;
 				powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;
+				extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;	
 				
-				frozenCountDown = 0;
+				computeStrategy();
+
 				computeInvincibleGhostParameters();				
 			#endif
 
@@ -920,30 +894,30 @@ int main(void)
 				#endif
 				
 				#if defined(FULL_GAME)
-					// handle_powerup3_item();	
-					handle_freeze_item();
-				
+					handle_freeze_item();	
 					handle_invincibility_item();
 
 					if(missileBasesDestroyed>=2)
 					{
 						handle_confuse();
-						handle_chase_skull();
+						handle_chase_skull();	
+						if(missileBasesDestroyed>=4)
+						{					
+							handle_zombie();					
+							handle_rebirth();
+						}						
 					}
-					
+										
 					if(skullsKilled>=2)
 					{
 						handle_super_item();
-
-						// handle_confuse();
-
-					}
-					if(skullsKilled>=3 || missileBasesDestroyed>=7)
-					{
-						handle_extraLife_item();
-					}
 						
-					
+						if(skullsKilled>=3)
+						{
+							handle_extraLife_item();
+						}
+					}
+										
 					if(horizontalWallsLevel())
 					{
 						SKIP_MORE_DRAW

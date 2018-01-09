@@ -35,6 +35,8 @@ extern Character ghosts[GHOSTS_NUMBER];
 
 extern unsigned char strategyArray[GHOSTS_NUMBER];
 
+extern unsigned char rebirth;
+
 unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
 {
 	if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)preyPtr+offset))
@@ -156,7 +158,7 @@ void chaseCharacter(Character *preyPtr, unsigned short slowDown)
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		if((ghosts[i]._status) && (rand()>slowDown))
+		if((ghosts[i]._status || rebirth) && (rand()>slowDown))
 		{
 			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
 			moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]);			

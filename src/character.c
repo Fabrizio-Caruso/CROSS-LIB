@@ -46,6 +46,8 @@ extern unsigned short loop;
 
 extern unsigned char horizontalWallsLength;
 
+extern unsigned char rebirth;
+
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
@@ -126,7 +128,18 @@ void checkBombsVsGhost(Character * ghostPtr)
 	if(ghostPtr->_status && playerReachedBombs(ghostPtr))
 	{
 		points+=GHOST_VS_BOMBS_BONUS;	
-		ghostPtr->_imagePtr = (Image *)& BOMB_IMAGE;
+		#if defined(FULL_GAME)
+		if(rebirth)
+		{
+			ghostPtr->_imagePtr = (Image *)& DEAD_GHOST_IMAGE;	
+		}
+		else
+		{
+			ghostPtr->_imagePtr = (Image *)& BOMB_IMAGE;
+		}			
+		#else
+			ghostPtr->_imagePtr = (Image *)& BOMB_IMAGE;
+		#endif
 		ghostDies(ghostPtr);
 	}
 	

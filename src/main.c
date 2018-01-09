@@ -159,7 +159,7 @@ Character bombs[BOMBS_NUMBER];
 	
 	unsigned char chaseSkull;
 	
-	unsigned char confuseCountDown;
+	unsigned short confuseCountDown;
 #endif
 
 #if !defined(TINY_GAME)
@@ -290,20 +290,36 @@ void freezeEffect(void)
 	freeze._coolDown = FREEZE_INITIAL_COOLDOWN*2;	
 }
 
-void handle_frozen(void)
+void handle_count_down(unsigned char * flagPtr, unsigned short * countDownPtr)
 {
-	if(frozen)
+	if(*flagPtr)
 	{
-		if(frozenCountDown<=0)		
+		if(*countDownPtr<=0)
 		{
-			frozen = 0;
+			*flagPtr=0;
 		}
 		else
 		{
-			--frozenCountDown;
+			--(*countDownPtr);
 		}
 	}
 }
+
+#define handle_frozen() handle_count_down(&frozen,&frozenCountDown)
+// void handle_frozen(void)
+// {
+	// if(frozen)
+	// {
+		// if(frozenCountDown<=0)		
+		// {
+			// frozen = 0;
+		// }
+		// else
+		// {
+			// --frozenCountDown;
+		// }
+	// }
+// }
 
 void _gunEffect(void)
 {
@@ -394,20 +410,21 @@ void handle_item(Item *itemPtr)
 		super._coolDown = SUPER_COOL_DOWN*10;
 	}
 	
-	void handle_chase_skull(void)
-	{
-		if(chaseSkull)
-		{
-			if(confuseCountDown<=0)
-			{
-				chaseSkull = 0;
-			}
-			else
-			{
-				--confuseCountDown;
-			}	
-		}		
-	}
+	// void handle_chase_skull(void)
+	// {
+		// if(chaseSkull)
+		// {
+			// if(confuseCountDown<=0)
+			// {
+				// chaseSkull = 0;
+			// }
+			// else
+			// {
+				// --confuseCountDown;
+			// }	
+		// }		
+	// }
+	#define handle_chase_skull() handle_count_down(&chaseSkull, &confuseCountDown)
 	
 	void confuseEffect(void)
 	{
@@ -537,18 +554,19 @@ void DEBUG_PRINT()
 
 #if defined(FULL_GAME)
 
-	void handle_player_invincibility(void)
-	{
+	// void handle_player_invincibility(void)
+	// {
 
-		if(player_invincibility && playerInvincibilityCoolDown<=0)
-		{
-			player_invincibility = 0;
-		}
-		else
-		{
-			--playerInvincibilityCoolDown;
-		}
-	}
+		// if(player_invincibility && playerInvincibilityCoolDown<=0)
+		// {
+			// player_invincibility = 0;
+		// }
+		// else
+		// {
+			// --playerInvincibilityCoolDown;
+		// }
+	// }
+	#define handle_player_invincibility() handle_count_down(&player_invincibility, &playerInvincibilityCoolDown)
 
 	void handle_rockets(void)
 	{	

@@ -72,6 +72,7 @@ extern unsigned char YSize;
 
 extern unsigned char ghostCount;
 
+unsigned char playerKilledBy(Character *enemyPtr);
 
 void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr);
 

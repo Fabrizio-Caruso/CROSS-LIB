@@ -514,7 +514,8 @@ void handle_invincible_ghost(void)
 		}
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		#if defined(FULL_GAME)
-		if(!player_invincibility && areCharctersAtSamePosition(&invincibleGhost, &player))
+		// if(!player_invincibility && areCharctersAtSamePosition(&invincibleGhost, &player))
+		if (playerKilledBy(&invincibleGhost))
 		#else
 		if(areCharctersAtSamePosition(&invincibleGhost, &player))
 		#endif
@@ -582,7 +583,8 @@ void DEBUG_PRINT()
 			{
 				if(bubbles[i]._status)
 				{
-					if(!player_invincibility && areCharctersAtSamePosition(&player,&bubbles[i]))
+					// if(!player_invincibility && areCharctersAtSamePosition(&player,&bubbles[i]))
+					if(playerKilledBy(&bubbles[i]))
 					{
 						playerDies();
 					}
@@ -625,7 +627,9 @@ void DEBUG_PRINT()
 				}
 			}
 			DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
-			if(!player_invincibility && areCharctersAtSamePosition(&leftEnemyMissile,&player))
+			
+			//if(!player_invincibility && areCharctersAtSamePosition(&leftEnemyMissile,&player))
+			if(playerKilledBy(&leftEnemyMissile))
 			{
 				playerDies();
 			}
@@ -657,8 +661,10 @@ void DEBUG_PRINT()
 					move(&rightEnemyMissile, &player,Y_MOVE);			
 				}
 			}
-			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);				
-			if(!player_invincibility && areCharctersAtSamePosition(&rightEnemyMissile,&player))
+			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);	
+			
+			// if(!player_invincibility && areCharctersAtSamePosition(&rightEnemyMissile,&player))
+			if(playerKilledBy(&rightEnemyMissile))
 			{
 				playerDies();
 			}

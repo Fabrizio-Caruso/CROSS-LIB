@@ -63,7 +63,6 @@ extern Item powerUp;
 extern Item powerUp2;
 extern Item gun;
 extern Item extraPoints;
-extern Item freeze;
 
 extern Character missile;
 
@@ -88,7 +87,8 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Character leftEnemyMissile;
 	extern Character rightEnemyMissile;
 
-	extern Item powerUp3;
+	extern Item freeze;
+	// extern Item powerUp3;
 	extern Item extraLife;
 	extern Item invincibility;
 	extern Item super;
@@ -334,7 +334,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#if defined(FULL_GAME)
 		initializeAwayFromWall(&(powerUp._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
 		initializeAwayFromWall(&(powerUp2._character),XSize/2,YSize/2,0,&POWERUP_IMAGE);
-		initializeAwayFromWall(&(powerUp3._character),XSize/2,YSize/2,0,&POWERUP_IMAGE);				
+		// initializeAwayFromWall(&(powerUp3._character),XSize/2,YSize/2,0,&POWERUP_IMAGE);				
 		initializeAwayFromWall(&(freeze._character),XSize/2,YSize/2,0,&FREEZE_IMAGE);
 		initializeAwayFromWall(&(extraPoints._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
 		initializeAwayFromWall(&(super._character), XSize/2, YSize/2, 0, &SUPER_IMAGE);
@@ -368,7 +368,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		#if !defined(TINY_GAME)
 			initializeCharacter(&(powerUp._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
 			initializeCharacter(&(powerUp2._character),XSize/2,YSize/2,0,&POWERUP_IMAGE);
-			initializeCharacter(&(freeze._character),XSize/2,YSize/2,0,&FREEZE_IMAGE);
+			// initializeCharacter(&(freeze._character),XSize/2,YSize/2,0,&FREEZE_IMAGE);
 			initializeCharacter(&(gun._character),XSize/2, YSize/2, 0, &GUN_IMAGE);	
 			initializeCharacter(&(extraPoints._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);	
 		#endif

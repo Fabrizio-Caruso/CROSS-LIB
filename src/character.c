@@ -54,9 +54,9 @@ extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 extern Character player;
 
-extern unsigned char player_invincibility;
 
 #if defined(FULL_GAME)
+	extern unsigned char player_invincibility;
 	extern unsigned char innerVerticalWallX;
 	extern unsigned char innerVerticalWallY;
 	extern unsigned char innerVerticalWallLength;
@@ -72,10 +72,12 @@ void playerDies(void)
 	sleep(1);	
 }
 
-unsigned char playerKilledBy(Character *enemyPtr)
-{
-	return !player_invincibility && areCharctersAtSamePosition(enemyPtr,&player);
-}
+#if defined(FULL_GAME)
+	unsigned char playerKilledBy(Character *enemyPtr)
+	{
+		return !player_invincibility && areCharctersAtSamePosition(enemyPtr,&player);
+	}
+#endif
 
 void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr)
 {

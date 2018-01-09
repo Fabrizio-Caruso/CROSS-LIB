@@ -83,6 +83,7 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;
 	extern Image SUPER_IMAGE;
+	extern Image CONFUSE_IMAGE;
 
 	extern Character leftEnemyMissile;
 	extern Character rightEnemyMissile;
@@ -91,6 +92,7 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Item extraLife;
 	extern Item invincibility;
 	extern Item super;
+	extern Item confuse;
 	
 	extern Character bubbles[BUBBLES_NUMBER];
 
@@ -336,6 +338,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		initializeAwayFromWall(&(freeze._character),XSize/2,YSize/2,0,&FREEZE_IMAGE);
 		initializeAwayFromWall(&(extraPoints._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
 		initializeAwayFromWall(&(super._character), XSize/2, YSize/2, 0, &SUPER_IMAGE);
+		initializeAwayFromWall(&(confuse._character), XSize/2, YSize/2, 0, &CONFUSE_IMAGE);		
 		
 		if(bossLevel())
 		{
@@ -346,7 +349,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			initializeAwayFromWall(&(gun._character),XSize/2, YSize/2, 0, &GUN_IMAGE);
 		}
 		
-		initializeAwayFromWall(&player,(unsigned char) (XSize/2+rand()%4-2),(unsigned char) (YSize/2+rand()%4-2),1,&PLAYER_IMAGE);
+		initializeAwayFromWall(&player,(unsigned char) (XSize/2+rand()%3-1),(unsigned char) (YSize/2+rand()%3-1),1,&PLAYER_IMAGE);
 		
 		initializeAwayFromWall(&(extraLife._character), XSize/2, YSize/2, 0, &EXTRA_LIFE_IMAGE);
 

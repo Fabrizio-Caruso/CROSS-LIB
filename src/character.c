@@ -167,20 +167,28 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 		x_offset = (unsigned char)(rand() % RELOCATE_RANGE);
 		y_offset = (unsigned char)(rand() % RELOCATE_RANGE);
 
-		#if defined(NARROW)
-			if((x_offset==0) && (y_offset==0))
-				continue;
-		#endif
-		
-		x = characterPtr->_x -(RELOCATE_RANGE/2) + x_offset; 
-		y = characterPtr->_y -(RELOCATE_RANGE/2) + y_offset;
 
-		// TODO: This check should be separated and moved into display_macros
-		if((x<2) || (x>XSize-2) || (y<=2) || (y>YSize-2))
-			continue;
 		
+		
+		x = characterPtr->_x - (unsigned char)(RELOCATE_RANGE/2) + x_offset; 
+		y = characterPtr->_y - (unsigned char)(RELOCATE_RANGE/2) + y_offset;
+
+		if((x<3) || (x>XSize-3) || (y<=4) || (y>YSize-3) || (x_offset==0) && (y_offset==0) )
+			continue; // TODO: Optimize it!
+
 		safe = safeLocation(x,y,dangerPtr, dangerSize);
+
+		// if((x_offset==0) && (y_offset==0))
+			// continue		
 	} while(!safe);
+	// if(1) //characterPtr== &player)
+	// {
+		// gotoxy(2,3); cprintf("x_offset: %u\n", x_offset);
+		// gotoxy(2,6); cprintf("y_offset: %u\n", y_offset);		
+		// gotoxy(2,9 );cprintf("x: %u\n", x );
+		// gotoxy(2,12);cprintf("y: %u\n", y);
+		// sleep(1);
+	// }
 	characterPtr->_x = x;
 	characterPtr->_y = y;
 }

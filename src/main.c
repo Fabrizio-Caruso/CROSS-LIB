@@ -88,7 +88,6 @@ extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
-	// unsigned short invincibleLoopTrigger;
 	extern Image INVINCIBLE_GHOST_IMAGE;
 	extern Image POWERUP_IMAGE;
 	extern Image MISSILE_IMAGE;
@@ -118,7 +117,6 @@ Character player;
 	Item freeze;
 	Item gun;
 	Item extraPoints;	
-	Item super;
 	Character missile;
 #endif
 
@@ -135,6 +133,8 @@ Character bombs[BOMBS_NUMBER];
 	Item powerUp3;
 	Item extraLife;
 	Item invincibility;
+	Item super;
+	Item confuse;
 	
 	unsigned short playerInvincibilityCoolDown;	
 
@@ -153,7 +153,13 @@ Character bombs[BOMBS_NUMBER];
 	
 	unsigned char skullsKilled;
 	
+	unsigned char missileBasesDestroyed;
+	
 	unsigned char horizontalWallsLength;
+	
+	unsigned char chaseSkull;
+	
+	unsigned char confuseCountDown;
 #endif
 
 #if !defined(TINY_GAME)
@@ -207,7 +213,6 @@ void handle_missile()
 			decreaseGhostLevel();
 			reducePowerUpsCoolDowns();
 			
-			// TODO: to TEST
 			if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
 			{
 				invincibleGhost._status = 0;
@@ -287,13 +292,16 @@ void freezeEffect(void)
 
 void handle_frozen(void)
 {
-	if(frozen && (frozenCountDown<=0))
+	if(frozen)
 	{
-		frozen = 0;
-	}
-	else if(frozenCountDown>0)
-	{
-		--frozenCountDown;
+		if(frozenCountDown<=0)		
+		{
+			frozen = 0;
+		}
+		else
+		{
+			--frozenCountDown;
+		}
 	}
 }
 
@@ -361,6 +369,7 @@ void handle_item(Item *itemPtr)
 	{
 		++lives;
 		skullsKilled=1;
+		missileBasesDestroyed = 0;
 		// extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*10; // second time is harder
 		printLivesStats();		
 	}
@@ -385,13 +394,36 @@ void handle_item(Item *itemPtr)
 		super._coolDown = SUPER_COOL_DOWN*10;
 	}
 	
+	void handle_chase_skull(void)
+	{
+		if(chaseSkull)
+		{
+			if(confuseCountDown<=0)
+			{
+				chaseSkull = 0;
+			}
+			else
+			{
+				--confuseCountDown;
+			}	
+		}		
+	}
+	
+	void confuseEffect(void)
+	{
+		chaseSkull = 1;
+		confuse._coolDown = CONFUSE_COOL_DOWN*20;
+		confuseCountDown = CONFUSE_COUNT_DOWN;
+	}
+	
 	#define handle_powerup3_item() handle_item(&powerUp3)
 	#define handle_extraLife_item() handle_item(&extraLife)
 	#define handle_invincibility_item() handle_item(&invincibility)
 	#define handle_super_item() handle_item(&super)
+	#define handle_confuse() handle_item(&confuse);
 #endif
 
-	// TODO: This has to be moved into level.c
+	// Constructor for all items
 	void initItems()
 	{
 		powerUp._effect = &powerUpEffect;
@@ -404,6 +436,7 @@ void handle_item(Item *itemPtr)
 			extraLife._effect = &extraLifeEffect;
 			invincibility._effect = &invincibilityEffect;
 			super._effect = &superEffect;
+			confuse._effect = &confuseEffect;
 		#endif	
 	}
 #endif
@@ -452,7 +485,11 @@ void handle_invincible_ghost(void)
 		{
 			TOCK_SOUND();
 			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
+			#if defined(FULL_GAME)
+			moveTowardCharacter(&player, &invincibleGhost, 4);
+			#else
 			moveTowardCharacter(&invincibleGhost, 4);
+			#endif
 		}
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		#if defined(FULL_GAME)
@@ -499,6 +536,7 @@ void DEBUG_PRINT()
 #endif
 
 #if defined(FULL_GAME)
+
 	void handle_player_invincibility(void)
 	{
 
@@ -683,6 +721,7 @@ int main(void)
 		ghostCount = GHOSTS_NUMBER;
 		#if defined(FULL_GAME)
 			skullsKilled = 0;
+			missileBasesDestroyed = 0;
 		#endif
 		do // Level (Re-)Start
 		{ 	
@@ -694,6 +733,9 @@ int main(void)
 				
 				powerUp3._coolDown = POWER_UP3_INITIAL_COOLDOWN;	
 				super._coolDown = SUPER_COOL_DOWN;
+				confuse._coolDown = CONFUSE_COOL_DOWN;
+				chaseSkull = 0;
+				
 				if(skullsKilled==1)
 				{
 					invincibility._coolDown/=8;
@@ -723,7 +765,7 @@ int main(void)
 				freeze._coolDown = FREEZE_INITIAL_COOLDOWN;
 				
 				frozenCountDown = 0;
-				computeInvincibleGhostParameters();
+				computeInvincibleGhostParameters();				
 			#endif
 
 			ghostSlowDown = computeGhostSlowDown();
@@ -821,7 +863,18 @@ int main(void)
 				#if !defined(TINY_GAME)				
 					if(!frozen)
 					{
-						chasePlayer(ghostSlowDown);
+						#if defined(FULL_GAME)
+						if(chaseSkull && invincibleGhostAlive && invincibleGhost._status)
+						{
+							chaseCharacter(&invincibleGhost, ghostSlowDown);
+						}
+						else
+						{
+							chaseCharacter(&player, ghostSlowDown);
+						}
+						#else
+							chaseCharacter(ghostSlowDown);
+						#endif
 						++ghostLevel;				
 					}
 				
@@ -835,7 +888,7 @@ int main(void)
 						checkMissileVsGhosts(&missile);
 					}
 				#else
-					chasePlayer(ghostSlowDown);
+					chaseCharacter(ghostSlowDown);
 					++ghostLevel;						
 				#endif
 				
@@ -855,11 +908,20 @@ int main(void)
 				
 					handle_invincibility_item();
 
+					if(missileBasesDestroyed>=2)
+					{
+						handle_confuse();
+						handle_chase_skull();
+					}
+					
 					if(skullsKilled>=2)
 					{
 						handle_super_item();
+
+						// handle_confuse();
+
 					}
-					if(skullsKilled>=3)
+					if(skullsKilled>=3 || missileBasesDestroyed>=7)
 					{
 						handle_extraLife_item();
 					}
@@ -953,6 +1015,7 @@ int main(void)
 						sleep(2);
 						++lives;
 						skullsKilled = 1;
+						missileBasesDestroyed = 0;
 					}
 					else
 					{
@@ -960,6 +1023,7 @@ int main(void)
 						{
 							++skullsKilled;
 						}
+						missileBasesDestroyed+=dead_bubbles;
 					}
 				#endif
 				++level;

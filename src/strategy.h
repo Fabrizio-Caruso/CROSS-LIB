@@ -41,16 +41,22 @@ void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
 					
 void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
 
-#if !defined(TINY_GAME)
-void moveTowardCharacter(Character *hunterPtr, unsigned char strategy);
-#else
-void moveTowardCharacter(Character *hunterPtr);
-
+#if defined(FULL_GAME)
+	void moveTowardCharacter(Character *preyPtr, Character *hunterPtr, unsigned char strategy);
+#elif !defined(TINY_GAME)
+	void moveTowardCharacter(Character *hunterPtr, unsigned char strategy);
+#else	
+	void moveTowardCharacter(Character *hunterPtr);
 #endif
+
 
 void computeStrategy(void);
 
-void chasePlayer(unsigned short slowDown);
-
+#if !defined(FULL_GAME)
+	void chaseCharacter(unsigned short slowDown);
+#else
+	void chaseCharacter(Character *preyPtr, unsigned short slowDown);	
+#endif
+	
 #endif // _STRATEGY
 

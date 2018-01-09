@@ -88,7 +88,19 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 // 4 means do no prefer horizontal to vertical movement
 // 0 means always horizontal
 // 9 means always vertical
-#if !defined(TINY_GAME)
+#if defined(FULL_GAME)
+	void moveTowardCharacter(Character* preyPtr, Character *hunterPtr, unsigned char strategy)
+	{
+		if(rand()%10 > strategy) // Select blind chase strategy
+			{ // 0 - 4
+				blindChaseCharacterXStrategy(hunterPtr, preyPtr);	
+			}
+			else
+			{ // 5 - 9
+				blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+			}
+	}
+#elif !defined(TINY_GAME)
 	void moveTowardCharacter(Character *hunterPtr, unsigned char strategy)
 	{
 		if(rand()%10 > strategy) // Select blind chase strategy
@@ -139,8 +151,10 @@ void computeStrategy(void)
 }
 #endif
 
+
+#if defined(FULL_GAME)
 // Ghosts move to new positions if they get their chanche
-void chasePlayer(unsigned short slowDown)
+void chaseCharacter(Character *preyPtr, unsigned short slowDown)
 {
 	unsigned char i;
 	
@@ -149,12 +163,37 @@ void chasePlayer(unsigned short slowDown)
 		if((ghosts[i]._status) && (rand()>slowDown))
 		{
 			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
-			#if defined(TINY_GAME)
-				moveTowardCharacter(&ghosts[i]);
-			#else
-				moveTowardCharacter(&ghosts[i], strategyArray[i]);
-			#endif
+			moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]);			
 		}
 	}
 }
+#elif !defined(TINY_GAME)
+void chaseCharacter(unsigned short slowDown)
+{
+	unsigned char i;
+	
+	for(i=0;i<GHOSTS_NUMBER;++i)
+	{
+		if((ghosts[i]._status) && (rand()>slowDown))
+		{
+			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
+			moveTowardCharacter(&ghosts[i], strategyArray[i]);			
+		}
+	}
+}
+#else
+void chaseCharacter(unsigned short slowDown)
+{
+	unsigned char i;
+	
+	for(i=0;i<GHOSTS_NUMBER;++i)
+	{
+		if((ghosts[i]._status) && (rand()>slowDown))
+		{
+			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
+			moveTowardCharacter(&ghosts[i]);			
+		}
+	}
+}	
+#endif
 

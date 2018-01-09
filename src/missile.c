@@ -50,6 +50,7 @@ extern Item freeze;
 	extern unsigned char bubbles_x[BUBBLES_NUMBER];
 	extern Character bubbles[BUBBLES_NUMBER];
 	extern unsigned char dead_bubbles;
+	extern unsigned char missileBasesDestroyed;
 #endif
 
 void checkMissileVsGhost(Character * missilePtr,
@@ -138,6 +139,7 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 		DELETE_MISSILE(enemyMissilePtr->_x,enemyMissilePtr->_y,enemyMissilePtr->_imagePtr);
 		points+=HORIZONTAL_MISSILE_BONUS;
 		displayStats();				
+		++missileBasesDestroyed;
 		reducePowerUpsCoolDowns();		
 	}
 #endif

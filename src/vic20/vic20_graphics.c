@@ -95,6 +95,7 @@ extern Image FREEZE_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;
 	extern Image SUPER_IMAGE;	
+	extern Image CONFUSE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -157,6 +158,7 @@ void INIT_IMAGES(void)
 			
 			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
 			SUPER_IMAGE._color = COLOR_RED;
+			CONFUSE_IMAGE._color = COLOR_RED;
 			
 		#endif	
 	#endif
@@ -192,7 +194,7 @@ void INIT_IMAGES(void)
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
 		SUPER_IMAGE._imageData = _POWERUP;
-			
+		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
 	#endif
 }
 

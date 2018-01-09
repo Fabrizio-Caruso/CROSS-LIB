@@ -431,6 +431,7 @@ void handle_item(Item *itemPtr)
 		chaseSkull = 1;
 		confuse._coolDown = CONFUSE_COOL_DOWN*20;
 		confuseCountDown = CONFUSE_COUNT_DOWN;
+		// invincibleGhostHits+=3;
 	}
 	
 	#define handle_powerup3_item() handle_item(&powerUp3)
@@ -503,7 +504,10 @@ void handle_invincible_ghost(void)
 			TOCK_SOUND();
 			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
 			#if defined(FULL_GAME)
-			moveTowardCharacter(&player, &invincibleGhost, 4);
+				if(!chaseSkull || loop%2)
+				{
+					moveTowardCharacter(&player, &invincibleGhost, 4);
+				}
 			#else
 			moveTowardCharacter(&invincibleGhost, 4);
 			#endif

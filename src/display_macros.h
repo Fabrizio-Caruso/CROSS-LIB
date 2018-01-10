@@ -183,8 +183,8 @@ void _draw(unsigned char x,unsigned char y,Image * image);
 #define DRAW_MISSILE(x,y,image) _draw(x,y,image)
 
 #if defined(FULL_GAME)
-	#define _DRAW_PLAYER \
-		if(player_invincibility) \
+	#define _DRAW_PLAYER() \
+		if(invincibilityActive) \
 		{ \
 			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
 		} \
@@ -193,7 +193,7 @@ void _draw(unsigned char x,unsigned char y,Image * image);
 			DRAW_PLAYER(player._x, player._y, player._imagePtr); \
 		}
 #else
-	#define _DRAW_PLAYER \
+	#define _DRAW_PLAYER() \
 		DRAW_PLAYER(player._x, player._y, player._imagePtr); 
 #endif
 		

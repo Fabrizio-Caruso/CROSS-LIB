@@ -46,7 +46,7 @@ extern unsigned short loop;
 
 extern unsigned char horizontalWallsLength;
 
-extern unsigned char rebirth;
+extern unsigned char zombieActive;
 
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
@@ -58,7 +58,7 @@ extern Character player;
 
 
 #if defined(FULL_GAME)
-	extern unsigned char player_invincibility;
+	extern unsigned char invincibilityActive;
 	extern unsigned char innerVerticalWallX;
 	extern unsigned char innerVerticalWallY;
 	extern unsigned char innerVerticalWallLength;
@@ -77,7 +77,7 @@ void playerDies(void)
 #if defined(FULL_GAME)
 	unsigned char playerKilledBy(Character *enemyPtr)
 	{
-		return !player_invincibility && areCharctersAtSamePosition(enemyPtr,&player);
+		return !invincibilityActive && areCharctersAtSamePosition(enemyPtr,&player);
 	}
 #endif
 
@@ -129,7 +129,7 @@ void checkBombsVsGhost(Character * ghostPtr)
 	{
 		points+=GHOST_VS_BOMBS_BONUS;	
 		#if defined(FULL_GAME)
-		if(rebirth)
+		if(zombieActive)
 		{
 			ghostPtr->_imagePtr = (Image *)& DEAD_GHOST_IMAGE;	
 		}

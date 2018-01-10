@@ -66,8 +66,6 @@ unsigned char level;
 
 
 #if !defined(TINY_GAME)
-	unsigned char frozen;
-	unsigned short frozenCountDown;
 	unsigned short invincibleSlowDown;
 	unsigned char invincibleXCountDown;
 	unsigned char invincibleYCountDown;
@@ -132,8 +130,6 @@ Character bombs[BOMBS_NUMBER];
 	Item confuse;
 	Item zombie;
 	
-	unsigned short playerInvincibilityCoolDown;	
-
 	Character leftEnemyMissile;
 	Character rightEnemyMissile;
 
@@ -141,8 +137,6 @@ Character bombs[BOMBS_NUMBER];
 
 	unsigned char bubbles_x[BUBBLES_NUMBER];
 	
-	unsigned char player_invincibility;
-
 	unsigned char dead_bubbles;
 	
 	unsigned char arrowRange;
@@ -153,19 +147,29 @@ Character bombs[BOMBS_NUMBER];
 	
 	unsigned char horizontalWallsLength;
 	
-	unsigned char chaseSkull;
+	unsigned char invincibilityActive;
 	
-	unsigned short confuseCountDown;
+	unsigned char confuseActive; 
 	
-	unsigned short zombieCountDown;
+	unsigned char zombieActive; 
 	
-	unsigned char rebirth;
+	unsigned short invincibility_count_down;	
+	
+	unsigned short confuse_count_down;
+	
+	unsigned short zombie_count_down;
+	
 #endif
 
 #if !defined(TINY_GAME)
 	unsigned char strategyArray[GHOSTS_NUMBER];
 
 	unsigned char playerDirection; // 0: right, 1: down, 2: left, 3: up
+	
+	unsigned char freezeActive; // freezeActive	
+
+	unsigned short freeze_count_down;
+		
 #endif
 
 unsigned int extraLifeThroughPointsCounter;
@@ -179,6 +183,7 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 	unsigned char invincibleGhostHits;
 	unsigned char invincibleGhostAlive;
 #endif
+
 
 #if !defined(TINY_GAME)
 void handle_missile()
@@ -259,8 +264,8 @@ void _commonPowerUpEffect(void)
 {
 	points+=POWER_UP_BONUS;
 	decreaseGhostLevel();
-	frozen = 1;	
-	frozenCountDown += FROZEN_COUNT_DOWN;	
+	freezeActive = 1;	
+	freeze_count_down += FROZEN_COUNT_DOWN;	
 }
 
 void powerUpEffect(void)
@@ -343,6 +348,8 @@ void handle_item(Item *itemPtr)
 #define handle_freeze_item() handle_item(&freeze);
 #define handle_extraPoints_item() handle_item(&extraPoints);
 	
+#define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
+	
 #if defined(FULL_GAME)
 
 	void _freezeEffect(void)
@@ -372,8 +379,8 @@ void handle_item(Item *itemPtr)
 
 	void _invincibilityEffect(void)
 	{
-		player_invincibility = 1;
-		playerInvincibilityCoolDown = PLAYER_INVINCIBILITY_COOL_DOWN;			
+		invincibilityActive = 1;
+		invincibility_count_down = INVINCIBILITY_COUNT_DOWN;			
 	}
 	
 	void invincibilityEffect(void)
@@ -390,24 +397,23 @@ void handle_item(Item *itemPtr)
 		super._coolDown = SUPER_COOL_DOWN*10;
 	}
 	
-	#define handle_chase_skull() handle_count_down(&chaseSkull, &confuseCountDown)
-	#define handle_frozen() handle_count_down(&frozen,&frozenCountDown)
-	#define handle_rebirth() handle_count_down(&rebirth,&zombieCountDown)
+	#define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
+	#define handle_zombie_count_down() handle_count_down(&zombieActive,&zombie_count_down)
 	
 	void confuseEffect(void)
 	{
-		chaseSkull = 1;
+		confuseActive = 1;
 		confuse._coolDown = CONFUSE_COOL_DOWN*20;
-		confuseCountDown = CONFUSE_COUNT_DOWN;
+		confuse_count_down = CONFUSE_COUNT_DOWN;
 	}
 	
 	void zombieEffect(void)
 	{
 		unsigned char i;
 		
-		rebirth = 1;
+		zombieActive = 1;
 		zombie._coolDown = ZOMBIE_COOL_DOWN;
-		zombieCountDown = ZOMBIE_COUNT_DOWN;
+		zombie_count_down = ZOMBIE_COUNT_DOWN;
 		for(i=ghostCount;i<GHOSTS_NUMBER;++i)
 		{
 			ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
@@ -420,8 +426,8 @@ void handle_item(Item *itemPtr)
 	#define handle_extraLife_item() handle_item(&extraLife)
 	#define handle_invincibility_item() handle_item(&invincibility)
 	#define handle_super_item() handle_item(&super)
-	#define handle_confuse() handle_item(&confuse);
-	#define handle_zombie() handle_item(&zombie);
+	#define handle_confuse_item() handle_item(&confuse);
+	#define handle_zombie_item() handle_item(&zombie);
 #endif
 
 	// Constructor for all items
@@ -487,7 +493,7 @@ void handle_invincible_ghost(void)
 			TOCK_SOUND();
 			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
 			#if defined(FULL_GAME)
-				if(!chaseSkull || loop%2)
+				if(!confuseActive || loop%2)
 				{
 					moveTowardCharacter(&player, &invincibleGhost, 4);
 				}
@@ -497,7 +503,7 @@ void handle_invincible_ghost(void)
 		}
 		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
 		#if defined(FULL_GAME)
-		// if(!player_invincibility && areCharctersAtSamePosition(&invincibleGhost, &player))
+		// if(!invincibilityActive && areCharctersAtSamePosition(&invincibleGhost, &player))
 		if (playerKilledBy(&invincibleGhost))
 		#else
 		if(areCharctersAtSamePosition(&invincibleGhost, &player))
@@ -542,7 +548,7 @@ void DEBUG_PRINT()
 
 #if defined(FULL_GAME)
 
-	#define handle_player_invincibility() handle_count_down(&player_invincibility, &playerInvincibilityCoolDown)
+	#define handle_invincibilityActive() handle_count_down(&invincibilityActive, &invincibility_count_down)
 
 	void handle_rockets(void)
 	{	
@@ -554,7 +560,7 @@ void DEBUG_PRINT()
 			{
 				if(bubbles[i]._status)
 				{
-					// if(!player_invincibility && areCharctersAtSamePosition(&player,&bubbles[i]))
+					// if(!invincibilityActive && areCharctersAtSamePosition(&player,&bubbles[i]))
 					if(playerKilledBy(&bubbles[i]))
 					{
 						playerDies();
@@ -599,7 +605,7 @@ void DEBUG_PRINT()
 			}
 			DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 			
-			//if(!player_invincibility && areCharctersAtSamePosition(&leftEnemyMissile,&player))
+			//if(!invincibilityActive && areCharctersAtSamePosition(&leftEnemyMissile,&player))
 			if(playerKilledBy(&leftEnemyMissile))
 			{
 				playerDies();
@@ -634,7 +640,7 @@ void DEBUG_PRINT()
 			}
 			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);	
 			
-			// if(!player_invincibility && areCharctersAtSamePosition(&rightEnemyMissile,&player))
+			// if(!invincibilityActive && areCharctersAtSamePosition(&rightEnemyMissile,&player))
 			if(playerKilledBy(&rightEnemyMissile))
 			{
 				playerDies();
@@ -711,7 +717,7 @@ int main(void)
 		do // Level (Re-)Start
 		{ 	
 			#if defined(FULL_GAME)
-				player_invincibility = 0;
+				invincibilityActive = 0;
 			
 				dead_bubbles = 0;
 				
@@ -723,14 +729,9 @@ int main(void)
 				confuse._coolDown = CONFUSE_COOL_DOWN;
 				zombie._coolDown = ZOMBIE_COOL_DOWN;
 				
-				chaseSkull = 0;
-				
-				rebirth = 0; 
-				// TODO: REMOVE
-				// rebirth = 1;
-				// zombieCountDown = ZOMBIE_COUNT_DOWN;
-				//
-				
+				confuseActive = 0;
+				zombieActive = 0; 
+
 				if(skullsKilled==1)
 				{
 					invincibility._coolDown/=8;
@@ -743,12 +744,12 @@ int main(void)
 			ghostLevel = 0;
 
 			#if !defined(TINY_GAME)
-				frozen = 0;
+				freezeActive = 0;
 				invincibleGhostAlive = 1;
 				invincibleGhostHits = 0;						
 				guns = 0;
 				
-				frozenCountDown = 0;				
+				freeze_count_down = 0;				
 							
 				gun._coolDown = GUN_INITIAL_COOLDOWN;
 				powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;
@@ -826,7 +827,7 @@ int main(void)
 				#endif
 							
 				#if defined(FULL_GAME)
-					handle_player_invincibility();
+					handle_invincibilityActive();
 					handle_rockets();
 					handle_enemy_missiles();
 				#endif
@@ -845,17 +846,17 @@ int main(void)
 
 				MOVE_PLAYER();
 				
-				_DRAW_PLAYER	
+				_DRAW_PLAYER();	
 	
 				#if !defined(TINY_GAME)
 					handle_missile();
 				#endif
 				
 				#if !defined(TINY_GAME)				
-					if(!frozen)
+					if(!freezeActive)
 					{
 						#if defined(FULL_GAME)
-						if(chaseSkull && invincibleGhostAlive && invincibleGhost._status)
+						if(confuseActive && invincibleGhostAlive && invincibleGhost._status)
 						{
 							chaseCharacter(&invincibleGhost, ghostSlowDown);
 						}
@@ -871,7 +872,7 @@ int main(void)
 				
 					handle_invincible_ghost();
 				
-					handle_frozen();
+					handle_freeze_count_down();
 
 					// This detects collisions of ghosts that have just moved
 					if(missile._status)
@@ -899,12 +900,12 @@ int main(void)
 
 					if(missileBasesDestroyed>=2)
 					{
-						handle_confuse();
-						handle_chase_skull();	
+						handle_confuse_item();
+						handle_confuse_count_down();	
 						if(missileBasesDestroyed>=4)
 						{					
-							handle_zombie();					
-							handle_rebirth();
+							handle_zombie_item();					
+							handle_zombie_count_down();
 						}						
 					}
 										
@@ -927,7 +928,7 @@ int main(void)
 							DRAW_HORIZONTAL_WALLS(horizontalWallsLength);
 						}
 											
-						if(!player_invincibility && horizontalWallsReached(&player))
+						if(!invincibilityActive && horizontalWallsReached(&player))
 							{
 								playerDies();
 							}
@@ -936,7 +937,7 @@ int main(void)
 
 				#if defined(FULL_GAME)
 				if(wallReached(&player) || 
-				   (!player_invincibility && (playerReached(&player) || playerReachedBombs(&player) || innerWallReached(&player)))
+				   (!invincibilityActive && (playerReached(&player) || playerReachedBombs(&player) || innerWallReached(&player)))
 				  )
 				#else
 				if(wallReached(&player) || playerReached(&player) || playerReachedBombs(&player))
@@ -1006,7 +1007,7 @@ int main(void)
 						sleep(2);
 						++lives;
 						skullsKilled = 1;
-						missileBasesDestroyed = 0;
+						missileBasesDestroyed/=2;
 					}
 					else
 					{

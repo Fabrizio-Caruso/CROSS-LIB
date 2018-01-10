@@ -406,6 +406,8 @@
 #define ZOMBIE_COOL_DOWN 100
 #define ZOMBIE_COUNT_DOWN 300
 
+#define CHASE_COOL_DOWN 200
+
 #define ZOMBIE_BONUS 1000
 
 #if defined(FULL_GAME)

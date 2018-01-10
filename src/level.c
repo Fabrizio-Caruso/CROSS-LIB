@@ -63,8 +63,10 @@ extern Item powerUp;
 extern Item powerUp2;
 extern Item gun;
 extern Item extraPoints;
+extern Item chase;
 
 extern Character missile;
+extern Character chasingBullet;
 
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
@@ -364,11 +366,13 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			initializeCharacter(&rightEnemyMissile,         XSize-1,         ENEMY_MISSILE_OFFSET, 1,&RIGHT_ENEMY_MISSILE_IMAGE);
 			initializeCharacter(&leftEnemyMissile,                0, YSize-1-ENEMY_MISSILE_OFFSET, 1,&LEFT_ENEMY_MISSILE_IMAGE);		
 		}		
+		
+		initializeAwayFromWall(&(chase._character), XSize/2, YSize/2,1,&MISSILE_IMAGE);
+		initializeCharacter(&chasingBullet, 0,0, 0, &MISSILE_IMAGE);
 	#else
 		#if !defined(TINY_GAME)
 			initializeCharacter(&(powerUp._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
 			initializeCharacter(&(powerUp2._character),XSize/2,YSize/2,0,&POWERUP_IMAGE);
-			// initializeCharacter(&(freeze._character),XSize/2,YSize/2,0,&FREEZE_IMAGE);
 			initializeCharacter(&(gun._character),XSize/2, YSize/2, 0, &GUN_IMAGE);	
 			initializeCharacter(&(extraPoints._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);	
 		#endif

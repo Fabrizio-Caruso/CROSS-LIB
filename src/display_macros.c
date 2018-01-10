@@ -57,6 +57,7 @@ Image BOMB_IMAGE;
 	Image INVINCIBILITY_IMAGE;	
 	Image SUPER_IMAGE;
 	Image CONFUSE_IMAGE;
+	Image ZOMBIE_IMAGE;
 	
 	Image BROKEN_WALL_IMAGE;
 #endif
@@ -128,6 +129,8 @@ Image BOMB_IMAGE;
 				EXTRA_LIFE_IMAGE._color = COLOR_BLUE;
 				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
 				SUPER_IMAGE._color = COLOR_RED;
+				CONFUSE_IMAGE._color = COLOR_RED;
+				ZOMBIE_IMAGE._color = COLOR_RED;
 			#endif		
 		#endif
 		
@@ -204,10 +207,14 @@ Image BOMB_IMAGE;
 				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 				INVINCIBILITY_IMAGE._imageData = 'v';	
 				SUPER_IMAGE._imageData = 'h';
+				CONFUSE_IMAGE._imageData = 'c';
+				ZOMBIE_IMAGE._imageData = 'z';
 			#else
 				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 				INVINCIBILITY_IMAGE._imageData = 'V';	
-				SUPER_IMAGE._imageData = 'H';				
+				SUPER_IMAGE._imageData = 'H';	
+				CONFUSE_IMAGE._imageData = 'C';
+				ZOMBIE_IMAGE._imageData = 'Z';
 			#endif
 			BROKEN_WALL_IMAGE._imageData = 'X';
 		#endif
@@ -263,7 +270,7 @@ Image BOMB_IMAGE;
 		void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 			{ 
 				unsigned char i; 
-				// SET_TEXT_COLOR(COLOR_WHITE); 
+
 				for(i=0;i<length;++i) 
 				{ 
 					gotoxy(X_OFFSET+x,Y_OFFSET+y+i);
@@ -274,6 +281,7 @@ Image BOMB_IMAGE;
 		void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 			{ 
 				unsigned char i; 
+
 				gotoxy(X_OFFSET+x,Y_OFFSET+y); 
 				for(i=0;i<length;++i)
 				{

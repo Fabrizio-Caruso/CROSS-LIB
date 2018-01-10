@@ -61,3 +61,18 @@ void displayGhosts(void)
 	}
 }
 
+#if defined(FULL_GAME)
+	unsigned char firstAlive(void)
+	{
+		unsigned char i;
+		
+		i=0;
+		while(i<GHOSTS_NUMBER)
+		{
+			if(ghosts[i]._status)
+				return i;
+			++i;
+		}
+		return GHOSTS_NUMBER;
+	}
+#endif

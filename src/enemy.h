@@ -35,5 +35,9 @@ void decreaseGhostLevel(void);
 
 void displayGhosts(void);
 
+#if defined(FULL_GAME)
+	unsigned char firstAlive(void);
+#endif
+
 #endif // _ENEMY
 

@@ -129,11 +129,16 @@ Character bombs[BOMBS_NUMBER];
 	Item super;
 	Item confuse;
 	Item zombie;
+	Item chase;
 	
 	Character leftEnemyMissile;
 	Character rightEnemyMissile;
 
 	Character bubbles[BUBBLES_NUMBER];
+	
+	Character chasingBullet;
+	
+	Character * chasedEnemyPtr;
 
 	unsigned char bubbles_x[BUBBLES_NUMBER];
 	
@@ -152,7 +157,7 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char confuseActive; 
 	
 	unsigned char zombieActive; 
-	
+		
 	unsigned short invincibility_count_down;	
 	
 	unsigned short confuse_count_down;
@@ -185,7 +190,38 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 #endif
 
 
+
 #if !defined(TINY_GAME)
+void checkMissileVsInvincibleGhost(Character *bulletPtr)
+{
+	if(areCharctersAtSamePosition(bulletPtr, &invincibleGhost))
+	{
+		PING_SOUND();
+		die(bulletPtr);
+		DELETE_MISSILE(bulletPtr->_x,bulletPtr->_y,bulletPtr->_imagePtr);
+		bulletPtr->_x = 0; bulletPtr->_y = 0;
+		++invincibleGhostHits;
+		decreaseGhostLevel();
+		reducePowerUpsCoolDowns();
+		
+		if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
+		{
+			invincibleGhost._status = 0;
+			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
+			invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
+			invincibleGhostAlive = 0;
+			EXPLOSION_SOUND();
+			points+=INVINCIBLE_GHOST_POINTS;
+			displayStats();
+		}
+		else
+		{
+			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+		}
+	}	
+}
+
+
 void handle_missile()
 {
 	// Check if player has fired the gun
@@ -207,32 +243,7 @@ void handle_missile()
 		moveMissile(&missile, missileDirection);
 		// TODO: Inefficient
 		checkMissileVsGhosts(&missile);
-		
-		if(areCharctersAtSamePosition(&missile, &invincibleGhost))
-		{
-			PING_SOUND();
-			die(&missile);
-			DELETE_MISSILE(missile._x,missile._y,missile._imagePtr);
-			missile._x = 0; missile._y = 0;
-			++invincibleGhostHits;
-			decreaseGhostLevel();
-			reducePowerUpsCoolDowns();
-			
-			if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
-			{
-				invincibleGhost._status = 0;
-				DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
-				invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
-				invincibleGhostAlive = 0;
-				EXPLOSION_SOUND();
-				points+=INVINCIBLE_GHOST_POINTS;
-				displayStats();
-			}
-			else
-			{
-				DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-			}
-		}
+		checkMissileVsInvincibleGhost(&missile);
 	}
 }
 
@@ -417,17 +428,40 @@ void handle_item(Item *itemPtr)
 		for(i=ghostCount;i<GHOSTS_NUMBER;++i)
 		{
 			ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
-			points+=ZOMBIE_BONUS;
-			sleep(1);
+			// TODO: Implement some point system
+			// points+=ZOMBIE_BONUS;
+			// sleep(1);
 		}
 	}
 	
+	void chaseEffect(void)
+	{
+		unsigned firstAliveIndex;
+		
+		chasingBullet._status = 1;
+		chasingBullet._x = chase._character._x;
+		chasingBullet._y = chase._character._y;
+		
+		chase._coolDown = CHASE_COOL_DOWN*2;
+		
+		firstAliveIndex = firstAlive();
+		if(firstAliveIndex == GHOSTS_NUMBER)
+		{
+			chasedEnemyPtr = &invincibleGhost;
+		}
+		else
+		{
+			chasedEnemyPtr = &ghosts[firstAliveIndex];
+		}
+	}
 	
 	#define handle_extraLife_item() handle_item(&extraLife)
 	#define handle_invincibility_item() handle_item(&invincibility)
 	#define handle_super_item() handle_item(&super)
 	#define handle_confuse_item() handle_item(&confuse);
 	#define handle_zombie_item() handle_item(&zombie);
+	#define handle_chase_item() handle_item(&chase);
+	
 #endif
 
 	// Constructor for all items
@@ -444,6 +478,7 @@ void handle_item(Item *itemPtr)
 			super._effect = &superEffect;
 			confuse._effect = &confuseEffect;
 			zombie._effect = &zombieEffect;
+			chase._effect = &chaseEffect;
 		#endif	
 	}
 #endif
@@ -856,14 +891,14 @@ int main(void)
 					if(!freezeActive)
 					{
 						#if defined(FULL_GAME)
-						if(confuseActive && invincibleGhostAlive && invincibleGhost._status)
-						{
-							chaseCharacter(&invincibleGhost, ghostSlowDown);
-						}
-						else
-						{
-							chaseCharacter(&player, ghostSlowDown);
-						}
+							if(confuseActive && invincibleGhostAlive && invincibleGhost._status)
+							{
+								chaseCharacter(&invincibleGhost, ghostSlowDown);
+							}
+							else
+							{
+								chaseCharacter(&player, ghostSlowDown);
+							}
 						#else
 							chaseCharacter(ghostSlowDown);
 						#endif
@@ -907,6 +942,29 @@ int main(void)
 							handle_zombie_item();					
 							handle_zombie_count_down();
 						}						
+					}
+					
+					handle_chase_item();
+					
+					if(chasingBullet._status)
+					{
+						DELETE_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
+						moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
+						DRAW_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
+						checkMissileVsGhosts(&chasingBullet);
+						checkMissileVsInvincibleGhost(&chasingBullet);
+						// if(areCharctersAtSamePosition(chasedEnemyPtr,&chasingBullet))
+						// {
+							// if(chasedEnemyPtr==&invincibleGhost)
+							// {
+								// hitInvincibleGhost();
+							// }
+							// else
+							// {
+								// ghostDies(chasedEnemyPtr);
+								// chasingBullet._status = 0;
+							// }
+						// }
 					}
 										
 					if(skullsKilled>=2)

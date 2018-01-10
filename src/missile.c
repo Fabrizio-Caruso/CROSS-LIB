@@ -62,6 +62,7 @@ void checkMissileVsGhost(Character * missilePtr,
 		points+=GHOST_VS_MISSILE;
 		ghostPtr->_imagePtr = (Image *)&DEAD_GHOST_IMAGE;
 		ghostDies(ghostPtr);
+		die(missilePtr);
 	}
 }
 	
@@ -150,7 +151,7 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 void moveMissile(Character * missilePtr, unsigned short missileDirection)
 {
 	_moveMissile(missilePtr, missileDirection);
-	if(wallReached(missilePtr))
+	if(wallReached(missilePtr) && missilePtr->_status)
 	{
 		die(missilePtr);
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);

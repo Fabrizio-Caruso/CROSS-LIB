@@ -408,7 +408,7 @@
 
 #define CHASE_COOL_DOWN 200
 
-#define ZOMBIE_BONUS 1000
+#define ZOMBIE_BONUS 50
 
 #if defined(FULL_GAME)
 	#define INVINCIBLE_LOOP_TRIGGER 550-level*4

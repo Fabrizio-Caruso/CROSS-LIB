@@ -740,48 +740,13 @@ void DEBUG_PRINT()
 	
 	void handle_special_triggers(void)
 	{
-		// if(missileBasesDestroyed<2)
-		// {
-			// confuse_present_on_level = 0;
-		// }
-		// else
-		// {
-			// confuse_present_on_level = 1;
-			// if(missileBasesDestroyed>=4 || (level%5==1))
-			// {
-				// zombie_present_on_level = 1;
-			// }
-			// else
-			// {
-				// zombie_present_on_level = 0;
-			// }
-		// }
-		
+
 		confuse_present_on_level = missileBasesDestroyed>=2;
 		zombie_present_on_level = missileBasesDestroyed>=3;
-
 		super_present_on_level = skullsKilled>=2;
-		
-		// chase_present_on_level = skullsKilled;
-
+		// chase_present_on_level is defined as skullsKilled;
 		extraLife_present_on_level = super_present_on_level && confuse_present_on_level;
 		
-		// if(skullsKilled<2)
-		// {
-			// super_present_on_level = 0;
-		// }
-		// else
-		// {
-			// super_present_on_level = 1;
-			// if(skullsKilled>=3 || missileBasesDestroyed>=3)
-			// {
-				// extraLife_present_on_level = 1;
-			// }
-			// else
-			// {
-				// extraLife_present_on_level = 0;
-			// }
-		// }	
 	}
 	
 	void handle_chasing_bullet(void)
@@ -1044,7 +1009,12 @@ int main(void)
 						if(zombie_present_on_level)
 						{
 							handle_zombie_item();
-							handle_zombie_count_down();							
+							handle_zombie_count_down();	
+							if(zombieActive && (loop&15==1))
+							{
+								points+=ZOMBIE_BONUS;
+								PING_SOUND();
+							}
 						}
 					}
 					

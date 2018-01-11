@@ -40,7 +40,6 @@ void fillLevelWithCharacters(unsigned char nGhosts);
 	unsigned char missileLevel(void);	
 
 	unsigned char bossLevel(void);
-	// #define bossLevel() (!(level%5))
 	
 	unsigned char horizontalWallsLevel(void);
 	

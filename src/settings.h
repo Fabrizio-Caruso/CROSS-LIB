@@ -46,11 +46,10 @@
 		if((loop&1)==1)
 	
 	#define SKIP_MORE_DRAW \
-		if((loop&7)==1)	
-		// if((loop&15)==1)
+		if((loop&15)==1)	
 #elif defined(__SVI__) && !defined(MSX_MODE0)
 	#define SKIP_DRAW \
-		if((loop%2)==1) 
+		if((loop&1)==1) 
 	
 	#define SKIP_MORE_DRAW \
 		if((loop%8)==1)
@@ -209,8 +208,8 @@
 	#define ADVANCED_LEFT_MISSILE()  ++leftEnemyMissile._x
 	#define ADVANCED_RIGHT_MISSILE() --rightEnemyMissile._x	
 #else
-	#define ADVANCED_LEFT_MISSILE()  do{if(loop%2)++leftEnemyMissile._x;}while(0)
-	#define ADVANCED_RIGHT_MISSILE() do{if(loop%2)--rightEnemyMissile._x;}while(0)
+	#define ADVANCED_LEFT_MISSILE()  do{if(loop&1)++leftEnemyMissile._x;}while(0)
+	#define ADVANCED_RIGHT_MISSILE() do{if(loop&1)--rightEnemyMissile._x;}while(0)
 #endif
 
 // || defined(__ZX81__)

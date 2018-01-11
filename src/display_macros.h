@@ -264,7 +264,7 @@ void _delete(unsigned char x, unsigned char y);
 	
 	#define PRINTF(x,y,...)  \
 	{ \
-		if((y+Y_OFFSET)%2==1) \
+		if((y+Y_OFFSET)&1) \
 		{ \
 			gotoxy(x+20+X_OFFSET,(y+Y_OFFSET)/2); \
 		} \

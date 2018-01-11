@@ -143,7 +143,7 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 		DELETE_MISSILE(enemyMissilePtr->_x,enemyMissilePtr->_y,enemyMissilePtr->_imagePtr);
 		points+=HORIZONTAL_MISSILE_BONUS;
 		displayStats();				
-		++missileBasesDestroyed;
+		++dead_bubbles;
 		reducePowerUpsCoolDowns();		
 	}
 #endif
@@ -189,10 +189,10 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 						DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 						points+=VERTICAL_MISSILE_BONUS;
 						displayStats();					
-						if(dead_bubbles==BUBBLES_NUMBER)
-						{
-							reducePowerUpsCoolDowns();		
-						}
+						// if(dead_bubbles==BUBBLES_NUMBER)
+						// {
+							// reducePowerUpsCoolDowns();		
+						// }
 					}
 				}
 			}			

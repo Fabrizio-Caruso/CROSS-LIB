@@ -763,7 +763,7 @@ void DEBUG_PRINT()
 
 		super_present_on_level = skullsKilled>=2;
 		
-		chase_present_on_level = bossLevel() || confuse_present_on_level || super_present_on_level;
+		chase_present_on_level = skullsKilled>=1;//bossLevel() || confuse_present_on_level || super_present_on_level;
 		
 
 		extraLife_present_on_level = super_present_on_level && confuse_present_on_level;

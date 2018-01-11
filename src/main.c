@@ -763,8 +763,7 @@ void DEBUG_PRINT()
 
 		super_present_on_level = skullsKilled>=2;
 		
-		chase_present_on_level = skullsKilled>=1;//bossLevel() || confuse_present_on_level || super_present_on_level;
-		
+		chase_present_on_level = skullsKilled>=1;
 
 		extraLife_present_on_level = super_present_on_level && confuse_present_on_level;
 		
@@ -1031,66 +1030,29 @@ int main(void)
 					handle_freeze_item();	
 					handle_invincibility_item();
 
-					if(extraLife_present_on_level)
-					{
-						handle_extraLife_item();
-					}
-					
-					if(super_present_on_level)
-					{
-						handle_super_item();
-					}
-					
 					if(chase_present_on_level)
 					{
 						handle_chase_item();
-						handle_chasing_bullet();
+						if(super_present_on_level)
+						{
+							handle_super_item();
+							if(extraLife_present_on_level)
+							{
+								handle_extraLife_item();
+							}
+						}
 					}
-					
+										
 					if(confuse_present_on_level)
 					{
 						handle_confuse_item();
 						handle_confuse_count_down();
+						if(zombie_present_on_level)
+						{
+							handle_zombie_item();
+							handle_zombie_count_down();							
+						}
 					}
-					
-					if(zombie_present_on_level)
-					{
-						handle_zombie_item();
-						handle_zombie_count_down();
-					}
-					
-					// if(missileBasesDestroyed>=2)
-					// {
-						// handle_confuse_item();
-						// handle_confuse_count_down();	
-						// if(missileBasesDestroyed>=4)
-						// {					
-							// handle_zombie_item();					
-							// handle_zombie_count_down();
-						// }						
-					// }
-					
-					// handle_chase_item();
-					
-					// if(chasingBullet._status)
-					// {
-						// DELETE_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
-						// moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
-						// DRAW_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
-						// checkMissileVsGhosts(&chasingBullet);
-						// checkMissileVsInvincibleGhost(&chasingBullet);
-					// }
-										
-					// if(skullsKilled>=2)
-					// {
-						// handle_super_item();
-						
-						// if(skullsKilled>=3)
-						// {
-							// handle_extraLife_item();
-						// }
-					// }
-					
 					
 					if(horizontalWallsLevel())
 					{

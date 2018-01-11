@@ -339,9 +339,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		}		
 	#else
 		#if !defined(TINY_GAME)
-			initializeCharacter(&(powerUp._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
+			initializeCharacter(&powerUp,XSize/2,YSize/2,1,&POWERUP_IMAGE);
 			
-			initializeCharacter(&(gun._character),XSize/2, YSize/2, 0, &GUN_IMAGE);	
+			initializeCharacter(&gun,XSize/2, YSize/2, 0, &GUN_IMAGE);	
 		#endif
 		
 		#if defined(NO_RANDOM_LEVEL) || defined(TINY_GAME)

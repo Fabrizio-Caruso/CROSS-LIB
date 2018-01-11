@@ -1048,30 +1048,31 @@ int main(void)
 						}
 					}
 					
-					
-					if(horizontalWallsLevel())
-					{
-						handle_horizontalWalls();
-					}
-				#endif		
-
-				#if defined(FULL_GAME)
-				if(wallReached(&player) || 
-				   (!invincibilityActive && (playerReached(&player) || playerReachedBombs(&player) || innerWallReached(&player)))
-				  )
-				#else
-				if(wallReached(&player) || playerReached(&player) || playerReachedBombs(&player))
 				#endif
-				{
-					playerDies();
-				}
-			
+				
+				#if defined(FULL_GAME)
+					if(wallReached(&player) || 
+					   (!invincibilityActive && (playerReached(&player) || playerReachedBombs(&player) || innerWallReached(&player)))
+					  )
+				#else
+					if(wallReached(&player) || playerReached(&player) || playerReachedBombs(&player))
+				#endif
+					{
+						playerDies();
+					}
+
+				
 				#if defined(FULL_GAME)
 					SKIP_MORE_DRAW
 					{
 						SET_TEXT_COLOR(WALL_COLOR);
 						DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);			
 						DRAW_BOMBS();	
+				
+						if(horizontalWallsLevel())
+						{
+							handle_horizontalWalls();
+						}						
 					}
 				#else
 					#if !defined(TINY_GAME)

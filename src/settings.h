@@ -43,7 +43,7 @@
 
 #if defined(__ZX81__) || defined(__LAMBDA__)
 	#define SKIP_DRAW \
-		if((loop&3)==1)
+		if((loop&1)==1)
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&7)==1)	

@@ -136,7 +136,7 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char super_present_on_level;
 	unsigned char confuse_present_on_level;
 	unsigned char zombie_present_on_level;
-	unsigned char chase_present_on_level;
+	#define chase_present_on_level skullsKilled
 	
 	Character leftEnemyMissile;
 	Character rightEnemyMissile;
@@ -762,7 +762,7 @@ void DEBUG_PRINT()
 
 		super_present_on_level = skullsKilled>=2;
 		
-		chase_present_on_level = skullsKilled>=1;
+		// chase_present_on_level = skullsKilled;
 
 		extraLife_present_on_level = super_present_on_level && confuse_present_on_level;
 		
@@ -1026,6 +1026,7 @@ int main(void)
 					if(chase_present_on_level)
 					{
 						handle_chase_item();
+						handle_chasing_bullet();						
 						if(super_present_on_level)
 						{
 							handle_super_item();
@@ -1046,6 +1047,7 @@ int main(void)
 							handle_zombie_count_down();							
 						}
 					}
+					
 					
 					if(horizontalWallsLevel())
 					{

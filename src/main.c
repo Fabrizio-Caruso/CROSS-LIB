@@ -741,48 +741,49 @@ void DEBUG_PRINT()
 	
 	void handle_special_triggers(void)
 	{
-		if(missileBasesDestroyed<2)
-		{
-			confuse_present_on_level = 0;
-		}
-		else
-		{
-			confuse_present_on_level = 1;
-			if(missileBasesDestroyed>=4 || (level%5==1))
-			{
-				zombie_present_on_level = 1;
-			}
-			else
-			{
-				zombie_present_on_level = 0;
-			}
-		}
+		// if(missileBasesDestroyed<2)
+		// {
+			// confuse_present_on_level = 0;
+		// }
+		// else
+		// {
+			// confuse_present_on_level = 1;
+			// if(missileBasesDestroyed>=4 || (level%5==1))
+			// {
+				// zombie_present_on_level = 1;
+			// }
+			// else
+			// {
+				// zombie_present_on_level = 0;
+			// }
+		// }
 		
-		if(oneMissileLevel() || missileBasesDestroyed>=2 || skullsKilled>=2)
-		{
-			chase_present_on_level = 1;
-		}
-		else
-		{
-			chase_present_on_level = 0;
-		}
+		confuse_present_on_level = missileBasesDestroyed>=2;
+		zombie_present_on_level = missileBasesDestroyed>=3;
+
+		super_present_on_level = skullsKilled>=2;
 		
-		if(skullsKilled<2)
-		{
-			super_present_on_level = 0;
-		}
-		else
-		{
-			super_present_on_level = 1;
-			if(skullsKilled>=3 || missileBasesDestroyed>=3)
-			{
-				extraLife_present_on_level = 1;
-			}
-			else
-			{
-				extraLife_present_on_level = 0;
-			}
-		}	
+		chase_present_on_level = bossLevel() || confuse_present_on_level || super_present_on_level;
+		
+
+		extraLife_present_on_level = super_present_on_level && missileBasesDestroyed>=2;
+		
+		// if(skullsKilled<2)
+		// {
+			// super_present_on_level = 0;
+		// }
+		// else
+		// {
+			// super_present_on_level = 1;
+			// if(skullsKilled>=3 || missileBasesDestroyed>=3)
+			// {
+				// extraLife_present_on_level = 1;
+			// }
+			// else
+			// {
+				// extraLife_present_on_level = 0;
+			// }
+		// }	
 	}
 	
 	void handle_chasing_bullet(void)

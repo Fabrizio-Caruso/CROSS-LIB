@@ -141,11 +141,11 @@ extern Character bombs[BOMBS_NUMBER];
 		return level%5==4;
 	}	
 
-	unsigned char bossLevel(void)
-	{
-		// return !(level%5);
-		return !level;
-	}
+	// unsigned char bossLevel(void)
+	// {
+		// // return !(level%5);
+		// return !level;
+	// }
 	
 	unsigned char horizontalWallsLevel(void)
 	{

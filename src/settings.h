@@ -43,11 +43,11 @@
 
 #if defined(__ZX81__) || defined(__LAMBDA__)
 	#define SKIP_DRAW \
-		if(loop&1==1)
-		// if((loop%4)==1) 
+		if((loop&3)==1)
 	
 	#define SKIP_MORE_DRAW \
-		if((loop&7)==7)
+		if((loop&7)==1)	
+		// if((loop&15)==1)
 #elif defined(__SVI__) && !defined(MSX_MODE0)
 	#define SKIP_DRAW \
 		if((loop%2)==1) 

@@ -199,175 +199,185 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 
 
 #if !defined(TINY_GAME)
-void checkMissileVsInvincibleGhost(Character *bulletPtr)
-{
-	if(areCharctersAtSamePosition(bulletPtr, &invincibleGhost))
+	void checkMissileVsInvincibleGhost(Character *bulletPtr)
 	{
-		PING_SOUND();
-		die(bulletPtr);
-		DELETE_MISSILE(bulletPtr->_x,bulletPtr->_y,bulletPtr->_imagePtr);
-		bulletPtr->_x = 0; bulletPtr->_y = 0;
-		++invincibleGhostHits;
+		if(areCharctersAtSamePosition(bulletPtr, &invincibleGhost))
+		{
+			PING_SOUND();
+			die(bulletPtr);
+			DELETE_MISSILE(bulletPtr->_x,bulletPtr->_y,bulletPtr->_imagePtr);
+			bulletPtr->_x = 0; bulletPtr->_y = 0;
+			++invincibleGhostHits;
+			decreaseGhostLevel();
+			reducePowerUpsCoolDowns();
+			
+			if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
+			{
+				invincibleGhost._status = 0;
+				DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
+				invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
+				invincibleGhostAlive = 0;
+				EXPLOSION_SOUND();
+				points+=INVINCIBLE_GHOST_POINTS;
+				displayStats();
+			}
+			else
+			{
+				DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+			}
+		}	
+	}
+
+
+	void handle_missile()
+	{
+		// Check if player has fired the gun
+		if(playerFire && missile._status==0 && guns>0)
+		{
+			SHOOT_SOUND();
+			--guns;
+			printGunsStats();
+			missileDirection = playerDirection;
+			missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
+			playerFire = 0;
+			DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
+			checkMissileVsGhosts(&missile);	
+		}
+		
+		// Move missile if fired
+		if(missile._status==1)
+		{
+			moveMissile(&missile, missileDirection);
+			// TODO: Inefficient
+			checkMissileVsGhosts(&missile);
+			checkMissileVsInvincibleGhost(&missile);
+		}
+	}
+
+
+	void powerUpReached(Character * powerUpPtr)
+	{
+		ZAP_SOUND();
+		DELETE_GUN(powerUpPtr->_x,powerUpPtr->_y,powerUpPtr->_imagePtr);
+		DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		powerUpPtr->_status = 0;
+		displayStats();
+	}
+
+	void relocatePowerUp(Character * powerUpPtr)
+	{
+			powerUpPtr->_status = 1;
+			
+			#if defined(FULL_GAME)
+			do
+			{
+				relocateCharacter(powerUpPtr, bombs,4);
+			} while(nearInnerWall(powerUpPtr));		
+			#else
+				relocateCharacter(powerUpPtr, bombs,4);
+			#endif	
+	}
+
+	void _commonPowerUpEffect(void)
+	{
+		points+=POWER_UP_BONUS;
 		decreaseGhostLevel();
-		reducePowerUpsCoolDowns();
-		
-		if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
-		{
-			invincibleGhost._status = 0;
-			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
-			invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
-			invincibleGhostAlive = 0;
-			EXPLOSION_SOUND();
-			points+=INVINCIBLE_GHOST_POINTS;
-			displayStats();
-		}
-		else
-		{
-			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-		}
-	}	
-}
-
-
-void handle_missile()
-{
-	// Check if player has fired the gun
-	if(playerFire && missile._status==0 && guns>0)
-	{
-		SHOOT_SOUND();
-		--guns;
-		printGunsStats();
-		missileDirection = playerDirection;
-		missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
-		playerFire = 0;
-		DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
-		checkMissileVsGhosts(&missile);	
+		freezeActive = 1;	
+		freeze_count_down += FROZEN_COUNT_DOWN;	
 	}
-	
-	// Move missile if fired
-	if(missile._status==1)
+
+	void powerUpEffect(void)
 	{
-		moveMissile(&missile, missileDirection);
-		// TODO: Inefficient
-		checkMissileVsGhosts(&missile);
-		checkMissileVsInvincibleGhost(&missile);
+		_commonPowerUpEffect();
+		powerUp._coolDown = POWER_UP_INITIAL_COOLDOWN;		
 	}
-}
 
-
-void powerUpReached(Character * powerUpPtr)
-{
-	ZAP_SOUND();
-	DELETE_GUN(powerUpPtr->_x,powerUpPtr->_y,powerUpPtr->_imagePtr);
-	DRAW_PLAYER(player._x, player._y, player._imagePtr);
-	powerUpPtr->_status = 0;
-	displayStats();
-}
-
-void relocatePowerUp(Character * powerUpPtr)
-{
-		powerUpPtr->_status = 1;
-		
-		#if defined(FULL_GAME)
-		do
-		{
-			relocateCharacter(powerUpPtr, bombs,4);
-		} while(nearInnerWall(powerUpPtr));		
-		#else
-			relocateCharacter(powerUpPtr, bombs,4);
-		#endif	
-}
-
-void _commonPowerUpEffect(void)
-{
-	points+=POWER_UP_BONUS;
-	decreaseGhostLevel();
-	freezeActive = 1;	
-	freeze_count_down += FROZEN_COUNT_DOWN;	
-}
-
-void powerUpEffect(void)
-{
-	_commonPowerUpEffect();
-	powerUp._coolDown = POWER_UP_INITIAL_COOLDOWN;		
-}
-
-void powerUp2Effect(void)
-{
-	_commonPowerUpEffect();
-	powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;	
-}
-
-
-void handle_count_down(unsigned char * flagPtr, unsigned short * countDownPtr)
-{
-	if(*flagPtr)
+	void powerUp2Effect(void)
 	{
-		if(*countDownPtr<=0)
+		_commonPowerUpEffect();
+		powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;	
+	}
+
+
+	void handle_count_down(unsigned char * flagPtr, unsigned short * countDownPtr)
+	{
+		if(*flagPtr)
 		{
-			*flagPtr=0;
-		}
-		else
-		{
-			--(*countDownPtr);
+			if(*countDownPtr<=0)
+			{
+				*flagPtr=0;
+			}
+			else
+			{
+				--(*countDownPtr);
+			}
 		}
 	}
-}
 
-void _gunEffect(void)
-{
-	guns = GUNS_NUMBER;
-	printGunsStats();		
-	points+=GUN_BONUS;		
-}
 
-void gunEffect(void)
-{
-	_gunEffect();
-	gun._coolDown = GUN_INITIAL_COOLDOWN;	
-}
+	#define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
 
-void extraPointsEffect(void)
-{
-	points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
-	extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder		
-}
+	#if defined(FINAL_LEVEL)
+		#define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)	
+		#define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
+		#define handle_zombie_count_down() handle_count_down(&zombieActive,&zombie_count_down)
+	#endif		
 
-void handle_item(Item *itemPtr)
-{
-	// Manage item
-	if(itemPtr->_character._status == 1)
-	{	
-		if(areCharctersAtSamePosition(&player, (Character *) itemPtr))
-		{
-			itemPtr->_effect();
-			powerUpReached((Character *) itemPtr);			
+	void _gunEffect(void)
+	{
+		guns = GUNS_NUMBER;
+		printGunsStats();		
+		points+=GUN_BONUS;		
+	}
+
+	void gunEffect(void)
+	{
+		_gunEffect();
+		gun._coolDown = GUN_INITIAL_COOLDOWN;	
+	}
+
+	void extraPointsEffect(void)
+	{
+		points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
+		extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder		
+	}
+
+	void handle_item(Item *itemPtr)
+	{
+		// Manage item
+		if(itemPtr->_character._status == 1)
+		{	
+			if(areCharctersAtSamePosition(&player, (Character *) itemPtr))
+			{
+				itemPtr->_effect();
+				powerUpReached((Character *) itemPtr);			
+			}
+			else
+			{
+				_blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
+			}		
 		}
-		else
+		else if (itemPtr->_coolDown <= 0)
 		{
+			relocatePowerUp((Character *) itemPtr);
+
 			_blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
-		}		
+		}
+		else
+		{
+			--itemPtr->_coolDown;
+		}
 	}
-	else if (itemPtr->_coolDown <= 0)
-	{
-		relocatePowerUp((Character *) itemPtr);
 
-		_blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
-	}
-	else
-	{
-		--itemPtr->_coolDown;
-	}
-}
+	#define handle_gun_item() handle_item(&gun);
+	#define handle_powerup_item() handle_item(&powerUp);
+	#define handle_powerup2_item() handle_item(&powerUp2);
+	#define handle_extraPoints_item() handle_item(&extraPoints);
 
-#define handle_gun_item() handle_item(&gun);
-#define handle_powerup_item() handle_item(&powerUp);
-#define handle_powerup2_item() handle_item(&powerUp2);
-#define handle_freeze_item() handle_item(&freeze);
-#define handle_extraPoints_item() handle_item(&extraPoints);
-	
-#define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
-	
+
+#endif
+
+
 #if defined(FULL_GAME)
 
 	void _freezeEffect(void)
@@ -414,10 +424,7 @@ void handle_item(Item *itemPtr)
 		_invincibilityEffect();
 		super._coolDown = SUPER_COOL_DOWN*10;
 	}
-	
-	#define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
-	#define handle_zombie_count_down() handle_count_down(&zombieActive,&zombie_count_down)
-	
+
 	void confuseEffect(void)
 	{
 		confuseActive = 1;
@@ -462,16 +469,40 @@ void handle_item(Item *itemPtr)
 			chasedEnemyPtr = &ghosts[firstAliveIndex];
 		}
 	}
-	
+
+	#define handle_freeze_item() handle_item(&freeze);	
 	#define handle_extraLife_item() handle_item(&extraLife)
 	#define handle_invincibility_item() handle_item(&invincibility)
+	
 	#define handle_super_item() handle_item(&super)
 	#define handle_confuse_item() handle_item(&confuse);
 	#define handle_zombie_item() handle_item(&zombie);
 	#define handle_chase_item() handle_item(&chase);
+
+	void handle_horizontalWalls(void)
+	{
+		SKIP_MORE_DRAW
+		{				
+			horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/16 + (loop/HORIZONTAL_WALLS_INCREASE_LOOP);
+		
+			DRAW_HORIZONTAL_WALLS(horizontalWallsLength);
+		}
+							
+		if(!invincibilityActive && horizontalWallsReached(&player))
+			{
+				playerDies();
+			}		
+	}
+
+	unsigned char computeArrowRange(void)
+	{
+			return level/10;
+	}
 	
 #endif
 
+
+#if !defined(TINY_GAME)
 	void resetItems()
 	{
 		gun._coolDown = GUN_INITIAL_COOLDOWN;
@@ -507,33 +538,9 @@ void handle_item(Item *itemPtr)
 			zombie._effect = &zombieEffect;
 			chase._effect = &chaseEffect;
 		#endif	
-	}
-#endif
-
-#if defined(FULL_GAME)
-	void handle_horizontalWalls(void)
-	{
-		SKIP_MORE_DRAW
-		{				
-			horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/16 + (loop/HORIZONTAL_WALLS_INCREASE_LOOP);
-		
-			DRAW_HORIZONTAL_WALLS(horizontalWallsLength);
-		}
-							
-		if(!invincibilityActive && horizontalWallsReached(&player))
-			{
-				playerDies();
-			}		
-	}
-
-	unsigned char computeArrowRange(void)
-	{
-			return level/10;
-	}
-#endif
+	}	
 
 
-#if !defined(TINY_GAME)
 void handle_invincible_ghost(void)
 {
 	if(!invincibleGhost._status)
@@ -624,8 +631,6 @@ void DEBUG_PRINT()
 #endif
 
 #if defined(FULL_GAME)
-
-	#define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)
 
 	void handle_rockets(void)
 	{	
@@ -868,23 +873,20 @@ int main(void)
 					// invincibility._coolDown/=8;
 				// }
 				
+				handle_special_triggers();
+				freezeActive = 0;
+				
+				freeze_count_down = 0;									
 			#endif			
 			
 			#if !defined(TINY_GAME)
-				freezeActive = 0;
 				
 				invincibleGhostAlive = 1;
 				invincibleGhostHits = 0;						
 				guns = 0;
-				
-				freeze_count_down = 0;				
-				
-				handle_special_triggers();
-				
+
 				resetItems();
-				
-				handle_special_triggers();
-				
+								
 				computeStrategy();
 
 				computeInvincibleGhostParameters();				

@@ -123,13 +123,20 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char innerVerticalWallX; 
 	unsigned char innerVerticalWallLength;
 
-	Item freeze;	
-	Item extraLife;
+	Item freeze;
 	Item invincibility;
+	
+	Item extraLife;
 	Item super;
 	Item confuse;
 	Item zombie;
 	Item chase;
+	 
+	unsigned char extraLife_present_on_level;
+	unsigned char super_present_on_level;
+	unsigned char confuse_present_on_level;
+	unsigned char zombie_present_on_level;
+	unsigned char chase_present_on_level;
 	
 	Character leftEnemyMissile;
 	Character rightEnemyMissile;
@@ -428,9 +435,10 @@ void handle_item(Item *itemPtr)
 		for(i=ghostCount;i<GHOSTS_NUMBER;++i)
 		{
 			ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
-			// TODO: Implement some point system
-			// points+=ZOMBIE_BONUS;
-			// sleep(1);
+			// TODO: Implement some better point system for this item
+			points+=ZOMBIE_BONUS;
+			ZAP_SOUND();
+			sleep(1);
 		}
 	}
 	
@@ -464,8 +472,27 @@ void handle_item(Item *itemPtr)
 	
 #endif
 
+	void resetItems()
+	{
+		gun._coolDown = GUN_INITIAL_COOLDOWN;
+		powerUp._coolDown = POWER_UP_INITIAL_COOLDOWN;
+		powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;
+		extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;		
+		
+		#if defined(FULL_GAME)
+			freeze._coolDown = FREEZE_INITIAL_COOLDOWN;				
+			extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
+			invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
+			
+			super._coolDown = SUPER_COOL_DOWN;
+			confuse._coolDown = CONFUSE_COOL_DOWN;
+			zombie._coolDown = ZOMBIE_COOL_DOWN;		
+			chase._coolDown = CHASE_COOL_DOWN;
+		#endif
+	}
+
 	// Constructor for all items
-	void initItems()
+	void constructItems()
 	{
 		powerUp._effect = &powerUpEffect;
 		powerUp2._effect = &powerUp2Effect;
@@ -484,6 +511,21 @@ void handle_item(Item *itemPtr)
 #endif
 
 #if defined(FULL_GAME)
+	void handle_horizontalWalls(void)
+	{
+		SKIP_MORE_DRAW
+		{				
+			horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/16 + (loop/HORIZONTAL_WALLS_INCREASE_LOOP);
+		
+			DRAW_HORIZONTAL_WALLS(horizontalWallsLength);
+		}
+							
+		if(!invincibilityActive && horizontalWallsReached(&player))
+			{
+				playerDies();
+			}		
+	}
+
 	unsigned char computeArrowRange(void)
 	{
 			return level/10;
@@ -583,7 +625,7 @@ void DEBUG_PRINT()
 
 #if defined(FULL_GAME)
 
-	#define handle_invincibilityActive() handle_count_down(&invincibilityActive, &invincibility_count_down)
+	#define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)
 
 	void handle_rockets(void)
 	{	
@@ -691,6 +733,64 @@ void DEBUG_PRINT()
 			_handle_enemy_missile_from_the_right();
 		}	
 	}
+	
+	void handle_special_triggers(void)
+	{
+		if(missileBasesDestroyed<2)
+		{
+			confuse_present_on_level = 0;
+		}
+		else
+		{
+			confuse_present_on_level = 1;
+			if(missileBasesDestroyed>=4 || (level%5==1))
+			{
+				zombie_present_on_level = 1;
+			}
+			else
+			{
+				zombie_present_on_level = 0;
+			}
+		}
+		
+		if(oneMissileLevel() || missileBasesDestroyed>=2 || skullsKilled>=2)
+		{
+			chase_present_on_level = 1;
+		}
+		else
+		{
+			chase_present_on_level = 0;
+		}
+		
+		if(skullsKilled<2)
+		{
+			super_present_on_level = 0;
+		}
+		else
+		{
+			super_present_on_level = 1;
+			if(skullsKilled>=3 || missileBasesDestroyed>=3)
+			{
+				extraLife_present_on_level = 1;
+			}
+			else
+			{
+				extraLife_present_on_level = 0;
+			}
+		}	
+	}
+	
+	void handle_chasing_bullet(void)
+	{
+		if(chasingBullet._status)
+		{
+			DELETE_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
+			moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
+			DRAW_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
+			checkMissileVsGhosts(&chasingBullet);
+			checkMissileVsInvincibleGhost(&chasingBullet);
+		}	
+	}
 #endif
 
 int main(void)
@@ -751,44 +851,39 @@ int main(void)
 		#endif
 		do // Level (Re-)Start
 		{ 	
+			loop = 0;
+			ghostLevel = 0;
+		
 			#if defined(FULL_GAME)
 				invincibilityActive = 0;
 			
 				dead_bubbles = 0;
 				
-				freeze._coolDown = FREEZE_INITIAL_COOLDOWN;				
-				extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
-				invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
-				
-				super._coolDown = SUPER_COOL_DOWN;
-				confuse._coolDown = CONFUSE_COOL_DOWN;
-				zombie._coolDown = ZOMBIE_COOL_DOWN;
-				
 				confuseActive = 0;
+
 				zombieActive = 0; 
 
-				if(skullsKilled==1)
-				{
-					invincibility._coolDown/=8;
-				}
+				// if(skullsKilled==1)
+				// {
+					// invincibility._coolDown/=8;
+				// }
 				
-				// horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/10 + loop/10;
 			#endif			
 			
-			loop = 0;
-			ghostLevel = 0;
-
 			#if !defined(TINY_GAME)
 				freezeActive = 0;
+				
 				invincibleGhostAlive = 1;
 				invincibleGhostHits = 0;						
 				guns = 0;
 				
 				freeze_count_down = 0;				
-							
-				gun._coolDown = GUN_INITIAL_COOLDOWN;
-				powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;
-				extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;	
+				
+				handle_special_triggers();
+				
+				resetItems();
+				
+				handle_special_triggers();
 				
 				computeStrategy();
 
@@ -832,7 +927,7 @@ int main(void)
 			fillLevelWithCharacters(ghostCount);	
 			
 			#if !defined(TINY_GAME)
-				initItems();	
+				constructItems();	
 				
 				displayStatsTitles();
 			#endif
@@ -862,7 +957,7 @@ int main(void)
 				#endif
 							
 				#if defined(FULL_GAME)
-					handle_invincibilityActive();
+					handle_invincibility_count_down();
 					handle_rockets();
 					handle_enemy_missiles();
 				#endif
@@ -933,63 +1028,70 @@ int main(void)
 					handle_freeze_item();	
 					handle_invincibility_item();
 
-					if(missileBasesDestroyed>=2)
+					if(extraLife_present_on_level)
 					{
-						handle_confuse_item();
-						handle_confuse_count_down();	
-						if(missileBasesDestroyed>=4)
-						{					
-							handle_zombie_item();					
-							handle_zombie_count_down();
-						}						
+						handle_extraLife_item();
 					}
 					
-					handle_chase_item();
-					
-					if(chasingBullet._status)
-					{
-						DELETE_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
-						moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
-						DRAW_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
-						checkMissileVsGhosts(&chasingBullet);
-						checkMissileVsInvincibleGhost(&chasingBullet);
-						// if(areCharctersAtSamePosition(chasedEnemyPtr,&chasingBullet))
-						// {
-							// if(chasedEnemyPtr==&invincibleGhost)
-							// {
-								// hitInvincibleGhost();
-							// }
-							// else
-							// {
-								// ghostDies(chasedEnemyPtr);
-								// chasingBullet._status = 0;
-							// }
-						// }
-					}
-										
-					if(skullsKilled>=2)
+					if(super_present_on_level)
 					{
 						handle_super_item();
-						
-						if(skullsKilled>=3)
-						{
-							handle_extraLife_item();
-						}
 					}
+					
+					if(chase_present_on_level)
+					{
+						handle_chase_item();
+						handle_chasing_bullet();
+					}
+					
+					if(confuse_present_on_level)
+					{
+						handle_confuse_item();
+						handle_confuse_count_down();
+					}
+					
+					if(zombie_present_on_level)
+					{
+						handle_zombie_item();
+						handle_zombie_count_down();
+					}
+					
+					// if(missileBasesDestroyed>=2)
+					// {
+						// handle_confuse_item();
+						// handle_confuse_count_down();	
+						// if(missileBasesDestroyed>=4)
+						// {					
+							// handle_zombie_item();					
+							// handle_zombie_count_down();
+						// }						
+					// }
+					
+					// handle_chase_item();
+					
+					// if(chasingBullet._status)
+					// {
+						// DELETE_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
+						// moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
+						// DRAW_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
+						// checkMissileVsGhosts(&chasingBullet);
+						// checkMissileVsInvincibleGhost(&chasingBullet);
+					// }
 										
+					// if(skullsKilled>=2)
+					// {
+						// handle_super_item();
+						
+						// if(skullsKilled>=3)
+						// {
+							// handle_extraLife_item();
+						// }
+					// }
+					
+					
 					if(horizontalWallsLevel())
 					{
-						SKIP_MORE_DRAW
-						{				
-							horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/16 + (loop/HORIZONTAL_WALLS_INCREASE_LOOP);
-						
-							DRAW_HORIZONTAL_WALLS(horizontalWallsLength);
-						}
-											
-						if(!invincibilityActive && horizontalWallsReached(&player))
-							{
-								playerDies();
-							}
+						handle_horizontalWalls();
 					}
 				#endif		
 

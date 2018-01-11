@@ -52,12 +52,12 @@
 		if((loop&1)==1) 
 	
 	#define SKIP_MORE_DRAW \
-		if((loop%8)==1)
+		if((loop&7)==1)
 #elif defined(__MC1000__)
 	#define SKIP_DRAW
 	
 	#define SKIP_MORE_DRAW \
-		if((loop%8)==1)			
+		if((loop&7)==1)			
 #elif defined(__WINCMOC__) || defined(__CMOC__)
 	#define SKIP_DRAW
 	

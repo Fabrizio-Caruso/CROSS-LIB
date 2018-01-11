@@ -766,7 +766,7 @@ void DEBUG_PRINT()
 		chase_present_on_level = bossLevel() || confuse_present_on_level || super_present_on_level;
 		
 
-		extraLife_present_on_level = super_present_on_level && missileBasesDestroyed>=2;
+		extraLife_present_on_level = super_present_on_level && confuse_present_on_level;
 		
 		// if(skullsKilled<2)
 		// {

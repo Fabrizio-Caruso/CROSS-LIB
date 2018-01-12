@@ -16,7 +16,10 @@
 
 	typedef struct ItemStruct Item;
 
+	void handle_count_down(unsigned char * flagPtr, unsigned short * countDownPtr);	
 
+	void reducePowerUpsCoolDowns(void);
+	
 	void powerUpReached(Character * powerUpPtr);
 	
 	void relocatePowerUp(Character * powerUpPtr);

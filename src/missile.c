@@ -45,6 +45,13 @@ extern Item extraPoints;
 extern Character invincibleGhost;
 extern unsigned char invincibleGhostHits;
 extern unsigned char invincibleGhostAlive;
+extern unsigned char playerFire;
+extern unsigned char guns;
+extern unsigned char playerDirection;
+extern unsigned char missileDirection;
+
+extern Character missile;
+extern Character player;
 	
 #if defined(FULL_GAME) 
 	extern Item freeze;
@@ -58,6 +65,36 @@ extern unsigned char invincibleGhostAlive;
 	extern unsigned char dead_bubbles;
 	extern unsigned char missileBasesDestroyed;
 #endif
+
+
+
+void handle_missile(void)
+{
+	// Check if player has fired the gun
+	if(playerFire && missile._status==0 && guns>0)
+	{
+		SHOOT_SOUND();
+		--guns;
+		printGunsStats();
+		missileDirection = playerDirection;
+		missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
+		playerFire = 0;
+		DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
+		// checkMissileVsGhosts(&missile);	
+		//checkMissile(&missile);
+	}
+	
+	// Move missile if fired
+	if(missile._status==1)
+	{
+		moveMissile(&missile, missileDirection);
+		// TODO: Inefficient
+		// checkMissileVsGhosts(&missile);
+		// checkMissileVsInvincibleGhost(&missile);
+		checkMissile(&missile);
+	}
+}
+
 
 void checkMissile(Character *missilePtr)
 {
@@ -89,24 +126,6 @@ void checkMissileVsGhosts(Character * missilePtr)
 		}
 	};
 }
-	
-#if defined(FULL_GAME)
-	void reducePowerUpsCoolDowns(void)
-	{
-		extraPoints._coolDown/=2;
-		invincibility._coolDown/=2;
-		freeze._coolDown/=2;
-		TICK_SOUND();		
-	}
-#elif !defined(TINY_GAME)
-	void reducePowerUpsCoolDowns(void)
-	{
-		extraPoints._coolDown/=2;
-		TICK_SOUND();		
-	}
-#else	
-#endif	
-
 
 void checkMissileVsInvincibleGhost(Character *bulletPtr)
 {

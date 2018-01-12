@@ -24,6 +24,7 @@
  
 #include "character.h"
 #include "item.h"
+#include "item.h"
 #include "settings.h"
 
 #if defined(__CMOC__) && !defined(__WINCMOC__)
@@ -45,34 +46,45 @@ extern unsigned char YSize;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
-extern Image MISSILE_IMAGE;
+extern Image DEAD_GHOST_IMAGE;
 
+#if !defined(TINY_GAME)
+extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image MISSILE_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
-extern Image FREEZE_IMAGE;	
-	
-extern Image DEAD_GHOST_IMAGE;
+#endif
 
+#if defined(FULL_GAME)
+extern Image FREEZE_IMAGE;		
+#endif
 
-extern Character invincibleGhost;
 extern Character player; 
+
+#if !defined(TINY_GAME)
+extern Character invincibleGhost;
 
 extern Item powerUp;
 extern Item powerUp2;
 extern Item gun;
 extern Item extraPoints;
-extern Item chase;
 
 extern Character missile;
-extern Character chasingBullet;
+
+
+#endif
 
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 
+
 #if defined(FULL_GAME) 
+
+	extern Item chase;
+	extern Character chasingBullet;
+
 	extern unsigned char innerVerticalWallX;
 	extern unsigned char innerVerticalWallY;
 	extern unsigned char innerVerticalWallLength;

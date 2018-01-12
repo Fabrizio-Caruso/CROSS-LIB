@@ -30,6 +30,8 @@
 #include "character.h"
 #include "settings.h"
 
+void handle_missile(void);
+
 void checkMissile(Character *missilePtr);
 
 void checkMissileVsGhost(Character * missilePtr,

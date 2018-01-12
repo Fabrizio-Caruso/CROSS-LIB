@@ -140,7 +140,42 @@ extern Item zombie;
 		}
 	}
 
+	void handle_count_down(unsigned char * flagPtr, unsigned short * countDownPtr)
+	{
+		if(*flagPtr)
+		{
+			if(*countDownPtr<=0)
+			{
+				*flagPtr=0;
+			}
+			else
+			{
+				--(*countDownPtr);
+			}
+		}
+	}	
+	
 #endif // !defined(TINY_GAME)
+
+	
+#if defined(FULL_GAME)
+	void reducePowerUpsCoolDowns(void)
+	{
+		extraPoints._coolDown/=2;
+		invincibility._coolDown/=2;
+		freeze._coolDown/=2;
+		TICK_SOUND();		
+	}
+#elif !defined(TINY_GAME)
+	void reducePowerUpsCoolDowns(void)
+	{
+		extraPoints._coolDown/=2;
+		TICK_SOUND();		
+	}
+#else	
+#endif	
+
+
 	
 #if defined(FULL_GAME)
 

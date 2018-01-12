@@ -199,55 +199,7 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 #endif
 
 
-
-#if !defined(TINY_GAME)
-	void handle_missile()
-	{
-		// Check if player has fired the gun
-		if(playerFire && missile._status==0 && guns>0)
-		{
-			SHOOT_SOUND();
-			--guns;
-			printGunsStats();
-			missileDirection = playerDirection;
-			missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
-			playerFire = 0;
-			DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
-			// checkMissileVsGhosts(&missile);	
-			//checkMissile(&missile);
-		}
-		
-		// Move missile if fired
-		if(missile._status==1)
-		{
-			moveMissile(&missile, missileDirection);
-			// TODO: Inefficient
-			// checkMissileVsGhosts(&missile);
-			// checkMissileVsInvincibleGhost(&missile);
-			checkMissile(&missile);
-		}
-	}
-
-	void handle_count_down(unsigned char * flagPtr, unsigned short * countDownPtr)
-	{
-		if(*flagPtr)
-		{
-			if(*countDownPtr<=0)
-			{
-				*flagPtr=0;
-			}
-			else
-			{
-				--(*countDownPtr);
-			}
-		}
-	}
-
-#endif //!defined(TINY_GAME)
-
-
 #if defined(FULL_GAME)
-
 	void handle_horizontalWalls(void)
 	{
 		SKIP_MORE_DRAW

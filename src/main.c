@@ -199,36 +199,6 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 
 
 #if !defined(TINY_GAME)
-	void checkMissileVsInvincibleGhost(Character *bulletPtr)
-	{
-		if(areCharctersAtSamePosition(bulletPtr, &invincibleGhost))
-		{
-			PING_SOUND();
-			die(bulletPtr);
-			DELETE_MISSILE(bulletPtr->_x,bulletPtr->_y,bulletPtr->_imagePtr);
-			bulletPtr->_x = 0; bulletPtr->_y = 0;
-			++invincibleGhostHits;
-			decreaseGhostLevel();
-			reducePowerUpsCoolDowns();
-			
-			if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
-			{
-				invincibleGhost._status = 0;
-				DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
-				invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
-				invincibleGhostAlive = 0;
-				EXPLOSION_SOUND();
-				points+=INVINCIBLE_GHOST_POINTS;
-				displayStats();
-			}
-			else
-			{
-				DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-			}
-		}	
-	}
-
-
 	void handle_missile()
 	{
 		// Check if player has fired the gun
@@ -241,7 +211,8 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 			missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
 			playerFire = 0;
 			DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
-			checkMissileVsGhosts(&missile);	
+			// checkMissileVsGhosts(&missile);	
+			//checkMissile(&missile);
 		}
 		
 		// Move missile if fired
@@ -249,8 +220,9 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 		{
 			moveMissile(&missile, missileDirection);
 			// TODO: Inefficient
-			checkMissileVsGhosts(&missile);
-			checkMissileVsInvincibleGhost(&missile);
+			// checkMissileVsGhosts(&missile);
+			// checkMissileVsInvincibleGhost(&missile);
+			checkMissile(&missile);
 		}
 	}
 
@@ -756,8 +728,9 @@ void DEBUG_PRINT()
 			DELETE_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
 			moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
 			DRAW_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
-			checkMissileVsGhosts(&chasingBullet);
-			checkMissileVsInvincibleGhost(&chasingBullet);
+			// checkMissileVsGhosts(&chasingBullet);
+			// checkMissileVsInvincibleGhost(&chasingBullet);
+			checkMissile(&chasingBullet);
 		}	
 	}
 #endif
@@ -967,7 +940,8 @@ int main(void)
 					// This detects collisions of ghosts that have just moved
 					if(missile._status)
 					{
-						checkMissileVsGhosts(&missile);
+						//checkMissileVsGhosts(&missile);
+						checkMissile(&missile);
 					}
 				#else
 					chaseCharacter(ghostSlowDown);
@@ -1010,7 +984,7 @@ int main(void)
 						{
 							handle_zombie_item();
 							handle_zombie_count_down();	
-							if(zombieActive && (loop&15==1))
+							if(zombieActive && ((loop&15)==1))
 							{
 								points+=ZOMBIE_BONUS;
 								PING_SOUND();

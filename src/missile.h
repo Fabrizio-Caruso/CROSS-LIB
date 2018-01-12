@@ -30,10 +30,14 @@
 #include "character.h"
 #include "settings.h"
 
+void checkMissile(Character *missilePtr);
+
 void checkMissileVsGhost(Character * missilePtr,
 					     Character * ghostPtr);
 	
 void checkMissileVsGhosts(Character * missilePtr);
+
+void checkMissileVsInvincibleGhost(Character *bulletPtr);
 	
 unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
 							  unsigned short missileDirection);

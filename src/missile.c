@@ -31,6 +31,7 @@
 #include "level.h"
 #include "text.h"
 #include "character.h"
+#include "enemy.h"
 
 extern unsigned int points;
 extern unsigned char ghostCount;
@@ -39,6 +40,10 @@ extern Image DEAD_GHOST_IMAGE;
 extern unsigned char level;
 
 extern Item extraPoints;
+
+extern Character invincibleGhost;
+extern unsigned char invincibleGhostHits;
+extern unsigned char invincibleGhostAlive;
 	
 #if defined(FULL_GAME) 
 	extern Item freeze;
@@ -52,6 +57,12 @@ extern Item extraPoints;
 	extern unsigned char dead_bubbles;
 	extern unsigned char missileBasesDestroyed;
 #endif
+
+void checkMissile(Character *missilePtr)
+{
+	checkMissileVsInvincibleGhost(missilePtr);
+	checkMissileVsGhosts(missilePtr);
+}
 
 void checkMissileVsGhost(Character * missilePtr,
 						 Character * ghostPtr)
@@ -90,11 +101,41 @@ void checkMissileVsGhosts(Character * missilePtr)
 	void reducePowerUpsCoolDowns(void)
 	{
 		extraPoints._coolDown/=2;
-		// freeze._coolDown/=2;		
 		TICK_SOUND();		
 	}
 #else	
 #endif	
+
+
+void checkMissileVsInvincibleGhost(Character *bulletPtr)
+{
+	if(areCharctersAtSamePosition(bulletPtr, &invincibleGhost))
+	{
+		PING_SOUND();
+		die(bulletPtr);
+		DELETE_MISSILE(bulletPtr->_x,bulletPtr->_y,bulletPtr->_imagePtr);
+		bulletPtr->_x = 0; bulletPtr->_y = 0;
+		++invincibleGhostHits;
+		decreaseGhostLevel();
+		reducePowerUpsCoolDowns();
+		
+		if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
+		{
+			invincibleGhost._status = 0;
+			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
+			invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
+			invincibleGhostAlive = 0;
+			EXPLOSION_SOUND();
+			points+=INVINCIBLE_GHOST_POINTS;
+			displayStats();
+		}
+		else
+		{
+			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+		}
+	}	
+}
+
 
 void _moveMissile(Character *missilePtr, unsigned short missileDirection)
 {
@@ -189,10 +230,6 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 						DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 						points+=VERTICAL_MISSILE_BONUS;
 						displayStats();					
-						// if(dead_bubbles==BUBBLES_NUMBER)
-						// {
-							// reducePowerUpsCoolDowns();		
-						// }
 					}
 				}
 			}			

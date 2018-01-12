@@ -22,39 +22,41 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
  
-#ifndef _MISSILE
-#define _MISSILE
+#ifndef _MISSILE_HEADER
+#define _MISSILE_HEADER
 
 #if !defined(TINY_GAME)
 
-#include "character.h"
-#include "settings.h"
+	#include "character.h"
+	#include "settings.h"
 
-void handle_missile(void);
+	void handle_missile(void);
 
-void checkMissile(Character *missilePtr);
+	void checkMissile(Character *missilePtr);
 
-void checkMissileVsGhost(Character * missilePtr,
-					     Character * ghostPtr);
-	
-void checkMissileVsGhosts(Character * missilePtr);
+	void checkMissileVsGhost(Character * missilePtr,
+							 Character * ghostPtr);
+		
+	void checkMissileVsGhosts(Character * missilePtr);
 
-void checkMissileVsInvincibleGhost(Character *bulletPtr);
-	
-unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
-							  unsigned short missileDirection);
-	
-void _moveMissile(Character * missilePtr, unsigned short missileDirection);
-	
-void moveMissile(Character * missilePtr, unsigned short missileDirection);
+	void checkMissileVsInvincibleGhost(Character *bulletPtr);
+		
+	unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
+								  unsigned short missileDirection);
+		
+	void _moveMissile(Character * missilePtr, unsigned short missileDirection);
+		
+	void moveMissile(Character * missilePtr, unsigned short missileDirection);
 
-void restoreMissile(Character *missilePtr);
+	void restoreMissile(Character *missilePtr);
 
-#if !defined(TINY_GAME)
 	void reducePowerUpsCoolDowns(void);
-#endif
-	
-#endif	
+		
+	#if defined(FULL_GAME)
+		void handle_chasing_bullet(void);
+	#endif
+		
+#endif	// !defined(TINY_GAME)
 
 #endif //_MISSILE
 

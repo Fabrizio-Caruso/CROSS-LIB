@@ -470,18 +470,6 @@ void DEBUG_PRINT()
 		
 	}
 	
-	void handle_chasing_bullet(void)
-	{
-		if(chasingBullet._status)
-		{
-			DELETE_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
-			moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
-			DRAW_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
-			// checkMissileVsGhosts(&chasingBullet);
-			// checkMissileVsInvincibleGhost(&chasingBullet);
-			checkMissile(&chasingBullet);
-		}	
-	}
 #endif
 
 int main(void)

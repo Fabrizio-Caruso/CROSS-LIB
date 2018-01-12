@@ -33,6 +33,7 @@
 #include "character.h"
 #include "item.h"
 #include "enemy.h"
+#include "strategy.h"
 
 extern unsigned int points;
 extern unsigned char ghostCount;
@@ -52,11 +53,15 @@ extern unsigned char missileDirection;
 
 extern Character missile;
 extern Character player;
+
+extern Character *chasedEnemyPtr;
 	
 #if defined(FULL_GAME) 
 	extern Item freeze;
 	extern Item extraLife;
 	extern Item invincibility;
+	
+	extern Character chasingBullet;
 	
 	extern Character leftEnemyMissile;
 	extern Character rightEnemyMissile;
@@ -66,8 +71,19 @@ extern Character player;
 	extern unsigned char missileBasesDestroyed;
 #endif
 
-
-
+#if defined(FULL_GAME)
+	void handle_chasing_bullet(void)
+	{
+		if(chasingBullet._status)
+		{
+			DELETE_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
+			moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
+			DRAW_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
+			checkMissile(&chasingBullet);
+		}	
+	}
+#endif
+	
 void handle_missile(void)
 {
 	// Check if player has fired the gun
@@ -262,3 +278,4 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 }
 
 #endif
+

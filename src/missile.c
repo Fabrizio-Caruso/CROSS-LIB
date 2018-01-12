@@ -31,6 +31,7 @@
 #include "level.h"
 #include "text.h"
 #include "character.h"
+#include "item.h"
 #include "enemy.h"
 
 extern unsigned int points;

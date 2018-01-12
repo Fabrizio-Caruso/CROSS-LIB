@@ -23,6 +23,7 @@
 /* --------------------------------------------------------------------------------------- */ 
  
 #include "character.h"
+#include "item.h"
 #include "settings.h"
 
 #if defined(__CMOC__) && !defined(__WINCMOC__)

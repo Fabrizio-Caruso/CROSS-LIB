@@ -26,6 +26,9 @@
 #define _INVINCIBLE_ENEMY
 
 #if !defined(TINY_GAME)
+
+void handle_invincible_ghost(void);
+
 unsigned short computeInvincibleSlowDown(void);
 
 void computeInvincibleGhostParameters(void);

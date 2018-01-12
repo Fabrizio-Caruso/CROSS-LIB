@@ -26,6 +26,9 @@
 #include "settings.h"
 #include "invincible_enemy.h"
 #include "level.h"
+#include "display_macros.h"
+#include "sound_macros.h"
+#include "strategy.h"
 
 extern unsigned char level;
 extern unsigned short loop;
@@ -33,10 +36,16 @@ extern unsigned short loop;
 extern unsigned short invincibleSlowDown;
 extern unsigned char invincibleXCountDown;
 extern unsigned char invincibleYCountDown ;
-// extern unsigned short invincibleLoopTrigger;
 
 extern unsigned short ghostLevel;
 
+extern Character invincibleGhost;
+extern Character player;
+
+extern unsigned char invincibleGhostAlive;
+extern unsigned char invincibleGhostCountTrigger;
+extern unsigned short invincibleLoopTrigger;
+extern unsigned char confuseActive;
 
 unsigned short computeInvincibleSlowDown(void)
 {
@@ -52,8 +61,63 @@ void computeInvincibleGhostParameters(void)
 	invincibleSlowDown = computeInvincibleSlowDown();
 	invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
 	invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
-	// invincibleLoopTrigger = INVINCIBLE_LOOP_TRIGGER;	
 }
+
+
+void handle_invincible_ghost(void)
+{
+	if(!invincibleGhost._status)
+	{
+		// Manage invincible ghost
+		
+		#if defined(FULL_GAME)
+		if((!bossLevel() && invincibleGhostAlive &&
+							((invincibleXCountDown==0)|| (invincibleYCountDown==0) || (loop>=INVINCIBLE_LOOP_TRIGGER) || (ghostCount<=invincibleGhostCountTrigger))) || 
+		   (bossLevel() && loop>=INVINCIBLE_LOOP_TRIGGER))
+		#else
+		if(invincibleGhostAlive &&
+							((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
+							 (loop>=INVINCIBLE_LOOP_TRIGGER) || (ghostCount<=INVINCIBLE_GHOST_TRIGGER)))
+		#endif
+		{
+			invincibleGhost._status = 1;
+			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+		}
+		else
+		{
+			--invincibleXCountDown;
+			--invincibleYCountDown;
+		}
+	}
+	else
+	{ 	
+		invincibleSlowDown = computeInvincibleSlowDown();
+
+		if(rand()>invincibleSlowDown)
+		{
+			TOCK_SOUND();
+			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
+			#if defined(FULL_GAME)
+				if(!confuseActive || loop&1)
+				{
+					moveTowardCharacter(&player, &invincibleGhost, 4);
+				}
+			#else
+			moveTowardCharacter(&invincibleGhost, 4);
+			#endif
+		}
+		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+		#if defined(FULL_GAME)
+		if (playerKilledBy(&invincibleGhost))
+		#else
+		if(areCharctersAtSamePosition(&invincibleGhost, &player))
+		#endif
+		{
+			playerDies();
+		}
+	}
+}
+
 
 #endif
 

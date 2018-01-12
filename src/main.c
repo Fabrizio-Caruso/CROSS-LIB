@@ -52,9 +52,11 @@
 #include "input_macros.h"
 #include "sleep_macros.h"
 
-#include "horizontal_missile.h"
-#include "rocket.h"
-
+#if defined(FULL_GAME)
+	#include "horizontal_missile.h"
+	#include "rocket.h"
+#endif
+	
 #include "sound_macros.h"
 	
 
@@ -202,24 +204,6 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 #endif
 
 
-#if defined(FULL_GAME)
-	void handle_horizontalWalls(void)
-	{
-		SKIP_MORE_DRAW
-		{				
-			horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + level/16 + (loop/HORIZONTAL_WALLS_INCREASE_LOOP);
-		
-			DRAW_HORIZONTAL_WALLS(horizontalWallsLength);
-		}
-							
-		if(!invincibilityActive && horizontalWallsReached(&player))
-			{
-				playerDies();
-			}		
-	}
-#endif
-
-
 #if !defined(TINY_GAME)
 	void resetItems()
 	{
@@ -258,63 +242,6 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 		#endif	
 	}	
 
-
-void handle_invincible_ghost(void)
-{
-	if(!invincibleGhost._status)
-	{
-		// Manage invincible ghost
-		
-		#if defined(FULL_GAME)
-		if((!bossLevel() && invincibleGhostAlive &&
-							((invincibleXCountDown==0)|| (invincibleYCountDown==0) || (loop>=INVINCIBLE_LOOP_TRIGGER) || (ghostCount<=invincibleGhostCountTrigger))) || 
-		   (bossLevel() && loop>=INVINCIBLE_LOOP_TRIGGER))
-		// #elif defined(TINY_GAME)
-		// if(loop>=INVINCIBLE_LOOP_TRIGGER) || (ghostCount<=INVINCIBLE_GHOST_TRIGGER))
-		#else
-		if(invincibleGhostAlive &&
-							((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
-							 (loop>=INVINCIBLE_LOOP_TRIGGER) || (ghostCount<=INVINCIBLE_GHOST_TRIGGER)))
-		#endif
-		{
-			invincibleGhost._status = 1;
-			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-		}
-		else
-		{
-			--invincibleXCountDown;
-			--invincibleYCountDown;
-		}
-	}
-	else
-	{ 	
-		invincibleSlowDown = computeInvincibleSlowDown();
-
-		if(rand()>invincibleSlowDown)
-		{
-			TOCK_SOUND();
-			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
-			#if defined(FULL_GAME)
-				if(!confuseActive || loop&1)
-				{
-					moveTowardCharacter(&player, &invincibleGhost, 4);
-				}
-			#else
-			moveTowardCharacter(&invincibleGhost, 4);
-			#endif
-		}
-		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
-		#if defined(FULL_GAME)
-		// if(!invincibilityActive && areCharctersAtSamePosition(&invincibleGhost, &player))
-		if (playerKilledBy(&invincibleGhost))
-		#else
-		if(areCharctersAtSamePosition(&invincibleGhost, &player))
-		#endif
-		{
-			playerDies();
-		}
-	}
-}
 #endif
 
 #if !defined(NO_INITIAL_SCREEN)			
@@ -331,22 +258,6 @@ void initialScreen(void)
 }
 #endif
 
-#if defined(DEBUG)
-void DEBUG_PRINT()
-{
-	{	
-		unsigned char i;
-		
-		CLEAR_SCREEN();			
-		
-		for(i=32;i<255;++i)
-		{
-			printf(" %u: %c", i, i);
-		}
-	}
-	WAIT_PRESS();
-}
-#endif
 
 #if defined(FULL_GAME)
 	
@@ -378,10 +289,6 @@ int main(void)
 	{
 
 		INIT_IMAGES();
-		
-		#if defined(DEBUG)
-			DEBUG_PRINT();
-		#endif
 		
 		#if !defined(NO_SET_SCREEN_COLORS)
 			// Set Screen Colors
@@ -624,7 +531,7 @@ int main(void)
 				
 				#if defined(FULL_GAME)
 					if(wallReached(&player) || 
-					   (!invincibilityActive && (playerReached(&player) || playerReachedBombs(&player) || innerWallReached(&player)))
+					   (!invincibilityActive && (playerReached(&player) || playerReachedBombs(&player) || innerWallReached(&player) || (horizontalWallsLevel() && horizontalWallsReached(&player))))
 					  )
 				#else
 					if(wallReached(&player) || playerReached(&player) || playerReachedBombs(&player))
@@ -642,10 +549,12 @@ int main(void)
 						DRAW_BOMBS();	
 				
 						if(horizontalWallsLevel())
-						{
-							handle_horizontalWalls();
+						{				
+							horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + (level>>4) + (loop/HORIZONTAL_WALLS_INCREASE_LOOP);		
+							DRAW_HORIZONTAL_WALLS(horizontalWallsLength);	
 						}						
 					}
+										
 				#else
 					#if !defined(TINY_GAME)
 					SKIP_MORE_DRAW

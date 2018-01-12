@@ -52,6 +52,9 @@
 #include "input_macros.h"
 #include "sleep_macros.h"
 
+#include "horizontal_missile.h"
+#include "rocket.h"
+
 #include "sound_macros.h"
 	
 
@@ -146,7 +149,7 @@ Character bombs[BOMBS_NUMBER];
 	Character bubbles[BUBBLES_NUMBER];
 	
 	Character chasingBullet;
-	
+
 	Character * chasedEnemyPtr;
 
 	unsigned char bubbles_x[BUBBLES_NUMBER];
@@ -214,12 +217,6 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 				playerDies();
 			}		
 	}
-
-	unsigned char computeArrowRange(void)
-	{
-			return level/10;
-	}
-	
 #endif
 
 
@@ -352,112 +349,6 @@ void DEBUG_PRINT()
 #endif
 
 #if defined(FULL_GAME)
-
-	void handle_rockets(void)
-	{	
-		if((ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && rocketLevel()) || bossLevel())
-		{ 
-			unsigned char i;
-
-			for(i=0;i<BUBBLES_NUMBER;++i)
-			{
-				if(bubbles[i]._status)
-				{
-					// if(!invincibilityActive && areCharctersAtSamePosition(&player,&bubbles[i]))
-					if(playerKilledBy(&bubbles[i]))
-					{
-						playerDies();
-					}
-					
-					if(rand()&1)
-					{
-						DELETE_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);					
-						--(bubbles[i]._y);
-					}
-
-					DRAW_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);			
-					if(bubbles[i]._y<=1)
-					{	
-						DELETE_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);
-						//
-						bubbles[i]._x = (i+1)*(XSize/(BUBBLES_NUMBER+1));
-						bubbles[i]._y = YSize-2;							
-					}
-				}
-			}
-		}
-	}
-
-	void _handle_enemy_missile_from_the_left(void)
-	{
-		if(!oneMissileLevel() && leftEnemyMissile._status)
-		{
-			DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
-			if(leftEnemyMissile._x==XSize-2)
-			{
-				leftEnemyMissile._x=0;
-				leftEnemyMissile._y = YSize-1-ENEMY_MISSILE_OFFSET;
-			}
-			else
-			{
-				ADVANCED_LEFT_MISSILE();
-				if(loop&1 && player._y>=YSize-1-ENEMY_MISSILE_OFFSET-arrowRange && player._x>=leftEnemyMissile._x)
-				{
-					move(&leftEnemyMissile, &player,Y_MOVE);			
-				}
-			}
-			DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
-			
-			if(playerKilledBy(&leftEnemyMissile))
-			{
-				playerDies();
-			}
-		}		
-	}
-	
-	void _handle_enemy_missile_from_the_right(void)
-	{
-		if(rightEnemyMissile._status)
-		{
-			DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
-			if(rightEnemyMissile._x==1)
-			{
-				rightEnemyMissile._x= XSize-1;
-				if(oneMissileLevel())
-				{
-					rightEnemyMissile._y = YSize/2;					
-				}
-				else
-				{
-					rightEnemyMissile._y = ENEMY_MISSILE_OFFSET;
-				}
-			}
-			else
-			{
-				ADVANCED_RIGHT_MISSILE();
-				if((loop&1 && (player._x<= rightEnemyMissile._x)) && ((!oneMissileLevel() && player._y<=ENEMY_MISSILE_OFFSET+arrowRange) || (oneMissileLevel() && player._y<=YSize/2+arrowRange && player._y>=YSize/2-arrowRange)))			
-				{
-					move(&rightEnemyMissile, &player,Y_MOVE);			
-				}
-			}
-			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);	
-			
-			// if(!invincibilityActive && areCharctersAtSamePosition(&rightEnemyMissile,&player))
-			if(playerKilledBy(&rightEnemyMissile))
-			{
-				playerDies();
-			}
-		}		
-	}
-	
-	void handle_enemy_missiles(void)
-	{	
-		if(missileLevel() || bossLevel() || oneMissileLevel())
-		{
-			_handle_enemy_missile_from_the_left();	
-			_handle_enemy_missile_from_the_right();
-		}	
-	}
 	
 	void handle_special_triggers(void)
 	{

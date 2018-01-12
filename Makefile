@@ -48,7 +48,7 @@ oric1_16k:
 	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DREDEFINED_CHARS -t atmos --config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg $(SOURCE_PATH)/atmos/atmos_redefined_characters.c $(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_oric1_16k.tap
 
 vic20_exp_16k: 
-	$(CC65_PATH)$(MYCC65) -O -t vic20 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-16k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c $(SOURCE_PATH)/vic20/vic20_sounds.c  $(SOURCE_PATH)/item.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
+	$(CC65_PATH)$(MYCC65) -O -t vic20 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-16k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c $(SOURCE_PATH)/vic20/vic20_sounds.c  $(SOURCE_PATH)/item.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
 
 # -m map.txt 
 vic20_exp_8k: 

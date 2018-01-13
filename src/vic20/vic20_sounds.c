@@ -27,16 +27,16 @@
 	void _explosion_sound(unsigned char freq, unsigned char vol)
 	{ 
 		unsigned int i; 
-		unsigned int j;
+		unsigned char j;
 		VIC.noise = freq; 
 		VIC.volume_color |= vol; 
 
 		for(j=0;j<8;++j) 
 		{ \
-			for(i=0;i<255;++i) 
+			for(i=0;i<400;++i) 
 			{ 
-			} 
-			VIC.volume_color &= 8-j; 
+			} 			
+			VIC.volume_color &= 8-j; 		
 		} 
 		VIC.noise = 0x00; 
 		VIC.volume_color &= 0x00; 
@@ -47,7 +47,7 @@
 		unsigned int i; 
 		VIC.voice1 = freq; 
 		VIC.volume_color |= 0x08; 
-		for(i=0;i<800;++i) 
+		for(i=0;i<600;++i) 
 		{ 
 		} 
 		VIC.voice1 = 0x00; 
@@ -57,15 +57,21 @@
 
 	void ZAP_SOUND() 
 	{ 
-		unsigned int i; 
-		unsigned int j; 
+		unsigned char i; 
+		unsigned char j; 
 		VIC.volume_color |= 0x0B; 
 		for(j=0;j<15;++j) 
 		{ \
 			VIC.voice1 = j*15;
-			for(i=0;i<300;++i) 
+			for(i=0;i<254;++i) 
 			{ 
 			} 
+			for(i=0;i<254;++i) 
+			{ 
+			} 	
+			for(i=0;i<254;++i) 
+			{ 
+			} 			
 		} \
 		VIC.voice1 = 0x00; 
 		VIC.volume_color &= 0x00; 

@@ -64,6 +64,22 @@ vic20_exp_8k:
 
 vic20_level: 
 	$(CC65_PATH)$(MYCC65) -c -O -t vic20 -DREDEFINED_CHARS -DSOUNDS $(SOURCE_PATH)/level.c
+	
+vic20_character: 
+	$(CC65_PATH)$(MYCC65) -c -O -t vic20 -DREDEFINED_CHARS -DSOUNDS $(SOURCE_PATH)/character.c
+
+vic20_text: 
+	$(CC65_PATH)$(MYCC65) -c -O -t vic20 -DREDEFINED_CHARS -DSOUNDS $(SOURCE_PATH)/text.c
+
+vic20_invincible_enemy: 
+	$(CC65_PATH)$(MYCC65) -c -O -t vic20 -DREDEFINED_CHARS -DSOUNDS $(SOURCE_PATH)/invincible_enemy.c
+
+vic20_missile: 
+	$(CC65_PATH)$(MYCC65) -c -O -t vic20 -DREDEFINED_CHARS -DSOUNDS $(SOURCE_PATH)/missile.c
+
+vic20_strategy: 
+	$(CC65_PATH)$(MYCC65) -c -O -t vic20 -DREDEFINED_CHARS -DSOUNDS $(SOURCE_PATH)/strategy.c
+	
 # -DNO_INITIAL_SCREEN
 # -DNO_RANDOM_LEVEL
 vic20_exp_3k: 

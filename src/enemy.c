@@ -28,7 +28,6 @@
 
 extern unsigned short ghostLevel;
 extern unsigned char level;
-// extern unsigned short ghostLevelDecrease;
 
 extern Character ghosts[GHOSTS_NUMBER];
 

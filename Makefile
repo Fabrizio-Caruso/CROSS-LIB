@@ -61,6 +61,9 @@ vic20_exp_8k:
 	 $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c  $(SOURCE_PATH)/input_macros.c \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
+
+vic20_level: 
+	$(CC65_PATH)$(MYCC65) -c -O -t vic20 -DREDEFINED_CHARS -DSOUNDS $(SOURCE_PATH)/level.c
 # -DNO_INITIAL_SCREEN
 # -DNO_RANDOM_LEVEL
 vic20_exp_3k: 

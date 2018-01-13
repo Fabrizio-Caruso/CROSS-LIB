@@ -54,7 +54,7 @@ extern unsigned char missileDirection;
 extern Character missile;
 extern Character player;
 
-extern Character *chasedEnemyPtr;
+
 	
 #if defined(FULL_GAME) 
 	extern Item freeze;
@@ -69,6 +69,8 @@ extern Character *chasedEnemyPtr;
 	extern Character bubbles[BUBBLES_NUMBER];
 	extern unsigned char dead_bubbles;
 	extern unsigned char missileBasesDestroyed;
+
+	extern Character *chasedEnemyPtr;	
 #endif
 
 #if defined(FULL_GAME)
@@ -140,7 +142,8 @@ void checkMissileVsGhosts(Character * missilePtr)
 
 void checkMissileVsInvincibleGhost(Character *bulletPtr)
 {
-	if(areCharctersAtSamePosition(bulletPtr, &invincibleGhost))
+	if(invincibleGhost._status && 
+	   areCharctersAtSamePosition(bulletPtr, &invincibleGhost))
 	{
 		PING_SOUND();
 		die(bulletPtr);
@@ -230,6 +233,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
 		#if defined(FULL_GAME)
 			DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+			
 			if(oneMissileLevel())
 			{
 				if(missilePtr->_x==XSize-1 && missilePtr->_y==YSize/2 && rightEnemyMissile._status)

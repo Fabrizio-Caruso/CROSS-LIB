@@ -71,7 +71,6 @@ extern unsigned char arrowRange;
 			}
 			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);	
 			
-			// if(!invincibilityActive && areCharctersAtSamePosition(&rightEnemyMissile,&player))
 			if(playerKilledBy(&rightEnemyMissile))
 			{
 				playerDies();

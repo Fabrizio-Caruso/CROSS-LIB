@@ -44,10 +44,6 @@ extern unsigned char YSize;
 extern unsigned char ghostCount;
 extern unsigned short loop;
 
-extern unsigned char horizontalWallsLength;
-
-extern unsigned char zombieActive;
-
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
@@ -62,6 +58,9 @@ extern Character player;
 	extern unsigned char innerVerticalWallX;
 	extern unsigned char innerVerticalWallY;
 	extern unsigned char innerVerticalWallLength;
+	
+	extern unsigned char horizontalWallsLength;
+	extern unsigned char zombieActive;	
 #endif 
 
 void playerDies(void)
@@ -129,14 +128,14 @@ void checkBombsVsGhost(Character * ghostPtr)
 	{
 		points+=GHOST_VS_BOMBS_BONUS;	
 		#if defined(FULL_GAME)
-		if(zombieActive)
-		{
-			ghostPtr->_imagePtr = (Image *)& DEAD_GHOST_IMAGE;	
-		}
-		else
-		{
-			ghostPtr->_imagePtr = (Image *)& BOMB_IMAGE;
-		}			
+			if(zombieActive)
+			{
+				ghostPtr->_imagePtr = (Image *)& DEAD_GHOST_IMAGE;	
+			}
+			else
+			{
+				ghostPtr->_imagePtr = (Image *)& BOMB_IMAGE;
+			}			
 		#else
 			ghostPtr->_imagePtr = (Image *)& BOMB_IMAGE;
 		#endif

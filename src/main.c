@@ -101,14 +101,6 @@ unsigned char level;
 	extern unsigned char playerBlink;	
 #endif
 
-#if defined(DEBUG) && defined(FULL_GAME)
-	extern Image EXTRA_LIFE_IMAGE;
-	extern Image INVINCIBILITY_IMAGE;
-	extern Image BUBBLE_IMAGE;
-	extern Image LEFT_ENEMY_MISSILE_IMAGE;
-	extern Image RIGHT_ENEMY_MISSILE_IMAGE;	
-#endif
-
 Character player; 
 
 #if !defined(TINY_GAME)

@@ -96,17 +96,12 @@ void handle_missile(void)
 		missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
 		playerFire = 0;
 		DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
-		// checkMissileVsGhosts(&missile);	
-		//checkMissile(&missile);
 	}
 	
 	// Move missile if fired
 	if(missile._status==1)
 	{
 		moveMissile(&missile, missileDirection);
-		// TODO: Inefficient
-		// checkMissileVsGhosts(&missile);
-		// checkMissileVsInvincibleGhost(&missile);
 		checkMissile(&missile);
 	}
 }
@@ -159,7 +154,8 @@ void checkMissileVsInvincibleGhost(Character *bulletPtr)
 		{
 			invincibleGhost._status = 0;
 			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
-			invincibleGhost._x=XSize-2; invincibleGhost._y=YSize-2;
+			invincibleGhost._x=XSize-2; 
+			invincibleGhost._y=YSize-2;
 			invincibleGhostAlive = 0;
 			EXPLOSION_SOUND();
 			points+=INVINCIBLE_GHOST_POINTS;

@@ -45,7 +45,10 @@ extern Character player;
 extern unsigned char invincibleGhostAlive;
 extern unsigned char invincibleGhostCountTrigger;
 extern unsigned short invincibleLoopTrigger;
-extern unsigned char confuseActive;
+
+#if defined(FULL_GAME)
+	extern unsigned char confuseActive;
+#endif
 
 unsigned short computeInvincibleSlowDown(void)
 {

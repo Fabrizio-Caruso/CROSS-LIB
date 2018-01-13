@@ -8,25 +8,26 @@
 
 
 extern unsigned int points;
-extern unsigned char freezeActive;
-extern unsigned char invincibilityActive;
 
 extern unsigned char guns;
 extern unsigned char lives;
 
 extern unsigned char level;
+
+extern unsigned char freezeActive;
 extern unsigned char freeze_count_down;
 
 
 #if defined(FULL_GAME)
+	extern unsigned char invincibilityActive;
 	extern unsigned char confuseActive;
 	extern unsigned char zombieActive;
-	extern unsigned char missileBasesDestroyed;
-	extern unsigned char skullsKilled;
 	extern unsigned char freeze_count_down;
 	extern unsigned char invincibility_count_down;
 	extern unsigned char confuse_count_down;
 	extern unsigned char zombie_count_down;
+	extern unsigned char missileBasesDestroyed;
+	extern unsigned char skullsKilled;	
 #endif
 
 extern Image DEAD_GHOST_IMAGE;
@@ -61,7 +62,6 @@ extern Item extraPoints;
 #endif
 	
 #if !defined(TINY_GAME)
-	
 
 	void powerUpReached(Character * powerUpPtr)
 	{

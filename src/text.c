@@ -125,7 +125,7 @@ extern Image MISSILE_IMAGE;
 #if defined(COLOR)
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
-		PRINT((XSize - strlen(Text)) / 2, row, Text);	
+		PRINT(((XSize - strlen(Text))>>1), row, Text);	
 	}
 	
 	#if defined(__ATMOS__)
@@ -145,7 +145,7 @@ extern Image MISSILE_IMAGE;
 #else
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
-		PRINT((XSize - strlen (Text)) / 2, row, Text)		
+		PRINT(((XSize - strlen (Text))>>1), row, Text)		
 	}
 	#define printCenteredMessageOnRowWithCol(row, col, Text) \
 		printCenteredMessageOnRow(row, Text)
@@ -154,16 +154,16 @@ extern Image MISSILE_IMAGE;
 
 #if defined(COLOR)
 	#define printCenteredMessage(Text) \
-		printCenteredMessageOnRow(YSize / 2, Text)
+		printCenteredMessageOnRow((YSize>>1), Text)
 
 	#define printCenteredMessageWithCol(col, Text) \
-		printCenteredMessageOnRowWithCol(YSize / 2, col, Text)	
+		printCenteredMessageOnRowWithCol((YSize>>1), col, Text)	
 #else
 	#define printCenteredMessage(Text) \
-		printCenteredMessageOnRow(YSize/2, Text)
+		printCenteredMessageOnRow((YSize>>1), Text)
 		
 	#define printCenteredMessageWithCol(col, Text) \
-		printCenteredMessageOnRow(YSize/2, Text)
+		printCenteredMessageOnRow((YSize>>1), Text)
 #endif
 	
 
@@ -300,7 +300,7 @@ void displayStats(void)
 #if !defined(NO_TEXT)	
 	void printLevel(void)
 	{
-		PRINTF((XSize -7) / 2, YSize/2, START_LEVEL_STRING, level);
+		PRINTF(((XSize -7)>>1), (YSize>>1), START_LEVEL_STRING, level);
 	}
 #endif
 
@@ -308,12 +308,12 @@ void displayStats(void)
 #if !defined(TINY_GAME)
 	void _printScoreOnRow(unsigned char row, char * text, unsigned int score)
 	{
-		PRINTF((XSize-strlen(text))/2, row, text, score);
+		PRINTF(((XSize-strlen(text))>>1), row, text, score);
 	}	
 	
 	void _printScore(char * text, unsigned int score)
 	{
-		_printScoreOnRow(YSize/2, text, score);
+		_printScoreOnRow((YSize>>1), text, score);
 	}
 #endif
 
@@ -393,8 +393,8 @@ void printPressKeyToStart(void)
 			_printTopScore();
 			
 			SET_TEXT_COLOR(SPLASH_COLOR);
-			printCenteredMessageOnRow(YSize/2-1, LURE_THE_ENEMIES_STRING);
-			printCenteredMessageOnRow(YSize/2+1, INTO_THE_MINES_STRING);
+			printCenteredMessageOnRow((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
+			printCenteredMessageOnRow((YSize>>1)+1, INTO_THE_MINES_STRING);
 			
 			SET_TEXT_COLOR(TEXT_COLOR);				
 		#endif

@@ -15,17 +15,18 @@ extern unsigned char lives;
 extern unsigned char level;
 
 extern unsigned char freezeActive;
-extern unsigned char freeze_count_down;
+extern unsigned short freeze_count_down;
 
 
 #if defined(FULL_GAME)
 	extern unsigned char invincibilityActive;
 	extern unsigned char confuseActive;
 	extern unsigned char zombieActive;
-	extern unsigned char freeze_count_down;
-	extern unsigned char invincibility_count_down;
-	extern unsigned char confuse_count_down;
-	extern unsigned char zombie_count_down;
+	
+	extern unsigned short invincibility_count_down;
+	extern unsigned short confuse_count_down;
+	extern unsigned short zombie_count_down;
+	
 	extern unsigned char missileBasesDestroyed;
 	extern unsigned char skullsKilled;	
 #endif

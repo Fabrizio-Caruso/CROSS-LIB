@@ -86,17 +86,12 @@ void INIT_IMAGES(void)
 		EXTRA_POINTS_IMAGE._imageData = '$';
 		
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-		INVINCIBILITY_IMAGE._imageData = 'V';
+		INVINCIBILITY_IMAGE._imageData = 'I';
 		SUPER_IMAGE._imageData = 'H';
 		
 	#endif
 }
 
-// #if defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
-	// #define zxgotoxy(x,y) zx_setcursorpos(y,x)
-// #else
-	// #define zxgotoxy(x,y) gotoxy(x,y)
-// #endif
 	
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)

@@ -220,7 +220,7 @@
 #endif
 
 #if defined(__GAMATE__) || defined(__ZX81__) || defined(__LAMBDA__) 
-	#define BOMBS_NUMBER 3
+	#define BOMBS_NUMBER 4
 #elif defined(__SPECTRUM__) && !defined(TINY_GAME)
 	#define BOMBS_NUMBER 4
 #elif defined(__PCE__) || (defined(__VIC20__) && defined(TINY_GAME)) || (defined(__SPECTRUM__) && defined(TINY_GAME))

@@ -29,7 +29,7 @@
 #endif
 
 #if defined(FULL_GAME)
-	unsigned char playerBlink = 0;	
+	unsigned char playerBlink;	
 #endif
 
 #if !defined(REDEFINED_CHARS)

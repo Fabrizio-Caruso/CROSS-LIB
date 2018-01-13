@@ -12,11 +12,8 @@ extern Character player;
 
 extern unsigned char arrowRange;
 
-	unsigned char computeArrowRange(void)
-	{
-			return level/10;
-	}
 
+	
 	void _handle_enemy_missile_from_the_left(void)
 	{
 		if(!oneMissileLevel() && leftEnemyMissile._status)
@@ -54,7 +51,7 @@ extern unsigned char arrowRange;
 				rightEnemyMissile._x= XSize-1;
 				if(oneMissileLevel())
 				{
-					rightEnemyMissile._y = YSize/2;					
+					rightEnemyMissile._y = (YSize>>1);					
 				}
 				else
 				{
@@ -88,3 +85,4 @@ extern unsigned char arrowRange;
 	}
 	
 #endif // defined(FULL_GAME)
+

@@ -35,7 +35,9 @@ extern Character ghosts[GHOSTS_NUMBER];
 
 extern unsigned char strategyArray[GHOSTS_NUMBER];
 
+#if defined(FULL_GAME)
 extern unsigned char zombieActive;
+#endif
 
 unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
 {

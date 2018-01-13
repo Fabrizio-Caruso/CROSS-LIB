@@ -80,8 +80,9 @@ extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
 extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
-extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
+
+extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 

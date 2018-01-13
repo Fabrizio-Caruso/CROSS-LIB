@@ -62,8 +62,8 @@ unsigned short computeInvincibleSlowDown(void)
 void computeInvincibleGhostParameters(void)
 {
 	invincibleSlowDown = computeInvincibleSlowDown();
-	invincibleXCountDown = INVINCIBLE_COUNT_DOWN;
-	invincibleYCountDown = INVINCIBLE_COUNT_DOWN;
+	invincibleXCountDown = SKULL_COUNT_DOWN;
+	invincibleYCountDown = SKULL_COUNT_DOWN;
 }
 
 

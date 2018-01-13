@@ -64,15 +64,14 @@ extern Image FREEZE_IMAGE;
 extern Character player; 
 
 #if !defined(TINY_GAME)
-extern Character invincibleGhost;
+	extern Character invincibleGhost;
 
-extern Item powerUp;
-extern Item powerUp2;
-extern Item gun;
-extern Item extraPoints;
+	extern Item powerUp;
+	extern Item powerUp2;
+	extern Item gun;
+	extern Item extraPoints;
 
-extern Character missile;
-
+	extern Character missile;
 
 #endif
 
@@ -98,6 +97,7 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Image INVINCIBILITY_IMAGE;
 	extern Image SUPER_IMAGE;
 	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 
 	extern Character leftEnemyMissile;
 	extern Character rightEnemyMissile;
@@ -107,6 +107,7 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Item invincibility;
 	extern Item super;
 	extern Item confuse;
+	extern Item zombie;
 	
 	extern Character bubbles[BUBBLES_NUMBER];
 
@@ -353,6 +354,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		initializeAwayFromWall(&(extraPoints._character), (XSize>>1), (YSize>>1), 0, &EXTRA_POINTS_IMAGE);
 		initializeAwayFromWall(&(super._character), (XSize>>1), (YSize>>1), 0, &SUPER_IMAGE);
 		initializeAwayFromWall(&(confuse._character), (XSize>>1), (YSize>>1), 0, &CONFUSE_IMAGE);		
+		initializeAwayFromWall(&(zombie._character), (XSize>>1), (YSize>>1), 0, &ZOMBIE_IMAGE);	
 		
 		if(bossLevel())
 		{

@@ -98,13 +98,13 @@ extern Item extraPoints;
 	void powerUpEffect(void)
 	{
 		_commonPowerUpEffect();
-		powerUp._coolDown = POWER_UP_INITIAL_COOLDOWN;		
+		powerUp._coolDown = POWER_UP_COOL_DOWN;		
 	}
 
 	void powerUp2Effect(void)
 	{
 		_commonPowerUpEffect();
-		powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;	
+		powerUp2._coolDown = POWER_UP2_COOL_DOWN;	
 	}
 
 	void _gunEffect(void)
@@ -117,7 +117,7 @@ extern Item extraPoints;
 	void gunEffect(void)
 	{
 		_gunEffect();
-		gun._coolDown = GUN_INITIAL_COOLDOWN;	
+		gun._coolDown = GUN_COOL_DOWN;	
 	}
 
 	void extraPointsEffect(void)
@@ -204,7 +204,7 @@ extern Item extraPoints;
 	void freezeEffect(void)
 	{
 		_freezeEffect();
-		freeze._coolDown = FREEZE_INITIAL_COOLDOWN*2;	
+		freeze._coolDown = FREEZE_COOL_DOWN*2;	
 	}
 	
 	

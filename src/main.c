@@ -137,6 +137,9 @@ Character bombs[BOMBS_NUMBER];
 	unsigned char confuse_present_on_level;
 	unsigned char zombie_present_on_level;
 	#define chase_present_on_level skullsKilled
+	#define confuse_present_on_level missileBasesDestroyed
+	// #define chase_present_on_level 1
+	// #define confuse_present_on_level 1	
 	
 	Character leftEnemyMissile;
 	Character rightEnemyMissile;
@@ -200,13 +203,13 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 #if !defined(TINY_GAME)
 	void resetItems()
 	{
-		gun._coolDown = GUN_INITIAL_COOLDOWN;
-		powerUp._coolDown = POWER_UP_INITIAL_COOLDOWN;
-		powerUp2._coolDown = POWER_UP2_INITIAL_COOLDOWN;
+		gun._coolDown = GUN_COOL_DOWN;
+		powerUp._coolDown = POWER_UP_COOL_DOWN;
+		powerUp2._coolDown = POWER_UP2_COOL_DOWN;
 		extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;		
 		
 		#if defined(FULL_GAME)
-			freeze._coolDown = FREEZE_INITIAL_COOLDOWN;				
+			freeze._coolDown = FREEZE_COOL_DOWN;				
 			extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
 			invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
 			
@@ -257,12 +260,16 @@ void initialScreen(void)
 	void handle_special_triggers(void)
 	{
 
-		confuse_present_on_level = missileBasesDestroyed>=2;
-		zombie_present_on_level = missileBasesDestroyed>=3;
+		// confuse_present_on_level is defined as missileBasesDestroyed
+		zombie_present_on_level = missileBasesDestroyed>=2;
 		super_present_on_level = skullsKilled>=2;
 		// chase_present_on_level is defined as skullsKilled;
 		extraLife_present_on_level = super_present_on_level && confuse_present_on_level;
 		
+
+		// zombie_present_on_level = 1;
+		// extraLife_present_on_level = 1;
+
 	}
 	
 #endif
@@ -333,8 +340,7 @@ int main(void)
 				zombieActive = 0; 
 				
 				handle_special_triggers();
-			
-				// freeze_count_down = 0;									
+								
 			#endif			
 			
 			#if !defined(TINY_GAME)
@@ -512,9 +518,10 @@ int main(void)
 						{
 							handle_zombie_item();
 							handle_zombie_count_down();	
-							if(zombieActive && ((loop&15)==1))
+							if(zombieActive && ((loop&7)==1))
 							{
 								points+=ZOMBIE_BONUS;
+								displayStats();
 								PING_SOUND();
 							}
 						}

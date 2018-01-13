@@ -117,6 +117,7 @@ Character player;
 	Item powerUp2;
 	Item gun;
 	Item extraPoints;	
+	
 	Character missile;
 #endif
 

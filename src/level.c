@@ -103,7 +103,6 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Character rightEnemyMissile;
 
 	extern Item freeze;
-	// extern Item powerUp3;
 	extern Item extraLife;
 	extern Item invincibility;
 	extern Item super;
@@ -350,7 +349,6 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#if defined(FULL_GAME)
 		initializeAwayFromWall(&(powerUp._character),XSize/2,YSize/2,1,&POWERUP_IMAGE);
 		initializeAwayFromWall(&(powerUp2._character),XSize/2,YSize/2,0,&POWERUP_IMAGE);
-		// initializeAwayFromWall(&(powerUp3._character),XSize/2,YSize/2,0,&POWERUP_IMAGE);				
 		initializeAwayFromWall(&(freeze._character),XSize/2,YSize/2,0,&FREEZE_IMAGE);
 		initializeAwayFromWall(&(extraPoints._character), XSize/2, YSize/2, 0, &EXTRA_POINTS_IMAGE);
 		initializeAwayFromWall(&(super._character), XSize/2, YSize/2, 0, &SUPER_IMAGE);

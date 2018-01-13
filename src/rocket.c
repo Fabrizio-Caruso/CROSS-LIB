@@ -1,3 +1,5 @@
+#if defined(FULL_GAME)
+
 #include "character.h"
 #include "level.h"
 #include "display_macros.h"
@@ -5,8 +7,6 @@
 extern Character bubbles[BUBBLES_NUMBER];
 
 extern unsigned char ghostCount;
-
-#if defined(FULL_GAME)
 
 	void handle_rockets(void)
 	{	

@@ -10,26 +10,31 @@
 extern unsigned int points;
 extern unsigned char freezeActive;
 extern unsigned char invincibilityActive;
-extern unsigned char confuseActive;
-extern unsigned char zombieActive;
-extern unsigned char freeze_count_down;
+
 extern unsigned char guns;
 extern unsigned char lives;
-extern unsigned char missileBasesDestroyed;
-extern unsigned char skullsKilled;
+
 extern unsigned char level;
 extern unsigned char freeze_count_down;
-extern unsigned char invincibility_count_down;
-extern unsigned char confuse_count_down;
-extern unsigned char zombie_count_down;
+
+
+#if defined(FULL_GAME)
+	extern unsigned char confuseActive;
+	extern unsigned char zombieActive;
+	extern unsigned char missileBasesDestroyed;
+	extern unsigned char skullsKilled;
+	extern unsigned char freeze_count_down;
+	extern unsigned char invincibility_count_down;
+	extern unsigned char confuse_count_down;
+	extern unsigned char zombie_count_down;
+#endif
 
 extern Image DEAD_GHOST_IMAGE;
 
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
-extern Character chasingBullet;
 extern Character invincibleGhost;
-extern Character *chasedEnemyPtr;
+
 extern Character player;
 
 extern Item powerUp;
@@ -37,16 +42,23 @@ extern Item powerUp2;
 extern Item gun;
 extern Item extraPoints;
 
-extern Item freeze;
-extern Item invincibility;
 
-extern Item chase;
+#if defined(FULL_GAME)
+	extern Character *chasedEnemyPtr;
+	extern Character chasingBullet;
 
-extern Item super;
-extern Item extraLife;
+	extern Item freeze;
 
-extern Item confuse;
-extern Item zombie;
+	extern Item invincibility;
+
+	extern Item chase;
+
+	extern Item super;
+	extern Item extraLife;
+
+	extern Item confuse;
+	extern Item zombie;
+#endif
 	
 #if !defined(TINY_GAME)
 	
@@ -241,10 +253,6 @@ extern Item zombie;
 		for(i=ghostCount;i<GHOSTS_NUMBER;++i)
 		{
 			ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
-			// TODO: Implement some better point system for this item
-			// points+=ZOMBIE_BONUS;
-			// ZAP_SOUND();
-			// sleep(1);
 		}
 	}
 	

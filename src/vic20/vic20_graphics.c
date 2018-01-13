@@ -131,7 +131,7 @@ void INIT_GRAPHICS(void)
 void INIT_IMAGES(void)
 {		
 	#if !defined(NO_COLOR)
-		PLAYER_IMAGE._color = COLOR_CYAN;
+		// PLAYER_IMAGE._color = COLOR_CYAN;
 		INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 		POWERUP_IMAGE._color = COLOR_GREEN;
 		GUN_IMAGE._color = COLOR_BLUE;
@@ -167,7 +167,7 @@ void INIT_IMAGES(void)
 	
 	GHOST_IMAGE._imageData = _GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
-	PLAYER_IMAGE._imageData = _PLAYER;	
+	// PLAYER_IMAGE._imageData = _PLAYER;	
 	
 	#if !defined(TINY_GAME)
 		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;

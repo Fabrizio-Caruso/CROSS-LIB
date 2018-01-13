@@ -50,15 +50,15 @@ oric1_16k:
 vic20_exp_16k: 
 	$(CC65_PATH)$(MYCC65) -O -t vic20 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-16k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c $(SOURCE_PATH)/vic20/vic20_sounds.c  $(SOURCE_PATH)/item.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
 
-# -m map.txt 
+# -m map.txt -DSOUNDS  $(SOURCE_PATH)/vic20/vic20_sounds.c
 vic20_exp_8k: 
-	$(CC65_PATH)$(MYCC65) -O -t vic20 -DREDEFINED_CHARS -DSOUNDS --config $(SOURCE_PATH)/../cfg/vic20-8k_GFX.cfg \
-	$(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c  $(SOURCE_PATH)/enemy.c \
+	$(CC65_PATH)$(MYCC65) -O  -t vic20  -DREDEFINED_CHARS --config $(SOURCE_PATH)/../cfg/vic20-8k_GFX.cfg \
+	$(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c   \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/main.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/vic20/vic20_sounds.c \
+	$(SOURCE_PATH)/item.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/input_macros.c \
 	--code-name CODE2 \
 	$(SOURCE_PATH)/display_macros.c  \
-	 $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c  $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c   \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
 

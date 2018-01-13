@@ -32,7 +32,10 @@
 	unsigned char playerBlink = 0;	
 #endif
 
-Image PLAYER_IMAGE;
+#if !defined(REDEFINED_CHARS)
+	Image PLAYER_IMAGE;
+#endif
+
 Image GHOST_IMAGE;
 Image DEAD_GHOST_IMAGE;
 Image BOMB_IMAGE;

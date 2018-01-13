@@ -36,6 +36,10 @@
 #endif
 	
 
+#if defined(REDEFINED_CHARS)
+	#define PLAYER_IMAGE PLAYER_DOWN
+#endif
+	
 #if (!defined(__CMOC__) || defined(__WINCMOC__)) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
 	#include <conio.h>
 #endif

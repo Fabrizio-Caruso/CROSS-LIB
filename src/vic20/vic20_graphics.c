@@ -161,7 +161,7 @@ void INIT_IMAGES(void)
 			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
 			SUPER_IMAGE._color = COLOR_RED;
 			CONFUSE_IMAGE._color = COLOR_RED;
-			ZOMBIE_IMAGE._color = COLOR_RED;
+			ZOMBIE_IMAGE._color = COLOR_YELLOW;
 		#endif	
 	#endif
 

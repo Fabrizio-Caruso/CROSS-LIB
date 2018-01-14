@@ -439,7 +439,7 @@
 #define ZOMBIE_BONUS 5
 
 #if defined(FULL_GAME)
-	#define INVINCIBLE_LOOP_TRIGGER 550-level*4
+	#define INVINCIBLE_LOOP_TRIGGER 600-level*4
 	#define FREEZE_COOL_DOWN 700
 	#define GUN_COOL_DOWN 200	
 #else

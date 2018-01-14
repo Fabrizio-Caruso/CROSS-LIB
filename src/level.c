@@ -381,7 +381,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			initializeCharacter(&leftEnemyMissile,                0, YSize-1-ENEMY_MISSILE_OFFSET, 1,&LEFT_ENEMY_MISSILE_IMAGE);		
 		}		
 		
-		initializeAwayFromWall(&(chase._character), (XSize>>1), (YSize>>1),1,&MISSILE_IMAGE);
+		initializeAwayFromWall(&(chase._character), (XSize>>1), (YSize>>1),0,&MISSILE_IMAGE);
 		initializeCharacter(&chasingBullet, 0,0, 0, &MISSILE_IMAGE);
 	#else
 		#if !defined(TINY_GAME)

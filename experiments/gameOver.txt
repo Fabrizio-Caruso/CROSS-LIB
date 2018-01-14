@@ -1,0 +1,9 @@
+					for(i=0;i<253;++i)
+					{
+						zombieActive = confuseActive = 1;
+						chaseCharacter(&invincibleGhost,10000);
+						_DRAW_PLAYER();
+						playerDirection = i&3;
+						displayGhosts();
+						DRAW_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
+					}

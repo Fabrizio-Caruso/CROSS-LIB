@@ -54,7 +54,6 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
-extern Image FREEZE_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
@@ -65,9 +64,18 @@ extern Image GUN_IMAGE;
 	extern Image BUBBLE_IMAGE;
 
 	extern Image EXTRA_POINTS_IMAGE;
-	extern Image EXTRA_LIFE_IMAGE;
+	
+	extern Image FREEZE_IMAGE;
+	
 	extern Image INVINCIBILITY_IMAGE;	
-	extern Image SUPER_IMAGE;
+	
+	extern Image CHASE_IMAGE;
+
+	extern Image SUPER_IMAGE;	
+	extern Image EXTRA_LIFE_IMAGE;
+	
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -138,6 +146,15 @@ void INIT_IMAGES(void)
 		
 		SUPER_IMAGE._imageData = _POWERUP;
 		SUPER_IMAGE._color = COLOR_RED;		
+		
+		CHASE_IMAGE._imageData = _MISSILE;
+		CHASE_IMAGE._color = COLOR_BLUE;
+		
+		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+		CONFUSE_IMAGE._color = COLOR_RED;
+		
+		ZOMBIE_IMAGE._imageData = _GHOST;
+		ZOMBIE_IMAGE._color = COLOR_YELLOW;
 	#endif
 	
 	PLAYER_UP._imageData = _PLAYER_UP;

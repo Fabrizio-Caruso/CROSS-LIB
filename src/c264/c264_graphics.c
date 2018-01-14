@@ -106,6 +106,9 @@ extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
 	extern Image SUPER_IMAGE;
+	extern Image CHASE_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -200,6 +203,10 @@ void INIT_IMAGES(void)
 		
 		INVINCIBILITY_IMAGE._color = COLOR_YELLOW;
 		SUPER_IMAGE._color = COLOR_RED;
+		
+		CHASE_IMAGE._color = COLOR_WHITE;
+		CONFUSE_IMAGE._color = COLOR_RED;
+		ZOMBIE_IMAGE._color = COLOR_YELLOW;
 	#endif
 	
 	PLAYER_IMAGE._imageData = _PLAYER_DOWN;
@@ -227,6 +234,9 @@ void INIT_IMAGES(void)
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;	
 		SUPER_IMAGE._imageData = _POWERUP;
+		CHASE_IMAGE._imageData = _MISSILE;
+		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+		ZOMBIE_IMAGE._imageData = _GHOST;
 	#endif	
 }
 

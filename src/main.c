@@ -210,13 +210,15 @@ unsigned char ghostCount = GHOSTS_NUMBER;
 		
 		#if defined(FULL_GAME)
 			freeze._coolDown = FREEZE_COOL_DOWN;				
-			extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
 			invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
+
+			chase._coolDown = CHASE_COOL_DOWN;
 			
 			super._coolDown = SUPER_COOL_DOWN;
+			extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
+			
 			confuse._coolDown = CONFUSE_COOL_DOWN;
-			zombie._coolDown = ZOMBIE_COOL_DOWN;		
-			chase._coolDown = CHASE_COOL_DOWN;
+			zombie._coolDown = ZOMBIE_COOL_DOWN;				
 		#endif
 	}
 
@@ -260,15 +262,15 @@ void initialScreen(void)
 	void handle_special_triggers(void)
 	{
 
+	/*
+	missileBasesDestroyed = 2;
+	skullsKilled = 2;
+	*/
 		// confuse_present_on_level is defined as missileBasesDestroyed
 		zombie_present_on_level = missileBasesDestroyed>=2;
 		super_present_on_level = skullsKilled>=2;
 		// chase_present_on_level is defined as skullsKilled;
 		extraLife_present_on_level = super_present_on_level && confuse_present_on_level;
-		
-
-		// zombie_present_on_level = 1;
-		// extraLife_present_on_level = 1;
 
 	}
 	
@@ -424,7 +426,6 @@ int main(void)
 				#endif
 							
 				#if defined(FULL_GAME)
-					handle_invincibility_count_down();
 					handle_rockets();
 					handle_enemy_missiles();
 				#endif
@@ -450,8 +451,7 @@ int main(void)
 				#endif
 				
 				#if !defined(TINY_GAME)						
-					handle_freeze_count_down();
-					
+
 					if(!freezeActive)
 					{
 						#if defined(FULL_GAME)
@@ -489,12 +489,14 @@ int main(void)
 					handle_extraPoints_item();
 					handle_gun_item();
 					handle_powerup_item();
-					handle_powerup2_item();		
+					handle_powerup2_item();	
+					handle_freeze_count_down();					
 				#endif
 				
 				#if defined(FULL_GAME)
 					handle_freeze_item();	
 					handle_invincibility_item();
+					handle_invincibility_count_down();					
 
 					if(chase_present_on_level)
 					{

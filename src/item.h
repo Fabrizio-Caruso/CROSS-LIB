@@ -81,19 +81,19 @@
 		#define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)	
 		#define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
 		#define handle_zombie_count_down() handle_count_down(&zombieActive,&zombie_count_down)
-	#endif		
 
-
-	#define handle_freeze_item() handle_item(&freeze);	
-	#define handle_extraLife_item() handle_item(&extraLife)
-	#define handle_invincibility_item() handle_item(&invincibility)
-	
-	#define handle_super_item() handle_item(&super)
-	#define handle_confuse_item() handle_item(&confuse);
-	#define handle_zombie_item() handle_item(&zombie);
-	#define handle_chase_item() handle_item(&chase);
-
-	
+		#define handle_freeze_item() handle_item(&freeze);	
+		#define handle_invincibility_item() handle_item(&invincibility)
+		
+		#define handle_chase_item() handle_item(&chase);
+		
+		#define handle_super_item() handle_item(&super)
+		#define handle_extraLife_item() handle_item(&extraLife)
+		
+		#define handle_confuse_item() handle_item(&confuse);
+		#define handle_zombie_item() handle_item(&zombie);
+		
+	#endif
 
 	
 	#define handle_gun_item() handle_item(&gun);

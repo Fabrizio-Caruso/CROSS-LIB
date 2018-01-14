@@ -29,6 +29,8 @@ extern unsigned short freeze_count_down;
 	
 	extern unsigned char missileBasesDestroyed;
 	extern unsigned char skullsKilled;	
+	
+	extern unsigned char extraLife_present_on_level;
 #endif
 
 extern Image DEAD_GHOST_IMAGE;
@@ -177,6 +179,7 @@ extern Item extraPoints;
 		extraPoints._coolDown/=2;
 		invincibility._coolDown/=2;
 		freeze._coolDown/=2;
+		extraLife._coolDown/=2;
 		TICK_SOUND();		
 	}
 #elif !defined(TINY_GAME)
@@ -213,7 +216,8 @@ extern Item extraPoints;
 		++lives;
 		skullsKilled=1;
 		missileBasesDestroyed = 0;
-		// extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*10; // second time is harder
+		extraLife_present_on_level = 0;
+		// extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*10; // second time must be impossible
 		printLivesStats();		
 	}
 

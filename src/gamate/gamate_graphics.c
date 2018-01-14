@@ -54,6 +54,9 @@ extern Image GUN_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
 	extern Image SUPER_IMAGE;
+	extern Image CHASE_IMAGE;
+	extern IMAGE CONFUSE_IMAGE;
+	extern IMAGE ZOMBIE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -66,22 +69,25 @@ void INIT_GRAPHICS(void)
 void INIT_IMAGES(void)
 {		
 
-	PLAYER_IMAGE._color = COLOR_CYAN;
-	INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-	POWERUP_IMAGE._color = COLOR_YELLOW;
-	FREEZE_IMAGE._color = COLOR_CYAN;
-	GUN_IMAGE._color = COLOR_BLACK;
-	BOMB_IMAGE._color = COLOR_RED;
-	DEAD_GHOST_IMAGE._color = COLOR_RED;
-	GHOST_IMAGE._color = COLOR_BLACK;
-	MISSILE_IMAGE._color = COLOR_BLACK;
-	LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_BLACK;
-	RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_BLACK;	
-	BUBBLE_IMAGE._color = COLOR_BLACK;				
-	EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-	EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
-	INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
-	SUPER_IMAGE._color = COLOR_RED;
+	// PLAYER_IMAGE._color = COLOR_CYAN;
+	// INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+	// POWERUP_IMAGE._color = COLOR_YELLOW;
+	// FREEZE_IMAGE._color = COLOR_CYAN;
+	// GUN_IMAGE._color = COLOR_BLACK;
+	// BOMB_IMAGE._color = COLOR_RED;
+	// DEAD_GHOST_IMAGE._color = COLOR_RED;
+	// GHOST_IMAGE._color = COLOR_BLACK;
+	// MISSILE_IMAGE._color = COLOR_BLACK;
+	// LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_BLACK;
+	// RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_BLACK;	
+	// BUBBLE_IMAGE._color = COLOR_BLACK;				
+	// EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
+	// EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
+	// INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
+	// SUPER_IMAGE._color = COLOR_RED;
+	// CHASE_IMAGE._color = COLOR_RED;
+	// CONFUSE_IMAGE._color = COLOR_RED;
+	// ZOMBIE_IMAGE._color = COLOR_RED;
 	
 	GHOST_IMAGE._imageData = 'o';
 	INVINCIBLE_GHOST_IMAGE._imageData = '+';
@@ -104,7 +110,9 @@ void INIT_IMAGES(void)
 	EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 	INVINCIBILITY_IMAGE._imageData = 'V';
 	SUPER_IMAGE._imageData = 'H';
-
+	CHASE_IMAGE._imageData = '.';
+	CONFUSE_IMAGE._imageData = 'C';
+	ZOMBIE_IMAGE._imageData = 'Z';
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 

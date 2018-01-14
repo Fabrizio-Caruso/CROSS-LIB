@@ -35,6 +35,9 @@
 #include "enemy.h"
 #include "strategy.h"
 
+// TODO: DEBUG
+#include "sleep_macros.h"
+
 extern unsigned int points;
 extern unsigned char ghostCount;
 extern Character ghosts[GHOSTS_NUMBER];
@@ -263,9 +266,8 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 						++dead_bubbles;
 						EXPLOSION_SOUND();
 						DELETE_MISSILE(bubbles[i]._x,bubbles[i]._y,bubbles[i]._imagePtr);
-						DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
 						points+=VERTICAL_MISSILE_BONUS;
-						displayStats();					
+						displayStats();		
 					}
 				}
 			}			

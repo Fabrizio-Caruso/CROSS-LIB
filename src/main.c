@@ -42,6 +42,8 @@
 #include "level.h"
 #include "enemy.h"
 
+#include "text_strings.h"
+
 #if !defined(TINY_GAME)
 	#include "missile.h"
 	#include "invincible_enemy.h"
@@ -276,6 +278,74 @@ void initialScreen(void)
 	
 #endif
 
+void final(void)
+{
+	unsigned char i;
+	unsigned char j;
+	unsigned short k;
+	
+	level = 1;
+	
+	CLEAR_SCREEN();
+	fillLevelWithCharacters(GHOSTS_NUMBER);	
+	DRAW_BORDERS();
+	deleteCharacter(&player);
+	player._x = XSize/2;
+	player._y = YSize/2;
+	
+	invincibleGhost._x = 0;
+	invincibleGhost._y = YSize/2+4;
+	
+	for(j=0;j<XSize*2;++j)
+	{
+		DRAW_BOMBS();		
+		for(i=0;i<GHOSTS_NUMBER;++i)
+		{
+			deleteCharacter(&ghosts[i]);
+			if(j&1)
+			{
+				++ghosts[i]._x;
+			}
+			else
+			{
+				--ghosts[i]._x;
+			}
+		}
+		deleteCharacter(&invincibleGhost);
+		if(j<XSize)
+		{
+			++invincibleGhost._x;
+		}
+		else
+		{
+			--invincibleGhost._x;			
+		}
+		displayCharacter(&invincibleGhost);
+		deleteCharacter(&player);
+		if(!(j&3))
+		{
+			++(player._x);
+		}
+		else if((j&3)==1)
+		{
+			++(player._y);			
+		}
+		else if ((j&3)==2)
+		{
+			--(player._x);			
+		}
+		else
+		{
+			--(player._y);			
+		}
+		displayCharacter(&player);
+		displayGhosts();		
+		printCenteredMessageOnRow((j&7)+3,  YOU_MADE_IT_STRING);
+		for(k=0;k<GAME_SLOW_DOWN*4+100;++k) {};
+		printCenteredMessageOnRow((j&7)+3, "            ");
+	}
+}
+
 int main(void)
 {		
 	INIT_INPUT();
@@ -318,6 +388,12 @@ int main(void)
 
 			CLEAR_SCREEN();
 		#endif
+		
+		//
+		final();
+		
+		//
+		
 		
 		extraLifeThroughPointsCounter = 1;
 		points = 0;

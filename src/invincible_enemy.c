@@ -84,7 +84,7 @@ void handle_invincible_ghost(void)
 		#endif
 		{
 			invincibleGhost._status = 1;
-			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+			displayInvincibleGhost(&invincibleGhost);
 		}
 		else
 		{
@@ -99,7 +99,7 @@ void handle_invincible_ghost(void)
 		if(rand()>invincibleSlowDown)
 		{
 			TOCK_SOUND();
-			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y,invincibleGhost.imagePtr);
+			deleteInvincibleGhost(&invincibleGhost);
 			#if defined(FULL_GAME)
 				if(!confuseActive || loop&3)
 				{
@@ -109,7 +109,7 @@ void handle_invincible_ghost(void)
 			moveTowardCharacter(&invincibleGhost, 4);
 			#endif
 		}
-		DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+		displayInvincibleGhost(&invincibleGhost);
 		#if defined(FULL_GAME)
 		if (playerKilledBy(&invincibleGhost))
 		#else

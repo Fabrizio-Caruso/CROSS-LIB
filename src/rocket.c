@@ -25,14 +25,14 @@ extern unsigned char ghostCount;
 					
 					if(rand()&1)
 					{
-						DELETE_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);					
+						deleteMissile(&bubbles[i]);
 						--(bubbles[i]._y);
 					}
 
-					DRAW_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);			
+					displayMissile(&bubbles[i]);			
 					if(bubbles[i]._y<=1)
 					{	
-						DELETE_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);
+						deleteMissile(&bubbles[i]);
 						//
 						bubbles[i]._x = (i+1)*(XSize/(BUBBLES_NUMBER+1));
 						bubbles[i]._y = YSize-2;							

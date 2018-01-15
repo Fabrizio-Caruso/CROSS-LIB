@@ -69,8 +69,8 @@ extern Item extraPoints;
 	void powerUpReached(Character * powerUpPtr)
 	{
 		ZAP_SOUND();
-		DELETE_GUN(powerUpPtr->_x,powerUpPtr->_y,powerUpPtr->_imagePtr);
-		DRAW_PLAYER(player._x, player._y, player._imagePtr);
+		deletePowerUp(powerUpPtr);
+		displayPlayer(&player);
 		powerUpPtr->_status = 0;
 		displayStats();
 	}

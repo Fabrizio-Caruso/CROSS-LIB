@@ -48,47 +48,47 @@ extern Character player;
 
 #if !defined(TINY_GAME)
 	#define _DO_MOVE_UP \
-		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		deletePlayer(&player); \
 		--player._y; \
 		invincibleYCountDown = SKULL_COUNT_DOWN; \
 		playerDirection = UP; \
 		SHOW_UP();
 		
 	#define _DO_MOVE_DOWN \
-		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		deletePlayer(&player); \
 		++player._y; \
 		invincibleYCountDown = SKULL_COUNT_DOWN; \
 		playerDirection = DOWN; \
 		SHOW_DOWN(); 
 		
 	#define _DO_MOVE_LEFT \
-		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		deletePlayer(&player); \
 		--player._x; \
 		invincibleXCountDown = SKULL_COUNT_DOWN; \
 		playerDirection = LEFT; \
 		SHOW_LEFT();
 	 
 	#define _DO_MOVE_RIGHT \
-		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		deletePlayer(&player); \
 		++player._x; \
 		invincibleXCountDown = SKULL_COUNT_DOWN; \
 		playerDirection = RIGHT; \
 		SHOW_RIGHT();
 #else
 	#define _DO_MOVE_UP \
-		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		deletePlayer(&player); \
 		--player._y;
 		
 	#define _DO_MOVE_DOWN \
-		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		deletePlayer(&player); \
 		++player._y;
 		
 	#define _DO_MOVE_LEFT \
-		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		deletePlayer(&player); \
 		--player._x;
 	 
 	#define _DO_MOVE_RIGHT \
-		DELETE_PLAYER(player._x,player._y,player._imagePtr); \
+		deletePlayer(&player); \
 		++player._x;
 
 #endif

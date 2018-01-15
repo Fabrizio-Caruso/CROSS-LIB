@@ -180,11 +180,15 @@ typedef struct ImageStruct Image;
 
 
 void _draw(unsigned char x,unsigned char y,Image * image);
-#define DRAW_PLAYER(x,y,image) _draw(x,y,image)
-#define DRAW_GHOST(x,y,image) _draw(x,y,image)
-#define DRAW_INVINCIBLE_GHOST(x,y,image) _draw(x,y,image)
-#define DRAW_BOMB(x,y,image) _draw(x,y,image)
-#define DRAW_MISSILE(x,y,image) _draw(x,y,image)
+#define DRAW_CHARACTER(x,y,image) _draw(x,y,image)
+
+#define DRAW_PLAYER(x,y,image) DRAW_CHARACTER(x,y,image)
+#define DRAW_GHOST(x,y,image) DRAW_CHARACTER(x,y,image)
+#define DRAW_INVINCIBLE_GHOST(x,y,image) DRAW_CHARACTER(x,y,image)
+#define DRAW_BOMB(x,y,image) DRAW_CHARACTER(x,y,image)
+#define DRAW_MISSILE(x,y,image) DRAW_CHARACTER(x,y,image)
+
+
 
 #if defined(FULL_GAME)
 	#define _DRAW_PLAYER() \
@@ -209,6 +213,9 @@ void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * 
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
 
 void _delete(unsigned char x, unsigned char y);
+
+#define DELETE_CHARACTER(x,y) _delete(x,y)
+
 #if defined(__GAMATE__)
 	#define DELETE_PLAYER(x,y,image) do {textcolor(COLOR_CYAN); _delete(x,y);} while(0)
 #else

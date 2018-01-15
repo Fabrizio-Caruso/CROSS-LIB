@@ -67,6 +67,25 @@ extern unsigned char ghostCount;
 unsigned char playerKilledBy(Character *enemyPtr);
 #endif
 
+void displayCharacter(Character * characterPtr);
+
+void deleteCharacter(Character * characterPtr);
+
+#define displayPlayer(characterPtr) displayCharacter(characterPtr);
+#define displayGhost(characterPtr) displayCharacter(characterPtr);
+#define displayBomb(characterPtr) displayCharacter(characterPtr);
+#define displayMissile(characterPtr) displayCharacter(characterPtr);
+#define displayInvincibleGhost(characterPtr) displayCharacter(characterPtr);
+
+#define deletePlayer(characterPtr) deleteCharacter(characterPtr);
+#define deleteGhost(characterPtr) deleteCharacter(characterPtr);
+#define deleteBomb(characterPtr) deleteCharacter(characterPtr);
+#define deleteMissile(characterPtr) deleteCharacter(characterPtr);
+#define deleteInvincibleGhost(characterPtr) deleteCharacter(characterPtr);
+#define deletePowerUp(characterPtr) deleteCharacter(characterPtr);
+
+
+
 void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr);
 
 void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y);

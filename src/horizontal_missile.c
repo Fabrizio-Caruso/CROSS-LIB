@@ -18,7 +18,7 @@ extern unsigned char arrowRange;
 	{
 		if(!oneMissileLevel() && leftEnemyMissile._status)
 		{
-			DELETE_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
+			deleteMissile(&leftEnemyMissile);
 			if(leftEnemyMissile._x==XSize-2)
 			{
 				leftEnemyMissile._x=0;
@@ -32,7 +32,7 @@ extern unsigned char arrowRange;
 					move(&leftEnemyMissile, &player,Y_MOVE);			
 				}
 			}
-			DRAW_MISSILE(leftEnemyMissile._x,leftEnemyMissile._y,leftEnemyMissile._imagePtr);
+			displayMissile(&leftEnemyMissile);
 			
 			if(playerKilledBy(&leftEnemyMissile))
 			{
@@ -45,7 +45,7 @@ extern unsigned char arrowRange;
 	{
 		if(rightEnemyMissile._status)
 		{
-			DELETE_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);
+			deleteMissile(&rightEnemyMissile);
 			if(rightEnemyMissile._x==1)
 			{
 				rightEnemyMissile._x= XSize-1;
@@ -66,7 +66,7 @@ extern unsigned char arrowRange;
 					move(&rightEnemyMissile, &player,Y_MOVE);			
 				}
 			}
-			DRAW_MISSILE(rightEnemyMissile._x,rightEnemyMissile._y,rightEnemyMissile._imagePtr);	
+			displayMissile(&rightEnemyMissile);	
 			
 			if(playerKilledBy(&rightEnemyMissile))
 			{

@@ -81,9 +81,9 @@ extern Character player;
 	{
 		if(chasingBullet._status)
 		{
-			DELETE_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
+			deleteMissile(&chasingBullet);
 			moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
-			DRAW_MISSILE(chasingBullet._x, chasingBullet._y, chasingBullet._imagePtr);
+			displayMissile(&chasingBullet);
 			checkMissile(&chasingBullet);
 		}	
 	}
@@ -100,7 +100,7 @@ void handle_missile(void)
 		missileDirection = playerDirection;
 		missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
 		playerFire = 0;
-		DRAW_MISSILE(missile._x,missile._y,missile._imagePtr);					
+		displayMissile(&missile);					
 	}
 	
 	// Move missile if fired
@@ -150,7 +150,7 @@ void checkMissileVsInvincibleGhost(Character *bulletPtr)
 	{
 		PING_SOUND();
 		die(bulletPtr);
-		DELETE_MISSILE(bulletPtr->_x,bulletPtr->_y,bulletPtr->_imagePtr);
+		deleteMissile(bulletPtr);
 		bulletPtr->_x = 0; bulletPtr->_y = 0;
 		++invincibleGhostHits;
 		decreaseGhostLevel();
@@ -159,7 +159,7 @@ void checkMissileVsInvincibleGhost(Character *bulletPtr)
 		if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
 		{
 			invincibleGhost._status = 0;
-			DELETE_INVINCIBLE_GHOST(invincibleGhost._x,invincibleGhost._y, invincibleGhost._imagePtr);
+			deleteInvincibleGhost(&invincibleGhost);
 			invincibleGhost._x=XSize-2; 
 			invincibleGhost._y=YSize-2;
 			invincibleGhostAlive = 0;
@@ -169,7 +169,7 @@ void checkMissileVsInvincibleGhost(Character *bulletPtr)
 		}
 		else
 		{
-			DRAW_INVINCIBLE_GHOST(invincibleGhost._x, invincibleGhost._y, invincibleGhost._imagePtr);
+			displayInvincibleGhost(&invincibleGhost);
 		}
 	}	
 }
@@ -177,7 +177,7 @@ void checkMissileVsInvincibleGhost(Character *bulletPtr)
 
 void _moveMissile(Character *missilePtr, unsigned short missileDirection)
 {
-	DELETE_MISSILE(missilePtr->_x,missilePtr->_y,missilePtr->_imagePtr);
+	deleteMissile(missilePtr);
 	switch(missileDirection)
 	{
 		case RIGHT:
@@ -204,7 +204,7 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 	if(wallReached(missilePtr))
 	{
 		die(missilePtr);
-		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
+		deleteMissile(missilePtr);
 		#if defined(FULL_GAME)
 			// TODO: Implement this
 			DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
@@ -219,7 +219,7 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 	{
 		enemyMissilePtr->_status = 0;
 		EXPLOSION_SOUND();
-		DELETE_MISSILE(enemyMissilePtr->_x,enemyMissilePtr->_y,enemyMissilePtr->_imagePtr);
+		deleteMissile(enemyMissilePtr);
 		points+=HORIZONTAL_MISSILE_BONUS;
 		displayStats();				
 		++dead_bubbles;
@@ -233,7 +233,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 	if(wallReached(missilePtr) && missilePtr->_status)
 	{
 		die(missilePtr);
-		DELETE_MISSILE(missilePtr->_x,missilePtr->_y,misslePtr->_imagePtr);
+		deleteMissile(missilePtr);
 		#if defined(FULL_GAME)
 			DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
 			
@@ -265,7 +265,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 						bubbles[i]._status = 0;
 						++dead_bubbles;
 						EXPLOSION_SOUND();
-						DELETE_MISSILE(bubbles[i]._x,bubbles[i]._y,bubbles[i]._imagePtr);
+						deleteMissile(&bubbles[i]);
 						points+=VERTICAL_MISSILE_BONUS;
 						displayStats();		
 					}
@@ -275,7 +275,7 @@ void moveMissile(Character * missilePtr, unsigned short missileDirection)
 	}
 	else
 	{
-		DRAW_MISSILE(missilePtr->_x, missilePtr->_y, missilePtr->_imagePtr);
+		displayMissile(missilePtr);
 	}
 }
 

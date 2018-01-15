@@ -53,6 +53,16 @@ extern Character bombs[BOMBS_NUMBER];
 extern Character player;
 
 
+void displayCharacter(Character * characterPtr)
+{
+	DRAW_CHARACTER(characterPtr->_x, characterPtr->_y, characterPtr->_imagePtr);
+}
+
+void deleteCharacter(Character * characterPtr)
+{
+	DELETE_CHARACTER(characterPtr->_x, characterPtr->_y);
+}
+
 #if defined(FULL_GAME)
 	extern unsigned char invincibilityActive;
 	extern unsigned char innerVerticalWallX;

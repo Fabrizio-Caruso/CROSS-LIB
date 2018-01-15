@@ -193,7 +193,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			{
 				bubbles_x[i] = (unsigned char) (i+1)*(XSize/(BUBBLES_NUMBER+1));
 				initializeCharacter(&bubbles[i],(unsigned char) bubbles_x[i],(unsigned char)(YSize-1),1,&BUBBLE_IMAGE);
-				DRAW_MISSILE(bubbles[i]._x, bubbles[i]._y, bubbles[i]._imagePtr);
+				displayMissile(&bubbles[i]);
 			}
 		}
 
@@ -398,7 +398,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		#endif
 	#endif
 	#if !defined(TINY_GAME)
-		DRAW_PLAYER(player._x,player._y,player._imagePtr);
+		displayPlayer(&player);
 			
 		initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
 

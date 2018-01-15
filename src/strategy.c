@@ -162,7 +162,7 @@ void chaseCharacter(Character *preyPtr, unsigned short slowDown)
 	{
 		if((ghosts[i]._status || zombieActive) && (rand()>slowDown))
 		{
-			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
+			deleteGhost(&ghosts[i]);
 			moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]);			
 		}
 	}
@@ -176,7 +176,7 @@ void chaseCharacter(unsigned short slowDown)
 	{
 		if((ghosts[i]._status) && (rand()>slowDown))
 		{
-			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
+			deleteGhost(&ghosts[i]);
 			moveTowardCharacter(&ghosts[i], strategyArray[i]);			
 		}
 	}
@@ -190,7 +190,7 @@ void chaseCharacter(unsigned short slowDown)
 	{
 		if((ghosts[i]._status) && (rand()>slowDown))
 		{
-			DELETE_GHOST(ghosts[i]._x,ghosts[i]._y,ghosts[i]._imagePtr);
+			deleteGhost(&ghosts[i]);
 			moveTowardCharacter(&ghosts[i]);			
 		}
 	}

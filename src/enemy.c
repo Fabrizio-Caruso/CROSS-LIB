@@ -56,7 +56,8 @@ void displayGhosts(void)
 
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		displayGhost(&ghosts[i]);
+		// displayGhost(&ghosts[i]);
+		DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
 	}
 }
 

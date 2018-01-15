@@ -278,73 +278,69 @@ void initialScreen(void)
 	
 #endif
 
+// #if defined(END_SCREEN)
+void dance(Character * characterPtr)
+{
+	deleteCharacter(characterPtr);
+	if(!(loop&3))
+	{
+		++(characterPtr->_x);
+	}
+	else if((loop&3)==1)
+	{
+		++(characterPtr->_y);			
+	}
+	else if ((loop&3)==2)
+	{
+		--(characterPtr->_x);			
+	}
+	else
+	{
+		--(characterPtr->_y);			
+	}
+	displayCharacter(characterPtr);	
+}
+
 void final(void)
 {
-	unsigned char i;
-	unsigned char j;
 	unsigned short k;
 	
 	level = 1;
 	
 	CLEAR_SCREEN();
 	fillLevelWithCharacters(GHOSTS_NUMBER);	
+	
 	DRAW_BORDERS();
-	deleteCharacter(&player);
-	player._x = XSize/2;
-	player._y = YSize/2;
-	
-	invincibleGhost._x = 0;
-	invincibleGhost._y = YSize/2+4;
-	
-	for(j=0;j<XSize*2;++j)
+
+	playerFire = 0;
+	while(!playerFire)
 	{
-		DRAW_BOMBS();		
-		for(i=0;i<GHOSTS_NUMBER;++i)
+		player._x = XSize/2+4;
+		player._y = YSize/2;
+		invincibleGhost._x = player._x-4;
+		invincibleGhost._y = player._y;
+		
+		for(loop=0;loop<80;++loop)
 		{
-			deleteCharacter(&ghosts[i]);
-			if(j&1)
+			displayBombs();
+			for(k=0;k<GHOSTS_NUMBER;++k)
 			{
-				++ghosts[i]._x;
+				dance(&ghosts[k]);
 			}
-			else
-			{
-				--ghosts[i]._x;
-			}
+			dance(&player);
+			dance(&invincibleGhost);
+		
+			printCenteredMessageOnRow(2+(loop&15),  YOU_MADE_IT_STRING);
+			for(k=0;k<GAME_SLOW_DOWN*4;++k) {};
+			printCenteredMessageOnRow(2+(loop&15), "             ");
 		}
-		deleteCharacter(&invincibleGhost);
-		if(j<XSize)
-		{
-			++invincibleGhost._x;
-		}
-		else
-		{
-			--invincibleGhost._x;			
-		}
-		displayCharacter(&invincibleGhost);
-		deleteCharacter(&player);
-		if(!(j&3))
-		{
-			++(player._x);
-		}
-		else if((j&3)==1)
-		{
-			++(player._y);			
-		}
-		else if ((j&3)==2)
-		{
-			--(player._x);			
-		}
-		else
-		{
-			--(player._y);			
-		}
-		displayCharacter(&player);
-		displayGhosts();		
-		printCenteredMessageOnRow((j&7)+3,  YOU_MADE_IT_STRING);
-		for(k=0;k<GAME_SLOW_DOWN*4+100;++k) {};
-		printCenteredMessageOnRow((j&7)+3, "            ");
-	}
+		MOVE_PLAYER();
+    }
+	printGameOver();
+	WAIT_PRESS();
 }
+// #endif
+
 
 int main(void)
 {		
@@ -624,7 +620,7 @@ int main(void)
 					{
 						SET_TEXT_COLOR(WALL_COLOR);
 						DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);			
-						DRAW_BOMBS();	
+						displayBombs();	
 				
 						if(horizontalWallsLevel())
 						{				

@@ -234,15 +234,20 @@ void _delete(unsigned char x, unsigned char y);
 #define DELETE_EXTRA_POINTS(x,y,image) _delete(x,y)
 #define DELETE_EXTRA_LIFE(x,y,image) _delete(x,y)
 #define DELETE_INVINCIBILITY(x,y,image) _delete(x,y)	
+
+void DRAW_BOMBS(void);	
+
+// #define DRAW_BOMBS() \
+	// displayBombs();
 	
-#define DRAW_BOMBS() \
-{ \
-	unsigned char ij = 0; \
-	for(;ij<BOMBS_NUMBER;++ij) \
-	{ \
-		DRAW_BOMB(bombs[ij]._x, bombs[ij]._y, bombs[ij]._imagePtr); \
-	} \
-}
+// #define DRAW_BOMBS() \
+// { \
+	// unsigned char ij = 0; \
+	// for(;ij<BOMBS_NUMBER;++ij) \
+	// { \
+		// DRAW_BOMB(bombs[ij]._x, bombs[ij]._y, bombs[ij]._imagePtr); \
+	// } \
+// }
 
 // VERTICAL AND HORIZONTAL BORDER
 #if !defined(TINY_GAME)

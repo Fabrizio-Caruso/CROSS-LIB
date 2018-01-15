@@ -69,6 +69,7 @@ Image BOMB_IMAGE;
 	Image BROKEN_WALL_IMAGE;
 #endif
 
+
 #if defined(__VG5K__)
 	//
 #elif defined(__C64__) && defined(REDEFINED_CHARS)

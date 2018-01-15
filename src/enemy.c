@@ -30,6 +30,7 @@ extern unsigned short ghostLevel;
 extern unsigned char level;
 
 extern Character ghosts[GHOSTS_NUMBER];
+extern Character bombs[BOMBS_NUMBER];
 
 unsigned short computeGhostSlowDown(void)
 {
@@ -60,6 +61,17 @@ void displayGhosts(void)
 		DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
 	}
 }
+
+void displayBombs(void)
+{
+	unsigned char i;
+
+	for(i=0;i<BOMBS_NUMBER;++i)
+	{
+		displayGhost(&bombs[i]);
+		//DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr);
+	}
+}	
 
 #if defined(FULL_GAME)
 	unsigned char firstAlive(void)

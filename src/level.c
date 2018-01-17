@@ -194,6 +194,7 @@ extern Character bombs[BOMBS_NUMBER];
 void slow_down()
 {
 	unsigned char k;
+	
 	for(k=0;k<254;++k){};
 }
 
@@ -208,66 +209,25 @@ void spiral(Character *characterPtr, unsigned char length)
 	{
 		for(j=0;j<i/2;++j)
 			{
-				displayCharacter(characterPtr);				
-				if(!(i&3))
-				{	
+				displayCharacter(characterPtr);		
+				switch((i&3))
+				{
+				case 0:
 					++characterPtr->_x;
-				}
-				else if((i&3)==1)
-				{
+					break;
+				case 1:
 					++characterPtr->_y;
+					break;
+				case 2:
+					--characterPtr->_x;
+					break;
+				default:
+					--characterPtr->_y;
+					break;
 				}
-				else  if((i&3)==2)
-				{
-					--characterPtr->_x;					
-				}
-				else
-				{
-					--characterPtr->_y;						
-				}
-
 				slow_down();				
 			}
 	}
-/*		
-		if(!(i&3))
-		{
-			for(j=0;j<i/2;++j)
-			{
-				characterPtr->_x++;
-				displayCharacter(characterPtr);
-				slow_down();
-			}
-		}
-		else if((i&3)==1)
-		{
-			for(j=0;j<i/2;++j)
-			{
-				characterPtr->_y++;
-				displayCharacter(characterPtr);
-				slow_down();
-			}			
-		}
-		else if((i&3)==2)
-		{
-			for(j=0;j<i/2;++j)
-			{
-				characterPtr->_x--;
-				displayCharacter(characterPtr);
-				slow_down();
-			}			
-		}
-		else
-		{
-			for(j=0;j<i/2;++j)
-			{
-				characterPtr->_y--;
-				displayCharacter(characterPtr);
-				slow_down();				
-			}			
-		}
-	}	
-	*/
 }
 
 #endif

@@ -152,19 +152,19 @@ extern Image MISSILE_IMAGE;
 #endif
 
 
-#if defined(COLOR)
-	#define printCenteredMessage(Text) \
-		printCenteredMessageOnRow((YSize>>1), Text)
+// #if defined(COLOR)
+	// #define printCenteredMessage(Text) \
+		// printCenteredMessageOnRow((YSize>>1), Text)
 
-	#define printCenteredMessageWithCol(col, Text) \
-		printCenteredMessageOnRowWithCol((YSize>>1), col, Text)	
-#else
-	#define printCenteredMessage(Text) \
-		printCenteredMessageOnRow((YSize>>1), Text)
+	// #define printCenteredMessageWithCol(col, Text) \
+		// printCenteredMessageOnRowWithCol((YSize>>1), col, Text)	
+// #else
+	// #define printCenteredMessage(Text) \
+		// printCenteredMessageOnRow((YSize>>1), Text)
 		
-	#define printCenteredMessageWithCol(col, Text) \
-		printCenteredMessageOnRow((YSize>>1), Text)
-#endif
+	// #define printCenteredMessageWithCol(col, Text) \
+		// printCenteredMessageOnRow((YSize>>1), Text)
+// #endif
 	
 
 #if defined(FULL_GAME)
@@ -317,11 +317,12 @@ void displayStats(void)
 	}
 #endif
 
-
-void gameCompleted(void)	
-{
-	printCenteredMessage(YOU_MADE_IT_STRING); 
-}
+#if !defined(END_SCREEN)
+	void gameCompleted(void)	
+	{
+		printCenteredMessage(YOU_MADE_IT_STRING); 
+	}
+#endif
 
 
 #if !defined(NO_TEXT)

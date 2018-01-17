@@ -27,6 +27,9 @@
 
 #define INITIAL_LEVEL 1
 
+// Final level 
+#define FINAL_LEVEL 20
+
 
 #if defined(__WINCMOC__)
 	//#define FULL_GAME
@@ -343,8 +346,6 @@
 #endif
 
 
-// Final level 
-#define FINAL_LEVEL 40
 
 //#define INVINCIBILITY_FIRST_LEVEL 5
 

@@ -28,6 +28,10 @@
 
 #include "character.h"
 
+#if defined(BETWEEN_LEVEL)
+	void cover(Character *characterPtr);
+#endif
+
 void fillLevelWithCharacters(unsigned char nGhosts);
 
 #if defined(FULL_GAME)

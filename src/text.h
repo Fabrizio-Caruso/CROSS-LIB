@@ -34,6 +34,22 @@
 #endif
 
 
+#if defined(COLOR)
+	#define printCenteredMessage(Text) \
+		printCenteredMessageOnRow((YSize>>1), Text)
+
+	#define printCenteredMessageWithCol(col, Text) \
+		printCenteredMessageOnRowWithCol((YSize>>1), col, Text)	
+#else
+	#define printCenteredMessage(Text) \
+		printCenteredMessageOnRow((YSize>>1), Text)
+		
+	#define printCenteredMessageWithCol(col, Text) \
+		printCenteredMessageOnRow((YSize>>1), Text)
+#endif
+	
+
+
 void displayStats(void);
 
 #if !defined(TINY_GAME)
@@ -78,8 +94,9 @@ void printDefeatMessage(void);
 
 void printStartMessage(void);
 
-void gameCompleted(void);
-
+#if !defined(END_SCREEN)
+	void gameCompleted(void);
+#endif
 
 void _printScore(char * text, unsigned int score);
 

@@ -41,6 +41,7 @@
 #include "text.h"
 #include "level.h"
 #include "enemy.h"
+#include "sleep_macros.h"
 
 #include "text_strings.h"
 
@@ -53,6 +54,7 @@
 #include "display_macros.h"
 #include "input_macros.h"
 #include "sleep_macros.h"
+#include "end_screen.h"
 
 #if defined(FULL_GAME)
 	#include "horizontal_missile.h"
@@ -278,70 +280,6 @@ void initialScreen(void)
 	
 #endif
 
-// #if defined(END_SCREEN)
-void dance(Character * characterPtr)
-{
-	deleteCharacter(characterPtr);
-	if(!(loop&3))
-	{
-		++(characterPtr->_x);
-	}
-	else if((loop&3)==1)
-	{
-		++(characterPtr->_y);			
-	}
-	else if ((loop&3)==2)
-	{
-		--(characterPtr->_x);			
-	}
-	else
-	{
-		--(characterPtr->_y);			
-	}
-	displayCharacter(characterPtr);	
-}
-
-void final(void)
-{
-	unsigned short k;
-	
-	level = 1;
-	
-	CLEAR_SCREEN();
-	fillLevelWithCharacters(GHOSTS_NUMBER);	
-	
-	DRAW_BORDERS();
-
-	playerFire = 0;
-	while(!playerFire)
-	{
-		player._x = XSize/2+4;
-		player._y = YSize/2;
-		invincibleGhost._x = player._x-4;
-		invincibleGhost._y = player._y;
-		
-		for(loop=0;loop<80;++loop)
-		{
-			displayBombs();
-			for(k=0;k<GHOSTS_NUMBER;++k)
-			{
-				dance(&ghosts[k]);
-			}
-			dance(&player);
-			dance(&invincibleGhost);
-		
-			printCenteredMessageOnRow(2+(loop&15),  YOU_MADE_IT_STRING);
-			for(k=0;k<GAME_SLOW_DOWN*4;++k) {};
-			printCenteredMessageOnRow(2+(loop&15), "             ");
-		}
-		MOVE_PLAYER();
-    }
-	printGameOver();
-	WAIT_PRESS();
-}
-// #endif
-
-
 int main(void)
 {		
 	INIT_INPUT();
@@ -385,8 +323,8 @@ int main(void)
 			CLEAR_SCREEN();
 		#endif
 		
-		//
-		final();
+		// TODO: DEBUG
+		// gameCompleted();
 		
 		//
 		
@@ -402,6 +340,7 @@ int main(void)
 		#endif
 		do // Level (Re-)Start
 		{ 	
+		
 			loop = 0;
 			ghostLevel = 0;
 		
@@ -441,6 +380,7 @@ int main(void)
 				sleep(1);
 				CLEAR_SCREEN();
 			#endif
+				
 			
 			#if defined(FULL_GAME)
 						
@@ -632,7 +572,7 @@ int main(void)
 				#else
 					#if !defined(TINY_GAME)
 					SKIP_MORE_DRAW
-						DRAW_BOMBS();
+						displayBombs();
 					#endif
 				#endif
 				
@@ -644,6 +584,10 @@ int main(void)
 
 			if(player._status) // if level finished
 			{
+				#if defined(BETWEEN_LEVEL)
+					chasedEnemyPtr = &player;
+				#endif
+				
 				#if !defined(TINY_GAME)
 					#if !defined(NO_TEXT)
 						sleep(1);
@@ -699,6 +643,10 @@ int main(void)
 			}
 			else // if dead
 			{
+				#if defined(BETWEEN_LEVEL)
+					chasedEnemyPtr = &invincibleGhost;					
+				#endif
+				
 				#if !defined(TINY_GAME)
 					CLEAR_SCREEN();
 				#endif
@@ -708,6 +656,10 @@ int main(void)
 					player._status = 1;
 				}
 			}
+			#if defined(BETWEEN_LEVEL)
+				cover(chasedEnemyPtr);
+				sleep(1);
+			#endif				
 		} while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 
 			
 	if(level==FINAL_LEVEL+1) // if completed game

@@ -26,6 +26,7 @@
 #include "item.h"
 #include "item.h"
 #include "settings.h"
+#include "enemy.h"
 
 #if defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <cmoc.h>
@@ -174,8 +175,22 @@ extern Character bombs[BOMBS_NUMBER];
 
 #endif 
 
-
-
+#if defined(BETWEEN_LEVEL)
+void cover(Character *characterPtr)
+{
+	unsigned char i;
+	
+	for(characterPtr->_x=1;characterPtr->_x<XSize-1;++(characterPtr->_x))
+	{
+		for(characterPtr->_y=1;characterPtr->_y<YSize-1;++(characterPtr->_y))
+		{
+			displayCharacter(characterPtr);
+		}
+		for(i=0;i<253;++i)
+		{}
+	}
+}
+#endif
 
 
 void fillLevelWithCharacters(unsigned char nGhosts)
@@ -186,6 +201,8 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		
 	unsigned char count = 0;
 
+	
+	
 	#if defined(FULL_GAME)
 		if(rocketLevel() || bossLevel())
 		{
@@ -344,7 +361,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	
 	// Bombs are not redrawn afterwards
 	#if defined(TINY_GAME)
-		DRAW_BOMBS();
+		displayBombs();
 	#endif
 	
 	#if defined(FULL_GAME)

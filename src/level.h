@@ -29,7 +29,7 @@
 #include "character.h"
 
 #if defined(BETWEEN_LEVEL)
-	void cover(Character *characterPtr);
+	void spiral(Character *characterPtr, unsigned char length);
 #endif
 
 void fillLevelWithCharacters(unsigned char nGhosts);

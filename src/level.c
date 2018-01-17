@@ -176,20 +176,100 @@ extern Character bombs[BOMBS_NUMBER];
 #endif 
 
 #if defined(BETWEEN_LEVEL)
-void cover(Character *characterPtr)
+// void cover(Character *characterPtr)
+// {
+	// unsigned char i;
+	
+	// for(characterPtr->_x=1;characterPtr->_x<XSize-1;++(characterPtr->_x))
+	// {
+		// for(characterPtr->_y=1;characterPtr->_y<YSize-1;++(characterPtr->_y))
+		// {
+			// displayCharacter(characterPtr);
+		// }
+		// for(i=0;i<253;++i)
+		// {}
+	// }
+// }
+
+void slow_down()
+{
+	unsigned char k;
+	for(k=0;k<254;++k){};
+}
+
+void spiral(Character *characterPtr, unsigned char length)
 {
 	unsigned char i;
+	unsigned char j;
 	
-	for(characterPtr->_x=1;characterPtr->_x<XSize-1;++(characterPtr->_x))
+	characterPtr->_x = XSize/2;
+	characterPtr->_y = YSize/2;
+	for(i=0;i<length;++i)
 	{
-		for(characterPtr->_y=1;characterPtr->_y<YSize-1;++(characterPtr->_y))
-		{
-			displayCharacter(characterPtr);
-		}
-		for(i=0;i<253;++i)
-		{}
+		for(j=0;j<i/2;++j)
+			{
+				displayCharacter(characterPtr);				
+				if(!(i&3))
+				{	
+					++characterPtr->_x;
+				}
+				else if((i&3)==1)
+				{
+					++characterPtr->_y;
+				}
+				else  if((i&3)==2)
+				{
+					--characterPtr->_x;					
+				}
+				else
+				{
+					--characterPtr->_y;						
+				}
+
+				slow_down();				
+			}
 	}
+/*		
+		if(!(i&3))
+		{
+			for(j=0;j<i/2;++j)
+			{
+				characterPtr->_x++;
+				displayCharacter(characterPtr);
+				slow_down();
+			}
+		}
+		else if((i&3)==1)
+		{
+			for(j=0;j<i/2;++j)
+			{
+				characterPtr->_y++;
+				displayCharacter(characterPtr);
+				slow_down();
+			}			
+		}
+		else if((i&3)==2)
+		{
+			for(j=0;j<i/2;++j)
+			{
+				characterPtr->_x--;
+				displayCharacter(characterPtr);
+				slow_down();
+			}			
+		}
+		else
+		{
+			for(j=0;j<i/2;++j)
+			{
+				characterPtr->_y--;
+				displayCharacter(characterPtr);
+				slow_down();				
+			}			
+		}
+	}	
+	*/
 }
+
 #endif
 
 

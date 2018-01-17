@@ -210,7 +210,7 @@ void spiral(Character *characterPtr, unsigned char length)
 		for(j=0;j<i/2;++j)
 			{
 				displayCharacter(characterPtr);		
-				if((i&3)>1)
+				if((i>>1)&1)
 				{
 					++(*((unsigned char *) characterPtr + (i&1)));
 				}

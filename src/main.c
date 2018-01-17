@@ -657,7 +657,7 @@ int main(void)
 				}
 			}
 			#if defined(BETWEEN_LEVEL)
-				spiral(chasedEnemyPtr, 300);
+				spiral(chasedEnemyPtr, 40);
 				sleep(1);
 			#endif				
 		} while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 

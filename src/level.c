@@ -210,21 +210,29 @@ void spiral(Character *characterPtr, unsigned char length)
 		for(j=0;j<i/2;++j)
 			{
 				displayCharacter(characterPtr);		
-				switch((i&3))
+				if((i&3)>1)
 				{
-				case 0:
-					++characterPtr->_x;
-					break;
-				case 1:
-					++characterPtr->_y;
-					break;
-				case 2:
-					--characterPtr->_x;
-					break;
-				default:
-					--characterPtr->_y;
-					break;
+					++(*((unsigned char *) characterPtr + (i&1)));
 				}
+				else
+				{
+					--(*((unsigned char *) characterPtr + (i&1)));				
+				}
+				// switch((i&3))
+				// {
+				// case 0:
+					// ++characterPtr->_x;
+					// break;
+				// case 1:
+					// ++characterPtr->_y;
+					// break;
+				// case 2:
+					// --characterPtr->_x;
+					// break;
+				// default:
+					// --characterPtr->_y;
+					// break;
+				// }
 				slow_down();				
 			}
 	}

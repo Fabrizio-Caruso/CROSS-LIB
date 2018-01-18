@@ -24,10 +24,12 @@
 
 
 #include <stdio.h>
-
-extern unsigned char XSize;
-
-#define _DRAW(x,y,image)  do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); textcolor(image->_color); cputc(image->_imageData);} while(0); 
+#if !defined(COLOR)
+	#define _DRAW(x,y,image)  do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(image->_imageData);} while(0); 
+#else
+	#define _DRAW(x,y,image)  do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); textcolor(image->_color); cputc(image->_imageData);} while(0); 
+	//#define _DRAW(x,y,image)  do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(image->_imageData);} while(0); 
+#endif
 #define _DELETE(x,y)     do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(' ');} while(0); 
 #define _DRAW_WALL(x,y)  do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('|');} while(0); 
 #define _DRAW_BROKEN_WALL(x,y) do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); textcolor(COLOR_BLACK); cputc('X');} while(0); 	
@@ -40,7 +42,6 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
-extern Image FREEZE_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
 
@@ -53,10 +54,11 @@ extern Image GUN_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+	extern Image FREEZE_IMAGE;
 	extern Image SUPER_IMAGE;
 	extern Image CHASE_IMAGE;
-	extern IMAGE CONFUSE_IMAGE;
-	extern IMAGE ZOMBIE_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -90,29 +92,34 @@ void INIT_IMAGES(void)
 	// ZOMBIE_IMAGE._color = COLOR_RED;
 	
 	GHOST_IMAGE._imageData = 'o';
-	INVINCIBLE_GHOST_IMAGE._imageData = '+';
 	BOMB_IMAGE._imageData = 'X';
 	PLAYER_IMAGE._imageData = '*';
-	POWERUP_IMAGE._imageData = 'S';
-	FREEZE_IMAGE._imageData = 'F';	
-	GUN_IMAGE._imageData = '!';
-	MISSILE_IMAGE._imageData = '.';
-	DEAD_GHOST_IMAGE._imageData = '#';
-
-	LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-
-	RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-
-	BUBBLE_IMAGE._imageData = '^';
 	
-	EXTRA_POINTS_IMAGE._imageData = '$';
+	#if !defined(TINY_GAME)
+		POWERUP_IMAGE._imageData = 'S';
+		GUN_IMAGE._imageData = '!';
+		MISSILE_IMAGE._imageData = '.';
+		INVINCIBLE_GHOST_IMAGE._imageData = '+';
+	#endif
 	
-	EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-	INVINCIBILITY_IMAGE._imageData = 'V';
-	SUPER_IMAGE._imageData = 'H';
-	CHASE_IMAGE._imageData = '.';
-	CONFUSE_IMAGE._imageData = 'C';
-	ZOMBIE_IMAGE._imageData = 'Z';
+	#if defined(FULL_GAME)
+		DEAD_GHOST_IMAGE._imageData = '#';
+
+		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+
+		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+
+		BUBBLE_IMAGE._imageData = '^';
+		
+		EXTRA_POINTS_IMAGE._imageData = '$';
+		FREEZE_IMAGE._imageData = 'F';		
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+		INVINCIBILITY_IMAGE._imageData = 'V';
+		SUPER_IMAGE._imageData = 'H';
+		CHASE_IMAGE._imageData = '.';
+		CONFUSE_IMAGE._imageData = 'C';
+		ZOMBIE_IMAGE._imageData = 'Z';
+	#endif
 }
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 

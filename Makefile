@@ -249,7 +249,7 @@ osic1p_8k:
 		
 gamate: 
 	$(CC65_PATH)$(MYCC65) -O -t gamate -Cl  --config $(SOURCE_PATH)/../cfg/gamate_reduced_stack.cfg -DFULL_GAME \
-	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/gamate/gamate_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \

@@ -807,10 +807,11 @@ msx_color_32k_msxdos:
 
 # KO: gamate (bss overflow) osic1p_32k atari5200 c128_40col c128_80col
 # OK: creativision_8k osic1p_8k  vic20_exp_3k vic20_exp_8k vic20_exp_16k \
+# 	atari_color atari_no_color atari_no_color_16k atmos oric1_16k \
+#	c16_16k c16_32k c64 pet_8k 
 # ------------
 cc65_targets: \
-	atari_color atari_no_color atari_no_color_16k atmos oric1_16k \
-	c16_16k c16_32k c64 pet_8k pet_16k cbm510 cbm610 \
+	pet_16k cbm510 cbm610 \
 	nes apple2 apple2enh
 
 # OK 

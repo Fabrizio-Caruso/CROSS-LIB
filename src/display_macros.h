@@ -132,6 +132,10 @@ typedef struct ImageStruct Image;
 
 #if defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
 	#define XSize 32
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
+	#define XSize 20
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)
+	#define XSize 20
 #elif defined(__CPC__)
 	#define XSize 40
 #elif defined(__VIC20__)
@@ -145,6 +149,8 @@ typedef struct ImageStruct Image;
 
 #if defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
 	#define YSize (24-Y_OFFSET)
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) 
+	#define YSize 24	
 #elif defined(__CPC__)
 	#define YSize 25
 #elif defined(__VIC20__)
@@ -154,6 +160,12 @@ typedef struct ImageStruct Image;
 #elif defined(__PET__) || defined(__CBM610__) 
 	#define XSize 25
 #else
+#endif
+
+#if XSize<YSize
+	#define MIN_SIZE XSize
+#else
+	#define MIN_SIZE YSize
 #endif
 
 // #if defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))

@@ -73,13 +73,14 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
-extern Image FREEZE_IMAGE;
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 
 extern Image MISSILE_IMAGE;
 
 #if defined(FULL_GAME)
+	extern Image FREEZE_IMAGE;
+
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
@@ -87,7 +88,10 @@ extern Image MISSILE_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;
+	extern Image CHASE_IMAGE;
 	extern Image SUPER_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -98,7 +102,6 @@ Image PLAYER_UP;
 Image PLAYER_RIGHT;
 Image PLAYER_LEFT;
 
-extern char YSize; 
  
 void redefine(unsigned char * loc, const char *new_char)
 {
@@ -203,7 +206,6 @@ void INIT_IMAGES(void)
 	PLAYER_LEFT._color = _ATARI_MODE1_BLUE;
 	INVINCIBLE_GHOST_IMAGE._color = _ATARI_MODE1_YELLOW; // 128 -> YELLOW; 32 -> RED; 160-> BLUE; 0 -> WHITE
 	POWERUP_IMAGE._color = _ATARI_MODE1_YELLOW; //
-	FREEZE_IMAGE._color = _ATARI_MODE1_BLUE;
 	GUN_IMAGE._color = _ATARI_MODE1_YELLOW; //
 	EXTRA_POINTS_IMAGE._color = _ATARI_MODE1_YELLOW;		
 	
@@ -219,7 +221,6 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._imageData = PLAYER_DOWN._imageData;
 	
 	POWERUP_IMAGE._imageData = _POWERUP;
-	FREEZE_IMAGE._imageData = _POWERUP;
 	GUN_IMAGE._imageData = _GUN;
 	EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS_IMAGE;
 
@@ -231,12 +232,18 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
 
 	#if defined(FULL_GAME)
+		FREEZE_IMAGE._color = _ATARI_MODE1_BLUE;
+		FREEZE_IMAGE._imageData = _POWERUP;
+	
 		LEFT_ENEMY_MISSILE_IMAGE._color = _ATARI_MODE1_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._color = _ATARI_MODE1_WHITE;	
 		BUBBLE_IMAGE._color = _ATARI_MODE1_WHITE;	
 		EXTRA_LIFE_IMAGE._color = _ATARI_MODE1_YELLOW;
 		INVINCIBILITY_IMAGE._color = _ATARI_MODE1_YELLOW;
 		SUPER_IMAGE._color = _ATARI_MODE1_RED;
+		CHASE_IMAGE._color = _ATARI_MODE1_WHITE;
+		CONFUSE_IMAGE._color = _ATARI_MODE1_RED;
+		ZOMBIE_IMAGE._color = _ATARI_MODE1_YELLOW;
 		
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 
@@ -247,7 +254,10 @@ void INIT_IMAGES(void)
 		EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN;
 
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
-		SUPER_IMAGE._imageData = _POWERUP;
+		SUPER_IMAGE._imageData = _POWERUP;		
+		CHASE_IMAGE._imageData = _MISSILE;
+		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+		ZOMBIE_IMAGE._imageData = _GHOST;
 
 	#endif
 }

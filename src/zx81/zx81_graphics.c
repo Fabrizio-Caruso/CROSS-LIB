@@ -57,7 +57,7 @@ extern Image BOMB_IMAGE;
 	extern Image BROKEN_WALL_IMAGE;
 #endif
 
-extern unsigned char XSize;
+// extern unsigned char XSize;
 
 void INIT_GRAPHICS(void)
 {

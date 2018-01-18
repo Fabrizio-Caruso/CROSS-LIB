@@ -40,10 +40,7 @@
 
 #include "level.h"
 
-
 extern unsigned char level;
-extern unsigned char XSize;
-extern unsigned char YSize;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

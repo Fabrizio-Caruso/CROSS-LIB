@@ -27,6 +27,7 @@
 #include <conio.h>
 #include <peekpoke.h>
 #include <vic20.h>
+
 	
 // BLUE
 #define _PLAYER '\'';
@@ -73,7 +74,7 @@
 
 #include "../display_macros.h"
 
-extern unsigned char XSize;
+// extern unsigned char XSize;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -232,7 +233,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
-
+#if !defined(TINY_GAME)
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
 	unsigned char i;
@@ -255,5 +256,5 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  cputc('|');
 	} 	
 }
-
+#endif
 

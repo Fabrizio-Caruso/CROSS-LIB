@@ -38,9 +38,6 @@
 
 extern unsigned int points;
 
-extern unsigned char XSize;
-extern unsigned char YSize;
-
 extern unsigned char ghostCount;
 extern unsigned short loop;
 

@@ -70,8 +70,6 @@ unsigned short ghostLevel;
 unsigned int points;
 unsigned int highScore;
 unsigned char lives;
-unsigned char XSize;
-unsigned char YSize;
 unsigned short loop;
 unsigned char level;
 
@@ -287,7 +285,7 @@ int main(void)
 	INIT_GRAPHICS();
 
 	// Ask for the screen size 
-	GET_SCREEN_SIZE(&XSize, &YSize);
+	// GET_SCREEN_SIZE(&XSize, &YSize);
 	
 	highScore = 0;
 	
@@ -643,7 +641,17 @@ int main(void)
 			}
 			else // if dead
 			{
+				
 				#if defined(BETWEEN_LEVEL)
+					for(loop=0;loop<100;++loop)
+					{
+						unsigned char i;
+						for(i=0;i<GHOSTS_NUMBER;++i)
+						{
+							if(ghosts[i]._status)
+								dance(&ghosts[i]);
+						}
+					}
 					chasedEnemyPtr = &invincibleGhost;					
 				#endif
 				

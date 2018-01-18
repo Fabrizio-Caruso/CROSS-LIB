@@ -102,9 +102,6 @@
 	#define PLAYER_IMAGE_Y 0
 	#define LEVEL_X 18
 #endif
-	
-extern unsigned char XSize;
-extern unsigned char YSize;
 
 extern unsigned char level;
 extern unsigned char lives;

@@ -130,35 +130,55 @@ typedef struct ImageStruct Image;
 	#define X_OFFSET 0
 #endif
 
-
-
-#if defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
-	#define GET_SCREEN_SIZE(x,y) do {*x=20; *y=24;} while(0)
-#elif defined(__ATARI_LYNX__)
-	#define GET_SCREEN_SIZE(x,y) do {*x=20-X_OFFSET; *y=13-Y_OFFSET;} while(0)
-#elif defined(__WINCMOC__) || defined(__CMOC__)
-	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=16-Y_OFFSET;} while(0)
-#elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
-	#define GET_SCREEN_SIZE(x,y) do {*x=80-X_OFFSET; *y=25-Y_OFFSET;} while(0)
-#elif defined (__SPECTRUM__)
-	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
-#elif defined(__MSX__) && !defined(MSX_MODE1)
-	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)
-#elif defined(__MSX__) && defined(MSX_MODE1)
-	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
-#elif defined(__SVI__) && defined(MSX_MODE0)
-	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
-#elif defined(__CPC__) && defined(CPCRSLIB)
-	#define GET_SCREEN_SIZE(x,y) do {*x=(40-X_OFFSET); *y=(25-Y_OFFSET);} while(0)	
-#elif defined(__ZX81__) || defined(__LAMBDA__)
-	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
-#elif defined(__ZX80__) 
-	#define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;} while(0)				
-#elif defined(__TRS80__) 
-	#define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)				
+#if defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
+	#define XSize 32
+#elif defined(__VIC20__)
+	#define XSize 22
+#elif defined(__C16__) || defined(__PLUS4__) || defined(__C64__)
+	#define XSize 40
+#elif defined(__PET__) || defined(__CBM610__)
+	#define XSize 80
 #else
-	#define GET_SCREEN_SIZE(x,y) do {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;} while(0)
 #endif
+
+#if defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
+	#define YSize (24-Y_OFFSET)
+#elif defined(__VIC20__)
+	#define YSize 23
+#elif defined(__C16__) || defined(__PLUS4__) || defined(__C64__) 
+	#define YSize 25
+#elif defined(__PET__) || defined(__CBM610__) 
+	#define XSize 25
+#else
+#endif
+
+// #if defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
+	// #define GET_SCREEN_SIZE(x,y) do {*x=20; *y=24;} while(0)
+// #elif defined(__ATARI_LYNX__)
+	// #define GET_SCREEN_SIZE(x,y) do {*x=20-X_OFFSET; *y=13-Y_OFFSET;} while(0)
+// #elif defined(__WINCMOC__) || defined(__CMOC__)
+	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=16-Y_OFFSET;} while(0)
+// #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
+	// #define GET_SCREEN_SIZE(x,y) do {*x=80-X_OFFSET; *y=25-Y_OFFSET;} while(0)
+// #elif defined (__SPECTRUM__)
+	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
+// #elif defined(__MSX__) && !defined(MSX_MODE1)
+	// #define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)
+// #elif defined(__MSX__) && defined(MSX_MODE1)
+	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
+// #elif defined(__SVI__) && defined(MSX_MODE0)
+	// #define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
+// #elif defined(__CPC__) && defined(CPCRSLIB)
+	// #define GET_SCREEN_SIZE(x,y) do {*x=(40-X_OFFSET); *y=(25-Y_OFFSET);} while(0)	
+// #elif defined(__ZX81__) || defined(__LAMBDA__)
+	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
+// #elif defined(__ZX80__) 
+	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;} while(0)				
+// #elif defined(__TRS80__) 
+	// #define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)				
+// #else
+	// #define GET_SCREEN_SIZE(x,y) do {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;} while(0)
+// #endif
 
 #if defined(REDEFINED_CHARS) && !defined(TINY_GAME)
 	extern Image PLAYER_LEFT;

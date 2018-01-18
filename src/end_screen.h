@@ -4,7 +4,10 @@
 #include "character.h"
 
 void dance(Character *characterPtr);
-void gameCompleted(void);
 
+#if defined(END_SCREEN)
+	void gameCompleted(void);
+#endif
+	
 #endif // _THE_END_HEADER
 

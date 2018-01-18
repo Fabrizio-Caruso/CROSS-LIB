@@ -2,6 +2,7 @@
 
 #include "level.h"
 #include "strategy.h"
+#include "display_macros.h"
 
 extern unsigned int loop;
 extern unsigned char level;

@@ -55,8 +55,11 @@ extern Image FREEZE_IMAGE;
 
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
-	extern Image INVINCIBILITY_IMAGE;	
+	extern Image INVINCIBILITY_IMAGE;
+	extern Image CHASE_IMAGE;
 	extern Image SUPER_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -195,6 +198,9 @@ void INIT_IMAGES(void)
 		EXTRA_LIFE_IMAGE._color = COLOR_RED;
 		INVINCIBILITY_IMAGE._color = COLOR_RED;	
 		SUPER_IMAGE._color = COLOR_RED;
+		CHASE_IMAGE._color = COLOR_WHITE;
+		CONFUSE_IMAGE._color = COLOR_RED;
+		ZOMBIE_IMAGE._color = COLOR_YELLOW;
 	#endif
 		
 	#if defined(REDEFINED_CHARS)	
@@ -217,7 +223,10 @@ void INIT_IMAGES(void)
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;		
 			BUBBLE_IMAGE._imageData = _BUBBLE;
 			INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
+			CHASE_IMAGE._imageData = _MISSILE;
 			SUPER_IMAGE._imageData = _POWERUP;
+			CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+			ZOMBIE_IMAGE._imageData = _GHOST;
 		#endif
 	#else
 		GHOST_IMAGE._imageData = 'o';
@@ -243,7 +252,7 @@ void INIT_IMAGES(void)
 		GHOST_IMAGE._color = COLOR_WHITE;
 		
 		#if !defined(TINY_GAME)
-		MISSILE_IMAGE._color = COLOR_WHITE;
+			MISSILE_IMAGE._color = COLOR_WHITE;
 		#endif
 	#endif
 	

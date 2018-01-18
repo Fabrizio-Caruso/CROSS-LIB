@@ -58,13 +58,13 @@ typedef struct CharacterStruct Character;
 
 extern unsigned int points;
 
-extern unsigned char XSize;
-extern unsigned char YSize;
+// extern unsigned char XSize;
+// extern unsigned char YSize;
 
 extern unsigned char ghostCount;
 
 #if defined(FULL_GAME)
-unsigned char playerKilledBy(Character *enemyPtr);
+	unsigned char playerKilledBy(Character *enemyPtr);
 #endif
 
 void displayCharacter(Character * characterPtr);

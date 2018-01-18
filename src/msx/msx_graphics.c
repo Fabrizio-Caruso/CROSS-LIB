@@ -41,6 +41,7 @@
 #define _HORIZONTAL_BRICK 0x24
 // #define _EXTRA_LIFE 0x25
 #define _EXTRA_POINTS 0x22
+#define _ZOMBIE 0x28
 
 // GREEN
 #define _POWERUP  0x2C
@@ -49,6 +50,7 @@
 #define _BOMB 0x5E
 #define _DEAD_GHOST 0x5B
 #define _SUPER 0x5C
+#define _CONFUSE 0x5A
 #define _EXTRA_LIFE 0x5D
 
 // #define _MISSILE 0x5F
@@ -67,7 +69,7 @@
 
 #include "../display_macros.h"
 
-extern unsigned char XSize;
+// extern unsigned char XSize;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -89,8 +91,11 @@ extern Image EXTRA_POINTS_IMAGE;
 	extern Image BUBBLE_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
-	extern Image INVINCIBILITY_IMAGE;	
+	extern Image INVINCIBILITY_IMAGE;
+	extern Image CHASE_IMAGE;
 	extern Image SUPER_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -188,10 +193,12 @@ void INIT_GRAPHICS(void)
 		redefine(CHAR_BASE+8*_GUN, gun);
 		redefine(CHAR_BASE+8*_POWERUP, powerUp);		
 		redefine(CHAR_BASE+8*_FREEZE, powerUp);
+		redefine(CHAR_BASE+8*_SUPER, powerUp);
 		
-		redefine(CHAR_BASE+8*_GHOST,ghost);
-		redefine(CHAR_BASE+8*_INVINCIBLE_GHOST,invincible_ghost);	
-		redefine(CHAR_BASE+8*_MISSILE,missile);	
+		redefine(CHAR_BASE+8*_GHOST, ghost);
+		redefine(CHAR_BASE+8*_ZOMBIE, ghost);
+		redefine(CHAR_BASE+8*_INVINCIBLE_GHOST, invincible_ghost);	
+		redefine(CHAR_BASE+8*_MISSILE, missile);	
 		
 		redefine(CHAR_BASE+8*_EXTRA_LIFE,player_down);	
 		redefine(CHAR_BASE+8*_INVINCIBILITY,invincibility);	
@@ -236,8 +243,11 @@ void INIT_IMAGES(void)
 		BUBBLE_IMAGE._imageData = _BUBBLE;
 				
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
-		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
+		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
+		CHASE_IMAGE._imageData = _MISSILE;
 		SUPER_IMAGE._imageData = _SUPER;
+		CONFUSE_IMAGE._imageData = _CONFUSE;
+		ZOMBIE_IMAGE._imageData = _ZOMBIE;
 			
 	#endif
 }

@@ -34,11 +34,12 @@ extern Image BOMB_IMAGE;
 extern Image MISSILE_IMAGE;
 
 extern Image POWERUP_IMAGE;
-extern Image FREEZE_IMAGE;
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 
 #if defined(FULL_GAME)
+	extern Image FREEZE_IMAGE;
+
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
@@ -46,7 +47,10 @@ extern Image EXTRA_POINTS_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+	extern Image CHASE_IMAGE;
 	extern Image SUPER_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -56,7 +60,6 @@ Image PLAYER_LEFT;
 Image PLAYER_UP;
 Image PLAYER_DOWN;	
 
-extern char YSize; 
 
 void redefine(unsigned long loc, const unsigned char * data)
 {
@@ -106,7 +109,6 @@ void INIT_IMAGES(void)
 	MISSILE_IMAGE._color = 0;
 	INVINCIBLE_GHOST_IMAGE._color = 0;
 	POWERUP_IMAGE._color = 128u;
-	FREEZE_IMAGE._color = 128u;	
 	GUN_IMAGE._color = 128u;
 	EXTRA_POINTS_IMAGE._color = 128u;
 	
@@ -119,7 +121,6 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._imageData = (char) 0x5c;
 	
 	POWERUP_IMAGE._imageData = (char) 0x5d;
-	FREEZE_IMAGE._imageData = 'F';
 	GUN_IMAGE._imageData = (char) 0x5e;
 	EXTRA_POINTS_IMAGE._imageData = '$';
 		
@@ -137,6 +138,9 @@ void INIT_IMAGES(void)
 	PLAYER_DOWN._imageData = '/';
 	
 	#if defined(FULL_GAME)
+		FREEZE_IMAGE._color = 128u;	
+		FREEZE_IMAGE._imageData = 'F';
+	
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 		LEFT_ENEMY_MISSILE_IMAGE._color = 0;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
@@ -150,8 +154,17 @@ void INIT_IMAGES(void)
 		
 		INVINCIBILITY_IMAGE._imageData = 0x3B;
 		INVINCIBILITY_IMAGE._color = 128u;
+		CHASE_IMAGE._imageData = MISSILE_IMAGE._imageData;
+		CHASE_IMAGE._color = 128u;
+		
+		CONFUSE_IMAGE._imageData = 'C';
+		CONFUSE_IMAGE._color = 128u;
+		
 		SUPER_IMAGE._imageData = 'H';		
 		SUPER_IMAGE._color = 128u;
+		
+		ZOMBIE_IMAGE._imageData = 'Z';
+		ZOMBIE_IMAGE._color = 128u;
 		
 		redefine(0xb400 + INVINCIBILITY_IMAGE._imageData*8,invincibility);					
 		redefine(0xb400 + BUBBLE_IMAGE._imageData*8,bubble);

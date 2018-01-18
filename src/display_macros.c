@@ -128,12 +128,12 @@ Image BOMB_IMAGE;
 			#if !defined(TINY_GAME)
 				INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 				POWERUP_IMAGE._color = COLOR_GREEN;
-				FREEZE_IMAGE._color = COLOR_CYAN;
 				GUN_IMAGE._color = COLOR_BLUE;
 				EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;			
 			#endif
 
 			#if defined(FULL_GAME)
+				FREEZE_IMAGE._color = COLOR_CYAN;
 				EXTRA_LIFE_IMAGE._color = COLOR_BLUE;
 				INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
 				SUPER_IMAGE._color = COLOR_RED;
@@ -161,11 +161,9 @@ Image BOMB_IMAGE;
 			EXTRA_POINTS_IMAGE._imageData = '$';			
 			#if defined(__WINCMOC__) || defined(__CMOC__)
 				POWERUP_IMAGE._imageData = 's';	
-				FREEZE_IMAGE._imageData = 'f';					
 				GUN_IMAGE._imageData = '!';				
 			#else
 				POWERUP_IMAGE._imageData = 'S';
-				FREEZE_IMAGE._imageData = 'f';								
 				GUN_IMAGE._imageData = '!';			
 			#endif
 
@@ -211,13 +209,15 @@ Image BOMB_IMAGE;
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		
 			BUBBLE_IMAGE._imageData = '^';
-			#if defined(__WINCMOC__) || defined(__CMOC__)			
+			#if defined(__WINCMOC__) || defined(__CMOC__)	
+				FREEZE_IMAGE._imageData = 'f';								
 				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 				INVINCIBILITY_IMAGE._imageData = 'v';	
 				SUPER_IMAGE._imageData = 'h';
 				CONFUSE_IMAGE._imageData = 'c';
 				ZOMBIE_IMAGE._imageData = 'z';
 			#else
+				FREEZE_IMAGE._imageData = 'F';												
 				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 				INVINCIBILITY_IMAGE._imageData = 'V';	
 				SUPER_IMAGE._imageData = 'H';	

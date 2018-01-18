@@ -144,6 +144,8 @@ typedef struct ImageStruct Image;
 	#define XSize 40
 #elif defined(__PET__) || defined(__CBM610__)
 	#define XSize 80
+#elif defined(__ATMOS__) || defined(__CBM610__)
+	#define XSize (40-X_OFFSET)	
 #else
 #endif
 
@@ -158,7 +160,9 @@ typedef struct ImageStruct Image;
 #elif defined(__C16__) || defined(__PLUS4__) || defined(__C64__) 
 	#define YSize 25
 #elif defined(__PET__) || defined(__CBM610__) 
-	#define XSize 25
+	#define YSize 25
+#elif defined(__ATMOS__) || defined(__CBM610__)
+	#define YSize (28-Y_OFFSET)		
 #else
 #endif
 

@@ -80,7 +80,7 @@ Image BOMB_IMAGE;
 	// 
 #elif (defined(__C16__)   || defined(__PLUS4__))   && defined(REDEFINED_CHARS)
 	// 
-#elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
+// #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
 	// 
 #elif defined(__SPECTRUM__)
 	//	
@@ -115,7 +115,14 @@ Image BOMB_IMAGE;
 			#include<peekpoke.h>
 			POKE(646,1);
 			POKE(36879L,9);
+		#elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
+			#include <c128.h>
+			
+			fast();
+			videomode(80);		
 		#endif	
+
+		
 	}
 	
 	void INIT_IMAGES(void)

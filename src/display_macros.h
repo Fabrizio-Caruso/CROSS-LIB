@@ -132,6 +132,8 @@ typedef struct ImageStruct Image;
 
 #if defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
 	#define XSize 32
+#elif defined(__CPC__)
+	#define XSize 40
 #elif defined(__VIC20__)
 	#define XSize 22
 #elif defined(__C16__) || defined(__PLUS4__) || defined(__C64__)
@@ -143,6 +145,8 @@ typedef struct ImageStruct Image;
 
 #if defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
 	#define YSize (24-Y_OFFSET)
+#elif defined(__CPC__)
+	#define YSize 25
 #elif defined(__VIC20__)
 	#define YSize 23
 #elif defined(__C16__) || defined(__PLUS4__) || defined(__C64__) 

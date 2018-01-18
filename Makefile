@@ -113,7 +113,14 @@ c128_80col:
 # -DSOUNDS $(SOURCE_PATH)/c264/c264_sounds.c
 # -Cl 
 c16_16k: 
-	$(CC65_PATH)$(MYCC65) -O -t c16 --config $(SOURCE_PATH)/../cfg/c16-16k.cfg -DREDEFINED_CHARS  -DSOUNDS $(SOURCE_PATH)/c264/c264_sounds.c  $(SOURCE_PATH)/c264/c264_graphics.c  $(SOURCE_PATH)/item.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k.prg
+	$(CC65_PATH)$(MYCC65) -O -t c16 --config $(SOURCE_PATH)/../cfg/c16-16k.cfg \
+	-DREDEFINED_CHARS  -DSOUNDS \
+	$(SOURCE_PATH)/c264/c264_sounds.c  $(SOURCE_PATH)/c264/c264_graphics.c  \
+	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c \
+	-o $(BUILD_PATH)/LIGHT_c16_16k.prg
 	
 c16_32k: 
 	$(CC65_PATH)$(MYCC65) -O -t c16 --config $(SOURCE_PATH)/../cfg/c16-32k.cfg -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS \
@@ -285,14 +292,32 @@ lambda_16k:
 	rm $(BUILD_PATH)/FULL_lambda_16k.prg		
 	
 cpc:
-	$(Z88DK_PATH)$(MYZ88DKASM) -v   -x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib   @$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -DSOUNDS -DFULL_GAME -vn -clib=ansi -D__CPC__ -DCPCRSLIB    -l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos -create-app -o $(BUILD_PATH)/FULL_cpc.prg  $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DKASM) -v \
+	-x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib \
+	@$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst	
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 \
+	-DREDEFINED_CHARS -DSOUNDS -DFULL_GAME -clib=ansi -D__CPC__ -DCPCRSLIB -DBETWEEN_LEVEL -DEND_SCREEN \
+	-l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos \
+	-create-app -o $(BUILD_PATH)/FULL_cpc.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/sleep_macros.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
 	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt
 	rm $(BUILD_PATH)/FULL_cpc.cpc 
 	rm $(BUILD_PATH)/FULL_cpc.prg
 
 msx_color_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +msx -O3 -zorg=49200 -DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_MODE1 -D__MSX__ -lndos -create-app -o $(BUILD_PATH)/LIGHT_msx_color_16k.prg $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +msx -O3 -zorg=49200 \
+	-DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_MODE1 -D__MSX__ -lndos \
+	-create-app -o $(BUILD_PATH)/LIGHT_msx_color_16k.prg \
+	$(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c \
+	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c \	
 	rm $(BUILD_PATH)/LIGHT_msx_color_16k.prg 	
 	
 msx_color_32k:

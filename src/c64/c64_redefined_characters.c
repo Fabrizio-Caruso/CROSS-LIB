@@ -85,8 +85,6 @@ Image PLAYER_UP;
 Image PLAYER_RIGHT;
 Image PLAYER_LEFT;
 
-extern char YSize; 
-
 void INIT_GRAPHICS(void)
 {
 	// Select video bank and set the character set pointer to point to $C800

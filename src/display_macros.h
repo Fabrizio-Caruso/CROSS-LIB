@@ -130,7 +130,9 @@ typedef struct ImageStruct Image;
 	#define X_OFFSET 0
 #endif
 
-#if defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
+#if defined(__CREATIVISION__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
+	#define XSize 32
+#elif defined(__OSIC1P__)
 	#define XSize 32
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define XSize 20
@@ -149,8 +151,10 @@ typedef struct ImageStruct Image;
 #else
 #endif
 
-#if defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
+#if defined(__CREATIVISION__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
 	#define YSize (24-Y_OFFSET)
+#elif defined(__OSIC1P__)
+	#define YSize 32	
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) 
 	#define YSize 24	
 #elif defined(__CPC__)

@@ -1,3 +1,5 @@
+#if !defined(TINY_GAME)
+
 #include "end_screen.h"
 #include "text.h"
 #include "text_strings.h"
@@ -101,5 +103,7 @@
 	{
 		printCenteredMessage(YOU_MADE_IT_STRING); 
 	}
+#endif
+
 #endif
 

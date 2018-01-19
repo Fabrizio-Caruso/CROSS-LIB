@@ -149,6 +149,8 @@ typedef struct ImageStruct Image;
 	#define XSize 80
 #elif defined(__ATMOS__)
 	#define XSize (40-X_OFFSET)	
+#elif defined(__CMOC__) || defined(__WINCMOC__)
+	#define XSize 32
 #else
 	#define XSize 16
 #endif

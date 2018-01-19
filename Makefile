@@ -480,7 +480,8 @@ microbee:
 # import as data into ram at 32768 - call 32768
 samcoupe:
 	$(Z88DK_PATH)$(MYZ88DK) +sam -O3 \
-	-D__SAM__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
+	-D__SAM__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	-DFULL_GAME -DSOUNDS -DCLIB_ANSI -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
@@ -490,7 +491,7 @@ samcoupe:
 mtx:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 -O3 \
 	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app -o FULL.bin -vn \
-	-DFULL_GAME -DSOUNDS -DCLIB_ANSI \
+	-DFULL_GAME -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
@@ -935,15 +936,20 @@ cc65_targets: \
 	c128_40col c128_80col \
 	nes gamate osic1p_32k
 
-# OK 
-# KO 
-
+# OK ace_exp_16k  cpc vg5k vg5k_exp_16k  \
+#	svi_318_mode0 svi_328 sharp_mz
+# 	samcoupe mtx abc80_16k abc80_32k \
+#	p2000_16k p2000_32k
+# 	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k \
+# 	zx81_16k 
+#
+# KO  
+# 
+# 
 z88dk_targets: \
-	ace_exp_16k aquarius_exp_16k cpc vg5k vg5k_exp_16k vz200_16k vz200_32k \
-	svi_318_mode0 svi_328 sharp_mz microbee samcoupe mtx abc80_16k abc80_32k \
-	p2000_16k p2000_32k z9001_16k z9001_32k gal_22k mc1000_16k mc1000_48k \
-	pc6001_32k nascom_16k nascom_32k zx80_16k zx81_16k lambda_16k \
-	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k
+	aquarius_exp_16k vz200_16k vz200_32k microbee z9001_16k z9001_32k gal_22k \
+	mc1000_16k mc1000_48k \
+	pc6001_32k nascom_16k nascom_32k zx80_16k lambda_16k	
 
 all: cc65_targets z88dk_targets
 

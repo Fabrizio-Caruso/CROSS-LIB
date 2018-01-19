@@ -1,3 +1,59 @@
+Salut Pierre,
+
+
+je ne suis pas encore arrivé à comprendre comment compiler mon code avec cmoc.
+
+Je crois que soit cmoc soit lwlink est buggé. Je ne suis pas sur mais cela devient probable:
+
+le fichier .map contient toutes les fonctions qui doivent etre apellées mais par contre le fichier .bin
+
+est une fraction de sa taille normale (11k ou 12k comme celle produite par cmoc 1.32 dans WinCMOC).
+
+
+Moi, je ne connais pas l'Assembly 6809. Comment je peux comprendre ce qui n'est pas dans le .bin?
+Est-ce que tu pourrais m'aider s'il te plait?
+
+Moi, j'ai regardé dans le fichier .map dans la partie dédié aux symbols pour chaque fichier .o.
+Par exemple:
+text.o
+
+ Symbol: _displayStats (text.o) = 2FD6
+ Symbol: _gameCompleted (text.o) = 2FD7
+ Symbol: _printCenteredMessageOnRow (text.o) = 2FE6
+ Symbol: _printGameOver (text.o) = 2FEE
+ Symbol: _printGhostCountStats (text.o) = 2FFD
+ Symbol: _printLevelStats (text.o) = 2FFE
+ Symbol: _printLivesStats (text.o) = 2FFF
+ Symbol: _printPressKeyToStart (text.o) = 3000
+ Symbol: _printStartMessage (text.o) = 300F
+ Symbol: _setScreenColors (text.o) = 303A
+
+et cela correspond EXACTEMENT aux fonctions qui sont apellées:
+
+ void printLevelStats(void);
+ void printGhostCountStats(void);
+ void printLivesStats(void);
+ void setScreenColors(void);
+ void printCenteredMessageOnRow(unsigned char row, char *Text);
+ void printPressKeyToStart(void);
+ void printGameOver(void);
+ void printStartMessage(void);
+ void gameCompleted(void);
+ void displayStats(void);
+
+Pareil sur les autres fichiers.
+
+
+
+
+''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''''
+
+
+
+
+
+
+
 strategy.o
 
 _blindChaseCharacterXStrategy
@@ -49,7 +105,53 @@ character.o
 
  -----------------------------------------------------
  
+ enemy.o
  
+ _displayGhosts
+ _displayBombs
+ _computeGhostSlowDown
+ 
+unsigned short computeGhostSlowDown(void) 
+void displayGhosts(void)
+void displayBombs(void)
+
+-------------------------------------------------------
+
+level.o
+
+void fillLevelWithCharacters(unsigned char nGhosts)
+
+
+--------------------------------------------------------
+
+text.o
+
+ Symbol: _displayStats (text.o) = 2FD6
+ Symbol: _gameCompleted (text.o) = 2FD7
+ Symbol: _printCenteredMessageOnRow (text.o) = 2FE6
+ Symbol: _printGameOver (text.o) = 2FEE
+ Symbol: _printGhostCountStats (text.o) = 2FFD
+ Symbol: _printLevelStats (text.o) = 2FFE
+ Symbol: _printLivesStats (text.o) = 2FFF
+ Symbol: _printPressKeyToStart (text.o) = 3000
+ Symbol: _printStartMessage (text.o) = 300F
+ Symbol: _setScreenColors (text.o) = 303A
+
+ void printLevelStats(void);
+ void printGhostCountStats(void);
+ void printLivesStats(void);
+ void setScreenColors(void);
+ void printCenteredMessageOnRow(unsigned char row, char *Text);
+ void printPressKeyToStart(void);
+ void printGameOver(void);
+ void printStartMessage(void);
+ void gameCompleted(void);
+ void displayStats(void);
+ 
+ ---------------------------------------------------------
+
+
+
  
  
  

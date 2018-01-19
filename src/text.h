@@ -98,9 +98,13 @@ void printStartMessage(void);
 	void gameCompleted(void);
 #endif
 
-void _printScore(char * text, unsigned int score);
+#if !defined(TINY_GAME)
+	void _printScoreOnRow(unsigned char row, char * text, unsigned int score);
+	
+	void _printScore(char * text, unsigned int score);
 
-void printKillTheSkull(void);
+	void printKillTheSkull(void);
+#endif
 
 #if !defined(TINY_GAME)
 	#define _printTopScore() _printScoreOnRow(0,"%05u0", highScore);
@@ -131,8 +135,10 @@ void printKillTheSkull(void);
 	#endif
 #endif
 
-void printHints(void);
-
+#if defined(FULL_GAME)
+	void printHints(void);
+#endif
+	
 #endif // _DISPLAY
 
 

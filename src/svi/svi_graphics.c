@@ -26,8 +26,6 @@
 #include <stdio.h>
 
 #include <msx/gfx.h>
-extern unsigned char XSize;
-
 #define BASE 0
 
 #define _DRAW(x,y,image) msx_vpoke(BASE+x+X_OFFSET+(y+Y_OFFSET)*XSize,image->_imageData-32);
@@ -47,13 +45,13 @@ extern Image BOMB_IMAGE;
 extern Image MISSILE_IMAGE;
 
 extern Image POWERUP_IMAGE;
-extern Image FREEZE_IMAGE;
-
 
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 
 #if defined(FULL_GAME)
+	extern Image FREEZE_IMAGE;
+
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
@@ -61,7 +59,10 @@ extern Image EXTRA_POINTS_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+	extern Image CHASE_IMAGE;
 	extern Image SUPER_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -93,7 +94,6 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._imageData = 'X';
 	PLAYER_IMAGE._imageData = '*';
 	POWERUP_IMAGE._imageData = 'S';
-	FREEZE_IMAGE._imageData = 'F';
 	
 	GUN_IMAGE._imageData = '!';
 	EXTRA_POINTS_IMAGE._imageData = '$';
@@ -102,6 +102,8 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._imageData = 'O';
 
 	#if defined(FULL_GAME)
+		FREEZE_IMAGE._imageData = 'F';
+	
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
@@ -113,6 +115,7 @@ void INIT_IMAGES(void)
 		SUPER_IMAGE._imageData = 'H';
 		
 		#if !defined(NO_COLOR)
+			FREEZE_IMAGE._color = COLOR_WHITE;
 			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
 			BUBBLE_IMAGE._color = COLOR_WHITE;				

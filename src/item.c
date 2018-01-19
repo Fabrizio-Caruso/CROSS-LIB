@@ -255,9 +255,12 @@ extern Item extraPoints;
 		zombieActive = 1;
 		zombie._coolDown = ZOMBIE_COOL_DOWN;
 		zombie_count_down = ZOMBIE_COUNT_DOWN;
-		for(i=ghostCount;i<GHOSTS_NUMBER;++i)
+		for(i=0;i<GHOSTS_NUMBER;++i)
 		{
-			ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
+			if(!ghosts[i])
+			{
+				ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
+			}
 		}
 	}
 	

@@ -58,9 +58,6 @@ typedef struct CharacterStruct Character;
 
 extern unsigned int points;
 
-// extern unsigned char XSize;
-// extern unsigned char YSize;
-
 extern unsigned char ghostCount;
 
 #if defined(FULL_GAME)
@@ -84,13 +81,9 @@ void deleteCharacter(Character * characterPtr);
 #define deleteInvincibleGhost(characterPtr) deleteCharacter(characterPtr);
 #define deletePowerUp(characterPtr) deleteCharacter(characterPtr);
 
-
-
 void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr);
 
 void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y);
-
-void setCharacterDisplay(Character* characterPtr, char ch);
 
 unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr);
 
@@ -99,24 +92,7 @@ unsigned char wallReached(Character *characterPtr);
 void die(Character * playerPtr);
 
 void playerDies(void);
-// {
-	// EXPLOSION_SOUND();
-	// die(&player);
-	// printDefeatMessage();
-	// sleep(1);	
-// }
 
-
-// TODO: playerReached and playerReachedBombs should be substituted by a generic collision detection routine
-// unsigned char playerReached(Character* preyPtr);
-				  
-// unsigned char playerReachedBombs(Character* ghostPtr);
-
-unsigned char ghostsMeetAlive(unsigned char preyIndex);
-
-unsigned char ghostsMeetDead(unsigned char preyIndex);
-
-// TODO: check bombs routines should be substituted by a generic collision detection routine
 void checkBombsVsGhost(Character * ghostPtr);
 						
 void checkBombsVsGhosts(void);

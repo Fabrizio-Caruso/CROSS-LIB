@@ -1,0 +1,55 @@
+strategy.o
+
+_blindChaseCharacterXStrategy
+_blindChaseCharacterYStrategy
+_chaseCharacter
+_move
+_moveTowardCharacter
+
+unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset);
+void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);			
+void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
+void moveTowardCharacter(Character *hunterPtr);
+void chaseCharacter(Character *preyPtr, unsigned short slowDown);	
+
+	
+---------------------------------------------
+character.o
+
+ _checkBombsVsGhost
+ _checkBombsVsGhosts
+ _deleteCharacter
+ _die
+ _displayCharacter
+ _ghostDies
+ _initializeCharacter
+ _isCharacterAtLocation
+ _playerDies
+ _relocateCharacter
+ _safeLocation
+ _sameLocationAsAnyLocation
+ _setCharacterPosition
+ _wallReached
+
+
+ void displayCharacter(Character * characterPtr);
+ void deleteCharacter(Character * characterPtr);
+ void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr);
+ void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y);
+ unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr);
+ unsigned char wallReached(Character *characterPtr);
+ void die(Character * playerPtr);
+ void playerDies(void);
+ void checkBombsVsGhost(Character * ghostPtr);						
+ void checkBombsVsGhosts(void);					
+ unsigned char safeLocation(unsigned char x, unsigned char y, Character *danger, unsigned char dangerSize);
+ void relocateCharacter(Character * characterPtr, Character *danger, unsigned char dangerSize);
+ void ghostDies(Character * ghostPtr);
+ unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length);
+
+ -----------------------------------------------------
+ 
+ 
+ 
+ 
+ 

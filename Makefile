@@ -703,7 +703,7 @@ error_cmoc:
 # CMOC
 
 coco:
-	cmoc --verbose \
+	cmoc --verbose --intermediate  \
 	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_RANDOM_LEVEL \
 	-o $(BUILD_PATH)/coco.bin \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/cmoc/cmoc_graphics.c \

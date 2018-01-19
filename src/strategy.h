@@ -53,8 +53,9 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
 	void moveTowardCharacter(Character *hunterPtr);
 #endif
 
-
-void computeStrategy(void);
+#if !defined(TINY_GAME)
+	void computeStrategy(void);
+#endif
 
 #if !defined(FULL_GAME)
 	void chaseCharacter(unsigned short slowDown);

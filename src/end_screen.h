@@ -3,7 +3,9 @@
 
 #include "character.h"
 
-void dance(Character *characterPtr);
+#if defined(END_SCREEN) || defined(BETWEEN_SCREEN)
+	void dance(Character *characterPtr);
+#endif
 
 #if defined(END_SCREEN)
 	void gameCompleted(void);

@@ -25,7 +25,7 @@
 
 
 
-#if defined(END_SCREEN)
+#if defined(END_SCREEN) || defined(BETWEEN_SCREEN)
 	void dance(Character * characterPtr)
 	{
 		deleteCharacter(characterPtr);
@@ -48,7 +48,9 @@
 		displayCharacter(characterPtr);	
 	}
 
+#endif
 
+#if defined(END_SCREEN)
 	void gameCompleted(void)
 	{
 		unsigned short k;

@@ -275,24 +275,48 @@ gamate:
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
 
 creativision_8k: 
-	$(CC65_PATH)$(MYCC65) -O -t creativision --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg -DTINY_GAME $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_creativision_8k.bin
+	$(CC65_PATH)$(MYCC65) -O -t creativision --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg -DTINY_GAME \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_creativision_8k.bin
 
 	
 # ------------------------------------------------------------------------------------------
 #Z88DK
 
 aquarius_exp_16k: 
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn -DSOUNDS -D__AQUARIUS__ -DFULL_GAME -lndos -o FULL_aquarius_exp_16k -create-app $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn \
+	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME \
+	-lndos \
+	-o FULL_aquarius_exp_16k -create-app \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(SOURCE_PATH)/../FULL_aquarius_exp_16k
 	mv $(SOURCE_PATH)/../FULL_aquarius_exp_16k.caq $(BUILD_PATH)
 	mv $(SOURCE_PATH)/../_FULL_aquarius_exp_16k.caq $(BUILD_PATH)
 	
 vz200_16k: 	
-	$(Z88DK_PATH)$(MYZ88DK) +vz -O3 -vn -DSOUNDS -D__VZ__ -clib=ansi -lndos -create-app -o  $(BUILD_PATH)/LIGHT_vz200_16k.vz $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +vz -O3 -vn \
+	-DSOUNDS -D__VZ__ -clib=ansi \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/LIGHT_vz200_16k.vz \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_vz200_16k.cas
 	
 vz200_32k: 
-	$(Z88DK_PATH)$(MYZ88DK) +vz -O3 -vn -DSOUNDS -D__VZ__ -DFULL_GAME -clib=ansi -lndos -create-app -o  $(BUILD_PATH)/FULL_vz200_32k.vz $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +vz -O3 -vn \
+	-DSOUNDS -D__VZ__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-clib=ansi -lndos -create-app -o  $(BUILD_PATH)/FULL_vz200_32k.vz \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_vz200_32k.cas
 	
 # TODO: Adapt code to work with -compiler=sdcc
@@ -342,7 +366,14 @@ ace_exp_16k:
 
 	
 zx80_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx80 -O3 -vn -D__ZX80__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_zx80_16k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 -O3 -vn \
+	-D__ZX80__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k.prg \
+	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_zx80_16k.prg
 
 # zx81_16k_no_text:
@@ -367,7 +398,7 @@ lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda -O3 \
 	-vn -D__LAMBDA__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o  $(BUILD_PATH)/FULL_lambda_16k.prg \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \	
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -464,7 +495,13 @@ sharp_mz:
 	mv $(BUILD_PATH)/FULL_sharp_mz.mzt $(BUILD_PATH)/FULL_sharp_mz.mzf
 	
 microbee_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +bee -O3 -D__BEE__ -clib=ansi -vn -DSOUNDS -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/LIGHT_microbee.prg  $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +bee -O3 \
+	-D__BEE__ -clib=ansi -vn -DSOUNDS -DCLIB_ANSI \
+	-lndos -create-app -o $(BUILD_PATH)/LIGHT_microbee.prg  \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_microbee.prg
 	
 microbee:
@@ -545,34 +582,75 @@ p2000_32k:
 # KEYBOARD INPUT PROBLEM
 # -DFULL_GAME -DSOUNDS
 z9001_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi -D__Z9001__ -vn  -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/LIGHT_z9001.z80  $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi \
+	-D__Z9001__ -vn  -DCLIB_ANSI \
+	-lndos -create-app -o $(BUILD_PATH)/LIGHT_z9001.z80 \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	rm $(BUILD_PATH)/LIGHT_z9001.z80
 	
 z9001_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi -D__Z9001__ -vn -DFULL_GAME -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/FULL_z9001.z80 $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi \
+	-D__Z9001__ -vn -DFULL_GAME -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_z9001.z80 \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	rm $(BUILD_PATH)/FULL_z9001.z80	
 
 mc1000_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3 -pragma-define:ansicolumns=32 -subtype=gaming -clib=ansi -D__MC1000__ -DSOUNDS -vn -DCLIB_ANSI -lndos -create-app -Cz--audio $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3 \
+	-pragma-define:ansicolumns=32 -subtype=gaming -clib=ansi -D__MC1000__ -DSOUNDS -vn \
+	-DCLIB_ANSI \
+	-lndos -create-app -Cz--audio \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	mv a.wav $(BUILD_PATH)/LIGHT_mc1000_16k.wav
 	rm a.bin
 	rm a.cas
 
 mc1000_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3 -subtype=gaming -pragma-define:ansicolumns=32 -DFULL_GAME  -clib=ansi -D__MC1000__ -DSOUNDS -vn -DCLIB_ANSI -lndos -create-app -Cz--audio $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3 \
+	-subtype=gaming -pragma-define:ansicolumns=32 \
+	-DFULL_GAME  \
+	-clib=ansi \
+	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-vn -DCLIB_ANSI -lndos -create-app -Cz--audio \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k.wav
 	rm a.bin
 	rm a.cas		
 	
 gal_22k:
-	$(Z88DK_PATH)$(MYZ88DK) +gal -pragma-need=ansiterminal -vn -D__GAL__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +gal \
+	-pragma-need=ansiterminal -vn \
+	-D__GAL__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_galaksija.prg	
 	rm $(BUILD_PATH)/FULL_galaksija.wav
 	
 # Warning at file 'c:/z88dk/\lib\pc6001_crt0.asm' line 112: integer '66384' out of range
 # Warning at file 'stdio/ansi/pc6001/f_ansi_char.asm' line 46: integer '66657' out of range
 pc6001_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -O3 -Cz--audio -clib=ansi -subtype=32k -D__PC6001__ -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -O3 -Cz--audio -clib=ansi -subtype=32k \
+	-D__PC6001__ -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_pc6001_32k.prg
 	rm $(BUILD_PATH)/FULL_pc6001_32k.wav
 	mv $(BUILD_PATH)/FULL_pc6001_32k.cas $(BUILD_PATH)/FULL_pc6001_32k.cp6
@@ -581,7 +659,12 @@ pc6001_32k:
 # -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
 # -SO3 --max-allocs-per-node200000
 spectrum_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -zorg=24055 -SO3 --max-allocs-per-node200000 -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -clib=sdcc_iy -DNO_SLEEP -DNO_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ -create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -zorg=24055 -SO3 --max-allocs-per-node200000 \
+	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -clib=sdcc_iy \
+	-DNO_SLEEP -DNO_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ \
+	-create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg \
+	$(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin 
 	rm $(BUILD_PATH)/TINY_spectrum_16k_UNASSIGNED.bin
 	
@@ -686,21 +769,39 @@ lambda_8k:
 	
 
 pc6001_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -O3 -Cz--audio -clib=ansi -subtype=32k -D__PC6001__ -vn -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/LIGHT_pc6001.prg  $(SOURCE_PATH)/sleep_macros.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -O3 -Cz--audio -clib=ansi -subtype=32k \
+	-D__PC6001__ -vn -DCLIB_ANSI \
+	-lndos -create-app -o $(BUILD_PATH)/LIGHT_pc6001.prg  \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/sleep_macros.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_pc6001.prg
 	
 	
 # kbhit KO
 # Everything displayed on the same line
 nascom_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +nascom -O3 -clib=ansi -vn -lndos -D__NASCOM__ -DCLIB_ANSI -D__NASCOM__ -DSOUNDS -DFULL_GAME -lndos -create-app -o $(BUILD_PATH)/FULL_nascom_32k.prg $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +nascom -O3 -clib=ansi -vn -lndos \
+	-D__NASCOM__ -DCLIB_ANSI -D__NASCOM__ -DSOUNDS -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_nascom_32k.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_nascom_32k.prg
 	
 	
 # -DSOUNDS
 # -pragma-define:ansicolumns=32  -Cz-audio 
 nascom_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +nascom -O3 -clib=ansi -vn -lndos -D__NASCOM__ -DCLIB_ANSI -D__NASCOM__ -DSOUNDS  -create-app -o $(BUILD_PATH)/LIGHT_nascom_16k.prg $(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	$(Z88DK_PATH)$(MYZ88DK) +nascom -O3 -clib=ansi -vn -lndos \
+	-D__NASCOM__ -DCLIB_ANSI -D__NASCOM__ -DSOUNDS  \
+	-create-app -o $(BUILD_PATH)/LIGHT_nascom_16k.prg \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	rm $(BUILD_PATH)/LIGHT_nascom_16k.prg
 	
 
@@ -925,7 +1026,7 @@ msx_color_32k_msxdos:
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 # KO: atari5200 (display list)
-# OK: 
+# OK: 24
 # ------------
 cc65_targets: \
 	creativision_8k osic1p_8k  vic20_exp_3k vic20_exp_8k vic20_exp_16k \
@@ -936,20 +1037,15 @@ cc65_targets: \
 	c128_40col c128_80col \
 	nes gamate osic1p_32k
 
-# OK ace_exp_16k  cpc vg5k vg5k_exp_16k  \
-#	svi_318_mode0 svi_328 sharp_mz
-# 	samcoupe mtx abc80_16k abc80_32k \
-#	p2000_16k p2000_32k
-# 	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k \
-# 	zx81_16k 
-#
-# KO  
-# 
-# 
+
+# KO:  vz200_32k microbee 	  gal_22k   \
+# OK: 31
 z88dk_targets: \
-	aquarius_exp_16k vz200_16k vz200_32k microbee z9001_16k z9001_32k gal_22k \
-	mc1000_16k mc1000_48k \
-	pc6001_32k nascom_16k nascom_32k zx80_16k lambda_16k	
+	ace_exp_16k  cpc vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz \
+	samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k \
+	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k \
+	zx81_16k aquarius_exp_16k vz200_16k z9001_16k z9001_32k mc1000_16k mc1000_48k pc6001_32k nascom_16k \
+	lambda_16k nascom_32k zx80_16k
 
 all: cc65_targets z88dk_targets
 

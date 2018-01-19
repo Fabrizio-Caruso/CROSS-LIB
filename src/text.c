@@ -85,7 +85,7 @@
 	#define SCORE_COLOR COLOR_BLUE	
 #endif
 
-#if defined(WIDE)
+#if defined(WIDE) && !defined(TINY_GAME)
 	#define GUN_IMAGE_X 17
 	#define GUN_IMAGE_Y 0
 	#define GHOST_IMAGE_X 13

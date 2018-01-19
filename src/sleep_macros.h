@@ -35,8 +35,12 @@
 	#elif defined(Z88DK)	
 		void sleep(unsigned int sec);
 	#else	
-		#include <time.h>
-		#include <unistd.h>
+		#if defined(__CMOC__) && !defined(__WINCMOC__)
+			#include <cmoc.h>
+		#else
+			#include <time.h>
+			#include <unistd.h>
+		#endif		
 	#endif	
 #endif // _SLEEP_MACROS
 

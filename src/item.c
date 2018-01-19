@@ -257,7 +257,7 @@ extern Item extraPoints;
 		zombie_count_down = ZOMBIE_COUNT_DOWN;
 		for(i=0;i<GHOSTS_NUMBER;++i)
 		{
-			if(!ghosts[i])
+			if(!(ghosts[i]._status))
 			{
 				ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
 			}

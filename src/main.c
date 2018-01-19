@@ -321,12 +321,6 @@ int main(void)
 			CLEAR_SCREEN();
 		#endif
 		
-		// TODO: DEBUG
-		// gameCompleted();
-		
-		//
-		
-		
 		extraLifeThroughPointsCounter = 1;
 		points = 0;
 		level = INITIAL_LEVEL; 	

@@ -23,17 +23,12 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include<stdlib.h> 
-//#include "character.h"
 
 #define POKE(loc,val) bpoke((loc),(val));
 
 #define VIDEO_MEMORY_BASE 0x4000
 
-//extern Character bombs[BOMBS_NUMBER];
-
 #include "../display_macros.h"
-
-extern unsigned char XSize;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -43,19 +38,23 @@ extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
-extern Image FREEZE_IMAGE;
 
 extern Image MISSILE_IMAGE;
 
 #if defined(FULL_GAME)
+	extern Image FREEZE_IMAGE;
+
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
 	extern Image BUBBLE_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
-	extern Image INVINCIBILITY_IMAGE;	
+	extern Image INVINCIBILITY_IMAGE;
+	extern Image CHASE_IMAGE;
 	extern Image SUPER_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -68,8 +67,6 @@ extern Image MISSILE_IMAGE;
 	Image PLAYER_DOWN;	
 #endif
 
-extern unsigned char YSize; 
-extern unsigned char XSize;
 
 #define VG5K_BLACK 0
 #define VG5K_RED 1
@@ -91,7 +88,6 @@ void INIT_IMAGES(void)
 	GUN_IMAGE._color = VG5K_VIOLET;
 		
 	EXTRA_POINTS_IMAGE._color = VG5K_YELLOW;
-	FREEZE_IMAGE._color = VG5K_CYAN;
 			
 	BOMB_IMAGE._color = VG5K_RED;
 	DEAD_GHOST_IMAGE._color = VG5K_RED;
@@ -103,7 +99,6 @@ void INIT_IMAGES(void)
 	POWERUP_IMAGE._imageData = 'S';
 	GUN_IMAGE._imageData = '!';
 	EXTRA_POINTS_IMAGE._imageData = '$';
-	FREEZE_IMAGE._imageData = POWERUP_IMAGE._imageData;
 	
 	MISSILE_IMAGE._imageData = '.';
 	
@@ -113,6 +108,9 @@ void INIT_IMAGES(void)
 	MISSILE_IMAGE._color = VG5K_WHITE;
 	
 	#if defined(FULL_GAME)
+		FREEZE_IMAGE._color = VG5K_CYAN;
+		FREEZE_IMAGE._imageData = POWERUP_IMAGE._imageData;
+	
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 		LEFT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
@@ -127,8 +125,17 @@ void INIT_IMAGES(void)
 		INVINCIBILITY_IMAGE._imageData = 'V';
 		INVINCIBILITY_IMAGE._color = VG5K_YELLOW;	
 
+		CHASE_IMAGE._imageData = '.';
+		CHASE_IMAGE._color = VG5K_RED;
+		
 		SUPER_IMAGE._imageData = 'H';
 		SUPER_IMAGE._color = VG5K_RED;
+		
+		CONFUSE_IMAGE._imageData = '+';
+		CONFUSE_IMAGE._color = VG5K_RED;
+		
+		ZOMBIE_IMAGE._imageData = 'O';
+		ZOMBIE_IMAGE._color = VG5K_YELLOW;
 	#endif
 }
 

@@ -28,8 +28,6 @@
 #define _DRAW 	cputc(image->_imageData);
 #define _DELETE cputc(' '); 
 
-extern unsigned char XSize;
-
 #define CPC_BLUE 2
 #define CPC_RED 4
 #define CPC_YELLOW 0

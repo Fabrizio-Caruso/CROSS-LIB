@@ -26,8 +26,6 @@
 #include <conio.h>
 #include "cpcrslib.h"
 
-extern unsigned char XSize;
-
 #define CPC_WHITE 1
 #define CPC_YELLOW 2 
 #define CPC_RED 3
@@ -43,9 +41,10 @@ extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
 extern Image GUN_IMAGE;
-extern Image FREEZE_IMAGE;
 
 #if defined(FULL_GAME)
+	extern Image FREEZE_IMAGE;
+
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
@@ -54,7 +53,11 @@ extern Image FREEZE_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
+
+	extern Image CHASE_IMAGE;
 	extern Image SUPER_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 	
 	extern Image BROKEN_WALL_IMAGE;
 #endif
@@ -165,7 +168,6 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._color = CPC_YELLOW;
 	INVINCIBLE_GHOST_IMAGE._color = CPC_YELLOW;
 	POWERUP_IMAGE._color = CPC_YELLOW;
-	FREEZE_IMAGE._color = CPC_WHITE;
 	GUN_IMAGE._color = CPC_YELLOW;
 	BOMB_IMAGE._color = CPC_RED;
 	DEAD_GHOST_IMAGE._color = CPC_RED;
@@ -187,7 +189,7 @@ void INIT_IMAGES(void)
 
 	
 	POWERUP_IMAGE._imageData = _POWERUP;
-	FREEZE_IMAGE._imageData = _POWERUP;
+
 	GUN_IMAGE._imageData = _GUN;
 	MISSILE_IMAGE._imageData = _MISSILE;
 
@@ -197,6 +199,9 @@ void INIT_IMAGES(void)
 	MISSILE_IMAGE._color = CPC_WHITE;
 
 	#if defined(FULL_GAME)
+		FREEZE_IMAGE._color = CPC_WHITE;
+		FREEZE_IMAGE._imageData = _POWERUP;
+		
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_MISSILE;
 		LEFT_ENEMY_MISSILE_IMAGE._color = CPC_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_MISSILE;
@@ -209,12 +214,18 @@ void INIT_IMAGES(void)
 		
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
+		CHASE_IMAGE._imageData = _MISSILE;
 		SUPER_IMAGE._imageData = _POWERUP;
+		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+		ZOMBIE_IMAGE._imageData = _GHOST;
 		
 		EXTRA_POINTS_IMAGE._color = CPC_YELLOW;
 		EXTRA_LIFE_IMAGE._color = CPC_RED;
-		INVINCIBILITY_IMAGE._color = CPC_YELLOW;	
+		INVINCIBILITY_IMAGE._color = CPC_YELLOW;
+		CHASE_IMAGE._color = CPC_RED;
 		SUPER_IMAGE._color = CPC_RED;
+		CONFUSE_IMAGE._color = CPC_RED;
+		ZOMBIE_IMAGE._color = CPC_YELLOW;
 	#endif
 }
 

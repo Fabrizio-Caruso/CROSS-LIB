@@ -57,8 +57,6 @@
 
 #include "../display_macros.h"
 
-extern unsigned char XSize;
-
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;

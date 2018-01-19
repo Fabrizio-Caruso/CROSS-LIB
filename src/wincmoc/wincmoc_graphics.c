@@ -59,8 +59,6 @@
 
 #include "display_macros.h"
 
-extern unsigned char XSize;
-
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
@@ -81,6 +79,12 @@ extern Image GUN_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
 	
 	extern Image BROKEN_WALL_IMAGE;
+	
+	extern Image FREEZE_IMAGE;
+	extern Image CHASE_IMAGE;
+	extern Image SUPER_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 #endif
 
 #define BASE_ADDR
@@ -172,14 +176,17 @@ void INIT_IMAGES(void)
 {		
 
 	GHOST_IMAGE._imageData = _GHOST;
-	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
 	PLAYER_IMAGE._imageData = _PLAYER;
-	POWERUP_IMAGE._imageData = _POWERUP;
-	GUN_IMAGE._imageData = _GUN;
-	MISSILE_IMAGE._imageData = _MISSILE;
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
-
+	
+	#if !defined(TINY_GAME)
+		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;	
+		POWERUP_IMAGE._imageData = _POWERUP;
+		GUN_IMAGE._imageData = _GUN;
+		MISSILE_IMAGE._imageData = _MISSILE;
+	#endif
+	
 	PLAYER_DOWN._imageData = _PLAYER_DOWN;
 	PLAYER_UP._imageData = _PLAYER_UP;	
 	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;

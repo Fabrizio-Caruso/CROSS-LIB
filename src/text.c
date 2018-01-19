@@ -128,8 +128,8 @@ extern Image MISSILE_IMAGE;
 	#if defined(__ATMOS__)
 		void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text)
 		{
-			POKE(0xBB80+3+(row+Y_OFFSET)*40,16);POKE(0xBB80+3+1+(row+Y_OFFSET)*40,col); 	
-			printCenteredMessageOnRow(row, Text);
+			POKE(0xBB80+3+(row+Y_OFFSET)*40,16);POKE(0xBB80+3+1+(row+Y_OFFSET)*40,col);
+			printCenteredMessageOnRow(row, Text);						
 			POKE(0xBB80+35+(row+Y_OFFSET)*40,16);POKE(0xBB80+35+1+(row+Y_OFFSET)*40,3);			
 		}			
 	#else
@@ -149,20 +149,6 @@ extern Image MISSILE_IMAGE;
 #endif
 
 
-// #if defined(COLOR)
-	// #define printCenteredMessage(Text) \
-		// printCenteredMessageOnRow((YSize>>1), Text)
-
-	// #define printCenteredMessageWithCol(col, Text) \
-		// printCenteredMessageOnRowWithCol((YSize>>1), col, Text)	
-// #else
-	// #define printCenteredMessage(Text) \
-		// printCenteredMessageOnRow((YSize>>1), Text)
-		
-	// #define printCenteredMessageWithCol(col, Text) \
-		// printCenteredMessageOnRow((YSize>>1), Text)
-// #endif
-	
 
 #if defined(FULL_GAME)
 	void printKillTheSkull(void)

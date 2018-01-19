@@ -34,7 +34,7 @@
 #endif
 
 
-#if defined(COLOR)
+#if !defined(NO_COLOR)
 	#define printCenteredMessage(Text) \
 		printCenteredMessageOnRow((YSize>>1), Text)
 

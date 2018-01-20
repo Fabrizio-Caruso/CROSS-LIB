@@ -42,13 +42,13 @@ unsigned short computeGhostSlowDown(void)
 }
 
 #if !defined(TINY_GAME)
-void decreaseGhostLevel(void)
-{
-	if(ghostLevel>GHOST_LEVEL_DECREASE)
-		ghostLevel-=GHOST_LEVEL_DECREASE;
-	else
-		ghostLevel=0;
-}
+	void decreaseGhostLevel(void)
+	{
+		if(ghostLevel>GHOST_LEVEL_DECREASE)
+			ghostLevel-=GHOST_LEVEL_DECREASE;
+		else
+			ghostLevel=0;
+	}
 #endif
 
 void displayGhosts(void)

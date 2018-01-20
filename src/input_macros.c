@@ -282,7 +282,8 @@ extern Character player;
 	#elif !defined(__WINCMOC__) && defined(__CMOC__)
 		#if defined(ASM_KEY_DETECT)
 			// #include <basic.h>
-			#include "cmoc/cmoc_input.h"			
+			#include "cmoc/cmoc_input.h"
+			#include <coco.h>
 			void MOVE_PLAYER(void) 
 				{
 					char ch = (char) GET_CHAR(); 
@@ -290,13 +291,15 @@ extern Character player;
 					{
 						movePlayerByKeyboard(ch); 
 					}
-					// else
-					// {
-						// if(kbhit() && cgetc()==' ')
-						// {
-							// movePlayerByKeyboard(' ');
-						// }
-					// }
+					#if !defined(TINY_GAME)
+					else
+					{
+						if(isKeyPressed(0x7F, 0x08))
+						{
+							movePlayerByKeyboard(' ');
+						}
+					}
+					#endif
 				}
 		#else
 			void MOVE_PLAYER(void) 

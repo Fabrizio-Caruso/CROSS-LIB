@@ -206,6 +206,22 @@ void CLEAR_SCREEN(void)
 	}
 }
 
+void PRINT(unsigned char x, unsigned char y, char * str)
+{
+	unsigned char i;
+	i=0;
+	while(str[i]!='\0')
+	{
+		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]-32-64);
+		++i;
+	}
+}
+
+void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short)
+{
+}	
+
+
 // #if defined(REDEFINED_CHARS)
 	// void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	// { 

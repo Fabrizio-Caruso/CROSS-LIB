@@ -142,7 +142,7 @@ extern Image MISSILE_IMAGE;
 #else
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
-		PRINT(((XSize - strlen (Text))>>1), row, Text)		
+		PRINT((unsigned char)(((unsigned char) XSize - strlen (Text))>>1), row, Text);	
 	}
 	#define printCenteredMessageOnRowWithCol(row, col, Text) \
 		printCenteredMessageOnRow(row, Text)

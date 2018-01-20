@@ -217,8 +217,24 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	}
 }
 
-void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short)
+void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 {
+	unsigned char i=0;
+	unsigned char digits[5];
+	unsigned short tmp = val;
+	
+	while(tmp!=0)
+	{
+		digits[5-i] = (unsigned char) tmp%10;
+		++i;
+		tmp/=10;
+	}
+	
+	for(i=0;i<5;++i)
+	{
+		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), digits[i]+48);
+		++i;		
+	}
 }	
 
 

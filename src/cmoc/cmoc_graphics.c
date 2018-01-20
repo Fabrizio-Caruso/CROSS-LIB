@@ -24,11 +24,11 @@
 
 	
 // BLUE
-#define _PLAYER 0 
-#define _PLAYER_DOWN 0
-#define _PLAYER_UP 1
-#define _PLAYER_RIGHT 2
-#define _PLAYER_LEFT 3
+#define _PLAYER '*'
+// #define _PLAYER_DOWN 0
+// #define _PLAYER_UP 1
+// #define _PLAYER_RIGHT 2
+// #define _PLAYER_LEFT 3
 
 #define _GUN 4
 
@@ -43,13 +43,13 @@
 #define _POWERUP  10
 
 // RED
-#define _BOMB 11
-#define _DEAD_GHOST 12
+#define _BOMB 'X'
+#define _DEAD_GHOST '#'
 
 #define _INVINCIBILITY 13
 #define _MISSILE 14
 
-#define _GHOST 15
+#define _GHOST 'O'
 
 #define _LEFT_ENEMY_MISSILE 16
 #define _RIGHT_ENEMY_MISSILE 17
@@ -103,12 +103,12 @@ extern Image BOMB_IMAGE;
 
 #define _DRAW(x,y,image) \
 { \
-	POKE(BASE_ADDR+x+X_OFFSET+(y+Y_OFFSET)*XSize,image); \
+	POKE(BASE_ADDR+x+y*32,image); \
 }
 
 #define _DELETE(x,y) \
 { \
-		POKE(BASE_ADDR+x+X_OFFSET+(y+Y_OFFSET)*XSize,' '); \
+		POKE(BASE_ADDR+x+y*32,' '); \
 }
 
 #define _DRAW_VERTICAL_WALL(x,y)  

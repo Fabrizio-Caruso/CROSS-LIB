@@ -703,12 +703,41 @@ error_cmoc:
 # CMOC
 
 coco:
-	cmoc --verbose --intermediate  \
-	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_RANDOM_LEVEL \
-	-o $(BUILD_PATH)/coco.bin \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/cmoc/cmoc_graphics.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/cmoc/cmoc_input.c  $(SOURCE_PATH)/main.c
+	cmoc \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT  \
+	-c $(SOURCE_PATH)/display_macros.c
+	cmoc \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT  \
+	-c $(SOURCE_PATH)/cmoc/cmoc_graphics.c
+	cmoc \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT  \
+	-c $(SOURCE_PATH)/enemy.c
+	cmoc \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT  \
+	-c $(SOURCE_PATH)/level.c
+	cmoc \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT  \
+	-c $(SOURCE_PATH)/character.c
+	cmoc \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT  \
+	-c $(SOURCE_PATH)/text.c
+	cmoc \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT  \
+	-c $(SOURCE_PATH)/strategy.c
+	cmoc \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT  \
+	-c $(SOURCE_PATH)/input_macros.c
+	cmoc \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT  \
+	-c $(SOURCE_PATH)/cmoc/cmoc_input.c
+	cmoc -o $(BUILD_PATH)/coco.bin \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DNO_TEXT  \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o cmoc_graphics.o \
+	enemy.o \
+	level.o character.o text.o \
+	strategy.o \
+	input_macros.o cmoc_input.o
 
 cmoc_link:
 	cmoc display_macros.o cmoc_graphics.o \

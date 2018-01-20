@@ -206,36 +206,77 @@ void CLEAR_SCREEN(void)
 	}
 }
 
+unsigned char screenCode(char ch)
+{
+	if(ch==32) 
+	{
+		return 32+64;
+	}
+	else
+	{
+		return ch-32;
+	}	
+}
+
 void PRINT(unsigned char x, unsigned char y, char * str)
 {
-	unsigned char i;
-	i=0;
+	unsigned char i = 0;
 	while(str[i]!='\0')
 	{
-		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]-32-64);
+		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), screenCode(str[i])); //str[i]-32-64);
 		++i;
 	}
 }
 
-void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
+void print_05u0(unsigned char x, unsigned char y, char * str, unsigned short val)
 {
-	unsigned char i=0;
-	unsigned char digits[5];
+	unsigned char i;
+	unsigned char digits[6];
 	unsigned short tmp = val;
 	
-	while(tmp!=0)
+	digits[0] = 0;
+	for(i=1;i<6;++i)
 	{
-		digits[5-i] = (unsigned char) tmp%10;
-		++i;
+		digits[i] = (unsigned char) (tmp)%10;
 		tmp/=10;
 	}
 	
-	for(i=0;i<5;++i)
+	for(i=0;i<6;++i)
 	{
-		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), digits[i]+48);
-		++i;		
+		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), (unsigned char) (digits[5-i])+48);
 	}
 }	
+
+void print_02u(unsigned char x, unsigned char y, char * str, unsigned short val)
+{
+	POKE(BASE_ADDR+x+y*  ((unsigned short)XSize), ((unsigned char) val)/10+48);		
+	POKE(BASE_ADDR+x+1+y*((unsigned short)XSize), ((unsigned char) val)%10+48);	
+}	
+
+
+void print_u(unsigned char x, unsigned char y, char * str, unsigned short val)
+{
+
+	POKE(BASE_ADDR+x+y*((unsigned short)XSize), (unsigned char) (val+48));
+}
+
+void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
+{
+	if(strlen(str)==5)
+	{	
+		print_05u0(x,y,str,val);
+	}
+	else if(strlen(str)==4)
+	{
+		print_02u(x,y,str,val);		
+	}
+	else 
+	{
+		print_u(x,y,str,val);		
+	}
+}
+
+
 
 
 // #if defined(REDEFINED_CHARS)

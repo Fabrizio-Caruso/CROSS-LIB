@@ -35,8 +35,8 @@
 #define _CMOC_CONIO_PATCH
 
 	#define cprintf printf
-	#define gotoxy(x,y)
-	#define cputc
+	#define gotoxy(x,y) locate(y,x)
+	#define cputc(c) printf("%c",c)
 	// #if defined(__ZX80__)
 		// #define cputc(c) {gen_tv_field(); putch(c);}
 	// #else

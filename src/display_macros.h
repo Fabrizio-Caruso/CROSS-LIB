@@ -171,6 +171,8 @@ typedef struct ImageStruct Image;
 	#define YSize (25-Y_OFFSET)
 #elif defined(__ATMOS__)
 	#define YSize (28-Y_OFFSET)		
+#elif defined(__CMOC__) || defined(__WINCMOC__)
+	#define YSize 16	
 #else
 	#define YSize 16
 #endif
@@ -389,7 +391,8 @@ void DRAW_BOMBS(void);
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	#define SET_TEXT_COLOR(c) {}
 	
-	#define CLEAR_SCREEN() {}
+	void CLEAR_SCREEN(void);
+	
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define SET_TEXT_COLOR(c) {};
 

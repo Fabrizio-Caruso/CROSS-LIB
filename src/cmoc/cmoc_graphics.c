@@ -22,13 +22,16 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+#define NOT_INVERTED 64
 	
 // BLUE
-#define _PLAYER '*'
+#define _PLAYER ('*'+NOT_INVERTED)
 // #define _PLAYER_DOWN 0
 // #define _PLAYER_UP 1
 // #define _PLAYER_RIGHT 2
 // #define _PLAYER_LEFT 3
+
+#define _SPACE (' '+NOT_INVERTED)
 
 #define _GUN 4
 
@@ -85,7 +88,7 @@ extern Image BOMB_IMAGE;
 	extern Image BROKEN_WALL_IMAGE;
 #endif
 
-#define BASE_ADDR 0x0400
+#define BASE_ADDR (unsigned short)(0x0400)
 
 
 
@@ -103,12 +106,12 @@ extern Image BOMB_IMAGE;
 
 #define _DRAW(x,y,image) \
 { \
-	POKE(BASE_ADDR+x+y*32,image); \
+	POKE(BASE_ADDR+x+((unsigned short) y)*32,image); \
 }
 
 #define _DELETE(x,y) \
 { \
-		POKE(BASE_ADDR+x+y*32,' '); \
+		POKE(BASE_ADDR+x+((unsigned short) y)*32,_SPACE); \
 }
 
 #define _DRAW_VERTICAL_WALL(x,y)  
@@ -187,6 +190,20 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		_DELETE(x,y);
 		*blinkCounter=1;
 	}	
+}
+
+void CLEAR_SCREEN(void)
+{
+	unsigned char i;
+	unsigned char j;
+	
+	for(i=0;i<YSize;++i)
+	{
+		for(j=0;j<XSize;++j)
+		{
+			POKE(BASE_ADDR+j+i*((unsigned short )XSize),_SPACE);
+		}
+	}
 }
 
 // #if defined(REDEFINED_CHARS)

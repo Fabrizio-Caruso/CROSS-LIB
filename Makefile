@@ -713,34 +713,34 @@ error_cmoc:
 
 coco:
 	cmoc \
-	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME    \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME  -DNO_SLEEP  \
 	-c $(SOURCE_PATH)/display_macros.c
 	cmoc \
-	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME    \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME  -DNO_SLEEP  \
 	-c $(SOURCE_PATH)/cmoc/cmoc_graphics.c
 	cmoc \
-	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME    \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME  -DNO_SLEEP  \
 	-c $(SOURCE_PATH)/enemy.c
 	cmoc \
-	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME    \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME   -DNO_SLEEP \
 	-c $(SOURCE_PATH)/level.c
 	cmoc \
-	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME    \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME   -DNO_SLEEP \
 	-c $(SOURCE_PATH)/character.c
 	cmoc \
-	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME    \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME   -DNO_SLEEP \
 	-c $(SOURCE_PATH)/text.c
 	cmoc \
-	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME    \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME   -DNO_SLEEP \
 	-c $(SOURCE_PATH)/strategy.c
 	cmoc \
-	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME    \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME   -DNO_SLEEP \
 	-c $(SOURCE_PATH)/input_macros.c
 	cmoc \
-	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME    \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME   -DNO_SLEEP \
 	-c $(SOURCE_PATH)/cmoc/cmoc_input.c
 	cmoc -o $(BUILD_PATH)/coco.bin \
-	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME    \
+	-D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME    -DNO_SLEEP \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o cmoc_graphics.o \
 	enemy.o \

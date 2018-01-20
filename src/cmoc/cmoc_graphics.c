@@ -103,20 +103,12 @@ extern Image BOMB_IMAGE;
 
 #define _DRAW(x,y,image) \
 { \
-	unsigned char i; \
-	for (i=0;i<8;++i) \
-	{ \
-		POKE(BASE_ADDR+x+X_OFFSET+(y+i+Y_OFFSET)*XSize,image); \
-	} \
+	POKE(BASE_ADDR+x+X_OFFSET+(y+Y_OFFSET)*XSize,image); \
 }
 
 #define _DELETE(x,y) \
 { \
-	unsigned char i; \
-	for (i=0;i<8;++i) \
-	{ \
-		POKE(BASE_ADDR+x+X_OFFSET+(y+i+Y_OFFSET)*XSize,' '); \
-	} \
+		POKE(BASE_ADDR+x+X_OFFSET+(y+Y_OFFSET)*XSize,' '); \
 }
 
 #define _DRAW_VERTICAL_WALL(x,y)  

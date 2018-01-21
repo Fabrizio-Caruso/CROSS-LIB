@@ -61,7 +61,12 @@
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&7)==1)			
-#elif defined(__WINCMOC__) || defined(__CMOC__)
+#elif !defined(__WINCMOC__) && defined(__CMOC__)
+	#define SKIP_DRAW
+	
+	#define SKIP_MORE_DRAW 	\
+		if((loop%16)==1)				
+#elif defined(__WINCMOC__) && defined(__CMOC__)
 	#define SKIP_DRAW
 	
 	#define SKIP_MORE_DRAW \
@@ -70,6 +75,7 @@
 	#define SKIP_DRAW 
 
 	#define SKIP_MORE_DRAW 
+
 #endif
 	
 

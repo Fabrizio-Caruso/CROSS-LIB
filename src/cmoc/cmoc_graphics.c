@@ -23,6 +23,7 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #define NOT_INVERTED 64
+#define INVERTED -64
 	
 // BLUE
 #define _PLAYER ('*'+NOT_INVERTED)
@@ -33,30 +34,30 @@
 
 #define _SPACE (' '+NOT_INVERTED)
 
-#define _GUN 4
+#define _GUN '!'
 
 // YELLOW
-#define _INVINCIBLE_GHOST 5
-#define _VERTICAL_BRICK 6
-#define _HORIZONTAL_BRICK 7
-#define _EXTRA_LIFE 8
-#define _EXTRA_POINTS 9
+#define _INVINCIBLE_GHOST '+'
+#define _VERTICAL_BRICK '#'
+#define _HORIZONTAL_BRICK '-'
+#define _EXTRA_LIFE '*'
+#define _EXTRA_POINTS '$'
 
 // GREEN
-#define _POWERUP  10
+#define _POWERUP  ('S'+INVERTED)
 
 // RED
-#define _BOMB ('X'-NOT_INVERTED)
+#define _BOMB ('X'+INVERTED)
 #define _DEAD_GHOST '#'
 
-#define _INVINCIBILITY 13
-#define _MISSILE 14
+#define _INVINCIBILITY 'I'
+#define _MISSILE ('.'+INVERTED)
 
 #define _GHOST 'O'
 
-#define _LEFT_ENEMY_MISSILE 16
-#define _RIGHT_ENEMY_MISSILE 17
-#define _BUBBLE 18
+#define _LEFT_ENEMY_MISSILE '>'
+#define _RIGHT_ENEMY_MISSILE '<'
+#define _BUBBLE '^'
 
 #include "../display_macros.h"
 

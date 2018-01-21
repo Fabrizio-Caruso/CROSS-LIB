@@ -34,26 +34,20 @@
 #ifndef _CMOC_CONIO_PATCH
 #define _CMOC_CONIO_PATCH
 
+	#if defined(CMOC_RAND_FIX)
+		int seed = 0;
+		
+		int rand()
+		{
+			seed = seed * (256 + 128 + 1) + 1;
+			return seed & 0x7FFF;
+		}
+	#endif
+
 	#define cprintf printf
 	#define gotoxy(x,y) locate(y,x)
 	#define cputc(c) printf("%c",c)
-	// #if defined(__ZX80__)
-		// #define cputc(c) {gen_tv_field(); putch(c);}
-	// #else
-		// #define cputc(c) cputc(c);
-	// #endif
-	//
-	// #define cgetc() (char) getch();
 
-	// RED 6
-	// BLUE 1
-	// MAGENTA 5
-	// WHITE 7
-	// CYAN 3
-	// OTHER RED 4 but should be YELLOW
-	// OTHER CYAN 9
-	// OTHER GREEN 10
-	// #if defined(__AQUARIUS__) || defined(__SPECTRUM__) || defined(__SVI__) 
 
 		#define COLOR_BLACK 0
 		#define COLOR_BLUE 1		

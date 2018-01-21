@@ -46,7 +46,7 @@
 #define _POWERUP  10
 
 // RED
-#define _BOMB 'X'
+#define _BOMB ('X'-NOT_INVERTED)
 #define _DEAD_GHOST '#'
 
 #define _INVINCIBILITY 13
@@ -63,9 +63,10 @@
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
+extern Image DEAD_GHOST_IMAGE;
 
+	
 #if !defined(TINY_GAME)
-	extern Image DEAD_GHOST_IMAGE;
 	extern Image INVINCIBLE_GHOST_IMAGE;
 	extern Image MISSILE_IMAGE;
 	
@@ -129,11 +130,12 @@ void INIT_IMAGES(void)
 	GHOST_IMAGE._imageData = _GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
 	PLAYER_IMAGE._imageData = _PLAYER;
-	
+	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
+		
 	#if !defined(TINY_GAME)
 		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;	
 		MISSILE_IMAGE._imageData = _MISSILE;
-		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
+	
 		
 		POWERUP_IMAGE._imageData = _POWERUP;
 		FREEZE_IMAGE._imageData = _POWERUP;
@@ -228,7 +230,7 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	}
 }
 
-void print_05u0(unsigned char x, unsigned char y, char * str, unsigned short val)
+void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 {
 	unsigned char i;
 	unsigned char digits[6];
@@ -247,32 +249,41 @@ void print_05u0(unsigned char x, unsigned char y, char * str, unsigned short val
 	}
 }	
 
-void print_02u(unsigned char x, unsigned char y, char * str, unsigned short val)
+void print_02u(unsigned char x, unsigned char y, unsigned short val)
 {
 	POKE(BASE_ADDR+x+y*  ((unsigned short)XSize), ((unsigned char) val)/10+48);		
 	POKE(BASE_ADDR+x+1+y*((unsigned short)XSize), ((unsigned char) val)%10+48);	
 }	
 
 
-void print_u(unsigned char x, unsigned char y, char * str, unsigned short val)
+void print_u(unsigned char x, unsigned char y, unsigned short val)
 {
-
 	POKE(BASE_ADDR+x+y*((unsigned short)XSize), (unsigned char) (val+48));
+}
+
+void print_level(unsigned short val)
+{
+	PRINT(XSize/2,YSize/2,"LEVEL");
+	print_u(XSize/2+7, YSize/2, val);
 }
 
 void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 {
 	if(strlen(str)==5)
 	{	
-		print_05u0(x,y,str,val);
+		print_05u0(x,y,val);
 	}
 	else if(strlen(str)==4)
 	{
-		print_02u(x,y,str,val);		
+		print_02u(x,y,val);		
 	}
-	else 
+	else if(strlen(str)==2)
 	{
-		print_u(x,y,str,val);		
+		print_u(x,y,val);		
+	}
+	else
+	{
+		print_level(val);
 	}
 }
 

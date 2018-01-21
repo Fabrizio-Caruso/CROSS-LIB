@@ -38,7 +38,7 @@
 // TODO: DEBUG
 #include "sleep_macros.h"
 
-extern unsigned int points;
+extern unsigned short points;
 extern unsigned char ghostCount;
 extern Character ghosts[GHOSTS_NUMBER];
 extern Image DEAD_GHOST_IMAGE;

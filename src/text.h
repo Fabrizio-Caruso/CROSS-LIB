@@ -99,9 +99,9 @@ void printStartMessage(void);
 #endif
 
 #if !defined(TINY_GAME)
-	void _printScoreOnRow(unsigned char row, char * text, unsigned int score);
+	void _printScoreOnRow(unsigned char row, char * text, unsigned short score);
 	
-	void _printScore(char * text, unsigned int score);
+	void _printScore(char * text, unsigned short score);
 
 	void printKillTheSkull(void);
 #endif

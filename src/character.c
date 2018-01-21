@@ -36,7 +36,7 @@
 #include "text.h"
 #include "sleep_macros.h"
 
-extern unsigned int points;
+extern unsigned short points;
 
 extern unsigned char ghostCount;
 extern unsigned short loop;

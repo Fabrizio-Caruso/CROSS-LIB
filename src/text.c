@@ -106,10 +106,10 @@
 extern unsigned char level;
 extern unsigned char lives;
 extern unsigned char guns;
-extern unsigned int points;
+extern unsigned short points;
 extern unsigned char ghostCount;
 extern unsigned short ghostLevel;
-extern unsigned int highScore;
+extern unsigned short highScore;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -289,12 +289,12 @@ void displayStats(void)
 
 
 #if !defined(TINY_GAME)
-	void _printScoreOnRow(unsigned char row, char * text, unsigned int score)
+	void _printScoreOnRow(unsigned char row, char * text, unsigned short score)
 	{
 		PRINTF(((XSize-strlen(text))>>1), row, text, score);
 	}	
 	
-	void _printScore(char * text, unsigned int score)
+	void _printScore(char * text, unsigned short score)
 	{
 		_printScoreOnRow((YSize>>1), text, score);
 	}

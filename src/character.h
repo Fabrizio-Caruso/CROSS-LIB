@@ -56,7 +56,7 @@ typedef struct CharacterStruct Character;
 
 #define areCharctersAtSamePosition(lhs, rhs)isCharacterAtLocation((lhs)->_x, (lhs)->_y,rhs)
 
-extern unsigned int points;
+extern unsigned short points;
 
 extern unsigned char ghostCount;
 

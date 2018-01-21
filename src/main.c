@@ -67,8 +67,8 @@
 unsigned short ghostSlowDown;
 
 unsigned short ghostLevel;
-unsigned int points;
-unsigned int highScore;
+unsigned short points;
+unsigned short highScore;
 unsigned char lives;
 unsigned short loop;
 unsigned char level;
@@ -189,7 +189,7 @@ Character bombs[BOMBS_NUMBER];
 		
 #endif
 
-unsigned int extraLifeThroughPointsCounter;
+unsigned short extraLifeThroughPointsCounter;
 
 unsigned char ghostCount = GHOSTS_NUMBER;
 
@@ -603,7 +603,7 @@ int main(void)
 					sleep(1);
 					CLEAR_SCREEN();						
 				#else
-					points+= LEVEL_BONUS*4;
+					points += LEVEL_BONUS * 4;
 				#endif			
 
 				ghostCount = GHOSTS_NUMBER;

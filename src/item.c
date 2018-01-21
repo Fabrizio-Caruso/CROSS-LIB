@@ -7,7 +7,7 @@
 #include "sound_macros.h"
 
 
-extern unsigned int points;
+extern unsigned short points;
 
 extern unsigned char guns;
 extern unsigned char lives;

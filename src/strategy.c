@@ -122,31 +122,6 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 	}	
 #endif
 
-// #elif !defined(TINY_GAME)
-	// void moveTowardCharacter(Character *hunterPtr, unsigned char strategy)
-	// {
-		// if(rand()%10 > strategy) // Select blind chase strategy
-			// { // 0 - 4
-				// blindChaseCharacterXStrategy(hunterPtr, &player);	
-			// }
-			// else
-			// { // 5 - 9
-				// blindChaseCharacterYStrategy(hunterPtr, &player);
-			// }
-	// }
-// #else
-	// void moveTowardCharacter(Character *hunterPtr)
-	// {
-		// if(rand()%10 > strategy) // Select blind chase strategy
-			// { // 0 - 4
-				// blindChaseCharacterXStrategy(hunterPtr, &player);
-			// }
-			// else
-			// { // 5 - 9
-				// blindChaseCharacterYStrategy(hunterPtr, &player);
-			// }
-	// }	
-// #endif
 
 #if !defined(TINY_GAME)
 void computeStrategy(void)

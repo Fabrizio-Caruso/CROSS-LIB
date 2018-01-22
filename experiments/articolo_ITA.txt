@@ -1,0 +1,143 @@
+CROSS CHASE
+Un gioco estremamente multi-sistema di Fabrizio Caruso
+
+# L'autore
+Mi chiamo Fabrizio Caruso. Sono uno sviluppatore software e collezionista entusiasta di retro-computer. 
+Ho circa 80 retrocomputer di svariate marche dai più comuni Commodore 64, Vic 20, Commodore 16, Sinclair ZX Spectrum ad alcuni modelli meno comuni come il Mattel Aquarius, il Commodore 116, Matra-Hachette Alice, etc.
+Sono particolarmente interessato all'era 8-bit, cioè il periodo che va dalla fine degli anni 70 e l'inizio degli anni 90.
+Mi piace usarli e restaurarli. Ultimamente ho scoperto il piacere di programmare su queste macchine (su tutte!).
+
+# Il progetto
+CROSS CHASE è il mio progetto personale il cui scopo è creare un gioco anche con un minimo di grafica e sonoro e che sia soprattutto divertente da giocare e, cosa ancora più importante, 
+che possa girare su “tutti” i computer 8 bit e buona parte delle console, console-computer ipridi e handheld ad 8 bit dell'epoca 8'bit.
+Il termine “tutti” significa qualunque home computer 8-bit tra la fine degli anni 70 e fine anni 80 con abbastanza memoria RAM e per il quale esiste un cross compilatore ANSI C.
+Il mio progetto è open source e può esssere seguito sulla pagina GitHub:
+https://github.com/Fabrizio-Caruso/CROSS-CHASE
+dove, oltre al codice sorgente, metto a disposizione anche i binari già pronti per più di 60 computer (nella sezione release).
+
+# Il framework
+Il progetto ha richiesto la scrittura di un framework per la scrittura di giochi 8 bit "universali" che consente la scrittura contemporanea
+di un gioco 8 bit su un centinaio di piattaforme 8-bit diverse.
+Al momento attuale il framework è ad uno stato molto iniziale ma ha già la proprietà più importante: il suo codice è indipendente dal gioco che sto sviluppando.
+Quando questo framework sarà maturo, sarà possibile usarlo per creare rapidamente altri giochi 8-bit universali SENZA dover fare porting o
+riscrittura del codice per ogni macchina. 
+
+# Cosa mi ha fatto cominciare
+L'idea nacque 9 mesi fa con la mia scoperta del toolkit di sviluppo CC65 per sistemi basati su CPU 6502 e suoi derivati (come il Commodore 64, Commodore 16, Commodore Vic 20, Atari 400/800, NES, etc.).
+Questo toolkit mette a disposizione un linguaggio comune (ANSI C) e alcune API per diversi computer e console.
+Cominciai modificando il classico esempio “hello world” che viene formito con toolkit e dopo più di 1200 commits (modifiche) ho ottenuto con un gioco arcade completo che gira si un centinaio di sistemi totalmente diversi e incompatibili tra loro.
+
+# Tools di sviluppo
+Chiaramente CC65 non sarebbe bastato per coprire tutti i sistemi 8 bit.
+Ho quindi dovuto usare altri toolkit simili per altri sistemi.
+I principali tools di sviluppo che ho usato sono:
+- CC65  (https://github.com/cc65/cc65)
+- Z88DK (https://github.com/z88dk/z88dk) per i sistemi basati su CPU Z80 (come il Sinclair Spectrum, MSX, Amstrad CPC, etc.) e 
+- CMOC (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html) per i sistemi basati su CPU 6809 (come Dragon 32/64 e CoCo 1/2/ 3) e la sua variante WinCMOC.
+
+In totale attualmente uso 5 cross compilatori 
+- cl65 (CC65), 
+- sccz80 (Z88DK), 
+- zsdcc (variante di sdcc in Z88DK), 
+- CMOC,
+- WinCMOC (variante moddata di CMOC).
+Sto sperimentando con altri cross compilatori come GCC for TI (per TI99/4A), GCC6809 e sdcc (sia "liscio" sia la versione del toolkit CPCTelera per Amstrad CPC).
+Lo scopo è di supportare il più grande numero di sistemi ma con una regola ferrea: nessun porting o riscrittura del codice della logica del gioco.
+Lo stesso codice deve essere usato per tutti i computer e console. Il codice specifico è ammesso solo per alcuni dettagli dell'input/output.
+
+
+# 100 sistemi contemporaneamente supportati con lo stesso codice?
+Questo è possibile perché:
+1.	Uso ANSI C che è un linguaggio universale che è ricompilato da vari cross-compilatori per produrre lo stesso gioco su sistemi diversi.
+2.	Ho creato dei livelli di astrazione nel mio codice (il framework!) così da poter inserire, in alcuni casi, del codice specifico per vari hardware senza modificare il codice del gioco.
+3.	Uso meta-codice per selezionare le porzioni di codice che servono per ogni sistema.
+
+
+# Il Gioco
+L'idea del gioco è totalmente originale: sei inseguito da dei nemici che puoi fare fuori facendoli schiantare contro delle mine che vede solo il giocatore o sparando contro loro se riesci ad ottenere una pistola. Esistono 10 diversi power-up che danno poteri speciali. Alcuni dei quali sono nascosti e vanno scoperti compiente specifiche operazioni (esempio: colpire o uccidere il teschio, etc.).
+Non mi sono ispirato a nulla ma ho scoperto che esistono giochi simili.
+Il più simile è Robots (https://wiki.gnome.org/Apps/Robots) che è incluso in Gnome. La differenza maggiore sta nel fatto che Robots è turn-based mentre il mio gioco è un gioco d'azione. Altra differenza importante è l'uso della pistola nel mio gioco che serve ad distruggere alcuni ostali e nemici speciali.
+
+# Tre versioni
+Lo stesso codice del gioco produce 3 diverse varianti del gioco che sono più o meno complete in maniera tale da poter girare su hardware anche molto limitati (anche soli 8k di ram).
+Quindi il gioco esiste in versione:
+- TINY:  nemici semplice e mine
+- LIGHT: aggiunta di alcuni power-up ed il teschio (nemico da uccidere con la pistola)
+- FULL: versione completa
+Sistemi supportati
+Il gioco supporta in principio tutti i sistemi a 8 bit comprese svariate configurazioni di memoria e video. Per il momento posso confermare il funzionamento  per una settantina. Aggiungo in continuazione nuovi sistemi e qui posso fornire una lista parzionale.
+
+Versione FULL
+- Luxor ABC80 32k
+- Jupiter Ace 16k
+- Apple //c
+- Apple ][e
+- Mattel Aquarius 16k
+- Atari 5200 (console)
+- Atari 400/800 (color low resolution)
+- Atari 400/800 (high resolution)
+- Tangerine Atmos and Oric 1 48K
+- Commodore 128 (native 40 column mode)
+- Commodore 128 (native 80 column mode)
+- Commodore 16/116/+4 (32k min)
+- Commodore 64
+- Commodore CBM 510
+- Commodore CBM 610
+- CoCo 1/2/3 and Dragon 32/64 (multiple versions)
+- Amstrad CPC
+- Galaksija 22k
+- Gamate (console)
+- Lambda 8300 16k
+- CCE MC-1000 48k
+- MicroBee
+- MSX 32K (cassette and rom version)
+- MTX
+- Nascom computer series 32k
+- NES (console)
+- Ohio Scientific 1P 32k
+- Philips P2000
+- PC-6001 32K
+- Commodore PET 16k
+- Sam Coupe
+- Sharp MZ series
+- Sinclair Spectrum 48K
+- Spectravideo SVI 328
+- VG-5000 with 16k expansion
+- Vic 20 with 16k expansion
+- VZ 200 family (Vtech Laser 200/310 and VZ 200/300) with 32K
+- Robotron Z 9001 32k
+- Sinclair ZX80 with 16k expansion
+- Sinclair ZX81 with 16k expansion
+
+Versione LIGHT
+- Luxor ABC80 16k
+- Atari 400/800 (high resolution)
+- Commodore 16/116 (unexpanded)
+- CCE MC-1000 16k (unexpanded)
+- MSX 16k
+- Nascom computer series 16k
+- Oric 1 16k (unexpanded)
+- Philips P2000 16k (unexpanded)
+- Spectravideo 318 16k (unexpanded)
+- VG-5000 16k (unexpanded)
+- Vic 20 with 8k expansion
+- VZ 200 family (Vtech Laser 200/310 and VZ 200/300) with 16K
+- Robotron Z 9001 16k
+
+Versione TINY
+- Creativision (computer/console hybrid) 8k rom version
+- Ohio Scientific 1P 8k
+- Commodore PET 8k
+- Sinclair Spectrum 16k (unexpanded)
+- Commodore Vic 20 with 3k expansion
+
+
+
+# Ringraziamenti
+Per essendo un progetto personale, sono stato aiutato da diverse persone.
+In particolare da Stefano Bodrato che è uno dei principali sviluppatori di Z88DK.
+Sono anche stato aiutato da alcuni membri di varie “scene” 8-bit (in particolare da Simon Jonassen che sviluppa per CoCo e Dragon).
+Ringrazio anche  Christian Groessler (sviluppatore CC65) per avermi dato alcuni consigli su Atari.
+
+
+

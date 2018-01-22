@@ -265,8 +265,8 @@ void print_u(unsigned char x, unsigned char y, unsigned short val)
 
 void print_level(unsigned short val)
 {
-	PRINT(XSize/2,YSize/2,"LEVEL");
-	print_u(XSize/2+7, YSize/2, val);
+	PRINT(XSize/2-4,YSize/2,"level");
+	print_u(XSize/2+2, YSize/2, val);
 }
 
 void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)

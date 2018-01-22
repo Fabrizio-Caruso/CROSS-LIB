@@ -37,9 +37,9 @@
 #define _GUN '!'
 
 // YELLOW
-#define _INVINCIBLE_GHOST '+'
-#define _VERTICAL_BRICK '#'
-#define _HORIZONTAL_BRICK '-'
+#define _INVINCIBLE_GHOST ('+'+NOT_INVERTED)
+#define _VERTICAL_BRICK ('#'+NOT_INVERTED)
+#define _HORIZONTAL_BRICK ('-'+NOT_INVERTED)
 #define _EXTRA_LIFE '*'
 #define _EXTRA_POINTS '$'
 
@@ -51,7 +51,7 @@
 #define _DEAD_GHOST '#'
 
 #define _INVINCIBILITY 'I'
-#define _MISSILE ('.'+INVERTED)
+#define _MISSILE ('.'+NOT_INVERTED)
 
 #define _GHOST 'O'
 
@@ -117,9 +117,21 @@ extern Image DEAD_GHOST_IMAGE;
 		POKE(BASE_ADDR+x+((unsigned short) y)*32,_SPACE); \
 }
 
-#define _DRAW_VERTICAL_WALL(x,y)  
-#define _DRAW_HORIZONTAL_WALL(x,y)  
-#define _DRAW_BROKEN_WALL(x,y)  	
+#define _DRAW_VERTICAL_WALL(x,y) \
+{ \
+		POKE(BASE_ADDR+x+((unsigned short) y)*32,_VERTICAL_BRICK); \
+}
+ 
+#define _DRAW_HORIZONTAL_WALL(x,y) \
+{ \
+		POKE(BASE_ADDR+x+((unsigned short) y)*32,_HORIZONTAL_BRICK); \
+}
+
+#define _DRAW_BROKEN_WALL(x,y) \
+{ \
+		POKE(BASE_ADDR+x+((unsigned short) y)*32,'#'); \
+}
+
 
 
 void INIT_GRAPHICS(void)

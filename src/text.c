@@ -291,7 +291,7 @@ void displayStats(void)
 #if !defined(TINY_GAME)
 	void _printScoreOnRow(unsigned char row, char * text, unsigned short score)
 	{
-		PRINTF(((XSize-strlen(text))>>1), row, text, score);
+		PRINTF((unsigned char) ((XSize-strlen(text))>>1), row, text, score);
 	}	
 	
 	void _printScore(char * text, unsigned short score)

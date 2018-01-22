@@ -25,7 +25,10 @@ MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 TOOLS_PATH ?= ./tools
 
-COCO_OPTS ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DTINY_GAME  -DCMOC_RAND_FIX 
+COCO_OPTS_TINY ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DTINY_GAME  -DCMOC_RAND_FIX 
+
+COCO_OPTS_LIGHT ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX 
+
 # -DNO_SLEEP
 
 # ------------------------------------------------------------------------------------------
@@ -713,42 +716,89 @@ error_cmoc:
 	# $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	# $(SOURCE_PATH)/main.c	
 
-coco:
+coco_tiny:
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS_TINY) \
 	-c $(SOURCE_PATH)/display_macros.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS_TINY) \
 	-c $(SOURCE_PATH)/cmoc/cmoc_graphics.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS_TINY) \
 	-c $(SOURCE_PATH)/enemy.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS_TINY) \
 	-c $(SOURCE_PATH)/level.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS_TINY) \
 	-c $(SOURCE_PATH)/character.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS_TINY) \
 	-c $(SOURCE_PATH)/text.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS_TINY) \
 	-c $(SOURCE_PATH)/strategy.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS_TINY) \
 	-c $(SOURCE_PATH)/input_macros.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS_TINY) \
 	-c $(SOURCE_PATH)/cmoc/cmoc_input.c
-	cmoc -o $(BUILD_PATH)/coco.bin \
-	$(COCO_OPTS) \
+	cmoc -o $(BUILD_PATH)/coco_tiny.bin \
+	$(COCO_OPTS_TINY) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o cmoc_graphics.o \
 	enemy.o \
 	level.o character.o text.o \
 	strategy.o \
 	input_macros.o cmoc_input.o
+	
+coco_light:
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/display_macros.c
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/cmoc/cmoc_graphics.c
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/enemy.c
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/level.c
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/character.c
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/text.c
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/strategy.c
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/input_macros.c
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/item.c
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/missile.c
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/invincible_enemy.c	
+	cmoc \
+	$(COCO_OPTS_LIGHT) \
+	-c $(SOURCE_PATH)/cmoc/cmoc_input.c
+	cmoc -o $(BUILD_PATH)/coco_light.bin \
+	$(COCO_OPTS_LIGHT) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o cmoc_graphics.o \
+	enemy.o \
+	level.o character.o text.o \
+	strategy.o \
+	input_macros.o cmoc_input.o
+	
 
 cmoc_link:
 	cmoc display_macros.o cmoc_graphics.o \

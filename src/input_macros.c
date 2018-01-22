@@ -117,6 +117,7 @@ extern Character player;
 				
 		void WAIT_PRESS(void)
 		{
+			// Workaround for CC65 bug 
 			#if !defined(NO_SLEEP)
 				sleep(3);
 			#endif
@@ -127,9 +128,7 @@ extern Character player;
 				
 		void WAIT_PRESS(void)
 		{
-			#if !defined(NO_SLEEP)
-				sleep(3);
-			#endif
+			while(!inkey()) {};
 		}		
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		#include<conio.h>

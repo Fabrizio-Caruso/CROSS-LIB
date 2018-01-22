@@ -797,7 +797,8 @@ coco_light:
 	enemy.o \
 	level.o character.o text.o \
 	strategy.o \
-	input_macros.o cmoc_input.o
+	input_macros.o cmoc_input.o \
+	item.o missile.o invincible_enemy.o 	
 	
 
 cmoc_link:

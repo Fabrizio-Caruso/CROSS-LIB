@@ -72,13 +72,14 @@ extern Image DEAD_GHOST_IMAGE;
 	extern Image MISSILE_IMAGE;
 	
 	extern Image POWERUP_IMAGE;	
-	extern Image FREEZE_IMAGE;
 	extern Image GUN_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
 	
 #endif
 	
 #if defined(FULL_GAME)
+	extern Image FREEZE_IMAGE;
+
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
@@ -139,7 +140,6 @@ void INIT_IMAGES(void)
 	
 		
 		POWERUP_IMAGE._imageData = _POWERUP;
-		FREEZE_IMAGE._imageData = _POWERUP;
 		
 		GUN_IMAGE._imageData = _GUN;
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;		
@@ -153,6 +153,8 @@ void INIT_IMAGES(void)
 	#endif
 		
 	#if defined(FULL_GAME)
+		FREEZE_IMAGE._imageData = _POWERUP;
+	
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
@@ -292,24 +294,24 @@ void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 
 
 
-// #if defined(REDEFINED_CHARS)
-	// void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-	// { 
-		// unsigned char i;
-		// for(i=0;i<length;++i)
-		// {
-			// _DRAW_VERTICAL_WALL(x,y+i);
-		// }
-	// }
+#if !defined(TINY_GAME)
+	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+	{ 
+		unsigned char i;
+		for(i=0;i<length;++i)
+		{
+			_DRAW_VERTICAL_WALL(x,y+i);
+		}
+	}
 
-	// void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
-	// {
-		// unsigned char i;
-		// for(i=0;i<length;++i)
-		// {
-			// _DRAW_HORIZONTAL_WALL(x+i,y);
-		// }
-	// }
-// #endif	
+	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
+	{
+		unsigned char i;
+		for(i=0;i<length;++i)
+		{
+			_DRAW_HORIZONTAL_WALL(x+i,y);
+		}
+	}
+#endif	
 
 

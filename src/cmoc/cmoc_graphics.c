@@ -240,7 +240,8 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 	digits[0] = 0;
 	for(i=1;i<6;++i)
 	{
-		digits[i] = (unsigned char) (tmp)%10;
+		digits[i] = (unsigned char) ((tmp)%10);
+		tmp-= digits[i];
 		tmp/=10;
 	}
 	

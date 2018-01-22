@@ -25,7 +25,7 @@ MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 TOOLS_PATH ?= ./tools
 
-COCO_OPTS ?= -D__CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DCMOC_RAND_FIX
+COCO_OPTS ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP -DCMOC_RAND_FIX
 # -DNO_SLEEP
 
 # ------------------------------------------------------------------------------------------

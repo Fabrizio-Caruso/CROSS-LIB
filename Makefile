@@ -1015,7 +1015,14 @@ mc1000_tiny:
 	
 	
 vic20_exp_3k_GFX:
-	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DALT_PRINT -DREDEFINED_CHARS -DNO_SLEEP -DNO_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20-3k_GFX.cfg $(SOURCE_PATH)/vic20/udc_3k.s  $(SOURCE_PATH)/vic20/vic20_graphics_3k.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k_GFX.prg
+	$(CC65_PATH)$(MYCC65) -O  -t vic20 \
+	-DALT_PRINT -DREDEFINED_CHARS -DNO_SLEEP -DNO_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME \
+	--config $(SOURCE_PATH)/../cfg/vic20-3k_GFX.cfg \
+	$(SOURCE_PATH)/vic20/udc_3k.s  $(SOURCE_PATH)/vic20/vic20_graphics_3k.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c  \
+	-o $(BUILD_PATH)/TINY_vic20_exp_3k_GFX.prg
 	
 vic20_exp_3k_alt: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DALT_PRINT -DNO_COLOR -DNO_SLEEP -DNO_TEXT -DNO_SET_SCREEN_COLORS   -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20_unexpanded.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k.prg

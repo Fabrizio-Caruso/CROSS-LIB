@@ -79,13 +79,15 @@
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
-extern Image MISSILE_IMAGE;
 
-extern Image POWERUP_IMAGE;
-extern Image GUN_IMAGE;
-extern Image EXTRA_POINTS_IMAGE;
+#if !defined(TINY_GAME)
+	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image POWERUP_IMAGE;
+	extern Image GUN_IMAGE;
+	extern Image MISSILE_IMAGE;
+	extern Image EXTRA_POINTS_IMAGE;
+#endif
 
 #if defined(FULL_GAME)
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
@@ -128,23 +130,30 @@ void INIT_GRAPHICS(void)
 	
 	tmp = ~0x0F & PEEK(&(VIC.addr));
 	POKE(&(VIC.addr), tmp | 0x0F);
+	
+	#if defined(TINY_GAME)
+		#include<peekpoke.h>
+		POKE(646,1);
+		POKE(36879L,9);
+	#endif		
 }
 
 void INIT_IMAGES(void)
 {		
 	#if !defined(NO_COLOR)
 		// PLAYER_IMAGE._color = COLOR_CYAN;
-		INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
-		POWERUP_IMAGE._color = COLOR_GREEN;
-		GUN_IMAGE._color = COLOR_BLUE;
 		BOMB_IMAGE._color = COLOR_RED;
-		EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-		
 		DEAD_GHOST_IMAGE._color = COLOR_RED;
-
-		GHOST_IMAGE._color = COLOR_WHITE;
-		MISSILE_IMAGE._color = COLOR_BLUE;
-
+		GHOST_IMAGE._color = COLOR_WHITE;		
+		
+		#if !defined(TINY_GAME)
+			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+			POWERUP_IMAGE._color = COLOR_GREEN;
+			GUN_IMAGE._color = COLOR_BLUE;
+			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
+			MISSILE_IMAGE._color = COLOR_BLUE;
+		#endif
+		
 		PLAYER_DOWN._color = COLOR_CYAN;
 		PLAYER_UP._color = COLOR_CYAN;
 		PLAYER_RIGHT._color = COLOR_CYAN;
@@ -179,13 +188,13 @@ void INIT_IMAGES(void)
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
 		MISSILE_IMAGE._imageData = _MISSILE;
-		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
-
-		PLAYER_DOWN._imageData = _PLAYER_DOWN;
-		PLAYER_UP._imageData = _PLAYER_UP;	
-		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-		PLAYER_LEFT._imageData = _PLAYER_LEFT;		
+		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
 	#endif
+	
+	PLAYER_DOWN._imageData = _PLAYER_DOWN;
+	PLAYER_UP._imageData = _PLAYER_UP;	
+	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+	PLAYER_LEFT._imageData = _PLAYER_LEFT;	
 
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;

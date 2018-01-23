@@ -28,6 +28,7 @@
 #include <peekpoke.h>
 #include <vic20.h>
 
+#include "../input_macros.h"
 	
 // BLUE
 // #define _PLAYER '\'';
@@ -40,17 +41,17 @@
 
 // #define _GHOST (0x76+0xA0)
 
-#define _PLAYER_DOWN 0xA0
-#define _PLAYER_UP 0xB0
-#define _PLAYER_RIGHT 0xC0 
-#define _PLAYER_LEFT 0xD0
+#define _PLAYER_DOWN 0x00
+#define _PLAYER_UP 0x01
+#define _PLAYER_RIGHT 0x02 
+#define _PLAYER_LEFT 0x03
 
 // RED
-#define _BOMB 0xE0
+#define _BOMB 0x04
 //0x5E
 
 // WHITE
-#define _GHOST 0xF0
+#define _GHOST 0x05
 
 
 
@@ -122,10 +123,13 @@ Image PLAYER_UP;
 Image PLAYER_RIGHT;
 Image PLAYER_LEFT;
 
+#define BASE_ADDR 7680
 
 #if !defined(NO_COLOR)
-	#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); textcolor(image->_color); cputc(image->_imageData); } while(0)
-	#define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
+	#define _DRAW(x,y,image) POKE(7680+x+y*22, image->_imageData)
+	//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); textcolor(image->_color); cputc(image->_imageData); } while(0)
+	#define _DELETE(x,y) POKE(7680+x+y*22, 32)
+	//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
 	#define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
 	#define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
 	#define _DRAW_BROKEN_WALL(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
@@ -147,6 +151,11 @@ void INIT_GRAPHICS(void)
 		POKE(646,1);
 		POKE(36879L,9);
 	#endif		
+	// for(tmp=0;tmp<254;++tmp)
+	// {
+		// POKE(7680+tmp,tmp);
+	// }
+	// WAIT_PRESS();
 }
 
 void INIT_IMAGES(void)
@@ -190,6 +199,8 @@ void INIT_IMAGES(void)
 	GHOST_IMAGE._imageData = _GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
 	// PLAYER_IMAGE._imageData = _PLAYER;	
+	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
+	
 	
 	#if !defined(TINY_GAME)
 		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
@@ -199,7 +210,6 @@ void INIT_IMAGES(void)
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
 		MISSILE_IMAGE._imageData = _MISSILE;
-		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
 	#endif
 	
 	PLAYER_DOWN._imageData = _PLAYER_DOWN;
@@ -275,6 +285,19 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	{ 
 		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  cputc('|');
 	} 	
+}
+#endif
+
+#if defined(ALT_PRINT)
+
+void PRINT(unsigned char x, unsigned char y, char * str)
+{
+	unsigned char i = 0;
+	while(str[i]!='\0')
+	{
+		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]); 
+		++i;
+	}
 }
 #endif
 

@@ -347,8 +347,8 @@ void DRAW_BOMBS(void);
 #elif defined(__SPECTRUM__)
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
-#elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINTF)
-	#define PRINT
+#elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT)
+	void PRINT(unsigned char x, unsigned char y, char * str);
 	#define PRINTF
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <coco.h>

@@ -25,11 +25,11 @@ MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 TOOLS_PATH ?= ./tools
 
-COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DTINY_GAME 
+COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DTINY_GAME -DALT_PRINT
 
-COCO_OPTS_LIGHT ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX 
+COCO_OPTS_LIGHT ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DALT_PRINT
 
-COCO_OPTS       ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+COCO_OPTS       ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DALT_PRINT
 
 
 # -DNO_SLEEP
@@ -1015,10 +1015,10 @@ mc1000_tiny:
 	
 	
 vic20_exp_3k_GFX:
-	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DALT_PRINTF -DREDEFINED_CHARS -DNO_SLEEP -DNO_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20-3k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s  $(SOURCE_PATH)/vic20/vic20_graphics_3k.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k_GFX.prg
+	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DALT_PRINT -DREDEFINED_CHARS -DNO_SLEEP -DNO_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20-3k_GFX.cfg $(SOURCE_PATH)/vic20/udc_3k.s  $(SOURCE_PATH)/vic20/vic20_graphics_3k.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k_GFX.prg
 	
 vic20_exp_3k_alt: 
-	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DALT_PRINTF -DNO_COLOR -DNO_SLEEP -DNO_TEXT -DNO_SET_SCREEN_COLORS   -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20_unexpanded.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
+	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DALT_PRINT -DNO_COLOR -DNO_SLEEP -DNO_TEXT -DNO_SET_SCREEN_COLORS   -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20_unexpanded.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 	
 	
 # -DNO_TEXT

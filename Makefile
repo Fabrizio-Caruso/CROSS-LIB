@@ -25,9 +25,12 @@ MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 TOOLS_PATH ?= ./tools
 
-COCO_OPTS_TINY ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DTINY_GAME  -DCMOC_RAND_FIX 
+COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DTINY_GAME 
 
 COCO_OPTS_LIGHT ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX 
+
+COCO_OPTS       ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
 
 # -DNO_SLEEP
 
@@ -801,6 +804,65 @@ coco_light:
 	item.o missile.o invincible_enemy.o 	
 	
 
+coco:
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/display_macros.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/cmoc/cmoc_graphics.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/enemy.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/text.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/input_macros.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/missile.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/invincible_enemy.c	
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/cmoc/cmoc_input.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c 
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	cmoc -o $(BUILD_PATH)/coco_full.bin \
+	$(COCO_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o cmoc_graphics.o \
+	enemy.o \
+	level.o character.o text.o \
+	strategy.o \
+	input_macros.o cmoc_input.o \
+	item.o missile.o invincible_enemy.o \
+	rocket.o horizontal_missile.o end_screen.o
+		
+	
+	
 cmoc_link:
 	cmoc display_macros.o cmoc_graphics.o \
 	enemy.o \

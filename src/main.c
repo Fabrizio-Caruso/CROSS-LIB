@@ -556,7 +556,7 @@ int main(void)
 				
 						if(horizontalWallsLevel())
 						{				
-							horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + (level>>4) + (loop/HORIZONTAL_WALLS_INCREASE_LOOP);		
+							horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + (level>>4) + (unsigned char) (loop/HORIZONTAL_WALLS_INCREASE_LOOP);		
 							DRAW_HORIZONTAL_WALLS(horizontalWallsLength);	
 						}						
 					}

@@ -55,9 +55,9 @@
 
 #define _GHOST 'O'
 
-#define _LEFT_ENEMY_MISSILE '>'
-#define _RIGHT_ENEMY_MISSILE '<'
-#define _BUBBLE '^'
+#define _LEFT_ENEMY_MISSILE ('>'+NOT_INVERTED)
+#define _RIGHT_ENEMY_MISSILE ('<'+NOT_INVERTED)
+#define _BUBBLE ('^'+NOT_INVERTED)
 
 #include "../display_macros.h"
 
@@ -89,6 +89,11 @@ extern Image DEAD_GHOST_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
 	
 	extern Image BROKEN_WALL_IMAGE;
+	
+	extern Image CHASE_IMAGE;
+	extern Image SUPER_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
 #endif
 
 #define BASE_ADDR (unsigned short)(0x0400)
@@ -174,7 +179,11 @@ void INIT_IMAGES(void)
 				
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
-			
+		
+		CHASE_IMAGE._imageData = _MISSILE;
+		SUPER_IMAGE._imageData = 'H'+INVERTED;
+		CONFUSE_IMAGE._imageData = 'C'+INVERTED;
+		ZOMBIE_IMAGE._imageData = 'Z'+INVERTED;
 	#endif
 }
 

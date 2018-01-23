@@ -8,19 +8,22 @@ on 8 bit computers and consoles using 6502-compatible and Z80-compatible CPUs.
 
 The program is written in ANSI C and currently compiled with 
 - CC65 for 6502 targets (http://www.cc65.org/), 
-- Z88DK for Z80 targets (https://www.z88dk.org/),
-- WinCMOC for 6809 targets (https://sourceforge.net/projects/cmoc-win32/) or CMOC (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html).  
-For other targets, GCC6809 for other 6809 targets and C99C for TI-99 will be taken into consideration. Such cross compilers are less advanced and lack the same level of support. 
+- SCCZ80  and ZSDCC from Z88DK for Z80 targets (https://www.z88dk.org/),
+- CMOC (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
+- WinCMOC for 6809 targets (https://sourceforge.net/projects/cmoc-win32/).
 
-The main version should be as portable as possible.
+
+For other targets, GCC6809 for other 6809 targets as well as "GCC for TI" for the Texas TI99/4a are being taken into consideration. 
+
+The game should be as portable as possible.
 Therefore it should ONLY use:
 1. ANSI C
-2. separated input/output and hardware-dependent code from the gameplay code;
-3. conio.h (as implemented in CC65 and in Z88DK), if no specialized code for a specific target is implemented;
+2. strictly separated input/output and hardware-dependent code from the gameplay code;
+3. the prefered default graphics and input implementation is provided by conio.h (as implemented in CC65, Z88DK and WinCMOC), whenever no specialized code for a specific target is implemented;
 4. joystick-related libraries as found in CC65 and in Z88DK;
 5. whatever possible for TI-99 and 6809 targets (ideally conio.h as found in CMOC and whatever found in C99C).
 
-Some specific target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects.
+Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects.
 
 LICENSE
 

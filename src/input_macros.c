@@ -125,10 +125,11 @@ extern Character player;
 	#elif defined(__CMOC__) && !defined(__WINCMOC__)
 		// TODO: Implement this
 		#include "sleep_macros.h"		
-				
+		#include <cmoc.h>
+		
 		void WAIT_PRESS(void)
 		{
-			while(!inkey()) {};
+			waitkey(0);
 		}		
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		#include<conio.h>
@@ -290,15 +291,15 @@ extern Character player;
 					{
 						movePlayerByKeyboard(ch); 
 					}
-					#if !defined(TINY_GAME)
-					else
-					{
-						if(isKeyPressed(0x7F, 0x08))
-						{
-							movePlayerByKeyboard(' ');
-						}
-					}
-					#endif
+					// #if !defined(TINY_GAME)
+					// else
+					// {
+						// if(isKeyPressed(0x7F, 0x08))
+						// {
+							// movePlayerByKeyboard(' ');
+						// }
+					// }
+					// #endif
 				}
 		#else
 			void MOVE_PLAYER(void) 

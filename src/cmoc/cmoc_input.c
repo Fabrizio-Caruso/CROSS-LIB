@@ -25,7 +25,8 @@
 // REMARK: The Assembly routine is an adapted version of an Assembly routine provided
 // by Simon Jonassen
 
-
+#include <cmoc.h>
+#include <coco.h>
 #include "cmoc_input.h"
 
 unsigned char GET_CHAR(void)
@@ -57,5 +58,7 @@ test    lda $ff00
 out		stb res
 	}
 	
+	if(res == 0)
+		return inkey();
 	return res;
 }

@@ -389,11 +389,6 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		initializeCharacter(&bombs[0],(XSize>>1)-3+rand()%7, (((YSize>>1)))-1+rand()%3,0,&BOMB_IMAGE);
 	#endif
 	
-	// Bombs are not redrawn afterwards
-	#if defined(TINY_GAME)
-		displayBombs();
-	#endif
-	
 	#if defined(FULL_GAME)
 		initializeAwayFromWall(&(powerUp._character),(XSize>>1),(YSize>>1),1,&POWERUP_IMAGE);
 		initializeAwayFromWall(&(powerUp2._character),(XSize>>1),(YSize>>1),0,&POWERUP_IMAGE);
@@ -451,6 +446,10 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 		initializeCharacter(&invincibleGhost,XSize-2,YSize-2, 0, &INVINCIBLE_GHOST_IMAGE);
 	#endif
-	
+
+	// Bombs are not redrawn afterwards
+	#if defined(TINY_GAME)
+		displayBombs();
+	#endif	
 }
 

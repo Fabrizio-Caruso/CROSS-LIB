@@ -46,7 +46,7 @@ extern Character player;
 	extern unsigned char playerBlink;	
 #endif
 
-#if !defined(TINY_GAME)
+#if !defined(TINY_GAME) 
 	#define _DO_MOVE_UP \
 		deletePlayer(&player); \
 		--player._y; \
@@ -77,19 +77,23 @@ extern Character player;
 #else
 	#define _DO_MOVE_UP \
 		deletePlayer(&player); \
-		--player._y;
+		--player._y; \
+		SHOW_UP();
 		
 	#define _DO_MOVE_DOWN \
 		deletePlayer(&player); \
-		++player._y;
+		++player._y; \
+		SHOW_DOWN();
 		
 	#define _DO_MOVE_LEFT \
 		deletePlayer(&player); \
-		--player._x;
-	 
+		--player._x; \
+		SHOW_LEFT();
+		
 	#define _DO_MOVE_RIGHT \
 		deletePlayer(&player); \
-		++player._x;
+		++player._x; \
+		SHOW_RIGHT();
 
 #endif
 	

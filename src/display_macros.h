@@ -214,7 +214,7 @@ typedef struct ImageStruct Image;
 	// #define GET_SCREEN_SIZE(x,y) do {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;} while(0)
 // #endif
 
-#if defined(REDEFINED_CHARS) && !defined(TINY_GAME)
+#if defined(REDEFINED_CHARS)
 	extern Image PLAYER_LEFT;
 	extern Image PLAYER_RIGHT;
 	extern Image PLAYER_UP;
@@ -347,7 +347,7 @@ void DRAW_BOMBS(void);
 #elif defined(__SPECTRUM__)
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
-#elif defined(__VIC20__) && defined(TINY_GAME) && defined(REDEFINED_CHARS)
+#elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINTF)
 	#define PRINT
 	#define PRINTF
 #elif defined(__CMOC__) && !defined(__WINCMOC__)

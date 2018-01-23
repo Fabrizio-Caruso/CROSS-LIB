@@ -850,7 +850,7 @@ coco:
 	cmoc \
 	$(COCO_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
-	cmoc -o $(BUILD_PATH)/coco_full.bin \
+	cmoc -o $(BUILD_PATH)/Full_CoCoDragon.bin \
 	$(COCO_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o cmoc_graphics.o \

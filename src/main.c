@@ -354,7 +354,8 @@ int main(void)
 				invincibleGhostAlive = 1;
 				invincibleGhostHits = 0;						
 				guns = 0;
-
+				freeze_count_down = 0;
+				
 				resetItems();
 								
 				computeStrategy();

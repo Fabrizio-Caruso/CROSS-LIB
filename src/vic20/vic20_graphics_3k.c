@@ -142,13 +142,9 @@ Image PLAYER_LEFT;
 void INIT_GRAPHICS(void)
 {
 	unsigned char tmp;
-	// unsigned char i;
-	
-	// for(i=0;i<16;++i)
-	// {
-		
-	tmp = ~0x0F & PEEK(&(VIC.addr));
-	POKE(&(VIC.addr), tmp | 0x0F);
+
+	// tmp = ~0x0F & PEEK(&(VIC.addr));
+	// POKE(&(VIC.addr), tmp | 0x0F);
 		
 
 	
@@ -158,11 +154,11 @@ void INIT_GRAPHICS(void)
 	}
 	WAIT_PRESS();
 	
-	POKE(0x9005,0xFF);	
-    POKE(0x9002,PEEK(0x9002) | 0x80);	
+	POKE(36869,0xFF);	
+    // POKE(0x9002,PEEK(0x9002) | 0x80);	
 	
 	WAIT_PRESS();
-	// }
+
 	#if defined(TINY_GAME)
 		#include<peekpoke.h>
 		POKE(646,1);

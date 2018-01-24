@@ -1,0 +1,70 @@
+		.segment "UDCCHAR"
+		.export _Charset
+
+_Charset:
+
+.byte $3c,$ff,$6e,$6e,$60,$62,$3c,$ff,$ff,$3c,$ff,$7e,$ff,$ff,$ff,$ff
+.byte $7c,$ff,$ff,$7c,$ff,$ff,$7c,$ff,$3c,$ff,$60,$60,$60,$ff,$3c,$ff
+.byte $78,$6c,$ff,$ff,$ff,$6c,$78,$ff,$7e,$60,$60,$78,$60,$60,$7e,$ff
+.byte $7e,$60,$60,$78,$60,$60,$60,$ff,$3c,$ff,$60,$6e,$ff,$ff,$3c,$ff
+.byte $ff,$ff,$ff,$7e,$ff,$ff,$ff,$ff,$3c,$ff,$ff,$ff,$ff,$ff,$3c,$ff
+.byte $1e,$0c,$0c,$0c,$0c,$6c,$38,$ff,$ff,$6c,$78,$70,$78,$6c,$ff,$ff
+.byte $60,$60,$60,$60,$60,$60,$7e,$ff,$63,$77,$7f,$6b,$63,$63,$63,$ff
+.byte $ff,$76,$7e,$7e,$6e,$ff,$ff,$ff,$3c,$ff,$ff,$ff,$ff,$ff,$3c,$ff
+.byte $7c,$ff,$ff,$7c,$60,$60,$60,$ff,$3c,$ff,$ff,$ff,$ff,$3c,$0e,$ff
+.byte $7c,$ff,$ff,$7c,$78,$6c,$ff,$ff,$3c,$ff,$60,$3c,$06,$ff,$3c,$ff
+.byte $7e,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$3c,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$3c,$ff,$ff,$63,$63,$63,$6b,$7f,$77,$63,$ff
+.byte $ff,$ff,$3c,$ff,$3c,$ff,$ff,$ff,$ff,$ff,$ff,$3c,$ff,$ff,$ff,$ff
+.byte $7e,$06,$0c,$ff,$ff,$60,$7e,$ff,$3c,$ff,$ff,$ff,$ff,$ff,$3c,$ff
+.byte $0c,$12,$ff,$7c,$ff,$62,$fc,$ff,$3c,$0c,$0c,$0c,$0c,$0c,$3c,$ff
+.byte $ff,$3c,$3c,$3c,$7e,$7e,$5a,$42,$ff,$10,$ff,$7f,$7f,$ff,$10,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $bd,$42,$a5,$81,$81,$99,$81,$7e,$3c,$42,$a5,$a5,$42,$42,$ff,$3c
+.byte $3c,$42,$a5,$99,$99,$a5,$42,$3c,$ff,$24,$ff,$ff,$99,$ff,$24,$ff
+.byte $0c,$ff,$ff,$ff,$ff,$ff,$0c,$ff,$ff,$ff,$0c,$0c,$0c,$ff,$ff,$ff
+.byte $ff,$3e,$60,$3c,$06,$7c,$ff,$ff,$ff,$ff,$ff,$7e,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$7e,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$03,$06,$0c,$ff,$ff,$60,$ff
+.byte $3c,$ff,$6e,$76,$ff,$ff,$3c,$ff,$ff,$ff,$38,$ff,$ff,$ff,$7e,$ff
+.byte $3c,$ff,$06,$0c,$ff,$60,$7e,$ff,$3c,$ff,$06,$1c,$06,$ff,$3c,$ff
+.byte $06,$0e,$1e,$ff,$7f,$06,$06,$ff,$7e,$60,$7c,$06,$06,$ff,$3c,$ff
+.byte $3c,$ff,$60,$7c,$ff,$ff,$3c,$ff,$7e,$ff,$0c,$ff,$ff,$ff,$ff,$ff
+.byte $3c,$ff,$ff,$3c,$ff,$ff,$3c,$ff,$3c,$ff,$ff,$3e,$06,$ff,$3c,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$0f,$fe,$fe,$0f,$ff,$ff,$ff,$ff,$7e,$ff,$7e,$ff,$ff,$ff
+.byte $ff,$ff,$f0,$7f,$7f,$f0,$ff,$ff,$3c,$ff,$06,$0c,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$08,$1c,$3e,$7f,$7f,$1c,$3e,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$0c,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $0c,$0c,$0c,$0c,$0c,$0c,$0c,$0c,$ff,$ff,$ff,$e0,$f0,$38,$ff,$ff
+.byte $ff,$ff,$1c,$0f,$07,$ff,$ff,$ff,$ff,$ff,$38,$f0,$e0,$ff,$ff,$ff
+.byte $c0,$c0,$c0,$c0,$c0,$c0,$ff,$ff,$c0,$e0,$70,$38,$1c,$0e,$07,$03
+.byte $03,$07,$0e,$1c,$38,$70,$e0,$c0,$ff,$ff,$c0,$c0,$c0,$c0,$c0,$c0
+.byte $ff,$3c,$ff,$ff,$99,$ff,$24,$ff,$ff,$3c,$7e,$7e,$7e,$7e,$3c,$ff
+.byte $ff,$ac,$d8,$2e,$19,$ff,$28,$28,$ff,$24,$ff,$ff,$99,$ff,$24,$ff
+.byte $ff,$35,$1b,$74,$98,$ff,$14,$14,$ff,$ff,$ff,$07,$0f,$1c,$ff,$ff
+.byte $bd,$42,$a5,$81,$81,$99,$81,$7e,$3c,$42,$a5,$81,$5a,$24,$24,$3c
+.byte $3c,$42,$a5,$99,$99,$a5,$42,$3c,$bd,$42,$a5,$81,$81,$99,$81,$7e
+.byte $ff,$3c,$ff,$df,$e7,$7a,$24,$ff,$ff,$80,$7e,$c8,$f8,$c0,$80,$ff
+.byte $ff,$ff,$08,$38,$1c,$10,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$0c,$ff,$ff
+.byte $ff,$ff,$03,$3e,$76,$36,$36,$ff,$ff,$7f,$3f,$1f,$0f,$07,$03,$01
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$f0,$f0,$f0,$f0,$f0,$f0,$f0,$f0
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$c0,$c0,$c0,$c0,$c0,$c0,$c0,$c0
+.byte $cc,$cc,$33,$33,$cc,$cc,$33,$33,$03,$03,$03,$03,$03,$03,$03,$03
+.byte $ff,$ff,$ff,$ff,$cc,$cc,$33,$33,$ff,$fe,$fc,$f8,$f0,$e0,$c0,$80
+.byte $03,$03,$03,$03,$03,$03,$03,$03,$ff,$ff,$ff,$1f,$1f,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$ff,$0f,$0f,$0f,$0f,$ff,$ff,$ff,$1f,$1f,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$f8,$f8,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$1f,$1f,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$f8,$f8,$ff,$ff,$ff
+.byte $c0,$c0,$c0,$c0,$c0,$c0,$c0,$c0,$e0,$e0,$e0,$e0,$e0,$e0,$e0,$e0
+.byte $07,$07,$07,$07,$07,$07,$07,$07,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $03,$03,$03,$03,$03,$03,$ff,$ff,$ff,$ff,$ff,$ff,$f0,$f0,$f0,$f0
+.byte $0f,$0f,$0f,$0f,$ff,$ff,$ff,$ff,$ff,$ff,$ff,$f8,$f8,$ff,$ff,$ff
+.byte $f0,$f0,$f0,$f0,$ff,$ff,$ff,$ff,$f0,$f0,$f0,$f0,$0f,$0f,$0f,$0f
+

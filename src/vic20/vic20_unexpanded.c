@@ -30,28 +30,18 @@
 
 #include "../input_macros.h"
 	
-// BLUE
-// #define _PLAYER '\'';
-// #define _PLAYER_DOWN '\''+0xA0;
-// #define _PLAYER_UP 0x70+0xA0
-// #define _PLAYER_RIGHT 0x74+0xA0 
-// #define _PLAYER_LEFT 0x72+0xA0
 
-// #define _BOMB 0x78+0xA0
-
-// #define _GHOST (0x76+0xA0)
-
-#define _PLAYER_DOWN 0x00
-#define _PLAYER_UP 0x01
-#define _PLAYER_RIGHT 0x02 
-#define _PLAYER_LEFT 0x03
+// #define _PLAYER_DOWN 0x00
+// #define _PLAYER_UP 0x01
+// #define _PLAYER_RIGHT 0x02 
+// #define _PLAYER_LEFT 0x03
 
 // RED
-#define _BOMB 0x04
+#define _BOMB 'X'
 //0x5E
 
 // WHITE
-#define _GHOST 0x05
+#define _GHOST 'O'
 
 
 
@@ -141,28 +131,12 @@ Image PLAYER_LEFT;
 
 void INIT_GRAPHICS(void)
 {
-	unsigned char tmp;
-	// unsigned char i;
-	
-	// for(i=0;i<16;++i)
-	// {
-		
-	tmp = ~0x0F & PEEK(&(VIC.addr));
-	POKE(&(VIC.addr), tmp | 0x0F);
-		
 
+	// POKE(0x9005,0xFF);	
+    // POKE(0x9002,PEEK(0x9002) | 0x80);	
 	
-	for(tmp=0;tmp<254;++tmp)
-	{
-		POKE(7680+tmp,tmp);
-	}
-	WAIT_PRESS();
-	
-	POKE(0x9005,0xFF);	
-    POKE(0x9002,PEEK(0x9002) | 0x80);	
-	
-	WAIT_PRESS();
-	// }
+	// WAIT_PRESS();
+
 	#if defined(TINY_GAME)
 		#include<peekpoke.h>
 		POKE(646,1);
@@ -186,10 +160,10 @@ void INIT_IMAGES(void)
 			MISSILE_IMAGE._color = COLOR_BLUE;
 		#endif
 		
-		PLAYER_DOWN._color = COLOR_CYAN;
-		PLAYER_UP._color = COLOR_CYAN;
-		PLAYER_RIGHT._color = COLOR_CYAN;
-		PLAYER_LEFT._color = COLOR_CYAN;
+		// PLAYER_DOWN._color = COLOR_CYAN;
+		// PLAYER_UP._color = COLOR_CYAN;
+		// PLAYER_RIGHT._color = COLOR_CYAN;
+		// PLAYER_LEFT._color = COLOR_CYAN;
 
 		#if defined(FULL_GAME)
 			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
@@ -224,10 +198,10 @@ void INIT_IMAGES(void)
 		MISSILE_IMAGE._imageData = _MISSILE;
 	#endif
 	
-	PLAYER_DOWN._imageData = _PLAYER_DOWN;
-	PLAYER_UP._imageData = _PLAYER_UP;	
-	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-	PLAYER_LEFT._imageData = _PLAYER_LEFT;	
+	// PLAYER_DOWN._imageData = _PLAYER_DOWN;
+	// PLAYER_UP._imageData = _PLAYER_UP;	
+	// PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+	// PLAYER_LEFT._imageData = _PLAYER_LEFT;	
 
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;

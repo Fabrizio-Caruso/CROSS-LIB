@@ -104,6 +104,8 @@ Image BOMB_IMAGE;
 	//	
 #elif defined(__VIC20__) && defined(REDEFINED_CHARS)
 	//
+#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED)
+	//
 #elif (defined(__WINCMOC__) && defined(__CMOC__)) && defined(REDEFINED_CHARS)
 	//
 #elif defined(__CMOC__) && !defined(__WINCMOC__)

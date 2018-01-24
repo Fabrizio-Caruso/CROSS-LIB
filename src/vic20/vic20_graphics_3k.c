@@ -42,9 +42,9 @@
 // #define _GHOST (0x76+0xA0)
 
 #define _PLAYER_DOWN 0x00
-#define _PLAYER_UP 0x0B
-#define _PLAYER_RIGHT 0x00 
-#define _PLAYER_LEFT 0x00
+#define _PLAYER_UP 0x0A
+#define _PLAYER_RIGHT 0x0B 
+#define _PLAYER_LEFT 0x0B
 
 // RED
 #define _BOMB 0x04

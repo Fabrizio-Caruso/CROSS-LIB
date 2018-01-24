@@ -276,14 +276,14 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 
 #if defined(ALT_PRINT)
 
-void PRINT(unsigned char x, unsigned char y, char * str)
-{
-	unsigned char i = 0;
-	while(str[i]!='\0')
-	{
-		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]); 
-		++i;
-	}
-}
+// void PRINT(unsigned char x, unsigned char y, char * str)
+// {
+	// unsigned char i = 0;
+	// while(str[i]!='\0')
+	// {
+		// POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]); 
+		// ++i;
+	// }
+// }
 #endif
 

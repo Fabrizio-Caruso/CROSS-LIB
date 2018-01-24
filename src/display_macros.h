@@ -352,7 +352,8 @@ void DRAW_BOMBS(void);
 	#define PRINTF	
 #elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT)
 	void PRINT(unsigned char x, unsigned char y, char * str);
-	#define PRINTF
+	// #define PRINTF
+	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <coco.h>
 	void PRINT(unsigned char x, unsigned char y, char * str);

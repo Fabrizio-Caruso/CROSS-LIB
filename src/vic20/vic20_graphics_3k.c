@@ -27,6 +27,7 @@
 #include <conio.h>
 #include <peekpoke.h>
 #include <vic20.h>
+#include <string.h>
 
 #include "../input_macros.h"
 	
@@ -43,7 +44,7 @@
 
 #define _PLAYER_DOWN 0x00
 #define _PLAYER_UP 0x0A
-#define _PLAYER_RIGHT 0x0B 
+#define _PLAYER_RIGHT 0x11
 #define _PLAYER_LEFT 0x0B
 
 // RED
@@ -51,7 +52,7 @@
 //0x5E
 
 // WHITE
-#define _GHOST 0x05
+#define _GHOST 0x02
 
 
 
@@ -124,11 +125,12 @@ Image PLAYER_RIGHT;
 Image PLAYER_LEFT;
 
 #define BASE_ADDR 7680
+#define COLOR_ADDR 0x9600
 
 #if !defined(NO_COLOR)
-	#define _DRAW(x,y,image) POKE(7680+x+y*22, image->_imageData)
+	#define _DRAW(x,y,image) do {POKE(BASE_ADDR+x+y*22, image->_imageData); POKE(COLOR_ADDR+x+y*22, image->_color); } while(0)
 	//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); textcolor(image->_color); cputc(image->_imageData); } while(0)
-	#define _DELETE(x,y) POKE(7680+x+y*22, 32)
+	#define _DELETE(x,y) POKE(BASE_ADDR+x+y*22, 32)
 	//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
 	#define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
 	#define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
@@ -298,14 +300,88 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 
 #if defined(ALT_PRINT)
 
+// unsigned char screenCode(char ch)
+// {
+	// if(ch==32) 
+	// {
+		// return 32+64;
+	// }
+	// else
+	// {
+		// return ch-32;
+	// }	
+// }
+
+
 void PRINT(unsigned char x, unsigned char y, char * str)
 {
 	unsigned char i = 0;
 	while(str[i]!='\0')
 	{
-		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]); 
+		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]-64); 
 		++i;
 	}
 }
+
+void print_05u0(unsigned char x, unsigned char y, unsigned short val)
+{
+	unsigned char i;
+	unsigned char digits[6];
+	unsigned short tmp = val;
+	
+	digits[0] = 0;
+	for(i=1;i<6;++i)
+	{
+		digits[i] = (unsigned char) ((tmp)%10);
+		tmp-= digits[i];
+		tmp/=10;
+	}
+	
+	for(i=0;i<6;++i)
+	{
+		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), (unsigned char) (digits[5-i])+48);
+	}
+}	
+
+void print_02u(unsigned char x, unsigned char y, unsigned short val)
+{
+	POKE(BASE_ADDR+x+y*  ((unsigned short)XSize), ((unsigned char) val)/10+48);		
+	POKE(BASE_ADDR+x+1+y*((unsigned short)XSize), ((unsigned char) val)%10+48);	
+}	
+
+
+void print_u(unsigned char x, unsigned char y, unsigned short val)
+{
+	POKE(BASE_ADDR+x+y*((unsigned short)XSize), (unsigned char) (val+48));
+}
+
+void print_level(unsigned short val)
+{
+	PRINT(XSize/2-4,YSize/2,"level");
+	print_u(XSize/2+2, YSize/2, val);
+}
+
+void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
+{
+	// print_05u0(x,y,val);	
+	if(strlen(str)==5)
+	{	
+		print_05u0(x,y,val);
+	}
+	else if(strlen(str)==4)
+	{
+		print_02u(x,y,val);		
+	}
+	else if(strlen(str)==2)
+	{
+		print_u(x,y,val);		
+	}
+	else
+	{
+		print_level(val);
+	}
+}
+
+
 #endif
 

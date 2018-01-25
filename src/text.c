@@ -103,9 +103,16 @@
 	#define LEVEL_X 18
 #endif
 
+#if !defined(TINY_GAME)
+	extern unsigned char guns;
+	extern Image GUN_IMAGE;
+	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image MISSILE_IMAGE;
+#endif
+
 extern unsigned char level;
 extern unsigned char lives;
-extern unsigned char guns;
+
 extern unsigned short points;
 extern unsigned char ghostCount;
 extern unsigned short ghostLevel;
@@ -113,10 +120,9 @@ extern unsigned short highScore;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
-extern Image GUN_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+
 extern Image PLAYER_IMAGE;
-extern Image MISSILE_IMAGE;
+
 
 
 #if defined(COLOR)
@@ -140,10 +146,14 @@ extern Image MISSILE_IMAGE;
 		}		
 	#endif
 #else
-	void printCenteredMessageOnRow(unsigned char row, char *Text)
-	{
-		PRINT((unsigned char)(((unsigned char) XSize - strlen (Text))>>1), row, Text);	
-	}
+    #if !defined(NO_MESSAGE)
+		void printCenteredMessageOnRow(unsigned char row, char *Text)
+		{
+			PRINT((unsigned char)(((unsigned char) XSize - strlen (Text))>>1), row, Text);	
+		}
+	#else
+		
+	#endif
 	#define printCenteredMessageOnRowWithCol(row, col, Text) \
 		printCenteredMessageOnRow(row, Text)
 #endif
@@ -219,43 +229,43 @@ extern Image MISSILE_IMAGE;
 	}
 #endif
 
-
-void printLevelStats(void)
-{	
-	#if defined(WIDE) && !defined(TINY_GAME)
-		SET_TEXT_COLOR(TEXT_COLOR);	
-		PRINTF(LEVEL_X,1-Y_OFFSET,"%02u", level);
-	#else
-		PRINTF(LEVEL_X,-Y_OFFSET,"%02u",level);	
-	#endif	
-}
-
-
-void printGhostCountStats(void)
-{
-	#if defined(COLOR)
-		SET_TEXT_COLOR(TEXT_COLOR);		
-	#endif
-	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(GHOST_IMAGE_X+2,-Y_OFFSET,"%u",ghostCount);
-	#else
-		PRINTF(GHOST_IMAGE_X+1,-Y_OFFSET,"%u",ghostCount);	
-	#endif	
-}
+#if !defined(NO_MESSAGE)
+	void printLevelStats(void)
+	{	
+		#if defined(WIDE) && !defined(TINY_GAME)
+			SET_TEXT_COLOR(TEXT_COLOR);	
+			PRINTF(LEVEL_X,1-Y_OFFSET,"%02u", level);
+		#else
+			PRINTF(LEVEL_X,-Y_OFFSET,"%02u",level);	
+		#endif	
+	}
 
 
-void printLivesStats(void)
-{
-	#if defined(COLOR)
-		SET_TEXT_COLOR(TEXT_COLOR);
-	#endif
-	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(PLAYER_IMAGE_X+2,-Y_OFFSET+1,"%02u",lives);
-	#else
-		PRINTF(PLAYER_IMAGE_X+1,-Y_OFFSET,"%02u",lives);	
-	#endif
-}
+	void printGhostCountStats(void)
+	{
+		#if defined(COLOR)
+			SET_TEXT_COLOR(TEXT_COLOR);		
+		#endif
+		#if defined(WIDE) && !defined(TINY_GAME)
+			PRINTF(GHOST_IMAGE_X+2,-Y_OFFSET,"%u",ghostCount);
+		#else
+			PRINTF(GHOST_IMAGE_X+1,-Y_OFFSET,"%u",ghostCount);	
+		#endif	
+	}
 
+
+	void printLivesStats(void)
+	{
+		#if defined(COLOR)
+			SET_TEXT_COLOR(TEXT_COLOR);
+		#endif
+		#if defined(WIDE) && !defined(TINY_GAME)
+			PRINTF(PLAYER_IMAGE_X+2,-Y_OFFSET+1,"%02u",lives);
+		#else
+			PRINTF(PLAYER_IMAGE_X+1,-Y_OFFSET,"%02u",lives);	
+		#endif
+	}
+#endif
 
 void displayStats(void)
 {	

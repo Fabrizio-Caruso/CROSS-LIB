@@ -350,12 +350,11 @@ void DRAW_BOMBS(void);
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
 #elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT) && defined(VIC20_UNEXPANDED)
-	#define PRINT
-	//void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
-	#define PRINTF	
+	#define PRINT(x,y,str)
+	#define PRINTF(x,y,str,val)	
 #elif defined(__AQUARIUS__) && defined(TINY_GAME) && defined(ALT_PRINT)
-	#define PRINT
-	#define PRINTF	
+	#define PRINT(x,y,str)
+	#define PRINTF(x,y,str,val)	
 #elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT)
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	// #define PRINTF

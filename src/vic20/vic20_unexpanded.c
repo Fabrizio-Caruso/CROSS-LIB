@@ -278,46 +278,4 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 }
 #endif
 
-#if defined(ALT_PRINT)
-
-// void print_05u0(unsigned char x, unsigned char y, unsigned short val)
-// {
-	// unsigned char i;
-	// unsigned char digits[6];
-	// unsigned short tmp;
-
-	// tmp = val;
-	
-	// digits[0] = 0;
-	// for(i=1;i<6;++i)
-	// {
-		// digits[i] = (unsigned char) ((tmp)%10);
-		// tmp-= digits[i];
-		// tmp/=10;
-	// }
-	
-	// for(i=0;i<6;++i)
-	// {
-		// POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), (unsigned char) (digits[5-i])+48);
-	// }
-// }	
-
-// void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
-// {
-	// if(strlen(str)==5)
-	// {	
-		// print_05u0(x,y,val);
-	// }
-// }
-
-// void PRINT(unsigned char x, unsigned char y, char * str)
-// {
-	// unsigned char i = 0;
-	// while(str[i]!='\0')
-	// {
-		// POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]); 
-		// ++i;
-	// }
-// }
-#endif
 

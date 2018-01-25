@@ -25,6 +25,7 @@
 #ifndef _DISPLAY
 #define _DISPLAY
 
+
 #if defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <cmoc.h>
 #else
@@ -66,15 +67,27 @@ void displayStats(void);
 	void printExtraLife(void);
 #endif
 	
-void printLevelStats(void);
 
-void printGhostCountStats(void);
-
-void printLivesStats(void);
 
 void setScreenColors(void);
 
-void printCenteredMessageOnRow(unsigned char row, char *Text);
+#if !defined(NO_MESSAGE)
+	void printCenteredMessageOnRow(unsigned char row, char *Text);
+	
+	void printLevelStats(void);
+
+	void printGhostCountStats(void);
+
+	void printLivesStats(void);	
+#else
+	#define printCenteredMessageOnRow(row,Text)
+
+	#define printLevelStats()
+	
+	#define printGhostCountStats()
+	
+	#define printLivesStats()
+#endif
 
 #if defined(COLOR)
 	void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text);
@@ -86,9 +99,8 @@ void printPressKeyToStart(void);
 #if !defined(NO_TEXT)
 	void deleteCenteredMessage(void);
 #endif
+
 void printGameOver(void);
-
-
 
 void printDefeatMessage(void);
 
@@ -111,7 +123,28 @@ void printStartMessage(void);
 #endif
 
 #if defined(TINY_GAME)
-	#define highScoreScreen() PRINTF((XSize-6)/2, 0, "%05u0", highScore) //_printScore("%05u0", highScore);	
+	#if !defined(VIC20_UNEXPANDED)
+		#define highScoreScreen() PRINTF((XSize-6)/2, 0, "%05u0", highScore)
+	#else
+		#include <peekpoke.h>
+		#define highScoreScreen() \
+		{ \
+			unsigned char i; \
+			unsigned short tmp; \
+			\
+			tmp = highScore; \
+			\
+			for(i=1;i<6;++i) \
+			{ \
+				tmp -= POKE(7686-i,(unsigned char) ((tmp)%10)); \
+				tmp/=10; \
+				POKE(7686-i,PEEK(7686-i)+48); \
+			} \
+			POKE(7686,48); \
+			\
+		}
+	#endif
+// #define highScoreScreen() PRINTF((XSize-6)/2, 0, "%05u0", highScore)
 #elif defined(__C64__)
 	#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);
 

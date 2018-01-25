@@ -40,7 +40,7 @@
 	#define PLAYER_IMAGE PLAYER_DOWN
 #endif
 	
-#if !defined(__CMOC__) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
+#if !(defined(__VIC20__) && defined(VIC20_UNEXPANDED)) && !defined(__CMOC__) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
 	#include <conio.h>
 #endif
 #if defined(__WINCMOC__)
@@ -347,7 +347,7 @@ void DRAW_BOMBS(void);
 #elif defined(__SPECTRUM__)
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
-#elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT) && defined(VIC2_UNEXPANDED)
+#elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT) && defined(VIC20_UNEXPANDED)
 	#define PRINT
 	#define PRINTF	
 #elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT)
@@ -420,12 +420,18 @@ void DRAW_BOMBS(void);
 	#define SET_TEXT_COLOR(c) textcolor(c)
 	
 	#define CLEAR_SCREEN() do {clrscr(); INIT_GRAPHICS(); } while(0)
+#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED)
+	#define SET_TEXT_COLOR(c)
+	#define CLEAR_SCREEN()	// to be implemented
 #else // CC65 conio case
-	#define SET_TEXT_COLOR(c) (void) textcolor (c);
+	#if !defined(NO_COLOR)
+		#define SET_TEXT_COLOR(c) (void) textcolor (c);
+	#else
+		#define SET_TEXT_COLOR(c)	
+	#endif
 	
 	#define CLEAR_SCREEN() clrscr();
 #endif
-	
 #if defined(CC65) && !defined(__ATARI5200__)
 	#define SET_BORDER_COLOR(c) (void) bordercolor(c)
 

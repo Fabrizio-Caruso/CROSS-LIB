@@ -57,21 +57,21 @@ void displayGhosts(void)
 
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
-		// displayGhost(&ghosts[i]);
-		DRAW_GHOST(ghosts[i]._x, ghosts[i]._y, ghosts[i]._imagePtr);
+		displayGhost(&ghosts[i]);
 	}
 }
 
-void displayBombs(void)
-{
-	unsigned char i;
-
-	for(i=0;i<BOMBS_NUMBER;++i)
+#if !defined(TINY_GAME)
+	void displayBombs(void)
 	{
-		displayGhost(&bombs[i]);
-		//DRAW_BOMB(bombs[i]._x, bombs[i]._y, bombs[i]._imagePtr);
-	}
-}	
+		unsigned char i;
+
+		for(i=0;i<BOMBS_NUMBER;++i)
+		{
+			displayBomb(&bombs[i]);
+		}
+	}	
+#endif
 
 #if defined(FULL_GAME)
 	unsigned char firstAlive(void)

@@ -67,7 +67,15 @@ atari_no_color_16k:
 	$(BUILD_PATH)/LIGHT_atari_no_color_16k.xex
 
 atari5200: 
-	$(CC65_PATH)$(MYCC65) -O -t atari5200 --config $(SOURCE_PATH)/../cfg/atari5200_less_stack.cfg -DFULL_GAME $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_atari5200.rom
+	$(CC65_PATH)$(MYCC65) -O -t atari5200 \
+	--config $(SOURCE_PATH)/../cfg/atari5200_less_stack.cfg \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c \
+	-o $(BUILD_PATH)/FULL_atari5200.rom
 	
 atmos: 
 	$(CC65_PATH)$(MYCC65)  -O  -DSOUNDS -DREDEFINED_CHARS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \

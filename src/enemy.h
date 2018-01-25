@@ -33,15 +33,9 @@ unsigned short computeGhostSlowDown(void);
 	void decreaseGhostLevel(void);
 #endif
 
-
 void displayGhosts(void);
 
-#if !defined(TINY_GAME)
-	void displayBombs(void);
-#else
-	#define displayBombs() displayGhosts()
-#endif
-
+void displayBombs(void);
 
 #if defined(FULL_GAME)
 	unsigned char firstAlive(void);

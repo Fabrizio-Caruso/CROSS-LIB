@@ -61,17 +61,15 @@ void displayGhosts(void)
 	}
 }
 
-#if !defined(TINY_GAME)
-	void displayBombs(void)
-	{
-		unsigned char i;
+void displayBombs(void)
+{
+	unsigned char i;
 
-		for(i=0;i<BOMBS_NUMBER;++i)
-		{
-			displayBomb(&bombs[i]);
-		}
-	}	
-#endif
+	for(i=0;i<BOMBS_NUMBER;++i)
+	{
+		displayBomb(&bombs[i]);
+	}
+}	
 
 #if defined(FULL_GAME)
 	unsigned char firstAlive(void)

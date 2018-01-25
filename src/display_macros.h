@@ -146,7 +146,8 @@ typedef struct ImageStruct Image;
 #elif defined(__VIC20__)
 	#define XSize 22
 #elif defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
-      || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE))
+      || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
+	  || defined(__AQUARIUS__)
 	#define XSize (40-X_OFFSET)
 #elif defined(__PET__) || defined(__CBM610__)
 	#define XSize 80
@@ -162,7 +163,7 @@ typedef struct ImageStruct Image;
 	#define YSize (24-Y_OFFSET)
 #elif defined(__OSIC1P__)
 	#define YSize (32-Y_OFFSET)	
-#elif (defined(__ATARI__) || defined(__ATARIXL__)) 
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) || defined(__AQUARIUS__)
 	#define YSize (24-Y_OFFSET)	
 #elif defined(__CPC__)
 	#define YSize (25-Y_OFFSET)
@@ -348,6 +349,9 @@ void DRAW_BOMBS(void);
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
 #elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT) && defined(VIC20_UNEXPANDED)
+	#define PRINT
+	#define PRINTF	
+#elif defined(__AQUARIUS__) && defined(TINY_GAME) && defined(ALT_PRINT)
 	#define PRINT
 	#define PRINTF	
 #elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT)

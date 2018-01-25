@@ -103,18 +103,6 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 		POKE(VIDEO_BASE+x+X_OFFSET+(y+i+Y_OFFSET)*40,'|');
 	}
 }
-#endif
-
-void _draw(unsigned char x, unsigned char y, Image * image) 
-{
-	POKE(VIDEO_BASE+x+X_OFFSET+(y+Y_OFFSET)*40,image->_imageData);
-	// TODO color
-}
-
-void _delete(unsigned char x, unsigned char y)
-{
-	POKE(VIDEO_BASE+x+X_OFFSET+(y+Y_OFFSET)*40,' ');	
-}
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
@@ -130,4 +118,19 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		*blinkCounter=1;
 	}	
 }
+
+#endif
+
+void _draw(unsigned char x, unsigned char y, Image * image) 
+{
+	POKE(VIDEO_BASE+x+X_OFFSET+(y+Y_OFFSET)*40,image->_imageData);
+	// TODO color
+}
+
+void _delete(unsigned char x, unsigned char y)
+{
+	POKE(VIDEO_BASE+x+X_OFFSET+(y+Y_OFFSET)*40,' ');	
+}
+
+
 

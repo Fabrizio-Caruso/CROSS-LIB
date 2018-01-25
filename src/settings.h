@@ -154,7 +154,10 @@
 #elif defined(__VG5K__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 800	
-#elif defined(__AQUARIUS__)
+#elif defined(__AQUARIUS__) && defined(ALT_PRINT)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 1500		
+#elif defined(__AQUARIUS__) && !defined(ALT_PRINT)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 800	
 #elif defined(__ACE__)

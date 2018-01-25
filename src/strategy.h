@@ -39,11 +39,19 @@
 
 #include "character.h"
 
-unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset);
+#if defined(FULL_GAME)
+	unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset);
+#else
+	unsigned char move(Character* hunterPtr, unsigned char offset);
+#endif
 
-void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
-					
-void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
+#if defined(FULL_GAME)
+	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
+	void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
+#else
+	void blindChaseCharacterXStrategy(Character* hunterPtr);
+	void blindChaseCharacterYStrategy(Character* hunterPtr);	
+#endif
 
 #if defined(FULL_GAME)
 	void moveTowardCharacter(Character *preyPtr, Character *hunterPtr, unsigned char strategy);

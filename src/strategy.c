@@ -39,6 +39,7 @@ extern unsigned char strategyArray[GHOSTS_NUMBER];
 extern unsigned char zombieActive;
 #endif
 
+#if defined(FULL_GAME)
 unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
 {
 	if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)preyPtr+offset))
@@ -55,10 +56,29 @@ unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offse
 	}
 	return 1;
 }
-
+#else
+unsigned char move(Character* hunterPtr, unsigned char offset)	
+{
+	if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)(&player)+offset))
+	{
+		++(*((unsigned char *) hunterPtr+offset));		
+	}
+	else if((unsigned char) *((unsigned char *) hunterPtr+offset) > (unsigned char) *((unsigned char *)(&player)+offset))
+	{
+		--(*((unsigned char *) hunterPtr+offset));		
+	}	
+	else
+	{
+		return 0;
+	}
+	return 1;
+}	
+#endif
 
 // TODO: Design issue: we delete the invincible enemy
 // This should be made generic even though it works
+
+#if defined(FULL_GAME)
 void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 {
 	if(move(hunterPtr, preyPtr,X_MOVE))
@@ -82,7 +102,31 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 		move(hunterPtr, preyPtr,X_MOVE);
 	}
 }
+#else
+void blindChaseCharacterXStrategy(Character* hunterPtr)
+{
+	if(move(hunterPtr,X_MOVE))
+	{
+		return;
+	}
+	else
+	{
+		move(hunterPtr,Y_MOVE);
+	}
+}
 
+void blindChaseCharacterYStrategy(Character* hunterPtr)
+{
+	if(move(hunterPtr,Y_MOVE))
+	{
+		return;
+	}
+	else
+	{
+		move(hunterPtr,X_MOVE);
+	}
+}	
+#endif
 
 #if defined(TINY_GAME)
 	#define strategy 4
@@ -113,11 +157,11 @@ void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 	{
 		if(rand()%10 > strategy) // Select blind chase strategy
 			{ // 0 - 4
-				blindChaseCharacterXStrategy(hunterPtr, &player);	
+				blindChaseCharacterXStrategy(hunterPtr);	
 			}
 			else
 			{ // 5 - 9
-				blindChaseCharacterYStrategy(hunterPtr, &player);
+				blindChaseCharacterYStrategy(hunterPtr);
 			}
 	}	
 #endif

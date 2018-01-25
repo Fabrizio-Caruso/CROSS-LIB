@@ -43,16 +43,16 @@
 // #define _GHOST (0x76+0xA0)
 
 #define _PLAYER_DOWN 0x00
-#define _PLAYER_UP 0x0A
+#define _PLAYER_UP 0x0E
 #define _PLAYER_RIGHT 0x11
-#define _PLAYER_LEFT 0x0B
+#define _PLAYER_LEFT 0x10
 
 // RED
-#define _BOMB 0x04
+#define _BOMB 0x1B
 //0x5E
 
 // WHITE
-#define _GHOST 0x02
+#define _GHOST 0x14
 
 
 
@@ -327,7 +327,9 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 {
 	unsigned char i;
 	unsigned char digits[6];
-	unsigned short tmp = val;
+	unsigned short tmp;
+
+	tmp = val;
 	
 	digits[0] = 0;
 	for(i=1;i<6;++i)
@@ -355,15 +357,9 @@ void print_u(unsigned char x, unsigned char y, unsigned short val)
 	POKE(BASE_ADDR+x+y*((unsigned short)XSize), (unsigned char) (val+48));
 }
 
-void print_level(unsigned short val)
-{
-	PRINT(XSize/2-4,YSize/2,"level");
-	print_u(XSize/2+2, YSize/2, val);
-}
 
 void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 {
-	// print_05u0(x,y,val);	
 	if(strlen(str)==5)
 	{	
 		print_05u0(x,y,val);
@@ -372,13 +368,9 @@ void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 	{
 		print_02u(x,y,val);		
 	}
-	else if(strlen(str)==2)
-	{
-		print_u(x,y,val);		
-	}
 	else
 	{
-		print_level(val);
+		print_u(x,y,val);		
 	}
 }
 

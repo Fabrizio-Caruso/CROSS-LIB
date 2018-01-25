@@ -48,7 +48,7 @@
 #if defined(FULL_GAME)
 	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
 	void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
-#else
+#elif !defined(TINY_GAME)
 	void blindChaseCharacterXStrategy(Character* hunterPtr);
 	void blindChaseCharacterYStrategy(Character* hunterPtr);	
 #endif

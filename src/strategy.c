@@ -40,97 +40,97 @@ extern unsigned char zombieActive;
 #endif
 
 #if defined(FULL_GAME)
-unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
-{
-	if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)preyPtr+offset))
+	unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
 	{
-		++(*((unsigned char *) hunterPtr+offset));		
+		if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)preyPtr+offset))
+		{
+			++(*((unsigned char *) hunterPtr+offset));		
+		}
+		else if((unsigned char) *((unsigned char *) hunterPtr+offset) > (unsigned char) *((unsigned char *)preyPtr+offset))
+		{
+			--(*((unsigned char *) hunterPtr+offset));		
+		}	
+		else
+		{
+			return 0;
+		}
+		return 1;
 	}
-	else if((unsigned char) *((unsigned char *) hunterPtr+offset) > (unsigned char) *((unsigned char *)preyPtr+offset))
-	{
-		--(*((unsigned char *) hunterPtr+offset));		
-	}	
-	else
-	{
-		return 0;
-	}
-	return 1;
-}
 #else
-unsigned char move(Character* hunterPtr, unsigned char offset)	
-{
-	if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)(&player)+offset))
+	unsigned char move(Character* hunterPtr, unsigned char offset)	
 	{
-		++(*((unsigned char *) hunterPtr+offset));		
-	}
-	else if((unsigned char) *((unsigned char *) hunterPtr+offset) > (unsigned char) *((unsigned char *)(&player)+offset))
-	{
-		--(*((unsigned char *) hunterPtr+offset));		
+		if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)(&player)+offset))
+		{
+			++(*((unsigned char *) hunterPtr+offset));		
+		}
+		else if((unsigned char) *((unsigned char *) hunterPtr+offset) > (unsigned char) *((unsigned char *)(&player)+offset))
+		{
+			--(*((unsigned char *) hunterPtr+offset));		
+		}	
+		else
+		{
+			return 0;
+		}
+		return 1;
 	}	
-	else
-	{
-		return 0;
-	}
-	return 1;
-}	
 #endif
 
 // TODO: Design issue: we delete the invincible enemy
 // This should be made generic even though it works
 
 #if defined(FULL_GAME)
-void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
-{
-	if(move(hunterPtr, preyPtr,X_MOVE))
+	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 	{
-		return;
+		if(move(hunterPtr, preyPtr,X_MOVE))
+		{
+			return;
+		}
+		else
+		{
+			move(hunterPtr, preyPtr,Y_MOVE);
+		}
 	}
-	else
-	{
-		move(hunterPtr, preyPtr,Y_MOVE);
-	}
-}
 
-void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
-{
-	if(move(hunterPtr, preyPtr,Y_MOVE))
+	void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 	{
-		return;
+		if(move(hunterPtr, preyPtr,Y_MOVE))
+		{
+			return;
+		}
+		else
+		{
+			move(hunterPtr, preyPtr,X_MOVE);
+		}
 	}
-	else
-	{
-		move(hunterPtr, preyPtr,X_MOVE);
-	}
-}
-#else
-void blindChaseCharacterXStrategy(Character* hunterPtr)
-{
-	if(move(hunterPtr,X_MOVE))
-	{
-		return;
-	}
-	else
-	{
-		move(hunterPtr,Y_MOVE);
-	}
-}
+#elif !defined(TINY_GAME)
+	void blindChaseCharacterXStrategy(Character* hunterPtr)
+		{
+			if(move(hunterPtr,X_MOVE))
+			{
+				return;
+			}
+			else
+			{
+				move(hunterPtr,Y_MOVE);
+			}
+		}
 
-void blindChaseCharacterYStrategy(Character* hunterPtr)
-{
-	if(move(hunterPtr,Y_MOVE))
-	{
-		return;
-	}
-	else
-	{
-		move(hunterPtr,X_MOVE);
-	}
-}	
+		void blindChaseCharacterYStrategy(Character* hunterPtr)
+		{
+			if(move(hunterPtr,Y_MOVE))
+			{
+				return;
+			}
+			else
+			{
+				move(hunterPtr,X_MOVE);
+			}
+		}	
 #endif
 
-#if defined(TINY_GAME)
-	#define strategy 4
-#endif
+// #if defined(TINY_GAME)
+	// #define strategy 4
+// #endif
 
 // strategy: 
 // 4 means do no prefer horizontal to vertical movement
@@ -150,20 +150,23 @@ void blindChaseCharacterYStrategy(Character* hunterPtr)
 	}	
 #else
 	#if !defined(TINY_GAME)
-	void moveTowardCharacter(Character *hunterPtr, unsigned char strategy)
+		void moveTowardCharacter(Character *hunterPtr, unsigned char strategy)
+		{
+			if(rand()%10 > strategy) // Select blind chase strategy
+				{ // 0 - 4
+					blindChaseCharacterXStrategy(hunterPtr);	
+				}
+				else
+				{ // 5 - 9
+					blindChaseCharacterYStrategy(hunterPtr);
+				}
+		}	
 	#else
-	void moveTowardCharacter(Character *hunterPtr)
+		void moveTowardCharacter(Character *hunterPtr)
+		{
+			move(hunterPtr,rand()&1);
+		}
 	#endif
-	{
-		if(rand()%10 > strategy) // Select blind chase strategy
-			{ // 0 - 4
-				blindChaseCharacterXStrategy(hunterPtr);	
-			}
-			else
-			{ // 5 - 9
-				blindChaseCharacterYStrategy(hunterPtr);
-			}
-	}	
 #endif
 
 

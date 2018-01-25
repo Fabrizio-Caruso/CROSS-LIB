@@ -103,9 +103,11 @@
 #if defined(__VIC20__) && !defined(TINY_GAME)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 400
-#elif defined(__VIC20__) && defined(TINY_GAME)
+#elif defined(__VIC20__) && defined(TINY_GAME) && !defined(VIC20_UNEXPANDED)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 900
+#elif defined(__VIC20__) && defined(TINY_GAME) && defined(VIC20_UNEXPANDED)
+	#define GAME_SLOW_DOWN 0	
 #elif defined(__WINCMOC__) || defined(__CMOC__) 
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 600
@@ -243,6 +245,8 @@
 	#define BOMBS_NUMBER 1
 #elif defined(__OSIC1P__) && defined(TINY_GAME)
 	#define BOMBS_NUMBER 4
+#elif defined(__VIC20__) && defined(TINY_GAME) && defined(VIC20_UNEXPANDED)
+	#define BOMBS_NUMBER 1	
 #else
 	#define BOMBS_NUMBER 4
 #endif
@@ -254,6 +258,8 @@
 	#define GHOSTS_NUMBER 8
 #elif defined(__SPECTRUM__) && defined(TINY_GAME)
 	#define GHOSTS_NUMBER 8	
+#elif defined(__VIC20__) && defined(TINY_GAME) && defined(VIC20_UNEXPANDED)
+	#define GHOSTS_NUMBER 6
 #elif defined(__VIC20__) && (defined(TINY_GAME) && !defined(REDEFINED_CHARS))
 	#define GHOSTS_NUMBER 8
 #elif defined(__VIC20__) && (defined(TINY_GAME) && defined(REDEFINED_CHARS))

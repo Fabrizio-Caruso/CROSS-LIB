@@ -284,6 +284,13 @@ creativision_8k:
 # ------------------------------------------------------------------------------------------
 #Z88DK
 
+aquarius_exp_4k:
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -compiler=sdcc -SO3 --max-allocs-per-node200000 -vn -DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc -lndos -o TINY_aquarius_exp_4k -create-app $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/aquarius/aquarius_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(SOURCE_PATH)/../TINY_aquarius_exp_4k
+	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)
+	mv $(SOURCE_PATH)/../_TINY_aquarius_exp_4k.caq $(BUILD_PATH)
+
+
 aquarius_exp_16k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn \
 	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME \
@@ -962,13 +969,6 @@ atari5200_light:
 vg5k_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k -O3 -vn -DTINY_GAME -D__VG5K__ -lndos -create-app -o $(BUILD_PATH)/TINY_vg5k.prg $(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_vg5k.prg
-	
-
-aquarius_exp_4k:
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius -compiler=sdcc -SO3 --max-allocs-per-node200000 -vn -DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc -lndos -o TINY_aquarius_exp_4k -create-app $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/aquarius/aquarius_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(SOURCE_PATH)/../TINY_aquarius_exp_4k
-	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)
-	mv $(SOURCE_PATH)/../_TINY_aquarius_exp_4k.caq $(BUILD_PATH)
 
 
 spectrum_clib_tiny:
@@ -1188,7 +1188,7 @@ msx_color_32k_msxdos:
 # OK: 24
 # ------------
 cc65_targets: \
-	creativision_8k osic1p_8k  vic20_exp_3k vic20_exp_8k vic20_exp_16k \
+	atari5200 creativision_8k osic1p_8k  vic20_exp_3k vic20_exp_8k vic20_exp_16k \
 	atari_color atari_no_color atari_no_color_16k atmos oric1_16k \
 	c16_16k c16_32k c64 pet_8k \
 	pet_16k cbm510 cbm610 \
@@ -1203,10 +1203,13 @@ z88dk_targets: \
 	ace_exp_16k  cpc vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz \
 	samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k \
 	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k \
-	zx81_16k aquarius_exp_16k vz200_16k z9001_16k z9001_32k mc1000_16k mc1000_48k pc6001_32k nascom_16k \
+	zx81_16k aquarius_exp_4k aquarius_exp_16k vz200_16k z9001_16k z9001_32k mc1000_16k mc1000_48k pc6001_32k nascom_16k \
 	lambda_16k nascom_32k zx80_16k vz200_32k microbee gal_22k
 
-all: cc65_targets z88dk_targets
+cmoc_targets: \
+	coco
+	
+all: cc65_targets z88dk_targets cmoc_targets
 
 clean:
 	rm -rf $(BUILD_PATH)/*

@@ -107,11 +107,12 @@ extern Image BOMB_IMAGE;
 	extern Image BROKEN_WALL_IMAGE;
 #endif
 
-
-Image PLAYER_DOWN;
-Image PLAYER_UP;
-Image PLAYER_RIGHT;
-Image PLAYER_LEFT;
+#if defined(REDEFINED_CHARS)
+	Image PLAYER_DOWN;
+	Image PLAYER_UP;
+	Image PLAYER_RIGHT;
+	Image PLAYER_LEFT;
+#endif
 
 #define BASE_ADDR 7680
 
@@ -235,6 +236,7 @@ void _delete(unsigned char x, unsigned char y)
 	_DELETE(x,y);
 }
 
+#if !defined(TINY_GAME)
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
 	if(*blinkCounter) 
@@ -249,7 +251,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
-#if !defined(TINY_GAME)
+
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
 	unsigned char i;

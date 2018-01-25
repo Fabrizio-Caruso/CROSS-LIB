@@ -40,8 +40,10 @@
 		#include "bit_bang/bit_bang_sounds.h"
 	#elif defined(__ACE__) && defined(SOUNDS)
 		#include "bit_bang/bit_bang_sounds.h"		
-	#elif defined(__VIC20__) && defined(SOUNDS)
+	#elif defined(__VIC20__) && !defined(TINY_GAME) && defined(SOUNDS)
 		#include "vic20/vic20_sounds.h"
+	#elif defined(__VIC20__) && defined(TINY_GAME) && defined(SOUNDS)
+		#include "vic20/vic20_sounds_3k.h"		
 	#elif defined(__C16__) && defined(SOUNDS)
 		#include "c264/c264_sounds.h"
 	#elif defined(__C64__) && defined(SOUNDS)

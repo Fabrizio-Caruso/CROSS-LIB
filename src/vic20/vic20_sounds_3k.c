@@ -23,6 +23,7 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include<vic20.h>
+#include "vic20_sounds_3k.h"
 
 	void _explosion_sound(unsigned char freq, unsigned char vol)
 	{ 

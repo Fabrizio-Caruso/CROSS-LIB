@@ -40,7 +40,8 @@
 	#define PLAYER_IMAGE PLAYER_DOWN
 #endif
 	
-#if !(defined(__VIC20__) && defined(VIC20_UNEXPANDED)) && !defined(__CMOC__) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
+//!(defined(__VIC20__) && defined(VIC20_UNEXPANDED)) && 
+#if !defined(__CMOC__) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
 	#include <conio.h>
 #endif
 #if defined(__WINCMOC__)
@@ -426,7 +427,8 @@ void DRAW_BOMBS(void);
 	#define CLEAR_SCREEN() do {clrscr(); INIT_GRAPHICS(); } while(0)
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED)
 	#define SET_TEXT_COLOR(c)
-	#define CLEAR_SCREEN()	// to be implemented
+	#define CLEAR_SCREEN() clrscr()
+	// void CLEAR_SCREEN(void); // to be implemented
 #else // CC65 conio case
 	#if !defined(NO_COLOR)
 		#define SET_TEXT_COLOR(c) (void) textcolor (c);

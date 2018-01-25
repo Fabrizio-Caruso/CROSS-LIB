@@ -31,6 +31,7 @@
 #include "../input_macros.h"
 	
 
+#define _PLAYER '*'
 // #define _PLAYER_DOWN 0x00
 // #define _PLAYER_UP 0x01
 // #define _PLAYER_RIGHT 0x02 
@@ -148,7 +149,7 @@ void INIT_GRAPHICS(void)
 void INIT_IMAGES(void)
 {		
 	#if !defined(NO_COLOR)
-		// PLAYER_IMAGE._color = COLOR_CYAN;
+		PLAYER_IMAGE._color = COLOR_CYAN;
 		BOMB_IMAGE._color = COLOR_RED;
 		DEAD_GHOST_IMAGE._color = COLOR_RED;
 		GHOST_IMAGE._color = COLOR_WHITE;		
@@ -185,7 +186,7 @@ void INIT_IMAGES(void)
 	
 	GHOST_IMAGE._imageData = _GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
-	// PLAYER_IMAGE._imageData = _PLAYER;	
+	PLAYER_IMAGE._imageData = _PLAYER;	
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
 	
 	

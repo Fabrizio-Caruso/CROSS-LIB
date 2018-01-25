@@ -101,7 +101,7 @@ void handle_invincible_ghost(void)
 			TOCK_SOUND();
 			deleteInvincibleGhost(&invincibleGhost);
 			#if defined(FULL_GAME)
-				if(!confuseActive || loop&3)
+				if(!confuseActive || !(loop&3))
 				{
 					moveTowardCharacter(&player, &invincibleGhost, 4);
 				}

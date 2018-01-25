@@ -7,15 +7,16 @@ This is a personal project whose goal is to create a fun playable game that shou
 on 8 bit computers and consoles using 6502-compatible and Z80-compatible CPUs.
 
 The program is written in ANSI C and currently compiled with 
-- CC65 for 6502 targets (http://www.cc65.org/), 
-- SCCZ80  and ZSDCC from Z88DK for Z80 targets (https://www.z88dk.org/),
-- CMOC for 6809 (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
-- WinCMOC for 6809 targets (https://sourceforge.net/projects/cmoc-win32/).
+- CC65 for all 6502 targets (http://www.cc65.org/), 
+- SCCZ80 (from Z88DK) for most Z80 targets (https://www.z88dk.org/), 
+- ZSDCC (from Z88DK) for some Z80 targets (https://www.z88dk.org/),
+- CMOC for most 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
+- WinCMOC for some 6809 targets (https://sourceforge.net/projects/cmoc-win32/).
 
 For other targets, GCC6809 for other 6809 targets, sdcc (proper or its CPCTelera version), as well as "GCC for TI" for the Texas TI99/4a are being taken into consideration. 
 
 The game should be as portable as possible.
-Therefore the following coding choices and design rules are applied.
+Therefore the following coding choices and design rules are applied:
 1. ANSI C (for the game logic);
 2.sStrictly separated input/output and hardware-dependent code from the game logic;
 3. the prefered default graphics and input implementation is provided by conio.h (as implemented in CC65, Z88DK and WinCMOC), whenever no specialized code for a specific target is implemented;

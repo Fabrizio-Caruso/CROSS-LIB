@@ -143,23 +143,7 @@ Image PLAYER_LEFT;
 
 void INIT_GRAPHICS(void)
 {
-	unsigned char tmp;
-
-	// tmp = ~0x0F & PEEK(&(VIC.addr));
-	// POKE(&(VIC.addr), tmp | 0x0F);
 	POKE(0x9005,0xFF);			
-
-	
-	for(tmp=0;tmp<254;++tmp)
-	{
-		POKE(7680+tmp,tmp);
-	}
-	WAIT_PRESS();
-	
-
-    // POKE(0x9002,PEEK(0x9002) | 0x80);	
-	
-	// WAIT_PRESS();
 
 	#if defined(TINY_GAME)
 		#include<peekpoke.h>
@@ -299,19 +283,6 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 #endif
 
 #if defined(ALT_PRINT)
-
-// unsigned char screenCode(char ch)
-// {
-	// if(ch==32) 
-	// {
-		// return 32+64;
-	// }
-	// else
-	// {
-		// return ch-32;
-	// }	
-// }
-
 
 void PRINT(unsigned char x, unsigned char y, char * str)
 {

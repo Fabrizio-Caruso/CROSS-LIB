@@ -52,7 +52,7 @@
 //0x5E
 
 // WHITE
-#define _GHOST 0x14
+#define _GHOST 0x1C
 
 
 
@@ -143,8 +143,16 @@ Image PLAYER_LEFT;
 
 void INIT_GRAPHICS(void)
 {
+	// unsigned char i;
+	
 	POKE(0x9005,0xFF);			
 
+	// for(i=0;i<64;++i)
+	// {
+		// POKE(BASE_ADDR+i,i);
+	// }
+	// WAIT_PRESS();
+	
 	#if defined(TINY_GAME)
 		#include<peekpoke.h>
 		POKE(646,1);

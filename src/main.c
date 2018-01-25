@@ -191,11 +191,11 @@ Character bombs[BOMBS_NUMBER];
 
 unsigned short extraLifeThroughPointsCounter;
 
-unsigned char ghostCount = GHOSTS_NUMBER;
+unsigned char ghostCount; // = GHOSTS_NUMBER;
 
 #if !defined(TINY_GAME)
 	unsigned char playerFire;
-	unsigned char guns = GUNS_NUMBER;
+	unsigned char guns; // = GUNS_NUMBER;
 
 	unsigned char invincibleGhostHits;
 	unsigned char invincibleGhostAlive;

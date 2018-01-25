@@ -264,6 +264,8 @@
 	#define GHOSTS_NUMBER 8
 #elif defined(__VIC20__) && (defined(TINY_GAME) && defined(REDEFINED_CHARS))
 	#define GHOSTS_NUMBER 8
+#elif defined(__GAL__) && defined(TINY_GAME) 
+	#define GHOSTS_NUMBER 6
 #elif defined(__GAMATE__) 
 	#define GHOSTS_NUMBER 4
 #elif defined(__SPECTRUM__) && defined(FULL_GAME)

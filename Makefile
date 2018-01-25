@@ -987,10 +987,31 @@ spectrum_clib_tiny:
 
 # ISSUE with kbhit and getk: the game is turned-based
 gal_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +gal -compiler=sdcc -SO3 --max-allocs-per-node200000 -pragma-need=ansiterminal -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -vn -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -D__GAL__ -lndos -create-app -o  $(BUILD_PATH)/TINY_galaksija.prg $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_galaksija.prg
-	rm $(BUILD_PATH)/TINY_galaksija.wav	
+	$(Z88DK_PATH)$(MYZ88DK) +gal \
+	-compiler=sdcc \
+	-SO3 --max-allocs-per-node200000 \
+	-pragma-need=ansiterminal -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -vn -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
+	-DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -D__GAL__ -DALT_PRINT \
+	-lndos -create-app -o  $(BUILD_PATH)/TINY_galaksija.prg \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	# rm $(BUILD_PATH)/TINY_galaksija.prg
+	# rm $(BUILD_PATH)/TINY_galaksija.wav	
 
+
+# gal_22k:
+	# $(Z88DK_PATH)$(MYZ88DK) +gal \
+	# -pragma-need=ansiterminal -vn \
+	# -D__GAL__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	# -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg \
+	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	# $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
+	# $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	# $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	# rm $(BUILD_PATH)/FULL_galaksija.prg	
+	# rm $(BUILD_PATH)/FULL_galaksija.wav	
+	
+	
 conio_nascom:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom experiments/coniotest.c -create-app -o  $(BUILD_PATH)/conio.nas
 			

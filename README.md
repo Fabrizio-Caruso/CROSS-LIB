@@ -26,7 +26,7 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 As a consequence of the design, the code includes a framework that could be used to develop other massively multi-system games and programs. 
 
-![Atari800.jpg]
+![Atari800](Atari800.jpg)
 
 LICENSE
 

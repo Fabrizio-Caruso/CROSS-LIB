@@ -504,17 +504,16 @@ svi_318_mode0:
 # too big for a 16k machine ?
 # -DSOUNDS $(SOURCE_PATH)/psg/psg_sounds.c
 # 
-svi_318:
-	$(Z88DK_PATH)$(MYZ88DK) +svi -SO3 -zorg=49200 \
+svi_318_color:
+	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 -zorg=49200 \
 	-clib=ansi -compiler=sdcc -pragma-define:ansicolumns=32 -vn -lndos \
-	-DLESS_TEXT -DNO_SLEEP \
-	-D__SVI__ -create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
-	$(SOURCE_PATH)/item.c \
+	-DTINY_GAME \
+	-D__SVI__ -create-app -o $(BUILD_PATH)/TINY_svi_318 \
 	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	#rm $(BUILD_PATH)/LIGHT_svi_318
+	rm $(BUILD_PATH)/TINY_svi_318
 
 
 sharp_mz:
@@ -852,7 +851,7 @@ cc65_targets: \
 # KO:      \
 # OK: 35
 z88dk_targets: \
-	gal_6k ace_exp_16k  cpc vg5k vg5k_exp_16k svi_318_mode0 sharp_mz \
+	gal_6k ace_exp_16k  cpc vg5k vg5k_exp_16k svi_318_color svi_318_mode0 sharp_mz \
 	samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k \
 	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k \
 	zx81_16k aquarius_exp_4k aquarius_exp_16k vz200_16k \

@@ -296,7 +296,7 @@ void displayStats(void)
 #endif
 
 
-#if !defined(NO_TEXT)	
+#if !defined(LESS_TEXT)	
 	void printLevel(void)
 	{
 		PRINTF(((XSize -7)>>1), (YSize>>1), START_LEVEL_STRING, level);
@@ -324,7 +324,7 @@ void displayStats(void)
 #endif
 
 
-#if !defined(NO_TEXT)
+#if !defined(LESS_TEXT)
 	void printExtraLife(void)
 	{
 		printCenteredMessageWithCol(_RED, EXTRA_LIFE_STRING); 
@@ -337,7 +337,7 @@ void displayStats(void)
 #endif
 
 
-#if !defined(NO_TEXT)	
+#if !defined(LESS_TEXT)	
 	void printGameOver(void)
 	{		
 		printCenteredMessageWithCol(_WHITE, GAME_OVER_STRING);

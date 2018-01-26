@@ -106,7 +106,7 @@
 	#endif			
 #endif	
 
-#if defined(NO_TEXT)
+#if defined(LESS_TEXT)
 	#if defined(NO_CASE_LETTERS)
 		#define PRESS_STRING "go"
 		#define GAME_OVER_STRING "game over"

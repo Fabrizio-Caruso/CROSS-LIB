@@ -59,7 +59,7 @@ void displayStats(void);
 	void printGunsStats(void);
 #endif
 
-#if !defined(NO_TEXT)
+#if !defined(LESS_TEXT)
 	void printLevel(void);
 
 	void printVictoryMessage(void);
@@ -99,7 +99,7 @@ void setScreenColors(void);
 #endif
 
 
-#if !defined(NO_TEXT)
+#if !defined(LESS_TEXT)
 	void deleteCenteredMessage(void);
 #endif
 

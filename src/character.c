@@ -74,7 +74,7 @@ void playerDies(void)
 {
 	EXPLOSION_SOUND();
 	die(&player);
-	#if !defined(NO_TEXT)
+	#if !defined(LESS_TEXT)
 		printDefeatMessage();
 	#endif
 	sleep(1);	

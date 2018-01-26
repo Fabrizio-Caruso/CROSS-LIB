@@ -366,7 +366,7 @@ int main(void)
 			ghostSlowDown = computeGhostSlowDown();
 			
 			CLEAR_SCREEN();
-			#if !defined(NO_TEXT)
+			#if !defined(LESS_TEXT)
 				// Clear the screen, put cursor in upper left corner
 
 				printLevel();
@@ -583,7 +583,7 @@ int main(void)
 				#endif
 				
 				#if !defined(TINY_GAME)
-					#if !defined(NO_TEXT)
+					#if !defined(LESS_TEXT)
 						sleep(1);
 						printVictoryMessage();
 						sleep(2);
@@ -615,7 +615,7 @@ int main(void)
 						CLEAR_SCREEN();
 						sleep(1);
 						PING_SOUND();
-						#if !defined(NO_TEXT)
+						#if !defined(LESS_TEXT)
 							printExtraLife();
 						#endif
 						sleep(2);

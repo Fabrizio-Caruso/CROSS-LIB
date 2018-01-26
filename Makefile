@@ -99,7 +99,7 @@ oric1_16k:
 
 vic20_unexpanded: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 \
-	-DALT_PRINT -DNO_SLEEP -DNO_TEXT -DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS \
 	-DTINY_GAME -DVIC20_UNEXPANDED -DNO_RANDOM_LEVEL -DNO_INITIAL_SCREEN -DNO_MESSAGE \
 	--config $(SOURCE_PATH)/../cfg/vic20_unexpanded.cfg  \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/vic20/vic20_unexpanded.c \
@@ -110,7 +110,7 @@ vic20_unexpanded:
 	
 vic20_exp_3k:
 	$(CC65_PATH)$(MYCC65) -O  -t vic20 \
-	-DALT_PRINT -DREDEFINED_CHARS -DNO_SLEEP -DNO_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME -DSOUNDS \
+	-DALT_PRINT -DREDEFINED_CHARS -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME -DSOUNDS \
 	--config $(SOURCE_PATH)/../cfg/vic20-3k_GFX.cfg \
 	$(SOURCE_PATH)/vic20/vic20_sounds_3k.c \
 	$(SOURCE_PATH)/vic20/udc_3k.s  \
@@ -173,7 +173,7 @@ c128_80col:
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_c128_80col.prg
 
-# -DNO_SLEEP -DNO_TEXT -DNO_RANDOM_LEVEL
+# -DNO_SLEEP -DLESS_TEXT -DNO_RANDOM_LEVEL
 # -DSOUNDS $(SOURCE_PATH)/c264/c264_sounds.c
 # -Cl 
 c16_16k: 
@@ -199,7 +199,7 @@ c16_32k:
 
 pet_8k: 
 	$(CC65_PATH)$(MYCC65) -O -t pet \
-	-DTINY_GAME -DNO_SLEEP -DNO_TEXT \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c \
@@ -282,7 +282,7 @@ osic1p_32k:
 # -Wl -D,__HIMEM__=0x8000	
 # -DNO_INITIAL_SCREEN
 osic1p_8k: 
-	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(SOURCE_PATH)/../cfg/osic1p_less_stack.cfg -t osic1p -DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DNO_TEXT -DNO_SET_SCREEN_COLOR -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_osic1p_8k.lod
+	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(SOURCE_PATH)/../cfg/osic1p_less_stack.cfg -t osic1p -DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -DNO_SET_SCREEN_COLOR -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_osic1p_8k.lod
 	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/TINY_osic1p_8k.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p_8k.c1p -Ohio_Scientific -execution-start-address=0x200	
 	rm $(BUILD_PATH)/TINY_osic1p_8k.lod
 	mv $(BUILD_PATH)/TINY_osic1p_8k.c1p $(BUILD_PATH)/TINY_osic1p_8k.lod
@@ -310,7 +310,7 @@ creativision_8k:
 #Z88DK
 
 aquarius_exp_4k:
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius -compiler=sdcc -SO3 --max-allocs-per-node200000 -vn -DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc -lndos -o TINY_aquarius_exp_4k -create-app $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/aquarius/aquarius_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -compiler=sdcc -SO3 --max-allocs-per-node200000 -vn -DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DNO_SLEEP -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc -lndos -o TINY_aquarius_exp_4k -create-app $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/aquarius/aquarius_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(SOURCE_PATH)/../TINY_aquarius_exp_4k
 	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)
 	mv $(SOURCE_PATH)/../_TINY_aquarius_exp_4k.caq $(BUILD_PATH)
@@ -354,7 +354,7 @@ vz200_32k:
 # -SO3 --max-allocs-per-node200000
 #  -DNO_RANDOM_LEVEL
 # $(SOURCE_PATH)/sleep_macros.c
-# -DNO_TEXT -DNO_SLEEP
+# -DLESS_TEXT -DNO_SLEEP
 vg5k: 
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-O3 -zorg=18941 -vn \
@@ -408,14 +408,14 @@ zx80_16k:
 	rm $(BUILD_PATH)/FULL_zx80_16k.prg
 
 # zx81_16k_no_text:
-	# $(Z88DK_PATH)$(MYZ88DK) +zx81 -O3 -vn -D__ZX81__ -DNO_TEXT -DNO_SLEEP -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_zx81_16k_no_text.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	# $(Z88DK_PATH)$(MYZ88DK) +zx81 -O3 -vn -D__ZX81__ -DLESS_TEXT -DNO_SLEEP -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_zx81_16k_no_text.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	# rm $(BUILD_PATH)/FULL_zx81_16k_no_text.prg
 
 # zx81_16k:
 	# $(Z88DK_PATH)$(MYZ88DK) +zx81 -O3 -vn -D__ZX81__ -DFULL_GAME -lndos -create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	# rm $(BUILD_PATH)/FULL_zx81_16k.prg
 	
-# -compiler=sdcc	 -DNO_TEXT -DNO_SLEEP -DBETWEEN_LEVEL
+# -compiler=sdcc	 -DLESS_TEXT -DNO_SLEEP -DBETWEEN_LEVEL
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -O3 -vn -D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg \
@@ -666,7 +666,7 @@ gal_6k:
 	-compiler=sdcc \
 	-SO3 --max-allocs-per-node200000 \
 	-pragma-need=ansiterminal -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -vn -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
-	-DTINY_GAME -DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -D__GAL__ -DALT_PRINT -DNO_MESSAGE \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -D__GAL__ -DALT_PRINT -DNO_MESSAGE \
 	-lndos -create-app -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -700,12 +700,12 @@ pc6001_32k:
 	mv $(BUILD_PATH)/FULL_pc6001_32k.cas $(BUILD_PATH)/FULL_pc6001_32k.cp6
 
 	
-# -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
+# -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
 # -SO3 --max-allocs-per-node200000
 spectrum_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -zorg=24055 -SO3 --max-allocs-per-node200000 \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -clib=sdcc_iy \
-	-DNO_SLEEP -DNO_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ \
+	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ \
 	-create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg \
 	$(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -913,7 +913,7 @@ error_cmoc:
 
 # coco_mono: 
 	# cmoc \
-	# -D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP	-DNO_TEXT \
+	# -D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP	-DLESS_TEXT \
 	# $(SOURCE_PATH)/cmoc/cmoc_graphics.c \
 	# $(SOURCE_PATH)/cmoc/cmoc_input.c \
 	# $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
@@ -1024,7 +1024,7 @@ lwlink_link:
 	main.o	
 
 pet_8k_LIGHT:
-	$(CC65_PATH)$(MYCC65) -O -t pet -DNO_TEXT -DNO_SLEEP $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_pet_8k.prg
+	$(CC65_PATH)$(MYCC65) -O -t pet -DLESS_TEXT -DNO_SLEEP $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_pet_8k.prg
 
 	
 # oric1_48k:
@@ -1040,7 +1040,7 @@ pet_8k_LIGHT:
 
 
 c16_16k_no_udg:
-	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl -DFULL_GAME -DNO_TEXT -DNO_SLEEP -DSOUNDS --config $(SOURCE_PATH)/../cfg/c16-16k_plus.cfg $(SOURCE_PATH)/c264/c264_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k_no_udg.prg
+	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl -DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DSOUNDS --config $(SOURCE_PATH)/../cfg/c16-16k_plus.cfg $(SOURCE_PATH)/c264/c264_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k_no_udg.prg
 
 
 # It works more or less fine (as 16k version) BUT it may not exist as a real model or real expansion
@@ -1064,7 +1064,7 @@ zx81_8k:
 	rm $(BUILD_PATH)/TINY_zx81_8k.prg
 
 lambda_8k:
-	$(Z88DK_PATH)$(MYZ88DK) +lambda -O3 -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLOR -DNO_TEXT -DNO_SLEEP -lndos -create-app -o  $(BUILD_PATH)/TINY_lambda_8k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +lambda -O3 -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLOR -DLESS_TEXT -DNO_SLEEP -lndos -create-app -o  $(BUILD_PATH)/TINY_lambda_8k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_lambda_8k.prg	
 	
 # -----------------------------------------------------------------------------------------------
@@ -1080,7 +1080,7 @@ vg5k_tiny:
 
 
 spectrum_clib_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi -pragma-define:ansicolumns=32 -vn                           -DCLIB_ANSI -DNO_SLEEP -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DNO_TEXT -DTINY_GAME -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/TINY_spectrum_clib.prg  $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi -pragma-define:ansicolumns=32 -vn                           -DCLIB_ANSI -DNO_SLEEP -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DLESS_TEXT -DTINY_GAME -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/TINY_spectrum_clib.prg  $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_spectrum_clib.prg
 	rm $(BUILD_PATH)/TINY_spectrum_clib_BANK_7.bin	
 
@@ -1113,7 +1113,7 @@ joy-test:
 	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/joy-test.c -o  $(BUILD_PATH)/joy-test.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/joy-test.bin
 
-# -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL
+# -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL
 pce_tiny:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t pce -DTINY_GAME -DNO_SLEEP -DNO_RANDOM_LEVEL  --config $(SOURCE_PATH)/../cfg/pce_extra.cfg -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_PCE.pce
 
@@ -1142,21 +1142,21 @@ mc1000_tiny:
 
 # -DFULL_GAME
 vic20_exp_3k_NO_GFX: 
-	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DNO_SLEEP -DNO_TEXT -DNO_SET_SCREEN_COLORS   -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20-3k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
+	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS   -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20-3k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 	
 	
 # vic20_unexpanded_merged:
 	# $(CC65_PATH)$(MYCC65) -O -Cl -t vic20 \
-	# -DALT_PRINT -DNO_SLEEP -DNO_TEXT -DNO_SET_SCREEN_COLORS \
+	# -DALT_PRINT -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS \
 	# -DTINY_GAME -DVIC20_UNEXPANDED -DNO_RANDOM_LEVEL -DNO_INITIAL_SCREEN \
 	# --config $(SOURCE_PATH)/../cfg/vic20_unexpanded.cfg  \
 	# $(SOURCE_PATH)/merged.c \
 	# -o $(BUILD_PATH)/TINY_vic20_unexpanded_merged.prg
 	
-# -DNO_TEXT
+# -DLESS_TEXT
 creativision_light:
 	$(CC65_PATH)$(MYCC65) -O -t creativision -Cl \
-	-DNO_SLEEP -DNO_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DNO_MESSAGE \
+	-DNO_SLEEP -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DNO_MESSAGE \
 	--config $(SOURCE_PATH)/../cfg/creativision-8k.cfg \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -1256,7 +1256,7 @@ mtx_16k:
 # too big for a 16k machine
 svi_318:
 	$(Z88DK_PATH)$(MYZ88DK) +svi -SO3 -zorg=49200 \
-	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos -DSOUNDS -DNO_TEXT -DNO_SLEEP \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos -DSOUNDS -DLESS_TEXT -DNO_SLEEP \
 	-D__SVI__ -create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c \

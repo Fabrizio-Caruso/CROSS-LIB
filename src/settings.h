@@ -37,7 +37,7 @@
 	#define ASM_KEY_DETECT
 	// #define REDEFINED_CHARS
 	// #define SOUNDS
-	// #define NO_TEXT
+	// #define LESS_TEXT
 	// #define NO_SLEEP
 	// #define NO_RANDOM_LEVEL
 	// #define NO_SET_SCREEN_COLORS

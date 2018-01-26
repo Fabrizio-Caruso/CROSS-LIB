@@ -31,7 +31,9 @@ As a consequence of the design, the code includes a framework that could be used
 ![MSX](msx.jpg)
 ![Oric 1/Atmos](Oric.jpg)
 ![Amstrad CPC](cpc.jpg)
+![ZX81](zx81_1.jpg)
 ![title](title.jpg)
+![zx81_title](zx81_title.jpg)
 
 LICENSE
 

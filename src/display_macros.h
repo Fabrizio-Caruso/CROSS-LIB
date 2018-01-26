@@ -138,7 +138,7 @@ typedef struct ImageStruct Image;
 	#define XSize 32
 #elif defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE))
 	#define XSize 80
-#elif defined(__OSIC1P__)
+#elif defined(__OSIC1P__) || defined(__GAL__)
 	#define XSize 32
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define XSize 20

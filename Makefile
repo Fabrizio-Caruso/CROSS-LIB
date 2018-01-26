@@ -1,12 +1,12 @@
-# Makefile for CROSS-CHASE
-
+# Makefile for CROSS-CHASE 
+ 
 
 ifneq ($(COMSPEC),)
 DO_WIN:=1
 endif
 ifneq ($(ComSpec),)
 DO_WIN:=1
-endif
+endif 
 
 ifeq ($(DO_WIN),1)
 EXEEXT = .exe
@@ -686,23 +686,11 @@ mc1000_48k:
 	rm a.cas		
 
 
-gal_6k:
-	$(Z88DK_PATH)$(MYZ88DK) +gal \
-	-compiler=sdcc \
-	-SO3 --max-allocs-per-node200000 \
-	-pragma-need=ansiterminal -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc -vn -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
-	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -D__GAL__ -DALT_PRINT -DNO_MESSAGE \
-	-lndos -create-app -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_galaksija_6k.prg
-	rm $(BUILD_PATH)/TINY_galaksija_6k.wav
-	
 gal_22k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
-	-pragma-need=ansiterminal -vn \
+	-pragma-need=ansiterminal \
 	-D__GAL__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg \
+	-vn -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
@@ -923,6 +911,27 @@ list:
 ####################################################################################################################
 	
 # DEBUG
+
+
+# -DNO_MESSAGE \
+# 	-compiler=sdcc \
+#	-SO3 --max-allocs-per-node200000 \
+# -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL
+# -DALT_PRINT
+# -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc
+
+gal_6k: 
+	$(Z88DK_PATH)$(MYZ88DK) +gal \
+	-pragma-need=ansiterminal \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ \
+	-vn -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_galaksija_6k.prg
+	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
+	
+
+
 
 # It hangs if compiled with sdcc.
 # syntax error if compiled with sccz80

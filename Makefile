@@ -504,8 +504,8 @@ svi_318_mode0:
 # too big for a 16k machine ?
 # -DSOUNDS $(SOURCE_PATH)/psg/psg_sounds.c
 # 
-svi_318_color:
-	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 -zorg=49200 \
+svi_318_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +svi -SO3 --max-allocs-per-node200000 -zorg=49152 \
 	-clib=ansi -compiler=sdcc -pragma-define:ansicolumns=32 -vn -lndos \
 	-DTINY_GAME \
 	-D__SVI__ -create-app -o $(BUILD_PATH)/TINY_svi_318 \
@@ -513,8 +513,20 @@ svi_318_color:
 	$(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_svi_318
+	#rm $(BUILD_PATH)/TINY_svi_318
 
+svi_318:
+	$(Z88DK_PATH)$(MYZ88DK) +svi -SO3 --max-allocs-per-node200000 -zorg=49152 \
+	-clib=ansi -compiler=sdcc -pragma-define:ansicolumns=32 -vn -lndos \
+	-DLESS_TEXT -DNO_SLEEP -DNO_RANDOM_LEVEL \
+	-D__SVI__ -create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	#rm $(BUILD_PATH)/LIGHT_svi_318	
+	
 
 sharp_mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz -O3 \

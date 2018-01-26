@@ -30,7 +30,7 @@ As a consequence of the design, the code includes a framework that could be used
 ![Spectrum 48k](spectrum.jpg)
 ![MSX](msx.jpg)
 ![Oric 1/Atmos](Oric.jpg)
-![Amstrad CPC(cpc.jpg)
+![Amstrad CPC](cpc.jpg)
 ![title](title.jpg)
 
 LICENSE

@@ -26,7 +26,12 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 As a consequence of the design, the code includes a framework that could be used to develop other massively multi-system games and programs. 
 
-![Atari800](Atari800.jpg)
+![Atari 800](atari800.jpg)
+![Spectrum 48k](spectrum.jpg)
+![MSX](msx.jpg)
+![Oric 1/Atmos](Oric.jpg)
+![Amstrad CPC(cpc.jpg)
+![title](title.jpg)
 
 LICENSE
 

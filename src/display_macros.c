@@ -36,6 +36,12 @@
 	Image PLAYER_IMAGE;
 #endif
 
+#if defined(NO_MESSAGE)
+	#include "text.h"
+	
+	extern short highScore;
+#endif
+
 Image GHOST_IMAGE;
 Image DEAD_GHOST_IMAGE;
 Image BOMB_IMAGE;
@@ -309,5 +315,10 @@ Image BOMB_IMAGE;
 
 #endif
 
-	
+#if defined(NO_MESSAGE)
+	void highScoreScreen(void)
+	{
+		gotoxy(1,0); printf("05u0", highScore);
+	}
+#endif
 

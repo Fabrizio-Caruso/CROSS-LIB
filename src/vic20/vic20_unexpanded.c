@@ -29,6 +29,12 @@
 #include <vic20.h>
 #include <string.h>
 
+#if defined(NO_MESSAGE)
+	#include "../text.h"
+	
+	extern short highScore;
+#endif
+
 #include "../input_macros.h"
 	
 
@@ -237,6 +243,27 @@ void _delete(unsigned char x, unsigned char y)
 {
 	_DELETE(x,y);
 }
+
+#if defined(NO_MESSAGE)
+	#include <peekpoke.h>
+	void highScoreScreen(void) 
+	{ 
+		unsigned char i; 
+		unsigned short tmp; 
+		
+		tmp = highScore; 
+		
+		for(i=1;i<6;++i) 
+		{ 
+			tmp -= POKE(7686-i,(unsigned char) ((tmp)%10)); 
+			tmp/=10; 
+			POKE(7686-i,PEEK(7686-i)+48); 
+		} 
+		POKE(7686,48); 
+		
+	}
+
+#endif
 
 #if !defined(TINY_GAME)
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 

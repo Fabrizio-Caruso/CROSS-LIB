@@ -132,34 +132,17 @@ void printStartMessage(void);
 #endif
 
 #if defined(TINY_GAME)
-	#if !defined(VIC20_UNEXPANDED)
+	#if !defined(NO_MESSAGE)
 		#define highScoreScreen() PRINTF((XSize-6)/2, 0, "%05u0", highScore)
 	#else
-		#include <peekpoke.h>
-		#define highScoreScreen() \
-		{ \
-			unsigned char i; \
-			unsigned short tmp; \
-			\
-			tmp = highScore; \
-			\
-			for(i=1;i<6;++i) \
-			{ \
-				tmp -= POKE(7686-i,(unsigned char) ((tmp)%10)); \
-				tmp/=10; \
-				POKE(7686-i,PEEK(7686-i)+48); \
-			} \
-			POKE(7686,48); \
-			\
-		}
+		void highScoreScreen(void);
 	#endif
-// #define highScoreScreen() PRINTF((XSize-6)/2, 0, "%05u0", highScore)
-#elif defined(__C64__)
-	#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);
+// #elif defined(__C64__)
+	// #define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);
 
-	#define finalScore() _printScore("score: %05u0", points);
+	// #define finalScore() _printScore("score: %05u0", points);
 
-	#define highScoreScreen() _printScore("high score: %05u0", highScore);
+	// #define highScoreScreen() _printScore("high score: %05u0", highScore);
 #else
 	#if defined(NO_CASE_LETTERS)
 		#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);

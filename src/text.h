@@ -79,6 +79,9 @@ void setScreenColors(void);
 	void printGhostCountStats(void);
 
 	void printLivesStats(void);	
+
+	void printPressKeyToStart(void);
+	
 #else
 	#define printCenteredMessageOnRow(row,Text)
 
@@ -87,6 +90,8 @@ void setScreenColors(void);
 	#define printGhostCountStats()
 	
 	#define printLivesStats()
+	
+	#define printPressKeyToStart()
 #endif
 
 #if defined(COLOR)
@@ -94,20 +99,24 @@ void setScreenColors(void);
 #endif
 
 
-void printPressKeyToStart(void);
-
 #if !defined(NO_TEXT)
 	void deleteCenteredMessage(void);
 #endif
 
-void printGameOver(void);
+#if !defined(NO_MESSAGE)
+	void printGameOver(void);
+#else
+	#define printGameOver()
+#endif
 
 void printDefeatMessage(void);
 
 void printStartMessage(void);
 
-#if !defined(END_SCREEN)
+#if !defined(END_SCREEN) && !defined(NO_MESSAGE)
 	void gameCompleted(void);
+#elif defined(NO_MESSAGE)
+	#define gameCompleted()
 #endif
 
 #if !defined(TINY_GAME)

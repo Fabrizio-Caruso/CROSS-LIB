@@ -265,6 +265,12 @@ extern Image PLAYER_IMAGE;
 			PRINTF(PLAYER_IMAGE_X+1,-Y_OFFSET,"%02u",lives);	
 		#endif
 	}
+
+	void printPressKeyToStart(void)
+	{
+		printCenteredMessage(PRESS_STRING);
+	}		
+	
 #endif
 
 void displayStats(void)
@@ -310,7 +316,7 @@ void displayStats(void)
 	}
 #endif
 
-#if !defined(END_SCREEN)
+#if !defined(END_SCREEN) && !defined(NO_MESSAGE)
 	void gameCompleted(void)	
 	{
 		printCenteredMessage(YOU_MADE_IT_STRING); 
@@ -330,11 +336,6 @@ void displayStats(void)
 	}	
 #endif
 
-void printPressKeyToStart(void)
-{
-	printCenteredMessage(PRESS_STRING);
-}		
-
 
 #if !defined(NO_TEXT)	
 	void printGameOver(void)
@@ -346,7 +347,7 @@ void printPressKeyToStart(void)
 	{			
 		printCenteredMessageWithCol(_RED, DEFEAT_STRING);
 	}	
-#else
+#elif !defined(NO_MESSAGE)
 	void printGameOver(void)
 	{
 		printCenteredMessage(GAME_OVER_STRING);

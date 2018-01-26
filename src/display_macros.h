@@ -134,7 +134,7 @@ typedef struct ImageStruct Image;
 	#define X_OFFSET 0
 #endif
 
-#if defined(__CREATIVISION__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
+#if defined(__CREATIVISION__) || defined(__MSX__) || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
 	#define XSize 32
 #elif defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE))
 	#define XSize 80
@@ -148,7 +148,7 @@ typedef struct ImageStruct Image;
 	#define XSize 22
 #elif defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
       || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
-	  || defined(__AQUARIUS__)
+	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0))
 	#define XSize (40-X_OFFSET)
 #elif defined(__PET__) || defined(__CBM610__)
 	#define XSize 80
@@ -160,7 +160,8 @@ typedef struct ImageStruct Image;
 	#define XSize 16
 #endif
 
-#if defined(__CREATIVISION__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
+#if defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
+    || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
 	#define YSize (24-Y_OFFSET)
 #elif defined(__OSIC1P__)
 	#define YSize (32-Y_OFFSET)	

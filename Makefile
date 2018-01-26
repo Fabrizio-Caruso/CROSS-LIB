@@ -492,26 +492,30 @@ msx_color_32k_rom:
 	
 svi_318_mode0:
 	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 -zorg=49200 -vn -lndos \
-	-D__SVI__ -DMSX_MODE0 -create-app -o  $(BUILD_PATH)/LIGHT_svi_318_mode0 \
+	-D__SVI__ -DMSX_MODE0 \
+	-create-app -o  $(BUILD_PATH)/LIGHT_svi_318_mode0 \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/svi/svi_graphics.c $(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_SVI_318_mode0
-	
-# $(SOURCE_PATH)/svi/svi_graphics.c	
-svi_328:
-	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 \
-	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
-	-DSOUNDS -DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
-	-create-app -o $(BUILD_PATH)/FULL_svi_328 \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c \
+
+# too big for a 16k machine ?
+# -DSOUNDS $(SOURCE_PATH)/psg/psg_sounds.c
+# 
+svi_318:
+	$(Z88DK_PATH)$(MYZ88DK) +svi -SO3 -zorg=49200 \
+	-clib=ansi -compiler=sdcc -pragma-define:ansicolumns=32 -vn -lndos \
+	-DLESS_TEXT -DNO_SLEEP \
+	-D__SVI__ -create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_svi_328
+	#rm $(BUILD_PATH)/LIGHT_svi_318
+
 
 sharp_mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz -O3 \
@@ -670,8 +674,8 @@ gal_6k:
 	-lndos -create-app -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	# rm $(BUILD_PATH)/TINY_galaksija_6k.prg
-	# rm $(BUILD_PATH)/TINY_galaksija_6k.wav
+	rm $(BUILD_PATH)/TINY_galaksija_6k.prg
+	rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 	
 gal_22k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
@@ -848,7 +852,7 @@ cc65_targets: \
 # KO:      \
 # OK: 35
 z88dk_targets: \
-	gal_6k ace_exp_16k  cpc vg5k vg5k_exp_16k svi_318_mode0 svi_328 sharp_mz \
+	gal_6k ace_exp_16k  cpc vg5k vg5k_exp_16k svi_318_mode0 sharp_mz \
 	samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k \
 	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k \
 	zx81_16k aquarius_exp_4k aquarius_exp_16k vz200_16k \
@@ -898,6 +902,23 @@ list:
 ####################################################################################################################
 	
 # DEBUG
+
+# It hangs if compiled with sdcc.
+# syntax error if compiled with sccz80
+# $(SOURCE_PATH)/svi/svi_graphics.c	
+svi_328:
+	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
+	-DSOUNDS -DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
+	-create-app -o $(BUILD_PATH)/FULL_svi_328 \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_svi_328
+
+
 
 error_cc65:
 	$(CC65_PATH)$(MYCC65) -t vic20 $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_cc65.prg
@@ -1252,20 +1273,7 @@ mtx_16k:
 	mv LIGHT.bin $(BUILD_PATH)
 	mv LIGHT.wav $(BUILD_PATH)
 	
-
-# too big for a 16k machine
-svi_318:
-	$(Z88DK_PATH)$(MYZ88DK) +svi -SO3 -zorg=49200 \
-	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos -DSOUNDS -DLESS_TEXT -DNO_SLEEP \
-	-D__SVI__ -create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/LIGHT_svi_318
 	
-
 lambda_light:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda -vn -D__LAMBDA__ -lndos -create-app -o  $(BUILD_PATH)/LIGHT_lambda.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_lambda.prg	

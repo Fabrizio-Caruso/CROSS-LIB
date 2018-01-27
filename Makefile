@@ -861,7 +861,7 @@ cc65_targets: \
 # KO:      \
 # OK: 35
 z88dk_targets: \
-	gal_6k ace_exp_16k  cpc vg5k vg5k_exp_16k svi_318_color svi_318_mode0 sharp_mz \
+	ace_exp_16k  cpc vg5k vg5k_exp_16k svi_318_color svi_318_mode0 sharp_mz \
 	samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k \
 	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k \
 	zx81_16k aquarius_exp_4k aquarius_exp_16k vz200_16k \

@@ -242,11 +242,9 @@
 #elif defined(__PCE__) || (defined(__VIC20__) && defined(TINY_GAME)) || (defined(__SPECTRUM__) && defined(TINY_GAME))
 	#define BOMBS_NUMBER 4
 #elif defined(__AQUARIUS__) && defined(TINY_GAME)
-	#define BOMBS_NUMBER 1
+	#define BOMBS_NUMBER 4
 #elif defined(__OSIC1P__) && defined(TINY_GAME)
 	#define BOMBS_NUMBER 4
-#elif defined(__VIC20__) && defined(TINY_GAME) && defined(VIC20_UNEXPANDED)
-	#define BOMBS_NUMBER 1	
 #else
 	#define BOMBS_NUMBER 4
 #endif

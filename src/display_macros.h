@@ -40,8 +40,9 @@
 	#define PLAYER_IMAGE PLAYER_DOWN
 #endif
 	
-//!(defined(__VIC20__) && defined(VIC20_UNEXPANDED)) && 
-#if !defined(__CMOC__) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__MSX__)  && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
+// !(defined(__VIC20__) && defined(VIC20_UNEXPANDED)) &&
+#if !defined(__CMOC__) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__MSX__) \
+    && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
 	#include <conio.h>
 #endif
 #if defined(__WINCMOC__)
@@ -356,9 +357,8 @@ void DRAW_BOMBS(void);
 #elif defined(__AQUARIUS__) && defined(TINY_GAME) && defined(ALT_PRINT)
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
-#elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT)
+#elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT) && !defined(VIC20_UNEXPANDED)
 	void PRINT(unsigned char x, unsigned char y, char * str);
-	// #define PRINTF
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <coco.h>

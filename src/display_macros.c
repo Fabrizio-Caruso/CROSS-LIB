@@ -313,12 +313,14 @@ Image BOMB_IMAGE;
 			}
 	#endif
 
+	#if defined(NO_MESSAGE)
+		void highScoreScreen(void)
+		{
+			gotoxy(1,0); printf("05u0", highScore);
+		}
+	#endif	
+	
 #endif
 
-#if defined(NO_MESSAGE)
-	void highScoreScreen(void)
-	{
-		gotoxy(1,0); printf("05u0", highScore);
-	}
-#endif
+
 

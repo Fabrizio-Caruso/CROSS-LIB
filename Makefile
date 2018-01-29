@@ -99,6 +99,7 @@ oric1_16k:
 
 vic20_unexpanded: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 \
+	-DVIC20_UNEXPANDED \
 	-DALT_PRINT -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS \
 	-DTINY_GAME -DVIC20_UNEXPANDED -DNO_RANDOM_LEVEL -DNO_INITIAL_SCREEN -DNO_MESSAGE \
 	--config $(SOURCE_PATH)/../cfg/vic20_unexpanded.cfg  \
@@ -911,6 +912,10 @@ list:
 ####################################################################################################################
 	
 # DEBUG
+
+
+vic20_targets: \
+	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
 
 
 # -DNO_MESSAGE \

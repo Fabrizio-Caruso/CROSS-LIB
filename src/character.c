@@ -93,6 +93,10 @@ void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char
 	characterPtr->_y = y;
 	characterPtr->_status = status;
 	characterPtr->_imagePtr = imagePtr;
+	
+	#if defined(DEBUG)
+		displayCharacter(characterPtr);
+	#endif
 }
 
 void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y)

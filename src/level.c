@@ -48,15 +48,11 @@ extern Image BOMB_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
 
 #if !defined(TINY_GAME)
-extern Image INVINCIBLE_GHOST_IMAGE;
-extern Image MISSILE_IMAGE;
-extern Image POWERUP_IMAGE;
-extern Image GUN_IMAGE;
-extern Image EXTRA_POINTS_IMAGE;
-#endif
-
-#if defined(FULL_GAME)
-extern Image FREEZE_IMAGE;		
+	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image MISSILE_IMAGE;
+	extern Image POWERUP_IMAGE;
+	extern Image GUN_IMAGE;
+	extern Image EXTRA_POINTS_IMAGE;
 #endif
 
 extern Character player; 
@@ -88,6 +84,7 @@ extern Character bombs[BOMBS_NUMBER];
 
 	extern Image BUBBLE_IMAGE;
 
+	extern Image FREEZE_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 

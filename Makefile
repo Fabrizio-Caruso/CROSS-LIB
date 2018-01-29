@@ -513,15 +513,18 @@ svi_318_mode0:
 
 # 	-DSOUNDS \
 # 	$(SOURCE_PATH)/psg/psg_sounds.c \
+# 	-DLESS_TEXT -DNO_SLEEP 
 
 svi_318:
-	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 -zorg=49152 \
+	$(Z88DK_PATH)$(MYZ88DK) +svi \
+	-O3 \
+	-zorg=49152 \
 	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
 	-vn -lndos \
-	-DLESS_TEXT -DNO_SLEEP -DNO_RANDOM_LEVEL \
 	-D__SVI__ \
+	-DLESS_TEXT -DNO_SLEEP \
 	-create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c \

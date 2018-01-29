@@ -278,6 +278,16 @@ void initialScreen(void)
 	
 #endif
 
+#if defined(SLOW_DOWN)
+	void slow_down(void)
+	{
+		short i;
+		for(i=0;i<GAME_SLOW_DOWN;++i)
+		{	
+		}
+	}
+#endif
+
 int main(void)
 {		
 	INIT_INPUT();
@@ -422,14 +432,10 @@ int main(void)
 			#endif
 			{
 				#if defined(SLOW_DOWN)
-				{
-					unsigned short i;
-					for(i=0;i<GAME_SLOW_DOWN;++i)
-					{
-					}
-				}
+					slow_down();
 				#endif
-							
+						
+						
 				#if defined(FULL_GAME)
 					handle_rockets();
 					handle_enemy_missiles();
@@ -450,7 +456,7 @@ int main(void)
 				MOVE_PLAYER();
 				
 				_DRAW_PLAYER();	
-	
+
 				#if !defined(TINY_GAME)
 					handle_missile();
 				#endif

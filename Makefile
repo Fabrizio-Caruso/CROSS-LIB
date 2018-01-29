@@ -501,13 +501,18 @@ msx_color_32k_rom:
 svi_318_mode0:
 	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 -zorg=49200 -vn -lndos \
 	-D__SVI__ -DMSX_MODE0 \
+	-DSOUNDS \
 	-create-app -o  $(BUILD_PATH)/LIGHT_svi_318_mode0 \
+	$(SOURCE_PATH)/psg/psg_sounds.c \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/svi/svi_graphics.c $(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/LIGHT_SVI_318_mode0
+	# rm $(BUILD_PATH)/LIGHT_SVI_318_mode0
+
+# 	-DSOUNDS \
+# 	$(SOURCE_PATH)/psg/psg_sounds.c \
 
 svi_318:
 	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 -zorg=49152 \
@@ -522,7 +527,7 @@ svi_318:
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/LIGHT_svi_318		
+	# rm $(BUILD_PATH)/LIGHT_svi_318		
 	
 # It hangs if compiled with sdcc.
 # syntax error if compiled with sccz80
@@ -530,7 +535,8 @@ svi_318:
 svi_328:
 	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
-	-DSOUNDS -DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DSOUNDS \
+	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
 	-create-app -o $(BUILD_PATH)/FULL_svi_328 \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c \

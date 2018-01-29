@@ -85,7 +85,6 @@ Sel	Pulse
 		unsigned char i;
 		unsigned char j;
 		
-		//set_psg(NOISE,15);
 		set_psg(A_VOLUME,15);
 		
 		set_psg(A_PERIOD_LOW,255);
@@ -102,15 +101,17 @@ Sel	Pulse
 			}
 		}
 		
-		for(i=0;i<16;i++)
-		{
-			set_psg(A_VOLUME,15-i);		
-			for(j=0;j<200;++j)
-			{
-			}
-		}
+		// for(i=0;i<16;i++)
+		// {
+			// set_psg(A_VOLUME,15-i);		
+			// for(j=0;j<200;++j)
+			// {
+			// }
+		// }
 		
 		set_psg(CONTROL, control);
+
+		set_psg(A_VOLUME,0);		
 	}
 
 	
@@ -153,13 +154,13 @@ Sel	Pulse
 		for(i=0;i<13;i++)
 		{
 			set_psg(A_VOLUME,15-i);		
-			for(j=0;j<250;++j)
+			for(j=0;j<253;++j)
 			{
 			}		
 		}
-		for(j=0;j<250;++j)
-			{
-			}			
+		// for(j=0;j<250;++j)
+			// {
+			// }			
 		set_psg(CONTROL, control);
 		set_psg(A_VOLUME,0);		
 	}

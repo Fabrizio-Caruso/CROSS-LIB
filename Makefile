@@ -509,7 +509,7 @@ svi_318_mode0:
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	# rm $(BUILD_PATH)/LIGHT_SVI_318_mode0
+	rm $(BUILD_PATH)/LIGHT_SVI_318_mode0
 
 # 	-DSOUNDS \
 # 	$(SOURCE_PATH)/psg/psg_sounds.c \
@@ -521,13 +521,14 @@ svi_318:
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
 	-vn -lndos \
 	-DLESS_TEXT -DNO_SLEEP -DNO_RANDOM_LEVEL \
-	-D__SVI__ -create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
+	-D__SVI__ \
+	-create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	# rm $(BUILD_PATH)/LIGHT_svi_318		
+	rm $(BUILD_PATH)/LIGHT_svi_318		
 	
 # It hangs if compiled with sdcc.
 # syntax error if compiled with sccz80

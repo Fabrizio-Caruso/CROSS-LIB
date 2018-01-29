@@ -509,23 +509,9 @@ svi_318_mode0:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_SVI_318_mode0
 
-# too big for a 16k machine ?
-# -DSOUNDS $(SOURCE_PATH)/psg/psg_sounds.c
-# 
-svi_318_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +svi -SO3 --max-allocs-per-node200000 -zorg=49152 \
-	-clib=ansi -compiler=sdcc -pragma-define:ansicolumns=32 -vn -lndos \
-	-DTINY_GAME \
-	-D__SVI__ -create-app -o $(BUILD_PATH)/TINY_svi_318 \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	#rm $(BUILD_PATH)/TINY_svi_318
-
 svi_318:
-	$(Z88DK_PATH)$(MYZ88DK) +svi -SO3 --max-allocs-per-node200000 -zorg=49152 \
-	-clib=ansi -compiler=sdcc \
+	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 -zorg=49152 \
+	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
 	-vn -lndos \
@@ -536,8 +522,22 @@ svi_318:
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	#rm $(BUILD_PATH)/LIGHT_svi_318	
+	rm $(BUILD_PATH)/LIGHT_svi_318		
 	
+# It hangs if compiled with sdcc.
+# syntax error if compiled with sccz80
+# $(SOURCE_PATH)/svi/svi_graphics.c	
+svi_328:
+	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
+	-DSOUNDS -DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
+	-create-app -o $(BUILD_PATH)/FULL_svi_328 \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_svi_328
 
 sharp_mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz -O3 \
@@ -914,6 +914,7 @@ list:
 # DEBUG
 
 
+
 vic20_targets: \
 	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
 
@@ -937,22 +938,20 @@ gal_6k:
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 	
 
-
-
-# It hangs if compiled with sdcc.
-# syntax error if compiled with sccz80
-# $(SOURCE_PATH)/svi/svi_graphics.c	
-svi_328:
-	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 \
-	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
-	-DSOUNDS -DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
-	-create-app -o $(BUILD_PATH)/FULL_svi_328 \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+# too big for a 16k machine ?
+# -DSOUNDS $(SOURCE_PATH)/psg/psg_sounds.c
+# 
+svi_318_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +svi -SO3 --max-allocs-per-node200000 -zorg=49152 \
+	-clib=ansi -compiler=sdcc -pragma-define:ansicolumns=32 -vn -lndos \
+	-DTINY_GAME \
+	-D__SVI__ -create-app -o $(BUILD_PATH)/TINY_svi_318 \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_svi_328
+	#rm $(BUILD_PATH)/TINY_svi_318
+
 
 
 

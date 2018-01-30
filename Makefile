@@ -66,9 +66,9 @@ atari_no_color_16k:
 	$(SOURCE_PATH)/main.c  -o \
 	$(BUILD_PATH)/LIGHT_atari_no_color_16k.xex
 
+# --config $(SOURCE_PATH)/../cfg/atari5200_less_stack.cfg
 atari5200: 
 	$(CC65_PATH)$(MYCC65) -O -t atari5200 \
-	--config $(SOURCE_PATH)/../cfg/atari5200_less_stack.cfg \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c \
@@ -309,10 +309,26 @@ creativision_8k:
 	$(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/TINY_creativision_8k.bin
 
-
+atari_lynx:
+	$(CC65_PATH)$(MYCC65) -O -t lynx \
+	-D__ATARI_LYNX__ \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/atari_lynx/atari_lynx_graphics.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c \
+	-o $(BUILD_PATH)/LIGHT_ATARI_LYNX.lnx
+	
+	
 # -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL
 pce_8k:
-	$(CC65_PATH)$(MYCC65) -O -Cl -t pce -DTINY_GAME -DNO_SLEEP -DLESS_TEXT  --config $(SOURCE_PATH)/../cfg/pce_extra.cfg -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_PCE_8k.pce
+	$(CC65_PATH)$(MYCC65) -O -Cl -t pce \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT \
+	--config $(SOURCE_PATH)/../cfg/pce_extra.cfg \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c \
+	-o $(BUILD_PATH)/TINY_PCE_8k.pce
 
 	
 # ------------------------------------------------------------------------------------------
@@ -863,7 +879,7 @@ coco:
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 # KO: 
-# OK: 27
+# OK: 28
 # ------------
 cc65_targets: \
 	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k \
@@ -873,7 +889,8 @@ cc65_targets: \
 	pet_8k pet_16k cbm510 cbm610 \
 	apple2 apple2enh \
 	c64 c128_40col c128_80col \
-	pce_8k atari5200 creativision_8k nes gamate \
+	pce_8k atari5200 creativision_8k nes \
+	gamate atari_lynx \
 	osic1p_8k osic1p_32k
 
 
@@ -1197,17 +1214,7 @@ gamate_light:
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/LIGHT_gamate.bin
 
 	# TODO: Reduce size in order to compile	
-	
-# No Image displayed	
-atari_lynx:
-	$(CC65_PATH)$(MYCC65) -O -t lynx \
-	-D__ATARI_LYNX__ \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/atari_lynx/atari_lynx_graphics.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
-	-o $(BUILD_PATH)/LIGHT_ATARI_LYNX.lnx
+
 
 # -subtype=gaming
 mc1000_tiny:

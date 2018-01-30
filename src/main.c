@@ -279,7 +279,7 @@ void initialScreen(void)
 #endif
 
 #if defined(SLOW_DOWN)
-	void slow_down(void)
+	void _slow_down(void)
 	{
 		short i;
 		for(i=0;i<GAME_SLOW_DOWN;++i)
@@ -432,7 +432,7 @@ int main(void)
 			#endif
 			{
 				#if defined(SLOW_DOWN)
-					slow_down();
+					_slow_down();
 				#endif
 						
 						

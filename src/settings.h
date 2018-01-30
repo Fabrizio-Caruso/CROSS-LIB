@@ -79,7 +79,9 @@
 #endif
 	
 
-#if defined(__NASCOM__) || defined(__MC1000__) || defined(__OSIC1P__) || defined(__WINCMOC__) || defined(__CMOC__) ||  defined(__GAL__)  || defined(__Z9001__) || defined(__ABC80__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__)
+#if defined(__NASCOM__) || defined(__MC1000__) || defined(__OSIC1P__) || defined(__WINCMOC__) || defined(__CMOC__) \
+	||  defined(__GAL__)  || defined(__Z9001__) || defined(__ABC80__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
+	|| defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__)
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'
@@ -192,7 +194,10 @@
 	#define GAME_SLOW_DOWN 0
 #endif
 
-#if (defined(__VIC20__) && defined(VIC20_UNEXPANDED)) || defined(__CBM610__) || ( (!defined(__CREATIVISION__) || !defined(TINY_GAME)) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__GAMATE__) && !defined(__CBM__) && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) && !defined(__NES__) && !defined(__PCE__))
+#if (defined(__VIC20__) && defined(VIC20_UNEXPANDED)) || defined(__CBM610__) || !defined(__CREATIVISION__) \
+	&& !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__GAMATE__) && !defined(__CBM__) \
+	&& !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) \
+	&& !defined(__NES__) && !defined(__PCE__))
 	#define KEYBOARD_CONTROL
 #else
 	#define JOYSTICK_CONTROL

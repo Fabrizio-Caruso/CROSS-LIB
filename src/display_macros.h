@@ -436,6 +436,9 @@ void DRAW_BOMBS(void);
 	#define SET_TEXT_COLOR(c)
 	#define CLEAR_SCREEN() clrscr()
 	// void CLEAR_SCREEN(void); // to be implemented
+#elif defined(__ATARI_LYNX__)
+	#define SET_TEXT_COLOR(c)
+	void CLEAR_SCREEN(void);
 #else // CC65 conio case
 	#if !defined(NO_COLOR)
 		#define SET_TEXT_COLOR(c) (void) textcolor (c);

@@ -26,6 +26,8 @@
 #include <stdio.h>
 #include <tgi.h>
 
+#include "../sleep_macros.h"
+
 extern unsigned char XSize;
 
 // tgi_updatedisplay();
@@ -34,6 +36,7 @@ extern unsigned char XSize;
 	char chString[2]; \
 	chString[0] = image->_imageData; \
 	chString[1]='\0'; \
+	tgi_setbgcolor(COLOR_BLACK); \
 	tgi_setcolor(image->_color); \
 	tgi_outtextxy(x*8,y*8,chString); \
 	}
@@ -42,10 +45,7 @@ extern unsigned char XSize;
 	char chString[2]; \
 	chString[0] = ' '; \
 	chString[1]='\0'; \
-	tgi_setbgcolor(COLOR_YELLOW); \
-	tgi_setcolor(COLOR_BLACK); \
-	tgi_outtextxy(x*8,y*8,chString); \
-	tgi_setbgcolor(COLOR_BLACK); \
+	tgi_setbgcolor(_BG_COLOR); \
 	tgi_setcolor(COLOR_BLACK); \
 	tgi_outtextxy(x*8,y*8,chString); \
 	}    
@@ -76,13 +76,54 @@ extern Image GUN_IMAGE;
 	extern Image BROKEN_WALL_IMAGE;
 #endif
 
+#define _BG_COLOR COLOR_GREY
+
+
+// enable Mikeys interrupt response
+#define CLI() asm("\tcli")
+
+void CLEAR_SCREEN(void)
+{
+	unsigned char i;
+
+	CLI();
+
+	while (tgi_busy())  {  };
+
+	tgi_setpalette(tgi_getdefpalette());
+	tgi_setcolor(COLOR_WHITE);
+	tgi_setbgcolor(_BG_COLOR);
+	
+	for(i=0;i<13;++i)
+	{
+		// sleep(1);	
+		tgi_outtextxy(0,i*8,"                   ");
+	}	
+}
+
 
 void INIT_GRAPHICS(void)
-{    tgi_install (tgi_static_stddrv);
+{
+	    tgi_install (tgi_static_stddrv);
 
-	tgi_init ();
+
+	// tgi_setpalette(tgi_getdefpalette());
+    // tgi_clear ();
+	
+	// tgi_install(tgi_static_stddrv);
+	
+	// tgi_init();
+	tgi_init ();		
+	CLI();
+
+	while (tgi_busy())  {  };
+
 	tgi_setpalette(tgi_getdefpalette());
-    tgi_clear ();
+	tgi_setcolor(COLOR_WHITE);
+	tgi_setbgcolor(_BG_COLOR);
+
+
+	CLEAR_SCREEN();
 }
 
 void INIT_IMAGES(void)
@@ -91,7 +132,7 @@ void INIT_IMAGES(void)
 	#if !defined(NO_COLOR)
 		PLAYER_IMAGE._color = COLOR_BLUE;
 		INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
-		POWERUP_IMAGE._color = COLOR_WHITE;
+		POWERUP_IMAGE._color = COLOR_YELLOW;
 		GUN_IMAGE._color = COLOR_WHITE;
 		BOMB_IMAGE._color = COLOR_RED;
 		DEAD_GHOST_IMAGE._color = COLOR_RED;

@@ -360,6 +360,9 @@ void DRAW_BOMBS(void);
 #elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT) && defined(VIC20_UNEXPANDED)
 	#define PRINT(x,y,str)
 	#define PRINTF(x,y,str,val)	
+#elif defined(__ATARI_LYNX__)
+	void PRINT(unsigned char x, unsigned char y, char * str);
+	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
 #elif defined(__AQUARIUS__) && defined(TINY_GAME) && defined(ALT_PRINT)
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	

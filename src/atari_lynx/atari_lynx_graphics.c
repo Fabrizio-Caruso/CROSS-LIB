@@ -24,6 +24,8 @@
 
 
 #include <stdio.h>
+#include <string.h>
+
 #include <tgi.h>
 
 #include "../sleep_macros.h"
@@ -73,7 +75,14 @@ extern Image GUN_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
 	
+	extern Image FREEZE_IMAGE;	
+	extern Image CHASE_IMAGE;
+	extern Image SUPER_IMAGE;
+	extern Image CONFUSE_IMAGE;
+	extern Image ZOMBIE_IMAGE;
+	
 	extern Image BROKEN_WALL_IMAGE;
+	
 #endif
 
 #define _BG_COLOR COLOR_GREY
@@ -150,6 +159,7 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._imageData = 'O';
 
 	#if defined(FULL_GAME)
+		
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
@@ -161,6 +171,13 @@ void INIT_IMAGES(void)
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 		INVINCIBILITY_IMAGE._imageData = 'V';
 		
+		FREEZE_IMAGE._imageData = 'F';												
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+		INVINCIBILITY_IMAGE._imageData = 'V';	
+		SUPER_IMAGE._imageData = 'H';	
+		CONFUSE_IMAGE._imageData = 'C';
+		ZOMBIE_IMAGE._imageData = 'Z';
+		
 		#if !defined(NO_COLOR)
 			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
@@ -168,6 +185,13 @@ void INIT_IMAGES(void)
 			EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
 			EXTRA_LIFE_IMAGE._color = COLOR_WHITE;
 			INVINCIBILITY_IMAGE._color = COLOR_WHITE;	
+
+			FREEZE_IMAGE._color = COLOR_CYAN;
+			EXTRA_LIFE_IMAGE._color = COLOR_BLUE;
+			INVINCIBILITY_IMAGE._color = COLOR_YELLOW;	
+			SUPER_IMAGE._color = COLOR_RED;
+			CONFUSE_IMAGE._color = COLOR_RED;
+			ZOMBIE_IMAGE._color = COLOR_RED;			
 		#endif
 	#endif
 }
@@ -206,6 +230,80 @@ void _delete(unsigned char x, unsigned char y)
 	}
 #endif
 	
+void PRINT(unsigned char x, unsigned char y, char * str)
+{
+	tgi_outtextxy(x*8,y*8,str);
+}
+
+
+void print_05u0(unsigned char x, unsigned char y, unsigned short val)
+{
+	// unsigned char i;
+	// unsigned char digits[7];
+	// unsigned short tmp = val;
+	
+	// digits[0] = 0;
+	// for(i=1;i<6;++i)
+	// {
+		// digits[i] = (unsigned char) ((tmp)%10);
+		// tmp-= digits[i];
+		// tmp/=10;
+	// }
+	
+	// digits[6] = '\0';
+	// tgi_outtextxy(x*8,y*8,digits);
+
+}	
+
+void print_02u(unsigned char x, unsigned char y, unsigned short val)
+{
+	// char str[3];
+	
+	// str[0] = val/10+49;
+	// str[1] = val%10+48;
+	// str[2] = '\0';	
+	
+	// tgi_outtextxy(x*8,y*8,str);
+}	
+
+
+void print_u(unsigned char x, unsigned char y, unsigned short val)
+{
+	// POKE(BASE_ADDR+x+y*((unsigned short)XSize), (unsigned char) (val+48));
+	char str[2];
+	
+	str[0] = val+48;
+	str[1] = '\0';
+	
+	tgi_outtextxy(x*8,y*8,str);
+}
+
+void print_level(unsigned short val)
+{
+	PRINT(XSize/2-4,YSize/2,"level");
+	print_u(XSize/2+2, YSize/2, val);
+}
+
+void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
+{
+	if(strlen(str)==5)
+	{	
+		print_05u0(x,y,val);
+	}
+	else if(strlen(str)==4)
+	{
+		print_02u(x,y,val);		
+	}
+	else if(strlen(str)==2)
+	{
+		print_u(x,y,val);		
+	}
+	else
+	{
+		print_level(val);
+	}
+}
+
 #if !defined(TINY_GAME)
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {

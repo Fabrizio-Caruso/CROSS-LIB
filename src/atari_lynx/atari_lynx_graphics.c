@@ -28,8 +28,24 @@
 
 extern unsigned char XSize;
 
-#define _DRAW(x,y,image) {char chString[2]; chString[0] = image->_imageData; chString[1]='\0'; tgi_outtextxy(x*8,y*8,chString);}
-#define _DELETE(x,y) {char chString[2]; chString[0] = ' '; chString[1]='\0'; tgi_outtextxy(x*8,y*8,chString);}    
+// tgi_updatedisplay();
+#define _DRAW(x,y,image) \
+	{ \
+	char chString[2]; \
+	chString[0] = image->_imageData; \
+	chString[1]='\0'; \
+	tgi_setcolor(image->_color); \
+	tgi_outtextxy(x*8,y*8,chString); \
+	}
+#define _DELETE(x,y) \
+	{ \
+	char chString[2]; \
+	chString[0] = ' '; \
+	chString[1]='\0'; \
+	tgi_setbgcolor(COLOR_YELLOW); \
+	tgi_setcolor(COLOR_YELLOW); \
+	tgi_outtextxy(x*8,y*8,chString); \
+	}    
 #define _DRAW_WALL(x,y)  {char chString[2]; chString[0] = '|'; chString[1]='\0'; tgi_outtextxy(x*8,y*8,chString);}   
 #define _DRAW_BROKEN_WALL(x,y) 	{char chString[2]; chString[0] = 'X'; chString[1]='\0'; tgi_outtextxy(x*8,y*8,chString);}   
 
@@ -70,7 +86,7 @@ void INIT_IMAGES(void)
 {		
 
 	#if !defined(NO_COLOR)
-		PLAYER_IMAGE._color = COLOR_WHITE;
+		PLAYER_IMAGE._color = COLOR_BLUE;
 		INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
 		POWERUP_IMAGE._color = COLOR_WHITE;
 		GUN_IMAGE._color = COLOR_WHITE;

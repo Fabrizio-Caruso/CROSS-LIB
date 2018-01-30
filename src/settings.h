@@ -187,6 +187,9 @@
 #elif defined(__SVI__) && defined(MSX_MODE0)
 	#define SLOW_DOWN 
 	#define GAME_SLOW_DOWN 800
+#elif defined(__ATARI_LYNX__)
+	#define SLOW_DOWN 
+	#define GAME_SLOW_DOWN 2500	
 #elif defined(__SVI__) && !defined(MSX_MODE0)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 800	
@@ -266,6 +269,8 @@
 	#define GHOSTS_NUMBER 8	
 #elif defined(__VIC20__) && defined(TINY_GAME) && defined(VIC20_UNEXPANDED)
 	#define GHOSTS_NUMBER 6
+#elif defined(__ATARI_LYNX__)
+	#define GHOSTS_NUMBER 4
 #elif defined(__VIC20__) && (defined(TINY_GAME) && !defined(REDEFINED_CHARS))
 	#define GHOSTS_NUMBER 8
 #elif defined(__VIC20__) && (defined(TINY_GAME) && defined(REDEFINED_CHARS))

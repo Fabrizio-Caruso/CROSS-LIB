@@ -137,6 +137,8 @@ typedef struct ImageStruct Image;
 
 #if defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
 	#define XSize 32
+#elif defined(__ATARI_LYNX__)
+	#define XSize 20
 #elif defined(__PCE__)
 	#define XSize 64
 #elif defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE))
@@ -182,6 +184,8 @@ typedef struct ImageStruct Image;
 	#define YSize (28-Y_OFFSET)		
 #elif defined(__CMOC__) || defined(__WINCMOC__)
 	#define YSize 16	
+#elif defined(__ATARI_LYNX__)
+	#define YSize 13
 #else
 	#define YSize 16
 #endif

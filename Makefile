@@ -306,6 +306,11 @@ creativision_8k:
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_creativision_8k.bin
 
+
+# -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL
+pce_8k:
+	$(CC65_PATH)$(MYCC65) -O -Cl -t pce -DTINY_GAME -DNO_SLEEP -DLESS_TEXT  --config $(SOURCE_PATH)/../cfg/pce_extra.cfg -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_PCE_8k.pce
+
 	
 # ------------------------------------------------------------------------------------------
 #Z88DK
@@ -855,7 +860,7 @@ coco:
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 # KO: 
-# OK: 25
+# OK: 27
 # ------------
 cc65_targets: \
 	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k \
@@ -865,14 +870,14 @@ cc65_targets: \
 	pet_8k pet_16k cbm510 cbm610 \
 	apple2 apple2enh \
 	c64 c128_40col c128_80col \
-	atari5200 creativision_8k nes gamate \
+	pce_8k atari5200 creativision_8k nes gamate \
 	osic1p_8k osic1p_32k
 
 
 # KO:      \
 # OK: 35
 z88dk_targets: \
-	ace_exp_16k  cpc vg5k vg5k_exp_16k svi_318 svi_318_mode0 svi_328 sharp_mz \
+	ace_exp_16k cpc vg5k vg5k_exp_16k svi_318 svi_318_mode0 svi_328 sharp_mz \
 	samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k \
 	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k \
 	zx81_16k aquarius_exp_4k aquarius_exp_16k vz200_16k \
@@ -1178,11 +1183,6 @@ conio:
 joy-test:
 	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/joy-test.c -o  $(BUILD_PATH)/joy-test.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/joy-test.bin
-
-# -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL
-pce_tiny:
-	$(CC65_PATH)$(MYCC65) -O -Cl -t pce -DTINY_GAME -DNO_SLEEP -DNO_RANDOM_LEVEL  --config $(SOURCE_PATH)/../cfg/pce_extra.cfg -DTINY_GAME $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_PCE.pce
-
 
 		
 gamate_tiny:

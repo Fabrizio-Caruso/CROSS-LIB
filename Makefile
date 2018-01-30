@@ -948,6 +948,18 @@ list:
 	
 # DEBUG
 
+sc3000_tiny: 
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
+	-O3 \
+	-pragma-need=ansiterminal \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE \
+	-clib=ansi \
+	-vn -lndos -create-app -Cz--audio \
+	-o $(BUILD_PATH)/TINY_sc3000.prg \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	#rm $(BUILD_PATH)/TINY_sc3000.prg
+
 
 
 vic20_targets: \

@@ -43,7 +43,10 @@ extern unsigned char XSize;
 	chString[0] = ' '; \
 	chString[1]='\0'; \
 	tgi_setbgcolor(COLOR_YELLOW); \
-	tgi_setcolor(COLOR_YELLOW); \
+	tgi_setcolor(COLOR_BLACK); \
+	tgi_outtextxy(x*8,y*8,chString); \
+	tgi_setbgcolor(COLOR_BLACK); \
+	tgi_setcolor(COLOR_BLACK); \
 	tgi_outtextxy(x*8,y*8,chString); \
 	}    
 #define _DRAW_WALL(x,y)  {char chString[2]; chString[0] = '|'; chString[1]='\0'; tgi_outtextxy(x*8,y*8,chString);}   
@@ -78,7 +81,7 @@ void INIT_GRAPHICS(void)
 {    tgi_install (tgi_static_stddrv);
 
 	tgi_init ();
-
+	tgi_setpalette(tgi_getdefpalette());
     tgi_clear ();
 }
 

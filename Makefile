@@ -970,6 +970,13 @@ list:
 	
 # DEBUG
 
+sound_test:
+	$(Z88DK_PATH)$(MYZ88DK) +svi \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
+	-create-app -o $(BUILD_PATH)/sound_test \
+	experiments/sound_test.c
+
+
 sc3000_tiny: 
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
 	-O3 \

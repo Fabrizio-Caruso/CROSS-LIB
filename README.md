@@ -18,7 +18,7 @@ For other targets, GCC6809 for other 6809 targets, sdcc (proper or its CPCTelera
 The game should be as portable as possible.
 Therefore the following coding choices and design rules are applied:
 1. ANSI C (for the game logic);
-2.sStrictly separated input/output and hardware-dependent code from the game logic;
+2. strictly separated input/output and hardware-dependent code from the game logic;
 3. the prefered default graphics and input implementation is provided by conio.h (as implemented in CC65, Z88DK and WinCMOC), whenever no specialized code for a specific target is implemented;
 4. joystick-related libraries as found in CC65 and in Z88DK;
 

@@ -539,23 +539,45 @@ svi_318_mode0:
 # 	$(SOURCE_PATH)/psg/psg_sounds.c \
 # 	-DLESS_TEXT -DNO_SLEEP 
 
+# svi_318:
+	# $(Z88DK_PATH)$(MYZ88DK) +svi \
+	# -O3 \
+	# -zorg=49152 \
+	# -clib=ansi \
+	# -pragma-define:ansicolumns=32 \
+	# -pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
+	# -vn -lndos \
+	# -D__SVI__ \
+	# -DLESS_TEXT -DNO_SLEEP \
+	# -create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
+	# $(SOURCE_PATH)/item.c \
+	# $(SOURCE_PATH)/display_macros.c \
+	# $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	# $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c
+	# rm $(BUILD_PATH)/LIGHT_svi_318		
+
+# $(SOURCE_PATH)/psg/psg_sounds.c
+# --max-allocs-per-node200000
+#
 svi_318:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
-	-O3 \
+	-SO3 --max-allocs-per-node200000 \
+	-compiler=sdcc \
 	-zorg=49152 \
 	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
 	-vn -lndos \
 	-D__SVI__ \
-	-DLESS_TEXT -DNO_SLEEP \
 	-create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/LIGHT_svi_318		
+	#rm $(BUILD_PATH)/LIGHT_svi_318	
+		
 	
 # It hangs if compiled with sdcc.
 # syntax error if compiled with sccz80

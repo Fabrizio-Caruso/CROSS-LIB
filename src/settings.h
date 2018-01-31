@@ -186,13 +186,13 @@
 	#define GAME_SLOW_DOWN 320	
 #elif defined(__SVI__) && defined(MSX_MODE0)
 	#define SLOW_DOWN 
-	#define GAME_SLOW_DOWN 800
+	#define GAME_SLOW_DOWN 1200
 #elif defined(__ATARI_LYNX__)
 	#define SLOW_DOWN 
 	#define GAME_SLOW_DOWN 2500	
 #elif defined(__SVI__) && !defined(MSX_MODE0)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 800	
+	#define GAME_SLOW_DOWN 1200	
 #else
 	#define GAME_SLOW_DOWN 0
 #endif

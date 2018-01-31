@@ -970,6 +970,11 @@ list:
 	
 # DEBUG
 
+watara_test:
+	$(CC65_PATH)$(MYCC65) -t supervision \
+	$(SOURCE_PATH)/../experiments/supervision_test.c \
+	-o $(BUILD_PATH)/supervision_test.ws
+
 sound_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \

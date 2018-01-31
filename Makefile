@@ -808,7 +808,8 @@ pc6001_16k:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_pc6001.prg
-	
+	rm $(BUILD_PATH)/LIGHT_pc6001.wav
+	mv $(BUILD_PATH)/LIGHT_pc6001.cas $(BUILD_PATH)/LIGHT_pc6001.cp6	
 	
 # kbhit KO
 # Everything displayed on the same line

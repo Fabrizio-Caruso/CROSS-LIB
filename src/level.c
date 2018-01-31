@@ -185,7 +185,7 @@ extern Character bombs[BOMBS_NUMBER];
 	// }
 // }
 
-void slow_down()
+void _spiral_slow_down()
 {
 	unsigned char k;
 	
@@ -212,7 +212,7 @@ void spiral(Character *characterPtr, unsigned char length)
 				{
 					--(*((unsigned char *) characterPtr + (i&1)));				
 				}
-				slow_down();				
+				_spiral_slow_down();				
 			}
 	}
 }

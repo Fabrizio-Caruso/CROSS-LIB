@@ -435,7 +435,6 @@ int main(void)
 					_slow_down();
 				#endif
 						
-						
 				#if defined(FULL_GAME)
 					handle_rockets();
 					handle_enemy_missiles();
@@ -666,7 +665,7 @@ int main(void)
 				}
 			}
 			#if defined(BETWEEN_LEVEL)
-				spiral(chasedEnemyPtr, 2*MIN_SIZE-16);
+				spiral(chasedEnemyPtr, 2*MIN_SIZE-24);
 				sleep(1);
 			#endif				
 		} while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 

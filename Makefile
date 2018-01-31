@@ -1010,9 +1010,12 @@ gal_6k:
 # too big for a 16k machine ?
 # -DSOUNDS $(SOURCE_PATH)/psg/psg_sounds.c
 # 
+# sdcc ONLY without PSG
+# sccz80 works with AND without PSG
 svi_318_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +svi -SO3 --max-allocs-per-node200000 -zorg=49152 \
-	-clib=ansi -compiler=sdcc -pragma-define:ansicolumns=32 -vn -lndos \
+	$(Z88DK_PATH)$(MYZ88DK) +svi -zorg=49152 \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
+	-compiler=sdcc \
 	-DTINY_GAME \
 	-D__SVI__ -create-app -o $(BUILD_PATH)/TINY_svi_318 \
 	$(SOURCE_PATH)/display_macros.c \

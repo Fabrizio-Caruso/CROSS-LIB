@@ -101,14 +101,6 @@ Sel	Pulse
 			}
 		}
 		
-		// for(i=0;i<16;i++)
-		// {
-			// set_psg(A_VOLUME,15-i);		
-			// for(j=0;j<200;++j)
-			// {
-			// }
-		// }
-		
 		set_psg(CONTROL, control);
 
 		set_psg(A_VOLUME,0);		

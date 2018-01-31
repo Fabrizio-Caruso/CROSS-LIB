@@ -53,6 +53,9 @@
 		#endif
 	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200
 		#include <joystick.h>
+		#if defined(__SUPERVISION__)
+			#include <supervision.h>
+		#endif
 		void movePlayerByJoystick(unsigned char joyInput);
 		#define INIT_INPUT() { joy_install(joy_static_stddrv); };		
 	#endif

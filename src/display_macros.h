@@ -373,6 +373,9 @@ void DRAW_BOMBS(void);
 	#include <coco.h>
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
+#elif defined(__SUPERVISION__)
+	void PRINT(unsigned char x, unsigned char y, char * str);
+	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);		
 #else
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);
@@ -415,6 +418,11 @@ void DRAW_BOMBS(void);
 
 	#define CLEAR_SCREEN() do {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}} while(0)
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
+	#define SET_TEXT_COLOR(c) {}
+	
+	void CLEAR_SCREEN(void);
+
+#elif defined(__SUPERVISION__)
 	#define SET_TEXT_COLOR(c) {}
 	
 	void CLEAR_SCREEN(void);

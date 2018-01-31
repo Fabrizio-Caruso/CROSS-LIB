@@ -970,6 +970,18 @@ list:
 	
 # DEBUG
 
+
+supervision_tiny:
+	$(CC65_PATH)$(MYCC65) -t supervision \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-o $(BUILD_PATH)/TINY_supervision.ws \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/supervision/supervision_graphics.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	
 watara_test:
 	$(CC65_PATH)$(MYCC65) -t supervision \
 	$(SOURCE_PATH)/../experiments/supervision_test.c \

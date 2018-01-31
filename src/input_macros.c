@@ -149,7 +149,8 @@ extern Character player;
 	#endif	
 #else
 	#include<joystick.h>
-	#if defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
+	#if defined(NO_INPUT)
+	//defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
 		void WAIT_PRESS(void)
 		{
 		}
@@ -169,8 +170,9 @@ extern Character player;
 
 #if defined(JOYSTICK_CONTROL)
 	#include <joystick.h>
+	// #include <supervision.h>
 	
-	#if defined(__SUPERVISION__)
+	#if defined(NO_INPUT)
 		void movePlayerByJoystick(unsigned char joyInput)
 		{
 		}		

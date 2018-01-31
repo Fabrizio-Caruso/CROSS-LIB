@@ -164,7 +164,7 @@ extern unsigned char zombieActive;
 	#else
 		void moveTowardCharacter(Character *hunterPtr)
 		{
-			move(hunterPtr,rand()&1);
+			move(hunterPtr,(unsigned char) rand()&1);
 		}
 	#endif
 #endif

@@ -164,7 +164,7 @@
 #elif defined(__AQUARIUS__) && !defined(ALT_PRINT)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 800	
-#elif defined(__ACE__)
+#elif defined(__ACE__) || defined(__BEE__)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 500	
 #elif defined(__MSX__)

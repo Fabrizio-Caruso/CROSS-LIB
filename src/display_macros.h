@@ -147,9 +147,10 @@ typedef struct ImageStruct Image;
 	#define XSize 40
 #elif defined(__ATARI_LYNX__)
 	#define XSize 20
-#elif defined(__PCE__) || defined(__MICROBEE__)
+#elif defined(__PCE__)
 	#define XSize 64
-#elif defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE))
+#elif defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
+      || defined(__BEE__)
 	#define XSize 80
 #elif defined(__OSIC1P__) || defined(__GAL__)
 	#define XSize 32
@@ -178,7 +179,7 @@ typedef struct ImageStruct Image;
 	#define YSize (24-Y_OFFSET)
 #elif defined(__Z9001__) || defined(__P2000__)
 	#define YSize (24-Y_OFFSET)
-#elif defined(__MZ__)
+#elif defined(__MZ__) || defined(__BEE__)
 	#define YSize (25-Y_OFFSET)
 #elif defined(__OSIC1P__)
 	#define YSize (32-Y_OFFSET)	

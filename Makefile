@@ -612,22 +612,22 @@ sharp_mz:
 microbee_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +bee -O3 \
 	-D__BEE__ -clib=ansi -vn -DSOUNDS -DCLIB_ANSI \
-	-lndos -create-app -o $(BUILD_PATH)/LIGHT_microbee.prg  \
+	-lndos -create-app -o $(BUILD_PATH)/LIGHT_microbee_16k.prg  \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/LIGHT_microbee.prg
+	rm $(BUILD_PATH)/LIGHT_microbee_16k.prg
 	
-microbee:
+microbee_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +bee -O3 \
 	-D__BEE__ -clib=ansi -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos -create-app -o $(BUILD_PATH)/FULL_microbee.prg  \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_microbee_32k.prg  \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_microbee.prg
+	rm $(BUILD_PATH)/FULL_microbee_32k.prg
 
 # import as data into ram at 32768 - call 32768
 samcoupe:
@@ -661,7 +661,7 @@ abc80_16k:
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm a
-	mv a.ihx $(BUILD_PATH)/LIGHT_abc.ihx 
+	mv a.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
 	
 abc80_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 -O3 \
@@ -672,7 +672,7 @@ abc80_32k:
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm a
-	mv a.ihx $(BUILD_PATH)/FULL_abc.ihx 
+	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 
 p2000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 -O3 -clib=ansi -D__P2000__ -vn \
@@ -891,7 +891,7 @@ coco:
 	cmoc \
 	$(COCO_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
-	cmoc -o $(BUILD_PATH)/Full_CoCoDragon.bin \
+	cmoc -o $(BUILD_PATH)/FULL_CoCoDragon.bin \
 	$(COCO_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o cmoc_graphics.o \
@@ -930,7 +930,7 @@ z88dk_targets: \
 	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k \
 	zx81_16k aquarius_exp_4k aquarius_exp_16k vz200_16k \
 	z9001_16k z9001_32k mc1000_16k mc1000_48k pc6001_16k pc6001_32k nascom_16k \
-	lambda_16k nascom_32k zx80_16k vz200_32k microbee gal_22k
+	lambda_16k nascom_32k zx80_16k vz200_32k microbee_16k microbee_32k gal_22k
 
 cmoc_targets: \
 	coco

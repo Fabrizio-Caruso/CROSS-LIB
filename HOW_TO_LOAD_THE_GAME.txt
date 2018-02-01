@@ -58,7 +58,7 @@ VG 5000
 
 Type CLOAD
 Select the game file
-Type CALL 18941 
+Type CALL 19000 
 
 ---------------------------------------------------------
 AQUARIUS

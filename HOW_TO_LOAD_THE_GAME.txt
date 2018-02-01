@@ -15,10 +15,18 @@ run"
 Start PLAY on the virtual tape player
 
 ---------------------------------------------------------
-NES
+NES 
 
 Use mednafen and run the following command:
-mednafen.exe -fs  1 LIGHT_nes.nes
+mednafen.exe -fs  1 FULL_nes.nes
+
+---------------------------------------------------------
+
+PCE
+
+Use mednafen and run the following command:
+mednafen.exe -fs  1 TINY_pce.pce
+
 
 ---------------------------------------------------------
 JUPITER ACE

@@ -384,12 +384,13 @@ vz200_32k:
 	
 # TODO: Adapt code to work with -compiler=sdcc
 # -SO3 --max-allocs-per-node200000
+# -O3 -zorg=18941 -vn 
 #  -DNO_RANDOM_LEVEL
 # $(SOURCE_PATH)/sleep_macros.c
 # -DLESS_TEXT -DNO_SLEEP
 vg5k: 
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	-O3 -zorg=18941 -vn \
+	-O3 -zorg=19000 -vn \
 	-D__VG5K__ -DSOUNDS  \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_vg5k.prg \
 	$(SOURCE_PATH)/item.c \
@@ -400,9 +401,10 @@ vg5k:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_vg5k.prg
 	
+# -O3 -zorg=18941 -vn
 vg5k_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	-O3 -zorg=18941 \
+	-O3 -zorg=19000 \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \

@@ -212,7 +212,9 @@ void spiral(Character *characterPtr, unsigned char length)
 				{
 					--(*((unsigned char *) characterPtr + (i&1)));				
 				}
-				_spiral_slow_down();				
+				#if defined(SLOW_DOWN)
+				_spiral_slow_down();	
+				#endif
 			}
 	}
 }

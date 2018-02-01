@@ -81,7 +81,9 @@
 			dance(&invincibleGhost);
 		
 			printCenteredMessageOnRow(2+(loop&15),  YOU_MADE_IT_STRING);
-			for(k=0;k<GAME_SLOW_DOWN*4;++k) {};
+			#if defined(SLOW_DOWN)
+				for(k=0;k<GAME_SLOW_DOWN*4;++k) {};
+			#endif
 			printCenteredMessageOnRow(2+(loop&15), "             ");
 			
 			++loop;

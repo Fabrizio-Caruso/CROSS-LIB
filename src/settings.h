@@ -207,15 +207,7 @@
 #else
 	#define KEYBOARD_CONTROL
 #endif
-	
-// #if (defined(__VIC20__) && defined(VIC20_UNEXPANDED)) || defined(__CBM610__) || !defined(__CREATIVISION__) \
-	// && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__GAMATE__) && !defined(__CBM__) \
-	// && !defined(__ATARI__) && !defined(__ATARIXL__) && !defined(__ATARI5200__) && !defined(__LYNX__) \
-	// && !defined(__NES__) && !defined(__PCE__)
-	// #define KEYBOARD_CONTROL
-// #else
-	// #define JOYSTICK_CONTROL
-// #endif
+
 
 #if defined(KEYBOARD_CONTROL)
 	#define WAIT_FOR_KEY

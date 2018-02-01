@@ -137,6 +137,8 @@ typedef struct ImageStruct Image;
 
 #if defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
 	#define XSize 32
+#elif defined(__Z9001__)
+	#define XSize 40
 #elif defined(__ATARI_LYNX__)
 	#define XSize 20
 #elif defined(__PCE__)
@@ -168,6 +170,8 @@ typedef struct ImageStruct Image;
 #if defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
     || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
 	#define YSize (24-Y_OFFSET)
+#elif defined(__Z9001__)
+	#define YSize (24-Y_OFFSET)
 #elif defined(__OSIC1P__)
 	#define YSize (32-Y_OFFSET)	
 #elif defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__)) || defined(__AQUARIUS__)
@@ -196,33 +200,6 @@ typedef struct ImageStruct Image;
 	#define MIN_SIZE YSize
 #endif
 
-// #if defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1))
-	// #define GET_SCREEN_SIZE(x,y) do {*x=20; *y=24;} while(0)
-// #elif defined(__ATARI_LYNX__)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=20-X_OFFSET; *y=13-Y_OFFSET;} while(0)
-// #elif defined(__WINCMOC__) || defined(__CMOC__)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=16-Y_OFFSET;} while(0)
-// #elif defined(__C128__) && defined(C128_80COL_VIDEO_MODE)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=80-X_OFFSET; *y=25-Y_OFFSET;} while(0)
-// #elif defined (__SPECTRUM__)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
-// #elif defined(__MSX__) && !defined(MSX_MODE1)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)
-// #elif defined(__MSX__) && defined(MSX_MODE1)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
-// #elif defined(__SVI__) && defined(MSX_MODE0)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=24-Y_OFFSET;} while(0)		
-// #elif defined(__CPC__) && defined(CPCRSLIB)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=(40-X_OFFSET); *y=(25-Y_OFFSET);} while(0)	
-// #elif defined(__ZX81__) || defined(__LAMBDA__)
-	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-Y_OFFSET;} while(0)
-// #elif defined(__ZX80__) 
-	// #define GET_SCREEN_SIZE(x,y) do {*x=32-X_OFFSET; *y=24-1-Y_OFFSET;} while(0)				
-// #elif defined(__TRS80__) 
-	// #define GET_SCREEN_SIZE(x,y) do {*x=40-X_OFFSET; *y=25-Y_OFFSET;} while(0)				
-// #else
-	// #define GET_SCREEN_SIZE(x,y) do {screensize(x,y); *x-=X_OFFSET; *y-=Y_OFFSET;} while(0)
-// #endif
 
 #if defined(REDEFINED_CHARS)
 	extern Image PLAYER_LEFT;
@@ -240,7 +217,6 @@ typedef struct ImageStruct Image;
 	#define SHOW_UP() { }
 	#define SHOW_DOWN() { }		
 #endif
-
 
 
 void _draw(unsigned char x,unsigned char y,Image * image);
@@ -300,18 +276,6 @@ void _delete(unsigned char x, unsigned char y);
 #define DELETE_INVINCIBILITY(x,y,image) _delete(x,y)	
 
 void DRAW_BOMBS(void);	
-
-// #define DRAW_BOMBS() \
-	// displayBombs();
-	
-// #define DRAW_BOMBS() \
-// { \
-	// unsigned char ij = 0; \
-	// for(;ij<BOMBS_NUMBER;++ij) \
-	// { \
-		// DRAW_BOMB(bombs[ij]._x, bombs[ij]._y, bombs[ij]._imagePtr); \
-	// } \
-// }
 
 // VERTICAL AND HORIZONTAL BORDER
 #if !defined(TINY_GAME)

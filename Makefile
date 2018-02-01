@@ -390,7 +390,8 @@ vz200_32k:
 # -DLESS_TEXT -DNO_SLEEP
 vg5k: 
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	-O3 -zorg=19000 -vn \
+	-O3 \
+	-zorg=19000 -vn \
 	-D__VG5K__ -DSOUNDS  \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_vg5k.prg \
 	$(SOURCE_PATH)/item.c \
@@ -923,7 +924,7 @@ cc65_targets: \
 
 
 # KO:      \
-# OK: 35
+# OK: 37
 z88dk_targets: \
 	ace_exp_16k cpc vg5k vg5k_exp_16k svi_318 svi_318_mode0 svi_328 sharp_mz \
 	samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k \
@@ -1233,7 +1234,11 @@ atari5200_light:
 	
 
 vg5k_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +vg5k -O3 -vn -DTINY_GAME -D__VG5K__ -lndos -create-app -o $(BUILD_PATH)/TINY_vg5k.prg $(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k -O0 -vn -DTINY_GAME -D__VG5K__ -lndos -create-app -o $(BUILD_PATH)/TINY_vg5k.prg \
+	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_vg5k.prg
 
 

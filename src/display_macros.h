@@ -137,7 +137,7 @@ typedef struct ImageStruct Image;
 
 #if defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
     || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
-	|| defined(__LAMBDA__) || defined(__SPECTRUM__)
+	|| defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__)
 	#define XSize 32
 #elif defined(__Z9001__) || defined(__P2000__) || defined(__VG5K__)
 	#define XSize 40

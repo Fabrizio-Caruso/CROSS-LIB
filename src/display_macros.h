@@ -135,7 +135,9 @@ typedef struct ImageStruct Image;
 	#define X_OFFSET 0
 #endif
 
-#if defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) || defined(__SPECTRUM__)
+#if defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
+    || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
+	|| defined(__LAMBDA__) || defined(__SPECTRUM__)
 	#define XSize 32
 #elif defined(__Z9001__) || defined(__P2000__) || defined(__VG5K__)
 	#define XSize 40

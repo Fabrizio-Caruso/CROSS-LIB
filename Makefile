@@ -573,7 +573,9 @@ svi_318:
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
 	-vn -lndos \
 	-D__SVI__ \
+	-DSOUNDS \
 	-create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
+	$(SOURCE_PATH)/psg/psg_sounds.c	\
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \

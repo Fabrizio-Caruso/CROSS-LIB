@@ -355,6 +355,8 @@ int main(void)
 				zombieActive = 0; 
 				
 				handle_special_triggers();
+				
+				computeStrategy();				
 								
 			#endif			
 			
@@ -368,8 +370,6 @@ int main(void)
 				
 				resetItems();
 								
-				computeStrategy();
-
 				computeInvincibleGhostParameters();				
 			#endif
 
@@ -484,7 +484,6 @@ int main(void)
 					// This detects collisions of ghosts that have just moved
 					if(missile._status)
 					{
-						//checkMissileVsGhosts(&missile);
 						checkMissile(&missile);
 					}
 				#else

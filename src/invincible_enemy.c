@@ -106,7 +106,7 @@ void handle_invincible_ghost(void)
 					moveTowardCharacter(&player, &invincibleGhost, 4);
 				}
 			#else
-			moveTowardCharacter(&invincibleGhost, 4);
+				moveTowardCharacter(&invincibleGhost);
 			#endif
 		}
 		displayInvincibleGhost(&invincibleGhost);

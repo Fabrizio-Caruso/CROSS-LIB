@@ -48,20 +48,15 @@
 #if defined(FULL_GAME)
 	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
 	void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
-#elif !defined(TINY_GAME)
-	void blindChaseCharacterXStrategy(Character* hunterPtr);
-	void blindChaseCharacterYStrategy(Character* hunterPtr);	
 #endif
 
 #if defined(FULL_GAME)
 	void moveTowardCharacter(Character *preyPtr, Character *hunterPtr, unsigned char strategy);
-#elif !defined(TINY_GAME)
-	void moveTowardCharacter(Character *hunterPtr, unsigned char strategy);
 #else	
 	void moveTowardCharacter(Character *hunterPtr);
 #endif
 
-#if !defined(TINY_GAME)
+#if defined(FULL_GAME)
 	void computeStrategy(void);
 #endif
 

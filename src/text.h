@@ -137,12 +137,6 @@ void printStartMessage(void);
 	#else
 		void highScoreScreen(void);
 	#endif
-// #elif defined(__C64__)
-	// #define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);
-
-	// #define finalScore() _printScore("score: %05u0", points);
-
-	// #define highScoreScreen() _printScore("high score: %05u0", highScore);
 #else
 	#if defined(NO_CASE_LETTERS)
 		#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);

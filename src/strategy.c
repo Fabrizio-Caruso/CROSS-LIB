@@ -77,7 +77,6 @@ extern unsigned char zombieActive;
 
 // TODO: Design issue: we delete the invincible enemy
 // This should be made generic even though it works
-
 #if defined(FULL_GAME)
 	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 	{
@@ -102,30 +101,6 @@ extern unsigned char zombieActive;
 			move(hunterPtr, preyPtr,X_MOVE);
 		}
 	}
-#elif !defined(TINY_GAME)
-	void blindChaseCharacterXStrategy(Character* hunterPtr)
-		{
-			if(move(hunterPtr,X_MOVE))
-			{
-				return;
-			}
-			else
-			{
-				move(hunterPtr,Y_MOVE);
-			}
-		}
-
-		void blindChaseCharacterYStrategy(Character* hunterPtr)
-		{
-			if(move(hunterPtr,Y_MOVE))
-			{
-				return;
-			}
-			else
-			{
-				move(hunterPtr,X_MOVE);
-			}
-		}	
 #endif
 
 // #if defined(TINY_GAME)
@@ -149,49 +124,28 @@ extern unsigned char zombieActive;
 			}
 	}	
 #else
-	#if !defined(TINY_GAME)
-		void moveTowardCharacter(Character *hunterPtr, unsigned char strategy)
-		{
-			if(rand()%10 > strategy) // Select blind chase strategy
-				{ // 0 - 4
-					blindChaseCharacterXStrategy(hunterPtr);	
-				}
-				else
-				{ // 5 - 9
-					blindChaseCharacterYStrategy(hunterPtr);
-				}
-		}	
-	#else
-		void moveTowardCharacter(Character *hunterPtr)
-		{
-			move(hunterPtr,(unsigned char) rand()&1);
-		}
-	#endif
+	void moveTowardCharacter(Character *hunterPtr)
+	{
+		move(hunterPtr,(unsigned char) rand()&1);
+	}
 #endif
 
 
-#if !defined(TINY_GAME)
+// #if !defined(TINY_GAME) 
+#if defined(FULL_GAME)
 void computeStrategy(void)
 {
 	unsigned char i;
-
-	#if defined(FULL_GAME)
-		unsigned char skew = ((level - 1) / 5) % 4;
-		for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
-		{
-			strategyArray[i] = 5+skew; // 6,7,8,(9 if GHOSTS are 9) (prefer Y (60%, 70%, 80%, 90)
-			strategyArray[9-i] = 3-skew; // 4,3,2,(1 if GHOSTS are 9) prefer X (60%, 70%, 80%, 90%)
-				
-		}
-		strategyArray[0] = 4;
-		strategyArray[1] = 4;				
-	#else
-		for(i=1; i<GHOSTS_NUMBER; ++i) // 6,1,1
-		{
-			strategyArray[i] = i; // no preference (approximate straight line)
-		}	
-		strategyArray[0] = 4;		
-	#endif
+	unsigned char skew = ((level - 1) / 5) % 4;
+	
+	for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
+	{
+		strategyArray[i] = 5+skew; // 6,7,8,(9 if GHOSTS are 9) (prefer Y (60%, 70%, 80%, 90)
+		strategyArray[9-i] = 3-skew; // 4,3,2,(1 if GHOSTS are 9) prefer X (60%, 70%, 80%, 90%)
+			
+	}
+	strategyArray[0] = 4;
+	strategyArray[1] = 4;				
 }
 #endif
 
@@ -209,18 +163,16 @@ void chaseCharacter(unsigned short slowDown)
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
 		#if defined(FULL_GAME)
-		if((ghosts[i]._status || zombieActive) && (rand()>slowDown))
+			if((ghosts[i]._status || zombieActive) && (rand()>slowDown))
 		#else
-		if((ghosts[i]._status) && (rand()>slowDown))	
+			if((ghosts[i]._status) && (rand()>slowDown))	
 		#endif
 		{
 			deleteGhost(&ghosts[i]);
 			#if defined(FULL_GAME)
-			moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]);		
-			#elif !defined(TINY_GAME)
-			moveTowardCharacter(&ghosts[i], strategyArray[i]);	
+				moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]);		
 			#else
-			moveTowardCharacter(&ghosts[i]);	
+				moveTowardCharacter(&ghosts[i]);	
 			#endif
 		}
 	}

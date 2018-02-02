@@ -27,8 +27,9 @@
 
 extern unsigned char XSize;
 
-#define VIDEO_BASE 12289
-#define COLOR_BASE (12289+1024)
+// #define VIDEO_BASE 12289
+#define VIDEO_BASE 12288
+#define COLOR_BASE (VIDEO_BASE+1024)
 
 #define _AQUARIUS_RED 16
 #define _AQUARIUS_WHITE (16+32+64)
@@ -169,7 +170,7 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	unsigned char i = 0;
 	while(str[i]!='\0')
 	{
-		POKE(VIDEO_BASE+x+i+y*((unsigned short)XSize), str[i]+32); 
+		POKE(VIDEO_BASE+x+i+y*((unsigned short)XSize), str[i]); 
 		POKE(COLOR_BASE+x+i+y*((unsigned short)XSize), _AQUARIUS_WHITE); 		
 		++i;
 	}
@@ -249,7 +250,7 @@ void CLEAR_SCREEN(void)
 		POKE(COLOR_BASE+i,0);
 		POKE(COLOR_BASE+250+i,0);
 		POKE(COLOR_BASE+500+i,0);
-		POKE(COLOR_BASE+748+i,0);
+		POKE(COLOR_BASE+749+i,0);
 	}
 }
 

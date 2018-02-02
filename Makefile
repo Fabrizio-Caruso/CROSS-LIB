@@ -334,9 +334,11 @@ pce_8k:
 # ------------------------------------------------------------------------------------------
 #Z88DK
 # 	-DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL \
+# 	-SO3 --max-allocs-per-node200000 \
 
 aquarius_exp_4k:
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius -compiler=sdcc -SO3 --max-allocs-per-node200000 -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -compiler=sdcc \
+	-vn \
 	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DNO_SLEEP -DLESS_TEXT \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
 	-lndos -o TINY_aquarius_exp_4k -create-app \

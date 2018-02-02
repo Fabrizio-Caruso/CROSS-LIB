@@ -241,7 +241,8 @@
 #endif
 
 // || defined(__ZX81__)
-#if (defined(__VIC20__) && defined(REDEFINED_CHARS)) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__GAMATE__) || defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__)  || defined(__ZX80__)
+#if (defined(__VIC20__) && defined(REDEFINED_CHARS)) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__GAMATE__) \
+    || defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__)  || defined(__ZX80__)
 	#define NO_CASE_LETTERS
 #else
 	#define CASE_LETTERS

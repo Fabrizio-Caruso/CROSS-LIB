@@ -446,9 +446,5 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		initializeCharacter(&invincibleGhost,XSize-2,YSize-2, 0, &INVINCIBLE_GHOST_IMAGE);
 	#endif
 
-	// Bombs are not redrawn afterwards
-	#if defined(TINY_GAME)
-		displayBombs();
-	#endif	
 }
 

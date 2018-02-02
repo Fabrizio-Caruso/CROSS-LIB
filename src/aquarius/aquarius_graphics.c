@@ -27,7 +27,6 @@
 
 extern unsigned char XSize;
 
-// #define VIDEO_BASE 12289
 #define VIDEO_BASE 12288
 #define COLOR_BASE (VIDEO_BASE+1024)
 
@@ -98,7 +97,6 @@ void INIT_IMAGES(void)
 	// POWERUP_IMAGE._imageData = 'S';
 	// GUN_IMAGE._imageData = '!';
 	// MISSILE_IMAGE._imageData = '.';
-
 	// INVINCIBLE_GHOST_IMAGE._imageData = '+';
 	
 }
@@ -122,7 +120,6 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
-	//gotoxy((x+1+X_OFFSET),(y+Y_OFFSET)); 
 	if(*blinkCounter) 
 	{
 		_draw(x,y,image);
@@ -143,7 +140,6 @@ void _draw(unsigned char x, unsigned char y, Image * image)
 	#if !defined(NO_COLOR)
 		POKE(COLOR_BASE+x+X_OFFSET+(y+Y_OFFSET)*40,image->_color);	
 	#endif
-	// TODO color
 }
 
 void _delete(unsigned char x, unsigned char y)
@@ -153,18 +149,6 @@ void _delete(unsigned char x, unsigned char y)
 
 
 #if defined(ALT_PRINT)
-
-// unsigned char screenCode(char ch)
-// {
-	// if(ch==32) 
-	// {
-		// return 32+64;
-	// }
-	// else
-	// {
-		// return ch-32;
-	// }	
-// }
 
 void PRINT(unsigned char x, unsigned char y, char * str)
 {
@@ -215,12 +199,6 @@ void print_u(unsigned char x, unsigned char y, unsigned short val)
 }
 
 
-// void print_level(unsigned short val)
-// {
-	// PRINT(XSize/2-4,YSize/2,"level");
-	// print_u(XSize/2+2, YSize/2, val);
-// }
-
 void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 {
 	if(strlen(str)==5)
@@ -231,14 +209,11 @@ void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 	{
 		print_02u(x,y,val);		
 	}
-	else if(strlen(str)==2)
+	else //if(strlen(str)==2)
 	{
 		print_u(x,y,val);		
 	}
-	// else
-	// {
-		// print_level(val);
-	// }
+
 }
 
 void CLEAR_SCREEN(void)
@@ -246,13 +221,15 @@ void CLEAR_SCREEN(void)
 	unsigned char i;
 
 	clrscr();	
-	for(i=0;i<251;++i)
-	{
-		POKE(COLOR_BASE+1+i,0);
-		POKE(COLOR_BASE+250+i,0);
-		POKE(COLOR_BASE+500+i,0);
-		POKE(COLOR_BASE+749+i,0);
-	}
+	#if !defined(NO_COLOR)
+		for(i=0;i<251;++i)
+		{
+			POKE(COLOR_BASE+1+i,0);
+			POKE(COLOR_BASE+250+i,0);
+			POKE(COLOR_BASE+500+i,0);
+			POKE(COLOR_BASE+749+i,0);
+		}
+	#endif
 }
 
 

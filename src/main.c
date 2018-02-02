@@ -342,7 +342,6 @@ int main(void)
 		#endif
 		do // Level (Re-)Start
 		{ 	
-		
 			loop = 0;
 			ghostLevel = 0;
 		
@@ -408,7 +407,11 @@ int main(void)
 				DRAW_BORDERS();
 			#endif
 			
-			fillLevelWithCharacters(ghostCount);	
+			fillLevelWithCharacters(ghostCount);			
+			
+			// #if defined(TINY_GAME)
+				// displayBombs();
+			// #endif	
 			
 			#if !defined(TINY_GAME)
 				constructItems();	
@@ -567,10 +570,10 @@ int main(void)
 					}
 										
 				#else
-					#if !defined(TINY_GAME)
+					// #if !defined(TINY_GAME)
 					SKIP_MORE_DRAW
 						displayBombs();
-					#endif
+					// #endif
 				#endif
 				
 				// Display ghosts

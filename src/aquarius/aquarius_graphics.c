@@ -30,6 +30,10 @@ extern unsigned char XSize;
 #define VIDEO_BASE 12289
 #define COLOR_BASE (12289+1024)
 
+#define _AQUARIUS_RED 16
+#define _AQUARIUS_WHITE (16+32+64)
+#define _AQUARIUS_CYAN (16+128)
+
 #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
 #define PEEK(addr)         (*(unsigned char*) (addr))
@@ -82,11 +86,11 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._imageData = 'O';
 
 	#if !defined(NO_COLOR)
-		GHOST_IMAGE._color = 16+32+64;
+		GHOST_IMAGE._color = _AQUARIUS_WHITE;
 
-		BOMB_IMAGE._color = 16;
-		PLAYER_IMAGE._color = 16+128;
-		DEAD_GHOST_IMAGE._color = 16;		
+		BOMB_IMAGE._color = _AQUARIUS_RED;
+		PLAYER_IMAGE._color = _AQUARIUS_CYAN;
+		DEAD_GHOST_IMAGE._color = _AQUARIUS_RED;		
 	#endif
 	
 	// POWERUP_IMAGE._imageData = 'S';
@@ -166,6 +170,7 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	while(str[i]!='\0')
 	{
 		POKE(VIDEO_BASE+x+i+y*((unsigned short)XSize), str[i]+32); 
+		POKE(COLOR_BASE+x+i+y*((unsigned short)XSize), _AQUARIUS_WHITE); 		
 		++i;
 	}
 }
@@ -187,26 +192,32 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 	for(i=0;i<6;++i)
 	{
 		POKE(VIDEO_BASE+x+i+y*((unsigned short)XSize), (unsigned char) (digits[5-i])+48);
+		POKE(COLOR_BASE+x+i+y*((unsigned short)XSize), _AQUARIUS_WHITE);		
 	}
 }	
 
 void print_02u(unsigned char x, unsigned char y, unsigned short val)
 {
-	POKE(VIDEO_BASE+x+y*  ((unsigned short)XSize), ((unsigned char) val)/10+48);		
+	POKE(VIDEO_BASE+x+y*  ((unsigned short)XSize), ((unsigned char) val)/10+48);	
+	POKE(COLOR_BASE+x+y*  ((unsigned short)XSize), _AQUARIUS_RED);		
 	POKE(VIDEO_BASE+x+1+y*((unsigned short)XSize), ((unsigned char) val)%10+48);	
+	POKE(COLOR_BASE+x+1+y*((unsigned short)XSize), _AQUARIUS_RED);	
 }	
 
 
 void print_u(unsigned char x, unsigned char y, unsigned short val)
 {
 	POKE(VIDEO_BASE+x+y*((unsigned short)XSize), (unsigned char) (val+48));
+	POKE(COLOR_BASE+x+y*((unsigned short)XSize),  _AQUARIUS_RED);
+	
 }
 
-void print_level(unsigned short val)
-{
-	PRINT(XSize/2-4,YSize/2,"level");
-	print_u(XSize/2+2, YSize/2, val);
-}
+
+// void print_level(unsigned short val)
+// {
+	// PRINT(XSize/2-4,YSize/2,"level");
+	// print_u(XSize/2+2, YSize/2, val);
+// }
 
 void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 {
@@ -222,9 +233,23 @@ void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 	{
 		print_u(x,y,val);		
 	}
-	else
+	// else
+	// {
+		// print_level(val);
+	// }
+}
+
+void CLEAR_SCREEN(void)
+{
+	unsigned char i;
+
+	clrscr();	
+	for(i=0;i<251;++i)
 	{
-		print_level(val);
+		POKE(COLOR_BASE+i,0);
+		POKE(COLOR_BASE+250+i,0);
+		POKE(COLOR_BASE+500+i,0);
+		POKE(COLOR_BASE+748+i,0);
 	}
 }
 

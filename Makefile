@@ -1052,18 +1052,33 @@ vic20_targets: \
 # -DALT_PRINT
 # -pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc
 
-gal_6k: 
+gal_6k_sccz80: 
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-O3 \
 	-pragma-need=ansiterminal \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE \
+	-vn -lndos -create-app -Cz--audio \
+	-o  $(BUILD_PATH)/TINY_galaksija_6k_sccz80.prg \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_galaksija_6k_sccz80.prg
+	#rm $(BUILD_PATH)/TINY_galaksija_6k_sccz80.wav
+	
+
+gal_6k: 
+	$(Z88DK_PATH)$(MYZ88DK) +gal \
+	-compiler=sdcc \
+	-SO3 --max-allocs-per-node200000 \
+	-pragma-need=ansiterminal \
+	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
 	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE \
 	-vn -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_galaksija_6k.prg
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
+		
 	
-
 # too big for a 16k machine ?
 # -DSOUNDS $(SOURCE_PATH)/psg/psg_sounds.c
 # 

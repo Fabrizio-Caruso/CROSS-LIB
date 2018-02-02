@@ -452,13 +452,19 @@ zx80_16k:
 	
 # -compiler=sdcc	 -DLESS_TEXT -DNO_SLEEP -DBETWEEN_LEVEL
 zx81_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 -O3 -vn -D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
+	-O3 \
+	-vn \
+	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg \
-	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_zx81_16k.prg
+
 	
 lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda -O3 \
@@ -978,6 +984,23 @@ list:
 ####################################################################################################################
 	
 # DEBUG
+
+
+zx81_16k_:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
+	-compiler=sdcc \
+	-SO3 --max-allocs-per-node200000 \
+	-vn \
+	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k_.prg \
+	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_zx81_16k_.prg
 
 
 supervision_tiny:

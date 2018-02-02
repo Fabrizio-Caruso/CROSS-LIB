@@ -74,7 +74,8 @@ extern Image GUN_IMAGE;
 
 void INIT_GRAPHICS(void)
 {
-
+	POKE(VIDEO_BASE,32);
+	POKE(COLOR_BASE,7);
 }
 
 void INIT_IMAGES(void)
@@ -247,7 +248,7 @@ void CLEAR_SCREEN(void)
 	clrscr();	
 	for(i=0;i<251;++i)
 	{
-		POKE(COLOR_BASE+i,0);
+		POKE(COLOR_BASE+1+i,0);
 		POKE(COLOR_BASE+250+i,0);
 		POKE(COLOR_BASE+500+i,0);
 		POKE(COLOR_BASE+749+i,0);

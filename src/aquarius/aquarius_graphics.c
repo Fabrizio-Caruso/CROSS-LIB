@@ -28,6 +28,8 @@
 extern unsigned char XSize;
 
 #define VIDEO_BASE 12289
+#define COLOR_BASE (12289+1024)
+
 #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
 #define PEEK(addr)         (*(unsigned char*) (addr))
@@ -78,6 +80,14 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._imageData = 'X';
 	PLAYER_IMAGE._imageData = '*';
 	DEAD_GHOST_IMAGE._imageData = 'O';
+
+	#if !defined(NO_COLOR)
+		GHOST_IMAGE._color = 16+32+64;
+
+		BOMB_IMAGE._color = 16;
+		PLAYER_IMAGE._color = 16+128;
+		DEAD_GHOST_IMAGE._color = 16;		
+	#endif
 	
 	// POWERUP_IMAGE._imageData = 'S';
 	// GUN_IMAGE._imageData = '!';
@@ -124,6 +134,9 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
 	POKE(VIDEO_BASE+x+X_OFFSET+(y+Y_OFFSET)*40,image->_imageData);
+	#if !defined(NO_COLOR)
+		POKE(COLOR_BASE+x+X_OFFSET+(y+Y_OFFSET)*40,image->_color);	
+	#endif
 	// TODO color
 }
 

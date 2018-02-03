@@ -165,3 +165,11 @@ mess64.exe sc3000 -cart1 <basic31 file name>.sc -cass1 FULL_sc3000_32k.wav
 Inside the emulator type:
 LOAD
 RUN
+
+----------------------------------------------------------
+
+SAM Coupe
+
+Unse SAMEMU emulator.
+Copy the compiled output to a file called "SAMFILE" 
+Run the emulator, press F1 (apparently nothing happens) and type "call 32768".

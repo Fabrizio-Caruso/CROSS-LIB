@@ -550,30 +550,7 @@ svi_318_mode0:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_SVI_318_mode0
 
-# 	-DSOUNDS \
-# 	$(SOURCE_PATH)/psg/psg_sounds.c \
-# 	-DLESS_TEXT -DNO_SLEEP 
 
-# svi_318:
-	# $(Z88DK_PATH)$(MYZ88DK) +svi \
-	# -O3 \
-	# -zorg=49152 \
-	# -clib=ansi \
-	# -pragma-define:ansicolumns=32 \
-	# -pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
-	# -vn -lndos \
-	# -D__SVI__ \
-	# -DLESS_TEXT -DNO_SLEEP \
-	# -create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
-	# $(SOURCE_PATH)/item.c \
-	# $(SOURCE_PATH)/display_macros.c \
-	# $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	# $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	# $(SOURCE_PATH)/main.c
-	# rm $(BUILD_PATH)/LIGHT_svi_318		
-
-# $(SOURCE_PATH)/psg/psg_sounds.c
-# --max-allocs-per-node200000
 #
 svi_318:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
@@ -603,13 +580,29 @@ sc3000_16k:
 	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
 	-vn -lndos -create-app -Cz--audio \
-	-o $(BUILD_PATH)/LIGHT_sc3000.prg \
+	-o $(BUILD_PATH)/LIGHT_sc3000_16k.prg \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	#rm $(BUILD_PATH)/LIGHT_sc3000.prg
-		
+	rm $(BUILD_PATH)/LIGHT_sc3000_16k.prg
+	rm $(BUILD_PATH)/LIGHT_sc3000_16k.cas
+	
+sc3000_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
+	-O3 \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-clib=ansi \
+	-pragma-define:ansicolumns=32 \
+	-vn -lndos -create-app -Cz--audio \
+	-o $(BUILD_PATH)/FULL_sc3000_32k \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_sc3000_32k.prg
+	rm $(BUILD_PATH)/FULL_sc3000_32k.cas	
+	
 # It hangs if compiled with sdcc.
 # syntax error if compiled with sccz80
 # $(SOURCE_PATH)/svi/svi_graphics.c	
@@ -954,12 +947,13 @@ cc65_targets: \
 # KO:      \
 # OK: 37
 z88dk_targets: \
+	sc3000_16k sc3000_32k \
 	ace_exp_16k cpc vg5k vg5k_exp_16k svi_318 svi_318_mode0 svi_328 sharp_mz \
 	samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k \
 	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k \
 	zx81_16k aquarius_exp_4k aquarius_exp_16k vz200_16k \
 	z9001_16k z9001_32k mc1000_16k mc1000_48k pc6001_16k pc6001_32k nascom_16k \
-	lambda_16k nascom_32k zx80_16k vz200_32k microbee_16k microbee_32k gal_22k
+	lambda_16k nascom_32k zx80_16k vz200_32k microbee_16k microbee_32k gal_22k 
 
 cmoc_targets: \
 	coco

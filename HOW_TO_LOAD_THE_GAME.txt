@@ -154,4 +154,14 @@ In the emulator window you should see the "D/C/W/M" prompt.
 Press "M" to run the monitor. You then should see the "0000 00" prompt of the machine monitor.
 Press "l" (lowercase L). This will load the program and start it.
 
+---------------------------------------------------------
 
+SC 3000
+
+Use the MESS emulator
+
+Run mess with 
+mess64.exe sc3000 -cart1 <basic31 file name>.sc -cass1 FULL_sc3000_32k.wav
+Inside the emulator type:
+LOAD
+RUN

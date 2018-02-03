@@ -594,8 +594,22 @@ svi_318:
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	#rm $(BUILD_PATH)/LIGHT_svi_318	
-		
 	
+# 	-pragma-need=ansiterminal \
+
+sc3000_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
+	-O3 \
+	-clib=ansi \
+	-pragma-define:ansicolumns=32 \
+	-vn -lndos -create-app -Cz--audio \
+	-o $(BUILD_PATH)/LIGHT_sc3000.prg \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	#rm $(BUILD_PATH)/LIGHT_sc3000.prg
+		
 # It hangs if compiled with sdcc.
 # syntax error if compiled with sccz80
 # $(SOURCE_PATH)/svi/svi_graphics.c	

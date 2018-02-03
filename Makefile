@@ -586,7 +586,7 @@ sc3000_16k:
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_sc3000_16k.prg
-	rm $(BUILD_PATH)/LIGHT_sc3000_16k.cas
+	rm $(BUILD_PATH)/LIGHT_sc3000_16k.tap
 	
 sc3000_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
@@ -595,13 +595,13 @@ sc3000_32k:
 	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
 	-vn -lndos -create-app -Cz--audio \
-	-o $(BUILD_PATH)/FULL_sc3000_32k \
+	-o $(BUILD_PATH)/FULL_sc3000_32k.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_sc3000_32k.prg
-	rm $(BUILD_PATH)/FULL_sc3000_32k.cas	
+	rm $(BUILD_PATH)/FULL_sc3000_32k.tap	
 	
 # It hangs if compiled with sdcc.
 # syntax error if compiled with sccz80

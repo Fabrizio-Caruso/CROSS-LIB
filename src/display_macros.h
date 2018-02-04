@@ -140,6 +140,8 @@ typedef struct ImageStruct Image;
 	|| defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
 	|| defined(__SC3000__) || defined(__SAM__) || defined(__MC1000__) || defined(__MTX__)
 	#define XSize 32
+#elif defined(__NASCOM__)
+	#define XSize 48	
 #elif defined(__MZ__)
 	#define XSize 40
 #elif defined(__VG5K__)

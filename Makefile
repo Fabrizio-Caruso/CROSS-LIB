@@ -656,7 +656,7 @@ samcoupe:
 	$(Z88DK_PATH)$(MYZ88DK) +sam -O3 \
 	-D__SAM__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-DFULL_GAME -DSOUNDS -DCLIB_ANSI -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
+	-DFULL_GAME -DCLIB_ANSI -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
@@ -999,7 +999,28 @@ list:
 	
 # DEBUG
 
-
+# import as data into ram at 32768 - call 32768
+samcoupe_light:
+	$(Z88DK_PATH)$(MYZ88DK) +sam -O0 \
+	-D__SAM__  \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn \
+	-DCLIB_ANSI -o $(BUILD_PATH)/LIGHT_samcoupe.bin -lndos \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	
+	
+samcoupe_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +sam -O0 \
+	-D__SAM__ -DTINY_GAME \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn \
+	-DCLIB_ANSI -o $(BUILD_PATH)/TINY_samcoupe.bin -lndos \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	
+	
 zx81_16k_sccz80:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	-O3 \

@@ -1,14 +1,14 @@
 CROSS CHASE
 A massively 8-bit multi-system game
 
-MYSELF
+MYSELF - THE AUTHOR
 My name is Fabrizio Caruso, I am a software engineer and a retro-computing enthusiast and collector.
 I have collected about 80 computers from the late '70s, '80s and early '90.
 I am mostly interested in the 8-bit era.
 
 CROSS CHASE is my personal project 
 whose main purpose is to create a simple, yet fun, game
-for literally ALL 8-bit computers (and many 8-bit consoles, computer-console hybrids and hand-helds)
+for literally ALL 8-bit computers/consoles/handhelds
 from the '70s and '80s.
 By ALL I mean any 8-bit computers with enough RAM and for which a capable ANSI C cross compiler exists.
 My project is open source and it can be followed at:
@@ -24,7 +24,7 @@ This idea came to me when I found out about the CC65 cross development toolkit f
 I realized that CC65 provided a common language (ANSI C) for all its supported targets 
 and some common APIs for most of its targets.
 I started playing around with it by modifying the "hello world" example, which is provided with it.
-After 1100 Git commits from the "hello world" I have now an arcade-like game that can run on about 60 different
+After 1400 Git commits from the "hello world" I have now an arcade-like game that can run on about 60 different
 systems.
 CC65 was clearly not enough and I had to resort to other toolkits such as:
 Z88DK (https://github.com/z88dk/z88dk) which comes with two ANSI C cross compilers (ZSDCC and SCCZ80) for Z80-based systems 
@@ -47,11 +47,19 @@ The VERY SAME code (or meta-code) produces all three versions:
 including a gun that can kill all including the skull;
 - FULL: as as LIGHT but with different enemy types, more power-ups and multiple levels with different walls and missiles.
 
+THE FRAMEWORK
+A very important by-product of this project is a C library/framework that I have written 
+to create an abstraction layer so that the very same code can be used for all systems.
+This means that it is already possible to create other universal 8 bit games within the 
+graphical and sound limitations of the framework.
+
+
 THE SUPPORTED SYSTEMS
 The supported systems are in principle ALL 8-bit systems but the game currently only works for just about 70 systems and configurations.
 I am actively adding new systems all the time, so I can only provide the partial list:
 
 Partial list of FULL versions:
+- Sega SC 3000
 - Luxor ABC80 32k
 - Jupiter Ace 16k 
 - Apple //c
@@ -94,7 +102,7 @@ Partial list of FULL versions:
 - Sinclair ZX81 with 16k expansion
 
 Partial list of LIGHT versions:
- 
+- Atari Lynx (handheld)
 - Luxor ABC80 16k
 - Atari 400/800 (high resolution)
 - Commodore 16/116 (unexpanded)
@@ -110,17 +118,20 @@ Partial list of LIGHT versions:
 - Robotron Z 9001 16k
 
 Partial list of TINY versions:
+- Mattel Aquarius with 4k expansion
+- PCEngine (console) 8k rom version
 - Creativision (computer/console hybrid) 8k rom version
 - Ohio Scientific 1P 8k
 - Commodore PET 8k
 - Sinclair Spectrum 16k (unexpanded)
 - Commodore Vic 20 with 3k expansion
 
-SAME CODE FOR 100 SYSTEMS
+SAME CODE FOR MORE THAN 100 SYSTEMS
 I am using the very same code for all systems. 
 This is possible because 
-1. I am using ANSI C, which is a universal language
-2. I have created a sort of universal 8-bit framework for very simple graphics and sounds.
+- I am using ANSI C, which is a universal language, 
+which is compiled by multiple cross-compilers into executables for the specific systems.
+- I have created a universal 8-bit framework for very simple graphics and sounds.
 The framework provides an abstraction layer so that hardware-specific code is used for graphics and sounds.
 
 

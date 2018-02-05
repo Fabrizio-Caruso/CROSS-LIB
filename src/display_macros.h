@@ -146,7 +146,7 @@ typedef struct ImageStruct Image;
 	#define XSize 48	
 #elif defined(__MZ__)
 	#define XSize 40
-#elif defined(__VG5K__)
+#elif defined(__VG5K__) || defined(__APPLE2ENH__) || defined(__APPLE2__)
 	#define XSize (40-X_OFFSET)
 #elif defined(__Z9001__) || defined(__P2000__) || defined(__ABC80__)
 	#define XSize 40
@@ -181,7 +181,8 @@ typedef struct ImageStruct Image;
 
 #if defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
     || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) \
-	|| defined(__SPECTRUM__) || defined(__SC3000__) || defined(__MTX__)
+	|| defined(__SPECTRUM__) || defined(__SC3000__) || defined(__MTX__) \
+    || defined(__APPLE2ENH__) || defined(__APPLE2__)	
 	#define YSize (24-Y_OFFSET)
 #elif defined(__SAM__)
 	#define YSize (24-Y_OFFSET-2)

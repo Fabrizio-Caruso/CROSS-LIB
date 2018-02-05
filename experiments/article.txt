@@ -53,6 +53,12 @@ to create an abstraction layer so that the very same code can be used for all sy
 This means that it is already possible to create other universal 8 bit games within the 
 graphical and sound limitations of the framework.
 
+THE APPLE VERSIONS
+The game supports lots of systems (see next section) including the Apple][ and Apple//e systems.
+The Apple versions currently only use the text mode and have no sound.
+Both sound (through the bit banging technique), 
+as well as graphics (through the CC65's TGI libraries) are planned.
+Nevertheless the game is already fully playable in these versions.
 
 THE SUPPORTED SYSTEMS
 The supported systems are in principle ALL 8-bit systems but the game currently only works for just about 70 systems and configurations.

@@ -487,6 +487,7 @@ cpc:
 	-x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib \
 	@$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst	
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 \
+	-pragma-define:REGISTER_SP=-1 \
 	-DREDEFINED_CHARS -DSOUNDS -DFULL_GAME -clib=ansi -D__CPC__ -DCPCRSLIB -DBETWEEN_LEVEL -DEND_SCREEN \
 	-l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos \
 	-create-app -o $(BUILD_PATH)/FULL_cpc.prg \
@@ -1438,12 +1439,13 @@ supervision_full:
 		
 
 pce_light:
-	$(CC65_PATH)$(MYCC65) -O -t pce \
-	--config $(SOURCE_PATH)/../cfg/pce_extra.cfg \
+	$(CC65_PATH)$(MYCC65) -O -t pce -Cl \
+	--config $(SOURCE_PATH)/../cfg/pce_16k.cfg \
 	-DNO_SLEEP -DLESS_TEXT \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c  \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	--code-name BANK01 \
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/LIGHT_pce.pce
@@ -1545,7 +1547,15 @@ msx_no_color_16k:
 	# rm $(BUILD_PATH)/FULL_cpc_no_sound.cpc 
 	# rm $(BUILD_PATH)/FULL_cpc_no_sound.prg	
 	
-	
+cpc_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 $(SOURCE_PATH)/../experiments/cpc_hello.c \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/cpc_hello.prg
+	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/cpc_hello.cpc $(BUILD_PATH)/cpc_hello.cdt
+	rm $(BUILD_PATH)/cpc_hello.cpc 
+	rm $(BUILD_PATH)/cpc_hello.prg	
+
+
 # cpc_color_light:
 	# $(Z88DK_PATH)$(MYZ88DKASM) -v   -x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib   @$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst
 	# $(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -vn -clib=ansi -DREDEFINED_CHARS -D__CPC__ -DCPCRSLIB          -l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos -create-app -o $(BUILD_PATH)/LIGHT_cpc_color.prg                                 $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c

@@ -680,6 +680,7 @@ samcoupe:
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	
+
 mtx:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 -O3 \
 	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app -o FULL.bin -vn \
@@ -737,16 +738,7 @@ p2000_32k:
 	
 # KEYBOARD INPUT PROBLEM
 # -DFULL_GAME -DSOUNDS
-z9001_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi \
-	-D__Z9001__ -vn  -DCLIB_ANSI \
-	-lndos -create-app -o $(BUILD_PATH)/LIGHT_z9001.z80 \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
-	rm $(BUILD_PATH)/LIGHT_z9001.z80
-	
+
 z9001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi \
 	-D__Z9001__ -vn -DFULL_GAME -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -757,6 +749,17 @@ z9001_32k:
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	rm $(BUILD_PATH)/FULL_z9001.z80	
 
+	
+z9001_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi \
+	-D__Z9001__ -vn  -DCLIB_ANSI \
+	-lndos -create-app -o $(BUILD_PATH)/LIGHT_z9001.z80 \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	rm $(BUILD_PATH)/LIGHT_z9001.z80	
+	
 mc1000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3 \
 	-pragma-define:ansicolumns=32 -subtype=gaming -clib=ansi -D__MC1000__ -DSOUNDS -vn \
@@ -1017,6 +1020,29 @@ list:
 	
 # DEBUG
 
+ts2068:
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 -O3 \
+	-D__TS2068__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn \
+	-DFULL_GAME -DCLIB_ANSI -o $(BUILD_PATH)/FULL_ts2068.bin -lndos \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+
+
+
+z1013_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 -clib=ansi \
+	-D__Z9001__ -vn  -DCLIB_ANSI \
+	-lndos -create-app -o $(BUILD_PATH)/LIGHT_z1013.z80 \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	# rm $(BUILD_PATH)/LIGHT_z1013.z80
+	
+	
 # import as data into ram at 32768 - call 32768
 samcoupe_light:
 	$(Z88DK_PATH)$(MYZ88DK) +sam -O0 \
@@ -1555,48 +1581,11 @@ cpc_hello:
 	rm $(BUILD_PATH)/cpc_hello.cpc 
 	rm $(BUILD_PATH)/cpc_hello.prg	
 
-
-# cpc_color_light:
-	# $(Z88DK_PATH)$(MYZ88DKASM) -v   -x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib   @$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst
-	# $(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -vn -clib=ansi -DREDEFINED_CHARS -D__CPC__ -DCPCRSLIB          -l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos -create-app -o $(BUILD_PATH)/LIGHT_cpc_color.prg                                 $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	# $(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/LIGHT_cpc_color.cpc  $(BUILD_PATH)/LIGHT_cpc_color.cdt
-	# rm $(BUILD_PATH)/LIGHT_cpc_color.cpc 
-	# rm $(BUILD_PATH)/LIGHT_cpc_color.prg
-
-# cpc_color_sound_light:
-	# $(Z88DK_PATH)$(MYZ88DKASM) -v   -x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib   @$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst
-	# $(Z88DK_PATH)$(MYZ88DK)   +cpc -O3 -vn -clib=ansi -DREDEFINED_CHARS -D__CPC__ -DCPCRSLIB -DSOUNDS -l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos -create-app -o $(BUILD_PATH)/LIGHT_cpc_color_sound.prg $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	# $(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/LIGHT_cpc_color_sound.cpc  $(BUILD_PATH)/LIGHT_cpc_color_sound.cdt
-	# rm $(BUILD_PATH)/LIGHT_cpc_color_sound.cpc 
-	# rm $(BUILD_PATH)/LIGHT_cpc_color_sound.prg	
-
-# cpc_color_no_sound:
-	# $(Z88DK_PATH)$(MYZ88DKASM) -v   -x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib   @$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst
-	# $(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS           -DFULL_GAME -vn -clib=ansi -D__CPC__   -DCPCRSLIB  -l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos -create-app -o $(BUILD_PATH)/FULL_cpc_color_no_sound.prg                                 $(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	# $(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_color_no_sound.cpc  $(BUILD_PATH)/FULL_cpc_color_no_sound.cdt
-	# rm $(BUILD_PATH)/FULL_cpc_color_no_sound.cpc 
-	# rm $(BUILD_PATH)/FULL_cpc_color_no_sound.prg	
+z1013_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 $(SOURCE_PATH)/../experiments/cpc_hello.c \
+	-lndos -vn \
+	-create-app -o $(BUILD_PATH)/z1013_hello.z80
 	
-# VERY SLOW DUE TO CONIO
-# cpc_color_no_udg_light:
-	# $(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \
-	# -D__CPC__ \
-	# -lndos -create-app -o $(BUILD_PATH)/FULL_cpc_color_no_udg.prg \
-	# $(SOURCE_PATH)/item.c \
-	# $(SOURCE_PATH)/cpc/cpc_graphics.c $(SOURCE_PATH)/display_macros.c \
-	# $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	# $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	# $(SOURCE_PATH)/main.c
-	# $(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_color_no_udg.cpc  $(BUILD_PATH)/FULL_cpc_color_no_udg.cdt
-	# rm $(BUILD_PATH)/FULL_cpc_color_no_udg.cpc 
-	# rm $(BUILD_PATH)/FULL_cpc_color_no_udg.prg
-	
-
-# cpc_no_color_no_udg:
-	# $(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -DCPC_NO_COLOR -vn -DFULL_GAME -clib=ansi -D__CPC__ -lndos -create-app -o $(BUILD_PATH)/FULL_cpc_no_color.prg $(SOURCE_PATH)/cpc/cpc_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	# $(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_no_color.cpc  $(BUILD_PATH)/FULL_cpc_no_color.cdt
-	# rm $(BUILD_PATH)/FULL_cpc_no_color.cpc 
-	# rm $(BUILD_PATH)/FULL_cpc_no_color.prg	
 
 msx_color_32k_msxdos:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -O3 -DSOUNDS -DREDEFINED_CHARS -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -lndos -subtype=msxdos -o $(BUILD_PATH)/FULL_msx_color_32k.com $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	

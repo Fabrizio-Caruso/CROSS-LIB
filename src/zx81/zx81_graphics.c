@@ -34,12 +34,13 @@ extern Image BOMB_IMAGE;
 #if !defined(TINY_GAME)
 	extern Image INVINCIBLE_GHOST_IMAGE;
 	extern Image POWERUP_IMAGE;
-	extern Image FREEZE_IMAGE;
 	extern Image MISSILE_IMAGE;
 	extern Image GUN_IMAGE;
 #endif
 
 #if defined(FULL_GAME)
+	extern Image FREEZE_IMAGE;
+
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
@@ -76,12 +77,13 @@ void INIT_IMAGES(void)
 	#if !defined(TINY_GAME)
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';	
 		POWERUP_IMAGE._imageData = 'S';
-		FREEZE_IMAGE._imageData = 'F';
 		GUN_IMAGE._imageData = '!';
 		MISSILE_IMAGE._imageData = '.';
 	#endif
 
 	#if defined(FULL_GAME)
+		FREEZE_IMAGE._imageData = 'F';
+	
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		

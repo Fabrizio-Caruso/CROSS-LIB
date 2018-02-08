@@ -62,51 +62,17 @@
 	#include "patch/wincmoc_conio_patch.h"	
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	#include "patch/cmoc_conio_implementation.h"
-#elif defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) || defined(__TI86__) || defined(__TI86S__)
-	#include "patch/z88dk_conio_patch.h"
-#elif defined(__BEE__)
-	#include "patch/z88dk_conio_patch.h"	
-#elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__)
-	#include "patch/z88dk_conio_patch.h"		
-#elif defined(__MZ__)
-	#include "patch/z88dk_conio_patch.h"		
-#elif defined(__GAL__) || defined(__SC3000__)
-	#include "patch/z88dk_conio_patch.h"	
-#elif defined(__SPECTRUM__) && defined(CLIB_ANSI)
-	#include "patch/z88dk_conio_patch.h"	
-#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
-	#include "patch/z88dk_conio_implementation.h"		
-#elif defined(__SAM__)
-	#include "patch/z88dk_conio_patch.h"	
-#elif defined(__CPC__)
-	#include "patch/z88dk_conio_patch.h"
-#elif defined(__MSX__)
-	#include "patch/z88dk_conio_implementation.h"
-#elif defined(__SVI__) && !defined(MSX_MODE0)
-	#include "patch/z88dk_conio_patch.h"
-#elif defined(__SVI__) && defined(MSX_MODE0)
-	#include "patch/z88dk_conio_implementation.h"
-#elif defined(__VG5K__)
-	#include "patch/z88dk_conio_patch.h"
-#elif defined(__TRS80__)
-	#include "patch/z88dk_conio_implementation.h"
-#elif defined(__SC3000__)
-	#include "patch/z88dk_conio_implementation.h"	
-#elif defined(__AQUARIUS__)
-	#include "patch/z88dk_conio_patch.h"	
-#elif defined(__VZ__)
-	#include "patch/z88dk_conio_patch.h"			
-#elif defined(__ZX81__) || defined(__LAMBDA__)
-	#include "patch/z88dk_conio_implementation.h"	
-#elif defined(__ZX80__)
-	#include "patch/z88dk_conio_implementation.h"		
-#elif defined(__ACE__)
-	#include "patch/z88dk_conio_implementation.h"		
-#elif defined(__ENTERPRISE__)
-	#include "patch/z88dk_conio_implementation.h"		
-#elif defined(__MTX__)
-	#include "patch/z88dk_conio_patch.h"		
-#elif defined(__M5__)
+#elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
+	  || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__) \
+	  || defined(__BEE__) || defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) \
+	  || defined(__TI86__) || defined(__TI86S__) || defined(__MZ__) || defined(__GAL__) || defined(__SC3000__) \
+	  || (defined(__SPECTRUM__) && defined(CLIB_ANSI)) || defined(__SAM__) || defined(__CPC__) \
+	  || (defined(__SVI__) && !defined(MSX_MODE0)) || defined(__VG5K__) || defined(__AQUARIUS__) \
+	  || defined(__VZ__) || defined(__MTX__)
+	#include "patch/z88dk_conio_patch.h"					
+#elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
+	  || defined(__TRS80__) || defined(__SC3000__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) \
+	  || defined(__ACE__) || defined(__ENTERPRISE__) || defined(__M5__)
 	#include "patch/z88dk_conio_implementation.h"		
 #endif
 

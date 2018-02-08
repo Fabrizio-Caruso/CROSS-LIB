@@ -1065,13 +1065,26 @@ ts2068_tiny:
 
 z1013_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 -clib=ansi \
-	-D__Z9001__ -vn  -DCLIB_ANSI \
-	-lndos -create-app -o $(BUILD_PATH)/LIGHT_z1013.z80 \
+	-D__Z1013__ -vn  -DCLIB_ANSI \
+	-lndos -create-app -o \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
-	# rm $(BUILD_PATH)/LIGHT_z1013.z80
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/LIGHT_z1013.z80
+	rm $(BUILD_PATH)/../a.bin
+
+
+z1013_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 -clib=ansi \
+	-D__Z1013__ -vn  -DCLIB_ANSI -DTINY_GAME -DNO_SLEEP \
+	-lndos \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
+	-create-app -o
+	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/TINY_z1013.z80
+	rm $(BUILD_PATH)/../a.bin
 	
 	
 # import as data into ram at 32768 - call 32768

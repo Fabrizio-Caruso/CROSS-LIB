@@ -23,19 +23,21 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include "sleep_macros.h"
+#if !defined(NO_SLEEP)
 
-#if defined(__OSIC1P__)
-	#define CYCLES 500UL
-#else
-	#define CYCLES 1000UL
-#endif
+	#if defined(__OSIC1P__)
+		#define CYCLES 500UL
+	#else
+		#define CYCLES 1000UL
+	#endif
 
-#if defined(__CMOC__) || defined(__WINCMOC__)
-	// Do nothing
-#else
-	void sleep(unsigned int sec) 
-	{ 
-		unsigned int ii; 
-		for(ii=0;ii<sec*CYCLES;++ii){}; 
-	}
+	#if defined(__CMOC__) || defined(__WINCMOC__)
+		// Do nothing
+	#else
+		void sleep(unsigned int sec) 
+		{
+			unsigned int ii; 
+			for(ii=0;ii<sec*CYCLES;++ii){}; 
+		}
+	#endif
 #endif

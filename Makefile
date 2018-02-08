@@ -1646,8 +1646,20 @@ z1013_hello:
 	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/z1013_hello.z80
 	rm $(BUILD_PATH)/../a.bin
 
-	
+vg5k_wait_press:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SOURCE_PATH)/../experiments/wait_press.c \
+	-lndos -vn  -zorg=19000 \
+	-create-app -o $(BUILD_PATH)/vg5k_wait_press.prg
 
+
+z1013_wait_press:
+	$(Z88DK_PATH)$(MYZ88DK) +z1013  $(SOURCE_PATH)/../experiments/wait_press.c \
+	-lndos -vn -clib=ansi \
+	-create-app -o
+	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/z1013_wait_press.z80
+	rm $(BUILD_PATH)/../a.bin	
+
+	
 msx_color_32k_msxdos:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -O3 -DSOUNDS -DREDEFINED_CHARS -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -lndos -subtype=msxdos -o $(BUILD_PATH)/FULL_msx_color_32k.com $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	

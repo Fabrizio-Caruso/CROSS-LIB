@@ -139,7 +139,8 @@ typedef struct ImageStruct Image;
     || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
 	|| defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
 	|| defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
-	|| defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__)
+	|| defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
+	|| defined(__Z1013__)
 	#define XSize 32
 // #elif defined(__SAM__)
 	// #define XSize (32-2)
@@ -198,7 +199,7 @@ typedef struct ImageStruct Image;
 // #elif defined(__MZ__) || defined(__BEE__) || defined(__AQUARIUS__) || defined(__X1__) \
 	  // || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__)
 	// #define YSize (25-Y_OFFSET)
-#elif defined(__OSIC1P__)
+#elif defined(__OSIC1P__) || defined(__Z1013__)
 	#define YSize (32-Y_OFFSET)	
 #elif defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__))
 	#define YSize (24-Y_OFFSET)	

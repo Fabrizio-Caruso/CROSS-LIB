@@ -1613,9 +1613,12 @@ cpc_hello:
 	rm $(BUILD_PATH)/cpc_hello.prg	
 
 z1013_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 $(SOURCE_PATH)/../experiments/cpc_hello.c \
-	-lndos -vn \
-	-create-app -o $(BUILD_PATH)/z1013_hello.z80
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 $(SOURCE_PATH)/../experiments/hello.c \
+	-lndos -vn -clib=ansi \
+	-create-app -o
+	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/z1013_hello.z80
+	rm $(BUILD_PATH)/../a.bin
+
 	
 
 msx_color_32k_msxdos:

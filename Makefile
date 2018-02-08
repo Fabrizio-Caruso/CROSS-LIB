@@ -1064,7 +1064,19 @@ ts2068_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 
 
-z1013_16k:
+z1013:
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 -clib=ansi \
+	-vn -lndos \
+	-D__Z1013__ -DCLIB_ANSI -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
+	-create-app -o
+	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/FULL_z1013.z80
+	rm $(BUILD_PATH)/../a.bin	
+	
+z1013_light:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 -clib=ansi \
 	-vn -lndos \
 	-D__Z1013__ -DCLIB_ANSI \

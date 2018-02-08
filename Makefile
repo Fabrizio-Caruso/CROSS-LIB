@@ -1044,11 +1044,12 @@ ts2068:
 	$(Z88DK_PATH)$(MYZ88DK) +ts2068 -O3 \
 	-D__TS2068__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-DFULL_GAME -o $(BUILD_PATH)/FULL_ts2068.bin -lndos \
+	-DFULL_GAME  -lndos \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
+	-o $(BUILD_PATH)/FULL_ts2068.bin
 
 
 
@@ -1065,12 +1066,13 @@ ts2068_tiny:
 
 z1013_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 -clib=ansi \
-	-D__Z1013__ -vn  -DCLIB_ANSI \
-	-lndos -create-app -o \
+	-vn -lndos \
+	-D__Z1013__ -DCLIB_ANSI \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
+	-create-app -o
 	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/LIGHT_z1013.z80
 	rm $(BUILD_PATH)/../a.bin
 

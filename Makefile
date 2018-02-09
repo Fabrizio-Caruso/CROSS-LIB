@@ -1522,28 +1522,63 @@ vic20_exp_3k_NO_GFX:
 	# $(SOURCE_PATH)/merged.c \
 	# -o $(BUILD_PATH)/TINY_vic20_unexpanded_merged.prg
 	
+	
+creativision_16k_2:
+	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	-DNO_SLEEP -DLESS_TEXT \
+	--config $(SOURCE_PATH)/../cfg/creativision-16k_2.cfg \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	--code-name CODE2 \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	-o $(BUILD_PATH)/LIGHT_creativision_16k.bin	
+	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
+	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k.bin 
+	cat $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin > $(BUILD_PATH)/LIGHT_creativision_16k.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
+	
 # -DLESS_TEXT
 # Too big by a few bytes
-creativision_light:
-	$(CC65_PATH)$(MYCC65) -O -t creativision -Cl \
+# --code-name CODE2
+creativision_16k:
+	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	-DNO_SLEEP -DLESS_TEXT \
 	--config $(SOURCE_PATH)/../cfg/creativision-16k.cfg \
 	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	--code-name CODE2 \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/main.c \
-	-o $(BUILD_PATH)/LIGHT_creativision.bin	
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	-o $(BUILD_PATH)/LIGHT_creativision_16k.bin	
+	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
+	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k.bin 
+	cat $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin > $(BUILD_PATH)/LIGHT_creativision_16k.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
 
-creativision_16k:
-	$(CC65_PATH)$(MYCC65) -O -t creativision -Cl \
-	-DNO_SLEEP -DLESS_TEXT -DNO_MESSAGE \
-	--config $(SOURCE_PATH)/../cfg/creativision-8k.cfg \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
-	-o $(BUILD_PATH)/LIGHT_creativision.bin		
+
+dummy: 	
+# creativision_16k:
+	# $(CC65_PATH)$(MYCC65) -t creativision -Cl \
+	# -DNO_SLEEP -DLESS_TEXT -DNO_MESSAGE \
+	# --config $(SOURCE_PATH)/../cfg/creativision-8k.cfg \
+	# $(SOURCE_PATH)/item.c \
+	# $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	# $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c \
+	# -o $(BUILD_PATH)/LIGHT_creativision.bin
+	# dd if=$(BUILD_PATH)/LIGHT_creativision.bin ibs=1 count=8192 of=$(BUILD_PATH)/LIGHT_creativision_LOW.bin
+	# dd if=$(BUILD_PATH)/LIGHT_creativision.bin ibs=1 skip=8192 of=$(BUILD_PATH)/LIGHT_creativision_HIGH.bin
+	# rm $(BUILD_PATH)/LIGHT_creativision.bin 
+	# cat $(BUILD_PATH)/LIGHT_creativision_HIGH.bin $(BUILD_PATH)/LIGHT_creativision_LOW.bin > $(BUILD_PATH)/LIGHT_creativision.bin
+	# rm $(BUILD_PATH)/LIGHT_creativision_LOW.bin
+	# rm $(BUILD_PATH)/LIGHT_creativision_HIGH.bin
+
 	
 # NO Image displayed
 creativision_full:

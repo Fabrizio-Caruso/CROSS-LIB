@@ -129,7 +129,12 @@ Image BOMB_IMAGE;
 			#include <c128.h>
 			
 			fast();
-			videomode(80);		
+			videomode(80);
+		#elif defined(__GCC__)
+                	#include <ncurses.h>
+			
+			noecho(0);
+			cbreak();
 		#endif	
 
 		

@@ -1241,7 +1241,7 @@ gal_6k:
 	-SO3 --max-allocs-per-node200000 \
 	-pragma-need=ansiterminal \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
-	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DNO_INITIAL_SCREEN -DALT_PRINT -DNO_MESSAGE \
 	-vn -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -1686,15 +1686,24 @@ msx_no_color_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -O3  -zorg=49200 -DSOUNDS -create-app -vn -D__MSX__ -lndos -create-app -o $(BUILD_PATH)/LIGHT_msx_no_color_16k.prg $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_msx_no_color_16k.prg 	
 
-
+gal_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +gal \
+	-compiler=sdcc \
+	-SO3 --max-allocs-per-node200000 \
+	-pragma-need=ansiterminal \
+	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
+	-vn -lndos -create-app -Cz--audio \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-o  $(BUILD_PATH)/hello.prg
+	rm $(BUILD_PATH)/hello.prg
 	
 cpc_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 $(SOURCE_PATH)/../experiments/cpc_hello.c \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 $(SOURCE_PATH)/../experiments/hello.c \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/cpc_hello.prg
-	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/cpc_hello.cpc $(BUILD_PATH)/cpc_hello.cdt
-	rm $(BUILD_PATH)/cpc_hello.cpc 
-	rm $(BUILD_PATH)/cpc_hello.prg	
+	-create-app -o $(BUILD_PATH)/hello.prg
+	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/hello.cpc $(BUILD_PATH)/hello.cdt
+	rm $(BUILD_PATH)/hello.cpc 
+	rm $(BUILD_PATH)/hello.prg	
 
 z1013_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 $(SOURCE_PATH)/../experiments/hello.c \

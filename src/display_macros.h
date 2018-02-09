@@ -68,7 +68,7 @@
 	  || defined(__TI86__) || defined(__TI86S__) || defined(__MZ__) || defined(__GAL__) || defined(__SC3000__) \
 	  || (defined(__SPECTRUM__) && defined(CLIB_ANSI)) || defined(__SAM__) || defined(__CPC__) \
 	  || (defined(__SVI__) && !defined(MSX_MODE0)) || defined(__VG5K__) || defined(__AQUARIUS__) \
-	  || defined(__VZ__) || defined(__MTX__)
+	  || defined(__VZ__) || defined(__MTX__) || defined(__Z88__)
 	#include "patch/z88dk_conio_patch.h"					
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__TRS80__) || defined(__SC3000__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) \
@@ -101,15 +101,13 @@ typedef struct ImageStruct Image;
 	#define X_OFFSET 0
 #endif
 
-#if defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
-    || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
-	|| defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
-	|| defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
-	|| defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
-	|| defined(__Z1013__)
-	#define XSize 32
+#  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
+      || defined(__BEE__) ||  defined(__PET__) || defined(__CBM610__)
+	#define XSize 80
+#elif defined(__PCE__)
+	#define XSize 64
 #elif defined(__NASCOM__)
-	#define XSize 48	
+	#define XSize 48
 #elif defined(__VG5K__) || defined(__APPLE2ENH__) || defined(__APPLE2__) \
 	  || defined(__Z9001__) || defined(__P2000__) || defined(__ABC80__) \
 	  || defined(__MZ__) || defined(__X1__) || defined(__ATMOS__) \
@@ -117,47 +115,48 @@ typedef struct ImageStruct Image;
       || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
 	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0))
 	#define XSize (40-X_OFFSET)
-#elif defined(__PCE__)
-	#define XSize 64
-#elif defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
-      || defined(__BEE__) ||  defined(__PET__) || defined(__CBM610__)
-	#define XSize 80
+#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
+      || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
+	  || defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
+	  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
+	  || defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
+	  || defined(__Z1013__) || defined(__Z88__)
+	#define XSize 32	
+#elif defined(__VIC20__)
+	#define XSize 22
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) \
 	  || (defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1) \
 	  || defined(__ATARI_LINX__)
 	#define XSize 20
-#elif defined(__VIC20__)
-	#define XSize 22
 #else
 	#define XSize 16
 #endif
 
-#if defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
-    || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) \
-	|| defined(__SPECTRUM__) || defined(__SC3000__) || defined(__MTX__) \
-    || defined(__APPLE2ENH__) || defined(__APPLE2__) \
-	|| defined(__Z9001__) || defined(__P2000__)
-	#define YSize (24-Y_OFFSET)
-#elif defined(__SAM__)
-	#define YSize (24-2-Y_OFFSET)
-#elif defined(__OSIC1P__) || defined(__Z1013__)
-	#define YSize (32-Y_OFFSET)	
-#elif defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__))
-	#define YSize (24-Y_OFFSET)	
-#elif defined(__VIC20__)
-	#define YSize 23
+#  if defined(__OSIC1P__) || defined(__Z1013__)
+	  #define YSize (32-Y_OFFSET)	
+#elif defined(__ATMOS__)
+	#define YSize (28-Y_OFFSET)		  
 #elif defined(__CBM610__) || defined(__PET__) || defined(__C128__) \
       || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
 	  || defined(__PET__) || defined(__CBM610__) \
 	  || defined(__MZ__) || defined(__BEE__) || defined(__AQUARIUS__) || defined(__X1__) \
 	  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__)
 	#define YSize (25-Y_OFFSET)
-#elif defined(__ATMOS__)
-	#define YSize (28-Y_OFFSET)		
-#elif defined(__CMOC__) || defined(__WINCMOC__)
-	#define YSize 16	
+#elif defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
+    || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) \
+	|| defined(__SPECTRUM__) || defined(__SC3000__) || defined(__MTX__) \
+    || defined(__APPLE2ENH__) || defined(__APPLE2__) \
+	|| defined(__Z9001__) || defined(__P2000__) \
+	|| defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__))
+	#define YSize (24-Y_OFFSET)		
+#elif defined(__VIC20__)
+	#define YSize 23	
+#elif defined(__SAM__)
+	#define YSize (24-2-Y_OFFSET)	
 #elif defined(__ATARI_LYNX__)
 	#define YSize 13
+#elif defined(__Z88__)
+	#define YSize 8
 #else
 	#define YSize 16
 #endif

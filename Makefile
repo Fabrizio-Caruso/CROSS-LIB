@@ -328,6 +328,18 @@ creativision_16k:
 	rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
 	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin	
 	
+creativision_32k:
+	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(SOURCE_PATH)/../cfg/creativision-32k.cfg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	-o $(BUILD_PATH)/FULL_creativision_32k.bin		
+	
 atari_lynx:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
@@ -998,32 +1010,46 @@ coco:
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 # KO: 
-# OK: 28
+# OK: 30
 # ------------
 cc65_targets: \
 	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k \
 	atari_color atari_no_color atari_no_color_16k \
 	atmos oric1_16k \
 	c16_16k c16_32k \
-	pet_8k pet_16k cbm510 cbm610 \
+	pet_8k pet_16k \
+	cbm510 cbm610 \
 	apple2 apple2enh \
 	c64 c128_40col c128_80col \
-	pce_8k atari5200 creativision_8k nes \
+	pce_8k atari5200 nes \
+	creativision_8k creativision_16k \
 	gamate atari_lynx \
 	osic1p_8k osic1p_32k
 
 
 # KO:      \
-# OK: 37
+# OK: 42
 z88dk_targets: \
 	sc3000_16k sc3000_32k \
-	ace_exp_16k cpc vg5k vg5k_exp_16k svi_318 svi_318_mode0 svi_328 sharp_mz \
-	samcoupe mtx abc80_16k abc80_32k p2000_16k p2000_32k \
-	msx_color_16k msx_color_32k_rom msx_color_32k spectrum_16k spectrum_48k \
-	aquarius_exp_4k aquarius_exp_16k vz200_16k \
-	z9001_16k z9001_32k mc1000_16k mc1000_48k pc6001_16k pc6001_32k nascom_16k \
-	lambda_16k nascom_32k  vz200_32k microbee_16k microbee_32k \
-	gal_22k z1013 \
+	ace_exp_16k \
+	cpc \
+	vg5k vg5k_exp_16k \
+	svi_318 svi_318_mode0 svi_328 \
+	sharp_mz \
+	mtx \
+	abc80_16k abc80_32k \
+	p2000_16k p2000_32k \
+	msx_color_16k msx_color_32k_rom msx_color_32k \
+	spectrum_16k spectrum_48k samcoupe \
+	aquarius_exp_4k aquarius_exp_16k \
+	vz200_16k vz200_32k \
+	z9001_16k z9001_32k \
+	mc1000_16k mc1000_48k \
+	pc6001_16k pc6001_32k \
+	nascom_16k nascom_32k \
+	microbee_16k microbee_32k \
+	z1013 \
+	gal_22k lambda_16k \
 	zx80_16k zx81_16k zx80_8k zx81_8k
 	
 

@@ -328,17 +328,6 @@ creativision_16k:
 	rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
 	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin	
 	
-creativision_32k:
-	$(CC65_PATH)$(MYCC65) -O -t creativision \
-	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	--config $(SOURCE_PATH)/../cfg/creativision-32k.cfg \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	-o $(BUILD_PATH)/FULL_creativision_32k.bin		
 	
 atari_lynx:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
@@ -1098,6 +1087,18 @@ list:
 # DEBUG
 
 
+creativision_32k:
+	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(SOURCE_PATH)/../cfg/creativision-32k.cfg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	-o $(BUILD_PATH)/FULL_creativision_32k.bin
+
 zx81_light:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	-compiler=sdcc \
@@ -1118,7 +1119,9 @@ z88_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +z88 \
 	-D__Z88__ \
 	-DTINY_GAME \
-	-o $(BUILD_PATH)/TINY_z88.bin -vn -lndos \
+	-subtype=app -create-app \
+	-o $(BUILD_PATH)/TINY_z88.bin \
+	-vn -lndos \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c

@@ -1556,10 +1556,10 @@ creativision_16k:
 	-o $(BUILD_PATH)/LIGHT_creativision_16k.bin	
 	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
 	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
-	rm $(BUILD_PATH)/LIGHT_creativision_16k.bin 
-	cat $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin > $(BUILD_PATH)/LIGHT_creativision_16k.bin
-	rm $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
-	rm $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
+	# rm $(BUILD_PATH)/LIGHT_creativision_16k.bin 
+	cat $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin > $(BUILD_PATH)/LIGHT_creativision_16k_SWAPPED.bin
+	# rm $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
+	# rm $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
 
 
 dummy: 	
@@ -1686,6 +1686,11 @@ msx_no_color_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -O3  -zorg=49200 -DSOUNDS -create-app -vn -D__MSX__ -lndos -create-app -o $(BUILD_PATH)/LIGHT_msx_no_color_16k.prg $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_msx_no_color_16k.prg 	
 
+creativision_hello:
+	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-o $(BUILD_PATH)/creativision_hello.bin
+	
 gal_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-compiler=sdcc \

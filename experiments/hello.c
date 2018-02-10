@@ -1,9 +1,10 @@
 #include <stdio.h>
+#include <conio.h>
 
   int main()
   {
-
-	printf("Hello world!\n");	
+	gotoxy(2,2);
+	cprintf("Hello world!\n");	
 	
 	while(1){};
 	

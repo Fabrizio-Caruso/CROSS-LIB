@@ -1127,6 +1127,25 @@ z88_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 
 
+osca_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +osca \
+	-D__OSCA__ -DNO_SLEEP -DLESS_TEXT \
+	-DTINY_GAME \
+	-o $(BUILD_PATH)/TINY_osca.bin -vn -lndos \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	
+# no conio
+kc_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +kc \
+	-D__X1__ \
+	-DTINY_GAME \
+	-o $(BUILD_PATH)/TINY_kc.bin -vn -lndos \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+
 x1_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
 	-D__X1__ \

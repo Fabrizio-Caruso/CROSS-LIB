@@ -204,11 +204,19 @@
 	|| defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || defined(__CBM510__) || defined(__PET__) || defined(__C128__) \
 	|| defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) || defined(__LYNX__) \
 	|| defined(__NES__) || defined(__PCE__)
-	#define JOYSTICK_CONTROL
+	#if !defined(FORCE_KEYBOARD)
+		#define JOYSTICK_CONTROL
+	#else
+		#define KEYBOARD_CONTROL
+	#endif
 #else
 	#define KEYBOARD_CONTROL
 #endif
 
+#if defined FORCE_KEYBOARD
+	#undef JOYSTICK_CONTROL
+	#define KEYBOARD_CONTROL
+#endif
 
 #if defined(KEYBOARD_CONTROL)
 	#define WAIT_FOR_KEY

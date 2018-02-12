@@ -244,7 +244,8 @@ extern Character player;
 	#elif defined(__ZX80__) 
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based		
 	#elif (defined(__VIC20__) && defined(TINY_GAME))||defined(__SUPERVISION__) || defined(__CREATIVISION__) \
-		  || defined(__OSIC1P__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__)
+		  || defined(__OSIC1P__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) \
+		  || defined(__C16__)
 		void MOVE_PLAYER(void) 
 		{
 			if(kbhit()) 

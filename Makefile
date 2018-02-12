@@ -1088,8 +1088,9 @@ list:
 
 
 c16_16k_full: 
-	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl --config $(SOURCE_PATH)/../cfg/c16-16k_extra.cfg \
-	-DFULL_GAME -DNO_SLEEP -DLESS_TEXT \
+	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl \
+	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg \
+	-DFULL_GAME -DNO_SLEEP -DLESS_TEXT -DNO_COLOR -DFORCE_KEYBOARD \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \

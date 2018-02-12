@@ -142,7 +142,7 @@ Image BOMB_IMAGE;
 	
 	void INIT_IMAGES(void)
 	{		
-		#if defined(COLOR)
+		#if !defined(NO_COLOR)
 			PLAYER_IMAGE._color = COLOR_CYAN;
 			BOMB_IMAGE._color = COLOR_RED;
 			DEAD_GHOST_IMAGE._color = COLOR_RED;
@@ -206,7 +206,7 @@ Image BOMB_IMAGE;
 			DEAD_GHOST_IMAGE._imageData = 'o';
 		#endif
 
-		#if defined(COLOR)
+		#if !defined(NO_COLOR)
 			#if !defined(__GAMATE__)
 				GHOST_IMAGE._color = COLOR_WHITE;
 				#if !defined(TINY_GAME)

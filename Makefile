@@ -1087,6 +1087,22 @@ list:
 # DEBUG
 
 
+c16_16k_full: 
+	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl --config $(SOURCE_PATH)/../cfg/c16-16k_extra.cfg \
+	-DFULL_GAME \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/main.c  \
+	--code-name CODE2 \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/missile.c \
+	$(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/rocket.c \
+	-o $(BUILD_PATH)/FULL_c16_16k.prg	
+
+
 creativision_32k:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \

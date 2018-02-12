@@ -1319,7 +1319,7 @@ gal_6k_sccz80:
 
 gal_6k: 
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
-	-clib=sdcc \
+	-compiler=sdcc \
 	-SO3 --max-allocs-per-node200000 \
 	--opt-code-size \
 	-pragma-need=ansiterminal \

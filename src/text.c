@@ -125,7 +125,7 @@ extern Image PLAYER_IMAGE;
 
 
 
-#if defined(COLOR)
+#if !defined(NO_COLOR)
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
 		PRINT(((XSize - strlen(Text))>>1), row, Text);	
@@ -207,7 +207,7 @@ extern Image PLAYER_IMAGE;
 		#elif defined(__CMOC__) && !defined(__WINCMOC__)
 			// TODO: Implement this
 		#else
-			#if defined(COLOR)
+			#if !defined(NO_COLOR)
 				SET_TEXT_COLOR(TEXT_COLOR);
 			#endif
 			gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc(GUN_IMAGE._imageData);
@@ -218,7 +218,7 @@ extern Image PLAYER_IMAGE;
 
 	void printGunsStats(void)
 	{
-		#if defined(COLOR)		
+		#if !defined(NO_COLOR)		
 			SET_TEXT_COLOR(TEXT_COLOR);	
 		#endif
 		#if defined(WIDE)
@@ -243,7 +243,7 @@ extern Image PLAYER_IMAGE;
 
 	void printGhostCountStats(void)
 	{
-		#if defined(COLOR)
+		#if !defined(NO_COLOR)
 			SET_TEXT_COLOR(TEXT_COLOR);		
 		#endif
 		#if defined(WIDE) && !defined(TINY_GAME)
@@ -256,7 +256,7 @@ extern Image PLAYER_IMAGE;
 
 	void printLivesStats(void)
 	{
-		#if defined(COLOR)
+		#if !defined(NO_COLOR)
 			SET_TEXT_COLOR(TEXT_COLOR);
 		#endif
 		#if defined(WIDE) && !defined(TINY_GAME)
@@ -275,7 +275,7 @@ extern Image PLAYER_IMAGE;
 
 void displayStats(void)
 {	
-	#if defined(COLOR)
+	#if !defined(NO_COLOR)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)

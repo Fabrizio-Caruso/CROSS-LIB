@@ -1089,12 +1089,11 @@ list:
 
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl --config $(SOURCE_PATH)/../cfg/c16-16k_extra.cfg \
-	-DFULL_GAME \
+	-DFULL_GAME -DNO_SLEEP -DLESS_TEXT \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/main.c  \
-	--code-name CODE2 \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/missile.c \
@@ -1320,8 +1319,9 @@ gal_6k_sccz80:
 
 gal_6k: 
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
-	-compiler=sdcc \
+	-clib=sdcc \
 	-SO3 --max-allocs-per-node200000 \
+	--opt-code-size \
 	-pragma-need=ansiterminal \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
 	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DNO_INITIAL_SCREEN -DALT_PRINT -DNO_MESSAGE \

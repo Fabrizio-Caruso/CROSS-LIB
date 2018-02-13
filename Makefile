@@ -423,7 +423,10 @@ vg5k:
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	#rm $(BUILD_PATH)/LIGHT_vg5k.prg
+	rm $(BUILD_PATH)/LIGHT_vg5k.k7
+	cat $(SOURCE_PATH)/vg5k/LIGHT_vg5k_header.hex $(BUILD_PATH)/LIGHT_vg5k.prg $(SOURCE_PATH)/vg5k/LIGHT_vg5k_end.hex > $(BUILD_PATH)/LIGHT_vg5k.k7
+	rm $(BUILD_PATH)/LIGHT_vg5k.prg
+	
 	
 # -O3 -zorg=18941 -vn
 vg5k_exp_16k:
@@ -437,7 +440,9 @@ vg5k_exp_16k:
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	#rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg
+	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
+	cat $(SOURCE_PATH)/vg5k/FULL_vg5k_header.hex $(BUILD_PATH)/FULL_vg5k_exp_16k.prg $(SOURCE_PATH)/vg5k/LIGHT_vg5k_end.hex > $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
+	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg	
 	
 ace_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +ace -O3 \

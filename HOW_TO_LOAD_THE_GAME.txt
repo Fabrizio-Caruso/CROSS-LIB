@@ -60,6 +60,15 @@ Type CLOAD
 Select the game file
 Type CALL 19000 
 
+REMARK:
+You can create an auto-bootable file with the following steps
+Type CLOAD
+Select the game file
+Write 10 CALL 19000
+Create an empty k7 with the magnotophone tool in DCVG5K 
+Select the Write option
+Write CSAVEM"XCHASE",18900,<size of the raw binary>,10
+
 ---------------------------------------------------------
 AQUARIUS
 

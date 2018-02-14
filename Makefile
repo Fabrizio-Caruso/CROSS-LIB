@@ -423,8 +423,8 @@ vg5k:
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/LIGHT_vg5k.k7
-	cat $(SOURCE_PATH)/vg5k/LIGHT_vg5k_header.hex $(BUILD_PATH)/LIGHT_vg5k.prg $(SOURCE_PATH)/vg5k/LIGHT_vg5k_end.hex > $(BUILD_PATH)/LIGHT_vg5k.k7
+	# rm $(BUILD_PATH)/LIGHT_vg5k.k7
+	# cat $(SOURCE_PATH)/vg5k/LIGHT_vg5k_header.hex $(BUILD_PATH)/LIGHT_vg5k.prg $(SOURCE_PATH)/vg5k/LIGHT_vg5k_end.hex > $(BUILD_PATH)/LIGHT_vg5k.k7
 	rm $(BUILD_PATH)/LIGHT_vg5k.prg
 	
 	
@@ -440,8 +440,8 @@ vg5k_exp_16k:
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
-	cat $(SOURCE_PATH)/vg5k/FULL_vg5k_header.hex $(BUILD_PATH)/FULL_vg5k_exp_16k.prg $(SOURCE_PATH)/vg5k/LIGHT_vg5k_end.hex > $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
+	# rm $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
+	# cat $(SOURCE_PATH)/vg5k/FULL_vg5k_header.hex $(BUILD_PATH)/FULL_vg5k_exp_16k.prg $(SOURCE_PATH)/vg5k/LIGHT_vg5k_end.hex > $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
 	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg	
 	
 ace_exp_16k:
@@ -992,6 +992,13 @@ coco:
 	$(COCO_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o cmoc_graphics.o \
+	enemy.o \
+	level.o character.o text.o \
+	strategy.o \
+	input_macros.o cmoc_input.o \
+	item.o missile.o invincible_enemy.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm 	display_macros.o cmoc_graphics.o \
 	enemy.o \
 	level.o character.o text.o \
 	strategy.o \

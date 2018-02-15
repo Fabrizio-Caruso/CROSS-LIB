@@ -1100,8 +1100,8 @@ list:
 
 sms_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +sms \
-	-D__PX4__ \
-	-DTINY_GAME \
+	-D__SMS__ \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT \
 	-pragma-need=ansiterminal -pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
 	-o $(BUILD_PATH)/TINY_sms.bin \
 	-vn -lndos \

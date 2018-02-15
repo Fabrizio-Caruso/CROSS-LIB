@@ -41,8 +41,10 @@
 #endif
 	
 // !(defined(__VIC20__) && defined(VIC20_UNEXPANDED)) &&
-#if !defined(__CMOC__) && !defined(__SUPERVISION__) && !defined(__ATARI_LYNX__) && !defined(__MSX__) \
-    && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) 
+#if !defined(__SMS__) && !defined(__CMOC__) && !defined(__SUPERVISION__) \
+	&& !defined(__ATARI_LYNX__) && !defined(__MSX__) \
+    && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) \
+	&& !defined(CLIB_ANSI)) 
 	#include <conio.h>
 #endif
 #if defined(__WINCMOC__)
@@ -62,6 +64,8 @@
 	#include "patch/wincmoc_conio_patch.h"	
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	#include "patch/cmoc_conio_implementation.h"
+#elif defined(__SMS__)
+	#include "patch/sms_conio_implementation.h"
 #elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
 	  || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__) \
 	  || defined(__BEE__) || defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) \
@@ -72,7 +76,7 @@
 	#include "patch/z88dk_conio_patch.h"					
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__TRS80__) || defined(__SC3000__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) \
-	  || defined(__ACE__) || defined(__ENTERPRISE__) || defined(__M5__)
+	  || defined(__ACE__) || defined(__ENTERPRISE__) || defined(__M5__) 
 	#include "patch/z88dk_conio_implementation.h"		
 #endif
 
@@ -120,7 +124,7 @@ typedef struct ImageStruct Image;
 	  || defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
 	  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
 	  || defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
-	  || defined(__Z1013__) || defined(__Z88__)
+	  || defined(__Z1013__) || defined(__Z88__) || defined(__PX4__)
 	#define XSize 32	
 #elif defined(__VIC20__)
 	#define XSize 22
@@ -155,7 +159,7 @@ typedef struct ImageStruct Image;
 	#define YSize (24-2-Y_OFFSET)	
 #elif defined(__ATARI_LYNX__)
 	#define YSize 13
-#elif defined(__Z88__)
+#elif defined(__Z88__) || defined(__PX4__)
 	#define YSize 8
 #else
 	#define YSize 16

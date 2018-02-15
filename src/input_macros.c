@@ -116,7 +116,8 @@ extern Character player;
 			}
 		#endif
 	// TO DO: REMOVE THIS, once the bug in kbhit is fixed
-	#elif defined(__OSIC1P__) || defined(__NASCOM__) || defined(__Z1013__)
+	#elif defined(__OSIC1P__) || defined(__NASCOM__) || defined(__Z1013__) \
+		  || defined(__SMS__)
 		#include "sleep_macros.h"		
 				
 		void WAIT_PRESS(void)

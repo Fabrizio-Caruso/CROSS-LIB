@@ -34,20 +34,26 @@
 #ifndef _SMS_CONIO_IMPLEMENTATION
 #define _SMS_CONIO_IMPLEMENTATION
 	#include <stdio.h>
-	#include <arch/sms/SMSlib.h>
+	#include <sms.h>
 	
-	#define gotoxy(a,b) SMS_setNextTileatXY(x,y)
+	// #include <sms/SMSlib.h>
 	
-	#define clrscr() SMS_VRAMmemset(SMS_PNTAddress, 0, 32*28*2);
+	#define gotoxy(a,b) 
+	// SMS_setNextTileatXY(x,y)
+	
+	#define clrscr() 
+	// SMS_VRAMmemset(SMS_PNTAddress, 0, 32*28*2);
 	
 	#define cprintf 
 	//printf
 	//tgi_outtext
 
-	#define cputc(c) SMS_setTile(c);
+	#define cputc(c) 
+	// SMS_setTile(c);
 	//putchar(c); 	
 
-	#define cgetc() (char) getchar();
+	#define cgetc() 
+	// (char) getchar();
 	
 	#define textcolor 
 

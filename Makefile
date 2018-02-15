@@ -1206,7 +1206,17 @@ x1_tiny:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 
+x1_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +x1 \
+	-o $(BUILD_PATH)/x1_hello.bin -vn -lndos \
+	$(SOURCE_PATH)/../experiments/hello.c
+	
 
+x1_wait_press:
+	$(Z88DK_PATH)$(MYZ88DK) +x1 \
+	-o $(BUILD_PATH)/x1_wait_press.bin -vn -lndos \
+	$(SOURCE_PATH)/../experiments/wait_press.c
+	
 ts2068:
 	$(Z88DK_PATH)$(MYZ88DK) +ts2068 -O3 \
 	-D__TS2068__ -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -1775,6 +1785,8 @@ msx_no_color_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -O3  -zorg=49200 -DSOUNDS -create-app -vn -D__MSX__ -lndos -create-app -o $(BUILD_PATH)/LIGHT_msx_no_color_16k.prg $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_msx_no_color_16k.prg 	
 
+
+	
 creativision_hello:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	$(SOURCE_PATH)/../experiments/hello.c \

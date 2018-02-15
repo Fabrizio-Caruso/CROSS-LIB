@@ -116,10 +116,10 @@ extern Character player;
 			}
 		#endif
 	// TO DO: REMOVE THIS, once the bug in kbhit is fixed
-	#elif defined(__OSIC1P__) || defined(__NASCOM__) || defined(__Z1013__) \
-		  || defined(__SMS__)
+	#elif defined(__OSIC1P__) || defined(__NASCOM__) \
+		  || defined(__Z1013__) || defined(__SMS__)
 		#include "sleep_macros.h"		
-				
+		
 		void WAIT_PRESS(void)
 		{
 			// Workaround for CC65 bug 
@@ -310,6 +310,12 @@ extern Character player;
 				}			
 			}				
 		#endif	
+	#elif defined(__SMS__)
+		// TODO: To implement
+		void MOVE_PLAYER(void) 
+		{
+			movePlayerByKeyboard(' ');	
+		}	
 	#else
 		void MOVE_PLAYER(void) 
 		{

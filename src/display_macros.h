@@ -298,6 +298,9 @@ void DRAW_BOMBS(void);
 #elif defined(__GAL__) && defined(TINY_GAME) && defined(ALT_PRINT)
 	#define PRINT(x,y,str)
 	#define PRINTF(x,y,str,val)	
+#elif defined(__SMS__) && defined(TINY_GAME) && defined(ALT_PRINT)
+	#define PRINT(x,y,str) 
+	#define PRINTF(x,y,str,val)	
 #elif defined(__ATARI_LYNX__)
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	

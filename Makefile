@@ -1101,8 +1101,8 @@ list:
 sms_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +sms \
 	-D__SMS__ \
-	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT \
-	-pragma-need=ansiterminal -pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
+	-DTINY_GAME \
+	-DNO_SLEEP -DLESS_TEXT -DALT_PRINT \
 	-o $(BUILD_PATH)/TINY_sms.bin \
 	-vn -lndos \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \

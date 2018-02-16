@@ -124,8 +124,10 @@ typedef struct ImageStruct Image;
 	  || defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
 	  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
 	  || defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
-	  || defined(__Z1013__) || defined(__Z88__) || defined(__PX4__)
+	  || defined(__Z1013__) || defined(__Z88__) 
 	#define XSize 32	
+#elif defined(__PX4__)
+	#define XSize 40	
 #elif defined(__VIC20__)
 	#define XSize 22
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) \

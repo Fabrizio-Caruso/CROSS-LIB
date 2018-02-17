@@ -130,7 +130,7 @@ Load file with "Laden"s
 
 ---------------------------------------------------------
 
-CCE MC1000
+CCE MC-1000
 
 Use the MESS emulator
 Use File Manager to attach the WAV file
@@ -179,6 +179,41 @@ RUN
 
 SAM Coupe
 
-Unse SAMEMU emulator.
+Use SAMEMU emulator.
 Copy the compiled output to a file called "SAMFILE" 
 Run the emulator, press F1 (apparently nothing happens) and type "call 32768".
+
+----------------------------------------------------------
+
+SHARP X1
+
+Use XBrowser88 (https://www.z88dk.org/tools/x1/):
+1. to create an empty .d88 disk image
+2. to put the binary inside a disk image (just drag and drop it inside)
+3. to make the binary bootable (right click on the binary inside the image and select the boot option)
+
+Use Takeda X1 emulator.
+1. Start the emulator.
+2. Click on FD0.
+3. Select the newly created disk image containing the bootable binary.
+
+----------------------------------------------------------
+
+EPSON PX-4 / HC-40
+
+Use Takeda X1 emulator with the right SYS.ROM file (https://fjkraan.home.xs4all.nl/comp/px4/).
+
+Rename the binary into BASIC.ROM and replace the original BASIC.ROM that
+should be (or have been) in the same directory as the X1 emulator executable.
+
+----------------------------------------------------------
+
+Robotron Z 1013
+
+Use J1013 emulator (http://www.jens-mueller.org/j1013/download.html):
+1. Press Datei->Laden
+2. Select binary
+3. Press Starten
+
+
+

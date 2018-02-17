@@ -939,7 +939,21 @@ z1013:
 	-create-app -o
 	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/FULL_z1013.z80
 	rm $(BUILD_PATH)/../a.bin	
+
 	
+px4_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
+	-D__PX4__ \
+	-DTINY_GAME \
+	-subtype=px4ansi -Cz–-32k \
+	-pragma-define:ansicolumns=40 \
+	-create-app -o $(BUILD_PATH)/TINY_px4.bin \
+	-vn -lndos \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	
+
 # ------------------------------------
 
 coco:
@@ -1110,19 +1124,6 @@ sms_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 
 # 	-pragma-need=ansiterminal -pragma-define:ansipixels=240 -pragma-define:ansicolumns=40 
-
-px4_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
-	-D__PX4__ \
-	-DTINY_GAME \
-	-subtype=px4ansi -Cz–-32k \
-	-pragma-define:ansicolumns=40 \
-	-o $(BUILD_PATH)/TINY_px4.bin \
-	-vn -lndos \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	
 
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl \

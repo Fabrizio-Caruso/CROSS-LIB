@@ -3,17 +3,21 @@
 
 int main()
 {
-	printf("Press key\n");
-
-	while(kbhit())
-		getch();
-	while(!kbhit())
-	{ 
-	}; 
-	getch();
-
-	printf("key pressed\n");
+	int i;
 	
+	for(i=0;i<10;++i)
+	{
+		printf("Press key\n");
+
+		while(kbhit())
+			getch();
+		while(!kbhit())
+		{ 
+		}; 
+		getch();
+
+		printf("Key pressed: %d\n\n", i);
+	}
 	return 0;
 }
 

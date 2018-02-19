@@ -1,0 +1,55 @@
+HOW TO COMPILE FOR A NEW TARGET
+
+Adding a new target computer with no sound, no joystick/gamepad inpu 
+and no user-defined graphics can be as simple as just recompiling 
+with no modification if the compiler supports conio.h. 
+
+In most cases this won't produce the best result. So some little tuning
+is usually necessary.
+
+If no conio is natively supported, some little conio wrapper and/or
+re-implementation of the display APIs in display_macros.c is necessary.
+
+Here we describe the simplest cases when conio is already available,
+no sound and no user defined graphics is expected.
+
+Usually you have to do the following steps:
+
+1. SCREEN SIZE
+By default screen size is 16x16 cells.
+So, if you want your target (e.g., NEW_TARGET) to use a different cell count.
+You need to compile with the -D__NEW_TARGET__ option to let the code know you
+are compiling for NEW_TARGET
+edit display_macros.h and add something like:
+...
+#elif defined(__NEW_TARGET__)
+	#define XSize <desired X cell resolution>
+...
+#elif defined(__NEW_TARGET__)
+	#define YSize <desired Y cell resolution>
+...
+
+2. SPEED
+By default no slow down is inserted in the main loop but in some cases your game
+may run too fast.
+So you will need to edit settings.h to add some slow-down:
+...
+#elif defined(__NEW_TARGET__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN <number of slow-down cycles>
+...
+
+3. SLEEP
+If the compiler does not implement the sleep function, you need to either implement one
+yourself or compile with -DNO_SLEEP if you want no sleep.
+
+4. KEYBOARD INPUT
+Some targets may detect key-presses as capital and others as small letters.
+You can tune this in settings.h.
+
+5. INPUT 
+Some targets may no implement getk to read the keyboard input.
+In this case you need to provide a substitute in input_macros.h and input_macros.c
+
+
+	

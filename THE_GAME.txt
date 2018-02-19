@@ -1,0 +1,8 @@
+THE GAME
+by Fabrizio Caruso
+
+The game idea is my original idea and I was not inspired by any other game.
+I later found out that GNOME Robots is somehow similar in its basic concept.
+The main difference is that my game is an acton game, whereas Robots is a turn-based game.
+
+

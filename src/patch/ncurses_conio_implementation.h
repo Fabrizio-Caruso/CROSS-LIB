@@ -33,6 +33,7 @@
 
 #ifndef NCURSES_CONIO_IMPLEMENTATION
 #define NCURSES_CONIO_IMPLEMENTATION
+	#include <ncurses.h>
 	
 	#define gotoxy(x,y) mvcur(50,50,x,y)
 	#define cputc(c) do { addch(c); refresh(); } while(0)

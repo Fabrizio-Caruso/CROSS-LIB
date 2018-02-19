@@ -131,13 +131,11 @@ Image BOMB_IMAGE;
 			fast();
 			videomode(80);
 		#elif defined(__GCC__)
-                	#include <ncurses.h>
+            #include <ncurses.h>
 			
-			noecho(0);
+			noecho();
 			cbreak();
 		#endif	
-
-		
 	}
 	
 	void INIT_IMAGES(void)

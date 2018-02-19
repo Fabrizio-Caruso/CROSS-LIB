@@ -117,7 +117,7 @@ extern Character player;
 		#endif
 	// TO DO: REMOVE THIS, once the bug in kbhit is fixed
 	#elif defined(__OSIC1P__) || defined(__NASCOM__) \
-		  || defined(__Z1013__) || defined(__SMS__) || defined(__X1__)
+		  || defined(__Z1013__) || defined(__SMS__) || defined(__X1__) || defined(__GCC__)
 		#include "sleep_macros.h"		
 		
 		void WAIT_PRESS(void)
@@ -135,7 +135,7 @@ extern Character player;
 		void WAIT_PRESS(void)
 		{
 			waitkey(0);
-		}		
+		}	
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		#include<conio.h>
 		void WAIT_PRESS(void)

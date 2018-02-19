@@ -1112,6 +1112,15 @@ list:
 	
 # DEBUG
 
+gcc_tiny:
+	gcc -D__GCC__ \
+	-DTINY_GAME \
+	-DNO_SLEEP -DLESS_TEXT -DALT_PRINT \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+
 sms_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +sms \
 	-D__SMS__ \

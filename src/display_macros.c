@@ -116,6 +116,8 @@ Image BOMB_IMAGE;
 	//
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	//
+#elif defined(__ENTERPRISE__)
+	//
 #elif defined(__SUPERVISION__)
 	//
 #else

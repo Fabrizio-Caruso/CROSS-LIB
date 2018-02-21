@@ -136,6 +136,11 @@ extern Character player;
 		{
 			waitkey(0);
 		}	
+	#elif defined(__ENTERPRISE__)
+		void WAIT_PRESS(void)
+		{
+			getch();
+		}
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
 		#include<conio.h>
 		void WAIT_PRESS(void)

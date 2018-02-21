@@ -208,7 +208,7 @@ void INIT_IMAGES(void)
 	}
 #endif
 
-void _draw(char x, char y, Image * image) 
+void _draw(unsigned char x, unsigned char y, Image * image) 
 {
 	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 	(void) textcolor (image->_color);
@@ -216,7 +216,7 @@ void _draw(char x, char y, Image * image)
 };
 
 
-void _delete(char x, char y)
+void _delete(unsigned char x, unsigned char y)
 {
 	gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' ');
 };

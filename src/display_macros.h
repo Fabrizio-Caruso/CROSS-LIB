@@ -305,6 +305,9 @@ void DRAW_BOMBS(void);
 #elif defined(__SMS__) && defined(TINY_GAME) && defined(ALT_PRINT)
 	#define PRINT(x,y,str) 
 	#define PRINTF(x,y,str,val)	
+#elif defined(__ENTERPRISE__)
+	#define PRINT(x,y,str) 
+	#define PRINTF(x,y,str,val)		
 #elif defined(__ATARI_LYNX__)
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
@@ -391,7 +394,9 @@ void DRAW_BOMBS(void);
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED)
 	#define SET_TEXT_COLOR(c)
 	#define CLEAR_SCREEN() clrscr()
-	// void CLEAR_SCREEN(void); // to be implemented
+#elif defined(__ENTERPRISE__)
+	#define SET_TEXT_COLOR(c)
+	#define CLEAR_SCREEN()
 #elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(TINY_GAME))
 	#define SET_TEXT_COLOR(c)
 	void CLEAR_SCREEN(void);

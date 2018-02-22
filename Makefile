@@ -1125,6 +1125,7 @@ sms_chicken:
 
 enterprise_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +enterprise \
+	-vn -lndos \
 	-DTINY_GAME \
 	-DNO_INPUT \
 	-DNO_SLEEP -DLESS_TEXT -DALT_PRINT \

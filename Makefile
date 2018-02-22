@@ -1112,6 +1112,17 @@ list:
 	
 # DEBUG
 
+coco_fibonacci:
+	cmoc experiments/fibonacci.c 
+
+sms_chicken:
+	$(Z88DK_PATH)$(MYZ88DK) +sms \
+	-vn -lndos \
+	-o $(BUILD_PATH)/sms_chicken.sms \
+	$(SOURCE_PATH)/../experiments/chicken/chicken.c \
+	$(SOURCE_PATH)/../experiments/chicken/chicken_graphics.asm	
+
+
 enterprise_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +enterprise \
 	-DTINY_GAME \

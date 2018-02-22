@@ -302,9 +302,9 @@ void DRAW_BOMBS(void);
 #elif defined(__GAL__) && defined(TINY_GAME) && defined(ALT_PRINT)
 	#define PRINT(x,y,str)
 	#define PRINTF(x,y,str,val)	
-#elif defined(__SMS__) && defined(TINY_GAME) && defined(ALT_PRINT)
-	#define PRINT(x,y,str) 
-	#define PRINTF(x,y,str,val)	
+#elif defined(__SMS__) 
+	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
+	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
 #elif defined(__ENTERPRISE__)
 	#define PRINT(x,y,str) 
 	#define PRINTF(x,y,str,val)		

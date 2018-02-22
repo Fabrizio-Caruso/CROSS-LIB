@@ -38,14 +38,12 @@
 	
 	// #include <sms/SMSlib.h>
 	
-	// #define gotoxy(a,b) 
-	// SMS_setNextTileatXY(x,y)
+	// #define gotoxy(x,y)
 	
-	#define clrscr()     clear_vram()
+	#define clrscr() clear_vram()
 	// SMS_VRAMmemset(SMS_PNTAddress, 0, 32*28*2);
 	
-	#define cprintf 
-	//printf
+	#define cprintf printf
 	//tgi_outtext
 
 	#define cputc(c) printf("%c",c)

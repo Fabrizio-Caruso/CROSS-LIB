@@ -1115,14 +1115,6 @@ list:
 coco_fibonacci:
 	cmoc experiments/fibonacci.c 
 
-sms_chicken:
-	$(Z88DK_PATH)$(MYZ88DK) +sms \
-	-vn -lndos \
-	-o $(BUILD_PATH)/sms_chicken.sms \
-	$(SOURCE_PATH)/../experiments/chicken/chicken.c \
-	$(SOURCE_PATH)/../experiments/chicken/chicken_graphics.asm	
-
-
 enterprise_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +enterprise \
 	-vn -lndos \
@@ -1145,14 +1137,41 @@ gcc_tiny:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 
+	
+sms_libctest:
+	$(Z88DK_PATH)$(MYZ88DK) +sms \
+	-vn -lndos \
+	-create-app \
+	-o $(BUILD_PATH)/sms_libctest.sms \
+	$(SOURCE_PATH)/../experiments/libctest.c
+
+
+sms_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +sms \
+	-vn -lndos \
+	-create-app \
+	-o $(BUILD_PATH)/sms_hello.sms \
+	$(SOURCE_PATH)/../experiments/sms_hello.c
+
+sms_chicken:
+	$(Z88DK_PATH)$(MYZ88DK) +sms \
+	-vn -lndos \
+	-create-app \
+	-o $(BUILD_PATH)/sms_chicken.sms \
+	$(SOURCE_PATH)/../experiments/chicken/chicken.c \
+	$(SOURCE_PATH)/../experiments/chicken/chicken_graphics.asm	
+
+
 sms_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +sms \
 	-D__SMS__ \
 	-DTINY_GAME \
 	-DNO_SLEEP -DLESS_TEXT -DALT_PRINT \
+	-create-app \
 	-o $(BUILD_PATH)/TINY_sms.bin \
 	-vn -lndos \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	mv $(BUILD_PATH)/TINY_sms.bin $(BUILD_PATH)/TINY_sms.sms

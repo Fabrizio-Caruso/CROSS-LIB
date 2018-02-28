@@ -1420,6 +1420,12 @@ sc3000_tiny:
 	#rm $(BUILD_PATH)/TINY_sc3000.prg
 
 
+pointerToFunction:
+	$(CC65_PATH)$(MYCC65) -t pce \
+	$(SOURCE_PATH)/../experiments/pointerToFunction.c \
+	-o $(BUILD_PATH)/pointerToFunctions.pce
+	
+	
 
 vic20_targets: \
 	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k

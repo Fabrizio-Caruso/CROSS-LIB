@@ -5,7 +5,7 @@ void hello(void)
 {
 	gotoxy(3,5);
 	textcolor(COLOR_WHITE);
-	cprintf("Hello world!\n");
+	cprintf("Hello\n");
 }
 
 struct objectStruct
@@ -23,6 +23,8 @@ int main()
 	obj.foo = hello;
 	
 	obj.foo();
+	
+	gotoxy(3,7); cprintf("world!\n");
 	
 	while(1){};
 	

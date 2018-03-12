@@ -26,16 +26,16 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 As a consequence of the design, the code includes a framework that could be used to develop other massively multi-system games and programs. 
 
-![Atari 800](atari800.jpg)
-![Spectrum 48k](spectrum.jpg)
-![Vic 20](vic20_1.jpg)
-![MSX](msx.jpg)
-![Oric 1/Atmos](Oric.jpg)
-![Amstrad CPC](cpc.jpg)
-![ZX81](zx81_1.jpg)
-![title](title.jpg)
-![zx81_title](zx81_title.jpg)
-![Vic 20 title](vic20_title.jpg)
+![Atari 800](images/atari800.jpg)
+![Spectrum 48k](images/spectrum.jpg)
+![Vic 20](images/vic20_1.jpg)
+![MSX](images/msx.jpg)
+![Oric 1/Atmos](images/Oric.jpg)
+![Amstrad CPC](images/cpc.jpg)
+![ZX81](images/zx81_1.jpg)
+![title](images/title.jpg)
+![zx81_title](images/zx81_title.jpg)
+![Vic 20 title](images/vic20_title.jpg)
 
 LICENSE
 

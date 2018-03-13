@@ -961,7 +961,19 @@ z1013:
 	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/FULL_z1013.z80
 	rm $(BUILD_PATH)/../a.bin	
 
-	
+
+px8_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
+	-D__PX8__ \
+	-DTINY_GAME \
+	-create-app -o$(BUILD_PATH)/TINY_px8.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+
+
 px4_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
 	-D__PX4__ \
@@ -970,10 +982,11 @@ px4_tiny:
 	-pragma-define:ansicolumns=40 \
 	-create-app -o $(BUILD_PATH)/TINY_px4.bin \
 	-vn -lndos \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	
+
 
 # ------------------------------------
 

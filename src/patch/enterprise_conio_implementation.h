@@ -38,26 +38,27 @@
 	
 	#define gotoxy(x,y) do \
 		{ \
-			char text[6];
-			esccmd[0]='='; \
-			esccmd[1]=x+32; \
-			esccmd[2]=y+32; \
+			char text[6]; \
+			esccmd_cmd='='; \
+			esccmd_x=x+32; \
+			esccmd_y=y+32; \
 			exos_write_block(DEFAULT_VIDEO, 6, esccmd); \
 		} while(0)
 		
 	
 	#define clrscr() exos_write_character(DEFAULT_VIDEO, 0x1A)
 
-	#define cprintf printf
-
+	#define cprintf
+			
 	#define cputc(c) do \
 		{ \
-	    char text[1]; \
-		text[0] = c; \
-        exos_write_block(DEFAULT_VIDEO, 1, text); \
+	     char text[2]; \
+		 text[0] = c; \
+		 text[1] = '\0'; \
+         exos_write_block(DEFAULT_VIDEO, 1, text); \
 		} while(0)
 
-	#define cgetc() 
+	#define cgetc() getk()
 
 	#define textcolor 
 

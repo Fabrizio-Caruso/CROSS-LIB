@@ -66,6 +66,8 @@
 	#include "patch/cmoc_conio_implementation.h"
 #elif defined(__SMS__)
 	#include "patch/sms_conio_implementation.h"
+#elif defined(__ENTERPRISE__)
+	#include "patch/enterprise_conio_implementation.h"
 #elif defined(__GCC__)
 	#include "patch/ncurses_conio_implementation.h"	
 #elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
@@ -78,7 +80,7 @@
 	#include "patch/z88dk_conio_patch.h"					
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__TRS80__) || defined(__SC3000__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) \
-	  || defined(__ACE__) || defined(__ENTERPRISE__) || defined(__M5__) 
+	  || defined(__ACE__) || defined(__M5__) 
 	#include "patch/z88dk_conio_implementation.h"		
 #endif
 
@@ -119,7 +121,8 @@ typedef struct ImageStruct Image;
 	  || defined(__MZ__) || defined(__X1__) || defined(__ATMOS__) \
 	  || defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
       || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
-	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0))
+	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
+	  || defined(__PX4__) || defined(__ENTERPRISE__)
 	#define XSize (40-X_OFFSET)
 #elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
       || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
@@ -128,8 +131,6 @@ typedef struct ImageStruct Image;
 	  || defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
 	  || defined(__Z1013__) || defined(__Z88__) 
 	#define XSize 32	
-#elif defined(__PX4__)
-	#define XSize 40	
 #elif defined(__VIC20__)
 	#define XSize 22
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) \
@@ -148,7 +149,8 @@ typedef struct ImageStruct Image;
       || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
 	  || defined(__PET__) || defined(__CBM610__) \
 	  || defined(__MZ__) || defined(__BEE__) || defined(__AQUARIUS__) || defined(__X1__) \
-	  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__)
+	  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__) \
+	  || defined(__ENTERPRISE__)
 	#define YSize (25-Y_OFFSET)
 #elif defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
     || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) \

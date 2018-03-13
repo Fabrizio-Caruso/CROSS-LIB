@@ -1138,16 +1138,17 @@ coco_fibonacci:
 
 enterprise_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +enterprise \
-	-vn -lndos \
+	-create-app -o $(BUILD_PATH)/TINY_enterprise.app \
+	-lm -vn -lndos \
 	-DTINY_GAME \
 	-DNO_INPUT \
 	-DNO_SLEEP -DLESS_TEXT -DALT_PRINT \
-	-o $(BUILD_PATH)/TINY_enterprise.bin \
 	$(SOURCE_PATH)/enterprise/enterprise_graphics.c \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+
 
 gcc_tiny:
 	gcc -D__GCC__ \

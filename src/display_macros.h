@@ -40,15 +40,8 @@
 	#define PLAYER_IMAGE PLAYER_DOWN
 #endif
 	
-// !(defined(__VIC20__) && defined(VIC20_UNEXPANDED)) &&
-#if !defined(__SMS__) && !defined(__CMOC__) && !defined(__SUPERVISION__) \
-	&& !defined(__ATARI_LYNX__) && !defined(__MSX__) \
-    && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) \
-	&& !defined(CLIB_ANSI)) && !defined(__GCC__) && !defined(__ENTERPRISE__)
-	#include <conio.h>
-#endif
-#if defined(__WINCMOC__)
-	#include <conio.h>
+#if defined(CONIO_LIB)
+	#include<conio.h>
 #endif
 
 #if defined(__CREATIVISION__) || defined(__GAMATE__) || defined(__OSIC1P__) || defined(__ATARI5200__) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
@@ -70,6 +63,8 @@
 	#include "patch/enterprise_conio_implementation.h"
 #elif defined(__GCC__)
 	#include "patch/ncurses_conio_implementation.h"	
+#elif defined(__PX8__)
+	#include "patch/px8_conio_implementation.h"		
 #elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
 	  || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__) \
 	  || defined(__BEE__) || defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) \

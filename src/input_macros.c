@@ -142,7 +142,9 @@ extern Character player;
 			getch();
 		}
 	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
-		#include<conio.h>
+		#if defined(CONIO_LIB)
+			#include<conio.h>
+		#endif
 		void WAIT_PRESS(void)
 		{
 			while(kbhit())

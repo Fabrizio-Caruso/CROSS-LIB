@@ -31,6 +31,17 @@
 #define FINAL_LEVEL 20
 
 
+#if !defined(__SMS__) && !defined(__CMOC__) && !defined(__SUPERVISION__) \
+	&& !defined(__ATARI_LYNX__) && !defined(__MSX__) \
+    && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) \
+	&& !defined(CLIB_ANSI)) && !defined(__GCC__) && !defined(__ENTERPRISE__) \
+	&& !defined(__PX8__)
+	#define CONIO_LIB
+#endif
+#if defined(__WINCMOC__)
+	#define CONIO_LIB
+#endif
+
 #if defined(__WINCMOC__)
 	//#define FULL_GAME
 	#define TINY_GAME	

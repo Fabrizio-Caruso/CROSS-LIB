@@ -38,19 +38,17 @@
 	
 	#define gotoxy(x,y) do \
 		{ \
+		printf("%c%c%c%c",27,'=',y+32,x+32); \
 		\
 		} while(0)
 		
 	
 	#define clrscr()
 
-	#define cprintf
+	#define cprintf printf
 			
-	#define cputc(c) do \
-		{ \
-		\
-		} while(0)
-
+	#define cputc(c) fputc_cons(c)
+	
 	#define cgetc() getk()
 
 	#define textcolor 

@@ -965,7 +965,7 @@ z1013:
 px8_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
 	-D__PX8__ \
-	-DTINY_GAME \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-create-app -o$(BUILD_PATH)/TINY_px8.bin \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \

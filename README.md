@@ -4,7 +4,9 @@ CROSS CHASE
 by Fabrizio Caruso (Fabrizio_Caruso@hotmail.com)
 
 This is a personal project whose goal is to create a fun playable game that should run
-on 8 bit computers and consoles using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs.
+on (nearly) ALL 8 bit computers and consoles using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs.
+This is done by creating a universal 8-bit framework that should provide APIs for the game code.
+The game and framework code are supposed to be separated.
 
 The program is written in ANSI C and currently compiled with 
 - CC65 for all 6502 targets (http://www.cc65.org/), 

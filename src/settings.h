@@ -205,9 +205,6 @@
 #elif defined(__SVI__) && !defined(MSX_MODE0)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 1200	
-#elif defined(__PX8__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 1500
 #else
 	#define GAME_SLOW_DOWN 0
 #endif

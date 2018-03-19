@@ -105,7 +105,8 @@ typedef struct ImageStruct Image;
 #endif
 
 #  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
-      || defined(__BEE__) ||  defined(__PET__) || defined(__CBM610__)
+      || defined(__BEE__) ||  defined(__PET__) || defined(__CBM610__) \
+	  || defined(__PX4__) || defined(__PX8__)	  
 	#define XSize 80
 #elif defined(__PCE__)
 	#define XSize 60
@@ -117,7 +118,6 @@ typedef struct ImageStruct Image;
 	  || defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
       || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
 	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
-	  || defined(__PX4__) || defined(__PX8__) \
 	  || defined(__ENTERPRISE__)
 	#define XSize (40-X_OFFSET)
 #elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
@@ -400,7 +400,7 @@ void DRAW_BOMBS(void);
 	void CLEAR_SCREEN(void);
 #elif defined(__PX8__)
 	#define SET_TEXT_COLOR(c)
-	#define CLEAR_SCREEN() printf("%c%c",27,'z')	
+	#define CLEAR_SCREEN() printf("%c%c",27,'*')	
 #else // CC65 conio case
 	#if !defined(NO_COLOR)
 		#define SET_TEXT_COLOR(c) (void) textcolor (c);

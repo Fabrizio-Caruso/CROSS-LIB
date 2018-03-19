@@ -47,7 +47,11 @@
 
 	#define cprintf printf
 			
-	#define cputc(c) fputc_cons(c)
+	#define cputc(c) do \
+		{ \
+		printf("%c%c", 27,'2'); \
+		fputc_cons(c); \
+		} while(0)
 	
 	#define cgetc() getk()
 

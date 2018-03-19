@@ -116,10 +116,10 @@
 
 #if defined(__VIC20__) && !defined(TINY_GAME)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 400
+	#define GAME_SLOW_DOWN 250
 #elif defined(__VIC20__) && defined(TINY_GAME) && !defined(VIC20_UNEXPANDED)
 	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 900
+	#define GAME_SLOW_DOWN 400
 #elif defined(__VIC20__) && defined(TINY_GAME) && defined(VIC20_UNEXPANDED)
 	#define GAME_SLOW_DOWN 0	
 #elif defined(__WINCMOC__) || defined(__CMOC__) 

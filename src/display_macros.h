@@ -106,7 +106,7 @@ typedef struct ImageStruct Image;
 
 #  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
       || defined(__BEE__) ||  defined(__PET__) || defined(__CBM610__) \
-	  || defined(__PX4__) || defined(__PX8__)	  
+	  || defined(__PX8__)	  
 	#define XSize 80
 #elif defined(__PCE__)
 	#define XSize 60
@@ -118,7 +118,8 @@ typedef struct ImageStruct Image;
 	  || defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
       || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
 	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
-	  || defined(__ENTERPRISE__)
+	  || defined(__ENTERPRISE__) \
+	  || defined(__PX4__) 
 	#define XSize (40-X_OFFSET)
 #elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
       || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \

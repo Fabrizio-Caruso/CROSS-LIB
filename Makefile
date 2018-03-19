@@ -977,7 +977,7 @@ px8_tiny:
 
 kc_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
-	-D__PX8__ \
+	-D__KC__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-create-app -o$(BUILD_PATH)/TINY_kc.bin \
 	$(SOURCE_PATH)/display_macros.c \

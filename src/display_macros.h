@@ -63,7 +63,7 @@
 	#include "patch/enterprise_conio_implementation.h"
 #elif defined(__GCC__)
 	#include "patch/ncurses_conio_implementation.h"	
-#elif defined(__PX8__)
+#elif defined(__PX8__) || defined(__KC__)
 	#include "patch/px8_conio_implementation.h"		
 #elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
 	  || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__) \

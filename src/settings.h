@@ -35,7 +35,7 @@
 	&& !defined(__ATARI_LYNX__) && !defined(__MSX__) \
     && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) \
 	&& !defined(CLIB_ANSI)) && !defined(__GCC__) && !defined(__ENTERPRISE__) \
-	&& !defined(__PX8__)
+	&& !defined(__PX8__) && !defined(__KC__)
 	#define CONIO_LIB
 #endif
 #if defined(__WINCMOC__)

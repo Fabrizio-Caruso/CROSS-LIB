@@ -398,9 +398,9 @@ void DRAW_BOMBS(void);
 #elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(TINY_GAME))
 	#define SET_TEXT_COLOR(c)
 	void CLEAR_SCREEN(void);
-#elif defined(__PX8__)
-	#define SET_TEXT_COLOR(c)
-	#define CLEAR_SCREEN() printf("%c%c",27,'*')	
+// #elif defined(__PX8__)
+	// #define SET_TEXT_COLOR(c)
+	// #define CLEAR_SCREEN() printf("%c%c",27,'*')	
 #else // CC65 conio case
 	#if !defined(NO_COLOR)
 		#define SET_TEXT_COLOR(c) (void) textcolor (c);

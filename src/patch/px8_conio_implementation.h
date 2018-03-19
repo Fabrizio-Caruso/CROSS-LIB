@@ -43,7 +43,7 @@
 		} while(0)
 		
 	
-	#define clrscr() printf("%c%c",27,'Y');
+	#define clrscr() printf("%c%c",27,'*')
 
 	#define cprintf printf
 			

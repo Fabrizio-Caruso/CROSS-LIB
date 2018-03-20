@@ -974,31 +974,6 @@ px8_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_px8.bin
 
-
-kc_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
-	-D__KC__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
-	-create-app -o$(BUILD_PATH)/TINY_kc.bin \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_kc.bin
-
-m5_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +m5 \
-	-lm -create-app -Cz--audio \
-	-D__M5__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
-	-o$(BUILD_PATH)/TINY_m5.bin \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-
 	
 px4_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
@@ -1171,6 +1146,61 @@ list:
 ####################################################################################################################
 	
 # DEBUG
+
+
+kc_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
+	-D__KC__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-create-app -o$(BUILD_PATH)/TINY_kc.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_kc.bin
+
+m5_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +m5 \
+	-lm -create-app -Cz--audio \
+	-D__M5__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-o$(BUILD_PATH)/TINY_m5.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+
+trs80_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=disk \
+	-lm -create-app \
+	-D__TRS80__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-o$(BUILD_PATH)/TINY_trs80.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c	
+	rm $(BUILD_PATH)/TINY_trs80.bin
+	
+	
+eg2k_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=eg2000disk \
+	-lm -create-app \
+	-D__EG2K__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-o$(BUILD_PATH)/TINY_eg2k.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c	
+	rm $(BUILD_PATH)/TINY_eg2k.bin	
+
+
+
 
 coco_fibonacci:
 	cmoc experiments/fibonacci.c 

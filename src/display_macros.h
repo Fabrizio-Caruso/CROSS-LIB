@@ -69,6 +69,8 @@
 	#include "patch/kc_conio_implementation.h"	
 #elif defined(__M5__)
 	#include "patch/m5_conio_implementation.h"	
+#elif defined(__EG2K__) || defined(__TRS80__)
+	#include "patch/trs80_conio_implementation.h"		
 #elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
 	  || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__) \
 	  || defined(__BEE__) || defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) \

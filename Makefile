@@ -251,7 +251,7 @@ apple2:
 	$(SOURCE_PATH)/sleep_macros.c \
 	-o $(BUILD_PATH)/apple2.bin
 	cp $(SOURCE_PATH)/../tools/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_apple2.dsk
-	java -jar $(SOURCE_PATH)/../tools/ac.jar -cc65 $(BUILD_PATH)/FULL_apple2.dsk aschase B < $(BUILD_PATH)/apple2.bin
+	java -jar $(SOURCE_PATH)/../tools/ac.jar -as $(BUILD_PATH)/FULL_apple2.dsk aschase < $(BUILD_PATH)/apple2.bin
 	rm $(BUILD_PATH)/apple2.bin
 
 apple2enh: 
@@ -264,7 +264,7 @@ apple2enh:
 	$(SOURCE_PATH)/sleep_macros.c \
 	-o $(BUILD_PATH)/apple2enh.bin
 	cp $(SOURCE_PATH)/../tools/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_apple2enh.dsk
-	java -jar $(SOURCE_PATH)/../tools/ac.jar -cc65 $(BUILD_PATH)/FULL_apple2enh.dsk aschase B < $(BUILD_PATH)/apple2enh.bin
+	java -jar $(SOURCE_PATH)/../tools/ac.jar -as $(BUILD_PATH)/FULL_apple2enh.dsk aschase < $(BUILD_PATH)/apple2enh.bin
 	rm $(BUILD_PATH)/apple2enh.bin
 
 osic1p_32k: 

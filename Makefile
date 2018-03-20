@@ -987,6 +987,18 @@ kc_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_kc.bin
 
+m5_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +m5 \
+	-lm -create-app -Cz--audio \
+	-D__M5__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-o$(BUILD_PATH)/TINY_m5.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+
 	
 px4_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
@@ -1292,16 +1304,6 @@ osca_tiny:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	
-# no conio
-# kc_tiny:
-	# $(Z88DK_PATH)$(MYZ88DK) +kc \
-	# -D__X1__ \
-	# -DTINY_GAME \
-	# -o $(BUILD_PATH)/TINY_kc.bin -vn -lndos \
-	# $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
-	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-
 x1_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
 	-D__X1__ \

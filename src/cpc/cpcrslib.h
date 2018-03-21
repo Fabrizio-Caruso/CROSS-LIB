@@ -66,7 +66,7 @@ extern void  __LIB__   				cpc_PrintGphStrXYM1(int *cadena, char *x, char *y);
 extern void  __LIB__   				cpc_PrintGphStrM12X(int *cadena, int *destino);
 extern void  __LIB__   				cpc_PrintGphStrXYM12X(int *cadena, char *x, char *y);
 extern void  __LIB__   				cpc_PrintGphStrStd(int *cadena, int *destino);
-extern void  __LIB__   				cpc_PrintGphStrStdXY(int *cadena, char *x, char *y);
+extern void  __LIB__   				cpc_PrintGphStrStdXY(unsigned char *col, char *cadena, char *x, char *y);
 extern void  __LIB__   				cpc_SetInkGphStr(char *color, char *valor);
 extern void  __LIB__   				cpc_SetInkGphStrM1(char *color, char *valor);
 extern void  __FASTCALL__ __LIB__   cpc_InitTileMap(int tiles);

@@ -1134,7 +1134,8 @@ z88dk_targets: \
 	z1013 \
 	gal_22k lambda_16k \
 	zx80_16k zx80_8k \
-	zx81_16k zx81_8k
+	zx81_16k zx81_8k \
+	px4_tiny px8_tiny
 
 
 cmoc_targets: \

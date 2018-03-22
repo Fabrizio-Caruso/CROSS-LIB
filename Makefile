@@ -570,10 +570,12 @@ cpc:
 cpc_no_udg_light:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \
 	-D__CPC__ -DSOUNDS \
+	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_cpc_no_udg.prg \
 	$(SOURCE_PATH)/psg/psg_sounds.c \
 	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/cpc/cpc_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/cpc/cpc_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
@@ -582,6 +584,23 @@ cpc_no_udg_light:
 	rm $(BUILD_PATH)/LIGHT_cpc_no_udg.prg	
 		
 
+cpc_z88dk:
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \
+	-D__CPC__ -DSOUNDS \
+	-pragma-define:REGISTER_SP=-1 \
+	-lndos -create-app -o 	$(BUILD_PATH)/LIGHT_cpc_z88dk.prg \
+	$(SOURCE_PATH)/psg/psg_sounds.c \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/LIGHT_cpc_z88dk.cpc  $(BUILD_PATH)/LIGHT_cpc_z88dk.cdt
+	rm $(BUILD_PATH)/LIGHT_cpc_z88dk.cpc 
+	rm $(BUILD_PATH)/LIGHT_cpc_z88dk.prg			
+		
+		
 msx_color_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -O3 -zorg=49200 \
 	-DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_MODE1 -D__MSX__ -lndos \

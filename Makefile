@@ -1090,37 +1090,51 @@ cc65_targets: \
 	cbm510 cbm610 \
 	apple2 apple2enh \
 	c64 c128_40col c128_80col \
-	pce_8k atari5200 nes \
+	pce_8k pce_16k \
+	atari5200 nes \
 	creativision_8k creativision_16k \
 	gamate atari_lynx \
 	osic1p_8k osic1p_32k
 
 
-# KO:      \
-# OK: 42
+# KO:   
+# vg5k vg5k_exp_16k \
+# 	svi_318   \
+# 	pc6001_16k pc6001_32k \
+#	z9001_16k z9001_32k \
+# 	nascom_16k nascom_32k \
+#   zx81_16k zx81_8k
+#
+# OK:  
+
+ko: \
+	svi_318  \
+	pc6001_16k pc6001_32k \
+	z9001_16k z9001_32k \
+	nascom_16k nascom_32k \
+	zx81_16k zx81_8k
+
+
 z88dk_targets: \
+	vg5k vg5k_exp_16k \
 	sc3000_16k sc3000_32k \
 	ace_exp_16k \
-	cpc \
-	vg5k vg5k_exp_16k \
-	svi_318 svi_318_mode0 svi_328 \
-	sharp_mz \
+	cpc cpc_no_udg_light \
+ 	mc1000_16k mc1000_48k \
+ 	sharp_mz \
 	mtx \
 	abc80_16k abc80_32k \
 	p2000_16k p2000_32k \
+	svi_318_mode0 svi_328 \
 	msx_color_16k msx_color_32k_rom msx_color_32k \
 	spectrum_16k spectrum_48k samcoupe \
 	aquarius_exp_4k aquarius_exp_16k \
 	vz200_16k vz200_32k \
-	z9001_16k z9001_32k \
-	mc1000_16k mc1000_48k \
-	pc6001_16k pc6001_32k \
-	nascom_16k nascom_32k \
 	microbee_16k microbee_32k \
 	z1013 \
 	gal_22k lambda_16k \
-	zx80_16k zx81_16k zx80_8k zx81_8k
-	
+	zx80_16k zx80_8k 
+
 
 cmoc_targets: \
 	coco

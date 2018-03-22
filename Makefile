@@ -1167,8 +1167,9 @@ list:
 
 
 cpc_z88dk:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -O1 -DREDEFINED_CHARS -vn  -clib=ansi \
 	-D__CPC__ -DSOUNDS \
+	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/LIGHT_cpc_z88dk.prg \
 	$(SOURCE_PATH)/psg/psg_sounds.c \

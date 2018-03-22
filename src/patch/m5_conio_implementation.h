@@ -36,20 +36,16 @@
 	#include <stdio.h>
 
 	
-	#define gotoxy(x,y) do \
-		{ \
-		printf("%c%c%c%c",27,'=',y+32,x+32); \
-		\
-		} while(0)
+	#define gotoxy(x,y) printf("\33Y%c%c",y+32,x+32);
 		
 	
-	#define clrscr() printf("%c%c",27,'*')
+	#define clrscr() printf("\33E")
 
 	#define cprintf printf
 			
 	#define cputc(c) do \
 		{ \
-		printf("%c%c", 27,'2'); \
+		printf("\33x5"); \
 		fputc_cons(c); \
 		} while(0)
 	

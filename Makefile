@@ -1172,6 +1172,8 @@ cpc_z88dk:
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/LIGHT_cpc_z88dk.prg \
+	$(TOOLS_PATH)/cpcrslib/cpc_Chars.asm \
+	$(TOOLS_PATH)/cpcrslib/cpc_Chars8.asm \
 	$(SOURCE_PATH)/psg/psg_sounds.c \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c \

@@ -430,7 +430,6 @@ vz200_32k:
 # -SO3 --max-allocs-per-node200000
 # -O3 -zorg=18941 -vn 
 #  -DNO_RANDOM_LEVEL
-# $(SOURCE_PATH)/sleep_macros.c
 # -DLESS_TEXT -DNO_SLEEP
 vg5k: 
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
@@ -496,6 +495,7 @@ zx81_8k:
 	-SO3 --max-allocs-per-node200000 \
 	-vn \
 	-D__ZX81__ -DTINY_GAME -DROUND_ENEMIES \
+	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TINY_zx81_8k.prg \
 	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c \
@@ -525,6 +525,7 @@ zx81_16k:
 	-SO3 --max-allocs-per-node200000 \
 	-vn \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg \
 	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c \
@@ -664,6 +665,7 @@ svi_318:
 	-vn -lndos \
 	-D__SVI__ \
 	-DSOUNDS \
+	-DALT_SLEEP \
 	-create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
 	$(SOURCE_PATH)/psg/psg_sounds.c	\
 	$(SOURCE_PATH)/item.c \
@@ -825,6 +827,7 @@ p2000_32k:
 z9001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi \
 	-D__Z9001__ -vn -DFULL_GAME -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_z9001.z80 \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
@@ -836,6 +839,7 @@ z9001_32k:
 z9001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi \
 	-D__Z9001__ -vn  -DCLIB_ANSI \
+	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_z9001.z80 \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
@@ -917,6 +921,7 @@ spectrum_48k:
 pc6001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -O3 -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -vn -DCLIB_ANSI \
+	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_pc6001.prg  \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/sleep_macros.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
@@ -932,6 +937,7 @@ pc6001_16k:
 pc6001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -O3 -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
@@ -949,7 +955,7 @@ nascom_32k:
 	-D__NASCOM__ -DCLIB_ANSI -D__NASCOM__ -DSOUNDS -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_nascom_32k.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_nascom_32k.prg
@@ -959,10 +965,10 @@ nascom_32k:
 # -pragma-define:ansicolumns=32  -Cz-audio 
 nascom_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom -O3 -clib=ansi -vn -lndos \
-	-D__NASCOM__ -DCLIB_ANSI -D__NASCOM__ -DSOUNDS  \
+	-D__NASCOM__ -DCLIB_ANSI -D__NASCOM__ -DSOUNDS \
 	-create-app -o $(BUILD_PATH)/LIGHT_nascom_16k.prg \
 	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	rm $(BUILD_PATH)/LIGHT_nascom_16k.prg
@@ -1108,14 +1114,12 @@ cc65_targets: \
 # OK:  
 
 ko: \
-	svi_318  \
-	pc6001_16k pc6001_32k \
-	z9001_16k z9001_32k \
-	nascom_16k nascom_32k \
-	zx81_16k zx81_8k
+	nascom_16k nascom_32k
 
 
 z88dk_targets: \
+	pc6001_16k pc6001_32k \
+	z9001_16k z9001_32k \
 	vg5k vg5k_exp_16k \
 	sc3000_16k sc3000_32k \
 	ace_exp_16k \
@@ -1125,7 +1129,7 @@ z88dk_targets: \
 	mtx \
 	abc80_16k abc80_32k \
 	p2000_16k p2000_32k \
-	svi_318_mode0 svi_328 \
+	svi_318 svi_318_mode0 svi_328 \
 	msx_color_16k msx_color_32k_rom msx_color_32k \
 	spectrum_16k spectrum_48k samcoupe \
 	aquarius_exp_4k aquarius_exp_16k \
@@ -1133,7 +1137,8 @@ z88dk_targets: \
 	microbee_16k microbee_32k \
 	z1013 \
 	gal_22k lambda_16k \
-	zx80_16k zx80_8k 
+	zx80_16k zx80_8k \
+	zx81_16k zx81_8k
 
 
 cmoc_targets: \

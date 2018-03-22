@@ -728,7 +728,7 @@ sharp_mz:
 	-DFULL_GAME -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_sharp_mz.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_sharp_mz.prg
@@ -739,7 +739,7 @@ microbee_16k:
 	-D__BEE__ -clib=ansi -vn -DSOUNDS -DCLIB_ANSI \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_microbee_16k.prg  \
 	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_microbee_16k.prg
@@ -749,7 +749,7 @@ microbee_32k:
 	-D__BEE__ -clib=ansi -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_microbee_32k.prg  \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_microbee_32k.prg
@@ -830,7 +830,7 @@ z9001_32k:
 	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_z9001.z80 \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	rm $(BUILD_PATH)/FULL_z9001.z80	
@@ -842,7 +842,7 @@ z9001_16k:
 	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_z9001.z80 \
 	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	rm $(BUILD_PATH)/LIGHT_z9001.z80	
@@ -924,7 +924,7 @@ pc6001_16k:
 	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_pc6001.prg  \
 	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/sleep_macros.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_pc6001.prg
@@ -940,7 +940,7 @@ pc6001_32k:
 	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_pc6001_32k.prg
@@ -979,7 +979,7 @@ z1013:
 	-vn -lndos \
 	-D__Z1013__ -DCLIB_ANSI -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
 	-create-app -o

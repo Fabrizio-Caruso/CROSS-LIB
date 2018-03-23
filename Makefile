@@ -434,7 +434,7 @@ vz200_32k:
 vg5k: 
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-O3 \
-	-zorg=19000 -vn \
+	-vn \
 	-D__VG5K__ -DSOUNDS  \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_vg5k.prg \
 	$(SOURCE_PATH)/item.c \
@@ -450,7 +450,7 @@ vg5k:
 # -O3 -zorg=18941 -vn
 vg5k_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	-O3 -zorg=19000 \
+	-O3 \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
@@ -1084,26 +1084,18 @@ cc65_targets: \
 
 
 # KO:   
-# vg5k vg5k_exp_16k \
-# 	svi_318   \
-# 	pc6001_16k pc6001_32k \
-#	z9001_16k z9001_32k \
-# 	nascom_16k nascom_32k \
-#   zx81_16k zx81_8k
 #
 # OK:  
 
-ko: \
-	nascom_16k nascom_32k
-
 
 z88dk_targets: \
+	nascom_16k nascom_32k \
 	pc6001_16k pc6001_32k \
 	z9001_16k z9001_32k \
 	vg5k vg5k_exp_16k \
 	sc3000_16k sc3000_32k \
 	ace_exp_16k \
-	cpc cpc_no_udg_light \
+	cpc cpc_no_udg \
  	mc1000_16k mc1000_48k \
  	sharp_mz \
 	mtx \

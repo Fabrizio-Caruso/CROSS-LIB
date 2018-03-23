@@ -1221,6 +1221,21 @@ eg2k_tiny:
 	$(SOURCE_PATH)/main.c	
 	rm $(BUILD_PATH)/TINY_eg2k.bin	
 
+cpc_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \
+	-D__CPC__ 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DCPCRSLIB \
+	-pragma-define:REGISTER_SP=-1 \
+	-lndos -create-app -o 	$(BUILD_PATH)/TINY_cpc.prg \
+	$(TOOLS_PATH)/cpcrslib/cpc_Chars.asm \
+	$(TOOLS_PATH)/cpcrslib/cpc_Chars8.asm \
+	$(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/TINY_cpc.cpc  $(BUILD_PATH)/TINY_cpc.cdt
+	rm $(BUILD_PATH)/TINY_cpc.cpc 
+	rm $(BUILD_PATH)/TINY_cpc.prg			
 
 
 cpc_cpcrslib:

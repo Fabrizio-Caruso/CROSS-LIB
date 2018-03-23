@@ -994,6 +994,16 @@ px4_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_px4.bin
 
+x1_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +x1 \
+	-D__X1__ \
+	-DTINY_GAME -DNO_SLEEP \
+	-create-app -o $(BUILD_PATH)/TINY_x1.bin -vn -lndos \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	rm $(BUILD_PATH)/TINY_x1.bin
+	
 # ------------------------------------
 
 coco:
@@ -1097,7 +1107,7 @@ z88dk_targets: \
 	ace_exp_16k \
 	cpc cpc_no_udg \
  	mc1000_16k mc1000_48k \
- 	sharp_mz \
+ 	sharp_mz x1_tiny \
 	mtx \
 	abc80_16k abc80_32k \
 	p2000_16k p2000_32k \
@@ -1359,15 +1369,6 @@ osca_tiny:
 	-D__OSCA__ -DNO_SLEEP -DLESS_TEXT \
 	-DTINY_GAME \
 	-o $(BUILD_PATH)/TINY_osca.bin -vn -lndos \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	
-x1_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +x1 \
-	-D__X1__ \
-	-DTINY_GAME -DNO_SLEEP \
-	-o $(BUILD_PATH)/TINY_x1.bin -vn -lndos \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c

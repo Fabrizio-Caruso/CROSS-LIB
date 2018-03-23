@@ -545,15 +545,17 @@ lambda_16k:
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_lambda_16k.prg		
 	
+	
+
+
 cpc:
-	$(Z88DK_PATH)$(MYZ88DKASM) -v \
-	-x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib \
-	@$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst	
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \
+	-D__CPC__ -DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
-	-DREDEFINED_CHARS -DSOUNDS -DFULL_GAME -clib=ansi -D__CPC__ -DCPCRSLIB -DBETWEEN_LEVEL -DEND_SCREEN \
-	-l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos \
-	-create-app -o $(BUILD_PATH)/FULL_cpc.prg \
+	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
+	$(TOOLS_PATH)/cpcrslib/cpc_Chars.asm \
+	$(TOOLS_PATH)/cpcrslib/cpc_Chars8.asm \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/psg/psg_sounds.c \
 	$(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c \
@@ -562,24 +564,23 @@ cpc:
 	$(SOURCE_PATH)/main.c
 	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt
 	rm $(BUILD_PATH)/FULL_cpc.cpc 
-	rm $(BUILD_PATH)/FULL_cpc.prg
+	rm $(BUILD_PATH)/FULL_cpc.prg			
 
 
-cpc_no_udg_light:
+cpc_no_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \
-	-D__CPC__ -DSOUNDS \
+	-D__CPC__ -DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o $(BUILD_PATH)/LIGHT_cpc_no_udg.prg \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_cpc_no_udg.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/psg/psg_sounds.c \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/cpc/cpc_graphics.c \
-	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/cpc/cpc_graphics.c $(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/LIGHT_cpc_no_udg.cpc  $(BUILD_PATH)/LIGHT_cpc_no_udg.cdt
-	rm $(BUILD_PATH)/LIGHT_cpc_no_udg.cpc 
-	rm $(BUILD_PATH)/LIGHT_cpc_no_udg.prg	
+	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_no_udg.cpc  $(BUILD_PATH)/FULL_cpc_no_udg.cdt
+	rm $(BUILD_PATH)/FULL_cpc_no_udg.cpc 
+	rm $(BUILD_PATH)/FULL_cpc_no_udg.prg	
 		
 		
 msx_color_16k:
@@ -1165,27 +1166,6 @@ list:
 	
 # DEBUG
 
-
-cpc_z88dk:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -O1 -DREDEFINED_CHARS -vn  -clib=ansi \
-	-D__CPC__ -DSOUNDS \
-	-DCPCRSLIB \
-	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o 	$(BUILD_PATH)/LIGHT_cpc_z88dk.prg \
-	$(TOOLS_PATH)/cpcrslib/cpc_Chars.asm \
-	$(TOOLS_PATH)/cpcrslib/cpc_Chars8.asm \
-	$(SOURCE_PATH)/psg/psg_sounds.c \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/LIGHT_cpc_z88dk.cpc  $(BUILD_PATH)/LIGHT_cpc_z88dk.cdt
-	rm $(BUILD_PATH)/LIGHT_cpc_z88dk.cpc 
-	rm $(BUILD_PATH)/LIGHT_cpc_z88dk.prg			
-
-
 kc_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
 	-D__KC__ \
@@ -1240,8 +1220,27 @@ eg2k_tiny:
 	rm $(BUILD_PATH)/TINY_eg2k.bin	
 
 
-coco_fibonacci:
-	cmoc experiments/fibonacci.c 
+
+cpc_cpcrslib:
+	$(Z88DK_PATH)$(MYZ88DKASM) -v \
+	-x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib \
+	@$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst	
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 \
+	-pragma-define:REGISTER_SP=-1 \
+	-DREDEFINED_CHARS -DSOUNDS -DFULL_GAME -clib=ansi -D__CPC__ -DCPCRSLIB -DBETWEEN_LEVEL -DEND_SCREEN \
+	-l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos \
+	-create-app -o $(BUILD_PATH)/FULL_cpc_cpcrslib.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c \
+	$(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_cpcrslib.cpc  $(BUILD_PATH)/FULL_cpc_cpcrslib.cdt
+	rm $(BUILD_PATH)/FULL_cpc_cpcrslib.cpc 
+	rm $(BUILD_PATH)/FULL_cpc_cpcrslib.prg
+
+
 
 enterprise_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +enterprise \

@@ -35,9 +35,8 @@
 #define _M5_CONIO_IMPLEMENTATION
 	#include <stdio.h>
 
-	
-	#define gotoxy(x,y) printf("\33Y%c%c",y+32,x+32);
-		
+	// #define gotoxy(x,y) printf("\33[%c;%cH",y+32,x+32);
+	#define gotoxy(x,y) printf("\33Y%c%c",y+32,x+32);	
 	
 	#define clrscr() printf("\33E")
 

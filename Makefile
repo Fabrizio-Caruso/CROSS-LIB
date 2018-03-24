@@ -1388,6 +1388,11 @@ osca_tiny:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 
+m5_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +m5 \
+	-create-app -vn -o$(BUILD_PATH)/m5_hello -lndos \
+	$(SOURCE_PATH)/../experiments/hello.c
+
 x1_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
 	-o $(BUILD_PATH)/x1_hello.bin -vn -lndos \

@@ -1194,8 +1194,9 @@ m5_tiny:
 	$(SOURCE_PATH)/main.c
 
 
+# -subtype=disk
 trs80_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=disk \
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
 	-lm -create-app \
 	-D__TRS80__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \

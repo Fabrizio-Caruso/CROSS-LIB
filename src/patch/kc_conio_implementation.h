@@ -35,21 +35,22 @@
 #define _KC_CONIO_IMPLEMENTATION
 	#include <stdio.h>
 
+	//printf("%c%c%c%c",27,'=',y+32,x+32);
 	
 	#define gotoxy(x,y) do \
 		{ \
-		printf("%c%c%c%c",27,'=',y+32,x+32); \
+		printf("\33[%c;%cH",y+32,x+32); \
 		\
 		} while(0)
 		
-	
-	#define clrscr() printf("%c%c",27,'*')
+	// printf("%c%c",27,'*')	
+	#define clrscr() 
 
 	#define cprintf printf
 			
+	// 		printf("%c%c", 27,'2');
 	#define cputc(c) do \
 		{ \
-		printf("%c%c", 27,'2'); \
 		fputc_cons(c); \
 		} while(0)
 	

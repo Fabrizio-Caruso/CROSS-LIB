@@ -1,23 +1,25 @@
 #include <stdio.h>
 
 
-void WAIT_PRESS(void)
-{
-	while(kbhit())
-		getk();
-	while(!kbhit())
-	{ 
-	}; 
-	getk();
-}
+// void WAIT_PRESS(void)
+// {
+	// while(kbhit())
+		// getch();
+	// while(!kbhit())
+	// { 
+	// }; 
+	// getch();
+// }
 
 int main()
 {
-	getk();
 	printf("Hello world!\n");	
 
-	WAIT_PRESS();
-	printf("Key pressed\n");	
+	while(1)
+	{
+		printf("%c\n",getch());
+	}
+
 
 			
 	return 0;

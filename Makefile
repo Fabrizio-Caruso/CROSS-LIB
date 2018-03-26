@@ -1395,6 +1395,12 @@ m5_hello:
 	-create-app -vn -o$(BUILD_PATH)/m5_hello -lndos \
 	$(SOURCE_PATH)/../experiments/hello.c
 
+
+trs80_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 \
+	-create-app -vn -o$(BUILD_PATH)/trs80_hello -lndos \
+	$(SOURCE_PATH)/../experiments/hello.c	
+	
 x1_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
 	-o $(BUILD_PATH)/x1_hello.bin -vn -lndos \

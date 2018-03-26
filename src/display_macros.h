@@ -115,6 +115,8 @@ typedef struct ImageStruct Image;
       || defined(__BEE__) ||  defined(__PET__) || defined(__CBM610__) \
 	  || defined(__PX8__)	  
 	#define XSize 80
+#elif defined(__TRS80__) || defined(__EG2K__)
+	#define XSize 64
 #elif defined(__PCE__)
 	#define XSize 60
 #elif defined(__NASCOM__)

@@ -324,6 +324,14 @@ extern Character player;
 		{
 			movePlayerByKeyboard(' ');	
 		}	
+	#elif defined(__TRS80__) || defined(__EG2K__)
+		void MOVE_PLAYER(void) 
+		{
+			if(kbhit())
+			{
+				movePlayerByKeyboard(getch());
+			}
+		}			
 	#else
 		void MOVE_PLAYER(void) 
 		{

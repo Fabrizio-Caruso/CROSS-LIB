@@ -17,7 +17,10 @@ int main()
 
 	while(1)
 	{
-		printf("%c\n",getch());
+		if(kbhit())
+		{
+			printf("%c\n",getch());
+		}
 	}
 
 

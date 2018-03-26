@@ -120,6 +120,8 @@ Image BOMB_IMAGE;
 	//
 #elif defined(__SUPERVISION__)
 	//
+#elif defined(__EG2K__) || defined(__TRS80__)
+	//
 #else
 	void INIT_GRAPHICS() 
 	{

@@ -69,15 +69,16 @@
 	#include "patch/kc_conio_implementation.h"	
 #elif defined(__M5__)
 	#include "patch/m5_conio_implementation.h"	
-#elif defined(__EG2K__) || defined(__TRS80__)
-	#include "patch/trs80_conio_implementation.h"		
+// #elif defined(__EG2K__) || defined(__TRS80__)
+	// #include "patch/trs80_conio_implementation.h"		
 #elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
 	  || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__) \
 	  || defined(__BEE__) || defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) \
 	  || defined(__TI86__) || defined(__TI86S__) || defined(__MZ__) || defined(__GAL__) || defined(__SC3000__) \
 	  || (defined(__SPECTRUM__) && defined(CLIB_ANSI)) || defined(__SAM__) || defined(__CPC__) \
 	  || (defined(__SVI__) && !defined(MSX_MODE0)) || defined(__VG5K__) || defined(__AQUARIUS__) \
-	  || defined(__VZ__) || defined(__MTX__) || defined(__Z88__) || defined(__PX4__)
+	  || defined(__VZ__) || defined(__MTX__) || defined(__Z88__) || defined(__PX4__) \
+	  || defined(__EG2K__) || defined(__TRS80__)
 	#include "patch/z88dk_conio_patch.h"					
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__TRS80__) || defined(__SC3000__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) \
@@ -328,6 +329,9 @@ void DRAW_BOMBS(void);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
 #elif defined(__SUPERVISION__)
 	void PRINT(unsigned char x, unsigned char y, char * str);
+	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
+#elif defined(__TRS80__) || defined(__EG2K__)
+	void PRINT(unsigned char x, unsigned char y, char * str);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);		
 #else
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
@@ -375,6 +379,10 @@ void DRAW_BOMBS(void);
 	
 	void CLEAR_SCREEN(void);
 
+#elif defined(__TRS80__) || defined(__EG2K__)
+	#define SET_TEXT_COLOR(c) {}
+	
+	void CLEAR_SCREEN(void);
 #elif defined(__SUPERVISION__)
 	#define SET_TEXT_COLOR(c) {}
 	

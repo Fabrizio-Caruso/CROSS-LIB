@@ -231,18 +231,6 @@ void CLEAR_SCREEN(void)
 	}
 }
 
-// unsigned char screenCode(char ch)
-// {
-	// if(ch==32) 
-	// {
-		// return 32+64;
-	// }
-	// else
-	// {
-		// return ch-32;
-	// }	
-// }
-
 void PRINT(unsigned char x, unsigned char y, char * str)
 {
 	unsigned char i = 0;

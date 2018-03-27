@@ -371,6 +371,7 @@ pce_16k:
 	rm $(BUILD_PATH)/FULL_PCE_LOW.bin
 	rm $(BUILD_PATH)/FULL_PCE_HIGH.bin	
 
+
 	
 # ------------------------------------------------------------------------------------------
 #Z88DK
@@ -1003,6 +1004,22 @@ x1_tiny:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	rm $(BUILD_PATH)/TINY_x1.bin
+
+# -subtype=disk
+trs80_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
+	-lm -create-app \
+	-D__TRS80__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-o$(BUILD_PATH)/TINY_trs80.bin \
+	$(SOURCE_PATH)/trs80/trs80_input.c \
+	$(SOURCE_PATH)/trs80/trs80_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c	
+	rm $(BUILD_PATH)/TINY_trs80.bin
 	
 # ------------------------------------
 
@@ -1192,23 +1209,6 @@ m5_tiny:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-
-
-# -subtype=disk
-trs80_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
-	-lm -create-app \
-	-D__TRS80__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
-	-o$(BUILD_PATH)/TINY_trs80.bin \
-	$(SOURCE_PATH)/trs80/trs80_input.c \
-	$(SOURCE_PATH)/trs80/trs80_graphics.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c	
-	rm $(BUILD_PATH)/TINY_trs80.bin
 	
 	
 eg2k_tiny:
@@ -1900,19 +1900,6 @@ pce_light:
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/LIGHT_pce.pce
-
-
-toto:
-	# $(CC65_PATH)$(MYCC65) -O -t pce -Cl \
-	# --config $(SOURCE_PATH)/../cfg/pce_16k.cfg \
-	# -DNO_SLEEP -DLESS_TEXT \
-	# $(SOURCE_PATH)/item.c \
-	# $(SOURCE_PATH)/display_macros.c  \
-	# $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	# --code-name BANK01 \
-	# $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	# $(SOURCE_PATH)/main.c \
-	# -o $(BUILD_PATH)/LIGHT_pce.pce
 
 	
 nes_color:

@@ -327,10 +327,10 @@ extern Character player;
 	#elif defined(__TRS80__) || defined(__EG2K__)
 		void MOVE_PLAYER(void) 
 		{
-			if(kbhit())
-			{
-				movePlayerByKeyboard(getch());
-			}
+			// if(kbhit())
+			// {
+				movePlayerByKeyboard(GET_CHAR());
+			// }
 		}			
 	#else
 		void MOVE_PLAYER(void) 

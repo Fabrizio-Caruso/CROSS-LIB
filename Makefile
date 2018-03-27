@@ -1201,6 +1201,7 @@ trs80_tiny:
 	-D__TRS80__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-o$(BUILD_PATH)/TINY_trs80.bin \
+	$(SOURCE_PATH)/trs80/trs80_input.c \
 	$(SOURCE_PATH)/trs80/trs80_graphics.c \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \

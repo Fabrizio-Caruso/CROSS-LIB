@@ -1021,6 +1021,7 @@ trs80_tiny:
 	$(SOURCE_PATH)/main.c	
 	rm $(BUILD_PATH)/TINY_trs80.bin
 	
+
 # ------------------------------------
 
 coco:
@@ -1138,7 +1139,8 @@ z88dk_targets: \
 	gal_22k lambda_16k \
 	zx80_16k zx80_8k \
 	zx81_16k zx81_8k \
-	px4_tiny px8_tiny
+	px4_tiny px8_tiny \
+	trs80_tiny
 
 
 cmoc_targets: \
@@ -1185,6 +1187,21 @@ list:
 	
 # DEBUG
 
+eg2k_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=eg2000disk \
+	-lm -create-app \
+	-D__EG2K__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-o$(BUILD_PATH)/TINY_eg2k.bin \
+	$(SOURCE_PATH)/trs80/trs80_input.c \
+	$(SOURCE_PATH)/trs80/trs80_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_eg2k.bin	
+
 kc_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
 	-D__KC__ \
@@ -1209,20 +1226,7 @@ m5_tiny:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	
-	
-eg2k_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=eg2000disk \
-	-lm -create-app \
-	-D__EG2K__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
-	-o$(BUILD_PATH)/TINY_eg2k.bin \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c	
-	rm $(BUILD_PATH)/TINY_eg2k.bin	
+
 
 cpc_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \

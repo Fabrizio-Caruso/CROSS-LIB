@@ -32,12 +32,9 @@ mednafen.exe -fs  1 TINY_pce.pce
 JUPITER ACE
 
 Use EightOne emulator.
-For the MINIMAL version game
-"0 0 bload min"
-Open the MINIMAL .wav version.
 
 For the FULL version game 
-"0 0 bload FULL"
+"0 0 bload full"
 Open the FULL .wav version.
 
 ---------------------------------------------------------
@@ -58,16 +55,6 @@ VG 5000
 
 Type CLOAD
 Select the game file
-Type CALL 19000 
-
-REMARK:
-You can create an auto-bootable file with the following steps
-Type CLOAD
-Select the game file
-Write 10 CALL 19000
-Create an empty k7 with the magnotophone tool in DCVG5K 
-Select the Write option
-Write CSAVEM"XCHASE",18900,<size of the raw binary>,10
 
 ---------------------------------------------------------
 AQUARIUS
@@ -187,15 +174,10 @@ Run the emulator, press F1 (apparently nothing happens) and type "call 32768".
 
 SHARP X1
 
-Use XBrowser88 (https://www.z88dk.org/tools/x1/):
-1. to create an empty .d88 disk image
-2. to put the binary inside a disk image (just drag and drop it inside)
-3. to make the binary bootable (right click on the binary inside the image and select the boot option)
-
 Use Takeda X1 emulator.
 1. Start the emulator.
 2. Click on FD0.
-3. Select the newly created disk image containing the bootable binary.
+3. Select the disk image
 
 ----------------------------------------------------------
 

@@ -135,7 +135,7 @@ typedef struct ImageStruct Image;
 	  || defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
 	  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
 	  || defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
-	  || defined(__Z1013__) || defined(__Z88__) 
+	  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__)
 	#define XSize 32	
 #elif defined(__VIC20__)
 	#define XSize 22
@@ -163,7 +163,8 @@ typedef struct ImageStruct Image;
 	|| defined(__SPECTRUM__) || defined(__SC3000__) || defined(__MTX__) \
     || defined(__APPLE2ENH__) || defined(__APPLE2__) \
 	|| defined(__Z9001__) || defined(__P2000__) \
-	|| defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__))
+	|| defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__)) \
+	|| defined(__ACE__)
 	#define YSize (24-Y_OFFSET)		
 #elif defined(__VIC20__)
 	#define YSize 23	

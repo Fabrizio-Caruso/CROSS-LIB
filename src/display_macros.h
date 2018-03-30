@@ -78,11 +78,11 @@
 	  || (defined(__SPECTRUM__) && defined(CLIB_ANSI)) || defined(__SAM__) || defined(__CPC__) \
 	  || (defined(__SVI__) && !defined(MSX_MODE0)) || defined(__VG5K__) || defined(__AQUARIUS__) \
 	  || defined(__VZ__) || defined(__MTX__) || defined(__Z88__) || defined(__PX4__) \
-	  || defined(__EG2K__) || defined(__TRS80__)
+	  || defined(__EG2K__) || defined(__TRS80__) || defined(__ACE__)
 	#include "patch/z88dk_conio_patch.h"					
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
-	  || defined(__TRS80__) || defined(__SC3000__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) \
-	  || defined(__ACE__) || defined(__M5__) 
+	  | defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__)
+	  // || defined(__ACE__)
 	#include "patch/z88dk_conio_implementation.h"		
 #endif
 

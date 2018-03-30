@@ -64,7 +64,8 @@
 	#elif defined(__ZX81__) || defined(__LAMBDA__)
 	    #define cputc(c) fputc_cons(c)
 	#else
-		#define cputc(c) printf("\x11%c%c",COLOR_BLACK,c)
+		#define cputc(c) fputc_cons(c)
+	// printf("\x11%c%c",COLOR_BLACK,c)
 	#endif
 		
 	#if defined(__SPECTRUM__)

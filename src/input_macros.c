@@ -137,7 +137,7 @@ extern Character player;
 		{
 			waitkey(0);
 		}	
-	#elif defined(__ENTERPRISE__)
+	#elif defined(__ENTERPRISE__) || defined(__ZX80__)
 		void WAIT_PRESS(void)
 		{
 			getch();

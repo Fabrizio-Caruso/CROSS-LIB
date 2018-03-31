@@ -63,7 +63,7 @@
 	#include "patch/enterprise_conio_implementation.h"
 #elif defined(__GCC__)
 	#include "patch/ncurses_conio_implementation.h"	
-#elif defined(__PX8__) 
+#elif defined(__PX8__) || defined(__ABC800__)
 	#include "patch/px8_conio_implementation.h"	
 #elif defined(__KC__)
 	#include "patch/kc_conio_implementation.h"	
@@ -78,7 +78,7 @@
 	  || (defined(__SPECTRUM__) && defined(CLIB_ANSI)) || defined(__SAM__) || defined(__CPC__) \
 	  || (defined(__SVI__) && !defined(MSX_MODE0)) || defined(__VG5K__) || defined(__AQUARIUS__) \
 	  || defined(__VZ__) || defined(__MTX__) || defined(__Z88__) || defined(__PX4__) \
-	  || defined(__EG2K__) || defined(__TRS80__) || defined(__ACE__)
+	  || defined(__EG2K__) || defined(__TRS80__) || defined(__ACE__) 
 	#include "patch/z88dk_conio_patch.h"					
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)

@@ -36,7 +36,8 @@
 	&& !defined(CLIB_ANSI)) && !defined(__GCC__) && !defined(__ENTERPRISE__) \
 	&& !defined(__PX8__) && !defined(__KC__) \
 	&& !defined(__M5__) \
-	&& !defined(__EG2K__) && !defined(__TRS80__)
+	&& !defined(__EG2K__) && !defined(__TRS80__) \
+	&& !defined(__ABC800__)
 	#define CONIO_LIB
 #endif
 #if defined(__WINCMOC__)

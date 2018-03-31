@@ -1214,6 +1214,18 @@ kc_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_kc.bin
 
+# -o$(BUILD_PATH)/TINY_abc800.bin 	
+abc800_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 -zorg=40000 \
+	-D__ABC800__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-create-app \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+
 
 m5_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \

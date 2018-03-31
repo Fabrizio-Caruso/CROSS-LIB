@@ -980,6 +980,18 @@ px8_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_px8.bin
 
+px8:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
+	-D__PX8__ \
+	-DFULL_GAME \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-create-app -o$(BUILD_PATH)/FULL_px8.bin \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_px8.bin
+	
 	
 px4_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
@@ -995,6 +1007,23 @@ px4_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_px4.bin
 
+
+px4:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
+	-D__PX4__ \
+	-DFULL_GAME \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-subtype=px4ansi -Cz–-32k \
+	-pragma-define:ansicolumns=40 \
+	-create-app -o $(BUILD_PATH)/FULL_px4.bin \
+	-vn -lndos \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_px4.bin
+	
+	
 x1_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
 	-D__X1__ \
@@ -1004,6 +1033,19 @@ x1_tiny:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	rm $(BUILD_PATH)/TINY_x1.bin
+	
+	
+x1:
+	$(Z88DK_PATH)$(MYZ88DK) +x1 \
+	-D__X1__ \
+	-DFULL_GAME \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-create-app -o $(BUILD_PATH)/FULL_x1.bin -vn -lndos \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_x1.bin
 
 # -subtype=disk
 trs80_tiny:
@@ -1022,6 +1064,20 @@ trs80_tiny:
 	rm $(BUILD_PATH)/TINY_trs80.bin
 	
 
+trs80:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
+	-lm -create-app \
+	-D__TRS80__ \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-o$(BUILD_PATH)/FULL_trs80.bin \
+	$(SOURCE_PATH)/trs80/trs80_input.c \
+	$(SOURCE_PATH)/trs80/trs80_graphics.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \	
+	rm $(BUILD_PATH)/FULL_trs80.bin	
+	
 # ------------------------------------
 
 coco:

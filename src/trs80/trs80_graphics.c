@@ -180,9 +180,9 @@ void INIT_IMAGES(void)
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
 		
 		CHASE_IMAGE._imageData = _MISSILE;
-		SUPER_IMAGE._imageData = 'H'+INVERTED;
-		CONFUSE_IMAGE._imageData = 'C'+INVERTED;
-		ZOMBIE_IMAGE._imageData = 'Z'+INVERTED;
+		SUPER_IMAGE._imageData = 'H';
+		CONFUSE_IMAGE._imageData = 'C';
+		ZOMBIE_IMAGE._imageData = 'Z';
 	#endif
 }
 
@@ -236,7 +236,7 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	unsigned char i = 0;
 	while(str[i]!='\0')
 	{
-		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]); //str[i]-32-64);
+		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]);
 		++i;
 	}
 }

@@ -205,7 +205,9 @@ extern Image PLAYER_IMAGE;
 			gotoxy(GHOST_IMAGE_X,0); cputc(GHOST_IMAGE._imageData+160);
 			gotoxy(PLAYER_IMAGE_X,0); cputc(PLAYER_IMAGE._imageData+64);		
 		#elif defined(__CMOC__) && !defined(__WINCMOC__)
-			// TODO: Implement this
+			// TODO: to implement
+		#elif defined(__TRS80__) || defined(__EG2K__)
+			// TODO: to implement
 		#else
 			#if !defined(NO_COLOR)
 				SET_TEXT_COLOR(TEXT_COLOR);

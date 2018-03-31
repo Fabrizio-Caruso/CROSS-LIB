@@ -36,15 +36,16 @@
 	#include <stdio.h>
 
 	//printf("%c%c%c%c",27,'=',y+32,x+32);
+	// 		printf("\33[%c;%cH",y+32,x+32); \
 	
 	#define gotoxy(x,y) do \
 		{ \
-		printf("\33[%c;%cH",y+32,x+32); \
+		printf("\1B%c%c",y+0x80, x+0x80); \
 		\
 		} while(0)
 		
 	// printf("%c%c",27,'*')	
-	#define clrscr() 
+	#define clrscr() printf("\0C");
 
 	#define cprintf printf
 			

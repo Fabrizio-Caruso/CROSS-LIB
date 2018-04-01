@@ -59,6 +59,8 @@
 
 	#if defined(__ZX80__)
 		#define cputc(c) do {gen_tv_field(); fputc_cons(c); gen_tv_field(); } while(0)
+	#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
+		#define cputc(c) printf("\x11%c%c",COLOR_BLACK,c);		
 	#else
 		#define cputc(c) fputc_cons(c)
 	#endif

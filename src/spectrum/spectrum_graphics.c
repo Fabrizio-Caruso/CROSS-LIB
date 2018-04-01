@@ -280,7 +280,7 @@ void INIT_IMAGES(void)
 		_draw(x,y,&BOMB_IMAGE);
 	}
 #endif
-	
+
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
 	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 

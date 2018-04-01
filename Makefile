@@ -19,7 +19,7 @@ CC65_PATH ?= /cygdrive/c/cc65-snapshot-win32/bin/
 Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
 Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
 Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
-BUILD_PATH ?= build
+BUILD_PATH ?= ./build
 MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
@@ -299,7 +299,7 @@ gamate:
 	-o $(BUILD_PATH)/FULL_gamate.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
 
-	
+
 creativision_8k: 
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	--config $(SOURCE_PATH)/../cfg/creativision-8k.cfg \

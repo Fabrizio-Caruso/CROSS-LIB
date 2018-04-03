@@ -898,7 +898,22 @@ spectrum_48k:
 	rm $(BUILD_PATH)/FULL_spectrum_48k.prg
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin	
 
-
+spectrum_48k_putc4x6:
+	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi -vn  \
+	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
+	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
+	-DZ88DK_SPRITES \
+	-DNO_SLEEP -DLESS_TEXT -DNO_WAIT \
+	-lndos -create-app \
+	-o $(BUILD_PATH)/FULL_spectrum_48k_putc4x6.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/spectrum/udg.asm $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_spectrum_48k_putc4x6.prg
+	rm $(BUILD_PATH)/FULL_spectrum_48k_putc4x6_BANK_7.bin	
+	
 pc6001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -O3 -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -vn -DCLIB_ANSI \
@@ -996,7 +1011,7 @@ px8:
 # 	-pragma-define:ansicolumns=40 \	
 # 	-subtype=px4ansi \
 
-px4_sprites_tiny:
+px4_putc4x6_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
 	-pragma-define:ansicolumns=40 \
 	-pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
@@ -1006,13 +1021,13 @@ px4_sprites_tiny:
 	-DZ88DK_SPRITES \
 	-DNO_SLEEP -DLESS_TEXT -DNO_WAIT \
 	-Cz–-32k \
-	-create-app -o $(BUILD_PATH)/TINY_px4_sprites.bin \
+	-create-app -o $(BUILD_PATH)/TINY_px4_putc4x6.bin \
 	-vn -lndos \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_px4_sprites.bin
+	rm $(BUILD_PATH)/TINY_px4_putc4x6.bin
 
 
 px4_tiny:

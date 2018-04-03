@@ -902,7 +902,7 @@ spectrum_48k_putc4x6:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi -vn  \
 	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
 	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
-	-DZ88DK_SPRITES \
+	-DZ88DK_PUTC4X6 \
 	-DNO_SLEEP -DLESS_TEXT -DNO_WAIT \
 	-lndos -create-app \
 	-o $(BUILD_PATH)/FULL_spectrum_48k_putc4x6.prg \
@@ -1011,6 +1011,7 @@ px8:
 # 	-pragma-define:ansicolumns=40 \	
 # 	-subtype=px4ansi \
 
+
 px4_putc4x6_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
 	-pragma-define:ansicolumns=40 \
@@ -1018,7 +1019,7 @@ px4_putc4x6_tiny:
  	-subtype=px4ansi \
 	-D__PX4__ \
 	-DTINY_GAME \
-	-DZ88DK_SPRITES \
+	-DZ88DK_PUTC4X6 \
 	-DNO_SLEEP -DLESS_TEXT -DNO_WAIT \
 	-Cz–-32k \
 	-create-app -o $(BUILD_PATH)/TINY_px4_putc4x6.bin \

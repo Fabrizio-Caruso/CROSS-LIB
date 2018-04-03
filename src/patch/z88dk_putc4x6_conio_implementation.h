@@ -31,8 +31,8 @@
 /*                                                                           */
 /*****************************************************************************/
 
-#ifndef _Z88DK_SPRITES_CONIO_IMPLEMENTATION
-#define _Z88DK_SPRITES_CONIO_IMPLEMENTATION
+#ifndef _Z88DK_PUTC4X6_CONIO_IMPLEMENTATION
+#define _Z88DK_PUTC4X6_CONIO_IMPLEMENTATION
 	#include <stdio.h>
 	#include <graphics.h>
 	#include <games.h>
@@ -75,5 +75,4 @@
 	#define COLOR_YELLOW 6
 	#define COLOR_WHITE 7
 	
-#endif // _Z88DK_SPRITES_CONIO_IMPLEMENTATION
-
+#endif // _Z88DK_PUTC4X6_CONIO_IMPLEMENTATION

@@ -37,7 +37,7 @@
 	#include <graphics.h>
 	#include <games.h>
 
-	extern int _LIB_ put4x6(char c);
+	extern int _LIB_putc4x6(char c);
 	extern unsigned char x_4x6;
 	extern unsigned char y_4x6;
 

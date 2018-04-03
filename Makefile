@@ -1275,7 +1275,7 @@ abc800_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 -zorg=40000 \
 	-D__ABC800__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
-	-create-app \
+	-o$(BUILD_PATH)/TINY_abc800.bin \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \

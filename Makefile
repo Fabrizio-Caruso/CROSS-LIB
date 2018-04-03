@@ -1004,6 +1004,7 @@ px4_sprites_tiny:
 	-D__PX4__ \
 	-DTINY_GAME \
 	-DZ88DK_SPRITES \
+	-DNO_SLEEP -DLESS_TEXT -DNO_WAIT \
 	-Cz–-32k \
 	-create-app -o $(BUILD_PATH)/TINY_px4_sprites.bin \
 	-vn -lndos \

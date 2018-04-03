@@ -44,8 +44,8 @@
 	#undef gotoxy
 	#define gotoxy(x,y) do \
 		{ \
-			x_4x6 = x; \
-			y_4x6 = y; \
+			x_4x6 = x*4; \
+			y_4x6 = y*6; \
 		\
 		} while(0)
 		

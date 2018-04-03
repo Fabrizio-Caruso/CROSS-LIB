@@ -98,7 +98,15 @@ extern Character player;
 #endif
 	
 #if defined(WAIT_FOR_KEY)
-	#if defined(__SPECTRUM__)
+	#if defined(NO_WAIT)
+		void WAIT_PRESS(void)
+		{
+			// Workaround for CC65 bug 
+			#if !defined(NO_SLEEP)
+				sleep(2);
+			#endif
+		}	
+	#elif defined(__SPECTRUM__)
 		#include <input.h>
 
 		#if defined(CLIB_ANSI)

@@ -37,7 +37,8 @@
 	&& !defined(__PX8__) && !defined(__KC__) \
 	&& !defined(__M5__) \
 	&& !defined(__EG2K__) && !defined(__TRS80__) \
-	&& !defined(__ABC800__)
+	&& !defined(__ABC800__) \
+	&& !defined(__Z88DK_SPRITES) 
 	#define CONIO_LIB
 #endif
 #if defined(__WINCMOC__)

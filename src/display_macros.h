@@ -47,7 +47,9 @@
 #if defined(__CREATIVISION__) || defined(__GAMATE__) || defined(__OSIC1P__) || defined(__ATARI5200__) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#include "patch/generic_conio_patch.h"
 #endif
-#if defined(__ATMOS__)
+#  if defined(Z88DK_SPRITES)
+	#include "patch/z88dk_sprites_conio_implementation.h"
+#elif defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
 #elif defined(__SUPERVISION__) 
 	#include "patch/supervision_conio_implementation.h"	
@@ -336,7 +338,10 @@ void DRAW_BOMBS(void);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
 #elif defined(__TRS80__) || defined(__EG2K__)
 	void PRINT(unsigned char x, unsigned char y, char * str);
-	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);		
+	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
+#elif defined(Z88DK_SPRITES)
+	#define PRINT(x,y,str) 
+	#define PRINTF(x,y,str,val)	
 #else
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);

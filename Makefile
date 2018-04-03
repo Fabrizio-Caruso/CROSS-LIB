@@ -991,8 +991,29 @@ px8:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_px8.bin
-	
-	
+
+
+# 	-pragma-define:ansicolumns=40 \	
+# 	-subtype=px4ansi \
+
+px4_sprites_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
+	-pragma-define:ansicolumns=40 \
+	-pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
+ 	-subtype=px4ansi \
+	-D__PX4__ \
+	-DTINY_GAME \
+	-DZ88DK_SPRITES \
+	-Cz–-32k \
+	-create-app -o $(BUILD_PATH)/TINY_px4_sprites.bin \
+	-vn -lndos \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_px4_sprites.bin
+
+
 px4_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
 	-D__PX4__ \

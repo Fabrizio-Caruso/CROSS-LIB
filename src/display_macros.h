@@ -118,7 +118,7 @@ typedef struct ImageStruct Image;
 	#define XSize 80
 #elif defined(__TRS80__) || defined(__EG2K__)
 	#define XSize 64
-#elif defined(__PCE__)
+#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6))
 	#define XSize 60
 #elif defined(__NASCOM__)
 	#define XSize 48
@@ -129,7 +129,7 @@ typedef struct ImageStruct Image;
       || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
 	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__ENTERPRISE__) \
-	  || defined(__PX4__) \
+	  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
 	  || defined(__KC__)
 	#define XSize (40-X_OFFSET)
 #elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
@@ -172,10 +172,12 @@ typedef struct ImageStruct Image;
 #elif defined(__VIC20__)
 	#define YSize 23	
 #elif defined(__SAM__)
-	#define YSize (24-2-Y_OFFSET)	
+	#define YSize (24-2-Y_OFFSET)
+#elif (defined(__PX4__) && defined(Z88DK_PUTC4X6))
+	#define YSize 10
 #elif defined(__ATARI_LYNX__)
 	#define YSize 13
-#elif defined(__Z88__) || defined(__PX4__) || defined(__PX8__)
+#elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__)
 	#define YSize 8
 #else
 	#define YSize 16

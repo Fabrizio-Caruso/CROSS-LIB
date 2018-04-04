@@ -174,7 +174,7 @@ typedef struct ImageStruct Image;
 #elif defined(__SAM__)
 	#define YSize (24-2-Y_OFFSET)
 #elif (defined(__PX4__) && defined(Z88DK_PUTC4X6))
-	#define YSize 10
+	#define YSize (10+1)
 #elif defined(__ATARI_LYNX__)
 	#define YSize 13
 #elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__)

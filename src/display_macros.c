@@ -376,7 +376,6 @@ Image BOMB_IMAGE;
 			{
 				gotoxy(x+i,y);
 				cputc((digits[5-i])+48);
-				// POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), (unsigned char) (digits[5-i])+48);
 			}
 		}	
 
@@ -386,8 +385,6 @@ Image BOMB_IMAGE;
 			cputc(((unsigned char) val)/10+48);
 			gotoxy((x+1),y);
 			cputc(((unsigned char) val)%10+48);
-			// POKE(BASE_ADDR+x+y*  ((unsigned short)XSize), ((unsigned char) val)/10+48);		
-			// POKE(BASE_ADDR+x+1+y*((unsigned short)XSize), ((unsigned char) val)%10+48);	
 		}	
 
 
@@ -402,6 +399,11 @@ Image BOMB_IMAGE;
 		{
 			PRINT(XSize/2-4,YSize/2,"level");
 			print_u(XSize/2+2, YSize/2, val);
+		}
+		
+		void print_score(x,y,str,val)
+		{
+			print_05u0(XSize/2+2, YSize/2, val);
 		}
 
 		void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
@@ -418,6 +420,30 @@ Image BOMB_IMAGE;
 			{
 				print_u(x,y,val);		
 			}
+			else if(str[0]=='B')
+			{
+				print_score(x,y,"BONUS:",val);
+			}
+			else if(str[0]=='b')
+			{
+				print_score(x,y,"bonus:",val);
+			}	
+			else if(str[0]=='S')
+			{
+				print_score(x,y,"SCORE:",val);
+			}
+			else if(str[0]=='s')
+			{
+				print_score(x,y,"score:",val);
+			}		
+			else if(str[0]=='H')
+			{
+				print_score(x,y,"HIGH SCORE:",val);
+			}
+			else if(str[0]=='h')
+			{
+				print_score(x,y,"high score:",val);
+			}		
 			else
 			{
 				print_level(val);

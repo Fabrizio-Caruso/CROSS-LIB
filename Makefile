@@ -1074,9 +1074,7 @@ px4_putc4x6:
  	-subtype=px4ansi \
 	-D__PX4__ \
 	-DFULL_GAME \
-	-DLESS_TEXT \
 	-DNO_WAIT \
-	-DNO_BORDERS \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DZ88DK_PUTC4X6 \
 	-Cz–-32k \

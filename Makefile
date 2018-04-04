@@ -1548,6 +1548,11 @@ x1_wait_press:
 	-o $(BUILD_PATH)/x1_wait_press.bin -vn -lndos \
 	$(SOURCE_PATH)/../experiments/wait_press.c
 
+z1013_getk:
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 \
+	-o $(BUILD_PATH)/z1013_getk.bin -vn -lndos \
+	$(SOURCE_PATH)/../experiments/wait_press.c	
+	
 x1_getk:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
 	-o $(BUILD_PATH)/x1_getk.bin -vn -lndos \

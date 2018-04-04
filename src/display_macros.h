@@ -342,8 +342,8 @@ void DRAW_BOMBS(void);
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
 #elif defined(Z88DK_PUTC4X6)
-	#define PRINT(x,y,str) 
-	#define PRINTF(x,y,str,val)	
+	void PRINT(unsigned char x, unsigned char y, char * str);
+	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
 #else
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);

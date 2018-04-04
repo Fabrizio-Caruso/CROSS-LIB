@@ -1066,7 +1066,29 @@ px4:
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_px4.bin
 	
-	
+
+px4_putc4x6:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
+	-pragma-define:ansicolumns=40 \
+	-pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
+ 	-subtype=px4ansi \
+	-D__PX4__ \
+	-DFULL_GAME \
+	-DLESS_TEXT \
+	-DNO_WAIT \
+	-DNO_BORDERS \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DZ88DK_PUTC4X6 \
+	-Cz–-32k \
+	-create-app -o $(BUILD_PATH)/FULL_px4_putc4x6.bin \
+	-vn -lndos \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_px4_putc4x6.bin
+
+
 x1_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
 	-D__X1__ \

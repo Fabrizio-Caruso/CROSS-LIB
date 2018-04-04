@@ -403,7 +403,7 @@ int main(void)
 			CLEAR_SCREEN();
 			
 			
-			#if !defined(TINY_GAME)
+			#if !defined(TINY_GAME) && !defined(NO_BORDERS)
 				DRAW_BORDERS();
 			#endif
 			

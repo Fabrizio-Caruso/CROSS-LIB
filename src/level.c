@@ -124,6 +124,8 @@ extern Character bombs[BOMBS_NUMBER];
 	{
 		#if defined(WIDE)
 			innerVerticalWallLength = YSize-10+(lvmod-2)*2;
+		#elif YSize<=12
+			innerVerticalWallLength = 4;
 		#else
 			innerVerticalWallLength = YSize-14+(lvmod-2)*2;			
 		#endif

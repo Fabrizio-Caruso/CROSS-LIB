@@ -353,7 +353,7 @@ Image BOMB_IMAGE;
 			unsigned char i = 0;
 			while(str[i]!='\0')
 			{
-				gotoxy(x,y);
+				gotoxy(x+i,y);
 				cputc(str[i++]);
 			}
 		}
@@ -374,7 +374,7 @@ Image BOMB_IMAGE;
 			
 			for(i=0;i<6;++i)
 			{
-				gotoxy(x,y);
+				gotoxy(x+i,y);
 				cputc((digits[5-i])+48);
 				// POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), (unsigned char) (digits[5-i])+48);
 			}
@@ -384,6 +384,7 @@ Image BOMB_IMAGE;
 		{
 			gotoxy(x,y);
 			cputc(((unsigned char) val)/10+48);
+			gotoxy((x+1),y);
 			cputc(((unsigned char) val)%10+48);
 			// POKE(BASE_ADDR+x+y*  ((unsigned short)XSize), ((unsigned char) val)/10+48);		
 			// POKE(BASE_ADDR+x+1+y*((unsigned short)XSize), ((unsigned char) val)%10+48);	

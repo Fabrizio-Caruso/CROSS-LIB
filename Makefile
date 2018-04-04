@@ -1011,6 +1011,11 @@ px8:
 # 	-pragma-define:ansicolumns=40 \	
 # 	-subtype=px4ansi \
 
+#	-DNO_SLEEP \
+#	-DLESS_TEXT \
+#	-DNO_WAIT
+	
+
 
 px4_putc4x6_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
@@ -1019,8 +1024,8 @@ px4_putc4x6_tiny:
  	-subtype=px4ansi \
 	-D__PX4__ \
 	-DTINY_GAME \
+	-DNO_WAIT \
 	-DZ88DK_PUTC4X6 \
-	-DNO_SLEEP -DLESS_TEXT -DNO_WAIT \
 	-Cz–-32k \
 	-create-app -o $(BUILD_PATH)/TINY_px4_putc4x6.bin \
 	-vn -lndos \

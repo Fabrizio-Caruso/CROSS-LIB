@@ -44,8 +44,8 @@
 	#undef gotoxy
 	#define gotoxy(x,y) do \
 		{ \
-			x_4x6 = x*4; \
-			y_4x6 = y*6; \
+			x_4x6 = (x)*4; \
+			y_4x6 = (y)*6; \
 		\
 		} while(0)
 		
@@ -54,8 +54,11 @@
 
 	#define cprintf printf
 			
-	#define cputc(c) putc4x6(c)
-		
+	#define cputc(c) do \
+		{ \
+			putc4x6(c); \
+		} \
+		while (0)
 	
 	#define cgetc() getk()
 

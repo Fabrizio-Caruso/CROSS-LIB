@@ -290,7 +290,7 @@ Image BOMB_IMAGE;
 	
 	void _delete(unsigned char x, unsigned char y)
 	{
-		gotoxy(x+X_OFFSET,y+Y_OFFSET);
+		gotoxy((x+X_OFFSET),(y+Y_OFFSET));
 		cputc(' ');
 	}
 

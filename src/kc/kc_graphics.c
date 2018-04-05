@@ -114,40 +114,28 @@ extern Image DEAD_GHOST_IMAGE;
 #define PEEKW(addr) (*(unsigned*) (addr))
 
 
-extern char full_sprite[];
-
-#asm
-._full_sprite
- defb    @11111110
- defb    @11111111
- defb    @11111110
- defb    @11111111
- defb    @11111110
- defb    @11111111
- defb    @11111110
- defb    @01010101
-#endasm
-
-
-
-// POKE(BASE_ADDR+x+((unsigned short) y)*32,image); 
-	// unsigned char i; \
-	// for(i=0;i<8;++i) \
-	// { \
-		// POKE(BASE_ADDR+i+8*y+x*256,255); \
-	// }
 
 #define _DRAW(x,y,image) \
 { \
-	putsprite(spr_xor,x,y,full_sprite); \
+	POKE(BASE_ADDR+x+((unsigned short) y)*32,image); \
+	unsigned char i; \
+	for(i=0;i<8;++i) \
+	{ \
+		POKE(BASE_ADDR+i+8*y+x*256,255); \
+	} \
 }
 
-	
-// POKE(BASE_ADDR+x+((unsigned short) y)*32,_SPACE); 
+
 #define _DELETE(x,y) \
 { \
-	putsprite(spr_xor,x,y,full_sprite); \
+	POKE(BASE_ADDR+x+((unsigned short) y)*32,image); \
+	unsigned char i; \
+	for(i=0;i<8;++i) \
+	{ \
+		POKE(BASE_ADDR+i+8*y+x*256,0); \
+	} \
 }
+
 
 #define _DRAW_VERTICAL_WALL(x,y) \
 { \
@@ -245,9 +233,9 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
-// void CLEAR_SCREEN(void)
-// {
-	// clg();
+void CLEAR_SCREEN(void)
+{
+	clg();
 	// unsigned char i;
 	// unsigned char j;
 	
@@ -258,7 +246,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 			// POKE(BASE_ADDR+j+i*((unsigned short )XSize),_SPACE);
 		// }
 	// }
-// }
+}
 
 
 // void PRINT(unsigned char x, unsigned char y, char * str)

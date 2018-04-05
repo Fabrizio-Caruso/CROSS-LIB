@@ -71,8 +71,8 @@
 	#include "patch/kc_conio_implementation.h"	
 #elif defined(__M5__)
 	#include "patch/m5_conio_implementation.h"	
-// #elif defined(__EG2K__) || defined(__TRS80__)
-	// #include "patch/trs80_conio_implementation.h"		
+#elif defined(__KC__) && defined(Z88DK_SPRITES)
+	#include "patch/z88dk_conio_patch.h"		
 #elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
 	  || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__) \
 	  || defined(__BEE__) || defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) \
@@ -344,6 +344,9 @@ void DRAW_BOMBS(void);
 #elif defined(Z88DK_PUTC4X6)
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
+#elif defined(Z88DK_SPRITES)
+	#define PRINT(x,y,str) 
+	#define PRINTF(x,y,str,val)	
 #else
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);
@@ -424,9 +427,12 @@ void DRAW_BOMBS(void);
 #elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(TINY_GAME))
 	#define SET_TEXT_COLOR(c)
 	void CLEAR_SCREEN(void);
-// #elif defined(__PX8__)
-	// #define SET_TEXT_COLOR(c)
-	// #define CLEAR_SCREEN() printf("%c%c",27,'*')	
+#elif defined(__KC__)
+	#include <games.h>
+	#include <graphics.h>
+	
+	#define SET_TEXT_COLOR(c)
+	#define CLEAR_SCREEN() clg()
 #else // CC65 conio case
 	#if !defined(NO_COLOR)
 		#define SET_TEXT_COLOR(c) (void) textcolor (c);

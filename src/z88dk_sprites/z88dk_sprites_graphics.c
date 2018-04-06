@@ -118,6 +118,7 @@ extern char full_sprite[];
 
 #asm
 ._full_sprite
+ defb    8,8
  defb    @11111110
  defb    @11111111
  defb    @11111110

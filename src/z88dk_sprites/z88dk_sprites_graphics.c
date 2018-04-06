@@ -115,6 +115,20 @@ extern Image DEAD_GHOST_IMAGE;
 
 
 extern char full_sprite[];
+extern char sprite[];
+
+#asm
+._sprite
+ defb    8,8
+ defb    @11111110
+ defb    @11111111
+ defb    @11111110
+ defb    @11111111
+ defb    @11111110
+ defb    @11111111
+ defb    @11111110
+ defb    @01010101
+#endasm
 
 #asm
 ._full_sprite
@@ -140,14 +154,14 @@ extern char full_sprite[];
 
 #define _DRAW(x,y,image) \
 { \
-	putsprite(spr_xor,x*8,y*8,full_sprite); \
+	putsprite(spr_or,x*8,y*8,sprite); \
 }
 
 	
 // POKE(BASE_ADDR+x+((unsigned short) y)*32,_SPACE); 
 #define _DELETE(x,y) \
 { \
-	putsprite(spr_xor,x*8,y*8,full_sprite); \
+	putsprite(spr_and,x*8,y*8,full_sprite); \
 }
 
 #define _DRAW_VERTICAL_WALL(x,y) \

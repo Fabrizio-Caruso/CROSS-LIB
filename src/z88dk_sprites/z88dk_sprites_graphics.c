@@ -22,39 +22,40 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-// BLUE
-#define _PLAYER ('*')
-// #define _PLAYER_DOWN 0
-// #define _PLAYER_UP 1
-// #define _PLAYER_RIGHT 2
-// #define _PLAYER_LEFT 3
+#define _PLAYER_DOWN 0
+#define _PLAYER_UP 1
+#define _PLAYER_LEFT 2
+#define _PLAYER_RIGHT 3
+#define _BOMB 4
+#define _GHOST 5
 
-#define _SPACE (' ')
+#define _SPACE 6
 
-#define _GUN '!'
+#define _DEAD_GHOST _GHOST
 
-// YELLOW
-#define _INVINCIBLE_GHOST ('+')
-#define _VERTICAL_BRICK ('#')
-#define _HORIZONTAL_BRICK ('-')
-#define _EXTRA_LIFE '*'
-#define _EXTRA_POINTS '$'
+// #define _GUN '!'
 
-// GREEN
-#define _POWERUP  ('S')
 
-// RED
-#define _BOMB ('X')
-#define _DEAD_GHOST '#'
+// #define _INVINCIBLE_GHOST ('+')
+// #define _VERTICAL_BRICK ('#')
+// #define _HORIZONTAL_BRICK ('-')
+// #define _EXTRA_LIFE '*'
+// #define _EXTRA_POINTS '$'
 
-#define _INVINCIBILITY 'I'
-#define _MISSILE ('.')
 
-#define _GHOST 'O'
+// #define _POWERUP  ('S')
 
-#define _LEFT_ENEMY_MISSILE ('>')
-#define _RIGHT_ENEMY_MISSILE ('<')
-#define _BUBBLE ('^')
+// #define _BOMB ('X')
+// #define _DEAD_GHOST '#'
+
+// #define _INVINCIBILITY 'I'
+// #define _MISSILE ('.')
+
+// #define _GHOST 'O'
+
+// #define _LEFT_ENEMY_MISSILE ('>')
+// #define _RIGHT_ENEMY_MISSILE ('<')
+// #define _BUBBLE ('^')
 
 #include "../display_macros.h"
 
@@ -106,7 +107,14 @@ extern Image DEAD_GHOST_IMAGE;
 	Image PLAYER_UP;
 	Image PLAYER_RIGHT;
 	Image PLAYER_LEFT;
+	
+	// PLAYER_DOWN._imageData = (unsigned char) 0;
+	// PLAYER_UP._imageData = (unsigned char) 1;
+	// PLAYER_LEFT._imageData = (unsigned char) 2;
+	// PLAYER_RIGHT._imageData = (unsigned char) 3;
 #endif
+	
+// BOMB_IMAGE._imageData = (unsigned char) 4;
 	
 #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
@@ -116,31 +124,119 @@ extern Image DEAD_GHOST_IMAGE;
 
 extern char full_sprite[];
 extern char sprite[];
+extern char sprites[];
+
+
+// #define PLAYER_DOWN 0
+// #define PLAYER_UP 1
+// #define PLAYER_LEFT 2
+// #define PLAYER_RIGHT 3
+
+// #define BOMB 4
+
+// #define GHOST 5
+
+#define SPACE 6
+
+#asm
+._sprites
+ defb    8,8
+ defb    @00011000
+ defb    @00100100
+ defb    @01111110
+ defb    @10100101
+ defb    @10111101
+ defb    @00111100
+ defb    @00100100
+ defb    @01100110
+
+ defb    8,8
+ defb    @00011000
+ defb    @00111100
+ defb    @01111110
+ defb    @10100101
+ defb    @10111101
+ defb    @00111100
+ defb    @00100100
+ defb    @01100110
+
+ defb    8,8
+ defb    @00011000
+ defb    @00110100
+ defb    @01111110
+ defb    @10100100
+ defb    @10111100
+ defb    @00111100
+ defb    @00100100
+ defb    @00100100
+
+ defb    8,8
+ defb    @00011000
+ defb    @00110100
+ defb    @01111110
+ defb    @00100101
+ defb    @00111101
+ defb    @00111100
+ defb    @00100100
+ defb    @00100100 
+
+ defb    8,8
+ defb    @00111100
+ defb    @01000010
+ defb    @10100101
+ defb    @10011001
+ defb    @10011001
+ defb    @10100101
+ defb    @01000010
+ defb    @00111100 
+ 
+ defb    8,8
+ defb    @01111110
+ defb    @10000001
+ defb    @11100111
+ defb    @10000001
+ defb    @10000001
+ defb    @10111101
+ defb    @10000001
+ defb    @01111110  
+ 
+ defb    8,8
+ defb    @11111111
+ defb    @11111111
+ defb    @11111111
+ defb    @11111111
+ defb    @11111111
+ defb    @11111111
+ defb    @11111111
+ defb    @11111111
+#endasm
+
+
 
 #asm
 ._sprite
  defb    8,8
- defb    @11111110
- defb    @11111111
- defb    @11111110
- defb    @11111111
- defb    @11111110
- defb    @11111111
- defb    @11111110
- defb    @01010101
+ defb    @00011000
+ defb    @00100100
+ defb    @01111110
+ defb    @10100101
+ defb    @10111101
+ defb    @00111100
+ defb    @00100100
+ defb    @01100110
 #endasm
 
 #asm
 ._full_sprite
  defb    8,8
- defb    @11111110
  defb    @11111111
- defb    @11111110
  defb    @11111111
- defb    @11111110
  defb    @11111111
- defb    @11111110
- defb    @01010101
+ defb    @11111111
+ defb    @11111111
+ defb    @11111111
+ defb    @11111111
+ defb    @11111111
 #endasm
 
 
@@ -151,17 +247,17 @@ extern char sprite[];
 	// { \
 		// POKE(BASE_ADDR+i+8*y+x*256,255); \
 	// }
-
+// 	putsprite(spr_or,x*8,y*8,sprite);
 #define _DRAW(x,y,image) \
 { \
-	putsprite(spr_or,x*8,y*8,sprite); \
+	putsprite(spr_or,x*8,y*8,sprites + (unsigned char) (image*10)); \
 }
 
 	
-// POKE(BASE_ADDR+x+((unsigned short) y)*32,_SPACE); 
-#define _DELETE(x,y) \
+// putsprite(spr_and,x*8,y*8,full_sprite);
+	#define _DELETE(x,y) \
 { \
-	putsprite(spr_and,x*8,y*8,full_sprite); \
+	putsprite(spr_and,x*8,y*8,sprites + (unsigned char *) (SPACE*10) ); \
 }
 
 #define _DRAW_VERTICAL_WALL(x,y) \
@@ -190,7 +286,7 @@ void INIT_IMAGES(void)
 {		
 	GHOST_IMAGE._imageData = _GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
-	PLAYER_IMAGE._imageData = _PLAYER;
+	PLAYER_IMAGE._imageData = _PLAYER_DOWN;
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
 		
 	#if !defined(TINY_GAME)

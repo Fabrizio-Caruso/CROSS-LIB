@@ -1352,6 +1352,7 @@ kc_sprites_tiny:
 	-DZ88DK_SPRITES \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-DNO_WAIT \
+	-DREDEFINED_CHARS \
 	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \
 	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
 	$(SOURCE_PATH)/display_macros.c \

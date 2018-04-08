@@ -1350,7 +1350,9 @@ kc_sprites_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
 	-D__KC__ \
 	-DZ88DK_SPRITES \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DTINY_GAME \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
 	-DNO_WAIT \
 	-DREDEFINED_CHARS \
 	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \

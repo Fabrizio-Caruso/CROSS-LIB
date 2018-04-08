@@ -143,42 +143,42 @@ extern char sprites[];
  defb    8,8
  defb    @00011000
  defb    @00100100
- defb    @01111110
- defb    @10100101
- defb    @10111101
- defb    @00111100
+ defb    @00011000
+ defb    @01100110
+ defb    @10011001
+ defb    @00011000
  defb    @00100100
  defb    @01100110
 
  defb    8,8
  defb    @00011000
  defb    @00111100
- defb    @01111110
- defb    @10100101
- defb    @10111101
- defb    @00111100
+ defb    @00011000
+ defb    @01100110
+ defb    @10011001
+ defb    @00011000
  defb    @00100100
  defb    @01100110
 
  defb    8,8
  defb    @00011000
- defb    @00110100
- defb    @01111110
- defb    @10100100
- defb    @10111100
- defb    @00111100
- defb    @00100100
- defb    @00100100
+ defb    @00101100
+ defb    @10011000
+ defb    @11101110
+ defb    @00011001
+ defb    @00011000
+ defb    @00101000
+ defb    @00101000
 
  defb    8,8
  defb    @00011000
  defb    @00110100
- defb    @01111110
- defb    @00100101
- defb    @00111101
- defb    @00111100
- defb    @00100100
- defb    @00100100 
+ defb    @00011001
+ defb    @01101111
+ defb    @10011000
+ defb    @00011000
+ defb    @00010100
+ defb    @00010100
 
  defb    8,8
  defb    @00111100
@@ -213,31 +213,31 @@ extern char sprites[];
 
 
 
-#asm
-._sprite
- defb    8,8
- defb    @00011000
- defb    @00100100
- defb    @01111110
- defb    @10100101
- defb    @10111101
- defb    @00111100
- defb    @00100100
- defb    @01100110
-#endasm
+// #asm
+// ._sprite
+ // defb    8,8
+ // defb    @00011000
+ // defb    @00100100
+ // defb    @01111110
+ // defb    @10100101
+ // defb    @10111101
+ // defb    @00111100
+ // defb    @00100100
+ // defb    @01100110
+// #endasm
 
-#asm
-._full_sprite
- defb    8,8
- defb    @11111111
- defb    @11111111
- defb    @11111111
- defb    @11111111
- defb    @11111111
- defb    @11111111
- defb    @11111111
- defb    @11111111
-#endasm
+// #asm
+// ._full_sprite
+ // defb    8,8
+ // defb    @11111111
+ // defb    @11111111
+ // defb    @11111111
+ // defb    @11111111
+ // defb    @11111111
+ // defb    @11111111
+ // defb    @11111111
+ // defb    @11111111
+// #endasm
 
 
 

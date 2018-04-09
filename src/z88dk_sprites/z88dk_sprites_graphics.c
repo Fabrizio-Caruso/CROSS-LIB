@@ -356,20 +356,21 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
-// void CLEAR_SCREEN(void)
-// {
-	// clg();
-	// unsigned char i;
-	// unsigned char j;
+
+void CLEAR_SCREEN(void)
+{
+	unsigned char i;
+	unsigned char j;
 	
-	// for(i=0;i<YSize;++i)
-	// {
-		// for(j=0;j<XSize;++j)
-		// {
-			// POKE(BASE_ADDR+j+i*((unsigned short )XSize),_SPACE);
-		// }
-	// }
-// }
+	for(i=0;i<YSize;++i)
+	{
+		for(j=0;j<XSize;++j)
+		{
+			_DELETE(j,i);
+			// putsprite(spr_and,x*8,y*8,sprites + (unsigned char *) (SPACE*10) );
+		}
+	}
+}
 
 
 // void PRINT(unsigned char x, unsigned char y, char * str)

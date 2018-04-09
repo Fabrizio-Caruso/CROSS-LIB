@@ -970,6 +970,7 @@ nascom_16k:
 	rm $(BUILD_PATH)/LIGHT_nascom_16k.prg
 	
 
+
 z1013:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 -clib=ansi \
 	-vn -lndos \
@@ -995,6 +996,7 @@ px8_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_px8.bin
 
+
 px8:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
 	-D__PX8__ \
@@ -1007,14 +1009,6 @@ px8:
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_px8.bin
 
-
-# 	-pragma-define:ansicolumns=40 \	
-# 	-subtype=px4ansi \
-
-#	-DNO_SLEEP \
-#	-DLESS_TEXT \
-#	-DNO_WAIT
-	
 
 
 px4_putc4x6_tiny:
@@ -1035,19 +1029,6 @@ px4_putc4x6_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_px4_putc4x6.bin
 
-kc_putc4x6_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
-	-D__KC__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
-	-DZ88DK_PUTC4X6 \
-	-create-app -o$(BUILD_PATH)/TINY_kc_putc4x6_.bin \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
-	
 	
 px4_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
@@ -1153,6 +1134,27 @@ trs80:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \	
 	rm $(BUILD_PATH)/FULL_trs80.bin	
+
+
+kc_sprites_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
+	-D__KC__ \
+	-DZ88DK_SPRITES \
+	-DTINY_GAME \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DREDEFINED_CHARS \
+	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \
+	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_kc_sprites.bin	
+	
+
 	
 # ------------------------------------
 
@@ -1257,7 +1259,7 @@ z88dk_targets: \
 	ace_exp_16k \
 	cpc cpc_no_udg \
  	mc1000_16k mc1000_48k \
- 	sharp_mz x1_tiny \
+ 	sharp_mz \
 	mtx \
 	abc80_16k abc80_32k \
 	p2000_16k p2000_32k \
@@ -1267,12 +1269,15 @@ z88dk_targets: \
 	aquarius_exp_4k aquarius_exp_16k \
 	vz200_16k vz200_32k \
 	microbee_16k microbee_32k \
-	z1013 \
 	gal_22k lambda_16k \
 	zx80_16k zx80_8k \
 	zx81_16k zx81_8k \
-	px4_tiny px8_tiny \
-	trs80_tiny
+	z1013 \
+	x1_tiny x1 \
+	px4_tiny px4 px4_putc4x6 \
+	px8_tiny px8 \
+	kc_sprites_tiny \
+	trs80_tiny trs80
 
 
 cmoc_targets: \
@@ -1319,6 +1324,20 @@ list:
 	
 # DEBUG
 
+kc_putc4x6_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
+	-D__KC__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DZ88DK_PUTC4X6 \
+	-create-app -o$(BUILD_PATH)/TINY_kc_putc4x6_.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
+	
+
 eg2k_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=eg2000disk \
 	-lm -create-app \
@@ -1346,24 +1365,6 @@ kc_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_kc.bin
 
-kc_sprites_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
-	-D__KC__ \
-	-DZ88DK_SPRITES \
-	-DTINY_GAME \
-	-DLESS_TEXT \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-DREDEFINED_CHARS \
-	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \
-	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_kc_sprites.bin	
-	
 # -o$(BUILD_PATH)/TINY_abc800.bin 	
 abc800_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 -zorg=40000 \

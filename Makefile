@@ -1251,6 +1251,12 @@ cc65_targets: \
 
 
 z88dk_targets: \
+	z1013 \
+	x1_tiny x1 \
+	px4_tiny px4 px4_putc4x6 \
+	px8_tiny px8 \
+	kc_sprites_tiny \
+	trs80_tiny trs80 \
 	nascom_16k nascom_32k \
 	pc6001_16k pc6001_32k \
 	z9001_16k z9001_32k \
@@ -1271,13 +1277,7 @@ z88dk_targets: \
 	microbee_16k microbee_32k \
 	gal_22k lambda_16k \
 	zx80_16k zx80_8k \
-	zx81_16k zx81_8k \
-	z1013 \
-	x1_tiny x1 \
-	px4_tiny px4 px4_putc4x6 \
-	px8_tiny px8 \
-	kc_sprites_tiny \
-	trs80_tiny trs80
+	zx81_16k zx81_8k
 
 
 cmoc_targets: \

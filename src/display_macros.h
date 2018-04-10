@@ -72,7 +72,9 @@
 #elif defined(__M5__)
 	#include "patch/m5_conio_implementation.h"	
 #elif defined(__KC__) && defined(Z88DK_SPRITES)
-	#include "patch/z88dk_conio_patch.h"		
+	#include "patch/z88dk_conio_patch.h"	
+#elif defined(__NC200__) && defined(Z88DK_SPRITES)
+	#include "patch/z88dk_conio_patch.h"	
 #elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
 	  || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__) \
 	  || defined(__BEE__) || defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) \
@@ -427,13 +429,20 @@ void DRAW_BOMBS(void);
 #elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(TINY_GAME))
 	#define SET_TEXT_COLOR(c)
 	void CLEAR_SCREEN(void);
-#elif defined(__KC__)
+#elif defined(__KC__) && defined(Z88DK_SPRITES)
 	#include <games.h>
 	#include <graphics.h>
 	
 	#define SET_TEXT_COLOR(c)
 	// #define CLEAR_SCREEN() clg()
 	void CLEAR_SCREEN(void);
+	
+#elif defined(Z88DK_SPRITES)
+	#include <games.h>
+	#include <graphics.h>
+	
+	#define SET_TEXT_COLOR(c)
+	#define CLEAR_SCREEN() clg()
 	
 #else // CC65 conio case
 	#if !defined(NO_COLOR)

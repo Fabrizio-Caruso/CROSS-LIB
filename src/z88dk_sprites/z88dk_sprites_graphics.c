@@ -357,21 +357,21 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 }
 
 
-void CLEAR_SCREEN(void)
-{
-	unsigned char i;
-	unsigned char j;
-	
-	for(i=0;i<YSize;++i)
+#ifndef CLEAR_SCREEN
+	void CLEAR_SCREEN(void)
 	{
-		for(j=0;j<XSize;++j)
+		unsigned char i;
+		unsigned char j;
+		
+		for(i=0;i<YSize;++i)
 		{
-			_DELETE(j,i);
-			// putsprite(spr_and,x*8,y*8,sprites + (unsigned char *) (SPACE*10) );
+			for(j=0;j<XSize;++j)
+			{
+				_DELETE(j,i);
+			}
 		}
 	}
-}
-
+#endif
 
 // void PRINT(unsigned char x, unsigned char y, char * str)
 // {

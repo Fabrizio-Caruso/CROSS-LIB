@@ -1153,8 +1153,26 @@ kc_sprites_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_kc_sprites.bin	
+
+nc100_sprites_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
+	-D__NC100__ \
+	-DZ88DK_SPRITES \
+	-DTINY_GAME \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DREDEFINED_CHARS \
+	-create-app -o$(BUILD_PATH)/TINY_nc100_sprites.bin \
+	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_nc100_sprites.bin
 	
-nc_sprites_tiny:
+nc200_sprites_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
 	-D__NC200__ \
 	-DZ88DK_SPRITES \

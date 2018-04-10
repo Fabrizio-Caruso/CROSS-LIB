@@ -122,9 +122,7 @@ Image BOMB_IMAGE;
 	//
 #elif defined(__EG2K__) || defined(__TRS80__)
 	//
-#elif defined(__KC__) && defined(Z88DK_SPRITES)
-	//
-#elif defined(__NC200__) && defined(Z88DK_SPRITES)
+#elif defined(Z88DK_SPRITES)
 	//	
 #else
 	void INIT_GRAPHICS() 

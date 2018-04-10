@@ -71,9 +71,7 @@
 	#include "patch/kc_conio_implementation.h"	
 #elif defined(__M5__)
 	#include "patch/m5_conio_implementation.h"	
-#elif defined(__KC__) && defined(Z88DK_SPRITES)
-	#include "patch/z88dk_conio_patch.h"	
-#elif defined(__NC200__) && defined(Z88DK_SPRITES)
+#elif defined(Z88DK_SPRITES)
 	#include "patch/z88dk_conio_patch.h"	
 #elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
 	  || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__) \
@@ -120,7 +118,8 @@ typedef struct ImageStruct Image;
 	#define XSize 80
 #elif defined(__TRS80__) || defined(__EG2K__)
 	#define XSize 64
-#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6))
+#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6)) \
+	  || ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
 	#define XSize 60
 #elif defined(__NASCOM__)
 	#define XSize 48
@@ -175,12 +174,16 @@ typedef struct ImageStruct Image;
 	#define YSize 23	
 #elif defined(__SAM__)
 	#define YSize (24-2-Y_OFFSET)
+#elif (defined(__NC200__) && defined(Z88DK_SPRITES))
+	#define YSize 16
 #elif (defined(__PX4__) && defined(Z88DK_PUTC4X6))
 	#define YSize (10+1)
 #elif defined(__ATARI_LYNX__)
 	#define YSize 13
-#elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__)
+#elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__) \
+	  || (defined(__NC100__) && defined(Z88DK_SPRITES)) 
 	#define YSize 8
+	
 #else
 	#define YSize 16
 #endif

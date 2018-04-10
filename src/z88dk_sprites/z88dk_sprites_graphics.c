@@ -122,19 +122,11 @@ extern Image DEAD_GHOST_IMAGE;
 #define PEEKW(addr) (*(unsigned*) (addr))
 
 
-extern char full_sprite[];
-extern char sprite[];
-extern char sprites[];
+// extern char full_sprite[];
+// extern char sprite[];
+extern unsigned char sprites[];
 
 
-// #define PLAYER_DOWN 0
-// #define PLAYER_UP 1
-// #define PLAYER_LEFT 2
-// #define PLAYER_RIGHT 3
-
-// #define BOMB 4
-
-// #define GHOST 5
 
 #define SPACE 6
 
@@ -214,61 +206,68 @@ extern char sprites[];
 #else
 	#asm
 	._sprites
-	 defb    6,6
+	 defb    8,7
 	 defb    @001100
 	 defb    @010010
 	 defb    @001100
 	 defb    @110011
 	 defb    @101101
 	 defb    @010010
+	 defb    @010010
 
-	 defb    6,6
+	 defb    8,7
 	 defb    @001100
 	 defb    @011110
 	 defb    @001100
 	 defb    @110011
 	 defb    @101101
 	 defb    @010010
+	 defb    @010010
 
-	 defb    6,6
+	 defb    8,7
 	 defb    @001100
 	 defb    @010100
-	 defb    @101100
+	 defb    @001100
 	 defb    @110110
 	 defb    @001101
 	 defb    @010100
-
-	 defb    6,6
+	 defb    @010100
+	 
+	 defb    8,7
 	 defb    @001100
 	 defb    @001010
-	 defb    @001101
+	 defb    @001100
 	 defb    @011011
 	 defb    @101100
 	 defb    @001010
+	 defb    @001010	 
 	 
-	 defb    6,6
+	 defb    8,7
 	 defb    @011110
-	 defb    @110011
-	 defb    @101101
-	 defb    @101101
-	 defb    @110011
+	 defb    @100101
+	 defb    @101001
+	 defb    @111111
+	 defb    @101001
+	 defb    @110001	 
 	 defb    @011110  
 	  
-	 defb    6,6
+	 defb    8,7
 	 defb    @011110
 	 defb    @100001
 	 defb    @110011
 	 defb    @100001
 	 defb    @101101
+	 defb    @100001	 
 	 defb    @011110  
 	 
-	 defb    6,6
+	 defb    8,7
 	 defb    @111111
 	 defb    @111111
 	 defb    @111111
 	 defb    @111111
 	 defb    @111111
-	 defb    @111111	
+	 defb    @111111
+	 defb    @111111
 	#endasm
 #endif
 

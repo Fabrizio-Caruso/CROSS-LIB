@@ -183,7 +183,7 @@ typedef struct ImageStruct Image;
 #elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__)
 	#define YSize 8
 #elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
-	#define YSize 11
+	#define YSize 10
 #else
 	#define YSize 16
 #endif
@@ -197,7 +197,7 @@ typedef struct ImageStruct Image;
 #if defined(Z88DK_SPRITES)
 	#if YSize <= 12
 		#define SPRITE_X_SIZE 6
-		#define SPRITE_Y_SIZE 6
+		#define SPRITE_Y_SIZE 7
 	#else
 		#define SPRITE_X_SIZE 8
 		#define SPRITE_Y_SIZE 8

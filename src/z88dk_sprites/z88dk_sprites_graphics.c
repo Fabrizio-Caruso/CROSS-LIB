@@ -138,141 +138,163 @@ extern char sprites[];
 
 #define SPACE 6
 
-#asm
-._sprites
- defb    8,8
- defb    @00011000
- defb    @00100100
- defb    @00011000
- defb    @01100110
- defb    @10011001
- defb    @00011000
- defb    @00100100
- defb    @01100110
+#if SPRITE_X_SIZE==8 && SPRITE_Y_SIZE==8
+	#asm
+	._sprites
+	 defb    8,8
+	 defb    @00011000
+	 defb    @00100100
+	 defb    @00011000
+	 defb    @01100110
+	 defb    @10011001
+	 defb    @00011000
+	 defb    @00100100
+	 defb    @01100110
 
- defb    8,8
- defb    @00011000
- defb    @00111100
- defb    @00011000
- defb    @01100110
- defb    @10011001
- defb    @00011000
- defb    @00100100
- defb    @01100110
+	 defb    8,8
+	 defb    @00011000
+	 defb    @00111100
+	 defb    @00011000
+	 defb    @01100110
+	 defb    @10011001
+	 defb    @00011000
+	 defb    @00100100
+	 defb    @01100110
 
- defb    8,8
- defb    @00011000
- defb    @00101100
- defb    @10011000
- defb    @11101110
- defb    @00011001
- defb    @00011000
- defb    @00101000
- defb    @00101000
+	 defb    8,8
+	 defb    @00011000
+	 defb    @00101100
+	 defb    @10011000
+	 defb    @11101110
+	 defb    @00011001
+	 defb    @00011000
+	 defb    @00101000
+	 defb    @00101000
 
- defb    8,8
- defb    @00011000
- defb    @00110100
- defb    @00011001
- defb    @01101111
- defb    @10011000
- defb    @00011000
- defb    @00010100
- defb    @00010100
+	 defb    8,8
+	 defb    @00011000
+	 defb    @00110100
+	 defb    @00011001
+	 defb    @01101111
+	 defb    @10011000
+	 defb    @00011000
+	 defb    @00010100
+	 defb    @00010100
 
- defb    8,8
- defb    @00111100
- defb    @01000010
- defb    @10100101
- defb    @10011001
- defb    @10011001
- defb    @10100101
- defb    @01000010
- defb    @00111100 
- 
- defb    8,8
- defb    @01111110
- defb    @10000001
- defb    @11100111
- defb    @10000001
- defb    @10000001
- defb    @10111101
- defb    @10000001
- defb    @01111110  
- 
- defb    8,8
- defb    @11111111
- defb    @11111111
- defb    @11111111
- defb    @11111111
- defb    @11111111
- defb    @11111111
- defb    @11111111
- defb    @11111111
-#endasm
+	 defb    8,8
+	 defb    @00111100
+	 defb    @01000010
+	 defb    @10100101
+	 defb    @10011001
+	 defb    @10011001
+	 defb    @10100101
+	 defb    @01000010
+	 defb    @00111100 
+	 
+	 defb    8,8
+	 defb    @01111110
+	 defb    @10000001
+	 defb    @11100111
+	 defb    @10000001
+	 defb    @10000001
+	 defb    @10111101
+	 defb    @10000001
+	 defb    @01111110  
+	 
+	 defb    8,8
+	 defb    @11111111
+	 defb    @11111111
+	 defb    @11111111
+	 defb    @11111111
+	 defb    @11111111
+	 defb    @11111111
+	 defb    @11111111
+	 defb    @11111111
+	#endasm
+#else
+	#asm
+	._sprites
+	 defb    6,6
+	 defb    @001100
+	 defb    @010010
+	 defb    @001100
+	 defb    @110011
+	 defb    @101101
+	 defb    @010010
+
+	 defb    6,6
+	 defb    @001100
+	 defb    @011110
+	 defb    @001100
+	 defb    @110011
+	 defb    @101101
+	 defb    @010010
+
+	 defb    6,6
+	 defb    @001100
+	 defb    @010100
+	 defb    @101100
+	 defb    @110110
+	 defb    @001101
+	 defb    @010100
+
+	 defb    6,6
+	 defb    @001100
+	 defb    @001010
+	 defb    @001101
+	 defb    @011011
+	 defb    @101100
+	 defb    @001010
+	 
+	 defb    6,6
+	 defb    @011110
+	 defb    @110011
+	 defb    @101101
+	 defb    @101101
+	 defb    @110011
+	 defb    @011110  
+	  
+	 defb    6,6
+	 defb    @011110
+	 defb    @100001
+	 defb    @110011
+	 defb    @100001
+	 defb    @101101
+	 defb    @011110  
+	 
+	 defb    6,6
+	 defb    @111111
+	 defb    @111111
+	 defb    @111111
+	 defb    @111111
+	 defb    @111111
+	 defb    @111111	
+	#endasm
+#endif
 
 
 
-// #asm
-// ._sprite
- // defb    8,8
- // defb    @00011000
- // defb    @00100100
- // defb    @01111110
- // defb    @10100101
- // defb    @10111101
- // defb    @00111100
- // defb    @00100100
- // defb    @01100110
-// #endasm
-
-// #asm
-// ._full_sprite
- // defb    8,8
- // defb    @11111111
- // defb    @11111111
- // defb    @11111111
- // defb    @11111111
- // defb    @11111111
- // defb    @11111111
- // defb    @11111111
- // defb    @11111111
-// #endasm
-
-
-
-// POKE(BASE_ADDR+x+((unsigned short) y)*32,image); 
-	// unsigned char i; \
-	// for(i=0;i<8;++i) \
-	// { \
-		// POKE(BASE_ADDR+i+8*y+x*256,255); \
-	// }
-// 	putsprite(spr_or,x*8,y*8,sprite);
 #define _DRAW(x,y,image) \
 { \
-	putsprite(spr_or,x*8,y*8,sprites + (unsigned char) (image*10)); \
+	putsprite(spr_or,x*SPRITE_X_SIZE,y*SPRITE_Y_SIZE,sprites + (unsigned char) (image*(2+SPRITE_Y_SIZE))); \
 }
 
 	
-// putsprite(spr_and,x*8,y*8,full_sprite);
 	#define _DELETE(x,y) \
 { \
-	putsprite(spr_and,x*8,y*8,sprites + (unsigned char *) (SPACE*10) ); \
+	putsprite(spr_and,x*SPRITE_X_SIZE,y*SPRITE_Y_SIZE,sprites + (unsigned char *) (SPACE*(2+SPRITE_Y_SIZE)) ); \
 }
 
 #define _DRAW_VERTICAL_WALL(x,y) \
 { \
-		// POKE(BASE_ADDR+x+((unsigned short) y)*32,_VERTICAL_BRICK); \
 }
  
 #define _DRAW_HORIZONTAL_WALL(x,y) \
 { \
-		// POKE(BASE_ADDR+x+((unsigned short) y)*32,_HORIZONTAL_BRICK); \
 }
 
 #define _DRAW_BROKEN_WALL(x,y) \
 { \
-		// POKE(BASE_ADDR+x+((unsigned short) y)*32,'#'); \
 }
 
 

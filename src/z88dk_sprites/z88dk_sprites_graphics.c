@@ -22,6 +22,14 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+
+#include "../display_macros.h"
+
+#include <graphics.h>
+#include <games.h>
+
+#include "z88dk_sprites_definitions.h"
+
 #define _PLAYER_DOWN 0
 #define _PLAYER_UP 1
 #define _PLAYER_LEFT 2
@@ -32,35 +40,6 @@
 #define _SPACE 6
 
 #define _DEAD_GHOST _GHOST
-
-// #define _GUN '!'
-
-
-// #define _INVINCIBLE_GHOST ('+')
-// #define _VERTICAL_BRICK ('#')
-// #define _HORIZONTAL_BRICK ('-')
-// #define _EXTRA_LIFE '*'
-// #define _EXTRA_POINTS '$'
-
-
-// #define _POWERUP  ('S')
-
-// #define _BOMB ('X')
-// #define _DEAD_GHOST '#'
-
-// #define _INVINCIBILITY 'I'
-// #define _MISSILE ('.')
-
-// #define _GHOST 'O'
-
-// #define _LEFT_ENEMY_MISSILE ('>')
-// #define _RIGHT_ENEMY_MISSILE ('<')
-// #define _BUBBLE ('^')
-
-#include "../display_macros.h"
-
-#include <graphics.h>
-#include <games.h>
 
 
 extern Image PLAYER_IMAGE;
@@ -98,179 +77,17 @@ extern Image DEAD_GHOST_IMAGE;
 	extern Image ZOMBIE_IMAGE;
 #endif
 
-#define BASE_ADDR (unsigned short)(0x8000)
-
-
 
 #if defined(REDEFINED_CHARS)
 	Image PLAYER_DOWN;
 	Image PLAYER_UP;
 	Image PLAYER_RIGHT;
 	Image PLAYER_LEFT;
-	
-	// PLAYER_DOWN._imageData = (unsigned char) 0;
-	// PLAYER_UP._imageData = (unsigned char) 1;
-	// PLAYER_LEFT._imageData = (unsigned char) 2;
-	// PLAYER_RIGHT._imageData = (unsigned char) 3;
 #endif
-	
-// BOMB_IMAGE._imageData = (unsigned char) 4;
-	
-#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
-#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
-#define PEEK(addr)         (*(unsigned char*) (addr))
-#define PEEKW(addr) (*(unsigned*) (addr))
 
 
-// extern char full_sprite[];
-// extern char sprite[];
+
 extern unsigned char sprites[];
-
-
-
-#define SPACE 6
-
-#if SPRITE_X_SIZE==8 && SPRITE_Y_SIZE==8
-	#asm
-	._sprites
-	 defb    8,8
-	 defb    @00011000
-	 defb    @00100100
-	 defb    @00011000
-	 defb    @01100110
-	 defb    @10011001
-	 defb    @00011000
-	 defb    @00100100
-	 defb    @01100110
-
-	 defb    8,8
-	 defb    @00011000
-	 defb    @00111100
-	 defb    @00011000
-	 defb    @01100110
-	 defb    @10011001
-	 defb    @00011000
-	 defb    @00100100
-	 defb    @01100110
-
-	 defb    8,8
-	 defb    @00011000
-	 defb    @00101100
-	 defb    @10011000
-	 defb    @11101110
-	 defb    @00011001
-	 defb    @00011000
-	 defb    @00101000
-	 defb    @00101000
-
-	 defb    8,8
-	 defb    @00011000
-	 defb    @00110100
-	 defb    @00011001
-	 defb    @01101111
-	 defb    @10011000
-	 defb    @00011000
-	 defb    @00010100
-	 defb    @00010100
-
-	 defb    8,8
-	 defb    @00111100
-	 defb    @01000010
-	 defb    @10100101
-	 defb    @10011001
-	 defb    @10011001
-	 defb    @10100101
-	 defb    @01000010
-	 defb    @00111100 
-	 
-	 defb    8,8
-	 defb    @01111110
-	 defb    @10000001
-	 defb    @11100111
-	 defb    @10000001
-	 defb    @10000001
-	 defb    @10111101
-	 defb    @10000001
-	 defb    @01111110  
-	 
-	 defb    8,8
-	 defb    @11111111
-	 defb    @11111111
-	 defb    @11111111
-	 defb    @11111111
-	 defb    @11111111
-	 defb    @11111111
-	 defb    @11111111
-	 defb    @11111111
-	#endasm
-#else
-	#asm
-	._sprites
-	 defb    8,7
-	 defb    @001100
-	 defb    @010010
-	 defb    @001100
-	 defb    @110011
-	 defb    @101101
-	 defb    @010010
-	 defb    @010010
-
-	 defb    8,7
-	 defb    @001100
-	 defb    @011110
-	 defb    @001100
-	 defb    @110011
-	 defb    @101101
-	 defb    @010010
-	 defb    @010010
-
-	 defb    8,7
-	 defb    @001100
-	 defb    @010100
-	 defb    @001100
-	 defb    @110110
-	 defb    @001101
-	 defb    @010100
-	 defb    @010100
-	 
-	 defb    8,7
-	 defb    @001100
-	 defb    @001010
-	 defb    @001100
-	 defb    @011011
-	 defb    @101100
-	 defb    @001010
-	 defb    @001010	 
-	 
-	 defb    8,7
-	 defb    @011110
-	 defb    @100101
-	 defb    @101001
-	 defb    @111111
-	 defb    @101001
-	 defb    @110001	 
-	 defb    @011110  
-	  
-	 defb    8,7
-	 defb    @011110
-	 defb    @100001
-	 defb    @110011
-	 defb    @100001
-	 defb    @101101
-	 defb    @100001	 
-	 defb    @011110  
-	 
-	 defb    8,7
-	 defb    @111111
-	 defb    @111111
-	 defb    @111111
-	 defb    @111111
-	 defb    @111111
-	 defb    @111111
-	 defb    @111111
-	#endasm
-#endif
-
 
 
 #define _DRAW(x,y,image) \
@@ -279,9 +96,9 @@ extern unsigned char sprites[];
 }
 
 	
-	#define _DELETE(x,y) \
+#define _DELETE(x,y) \
 { \
-	putsprite(spr_and,x*SPRITE_X_SIZE,y*SPRITE_Y_SIZE,sprites + (unsigned char *) (SPACE*(2+SPRITE_Y_SIZE)) ); \
+	putsprite(spr_and,x*SPRITE_X_SIZE,y*SPRITE_Y_SIZE,sprites + (unsigned char *) (_SPACE*(2+SPRITE_Y_SIZE)) ); \
 }
 
 #define _DRAW_VERTICAL_WALL(x,y) \
@@ -302,6 +119,7 @@ void INIT_GRAPHICS(void)
 {
 
 }
+
 
 void INIT_IMAGES(void)
 {		

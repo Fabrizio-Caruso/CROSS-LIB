@@ -112,43 +112,6 @@ typedef struct ImageStruct Image;
 	#define X_OFFSET 0
 #endif
 
-#  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
-      || defined(__BEE__) ||  defined(__PET__) || defined(__CBM610__) \
-	  || defined(__PX8__)	  
-	#define XSize 80
-#elif defined(__TRS80__) || defined(__EG2K__)
-	#define XSize 64
-#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6)) \
-	  || ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
-	#define XSize (480/6)
-#elif defined(__NASCOM__)
-	#define XSize 48
-#elif defined(__VG5K__) || defined(__APPLE2ENH__) || defined(__APPLE2__) \
-	  || defined(__Z9001__) || defined(__P2000__) || defined(__ABC80__) \
-	  || defined(__MZ__) || defined(__X1__) || defined(__ATMOS__) \
-	  || defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
-      || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
-	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
-	  || defined(__ENTERPRISE__) \
-	  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
-	  || defined(__KC__)
-	#define XSize (40-X_OFFSET)
-#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
-      || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
-	  || defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
-	  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
-	  || defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
-	  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__)
-	#define XSize 32	
-#elif defined(__VIC20__)
-	#define XSize 22
-#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) \
-	  || (defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1) \
-	  || defined(__ATARI_LINX__)
-	#define XSize 20
-#else
-	#define XSize 16
-#endif
 
 #  if defined(__OSIC1P__) || defined(__Z1013__) \
       || defined(__KC__)
@@ -196,13 +159,52 @@ typedef struct ImageStruct Image;
 
 #if defined(Z88DK_SPRITES)
 	#if YSize <= 12
-		#define SPRITE_X_SIZE 6
+		#define SPRITE_X_SIZE 8
 		#define SPRITE_Y_SIZE 7
 	#else
 		#define SPRITE_X_SIZE 8
 		#define SPRITE_Y_SIZE 8
 	#endif
 #endif
+
+#  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
+      || defined(__BEE__) ||  defined(__PET__) || defined(__CBM610__) \
+	  || defined(__PX8__)	  
+	#define XSize 80
+#elif defined(__TRS80__) || defined(__EG2K__)
+	#define XSize 64
+#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6)) \
+	  || ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
+	#define XSize (480/SPRITE_X_SIZE)
+#elif defined(__NASCOM__)
+	#define XSize 48
+#elif defined(__VG5K__) || defined(__APPLE2ENH__) || defined(__APPLE2__) \
+	  || defined(__Z9001__) || defined(__P2000__) || defined(__ABC80__) \
+	  || defined(__MZ__) || defined(__X1__) || defined(__ATMOS__) \
+	  || defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
+      || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
+	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
+	  || defined(__ENTERPRISE__) \
+	  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
+	  || defined(__KC__)
+	#define XSize (40-X_OFFSET)
+#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
+      || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
+	  || defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
+	  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
+	  || defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
+	  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__)
+	#define XSize 32	
+#elif defined(__VIC20__)
+	#define XSize 22
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) \
+	  || (defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1) \
+	  || defined(__ATARI_LINX__)
+	#define XSize 20
+#else
+	#define XSize 16
+#endif
+
 
 #if defined(REDEFINED_CHARS)
 	extern Image PLAYER_LEFT;
@@ -441,13 +443,12 @@ void DRAW_BOMBS(void);
 #elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(TINY_GAME))
 	#define SET_TEXT_COLOR(c)
 	void CLEAR_SCREEN(void);
-#elif defined(__KC__) && defined(Z88DK_SPRITES)
-	#include <games.h>
-	#include <graphics.h>
+// #elif defined(__KC__) && defined(Z88DK_SPRITES)
+	// #include <games.h>
+	// #include <graphics.h>
 	
-	#define SET_TEXT_COLOR(c)
-	// #define CLEAR_SCREEN() clg()
-	void CLEAR_SCREEN(void);
+	// #define SET_TEXT_COLOR(c)
+	// void CLEAR_SCREEN(void);
 	
 #elif defined(Z88DK_SPRITES)
 	#include <games.h>

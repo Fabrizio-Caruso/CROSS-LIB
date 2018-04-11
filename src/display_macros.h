@@ -113,6 +113,26 @@ typedef struct ImageStruct Image;
 #endif
 
 
+#if defined(Z88DK_SPRITES)
+	#if defined(__NC100__)
+		#define SPRITE_X_SIZE 8
+		#define SPRITE_Y_SIZE 7
+		#define SPRITE_Y_STEP 5
+	#else
+		#define SPRITE_X_SIZE 8
+		#define SPRITE_Y_SIZE 8
+	#endif
+	
+	#ifndef SPRITE_X_STEP
+		#define SPRITE_X_STEP SPRITE_X_SIZE
+	#endif
+	
+	#ifndef SPRITE_Y_STEP
+		#define SPRITE_Y_STEP SPRITE_Y_SIZE
+	#endif
+#endif
+
+
 #  if defined(__OSIC1P__) || defined(__Z1013__) \
       || defined(__KC__)
 	  #define YSize (32-Y_OFFSET)	
@@ -146,26 +166,11 @@ typedef struct ImageStruct Image;
 #elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__)
 	#define YSize 8
 #elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
-	#define YSize 10
+	#define YSize ((64/SPRITE_Y_STEP)+1)
 #else
 	#define YSize 16
 #endif
 
-#if XSize<YSize
-	#define MIN_SIZE XSize
-#else
-	#define MIN_SIZE YSize
-#endif
-
-#if defined(Z88DK_SPRITES)
-	#if YSize <= 12
-		#define SPRITE_X_SIZE 8
-		#define SPRITE_Y_SIZE 7
-	#else
-		#define SPRITE_X_SIZE 8
-		#define SPRITE_Y_SIZE 8
-	#endif
-#endif
 
 #  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
       || defined(__BEE__) ||  defined(__PET__) || defined(__CBM610__) \
@@ -175,7 +180,7 @@ typedef struct ImageStruct Image;
 	#define XSize 64
 #elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6)) \
 	  || ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
-	#define XSize (480/SPRITE_X_SIZE)
+	#define XSize (480/SPRITE_X_STEP)
 #elif defined(__NASCOM__)
 	#define XSize 48
 #elif defined(__VG5K__) || defined(__APPLE2ENH__) || defined(__APPLE2__) \
@@ -205,6 +210,12 @@ typedef struct ImageStruct Image;
 	#define XSize 16
 #endif
 
+
+#if XSize<YSize
+	#define MIN_SIZE XSize
+#else
+	#define MIN_SIZE YSize
+#endif
 
 #if defined(REDEFINED_CHARS)
 	extern Image PLAYER_LEFT;

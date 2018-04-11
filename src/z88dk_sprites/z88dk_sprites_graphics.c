@@ -92,13 +92,13 @@ extern unsigned char sprites[];
 
 #define _DRAW(x,y,image) \
 { \
-	putsprite(spr_or,x*SPRITE_X_SIZE,y*SPRITE_Y_SIZE,sprites + (unsigned char) (image*(2+SPRITE_Y_SIZE))); \
+	putsprite(spr_or,x*SPRITE_X_STEP,y*SPRITE_Y_STEP,sprites + (unsigned char) (image*(2+SPRITE_Y_SIZE))); \
 }
 
 	
 #define _DELETE(x,y) \
 { \
-	putsprite(spr_and,x*SPRITE_X_SIZE,y*SPRITE_Y_SIZE,sprites + (unsigned char *) (_SPACE*(2+SPRITE_Y_SIZE)) ); \
+	putsprite(spr_and,x*SPRITE_X_STEP,y*SPRITE_Y_STEP,sprites + (unsigned char *) (_SPACE*(2+SPRITE_Y_SIZE)) ); \
 }
 
 #define _DRAW_VERTICAL_WALL(x,y) \

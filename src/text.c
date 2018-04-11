@@ -52,6 +52,7 @@
 #define CPC_BLACK 4
 
 // 3 -> white
+
 // 2 -> black 
 // 1 -> black
 // 0 -> yellow
@@ -192,7 +193,7 @@ extern Image PLAYER_IMAGE;
 			zx_setcursorpos(0, GUN_IMAGE_X); cputc(GUN_IMAGE._imageData);cputc(':');
 			zx_setcursorpos(0, GHOST_IMAGE_X); cputc(GHOST_IMAGE._imageData);cputc(':');
 			zx_setcursorpos(1, PLAYER_IMAGE_X); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-		#elif defined(__ATARI5200__)
+		#elif defined(__ATARI5200__) || defined(__NC100__)
 			// TODO: to implement
 		#elif defined(WIDE)
 			SET_TEXT_COLOR(TEXT_COLOR);	

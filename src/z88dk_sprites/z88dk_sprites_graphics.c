@@ -37,12 +37,19 @@
 #define _BOMB 4
 #define _GHOST 5
 
-#define _VERTICAL_BAR 6
-#define _HORIZONTAL_BAR 7
+#define _INVINCIBLE_GHOST 6
+#define _MISSILE 7
+#define _POWERUP 8
+#define _GUN 9
+#define _EXTRA_POINTS 10
 
-#define _SPACE 8
+#define _DEAD_GHOST 11
 
-#define _DEAD_GHOST _GHOST
+#define _VERTICAL_BAR 12
+#define _HORIZONTAL_BAR 13
+
+#define _SPACE 14
+
 
 
 extern Image PLAYER_IMAGE;

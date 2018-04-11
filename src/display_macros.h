@@ -114,7 +114,7 @@ typedef struct ImageStruct Image;
 
 
 #if defined(Z88DK_SPRITES)
-	#if defined(__NC100__)
+	#if defined(__NC100__) 
 		#define SPRITE_X_SIZE 8
 		#define SPRITE_Y_SIZE 7
 		#define SPRITE_Y_STEP 5

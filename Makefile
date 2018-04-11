@@ -1173,23 +1173,21 @@ nc100_sprites_tiny:
 	rm $(BUILD_PATH)/TINY_nc100_sprites.bin
 
 
-nc100_sprites:
+nc100_sprites_light:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
 	-D__NC100__ \
 	-DZ88DK_SPRITES \
-	-DFULL_GAME \
 	-DLESS_TEXT \
 	-DNO_SLEEP \
 	-DNO_WAIT \
 	-DREDEFINED_CHARS \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
-	-create-app -o$(BUILD_PATH)/FULL_nc100_sprites.bin \
+	-create-app -o$(BUILD_PATH)/LIGHT_nc100_sprites.bin \
 	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
-	rm $(BUILD_PATH)/FULL_nc100_sprites.bin
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
 
 	
 nc200_sprites_tiny:

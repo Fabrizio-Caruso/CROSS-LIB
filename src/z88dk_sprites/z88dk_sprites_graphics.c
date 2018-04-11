@@ -37,7 +37,10 @@
 #define _BOMB 4
 #define _GHOST 5
 
-#define _SPACE 6
+#define _VERTICAL_BAR 6
+#define _HORIZONTAL_BAR 7
+
+#define _SPACE 8
 
 #define _DEAD_GHOST _GHOST
 
@@ -103,10 +106,12 @@ extern unsigned char sprites[];
 
 #define _DRAW_VERTICAL_WALL(x,y) \
 { \
+	putsprite(spr_and,x*SPRITE_X_STEP,y*SPRITE_Y_STEP,sprites + (unsigned char *) (_VERTICAL_BAR*(2+SPRITE_Y_SIZE)) ); \
 }
  
 #define _DRAW_HORIZONTAL_WALL(x,y) \
 { \
+	putsprite(spr_and,x*SPRITE_X_STEP,y*SPRITE_Y_STEP,sprites + (unsigned char *) (_HORIZONTAL_BAR*(2+SPRITE_Y_SIZE)) ); \
 }
 
 #define _DRAW_BROKEN_WALL(x,y) \

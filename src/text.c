@@ -126,7 +126,7 @@ extern Image PLAYER_IMAGE;
 
 
 
-#if !defined(NO_COLOR)
+#if !defined(NO_COLOR) && !defined(NO_MESSAGE)
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
 		PRINT(((XSize - strlen(Text))>>1), row, Text);	

@@ -296,7 +296,7 @@ Image BOMB_IMAGE;
 		cputc(' ');
 	}
 
-	#if !defined(TINY_GAME)
+	#if !defined(TINY_GAME) && !defined(NO_BLINKING)
 		void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char * blink_counter) 
 		{
 			gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 

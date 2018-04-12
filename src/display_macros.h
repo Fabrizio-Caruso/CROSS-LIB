@@ -270,7 +270,11 @@ void _draw(unsigned char x,unsigned char y,Image * image);
 	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y);
 #endif
 	
-void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
+#if !defined(NO_BLINKING)
+	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
+#else
+	#define _blink_draw(x,y,image,blinkCounter) _draw(x,y,image)
+#endif
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
 
 void _delete(unsigned char x, unsigned char y);

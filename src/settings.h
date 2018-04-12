@@ -297,46 +297,51 @@
 // Possible current values are FULL: 8,9, LIGHT: 8, TINY: 8,7,6
 // #if !defined(FULL_GAME) && !defined(TINY_GAME)
 	// #define GHOSTS_NUMBER 8
-#if defined(__PCE__)
-	#define GHOSTS_NUMBER 8
-#elif defined(__SPECTRUM__) && defined(TINY_GAME)
-	#define GHOSTS_NUMBER 8	
-#elif defined(__VIC20__) && defined(TINY_GAME) && defined(VIC20_UNEXPANDED)
-	#define GHOSTS_NUMBER 6
-#elif defined(__ATARI_LYNX__)
-	#define GHOSTS_NUMBER 4
-#elif defined(__VIC20__) && (defined(TINY_GAME) && !defined(REDEFINED_CHARS))
-	#define GHOSTS_NUMBER 8
-#elif defined(__VIC20__) && (defined(TINY_GAME) && defined(REDEFINED_CHARS))
-	#define GHOSTS_NUMBER 8
-#elif defined(__GAL__) && defined(TINY_GAME) 
-	#define GHOSTS_NUMBER 6
-#elif defined(__GAMATE__) 
-	#define GHOSTS_NUMBER 4
-#elif defined(__SPECTRUM__) && defined(FULL_GAME)
-	#define GHOSTS_NUMBER 9
-#elif defined(__SPECTRUM__) && defined(TINY_GAME)
-	#define GHOSTS_NUMBER 8
-#elif defined(__ATMOS__)
-	#define GHOSTS_NUMBER 9
-#elif defined(__ZX81__) || defined(__LAMBDA__)
-	#define GHOSTS_NUMBER 7
-#elif defined(FULL_GAME) && (defined(__MZ__) || defined(__VZ__) || defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__) )
-	#define GHOSTS_NUMBER 9
-#elif !defined(FULL_GAME) && (defined(__MZ__) || defined(__VZ__) || defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__) )
-	#define GHOSTS_NUMBER 8
-#elif defined(__VG5K__) && defined(FULL_GAME)
-	#define GHOSTS_NUMBER 9
-#elif defined(__VG5K__) && !defined(FULL_GAME)
-	#define GHOSTS_NUMBER 8
-#elif defined(__SVI__) && !defined(FULL_GAME)
-	#define GHOSTS_NUMBER 8
-#elif defined(__CREATIVISION__)
-	#define GHOSTS_NUMBER 8	
-#elif (defined(__OSIC1P__) && defined(TINY_GAME)) 
-	#define GHOSTS_NUMBER 8
-#else
-	#define GHOSTS_NUMBER 8
+	
+#if defined(FORCE_GHOST_NUMBER)
+	#define GHOSTS_NUMBER FORCE_GHOST_NUMBER
+#else	
+	#if defined(__PCE__)
+		#define GHOSTS_NUMBER 8
+	#elif defined(__SPECTRUM__) && defined(TINY_GAME)
+		#define GHOSTS_NUMBER 8	
+	#elif defined(__VIC20__) && defined(TINY_GAME) && defined(VIC20_UNEXPANDED)
+		#define GHOSTS_NUMBER 6
+	#elif defined(__ATARI_LYNX__)
+		#define GHOSTS_NUMBER 4
+	#elif defined(__VIC20__) && (defined(TINY_GAME) && !defined(REDEFINED_CHARS))
+		#define GHOSTS_NUMBER 8
+	#elif defined(__VIC20__) && (defined(TINY_GAME) && defined(REDEFINED_CHARS))
+		#define GHOSTS_NUMBER 8
+	#elif defined(__GAL__) && defined(TINY_GAME) 
+		#define GHOSTS_NUMBER 6
+	#elif defined(__GAMATE__) 
+		#define GHOSTS_NUMBER 4
+	#elif defined(__SPECTRUM__) && defined(FULL_GAME)
+		#define GHOSTS_NUMBER 9
+	#elif defined(__SPECTRUM__) && defined(TINY_GAME)
+		#define GHOSTS_NUMBER 8
+	#elif defined(__ATMOS__)
+		#define GHOSTS_NUMBER 9
+	#elif defined(__ZX81__) || defined(__LAMBDA__)
+		#define GHOSTS_NUMBER 7
+	#elif defined(FULL_GAME) && (defined(__MZ__) || defined(__VZ__) || defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__) )
+		#define GHOSTS_NUMBER 9
+	#elif !defined(FULL_GAME) && (defined(__MZ__) || defined(__VZ__) || defined(__ZX80__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__MSX__) )
+		#define GHOSTS_NUMBER 8
+	#elif defined(__VG5K__) && defined(FULL_GAME)
+		#define GHOSTS_NUMBER 9
+	#elif defined(__VG5K__) && !defined(FULL_GAME)
+		#define GHOSTS_NUMBER 8
+	#elif defined(__SVI__) && !defined(FULL_GAME)
+		#define GHOSTS_NUMBER 8
+	#elif defined(__CREATIVISION__)
+		#define GHOSTS_NUMBER 8	
+	#elif (defined(__OSIC1P__) && defined(TINY_GAME)) 
+		#define GHOSTS_NUMBER 8
+	#else
+		#define GHOSTS_NUMBER 8
+	#endif
 #endif
 	
 // || (defined(__AQUARIUS__) && defined(TINY_GAME)) 

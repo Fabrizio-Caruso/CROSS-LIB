@@ -1544,6 +1544,7 @@ sms_tiny:
 	mv $(BUILD_PATH)/TINY_sms.bin $(BUILD_PATH)/TINY_sms.sms
 
 # 	-pragma-need=ansiterminal -pragma-define:ansipixels=240 -pragma-define:ansicolumns=40 
+# -DNO_BORDER
 
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl \
@@ -1553,8 +1554,8 @@ c16_16k_full:
 	-DNO_SLEEP \
 	-DFORCE_KEYBOARD \
 	-DNO_RANDOM_LEVEL \
-	-DNO_BORDERS \
 	-DFORCE_GHOSTS_NUMBER=6 \
+	-DNO_BORDERS \
 	-DNO_BLINKING \
 	-DLESS_TEXT	\
 	-DNO_MESSAGE \

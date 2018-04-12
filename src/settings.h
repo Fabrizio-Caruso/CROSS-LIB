@@ -298,8 +298,8 @@
 // #if !defined(FULL_GAME) && !defined(TINY_GAME)
 	// #define GHOSTS_NUMBER 8
 	
-#if defined(FORCE_GHOST_NUMBER)
-	#define GHOSTS_NUMBER FORCE_GHOST_NUMBER
+#if defined(FORCE_GHOSTS_NUMBER)
+	#define GHOSTS_NUMBER FORCE_GHOSTS_NUMBER
 #else	
 	#if defined(__PCE__)
 		#define GHOSTS_NUMBER 8

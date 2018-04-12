@@ -328,7 +328,6 @@ Image BOMB_IMAGE;
 				} 
 			}
 			
-		#if !defined(NO_BORDERS)
 		void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 			{ 
 				unsigned char i; 
@@ -339,10 +338,10 @@ Image BOMB_IMAGE;
 					cputc('-');
 				}
 			}
-		#endif
+		
 	#endif
 
-	#if defined(NO_MESSAGE)
+	#if defined(NO_MESSAGE) && defined(TINY_GAME)
 		void highScoreScreen(void)
 		{
 			gotoxy(1,0); printf("05u0", highScore);

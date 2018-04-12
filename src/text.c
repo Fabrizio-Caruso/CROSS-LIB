@@ -161,7 +161,7 @@ extern Image PLAYER_IMAGE;
 
 
 
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(NO_MESSAGE)
 	void printKillTheSkull(void)
 	{
 		printCenteredMessage(KILL_THE_SKULL_STRING);	
@@ -307,7 +307,7 @@ void displayStats(void)
 #endif
 
 
-#if !defined(TINY_GAME)
+#if !defined(TINY_GAME) && !defined(NO_MESSAGE)
 	void _printScoreOnRow(unsigned char row, char * text, unsigned short score)
 	{
 		PRINTF((unsigned char) ((XSize-strlen(text))>>1), row, text, score);

@@ -119,12 +119,16 @@ void printStartMessage(void);
 	#define gameCompleted()
 #endif
 
-#if !defined(TINY_GAME)
+#if !defined(TINY_GAME) && !defined(NO_MESSAGE)
 	void _printScoreOnRow(unsigned char row, char * text, unsigned short score);
 	
 	void _printScore(char * text, unsigned short score);
 
 	void printKillTheSkull(void);
+#else
+	#define _printScoreOnRow(r,t,score)
+	#define _printScore(t,s)
+	#define printKillTheSkull()
 #endif
 
 #if !defined(TINY_GAME)

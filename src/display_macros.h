@@ -116,11 +116,14 @@ typedef struct ImageStruct Image;
 #if defined(Z88DK_SPRITES)
 	#if defined(__NC100__) 
 		#define SPRITE_X_SIZE 8
+		#define SPRITE_X_STEP 6
 		#define SPRITE_Y_SIZE 7
 		#define SPRITE_Y_STEP 5
 	#else
 		#define SPRITE_X_SIZE 8
+		#define SPRITE_X_STEP 6	
 		#define SPRITE_Y_SIZE 8
+		#define SPRITE_Y_STEP 6		
 	#endif
 	
 	#ifndef SPRITE_X_STEP
@@ -133,9 +136,10 @@ typedef struct ImageStruct Image;
 #endif
 
 
-#  if defined(__OSIC1P__) || defined(__Z1013__) \
-      || defined(__KC__)
-	  #define YSize (32-Y_OFFSET)	
+#  if defined(__OSIC1P__) || defined(__Z1013__)
+	  #define YSize (32-Y_OFFSET)
+#elif defined(__KC__) && defined(Z88DK_SPRITES)
+	  #define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)	
 #elif defined(__ATMOS__)
 	#define YSize (28-Y_OFFSET)		  
 #elif defined(__CBM610__) || defined(__PET__) || defined(__C128__) \
@@ -190,9 +194,10 @@ typedef struct ImageStruct Image;
       || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
 	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__ENTERPRISE__) \
-	  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
-	  || defined(__KC__)
+	  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))
 	#define XSize (40-X_OFFSET)
+#elif defined(__KC__) && defined(Z88DK_SPRITES)
+	#define XSize (320/SPRITE_X_STEP)
 #elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
       || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
 	  || defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \

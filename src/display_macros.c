@@ -28,7 +28,7 @@
 	#define VERTICAL_BRICK '|'
 #endif
 
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(NO_BLINKING)
 	unsigned char playerBlink;	
 #endif
 
@@ -328,6 +328,7 @@ Image BOMB_IMAGE;
 				} 
 			}
 			
+		#if !defined(NO_BORDERS)
 		void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 			{ 
 				unsigned char i; 
@@ -338,6 +339,7 @@ Image BOMB_IMAGE;
 					cputc('-');
 				}
 			}
+		#endif
 	#endif
 
 	#if defined(NO_MESSAGE)

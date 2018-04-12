@@ -11,7 +11,9 @@
 		Character _character;
 		void (*_effect)(void);
 		unsigned short _coolDown;
+		#if !defined(NO_BLINKING)
 		unsigned char _blink;
+		#endif
 	};
 
 	typedef struct ItemStruct Item;

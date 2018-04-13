@@ -988,6 +988,19 @@ z1013:
 	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/FULL_z1013.z80
 	rm $(BUILD_PATH)/../a.bin	
 
+	
+cpm_adm3a_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
+	-D__CPM_ADM3A__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-create-app -o$(BUILD_PATH)/TINY_cpm_adm3a_tiny.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_cpm_adm3a_tiny.bin
+
 
 px8_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \

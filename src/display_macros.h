@@ -67,6 +67,8 @@
 	#include "patch/ncurses_conio_implementation.h"	
 #elif defined(__PX8__) || defined(__ABC800__)
 	#include "patch/px8_conio_implementation.h"	
+#elif defined(__CPM_ADM3A__)
+	#include "patch/adm3a_conio_implementation.h"
 #elif defined(__KC__)
 	#include "patch/kc_conio_implementation.h"	
 #elif defined(__M5__)
@@ -155,7 +157,7 @@ typedef struct ImageStruct Image;
     || defined(__APPLE2ENH__) || defined(__APPLE2__) \
 	|| defined(__Z9001__) || defined(__P2000__) \
 	|| defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__)) \
-	|| defined(__ACE__)
+	|| defined(__ACE__) || defined(__CPM_ADM3A__)
 	#define YSize (24-Y_OFFSET)		
 #elif defined(__VIC20__)
 	#define YSize 23	
@@ -177,8 +179,8 @@ typedef struct ImageStruct Image;
 
 
 #  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
-      || defined(__BEE__) ||  defined(__PET__) || defined(__CBM610__) \
-	  || defined(__PX8__)	  
+      || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
+	  || defined(__PX8__) || defined(__CPM_ADM3A__)
 	#define XSize 80
 #elif defined(__TRS80__) || defined(__EG2K__)
 	#define XSize 64

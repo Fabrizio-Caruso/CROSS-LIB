@@ -508,6 +508,8 @@ zx81_8k:
 zx80_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 -O3 -vn \
 	-D__ZX80__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DNO_SLEEP \
+	-DNO_BLINKING \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k.prg \
 	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
@@ -1189,6 +1191,31 @@ nc100_sprites_light:
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
 
+
+c16_16k_full: 
+	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl \
+	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg \
+	-DFULL_GAME \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SLEEP \
+	-DFORCE_KEYBOARD \
+	-DNO_RANDOM_LEVEL \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DNO_BLINKING \
+	-DLESS_TEXT	\
+	-DNO_MESSAGE \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/main.c  \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/missile.c \
+	$(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/rocket.c \
+	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX_NO_SOUND.prg	
+
+
 	
 nc200_sprites_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
@@ -1546,29 +1573,6 @@ sms_tiny:
 # 	-pragma-need=ansiterminal -pragma-define:ansipixels=240 -pragma-define:ansicolumns=40 
 # -DNO_BORDER
 
-c16_16k_full: 
-	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl \
-	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg \
-	-DFULL_GAME \
-	-DNO_INITIAL_SCREEN \
-	-DNO_SLEEP \
-	-DFORCE_KEYBOARD \
-	-DNO_RANDOM_LEVEL \
-	-DFORCE_GHOSTS_NUMBER=6 \
-	-DNO_BLINKING \
-	-DLESS_TEXT	\
-	-DNO_MESSAGE \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/main.c  \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/missile.c \
-	$(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/rocket.c \
-	-o $(BUILD_PATH)/FULL_c16_16k.prg	
-
 
 creativision_32k:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
@@ -1810,7 +1814,13 @@ gal_6k:
 	--opt-code-size \
 	-pragma-need=ansiterminal \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
-	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DNO_INITIAL_SCREEN -DALT_PRINT -DNO_MESSAGE \
+	-DTINY_GAME \
+	-DNO_SLEEP -DLESS_TEXT \
+	-D__GAL__ \
+	-DNO_RANDOM_LEVEL \
+	-DNO_INITIAL_SCREEN \
+	-DALT_PRINT \
+	-DNO_MESSAGE \
 	-vn -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c

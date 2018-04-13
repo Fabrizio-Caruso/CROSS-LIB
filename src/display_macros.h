@@ -182,8 +182,9 @@ typedef struct ImageStruct Image;
 	#define XSize 80
 #elif defined(__TRS80__) || defined(__EG2K__)
 	#define XSize 64
-#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6)) \
-	  || ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
+#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6))
+	 #define XSize 60
+#elif ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
 	#define XSize (480/SPRITE_X_STEP)
 #elif defined(__NASCOM__)
 	#define XSize 48
@@ -216,7 +217,7 @@ typedef struct ImageStruct Image;
 #endif
 
 
-#if XSize<YSize
+#if XSize < YSize
 	#define MIN_SIZE XSize
 #else
 	#define MIN_SIZE YSize

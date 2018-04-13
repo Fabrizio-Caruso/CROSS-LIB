@@ -65,9 +65,7 @@
 	#include "patch/enterprise_conio_implementation.h"
 #elif defined(__GCC__)
 	#include "patch/ncurses_conio_implementation.h"	
-#elif defined(__PX8__) || defined(__ABC800__)
-	#include "patch/px8_conio_implementation.h"	
-#elif defined(__CPM_ADM3A__)
+#elif defined(__PX8__) || defined(__ABC800__) || defined(__CPM_ADM3A__)
 	#include "patch/adm3a_conio_implementation.h"
 #elif defined(__KC__)
 	#include "patch/kc_conio_implementation.h"	

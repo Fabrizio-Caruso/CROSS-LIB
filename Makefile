@@ -992,7 +992,7 @@ z1013:
 cpm_adm3a_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-D__CPM_ADM3A__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-create-app -o$(BUILD_PATH)/TINY_cpm_adm3a_tiny.bin \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \

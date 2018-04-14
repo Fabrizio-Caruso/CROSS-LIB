@@ -1001,7 +1001,19 @@ cpm_adm3a_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_cpm_adm3a_tiny.bin
 
-
+cpm_kaypro_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
+	-D__CPM_ADM3A__ -D__KAYPRO__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-create-app -o$(BUILD_PATH)/TINY_cpm_kaypro_tiny.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_cpm_kaypro_tiny.bin
+	
+	
 px8_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
 	-D__PX8__ \

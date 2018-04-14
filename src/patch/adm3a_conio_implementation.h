@@ -43,7 +43,7 @@
 		
 	
 	#if defined(__KAYPRO__)
-		#define clrscr() printf("%c%c",27,26);
+		#define clrscr() printf("%c%c",26);
 	#else
 		#define clrscr() printf("%c%c",27,'*');
 	#endif

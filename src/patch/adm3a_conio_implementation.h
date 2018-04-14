@@ -42,13 +42,17 @@
 		} while(0)
 		
 	
-	#define clrscr() printf("%c%c",27,'*')
+	#if defined(__KAYPRO__)
+		#define clrscr() printf("%c%c",27,26);
+	#else
+		#define clrscr() printf("%c%c",27,'*');
+	#endif
 
 	#define cprintf printf
-			
+	
+// 		printf("%c%c", 27,'2'); 	
 	#define cputc(c) do \
 		{ \
-		printf("%c%c", 27,'2'); \
 		fputc_cons(c); \
 		} while(0)
 	

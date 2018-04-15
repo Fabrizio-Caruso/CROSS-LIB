@@ -993,26 +993,14 @@ cpm_adm3a_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-D__CPM_ADM3A__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
-	-create-app -o$(BUILD_PATH)/TINY_cpm_adm3a_tiny.bin \
+	-create-app -o$(BUILD_PATH)/TINY_cpm_adm3a.bin \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_cpm_adm3a_tiny.bin
+	rm $(BUILD_PATH)/TINY_cpm_adm3a.bin
 
-cpm_kaypro_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	-D__CPM_ADM3A__ -D__KAYPRO__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
-	-create-app -o$(BUILD_PATH)/TINY_cpm_kaypro_tiny.bin \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_cpm_kaypro_tiny.bin
-	
 	
 px8_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
@@ -1245,24 +1233,6 @@ c16_16k_full:
 
 
 	
-nc200_sprites_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
-	-D__NC200__ \
-	-DZ88DK_SPRITES \
-	-DTINY_GAME \
-	-DLESS_TEXT \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-DREDEFINED_CHARS \
-	-create-app -o$(BUILD_PATH)/TINY_nc200_sprites.bin \
-	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_nc200_sprites.bin
-	
 # ------------------------------------
 
 coco:
@@ -1364,6 +1334,8 @@ z88dk_targets: \
 	px8_tiny px8 \
 	kc_sprites_tiny \
 	trs80_tiny trs80 \
+	nc100_sprites_light \
+	cpm_adm3a_tiny \
 	nascom_16k nascom_32k \
 	pc6001_16k pc6001_32k \
 	z9001_16k z9001_32k \
@@ -1430,6 +1402,25 @@ list:
 ####################################################################################################################
 	
 # DEBUG
+
+nc200_sprites_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
+	-D__NC200__ \
+	-DZ88DK_SPRITES \
+	-DTINY_GAME \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DREDEFINED_CHARS \
+	-create-app -o$(BUILD_PATH)/TINY_nc200_sprites.bin \
+	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_nc200_sprites.bin
+
 
 kc_putc4x6_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \

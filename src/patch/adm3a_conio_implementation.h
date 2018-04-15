@@ -42,11 +42,12 @@
 		} while(0)
 		
 	
-	#if defined(__KAYPRO__)
-		#define clrscr() printf("%c%c",26);
-	#else
-		#define clrscr() printf("%c%c",27,'*');
-	#endif
+	#define clrscr() printf("%c",26)
+	// #if defined(__KAYPRO__)
+		// #define clrscr() printf("%c",26);
+	// #else
+		// #define clrscr() printf("%c%c",27,'*');
+	// #endif
 	// #define clrscr() do {printf("%c%c",26); printf("%c%c",27,'*');} while(0)
 
 	#define cprintf printf

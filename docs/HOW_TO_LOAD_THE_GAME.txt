@@ -183,10 +183,19 @@ Use Takeda X1 emulator.
 
 EPSON PX-4 / HC-40
 
-Use Takeda X1 emulator with the right SYS.ROM file (https://fjkraan.home.xs4all.nl/comp/px4/).
+Use Takeda emulator for HC-40 with the right SYS.ROM file (https://fjkraan.home.xs4all.nl/comp/px4/).
 
 Rename the binary into BASIC.ROM and replace the original BASIC.ROM that
-should be (or have been) in the same directory as the X1 emulator executable.
+should be (or have been) in the same directory as the HC-40 emulator executable.
+
+----------------------------------------------------------
+
+EPSON PX-8 / HC-80
+
+Use Takeda emulator for HC-80 with the right SYS.ROM file.
+
+Rename the binary into BASIC.ROM and replace the original BASIC.ROM that
+should be (or have been) in the same directory as the HC-80 emulator executable.
 
 ----------------------------------------------------------
 
@@ -197,5 +206,50 @@ Use J1013 emulator (http://www.jens-mueller.org/j1013/download.html):
 2. Select binary
 3. Press Starten
 
+----------------------------------------------------------
+
+Robotron KC 85/2, 85/3, 85/4, 85/5, HC 900
+
+Use the JKCEMU emulator.
+Go to settings 
+Choose "Einstellungen"
+Select your target (e.g., KC 85/5)
+Press "Schliessen"
+Load file with "Laden"s
+
+----------------------------------------------------------
+
+Amstrad NC 100
+
+Use nc100em-1.2-2014 emulator 
+Rename the binary to nc100.card and place it in the same folder as the emulator
+Run the emulator. 
+Control-X to start the game
+
+----------------------------------------------------------
+
+TRS-80 Model 1/2/4
+
+Use trs80gp-1.8
+Type enter to get to the console
+Use load option
+
+----------------------------------------------------------
+
+Generic CP/M with ADM-3A control sequences
+
+Examples of CP/M systems with ADM-3A support:
+multiple Kaypro systems, Aussie Byte (Knight 2000), Decision Mate V
+
+Use MAME emulator with correct roms and CP/M disks
+Examples:
+mame64.exe kaypro2x -flop1 ..\disk\kaypro\k10hald1.td0 -uimodekey DEL
+mame64.exe dmv -flop1 ..\disk\dmv\dm5-cpm.td0 -uimodekey DEL
+mame64.exe aussieby -flop1 ..\disk\aussie_byte\knight2000_boot.dsk -uimodekey DEL
+
+WAIT for the operating system to full load.
+Use the quickload option to load the .COM file.
+
+If you want to create a disk image you need to follow the instructions in the Z88DK wiki.
 
 

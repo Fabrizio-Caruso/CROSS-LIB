@@ -67,6 +67,8 @@
 	#include "patch/ncurses_conio_implementation.h"	
 #elif defined(__PX8__) || defined(__ABC800__) || defined(__CPM_ADM3A__)
 	#include "patch/adm3a_conio_implementation.h"
+#elif defined(__EINSTEIN__)
+	#include "patch/adm3a_conio_implementation.h"
 #elif defined(__KC__)
 	#include "patch/kc_conio_implementation.h"	
 #elif defined(__M5__)
@@ -155,7 +157,7 @@ typedef struct ImageStruct Image;
     || defined(__APPLE2ENH__) || defined(__APPLE2__) \
 	|| defined(__Z9001__) || defined(__P2000__) \
 	|| defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__)) \
-	|| defined(__ACE__) || defined(__CPM_ADM3A__)
+	|| defined(__ACE__) || defined(__CPM_ADM3A__) || defined(__EINSTEIN__)
 	#define YSize (24-Y_OFFSET)		
 #elif defined(__VIC20__)
 	#define YSize 23	
@@ -195,7 +197,8 @@ typedef struct ImageStruct Image;
       || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
 	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__ENTERPRISE__) \
-	  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))
+	  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
+	  || defined(__EINSTEIN__)
 	#define XSize (40-X_OFFSET)
 #elif defined(__KC__) && defined(Z88DK_SPRITES)
 	#define XSize (320/SPRITE_X_STEP)

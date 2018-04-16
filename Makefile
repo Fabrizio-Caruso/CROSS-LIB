@@ -1232,6 +1232,19 @@ c16_16k_full:
 	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX_NO_SOUND.prg	
 
 
+einstein:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \
+	-D__EINSTEIN__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-create-app -o$(BUILD_PATH)/TINY_einstein.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_einstein.bin
+	
+	
 	
 # ------------------------------------
 

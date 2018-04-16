@@ -35,38 +35,11 @@
 #define _VT52_CONIO_IMPLEMENTATION
 	#include <stdio.h>
 
-	#define gotoxy(x,y) do \
-		{ \
-		printf("%c%c%c%c",27,'Y',y+32,x+32); \
-		\
-		} while(0)
-		
-	
-	#define clrscr() printf("%cH%cJ",27,27);
-	
-	// #if defined(__KAYPRO__)
-		// #define clrscr() printf("%c",26);
-	// #else
-		// #define clrscr() printf("%c%c",27,'*');
-	// #endif
-	// #define clrscr() do {printf("%c%c",26); printf("%c%c",27,'*');} while(0)
+	#define gotoxy(x,y) printf("%cY%c%c",27,y+32,x+32)
 
+	#define clrscr() printf("%cH%cJ",27,27)
+	
 	#define cprintf printf
-	
-// 		printf("%c%c", 27,'2'); 	
-
-	// #if defined(__KAYPRO__)
-		// #define cputc(c) do \
-			// { \
-			// printf("\033C4"); \
-			// fputc_cons(c); \
-			// } while(0)	
-	// #else
-		// #define cputc(c) do \
-			// { \
-			// fputc_cons(c); \
-			// } while(0)
-	// #endif
 	
 	#define cputc(c) do \
 	{ \

@@ -988,18 +988,6 @@ z1013:
 	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/FULL_z1013.z80
 	rm $(BUILD_PATH)/../a.bin	
 
-	
-cpm_adm3a_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	-D__CPM_ADM3A__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
-	-create-app -o$(BUILD_PATH)/TINY_cpm_adm3a.bin \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_cpm_adm3a.bin
 
 	
 px8_tiny:
@@ -1208,6 +1196,45 @@ nc100_sprites_light:
 	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
 
 
+cpm_adm3a_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
+	-D__CPM_ADM3A__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-create-app -o$(BUILD_PATH)/TINY_cpm_adm3a.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_cpm_adm3a.bin
+
+	
+cpm_vt52_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
+	-D__CPM_VT52__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-create-app -o$(BUILD_PATH)/TINY_cpm_vt52.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_cpm_vt52.bin	
+	
+cpm_vt100_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
+	-D__CPM_VT100__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-create-app -o$(BUILD_PATH)/TINY_cpm_vt100.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_cpm_vt100.bin	
+	
+	
+
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl \
 	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg \
@@ -1230,8 +1257,8 @@ c16_16k_full:
 	$(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/rocket.c \
 	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX_NO_SOUND.prg	
-
-
+	
+	
 einstein:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \
 	-D__EINSTEIN__ \
@@ -1244,6 +1271,7 @@ einstein:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_einstein.bin
 	
+
 	
 	
 # ------------------------------------

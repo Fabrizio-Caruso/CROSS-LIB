@@ -1234,7 +1234,7 @@ cpm_vt100_tiny:
 	rm $(BUILD_PATH)/TINY_cpm_vt100.bin	
 	
 c128_z80_80col:
-	$(Z88DK_PATH)$(MYZ88DK) +c128 -zorg=16834 \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 \
 	-D__CPM_VT100__ -D__C128_Z80__ \
 	-DTINY_GAME \
 	-DNO_SLEEP -DNO_WAIT \

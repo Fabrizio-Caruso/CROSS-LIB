@@ -37,7 +37,7 @@
 
 	#define gotoxy(x,y) printf("%c[%c;%cH",27,y,x)
 	
-	#define clrscr() printf("%c[2J",27,27)
+	#define clrscr() printf("%c[H%c[2J",27,27)
 
 	#define cprintf printf
 	

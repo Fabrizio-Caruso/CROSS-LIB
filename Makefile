@@ -1611,6 +1611,12 @@ sms_libctest:
 	-o $(BUILD_PATH)/sms_libctest.sms \
 	$(SOURCE_PATH)/../experiments/libctest.c
 
+c128_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +c128 \
+	-vn -lndos \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-create-app
+	
 
 sms_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +sms \

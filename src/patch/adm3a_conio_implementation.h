@@ -37,11 +37,11 @@
 
 	#define gotoxy(x,y) do \
 		{ \
-		printf("%c%c%c%c",27,'=',y+32,x+32); \
+		printf("\033=%c%c",y+32,x+32); \
 		\
 		} while(0)
 		
-	#define clrscr() printf("%c",26)
+	#define clrscr() printf("\032")
 
 	#define cprintf printf
 	

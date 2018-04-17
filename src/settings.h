@@ -219,16 +219,19 @@
 #endif
 
 #if (defined(__VIC20__) && !defined(VIC20_UNEXPANDED)) \
-	|| defined(__CREATIVISION__) \
-	|| defined(__SUPERVISION__) || defined(__ATARI_LYNX__) || defined(__GAMATE__) \
-	|| defined(__C64__) || defined(__C16__) || defined(__PLUS4__) || defined(__CBM510__) || defined(__PET__) || defined(__C128__) \
-	|| defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) || defined(__LYNX__) \
-	|| defined(__NES__) || defined(__PCE__)
-	#if !defined(FORCE_KEYBOARD)
-		#define JOYSTICK_CONTROL
-	#else
-		#define KEYBOARD_CONTROL
-	#endif
+		|| defined(__CREATIVISION__) \
+		|| defined(__SUPERVISION__) || defined(__ATARI_LYNX__) || defined(__GAMATE__) \
+		|| defined(__C64__) || defined(__C16__) || defined(__PLUS4__) \
+		|| defined(__CBM510__) || defined(__PET__) \
+		|| (defined(__C128__) && !defined(__C128_Z80__)) \
+		|| defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) || defined(__LYNX__) \
+		|| defined(__NES__) || defined(__PCE__)
+	#define JOYSTICK_CONTROL
+	// #if !defined(FORCE_KEYBOARD)
+		// #define JOYSTICK_CONTROL
+	// #else
+		// #define KEYBOARD_CONTROL
+	// #endif
 #else
 	#define KEYBOARD_CONTROL
 #endif

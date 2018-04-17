@@ -1233,7 +1233,19 @@ cpm_vt100_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_cpm_vt100.bin	
 	
-	
+c128_z80_80col:
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -zorg=16834 \
+	-D__CPM_VT100__ -D__C128_Z80__ \
+	-DTINY_GAME \
+	-DNO_SLEEP -DNO_WAIT \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c \
+	-create-app
+
+
 
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl \

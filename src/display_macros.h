@@ -68,7 +68,7 @@
 #elif defined(__PX8__) || defined(__ABC800__) || defined(__CPM_ADM3A__)
 	#include "patch/adm3a_conio_implementation.h"
 #elif defined(__EINSTEIN__)
-	#include "patch/adm3a_conio_implementation.h"
+	#include "patch/vt100_conio_implementation.h"
 #elif defined(__CPM_VT52__)
 	#include "patch/vt52_conio_implementation.h"
 #elif defined(__CPM_VT100__)

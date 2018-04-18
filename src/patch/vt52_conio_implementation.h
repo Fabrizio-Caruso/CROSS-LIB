@@ -35,9 +35,9 @@
 #define _VT52_CONIO_IMPLEMENTATION
 	#include <stdio.h>
 
-	#define gotoxy(x,y) printf("%cY%c%c",27,y+32,x+32)
+	#define gotoxy(x,y) printf("\033Y%c%c",y+32,x+32)
 
-	#define clrscr() printf("%cH%cJ",27,27)
+	#define clrscr() printf("\033H\033J")
 	
 	#define cprintf printf
 	

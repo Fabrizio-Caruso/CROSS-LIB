@@ -1233,8 +1233,9 @@ cpm_vt100_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_cpm_vt100.bin	
 	
+
 c128_z80_40col:
-	$(Z88DK_PATH)$(MYZ88DK) +c128 \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -O3 \
 	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DTINY_GAME \
 	$(SOURCE_PATH)/display_macros.c \

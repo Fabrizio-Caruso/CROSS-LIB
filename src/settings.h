@@ -44,7 +44,7 @@
 	&& !defined(__EINSTEIN__)
 	#define CONIO_LIB	
 #endif
-#if defined(__WINCMOC__)
+#if defined(__WINCMOC__) || defined(FORCE_CONIO)
 	#define CONIO_LIB
 #endif
 

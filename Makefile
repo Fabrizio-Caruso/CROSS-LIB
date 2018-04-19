@@ -1235,7 +1235,7 @@ cpm_vt100_tiny:
 	
 
 c128_z80_40col:
-	$(Z88DK_PATH)$(MYZ88DK) +c128 -O3 \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -O3 -lndos \
 	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DTINY_GAME \
 	$(SOURCE_PATH)/display_macros.c \
@@ -1244,8 +1244,23 @@ c128_z80_40col:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c \
 	-create-app
+	mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col.T64
 
 
+c128_z80_40col_zsdcc:
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc -SO3 -lndos \
+	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-DTINY_GAME \
+	-DNO_SLEEP \
+	-DFORCE_CONIO \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c \
+	-create-app
+	mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col_zsdcc.T64
+	
 
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl \

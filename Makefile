@@ -1247,6 +1247,22 @@ c128_z80_40col:
 	mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col.T64
 
 
+c128_z80_40col_disk:
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -O3 -lndos -subtype=disk \
+	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-DTINY_GAME \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c \
+	-create-app
+
+# 	$(TOOLS_PATH)/cc1541 -n mydisk.d64 write a.ldr write a exit 
+
+
+	
+	
 c128_z80_40col_zsdcc:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc -SO3 -lndos \
 	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \

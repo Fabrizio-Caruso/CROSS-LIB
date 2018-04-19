@@ -183,47 +183,50 @@ typedef struct ImageStruct Image;
 #endif
 
 
-#  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
-      || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
-	  || defined(__PX8__) || defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__)
-	#define XSize 80
-#elif defined(__TRS80__) || defined(__EG2K__)
-	#define XSize 64
-#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6))
-	 #define XSize 60
-#elif ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
-	#define XSize (480/SPRITE_X_STEP)
-#elif defined(__NASCOM__)
-	#define XSize 48
-#elif defined(__VG5K__) || defined(__APPLE2ENH__) || defined(__APPLE2__) \
-	  || defined(__Z9001__) || defined(__P2000__) || defined(__ABC80__) \
-	  || defined(__MZ__) || defined(__X1__) || defined(__ATMOS__) \
-	  || defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
-      || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
-	  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
-	  || defined(__ENTERPRISE__) \
-	  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
-	  || defined(__EINSTEIN__)
-	#define XSize (40-X_OFFSET)
-#elif defined(__KC__) && defined(Z88DK_SPRITES)
-	#define XSize (320/SPRITE_X_STEP)
-#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
-      || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
-	  || defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
-	  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
-	  || defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
-	  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__)
-	#define XSize 32	
-#elif defined(__VIC20__)
-	#define XSize 22
-#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) \
-	  || (defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1) \
-	  || defined(__ATARI_LINX__)
-	#define XSize 20
+#if !defined(FORCE_XSIZE)
+	#  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
+		  || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
+		  || defined(__PX8__) || defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__)
+		#define XSize 80
+	#elif defined(__TRS80__) || defined(__EG2K__)
+		#define XSize 64
+	#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6))
+		 #define XSize 60
+	#elif ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
+		#define XSize (480/SPRITE_X_STEP)
+	#elif defined(__NASCOM__)
+		#define XSize 48
+	#elif defined(__VG5K__) || defined(__APPLE2ENH__) || defined(__APPLE2__) \
+		  || defined(__Z9001__) || defined(__P2000__) || defined(__ABC80__) \
+		  || defined(__MZ__) || defined(__X1__) || defined(__ATMOS__) \
+		  || defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
+		  || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
+		  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
+		  || defined(__ENTERPRISE__) \
+		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
+		  || defined(__EINSTEIN__)
+		#define XSize (40-X_OFFSET)
+	#elif defined(__KC__) && defined(Z88DK_SPRITES)
+		#define XSize (320/SPRITE_X_STEP)
+	#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
+		  || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
+		  || defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
+		  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
+		  || defined(__OSIC1P__) || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
+		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__)
+		#define XSize 32	
+	#elif defined(__VIC20__)
+		#define XSize 22
+	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) \
+		  || (defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1) \
+		  || defined(__ATARI_LINX__)
+		#define XSize 20
+	#else
+		#define XSize 16
+	#endif
 #else
-	#define XSize 16
+	#define XSize FORCE_XSIZE
 #endif
-
 
 #if XSize < YSize
 	#define MIN_SIZE XSize

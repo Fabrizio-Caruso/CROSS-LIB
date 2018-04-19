@@ -41,12 +41,9 @@
 
 	#define cprintf printf
 	
-	#define cputc(c) do \
-	{ \
-		fputc_cons(c); \
-	} while(0)
+	#define cputc(c) fputc_cons(c)
 	
-	#define cgetc() getk()
+	#define cgetc() getch()
 
 	#define textcolor 
 

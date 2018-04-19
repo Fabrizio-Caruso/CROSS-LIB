@@ -340,10 +340,15 @@ extern Character player;
 				movePlayerByKeyboard(GET_CHAR());
 			// }
 		}			
+	#elif defined(__C128_Z80__)
+		void MOVE_PLAYER(void) 
+		{
+			movePlayerByKeyboard(getk());
+		}		
 	#else
 		void MOVE_PLAYER(void) 
 		{
-			movePlayerByKeyboard(getk());	
+			movePlayerByKeyboard(getk());
 		}	
 	#endif	
 #else

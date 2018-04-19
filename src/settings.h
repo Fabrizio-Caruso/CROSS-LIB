@@ -42,7 +42,7 @@
 	&& !(defined(__NC100__) && defined(Z88DK_SPRITES)) \
 	&& !defined(__CPM_ADM3A__) && !defined(__CPM_VT52__) && !defined(__CPM_VT100__) \
 	&& !defined(__EINSTEIN__)
-	#define CONIO_LIB
+	#define CONIO_LIB	
 #endif
 #if defined(__WINCMOC__)
 	#define CONIO_LIB
@@ -99,7 +99,7 @@
 #if defined(__NASCOM__) || defined(__MC1000__) || defined(__OSIC1P__) || defined(__WINCMOC__) || defined(__CMOC__) \
 	||  defined(__GAL__)  || defined(__Z9001__) || defined(__ABC80__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
 	|| defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__) || defined(__SC3000__) \
-	|| defined(__Z1013__) || defined(__TRS80__) || defined(__EG2K__) || defined(__KC__)
+	|| defined(__Z1013__) || defined(__TRS80__) || defined(__EG2K__) || defined(__KC__) || defined(__C128_Z80__Z80)
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'

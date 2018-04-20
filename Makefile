@@ -1244,6 +1244,7 @@ c128_z80_40col:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c \
 	-create-app
+	rm a.bin
 	mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col.T64
 
 

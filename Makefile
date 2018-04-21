@@ -1258,7 +1258,14 @@ c128_z80_40col_disk:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c \
 	-create-app
+	$(TOOLS_PATH)/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64
+	$(TOOLS_PATH)/c1541 -attach FULL_c128_z80_40col.d64 -write a.ldr
+	$(TOOLS_PATH)/c1541 -attach FULL_c128_z80_40col.d64 -write a
+	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/
+	rm A.LDR
+	rm A
 
+	
 # 	$(TOOLS_PATH)/cc1541 -n mydisk.d64 write a.ldr write a exit 
 
 

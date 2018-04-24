@@ -1,0 +1,7 @@
+
+dir 
+put "smalldoc.txt" "small.txt" 
+get "smalldoc.txt" "small.txt" 
+dir 
+close 
+quit 

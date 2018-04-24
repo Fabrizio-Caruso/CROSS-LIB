@@ -1,0 +1,303 @@
+
+NAME
+----
+        CPCFS - CPCEmu Filesystem Maintenance           Version: 0.85
+
+
+SYNOPSIS
+--------
+        CPCFS                   to invoke an interactive session
+        CPCFS <commands> ...    to perform batch commands
+
+
+DESCRIPTION
+-----------
+CPCFS is a program to copy files form a DOS filesystem to a
+disk-image appropriate for CPCEmu, an emulator for the
+CPC464/664/6128 homecomputer series by Amstrad.
+
+Note:	This documentation is generated out of CPCfs' help file CPCFS.HLP.
+	Some "See also"-hints can therefore be misleading!
+
+
+INVOCATION
+----------
+~invocation~
+Options are simply a shortcut for commands. The first argument can
+be the name of an imagefile, all following arguments are commands.
+If you omit a command and only give <image> ``dir'' is assumed.
+
+~variables~
+
+
+COMMANDS
+--------
+All commands are case insensitive. Some commands write an informational
+message, if they are invoked without an argument (mode, open, page,
+prompt, verbosity,...). Some commands have more names than one. You can
+use the name that you like most.
+
+~commands~
+
+~options~
+
+
+GENERAL commands
+================
+
+~open~
+Closes the one in memory, if any. It appends the string ".DSK" to the 
+DOS filename, if no extension is given.
+
+
+~close~
+
+~user~
+
+
+TRANSFER commands
+=================
+
+~get~
+
+~mget~
+
+~put~
+
+~mput~
+
+~mode~
+Printable characters are newlines (10,13) and characters between space (32)
+and tilde (126). <mode> can be abbreviated to its first character B, T, or A. 
+
+
+~sysgen~
+It only works, if the image was formatted with two system tracks (e.g.
+system or vortex format). See STAT, if you want to know the format or
+whether CP/M is already in the image. 
+
+To obtain a CP/M-image you can use the accompanying BASIC program
+GETCPM.BAS. It runs on a CPC and copies the system tracks off a real CPC
+disk to the file SYSTEM.CPM. Then transfer the file to DOS.
+
+If you want to "sysgen" your vortex image, you must prepare CP/M first
+(see your vortex documentation). WARNING: I do not own a vortex drive
+nor its documentation, so I cannot tell if it works. Feedback it
+highly appreciated!!!
+
+
+DOS ACCESS commands
+===================
+
+~!~
+Executes the program <command> in a DOS-Shell. If only a "!" is
+typed, CPCfs invokes the interactive shell given in the %COMSPEC% 
+environment variable or C:\COMMAND.COM if the variable isn't set. You
+must type EXIT to return from the shell to CPCfs. Contrary to other 
+commands there is no space needed behind the "!".
+
+
+~cd~
+
+The "L" in LCD (as well as in LDIR) reminds you, that this command 
+affects the local filesystem of DOS.
+
+
+~ldir~
+
+
+CP/M MAINTENANCE commands
+=========================
+
+Informational
+-------------
+
+~dir~
+
+~stat~
+
+~dpb~
+~background~
+
+~comment~
+
+~type~
+
+~dump~
+
+Note: Options for DUMP can be packed, but this can be confusing
+      E.g. DUMP -B0 -2B5 for blocks 0 to 5
+      or   DUMP -12	 for blocks form beginning (1) to the same blook (2)
+
+
+Changing files
+--------------
+
+~format~
+
+~del~
+
+~ren~
+REN uses the well-known DOS order for renaming (think of the word TO
+between the filenames) and not the (possibly expected) CP/M order (think
+of ":=" between the filenames)
+
+
+~attrib~
+
+~copy~
+
+
+
+USER INTERFACE comamnds
+=======================
+
+# <any-text>
+	This is a comment. Everything upto the next command is ignored.
+
+
+~quit~
+Quits CPCFS. You can hit Ctrl-Z to achieve the same purpose, only faster!
+
+
+~help~
+The startup helppage is:
+-----------------------------------------------------------------------------
+~nothing~
+-----------------------------------------------------------------------------
+
+~source~
+
+~echo~
+
+~prompt~
+
+~cls~
+
+~force~
+
+~verbosity~
+
+~page~
+CPCfs has an internal pager for commands like DUMP, TYPE, and so on.
+With the PAGE command you can set the number of lines of your screen
+(the default is 25). If you set PAGE 0, you bypass the internal pager
+and things are displayed without stops.
+
+
+
+FILENAMES
+---------
+~filenames~
+
+EDITING
+-------
+~editing~
+
+VALUES & PERCENT EXPANSION
+--------------------------
+~values~
+~percent~
+
+
+FILES
+-----
+CPCFS.CFG
+	The commands in this file are executed every time CPCFS starts in
+	interactive mode. You can set the PROMPT here or open an often 
+	used image or ...
+
+	CPCFS looks for it at first in the current directory and then in the
+	directory where CPCFS.EXE resides.
+
+*.DSK
+	This is the default extension for imagfiles
+
+*.CPM
+	This is the default extension for CP/M tracks saved by GETCPM.BAS
+	and needed by SYSGEN.
+
+SEE ALSO 
+-------- 
+GETCPM.BAS, a Locomotive BASIC program to copy CP/M tracks off a
+diskette and save them to a file. Simply type it in your *original* CPC
+(you can leave out REMarks and PRINTs) and run it on a CP/M system disk.
+It creates a file, that you have to transfer in some way to DOS (read
+the CPCEmu documentation for various ways, how to arrange it). Finally
+use CPCfs' SYSGEN command to create a diskimage with CP/M.
+
+DROPTAG.BAT, a batch file replacing DROPTAG.EXE of the former distribution.
+
+RELATED WORKS
+-------------
+
+Emulators:
+	CPCEMU   (c) Marco Vieth    ftp://ftp.lip6.fr/pub/cpc/amstrad/emulator
+	CPE      (c) Bernd Schmidt  ftp://ftp.lip6.fr/pub/cpc/amstrad/emulator
+	Caprice  (c) Ulrich Doewich http://www.classicgaming.com/caprice/
+	WinAPE32 (c) Richard Wilson http://winape.emuunlim.com/
+	Arnold   (c) Kevin Thacker. http://arnold.emuunlim.com/
+	CPCE     (c) Cesar Gonzalez http://cpce.emuunlim.com/
+
+comp.sys.amstrad.8bit
+	A usenet newsgroup for discussing CPC related topics
+
+comp.sys.cpm
+	A usenet newsgroup for discussing CP/M operating system
+
+comp.sys.sinclair
+	A usenet newsgroup for discussing Spectrum related topics.
+
+http://andercheran.aiind.upv.es/~amstrad/
+	A WWW page with a lot of CPC stuff.
+
+http://cpczone.emuunlim.com/
+	A website to talk about CPC stuff
+
+ftp://ftp.lip6.fr/pub/amstrad and http://genesis8.free.fr/
+	A great CPC archive with demos, games and utilities,
+	with a frontend at Genesis8 website.
+
+ftp://ftp.nvg.ntnu.no/pub/cpc/ and http://tacgr.emuunlim.com/
+	A great CPC archive with games, ROMs and utilities,
+	with a frontend at The Amstrad Computer Games Resource (TACGR)
+
+ftp://ftp.lip6.fr/pub/amstrad/amstrad.faq
+ftp://rtfm.mit.edu/pub/usenet/comp.sys.amstrad.8bit
+	The Amstrad FAQ
+
+
+BUGS
+----
+~bugs~
+
+LEGAL STUFF
+-----------
+Copyright:
+~about~
+If you want to see any modification or supplements to CPCFS, contact me
+and I possibly include them in the distribution.
+
+Trademarks:
+	"CPC", "Amsdos" is from Amstrad
+	"CP/M" is from Digital Research (now Novell) 
+	"Borland C" is from Borland
+	"ACTlib 1.7" is public domain and written by Marc Stern 
+
+
+AUTHOR
+------
+	Derik van ZÅtphen
+
+	email:  derik@pool.informatik.rwth-aachen.de
+	www:    http://www-users.informatik.rwth-aachen.de/~derik
+
+	The latest version of CPCFS and recent patches can be found on
+	my WWW page:
+
+		http://www-users.informatik.rwth-aachen.de/~derik/cpcfs
+
+	The latest version of CPCXFS:
+
+		http://andercheran.aiind.upv.es/~amstrad/
+		look at the downloads section.

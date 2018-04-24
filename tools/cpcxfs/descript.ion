@@ -1,0 +1,13 @@
+readme.txt <- Document describing update
+readme <=== Start here ! ! !
+drop_tag.bat Removing timestamp from image (for CPE)
+cpcfs.doc Documentation for everything
+cpcfs.hlp Online helpfile
+cpcfs.cfg Startup commands for CPCFS
+src C code & project files
+cpcfs.exe Type CPCFS then HELP; or CPCFS -H
+getcpm.bas Loco Basic program to read CP/M Tracks
+makedoc.exe Merging cpcfs.hlp and template.doc
+template.doc Template for the documatation
+file_id.diz Standard BBS description
+descript.ion 4DOS file descriptions

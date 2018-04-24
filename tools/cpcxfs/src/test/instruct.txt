@@ -1,0 +1,4 @@
+open "test.dsk"
+put smalldoc.txt
+close
+quit

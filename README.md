@@ -1,12 +1,19 @@
 # CROSS CHASE
-CROSS CHASE
+CrossLib and CROSS CHASE
 
 by Fabrizio Caruso (Fabrizio_Caruso@hotmail.com)
 
-This is a personal project whose goal is to create a fun playable game that should run
+This is a personal project whose goal are the creation of:
+1. a universal 8-bit abstraction layer "CrossLib" for coding universal 8-games
+2. a "universal" 8-bit game "CROSS CHASE" that has to be a fun and that should run
 on (nearly) ALL 8 bit computers and consoles using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs.
-This is done by creating a universal 8-bit framework that should provide APIs for the game code.
-The game and framework code are supposed to be separated.
+The game will be the proof of concept of how flexible the library is.
+
+HOW IS THIS DONE?
+This is achieved  by having "CrossLib" provide APIs for the game code.
+The game and library code are  separated: 
+- the game code only depends on the APIs interface and 
+- the APIs do not depend on the game code. Therefore it must be possible to re-use the same library for other games/programs.
 
 The program is written in ANSI C and currently compiled with 
 - CC65 for all 6502 targets (http://www.cc65.org/), 

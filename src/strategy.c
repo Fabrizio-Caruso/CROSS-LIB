@@ -39,6 +39,7 @@ extern unsigned char strategyArray[GHOSTS_NUMBER];
 extern unsigned char zombieActive;
 #endif
 
+// Required by horizontal missile
 #if defined(FULL_GAME)
 	unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
 	{
@@ -77,7 +78,7 @@ extern unsigned char zombieActive;
 
 // TODO: Design issue: we delete the invincible enemy
 // This should be made generic even though it works
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 	{
 		if(move(hunterPtr, preyPtr,X_MOVE))
@@ -111,7 +112,7 @@ extern unsigned char zombieActive;
 // 4 means do no prefer horizontal to vertical movement
 // 0 means always horizontal
 // 9 means always vertical
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	void moveTowardCharacter(Character* preyPtr, Character *hunterPtr, unsigned char strategy)
 	{
 		if(rand()%10 > strategy) // Select blind chase strategy
@@ -122,6 +123,11 @@ extern unsigned char zombieActive;
 			{ // 5 - 9
 				blindChaseCharacterYStrategy(hunterPtr, preyPtr);
 			}
+	}
+#elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
+	void moveTowardCharacter(Character* preyPtr, Character *hunterPtr)
+	{
+		move(hunterPtr, preyPtr, (unsigned char) rand()&1);
 	}	
 #else
 	void moveTowardCharacter(Character *hunterPtr)
@@ -132,7 +138,7 @@ extern unsigned char zombieActive;
 
 
 // #if !defined(TINY_GAME) 
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 void computeStrategy(void)
 {
 	unsigned char i;
@@ -169,8 +175,10 @@ void chaseCharacter(unsigned short slowDown)
 		#endif
 		{
 			deleteGhost(&ghosts[i]);
-			#if defined(FULL_GAME)
-				moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]);		
+			#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
+				moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]);	
+			#elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
+				moveTowardCharacter(preyPtr, &ghosts[i]);	
 			#else
 				moveTowardCharacter(&ghosts[i]);	
 			#endif

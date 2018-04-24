@@ -39,31 +39,34 @@
 
 #include "character.h"
 
-#if defined(FULL_GAME)
+// Required by horizontal missile
+#if defined(FULL_GAME) 
 	unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset);
 #else
 	unsigned char move(Character* hunterPtr, unsigned char offset);
 #endif
 
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
 	void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
 #endif
 
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	void moveTowardCharacter(Character *preyPtr, Character *hunterPtr, unsigned char strategy);
+#elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
+	void moveTowardCharacter(Character *preyPtr, Character *hunterPtr);
 #else	
 	void moveTowardCharacter(Character *hunterPtr);
 #endif
 
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	void computeStrategy(void);
 #endif
 
-#if !defined(FULL_GAME)
-	void chaseCharacter(unsigned short slowDown);
-#else
+#if defined(FULL_GAME)
 	void chaseCharacter(Character *preyPtr, unsigned short slowDown);	
+#else
+	void chaseCharacter(unsigned short slowDown);	
 #endif
 	
 #endif // _STRATEGY

@@ -30,7 +30,7 @@ extern unsigned char arrowRange;
 				ADVANCED_LEFT_MISSILE();
 				if(loop&1 && player._y>=YSize-1-ENEMY_MISSILE_OFFSET-arrowRange && player._x>=leftEnemyMissile._x)
 				{
-					move(&leftEnemyMissile, &player,Y_MOVE);			
+					move(&leftEnemyMissile, &player, Y_MOVE);			
 				}
 			}
 			displayMissile(&leftEnemyMissile);

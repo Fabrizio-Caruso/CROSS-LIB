@@ -103,7 +103,11 @@ void handle_invincible_ghost(void)
 			#if defined(FULL_GAME)
 				if(!confuseActive || !(loop&3))
 				{
-					moveTowardCharacter(&player, &invincibleGhost, 4);
+					#if !defined(SIMPLE_STRATEGY)
+						moveTowardCharacter(&player, &invincibleGhost, 4);
+					#else
+						moveTowardCharacter(&player, &invincibleGhost);						
+					#endif
 				}
 			#else
 				moveTowardCharacter(&invincibleGhost);

@@ -355,7 +355,9 @@ int main(void)
 				
 				handle_special_triggers();
 				
-				computeStrategy();				
+				#if !defined(SIMPLE_STRATEGY)
+					computeStrategy();			
+				#endif
 								
 			#endif			
 			

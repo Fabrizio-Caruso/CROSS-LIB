@@ -82,7 +82,11 @@ extern Character player;
 		if(chasingBullet._status)
 		{
 			deleteMissile(&chasingBullet);
-			moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
+			#if !defined(SIMPLE_STRATEGY)
+				moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
+			#else
+				moveTowardCharacter(chasedEnemyPtr, &chasingBullet);				
+			#endif
 			displayMissile(&chasingBullet);
 			checkMissile(&chasingBullet);
 		}	

@@ -1294,6 +1294,7 @@ c16_16k_full:
 	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl \
 	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg \
 	-DFULL_GAME \
+	-DSIMPLE_STRATEGY \
 	-DNO_INITIAL_SCREEN \
 	-DNO_SLEEP \
 	-DFORCE_KEYBOARD \

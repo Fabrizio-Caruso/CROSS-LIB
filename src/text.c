@@ -232,7 +232,7 @@ extern Image PLAYER_IMAGE;
 	}
 #endif
 
-#if !defined(NO_MESSAGE)
+#if !defined(NO_STATS)
 	void printLevelStats(void)
 	{	
 		#if defined(WIDE) && !defined(TINY_GAME)
@@ -267,13 +267,15 @@ extern Image PLAYER_IMAGE;
 		#else
 			PRINTF(PLAYER_IMAGE_X+1,-Y_OFFSET,"%02u",lives);	
 		#endif
-	}
+	}	
+	
+#endif
 
+#if !defined(NO_MESSAGE)
 	void printPressKeyToStart(void)
 	{
 		printCenteredMessage(PRESS_STRING);
-	}		
-	
+	}	
 #endif
 
 void displayStats(void)

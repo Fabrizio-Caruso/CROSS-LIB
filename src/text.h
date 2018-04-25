@@ -74,24 +74,25 @@ void setScreenColors(void);
 #if !defined(NO_MESSAGE)
 	void printCenteredMessageOnRow(unsigned char row, char *Text);
 	
+	void printPressKeyToStart(void);
+#else
+	#define printCenteredMessageOnRow(row,Text)
+	
+	#define printPressKeyToStart()
+#endif
+
+#if !defined(NO_STATS)
 	void printLevelStats(void);
 
 	void printGhostCountStats(void);
 
-	void printLivesStats(void);	
-
-	void printPressKeyToStart(void);
-	
+	void printLivesStats(void);		
 #else
-	#define printCenteredMessageOnRow(row,Text)
-
 	#define printLevelStats()
 	
 	#define printGhostCountStats()
 	
 	#define printLivesStats()
-	
-	#define printPressKeyToStart()
 #endif
 
 #if defined(COLOR)

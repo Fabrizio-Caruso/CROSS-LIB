@@ -101,7 +101,7 @@ vic20_unexpanded:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 \
 	-DVIC20_UNEXPANDED \
 	-DALT_PRINT -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS \
-	-DTINY_GAME -DVIC20_UNEXPANDED -DNO_RANDOM_LEVEL -DNO_INITIAL_SCREEN -DNO_MESSAGE \
+	-DTINY_GAME -DVIC20_UNEXPANDED -DNO_RANDOM_LEVEL -DNO_INITIAL_SCREEN -DNO_MESSAGE -DNO_STATS \
 	--config $(SOURCE_PATH)/../cfg/vic20_unexpanded.cfg  \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/vic20/vic20_unexpanded.c \
 	$(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
@@ -1889,7 +1889,7 @@ sc3000_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
 	-O3 \
 	-pragma-need=ansiterminal \
-	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE -DNO_STATS \
 	-clib=ansi \
 	-vn -lndos -create-app -Cz--audio \
 	-o $(BUILD_PATH)/TINY_sc3000.prg \
@@ -1920,7 +1920,7 @@ gal_6k_sccz80:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-O3 \
 	-pragma-need=ansiterminal \
-	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE -DNO_STATS \
 	-vn -lndos -create-app -Cz--audio \
 	-o  $(BUILD_PATH)/TINY_galaksija_6k_sccz80.prg \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \

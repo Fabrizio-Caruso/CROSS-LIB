@@ -1,0 +1,6 @@
+org &8000
+dump $
+autoexec
+mdat "FULL_samcoupe.bin"
+	
+	

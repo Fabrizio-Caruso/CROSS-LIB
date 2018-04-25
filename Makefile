@@ -577,14 +577,14 @@ cpc:
 	rm $(BUILD_PATH)/FULL_cpc.prg			
 
 
-cpc_plus:
+cpc_plus_joystick:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \
 	-D__CPC__ \
 	-D__CPC_PLUS__ \
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc_plus.prg \
+	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc_plus_joystick.prg \
 	$(TOOLS_PATH)/cpcrslib/cpc_Chars.asm \
 	$(TOOLS_PATH)/cpcrslib/cpc_Chars8.asm \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
@@ -593,13 +593,13 @@ cpc_plus:
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_plus.cpc  $(BUILD_PATH)/FULL_cpc_plus.cdt
-	rm -rf FULL_cpc_plus.dsk
-	$(TOOLS_PATH)/cpcxfsw -nd FULL_cpc_plus.dsk
-	$(TOOLS_PATH)/cpcxfsw FULL_cpc_plus.dsk -p build/FULL_cpc_plus.cpc xchase
-	mv FULL_cpc_plus.dsk $(BUILD_PATH)/
-	rm $(BUILD_PATH)/FULL_cpc_plus.cpc 
-	rm $(BUILD_PATH)/FULL_cpc_plus.prg		
+	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_plus_joystick.cpc  $(BUILD_PATH)/FULL_cpc_plus_joystick.cdt
+	rm -rf FULL_cpc_plus_joystick.dsk
+	$(TOOLS_PATH)/cpcxfsw -nd FULL_cpc_plus_joystick.dsk
+	$(TOOLS_PATH)/cpcxfsw FULL_cpc_plus_joystick.dsk -p build/FULL_cpc_plus_joystick.cpc xchase
+	mv FULL_cpc_plus_joystick.dsk $(BUILD_PATH)/
+	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.cpc 
+	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.prg		
 	
 cpc_no_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \

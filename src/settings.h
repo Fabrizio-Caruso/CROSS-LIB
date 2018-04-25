@@ -129,6 +129,9 @@
 #if defined(__VIC20__) && !defined(TINY_GAME)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 250
+#elif defined(__SAM__)
+	#define SLOW_DOWN
+	#define GAME_SLOW_DOWN 500
 #elif defined(__VIC20__) && defined(TINY_GAME) && !defined(VIC20_UNEXPANDED)
 	#define SLOW_DOWN
 	#define GAME_SLOW_DOWN 400

@@ -551,7 +551,6 @@ lambda_16k:
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_lambda_16k.prg		
 	
-	
 
 
 cpc:
@@ -597,24 +596,16 @@ cpc_plus_joystick:
 	rm -rf FULL_cpc_plus_joystick.dsk
 	$(TOOLS_PATH)/cpcxfsw -nd FULL_cpc_plus_joystick.dsk
 	$(TOOLS_PATH)/cpcxfsw FULL_cpc_plus_joystick.dsk -p build/FULL_cpc_plus_joystick.cpc xchase
-	mv FULL_cpc_plus_joystick.dsk $(BUILD_PATH)/	
-	cd $(TOOLS_PATH)/nocart/
-	./nocart.exe  ../../$(BUILD_PATH)/FULL_cpc_plus_joystick.dsk  ../../$(BUILD_PATH)/FULL_gx4000.cpr   -c 'RUN"xchase'
-	cd ../..
-	mv FULL_gx4000.cpr $(BUILD_PATH)/
-	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.cpc 
-	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.prg	
-
-
-process_cpc_plus:
-	cd $(TOOLS_PATH)/nocart/
-	$(TOOLS_PATH)/nocart/nocart.exe  $(BUILD_PATH)/FULL_cpc_plus_joystick.dsk  $(BUILD_PATH)/FULL_gx4000.cpr   -c 'RUN"xchase'
-	cd ../..
-	mv FULL_gx4000.cpr $(BUILD_PATH)/
+	mv FULL_cpc_plus_joystick.dsk $(BUILD_PATH)/
+	cp $(TOOLS_PATH)/nocart/*.rom .
+	$(TOOLS_PATH)/nocart/nocart.exe  $(BUILD_PATH)/FULL_cpc_plus_joystick.dsk  $(BUILD_PATH)/FULL_gx4000.cpr   -c 'run"xchase'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
 	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.cpc 
 	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.prg		
 
-	
+
 cpc_no_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \
 	-D__CPC__ -DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \

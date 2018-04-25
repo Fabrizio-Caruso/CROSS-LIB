@@ -603,7 +603,17 @@ cpc_plus_joystick:
 	cd ../..
 	mv FULL_gx4000.cpr $(BUILD_PATH)/
 	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.cpc 
+	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.prg	
+
+
+process_cpc_plus:
+	cd $(TOOLS_PATH)/nocart/
+	$(TOOLS_PATH)/nocart/nocart.exe  $(BUILD_PATH)/FULL_cpc_plus_joystick.dsk  $(BUILD_PATH)/FULL_gx4000.cpr   -c 'RUN"xchase'
+	cd ../..
+	mv FULL_gx4000.cpr $(BUILD_PATH)/
+	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.cpc 
 	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.prg		
+
 	
 cpc_no_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \

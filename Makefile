@@ -784,6 +784,10 @@ samcoupe:
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	cp $(TOOLS_PATH)/samdos2_empty $(TOOLS_PATH)/samdos2
+	$(TOOLS_PATH)/pyz80.py -I $(TOOLS_PATH)/samdos2 $(TOOLS_PATH)/sam_wrapper.asm
+	mv $(TOOLS_PATH)/sam_wrapper.dsk $(BUILD_PATH)/FULL_samcoupe.dsk
+
 	
 
 mtx:

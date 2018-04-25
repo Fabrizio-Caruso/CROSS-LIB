@@ -787,7 +787,7 @@ samcoupe:
 	cp $(TOOLS_PATH)/samdos2_empty $(TOOLS_PATH)/samdos2
 	$(TOOLS_PATH)/pyz80.py -I $(TOOLS_PATH)/samdos2 $(TOOLS_PATH)/sam_wrapper.asm
 	mv $(TOOLS_PATH)/sam_wrapper.dsk $(BUILD_PATH)/FULL_samcoupe.dsk
-	rm $(BUILD_PATH)/FULL_samcoupe.dsk
+	rm $(BUILD_PATH)/FULL_samcoupe.bin
 
 	
 

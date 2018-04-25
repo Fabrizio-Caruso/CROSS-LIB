@@ -597,7 +597,11 @@ cpc_plus_joystick:
 	rm -rf FULL_cpc_plus_joystick.dsk
 	$(TOOLS_PATH)/cpcxfsw -nd FULL_cpc_plus_joystick.dsk
 	$(TOOLS_PATH)/cpcxfsw FULL_cpc_plus_joystick.dsk -p build/FULL_cpc_plus_joystick.cpc xchase
-	mv FULL_cpc_plus_joystick.dsk $(BUILD_PATH)/
+	mv FULL_cpc_plus_joystick.dsk $(BUILD_PATH)/	
+	cd $(TOOLS_PATH)/nocart/
+	./nocart.exe  ../../$(BUILD_PATH)/FULL_cpc_plus_joystick.dsk  ../../$(BUILD_PATH)/FULL_gx4000.cpr   -c 'RUN"xchase'
+	cd ../..
+	mv FULL_gx4000.cpr $(BUILD_PATH)/
 	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.cpc 
 	rm $(BUILD_PATH)/FULL_cpc_plus_joystick.prg		
 	

@@ -1,0 +1,102 @@
+				<<<<Last Modified: Thu Feb 15 19:43:05 1996>>>>
+
+
+What is CPCfs?
+
+	CPCfs is a program to maintain filesystems that are needed by some
+	CPC emulators (especially CPCEmu by Marco Vieth).
+
+	If you are familiar with some emulators, you may have already
+	encountered the problem, how to copy files form DOS into the
+	image of an emulator, or vice versa.
+
+	The methods described in the documentation of CPCEmu only deal
+	with transferring whole CPC disks to CPCEmu diskimages, but not
+	single files. 
+
+	If you use CPCEmu you can use the cassette interface to load and save
+	files from the CPC memory to DOS files. But this method lacks
+	some (in my sense important) features, e.g. 
+	- transferring files > 42k
+	- transferring data files without Amsdos-Header
+	- installing CP/M, if you don't have a 5 1/4 inch drive at your
+	  CPC and can't copy whole disks.
+	- transferring is so slow as the emulator
+	- you can't transfer files in a batch
+
+	If you don't use another emulator than CPCEmu, I do not know
+	another solution other than CPCfs.
+
+
+What other products do I need?
+
+	- A CPC-Emulator (CPCEmu, CPE, SimCPC, CPCEmuII, ...)
+	- A CPC Computer with CP/M License, if you want to copy CP/M
+	  to an image.
+
+
+How do I install CPCfs?
+
+	Just unpack the archive with the -d switch to extract the 
+	subdirectory src. If you omit the -d switch, you get all files
+	in one directory. Then copy the	*.EXE files, CPCFS.CFG and 
+	CPCFS.HLP to a place where they can be found (somewhere in the
+	path) or where you like them to be. CPCFS.CFG must be in the 
+	current directory or in the same directory as CPCFS.EXE.
+
+
+What is new in version 0.85?
+
+	Main features:
+	- Vortex images are now supported
+	- User areas and file attributes are fully supported
+	- Extensible help system containing nearly the same as the manual
+	- Commands can be controlled by options
+	- History mechanism
+
+	New comamnds:
+	- COPY		copy files
+	- TYPE		look at files
+	- DPB		see the complete Disk Parameter Block
+	- COMMENT	describes your images
+	- ATTRIB	change file attributes
+
+	Extended commands:
+	- DIR		shows long output, including Amsdos header
+	- DUMP		now addresses single sectors or blocks
+	- HELP		accesses the online manual
+
+
+What files are distributed?	
+
+	README		- You are reading it!
+	CPCFS.EXE	- The program itself
+	CPCFS.CFG	- The configuarion file for CPCfs
+	DROP_TAG.BAT	- A utility program; needed for CPE
+	CPCFS.HLP	- The online helpfile
+	CPCFS.DOC	\_ The documentation
+	TEMPLATE.DOC	/
+	MAKEDOC.EXE	- Composing the documentation out of template and help
+	GETCPM.BAS	- A Locomotive BASIC Program to copy the CP/M tracks
+			  to a file.
+	DESCRIPT.ION	- 4DOS' description
+
+	SRC\CPCFS.C	\
+	SRC\UI.C	 |_ The main sourcecode
+	SRC\FS.C	 |
+	SRC\TOOLS.C	/
+	SRC\CPCFS.H	\
+	SRC\DOS.H	 |- Some prototypes, constants,
+	SRC\UNIX.H	/    includes, and so on	
+	SRC\DOS.C	\_  system dependent implementation
+	SRC\UNIX.C	/    of the prototypes
+	SRC\MATCH.C	\_  some routines realising regular expression
+	SRC\MATCH.H	/    matching for CP/M wildcards
+	SRC\MAKEDOC.C	  - Source of the doc-composer
+	SRC\CPCFS.PRJ	  - Project files for Borland C
+	SRC\MAKEFILE	  - Unix Makefile
+	SRC\DESCRIPT.ION  - 4DOS' description
+
+How do I use CPCfs?
+
+	Read CPCFS.DOC or type HELP within CPCfs.

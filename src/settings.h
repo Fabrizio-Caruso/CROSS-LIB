@@ -105,6 +105,12 @@
 	#define _MOVE_LEFT 'J'
 	#define _MOVE_RIGHT 'L'
 	#define _FIRE ' '
+#elif defined(__CPC_PLUS__)
+	#define _MOVE_UP 0x0B 
+	#define _MOVE_DOWN 0x0A 
+	#define _MOVE_LEFT 0x08
+	#define _MOVE_RIGHT 0x09
+	#define _FIRE 0x58
 #elif defined(__MSX__) // Special Joystick 
 	#define _MOVE_UP 1
 	#define _MOVE_DOWN 5

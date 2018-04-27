@@ -154,6 +154,7 @@ c64:
 	$(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/FULL_c64.prg
 	$(TOOLS_PATH)/exomizer sfx basic $(BUILD_PATH)/FULL_c64.prg -o $(BUILD_PATH)/FULL_c64_exomized.prg
+	python $(TOOLS_PATH)/prg2crt.py $(BUILD_PATH)/FULL_c64_exomized.prg  $(BUILD_PATH)/FULL_c64_exomized.crt
 	rm $(BUILD_PATH)/FULL_c64.prg
 
 c128_40col: 

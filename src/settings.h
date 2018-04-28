@@ -125,106 +125,109 @@
 	#define _FIRE ' '		
 #endif
 
-
-#if defined(__VIC20__) && !defined(TINY_GAME)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 250
-#elif defined(__SAM__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 500
-#elif defined(__VIC20__) && defined(TINY_GAME) && !defined(VIC20_UNEXPANDED)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 400
-#elif defined(__VIC20__) && defined(TINY_GAME) && defined(VIC20_UNEXPANDED)
-	#define GAME_SLOW_DOWN 0	
-#elif defined(__WINCMOC__) || defined(__CMOC__) 
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 600
-#elif defined(__PC6001__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 500	
-#elif defined(__NASCOM__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 9000
-#elif defined(__GAMATE__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 1200
-#elif defined(__CREATIVISION__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 700
-#elif defined(__Z9001__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 800	
-#elif defined(__VZ__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 800
-#elif defined(__NES__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 700
-#elif defined(__MZ__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 500		
-#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 200
-#elif (defined(__C16__) || defined(__PLUS4__)) && defined(FULL_GAME)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 80	
-#elif (defined(__C16__) || defined(__PLUS4__)) && !defined(FULL_GAME)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 140		
-#elif defined(__C64__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 50		
-#elif defined(__ATMOS__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 50		
-#elif defined(__CBM610__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 700
-#elif defined(__VG5K__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 800	
-#elif defined(__AQUARIUS__) && defined(ALT_PRINT)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 1500		
-#elif defined(__AQUARIUS__) && !defined(ALT_PRINT)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 800	
-#elif defined(__ACE__) || defined(__BEE__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 500	
-#elif defined(__MSX__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 550		
-#elif defined(__PCE__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 3000		
-#elif defined(__VZ__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 800	
-#elif defined(__SPECTRUM__) && defined(TINY_GAME)
-	#define GAME_SLOW_DOWN 0	
-#elif defined(__SPECTRUM__) && !defined(TINY_GAME)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 400		
-#elif defined(__CPC__) && defined(CPCRSLIB)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 320	
-#elif defined(__SVI__) && defined(MSX_MODE0)
-	#define SLOW_DOWN 
-	#define GAME_SLOW_DOWN 1200
-#elif defined(__ATARI_LYNX__)
-	#define SLOW_DOWN 
-	#define GAME_SLOW_DOWN 2500	
-#elif defined(__SVI__) && !defined(MSX_MODE0)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 1200	
-#elif defined(__TRS80__) || defined(__EG2K__)
-	#define SLOW_DOWN
-	#define GAME_SLOW_DOWN 100	
-#else
+#if defined(TURN_BASED)
 	#define GAME_SLOW_DOWN 0
+#else	
+	#if defined(__VIC20__) && !defined(TINY_GAME)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 250
+	#elif defined(__SAM__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 500
+	#elif defined(__VIC20__) && defined(TINY_GAME) && !defined(VIC20_UNEXPANDED)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 400
+	#elif defined(__VIC20__) && defined(TINY_GAME) && defined(VIC20_UNEXPANDED)
+		#define GAME_SLOW_DOWN 0	
+	#elif defined(__WINCMOC__) || defined(__CMOC__) 
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 600
+	#elif defined(__PC6001__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 500	
+	#elif defined(__NASCOM__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 9000
+	#elif defined(__GAMATE__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 1200
+	#elif defined(__CREATIVISION__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 700
+	#elif defined(__Z9001__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 800	
+	#elif defined(__VZ__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 800
+	#elif defined(__NES__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 700
+	#elif defined(__MZ__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 500		
+	#elif defined(__APPLE2__) || defined(__APPLE2ENH__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 200
+	#elif (defined(__C16__) || defined(__PLUS4__)) && defined(FULL_GAME)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 80	
+	#elif (defined(__C16__) || defined(__PLUS4__)) && !defined(FULL_GAME)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 140		
+	#elif defined(__C64__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 50		
+	#elif defined(__ATMOS__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 50		
+	#elif defined(__CBM610__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 700
+	#elif defined(__VG5K__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 800	
+	#elif defined(__AQUARIUS__) && defined(ALT_PRINT)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 1500		
+	#elif defined(__AQUARIUS__) && !defined(ALT_PRINT)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 800	
+	#elif defined(__ACE__) || defined(__BEE__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 500	
+	#elif defined(__MSX__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 550		
+	#elif defined(__PCE__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 3000		
+	#elif defined(__VZ__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 800	
+	#elif defined(__SPECTRUM__) && defined(TINY_GAME)
+		#define GAME_SLOW_DOWN 0	
+	#elif defined(__SPECTRUM__) && !defined(TINY_GAME)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 400		
+	#elif defined(__CPC__) && defined(CPCRSLIB)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 320	
+	#elif defined(__SVI__) && defined(MSX_MODE0)
+		#define SLOW_DOWN 
+		#define GAME_SLOW_DOWN 1200
+	#elif defined(__ATARI_LYNX__)
+		#define SLOW_DOWN 
+		#define GAME_SLOW_DOWN 2500	
+	#elif defined(__SVI__) && !defined(MSX_MODE0)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 1200	
+	#elif defined(__TRS80__) || defined(__EG2K__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 100	
+	#else
+		#define GAME_SLOW_DOWN 0
+	#endif
 #endif
 
 #if (defined(__VIC20__) && !defined(VIC20_UNEXPANDED)) \
@@ -426,7 +429,10 @@
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 50U
 
-#if defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+#if defined(TURN_BASED)
+	#define INITIAL_ENEMY_SLOWDOWN 16000
+	#define INITIAL_SKULL_SLOWDOWN 15000
+#elif defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_ENEMY_SLOWDOWN 31000
 	#define INITIAL_SKULL_SLOWDOWN 32000	
 #elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
@@ -545,9 +551,13 @@
 
 #define SKULL_COUNT_DOWN 50
 
-#define INVINCIBLE_MIN_SLOWDOWN 4000
-
-#define ENEMY_MIN_SLOWDOWN 1500
+#if defined(TURN_BASED)
+	#define INVINCIBLE_MIN_SLOWDOWN 1000
+	#define ENEMY_MIN_SLOWDOWN 500
+#else
+	#define INVINCIBLE_MIN_SLOWDOWN 4000
+	#define ENEMY_MIN_SLOWDOWN 1500	
+#endif
 
 #define GHOST_LEVEL_DECREASE 50
 

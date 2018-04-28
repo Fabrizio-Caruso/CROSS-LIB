@@ -36,7 +36,11 @@ unsigned short computeGhostSlowDown(void)
 {
 	if(ghostLevel<MAX_GHOST_LEVEL)
 	{
-		return INITIAL_ENEMY_SLOWDOWN-level*200-ghostLevel*16;
+		#if defined(TURN_BASED)
+			return INITIAL_ENEMY_SLOWDOWN-level*200-ghostLevel*8;		
+		#else
+			return INITIAL_ENEMY_SLOWDOWN-level*200-ghostLevel*16;
+		#endif
 	}
 	return ENEMY_MIN_SLOWDOWN;
 }

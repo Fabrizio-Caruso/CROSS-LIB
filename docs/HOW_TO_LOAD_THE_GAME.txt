@@ -5,14 +5,24 @@ on some emulators (similar procedures can be followed on the real machines):
 
 
 ---------------------------------------------------------
-AMSTRAD CPC
+AMSTRAD CPC/GX4000
 
 You can use WinAPE
+
+- Tape (.cdt) version:
 You need to attach the image as a tape
 In BASIC type
 |tape
 run"
 Start PLAY on the virtual tape player
+
+- Disk (.dsk) version:
+You need to attach the image as a disk
+In BASIC type
+run"xchase
+
+- ROM (.cpr) version:
+You need to attch the image as a cartridge
 
 ---------------------------------------------------------
 NES 
@@ -161,14 +171,6 @@ mess64.exe sc3000 -cart1 <basic31 file name>.sc -cass1 FULL_sc3000_32k.wav
 Inside the emulator type:
 LOAD
 RUN
-
-----------------------------------------------------------
-
-SAM Coupe
-
-Use SAMEMU emulator.
-Copy the compiled output to a file called "SAMFILE" 
-Run the emulator, press F1 (apparently nothing happens) and type "call 32768".
 
 ----------------------------------------------------------
 

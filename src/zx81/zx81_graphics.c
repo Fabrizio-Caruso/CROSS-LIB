@@ -158,12 +158,30 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 
 	void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	{
-		unsigned char i;
-		gotoxy(X_OFFSET+x,Y_OFFSET+y); 
-		for(i=0;i<length;++i)
-		{
-			cputc('-');
-		}
+		#if defined(__ZX80__)
+			unsigned char i;
+			
+			if(length>10)
+			{
+				PRINT(x,y,"-------------------------------");
+			}
+			else
+			{
+				gotoxy(X_OFFSET+x,Y_OFFSET+y); 			
+				for(i=0;i<length;++i)
+				{
+					cputc('-');
+				}	
+			}			
+		#else
+			unsigned char i;
+		
+			gotoxy(X_OFFSET+x,Y_OFFSET+y); 			
+			for(i=0;i<length;++i)
+			{
+				cputc('-');
+			}
+		#endif
 	}
 #endif
 

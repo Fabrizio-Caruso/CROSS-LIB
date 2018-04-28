@@ -517,8 +517,8 @@ zx80_16k:
 	-D__ZX80__ -DFULL_GAME \
 	-DEND_SCREEN \
 	-DTURN_BASED \
-	-DNO_SLEEP \
 	-DNO_BLINKING \
+	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k.prg \
 	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \

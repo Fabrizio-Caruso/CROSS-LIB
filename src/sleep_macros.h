@@ -25,6 +25,12 @@
 #ifndef _SLEEP_MACROS
 #define _SLEEP_MACROS
 
+#if defined(__ZX80__)
+	#define ALT_SLEEP_SCALE 20000
+#else
+	#define ALT_SLEEP_SCALE 4000
+#endif
+
 	#if defined(NO_SLEEP)
 		#define sleep(sec)
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CREATIVISION__) || defined(__SUPERVISION__) || defined(__OSIC1P__)
@@ -34,7 +40,7 @@
 	// TODO: This is a temporary fix
 	#elif defined(ALT_SLEEP)	
 		#if defined(Z88DK)
-			#define sleep(sec) do {unsigned short ii; for(ii=0;ii<4000*sec; ++ii){ii=ii;};} while(0)	
+			#define sleep(sec) do {unsigned short ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
 		#else	
 			void sleep(unsigned int sec);
 		#endif

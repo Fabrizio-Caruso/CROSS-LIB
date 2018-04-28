@@ -23,7 +23,11 @@ extern unsigned char ghostCount;
 						playerDies();
 					}
 					
+					#if defined(TURNED_BASED)
+					if(1)
+					#else
 					if(rand()&1)
+					#endif
 					{
 						deleteMissile(&bubbles[i]);
 						--(bubbles[i]._y);

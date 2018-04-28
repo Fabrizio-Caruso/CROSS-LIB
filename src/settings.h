@@ -287,7 +287,6 @@
 	#define ADVANCED_RIGHT_MISSILE() do{if(loop&1)--rightEnemyMissile._x;}while(0)
 #endif
 
-// || defined(__ZX81__)
 #if (defined(__VIC20__) && defined(REDEFINED_CHARS)) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__GAMATE__) \
     || defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) \
 	|| defined(__ZX80__)
@@ -483,10 +482,15 @@
 	#define INVINCIBLE_GHOST_TRIGGER 3
 #endif 
 
-
+#if defined(TURN_BASED)
+	#define EFFECT_SCALE 5
+#else
+	#define EFFECT_SCALE 1
+#endif
+	
 #define POWER_UP_COOL_DOWN 150
-#define POWER_UP2_COOL_DOWN 400
 
+#define POWER_UP2_COOL_DOWN 400
 
 #define SUPER_COOL_DOWN 150
 
@@ -502,40 +506,15 @@
 
 #define EXTRA_LIFE_COOL_DOWN 2500UL
 
-#define FROZEN_COUNT_DOWN 20
 
-#define CONFUSE_COUNT_DOWN 150
+#define FROZEN_COUNT_DOWN (20/EFFECT_SCALE)
 
-#define INVINCIBILITY_COUNT_DOWN 100
+#define CONFUSE_COUNT_DOWN (150/EFFECT_SCALE)
 
-#define ZOMBIE_COUNT_DOWN 600
+#define INVINCIBILITY_COUNT_DOWN (100/EFFECT_SCALE)
 
+#define ZOMBIE_COUNT_DOWN (600/EFFECT_SCALE)
 
-// DEBUG
-/*
-#define SUPER_COOL_DOWN 60
-
-#define CONFUSE_COOL_DOWN 30
-
-#define ZOMBIE_COOL_DOWN 15
-
-#define CHASE_COOL_DOWN 75
-
-#define EXTRA_POINTS_COOL_DOWN 1500UL
-
-#define INVINCIBILITY_COOL_DOWN 2000UL
-
-#define EXTRA_LIFE_COOL_DOWN 2500UL
-
-#define FROZEN_COUNT_DOWN 20
-
-#define CONFUSE_COUNT_DOWN 400
-
-#define INVINCIBILITY_COUNT_DOWN 600
-
-#define ZOMBIE_COUNT_DOWN 600
-*/
-//
 
 #define ZOMBIE_BONUS 5
 

@@ -171,10 +171,10 @@
 		#define GAME_SLOW_DOWN 200
 	#elif (defined(__C16__) || defined(__PLUS4__)) && defined(FULL_GAME)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 80	
+		#define GAME_SLOW_DOWN 150
 	#elif (defined(__C16__) || defined(__PLUS4__)) && !defined(FULL_GAME)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 140		
+		#define GAME_SLOW_DOWN 200		
 	#elif defined(__C64__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 50		
@@ -239,11 +239,6 @@
 		|| defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) || defined(__LYNX__) \
 		|| defined(__NES__) || defined(__PCE__)
 	#define JOYSTICK_CONTROL
-	// #if !defined(FORCE_KEYBOARD)
-		// #define JOYSTICK_CONTROL
-	// #else
-		// #define KEYBOARD_CONTROL
-	// #endif
 #else
 	#define KEYBOARD_CONTROL
 #endif
@@ -487,7 +482,7 @@
 	#define WAIT_SCALE 4
 #else
 	#define EFFECT_SCALE 1
-	#define WAIT_SCALE 4
+	#define WAIT_SCALE 1
 #endif
 	
 #define POWER_UP_COOL_DOWN (150/WAIT_SCALE)

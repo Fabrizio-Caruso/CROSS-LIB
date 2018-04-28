@@ -263,16 +263,28 @@ void _draw(unsigned char x,unsigned char y,Image * image);
 
 
 
-#if defined(FULL_GAME)
-	#define _DRAW_PLAYER() \
-		if(invincibilityActive) \
-		{ \
-			DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
-		} \
-		else \
-		{ \
-			DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-		}
+#if defined(FULL_GAME) 
+	#if defined(NO_BLINKING)
+		#define _DRAW_PLAYER() \
+			if(invincibilityActive) \
+			{ \
+				DRAW_PLAYER(player._x, player._y, invincibleGhost._imagePtr); \
+			} \
+			else \
+			{ \
+				DRAW_PLAYER(player._x, player._y, player._imagePtr); \
+			}	
+	#else
+		#define _DRAW_PLAYER() \
+			if(invincibilityActive) \
+			{ \
+				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
+			} \
+			else \
+			{ \
+				DRAW_PLAYER(player._x, player._y, player._imagePtr); \
+			}
+	#endif
 #else
 	#define _DRAW_PLAYER() \
 		DRAW_PLAYER(player._x, player._y, player._imagePtr); 
@@ -287,6 +299,7 @@ void _draw(unsigned char x,unsigned char y,Image * image);
 #else
 	#define _blink_draw(x,y,image,blinkCounter) _draw(x,y,image)
 #endif
+
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
 
 void _delete(unsigned char x, unsigned char y);

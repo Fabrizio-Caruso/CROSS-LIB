@@ -161,7 +161,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		#if defined(__ZX80__)
 			unsigned char i;
 			
-			if(length>10)
+			if(length>16) // Ugly workaround to avoid the screen to roll while drawn the horizontal wall
 			{
 				PRINT(x,y,"-------------------------------");
 			}

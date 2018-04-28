@@ -283,8 +283,7 @@ osic1p_32k:
 	rm $(BUILD_PATH)/FULL_osic1p_32k.lod
 	mv $(BUILD_PATH)/FULL_osic1p_32k.c1p $(BUILD_PATH)/FULL_osic1p_32k.lod
 
-# -Wl -D,__HIMEM__=0x8000	
-# -DNO_INITIAL_SCREEN
+
 osic1p_8k: 
 	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(SOURCE_PATH)/../cfg/osic1p_less_stack.cfg -t osic1p \
 	-DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -DNO_SET_SCREEN_COLOR -DTINY_GAME \

@@ -77,7 +77,11 @@ void INIT_IMAGES(void)
 	#if !defined(TINY_GAME)
 		INVINCIBLE_GHOST_IMAGE._imageData = '+';	
 		POWERUP_IMAGE._imageData = 'S';
-		GUN_IMAGE._imageData = '!';
+		#if defined(__ZX80__)
+			GUN_IMAGE._imageData = 'G';		
+		#else
+			GUN_IMAGE._imageData = '!';
+		#endif
 		MISSILE_IMAGE._imageData = '.';
 	#endif
 

@@ -362,15 +362,17 @@ int main(void)
 			#endif			
 			
 			#if !defined(TINY_GAME)
-				freezeActive = 0;
+				// freezeActive = 0;
 				
 				invincibleGhostAlive = 1;
 				invincibleGhostHits = 0;						
 				guns = 0;
-				freeze_count_down = 0;
 				
 				resetItems();
-								
+				
+				freeze_count_down = INITIAL_FROZEN_COUNT_DOWN;
+				freezeActive = 1;
+				
 				computeInvincibleGhostParameters();				
 			#endif
 

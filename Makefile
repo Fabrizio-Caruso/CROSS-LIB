@@ -1447,7 +1447,7 @@ cc65_targets: \
 	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k \
 	atari_color atari_no_color atari_no_color_16k \
 	atmos oric1_16k \
-	c16_16k c16_32k \
+	c16_16k c16_32k c16_16k_full \
 	pet_8k pet_16k \
 	cbm510 cbm610 \
 	apple2 apple2enh \
@@ -1528,7 +1528,11 @@ help:
 list:
 	cat TARGETS.txt
 	
+vic20_targets: \
+	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
 
+c264_targets: \
+	c16_16k c16_16k_full c16_32k
 	
 	
 	
@@ -1943,11 +1947,6 @@ pointerToFunction:
 	$(SOURCE_PATH)/../experiments/pointerToFunction.c \
 	-o $(BUILD_PATH)/pointerToFunctions.pce
 	
-	
-
-vic20_targets: \
-	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
-
 
 # -DNO_MESSAGE \
 # 	-compiler=sdcc \

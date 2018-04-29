@@ -171,10 +171,10 @@
 		#define GAME_SLOW_DOWN 200
 	#elif (defined(__C16__) || defined(__PLUS4__)) && defined(FULL_GAME)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 150
+		#define GAME_SLOW_DOWN 200
 	#elif (defined(__C16__) || defined(__PLUS4__)) && !defined(FULL_GAME)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 200		
+		#define GAME_SLOW_DOWN 250		
 	#elif defined(__C64__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 50		
@@ -503,8 +503,9 @@
 
 #define EXTRA_LIFE_COOL_DOWN (2500UL/WAIT_SCALE)
 
-
 #define FROZEN_COUNT_DOWN (20/EFFECT_SCALE)
+
+#define INITIAL_FROZEN_COUNT_DOWN FROZEN_COUNT_DOWN
 
 #define CONFUSE_COUNT_DOWN (150/EFFECT_SCALE)
 

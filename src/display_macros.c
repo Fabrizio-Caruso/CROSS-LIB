@@ -28,10 +28,6 @@
 	#define VERTICAL_BRICK '|'
 #endif
 
-#if defined(FULL_GAME) && !defined(NO_BLINKING)
-	unsigned char playerBlink;	
-#endif
-
 #if !defined(REDEFINED_CHARS)
 	Image PLAYER_IMAGE;
 #endif

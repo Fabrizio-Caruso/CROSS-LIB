@@ -99,8 +99,9 @@ unsigned char level;
 	extern Image DEAD_GHOST_IMAGE;
 #endif
 
-#if defined(FULL_GAME)
-	extern unsigned char playerBlink;	
+
+#if defined(FULL_GAME) && !defined(NO_BLINKING)
+	unsigned char playerBlink;	
 #endif
 
 Character player; 

@@ -253,6 +253,20 @@ typedef struct ImageStruct Image;
 
 
 void _draw(unsigned char x,unsigned char y,Image * image);
+
+#if defined(FULL_GAME)
+	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y);
+#endif
+	
+#if !defined(NO_BLINKING)
+	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
+#else
+	#define _blink_draw(x,y,image,blinkCounter) _draw(x,y,image)
+#endif
+
+void _delete(unsigned char x, unsigned char y);
+
+
 #define DRAW_CHARACTER(x,y,image) _draw(x,y,image)
 
 #define DRAW_PLAYER(x,y,image) DRAW_CHARACTER(x,y,image)
@@ -289,20 +303,9 @@ void _draw(unsigned char x,unsigned char y,Image * image);
 	#define _DRAW_PLAYER() \
 		DRAW_PLAYER(player._x, player._y, player._imagePtr); 
 #endif
-		
-#if defined(FULL_GAME)
-	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y);
-#endif
-	
-#if !defined(NO_BLINKING)
-	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
-#else
-	#define _blink_draw(x,y,image,blinkCounter) _draw(x,y,image)
-#endif
 
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
 
-void _delete(unsigned char x, unsigned char y);
 
 #define DELETE_CHARACTER(x,y) _delete(x,y)
 

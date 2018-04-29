@@ -460,10 +460,6 @@ int main(void)
 				
 				ghostSlowDown = computeGhostSlowDown();
 
-				MOVE_PLAYER();
-				
-				_DRAW_PLAYER();	
-
 				#if !defined(TINY_GAME)
 					handle_missile();
 				#endif
@@ -585,6 +581,9 @@ int main(void)
 				SKIP_DRAW
 					displayGhosts();
 				
+				MOVE_PLAYER();
+				
+				_DRAW_PLAYER();	
 			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
 
 			if(player._status) // if level finished

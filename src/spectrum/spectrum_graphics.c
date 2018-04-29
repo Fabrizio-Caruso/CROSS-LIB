@@ -181,7 +181,9 @@ void INIT_IMAGES(void)
 {		
 
 	#if defined(COLOR)
+		#if !defined(REDEFINED_CHARS)
 		PLAYER_IMAGE._color = COLOR_CYAN;
+		#endif
 		BOMB_IMAGE._color = COLOR_RED;
 		DEAD_GHOST_IMAGE._color = COLOR_RED;
 		
@@ -204,7 +206,6 @@ void INIT_IMAGES(void)
 	#endif
 		
 	#if defined(REDEFINED_CHARS)	
-		PLAYER_IMAGE._imageData = _PLAYER_DOWN;
 		PLAYER_DOWN._imageData = _PLAYER_DOWN;
 		PLAYER_UP._imageData = _PLAYER_UP;		
 		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
@@ -231,6 +232,7 @@ void INIT_IMAGES(void)
 	#else
 		GHOST_IMAGE._imageData = 'o';
 		BOMB_IMAGE._imageData = 'X';
+		
 		PLAYER_IMAGE._imageData = '*';
 		
 		#if !defined(TINY_GAME)
@@ -262,7 +264,11 @@ void INIT_IMAGES(void)
 		
 		BUBBLE_IMAGE._color = COLOR_WHITE;
 		EXTRA_POINTS_IMAGE._imageData = '$';
+		#if !defined(REDEFINED_CHARS)
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+		#else
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
+		#endif
 		INVINCIBILITY_IMAGE._imageData = '!';
 	#endif
 	

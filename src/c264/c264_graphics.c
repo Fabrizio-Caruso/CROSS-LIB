@@ -174,7 +174,11 @@ void INIT_GRAPHICS(void)
 // TODO: Sprite initialization (to be performed only once) should be separated from level generation
 void INIT_IMAGES(void)
 {		
-	PLAYER_IMAGE._color = COLOR_CYAN;
+	#if !defined(REDEFINED_CHARS)
+		PLAYER_IMAGE._color = COLOR_CYAN;
+		PLAYER_IMAGE._imageData = _PLAYER_DOWN;
+	#endif
+	
 	INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 	POWERUP_IMAGE._color = COLOR_GREEN;
 	GUN_IMAGE._color = COLOR_BLUE;
@@ -209,7 +213,6 @@ void INIT_IMAGES(void)
 		ZOMBIE_IMAGE._color = COLOR_YELLOW;
 	#endif
 	
-	PLAYER_IMAGE._imageData = _PLAYER_DOWN;
 	PLAYER_DOWN._imageData = _PLAYER_DOWN;
 	PLAYER_UP._imageData = _PLAYER_UP;		
 	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;

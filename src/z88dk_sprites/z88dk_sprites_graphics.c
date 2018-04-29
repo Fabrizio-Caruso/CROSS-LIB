@@ -52,7 +52,7 @@
 
 
 
-extern Image PLAYER_IMAGE;
+// extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
@@ -137,7 +137,7 @@ void INIT_IMAGES(void)
 {		
 	GHOST_IMAGE._imageData = _GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
-	PLAYER_IMAGE._imageData = _PLAYER_DOWN;
+	// PLAYER_IMAGE._imageData = _PLAYER_DOWN;
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
 		
 	#if !defined(TINY_GAME)

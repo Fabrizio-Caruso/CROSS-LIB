@@ -222,7 +222,9 @@ void INIT_IMAGES(void)
 	GHOST_IMAGE._imageData = _GHOST;
 	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
+	#if !defined(REDEFINED_CHARS)
 	PLAYER_IMAGE._imageData = _PLAYER;
+	#endif
 	POWERUP_IMAGE._imageData = _POWERUP;
 	GUN_IMAGE._imageData = _GUN;
 	EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;

@@ -169,8 +169,10 @@ void INIT_GRAPHICS(void)
 
 void INIT_IMAGES(void)
 {		
+	#if !defined(REDEFINED_CHARS)
 	PLAYER_IMAGE._imageData = _PLAYER;
 	PLAYER_IMAGE._color = CPC_YELLOW;
+	#endif
 	
 	BOMB_IMAGE._imageData = _BOMB;
 	BOMB_IMAGE._color = CPC_RED;
@@ -187,10 +189,10 @@ void INIT_IMAGES(void)
 		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
 		PLAYER_LEFT._imageData = _PLAYER_LEFT;
 		
-		PLAYER_DOWN._color = PLAYER_IMAGE._color;
-		PLAYER_UP._color = PLAYER_IMAGE._color;	
-		PLAYER_RIGHT._color = PLAYER_IMAGE._color;
-		PLAYER_LEFT._color = PLAYER_IMAGE._color;	
+		PLAYER_DOWN._color = CPC_YELLOW;
+		PLAYER_UP._color = CPC_YELLOW;	
+		PLAYER_RIGHT._color = CPC_YELLOW;
+		PLAYER_LEFT._color = CPC_YELLOW;	
 	#endif
 	
 	#if !defined(TINY_GAME)
@@ -222,7 +224,11 @@ void INIT_IMAGES(void)
 		
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
+		#if !defined(REDEFINED_CHARS)
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+		#else
+		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;			
+		#endif
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
 		CHASE_IMAGE._imageData = _MISSILE;
 		SUPER_IMAGE._imageData = _POWERUP;

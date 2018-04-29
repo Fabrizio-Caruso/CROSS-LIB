@@ -199,7 +199,11 @@ void INIT_GRAPHICS(void)
 void INIT_IMAGES(void)
 {		
 	// TODO: Do something with the colors
+	#if !defined(REDEFINED_CHARS)
 	PLAYER_IMAGE._color = _ATARI_MODE1_BLUE; // BLUE
+	PLAYER_IMAGE._imageData = PLAYER_DOWN._imageData;	
+	#endif
+	
 	PLAYER_DOWN._color = _ATARI_MODE1_BLUE;
 	PLAYER_UP._color = _ATARI_MODE1_BLUE;
 	PLAYER_RIGHT._color = _ATARI_MODE1_BLUE;		
@@ -218,7 +222,6 @@ void INIT_IMAGES(void)
 	PLAYER_UP._imageData = _PLAYER_UP;
 	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;		
 	PLAYER_LEFT._imageData = _PLAYER_LEFT;
-	PLAYER_IMAGE._imageData = PLAYER_DOWN._imageData;
 	
 	POWERUP_IMAGE._imageData = _POWERUP;
 	GUN_IMAGE._imageData = _GUN;

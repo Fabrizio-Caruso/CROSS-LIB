@@ -103,7 +103,11 @@ void INIT_GRAPHICS(void)
  
 void INIT_IMAGES(void)
 {		
+	#if !defined(REDEFINED_CHARS)
 	PLAYER_IMAGE._color = COLOR_CYAN;
+	PLAYER_IMAGE._imageData = _PLAYER_DOWN;
+	#endif
+	
 	INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 	POWERUP_IMAGE._color = COLOR_GREEN;
 	FREEZE_IMAGE._color = COLOR_CYAN;
@@ -114,7 +118,6 @@ void INIT_IMAGES(void)
 	GHOST_IMAGE._imageData = _GHOST;
 	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
-	PLAYER_IMAGE._imageData = _PLAYER_DOWN;
 	POWERUP_IMAGE._imageData = _POWERUP;
 	FREEZE_IMAGE._imageData = _POWERUP;	
 	GUN_IMAGE._imageData = _GUN;
@@ -155,17 +158,17 @@ void INIT_IMAGES(void)
 		ZOMBIE_IMAGE._color = COLOR_YELLOW;
 	#endif
 	
-	PLAYER_UP._imageData = _PLAYER_UP;
-	PLAYER_UP._color = PLAYER_IMAGE._color;
-	
 	PLAYER_DOWN._imageData = _PLAYER_DOWN;
-	PLAYER_DOWN._color = PLAYER_IMAGE._color;
+	PLAYER_DOWN._color = COLOR_CYAN;	
+	
+	PLAYER_UP._imageData = _PLAYER_UP;
+	PLAYER_UP._color = COLOR_CYAN;
 			
 	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-	PLAYER_RIGHT._color = PLAYER_IMAGE._color;
+	PLAYER_RIGHT._color = COLOR_CYAN;
 	
 	PLAYER_LEFT._imageData = _PLAYER_LEFT;
-	PLAYER_LEFT._color = PLAYER_IMAGE._color;			
+	PLAYER_LEFT._color = COLOR_CYAN;			
 }
 
 void DRAW_BROKEN_WALL(char x, char y)

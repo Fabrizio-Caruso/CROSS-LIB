@@ -104,6 +104,11 @@ void INIT_IMAGES(void)
 		const unsigned char invincibility[] =           {12,18,12,51, 0,12, 0,51};		
 	#endif
 	
+	#if !defined(REDEFINED_CHARS)
+		PLAYER_IMAGE._imageData = (char) 0x5c;
+		PLAYER_IMAGE._color = 0;	
+	#endif
+	
 	PLAYER_DOWN._color = 0;		
 	GHOST_IMAGE._color = 0;
 	MISSILE_IMAGE._color = 0;
@@ -118,7 +123,6 @@ void INIT_IMAGES(void)
 	GHOST_IMAGE._imageData = (char) 0x60;
 	INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x7b;
 	BOMB_IMAGE._imageData = (char) 0x5b;
-	PLAYER_IMAGE._imageData = (char) 0x5c;
 	
 	POWERUP_IMAGE._imageData = (char) 0x5d;
 	GUN_IMAGE._imageData = (char) 0x5e;
@@ -127,7 +131,7 @@ void INIT_IMAGES(void)
 	MISSILE_IMAGE._imageData = (char) 0x5f;
 	DEAD_GHOST_IMAGE._imageData = (char) 0x5a;
 
-	PLAYER_IMAGE._color = 0;
+
 	PLAYER_LEFT._color = 0;
 	PLAYER_RIGHT._color = 0;
 	PLAYER_UP._color = 0;
@@ -182,7 +186,11 @@ void INIT_IMAGES(void)
 	redefine(0xb400 + INVINCIBLE_GHOST_IMAGE._imageData*8,invincible_ghost);
 	redefine(0xb400 + GUN_IMAGE._imageData*8,gun);		
 	redefine(0xb400 + MISSILE_IMAGE._imageData*8,missile);
+	
+	#if !defined(REDEFINED_CHARS)
 	redefine(0xb400 + PLAYER_IMAGE._imageData*8,player);		
+	#endif
+	
 	redefine(0xb400 + PLAYER_LEFT._imageData*8,player_left);
 	redefine(0xb400 + PLAYER_RIGHT._imageData*8,player_right);
 	redefine(0xb400 + PLAYER_UP._imageData*8,player_up);		

@@ -71,7 +71,11 @@ void INIT_GRAPHICS(void)
 
 void INIT_IMAGES(void)
 {		
+	#if !defined(REDEFINED_CHARS)
 	PLAYER_IMAGE._color = CPC_YELLOW;
+	PLAYER_IMAGE._imageData = 0xF9;//'*';
+	#endif
+	
 	INVINCIBLE_GHOST_IMAGE._color = CPC_YELLOW;
 	POWERUP_IMAGE._color = CPC_YELLOW;
 	
@@ -82,17 +86,15 @@ void INIT_IMAGES(void)
 	GHOST_IMAGE._imageData = 0xE1; // 'o'; //0x07;//'o';
 	INVINCIBLE_GHOST_IMAGE._imageData = 0xFD; // '+';
 	BOMB_IMAGE._imageData = 0xEE;//'X';
-	
-	PLAYER_IMAGE._imageData = 0xF9;//'*';
+
 	PLAYER_DOWN._imageData = 0xF8;	
 	PLAYER_UP._imageData = 0xF8;
 	PLAYER_RIGHT._imageData = 0xFA;
 	PLAYER_LEFT._imageData = 0xFB;
-	PLAYER_DOWN._color = PLAYER_IMAGE._color;
-	PLAYER_UP._color = PLAYER_IMAGE._color;	
-	PLAYER_RIGHT._color = PLAYER_IMAGE._color;
-	PLAYER_LEFT._color = PLAYER_IMAGE._color;
-	
+	PLAYER_DOWN._color = CPC_YELLOW;
+	PLAYER_UP._color = CPC_YELLOW;	
+	PLAYER_RIGHT._color = CPC_YELLOW;
+	PLAYER_LEFT._color = CPC_YELLOW;
 	
 	POWERUP_IMAGE._imageData = _POWERUP_IMAGE; // 'S'; //0x18;//'S';
 	GUN_IMAGE._imageData = 0xB9; // '!'; //0x04;//'!';
@@ -122,7 +124,7 @@ void INIT_IMAGES(void)
 		
 		FREEZE_IMAGE._color = CPC_CYAN;
 
-		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+		EXTRA_LIFE_IMAGE._imageData = CPC_YELLOW;
 		INVINCIBILITY_IMAGE._imageData = 'V';0x05;//'V';
 		
 		EXTRA_POINTS_IMAGE._color = CPC_YELLOW;

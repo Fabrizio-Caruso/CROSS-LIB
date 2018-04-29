@@ -249,7 +249,9 @@ extern Character player;
 #endif
 
 #if defined(KEYBOARD_CONTROL)
-	#if defined(__SPECTRUM__)
+	#if defined(TURN_BASED)
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} 	
+	#elif defined(__SPECTRUM__)
 		#if defined(CLIB_ANSI)
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}
 		#else	

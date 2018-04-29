@@ -62,6 +62,10 @@
 #endif
 
 #if defined(TURN_BASED)
+	#define NO_BLINKING
+#endif
+
+#if defined(TURN_BASED)
 	#define SKIP_DRAW 
 	#define SKIP_MORE_DRAW
 #elif defined(__ZX81__) || defined(__LAMBDA__)
@@ -258,7 +262,7 @@
 #endif
 
 #if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) \
-    || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1))
+    || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__OSIC1P__)
 	#define CC65
 	#define WIDE
 #elif defined(__VIC20__) || defined(__GAMATE__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
@@ -480,12 +484,17 @@
 	#define INVINCIBLE_GHOST_TRIGGER 3
 #endif 
 
+#define TURN_BASED_EFFECT_SCALE 5
+#define TURN_BASED_WAIT_SCALE 4
+#define ACTION_EFFECT_SCALE 1
+#define ACTION_WAIT_SCALE 1
+
 #if defined(TURN_BASED)
-	#define EFFECT_SCALE 5
-	#define WAIT_SCALE 4
+	#define EFFECT_SCALE TURN_BASED_EFFECT_SCALE
+	#define WAIT_SCALE TURN_BASED_WAIT_SCALE
 #else
-	#define EFFECT_SCALE 1
-	#define WAIT_SCALE 1
+	#define EFFECT_SCALE ACTION_EFFECT_SCALE
+	#define WAIT_SCALE ACTION_WAIT_SCALE
 #endif
 	
 #define POWER_UP_COOL_DOWN (150/WAIT_SCALE)
@@ -531,13 +540,23 @@
 
 #define SKULL_COUNT_DOWN 50
 
+#define TURN_BASED_INVINCIBLE_MIN_SLOWDOWN_SCALE 4
+#define TURN_BASED_ENEMY_MIN_SLOWDOWN_SCALE 3
+#define ACTION_INVINCIBLE_MIN_SLOWDOWN_SCALE 1
+#define ACTION_ENEMY_MIN_SLOWDOWN_SCALE 1
+
 #if defined(TURN_BASED)
-	#define INVINCIBLE_MIN_SLOWDOWN 1000
-	#define ENEMY_MIN_SLOWDOWN 500
+	#define INVINCIBLE_MIN_SLOWDOWN_SCALE TURN_BASED_INVINCIBLE_MIN_SLOWDOWN_SCALE
+	#define ENEMY_MIN_SLOWDOWN_SCALE TURN_BASED_ENEMY_MIN_SLOWDOWN_SCALE
 #else
-	#define INVINCIBLE_MIN_SLOWDOWN 4000
-	#define ENEMY_MIN_SLOWDOWN 1500	
+	#define INVINCIBLE_MIN_SLOWDOWN_SCALE ACTION_INVINCIBLE_MIN_SLOWDOWN_SCALE
+	#define ENEMY_MIN_SLOWDOWN_SCALE ACTION_ENEMY_MIN_SLOWDOWN_SCALE	
 #endif
+
+
+#define INVINCIBLE_MIN_SLOWDOWN (4000/INVINCIBLE_MIN_SLOWDOWN_SCALE)
+#define ENEMY_MIN_SLOWDOWN (1500/ENEMY_MIN_SLOWDOWN_SCALE)	
+
 
 #define GHOST_LEVEL_DECREASE 50
 

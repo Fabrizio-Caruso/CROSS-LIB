@@ -248,9 +248,17 @@ extern Character player;
 	}
 #endif
 
+#if defined(Z88DK)
+	#define TURN_BASED_INPUT getch()
+#elif defined(CC65)
+	#define TURN_BASED_INPUT cgetc()
+#else
+	#define TURN_BASED_INPUT cgetc()	
+#endif	
+	
 #if defined(KEYBOARD_CONTROL)
 	#if defined(TURN_BASED)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} 	
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(TURN_BASED_INPUT);} 	
 	#elif defined(__SPECTRUM__)
 		#if defined(CLIB_ANSI)
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}

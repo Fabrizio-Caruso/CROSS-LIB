@@ -61,7 +61,10 @@
 	// #define NO_INITIAL_SCREEN
 #endif
 
-#if defined(__ZX81__) || defined(__LAMBDA__)
+#if defined(TURN_BASED)
+	#define SKIP_DRAW 
+	#define SKIP_MORE_DRAW
+#elif defined(__ZX81__) || defined(__LAMBDA__)
 	#define SKIP_DRAW \
 		if((loop&1)==1)
 	

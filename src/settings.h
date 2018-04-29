@@ -319,6 +319,8 @@
 	
 #if defined(FORCE_GHOSTS_NUMBER)
 	#define GHOSTS_NUMBER FORCE_GHOSTS_NUMBER
+#elif defined(TURN_BASED)
+	#define GHOSTS_NUMBER 9
 #else	
 	#if defined(__PCE__)
 		#define GHOSTS_NUMBER 8

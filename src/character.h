@@ -50,6 +50,11 @@ typedef struct CharacterStruct Character;
 
 #include "display_macros.h"
 
+
+#if defined(REDEFINED_CHARS)
+	#define PLAYER_IMAGE PLAYER_DOWN
+#endif
+
 #define playerReached(preyPtr) sameLocationAsAnyLocation((preyPtr)->_x, (preyPtr)->_y, ghosts, GHOSTS_NUMBER)
 
 #define  playerReachedBombs(preyPtr) sameLocationAsAnyLocation((preyPtr)->_x, (preyPtr)->_y, bombs, BOMBS_NUMBER)
@@ -67,6 +72,89 @@ extern unsigned char ghostCount;
 void displayCharacter(Character * characterPtr);
 
 void deleteCharacter(Character * characterPtr);
+
+//
+
+#if defined(REDEFINED_CHARS)
+	extern Image PLAYER_LEFT;
+	extern Image PLAYER_RIGHT;
+	extern Image PLAYER_UP;
+	extern Image PLAYER_DOWN;
+
+	#define SHOW_LEFT() do {player._imagePtr = (Image *)&PLAYER_LEFT; } while(0)
+	#define SHOW_RIGHT() do {player._imagePtr = (Image *)&PLAYER_RIGHT; } while(0)
+	#define SHOW_UP() do {player._imagePtr = (Image *) &PLAYER_UP; } while(0)
+	#define SHOW_DOWN() do {player._imagePtr = (Image *)&PLAYER_DOWN; } while(0)
+#else
+	#define SHOW_LEFT() { }
+	#define SHOW_RIGHT() { }
+	#define SHOW_UP() { }
+	#define SHOW_DOWN() { }		
+#endif
+
+#define DRAW_CHARACTER(x,y,image) _draw(x,y,image)
+
+#define DRAW_PLAYER(x,y,image) DRAW_CHARACTER(x,y,image)
+#define DRAW_GHOST(x,y,image) DRAW_CHARACTER(x,y,image)
+#define DRAW_INVINCIBLE_GHOST(x,y,image) DRAW_CHARACTER(x,y,image)
+#define DRAW_BOMB(x,y,image) DRAW_CHARACTER(x,y,image)
+#define DRAW_MISSILE(x,y,image) DRAW_CHARACTER(x,y,image)
+
+
+
+#if defined(FULL_GAME) 
+	#if defined(NO_BLINKING)
+		#define _DRAW_PLAYER() \
+			if(invincibilityActive) \
+			{ \
+				DRAW_PLAYER(player._x, player._y, invincibleGhost._imagePtr); \
+			} \
+			else \
+			{ \
+				DRAW_PLAYER(player._x, player._y, player._imagePtr); \
+			}	
+	#else
+		#define _DRAW_PLAYER() \
+			if(invincibilityActive) \
+			{ \
+				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
+			} \
+			else \
+			{ \
+				DRAW_PLAYER(player._x, player._y, player._imagePtr); \
+			}
+	#endif
+#else
+	#define _DRAW_PLAYER() \
+		DRAW_PLAYER(player._x, player._y, player._imagePtr); 
+#endif
+
+#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
+
+
+#define DELETE_CHARACTER(x,y) _delete(x,y)
+
+#if defined(__GAMATE__)
+	#define DELETE_PLAYER(x,y,image) do {textcolor(COLOR_CYAN); _delete(x,y);} while(0)
+#else
+	#define DELETE_PLAYER(x,y,image) _delete(x,y)
+#endif
+#define DELETE_GHOST(x,y,image) _delete(x,y)
+#if defined(__GAMATE__)
+	#define DELETE_INVINCIBLE_GHOST(x,y,image) do {textcolor(COLOR_YELLOW); _delete(x,y);} while(0)
+#else
+	#define DELETE_INVINCIBLE_GHOST(x,y,image) _delete(x,y)	
+#endif
+#define DELETE_BOMB(x,y,image) _delete(x,y)
+#define DELETE_POWERUP(x,y,image) _delete(x,y)
+#define DELETE_GUN(x,y,image) _delete(x,y)
+#define DELETE_MISSILE(x,y,image) _delete(x,y)
+#define DELETE_EXTRA_POINTS(x,y,image) _delete(x,y)
+#define DELETE_EXTRA_LIFE(x,y,image) _delete(x,y)
+#define DELETE_INVINCIBILITY(x,y,image) _delete(x,y)	
+
+
+//
 
 #define displayPlayer(characterPtr) displayCharacter(characterPtr);
 #define displayGhost(characterPtr) displayCharacter(characterPtr);

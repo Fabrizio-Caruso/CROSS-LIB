@@ -26,6 +26,8 @@
 
 #include "display_macros.h"
 
+#include "character.h"
+
 #include "settings.h"
 
 #include "text_strings.h"

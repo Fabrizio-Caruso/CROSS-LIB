@@ -34,11 +34,7 @@
 		unsigned char __fastcall__ textcolor (unsigned char color) {return 0;};	
 	#endif
 #endif
-	
 
-#if defined(REDEFINED_CHARS)
-	#define PLAYER_IMAGE PLAYER_DOWN
-#endif
 	
 #if defined(CONIO_LIB)
 	#include<conio.h>
@@ -234,24 +230,6 @@ typedef struct ImageStruct Image;
 	#define MIN_SIZE YSize
 #endif
 
-#if defined(REDEFINED_CHARS)
-	extern Image PLAYER_LEFT;
-	extern Image PLAYER_RIGHT;
-	extern Image PLAYER_UP;
-	extern Image PLAYER_DOWN;
-
-	#define SHOW_LEFT() do {player._imagePtr = (Image *)&PLAYER_LEFT; } while(0)
-	#define SHOW_RIGHT() do {player._imagePtr = (Image *)&PLAYER_RIGHT; } while(0)
-	#define SHOW_UP() do {player._imagePtr = (Image *) &PLAYER_UP; } while(0)
-	#define SHOW_DOWN() do {player._imagePtr = (Image *)&PLAYER_DOWN; } while(0)
-#else
-	#define SHOW_LEFT() { }
-	#define SHOW_RIGHT() { }
-	#define SHOW_UP() { }
-	#define SHOW_DOWN() { }		
-#endif
-
-
 void _draw(unsigned char x,unsigned char y,Image * image);
 
 #if defined(FULL_GAME)
@@ -265,70 +243,6 @@ void _draw(unsigned char x,unsigned char y,Image * image);
 #endif
 
 void _delete(unsigned char x, unsigned char y);
-
-
-#define DRAW_CHARACTER(x,y,image) _draw(x,y,image)
-
-#define DRAW_PLAYER(x,y,image) DRAW_CHARACTER(x,y,image)
-#define DRAW_GHOST(x,y,image) DRAW_CHARACTER(x,y,image)
-#define DRAW_INVINCIBLE_GHOST(x,y,image) DRAW_CHARACTER(x,y,image)
-#define DRAW_BOMB(x,y,image) DRAW_CHARACTER(x,y,image)
-#define DRAW_MISSILE(x,y,image) DRAW_CHARACTER(x,y,image)
-
-
-
-#if defined(FULL_GAME) 
-	#if defined(NO_BLINKING)
-		#define _DRAW_PLAYER() \
-			if(invincibilityActive) \
-			{ \
-				DRAW_PLAYER(player._x, player._y, invincibleGhost._imagePtr); \
-			} \
-			else \
-			{ \
-				DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-			}	
-	#else
-		#define _DRAW_PLAYER() \
-			if(invincibilityActive) \
-			{ \
-				DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
-			} \
-			else \
-			{ \
-				DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-			}
-	#endif
-#else
-	#define _DRAW_PLAYER() \
-		DRAW_PLAYER(player._x, player._y, player._imagePtr); 
-#endif
-
-#define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
-
-
-#define DELETE_CHARACTER(x,y) _delete(x,y)
-
-#if defined(__GAMATE__)
-	#define DELETE_PLAYER(x,y,image) do {textcolor(COLOR_CYAN); _delete(x,y);} while(0)
-#else
-	#define DELETE_PLAYER(x,y,image) _delete(x,y)
-#endif
-#define DELETE_GHOST(x,y,image) _delete(x,y)
-#if defined(__GAMATE__)
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) do {textcolor(COLOR_YELLOW); _delete(x,y);} while(0)
-#else
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) _delete(x,y)	
-#endif
-#define DELETE_BOMB(x,y,image) _delete(x,y)
-#define DELETE_POWERUP(x,y,image) _delete(x,y)
-#define DELETE_GUN(x,y,image) _delete(x,y)
-#define DELETE_MISSILE(x,y,image) _delete(x,y)
-#define DELETE_EXTRA_POINTS(x,y,image) _delete(x,y)
-#define DELETE_EXTRA_LIFE(x,y,image) _delete(x,y)
-#define DELETE_INVINCIBILITY(x,y,image) _delete(x,y)	
-
-void DRAW_BOMBS(void);	
 
 // VERTICAL AND HORIZONTAL BORDER
 #if !defined(TINY_GAME)
@@ -491,12 +405,6 @@ void DRAW_BOMBS(void);
 #elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(TINY_GAME))
 	#define SET_TEXT_COLOR(c)
 	void CLEAR_SCREEN(void);
-// #elif defined(__KC__) && defined(Z88DK_SPRITES)
-	// #include <games.h>
-	// #include <graphics.h>
-	
-	// #define SET_TEXT_COLOR(c)
-	// void CLEAR_SCREEN(void);
 	
 #elif defined(Z88DK_SPRITES)
 	#include <games.h>

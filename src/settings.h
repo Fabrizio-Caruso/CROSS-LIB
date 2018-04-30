@@ -262,11 +262,11 @@
 #endif
 
 #if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) \
-    || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) || defined(__OSIC1P__)
+    || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) 
 	#define CC65
 	#define WIDE
 #elif defined(__VIC20__) || defined(__GAMATE__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
-      || defined(__ATARI5200__)
+      || defined(__ATARI5200__) || defined(__OSIC1P__)
 	#define CC65
 	#define NARROW
 #elif defined(__WINCMOC__) || defined(__CMOC__)
@@ -320,7 +320,11 @@
 #if defined(FORCE_GHOSTS_NUMBER)
 	#define GHOSTS_NUMBER FORCE_GHOSTS_NUMBER
 #elif defined(TURN_BASED)
-	#define GHOSTS_NUMBER 9
+	#if defined(TINY_GAME)
+		#define GHOSTS_NUMBER 8
+	#else
+		#define GHOSTS_NUMBER 9
+	#endif
 #else	
 	#if defined(__PCE__)
 		#define GHOSTS_NUMBER 8

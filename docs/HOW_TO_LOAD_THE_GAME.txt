@@ -160,6 +160,11 @@ In the emulator window you should see the "D/C/W/M" prompt.
 Press "M" to run the monitor. You then should see the "0000 00" prompt of the machine monitor.
 Press "l" (lowercase L). This will load the program and start it.
 
+
+Memory configs in WinOSI 
+Open Osi.ini
+32K -> RAMTOP=0x7FFF
+8k  _> RAMTOP=0x1FFF
 ---------------------------------------------------------
 
 SC 3000

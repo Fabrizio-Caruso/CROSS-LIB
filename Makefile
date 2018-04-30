@@ -202,6 +202,7 @@ c128_40col:
 c128_80col: 
 	$(CC65_PATH)$(MYCC65) -O -t c128  \
 	-D C128_80COL_VIDEO_MODE -DFULL_GAME -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DFORCE_GHOSTS_NUMBER=9 \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c  \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -306,6 +307,7 @@ apple2enh:
 osic1p_32k: 
 	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
 	-DTURN_BASED \
+	-DFORCE_GHOSTS_NUMBER=9 \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -322,6 +324,7 @@ osic1p_8k:
 	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(SOURCE_PATH)/../cfg/osic1p_less_stack.cfg -t osic1p \
 	-DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -DNO_SET_SCREEN_COLOR -DTINY_GAME \
 	-DTURN_BASED \
+	-DFORCE_GHOSTS_NUMBER=9 \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_osic1p_8k.lod
 	$(TOOLS_PATH)/srec_cat $(BUILD_PATH)/TINY_osic1p_8k.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p_8k.c1p -Ohio_Scientific -execution-start-address=0x200	
 	rm $(BUILD_PATH)/TINY_osic1p_8k.lod

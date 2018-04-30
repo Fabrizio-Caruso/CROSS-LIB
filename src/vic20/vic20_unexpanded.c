@@ -276,15 +276,8 @@ void _delete(unsigned char x, unsigned char y)
 
 #endif
 
-// void CLEAR_SCREEN(void)
-// {
-	// unsigned char i;
-	// for(i=0;i<254;++i)
-	// {
-		// POKE(7680+i,32);
-		// POKE(7680+254+i,32);
-	// }
-// }
+
+
 
 #if !defined(TINY_GAME)
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 

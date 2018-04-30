@@ -45,11 +45,11 @@
 // #define _PLAYER_LEFT 0x03
 
 // RED
-#define _BOMB 'X'
+#define _BOMB 'x'
 //0x5E
 
 // WHITE
-#define _GHOST 'O'
+#define _GHOST 'o'
 
 
 
@@ -123,18 +123,29 @@ extern Image BOMB_IMAGE;
 #endif
 
 #define BASE_ADDR 7680
+#define COLOR_ADDR 0x9600
+
+// #if !defined(NO_COLOR)
+	// #define _DRAW(x,y,image) POKE(7680+x+y*22, image->_imageData)
+	// #define _DELETE(x,y) POKE(7680+x+y*22, 32)
+	// #define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
+	// #define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
+	// #define _DRAW_BROKEN_WALL(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
+// #else
+	// #define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData); } while(0)
+	// #define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
+// #endif
+
 
 #if !defined(NO_COLOR)
-	#define _DRAW(x,y,image) POKE(7680+x+y*22, image->_imageData)
-	//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); textcolor(image->_color); cputc(image->_imageData); } while(0)
-	#define _DELETE(x,y) POKE(7680+x+y*22, 32)
-	//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
+	#define _DRAW(x,y,image) do {POKE(BASE_ADDR+x+y*22, image->_imageData); POKE(COLOR_ADDR+x+y*22, image->_color); } while(0)
+	#define _DELETE(x,y) POKE(BASE_ADDR+x+y*22, 32)
 	#define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
 	#define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
 	#define _DRAW_BROKEN_WALL(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
 #else
-	#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData); } while(0)
-	#define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
+	#define _DRAW(x,y,image) POKE(7680+x+y*22, image->_imageData)
+	#define _DELETE(x,y) POKE(7680+x+y*22, 32)     
 #endif
 
 

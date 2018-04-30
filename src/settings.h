@@ -365,8 +365,8 @@
 	#endif
 #endif
 	
-// || (defined(__AQUARIUS__) && defined(TINY_GAME)) 
-#if defined(__GAL__) || (defined(__VIC20__) && defined(VIC20_UNEXPANDED) ) || defined(__GAMATE__) \
+// || (defined(__AQUARIUS__) && defined(TINY_GAME)) || (defined(__VIC20__) && defined(VIC20_UNEXPANDED) ) 
+#if defined(__GAL__) || defined(__GAMATE__) \
     || defined(__PC6001__) || defined(__ATARI5200__) || defined(__CREATIVISION__) \
 	|| defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__) || defined(__MC1000__) \
 	|| defined(__LAMBDA__) || (defined(__MSX__) && (defined(MSX_MODE1) || defined(MSX_MODE0))) \

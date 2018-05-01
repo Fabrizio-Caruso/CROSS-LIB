@@ -45,6 +45,7 @@
 		#define AUTHOR_STRING "by fabrizio caruso"
 	#endif
 	#define KILL_THE_SKULL_STRING "kill the skull"
+	#define DESTROY_MISSILES_STRING "destroy the missiles"
 	#define LURE_THE_ENEMIES_STRING "lure the enemies"
 	#define INTO_THE_MINES_STRING 	"into the mines"
 	#define SCORE_STRING "score:"
@@ -59,6 +60,7 @@
 	#define CROSS_CHASE_STRING "C R O S S  C H A S E"		
 	#define AUTHOR_STRING "BY FABRIZIO CARUSO"
 	#define KILL_THE_SKULL_STRING "KILL THE SKULL"	
+	#define DESTROY_MISSILES_STRING "destroy the missiles"	
 	#define LURE_THE_ENEMIES_STRING "LURE THE ENEMIES"
 	#define INTO_THE_MINES_STRING 	"INTO THE MINES"
 	#define SCORE_STRING "SCORE:"
@@ -78,6 +80,7 @@
 		#define AUTHOR_STRING "by Fabrizio caruso"
 	#endif
 	#define KILL_THE_SKULL_STRING "Kill the skull"	
+	#define DESTROY_MISSILES_STRING "Destroy the missiles"	
 	#define LURE_THE_ENEMIES_STRING "Lure the enemies"
 	#define INTO_THE_MINES_STRING "into the mines"
 	#define SCORE_STRING "SCORE:"

@@ -167,7 +167,9 @@ extern Image PLAYER_IMAGE;
 	void printKillTheSkull(void)
 	{
 		printCenteredMessage(KILL_THE_SKULL_STRING);	
+		printCenteredMessageOnRow(((unsigned char)YSize)/2+2,DESTROY_MISSILES_STRING);
 	}
+	
 #endif
 
 

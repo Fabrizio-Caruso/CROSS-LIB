@@ -362,6 +362,11 @@ extern Character player;
 		}	
 	#endif	
 #else
+	#if defined(__ATARI__) || defined(__ATARIXL__)
+	#include <peekpoke.h>
+	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));	POKE(77,0);}
+	#else
 	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
+	#endif
 #endif
 

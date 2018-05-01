@@ -151,7 +151,6 @@ vic20_exp_8k_full:
 	-DNO_BLINKING \
 	-DLESS_TEXT	\
 	-DNO_MESSAGE \
-	-DFORCE_GHOSTS_NUMBER=4 \
 	-DNO_COLOR \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -162,7 +161,7 @@ vic20_exp_8k_full:
 	$(SOURCE_PATH)/missile.c \
 	$(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/rocket.c \
-	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX_NO_SOUND.prg		
+	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_COLOR_NO_GFX_NO_SOUND.prg		
 	
 vic20_exp_16k: 
 	$(CC65_PATH)$(MYCC65) -O -t vic20 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \

@@ -142,15 +142,14 @@ typedef struct ImageStruct Image;
 	  #define YSize (32-Y_OFFSET)
 #elif defined(__KC__) && defined(Z88DK_SPRITES)
 	  #define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)	
-#elif defined(__ATMOS__) 
+#elif defined(__ATMOS__)
 	#define YSize (28-Y_OFFSET)		  
 #elif defined(__CBM610__) || defined(__PET__) || defined(__C128__) \
       || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
 	  || defined(__PET__) || defined(__CBM610__) \
 	  || defined(__MZ__) || defined(__BEE__) || defined(__AQUARIUS__) || defined(__X1__) \
 	  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__) \
-	  || defined(__ENTERPRISE__) \
-	  || defined(__OSIC1P__) 
+	  || defined(__ENTERPRISE__) 
 	#define YSize (25-Y_OFFSET)
 #elif defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
     || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) \
@@ -159,7 +158,9 @@ typedef struct ImageStruct Image;
 	|| defined(__Z9001__) || defined(__P2000__) \
 	|| defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__)) \
 	|| defined(__ACE__) \
-	|| defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__) || defined(__EINSTEIN__) 
+	|| defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__) \
+	|| defined(__EINSTEIN__) \
+	|| defined(__OSIC1P__) 
 	#define YSize (24-Y_OFFSET)		
 #elif defined(__VIC20__)
 	#define YSize 23	
@@ -213,7 +214,7 @@ typedef struct ImageStruct Image;
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__)
 		#define XSize 32	
 	#elif defined(__OSIC1P__)
-		#define XSize 26
+		#define XSize 24
 	#elif defined(__VIC20__)
 		#define XSize 22
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) \

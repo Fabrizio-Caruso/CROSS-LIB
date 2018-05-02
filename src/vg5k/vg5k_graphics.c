@@ -163,22 +163,22 @@ void INIT_GRAPHICS(void)
 	}
 #endif
 
-void no_cursor(void)
-{	
-	#asm
-	jr clean_cursor
-	ef9345:
-		defb 0x04,0x20,0x82,0x29,0x00
-	clean_cursor:
-		ld hl,ef9345
-		ld ix,$47FA
-		call 0x00AD
-	#endasm		
-}
+// void no_cursor(void)
+// {	
+	// #asm
+	// jr clean_cursor
+	// ef9345:
+		// defb 0x04,0x20,0x82,0x29,0x00
+	// clean_cursor:
+		// ld hl,ef9345
+		// ;ld ix,$47FA
+		// call 0x00AD
+	// #endasm		
+// }
 
 void CLEAR_SCREEN()
 {
-	no_cursor();
+	// no_cursor();
 	clrscr();
 	INIT_GRAPHICS();
 }		
@@ -213,7 +213,7 @@ void _draw_ch_aux(int chCol, int xy)
 	push hl
 	push bc
 	
-	ld ix,$47FA	
+	;ld ix,$47FA	
 	
 	call 0x0092	
 	
@@ -222,7 +222,7 @@ void _draw_ch_aux(int chCol, int xy)
 
 void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 {
-	no_cursor();		
+	// no_cursor();		
 		
 	{			
 		int xy = ((Y_OFFSET+y+7)<<8) | (X_OFFSET+x);

@@ -127,7 +127,7 @@ extern Image BOMB_IMAGE;
 	Image PLAYER_LEFT;
 #endif
 
-#define BASE_ADDR 7680
+#define BASE_ADDR 0x1000
 #define COLOR_ADDR 0x9600
 
 
@@ -155,11 +155,11 @@ void INIT_GRAPHICS(void)
 	// }
 	// WAIT_PRESS();
 	
-	#if defined(TINY_GAME)
+	// #if defined(TINY_GAME)
 		#include<peekpoke.h>
 		POKE(646,1);
 		POKE(36879L,9);
-	#endif		
+	// #endif		
 }
 
 void INIT_IMAGES(void)
@@ -279,25 +279,25 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 #if !defined(TINY_GAME)
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
-	// unsigned char i;
-	// SET_TEXT_COLOR(COLOR_YELLOW);
+	unsigned char i;
+	SET_TEXT_COLOR(COLOR_YELLOW);
 
-	// for(i=0;i<length;++i) 
-	// { 
-		// gotoxy(x+i+X_OFFSET,y+Y_OFFSET);  cputc('-');
-	// } 	
+	for(i=0;i<length;++i) 
+	{ 
+		gotoxy(x+i+X_OFFSET,y+Y_OFFSET);  cputc('-');
+	} 	
 }
 
 
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
-	// unsigned char i;
-	// SET_TEXT_COLOR(COLOR_YELLOW);
+	unsigned char i;
+	SET_TEXT_COLOR(COLOR_YELLOW);
 
-	// for(i=0;i<length;++i) 
-	// { 
-		// gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  cputc('|');
-	// } 	
+	for(i=0;i<length;++i) 
+	{ 
+		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  cputc('|');
+	} 	
 }
 #endif
 

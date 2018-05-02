@@ -142,19 +142,25 @@ vic20_exp_8k:
 	# -DALT_PRINT
 	# 	$(SOURCE_PATH)/vic20/vic20_alt_print.c 
 	
-vic20_exp_8k_full:
+	# 	-DSIMPLE_STRATEGY \
+	# -DNO_INITIAL_SCREEN \
+	# -DNO_SLEEP \
+	# -DFORCE_KEYBOARD \
+	# -DNO_RANDOM_LEVEL \
+	# -DNO_MESSAGE 
+	
+	
+vic20_exp_8k_full_no_gfx:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 --config $(SOURCE_PATH)/../cfg/vic20-8k.cfg \
 	-DFULL_GAME \
-	-DSIMPLE_STRATEGY \
-	-DNO_INITIAL_SCREEN \
-	-DNO_SLEEP \
-	-DFORCE_KEYBOARD \
-	-DNO_RANDOM_LEVEL \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_BLINKING \
 	-DLESS_TEXT	\
-	-DNO_MESSAGE \
 	-DALT_PRINT \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SLEEP \
+	-DNO_MESSAGE \
+	-DNO_INITIAL_SCREEN \
 	$(SOURCE_PATH)/vic20/vic20_alt_print.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -165,7 +171,35 @@ vic20_exp_8k_full:
 	$(SOURCE_PATH)/missile.c \
 	$(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/rocket.c \
-	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_COLOR_NO_GFX_NO_SOUND.prg		
+	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
+
+vic20_exp_8k_full_no_sound:
+	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DREDEFINED_CHARS --config $(SOURCE_PATH)/../cfg/vic20-8k_gfx_tight.cfg \
+	-DFULL_GAME \
+	-DSIMPLE_STRATEGY \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SLEEP \
+	-DFORCE_KEYBOARD \
+	-DNO_RANDOM_LEVEL \
+	-DFORCE_GHOSTS_NUMBER=4 \
+	-DNO_BLINKING \
+	-DLESS_TEXT	\
+	-DNO_MESSAGE \
+	-DALT_PRINT \
+	$(SOURCE_PATH)/vic20/udc_3k.s \
+	$(SOURCE_PATH)/vic20/vic20_alt_print.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/main.c  \
+	$(SOURCE_PATH)/enemy.c \
+	--code-name CODE2 \
+	$(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/missile.c \
+	$(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/rocket.c \
+	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_SOUND.prg	
 	
 vic20_exp_16k: 
 	$(CC65_PATH)$(MYCC65) -O -t vic20 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \

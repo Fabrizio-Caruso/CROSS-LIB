@@ -30,17 +30,6 @@
 #include <string.h>
 
 #include "../input_macros.h"
-	
-// BLUE
-// #define _PLAYER '\'';
-// #define _PLAYER_DOWN '\''+0xA0;
-// #define _PLAYER_UP 0x70+0xA0
-// #define _PLAYER_RIGHT 0x74+0xA0 
-// #define _PLAYER_LEFT 0x72+0xA0
-
-// #define _BOMB 0x78+0xA0
-
-// #define _GHOST (0x76+0xA0)
 
 #define _PLAYER_DOWN 0x00
 #define _PLAYER_UP 0x0E
@@ -49,12 +38,9 @@
 
 // RED
 #define _BOMB 0x1B
-//0x5E
 
 // WHITE
 #define _GHOST 0x1C
-
-
 
 #define _DEAD_GHOST _GHOST
 
@@ -72,22 +58,17 @@
 // GREEN
 #define _POWERUP  0x7A;
 
-
 // CYAN
 #define _INVINCIBILITY 0x73
 #define _MISSILE 0x7C
 
 #define _LEFT_ENEMY_MISSILE '>'
 
-//((unsigned char)0x7B)
 #define _RIGHT_ENEMY_MISSILE '<'
 
-//((unsigned char)0x7D)
 #define _BUBBLE '^'
 
 #include "../display_macros.h"
-
-// extern unsigned char XSize;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

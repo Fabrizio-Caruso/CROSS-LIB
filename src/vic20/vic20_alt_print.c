@@ -31,64 +31,84 @@
 
 #include "../input_macros.h"
 	
-// BLUE
-// #define _PLAYER '\'';
-// #define _PLAYER_DOWN '\''+0xA0;
-// #define _PLAYER_UP 0x70+0xA0
-// #define _PLAYER_RIGHT 0x74+0xA0 
-// #define _PLAYER_LEFT 0x72+0xA0
+#if !defined(REDEFINED_CHARS)
+	#define _PLAYER_DOWN '*'
+	#define _PLAYER_UP 0x0E
+	#define _PLAYER_RIGHT 0x11
+	#define _PLAYER_LEFT 0x10
+	#define _PLAYER _PLAYER_DOWN
 
-// #define _BOMB 0x78+0xA0
+	// RED
+	#define _BOMB 'x'
 
-// #define _GHOST (0x76+0xA0)
+	// WHITE
+	#define _GHOST 'o'
 
-#define _PLAYER_DOWN '*'
-#define _PLAYER_UP 0x0E
-#define _PLAYER_RIGHT 0x11
-#define _PLAYER_LEFT 0x10
-#define _PLAYER _PLAYER_DOWN
+	#define _DEAD_GHOST '#'
 
-// RED
-#define _BOMB 'x'
-//0x5E
+	// BLUE
+	#define _GUN '!'
 
-// WHITE
-#define _GHOST 'o'
+	// YELLOW
+	#define _INVINCIBLE_GHOST '+'
+	#define _VERTICAL_BRICK '|'
+	#define _HORIZONTAL_BRICK '-'
+	#define _EXTRA_LIFE _PLAYER_DOWN
+	#define _EXTRA_POINTS '$'
+
+	// GREEN
+	#define _POWERUP  'S';
+
+	// CYAN
+	#define _INVINCIBILITY 'V'
+	#define _MISSILE '.'
+
+	#define _LEFT_ENEMY_MISSILE '>'
+
+	#define _RIGHT_ENEMY_MISSILE '<'
+
+	#define _BUBBLE '^'
+#else
+	#define _PLAYER_DOWN 0x00
+	#define _PLAYER_UP 0x0E
+	#define _PLAYER_RIGHT 0x11
+	#define _PLAYER_LEFT 0x10
+	#define _PLAYER _PLAYER_DOWN
+
+	// RED
+	#define _BOMB 0x1B
+
+	// WHITE
+	#define _GHOST 0x1C
+
+	#define _DEAD_GHOST _GHOST
 
 
+	// BLUE
+	#define _GUN 0x7B
 
-#define _DEAD_GHOST '#'
+	// YELLOW
+	#define _INVINCIBLE_GHOST 0x77
+	#define _VERTICAL_BRICK 0x26
+	#define _HORIZONTAL_BRICK 0x2B
+	#define _EXTRA_LIFE _PLAYER
+	#define _EXTRA_POINTS '$'
 
+	// GREEN
+	#define _POWERUP  0x7A;
 
-// BLUE
-#define _GUN '!'
+	// CYAN
+	#define _INVINCIBILITY 0x73
+	#define _MISSILE 0x7C
 
-// YELLOW
-#define _INVINCIBLE_GHOST '+'
-#define _VERTICAL_BRICK '|'
-#define _HORIZONTAL_BRICK '-'
-#define _EXTRA_LIFE _PLAYER_DOWN
-#define _EXTRA_POINTS '*'
+	#define _LEFT_ENEMY_MISSILE '>'
 
-// GREEN
-#define _POWERUP  'S';
+	#define _RIGHT_ENEMY_MISSILE '<'
 
-
-// CYAN
-#define _INVINCIBILITY 'V'
-#define _MISSILE '.'
-
-#define _LEFT_ENEMY_MISSILE '>'
-
-//((unsigned char)0x7B)
-#define _RIGHT_ENEMY_MISSILE '<'
-
-//((unsigned char)0x7D)
-#define _BUBBLE '^'
+	#define _BUBBLE '^'
+#endif	
 
 #include "../display_macros.h"
-
-// extern unsigned char XSize;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -141,25 +161,17 @@ extern Image BOMB_IMAGE;
 #endif
 #define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
 #define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
-#define _DRAW_BROKEN_WALL(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
+#define _DRAW_BROKEN_WALL(x,y) 
+//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
 
 void INIT_GRAPHICS(void)
 {
-	// unsigned char i;
-	
-	// POKE(0x9005,0xFF);			
+	#if defined(REDEFINED_CHARS)
+		POKE(0x9005,0xFF);			
+	#endif
 
-	// for(i=0;i<64;++i)
-	// {
-		// POKE(BASE_ADDR+i,i);
-	// }
-	// WAIT_PRESS();
-	
-	// #if defined(TINY_GAME)
-		#include<peekpoke.h>
-		POKE(646,1);
-		POKE(36879L,9);
-	// #endif		
+	POKE(646,1);
+	POKE(36879L,9);		
 }
 
 void INIT_IMAGES(void)
@@ -304,12 +316,12 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 #if defined(ALT_PRINT)
 void PRINT(unsigned char x, unsigned char y, char * str)
 {
-	unsigned char i = 0;
-	while(str[i]!='\0')
-	{
-		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]-64); 
-		++i;
-	}
+	// unsigned char i = 0;
+	// while(str[i]!='\0')
+	// {
+		// POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]-64); 
+		// ++i;
+	// }
 }
 
 void print_05u0(unsigned char x, unsigned char y, unsigned short val)
@@ -336,8 +348,8 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 
 void print_02u(unsigned char x, unsigned char y, unsigned short val)
 {
-	POKE(BASE_ADDR+x+y*  ((unsigned short)XSize), ((unsigned char) val)/10+48);		
-	POKE(BASE_ADDR+x+1+y*((unsigned short)XSize), ((unsigned char) val)%10+48);	
+	// POKE(BASE_ADDR+x+y*  ((unsigned short)XSize), ((unsigned char) val)/10+48);		
+	// POKE(BASE_ADDR+x+1+y*((unsigned short)XSize), ((unsigned char) val)%10+48);	
 }	
 
 

@@ -128,7 +128,7 @@ extern Image BOMB_IMAGE;
 #endif
 
 #define BASE_ADDR 0x1000
-#define COLOR_ADDR 0x9600
+#define COLOR_ADDR 0x9400
 
 
 

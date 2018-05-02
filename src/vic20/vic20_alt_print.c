@@ -42,41 +42,41 @@
 
 // #define _GHOST (0x76+0xA0)
 
-#define _PLAYER_DOWN 0x00
+#define _PLAYER_DOWN '*'
 #define _PLAYER_UP 0x0E
 #define _PLAYER_RIGHT 0x11
 #define _PLAYER_LEFT 0x10
 #define _PLAYER _PLAYER_DOWN
 
 // RED
-#define _BOMB 0x1B
+#define _BOMB 'x'
 //0x5E
 
 // WHITE
-#define _GHOST 0x1C
+#define _GHOST 'o'
 
 
 
-#define _DEAD_GHOST _GHOST
+#define _DEAD_GHOST '#'
 
 
 // BLUE
-#define _GUN 0x7B
+#define _GUN '!'
 
 // YELLOW
-#define _INVINCIBLE_GHOST 0x77
-#define _VERTICAL_BRICK 0x26
-#define _HORIZONTAL_BRICK 0x2B
+#define _INVINCIBLE_GHOST '+'
+#define _VERTICAL_BRICK '|'
+#define _HORIZONTAL_BRICK '-'
 #define _EXTRA_LIFE _PLAYER_DOWN
 #define _EXTRA_POINTS '*'
 
 // GREEN
-#define _POWERUP  0x7A;
+#define _POWERUP  'S';
 
 
 // CYAN
-#define _INVINCIBILITY 0x73
-#define _MISSILE 0x7C
+#define _INVINCIBILITY 'V'
+#define _MISSILE '.'
 
 #define _LEFT_ENEMY_MISSILE '>'
 
@@ -120,13 +120,17 @@ extern Image BOMB_IMAGE;
 #endif
 
 
-Image PLAYER_DOWN;
-Image PLAYER_UP;
-Image PLAYER_RIGHT;
-Image PLAYER_LEFT;
+#if defined(REDEFINED_CHARS)
+	Image PLAYER_DOWN;
+	Image PLAYER_UP;
+	Image PLAYER_RIGHT;
+	Image PLAYER_LEFT;
+#endif
 
 #define BASE_ADDR 7680
 #define COLOR_ADDR 0x9600
+
+
 
 #if !defined(NO_COLOR)
 	#define _DRAW(x,y,image) do {POKE(BASE_ADDR+x+y*22, image->_imageData); POKE(COLOR_ADDR+x+y*22, image->_color); } while(0)
@@ -153,8 +157,8 @@ void INIT_GRAPHICS(void)
 	
 	#if defined(TINY_GAME)
 		#include<peekpoke.h>
-		// POKE(646,1);
-		// POKE(36879L,9);
+		POKE(646,1);
+		POKE(36879L,9);
 	#endif		
 }
 
@@ -174,11 +178,15 @@ void INIT_IMAGES(void)
 			MISSILE_IMAGE._color = COLOR_BLUE;
 		#endif
 		
-		PLAYER_DOWN._color = COLOR_CYAN;
-		PLAYER_UP._color = COLOR_CYAN;
-		PLAYER_RIGHT._color = COLOR_CYAN;
-		PLAYER_LEFT._color = COLOR_CYAN;
-
+		#if defined(REDEFINED_CHARS)
+			PLAYER_DOWN._color = COLOR_CYAN;
+			PLAYER_UP._color = COLOR_CYAN;
+			PLAYER_RIGHT._color = COLOR_CYAN;
+			PLAYER_LEFT._color = COLOR_CYAN;
+		#else
+			PLAYER_IMAGE._color = COLOR_CYAN;
+		#endif
+		
 		#if defined(FULL_GAME)
 			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
 			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
@@ -198,7 +206,6 @@ void INIT_IMAGES(void)
 	
 	GHOST_IMAGE._imageData = _GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
-	// PLAYER_IMAGE._imageData = _PLAYER;	
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
 	
 	
@@ -212,11 +219,15 @@ void INIT_IMAGES(void)
 		MISSILE_IMAGE._imageData = _MISSILE;
 	#endif
 	
-	PLAYER_DOWN._imageData = _PLAYER_DOWN;
-	PLAYER_UP._imageData = _PLAYER_UP;	
-	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-	PLAYER_LEFT._imageData = _PLAYER_LEFT;	
-
+	#if defined(REDEFINED_CHARS)
+		PLAYER_DOWN._imageData = _PLAYER_DOWN;
+		PLAYER_UP._imageData = _PLAYER_UP;	
+		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+		PLAYER_LEFT._imageData = _PLAYER_LEFT;	
+	#else
+		PLAYER_IMAGE._imageData = _PLAYER_DOWN;			
+	#endif
+	
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
@@ -268,25 +279,25 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 #if !defined(TINY_GAME)
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
-	unsigned char i;
-	SET_TEXT_COLOR(COLOR_YELLOW);
+	// unsigned char i;
+	// SET_TEXT_COLOR(COLOR_YELLOW);
 
-	for(i=0;i<length;++i) 
-	{ 
-		gotoxy(x+i+X_OFFSET,y+Y_OFFSET);  cputc('-');
-	} 	
+	// for(i=0;i<length;++i) 
+	// { 
+		// gotoxy(x+i+X_OFFSET,y+Y_OFFSET);  cputc('-');
+	// } 	
 }
 
 
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
-	unsigned char i;
-	SET_TEXT_COLOR(COLOR_YELLOW);
+	// unsigned char i;
+	// SET_TEXT_COLOR(COLOR_YELLOW);
 
-	for(i=0;i<length;++i) 
-	{ 
-		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  cputc('|');
-	} 	
+	// for(i=0;i<length;++i) 
+	// { 
+		// gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  cputc('|');
+	// } 	
 }
 #endif
 

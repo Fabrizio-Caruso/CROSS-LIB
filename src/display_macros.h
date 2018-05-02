@@ -313,6 +313,9 @@ void _delete(unsigned char x, unsigned char y);
 #elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT) && !defined(VIC20_UNEXPANDED)
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
+#elif defined(__VIC20__) && defined(FULL_GAME) && defined(ALT_PRINT)
+	void PRINT(unsigned char x, unsigned char y, char * str);
+	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);		
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <coco.h>
 	void PRINT(unsigned char x, unsigned char y, char * str);

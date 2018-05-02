@@ -138,7 +138,10 @@ vic20_exp_8k:
 	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
-
+	
+	# -DALT_PRINT
+	# 	$(SOURCE_PATH)/vic20/vic20_alt_print.c 
+	
 vic20_exp_8k_full:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 --config $(SOURCE_PATH)/../cfg/vic20-8k.cfg \
 	-DFULL_GAME \
@@ -151,6 +154,7 @@ vic20_exp_8k_full:
 	-DNO_BLINKING \
 	-DLESS_TEXT	\
 	-DNO_MESSAGE \
+	-DNO_SET_SCREEN_COLOR \
 	-DNO_COLOR \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \

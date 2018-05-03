@@ -314,14 +314,20 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 #endif
 
 #if defined(ALT_PRINT)
+
+unsigned short loc(unsigned char x, unsigned char y)
+{
+	return BASE_ADDR+x+y*((unsigned short)XSize);
+}
+
 void PRINT(unsigned char x, unsigned char y, char * str)
 {
-	// unsigned char i = 0;
-	// while(str[i]!='\0')
-	// {
-		// POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), str[i]-64); 
-		// ++i;
-	// }
+	unsigned char i = 0;
+	while(str[i]!='\0')
+	{
+		POKE(loc(x,y)+i, str[i]-64); 
+		++i;
+	}
 }
 
 void print_05u0(unsigned char x, unsigned char y, unsigned short val)
@@ -342,12 +348,15 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 	
 	for(i=0;i<6;++i)
 	{
-		POKE(BASE_ADDR+x+i+y*((unsigned short)XSize), (unsigned char) (digits[5-i])+48);
+		POKE(loc(x,y)+i, (unsigned char) (digits[5-i])+48);
 	}
 }	
 
 void print_02u(unsigned char x, unsigned char y, unsigned short val)
 {
+	POKE(loc(x,y), ((unsigned char) val)/10+48);
+	POKE(1+loc(x,y), ((unsigned char) val)%10+48);
+	
 	// POKE(BASE_ADDR+x+y*  ((unsigned short)XSize), ((unsigned char) val)/10+48);		
 	// POKE(BASE_ADDR+x+1+y*((unsigned short)XSize), ((unsigned char) val)%10+48);	
 }	
@@ -355,7 +364,7 @@ void print_02u(unsigned char x, unsigned char y, unsigned short val)
 
 void print_u(unsigned char x, unsigned char y, unsigned short val)
 {
-	POKE(BASE_ADDR+x+y*((unsigned short)XSize), (unsigned char) (val+48));
+	POKE(loc(x,y), (unsigned char) (val+48));
 }
 
 

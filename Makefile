@@ -161,6 +161,8 @@ vic20_exp_8k_full_no_gfx:
 	-DNO_SLEEP \
 	-DNO_MESSAGE \
 	-DNO_INITIAL_SCREEN \
+	-DSOUNDS \
+	$(SOURCE_PATH)/vic20/vic20_sounds.c \	
 	$(SOURCE_PATH)/vic20/vic20_alt_print.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \

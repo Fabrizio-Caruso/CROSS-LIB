@@ -58,7 +58,7 @@
 	void ZAP_SOUND() 
 	{ 
 		unsigned char i; 
-		unsigned char j; 
+		unsigned char j;
 		VIC.volume_color |= 0x0B; 
 		for(j=0;j<15;++j) 
 		{ \

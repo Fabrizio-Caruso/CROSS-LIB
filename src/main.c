@@ -396,7 +396,7 @@ int main(void)
 				if(bossLevel())
 				{
 					printKillTheSkull();
-					sleep(1);
+					sleep(2);
 				}
 				CLEAR_SCREEN();
 				
@@ -682,6 +682,7 @@ int main(void)
 		#if !defined(NO_SLEEP)
 			sleep(2);
 		#else
+			CLEAR_SCREEN();
 			WAIT_PRESS();
 		#endif
 	}

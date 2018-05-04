@@ -216,7 +216,7 @@
 		#define GAME_SLOW_DOWN 0	
 	#elif defined(__SPECTRUM__) && !defined(TINY_GAME)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 400		
+		#define GAME_SLOW_DOWN 1200		
 	#elif defined(__CPC__) && defined(CPCRSLIB)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 400	
@@ -409,9 +409,9 @@
 // #define EXTRA_LIFE_FIRST_LEVEL 10
 
 #if defined(WIDE)
-	#define MIN_INVINCIBLE_GHOST_HITS 5
-#else
 	#define MIN_INVINCIBLE_GHOST_HITS 4
+#else
+	#define MIN_INVINCIBLE_GHOST_HITS 3
 #endif	
 	
 #define HORIZONTAL_MISSILE_BONUS 50UL

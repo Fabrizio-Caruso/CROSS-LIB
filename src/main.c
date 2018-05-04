@@ -439,6 +439,15 @@ int main(void)
 			while(player._status && (ghostCount>0) )
 			#endif
 			{
+				#if defined(TURN_BASED)
+					_DRAW_PLAYER();
+				#endif
+				MOVE_PLAYER();
+
+				#if !defined(TURN_BASED)
+					_DRAW_PLAYER();	
+				#endif
+				
 				#if defined(SLOW_DOWN)
 					_slow_down();
 				#endif
@@ -580,10 +589,6 @@ int main(void)
 				// Display ghosts
 				SKIP_DRAW
 					displayGhosts();
-				
-				MOVE_PLAYER();
-				
-				_DRAW_PLAYER();	
 			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
 
 			if(player._status) // if level finished

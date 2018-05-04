@@ -25,7 +25,7 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 1 
 
 // Final level 
 #define FINAL_LEVEL 20

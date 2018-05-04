@@ -12,12 +12,16 @@ extern Character rightEnemyMissile;
 extern Character player;
 
 extern unsigned char arrowRange;
+unsigned char arrowYPosition;
 
-
+	unsigned char _playerInArrowRange()
+	{
+		return (loop&1 && player._y<=(arrowYPosition+arrowRange) && player._y>=(arrowYPosition-arrowRange));
+	}
 	
 	void _handle_enemy_missile_from_the_left(void)
 	{
-		if(!oneMissileLevel() && leftEnemyMissile._status)
+		if(leftEnemyMissile._status)
 		{
 			deleteMissile(&leftEnemyMissile);
 			if(leftEnemyMissile._x==XSize-2)
@@ -28,9 +32,13 @@ extern unsigned char arrowRange;
 			else
 			{
 				ADVANCED_LEFT_MISSILE();
-				if(loop&1 && player._y>=YSize-1-ENEMY_MISSILE_OFFSET-arrowRange && player._x>=leftEnemyMissile._x)
+				if(_playerInArrowRange()) //YSize-1-ENEMY_MISSILE_OFFSET))
+				//if(player._y>=YSize-1-ENEMY_MISSILE_OFFSET-arrowRange)
 				{
-					move(&leftEnemyMissile, &player, Y_MOVE);			
+					if(player._x>=leftEnemyMissile._x)
+					{
+						move(&leftEnemyMissile, &player, Y_MOVE);			
+					}
 				}
 			}
 			displayMissile(&leftEnemyMissile);
@@ -62,9 +70,16 @@ extern unsigned char arrowRange;
 			else
 			{
 				ADVANCED_RIGHT_MISSILE();
-				if((loop&1 && (player._x<= rightEnemyMissile._x)) && ((!oneMissileLevel() && player._y<=ENEMY_MISSILE_OFFSET+arrowRange) || (oneMissileLevel() && player._y<=YSize/2+arrowRange && player._y>=YSize/2-arrowRange)))			
+				if(_playerInArrowRange())
+				// if((!oneMissileLevel() && _playerInArrowRange(ENEMY_MISSILE_OFFSET)) 
+					// || (oneMissileLevel() && _playerInArrowRange(YSize/2)))
+				// if(((!oneMissileLevel() && player._y<=ENEMY_MISSILE_OFFSET+arrowRange) 
+					// || (oneMissileLevel() && player._y<=YSize/2+arrowRange && player._y>=YSize/2-arrowRange)))
 				{
-					move(&rightEnemyMissile, &player,Y_MOVE);			
+					if(player._x<= rightEnemyMissile._x)	
+					{
+						move(&rightEnemyMissile, &player,Y_MOVE);			
+					}
 				}
 			}
 			displayMissile(&rightEnemyMissile);	
@@ -78,11 +93,20 @@ extern unsigned char arrowRange;
 	
 	void handle_enemy_missiles(void)
 	{	
-		if(missileLevel() || bossLevel() || oneMissileLevel())
+		if(oneMissileLevel())
 		{
-			_handle_enemy_missile_from_the_left();	
+			arrowYPosition = YSize/2;
 			_handle_enemy_missile_from_the_right();
 		}	
+		else if(missileLevel() || bossLevel())
+		{
+			arrowYPosition = ENEMY_MISSILE_OFFSET;
+			_handle_enemy_missile_from_the_right();
+			
+			arrowYPosition = YSize-1-ENEMY_MISSILE_OFFSET; 
+			_handle_enemy_missile_from_the_left();
+		}
+
 	}
 	
 #endif // defined(FULL_GAME)

@@ -157,9 +157,9 @@ vic20_exp_8k_full_no_gfx:
 	-DNO_BLINKING \
 	-DLESS_TEXT	\
 	-DALT_PRINT \
-	-DSIMPLE_STRATEGY \
 	-DNO_SET_SCREEN_COLOR \
 	-DNO_HINTS \
+	-DSIMPLE_STRATEGY \
 	$(SOURCE_PATH)/vic20/vic20_alt_print.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \

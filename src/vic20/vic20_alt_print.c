@@ -325,7 +325,7 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	unsigned char i = 0;
 	while(str[i]!='\0')
 	{
-		POKE(loc(x,y)+i, str[i]-64); 
+		POKE(loc(x,y)+i, str[i]); 
 		++i;
 	}
 }

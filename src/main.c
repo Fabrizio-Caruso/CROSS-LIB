@@ -251,7 +251,7 @@ void initialScreen(void)
 	CLEAR_SCREEN();					
 	printStartMessage();
 	
-	#if defined(FULL_GAME)
+	#if defined(FULL_GAME) && !defined(NO_HINTS)
 		WAIT_PRESS();
 		CLEAR_SCREEN();
 		printHints();	

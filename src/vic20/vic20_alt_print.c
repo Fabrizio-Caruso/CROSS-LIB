@@ -354,11 +354,8 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 
 void print_02u(unsigned char x, unsigned char y, unsigned short val)
 {
-	POKE(loc(x,y), ((unsigned char) val)/10+48);
-	POKE(1+loc(x,y), ((unsigned char) val)%10+48);
-	
-	// POKE(BASE_ADDR+x+y*  ((unsigned short)XSize), ((unsigned char) val)/10+48);		
-	// POKE(BASE_ADDR+x+1+y*((unsigned short)XSize), ((unsigned char) val)%10+48);	
+	POKE((loc(x,y)), ((unsigned char) val)/10+48);
+	POKE((1+loc(x,y)), ((unsigned char) val)%10+48);
 }	
 
 

@@ -289,7 +289,8 @@
 	#define ADVANCED_RIGHT_MISSILE() do{if(loop&1)--rightEnemyMissile._x;}while(0)
 #endif
 
-#if (defined(__VIC20__) && defined(REDEFINED_CHARS)) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__GAMATE__) \
+#if (defined(__VIC20__) && defined(REDEFINED_CHARS)) || (defined(__VIC20__) && defined(ALT_PRINT)) \
+	|| defined(__WINCMOC__) || defined(__CMOC__) || defined(__GAMATE__) \
     || defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) \
 	|| defined(__ZX80__)
 	#define NO_CASE_LETTERS
@@ -382,6 +383,12 @@
 #else
 	#define COLOR
 #endif
+	
+#if defined(__ATARI__) || defined(__ATARIXL__) \
+	|| (defined(__VIC20__) && defined(ALT_PRINT))
+	#define NO_TEXT_COLOR
+#endif
+
 	
 #if defined(__ZX81__) || defined(__LAMBDA__)
 	#define BUBBLES_NUMBER 2

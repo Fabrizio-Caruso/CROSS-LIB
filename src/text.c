@@ -128,7 +128,7 @@ extern Image PLAYER_IMAGE;
 
 
 
-#if !defined(NO_COLOR) && !defined(NO_MESSAGE)
+#if !defined(NO_COLOR) && !defined(NO_MESSAGE) && !defined(NO_TEXT_COLOR)
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
 		PRINT(((XSize - strlen(Text))>>1), row, Text);	
@@ -366,7 +366,7 @@ void displayStats(void)
 
 
 
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(NO_HINTS)
 	void printHints(void)
 	{
 		printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);		

@@ -149,18 +149,26 @@ extern Image BOMB_IMAGE;
 
 #define BASE_ADDR 0x1000
 #define COLOR_ADDR 0x9400
+#define DELTA_ADDR (COLOR_ADDR-BASE_ADDR)
 
-
+#if defined(ALT_PRINT)
+unsigned short loc(unsigned char x, unsigned char y)
+{
+	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
+}
+#endif
 
 #if !defined(NO_COLOR)
-	#define _DRAW(x,y,image) do {POKE(BASE_ADDR+x+y*22, image->_imageData); POKE(COLOR_ADDR+x+y*22, image->_color); } while(0)
-	#define _DELETE(x,y) POKE(BASE_ADDR+x+y*22, 32)
+	#define _DRAW(x,y,image) do {POKE(loc(x,y), image->_imageData); POKE(COLOR_ADDR+x+y*22, image->_color); } while(0)
+	#define _DELETE(x,y) POKE(loc(x,y), 32)
 #else
 	#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData); } while(0)
 	#define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
 #endif
-#define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
-#define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
+#define _DRAW_VERTICAL_WALL(x,y)  POKE(loc(x,y),'|')
+//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
+#define _DRAW_HORIZONTAL_WALL(x,y)  POKE(loc(x,y),'-')
+//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
 #define _DRAW_BROKEN_WALL(x,y) 
 //do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
 
@@ -292,11 +300,13 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
 	unsigned char i;
-	SET_TEXT_COLOR(COLOR_YELLOW);
+	// SET_TEXT_COLOR(COLOR_YELLOW);
 
 	for(i=0;i<length;++i) 
 	{ 
 		gotoxy(x+i+X_OFFSET,y+Y_OFFSET);  cputc('-');
+		// _DRAW_VERTICAL_WALL(x+i,y);
+		// POKE(loc(x+i,y),'-');
 	} 	
 }
 
@@ -304,21 +314,18 @@ void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
 	unsigned char i;
-	SET_TEXT_COLOR(COLOR_YELLOW);
+	// SET_TEXT_COLOR(COLOR_YELLOW);
 
 	for(i=0;i<length;++i) 
 	{ 
 		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  cputc('|');
+		// _DRAW_HORIZONTAL_WALL(x,y+i);
+		// POKE(loc(x,y+i),'|');
 	} 	
 }
 #endif
 
 #if defined(ALT_PRINT)
-
-unsigned short loc(unsigned char x, unsigned char y)
-{
-	return BASE_ADDR+x+y*((unsigned short)XSize);
-}
 
 void PRINT(unsigned char x, unsigned char y, char * str)
 {

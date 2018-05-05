@@ -243,20 +243,6 @@ void INIT_IMAGES(void)
 	#endif	
 }
 
-
-
-#define BASE_ADDR 0x0C00
-#define COLOR_ADDR 0x0800
-
-unsigned short loc(unsigned char x, unsigned char y)
-{
-	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
-}
-
-#define _DRAW(x,y,image) do {POKE(loc(x,y), image->_imageData); POKE((-0x0400+loc(x,y)), image->_color); } while(0)
-#define _DELETE(x,y) POKE(loc(x,y), 32)
-
-
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(char x, char y)
 	{
@@ -268,31 +254,32 @@ unsigned short loc(unsigned char x, unsigned char y)
 
 void _draw(char x, char y, Image * image) 
 {
-	_DRAW(x,y,image);
-};
-
-void _delete(char x, char y)
-{
-	_DELETE(x,y);
+	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+	(void) textcolor (image->_color);
+	cputc(image->_imageData); 
 };
 
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char * blinkCounter)
 {
-	// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-	// SET_TEXT_COLOR(image->_color);
+	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+	SET_TEXT_COLOR(image->_color);
 	if(*blinkCounter) 
 	{
-		// cputc(image->_imageData); 
-		_draw(x,y,image);
+		cputc(image->_imageData); 
 		*blinkCounter=0;
 	} 
 	else 
 	{
-		// cputc(' '); 
-		_delete(x,y);
+		cputc(' '); 
 		*blinkCounter=1;
 	}	
 }	
+
+
+void _delete(char x, char y)
+{
+	gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' ');
+};
 
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {

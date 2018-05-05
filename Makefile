@@ -139,16 +139,8 @@ vic20_exp_8k:
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
 	
-	# -DALT_PRINT
-	# 	$(SOURCE_PATH)/vic20/vic20_alt_print.c 
-	
-	# 	-DSIMPLE_STRATEGY \
-	# -DNO_INITIAL_SCREEN \
-	# -DNO_SLEEP \
-	# -DFORCE_KEYBOARD \
-	# -DNO_RANDOM_LEVEL \
-	# -DNO_MESSAGE 
-	
+#	-DSOUNDS 
+#	$(SOURCE_PATH)/vic20/vic20_sounds.c 
 	
 vic20_exp_8k_full_no_gfx:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 --config $(SOURCE_PATH)/../cfg/vic20-8k.cfg \

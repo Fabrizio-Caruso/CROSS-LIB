@@ -408,7 +408,7 @@ void _delete(unsigned char x, unsigned char y);
 	#define CLEAR_SCREEN() clrscr()
 #elif defined(__VIC20__) && defined(ALT_PRINT)
 	#define SET_TEXT_COLOR(c)
-	#define CLEAR_SCREEN() clrscr()	
+	#define CLEAR_SCREEN() clrscr()
 #elif defined(__ENTERPRISE__)
 	#define SET_TEXT_COLOR(c)
 	#define CLEAR_SCREEN()

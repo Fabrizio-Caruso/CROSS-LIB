@@ -25,7 +25,7 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
-#define INITIAL_LEVEL 1 
+#define INITIAL_LEVEL 1
 
 // Final level 
 #define FINAL_LEVEL 20
@@ -135,7 +135,10 @@
 #if defined(TURN_BASED)
 	#define GAME_SLOW_DOWN 0
 #else	
-	#if defined(__VIC20__) && !defined(TINY_GAME)
+	#  if defined(__VIC20__) && defined(ALT_PRINT)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 400	
+	#elif defined(__VIC20__) && !defined(TINY_GAME) 
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 250
 	#elif defined(__SAM__)

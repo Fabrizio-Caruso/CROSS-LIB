@@ -27,13 +27,12 @@ unsigned char arrowYPosition;
 			if(leftEnemyMissile._x==XSize-2)
 			{
 				leftEnemyMissile._x=0;
-				leftEnemyMissile._y =  arrowYPosition;//YSize-1-ENEMY_MISSILE_OFFSET;
+				leftEnemyMissile._y =  arrowYPosition;
 			}
 			else
 			{
 				ADVANCED_LEFT_MISSILE();
-				if(_playerInArrowRange()) //YSize-1-ENEMY_MISSILE_OFFSET))
-				//if(player._y>=YSize-1-ENEMY_MISSILE_OFFSET-arrowRange)
+				if(_playerInArrowRange())
 				{
 					if(player._x>=leftEnemyMissile._x)
 					{
@@ -59,23 +58,11 @@ unsigned char arrowYPosition;
 			{
 				rightEnemyMissile._x= XSize-1;
 				rightEnemyMissile._y = arrowYPosition;
-				// if(oneMissileLevel())
-				// {
-					// rightEnemyMissile._y = (YSize>>1);					
-				// }
-				// else
-				// {
-					// rightEnemyMissile._y = ENEMY_MISSILE_OFFSET;
-				// }
 			}
 			else
 			{
 				ADVANCED_RIGHT_MISSILE();
 				if(_playerInArrowRange())
-				// if((!oneMissileLevel() && _playerInArrowRange(ENEMY_MISSILE_OFFSET)) 
-					// || (oneMissileLevel() && _playerInArrowRange(YSize/2)))
-				// if(((!oneMissileLevel() && player._y<=ENEMY_MISSILE_OFFSET+arrowRange) 
-					// || (oneMissileLevel() && player._y<=YSize/2+arrowRange && player._y>=YSize/2-arrowRange)))
 				{
 					if(player._x<= rightEnemyMissile._x)	
 					{

@@ -154,7 +154,6 @@ vic20_exp_8k_full_no_gfx:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 --config $(SOURCE_PATH)/../cfg/vic20-8k.cfg \
 	-DFULL_GAME \
 	-DFORCE_GHOSTS_NUMBER=8 \
-	-DFORCE_KEYBOARD \
 	-DNO_BLINKING \
 	-DLESS_TEXT	\
 	-DALT_PRINT \

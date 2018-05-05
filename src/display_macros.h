@@ -274,7 +274,10 @@ void _delete(unsigned char x, unsigned char y);
 
 
 // PRINT AND PRINTF
-#if defined(ATARI_MODE1) && (defined(__ATARI__) || defined(__ATARIXL__))
+#  if defined(__C16__) && defined(ALT_PRINT)
+	void PRINT(unsigned char x, unsigned char y, char * str);
+	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
+#elif defined(ATARI_MODE1) && (defined(__ATARI__) || defined(__ATARIXL__))
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	
 	#define PRINTF(x,y,...)  \

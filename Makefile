@@ -1410,18 +1410,18 @@ c128_z80_40col_zsdcc:
 	
 
 c16_16k_full: 
-	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl \
+	$(CC65_PATH)$(MYCC65) -O -t c16 \
 	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg \
 	-DFULL_GAME \
 	-DSIMPLE_STRATEGY \
-	-DNO_INITIAL_SCREEN \
 	-DNO_SLEEP \
 	-DFORCE_KEYBOARD \
 	-DNO_RANDOM_LEVEL \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_BLINKING \
 	-DLESS_TEXT	\
-	-DNO_MESSAGE \
+	-DALT_PRINT \
+	$(SOURCE_PATH)/c264/c264_alt_print.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \

@@ -611,10 +611,12 @@ zx81_16k_turn_based:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg
 
+	
+# 	-SO3 --max-allocs-per-node200000 
+	
 zx81_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 -SO3 --max-allocs-per-node200000 \
 	-compiler=sdcc \
-	-SO3 --max-allocs-per-node200000 \
 	-vn \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DALT_SLEEP \
@@ -776,7 +778,7 @@ svi_318:
 	-DSOUNDS \
 	-DALT_SLEEP \
 	-DMACRO_SLEEP \
-	-create-app -o $(BUILD_PATH)/LIGHT_svi_318 \	
+	-create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
 	$(SOURCE_PATH)/psg/psg_sounds.c	\
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c \
@@ -942,9 +944,7 @@ p2000_32k:
 z9001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi \
 	-D__Z9001__ -vn -DFULL_GAME -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_z9001.z80 \
-	$(SOURCE_PATH)/sleep_macros.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
@@ -955,9 +955,7 @@ z9001_32k:
 z9001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 -O3 -clib=ansi \
 	-D__Z9001__ -vn  -DCLIB_ANSI \
-	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_z9001.z80 \
-	$(SOURCE_PATH)/sleep_macros.c \	
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \

@@ -39,7 +39,7 @@
 		#if defined(MACRO_SLEEP)
 			#define sleep(sec) do {unsigned short ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
 		#elif defined(Z88DK)
-			int sleep(int sec);	
+			int sleep(int sec);
 		#else	
 			void sleep(unsigned int sec);
 		#endif

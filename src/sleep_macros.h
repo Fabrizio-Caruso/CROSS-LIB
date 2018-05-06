@@ -36,8 +36,10 @@
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CREATIVISION__) || defined(__SUPERVISION__) || defined(__OSIC1P__)
 		void sleep(unsigned int sec);
 	#elif defined(ALT_SLEEP)	
-		#if defined(Z88DK)
+		#if defined(MACRO_SLEEP)
 			#define sleep(sec) do {unsigned short ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
+		#elif defined(Z88DK)
+			int sleep(int sec);	
 		#else	
 			void sleep(unsigned int sec);
 		#endif
@@ -47,6 +49,7 @@
 		#else
 			#include <time.h>
 			#include <unistd.h>
+			#include <stdlib.h>
 		#endif		
 	#endif	
 #endif // _SLEEP_MACROS

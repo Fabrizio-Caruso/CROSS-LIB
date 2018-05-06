@@ -33,6 +33,12 @@
 
 	#if defined(__CMOC__) || defined(__WINCMOC__)
 		// Do nothing
+	#elif defined(Z88DK)
+		int sleep(int sec) 
+		{
+			unsigned int ii; 
+			for(ii=0;ii<sec*CYCLES;++ii){}; 
+		}	
 	#else
 		void sleep(unsigned int sec) 
 		{

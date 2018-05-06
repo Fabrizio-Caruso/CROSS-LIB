@@ -565,6 +565,7 @@ zx81_8k:
 	-vn \
 	-D__ZX81__ -DTINY_GAME -DROUND_ENEMIES \
 	-DALT_SLEEP \
+	-DMACRO_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TINY_zx81_8k.prg \
 	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c \
@@ -583,6 +584,7 @@ zx80_16k:
 	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k.prg \
+	$(SOURCE_PATH)/sleep_macros.c \
 	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
@@ -597,6 +599,7 @@ zx81_16k_turn_based:
 	-vn \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DALT_SLEEP \
+	-DMACRO_SLEEP \
 	-DTURN_BASED \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg \
@@ -617,6 +620,7 @@ zx81_16k:
 	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg \
+	$(SOURCE_PATH)/sleep_macros.c \
 	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
@@ -771,7 +775,8 @@ svi_318:
 	-D__SVI__ \
 	-DSOUNDS \
 	-DALT_SLEEP \
-	-create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
+	-DMACRO_SLEEP \
+	-create-app -o $(BUILD_PATH)/LIGHT_svi_318 \	
 	$(SOURCE_PATH)/psg/psg_sounds.c	\
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c \
@@ -939,6 +944,7 @@ z9001_32k:
 	-D__Z9001__ -vn -DFULL_GAME -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_z9001.z80 \
+	$(SOURCE_PATH)/sleep_macros.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
@@ -951,6 +957,7 @@ z9001_16k:
 	-D__Z9001__ -vn  -DCLIB_ANSI \
 	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_z9001.z80 \
+	$(SOURCE_PATH)/sleep_macros.c \	
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
@@ -986,7 +993,7 @@ mc1000_48k:
 	rm a.cas		
 
 
-# 	--max-allocs-per-node200000 \	
+# 	-SO3 --max-allocs-per-node200000	
 mc1000_16k_full:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc -SO3 --max-allocs-per-node200000 \
 	-subtype=gaming -pragma-define:ansicolumns=32 \
@@ -994,11 +1001,12 @@ mc1000_16k_full:
 	-DLESS_TEXT \
 	-DNO_BLINKING \
 	-DNO_HINTS \
-	-DALT_SLEEP \
 	-clib=ansi \
 	-D__MC1000__ -DSOUNDS \
 	-DEND_SCREEN \
+	-DALT_SLEEP \
 	-vn -DCLIB_ANSI -lndos -create-app -Cz--audio \
+	$(SOURCE_PATH)/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
@@ -1069,6 +1077,7 @@ pc6001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -O3 -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -vn -DCLIB_ANSI \
 	-DALT_SLEEP \
+	-DMACRO_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_pc6001.prg  \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
@@ -1085,6 +1094,7 @@ pc6001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -O3 -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DALT_SLEEP \
+	-DMACRO_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \

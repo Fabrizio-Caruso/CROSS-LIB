@@ -160,7 +160,8 @@ typedef struct ImageStruct Image;
 	|| defined(__ACE__) \
 	|| defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__) \
 	|| defined(__EINSTEIN__) \
-	|| defined(__OSIC1P__) 
+	|| defined(__OSIC1P__) \
+	|| defined(__MC1000__)
 	#define YSize (24-Y_OFFSET)		
 #elif defined(__VIC20__)
 	#define YSize 23	

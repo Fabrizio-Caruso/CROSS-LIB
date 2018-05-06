@@ -986,6 +986,28 @@ mc1000_48k:
 	rm a.cas		
 
 
+# 	--max-allocs-per-node200000 \	
+mc1000_16k_full:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc -SO3 --max-allocs-per-node200000 \
+	-subtype=gaming -pragma-define:ansicolumns=32 \
+	-DFULL_GAME  \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_HINTS \
+	-DALT_SLEEP \
+	-clib=ansi \
+	-D__MC1000__ -DSOUNDS \
+	-DEND_SCREEN \
+	-vn -DCLIB_ANSI -lndos -create-app -Cz--audio \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	mv a.wav $(BUILD_PATH)/FULL_mc1000_16k_less_text.wav
+	rm a.bin
+	rm a.cas
+
 gal_22k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-pragma-need=ansiterminal \
@@ -1011,6 +1033,7 @@ spectrum_16k:
 	rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin 
 	rm $(BUILD_PATH)/TINY_spectrum_16k_UNASSIGNED.bin
 	
+
 # -pragma-redirect:ansifont=_font_8x8_zx_system -pragma-define:ansifont_is_packed=0
 spectrum_48k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi -vn  \

@@ -80,11 +80,11 @@
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&7)==1)
-#elif defined(__MC1000__)
-	#define SKIP_DRAW
+// #elif defined(__MC1000__)
+	// #define SKIP_DRAW
 	
-	#define SKIP_MORE_DRAW \
-		if((loop&7)==1)			
+	// #define SKIP_MORE_DRAW \
+		// if((loop&3)==1)			
 #elif !defined(__WINCMOC__) && defined(__CMOC__)
 	#define SKIP_DRAW
 	
@@ -135,7 +135,10 @@
 #if defined(TURN_BASED)
 	#define GAME_SLOW_DOWN 0
 #else	
-	#  if defined(__VIC20__) && defined(ALT_PRINT)
+	#  if defined(__MC1000__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 900			
+	#elif defined(__VIC20__) && defined(ALT_PRINT)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 400	
 	#elif defined(__VIC20__) && !defined(TINY_GAME) 

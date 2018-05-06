@@ -214,7 +214,7 @@ void INIT_IMAGES(void)
 
 unsigned short loc(unsigned char x, unsigned char y)
 {
-	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
+	return ((unsigned short) BASE_ADDR)+((unsigned short)x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
 }
 
 #define _DRAW(x,y,image) do {POKE(loc(x,y), image->_imageData); POKE((-0x0400+loc(x,y)), image->_color); } while(0)
@@ -297,60 +297,60 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	unsigned char i = 0;
 	while(str[i]!='\0')
 	{
-		POKE(loc(x,y)+i, str[i]); 
+		POKE((unsigned short) loc(x,y)+i, str[i]); 
 		++i;
 	}
 }
 
 void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 {
-	unsigned char i;
-	unsigned char digits[6];
-	unsigned short tmp;
+	// unsigned char i;
+	// unsigned char digits[6];
+	// unsigned short tmp;
 
-	tmp = val;
+	// tmp = val;
 	
-	digits[0] = 0;
-	for(i=1;i<6;++i)
-	{
-		digits[i] = (unsigned char) ((tmp)%10);
-		tmp-= digits[i];
-		tmp/=10;
-	}
+	// digits[0] = 0;
+	// for(i=1;i<6;++i)
+	// {
+		// digits[i] = (unsigned char) ((tmp)%10);
+		// tmp-= digits[i];
+		// tmp/=10;
+	// }
 	
-	for(i=0;i<6;++i)
-	{
-		POKE(loc(x,y)+i, (unsigned char) (digits[5-i])+48);
-	}
+	// for(i=0;i<6;++i)
+	// {
+		// POKE(loc(x,y)+i, (unsigned char) (digits[5-i])+48);
+	// }
 }	
 
 void print_02u(unsigned char x, unsigned char y, unsigned short val)
 {
-	POKE((loc(x,y)), ((unsigned char) val)/10+48);
-	POKE((1+loc(x,y)), ((unsigned char) val)%10+48);
+	// POKE((loc(x,y)), ((unsigned char) val)/10+48);
+	// POKE((1+loc(x,y)), ((unsigned char) val)%10+48);
 }	
 
 
 void print_u(unsigned char x, unsigned char y, unsigned short val)
 {
-	POKE(loc(x,y), (unsigned char) (val+48));
+	// POKE(loc(x,y), (unsigned char) (val+48));
 }
 
 
 void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 {
-	if(strlen(str)==5)
-	{	
-		print_05u0(x,y,val);
-	}
-	else if(strlen(str)==4)
-	{
-		print_02u(x,y,val);		
-	}
-	else
-	{
-		print_u(x,y,val);		
-	}
+	// if(strlen(str)==5)
+	// {	
+		// print_05u0(x,y,val);
+	// }
+	// else if(strlen(str)==4)
+	// {
+		// print_02u(x,y,val);		
+	// }
+	// else
+	// {
+		// print_u(x,y,val);		
+	// }
 }
 
 

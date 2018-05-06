@@ -1421,6 +1421,8 @@ c16_16k_full:
 	-DNO_BLINKING \
 	-DLESS_TEXT	\
 	-DALT_PRINT \
+	-DSOUNDS \
+	$(SOURCE_PATH)/c264/c264_sounds.c \
 	$(SOURCE_PATH)/c264/c264_alt_print.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \

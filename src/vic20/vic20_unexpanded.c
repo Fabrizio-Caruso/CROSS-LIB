@@ -32,6 +32,7 @@
 #if defined(NO_MESSAGE)
 	#include "../text.h"
 	
+	extern short points;
 	extern short highScore;
 #endif
 
@@ -140,9 +141,9 @@ extern Image BOMB_IMAGE;
 #if !defined(NO_COLOR)
 	#define _DRAW(x,y,image) do {POKE(BASE_ADDR+x+y*22, image->_imageData); POKE(COLOR_ADDR+x+y*22, image->_color); } while(0)
 	#define _DELETE(x,y) POKE(BASE_ADDR+x+y*22, 32)
-	#define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
-	#define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
-	#define _DRAW_BROKEN_WALL(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
+	// #define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
+	// #define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
+	// #define _DRAW_BROKEN_WALL(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
 #else
 	#define _DRAW(x,y,image) POKE(7680+x+y*22, image->_imageData)
 	#define _DELETE(x,y) POKE(7680+x+y*22, 32)     
@@ -255,14 +256,14 @@ void _delete(unsigned char x, unsigned char y)
 	_DELETE(x,y);
 }
 
-#if defined(NO_MESSAGE)
+#if defined(ALT_DISPLAY_STATS) || defined(ALT_HISCORE)
 	#include <peekpoke.h>
-	void highScoreScreen(void) 
+	void _displayShort(unsigned short value) 
 	{ 
 		unsigned char i; 
 		unsigned short tmp; 
 		
-		tmp = highScore; 
+		tmp = value; 
 		
 		for(i=1;i<6;++i) 
 		{ 
@@ -270,10 +271,23 @@ void _delete(unsigned char x, unsigned char y)
 			tmp/=10; 
 			POKE(7686-i,PEEK(7686-i)+48); 
 		} 
-		POKE(7686,48); 
-		
+		POKE(7686,48); 	
 	}
-
+	
+	#if defined(ALT_DISPLAY_STATS)
+	void displayStats(void)
+	{
+		_displayShort(points);
+	}
+	#endif
+	
+	
+	#if defined(ALT_HIGHSCORE)
+	void highScoreScreen(void)
+	{
+		_displayShort(highScore);
+	}
+	#endif
 #endif
 
 

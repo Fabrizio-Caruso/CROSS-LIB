@@ -282,6 +282,7 @@ extern Image PLAYER_IMAGE;
 	}	
 #endif
 
+#if !defined(ALT_DISPLAY_STATS)
 void displayStats(void)
 {	
 	#if !defined(NO_COLOR)
@@ -293,7 +294,7 @@ void displayStats(void)
 		PRINTF(1,0,"%05u0",points);	
 	#endif	
 }
-
+#endif
 
 #if !defined(NO_SET_SCREEN_COLORS)
 	void setScreenColors(void)

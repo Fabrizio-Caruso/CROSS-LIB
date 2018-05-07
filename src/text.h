@@ -139,8 +139,10 @@ void printStartMessage(void);
 #if defined(TINY_GAME)
 	#if !defined(NO_MESSAGE)
 		#define highScoreScreen() PRINTF((XSize-6)/2, 0, "%05u0", highScore)
+	#elif defined(ALT_HIGHSCORE)
+		void highScoreScreen(void);	
 	#else
-		void highScoreScreen(void);
+		#define highScoreScreen()
 	#endif
 #elif defined(LESS_TEXT)
 		#define printLevelBonus(bonus) 

@@ -2097,13 +2097,17 @@ gal_6k:
 	-DNO_SLEEP -DLESS_TEXT \
 	-D__GAL__ \
 	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLOR \
+	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \
 	-DALT_PRINT \
 	-DNO_MESSAGE \
+	-DFORCE_BOMBS_NUMBER=2 \
+	-DNO_DEAD_GHOSTS \
 	-vn -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_galaksija_6k.prg
+	#rm $(BUILD_PATH)/TINY_galaksija_6k.prg
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 		
 	

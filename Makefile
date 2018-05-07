@@ -152,11 +152,16 @@ vic20_exp_8k_full_no_gfx:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 --config $(SOURCE_PATH)/../cfg/vic20-8k.cfg \
 	-DFULL_GAME \
 	-DFORCE_GHOSTS_NUMBER=8 \
+	-DSIMPLE_STRATEGY \
 	-DNO_BLINKING \
 	-DLESS_TEXT	\
 	-DALT_PRINT \
 	-DNO_SET_SCREEN_COLOR \
 	-DNO_HINTS \
+	-DNO_DEAD_GHOSTS \
+	-DSOUNDS \
+	-DNO_SLEEP \
+	$(SOURCE_PATH)/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/vic20/vic20_alt_print.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \

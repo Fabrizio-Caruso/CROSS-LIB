@@ -112,7 +112,9 @@
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
+#if !defined(NO_DEAD_GHOSTS)
 extern Image DEAD_GHOST_IMAGE;
+#endif
 extern Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
@@ -187,7 +189,9 @@ void INIT_IMAGES(void)
 	#if !defined(NO_COLOR)
 		// PLAYER_IMAGE._color = COLOR_CYAN;
 		BOMB_IMAGE._color = COLOR_RED;
+		#if !defined(NO_DEAD_GHOSTS)
 		DEAD_GHOST_IMAGE._color = COLOR_RED;
+		#endif
 		GHOST_IMAGE._color = COLOR_WHITE;		
 		
 		#if !defined(TINY_GAME)
@@ -226,8 +230,10 @@ void INIT_IMAGES(void)
 	
 	GHOST_IMAGE._imageData = _GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
-	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
 	
+	#if !defined(NO_DEAD_GHOSTS)
+	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
+	#endif
 	
 	#if !defined(TINY_GAME)
 		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;

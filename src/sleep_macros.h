@@ -34,14 +34,14 @@
 	#if defined(NO_SLEEP)
 		#define sleep(sec)
 	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CREATIVISION__) || defined(__SUPERVISION__) || defined(__OSIC1P__)
-		void sleep(unsigned int sec);
+		void sleep(unsigned char sec);
 	#elif defined(ALT_SLEEP)	
 		#if defined(MACRO_SLEEP)
 			#define sleep(sec) do {unsigned short ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
 		#elif defined(Z88DK)
 			int sleep(int sec);
 		#else	
-			void sleep(unsigned int sec);
+			void sleep(unsigned char sec);
 		#endif
 	#else	
 		#if defined(__CMOC__) && !defined(__WINCMOC__)

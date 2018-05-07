@@ -38,10 +38,10 @@
 		#if defined(Z88DK)
 			int sleep(int sec) 
 		#else
-			void sleep(unsigned int sec) 
+			void sleep(unsigned char sec) 
 		#endif
 			{
-				unsigned int ii;
+				unsigned short ii;
 				for(ii=0;ii<sec*CYCLES;++ii){}; 
 			}
 	#endif

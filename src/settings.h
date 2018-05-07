@@ -304,20 +304,24 @@
 	#define CASE_LETTERS
 #endif
 
-#if defined(__GAMATE__) 
-	#define BOMBS_NUMBER 2
-#elif defined(__ZX81__) || defined(__LAMBDA__) 
-	#define BOMBS_NUMBER 4
-#elif defined(__SPECTRUM__) && !defined(TINY_GAME)
-	#define BOMBS_NUMBER 4
-#elif defined(__PCE__) || (defined(__VIC20__) && defined(TINY_GAME)) || (defined(__SPECTRUM__) && defined(TINY_GAME))
-	#define BOMBS_NUMBER 4
-#elif defined(__AQUARIUS__) && defined(TINY_GAME)
-	#define BOMBS_NUMBER 4
-#elif defined(__OSIC1P__) && defined(TINY_GAME)
-	#define BOMBS_NUMBER 4
+#if defined(FORCE_BOMBS_NUMBER)
+	#define BOMBS_NUMBER FORCE_BOMBS_NUMBER
 #else
-	#define BOMBS_NUMBER 4
+	#if defined(__GAMATE__) 
+		#define BOMBS_NUMBER 2
+	#elif defined(__ZX81__) || defined(__LAMBDA__) 
+		#define BOMBS_NUMBER 4
+	#elif defined(__SPECTRUM__) && !defined(TINY_GAME)
+		#define BOMBS_NUMBER 4
+	#elif defined(__PCE__) || (defined(__VIC20__) && defined(TINY_GAME)) || (defined(__SPECTRUM__) && defined(TINY_GAME))
+		#define BOMBS_NUMBER 4
+	#elif defined(__AQUARIUS__) && defined(TINY_GAME)
+		#define BOMBS_NUMBER 4
+	#elif defined(__OSIC1P__) && defined(TINY_GAME)
+		#define BOMBS_NUMBER 4
+	#else
+		#define BOMBS_NUMBER 4
+	#endif
 #endif
 
 // Possible current values are FULL: 8,9, LIGHT: 8, TINY: 8,7,6

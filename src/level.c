@@ -291,7 +291,11 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			else
 			{
 				#if defined(TINY_GAME)
-					initializeCharacter(&ghosts[count], 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+					#if defined(NO_DEAD_GHOSTS)
+						initializeCharacter(&ghosts[count], 0,(unsigned char) 1,0,&GHOST_IMAGE);					
+					#else
+						initializeCharacter(&ghosts[count], 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+					#endif
 				#else
 					initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
 					++count;

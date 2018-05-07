@@ -113,7 +113,8 @@ vic20_unexpanded:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DALT_DISPLAY_STATS \
 	-DALT_HIGHSCORE \
-	-DNO_COLOR \
+	-DNO_DEAD_GHOSTS \
+	-DFORCE_BOMBS_NUMBER=2 \
 	--config $(SOURCE_PATH)/../cfg/vic20_unexpanded.cfg  \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/vic20/vic20_unexpanded.c \
 	$(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \

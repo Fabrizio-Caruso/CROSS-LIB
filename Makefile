@@ -2086,10 +2086,11 @@ gal_6k_sccz80:
 	#rm $(BUILD_PATH)/TINY_galaksija_6k_sccz80.wav
 	
 
-gal_6k: 
+gal_6k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-compiler=sdcc \
 	-SO3 --max-allocs-per-node200000 \
+	-zorg=10239 \
 	--opt-code-size \
 	-pragma-need=ansiterminal \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \

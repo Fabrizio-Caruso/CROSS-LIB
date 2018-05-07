@@ -39,7 +39,10 @@
 #endif
 
 Image GHOST_IMAGE;
+
+#if !defined(DNO_DEAD_GHOSTS)
 Image DEAD_GHOST_IMAGE;
+#endif
 Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
@@ -163,8 +166,11 @@ Image BOMB_IMAGE;
 		#if !defined(NO_COLOR)
 			PLAYER_IMAGE._color = COLOR_CYAN;
 			BOMB_IMAGE._color = COLOR_RED;
-			DEAD_GHOST_IMAGE._color = COLOR_RED;
-
+			
+			#if !defined(DNO_DEAD_GHOSTS)			
+				DEAD_GHOST_IMAGE._color = COLOR_RED;
+			#endif
+			
 			#if !defined(TINY_GAME)
 				INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
 				POWERUP_IMAGE._color = COLOR_GREEN;
@@ -210,18 +216,20 @@ Image BOMB_IMAGE;
 			MISSILE_IMAGE._imageData = '.';
 		#endif
 		
-		#if defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
-			DEAD_GHOST_IMAGE._imageData = 'O';
-		#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__GAMATE__)
-			DEAD_GHOST_IMAGE._imageData = '#';
-		#elif defined(__CREATIVISION__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
-			DEAD_GHOST_IMAGE._imageData = 'x';	
-		#elif defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__)
-			DEAD_GHOST_IMAGE._imageData = '#';				
-		#elif defined(NO_COLOR)
-			DEAD_GHOST_IMAGE._imageData = '#';		 
-		#else
-			DEAD_GHOST_IMAGE._imageData = 'o';
+		#if !defined(DNO_DEAD_GHOSTS)
+			#if defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
+				DEAD_GHOST_IMAGE._imageData = 'O';
+			#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__GAMATE__)
+				DEAD_GHOST_IMAGE._imageData = '#';
+			#elif defined(__CREATIVISION__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
+				DEAD_GHOST_IMAGE._imageData = 'x';	
+			#elif defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__)
+				DEAD_GHOST_IMAGE._imageData = '#';				
+			#elif defined(NO_COLOR)
+				DEAD_GHOST_IMAGE._imageData = '#';		 
+			#else
+				DEAD_GHOST_IMAGE._imageData = 'o';
+			#endif
 		#endif
 
 		#if !defined(NO_COLOR)

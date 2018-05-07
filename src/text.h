@@ -147,9 +147,11 @@ void printStartMessage(void);
 #elif defined(LESS_TEXT)
 		#define printLevelBonus(bonus) 
 
-		#define finalScore() 
+		#define finalScore()
 
-		#define highScoreScreen() PRINTF((XSize-6)/2, 0, "%05u0", highScore)
+		#define highScoreScreen() 
+		
+		//PRINTF((XSize-6)/2, 0, "%05u0", highScore)
 #else
 	#if defined(NO_CASE_LETTERS)
 		#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);

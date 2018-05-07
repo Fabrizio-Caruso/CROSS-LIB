@@ -144,8 +144,10 @@ void INIT_IMAGES(void)
 	EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
 	
 	BOMB_IMAGE._color = COLOR_RED;
+	#if !defined(NO_DEAD_GHOST)
 	DEAD_GHOST_IMAGE._color = COLOR_RED;
-
+	#endif
+	
 	GHOST_IMAGE._color = COLOR_WHITE;
 	MISSILE_IMAGE._color = COLOR_WHITE;
 
@@ -182,8 +184,10 @@ void INIT_IMAGES(void)
 	
 	GHOST_IMAGE._imageData = _GHOST;
 	
+	#if !defined(NO_DEAD_GHOSTS)
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
-
+	#endif
+	
 	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 	BOMB_IMAGE._imageData = _BOMB;		
 	POWERUP_IMAGE._imageData = _POWERUP;
@@ -209,13 +213,13 @@ void INIT_IMAGES(void)
 }
 
 
-#define BASE_ADDR 0x0C00
-#define COLOR_ADDR 0x0800
+#define BASE_ADDR ((unsigned short) 0x0C00)
+#define COLOR_ADDR ((unsigned short) 0x0800)
 
-unsigned short loc(unsigned char x, unsigned char y)
-{
-	return ((unsigned short) BASE_ADDR)+((unsigned short)x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
-}
+// unsigned short loc(unsigned char x, unsigned char y)
+// {
+	// return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
+// }
 
 #define _DRAW(x,y,image) do {POKE(loc(x,y), image->_imageData); POKE((-0x0400+loc(x,y)), image->_color); } while(0)
 #define _DELETE(x,y) POKE(loc(x,y), 32)
@@ -236,12 +240,13 @@ void _draw(char x, char y, Image * image)
 	(void) textcolor (image->_color);
 	cputc(image->_imageData); 
 	// _DRAW(x,y,image);
+	// POKE(loc(x,y),image->_imageData);
 };
 
 void _delete(char x, char y)
 {
 	gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' ');
-	// _DELETE(x,y);
+	// POKE(loc(x,y),32);
 };
 
 
@@ -294,12 +299,15 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 
 void PRINT(unsigned char x, unsigned char y, char * str)
 {
-	unsigned char i = 0;
-	while(str[i]!='\0')
-	{
-		POKE((unsigned short) loc(x,y)+i, str[i]); 
-		++i;
-	}
+	gotoxy(x+X_OFFSET,y+Y_OFFSET);
+	cprintf(str);
+	
+	// unsigned char i = 0;
+	// while(str[i]!='\0')
+	// {
+		// POKE(BASE_ADDR+x+(y+Y_OFFSET)*40+i, str[i]); 
+		// ++i;
+	// }
 }
 
 void print_05u0(unsigned char x, unsigned char y, unsigned short val)
@@ -320,37 +328,58 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 	
 	// for(i=0;i<6;++i)
 	// {
-		// POKE(loc(x,y)+i, (unsigned char) (digits[5-i])+48);
+		// POKE((unsigned short) (BASE_ADDR+x+(y+Y_OFFSET)*((unsigned short)40)+i), (unsigned char) (digits[5-i])+48);
 	// }
+	
+	gotoxy(x+X_OFFSET,y+Y_OFFSET);
+	cprintf("%05u0",val);
+	
+	// POKE((unsigned short) (BASE_ADDR+x+80+y*40),65);
+	// POKE((unsigned short) (BASE_ADDR+x+80+y*40+1),66);
+	// POKE((unsigned short) (COLOR_ADDR+x+80+y*40+1),3);	
+	// POKE((unsigned short) (BASE_ADDR+x+80+y*40+2),67);	
+	// POKE((unsigned short) (BASE_ADDR+x+80+y*40+3),68);
+	// POKE((unsigned short) (BASE_ADDR+x+80+y*40+4),69);	
+	// POKE((unsigned short) (BASE_ADDR+x+80+y*40+5),70);		
 }	
 
 void print_02u(unsigned char x, unsigned char y, unsigned short val)
 {
 	// POKE((loc(x,y)), ((unsigned char) val)/10+48);
-	// POKE((1+loc(x,y)), ((unsigned char) val)%10+48);
+	// POKE(((unsigned short) 1+ (unsigned short) loc(x,y)), ((unsigned char) val)%10+48);
+	
+	// POKE((unsigned short) BASE_ADDR+x+((unsigned short)y+2)*40,65);
+	// POKE((unsigned short) BASE_ADDR+x+((unsigned short)y+2)*40+1,66);	
+	
+	gotoxy(x,y+Y_OFFSET);
+	cprintf("%02u",val);
 }	
 
 
 void print_u(unsigned char x, unsigned char y, unsigned short val)
 {
-	// POKE(loc(x,y), (unsigned char) (val+48));
+	// POKE((unsigned short) loc(x,y), (unsigned char) (val+48));
+	
+	// POKE((unsigned short) BASE_ADDR+x+(unsigned short) (y+2)*40, val+48);	
+	gotoxy(x,y+Y_OFFSET);
+	cputc((char) val+48);
 }
 
 
 void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 {
-	// if(strlen(str)==5)
-	// {	
-		// print_05u0(x,y,val);
-	// }
-	// else if(strlen(str)==4)
-	// {
-		// print_02u(x,y,val);		
-	// }
-	// else
-	// {
-		// print_u(x,y,val);		
-	// }
+	if(strlen(str)==5)
+	{	
+		print_05u0(x,y,val);
+	}
+	else if(strlen(str)==4)
+	{
+		print_02u(x,y,val);		
+	}
+	else
+	{
+		print_u(x,y,val);		
+	}
 }
 
 

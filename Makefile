@@ -1453,7 +1453,7 @@ c128_z80_40col_zsdcc:
 
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -t c16 \
-	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg \
+	--config $(SOURCE_PATH)/../cfg/c16-32k.cfg \
 	-DFULL_GAME \
 	-DSIMPLE_STRATEGY \
 	-DNO_SLEEP \
@@ -1462,10 +1462,11 @@ c16_16k_full:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_BLINKING \
 	-DLESS_TEXT	\
-	-DALT_PRINT \
+	-DNO_HINTS \
 	-DSOUNDS \
-	$(SOURCE_PATH)/c264/c264_sounds.c \
+	-DALT_PRINT \
 	$(SOURCE_PATH)/c264/c264_alt_print.c \
+	$(SOURCE_PATH)/c264/c264_sounds.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
@@ -1475,7 +1476,7 @@ c16_16k_full:
 	$(SOURCE_PATH)/missile.c \
 	$(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/rocket.c \
-	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX_NO_SOUND.prg	
+	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX.prg	
 	
 	
 einstein:

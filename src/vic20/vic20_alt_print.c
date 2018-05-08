@@ -172,8 +172,7 @@ unsigned short loc(unsigned char x, unsigned char y)
 #define _DRAW_VERTICAL_WALL(x,y)  POKE(loc(x,y),'|')
 #define _DRAW_HORIZONTAL_WALL(x,y)  POKE(loc(x,y),'-')
 // TODO: Find a few extra bytes
-#define _DRAW_BROKEN_WALL(x,y) 
-//POKE(loc(x,y),_BROKEN_WALL)
+#define _DRAW_BROKEN_WALL(x,y) POKE(loc(x,y),_BROKEN_WALL)
 
 void INIT_GRAPHICS(void)
 {

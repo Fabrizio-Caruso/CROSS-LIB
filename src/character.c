@@ -178,11 +178,20 @@ unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Charac
 	return 0;
 }
 
+
+#if YSize<XSize
+	#define SAFETY YSize/4
+#else
+	#define SAFETY XSize/4
+#endif
+
 // TODO: To be replaced with something cleaner
 // also used with things different from global bombs
 unsigned char safeLocation(unsigned char x, unsigned char y, Character *dangerPtr, unsigned char dangerSize)
 {
-	return !(sameLocationAsAnyLocation(x,y,ghosts,GHOSTS_NUMBER) || sameLocationAsAnyLocation(x,y,dangerPtr, dangerSize));
+	return !(sameLocationAsAnyLocation(x,y,ghosts,GHOSTS_NUMBER) 
+	      || sameLocationAsAnyLocation(x,y,dangerPtr, dangerSize)
+		  || (x<SAFETY) || (x>XSize-SAFETY) || (y<=SAFETY) || (y>YSize-SAFETY));
 }
 
 
@@ -190,22 +199,19 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 {
 	unsigned char x; // = 0; 
 	unsigned char y; // = 0; 
-	unsigned char x_offset; 
-	unsigned char y_offset;
+	// unsigned char x_offset; 
+	// unsigned char y_offset;
 	unsigned char safe;
 	do
 	{
-		x_offset = (unsigned char)(rand() % RELOCATE_RANGE);
-		y_offset = (unsigned char)(rand() % RELOCATE_RANGE);
-
-
+		// x_offset = 
+		// y_offset = 
 		
-		
-		x = characterPtr->_x - (unsigned char)(RELOCATE_RANGE/2) + x_offset; 
-		y = characterPtr->_y - (unsigned char)(RELOCATE_RANGE/2) + y_offset;
+		x = characterPtr->_x - (unsigned char)(RELOCATE_RANGE/2) + (unsigned char)(rand() % RELOCATE_RANGE);
+		y = characterPtr->_y - (unsigned char)(RELOCATE_RANGE/2) + (unsigned char)(rand() % RELOCATE_RANGE);
 
-		if((x<3) || (x>XSize-3) || (y<=4) || (y>YSize-3) || (x_offset==0) && (y_offset==0) )
-			continue; // TODO: Optimize it!
+		// if((x<SAFETY) || (x>XSize-SAFETY) || (y<=SAFETY) || (y>YSize-SAFETY) || (x_offset==0) && (y_offset==0) )
+			// continue; // TODO: Optimize it!
 
 		safe = safeLocation(x,y,dangerPtr, dangerSize);
 

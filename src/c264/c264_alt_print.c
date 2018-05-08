@@ -220,9 +220,9 @@ void INIT_IMAGES(void)
 #define BASE_ADDR ((unsigned short) 0x0C00)
 #define COLOR_ADDR ((unsigned short) 0x0800)
 
-unsigned short loc(unsigned char x, unsigned char y)
+unsigned short loc(unsigned char x, char y)
 {
-	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
+	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize);
 }
 
 #define _DRAW(x,y,image) do {POKE(loc(x,y), image->_imageData); POKE((-0x0400+loc(x,y)), image->_color); } while(0)
@@ -305,7 +305,7 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 
 #if defined(ALT_PRINT)
 
-void PRINT(unsigned char x, unsigned char y, char * str)
+void PRINT(unsigned char x, char y, char * str)
 {
 	unsigned char i = 0;
 	while(str[i])
@@ -317,7 +317,7 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	}
 }
 
-void print_05u0(unsigned char x, unsigned char y, unsigned short val)
+void print_05u0(unsigned char x, char y, unsigned short val)
 {
 	unsigned char i;
 	unsigned char digits[6];
@@ -339,14 +339,14 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 	}
 }	
 
-void print_02u(unsigned char x, unsigned char y, unsigned short val)
+void print_02u(unsigned char x, char y, unsigned short val)
 {
 	POKE((loc(x,y)), ((unsigned char) val)/10+48);
 	POKE((1+loc(x,y)), ((unsigned char) val)%10+48);
 }	
 
 
-void print_u(unsigned char x, unsigned char y, unsigned short val)
+void print_u(unsigned char x, char y, unsigned short val)
 {
 	// gotoxy(x,y+Y_OFFSET);
 	// cputc((char) (val+48));
@@ -356,7 +356,7 @@ void print_u(unsigned char x, unsigned char y, unsigned short val)
 }
 
 
-void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
+void PRINTF(unsigned char x, char y, char * str, unsigned short val)
 {
 	if(strlen(str)==5)
 	{	

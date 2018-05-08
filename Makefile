@@ -288,7 +288,6 @@ c16_16k_full:
 	-DNO_HINTS \
 	-DSOUNDS \
 	-DALT_PRINT \
-	-DFORCE_NARROW \
 	$(SOURCE_PATH)/c264/c264_sounds.c \
 	$(SOURCE_PATH)/c264/c264_alt_print.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \

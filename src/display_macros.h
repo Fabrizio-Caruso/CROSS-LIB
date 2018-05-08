@@ -101,7 +101,7 @@ typedef struct ImageStruct Image;
 
 //
 #if defined(NARROW) || defined(TINY_GAME)
-	#define Y_OFFSET 0 
+	#define Y_OFFSET 0
 #else
 	#define Y_OFFSET 2		
 #endif

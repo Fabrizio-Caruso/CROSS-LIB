@@ -176,13 +176,13 @@ extern Image PLAYER_IMAGE;
 // TODO: This is SLOW
 #if !defined(TINY_GAME)
 	void displayStatsTitles(void)
-	{	
+	{				
 		#if defined(WIDE)
 			SET_TEXT_COLOR(SCORE_COLOR);	
 			PRINT(0, -Y_OFFSET,   SCORE_STRING);
 			PRINT(0, -Y_OFFSET+1, LEVEL_STRING);
 	
-			SET_TEXT_COLOR(_RED);	
+			SET_TEXT_COLOR(_RED);
 			PRINT(XSize-11,-Y_OFFSET,  "-----------");		
 			PRINT(XSize-11,-Y_OFFSET+1,"cross chase");				
 		#endif

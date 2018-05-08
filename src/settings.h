@@ -287,6 +287,11 @@
 	#define NARROW
 #endif
 
+#if defined(FORCE_NARROW) && defined(WIDE)
+	#undef WIDE
+	#define NARROW
+#endif
+
 #if defined(WIDE)
 	#define ADVANCED_LEFT_MISSILE()  ++leftEnemyMissile._x
 	#define ADVANCED_RIGHT_MISSILE() --rightEnemyMissile._x	

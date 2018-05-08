@@ -31,6 +31,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "../sound_macros.h"
+
 #include "../display_macros.h"
 
 #if defined(FULL_GAME)
@@ -216,10 +218,10 @@ void INIT_IMAGES(void)
 #define BASE_ADDR ((unsigned short) 0x0C00)
 #define COLOR_ADDR ((unsigned short) 0x0800)
 
-// unsigned short loc(unsigned char x, unsigned char y)
-// {
-	// return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
-// }
+unsigned short loc(unsigned char x, unsigned char y)
+{
+	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
+}
 
 #define _DRAW(x,y,image) do {POKE(loc(x,y), image->_imageData); POKE((-0x0400+loc(x,y)), image->_color); } while(0)
 #define _DELETE(x,y) POKE(loc(x,y), 32)
@@ -234,21 +236,22 @@ void INIT_IMAGES(void)
 	}
 #endif
 
-void _draw(char x, char y, Image * image) 
+void _draw(unsigned char x, unsigned char y, Image * image) 
 {
 	// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
 	// (void) textcolor (image->_color);
 	// cputc(image->_imageData); 
 	// _DRAW(x,y,image);
-	// POKE(loc(x,y),image->_imageData);
-	POKE(BASE_ADDR+x+(unsigned short)(y+2)*40,image->_imageData);
-	POKE(COLOR_ADDR+x+(unsigned short)(y+2)*40,image->_color);
+	POKE(loc(x,y),image->_imageData);
+	// POKE((unsigned short) (BASE_ADDR +x+(unsigned short)(y+Y_OFFSET)*40),image->_imageData);
+	POKE((unsigned short) (COLOR_ADDR+x+(unsigned short)(y+Y_OFFSET)*40),image->_color);
 };
 
-void _delete(char x, char y)
+void _delete(unsigned char x, unsigned char y)
 {
 	//gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' ');
-	POKE(BASE_ADDR+x+(unsigned short)(y+2)*40,32);
+	// POKE(BASE_ADDR+x+(unsigned short)(y+Y_OFFSET)*40,32);
+	POKE(loc(x,y),32);
 };
 
 
@@ -302,31 +305,49 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 void PRINT(unsigned char x, unsigned char y, char * str)
 {
 	unsigned char i = 0;
-	while(str[i]!='\0')
+	while(str[i])
 	{
-		POKE(BASE_ADDR+x+(y+2)*40+i, str[i]); 
+		POKE(BASE_ADDR+x+(unsigned short)(y+Y_OFFSET)*40+i, str[i]); 
+		// ZAP_SOUND();
 		++i;
 	}
 }
 
 void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 {
-	// gotoxy(x+X_OFFSET,y+Y_OFFSET);
-	// cprintf("%05u0",val);		
+	unsigned char i;
+	unsigned char digits[6];
+	unsigned short tmp;
+
+	tmp = val;
+	
+	digits[0] = 0;
+	for(i=1;i<6;++i)
+	{
+		digits[i] = (unsigned char) ((tmp)%10);
+		tmp-= digits[i];
+		tmp/=10;
+	}
+	
+	for(i=0;i<6;++i)
+	{
+		POKE(loc(x,y)+i, (unsigned char) (digits[5-i])+48);
+	}
 }	
 
 void print_02u(unsigned char x, unsigned char y, unsigned short val)
 {
-	// gotoxy(x,y+Y_OFFSET);
-	// cprintf("%02u",val);
+	POKE((loc(x,y)), ((unsigned char) val)/10+48);
+	POKE((1+loc(x,y)), ((unsigned char) val)%10+48);
 }	
 
 
 void print_u(unsigned char x, unsigned char y, unsigned short val)
 {
-	gotoxy(x,y+Y_OFFSET);
-	cputc((char) (val+48));
+	// gotoxy(x,y+Y_OFFSET);
+	// cputc((char) (val+48));
 	// POKE(BASE_ADDR+x+(y*40u)+80u, (char) (val + 48));
+	POKE(BASE_ADDR+x+(unsigned short)(y+Y_OFFSET)*40,val+48);	
 }
 
 

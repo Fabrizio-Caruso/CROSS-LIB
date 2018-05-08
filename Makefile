@@ -273,6 +273,38 @@ c16_32k:
 	$(SOURCE_PATH)/main.c  \
 	-o $(BUILD_PATH)/FULL_c16_32k.prg
 
+	
+# 	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg 
+
+
+c16_16k_full: 
+	$(CC65_PATH)$(MYCC65) -O -Cl -t c16 \
+	--config $(SOURCE_PATH)/../cfg/c16-32k.cfg \
+	-DFULL_GAME \
+	-DSIMPLE_STRATEGY \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_BLINKING \
+	-DLESS_TEXT	\
+	-DNO_HINTS \
+	-DSOUNDS \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	$(SOURCE_PATH)/c264/c264_sounds.c \
+	$(SOURCE_PATH)/c264/c264_alt_print.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/main.c  \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/missile.c \
+	$(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/rocket.c \
+	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX.prg	
+
+	
 pet_8k: 
 	$(CC65_PATH)$(MYCC65) -O -t pet \
 	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT \
@@ -1451,33 +1483,6 @@ c128_z80_40col_zsdcc:
 	mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col_zsdcc.T64
 	
 
-c16_16k_full: 
-	$(CC65_PATH)$(MYCC65) -O -Cl -t c16 \
-	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg \
-	-DFULL_GAME \
-	-DSIMPLE_STRATEGY \
-	-DNO_SLEEP \
-	-DFORCE_KEYBOARD \
-	-DNO_RANDOM_LEVEL \
-	-DFORCE_GHOSTS_NUMBER=8 \
-	-DNO_BLINKING \
-	-DLESS_TEXT	\
-	-DNO_HINTS \
-	-DSOUNDS \
-	-DALT_PRINT \
-	$(SOURCE_PATH)/c264/c264_sounds.c \
-	$(SOURCE_PATH)/c264/c264_alt_print.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/main.c  \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/missile.c \
-	$(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/rocket.c \
-	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX.prg	
-	
 	
 einstein:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \

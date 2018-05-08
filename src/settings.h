@@ -222,7 +222,7 @@
 		#define GAME_SLOW_DOWN 0	
 	#elif defined(__SPECTRUM__) && !defined(TINY_GAME)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 1200		
+		#define GAME_SLOW_DOWN 1700
 	#elif defined(__CPC__) && defined(CPCRSLIB)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 400	
@@ -484,7 +484,7 @@
 
 #if defined(WIDE)
 	#define RELOCATE_RANGE 7
-	#define HORIZONTAL_WALLS_INITIAL_LENGTH 3
+	#define HORIZONTAL_WALLS_INITIAL_LENGTH 2
 	#define HORIZONTAL_WALLS_INCREASE_LOOP 250
 #else
 	#define RELOCATE_RANGE 5

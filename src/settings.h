@@ -25,7 +25,7 @@
 #if !defined(_SETTINGS)
 #define _SETTINGS
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 5
 
 // Final level 
 #define FINAL_LEVEL 20
@@ -303,7 +303,7 @@
 #if (defined(__VIC20__) && defined(REDEFINED_CHARS)) || (defined(__VIC20__) && defined(ALT_PRINT)) \
 	|| defined(__WINCMOC__) || defined(__CMOC__) || defined(__GAMATE__) \
     || defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) \
-	|| defined(__ZX80__)
+	|| defined(__ZX80__) || (defined(__C16__) && defined(ALT_PRINT))
 	#define NO_CASE_LETTERS
 #else
 	#define CASE_LETTERS
@@ -430,7 +430,7 @@
 
 // #define EXTRA_LIFE_FIRST_LEVEL 10
 
-#if defined(WIDE)
+#if defined(WIDE) || defined(FORCE_NARROW)
 	#define MIN_INVINCIBLE_GHOST_HITS 4
 #else
 	#define MIN_INVINCIBLE_GHOST_HITS 3

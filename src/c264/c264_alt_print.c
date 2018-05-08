@@ -61,7 +61,7 @@
 #define _POWERUP  'S'
 
 // RED
-#define _BOMB 'x'
+#define _BOMB '^'
 //0x5E
 
 
@@ -82,11 +82,13 @@
 #define _RIGHT_ENEMY_MISSILE '<'
 
 //((unsigned char)0x7D)
-#define _BUBBLE '^'
+#define _BUBBLE ('^'-64)
 //((unsigned char)0x60)
 
 // #define VERTICAL_BRICK '='
 // #define HORIZONTAL_BRICK 62
+
+#define _BROKEN_WALL _BOMB
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -230,9 +232,10 @@ unsigned short loc(unsigned char x, unsigned char y)
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_WALL(char x, char y)
 	{
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
-		(void) textcolor (COLOR_RED);
-		cputc(BOMB_IMAGE._imageData);
+		// gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
+		// (void) textcolor (COLOR_RED);
+		// cputc(BOMB_IMAGE._imageData);
+		POKE(loc(x,y),(unsigned char) _BROKEN_WALL);
 	}
 #endif
 
@@ -307,7 +310,8 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	unsigned char i = 0;
 	while(str[i])
 	{
-		POKE(BASE_ADDR+x+(unsigned short)(y+Y_OFFSET)*40+i, str[i]); 
+		POKE(loc(x,y)+i,str[i]);
+		// POKE(BASE_ADDR+x+(unsigned short)(y+Y_OFFSET)*40+i, str[i]); 
 		// ZAP_SOUND();
 		++i;
 	}
@@ -347,7 +351,8 @@ void print_u(unsigned char x, unsigned char y, unsigned short val)
 	// gotoxy(x,y+Y_OFFSET);
 	// cputc((char) (val+48));
 	// POKE(BASE_ADDR+x+(y*40u)+80u, (char) (val + 48));
-	POKE(BASE_ADDR+x+(unsigned short)(y+Y_OFFSET)*40,val+48);	
+	// POKE(BASE_ADDR+x+(unsigned short)(y+Y_OFFSET)*40,val+48);	
+	POKE(loc(x,y),val+48);
 }
 
 

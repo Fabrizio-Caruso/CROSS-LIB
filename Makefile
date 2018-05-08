@@ -148,7 +148,7 @@ vic20_exp_8k:
 #	-DSOUNDS 
 #	$(SOURCE_PATH)/vic20/vic20_sounds.c 
 	
-vic20_exp_8k_full_no_gfx:
+vic20_exp_8k_full:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 --config $(SOURCE_PATH)/../cfg/vic20-8k.cfg \
 	-DFULL_GAME \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -160,7 +160,8 @@ vic20_exp_8k_full_no_gfx:
 	-DNO_HINTS \
 	-DNO_DEAD_GHOSTS \
 	-DSOUNDS \
-	-DNO_SLEEP \
+	-DALT_SLEEP \
+	$(SOURCE_PATH)/sleep_macros.c \
 	$(SOURCE_PATH)/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/vic20/vic20_alt_print.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
@@ -279,11 +280,8 @@ c16_32k:
 
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t c16 \
-	--config $(SOURCE_PATH)/../cfg/c16-32k.cfg \
+	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg \
 	-DFULL_GAME \
-	-DSIMPLE_STRATEGY \
-	-DNO_SLEEP \
-	-DNO_RANDOM_LEVEL \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_BLINKING \
 	-DLESS_TEXT	\

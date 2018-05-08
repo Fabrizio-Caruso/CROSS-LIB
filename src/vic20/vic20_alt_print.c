@@ -39,7 +39,7 @@
 	#define _PLAYER _PLAYER_DOWN
 
 	// RED
-	#define _BOMB 'x'
+	#define _BOMB '^'
 
 	// WHITE
 	#define _GHOST 'o'
@@ -67,7 +67,9 @@
 
 	#define _RIGHT_ENEMY_MISSILE '<'
 
-	#define _BUBBLE '^'
+	#define _BUBBLE ('^'-64)
+	
+	#define _BROKEN_WALL _BOMB
 #else
 	#define _PLAYER_DOWN 0x00
 	#define _PLAYER_UP 0x0E
@@ -168,11 +170,10 @@ unsigned short loc(unsigned char x, unsigned char y)
 	#define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
 #endif
 #define _DRAW_VERTICAL_WALL(x,y)  POKE(loc(x,y),'|')
-//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
 #define _DRAW_HORIZONTAL_WALL(x,y)  POKE(loc(x,y),'-')
-//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
+// TODO: Find a few extra bytes
 #define _DRAW_BROKEN_WALL(x,y) 
-//do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
+//POKE(loc(x,y),_BROKEN_WALL)
 
 void INIT_GRAPHICS(void)
 {
@@ -190,7 +191,7 @@ void INIT_IMAGES(void)
 		// PLAYER_IMAGE._color = COLOR_CYAN;
 		BOMB_IMAGE._color = COLOR_RED;
 		#if !defined(NO_DEAD_GHOSTS)
-		DEAD_GHOST_IMAGE._color = COLOR_RED;
+			DEAD_GHOST_IMAGE._color = COLOR_RED;
 		#endif
 		GHOST_IMAGE._color = COLOR_WHITE;		
 		
@@ -227,7 +228,6 @@ void INIT_IMAGES(void)
 		#endif	
 	#endif
 
-	
 	GHOST_IMAGE._imageData = _GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
 	
@@ -305,28 +305,24 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 #if !defined(TINY_GAME)
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
+	// gotoxy(x,y);
+	// chline(length);
 	unsigned char i;
-	// SET_TEXT_COLOR(COLOR_YELLOW);
-
 	for(i=0;i<length;++i) 
 	{ 
 		gotoxy(x+i+X_OFFSET,y+Y_OFFSET);  cputc('-');
-		// _DRAW_VERTICAL_WALL(x+i,y);
-		// POKE(loc(x+i,y),'-');
 	} 	
 }
 
 
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
+	// gotoxy(x,y);
+	// cvline(length);
 	unsigned char i;
-	// SET_TEXT_COLOR(COLOR_YELLOW);
-
 	for(i=0;i<length;++i) 
 	{ 
 		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  cputc('|');
-		// _DRAW_HORIZONTAL_WALL(x,y+i);
-		// POKE(loc(x,y+i),'|');
 	} 	
 }
 #endif

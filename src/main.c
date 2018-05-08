@@ -323,7 +323,7 @@ int main(void)
 			printPressKeyToStart();				
 		#endif
 
-		#if defined(TINY_GAME) || defined(FULL_GAME)
+		#if (defined(TINY_GAME) || defined(FULL_GAME)) && !defined(LESS_TEXT)
 			highScoreScreen();	
 			WAIT_PRESS();	
 		#endif

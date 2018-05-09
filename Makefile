@@ -563,9 +563,13 @@ vg5k:
 	
 vg5k_full:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	-O3 \
+	-compiler=sdcc \
+	-SO3 --max-allocs-per-node200000 \
+	-opt-code-size \
+	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
+	-DSDCC \
+	-DTURN_BASED \
 	-vn -DFULL_GAME -D__VG5K__ \
-	-DNO_BLINKING \
 	-DLESS_TEXT \
 	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
@@ -579,7 +583,6 @@ vg5k_full:
 	-DNO_MESSAGE \
 	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \
-	-DNO_BLINKING \
 	-DNO_COLOR \
 	-DNO_PRINT \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_full_NO_GFX.prg \
@@ -1866,6 +1869,12 @@ c128_hello:
 	$(SOURCE_PATH)/../experiments/hello.c \
 	-create-app
 	
+vg5k_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k -compiler=sdcc \
+	-vn -lndos \
+	$(SOURCE_PATH)/../experiments/vg5k_hello.c \
+	-create-app
+
 
 sms_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +sms \

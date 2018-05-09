@@ -559,11 +559,11 @@ vg5k:
 # -compiler=sdcc 
 # -SO3 --max-allocs-per-node200000 
 # -DSDCC
+# -DTURN_BASED
 	
 vg5k_full:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	-compiler=sdcc \
-	-SO3 --max-allocs-per-node200000 \
+	-O3 \
 	-vn -DFULL_GAME -D__VG5K__ \
 	-DNO_BLINKING \
 	-DLESS_TEXT \
@@ -579,9 +579,9 @@ vg5k_full:
 	-DNO_MESSAGE \
 	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \
-	-DSDCC \
-	-DTURN_BASED \
+	-DNO_BLINKING \
 	-DNO_COLOR \
+	-DNO_PRINT \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_full_NO_GFX.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \

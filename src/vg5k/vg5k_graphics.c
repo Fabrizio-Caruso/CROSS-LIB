@@ -234,7 +234,7 @@ void _draw(unsigned char x,unsigned char y,Image * image)
 	#if !defined(NO_COLOR)
 		_draw_ch(x,y,image->_imageData, image->_color);
 	#else
-		_draw_ch(x,y,image->_imageData, 0);		
+		_draw_ch(x,y,image->_imageData, VG5K_WHITE);		
 	#endif
 }
 

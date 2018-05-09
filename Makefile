@@ -555,7 +555,42 @@ vg5k:
 	# rm $(BUILD_PATH)/LIGHT_vg5k.k7
 	# cat $(SOURCE_PATH)/vg5k/LIGHT_vg5k_header.hex $(BUILD_PATH)/LIGHT_vg5k.prg $(SOURCE_PATH)/vg5k/LIGHT_vg5k_end.hex > $(BUILD_PATH)/LIGHT_vg5k.k7
 	rm $(BUILD_PATH)/LIGHT_vg5k.prg
+
+# -compiler=sdcc 
+# -SO3 --max-allocs-per-node200000 
+# -DSDCC
 	
+vg5k_full:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
+	-compiler=sdcc \
+	-SO3 --max-allocs-per-node200000 \
+	-vn -DFULL_GAME -D__VG5K__ \
+	-DNO_BLINKING \
+	-DLESS_TEXT \
+	-DSIMPLE_STRATEGY \
+	-DNO_HINTS \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SLEEP \
+	-DNO_DEAD_GHOSTS \
+	-DNO_SET_SCREEN_COLOR \
+	-DNO_INITIAL_SCREEN \
+	-DFORCE_GHOSTS_NUMBER=4 \
+	-DFORCE_BOMBS_NUMBER=2 \
+	-DNO_MESSAGE \
+	-DNO_STATS \
+	-DNO_INITIAL_SCREEN \
+	-DSDCC \
+	-DTURN_BASED \
+	-DNO_COLOR \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_full_NO_GFX.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	# rm $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
+	# cat $(SOURCE_PATH)/vg5k/FULL_vg5k_header.hex $(BUILD_PATH)/FULL_vg5k_exp_16k.prg $(SOURCE_PATH)/vg5k/LIGHT_vg5k_end.hex > $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
+	rm $(BUILD_PATH)/FULL_vg5k_full_NO_GFX.prg	
 	
 # -O3 -zorg=18941 -vn
 vg5k_exp_16k:

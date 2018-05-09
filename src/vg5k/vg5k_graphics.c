@@ -79,7 +79,7 @@ extern Image MISSILE_IMAGE;
 
 void INIT_IMAGES(void)
 {		
-	
+	#if !defined(NO_COLOR)
 	PLAYER_IMAGE._color = VG5K_CYAN;		
 	GHOST_IMAGE._color = VG5K_WHITE;
 	MISSILE_IMAGE._color = VG5K_WHITE;
@@ -92,6 +92,8 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._color = VG5K_RED;
 	DEAD_GHOST_IMAGE._color = VG5K_RED;
 		
+	#endif
+	
 	GHOST_IMAGE._imageData = 'o';
 	INVINCIBLE_GHOST_IMAGE._imageData = '+';
 	BOMB_IMAGE._imageData = 'X';
@@ -104,38 +106,37 @@ void INIT_IMAGES(void)
 	
 	DEAD_GHOST_IMAGE._imageData = 'o';
 
+	#if !defined(NO_COLOR)
 	GHOST_IMAGE._color = VG5K_WHITE;
 	MISSILE_IMAGE._color = VG5K_WHITE;
+	#endif
 	
 	#if defined(FULL_GAME)
-		FREEZE_IMAGE._color = VG5K_CYAN;
+		#if !defined(NO_COLOR)	
+			FREEZE_IMAGE._color = VG5K_CYAN;	
+			LEFT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;
+			RIGHT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;	
+			BUBBLE_IMAGE._color = VG5K_WHITE;	
+			EXTRA_LIFE_IMAGE._color = VG5K_YELLOW;
+			INVINCIBILITY_IMAGE._color = VG5K_YELLOW;			
+			CHASE_IMAGE._color = VG5K_RED;		
+			SUPER_IMAGE._color = VG5K_RED;
+			CONFUSE_IMAGE._color = VG5K_RED;			
+			ZOMBIE_IMAGE._color = VG5K_YELLOW;	
+		#endif
+
 		FREEZE_IMAGE._imageData = POWERUP_IMAGE._imageData;
-	
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		LEFT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-		RIGHT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;	
 		
 		BUBBLE_IMAGE._imageData = '^';
-		BUBBLE_IMAGE._color = VG5K_WHITE;
-
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
-		EXTRA_LIFE_IMAGE._color = VG5K_YELLOW;
-
 		INVINCIBILITY_IMAGE._imageData = 'V';
-		INVINCIBILITY_IMAGE._color = VG5K_YELLOW;	
-
 		CHASE_IMAGE._imageData = '.';
-		CHASE_IMAGE._color = VG5K_RED;
-		
 		SUPER_IMAGE._imageData = 'H';
-		SUPER_IMAGE._color = VG5K_RED;
-		
 		CONFUSE_IMAGE._imageData = '+';
-		CONFUSE_IMAGE._color = VG5K_RED;
-		
 		ZOMBIE_IMAGE._imageData = 'O';
-		ZOMBIE_IMAGE._color = VG5K_YELLOW;
+
 	#endif
 }
 
@@ -163,18 +164,6 @@ void INIT_GRAPHICS(void)
 	}
 #endif
 
-// void no_cursor(void)
-// {	
-	// #asm
-	// jr clean_cursor
-	// ef9345:
-		// defb 0x04,0x20,0x82,0x29,0x00
-	// clean_cursor:
-		// ld hl,ef9345
-		// ;ld ix,$47FA
-		// call 0x00AD
-	// #endasm		
-// }
 
 void CLEAR_SCREEN()
 {
@@ -203,8 +192,11 @@ void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 
 void _draw_ch_aux(int chCol, int xy)
 {		
-	#asm
-	
+	#if defined(SDCC)
+		__asm
+	#else
+		#asm
+	#endif
 	pop bc   ; bc = ret address
 	pop hl   ; hl = int b
 	pop de  ; de = int a
@@ -217,8 +209,13 @@ void _draw_ch_aux(int chCol, int xy)
 	
 	call 0x0092	
 	
-	#endasm	
+	#if defined(SDCC)
+		__endasm;
+	#else
+		#endasm
+	#endif
 }
+
 
 void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 {
@@ -234,7 +231,11 @@ void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char 
 
 void _draw(unsigned char x,unsigned char y,Image * image) 
 {
-	_draw_ch(x,y,image->_imageData, image->_color);
+	#if !defined(NO_COLOR)
+		_draw_ch(x,y,image->_imageData, image->_color);
+	#else
+		_draw_ch(x,y,image->_imageData, 0);		
+	#endif
 }
 
 void _delete(unsigned char x, unsigned char y)  
@@ -243,7 +244,7 @@ void _delete(unsigned char x, unsigned char y)
 }
 
 
-
+#if !defined(NO_BLINKING)
 void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char *blinkCounter)
 {
 		_draw_ch(x,y, image->_imageData, image->_color);
@@ -258,5 +259,5 @@ void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char *b
 			*blinkCounter=1;
 		}
 }
-
+#endif
 

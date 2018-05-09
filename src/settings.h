@@ -61,7 +61,7 @@
 	// #define NO_INITIAL_SCREEN
 #endif
 
-#if defined(TURN_BASED)
+#if defined(TURN_BASED) || !defined(NO_BLINKING)
 	#define NO_BLINKING
 #endif
 

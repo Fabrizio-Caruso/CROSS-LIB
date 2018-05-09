@@ -120,7 +120,7 @@ Character ghosts[GHOSTS_NUMBER];
 Character bombs[BOMBS_NUMBER];
 
 #if defined(FULL_GAME)
-	unsigned short invincibleGhostCountTrigger = INVINCIBLE_GHOST_TRIGGER;
+	// unsigned short invincibleGhostCountTrigger = INVINCIBLE_GHOST_TRIGGER;
 
 	unsigned char innerVerticalWallY; 
 	unsigned char innerVerticalWallX; 

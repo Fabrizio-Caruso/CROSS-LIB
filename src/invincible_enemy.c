@@ -43,8 +43,8 @@ extern Character invincibleGhost;
 extern Character player;
 
 extern unsigned char invincibleGhostAlive;
-extern unsigned char invincibleGhostCountTrigger;
-extern unsigned short invincibleLoopTrigger;
+// extern unsigned char invincibleGhostCountTrigger;
+// extern unsigned short invincibleLoopTrigger;
 
 #if defined(FULL_GAME)
 	extern unsigned char confuseActive;
@@ -71,6 +71,13 @@ void computeInvincibleGhostParameters(void)
 }
 
 
+// Redability macros
+#define INACTIVITY_COUNT_DOWN_REACHED ((invincibleXCountDown==0) || (invincibleYCountDown==0))
+#define GHOST_COUNT_TRIGGER_REACHED (ghostCount<=INVINCIBLE_GHOST_TRIGGER)
+#define BOSS_LOOP_TRIGGER_REACHED (loop>=INVINCIBLE_LOOP_TRIGGER)
+
+#define ONE_TRIGGER_REACHED (INACTIVITY_COUNT_DOWN_REACHED || GHOST_COUNT_TRIGGER_REACHED)
+
 void handle_invincible_ghost(void)
 {
 	if(!invincibleGhost._status)
@@ -78,13 +85,11 @@ void handle_invincible_ghost(void)
 		// Manage invincible ghost
 		
 		#if defined(FULL_GAME)
-		if((!bossLevel() && invincibleGhostAlive &&
-							((invincibleXCountDown==0)|| (invincibleYCountDown==0) || (loop>=INVINCIBLE_LOOP_TRIGGER) || (ghostCount<=invincibleGhostCountTrigger))) || 
-		   (bossLevel() && loop>=(INVINCIBLE_LOOP_TRIGGER)/2))
+		if(invincibleGhostAlive && 
+			((!bossLevel() && ONE_TRIGGER_REACHED) || 
+			 (bossLevel() && BOSS_LOOP_TRIGGER_REACHED)))
 		#else
-		if(invincibleGhostAlive &&
-							((invincibleXCountDown==0)     || (invincibleYCountDown==0) || 
-							 (loop>=INVINCIBLE_LOOP_TRIGGER) || (ghostCount<=INVINCIBLE_GHOST_TRIGGER)))
+		if(invincibleGhostAlive && ONE_TRIGGER_REACHED)
 		#endif
 		{
 			invincibleGhost._status = 1;

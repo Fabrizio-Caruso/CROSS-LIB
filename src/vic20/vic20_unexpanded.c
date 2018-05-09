@@ -288,10 +288,14 @@ void _delete(unsigned char x, unsigned char y)
 	#endif
 	
 	
-	#if defined(ALT_HIGHSCORE)
+	#if defined(ALT_HIGHSCORE) 
 	void highScoreScreen(void)
 	{
 		_displayShort(highScore);
+		POKE(7686+2,'h'); POKE(7686+3,'i');
+		POKE(7686+5,'s'); POKE(7686+6,'c');		
+		POKE(7686+7,'o'); POKE(7686+8,'r');		
+		POKE(7686+9,'e');				
 	}
 	#endif
 #endif

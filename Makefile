@@ -112,8 +112,8 @@ vic20_unexpanded:
 	-DNO_INITIAL_SCREEN \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DALT_DISPLAY_STATS \
-	-DALT_HIGHSCORE \
 	-DNO_DEAD_GHOSTS \
+	-DALT_HIGHSCORE \
 	-DFORCE_BOMBS_NUMBER=2 \
 	--config $(SOURCE_PATH)/../cfg/vic20_unexpanded.cfg  \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/vic20/vic20_unexpanded.c \

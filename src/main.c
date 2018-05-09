@@ -323,10 +323,14 @@ int main(void)
 			printPressKeyToStart();				
 		#endif
 
-		#if (defined(TINY_GAME) || defined(FULL_GAME)) && !defined(LESS_TEXT)
-			highScoreScreen();	
+		#if !defined(LESS_TEXT) || defined(ALT_HIGHSCORE)
+			highScoreScreen();
 			WAIT_PRESS();	
 		#endif
+		// #if ((defined(TINY_GAME) || defined(FULL_GAME)) && !defined(LESS_TEXT)) || defined(ALT_HISCORE)
+			// highScoreScreen();
+			// WAIT_PRESS();
+		// #endif
 		#if !defined(TINY_GAME)
 
 			CLEAR_SCREEN();

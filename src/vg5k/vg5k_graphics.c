@@ -144,15 +144,14 @@ void INIT_IMAGES(void)
 
 void INIT_GRAPHICS(void)
 {
-	{
-		unsigned char i;	
-		for(i=0;i<24;++i)
-		{
-			POKE(VIDEO_MEMORY_BASE+80*i,32);
-			POKE(VIDEO_MEMORY_BASE+1+80*i,1);
-		}	
-		//POKE(0x47FD,0);
-	}	
+	// unsigned char i;	
+	// for(i=0;i<24;++i)
+	// {
+		// POKE((VIDEO_MEMORY_BASE+80*i),32);
+		// POKE((VIDEO_MEMORY_BASE+1+80*i),1);
+	// }	
+	
+		//POKE(0x47FD,0);	
 }
 
 
@@ -190,43 +189,50 @@ void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 	} 
 }
 
-void _draw_ch_aux(int chCol, int xy)
-{		
-	#if defined(SDCC)
-		__asm
-	#else
-		#asm
-	#endif
-	pop bc   ; bc = ret address
-	pop hl   ; hl = int b
-	pop de  ; de = int a
+#if defined(ASM_DISPLAY)
+	void _draw_ch_aux(int chCol, int xy)
+	{		
+		#if defined(SDCC)
+			__asm
+		#else
+			#asm
+		#endif
+		pop bc   ; bc = ret address
+		pop hl   ; hl = int b
+		pop de  ; de = int a
 
-	push de    ; now restore stack
-	push hl
-	push bc
-	
-	;ld ix,$47FA	
-	
-	call 0x0092	
-	
-	#if defined(SDCC)
-		__endasm;
-	#else
-		#endasm
-	#endif
-}
+		push de    ; now restore stack
+		push hl
+		push bc
+		
+		;ld ix,$47FA	
+		
+		call 0x0092	
+		
+		#if defined(SDCC)
+			__endasm;
+		#else
+			#endasm
+		#endif
+	}
+#endif
 
 
 void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col)
 {
-	// no_cursor();		
-		
+	
+	#if defined(ASM_DISPLAY)	
 	{			
 		int xy = ((Y_OFFSET+y+7)<<8) | (X_OFFSET+x);
 		int chCol = (ch<<8) | col;
 		
 		_draw_ch_aux(chCol,xy);
 	}
+	#else
+		gotoxy(x+X_OFFSET,y+Y_OFFSET);
+		textcolor(col);
+		cputc(ch);
+	#endif
 }
 
 void _draw(unsigned char x,unsigned char y,Image * image) 

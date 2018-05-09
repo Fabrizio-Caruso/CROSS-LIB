@@ -558,15 +558,16 @@ vg5k:
 
 # -compiler=sdcc 
 # -SO3 --max-allocs-per-node200000 
+# -opt-code-size
 # -DSDCC
 # -DTURN_BASED
 	
 vg5k_full:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-compiler=sdcc \
-	-SO3 --max-allocs-per-node200000 \
+	-SO3 \
 	-opt-code-size \
-	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
+	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
 	-DSDCC \
 	-DTURN_BASED \
 	-vn -DFULL_GAME -D__VG5K__ \
@@ -577,14 +578,9 @@ vg5k_full:
 	-DNO_SLEEP \
 	-DNO_DEAD_GHOSTS \
 	-DNO_SET_SCREEN_COLOR \
-	-DNO_INITIAL_SCREEN \
-	-DFORCE_GHOSTS_NUMBER=4 \
-	-DFORCE_BOMBS_NUMBER=2 \
-	-DNO_MESSAGE \
-	-DNO_STATS \
-	-DNO_INITIAL_SCREEN \
-	-DNO_COLOR \
-	-DNO_PRINT \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DSOUNDS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_full_NO_GFX.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \

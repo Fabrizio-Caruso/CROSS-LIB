@@ -592,9 +592,12 @@ vg5k_full_sccz80:
 	rm $(BUILD_PATH)/FULL_vg5k_full_sccz80.prg	
 
 
-# 	-SO3 --max-allocs-per-node200000 \
-#   -opt-code-size \
-#
+# 	-SO3 --max-allocs-per-node200000 
+#   -opt-code-size 
+#	-DSOUNDS
+#	-DNO_INITIAL_SCREEN
+# 	-DNO_MESSAGE
+# 	-DFORCE_NARROW
 vg5k_full_sdcc:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-compiler=sdcc \
@@ -612,10 +615,10 @@ vg5k_full_sdcc:
 	-DNO_SET_SCREEN_COLOR \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DFORCE_BOMBS_NUMBER=4 \
-	-DNO_MESSAGE \
-	-DNO_INITIAL_SCREEN \
 	-DNO_SET_SCREEN_COLOR \
 	-DNO_SLEEP \
+	-DNO_MESSAGE \
+	-DNO_INITIAL_SCREEN \
 	-create-app -o $(BUILD_PATH)/FULL_vg5k_full_sdcc.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \

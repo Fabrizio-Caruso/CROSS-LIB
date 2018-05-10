@@ -67,15 +67,25 @@ extern Image MISSILE_IMAGE;
 	Image PLAYER_DOWN;	
 #endif
 
-
-#define VG5K_BLACK 0
-#define VG5K_RED 1
-#define VG5K_GREEN 2
-#define VG5K_YELLOW 3
-#define VG5K_BLUE 4
-#define VG5K_VIOLET 5
-#define VG5K_CYAN 6
-#define VG5K_WHITE 7
+#if defined(ASM_DISPLAY)
+	#define VG5K_BLACK 0
+	#define VG5K_RED 1
+	#define VG5K_GREEN 2
+	#define VG5K_YELLOW 3
+	#define VG5K_BLUE 4
+	#define VG5K_VIOLET 5
+	#define VG5K_CYAN 6
+	#define VG5K_WHITE 7
+#else
+	#define VG5K_BLACK COLOR_BLACK
+	#define VG5K_RED COLOR_RED
+	#define VG5K_GREEN COLOR_GREEN
+	#define VG5K_YELLOW COLOR_YELLOW
+	#define VG5K_BLUE COLOR_BLUE
+	#define VG5K_VIOLET COLOR_MAGENTA
+	#define VG5K_CYAN COLOR_CYAN
+	#define VG5K_WHITE COLOR_WHITE
+#endif
 
 void INIT_IMAGES(void)
 {		

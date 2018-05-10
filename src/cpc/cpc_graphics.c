@@ -161,6 +161,7 @@ void _delete(unsigned char x, unsigned char y)
 	_DELETE
 }
 
+#if !defined(NO_BLINKING)
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
 	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
@@ -179,6 +180,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		*blinkCounter=1;
 	}	
 }
+#endif
 
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 { 

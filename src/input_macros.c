@@ -166,10 +166,11 @@ extern Character player;
 	#endif	
 #else
 	#include<joystick.h>
-	#if defined(NO_INPUT)
+	#if defined(NO_WAIT)
 	//defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
 		void WAIT_PRESS(void)
 		{
+			sleep(2);
 		}
 	#else
 	void WAIT_PRESS(void)
@@ -192,6 +193,7 @@ extern Character player;
 	#if defined(NO_INPUT)
 		void movePlayerByJoystick(unsigned char joyInput)
 		{
+			sleep(1);
 		}		
 	#else
 		void movePlayerByJoystick(unsigned char joyInput)
@@ -221,31 +223,38 @@ extern Character player;
 		}	
 	#endif
 #else
-	void movePlayerByKeyboard(unsigned char kbInput)
-	{
-		if(kbInput==_MOVE_UP)
+	#if defined(NO_INPUT)
+		void movePlayerByKeyboard(unsigned char joyInput)
 		{
-			_DO_MOVE_UP
-		}
-		else if(kbInput==_MOVE_DOWN)
+			sleep(1);
+		}	
+	#else
+		void movePlayerByKeyboard(unsigned char kbInput)
 		{
-			_DO_MOVE_DOWN
+			if(kbInput==_MOVE_UP)
+			{
+				_DO_MOVE_UP
+			}
+			else if(kbInput==_MOVE_DOWN)
+			{
+				_DO_MOVE_DOWN
+			}
+			else if(kbInput==_MOVE_LEFT)
+			{
+				_DO_MOVE_LEFT
+			}
+			else if(kbInput==_MOVE_RIGHT)
+			{
+				_DO_MOVE_RIGHT
+			}
+			#if !defined(TINY_GAME)
+			else if(kbInput==_FIRE && guns>0 && !missile._status)
+			{
+				playerFire = 1;
+			}
+			#endif
 		}
-		else if(kbInput==_MOVE_LEFT)
-		{
-			_DO_MOVE_LEFT
-		}
-		else if(kbInput==_MOVE_RIGHT)
-		{
-			_DO_MOVE_RIGHT
-		}
-		#if !defined(TINY_GAME)
-		else if(kbInput==_FIRE && guns>0 && !missile._status)
-		{
-			playerFire = 1;
-		}
-		#endif
-	}
+	#endif
 #endif
 
 #if defined(Z88DK)
@@ -257,7 +266,9 @@ extern Character player;
 #endif	
 	
 #if defined(KEYBOARD_CONTROL)
-	#if defined(TURN_BASED)
+	#if defined(NO_INPUT)
+		void MOVE_PLAYER(void) {}
+	#elif defined(TURN_BASED)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(TURN_BASED_INPUT);} 	
 	#elif defined(__SPECTRUM__)
 		#if defined(CLIB_ANSI)

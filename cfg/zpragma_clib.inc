@@ -1,5 +1,3 @@
-// change program org
-// #pragma output CRT_ORG_CODE = 24500   // an alternative to -zorg on the compile line
 
 // move the stack to available memory
 #pragma output REGISTER_SP = -1      // must be placed somewhere in the 16k ram

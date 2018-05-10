@@ -80,18 +80,17 @@ extern Image MISSILE_IMAGE;
 void INIT_IMAGES(void)
 {		
 	#if !defined(NO_COLOR)
-	PLAYER_IMAGE._color = VG5K_CYAN;		
-	GHOST_IMAGE._color = VG5K_WHITE;
-	MISSILE_IMAGE._color = VG5K_WHITE;
-	INVINCIBLE_GHOST_IMAGE._color = VG5K_YELLOW;
-	POWERUP_IMAGE._color = VG5K_GREEN;
-	GUN_IMAGE._color = VG5K_VIOLET;
-		
-	EXTRA_POINTS_IMAGE._color = VG5K_YELLOW;
+		PLAYER_IMAGE._color = VG5K_CYAN;		
+		GHOST_IMAGE._color = VG5K_WHITE;
+		MISSILE_IMAGE._color = VG5K_WHITE;
+		INVINCIBLE_GHOST_IMAGE._color = VG5K_YELLOW;
+		POWERUP_IMAGE._color = VG5K_GREEN;
+		GUN_IMAGE._color = VG5K_VIOLET;
 			
-	BOMB_IMAGE._color = VG5K_RED;
-	DEAD_GHOST_IMAGE._color = VG5K_RED;
-		
+		EXTRA_POINTS_IMAGE._color = VG5K_YELLOW;
+				
+		BOMB_IMAGE._color = VG5K_RED;
+		DEAD_GHOST_IMAGE._color = VG5K_RED;
 	#endif
 	
 	GHOST_IMAGE._imageData = 'o';
@@ -107,8 +106,8 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._imageData = 'o';
 
 	#if !defined(NO_COLOR)
-	GHOST_IMAGE._color = VG5K_WHITE;
-	MISSILE_IMAGE._color = VG5K_WHITE;
+		GHOST_IMAGE._color = VG5K_WHITE;
+		MISSILE_IMAGE._color = VG5K_WHITE;
 	#endif
 	
 	#if defined(FULL_GAME)
@@ -198,14 +197,14 @@ void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 			#asm
 		#endif
 		pop bc   ; bc = ret address
-		pop hl   ; hl = int b
-		pop de  ; de = int a
+		pop hl   ; hl = int xy
+		pop de  ; de = int chCol
 
 		push de    ; now restore stack
 		push hl
 		push bc
 		
-		;ld ix,$47FA	
+		;ld ix,0x47FA	
 		
 		call 0x0092	
 		
@@ -231,7 +230,7 @@ void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char 
 	#else
 		gotoxy(x+X_OFFSET,y+Y_OFFSET);
 		textcolor(col);
-		cputc(ch);
+		cputc((char) ch);
 	#endif
 }
 

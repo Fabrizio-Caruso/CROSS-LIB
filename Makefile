@@ -546,6 +546,7 @@ vg5k:
 	-O3 \
 	-vn \
 	-D__VG5K__ -DSOUNDS  \
+	-DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_vg5k.prg \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \
@@ -561,27 +562,26 @@ vg5k:
 # -opt-code-size
 # -DSDCC
 # -DTURN_BASED
-	
-vg5k_full:
+# -DASM_DISPLAY
+# 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc 
+vg5k_full_sccz80:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	-compiler=sdcc \
-	-SO3 \
-	-opt-code-size \
+	-O3 \
+	-DASM_DISPLAY \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
-	-DSDCC \
-	-DTURN_BASED \
+	-DNO_BLINKING \
 	-vn -DFULL_GAME -D__VG5K__ \
 	-DLESS_TEXT \
 	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
 	-DNO_RANDOM_LEVEL \
-	-DNO_SLEEP \
 	-DNO_DEAD_GHOSTS \
 	-DNO_SET_SCREEN_COLOR \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DFORCE_BOMBS_NUMBER=4 \
-	-DSOUNDS \
-	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_full_NO_GFX.prg \
+	-DNO_BORDERS \
+	-DNO_MESSAGE \
+	-create-app -o $(BUILD_PATH)/FULL_vg5k_full_sccz80.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -589,13 +589,43 @@ vg5k_full:
 	$(SOURCE_PATH)/main.c
 	# rm $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
 	# cat $(SOURCE_PATH)/vg5k/FULL_vg5k_header.hex $(BUILD_PATH)/FULL_vg5k_exp_16k.prg $(SOURCE_PATH)/vg5k/LIGHT_vg5k_end.hex > $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
-	rm $(BUILD_PATH)/FULL_vg5k_full_NO_GFX.prg	
+	rm $(BUILD_PATH)/FULL_vg5k_full_sccz80.prg	
+
+
+vg5k_full_sdcc:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
+	-compiler=sdcc \
+	--reserve-regs-iy \
+	-DSDCC \
+	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
+	-DNO_BLINKING \
+	-vn -DFULL_GAME -D__VG5K__ \
+	-DLESS_TEXT \
+	-DSIMPLE_STRATEGY \
+	-DNO_HINTS \
+	-DNO_RANDOM_LEVEL \
+	-DNO_DEAD_GHOSTS \
+	-DNO_SET_SCREEN_COLOR \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DSOUNDS \
+	-DNO_MESSAGE \
+	-DNO_SLEEP \
+	-create-app -o $(BUILD_PATH)/FULL_vg5k_full_sdcc.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	# rm $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
+	# cat $(SOURCE_PATH)/vg5k/FULL_vg5k_header.hex $(BUILD_PATH)/FULL_vg5k_exp_16k.prg $(SOURCE_PATH)/vg5k/LIGHT_vg5k_end.hex > $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
+	rm $(BUILD_PATH)/FULL_vg5k_full_sdcc.prg	
 	
 # -O3 -zorg=18941 -vn
 vg5k_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-O3 \
-	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \
@@ -1638,7 +1668,7 @@ z88dk_targets: \
 	z9001_16k z9001_32k \
 	vg5k vg5k_exp_16k \
 	sc3000_16k sc3000_32k \
-	ace_exp_16k \
+	ace_exp_16k 
 	cpc cpc_no_udg \
  	mc1000_16k mc1000_48k \
  	sharp_mz \

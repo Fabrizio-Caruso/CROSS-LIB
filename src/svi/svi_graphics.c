@@ -126,7 +126,7 @@ void INIT_IMAGES(void)
 	#endif
 }
 
-
+#if !defined(NO_BLINKING)
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
 	if(*blinkCounter) 
@@ -140,6 +140,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		*blinkCounter=1;
 	}	
 }
+#endif
 
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {

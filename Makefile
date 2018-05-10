@@ -596,7 +596,8 @@ vg5k_full_sdcc:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-compiler=sdcc \
 	--reserve-regs-iy \
-	-DSDCC \
+	-DASM_DISPLAY \
+	-DTURN_BASED \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
 	-DNO_BLINKING \
 	-vn -DFULL_GAME -D__VG5K__ \

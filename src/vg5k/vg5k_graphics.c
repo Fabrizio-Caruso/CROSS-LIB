@@ -191,11 +191,7 @@ void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 #if defined(ASM_DISPLAY)
 	void _draw_ch_aux(int chCol, int xy)
 	{		
-		#if defined(SDCC)
-			__asm
-		#else
-			#asm
-		#endif
+		__asm
 		pop bc   ; bc = ret address
 		pop hl   ; hl = int xy
 		pop de  ; de = int chCol
@@ -208,11 +204,7 @@ void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 		
 		call 0x0092	
 		
-		#if defined(SDCC)
-			__endasm;
-		#else
-			#endasm
-		#endif
+		__endasm;
 	}
 #endif
 

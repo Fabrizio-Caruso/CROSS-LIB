@@ -611,7 +611,7 @@ vg5k_full_sdcc:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DFORCE_BOMBS_NUMBER=4 \
 	-DSOUNDS \
-	-create-app -o $(BUILD_PATH)/FULL_vg5k_full_sdcc.prg \
+	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -619,7 +619,7 @@ vg5k_full_sdcc:
 	$(SOURCE_PATH)/main.c
 	# rm $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
 	# cat $(SOURCE_PATH)/vg5k/FULL_vg5k_header.hex $(BUILD_PATH)/FULL_vg5k_exp_16k.prg $(SOURCE_PATH)/vg5k/LIGHT_vg5k_end.hex > $(BUILD_PATH)/FULL_vg5k_exp_16k.k7
-	rm $(BUILD_PATH)/FULL_vg5k_full_sdcc.prg	
+	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
 	
 # -O3 -zorg=18941 -vn
 vg5k_exp_16k:

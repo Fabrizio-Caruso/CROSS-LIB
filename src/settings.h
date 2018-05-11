@@ -137,7 +137,10 @@
 #if defined(TURN_BASED)
 	#define GAME_SLOW_DOWN 0
 #else	
-	#  if defined(__MC1000__)
+	#  if defined(__MTX__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 3300			
+	#elif defined(__MC1000__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 900			
 	#elif defined(__VIC20__) && defined(ALT_PRINT)

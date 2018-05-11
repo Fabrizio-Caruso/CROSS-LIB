@@ -963,7 +963,7 @@ mtx:
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm FULL.bin
-	rm FULL.wav
+	mv FULL.wav $(BUILD_PATH)/FULL_mtx.wav
 	mv FULL $(BUILD_PATH)/FULL_mtx.mtx
 	
 abc80_16k:

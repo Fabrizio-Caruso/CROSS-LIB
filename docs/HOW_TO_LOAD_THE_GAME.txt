@@ -80,7 +80,7 @@ Then load the other file
 
 Memotech MTX
 
-Use the MESS emulator
+Use the MESS 0.118 emulator
 Rename FULL_MTX.mtx to FULL and place it in the same folder as the Mess emulator
 In Basic do:
 LOAD"FULL"

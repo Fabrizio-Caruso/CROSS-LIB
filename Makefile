@@ -608,17 +608,10 @@ vg5k_full_sdcc:
 	-DNO_BLINKING \
 	-vn -DFULL_GAME -D__VG5K__ \
 	-DLESS_TEXT \
-	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
-	-DNO_RANDOM_LEVEL \
-	-DNO_DEAD_GHOSTS \
-	-DNO_SET_SCREEN_COLOR \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DFORCE_BOMBS_NUMBER=4 \
-	-DNO_SET_SCREEN_COLOR \
-	-DNO_SLEEP \
-	-DNO_MESSAGE \
-	-DNO_INITIAL_SCREEN \
+	-DSOUNDS \
 	-create-app -o $(BUILD_PATH)/FULL_vg5k_full_sdcc.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \

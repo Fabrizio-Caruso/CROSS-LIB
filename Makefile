@@ -2168,9 +2168,9 @@ gal_6k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-compiler=sdcc \
 	-SO3 --max-allocs-per-node200000 \
-	-zorg=10239 \
 	--opt-code-size \
 	-pragma-need=ansiterminal \
+	--reserve-regs-iy \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
 	-DTINY_GAME \
 	-DNO_SLEEP -DLESS_TEXT \
@@ -2182,7 +2182,9 @@ gal_6k:
 	-DALT_PRINT \
 	-DNO_MESSAGE \
 	-DFORCE_BOMBS_NUMBER=2 \
+	-DFORCE_GHOSTS_NUMBER=4 \
 	-DNO_DEAD_GHOSTS \
+	-DNO_COLOR \
 	-vn -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c

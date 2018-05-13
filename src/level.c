@@ -247,7 +247,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 		if(bossLevel())
 		{
-			nGhosts = level/8;
+			nGhosts = level>>2;
 		}		
 		
 	#endif

@@ -158,7 +158,6 @@ vic20_exp_8k_full:
 	-DALT_PRINT \
 	-DNO_SET_SCREEN_COLOR \
 	-DNO_HINTS \
-	-DNO_DEAD_GHOSTS \
 	-DSOUNDS \
 	-DALT_SLEEP \
 	$(SOURCE_PATH)/sleep_macros.c \

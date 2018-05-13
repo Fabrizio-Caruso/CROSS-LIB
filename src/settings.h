@@ -227,7 +227,7 @@
 		#define GAME_SLOW_DOWN 0	
 	#elif defined(__SPECTRUM__) && !defined(TINY_GAME)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 1700
+		#define GAME_SLOW_DOWN 1500
 	#elif defined(__CPC__) && defined(CPCRSLIB)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 400	

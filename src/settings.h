@@ -145,7 +145,7 @@
 		#define GAME_SLOW_DOWN 900			
 	#elif defined(__VIC20__) && defined(ALT_PRINT)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 400	
+		#define GAME_SLOW_DOWN 500	
 	#elif defined(__VIC20__) && !defined(TINY_GAME) 
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 250

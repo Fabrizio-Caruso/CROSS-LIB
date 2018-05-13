@@ -27,6 +27,7 @@
 #include "strategy.h"
 
 extern unsigned char level;
+extern unsigned short loop;
 extern unsigned char ghostCount;
 extern unsigned short invincibleSlowDown;
 
@@ -169,7 +170,7 @@ void chaseCharacter(unsigned short slowDown)
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
 		#if defined(FULL_GAME)
-			if((ghosts[i]._status || zombieActive) && (rand()>slowDown))
+			if((ghosts[i]._status || (zombieActive && loop&1)) && (rand()>slowDown))
 		#else
 			if((ghosts[i]._status) && (rand()>slowDown))	
 		#endif

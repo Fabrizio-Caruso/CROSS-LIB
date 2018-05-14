@@ -77,7 +77,7 @@
 		#define AUTHOR_STRING "Fabrizio Caruso"
 	#else
 		#define CROSS_CHASE_STRING "C R O S S  C H A S E"		
-		#define AUTHOR_STRING "by Fabrizio caruso"
+		#define AUTHOR_STRING "by Fabrizio Caruso"
 	#endif
 	#define KILL_THE_SKULL_STRING "Kill the skull"	
 	#define DESTROY_MISSILES_STRING "Destroy the missiles"	

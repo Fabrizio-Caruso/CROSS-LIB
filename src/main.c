@@ -34,6 +34,9 @@
 	#define EXIT_SUCCESS 0
 #endif
 
+// TODO: REMOVE THIS
+// #define DEBUG_ITEMS
+
 #include "settings.h"
 #include "character.h"
 #include "item.h"
@@ -137,7 +140,7 @@ Character bombs[BOMBS_NUMBER];
 	 
 	unsigned char extraLife_present_on_level;
 	unsigned char super_present_on_level;
-	unsigned char confuse_present_on_level;
+	// unsigned char confuse_present_on_level;
 	unsigned char zombie_present_on_level;
 	#define chase_present_on_level skullsKilled
 	#define confuse_present_on_level missileBasesDestroyed
@@ -265,16 +268,16 @@ void initialScreen(void)
 	void handle_special_triggers(void)
 	{
 
-	/*
-	missileBasesDestroyed = 2;
-	skullsKilled = 2;
-	*/
+	#if defined(DEBUG_ITEMS)
+		missileBasesDestroyed = 2;
+		skullsKilled = 2;
+	#endif
+	
 		// confuse_present_on_level is defined as missileBasesDestroyed
 		zombie_present_on_level = missileBasesDestroyed>=2;
 		super_present_on_level = skullsKilled>=2;
 		// chase_present_on_level is defined as skullsKilled;
 		extraLife_present_on_level = super_present_on_level && confuse_present_on_level;
-
 	}
 	
 #endif
@@ -546,11 +549,11 @@ int main(void)
 						{
 							handle_zombie_item();
 							handle_zombie_count_down();	
-							if(zombieActive && ((loop&7)==1))
+							if(zombieActive && !(loop&15))
 							{
 								points+=ZOMBIE_BONUS;
 								displayStats();
-								PING_SOUND();
+								reducePowerUpsCoolDowns();
 							}
 						}
 					}

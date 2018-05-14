@@ -125,7 +125,7 @@ extern Item extraPoints;
 	void extraPointsEffect(void)
 	{
 		points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
-		extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN*2; // second time is harder		
+		extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN<<2; // second time is harder		
 	}
 
 	void handle_item(Item *itemPtr)
@@ -207,7 +207,7 @@ extern Item extraPoints;
 	void freezeEffect(void)
 	{
 		_freezeEffect();
-		freeze._coolDown = FREEZE_COOL_DOWN*2;	
+		freeze._coolDown = FREEZE_COOL_DOWN<<1;	
 	}
 	
 	
@@ -215,7 +215,7 @@ extern Item extraPoints;
 	{
 		++lives;
 		skullsKilled=1;
-		missileBasesDestroyed = 0;
+		// missileBasesDestroyed = 0;
 		extraLife_present_on_level = 0;
 		// extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*10; // second time must be impossible
 		printLivesStats();		
@@ -230,7 +230,7 @@ extern Item extraPoints;
 	void invincibilityEffect(void)
 	{
 		_invincibilityEffect();
-		invincibility._coolDown = INVINCIBILITY_COOL_DOWN;		
+		invincibility._coolDown = INVINCIBILITY_COOL_DOWN<<1;
 	}
 	
 	void superEffect(void)
@@ -238,13 +238,13 @@ extern Item extraPoints;
 		_freezeEffect();
 		_gunEffect();
 		_invincibilityEffect();
-		super._coolDown = SUPER_COOL_DOWN*10;
+		super._coolDown = SUPER_COOL_DOWN<<3;
 	}
 
 	void confuseEffect(void)
 	{
 		confuseActive = 1;
-		confuse._coolDown = CONFUSE_COOL_DOWN*20;
+		confuse._coolDown = CONFUSE_COOL_DOWN<<4;
 		confuse_count_down = CONFUSE_COUNT_DOWN;
 	}
 	
@@ -253,7 +253,7 @@ extern Item extraPoints;
 		unsigned char i;
 		
 		zombieActive = 1;
-		zombie._coolDown = ZOMBIE_COOL_DOWN;
+		zombie._coolDown = ZOMBIE_COOL_DOWN<<4;
 		zombie_count_down = ZOMBIE_COUNT_DOWN;
 		for(i=0;i<GHOSTS_NUMBER;++i)
 		{
@@ -272,7 +272,7 @@ extern Item extraPoints;
 		chasingBullet._x = chase._character._x;
 		chasingBullet._y = chase._character._y;
 		
-		chase._coolDown = CHASE_COOL_DOWN*2;
+		chase._coolDown = CHASE_COOL_DOWN<<1;
 		
 		firstAliveIndex = firstAlive();
 		if(firstAliveIndex == GHOSTS_NUMBER)

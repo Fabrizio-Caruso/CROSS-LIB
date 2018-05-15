@@ -54,7 +54,9 @@
 #define _INVINCIBLE_GHOST '+'
 #define _VERTICAL_BRICK '|'
 #define _HORIZONTAL_BRICK '-'
-#define _EXTRA_LIFE '*'
+#define _EXTRA_LIFE ('*'+128)
+#define _CONFUSE ('+'+128)
+#define _ZOMBIE 'O'
 #define _EXTRA_POINTS '$'
 
 // GREEN
@@ -207,12 +209,12 @@ void INIT_IMAGES(void)
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
 		
 		
-		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;	
+		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;	
 		
 		SUPER_IMAGE._imageData = _POWERUP;
 		CHASE_IMAGE._imageData = _MISSILE;
-		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
-		ZOMBIE_IMAGE._imageData = _GHOST;
+		CONFUSE_IMAGE._imageData = _CONFUSE;
+		ZOMBIE_IMAGE._imageData = _ZOMBIE;
 	#endif	
 }
 

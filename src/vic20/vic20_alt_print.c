@@ -51,9 +51,11 @@
 
 	// YELLOW
 	#define _INVINCIBLE_GHOST '+'
+	#define _CONFUSE ('+'+128)
+	#define _ZOMBIE 'O'	
 	#define _VERTICAL_BRICK '|'
 	#define _HORIZONTAL_BRICK '-'
-	#define _EXTRA_LIFE _PLAYER_DOWN
+	#define _EXTRA_LIFE ('*'+128)
 	#define _EXTRA_POINTS '$'
 
 	// GREEN

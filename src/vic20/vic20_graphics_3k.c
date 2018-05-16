@@ -230,6 +230,7 @@ void _delete(unsigned char x, unsigned char y)
 	_DELETE(x,y);
 }
 
+#if !defined(NO_BLINKING)
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
 	if(*blinkCounter) 
@@ -243,6 +244,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		*blinkCounter=1;
 	}	
 }
+#endif
 
 #if !defined(TINY_GAME)
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 

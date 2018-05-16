@@ -1607,7 +1607,7 @@ coco:
 # OK: 30
 # ------------
 cc65_targets: \
-	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k \
+	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_8k_full vic20_exp_16k \
 	atari_color atari_no_color atari_no_color_16k \
 	atmos oric1_16k \
 	c16_16k c16_32k c16_16k_full \
@@ -1692,7 +1692,7 @@ list:
 	cat TARGETS.txt
 	
 vic20_targets: \
-	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
+	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_8k_full vic20_exp_16k
 
 c264_targets: \
 	c16_16k c16_16k_full c16_32k

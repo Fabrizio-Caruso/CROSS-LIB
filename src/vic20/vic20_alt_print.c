@@ -265,7 +265,7 @@ void INIT_IMAGES(void)
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
 		SUPER_IMAGE._imageData = _POWERUP;
-		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+		CONFUSE_IMAGE._imageData = _CONFUSE;
 		ZOMBIE_IMAGE._imageData = _GHOST;
 	#endif
 }

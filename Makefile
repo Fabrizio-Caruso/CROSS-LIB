@@ -661,6 +661,26 @@ zx80_16k:
 	rm $(BUILD_PATH)/FULL_zx80_16k.prg
 
 
+# zx80_16k_turn_based:
+	# $(Z88DK_PATH)$(MYZ88DK) +zx80 \
+	# -compiler=sdcc \
+	# -SO3 --max-allocs-per-node200000 \
+	# -vn \
+	# -D__ZX80__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	# -DALT_SLEEP \
+	# -DMACRO_SLEEP \
+	# -DTURN_BASED \
+	# -lndos \
+	# -create-app -o  $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg \
+	# $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c \
+	# $(SOURCE_PATH)/enemy.c \
+	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	# $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	# $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c
+	# rm $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg	
+	
+
 zx81_16k_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	-compiler=sdcc \

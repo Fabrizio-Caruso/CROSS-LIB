@@ -140,13 +140,10 @@ Character bombs[BOMBS_NUMBER];
 	 
 	unsigned char extraLife_present_on_level;
 	unsigned char super_present_on_level;
-	// unsigned char confuse_present_on_level;
 	unsigned char zombie_present_on_level;
-	#define chase_present_on_level skullsKilled
-	#define confuse_present_on_level missileBasesDestroyed
-	// #define chase_present_on_level 1
-	// #define confuse_present_on_level 1	
-	
+	#define chase_present_on_level_condition skullsKilled
+	#define confuse_present_on_level_condition missileBasesDestroyed
+
 	Character leftEnemyMissile;
 	Character rightEnemyMissile;
 
@@ -273,11 +270,11 @@ void initialScreen(void)
 		skullsKilled = 2;
 	#endif
 	
-		// confuse_present_on_level is defined as missileBasesDestroyed
+		// confuse_present_on_level_condition is defined as missileBasesDestroyed
 		zombie_present_on_level = missileBasesDestroyed>=2;
 		super_present_on_level = skullsKilled>=2;
-		// chase_present_on_level is defined as skullsKilled;
-		extraLife_present_on_level = super_present_on_level && confuse_present_on_level;
+		// chase_present_on_level_condition is defined as skullsKilled;
+		extraLife_present_on_level = super_present_on_level && confuse_present_on_level_condition;
 	}
 	
 #endif
@@ -527,7 +524,7 @@ int main(void)
 					handle_invincibility_item();
 					handle_invincibility_count_down();					
 
-					if(chase_present_on_level)
+					if(chase_present_on_level_condition)
 					{
 						handle_chase_item();
 						handle_chasing_bullet();						
@@ -541,7 +538,7 @@ int main(void)
 						}
 					}
 										
-					if(confuse_present_on_level)
+					if(confuse_present_on_level_condition)
 					{
 						handle_confuse_item();
 						handle_confuse_count_down();

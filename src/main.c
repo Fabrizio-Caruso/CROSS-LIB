@@ -280,6 +280,12 @@ void initialScreen(void)
 #endif
 
 #if defined(SLOW_DOWN)
+	#if defined(__ZX80__)
+	void _slow_down(void)
+	{
+		gen_tv_field();
+	}	
+	#else
 	void _slow_down(void)
 	{
 		short i;
@@ -287,6 +293,7 @@ void initialScreen(void)
 		{	
 		}
 	}
+	#endif
 #endif
 
 int main(void)
@@ -443,12 +450,8 @@ int main(void)
 			while(player._status && (ghostCount>0) )
 			#endif
 			{
-				#if defined(TURN_BASED)
-					_DRAW_PLAYER();
-				#endif
-				MOVE_PLAYER();
-
 				#if !defined(TURN_BASED)
+					MOVE_PLAYER();				
 					_DRAW_PLAYER();	
 				#endif
 				
@@ -593,6 +596,11 @@ int main(void)
 				// Display ghosts
 				SKIP_DRAW
 					displayGhosts();
+					
+				#if defined(TURN_BASED)
+					MOVE_PLAYER();				
+					_DRAW_PLAYER();	
+				#endif				
 			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
 
 			if(player._status) // if level finished

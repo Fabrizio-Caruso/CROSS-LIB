@@ -63,7 +63,7 @@ extern Image BOMB_IMAGE;
 void INIT_GRAPHICS(void)
 {
 	#if defined(__ZX80__)
-		//gen_tv_field_init(0);
+		gen_tv_field_init(0);
 	#endif
 }
 

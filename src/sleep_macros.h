@@ -25,11 +25,7 @@
 #ifndef _SLEEP_MACROS
 #define _SLEEP_MACROS
 
-#if defined(__ZX80__)
-	#define ALT_SLEEP_SCALE 10000UL
-#else
 	#define ALT_SLEEP_SCALE 4000UL
-#endif
 
 	#if defined(NO_SLEEP)
 		#define sleep(sec)

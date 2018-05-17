@@ -156,7 +156,6 @@ vic20_exp_8k_full:
 	-DNO_BLINKING \
 	-DLESS_TEXT	\
 	-DALT_PRINT \
-	-DNO_SET_SCREEN_COLOR \
 	-DNO_HINTS \
 	-DSOUNDS \
 	-DALT_SLEEP \
@@ -388,7 +387,7 @@ osic1p_32k:
 
 osic1p_8k: 
 	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(SOURCE_PATH)/../cfg/osic1p_less_stack.cfg -t osic1p \
-	-DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -DNO_SET_SCREEN_COLOR -DTINY_GAME \
+	-DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME \
 	-DTURN_BASED \
 	-DFORCE_GHOSTS_NUMBER=9 \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_osic1p_8k.lod
@@ -502,7 +501,7 @@ aquarius_exp_4k:
 
 
 aquarius_exp_16k: 
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -O3 -vn \
 	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-o FULL_aquarius_exp_16k -create-app \
@@ -514,26 +513,58 @@ aquarius_exp_16k:
 	mv $(SOURCE_PATH)/../FULL_aquarius_exp_16k.caq $(BUILD_PATH)
 	mv $(SOURCE_PATH)/../_FULL_aquarius_exp_16k.caq $(BUILD_PATH)
 	
-vz200_16k: 	
-	$(Z88DK_PATH)$(MYZ88DK) +vz -O3 -vn \
-	-DSOUNDS -D__VZ__ -clib=ansi \
-	-lndos \
-	-create-app -o $(BUILD_PATH)/LIGHT_vz200_16k.vz \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/LIGHT_vz200_16k.cas
+# vz200_8k:
+	# $(Z88DK_PATH)$(MYZ88DK) +vz -vn \
+	# -DTINY_GAME \
+	# -compiler=sdcc \
+	# -SO3 --max-allocs-per-node200000 \
+	# -D__VZ__ -clib=ansi \
+	# -DLESS_TEXT \
+	# -DNO_BLINKING \
+	# -DNO_RANDOM_LEVEL \
+	# -DNO_DEAD_GHOSTS \
+	# -DFORCE_GHOSTS_NUMBER=4 \
+	# -DFORCE_BOMBS_NUMBER=2 \
+	# -DNO_SET_SCREEN_COLORS \
+	# -DNO_STATS \
+	# -DNO_INITIAL_SCREEN \
+	# -DNO_SLEEP \
+	# -lndos \
+	# -create-app -o $(BUILD_PATH)/TINY_vz200_8k.vz \
+	# $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	# rm $(BUILD_PATH)/TINY_vz200_8k.cas
+
 	
-vz200_32k: 
+vz200_18k_full: 	
+	$(Z88DK_PATH)$(MYZ88DK) +vz -vn \
+	-compiler=sdcc \
+	-SO3 --max-allocs-per-node200000 \
+	-DSOUNDS -D__VZ__ -clib=ansi \
+	-DSIMPLE_STRATEGY \
+	-DNO_BLINKING \
+	-DLESS_TEXT \
+	-DNO_HINTS \
+	-DNO_RANDOM_LEVEL \
+	-DFULL_GAME \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_vz200_18k_less_text.vz \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_vz200_18k_less_text.cas
+	
+vz200_24k: 
 	$(Z88DK_PATH)$(MYZ88DK) +vz -O3 -vn \
 	-DSOUNDS -D__VZ__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-clib=ansi -lndos -create-app -o  $(BUILD_PATH)/FULL_vz200_32k.vz \
+	-clib=ansi -lndos -create-app -o  $(BUILD_PATH)/FULL_vz200_24k.vz \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_vz200_32k.cas
+	rm $(BUILD_PATH)/FULL_vz200_24k.cas
 	
 # TODO: Adapt code to work with -compiler=sdcc
 # -SO3 --max-allocs-per-node200000
@@ -1652,7 +1683,7 @@ z88dk_targets: \
 	msx_color_16k msx_color_32k_rom msx_color_32k \
 	spectrum_16k spectrum_48k samcoupe \
 	aquarius_exp_4k aquarius_exp_16k \
-	vz200_16k vz200_32k \
+	vz200_18k_full vz200_24k \
 	microbee_16k microbee_32k \
 	gal_22k lambda_16k \
 	zx80_16k zx80_8k \
@@ -2163,7 +2194,7 @@ gal_6k:
 	-DNO_SLEEP -DLESS_TEXT \
 	-D__GAL__ \
 	-DNO_RANDOM_LEVEL \
-	-DNO_SET_SCREEN_COLOR \
+	-DNO_SET_SCREEN_COLORS \
 	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \
 	-DALT_PRINT \
@@ -2171,7 +2202,6 @@ gal_6k:
 	-DFORCE_BOMBS_NUMBER=2 \
 	-DFORCE_GHOSTS_NUMBER=4 \
 	-DNO_DEAD_GHOSTS \
-	-DNO_COLOR \
 	-vn -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -2367,7 +2397,7 @@ atmos_16k:
 
 	
 lambda_8k:
-	$(Z88DK_PATH)$(MYZ88DK) +lambda -O3 -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLOR -DLESS_TEXT -DNO_SLEEP -lndos -create-app -o  $(BUILD_PATH)/TINY_lambda_8k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +lambda -O3 -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLORS -DLESS_TEXT -DNO_SLEEP -lndos -create-app -o  $(BUILD_PATH)/TINY_lambda_8k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_lambda_8k.prg	
 	
 # -----------------------------------------------------------------------------------------------

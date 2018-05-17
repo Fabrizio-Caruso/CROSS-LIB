@@ -41,7 +41,11 @@
 extern unsigned short points;
 extern unsigned char ghostCount;
 extern Character ghosts[GHOSTS_NUMBER];
+#if !defined(NO_DEAD_GHOSTS)
 extern Image DEAD_GHOST_IMAGE;
+#else
+extern Image INVINCIBLE_GHOST_IMAGE;	
+#endif
 extern unsigned char level;
 
 extern Item extraPoints;
@@ -129,7 +133,11 @@ void checkMissileVsGhost(Character * missilePtr,
 	   areCharctersAtSamePosition(missilePtr, ghostPtr))
 	{
 		points+=GHOST_VS_MISSILE;
-		ghostPtr->_imagePtr = (Image *)&DEAD_GHOST_IMAGE;
+		#if !defined(NO_DEAD_GHOSTS)
+			ghostPtr->_imagePtr = (Image *)&DEAD_GHOST_IMAGE;
+		#else
+			ghostPtr->_imagePtr = (Image *)&INVINCIBLE_GHOST_IMAGE;			
+		#endif
 		ghostDies(ghostPtr);
 		die(missilePtr);
 	}

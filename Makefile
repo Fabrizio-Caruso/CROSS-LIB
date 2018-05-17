@@ -486,9 +486,13 @@ pce_16k:
 # 	-SO3 --max-allocs-per-node200000 \
 
 aquarius_exp_4k:
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius -compiler=sdcc \
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius \
+	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
+	-compiler=sdcc \
+	-opt-code-size \
+	-SO3 --max-allocs-per-node200000 \
 	-vn \
-	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DNO_SLEEP -DLESS_TEXT \
+	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
 	-lndos -o TINY_aquarius_exp_4k -create-app \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/aquarius/aquarius_graphics.c $(SOURCE_PATH)/enemy.c \

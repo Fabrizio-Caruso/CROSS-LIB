@@ -513,59 +513,65 @@ aquarius_exp_16k:
 	mv $(SOURCE_PATH)/../FULL_aquarius_exp_16k.caq $(BUILD_PATH)
 	mv $(SOURCE_PATH)/../_FULL_aquarius_exp_16k.caq $(BUILD_PATH)
 	
-# vz200_8k:
-	# $(Z88DK_PATH)$(MYZ88DK) +vz -vn \
-	# -DTINY_GAME \
-	# -compiler=sdcc \
-	# -SO3 --max-allocs-per-node200000 \
-	# -D__VZ__ -clib=ansi \
-	# -DLESS_TEXT \
-	# -DNO_BLINKING \
-	# -DNO_RANDOM_LEVEL \
-	# -DNO_DEAD_GHOSTS \
-	# -DFORCE_GHOSTS_NUMBER=4 \
-	# -DFORCE_BOMBS_NUMBER=2 \
-	# -DNO_SET_SCREEN_COLORS \
-	# -DNO_STATS \
-	# -DNO_INITIAL_SCREEN \
-	# -DNO_SLEEP \
-	# -lndos \
-	# -create-app -o $(BUILD_PATH)/TINY_vz200_8k.vz \
-	# $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
-	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	# rm $(BUILD_PATH)/TINY_vz200_8k.cas
+vz200_8k:
+	$(Z88DK_PATH)$(MYZ88DK) +vz -vn \
+	-DTINY_GAME \
+	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
+	-compiler=sdcc \
+	-opt-code-size \
+	-SO3 --max-allocs-per-node200000 \
+	-D__VZ__ -clib=ansi \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_RANDOM_LEVEL \
+	-DNO_DEAD_GHOSTS \
+	-DFORCE_GHOSTS_NUMBER=4 \
+	-DFORCE_BOMBS_NUMBER=2 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_STATS \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SLEEP \
+	-DNO_MESSAGE \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/TINY_vz200_8k.vz \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_vz200_8k.cas
 
+
+# 	-DSIMPLE_STRATEGY \
+#	-DNO_BLINKING \
+#	-DLESS_TEXT \
+#	-DNO_HINTS \
+#	-DNO_RANDOM_LEVEL
+ 	
 	
-vz200_18k_full: 	
+	
+vz200_18k: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz -vn \
 	-compiler=sdcc \
 	-SO3 --max-allocs-per-node200000 \
 	-DSOUNDS -D__VZ__ -clib=ansi \
-	-DSIMPLE_STRATEGY \
-	-DNO_BLINKING \
-	-DLESS_TEXT \
-	-DNO_HINTS \
-	-DNO_RANDOM_LEVEL \
 	-DFULL_GAME \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/FULL_vz200_18k_less_text.vz \
+	-create-app -o $(BUILD_PATH)/FULL_vz200_18k.vz \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_vz200_18k_less_text.cas
+	rm $(BUILD_PATH)/FULL_vz200_18k.cas
 	
-vz200_24k: 
-	$(Z88DK_PATH)$(MYZ88DK) +vz -O3 -vn \
-	-DSOUNDS -D__VZ__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-clib=ansi -lndos -create-app -o  $(BUILD_PATH)/FULL_vz200_24k.vz \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_vz200_24k.cas
-	
+# vz200_24k: 
+	# $(Z88DK_PATH)$(MYZ88DK) +vz -O3 -vn \
+	# -DSOUNDS -D__VZ__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	# -clib=ansi -lndos -create-app -o  $(BUILD_PATH)/FULL_vz200_24k.vz \
+	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	# $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	# $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	# rm $(BUILD_PATH)/FULL_vz200_24k.cas
+
 # TODO: Adapt code to work with -compiler=sdcc
 # -SO3 --max-allocs-per-node200000
 # -O3 -zorg=18941 -vn 
@@ -1683,7 +1689,7 @@ z88dk_targets: \
 	msx_color_16k msx_color_32k_rom msx_color_32k \
 	spectrum_16k spectrum_48k samcoupe \
 	aquarius_exp_4k aquarius_exp_16k \
-	vz200_18k_full vz200_24k \
+	vz200_8k vz200_18k \
 	microbee_16k microbee_32k \
 	gal_22k lambda_16k \
 	zx80_16k zx80_8k \

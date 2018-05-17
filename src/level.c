@@ -227,12 +227,8 @@ void spiral(Character *characterPtr, unsigned char length)
 void fillLevelWithCharacters(unsigned char nGhosts)
 {
 	unsigned char i;
-	
 	unsigned char j;
-		
 	unsigned char count = 0;
-
-	
 	
 	#if defined(FULL_GAME)
 		if(rocketLevel() || bossLevel())
@@ -252,95 +248,95 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		
 	#endif
 	
-	#if (GHOSTS_NUMBER >= 9 && !defined(TINY_GAME))
-	for(i=0;i<3;++i)
-	{
-		for(j=0;j<3;++j)
-		{
-			if(nGhosts>count)
-			{
-				if(!((i==1) && (j==1)))
-				{				
-					initializeCharacter(&ghosts[count],(unsigned char) ((unsigned char)XSize/6+j*2*((unsigned char) XSize/6)),(unsigned char) (YSize/6+i*2*(YSize/6)+i),1,&GHOST_IMAGE);
-				}
-				else
-				{
-					initializeCharacter(&ghosts[count],(unsigned char) (XSize-4),(unsigned char) (YSize-4),1,&GHOST_IMAGE);					
-				}
-			}
-			else
-			{
-				initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
-			}
-			++count;
-		}
-	}
-	#elif GHOSTS_NUMBER>=6 && GHOSTS_NUMBER<=8 && (!defined(TINY_GAME) || defined(ROUND_ENEMIES))
-	for(i=1;i<=3;++i)
-	{
-		for(j=1;j<=3;++j)
-		{
-			if(nGhosts>count)
-			{
-				if(!((i==2) && (j==2)))
-				{				
-					initializeCharacter(&ghosts[count],(unsigned char) ((2*j-1)*(unsigned char)XSize)/6,(unsigned char) ((2*i-1)*YSize)/6,1,&GHOST_IMAGE);
-					// ++count;						
-				}
-			}
-			else
-			{
-				#if defined(TINY_GAME)
-					#if defined(NO_DEAD_GHOSTS)
-						initializeCharacter(&ghosts[count], 0,(unsigned char) 0,0,&GHOST_IMAGE);					
-					#else
-						initializeCharacter(&ghosts[count], 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
-					#endif
-				#else
-					initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
-					// ++count;
-				#endif
-			}
-			++count;
-		
-		}
-	}	
-	#elif GHOSTS_NUMBER>=5
-	for(j=1;j<=4;++j)
-	{
-		for(i=1;i<=2;++i)
-		{		
-			if(nGhosts>count)
-			{			
-				initializeCharacter(&ghosts[count],(unsigned char) (j*(XSize/5)),(i*(YSize/3)),1,&GHOST_IMAGE);
-			}
-			else
-			{	
-				initializeCharacter(&ghosts[count], 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
-			}
-			++count;				
-		}
-	}	
+	#if GHOSTS_NUMBER >= 9
+		ROUND_NINE_GHOSTS();
+	// for(i=0;i<3;++i)
+	// {
+		// for(j=0;j<3;++j)
+		// {
+			// if(nGhosts>count)
+			// {
+				// if(!((i==1) && (j==1)))
+				// {				
+					// initializeCharacter(&ghosts[count],(unsigned char) ((unsigned char)XSize/6+j*2*((unsigned char) XSize/6)),(unsigned char) (YSize/6+i*2*(YSize/6)+i),1,&GHOST_IMAGE);
+				// }
+				// else
+				// {
+					// initializeCharacter(&ghosts[count],(unsigned char) (XSize-4),(unsigned char) (YSize-4),1,&GHOST_IMAGE);					
+				// }
+			// }
+			// else
+			// {
+				// initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+			// }
+			// ++count;
+		// }
+	// }
+	#elif !defined(TINY_GAME) || defined(ROUND_ENEMIES)
+		ROUND_EIGHT_GHOSTS();
+	// for(i=1;i<=3;++i)
+	// {
+		// for(j=1;j<=3;++j)
+		// {
+			// if(nGhosts>count)
+			// {
+				// if(!((i==2) && (j==2)))
+				// {				
+					// initializeCharacter(&ghosts[count],(unsigned char) ((2*j-1)*(unsigned char)XSize)/6,(unsigned char) ((2*i-1)*YSize)/6,1,&GHOST_IMAGE);
+				// }
+			// }
+			// else
+			// {
+				// #if defined(TINY_GAME)
+					// #if defined(NO_DEAD_GHOSTS)
+						// initializeCharacter(&ghosts[count], 0,(unsigned char) 0,0,&GHOST_IMAGE);					
+					// #else
+						// initializeCharacter(&ghosts[count], 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+					// #endif
+				// #else
+					// initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+				// #endif
+			// }
+			// ++count;
+		// }
+	// }	
 	#else
-	for(i=1;i<3;++i)
-	{
-		for(j=1;j<3;++j)
-		{		
-			if(nGhosts>count)
-			{			
-				initializeCharacter(&ghosts[count],(unsigned char) (((2*j-1)*XSize)>>2),(unsigned char) (((2*i-1)*YSize)>>2),1,&GHOST_IMAGE);
-			}
-			else
-			{
-				#if defined(TINY_GAME)
-					initializeCharacter(&ghosts[count], (unsigned char) 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
-				#else
-					initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
-				#endif
-			}
-			++count;				
-		}
-	}
+		FLAT_EIGHT_GHOSTS();
+	// for(j=1;j<=4;++j)
+	// {
+		// for(i=1;i<=2;++i)
+		// {		
+			// if(nGhosts>count)
+			// {			
+				// initializeCharacter(&ghosts[count],(unsigned char) (j*(XSize/5)),(i*(YSize/3)),1,&GHOST_IMAGE);
+			// }
+			// else
+			// {	
+				// initializeCharacter(&ghosts[count], 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+			// }
+			// ++count;				
+		// }
+	// }	
+	// #else
+	// for(i=1;i<3;++i)
+	// {
+		// for(j=1;j<3;++j)
+		// {		
+			// if(nGhosts>count)
+			// {			
+				// initializeCharacter(&ghosts[count],(unsigned char) (((2*j-1)*XSize)>>2),(unsigned char) (((2*i-1)*YSize)>>2),1,&GHOST_IMAGE);
+			// }
+			// else
+			// {
+				// #if defined(TINY_GAME)
+					// initializeCharacter(&ghosts[count], (unsigned char) 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+				// #else
+					// initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+				// #endif
+			// }
+			// ++count;				
+		// }
+	// }
 	#endif
 
 

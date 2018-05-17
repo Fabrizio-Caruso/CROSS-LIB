@@ -71,28 +71,23 @@
 	{ \
 		for(j=1;j<=3;++j) \
 		{ \
-			if(nGhosts>count) \
+			if(!((i==2) && (j==2))) \
 			{ \
-				if(!((i==2) && (j==2))) \
+				if(nGhosts>count) \
 				{ \
 					initializeCharacter(&ghosts[count], \
 						(unsigned char) ((2*j-1)*(unsigned char)XSize)/6, \
 						(unsigned char) ((2*i-1)*YSize)/6, \
 						1 ,&GHOST_IMAGE); \
+					++count; \
 				} \
 				else \
 				{ \
-					--count; \
+					PLACE_DEAD_GHOST(); \
 				} \
 			} \
-			else \
-			{ \
-				PLACE_DEAD_GHOST(); \
-			} \
-			++count; \
 		} \
 	}
-
 
 #define FLAT_EIGHT_GHOSTS() \
 	for(j=1;j<=4;++j) \

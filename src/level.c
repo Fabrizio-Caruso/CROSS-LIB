@@ -285,22 +285,23 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				if(!((i==2) && (j==2)))
 				{				
 					initializeCharacter(&ghosts[count],(unsigned char) ((2*j-1)*(unsigned char)XSize)/6,(unsigned char) ((2*i-1)*YSize)/6,1,&GHOST_IMAGE);
-					++count;						
+					// ++count;						
 				}
 			}
 			else
 			{
 				#if defined(TINY_GAME)
 					#if defined(NO_DEAD_GHOSTS)
-						initializeCharacter(&ghosts[count], 0,(unsigned char) 1,0,&GHOST_IMAGE);					
+						initializeCharacter(&ghosts[count], 0,(unsigned char) 0,0,&GHOST_IMAGE);					
 					#else
 						initializeCharacter(&ghosts[count], 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
 					#endif
 				#else
 					initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
-					++count;
+					// ++count;
 				#endif
 			}
+			++count;
 		
 		}
 	}	

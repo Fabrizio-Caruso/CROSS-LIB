@@ -31,6 +31,7 @@ extern unsigned short freeze_count_down;
 	extern unsigned char skullsKilled;	
 	
 	extern unsigned char extraLife_present_on_level;
+	extern unsigned char zombie_present_on_level;
 #endif
 
 extern Image DEAD_GHOST_IMAGE;
@@ -253,7 +254,8 @@ extern Item extraPoints;
 		unsigned char i;
 		
 		zombieActive = 1;
-		zombie._coolDown = SECOND_ZOMBIE_COOL_DOWN; //20000UL; //(ZOMBIE_COOL_DOWN<<4);
+		missileBasesDestroyed = 1;
+		zombie._coolDown = SECOND_ZOMBIE_COOL_DOWN; 
 		zombie_count_down = ZOMBIE_COUNT_DOWN;
 		for(i=0;i<GHOSTS_NUMBER;++i)
 		{

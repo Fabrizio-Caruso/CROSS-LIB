@@ -93,7 +93,7 @@
 	#define EXTRA_POWERUPS__STRING "extra powerups "	
 #endif
 
-#if defined(JOYSTICK_CONTROL) || defined(__MSX__) || defined(__CPC_PLUS__)
+#if defined(JOYSTICK_CONTROL) || defined(__MSX__) || defined(__CPC_JOYSTICK__)
 	#define USE_STRING "use the joystick"
 #elif !defined(TINY_GAME)		
 	#if !defined(__PC6001__)

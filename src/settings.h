@@ -81,12 +81,7 @@
 		if((loop&1)==1) 
 	
 	#define SKIP_MORE_DRAW \
-		if((loop&7)==1)
-// #elif defined(__MC1000__)
-	// #define SKIP_DRAW
-	
-	// #define SKIP_MORE_DRAW \
-		// if((loop&3)==1)			
+		if((loop&7)==1)		
 #elif !defined(__WINCMOC__) && defined(__CMOC__)
 	#define SKIP_DRAW
 	
@@ -114,7 +109,7 @@
 	#define _MOVE_LEFT 'J'
 	#define _MOVE_RIGHT 'L'
 	#define _FIRE ' '
-#elif defined(__CPC_PLUS__)
+#elif defined(__CPC_JOYSTICK__) // Special Joystick 
 	#define _MOVE_UP 0x0B 
 	#define _MOVE_DOWN 0x0A 
 	#define _MOVE_LEFT 0x08
@@ -338,10 +333,6 @@
 		#define BOMBS_NUMBER 4
 	#endif
 #endif
-
-// Possible current values are FULL: 8,9, LIGHT: 8, TINY: 8,7,6
-// #if !defined(FULL_GAME) && !defined(TINY_GAME)
-	// #define GHOSTS_NUMBER 8
 	
 #if defined(FORCE_GHOSTS_NUMBER)
 	#define GHOSTS_NUMBER FORCE_GHOSTS_NUMBER
@@ -395,7 +386,6 @@
 	#endif
 #endif
 	
-// || (defined(__AQUARIUS__) && defined(TINY_GAME)) || (defined(__VIC20__) && defined(VIC20_UNEXPANDED) ) 
 #if defined(__GAL__) || defined(__GAMATE__) \
     || defined(__PC6001__) || defined(__ATARI5200__) || defined(__CREATIVISION__) \
 	|| defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__) || defined(__MC1000__) \
@@ -414,12 +404,7 @@
 	#define NO_TEXT_COLOR
 #endif
 
-	
-#if defined(__ZX81__) || defined(__LAMBDA__)
-	#define BUBBLES_NUMBER 2
-#else
-	#define BUBBLES_NUMBER 4
-#endif
+#define BUBBLES_NUMBER 4
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 3
@@ -450,7 +435,7 @@
 
 #define VERTICAL_MISSILE_BONUS 20UL
 
-#define INVINCIBLE_GHOST_POINTS 300UL;
+#define INVINCIBLE_GHOST_POINTS 200UL;
 
 // Points given by extra points bonus: 
 // EXTRA_POINTS + level X EXTRA_POINTS_LEVEL_INCREASE

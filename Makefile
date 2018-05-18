@@ -800,7 +800,7 @@ cpc:
 cpc_joystick:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 -DREDEFINED_CHARS -vn  -clib=ansi \
 	-D__CPC__ \
-	-D__CPC_PLUS__ \
+	-D__CPC_JOYSTICK__ \
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \

@@ -264,12 +264,6 @@ void initialScreen(void)
 	
 	void handle_special_triggers(void)
 	{
-
-	#if defined(DEBUG_ITEMS)
-		missileBasesDestroyed = 2;
-		skullsKilled = 2;
-	#endif
-	
 		// confuse_present_on_level_condition is defined as missileBasesDestroyed
 		zombie_present_on_level = missileBasesDestroyed>=2;
 		super_present_on_level = skullsKilled>=2;
@@ -349,9 +343,16 @@ int main(void)
 		lives = LIVES_NUMBER;
 		ghostCount = GHOSTS_NUMBER;
 		#if defined(FULL_GAME)
-			skullsKilled = 0;
-			missileBasesDestroyed = 0;
+			#if defined(DEBUG_ITEMS)
+				missileBasesDestroyed = 2;
+				skullsKilled = 2;
+			#else
+				missileBasesDestroyed = 0;
+				skullsKilled = 0;			
+			#endif			
 		#endif
+		
+		
 		do // Level (Re-)Start
 		{ 	
 			loop = 0;

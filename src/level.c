@@ -280,11 +280,15 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#elif BOMBS_NUMBER==3	
 	{
 		#if defined(NO_RANDOM_LEVEL)
-			initializeCharacter(&bombs[0],XSize/3, (YSize/3),0,&BOMB_IMAGE);
+			// unsigned char i;
+			// for(i=1;i<=2;i++)
+			// {
+				// initializeCharacter(&bombs[i],(unsigned char) (XSize/(unsigned char)3)*i, (YSize/3),0,&BOMB_IMAGE);
+			// }
 
-			initializeCharacter(&bombs[1],(XSize>>1), ((YSize/3)*2),0,&BOMB_IMAGE);
-
-			initializeCharacter(&bombs[2],2*(XSize/3), (YSize/3),0,&BOMB_IMAGE);		
+			initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3)<<1),0,&BOMB_IMAGE);
+			initializeCharacter(&bombs[1],XSize/3, (YSize/3),0,&BOMB_IMAGE);
+			initializeCharacter(&bombs[2],((XSize/3)<<1), (YSize/3),0,&BOMB_IMAGE);		
 		#else
 			unsigned char rnd = rand()%3;
 			initializeCharacter(&bombs[0],XSize/3-2+rnd, (YSize/3)-1+rnd,0,&BOMB_IMAGE);

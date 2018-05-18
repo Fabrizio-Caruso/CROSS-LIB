@@ -78,17 +78,16 @@
 	{ \
 		for(j=1;j<=3;++j) \
 		{ \
-			if(nGhosts>count) \
+			if(i!=2 || j !=2) \
 			{ \
-				if(i!=2 || j !=2) \
+				if(nGhosts>count) \
 				{ \
 					PLACE_ROUND_GHOST(); \
-					++count; \
 				} \
-			} \
-			else \
-			{ \
-				PLACE_DEAD_GHOST(); \
+				else \
+				{ \
+					PLACE_DEAD_GHOST(); \
+				} \
 				++count; \
 			} \
 		} \

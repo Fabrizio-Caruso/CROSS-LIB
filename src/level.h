@@ -44,6 +44,9 @@
 #define PLACE_FLAT_GHOST() \
 	initializeCharacter(&ghosts[count],(unsigned char) (j*(XSize/5)),(i*(YSize/3)),1,&GHOST_IMAGE);
 
+#define PLACE_FLAT_GHOST_6() \
+	initializeCharacter(&ghosts[count],(unsigned char) (j*(XSize/4)),(i*(YSize/3)),1,&GHOST_IMAGE);	
+	
 #define PLACE_NINTH_GHOST() \
 	initializeCharacter(&ghosts[4],(unsigned char) (XSize-4),(unsigned char) (YSize-4),1,&GHOST_IMAGE);
 
@@ -93,6 +96,7 @@
 		} \
 	}
 
+
 #define FLAT_EIGHT_GHOSTS() \
 	for(j=1;j<=4;++j) \
 	{ \
@@ -110,7 +114,25 @@
 		} \
 	}
 
-
+	
+#define FLAT_SIX_GHOSTS() \
+	for(j=1;j<=3;++j) \
+	{ \
+		for(i=1;i<=2;++i) \
+		{ \
+			if(nGhosts>count) \
+			{ \
+				PLACE_FLAT_GHOST_6(); \
+			} \
+			else \
+			{ \
+				PLACE_DEAD_GHOST(); \
+			} \
+			++count; \
+		} \
+	}
+	
+	
 
 #if defined(BETWEEN_LEVEL)
 	void spiral(Character *characterPtr, unsigned char length);

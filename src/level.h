@@ -27,34 +27,41 @@
 
 #include "character.h"
 
-#if defined(TINY_GAME)
-	#if defined(NO_DEAD_GHOSTS)
-		#define PLACE_DEAD_GHOST() \
-			initializeCharacter(&ghosts[count], 0,(unsigned char) 0,0,&GHOST_IMAGE);
-	#else
-		#define PLACE_DEAD_GHOST() \
-			initializeCharacter(&ghosts[count], 1,(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
-	#endif
+#if defined(TINY_GAME) || defined(NO_DEAD_GHOSTS)
+	#define PLACE_DEAD_GHOST() \
+		initializeCharacter(&ghosts[count], 0,(unsigned char) 0,0,&GHOST_IMAGE);
 #else
 	#define PLACE_DEAD_GHOST() \
 		initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
 #endif
 
+#define PLACE_ROUND_GHOST() \
+	initializeCharacter(&ghosts[count], \
+		(unsigned char) ((2*j-1)*(unsigned char)XSize)/6, \
+		(unsigned char) ((2*i-1)*YSize)/6, \
+		1 ,&GHOST_IMAGE);
 
+#define PLACE_FLAT_GHOST() \
+	initializeCharacter(&ghosts[count],(unsigned char) (j*(XSize/5)),(i*(YSize/3)),1,&GHOST_IMAGE);
+
+#define PLACE_NINTH_GHOST() \
+	initializeCharacter(&ghosts[4],(unsigned char) (XSize-4),(unsigned char) (YSize-4),1,&GHOST_IMAGE);
+
+	
 #define ROUND_NINE_GHOSTS() \
-	for(i=0;i<3;++i) \
+	for(i=1;i<=3;++i) \
 	{ \
-		for(j=0;j<3;++j) \
+		for(j=1;j<=3;++j) \
 		{ \
 			if(nGhosts>count) \
 			{ \
-				if(!((i==1) && (j==1))) \
+				if(count!=4) \
 				{ \
-					initializeCharacter(&ghosts[count],(unsigned char) ((unsigned char)XSize/6+j*2*((unsigned char) XSize/6)),(unsigned char) (YSize/6+i*2*(YSize/6)+i),1,&GHOST_IMAGE); \
+					PLACE_ROUND_GHOST(); \
 				} \
 				else \
 				{ \
-					initializeCharacter(&ghosts[count],(unsigned char) (XSize-4),(unsigned char) (YSize-4),1,&GHOST_IMAGE);	\
+					PLACE_NINTH_GHOST(); \
 				} \
 			} \
 			else \
@@ -71,20 +78,18 @@
 	{ \
 		for(j=1;j<=3;++j) \
 		{ \
-			if(!((i==2) && (j==2))) \
+			if(nGhosts>count) \
 			{ \
-				if(nGhosts>count) \
+				if(i!=2 || j !=2) \
 				{ \
-					initializeCharacter(&ghosts[count], \
-						(unsigned char) ((2*j-1)*(unsigned char)XSize)/6, \
-						(unsigned char) ((2*i-1)*YSize)/6, \
-						1 ,&GHOST_IMAGE); \
+					PLACE_ROUND_GHOST(); \
 					++count; \
 				} \
-				else \
-				{ \
-					PLACE_DEAD_GHOST(); \
-				} \
+			} \
+			else \
+			{ \
+				PLACE_DEAD_GHOST(); \
+				++count; \
 			} \
 		} \
 	}
@@ -96,7 +101,7 @@
 		{ \
 			if(nGhosts>count) \
 			{ \
-				initializeCharacter(&ghosts[count],(unsigned char) (j*(XSize/5)),(i*(YSize/3)),1,&GHOST_IMAGE); \
+				PLACE_FLAT_GHOST(); \
 			} \
 			else \
 			{ \

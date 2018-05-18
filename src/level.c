@@ -269,11 +269,8 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				#else
 					#if defined(TINY_GAME)
 						initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-(unsigned char)(rand()&3)), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);								
-					// #if defined(TINY_GAME)
-						// initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-rand()%3), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);								
 					#else
 						initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-(unsigned char)(rand()&3)), (unsigned char) (((YSize/3)*j)+(unsigned char)(rand()&3)),0,&BOMB_IMAGE);														
-						// initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-1+rand()%3), (unsigned char) (((YSize/3)*j)-1+rand()%3),0,&BOMB_IMAGE);
 					#endif
 				#endif
 				++count;
@@ -333,7 +330,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			initializeAwayFromWall(&(gun._character),(XSize>>1), (YSize>>1), 0, &GUN_IMAGE);
 		}
 		
-		initializeAwayFromWall(&player,(unsigned char) ((XSize>>1)+(rand()&3)-1),(unsigned char) ((YSize>>1)+(rand()&3)-1),1,&PLAYER_IMAGE);
+		initializeAwayFromWall(&player,(unsigned char) ((XSize>>1)+(rand()&3)),(unsigned char) ((YSize>>1)+(rand()&3)),1,&PLAYER_IMAGE);
 		
 		initializeAwayFromWall(&(extraLife._character), (XSize>>1), (YSize>>1), 0, &EXTRA_LIFE_IMAGE);
 
@@ -362,7 +359,8 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		#if defined(NO_RANDOM_LEVEL) || defined(TINY_GAME)
 			initializeCharacter(&player,(unsigned char) ((XSize>>1)),(unsigned char) ((YSize>>1)),1,&PLAYER_IMAGE);			
 		#else
-			initializeCharacter(&player,(unsigned char) ((XSize>>1)+rand()%4-2),(unsigned char) ((YSize>>1)+rand()%4-2),1,&PLAYER_IMAGE);	
+			initializeCharacter(&player,(unsigned char) ((XSize>>1)+(unsigned char) (rand()&3)),
+										(unsigned char) ((YSize>>1)+(unsigned char) (rand()&3)),1,&PLAYER_IMAGE);	
 		#endif
 	#endif
 	#if !defined(TINY_GAME)

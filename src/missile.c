@@ -108,14 +108,15 @@ void handle_missile(void)
 		missileDirection = playerDirection;
 		missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
 		playerFire = 0;
-		displayMissile(&missile);					
+		displayMissile(&missile);
+		checkMissile(&missile);		
 	}
 	
 	// Move missile if fired
 	if(missile._status==1)
 	{
-		checkMissile(&missile);		
 		moveMissile(&missile, missileDirection);
+		checkMissile(&missile);
 	}
 }
 

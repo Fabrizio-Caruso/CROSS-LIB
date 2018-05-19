@@ -114,8 +114,8 @@ void handle_missile(void)
 	// Move missile if fired
 	if(missile._status==1)
 	{
+		checkMissile(&missile);		
 		moveMissile(&missile, missileDirection);
-		checkMissile(&missile);
 	}
 }
 
@@ -218,7 +218,6 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 		die(missilePtr);
 		deleteMissile(missilePtr);
 		#if defined(FULL_GAME)
-			// TODO: Implement this
 			DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
 		#endif
 		return 0;

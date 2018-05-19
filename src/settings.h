@@ -189,7 +189,7 @@
 		#define GAME_SLOW_DOWN 200
 	#elif (defined(__C16__) || defined(__PLUS4__)) && defined(FULL_GAME)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 200
+		#define GAME_SLOW_DOWN 250
 	#elif (defined(__C16__) || defined(__PLUS4__)) && !defined(FULL_GAME)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 250		

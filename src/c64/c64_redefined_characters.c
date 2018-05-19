@@ -185,6 +185,7 @@ void _draw(char x, char y, Image * image)
 	cputc(image->_imageData); 
 };
 
+#if !defined(NO_BLINKING)
 void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter) 
 {
 	gotoxy((x+X_OFFSET),(y+Y_OFFSET)); 
@@ -200,7 +201,7 @@ void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter)
 		*blinkCounter=1;
 	}	
 };
-
+#endif
 
 void _delete(char x, char y)
 {

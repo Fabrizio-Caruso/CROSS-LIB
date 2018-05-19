@@ -227,6 +227,22 @@ c64:
 	python $(TOOLS_PATH)/prg2crt.py $(BUILD_PATH)/FULL_c64_exomized.prg  $(BUILD_PATH)/FULL_c64_exomized.crt
 	rm $(BUILD_PATH)/FULL_c64.prg
 
+c64_8k_cart: 
+	$(CC65_PATH)$(MYCC65) -O -t c64 -Cl \
+	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS \
+	-DNO_BLINKING -DNO_HINTS -DLESS_TEXT -DSIMPLE_STRATEGY -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 \
+	--config $(SOURCE_PATH)/../cfg/c64_GFXat0xC000.cfg  $(SOURCE_PATH)/c64/graphics.s \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/c64/c64_redefined_characters.c $(SOURCE_PATH)/display_macros.c  \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c \
+	-o $(BUILD_PATH)/FULL_c64_8k_cart.prg
+	$(TOOLS_PATH)/exomizer sfx basic  $(BUILD_PATH)/FULL_c64_8k_cart.prg -o $(BUILD_PATH)/FULL_c64_8k_exomized.prg
+	python $(TOOLS_PATH)/prg2crt.py $(BUILD_PATH)/FULL_c64_8k_exomized.prg  $(BUILD_PATH)/FULL_c64_8k_exomized.crt
+	rm $(BUILD_PATH)/FULL_c64_8k_cart.prg	
+	
 c128_40col: 
 	$(CC65_PATH)$(MYCC65) -O -t c128 \
 	-DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -419,7 +435,7 @@ creativision_8k_tiny:
 
 creativision_8k_light: 
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
-	-DLESS_TEXT -DNO_RANDOM_LEVEL -DNO_SLEEP -DNO_MESSAGE -DNO_BLINING -DNO_SET_SCREEN_COLORS \
+	-DLESS_TEXT -DNO_RANDOM_LEVEL -DNO_SLEEP -DNO_MESSAGE -DNO_SET_SCREEN_COLORS \
 	--config $(SOURCE_PATH)/../cfg/creativision-8k_less_stack.cfg \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c \

@@ -305,7 +305,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		initializeAwayFromWall(&(confuse._character), (XSize>>1), (YSize>>1), 0, &CONFUSE_IMAGE);		
 		initializeAwayFromWall(&(zombie._character), (XSize>>1), (YSize>>1), 0, &ZOMBIE_IMAGE);	
 		
-		initializeAwayFromWall(&(gun._character),(XSize>>1), (YSize>>1), (bossLevel ? 1 : 0), &GUN_IMAGE);
+		initializeAwayFromWall(&(gun._character),(XSize>>1), (YSize>>1), (bossLevel() ? 1 : 0), &GUN_IMAGE);
 
 		do
 		{

@@ -2538,8 +2538,9 @@ supervision_full:
 
 pce_light:
 	$(CC65_PATH)$(MYCC65) -O -t pce -Cl \
-	--config $(SOURCE_PATH)/../cfg/pce_extra.cfg \
+	--config $(SOURCE_PATH)/../cfg/pce_8k_less_stack.cfg \
 	-DNO_SLEEP -DLESS_TEXT -DNO_COLOR -DNO_RANDOM_LEVEL \
+	-DNO_MESSAGE -DNO_BLINKING -DNO_INITIAL_SCREEN -DNO_SET_SCREEN_COLORS -DNO_STATS \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c  \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \

@@ -417,10 +417,22 @@ creativision_8k:
 	$(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/TINY_creativision_8k.bin
 
+creativision_8k_light: 
+	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	-DLESS_TEXT -DNO_RANDOM_LEVEL -DNO_SLEEP -DNO_MESSAGE -DNO_BLINING -DNO_SET_SCREEN_COLORS \
+	--config $(SOURCE_PATH)/../cfg/creativision-8k_less_stack.cfg \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c \
+	-o $(BUILD_PATH)/LIGHT_creativision_8k_less_text.bin	
+	
 creativision_16k:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
-	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
 	--config $(SOURCE_PATH)/../cfg/creativision-16k.cfg \
+	$(SOURCE_PATH)/sleep_macros.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
@@ -450,7 +462,7 @@ atari_lynx:
 # -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL
 pce_8k:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t pce \
-	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT \
+	-DTINY_GAME \
 	--config $(SOURCE_PATH)/../cfg/pce_8k_less_stack.cfg \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
@@ -1658,7 +1670,7 @@ cc65_targets: \
 	c64 c128_40col c128_80col \
 	pce_8k pce_16k \
 	atari5200 nes \
-	creativision_8k creativision_16k \
+	creativision_8k creativision_8k_light creativision_16k \
 	gamate atari_lynx \
 	osic1p_8k osic1p_32k
 

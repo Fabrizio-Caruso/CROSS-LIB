@@ -407,7 +407,7 @@ gamate:
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
 
 
-creativision_8k: 
+creativision_8k_tiny: 
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	--config $(SOURCE_PATH)/../cfg/creativision-8k.cfg \
 	-DTINY_GAME \
@@ -1670,7 +1670,7 @@ cc65_targets: \
 	c64 c128_40col c128_80col \
 	pce_8k pce_16k \
 	atari5200 nes \
-	creativision_8k creativision_8k_light creativision_16k \
+	creativision_8k_tiny creativision_8k_light creativision_16k \
 	gamate atari_lynx \
 	osic1p_8k osic1p_32k
 
@@ -1688,7 +1688,7 @@ z88dk_targets: \
 	kc_sprites_tiny \
 	trs80_tiny trs80 \
 	nc100_sprites_light \
-	cpm_adm3a_tiny \
+	cpm_adm3a_tiny cpm_vt52_tiny cpm_vt100_tiny \
 	nascom_16k nascom_32k \
 	pc6001_16k pc6001_32k \
 	z9001_16k z9001_32k \
@@ -1696,6 +1696,7 @@ z88dk_targets: \
 	sc3000_16k sc3000_32k \
 	ace_exp_16k \
 	cpc cpc_no_udg \
+	cpc_joystick \
  	mc1000_16k_full mc1000_48k \
  	sharp_mz \
 	mtx \
@@ -1709,7 +1710,7 @@ z88dk_targets: \
 	microbee_16k microbee_32k \
 	gal_22k lambda_16k \
 	zx80_16k zx80_8k \
-	zx81_16k zx81_8k
+	zx81_16k zx81_8k zx81_16k_turn_based
 
 
 cmoc_targets: \
@@ -1750,9 +1751,11 @@ vic20_targets: \
 c264_targets: \
 	c16_16k c16_16k_full c16_32k
 	
+cpm_targets: \
+	cpm_adm3a_tiny cpm_vt52_tiny cpm_vt100_tiny 
 	
-	
-	
+cpc_targets: \
+	cpc cpc_joystick cpc_no_udg
 	
 	
 

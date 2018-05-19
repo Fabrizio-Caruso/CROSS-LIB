@@ -350,10 +350,6 @@ void print_02u(unsigned char x, char y, unsigned short val)
 
 void print_u(unsigned char x, char y, unsigned short val)
 {
-	// gotoxy(x,y+Y_OFFSET);
-	// cputc((char) (val+48));
-	// POKE(BASE_ADDR+x+(y*40u)+80u, (char) (val + 48));
-	// POKE(BASE_ADDR+x+(unsigned short)(y+Y_OFFSET)*40,val+48);	
 	POKE(loc(x,y),val+48);
 }
 
@@ -374,9 +370,5 @@ void PRINTF(unsigned char x, char y, char * str, unsigned short val)
 	}
 }
 
-// void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
-// {
-	// gotoxy(x,y);
-	// cprintf(str,val);
-// }
+
 #endif

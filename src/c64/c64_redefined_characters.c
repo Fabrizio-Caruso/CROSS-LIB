@@ -103,7 +103,6 @@ void INIT_GRAPHICS(void)
 	
 	// Background color = BLACK
 	POKE(53281u,0);
-	
 }
  
  
@@ -233,7 +232,7 @@ void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 }
 
 
-#define BASE_ADDR 0xC400
+#define BASE_ADDR 0xC000
 
 #if defined(ALT_PRINT)
 
@@ -242,12 +241,25 @@ unsigned short loc(unsigned char x, char y)
 	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize);
 }
 
+char screenCode(char ch)
+{
+	if(ch>64)
+	{
+		return ch-64;
+	}
+	else
+	{
+		return ch;
+	}
+	return ch;
+}
+
 void PRINT(unsigned char x, char y, char * str)
 {
 	unsigned char i = 0;
 	while(str[i])
 	{
-		POKE(loc(x,y)+i,str[i]);
+		POKE(loc(x,y)+i,screenCode(str[i]));
 		++i;
 	}
 }

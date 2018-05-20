@@ -1541,9 +1541,13 @@ cpm_vt100_tiny:
 
 
 c128_z80_40col:
-	$(Z88DK_PATH)$(MYZ88DK) +c128 -O3 -lndos -subtype=disk \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 \
+	-compiler=sdcc \
+	-SO3 --max-allocs-per-node200000 \
+	-lndos -subtype=disk \
 	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
-	-DFULL_GAME -DEND_SCREEN \
+	-DFULL_GAME -DEND_SCREEN -DNO_BLINKING \
+	-DFORCE_CONIO \
 	$(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
@@ -1559,7 +1563,8 @@ c128_z80_40col:
 
 
 c128_z80_40col_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +c128 -O3 -lndos -subtype=disk \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -O3 \
+	-lndos -subtype=disk \
 	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DFULL_GAME -DEND_SCREEN \
 	-DTURN_BASED \

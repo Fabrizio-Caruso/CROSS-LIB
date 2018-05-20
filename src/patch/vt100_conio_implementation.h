@@ -35,7 +35,7 @@
 #define _VT100_CONIO_IMPLEMENTATION
 	#include <stdio.h>
 
-	#define gotoxy(x,y) printf("\033[%d;%dH", y, x)
+	#define gotoxy(x,y) printf("\033[%d;%dH", y+1, x+1)
 	
 	#define clrscr() printf("\033[H\033[2J")
 

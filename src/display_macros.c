@@ -223,7 +223,7 @@ Image BOMB_IMAGE;
 				DEAD_GHOST_IMAGE._imageData = '#';
 			#elif defined(__CREATIVISION__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
 				DEAD_GHOST_IMAGE._imageData = 'x';	
-			#elif defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__)
+			#elif defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__C128_Z80__)
 				DEAD_GHOST_IMAGE._imageData = '#';				
 			#elif defined(NO_COLOR)
 				DEAD_GHOST_IMAGE._imageData = '#';		 

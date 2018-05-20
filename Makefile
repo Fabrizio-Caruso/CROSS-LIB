@@ -245,7 +245,8 @@ c64_8k_cart:
 	-o $(BUILD_PATH)/FULL_c64_8k_cart.prg
 	$(TOOLS_PATH)/exomizer sfx basic  $(BUILD_PATH)/FULL_c64_8k_cart.prg -o $(BUILD_PATH)/FULL_c64_8k_exomized.prg
 	python $(TOOLS_PATH)/prg2crt.py $(BUILD_PATH)/FULL_c64_8k_exomized.prg  $(BUILD_PATH)/FULL_c64_8k_exomized.crt
-	rm $(BUILD_PATH)/FULL_c64_8k_cart.prg	
+	rm $(BUILD_PATH)/FULL_c64_8k_cart.prg
+	rm $(BUILD_PATH)/FULL_c64_8k_exomized.prg
 	
 c128_40col: 
 	$(CC65_PATH)$(MYCC65) -O -t c128 \
@@ -1538,29 +1539,16 @@ cpm_vt100_tiny:
 	rm $(BUILD_PATH)/TINY_cpm_vt100.bin	
 	
 
+
 c128_z80_40col:
-	$(Z88DK_PATH)$(MYZ88DK) +c128 -O3 -lndos \
-	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
-	-DTINY_GAME \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
-	-create-app
-	rm a.bin
-	mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col.T64
-
-
-c128_z80_40col_disk:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 -O3 -lndos -subtype=disk \
 	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
-	-DTINY_GAME \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
+	-DFULL_GAME -DEND_SCREEN \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
 	-create-app
 	$(TOOLS_PATH)/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64
 	$(TOOLS_PATH)/c1541 -attach FULL_c128_z80_40col.d64 -write a.ldr
@@ -1569,25 +1557,54 @@ c128_z80_40col_disk:
 	rm A.LDR
 	rm A
 
+
+c128_z80_40col_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -O3 -lndos -subtype=disk \
+	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-DFULL_GAME -DEND_SCREEN \
+	-DTURN_BASED \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
+	-create-app
+	$(TOOLS_PATH)/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col_turn_based.d64
+	$(TOOLS_PATH)/c1541 -attach FULL_c128_z80_40col_turn_based.d64 -write a.ldr
+	$(TOOLS_PATH)/c1541 -attach FULL_c128_z80_40col_turn_based.d64 -write a
+	mv FULL_c128_z80_40col_turn_based.d64 $(BUILD_PATH)/
+	rm A.LDR
+	rm A	
+	
 	
 # 	$(TOOLS_PATH)/cc1541 -n mydisk.d64 write a.ldr write a exit 
 
-
+# c128_z80_40col_tape_sccz80:
+	# $(Z88DK_PATH)$(MYZ88DK) +c128 -O3 -lndos \
+	# -D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
+	# -DTINY_GAME \
+	# $(SOURCE_PATH)/display_macros.c \
+	# $(SOURCE_PATH)/enemy.c \
+	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c \
+	# -create-app
+	# rm a.bin
+	# mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col.T64
 	
-	
-c128_z80_40col_zsdcc:
-	$(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc -SO3 -lndos \
-	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
-	-DTINY_GAME \
-	-DNO_SLEEP \
-	-DFORCE_CONIO \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
-	-create-app
-	mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col_zsdcc.T64
+# c128_z80_40col_tape_zsdcc:
+	# $(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc -SO3 -lndos \
+	# -D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
+	# -DTINY_GAME \
+	# -DNO_SLEEP \
+	# -DFORCE_CONIO \
+	# $(SOURCE_PATH)/display_macros.c \
+	# $(SOURCE_PATH)/enemy.c \
+	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c \
+	# -create-app
+	# mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col_zsdcc.T64
 	
 
 	
@@ -1687,7 +1704,7 @@ cc65_targets: \
 	pet_8k pet_16k \
 	cbm510 cbm610 \
 	apple2 apple2enh \
-	c64 c128_40col c128_80col \
+	c64 c64_8k_cart c128_40col c128_80col \
 	pce_8k pce_16k \
 	atari5200 nes \
 	creativision_8k_tiny creativision_8k_light creativision_16k \
@@ -1777,7 +1794,18 @@ cpm_targets: \
 cpc_targets: \
 	cpc cpc_joystick cpc_no_udg
 	
+c64_targets: \
+	c64 c64_8k_cart
+
+c128_8502_targets: \
+	c128_40col c128_80col
+
+c128_z80_targets: \
+	c128_z80_40col c128_z80_40col_turn_based
 	
+c128_targets: \
+	c128_8502_targets c128_z80_targets
+
 
 ####################################################################################################################
 	

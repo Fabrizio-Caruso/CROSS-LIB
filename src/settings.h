@@ -130,7 +130,7 @@
 #endif
 
 #if defined(TURN_BASED)
-	#if defined(__ZX80__)
+	#if defined(__ZX80__) || defined(__C128_Z80__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 0
 	#else

@@ -230,9 +230,12 @@ c64:
 c64_8k_cart: 
 	$(CC65_PATH)$(MYCC65) -O -t c64 \
 	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS \
-	-DNO_BLINKING -DNO_HINTS -DLESS_TEXT -DSIMPLE_STRATEGY -DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_HINTS -DLESS_TEXT -DFORCE_GHOSTS_NUMBER=8 \
+	-DEND_SCREEN \
+	-DNO_BLINKING \
 	-DALT_PRINT \
 	--config $(SOURCE_PATH)/../cfg/c64_GFXat0xC000.cfg  $(SOURCE_PATH)/c64/graphics.s \
+	$(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/c64/c64_redefined_characters.c $(SOURCE_PATH)/display_macros.c  \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \

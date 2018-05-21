@@ -242,6 +242,7 @@ void _draw(unsigned char x,unsigned char y,Image * image)
 
 void _delete(unsigned char x, unsigned char y)  {POKE(0xBB80+(x+X_OFFSET)+(y+Y_OFFSET)*40, 32);};
 
+#if !defined(NO_BLINKING)
 void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter) 
 {
 	(void) textcolor (image->_color);
@@ -256,6 +257,7 @@ void _blink_draw(char x, char y, Image * image, unsigned char * blinkCounter)
 		*blinkCounter=1;
 	}	
 };
+#endif
 
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 { 

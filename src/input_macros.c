@@ -50,30 +50,29 @@ extern Character player;
 	#define _DO_MOVE_UP \
 		deletePlayer(&player); \
 		--player._y; \
+		SHOW_UP(); \
 		invincibleYCountDown = SKULL_COUNT_DOWN; \
-		playerDirection = UP; \
-		SHOW_UP();
-		
+		playerDirection = UP;
 	#define _DO_MOVE_DOWN \
 		deletePlayer(&player); \
 		++player._y; \
+		SHOW_DOWN(); \
 		invincibleYCountDown = SKULL_COUNT_DOWN; \
-		playerDirection = DOWN; \
-		SHOW_DOWN(); 
+		playerDirection = DOWN;
 		
 	#define _DO_MOVE_LEFT \
 		deletePlayer(&player); \
 		--player._x; \
+		SHOW_LEFT(); \
 		invincibleXCountDown = SKULL_COUNT_DOWN; \
-		playerDirection = LEFT; \
-		SHOW_LEFT();
+		playerDirection = LEFT;
 	 
 	#define _DO_MOVE_RIGHT \
 		deletePlayer(&player); \
 		++player._x; \
+		SHOW_RIGHT(); \
 		invincibleXCountDown = SKULL_COUNT_DOWN; \
-		playerDirection = RIGHT; \
-		SHOW_RIGHT();
+		playerDirection = RIGHT;
 #else
 	#define _DO_MOVE_UP \
 		deletePlayer(&player); \

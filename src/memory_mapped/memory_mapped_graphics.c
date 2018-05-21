@@ -48,11 +48,6 @@ extern Image BOMB_IMAGE;
 #endif
 
 #if defined(ALT_PRINT)
-// unsigned short loc(unsigned char x, unsigned char y)
-// {
-	// return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
-// }
-
 unsigned short loc(unsigned char x, char y)
 {
 	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize);

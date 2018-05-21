@@ -134,8 +134,7 @@ void INIT_GRAPHICS(void)
 	//cbm_k_bsout(0x8E)
 }
  
- 
-// TODO: Sprite initialization (to be performed only once) should be separated from level generation
+
 void INIT_IMAGES(void)
 {		
 	#if !defined(REDEFINED_CHARS)

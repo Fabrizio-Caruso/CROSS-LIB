@@ -338,12 +338,22 @@ c16_16k_full:
 
 	
 pet_8k: 
-	$(CC65_PATH)$(MYCC65) -O -t pet \
-	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT \
+	$(CC65_PATH)$(MYCC65) -O -t pet -Cl \
+	-DTINY_GAME \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/TINY_pet_8k.prg
+	
+# pet_8k_light:
+	# $(CC65_PATH)$(MYCC65) -O -t pet -Cl \
+	# -DLESS_TEXT -DNO_MESSAGE -DNO_BLINKING -DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL -DFORCE_GHOSTS_NUMBER=8 \
+	# $(SOURCE_PATH)/display_macros.c \
+	# $(SOURCE_PATH)/item.c $(SOURCE_PATH)/enemy.c \
+	# $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	# $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c \
+	# -o $(BUILD_PATH)/LIGHT_pet_8k.prg
 	
 pet_16k: 
 	$(CC65_PATH)$(MYCC65) -O -t pet \

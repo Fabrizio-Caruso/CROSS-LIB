@@ -161,7 +161,8 @@ vic20_exp_8k_full:
 	-DALT_SLEEP \
 	$(SOURCE_PATH)/sleep_macros.c \
 	$(SOURCE_PATH)/vic20/vic20_sounds.c \
-	$(SOURCE_PATH)/vic20/vic20_alt_print.c \
+	$(SOURCE_PATH)/vic20/vic20_alt_print_init.c \
+	$(SOURCE_PATH)/memory_mapped/memory_mapped_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \

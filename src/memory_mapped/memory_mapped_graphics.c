@@ -1,4 +1,8 @@
 
+#if defined(__VIC20__) && defined(ALT_PRINT)
+	#include "../vic20/vic20_alt_print_init.h"
+#endif 
+
 #include "../display_macros.h"
 
 extern Image PLAYER_IMAGE;

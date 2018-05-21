@@ -226,7 +226,9 @@ unsigned short loc(unsigned char x, char y)
 	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize);
 }
 
-#define _DRAW(x,y,image) do {POKE(loc(x,y), image->_imageData); POKE((-0x0400+loc(x,y)), image->_color); } while(0)
+//#define _DRAW(x,y,image) do {POKE(loc(x,y), image->_imageData); POKE((-0x0400+loc(x,y)), image->_color); } while(0)
+#define _DRAW(x,y,image) do {POKE(loc(x,y), image->_imageData); POKE(COLOR_ADDR+x+y*XSize, image->_color); } while(0)
+
 #define _DELETE(x,y) POKE(loc(x,y), 32)
 
 

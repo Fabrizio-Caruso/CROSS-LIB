@@ -297,6 +297,7 @@ c16_32k:
 	
 # 	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg 
 
+# 	$(SOURCE_PATH)/c264/c264_alt_print.c 
 
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t c16 \
@@ -309,7 +310,8 @@ c16_16k_full:
 	-DSOUNDS \
 	-DALT_PRINT \
 	$(SOURCE_PATH)/c264/c264_sounds.c \
-	$(SOURCE_PATH)/c264/c264_alt_print.c \
+	$(SOURCE_PATH)/c264/c264_alt_print_init.c \
+	$(SOURCE_PATH)/memory_mapped/memory_mapped_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \

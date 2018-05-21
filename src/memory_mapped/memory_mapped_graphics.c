@@ -1,6 +1,9 @@
 
-#if defined(__VIC20__) && defined(ALT_PRINT)
+#  if defined(__VIC20__) && defined(ALT_PRINT)
 	#include "../vic20/vic20_alt_print_init.h"
+#elif defined(__C16__) && defined(ALT_PRINT)
+	#include "../c264/c264_alt_print_init.h"
+#else
 #endif 
 
 #include "../display_macros.h"
@@ -45,14 +48,25 @@ extern Image BOMB_IMAGE;
 #endif
 
 #if defined(ALT_PRINT)
-unsigned short loc(unsigned char x, unsigned char y)
+// unsigned short loc(unsigned char x, unsigned char y)
+// {
+	// return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
+// }
+
+unsigned short loc(unsigned char x, char y)
 {
-	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
+	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize);
 }
 #endif
 
 #if !defined(NO_COLOR)
-	#define _DRAW(x,y,image) do {POKE(loc(x,y), image->_imageData); POKE(COLOR_ADDR+x+y*22, image->_color); } while(0)
+	#define _DRAW(x,y,image) \
+	do \
+	{ \
+		POKE(loc(x,y), image->_imageData); \
+		POKE((unsigned short) (COLOR_ADDR+x+(unsigned short)(y+Y_OFFSET)*XSize),image->_color); \
+	} \
+	while(0)
 	#define _DELETE(x,y) POKE(loc(x,y), 32)
 #else
 	#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData); } while(0)
@@ -60,7 +74,6 @@ unsigned short loc(unsigned char x, unsigned char y)
 #endif
 #define _DRAW_VERTICAL_WALL(x,y)  POKE(loc(x,y),'|')
 #define _DRAW_HORIZONTAL_WALL(x,y)  POKE(loc(x,y),'-')
-// TODO: Find a few extra bytes
 #define _DRAW_BROKEN_WALL(x,y) POKE(loc(x,y),_BROKEN_WALL)
 
 void INIT_IMAGES(void)
@@ -129,7 +142,7 @@ void INIT_IMAGES(void)
 		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
 		PLAYER_LEFT._imageData = _PLAYER_LEFT;	
 	#else
-		PLAYER_IMAGE._imageData = _PLAYER_DOWN;			
+		PLAYER_IMAGE._imageData = _PLAYER;			
 	#endif
 	
 	#if defined(FULL_GAME)

@@ -1764,9 +1764,7 @@ z88dk_targets: \
 	sc3000_16k sc3000_32k \
 	ace_exp_16k \
 	cpc cpc_no_udg \
-	cpc_joystick
-	
-totest: \
+	cpc_joystick \
  	mc1000_16k_full mc1000_48k \
  	sharp_mz \
 	mtx \
@@ -1775,6 +1773,7 @@ totest: \
 	svi_318 svi_318_mode0 svi_328 \
 	msx_color_16k msx_color_32k_rom msx_color_32k \
 	spectrum_16k spectrum_48k samcoupe \
+	c128_z80_40col c128_z80_40col_turn_based \
 	aquarius_exp_4k aquarius_exp_16k \
 	vz200_8k vz200_18k \
 	microbee_16k microbee_32k \

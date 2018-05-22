@@ -403,9 +403,11 @@ void _delete(unsigned char x, unsigned char y);
 
 	#define CLEAR_SCREEN() {clrscr();};		
 #elif defined(__ACE__) || defined(__GAL__)
-	#define SET_TEXT_COLOR(c) 
+	// #define SET_TEXT_COLOR(c) 
 
-	#define CLEAR_SCREEN() do {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}} while(0)
+	#define CLEAR_SCREEN() clrscr()
+	
+	//do {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}} while(0)
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	// #define SET_TEXT_COLOR(c) 
 	

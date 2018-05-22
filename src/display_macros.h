@@ -30,6 +30,8 @@
 	
 #if defined(CONIO_LIB)
 	#include<conio.h>
+#elif defined(__CMOC__) && !defined(__WINCMOC__)
+	#include <coco.h>
 #endif
 
 #if defined(__CREATIVISION__) || defined(__GAMATE__) || defined(__OSIC1P__) || defined(__ATARI5200__) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
@@ -270,13 +272,15 @@ void _delete(unsigned char x, unsigned char y);
 #if defined(NO_PRINT)
 	#define PRINT(x,y,str)
 	#define PRINTF(x,y,str,val)
-#else	
-	#  if defined(__C16__) && defined(ALT_PRINT)
-		void PRINT(unsigned char x, char y, char * str);
-		void PRINTF(unsigned char x, char y, char * str, unsigned short);	
-	#elif defined(__C64__) && defined(ALT_PRINT)
-		void PRINT(unsigned char x, char y, char * str);
-		void PRINTF(unsigned char x, char y, char * str, unsigned short);		
+#else
+	#  if defined(NO_PRINT)
+		#define PRINT(x,y,str)
+		#define PRINTF(x,y,str,val)	
+	#elif defined(ALT_PRINT) \
+		|| (defined(__CMOC__) && !defined(__WINCMOC__)) \
+		|| defined(Z88DK_PUTC4X6)
+		void PRINT(unsigned char x, unsigned char y, char * str);
+		void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
 	#elif defined(ATARI_MODE1) && (defined(__ATARI__) || defined(__ATARIXL__))
 		void PRINT(unsigned char x, unsigned char y, char * str);
 		
@@ -292,52 +296,6 @@ void _delete(unsigned char x, unsigned char y);
 			} \
 			cprintf(##__VA_ARGS__); \
 		};
-	#elif defined(__VG5K__) && defined(ALT_PRINT)
-		#define PRINT(x,y,str)
-		#define PRINTF(x,y,str,val)		
-	#elif defined(__SPECTRUM__)
-		#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
-		#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
-	#elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT) && defined(VIC20_UNEXPANDED)
-		#define PRINT(x,y,str)
-		#define PRINTF(x,y,str,val)	
-	#elif defined(__GAL__) && defined(TINY_GAME) && defined(ALT_PRINT)
-		#define PRINT(x,y,str)
-		#define PRINTF(x,y,str,val)	
-	#elif defined(__SMS__) 
-		#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str); } while(0);
-		#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); printf(str,val); } while(0);
-	#elif defined(__ENTERPRISE__)
-		#define PRINT(x,y,str) 
-		#define PRINTF(x,y,str,val)		
-	#elif defined(__ATARI_LYNX__)
-		void PRINT(unsigned char x, unsigned char y, char * str);
-		void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
-	#elif defined(__AQUARIUS__) && defined(TINY_GAME) && defined(ALT_PRINT)
-		void PRINT(unsigned char x, unsigned char y, char * str);
-		void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
-	#elif defined(__VIC20__) && defined(TINY_GAME) && defined(ALT_PRINT) && !defined(VIC20_UNEXPANDED)
-		void PRINT(unsigned char x, unsigned char y, char * str);
-		void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
-	#elif defined(__VIC20__) && defined(FULL_GAME) && defined(ALT_PRINT)
-		void PRINT(unsigned char x, unsigned char y, char * str);
-		void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);		
-	#elif defined(__CMOC__) && !defined(__WINCMOC__)
-		#include <coco.h>
-		void PRINT(unsigned char x, unsigned char y, char * str);
-		void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
-	#elif defined(__SUPERVISION__)
-		void PRINT(unsigned char x, unsigned char y, char * str);
-		void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
-	#elif defined(__TRS80__) || defined(__EG2K__)
-		void PRINT(unsigned char x, unsigned char y, char * str);
-		void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
-	#elif defined(Z88DK_PUTC4X6)
-		void PRINT(unsigned char x, unsigned char y, char * str);
-		void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
-	#elif defined(Z88DK_SPRITES)
-		#define PRINT(x,y,str) 
-		#define PRINTF(x,y,str,val)	
 	#else
 		#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
 		#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);

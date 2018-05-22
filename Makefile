@@ -25,11 +25,11 @@ MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 TOOLS_PATH ?= ./tools
 
-COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DTINY_GAME -DALT_PRINT
+COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DTINY_GAME
 
-COCO_OPTS_LIGHT ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DALT_PRINT
+COCO_OPTS_LIGHT ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX
 
-COCO_OPTS       ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DALT_PRINT
+COCO_OPTS       ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 
 # -DNO_SLEEP
@@ -113,6 +113,7 @@ oric1_16k:
 vic20_unexpanded: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 \
 	-DVIC20_UNEXPANDED \
+	-DNO_PRINT \
 	-DALT_PRINT \
 	-DNO_SLEEP \
 	-DLESS_TEXT \
@@ -500,6 +501,7 @@ creativision_16k:
 atari_lynx:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
+	-DALT_PRINT \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/atari_lynx/atari_lynx_graphics.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -1449,6 +1451,7 @@ trs80_tiny:
 	-lm -create-app \
 	-D__TRS80__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DALT_PRINT \
 	-o$(BUILD_PATH)/TINY_trs80.bin \
 	$(SOURCE_PATH)/trs80/trs80_input.c \
 	$(SOURCE_PATH)/trs80/trs80_graphics.c \
@@ -1465,6 +1468,7 @@ trs80:
 	-lm -create-app \
 	-D__TRS80__ \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DALT_PRINT \
 	-o$(BUILD_PATH)/FULL_trs80.bin \
 	$(SOURCE_PATH)/trs80/trs80_input.c \
 	$(SOURCE_PATH)/trs80/trs80_graphics.c \
@@ -1862,6 +1866,7 @@ mc1000_16k_light:
 nc200_sprites_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
 	-D__NC200__ \
+	-DNO_PRINT \
 	-DZ88DK_SPRITES \
 	-DTINY_GAME \
 	-DLESS_TEXT \
@@ -1988,6 +1993,7 @@ enterprise_tiny:
 	-create-app -o $(BUILD_PATH)/TINY_enterprise.app \
 	-lm -vn -lndos \
 	-DTINY_GAME \
+	-DNO_PRINT \
 	-DNO_INPUT \
 	-DNO_SLEEP -DLESS_TEXT -DALT_PRINT \
 	$(SOURCE_PATH)/enterprise/enterprise_graphics.c \
@@ -2304,6 +2310,7 @@ gal_6k:
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \
+	-DNO_PRINT \
 	-DALT_PRINT \
 	-DNO_MESSAGE \
 	-DFORCE_BOMBS_NUMBER=2 \
@@ -2596,7 +2603,7 @@ creativision_16k_2:
 # --config $(SOURCE_PATH)/../cfg/supervision-16k.cfg
 supervision_full:
 	$(CC65_PATH)$(MYCC65) -O -t supervision  \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \

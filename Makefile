@@ -1764,7 +1764,9 @@ z88dk_targets: \
 	sc3000_16k sc3000_32k \
 	ace_exp_16k \
 	cpc cpc_no_udg \
-	cpc_joystick \
+	cpc_joystick
+	
+totest: \
  	mc1000_16k_full mc1000_48k \
  	sharp_mz \
 	mtx \

@@ -27,13 +27,13 @@
 
 #include "settings.h"
 
-#if defined(__ATARI5200__)
-	#include <atari5200.h>
+// #if defined(__ATARI5200__)
+	// #include <atari5200.h>
 	// TODO: This is a hack to get Atari5200 to compile in FULL GAME mode
-	#if defined(FULL_GAME) && defined(NO_COLOR)
-		unsigned char __fastcall__ textcolor (unsigned char color) {return 0;};	
-	#endif
-#endif
+	// #if defined(FULL_GAME) && defined(NO_COLOR)
+		// unsigned char __fastcall__ textcolor (unsigned char color) {return 0;};	
+	// #endif
+// #endif
 
 	
 #if defined(CONIO_LIB)
@@ -383,49 +383,21 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_TEXT_COLOR(c) textcolor(c);
 #endif
 
+
 // CLEAR SCREEN
 #if defined(__SPECTRUM__) && !defined(CLIB_ANSI)
 	#include <stdio.h>
 	#include <arch/zx.h>
-	// #define SET_TEXT_COLOR(c) printf("\020%c",c)
-
 	#define CLEAR_SCREEN()  {zx_cls(PAPER_BLACK|INK_WHITE);}
 #elif defined(__CPC__) 
-	// #define SET_TEXT_COLOR(c) textcolor(c);
-
 	#define CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
-#elif defined(__VG5K__) 
-	// #define SET_TEXT_COLOR(c) textcolor(c)
-
-	void CLEAR_SCREEN();
-#elif  defined(__ATARI5200__) || (defined(__SVI__) && defined(MSX_MODE0)) || defined(__M5__) || defined(__SC3000__) || defined(__MSX__) || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
-	// #define SET_TEXT_COLOR(c) 
-
-	#define CLEAR_SCREEN() {clrscr();};		
-#elif defined(__ACE__) || defined(__GAL__)
-	// #define SET_TEXT_COLOR(c) 
-
-	#define CLEAR_SCREEN() clrscr()
-	
-	//do {unsigned char i; clrscr();for(i=0;i<YSize;++i){gotoxy(0,i);cprintf("                                ");}} while(0)
-#elif defined(__CMOC__) && !defined(__WINCMOC__)
-	// #define SET_TEXT_COLOR(c) 
-	
-	void CLEAR_SCREEN(void);
-
-#elif defined(__TRS80__) || defined(__EG2K__)
-	// #define SET_TEXT_COLOR(c) 
-	
-	void CLEAR_SCREEN(void);
-#elif defined(__SUPERVISION__)
-	// #define SET_TEXT_COLOR(c) 
-	
-	void CLEAR_SCREEN(void);
-	
+#elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(TINY_GAME)) \
+		|| defined(__TRS80__) || defined(__EG2K__) \
+		|| defined(__CMOC__) && !defined(__WINCMOC__) \
+		|| defined(__VG5K__)  \
+		|| defined(__SUPERVISION__)	 
+	void CLEAR_SCREEN(void);	
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-	// #define SET_TEXT_COLOR(c)
-
-	// WORK AROUND to fix what clrscr destroys
 	#define CLEAR_SCREEN() { \
 	clrscr(); \
 	_setcolor_low(0, TGI_COLOR_RED); \
@@ -433,47 +405,24 @@ void _delete(unsigned char x, unsigned char y);
 	_setcolor_low(2, TGI_COLOR_CYAN); 	\
 	_setcolor_low(3, TGI_COLOR_BROWN); \
 	_setcolor_low(4, TGI_COLOR_BLACK);	};
-	
 #elif defined(__ATMOS__)
-	// #define SET_TEXT_COLOR(c) textcolor(c)
-	
 	#define CLEAR_SCREEN() do {clrscr(); INIT_GRAPHICS(); } while(0)
-#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED)
-	// #define SET_TEXT_COLOR(c)
-	#define CLEAR_SCREEN() clrscr()
-#elif defined(__VIC20__) && defined(ALT_PRINT)
-	// #define SET_TEXT_COLOR(c)
-	#define CLEAR_SCREEN() clrscr()
-#elif defined(__ENTERPRISE__)
-	// #define SET_TEXT_COLOR(c)
-	#define CLEAR_SCREEN()
-#elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(TINY_GAME))
-	// #define SET_TEXT_COLOR(c)
-	void CLEAR_SCREEN(void);
-	
 #elif defined(Z88DK_SPRITES)
 	#include <games.h>
 	#include <graphics.h>
-	
-	// #define SET_TEXT_COLOR(c)
+
 	#define CLEAR_SCREEN() clg()
-	
 #else // CC65 conio case
-	// #if !defined(NO_COLOR)
-		// #define SET_TEXT_COLOR(c) (void) textcolor (c);
-	// #else
-		// #define SET_TEXT_COLOR(c)	
-	// #endif
-	
 	#define CLEAR_SCREEN() clrscr();
 #endif
+
+
+// BORDER AND BACKGROUND COLORS
 #if defined(CC65) && !defined(__ATARI5200__)
 	#define SET_BORDER_COLOR(c) (void) bordercolor(c)
-
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 #else
 	#define SET_BORDER_COLOR(c) {}
-
 	#define SET_BACKGROUND_COLOR(c) {}	
 #endif	
 

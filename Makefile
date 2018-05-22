@@ -2527,23 +2527,6 @@ spectrum_clib_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -O3 -clib=ansi -pragma-define:ansicolumns=32 -vn                           -DCLIB_ANSI -DNO_SLEEP -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DLESS_TEXT -DTINY_GAME -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/TINY_spectrum_clib.prg  $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_spectrum_clib.prg
 	rm $(BUILD_PATH)/TINY_spectrum_clib_BANK_7.bin	
-
-
-# ISSUE with kbhit and getk: the game is turned-based
-	
-
-
-# gal_22k:
-	# $(Z88DK_PATH)$(MYZ88DK) +gal \
-	# -pragma-need=ansiterminal -vn \
-	# -D__GAL__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	# -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg \
-	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	# $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
-	# $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
-	# $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	# rm $(BUILD_PATH)/FULL_galaksija.prg	
-	# rm $(BUILD_PATH)/FULL_galaksija.wav	
 	
 	
 conio_nascom:

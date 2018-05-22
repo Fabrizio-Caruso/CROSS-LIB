@@ -27,14 +27,6 @@
 
 #include "settings.h"
 
-// #if defined(__ATARI5200__)
-	// #include <atari5200.h>
-	// TODO: This is a hack to get Atari5200 to compile in FULL GAME mode
-	// #if defined(FULL_GAME) && defined(NO_COLOR)
-		// unsigned char __fastcall__ textcolor (unsigned char color) {return 0;};	
-	// #endif
-// #endif
-
 	
 #if defined(CONIO_LIB)
 	#include<conio.h>
@@ -351,7 +343,8 @@ void _delete(unsigned char x, unsigned char y);
 		#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);
 	#endif
 #endif
-	
+
+
 // DRAW HORIZONTAL AND VERTICAL LINES
 #if !defined(TINY_GAME)
 	#if defined(__VG5K__)

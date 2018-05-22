@@ -5,7 +5,8 @@ deliverables
 build
 src/wincmoc_main.c
 *.bin
-*.asm
+src/*.asm
+build/*.asm
 src/*.s
 src/nes/*.o
 src/nes/nes_graphics.s

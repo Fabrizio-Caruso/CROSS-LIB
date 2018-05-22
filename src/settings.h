@@ -408,7 +408,8 @@
 #endif
 	
 #if defined(__ATARI__) || defined(__ATARIXL__) \
-	|| (defined(__VIC20__) && defined(ALT_PRINT))
+	|| (defined(__VIC20__) && defined(ALT_PRINT)) \
+	|| (defined(__C64__) && defined(ALT_PRINT))
 	#define NO_TEXT_COLOR
 #endif
 

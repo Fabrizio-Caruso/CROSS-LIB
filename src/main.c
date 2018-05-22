@@ -362,7 +362,9 @@ int main(void)
 			
 				dead_bubbles = 0;
 				
-				invincibilityActive = 0;				
+				invincibilityActive = 1;				
+				invincibility_count_down = INITIAL_INVINCIBILITY_COUNT_DOWN;
+				
 				confuseActive = 0;
 				zombieActive = 0; 
 				
@@ -375,16 +377,14 @@ int main(void)
 			#endif			
 			
 			#if !defined(TINY_GAME)
-				// freezeActive = 0;
-				
 				invincibleGhostAlive = 1;
 				invincibleGhostHits = 0;						
 				guns = 0;
 				
 				resetItems();
 				
-				freeze_count_down = INITIAL_FROZEN_COUNT_DOWN;
 				freezeActive = 1;
+				freeze_count_down = INITIAL_FROZEN_COUNT_DOWN;
 				
 				computeInvincibleGhostParameters();				
 			#endif

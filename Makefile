@@ -1678,8 +1678,9 @@ coco:
 
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
-# KO: 
-# OK: 30
+# KO:
+# 14 
+# OK:
 # ------------
 cc65_targets: \
 	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_8k_full vic20_exp_16k \
@@ -1701,7 +1702,7 @@ cc65_targets: \
 # KO:   	
 # nc100_sprites_light
 #  
-#
+# 33
 # OK:  
 
 

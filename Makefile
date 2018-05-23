@@ -2241,7 +2241,7 @@ zx81_16k_sccz80:
 
 supervision_tiny:
 	$(CC65_PATH)$(MYCC65) -t supervision \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DALT_PRINT \
 	-o $(BUILD_PATH)/TINY_supervision.ws \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/supervision/supervision_graphics.c \

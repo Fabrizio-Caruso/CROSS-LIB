@@ -203,6 +203,7 @@ void _delete(unsigned char x, unsigned char y)
 	_DELETE(x,y);
 }
 
+#if !defined(NO_BLINKING)
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
 	if(*blinkCounter) 
@@ -216,6 +217,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		*blinkCounter=1;
 	}	
 }
+#endif
 
 
 void CLEAR_SCREEN(void)
@@ -231,7 +233,7 @@ void CLEAR_SCREEN(void)
 	}
 }
 
-
+#if defined(ALT_PRINT)
 void PRINT(unsigned char x, unsigned char y, char * str)
 {
 	unsigned char i = 0;
@@ -299,6 +301,8 @@ void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 		print_level(val);
 	}
 }
+#endif
+
 
 
 #if !defined(TINY_GAME)

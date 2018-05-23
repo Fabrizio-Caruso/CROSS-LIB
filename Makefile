@@ -242,19 +242,24 @@ c64:
 	python $(TOOLS_PATH)/prg2crt.py $(BUILD_PATH)/FULL_c64_exomized.prg  $(BUILD_PATH)/FULL_c64_exomized.crt
 	rm $(BUILD_PATH)/FULL_c64.prg
 
+	
+# 	$(SOURCE_PATH)/c64/c64_redefined_characters.c
+	
 c64_8k_cart: 
 	$(CC65_PATH)$(MYCC65) -O -t c64 \
 	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS \
 	-DNO_HINTS \
 	-DLESS_TEXT \
 	-DFORCE_GHOSTS_NUMBER=8 \
-	-DNO_BLINKING \
 	-DEND_SCREEN \
 	-DALT_PRINT \
+	-DCBM_SCREEN_CODES \
 	--config $(SOURCE_PATH)/../cfg/c64_GFXat0xC000.cfg  $(SOURCE_PATH)/c64/graphics.s \
+	$(SOURCE_PATH)/c64/c64_alt_print_init.c \
+	$(SOURCE_PATH)/memory_mapped/memory_mapped_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/c64/c64_redefined_characters.c $(SOURCE_PATH)/display_macros.c  \
+	$(SOURCE_PATH)/display_macros.c  \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c \
@@ -262,8 +267,8 @@ c64_8k_cart:
 	-o $(BUILD_PATH)/FULL_c64_8k_cart.prg
 	$(TOOLS_PATH)/exomizer sfx basic  $(BUILD_PATH)/FULL_c64_8k_cart.prg -o $(BUILD_PATH)/FULL_c64_8k_exomized.prg
 	python $(TOOLS_PATH)/prg2crt.py $(BUILD_PATH)/FULL_c64_8k_exomized.prg  $(BUILD_PATH)/FULL_c64_8k_exomized.crt
-	rm $(BUILD_PATH)/FULL_c64_8k_cart.prg
-	rm $(BUILD_PATH)/FULL_c64_8k_exomized.prg
+	#rm $(BUILD_PATH)/FULL_c64_8k_cart.prg
+	#rm $(BUILD_PATH)/FULL_c64_8k_exomized.prg
 	
 c128_40col: 
 	$(CC65_PATH)$(MYCC65) -O -t c128 \

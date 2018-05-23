@@ -3,6 +3,8 @@
 	#include "../vic20/vic20_alt_print_init.h"
 #elif defined(__C16__) && defined(ALT_PRINT)
 	#include "../c264/c264_alt_print_init.h"
+#elif defined(__C64__) && defined(ALT_PRINT)
+	#include "../c64/c64_alt_print_init.h"
 #else
 #endif 
 
@@ -54,14 +56,39 @@ unsigned short loc(unsigned char x, char y)
 }
 #endif
 
+#if defined(CBM_SCREEN_CODES)
+	char screenCode(char ch)
+	{
+		if(ch>64)
+		{
+			return ch-64;
+		}
+		else
+		{
+			return ch;
+		}
+		return ch;
+	}
+#endif
+
 #if !defined(NO_COLOR)
-	#define _DRAW(x,y,image) \
-	do \
-	{ \
-		POKE(loc(x,y), image->_imageData); \
-		POKE((unsigned short) (COLOR_ADDR+x+(unsigned short)(y+Y_OFFSET)*XSize),image->_color); \
-	} \
-	while(0)
+	#if !defined(CBM_SCREEN_CODES)
+		#define _DRAW(x,y,image) \
+		do \
+		{ \
+			POKE(loc(x,y), image->_imageData); \
+			POKE((unsigned short) (COLOR_ADDR+x+(unsigned short)(y+Y_OFFSET)*XSize),image->_color); \
+		} \
+		while(0)
+	#else
+		#define _DRAW(x,y,image) \
+		do \
+		{ \
+			POKE(loc(x,y), screenCode(image->_imageData)); \
+			POKE((unsigned short) (COLOR_ADDR+x+(unsigned short)(y+Y_OFFSET)*XSize),image->_color); \
+		} \
+		while(0)		
+	#endif
 	#define _DELETE(x,y) POKE(loc(x,y), 32)
 #else
 	#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData); } while(0)
@@ -216,7 +243,11 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	unsigned char i = 0;
 	while(str[i]!='\0')
 	{
+		#if defined(CBM_SCREEN_CODES)
+		POKE(loc(x,y)+i, screenCode(str[i])); 		
+		#else
 		POKE(loc(x,y)+i, str[i]); 
+		#endif
 		++i;
 	}
 }

@@ -188,9 +188,8 @@ Character bombs[BOMBS_NUMBER];
 
 	unsigned short freeze_count_down;
 		
+	unsigned short extraLifeThroughPointsCounter;	
 #endif
-
-unsigned short extraLifeThroughPointsCounter;
 
 unsigned char ghostCount; // = GHOSTS_NUMBER;
 
@@ -337,7 +336,9 @@ int main(void)
 			CLEAR_SCREEN();
 		#endif
 		
-		extraLifeThroughPointsCounter = 1;
+		#if !defined(TINY_GAME)
+			extraLifeThroughPointsCounter = 1;
+		#endif
 		points = 0;
 		level = INITIAL_LEVEL; 	
 		lives = LIVES_NUMBER;
@@ -467,6 +468,7 @@ int main(void)
 				
 				++loop;
 				
+				#if !defined(TINY_GAME)
 				if(points>(extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS))
 				{
 					++extraLifeThroughPointsCounter;
@@ -474,6 +476,7 @@ int main(void)
 					++lives;
 					printLivesStats();
 				}
+				#endif
 				
 				ghostSlowDown = computeGhostSlowDown();
 

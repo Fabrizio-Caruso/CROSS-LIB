@@ -38,24 +38,15 @@
 
 #include "../input_macros.h"
 
-
 #define _PLAYER '*'
-// #define _PLAYER_DOWN 0x00
-// #define _PLAYER_UP 0x01
-// #define _PLAYER_RIGHT 0x02 
-// #define _PLAYER_LEFT 0x03
 
 // RED
 #define _BOMB 'x'
-//0x5E
 
 // WHITE
 #define _GHOST 'o'
 
-
-
 #define _DEAD_GHOST _GHOST
-
 
 // BLUE
 #define _GUN 0x7B
@@ -70,29 +61,24 @@
 // GREEN
 #define _POWERUP  0x7A;
 
-
 // CYAN
 #define _INVINCIBILITY 0x73
 #define _MISSILE 0x7C
 
 #define _LEFT_ENEMY_MISSILE '>'
 
-//((unsigned char)0x7B)
 #define _RIGHT_ENEMY_MISSILE '<'
 
-//((unsigned char)0x7D)
 #define _BUBBLE '^'
 
 #include "../display_macros.h"
-
-// extern unsigned char XSize;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
 #if !defined(NO_DEAD_GHOSTS)
-extern Image DEAD_GHOST_IMAGE;
+	extern Image DEAD_GHOST_IMAGE;
 #endif
 
 #if !defined(TINY_GAME)
@@ -129,24 +115,9 @@ extern Image DEAD_GHOST_IMAGE;
 #define BASE_ADDR 7680
 #define COLOR_ADDR 0x9600
 
-// #if !defined(NO_COLOR)
-	// #define _DRAW(x,y,image) POKE(7680+x+y*22, image->_imageData)
-	// #define _DELETE(x,y) POKE(7680+x+y*22, 32)
-	// #define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
-	// #define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
-	// #define _DRAW_BROKEN_WALL(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
-// #else
-	// #define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData); } while(0)
-	// #define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
-// #endif
-
-
 #if !defined(NO_COLOR)
 	#define _DRAW(x,y,image) do {POKE(BASE_ADDR+x+y*22, image->_imageData); POKE(COLOR_ADDR+x+y*22, image->_color); } while(0)
 	#define _DELETE(x,y) POKE(BASE_ADDR+x+y*22, 32)
-	// #define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
-	// #define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
-	// #define _DRAW_BROKEN_WALL(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
 #else
 	#define _DRAW(x,y,image) POKE(7680+x+y*22, image->_imageData)
 	#define _DELETE(x,y) POKE(7680+x+y*22, 32)     
@@ -155,12 +126,6 @@ extern Image DEAD_GHOST_IMAGE;
 
 void INIT_GRAPHICS(void)
 {
-
-	// POKE(0x9005,0xFF);	
-    // POKE(0x9002,PEEK(0x9002) | 0x80);	
-	
-	// WAIT_PRESS();
-
 	#if defined(TINY_GAME)
 		#include<peekpoke.h>
 		POKE(646,1);
@@ -185,11 +150,6 @@ void INIT_IMAGES(void)
 			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
 			MISSILE_IMAGE._color = COLOR_BLUE;
 		#endif
-		
-		// PLAYER_DOWN._color = COLOR_CYAN;
-		// PLAYER_UP._color = COLOR_CYAN;
-		// PLAYER_RIGHT._color = COLOR_CYAN;
-		// PLAYER_LEFT._color = COLOR_CYAN;
 
 		#if defined(FULL_GAME)
 			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
@@ -225,11 +185,6 @@ void INIT_IMAGES(void)
 		MISSILE_IMAGE._imageData = _MISSILE;
 	#endif
 	
-	// PLAYER_DOWN._imageData = _PLAYER_DOWN;
-	// PLAYER_UP._imageData = _PLAYER_UP;	
-	// PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-	// PLAYER_LEFT._imageData = _PLAYER_LEFT;	
-
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;

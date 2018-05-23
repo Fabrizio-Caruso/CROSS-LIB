@@ -49,10 +49,14 @@
 // BLUE
 #define _PLAYER '*'
 #if defined(REDEFINED_CHARS)
-#define _PLAYER_DOWN 0x3B
-#define _PLAYER_UP 0x3C
-#define _PLAYER_RIGHT 0x3D 
-#define _PLAYER_LEFT 0x3E
+	#define _PLAYER_DOWN (0xB2-0x40)
+	//0x3B
+	#define _PLAYER_UP  (0xB1-0x40)
+	//0x3C
+	#define _PLAYER_RIGHT (0xAB-0x40)
+	//0x3D 
+	#define _PLAYER_LEFT  (0xB3-0x40)
+	//0x3E
 #endif
 
 #define _GUN '!'

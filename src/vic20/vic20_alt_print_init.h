@@ -38,11 +38,11 @@
 
 #if !defined(REDEFINED_CHARS)
 	#define _PLAYER_DOWN '*'
-	#define _PLAYER_UP 0x0E
-	#define _PLAYER_RIGHT 0x11
-	#define _PLAYER_LEFT 0x10
+	// #define _PLAYER_UP 0x0E
+	// #define _PLAYER_RIGHT 0x11
+	// #define _PLAYER_LEFT 0x10
 	#define _PLAYER _PLAYER_DOWN
-
+	
 	// RED
 	#define _BOMB '^'
 
@@ -78,41 +78,55 @@
 	
 	#define _BROKEN_WALL _BOMB
 #else
-	#define _PLAYER_DOWN 0x00
-	#define _PLAYER_UP 0x0E
-	#define _PLAYER_RIGHT 0x11
-	#define _PLAYER_LEFT 0x10
+	// #define _PLAYER_DOWN 0x00
+	// #define _PLAYER_UP 0x0E
+	// #define _PLAYER_RIGHT 0x11
+	// #define _PLAYER_LEFT 0x10
+	#if defined(REDEFINED_CHARS)
+		#define _PLAYER_DOWN (0xB2-0x40)
+		//0x3B
+		#define _PLAYER_UP  (0xB1-0x40)
+		//0x3C
+		#define _PLAYER_RIGHT (0xAB-0x40)
+		//0x3D 
+		#define _PLAYER_LEFT  (0xB3-0x40)
+		//0x3E
+	#endif	
+	
 	#define _PLAYER _PLAYER_DOWN
 
 	// RED
-	#define _BOMB 0x1B
+	#define _BOMB '^'
 
 	// WHITE
-	#define _GHOST 0x1C
+	#define _GHOST 'o'
 
-	#define _DEAD_GHOST _GHOST
-
+	#define _DEAD_GHOST '#'
 
 	// BLUE
-	#define _GUN 0x7B
+	#define _GUN '!'
 
 	// YELLOW
-	#define _INVINCIBLE_GHOST 0x77
-	#define _VERTICAL_BRICK 0x26
-	#define _HORIZONTAL_BRICK 0x2B
-	#define _EXTRA_LIFE _PLAYER
+	#define _INVINCIBLE_GHOST '+'
+	#define _CONFUSE ('+'+128)
+	#define _ZOMBIE 'O'	
+	#define _VERTICAL_BRICK '|'
+	#define _HORIZONTAL_BRICK '-'
+	#define _EXTRA_LIFE ('*'+128)
 	#define _EXTRA_POINTS '$'
 
 	// GREEN
-	#define _POWERUP  0x7A;
+	#define _POWERUP  'S';
 
 	// CYAN
-	#define _INVINCIBILITY 0x73
-	#define _MISSILE 0x7C
+	#define _INVINCIBILITY 'V'
+	#define _MISSILE '.'
 
 	#define _LEFT_ENEMY_MISSILE '>'
 
 	#define _RIGHT_ENEMY_MISSILE '<'
 
-	#define _BUBBLE '^'
+	#define _BUBBLE ('^'-64)
+	
+	#define _BROKEN_WALL _BOMB	
 #endif	

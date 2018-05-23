@@ -173,6 +173,7 @@ vic20_exp_8k_full:
 	-DNO_HINTS \
 	-DSOUNDS \
 	-DALT_SLEEP \
+	-DREDEFINED_CHARS \
 	$(SOURCE_PATH)/sleep_macros.c \
 	$(SOURCE_PATH)/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/vic20/vic20_alt_print_init.c \
@@ -329,6 +330,7 @@ c16_16k_full:
 	-DNO_HINTS \
 	-DSOUNDS \
 	-DALT_PRINT \
+	-DREDEFINED_CHARS \
 	$(SOURCE_PATH)/c264/c264_sounds.c \
 	$(SOURCE_PATH)/c264/c264_alt_print_init.c \
 	$(SOURCE_PATH)/memory_mapped/memory_mapped_graphics.c \

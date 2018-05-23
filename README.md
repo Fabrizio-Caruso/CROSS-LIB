@@ -45,6 +45,9 @@ As a consequence of the design, the code includes a framework that could be used
 ![title](images/title.jpg)
 ![zx81_title](images/zx81_title.jpg)
 ![Vic 20 title](images/vic20_title.jpg)
+![C16 title](images/c264_title.jpg)
+![C16 hints](images/c264_hints.jpg)
+![C16 first level](images/c264_level1.jpg)
 
 LICENSE
 

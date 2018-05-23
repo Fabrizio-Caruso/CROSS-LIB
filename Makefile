@@ -1511,6 +1511,7 @@ kc_sprites_tiny:
 nc100_sprites_light:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
 	-D__NC100__ \
+	-DNO_PRINT \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DNO_SLEEP \
@@ -1736,11 +1737,8 @@ z88dk_targets: \
 	zx81_16k zx81_8k zx81_16k_turn_based \
 	spectrum_16k spectrum_48k \
 	samcoupe \
-	lambda_16k
-	
-
-todebug: \
-	nc100_sprites_light
+	lambda_16k \
+	nc100_sprites_light	
 	
 
 cmoc_targets: \

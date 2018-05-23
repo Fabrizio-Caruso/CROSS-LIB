@@ -314,8 +314,6 @@ void PRINT(unsigned char x, char y, char * str)
 	while(str[i])
 	{
 		POKE(loc(x,y)+i,str[i]);
-		// POKE(BASE_ADDR+x+(unsigned short)(y+Y_OFFSET)*40+i, str[i]); 
-		// ZAP_SOUND();
 		++i;
 	}
 }

@@ -988,7 +988,7 @@ svi_318:
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	#rm $(BUILD_PATH)/LIGHT_svi_318	
+	rm $(BUILD_PATH)/LIGHT_svi_318	
 	
 # 	-pragma-need=ansiterminal \
 
@@ -1507,24 +1507,6 @@ kc_sprites_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_kc_sprites.bin	
 
-nc100_sprites_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
-	-D__NC100__ \
-	-DZ88DK_SPRITES \
-	-DTINY_GAME \
-	-DLESS_TEXT \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-DREDEFINED_CHARS \
-	-create-app -o$(BUILD_PATH)/TINY_nc100_sprites.bin \
-	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_nc100_sprites.bin
-
 
 nc100_sprites_light:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
@@ -1623,52 +1605,7 @@ c128_z80_40col_turn_based:
 	rm A.LDR
 	rm A	
 	
-	
-# 	$(TOOLS_PATH)/cc1541 -n mydisk.d64 write a.ldr write a exit 
 
-# c128_z80_40col_tape_sccz80:
-	# $(Z88DK_PATH)$(MYZ88DK) +c128 -O3 -lndos \
-	# -D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
-	# -DTINY_GAME \
-	# $(SOURCE_PATH)/display_macros.c \
-	# $(SOURCE_PATH)/enemy.c \
-	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	# $(SOURCE_PATH)/main.c \
-	# -create-app
-	# rm a.bin
-	# mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col.T64
-	
-# c128_z80_40col_tape_zsdcc:
-	# $(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc -SO3 -lndos \
-	# -D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
-	# -DTINY_GAME \
-	# -DNO_SLEEP \
-	# -DFORCE_CONIO \
-	# $(SOURCE_PATH)/display_macros.c \
-	# $(SOURCE_PATH)/enemy.c \
-	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	# $(SOURCE_PATH)/main.c \
-	# -create-app
-	# mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col_zsdcc.T64
-	
-
-	
-einstein:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \
-	-D__EINSTEIN__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
-	-create-app -o$(BUILD_PATH)/TINY_einstein.bin \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_einstein.bin
-	
-
-	
 	
 # ------------------------------------
 
@@ -1751,7 +1688,8 @@ cc65_targets: \
 	pet_8k pet_16k \
 	cbm510 cbm610 \
 	apple2 apple2enh \
-	c64 c64_8k_cart c128_40col c128_80col \
+	c64 c64_8k_cart \
+	c128_40col c128_80col \
 	pce_8k pce_16k \
 	atari5200 nes \
 	creativision_8k_tiny creativision_8k_light creativision_16k \
@@ -1759,7 +1697,9 @@ cc65_targets: \
 	osic1p_8k osic1p_32k
 
 
-# KO:   
+# KO:   	
+# nc100_sprites_light
+#  
 #
 # OK:  
 
@@ -1771,7 +1711,6 @@ z88dk_targets: \
 	px8_tiny px8 \
 	kc_sprites_tiny \
 	trs80_tiny trs80 \
-	nc100_sprites_light \
 	cpm_adm3a_tiny cpm_vt52_tiny cpm_vt100_tiny \
 	nascom_16k nascom_32k \
 	pc6001_16k pc6001_32k \
@@ -1788,15 +1727,21 @@ z88dk_targets: \
 	p2000_16k p2000_32k \
 	svi_318 svi_318_mode0 svi_328 \
 	msx_color_16k msx_color_32k_rom msx_color_32k \
-	spectrum_16k spectrum_48k samcoupe \
 	c128_z80_40col c128_z80_40col_turn_based \
 	aquarius_exp_4k aquarius_exp_16k \
 	vz200_8k vz200_18k \
 	microbee_16k microbee_32k \
-	gal_22k lambda_16k \
+	gal_22k \
 	zx80_16k zx80_8k \
-	zx81_16k zx81_8k zx81_16k_turn_based
+	zx81_16k zx81_8k zx81_16k_turn_based \
+	spectrum_16k spectrum_48k \
+	samcoupe \
+	lambda_16k
+	
 
+todebug: \
+	nc100_sprites_light
+	
 
 cmoc_targets: \
 	coco
@@ -1858,6 +1803,70 @@ c128_targets: \
 ####################################################################################################################
 	
 # DEBUG
+
+	
+
+# c128_z80_40col_tape_sccz80:
+	# $(Z88DK_PATH)$(MYZ88DK) +c128 -O3 -lndos \
+	# -D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
+	# -DTINY_GAME \
+	# $(SOURCE_PATH)/display_macros.c \
+	# $(SOURCE_PATH)/enemy.c \
+	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c \
+	# -create-app
+	# rm a.bin
+	# mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col.T64
+	
+# c128_z80_40col_tape_zsdcc:
+	# $(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc -SO3 -lndos \
+	# -D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
+	# -DTINY_GAME \
+	# -DNO_SLEEP \
+	# -DFORCE_CONIO \
+	# $(SOURCE_PATH)/display_macros.c \
+	# $(SOURCE_PATH)/enemy.c \
+	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c \
+	# -create-app
+	# mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col_zsdcc.T64
+	
+
+nc100_sprites_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
+	-D__NC100__ \
+	-DZ88DK_SPRITES \
+	-DTINY_GAME \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DREDEFINED_CHARS \
+	-create-app -o$(BUILD_PATH)/TINY_nc100_sprites.bin \
+	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_nc100_sprites.bin
+	
+einstein:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \
+	-D__EINSTEIN__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-create-app -o$(BUILD_PATH)/TINY_einstein.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_einstein.bin
+	
+
+	
+
 
 mc1000_16k_light:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -O3 \

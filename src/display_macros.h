@@ -80,7 +80,7 @@
 	#include "patch/z88dk_conio_patch.h"					
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
-	#include "patch/z88dk_conio_implementation.h"		
+	#include "patch/z88dk_conio_implementation.h"
 #endif
 
 struct ImageStruct

@@ -366,6 +366,9 @@ int main(void)
 				invincibilityActive = 1;				
 				invincibility_count_down = INITIAL_INVINCIBILITY_COUNT_DOWN;
 				
+				#if !defined(INITIAL_ENEMY_FREEZE)
+					freezeActive = 0;
+				#endif
 				confuseActive = 0;
 				zombieActive = 0; 
 				
@@ -384,8 +387,10 @@ int main(void)
 				
 				resetItems();
 				
-				freezeActive = 1;
-				freeze_count_down = INITIAL_FROZEN_COUNT_DOWN;
+				#if defined(INITIAL_ENEMY_FREEZE)
+					freezeActive = 1;
+					freeze_count_down = INITIAL_FROZEN_COUNT_DOWN;
+				#endif
 				
 				computeInvincibleGhostParameters();				
 			#endif

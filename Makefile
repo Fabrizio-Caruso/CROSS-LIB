@@ -110,6 +110,9 @@ oric1_16k:
 	$(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/LIGHT_oric1_16k.tap
 
+	
+# 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -m 746e3d1.map -Wl -vm 
+	
 vic20_unexpanded: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 \
 	-DALT_MOVE \

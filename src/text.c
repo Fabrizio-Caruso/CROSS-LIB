@@ -199,11 +199,17 @@ extern Image PLAYER_IMAGE;
 			zx_setcursorpos(1, PLAYER_IMAGE_X); cputc(PLAYER_IMAGE._imageData);cputc(':');	
 		#elif defined(__ATARI5200__) || defined(__NC100__)
 			// TODO: to implement
-		#elif defined(WIDE)
-			SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');
-			gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-			gotoxy(PLAYER_IMAGE_X+X_OFFSET,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+		#elif defined(WIDE) 
+			#if !defined(ALT_PRINT)
+				SET_TEXT_COLOR(TEXT_COLOR);	
+				gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');
+				gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
+				gotoxy(PLAYER_IMAGE_X+X_OFFSET,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
+			#else
+				gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc('G');cputc(':');
+				gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc('O');cputc(':');
+				gotoxy(PLAYER_IMAGE_X+X_OFFSET,1); cputc('P');cputc(':');					
+			#endif
 		#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			gotoxy(GUN_IMAGE_X,0); cputc(GUN_IMAGE._imageData+160);	
@@ -217,9 +223,15 @@ extern Image PLAYER_IMAGE;
 			#if !defined(NO_COLOR)
 				SET_TEXT_COLOR(TEXT_COLOR);
 			#endif
+			#if !defined(ALT_PRINT)
 			gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc(GUN_IMAGE._imageData);
 			gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);
 			gotoxy(PLAYER_IMAGE_X+X_OFFSET,0); cputc(PLAYER_IMAGE._imageData);
+			#else
+			gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc('G');
+			gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc('O');
+			gotoxy(PLAYER_IMAGE_X+X_OFFSET,0); cputc('P');				
+			#endif
 		#endif
 	}
 

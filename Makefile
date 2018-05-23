@@ -320,7 +320,6 @@ c16_16k_full:
 	--config $(SOURCE_PATH)/../cfg/c16_16k_less_stack.cfg \
 	-DFULL_GAME \
 	-DFORCE_GHOSTS_NUMBER=8 \
-	-DNO_BLINKING \
 	-DLESS_TEXT	\
 	-DNO_HINTS \
 	-DSOUNDS \

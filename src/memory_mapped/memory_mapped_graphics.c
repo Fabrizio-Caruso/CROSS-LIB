@@ -72,23 +72,13 @@ unsigned short loc(unsigned char x, char y)
 #endif
 
 #if !defined(NO_COLOR)
-	#if !defined(CBM_SCREEN_CODES)
-		#define _DRAW(x,y,image) \
-		do \
-		{ \
-			POKE(loc(x,y), image->_imageData); \
-			POKE((unsigned short) (COLOR_ADDR+x+(unsigned short)(y+Y_OFFSET)*XSize),image->_color); \
-		} \
-		while(0)
-	#else
-		#define _DRAW(x,y,image) \
-		do \
-		{ \
-			POKE(loc(x,y), screenCode(image->_imageData)); \
-			POKE((unsigned short) (COLOR_ADDR+x+(unsigned short)(y+Y_OFFSET)*XSize),image->_color); \
-		} \
-		while(0)		
-	#endif
+	#define _DRAW(x,y,image) \
+	do \
+	{ \
+		POKE(loc(x,y), image->_imageData); \
+		POKE((unsigned short) (COLOR_ADDR+x+(unsigned short)(y+Y_OFFSET)*XSize),image->_color); \
+	} \
+	while(0)
 	#define _DELETE(x,y) POKE(loc(x,y), 32)
 #else
 	#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData); } while(0)

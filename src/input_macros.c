@@ -74,26 +74,43 @@ extern Character player;
 		invincibleXCountDown = SKULL_COUNT_DOWN; \
 		playerDirection = RIGHT;
 #else
-	#define _DO_MOVE_UP \
-		deletePlayer(&player); \
-		--player._y; \
-		SHOW_UP();
-		
-	#define _DO_MOVE_DOWN \
-		deletePlayer(&player); \
-		++player._y; \
-		SHOW_DOWN();
-		
-	#define _DO_MOVE_LEFT \
-		deletePlayer(&player); \
-		--player._x; \
-		SHOW_LEFT();
-		
-	#define _DO_MOVE_RIGHT \
-		deletePlayer(&player); \
-		++player._x; \
-		SHOW_RIGHT();
-
+	#if !defined(ALT_MOVE)
+		#define _DO_MOVE_UP \
+			deletePlayer(&player); \
+			--player._y; \
+			SHOW_UP();
+			
+		#define _DO_MOVE_DOWN \
+			deletePlayer(&player); \
+			++player._y; \
+			SHOW_DOWN();
+			
+		#define _DO_MOVE_LEFT \
+			deletePlayer(&player); \
+			--player._x; \
+			SHOW_LEFT();
+			
+		#define _DO_MOVE_RIGHT \
+			deletePlayer(&player); \
+			++player._x; \
+			SHOW_RIGHT();
+	#else
+		#define _DO_MOVE_UP \
+			--player._y; \
+			SHOW_UP();
+			
+		#define _DO_MOVE_DOWN \
+			++player._y; \
+			SHOW_DOWN();
+			
+		#define _DO_MOVE_LEFT \
+			--player._x; \
+			SHOW_LEFT();
+			
+		#define _DO_MOVE_RIGHT \
+			++player._x; \
+			SHOW_RIGHT();		
+	#endif
 #endif
 	
 #if defined(WAIT_FOR_KEY)
@@ -230,6 +247,9 @@ extern Character player;
 	#else
 		void movePlayerByKeyboard(unsigned char kbInput)
 		{
+			#if defined(ALT_MOVE)
+				deletePlayer(&player);
+			#endif
 			if(kbInput==_MOVE_UP)
 			{
 				_DO_MOVE_UP

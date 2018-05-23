@@ -112,6 +112,7 @@ oric1_16k:
 
 vic20_unexpanded: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 \
+	-DALT_MOVE \
 	-DVIC20_UNEXPANDED \
 	-DNO_PRINT \
 	-DALT_PRINT \
@@ -2575,16 +2576,6 @@ mc1000_tiny:
 # -DFULL_GAME
 vic20_exp_3k_NO_GFX: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS   -DTINY_GAME --config $(SOURCE_PATH)/../cfg/vic20-3k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
-	
-	
-# vic20_unexpanded_merged:
-	# $(CC65_PATH)$(MYCC65) -O -Cl -t vic20 \
-	# -DALT_PRINT -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS \
-	# -DTINY_GAME -DVIC20_UNEXPANDED -DNO_RANDOM_LEVEL -DNO_INITIAL_SCREEN \
-	# --config $(SOURCE_PATH)/../cfg/vic20_unexpanded.cfg  \
-	# $(SOURCE_PATH)/merged.c \
-	# -o $(BUILD_PATH)/TINY_vic20_unexpanded_merged.prg
-	
 	
 creativision_16k_2:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \

@@ -96,6 +96,7 @@
 	#define PLAYER_IMAGE_X 16
 	#define PLAYER_IMAGE_Y 1
 	#define LEVEL_X 6
+	#define STAT_SEPARATOR() cputc(':')
 #else
 	#define GUN_IMAGE_X 11
 	#define GUN_IMAGE_Y 0
@@ -104,6 +105,7 @@
 	#define PLAYER_IMAGE_X 14
 	#define PLAYER_IMAGE_Y 0
 	#define LEVEL_X 18
+	#define STAT_SEPARATOR() 
 #endif
 
 #if !defined(TINY_GAME)
@@ -187,6 +189,20 @@ extern Image PLAYER_IMAGE;
 			PRINT(XSize-11,-Y_OFFSET+1,"cross chase");				
 		#endif
 
+		#if !defined(ALT_PRINT)
+			#define STAT_GUN_IMAGE GUN_IMAGE._imageData
+			#define STAT_GHOST_IMAGE GHOST_IMAGE._imageData
+			#define STAT_PLAYER_IMAGE PLAYER_IMAGE._imageData	
+		#elif defined(__C64__) && defined(REDEFINED_CHARS)
+			#define STAT_GUN_IMAGE (GUN_IMAGE._imageData+32)
+			#define STAT_GHOST_IMAGE (GHOST_IMAGE._imageData+32)
+			#define STAT_PLAYER_IMAGE 'T'
+		#else
+			#define STAT_GUN_IMAGE 'G'
+			#define STAT_GHOST_IMAGE 'O'
+			#define STAT_PLAYER_IMAGE 'P'			
+		#endif
+		
 		#if defined(__CPC__) && defined(CPCRSLIB)
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			cpc_PrintGphStrStdXY(CPC_YELLOW,")",GUN_IMAGE_X*2,0*8);gotoxy(GUN_IMAGE_X+1,0); cputc(':');
@@ -197,41 +213,22 @@ extern Image PLAYER_IMAGE;
 			zx_setcursorpos(0, GUN_IMAGE_X); cputc(GUN_IMAGE._imageData);cputc(':');
 			zx_setcursorpos(0, GHOST_IMAGE_X); cputc(GHOST_IMAGE._imageData);cputc(':');
 			zx_setcursorpos(1, PLAYER_IMAGE_X); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-		#elif defined(__ATARI5200__) || defined(__NC100__)
-			// TODO: to implement
-		#elif defined(WIDE) 
-			#if !defined(ALT_PRINT)
-				SET_TEXT_COLOR(TEXT_COLOR);	
-				gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc(GUN_IMAGE._imageData);cputc(':');
-				gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);cputc(':');
-				gotoxy(PLAYER_IMAGE_X+X_OFFSET,1); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-			#else
-				gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc('G');cputc(':');
-				gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc('O');cputc(':');
-				gotoxy(PLAYER_IMAGE_X+X_OFFSET,1); cputc('P');cputc(':');					
-			#endif
 		#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 			SET_TEXT_COLOR(TEXT_COLOR);	
 			gotoxy(GUN_IMAGE_X,0); cputc(GUN_IMAGE._imageData+160);	
 			gotoxy(GHOST_IMAGE_X,0); cputc(GHOST_IMAGE._imageData+160);
-			gotoxy(PLAYER_IMAGE_X,0); cputc(PLAYER_IMAGE._imageData+64);		
-		#elif defined(__CMOC__) && !defined(__WINCMOC__)
-			// TODO: to implement
-		#elif defined(__TRS80__) || defined(__EG2K__)
-			// TODO: to implement
+			gotoxy(PLAYER_IMAGE_X,0); cputc(PLAYER_IMAGE._imageData+64);
+		#elif (defined(__CMOC__) && !defined(__WINCMOC__)) \
+			|| defined(__TRS80__) || defined(__EG2K__) \
+			|| defined(__ATARI5200__) || defined(__NC100__)
+			// TODO: to implement			
 		#else
 			#if !defined(NO_COLOR)
 				SET_TEXT_COLOR(TEXT_COLOR);
 			#endif
-			#if !defined(ALT_PRINT)
-			gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc(GUN_IMAGE._imageData);
-			gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc(GHOST_IMAGE._imageData);
-			gotoxy(PLAYER_IMAGE_X+X_OFFSET,0); cputc(PLAYER_IMAGE._imageData);
-			#else
-			gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc('G');
-			gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc('O');
-			gotoxy(PLAYER_IMAGE_X+X_OFFSET,0); cputc('P');				
-			#endif
+			gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc(STAT_GUN_IMAGE); STAT_SEPARATOR();
+			gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc(STAT_GHOST_IMAGE); STAT_SEPARATOR();
+			gotoxy(PLAYER_IMAGE_X+X_OFFSET,PLAYER_IMAGE_Y); cputc(STAT_PLAYER_IMAGE); STAT_SEPARATOR();	
 		#endif
 	}
 

@@ -1,67 +1,68 @@
-LIST OF TARGETS
+TARGETS
 
-[MOS 6502 and derivatives]
-apple2 : Apple ][ 
-apple2enh: Apple //e
-vic20_exp_3k: [TINY] Vic 20 with a 3k ram expansion (total ram: 8k)
-vic20_exp_8k : [LIGHT] Vic 20 with an 8k ram expansion (total ram: 13k)
-vic20_exp_16k : Vic 20 with a 16k ram expansion (total ram: 21k)
-atari_color : Atari 800/XL with 32k in 5-color 20x24 text mode (mode 1)
-atari_no_color : Atari 800/XL with 32k in monochromatic 40x24 text mode (mode 0)
-atari_no_color_16k : [LIGHT] Atari 800 16k in monochromatic 40x24 text mode (mode 0)
-atari5200 : [LIGHT] Atari 5200 in 5-color 20x24 text mode (mode 1)
-atmos : Oric Atmos or Orc 1 (with Atmos rom)
-atmos_16k : [LIGHT] Oric 1 16k (with Atmos rom)
-c128_40col : native Commodore 128 in VIC-II 40 column mode
-c128_80col : native Commodore 128 in VDC 80 column mode
-c16_16k : [LIGHT] unexpanded Commodore 16
-c16_32k : expanded Commodore 16 with at least 32k of ram
-c64 : Commodore 64
-pet : Commodore PET
-cbm510 : Commodore CBM 510
-cbm610 : Commodore CBM 610 (aka CBM-II) 
-nes : NES
-gamate : Gamate handheld
-osic1p_tiny: [TINY] Ohio Scientific 1P with 8k of ram
-osic1p_light: [LIGHT] Ohio Scientific 1P with 16 of ram
-osic1p: [FULL] Ohio Scientific 1P with more than 16k of ram
-creativision: [TINY] Creativision (8k rom image)
+--------
+CMOC
+--------
+coco
 
-[Zilog Z80 and derivatives]
-aquarius_exp_16k : Mattel Aquarius with 16k expansion
-ace_exp_16k : Jupiter Ace with 16k expansion
-zx80_exp_16k : [LIGHT] Sinclair ZX80 with 16k expansion
-zx80_exp_32k : Sinclair ZX80 with 32k expansion 
-zx81_exp_16k : [LIGHT] Sinclair ZX81 with 16k expansion 
-zx81_exp_32k : Sinclair ZX81 with 32k expansion 
-cpc : Amstrad CPC in color mode 
-msx_color_16k : [LIGHT] MSX with 16k of total ram 
-msx_color_32k : MSX with 32k of total ram in color mode 
-vz200_16k: VZ-200 with 16k of total ram
-vz200_32k: VZ-200 with 32k of total ram
-svi_318_mode0: [LIGHT] Spectravideo 318 with 16k of total ram in monochromatic color mode 0
-svi_328: Spectravideo 328 with 32k of total ram or any Spectravideo model with at least 32k or ram
-vg5k: [LIGHT] unexpanded VG-5000
-vg5k_exp_16k: VG-5000 with 16k memory expansion (32k of total ram)
-lambda_16k : [LIGHT] Lambda 8300 with 16k of ram
-lambda : Lambda 8300 with more than 16k of ram
-sharp_mz : Sharp MZ 
-microbee_16k: [LIGHT] Microbee
-microbee: Microbee with more than 16k of ram
-simcoupe: Sim Coupe
-mtx: Memotech MTX 512
-abc_light: [LIGHT] Luxor ABC with 16k of ram
-abc_full: Luxor ABC with more than 16k of ram
-p2000_light: [LIGHT] Philips P2000 with 16k of ram
-p2000_full: Philips P2000 with more than 16k of ram
-z9001_light: [LIGHT] Robotron Z 9001 with 16k of ram
-z9001: Robotron Z 9001 with more than 16k of ram
-mc1000_16k: [LIGHT] CCE MC-1000 with 16k of ram
-mc1000_48k: CCE MC-1000 with 48k of ram
-gal_22k: Galaksija with 22k of ram
-spectrum_16k: [TINY] Sinclair ZX Spectrum 16k
-spectrum_48k : Sinclair ZX Spectrum 
+-----------------------
 
-[Motorola 6809]
-coco_16k: [LIGHT] CoCo 1/2/3 with 16k of ram
-coco: CoCo 1/2/3 and Dragon 32/64 
+--------
+CC65
+--------
+vic20
+atari
+oric
+c264
+pet
+cbm510
+cbm610
+apple2
+c64
+c128_8502
+pce
+atari5200
+nes
+creativision
+gamate
+atari_lynx
+osic1p
+
+-----------------------
+
+--------
+Z88DK
+--------
+abc80
+ace
+aquarius
+cpc
+cpm
+gal
+kc
+lambda
+mc1000
+microbee
+msx
+mtx
+nascom
+nc100
+p2000
+pc6001
+px4
+px8
+samcoupe
+sc3000
+sharp_mz
+spectrum
+svi
+trs80
+vg5k
+vz200
+x1
+z1013
+z9001
+zx80
+zx81
+(c128_z80)
+

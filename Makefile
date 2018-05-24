@@ -2810,10 +2810,33 @@ ti86s:
 
 
 ti86:
-	$(Z88DK_PATH)$(MYZ88DK) +ti86 -O3 -D__TI86__ -clib=ansi -pragma-define:ansicolumns=32 -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI  -lndos -create-app -o $(BUILD_PATH)/FULL_ti86_mz.prg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +ti86 \
+	-O3 -D__TI86__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DFULL_GAME -DCLIB_ANSI \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_ti86.bin  \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	
 
 ti85:
-	$(Z88DK_PATH)$(MYZ88DK) +ti85 -O3 -D__TI85__ -clib=ansi -pragma-define:ansicolumns=32 -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI  -lndos -create-app -o $(BUILD_PATH)/FULL_ti85_mz.prg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
+	-O3 -D__TI85__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DFULL_GAME -DCLIB_ANSI \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_ti85.bin  \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
 
 ti84:
 	$(Z88DK_PATH)$(MYZ88DK) +ti84 -O3 -D__TI84__ -clib=ansi -pragma-define:ansicolumns=32 -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI  -lndos -create-app -o $(BUILD_PATH)/FULL_ti84_mz.prg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c

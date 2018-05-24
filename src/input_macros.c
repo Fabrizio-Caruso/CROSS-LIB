@@ -47,32 +47,54 @@ extern Character player;
 #endif
 
 #if !defined(TINY_GAME) 
-	#define _DO_MOVE_UP \
-		deletePlayer(&player); \
-		--player._y; \
-		SHOW_UP(); \
-		invincibleYCountDown = SKULL_COUNT_DOWN; \
-		playerDirection = UP;
-	#define _DO_MOVE_DOWN \
-		deletePlayer(&player); \
-		++player._y; \
-		SHOW_DOWN(); \
-		invincibleYCountDown = SKULL_COUNT_DOWN; \
-		playerDirection = DOWN;
-		
-	#define _DO_MOVE_LEFT \
-		deletePlayer(&player); \
-		--player._x; \
-		SHOW_LEFT(); \
-		invincibleXCountDown = SKULL_COUNT_DOWN; \
-		playerDirection = LEFT;
-	 
-	#define _DO_MOVE_RIGHT \
-		deletePlayer(&player); \
-		++player._x; \
-		SHOW_RIGHT(); \
-		invincibleXCountDown = SKULL_COUNT_DOWN; \
-		playerDirection = RIGHT;
+	#if !defined(ALT_MOVE)
+		#define _DO_MOVE_UP \
+			deletePlayer(&player); \
+			--player._y; \
+			SHOW_UP(); \
+			invincibleYCountDown = SKULL_COUNT_DOWN; \
+			playerDirection = UP;
+		#define _DO_MOVE_DOWN \
+			deletePlayer(&player); \
+			++player._y; \
+			SHOW_DOWN(); \
+			invincibleYCountDown = SKULL_COUNT_DOWN; \
+			playerDirection = DOWN;
+		#define _DO_MOVE_LEFT \
+			deletePlayer(&player); \
+			--player._x; \
+			SHOW_LEFT(); \
+			invincibleXCountDown = SKULL_COUNT_DOWN; \
+			playerDirection = LEFT;
+		#define _DO_MOVE_RIGHT \
+			deletePlayer(&player); \
+			++player._x; \
+			SHOW_RIGHT(); \
+			invincibleXCountDown = SKULL_COUNT_DOWN; \
+			playerDirection = RIGHT;
+	#else
+		#define _DO_MOVE_UP \
+			--player._y; \
+			SHOW_UP(); \
+			invincibleYCountDown = SKULL_COUNT_DOWN; \
+			playerDirection = UP;
+		#define _DO_MOVE_DOWN \
+			++player._y; \
+			SHOW_DOWN(); \
+			invincibleYCountDown = SKULL_COUNT_DOWN; \
+			playerDirection = DOWN;	
+		#define _DO_MOVE_LEFT \
+			--player._x; \
+			SHOW_LEFT(); \
+			invincibleXCountDown = SKULL_COUNT_DOWN; \
+			playerDirection = LEFT;
+		 
+		#define _DO_MOVE_RIGHT \
+			++player._x; \
+			SHOW_RIGHT(); \
+			invincibleXCountDown = SKULL_COUNT_DOWN; \
+			playerDirection = RIGHT;
+	#endif
 #else
 	#if !defined(ALT_MOVE)
 		#define _DO_MOVE_UP \

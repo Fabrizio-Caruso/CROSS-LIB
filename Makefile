@@ -259,6 +259,7 @@ c64_8k_cart:
 	-DEND_SCREEN \
 	-DALT_PRINT \
 	-DCBM_SCREEN_CODES \
+	-DFLAT_ENEMIES \
 	--config $(SOURCE_PATH)/../cfg/c64_GFXat0xC000.cfg  $(SOURCE_PATH)/c64/graphics.s \
 	$(SOURCE_PATH)/c64/c64_alt_print_init.c \
 	$(SOURCE_PATH)/memory_mapped/memory_mapped_graphics.c \

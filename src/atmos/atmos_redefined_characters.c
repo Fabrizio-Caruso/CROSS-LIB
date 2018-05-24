@@ -73,8 +73,9 @@ void redefine(unsigned long loc, const unsigned char * data)
 void INIT_IMAGES(void)
 {		
 	unsigned char i;
-	
+	#if !defined(REDEFINED_CHARS)	
 	const unsigned char player[] =                {12,18,12,51,45,12,18,51};
+	#endif
 	const unsigned char ghost[]  =                {33,30,33,51,33,45,33,30};
 	const unsigned char bomb[]  =                 {30,33,51,45,45,51,33,30};
 	const unsigned char powerUp[]  =              { 0,30,51,55,51,26,18,12};
@@ -82,7 +83,9 @@ void INIT_IMAGES(void)
 	const unsigned char gun[]  =                  { 0,32,31,40,56,32, 0, 0};
 	const unsigned char missile[]  =              { 0, 0, 4,28,14, 8, 0, 0};
 	
+	#if !defined(NO_DEAD_GHOST)
 	const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
+	#endif
 	
 	const unsigned char player_left[] =           {12,22,12,62,13,12,20,20};
 	const unsigned char player_right[] =          {12,26,12,31,44,12,10,10};		
@@ -118,7 +121,7 @@ void INIT_IMAGES(void)
 	EXTRA_POINTS_IMAGE._color = 128u;
 	
 	BOMB_IMAGE._color = 128u;
-	DEAD_GHOST_IMAGE._color = 128u;
+
 		
 	GHOST_IMAGE._imageData = (char) 0x60;
 	INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x7b;
@@ -129,8 +132,11 @@ void INIT_IMAGES(void)
 	EXTRA_POINTS_IMAGE._imageData = '$';
 		
 	MISSILE_IMAGE._imageData = (char) 0x5f;
+	
+	#if !defined(NO_DEAD_GHOST)
+	DEAD_GHOST_IMAGE._color = 128u;
 	DEAD_GHOST_IMAGE._imageData = (char) 0x5a;
-
+	#endif
 
 	PLAYER_LEFT._color = 0;
 	PLAYER_RIGHT._color = 0;
@@ -200,10 +206,12 @@ void INIT_IMAGES(void)
 	redefine(0xb400 + '-'*8,horizontal_brick);		
 	// redefine(0xb400 + '+'*8,corner);
 	
+	#if !defined(NO_DEAD_GHOST)
 	for(i=0;i<8;++i)
 	{
 		POKE(0xb400 + DEAD_GHOST_IMAGE._imageData*8 + i, dead_ghost[i]);
 	}
+	#endif
 
 	
 	#if defined(FULL_GAME)

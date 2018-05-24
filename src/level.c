@@ -236,7 +236,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#if GHOSTS_NUMBER >= 9
 		ROUND_NINE_GHOSTS();
 	#elif GHOSTS_NUMBER>=7 
-		#if !defined(TINY_GAME) || defined(ROUND_ENEMIES)
+		#if (!defined(TINY_GAME) || defined(ROUND_ENEMIES)) && !defined(FLAT_ENEMIES)
 			ROUND_EIGHT_GHOSTS();	
 		#else
 			FLAT_EIGHT_GHOSTS();

@@ -403,7 +403,7 @@ void displayStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 		printCenteredMessageOnRow(5, AUTHOR_STRING);	
 
-		#if !defined(TINY_GAME)
+		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
 			_printTopScore();
 			
 			SET_TEXT_COLOR(SPLASH_COLOR);

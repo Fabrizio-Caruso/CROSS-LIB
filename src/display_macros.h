@@ -34,7 +34,10 @@
 	#include <coco.h>
 #endif
 
-#if defined(__CREATIVISION__) || defined(__GAMATE__) || defined(__OSIC1P__) || defined(__ATARI5200__) || defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__APPLE2ENH__) || defined(__ATMOS__)
+#if defined(__CREATIVISION__) || defined(__GAMATE__) \
+	|| defined(__OSIC1P__) || defined(__ATARI5200__) || defined(__PET__) \
+	|| defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
+	|| defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#include "patch/generic_conio_patch.h"
 #endif
 #  if defined(Z88DK_PUTC4X6)
@@ -69,14 +72,17 @@
 	#include "patch/m5_conio_implementation.h"	
 #elif defined(Z88DK_SPRITES)
 	#include "patch/z88dk_conio_patch.h"	
-#elif defined(__X1__) || defined(__Z9001__) || defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
-	  || defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) || defined(__NASCOM__) || defined(__P2000__) \
-	  || defined(__BEE__) || defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) || defined(__TI85__) \
-	  || defined(__TI86__) || defined(__TI86S__) || defined(__MZ__) || defined(__GAL__) || defined(__SC3000__) \
-	  || (defined(__SPECTRUM__) && defined(CLIB_ANSI)) || defined(__SAM__) || defined(__CPC__) \
-	  || (defined(__SVI__) && !defined(MSX_MODE0)) || defined(__VG5K__) || defined(__AQUARIUS__) \
-	  || defined(__VZ__) || defined(__MTX__) || defined(__Z88__) || defined(__PX4__) \
-	  || defined(__EG2K__) || defined(__TRS80__) || defined(__ACE__) 
+#elif defined(__C128_Z80__) || defined(__X1__) || defined(__Z9001__) \
+	|| defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
+	|| defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) \
+	|| defined(__NASCOM__) || defined(__P2000__) || defined(__BEE__) \
+	|| defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) \
+	|| defined(__TI85__) || defined(__TI86__) || defined(__TI86S__) || defined(__MZ__) \
+	|| defined(__GAL__) || defined(__SC3000__) || (defined(__SPECTRUM__) && defined(CLIB_ANSI)) \
+	|| defined(__SAM__) || defined(__CPC__) || (defined(__SVI__) && !defined(MSX_MODE0)) \
+	|| defined(__VG5K__) || defined(__AQUARIUS__) || defined(__VZ__) \
+	|| defined(__MTX__) || defined(__Z88__) || defined(__PX4__) \
+	|| defined(__EG2K__) || defined(__TRS80__) || defined(__ACE__) 
 	#include "patch/z88dk_conio_patch.h"					
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)

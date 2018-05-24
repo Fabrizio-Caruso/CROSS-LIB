@@ -1570,7 +1570,7 @@ c128_z80_40col:
 	-compiler=sdcc \
 	-SO3 --max-allocs-per-node200000 \
 	-lndos -subtype=disk \
-	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DFULL_GAME -DEND_SCREEN -DNO_BLINKING \
 	-DFORCE_CONIO \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1590,7 +1590,7 @@ c128_z80_40col:
 c128_z80_40col_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 -O3 \
 	-lndos -subtype=disk \
-	-D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DFULL_GAME -DEND_SCREEN \
 	-DTURN_BASED \
 	$(SOURCE_PATH)/end_screen.c \

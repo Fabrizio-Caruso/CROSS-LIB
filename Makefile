@@ -1679,68 +1679,70 @@ coco:
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 # KO:
-# 14 
-# OK:
+#  
+# OK: 
+#
+# No. of systems: 17
 # ------------
+
 cc65_targets: \
-	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_8k_full vic20_exp_16k \
-	atari_color atari_no_color atari_no_color_16k \
-	atmos oric1_16k \
-	c16_16k c16_32k c16_16k_full \
-	pet_8k pet_16k \
-	cbm510 cbm610 \
-	apple2 apple2enh \
-	c64 c64_8k_cart \
-	c128_40col c128_80col \
-	pce_8k pce_16k \
-	atari5200 nes \
-	creativision_8k_tiny creativision_8k_light creativision_16k \
-	gamate atari_lynx \
-	osic1p_8k osic1p_32k
+	vic20_targets \
+	atari_targets \
+	oric_targets \
+	c264_targets \
+	pet_targets \
+	cbm510_targets \
+	cbm610_targets \
+	apple2_targets \
+	c64_targets \
+	c128_8502_targets \
+	pce_targets \
+	atari5200 \
+	nes_targets \
+	creativision_targets \
+	gamate_targets \
+	atari_lynx_targets \
+	osic1p_targets
 
 
 # KO:   	
-# nc100_sprites_light
-#  
-# 33
+# 
 # OK:  
-
+# Number of systems: 32 - 1 (c128_z80) = 31
 
 z88dk_targets: \
-	z1013 \
-	x1_tiny x1 \
-	px4_tiny px4 px4_putc4x6 \
-	px8_tiny px8 \
-	kc_sprites_tiny \
-	trs80_tiny trs80 \
-	cpm_adm3a_tiny cpm_vt52_tiny cpm_vt100_tiny \
-	nascom_16k nascom_32k \
-	pc6001_16k pc6001_32k \
-	z9001_16k z9001_32k \
-	vg5k vg5k_full_less_text vg5k_exp_16k \
-	sc3000_16k sc3000_32k \
-	ace_exp_16k \
-	cpc cpc_no_udg \
-	cpc_joystick \
- 	mc1000_16k_full mc1000_48k \
- 	sharp_mz \
-	mtx \
-	abc80_16k abc80_32k \
-	p2000_16k p2000_32k \
-	svi_318 svi_318_mode0 svi_328 \
-	msx_color_16k msx_color_32k_rom msx_color_32k \
-	c128_z80_40col c128_z80_40col_turn_based \
-	aquarius_exp_4k aquarius_exp_16k \
-	vz200_8k vz200_18k \
-	microbee_16k microbee_32k \
-	gal_22k \
-	zx80_16k zx80_8k \
-	zx81_16k zx81_8k zx81_16k_turn_based \
-	spectrum_16k spectrum_48k \
-	samcoupe \
-	lambda_16k \
-	nc100_sprites_light	
-	
+	z1013_targets \
+	x1_targets \
+	px4_targets \
+	px8_targets \
+	kc_targets \
+	trs80_targets \
+	cpm_targets \
+	nascom_targets \
+	pc6001_targets \
+	z9001_targets \
+	vg5k_targets \
+	sc3000_targets \
+	ace_targets \
+	cpc_targets \
+	mc1000_targets \
+	sharp_mz_targets \
+	mtx_targets \
+	abc80_targets \
+	p2000_targets \
+	svi_targets \
+	msx_targets \
+	c128_z80_targets \
+	aquarius_targets \
+	vz200_targets \
+	microbee_targets \
+	gal_targets \
+	zx80_targets \
+	zx81_targets \
+	spectrum_targets \
+	samcoupe_targets \
+	lambda_targets \
+	nc100_targets
 
 cmoc_targets: \
 	coco
@@ -1774,30 +1776,166 @@ help:
 list:
 	cat TARGETS.txt
 	
-vic20_targets: \
-	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_8k_full vic20_exp_16k
 
-c264_targets: \
-	c16_16k c16_16k_full c16_32k
+#
+#
 	
+z1013_targets: \
+	z1013
+	
+x1_targets: \
+	x1_tiny x1
+
+px4_targets: \
+	px4_tiny px4 px4_putc4x6
+
+px8_targets: \
+	px8_tiny px8
+	
+kc_targets: \
+	kc_sprites_tiny
+	
+trs80_targets: \
+	trs80_tiny trs80
+
 cpm_targets: \
 	cpm_adm3a_tiny cpm_vt52_tiny cpm_vt100_tiny 
+
+nascom_targets: \
+	nascom_16k nascom_32k 
 	
+pc6001_targets: \
+	pc6001_16k pc6001_32k 	
+	
+z9001_targets: \
+	z9001_16k z9001_32k
+
+vg5k_targets: \
+	vg5k vg5k_full_less_text vg5k_exp_16k
+	
+sc3000_targets: \
+	sc3000_16k sc3000_32k
+	
+ace_targets: \
+	ace_exp_16k
+
 cpc_targets: \
 	cpc cpc_joystick cpc_no_udg
 	
-c64_targets: \
-	c64 c64_8k_cart
+mc1000_targets: \
+ 	mc1000_16k_full mc1000_48k
+	
+sharp_mz_targets: \
+ 	sharp_mz
+	
+mtx_targets: \
+	mtx 
+	
+abc80_targets: \
+	abc80_16k abc80_32k
+	
+p2000_targets: \
+	p2000_16k p2000_32k
 
-c128_8502_targets: \
-	c128_40col c128_80col
+svi_targets: \
+	svi_318 svi_318_mode0 svi_328
+
+msx_targets: \
+	msx_color_16k msx_color_32k_rom msx_color_32k
 
 c128_z80_targets: \
 	c128_z80_40col c128_z80_40col_turn_based
 	
+aquarius_targets: \
+	aquarius_exp_4k aquarius_exp_16k
+	
+vz200_targets: \
+	vz200_8k vz200_18k
+	
+microbee_targets: \
+	microbee_16k microbee_32k
+	
+gal_targets: \
+	gal_22k
+	
+zx80_targets: \
+	zx80_16k zx80_8k
+	
+zx81_targets: \
+	zx81_16k zx81_8k zx81_16k_turn_based
+	
+spectrum_targets: \
+	spectrum_16k spectrum_48k
+	
+samcoupe_targets: \
+	samcoupe
+	
+lambda_targets: \
+	lambda_16k
+	
+nc100_targets: \
+	nc100_sprites_light	
+	
+	
+##
+
+vic20_targets: \
+	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_8k_full vic20_exp_16k
+
+atari_targets: \
+	atari_color atari_no_color atari_no_color_16k
+	
+oric_targets: \
+	atmos oric1_16k
+
+c264_targets: \
+	c16_16k c16_16k_full c16_32k
+	
+pet_targets: \
+	pet_8k pet_16k
+	
+cbm510_targets: \
+	cbm510
+	
+cbm610_targets: \
+	cbm610
+	
+apple2_targets: \
+	apple2 apple2enh
+
+c64_targets: \
+	c64 c64_8k_cart
+	
+c128_8502_targets: \
+	c128_40col c128_80col
+	
+pce_targets: \
+	pce_8k pce_16k 
+	
+atari5200_targets: \
+	atari5200
+
+nes_targets: \
+	nes
+	
+creativision_targets: \
+	creativision_8k_tiny creativision_8k_light creativision_16k
+	
+gamate_targets: \
+	gamate
+	
+atari_lynx_targets: \
+	atari_lynx
+	
+osic1p_targets: \
+	osic1p_8k osic1p_32k
+	
+
+
 c128_targets: \
 	c128_8502_targets c128_z80_targets
 
+	
 
 ####################################################################################################################
 	

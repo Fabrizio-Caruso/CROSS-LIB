@@ -1993,7 +1993,9 @@ nc100_sprites_tiny:
 einstein:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \
 	-D__EINSTEIN__ \
+	-DFORCE_CONIO \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-clib=ansi \
 	-create-app -o$(BUILD_PATH)/TINY_einstein.bin \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \

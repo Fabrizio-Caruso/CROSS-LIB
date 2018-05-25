@@ -60,8 +60,6 @@
 	#include "patch/ncurses_conio_implementation.h"	
 #elif defined(__PX8__) || defined(__ABC800__) || defined(__CPM_ADM3A__)
 	#include "patch/adm3a_conio_implementation.h"
-#elif defined(__EINSTEIN__)
-	#include "patch/vt100_conio_implementation.h"
 #elif defined(__CPM_VT52__)
 	#include "patch/vt52_conio_implementation.h"
 #elif defined(__CPM_VT100__)
@@ -82,7 +80,8 @@
 	|| defined(__SAM__) || defined(__CPC__) || (defined(__SVI__) && !defined(MSX_MODE0)) \
 	|| defined(__VG5K__) || defined(__AQUARIUS__) || defined(__VZ__) \
 	|| defined(__MTX__) || defined(__Z88__) || defined(__PX4__) \
-	|| defined(__EG2K__) || defined(__TRS80__) || defined(__ACE__) 
+	|| defined(__EG2K__) || defined(__TRS80__) || defined(__ACE__) \
+	|| defined(__EINSTEIN__) 	
 	#include "patch/z88dk_conio_patch.h"					
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)

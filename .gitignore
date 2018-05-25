@@ -19,3 +19,5 @@ src/wincmoc_graphics.c
 *.stackdump
 src/wincmoc_tmp.c
 *.lst
+tools/EDIP1e/xchase.DSK
+

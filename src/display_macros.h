@@ -203,7 +203,7 @@ typedef struct ImageStruct Image;
 		  || defined(__ENTERPRISE__) \
 		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
 		  || defined(__EINSTEIN__) 		  
-		#define XSize (40-X_OFFSET)
+		#define XSize (32-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)
 	#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \

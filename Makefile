@@ -1608,6 +1608,21 @@ c128_z80_40col_turn_based:
 	rm A	
 	
 
+einstein:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -O3 -leinstein \
+	-D__EINSTEIN__ \
+	-DFORCE_CONIO \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-clib=ansi \
+	-create-app -o$(BUILD_PATH)/FULL_einstein.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_einstein.bin
+	
 	
 # ------------------------------------
 
@@ -1990,7 +2005,7 @@ nc100_sprites_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_nc100_sprites.bin
 	
-einstein:
+einstein_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \
 	-D__EINSTEIN__ \
 	-DFORCE_CONIO \

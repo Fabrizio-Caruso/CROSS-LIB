@@ -1,0 +1,186 @@
+EDIP VERSION 1e 22/Jan/2011 20:55
+
+1) will open an Einstein extended disk image
+2) and show directory of files within the image
+3) extract files from the disk image to a PC storage medium
+   i.e. MS Windows Folder on a hard drive
+4) create a blank disk image from existing image
+   using the original disk image's system tracks
+5) insert files into a newly created disk image
+   from a PC folder
+6) extract a copy of an Einstein disk image's system tracks
+   to a PC folder
+7) extract a raw image of just all disk image's sectors to a
+   PC folder in the order of the operating system's DOS.
+
+Upgrades and bug fixes from previous versions.
+
+EXTRACTED FILES CORRECTLY SIZED
+Disk Image files are now extracted correctly to the smallest
+number of 128 byte records. Instead of to the smallest
+number of 2kb blocks.
+
+Extracted files will now have added to their extension
+_EDIPv1e_ Plus DOS type
+i.e. myfile.txt_EDIPv1e_XTAL
+     myfile.txt_EDIPv1e_ZDOS
+     myfile.txt_EDIPv1e_CPM2
+     myfile.txt_EDIPv1e_CHECK or myfile.txt_EDIPv1e_NO_CHECK
+All files extracted into the PC environment will be in MS DOS format
+DOS type only indicates the original disc images system it will not
+restrict insertion of the file into a newly EDIP created images with
+a different DOS type.
+For an unrecognized DOS the CPM check box will not be greyed out
+the user will then need to judge whether the Image's dos is of the XTAL or
+CPM type. If wrongly used the file will be corrupt and will not run in
+the Einstein or under Einstein Emulation. The user should then try
+using the CPM check Box with a different setting for extracting files.
+Files extracted with the CPM box ticked will have "_EDIPv1e_CHECK" added
+to filename extension. Un ticked "_EDIPv1e_NO_CHECK" will be  added to
+filename extension.
+
+DELETED FILES
+Files that have been deleted during Einstein run time
+conditions (i.e Einstein emulation or in the physical
+Einstein) will be shown prefixed with four exclamation marks
+in the image directory i.e. !!!!MYFILE.XBS.
+
+Files with the prefix "!!!!" would have been intended to be deleted 
+by the original floppy disk owner before a disk image was made of it.
+In some cases the file can be extracted by EDIP to an original file make up.
+Other files with the prefix "!!!!" could have had their original allocated
+sectors over written by new files written to disk after deletion. The user
+must be aware that not all "!!!!" prefixed files can be salvaged. The only
+way to test "!!!!" prefixed files are not corrupt is to use them under run
+time conditions.   
+
+ICON ON THE TASK BAR and ADDED WINDOW
+EDIP now opens a window with a black back ground. When a
+disk image is opened the dialogue box holding its directory
+will be positioned on the window.
+
+CP/M 2.2 and ZDOS Disc Images
+These files use a different format in the directory of extents
+in the extended disk image for allocating blocks than XTAL.
+Previous EDIP versions did not take this fully into account
+small files apparently were extracted or inserted ok for use
+but larger files became corrupted. This has now been fixed.
+
+THE CPM CHECK BOX
+In previous EDIP versions the CPM check box in EDIP was needed by
+the user when the image's O/S is known. Left unchecked for Xtal
+systems ticked for CP/M and ZDOS. An exception to this were blank
+images created and distributed with EDIP. Copies of these images
+made with EDIP for inserting files would automatically have the
+check box configured and greyed out for the correct operating system.
+
+*EDIP version 1e now reads specific areas in the system tracks of
+an opened disk image to identify known DOSs and set the CPM check
+box automatically.
+Known DOSs Recognized
+TATUNG/XtalDOS 1.11
+XtalDOS 1.31,
+XtalDOS 2.05,
+CP/M 2.2 EINSTEIN ver 1.2,
+Zdos 1.61,
+Tatung Xtal DOS80
+
+DISK IMAGE DETAILS DROP DOWN BOX
+VERSION 1e
+1: will display known DOS of Image + original software that
+created the image i.e.
+"DOS XtalDOS 2.05   Origin CPDRead v3.24"
+2: will display confirmation for extended image file.
+If it is a copy created by EDIP
+"EXTENDED CPC DSK File- EDIP COPY  OK"
+For an original disk image.
+"EXTENDED CPC DSK File- Disk-Info OK"
+3: Tracks per Side
+4: Sectors per Track
+5: Sector Size bytes
+6: Sides per disc
+7: FLOPPY DRIVE Sides Used
+note: 1:Some disk images can be corrupted by being twice the size
+      they should be.
+      2:Some Einstein users added a hardware switch to use both
+      sides of a 3.5 floppy for single side side format.
+8: Side 1 1st track Sector Sequence
+9: For double side disks Side 2 1st track Sector Sequence
+note: Side 2 1st track Sector Sequence will only be shown for
+      double side discs.
+      Sector numbers for side 2 usually incremented from side 1.
+      Sector scew can vary. Some Einstein users have modified
+      FORMAT.COM to create their own sector scew.
+      Disc Images created by EinTrans do not have sectors scewed.
+
+Drive Configuration
+A new feature added since version 1d is the drive
+configuration shown in EDIP's disk details drop down box. example "Drives
+Configured S40 S40 S40 S40" Reading from left to right the first "S40" will mean
+boot drive 0/A is single side 40 track format. The second, third and forth S40
+would mean dives 1/B 2/C 3/D would also be side 40 track format. Each settings
+could be different and shown as S40 single side 40 track, D40 double side 40
+track, S80 single side 80 track, D80 double side 80 track.
+
+Note for use Within the system tracks of an Einstein floppy disk and an extended
+disk image made from it there is one byte which according to its value will
+initial disk parameter blocks and disk header blocks when loaded into RAM to
+read and write up to four differently formatted floppy drives.
+
+The Einstein computer has the ability to read and write to floppy drives
+configured for single side 40 track, single side 80 track, single side 80 track
+and double side 80 track . Up to four floppy drives can all be set to a
+different setting for sides and tracks according to to the byte in the boot
+disk.
+
+EDIP version 1e displays the drive configuration in the drop down disk image
+details box. Example "Drives Configured S40 S40 S40 S40" will be shown for the
+standard Einstein format used with the original one or two single side only flip
+over three inch floppy drives built into the Einstein TC01 when purchased.
+
+With a mix of original single side only, flip over three inch floppy drives for
+the Einstein and modern double side floppy drives, a boot disk could miss match
+the format configuration for a particular four drive set up. e.g. configure a
+single side only three inch drive as a double side disk. For those new to the
+Einstein with a mix of drives it is recommended that they use only disk images
+which configure all Einstein floppy drives to single side 40 track for creating
+boot disks.
+
+Examples "Drives Configured S40 S40 S40 S40" A safe mode for all mixed drive set
+ups.
+
+
+"Drives Configured S40 S40 D80 D80" This configuration could have been
+transferred to a single side three inch boot floppy. It is a safe mode where
+drive 0/A and 1/B are the original single side floppy drives built into the
+Einstein TC01. Later three and a half inch drives can be added to the external
+floppy drive port for double side 80 track format.
+
+"Drives Configured D80 D80 D80 S40" This configuration will not work where the
+boot drive is a single side only three inch drive. The configuration needs
+manually for the Einstein TC01 to be opened up and the hardware settings for
+floppy drives to be altered so at least the boot drive 0/A is an external three
+and a half inch drive and one internal or external single side only three inch
+drive is 3/D. This will enable one double side floppy and one three inch single
+side floppy to be read. Ideally three three and half inch drives should be
+attached externally and one three inch internal drive set to 3/C. This set up
+has been popular with einstein users who are transferring all their Einstein
+software to double side 80 track floppies and want to keep the option of three
+inch floppy drive access for further transfers.
+
+"SYS" BUTTON Extract a copy of an Einstein disk image's system tracks. Twenty
+sectors of the first two tracks are extracted from the disk image to a file in a
+windows folder. The file name will be the same as the disk image it is extracted
+from. The file extension will be SYS_Einstein. Example disk image name
+"name.dsk" extracted file "name.SYS_EINSTEIN".
+
+"RAW" BUTTON Extracts a file from the disk image into a windows folder of all
+sectors and only sectors. Extended disk image header and track headers are
+excluded. The sectors are in order of the way they would be accessed by the
+Einstein computer. Sectors are in sequence according to track by track order and
+sector ID eliminating sector scew. The file name will be the same as the disk
+image it is extracted from. The file extension will RAW_EINSTEIN. Example disk
+image name "name.dsk" extracted file "name.RAW_EINSTEIN".
+
+
+

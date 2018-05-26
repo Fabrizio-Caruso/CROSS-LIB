@@ -428,6 +428,20 @@ apple2enh:
 	java -jar $(SOURCE_PATH)/../tools/ac.jar -as $(BUILD_PATH)/FULL_apple2enh.dsk aschase < $(BUILD_PATH)/apple2enh.bin
 	rm $(BUILD_PATH)/apple2enh.bin
 
+apple2enh_80col: 
+	$(CC65_PATH)$(MYCC65) -O -t apple2enh -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DFORCE_XSIZE=80 -DAPPLE2ENH_80COL_VIDEO_MODE -DFLAT_ENEMIES \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/sleep_macros.c \
+	-o $(BUILD_PATH)/apple2enh_80col.bin
+	cp $(SOURCE_PATH)/../tools/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_apple2enh_80col.dsk
+	java -jar $(SOURCE_PATH)/../tools/ac.jar -as $(BUILD_PATH)/FULL_apple2enh_80col.dsk aschase < $(BUILD_PATH)/apple2enh_80col.bin
+	rm $(BUILD_PATH)/apple2enh_80col.bin	
+	
 osic1p_32k: 
 	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
 	-DTURN_BASED \
@@ -1696,7 +1710,7 @@ coco:
 #  
 # OK: 
 #
-# No. of systems: 17
+# No. of systems: 18
 # ------------
 
 cc65_targets: \
@@ -1708,6 +1722,7 @@ cc65_targets: \
 	cbm510_targets \
 	cbm610_targets \
 	apple2_targets \
+	apple2enh_targets \
 	c64_targets \
 	c128_8502_targets \
 	pce_targets \
@@ -1915,7 +1930,10 @@ cbm610_targets: \
 	cbm610
 	
 apple2_targets: \
-	apple2 apple2enh
+	apple2
+
+apple2enh_targets: \
+	apple2enh apple2enh_80col
 
 c64_targets: \
 	c64 c64_8k_cart

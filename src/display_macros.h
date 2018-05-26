@@ -184,7 +184,8 @@ typedef struct ImageStruct Image;
 #if !defined(FORCE_XSIZE)
 	#  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
 		  || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
-		  || defined(__PX8__) || defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__)
+		  || defined(__PX8__) || defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__) \
+		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE))
 		#define XSize 80
 	#elif defined(__TRS80__) || defined(__EG2K__)
 		#define XSize 64
@@ -194,7 +195,7 @@ typedef struct ImageStruct Image;
 		#define XSize (480/SPRITE_X_STEP)
 	#elif defined(__NASCOM__)
 		#define XSize 48
-	#elif defined(__VG5K__) || defined(__APPLE2ENH__) || defined(__APPLE2__) \
+	#elif defined(__VG5K__) || (defined(__APPLE2ENH__) && !defined(APPLE2ENH_80COL_VIDEO_MODE))|| defined(__APPLE2__) \
 		  || defined(__Z9001__) || defined(__P2000__) || defined(__ABC80__) \
 		  || defined(__MZ__) || defined(__X1__) || defined(__ATMOS__) \
 		  || defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \

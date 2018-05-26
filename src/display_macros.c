@@ -137,6 +137,8 @@ Image BOMB_IMAGE;
 			
 			fast();
 			videomode(80);
+		#elif defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)
+			videomode(80);
 		#elif defined(__SMS__)
 		
 			unsigned char pal1[] = {0x2A, 0x3F, 0x0F, 0x00, 0x01, 0x02, 0x03, 0x17,

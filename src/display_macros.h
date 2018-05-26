@@ -137,47 +137,51 @@ typedef struct ImageStruct Image;
 #endif
 
 
-#  if defined(__Z1013__)
-	  #define YSize (32-Y_OFFSET)
-#elif defined(__KC__) && defined(Z88DK_SPRITES)
-	  #define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)	
-#elif defined(__ATMOS__)
-	#define YSize (28-Y_OFFSET)		  
-#elif defined(__CBM610__) || defined(__PET__) || defined(__C128__) \
-      || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
-	  || defined(__PET__) || defined(__CBM610__) \
-	  || defined(__MZ__) || defined(__BEE__) || defined(__AQUARIUS__) || defined(__X1__) \
-	  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__) \
-	  || defined(__ENTERPRISE__) 
-	#define YSize (25-Y_OFFSET)
-#elif defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
-    || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) \
-	|| defined(__SPECTRUM__) || defined(__SC3000__) || defined(__MTX__) \
-    || defined(__APPLE2ENH__) || defined(__APPLE2__) \
-	|| defined(__Z9001__) || defined(__P2000__) \
-	|| defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__)) \
-	|| defined(__ACE__) \
-	|| defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__) \
-	|| defined(__EINSTEIN__) \
-	|| defined(__OSIC1P__) \
-	|| defined(__MC1000__)
-	#define YSize (24-Y_OFFSET)		
-#elif defined(__VIC20__)
-	#define YSize 23	
-#elif defined(__SAM__)
-	#define YSize (24-2-Y_OFFSET)
-#elif (defined(__NC200__) && defined(Z88DK_SPRITES))
-	#define YSize ((128/SPRITE_Y_STEP)+1)
-#elif (defined(__PX4__) && defined(Z88DK_PUTC4X6))
-	#define YSize (10+1)
-#elif defined(__ATARI_LYNX__)
-	#define YSize 13
-#elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__)
-	#define YSize 8
-#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
-	#define YSize ((64/SPRITE_Y_STEP)+1)
+#if !defined(FORCE_YSIZE)
+	#  if defined(__Z1013__)
+		  #define YSize (32-Y_OFFSET)
+	#elif defined(__KC__) && defined(Z88DK_SPRITES)
+		  #define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)	
+	#elif defined(__ATMOS__)
+		#define YSize (28-Y_OFFSET)		  
+	#elif defined(__CBM610__) || defined(__PET__) || defined(__C128__) \
+		  || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
+		  || defined(__PET__) || defined(__CBM610__) \
+		  || defined(__MZ__) || defined(__BEE__) || defined(__AQUARIUS__) || defined(__X1__) \
+		  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__) \
+		  || defined(__ENTERPRISE__) 
+		#define YSize (25-Y_OFFSET)
+	#elif defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
+		|| defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) \
+		|| defined(__SPECTRUM__) || defined(__SC3000__) || defined(__MTX__) \
+		|| defined(__APPLE2ENH__) || defined(__APPLE2__) \
+		|| defined(__Z9001__) || defined(__P2000__) \
+		|| defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__)) \
+		|| defined(__ACE__) \
+		|| defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__) \
+		|| defined(__EINSTEIN__) \
+		|| defined(__OSIC1P__) \
+		|| defined(__MC1000__)
+		#define YSize (24-Y_OFFSET)		
+	#elif defined(__VIC20__)
+		#define YSize 23	
+	#elif defined(__SAM__)
+		#define YSize (24-2-Y_OFFSET)
+	#elif (defined(__NC200__) && defined(Z88DK_SPRITES))
+		#define YSize ((128/SPRITE_Y_STEP)+1)
+	#elif (defined(__PX4__) && defined(Z88DK_PUTC4X6))
+		#define YSize (10+1)
+	#elif defined(__ATARI_LYNX__)
+		#define YSize 13
+	#elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__)
+		#define YSize 8
+	#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
+		#define YSize ((64/SPRITE_Y_STEP)+1)
+	#else
+		#define YSize 16
+	#endif
 #else
-	#define YSize 16
+	#define YSize FORCE_YSIZE
 #endif
 
 

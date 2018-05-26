@@ -1635,7 +1635,24 @@ einstein:
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_einstein.bin
 	
-	
+
+ti85:
+	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
+	-O3 -D__TI85__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=8 \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DFULL_GAME -DCLIB_ANSI \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_ti85.bin  \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_ti85.bin
+
 # ------------------------------------
 
 coco:
@@ -1740,6 +1757,8 @@ cc65_targets: \
 # Number of systems: 32 - 1 (c128_z80) = 31
 
 z88dk_targets: \
+	ti85_targets \
+	einstein_targets \
 	z1013_targets \
 	x1_targets \
 	px4_targets \
@@ -1808,7 +1827,13 @@ list:
 
 #
 #
-	
+
+ti85_targets: \
+	ti85
+
+einstein_targets: \
+	einstein
+
 z1013_targets: \
 	z1013
 	
@@ -2857,19 +2882,6 @@ ti86:
 	$(SOURCE_PATH)/main.c
 	
 
-ti85:
-	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
-	-O3 -D__TI85__ \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DFULL_GAME -DCLIB_ANSI \
-	-lndos \
-	-create-app -o $(BUILD_PATH)/FULL_ti85.bin  \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
 
 ti83:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \

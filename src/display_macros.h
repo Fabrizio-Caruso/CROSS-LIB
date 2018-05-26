@@ -201,9 +201,8 @@ typedef struct ImageStruct Image;
 		  || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
 		  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 		  || defined(__ENTERPRISE__) \
-		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
-		  || defined(__EINSTEIN__) 		  
-		#define XSize (32-X_OFFSET)
+		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))		  
+		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)
 	#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
@@ -211,7 +210,8 @@ typedef struct ImageStruct Image;
 		  || defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
 		  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
 		  || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
-		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__)
+		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
+		  || defined(__EINSTEIN__) 
 		#define XSize 32	
 	#elif defined(__OSIC1P__)
 		#define XSize 24

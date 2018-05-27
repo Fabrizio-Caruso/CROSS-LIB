@@ -130,11 +130,11 @@
 	#define _MOVE_RIGHT 3
 	#define _FIRE 9		
 #elif defined(__TI85__)
-	#define _MOVE_UP 8
-	#define _MOVE_DOWN 5
-	#define _MOVE_LEFT 4
-	#define _MOVE_RIGHT 6
-	#define _FIRE 1			
+	#define _MOVE_UP '8'
+	#define _MOVE_DOWN '5'
+	#define _MOVE_LEFT '4'
+	#define _MOVE_RIGHT '6'
+	#define _FIRE '1'			
 #else
 	#define _MOVE_UP 'i'
 	#define _MOVE_DOWN 'k'

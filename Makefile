@@ -2965,6 +2965,13 @@ gal_hello:
 	-o  $(BUILD_PATH)/hello.prg
 	rm $(BUILD_PATH)/hello.prg
 	
+	
+ti85_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +ti85 $(SOURCE_PATH)/../experiments/hello.c \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/ti85_hello.bin
+	rm $(BUILD_PATH)/ti85_hello.bin
+	
 cpc_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -O3 $(SOURCE_PATH)/../experiments/hello.c \
 	-lndos \

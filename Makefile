@@ -1635,12 +1635,10 @@ einstein:
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_einstein.bin
 	
-
 ti85:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
 	-O3 -D__TI85__ \
 	-DFORCE_XSIZE=32 \
-	-DTURN_BASED \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DFULL_GAME -DCLIB_ANSI \
@@ -1652,6 +1650,23 @@ ti85:
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_ti85.bin
+	
+ti85_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
+	-O3 -D__TI85__ \
+	-DFORCE_XSIZE=32 \
+	-DTURN_BASED \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DFULL_GAME -DCLIB_ANSI \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_ti85_turn_based.bin  \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_ti85_turn_based.bin
 
 # ------------------------------------
 
@@ -1829,7 +1844,7 @@ list:
 #
 
 ti85_targets: \
-	ti85
+	ti85 ti85_turn_based
 
 einstein_targets: \
 	einstein

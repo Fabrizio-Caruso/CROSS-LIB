@@ -35,10 +35,26 @@
 		initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
 #endif
 
+
+// Check XSize to avoid overflow
+#if XSize>48
+	#define ROUND_X_POS (unsigned char) ((2*j-1)*(unsigned char)(XSize/6))
+#else
+	#define ROUND_X_POS (unsigned char) ((2*j-1)*XSize/6)
+#endif
+
+// Check YSize to avoid overflow
+#if YSize>48
+	#define ROUND_Y_POS (unsigned char) ((2*i-1)*(unsigned char)(YSize/6))
+#else
+	#define ROUND_Y_POS (unsigned char) ((2*i-1)*YSize/6)
+#endif
+
+
 #define PLACE_ROUND_GHOST() \
 	initializeCharacter(&ghosts[count], \
-		(unsigned char) ((2*j-1)*(unsigned char)(XSize/6)), \
-		(unsigned char) ((2*i-1)*YSize)/6, \
+		ROUND_X_POS, \
+		ROUND_Y_POS, \
 		1 ,&GHOST_IMAGE);
 
 #define PLACE_FLAT_GHOST() \

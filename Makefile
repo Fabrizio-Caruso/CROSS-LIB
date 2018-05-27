@@ -430,7 +430,7 @@ apple2enh:
 
 apple2enh_80col: 
 	$(CC65_PATH)$(MYCC65) -O -t apple2enh -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DFORCE_XSIZE=80 -DAPPLE2ENH_80COL_VIDEO_MODE -DFLAT_ENEMIES \
+	-DFORCE_XSIZE=80 -DAPPLE2ENH_80COL_VIDEO_MODE \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \

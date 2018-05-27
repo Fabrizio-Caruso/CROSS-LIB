@@ -37,7 +37,7 @@
 
 #define PLACE_ROUND_GHOST() \
 	initializeCharacter(&ghosts[count], \
-		(unsigned char) ((2*j-1)*(unsigned char)XSize)/6, \
+		(unsigned char) ((2*j-1)*(unsigned char)(XSize/6)), \
 		(unsigned char) ((2*i-1)*YSize)/6, \
 		1 ,&GHOST_IMAGE);
 

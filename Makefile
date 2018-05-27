@@ -1640,7 +1640,7 @@ ti85:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
 	-O3 -D__TI85__ \
 	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=8 \
+	-DTURN_BASED \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DFULL_GAME -DCLIB_ANSI \

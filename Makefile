@@ -271,8 +271,8 @@ c64_8k_cart:
 	-o $(BUILD_PATH)/FULL_c64_8k_cart.prg
 	$(TOOLS_PATH)/exomizer sfx basic  $(BUILD_PATH)/FULL_c64_8k_cart.prg -o $(BUILD_PATH)/FULL_c64_8k_exomized.prg
 	python $(TOOLS_PATH)/prg2crt.py $(BUILD_PATH)/FULL_c64_8k_exomized.prg  $(BUILD_PATH)/FULL_c64_8k_exomized.crt
-	# rm $(BUILD_PATH)/FULL_c64_8k_cart.prg
-	# rm $(BUILD_PATH)/FULL_c64_8k_exomized.prg
+	rm $(BUILD_PATH)/FULL_c64_8k_cart.prg
+	rm $(BUILD_PATH)/FULL_c64_8k_exomized.prg
 	
 c128_40col: 
 	$(CC65_PATH)$(MYCC65) -O -t c128 \

@@ -126,6 +126,14 @@ Image BOMB_IMAGE;
 #elif defined(Z88DK_SPRITES)
 	//	
 #else
+	
+	#if defined(REDEFINED_CHARS)
+		Image PLAYER_DOWN;
+		Image PLAYER_UP;
+		Image PLAYER_LEFT;
+		Image PLAYER_RIGHT;
+	#endif
+	
 	void INIT_GRAPHICS() 
 	{
 		#if defined(__VIC20__) && defined(TINY_GAME)
@@ -166,7 +174,9 @@ Image BOMB_IMAGE;
 	void INIT_IMAGES(void)
 	{		
 		#if !defined(NO_COLOR)
-			PLAYER_IMAGE._color = COLOR_CYAN;
+			#if !defined(REDEFINED_CHARS)
+				PLAYER_IMAGE._color = COLOR_CYAN;
+			#endif
 			BOMB_IMAGE._color = COLOR_RED;
 			
 			#if !defined(DNO_DEAD_GHOSTS)			
@@ -198,10 +208,28 @@ Image BOMB_IMAGE;
 			GHOST_IMAGE._imageData = 'o';			
 		#endif
 		
-		#if !defined(__CREATIVISION__)
-			PLAYER_IMAGE._imageData = '*';			
-		#else
-			PLAYER_IMAGE._imageData = 'I';
+		#if !defined(REDEFINED_CHARS)
+			#if !defined(__CREATIVISION__)
+				PLAYER_IMAGE._imageData = '*';			
+			#else
+				PLAYER_IMAGE._imageData = 'I';
+			#endif
+		#endif
+		
+		#if defined(REDEFINED_CHARS)
+			#if defined(__APPLE2ENH__)
+				PLAYER_DOWN._imageData = 77;
+				PLAYER_UP._imageData = 75;
+				PLAYER_LEFT._imageData = 76;
+				PLAYER_RIGHT._imageData = 78;
+			#else
+			#endif
+			#if !defined(NO_COLOR)
+				PLAYER_DOWN._color = COLOR_CYAN;
+				PLAYER_UP._color = COLOR_CYAN;
+				PLAYER_LEFT._color = COLOR_CYAN;
+				PLAYER_RIGHT._color = COLOR_CYAN;			
+			#endif
 		#endif
 		
 		#if !defined(TINY_GAME)
@@ -260,15 +288,25 @@ Image BOMB_IMAGE;
 		
 			BUBBLE_IMAGE._imageData = '^';
 			#if defined(__WINCMOC__) || defined(__CMOC__)	
-				FREEZE_IMAGE._imageData = 'f';								
-				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+				FREEZE_IMAGE._imageData = 'f';		
+				#if !defined(REDEFINED_CHARS)
+					EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+				#else
+					EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;				
+				#endif
 				INVINCIBILITY_IMAGE._imageData = 'v';	
 				SUPER_IMAGE._imageData = 'h';
 				CONFUSE_IMAGE._imageData = 'c';
 				ZOMBIE_IMAGE._imageData = 'z';
 			#else
-				FREEZE_IMAGE._imageData = 'F';												
-				EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+				FREEZE_IMAGE._imageData = 'F';
+				
+				#if !defined(REDEFINED_CHARS)
+					EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
+				#else
+					EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;				
+				#endif
+				
 				INVINCIBILITY_IMAGE._imageData = 'V';	
 				SUPER_IMAGE._imageData = 'H';	
 				CONFUSE_IMAGE._imageData = 'C';

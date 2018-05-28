@@ -2897,6 +2897,18 @@ ti86:
 	$(SOURCE_PATH)/main.c
 	
 
+ti86_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +ti86 \
+	-O3 -D__TI86__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DTINY_GAME -DLESS_TEXT -DCLIB_ANSI \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/TINY_ti86.bin  \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
 
 ti83:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
@@ -2936,6 +2948,7 @@ ti82:
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DFULL_GAME -DCLIB_ANSI \
+	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_ti82.bin  \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
@@ -2950,6 +2963,7 @@ ti8x:
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DFULL_GAME -DCLIB_ANSI \
+	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_ti8x.bin  \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \

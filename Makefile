@@ -2913,6 +2913,19 @@ ti83:
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	
+ti83_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
+	-O3 -D__TI83__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DTINY_GAME -DCLIB_ANSI \
+	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_ti83_tiny.bin  \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
 
 ti82:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \

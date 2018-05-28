@@ -260,4 +260,18 @@ Use the quickload option to load the .COM file.
 
 If you want to create a disk image you need to follow the instructions in the Z88DK wiki.
 
+-----------------------------------------------------------
+
+TI-85
+
+1. Use the VTI emulator
+2. Load the Rigel Shell into the calculator
+3. 2nd + X-Var (LINK) + F2 
+4. Drop Rigel memory backup file
+5. 2ND + ON (OFF) 
+6. ON (+ SAVE STATE to start from this point next time)
+7. 2nd + X-Var (LINK) + F2 
+8. Drop the .85s game binary
+8. Custom + F1 (to select Rigel)
+9. Select the game
 

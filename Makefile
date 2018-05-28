@@ -2904,6 +2904,7 @@ ti83:
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DFULL_GAME -DCLIB_ANSI \
+	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_ti83.bin  \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \

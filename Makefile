@@ -1670,6 +1670,40 @@ ti82_tiny_turn_based:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_ti82_turn_based.bin
 
+
+ti83_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
+	-O3 -D__TI83__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DFULL_GAME -DCLIB_ANSI \
+	-DTURN_BASED \
+	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_ti83.bin  \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+
+	
+ti83_tiny_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
+	-O3 -D__TI83__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DTURN_BASED \
+	-DTINY_GAME -DCLIB_ANSI \
+	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
+	-lndos \
+	-create-app -o TINY.bin  \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm TINY.bin
+	mv TINY.83p $(BUILD_PATH)/TINY_ti83.83p	
 	
 ti85:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
@@ -1805,10 +1839,11 @@ cc65_targets: \
 # KO:   	
 # 
 # OK:  
-# Number of systems: 35 - 1 (c128_z80) = 34
+# Number of systems: 36 - 1 (c128_z80) = 35
 
 z88dk_targets: \
 	ti82_targets \
+	ti83_targets \
 	ti85_targets \
 	einstein_targets \
 	z1013_targets \
@@ -1883,6 +1918,10 @@ list:
 ti82_targets: \
 	ti82_turn_based ti82_tiny_turn_based 
 
+
+ti83_targets: \
+	ti83_turn_based ti83_tiny_turn_based
+	
 ti85_targets: \
 	ti85 ti85_turn_based
 
@@ -2949,39 +2988,6 @@ ti86_tiny:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-
-
-ti83:
-	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
-	-O3 -D__TI83__ \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DFULL_GAME -DCLIB_ANSI \
-	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
-	-lndos \
-	-create-app -o $(BUILD_PATH)/FULL_ti83.bin  \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	
-ti83_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
-	-O3 -D__TI83__ \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DTINY_GAME -DCLIB_ANSI \
-	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
-	-lndos \
-	-create-app -o TINY.bin  \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	rm TINY.bin
-	mv TINY.83p $(BUILD_PATH)/TINY_ti83.83p
-
 
 
 	

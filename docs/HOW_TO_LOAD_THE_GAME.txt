@@ -262,16 +262,49 @@ If you want to create a disk image you need to follow the instructions in the Z8
 
 -----------------------------------------------------------
 
+TI-82
+
+Use the VTI emulator
+
+1. Load the Crash Shell into the calculator
+- 2nd + x,T,\theta (LINK)
+- Select Receive
+- Drop Crash .82b 
+- 2ND + ON (OFF) 
+- ON (+ SAVE STATE to start from this point next time)
+
+2. Load the game
+- 2nd + x,T,\theta (LINK)
+- Select Receive
+- Drop .82p
+- 2ND + ON (OFF) 
+- ON (+ SAVE STATE to start from this point next time)
+
+
+3. Run the game
+- PRGM
+- Select Crash (NOT the game)
+- Select the game
+
+
+
+-----------------------------------------------------------
+
 TI-85
 
-1. Use the VTI emulator
-2. Load the Rigel Shell into the calculator
-3. 2nd + X-Var (LINK) + F2 
-4. Drop Rigel memory backup file
-5. 2ND + ON (OFF) 
-6. ON (+ SAVE STATE to start from this point next time)
-7. 2nd + X-Var (LINK) + F2 
-8. Drop the .85s game binary
-8. Custom + F1 (to select Rigel)
-9. Select the game
+Use the VTI emulator
+
+1. Load the Rigel Shell into the calculator
+- 2nd + X-Var (LINK) + F2 
+- Drop Rigel memory backup file
+- 2ND + ON (OFF) 
+-  ON (+ SAVE STATE to start from this point next time)
+
+2. Load the game
+- 2nd + X-Var (LINK) + F2 
+-  Drop the .85s game binary
+
+3. Run the game
+-  Custom + F1 (to select Rigel)
+- Select the game
 

@@ -2950,6 +2950,7 @@ ti86_tiny:
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 
+
 ti83:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
 	-O3 -D__TI83__ \

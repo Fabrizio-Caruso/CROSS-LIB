@@ -1805,7 +1805,7 @@ cc65_targets: \
 # KO:   	
 # 
 # OK:  
-# Number of systems: 32 - 1 (c128_z80) = 31
+# Number of systems: 35 - 1 (c128_z80) = 34
 
 z88dk_targets: \
 	ti82_targets \

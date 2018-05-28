@@ -2956,6 +2956,23 @@ ti82:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
+
+	
+ti82_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +ti82 \
+	-O3 -D__TI82__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DTINY_GAME -DCLIB_ANSI \
+	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
+	-lndos \
+	-create-app -o TINY82  \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	mv TINY82.82p $(BUILD_PATH)/
+	rm TINY82
 	
 ti8x:
 	$(Z88DK_PATH)$(MYZ88DK) +ti8x \

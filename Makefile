@@ -2921,11 +2921,14 @@ ti83_tiny:
 	-DTINY_GAME -DCLIB_ANSI \
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/FULL_ti83_tiny.bin  \
+	-create-app -o tiny.bin  \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
+	rm tiny.bin
+	mv tiny.83p $(BUILD_PATH)/TINY_ti832.83p
+
 
 ti82:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \

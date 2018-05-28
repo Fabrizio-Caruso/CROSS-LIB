@@ -129,7 +129,7 @@
 	#define _MOVE_LEFT 7
 	#define _MOVE_RIGHT 3
 	#define _FIRE 9		
-#elif defined(__TI85__)
+#elif defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)
 	#define _MOVE_UP '8'
 	#define _MOVE_DOWN '5'
 	#define _MOVE_LEFT '4'

@@ -75,6 +75,7 @@
 	|| defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) \
 	|| defined(__NASCOM__) || defined(__P2000__) || defined(__BEE__) \
 	|| defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) \
+	|| defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) \
 	|| defined(__TI85__) || defined(__TI86__) || defined(__TI86S__) || defined(__MZ__) \
 	|| defined(__GAL__) || defined(__SC3000__) || (defined(__SPECTRUM__) && defined(CLIB_ANSI)) \
 	|| defined(__SAM__) || defined(__CPC__) || (defined(__SVI__) && !defined(MSX_MODE0)) \
@@ -174,7 +175,7 @@ typedef struct ImageStruct Image;
 	#elif (defined(__PX4__) && defined(Z88DK_PUTC4X6))
 		#define YSize (10+1)
 	#elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__) \
-		|| defined(__TI85__)
+		|| defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)
 		#define YSize 8
 	#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
 		#define YSize ((64/SPRITE_Y_STEP)+1)
@@ -217,7 +218,8 @@ typedef struct ImageStruct Image;
 		  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
 		  || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
-		  || defined(__EINSTEIN__) 
+		  || defined(__EINSTEIN__) \
+		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)
 		#define XSize 32	
 	#elif defined(__OSIC1P__)
 		#define XSize 24

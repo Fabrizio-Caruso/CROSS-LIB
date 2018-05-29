@@ -58,11 +58,11 @@
 	#include "patch/enterprise_conio_implementation.h"
 #elif defined(__GCC__)
 	#include "patch/ncurses_conio_implementation.h"	
-#elif defined(__PX8__) || defined(__ABC800__) || defined(__CPM_ADM3A__)
+#elif defined(__PX8__) || defined(__ABC800__) || defined(CONIO_ADM3A)
 	#include "patch/adm3a_conio_implementation.h"
-#elif defined(__CPM_VT52__)
+#elif defined(CONIO_VT52)
 	#include "patch/vt52_conio_implementation.h"
-#elif defined(__CPM_VT100__)
+#elif defined(CONIO_VT100)
 	#include "patch/vt100_conio_implementation.h"
 #elif defined(__KC__)
 	#include "patch/kc_conio_implementation.h"	
@@ -159,7 +159,7 @@ typedef struct ImageStruct Image;
 		|| defined(__Z9001__) || defined(__P2000__) \
 		|| defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__)) \
 		|| defined(__ACE__) \
-		|| defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__) \
+		|| defined(__CPM_80X24__) \
 		|| defined(__EINSTEIN__) \
 		|| defined(__OSIC1P__) \
 		|| defined(__MC1000__)
@@ -190,7 +190,7 @@ typedef struct ImageStruct Image;
 #if !defined(FORCE_XSIZE)
 	#  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
 		  || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
-		  || defined(__PX8__) || defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__) \
+		  || defined(__PX8__) || defined(__CPM_80X24__) \
 		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE))
 		#define XSize 80
 	#elif defined(__TRS80__) || defined(__EG2K__)

@@ -1541,7 +1541,8 @@ nc100_sprites_light:
 
 cpm_adm3a_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	-D__CPM_ADM3A__ \
+	-DCONIO_ADM3A \
+	-D__CPM_80X24__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-create-app -o$(BUILD_PATH)/TINY_cpm_adm3a.bin \
 	$(SOURCE_PATH)/display_macros.c \
@@ -1554,7 +1555,8 @@ cpm_adm3a_tiny:
 	
 cpm_vt52_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	-D__CPM_VT52__ \
+	-DCONIO_VT52 \
+	-D__CPM_80X24__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-create-app -o$(BUILD_PATH)/TINY_cpm_vt52.bin \
 	$(SOURCE_PATH)/display_macros.c \
@@ -1566,7 +1568,8 @@ cpm_vt52_tiny:
 	
 cpm_vt100_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	-D__CPM_VT100__ \
+	-DCONIO_VT100 \
+	-D__CPM_80X24__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-create-app -o$(BUILD_PATH)/TINY_cpm_vt100.bin \
 	$(SOURCE_PATH)/display_macros.c \
@@ -2090,37 +2093,7 @@ c128_targets: \
 
 ####################################################################################################################
 	
-# DEBUG
-
-	
-
-# c128_z80_40col_tape_sccz80:
-	# $(Z88DK_PATH)$(MYZ88DK) +c128 -O3 -lndos \
-	# -D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
-	# -DTINY_GAME \
-	# $(SOURCE_PATH)/display_macros.c \
-	# $(SOURCE_PATH)/enemy.c \
-	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	# $(SOURCE_PATH)/main.c \
-	# -create-app
-	# rm a.bin
-	# mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col.T64
-	
-# c128_z80_40col_tape_zsdcc:
-	# $(Z88DK_PATH)$(MYZ88DK) +c128 -compiler=sdcc -SO3 -lndos \
-	# -D__CPM_VT100__ -D__C128_Z80__ -DFORCE_XSIZE=40 \
-	# -DTINY_GAME \
-	# -DNO_SLEEP \
-	# -DFORCE_CONIO \
-	# $(SOURCE_PATH)/display_macros.c \
-	# $(SOURCE_PATH)/enemy.c \
-	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	# $(SOURCE_PATH)/main.c \
-	# -create-app
-	# mv A.T64 $(BUILD_PATH)/TINY_c128_z80_40col_zsdcc.T64
-	
+# DEBUG	
 
 nc100_sprites_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \

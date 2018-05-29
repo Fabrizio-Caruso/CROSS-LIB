@@ -40,7 +40,7 @@
 	&& !defined(__ABC800__) \
 	&& !(defined(__KC__) && defined(Z88DK_SPRITES)) \
 	&& !(defined(__NC100__) && defined(Z88DK_SPRITES)) \
-	&& !defined(__CPM_ADM3A__) && !defined(__CPM_VT52__) && !defined(__CPM_VT100__) \
+	&& !defined(__CPM_80X24__) \
 	&& !defined(__EINSTEIN__)
 	#define CONIO_LIB
 #endif

@@ -1746,6 +1746,35 @@ ti85_turn_based:
 	rm $(BUILD_PATH)/FULL_ti85_turn_based.bin
 
 
+m5_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +m5 \
+	-lm -create-app -Cz--audio \
+	-D__M5__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-DTINY_GAME -DLESS_TEXT \
+	-o$(BUILD_PATH)/TINY_m5.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+
+
+m5:
+	$(Z88DK_PATH)$(MYZ88DK) +m5 \
+	-lm -create-app -Cz--audio \
+	-D__M5__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-o$(BUILD_PATH)/FULL_m5.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+
 # ------------------------------------
 
 coco:
@@ -1850,6 +1879,7 @@ cc65_targets: \
 # Number of systems: 36 - 1 (c128_z80) = 35
 
 z88dk_targets: \
+	m5_targets \
 	ti82_targets \
 	ti83_targets \
 	ti85_targets \
@@ -1922,6 +1952,9 @@ list:
 
 #
 #
+
+m5_targets: \
+	m5_tiny m5
 
 ti82_targets: \
 	ti82_turn_based ti82_tiny_turn_based 
@@ -2219,19 +2252,6 @@ abc800_tiny:
 	-D__ABC800__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-o$(BUILD_PATH)/TINY_abc800.bin \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-
-
-m5_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +m5 \
-	-lm -create-app -Cz--audio \
-	-D__M5__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
-	-o$(BUILD_PATH)/TINY_m5.bin \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \

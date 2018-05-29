@@ -35,7 +35,6 @@
     && !(defined(__SVI__) && defined(MSX_MODE0)) && !(defined(__SPECTRUM__) \
 	&& !defined(CLIB_ANSI)) && !defined(__GCC__) && !defined(__ENTERPRISE__) \
 	&& !defined(__PX8__) && !defined(__KC__) \
-	&& !defined(__M5__) \
 	&& !defined(__EG2K__) && !defined(__TRS80__) \
 	&& !defined(__ABC800__) \
 	&& !(defined(__KC__) && defined(Z88DK_SPRITES)) \
@@ -257,6 +256,9 @@
 	#elif defined(__TRS80__) || defined(__EG2K__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 100	
+	#elif defined(__M5__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 200		
 	#else
 		#define GAME_SLOW_DOWN 0
 	#endif

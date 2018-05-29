@@ -66,8 +66,6 @@
 	#include "patch/vt100_conio_implementation.h"
 #elif defined(__KC__)
 	#include "patch/kc_conio_implementation.h"	
-#elif defined(__M5__)
-	#include "patch/m5_conio_implementation.h"	
 #elif defined(Z88DK_SPRITES)
 	#include "patch/z88dk_conio_patch.h"	
 #elif defined(__C128_Z80__) || defined(__X1__) || defined(__Z9001__) \
@@ -82,7 +80,7 @@
 	|| defined(__VG5K__) || defined(__AQUARIUS__) || defined(__VZ__) \
 	|| defined(__MTX__) || defined(__Z88__) || defined(__PX4__) \
 	|| defined(__EG2K__) || defined(__TRS80__) || defined(__ACE__) \
-	|| defined(__EINSTEIN__) 	
+	|| defined(__EINSTEIN__) || defined(__M5__)
 	#include "patch/z88dk_conio_patch.h"					
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
@@ -162,7 +160,8 @@ typedef struct ImageStruct Image;
 		|| defined(__CPM_80X24__) \
 		|| defined(__EINSTEIN__) \
 		|| defined(__OSIC1P__) \
-		|| defined(__MC1000__)
+		|| defined(__MC1000__) \
+		|| defined(__M5__)
 		#define YSize (24-Y_OFFSET)		
 	#elif defined(__VIC20__)
 		#define YSize 23	
@@ -219,7 +218,8 @@ typedef struct ImageStruct Image;
 		  || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
 		  || defined(__EINSTEIN__) \
-		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)
+		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__) \
+		  || defined(__M5__)
 		#define XSize 32	
 	#elif defined(__OSIC1P__)
 		#define XSize 24

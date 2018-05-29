@@ -276,7 +276,7 @@ Use the VTI emulator
 2. Load the game
 - 2nd + x,T,\theta (LINK)
 - Select Receive
-- Drop .82p
+- Drop .82p file
 - 2ND + ON (OFF) 
 - ON (+ SAVE STATE to start from this point next time)
 
@@ -286,6 +286,35 @@ Use the VTI emulator
 - Select Crash (NOT the game)
 - Select the game
 
+
+-----------------------------------------------------------
+
+TI-83
+
+Use the VTI emulator
+
+1. Load the Ion Shell into the calculator
+- 2nd + x,T,\theta,\pi (LINK)
+- Select Receive
+- Drop .83b Ion 1.5 or 1.6 file
+- 2ND + ON (OFF) 
+- ON (+ SAVE STATE to start from this point next time)
+
+2. Load the game
+- 2nd + x,T,\theta,\pi (LINK)
+- Select Receive
+- Drop .83p file
+- 2ND + ON (OFF) 
+- ON (+ SAVE STATE to start from this point next time)
+
+3. Run the "a" application
+- PRGM
+- Select A 
+
+4. Run the game
+- PRGM
+- Select Ion (NOT the game)
+- Select the game
 
 
 -----------------------------------------------------------

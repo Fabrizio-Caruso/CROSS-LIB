@@ -1681,14 +1681,16 @@ ti83_turn_based:
 	-vn \
 	-DFULL_GAME -DCLIB_ANSI \
 	-DTURN_BASED \
+	-DNO_WAIT \
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/FULL_ti83.bin  \
+	-create-app -o $(BUILD_PATH)/FULL_ti83_turn_based.bin  \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_ti83_turn_based.bin
 
 	
 ti83_tiny_turn_based:
@@ -1697,6 +1699,7 @@ ti83_tiny_turn_based:
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DTURN_BASED \
+	-DNO_WAIT \
 	-DTINY_GAME -DCLIB_ANSI \
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
 	-lndos \
@@ -1706,7 +1709,7 @@ ti83_tiny_turn_based:
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	rm TINY.bin
-	mv TINY.83p $(BUILD_PATH)/TINY_ti83.83p	
+	mv TINY.83p $(BUILD_PATH)/TINY_ti83_turn_based.83p	
 	
 ti85:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
@@ -1921,9 +1924,11 @@ list:
 ti82_targets: \
 	ti82_turn_based ti82_tiny_turn_based 
 
-
 ti83_targets: \
 	ti83_turn_based ti83_tiny_turn_based
+
+ti8x_targets: \
+	ti8x_turn_based ti8x
 	
 ti85_targets: \
 	ti85 ti85_turn_based
@@ -2978,6 +2983,24 @@ ti8x:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
+	
+	
+ti8x_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +ti8x \
+	-O3 -D__TI8X__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DFULL_GAME -DCLIB_ANSI \
+	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
+	-DTURN_BASED \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_ti8x_turn_based.bin  \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	
 	
 # missing conio
 srr:

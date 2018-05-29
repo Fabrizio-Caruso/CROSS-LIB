@@ -1726,7 +1726,8 @@ ti85:
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_ti85.bin
-	
+
+
 ti85_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
 	-O3 -D__TI85__ \
@@ -1743,6 +1744,7 @@ ti85_turn_based:
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_ti85_turn_based.bin
+
 
 # ------------------------------------
 
@@ -2983,6 +2985,7 @@ ti8x:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_ti8x.bin
 	
 	
 ti8x_turn_based:
@@ -3000,6 +3003,8 @@ ti8x_turn_based:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_ti8x_turn_based.bin
+
 	
 	
 # missing conio

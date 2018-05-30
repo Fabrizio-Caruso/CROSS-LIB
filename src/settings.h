@@ -40,7 +40,8 @@
 	&& !(defined(__KC__) && defined(Z88DK_SPRITES)) \
 	&& !(defined(__NC100__) && defined(Z88DK_SPRITES)) \
 	&& !defined(__CPM_80X24__) \
-	&& !defined(__EINSTEIN__)
+	&& !defined(__EINSTEIN__) \
+	&&! defined(__SRR__)
 	#define CONIO_LIB
 #endif
 #if defined(__WINCMOC__) || defined(FORCE_CONIO)

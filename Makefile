@@ -1876,7 +1876,7 @@ cc65_targets: \
 # KO:   	
 # 
 # OK:  
-# Number of systems: 36 - 1 (c128_z80) = 35
+# Number of systems: 37 - 1 (c128_z80) = 36
 
 z88dk_targets: \
 	m5_targets \
@@ -3026,11 +3026,20 @@ ti8x_turn_based:
 	rm $(BUILD_PATH)/FULL_ti8x_turn_based.bin
 
 	
-	
-# missing conio
 srr:
-	$(Z88DK_PATH)$(MYZ88DK) +srr -O3  -D__SRR__ -vn -DFULL_GAME -DSOUNDS -DCLIB_ANSI -lndos -create-app -o $(BUILD_PATH)/FULL_srr.prg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-
+	$(Z88DK_PATH)$(MYZ88DK) +srr -O3  \
+	-D__SRR__ -vn \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO_VT52 \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_srr.prg  \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
 
 # it may work
 mtx_16k:

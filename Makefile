@@ -115,7 +115,6 @@ oric1_16k:
 	
 vic20_unexpanded: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 \
-	-DALT_MOVE \
 	-DVIC20_UNEXPANDED \
 	-DNO_PRINT \
 	-DALT_PRINT \
@@ -124,7 +123,6 @@ vic20_unexpanded:
 	-DNO_SET_SCREEN_COLORS \
 	-DTINY_GAME \
 	-DNO_RANDOM_LEVEL \
-	-DFORCE_KEYBOARD \
 	-DNO_MESSAGE \
 	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \

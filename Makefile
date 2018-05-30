@@ -3036,10 +3036,10 @@ ti8x_turn_based:
 
 	
 srr:
-	$(Z88DK_PATH)$(MYZ88DK) +srr -O3  \
+	$(Z88DK_PATH)$(MYZ88DK) +srr -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
 	-DFULL_GAME -DSOUNDS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
 	-DCONIO_VT52 \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_srr.prg  \

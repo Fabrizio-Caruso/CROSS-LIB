@@ -376,7 +376,7 @@ void _delete(unsigned char x, unsigned char y);
 	#include <graphics.h>
 
 	#define CLEAR_SCREEN() clg()
-#else // CC65 conio case
+#else // CONIO case
 	#define CLEAR_SCREEN() clrscr();
 #endif
 

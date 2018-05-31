@@ -210,7 +210,8 @@ typedef struct ImageStruct Image;
 		  || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
 		  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 		  || defined(__ENTERPRISE__) \
-		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))		  
+		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
+		  || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1))
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)
@@ -228,8 +229,7 @@ typedef struct ImageStruct Image;
 		#define XSize 24
 	#elif defined(__VIC20__)
 		#define XSize 22
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) \
-		  || (defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1) \
+	#elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
 		  || defined(__ATARI_LINX__)
 		#define XSize 20
 	#else

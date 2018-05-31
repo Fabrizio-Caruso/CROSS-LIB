@@ -247,18 +247,12 @@ Image BOMB_IMAGE;
 		#endif
 		
 		#if !defined(DNO_DEAD_GHOSTS)
-			#if defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
-				DEAD_GHOST_IMAGE._imageData = 'O';
-			#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__GAMATE__)
-				DEAD_GHOST_IMAGE._imageData = '#';
-			#elif defined(__CREATIVISION__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
-				DEAD_GHOST_IMAGE._imageData = 'x';	
-			#elif defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__C128_Z80__)
-				DEAD_GHOST_IMAGE._imageData = '#';				
-			#elif defined(NO_COLOR)
-				DEAD_GHOST_IMAGE._imageData = '#';		 
+			// #if defined(__PET__) || defined(__CBM610__) || defined(__ATARI__) || defined(__ATARIXL__) 			
+				// DEAD_GHOST_IMAGE._imageData = 'O';
+			#  if defined(__CREATIVISION__) || defined(__ZX81__) || defined(__LAMBDA__) || defined(__ZX80__) || defined(__ACE__) 
+				DEAD_GHOST_IMAGE._imageData = 'x';		 
 			#else
-				DEAD_GHOST_IMAGE._imageData = 'o';
+				DEAD_GHOST_IMAGE._imageData = '#';
 			#endif
 		#endif
 

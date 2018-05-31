@@ -58,13 +58,6 @@ atari_no_color:
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_atari_no_color.xex
 
-atari_no_color_16k: 
-	$(CC65_PATH)$(MYCC65) -O -t atari \
-	-DSOUNDS $(SOURCE_PATH)/atari/atari_sounds.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c  -o \
-	$(BUILD_PATH)/LIGHT_atari_no_color_16k.xex
 
 # --config $(SOURCE_PATH)/../cfg/atari5200_less_stack.cfg
 atari5200: 
@@ -1913,7 +1906,7 @@ cc65_targets: \
 # KO:   	
 # 
 # OK:  
-# Number of systems: 37 - 1 (c128_z80) = 36
+# Number of systems: 38 - 1 (c128_z80) = 37
 
 z88dk_targets: \
 	srr_targets \
@@ -2115,7 +2108,7 @@ vic20_targets: \
 	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_8k_full vic20_exp_16k
 
 atari_targets: \
-	atari_color atari_no_color atari_no_color_16k
+	atari_color atari_no_color
 	
 oric_targets: \
 	atmos oric1_16k
@@ -2175,6 +2168,36 @@ c128_targets: \
 ####################################################################################################################
 	
 # DEBUG	
+
+atari_no_color_16k_full: 
+	$(CC65_PATH)$(MYCC65) -O -Cl -t atari \
+	-DFULL_GAME \
+	-DNO_HINTS \
+	-DNO_BLINKING \
+	-DLESS_TEXT \
+	-DFLAT_ENEMIES \
+	-DALT_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DNO_MESSAGE \
+	-DNO_PRINT \
+	$(SOURCE_PATH)/sleep_macros.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_atari_no_color_16k.xex	
+	
+atari_no_color_16k: 
+	$(CC65_PATH)$(MYCC65) -O -Cl -t atari \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT \
+	-DNO_MESSAGE \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c  -o \
+	$(BUILD_PATH)/LIGHT_atari_no_color_16k.xex
 
 pv1000:
 	$(Z88DK_PATH)$(MYZ88DK) +pv1000 -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \

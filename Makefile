@@ -1774,7 +1774,7 @@ m5:
 	$(SOURCE_PATH)/main.c
 
 	
-	
+
 srr:
 	$(Z88DK_PATH)$(MYZ88DK) +srr -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
@@ -1791,6 +1791,24 @@ srr:
 	$(SOURCE_PATH)/main.c
 	rm a.srr
 	mv a.wav $(BUILD_PATH)/FULL_srr.wav
+
+
+pv2000:
+	$(Z88DK_PATH)$(MYZ88DK) +pv2000 -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SRR__ -vn \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	-DCONIO_VT52 \
+	-lndos \
+	-create-app \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	mv a.rom $(BUILD_PATH)/FULL_pv2000.rom
+	
 	
 # ------------------------------------
 
@@ -2155,6 +2173,23 @@ c128_targets: \
 ####################################################################################################################
 	
 # DEBUG	
+
+pv1000:
+	$(Z88DK_PATH)$(MYZ88DK) +pv1000 -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SRR__ -vn \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	-DCONIO_VT52 \
+	-lndos \
+	-create-app \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	mv a.rom $(BUILD_PATH)/FULL_pv1000.rom
+
 
 nc100_sprites_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \

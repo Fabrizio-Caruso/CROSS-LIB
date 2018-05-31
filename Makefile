@@ -255,6 +255,8 @@ c64_8k_cart:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DEND_SCREEN \
 	-DALT_PRINT \
+	-DBETWEEN_LEVEL \
+	-DFLAT_ENEMIES \
 	-DCBM_SCREEN_CODES \
 	--config $(SOURCE_PATH)/../cfg/c64_GFXat0xC000.cfg  $(SOURCE_PATH)/c64/graphics.s \
 	$(SOURCE_PATH)/c64/c64_alt_print_init.c \

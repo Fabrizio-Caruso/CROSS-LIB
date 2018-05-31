@@ -675,7 +675,7 @@ int main(void)
 			else // if dead
 			{		
 				#if defined(BETWEEN_LEVEL)
-					for(loop=0;loop<100;++loop)
+					for(missileDirection=0;missileDirection<80;++missileDirection)
 					{
 						unsigned char i;
 						for(i=0;i<GHOSTS_NUMBER;++i)

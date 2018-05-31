@@ -22,6 +22,7 @@
 	extern unsigned char playerFire;
 	extern unsigned char level;
 	extern unsigned char loop;
+	extern unsigned char missileDirection;
 	extern unsigned char guns;
 #endif
 
@@ -31,15 +32,15 @@
 	void dance(Character * characterPtr)
 	{
 		deleteCharacter(characterPtr);
-		if(!(loop&3))
+		if(!(missileDirection&3))
 		{
 			++(characterPtr->_x);
 		}
-		else if((loop&3)==1)
+		else if((missileDirection&3)==1)
 		{
 			++(characterPtr->_y);			
 		}
-		else if ((loop&3)==2)
+		else if ((missileDirection&3)==2)
 		{
 			--(characterPtr->_x);			
 		}

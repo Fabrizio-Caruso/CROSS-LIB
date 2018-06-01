@@ -41,7 +41,9 @@
 	
 	#define cprintf printf
 	
-	#define cputc(c) fputc_cons(c);
+	#if defined(Z88DK)
+		#define cputc(c) fputc_cons(c)
+	#endif
 	
 	#define cgetc() getk()
 

@@ -868,7 +868,6 @@ cpc:
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt
-	rm -rf FULL_cpc.dsk
 	$(TOOLS_PATH)/cpcxfsw -nd FULL_cpc.dsk
 	$(TOOLS_PATH)/cpcxfsw FULL_cpc.dsk -p build/FULL_cpc.cpc xchase
 	mv FULL_cpc.dsk $(BUILD_PATH)/

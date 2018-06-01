@@ -35,11 +35,7 @@
 #define _Z88DK_CONIO_IMPLEMENTATION
 	
 	#if defined(__SPECTRUM__)
-		#if defined(SPECTRUM_NATIVE_DIRECTIVES)
-			#define gotoxy(x,y) printf("\x16%c%c",y+32,x+32);
-		#else
-			#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
-		#endif
+		#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 		#define cprintf printf
 	#elif defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
 		#undef gotoxy

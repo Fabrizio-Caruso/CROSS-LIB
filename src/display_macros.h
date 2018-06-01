@@ -40,7 +40,13 @@
 	|| defined(__APPLE2ENH__) || defined(__ATMOS__)
 	#include "patch/generic_conio_patch.h"
 #endif
-#  if defined(Z88DK_PUTC4X6)
+#  if defined(CONIO_ADM3A)
+	#include "patch/adm3a_conio_implementation.h"
+#elif defined(CONIO_VT52)
+	#include "patch/vt52_conio_implementation.h"
+#elif defined(CONIO_VT100)
+	#include "patch/vt100_conio_implementation.h"
+#elif defined(Z88DK_PUTC4X6)
 	#include "patch/z88dk_putc4x6_conio_implementation.h"
 #elif defined(__ATMOS__)
 	#include "atmos/atmos_conio_patch.h"
@@ -58,12 +64,6 @@
 	#include "patch/enterprise_conio_implementation.h"
 #elif defined(__GCC__)
 	#include "patch/ncurses_conio_implementation.h"	
-#elif defined(__PX8__) || defined(__ABC800__) || defined(CONIO_ADM3A)
-	#include "patch/adm3a_conio_implementation.h"
-#elif defined(CONIO_VT52)
-	#include "patch/vt52_conio_implementation.h"
-#elif defined(CONIO_VT100)
-	#include "patch/vt100_conio_implementation.h"
 #elif defined(__KC__)
 	#include "patch/kc_conio_implementation.h"	
 #elif defined(Z88DK_SPRITES)

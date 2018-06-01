@@ -35,21 +35,19 @@
 #define _ADM3A_CONIO_IMPLEMENTATION
 	#include <stdio.h>
 
-	#define gotoxy(x,y) do \
-		{ \
-		printf("\033=%c%c",y+32,x+32); \
-		\
-		} while(0)
-		
+	#define gotoxy(x,y) printf("\033=%c%c",y+32,x+32);
+
 	#define clrscr() printf("\032")
 
 	#define cprintf printf
 	
 	#if defined(Z88DK)
 		#define cputc(c) fputc_cons(c)
+		#define cgetc() getk()
+	#else
+		#define cputc(c) putchar()
+		#define cgetc() getch()		
 	#endif
-	
-	#define cgetc() getk()
 
 	#define textcolor 
 

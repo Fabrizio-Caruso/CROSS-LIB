@@ -43,9 +43,11 @@
 	
 	#if defined(Z88DK)
 		#define cputc(c) fputc_cons(c)
+		#define cgetc() getk()
+	#else
+		#define cputc(c) putchar()
+		#define cgetc() getch()		
 	#endif
-	
-	#define cgetc() getch()
 
 	#define textcolor 
 

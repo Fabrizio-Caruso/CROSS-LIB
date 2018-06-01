@@ -1025,6 +1025,24 @@ sc3000_32k:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_sc3000_32k.prg
 	rm $(BUILD_PATH)/FULL_sc3000_32k.tap	
+
+	
+sg1000:
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 -subtype=rom \
+	-O3 \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-clib=ansi \
+	-pragma-define:ansicolumns=32 \
+	-vn -lndos -create-app \
+	-o $(BUILD_PATH)/FULL_sg1000.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_sg1000.prg
+	rm $(BUILD_PATH)/FULL_sg1000_BSS.bin
+	rm $(BUILD_PATH)/FULL_sg1000_DATA.bin
+
 	
 # It hangs if compiled with sdcc.
 # syntax error if compiled with sccz80
@@ -1818,6 +1836,7 @@ pv2000:
 	$(SOURCE_PATH)/main.c
 	mv a.rom $(BUILD_PATH)/FULL_pv2000.rom
 	
+
 	
 # ------------------------------------
 
@@ -2053,7 +2072,7 @@ vg5k_targets: \
 	vg5k vg5k_full_less_text vg5k_exp_16k
 	
 sc3000_targets: \
-	sc3000_16k sc3000_32k
+	sc3000_16k sc3000_32k sg1000
 	
 ace_targets: \
 	ace_exp_16k
@@ -2182,6 +2201,43 @@ c128_targets: \
 ####################################################################################################################
 	
 # DEBUG	
+
+
+g800:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SRR__ -vn \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	-DCONIO_VT52 \
+	-lndos \
+	-clib=g850b \
+	-create-app \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	# mv a.rom $(BUILD_PATH)/FULL_g800.rom
+		
+	
+pps:
+	$(Z88DK_PATH)$(MYZ88DK) +pps -O3 \
+	-D__SRR__ -vn \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	-clib=ansi \
+	-lndos \
+	-create-app \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	# rm a.srr
+	# mv a.wav $(BUILD_PATH)/FULL_srr.wav
+
 
 atari_no_color_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t atari \

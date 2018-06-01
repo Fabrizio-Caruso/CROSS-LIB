@@ -49,9 +49,10 @@
 		#define cgetc() getch()		
 	#endif
 
-	#define textcolor 
-
-	
+	#if defined(NO_COLOR)
+		#define textcolor 
+	#endif
+		
 	#define COLOR_BLACK 0	
 	#define COLOR_BLUE 1
 

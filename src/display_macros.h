@@ -68,6 +68,8 @@
 	#include "patch/kc_conio_implementation.h"	
 #elif defined(Z88DK_SPRITES)
 	#include "patch/z88dk_conio_patch.h"	
+#elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI))
+	#include "patch/spectrum_conio_implementation.h"
 #elif defined(__C128_Z80__) || defined(__X1__) || defined(__Z9001__) \
 	|| defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
 	|| defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) \
@@ -82,7 +84,7 @@
 	|| defined(__EG2K__) || defined(__TRS80__) || defined(__ACE__) \
 	|| defined(__EINSTEIN__) || defined(__M5__)
 	#include "patch/z88dk_conio_patch.h"					
-#elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI)) || defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
+#elif defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 	#include "patch/z88dk_conio_implementation.h"
 #endif

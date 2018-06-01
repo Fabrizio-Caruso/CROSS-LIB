@@ -410,7 +410,8 @@
 	|| ((defined(__ATARI__) || defined(__ATARIXL__))) && !defined(ATARI_MODE1) \
 	|| defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
 	|| defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \
-	|| defined(__TRS80__)
+	|| defined(__TRS80__) || defined(__CPM_80X24__) || defined(__PX8__) || defined(__PX4__) \
+	|| defined(__ABC800__) || defined(__SRR__) || defined(__PV1000__) || defined(__PV2000__)
 	#define NO_COLOR 
 #else
 	#define COLOR

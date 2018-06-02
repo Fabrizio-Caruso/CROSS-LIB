@@ -33,8 +33,8 @@ osic1p
 --------
 Z88DK
 --------
-pps_targets
-pv2000_targets
+pps_targets 
+pv2000_targets 
 srr_targets 
 m5_targets 
 ti82_targets 
@@ -62,7 +62,6 @@ abc80_targets
 p2000_targets 
 svi_targets 
 msx_targets 
-c128_z80_targets 
 aquarius_targets 
 vz200_targets 
 microbee_targets 
@@ -72,6 +71,6 @@ zx81_targets
 spectrum_targets 
 samcoupe_targets 
 lambda_targets 
-nc100_targets
-(c128_z80)
+nc100_targets 
+c128_z80_targets
 

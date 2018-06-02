@@ -2016,7 +2016,6 @@ z88dk_targets: \
 	p2000_targets \
 	svi_targets \
 	msx_targets \
-	c128_z80_targets \
 	aquarius_targets \
 	vz200_targets \
 	microbee_targets \
@@ -2026,8 +2025,9 @@ z88dk_targets: \
 	spectrum_targets \
 	samcoupe_targets \
 	lambda_targets \
-	nc100_targets
-
+	nc100_targets \
+	c128_z80_targets
+	
 cmoc_targets: \
 	coco
 	

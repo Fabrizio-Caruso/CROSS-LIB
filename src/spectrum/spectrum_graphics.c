@@ -165,7 +165,8 @@ struct redefine_struct redefine_map[] =
 		#if defined(CLIB_ANSI)
 			clg();
 			zx_border(0);
-			zx_colour(PAPER_BLACK|INK_WHITE);	
+			zx_colour(PAPER_BLACK|INK_WHITE);
+			textbackground(COLOR_BLACK);
 		#else
 			zx_border(INK_BLACK);
 		#endif

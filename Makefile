@@ -2054,11 +2054,11 @@ clean:
 
 
 help:
-	cat BUILD.txt
-	cat TARGETS.txt
+	cat docs/BUILD.txt
+	cat docs/TARGETS.txt
 
 list:
-	cat TARGETS.txt
+	cat docs/TARGETS.txt
 	
 
 #

@@ -2239,10 +2239,10 @@ g800:
 	
 pps:
 	$(Z88DK_PATH)$(MYZ88DK) +pps -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__SRR__ -vn \
+	-D__PPS__ -vn \
+	-DCONIO_VT52 \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
-	-clib=ansi \
 	-lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
@@ -2250,9 +2250,7 @@ pps:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	# rm a.srr
-	# mv a.wav $(BUILD_PATH)/FULL_srr.wav
-
+	mv a.bin $(BUILD_PATH)/FULL_pps.exe
 
 atari_no_color_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t atari \
@@ -3256,7 +3254,7 @@ pps_vt52_test:
 	$(Z88DK_PATH)$(MYZ88DK) +pps -O3 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/../experiments/vt52_test.c \
-	-lndos -vn  \
+	-lndos -vn
 	
 g800_vt52_test:
 	$(Z88DK_PATH)$(MYZ88DK) +g800 -O3 \

@@ -2238,13 +2238,12 @@ g800:
 		
 	
 pps:
-	$(Z88DK_PATH)$(MYZ88DK) +pps -O3 \
+	$(Z88DK_PATH)$(MYZ88DK) +pps -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
 	-clib=ansi \
 	-lndos \
-	-create-app \
 	$(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
@@ -3253,6 +3252,19 @@ cpc_hello:
 	rm $(BUILD_PATH)/hello.cpc 
 	rm $(BUILD_PATH)/hello.prg	
 
+pps_vt52_test:
+	$(Z88DK_PATH)$(MYZ88DK) +pps -O3 \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(SOURCE_PATH)/../experiments/vt52_test.c \
+	-lndos -vn  \
+	
+g800_vt52_test:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 -O3 \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(SOURCE_PATH)/../experiments/vt52_test.c \
+	-lndos -vn  \
+	-create-app -o	
+	
 srr_vt52_test:
 	$(Z88DK_PATH)$(MYZ88DK) +srr -O3 \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \

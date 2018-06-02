@@ -1853,6 +1853,21 @@ pv2000:
 	mv a.rom $(BUILD_PATH)/FULL_pv2000.rom
 	
 
+pps:
+	$(Z88DK_PATH)$(MYZ88DK) +pps -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__PPS__ -vn \
+	-DCONIO_VT52 \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	-lndos \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	mv a.bin $(BUILD_PATH)/FULL_pps.exe	
+	
 	
 # ------------------------------------
 
@@ -1955,9 +1970,11 @@ cc65_targets: \
 # KO:   	
 # 
 # OK:  
-# Number of systems: 38 - 1 (c128_z80) = 37
+# Number of systems: 40 - 1 (c128_z80) = 39
 
 z88dk_targets: \
+	pps_targets: \
+	pv2000_targets: \
 	srr_targets \
 	m5_targets \
 	ti82_targets \
@@ -2032,6 +2049,12 @@ list:
 
 #
 #
+
+pps_targets: \
+	pps
+
+pv2000_targets: \
+	pv2000
 
 srr_targets: \
 	srr
@@ -2236,21 +2259,6 @@ g800:
 	$(SOURCE_PATH)/main.c
 	# mv a.rom $(BUILD_PATH)/FULL_g800.rom
 		
-	
-pps:
-	$(Z88DK_PATH)$(MYZ88DK) +pps -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__PPS__ -vn \
-	-DCONIO_VT52 \
-	-DFULL_GAME -DSOUNDS \
-	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
-	-lndos \
-	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	mv a.bin $(BUILD_PATH)/FULL_pps.exe
 
 atari_no_color_16k_full: 
 	$(CC65_PATH)$(MYCC65) -O -Cl -t atari \

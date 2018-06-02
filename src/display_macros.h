@@ -139,7 +139,9 @@ typedef struct ImageStruct Image;
 
 
 #if !defined(FORCE_YSIZE)
-	#  if defined(__Z1013__)
+	#  if defined(__PPS__)
+		#define YSize (32-Y_OFFSET)
+	#elif defined(__Z1013__)
 		  #define YSize (32-Y_OFFSET)
 	#elif defined(__SRR__)
 		  #define YSize (30-Y_OFFSET)
@@ -194,7 +196,8 @@ typedef struct ImageStruct Image;
 	#  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
 		  || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
 		  || defined(__PX8__) || defined(__CPM_80X24__) \
-		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE))
+		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)) \
+		  || defined(__PPS__)
 		#define XSize 80
 	#elif defined(__TRS80__) || defined(__EG2K__) \
 		  || defined(__SRR__)

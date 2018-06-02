@@ -1868,7 +1868,21 @@ pps:
 	$(SOURCE_PATH)/main.c
 	mv a.bin $(BUILD_PATH)/FULL_pps.exe	
 	
-	
+pps_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +pps -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__PPS__ -vn \
+	-DCONIO_VT52 \
+	-DTURN_BASED \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	-lndos \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	mv a.bin $(BUILD_PATH)/FULL_pps_turn_based.exe	
 # ------------------------------------
 
 coco:
@@ -1973,8 +1987,8 @@ cc65_targets: \
 # Number of systems: 40 - 1 (c128_z80) = 39
 
 z88dk_targets: \
-	pps_targets: \
-	pv2000_targets: \
+	pps_targets \
+	pv2000_targets \
 	srr_targets \
 	m5_targets \
 	ti82_targets \

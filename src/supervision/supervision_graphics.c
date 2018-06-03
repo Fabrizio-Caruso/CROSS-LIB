@@ -32,28 +32,30 @@
 #define _PLAYER_RIGHT 2
 #define _PLAYER_LEFT 3
 
-#define _SPACE 4
+#define _GHOST 4
 
-#define _GUN 5
+#define _BOMB 5
+
+#define _POWERUP 6
 
 // YELLOW
-#define _INVINCIBLE_GHOST 6
 #define _VERTICAL_BRICK 7
 #define _HORIZONTAL_BRICK 8
 #define _EXTRA_LIFE 9
 #define _EXTRA_POINTS 10
 
 // GREEN
-#define _POWERUP 11
+#define _INVINCIBLE_GHOST 11
 
 // RED
-#define _BOMB 12
+#define _GUN 12
+
 #define _DEAD_GHOST 13
 
 #define _INVINCIBILITY 14
 #define _MISSILE 15
 
-#define _GHOST 16
+#define _SPACE 16
 
 #define _LEFT_ENEMY_MISSILE 17
 #define _RIGHT_ENEMY_MISSILE 18
@@ -118,10 +120,12 @@ extern Image DEAD_GHOST_IMAGE;
 
 #define _DRAW(x,y,image) \
 { \
+	POKE((SV_VIDEO+x*8+y*160),255); \
 }
 
 #define _DELETE(x,y) \
 { \
+	POKE((SV_VIDEO+x*8+y*160),0); \
 }
 
 #define _DRAW_VERTICAL_WALL(x,y) \
@@ -136,11 +140,18 @@ extern Image DEAD_GHOST_IMAGE;
 { \
 }
 
-
+static unsigned char sprites[] = {
+ 24, 36, 24,102,153, 24, 36,102, // down
+ 24, 60, 24,102,153, 24, 36,102, // up
+ 24, 52, 25,118,152, 24, 20, 20, // right
+ 24, 44,152,110, 25, 24, 40, 40, // left
+ 129,126,165,129,129,189,129,126, // ghost
+  60, 66,165,153,153,165, 66, 60, // bomb
+   0, 60, 54,223,231,122, 36, 24 // powerup
+};
 
 void INIT_GRAPHICS(void)
 {
-
 }
 
 void INIT_IMAGES(void)

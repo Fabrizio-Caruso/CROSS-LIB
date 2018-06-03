@@ -105,7 +105,7 @@ Image PLAYER_UP;
 Image PLAYER_RIGHT;
 Image PLAYER_LEFT;
 
-#if defined(MSX_MODE1)
+#if defined(MSX_VPOKE)
 	#define BASE 6144
 	#define CHAR_BASE 0x0100
 #else
@@ -162,7 +162,7 @@ void INIT_GRAPHICS(void)
 		static const char extra_points[8]     = { 16, 62, 32, 60,  4,124,  8,  0};
 	#endif
 		set_color(15, 1, 1);
-	#if defined(MSX_MODE1)
+	#if defined(MSX_VPOKE)
 		set_mode(mode_1);
 		
 		msx_vpoke(8192+ 0, 9*16); // 

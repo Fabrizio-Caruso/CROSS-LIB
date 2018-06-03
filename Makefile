@@ -921,43 +921,46 @@ cpc_no_udg:
 	rm $(BUILD_PATH)/FULL_cpc_no_udg.prg	
 		
 		
-msx_color_16k:
+msx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -O3 -zorg=49200 \
-	-DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_MODE1 -D__MSX__ -lndos \
-	-create-app -o $(BUILD_PATH)/LIGHT_msx_color_16k.prg \
+	-DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
+	-create-app -o $(BUILD_PATH)/LIGHT_msx_16k.prg \
 	$(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c \
 	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c 
-	rm $(BUILD_PATH)/LIGHT_msx_color_16k.prg 	
-	
-msx_color_32k:
+	rm $(BUILD_PATH)/LIGHT_msx_16k.prg 	
+
+
+msx_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -O3 \
 	-DSOUNDS -DREDEFINED_CHARS \
-	-create-app -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/FULL_msx_color_32k.prg \
+	-create-app -o $(BUILD_PATH)/FULL_msx_32k.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_msx_color_32k.prg 
+	rm $(BUILD_PATH)/FULL_msx_32k.prg 
 
-msx_color_32k_rom:
+
+msx_32k_rom:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -O3 \
-	-DSOUNDS -DREDEFINED_CHARS -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DSOUNDS -DREDEFINED_CHARS -vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
-	-o $(BUILD_PATH)/FULL_msx_color_32k.rom \
+	-o $(BUILD_PATH)/FULL_msx_32k.rom \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_msx_color_32k_BSS.bin
-	rm $(BUILD_PATH)/FULL_msx_color_32k_DATA.bin
-	
+	rm $(BUILD_PATH)/FULL_msx_32k_BSS.bin
+	rm $(BUILD_PATH)/FULL_msx_32k_DATA.bin
+
+
 svi_318_mode0:
 	$(Z88DK_PATH)$(MYZ88DK) +svi -O3 -zorg=49200 -vn -lndos \
 	-D__SVI__ -DMSX_MODE0 \
@@ -2152,7 +2155,7 @@ svi_targets: \
 	svi_318 svi_318_mode0 svi_328
 
 msx_targets: \
-	msx_color_16k msx_color_32k_rom msx_color_32k
+	msx_16k msx_32k_rom msx_32k
 
 c128_z80_targets: \
 	c128_z80_40col c128_z80_40col_turn_based
@@ -2255,6 +2258,19 @@ c128_targets: \
 	
 # DEBUG	
 
+msx_conio_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +msx -O3 \
+	-DSOUNDS -DREDEFINED_CHARS \
+	-create-app -vn -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-clib=ansi \
+	-create-app -o $(BUILD_PATH)/FULL_msx_conio_32k.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_msx_conio_32k.prg 	
 
 g800:
 	$(Z88DK_PATH)$(MYZ88DK) +g800 -O3 -pragma-redirect:fputc_cons=fputc_cons_generic \

@@ -91,8 +91,6 @@ Image BOMB_IMAGE;
 	//	
 #elif defined(__MSX__) && defined(REDEFINED_CHARS)
 	// 
-#elif defined(__MSX__) && !defined(MSX_MODE1)
-	//
 #elif defined(__SVI__) && defined(MSX_MODE0)
 	//
 #elif defined(__CPC__)

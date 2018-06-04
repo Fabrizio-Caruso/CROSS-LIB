@@ -2748,7 +2748,7 @@ zx81_16k_sccz80:
 supervision_tiny:
 	$(CC65_PATH)$(MYCC65) -t supervision \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DALT_PRINT \
-	-o $(BUILD_PATH)/TINY_supervision.bin \
+	-o $(BUILD_PATH)/TINY_supervision.sv \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/supervision/supervision_graphics.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
@@ -2759,7 +2759,7 @@ supervision_tiny:
 supervision_test:
 	$(CC65_PATH)$(MYCC65) -t supervision \
 	$(SOURCE_PATH)/../experiments/supervision_test.c \
-	-o $(BUILD_PATH)/supervision_test.bin
+	-o $(BUILD_PATH)/supervision_test.sv
 
 sound_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
@@ -3111,7 +3111,7 @@ supervision_full:
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c  \
-	-o $(BUILD_PATH)/FULL_supervision.bin	
+	-o $(BUILD_PATH)/FULL_supervision.sv
 		
 
 pce_light:

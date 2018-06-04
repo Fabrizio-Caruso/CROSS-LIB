@@ -1,9 +1,10 @@
 #include<supervision.h>
+#include<peekpoke.h>
 
-#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
-#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
-#define PEEK(addr)         (*(unsigned char*) (addr))
-#define PEEKW(addr) (*(unsigned*) (addr))
+// #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+// #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
+// #define PEEK(addr)         (*(unsigned char*) (addr))
+// #define PEEKW(addr) (*(unsigned*) (addr))
 
 int main()
 {
@@ -31,13 +32,13 @@ struct __sv_lcd {
 		for(j=0;j<40;++j)
 		{
 			POKE((unsigned short) (0x4000+i+(unsigned short)(j*40)),i);
-			//SV_VIDEO[(unsigned short) j*i]=i;
+			SV_VIDEO[(unsigned short) j*i]=i;
 			SV_LCD.xpos=i;
 			SV_LCD.ypos=j;
 		};
 		++i;
 	}
-	while(i!=200);
+	while(i!=160);
 	
 	while(1){};
 	

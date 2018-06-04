@@ -2756,7 +2756,7 @@ supervision_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	
-watara_test:
+supervision_test:
 	$(CC65_PATH)$(MYCC65) -t supervision \
 	$(SOURCE_PATH)/../experiments/supervision_test.c \
 	-o $(BUILD_PATH)/supervision_test.ws

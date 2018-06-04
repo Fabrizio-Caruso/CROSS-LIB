@@ -24,6 +24,8 @@
 
 #include <string.h>
 
+#include "../input_macros.h"
+
 // BLUE
 #define _PLAYER 0
 
@@ -112,20 +114,16 @@ extern Image DEAD_GHOST_IMAGE;
 	Image PLAYER_RIGHT;
 	Image PLAYER_LEFT;
 #endif
-	
-#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
-#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
-#define PEEK(addr)         (*(unsigned char*) (addr))
-#define PEEKW(addr) (*(unsigned*) (addr))
+
 
 #define _DRAW(x,y,image) \
 { \
-	POKE((SV_VIDEO+x*8+y*160),255); \
+	SV_VIDEO[x*y]=255; \
 }
 
 #define _DELETE(x,y) \
 { \
-	POKE((SV_VIDEO+x*8+y*160),0); \
+	SV_VIDEO[x*y]=0; \
 }
 
 #define _DRAW_VERTICAL_WALL(x,y) \
@@ -152,6 +150,17 @@ static unsigned char sprites[] = {
 
 void INIT_GRAPHICS(void)
 {
+	unsigned char i;
+	unsigned char j;
+	
+	for(i=0;i<50;++i)
+	{
+		for(j=0;j<40;++j);
+		{
+			SV_VIDEO[i*j]=128+32+8+2;
+		}
+	}
+	WAIT_PRESS();
 }
 
 void INIT_IMAGES(void)

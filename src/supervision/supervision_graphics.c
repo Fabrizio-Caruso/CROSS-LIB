@@ -160,14 +160,15 @@ void INIT_GRAPHICS(void)
 	
 	for(j=0;j<20;++j)
 	{
-		for(i=0;i<40;++i)
+		for(i=0;i<20;++i)
 		{
 			for(k=0;k<8;++k)
 			{
-				SV_VIDEO[i+48*k+48*8*j]=128+32+8+2;
+				SV_VIDEO[2*i+48*k+48*8*j]=128+32+8+2;
+				SV_VIDEO[2*i+48*k+48*8*j+1]=128+32+8+2;	
 			}
+			WAIT_PRESS();
 		}
-		WAIT_PRESS();
 	}
 }
 

@@ -118,7 +118,11 @@ extern Image DEAD_GHOST_IMAGE;
 
 #define _DRAW(x,y,image) \
 { \
-	SV_VIDEO[x*y]=255; \
+	unsigned char i; \
+	for(i=0;i<8;++i) \
+	{ \
+		SV_VIDEO[x*y]=255; \
+	} \
 }
 
 #define _DELETE(x,y) \
@@ -151,16 +155,20 @@ static unsigned char sprites[] = {
 void INIT_GRAPHICS(void)
 {
 	unsigned char i;
-	unsigned char j;
+	unsigned short j;
+	unsigned short k;
 	
-	for(i=0;i<50;++i)
+	for(j=0;j<20;++j)
 	{
-		for(j=0;j<40;++j);
+		for(i=0;i<40;++i)
 		{
-			SV_VIDEO[i*j]=128+32+8+2;
+			for(k=0;k<8;++k)
+			{
+				SV_VIDEO[i+48*k+48*8*j]=128+32+8+2;
+			}
 		}
+		WAIT_PRESS();
 	}
-	WAIT_PRESS();
 }
 
 void INIT_IMAGES(void)

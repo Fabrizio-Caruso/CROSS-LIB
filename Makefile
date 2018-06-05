@@ -1531,6 +1531,7 @@ trs80:
 
 eg2k:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 \
+	-D__EG2K__ \
 	-subtype=eg2000disk \
 	-lndos \
 	-lm \

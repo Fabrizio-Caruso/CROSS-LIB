@@ -95,8 +95,12 @@ extern Image DEAD_GHOST_IMAGE;
 	extern Image ZOMBIE_IMAGE;
 #endif
 
-#define BASE_ADDR (unsigned short)(0x3c00)
-
+#if !defined(__EG2K__)
+	#define BASE_ADDR (unsigned short)(0x3c00)
+#else
+	#define BASE_ADDR (unsigned short)(0x4400)
+	#define COLOR_ADDR (unsigned short)(0xF000)
+#endif
 
 
 #if defined(REDEFINED_CHARS)

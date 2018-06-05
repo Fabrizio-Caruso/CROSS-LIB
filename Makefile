@@ -1533,18 +1533,18 @@ eg2k:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 \
 	-subtype=eg2000disk \
 	-lndos \
-	-lm -create-app \
-	-D__EG2K__ -D__TRS80__ \
+	-lm \
+	-D__TRS80__ \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DALT_PRINT \
-	-o$(BUILD_PATH)/FULL_eg2k.bin \
+	-create-app \
 	$(SOURCE_PATH)/trs80/trs80_input.c \
 	$(SOURCE_PATH)/trs80/trs80_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \	
-	rm $(BUILD_PATH)/FULL_eg2k.bin	
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c 
+	mv a.cmd $(BUILD_PATH)/FULL_eg2k.cmd
 
 kc_sprites_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
@@ -2422,11 +2422,14 @@ kc_putc4x6_tiny:
 	
 
 eg2k_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=eg2000disk \
-	-lm -create-app \
-	-D__EG2K__ \
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 \
+	-subtype=eg2000disk \
+	-lndos \
+	-lm \
+	-D__TRS80__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
-	-o$(BUILD_PATH)/TINY_eg2k.bin \
+	-DALT_PRINT \
+	-create-app \
 	$(SOURCE_PATH)/trs80/trs80_input.c \
 	$(SOURCE_PATH)/trs80/trs80_graphics.c \
 	$(SOURCE_PATH)/display_macros.c \
@@ -2434,7 +2437,7 @@ eg2k_tiny:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_eg2k.bin	
+	mv a.cmd $(BUILD_PATH)/TINY_eg2k.cmd	
 
 kc_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
@@ -3310,6 +3313,10 @@ srr_vt52_test:
 	rm a.srr 
 	mv a.wav $(BUILD_PATH)/srr_vt52_test.wav
 
+eg2k_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -subtype=eg2000disk -create-app -O3 \
+	$(SOURCE_PATH)/../experiments/hello.c
+	mv a.cmd $(BUILD_PATH)/eg2k_hello.cmd
 	
 z1013_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 -O3 $(SOURCE_PATH)/../experiments/hello.c \

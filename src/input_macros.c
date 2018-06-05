@@ -28,7 +28,7 @@
 #include "display_macros.h"
 #include "invincible_enemy.h"
 #include "input_macros.h"
-
+#include "sleep_macros.h"
 
 extern Character player;
 

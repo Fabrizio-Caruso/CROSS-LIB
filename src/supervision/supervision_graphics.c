@@ -118,16 +118,22 @@ extern Image DEAD_GHOST_IMAGE;
 
 #define _DRAW(x,y,image) \
 { \
-	unsigned char i; \
-	for(i=0;i<8;++i) \
+	unsigned char k; \
+	for(k=0;k<8;++k) \
 	{ \
-		SV_VIDEO[x*y]=255; \
+		SV_VIDEO[2*x+48*k+48*8*y]=128+32+8+2; \
+		SV_VIDEO[2*x+48*k+48*8*y+1]=128+32+8+2; \
 	} \
 }
 
 #define _DELETE(x,y) \
 { \
-	SV_VIDEO[x*y]=0; \
+	unsigned char k; \
+	for(k=0;k<8;++k) \
+	{ \
+		SV_VIDEO[2*x+48*k+48*8*y]=0; \
+		SV_VIDEO[2*x+48*k+48*8*y+1]=0; \
+	} \
 }
 
 #define _DRAW_VERTICAL_WALL(x,y) \
@@ -164,10 +170,10 @@ void INIT_GRAPHICS(void)
 		{
 			for(k=0;k<8;++k)
 			{
-				SV_VIDEO[2*i+48*k+48*8*j]=128+32+8+2;
-				SV_VIDEO[2*i+48*k+48*8*j+1]=128+32+8+2;	
+				SV_VIDEO[2*i+48*k+48*8*j]=0;
+				SV_VIDEO[2*i+48*k+48*8*j+1]=0;	
 			}
-			WAIT_PRESS();
+			// WAIT_PRESS();
 		}
 	}
 }
@@ -254,10 +260,11 @@ void CLEAR_SCREEN(void)
 	unsigned char i;
 	unsigned char j;
 	
-	for(i=0;i<YSize;++i)
+	for(i=0;i<20;++i)
 	{
-		for(j=0;j<XSize;++j)
+		for(j=0;j<20;++j)
 		{
+		_DELETE(i,j);
 		}
 	}
 }

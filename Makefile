@@ -1961,10 +1961,11 @@ coco:
 #  
 # OK: 
 #
-# No. of systems: 18
+# No. of systems: 19
 # ------------
 
 cc65_targets: \
+	supervision_targets \
 	vic20_targets \
 	atari_targets \
 	oric_targets \
@@ -1977,7 +1978,7 @@ cc65_targets: \
 	c64_targets \
 	c128_8502_targets \
 	pce_targets \
-	atari5200 \
+	atari5200_targets \
 	nes_targets \
 	creativision_targets \
 	gamate_targets \
@@ -1988,9 +1989,10 @@ cc65_targets: \
 # KO:   	
 # 
 # OK:  
-# Number of systems: 40 - 1 (c128_z80) = 39
+# Number of systems: 41 - 1 (c128_z80) = 40
 
 z88dk_targets: \
+	eg2k_targets \
 	pps_targets \
 	pv2000_targets \
 	srr_targets \
@@ -2067,6 +2069,9 @@ list:
 
 #
 #
+
+eg2k_targets: \
+	eg2k
 
 pps_targets: \
 	pps
@@ -2193,6 +2198,9 @@ nc100_targets: \
 	
 	
 ##
+
+supervision_targets: \
+	supervision
 
 vic20_targets: \
 	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_8k_full vic20_exp_16k
@@ -3109,9 +3117,9 @@ creativision_16k_2:
 
 # It lacks conio and TGI
 # --config $(SOURCE_PATH)/../cfg/supervision-16k.cfg
-supervision_full:
+supervision:
 	$(CC65_PATH)$(MYCC65) -O -t supervision  \
-	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP -DNO_CHASE \
+	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
 	$(SOURCE_PATH)/supervision/supervision_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \

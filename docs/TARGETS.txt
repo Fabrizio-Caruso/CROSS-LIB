@@ -3,74 +3,76 @@ TARGETS
 --------
 CMOC
 --------
-coco
+coco: Color Computer / Dragon 32/64
 
 -----------------------
 
 --------
 CC65
 --------
-vic20
-atari
-oric
-c264
-pet
-cbm510
-cbm610
-apple2
-c64
-c128_8502
-pce
-atari5200
-nes
-creativision
-gamate
-atari_lynx
-osic1p
-
+supervision: Watara Supervision
+vic20: Commodore Vic 20
+atari: Atari 400/800
+oric: Tangerine Oric 1/Atmos
+c16: Commodore 264 series (16/116/+4)
+pet: Commodore Pet
+cbm510: Commodore CBM 510
+cbm610: Commodore CBM 610
+apple2: Apple ][ 
+apple2enh: Enhanced Apple //e
+c64: Commodore 64
+pce: PCEngine
+atari5200: Atari 5200
+nes: Nintendo Enterteinment System
+creativision: VTech Creativision
+gamate: Gamate
+atari_lynx: Atari Lynx
+osic1p: Ohio Scientific 1P
+c128_8502: Commodore 128 [8502 CPU; additionally Z80 versions are built]
 -----------------------
 
 --------
 Z88DK
 --------
-pps_targets 
-pv2000_targets 
-srr_targets 
-m5_targets 
-ti82_targets 
-ti83_targets 
-ti85_targets 
-einstein_targets 
-z1013_targets 
-x1_targets 
-px4_targets 
-px8_targets 
-kc_targets 
-trs80_targets 
-cpm_targets 
-nascom_targets 
-pc6001_targets 
-z9001_targets 
-vg5k_targets 
-sc3000_targets 
-ace_targets 
-cpc_targets 
-mc1000_targets 
-sharp_mz_targets 
-mtx_targets 
-abc80_targets 
-p2000_targets 
-svi_targets 
-msx_targets 
-aquarius_targets 
-vz200_targets 
-microbee_targets 
-gal_targets 
-zx80_targets 
-zx81_targets 
-spectrum_targets 
-samcoupe_targets 
-lambda_targets 
-nc100_targets 
-c128_z80_targets
+eg2k: EACA EG2000
+pps: Sprinter
+pv2000: Casio PV2000
+srr: Exidy Sorcerer
+m5: Sord M5
+ti82: Texas TI 82
+ti83: Texas TI 83
+ti85: Texas TI 85
+einstein: Tatung Einstein
+z1013: Robotron Z1013
+x1: Sharp X1
+px4: Epson PX-4/HC-40
+px8: Epson PX-8/HC-80
+kc: Robotron KC-85/2/3/4
+trs80: TRS-80 Model I/III/IV
+cpm: CP/M adm3a/vt52/vt100
+nascom: Nascom
+pc6001: NEC PC 6001
+z9001: Robotron Z9001
+vg5k: VG-5000
+sc3000: Sega SC 3000
+ace: Jupiter Ace
+cpc: Amstrad CPC
+mc1000: CCE MC-1000
+sharp_mz: Sharp MZ
+mtx: MTX 512
+abc80: ABC 80
+p2000: Philips P2000
+svi: Spectravideo 318/328
+msx: MSX
+aquarius: Mattel Aquarius 
+vz200: VTech VZ200
+microbee: Microobee
+gal: Galaksija
+zx80: Sinclair ZX80
+zx81: Sinclaur ZX81
+spectrum: Sinclair Spectrum 16k/48k/12k
+samcoupe: Sam Coupe
+lambda: Lambda 8300
+nc100: Amstrad NC-100
+c128_z80: Commodore 128 [Z80 CPU; additionally 8502 versions are built]
 

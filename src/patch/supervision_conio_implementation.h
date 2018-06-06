@@ -33,25 +33,20 @@
 
 #ifndef _SUPERVISION_CONIO_IMPLEMENTATION
 #define _SUPERVISION_CONIO_IMPLEMENTATION
-	#include <tgi.h>
 	#include <stdio.h>
 	
-	#define gotoxy(a,b) tgi_gotoxy(a*8,b*8)
+	#define gotoxy(a,b) 
 	
-	#define clrscr() tgi_clear()
+	#define clrscr() 
 	
 	#define cprintf 
-	//printf
-	//tgi_outtext
 
-	#define cputc(c) 
-	//putchar(c); 	
+	#define cputc(c) 	
 
 	#define cgetc() (char) getchar();
 	
-	#define textcolor tgi_setcolor
+	#define textcolor
 
-	
 	#define COLOR_BLACK 0	
 	#define COLOR_BLUE 1
 

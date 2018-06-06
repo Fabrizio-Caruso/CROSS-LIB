@@ -2751,7 +2751,7 @@ zx81_16k_sccz80:
 
 supervision_tiny:
 	$(CC65_PATH)$(MYCC65) -t supervision \
-	-DTINY_GAME -DLESS_TEXT -DNO_WAIT -DNO_SLEEP -DALT_PRINT \
+	-DTINY_GAME -DLESS_TEXT -DNO_WAIT -DNO_SLEEP -DALT_PRINT -DNO_CHASE \
 	-o $(BUILD_PATH)/TINY_supervision.sv \
 	$(SOURCE_PATH)/sleep_macros.c \
 	$(SOURCE_PATH)/display_macros.c \
@@ -3111,9 +3111,11 @@ creativision_16k_2:
 # --config $(SOURCE_PATH)/../cfg/supervision-16k.cfg
 supervision_full:
 	$(CC65_PATH)$(MYCC65) -O -t supervision  \
-	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP -DNO_CHASE \
+	$(SOURCE_PATH)/supervision/supervision_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c  \
 	-o $(BUILD_PATH)/FULL_supervision.sv

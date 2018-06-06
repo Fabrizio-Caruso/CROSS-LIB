@@ -151,7 +151,10 @@
 		#define GAME_SLOW_DOWN 0
 	#endif
 #else	
-	#  if defined(__MTX__)
+	#  if defined(__SUPERVISION__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 3300			
+	#elif defined(__MTX__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 3300			
 	#elif defined(__MC1000__)

@@ -175,8 +175,10 @@ typedef struct ImageStruct Image;
 		#define YSize (24-2-Y_OFFSET)
 	#elif (defined(__NC200__) && defined(Z88DK_SPRITES))
 		#define YSize ((128/SPRITE_Y_STEP)+1)
+	#elif defined(__SUPERVISION__)
+		#define YSize 20
 	#elif defined(__ATARI_LYNX__)
-		#define YSize 13	
+		#define YSize 13
 	#elif (defined(__PX4__) && defined(Z88DK_PUTC4X6))
 		#define YSize (10+1)
 	#elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__) \
@@ -235,7 +237,7 @@ typedef struct ImageStruct Image;
 	#elif defined(__VIC20__)
 		#define XSize 22
 	#elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
-		  || defined(__ATARI_LINX__)
+		  || defined(__ATARI_LINX__) || defined(__SUPERVISION__)
 		#define XSize 20
 	#else
 		#define XSize 16

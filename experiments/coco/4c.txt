@@ -1,0 +1,10 @@
+10 poke &hff22,&he0
+20 poke &hffc3,1
+30 poke &hffc5,1
+40 goto 40
+
+f0/f8 2-color mode green/white
+e0/e8 for ff22 select colorset green/white
+
+
+

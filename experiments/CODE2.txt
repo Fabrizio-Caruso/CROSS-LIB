@@ -1,7 +1,0 @@
-./src/display_macros.c: #pragma code-name(push, "CODE2")
-./src/enemy.c:  #pragma code-name(push, "CODE2")
-./src/input_macros.c:   #pragma code-name(push, "CODE2")
-./src/invincible_enemy.c:       #pragma code-name(push, "CODE2")
-./src/missile.c:        #pragma code-name(push, "CODE2")
-./src/strategy.c:       #pragma code-name(push, "CODE2")
-

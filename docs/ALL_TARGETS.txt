@@ -1,0 +1,63 @@
+SUPPORTED TARGETS (2017/06/07)
+
+abc80: ABC 80
+ace: Jupiter Ace
+apple2: Apple ][ 
+apple2enh: Enhanced Apple //e
+aquarius: Mattel Aquarius 
+atari5200: Atari 5200
+atari: Atari 400/800
+atari_lynx: Atari Lynx
+c128_8502: Commodore 128 [8502 CPU; additionally Z80 versions are built]
+c128_z80: Commodore 128 [Z80 CPU; additionally 8502 versions are built]
+c16: Commodore 264 series (16/116/+4)
+c64: Commodore 64
+cbm510: Commodore CBM 510
+cbm610: Commodore CBM 610
+coco: Color Computer / Dragon 32/64
+cpc: Amstrad CPC
+cpm: CP/M with adm3a/vt52/vt100 terminals
+creativision: VTech Creativision
+eg2k: EACA EG2000
+einstein: Tatung Einstein
+gal: Galaksija
+gamate: Gamate
+kc: Robotron KC-85/2/3/4
+lambda: Lambda 8300
+m5: Sord M5
+mc1000: CCE MC-1000
+microbee: Microobee
+msx: MSX
+mtx: MTX 512
+nascom: Nascom
+nc100: Amstrad NC-100
+nes: Nintendo Enterteinment System
+oric: Tangerine Oric 1/Atmos
+osic1p: Ohio Scientific 1P
+p2000: Philips P2000
+pc6001: NEC PC 6001
+pce: PCEngine
+pet: Commodore Pet
+pps: Sprinter
+pv2000: Casio PV2000
+px4: Epson PX-4/HC-40
+px8: Epson PX-8/HC-80
+samcoupe: Sam Coupe
+sc3000: Sega SC 3000
+sharp_mz: Sharp MZ
+spectrum: Sinclair Spectrum 16k/48k/12k
+srr: Exidy Sorcerer
+supervision: Watara Supervision
+svi: Spectravideo 318/328
+ti82: Texas TI 82
+ti83: Texas TI 83
+ti85: Texas TI 85
+trs80: TRS-80 Model I/III/IV
+vg5k: VG-5000
+vic20: Commodore Vic 20
+vz200: VTech VZ200
+x1: Sharp X1
+z1013: Robotron Z1013
+z9001: Robotron Z9001
+zx80: Sinclair ZX80
+zx81: Sinclaur ZX81

@@ -1,8 +1,0 @@
-NEW
--rwx------+ 1 Brizio None  9118 Jan 13 11:48 src/missile.o*
--rwx------+ 1 Brizio None  8174 Jan 13 11:48 src/text.o*
--rwx------+ 1 Brizio None  2804 Jan 13 11:49 src/invincible_enemy.o*
--rwx------+ 1 Brizio None  4841 Jan 13 11:49 src/strategy.o*
--rwx------+ 1 Brizio None  6731 Jan 13 11:49 src/level.o*
-
-

@@ -35,7 +35,7 @@
 #ifdef __ATMOS__
 	#include<peekpoke.h>
 #elif defined(__CPC__) && defined(CPCRSLIB)
-	#include "cpc/cpcrslib.h"	
+	#include "z88dk/cpc/cpcrslib.h"	
 #endif
 
 // Instructions color

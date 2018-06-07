@@ -39,7 +39,7 @@ extern unsigned char XSize;
 #define PEEK(addr)         (*(unsigned char*) (addr))
 #define PEEKW(addr) (*(unsigned*) (addr))
 
-#include "../display_macros.h"
+#include "../../display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

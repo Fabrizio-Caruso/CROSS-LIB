@@ -67,7 +67,7 @@
 #define _RIGHT_ENEMY_MISSILE ((unsigned char)0x7D)
 #define _BUBBLE ((unsigned char)0x60)
 
-#include "../display_macros.h"
+#include "../../display_macros.h"
 
 
 extern Image PLAYER_IMAGE;

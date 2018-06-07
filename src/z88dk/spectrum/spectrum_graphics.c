@@ -24,7 +24,7 @@
 
 #include <string.h>
 
-#include "../display_macros.h"
+#include "../../display_macros.h"
 
 #if !defined(CLIB_ANSI)
 	#include<arch/zx.h>

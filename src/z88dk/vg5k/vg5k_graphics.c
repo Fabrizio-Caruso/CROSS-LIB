@@ -28,7 +28,7 @@
 
 #define VIDEO_MEMORY_BASE 0x4000
 
-#include "../display_macros.h"
+#include "../../display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

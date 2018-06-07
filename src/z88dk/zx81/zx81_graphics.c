@@ -24,7 +24,7 @@
 
 #include <stdio.h>
 
-#include "../display_macros.h"
+#include "../../display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -58,7 +58,6 @@ extern Image BOMB_IMAGE;
 	extern Image BROKEN_WALL_IMAGE;
 #endif
 
-// extern unsigned char XSize;
 
 void INIT_GRAPHICS(void)
 {

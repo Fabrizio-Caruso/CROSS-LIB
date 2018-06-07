@@ -68,12 +68,12 @@ SUPPORTED TARGETS (2017/06/07)
 - nc100: Amstrad NC-100
 - nes: Nintendo Enterteinment System
 - oric: Tangerine Oric 1/Atmos
-- osic1p: Ohio Scientific 1P
+- osic1p: Ohio Scientific Challenger 1P
 - p2000: Philips P2000
 - pc6001: NEC PC 6001
 - pce: PCEngine
 - pet: Commodore Pet
-- pps: Sprinter
+- pps: Peters Plus Sprinter
 - pv2000: Casio PV2000
 - px4: Epson PX-4/HC-40
 - px8: Epson PX-8/HC-80

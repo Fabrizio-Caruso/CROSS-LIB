@@ -1759,7 +1759,7 @@ ti85_turn_based:
 
 m5_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
-	-lm -create-app -Cz--audio \
+	-lm -create-app -Cz--audio -subtype=tape \
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-DTINY_GAME -DLESS_TEXT \
@@ -1773,7 +1773,7 @@ m5_tiny:
 
 m5:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
-	-lm -create-app -Cz--audio \
+	-lm -create-app -Cz--audio -subtype=tape \
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
@@ -1959,14 +1959,16 @@ cc65_targets: \
 
 # OK:
 
-to_fix:
-	m5_targets \
-	einstein_targets \
-	sc3000_targets
+# to_fix:
+	# einstein_targets \
+	# sc3000_targets
 
 # Number of systems: 41 - 1 (c128_z80) = 40
 
 z88dk_targets: \
+	einstein_targets \
+	sc3000_targets \
+	m5_targets \
 	ace_targets \
 	pc6001_targets \
  	eg2k_targets \

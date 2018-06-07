@@ -30,13 +30,11 @@
 #include <string.h>
 
 #if defined(NO_MESSAGE)
-	#include "../text.h"
+	#include "../../text.h"
 	
 	extern short points;
 	extern short highScore;
 #endif
-
-#include "../input_macros.h"
 
 #define _PLAYER '*'
 
@@ -71,7 +69,7 @@
 
 #define _BUBBLE '^'
 
-#include "../display_macros.h"
+#include "../../display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

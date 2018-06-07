@@ -22,13 +22,30 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#ifndef _APPLE2_SLEEP
-#define _APPLE2_SLEEP
+#include<vic20.h>
 
-void sleep(unsigned int sec) 
-{ 
-	unsigned long i; 
-	for(i=0;i<sec*400UL;++i){}; 
-} 
+#include "vic20_sounds_3k.h"
 
-#endif // _APPLE2_SLEEP
+	void _explosion_sound(unsigned char freq, unsigned char vol)
+	{ 
+		unsigned int i; 
+		unsigned char j;
+		VIC.noise = freq; 
+		VIC.volume_color |= vol; 
+
+		for(j=0;j<8;++j) 
+		{ \
+			for(i=0;i<400;++i) 
+			{ 
+			} 			
+			VIC.volume_color &= 8-j; 		
+		} 
+		VIC.noise = 0x00; 
+		VIC.volume_color &= 0x00; 
+	};	
+
+
+		
+	
+	
+	

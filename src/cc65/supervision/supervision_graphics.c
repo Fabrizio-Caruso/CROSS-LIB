@@ -24,7 +24,7 @@
 
 #include <string.h>
 
-#include "../input_macros.h"
+#include <supervision.h>
 
 // BLUE
 #define _PLAYER 0
@@ -67,7 +67,7 @@
 #define _CONFUSE 21
 #define _ZOMBIE 22
 
-#include "../display_macros.h"
+#include "../../display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

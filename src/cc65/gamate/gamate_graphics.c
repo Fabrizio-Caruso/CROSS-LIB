@@ -34,7 +34,7 @@
 #define _DRAW_WALL(x,y)  do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('|');} while(0); 
 #define _DRAW_BROKEN_WALL(x,y) do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); textcolor(COLOR_BLACK); cputc('X');} while(0); 	
 
-#include "../display_macros.h"
+#include "../../display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

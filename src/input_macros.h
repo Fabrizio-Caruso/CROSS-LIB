@@ -27,7 +27,7 @@
 	#include "settings.h"
 	
 	#if defined(__ATMOS__)
-		#include "atmos/atmos_input.h"
+		#include "cc65/atmos/atmos_input.h"
 	#elif defined(__WINCMOC__) && defined(__CMOC__)
 		#include "wincmoc/wincmoc_input.h"
 	#elif !defined(__WINCMOC__) && defined(__CMOC__)

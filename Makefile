@@ -41,10 +41,11 @@ atari_color:
 	$(CC65_PATH)$(MYCC65) -O -t atari \
 	-DREDEFINED_CHARS -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(SOURCE_PATH)/../cfg/atari_mode1_redefined_chars.cfg \
-	$(SOURCE_PATH)/atari/disable_setcursor.s \
-	$(SOURCE_PATH)/atari/atari_sounds.c \
+	$(SOURCE_PATH)/cc65/atari/disable_setcursor.s \
+	$(SOURCE_PATH)/cc65/atari/atari_sounds.c \
+	$(SOURCE_PATH)/cc65/atari/atari_mode1_redefined_chars_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/atari/atari_mode1_redefined_chars_graphics.c  $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_atari_color.xex
@@ -52,7 +53,8 @@ atari_color:
 atari_no_color: 
 	$(CC65_PATH)$(MYCC65) -O -t atari \
 	-DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
-	$(SOURCE_PATH)/atari/atari_sounds.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/cc65/atari/atari_sounds.c \
+	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
@@ -73,8 +75,10 @@ atari5200:
 atmos: 
 	$(CC65_PATH)$(MYCC65)  -O  -DSOUNDS -DREDEFINED_CHARS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-t atmos \
-	--config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg $(SOURCE_PATH)/atmos/atmos_redefined_characters.c \
-	$(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	--config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg \
+	$(SOURCE_PATH)/cc65/atmos/atmos_redefined_characters.c \
+	$(SOURCE_PATH)/cc65/atmos/atmos_input.c  \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
@@ -86,8 +90,10 @@ oric1_16k_full:
 	-DREDEFINED_CHARS -DFULL_GAME \
 	-DLESS_TEXT -DNO_MESSAGE -DNO_SLEEP -DSIMPLE_STRATEGY -DNO_BLINKING -DNO_HINTS -DNO_STATS -DFORCE_GHOSTS_NUMBER=8 \
 	-t atmos \
-	--config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg $(SOURCE_PATH)/atmos/atmos_redefined_characters.c \
-	$(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	--config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg \
+	$(SOURCE_PATH)/cc65/atmos/atmos_redefined_characters.c \
+	$(SOURCE_PATH)/cc65/atmos/atmos_input.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
@@ -96,8 +102,10 @@ oric1_16k_full:
 	
 oric1_16k: 
 	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DREDEFINED_CHARS \
-	-t atmos --config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg $(SOURCE_PATH)/atmos/atmos_redefined_characters.c \
-	$(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
+	-t atmos --config $(SOURCE_PATH)/../cfg/atmos_better_tap.cfg \
+	$(SOURCE_PATH)/cc65/atmos/atmos_redefined_characters.c \
+	$(SOURCE_PATH)/cc65/atmos/atmos_input.c  \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c \
@@ -125,7 +133,8 @@ vic20_unexpanded:
 	-DALT_HIGHSCORE \
 	-DFORCE_BOMBS_NUMBER=4 \
 	--config $(SOURCE_PATH)/../cfg/vic20_unexpanded.cfg  \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/vic20/vic20_unexpanded.c \
+	$(SOURCE_PATH)/cc65/vic20/vic20_unexpanded.c \
+	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c \
@@ -135,9 +144,9 @@ vic20_exp_3k:
 	$(CC65_PATH)$(MYCC65) -O  -t vic20 \
 	-DALT_PRINT -DREDEFINED_CHARS -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 -DROUND_ENEMIES -DTINY_GAME -DSOUNDS \
 	--config $(SOURCE_PATH)/../cfg/vic20-3k_GFX.cfg \
-	$(SOURCE_PATH)/vic20/vic20_sounds_3k.c \
-	$(SOURCE_PATH)/vic20/udc_3k.s  \
-	$(SOURCE_PATH)/vic20/vic20_graphics_3k.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/cc65/vic20/vic20_sounds_3k.c \
+	$(SOURCE_PATH)/cc65/vic20/udc_3k.s  \
+	$(SOURCE_PATH)/cc65/vic20/vic20_graphics_3k.c $(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c  \
@@ -145,9 +154,9 @@ vic20_exp_3k:
 
 vic20_exp_8k: 
 	$(CC65_PATH)$(MYCC65) -O  -t vic20  -DSOUNDS -DREDEFINED_CHARS --config $(SOURCE_PATH)/../cfg/vic20-8k_GFX.cfg \
-	$(SOURCE_PATH)/vic20/udc.s $(SOURCE_PATH)/vic20/vic20_graphics.c   \
+	$(SOURCE_PATH)/cc65/vic20/udc.s $(SOURCE_PATH)/cc65/vic20/vic20_graphics.c  $(SOURCE_PATH)/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/invincible_enemy.c  \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/input_macros.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/vic20/vic20_sounds.c $(SOURCE_PATH)/missile.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/input_macros.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/missile.c \
 	--code-name CODE2 \
 	$(SOURCE_PATH)/display_macros.c  \
 	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/main.c \
@@ -170,8 +179,8 @@ vic20_exp_8k_full:
 	-DALT_SLEEP \
 	-DREDEFINED_CHARS \
 	$(SOURCE_PATH)/sleep_macros.c \
-	$(SOURCE_PATH)/vic20/vic20_sounds.c \
-	$(SOURCE_PATH)/vic20/vic20_alt_print_init.c \
+	$(SOURCE_PATH)/cc65/vic20/vic20_sounds.c \
+	$(SOURCE_PATH)/cc65/vic20/vic20_alt_print_init.c \
 	$(SOURCE_PATH)/memory_mapped/memory_mapped_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -197,8 +206,8 @@ vic20_exp_8k_full_no_sound:
 	-DLESS_TEXT	\
 	-DNO_MESSAGE \
 	-DALT_PRINT \
-	$(SOURCE_PATH)/vic20/udc_3k.s \
-	$(SOURCE_PATH)/vic20/vic20_alt_print.c \
+	$(SOURCE_PATH)/cc65/vic20/udc_3k.s \
+	$(SOURCE_PATH)/cc65/vic20/vic20_alt_print.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
@@ -214,8 +223,9 @@ vic20_exp_8k_full_no_sound:
 	
 vic20_exp_16k: 
 	$(CC65_PATH)$(MYCC65) -O -t vic20 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
-	--config $(SOURCE_PATH)/../cfg/vic20-16k_GFX.cfg $(SOURCE_PATH)/vic20/udc.s \
-	$(SOURCE_PATH)/vic20/vic20_graphics.c $(SOURCE_PATH)/vic20/vic20_sounds.c \
+	--config $(SOURCE_PATH)/../cfg/vic20-16k_GFX.cfg \
+	$(SOURCE_PATH)/cc65/vic20/udc.s \
+	$(SOURCE_PATH)/cc65/vic20/vic20_graphics.c $(SOURCE_PATH)/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -226,9 +236,10 @@ vic20_exp_16k:
 c64: 
 	$(CC65_PATH)$(MYCC65) -O -t c64 \
 	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
-	--config $(SOURCE_PATH)/../cfg/c64_GFXat0xC000.cfg  $(SOURCE_PATH)/c64/graphics.s \
+	--config $(SOURCE_PATH)/../cfg/c64_GFXat0xC000.cfg  \
+	$(SOURCE_PATH)/cc65/c64/graphics.s $(SOURCE_PATH)/cc65/c64/c64_redefined_characters.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/c64/c64_redefined_characters.c $(SOURCE_PATH)/display_macros.c  \
+	$(SOURCE_PATH)/display_macros.c  \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c \
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c \
@@ -251,8 +262,9 @@ c64_8k_cart:
 	-DBETWEEN_LEVEL \
 	-DFLAT_ENEMIES \
 	-DCBM_SCREEN_CODES \
-	--config $(SOURCE_PATH)/../cfg/c64_GFXat0xC000.cfg  $(SOURCE_PATH)/c64/graphics.s \
-	$(SOURCE_PATH)/c64/c64_alt_print_init.c \
+	--config $(SOURCE_PATH)/../cfg/c64_GFXat0xC000.cfg \
+	$(SOURCE_PATH)/cc65/c64/graphics.s \
+	$(SOURCE_PATH)/cc65/c64/c64_alt_print_init.c \
 	$(SOURCE_PATH)/memory_mapped/memory_mapped_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
@@ -292,9 +304,9 @@ c128_80col:
 c16_16k: 
 	$(CC65_PATH)$(MYCC65) -O -t c16 --config $(SOURCE_PATH)/../cfg/c16-16k.cfg \
 	-DREDEFINED_CHARS  -DSOUNDS \
-	$(SOURCE_PATH)/c264/c264_sounds.c \
+	$(SOURCE_PATH)/cc65/c264/c264_sounds.c \
+	$(SOURCE_PATH)/cc65/c264/c264_graphics.c  \
 	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/c264/c264_graphics.c  \
 	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
@@ -304,7 +316,7 @@ c16_16k:
 c16_32k: 
 	$(CC65_PATH)$(MYCC65) -O -t c16 --config $(SOURCE_PATH)/../cfg/c16-32k.cfg \
 	-DREDEFINED_CHARS -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
-	$(SOURCE_PATH)/c264/c264_graphics.c $(SOURCE_PATH)/c264/c264_sounds.c \
+	$(SOURCE_PATH)/cc65/c264/c264_graphics.c $(SOURCE_PATH)/cc65/c264/c264_sounds.c \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -327,8 +339,8 @@ c16_16k_full:
 	-DSOUNDS \
 	-DALT_PRINT \
 	-DREDEFINED_CHARS \
-	$(SOURCE_PATH)/c264/c264_sounds.c \
-	$(SOURCE_PATH)/c264/c264_alt_print_init.c \
+	$(SOURCE_PATH)/cc65/c264/c264_sounds.c \
+	$(SOURCE_PATH)/cc65/c264/c264_alt_print_init.c \
 	$(SOURCE_PATH)/memory_mapped/memory_mapped_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -464,7 +476,8 @@ osic1p_8k:
 		
 gamate: 
 	$(CC65_PATH)$(MYCC65) -O -t gamate -Cl  --config $(SOURCE_PATH)/../cfg/gamate_reduced_stack.cfg -DFULL_GAME \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/gamate/gamate_graphics.c \
+	$(SOURCE_PATH)/cc65/gamate/gamate_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
@@ -518,8 +531,9 @@ atari_lynx:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
 	-DALT_PRINT \
+	$(SOURCE_PATH)/cc65/atari_lynx/atari_lynx_graphics.c \
 	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/atari_lynx/atari_lynx_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c \
@@ -3120,7 +3134,7 @@ creativision_16k_2:
 supervision:
 	$(CC65_PATH)$(MYCC65) -O -t supervision  \
 	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
-	$(SOURCE_PATH)/supervision/supervision_graphics.c \
+	$(SOURCE_PATH)/cc65/supervision/supervision_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \

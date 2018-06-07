@@ -25,9 +25,9 @@
 #ifndef _SOUNDS_MACROS
 #define _SOUNDS_MACROS
 	#if defined(__ATMOS__) && defined(SOUNDS)
-		#include "atmos/atmos_sounds.h"
+		#include "cc65/atmos/atmos_sounds.h"
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(SOUNDS)
-		#include "atari/atari_sounds.h"
+		#include "cc65/atari/atari_sounds.h"
 	#elif defined(__SPECTRUM__) && defined(SOUNDS)
 		#include "bit_bang/bit_bang_sounds.h"		
 	#elif defined(__BEE__) && defined(SOUNDS)
@@ -41,17 +41,17 @@
 	#elif defined(__ACE__) && defined(SOUNDS)
 		#include "bit_bang/bit_bang_sounds.h"		
 	#elif defined(__VIC20__) && !defined(TINY_GAME) && defined(SOUNDS)
-		#include "vic20/vic20_sounds.h"
+		#include "cc65/vic20/vic20_sounds.h"
 	#elif defined(__VIC20__) && defined(TINY_GAME) && defined(SOUNDS)
-		#include "vic20/vic20_sounds_3k.h"		
+		#include "cc65/vic20/vic20_sounds_3k.h"		
 	#elif defined(__C16__) && defined(SOUNDS)
-		#include "c264/c264_sounds.h"
+		#include "cc65/c264/c264_sounds.h"
 	#elif defined(__C64__) && defined(SOUNDS)
-		#include "sid/sid_sounds.h"
+		#include "cc65/sid/sid_sounds.h"
 	#elif defined(__C128__) && defined(SOUNDS)
-		#include "sid/sid_sounds.h"		
+		#include "cc65/sid/sid_sounds.h"		
 	#elif defined(__CBM510__) && defined(SOUNDS)
-		#include "sid/sid_sounds.h"		
+		#include "cc65/sid/sid_sounds.h"		
 	#elif defined(__SVI__) && defined(SOUNDS)
 		#include "psg/psg_sounds.h"
 	#elif defined(__MSX__) && defined(SOUNDS)

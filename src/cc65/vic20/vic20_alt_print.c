@@ -27,58 +27,110 @@
 #include <conio.h>
 #include <peekpoke.h>
 #include <vic20.h>
+#include <string.h>
 
+#define BASE_ADDR 0x1000
+#define COLOR_ADDR 0x9400
+#define DELTA_ADDR (COLOR_ADDR-BASE_ADDR)
+
+void INIT_GRAPHICS(void)
+{
+	#if defined(REDEFINED_CHARS)
+		POKE(0x9005,0xFF);			
+	#endif
+
+	POKE(646,1);
+	POKE(36879L,9);
+}
+
+#if !defined(REDEFINED_CHARS)
+	#define _PLAYER_DOWN '*'
+	#define _PLAYER_UP 0x0E
+	#define _PLAYER_RIGHT 0x11
+	#define _PLAYER_LEFT 0x10
+	#define _PLAYER _PLAYER_DOWN
+
+	// RED
+	#define _BOMB '^'
+
+	// WHITE
+	#define _GHOST 'o'
+
+	#define _DEAD_GHOST '#'
+
+	// BLUE
+	#define _GUN '!'
+
+	// YELLOW
+	#define _INVINCIBLE_GHOST '+'
+	#define _CONFUSE ('+'+128)
+	#define _ZOMBIE 'O'	
+	#define _VERTICAL_BRICK '|'
+	#define _HORIZONTAL_BRICK '-'
+	#define _EXTRA_LIFE ('*'+128)
+	#define _EXTRA_POINTS '$'
+
+	// GREEN
+	#define _POWERUP  'S';
+
+	// CYAN
+	#define _INVINCIBILITY 'V'
+	#define _MISSILE '.'
+
+	#define _LEFT_ENEMY_MISSILE '>'
+
+	#define _RIGHT_ENEMY_MISSILE '<'
+
+	#define _BUBBLE ('^'-64)
 	
-// BLUE
-#define _PLAYER '\'';
-#define _PLAYER_DOWN '\'';
-#define _PLAYER_UP 0x70
-#define _PLAYER_RIGHT 0x74 
-#define _PLAYER_LEFT 0x72
+	#define _BROKEN_WALL _BOMB
+#else
+	#define _PLAYER_DOWN 0x00
+	#define _PLAYER_UP 0x0E
+	#define _PLAYER_RIGHT 0x11
+	#define _PLAYER_LEFT 0x10
+	#define _PLAYER _PLAYER_DOWN
 
-#define _GUN 0x7B
+	// RED
+	#define _BOMB 0x1B
 
-// YELLOW
-#define _INVINCIBLE_GHOST 0x77
-#define _VERTICAL_BRICK 0x26
-#define _HORIZONTAL_BRICK 0x2B
-#define _EXTRA_LIFE _PLAYER
-#define _EXTRA_POINTS '*'
+	// WHITE
+	#define _GHOST 0x1C
 
-// GREEN
-#define _POWERUP  0x7A;
-
-// RED
-#define _BOMB 0x78
-//0x5E
+	#define _DEAD_GHOST _GHOST
 
 
-// CYAN
-#define _INVINCIBILITY 0x73
-#define _MISSILE 0x7C
+	// BLUE
+	#define _GUN 0x7B
 
-// WHITE
-#define _GHOST 0x76
-//_GHOST 0x7E
+	// YELLOW
+	#define _INVINCIBLE_GHOST 0x77
+	#define _VERTICAL_BRICK 0x26
+	#define _HORIZONTAL_BRICK 0x2B
+	#define _EXTRA_LIFE _PLAYER
+	#define _EXTRA_POINTS '$'
 
-#define _DEAD_GHOST _GHOST
+	// GREEN
+	#define _POWERUP  0x7A;
 
+	// CYAN
+	#define _INVINCIBILITY 0x73
+	#define _MISSILE 0x7C
 
-#define _LEFT_ENEMY_MISSILE '>'
+	#define _LEFT_ENEMY_MISSILE '>'
 
-//((unsigned char)0x7B)
-#define _RIGHT_ENEMY_MISSILE '<'
+	#define _RIGHT_ENEMY_MISSILE '<'
 
-//((unsigned char)0x7D)
-#define _BUBBLE '^'
+	#define _BUBBLE '^'
+#endif	
 
-#include "../display_macros.h"
-
-// extern unsigned char XSize;
+#include "../../display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
+#if !defined(NO_DEAD_GHOSTS)
 extern Image DEAD_GHOST_IMAGE;
+#endif
 extern Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
@@ -106,44 +158,40 @@ extern Image BOMB_IMAGE;
 #endif
 
 
-Image PLAYER_DOWN;
-Image PLAYER_UP;
-Image PLAYER_RIGHT;
-Image PLAYER_LEFT;
+#if defined(REDEFINED_CHARS)
+	Image PLAYER_DOWN;
+	Image PLAYER_UP;
+	Image PLAYER_RIGHT;
+	Image PLAYER_LEFT;
+#endif
 
+#if defined(ALT_PRINT)
+unsigned short loc(unsigned char x, unsigned char y)
+{
+	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(y+Y_OFFSET)*((unsigned short)XSize);
+}
+#endif
 
 #if !defined(NO_COLOR)
-	#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); textcolor(image->_color); cputc(image->_imageData); } while(0)
-	#define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
-	#define _DRAW_VERTICAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('|'); } while(0)  
-	#define _DRAW_HORIZONTAL_WALL(x,y)  do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('-'); } while(0)  
-	#define _DRAW_BROKEN_WALL(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc('X'); } while(0)   	
+	#define _DRAW(x,y,image) do {POKE(loc(x,y), image->_imageData); POKE(COLOR_ADDR+x+y*22, image->_color); } while(0)
+	#define _DELETE(x,y) POKE(loc(x,y), 32)
 #else
 	#define _DRAW(x,y,image) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(image->_imageData); } while(0)
 	#define _DELETE(x,y) do { gotoxy(x+X_OFFSET,y+Y_OFFSET); cputc(' '); } while(0)      
 #endif
-
-
-void INIT_GRAPHICS(void)
-{
-	unsigned char tmp;
-	
-	tmp = ~0x0F & PEEK(&(VIC.addr));
-	POKE(&(VIC.addr), tmp | 0x0F);
-	
-	#if defined(TINY_GAME)
-		#include<peekpoke.h>
-		POKE(646,1);
-		POKE(36879L,9);
-	#endif		
-}
+#define _DRAW_VERTICAL_WALL(x,y)  POKE(loc(x,y),'|')
+#define _DRAW_HORIZONTAL_WALL(x,y)  POKE(loc(x,y),'-')
+// TODO: Find a few extra bytes
+#define _DRAW_BROKEN_WALL(x,y) POKE(loc(x,y),_BROKEN_WALL)
 
 void INIT_IMAGES(void)
 {		
 	#if !defined(NO_COLOR)
 		// PLAYER_IMAGE._color = COLOR_CYAN;
 		BOMB_IMAGE._color = COLOR_RED;
-		DEAD_GHOST_IMAGE._color = COLOR_RED;
+		#if !defined(NO_DEAD_GHOSTS)
+			DEAD_GHOST_IMAGE._color = COLOR_RED;
+		#endif
 		GHOST_IMAGE._color = COLOR_WHITE;		
 		
 		#if !defined(TINY_GAME)
@@ -154,11 +202,15 @@ void INIT_IMAGES(void)
 			MISSILE_IMAGE._color = COLOR_BLUE;
 		#endif
 		
-		PLAYER_DOWN._color = COLOR_CYAN;
-		PLAYER_UP._color = COLOR_CYAN;
-		PLAYER_RIGHT._color = COLOR_CYAN;
-		PLAYER_LEFT._color = COLOR_CYAN;
-
+		#if defined(REDEFINED_CHARS)
+			PLAYER_DOWN._color = COLOR_CYAN;
+			PLAYER_UP._color = COLOR_CYAN;
+			PLAYER_RIGHT._color = COLOR_CYAN;
+			PLAYER_LEFT._color = COLOR_CYAN;
+		#else
+			PLAYER_IMAGE._color = COLOR_CYAN;
+		#endif
+		
 		#if defined(FULL_GAME)
 			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
 			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
@@ -175,10 +227,12 @@ void INIT_IMAGES(void)
 		#endif	
 	#endif
 
-	
 	GHOST_IMAGE._imageData = _GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
-	// PLAYER_IMAGE._imageData = _PLAYER;	
+	
+	#if !defined(NO_DEAD_GHOSTS)
+	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
+	#endif
 	
 	#if !defined(TINY_GAME)
 		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
@@ -188,14 +242,17 @@ void INIT_IMAGES(void)
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
 		MISSILE_IMAGE._imageData = _MISSILE;
-		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
 	#endif
 	
-	PLAYER_DOWN._imageData = _PLAYER_DOWN;
-	PLAYER_UP._imageData = _PLAYER_UP;	
-	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-	PLAYER_LEFT._imageData = _PLAYER_LEFT;	
-
+	#if defined(REDEFINED_CHARS)
+		PLAYER_DOWN._imageData = _PLAYER_DOWN;
+		PLAYER_UP._imageData = _PLAYER_UP;	
+		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+		PLAYER_LEFT._imageData = _PLAYER_LEFT;	
+	#else
+		PLAYER_IMAGE._imageData = _PLAYER_DOWN;			
+	#endif
+	
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
@@ -206,7 +263,7 @@ void INIT_IMAGES(void)
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
 		SUPER_IMAGE._imageData = _POWERUP;
-		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+		CONFUSE_IMAGE._imageData = _CONFUSE;
 		ZOMBIE_IMAGE._imageData = _GHOST;
 	#endif
 }
@@ -228,6 +285,7 @@ void _delete(unsigned char x, unsigned char y)
 	_DELETE(x,y);
 }
 
+#if !defined(NO_BLINKING)
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
 {
 	if(*blinkCounter) 
@@ -241,13 +299,12 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		*blinkCounter=1;
 	}	
 }
+#endif
 
 #if !defined(TINY_GAME)
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
 	unsigned char i;
-	SET_TEXT_COLOR(COLOR_YELLOW);
-
 	for(i=0;i<length;++i) 
 	{ 
 		gotoxy(x+i+X_OFFSET,y+Y_OFFSET);  cputc('-');
@@ -258,12 +315,76 @@ void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
 	unsigned char i;
-	SET_TEXT_COLOR(COLOR_YELLOW);
-
 	for(i=0;i<length;++i) 
 	{ 
 		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  cputc('|');
 	} 	
 }
+#endif
+
+
+#if defined(ALT_PRINT)
+void PRINT(unsigned char x, unsigned char y, char * str)
+{
+	unsigned char i = 0;
+	while(str[i]!='\0')
+	{
+		POKE(loc(x,y)+i, str[i]); 
+		++i;
+	}
+}
+
+void print_05u0(unsigned char x, unsigned char y, unsigned short val)
+{
+	unsigned char i;
+	unsigned char digits[6];
+	unsigned short tmp;
+
+	tmp = val;
+	
+	digits[0] = 0;
+	for(i=1;i<6;++i)
+	{
+		digits[i] = (unsigned char) ((tmp)%10);
+		tmp-= digits[i];
+		tmp/=10;
+	}
+	
+	for(i=0;i<6;++i)
+	{
+		POKE(loc(x,y)+i, (unsigned char) (digits[5-i])+48);
+	}
+}	
+
+void print_02u(unsigned char x, unsigned char y, unsigned short val)
+{
+	POKE((loc(x,y)), ((unsigned char) val)/10+48);
+	POKE((1+loc(x,y)), ((unsigned char) val)%10+48);
+}	
+
+
+void print_u(unsigned char x, unsigned char y, unsigned short val)
+{
+	POKE(loc(x,y), (unsigned char) (val+48));
+}
+
+
+void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
+{
+	if(strlen(str)==5)
+	{	
+		print_05u0(x,y,val);
+	}
+	else if(strlen(str)==4)
+	{
+		print_02u(x,y,val);		
+	}
+	else
+	{
+		print_u(x,y,val);		
+	}
+}
+
+
 #endif
 

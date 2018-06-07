@@ -29,8 +29,6 @@
 #include <vic20.h>
 #include <string.h>
 
-#include "../input_macros.h"
-
 #define _PLAYER_DOWN 0x00
 #define _PLAYER_UP 0x0E
 #define _PLAYER_RIGHT 0x11
@@ -68,7 +66,7 @@
 
 #define _BUBBLE '^'
 
-#include "../display_macros.h"
+#include "../../display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

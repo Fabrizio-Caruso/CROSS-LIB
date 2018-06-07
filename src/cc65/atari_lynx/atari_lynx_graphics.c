@@ -28,7 +28,7 @@
 
 #include <tgi.h>
 
-#include "../sleep_macros.h"
+// #include "../../sleep_macros.h"
 
 extern unsigned char XSize;
 
@@ -54,7 +54,7 @@ extern unsigned char XSize;
 #define _DRAW_WALL(x,y)  {char chString[2]; chString[0] = '|'; chString[1]='\0'; tgi_outtextxy(x*8,y*8,chString);}   
 #define _DRAW_BROKEN_WALL(x,y) 	{char chString[2]; chString[0] = 'X'; chString[1]='\0'; tgi_outtextxy(x*8,y*8,chString);}   
 
-#include "../display_macros.h"
+#include "../../display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

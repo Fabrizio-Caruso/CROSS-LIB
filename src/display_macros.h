@@ -38,7 +38,7 @@
 	|| defined(__OSIC1P__) || defined(__ATARI5200__) || defined(__PET__) \
 	|| defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
 	|| defined(__APPLE2ENH__) || defined(__ATMOS__)
-	#include "patch/generic_conio_patch.h"
+	#include "cc65/generic/generic_conio_patch.h"
 #endif
 #  if defined(CONIO_ADM3A)
 	#include "patch/adm3a_conio_implementation.h"
@@ -49,11 +49,11 @@
 #elif defined(Z88DK_PUTC4X6)
 	#include "patch/z88dk_putc4x6_conio_implementation.h"
 #elif defined(__ATMOS__)
-	#include "atmos/atmos_conio_patch.h"
+	#include "cc65/atmos/atmos_conio_patch.h"
 #elif defined(__SUPERVISION__) 
-	#include "patch/supervision_conio_implementation.h"	
+	#include "cc65/supervision/supervision_conio_implementation.h"	
 #elif defined(__ATARI_LYNX__) 
-	#include "patch/atari_lynx_conio_implementation.h"	
+	#include "cc65/atari_lynx/atari_lynx_conio_implementation.h"	
 #elif defined(__WINCMOC__)
 	#include "patch/wincmoc_conio_patch.h"	
 #elif defined(__CMOC__) && !defined(__WINCMOC__)

@@ -1,10 +1,10 @@
 
 #  if defined(__VIC20__) && defined(ALT_PRINT)
-	#include "../vic20/vic20_alt_print_init.h"
+	#include "../cc65/vic20/vic20_alt_print_init.h"
 #elif defined(__C16__) && defined(ALT_PRINT)
-	#include "../c264/c264_alt_print_init.h"
+	#include "../cc65/c264/c264_alt_print_init.h"
 #elif defined(__C64__) && defined(ALT_PRINT)
-	#include "../c64/c64_alt_print_init.h"
+	#include "../cc65/c64/c64_alt_print_init.h"
 #else
 #endif 
 

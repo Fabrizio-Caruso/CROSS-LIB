@@ -95,7 +95,7 @@ SUPPORTED TARGETS (2017/06/07)
 - z1013: Robotron Z1013
 - z9001: Robotron Z9001
 - zx80: Sinclair ZX80
-- zx81: Sinclaur ZX81
+- zx81: Sinclair ZX81
 
 -------------------------------------------
 

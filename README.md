@@ -6,7 +6,7 @@ by Fabrizio Caruso (Fabrizio_Caruso@hotmail.com)
 This is a personal project whose goal are the creation of:
 1. a universal 8-bit abstraction layer "CrossLib" for coding universal 8-games
 2. a "universal" 8-bit game "CROSS CHASE" that has to be a fun and that should run
-on (nearly) ALL 8 bit computers and consoles using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs.
+on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs.
 The game will be the proof of concept of how flexible the library is.
 
 HOW IS THIS DONE?

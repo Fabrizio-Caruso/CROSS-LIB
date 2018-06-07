@@ -34,6 +34,8 @@ Therefore the following coding choices and design rules are applied:
 Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects.
 
 SUPPORTED TARGETS (2017/06/07)
+For most targets, more than one version is built, in order to support different hardware configuratins and expansions 
+(e.g., memory expansions, second CPU, 80-col display card, etc.).
 
 - abc80: ABC 80
 - ace: Jupiter Ace

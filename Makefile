@@ -2549,7 +2549,7 @@ enterprise_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 
 
-ncurses_tiny:
+ncurses_turn_based_tiny:
 	gcc -D__NCURSES__ \
 	-DTINY_GAME \
 	-DNO_SLEEP -DLESS_TEXT -DALT_PRINT \
@@ -2561,6 +2561,7 @@ ncurses_tiny:
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
 	-lncurses
+	mv a.exe $(BUILD_PATH)/TINY_ncurses.exe
 
 	
 sms_libctest:

@@ -139,7 +139,9 @@ typedef struct ImageStruct Image;
 
 
 #if !defined(FORCE_YSIZE)
-	#  if defined(__PPS__)
+	#  if defined(__NCURSES__)
+		#define YSize 24
+	#elif defined(__PPS__)
 		#define YSize (32-Y_OFFSET)
 	#elif defined(__Z1013__)
 		  #define YSize (32-Y_OFFSET)
@@ -186,8 +188,6 @@ typedef struct ImageStruct Image;
 		#define YSize 8
 	#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
 		#define YSize ((64/SPRITE_Y_STEP)+1)
-	#elif defined(__NCURSES__)
-		#define YSize 24
 	#else
 		#define YSize 16
 	#endif
@@ -197,7 +197,9 @@ typedef struct ImageStruct Image;
 
 
 #if !defined(FORCE_XSIZE)
-	#  if defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
+	#  if defined(__NCURSES__)
+		#define XSize 80
+	#elif defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
 		  || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
 		  || defined(__PX8__) || defined(__CPM_80X24__) \
 		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)) \
@@ -241,8 +243,6 @@ typedef struct ImageStruct Image;
 	#elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
 		  || defined(__ATARI_LINX__) || defined(__SUPERVISION__)
 		#define XSize 20
-	#elif #defined(__NCURSES__)
-		#define XSize 80
 	#else
 		#define XSize 16
 	#endif

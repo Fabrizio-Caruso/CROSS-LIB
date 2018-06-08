@@ -2562,6 +2562,21 @@ ncurses_turn_based_tiny:
 	-lncurses
 	mv a.exe $(BUILD_PATH)/TINY_ncurses.exe
 
+ncurses_turn_based:
+	gcc -D__NCURSES__ \
+	-DFULL_GAME \
+	-DNO_SLEEP -DLESS_TEXT \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	-lncurses
+	mv a.exe $(BUILD_PATH)/FULL_ncurses.exe
 	
 sms_libctest:
 	$(Z88DK_PATH)$(MYZ88DK) +sms \

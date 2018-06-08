@@ -302,7 +302,12 @@ void _delete(unsigned char x, unsigned char y);
 #else
 	#  if defined(NO_PRINT)
 		#define PRINT(x,y,str)
-		#define PRINTF(x,y,str,val)	
+		#define PRINTF(x,y,str,val)
+	#elif defined(__NCURSES__)
+		#include <ncurses.h>
+		
+		#define PRINT(x,y,str) do {move(y,x); printw(str); refresh();} while(0)
+		#define PRINTF(x,y,str, val) do {move(y,x); printw(str,val); refresh();} while(0)
 	#elif defined(ALT_PRINT) \
 		|| (defined(__CMOC__) && !defined(__WINCMOC__)) \
 		|| defined(Z88DK_PUTC4X6)

@@ -2552,8 +2552,7 @@ enterprise_tiny:
 ncurses_turn_based_tiny:
 	gcc -D__NCURSES__ \
 	-DTINY_GAME \
-	-DNO_SLEEP -DLESS_TEXT -DALT_PRINT \
-	-DNO_PRINT \
+	-DNO_SLEEP -DLESS_TEXT \
 	-DNO_WAIT \
 	-DTURN_BASED \
 	$(SOURCE_PATH)/display_macros.c \

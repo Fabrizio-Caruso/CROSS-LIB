@@ -122,6 +122,12 @@ For most targets, more than one version is built, in order to support different 
 
 As a consequence of the design, the code includes a framework that could be used to develop other massively multi-system games and programs. In the future the framework will be provided a separate project.
 
+
+## ADAPTIVE GRAPHICS
+
+The tool-chain will produce a game with simple black and white ASCII graphics and no sound if none of these is available. 
+If colors, graphics and sounds are available the tool-chain will produce a game with some simple sound eggects and with some possibly colored graphics.
+
 ![Atari 800](images/atari800.jpg)
 ![Spectrum 48k](images/spectrum.jpg)
 ![Vic 20](images/vic20_1.jpg)

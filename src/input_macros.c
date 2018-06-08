@@ -136,7 +136,12 @@ extern Character player;
 #endif
 	
 #if defined(WAIT_FOR_KEY)
-	#if defined(NO_WAIT)
+	#  if defined(__NCURSES__)
+		void WAIT_PRESS(void)
+		{
+			getch();
+		}
+	#elif defined(NO_WAIT)
 		void WAIT_PRESS(void)
 		{
 			// Workaround for CC65 bug 

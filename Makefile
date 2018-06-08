@@ -29,7 +29,7 @@ TOOLS_PATH ?= ./tools
 
 # For cygwin posix build: use gcc
 # For windows 32 non-posix build: x86_64-w64-mingw32-gcc
-_CC ?= x86_64-w64-mingw32-gcc
+_CC ?= gcc
 
 
 COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DTINY_GAME
@@ -2556,8 +2556,6 @@ enterprise_tiny:
 ncurses_turn_based_tiny:
 	$(_CC) -D__NCURSES__ \
 	-DTINY_GAME \
-	-DLESS_TEXT \
-	-DNO_WAIT \
 	-DTURN_BASED \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \
@@ -2569,9 +2567,7 @@ ncurses_turn_based_tiny:
 ncurses_turn_based:
 	$(_CC) -D__NCURSES__ \
 	-DFULL_GAME \
-	-DLESS_TEXT \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DNO_WAIT \
 	-DTURN_BASED \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/item.c \

@@ -39,7 +39,7 @@ PC versions
 There is a ncurses version that can be compiled for
 - cygwin (gcc + ncurses under cygwin/Windows) 
 - linux (gcc + ncurses under linux)
-- windows 32/64 console (mingw + ncurses even under cywin/Windows)
+- windows 32/64 console (mingw + ncurses even under cywin/Windows with x86_64-w64-mingw32-gcc)
 
 8-BIT versions
 For most targets, more than one version is built, in order to support different hardware configuratins and expansions 

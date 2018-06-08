@@ -142,7 +142,7 @@ If colors, graphics and sounds are available the tool-chain will produce a game 
 ![C16 hints](images/c264_hints.jpg)
 ![C16 first level](images/c264_level1.jpg)
 
-## LICENSE
+## LICENCE
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from

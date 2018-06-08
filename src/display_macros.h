@@ -41,13 +41,13 @@
 	#include "cc65/generic/generic_conio_patch.h"
 #endif
 #  if defined(CONIO_ADM3A)
-	#include "patch/adm3a_conio_implementation.h"
+	#include "generic/patch/adm3a_conio_implementation.h"
 #elif defined(CONIO_VT52)
-	#include "patch/vt52_conio_implementation.h"
+	#include "generic/patch/vt52_conio_implementation.h"
 #elif defined(CONIO_VT100)
-	#include "patch/vt100_conio_implementation.h"
+	#include "generic/patch/vt100_conio_implementation.h"
 #elif defined(Z88DK_PUTC4X6)
-	#include "patch/z88dk_putc4x6_conio_implementation.h"
+	#include "z88dk/generic/z88dk_putc4x6_conio_implementation.h"
 #elif defined(__ATMOS__)
 	#include "cc65/atmos/atmos_conio_patch.h"
 #elif defined(__SUPERVISION__) 
@@ -55,21 +55,21 @@
 #elif defined(__ATARI_LYNX__) 
 	#include "cc65/atari_lynx/atari_lynx_conio_implementation.h"	
 #elif defined(__WINCMOC__)
-	#include "patch/wincmoc_conio_patch.h"	
+	#include "wincmoc/wincmoc_conio_patch.h"	
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
-	#include "patch/cmoc_conio_implementation.h"
+	#include "cmoc/cmoc_conio_implementation.h"
 #elif defined(__SMS__)
-	#include "patch/sms_conio_implementation.h"
+	#include "z88dk/sms/sms_conio_implementation.h"
 #elif defined(__ENTERPRISE__)
-	#include "patch/enterprise_conio_implementation.h"
+	#include "z88dk/enterprise/enterprise_conio_implementation.h"
 #elif defined(__GCC__)
-	#include "patch/ncurses_conio_implementation.h"	
+	#include "gcc/ncurses_conio_implementation.h"	
 #elif defined(__KC__)
-	#include "patch/kc_conio_implementation.h"	
+	#include "z88dk/kc/kc_conio_implementation.h"	
 #elif defined(Z88DK_SPRITES)
-	#include "patch/z88dk_conio_patch.h"	
+	#include "z88dk/z88dk_sprites/z88dk_conio_patch.h"	
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI))
-	#include "patch/spectrum_conio_implementation.h"
+	#include "z88dk/spectrum/spectrum_conio_implementation.h"
 #elif defined(__C128_Z80__) || defined(__X1__) || defined(__Z9001__) \
 	|| defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
 	|| defined(__ABC80__) || defined(__PC6001__) || defined(__SRR__) \
@@ -83,10 +83,10 @@
 	|| defined(__MTX__) || defined(__Z88__) || defined(__PX4__) \
 	|| defined(__EG2K__) || defined(__TRS80__) || defined(__ACE__) \
 	|| defined(__EINSTEIN__) || defined(__M5__)
-	#include "patch/z88dk_conio_patch.h"					
+	#include "z88dk/generic/z88dk_conio_patch.h"					
 #elif defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 	  || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
-	#include "patch/z88dk_conio_implementation.h"
+	#include "z88dk/generic/z88dk_conio_implementation.h"
 #endif
 
 struct ImageStruct

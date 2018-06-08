@@ -181,7 +181,7 @@ vic20_exp_8k_full:
 	$(SOURCE_PATH)/sleep_macros.c \
 	$(SOURCE_PATH)/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/cc65/vic20/vic20_alt_print_init.c \
-	$(SOURCE_PATH)/memory_mapped/memory_mapped_graphics.c \
+	$(SOURCE_PATH)/generic/memory_mapped/memory_mapped_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \
@@ -265,7 +265,7 @@ c64_8k_cart:
 	--config $(SOURCE_PATH)/../cfg/c64_GFXat0xC000.cfg \
 	$(SOURCE_PATH)/cc65/c64/graphics.s \
 	$(SOURCE_PATH)/cc65/c64/c64_alt_print_init.c \
-	$(SOURCE_PATH)/memory_mapped/memory_mapped_graphics.c \
+	$(SOURCE_PATH)/generic/memory_mapped/memory_mapped_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c  \
@@ -341,7 +341,7 @@ c16_16k_full:
 	-DREDEFINED_CHARS \
 	$(SOURCE_PATH)/cc65/c264/c264_sounds.c \
 	$(SOURCE_PATH)/cc65/c264/c264_alt_print_init.c \
-	$(SOURCE_PATH)/memory_mapped/memory_mapped_graphics.c \
+	$(SOURCE_PATH)/generic/memory_mapped/memory_mapped_graphics.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c \

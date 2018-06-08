@@ -35,7 +35,7 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 SUPPORTED TARGETS (2017/06/08)
 
-## PC versions
+# PC versions
 
 There is a ncurses version that can be compiled for
 - cygwin (gcc + ncurses under cygwin/Windows) 
@@ -43,7 +43,7 @@ There is a ncurses version that can be compiled for
 - windows 32/64 console (mingw + ncurses even under cywin/Windows with x86_64-w64-mingw32-gcc)
 
 
-## 8-BIT versions
+# 8-BIT versions
 
 For most targets, more than one version is built, in order to support different hardware configuratins and expansions 
 (e.g., memory expansions, second CPU, 80-col display card, etc.).

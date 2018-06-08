@@ -27,6 +27,10 @@ SCCZ80_OPTS ?= -O3
 ZSDCC_OPTS ?= -SO3 --max-allocs-per-node200000
 TOOLS_PATH ?= ./tools
 
+# For cygwin posix build: use gcc
+# For windows 32 non-posix build: x86_64-w64-mingw32-gcc
+_CC ?= x86_64-w64-mingw32-gcc
+
 
 COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DTINY_GAME
 
@@ -2550,9 +2554,9 @@ enterprise_tiny:
 
 
 ncurses_turn_based_tiny:
-	gcc -D__NCURSES__ \
+	$(_CC) -D__NCURSES__ \
 	-DTINY_GAME \
-	-DNO_SLEEP -DLESS_TEXT \
+	-DLESS_TEXT \
 	-DNO_WAIT \
 	-DTURN_BASED \
 	$(SOURCE_PATH)/display_macros.c \
@@ -2563,9 +2567,9 @@ ncurses_turn_based_tiny:
 	mv a.exe $(BUILD_PATH)/TINY_ncurses.exe
 
 ncurses_turn_based:
-	gcc -D__NCURSES__ \
+	$(_CC) -D__NCURSES__ \
 	-DFULL_GAME \
-	-DNO_SLEEP -DLESS_TEXT \
+	-DLESS_TEXT \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DNO_WAIT \
 	-DTURN_BASED \

@@ -36,7 +36,7 @@ unsigned char arrowYPosition;
 				{
 					if(player._x>=leftEnemyMissile._x)
 					{
-						move(&leftEnemyMissile, &player, Y_MOVE);			
+						moveCharacter(&leftEnemyMissile, &player, Y_MOVE);			
 					}
 				}
 			}
@@ -66,7 +66,7 @@ unsigned char arrowYPosition;
 				{
 					if(player._x<= rightEnemyMissile._x)	
 					{
-						move(&rightEnemyMissile, &player,Y_MOVE);			
+						moveCharacter(&rightEnemyMissile, &player,Y_MOVE);			
 					}
 				}
 			}

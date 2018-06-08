@@ -161,11 +161,12 @@ Image BOMB_IMAGE;
 			// load_palette(pal1, 0, 16); 
 			// load_palette(pal2, 16, 16); 
 			// set_vdp_reg(VDP_REG_FLAGS1, VDP_REG_FLAGS1_BIT7 | VDP_REG_FLAGS1_SCREEN); 							
-		#elif defined(__GCC__)
+		#elif defined(__NCURSES__)
             #include <ncurses.h>
 			
-			noecho();
-			cbreak();
+			initscr();   
+            noecho();
+            curs_set(0);
 		#endif	
 	}
 	

@@ -42,7 +42,7 @@ extern unsigned char zombieActive;
 
 // Required by horizontal missile
 #if defined(FULL_GAME)
-	unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset)
+	unsigned char moveCharacter(Character* hunterPtr, Character* preyPtr, unsigned char offset)
 	{
 		if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)preyPtr+offset))
 		{
@@ -59,7 +59,7 @@ extern unsigned char zombieActive;
 		return 1;
 	}
 #else
-	unsigned char move(Character* hunterPtr, unsigned char offset)	
+	unsigned char moveCharacter(Character* hunterPtr, unsigned char offset)	
 	{
 		if((unsigned char) *((unsigned char *)hunterPtr+offset) < (unsigned char) *((unsigned char *)(&player)+offset))
 		{
@@ -82,25 +82,25 @@ extern unsigned char zombieActive;
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 	{
-		if(move(hunterPtr, preyPtr,X_MOVE))
+		if(moveCharacter(hunterPtr, preyPtr,X_MOVE))
 		{
 			return;
 		}
 		else
 		{
-			move(hunterPtr, preyPtr,Y_MOVE);
+			moveCharacter(hunterPtr, preyPtr,Y_MOVE);
 		}
 	}
 
 	void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 	{
-		if(move(hunterPtr, preyPtr,Y_MOVE))
+		if(moveCharacter(hunterPtr, preyPtr,Y_MOVE))
 		{
 			return;
 		}
 		else
 		{
-			move(hunterPtr, preyPtr,X_MOVE);
+			moveCharacter(hunterPtr, preyPtr,X_MOVE);
 		}
 	}
 #endif
@@ -130,12 +130,12 @@ extern unsigned char zombieActive;
 #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
 	void moveTowardCharacter(Character* preyPtr, Character *hunterPtr)
 	{
-		move(hunterPtr, preyPtr, (unsigned char) rand()&1);
+		moveCharacter(hunterPtr, preyPtr, (unsigned char) rand()&1);
 	}	
 #else
 	void moveTowardCharacter(Character *hunterPtr)
 	{
-		move(hunterPtr,(unsigned char) rand()&1);
+		moveCharacter(hunterPtr,(unsigned char) rand()&1);
 	}
 #endif
 

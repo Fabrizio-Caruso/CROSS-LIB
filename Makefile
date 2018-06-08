@@ -2549,14 +2549,18 @@ enterprise_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 
 
-gcc_tiny:
-	gcc -D__GCC__ \
+ncurses_tiny:
+	gcc -D__NCURSES__ \
 	-DTINY_GAME \
 	-DNO_SLEEP -DLESS_TEXT -DALT_PRINT \
+	-DNO_PRINT \
+	-DNO_WAIT \
+	-DTURN_BASED \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
+	-lncurses
 
 	
 sms_libctest:

@@ -62,7 +62,7 @@
 	#include "z88dk/sms/sms_conio_implementation.h"
 #elif defined(__ENTERPRISE__)
 	#include "z88dk/enterprise/enterprise_conio_implementation.h"
-#elif defined(__GCC__)
+#elif defined(__NCURSES__)
 	#include "gcc/ncurses_conio_implementation.h"	
 #elif defined(__KC__)
 	#include "z88dk/kc/kc_conio_implementation.h"	
@@ -186,6 +186,8 @@ typedef struct ImageStruct Image;
 		#define YSize 8
 	#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
 		#define YSize ((64/SPRITE_Y_STEP)+1)
+	#elif defined(__NCURSES__)
+		#define YSize 24
 	#else
 		#define YSize 16
 	#endif
@@ -239,6 +241,8 @@ typedef struct ImageStruct Image;
 	#elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
 		  || defined(__ATARI_LINX__) || defined(__SUPERVISION__)
 		#define XSize 20
+	#elif #defined(__NCURSES__)
+		#define XSize 80
 	#else
 		#define XSize 16
 	#endif
@@ -353,6 +357,8 @@ void _delete(unsigned char x, unsigned char y);
 	#include <stdio.h> 
 	#include <arch/zx.h>
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
+#elif defined(__NCURSES__)
+	#define SET_TEXT_COLOR(c) 
 #else
 	#define SET_TEXT_COLOR(c) textcolor(c);
 #endif
@@ -386,6 +392,10 @@ void _delete(unsigned char x, unsigned char y);
 	#include <graphics.h>
 
 	#define CLEAR_SCREEN() clg()
+#elif defined(__NCURSES__)
+	#include <ncurses.h>
+	
+	#define CLEAR_SCREEN() clear();
 #else // CONIO case
 	#define CLEAR_SCREEN() clrscr();
 #endif

@@ -41,9 +41,9 @@
 
 // Required by horizontal missile
 #if defined(FULL_GAME) 
-	unsigned char move(Character* hunterPtr, Character* preyPtr, unsigned char offset);
+	unsigned char moveCharacter(Character* hunterPtr, Character* preyPtr, unsigned char offset);
 #else
-	unsigned char move(Character* hunterPtr, unsigned char offset);
+	unsigned char moveCharacter(Character* hunterPtr, unsigned char offset);
 #endif
 
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)

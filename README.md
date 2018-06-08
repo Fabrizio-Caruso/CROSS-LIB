@@ -3,13 +3,17 @@ CrossLib and CROSS CHASE
 
 by Fabrizio Caruso (Fabrizio_Caruso@hotmail.com)
 
+## THE GOALS
+
 This is a personal project whose goal are the creation of:
 1. a universal 8-bit abstraction layer "CrossLib" for coding universal 8-games
 2. a "universal" 8-bit game "CROSS CHASE" that has to be a fun and that should run
 on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs.
 The game will be the proof of concept of how flexible the library is.
 
-HOW IS THIS DONE?
+## THE TOOL-CHAIN
+
+How is it this done?
 This is achieved  by having "CrossLib" provide APIs for the game code.
 The game and library code are  separated: 
 - the game code only depends on the APIs interface and 
@@ -33,15 +37,20 @@ Therefore the following coding choices and design rules are applied:
 
 Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects.
 
-SUPPORTED TARGETS (2017/06/08)
+## SUPPORTED TARGETS 
 
-PC versions
+(as of 2017/06/08)
+
+### PC versions
+
 There is a ncurses version that can be compiled for
 - cygwin (gcc + ncurses under cygwin/Windows) 
 - linux (gcc + ncurses under linux)
 - windows 32/64 console (mingw + ncurses even under cywin/Windows with x86_64-w64-mingw32-gcc)
 
-8-BIT versions
+
+### 8-BIT versions
+
 For most targets, more than one version is built, in order to support different hardware configuratins and expansions 
 (e.g., memory expansions, second CPU, 80-col display card, etc.).
 
@@ -109,7 +118,15 @@ For most targets, more than one version is built, in order to support different 
 
 -------------------------------------------
 
-As a consequence of the design, the code includes a framework that could be used to develop other massively multi-system games and programs. 
+## THE FUTURE
+
+As a consequence of the design, the code includes a framework that could be used to develop other massively multi-system games and programs. In the future the framework will be provided a separate project.
+
+
+## ADAPTIVE GRAPHICS
+
+The tool-chain will produce a game with simple black and white ASCII graphics and no sound if none of these is available. 
+If colors, graphics and sounds are available the tool-chain will produce a game with some simple sound eggects and with some possibly colored graphics.
 
 ![Atari 800](images/atari800.jpg)
 ![Spectrum 48k](images/spectrum.jpg)
@@ -125,7 +142,7 @@ As a consequence of the design, the code includes a framework that could be used
 ![C16 hints](images/c264_hints.jpg)
 ![C16 first level](images/c264_level1.jpg)
 
-LICENSE
+## LICENCE
 
 This software is provided 'as-is', without any express or implied warranty.
 In no event will the authors be held liable for any damages arising from

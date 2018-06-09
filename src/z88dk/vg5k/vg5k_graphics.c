@@ -92,32 +92,41 @@ void INIT_IMAGES(void)
 	#if !defined(NO_COLOR)
 		PLAYER_IMAGE._color = VG5K_CYAN;		
 		GHOST_IMAGE._color = VG5K_WHITE;
-		MISSILE_IMAGE._color = VG5K_WHITE;
-		INVINCIBLE_GHOST_IMAGE._color = VG5K_YELLOW;
-		POWERUP_IMAGE._color = VG5K_GREEN;
-		GUN_IMAGE._color = VG5K_VIOLET;
-			
-		EXTRA_POINTS_IMAGE._color = VG5K_YELLOW;
-				
 		BOMB_IMAGE._color = VG5K_RED;
-		DEAD_GHOST_IMAGE._color = VG5K_RED;
+		
+		#if !defined(TINY_GAME)
+			MISSILE_IMAGE._color = VG5K_WHITE;
+			INVINCIBLE_GHOST_IMAGE._color = VG5K_YELLOW;
+			POWERUP_IMAGE._color = VG5K_GREEN;
+			GUN_IMAGE._color = VG5K_VIOLET;
+			EXTRA_POINTS_IMAGE._color = VG5K_YELLOW;
+		#endif	
+			
+		#if !defined(NO_DEAD_GHOST)
+			DEAD_GHOST_IMAGE._color = VG5K_RED;
+		#endif
 	#endif
 	
 	GHOST_IMAGE._imageData = 'o';
-	INVINCIBLE_GHOST_IMAGE._imageData = '+';
 	BOMB_IMAGE._imageData = 'X';
 	PLAYER_IMAGE._imageData = '*';
-	POWERUP_IMAGE._imageData = 'S';
-	GUN_IMAGE._imageData = '!';
-	EXTRA_POINTS_IMAGE._imageData = '$';
 	
-	MISSILE_IMAGE._imageData = '.';
+	#if !defined(TINY_GAME)
+		INVINCIBLE_GHOST_IMAGE._imageData = '+';	
+		POWERUP_IMAGE._imageData = 'S';
+		GUN_IMAGE._imageData = '!';
+		EXTRA_POINTS_IMAGE._imageData = '$';
+		MISSILE_IMAGE._imageData = '.';
+	#endif
 	
-	DEAD_GHOST_IMAGE._imageData = 'o';
-
+	#if !defined(NO_DEAD_GHOST)
+		DEAD_GHOST_IMAGE._imageData = 'o';
+	#endif
 	#if !defined(NO_COLOR)
 		GHOST_IMAGE._color = VG5K_WHITE;
-		MISSILE_IMAGE._color = VG5K_WHITE;
+		#if !defined(TINY_GAME)
+			MISSILE_IMAGE._color = VG5K_WHITE;
+		#endif
 	#endif
 	
 	#if defined(FULL_GAME)
@@ -180,6 +189,7 @@ void CLEAR_SCREEN()
 	INIT_GRAPHICS();
 }		
 
+#if !defined(TINY_GAME)
 void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 {
 	unsigned char i; 
@@ -197,6 +207,7 @@ void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length)
 		_draw_ch(x,y+i,'|',VG5K_WHITE); 
 	} 
 }
+#endif
 
 #if defined(ASM_DISPLAY)
 	void _draw_ch_aux(int chCol, int xy)

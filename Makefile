@@ -2302,7 +2302,11 @@ c128_targets: \
 
 # TESTS
 
-SCCZ80_TEST_OPTS ?= -DTINY_GAME -DLESS_TEXT -DNO_BLINKING -DNO_CHASE -DNO_INITIAL_SCREEN -DNO_SET_SCREEN_COLORS
+SCCZ80_TEST_OPTS ?= \
+-DTINY_GAME -DLESS_TEXT \
+-DNO_BLINKING -DNO_CHASE \
+-DNO_INITIAL_SCREEN -DNO_SET_SCREEN_COLORS \
+-DNO_DEAD_GHOSTS -DNO_RANDOM_LEVEL -DNO_STATS
 
 einstein_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \
@@ -2485,6 +2489,69 @@ px8_test:
 	-create-app -o$(BUILD_PATH)/TEST_px8.bin \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TEST_px8.bin
+	
+kc_test:
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
+	-D__KC__ \
+	$(SCCZ80_TEST_OPTS) \
+	-DZ88DK_SPRITES \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DREDEFINED_CHARS \
+	-create-app -o$(BUILD_PATH)/TEST_kc_sprites.bin \
+	$(SOURCE_PATH)/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_kc_sprites.bin	
+	
+trs80_test:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
+	-lm -create-app \
+	-D__TRS80__ \
+	$(SCCZ80_TEST_OPTS) \
+	-DNO_SLEEP \
+	-DALT_PRINT \
+	-o$(BUILD_PATH)/TEST_trs80.bin \
+	$(SOURCE_PATH)/z88dk/trs80/trs80_input.c \
+	$(SOURCE_PATH)/z88dk/trs80/trs80_graphics.c \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_trs80.bin	
+
+cpm_test:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
+	-DCONIO_ADM3A \
+	-D__CPM_80X24__ \
+	-DNO_SLEEP -DNO_WAIT \
+	$(SCCZ80_TEST_OPTS) \
+	-create-app -o$(BUILD_PATH)/TEST_cpm.bin \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_cpm.bin
+	
+nascom_test:
+	$(Z88DK_PATH)$(MYZ88DK) +nascom -clib=ansi -vn -lndos \
+	-D__NASCOM__ \
+	-DSOUNDS \
+	$(SCCZ80_TEST_OPTS) \
+	-create-app -o $(BUILD_PATH)/TEST_nascom.prg \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_nascom.prg
+	
+z9001_test:
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 -clib=ansi \
+	-D__Z9001__ -vn   \
+	$(SCCZ80_TEST_OPTS) \
+	-lndos -create-app -o $(BUILD_PATH)/TEST_z9001.z80 \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_z9001.z80	
+	
+vg5k_test:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
+	$(SCCZ80_TEST_OPTS) \
+	-DSOUNDS -vn -D__VG5K__ -DASM_DISPLAY \
+	-lndos -create-app -o $(BUILD_PATH)/TEST_vg5k.prg \
+	$(SOURCE_PATH)/z88dk/vg5k/vg5k_graphics.c \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_vg5k.prg	
+	
 	
 ####################################################################################################################
 	

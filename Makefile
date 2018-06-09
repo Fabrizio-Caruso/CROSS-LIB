@@ -1986,6 +1986,7 @@ cc65_targets: \
 sccz80_test: \
 	einstein_test \
 	sc3000_test \
+	sg1000_test \
 	m5_test \
 	ace_test \
 	pc6001_test \
@@ -2328,6 +2329,18 @@ sc3000_test:
 	$(TINY_FILES) 
 	rm $(BUILD_PATH)/TEST_sc3000_16k.prg
 	rm $(BUILD_PATH)/TEST_sc3000_16k.tap	
+
+	
+sg1000_test:
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 -subtype=rom \
+	$(SCCZ80_TEST_OPTS) \
+	-clib=ansi \
+	-pragma-define:ansicolumns=32 \
+	-vn -lndos -create-app -Cz--audio \
+	-o $(BUILD_PATH)/TEST_sg1000_16k.prg \
+	$(TINY_FILES) 
+	rm $(BUILD_PATH)/TEST_sg1000_16k.prg
+	rm $(BUILD_PATH)/TEST_sg1000_16k.tap		
 	
 m5_test:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \

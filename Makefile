@@ -2734,6 +2734,45 @@ samcoupe_test:
 	mv $(TOOLS_PATH)/sam_wrapper.dsk $(BUILD_PATH)/TEST_samcoupe.dsk
 	rm $(BUILD_PATH)/FULL_samcoupe.bin
 	
+lambda_test:
+	$(Z88DK_PATH)$(MYZ88DK) +lambda \
+	-vn -D__LAMBDA__ \
+	$(SCCZ80_TEST_OPTS) \
+	-lndos -create-app -o  $(BUILD_PATH)/TEST_lambda.prg \
+	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_lambda.prg		
+	
+nc100_test:
+	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
+	-D__NC100__ \
+	-DNO_PRINT \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DREDEFINED_CHARS \
+	$(SCCZ80_TEST_OPTS) \
+	-create-app -o$(BUILD_PATH)/TEST_nc100.bin \
+	$(SOURCE_PATH)/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_nc100.bin	
+
+c128_z80_test:	
+	$(Z88DK_PATH)$(MYZ88DK) +c128 \
+	-lndos -subtype=disk \
+	-D__C128_Z80__ -DFORCE_XSIZE=40 \
+	$(SCCZ80_TEST_OPTS) \
+	-DFORCE_CONIO \
+	$(TINY_FILES) \
+	-create-app
+	$(TOOLS_PATH)/c1541 -format "crosschase,0" d64 TEST_c128_z80_40col.d64
+	$(TOOLS_PATH)/c1541 -attach TEST_c128_z80_40col.d64 -write a.ldr
+	$(TOOLS_PATH)/c1541 -attach TEST_c128_z80_40col.d64 -write a
+	mv TEST_c128_z80_40col.d64 $(BUILD_PATH)/
+	rm A.LDR
+	rm A
+	
 	
 ####################################################################################################################
 	

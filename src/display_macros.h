@@ -67,7 +67,7 @@
 #elif defined(__KC__)
 	#include "z88dk/kc/kc_conio_implementation.h"	
 #elif defined(Z88DK_SPRITES)
-	#include "z88dk/z88dk_sprites/z88dk_conio_patch.h"	
+	#include "z88dk/generic/z88dk_conio_patch.h"	
 #elif (defined(__SPECTRUM__) && !defined(CLIB_ANSI))
 	#include "z88dk/spectrum/spectrum_conio_implementation.h"
 #elif defined(__C128_Z80__) || defined(__X1__) || defined(__Z9001__) \

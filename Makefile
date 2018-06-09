@@ -2654,6 +2654,87 @@ aquarius_test:
 	mv $(SOURCE_PATH)/../TEST_aquarius.caq $(BUILD_PATH)
 	mv $(SOURCE_PATH)/../_TEST_aquarius.caq $(BUILD_PATH)	
 	
+vz200_test:
+	$(Z88DK_PATH)$(MYZ88DK) +vz -vn \
+	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma.inc \
+	-D__VZ__ -clib=ansi \
+	$(SCCZ80_TEST_OPTS) \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/TEST_vz200.vz \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_vz200.cas	
+	
+	
+microbee_test:
+	$(Z88DK_PATH)$(MYZ88DK) +bee \
+	-D__BEE__ -clib=ansi -vn -DSOUNDS  \
+	$(SCCZ80_TEST_OPTS) \
+	-lndos -create-app -o $(BUILD_PATH)/TEST_microbee.prg  \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_microbee.prg
+
+
+gal_test:
+	$(Z88DK_PATH)$(MYZ88DK) +gal \
+	-pragma-need=ansiterminal \
+	-D__GAL__ \
+	$(SCCZ80_TEST_OPTS) \
+	-vn -lndos -create-app -o  $(BUILD_PATH)/TEST_galaksija.prg \
+	$(TINY_FILES) 
+	rm $(BUILD_PATH)/TEST_galaksija.prg	
+	rm $(BUILD_PATH)/TEST_galaksija.wav
+	
+zx80_test:
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 -vn \
+	-D__ZX80__ \
+	-DTURN_BASED \
+	$(SCCZ80_TEST_OPTS) \
+	-DALT_SLEEP \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/TEST_zx80.prg \
+	$(SOURCE_PATH)/sleep_macros.c \
+	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(TINY_FILES) 
+	rm $(BUILD_PATH)/TEST_zx80.prg
+	
+zx81_test:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 -vn \
+	-D__ZX81__ \
+	-DTURN_BASED \
+	$(SCCZ80_TEST_OPTS) \
+	-DALT_SLEEP \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/TEST_zx81.prg \
+	$(SOURCE_PATH)/sleep_macros.c \
+	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(TINY_FILES) 
+	rm $(BUILD_PATH)/TEST_zx81.prg
+		
+spectrum_test:
+	$(Z88DK_PATH)$(MYZ88DK) +zx -clib=ansi -vn  \
+	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
+	-DREDEFINED_CHARS -DSOUNDS -DCLIB_ANSI -D__SPECTRUM__ \
+	-lndos -create-app \
+	$(SCCZ80_TEST_OPTS) \
+	-o $(BUILD_PATH)/TEST_spectrum.prg \
+	$(SOURCE_PATH)/z88dk/spectrum/udg.asm $(SOURCE_PATH)/z88dk/spectrum/spectrum_graphics.c \
+	$(TINY_FILES) 
+	rm $(BUILD_PATH)/TEST_spectrum.prg
+	rm $(BUILD_PATH)/TEST_spectrum_BANK_7.bin	
+	
+samcoupe_test:
+	$(Z88DK_PATH)$(MYZ88DK) +sam \
+	-D__SAM__ \
+	$(SCCZ80_TEST_OPTS) \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn \
+	-o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
+	$(TINY_FILES)
+	cp $(TOOLS_PATH)/samdos2_empty $(TOOLS_PATH)/samdos2
+	$(TOOLS_PATH)/pyz80.py -I $(TOOLS_PATH)/samdos2 $(TOOLS_PATH)/sam_wrapper.asm
+	mv $(TOOLS_PATH)/sam_wrapper.dsk $(BUILD_PATH)/TEST_samcoupe.dsk
+	rm $(BUILD_PATH)/FULL_samcoupe.bin
+	
+	
 ####################################################################################################################
 	
 # DEBUG	

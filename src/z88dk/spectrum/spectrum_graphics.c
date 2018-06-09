@@ -137,17 +137,23 @@ struct redefine_struct redefine_map[] =
 	{_PLAYER_RIGHT, { 24, 52, 25,118,152, 24, 20, 20}},	
 	{_PLAYER_LEFT, { 24, 44,152,110, 25, 24, 40, 40}},
 	{_GHOST, {129,126,165,129,129,189,129,126}},
+	{_BOMB, { 60, 66,165,153,153,165, 66, 60}},
+	
+	#if defined(FULL_GAME)
 	{_RIGHT_ENEMY_MISSILE, {  0,  0, 15,252,252, 15,  0,  0}},
 	{_LEFT_ENEMY_MISSILE, {  0,  0,240, 63, 63,240,  0,  0}},
+	#endif
+	
+	#if !defined(TINY_GAME)
 	{_INVINCIBLE_GHOST, { 60, 66,165,129, 90, 36, 36, 60}},
 	{_GUN, {  0,128,126,200,248,192,128,  0}},
 	{_POWERUP, {  0, 60, 54,223,231,122, 36, 24}},
 	{_MISSILE, {  0,  0,  8, 56, 28, 16,  0,  0}},
-	{_BOMB, { 60, 66,165,153,153,165, 66, 60}},
 	{_BUBBLE, { 24, 60, 60, 60,126, 90, 66, 66}},
 	{_INVINCIBILITY, { 24, 36, 24,  0,153,  0, 36,102}},
 	{_VERTICAL_BRICK, { 24, 24, 24, 48, 24, 12, 24, 24}},
-	{_HORIZONTAL_BRICK, {  0,  0,  0,255,  0,  0,  0,  0}}			
+	{_HORIZONTAL_BRICK, {  0,  0,  0,255,  0,  0,  0,  0}}		
+	#endif
 };
 #endif
 
@@ -186,7 +192,9 @@ void INIT_IMAGES(void)
 		PLAYER_IMAGE._color = COLOR_CYAN;
 		#endif
 		BOMB_IMAGE._color = COLOR_RED;
+		#if !defined(NO_DEAD_GHOST)
 		DEAD_GHOST_IMAGE._color = COLOR_RED;
+		#endif
 		
 		#if !defined(TINY_GAME)
 			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
@@ -213,13 +221,16 @@ void INIT_IMAGES(void)
 		PLAYER_LEFT._imageData = _PLAYER_LEFT;	
 		
 		GHOST_IMAGE._imageData = _GHOST;
-		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 		BOMB_IMAGE._imageData = _BOMB;		
+
+		#if !defined(TINY_GAME)
+		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 		POWERUP_IMAGE._imageData = _POWERUP;
 		FREEZE_IMAGE._imageData = _POWERUP; 		
 		GUN_IMAGE._imageData = _GUN;
 		MISSILE_IMAGE._imageData = _MISSILE;
-
+		#endif
+		
 		#if defined(FULL_GAME)
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;		
@@ -233,7 +244,6 @@ void INIT_IMAGES(void)
 	#else
 		GHOST_IMAGE._imageData = 'o';
 		BOMB_IMAGE._imageData = 'X';
-		
 		PLAYER_IMAGE._imageData = '*';
 		
 		#if !defined(TINY_GAME)
@@ -249,8 +259,10 @@ void INIT_IMAGES(void)
 		#endif	
 	#endif
 	
+	#if !defined(NO_DEAD_GHOST)
 	DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
-
+	#endif
+	
 	#if defined(COLOR)
 		GHOST_IMAGE._color = COLOR_WHITE;
 		

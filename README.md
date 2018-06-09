@@ -28,6 +28,9 @@ The program is written in ANSI C and currently compiled with
 
 For other targets, GCC6809 for other 6809 targets, sdcc (proper or its CPCTelera version), as well as "GCC for TI" for the Texas TI99/4a are being taken into consideration. 
 
+
+## THE GAME CODE
+
 The game should be as portable as possible.
 Therefore the following coding choices and design rules are applied:
 1. ANSI C (for the game logic);

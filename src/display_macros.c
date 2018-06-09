@@ -95,7 +95,7 @@ Image BOMB_IMAGE;
 	//
 #elif defined(__CPC__)
 	//
-#elif defined(__AQUARIUS__) && defined(TINY_GAME)
+#elif defined(__AQUARIUS__) && defined(EXT_GRAPHICS)
 	//	
 #elif defined(__NES__) && defined(NES_COLOR)
 	//	

@@ -603,7 +603,7 @@ aquarius_exp_4k:
 	-opt-code-size \
 	$(ZSDCC_OPTS) \
 	-vn \
-	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME \
+	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DEXT_GRAPHICS \
 	-pragma-include:$(SOURCE_PATH)/../cfg/zpragma_clib.inc \
 	-lndos -o TINY_aquarius_exp_4k -create-app \
 	$(SOURCE_PATH)/z88dk/aquarius/aquarius_graphics.c \
@@ -2642,6 +2642,17 @@ msx_test:
 	$(SOURCE_PATH)/z88dk/msx/msx_graphics.c $(SOURCE_PATH)/z88dk/psg/psg_sounds.c \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TEST_msx.prg 	
+	
+aquarius_test: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn \
+	-DSOUNDS -D__AQUARIUS__  \
+	$(SCCZ80_TEST_OPTS) \
+	-lndos \
+	-o TEST_aquarius -create-app \
+	$(TINY_FILES)
+	rm $(SOURCE_PATH)/../TEST_aquarius
+	mv $(SOURCE_PATH)/../TEST_aquarius.caq $(BUILD_PATH)
+	mv $(SOURCE_PATH)/../_TEST_aquarius.caq $(BUILD_PATH)	
 	
 ####################################################################################################################
 	

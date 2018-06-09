@@ -355,7 +355,7 @@ void _delete(unsigned char x, unsigned char y);
 	|| (defined(__SVI__) && defined(MSX_MODE0)) || defined(__MSX__) \
 	|| defined(__ATMOS__) \
 	|| (defined(__VIC20__) && defined(VIC20_UNEXPANDED)) \
-	|| defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(TINY_GAME)) \
+	|| defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(EXT_GRAPHICS)) \
 	|| defined(Z88DK_SPRITES)
 	#define SET_TEXT_COLOR(c) 
 #elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
@@ -377,7 +377,7 @@ void _delete(unsigned char x, unsigned char y);
 	#define CLEAR_SCREEN()  {zx_cls(PAPER_BLACK|INK_WHITE);}
 #elif defined(__CPC__) 
 	#define CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
-#elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(TINY_GAME)) \
+#elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(EXT_GRAPHICS)) \
 		|| defined(__TRS80__) || defined(__EG2K__) \
 		|| defined(__CMOC__) && !defined(__WINCMOC__) \
 		|| defined(__VG5K__)  \

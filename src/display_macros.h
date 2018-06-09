@@ -363,7 +363,8 @@ void _delete(unsigned char x, unsigned char y);
 	#include <arch/zx.h>
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
 #elif defined(__NCURSES__)
-	#define SET_TEXT_COLOR(c) 
+	#include <ncurses.h>
+	#define SET_TEXT_COLOR(c) attron(COLOR_PAIR(c)) 
 #else
 	#define SET_TEXT_COLOR(c) textcolor(c);
 #endif

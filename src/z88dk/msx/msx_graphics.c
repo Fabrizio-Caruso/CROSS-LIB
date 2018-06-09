@@ -220,23 +220,30 @@ void INIT_IMAGES(void)
 {		
 
 	GHOST_IMAGE._imageData = _GHOST;
-	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
 	#if !defined(REDEFINED_CHARS)
-	PLAYER_IMAGE._imageData = _PLAYER;
+		PLAYER_IMAGE._imageData = _PLAYER;
 	#endif
-	POWERUP_IMAGE._imageData = _POWERUP;
-	GUN_IMAGE._imageData = _GUN;
-	EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 	
-	MISSILE_IMAGE._imageData = _MISSILE;
-	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
-
-	PLAYER_DOWN._imageData = _PLAYER_DOWN;
-	PLAYER_UP._imageData = _PLAYER_UP;	
-	PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-	PLAYER_LEFT._imageData = _PLAYER_LEFT;		
-
+	#if !defined(TINY_GAME)
+		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;	
+		POWERUP_IMAGE._imageData = _POWERUP;
+		GUN_IMAGE._imageData = _GUN;
+		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
+		MISSILE_IMAGE._imageData = _MISSILE;
+	#endif
+	
+	#if !defined(NO_DEAD_GHOST)
+		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
+	#endif
+	
+	#if defined(REDEFINED_CHARS)
+		PLAYER_DOWN._imageData = _PLAYER_DOWN;
+		PLAYER_UP._imageData = _PLAYER_UP;	
+		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+		PLAYER_LEFT._imageData = _PLAYER_LEFT;		
+	#endif
+	
 	#if defined(FULL_GAME)
 		FREEZE_IMAGE._imageData = _FREEZE;
 	
@@ -288,7 +295,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 }
 #endif
 
-#if defined(REDEFINED_CHARS)
+#if defined(REDEFINED_CHARS) && !defined(TINY_GAME)
 	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	{ 
 		unsigned char i;

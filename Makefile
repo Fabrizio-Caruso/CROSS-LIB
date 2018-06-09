@@ -2633,6 +2633,15 @@ svi_test:
 	$(SOURCE_PATH)/z88dk/psg/psg_sounds.c  \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TEST_svi
+
+msx_test:
+	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
+	-DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
+	$(SCCZ80_TEST_OPTS) \
+	-create-app -o $(BUILD_PATH)/TEST_msx.prg \
+	$(SOURCE_PATH)/z88dk/msx/msx_graphics.c $(SOURCE_PATH)/z88dk/psg/psg_sounds.c \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_msx.prg 	
 	
 ####################################################################################################################
 	

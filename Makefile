@@ -2002,7 +2002,7 @@ sccz80_test: \
 	px4_test \
 	px8_test \
 	kc_test \
-	trs80_test
+	trs80_test \
 	cpm_test \
 	nascom_test \
 	z9001_test \

@@ -2551,7 +2551,88 @@ vg5k_test:
 	$(SOURCE_PATH)/z88dk/vg5k/vg5k_graphics.c \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TEST_vg5k.prg	
+
+cpc_test:	
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -DREDEFINED_CHARS -vn  -clib=ansi \
+	-D__CPC__ -DSOUNDS \
+	$(SCCZ80_TEST_OPTS) \
+	-DCPCRSLIB \
+	-pragma-define:REGISTER_SP=-1 \
+	-lndos -create-app -o 	$(BUILD_PATH)/TEST_cpc.prg \
+	$(TOOLS_PATH)/cpcrslib/cpc_Chars.asm \
+	$(TOOLS_PATH)/cpcrslib/cpc_Chars8.asm \
+	$(SOURCE_PATH)/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/z88dk/cpc/cpc_cpcrslib_graphics.c \
+	$(TINY_FILES)
+	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/TEST_cpc.cpc  $(BUILD_PATH)/TEST_cpc.cdt
+	$(TOOLS_PATH)/cpcxfsw -nd TEST_cpc.dsk
+	$(TOOLS_PATH)/cpcxfsw TEST_cpc.dsk -p build/TEST_cpc.cpc xchase
+	mv TEST_cpc.dsk $(BUILD_PATH)/
+	rm $(BUILD_PATH)/TEST_cpc.cpc 
+	rm $(BUILD_PATH)/TEST_cpc.prg	
+
+mc1000_test:	
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 \
+	-subtype=gaming -pragma-define:ansicolumns=32 \
+	$(SCCZ80_TEST_OPTS) \
+	-clib=ansi \
+	-D__MC1000__ -DSOUNDS \
+	-vn  -lndos -create-app -Cz--audio \
+	$(SOURCE_PATH)/z88dk/psg/psg_sounds.c \
+	$(TINY_FILES)
+	mv a.wav $(BUILD_PATH)/TEST_mc1000.wav
+	rm a.bin
+	rm a.cas	
+
+sharp_mz_test:	
+	$(Z88DK_PATH)$(MYZ88DK) +mz \
+	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
+	-DSOUNDS \
+	$(SCCZ80_TEST_OPTS) \
+	-lndos -create-app -o $(BUILD_PATH)/TEST_sharp_mz.prg \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_sharp_mz.prg
+	mv $(BUILD_PATH)/TEST_sharp_mz.mzt $(BUILD_PATH)/TEST_sharp_mz.mzf
+
+mtx_test:
+	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 \
+	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app -o TEST_mtx.bin -vn \
+	-DSOUNDS \
+	$(SCCZ80_TEST_OPTS) \
+	-lndos \
+	$(TINY_FILES)
+	rm TEST_mtx.bin
+	mv TEST_mtx.wav $(BUILD_PATH)/TEST_mtx.wav
+	mv TEST_mtx $(BUILD_PATH)/TEST_mtx.mtx
+
+abc80_test: 	
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
+	-D__ABC80__ -clib=ansi -vn -DSOUNDS  -lndos \
+	$(SCCZ80_TEST_OPTS) \
+	-create-app -o a \
+	$(TINY_FILES)
+	rm a
+	mv a.ihx $(BUILD_PATH)/TEST_abc80.ihx 	
 	
+
+p2000_test:
+	$(Z88DK_PATH)$(MYZ88DK) +p2000 -clib=ansi -D__P2000__ -vn \
+	-DSOUNDS  \
+	$(SCCZ80_TEST_OPTS) \
+	-lndos -create-app -o $(BUILD_PATH)/TEST_p2000.prg \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_p2000.prg	
+
+svi_test:
+	$(Z88DK_PATH)$(MYZ88DK) +svi \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
+	-DSOUNDS \
+	-D__SVI__ \
+	$(SCCZ80_TEST_OPTS) \
+	-create-app -o $(BUILD_PATH)/TEST_svi \
+	$(SOURCE_PATH)/z88dk/psg/psg_sounds.c  \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TEST_svi
 	
 ####################################################################################################################
 	

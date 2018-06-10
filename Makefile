@@ -2096,14 +2096,36 @@ all: cc65_targets z88dk_targets cmoc_targets
 clean:
 	rm -rf $(BUILD_PATH)/*
 	rm -rf $(SOURCE_PATH)/*.o
-	rm -rf $(SOURCE_PATH)/apple2/*.o
-	rm -rf $(SOURCE_PATH)/aquarius/*.o
-	rm -rf $(SOURCE_PATH)/atari/*.o
-	rm -rf $(SOURCE_PATH)/atmos/*.o
-	rm -rf $(SOURCE_PATH)/c64/*.o
-	rm -rf $(SOURCE_PATH)/c264/*.o
-	rm -rf $(SOURCE_PATH)/c128/*.o
-	rm -rf $(SOURCE_PATH)/vic20/*.o
+	rm -rf $(SOURCE_PATH)/cc65/atari/*.o
+	rm -rf $(SOURCE_PATH)/cc65/atari_lynx/*.o	
+	rm -rf $(SOURCE_PATH)/cc65/atmos/*.o
+	rm -rf $(SOURCE_PATH)/cc65/c64/*.o
+	rm -rf $(SOURCE_PATH)/cc65/c264/*.o
+	rm -rf $(SOURCE_PATH)/cc65/gamate/*.o
+	rm -rf $(SOURCE_PATH)/cc65/generic/*.o
+	rm -rf $(SOURCE_PATH)/cc65/supervision/*.o	
+	rm -rf $(SOURCE_PATH)/cc65/sid/*.o	
+	rm -rf $(SOURCE_PATH)/cc65/vic20/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/aquarius/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/bit_bang/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/psg/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/zx81/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/z88dk_sprites/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/vg5k/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/trs80/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/svi/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/msx/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/cpc/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/enterprise/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/spectrum/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/kc/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/generic/*.o
+	rm -rf $(SOURCE_PATH)/z88dk/sms/*.o
+	rm -rf $(SOURCE_PATH)/wincmoc/*.o
+	rm -rf $(SOURCE_PATH)/cmoc/*.o
+	rm -rf $(SOURCE_PATH)/gcc/*.o
+	rm -rf $(SOURCE_PATH)/generic/memory_mapped/*.o
+	rm -rf $(SOURCE_PATH)/generic/patch/*.o	
 	rm -rf $(SOURCE_PATH)/msx/*.o
 	rm -rf $(SOURCE_PATH)/cpc/*.o
 	rm -rf $(SOURCE_PATH)/svi/*.o

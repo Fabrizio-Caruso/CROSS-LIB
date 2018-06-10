@@ -516,8 +516,10 @@ int main(void)
 						checkMissile(&missile);
 					}
 				#else
+					#if !defined(NO_CHASE)
 					chaseCharacter(ghostSlowDown);
-					++ghostLevel;						
+					++ghostLevel;
+					#endif
 				#endif
 				
 				// Check collisions bombs vs ghosts

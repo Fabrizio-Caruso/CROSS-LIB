@@ -116,7 +116,6 @@ extern unsigned char zombieActive;
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	void moveTowardCharacter(Character* preyPtr, Character *hunterPtr, unsigned char strategy)
 	{
-		#if !defined(NO_CHASE)
 		if(rand()%10 > strategy) // Select blind chase strategy
 			{ // 0 - 4
 				blindChaseCharacterXStrategy(hunterPtr, preyPtr);	
@@ -125,7 +124,6 @@ extern unsigned char zombieActive;
 			{ // 5 - 9
 				blindChaseCharacterYStrategy(hunterPtr, preyPtr);
 			}
-		#endif
 	}
 #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
 	void moveTowardCharacter(Character* preyPtr, Character *hunterPtr)
@@ -167,7 +165,6 @@ void chaseCharacter(Character *preyPtr, unsigned short slowDown)
 void chaseCharacter(unsigned short slowDown)	
 #endif
 {
-	#if !defined(NO_CHASE)
 	unsigned char i;
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
@@ -188,5 +185,4 @@ void chaseCharacter(unsigned short slowDown)
 			#endif
 		}
 	}
-	#endif
 }

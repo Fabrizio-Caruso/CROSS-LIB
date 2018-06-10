@@ -3,9 +3,9 @@ CrossLib and CROSS CHASE
 
 by Fabrizio Caruso (Fabrizio_Caruso@hotmail.com)
 
-## THE GOALS
+## THE GOAL
 
-This is a personal project whose goal are the creation of:
+This is a personal project whose goal is the creation of:
 1. a universal 8-bit abstraction layer "CrossLib" for coding universal 8-games
 2. a "universal" 8-bit game "CROSS CHASE" that has to be a fun and that should run
 on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs.
@@ -27,6 +27,9 @@ The program is written in ANSI C and currently compiled with
 - WinCMOC for some 6809 targets (https://sourceforge.net/projects/cmoc-win32/).
 
 For other targets, GCC6809 for other 6809 targets, sdcc (proper or its CPCTelera version), as well as "GCC for TI" for the Texas TI99/4a are being taken into consideration. 
+
+
+## THE GAME CODE
 
 The game should be as portable as possible.
 Therefore the following coding choices and design rules are applied:

@@ -608,8 +608,11 @@ int main(void)
 				SKIP_DRAW
 					displayGhosts();
 					
-				#if defined(TURN_BASED)
-					MOVE_PLAYER();				
+				#if defined(TURN_BASED) 
+					if((loop<TURN_BASED_MAX_LOOP) || loop&1)
+					{
+						MOVE_PLAYER();
+					}					
 					_DRAW_PLAYER();	
 				#endif				
 			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]

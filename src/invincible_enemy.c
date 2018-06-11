@@ -78,6 +78,12 @@ void computeInvincibleGhostParameters(void)
 
 #define ONE_TRIGGER_REACHED (INACTIVITY_COUNT_DOWN_REACHED || GHOST_COUNT_TRIGGER_REACHED)
 
+#if defined(__NCURSES)
+	#define SKULL_RAND_CONDITION ((rand()&0x7fff)>invincibleSlowDown)
+#else
+	#define SKULL_RAND_CONDITION (rand()>invincibleSlowDown)
+#endif
+
 void handle_invincible_ghost(void)
 {
 	if(!invincibleGhost._status)
@@ -105,7 +111,7 @@ void handle_invincible_ghost(void)
 	{ 	
 		invincibleSlowDown = computeInvincibleSlowDown();
 
-		if(rand()>invincibleSlowDown)
+		if(SKULL_RAND_CONDITION)
 		{
 			TOCK_SOUND();
 			deleteInvincibleGhost(&invincibleGhost);

@@ -178,7 +178,7 @@ void chaseCharacter(unsigned short slowDown)
 		#if defined(FULL_GAME)
 			if((ghosts[i]._status || (zombieActive && loop&1)) && GHOST_RANDOM_CONDITION)
 		#else
-			if((ghosts[i]._status) && (rand()>slowDown))	
+			if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)	
 		#endif
 		{
 			deleteGhost(&ghosts[i]);

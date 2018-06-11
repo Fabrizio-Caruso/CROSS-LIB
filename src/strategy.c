@@ -157,6 +157,12 @@ void computeStrategy(void)
 #endif
 
 
+#if defined(__NCURSES__)
+	#define GHOST_RANDOM_CONDITION ((rand()&0x7fff)>slowDown)
+#else
+	#define GHOST_RANDOM_CONDITION (rand()>slowDown)
+#endif
+
 // #if defined(FULL_GAME)
 // Ghosts move to new positions if they get their chanche
 #if defined(FULL_GAME)
@@ -170,7 +176,7 @@ void chaseCharacter(unsigned short slowDown)
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{
 		#if defined(FULL_GAME)
-			if((ghosts[i]._status || (zombieActive && loop&1)) && (rand()>slowDown))
+			if((ghosts[i]._status || (zombieActive && loop&1)) && GHOST_RANDOM_CONDITION)
 		#else
 			if((ghosts[i]._status) && (rand()>slowDown))	
 		#endif

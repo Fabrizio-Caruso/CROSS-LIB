@@ -329,10 +329,10 @@ extern Character player;
 			{ 
 				movePlayerByKeyboard(ch); 
 			} 
-			else 
-			{ 
-				usleep(600000); 
-			} 
+			// else 
+			// { 
+				// usleep(600000); 
+			// } 
 			usleep(100000);
 		} 
 	#elif defined(__SPECTRUM__)

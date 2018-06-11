@@ -156,7 +156,7 @@ void checkMissileVsGhosts(Character * missilePtr)
 	};
 }
 
-void checkMissileVsInvincibleGhost(Character *bulletPtr)
+void checkMissileVsInvincibleGhost(register Character *bulletPtr)
 {
 	if(invincibleGhost._status && 
 	   areCharctersAtSamePosition(bulletPtr, &invincibleGhost))

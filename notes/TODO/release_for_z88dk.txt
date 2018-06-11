@@ -3,5 +3,6 @@ TODO for the integration release for Z88DK
 1. re-factor input_macros.h/c
 2. use joystick in Z88DK
 3. non-turn-based ncurses version
-4. test major targets with latest Z88DK snapshots
+4. use register in pointers to Characrters passed as parameters
+5. test major targets with latest Z88DK snapshots
 

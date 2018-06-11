@@ -188,7 +188,7 @@ void checkMissileVsInvincibleGhost(Character *bulletPtr)
 }
 
 
-void _moveMissile(Character *missilePtr, unsigned short missileDirection)
+void _moveMissile(register Character *missilePtr, unsigned short missileDirection)
 {
 	deleteMissile(missilePtr);
 	switch(missileDirection)
@@ -239,7 +239,7 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 	}
 #endif
 
-void moveMissile(Character * missilePtr, unsigned short missileDirection)
+void moveMissile(register Character * missilePtr, unsigned short missileDirection)
 {
 	_moveMissile(missilePtr, missileDirection);
 	if(wallReached(missilePtr) && missilePtr->_status)

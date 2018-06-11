@@ -273,11 +273,11 @@ void initialScreen(void)
 #endif
 
 #if defined(SLOW_DOWN)
-	#if defined(__ZX80__)
-	void _slow_down(void)
-	{
-		gen_tv_field();
-	}	
+	#  if defined(__NCURSES__)
+		void _slow_down(void)
+		{
+			usleep(GAME_SLOW_DOWN*250);
+		}
 	#else
 	void _slow_down(void)
 	{

@@ -155,6 +155,9 @@
 		#define GAME_SLOW_DOWN 0
 	#endif
 #else	
+	// #  if defined(__NCURSES__)
+		// #define SLOW_DOWN
+		// #define GAME_SLOW_DOWN 300
 	#  if defined(__SUPERVISION__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 3300			

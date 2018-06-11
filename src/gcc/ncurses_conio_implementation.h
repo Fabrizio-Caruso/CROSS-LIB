@@ -35,9 +35,9 @@
 #define NCURSES_CONIO_IMPLEMENTATION
 	#include <ncurses.h>
 	
-	#define gotoxy(x,y) move(y,x)
+	#define gotoxy(x,y) do { move(y,x); refresh(); } while(0)
 	#define cputc(c) do { addch(c); refresh(); } while(0)
-	#define cgetc() getch()
+	#define cgetc() do { getch(); refresh(); } while(0)
 
 #endif // _NCURSES_CONIO_IMPLEMENTATION
 

@@ -139,7 +139,12 @@ extern Character player;
 	#  if defined(__NCURSES__)
 		void WAIT_PRESS(void)
 		{
-			getch();
+			#if !defined(TURN_BASED)
+				while(getch()==ERR)
+				{}
+			#else
+				getch();
+			#endif
 		}
 	#elif defined(NO_WAIT)
 		void WAIT_PRESS(void)
@@ -315,7 +320,21 @@ extern Character player;
 	#if defined(NO_INPUT)
 		void MOVE_PLAYER(void) {}
 	#elif defined(TURN_BASED)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(TURN_BASED_INPUT);} 	
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(TURN_BASED_INPUT);} 
+	#elif defined(__NCURSES__)
+		void MOVE_PLAYER(void) 
+		{ 
+			char ch = getch(); 
+			if(ch!=ERR) 
+			{ 
+				movePlayerByKeyboard(ch); 
+			} 
+			else 
+			{ 
+				usleep(600000); 
+			} 
+			usleep(100000);
+		} 
 	#elif defined(__SPECTRUM__)
 		#if defined(CLIB_ANSI)
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}

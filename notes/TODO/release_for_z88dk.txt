@@ -4,5 +4,6 @@ TODO for the integration release for Z88DK
 2. use joystick in Z88DK
 3. non-turn-based ncurses version
 4. use register in pointers to Characrters passed as parameters
-5. test major targets with latest Z88DK snapshots
+5. split settings
+6. test major targets with latest Z88DK snapshots
 

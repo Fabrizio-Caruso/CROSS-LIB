@@ -169,7 +169,7 @@ void deleteCharacter(Character * characterPtr);
 #define deleteInvincibleGhost(characterPtr) deleteCharacter(characterPtr);
 #define deletePowerUp(characterPtr) deleteCharacter(characterPtr);
 
-void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr);
+void initializeCharacter(register Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr);
 
 void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y);
 

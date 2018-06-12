@@ -87,7 +87,7 @@ void playerDies(void)
 	}
 #endif
 
-void initializeCharacter(Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr)
+void initializeCharacter(register Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr)
 {
 	characterPtr->_x = x;
 	characterPtr->_y = y;

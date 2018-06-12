@@ -37,7 +37,7 @@
 	
 	#define gotoxy(x,y) do { move(y,x); refresh(); } while(0)
 	#define cputc(c) do { addch(c); refresh(); } while(0)
-	#define cgetc() do { getch(); refresh(); } while(0)
+	#define cgetc() do { flushinp(); getch(); refresh(); } while(0)
 
 #endif // _NCURSES_CONIO_IMPLEMENTATION
 

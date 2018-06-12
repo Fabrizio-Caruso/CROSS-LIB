@@ -196,7 +196,7 @@ unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Charac
 #if defined(FULL_GAME)
 	unsigned char innerWallReached(register Character *characterPtr);
 	unsigned char horizontalWallsReached(register Character *characterPtr);
-	unsigned char nearInnerWall(Character *characterPtr);
+	unsigned char nearInnerWall(register Character *characterPtr);
 #endif
 
 #endif // _CHARACTER

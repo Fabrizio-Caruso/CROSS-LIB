@@ -243,7 +243,7 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 			    (characterPtr->_x>=-1+XSize-horizontalWallsLength));
 	}	
 	
-	unsigned char nearInnerWall(Character *characterPtr)
+	unsigned char nearInnerWall(register Character *characterPtr)
 	{
 		return (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
 			   (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));

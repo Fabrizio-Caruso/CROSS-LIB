@@ -322,19 +322,24 @@ extern Character player;
 	#elif defined(TURN_BASED)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(TURN_BASED_INPUT);} 
 	#elif defined(__NCURSES__)
+		#define INPUT_LOOPS 40
 		void MOVE_PLAYER(void) 
 		{ 
-			char ch = getch(); 
-			if(ch!=ERR) 
-			{ 
-				movePlayerByKeyboard(ch); 
-			} 
-			// else 
-			// { 
-				// usleep(600000); 
-			// } 
-			usleep(100000);
-		} 
+			unsigned long delay = 0;
+			char _ch;
+			char ch;
+
+			while(delay<INPUT_LOOPS)
+			{	
+				_ch = getch();
+				if(_ch!=ERR)
+				{
+					ch = _ch;
+				}
+				++delay;
+			}
+			movePlayerByKeyboard(ch); 
+		}  
 	#elif defined(__SPECTRUM__)
 		#if defined(CLIB_ANSI)
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}

@@ -276,7 +276,7 @@ void initialScreen(void)
 	#  if defined(__NCURSES__)
 		void _slow_down(void)
 		{
-			usleep(GAME_SLOW_DOWN*250);
+			usleep(GAME_SLOW_DOWN*1024);
 		}
 	#else
 	void _slow_down(void)

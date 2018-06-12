@@ -181,7 +181,7 @@ void die(Character * playerPtr);
 
 void playerDies(void);
 
-void checkBombsVsGhost(Character * ghostPtr);
+void checkBombsVsGhost(register Character * ghostPtr);
 						
 void checkBombsVsGhosts(void);
 						

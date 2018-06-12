@@ -132,7 +132,7 @@ void ghostDies(Character * ghostPtr)
 	printGhostCountStats();
 }
 
-void checkBombsVsGhost(Character * ghostPtr)
+void checkBombsVsGhost(register Character * ghostPtr)
 {
 	
 	if(ghostPtr->_status && playerReachedBombs(ghostPtr))

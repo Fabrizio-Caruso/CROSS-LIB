@@ -129,7 +129,7 @@ extern Item extraPoints;
 		extraPoints._coolDown = SECOND_EXTRA_POINTS_COOL_DOWN;//(EXTRA_POINTS_COOL_DOWN<<4); // second time is harder		
 	}
 
-	void handle_item(Item *itemPtr)
+	void handle_item(register Item *itemPtr)
 	{
 		// Manage item
 		if(itemPtr->_character._status == 1)

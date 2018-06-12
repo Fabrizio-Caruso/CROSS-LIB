@@ -40,7 +40,7 @@
 
 	void extraPointsEffect(void);
 
-	void handle_item(Item *itemPtr);
+	void handle_item(register Item *itemPtr);
 
 
 #endif // !defined(TINY_GAME)

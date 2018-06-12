@@ -231,7 +231,7 @@ void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned 
 }
 
 #if defined(FULL_GAME)
-	unsigned char innerWallReached(Character *characterPtr)
+	unsigned char innerWallReached(register Character *characterPtr)
 	{
 		return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
 	}

@@ -151,7 +151,7 @@
 	
 
 #if defined(BETWEEN_LEVEL)
-	void spiral(Character *characterPtr, unsigned char length);
+	void spiral(register Character *characterPtr, unsigned char length);
 #endif
 
 void fillLevelWithCharacters(unsigned char nGhosts);

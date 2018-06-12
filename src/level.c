@@ -180,7 +180,7 @@ void _spiral_slow_down()
 	for(k=0;k<254;++k){};
 }
 
-void spiral(Character *characterPtr, unsigned char length)
+void spiral(register Character *characterPtr, unsigned char length)
 {
 	unsigned char i;
 	unsigned char j;

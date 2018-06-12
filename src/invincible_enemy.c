@@ -78,7 +78,7 @@ void computeInvincibleGhostParameters(void)
 
 #define ONE_TRIGGER_REACHED (INACTIVITY_COUNT_DOWN_REACHED || GHOST_COUNT_TRIGGER_REACHED)
 
-#if defined(__NCURSES)
+#if defined(__NCURSES__)
 	#define SKULL_RAND_CONDITION ((rand()&0x7fff)>invincibleSlowDown)
 #else
 	#define SKULL_RAND_CONDITION (rand()>invincibleSlowDown)

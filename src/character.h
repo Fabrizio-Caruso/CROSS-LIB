@@ -187,7 +187,7 @@ void checkBombsVsGhosts(void);
 						
 unsigned char safeLocation(unsigned char x, unsigned char y, Character *danger, unsigned char dangerSize);
 
-void relocateCharacter(Character * characterPtr, Character *danger, unsigned char dangerSize);
+void relocateCharacter(register Character * characterPtr, Character *danger, unsigned char dangerSize);
 
 void ghostDies(Character * ghostPtr);
 

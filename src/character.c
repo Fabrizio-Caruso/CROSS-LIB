@@ -195,37 +195,21 @@ unsigned char safeLocation(unsigned char x, unsigned char y, Character *dangerPt
 }
 
 
-void relocateCharacter(Character * characterPtr, Character *dangerPtr, unsigned char dangerSize)
+void relocateCharacter(register Character * characterPtr, Character *dangerPtr, unsigned char dangerSize)
 {
-	unsigned char x; // = 0; 
-	unsigned char y; // = 0; 
-	// unsigned char x_offset; 
-	// unsigned char y_offset;
+	unsigned char x; 
+	unsigned char y;  
 	unsigned char safe;
+	
 	do
 	{
-		// x_offset = 
-		// y_offset = 
-		
 		x = characterPtr->_x - (unsigned char)(RELOCATE_RANGE/2) + (unsigned char)(rand() % RELOCATE_RANGE);
 		y = characterPtr->_y - (unsigned char)(RELOCATE_RANGE/2) + (unsigned char)(rand() % RELOCATE_RANGE);
 
-		// if((x<SAFETY) || (x>XSize-SAFETY) || (y<=SAFETY) || (y>YSize-SAFETY) || (x_offset==0) && (y_offset==0) )
-			// continue; // TODO: Optimize it!
-
 		safe = safeLocation(x,y,dangerPtr, dangerSize);
 
-		// if((x_offset==0) && (y_offset==0))
-			// continue		
 	} while(!safe);
-	// if(1) //characterPtr== &player)
-	// {
-		// gotoxy(2,3); cprintf("x_offset: %u\n", x_offset);
-		// gotoxy(2,6); cprintf("y_offset: %u\n", y_offset);		
-		// gotoxy(2,9 );cprintf("x: %u\n", x );
-		// gotoxy(2,12);cprintf("y: %u\n", y);
-		// sleep(1);
-	// }
+
 	characterPtr->_x = x;
 	characterPtr->_y = y;
 }

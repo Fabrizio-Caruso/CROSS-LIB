@@ -136,7 +136,7 @@ oric1_16k:
 # 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -m 746e3d1.map -Wl -vm 
 	
 vic20_unexpanded: 
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 \
 	-DVIC20_UNEXPANDED \
 	-DNO_PRINT \
 	-DALT_PRINT \
@@ -162,7 +162,7 @@ vic20_unexpanded:
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg	
 	
 vic20_exp_3k:
-	$(CC65_PATH)$(MYCC65) -Or  -t vic20 \
+	$(CC65_PATH)$(MYCC65) -O  -t vic20 \
 	-DALT_PRINT -DREDEFINED_CHARS -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 -DROUND_ENEMIES -DTINY_GAME -DSOUNDS \
 	--config $(SOURCE_PATH)/../cfg/cc65/vic20-3k_GFX.cfg \
 	$(SOURCE_PATH)/cc65/vic20/vic20_sounds_3k.c \
@@ -174,7 +174,7 @@ vic20_exp_3k:
 	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 
 vic20_exp_8k: 
-	$(CC65_PATH)$(MYCC65) -Or  -t vic20  -DSOUNDS -DREDEFINED_CHARS --config $(SOURCE_PATH)/../cfg/cc65/vic20-8k_GFX.cfg \
+	$(CC65_PATH)$(MYCC65) -O  -t vic20  -DSOUNDS -DREDEFINED_CHARS --config $(SOURCE_PATH)/../cfg/cc65/vic20-8k_GFX.cfg \
 	$(SOURCE_PATH)/cc65/vic20/udc.s $(SOURCE_PATH)/cc65/vic20/vic20_graphics.c  $(SOURCE_PATH)/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/invincible_enemy.c  \
 	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/input_macros.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/missile.c \
@@ -335,7 +335,7 @@ c16_16k:
 	-o $(BUILD_PATH)/LIGHT_c16_16k.prg
 	
 c16_32k: 
-	$(CC65_PATH)$(MYCC65) -O -t c16 --config $(SOURCE_PATH)/../cfg/cc65/c16-32k.cfg \
+	$(CC65_PATH)$(MYCC65) -Or -t c16 --config $(SOURCE_PATH)/../cfg/cc65/c16-32k.cfg \
 	-DREDEFINED_CHARS -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	$(SOURCE_PATH)/cc65/c264/c264_graphics.c $(SOURCE_PATH)/cc65/c264/c264_sounds.c \
 	$(SOURCE_PATH)/display_macros.c \
@@ -351,7 +351,7 @@ c16_32k:
 # 	$(SOURCE_PATH)/c264/c264_alt_print.c 
 
 c16_16k_full: 
-	$(CC65_PATH)$(MYCC65) -O -Cl -t c16 \
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t c16 \
 	--config $(SOURCE_PATH)/../cfg/cc65/c16_16k_less_stack.cfg \
 	-DFULL_GAME \
 	-DFORCE_GHOSTS_NUMBER=8 \

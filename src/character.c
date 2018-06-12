@@ -111,7 +111,7 @@ unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character 
 }
 
 
-unsigned char wallReached(Character *characterPtr)
+unsigned char wallReached(register Character *characterPtr)
 {
 	return (characterPtr->_x==0)||(characterPtr->_x==XSize-1) || 
 		   (characterPtr->_y==0)||(characterPtr->_y==YSize-1);

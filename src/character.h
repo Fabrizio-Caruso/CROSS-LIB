@@ -175,7 +175,7 @@ void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned cha
 
 unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr);
 
-unsigned char wallReached(Character *characterPtr);
+unsigned char wallReached(register Character *characterPtr);
 
 void die(Character * playerPtr);
 

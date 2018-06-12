@@ -1,10 +1,10 @@
 TODO for the integration release for Z88DK
 
 1. re-factor input_macros.h/c
-2. verify ghosts in boss levels
+2. DONE verify ghosts in boss levels
 3. use joystick in Z88DK
-4. non-turn-based ncurses version
-5. use register in pointers to Characrters passed as parameters (also item)
+4. DONE - non-turn-based ncurses version
+5. DONE - use register in pointers to Characrters parameters 
 6. split settings
 7. test major targets with latest Z88DK snapshots
 

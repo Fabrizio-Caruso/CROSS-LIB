@@ -496,6 +496,7 @@ osic1p_8k:
 		
 gamate: 
 	$(CC65_PATH)$(MYCC65) -O -t gamate -Cl  --config $(SOURCE_PATH)/../cfg/cc65/gamate_reduced_stack.cfg -DFULL_GAME \
+	-DFORCE_BOMBS_NUMBER=2 \
 	$(SOURCE_PATH)/cc65/gamate/gamate_graphics.c \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \

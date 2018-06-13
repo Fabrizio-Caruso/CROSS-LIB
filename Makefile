@@ -2096,8 +2096,8 @@ cmoc_targets: \
 	
 all: cc65_targets z88dk_targets cmoc_targets
 
-clean:
-	rm -rf $(BUILD_PATH)/*
+
+clean_obj:
 	rm -rf $(SOURCE_PATH)/*.o
 	rm -rf $(SOURCE_PATH)/cc65/atari/*.o
 	rm -rf $(SOURCE_PATH)/cc65/atari_lynx/*.o	
@@ -2136,6 +2136,16 @@ clean:
 	rm -rf $(SOURCE_PATH)/spectrum/*.o
 	rm -rf $(SOURCE_PATH)/graphics/*.o
 	rm -rf $(SOURCE_PATH)/patch/*.o
+
+
+clean_build:
+	rm -rf $(BUILD_PATH)/*
+
+
+clean: \
+	clean_obj \
+	clean_build
+
 
 
 help:

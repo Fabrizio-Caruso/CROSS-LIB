@@ -9,5 +9,7 @@ TODO for the integration release for Z88DK
 7. Delete or move unused code to notes
 8. Remove or move unused tools
 9. Verify trs80/eg2k targets
-10. test major targets with latest Z88DK snapshots
+10. Rename files
+11. Rename variables
+12. test major targets with latest Z88DK snapshots
 

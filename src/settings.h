@@ -2,9 +2,9 @@
 #ifndef _SETTINGS
 #define _SETTINGS
 
-#include "target_settings.h"
+#include "settings/target_settings.h"
 
-#include "game_settings.h"
+#include "settings/game_settings.h"
 
 #endif // _SETTINGS
 

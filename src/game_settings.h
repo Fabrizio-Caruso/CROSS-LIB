@@ -25,6 +25,9 @@
 #if !defined(_GAME_SETTINGS)
 #define _GAME_SETTINGS
 
+#include "target_settings.h"
+
+
 #define INITIAL_LEVEL 1
 
 // Final level 
@@ -49,7 +52,7 @@
 #else	
 	#if XSize>40
 		#define GHOSTS_NUMBER 9
-	#elif XSize>=20
+	#elif XSize>=16
 		#define GHOSTS_NUMBER 8
 	#else
 		#define GHOSTS_NUMBER 6

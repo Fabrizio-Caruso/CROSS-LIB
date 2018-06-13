@@ -25,7 +25,7 @@
 #ifndef _INPUT_MACROS
 #define _INPUT_MACROS
 	#include "settings.h"
-	
+		
 	#if defined(__ATMOS__)
 		#include "cc65/atmos/atmos_input.h"
 	#elif defined(__WINCMOC__) && defined(__CMOC__)

@@ -29,6 +29,7 @@
 
 	#include "character.h"
 	#include "settings.h"
+	#include "definitions.h"
 
 	void handle_missile(void);
 

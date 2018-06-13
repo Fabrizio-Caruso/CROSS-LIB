@@ -495,8 +495,8 @@ osic1p_8k:
 	
 		
 gamate: 
-	$(CC65_PATH)$(MYCC65) -O -t gamate -Cl  --config $(SOURCE_PATH)/../cfg/cc65/gamate_reduced_stack.cfg -DFULL_GAME \
-	-DFORCE_BOMBS_NUMBER=2 \
+	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(SOURCE_PATH)/../cfg/cc65/gamate_reduced_stack.cfg \
+	-DFULL_GAME \
 	$(SOURCE_PATH)/cc65/gamate/gamate_graphics.c \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
@@ -517,9 +517,12 @@ creativision_8k_tiny:
 	$(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/TINY_creativision_8k.bin
 
+# 	-DNO_MESSAGE -DNO_SET_SCREEN_COLORS 	
 creativision_8k_light: 
-	$(CC65_PATH)$(MYCC65) -O -t creativision \
-	-DLESS_TEXT -DNO_RANDOM_LEVEL -DNO_SLEEP -DNO_MESSAGE -DNO_SET_SCREEN_COLORS \
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t creativision \
+	-DLESS_TEXT -DNO_SLEEP \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_BLINKING \
 	--config $(SOURCE_PATH)/../cfg/cc65/creativision-8k_less_stack.cfg \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/display_macros.c \

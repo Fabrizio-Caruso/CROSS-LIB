@@ -986,8 +986,8 @@ gal_22k:
 # $(ZSDCC_OPTS)
 spectrum_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -zorg=24055 \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc -clib=sdcc_iy \
-	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc -clib=sdcc_iy \
+	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -v  -D__SPECTRUM__ \
 	-create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg \
 	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
 	$(TINY_FILES)
@@ -1742,11 +1742,8 @@ z88dk_targets: \
 	c128_z80_targets \
 	mc1000_targets \
 	vg5k_targets \
-	cpc_targets
-
-	
-tocheck: \
-	spectrum_targets	
+	cpc_targets \
+	spectrum_targets
 
 
 cmoc_targets: \

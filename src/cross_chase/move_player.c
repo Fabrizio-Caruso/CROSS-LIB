@@ -219,6 +219,7 @@ extern Character player;
 		#if defined(CLIB_ANSI)
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}
 		#else	
+			#include <input.h>
 			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_inkey());}		
 		#endif
 	#elif defined(__MSX__)

@@ -58,7 +58,7 @@
 #define _RIGHT_ENEMY_MISSILE ('<')
 #define _BUBBLE ('^')
 
-#include "../../display_macros.h"
+#include "../../display/display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

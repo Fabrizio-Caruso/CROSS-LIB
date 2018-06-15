@@ -35,7 +35,7 @@
 
 #define _POWERUP_IMAGE 0xE3
 
-#include "../../display_macros.h"
+#include "../../display/display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

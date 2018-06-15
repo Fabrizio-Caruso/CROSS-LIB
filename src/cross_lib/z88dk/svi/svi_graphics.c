@@ -35,7 +35,7 @@
 #define _DRAW_BROKEN_WALL(x,y)  msx_vpoke(BASE+x+X_OFFSET+(y-1+Y_OFFSET)*XSize,56); // 'X'	
 
 
-#include "../../display_macros.h"
+#include "../../display/display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

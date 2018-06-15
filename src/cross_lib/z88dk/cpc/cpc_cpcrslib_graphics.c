@@ -31,7 +31,7 @@
 #define CPC_RED 3
 #define CPC_BLACK 4
 
-#include "../../display_macros.h"
+#include "../../display/display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

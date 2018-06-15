@@ -68,75 +68,49 @@ COCO_OPTS       ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DFULL_GAME -
 atari_color: 
 	$(CC65_PATH)$(MYCC65) -O -t atari \
 	-DREDEFINED_CHARS -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
-	--config $(SOURCE_PATH)/../cfg/cc65/atari_mode1_redefined_chars.cfg \
-	$(SOURCE_PATH)/cc65/atari/disable_setcursor.s \
-	$(SOURCE_PATH)/cc65/atari/atari_sounds.c \
-	$(SOURCE_PATH)/cc65/atari/atari_mode1_redefined_chars_graphics.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_atari_color.xex
+	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
+	$(CROSS_LIB_PATH)/cc65/atari/disable_setcursor.s \
+	$(CROSS_LIB_PATH)/cc65/atari/atari_sounds.c \
+	$(CROSS_LIB_PATH)/cc65/atari/atari_mode1_redefined_chars_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_atari_color.xex
 
 atari_no_color: 
 	$(CC65_PATH)$(MYCC65) -O -t atari \
 	-DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
-	$(SOURCE_PATH)/cc65/atari/atari_sounds.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_atari_no_color.xex
+	$(CROSS_LIB_PATH)/cc65/atari/atari_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_atari_no_color.xex
 
 
 # --config $(SOURCE_PATH)/../cfg/cc65/atari5200_less_stack.cfg
 atari5200: 
 	$(CC65_PATH)$(MYCC65) -O -t atari5200 \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_atari5200.rom
-	
+
+
 atmos: 
 	$(CC65_PATH)$(MYCC65)  -O  -DSOUNDS -DREDEFINED_CHARS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-t atmos \
-	--config $(SOURCE_PATH)/../cfg/cc65/atmos_better_tap.cfg \
-	$(SOURCE_PATH)/cc65/atmos/atmos_redefined_characters.c \
-	$(SOURCE_PATH)/cc65/atmos/atmos_input.c  \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
+	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	$(CROSS_LIB_PATH)/cc65/atmos/atmos_redefined_characters.c \
+	$(CROSS_LIB_PATH)/cc65/atmos/atmos_input.c  \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_atmos_and_oric1_48k.tap
 
-oric1_16k_full: 
-	$(CC65_PATH)$(MYCC65)  -O -Cl \
-	-DREDEFINED_CHARS -DFULL_GAME \
-	-DLESS_TEXT -DNO_MESSAGE -DNO_SLEEP -DSIMPLE_STRATEGY -DNO_BLINKING -DNO_HINTS -DNO_STATS -DFORCE_GHOSTS_NUMBER=8 \
-	-t atmos \
-	--config $(SOURCE_PATH)/../cfg/cc65/atmos_better_tap.cfg \
-	$(SOURCE_PATH)/cc65/atmos/atmos_redefined_characters.c \
-	$(SOURCE_PATH)/cc65/atmos/atmos_input.c \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
-	-o $(BUILD_PATH)/FULL_oric1_16k_less_text.tap	
-	
+
 oric1_16k: 
 	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DREDEFINED_CHARS \
-	-t atmos --config $(SOURCE_PATH)/../cfg/cc65/atmos_better_tap.cfg \
-	$(SOURCE_PATH)/cc65/atmos/atmos_redefined_characters.c \
-	$(SOURCE_PATH)/cc65/atmos/atmos_input.c  \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
+	-t atmos --config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	$(CROSS_LIB_PATH)/cc65/atmos/atmos_redefined_characters.c \
+	$(CROSS_LIB_PATH)/cc65/atmos/atmos_input.c  \
+	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_oric1_16k.tap
 
 	
@@ -413,7 +387,7 @@ osic1p_8k:
 	
 		
 gamate: 
-	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(SOURCE_PATH)/../cfg/cc65/gamate_reduced_stack.cfg \
+	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
 	$(CROSS_LIB_PATH)/cc65/gamate/gamate_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -424,39 +398,30 @@ gamate:
 
 creativision_8k_tiny: 
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
-	--config $(SOURCE_PATH)/../cfg/cc65/creativision-8k.cfg \
+	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
 	-DTINY_GAME \
-	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
-	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_creativision_8k.bin
 
-# 	-DNO_MESSAGE -DNO_SET_SCREEN_COLORS 	
 creativision_8k_light: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t creativision \
 	-DLESS_TEXT -DNO_SLEEP \
 	-DNO_SET_SCREEN_COLORS \
+	-DFLAT_ENEMIES \
 	-DNO_BLINKING \
-	--config $(SOURCE_PATH)/../cfg/cc65/creativision-8k_less_stack.cfg \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
+	-DNO_RANDOM_LEVEL \
+	--config $(CFG_PATH)/cc65/creativision-8k_less_stack.cfg \
+	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_creativision_8k_less_text.bin	
 	
 creativision_16k:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
-	--config $(SOURCE_PATH)/../cfg/cc65/creativision-16k.cfg \
-	$(SOURCE_PATH)/sleep_macros.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_creativision_16k.bin	
 	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_creativision_16k_LOW.bin
 	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
@@ -470,12 +435,8 @@ atari_lynx:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
 	-DALT_PRINT \
-	$(SOURCE_PATH)/cc65/atari_lynx/atari_lynx_graphics.c \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
+	$(CROSS_LIB_PATH)/cc65/atari_lynx/atari_lynx_graphics.c \
+	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_ATARI_LYNX.lnx
 	
 	
@@ -483,10 +444,8 @@ atari_lynx:
 pce_8k:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t pce \
 	-DTINY_GAME \
-	--config $(SOURCE_PATH)/../cfg/cc65/pce_8k_less_stack.cfg \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
+	--config $(CFG_PATH)/cc65/pce_8k_less_stack.cfg \
+	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_PCE_8k.pce
 
 
@@ -494,14 +453,9 @@ pce_16k:
 	$(CC65_PATH)$(MYCC65) -O -t pce \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	--config $(SOURCE_PATH)/../cfg/cc65/pce_16k_less_stack.cfg \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c \
-	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
+	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_PCE.bin
 	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_PCE_LOW.bin
 	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_PCE_HIGH.bin
@@ -511,6 +465,16 @@ pce_16k:
 	rm $(BUILD_PATH)/FULL_PCE_HIGH.bin	
 
 
+
+# It lacks conio and TGI
+# --config $(SOURCE_PATH)/../cfg/cc65/supervision-16k.cfg
+supervision:
+	$(CC65_PATH)$(MYCC65) -O -t supervision  \
+	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
+	$(CROSS_LIB_PATH)/cc65/supervision/supervision_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_supervision.sv
 	
 # ------------------------------------------------------------------------------------------
 #Z88DK
@@ -2929,6 +2893,20 @@ c128_z80_zsdcc_test:
 	
 # DEBUG	
 
+
+	
+oric1_16k_full: 
+	$(CC65_PATH)$(MYCC65)  -Or -Cl \
+	-DREDEFINED_CHARS -DFULL_GAME \
+	-DLESS_TEXT -DNO_MESSAGE -DNO_SLEEP -DSIMPLE_STRATEGY -DNO_BLINKING -DNO_HINTS -DNO_STATS -DFORCE_GHOSTS_NUMBER=8 \
+	-t atmos \
+	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	$(CROSS_LIB_PATH)/cc65/atmos/atmos_redefined_characters.c \
+	$(CROSS_LIB_PATH)/cc65/atmos/atmos_input.c  \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_oric1_16k_less_text.tap	
+	
+
 pet_light:
 	$(CC65_PATH)$(MYCC65) -Or -t pet -Cl \
 	-DLESS_TEXT -DNO_MESSAGE -DNO_BLINKING -DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL -DFORCE_GHOSTS_NUMBER=8 \
@@ -3826,21 +3804,7 @@ creativision_16k_2:
 	cat $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin > $(BUILD_PATH)/LIGHT_creativision_16k.bin
 	rm $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
 	rm $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
-	
-
-# It lacks conio and TGI
-# --config $(SOURCE_PATH)/../cfg/cc65/supervision-16k.cfg
-supervision:
-	$(CC65_PATH)$(MYCC65) -O -t supervision  \
-	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
-	$(SOURCE_PATH)/cc65/supervision/supervision_graphics.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c  \
-	-o $(BUILD_PATH)/FULL_supervision.sv
-		
+			
 
 pce_light:
 	$(CC65_PATH)$(MYCC65) -O -t pce -Cl \

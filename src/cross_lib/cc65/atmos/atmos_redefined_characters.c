@@ -24,7 +24,8 @@
 
 #include <peekpoke.h>
 
-#include "../../display_macros.h"
+#include "../../cross_lib.h"
+// #include "../../display/display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

@@ -24,6 +24,9 @@
 
 
 #include <stdio.h>
+
+#include "../../cross_lib.h"
+
 #if !defined(COLOR)
 	#define _DRAW(x,y,image)  do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc(image->_imageData);} while(0); 
 #else
@@ -34,7 +37,6 @@
 #define _DRAW_WALL(x,y)  do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); cputc('|');} while(0); 
 #define _DRAW_BROKEN_WALL(x,y) do {gotoxy((x+X_OFFSET),(y+Y_OFFSET)); textcolor(COLOR_BLACK); cputc('X');} while(0); 	
 
-#include "../../display_macros.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

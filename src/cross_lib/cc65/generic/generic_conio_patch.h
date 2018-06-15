@@ -11,6 +11,8 @@
 	#endif
 #endif
 
+#if !defined(__ATMOS__)
+
 #ifndef COLOR_RED
 	#define COLOR_RED 2
 #endif
@@ -31,7 +33,7 @@
 #ifndef COLOR_BLUE
 	#define COLOR_BLUE 1
 #endif
-
+#endif
 	
 // #ifndef CH_ULCORNER
 	// #define CH_ULCORNER 'X'

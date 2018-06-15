@@ -31,7 +31,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../../display_macros.h"
+#include "../../display/display_macros.h"
 
 #define GRAPHICS_MODE (1+16)
 	

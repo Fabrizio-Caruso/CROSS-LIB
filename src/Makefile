@@ -555,21 +555,7 @@ vz200_24k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vz200_24k.cas
 
-# TODO: Adapt code to work with -compiler=sdcc
-# $(ZSDCC_OPTS)
-# $(SCCZ80_OPTS) -zorg=18941 -vn 
-#  -DNO_RANDOM_LEVEL
-# -DLESS_TEXT -DNO_SLEEP
-vg5k: 
-	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	$(SCCZ80_OPTS) \
-	-vn \
-	-D__VG5K__ -DSOUNDS  \
-	-DASM_DISPLAY \
-	-lndos -create-app -o $(BUILD_PATH)/LIGHT_vg5k.prg \
-	$(CROSS_LIB_PATH)/z88dk/vg5k/vg5k_graphics.c  \
-	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/LIGHT_vg5k.prg
+
 
 # 	$(ZSDCC_OPTS) 
 #   -opt-code-size 
@@ -577,7 +563,7 @@ vg5k:
 #	-DNO_INITIAL_SCREEN
 # 	-DNO_MESSAGE
 # 	-DFORCE_NARROW
-vg5k_full_less_text:
+vg5k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-compiler=sdcc \
 	$(ZSDCC_OPTS) \
@@ -591,7 +577,7 @@ vg5k_full_less_text:
 	-DFORCE_BOMBS_NUMBER=4 \
 	-DSOUNDS \
 	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
-	$(SOURCE_PATH)/z88dk/vg5k/vg5k_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/vg5k/vg5k_graphics.c \
 	$(FULL_FILES) 
 	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
 
@@ -612,32 +598,28 @@ ace_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-clib=ansi -o full -Cz--audio -create-app \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c
+	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
 	cp full.wav $(BUILD_PATH)/FULL_ace_exp_16k.wav
 	rm full.wav
 	rm full.tap
 	rm full
 
 
-zx80_16k:
+zx80_16k_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) -vn \
 	-D__ZX80__ -DFULL_GAME \
 	-DEND_SCREEN \
 	-DTURN_BASED \
 	-DALT_SLEEP \
 	-lndos \
-	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k.prg \
-	$(SOURCE_PATH)/sleep_macros.c \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/FULL_zx80_16k.prg
+	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg
 	
 
 zx81_16k_turn_based:
@@ -651,13 +633,9 @@ zx81_16k_turn_based:
 	-DTURN_BASED \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
+	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg
 
 	
@@ -671,13 +649,9 @@ zx81_16k:
 	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg \
-	$(SOURCE_PATH)/sleep_macros.c \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
+	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k.prg
 	
 	
@@ -685,11 +659,9 @@ lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) \
 	-vn -D__LAMBDA__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o  $(BUILD_PATH)/FULL_lambda_16k.prg \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	$(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_lambda_16k.prg		
 	
 
@@ -991,7 +963,7 @@ mc1000_16k_full:
 	-DALT_SLEEP \
 	-vn  -lndos -create-app -Cz--audio \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
-	$(SOURCE_PATH)/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.wav $(BUILD_PATH)/FULL_mc1000_16k_less_text.wav
@@ -1003,6 +975,7 @@ gal_22k:
 	-pragma-need=ansiterminal \
 	-D__GAL__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_galaksija.prg	
 	rm $(BUILD_PATH)/FULL_galaksija.wav
@@ -1015,7 +988,7 @@ spectrum_16k:
 	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc -clib=sdcc_iy \
 	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ \
 	-create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg \
-	$(SOURCE_PATH)/z88dk/spectrum/spectrum_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin 
 	rm $(BUILD_PATH)/TINY_spectrum_16k_UNASSIGNED.bin
@@ -1071,6 +1044,7 @@ pc6001_32k:
 	-DMACRO_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_pc6001_32k.prg
 	rm $(BUILD_PATH)/FULL_pc6001_32k.wav
@@ -1103,13 +1077,12 @@ z1013:
 	-vn -lndos \
 	-D__Z1013__  -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	-create-app -o
-	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/FULL_z1013.z80
-	rm $(BUILD_PATH)/../a.bin	
+	$(FULL_FILES) \
+	-create-app
+	mv $(SOURCE_PATH)/../A.Z80 $(BUILD_PATH)/FULL_z1013.z80
+	rm $(SOURCE_PATH)/../a.bin	
 
 
-	
 px8_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
 	-D__PX8__ \
@@ -1375,9 +1348,10 @@ ti82_turn_based:
 	-DFULL_GAME  \
 	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/FULL_ti82_turn_based.bin  \
+	-create-app  \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_ti82_turn_based.bin
+	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/FULL_ti82_turn_based.82p
+	rm $(SOURCE_PATH)/../a.bin
 
 	
 ti82_tiny_turn_based:
@@ -1389,9 +1363,10 @@ ti82_tiny_turn_based:
 	-DTURN_BASED -DNO_WAIT \
 	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/TINY_ti82_turn_based.bin  \
-	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_ti82_turn_based.bin
+	$(TINY_FILES) \
+	-create-app 	
+	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/TINY_ti82_turn_based.82p
+	rm $(SOURCE_PATH)/../a.bin
 
 
 ti83_turn_based:
@@ -1404,9 +1379,10 @@ ti83_turn_based:
 	-DNO_WAIT \
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/FULL_ti83_turn_based.bin  \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_ti83_turn_based.bin
+	$(FULL_FILES)	
+	-create-app \
+	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/FULL_ti83_turn_based.83p
+	rm $(SOURCE_PATH)/../a.bin
 
 	
 ti83_tiny_turn_based:
@@ -1419,10 +1395,11 @@ ti83_tiny_turn_based:
 	-DTINY_GAME  \
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
 	-lndos \
-	-create-app -o TINY.bin  \
+	-create-app \
 	$(TINY_FILES)
-	rm TINY.bin
-	mv TINY.83p $(BUILD_PATH)/TINY_ti83_turn_based.83p	
+	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/TINY_ti83_turn_based.83p	
+	rm $(SOURCE_PATH)/../a.bin
+
 	
 ti85:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
@@ -1432,9 +1409,10 @@ ti85:
 	-vn \
 	-DFULL_GAME  \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/FULL_ti85.bin  \
+	-create-app  \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_ti85.bin
+	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/TINY_ti85.85s	
+	rm $(SOURCE_PATH)/../a.bin
 
 
 ti85_turn_based:
@@ -1446,9 +1424,10 @@ ti85_turn_based:
 	-vn \
 	-DFULL_GAME  \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/FULL_ti85_turn_based.bin  \
+	-create-app \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_ti85_turn_based.bin
+	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85_turn_based.85s	
+	rm $(SOURCE_PATH)/../a.bin
 
 
 m5_tiny:
@@ -1726,7 +1705,6 @@ z88dk_targets: \
 	einstein_targets \
 	sc3000_targets \
 	m5_targets \
-	ace_targets \
 	pc6001_targets \
  	eg2k_targets \
 	pps_targets \
@@ -1735,7 +1713,7 @@ z88dk_targets: \
 	ti82_targets \
 	ti83_targets \
 	ti85_targets \
-	z1013_targets \
+	z1013_targets \	
 	x1_targets \
 	px4_targets \
 	px8_targets \
@@ -1744,9 +1722,6 @@ z88dk_targets: \
 	cpm_targets \
 	nascom_targets \
 	z9001_targets \
-	vg5k_targets \
-	cpc_targets \
-	mc1000_targets \
 	sharp_mz_targets \
 	mtx_targets \
 	abc80_targets \
@@ -1759,12 +1734,19 @@ z88dk_targets: \
 	gal_targets \
 	zx80_targets \
 	zx81_targets \
-	spectrum_targets \
+	ace_targets \
 	samcoupe_targets \
 	lambda_targets \
 	nc100_targets \
-	c128_z80_targets
-	
+	c128_z80_targets \
+	mc1000_targets \
+	vg5k_targets	
+
+tocheck: \
+	cpc_targets \
+	spectrum_targets	
+
+
 cmoc_targets: \
 	coco
 	
@@ -1899,7 +1881,7 @@ z9001_targets: \
 	z9001_16k z9001_32k
 
 vg5k_targets: \
-	vg5k vg5k_full_less_text vg5k_exp_16k
+	vg5k vg5k_exp_16k
 	
 sc3000_targets: \
 	sc3000_16k sc3000_32k sg1000
@@ -1947,7 +1929,7 @@ gal_targets: \
 	gal_22k
 	
 zx80_targets: \
-	zx80_16k
+	zx80_16k_turn_based
 	
 zx81_targets: \
 	zx81_16k zx81_16k_turn_based
@@ -2695,6 +2677,23 @@ pet_light:
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_pet.prg
 
+# TODO: Adapt code to work with -compiler=sdcc
+# $(ZSDCC_OPTS)
+# $(SCCZ80_OPTS) -zorg=18941 -vn 
+#  -DNO_RANDOM_LEVEL
+# -DLESS_TEXT -DNO_SLEEP
+vg5k_light: 
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
+	$(SCCZ80_OPTS) \
+	-vn \
+	-D__VG5K__ -DSOUNDS  \
+	-DASM_DISPLAY \
+	-lndos -create-app -o $(BUILD_PATH)/LIGHT_vg5k.prg \
+	$(CROSS_LIB_PATH)/z88dk/vg5k/vg5k_graphics.c  \
+	$(LIGHT_FILES)
+	rm $(BUILD_PATH)/LIGHT_vg5k.prg	
+	
+	
 cpc_no_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DREDEFINED_CHARS -vn  -clib=ansi \
 	-D__CPC__ -DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \

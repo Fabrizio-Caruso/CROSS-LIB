@@ -24,6 +24,7 @@
 
 #include <stdio.h>
 
+#include "../../cross_lib.h"
 #include "../../display/display_macros.h"
 
 extern Image PLAYER_IMAGE;

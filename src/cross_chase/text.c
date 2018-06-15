@@ -23,13 +23,11 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include "../cross_lib/cross_lib.h"
-
-#include "text.h"
-
-#include "character.h"
-
 #include "settings.h"
 
+#include "text.h"
+#include "character.h"
+#include "settings.h"
 #include "text_strings.h"
 
 #ifdef __ATMOS__

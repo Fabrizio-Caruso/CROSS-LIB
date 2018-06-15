@@ -340,64 +340,60 @@ cbm510:
 	-o $(BUILD_PATH)/FULL_cbm510.prg
 
 nes: 
-	$(CC65_PATH)$(MYCC65) -O -t nes -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
+	$(CC65_PATH)$(MYCC65) -O -t nes \
+	-DFULL_GAME \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_nes.nes
 	
 apple2:	 
-	$(CC65_PATH)$(MYCC65) -O -t apple2 -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/sleep_macros.c \
+	$(CC65_PATH)$(MYCC65) -O -t apple2 \
+	-DFULL_GAME \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/apple2.bin
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_apple2.dsk
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/FULL_apple2.dsk aschase < $(BUILD_PATH)/apple2.bin
 	rm $(BUILD_PATH)/apple2.bin
 
+
 apple2enh: 
-	$(CC65_PATH)$(MYCC65) -O -t apple2enh -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/sleep_macros.c \
+	$(CC65_PATH)$(MYCC65) -O -t apple2enh \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/apple2enh.bin
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_apple2enh.dsk
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/FULL_apple2enh.dsk aschase < $(BUILD_PATH)/apple2enh.bin
 	rm $(BUILD_PATH)/apple2enh.bin
 
+
 apple2enh_80col: 
-	$(CC65_PATH)$(MYCC65) -O -t apple2enh -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	$(CC65_PATH)$(MYCC65) -O -t apple2enh \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DFORCE_XSIZE=80 -DAPPLE2ENH_80COL_VIDEO_MODE \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/apple2enh_80col.bin
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_apple2enh_80col.dsk
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/FULL_apple2enh_80col.dsk aschase < $(BUILD_PATH)/apple2enh_80col.bin
 	rm $(BUILD_PATH)/apple2enh_80col.bin	
+
 	
 osic1p_32k: 
 	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
 	-DTURN_BASED \
 	-DFORCE_GHOSTS_NUMBER=9 \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/FULL_osic1p_32k.lod
 	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/FULL_osic1p_32k.lod -binary -offset 0x200 -o $(BUILD_PATH)/FULL_osic1p_32k.c1p -Ohio_Scientific -execution-start-address=0x200	
 	rm $(BUILD_PATH)/FULL_osic1p_32k.lod
@@ -405,11 +401,12 @@ osic1p_32k:
 
 
 osic1p_8k: 
-	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(SOURCE_PATH)/../cfg/cc65/osic1p_less_stack.cfg -t osic1p \
+	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(CFG_PATH)/cc65/osic1p_less_stack.cfg -t osic1p \
 	-DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME \
 	-DTURN_BASED \
 	-DFORCE_GHOSTS_NUMBER=9 \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_osic1p_8k.lod
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/TINY_osic1p_8k.lod	
 	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/TINY_osic1p_8k.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p_8k.c1p -Ohio_Scientific -execution-start-address=0x200	
 	rm $(BUILD_PATH)/TINY_osic1p_8k.lod
 	mv $(BUILD_PATH)/TINY_osic1p_8k.c1p $(BUILD_PATH)/TINY_osic1p_8k.lod
@@ -418,12 +415,9 @@ osic1p_8k:
 gamate: 
 	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(SOURCE_PATH)/../cfg/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
-	$(SOURCE_PATH)/cc65/gamate/gamate_graphics.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/text.c $(SOURCE_PATH)/missile.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
+	$(CROSS_LIB_PATH)/cc65/gamate/gamate_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_gamate.bin
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
 

@@ -24,6 +24,8 @@
 
 #include "../cross_lib.h"
 
+#include "../sleep/sleep_macros.h"
+
 #include "input_macros.h"
 
 #if defined(WAIT_FOR_KEY)
@@ -67,7 +69,7 @@
 	#elif defined(__OSIC1P__) || defined(__NASCOM__) \
 		  || defined(__SMS__) || defined(__GCC__) \
 		  || defined(__PX8__)
-		#include "sleep_macros.h"		
+		// #include "../cross_lib/sleep/sleep_macros.h"		
 		
 		void WAIT_PRESS(void)
 		{
@@ -78,7 +80,7 @@
 		}
 	#elif defined(__CMOC__) && !defined(__WINCMOC__)
 		// TODO: Implement this
-		#include "../sleep/sleep_macros.h"		
+		// #include "../sleep/sleep_macros.h"		
 		#include <cmoc.h>
 		
 		void WAIT_PRESS(void)
@@ -125,11 +127,3 @@
 	#endif
 #endif
 
-
-#if defined(Z88DK)
-	#define TURN_BASED_INPUT getch()
-#elif defined(CC65)
-	#define TURN_BASED_INPUT cgetc()
-#else
-	#define TURN_BASED_INPUT cgetc()	
-#endif	

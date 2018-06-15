@@ -1,7 +1,8 @@
 
-#include "../cross_lib/cross_lib.h"
+#include "settings.h"
 
 #include "move_player.h"
+
 #include "character.h"
 #include "invincible_enemy.h"
 

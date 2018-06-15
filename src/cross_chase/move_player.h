@@ -2,7 +2,15 @@
 
 #ifndef _MOVE_PLAYER
 #define _MOVE_PLAYER
-	
+
+	#if defined(Z88DK)
+		#define TURN_BASED_INPUT getch()
+	#elif defined(CC65)
+		#define TURN_BASED_INPUT cgetc()
+	#else
+		#define TURN_BASED_INPUT cgetc()	
+	#endif	
+		
 	#if defined(KEYBOARD_CONTROL)
 		void movePlayerByKeyboard(unsigned char kbInput);
 		#if defined(__ATMOS__)

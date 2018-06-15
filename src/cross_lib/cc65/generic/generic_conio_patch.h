@@ -1,13 +1,15 @@
 #ifndef GENERIC_CONIO_PATH_H
 #define GENERIC_CONIO_PATH_H
 
-// #ifndef COLOR_BLACK
-	// #define COLOR_BLACK 0
-// #endif
+#if defined(__OSIC1P__)
+	#ifndef COLOR_BLACK
+		#define COLOR_BLACK 0
+	#endif
 
-// #ifndef COLOR_WHITE 
-	// #define COLOR_WHITE 1
-// #endif
+	#ifndef COLOR_WHITE 
+		#define COLOR_WHITE 1
+	#endif
+#endif
 
 #ifndef COLOR_RED
 	#define COLOR_RED 2

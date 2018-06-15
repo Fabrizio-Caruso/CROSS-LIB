@@ -667,20 +667,21 @@ lambda_16k:
 
 
 cpc:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DREDEFINED_CHARS -vn  -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DREDEFINED_CHARS -v -clib=ansi \
 	-D__CPC__ -DSOUNDS -DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpcrslib/cpc_Chars.asm \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpcrslib/cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars.asm \
+	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_cpcrslib_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt
 	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc.dsk -p build/FULL_cpc.cpc xchase
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc.dsk -p $(BUILD_PATH)/FULL_cpc.cpc xchase
 	mv FULL_cpc.dsk $(BUILD_PATH)/
 	rm $(BUILD_PATH)/FULL_cpc.cpc 
 	rm $(BUILD_PATH)/FULL_cpc.prg			
@@ -694,8 +695,8 @@ cpc_joystick:
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc_joystick.prg \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpcrslib/cpc_Chars.asm \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpcrslib/cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars.asm \
+	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_cpcrslib_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -703,7 +704,7 @@ cpc_joystick:
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_joystick.cpc  $(BUILD_PATH)/FULL_cpc_joystick.cdt
 	rm -rf FULL_cpc_joystick.dsk
 	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_cpc_joystick.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc_joystick.dsk -p build/FULL_cpc_joystick.cpc xchase
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc_joystick.dsk -p $(BUILD_PATH)/FULL_cpc_joystick.cpc xchase
 	mv FULL_cpc_joystick.dsk $(BUILD_PATH)/
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
 	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_cpc_joystick.dsk  $(BUILD_PATH)/FULL_gx4000.cpr   -c 'run"xchase'
@@ -1740,10 +1741,11 @@ z88dk_targets: \
 	nc100_targets \
 	c128_z80_targets \
 	mc1000_targets \
-	vg5k_targets	
+	vg5k_targets \
+	cpc_targets
 
+	
 tocheck: \
-	cpc_targets \
 	spectrum_targets	
 
 

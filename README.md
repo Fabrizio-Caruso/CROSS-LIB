@@ -1,20 +1,20 @@
 # CROSS CHASE
-CrossLib and CROSS CHASE
+Cross Lib and Cross Chase
 
-by Fabrizio Caruso (Fabrizio_Caruso@hotmail.com)
+by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
 ## THE GOAL
 
 This is a personal project whose goal is the creation of:
-1. a universal 8-bit abstraction layer "CrossLib" for coding universal 8-games
-2. a "universal" 8-bit game "CROSS CHASE" that has to be a fun and that should run
+1. the universal 8-bit abstraction layer "Cross Lib" for coding universal 8-games
+2. the "universal" 8-bit game "Cross Chase" that has to be a fun and that should run
 on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs.
 The game will be the proof of concept of how flexible the library is.
 
 ## THE TOOL-CHAIN
 
 How is it this done?
-This is achieved  by having "CrossLib" provide APIs for the game code.
+This is achieved  by having "Cross Lib" provide APIs for the game code.
 The game and library code are  separated: 
 - the game code only depends on the APIs interface and 
 - the APIs do not depend on the game code. Therefore it must be possible to re-use the same library for other games/programs.
@@ -46,11 +46,10 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 ### PC versions
 
-There is a ncurses version that can be compiled for
+There is a ncurses version that can be compiled for multiple platforms for which an ANSI C compiler and ncurses are available.
+For example:
 - cygwin (gcc + ncurses under cygwin/Windows) 
-- linux (gcc + ncurses under linux)
-- windows 32/64 console (mingw + ncurses even under cywin/Windows with x86_64-w64-mingw32-gcc)
-
+- windows 32/64 bit console (mingw + ncurses even under cywin/Windows with x86_64-w64-mingw32-gcc)
 
 ### 8-BIT versions
 
@@ -123,7 +122,11 @@ For most targets, more than one version is built, in order to support different 
 
 ## THE FUTURE
 
-As a consequence of the design, the code includes a framework that could be used to develop other massively multi-system games and programs. In the future the framework will be provided a separate project.
+It should be possible to write more universal games using "Cross Lib".
+
+The future main features of "Cross Lib":
+- better separation and dependences with the game 
+- better support multi-target input/output
 
 
 ## ADAPTIVE GRAPHICS

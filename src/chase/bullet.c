@@ -26,7 +26,7 @@
 
 #include "settings.h"
  
-#include "missile.h"
+#include "bullet.h"
 #include "level.h"
 #include "text.h"
 #include "character.h"

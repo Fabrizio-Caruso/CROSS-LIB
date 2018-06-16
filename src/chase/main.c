@@ -49,7 +49,7 @@
 #include "text_strings.h"
 
 #if !defined(TINY_GAME)
-	#include "missile.h"
+	#include "bullet.h"
 	#include "skull.h"
 #endif
 	

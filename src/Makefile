@@ -1714,7 +1714,7 @@ z88dk_targets: \
 	ti82_targets \
 	ti83_targets \
 	ti85_targets \
-	z1013_targets \	
+	z1013_targets \
 	x1_targets \
 	px4_targets \
 	px8_targets \

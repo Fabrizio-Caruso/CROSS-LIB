@@ -71,7 +71,7 @@
 #define _RIGHT_ENEMY_MISSILE '<'
 
 //((unsigned char)0x7D)
-#define _BUBBLE '^'
+#define _ROCKET '^'
 
 // extern unsigned char XSize;
 
@@ -84,7 +84,7 @@ extern Image BOMB_IMAGE;
 	extern Image SKULL_IMAGE;
 	extern Image POWERUP_IMAGE;
 	extern Image GUN_IMAGE;
-	extern Image MISSILE_IMAGE;
+	extern Image BULLET_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
 #endif
 
@@ -92,7 +92,7 @@ extern Image BOMB_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image FREEZE_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
@@ -150,7 +150,7 @@ void INIT_IMAGES(void)
 			POWERUP_IMAGE._color = COLOR_GREEN;
 			GUN_IMAGE._color = COLOR_BLUE;
 			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-			MISSILE_IMAGE._color = COLOR_BLUE;
+			BULLET_IMAGE._color = COLOR_BLUE;
 		#endif
 		
 		PLAYER_DOWN._color = COLOR_CYAN;
@@ -162,7 +162,7 @@ void INIT_IMAGES(void)
 			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
 			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 			
-			BUBBLE_IMAGE._color = COLOR_WHITE;
+			ROCKET_IMAGE._color = COLOR_WHITE;
 
 			FREEZE_IMAGE._color = COLOR_CYAN;
 			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
@@ -186,7 +186,7 @@ void INIT_IMAGES(void)
 		GUN_IMAGE._imageData = _GUN;
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
-		MISSILE_IMAGE._imageData = _MISSILE;
+		BULLET_IMAGE._imageData = _MISSILE;
 		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
 	#endif
 	
@@ -199,7 +199,7 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
-		BUBBLE_IMAGE._imageData = _BUBBLE;
+		ROCKET_IMAGE._imageData = _ROCKET;
 
 		FREEZE_IMAGE._imageData = _POWERUP;		
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;

@@ -55,7 +55,7 @@
 
 #define _LEFT_ENEMY_MISSILE 16
 #define _RIGHT_ENEMY_MISSILE 17
-#define _BUBBLE 18
+#define _ROCKET 18
 
 #include "display_macros.h"
 
@@ -72,7 +72,7 @@ extern Image GUN_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
@@ -145,7 +145,7 @@ struct redefine_struct char_map[] =
 	{_POWERUP, {  0, 60, 54,223,231,122, 36, 24}},
 	{_MISSILE, {  0,  0,  8, 56, 28, 16,  0,  0}},
 	{_BOMB, { 60, 66,165,153,153,165, 66, 60}},
-	{_BUBBLE, { 24, 60, 60, 60,126, 90, 66, 66}},
+	{_ROCKET, { 24, 60, 60, 60,126, 90, 66, 66}},
 	{_INVINCIBILITY, { 24, 36, 24,  0,153,  0, 36,102}},
 	{_VERTICAL_BRICK, { 24, 24, 24, 48, 24, 12, 24, 24}},
 	{_HORIZONTAL_BRICK, {  0,  0,  0,255,  0,  0,  0,  0}},
@@ -196,7 +196,7 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
-		BUBBLE_IMAGE._imageData = _BUBBLE;
+		ROCKET_IMAGE._imageData = _ROCKET;
 		
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		

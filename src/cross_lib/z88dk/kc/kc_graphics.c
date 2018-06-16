@@ -54,7 +54,7 @@
 
 #define _LEFT_ENEMY_MISSILE ('>')
 #define _RIGHT_ENEMY_MISSILE ('<')
-#define _BUBBLE ('^')
+#define _ROCKET ('^')
 
 #include "../../display/display_macros.h"
 
@@ -84,7 +84,7 @@ extern Image DEAD_GHOST_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
@@ -190,7 +190,7 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
-		BUBBLE_IMAGE._imageData = _BUBBLE;
+		ROCKET_IMAGE._imageData = _ROCKET;
 				
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	

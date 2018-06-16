@@ -47,7 +47,7 @@ extern Image DEAD_GHOST_IMAGE;
 
 #if !defined(TINY_GAME)
 	extern Image SKULL_IMAGE;
-	extern Image MISSILE_IMAGE;
+	extern Image BULLET_IMAGE;
 	extern Image POWERUP_IMAGE;
 	extern Image GUN_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
@@ -80,7 +80,7 @@ extern Character bombs[BOMBS_NUMBER];
 	extern unsigned char innerVerticalWallY;
 	extern unsigned char innerVerticalWallLength;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image FREEZE_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
@@ -102,9 +102,9 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Item confuse;
 	extern Item zombie;
 	
-	extern Character bubbles[BUBBLES_NUMBER];
+	extern Character bubbles[ROCKETS_NUMBER];
 
-	extern char bubbles_x[BUBBLES_NUMBER];
+	extern char bubbles_x[ROCKETS_NUMBER];
 	
 	extern char skullsKilled;
 #endif
@@ -141,7 +141,7 @@ extern Character bombs[BOMBS_NUMBER];
 
 	unsigned char rocketLevel(void)
 	{
-		return (level >= FIRST_BUBBLES_LEVEL) && ((level%5)==2 || (level%5)==3);
+		return (level >= FIRST_ROCKETS_LEVEL) && ((level%5)==2 || (level%5)==3);
 	}
 
 	unsigned char missileLevel(void)
@@ -217,10 +217,10 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#if defined(FULL_GAME)
 		if(rocketLevel() || bossLevel())
 		{
-			for(i=0;i<BUBBLES_NUMBER;i++)
+			for(i=0;i<ROCKETS_NUMBER;i++)
 			{
-				bubbles_x[i] = (unsigned char) (i+1)*(XSize/(BUBBLES_NUMBER+1));
-				initializeCharacter(&bubbles[i],(unsigned char) bubbles_x[i],(unsigned char)(YSize-1),1,&BUBBLE_IMAGE);
+				bubbles_x[i] = (unsigned char) (i+1)*(XSize/(ROCKETS_NUMBER+1));
+				initializeCharacter(&bubbles[i],(unsigned char) bubbles_x[i],(unsigned char)(YSize-1),1,&ROCKET_IMAGE);
 				displayMissile(&bubbles[i]);
 			}
 		}
@@ -321,8 +321,8 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			initializeCharacter(&leftEnemyMissile,                0, YSize-1-ENEMY_MISSILE_OFFSET, 1,&LEFT_ENEMY_MISSILE_IMAGE);		
 		}		
 		
-		initializeAwayFromWall(&(chase._character), (XSize>>1), (YSize>>1),0,&MISSILE_IMAGE);
-		initializeCharacter(&chasingBullet, 0,0, 0, &MISSILE_IMAGE);
+		initializeAwayFromWall(&(chase._character), (XSize>>1), (YSize>>1),0,&ROCKET_IMAGE);
+		initializeCharacter(&chasingBullet, 0,0, 0, &ROCKET_IMAGE);
 	#else
 		#if !defined(TINY_GAME)
 			initializeCharacter(&(powerUp._character),(XSize>>1),(YSize>>1),1,&POWERUP_IMAGE);
@@ -341,7 +341,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#if !defined(TINY_GAME)
 		displayPlayer(&player);
 			
-		initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
+		initializeCharacter(&missile, 0, 0,0,&BULLET_IMAGE);
 		initializeCharacter(&skull,XSize-2,YSize-2, 0, &SKULL_IMAGE);
 	#endif
 

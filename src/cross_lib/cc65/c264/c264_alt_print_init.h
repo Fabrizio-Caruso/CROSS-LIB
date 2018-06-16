@@ -80,7 +80,7 @@
 
 // CYAN
 #define _INVINCIBILITY 'V'
-#define _MISSILE '.'
+#define _BULLET '.'
 
 // WHITE
 #define _GHOST 'o'
@@ -91,6 +91,6 @@
 
 #define _RIGHT_ENEMY_MISSILE '<'
 
-#define _BUBBLE ('^'-64)
+#define _ROCKET ('^'-64)
 
 #define _BROKEN_WALL _BOMB

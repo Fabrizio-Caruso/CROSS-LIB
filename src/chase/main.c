@@ -91,7 +91,7 @@ unsigned char level;
 #if !defined(TINY_GAME)
 	extern Image SKULL_IMAGE;
 	extern Image POWERUP_IMAGE;
-	extern Image MISSILE_IMAGE;
+	extern Image BULLET_IMAGE;
 	extern Image GUN_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;	
 	extern Image DEAD_GHOST_IMAGE;
@@ -141,13 +141,13 @@ Character bombs[BOMBS_NUMBER];
 	Character leftEnemyMissile;
 	Character rightEnemyMissile;
 
-	Character bubbles[BUBBLES_NUMBER];
+	Character bubbles[ROCKETS_NUMBER];
 	
 	Character chasingBullet;
 
 	Character * chasedEnemyPtr;
 
-	unsigned char bubbles_x[BUBBLES_NUMBER];
+	unsigned char bubbles_x[ROCKETS_NUMBER];
 	
 	unsigned char dead_bubbles;
 	
@@ -480,7 +480,7 @@ int main(void)
 				ghostSlowDown = computeGhostSlowDown();
 
 				#if !defined(TINY_GAME)
-					handle_missile();
+					handle_bullet();
 				#endif
 				
 				#if !defined(TINY_GAME)						

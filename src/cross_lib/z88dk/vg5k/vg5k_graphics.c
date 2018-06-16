@@ -40,7 +40,7 @@ extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 
-extern Image MISSILE_IMAGE;
+extern Image BULLET_IMAGE;
 
 #if defined(FULL_GAME)
 	extern Image FREEZE_IMAGE;
@@ -48,7 +48,7 @@ extern Image MISSILE_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;
@@ -96,7 +96,7 @@ void INIT_IMAGES(void)
 		BOMB_IMAGE._color = VG5K_RED;
 		
 		#if !defined(TINY_GAME)
-			MISSILE_IMAGE._color = VG5K_WHITE;
+			BULLET_IMAGE._color = VG5K_WHITE;
 			SKULL_IMAGE._color = VG5K_YELLOW;
 			POWERUP_IMAGE._color = VG5K_GREEN;
 			GUN_IMAGE._color = VG5K_VIOLET;
@@ -117,7 +117,7 @@ void INIT_IMAGES(void)
 		POWERUP_IMAGE._imageData = 'S';
 		GUN_IMAGE._imageData = '!';
 		EXTRA_POINTS_IMAGE._imageData = '$';
-		MISSILE_IMAGE._imageData = '.';
+		BULLET_IMAGE._imageData = '.';
 	#endif
 	
 	#if !defined(NO_DEAD_GHOST)
@@ -126,7 +126,7 @@ void INIT_IMAGES(void)
 	#if !defined(NO_COLOR)
 		GHOST_IMAGE._color = VG5K_WHITE;
 		#if !defined(TINY_GAME)
-			MISSILE_IMAGE._color = VG5K_WHITE;
+			BULLET_IMAGE._color = VG5K_WHITE;
 		#endif
 	#endif
 	
@@ -135,7 +135,7 @@ void INIT_IMAGES(void)
 			FREEZE_IMAGE._color = VG5K_CYAN;	
 			LEFT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;
 			RIGHT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;	
-			BUBBLE_IMAGE._color = VG5K_WHITE;	
+			ROCKET_IMAGE._color = VG5K_WHITE;	
 			EXTRA_LIFE_IMAGE._color = VG5K_YELLOW;
 			INVINCIBILITY_IMAGE._color = VG5K_YELLOW;			
 			CHASE_IMAGE._color = VG5K_RED;		
@@ -148,7 +148,7 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		
-		BUBBLE_IMAGE._imageData = '^';
+		ROCKET_IMAGE._imageData = '^';
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 		INVINCIBILITY_IMAGE._imageData = 'V';
 		CHASE_IMAGE._imageData = '.';

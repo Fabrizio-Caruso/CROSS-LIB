@@ -24,7 +24,9 @@ MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 SCCZ80_OPTS ?= -O3
-ZSDCC_OPTS ?= -SO3 --max-allocs-per-node200000
+ZSDCC_OPTS ?=  
+#-SO3 --max-allocs-per-node200000
+
 TOOLS_PATH ?= ../tools
 
 CFG_PATH ?= $(SOURCE_PATH)/../../cfg/
@@ -389,6 +391,7 @@ osic1p_8k:
 gamate: 
 	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(CROSS_LIB_PATH)/cc65/gamate/gamate_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -627,7 +630,7 @@ zx81_16k_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	-compiler=sdcc \
 	$(ZSDCC_OPTS) \
-	-vn \
+	-v \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DALT_SLEEP \
 	-DMACRO_SLEEP \
@@ -775,7 +778,7 @@ svi_318:
 	-DMACRO_SLEEP \
 	-create-app \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c	\
-	$(FULL_FILES)
+	$(LIGHT_FILES)
 	mv a.cas $(BUILD_PATH)/LIGHT_svi_318.cas
 	rm a.bin
 	
@@ -1043,7 +1046,7 @@ pc6001_16k:
 # Warning at file 'stdio/ansi/pc6001/f_ansi_char.asm' line 46: integer '66657' out of range
 pc6001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
-	-D__PC6001__ -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__PC6001__ -v -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DALT_SLEEP \
 	-DMACRO_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
@@ -1573,14 +1576,15 @@ coco:
 	level.o character.o text.o \
 	strategy.o \
 	input_macros.o cmoc_input.o \
-	item.o missile.o skull.o \
+	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm 	display_macros.o cmoc_graphics.o \
 	ghost.o \
+	move_player.o \
 	level.o character.o text.o \
 	strategy.o \
 	input_macros.o cmoc_input.o \
-	item.o missile.o skull.o \
+	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 		
 
@@ -1710,11 +1714,14 @@ z88dk_test: \
 	sccz80_test \
 	zsdcc_test	
 	
+tofix: \
+	pc6001_targets \
+	zx81_targets
+	
 z88dk_targets: \
 	einstein_targets \
 	sc3000_targets \
 	m5_targets \
-	pc6001_targets \
  	eg2k_targets \
 	pps_targets \
 	pv2000_targets \
@@ -1742,7 +1749,6 @@ z88dk_targets: \
 	microbee_targets \
 	gal_targets \
 	zx80_targets \
-	zx81_targets \
 	ace_targets \
 	samcoupe_targets \
 	lambda_targets \
@@ -2091,7 +2097,7 @@ ace_test:
 	
 pc6001_test:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -Cz--audio -clib=ansi -subtype=32k \
-	-D__PC6001__ -vn \
+	-D__PC6001__ -v \
 	$(FAST_TEST_OPTS) \
 	-DALT_SLEEP \
 	-DMACRO_SLEEP \
@@ -3237,15 +3243,13 @@ samcoupe_tiny:
 zx81_16k_sccz80:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	$(SCCZ80_OPTS) \
+	-DTURN_BASED \
 	-vn \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o  $(BUILD_PATH)/FULL_zx81_16k_sccz80.prg \
-	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
-	$(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
+	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c
 	rm $(BUILD_PATH)/FULL_zx81_16k_sccz80.prg
 
 

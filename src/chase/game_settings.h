@@ -60,7 +60,7 @@
 	#endif
 #endif
 
-#define BUBBLES_NUMBER 4
+#define ROCKETS_NUMBER 4
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 3
@@ -130,10 +130,10 @@
 	#define HORIZONTAL_WALLS_INCREASE_LOOP 350
 #endif
 
-#define FIRST_BUBBLES_LEVEL 7 // 8 because of check on levels after missile level
+#define FIRST_ROCKETS_LEVEL 7 // 8 because of check on levels after missile level
 
 // Maximum number of ghost that co-exist with rockets (in non-boss levels)
-#define MAX_GHOST_COUNT_FOR_BUBBLES 4
+#define MAX_GHOST_COUNT_FOR_ROCKETS 4
 
 #if defined(WIDE)
 	#define ENEMY_MISSILE_OFFSET 3

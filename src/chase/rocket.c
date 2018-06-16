@@ -2,20 +2,21 @@
 
 #include "../cross_lib/display/display_macros.h"
 
+#include "settings.h"
 #include "character.h"
 #include "level.h"
 
-extern Character bubbles[BUBBLES_NUMBER];
+extern Character bubbles[ROCKETS_NUMBER];
 
 extern unsigned char ghostCount;
 
 	void handle_rockets(void)
 	{	
-		if((ghostCount<=MAX_GHOST_COUNT_FOR_BUBBLES && rocketLevel()) || bossLevel())
+		if((ghostCount<=MAX_GHOST_COUNT_FOR_ROCKETS && rocketLevel()) || bossLevel())
 		{ 
 			unsigned char i;
 
-			for(i=0;i<BUBBLES_NUMBER;++i)
+			for(i=0;i<ROCKETS_NUMBER;++i)
 			{
 				if(bubbles[i]._status)
 				{
@@ -39,7 +40,7 @@ extern unsigned char ghostCount;
 					{	
 						deleteMissile(&bubbles[i]);
 						//
-						bubbles[i]._x = (i+1)*(XSize/(BUBBLES_NUMBER+1));
+						bubbles[i]._x = (i+1)*(XSize/(ROCKETS_NUMBER+1));
 						bubbles[i]._y = YSize-2;							
 					}
 				}

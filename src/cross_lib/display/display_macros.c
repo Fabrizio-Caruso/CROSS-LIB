@@ -47,7 +47,7 @@ Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
 	Image POWERUP_IMAGE;
-	Image MISSILE_IMAGE;
+	Image BULLET_IMAGE;
 	Image GUN_IMAGE;
 	Image EXTRA_POINTS_IMAGE;
 	
@@ -58,7 +58,7 @@ Image BOMB_IMAGE;
 	Image LEFT_ENEMY_MISSILE_IMAGE;
 	Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	Image BUBBLE_IMAGE;
+	Image ROCKET_IMAGE;
 
 	Image FREEZE_IMAGE;	
 	
@@ -255,7 +255,7 @@ Image BOMB_IMAGE;
 				GUN_IMAGE._imageData = '!';			
 			#endif
 
-			MISSILE_IMAGE._imageData = '.';
+			BULLET_IMAGE._imageData = '.';
 		#endif
 		
 		#if !defined(DNO_DEAD_GHOSTS)
@@ -270,12 +270,12 @@ Image BOMB_IMAGE;
 			#if !defined(__GAMATE__)
 				GHOST_IMAGE._color = COLOR_WHITE;
 				#if !defined(TINY_GAME)
-					MISSILE_IMAGE._color = COLOR_WHITE;
+					BULLET_IMAGE._color = COLOR_WHITE;
 				#endif
 			#else
 				GHOST_IMAGE._color = COLOR_YELLOW;
 				#if !defined(TINY_GAME)
-					MISSILE_IMAGE._color = COLOR_YELLOW;
+					BULLET_IMAGE._color = COLOR_YELLOW;
 				#endif
 			#endif
 		#endif
@@ -284,13 +284,13 @@ Image BOMB_IMAGE;
 			#if !defined(NO_COLOR)
 				LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 				RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
-				BUBBLE_IMAGE._color = COLOR_WHITE;	
+				ROCKET_IMAGE._color = COLOR_WHITE;	
 				BROKEN_WALL_IMAGE._color = COLOR_RED;		
 			#endif
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		
-			BUBBLE_IMAGE._imageData = '^';
+			ROCKET_IMAGE._imageData = '^';
 			#if defined(__WINCMOC__) || defined(__CMOC__)	
 				FREEZE_IMAGE._imageData = 'f';		
 				#if !defined(REDEFINED_CHARS)

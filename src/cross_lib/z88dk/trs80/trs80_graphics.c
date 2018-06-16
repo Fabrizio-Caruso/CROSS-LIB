@@ -50,13 +50,13 @@
 #define _DEAD_GHOST '#'
 
 #define _INVINCIBILITY 'I'
-#define _MISSILE ('.')
+#define _BULLET ('.')
 
 #define _GHOST 'O'
 
 #define _LEFT_ENEMY_MISSILE ('>')
 #define _RIGHT_ENEMY_MISSILE ('<')
-#define _BUBBLE ('^')
+#define _ROCKET ('^')
 
 #include "../../display/display_macros.h"
 
@@ -68,7 +68,7 @@ extern Image DEAD_GHOST_IMAGE;
 	
 #if !defined(TINY_GAME)
 	extern Image SKULL_IMAGE;
-	extern Image MISSILE_IMAGE;
+	extern Image BULLET_IMAGE;
 	
 	extern Image POWERUP_IMAGE;	
 	extern Image GUN_IMAGE;
@@ -82,7 +82,7 @@ extern Image DEAD_GHOST_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
@@ -156,7 +156,7 @@ void INIT_IMAGES(void)
 		
 	#if !defined(TINY_GAME)
 		SKULL_IMAGE._imageData = _SKULL;	
-		MISSILE_IMAGE._imageData = _MISSILE;
+		BULLET_IMAGE._imageData = _BULLET;
 	
 		
 		POWERUP_IMAGE._imageData = _POWERUP;
@@ -178,12 +178,12 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
-		BUBBLE_IMAGE._imageData = _BUBBLE;
+		ROCKET_IMAGE._imageData = _ROCKET;
 				
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
 		
-		CHASE_IMAGE._imageData = _MISSILE;
+		CHASE_IMAGE._imageData = _BULLET;
 		SUPER_IMAGE._imageData = 'H';
 		CONFUSE_IMAGE._imageData = 'C';
 		ZOMBIE_IMAGE._imageData = 'Z';

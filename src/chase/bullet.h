@@ -31,7 +31,7 @@
 	#include "settings.h"
 	#include "definitions.h"
 
-	void handle_missile(void);
+	void handle_bullet(void);
 
 	void checkMissile(Character *missilePtr);
 

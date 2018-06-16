@@ -110,7 +110,6 @@
 	extern unsigned char guns;
 	extern Image GUN_IMAGE;
 	extern Image SKULL_IMAGE;
-	extern Image MISSILE_IMAGE;
 #endif
 
 extern unsigned char level;

@@ -55,13 +55,13 @@
 #define _DEAD_GHOST 13
 
 #define _INVINCIBILITY 14
-#define _MISSILE 15
+#define _BULLET 15
 
 #define _SPACE 16
 
 #define _LEFT_ENEMY_MISSILE 17
 #define _RIGHT_ENEMY_MISSILE 18
-#define _BUBBLE 19
+#define _ROCKET 19
 
 #define _SUPER 20
 #define _CONFUSE 21
@@ -77,7 +77,7 @@ extern Image DEAD_GHOST_IMAGE;
 	
 #if !defined(TINY_GAME)
 	extern Image SKULL_IMAGE;
-	extern Image MISSILE_IMAGE;
+	extern Image BULLET_IMAGE;
 	
 	extern Image POWERUP_IMAGE;	
 	extern Image GUN_IMAGE;
@@ -91,7 +91,7 @@ extern Image DEAD_GHOST_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
@@ -187,7 +187,7 @@ void INIT_IMAGES(void)
 		
 	#if !defined(TINY_GAME)
 		SKULL_IMAGE._imageData = _SKULL;	
-		MISSILE_IMAGE._imageData = _MISSILE;
+		BULLET_IMAGE._imageData = _BULLET;
 	
 		
 		POWERUP_IMAGE._imageData = _POWERUP;
@@ -209,12 +209,12 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
-		BUBBLE_IMAGE._imageData = _BUBBLE;
+		ROCKET_IMAGE._imageData = _ROCKET;
 				
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
 		
-		CHASE_IMAGE._imageData = _MISSILE;
+		CHASE_IMAGE._imageData = _BULLET;
 		SUPER_IMAGE._imageData = _SUPER;
 		CONFUSE_IMAGE._imageData = _CONFUSE;
 		ZOMBIE_IMAGE._imageData = _ZOMBIE;

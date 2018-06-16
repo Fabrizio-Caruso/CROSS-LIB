@@ -53,11 +53,11 @@
 #define _CONFUSE 0x5A
 #define _EXTRA_LIFE 0x5D
 
-// #define _MISSILE 0x5F
+// #define _BULLET 0x5F
 
 // CYAN
 #define _INVINCIBILITY 0x08
-#define _MISSILE 0x09
+#define _BULLET 0x09
 #define _FREEZE 0x0A
 
 // WHITE
@@ -65,7 +65,7 @@
 
 #define _LEFT_ENEMY_MISSILE ((unsigned char)0x7B)
 #define _RIGHT_ENEMY_MISSILE ((unsigned char)0x7D)
-#define _BUBBLE ((unsigned char)0x60)
+#define _ROCKET ((unsigned char)0x60)
 
 #include "../../display/display_macros.h"
 
@@ -76,7 +76,7 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 
-extern Image MISSILE_IMAGE;
+extern Image BULLET_IMAGE;
 
 extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
@@ -86,7 +86,7 @@ extern Image EXTRA_POINTS_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image FREEZE_IMAGE;
@@ -196,7 +196,7 @@ void INIT_GRAPHICS(void)
 		redefine(CHAR_BASE+8*_GHOST, ghost);
 		redefine(CHAR_BASE+8*_ZOMBIE, ghost);
 		redefine(CHAR_BASE+8*_SKULL, invincible_ghost);	
-		redefine(CHAR_BASE+8*_MISSILE, missile);	
+		redefine(CHAR_BASE+8*_BULLET, missile);	
 		
 		redefine(CHAR_BASE+8*_EXTRA_LIFE,player_down);	
 		redefine(CHAR_BASE+8*_INVINCIBILITY,invincibility);	
@@ -210,7 +210,7 @@ void INIT_GRAPHICS(void)
 		
 			redefine(CHAR_BASE+8*_LEFT_ENEMY_MISSILE,missile_left);	
 			redefine(CHAR_BASE+8*_RIGHT_ENEMY_MISSILE,missile_right);	
-			redefine(CHAR_BASE+8*_BUBBLE, bubble);
+			redefine(CHAR_BASE+8*_ROCKET, bubble);
 			redefine(CHAR_BASE+8*_EXTRA_POINTS, extra_points);
 		#endif
 	#endif
@@ -230,7 +230,7 @@ void INIT_IMAGES(void)
 		POWERUP_IMAGE._imageData = _POWERUP;
 		GUN_IMAGE._imageData = _GUN;
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
-		MISSILE_IMAGE._imageData = _MISSILE;
+		BULLET_IMAGE._imageData = _BULLET;
 	#endif
 	
 	#if !defined(NO_DEAD_GHOST)
@@ -250,11 +250,11 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
-		BUBBLE_IMAGE._imageData = _BUBBLE;
+		ROCKET_IMAGE._imageData = _ROCKET;
 				
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
-		CHASE_IMAGE._imageData = _MISSILE;
+		CHASE_IMAGE._imageData = _BULLET;
 		SUPER_IMAGE._imageData = _SUPER;
 		CONFUSE_IMAGE._imageData = _CONFUSE;
 		ZOMBIE_IMAGE._imageData = _ZOMBIE;

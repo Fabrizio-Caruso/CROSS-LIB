@@ -70,8 +70,8 @@ extern Character player;
 	
 	extern Character leftEnemyMissile;
 	extern Character rightEnemyMissile;
-	extern unsigned char bubbles_x[BUBBLES_NUMBER];
-	extern Character bubbles[BUBBLES_NUMBER];
+	extern unsigned char bubbles_x[ROCKETS_NUMBER];
+	extern Character bubbles[ROCKETS_NUMBER];
 	extern unsigned char dead_bubbles;
 	extern unsigned char missileBasesDestroyed;
 
@@ -95,7 +95,7 @@ extern Character player;
 	}
 #endif
 	
-void handle_missile(void)
+void handle_bullet(void)
 {
 	// Check if player has fired the gun
 	if(playerFire && missile._status==0 && guns>0)
@@ -119,17 +119,17 @@ void handle_missile(void)
 }
 
 
-void checkMissile(Character *missilePtr)
+void checkMissile(Character *bulletPtr)
 {
-	checkMissileVsSkull(missilePtr);
-	checkMissileVsGhosts(missilePtr);
+	checkMissileVsSkull(bulletPtr);
+	checkMissileVsGhosts(bulletPtr);
 }
 
-void checkMissileVsGhost(Character * missilePtr,
+void checkMissileVsGhost(Character * bulletPtr,
 						 Character * ghostPtr)
 {
 	if(ghostPtr->_status && 
-	   areCharctersAtSamePosition(missilePtr, ghostPtr))
+	   areCharctersAtSamePosition(bulletPtr, ghostPtr))
 	{
 		points+=GHOST_VS_MISSILE;
 		#if !defined(NO_DEAD_GHOSTS)
@@ -138,18 +138,18 @@ void checkMissileVsGhost(Character * missilePtr,
 			ghostPtr->_imagePtr = (Image *)&SKULL_IMAGE;			
 		#endif
 		ghostDies(ghostPtr);
-		die(missilePtr);
+		die(bulletPtr);
 	}
 }
 	
-void checkMissileVsGhosts(Character * missilePtr)
+void checkMissileVsGhosts(Character * bulletPtr)
 {
 	unsigned char i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
 	{
 		if(ghosts[i]._status)
 		{
-			checkMissileVsGhost(missilePtr, &ghosts[i]);
+			checkMissileVsGhost(bulletPtr, &ghosts[i]);
 		}
 	};
 }
@@ -186,38 +186,38 @@ void checkMissileVsSkull(register Character *bulletPtr)
 }
 
 
-void _moveMissile(register Character *missilePtr, unsigned short missileDirection)
+void _moveMissile(register Character *bulletPtr, unsigned short missileDirection)
 {
-	deleteMissile(missilePtr);
+	deleteMissile(bulletPtr);
 	switch(missileDirection)
 	{
 		case RIGHT:
-			++missilePtr->_x;
+			++bulletPtr->_x;
 		break;
 		case DOWN:
-			++missilePtr->_y;
+			++bulletPtr->_y;
 		break;
 		case UP:
-			--missilePtr->_y;
+			--bulletPtr->_y;
 		break;
 		case LEFT:
-			--missilePtr->_x;
+			--bulletPtr->_x;
 		break;
 	}	
 }
 
-unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
+unsigned char setMissileInitialPosition(Character *bulletPtr, Character *playerPtr,
 							  unsigned short missileDirection)
 {
-	missilePtr->_x = playerPtr->_x; 
-	missilePtr->_y = playerPtr->_y;
-	_moveMissile(missilePtr, missileDirection);
-	if(wallReached(missilePtr))
+	bulletPtr->_x = playerPtr->_x; 
+	bulletPtr->_y = playerPtr->_y;
+	_moveMissile(bulletPtr, missileDirection);
+	if(wallReached(bulletPtr))
 	{
-		die(missilePtr);
-		deleteMissile(missilePtr);
+		die(bulletPtr);
+		deleteMissile(bulletPtr);
 		#if defined(FULL_GAME)
-			DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+			DRAW_BROKEN_WALL(bulletPtr->_x, bulletPtr->_y);
 		#endif
 		return 0;
 	}
@@ -237,40 +237,40 @@ unsigned char setMissileInitialPosition(Character *missilePtr, Character *player
 	}
 #endif
 
-void moveMissile(register Character * missilePtr, unsigned short missileDirection)
+void moveMissile(register Character * bulletPtr, unsigned short missileDirection)
 {
-	_moveMissile(missilePtr, missileDirection);
-	if(wallReached(missilePtr) && missilePtr->_status)
+	_moveMissile(bulletPtr, missileDirection);
+	if(wallReached(bulletPtr) && bulletPtr->_status)
 	{
-		die(missilePtr);
-		deleteMissile(missilePtr);
+		die(bulletPtr);
+		deleteMissile(bulletPtr);
 		#if defined(FULL_GAME)
-			DRAW_BROKEN_WALL(missilePtr->_x, missilePtr->_y);
+			DRAW_BROKEN_WALL(bulletPtr->_x, bulletPtr->_y);
 			
 			if(oneMissileLevel())
 			{
-				if(missilePtr->_x==XSize-1 && missilePtr->_y==YSize/2 && rightEnemyMissile._status)
+				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==YSize/2 && rightEnemyMissile._status)
 				{
 					destroyEnemyMissile(&rightEnemyMissile);
 				}
 			}				
 			else if(missileLevel() || bossLevel())
 			{
-				if(missilePtr->_x==XSize-1 && missilePtr->_y==ENEMY_MISSILE_OFFSET && rightEnemyMissile._status)
+				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==ENEMY_MISSILE_OFFSET && rightEnemyMissile._status)
 				{
 					destroyEnemyMissile(&rightEnemyMissile);	
 				}
-				else if(missilePtr->_x==0 && missilePtr->_y==YSize-1-ENEMY_MISSILE_OFFSET && leftEnemyMissile._status)
+				else if(bulletPtr->_x==0 && bulletPtr->_y==YSize-1-ENEMY_MISSILE_OFFSET && leftEnemyMissile._status)
 				{
 					destroyEnemyMissile(&leftEnemyMissile);	
 				}
 			}
-			if((rocketLevel() || bossLevel()) && missilePtr->_y==YSize-1)
+			if((rocketLevel() || bossLevel()) && bulletPtr->_y==YSize-1)
 			{
 				unsigned char i;
-				for(i=0;i<BUBBLES_NUMBER;++i)
+				for(i=0;i<ROCKETS_NUMBER;++i)
 				{
-					if(missilePtr->_x==bubbles_x[i] && bubbles[i]._status)
+					if(bulletPtr->_x==bubbles_x[i] && bubbles[i]._status)
 					{
 						bubbles[i]._status = 0;
 						++dead_bubbles;
@@ -285,7 +285,7 @@ void moveMissile(register Character * missilePtr, unsigned short missileDirectio
 	}
 	else
 	{
-		displayMissile(missilePtr);
+		displayMissile(bulletPtr);
 	}
 }
 

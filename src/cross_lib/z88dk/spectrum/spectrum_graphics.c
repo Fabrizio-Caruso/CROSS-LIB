@@ -41,7 +41,7 @@ extern Image FREEZE_IMAGE;
 #if !defined(TINY_GAME)
 	extern Image SKULL_IMAGE;
 	extern Image POWERUP_IMAGE;
-	extern Image MISSILE_IMAGE;
+	extern Image BULLET_IMAGE;
 	extern Image GUN_IMAGE;
 #endif
 
@@ -53,7 +53,7 @@ extern Image FREEZE_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
@@ -118,18 +118,18 @@ struct redefine_struct
 // RED
 #define _BOMB 0x5E
 #define _DEAD_GHOST 0x5B
-// #define _MISSILE 0x5F
+// #define _BULLET 0x5F
 
 // CYAN
 #define _INVINCIBILITY 0x21
-#define _MISSILE 0x23
+#define _BULLET 0x23
 
 // WHITE
 #define _GHOST 0x7E
 
 #define _LEFT_ENEMY_MISSILE ((unsigned char)0x7B)
 #define _RIGHT_ENEMY_MISSILE ((unsigned char)0x7D)
-#define _BUBBLE ((unsigned char)0x60)
+#define _ROCKET ((unsigned char)0x60)
 
 #if defined(REDEFINED_CHARS)
 struct redefine_struct redefine_map[] =
@@ -150,8 +150,8 @@ struct redefine_struct redefine_map[] =
 	{_SKULL, { 60, 66,165,129, 90, 36, 36, 60}},
 	{_GUN, {  0,128,126,200,248,192,128,  0}},
 	{_POWERUP, {  0, 60, 54,223,231,122, 36, 24}},
-	{_MISSILE, {  0,  0,  8, 56, 28, 16,  0,  0}},
-	{_BUBBLE, { 24, 60, 60, 60,126, 90, 66, 66}},
+	{_BULLET, {  0,  0,  8, 56, 28, 16,  0,  0}},
+	{_ROCKET, { 24, 60, 60, 60,126, 90, 66, 66}},
 	{_INVINCIBILITY, { 24, 36, 24,  0,153,  0, 36,102}},
 	{_VERTICAL_BRICK, { 24, 24, 24, 48, 24, 12, 24, 24}},
 	{_HORIZONTAL_BRICK, {  0,  0,  0,255,  0,  0,  0,  0}}		
@@ -230,15 +230,15 @@ void INIT_IMAGES(void)
 		POWERUP_IMAGE._imageData = _POWERUP;
 		FREEZE_IMAGE._imageData = _POWERUP; 		
 		GUN_IMAGE._imageData = _GUN;
-		MISSILE_IMAGE._imageData = _MISSILE;
+		BULLET_IMAGE._imageData = _BULLET;
 		#endif
 		
 		#if defined(FULL_GAME)
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;		
-			BUBBLE_IMAGE._imageData = _BUBBLE;
+			ROCKET_IMAGE._imageData = _ROCKET;
 			INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
-			CHASE_IMAGE._imageData = _MISSILE;
+			CHASE_IMAGE._imageData = _BULLET;
 			SUPER_IMAGE._imageData = _POWERUP;
 			CONFUSE_IMAGE._imageData = _SKULL;
 			ZOMBIE_IMAGE._imageData = _GHOST;
@@ -252,12 +252,12 @@ void INIT_IMAGES(void)
 			SKULL_IMAGE._imageData = '+';
 			POWERUP_IMAGE._imageData = 'S';
 			GUN_IMAGE._imageData = '!';
-			MISSILE_IMAGE._imageData = '.';
+			BULLET_IMAGE._imageData = '.';
 		#endif
 		#if defined(FULL_GAME)
 			LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-			BUBBLE_IMAGE._imageData = '^';
+			ROCKET_IMAGE._imageData = '^';
 		#endif	
 	#endif
 	
@@ -269,7 +269,7 @@ void INIT_IMAGES(void)
 		GHOST_IMAGE._color = COLOR_WHITE;
 		
 		#if !defined(TINY_GAME)
-			MISSILE_IMAGE._color = COLOR_WHITE;
+			BULLET_IMAGE._color = COLOR_WHITE;
 		#endif
 	#endif
 	
@@ -277,7 +277,7 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
 		
-		BUBBLE_IMAGE._color = COLOR_WHITE;
+		ROCKET_IMAGE._color = COLOR_WHITE;
 		EXTRA_POINTS_IMAGE._imageData = '$';
 		#if !defined(REDEFINED_CHARS)
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;

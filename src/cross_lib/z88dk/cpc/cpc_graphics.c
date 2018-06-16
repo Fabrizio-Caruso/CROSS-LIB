@@ -44,14 +44,14 @@ extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image FREEZE_IMAGE;
-extern Image MISSILE_IMAGE;
+extern Image BULLET_IMAGE;
 extern Image GUN_IMAGE;
 
 #if defined(FULL_GAME)
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
@@ -98,7 +98,7 @@ void INIT_IMAGES(void)
 	
 	POWERUP_IMAGE._imageData = _POWERUP_IMAGE; // 'S'; //0x18;//'S';
 	GUN_IMAGE._imageData = 0xB9; // '!'; //0x04;//'!';
-	MISSILE_IMAGE._imageData = 0x90;//'.';
+	BULLET_IMAGE._imageData = 0x90;//'.';
 	
 	#if defined(CPC_NO_COLOR)
 		DEAD_GHOST_IMAGE._imageData = 0x9F;//'O';
@@ -107,7 +107,7 @@ void INIT_IMAGES(void)
 	#endif
 
 	GHOST_IMAGE._color = CPC_CYAN;
-	MISSILE_IMAGE._color = CPC_CYAN;
+	BULLET_IMAGE._color = CPC_CYAN;
 
 	#if defined(FULL_GAME)
 		FREEZE_IMAGE._imageData = _POWERUP_IMAGE;		
@@ -117,8 +117,8 @@ void INIT_IMAGES(void)
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		RIGHT_ENEMY_MISSILE_IMAGE._color = CPC_CYAN;	
 		
-		BUBBLE_IMAGE._imageData = 0xEF;//'^';
-		BUBBLE_IMAGE._color = CPC_CYAN;
+		ROCKET_IMAGE._imageData = 0xEF;//'^';
+		ROCKET_IMAGE._color = CPC_CYAN;
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
 		

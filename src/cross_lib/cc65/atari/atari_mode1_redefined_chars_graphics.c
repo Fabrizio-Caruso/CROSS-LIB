@@ -53,7 +53,7 @@
 
 #define _LEFT_ENEMY_MISSILE 9
 #define _RIGHT_ENEMY_MISSILE 8	
-#define _BUBBLE 7
+#define _ROCKET 7
 
 #define _EXTRA_POINTS_IMAGE 4
 #define _VERTICAL_BRICK 5
@@ -76,7 +76,7 @@ extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 
-extern Image MISSILE_IMAGE;
+extern Image BULLET_IMAGE;
 
 #if defined(FULL_GAME)
 	extern Image FREEZE_IMAGE;
@@ -84,7 +84,7 @@ extern Image MISSILE_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;
@@ -186,7 +186,7 @@ void INIT_GRAPHICS(void)
 	#if defined(FULL_GAME)
 		redefine(_FONT_START__+_LEFT_ENEMY_MISSILE*8, missile_left);
 		redefine(_FONT_START__+_RIGHT_ENEMY_MISSILE*8, missile_right);		
-		redefine(_FONT_START__+_BUBBLE*8, bubble);
+		redefine(_FONT_START__+_ROCKET*8, bubble);
 		redefine(_FONT_START__+_INVINCIBILITY*8, invincibility);				
 	#endif
 	
@@ -216,7 +216,7 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._color = _ATARI_MODE1_RED; // RED
 	DEAD_GHOST_IMAGE._color = _ATARI_MODE1_YELLOW;
 	GHOST_IMAGE._color = _ATARI_MODE1_WHITE; // WHITE
-	MISSILE_IMAGE._color = _ATARI_MODE1_RED;
+	BULLET_IMAGE._color = _ATARI_MODE1_RED;
 
 	PLAYER_DOWN._imageData = _PLAYER_DOWN;
 	PLAYER_UP._imageData = _PLAYER_UP;
@@ -231,7 +231,7 @@ void INIT_IMAGES(void)
 	GHOST_IMAGE._imageData = _GHOST;
 	SKULL_IMAGE._imageData = _SKULL;
 	BOMB_IMAGE._imageData = _BOMB;		
-	MISSILE_IMAGE._imageData = _MISSILE;
+	BULLET_IMAGE._imageData = _MISSILE;
 	DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
 
 	#if defined(FULL_GAME)
@@ -240,7 +240,7 @@ void INIT_IMAGES(void)
 	
 		LEFT_ENEMY_MISSILE_IMAGE._color = _ATARI_MODE1_WHITE;
 		RIGHT_ENEMY_MISSILE_IMAGE._color = _ATARI_MODE1_WHITE;	
-		BUBBLE_IMAGE._color = _ATARI_MODE1_WHITE;	
+		ROCKET_IMAGE._color = _ATARI_MODE1_WHITE;	
 		EXTRA_LIFE_IMAGE._color = _ATARI_MODE1_YELLOW;
 		INVINCIBILITY_IMAGE._color = _ATARI_MODE1_YELLOW;
 		SUPER_IMAGE._color = _ATARI_MODE1_RED;
@@ -252,7 +252,7 @@ void INIT_IMAGES(void)
 
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 
-		BUBBLE_IMAGE._imageData = _BUBBLE;
+		ROCKET_IMAGE._imageData = _ROCKET;
 
 		EXTRA_LIFE_IMAGE._imageData = _PLAYER_DOWN;
 

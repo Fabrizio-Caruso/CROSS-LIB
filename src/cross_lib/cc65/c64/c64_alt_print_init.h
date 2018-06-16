@@ -43,8 +43,8 @@
 #define _PLAYER_LEFT ((char) 0x76 - 4 -0x20)
 	
 
-#define _MISSILE (char) (0x7C-0x20)
-#define _BUBBLE '^'
+#define _BULLET (char) (0x7C-0x20)
+#define _ROCKET '^'
 #define _EXTRA_POINTS '*'
 #define _LEFT_ENEMY_MISSILE '>'
 #define _RIGHT_ENEMY_MISSILE '<'

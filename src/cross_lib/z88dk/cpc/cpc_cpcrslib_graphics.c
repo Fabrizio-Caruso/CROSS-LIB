@@ -39,7 +39,7 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
-extern Image MISSILE_IMAGE;
+extern Image BULLET_IMAGE;
 extern Image GUN_IMAGE;
 
 #if defined(FULL_GAME)
@@ -48,7 +48,7 @@ extern Image GUN_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
@@ -77,7 +77,7 @@ char char_list[UDG_N*2] =
 37, '\0', // GHOST
 44, '\0', // BOMB
 40, '\0', // SKULL
-43, '\0', // MISSILE
+43, '\0', // BULLET
 42, '\0', // POWERUP
 41, '\0', // GUN
 49, '\0', // EXTRA_POINTS_IMAGE
@@ -85,7 +85,7 @@ char char_list[UDG_N*2] =
 33, '\0', // EXTRA LIFE
 39, '\0', // LEFT_MISSILE
 38, '\0', // RIGHT_MISSILE
-45, '\0', // BUBBLE
+45, '\0', // ROCKET
 33, '\0', // DOWN
 34, '\0', // UP
 35, '\0', // RIGHT
@@ -99,7 +99,7 @@ char char_list[UDG_N*2] =
 #define _GHOST 1*2
 #define _BOMB 2*2
 #define _SKULL 3*2
-#define _MISSILE 4*2
+#define _BULLET 4*2
 #define _POWERUP 5*2
 #define _GUN 6*2
 #define _EXTRA_POINTS 7*2
@@ -107,7 +107,7 @@ char char_list[UDG_N*2] =
 #define _EXTRA_LIFE 9*2
 #define _LEFT_MISSILE 10*2
 #define _RIGHT_MISSILE 11*2
-#define _BUBBLE 12*2
+#define _ROCKET 12*2
 #define _PLAYER_DOWN 13*2
 #define _PLAYER_UP 14*2
 #define _PLAYER_RIGHT 15*2
@@ -205,9 +205,9 @@ void INIT_IMAGES(void)
 		POWERUP_IMAGE._imageData = _POWERUP;
 
 		GUN_IMAGE._imageData = _GUN;
-		MISSILE_IMAGE._imageData = _MISSILE;
+		BULLET_IMAGE._imageData = _BULLET;
 
-		MISSILE_IMAGE._color = CPC_WHITE;
+		BULLET_IMAGE._color = CPC_WHITE;
 	#endif
 	
 	#if defined(FULL_GAME)
@@ -219,8 +219,8 @@ void INIT_IMAGES(void)
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._color = CPC_WHITE;	
 		
-		BUBBLE_IMAGE._imageData = _BUBBLE;
-		BUBBLE_IMAGE._color = CPC_WHITE;
+		ROCKET_IMAGE._imageData = _ROCKET;
+		ROCKET_IMAGE._color = CPC_WHITE;
 		
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
@@ -230,7 +230,7 @@ void INIT_IMAGES(void)
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;			
 		#endif
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
-		CHASE_IMAGE._imageData = _MISSILE;
+		CHASE_IMAGE._imageData = _BULLET;
 		SUPER_IMAGE._imageData = _POWERUP;
 		CONFUSE_IMAGE._imageData = _SKULL;
 		ZOMBIE_IMAGE._imageData = _GHOST;

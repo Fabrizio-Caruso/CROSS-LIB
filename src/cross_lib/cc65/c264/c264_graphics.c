@@ -80,7 +80,7 @@
 #define _RIGHT_ENEMY_MISSILE 0x2E
 
 //((unsigned char)0x7D)
-#define _BUBBLE 0x2F
+#define _ROCKET 0x2F
 //((unsigned char)0x60)
 
 // #define VERTICAL_BRICK '='
@@ -92,7 +92,7 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
-extern Image MISSILE_IMAGE;
+extern Image BULLET_IMAGE;
 extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 
@@ -100,7 +100,7 @@ extern Image EXTRA_POINTS_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image FREEZE_IMAGE;	
 	extern Image EXTRA_LIFE_IMAGE;
@@ -144,7 +144,7 @@ struct redefine_struct redefine_map[] =
 	#if defined(FULL_GAME)
 		{_RIGHT_ENEMY_MISSILE, {  0,  0, 15,252,252, 15,  0,  0}},
 		{_LEFT_ENEMY_MISSILE, {  0,  0,240, 63, 63,240,  0,  0}},	
-		{_BUBBLE, { 24, 60, 60, 60,126, 90, 66, 66}},
+		{_ROCKET, { 24, 60, 60, 60,126, 90, 66, 66}},
 		{_INVINCIBILITY, { 24, 36, 24,  0,153,  0, 36,102}},
 	#endif
 };
@@ -189,7 +189,7 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._color = COLOR_RED;
 
 	GHOST_IMAGE._color = COLOR_WHITE;
-	MISSILE_IMAGE._color = COLOR_WHITE;
+	BULLET_IMAGE._color = COLOR_WHITE;
 
 	PLAYER_DOWN._color = COLOR_CYAN;
 	PLAYER_UP._color = COLOR_CYAN;
@@ -200,7 +200,7 @@ void INIT_IMAGES(void)
 		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
 		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 		
-		BUBBLE_IMAGE._color = COLOR_WHITE;
+		ROCKET_IMAGE._color = COLOR_WHITE;
 		FREEZE_IMAGE._color = COLOR_CYAN;
 			
 		EXTRA_LIFE_IMAGE._color = COLOR_RED;
@@ -226,12 +226,12 @@ void INIT_IMAGES(void)
 	BOMB_IMAGE._imageData = _BOMB;		
 	POWERUP_IMAGE._imageData = _POWERUP;
 	GUN_IMAGE._imageData = _GUN;
-	MISSILE_IMAGE._imageData = _MISSILE;
+	BULLET_IMAGE._imageData = _MISSILE;
 
 	#if defined(FULL_GAME)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;		
-		BUBBLE_IMAGE._imageData = _BUBBLE;
+		ROCKET_IMAGE._imageData = _ROCKET;
 		
 		FREEZE_IMAGE._imageData = _POWERUP;		
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;

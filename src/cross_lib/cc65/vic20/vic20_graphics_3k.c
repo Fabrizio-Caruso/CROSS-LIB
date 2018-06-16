@@ -58,13 +58,13 @@
 
 // CYAN
 #define _INVINCIBILITY 0x73
-#define _MISSILE 0x7C
+#define _BULLET 0x7C
 
 #define _LEFT_ENEMY_MISSILE '>'
 
 #define _RIGHT_ENEMY_MISSILE '<'
 
-#define _BUBBLE '^'
+#define _ROCKET '^'
 
 #include "../../cross_lib.h"
 
@@ -86,7 +86,7 @@ extern Image BOMB_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image FREEZE_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
@@ -163,7 +163,7 @@ void INIT_IMAGES(void)
 			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
 			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
 			
-			BUBBLE_IMAGE._color = COLOR_WHITE;
+			ROCKET_IMAGE._color = COLOR_WHITE;
 
 			FREEZE_IMAGE._color = COLOR_CYAN;
 			EXTRA_LIFE_IMAGE._color = COLOR_YELLOW;
@@ -189,7 +189,7 @@ void INIT_IMAGES(void)
 		GUN_IMAGE._imageData = _GUN;
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
-		MISSILE_IMAGE._imageData = _MISSILE;
+		BULLET_IMAGE._imageData = _BULLET;
 	#endif
 	
 	PLAYER_DOWN._imageData = _PLAYER_DOWN;
@@ -201,7 +201,7 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
 		
-		BUBBLE_IMAGE._imageData = _BUBBLE;
+		ROCKET_IMAGE._imageData = _ROCKET;
 
 		FREEZE_IMAGE._imageData = _POWERUP;		
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;

@@ -31,7 +31,7 @@ extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
 extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
-extern Image MISSILE_IMAGE;
+extern Image BULLET_IMAGE;
 
 extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
@@ -43,7 +43,7 @@ extern Image EXTRA_POINTS_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_LIFE_IMAGE;
 	extern Image INVINCIBILITY_IMAGE;	
@@ -114,7 +114,7 @@ void INIT_IMAGES(void)
 	
 	PLAYER_DOWN._color = 0;		
 	GHOST_IMAGE._color = 0;
-	MISSILE_IMAGE._color = 0;
+	BULLET_IMAGE._color = 0;
 	SKULL_IMAGE._color = 0;
 	POWERUP_IMAGE._color = 128u;
 	GUN_IMAGE._color = 128u;
@@ -131,7 +131,7 @@ void INIT_IMAGES(void)
 	GUN_IMAGE._imageData = (char) 0x5e;
 	EXTRA_POINTS_IMAGE._imageData = '$';
 		
-	MISSILE_IMAGE._imageData = (char) 0x5f;
+	BULLET_IMAGE._imageData = (char) 0x5f;
 	
 	#if !defined(NO_DEAD_GHOST)
 	DEAD_GHOST_IMAGE._color = 128u;
@@ -156,15 +156,15 @@ void INIT_IMAGES(void)
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		RIGHT_ENEMY_MISSILE_IMAGE._color = 0;
 		
-		BUBBLE_IMAGE._imageData = (char) 0x23;
-		BUBBLE_IMAGE._color = 0;	
+		ROCKET_IMAGE._imageData = (char) 0x23;
+		ROCKET_IMAGE._color = 0;	
 		
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
 		EXTRA_LIFE_IMAGE._color = 128u;
 		
 		INVINCIBILITY_IMAGE._imageData = 0x3B;
 		INVINCIBILITY_IMAGE._color = 128u;
-		CHASE_IMAGE._imageData = MISSILE_IMAGE._imageData;
+		CHASE_IMAGE._imageData = BULLET_IMAGE._imageData;
 		CHASE_IMAGE._color = 128u;
 		
 		CONFUSE_IMAGE._imageData = 'C';
@@ -177,7 +177,7 @@ void INIT_IMAGES(void)
 		ZOMBIE_IMAGE._color = 128u;
 		
 		redefine(0xb400 + INVINCIBILITY_IMAGE._imageData*8,invincibility);					
-		redefine(0xb400 + BUBBLE_IMAGE._imageData*8,bubble);
+		redefine(0xb400 + ROCKET_IMAGE._imageData*8,bubble);
 		redefine(0xb400 + '<'*8,left_arrow);
 		redefine(0xb400 + '>'*8,right_arrow);
 		
@@ -191,7 +191,7 @@ void INIT_IMAGES(void)
 	redefine(0xb400 + POWERUP_IMAGE._imageData*8,powerUp);		
 	redefine(0xb400 + SKULL_IMAGE._imageData*8,skull);
 	redefine(0xb400 + GUN_IMAGE._imageData*8,gun);		
-	redefine(0xb400 + MISSILE_IMAGE._imageData*8,missile);
+	redefine(0xb400 + BULLET_IMAGE._imageData*8,missile);
 	
 	#if !defined(REDEFINED_CHARS)
 	redefine(0xb400 + PLAYER_IMAGE._imageData*8,player);		

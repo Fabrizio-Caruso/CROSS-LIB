@@ -35,7 +35,7 @@ extern Image BOMB_IMAGE;
 #if !defined(TINY_GAME)
 	extern Image SKULL_IMAGE;
 	extern Image POWERUP_IMAGE;
-	extern Image MISSILE_IMAGE;
+	extern Image BULLET_IMAGE;
 	extern Image GUN_IMAGE;
 #endif
 
@@ -45,7 +45,7 @@ extern Image BOMB_IMAGE;
 	extern Image LEFT_ENEMY_MISSILE_IMAGE;
 	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
 
-	extern Image BUBBLE_IMAGE;
+	extern Image ROCKET_IMAGE;
 
 	extern Image EXTRA_POINTS_IMAGE;
 	extern Image EXTRA_LIFE_IMAGE;
@@ -82,7 +82,7 @@ void INIT_IMAGES(void)
 		#else
 			GUN_IMAGE._imageData = '!';
 		#endif
-		MISSILE_IMAGE._imageData = '.';
+		BULLET_IMAGE._imageData = '.';
 	#endif
 
 	#if defined(FULL_GAME)
@@ -91,7 +91,7 @@ void INIT_IMAGES(void)
 		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
 		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
 		
-		BUBBLE_IMAGE._imageData = 'I';
+		ROCKET_IMAGE._imageData = 'I';
 		
 		EXTRA_POINTS_IMAGE._imageData = '$';
 		

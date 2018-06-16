@@ -72,7 +72,7 @@
 
 	#define _RIGHT_ENEMY_MISSILE '<'
 
-	#define _BUBBLE ('^'-64)
+	#define _ROCKET ('^'-64)
 	
 	#define _BROKEN_WALL _BOMB
 #else
@@ -118,13 +118,13 @@
 
 	// CYAN
 	#define _INVINCIBILITY 'V'
-	#define _MISSILE '.'
+	#define _BULLET '.'
 
 	#define _LEFT_ENEMY_MISSILE '>'
 
 	#define _RIGHT_ENEMY_MISSILE '<'
 
-	#define _BUBBLE ('^'-64)
+	#define _ROCKET ('^'-64)
 	
 	#define _BROKEN_WALL _BOMB	
 #endif	

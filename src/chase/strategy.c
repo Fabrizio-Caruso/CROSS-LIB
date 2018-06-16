@@ -29,7 +29,6 @@
 extern unsigned char level;
 extern unsigned short loop;
 extern unsigned char ghostCount;
-extern unsigned short invincibleSlowDown;
 
 extern Character player; 
 extern Character ghosts[GHOSTS_NUMBER];
@@ -77,8 +76,7 @@ extern unsigned char zombieActive;
 	}	
 #endif
 
-// TODO: Design issue: we delete the invincible enemy
-// This should be made generic even though it works
+
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 	{

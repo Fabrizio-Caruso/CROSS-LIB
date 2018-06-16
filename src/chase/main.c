@@ -50,7 +50,7 @@
 
 #if !defined(TINY_GAME)
 	#include "missile.h"
-	#include "invincible_enemy.h"
+	#include "skull.h"
 #endif
 	
 #include "end_screen.h"
@@ -73,9 +73,9 @@ unsigned char level;
 
 
 #if !defined(TINY_GAME)
-	unsigned short invincibleSlowDown;
-	unsigned char invincibleXCountDown;
-	unsigned char invincibleYCountDown;
+	unsigned short skullSlowDown;
+	unsigned char skullXCountDown;
+	unsigned char skullYCountDown;
 	unsigned char missileDirection;
 #endif
 
@@ -83,10 +83,10 @@ unsigned char level;
 // The level affects:
 // 1. powerUpCoolDown (how long before a new powerUp is spawned)
 // 2. ghostSlowDown (how much the power up slows the enemies down)
-// 3. invincibleXCountDown (time needed to activate the invincible ghost)
-// 4. invincibleYCountDown
-// 5. invincibleSlowDown (how much the invincible ghost is slowed-down)
-// 6. invincibleLoopTrigger (how long before the invincible ghost appears)
+// 3. skullXCountDown (time needed to activate the skull ghost)
+// 4. skullYCountDown
+// 5. skullSlowDown (how much the skull ghost is slowed-down)
+// 6. skullLoopTrigger (how long before the skull ghost appears)
 
 #if !defined(TINY_GAME)
 	extern Image INVINCIBLE_GHOST_IMAGE;
@@ -105,7 +105,7 @@ unsigned char level;
 Character player; 
 
 #if !defined(TINY_GAME)
-	Character invincibleGhost;
+	Character skull;
 	Item powerUp;
 	Item powerUp2;
 	Item gun;
@@ -118,7 +118,7 @@ Character ghosts[GHOSTS_NUMBER];
 Character bombs[BOMBS_NUMBER];
 
 #if defined(FULL_GAME)
-	// unsigned short invincibleGhostCountTrigger = INVINCIBLE_GHOST_TRIGGER;
+	// unsigned short skullCountTrigger = INVINCIBLE_GHOST_TRIGGER;
 
 	unsigned char innerVerticalWallY; 
 	unsigned char innerVerticalWallX; 
@@ -192,8 +192,8 @@ unsigned char ghostCount; // = GHOSTS_NUMBER;
 	unsigned char playerFire;
 	unsigned char guns; // = GUNS_NUMBER;
 
-	unsigned char invincibleGhostHits;
-	unsigned char invincibleGhostAlive;
+	unsigned char skullHits;
+	unsigned char skullAlive;
 #endif
 
 
@@ -376,8 +376,8 @@ int main(void)
 			#endif			
 			
 			#if !defined(TINY_GAME)
-				invincibleGhostAlive = 1;
-				invincibleGhostHits = 0;						
+				skullAlive = 1;
+				skullHits = 0;						
 				guns = 0;
 				
 				resetItems();
@@ -387,7 +387,7 @@ int main(void)
 					freeze_count_down = INITIAL_FROZEN_COUNT_DOWN;
 				#endif
 				
-				computeInvincibleGhostParameters();				
+				computeSkullParameters();				
 			#endif
 
 			ghostSlowDown = computeGhostSlowDown();
@@ -447,7 +447,7 @@ int main(void)
 			#endif
 
 			#if defined(FULL_GAME)
-			while(player._status && ((ghostCount>0 && !bossLevel()) || (invincibleGhostAlive && bossLevel()))) // while alive && there are still ghosts
+			while(player._status && ((ghostCount>0 && !bossLevel()) || (skullAlive && bossLevel()))) // while alive && there are still ghosts
 			#else
 			while(player._status && (ghostCount>0) )
 			#endif
@@ -489,9 +489,9 @@ int main(void)
 					if(!freezeActive)
 					{
 						#if defined(FULL_GAME)
-							if(confuseActive && invincibleGhostAlive && invincibleGhost._status)
+							if(confuseActive && skullAlive && skull._status)
 							{
-								chaseCharacter(&invincibleGhost, ghostSlowDown);
+								chaseCharacter(&skull, ghostSlowDown);
 							}
 							else
 							{
@@ -503,7 +503,7 @@ int main(void)
 						++ghostLevel;				
 					}
 				
-					handle_invincible_ghost();
+					handle_skull_ghost();
 
 					// This detects collisions of ghosts that have just moved
 					if(missile._status)
@@ -662,7 +662,7 @@ int main(void)
 					}
 					else
 					{
-						if(!invincibleGhostAlive)
+						if(!skullAlive)
 						{
 							++skullsKilled;
 						}
@@ -684,7 +684,7 @@ int main(void)
 								dance(&ghosts[i]);
 						}
 					}
-					chasedEnemyPtr = &invincibleGhost;					
+					chasedEnemyPtr = &skull;					
 				#endif
 				
 				#if !defined(TINY_GAME)

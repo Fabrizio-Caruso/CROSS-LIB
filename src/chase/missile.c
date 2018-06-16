@@ -48,9 +48,9 @@ extern unsigned char level;
 
 extern Item extraPoints;
 
-extern Character invincibleGhost;
-extern unsigned char invincibleGhostHits;
-extern unsigned char invincibleGhostAlive;
+extern Character skull;
+extern unsigned char skullHits;
+extern unsigned char skullAlive;
 extern unsigned char playerFire;
 extern unsigned char guns;
 extern unsigned char playerDirection;
@@ -156,31 +156,31 @@ void checkMissileVsGhosts(Character * missilePtr)
 
 void checkMissileVsInvincibleGhost(register Character *bulletPtr)
 {
-	if(invincibleGhost._status && 
-	   areCharctersAtSamePosition(bulletPtr, &invincibleGhost))
+	if(skull._status && 
+	   areCharctersAtSamePosition(bulletPtr, &skull))
 	{
 		PING_SOUND();
 		die(bulletPtr);
 		deleteMissile(bulletPtr);
 		bulletPtr->_x = 0; bulletPtr->_y = 0;
-		++invincibleGhostHits;
+		++skullHits;
 		decreaseGhostLevel();
 		reducePowerUpsCoolDowns();
 		
-		if(invincibleGhostHits>=MIN_INVINCIBLE_GHOST_HITS)
+		if(skullHits>=MIN_INVINCIBLE_GHOST_HITS)
 		{
-			invincibleGhost._status = 0;
-			deleteInvincibleGhost(&invincibleGhost);
-			invincibleGhost._x=XSize-2; 
-			invincibleGhost._y=YSize-2;
-			invincibleGhostAlive = 0;
+			skull._status = 0;
+			deleteSkull(&skull);
+			skull._x=XSize-2; 
+			skull._y=YSize-2;
+			skullAlive = 0;
 			EXPLOSION_SOUND();
 			points+=INVINCIBLE_GHOST_POINTS;
 			displayStats();
 		}
 		else
 		{
-			displayInvincibleGhost(&invincibleGhost);
+			displaySkull(&skull);
 		}
 	}	
 }

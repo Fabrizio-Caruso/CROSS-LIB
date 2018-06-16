@@ -14,7 +14,7 @@
 	#include "enemy.h"
 	
 	extern Character player;
-	extern Character invincibleGhost;
+	extern Character skull;
 	extern Character ghosts[GHOSTS_NUMBER];
 	extern Character missile;
 	extern unsigned char playerFire;
@@ -65,8 +65,8 @@
 
 		playerFire = 0;
 		loop = 0;
-		invincibleGhost._x = player._x-5;
-		invincibleGhost._y = player._y;	
+		skull._x = player._x-5;
+		skull._y = player._y;	
 		missile._status = 0;
 		guns = 1;
 		while(!playerFire)
@@ -77,7 +77,7 @@
 				dance(&ghosts[k]);
 			}
 			dance(&player);
-			dance(&invincibleGhost);
+			dance(&skull);
 		
 			printCenteredMessageOnRow(2+(loop&15),  YOU_MADE_IT_STRING);
 			#if defined(SLOW_DOWN)

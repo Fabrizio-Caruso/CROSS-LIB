@@ -4,7 +4,7 @@
 #include "move_player.h"
 
 #include "character.h"
-#include "invincible_enemy.h"
+#include "skull.h"
 
 #include "definitions.h"
 
@@ -12,8 +12,8 @@
 extern Character player;
 
 #if !defined(TINY_GAME)
-	extern unsigned char invincibleXCountDown;
-	extern unsigned char invincibleYCountDown;
+	extern unsigned char skullXCountDown;
+	extern unsigned char skullYCountDown;
 	extern unsigned char playerFire;
 	extern Character missile;
 	extern unsigned char guns;
@@ -31,47 +31,47 @@ extern Character player;
 			deletePlayer(&player); \
 			--player._y; \
 			SHOW_UP(); \
-			invincibleYCountDown = SKULL_COUNT_DOWN; \
+			skullYCountDown = SKULL_COUNT_DOWN; \
 			playerDirection = UP;
 		#define _DO_MOVE_DOWN \
 			deletePlayer(&player); \
 			++player._y; \
 			SHOW_DOWN(); \
-			invincibleYCountDown = SKULL_COUNT_DOWN; \
+			skullYCountDown = SKULL_COUNT_DOWN; \
 			playerDirection = DOWN;
 		#define _DO_MOVE_LEFT \
 			deletePlayer(&player); \
 			--player._x; \
 			SHOW_LEFT(); \
-			invincibleXCountDown = SKULL_COUNT_DOWN; \
+			skullXCountDown = SKULL_COUNT_DOWN; \
 			playerDirection = LEFT;
 		#define _DO_MOVE_RIGHT \
 			deletePlayer(&player); \
 			++player._x; \
 			SHOW_RIGHT(); \
-			invincibleXCountDown = SKULL_COUNT_DOWN; \
+			skullXCountDown = SKULL_COUNT_DOWN; \
 			playerDirection = RIGHT;
 	#else
 		#define _DO_MOVE_UP \
 			--player._y; \
 			SHOW_UP(); \
-			invincibleYCountDown = SKULL_COUNT_DOWN; \
+			skullYCountDown = SKULL_COUNT_DOWN; \
 			playerDirection = UP;
 		#define _DO_MOVE_DOWN \
 			++player._y; \
 			SHOW_DOWN(); \
-			invincibleYCountDown = SKULL_COUNT_DOWN; \
+			skullYCountDown = SKULL_COUNT_DOWN; \
 			playerDirection = DOWN;	
 		#define _DO_MOVE_LEFT \
 			--player._x; \
 			SHOW_LEFT(); \
-			invincibleXCountDown = SKULL_COUNT_DOWN; \
+			skullXCountDown = SKULL_COUNT_DOWN; \
 			playerDirection = LEFT;
 		 
 		#define _DO_MOVE_RIGHT \
 			++player._x; \
 			SHOW_RIGHT(); \
-			invincibleXCountDown = SKULL_COUNT_DOWN; \
+			skullXCountDown = SKULL_COUNT_DOWN; \
 			playerDirection = RIGHT;
 	#endif
 #else

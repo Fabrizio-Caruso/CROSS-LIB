@@ -25,31 +25,31 @@
 
 #include "settings.h"
 
-#include "invincible_enemy.h"
+#include "skull.h"
 #include "level.h"
 #include "strategy.h"
 
 extern unsigned char level;
 extern unsigned short loop;
 
-extern unsigned short invincibleSlowDown;
-extern unsigned char invincibleXCountDown;
-extern unsigned char invincibleYCountDown ;
+extern unsigned short skullSlowDown;
+extern unsigned char skullXCountDown;
+extern unsigned char skullYCountDown ;
 
 extern unsigned short ghostLevel;
 
-extern Character invincibleGhost;
+extern Character skull;
 extern Character player;
 
-extern unsigned char invincibleGhostAlive;
-// extern unsigned char invincibleGhostCountTrigger;
-// extern unsigned short invincibleLoopTrigger;
+extern unsigned char skullAlive;
+// extern unsigned char skullCountTrigger;
+// extern unsigned short skullLoopTrigger;
 
 #if defined(FULL_GAME)
 	extern unsigned char confuseActive;
 #endif
 
-unsigned short computeInvincibleSlowDown(void)
+unsigned short computeSkullSlowDown(void)
 {
 	if(loop<MAX_INVINCIBLE_LOOP)
 	{
@@ -62,76 +62,76 @@ unsigned short computeInvincibleSlowDown(void)
 	return INVINCIBLE_MIN_SLOWDOWN; // You must die!
 }
 
-void computeInvincibleGhostParameters(void)
+void computeSkullParameters(void)
 {
-	invincibleSlowDown = computeInvincibleSlowDown();
-	invincibleXCountDown = SKULL_COUNT_DOWN;
-	invincibleYCountDown = SKULL_COUNT_DOWN;
+	skullSlowDown = computeSkullSlowDown();
+	skullXCountDown = SKULL_COUNT_DOWN;
+	skullYCountDown = SKULL_COUNT_DOWN;
 }
 
 
 // Redability macros
-#define INACTIVITY_COUNT_DOWN_REACHED ((invincibleXCountDown==0) || (invincibleYCountDown==0))
+#define INACTIVITY_COUNT_DOWN_REACHED ((skullXCountDown==0) || (skullYCountDown==0))
 #define GHOST_COUNT_TRIGGER_REACHED (ghostCount<=INVINCIBLE_GHOST_TRIGGER)
 #define BOSS_LOOP_TRIGGER_REACHED (loop>=INVINCIBLE_LOOP_TRIGGER)
 
 #define ONE_TRIGGER_REACHED (INACTIVITY_COUNT_DOWN_REACHED || GHOST_COUNT_TRIGGER_REACHED)
 
 #if defined(__NCURSES__)
-	#define SKULL_RAND_CONDITION ((rand()&0x7fff)>invincibleSlowDown)
+	#define SKULL_RAND_CONDITION ((rand()&0x7fff)>skullSlowDown)
 #else
-	#define SKULL_RAND_CONDITION (rand()>invincibleSlowDown)
+	#define SKULL_RAND_CONDITION (rand()>skullSlowDown)
 #endif
 
-void handle_invincible_ghost(void)
+void handle_skull_ghost(void)
 {
-	if(!invincibleGhost._status)
+	if(!skull._status)
 	{
-		// Manage invincible ghost
+		// Manage skull ghost
 		
 		#if defined(FULL_GAME)
-		if(invincibleGhostAlive && 
+		if(skullAlive && 
 			((!bossLevel() && ONE_TRIGGER_REACHED) || 
 			 (bossLevel() && BOSS_LOOP_TRIGGER_REACHED)))
 		#else
-		if(invincibleGhostAlive && ONE_TRIGGER_REACHED)
+		if(skullAlive && ONE_TRIGGER_REACHED)
 		#endif
 		{
-			invincibleGhost._status = 1;
-			displayInvincibleGhost(&invincibleGhost);
+			skull._status = 1;
+			displaySkull(&skull);
 		}
 		else
 		{
-			--invincibleXCountDown;
-			--invincibleYCountDown;
+			--skullXCountDown;
+			--skullYCountDown;
 		}
 	}
 	else
 	{ 	
-		invincibleSlowDown = computeInvincibleSlowDown();
+		skullSlowDown = computeSkullSlowDown();
 
 		if(SKULL_RAND_CONDITION)
 		{
 			TOCK_SOUND();
-			deleteInvincibleGhost(&invincibleGhost);
+			deleteSkull(&skull);
 			#if defined(FULL_GAME)
 				if(!confuseActive || !(loop&3))
 				{
 					#if !defined(SIMPLE_STRATEGY)
-						moveTowardCharacter(&player, &invincibleGhost, 4);
+						moveTowardCharacter(&player, &skull, 4);
 					#else
-						moveTowardCharacter(&player, &invincibleGhost);						
+						moveTowardCharacter(&player, &skull);						
 					#endif
 				}
 			#else
-				moveTowardCharacter(&invincibleGhost);
+				moveTowardCharacter(&skull);
 			#endif
 		}
-		displayInvincibleGhost(&invincibleGhost);
+		displaySkull(&skull);
 		#if defined(FULL_GAME)
-		if (playerKilledBy(&invincibleGhost))
+		if (playerKilledBy(&skull))
 		#else
-		if(areCharctersAtSamePosition(&invincibleGhost, &player))
+		if(areCharctersAtSamePosition(&skull, &player))
 		#endif
 		{
 			playerDies();

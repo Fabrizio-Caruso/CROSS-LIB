@@ -27,11 +27,11 @@
 
 #if !defined(TINY_GAME)
 
-void handle_invincible_ghost(void);
+void handle_skull_ghost(void);
 
-unsigned short computeInvincibleSlowDown(void);
+unsigned short computeSkullSlowDown(void);
 
-void computeInvincibleGhostParameters(void);
+void computeSkullParameters(void);
 #endif
 
 #endif // _INVINCIBLE_ENEMY

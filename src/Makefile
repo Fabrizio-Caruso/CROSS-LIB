@@ -41,7 +41,7 @@ TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c
 
 TEST_FILES ?= $(NO_CHASE_FILES)
 
-LIGHT_ONLY_FILES ?= $(SOURCE_PATH)/item.c $(SOURCE_PATH)/invincible_enemy.c $(SOURCE_PATH)/missile.c 
+LIGHT_ONLY_FILES ?= $(SOURCE_PATH)/item.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/missile.c 
 FULL_ONLY_FILES ?= $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c 
 
 LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES) 

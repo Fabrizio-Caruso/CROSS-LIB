@@ -104,7 +104,7 @@ void deleteCharacter(Character * characterPtr);
 		#define _DRAW_PLAYER() \
 			if(invincibilityActive) \
 			{ \
-				DRAW_PLAYER(player._x, player._y, invincibleGhost._imagePtr); \
+				DRAW_PLAYER(player._x, player._y, skull._imagePtr); \
 			} \
 			else \
 			{ \
@@ -157,13 +157,13 @@ void deleteCharacter(Character * characterPtr);
 #define displayGhost(characterPtr) displayCharacter(characterPtr);
 #define displayBomb(characterPtr) displayCharacter(characterPtr);
 #define displayMissile(characterPtr) displayCharacter(characterPtr);
-#define displayInvincibleGhost(characterPtr) displayCharacter(characterPtr);
+#define displaySkull(characterPtr) displayCharacter(characterPtr);
 
 #define deletePlayer(characterPtr) deleteCharacter(characterPtr);
 #define deleteGhost(characterPtr) deleteCharacter(characterPtr);
 #define deleteBomb(characterPtr) deleteCharacter(characterPtr);
 #define deleteMissile(characterPtr) deleteCharacter(characterPtr);
-#define deleteInvincibleGhost(characterPtr) deleteCharacter(characterPtr);
+#define deleteSkull(characterPtr) deleteCharacter(characterPtr);
 #define deletePowerUp(characterPtr) deleteCharacter(characterPtr);
 
 void initializeCharacter(register Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr);

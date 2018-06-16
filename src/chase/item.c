@@ -36,7 +36,7 @@ extern Image DEAD_GHOST_IMAGE;
 
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
-extern Character invincibleGhost;
+extern Character skull;
 
 extern Character player;
 
@@ -277,7 +277,7 @@ extern Item extraPoints;
 		firstAliveIndex = firstAlive();
 		if(firstAliveIndex == GHOSTS_NUMBER)
 		{
-			chasedEnemyPtr = &invincibleGhost;
+			chasedEnemyPtr = &skull;
 		}
 		else
 		{

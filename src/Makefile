@@ -12,7 +12,7 @@ ifeq ($(DO_WIN),1)
 EXEEXT = .exe
 endif
 
-SOURCE_PATH := cross_chase
+SOURCE_PATH := chase
 CROSS_LIB_PATH := cross_lib
 
 CC65_PATH ?= /cygdrive/c/cc65-snapshot-win32/bin/

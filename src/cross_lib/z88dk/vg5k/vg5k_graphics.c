@@ -34,7 +34,7 @@
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
@@ -97,7 +97,7 @@ void INIT_IMAGES(void)
 		
 		#if !defined(TINY_GAME)
 			MISSILE_IMAGE._color = VG5K_WHITE;
-			INVINCIBLE_GHOST_IMAGE._color = VG5K_YELLOW;
+			SKULL_IMAGE._color = VG5K_YELLOW;
 			POWERUP_IMAGE._color = VG5K_GREEN;
 			GUN_IMAGE._color = VG5K_VIOLET;
 			EXTRA_POINTS_IMAGE._color = VG5K_YELLOW;
@@ -113,7 +113,7 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._imageData = '*';
 	
 	#if !defined(TINY_GAME)
-		INVINCIBLE_GHOST_IMAGE._imageData = '+';	
+		SKULL_IMAGE._imageData = '+';	
 		POWERUP_IMAGE._imageData = 'S';
 		GUN_IMAGE._imageData = '!';
 		EXTRA_POINTS_IMAGE._imageData = '$';

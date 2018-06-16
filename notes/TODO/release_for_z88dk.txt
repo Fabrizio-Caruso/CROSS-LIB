@@ -9,7 +9,16 @@ TODO for the integration release for Z88DK
 7. DONE - Delete or move unused code to notes
 8. DONE - Remove or move unused tools
 9. Verify trs80/eg2k targets
+
 10. Rename files
-11. Rename variables
+I)   skull.h/c
+II)  enemy.h/c or ghost.h/c
+
+11. Rename variables: 
+I)   INVINCIBLE/INVINCIBLE_GHOST -> SKULL
+II)  BUBBLE -> ROCKET
+III) MISSILE -> BULLET
+IV)  GHOST -> ENEMY (or viceversa?)
+
 12. test major targets with latest Z88DK snapshots
 

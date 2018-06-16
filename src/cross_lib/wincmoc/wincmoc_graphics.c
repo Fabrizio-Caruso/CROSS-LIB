@@ -33,7 +33,7 @@
 #define _GUN 4
 
 // YELLOW
-#define _INVINCIBLE_GHOST 5
+#define _SKULL 5
 #define _VERTICAL_BRICK 6
 #define _HORIZONTAL_BRICK 7
 #define _EXTRA_LIFE 8
@@ -62,7 +62,7 @@
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
@@ -140,7 +140,7 @@ struct redefine_struct char_map[] =
 	{_GHOST, {129,126,165,129,129,189,129,126}},
 	{_RIGHT_ENEMY_MISSILE, {  0,  0, 15,252,252, 15,  0,  0}},
 	{_LEFT_ENEMY_MISSILE, {  0,  0,240, 63, 63,240,  0,  0}},
-	{_INVINCIBLE_GHOST, { 60, 66,165,129, 90, 36, 36, 60}},
+	{_SKULL, { 60, 66,165,129, 90, 36, 36, 60}},
 	{_GUN, {  0,128,126,200,248,192,128,  0}},
 	{_POWERUP, {  0, 60, 54,223,231,122, 36, 24}},
 	{_MISSILE, {  0,  0,  8, 56, 28, 16,  0,  0}},
@@ -181,7 +181,7 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
 	
 	#if !defined(TINY_GAME)
-		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;	
+		SKULL_IMAGE._imageData = _SKULL;	
 		POWERUP_IMAGE._imageData = _POWERUP;
 		GUN_IMAGE._imageData = _GUN;
 		MISSILE_IMAGE._imageData = _MISSILE;

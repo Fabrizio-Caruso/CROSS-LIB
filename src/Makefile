@@ -1794,7 +1794,7 @@ clean_lib_obj:
 	rm -rf $(CROSS_LIB_PATH)/z88dk/sms/*.o
 	rm -rf $(CROSS_LIB_PATH)/wincmoc/*.o
 	rm -rf $(CROSS_LIB_PATH)/cmoc/*.o
-	rm -rf $(CROSS_LIB_PATH)/gcc/*.o
+	rm -rf $(CROSS_LIB_PATH)/ncurses/*.o
 	rm -rf $(CROSS_LIB_PATH)/generic/memory_mapped/*.o
 	rm -rf $(CROSS_LIB_PATH)/generic/patch/*.o	
 	rm -rf $(CROSS_LIB_PATH)/display/*.o

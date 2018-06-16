@@ -62,7 +62,7 @@
 #elif defined(__ENTERPRISE__)
 	#include "../z88dk/enterprise/enterprise_conio_implementation.h"
 #elif defined(__NCURSES__)
-	#include "../gcc/ncurses_conio_implementation.h"	
+	#include "../ncurses/ncurses_conio_implementation.h"	
 #elif defined(__KC__)
 	#include "../z88dk/kc/kc_conio_implementation.h"	
 #elif defined(Z88DK_SPRITES)

@@ -36,7 +36,7 @@
 #define _GUN 0x3F
 
 // YELLOW
-#define _INVINCIBLE_GHOST 0x27
+#define _SKULL 0x27
 #define _VERTICAL_BRICK 0x26
 #define _HORIZONTAL_BRICK 0x24
 // #define _EXTRA_LIFE 0x25
@@ -73,7 +73,7 @@
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 
 extern Image MISSILE_IMAGE;
@@ -195,7 +195,7 @@ void INIT_GRAPHICS(void)
 		
 		redefine(CHAR_BASE+8*_GHOST, ghost);
 		redefine(CHAR_BASE+8*_ZOMBIE, ghost);
-		redefine(CHAR_BASE+8*_INVINCIBLE_GHOST, invincible_ghost);	
+		redefine(CHAR_BASE+8*_SKULL, invincible_ghost);	
 		redefine(CHAR_BASE+8*_MISSILE, missile);	
 		
 		redefine(CHAR_BASE+8*_EXTRA_LIFE,player_down);	
@@ -226,7 +226,7 @@ void INIT_IMAGES(void)
 	#endif
 	
 	#if !defined(TINY_GAME)
-		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;	
+		SKULL_IMAGE._imageData = _SKULL;	
 		POWERUP_IMAGE._imageData = _POWERUP;
 		GUN_IMAGE._imageData = _GUN;
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;

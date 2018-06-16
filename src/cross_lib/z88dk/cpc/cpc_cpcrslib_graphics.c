@@ -36,7 +36,7 @@
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
@@ -98,7 +98,7 @@ char char_list[UDG_N*2] =
 #define _PLAYER 0*2
 #define _GHOST 1*2
 #define _BOMB 2*2
-#define _INVINCIBLE_GHOST 3*2
+#define _SKULL 3*2
 #define _MISSILE 4*2
 #define _POWERUP 5*2
 #define _GUN 6*2
@@ -196,11 +196,11 @@ void INIT_IMAGES(void)
 	#endif
 	
 	#if !defined(TINY_GAME)
-		INVINCIBLE_GHOST_IMAGE._color = CPC_YELLOW;
+		SKULL_IMAGE._color = CPC_YELLOW;
 		POWERUP_IMAGE._color = CPC_YELLOW;
 		GUN_IMAGE._color = CPC_YELLOW;
 			
-		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
+		SKULL_IMAGE._imageData = _SKULL;
 
 		POWERUP_IMAGE._imageData = _POWERUP;
 
@@ -232,7 +232,7 @@ void INIT_IMAGES(void)
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
 		CHASE_IMAGE._imageData = _MISSILE;
 		SUPER_IMAGE._imageData = _POWERUP;
-		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+		CONFUSE_IMAGE._imageData = _SKULL;
 		ZOMBIE_IMAGE._imageData = _GHOST;
 		
 		EXTRA_POINTS_IMAGE._color = CPC_YELLOW;

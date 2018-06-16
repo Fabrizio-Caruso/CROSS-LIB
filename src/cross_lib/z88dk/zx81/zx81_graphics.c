@@ -33,7 +33,7 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
-	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image SKULL_IMAGE;
 	extern Image POWERUP_IMAGE;
 	extern Image MISSILE_IMAGE;
 	extern Image GUN_IMAGE;
@@ -75,7 +75,7 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._imageData = 'O';
 	
 	#if !defined(TINY_GAME)
-		INVINCIBLE_GHOST_IMAGE._imageData = '+';	
+		SKULL_IMAGE._imageData = '+';	
 		POWERUP_IMAGE._imageData = 'S';
 		#if defined(__ZX80__)
 			GUN_IMAGE._imageData = 'G';		

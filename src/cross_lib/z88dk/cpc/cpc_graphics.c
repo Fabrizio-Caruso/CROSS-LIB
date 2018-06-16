@@ -40,7 +40,7 @@
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image FREEZE_IMAGE;
@@ -76,7 +76,7 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._imageData = 0xF9;//'*';
 	#endif
 	
-	INVINCIBLE_GHOST_IMAGE._color = CPC_YELLOW;
+	SKULL_IMAGE._color = CPC_YELLOW;
 	POWERUP_IMAGE._color = CPC_YELLOW;
 	
 	GUN_IMAGE._color = CPC_YELLOW;
@@ -84,7 +84,7 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._color = CPC_RED;
 		
 	GHOST_IMAGE._imageData = 0xE1; // 'o'; //0x07;//'o';
-	INVINCIBLE_GHOST_IMAGE._imageData = 0xFD; // '+';
+	SKULL_IMAGE._imageData = 0xFD; // '+';
 	BOMB_IMAGE._imageData = 0xEE;//'X';
 
 	PLAYER_DOWN._imageData = 0xF8;	

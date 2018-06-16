@@ -44,7 +44,7 @@ extern unsigned char XSize;
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
@@ -97,7 +97,7 @@ void INIT_IMAGES(void)
 	// POWERUP_IMAGE._imageData = 'S';
 	// GUN_IMAGE._imageData = '!';
 	// MISSILE_IMAGE._imageData = '.';
-	// INVINCIBLE_GHOST_IMAGE._imageData = '+';
+	// SKULL_IMAGE._imageData = '+';
 	
 }
 

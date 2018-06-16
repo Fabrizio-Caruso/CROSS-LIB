@@ -40,7 +40,7 @@
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image MISSILE_IMAGE;
 
@@ -76,7 +76,7 @@ void INIT_IMAGES(void)
 {		
 	#if !defined(NO_COLOR)
 		PLAYER_IMAGE._color = COLOR_WHITE;
-		INVINCIBLE_GHOST_IMAGE._color = COLOR_WHITE;
+		SKULL_IMAGE._color = COLOR_WHITE;
 		POWERUP_IMAGE._color = COLOR_WHITE;
 		FREEZE_IMAGE._color = COLOR_WHITE;	
 		
@@ -90,7 +90,7 @@ void INIT_IMAGES(void)
 	#endif
 	
 	GHOST_IMAGE._imageData = 'o';
-	INVINCIBLE_GHOST_IMAGE._imageData = '+';
+	SKULL_IMAGE._imageData = '+';
 	BOMB_IMAGE._imageData = 'X';
 	PLAYER_IMAGE._imageData = '*';
 	POWERUP_IMAGE._imageData = 'S';

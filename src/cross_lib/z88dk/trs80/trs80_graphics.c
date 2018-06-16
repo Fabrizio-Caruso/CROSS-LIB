@@ -36,7 +36,7 @@
 #define _GUN '!'
 
 // YELLOW
-#define _INVINCIBLE_GHOST ('+')
+#define _SKULL ('+')
 #define _VERTICAL_BRICK ('#')
 #define _HORIZONTAL_BRICK ('-')
 #define _EXTRA_LIFE '*'
@@ -67,7 +67,7 @@ extern Image DEAD_GHOST_IMAGE;
 
 	
 #if !defined(TINY_GAME)
-	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image SKULL_IMAGE;
 	extern Image MISSILE_IMAGE;
 	
 	extern Image POWERUP_IMAGE;	
@@ -155,7 +155,7 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
 		
 	#if !defined(TINY_GAME)
-		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;	
+		SKULL_IMAGE._imageData = _SKULL;	
 		MISSILE_IMAGE._imageData = _MISSILE;
 	
 		

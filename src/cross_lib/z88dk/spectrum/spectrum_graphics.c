@@ -39,7 +39,7 @@ extern Image BOMB_IMAGE;
 extern Image FREEZE_IMAGE;
 
 #if !defined(TINY_GAME)
-	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image SKULL_IMAGE;
 	extern Image POWERUP_IMAGE;
 	extern Image MISSILE_IMAGE;
 	extern Image GUN_IMAGE;
@@ -106,7 +106,7 @@ struct redefine_struct
 #define _GUN 0x3F
 
 // YELLOW
-#define _INVINCIBLE_GHOST 0x27
+#define _SKULL 0x27
 #define _VERTICAL_BRICK 0x26
 #define _HORIZONTAL_BRICK 0x2B
 #define _EXTRA_LIFE 0x25
@@ -147,7 +147,7 @@ struct redefine_struct redefine_map[] =
 	#endif
 	
 	#if !defined(TINY_GAME)
-	{_INVINCIBLE_GHOST, { 60, 66,165,129, 90, 36, 36, 60}},
+	{_SKULL, { 60, 66,165,129, 90, 36, 36, 60}},
 	{_GUN, {  0,128,126,200,248,192,128,  0}},
 	{_POWERUP, {  0, 60, 54,223,231,122, 36, 24}},
 	{_MISSILE, {  0,  0,  8, 56, 28, 16,  0,  0}},
@@ -199,7 +199,7 @@ void INIT_IMAGES(void)
 		#endif
 		
 		#if !defined(TINY_GAME)
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+			SKULL_IMAGE._color = COLOR_YELLOW;
 			POWERUP_IMAGE._color = COLOR_GREEN;
 			FREEZE_IMAGE._color = COLOR_CYAN;			
 			GUN_IMAGE._color = COLOR_MAGENTA;
@@ -226,7 +226,7 @@ void INIT_IMAGES(void)
 		BOMB_IMAGE._imageData = _BOMB;		
 
 		#if !defined(TINY_GAME)
-		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
+		SKULL_IMAGE._imageData = _SKULL;
 		POWERUP_IMAGE._imageData = _POWERUP;
 		FREEZE_IMAGE._imageData = _POWERUP; 		
 		GUN_IMAGE._imageData = _GUN;
@@ -240,7 +240,7 @@ void INIT_IMAGES(void)
 			INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
 			CHASE_IMAGE._imageData = _MISSILE;
 			SUPER_IMAGE._imageData = _POWERUP;
-			CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+			CONFUSE_IMAGE._imageData = _SKULL;
 			ZOMBIE_IMAGE._imageData = _GHOST;
 		#endif
 	#else
@@ -249,7 +249,7 @@ void INIT_IMAGES(void)
 		PLAYER_IMAGE._imageData = '*';
 		
 		#if !defined(TINY_GAME)
-			INVINCIBLE_GHOST_IMAGE._imageData = '+';
+			SKULL_IMAGE._imageData = '+';
 			POWERUP_IMAGE._imageData = 'S';
 			GUN_IMAGE._imageData = '!';
 			MISSILE_IMAGE._imageData = '.';

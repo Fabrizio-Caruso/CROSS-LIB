@@ -51,7 +51,7 @@ extern unsigned char skullAlive;
 
 unsigned short computeSkullSlowDown(void)
 {
-	if(loop<MAX_INVINCIBLE_LOOP)
+	if(loop<MAX_SKULL_LOOP)
 	{
 		#if defined(TURN_BASED)
 			return INITIAL_SKULL_SLOWDOWN - level * 256 - ghostLevel*8;				
@@ -59,7 +59,7 @@ unsigned short computeSkullSlowDown(void)
 			return INITIAL_SKULL_SLOWDOWN - level * 256 - ghostLevel*16;		
 		#endif
 	}
-	return INVINCIBLE_MIN_SLOWDOWN; // You must die!
+	return SKULL_MIN_SLOWDOWN; // You must die!
 }
 
 void computeSkullParameters(void)
@@ -72,8 +72,8 @@ void computeSkullParameters(void)
 
 // Redability macros
 #define INACTIVITY_COUNT_DOWN_REACHED ((skullXCountDown==0) || (skullYCountDown==0))
-#define GHOST_COUNT_TRIGGER_REACHED (ghostCount<=INVINCIBLE_GHOST_TRIGGER)
-#define BOSS_LOOP_TRIGGER_REACHED (loop>=INVINCIBLE_LOOP_TRIGGER)
+#define GHOST_COUNT_TRIGGER_REACHED (ghostCount<=SKULL_TRIGGER)
+#define BOSS_LOOP_TRIGGER_REACHED (loop>=SKULL_LOOP_TRIGGER)
 
 #define ONE_TRIGGER_REACHED (INACTIVITY_COUNT_DOWN_REACHED || GHOST_COUNT_TRIGGER_REACHED)
 

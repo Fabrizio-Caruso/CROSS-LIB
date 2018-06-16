@@ -43,7 +43,7 @@
 #define _PLAYER_LEFT 63
 
 #define _GHOST 59
-#define _INVINCIBLE_GHOST 30
+#define _SKULL 30
 #define _BOMB 29
 #define _POWERUP 28 // S
 #define _GUN 11
@@ -70,7 +70,7 @@ unsigned short BASE_MEMORY;
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image GUN_IMAGE;
@@ -174,7 +174,7 @@ void INIT_GRAPHICS(void)
 
 	redefine(_FONT_START__+_GHOST*8, ghost);
 	redefine(_FONT_START__+_POWERUP*8, powerUp);		
-	redefine(_FONT_START__+_INVINCIBLE_GHOST*8, invincible_ghost);
+	redefine(_FONT_START__+_SKULL*8, invincible_ghost);
 	redefine(_FONT_START__+_BOMB*8, bomb);	
 				
 	redefine(_FONT_START__+_MISSILE*8, missile);
@@ -208,7 +208,7 @@ void INIT_IMAGES(void)
 	PLAYER_UP._color = _ATARI_MODE1_BLUE;
 	PLAYER_RIGHT._color = _ATARI_MODE1_BLUE;		
 	PLAYER_LEFT._color = _ATARI_MODE1_BLUE;
-	INVINCIBLE_GHOST_IMAGE._color = _ATARI_MODE1_YELLOW; // 128 -> YELLOW; 32 -> RED; 160-> BLUE; 0 -> WHITE
+	SKULL_IMAGE._color = _ATARI_MODE1_YELLOW; // 128 -> YELLOW; 32 -> RED; 160-> BLUE; 0 -> WHITE
 	POWERUP_IMAGE._color = _ATARI_MODE1_YELLOW; //
 	GUN_IMAGE._color = _ATARI_MODE1_YELLOW; //
 	EXTRA_POINTS_IMAGE._color = _ATARI_MODE1_YELLOW;		
@@ -229,7 +229,7 @@ void INIT_IMAGES(void)
 
 	
 	GHOST_IMAGE._imageData = _GHOST;
-	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
+	SKULL_IMAGE._imageData = _SKULL;
 	BOMB_IMAGE._imageData = _BOMB;		
 	MISSILE_IMAGE._imageData = _MISSILE;
 	DEAD_GHOST_IMAGE._imageData = GHOST_IMAGE._imageData;
@@ -259,7 +259,7 @@ void INIT_IMAGES(void)
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
 		SUPER_IMAGE._imageData = _POWERUP;		
 		CHASE_IMAGE._imageData = _MISSILE;
-		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+		CONFUSE_IMAGE._imageData = _SKULL;
 		ZOMBIE_IMAGE._imageData = _GHOST;
 
 	#endif

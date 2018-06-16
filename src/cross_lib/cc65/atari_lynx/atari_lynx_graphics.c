@@ -57,7 +57,7 @@ extern unsigned char XSize;
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
@@ -138,7 +138,7 @@ void INIT_IMAGES(void)
 
 	#if !defined(NO_COLOR)
 		PLAYER_IMAGE._color = COLOR_BLUE;
-		INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+		SKULL_IMAGE._color = COLOR_YELLOW;
 		POWERUP_IMAGE._color = COLOR_GREEN;
 		GUN_IMAGE._color = COLOR_BROWN;
 		BOMB_IMAGE._color = COLOR_RED;
@@ -148,7 +148,7 @@ void INIT_IMAGES(void)
 	#endif
 	
 	GHOST_IMAGE._imageData = 'o';
-	INVINCIBLE_GHOST_IMAGE._imageData = '+';
+	SKULL_IMAGE._imageData = '+';
 	BOMB_IMAGE._imageData = 'X';
 	PLAYER_IMAGE._imageData = '*';
 	POWERUP_IMAGE._imageData = 'S';

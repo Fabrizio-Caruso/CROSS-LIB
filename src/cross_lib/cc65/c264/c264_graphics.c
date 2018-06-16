@@ -49,7 +49,7 @@
 #define _GUN 0x3F
 
 // YELLOW
-#define _INVINCIBLE_GHOST 0x27
+#define _SKULL 0x27
 #define _VERTICAL_BRICK 0x26
 #define _HORIZONTAL_BRICK 0x2B
 #define _EXTRA_LIFE 0x25
@@ -89,7 +89,7 @@
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
@@ -134,7 +134,7 @@ struct redefine_struct redefine_map[] =
 	{_PLAYER_RIGHT, { 24, 52, 25,118,152, 24, 20, 20}},	
 	{_PLAYER_LEFT, { 24, 44,152,110, 25, 24, 40, 40}},
 	{_GHOST, {129,126,165,129,129,189,129,126}},
-	{_INVINCIBLE_GHOST, { 60, 66,165,129, 90, 36, 36, 60}},
+	{_SKULL, { 60, 66,165,129, 90, 36, 36, 60}},
 	{_GUN, {  0,128,126,200,248,192,128,  0}},
 	{_POWERUP, {  0, 60, 54,223,231,122, 36, 24}},
 	{_MISSILE, {  0,  0,  8, 56, 28, 16,  0,  0}},
@@ -179,7 +179,7 @@ void INIT_IMAGES(void)
 		PLAYER_IMAGE._imageData = _PLAYER_DOWN;
 	#endif
 	
-	INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+	SKULL_IMAGE._color = COLOR_YELLOW;
 	POWERUP_IMAGE._color = COLOR_GREEN;
 	GUN_IMAGE._color = COLOR_BLUE;
 	EXTRA_POINTS_IMAGE._imageData = '$';
@@ -222,7 +222,7 @@ void INIT_IMAGES(void)
 	
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
 
-	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
+	SKULL_IMAGE._imageData = _SKULL;
 	BOMB_IMAGE._imageData = _BOMB;		
 	POWERUP_IMAGE._imageData = _POWERUP;
 	GUN_IMAGE._imageData = _GUN;
@@ -238,7 +238,7 @@ void INIT_IMAGES(void)
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;	
 		SUPER_IMAGE._imageData = _POWERUP;
 		CHASE_IMAGE._imageData = _MISSILE;
-		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+		CONFUSE_IMAGE._imageData = _SKULL;
 		ZOMBIE_IMAGE._imageData = _GHOST;
 	#endif	
 }

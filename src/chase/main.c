@@ -89,7 +89,7 @@ unsigned char level;
 // 6. skullLoopTrigger (how long before the skull ghost appears)
 
 #if !defined(TINY_GAME)
-	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image SKULL_IMAGE;
 	extern Image POWERUP_IMAGE;
 	extern Image MISSILE_IMAGE;
 	extern Image GUN_IMAGE;
@@ -118,7 +118,6 @@ Character ghosts[GHOSTS_NUMBER];
 Character bombs[BOMBS_NUMBER];
 
 #if defined(FULL_GAME)
-	// unsigned short skullCountTrigger = INVINCIBLE_GHOST_TRIGGER;
 
 	unsigned char innerVerticalWallY; 
 	unsigned char innerVerticalWallX; 

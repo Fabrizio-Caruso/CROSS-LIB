@@ -62,7 +62,7 @@
 #define _GUN '!'
 
 // YELLOW
-#define _INVINCIBLE_GHOST '+'
+#define _SKULL '+'
 #define _VERTICAL_BRICK '|'
 #define _HORIZONTAL_BRICK '-'
 #define _EXTRA_LIFE ('*'+128)

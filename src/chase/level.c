@@ -46,7 +46,7 @@ extern Image BOMB_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
 
 #if !defined(TINY_GAME)
-	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image SKULL_IMAGE;
 	extern Image MISSILE_IMAGE;
 	extern Image POWERUP_IMAGE;
 	extern Image GUN_IMAGE;
@@ -342,7 +342,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		displayPlayer(&player);
 			
 		initializeCharacter(&missile, 0, 0,0,&MISSILE_IMAGE);
-		initializeCharacter(&skull,XSize-2,YSize-2, 0, &INVINCIBLE_GHOST_IMAGE);
+		initializeCharacter(&skull,XSize-2,YSize-2, 0, &SKULL_IMAGE);
 	#endif
 
 }

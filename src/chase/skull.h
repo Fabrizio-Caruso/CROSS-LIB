@@ -22,8 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
  
-#ifndef _INVINCIBLE_ENEMY
-#define _INVINCIBLE_ENEMY
+#ifndef SKULL
+#define SKULL
 
 #if !defined(TINY_GAME)
 
@@ -34,6 +34,6 @@ unsigned short computeSkullSlowDown(void);
 void computeSkullParameters(void);
 #endif
 
-#endif // _INVINCIBLE_ENEMY
+#endif // SKULL
 
 

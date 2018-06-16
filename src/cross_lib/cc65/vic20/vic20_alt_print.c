@@ -62,7 +62,7 @@ void INIT_GRAPHICS(void)
 	#define _GUN '!'
 
 	// YELLOW
-	#define _INVINCIBLE_GHOST '+'
+	#define _SKULL '+'
 	#define _CONFUSE ('+'+128)
 	#define _ZOMBIE 'O'	
 	#define _VERTICAL_BRICK '|'
@@ -104,7 +104,7 @@ void INIT_GRAPHICS(void)
 	#define _GUN 0x7B
 
 	// YELLOW
-	#define _INVINCIBLE_GHOST 0x77
+	#define _SKULL 0x77
 	#define _VERTICAL_BRICK 0x26
 	#define _HORIZONTAL_BRICK 0x2B
 	#define _EXTRA_LIFE _PLAYER
@@ -134,7 +134,7 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
-	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image SKULL_IMAGE;
 	extern Image POWERUP_IMAGE;
 	extern Image GUN_IMAGE;
 	extern Image MISSILE_IMAGE;
@@ -195,7 +195,7 @@ void INIT_IMAGES(void)
 		GHOST_IMAGE._color = COLOR_WHITE;		
 		
 		#if !defined(TINY_GAME)
-			INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+			SKULL_IMAGE._color = COLOR_YELLOW;
 			POWERUP_IMAGE._color = COLOR_GREEN;
 			GUN_IMAGE._color = COLOR_BLUE;
 			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
@@ -235,7 +235,7 @@ void INIT_IMAGES(void)
 	#endif
 	
 	#if !defined(TINY_GAME)
-		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
+		SKULL_IMAGE._imageData = _SKULL;
 
 		POWERUP_IMAGE._imageData = _POWERUP;
 		GUN_IMAGE._imageData = _GUN;

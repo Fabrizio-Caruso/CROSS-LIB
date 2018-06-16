@@ -109,7 +109,7 @@
 #if !defined(TINY_GAME)
 	extern unsigned char guns;
 	extern Image GUN_IMAGE;
-	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image SKULL_IMAGE;
 	extern Image MISSILE_IMAGE;
 #endif
 

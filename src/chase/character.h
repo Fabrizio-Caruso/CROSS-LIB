@@ -93,7 +93,7 @@ void deleteCharacter(Character * characterPtr);
 
 #define DRAW_PLAYER(x,y,image) DRAW_CHARACTER(x,y,image)
 #define DRAW_GHOST(x,y,image) DRAW_CHARACTER(x,y,image)
-#define DRAW_INVINCIBLE_GHOST(x,y,image) DRAW_CHARACTER(x,y,image)
+#define DRAW_SKULL(x,y,image) DRAW_CHARACTER(x,y,image)
 #define DRAW_BOMB(x,y,image) DRAW_CHARACTER(x,y,image)
 #define DRAW_MISSILE(x,y,image) DRAW_CHARACTER(x,y,image)
 
@@ -138,9 +138,9 @@ void deleteCharacter(Character * characterPtr);
 #endif
 #define DELETE_GHOST(x,y,image) _delete(x,y)
 #if defined(__GAMATE__)
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) do {textcolor(COLOR_YELLOW); _delete(x,y);} while(0)
+	#define DELETE_SKULL(x,y,image) do {textcolor(COLOR_YELLOW); _delete(x,y);} while(0)
 #else
-	#define DELETE_INVINCIBLE_GHOST(x,y,image) _delete(x,y)	
+	#define DELETE_SKULL(x,y,image) _delete(x,y)	
 #endif
 #define DELETE_BOMB(x,y,image) _delete(x,y)
 #define DELETE_POWERUP(x,y,image) _delete(x,y)

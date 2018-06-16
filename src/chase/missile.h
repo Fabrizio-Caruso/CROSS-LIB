@@ -40,7 +40,7 @@
 		
 	void checkMissileVsGhosts(Character * missilePtr);
 
-	void checkMissileVsInvincibleGhost(register Character *bulletPtr);
+	void checkMissileVsSkull(register Character *bulletPtr);
 		
 	unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
 								  unsigned short missileDirection);

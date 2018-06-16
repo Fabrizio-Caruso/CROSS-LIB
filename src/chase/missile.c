@@ -42,7 +42,7 @@ extern Character ghosts[GHOSTS_NUMBER];
 #if !defined(NO_DEAD_GHOSTS)
 extern Image DEAD_GHOST_IMAGE;
 #else
-extern Image INVINCIBLE_GHOST_IMAGE;	
+extern Image SKULL_IMAGE;	
 #endif
 extern unsigned char level;
 
@@ -121,7 +121,7 @@ void handle_missile(void)
 
 void checkMissile(Character *missilePtr)
 {
-	checkMissileVsInvincibleGhost(missilePtr);
+	checkMissileVsSkull(missilePtr);
 	checkMissileVsGhosts(missilePtr);
 }
 
@@ -135,7 +135,7 @@ void checkMissileVsGhost(Character * missilePtr,
 		#if !defined(NO_DEAD_GHOSTS)
 			ghostPtr->_imagePtr = (Image *)&DEAD_GHOST_IMAGE;
 		#else
-			ghostPtr->_imagePtr = (Image *)&INVINCIBLE_GHOST_IMAGE;			
+			ghostPtr->_imagePtr = (Image *)&SKULL_IMAGE;			
 		#endif
 		ghostDies(ghostPtr);
 		die(missilePtr);
@@ -154,7 +154,7 @@ void checkMissileVsGhosts(Character * missilePtr)
 	};
 }
 
-void checkMissileVsInvincibleGhost(register Character *bulletPtr)
+void checkMissileVsSkull(register Character *bulletPtr)
 {
 	if(skull._status && 
 	   areCharctersAtSamePosition(bulletPtr, &skull))
@@ -167,7 +167,7 @@ void checkMissileVsInvincibleGhost(register Character *bulletPtr)
 		decreaseGhostLevel();
 		reducePowerUpsCoolDowns();
 		
-		if(skullHits>=MIN_INVINCIBLE_GHOST_HITS)
+		if(skullHits>=MIN_SKULL_HITS)
 		{
 			skull._status = 0;
 			deleteSkull(&skull);
@@ -175,7 +175,7 @@ void checkMissileVsInvincibleGhost(register Character *bulletPtr)
 			skull._y=YSize-2;
 			skullAlive = 0;
 			EXPLOSION_SOUND();
-			points+=INVINCIBLE_GHOST_POINTS;
+			points+=SKULL_POINTS;
 			displayStats();
 		}
 		else

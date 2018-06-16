@@ -53,7 +53,7 @@
 	#define _GUN '!'
 
 	// YELLOW
-	#define _INVINCIBLE_GHOST '+'
+	#define _GUN '+'
 	#define _CONFUSE ('+'+128)
 	#define _ZOMBIE 'O'	
 	#define _VERTICAL_BRICK '|'
@@ -105,7 +105,7 @@
 	#define _GUN '!'
 
 	// YELLOW
-	#define _INVINCIBLE_GHOST '+'
+	#define _SKULL '+'
 	#define _CONFUSE ('+'+128)
 	#define _ZOMBIE 'O'	
 	#define _VERTICAL_BRICK '|'

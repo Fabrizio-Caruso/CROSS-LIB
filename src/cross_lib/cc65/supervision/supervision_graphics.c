@@ -47,7 +47,7 @@
 #define _EXTRA_POINTS 10
 
 // GREEN
-#define _INVINCIBLE_GHOST 11
+#define _SKULL 11
 
 // RED
 #define _GUN 12
@@ -76,7 +76,7 @@ extern Image DEAD_GHOST_IMAGE;
 
 	
 #if !defined(TINY_GAME)
-	extern Image INVINCIBLE_GHOST_IMAGE;
+	extern Image SKULL_IMAGE;
 	extern Image MISSILE_IMAGE;
 	
 	extern Image POWERUP_IMAGE;	
@@ -186,7 +186,7 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
 		
 	#if !defined(TINY_GAME)
-		INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;	
+		SKULL_IMAGE._imageData = _SKULL;	
 		MISSILE_IMAGE._imageData = _MISSILE;
 	
 		

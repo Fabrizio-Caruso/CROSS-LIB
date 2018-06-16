@@ -29,7 +29,7 @@
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image MISSILE_IMAGE;
 
@@ -79,7 +79,7 @@ void INIT_IMAGES(void)
 	const unsigned char ghost[]  =                {33,30,33,51,33,45,33,30};
 	const unsigned char bomb[]  =                 {30,33,51,45,45,51,33,30};
 	const unsigned char powerUp[]  =              { 0,30,51,55,51,26,18,12};
-	const unsigned char invincible_ghost[]  =     {30,33,51,33,33,18,18,12};
+	const unsigned char skull[]  =     {30,33,51,33,33,18,18,12};
 	const unsigned char gun[]  =                  { 0,32,31,40,56,32, 0, 0};
 	const unsigned char missile[]  =              { 0, 0, 4,28,14, 8, 0, 0};
 	
@@ -115,7 +115,7 @@ void INIT_IMAGES(void)
 	PLAYER_DOWN._color = 0;		
 	GHOST_IMAGE._color = 0;
 	MISSILE_IMAGE._color = 0;
-	INVINCIBLE_GHOST_IMAGE._color = 0;
+	SKULL_IMAGE._color = 0;
 	POWERUP_IMAGE._color = 128u;
 	GUN_IMAGE._color = 128u;
 	EXTRA_POINTS_IMAGE._color = 128u;
@@ -124,7 +124,7 @@ void INIT_IMAGES(void)
 
 		
 	GHOST_IMAGE._imageData = (char) 0x60;
-	INVINCIBLE_GHOST_IMAGE._imageData = (char) 0x7b;
+	SKULL_IMAGE._imageData = (char) 0x7b;
 	BOMB_IMAGE._imageData = (char) 0x5b;
 	
 	POWERUP_IMAGE._imageData = (char) 0x5d;
@@ -189,7 +189,7 @@ void INIT_IMAGES(void)
 	redefine(0xb400 + GHOST_IMAGE._imageData*8, ghost);		
 	redefine(0xb400 + BOMB_IMAGE._imageData*8,bomb);
 	redefine(0xb400 + POWERUP_IMAGE._imageData*8,powerUp);		
-	redefine(0xb400 + INVINCIBLE_GHOST_IMAGE._imageData*8,invincible_ghost);
+	redefine(0xb400 + SKULL_IMAGE._imageData*8,skull);
 	redefine(0xb400 + GUN_IMAGE._imageData*8,gun);		
 	redefine(0xb400 + MISSILE_IMAGE._imageData*8,missile);
 	

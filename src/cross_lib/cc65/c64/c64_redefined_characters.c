@@ -50,13 +50,13 @@
 #define _RIGHT_MISSILE '<'
 #define _INVINCIBILITY 0x73
 
-#define _INVINCIBLE_GHOST (char) 0x77
+#define _SKULL (char) 0x77
 
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
-extern Image INVINCIBLE_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
 extern Image MISSILE_IMAGE;
@@ -113,7 +113,7 @@ void INIT_IMAGES(void)
 	PLAYER_IMAGE._imageData = _PLAYER_DOWN;
 	#endif
 	
-	INVINCIBLE_GHOST_IMAGE._color = COLOR_YELLOW;
+	SKULL_IMAGE._color = COLOR_YELLOW;
 	POWERUP_IMAGE._color = COLOR_GREEN;
 	FREEZE_IMAGE._color = COLOR_CYAN;
 	GUN_IMAGE._color = COLOR_BROWN;
@@ -121,7 +121,7 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._color = COLOR_RED;
 		
 	GHOST_IMAGE._imageData = _GHOST;
-	INVINCIBLE_GHOST_IMAGE._imageData = _INVINCIBLE_GHOST;
+	SKULL_IMAGE._imageData = _SKULL;
 	BOMB_IMAGE._imageData = _BOMB;
 	POWERUP_IMAGE._imageData = _POWERUP;
 	FREEZE_IMAGE._imageData = _POWERUP;	
@@ -156,7 +156,7 @@ void INIT_IMAGES(void)
 		CHASE_IMAGE._imageData = _MISSILE;
 		CHASE_IMAGE._color = COLOR_BLUE;
 		
-		CONFUSE_IMAGE._imageData = _INVINCIBLE_GHOST;
+		CONFUSE_IMAGE._imageData = _SKULL;
 		CONFUSE_IMAGE._color = COLOR_RED;
 		
 		ZOMBIE_IMAGE._imageData = _GHOST;

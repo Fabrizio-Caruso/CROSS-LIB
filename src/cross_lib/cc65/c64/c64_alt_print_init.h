@@ -50,11 +50,11 @@
 #define _RIGHT_ENEMY_MISSILE '<'
 #define _INVINCIBILITY (0x73 - 0x20)
 
-#define _INVINCIBLE_GHOST (char) (0x77 - 0x20)
+#define _SKULL (char) (0x77 - 0x20)
 
 #define _DEAD_GHOST _GHOST
 #define _EXTRA_LIFE _PLAYER_DOWN
-#define _CONFUSE _INVINCIBLE_GHOST
+#define _CONFUSE _SKULL
 #define _BROKEN_WALL _BOMB
 
 

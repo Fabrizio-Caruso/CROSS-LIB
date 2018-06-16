@@ -753,11 +753,11 @@ svi_318_mode0:
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) -zorg=49200 -vn -lndos \
 	-D__SVI__ -DMSX_MODE0 \
 	-DSOUNDS \
-	-create-app -o  $(BUILD_PATH)/LIGHT_svi_318_mode0 \
+	-create-app \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c $(CROSS_LIB_PATH)/z88dk/svi/svi_graphics.c \
 	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/LIGHT_SVI_318_mode0
-
+	mv a.cas $(BUILD_PATH)/LIGHT_svi_318_mode0.cas
+	rm a.bin
 
 #
 svi_318:
@@ -773,10 +773,11 @@ svi_318:
 	-DSOUNDS \
 	-DALT_SLEEP \
 	-DMACRO_SLEEP \
-	-create-app -o $(BUILD_PATH)/LIGHT_svi_318 \
+	-create-app \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c	\
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/LIGHT_svi_318	
+	mv a.cas $(BUILD_PATH)/LIGHT_svi_318.cas
+	rm a.bin
 	
 
 sc3000_16k:
@@ -828,11 +829,12 @@ svi_328:
 	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
 	-DSOUNDS \
 	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
-	-create-app -o $(BUILD_PATH)/FULL_svi_328 \
+	-create-app \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c  \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_svi_328
+	mv a.cas $(BUILD_PATH)/FULL_svi_328.cas
+	rm a.bin
 
 sharp_mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) \
@@ -1309,6 +1311,7 @@ c128_z80_40col:
 	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/
 	rm A.LDR
 	rm A
+	rm a.bin
 
 
 c128_z80_40col_turn_based:
@@ -1325,7 +1328,8 @@ c128_z80_40col_turn_based:
 	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col_turn_based.d64 -write a
 	mv FULL_c128_z80_40col_turn_based.d64 $(BUILD_PATH)/
 	rm A.LDR
-	rm A	
+	rm A
+	rm a.bin
 	
 	
 einstein:
@@ -1480,6 +1484,9 @@ pv2000:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.rom $(BUILD_PATH)/FULL_pv2000.rom
+	rm a.bin
+	rm a_BSS.bin
+	rm a_DATA.bin	
 	
 
 pps:
@@ -2074,7 +2081,7 @@ ace_test:
 	-D__ACE__ \
 	$(FAST_TEST_OPTS) \
 	-clib=ansi -o test -Cz--audio -create-app \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES)
 	cp test.wav $(BUILD_PATH)/TEST_ace_exp_16k.wav
 	rm test.wav
@@ -2088,7 +2095,7 @@ pc6001_test:
 	-DALT_SLEEP \
 	-DMACRO_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_pc6001_32k.prg \
-	$(SOURCE_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_pc6001_32k.prg
 	rm $(BUILD_PATH)/TEST_pc6001_32k.wav
@@ -2104,8 +2111,8 @@ eg2k_test:
 	$(FAST_TEST_OPTS) \
 	-DALT_PRINT \
 	-create-app \
-	$(SOURCE_PATH)/z88dk/trs80/trs80_input.c \
-	$(SOURCE_PATH)/z88dk/trs80/trs80_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_input.c \
+	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
 	$(TEST_FILES)
 	mv a.cmd $(BUILD_PATH)/TEST_eg2k.cmd	
 
@@ -2130,6 +2137,9 @@ pv2000_test:
 	-create-app \
 	$(TEST_FILES)
 	mv a.rom $(BUILD_PATH)/TEST_pv2000.rom
+	rm a.bin
+	rm a_BSS.bin
+	rm a_DATA.bin
 
 srr_test:
 	$(Z88DK_PATH)$(MYZ88DK) +srr -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -2142,6 +2152,7 @@ srr_test:
 	-create-app \
 	$(TEST_FILES)
 	rm a.srr
+	rm a.bin
 	mv a.wav $(BUILD_PATH)/TEST_srr.wav
 	
 ti82_test:
@@ -2151,9 +2162,10 @@ ti82_test:
 	-vn \
 	-DTURN_BASED -DNO_WAIT \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/TEST_ti82.bin  \
+	-create-app \
 	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_ti82.bin
+	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/TEST_ti82.82p
+	rm $(SOURCE_PATH)/../a.bin
 	
 ti83_test:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
@@ -2162,9 +2174,10 @@ ti83_test:
 	-vn \
 	-DTURN_BASED -DNO_WAIT \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/TEST_ti83.bin  \
+	-create-app \
 	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_ti83.bin
+	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/TEST_ti83.83p
+	rm $(SOURCE_PATH)/../a.bin
 
 ti85_test:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
@@ -2173,9 +2186,10 @@ ti85_test:
 	-vn \
 	-DTURN_BASED -DNO_WAIT \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/TEST_ti85.bin  \
+	-create-app  \
 	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_ti85.bin	
+	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/TEST_ti85.85s
+	rm $(SOURCE_PATH)/../a.bin	
 	
 z1013_test:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 -clib=ansi \
@@ -2184,8 +2198,8 @@ z1013_test:
 	$(FAST_TEST_OPTS) \
 	$(TEST_FILES) \
 	-create-app
-	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/TEST_z1013.z80
-	rm $(BUILD_PATH)/../a.bin		
+	mv $(SOURCE_PATH)/../A.Z80 $(BUILD_PATH)/TEST_z1013.z80
+	rm $(SOURCE_PATH)/../a.bin		
 	
 x1_test:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
@@ -2230,7 +2244,7 @@ kc_test:
 	-DNO_WAIT \
 	-DREDEFINED_CHARS \
 	-create-app -o$(BUILD_PATH)/TEST_kc_sprites.bin \
-	$(SOURCE_PATH)/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_kc_sprites.bin	
 	
@@ -2242,8 +2256,8 @@ trs80_test:
 	-DNO_SLEEP \
 	-DALT_PRINT \
 	-o$(BUILD_PATH)/TEST_trs80.bin \
-	$(SOURCE_PATH)/z88dk/trs80/trs80_input.c \
-	$(SOURCE_PATH)/z88dk/trs80/trs80_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_input.c \
+	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_trs80.bin	
 
@@ -2279,7 +2293,7 @@ vg5k_test:
 	$(FAST_TEST_OPTS) \
 	-DSOUNDS -vn -D__VG5K__ -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_vg5k.prg \
-	$(SOURCE_PATH)/z88dk/vg5k/vg5k_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/vg5k/vg5k_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_vg5k.prg	
 
@@ -2290,14 +2304,14 @@ cpc_test:
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/TEST_cpc.prg \
-	$(TOOLS_PATH)/z88dk/cpc/cpcrslib/cpc_Chars.asm \
-	$(TOOLS_PATH)/z88dk/cpc/cpcrslib/cpc_Chars8.asm \
-	$(SOURCE_PATH)/z88dk/psg/psg_sounds.c \
-	$(SOURCE_PATH)/z88dk/cpc/cpc_cpcrslib_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars.asm \
+	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_cpcrslib_graphics.c \
 	$(TEST_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/TEST_cpc.cpc  $(BUILD_PATH)/TEST_cpc.cdt
 	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd TEST_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw TEST_cpc.dsk -p build/TEST_cpc.cpc xchase
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw TEST_cpc.dsk -p $(BUILD_PATH)/TEST_cpc.cpc xchase
 	mv TEST_cpc.dsk $(BUILD_PATH)/
 	rm $(BUILD_PATH)/TEST_cpc.cpc 
 	rm $(BUILD_PATH)/TEST_cpc.prg	
@@ -2309,7 +2323,7 @@ mc1000_test:
 	-clib=ansi \
 	-D__MC1000__ -DSOUNDS \
 	-vn  -lndos -create-app -Cz--audio \
-	$(SOURCE_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES)
 	mv a.wav $(BUILD_PATH)/TEST_mc1000.wav
 	rm a.bin
@@ -2360,17 +2374,18 @@ svi_test:
 	-DSOUNDS \
 	-D__SVI__ \
 	$(FAST_TEST_OPTS) \
-	-create-app -o $(BUILD_PATH)/TEST_svi \
-	$(SOURCE_PATH)/z88dk/psg/psg_sounds.c  \
+	-create-app \
+	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c  \
 	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_svi
+	mv a.cas $(BUILD_PATH)/TEST_svi.cas
+	rm a.bin
 
 msx_test:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
 	-DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	$(FAST_TEST_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_msx.prg \
-	$(SOURCE_PATH)/z88dk/msx/msx_graphics.c $(SOURCE_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/z88dk/msx/msx_graphics.c $(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_msx.prg 	
 	
@@ -2387,7 +2402,7 @@ aquarius_test:
 	
 vz200_test:
 	$(Z88DK_PATH)$(MYZ88DK) +vz -vn \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-D__VZ__ -clib=ansi \
 	$(FAST_TEST_OPTS) \
 	-lndos \
@@ -2423,8 +2438,8 @@ zx80_test:
 	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_zx80.prg \
-	$(SOURCE_PATH)/sleep_macros.c \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES) 
 	rm $(BUILD_PATH)/TEST_zx80.prg
 	
@@ -2436,8 +2451,8 @@ zx81_test:
 	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_zx81.prg \
-	$(SOURCE_PATH)/sleep_macros.c \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES) 
 	rm $(BUILD_PATH)/TEST_zx81.prg
 		
@@ -2448,7 +2463,8 @@ spectrum_test:
 	-lndos -create-app \
 	$(FAST_TEST_OPTS) \
 	-o $(BUILD_PATH)/TEST_spectrum.prg \
-	$(SOURCE_PATH)/z88dk/spectrum/udg.asm $(SOURCE_PATH)/z88dk/spectrum/spectrum_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/spectrum/udg.asm \
+	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
 	$(TEST_FILES) 
 	rm $(BUILD_PATH)/TEST_spectrum.prg
 	rm $(BUILD_PATH)/TEST_spectrum_BANK_7.bin	
@@ -2470,7 +2486,7 @@ lambda_test:
 	-vn -D__LAMBDA__ \
 	$(FAST_TEST_OPTS) \
 	-lndos -create-app -o  $(BUILD_PATH)/TEST_lambda.prg \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_lambda.prg		
 	
@@ -2485,7 +2501,7 @@ nc100_test:
 	-DREDEFINED_CHARS \
 	$(FAST_TEST_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_nc100.bin \
-	$(SOURCE_PATH)/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_nc100.bin	
 
@@ -2497,12 +2513,13 @@ c128_z80_test:
 	-DFORCE_CONIO \
 	$(TEST_FILES) \
 	-create-app
-	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 TEST_c128_z80_40col.d64
-	$(TOOLS_PATH)/generic/c1541 -attach TEST_c128_z80_40col.d64 -write a.ldr
-	$(TOOLS_PATH)/generic/c1541 -attach TEST_c128_z80_40col.d64 -write a
-	mv TEST_c128_z80_40col.d64 $(BUILD_PATH)/
+	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 TEST_c128_z80.d64
+	$(TOOLS_PATH)/generic/c1541 -attach TEST_c128_z80.d64 -write a.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach TEST_c128_z80.d64 -write a
+	mv TEST_c128_z80.d64 $(BUILD_PATH)/
 	rm A.LDR
 	rm A
+	rm a.bin
 	
 ###############################################################################
 
@@ -2517,21 +2534,21 @@ zx81_zsdcc_test:
 	$(FAST_TEST_OPTS) \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_ZSDCC_zx81.prg \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_zx81.prg
 	
 
 aquarius_zsdcc_test:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-compiler=sdcc \
 	$(FAST_TEST_OPTS) \
 	-vn \
 	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DEXT_GRAPHICS \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma_clib.inc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TEST_ZSDCC_aquarius -create-app \
-	$(SOURCE_PATH)/z88dk/aquarius/aquarius_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/aquarius/aquarius_graphics.c \
 	$(TEST_FILES) 
 	rm $(SOURCE_PATH)/../TEST_ZSDCC_aquarius
 	mv $(SOURCE_PATH)/../TEST_ZSDCC_aquarius.caq $(BUILD_PATH)
@@ -2541,7 +2558,7 @@ aquarius_zsdcc_test:
 vz200_zsdcc_test:
 	$(Z88DK_PATH)$(MYZ88DK) +vz -vn \
 	-DTINY_GAME \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-compiler=sdcc \
 	$(FAST_TEST_OPTS) \
 	-D__VZ__ -clib=ansi \
@@ -2562,11 +2579,11 @@ vz200_zsdcc_test:
 
 spectrum_zsdcc_test:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -startup=1 -zorg=24055 \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc -clib=sdcc_iy \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc -clib=sdcc_iy \
 	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ \
 	$(FAST_TEST_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
-	$(SOURCE_PATH)/z88dk/spectrum/spectrum_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_CODE.bin 
 	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_UNASSIGNED.bin
@@ -2578,31 +2595,32 @@ svi_zsdcc_test:
 	-zorg=49152 \
 	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma_clib.inc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-vn -lndos \
 	-D__SVI__ \
 	-DSOUNDS \
 	-DALT_SLEEP \
 	-DMACRO_SLEEP \
 	$(FAST_TEST_OPTS) \
-	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_svi \
-	$(SOURCE_PATH)/z88dk/psg/psg_sounds.c	\
+	-create-app \
+	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c	\
 	$(TEST_FILES) 
-	rm $(BUILD_PATH)/TEST_ZSDCC_svi
+	mv a.cas $(BUILD_PATH)/TEST_ZSDCC_svi.cas
+	rm a.bin
 	
 	
 vg5k_zsdcc_test:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-compiler=sdcc \
 	--reserve-regs-iy \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma_clib.inc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DNO_BLINKING \
 	-vn -D__VG5K__ \
 	-DLESS_TEXT \
 	-DSOUNDS \
 	$(FAST_TEST_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_vg5k.prg \
-	$(SOURCE_PATH)/z88dk/vg5k/vg5k_graphics.c \
+	$(CROSS_LIB_PATH)/z88dk/vg5k/vg5k_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_vg5k.prg
 
@@ -2618,8 +2636,8 @@ mc1000_zsdcc_test:
 	-D__MC1000__ -DSOUNDS \
 	-DALT_SLEEP \
 	-vn  -lndos -create-app -Cz--audio \
-	$(SOURCE_PATH)/z88dk/psg/psg_sounds.c \
-	$(SOURCE_PATH)/sleep_macros.c \
+	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(TEST_FILES) 
 	mv a.wav $(BUILD_PATH)/TEST_ZSDCC_mc1000.wav
 	rm a.bin
@@ -2641,6 +2659,7 @@ c128_z80_zsdcc_test:
 	mv TEST_c128_z80.d64 $(BUILD_PATH)/
 	rm A.LDR
 	rm A
+	rm a.bin
 
 	
 ####################################################################################################################
@@ -2650,7 +2669,7 @@ c128_z80_zsdcc_test:
 	
 spectrum_16k_light:
 	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -zorg=24055 \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc -clib=sdcc_iy \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc -clib=sdcc_iy \
 	-DNO_SLEEP -DLESS_TEXT -vn  -D__SPECTRUM__ \
 	-create-app -o $(BUILD_PATH)/LIGHT_spectrum_16k.prg \
 	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \

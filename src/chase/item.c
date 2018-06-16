@@ -2,7 +2,7 @@
 
 #include "character.h"
 #include "item.h"
-#include "enemy.h"
+#include "ghost.h"
 #include "text.h"
 
 extern unsigned short points;

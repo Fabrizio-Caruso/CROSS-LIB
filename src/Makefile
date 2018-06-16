@@ -33,7 +33,7 @@ NO_CHASE_FILES ?= \
 	$(CROSS_LIB_PATH)/display/display_macros.c \
 	$(CROSS_LIB_PATH)/input/input_macros.c \
 	$(SOURCE_PATH)/move_player.c \
-	$(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
+	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c \
 	$(SOURCE_PATH)/main.c
 
 	
@@ -153,7 +153,7 @@ vic20_exp_8k:
 	$(CC65_PATH)$(MYCC65) -Or  -t vic20  -DSOUNDS -DREDEFINED_CHARS --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	$(CROSS_LIB_PATH)/cc65/vic20/udc.s $(CROSS_LIB_PATH)/cc65/vic20/vic20_graphics.c  $(CROSS_LIB_PATH)/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c  $(SOURCE_PATH)/skull.c  \
-	$(SOURCE_PATH)/enemy.c $(CROSS_LIB_PATH)/input/input_macros.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/missile.c \
+	$(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/missile.c \
 	$(SOURCE_PATH)/move_player.c \
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
@@ -1533,7 +1533,7 @@ coco:
 	-c $(SOURCE_PATH)/move_player.c
 	cmoc \
 	$(COCO_OPTS) \
-	-c $(SOURCE_PATH)/enemy.c
+	-c $(SOURCE_PATH)/ghost.c
 	cmoc \
 	$(COCO_OPTS) \
 	-c $(SOURCE_PATH)/level.c
@@ -1568,7 +1568,7 @@ coco:
 	$(COCO_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o cmoc_graphics.o \
-	enemy.o \
+	ghost.o \
 	move_player.o \
 	level.o character.o text.o \
 	strategy.o \
@@ -1576,7 +1576,7 @@ coco:
 	item.o missile.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm 	display_macros.o cmoc_graphics.o \
-	enemy.o \
+	ghost.o \
 	level.o character.o text.o \
 	strategy.o \
 	input_macros.o cmoc_input.o \
@@ -2025,6 +2025,7 @@ c128_targets: \
 # TESTS
 
 FAST_TEST_OPTS ?= \
+-O0 \
 -DTINY_GAME -DLESS_TEXT \
 -DNO_BLINKING -DNO_CHASE \
 -DNO_INITIAL_SCREEN -DNO_SET_SCREEN_COLORS \

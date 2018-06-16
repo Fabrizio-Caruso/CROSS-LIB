@@ -11,7 +11,7 @@
 	#include "strategy.h"
 	#include "level.h"
 	#include "character.h"
-	#include "enemy.h"
+	#include "ghost.h"
 	
 	extern Character player;
 	extern Character skull;

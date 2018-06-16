@@ -43,7 +43,7 @@
 #include "strategy.h"
 #include "text.h"
 #include "level.h"
-#include "enemy.h"
+#include "ghost.h"
 #include "move_player.h"
 
 #include "text_strings.h"

@@ -26,7 +26,7 @@
 #include "item.h"
 #include "item.h"
 #include "settings.h"
-#include "enemy.h"
+#include "ghost.h"
 
 #if defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <cmoc.h>

@@ -31,7 +31,7 @@
 #include "text.h"
 #include "character.h"
 #include "item.h"
-#include "enemy.h"
+#include "ghost.h"
 #include "strategy.h"
 
 

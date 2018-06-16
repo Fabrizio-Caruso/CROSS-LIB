@@ -23,7 +23,7 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 
-#include "enemy.h"
+#include "ghost.h"
 #include "settings.h"
 
 extern unsigned short ghostLevel;

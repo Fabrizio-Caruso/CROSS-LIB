@@ -502,9 +502,10 @@ aquarius_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi $(SCCZ80_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
-	-o FULL_aquarius_exp_16k -create-app \
 	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
+	$(FULL_FILES) \
+	-create-app	\
+	-o FULL_aquarius_exp_16k
 	rm $(SOURCE_PATH)/../FULL_aquarius_exp_16k
 	mv $(SOURCE_PATH)/../FULL_aquarius_exp_16k.caq $(BUILD_PATH)
 	mv $(SOURCE_PATH)/../_FULL_aquarius_exp_16k.caq $(BUILD_PATH)

@@ -26,7 +26,7 @@
 // by Simon Jonassen
 
 
-#include "wincmoc/wincmoc_input.h"
+#include "../cross_lib/wincmoc/wincmoc_input.h"
 
 #include <conio.h>
 

@@ -246,7 +246,7 @@ extern Character player;
 	#elif defined(__WINCMOC__) && defined(__CMOC__)
 		#if defined(ASM_KEY_DETECT)
 			// #include <basic.h>
-			#include "wincmoc/wincmoc_input.h"			
+			#include "../cross_lib/wincmoc/wincmoc_input.h"			
 			void MOVE_PLAYER(void) 
 				{
 					char ch = (char) GET_CHAR(); 

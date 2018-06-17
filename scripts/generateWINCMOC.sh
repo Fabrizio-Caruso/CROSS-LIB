@@ -1,23 +1,22 @@
 #!/bin/bash
 
-rm -f src/wincmoc_tmp.c
-rm -f src/wincmoc_input.c
+WINCMOC_SOURCE=../src/cross_lib/wincmoc
+SOURCE=../src/chase
 
-rm -f src/wincmoc_graphics.c
+rm -f $SOURCE/wincmoc_tmp.c
+rm -f $SOURCE/wincmoc_input.c
+rm -f $SOURCE/wincmoc_graphics.c
+rm -f $SOURCE/wincmoc_main.c
 
-rm -f src/wincmoc_tmp.c
+cp $WINCMOC_SOURCE/wincmoc_input.c  $SOURCE/wincmoc_input.c
 
-rm -f src/wincmoc_main.c
-
-cp src/wincmoc/wincmoc_input.c  src/wincmoc_input.c
-
-for file in $(ls src/*.c)
+for file in $(ls $SOURCE/*.c)
 do 
-	grep -v extern $file >> src/wincmoc_tmp.c
+	grep -v extern $file >> $SOURCE/wincmoc_tmp.c
 done
 
-cp src/wincmoc/wincmoc.h src/wincmoc_main.c
-cat src/wincmoc_tmp.c >> src/wincmoc_main.c
+cp $WINCMOC_SOURCE/wincmoc.h $SOURCE/wincmoc_main.c
+cat $SOURCE/wincmoc_tmp.c >> $SOURCE/wincmoc_main.c
 
-rm -rf src/wincmoc_tmp.c
+rm -rf $SOURCE/wincmoc_tmp.c
 

@@ -63,8 +63,8 @@
 // WHITE
 #define _GHOST 0x7E
 
-#define _LEFT_ENEMY_MISSILE ((unsigned char)0x7B)
-#define _RIGHT_ENEMY_MISSILE ((unsigned char)0x7D)
+#define _LEFT_HORIZONTAL_MISSILE ((unsigned char)0x7B)
+#define _RIGHT_HORIZONTAL_MISSILE ((unsigned char)0x7D)
 #define _ROCKET ((unsigned char)0x60)
 
 #include "../../display/display_macros.h"
@@ -83,8 +83,8 @@ extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 
 #if defined(FULL_GAME)
-	extern Image LEFT_ENEMY_MISSILE_IMAGE;
-	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
+	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 	extern Image ROCKET_IMAGE;
 
@@ -208,8 +208,8 @@ void INIT_GRAPHICS(void)
 		#if defined(FULL_GAME)
 			redefine(CHAR_BASE+8*_FREEZE, powerUp);
 		
-			redefine(CHAR_BASE+8*_LEFT_ENEMY_MISSILE,missile_left);	
-			redefine(CHAR_BASE+8*_RIGHT_ENEMY_MISSILE,missile_right);	
+			redefine(CHAR_BASE+8*_LEFT_HORIZONTAL_MISSILE,missile_left);	
+			redefine(CHAR_BASE+8*_RIGHT_HORIZONTAL_MISSILE,missile_right);	
 			redefine(CHAR_BASE+8*_ROCKET, bubble);
 			redefine(CHAR_BASE+8*_EXTRA_POINTS, extra_points);
 		#endif
@@ -247,8 +247,8 @@ void INIT_IMAGES(void)
 	#if defined(FULL_GAME)
 		FREEZE_IMAGE._imageData = _FREEZE;
 	
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
+		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _LEFT_HORIZONTAL_MISSILE;
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _RIGHT_HORIZONTAL_MISSILE;
 		
 		ROCKET_IMAGE._imageData = _ROCKET;
 				

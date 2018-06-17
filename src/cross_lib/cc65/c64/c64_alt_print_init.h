@@ -46,8 +46,8 @@
 #define _BULLET (char) (0x7C-0x20)
 #define _ROCKET '^'
 #define _EXTRA_POINTS '*'
-#define _LEFT_ENEMY_MISSILE '>'
-#define _RIGHT_ENEMY_MISSILE '<'
+#define _LEFT_HORIZONTAL_MISSILE '>'
+#define _RIGHT_HORIZONTAL_MISSILE '<'
 #define _INVINCIBILITY (0x73 - 0x20)
 
 #define _SKULL (char) (0x77 - 0x20)

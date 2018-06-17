@@ -50,8 +50,8 @@ extern Image FREEZE_IMAGE;
 #endif
 	
 #if defined(FULL_GAME)
-	extern Image LEFT_ENEMY_MISSILE_IMAGE;
-	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
+	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 	extern Image ROCKET_IMAGE;
 
@@ -127,8 +127,8 @@ struct redefine_struct
 // WHITE
 #define _GHOST 0x7E
 
-#define _LEFT_ENEMY_MISSILE ((unsigned char)0x7B)
-#define _RIGHT_ENEMY_MISSILE ((unsigned char)0x7D)
+#define _LEFT_HORIZONTAL_MISSILE ((unsigned char)0x7B)
+#define _RIGHT_HORIZONTAL_MISSILE ((unsigned char)0x7D)
 #define _ROCKET ((unsigned char)0x60)
 
 #if defined(REDEFINED_CHARS)
@@ -142,8 +142,8 @@ struct redefine_struct redefine_map[] =
 	{_BOMB, { 60, 66,165,153,153,165, 66, 60}},
 	
 	#if defined(FULL_GAME)
-	{_RIGHT_ENEMY_MISSILE, {  0,  0, 15,252,252, 15,  0,  0}},
-	{_LEFT_ENEMY_MISSILE, {  0,  0,240, 63, 63,240,  0,  0}},
+	{_RIGHT_HORIZONTAL_MISSILE, {  0,  0, 15,252,252, 15,  0,  0}},
+	{_LEFT_HORIZONTAL_MISSILE, {  0,  0,240, 63, 63,240,  0,  0}},
 	#endif
 	
 	#if !defined(TINY_GAME)
@@ -234,8 +234,8 @@ void INIT_IMAGES(void)
 		#endif
 		
 		#if defined(FULL_GAME)
-			LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
-			RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;		
+			LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _LEFT_HORIZONTAL_MISSILE;
+			RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _RIGHT_HORIZONTAL_MISSILE;		
 			ROCKET_IMAGE._imageData = _ROCKET;
 			INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
 			CHASE_IMAGE._imageData = _BULLET;
@@ -255,8 +255,8 @@ void INIT_IMAGES(void)
 			BULLET_IMAGE._imageData = '.';
 		#endif
 		#if defined(FULL_GAME)
-			LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+			LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = '>';
+			RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = '<';
 			ROCKET_IMAGE._imageData = '^';
 		#endif	
 	#endif
@@ -274,8 +274,8 @@ void INIT_IMAGES(void)
 	#endif
 	
 	#if defined(FULL_GAME)
-		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
-		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
+		LEFT_HORIZONTAL_MISSILE_IMAGE._color = COLOR_WHITE;
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._color = COLOR_WHITE;	
 		
 		ROCKET_IMAGE._color = COLOR_WHITE;
 		EXTRA_POINTS_IMAGE._imageData = '$';

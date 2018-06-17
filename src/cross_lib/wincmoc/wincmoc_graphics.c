@@ -48,13 +48,13 @@
 
 
 #define _INVINCIBILITY 13
-#define _MISSILE 14
+#define _BULLET 14
 
 
 #define _GHOST 15
 
-#define _LEFT_ENEMY_MISSILE 16
-#define _RIGHT_ENEMY_MISSILE 17
+#define _LEFT_HORIZONTAL_MISSILE 16
+#define _RIGHT_HORIZONTAL_MISSILE 17
 #define _ROCKET 18
 
 #include "display_macros.h"
@@ -65,12 +65,12 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
-extern Image MISSILE_IMAGE;
+extern Image BULLET_IMAGE;
 extern Image GUN_IMAGE;
 
 #if defined(FULL_GAME)
-	extern Image LEFT_ENEMY_MISSILE_IMAGE;
-	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
+	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 	extern Image ROCKET_IMAGE;
 
@@ -138,12 +138,12 @@ struct redefine_struct char_map[] =
 	{_PLAYER_RIGHT, { 24, 52, 25,118,152, 24, 20, 20}},	
 	{_PLAYER_LEFT, { 24, 44,152,110, 25, 24, 40, 40}},
 	{_GHOST, {129,126,165,129,129,189,129,126}},
-	{_RIGHT_ENEMY_MISSILE, {  0,  0, 15,252,252, 15,  0,  0}},
-	{_LEFT_ENEMY_MISSILE, {  0,  0,240, 63, 63,240,  0,  0}},
+	{_RIGHT_HORIZONTAL_MISSILE, {  0,  0, 15,252,252, 15,  0,  0}},
+	{_LEFT_HORIZONTAL_MISSILE, {  0,  0,240, 63, 63,240,  0,  0}},
 	{_SKULL, { 60, 66,165,129, 90, 36, 36, 60}},
 	{_GUN, {  0,128,126,200,248,192,128,  0}},
 	{_POWERUP, {  0, 60, 54,223,231,122, 36, 24}},
-	{_MISSILE, {  0,  0,  8, 56, 28, 16,  0,  0}},
+	{_BULLET, {  0,  0,  8, 56, 28, 16,  0,  0}},
 	{_BOMB, { 60, 66,165,153,153,165, 66, 60}},
 	{_ROCKET, { 24, 60, 60, 60,126, 90, 66, 66}},
 	{_INVINCIBILITY, { 24, 36, 24,  0,153,  0, 36,102}},
@@ -184,7 +184,7 @@ void INIT_IMAGES(void)
 		SKULL_IMAGE._imageData = _SKULL;	
 		POWERUP_IMAGE._imageData = _POWERUP;
 		GUN_IMAGE._imageData = _GUN;
-		MISSILE_IMAGE._imageData = _MISSILE;
+		BULLET_IMAGE._imageData = _BULLET;
 	#endif
 	
 	PLAYER_DOWN._imageData = _PLAYER_DOWN;
@@ -193,8 +193,8 @@ void INIT_IMAGES(void)
 	PLAYER_LEFT._imageData = _PLAYER_LEFT;		
 
 	#if defined(FULL_GAME)
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
+		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _LEFT_HORIZONTAL_MISSILE;
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _RIGHT_HORIZONTAL_MISSILE;
 		
 		ROCKET_IMAGE._imageData = _ROCKET;
 		

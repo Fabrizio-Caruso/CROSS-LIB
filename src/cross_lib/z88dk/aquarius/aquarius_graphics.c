@@ -47,12 +47,12 @@ extern Image DEAD_GHOST_IMAGE;
 extern Image SKULL_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image POWERUP_IMAGE;
-extern Image MISSILE_IMAGE;
+extern Image BULLET_IMAGE;
 extern Image GUN_IMAGE;
 
 #if defined(FULL_GAME)
-	extern Image LEFT_ENEMY_MISSILE_IMAGE;
-	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
+	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 	extern Image ROCKET_IMAGE;
 

@@ -45,8 +45,8 @@ extern Image BULLET_IMAGE;
 #if defined(FULL_GAME)
 	extern Image FREEZE_IMAGE;
 
-	extern Image LEFT_ENEMY_MISSILE_IMAGE;
-	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
+	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 	extern Image ROCKET_IMAGE;
 
@@ -133,8 +133,8 @@ void INIT_IMAGES(void)
 	#if defined(FULL_GAME)
 		#if !defined(NO_COLOR)	
 			FREEZE_IMAGE._color = VG5K_CYAN;	
-			LEFT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;
-			RIGHT_ENEMY_MISSILE_IMAGE._color = VG5K_WHITE;	
+			LEFT_HORIZONTAL_MISSILE_IMAGE._color = VG5K_WHITE;
+			RIGHT_HORIZONTAL_MISSILE_IMAGE._color = VG5K_WHITE;	
 			ROCKET_IMAGE._color = VG5K_WHITE;	
 			EXTRA_LIFE_IMAGE._color = VG5K_YELLOW;
 			INVINCIBILITY_IMAGE._color = VG5K_YELLOW;			
@@ -145,8 +145,8 @@ void INIT_IMAGES(void)
 		#endif
 
 		FREEZE_IMAGE._imageData = POWERUP_IMAGE._imageData;
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = '>';
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = '<';
 		
 		ROCKET_IMAGE._imageData = '^';
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;

@@ -64,8 +64,8 @@ extern Image BULLET_IMAGE;
 extern Image GUN_IMAGE;
 
 #if defined(FULL_GAME)
-	extern Image LEFT_ENEMY_MISSILE_IMAGE;
-	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
+	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 	extern Image ROCKET_IMAGE;
 
@@ -158,9 +158,9 @@ void INIT_IMAGES(void)
 
 	#if defined(FULL_GAME)
 		
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
+		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = '>';
 
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = '<';
 
 		ROCKET_IMAGE._imageData = '^';
 		
@@ -177,8 +177,8 @@ void INIT_IMAGES(void)
 		ZOMBIE_IMAGE._imageData = 'Z';
 		
 		#if !defined(NO_COLOR)
-			LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
-			RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;	
+			LEFT_HORIZONTAL_MISSILE_IMAGE._color = COLOR_WHITE;
+			RIGHT_HORIZONTAL_MISSILE_IMAGE._color = COLOR_WHITE;	
 			ROCKET_IMAGE._color = COLOR_WHITE;				
 			EXTRA_POINTS_IMAGE._color = COLOR_WHITE;
 			EXTRA_LIFE_IMAGE._color = COLOR_WHITE;

@@ -40,8 +40,8 @@ extern Image EXTRA_POINTS_IMAGE;
 #if defined(FULL_GAME)
 	extern Image FREEZE_IMAGE;
 
-	extern Image LEFT_ENEMY_MISSILE_IMAGE;
-	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
+	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 	extern Image ROCKET_IMAGE;
 
@@ -151,10 +151,10 @@ void INIT_IMAGES(void)
 		FREEZE_IMAGE._color = 128u;	
 		FREEZE_IMAGE._imageData = 'F';
 	
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		LEFT_ENEMY_MISSILE_IMAGE._color = 0;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
-		RIGHT_ENEMY_MISSILE_IMAGE._color = 0;
+		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = '>';
+		LEFT_HORIZONTAL_MISSILE_IMAGE._color = 0;
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = '<';
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._color = 0;
 		
 		ROCKET_IMAGE._imageData = (char) 0x23;
 		ROCKET_IMAGE._color = 0;	

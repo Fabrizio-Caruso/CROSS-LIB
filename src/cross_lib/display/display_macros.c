@@ -55,8 +55,8 @@ Image BOMB_IMAGE;
 #endif
 
 #if defined(FULL_GAME)
-	Image LEFT_ENEMY_MISSILE_IMAGE;
-	Image RIGHT_ENEMY_MISSILE_IMAGE;
+	Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 	Image ROCKET_IMAGE;
 
@@ -282,13 +282,13 @@ Image BOMB_IMAGE;
 		
 		#if defined(FULL_GAME)
 			#if !defined(NO_COLOR)
-				LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
-				RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+				LEFT_HORIZONTAL_MISSILE_IMAGE._color = COLOR_WHITE;
+				RIGHT_HORIZONTAL_MISSILE_IMAGE._color = COLOR_WHITE;
 				ROCKET_IMAGE._color = COLOR_WHITE;	
 				BROKEN_WALL_IMAGE._color = COLOR_RED;		
 			#endif
-			LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-			RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+			LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = '>';
+			RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = '<';
 		
 			ROCKET_IMAGE._imageData = '^';
 			#if defined(__WINCMOC__) || defined(__CMOC__)	

@@ -52,8 +52,8 @@
 
 #define _GHOST 'O'
 
-#define _LEFT_ENEMY_MISSILE ('>')
-#define _RIGHT_ENEMY_MISSILE ('<')
+#define _LEFT_HORIZONTAL_MISSILE ('>')
+#define _RIGHT_HORIZONTAL_MISSILE ('<')
 #define _ROCKET ('^')
 
 #include "../../display/display_macros.h"
@@ -81,8 +81,8 @@ extern Image DEAD_GHOST_IMAGE;
 #if defined(FULL_GAME)
 	extern Image FREEZE_IMAGE;
 
-	extern Image LEFT_ENEMY_MISSILE_IMAGE;
-	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
+	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 	extern Image ROCKET_IMAGE;
 
@@ -187,8 +187,8 @@ void INIT_IMAGES(void)
 	#if defined(FULL_GAME)
 		FREEZE_IMAGE._imageData = _POWERUP;
 	
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;
+		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _LEFT_HORIZONTAL_MISSILE;
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _RIGHT_HORIZONTAL_MISSILE;
 		
 		ROCKET_IMAGE._imageData = _ROCKET;
 				

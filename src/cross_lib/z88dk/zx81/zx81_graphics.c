@@ -42,8 +42,8 @@ extern Image BOMB_IMAGE;
 #if defined(FULL_GAME)
 	extern Image FREEZE_IMAGE;
 
-	extern Image LEFT_ENEMY_MISSILE_IMAGE;
-	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
+	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 	extern Image ROCKET_IMAGE;
 
@@ -88,8 +88,8 @@ void INIT_IMAGES(void)
 	#if defined(FULL_GAME)
 		FREEZE_IMAGE._imageData = 'F';
 	
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = '>';
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = '<';
+		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = '>';
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = '<';
 		
 		ROCKET_IMAGE._imageData = 'I';
 		

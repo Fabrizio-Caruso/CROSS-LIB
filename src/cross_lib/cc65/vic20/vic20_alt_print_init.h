@@ -68,9 +68,9 @@
 	#define _INVINCIBILITY 'V'
 	#define _MISSILE '.'
 
-	#define _LEFT_ENEMY_MISSILE '>'
+	#define _LEFT_HORIZONTAL_MISSILE '>'
 
-	#define _RIGHT_ENEMY_MISSILE '<'
+	#define _RIGHT_HORIZONTAL_MISSILE '<'
 
 	#define _ROCKET ('^'-64)
 	
@@ -120,9 +120,9 @@
 	#define _INVINCIBILITY 'V'
 	#define _BULLET '.'
 
-	#define _LEFT_ENEMY_MISSILE '>'
-
-	#define _RIGHT_ENEMY_MISSILE '<'
+	#define _LEFT_HORIZONTAL_MISSILE '>'
+	
+	#define _RIGHT_HORIZONTAL_MISSILE '<'
 
 	#define _ROCKET ('^'-64)
 	

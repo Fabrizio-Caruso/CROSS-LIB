@@ -74,10 +74,10 @@
 #define _DEAD_GHOST _GHOST
 
 
-#define _LEFT_ENEMY_MISSILE 0x22
+#define _LEFT_HORIZONTAL_MISSILE 0x22
 
 //((unsigned char)0x7B)
-#define _RIGHT_ENEMY_MISSILE 0x2E
+#define _RIGHT_HORIZONTAL_MISSILE 0x2E
 
 //((unsigned char)0x7D)
 #define _ROCKET 0x2F
@@ -97,8 +97,8 @@ extern Image GUN_IMAGE;
 extern Image EXTRA_POINTS_IMAGE;
 
 #if defined(FULL_GAME)
-	extern Image LEFT_ENEMY_MISSILE_IMAGE;
-	extern Image RIGHT_ENEMY_MISSILE_IMAGE;
+	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 	extern Image ROCKET_IMAGE;
 
@@ -142,8 +142,8 @@ struct redefine_struct redefine_map[] =
 	{_VERTICAL_BRICK, { 24, 24, 24, 48, 24, 12, 24, 24}},
 	{_HORIZONTAL_BRICK, {  0,  0,  0,255,  0,  0,  0,  0}},	
 	#if defined(FULL_GAME)
-		{_RIGHT_ENEMY_MISSILE, {  0,  0, 15,252,252, 15,  0,  0}},
-		{_LEFT_ENEMY_MISSILE, {  0,  0,240, 63, 63,240,  0,  0}},	
+		{_RIGHT_HORIZONTAL_MISSILE, {  0,  0, 15,252,252, 15,  0,  0}},
+		{_LEFT_HORIZONTAL_MISSILE, {  0,  0,240, 63, 63,240,  0,  0}},	
 		{_ROCKET, { 24, 60, 60, 60,126, 90, 66, 66}},
 		{_INVINCIBILITY, { 24, 36, 24,  0,153,  0, 36,102}},
 	#endif
@@ -197,8 +197,8 @@ void INIT_IMAGES(void)
 	PLAYER_LEFT._color = COLOR_CYAN;
 		
 	#if defined(FULL_GAME)
-		RIGHT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;		
-		LEFT_ENEMY_MISSILE_IMAGE._color = COLOR_WHITE;
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._color = COLOR_WHITE;		
+		LEFT_HORIZONTAL_MISSILE_IMAGE._color = COLOR_WHITE;
 		
 		ROCKET_IMAGE._color = COLOR_WHITE;
 		FREEZE_IMAGE._color = COLOR_CYAN;
@@ -229,8 +229,8 @@ void INIT_IMAGES(void)
 	BULLET_IMAGE._imageData = _MISSILE;
 
 	#if defined(FULL_GAME)
-		LEFT_ENEMY_MISSILE_IMAGE._imageData = _LEFT_ENEMY_MISSILE;
-		RIGHT_ENEMY_MISSILE_IMAGE._imageData = _RIGHT_ENEMY_MISSILE;		
+		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _LEFT_HORIZONTAL_MISSILE;
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _RIGHT_HORIZONTAL_MISSILE;		
 		ROCKET_IMAGE._imageData = _ROCKET;
 		
 		FREEZE_IMAGE._imageData = _POWERUP;		

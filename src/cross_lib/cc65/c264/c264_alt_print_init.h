@@ -87,9 +87,9 @@
 
 #define _DEAD_GHOST '#'
 
-#define _LEFT_ENEMY_MISSILE '>'
+#define _LEFT_HORIZONTAL_MISSILE '>'
 
-#define _RIGHT_ENEMY_MISSILE '<'
+#define _RIGHT_HORIZONTAL_MISSILE '<'
 
 #define _ROCKET ('^'-64)
 

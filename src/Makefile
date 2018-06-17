@@ -26,7 +26,6 @@ MYZ88DKASM ?= z80asm$(EXEEXT)
 SCCZ80_OPTS ?= -O0
 ZSDCC_OPTS ?= --max-allocs-per-node200000
 #-SO3 --max-allocs-per-node200000
-ZX81_ZSDCC_OPTS ?= --max-allocs-per-node200000
 
 TOOLS_PATH ?= ../tools
 
@@ -630,7 +629,7 @@ zx80_16k_turn_based:
 zx81_16k_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	-compiler=sdcc \
-	$(ZX81_ZSDCC_OPTS) \
+	$(ZSDCC_OPTS) \
 	-v \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DTURN_BASED \
@@ -646,7 +645,7 @@ zx81_16k_turn_based:
 	
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
-	$(ZX81_ZSDCC_OPTS) \
+	$(ZSDCC_OPTS) \
 	-compiler=sdcc \
 	-vn \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \

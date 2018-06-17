@@ -221,7 +221,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			{
 				rockets_x[i] = (unsigned char) (i+1)*(XSize/(ROCKETS_NUMBER+1));
 				initializeCharacter(&rockets[i],(unsigned char) rockets_x[i],(unsigned char)(YSize-1),1,&ROCKET_IMAGE);
-				displayMissile(&rockets[i]);
+				displayRocket(&rockets[i]);
 			}
 		}
 

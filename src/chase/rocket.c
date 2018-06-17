@@ -31,15 +31,14 @@ extern unsigned char ghostCount;
 					if(rand()&1)
 					#endif
 					{
-						deleteMissile(&rockets[i]);
+						deleteRocket(&rockets[i]);
 						--(rockets[i]._y);
 					}
 
-					displayMissile(&rockets[i]);			
+					displayRocket(&rockets[i]);			
 					if(rockets[i]._y<=1)
 					{	
-						deleteMissile(&rockets[i]);
-						//
+						deleteRocket(&rockets[i]);
 						rockets[i]._x = (i+1)*(XSize/(ROCKETS_NUMBER+1));
 						rockets[i]._y = YSize-2;							
 					}

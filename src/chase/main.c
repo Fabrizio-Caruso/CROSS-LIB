@@ -462,7 +462,7 @@ int main(void)
 						
 				#if defined(FULL_GAME)
 					handle_rockets();
-					handle_enemy_missiles();
+					handle_horizontal_missiles();
 				#endif
 				
 				++loop;

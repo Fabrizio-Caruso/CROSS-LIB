@@ -20,11 +20,11 @@ unsigned char arrowYPosition;
 		return (loop&1 && player._y<=(arrowYPosition+arrowRange) && player._y>=(arrowYPosition-arrowRange));
 	}
 	
-	void _handle_enemy_missile_from_the_left(void)
+	void _handle_horizontal_missile_from_the_left(void)
 	{
 		if(leftEnemyMissile._status)
 		{
-			deleteMissile(&leftEnemyMissile);
+			deleteHorizontalMissile(&leftEnemyMissile);
 			if(leftEnemyMissile._x==XSize-2)
 			{
 				leftEnemyMissile._x=0;
@@ -41,7 +41,7 @@ unsigned char arrowYPosition;
 					}
 				}
 			}
-			displayMissile(&leftEnemyMissile);
+			displayHorizontalMissile(&leftEnemyMissile);
 			
 			if(playerKilledBy(&leftEnemyMissile))
 			{
@@ -50,11 +50,11 @@ unsigned char arrowYPosition;
 		}		
 	}
 	
-	void _handle_enemy_missile_from_the_right(void)
+	void _handle_horizontal_missile_from_the_right(void)
 	{
 		if(rightEnemyMissile._status)
 		{
-			deleteMissile(&rightEnemyMissile);
+			deleteHorizontalMissile(&rightEnemyMissile);
 			if(rightEnemyMissile._x==1)
 			{
 				rightEnemyMissile._x= XSize-1;
@@ -71,7 +71,7 @@ unsigned char arrowYPosition;
 					}
 				}
 			}
-			displayMissile(&rightEnemyMissile);	
+			displayHorizontalMissile(&rightEnemyMissile);	
 			
 			if(playerKilledBy(&rightEnemyMissile))
 			{
@@ -80,20 +80,20 @@ unsigned char arrowYPosition;
 		}		
 	}
 	
-	void handle_enemy_missiles(void)
+	void handle_horizontal_missiles(void)
 	{	
 		if(oneMissileLevel())
 		{
 			arrowYPosition = YSize/2;
-			_handle_enemy_missile_from_the_right();
+			_handle_horizontal_missile_from_the_right();
 		}	
 		else if(missileLevel() || bossLevel())
 		{
 			arrowYPosition = HORIZONTAL_MISSILE_OFFSET;
-			_handle_enemy_missile_from_the_right();
+			_handle_horizontal_missile_from_the_right();
 			
 			arrowYPosition = YSize-1-HORIZONTAL_MISSILE_OFFSET; 
-			_handle_enemy_missile_from_the_left();
+			_handle_horizontal_missile_from_the_left();
 		}
 
 	}

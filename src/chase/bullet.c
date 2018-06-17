@@ -83,13 +83,13 @@ extern Character player;
 	{
 		if(chasingBullet._status)
 		{
-			deleteMissile(&chasingBullet);
+			deleteChasingBullet(&chasingBullet);
 			#if !defined(SIMPLE_STRATEGY)
 				moveTowardCharacter(chasedEnemyPtr, &chasingBullet, 4);
 			#else
 				moveTowardCharacter(chasedEnemyPtr, &chasingBullet);				
 			#endif
-			displayMissile(&chasingBullet);
+			displayChasingBullet(&chasingBullet);
 			checkBullet(&chasingBullet);
 		}	
 	}
@@ -106,7 +106,7 @@ void handle_bullet(void)
 		bulletDirection = playerDirection;
 		bullet._status = setBulletInitialPosition(&bullet, &player);
 		playerFire = 0;
-		displayMissile(&bullet);
+		displayBullet(&bullet);
 		checkBullet(&bullet);		
 	}
 	
@@ -161,7 +161,7 @@ void checkBulletVsSkull(register Character *bulletPtr)
 	{
 		PING_SOUND();
 		die(bulletPtr);
-		deleteMissile(bulletPtr);
+		deleteBullet(bulletPtr);
 		bulletPtr->_x = 0; bulletPtr->_y = 0;
 		++skullHits;
 		decreaseGhostLevel();
@@ -188,7 +188,7 @@ void checkBulletVsSkull(register Character *bulletPtr)
 
 void _moveBullet(register Character *bulletPtr)
 {
-	deleteMissile(bulletPtr);
+	deleteBullet(bulletPtr);
 	switch(bulletDirection)
 	{
 		case RIGHT:
@@ -214,7 +214,7 @@ unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPt
 	if(wallReached(bulletPtr))
 	{
 		die(bulletPtr);
-		deleteMissile(bulletPtr);
+		deleteBullet(bulletPtr);
 		#if defined(FULL_GAME)
 			DRAW_BROKEN_WALL(bulletPtr->_x, bulletPtr->_y);
 		#endif
@@ -224,11 +224,11 @@ unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPt
 }
 
 #if defined(FULL_GAME)
-	void destroyEnemyMissile(Character * enemyMissilePtr)
+	void destroyHorizontalMissile(Character * horizontalMissilePtr)
 	{
-		enemyMissilePtr->_status = 0;
+		horizontalMissilePtr->_status = 0;
 		EXPLOSION_SOUND();
-		deleteMissile(enemyMissilePtr);
+		deleteHorizontalMissile(horizontalMissilePtr);
 		points+=HORIZONTAL_MISSILE_BONUS;
 		displayStats();				
 		++dead_rockets;
@@ -242,7 +242,7 @@ void moveBullet(register Character * bulletPtr)
 	if(wallReached(bulletPtr) && bulletPtr->_status)
 	{
 		die(bulletPtr);
-		deleteMissile(bulletPtr);
+		deleteBullet(bulletPtr);
 		#if defined(FULL_GAME)
 			DRAW_BROKEN_WALL(bulletPtr->_x, bulletPtr->_y);
 			
@@ -250,18 +250,18 @@ void moveBullet(register Character * bulletPtr)
 			{
 				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==YSize/2 && rightEnemyMissile._status)
 				{
-					destroyEnemyMissile(&rightEnemyMissile);
+					destroyHorizontalMissile(&rightEnemyMissile);
 				}
 			}				
 			else if(missileLevel() || bossLevel())
 			{
 				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==HORIZONTAL_MISSILE_OFFSET && rightEnemyMissile._status)
 				{
-					destroyEnemyMissile(&rightEnemyMissile);	
+					destroyHorizontalMissile(&rightEnemyMissile);	
 				}
 				else if(bulletPtr->_x==0 && bulletPtr->_y==YSize-1-HORIZONTAL_MISSILE_OFFSET && leftEnemyMissile._status)
 				{
-					destroyEnemyMissile(&leftEnemyMissile);	
+					destroyHorizontalMissile(&leftEnemyMissile);	
 				}
 			}
 			if((rocketLevel() || bossLevel()) && bulletPtr->_y==YSize-1)
@@ -274,7 +274,7 @@ void moveBullet(register Character * bulletPtr)
 						rockets[i]._status = 0;
 						++dead_rockets;
 						EXPLOSION_SOUND();
-						deleteMissile(&rockets[i]);
+						deleteRocket(&rockets[i]);
 						points+=VERTICAL_MISSILE_BONUS;
 						displayStats();		
 					}
@@ -284,7 +284,7 @@ void moveBullet(register Character * bulletPtr)
 	}
 	else
 	{
-		displayMissile(bulletPtr);
+		displayBullet(bulletPtr);
 	}
 }
 

@@ -156,13 +156,19 @@ void deleteCharacter(Character * characterPtr);
 #define displayPlayer(characterPtr) displayCharacter(characterPtr);
 #define displayGhost(characterPtr) displayCharacter(characterPtr);
 #define displayBomb(characterPtr) displayCharacter(characterPtr);
-#define displayMissile(characterPtr) displayCharacter(characterPtr);
+#define displayHorizontalMissile(characterPtr) displayCharacter(characterPtr);
+#define displayRocket(characterPtr) displayCharacter(characterPtr);
+#define displayBullet(characterPtr) displayCharacter(characterPtr);
+#define displayChasingBullet(characterPtr) displayCharacter(characterPtr);
 #define displaySkull(characterPtr) displayCharacter(characterPtr);
 
 #define deletePlayer(characterPtr) deleteCharacter(characterPtr);
 #define deleteGhost(characterPtr) deleteCharacter(characterPtr);
 #define deleteBomb(characterPtr) deleteCharacter(characterPtr);
-#define deleteMissile(characterPtr) deleteCharacter(characterPtr);
+#define deleteHorizontalMissile(characterPtr) deleteCharacter(characterPtr);
+#define deleteRocket(characterPtr) deleteCharacter(characterPtr);
+#define deleteBullet(characterPtr) deleteCharacter(characterPtr);
+#define deleteChasingBullet(characterPtr) deleteCharacter(characterPtr);
 #define deleteSkull(characterPtr) deleteCharacter(characterPtr);
 #define deletePowerUp(characterPtr) deleteCharacter(characterPtr);
 

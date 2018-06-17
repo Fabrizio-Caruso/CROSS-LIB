@@ -54,9 +54,9 @@ extern unsigned char skullAlive;
 extern unsigned char playerFire;
 extern unsigned char guns;
 extern unsigned char playerDirection;
-extern unsigned char missileDirection;
+extern unsigned char bulletDirection;
 
-extern Character missile;
+extern Character bullet;
 extern Character player;
 
 
@@ -98,23 +98,23 @@ extern Character player;
 void handle_bullet(void)
 {
 	// Check if player has fired the gun
-	if(playerFire && missile._status==0 && guns>0)
+	if(playerFire && bullet._status==0 && guns>0)
 	{
 		SHOOT_SOUND();
 		--guns;
 		printGunsStats();
-		missileDirection = playerDirection;
-		missile._status = setBulletInitialPosition(&missile, &player, missileDirection);
+		bulletDirection = playerDirection;
+		bullet._status = setBulletInitialPosition(&bullet, &player);
 		playerFire = 0;
-		displayMissile(&missile);
-		checkBullet(&missile);		
+		displayMissile(&bullet);
+		checkBullet(&bullet);		
 	}
 	
-	// Move missile if fired
-	if(missile._status==1)
+	// Move bullet if fired
+	if(bullet._status==1)
 	{
-		moveBullet(&missile, missileDirection);
-		checkBullet(&missile);
+		moveBullet(&bullet);
+		checkBullet(&bullet);
 	}
 }
 
@@ -186,10 +186,10 @@ void checkBulletVsSkull(register Character *bulletPtr)
 }
 
 
-void _moveBullet(register Character *bulletPtr, unsigned short missileDirection)
+void _moveBullet(register Character *bulletPtr)
 {
 	deleteMissile(bulletPtr);
-	switch(missileDirection)
+	switch(bulletDirection)
 	{
 		case RIGHT:
 			++bulletPtr->_x;
@@ -206,12 +206,11 @@ void _moveBullet(register Character *bulletPtr, unsigned short missileDirection)
 	}	
 }
 
-unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPtr,
-							  unsigned short missileDirection)
+unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPtr)
 {
 	bulletPtr->_x = playerPtr->_x; 
 	bulletPtr->_y = playerPtr->_y;
-	_moveBullet(bulletPtr, missileDirection);
+	_moveBullet(bulletPtr);
 	if(wallReached(bulletPtr))
 	{
 		die(bulletPtr);
@@ -237,9 +236,9 @@ unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPt
 	}
 #endif
 
-void moveBullet(register Character * bulletPtr, unsigned short missileDirection)
+void moveBullet(register Character * bulletPtr)
 {
-	_moveBullet(bulletPtr, missileDirection);
+	_moveBullet(bulletPtr);
 	if(wallReached(bulletPtr) && bulletPtr->_status)
 	{
 		die(bulletPtr);

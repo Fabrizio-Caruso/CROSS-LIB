@@ -42,12 +42,11 @@
 
 	void checkBulletVsSkull(register Character *bulletPtr);
 		
-	unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPtr,
-								  unsigned short missileDirection);
+	unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPtr);
 		
-	void _moveBullet(register Character * bulletPtr, unsigned short missileDirection);
+	void _moveBullet(register Character * bulletPtr);
 		
-	void moveBullet(register Character * bulletPtr, unsigned short missileDirection);
+	void moveBullet(register Character * bulletPtr);
 
 
 	void reducePowerUpsCoolDowns(void);

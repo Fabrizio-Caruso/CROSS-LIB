@@ -15,7 +15,7 @@ extern Character player;
 	extern unsigned char skullXCountDown;
 	extern unsigned char skullYCountDown;
 	extern unsigned char playerFire;
-	extern Character missile;
+	extern Character bullet;
 	extern unsigned char guns;
 	extern unsigned char playerDirection;
 #endif
@@ -145,7 +145,7 @@ extern Character player;
 				_DO_MOVE_RIGHT
 			}
 			#if !defined(TINY_GAME)
-			else if(JOY_BTN_1(joyInput) && guns>0 && !missile._status)
+			else if(JOY_BTN_1(joyInput) && guns>0 && !bullet._status)
 			{
 				playerFire = 1;
 			}
@@ -181,7 +181,7 @@ extern Character player;
 				_DO_MOVE_RIGHT
 			}
 			#if !defined(TINY_GAME)
-			else if(kbInput==_FIRE && guns>0 && !missile._status)
+			else if(kbInput==_FIRE && guns>0 && !bullet._status)
 			{
 				playerFire = 1;
 			}

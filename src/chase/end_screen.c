@@ -16,11 +16,11 @@
 	extern Character player;
 	extern Character skull;
 	extern Character ghosts[GHOSTS_NUMBER];
-	extern Character missile;
+	extern Character bullet;
 	extern unsigned char playerFire;
 	extern unsigned char level;
 	extern unsigned char loop;
-	extern unsigned char missileDirection;
+	extern unsigned char bulletDirection;
 	extern unsigned char guns;
 #endif
 
@@ -30,15 +30,15 @@
 	void dance(Character * characterPtr)
 	{
 		deleteCharacter(characterPtr);
-		if(!(missileDirection&3))
+		if(!(bulletDirection&3))
 		{
 			++(characterPtr->_x);
 		}
-		else if((missileDirection&3)==1)
+		else if((bulletDirection&3)==1)
 		{
 			++(characterPtr->_y);			
 		}
-		else if ((missileDirection&3)==2)
+		else if ((bulletDirection&3)==2)
 		{
 			--(characterPtr->_x);			
 		}
@@ -67,7 +67,7 @@
 		loop = 0;
 		skull._x = player._x-5;
 		skull._y = player._y;	
-		missile._status = 0;
+		bullet._status = 0;
 		guns = 1;
 		while(!playerFire)
 		{

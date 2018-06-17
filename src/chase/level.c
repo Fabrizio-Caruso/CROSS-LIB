@@ -63,7 +63,7 @@ extern Character player;
 	extern Item gun;
 	extern Item extraPoints;
 
-	extern Character missile;
+	extern Character bullet;
 
 #endif
 
@@ -341,7 +341,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#if !defined(TINY_GAME)
 		displayPlayer(&player);
 			
-		initializeCharacter(&missile, 0, 0,0,&BULLET_IMAGE);
+		initializeCharacter(&bullet, 0, 0,0,&BULLET_IMAGE);
 		initializeCharacter(&skull,XSize-2,YSize-2, 0, &SKULL_IMAGE);
 	#endif
 

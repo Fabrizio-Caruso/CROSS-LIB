@@ -76,7 +76,7 @@ unsigned char level;
 	unsigned short skullSlowDown;
 	unsigned char skullXCountDown;
 	unsigned char skullYCountDown;
-	unsigned char missileDirection;
+	unsigned char bulletDirection;
 #endif
 
 // Level
@@ -111,7 +111,7 @@ Character player;
 	Item gun;
 	Item extraPoints;	
 	
-	Character missile;
+	Character bullet;
 #endif
 
 Character ghosts[GHOSTS_NUMBER];
@@ -505,9 +505,9 @@ int main(void)
 					handle_skull_ghost();
 
 					// This detects collisions of ghosts that have just moved
-					if(missile._status)
+					if(bullet._status)
 					{
-						checkBullet(&missile);
+						checkBullet(&bullet);
 					}
 				#else
 					#if !defined(NO_CHASE)
@@ -674,7 +674,7 @@ int main(void)
 			else // if dead
 			{		
 				#if defined(BETWEEN_LEVEL)
-					for(missileDirection=0;missileDirection<80;++missileDirection)
+					for(bulletDirection=0;bulletDirection<80;++bulletDirection)
 					{
 						unsigned char i;
 						for(i=0;i<GHOSTS_NUMBER;++i)

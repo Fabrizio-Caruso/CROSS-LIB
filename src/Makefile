@@ -633,8 +633,6 @@ zx81_16k_turn_based:
 	$(ZX81_ZSDCC_OPTS) \
 	-v \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DALT_SLEEP \
-	-DMACRO_SLEEP \
 	-DTURN_BASED \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg \
@@ -1049,8 +1047,6 @@ pc6001_16k:
 pc6001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -v -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DALT_SLEEP \
-	-DMACRO_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \

@@ -90,7 +90,7 @@ extern Character player;
 				moveTowardCharacter(chasedEnemyPtr, &chasingBullet);				
 			#endif
 			displayMissile(&chasingBullet);
-			checkMissile(&chasingBullet);
+			checkBullet(&chasingBullet);
 		}	
 	}
 #endif
@@ -104,28 +104,28 @@ void handle_bullet(void)
 		--guns;
 		printGunsStats();
 		missileDirection = playerDirection;
-		missile._status = setMissileInitialPosition(&missile, &player, missileDirection);
+		missile._status = setBulletInitialPosition(&missile, &player, missileDirection);
 		playerFire = 0;
 		displayMissile(&missile);
-		checkMissile(&missile);		
+		checkBullet(&missile);		
 	}
 	
 	// Move missile if fired
 	if(missile._status==1)
 	{
-		moveMissile(&missile, missileDirection);
-		checkMissile(&missile);
+		moveBullet(&missile, missileDirection);
+		checkBullet(&missile);
 	}
 }
 
 
-void checkMissile(Character *bulletPtr)
+void checkBullet(Character *bulletPtr)
 {
-	checkMissileVsSkull(bulletPtr);
-	checkMissileVsGhosts(bulletPtr);
+	checkBulletVsSkull(bulletPtr);
+	checkBulletVsGhosts(bulletPtr);
 }
 
-void checkMissileVsGhost(Character * bulletPtr,
+void checkBulletVsGhost(Character * bulletPtr,
 						 Character * ghostPtr)
 {
 	if(ghostPtr->_status && 
@@ -142,19 +142,19 @@ void checkMissileVsGhost(Character * bulletPtr,
 	}
 }
 	
-void checkMissileVsGhosts(Character * bulletPtr)
+void checkBulletVsGhosts(Character * bulletPtr)
 {
 	unsigned char i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
 	{
 		if(ghosts[i]._status)
 		{
-			checkMissileVsGhost(bulletPtr, &ghosts[i]);
+			checkBulletVsGhost(bulletPtr, &ghosts[i]);
 		}
 	};
 }
 
-void checkMissileVsSkull(register Character *bulletPtr)
+void checkBulletVsSkull(register Character *bulletPtr)
 {
 	if(skull._status && 
 	   areCharctersAtSamePosition(bulletPtr, &skull))
@@ -186,7 +186,7 @@ void checkMissileVsSkull(register Character *bulletPtr)
 }
 
 
-void _moveMissile(register Character *bulletPtr, unsigned short missileDirection)
+void _moveBullet(register Character *bulletPtr, unsigned short missileDirection)
 {
 	deleteMissile(bulletPtr);
 	switch(missileDirection)
@@ -206,12 +206,12 @@ void _moveMissile(register Character *bulletPtr, unsigned short missileDirection
 	}	
 }
 
-unsigned char setMissileInitialPosition(Character *bulletPtr, Character *playerPtr,
+unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPtr,
 							  unsigned short missileDirection)
 {
 	bulletPtr->_x = playerPtr->_x; 
 	bulletPtr->_y = playerPtr->_y;
-	_moveMissile(bulletPtr, missileDirection);
+	_moveBullet(bulletPtr, missileDirection);
 	if(wallReached(bulletPtr))
 	{
 		die(bulletPtr);
@@ -237,9 +237,9 @@ unsigned char setMissileInitialPosition(Character *bulletPtr, Character *playerP
 	}
 #endif
 
-void moveMissile(register Character * bulletPtr, unsigned short missileDirection)
+void moveBullet(register Character * bulletPtr, unsigned short missileDirection)
 {
-	_moveMissile(bulletPtr, missileDirection);
+	_moveBullet(bulletPtr, missileDirection);
 	if(wallReached(bulletPtr) && bulletPtr->_status)
 	{
 		die(bulletPtr);

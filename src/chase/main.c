@@ -507,7 +507,7 @@ int main(void)
 					// This detects collisions of ghosts that have just moved
 					if(missile._status)
 					{
-						checkMissile(&missile);
+						checkBullet(&missile);
 					}
 				#else
 					#if !defined(NO_CHASE)

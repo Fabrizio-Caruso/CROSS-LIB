@@ -33,23 +33,22 @@
 
 	void handle_bullet(void);
 
-	void checkMissile(Character *missilePtr);
+	void checkBullet(Character *bulletPtr);
 
-	void checkMissileVsGhost(Character * missilePtr,
+	void checkBulletVsGhost(Character * bulletPtr,
 							 Character * ghostPtr);
 		
-	void checkMissileVsGhosts(Character * missilePtr);
+	void checkBulletVsGhosts(Character * bulletPtr);
 
-	void checkMissileVsSkull(register Character *bulletPtr);
+	void checkBulletVsSkull(register Character *bulletPtr);
 		
-	unsigned char setMissileInitialPosition(Character *missilePtr, Character *playerPtr,
+	unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPtr,
 								  unsigned short missileDirection);
 		
-	void _moveMissile(register Character * missilePtr, unsigned short missileDirection);
+	void _moveBullet(register Character * bulletPtr, unsigned short missileDirection);
 		
-	void moveMissile(register Character * missilePtr, unsigned short missileDirection);
+	void moveBullet(register Character * bulletPtr, unsigned short missileDirection);
 
-	void restoreMissile(Character *missilePtr);
 
 	void reducePowerUpsCoolDowns(void);
 		

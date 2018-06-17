@@ -70,9 +70,9 @@ extern Character player;
 	
 	extern Character leftEnemyMissile;
 	extern Character rightEnemyMissile;
-	extern unsigned char bubbles_x[ROCKETS_NUMBER];
-	extern Character bubbles[ROCKETS_NUMBER];
-	extern unsigned char dead_bubbles;
+	extern unsigned char rockets_x[ROCKETS_NUMBER];
+	extern Character rockets[ROCKETS_NUMBER];
+	extern unsigned char dead_rockets;
 	extern unsigned char missileBasesDestroyed;
 
 	extern Character *chasedEnemyPtr;	
@@ -231,7 +231,7 @@ unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPt
 		deleteMissile(enemyMissilePtr);
 		points+=HORIZONTAL_MISSILE_BONUS;
 		displayStats();				
-		++dead_bubbles;
+		++dead_rockets;
 		reducePowerUpsCoolDowns();		
 	}
 #endif
@@ -269,12 +269,12 @@ void moveBullet(register Character * bulletPtr)
 				unsigned char i;
 				for(i=0;i<ROCKETS_NUMBER;++i)
 				{
-					if(bulletPtr->_x==bubbles_x[i] && bubbles[i]._status)
+					if(bulletPtr->_x==rockets_x[i] && rockets[i]._status)
 					{
-						bubbles[i]._status = 0;
-						++dead_bubbles;
+						rockets[i]._status = 0;
+						++dead_rockets;
 						EXPLOSION_SOUND();
-						deleteMissile(&bubbles[i]);
+						deleteMissile(&rockets[i]);
 						points+=VERTICAL_MISSILE_BONUS;
 						displayStats();		
 					}

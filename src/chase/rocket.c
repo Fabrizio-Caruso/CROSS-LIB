@@ -6,7 +6,7 @@
 #include "character.h"
 #include "level.h"
 
-extern Character bubbles[ROCKETS_NUMBER];
+extern Character rockets[ROCKETS_NUMBER];
 
 extern unsigned char ghostCount;
 
@@ -18,9 +18,9 @@ extern unsigned char ghostCount;
 
 			for(i=0;i<ROCKETS_NUMBER;++i)
 			{
-				if(bubbles[i]._status)
+				if(rockets[i]._status)
 				{
-					if(playerKilledBy(&bubbles[i]))
+					if(playerKilledBy(&rockets[i]))
 					{
 						playerDies();
 					}
@@ -31,17 +31,17 @@ extern unsigned char ghostCount;
 					if(rand()&1)
 					#endif
 					{
-						deleteMissile(&bubbles[i]);
-						--(bubbles[i]._y);
+						deleteMissile(&rockets[i]);
+						--(rockets[i]._y);
 					}
 
-					displayMissile(&bubbles[i]);			
-					if(bubbles[i]._y<=1)
+					displayMissile(&rockets[i]);			
+					if(rockets[i]._y<=1)
 					{	
-						deleteMissile(&bubbles[i]);
+						deleteMissile(&rockets[i]);
 						//
-						bubbles[i]._x = (i+1)*(XSize/(ROCKETS_NUMBER+1));
-						bubbles[i]._y = YSize-2;							
+						rockets[i]._x = (i+1)*(XSize/(ROCKETS_NUMBER+1));
+						rockets[i]._y = YSize-2;							
 					}
 				}
 			}

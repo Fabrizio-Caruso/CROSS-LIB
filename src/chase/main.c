@@ -141,15 +141,15 @@ Character bombs[BOMBS_NUMBER];
 	Character leftEnemyMissile;
 	Character rightEnemyMissile;
 
-	Character bubbles[ROCKETS_NUMBER];
+	Character rockets[ROCKETS_NUMBER];
 	
 	Character chasingBullet;
 
 	Character * chasedEnemyPtr;
 
-	unsigned char bubbles_x[ROCKETS_NUMBER];
+	unsigned char rockets_x[ROCKETS_NUMBER];
 	
-	unsigned char dead_bubbles;
+	unsigned char dead_rockets;
 	
 	unsigned char arrowRange;
 	
@@ -355,7 +355,7 @@ int main(void)
 		
 			#if defined(FULL_GAME)
 			
-				dead_bubbles = 0;
+				dead_rockets = 0;
 				
 				invincibilityActive = 1;				
 				invincibility_count_down = INITIAL_INVINCIBILITY_COUNT_DOWN;
@@ -665,7 +665,7 @@ int main(void)
 						{
 							++skullsKilled;
 						}
-						missileBasesDestroyed+=dead_bubbles;
+						missileBasesDestroyed+=dead_rockets;
 					}
 				#endif
 				++level;

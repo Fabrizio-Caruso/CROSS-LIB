@@ -102,9 +102,9 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Item confuse;
 	extern Item zombie;
 	
-	extern Character bubbles[ROCKETS_NUMBER];
+	extern Character rockets[ROCKETS_NUMBER];
 
-	extern char bubbles_x[ROCKETS_NUMBER];
+	extern char rockets_x[ROCKETS_NUMBER];
 	
 	extern char skullsKilled;
 #endif
@@ -219,9 +219,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		{
 			for(i=0;i<ROCKETS_NUMBER;i++)
 			{
-				bubbles_x[i] = (unsigned char) (i+1)*(XSize/(ROCKETS_NUMBER+1));
-				initializeCharacter(&bubbles[i],(unsigned char) bubbles_x[i],(unsigned char)(YSize-1),1,&ROCKET_IMAGE);
-				displayMissile(&bubbles[i]);
+				rockets_x[i] = (unsigned char) (i+1)*(XSize/(ROCKETS_NUMBER+1));
+				initializeCharacter(&rockets[i],(unsigned char) rockets_x[i],(unsigned char)(YSize-1),1,&ROCKET_IMAGE);
+				displayMissile(&rockets[i]);
 			}
 		}
 

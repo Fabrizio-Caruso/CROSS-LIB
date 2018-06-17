@@ -89,10 +89,10 @@ unsigned char arrowYPosition;
 		}	
 		else if(missileLevel() || bossLevel())
 		{
-			arrowYPosition = ENEMY_MISSILE_OFFSET;
+			arrowYPosition = HORIZONTAL_MISSILE_OFFSET;
 			_handle_enemy_missile_from_the_right();
 			
-			arrowYPosition = YSize-1-ENEMY_MISSILE_OFFSET; 
+			arrowYPosition = YSize-1-HORIZONTAL_MISSILE_OFFSET; 
 			_handle_enemy_missile_from_the_left();
 		}
 

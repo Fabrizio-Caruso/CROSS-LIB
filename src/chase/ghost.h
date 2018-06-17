@@ -22,8 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
  
-#ifndef _ENEMY
-#define _ENEMY
+#ifndef _GHOST
+#define _GHOST
 
 #include "character.h"
 
@@ -41,5 +41,5 @@ void displayBombs(void);
 	unsigned char firstAlive(void);
 #endif
 
-#endif // _ENEMY
+#endif // _GHOST
 

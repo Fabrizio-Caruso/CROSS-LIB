@@ -255,11 +255,11 @@ void moveBullet(register Character * bulletPtr)
 			}				
 			else if(missileLevel() || bossLevel())
 			{
-				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==ENEMY_MISSILE_OFFSET && rightEnemyMissile._status)
+				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==HORIZONTAL_MISSILE_OFFSET && rightEnemyMissile._status)
 				{
 					destroyEnemyMissile(&rightEnemyMissile);	
 				}
-				else if(bulletPtr->_x==0 && bulletPtr->_y==YSize-1-ENEMY_MISSILE_OFFSET && leftEnemyMissile._status)
+				else if(bulletPtr->_x==0 && bulletPtr->_y==YSize-1-HORIZONTAL_MISSILE_OFFSET && leftEnemyMissile._status)
 				{
 					destroyEnemyMissile(&leftEnemyMissile);	
 				}

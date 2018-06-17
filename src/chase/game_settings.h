@@ -136,9 +136,9 @@
 #define MAX_GHOST_COUNT_FOR_ROCKETS 4
 
 #if defined(WIDE)
-	#define ENEMY_MISSILE_OFFSET 3
+	#define HORIZONTAL_MISSILE_OFFSET 3
 #else
-	#define ENEMY_MISSILE_OFFSET 2
+	#define HORIZONTAL_MISSILE_OFFSET 2
 #endif
 
 // -----------------------------------------------------------------------------------

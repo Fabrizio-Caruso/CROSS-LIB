@@ -92,8 +92,8 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Image CONFUSE_IMAGE;
 	extern Image ZOMBIE_IMAGE;
 
-	extern Character leftEnemyMissile;
-	extern Character rightEnemyMissile;
+	extern Character leftHorizontalMissile;
+	extern Character rightHorizontalMissile;
 
 	extern Item freeze;
 	extern Item extraLife;
@@ -313,12 +313,12 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 		if(oneMissileLevel())
 		{
-			initializeCharacter(&rightEnemyMissile,         XSize-1,                      (YSize>>1), 1,&RIGHT_ENEMY_MISSILE_IMAGE);			
+			initializeCharacter(&rightHorizontalMissile,         XSize-1,                      (YSize>>1), 1,&RIGHT_ENEMY_MISSILE_IMAGE);			
 		}
 		else if(missileLevel() || bossLevel())
 		{	
-			initializeCharacter(&rightEnemyMissile,         XSize-1,         HORIZONTAL_MISSILE_OFFSET, 1,&RIGHT_ENEMY_MISSILE_IMAGE);
-			initializeCharacter(&leftEnemyMissile,                0, YSize-1-HORIZONTAL_MISSILE_OFFSET, 1,&LEFT_ENEMY_MISSILE_IMAGE);		
+			initializeCharacter(&rightHorizontalMissile,         XSize-1,         HORIZONTAL_MISSILE_OFFSET, 1,&RIGHT_ENEMY_MISSILE_IMAGE);
+			initializeCharacter(&leftHorizontalMissile,                0, YSize-1-HORIZONTAL_MISSILE_OFFSET, 1,&LEFT_ENEMY_MISSILE_IMAGE);		
 		}		
 		
 		initializeAwayFromWall(&(chase._character), (XSize>>1), (YSize>>1),0,&ROCKET_IMAGE);

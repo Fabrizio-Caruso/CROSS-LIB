@@ -138,8 +138,8 @@ Character bombs[BOMBS_NUMBER];
 	#define chase_present_on_level_condition skullsKilled
 	#define confuse_present_on_level_condition missileBasesDestroyed
 
-	Character leftEnemyMissile;
-	Character rightEnemyMissile;
+	Character leftHorizontalMissile;
+	Character rightHorizontalMissile;
 
 	Character rockets[ROCKETS_NUMBER];
 	

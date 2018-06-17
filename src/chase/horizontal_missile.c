@@ -8,8 +8,8 @@
 extern unsigned short loop;
 extern unsigned char level;
 
-extern Character leftEnemyMissile;
-extern Character rightEnemyMissile;
+extern Character leftHorizontalMissile;
+extern Character rightHorizontalMissile;
 extern Character player;
 
 extern unsigned char arrowRange;
@@ -22,28 +22,28 @@ unsigned char arrowYPosition;
 	
 	void _handle_horizontal_missile_from_the_left(void)
 	{
-		if(leftEnemyMissile._status)
+		if(leftHorizontalMissile._status)
 		{
-			deleteHorizontalMissile(&leftEnemyMissile);
-			if(leftEnemyMissile._x==XSize-2)
+			deleteHorizontalMissile(&leftHorizontalMissile);
+			if(leftHorizontalMissile._x==XSize-2)
 			{
-				leftEnemyMissile._x=0;
-				leftEnemyMissile._y =  arrowYPosition;
+				leftHorizontalMissile._x=0;
+				leftHorizontalMissile._y =  arrowYPosition;
 			}
 			else
 			{
 				ADVANCED_LEFT_MISSILE();
 				if(_playerInArrowRange())
 				{
-					if(player._x>=leftEnemyMissile._x)
+					if(player._x>=leftHorizontalMissile._x)
 					{
-						moveCharacter(&leftEnemyMissile, &player, Y_MOVE);			
+						moveCharacter(&leftHorizontalMissile, &player, Y_MOVE);			
 					}
 				}
 			}
-			displayHorizontalMissile(&leftEnemyMissile);
+			displayHorizontalMissile(&leftHorizontalMissile);
 			
-			if(playerKilledBy(&leftEnemyMissile))
+			if(playerKilledBy(&leftHorizontalMissile))
 			{
 				playerDies();
 			}
@@ -52,28 +52,28 @@ unsigned char arrowYPosition;
 	
 	void _handle_horizontal_missile_from_the_right(void)
 	{
-		if(rightEnemyMissile._status)
+		if(rightHorizontalMissile._status)
 		{
-			deleteHorizontalMissile(&rightEnemyMissile);
-			if(rightEnemyMissile._x==1)
+			deleteHorizontalMissile(&rightHorizontalMissile);
+			if(rightHorizontalMissile._x==1)
 			{
-				rightEnemyMissile._x= XSize-1;
-				rightEnemyMissile._y = arrowYPosition;
+				rightHorizontalMissile._x= XSize-1;
+				rightHorizontalMissile._y = arrowYPosition;
 			}
 			else
 			{
 				ADVANCED_RIGHT_MISSILE();
 				if(_playerInArrowRange())
 				{
-					if(player._x<= rightEnemyMissile._x)	
+					if(player._x<= rightHorizontalMissile._x)	
 					{
-						moveCharacter(&rightEnemyMissile, &player,Y_MOVE);			
+						moveCharacter(&rightHorizontalMissile, &player,Y_MOVE);			
 					}
 				}
 			}
-			displayHorizontalMissile(&rightEnemyMissile);	
+			displayHorizontalMissile(&rightHorizontalMissile);	
 			
-			if(playerKilledBy(&rightEnemyMissile))
+			if(playerKilledBy(&rightHorizontalMissile))
 			{
 				playerDies();
 			}

@@ -68,8 +68,8 @@ extern Character player;
 	
 	extern Character chasingBullet;
 	
-	extern Character leftEnemyMissile;
-	extern Character rightEnemyMissile;
+	extern Character leftHorizontalMissile;
+	extern Character rightHorizontalMissile;
 	extern unsigned char rockets_x[ROCKETS_NUMBER];
 	extern Character rockets[ROCKETS_NUMBER];
 	extern unsigned char dead_rockets;
@@ -248,20 +248,20 @@ void moveBullet(register Character * bulletPtr)
 			
 			if(oneMissileLevel())
 			{
-				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==YSize/2 && rightEnemyMissile._status)
+				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==YSize/2 && rightHorizontalMissile._status)
 				{
-					destroyHorizontalMissile(&rightEnemyMissile);
+					destroyHorizontalMissile(&rightHorizontalMissile);
 				}
 			}				
 			else if(missileLevel() || bossLevel())
 			{
-				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==HORIZONTAL_MISSILE_OFFSET && rightEnemyMissile._status)
+				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==HORIZONTAL_MISSILE_OFFSET && rightHorizontalMissile._status)
 				{
-					destroyHorizontalMissile(&rightEnemyMissile);	
+					destroyHorizontalMissile(&rightHorizontalMissile);	
 				}
-				else if(bulletPtr->_x==0 && bulletPtr->_y==YSize-1-HORIZONTAL_MISSILE_OFFSET && leftEnemyMissile._status)
+				else if(bulletPtr->_x==0 && bulletPtr->_y==YSize-1-HORIZONTAL_MISSILE_OFFSET && leftHorizontalMissile._status)
 				{
-					destroyHorizontalMissile(&leftEnemyMissile);	
+					destroyHorizontalMissile(&leftHorizontalMissile);	
 				}
 			}
 			if((rocketLevel() || bossLevel()) && bulletPtr->_y==YSize-1)

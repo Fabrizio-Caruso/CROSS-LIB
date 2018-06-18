@@ -28,9 +28,15 @@
 
 #include "input_macros.h"
 
-#if defined(WAIT_FOR_KEY)
+#if defined(NO_WAIT) && !defined(NO_SLEEP)
+	void WAIT_PRESS(void)
+	{
+		sleep(2);
+	}
+#elif defined(WAIT_FOR_KEY)
 	#  if defined(__NCURSES__)
 		#include <ncurses.h>
+		
 		void WAIT_PRESS(void)
 		{
 			#if !defined(TURN_BASED)
@@ -40,14 +46,6 @@
 				getch();
 			#endif
 		}
-	#elif defined(NO_WAIT)
-		void WAIT_PRESS(void)
-		{
-			// Workaround for CC65 bug 
-			#if !defined(NO_SLEEP)
-				sleep(2);
-			#endif
-		}	
 	#elif defined(__SPECTRUM__)
 		#include <input.h>
 
@@ -65,37 +63,18 @@
 				in_wait_nokey();
 			}
 		#endif
-	// TO DO: REMOVE THIS, once the bug in kbhit is fixed
-	#elif defined(__OSIC1P__) || defined(__NASCOM__) \
-		  || defined(__SMS__) || defined(__GCC__) \
-		  || defined(__PX8__)
-		// #include "../cross_lib/sleep/sleep_macros.h"		
-		
-		void WAIT_PRESS(void)
-		{
-			// Workaround for CC65 bug 
-			#if !defined(NO_SLEEP)
-				sleep(2);
-			#endif
-		}
-	#elif defined(__CMOC__) && !defined(__WINCMOC__)
-		// TODO: Implement this
-		// #include "../sleep/sleep_macros.h"		
+	#elif defined(__CMOC__) && !defined(__WINCMOC__)	
 		#include <cmoc.h>
 		
 		void WAIT_PRESS(void)
 		{
 			waitkey(0);
 		}	
-	#elif defined(__ENTERPRISE__) || defined(__ZX80__)
-		void WAIT_PRESS(void)
-		{
-			getch();
-		}
-	#else // C16 or CBM610 or (Neither Commodore nor Atari/AtariXL nor Spectrum)
+	#else 
 		#if defined(CONIO_LIB)
 			#include<conio.h>
 		#endif
+		
 		void WAIT_PRESS(void)
 		{
 			while(kbhit())
@@ -108,13 +87,7 @@
 	#endif	
 #else
 	#include<joystick.h>
-	#if defined(NO_WAIT)
-	//defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
-		void WAIT_PRESS(void)
-		{
-			sleep(2);
-		}
-	#else
+
 	void WAIT_PRESS(void)
 	{
 		while ((joy_read(JOY_1) & JOY_BTN_1_MASK))
@@ -124,6 +97,5 @@
 		{
 		}
 	}	
-	#endif
 #endif
 

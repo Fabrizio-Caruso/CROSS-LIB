@@ -35,6 +35,10 @@
 	#else
 	#endif
 				
-	void WAIT_PRESS(void);
+	#if !defined(NO_WAIT) || !defined(NO_SLEEP)
+		void WAIT_PRESS(void);
+	#else // NO_WAIT + NO_SLEEP
+		#define WAIT_PRESS()
+	#endif
 #endif // _INPUT_MACROS
 

@@ -1059,7 +1059,11 @@ pc6001_32k:
 # Everything displayed on the same line
 nascom_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) -clib=ansi -vn -lndos \
-	-D__NASCOM__  -D__NASCOM__ -DSOUNDS -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__NASCOM__ \
+	-DSOUNDS \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DNO_WAIT \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_nascom_32k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1070,7 +1074,9 @@ nascom_32k:
 # -pragma-define:ansicolumns=32  -Cz-audio 
 nascom_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) -clib=ansi -vn -lndos \
-	-D__NASCOM__  -D__NASCOM__ -DSOUNDS \
+	-D__NASCOM__ \
+	-DSOUNDS \
+	-DNO_WAIT \
 	-create-app -o $(BUILD_PATH)/LIGHT_nascom_16k.prg \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_nascom_16k.prg
@@ -1090,6 +1096,7 @@ z1013:
 px8_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
 	-D__PX8__ \
+	-DNO_WAIT \
 	-DCONIO_ADM3A \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-create-app -o$(BUILD_PATH)/TINY_px8.bin \
@@ -1103,6 +1110,7 @@ px8:
 	-DCONIO_ADM3A \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DNO_WAIT \
 	-create-app -o$(BUILD_PATH)/FULL_px8.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)

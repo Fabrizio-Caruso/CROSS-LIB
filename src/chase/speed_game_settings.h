@@ -22,12 +22,7 @@
 		if((loop&1)==1) 
 	
 	#define SKIP_MORE_DRAW \
-		if((loop&7)==1)		
-#elif !defined(__WINCMOC__) && defined(__CMOC__)
-	#define SKIP_DRAW
-	
-	#define SKIP_MORE_DRAW 	\
-		if((loop%16)==1)				
+		if((loop&7)==1)					
 #elif defined(__WINCMOC__) && defined(__CMOC__)
 	#define SKIP_DRAW
 	
@@ -85,6 +80,9 @@
 	#elif defined(__WINCMOC__) || defined(__CMOC__) 
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 600
+	#elif !defined(__WINCMOC__) || defined(__CMOC__) 
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 6500		
 	#elif defined(__PC6001__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 500	
@@ -152,7 +150,7 @@
 		#define GAME_SLOW_DOWN 0	
 	#elif defined(__SPECTRUM__) && !defined(TINY_GAME)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 1500
+		#define GAME_SLOW_DOWN 600
 	#elif defined(__CPC__) && defined(CPCRSLIB)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 400	

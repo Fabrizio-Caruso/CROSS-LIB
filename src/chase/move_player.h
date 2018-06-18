@@ -4,11 +4,13 @@
 #define _MOVE_PLAYER
 
 	#if defined(Z88DK)
-		#define TURN_BASED_INPUT getch()
+		#define TURN_BASED_INPUT() getch()
 	#elif defined(CC65)
-		#define TURN_BASED_INPUT cgetc()
+		#define TURN_BASED_INPUT() cgetc()
+	#elif defined(__NCURSES__)
+		#define TURN_BASED_INPUT() getchar()
 	#else
-		#define TURN_BASED_INPUT cgetc()	
+		#define TURN_BASED_INPUT() cgetc()	
 	#endif	
 		
 	#if defined(KEYBOARD_CONTROL)
@@ -18,7 +20,7 @@
 			#define INIT_INPUT() { POKE(0x26A,PEEK(0x26A) | 8); };
 		#elif defined(__MSX__)
 			#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))		
-			#define INIT_INPUT() { POKE(0xF3DB,0); };	
+			#define INIT_INPUT() { POKE(0xF3DB,0); };
 		#elif defined(__VIC20__)
 			#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))		
 			#define INIT_INPUT() { POKE(0x028A ,0xFF); };				

@@ -55,11 +55,11 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 _CC ?= gcc
 
 
-COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DTINY_GAME
+COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DTINY_GAME
 
-COCO_OPTS_LIGHT ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX
+COCO_OPTS_LIGHT ?= -O0 -D__CMOC__
 
-COCO_OPTS       ?= -O0 -D__CMOC__ -DASM_KEY_DETECT -DCMOC_RAND_FIX -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+COCO_OPTS       ?= -O0 -D__CMOC__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
 
 
 # -DNO_SLEEP
@@ -995,7 +995,8 @@ spectrum_16k:
 	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -v  -D__SPECTRUM__ \
 	-create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg \
 	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
-	$(TINY_FILES)
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_input.c
 	rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin 
 	rm $(BUILD_PATH)/TINY_spectrum_16k_UNASSIGNED.bin
 	
@@ -1009,7 +1010,8 @@ spectrum_48k:
 	-o $(BUILD_PATH)/FULL_spectrum_48k.prg \
 	$(CROSS_LIB_PATH)/z88dk/spectrum/udg.asm $(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_input.c
 	rm $(BUILD_PATH)/FULL_spectrum_48k.prg
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin	
 
@@ -1024,7 +1026,8 @@ spectrum_48k_putc4x6:
 	-o $(BUILD_PATH)/FULL_spectrum_48k_putc4x6.prg \
 	$(CROSS_LIB_PATH)/z88dk/spectrum/udg.asm $(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_input.c \
 	rm $(BUILD_PATH)/FULL_spectrum_48k_putc4x6.prg
 	rm $(BUILD_PATH)/FULL_spectrum_48k_putc4x6_BANK_7.bin	
 	
@@ -1613,6 +1616,7 @@ ncurses:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/ncurses/ncurses_input.c \
 	-lncurses
 	mv a.exe $(BUILD_PATH)/FULL_ncurses.exe
 		
@@ -2689,6 +2693,7 @@ spectrum_16k_light:
 	-create-app -o $(BUILD_PATH)/LIGHT_spectrum_16k.prg \
 	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
 	$(LIGHT_FILES)
+	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_input.c
 	rm $(BUILD_PATH)/LIGHT_spectrum_16k_CODE.bin 
 	rm $(BUILD_PATH)/LIGHT_spectrum_16k_UNASSIGNED.bin
 	

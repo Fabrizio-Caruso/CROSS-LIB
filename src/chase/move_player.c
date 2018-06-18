@@ -2,6 +2,7 @@
 #include "settings.h"
 
 #include "move_player.h"
+
 #include "character.h"
 #include "skull.h"
 
@@ -179,44 +180,10 @@ extern Character player;
 	void MOVE_PLAYER(void) {}
 #elif defined(KEYBOARD_CONTROL)
 	#  if defined(TURN_BASED)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(TURN_BASED_INPUT);} 
-	#elif defined(__NCURSES__)
-		#define INPUT_LOOPS 40
-		void MOVE_PLAYER(void) 
-		{ 
-			unsigned long delay = 0;
-			char _ch;
-			char ch;
-
-			while(delay<INPUT_LOOPS)
-			{	
-				_ch = getch();
-				if(_ch!=ERR)
-				{
-					ch = _ch;
-				}
-				++delay;
-			}
-			movePlayerByKeyboard(ch); 
-		}  
-	#elif defined(__SPECTRUM__)
-		#if defined(CLIB_ANSI)
-			void MOVE_PLAYER(void) 
-			{
-				movePlayerByKeyboard(in_Inkey());
-			}
-		#else	
-			#include <input.h>
-			void MOVE_PLAYER(void) 
-			{
-				movePlayerByKeyboard(in_inkey());
-			}		
-		#endif
+		void MOVE_PLAYER(void) {movePlayerByKeyboard(TURN_BASED_INPUT());} 
 	#elif defined(__MSX__)
 		#include<msx/gfx.h>
-		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByKeyboard(get_stick(0));} else movePlayerByKeyboard(9);}	
-	#elif defined(__ZX80__) 
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(getch());} // TODO: this makes the game turned-based		
+		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByKeyboard(get_stick(0));} else movePlayerByKeyboard(9);}		
 	#elif (defined(__VIC20__) && defined(FORCE_KEYBOARD))||defined(__SUPERVISION__) || defined(__CREATIVISION__) \
 		  || defined(__OSIC1P__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) \
 		  || defined(__C16__)
@@ -227,7 +194,7 @@ extern Character player;
 				movePlayerByKeyboard(cgetc());
 			}
 		}	
-	#elif defined(__ATMOS__) || defined(__TRS80__) || defined(__EG2K__)
+	#elif defined(__ATMOS__) || defined(__TRS80__) || defined(__EG2K__) || defined(__NCURSES__) || defined(__SPECTRUM__)
 		void MOVE_PLAYER(void) 
 		{
 			movePlayerByKeyboard(GET_CHAR());
@@ -259,29 +226,17 @@ extern Character player;
 				}			
 			}				
 		#endif
-	#elif !defined(__WINCMOC__) && defined(__CMOC__)
-		#if defined(ASM_KEY_DETECT)
-			// #include <basic.h>
-			#include "../cross_lib/cmoc/cmoc_input.h"
-			
-			#include <coco.h>
-			void MOVE_PLAYER(void) 
-				{
-					char ch = (char) GET_CHAR(); 
-					if(ch!='')
-					{
-						movePlayerByKeyboard(ch); 
-					}
-				}
-		#else
-			void MOVE_PLAYER(void) 
+	#elif !defined(__WINCMOC__) && defined(__CMOC__)	
+		#include "../cross_lib/cmoc/cmoc_input.h"
+		#include <coco.h>
+		void MOVE_PLAYER(void) 
 			{
-				if(kbhit()) 
-				{ 
-					movePlayerByKeyboard((char) cgetc());
-				}			
+				char ch = (char) GET_CHAR(); 
+				if(ch!='')
+				{
+					movePlayerByKeyboard(ch); 
+				}
 			}				
-		#endif					
 	#else
 		void MOVE_PLAYER(void) 
 		{
@@ -291,10 +246,11 @@ extern Character player;
 #else
 	#if defined(__ATARI__) || defined(__ATARIXL__)
 		#include <peekpoke.h>
-		void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));	POKE(77,0);}
+		#define INPUT_POST_PROC() POKE(77,0)
 	#else
-		void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
+		#define INPUT_POST_PROC()
 	#endif
+	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));	INPUT_POST_PROC();}
 #endif
 
 

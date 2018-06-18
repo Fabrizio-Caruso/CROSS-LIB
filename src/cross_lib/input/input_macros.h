@@ -31,7 +31,9 @@
 	#elif defined(__WINCMOC__) && defined(__CMOC__)
 		#include "../wincmoc/wincmoc_input.h"
 	#elif !defined(__WINCMOC__) && defined(__CMOC__)
-		#include "../cmoc/cmoc_input.h"		
+		#include "../cmoc/cmoc_input.h"	
+	#elif defined(__NCURSES__) || defined(__SPECTRUM__)
+		char GET_CHAR(void);
 	#else
 	#endif
 				

@@ -177,7 +177,7 @@ Image BOMB_IMAGE;
 			init_pair(COLOR_BLUE, COLOR_BLUE, COLOR_BLACK);
 			init_pair(COLOR_WHITE, COLOR_WHITE, COLOR_BLACK);
 			init_pair(COLOR_MAGENTA, COLOR_MAGENTA, COLOR_BLACK);
-			#if !defined(TURN_BASES)
+			#if !defined(TURN_BASED)
 				nodelay(stdscr,TRUE);
 			#endif
 		#endif	

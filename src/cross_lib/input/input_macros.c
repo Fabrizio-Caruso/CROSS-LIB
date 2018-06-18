@@ -33,6 +33,8 @@
 	{
 		sleep(2);
 	}
+#elif defined(NO_WAIT)
+//
 #elif defined(WAIT_FOR_KEY)
 	#  if defined(__NCURSES__)
 		#include <ncurses.h>

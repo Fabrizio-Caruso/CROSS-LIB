@@ -2,7 +2,6 @@
 #include "settings.h"
 
 #include "move_player.h"
-
 #include "character.h"
 #include "skull.h"
 
@@ -118,83 +117,68 @@ extern Character player;
 
 #if defined(JOYSTICK_CONTROL)
 	#include <joystick.h>
-	// #include <supervision.h>
 	
-	#if defined(NO_INPUT)
-		void movePlayerByJoystick(unsigned char joyInput)
+	void movePlayerByJoystick(unsigned char joyInput)
+	{
+		if(JOY_UP(joyInput))
 		{
-			sleep(1);
-		}		
-	#else
-		void movePlayerByJoystick(unsigned char joyInput)
-		{
-			if(JOY_UP(joyInput))
-			{
-				_DO_MOVE_UP
-			}
-			else if(JOY_DOWN(joyInput))
-			{
-				_DO_MOVE_DOWN
-			}
-			else if(JOY_LEFT(joyInput))
-			{
-				_DO_MOVE_LEFT
-			}
-			else if(JOY_RIGHT(joyInput))
-			{
-				_DO_MOVE_RIGHT
-			}
-			#if !defined(TINY_GAME)
-			else if(JOY_BTN_1(joyInput) && guns>0 && !bullet._status)
-			{
-				playerFire = 1;
-			}
-			#endif
-		}	
-	#endif
-#else
-	#if defined(NO_INPUT)
-		void movePlayerByKeyboard(unsigned char joyInput)
-		{
-			sleep(1);
-		}	
-	#else
-		void movePlayerByKeyboard(unsigned char kbInput)
-		{
-			#if defined(ALT_MOVE)
-				deletePlayer(&player);
-			#endif
-			if(kbInput==_MOVE_UP)
-			{
-				_DO_MOVE_UP
-			}
-			else if(kbInput==_MOVE_DOWN)
-			{
-				_DO_MOVE_DOWN
-			}
-			else if(kbInput==_MOVE_LEFT)
-			{
-				_DO_MOVE_LEFT
-			}
-			else if(kbInput==_MOVE_RIGHT)
-			{
-				_DO_MOVE_RIGHT
-			}
-			#if !defined(TINY_GAME)
-			else if(kbInput==_FIRE && guns>0 && !bullet._status)
-			{
-				playerFire = 1;
-			}
-			#endif
+			_DO_MOVE_UP
 		}
-	#endif
+		else if(JOY_DOWN(joyInput))
+		{
+			_DO_MOVE_DOWN
+		}
+		else if(JOY_LEFT(joyInput))
+		{
+			_DO_MOVE_LEFT
+		}
+		else if(JOY_RIGHT(joyInput))
+		{
+			_DO_MOVE_RIGHT
+		}
+		#if !defined(TINY_GAME)
+		else if(JOY_BTN_1(joyInput) && guns>0 && !bullet._status)
+		{
+			playerFire = 1;
+		}
+		#endif
+	}	
+#else
+	void movePlayerByKeyboard(unsigned char kbInput)
+	{
+		#if defined(ALT_MOVE)
+			deletePlayer(&player);
+		#endif
+		if(kbInput==_MOVE_UP)
+		{
+			_DO_MOVE_UP
+		}
+		else if(kbInput==_MOVE_DOWN)
+		{
+			_DO_MOVE_DOWN
+		}
+		else if(kbInput==_MOVE_LEFT)
+		{
+			_DO_MOVE_LEFT
+		}
+		else if(kbInput==_MOVE_RIGHT)
+		{
+			_DO_MOVE_RIGHT
+		}
+		#if !defined(TINY_GAME)
+		else if(kbInput==_FIRE && guns>0 && !bullet._status)
+		{
+			playerFire = 1;
+		}
+		#endif
+	}
 #endif
 
 	
-#if defined(KEYBOARD_CONTROL)
-	#if defined(NO_INPUT)
-		void MOVE_PLAYER(void) {}
-	#elif defined(TURN_BASED)
+#if defined(NO_INPUT)
+	void MOVE_PLAYER(void) {}
+#elif defined(KEYBOARD_CONTROL)
+	#  if defined(TURN_BASED)
 		void MOVE_PLAYER(void) {movePlayerByKeyboard(TURN_BASED_INPUT);} 
 	#elif defined(__NCURSES__)
 		#define INPUT_LOOPS 40
@@ -217,10 +201,16 @@ extern Character player;
 		}  
 	#elif defined(__SPECTRUM__)
 		#if defined(CLIB_ANSI)
-			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_Inkey());}
+			void MOVE_PLAYER(void) 
+			{
+				movePlayerByKeyboard(in_Inkey());
+			}
 		#else	
 			#include <input.h>
-			void MOVE_PLAYER(void) {movePlayerByKeyboard(in_inkey());}		
+			void MOVE_PLAYER(void) 
+			{
+				movePlayerByKeyboard(in_inkey());
+			}		
 		#endif
 	#elif defined(__MSX__)
 		#include<msx/gfx.h>
@@ -236,16 +226,14 @@ extern Character player;
 			{ 
 				movePlayerByKeyboard(cgetc());
 			}
-			
 		}	
-	#elif defined(__ATMOS__)
+	#elif defined(__ATMOS__) || defined(__TRS80__) || defined(__EG2K__)
 		void MOVE_PLAYER(void) 
 		{
 			movePlayerByKeyboard(GET_CHAR());
 		}		
 	#elif defined(__WINCMOC__) && defined(__CMOC__)
 		#if defined(ASM_KEY_DETECT)
-			// #include <basic.h>
 			#include "../cross_lib/wincmoc/wincmoc_input.h"			
 			void MOVE_PLAYER(void) 
 				{
@@ -293,26 +281,7 @@ extern Character player;
 					movePlayerByKeyboard((char) cgetc());
 				}			
 			}				
-		#endif	
-	#elif defined(__SMS__)
-		// TODO: To implement
-		void MOVE_PLAYER(void) 
-		{
-			movePlayerByKeyboard(' ');	
-		}	
-	#elif defined(__TRS80__) || defined(__EG2K__)
-		void MOVE_PLAYER(void) 
-		{
-			// if(kbhit())
-			// {
-				movePlayerByKeyboard(GET_CHAR());
-			// }
-		}			
-	#elif defined(__C128_Z80__)
-		void MOVE_PLAYER(void) 
-		{
-			movePlayerByKeyboard(getk());
-		}		
+		#endif					
 	#else
 		void MOVE_PLAYER(void) 
 		{
@@ -321,10 +290,10 @@ extern Character player;
 	#endif	
 #else
 	#if defined(__ATARI__) || defined(__ATARIXL__)
-	#include <peekpoke.h>
-	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));	POKE(77,0);}
+		#include <peekpoke.h>
+		void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));	POKE(77,0);}
 	#else
-	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
+		void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
 	#endif
 #endif
 

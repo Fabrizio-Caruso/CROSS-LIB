@@ -1098,7 +1098,9 @@ px8_tiny:
 	-D__PX8__ \
 	-DNO_WAIT \
 	-DCONIO_ADM3A \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DTINY_GAME -DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
 	-create-app -o$(BUILD_PATH)/TINY_px8.bin \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_px8.bin
@@ -2243,6 +2245,7 @@ px8_test:
 	-DCONIO_ADM3A \
 	$(FAST_TEST_OPTS) \
 	-DNO_SLEEP \
+	-DNO_WAIT \
 	-create-app -o$(BUILD_PATH)/TEST_px8.bin \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_px8.bin

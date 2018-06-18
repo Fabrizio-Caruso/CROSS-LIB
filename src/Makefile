@@ -23,7 +23,7 @@ BUILD_PATH ?= ../build
 MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
-SCCZ80_OPTS ?= -O0
+SCCZ80_OPTS ?= -O3
 ZSDCC_OPTS ?= --max-allocs-per-node200000
 #-SO3 --max-allocs-per-node200000
 

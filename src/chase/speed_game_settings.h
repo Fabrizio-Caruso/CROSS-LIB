@@ -4,20 +4,14 @@
 #if defined(TURN_BASED)
 	#define SKIP_DRAW 
 	#define SKIP_MORE_DRAW
-#elif defined(__ZX81__) || defined(__LAMBDA__)
+#elif defined(__ZX81__) || defined(__LAMBDA__) || defined(__C128_Z80__) 
 	#define SKIP_DRAW \
 		if((loop&1)==1)
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&15)==1)	
-#elif defined(__C128_Z80__)
-	#define SKIP_DRAW \
-		if(loop&1)
-	
-	#define SKIP_MORE_DRAW \
-		if((loop&15)==1)	
-						
-#elif defined(__SVI__) && !defined(MSX_MODE0)
+#elif (defined(__SVI__) && !defined(MSX_MODE0)) \
+	|| defined(__SPECTRUM__)
 	#define SKIP_DRAW \
 		if((loop&1)==1) 
 	

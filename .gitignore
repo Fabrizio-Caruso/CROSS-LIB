@@ -4,7 +4,6 @@ deliverables
 *.swp
 build
 src/wincmoc_main.c
-*.bin
 src/*.asm
 build/*.asm
 src/*.s

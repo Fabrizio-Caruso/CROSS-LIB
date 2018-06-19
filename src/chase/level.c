@@ -322,7 +322,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		}		
 		
 		initializeAwayFromWall(&(chase._character), (XSize>>1), (YSize>>1),0,&ROCKET_IMAGE);
-		initializeCharacter(&chasingBullet, 0,0, 0, &ROCKET_IMAGE);
+		initializeCharacter(&chasingBullet, 0,0, 0, &BULLET_IMAGE);
 	#else
 		#if !defined(TINY_GAME)
 			initializeCharacter(&(powerUp._character),(XSize>>1),(YSize>>1),1,&POWERUP_IMAGE);

@@ -4,19 +4,30 @@
 #if defined(TURN_BASED)
 	#define SKIP_DRAW 
 	#define SKIP_MORE_DRAW
-#elif defined(__ZX81__) || defined(__LAMBDA__) || defined(__C128_Z80__) 
+#elif defined(__ZX81__) || defined(__LAMBDA__)
 	#define SKIP_DRAW \
 		if((loop&1)==1)
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&15)==1)	
-#elif (defined(__SVI__) && !defined(MSX_MODE0)) \
-	|| defined(__SPECTRUM__)
+#elif defined(__C128_Z80__)
+	#define SKIP_DRAW \
+		if(loop&1)
+	
+	#define SKIP_MORE_DRAW \
+		if((loop&15)==1)	
+						
+#elif defined(__SVI__) && !defined(MSX_MODE0)
 	#define SKIP_DRAW \
 		if((loop&1)==1) 
 	
 	#define SKIP_MORE_DRAW \
-		if((loop&7)==1)					
+		if((loop&7)==1)		
+#elif !defined(__WINCMOC__) && defined(__CMOC__)
+	#define SKIP_DRAW
+	
+	#define SKIP_MORE_DRAW 	\
+		if((loop%16)==1)				
 #elif defined(__WINCMOC__) && defined(__CMOC__)
 	#define SKIP_DRAW
 	
@@ -74,9 +85,6 @@
 	#elif defined(__WINCMOC__) || defined(__CMOC__) 
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 600
-	#elif !defined(__WINCMOC__) || defined(__CMOC__) 
-		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 6500		
 	#elif defined(__PC6001__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 500	
@@ -144,7 +152,7 @@
 		#define GAME_SLOW_DOWN 0	
 	#elif defined(__SPECTRUM__) && !defined(TINY_GAME)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 600
+		#define GAME_SLOW_DOWN 1500
 	#elif defined(__CPC__) && defined(CPCRSLIB)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 400	

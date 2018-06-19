@@ -29,6 +29,8 @@
 #include <vic20.h>
 #include <string.h>
 
+#include "../../cross_lib.h"
+
 #define BASE_ADDR 0x1000
 #define COLOR_ADDR 0x9400
 #define DELTA_ADDR (COLOR_ADDR-BASE_ADDR)

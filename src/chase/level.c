@@ -245,53 +245,16 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 
 	#if BOMBS_NUMBER==4
 	{
-		count = 0;
-		for(i=1;i<=2;++i)
-		{
-			for(j=1;j<=2;++j)
-			{
-				#if defined(NO_RANDOM_LEVEL)
-					initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);				
-				#else
-					#if defined(TINY_GAME)
-						initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-(unsigned char)(rand()&1)), 
-														  (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);								
-					#else
-						initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-(unsigned char)(rand()&1)), 
-														  (unsigned char) (((YSize/3)*j)+(unsigned char)(rand()&1)),0,&BOMB_IMAGE);														
-					#endif
-				#endif
-				++count;
-			}
-		}
+		FOUR_BOMBS();
 	}
 	#elif BOMBS_NUMBER==3	
 	{
-		#if defined(NO_RANDOM_LEVEL)
-			initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3)<<1),0,&BOMB_IMAGE);
-			initializeCharacter(&bombs[1],XSize/3, (YSize/3),0,&BOMB_IMAGE);
-			initializeCharacter(&bombs[2],((XSize/3)<<1), (YSize/3),0,&BOMB_IMAGE);		
-		#else
-			unsigned char rnd = rand()&1;
-			initializeCharacter(&bombs[0],XSize/3+rnd, (YSize/3)+rnd,0,&BOMB_IMAGE);
-			initializeCharacter(&bombs[1],(XSize>>1)+rnd, ((YSize/3)*2)+rnd,0,&BOMB_IMAGE);
-			initializeCharacter(&bombs[2],2*(XSize/3)+rnd, (YSize/3)-rnd,0,&BOMB_IMAGE);
-		#endif
+		THREE_BOMBS();
 	}
 	#elif BOMBS_NUMBER==2
-		#if defined(NO_RANDOM_LEVEL)
-			initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3)),0,&BOMB_IMAGE);
-			initializeCharacter(&bombs[1],(XSize>>1), ((YSize/3)<<1),0,&BOMB_IMAGE);		
-		#else
-			initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3))+rand()%3,0,&BOMB_IMAGE);
-			initializeCharacter(&bombs[1],(XSize>>1)-1+rand()%3, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE);
-		#endif
+		TWO_BOMBS();
 	#elif BOMBS_NUMBER==1
-		#if defined(NO_RANDOM_LEVEL)
-			initializeCharacter(&bombs[0],(XSize>>1), (YSize>>1),0,&BOMB_IMAGE);			
-		#else
-			initializeCharacter(&bombs[0],(XSize>>1)+rand()&1, (YSize>>1)+rand()&1,0,&BOMB_IMAGE);
-		#endif
+		ONE_BOMB();
 	#endif
 	
 	#if defined(FULL_GAME)

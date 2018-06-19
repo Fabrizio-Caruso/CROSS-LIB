@@ -147,8 +147,65 @@
 			++count; \
 		} \
 	}
+
+#if defined(NO_RANDOM_LEVEL)
+	#define PLACE_BOMB_4() \
+		initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE)
+#elif defined(TINY_GAME)
+	#define PLACE_BOMB_4() \
+		initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-(unsigned char)(rand()&1)), \
+													  (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);
+#else
+	#define PLACE_BOMB_4() \
+		initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-(unsigned char)(rand()&1)), \
+									  (unsigned char) (((YSize/3)*j)+(unsigned char)(rand()&1)),0,&BOMB_IMAGE);		
+#endif
+
 	
+#define FOUR_BOMBS() \
+	count = 0; \
+	for(i=1;i<=2;++i) \
+	{ \
+		for(j=1;j<=2;++j) \
+		{ \
+			PLACE_BOMB_4(); \
+			++count; \
+		} \
+	} \
+
 	
+#if defined(NO_RANDOM_LEVEL)
+	#define THREE_BOMBS() \
+		initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3)<<1),0,&BOMB_IMAGE); \
+		initializeCharacter(&bombs[1],XSize/3, (YSize/3),0,&BOMB_IMAGE); \
+		initializeCharacter(&bombs[2],((XSize/3)<<1), (YSize/3),0,&BOMB_IMAGE);		
+#else
+	#define THREE_BOMBS() \
+		unsigned char rnd = rand()&1; \
+		initializeCharacter(&bombs[0],XSize/3+rnd, (YSize/3)+rnd,0,&BOMB_IMAGE); \
+		initializeCharacter(&bombs[1],(XSize>>1)+rnd, ((YSize/3)*2)+rnd,0,&BOMB_IMAGE); \
+		initializeCharacter(&bombs[2],2*(XSize/3)+rnd, (YSize/3)-rnd,0,&BOMB_IMAGE);
+#endif	
+
+
+#if defined(NO_RANDOM_LEVEL)
+	#define TWO_BOMBS() \
+		initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3)),0,&BOMB_IMAGE); \
+		initializeCharacter(&bombs[1],(XSize>>1), ((YSize/3)<<1),0,&BOMB_IMAGE);		
+#else
+	#define TWO_BOMBS() \
+		initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3))+rand()%3,0,&BOMB_IMAGE); \
+		initializeCharacter(&bombs[1],(XSize>>1)-1+rand()%3, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE);
+#endif	
+
+
+#if defined(NO_RANDOM_LEVEL)
+	#define ONE_BOMB() \
+		initializeCharacter(&bombs[0],(XSize>>1), (YSize>>1),0,&BOMB_IMAGE);			
+#else
+	#define ONE_BOMB() \
+		initializeCharacter(&bombs[0],(XSize>>1)+rand()&1, (YSize>>1)+rand()&1,0,&BOMB_IMAGE);
+#endif
 
 #if defined(BETWEEN_LEVEL)
 	void spiral(register Character *characterPtr, unsigned char length);

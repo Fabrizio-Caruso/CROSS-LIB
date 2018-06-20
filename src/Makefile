@@ -99,6 +99,7 @@ atari5200:
 atmos: 
 	$(CC65_PATH)$(MYCC65)  -O  -DSOUNDS -DREDEFINED_CHARS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-t atmos \
+	-DALT_MOVE \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	$(CROSS_LIB_PATH)/cc65/atmos/atmos_redefined_characters.c \
 	$(CROSS_LIB_PATH)/cc65/atmos/atmos_input.c  \
@@ -1003,9 +1004,10 @@ spectrum_16k:
 	
 # -pragma-redirect:ansifont=_font_8x8_zx_system -pragma-define:ansifont_is_packed=0
 spectrum_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -vn  \
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -v  \
 	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
 	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
+	-DALT_MOVE \
 	-lndos -create-app \
 	-o $(BUILD_PATH)/FULL_spectrum_48k.prg \
 	$(CROSS_LIB_PATH)/z88dk/spectrum/udg.asm $(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \

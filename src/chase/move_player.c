@@ -179,70 +179,17 @@ extern Character player;
 #if defined(NO_INPUT)
 	void MOVE_PLAYER(void) {}
 #elif defined(KEYBOARD_CONTROL)
-	#  if defined(TURN_BASED)
-		void MOVE_PLAYER(void) {movePlayerByKeyboard(TURN_BASED_INPUT());} 
-	#elif defined(__MSX__)
-		#include<msx/gfx.h>
-		void MOVE_PLAYER(void) {if(!get_trigger(0)) {movePlayerByKeyboard(get_stick(0));} else movePlayerByKeyboard(9);}		
-	#elif (defined(__VIC20__) && defined(FORCE_KEYBOARD))||defined(__SUPERVISION__) || defined(__CREATIVISION__) \
-		  || defined(__OSIC1P__) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) \
-		  || defined(__C16__)
-		void MOVE_PLAYER(void) 
-		{
-			if(kbhit()) 
-			{ 
-				movePlayerByKeyboard(cgetc());
-			}
-		}	
-	#elif defined(__ATMOS__) || defined(__TRS80__) || defined(__EG2K__) || defined(__NCURSES__) || defined(__SPECTRUM__)
-		void MOVE_PLAYER(void) 
-		{
-			movePlayerByKeyboard(GET_CHAR());
-		}		
-	#elif defined(__WINCMOC__) && defined(__CMOC__)
-		#if defined(ASM_KEY_DETECT)
-			#include "../cross_lib/wincmoc/wincmoc_input.h"			
-			void MOVE_PLAYER(void) 
-				{
-					char ch = (char) GET_CHAR(); 
-					if(ch!='')
-					{
-						movePlayerByKeyboard(ch); 
-					}
-					else
-					{
-						if(kbhit() && cgetc()==' ')
-						{
-							movePlayerByKeyboard(' ');
-						}
-					}
-				}
-		#else
-			void MOVE_PLAYER(void) 
+	void MOVE_PLAYER(void) 
+	{ 
+		#if defined(ALT_MOVE)
+			if(kbhit())
 			{
-				if(kbhit()) 
-				{ 
-					movePlayerByKeyboard((char) cgetc());
-				}			
-			}				
 		#endif
-	#elif !defined(__WINCMOC__) && defined(__CMOC__)	
-		#include "../cross_lib/cmoc/cmoc_input.h"
-		#include <coco.h>
-		void MOVE_PLAYER(void) 
-			{
-				char ch = (char) GET_CHAR(); 
-				if(ch!='')
-				{
-					movePlayerByKeyboard(ch); 
-				}
-			}				
-	#else
-		void MOVE_PLAYER(void) 
-		{
-			movePlayerByKeyboard(getk());
-		}	
-	#endif	
+			movePlayerByKeyboard(GET_CHAR()); 
+		#if defined(ALT_MOVE)
+			}
+		#endif
+	}
 #else
 	#if defined(__ATARI__) || defined(__ATARIXL__)
 		#include <peekpoke.h>

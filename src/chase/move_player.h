@@ -2,20 +2,11 @@
 
 #ifndef _MOVE_PLAYER
 #define _MOVE_PLAYER
-
-	#if defined(Z88DK)
-		#define TURN_BASED_INPUT() getch()
-	#elif defined(CC65)
-		#define TURN_BASED_INPUT() cgetc()
-	#elif defined(__NCURSES__)
-		#define TURN_BASED_INPUT() getchar()
-	#else
-		#define TURN_BASED_INPUT() cgetc()	
-	#endif	
 		
 	#if defined(KEYBOARD_CONTROL)
 		void movePlayerByKeyboard(unsigned char kbInput);
 		#if defined(__ATMOS__)
+			#include <peekpoke.h>
 		// Remove keyboard click sound
 			#define INIT_INPUT() { POKE(0x26A,PEEK(0x26A) | 8); };
 		#elif defined(__MSX__)

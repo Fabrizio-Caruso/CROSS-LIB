@@ -25,27 +25,28 @@
 #include <peekpoke.h>
 #include "atmos_input.h"
 
-unsigned char GET_CHAR(void)
-{
-	unsigned char polledValue = PEEK(0x208);
+// unsigned char GET_CHAR(void)
+// {
+	// unsigned char polledValue = PEEK(0x208);
 
-	switch(polledValue)
-	{
-		case 141:
-			return 'I';
-		break;
-		case 129:
-			return 'J';
-		break;
-		case 131:
-			return 'K';
-		break;
-		case 143:
-			return 'L';
-		break;
-		case 132:
-			return ' ';
-		break;
-	}
-	return '\0';
-}
+	// switch(polledValue)
+	// {
+		// case 141:
+			// return 'I';
+		// break;
+		// case 129:
+			// return 'J';
+		// break;
+		// case 131:
+			// return 'K';
+		// break;
+		// case 143:
+			// return 'L';
+		// break;
+		// case 132:
+			// return ' ';
+		// break;
+	// }
+	// return '\0';
+// }
+

@@ -29,36 +29,37 @@
 #include <coco.h>
 #include "cmoc_input.h"
 
-unsigned char GET_CHAR(void)
-{
-	unsigned char res;
-	unsigned char machine;
+// unsigned char GET_CHAR(void)
+// {
+	// unsigned char res;
+	// unsigned char machine;
 	
-	asm {
-		ldd $8000
-		cmpd #$7EBB
-		beq dragon
-		lda #253
-		sta machine
-		bra pia
-dragon	lda #247
-		sta machine
-pia		lda #253		
-		sta $FF02
-		ldb #73
-test    lda $ff00
-		cmpa machine
-		beq out
-		incb
-		rol $ff02
-		inc $ff02
-		cmpb #77
-		bne test
-		clrb 
-out		stb res
-	}
+	// asm {
+		// ldd $8000
+		// cmpd #$7EBB
+		// beq dragon
+		// lda #253
+		// sta machine
+		// bra pia
+// dragon	lda #247
+		// sta machine
+// pia		lda #253		
+		// sta $FF02
+		// ldb #73
+// test    lda $ff00
+		// cmpa machine
+		// beq out
+		// incb
+		// rol $ff02
+		// inc $ff02
+		// cmpb #77
+		// bne test
+		// clrb 
+// out		stb res
+	// }
 	
-	if(res == 0)
-		return inkey();
-	return res;
-}
+	// if(res == 0)
+		// return inkey();
+	// return res;
+// }
+

@@ -218,6 +218,7 @@ unsigned char ghostCount; // = GHOSTS_NUMBER;
 		#endif
 	}
 
+	
 	// Constructor for all items
 	void constructItems()
 	{
@@ -289,9 +290,6 @@ int main(void)
 
 	INIT_GRAPHICS();
 
-	// Ask for the screen size 
-	// GET_SCREEN_SIZE(&XSize, &YSize);
-	
 	highScore = 0;
 	
 	while(1)

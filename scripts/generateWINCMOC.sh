@@ -4,11 +4,8 @@ WINCMOC_SOURCE=../src/cross_lib/wincmoc
 SOURCE=../src/chase
 
 rm -f $SOURCE/wincmoc_tmp.c
-rm -f $SOURCE/wincmoc_input.c
 rm -f $SOURCE/wincmoc_graphics.c
 rm -f $SOURCE/wincmoc_main.c
-
-cp $WINCMOC_SOURCE/wincmoc_input.c  $SOURCE/wincmoc_input.c
 
 for file in $(ls $SOURCE/*.c)
 do 

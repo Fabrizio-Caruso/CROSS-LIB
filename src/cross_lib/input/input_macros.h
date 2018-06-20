@@ -28,24 +28,12 @@
 		
 	#if defined(Z88DK)
 		#define TURN_BASED_INPUT() getch()
-	#elif defined(CC65)
-		#define TURN_BASED_INPUT() cgetc()
 	#elif defined(__NCURSES__)
 		#define TURN_BASED_INPUT() getchar()
 	#else
 		#define TURN_BASED_INPUT() cgetc()	
 	#endif	
 	
-	// #if defined(__ATMOS__)
-		// #include "../cc65/atmos/atmos_input.h"
-	// #elif defined(__WINCMOC__) && defined(__CMOC__)
-		// #include "../wincmoc/wincmoc_input.h"
-	// #elif !defined(__WINCMOC__) && defined(__CMOC__)
-		// #include "../cmoc/cmoc_input.h"	
-	// #elif defined(__NCURSES__) || defined(__SPECTRUM__)
-		// unsigned char GET_CHAR(void);
-	// #else
-	// #endif
 	unsigned char GET_CHAR(void);
 				
 	#if !defined(NO_WAIT) || !defined(NO_SLEEP)

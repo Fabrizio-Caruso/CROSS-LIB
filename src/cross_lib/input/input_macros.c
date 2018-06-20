@@ -198,8 +198,6 @@ out			stb res
 			#endif
 		}
 	#elif defined(__SPECTRUM__)
-		#include <input.h>
-
 		#if defined(CLIB_ANSI)
 			void WAIT_PRESS(void) 
 			{ 

@@ -102,7 +102,6 @@ atmos:
 	-DALT_MOVE \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	$(CROSS_LIB_PATH)/cc65/atmos/atmos_redefined_characters.c \
-	$(CROSS_LIB_PATH)/cc65/atmos/atmos_input.c  \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_atmos_and_oric1_48k.tap
@@ -112,7 +111,6 @@ oric1_16k:
 	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DREDEFINED_CHARS \
 	-t atmos --config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	$(CROSS_LIB_PATH)/cc65/atmos/atmos_redefined_characters.c \
-	$(CROSS_LIB_PATH)/cc65/atmos/atmos_input.c  \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_oric1_16k.tap
 
@@ -996,8 +994,7 @@ spectrum_16k:
 	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -v  -D__SPECTRUM__ \
 	-create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg \
 	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
-	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_input.c
+	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin 
 	rm $(BUILD_PATH)/TINY_spectrum_16k_UNASSIGNED.bin
 	
@@ -1012,8 +1009,7 @@ spectrum_48k:
 	-o $(BUILD_PATH)/FULL_spectrum_48k.prg \
 	$(CROSS_LIB_PATH)/z88dk/spectrum/udg.asm $(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_input.c
+	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_spectrum_48k.prg
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin	
 
@@ -1029,7 +1025,6 @@ spectrum_48k_putc4x6:
 	$(CROSS_LIB_PATH)/z88dk/spectrum/udg.asm $(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_input.c \
 	rm $(BUILD_PATH)/FULL_spectrum_48k_putc4x6.prg
 	rm $(BUILD_PATH)/FULL_spectrum_48k_putc4x6_BANK_7.bin	
 	
@@ -1212,7 +1207,6 @@ trs80_tiny:
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-DALT_PRINT \
 	-o$(BUILD_PATH)/TINY_trs80.bin \
-	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_input.c \
 	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_trs80.bin
@@ -1225,7 +1219,6 @@ trs80:
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DALT_PRINT \
 	-o$(BUILD_PATH)/FULL_trs80.bin \
-	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_input.c \
 	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1242,12 +1235,11 @@ eg2k:
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DALT_PRINT \
 	-create-app \
-	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_input.c \
 	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.cmd $(BUILD_PATH)/FULL_eg2k.cmd
-
+	rm a.bin
 
 kc_sprites_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
@@ -1542,9 +1534,6 @@ coco:
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	cmoc \
 	$(COCO_OPTS) \
-	-c $(CROSS_LIB_PATH)/cmoc/cmoc_input.c
-	cmoc \
-	$(COCO_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
 	cmoc \
 	$(COCO_OPTS) \
@@ -1587,7 +1576,7 @@ coco:
 	move_player.o \
 	level.o character.o text.o \
 	strategy.o \
-	input_macros.o cmoc_input.o \
+	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm 	display_macros.o cmoc_graphics.o \
@@ -1595,7 +1584,7 @@ coco:
 	move_player.o \
 	level.o character.o text.o \
 	strategy.o \
-	input_macros.o cmoc_input.o \
+	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 		
@@ -1618,7 +1607,6 @@ ncurses:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/ncurses/ncurses_input.c \
 	-lncurses
 	mv a.exe $(BUILD_PATH)/FULL_ncurses.exe
 		
@@ -1780,7 +1768,6 @@ all: cc65_targets z88dk_targets cmoc_targets
 
 clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o
-	rm -rf $(SOURCE_PATH)/wincmoc_input.c
 	rm -rf $(SOURCE_PATH)/wincmoc_main.c
 	rm -rf $(SOURCE_PATH)/wincmoc_main.asm
 	rm -rf $(SOURCE_PATH)/wincmoc_main.coco.bin
@@ -2131,10 +2118,10 @@ eg2k_test:
 	$(FAST_TEST_OPTS) \
 	-DALT_PRINT \
 	-create-app \
-	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_input.c \
 	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
 	$(TEST_FILES)
 	mv a.cmd $(BUILD_PATH)/TEST_eg2k.cmd	
+	rm a.bin
 
 pps_test:	
 	$(Z88DK_PATH)$(MYZ88DK) +pps -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -2277,7 +2264,6 @@ trs80_test:
 	-DNO_SLEEP \
 	-DALT_PRINT \
 	-o$(BUILD_PATH)/TEST_trs80.bin \
-	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_input.c \
 	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_trs80.bin	
@@ -2695,7 +2681,6 @@ spectrum_16k_light:
 	-create-app -o $(BUILD_PATH)/LIGHT_spectrum_16k.prg \
 	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
 	$(LIGHT_FILES)
-	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_input.c
 	rm $(BUILD_PATH)/LIGHT_spectrum_16k_CODE.bin 
 	rm $(BUILD_PATH)/LIGHT_spectrum_16k_UNASSIGNED.bin
 	
@@ -2707,7 +2692,6 @@ oric1_16k_full:
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	$(CROSS_LIB_PATH)/cc65/atmos/atmos_redefined_characters.c \
-	$(CROSS_LIB_PATH)/cc65/atmos/atmos_input.c  \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_oric1_16k_less_text.tap	
 	
@@ -2954,7 +2938,6 @@ eg2k_tiny:
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-DALT_PRINT \
 	-create-app \
-	$(SOURCE_PATH)/trs80/trs80_input.c \
 	$(SOURCE_PATH)/trs80/trs80_graphics.c \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \
@@ -3392,15 +3375,6 @@ error_cmoc:
 
 # CMOC
 
-# coco_mono: 
-	# cmoc \
-	# -D __CMOC__ -DASM_KEY_DETECT -DTINY_GAME -DNO_SLEEP	-DLESS_TEXT \
-	# $(SOURCE_PATH)/cmoc/cmoc_graphics.c \
-	# $(SOURCE_PATH)/cmoc/cmoc_input.c \
-	# $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
-	# $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	# $(SOURCE_PATH)/main.c	
-
 coco_tiny:
 	cmoc \
 	$(COCO_OPTS_TINY) \
@@ -3426,9 +3400,6 @@ coco_tiny:
 	cmoc \
 	$(COCO_OPTS_TINY) \
 	-c $(SOURCE_PATH)/input_macros.c
-	cmoc \
-	$(COCO_OPTS_TINY) \
-	-c $(SOURCE_PATH)/cmoc/cmoc_input.c
 	cmoc -o $(BUILD_PATH)/coco_tiny.bin \
 	$(COCO_OPTS_TINY) \
 	$(SOURCE_PATH)/main.c \
@@ -3436,7 +3407,7 @@ coco_tiny:
 	enemy.o \
 	level.o character.o text.o \
 	strategy.o \
-	input_macros.o cmoc_input.o
+	input_macros.o 
 	
 coco_light:
 	cmoc \
@@ -3472,9 +3443,6 @@ coco_light:
 	cmoc \
 	$(COCO_OPTS_LIGHT) \
 	-c $(SOURCE_PATH)/skull.c	
-	cmoc \
-	$(COCO_OPTS_LIGHT) \
-	-c $(SOURCE_PATH)/cmoc/cmoc_input.c
 	cmoc -o $(BUILD_PATH)/coco_light.bin \
 	$(COCO_OPTS_LIGHT) \
 	$(SOURCE_PATH)/main.c \
@@ -3482,7 +3450,7 @@ coco_light:
 	enemy.o \
 	level.o character.o text.o \
 	strategy.o \
-	input_macros.o cmoc_input.o \
+	input_macros.o \
 	item.o missile.o skull.o 	
 	
 
@@ -3493,7 +3461,7 @@ cmoc_link:
 	enemy.o \
 	level.o character.o text.o \
 	strategy.o \
-	input_macros.o cmoc_input.o \
+	input_macros.o \
 	main.o
 
 lwlink_link:
@@ -3501,7 +3469,7 @@ lwlink_link:
 	enemy.o \
 	level.o character.o text.o \
 	strategy.o \
-	input_macros.o cmoc_input.o \
+	input_macros.o \
 	main.o	
 
 pet_8k_LIGHT:
@@ -3518,12 +3486,6 @@ pet_8k_LIGHT:
 	# $(SOURCE_PATH)/main.c
 	# rm $(BUILD_PATH)/TINY_zx81_8k_sccz80.prg
 	
-# oric1_48k:
-	# $(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DREDEFINED_CHARS -DFULL_GAME -t atmos --config $(SOURCE_PATH)/../cfg/cc65/atmos_better_tap.cfg $(SOURCE_PATH)/atmos/atmos_redefined_characters.c $(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_oric1_48k.tap
-
-
-	#  $(SOURCE_PATH)/c264/c264_sounds.c 
-	# -DSOUNDS 
 
 
 # c16_16k_no_udg:
@@ -3534,17 +3496,6 @@ c16_16k_no_udg:
 	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl -DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DSOUNDS --config $(SOURCE_PATH)/../cfg/cc65/c16-16k_plus.cfg $(SOURCE_PATH)/c264/c264_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k_no_udg.prg
 
 
-# It works more or less fine (as 16k version) BUT it may not exist as a real model or real expansion
-atmos_16k:
-	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DREDEFINED_CHARS \
-	-t atmos --config $(SOURCE_PATH)/../cfg/cc65/atmos_better_tap.cfg \
-	$(SOURCE_PATH)/atmos/atmos_redefined_characters.c \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/atmos/atmos_input.c  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c  \
-	-o $(BUILD_PATH)/LIGHT_atmos_16k.tap
 
 	
 lambda_8k:

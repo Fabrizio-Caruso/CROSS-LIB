@@ -21,5 +21,9 @@ II)  DONE BUBBLE -> ROCKET
 III) DONE MISSILE -> BULLET
 IV)  DONE ENEMY -> GHOST (or viceversa?)
 
-12. test major targets with latest Z88DK snapshots
+11. Fix chase item display
+
+12. Separate/Re-factor Stat display in text.h/c
+
+13. Test major targets with latest Z88DK snapshots
 

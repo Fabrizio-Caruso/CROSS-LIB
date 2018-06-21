@@ -25,5 +25,9 @@ IV)  DONE ENEMY -> GHOST (or viceversa?)
 
 12. Separate/Re-factor Stat display in text.h/c
 
+13. Optimize and Re-factor blink display
+
+14. Separate cases that require --max-alloc... from those that do not
+
 13. Test major targets with latest Z88DK snapshots
 

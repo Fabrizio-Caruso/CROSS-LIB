@@ -22,7 +22,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#include "../cross_lib/cross_lib.h"
+
 #include "settings.h"
 
 #include "text.h"
@@ -234,15 +234,6 @@ void displayStats(void)
 		PRINTF(1,0,"%05u0",points);	
 	#endif	
 }
-#endif
-
-#if !defined(NO_SET_SCREEN_COLORS)
-	void setScreenColors(void)
-	{
-		SET_TEXT_COLOR(TEXT_COLOR);
-		SET_BORDER_COLOR(BORDER_COLOR);
-		SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
-	}
 #endif
 
 

@@ -38,6 +38,7 @@
 //#define DEBUG_ITEMS
 
 #include "settings.h"
+
 #include "character.h"
 #include "item.h"
 #include "strategy.h"

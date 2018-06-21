@@ -514,7 +514,7 @@ aquarius_exp_16k:
 
 
 vz200_8k:
-	$(Z88DK_PATH)$(MYZ88DK) +vz -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +vz -v \
 	-DTINY_GAME \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-compiler=sdcc \

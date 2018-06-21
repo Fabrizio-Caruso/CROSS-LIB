@@ -59,7 +59,7 @@
 #define _RIGHT_HORIZONTAL_MISSILE ('<'+NOT_INVERTED)
 #define _ROCKET ('^'+NOT_INVERTED)
 
-#include "../display/display_macros.h"
+#include "../cross_lib.h"
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;

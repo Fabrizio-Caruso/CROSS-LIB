@@ -25,6 +25,7 @@
 #ifndef _DISPLAY_MACROS
 #define _DISPLAY_MACROS
 
+#include "../cross_lib.h"
 #include "display_target_settings.h"
 
 #if defined(CONIO_LIB)
@@ -190,6 +191,10 @@ void _delete(unsigned char x, unsigned char y);
 	#define DRAW_VERTICAL_LINE(x,y,length)
 #endif
 
+#if !defined(NO_SET_SCREEN_COLORS)
+	void setScreenColors(void);
+#endif
+	
 // COLORS 
 #  if defined(ALT_PRINT) || defined(NO_COLOR) \
 	|| defined(__ATARI5200__) \

@@ -30,6 +30,15 @@
 	#define VERTICAL_BRICK '|'
 #endif
 
+#if !defined(NO_SET_SCREEN_COLORS)
+	void setScreenColors(void)
+	{
+		SET_TEXT_COLOR(TEXT_COLOR);
+		SET_BORDER_COLOR(BORDER_COLOR);
+		SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
+	}
+#endif
+
 #if !defined(REDEFINED_CHARS)
 	Image PLAYER_IMAGE;
 #endif
@@ -438,7 +447,6 @@ Image BOMB_IMAGE;
 		{
 			gotoxy(x,y);
 			cputc(val+48);
-			// POKE(BASE_ADDR+x+y*((unsigned short)XSize), (unsigned char) (val+48));
 		}
 
 		void print_level(unsigned short val)

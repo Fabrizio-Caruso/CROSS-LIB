@@ -58,8 +58,6 @@ void displayStats(void);
 	void printGunsStats(void);
 #endif
 
-void setScreenColors(void);
-
 #if !defined(NO_MESSAGE)
 	void printCenteredMessageOnRow(unsigned char row, char *Text);
 	void printPressKeyToStart(void);

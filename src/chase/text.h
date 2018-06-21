@@ -73,25 +73,19 @@ void setScreenColors(void);
 
 #if !defined(NO_MESSAGE)
 	void printCenteredMessageOnRow(unsigned char row, char *Text);
-	
 	void printPressKeyToStart(void);
 #else
 	#define printCenteredMessageOnRow(row,Text)
-	
 	#define printPressKeyToStart()
 #endif
 
 #if !defined(NO_STATS)
 	void printLevelStats(void);
-
 	void printGhostCountStats(void);
-
 	void printLivesStats(void);		
 #else
 	#define printLevelStats()
-	
 	#define printGhostCountStats()
-	
 	#define printLivesStats()
 #endif
 
@@ -122,9 +116,7 @@ void printStartMessage(void);
 
 #if !defined(TINY_GAME) && !defined(NO_MESSAGE)
 	void _printScoreOnRow(unsigned char row, char * text, unsigned short score);
-	
 	void _printScore(char * text, unsigned short score);
-
 	void printKillTheSkull(void);
 #else
 	#define _printScoreOnRow(r,t,score)
@@ -146,25 +138,18 @@ void printStartMessage(void);
 	#endif
 #elif defined(LESS_TEXT)
 		#define printLevelBonus(bonus) 
-
 		#define finalScore()
-
 		#define highScoreScreen() 
 		
-		//PRINTF((XSize-6)/2, 0, "%05u0", highScore)
 #else
 	#if defined(NO_CASE_LETTERS)
 		#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);
-
 		#define finalScore() _printScore("score: %05u0", points);
-
 		#define highScoreScreen() _printScore("high score: %05u0", highScore);	
 
 	#else
 		#define printLevelBonus(bonus) _printScore("BONUS: %u0", bonus);
-
 		#define finalScore() _printScore("SCORE: %05u0", points);
-
 		#define highScoreScreen() _printScore("HIGH SCORE: %05u0", highScore);	
 	#endif
 #endif

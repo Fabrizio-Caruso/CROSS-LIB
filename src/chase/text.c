@@ -30,11 +30,6 @@
 #include "settings.h"
 #include "text_strings.h"
 
-#ifdef __ATMOS__
-	#include<peekpoke.h>
-#elif defined(__CPC__) && defined(CPCRSLIB)
-	#include "../cross_lib/z88dk/cpc/cpcrslib.h"	
-#endif
 
 // Instructions color
 #if defined(__PLUS4__) || defined(__C16__)
@@ -51,40 +46,16 @@
 #define CPC_RED 3
 #define CPC_BLACK 4
 
-// 3 -> white
 
-// 2 -> black 
-// 1 -> black
-// 0 -> yellow
-// 4 -> red
-#define CPC_TEXT_YELLOW 0
-#define CPC_TEXT_WHITE 3
-#define CPC_TEXT_RED 4
-
-// VG5K
-#define VG5K_BLACK 0
-#define VG5K_RED 1
-#define VG5K_GREEN 2
-#define VG5K_YELLOW 3
-#define VG5K_BLUE 4
-#define VG5K_VIOLET 5
-#define VG5K_CYAN 6
-#define VG5K_WHITE 7
-
+#define _YELLOW COLOR_YELLOW
+#define _WHITE COLOR_WHITE
+#define _RED   COLOR_RED
 #if defined(__CPC__)
-	#define _YELLOW CPC_TEXT_YELLOW
-	#define _WHITE CPC_TEXT_WHITE
-	#define _RED   CPC_TEXT_RED
-	#define SCORE_COLOR _YELLOW
-#elif defined(__VG5k__)
-	#define _WHITE VG5K_WHITE
-	#define _RED   VG5K_RED
-	#define SCORE_COLOR COLOR_BLUE
+	#define SCORE_COLOR COLOR_RED
 #else
-	#define _WHITE COLOR_WHITE
-	#define _RED   COLOR_RED
 	#define SCORE_COLOR COLOR_BLUE	
 #endif
+
 
 #if defined(WIDE) && !defined(TINY_GAME)
 	#define GUN_IMAGE_X 17

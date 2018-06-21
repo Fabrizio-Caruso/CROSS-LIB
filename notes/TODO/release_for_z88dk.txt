@@ -21,7 +21,7 @@ II)  DONE BUBBLE -> ROCKET
 III) DONE MISSILE -> BULLET
 IV)  DONE ENEMY -> GHOST (or viceversa?)
 
-11. Fix chase item display
+11. DONE Fix chase item display
 
 12. Separate/Re-factor Stat display in text.h/c
 

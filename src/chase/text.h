@@ -142,16 +142,9 @@ void printStartMessage(void);
 		#define highScoreScreen() 
 		
 #else
-	#if defined(NO_CASE_LETTERS)
-		#define printLevelBonus(bonus) _printScore("bonus: %u0", bonus);
-		#define finalScore() _printScore("score: %05u0", points);
-		#define highScoreScreen() _printScore("high score: %05u0", highScore);	
-
-	#else
-		#define printLevelBonus(bonus) _printScore("BONUS: %u0", bonus);
-		#define finalScore() _printScore("SCORE: %05u0", points);
-		#define highScoreScreen() _printScore("HIGH SCORE: %05u0", highScore);	
-	#endif
+    #define printLevelBonus(bonus) _printScore(BONUS_COLON_STRING BONUS_DIGITS, bonus);
+    #define finalScore() _printScore(SCORE_COLON__STRING SCORE_DIGITS, points);
+    #define highScoreScreen() _printScore(HIGH_SCORE_COLON_STRING SCORE_DIGITS, highScore);  	
 #endif
 
 #if defined(FULL_GAME)

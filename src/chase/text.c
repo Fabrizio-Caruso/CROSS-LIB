@@ -31,14 +31,11 @@
 #include "text_strings.h"
 
 
-// Instructions color
-#if defined(__PLUS4__) || defined(__C16__)
-	#define SPLASH_COLOR COLOR_CYAN	
-#elif defined(__CPC__)
-	#define SPLASH_COLOR _YELLOW			
+#if defined(__CPC__)
+	#define COLOR_IF_NO_BLUE_THEN_RED COLOR_RED
 #else
-	#define SPLASH_COLOR COLOR_BLUE
-#endif 
+	#define COLOR_IF_NO_BLUE_THEN_RED COLOR_BLUE
+#endif
 
 // CPC
 #define CPC_WHITE 1
@@ -50,11 +47,7 @@
 #define _YELLOW COLOR_YELLOW
 #define _WHITE COLOR_WHITE
 #define _RED   COLOR_RED
-#if defined(__CPC__)
-	#define SCORE_COLOR COLOR_RED
-#else
-	#define SCORE_COLOR COLOR_BLUE	
-#endif
+#define SCORE_COLOR COLOR_IF_NO_BLUE_THEN_RED
 
 
 #if defined(WIDE) && !defined(TINY_GAME)
@@ -374,7 +367,7 @@ void displayStats(void)
 		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
 			_printTopScore();
 			
-			SET_TEXT_COLOR(SPLASH_COLOR);
+			SET_TEXT_COLOR(COLOR_IF_NO_BLUE_THEN_RED);
 			printCenteredMessageOnRow((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
 			printCenteredMessageOnRow((YSize>>1)+1, INTO_THE_MINES_STRING);
 			

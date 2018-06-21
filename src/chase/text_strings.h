@@ -144,6 +144,19 @@
 		#define YOU_MADE_IT_STRING "YOU MADE IT"	
 	#endif
 #endif
-	
+
+#if defined(NO_CASE_LETTERS)
+	#define BONUS_COLON_STRING "bonus: "
+	#define SCORE_COLON__STRING "score: "
+	#define HIGH_SCORE_COLON_STRING "high score: "
+#else
+	#define BONUS_COLON_STRING "BONUS: "
+	#define SCORE_COLON__STRING "SCORE: "
+	#define HIGH_SCORE_COLON_STRING "HIGH SCORE: "
+#endif
+#define BONUS_DIGITS "%u0"
+#define SCORE_DIGITS "%05u0"
+
+
 #endif // _TEXT_STRINGS_H
 

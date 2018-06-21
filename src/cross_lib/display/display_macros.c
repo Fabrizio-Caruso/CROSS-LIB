@@ -391,13 +391,6 @@ Image BOMB_IMAGE;
 		
 	#endif
 
-	#if defined(NO_MESSAGE) && defined(TINY_GAME)
-		// void highScoreScreen(void)
-		// {
-			// gotoxy(1,0); printf("05u0", highScore);
-		// }
-	#endif	
-	
 
 //
 	# if defined(Z88DK_PUTC4X6)

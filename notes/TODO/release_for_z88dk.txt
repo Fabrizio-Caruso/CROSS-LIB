@@ -37,6 +37,7 @@ tiny aquarius OK
 full zx81 KO
 light svi KO
 
+13. Fix WIDE/NARROW issues (mc1000, msx, etc.)
 
-13. Test major targets with latest Z88DK snapshots
+14. Test major targets with latest Z88DK snapshots
 

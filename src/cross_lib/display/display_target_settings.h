@@ -1,6 +1,8 @@
 #ifndef _DISPLAY_TARGET_SETTINGS
 #define _DISPLAY_TARGET_SETTINGS
 
+#include "../cross_lib.h"
+
 #if defined(NARROW) || defined(TINY_GAME)
 	#define Y_OFFSET 0
 #else

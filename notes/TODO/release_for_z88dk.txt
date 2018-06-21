@@ -28,6 +28,15 @@ IV)  DONE ENEMY -> GHOST (or viceversa?)
 13. Optimize and Re-factor blink display
 
 14. Separate cases that require --max-alloc... from those that do not
+TEST WITH BLINKING AND NO --max-alloc...
+full mc1000 OK
+full vg5k OK
+full vz200 OK
+full c128 OK
+tiny aquarius OK
+full zx81 KO
+light svi KO
+
 
 13. Test major targets with latest Z88DK snapshots
 

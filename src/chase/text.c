@@ -58,7 +58,7 @@
 	#define PLAYER_IMAGE_X 16
 	#define PLAYER_IMAGE_Y 1
 	#define LEVEL_X 6
-	#define STAT_SEPARATOR() cputc(':')
+	// #define STAT_SEPARATOR() cputc(':')
 #else
 	#define GUN_IMAGE_X 11
 	#define GUN_IMAGE_Y 0
@@ -67,7 +67,7 @@
 	#define PLAYER_IMAGE_X 14
 	#define PLAYER_IMAGE_Y 0
 	#define LEVEL_X 18
-	#define STAT_SEPARATOR() 
+	// #define STAT_SEPARATOR() 
 #endif
 
 #if !defined(TINY_GAME)
@@ -98,6 +98,7 @@ extern Image PLAYER_IMAGE;
 	}
 	
 	#if defined(__ATMOS__)
+		#include <peekpoke.h>
 		void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text)
 		{
 			POKE(0xBB80+3+(row+Y_OFFSET)*40,16);POKE(0xBB80+3+1+(row+Y_OFFSET)*40,col);
@@ -135,62 +136,31 @@ extern Image PLAYER_IMAGE;
 	
 #endif
 
+#define PRINT_WIDE_TITLE() \
+	SET_TEXT_COLOR(SCORE_COLOR); \
+	PRINT(0, -Y_OFFSET,   SCORE_STRING); \
+	PRINT(0, -Y_OFFSET+1, LEVEL_STRING); \
+	\
+	SET_TEXT_COLOR(_RED); \
+	PRINT(XSize-11,-Y_OFFSET,  "-----------"); \
+	PRINT(XSize-11,-Y_OFFSET+1,"cross chase");	
+
 
 // TODO: This is SLOW
 #if !defined(TINY_GAME)
 	void displayStatsTitles(void)
 	{				
 		#if defined(WIDE)
-			SET_TEXT_COLOR(SCORE_COLOR);	
-			PRINT(0, -Y_OFFSET,   SCORE_STRING);
-			PRINT(0, -Y_OFFSET+1, LEVEL_STRING);
-	
-			SET_TEXT_COLOR(_RED);
-			PRINT(XSize-11,-Y_OFFSET,  "-----------");		
-			PRINT(XSize-11,-Y_OFFSET+1,"cross chase");				
-		#endif
-
-		#if !defined(ALT_PRINT)
-			#define STAT_GUN_IMAGE GUN_IMAGE._imageData
-			#define STAT_GHOST_IMAGE GHOST_IMAGE._imageData
-			#define STAT_PLAYER_IMAGE PLAYER_IMAGE._imageData	
-		#elif defined(__C64__) && defined(REDEFINED_CHARS)
-			#define STAT_GUN_IMAGE (GUN_IMAGE._imageData+32)
-			#define STAT_GHOST_IMAGE (GHOST_IMAGE._imageData+32)
-			#define STAT_PLAYER_IMAGE 'T'
-		#else
-			#define STAT_GUN_IMAGE 'G'
-			#define STAT_GHOST_IMAGE 'O'
-			#define STAT_PLAYER_IMAGE 'P'			
+				PRINT_WIDE_TITLE();
 		#endif
 		
-		#if defined(__CPC__) && defined(CPCRSLIB)
-			SET_TEXT_COLOR(TEXT_COLOR);	
-			cpc_PrintGphStrStdXY(CPC_YELLOW,")",GUN_IMAGE_X*2,0*8);gotoxy(GUN_IMAGE_X+1,0); cputc(':');
-			cpc_PrintGphStrStdXY(CPC_WHITE,"%",GHOST_IMAGE_X*2,0*8);gotoxy(GHOST_IMAGE_X+1,0); cputc(':');
-			cpc_PrintGphStrStdXY(CPC_YELLOW,"!",PLAYER_IMAGE_X*2,1*8);gotoxy(PLAYER_IMAGE_X+1,1); cputc(':');	
-		#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
-			SET_TEXT_COLOR(TEXT_COLOR);		
-			zx_setcursorpos(0, GUN_IMAGE_X); cputc(GUN_IMAGE._imageData);cputc(':');
-			zx_setcursorpos(0, GHOST_IMAGE_X); cputc(GHOST_IMAGE._imageData);cputc(':');
-			zx_setcursorpos(1, PLAYER_IMAGE_X); cputc(PLAYER_IMAGE._imageData);cputc(':');	
-		#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-			SET_TEXT_COLOR(TEXT_COLOR);	
-			gotoxy(GUN_IMAGE_X,0); cputc(GUN_IMAGE._imageData+160);	
-			gotoxy(GHOST_IMAGE_X,0); cputc(GHOST_IMAGE._imageData+160);
-			gotoxy(PLAYER_IMAGE_X,0); cputc(PLAYER_IMAGE._imageData+64);
-		#elif (defined(__CMOC__) && !defined(__WINCMOC__)) \
-			|| defined(__TRS80__) || defined(__EG2K__) \
-			|| defined(__ATARI5200__) || defined(__NC100__)
-			// TODO: to implement			
-		#else
-			#if !defined(NO_COLOR)
-				SET_TEXT_COLOR(TEXT_COLOR);
-			#endif
-			gotoxy(GUN_IMAGE_X+X_OFFSET,0); cputc(STAT_GUN_IMAGE); STAT_SEPARATOR();
-			gotoxy(GHOST_IMAGE_X+X_OFFSET,0); cputc(STAT_GHOST_IMAGE); STAT_SEPARATOR();
-			gotoxy(PLAYER_IMAGE_X+X_OFFSET,PLAYER_IMAGE_Y); cputc(STAT_PLAYER_IMAGE); STAT_SEPARATOR();	
-		#endif
+		#if !defined(NO_COLOR)
+			SET_TEXT_COLOR(TEXT_COLOR);
+		#endif		
+		
+		DRAW_STAT_CHARACTER(GUN_IMAGE_X, GUN_IMAGE_Y, STAT_GUN_IMAGE);
+		DRAW_STAT_CHARACTER(GHOST_IMAGE_X, GHOST_IMAGE_Y, STAT_GHOST_IMAGE);
+		DRAW_STAT_CHARACTER(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, STAT_PLAYER_IMAGE);		
 	}
 
 	void printGunsStats(void)

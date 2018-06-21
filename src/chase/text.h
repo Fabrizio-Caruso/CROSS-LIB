@@ -50,7 +50,6 @@
 #endif
 	
 
-
 void displayStats(void);
 
 #if !defined(TINY_GAME)
@@ -58,16 +57,6 @@ void displayStats(void);
 
 	void printGunsStats(void);
 #endif
-
-#if !defined(LESS_TEXT)
-	void printLevel(void);
-
-	void printVictoryMessage(void);
-
-	void printExtraLife(void);
-#endif
-	
-
 
 void setScreenColors(void);
 
@@ -79,6 +68,24 @@ void setScreenColors(void);
 	#define printPressKeyToStart()
 #endif
 
+#if defined(COLOR)
+	void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text);
+#endif
+
+
+#if !defined(LESS_TEXT)
+	void deleteCenteredMessage(void);
+#endif
+
+
+#if !defined(LESS_TEXT)
+	void printLevel(void);
+
+	void printVictoryMessage(void);
+
+	void printExtraLife(void);
+#endif
+
 #if !defined(NO_STATS)
 	void printLevelStats(void);
 	void printGhostCountStats(void);
@@ -87,15 +94,6 @@ void setScreenColors(void);
 	#define printLevelStats()
 	#define printGhostCountStats()
 	#define printLivesStats()
-#endif
-
-#if defined(COLOR)
-	void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text);
-#endif
-
-
-#if !defined(LESS_TEXT)
-	void deleteCenteredMessage(void);
 #endif
 
 #if !defined(NO_MESSAGE)

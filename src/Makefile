@@ -1031,9 +1031,8 @@ spectrum_48k_putc4x6:
 
 pc6001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
-	-D__PC6001__ -vn  \
+	-D__PC6001__ -v  \
 	-DALT_SLEEP \
-	-DMACRO_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_pc6001.prg  \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_pc6001.prg
@@ -2100,7 +2099,6 @@ pc6001_test:
 	-D__PC6001__ -v \
 	$(FAST_TEST_OPTS) \
 	-DALT_SLEEP \
-	-DMACRO_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_pc6001_32k.prg \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES)

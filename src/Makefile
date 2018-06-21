@@ -24,7 +24,8 @@ MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 SCCZ80_OPTS ?= -O3
-ZSDCC_OPTS ?= --max-allocs-per-node200000
+ZSDCC_OPTS ?=  
+# --max-allocs-per-node200000
 #-SO3 --max-allocs-per-node200000
 
 TOOLS_PATH ?= ../tools
@@ -530,7 +531,6 @@ vz200_8k:
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \
-	-DNO_SLEEP \
 	-DNO_MESSAGE \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/TINY_vz200_8k.vz \
@@ -773,7 +773,6 @@ svi_318:
 	-D__SVI__ \
 	-DSOUNDS \
 	-DALT_SLEEP \
-	-DMACRO_SLEEP \
 	-create-app \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c	\
 	$(LIGHT_FILES)
@@ -2535,7 +2534,6 @@ zx81_zsdcc_test:
 	-vn \
 	-D__ZX81__ -DTINY_GAME \
 	-DALT_SLEEP \
-	-DMACRO_SLEEP \
 	$(FAST_TEST_OPTS) \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_ZSDCC_zx81.prg \
@@ -2574,7 +2572,6 @@ vz200_zsdcc_test:
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \
-	-DNO_SLEEP \
 	-DNO_MESSAGE \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_vz200.vz \
@@ -2605,7 +2602,6 @@ svi_zsdcc_test:
 	-D__SVI__ \
 	-DSOUNDS \
 	-DALT_SLEEP \
-	-DMACRO_SLEEP \
 	$(FAST_TEST_OPTS) \
 	-create-app \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c	\

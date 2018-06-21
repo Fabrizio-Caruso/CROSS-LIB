@@ -40,13 +40,7 @@
 			void sleep(unsigned char sec);
 		#endif
 	#else	
-		#if defined(__CMOC__) && !defined(__WINCMOC__)
-			#define sleep(sec) do {unsigned short ii; for(ii=0;ii<4000*sec; ++ii){ii=ii;};} while(0)
-		#else
-			#include <time.h>
-			#include <unistd.h>
-			#include <stdlib.h>
-		#endif		
+	
 	#endif	
 #endif // _SLEEP_MACROS
 

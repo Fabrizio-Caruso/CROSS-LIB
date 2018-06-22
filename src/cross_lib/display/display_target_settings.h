@@ -212,6 +212,10 @@
 
 	
 #if defined(__CPC__) && defined(CPCRSLIB)
+	#define CPC_WHITE 1
+	#define CPC_YELLOW 2 
+	#define CPC_RED 3
+	#define CPC_BLACK 4
 	#define DRAW_STAT_CHARACTER(x,y,image) \
 		cpc_PrintGphStrStdXY(CPC_YELLOW,image,x*2,y*8);gotoxy(x+1,y); cputc(':')
 

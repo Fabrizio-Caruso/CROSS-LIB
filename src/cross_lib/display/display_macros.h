@@ -254,7 +254,6 @@ void _delete(unsigned char x, unsigned char y);
 	#define CLEAR_SCREEN() clrscr();
 #endif
 
-
 // BORDER AND BACKGROUND COLORS
 #if defined(CC65) && !defined(__ATARI5200__)
 	#define SET_BORDER_COLOR(c) (void) bordercolor(c)
@@ -264,7 +263,14 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_BACKGROUND_COLOR(c) {}	
 #endif	
 
-	
+#if defined(__CPC__)
+	#define COLOR_IF_NO_BLUE_THEN_RED COLOR_RED
+#else
+	#define COLOR_IF_NO_BLUE_THEN_RED COLOR_BLUE
+#endif
+
+
+
 void INIT_IMAGES(void);
 
 void INIT_GRAPHICS(void);

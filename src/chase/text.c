@@ -30,20 +30,6 @@
 #include "settings.h"
 #include "text_strings.h"
 
-
-#if defined(__CPC__)
-	#define COLOR_IF_NO_BLUE_THEN_RED COLOR_RED
-#else
-	#define COLOR_IF_NO_BLUE_THEN_RED COLOR_BLUE
-#endif
-
-// CPC
-#define CPC_WHITE 1
-#define CPC_YELLOW 2 
-#define CPC_RED 3
-#define CPC_BLACK 4
-
-
 #define _YELLOW COLOR_YELLOW
 #define _WHITE COLOR_WHITE
 #define _RED   COLOR_RED

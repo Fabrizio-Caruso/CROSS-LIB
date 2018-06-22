@@ -35,7 +35,6 @@
 #define _RED   COLOR_RED
 #define SCORE_COLOR COLOR_IF_NO_BLUE_THEN_RED
 
-
 #if defined(WIDE) && !defined(TINY_GAME)
 	#define GUN_IMAGE_X 17
 	#define GUN_IMAGE_Y 0
@@ -44,7 +43,6 @@
 	#define PLAYER_IMAGE_X 16
 	#define PLAYER_IMAGE_Y 1
 	#define LEVEL_X 6
-	// #define STAT_SEPARATOR() cputc(':')
 #else
 	#define GUN_IMAGE_X 11
 	#define GUN_IMAGE_Y 0
@@ -53,13 +51,6 @@
 	#define PLAYER_IMAGE_X 14
 	#define PLAYER_IMAGE_Y 0
 	#define LEVEL_X 18
-	// #define STAT_SEPARATOR() 
-#endif
-
-#if !defined(TINY_GAME)
-	extern unsigned char guns;
-	extern Image GUN_IMAGE;
-	extern Image SKULL_IMAGE;
 #endif
 
 extern unsigned char level;
@@ -69,12 +60,6 @@ extern unsigned short points;
 extern unsigned char ghostCount;
 extern unsigned short ghostLevel;
 extern unsigned short highScore;
-
-extern Image PLAYER_IMAGE;
-extern Image GHOST_IMAGE;
-
-extern Image PLAYER_IMAGE;
-
 
 
 #if !defined(NO_COLOR) && !defined(NO_MESSAGE) && !defined(NO_TEXT_COLOR)

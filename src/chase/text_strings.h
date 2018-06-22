@@ -154,9 +154,9 @@
 	#define SCORE_COLON__STRING "SCORE: "
 	#define HIGH_SCORE_COLON_STRING "HIGH SCORE: "
 #endif
+
 #define BONUS_DIGITS "%u0"
 #define SCORE_DIGITS "%05u0"
-
 
 #endif // _TEXT_STRINGS_H
 

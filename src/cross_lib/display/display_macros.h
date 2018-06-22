@@ -269,6 +269,14 @@ void _delete(unsigned char x, unsigned char y);
 	#define COLOR_IF_NO_BLUE_THEN_RED COLOR_BLUE
 #endif
 
+#if !defined(TINY_GAME)
+	extern unsigned char guns;
+	extern Image GUN_IMAGE;
+	extern Image SKULL_IMAGE;
+#endif
+extern Image PLAYER_IMAGE;
+extern Image GHOST_IMAGE;
+
 #if defined(__CPC__) && defined(CPCRSLIB)
 	#define CPC_WHITE 1
 	#define CPC_YELLOW 2 

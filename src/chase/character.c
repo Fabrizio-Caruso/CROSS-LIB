@@ -26,6 +26,8 @@
 	#include <cmoc.h>
 #else
 	#include <stdlib.h>
+	#include <string.h>
+	#include <stdio.h>
 #endif
 
 #include "character.h"

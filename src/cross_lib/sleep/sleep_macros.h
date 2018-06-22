@@ -39,8 +39,10 @@
 		#else	
 			void sleep(unsigned char sec);
 		#endif
-	#else	
-	
+	#elif !defined(__CMOC__)
+		#include <time.h>
+		#include <unistd.h>
+		#include <stdlib.h>				
 	#endif	
 #endif // _SLEEP_MACROS
 

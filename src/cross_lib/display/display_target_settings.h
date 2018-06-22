@@ -210,34 +210,5 @@
 	#define STAT_SEPARATOR()
 #endif
 
-	
-#if defined(__CPC__) && defined(CPCRSLIB)
-	#define CPC_WHITE 1
-	#define CPC_YELLOW 2 
-	#define CPC_RED 3
-	#define CPC_BLACK 4
-	#define DRAW_STAT_CHARACTER(x,y,image) \
-		cpc_PrintGphStrStdXY(CPC_YELLOW,image,x*2,y*8);gotoxy(x+1,y); cputc(':')
-
-#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
-	#define DRAW_STAT_CHARACTER(x,y,image) \
-		zx_setcursorpos(y, x); cputc(image);cputc(':')
-
-#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-	#define DRAW_STAT_CHARACTER(x,y,image) \
-		gotoxy(x,0); cputc(image)
-
-#elif (defined(__CMOC__) && !defined(__WINCMOC__)) \
-	|| defined(__TRS80__) || defined(__EG2K__) \
-	|| defined(__ATARI5200__) || defined(__NC100__)
-	#define DRAW_STAT_CHARACTER(x,y,image) 	
-
-	#else
-	#define DRAW_STAT_CHARACTER(x,y,image) \
-		gotoxy(x+X_OFFSET,y); cputc(image); STAT_SEPARATOR();	
-
-#endif
-
-
 
 #endif // _DISPLAY_TARGET_SETTINGS

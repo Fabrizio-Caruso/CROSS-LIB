@@ -43,6 +43,8 @@ light svi KO
 
 18. DONE Fix WIDE/NARROW issues (mc1000, msx, etc.)
 
-19. Test major targets with latest Z88DK snapshots
+19. Make ArrowYPosition a parameter (verify memory loss/gain)
+
+20. Test major targets with latest Z88DK snapshots
 
 

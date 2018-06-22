@@ -1,6 +1,6 @@
 TODO for the integration release for Z88DK
 
-1. PARTIAL - re-factor input_macros.h/c (e.g., GETCHAR for ncurses)
+1. DONE - re-factor input_macros.h/c (e.g., GETCHAR for ncurses)
 2. DONE verify ghosts in boss levels
 3. use joystick in Z88DK
 4. DONE - non-turn-based ncurses version
@@ -10,24 +10,28 @@ TODO for the integration release for Z88DK
 8. DONE - Remove or move unused tools
 9. Verify trs80/eg2k targets
 
-10. DONE Rename files
+10 Make generic code for all joystick and keyboard configuration
+
+11. DONE Rename files
 I)   DONE skull.h/c
 II)  DONE enemy.h/c -> ghost.h/c
 III) DONE missile.h/c -> bullet.h.c
 
-11. DONE Rename variables: 
+12. DONE Rename variables: 
 I)   DONE INVINCIBLE/INVINCIBLE_GHOST -> SKULL
 II)  DONE BUBBLE -> ROCKET
 III) DONE MISSILE -> BULLET
 IV)  DONE ENEMY -> GHOST (or viceversa?)
 
-11. DONE Fix chase item display
+13. DONE Fix chase item display
 
-12. Separate/Re-factor Stat display in text.h/c
+14. Separate/Re-factor Stat display in text.h/c
 
-13. Optimize and Re-factor blink display
+15. Separate generic text routines from game specific text routines
 
-14. Separate cases that require --max-alloc... from those that do not
+16. Optimize and Re-factor blink display
+
+17. PARTIAL Separate cases that require --max-alloc... from those that do not
 TEST WITH BLINKING AND NO --max-alloc...
 full mc1000 OK
 full vg5k OK
@@ -37,7 +41,8 @@ tiny aquarius OK
 full zx81 KO
 light svi KO
 
-13. Fix WIDE/NARROW issues (mc1000, msx, etc.)
+18. DONE Fix WIDE/NARROW issues (mc1000, msx, etc.)
 
-14. Test major targets with latest Z88DK snapshots
+19. Test major targets with latest Z88DK snapshots
+
 

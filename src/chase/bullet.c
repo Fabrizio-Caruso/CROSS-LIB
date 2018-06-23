@@ -28,7 +28,7 @@
  
 #include "bullet.h"
 #include "level.h"
-#include "text.h"
+#include "game_text.h"
 #include "character.h"
 #include "item.h"
 #include "ghost.h"

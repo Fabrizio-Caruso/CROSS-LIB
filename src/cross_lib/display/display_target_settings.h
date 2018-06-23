@@ -176,6 +176,13 @@
 	#define COLOR
 #endif
 
+
+#if defined(__ATARI__) || defined(__ATARIXL__) \
+	|| defined(ALT_PRINT) || defined(NO_COLOR)
+	#define NO_TEXT_COLOR
+#endif
+
+
 #define BACKGROUND_COLOR COLOR_BLACK
 
 #define BORDER_COLOR COLOR_BLACK

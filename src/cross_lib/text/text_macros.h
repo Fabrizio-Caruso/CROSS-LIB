@@ -1,0 +1,51 @@
+#ifndef _TEXT_MACROS
+#define _TEXT_MACROS
+
+#if defined(__CMOC__) && !defined(__WINCMOC__)
+	#include <cmoc.h>
+#else
+	#include <stdio.h>
+	#include <stdlib.h>
+	#include <string.h>	
+#endif
+
+#include "../cross_lib.h"
+
+#define printCenteredMessage(Text) \
+	printCenteredMessageOnRow((YSize>>1), Text)
+
+	
+#if !defined(NO_TEXT_COLOR)
+	#define printCenteredMessageWithCol(col, Text) \
+		printCenteredMessageOnRowWithCol((YSize>>1), col, Text)	
+#else		
+	#define printCenteredMessageWithCol(col, Text) \
+		printCenteredMessageOnRow((YSize>>1), Text)
+#endif
+
+
+#if !defined(NO_MESSAGE)
+	#if !defined(NO_TEXT_COLOR)
+		void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text);
+	#endif
+	void printCenteredMessageOnRow(unsigned char row, char *Text);
+	void printPressKeyToStart(void);
+#else
+	#define printCenteredMessageOnRow(row,Text)
+	#define printPressKeyToStart()
+#endif
+
+
+// #if !defined(NO_COLOR) && !defined(NO_TEXT_COLOR)
+	// void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text);
+// #else
+	// #define printCenteredMessageOnRowWithCol(row,col,Text) printCenteredMessageOnRow(row,Text)
+// #endif
+
+
+#if !defined(LESS_TEXT)
+	void deleteCenteredMessage(void);
+#endif
+
+#endif // _TEXT_MACROS
+

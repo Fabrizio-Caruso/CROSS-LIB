@@ -42,7 +42,7 @@
 #include "character.h"
 #include "item.h"
 #include "strategy.h"
-#include "text.h"
+#include "game_text.h"
 #include "level.h"
 #include "ghost.h"
 #include "move_player.h"

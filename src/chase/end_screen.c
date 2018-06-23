@@ -3,7 +3,7 @@
 #include "settings.h"
 
 #include "end_screen.h"
-#include "text.h"
+#include "game_text.h"
 #include "text_strings.h"
 #include "move_player.h"
 
@@ -51,60 +51,54 @@
 
 #endif
 
-#if defined(END_SCREEN)
-	void gameCompleted(void)
-	{
-		unsigned short k;
-		
-		level = 1;
-		
-		CLEAR_SCREEN();
-		fillLevelWithCharacters(GHOSTS_NUMBER);	
-		
-		DRAW_BORDERS();
 
-		playerFire = 0;
-		loop = 0;
-		skull._x = player._x-5;
-		skull._y = player._y;	
-		bullet._status = 0;
-		guns = 1;
-		while(!playerFire)
-		{
-			displayBombs();
-			for(k=0;k<GHOSTS_NUMBER;++k)
-			{
-				dance(&ghosts[k]);
-			}
-			dance(&player);
-			dance(&skull);
-		
-			printCenteredMessageOnRow(2+(loop&15),  YOU_MADE_IT_STRING);
-			#if defined(SLOW_DOWN)
-				for(k=0;k<GAME_SLOW_DOWN*4;++k) {};
-			#endif
-			printCenteredMessageOnRow(2+(loop&15), "             ");
-			
-			++loop;
-			
-			MOVE_PLAYER();
-			if(wallReached(&player))
-			{
-				playerFire = 1;
-			}
-		}
-		printGameOver();
-		sleep(2);
-		printPressKeyToStart();
-		WAIT_PRESS();
-		playerFire = 0;
-	}
-#else
-	void gameCompleted(void)	
+void gameCompleted(void)
+{
+	unsigned short k;
+	
+	level = 1;
+	
+	CLEAR_SCREEN();
+	fillLevelWithCharacters(GHOSTS_NUMBER);	
+	
+	DRAW_BORDERS();
+
+	playerFire = 0;
+	loop = 0;
+	skull._x = player._x-5;
+	skull._y = player._y;	
+	bullet._status = 0;
+	guns = 1;
+	while(!playerFire)
 	{
-		printCenteredMessage(YOU_MADE_IT_STRING); 
+		displayBombs();
+		for(k=0;k<GHOSTS_NUMBER;++k)
+		{
+			dance(&ghosts[k]);
+		}
+		dance(&player);
+		dance(&skull);
+	
+		printCenteredMessageOnRow(2+(loop&15),  YOU_MADE_IT_STRING);
+		#if defined(SLOW_DOWN)
+			for(k=0;k<GAME_SLOW_DOWN*4;++k) {};
+		#endif
+		printCenteredMessageOnRow(2+(loop&15), "             ");
+		
+		++loop;
+		
+		MOVE_PLAYER();
+		if(wallReached(&player))
+		{
+			playerFire = 1;
+		}
 	}
-#endif
+	printGameOver();
+	sleep(2);
+	printPressKeyToStart();
+	WAIT_PRESS();
+	playerFire = 0;
+}
 
 #endif
 

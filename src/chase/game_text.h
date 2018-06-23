@@ -22,8 +22,13 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
  
-#ifndef _DISPLAY
-#define _DISPLAY
+#ifndef _GAME_TEXT
+#define _GAME_TEXT
+
+#include "settings.h"
+#include "../cross_lib/cross_lib.h"
+#include "../cross_lib/text/text_macros.h"
+
 
 
 #if defined(__CMOC__) && !defined(__WINCMOC__)
@@ -35,21 +40,7 @@
 #endif
 
 
-#if !defined(NO_COLOR)
-	#define printCenteredMessage(Text) \
-		printCenteredMessageOnRow((YSize>>1), Text)
-
-	#define printCenteredMessageWithCol(col, Text) \
-		printCenteredMessageOnRowWithCol((YSize>>1), col, Text)	
-#else
-	#define printCenteredMessage(Text) \
-		printCenteredMessageOnRow((YSize>>1), Text)
-		
-	#define printCenteredMessageWithCol(col, Text) \
-		printCenteredMessageOnRow((YSize>>1), Text)
-#endif
-	
-
+// game_stat
 void displayStats(void);
 
 #if !defined(TINY_GAME)
@@ -58,31 +49,6 @@ void displayStats(void);
 	void printGunsStats(void);
 #endif
 
-#if !defined(NO_MESSAGE)
-	void printCenteredMessageOnRow(unsigned char row, char *Text);
-	void printPressKeyToStart(void);
-#else
-	#define printCenteredMessageOnRow(row,Text)
-	#define printPressKeyToStart()
-#endif
-
-#if defined(COLOR)
-	void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text);
-#endif
-
-
-#if !defined(LESS_TEXT)
-	void deleteCenteredMessage(void);
-#endif
-
-
-#if !defined(LESS_TEXT)
-	void printLevel(void);
-
-	void printVictoryMessage(void);
-
-	void printExtraLife(void);
-#endif
 
 #if !defined(NO_STATS)
 	void printLevelStats(void);
@@ -92,6 +58,16 @@ void displayStats(void);
 	#define printLevelStats()
 	#define printGhostCountStats()
 	#define printLivesStats()
+#endif
+
+
+// game_text
+#if !defined(LESS_TEXT)
+	void printLevel(void);
+
+	void printVictoryMessage(void);
+
+	void printExtraLife(void);
 #endif
 
 #if !defined(NO_MESSAGE)
@@ -146,7 +122,8 @@ void printStartMessage(void);
 #if defined(FULL_GAME)
 	void printHints(void);
 #endif
+
 	
-#endif // _DISPLAY
+#endif // _GAME_TEXT
 
 

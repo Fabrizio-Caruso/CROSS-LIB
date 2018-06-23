@@ -35,7 +35,7 @@
 
 #include "../cross_lib/cross_lib.h"
 
-#include "text.h"
+#include "game_text.h"
 
 extern unsigned short points;
 

@@ -104,13 +104,6 @@
 	#define CASE_LETTERS
 #endif
 
-
-#if defined(__ATARI__) || defined(__ATARIXL__) \
-	|| defined(ALT_PRINT)
-	#define NO_TEXT_COLOR
-#endif
-
-
 #if defined(__CPC__) || defined(__GAMATE__)
 	#define TEXT_COLOR 3
 #else
@@ -127,6 +120,7 @@
 
 #include "sleep/sleep_macros.h"
 
+#include "text/text_macros.h"
 
 #endif // _TARGET_SETTINGS
 

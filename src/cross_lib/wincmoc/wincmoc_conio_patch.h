@@ -34,39 +34,14 @@
 #ifndef _CMOC_CONIO_PATCH
 #define _CMOC_CONIO_PATCH
 
-	// #if defined(__ZX80__)
-		// #define cputc(c) {gen_tv_field(); putch(c);}
-	// #else
-		// #define cputc(c) cputc(c);
-	// #endif
-	//
-	// #define cgetc() (char) getch();
-
-	// RED 6
-	// BLUE 1
-	// MAGENTA 5
-	// WHITE 7
-	// CYAN 3
-	// OTHER RED 4 but should be YELLOW
-	// OTHER CYAN 9
-	// OTHER GREEN 10
-	// #if defined(__AQUARIUS__) || defined(__SPECTRUM__) || defined(__SVI__) 
-
-		#define COLOR_BLACK 0
-		#define COLOR_BLUE 1		
-		#define COLOR_GREEN 2
-		#define COLOR_CYAN 3	
-		#define COLOR_MAGENTA 5
-		#define COLOR_RED 6	
-		#define COLOR_WHITE 7		
-		#define COLOR_YELLOW 14
-	// #else
-		// #define COLOR_WHITE 1
-		// #define COLOR_BLACK 0
-		// #define COLOR_RED 2
-		// #define COLOR_BLUE 3
-		// #define COLOR_CYAN 4
-	// #endif
+	#define COLOR_BLACK 0
+	#define COLOR_BLUE 1		
+	#define COLOR_GREEN 2
+	#define COLOR_CYAN 3	
+	#define COLOR_MAGENTA 5
+	#define COLOR_RED 6	
+	#define COLOR_WHITE 7		
+	#define COLOR_YELLOW 14
 
 	#ifndef CH_ULCORNER
 		#define CH_ULCORNER 'X'

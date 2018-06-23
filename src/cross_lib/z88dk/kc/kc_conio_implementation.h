@@ -34,9 +34,6 @@
 #ifndef _KC_CONIO_IMPLEMENTATION
 #define _KC_CONIO_IMPLEMENTATION
 	#include <stdio.h>
-
-	//printf("%c%c%c%c",27,'=',y+32,x+32);
-	// 		printf("\33[%c;%cH",y+32,x+32); \
 	
 	#define gotoxy(x,y) do \
 		{ \
@@ -44,12 +41,10 @@
 		\
 		} while(0)
 		
-	// printf("%c%c",27,'*')	
 	#define clrscr() printf("\0C");
 
 	#define cprintf printf
 			
-	// 		printf("%c%c", 27,'2');
 	#define cputc(c) do \
 		{ \
 		fputc_cons(c); \
@@ -57,20 +52,5 @@
 	
 	#define cgetc() getk()
 
-	#define textcolor 
-
-	
-	#define COLOR_BLACK 0	
-	#define COLOR_BLUE 1
-
-	#define COLOR_RED 2
-	#define COLOR_MAGENTA 3
-	
-	#define COLOR_GREEN 4
-	#define COLOR_CYAN 5
-	
-	#define COLOR_YELLOW 6
-	#define COLOR_WHITE 7
-	
 #endif // KC_CONIO_IMPLEMENTATION
 

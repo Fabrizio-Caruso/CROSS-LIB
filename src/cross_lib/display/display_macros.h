@@ -48,8 +48,8 @@
 	#include "../generic/patch/vt100_conio_implementation.h"
 #elif defined(Z88DK_PUTC4X6)
 	#include "../z88dk/generic/z88dk_putc4x6_conio_implementation.h"
-#elif defined(__ATMOS__)
-	#include "../cc65/atmos/atmos_conio_patch.h"
+// #elif defined(__ATMOS__)
+	// #include "../cc65/atmos/atmos_conio_patch.h"
 #elif defined(__SUPERVISION__) 
 	#include "../cc65/supervision/supervision_conio_implementation.h"	
 #elif defined(__ATARI_LYNX__) 

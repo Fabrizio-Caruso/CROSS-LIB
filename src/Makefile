@@ -2926,11 +2926,7 @@ kc_putc4x6_tiny:
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-DZ88DK_PUTC4X6 \
 	-create-app -o$(BUILD_PATH)/TINY_kc_putc4x6_.bin \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
+	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
 	
 

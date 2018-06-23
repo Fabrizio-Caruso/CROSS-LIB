@@ -34,9 +34,6 @@
 #ifndef _Z88DK_CONIO_IMPLEMENTATION
 #define _Z88DK_CONIO_IMPLEMENTATION
 	
-	// #if defined(__SPECTRUM__)
-		// #define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
-		// #define cprintf printf
 	#  if defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
 		#undef gotoxy
 		#define gotoxy(x,y) zx_setcursorpos(y,x)
@@ -45,40 +42,23 @@
 	#elif defined(__SVI__) || defined(__MSX__)
 		#define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
 		#define clrscr() printf("\033E")
-		#define cprintf printf
-		#define _cprintf printf
-		#define cputs puts_cons
-		#define _cputs puts_cons
-		#define cgets gets
-		#define _cgets gets	
 	#else
 	#endif
 
 	#if defined(__ZX80__)
-		#define cputc(c) do {fputc_cons(c);} while(0)
-	// #elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
-		// #define cputc(c) printf("\x11%c%c",COLOR_BLACK,c);		
+		#define cputc(c) do {fputc_cons(c);} while(0)	
 	#else
 		#define cputc(c) fputc_cons(c)
 	#endif
 		
-	// #if defined(__SPECTRUM__)
-		// #define cgetc() in_Inkey();
-	// #else
-		// #define cgetc() (char) getch();
-	// #endif
 	#define cgetc() (char) getch();
 
-	
 	#define COLOR_BLACK 0	
 	#define COLOR_BLUE 1
-
 	#define COLOR_RED 2
 	#define COLOR_MAGENTA 3
-	
 	#define COLOR_GREEN 4
 	#define COLOR_CYAN 5
-	
 	#define COLOR_YELLOW 6
 	#define COLOR_WHITE 7
 #endif // _Z88DK_CONIO_IMPLEMENTATION

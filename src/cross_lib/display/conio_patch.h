@@ -22,7 +22,6 @@
 #  if defined(CONIO_ADM3A)
 	#define gotoxy(x,y) printf("\033=%c%c",y+32,x+32);
 	#define clrscr() printf("\032")
-	#define cprintf printf
 
 #elif defined(CONIO_VT52)
 	#undef gotoxy
@@ -35,7 +34,6 @@
 	#include <stdio.h>
 
 	#define gotoxy(x,y) printf("\033[%d;%dH", y+1, x+1)
-	
 	#define clrscr() printf("\033[H\033[2J")
 	
 #elif defined(Z88DK_PUTC4X6)
@@ -60,11 +58,7 @@
 
 	#define cprintf printf
 			
-	#define cputc(c) do \
-		{ \
-			putc4x6(c); \
-		} \
-		while (0)
+	#define cputc(c) putc4x6(c)
 	
 	#define cgetc() getk()
 
@@ -81,7 +75,6 @@
 	#define textcolor tgi_setcolor
 
 #elif defined(__SUPERVISION__)
-
 	#include <stdio.h>
 	
 	#define gotoxy(a,b) 
@@ -91,23 +84,19 @@
 	#define cgetc() (char) getchar();
 	#define textcolor
 	
-#elif defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0)) \
-	  || defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)	
-
-	#  if defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
-		#undef gotoxy
-		#define gotoxy(x,y) zx_setcursorpos(y,x)
-	#elif defined(__MTX__)
-		#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
-	#elif defined(__SVI__) || defined(__MSX__)
-		#define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
-		#define clrscr() printf("\033E")
-	#else
-	#endif
+#elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
+	#undef gotoxy
+	#define gotoxy(x,y) zx_setcursorpos(y,x)
 
 	#define cputc(c) fputc_cons(c)
-		
 	#define cgetc() (char) getch();
+ 
+#elif defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0))
+	#define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
+	#define clrscr() printf("\033E") 
+
+	#define cputc(c) fputc_cons(c)
+	#define cgetc() (char) getch(); 
 	
 #elif defined(__C128_Z80__) || defined(__X1__) || defined(__Z9001__) \
 	|| defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \

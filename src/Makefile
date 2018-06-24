@@ -73,9 +73,9 @@ atari_color:
 	$(CC65_PATH)$(MYCC65) -O -t atari \
 	-DREDEFINED_CHARS -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
-	$(CROSS_LIB_PATH)/cc65/atari/disable_setcursor.s \
-	$(CROSS_LIB_PATH)/cc65/atari/atari_sounds.c \
-	$(CROSS_LIB_PATH)/cc65/atari/atari_mode1_redefined_chars_graphics.c \
+	$(CROSS_LIB_PATH)/display/cc65/atari/disable_setcursor.s \
+	$(CROSS_LIB_PATH)/sound/cc65/atari/atari_sounds.c \
+	$(CROSS_LIB_PATH)/display/cc65/atari/atari_mode1_redefined_chars_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_atari_color.xex
@@ -83,7 +83,7 @@ atari_color:
 atari_no_color: 
 	$(CC65_PATH)$(MYCC65) -O -t atari \
 	-DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
-	$(CROSS_LIB_PATH)/cc65/atari/atari_sounds.c \
+	$(CROSS_LIB_PATH)/sound/cc65/atari/atari_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_atari_no_color.xex
@@ -103,7 +103,7 @@ atmos:
 	-t atmos \
 	-DALT_MOVE \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	$(CROSS_LIB_PATH)/cc65/atmos/atmos_redefined_characters.c \
+	$(CROSS_LIB_PATH)/display/cc65/atmos/atmos_redefined_characters.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_atmos_and_oric1_48k.tap
@@ -112,7 +112,7 @@ atmos:
 oric1_16k: 
 	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DREDEFINED_CHARS \
 	-t atmos --config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	$(CROSS_LIB_PATH)/cc65/atmos/atmos_redefined_characters.c \
+	$(CROSS_LIB_PATH)/display/cc65/atmos/atmos_redefined_characters.c \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_oric1_16k.tap
 
@@ -138,7 +138,7 @@ vic20_unexpanded:
 	-DALT_HIGHSCORE \
 	-DFORCE_BOMBS_NUMBER=4 \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
-	$(CROSS_LIB_PATH)/cc65/vic20/vic20_unexpanded.c \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_unexpanded.c \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
 	
@@ -146,15 +146,16 @@ vic20_exp_3k:
 	$(CC65_PATH)$(MYCC65) -Or  -t vic20 \
 	-DALT_PRINT -DREDEFINED_CHARS -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 -DROUND_ENEMIES -DTINY_GAME -DSOUNDS \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
-	$(CROSS_LIB_PATH)/cc65/vic20/vic20_sounds_3k.c \
-	$(CROSS_LIB_PATH)/cc65/vic20/udc_3k.s  \
-	$(CROSS_LIB_PATH)/cc65/vic20/vic20_graphics_3k.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/udc_3k.s  \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_graphics_3k.c \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 
 vic20_exp_8k: 
 	$(CC65_PATH)$(MYCC65) -Or  -t vic20  -DSOUNDS -DREDEFINED_CHARS --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
-	$(CROSS_LIB_PATH)/cc65/vic20/udc.s $(CROSS_LIB_PATH)/cc65/vic20/vic20_graphics.c  $(CROSS_LIB_PATH)/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/udc.s $(CROSS_LIB_PATH)/display/cc65/vic20/vic20_graphics.c  \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
 	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
@@ -179,9 +180,9 @@ vic20_exp_8k_full:
 	-DALT_SLEEP \
 	-DREDEFINED_CHARS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/cc65/vic20/vic20_sounds.c \
-	$(CROSS_LIB_PATH)/cc65/vic20/vic20_alt_print_init.c \
-	$(CROSS_LIB_PATH)/generic/memory_mapped/memory_mapped_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_alt_print_init.c \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
@@ -189,8 +190,9 @@ vic20_exp_8k_full:
 vic20_exp_16k: 
 	$(CC65_PATH)$(MYCC65) -Or -t vic20 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
-	$(CROSS_LIB_PATH)/cc65/vic20/udc.s \
-	$(CROSS_LIB_PATH)/cc65/vic20/vic20_graphics.c $(CROSS_LIB_PATH)/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/udc.s \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
@@ -200,8 +202,8 @@ c64:
 	$(CC65_PATH)$(MYCC65) -O -t c64 \
 	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
-	$(CROSS_LIB_PATH)/cc65/c64/graphics.s \
-	$(CROSS_LIB_PATH)/cc65/c64/c64_redefined_characters.c \
+	$(CROSS_LIB_PATH)/display/cc65/c64/graphics.s \
+	$(CROSS_LIB_PATH)/display/cc65/c64/c64_redefined_characters.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c64.prg
@@ -221,9 +223,9 @@ c64_8k_cart:
 	-DFLAT_ENEMIES \
 	-DCBM_SCREEN_CODES \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg \
-	$(CROSS_LIB_PATH)/cc65/c64/graphics.s \
-	$(CROSS_LIB_PATH)/cc65/c64/c64_alt_print_init.c \
-	$(CROSS_LIB_PATH)/generic/memory_mapped/memory_mapped_graphics.c \
+	$(CROSS_LIB_PATH)/display/cc65/c64/graphics.s \
+	$(CROSS_LIB_PATH)/display/cc65/c64/c64_alt_print_init.c \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c64_8k_cart.prg
@@ -256,8 +258,8 @@ c16_16k:
 	$(CC65_PATH)$(MYCC65) -Or -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k.cfg \
 	-DREDEFINED_CHARS  -DSOUNDS \
-	$(CROSS_LIB_PATH)/cc65/c264/c264_sounds.c \
-	$(CROSS_LIB_PATH)/cc65/c264/c264_graphics.c  \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/cc65/c264/c264_graphics.c  \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_c16_16k.prg
 	
@@ -265,7 +267,8 @@ c16_32k:
 	$(CC65_PATH)$(MYCC65) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DREDEFINED_CHARS -DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	$(CROSS_LIB_PATH)/cc65/c264/c264_graphics.c $(CROSS_LIB_PATH)/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/cc65/c264/c264_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c16_32k.prg
@@ -280,9 +283,9 @@ c16_16k_full:
 	-DSOUNDS \
 	-DALT_PRINT \
 	-DREDEFINED_CHARS \
-	$(CROSS_LIB_PATH)/cc65/c264/c264_sounds.c \
-	$(CROSS_LIB_PATH)/cc65/c264/c264_alt_print_init.c \
-	$(CROSS_LIB_PATH)/generic/memory_mapped/memory_mapped_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/cc65/c264/c264_alt_print_init.c \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX.prg	
 
@@ -398,7 +401,7 @@ gamate:
 	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
-	$(CROSS_LIB_PATH)/cc65/gamate/gamate_graphics.c \
+	$(CROSS_LIB_PATH)/display/cc65/gamate/gamate_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_gamate.bin
@@ -444,7 +447,7 @@ atari_lynx:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
 	-DALT_PRINT \
-	$(CROSS_LIB_PATH)/cc65/atari_lynx/atari_lynx_graphics.c \
+	$(CROSS_LIB_PATH)/display/cc65/atari_lynx/atari_lynx_graphics.c \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_ATARI_LYNX.lnx
 	
@@ -480,7 +483,7 @@ pce_16k:
 supervision:
 	$(CC65_PATH)$(MYCC65) -O -t supervision  \
 	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
-	$(CROSS_LIB_PATH)/cc65/supervision/supervision_graphics.c \
+	$(CROSS_LIB_PATH)/display/cc65/supervision/supervision_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_supervision.sv
@@ -500,7 +503,7 @@ aquarius_exp_4k:
 	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DEXT_GRAPHICS \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TINY_aquarius_exp_4k -create-app \
-	$(CROSS_LIB_PATH)/z88dk/aquarius/aquarius_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/aquarius/aquarius_graphics.c \
 	$(TINY_FILES)
 	rm $(SOURCE_PATH)/../TINY_aquarius_exp_4k
 	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)
@@ -586,7 +589,7 @@ vg5k:
 	-DFORCE_BOMBS_NUMBER=4 \
 	-DSOUNDS \
 	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
-	$(CROSS_LIB_PATH)/z88dk/vg5k/vg5k_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/vg5k/vg5k_graphics.c \
 	$(FULL_FILES) 
 	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
 
@@ -597,7 +600,7 @@ vg5k_exp_16k:
 	$(SCCZ80_OPTS) \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k.prg \
-	$(CROSS_LIB_PATH)/z88dk/vg5k/vg5k_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/vg5k/vg5k_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
 	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg	
@@ -607,7 +610,7 @@ ace_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-clib=ansi -o full -Cz--audio -create-app \
-	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	cp full.wav $(BUILD_PATH)/FULL_ace_exp_16k.wav
@@ -625,7 +628,7 @@ zx80_16k_turn_based:
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg
@@ -640,7 +643,7 @@ zx81_16k_turn_based:
 	-DTURN_BASED \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg \
-	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg
@@ -656,7 +659,7 @@ zx81_16k:
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg \
-	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k.prg
@@ -666,7 +669,7 @@ lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) \
 	-vn -D__LAMBDA__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o  $(BUILD_PATH)/FULL_lambda_16k.prg \
-	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_lambda_16k.prg		
@@ -680,10 +683,10 @@ cpc:
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars.asm \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars8.asm \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_cpcrslib_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars.asm \
+	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_cpcrslib_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt
@@ -702,10 +705,10 @@ cpc_joystick:
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc_joystick.prg \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars.asm \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars8.asm \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_cpcrslib_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars.asm \
+	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_cpcrslib_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_joystick.cpc  $(BUILD_PATH)/FULL_cpc_joystick.cdt
@@ -726,7 +729,7 @@ msx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -zorg=49200 \
 	-DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	-create-app -o $(BUILD_PATH)/LIGHT_msx_16k.prg \
-	$(CROSS_LIB_PATH)/z88dk/msx/msx_graphics.c $(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_graphics.c $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_msx_16k.prg 	
 
@@ -737,7 +740,7 @@ msx_32k:
 	-create-app -vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_msx_32k.prg \
-	$(CROSS_LIB_PATH)/z88dk/msx/msx_graphics.c	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_graphics.c	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_msx_32k.prg 
@@ -749,7 +752,7 @@ msx_32k_rom:
 	-lndos -subtype=rom \
 	-o $(BUILD_PATH)/FULL_msx_32k.rom \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/z88dk/msx/msx_graphics.c $(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_graphics.c $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/FULL_msx_32k_DATA.bin
@@ -760,7 +763,7 @@ svi_318_mode0:
 	-D__SVI__ -DMSX_MODE0 \
 	-DSOUNDS \
 	-create-app \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c $(CROSS_LIB_PATH)/z88dk/svi/svi_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c $(CROSS_LIB_PATH)/display/z88dk/svi/svi_graphics.c \
 	$(LIGHT_FILES)
 	mv a.cas $(BUILD_PATH)/LIGHT_svi_318_mode0.cas
 	rm a.bin
@@ -778,7 +781,7 @@ svi_318:
 	-D__SVI__ \
 	-DSOUNDS \
 	-create-app \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c	\
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c	\
 	$(LIGHT_FILES)
 	mv a.cas $(BUILD_PATH)/LIGHT_svi_318.cas
 	rm a.bin
@@ -834,7 +837,7 @@ svi_328:
 	-DSOUNDS \
 	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
 	-create-app \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c  \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.cas $(BUILD_PATH)/FULL_svi_328.cas
@@ -922,8 +925,6 @@ p2000_32k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_p2000.prg	
 	
-# KEYBOARD INPUT PROBLEM
-# -DFULL_GAME -DSOUNDS
 
 z9001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) -clib=ansi \
@@ -949,7 +950,7 @@ mc1000_48k:
 	-clib=ansi \
 	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	-vn  -lndos -create-app -Cz--audio \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k.wav
@@ -970,7 +971,7 @@ mc1000_16k_full:
 	-DEND_SCREEN \
 	-DALT_SLEEP \
 	-vn  -lndos -create-app -Cz--audio \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -996,7 +997,7 @@ spectrum_16k:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc -clib=sdcc_iy \
 	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -v  -D__SPECTRUM__ \
 	-create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg \
-	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_graphics.c \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin 
 	rm $(BUILD_PATH)/TINY_spectrum_16k_UNASSIGNED.bin
@@ -1010,7 +1011,7 @@ spectrum_48k:
 	-DALT_MOVE \
 	-lndos -create-app \
 	-o $(BUILD_PATH)/FULL_spectrum_48k.prg \
-	$(CROSS_LIB_PATH)/z88dk/spectrum/udg.asm $(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/spectrum/udg.asm $(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_spectrum_48k.prg
@@ -1025,7 +1026,7 @@ spectrum_48k_putc4x6:
 	-DNO_SLEEP -DLESS_TEXT -DNO_WAIT \
 	-lndos -create-app \
 	-o $(BUILD_PATH)/FULL_spectrum_48k_putc4x6.prg \
-	$(CROSS_LIB_PATH)/z88dk/spectrum/udg.asm $(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/spectrum/udg.asm $(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	rm $(BUILD_PATH)/FULL_spectrum_48k_putc4x6.prg
@@ -1050,7 +1051,7 @@ pc6001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -v -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_pc6001_32k.prg
@@ -1210,7 +1211,7 @@ trs80_tiny:
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-DALT_PRINT \
 	-o$(BUILD_PATH)/TINY_trs80.bin \
-	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/trs80/trs80_graphics.c \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_trs80.bin
 	
@@ -1222,7 +1223,7 @@ trs80:
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DALT_PRINT \
 	-o$(BUILD_PATH)/FULL_trs80.bin \
-	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/trs80/trs80_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_trs80.bin	
@@ -1238,7 +1239,7 @@ eg2k:
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DALT_PRINT \
 	-create-app \
-	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/trs80/trs80_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.cmd $(BUILD_PATH)/FULL_eg2k.cmd
@@ -1254,7 +1255,7 @@ kc_sprites_tiny:
 	-DNO_WAIT \
 	-DREDEFINED_CHARS \
 	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \
-	$(CROSS_LIB_PATH)/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_kc_sprites.bin	
 
@@ -1533,7 +1534,7 @@ coco:
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
 	$(COCO_OPTS) \
-	-c $(CROSS_LIB_PATH)/cmoc/cmoc_graphics.c
+	-c $(CROSS_LIB_PATH)/display/cmoc/cmoc_graphics.c
 	cmoc \
 	$(COCO_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
@@ -1742,7 +1743,9 @@ z88dk_targets: \
 	x1_targets \
 	px4_targets \
 	px8_targets \
-	kc_targets \
+	kc_targets
+	
+totest: \
 	trs80_targets \
 	cpm_targets \
 	nascom_targets \
@@ -2110,7 +2113,7 @@ pc6001_test:
 	-D__PC6001__ -v \
 	$(FAST_TEST_OPTS) \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_pc6001_32k.prg \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_pc6001_32k.prg
 	rm $(BUILD_PATH)/TEST_pc6001_32k.wav
@@ -2321,7 +2324,7 @@ cpc_test:
 	-lndos -create-app -o 	$(BUILD_PATH)/TEST_cpc.prg \
 	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars.asm \
 	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars8.asm \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_cpcrslib_graphics.c \
 	$(TEST_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/TEST_cpc.cpc  $(BUILD_PATH)/TEST_cpc.cdt
@@ -2338,7 +2341,7 @@ mc1000_test:
 	-clib=ansi \
 	-D__MC1000__ -DSOUNDS \
 	-vn  -lndos -create-app -Cz--audio \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES)
 	mv a.wav $(BUILD_PATH)/TEST_mc1000.wav
 	rm a.bin
@@ -2390,7 +2393,7 @@ svi_test:
 	-D__SVI__ \
 	$(FAST_TEST_OPTS) \
 	-create-app \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c  \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
 	$(TEST_FILES)
 	mv a.cas $(BUILD_PATH)/TEST_svi.cas
 	rm a.bin
@@ -2400,7 +2403,7 @@ msx_test:
 	-DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	$(FAST_TEST_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_msx.prg \
-	$(CROSS_LIB_PATH)/z88dk/msx/msx_graphics.c $(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/z88dk/msx/msx_graphics.c $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_msx.prg 	
 	
@@ -2617,7 +2620,7 @@ svi_zsdcc_test:
 	$(FAST_TEST_OPTS) \
 	-create-app \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES) 
 	mv a.cas $(BUILD_PATH)/TEST_ZSDCC_svi.cas
 	rm a.bin
@@ -2650,7 +2653,7 @@ mc1000_zsdcc_test:
 	-D__MC1000__ -DSOUNDS \
 	-DALT_SLEEP \
 	-vn  -lndos -create-app -Cz--audio \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(TEST_FILES) 
 	mv a.wav $(BUILD_PATH)/TEST_ZSDCC_mc1000.wav

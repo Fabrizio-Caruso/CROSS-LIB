@@ -61,7 +61,7 @@ COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DTINY_GAME
 
 COCO_OPTS_LIGHT ?= -O0 -D__CMOC__
 
-COCO_OPTS       ?= -O0 -D__CMOC__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
+COCO_OPTS       ?= -O0 -D__CMOC__ -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
 
 
 # -DNO_SLEEP
@@ -328,7 +328,7 @@ nes:
 	
 apple2:	 
 	$(CC65_PATH)$(MYCC65) -O -t apple2 \
-	-DFULL_GAME \
+	-DFULL_GAME -DALT_SLEEP \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -341,7 +341,7 @@ apple2:
 
 apple2enh: 
 	$(CC65_PATH)$(MYCC65) -O -t apple2enh \
-	-DFULL_GAME \
+	-DFULL_GAME -DALT_SLEEP \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -354,7 +354,7 @@ apple2enh:
 
 apple2enh_80col: 
 	$(CC65_PATH)$(MYCC65) -O -t apple2enh \
-	-DFULL_GAME \
+	-DFULL_GAME -DALT_SLEEP \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DFORCE_XSIZE=80 -DAPPLE2ENH_80COL_VIDEO_MODE \
 	$(SOURCE_PATH)/end_screen.c \
@@ -368,6 +368,7 @@ apple2enh_80col:
 	
 osic1p_32k: 
 	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
+	-DALT_SLEEP \
 	-DNO_SET_SCREEN_COLORS \
 	-DTURN_BASED \
 	-DFORCE_GHOSTS_NUMBER=9 \
@@ -407,7 +408,7 @@ gamate:
 creativision_8k_tiny: 
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
-	-DTINY_GAME \
+	-DTINY_GAME -DNO_SLEEP \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_creativision_8k.bin
@@ -653,7 +654,6 @@ zx81_16k:
 	-compiler=sdcc \
 	-vn \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg \
 	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
@@ -777,7 +777,6 @@ svi_318:
 	-vn -lndos \
 	-D__SVI__ \
 	-DSOUNDS \
-	-DALT_SLEEP \
 	-create-app \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c	\
 	$(LIGHT_FILES)
@@ -1038,6 +1037,7 @@ pc6001_16k:
 	-D__PC6001__ -v  \
 	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_pc6001.prg  \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_pc6001.prg
 	rm $(BUILD_PATH)/LIGHT_pc6001.wav
@@ -1725,11 +1725,9 @@ z88dk_test: \
 	sccz80_test \
 	zsdcc_test	
 	
-tofix: \
-	pc6001_targets \
-	zx81_targets
-	
 z88dk_targets: \
+	pc6001_targets \
+	zx81_targets \
 	einstein_targets \
 	sc3000_targets \
 	m5_targets \
@@ -2111,7 +2109,6 @@ pc6001_test:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -v \
 	$(FAST_TEST_OPTS) \
-	-DALT_SLEEP \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_pc6001_32k.prg \
 	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES)
@@ -2551,6 +2548,7 @@ zx81_zsdcc_test:
 	$(FAST_TEST_OPTS) \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_ZSDCC_zx81.prg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_zx81.prg
@@ -2618,7 +2616,8 @@ svi_zsdcc_test:
 	-DALT_SLEEP \
 	$(FAST_TEST_OPTS) \
 	-create-app \
-	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c	\
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES) 
 	mv a.cas $(BUILD_PATH)/TEST_ZSDCC_svi.cas
 	rm a.bin

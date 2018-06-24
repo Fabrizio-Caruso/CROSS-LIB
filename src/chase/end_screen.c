@@ -94,7 +94,7 @@ void gameCompleted(void)
 		}
 	}
 	printGameOver();
-	sleep(2);
+	SLEEP(2);
 	printPressKeyToStart();
 	WAIT_PRESS();
 	playerFire = 0;

@@ -270,6 +270,7 @@ void initialScreen(void)
 
 #if defined(SLOW_DOWN)
 	#  if defined(__NCURSES__)
+	
 		void _slow_down(void)
 		{
 			usleep(GAME_SLOW_DOWN*1024);
@@ -395,7 +396,7 @@ int main(void)
 				// Clear the screen, put cursor in upper left corner
 
 				printLevel();
-				sleep(1);
+				SLEEP(1);
 				CLEAR_SCREEN();
 			#endif
 				
@@ -407,7 +408,7 @@ int main(void)
 				if(bossLevel())
 				{
 					printKillTheSkull();
-					sleep(2);
+					SLEEP(2);
 				}
 				CLEAR_SCREEN();
 				
@@ -619,9 +620,9 @@ int main(void)
 				
 				#if !defined(TINY_GAME)
 					#if !defined(LESS_TEXT)
-						sleep(1);
+						SLEEP(1);
 						printVictoryMessage();
-						sleep(2);
+						SLEEP(2);
 
 						CLEAR_SCREEN();
 					#endif
@@ -636,7 +637,7 @@ int main(void)
 						points+= LEVEL_BONUS*10;
 						printLevelBonus(LEVEL_BONUS*10);
 					}
-					sleep(1);
+					SLEEP(1);
 					CLEAR_SCREEN();						
 				#else
 					points += LEVEL_BONUS * 4;
@@ -648,12 +649,12 @@ int main(void)
 					if(bossLevel())
 					{	
 						CLEAR_SCREEN();
-						sleep(1);
+						SLEEP(1);
 						PING_SOUND();
 						#if !defined(LESS_TEXT)
 							printExtraLife();
 						#endif
-						sleep(2);
+						SLEEP(2);
 						++lives;
 						skullsKilled = 1;
 						missileBasesDestroyed/=2;
@@ -696,7 +697,7 @@ int main(void)
 			}
 			#if defined(BETWEEN_LEVEL)
 				spiral(chasedEnemyPtr, 2*MIN_SIZE-18);
-				sleep(1);
+				SLEEP(1);
 			#endif				
 		} while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 
 			
@@ -704,7 +705,7 @@ int main(void)
 	{
 		gameCompleted();
 		#if !defined(NO_SLEEP)
-			sleep(2);
+			SLEEP(2);
 		#else
 			CLEAR_SCREEN();
 			WAIT_PRESS();
@@ -714,7 +715,7 @@ int main(void)
 	// GAME OVER	
 	printGameOver();
 
-	sleep(2);
+	SLEEP(2);
 	
 	#if !defined(TINY_GAME)
 		CLEAR_SCREEN();
@@ -726,7 +727,7 @@ int main(void)
 		WAIT_PRESS();
 	#endif
 	
-	sleep(2);
+	SLEEP(2);
 	if(points>highScore)
 	{
 		highScore = points;

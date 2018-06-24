@@ -32,17 +32,11 @@
 		#define CYCLES 1000UL
 	#endif
 
-	#if defined(__CMOC__) || defined(__WINCMOC__)
-		// Do nothing
-	#else
-		#if defined(Z88DK)
-			int sleep(int sec) 
-		#else
-			void sleep(unsigned char sec) 
-		#endif
-			{
-				unsigned short ii;
-				for(ii=0;ii<sec*CYCLES;++ii){}; 
-			}
-	#endif
+	void SLEEP(unsigned char sec)
+	{
+		unsigned short ii;
+		
+		for(ii=0;ii<sec*CYCLES;++ii){}; 		
+	}
+
 #endif

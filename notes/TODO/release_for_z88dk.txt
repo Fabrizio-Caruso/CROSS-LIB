@@ -27,7 +27,7 @@ IV)  DONE ENEMY -> GHOST (or viceversa?)
 
 14. Separate/Re-factor Stat display in text.h/c
 
-15. Separate generic text routines from game specific text routines
+15. DONE Separate generic text routines from game specific text routines
 
 16. Optimize and Re-factor blink display
 
@@ -45,6 +45,8 @@ light svi KO
 
 19. Make ArrowYPosition a parameter (verify memory loss/gain)
 
-20. Test major targets with latest Z88DK snapshots
+20. Define a SLEEP macro (fix CMOC cases)
+
+21. Test major targets with latest Z88DK snapshots
 
 

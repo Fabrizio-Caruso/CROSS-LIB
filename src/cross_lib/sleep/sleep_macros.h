@@ -24,25 +24,26 @@
 
 #ifndef _SLEEP_MACROS
 #define _SLEEP_MACROS
-
 	#define ALT_SLEEP_SCALE 4000UL
-
-	#if defined(NO_SLEEP)
-		#define sleep(sec)
-	#elif defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CREATIVISION__) || defined(__SUPERVISION__) || defined(__OSIC1P__)
-		void sleep(unsigned char sec);
-	#elif defined(ALT_SLEEP)	
-		#if defined(MACRO_SLEEP)
-			#define sleep(sec) do {unsigned short ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
-		#elif defined(Z88DK)
-			int sleep(int sec);
-		#else	
-			void sleep(unsigned char sec);
-		#endif
-	#elif !defined(__CMOC__)
+	
+	#  if !defined(__CMOC__)
 		#include <time.h>
 		#include <unistd.h>
-		#include <stdlib.h>				
-	#endif	
+		#include <stdlib.h>		
+	#else
+		#include <coco.h>
+		#include <cmoc.h>
+	#endif		
+
+	#  if defined(NO_SLEEP)
+		#define SLEEP(s)
+	#elif defined(MACRO_SLEEP)
+		#define SLEEP(s)  do {unsigned short ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
+	#elif defined(ALT_SLEEP)
+		void SLEEP(unsigned char s);
+	#else
+		#define SLEEP(s) sleep(s)
+	#endif
+
 #endif // _SLEEP_MACROS
 

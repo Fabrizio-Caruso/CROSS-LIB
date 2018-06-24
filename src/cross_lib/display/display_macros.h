@@ -34,12 +34,6 @@
 	#include <coco.h>
 #endif
 
-#if defined(__CREATIVISION__) || defined(__GAMATE__) \
-	|| defined(__OSIC1P__) || defined(__ATARI5200__) || defined(__PET__) \
-	|| defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
-	|| defined(__APPLE2ENH__) || defined(__ATMOS__)
-	#include "../cc65/generic/generic_conio_patch.h"
-#endif
 #  if defined(CONIO_ADM3A)
 	#include "../generic/patch/adm3a_conio_implementation.h"
 #elif defined(CONIO_VT52)
@@ -48,8 +42,6 @@
 	#include "../generic/patch/vt100_conio_implementation.h"
 #elif defined(Z88DK_PUTC4X6)
 	#include "../z88dk/generic/z88dk_putc4x6_conio_implementation.h"
-// #elif defined(__ATMOS__)
-	// #include "../cc65/atmos/atmos_conio_patch.h"
 #elif defined(__SUPERVISION__) 
 	#include "../cc65/supervision/supervision_conio_implementation.h"	
 #elif defined(__ATARI_LYNX__) 

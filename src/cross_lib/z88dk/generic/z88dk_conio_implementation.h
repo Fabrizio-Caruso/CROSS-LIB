@@ -37,7 +37,7 @@
 	#  if defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
 		#undef gotoxy
 		#define gotoxy(x,y) zx_setcursorpos(y,x)
-	#elif defined(__ENTERPRISE__) || defined(__MTX__)
+	#elif defined(__MTX__)
 		#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 	#elif defined(__SVI__) || defined(__MSX__)
 		#define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
@@ -52,14 +52,5 @@
 	#endif
 		
 	#define cgetc() (char) getch();
-
-	#define COLOR_BLACK 0	
-	#define COLOR_BLUE 1
-	#define COLOR_RED 2
-	#define COLOR_MAGENTA 3
-	#define COLOR_GREEN 4
-	#define COLOR_CYAN 5
-	#define COLOR_YELLOW 6
-	#define COLOR_WHITE 7
 #endif // _Z88DK_CONIO_IMPLEMENTATION
 

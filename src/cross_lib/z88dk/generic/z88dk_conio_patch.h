@@ -34,9 +34,7 @@
 #ifndef _Z88DK_CONIO_PATCH
 #define _Z88DK_CONIO_PATCH
 
-	#if defined(__ZX80__)
-		#define cputc(c) {gen_tv_field(); putch(c);}
-	#elif defined(__NASCOM__) || defined(__VG5K__)
+	#  if defined(__NASCOM__) || defined(__VG5K__)
 		#define cputc(c) fputc_cons(c)		
 	#else
 		#define cputc(c) putch(c);
@@ -53,11 +51,5 @@
 	#define COLOR_WHITE 7		
 	#define COLOR_YELLOW 14
 
-	#ifndef CH_ULCORNER
-		#define CH_ULCORNER 'X'
-		#define CH_URCORNER 'X'
-		#define CH_LLCORNER 'X'
-		#define CH_LRCORNER 'X'	
-	#endif	
 #endif // _Z88DK_CONIO_PATCH
 

@@ -1,4 +1,66 @@
 
+#if !defined(NO_COLOR)
+	#define COLOR_BLACK 0	
+	#define COLOR_WHITE 7
+	#define COLOR_BLUE 1
+		
+	#if defined(__SPECTRUM__) && !defined(CLIB_ANSI)
+		#define COLOR_RED 2
+		#define COLOR_MAGENTA 3
+		#define COLOR_GREEN 4
+		#define COLOR_CYAN 5
+		#define COLOR_YELLOW 6
+	#else
+		#define COLOR_GREEN 2
+		#define COLOR_CYAN 3	
+		#define COLOR_MAGENTA 5
+		#define COLOR_RED 6		
+		#define COLOR_YELLOW 14		
+	#endif
+
+#endif
+
+
+#if defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__)
+	#include <stdio.h>
+	
+	#define cprintf printf
+	
+	#if defined(Z88DK)
+		#define cputc(c) fputc_cons(c)
+		#define cgetc() getk()
+	#else
+		#define cputc(c) putchar()
+		#define cgetc() getch()		
+	#endif
+
+	#if defined(NO_COLOR)
+		#define textcolor 
+	#endif
+#endif
+
+
+#  if defined(__CPM_ADM3A__)
+	#define gotoxy(x,y) printf("\033=%c%c",y+32,x+32);
+	#define clrscr() printf("\032")
+	#define cprintf printf
+
+#elif defined(__CPM_VT52__)
+	#undef gotoxy
+	#define gotoxy(x,y) printf("\033Y%c%c",y+32,x+32)
+
+	#undef clrscr
+	#define clrscr() printf("\033E")
+
+#elif defined(__CPM_VT100__)
+	#include <stdio.h>
+
+	#define gotoxy(x,y) printf("\033[%d;%dH", y+1, x+1)
+	
+	#define clrscr() printf("\033[H\033[2J")
+#endif
+
+	
 #  if defined(Z88DK_PUTC4X6)
 	#include <stdio.h>
 	#include <graphics.h>
@@ -41,21 +103,6 @@
 	#define cgetc() (char) getchar();
 	#define textcolor tgi_setcolor
 
-#elif defined(__CREATIVISION__) || defined(__GAMATE__) \
-	|| defined(__OSIC1P__) || defined(__ATARI5200__) || defined(__PET__) \
-	|| defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
-	|| defined(__APPLE2ENH__)
-	
-	#if defined(__OSIC1P__)
-		#ifndef COLOR_BLACK
-			#define COLOR_BLACK 0
-		#endif
-
-		#ifndef COLOR_WHITE 
-			#define COLOR_WHITE 1
-		#endif
-	#endif
-
 #elif defined(__SUPERVISION__)
 
 	#include <stdio.h>
@@ -73,7 +120,7 @@
 	#  if defined(__ZX81__)	|| defined(__ZX80__) || defined(__LAMBDA__)
 		#undef gotoxy
 		#define gotoxy(x,y) zx_setcursorpos(y,x)
-	#elif defined(__ENTERPRISE__) || defined(__MTX__)
+	#elif defined(__MTX__)
 		#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 	#elif defined(__SVI__) || defined(__MSX__)
 		#define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
@@ -84,15 +131,6 @@
 	#define cputc(c) fputc_cons(c)
 		
 	#define cgetc() (char) getch();
-
-	#define COLOR_BLACK 0	
-	#define COLOR_BLUE 1
-	#define COLOR_RED 2
-	#define COLOR_MAGENTA 3
-	#define COLOR_GREEN 4
-	#define COLOR_CYAN 5
-	#define COLOR_YELLOW 6
-	#define COLOR_WHITE 7
 	
 #elif defined(__C128_Z80__) || defined(__X1__) || defined(__Z9001__) \
 	|| defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
@@ -116,15 +154,6 @@
 
 	#define cgetc() (char) getch();
 
-	#define COLOR_BLACK 0
-	#define COLOR_BLUE 1		
-	#define COLOR_GREEN 2
-	#define COLOR_CYAN 3	
-	#define COLOR_MAGENTA 5
-	#define COLOR_RED 6	
-	#define COLOR_WHITE 7		
-	#define COLOR_YELLOW 14
-
 #elif defined(__KC__)
 	#include <stdio.h>
 	
@@ -145,22 +174,11 @@
 	
 	#define cgetc() getk()
 	
-#elif defined(__SPECTRUM__)
+#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
 	#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 	#define cprintf printf
-
 	#define cputc(c) printf("\x11%c%c",COLOR_BLACK,c);		
-
 	#define cgetc() in_Inkey();
-	
-	#define COLOR_BLACK 0	
-	#define COLOR_BLUE 1
-	#define COLOR_RED 2
-	#define COLOR_MAGENTA 3
-	#define COLOR_GREEN 4
-	#define COLOR_CYAN 5
-	#define COLOR_YELLOW 6
-	#define COLOR_WHITE 7
 
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 
@@ -177,7 +195,6 @@
 	#define cprintf printf
 	#define gotoxy(x,y) locate(y,x)
 	#define cputc(c) printf("%c",c)
-
 
 #elif defined(__NCURSES__)
 	#include <ncurses.h>

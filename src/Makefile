@@ -368,6 +368,7 @@ apple2enh_80col:
 	
 osic1p_32k: 
 	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
+	-DNO_SET_SCREEN_COLORS \
 	-DTURN_BASED \
 	-DFORCE_GHOSTS_NUMBER=9 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \

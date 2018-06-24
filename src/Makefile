@@ -479,7 +479,7 @@ pce_16k:
 # --config $(SOURCE_PATH)/../cfg/cc65/supervision-16k.cfg
 supervision:
 	$(CC65_PATH)$(MYCC65) -O -t supervision  \
-	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
+	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
 	$(CROSS_LIB_PATH)/cc65/supervision/supervision_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -2928,7 +2928,8 @@ kc_putc4x6_tiny:
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-DZ88DK_PUTC4X6 \
 	-create-app -o$(BUILD_PATH)/TINY_kc_putc4x6_.bin \
-	$(TINY_FILES)
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/z88dk/z88dk_putc4x6/z88dk_putc4x6_alt_print.c 
 	rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
 	
 

@@ -24,7 +24,7 @@
 #endif
 
 
-#if defined(__CPM_ADM3A__) || defined(__CPM_VT52__) || defined(__CPM_VT100__)
+#if defined(CONIO_ADM3A) || defined(CONIO_VT52) || defined(CONIO_VT100)
 	#include <stdio.h>
 	
 	#define cprintf printf
@@ -43,28 +43,26 @@
 #endif
 
 
-#  if defined(__CPM_ADM3A__)
+#  if defined(CONIO_ADM3A)
 	#define gotoxy(x,y) printf("\033=%c%c",y+32,x+32);
 	#define clrscr() printf("\032")
 	#define cprintf printf
 
-#elif defined(__CPM_VT52__)
+#elif defined(CONIO_VT52)
 	#undef gotoxy
 	#define gotoxy(x,y) printf("\033Y%c%c",y+32,x+32)
 
 	#undef clrscr
 	#define clrscr() printf("\033E")
 
-#elif defined(__CPM_VT100__)
+#elif defined(CONIO_VT100)
 	#include <stdio.h>
 
 	#define gotoxy(x,y) printf("\033[%d;%dH", y+1, x+1)
 	
 	#define clrscr() printf("\033[H\033[2J")
-#endif
-
 	
-#  if defined(Z88DK_PUTC4X6)
+#elif defined(Z88DK_PUTC4X6)
 	#include <stdio.h>
 	#include <graphics.h>
 	#include <games.h>

@@ -1454,7 +1454,8 @@ m5_tiny:
 	-DTINY_GAME -DLESS_TEXT \
 	-o$(BUILD_PATH)/TINY_m5.bin \
 	$(TINY_FILES)
-
+	rm $(BUILD_PATH)/TINY_m5.bin
+	rm $(BUILD_PATH)/TINY_m5.cas
 
 m5:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
@@ -1466,7 +1467,8 @@ m5:
 	-o$(BUILD_PATH)/FULL_m5.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-
+	rm $(BUILD_PATH)/FULL_m5.bin
+	rm $(BUILD_PATH)/FULL_m5.cas
 	
 
 srr:

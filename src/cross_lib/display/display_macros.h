@@ -128,9 +128,6 @@ void _delete(unsigned char x, unsigned char y);
 
 // DRAW HORIZONTAL AND VERTICAL LINES
 #if !defined(TINY_GAME)
-	#if defined(__VG5K__)
-		void _draw_ch(unsigned char x, unsigned char y, unsigned char ch, unsigned char col);
-	#endif
 	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length);
 	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);	
 #else

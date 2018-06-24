@@ -244,13 +244,9 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#endif
 
 	#if BOMBS_NUMBER==4
-	{
 		FOUR_BOMBS();
-	}
 	#elif BOMBS_NUMBER==3	
-	{
 		THREE_BOMBS();
-	}
 	#elif BOMBS_NUMBER==2
 		TWO_BOMBS();
 	#elif BOMBS_NUMBER==1

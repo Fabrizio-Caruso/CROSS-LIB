@@ -163,39 +163,59 @@
 
 	
 #define FOUR_BOMBS() \
-	count = 0; \
-	for(i=1;i<=2;++i) \
+	do \
 	{ \
-		for(j=1;j<=2;++j) \
+		count = 0; \
+		for(i=1;i<=2;++i) \
 		{ \
-			PLACE_BOMB_4(); \
-			++count; \
+			for(j=1;j<=2;++j) \
+			{ \
+				PLACE_BOMB_4(); \
+				++count; \
+			} \
 		} \
 	} \
+	while(0)
 
 	
 #if defined(NO_RANDOM_LEVEL)
 	#define THREE_BOMBS() \
-		initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3)<<1),0,&BOMB_IMAGE); \
-		initializeCharacter(&bombs[1],XSize/3, (YSize/3),0,&BOMB_IMAGE); \
-		initializeCharacter(&bombs[2],((XSize/3)<<1), (YSize/3),0,&BOMB_IMAGE);		
+		do \
+		{ \
+			initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3)<<1),0,&BOMB_IMAGE); \
+			initializeCharacter(&bombs[1],XSize/3, (YSize/3),0,&BOMB_IMAGE); \
+			initializeCharacter(&bombs[2],((XSize/3)<<1), (YSize/3),0,&BOMB_IMAGE);	\
+		} \
+		while(0)
 #else
 	#define THREE_BOMBS() \
-		unsigned char rnd = rand()&1; \
-		initializeCharacter(&bombs[0],XSize/3+rnd, (YSize/3)+rnd,0,&BOMB_IMAGE); \
-		initializeCharacter(&bombs[1],(XSize>>1)+rnd, ((YSize/3)*2)+rnd,0,&BOMB_IMAGE); \
-		initializeCharacter(&bombs[2],2*(XSize/3)+rnd, (YSize/3)-rnd,0,&BOMB_IMAGE);
+		do \
+		{ \
+			unsigned char rnd = rand()&1; \
+			initializeCharacter(&bombs[0],XSize/3+rnd, (YSize/3)+rnd,0,&BOMB_IMAGE); \
+			initializeCharacter(&bombs[1],(XSize>>1)+rnd, ((YSize/3)*2)+rnd,0,&BOMB_IMAGE); \
+			initializeCharacter(&bombs[2],2*(XSize/3)+rnd, (YSize/3)-rnd,0,&BOMB_IMAGE); \
+		} \
+		while(0)
 #endif	
 
 
 #if defined(NO_RANDOM_LEVEL)
 	#define TWO_BOMBS() \
-		initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3)),0,&BOMB_IMAGE); \
-		initializeCharacter(&bombs[1],(XSize>>1), ((YSize/3)<<1),0,&BOMB_IMAGE);		
+		do \
+		{ \
+			initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3)),0,&BOMB_IMAGE); \
+			initializeCharacter(&bombs[1],(XSize>>1), ((YSize/3)<<1),0,&BOMB_IMAGE); \
+		} \
+		while(0)
 #else
 	#define TWO_BOMBS() \
-		initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3))+rand()%3,0,&BOMB_IMAGE); \
-		initializeCharacter(&bombs[1],(XSize>>1)-1+rand()%3, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE);
+		do \
+		{ \
+			initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3))+rand()%3,0,&BOMB_IMAGE); \
+			initializeCharacter(&bombs[1],(XSize>>1)-1+rand()%3, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE); \
+		} \
+		while(0)
 #endif	
 
 

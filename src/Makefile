@@ -181,8 +181,9 @@ vic20_exp_8k_full:
 	-DREDEFINED_CHARS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_alt_print_init.c \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
@@ -224,8 +225,9 @@ c64_8k_cart:
 	-DCBM_SCREEN_CODES \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg \
 	$(CROSS_LIB_PATH)/display/cc65/c64/graphics.s \
-	$(CROSS_LIB_PATH)/display/cc65/c64/c64_alt_print_init.c \
+	$(CROSS_LIB_PATH)/display/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c64_8k_cart.prg
@@ -284,8 +286,9 @@ c16_16k_full:
 	-DALT_PRINT \
 	-DREDEFINED_CHARS \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
-	$(CROSS_LIB_PATH)/display/cc65/c264/c264_alt_print_init.c \
+	$(CROSS_LIB_PATH)/display/cc65/c264/c264_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX.prg	
 
@@ -1782,42 +1785,41 @@ clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/wincmoc_main.coco.bin
 
 clean_lib_obj:
-	rm -rf $(CROSS_LIB_PATH)/cc65/atari/*.o
-	rm -rf $(CROSS_LIB_PATH)/cc65/atari_lynx/*.o	
-	rm -rf $(CROSS_LIB_PATH)/cc65/atmos/*.o
-	rm -rf $(CROSS_LIB_PATH)/cc65/c64/*.o
-	rm -rf $(CROSS_LIB_PATH)/cc65/c264/*.o
-	rm -rf $(CROSS_LIB_PATH)/cc65/gamate/*.o
-	rm -rf $(CROSS_LIB_PATH)/cc65/generic/*.o
-	rm -rf $(CROSS_LIB_PATH)/cc65/supervision/*.o	
-	rm -rf $(CROSS_LIB_PATH)/cc65/sid/*.o	
-	rm -rf $(CROSS_LIB_PATH)/cc65/vic20/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/aquarius/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/bit_bang/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/psg/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/zx81/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/z88dk_sprites/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/vg5k/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/trs80/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/svi/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/msx/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/cpc/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/enterprise/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/spectrum/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/kc/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/generic/*.o
-	rm -rf $(CROSS_LIB_PATH)/z88dk/sms/*.o
-	rm -rf $(CROSS_LIB_PATH)/wincmoc/*.o
-	rm -rf $(CROSS_LIB_PATH)/cmoc/*.o
-	rm -rf $(CROSS_LIB_PATH)/ncurses/*.o
-	rm -rf $(CROSS_LIB_PATH)/generic/memory_mapped/*.o
-	rm -rf $(CROSS_LIB_PATH)/generic/patch/*.o	
+	rm -rf $(CROSS_LIB_PATH)/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/cc65/atari/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/cc65/atari_lynx/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/cc65/atmos/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/cc65/c64/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/cc65/c264/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/cc65/gamate/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/cc65/supervision/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/cc65/vic20/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/cmoc/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/memory_mapped/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/wincmoc/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/z88dk/aquarius/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/z88dk/cpc/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/z88dk/kc/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/z88dk/msx/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/z88dk/spectrum/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/z88dk/svi/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/z88dk/trs80/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/z88dk/vg5k/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/z88dk/z88dk_putc4x6/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/z88dk/zx81/*.o	
 	rm -rf $(CROSS_LIB_PATH)/input/*.o
 	rm -rf $(CROSS_LIB_PATH)/sleep/*.o
 	rm -rf $(CROSS_LIB_PATH)/sound/*.o
-	rm -rf $(CROSS_LIB_PATH)/text/*.0
-
+	rm -rf $(CROSS_LIB_PATH)/sound/cc65/atari/*.o
+	rm -rf $(CROSS_LIB_PATH)/sound/cc65/atmos/*.o
+	rm -rf $(CROSS_LIB_PATH)/sound/cc65/c264/*.o
+	rm -rf $(CROSS_LIB_PATH)/sound/cc65/sid/*.o
+	rm -rf $(CROSS_LIB_PATH)/sound/cc65/vic20/*.o	
+	rm -rf $(CROSS_LIB_PATH)/sound/z88dk/bit_bang/*.o
+	rm -rf $(CROSS_LIB_PATH)/sound/z88dk/psg/*.o	
+	rm -rf $(CROSS_LIB_PATH)/text/*.o	
 
 clean_obj: \
 	clean_chase_obj \

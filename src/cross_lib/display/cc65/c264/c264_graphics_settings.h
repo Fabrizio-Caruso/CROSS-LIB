@@ -22,6 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+#ifndef _C264_GRAPHICS_SETTINGS
+#define _C264_GRAPHICS_SETTINGS
 
 #include <conio.h>
 #include <peekpoke.h>
@@ -94,3 +96,7 @@
 #define _ROCKET ('^'-64)
 
 #define _BROKEN_WALL _BOMB
+
+
+#endif // _C264_GRAPHICS_SETTINGS
+

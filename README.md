@@ -101,7 +101,7 @@ For most targets, more than one version is built, in order to support different 
 - samcoupe: Sam Coupe
 - sc3000: Sega SC 3000
 - sharp_mz: Sharp MZ
-- spectrum: Sinclair Spectrum 16k/48k/12k
+- spectrum: Sinclair Spectrum 16k/48k/128k
 - srr: Exidy Sorcerer
 - supervision: Watara Supervision
 - svi: Spectravideo 318/328

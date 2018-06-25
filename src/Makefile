@@ -1270,7 +1270,7 @@ nc100_sprites_light:
 	-DNO_WAIT \
 	-DREDEFINED_CHARS \
 	-create-app -o$(BUILD_PATH)/LIGHT_nc100_sprites.bin \
-	$(CROSS_LIB_PATH)/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
 
@@ -1743,9 +1743,7 @@ z88dk_targets: \
 	x1_targets \
 	px4_targets \
 	px8_targets \
-	kc_targets
-	
-totest: \
+	kc_targets \
 	trs80_targets \
 	cpm_targets \
 	nascom_targets \
@@ -2053,8 +2051,6 @@ FAST_TEST_OPTS ?= \
 -DNO_STATS
 
 
-
-
 einstein_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \
 	-D__EINSTEIN__ \
@@ -2101,7 +2097,7 @@ ace_test:
 	-D__ACE__ \
 	$(FAST_TEST_OPTS) \
 	-clib=ansi -o test -Cz--audio -create-app \
-	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES)
 	cp test.wav $(BUILD_PATH)/TEST_ace_exp_16k.wav
 	rm test.wav
@@ -2129,7 +2125,7 @@ eg2k_test:
 	$(FAST_TEST_OPTS) \
 	-DALT_PRINT \
 	-create-app \
-	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/trs80/trs80_graphics.c \
 	$(TEST_FILES)
 	mv a.cmd $(BUILD_PATH)/TEST_eg2k.cmd	
 	rm a.bin
@@ -2263,7 +2259,7 @@ kc_test:
 	-DNO_WAIT \
 	-DREDEFINED_CHARS \
 	-create-app -o$(BUILD_PATH)/TEST_kc_sprites.bin \
-	$(CROSS_LIB_PATH)/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_kc_sprites.bin	
 	
@@ -2275,7 +2271,7 @@ trs80_test:
 	-DNO_SLEEP \
 	-DALT_PRINT \
 	-o$(BUILD_PATH)/TEST_trs80.bin \
-	$(CROSS_LIB_PATH)/z88dk/trs80/trs80_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/trs80/trs80_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_trs80.bin	
 
@@ -2311,7 +2307,7 @@ vg5k_test:
 	$(FAST_TEST_OPTS) \
 	-DSOUNDS -vn -D__VG5K__ -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_vg5k.prg \
-	$(CROSS_LIB_PATH)/z88dk/vg5k/vg5k_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/vg5k/vg5k_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_vg5k.prg	
 
@@ -2322,10 +2318,10 @@ cpc_test:
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/TEST_cpc.prg \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars.asm \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars.asm \
+	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(CROSS_LIB_PATH)/z88dk/cpc/cpc_cpcrslib_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_cpcrslib_graphics.c \
 	$(TEST_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/TEST_cpc.cpc  $(BUILD_PATH)/TEST_cpc.cdt
 	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd TEST_cpc.dsk
@@ -2403,7 +2399,8 @@ msx_test:
 	-DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	$(FAST_TEST_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_msx.prg \
-	$(CROSS_LIB_PATH)/z88dk/msx/msx_graphics.c $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_msx.prg 	
 	
@@ -2457,7 +2454,7 @@ zx80_test:
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_zx80.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES) 
 	rm $(BUILD_PATH)/TEST_zx80.prg
 	
@@ -2470,7 +2467,7 @@ zx81_test:
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_zx81.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES) 
 	rm $(BUILD_PATH)/TEST_zx81.prg
 		
@@ -2481,8 +2478,8 @@ spectrum_test:
 	-lndos -create-app \
 	$(FAST_TEST_OPTS) \
 	-o $(BUILD_PATH)/TEST_spectrum.prg \
-	$(CROSS_LIB_PATH)/z88dk/spectrum/udg.asm \
-	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/spectrum/udg.asm \
+	$(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_graphics.c \
 	$(TEST_FILES) 
 	rm $(BUILD_PATH)/TEST_spectrum.prg
 	rm $(BUILD_PATH)/TEST_spectrum_BANK_7.bin	
@@ -2494,7 +2491,7 @@ samcoupe_test:
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(TEST_FILES)
-	cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
+	cp $(TOOLS_PATH)/display/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
 	$(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
 	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/TEST_samcoupe.dsk
 	rm $(BUILD_PATH)/FULL_samcoupe.bin
@@ -2504,7 +2501,7 @@ lambda_test:
 	-vn -D__LAMBDA__ \
 	$(FAST_TEST_OPTS) \
 	-lndos -create-app -o  $(BUILD_PATH)/TEST_lambda.prg \
-	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_lambda.prg		
 	
@@ -2519,7 +2516,7 @@ nc100_test:
 	-DREDEFINED_CHARS \
 	$(FAST_TEST_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_nc100.bin \
-	$(CROSS_LIB_PATH)/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_nc100.bin	
 
@@ -2552,7 +2549,7 @@ zx81_zsdcc_test:
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_ZSDCC_zx81.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_zx81.prg
 	
@@ -2566,7 +2563,7 @@ aquarius_zsdcc_test:
 	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DEXT_GRAPHICS \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TEST_ZSDCC_aquarius -create-app \
-	$(CROSS_LIB_PATH)/z88dk/aquarius/aquarius_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/aquarius/aquarius_graphics.c \
 	$(TEST_FILES) 
 	rm $(SOURCE_PATH)/../TEST_ZSDCC_aquarius
 	mv $(SOURCE_PATH)/../TEST_ZSDCC_aquarius.caq $(BUILD_PATH)
@@ -2600,7 +2597,7 @@ spectrum_zsdcc_test:
 	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ \
 	$(FAST_TEST_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
-	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_CODE.bin 
 	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_UNASSIGNED.bin
@@ -2637,7 +2634,7 @@ vg5k_zsdcc_test:
 	-DSOUNDS \
 	$(FAST_TEST_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_vg5k.prg \
-	$(CROSS_LIB_PATH)/z88dk/vg5k/vg5k_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/vg5k/vg5k_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_vg5k.prg
 

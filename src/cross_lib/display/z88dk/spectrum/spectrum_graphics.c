@@ -24,8 +24,6 @@
 
 #include <string.h>
 
-#include "../../cross_lib.h"
-
 #include "../../../display/display_macros.h"
 
 #if !defined(CLIB_ANSI)

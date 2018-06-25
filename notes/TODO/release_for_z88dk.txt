@@ -45,8 +45,12 @@ light svi KO
 
 19. Make ArrowYPosition a parameter (verify memory loss/gain)
 
-20. Define a SLEEP macro (fix CMOC cases)
+20. DONE Define a SLEEP macro (fix CMOC cases)
 
-21. Test major targets with latest Z88DK snapshots
+21. Rename strategy.h/m -> chase.h/m
+
+22. Separate alt_print from graphics
+
+23. Test major targets with latest Z88DK snapshots
 
 

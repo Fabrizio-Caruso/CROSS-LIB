@@ -61,7 +61,7 @@ COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DTINY_GAME
 
 COCO_OPTS_LIGHT ?= -O0 -D__CMOC__
 
-COCO_OPTS       ?= -O0 -D__CMOC__ -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
+COCO_OPTS       ?= -O0 -D__CMOC__ -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
 
 
 # -DNO_SLEEP
@@ -1537,7 +1537,10 @@ coco:
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
 	$(COCO_OPTS) \
-	-c $(CROSS_LIB_PATH)/display/cmoc/cmoc_graphics.c
+	-c $(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c
 	cmoc \
 	$(COCO_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
@@ -1583,7 +1586,9 @@ coco:
 	cmoc -o $(BUILD_PATH)/FULL_CoCoDragon.bin \
 	$(COCO_OPTS) \
 	$(SOURCE_PATH)/main.c \
-	display_macros.o cmoc_graphics.o \
+	display_macros.o \
+	memory_mapped_graphics.o \
+	memory_mapped_alt_print.o \
 	ghost.o \
 	move_player.o \
 	level.o character.o \
@@ -1592,7 +1597,9 @@ coco:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	rm 	display_macros.o cmoc_graphics.o \
+	rm 	display_macros.o \
+	memory_mapped_graphics.o \
+	memory_mapped_alt_print.o \
 	ghost.o \
 	move_player.o \
 	level.o character.o \

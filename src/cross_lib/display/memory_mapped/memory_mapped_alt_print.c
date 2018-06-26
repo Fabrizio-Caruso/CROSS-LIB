@@ -17,6 +17,18 @@
 		}
 		return ch;
 	}
+#elif defined(__CMOC__) && !defined(__WINCMOC__)
+	char screenCode(char ch)
+	{
+		if(ch==32) 
+		{
+			return 32+64;
+		}
+		else
+		{
+			return ch-32;
+		}	
+	}
 #endif
 
 
@@ -25,7 +37,7 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	unsigned char i = 0;
 	while(str[i]!='\0')
 	{
-		#if defined(CBM_SCREEN_CODES)
+		#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))
 		POKE(loc(x,y)+i, screenCode(str[i])); 		
 		#else
 		POKE(loc(x,y)+i, str[i]); 

@@ -42,6 +42,7 @@
 	// #define _PLAYER_RIGHT 0x11
 	// #define _PLAYER_LEFT 0x10
 	#define _PLAYER _PLAYER_DOWN
+
 	
 	// RED
 	#define _BOMB '^'
@@ -110,7 +111,7 @@
 	#define _SKULL '+'
 	#define _CONFUSE ('+'+128)
 	#define _ZOMBIE 'O'	
-	#define _VERTICAL_BRICK '|'
+	#define _VERTICAL_BRICK ('|'-128)
 	#define _HORIZONTAL_BRICK '-'
 	#define _EXTRA_LIFE ('*'+128)
 	#define _EXTRA_POINTS '$'

@@ -3,6 +3,13 @@
 
 #include "memory_mapped_graphics.h"
 
+#if !defined(CC65)
+	#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+	#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
+	#define PEEK(addr)         (*(unsigned char*) (addr))
+	#define PEEKW(addr) (*(unsigned*) (addr))
+#endif
+
 #if defined(CBM_SCREEN_CODES)
 	char screenCode(char ch);
 #endif

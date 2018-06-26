@@ -250,7 +250,11 @@ extern Image GHOST_IMAGE;
 
 void INIT_IMAGES(void);
 
-void INIT_GRAPHICS(void);
+#if !defined(NO_INIT_GRAPHICS)
+	void INIT_GRAPHICS(void);
+#else
+	#define INIT_GRAPHICS() 
+#endif
 	
 #endif // _DISPLAY_MACROS
 

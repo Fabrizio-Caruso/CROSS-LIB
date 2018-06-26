@@ -2,13 +2,17 @@
 
 #include "memory_mapped_graphics.h"
 
-
+#if !defined(CC65)
+	#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+	#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
+	#define PEEK(addr)         (*(unsigned char*) (addr))
+	#define PEEKW(addr) (*(unsigned*) (addr))
+#endif
 
 unsigned short loc(unsigned char x, char y)
 {
 	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize);
 }
-
 
 
 extern Image PLAYER_IMAGE;
@@ -49,6 +53,7 @@ extern Image BOMB_IMAGE;
 	Image PLAYER_RIGHT;
 	Image PLAYER_LEFT;
 #endif
+
 
 void INIT_IMAGES(void)
 {		
@@ -166,24 +171,42 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 }
 #endif
 
+
+#if !defined(CONIO_LIB)
+void CLEAR_SCREEN(void)
+{
+	unsigned char i;
+	unsigned char j;
+	
+	for(i=0;i<YSize;++i)
+	{
+		for(j=0;j<XSize;++j)
+		{
+			POKE(BASE_ADDR+j+i*((unsigned short ) XSize),_SPACE);
+		}
+	}
+}
+#endif
+
+
 #if !defined(TINY_GAME)
+
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
 	unsigned char i;
-	for(i=0;i<length;++i) 
-	{ 
-		gotoxy(x+i+X_OFFSET,y+Y_OFFSET);  cputc('-');
-	} 	
+	for(i=0;i<length;++i)
+	{
+		_DRAW_HORIZONTAL_WALL(x+i,y);
+	}
 }
-
 
 void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
 	unsigned char i;
-	for(i=0;i<length;++i) 
-	{ 
-		gotoxy(x+X_OFFSET,y+Y_OFFSET+i);  cputc('|');
-	} 	
+	for(i=0;i<length;++i)
+	{
+		_DRAW_VERTICAL_WALL(x,y+i);
+	}		
 }
 #endif
 

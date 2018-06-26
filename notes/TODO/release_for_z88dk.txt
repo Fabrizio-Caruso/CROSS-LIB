@@ -49,8 +49,12 @@ light svi KO
 
 21. Rename strategy.h/m -> chase.h/m
 
-22. Separate alt_print from graphics
+22. PARTIAL Separate alt_print from graphics
 
-23. Test major targets with latest Z88DK snapshots
+23. Use EXT_GRAPHICS option instead of manuall editing display_macros.c
+
+24. Document the new file structure and how to add new tarhets
+
+25. Test major targets with latest Z88DK snapshots
 
 

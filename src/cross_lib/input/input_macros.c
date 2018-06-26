@@ -101,14 +101,14 @@
 		else if(ijkl==4)
 			return 'J';
 		else if(ijkl==8)
-			return 'K';
+			return 'K'; 
 		else if(ijkl==16)
 			return 'L';
 		
 		if(PEEK(0x3840)==128)
 			return ' ';
 		else
-			return '';
+			return '\0';
 	
 	#elif defined(__NCURSES__)
 		#define INPUT_LOOPS 10

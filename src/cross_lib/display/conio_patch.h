@@ -7,12 +7,12 @@
 	
 	#if defined(Z88DK)
 		#define cputc(c) fputc_cons(c)
-		#define cgetc() getk()
 	#else
 		#define cputc(c) putchar()
-		#define cgetc() getch()		
 	#endif
-
+	
+	#define cgetc() getch()	
+	
 	#if defined(NO_COLOR)
 		#define textcolor 
 	#endif
@@ -60,7 +60,7 @@
 			
 	#define cputc(c) putc4x6(c)
 	
-	#define cgetc() getk()
+	#define cgetc() getch()
 
 #elif defined(__ATARI_LYNX__)
 	#include <tgi.h>
@@ -138,7 +138,7 @@
 		fputc_cons(c); \
 		} while(0)
 	
-	#define cgetc() getk()
+	#define cgetc() getch()
 	
 #elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
 	#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 

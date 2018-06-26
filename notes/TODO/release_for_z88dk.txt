@@ -55,6 +55,8 @@ light svi KO
 
 24. Document the new file structure and how to add new tarhets
 
-25. Test major targets with latest Z88DK snapshots
+25. Implement color function for memory_mapped systems with color
+
+26. Test major targets with latest Z88DK snapshots
 
 

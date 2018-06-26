@@ -57,6 +57,10 @@
 #define _CONFUSE _SKULL
 #define _BROKEN_WALL _BOMB
 
+#define _SPACE ' '
+#define _VERTICAL_BRICK ('|')
+#define _HORIZONTAL_BRICK ('-')
 
 #define BASE_ADDR 0xC000
 #define COLOR_ADDR 0xD800
+

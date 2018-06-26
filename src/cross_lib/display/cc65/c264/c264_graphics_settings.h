@@ -97,6 +97,7 @@
 
 #define _BROKEN_WALL _BOMB
 
+#define _SPACE ' '
 
 #endif // _C264_GRAPHICS_SETTINGS
 

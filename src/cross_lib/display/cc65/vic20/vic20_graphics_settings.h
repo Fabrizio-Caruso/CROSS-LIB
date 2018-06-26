@@ -130,4 +130,6 @@
 	#define _ROCKET ('^'-64)
 	
 	#define _BROKEN_WALL _BOMB	
+	
+	#define _SPACE ' '
 #endif	

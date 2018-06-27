@@ -28,7 +28,6 @@
 
 #define VIDEO_MEMORY_BASE 0x4000
 
-// #include "../../cross_lib.h"
 #include "../../../display/display_macros.h"
 
 extern Image PLAYER_IMAGE;

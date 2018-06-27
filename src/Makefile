@@ -73,6 +73,7 @@ atari_color:
 	$(CC65_PATH)$(MYCC65) -O -t atari \
 	-DREDEFINED_CHARS -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
+	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/sound/cc65/atari/atari_sounds.c \
 	$(CROSS_LIB_PATH)/display/cc65/atari/atari_mode1_redefined_chars_graphics.c \
@@ -103,6 +104,7 @@ atmos:
 	-t atmos \
 	-DALT_MOVE \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/cc65/atmos/atmos_redefined_characters.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
@@ -112,6 +114,7 @@ atmos:
 oric1_16k: 
 	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DREDEFINED_CHARS \
 	-t atmos --config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/cc65/atmos/atmos_redefined_characters.c \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_oric1_16k.tap
@@ -138,6 +141,7 @@ vic20_unexpanded:
 	-DALT_HIGHSCORE \
 	-DFORCE_BOMBS_NUMBER=4 \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
+	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_unexpanded.c \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
@@ -146,6 +150,7 @@ vic20_exp_3k:
 	$(CC65_PATH)$(MYCC65) -Or  -t vic20 \
 	-DALT_PRINT -DREDEFINED_CHARS -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 -DROUND_ENEMIES -DTINY_GAME -DSOUNDS \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
+	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/udc_3k.s  \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_graphics_3k.c \
@@ -614,7 +619,6 @@ ace_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-clib=ansi -o full -Cz--audio -create-app \
-	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	cp full.wav $(BUILD_PATH)/FULL_ace_exp_16k.wav
@@ -632,7 +636,6 @@ zx80_16k_turn_based:
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg
@@ -647,7 +650,6 @@ zx81_16k_turn_based:
 	-DTURN_BASED \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg \
-	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg
@@ -663,7 +665,6 @@ zx81_16k:
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg \
-	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k.prg
@@ -673,7 +674,6 @@ lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) \
 	-vn -D__LAMBDA__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o  $(BUILD_PATH)/FULL_lambda_16k.prg \
-	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_lambda_16k.prg		
@@ -1212,10 +1212,10 @@ trs80_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
 	-lm -create-app \
 	-D__TRS80__ \
+	-DCONIO_VT52 \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-DALT_PRINT \
 	-o$(BUILD_PATH)/TINY_trs80.bin \
-	$(CROSS_LIB_PATH)/display/z88dk/trs80/trs80_graphics.c \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_trs80.bin
 	
@@ -1225,9 +1225,8 @@ trs80:
 	-lm -create-app \
 	-D__TRS80__ \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DALT_PRINT \
+	-DCONIO_VT52 \
 	-o$(BUILD_PATH)/FULL_trs80.bin \
-	$(CROSS_LIB_PATH)/display/z88dk/trs80/trs80_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_trs80.bin	
@@ -1241,9 +1240,8 @@ eg2k:
 	-lm \
 	-D__TRS80__ \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DALT_PRINT \
+	-DCONIO_VT52 \
 	-create-app \
-	$(CROSS_LIB_PATH)/display/z88dk/trs80/trs80_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.cmd $(BUILD_PATH)/FULL_eg2k.cmd
@@ -2107,7 +2105,6 @@ ace_test:
 	-D__ACE__ \
 	$(FAST_TEST_OPTS) \
 	-clib=ansi -o test -Cz--audio -create-app \
-	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES)
 	cp test.wav $(BUILD_PATH)/TEST_ace_exp_16k.wav
 	rm test.wav
@@ -2464,7 +2461,6 @@ zx80_test:
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_zx80.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES) 
 	rm $(BUILD_PATH)/TEST_zx80.prg
 	
@@ -2477,7 +2473,6 @@ zx81_test:
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_zx81.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES) 
 	rm $(BUILD_PATH)/TEST_zx81.prg
 		
@@ -2511,7 +2506,6 @@ lambda_test:
 	-vn -D__LAMBDA__ \
 	$(FAST_TEST_OPTS) \
 	-lndos -create-app -o  $(BUILD_PATH)/TEST_lambda.prg \
-	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_lambda.prg		
 	
@@ -2559,7 +2553,6 @@ zx81_zsdcc_test:
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_ZSDCC_zx81.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/display/z88dk/zx81/zx81_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_zx81.prg
 	
@@ -2758,7 +2751,6 @@ zx80_8k:
 	-D__ZX80__ -DROUND_ENEMIES -DTINY_GAME \
 	-DTURN_BASED \
 	-lndos -create-app -o  $(BUILD_PATH)/TINY_zx80_8k.prg \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_zx80_8k.prg
@@ -2774,7 +2766,6 @@ zx81_8k:
 	-DMACRO_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TINY_zx81_8k.prg \
-	$(SOURCE_PATH)/z88dk/zx81/zx81_graphics.c \
 	$(SOURCE_PATH)/display_macros.c \
 	$(SOURCE_PATH)/enemy.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
@@ -3123,7 +3114,7 @@ zx81_light:
 	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_8k.prg \
 	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c \
-	$(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_zx81_8k.prg
@@ -3259,7 +3250,6 @@ zx81_16k_sccz80:
 	-vn \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -create-app -o  $(BUILD_PATH)/FULL_zx81_16k_sccz80.prg \
-	$(CROSS_LIB_PATH)/z88dk/zx81/zx81_graphics.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c
 	rm $(BUILD_PATH)/FULL_zx81_16k_sccz80.prg
@@ -3490,22 +3480,6 @@ pet_8k_LIGHT:
 	$(CC65_PATH)$(MYCC65) -O -t pet -DLESS_TEXT -DNO_SLEEP $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_pet_8k.prg
 
 
-	
-# zx81_8k_sccz80:
-	# $(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -v \
-	# -D__ZX81__ -DROUND_ENEMIES -DTINY_GAME \
-	# -lndos -create-app -o  $(BUILD_PATH)/TINY_zx81_8k_sccz80.prg \
-	# $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
-	# $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	# $(SOURCE_PATH)/main.c
-	# rm $(BUILD_PATH)/TINY_zx81_8k_sccz80.prg
-	
-
-
-# c16_16k_no_udg:
-	# $(CC65_PATH)$(MYCC65) -O -t c16 -DSOUNDS --config $(SOURCE_PATH)/../cfg/cc65/c16-16k.cfg $(SOURCE_PATH)/c264/c264_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k_no_udg.prg
-
-
 c16_16k_no_udg:
 	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl -DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DSOUNDS --config $(SOURCE_PATH)/../cfg/cc65/c16-16k_plus.cfg $(SOURCE_PATH)/c264/c264_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k_no_udg.prg
 
@@ -3513,7 +3487,10 @@ c16_16k_no_udg:
 
 	
 lambda_8k:
-	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLORS -DLESS_TEXT -DNO_SLEEP -lndos -create-app -o  $(BUILD_PATH)/TINY_lambda_8k.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLORS \
+	-DLESS_TEXT -DNO_SLEEP -lndos \
+	-create-app -o  $(BUILD_PATH)/TINY_lambda_8k.prg \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_lambda_8k.prg	
 	
 # -----------------------------------------------------------------------------------------------
@@ -3725,7 +3702,8 @@ mtx_16k:
 	
 	
 lambda_light:
-	$(Z88DK_PATH)$(MYZ88DK) +lambda -vn -D__LAMBDA__ -lndos -create-app -o  $(BUILD_PATH)/LIGHT_lambda.prg $(SOURCE_PATH)/zx81/zx81_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +lambda -vn -D__LAMBDA__ -lndos -create-app -o  $(BUILD_PATH)/LIGHT_lambda.prg \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_lambda.prg	
 	
 msx_no_color_16k:

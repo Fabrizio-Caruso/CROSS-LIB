@@ -21,50 +21,61 @@
 
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
+#ifndef _ZX81_GRAPHICS_SETTINGS
+#define _ZX81_GRAPHICS_SETTINGS
 
-#include <stdio.h>
+#include "../../cross_lib.h"
 
-#include "../../../display/display_macros.h"
+#define BASE_ADDR (unsigned short)(0x0400)
 
-extern Image PLAYER_IMAGE;
-extern Image GHOST_IMAGE;
-extern Image DEAD_GHOST_IMAGE;
-extern Image BOMB_IMAGE;
-
-#if !defined(TINY_GAME)
-	extern Image SKULL_IMAGE;
-	extern Image POWERUP_IMAGE;
-	extern Image BULLET_IMAGE;
-	extern Image GUN_IMAGE;
-#endif
-
-#if defined(FULL_GAME)
-	extern Image FREEZE_IMAGE;
-
-	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
-	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
-
-	extern Image ROCKET_IMAGE;
-
-	extern Image EXTRA_POINTS_IMAGE;
-	extern Image EXTRA_LIFE_IMAGE;
-	extern Image INVINCIBILITY_IMAGE;	
+#define NOT_INVERTED 64
+#define INVERTED -64
 	
-	extern Image CHASE_IMAGE;
-	extern Image SUPER_IMAGE;
-	extern Image CONFUSE_IMAGE;
-	extern Image ZOMBIE_IMAGE;
-	
-	extern Image BROKEN_WALL_IMAGE;
-#endif
+// BLUE
+#define _PLAYER ('*')
+// #define _PLAYER_DOWN 0
+// #define _PLAYER_UP 1
+// #define _PLAYER_RIGHT 2
+// #define _PLAYER_LEFT 3
+
+#define _SPACE (' ')
+
+#define _GUN '!'
+
+// YELLOW
+#define _SKULL ('+')
+#define _VERTICAL_BRICK ('I')
+#define _HORIZONTAL_BRICK ('-')
+#define _EXTRA_LIFE '*'
+#define _EXTRA_POINTS '$'
+
+// GREEN
+#define _POWERUP  ('S')
+
+// RED
+#define _BOMB ('X')
+#define _DEAD_GHOST 'O'
+
+#define _INVINCIBILITY 'V'
+#define _BULLET ('.')
+
+#define _GHOST 'o'
+
+#define _LEFT_HORIZONTAL_MISSILE ('>')
+#define _RIGHT_HORIZONTAL_MISSILE ('<')
+#define _ROCKET ('I')
+
+#define _SUPER ('H')
+#define _CONFUSE ('C')
+#define _ZOMBIE ('Z')	
+
+#define _BROKEN_WALL _BOMB
+
+#endif // _ZX81_GRAPHICS_SETTINGS
 
 
-void INIT_GRAPHICS(void)
-{
-	#if defined(__ZX80__)
-		gen_tv_field_init(0);
-	#endif
-}
+
+
 
 void INIT_IMAGES(void)
 {		

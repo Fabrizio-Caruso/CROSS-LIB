@@ -2,13 +2,13 @@
 #define _MEMORY_MAPPED_GRAPHICS
 
 #  if defined(__VIC20__) && defined(ALT_PRINT)
-	#include "../cc65/vic20/vic20_graphics_settings.h"
+	#include "../cc65/vic20/vic20_memory_mapped_settings.h"
 #elif defined(__C16__) && defined(ALT_PRINT)
-	#include "../cc65/c264/c264_graphics_settings.h"
+	#include "../cc65/c264/c264_memory_mapped_settings.h"
 #elif defined(__C64__) && defined(ALT_PRINT)
-	#include "../cc65/c64/c64_graphics_settings.h"
+	#include "../cc65/c64/c64_memory_mapped_settings.h"
 #elif defined(__CMOC__) && !defined(__WINCMOC__) && defined(ALT_PRINT)
-	#include "../cmoc/cmoc_graphics_settings.h"
+	#include "../cmoc/cmoc_memory_mapped_settings.h"
 #else
 #endif 
 

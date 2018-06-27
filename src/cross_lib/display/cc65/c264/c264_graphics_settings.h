@@ -65,7 +65,7 @@
 
 // YELLOW
 #define _SKULL '+'
-#define _VERTICAL_BRICK '|'
+#define _VERTICAL_BRICK ('|'-128)
 #define _HORIZONTAL_BRICK '-'
 #define _EXTRA_LIFE ('*'+128)
 #define _CONFUSE ('+'+128)

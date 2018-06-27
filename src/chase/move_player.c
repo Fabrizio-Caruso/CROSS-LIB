@@ -185,7 +185,7 @@ extern Character player;
 			if(kbhit())
 			{
 		#endif
-			movePlayerByKeyboard(GET_CHAR()); 
+				movePlayerByKeyboard(GET_CHAR()); 
 		#if defined(ALT_MOVE)
 			}
 		#endif

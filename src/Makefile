@@ -1245,7 +1245,7 @@ trs80_tiny:
 
 trs80:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
-	-lm -create-app \
+	-lm -create-app \	
 	-D__TRS80__ \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
@@ -3089,7 +3089,15 @@ c128_hello:
 	-vn -lndos \
 	$(SOURCE_PATH)/../experiments/hello.c \
 	-create-app
-	
+
+# -pragma-redirect:getk=getk_inkey
+trs80_test_getch:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
+	-lm -create-app \
+	-pragma-redirect:getk=getk_inkey \
+	-vn -lndos \
+	$(SOURCE_PATH)/../../notes/tests/trs80_test.c
+
 vg5k_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k -compiler=sdcc \
 	-vn -lndos \

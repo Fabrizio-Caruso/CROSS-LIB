@@ -176,7 +176,11 @@ out			stb res
 		#endif
 		
 	#else
-		return getk();
+		#if defined(ALT_MOVE)
+			return getch();
+		#else
+			return getk();
+		#endif
 	#endif
 	}
 #endif	

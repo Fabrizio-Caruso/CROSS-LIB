@@ -10,9 +10,7 @@
 	#else
 		#define cputc(c) putchar()
 	#endif
-	
-	#define cgetc() getch()	
-	
+		
 	#if defined(NO_COLOR)
 		#define textcolor 
 	#endif
@@ -60,8 +58,6 @@
 			
 	#define cputc(c) putc4x6(c)
 	
-	#define cgetc() getch()
-
 #elif defined(__ATARI_LYNX__)
 	#include <tgi.h>
 	#include <stdio.h>
@@ -71,7 +67,6 @@
 	#define clrscr() tgi_clear()
 	#define cprintf 
 	#define cputc(c) 
-	#define cgetc() (char) getchar();
 	#define textcolor tgi_setcolor
 
 #elif defined(__SUPERVISION__)
@@ -81,7 +76,6 @@
 	#define clrscr() 
 	#define cprintf 
 	#define cputc(c) 	
-	#define cgetc() (char) getchar();
 	#define textcolor
 	
 #elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
@@ -89,14 +83,12 @@
 	#define gotoxy(x,y) zx_setcursorpos(y,x)
 
 	#define cputc(c) fputc_cons(c)
-	#define cgetc() (char) getch();
  
 #elif defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0))
 	#define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
 	#define clrscr() printf("\033E") 
 
 	#define cputc(c) fputc_cons(c)
-	#define cgetc() (char) getch(); 
 	
 #elif defined(__C128_Z80__) || defined(__X1__) || defined(__Z9001__) \
 	|| defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
@@ -118,8 +110,6 @@
 		#define cputc(c) putch(c);
 	#endif
 
-	#define cgetc() (char) getch();
-
 #elif defined(__KC__)
 	#include <stdio.h>
 	
@@ -137,14 +127,11 @@
 		{ \
 		fputc_cons(c); \
 		} while(0)
-	
-	#define cgetc() getch()
-	
+		
 #elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
 	#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 	#define cprintf printf
 	#define cputc(c) printf("\x11%c%c",COLOR_BLACK,c);		
-	#define cgetc() in_Inkey();
 
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 
@@ -167,8 +154,9 @@
 	
 	#define gotoxy(x,y) do { move(y,x); refresh(); } while(0)
 	#define cputc(c) do { addch(c); refresh(); } while(0)
-	#define cgetc() do { flushinp(); getch(); refresh(); } while(0)
 
+#else
+	//
 #endif
 
 #if !defined(NO_COLOR)
@@ -194,4 +182,5 @@
 		#endif
 	#endif
 #endif
+
 

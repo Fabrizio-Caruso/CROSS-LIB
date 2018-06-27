@@ -168,7 +168,11 @@ out			stb res
 			if(kbhit() && cgetc()==' ')
 			{
 				return ' ';
-			}			
+			}
+			else
+			{
+				return '\0';
+			}
 		#endif
 		
 	#else
@@ -222,6 +226,10 @@ out			stb res
 	#else 
 		#if defined(CONIO_LIB)
 			#include<conio.h>
+		#endif
+		
+		#if defined(Z88DK)
+			#define cgetc() getch()
 		#endif
 		
 		void WAIT_PRESS(void)

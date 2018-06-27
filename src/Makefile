@@ -1750,7 +1750,9 @@ sccz80_test: \
 	gal_test \
 	zx80_test \
 	zx81_test \
-	spectrum_test \
+	spectrum_test
+
+totest: \
 	samcoupe_test \
 	lambda_test \
 	nc100_test \
@@ -2085,7 +2087,7 @@ FAST_TEST_OPTS ?= \
 
 
 einstein_test:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein  -v \
 	-D__EINSTEIN__ \
 	-DFORCE_CONIO \
 	$(FAST_TEST_OPTS) \
@@ -2155,10 +2157,8 @@ eg2k_test:
 	-lm \
 	-D__TRS80__ \
 	$(FAST_TEST_OPTS) \
-	-DALT_PRINT \
 	-create-app \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/trs80/trs80_graphics.c \
+	-DCONIO_VT52 \
 	$(TEST_FILES)
 	mv a.cmd $(BUILD_PATH)/TEST_eg2k.cmd	
 	rm a.bin
@@ -2266,9 +2266,11 @@ px4_test:
 	-DNO_WAIT \
 	$(FAST_TEST_OPTS) \
 	-DZ88DK_PUTC4X6 \
+	-DALT_PRINT \
 	-Cz–-32k \
 	-create-app -o $(BUILD_PATH)/TEST_px4.bin \
 	-vn -lndos \
+	$(CROSS_LIB_PATH)/display/z88dk/z88dk_putc4x6/z88dk_putc4x6_alt_print.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_px4.bin
 	
@@ -2303,10 +2305,8 @@ trs80_test:
 	-D__TRS80__ \
 	$(FAST_TEST_OPTS) \
 	-DNO_SLEEP \
-	-DALT_PRINT \
+	-DCONIO_VT52 \
 	-o$(BUILD_PATH)/TEST_trs80.bin \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/trs80/trs80_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_trs80.bin	
 
@@ -2444,11 +2444,12 @@ msx_test:
 	
 aquarius_test: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn \
-	-DSOUNDS -D__AQUARIUS__  \
+	-DSOUNDS -D__AQUARIUS__  -DTINY_GAME \
 	$(FAST_TEST_OPTS) \
 	-lndos \
 	-DEXT_GRAPHICS \
 	-o TEST_aquarius -create-app \
+	$(CROSS_LIB_PATH)/display/z88dk/aquarius/aquarius_graphics.c \
 	$(TEST_FILES)
 	rm $(SOURCE_PATH)/../TEST_aquarius
 	mv $(SOURCE_PATH)/../TEST_aquarius.caq $(BUILD_PATH)
@@ -2527,10 +2528,9 @@ samcoupe_test:
 	-D__SAM__ \
 	$(FAST_TEST_OPTS) \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-DEXT_GRAPHICS \
 	-o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(TEST_FILES)
-	cp $(TOOLS_PATH)/display/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
+	cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
 	$(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
 	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/TEST_samcoupe.dsk
 	rm $(BUILD_PATH)/FULL_samcoupe.bin

@@ -34,6 +34,8 @@ CFG_PATH ?= $(SOURCE_PATH)/../../cfg/
 
 NO_CHASE_FILES ?= \
 	$(CROSS_LIB_PATH)/display/display_macros.c \
+	$(CROSS_LIB_PATH)/display/init_images.c \
+	$(CROSS_LIB_PATH)/display/graphics.c \
 	$(CROSS_LIB_PATH)/input/input_macros.c \
 	$(CROSS_LIB_PATH)/text/text_macros.c \
 	$(SOURCE_PATH)/move_player.c \
@@ -61,7 +63,7 @@ COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DTINY_GAME
 
 COCO_OPTS_LIGHT ?= -O0 -D__CMOC__
 
-COCO_OPTS       ?= -O0 -D__CMOC__ -DEXT_GRAPHICS -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
+COCO_OPTS       ?= -O0 -D__CMOC__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
 
 
 # -DNO_SLEEP
@@ -172,6 +174,10 @@ vic20_exp_8k:
 	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
+	
+# 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
+#	$(CROSS_LIB_PATH)/display/init_images.c  
+
 
 vic20_exp_8k_full:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/vic20-8k.cfg \
@@ -185,12 +191,10 @@ vic20_exp_8k_full:
 	-DSOUNDS \
 	-DALT_SLEEP \
 	-DREDEFINED_CHARS \
-	-DEXT_GRAPHICS \
+	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_images.c \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
@@ -233,12 +237,10 @@ c64_8k_cart:
 	-DBETWEEN_LEVEL \
 	-DFLAT_ENEMIES \
 	-DCBM_SCREEN_CODES \
-	-DEXT_GRAPHICS \
+	-DMEMORY_MAPPED \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg \
 	$(CROSS_LIB_PATH)/display/cc65/c64/graphics.s \
-	$(CROSS_LIB_PATH)/display/init_images.c \
 	$(CROSS_LIB_PATH)/display/cc65/c64/c64_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -300,11 +302,9 @@ c16_16k_full:
 	-DSOUNDS \
 	-DALT_PRINT \
 	-DREDEFINED_CHARS \
-	-DEXT_GRAPHICS \
+	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/cc65/c264/c264_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/init_images.c \
-	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX.prg	
@@ -312,7 +312,7 @@ c16_16k_full:
 	
 pet_8k: 
 	$(CC65_PATH)$(MYCC65) -O -t pet -Cl \
-	-DTINY_GAME \
+	-DTINY_GAME -DNO_INIT_GRAPHICS -DCONIO \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_pet_8k.prg
 	
@@ -321,9 +321,11 @@ pet_16k:
 	$(CC65_PATH)$(MYCC65) -O -t pet \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_pet_16k.prg
+
 
 cbm610: 
 	$(CC65_PATH)$(MYCC65) -O -t cbm610 \
@@ -1573,7 +1575,7 @@ coco:
 	-c $(CROSS_LIB_PATH)/display/init_images.c	
 	cmoc \
 	$(COCO_OPTS) \
-	-c $(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c
+	-c $(CROSS_LIB_PATH)/display/graphics.c
 	cmoc \
 	$(COCO_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c
@@ -1624,7 +1626,7 @@ coco:
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
 	init_images.o \
-	memory_mapped_graphics.o \
+	graphics.o \
 	memory_mapped_alt_print.o \
 	ghost.o \
 	move_player.o \
@@ -1636,7 +1638,7 @@ coco:
 	rocket.o horizontal_missile.o end_screen.o
 	rm 	display_macros.o \
 	init_images.o \
-	memory_mapped_graphics.o \
+	graphics.o \
 	memory_mapped_alt_print.o \
 	ghost.o \
 	move_player.o \

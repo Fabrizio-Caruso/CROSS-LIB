@@ -1,18 +1,25 @@
-#include "../../display/display_macros.h"
+#include "display_macros.h"
 
-#include "memory_mapped_graphics.h"
-
-#if !defined(CC65)
-	#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
-	#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
-	#define PEEK(addr)         (*(unsigned char*) (addr))
-	#define PEEKW(addr) (*(unsigned*) (addr))
+#  if defined(MEMORY_MAPPED)
+	#include "memory_mapped/memory_mapped_graphics.h"
+#elif defined(CONIO)
+	#include "conio/conio_graphics.h"
 #endif
 
-unsigned short loc(unsigned char x, char y)
-{
-	return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize);
-}
+
+#if defined(MEMORY_MAPPED)	
+	#if !defined(CC65)
+		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+		#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
+		#define PEEK(addr)         (*(unsigned char*) (addr))
+		#define PEEKW(addr) (*(unsigned*) (addr))
+	#endif
+
+	unsigned short loc(unsigned char x, char y)
+	{
+		return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize);
+	}
+#endif
 
 
 #if defined(FULL_GAME)
@@ -59,7 +66,7 @@ void CLEAR_SCREEN(void)
 	{
 		for(j=0;j<XSize;++j)
 		{
-			POKE(BASE_ADDR+j+i*((unsigned short ) XSize),_SPACE);
+			_DELETE(i,j);
 		}
 	}
 }
@@ -67,7 +74,6 @@ void CLEAR_SCREEN(void)
 
 
 #if !defined(TINY_GAME)
-
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
 	unsigned char i;

@@ -26,7 +26,6 @@
 
 #include "../../cross_lib.h"
 
-#define BASE_ADDR (unsigned short)(0x0400)
 
 #define NOT_INVERTED 64
 #define INVERTED -64

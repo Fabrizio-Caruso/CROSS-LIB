@@ -22,32 +22,21 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#ifndef _C264_GRAPHICS_SETTINGS
-#define _C264_GRAPHICS_SETTINGS
-
-#include <conio.h>
-#include <peekpoke.h>
+#ifndef _PETSCII_MEMORY_MAPPED_SETTINGS
+#define _PETSCII_MEMORY_MAPPED_SETTINGS
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <conio.h>
+#include <peekpoke.h>
 #include <string.h>
-#include <unistd.h>
 
-#include "../display/display_macros.h"
+//#include "../../cross_lib.h"
 
-#if defined(FULL_GAME)
-	#define UDG_BASE_FACTOR 29
-#else
-	#define UDG_BASE_FACTOR 15
-#endif
-
-
-#define BASE_ADDR ((unsigned short) 0x0C00)
-#define COLOR_ADDR ((unsigned short) 0x0800)
-
-
-// BLUE
-#define _PLAYER '*'
+// #define _PLAYER_DOWN 0x00
+// #define _PLAYER_UP 0x0E
+// #define _PLAYER_RIGHT 0x11
+// #define _PLAYER_LEFT 0x10
 #if defined(REDEFINED_CHARS)
 	#define _PLAYER_DOWN (0xB2-0x40)
 	//0x3B
@@ -57,35 +46,38 @@
 	//0x3D 
 	#define _PLAYER_LEFT  (0xB3-0x40)
 	//0x3E
-#endif
+#else
+	#define _PLAYER '*'
+#endif	
 
-#define _GUN '!'
 
-// YELLOW
-#define _SKULL '+'
-#define _VERTICAL_BRICK ('|'-128)
-#define _HORIZONTAL_BRICK '-'
-#define _EXTRA_LIFE ('*'+128)
-#define _CONFUSE ('+'+128)
-#define _ZOMBIE 'O'
-#define _EXTRA_POINTS '$'
-
-// GREEN
-#define _POWERUP  'S'
 
 // RED
 #define _BOMB '^'
-//0x5E
-
-
-// CYAN
-#define _INVINCIBILITY 'V'
-#define _BULLET '.'
 
 // WHITE
 #define _GHOST 'o'
 
 #define _DEAD_GHOST '#'
+
+// BLUE
+#define _GUN '!'
+
+// YELLOW
+#define _SKULL '+'
+#define _CONFUSE ('+'+128)
+#define _ZOMBIE 'O'	
+#define _VERTICAL_BRICK ('|'-128)
+#define _HORIZONTAL_BRICK '-'
+#define _EXTRA_LIFE ('*'+128)
+#define _EXTRA_POINTS '$'
+
+// GREEN
+#define _POWERUP  'S';
+
+// CYAN
+#define _INVINCIBILITY 'V'
+#define _BULLET '.'
 
 #define _LEFT_HORIZONTAL_MISSILE '>'
 
@@ -93,9 +85,11 @@
 
 #define _ROCKET ('^'-64)
 
-#define _BROKEN_WALL _BOMB
+#define _BROKEN_WALL _BOMB	
 
 #define _SPACE ' '
 
-#endif // _C264_GRAPHICS_SETTINGS
+
+
+#endif // _PETSCII_MEMORY_MAPPED_SETTINGS
 

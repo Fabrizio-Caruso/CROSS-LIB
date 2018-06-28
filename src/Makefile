@@ -188,6 +188,7 @@ vic20_exp_8k_full:
 	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_images.c \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
@@ -235,6 +236,7 @@ c64_8k_cart:
 	-DEXT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg \
 	$(CROSS_LIB_PATH)/display/cc65/c64/graphics.s \
+	$(CROSS_LIB_PATH)/display/init_images.c \
 	$(CROSS_LIB_PATH)/display/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
@@ -301,6 +303,7 @@ c16_16k_full:
 	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/cc65/c264/c264_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_images.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
@@ -1555,10 +1558,19 @@ pps_turn_based:
 	
 # ------------------------------------
 
+	# $(CROSS_LIB_PATH)/display/init_images.c \
+	# $(CROSS_LIB_PATH)/display/cc65/c64/c64_init_graphics.c \
+	# $(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
+	# $(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
+
+
 coco:
 	cmoc \
 	$(COCO_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	cmoc \
+	$(COCO_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_images.c	
 	cmoc \
 	$(COCO_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c
@@ -1611,6 +1623,7 @@ coco:
 	$(COCO_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
+	init_images.o \
 	memory_mapped_graphics.o \
 	memory_mapped_alt_print.o \
 	ghost.o \
@@ -1622,6 +1635,7 @@ coco:
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm 	display_macros.o \
+	init_images.o \
 	memory_mapped_graphics.o \
 	memory_mapped_alt_print.o \
 	ghost.o \

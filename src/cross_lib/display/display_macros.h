@@ -28,6 +28,18 @@
 #include "../cross_lib.h"
 #include "display_target_settings.h"
 
+#  if defined(__VIC20__) && defined(ALT_PRINT)
+	#include "cc65/vic20/vic20_memory_mapped_settings.h"
+#elif defined(__C16__) && defined(ALT_PRINT)
+	#include "cc65/c264/c264_memory_mapped_settings.h"
+#elif defined(__C64__) && defined(ALT_PRINT)
+	#include "cc65/c64/c64_memory_mapped_settings.h"
+#elif defined(__CMOC__) && !defined(__WINCMOC__) && defined(ALT_PRINT)
+	#include "cmoc/cmoc_memory_mapped_settings.h"
+#else
+#endif 
+
+
 #if defined(CONIO_LIB)
 	#include<conio.h>
 #elif defined(__CMOC__) && !defined(__WINCMOC__)

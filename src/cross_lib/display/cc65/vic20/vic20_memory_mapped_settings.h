@@ -22,6 +22,9 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+#ifndef _VIC20_MEMORY_MAPPED_SETTINGS
+#define _VIC20_MEMORY_MAPPED_SETTINGS
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <conio.h>
@@ -29,7 +32,7 @@
 #include <vic20.h>
 #include <string.h>
 
-#include "../../cross_lib.h"
+//#include "../../cross_lib.h"
 
 #define BASE_ADDR 0x1000
 #define COLOR_ADDR 0x9400
@@ -132,3 +135,7 @@
 	
 	#define _SPACE ' '
 #endif	
+
+
+#endif // _VIC20_MEMORY_MAPPED_SETTINGS
+

@@ -30,7 +30,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../../display/display_macros.h"
+#include "../display/display_macros.h"
 
 #define BASE_ADDR 0xC000
 #define COLOR_ADDR 0xD800

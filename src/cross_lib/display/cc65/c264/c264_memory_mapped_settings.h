@@ -33,9 +33,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../../sound/sound_macros.h"
-
-#include "../../display/display_macros.h"
+#include "../display/display_macros.h"
 
 #if defined(FULL_GAME)
 	#define UDG_BASE_FACTOR 29

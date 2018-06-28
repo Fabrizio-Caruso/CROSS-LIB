@@ -22,8 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
  
-#ifndef _GHOST
-#define _GHOST
+#ifndef _GHOST_H
+#define _GHOST_H
 
 #include "character.h"
 
@@ -41,5 +41,5 @@ void displayBombs(void);
 	unsigned char firstAlive(void);
 #endif
 
-#endif // _GHOST
+#endif // _GHOST_H
 

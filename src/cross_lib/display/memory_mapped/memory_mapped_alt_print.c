@@ -3,6 +3,13 @@
 #include "memory_mapped_alt_print.h"
 
 
+#if defined(__CMOC__) && !defined(__WINCMOC__)
+	#include <cmoc.h>
+#else
+	#include <stdlib.h>
+	#include <string.h>
+	#include <stdio.h>
+#endif
 
 #if defined(CBM_SCREEN_CODES)
 	char screenCode(char ch)

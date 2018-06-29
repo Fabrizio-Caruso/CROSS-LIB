@@ -34,7 +34,9 @@
 		#define TURN_BASED_INPUT() cgetc()	
 	#endif	
 	
-	unsigned char GET_CHAR(void);
+	#if defined(KEYBOARD_CONTROL)
+		unsigned char GET_CHAR(void);
+	#endif			
 				
 	#if !defined(NO_WAIT) || !defined(NO_SLEEP)
 		void WAIT_PRESS(void);

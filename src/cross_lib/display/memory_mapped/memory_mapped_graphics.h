@@ -12,6 +12,8 @@
 	#define COLOR_ADDR 0x0800
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	#define BASE_ADDR 0x0400
+#elif defined(__ATARI__) && defined(ATARI_MODE1)
+	#define BASE_ADDR 0xBD80
 #endif
 
 

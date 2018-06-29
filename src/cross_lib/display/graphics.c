@@ -15,6 +15,8 @@
 		#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
 		#define PEEK(addr)         (*(unsigned char*) (addr))
 		#define PEEKW(addr) (*(unsigned*) (addr))
+	#else
+		#include <peekpoke.h>
 	#endif
 
 	unsigned short loc(unsigned char x, char y)

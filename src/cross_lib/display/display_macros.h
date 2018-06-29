@@ -105,8 +105,20 @@ void _delete(unsigned char x, unsigned char y);
 		|| defined(Z88DK_PUTC4X6)
 		void PRINT(unsigned char x, unsigned char y, char * str);
 		void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);	
-	#elif defined(ATARI_MODE1) && (defined(__ATARI__) || defined(__ATARIXL__))
-		void PRINT(unsigned char x, unsigned char y, char * str);
+	#elif defined(ATARI_MODE1) && defined(__ATARI__)
+		
+		#define PRINT(x,y,...)  \
+		{ \
+			if((y+Y_OFFSET)&1) \
+			{ \
+				gotoxy(x+20+X_OFFSET,(y+Y_OFFSET)/2); \
+			} \
+			else \
+			{ \
+				gotoxy(x+X_OFFSET, (y+Y_OFFSET)/2); \
+			} \
+			cprintf(##__VA_ARGS__); \
+		};
 		
 		#define PRINTF(x,y,...)  \
 		{ \

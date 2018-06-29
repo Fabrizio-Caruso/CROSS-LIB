@@ -48,6 +48,8 @@
 
 // GREEN
 #define _POWERUP  ('S'+INVERTED)
+#define _FREEZE ('F'+INVERTED)
+#define _SUPER ('H'+INVERTED)
 
 // RED
 #define _BOMB ('X'+INVERTED)

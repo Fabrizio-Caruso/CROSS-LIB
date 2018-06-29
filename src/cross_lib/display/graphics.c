@@ -6,6 +6,8 @@
 	#include "conio/conio_graphics.h"
 #endif
 
+#include "graphics.h"
+
 
 #if defined(MEMORY_MAPPED)	
 	#if !defined(CC65)

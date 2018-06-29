@@ -31,12 +31,6 @@
 #include <peekpoke.h>
 #include <string.h>
 
-//#include "../../cross_lib.h"
-
-// #define _PLAYER_DOWN 0x00
-// #define _PLAYER_UP 0x0E
-// #define _PLAYER_RIGHT 0x11
-// #define _PLAYER_LEFT 0x10
 #if defined(REDEFINED_CHARS)
 	#define _PLAYER_DOWN (0xB2-0x40)
 	//0x3B
@@ -49,8 +43,6 @@
 #else
 	#define _PLAYER '*'
 #endif	
-
-
 
 // RED
 #define _BOMB '^'
@@ -67,8 +59,7 @@
 #define _SKULL '+'
 #define _CONFUSE ('+'+128)
 #define _ZOMBIE 'O'	
-#define _VERTICAL_BRICK ('|'-128)
-#define _HORIZONTAL_BRICK '-'
+
 #define _EXTRA_LIFE ('*'+128)
 #define _EXTRA_POINTS '$'
 
@@ -85,8 +76,10 @@
 
 #define _ROCKET ('^'-64)
 
-#define _BROKEN_WALL _BOMB	
 
+#define _VERTICAL_BRICK ('|'-128)
+#define _HORIZONTAL_BRICK '-'
+#define _BROKEN_WALL _BOMB	
 #define _SPACE ' '
 
 

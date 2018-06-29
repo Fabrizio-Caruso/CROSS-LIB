@@ -59,9 +59,9 @@
 #define _DEAD_GHOST _GHOST
 #define _EXTRA_LIFE _PLAYER_DOWN
 #define _CONFUSE _SKULL
-#define _BROKEN_WALL _BOMB
+
 
 #define _SPACE ' '
 #define _VERTICAL_BRICK ('|'-128)
 #define _HORIZONTAL_BRICK ('-')
-
+#define _BROKEN_WALL _BOMB

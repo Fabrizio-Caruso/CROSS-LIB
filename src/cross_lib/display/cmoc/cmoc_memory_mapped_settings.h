@@ -37,14 +37,12 @@
 // #define _PLAYER_RIGHT 2
 // #define _PLAYER_LEFT 3
 
-#define _SPACE (' '+NOT_INVERTED)
 
 #define _GUN '!'
 
 // YELLOW
 #define _SKULL ('+'+NOT_INVERTED)
-#define _VERTICAL_BRICK ('#'+NOT_INVERTED)
-#define _HORIZONTAL_BRICK ('-'+NOT_INVERTED)
+
 #define _EXTRA_LIFE '*'
 #define _EXTRA_POINTS '$'
 
@@ -68,6 +66,9 @@
 #define _CONFUSE ('C'+INVERTED)
 #define _ZOMBIE ('Z'+INVERTED)	
 
+#define _SPACE (' '+NOT_INVERTED)
+#define _VERTICAL_BRICK ('#'+NOT_INVERTED)
+#define _HORIZONTAL_BRICK ('-'+NOT_INVERTED)
 #define _BROKEN_WALL _BOMB
 
 

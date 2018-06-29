@@ -686,6 +686,7 @@ zx81_16k_turn_based:
 	-v \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DTURN_BASED \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -701,6 +702,7 @@ zx81_16k:
 	-compiler=sdcc \
 	-vn \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg \
 	$(SOURCE_PATH)/end_screen.c \

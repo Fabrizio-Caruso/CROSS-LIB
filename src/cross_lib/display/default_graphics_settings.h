@@ -37,7 +37,11 @@
 #define _DEAD_GHOST '#'
 
 // BLUE
-#define _GUN '!'
+#if defined(__ZX80__)
+	#define _GUN 'G'
+#else
+	#define _GUN '!'
+#endif
 
 // YELLOW
 #define _SKULL '+'
@@ -48,7 +52,11 @@
 #define _EXTRA_POINTS '$'
 
 // GREEN
-#define _POWERUP  'S';
+#define _POWERUP  'S'
+
+#define _FREEZE 'F'
+
+#define _SUPER 'H'
 
 // CYAN
 #define _INVINCIBILITY 'V'
@@ -58,10 +66,18 @@
 
 #define _RIGHT_HORIZONTAL_MISSILE '<'
 
-#define _ROCKET ('^')
+#if defined(__ZX80__) || defined(__ZX81__)
+	#define _ROCKET 'I'
+#else
+	#define _ROCKET ('^')
+#endif
 
+#if defined(__C128_Z80__) || defined(__ZX80__) || defined(__ZX81__)
+	#define _VERTICAL_BRICK 'i'
+#else
+	#define _VERTICAL_BRICK ('|')
+#endif 
 
-#define _VERTICAL_BRICK ('|')
 #define _HORIZONTAL_BRICK '-'
 #define _BROKEN_WALL _BOMB	
 #define _SPACE ' '

@@ -119,7 +119,14 @@ void INIT_IMAGES(void)
 		
 		ROCKET_IMAGE._imageData = _ROCKET;
 
-		FREEZE_IMAGE._imageData = _POWERUP;		
+		#if !defined(NO_COLOR)
+			FREEZE_IMAGE._imageData = _POWERUP;		
+			SUPER_IMAGE._imageData = _POWERUP;		
+		#else
+			FREEZE_IMAGE._imageData = _FREEZE;
+			SUPER_IMAGE._imageData = _SUPER;				
+		#endif
+		
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
 		SUPER_IMAGE._imageData = _POWERUP;

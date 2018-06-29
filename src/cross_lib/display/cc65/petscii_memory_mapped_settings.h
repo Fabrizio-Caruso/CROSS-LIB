@@ -44,18 +44,14 @@
 	#define _PLAYER '*'
 #endif	
 
-// RED
 #define _BOMB '^'
 
-// WHITE
 #define _GHOST 'o'
 
 #define _DEAD_GHOST '#'
 
-// BLUE
 #define _GUN '!'
 
-// YELLOW
 #define _SKULL '+'
 #define _CONFUSE ('+'+128)
 #define _ZOMBIE 'O'	
@@ -63,10 +59,10 @@
 #define _EXTRA_LIFE ('*'+128)
 #define _EXTRA_POINTS '$'
 
-// GREEN
-#define _POWERUP  'S';
+#define _POWERUP  'S'
+#define _FREEZE 'F'
+#define _SUPER 'H'
 
-// CYAN
 #define _INVINCIBILITY 'V'
 #define _BULLET '.'
 
@@ -75,7 +71,6 @@
 #define _RIGHT_HORIZONTAL_MISSILE '<'
 
 #define _ROCKET ('^'-64)
-
 
 #define _VERTICAL_BRICK ('|'-128)
 #define _HORIZONTAL_BRICK '-'

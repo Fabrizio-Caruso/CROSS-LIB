@@ -63,7 +63,7 @@ COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DTINY_GAME
 
 COCO_OPTS_LIGHT ?= -O0 -D__CMOC__
 
-COCO_OPTS       ?= -O0 -D__CMOC__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
+COCO_OPTS       ?= -O0 -DALT_CLEAR_SCREEN -D__CMOC__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
 
 
 # -DNO_SLEEP
@@ -86,6 +86,7 @@ atari_color:
 atari_no_color: 
 	$(CC65_PATH)$(MYCC65) -O -t atari \
 	-DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sound/cc65/atari/atari_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -96,6 +97,7 @@ atari_no_color:
 atari5200: 
 	$(CC65_PATH)$(MYCC65) -O -t atari5200 \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_atari5200.rom
@@ -217,6 +219,7 @@ c64:
 	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DEXT_GRAPHICS \
+	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/display/cc65/c64/graphics.s \
 	$(CROSS_LIB_PATH)/display/cc65/c64/c64_redefined_characters.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -254,6 +257,7 @@ c128_40col:
 	$(CC65_PATH)$(MYCC65) -O -t c128 \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c128_40col.prg
@@ -331,6 +335,7 @@ cbm610:
 	$(CC65_PATH)$(MYCC65) -O -t cbm610 \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_cbm610.prg
@@ -339,6 +344,7 @@ cbm510:
 	$(CC65_PATH)$(MYCC65) -O -t cbm510 \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_cbm510.prg
@@ -347,6 +353,7 @@ nes:
 	$(CC65_PATH)$(MYCC65) -O -t nes \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_nes.nes
@@ -355,6 +362,7 @@ apple2:
 	$(CC65_PATH)$(MYCC65) -O -t apple2 \
 	-DFULL_GAME -DALT_SLEEP \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -368,6 +376,7 @@ apple2enh:
 	$(CC65_PATH)$(MYCC65) -O -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -398,6 +407,7 @@ osic1p_32k:
 	-DTURN_BASED \
 	-DFORCE_GHOSTS_NUMBER=9 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -412,6 +422,7 @@ osic1p_8k:
 	-DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME \
 	-DTURN_BASED \
 	-DFORCE_GHOSTS_NUMBER=9 \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_osic1p_8k.lod	
 	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/TINY_osic1p_8k.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p_8k.c1p -Ohio_Scientific -execution-start-address=0x200	
@@ -434,6 +445,7 @@ creativision_8k_tiny:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
 	-DTINY_GAME -DNO_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_creativision_8k.bin
@@ -445,6 +457,7 @@ creativision_8k_light:
 	-DFLAT_ENEMIES \
 	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-8k_less_stack.cfg \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_creativision_8k_less_text.bin	
@@ -452,6 +465,7 @@ creativision_8k_light:
 creativision_16k:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -479,6 +493,7 @@ atari_lynx:
 pce_8k:
 	$(CC65_PATH)$(MYCC65) -O -Cl -t pce \
 	-DTINY_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_8k_less_stack.cfg \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_PCE_8k.pce
@@ -488,6 +503,7 @@ pce_16k:
 	$(CC65_PATH)$(MYCC65) -O -t pce \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -567,6 +583,7 @@ vz200_8k:
 	-DNO_INITIAL_SCREEN \
 	-DNO_MESSAGE \
 	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/TINY_vz200_8k.vz \
 	$(TINY_FILES) 
 	rm $(BUILD_PATH)/TINY_vz200_8k.cas
@@ -578,6 +595,7 @@ vz200_18k:
 	$(ZSDCC_OPTS) \
 	-DSOUNDS -D__VZ__ -clib=ansi \
 	-DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_vz200_18k.vz \
 	$(FULL_FILES)
@@ -587,6 +605,7 @@ vz200_18k:
 vz200_24k: 
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
 	-DSOUNDS -D__VZ__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -lndos -create-app -o  $(BUILD_PATH)/FULL_vz200_24k.vz \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -636,6 +655,7 @@ vg5k_exp_16k:
 ace_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -o full -Cz--audio -create-app \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -691,6 +711,7 @@ zx81_16k:
 lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) \
 	-vn -D__LAMBDA__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o  $(BUILD_PATH)/FULL_lambda_16k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -809,6 +830,7 @@ svi_318:
 	-vn -lndos \
 	-D__SVI__ \
 	-DSOUNDS \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c	\
 	$(LIGHT_FILES)
@@ -820,6 +842,7 @@ sc3000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
 	$(SCCZ80_OPTS) \
 	-clib=ansi \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-pragma-define:ansicolumns=32 \
 	-vn -lndos -create-app -Cz--audio \
 	-o $(BUILD_PATH)/LIGHT_sc3000_16k.prg \
@@ -833,6 +856,7 @@ sc3000_32k:
 	$(SCCZ80_OPTS) \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-clib=ansi \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-pragma-define:ansicolumns=32 \
 	-vn -lndos -create-app -Cz--audio \
 	-o $(BUILD_PATH)/FULL_sc3000_32k.prg \
@@ -846,6 +870,7 @@ sg1000:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 -subtype=rom \
 	$(SCCZ80_OPTS) \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
 	-vn -lndos -create-app \
@@ -865,7 +890,8 @@ svi_328:
 	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
 	-DSOUNDS \
 	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
-	-create-app \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app \	
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -876,6 +902,7 @@ sharp_mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_sharp_mz.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -885,6 +912,7 @@ sharp_mz:
 microbee_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) \
 	-D__BEE__ -clib=ansi -vn -DSOUNDS  \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_microbee_16k.prg  \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_microbee_16k.prg
@@ -892,6 +920,7 @@ microbee_16k:
 microbee_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) \
 	-D__BEE__ -clib=ansi -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_microbee_32k.prg  \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -901,6 +930,7 @@ microbee_32k:
 samcoupe:
 	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) \
 	-D__SAM__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DFULL_GAME  -o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(SOURCE_PATH)/end_screen.c \
@@ -915,6 +945,7 @@ mtx:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 $(SCCZ80_OPTS) \
 	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app -o FULL.bin -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -924,6 +955,7 @@ mtx:
 	
 abc80_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 $(SCCZ80_OPTS) \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-D__ABC80__ -clib=ansi -vn -DSOUNDS  -lndos -create-app -o a \
 	$(LIGHT_FILES)
 	rm a
@@ -932,6 +964,7 @@ abc80_16k:
 abc80_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 $(SCCZ80_OPTS) \
 	-D__ABC80__ -clib=ansi -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o a \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -941,6 +974,7 @@ abc80_32k:
 p2000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) -clib=ansi -D__P2000__ -vn \
 	-DSOUNDS  \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_p2000.prg \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_p2000.prg
@@ -949,6 +983,7 @@ p2000_16k:
 p2000_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) -clib=ansi -D__P2000__ -vn \
 	-DFULL_GAME -DSOUNDS  -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_p2000.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -958,6 +993,7 @@ p2000_32k:
 z9001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) -clib=ansi \
 	-D__Z9001__ -vn -DFULL_GAME  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_z9001.z80 \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -967,6 +1003,7 @@ z9001_32k:
 z9001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) -clib=ansi \
 	-D__Z9001__ -vn   \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_z9001.z80 \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_z9001.z80	
@@ -978,6 +1015,7 @@ mc1000_48k:
 	-DFULL_GAME  \
 	-clib=ansi \
 	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-vn  -lndos -create-app -Cz--audio \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -999,6 +1037,7 @@ mc1000_16k_full:
 	-D__MC1000__ -DSOUNDS \
 	-DEND_SCREEN \
 	-DALT_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-vn  -lndos -create-app -Cz--audio \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -1012,6 +1051,7 @@ gal_22k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-pragma-need=ansiterminal \
 	-D__GAL__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1069,6 +1109,7 @@ pc6001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -v  \
 	-DALT_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_pc6001.prg  \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(LIGHT_FILES)
@@ -1082,6 +1123,7 @@ pc6001_16k:
 pc6001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -v -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1100,6 +1142,7 @@ nascom_32k:
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_nascom_32k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1113,6 +1156,7 @@ nascom_16k:
 	-D__NASCOM__ \
 	-DSOUNDS \
 	-DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/LIGHT_nascom_16k.prg \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_nascom_16k.prg
@@ -1122,6 +1166,7 @@ z1013:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) -clib=ansi \
 	-vn -lndos \
 	-D__Z1013__  -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app
@@ -1137,6 +1182,7 @@ px8_tiny:
 	-DTINY_GAME -DLESS_TEXT \
 	-DNO_SLEEP \
 	-DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/TINY_px8.bin \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_px8.bin
@@ -1149,6 +1195,7 @@ px8:
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/FULL_px8.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1179,6 +1226,7 @@ px4_tiny:
 	-pragma-define:ansicolumns=40 \
 	-create-app -o $(BUILD_PATH)/TINY_px4.bin \
 	-vn -lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_px4.bin
 
@@ -1192,6 +1240,7 @@ px4:
 	-pragma-define:ansicolumns=40 \
 	-create-app -o $(BUILD_PATH)/FULL_px4.bin \
 	-vn -lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_px4.bin
@@ -1219,6 +1268,7 @@ x1_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
 	-D__X1__ \
 	-DTINY_GAME -DNO_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/TINY_x1.bin -vn -lndos \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_x1.bin
@@ -1229,6 +1279,7 @@ x1:
 	-D__X1__ \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/FULL_x1.bin -vn -lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1243,6 +1294,7 @@ trs80_tiny:
 	-DCONIO_VT52 \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-DALT_PRINT \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/TINY_trs80.bin \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_trs80.bin
@@ -1254,6 +1306,7 @@ trs80:
 	-D__TRS80__ \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/FULL_trs80.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1267,6 +1320,7 @@ eg2k:
 	-lndos \
 	-lm \
 	-D__TRS80__ \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
 	-create-app \
@@ -1312,6 +1366,7 @@ cpm_adm3a_tiny:
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/TINY_cpm_adm3a.bin \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_cpm_adm3a.bin
@@ -1322,6 +1377,7 @@ cpm_vt52_tiny:
 	-DCONIO_VT52 \
 	-D__CPM_80X24__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/TINY_cpm_vt52.bin \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_cpm_vt52.bin	
@@ -1332,6 +1388,7 @@ cpm_vt100_tiny:
 	-DCONIO_VT100 \
 	-D__CPM_80X24__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/TINY_cpm_vt100.bin \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_cpm_vt100.bin	
@@ -1345,6 +1402,7 @@ c128_z80_40col:
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DFULL_GAME -DEND_SCREEN -DNO_BLINKING \
 	-DFORCE_CONIO \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app
@@ -1363,6 +1421,7 @@ c128_z80_40col_turn_based:
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DFULL_GAME -DEND_SCREEN \
 	-DTURN_BASED \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app
@@ -1382,6 +1441,7 @@ einstein:
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-clib=ansi \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/FULL_einstein.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1396,6 +1456,7 @@ ti82_turn_based:
 	-vn \
 	-DFULL_GAME  \
 	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app  \
 	$(FULL_FILES)
@@ -1412,6 +1473,7 @@ ti82_tiny_turn_based:
 	-DTURN_BASED -DNO_WAIT \
 	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
 	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES) \
 	-create-app 	
 	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/TINY_ti82_turn_based.82p
@@ -1428,6 +1490,7 @@ ti83_turn_based:
 	-DNO_WAIT \
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
 	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES)	
 	-create-app \
 	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/FULL_ti83_turn_based.83p
@@ -1444,6 +1507,7 @@ ti83_tiny_turn_based:
 	-DTINY_GAME  \
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
 	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app \
 	$(TINY_FILES)
 	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/TINY_ti83_turn_based.83p	
@@ -1458,6 +1522,7 @@ ti85:
 	-vn \
 	-DFULL_GAME  \
 	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app  \
 	$(FULL_FILES)
 	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/TINY_ti85.85s	
@@ -1473,6 +1538,7 @@ ti85_turn_based:
 	-vn \
 	-DFULL_GAME  \
 	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app \
 	$(FULL_FILES)
 	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85_turn_based.85s	
@@ -1485,6 +1551,7 @@ m5_tiny:
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-DTINY_GAME -DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/TINY_m5.bin \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_m5.bin
@@ -1497,6 +1564,7 @@ m5:
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/FULL_m5.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1510,6 +1578,7 @@ srr:
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
 	-DCONIO_VT52 \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1524,6 +1593,7 @@ pv2000:
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
 	-DCONIO_VT52 \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1541,6 +1611,7 @@ pps:
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
 	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.bin $(BUILD_PATH)/FULL_pps.exe	
@@ -1553,6 +1624,7 @@ pps_turn_based:
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
 	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.bin $(BUILD_PATH)/FULL_pps_turn_based.exe
@@ -1657,6 +1729,7 @@ ncurses_turn_based:
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DTURN_BASED \
+	-DCONIO  \	
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-lncurses
@@ -1666,6 +1739,7 @@ ncurses:
 	$(_CC) -D__NCURSES__ \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO  \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-lncurses
@@ -3553,14 +3627,11 @@ creativision_16k_2:
 
 pce_light:
 	$(CC65_PATH)$(MYCC65) -O -t pce -Cl \
-	--config $(SOURCE_PATH)/../cfg/cc65/pce_8k_less_stack.cfg \
+	--config $(CFG_PATH)cc65/pce_8k_less_stack.cfg \
 	-DNO_SLEEP -DLESS_TEXT -DNO_COLOR -DNO_RANDOM_LEVEL \
 	-DNO_MESSAGE -DNO_BLINKING -DNO_INITIAL_SCREEN -DNO_SET_SCREEN_COLORS -DNO_STATS \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
-	$(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_pce.pce
 
 	

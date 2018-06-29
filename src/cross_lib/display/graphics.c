@@ -58,20 +58,20 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 #endif
 
 
-#if !defined(CONIO_LIB)
-void CLEAR_SCREEN(void)
-{
-	unsigned char i;
-	unsigned char j;
-	
-	for(i=0;i<YSize;++i)
+#if defined(ALT_CLEAR_SCREEN)
+	void CLEAR_SCREEN(void)
 	{
-		for(j=0;j<XSize;++j)
+		unsigned char i;
+		unsigned char j;
+		
+		for(i=0;i<YSize;++i)
 		{
-			_DELETE(i,j);
+			for(j=0;j<XSize;++j)
+			{
+				_DELETE(i,j);
+			}
 		}
 	}
-}
 #endif
 
 

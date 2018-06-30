@@ -35,11 +35,7 @@
 
 #define GRAPHICS_MODE (1+16)
 	
-#define CHARS_BASE 8192
-
-// unsigned short BASE_ADDR;
-
-/*
+	
 void redefine(unsigned char * loc, const char *new_char)
 {
 	unsigned char i;
@@ -48,12 +44,10 @@ void redefine(unsigned char * loc, const char *new_char)
 		POKE(loc+i,new_char[i]);
 	}
 }
-*/
+
 
 void INIT_GRAPHICS(void)
 {	
-	/*
-
 	static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
 	static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
 	static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
@@ -70,10 +64,11 @@ void INIT_GRAPHICS(void)
 	static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};	
 	static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
 	static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};
+	//{  0, 96, 48,255,255, 24, 12,  0};		
 	
 	extern char _FONT_START__[];
 	unsigned char *CHBAS = (unsigned char *)0x2f4;
-*/
+
 	// Mode 12 with no last monochromatic lines (12+16)
 	_graphics(GRAPHICS_MODE);
 	
@@ -83,50 +78,35 @@ void INIT_GRAPHICS(void)
 	_setcolor_low(3, TGI_COLOR_BROWN);
 	_setcolor_low(4, TGI_COLOR_BLACK);
 
-	/*
 	memcpy(_FONT_START__, (void *)0xE000, 512);
 	
-	// modify your font at _FONT_START__, etc, then set the new font: 		
+	/* modify your font at _FONT_START__, etc, then set the new font: */		
 		
-	redefine(_FONT_START__+_PLAYER_DOWN*8, player_down);
-	redefine(_FONT_START__+_PLAYER_UP*8, player_up);		
-	redefine(_FONT_START__+_PLAYER_RIGHT*8, player_right);
-	redefine(_FONT_START__+_PLAYER_LEFT*8, player_left);
+	redefine(_FONT_START__+_PLAYER_DOWN_OFFSET*8, player_down);
+	redefine(_FONT_START__+_PLAYER_UP_OFFSET*8, player_up);		
+	redefine(_FONT_START__+_PLAYER_RIGHT_OFFSET*8, player_right);
+	redefine(_FONT_START__+_PLAYER_LEFT_OFFSET*8, player_left);
 
-	redefine(_FONT_START__+_GHOST*8, ghost);
-	redefine(_FONT_START__+_POWERUP*8, powerUp);		
-	redefine(_FONT_START__+_SKULL*8, invincible_ghost);
-	redefine(_FONT_START__+_BOMB*8, bomb);	
+	redefine(_FONT_START__+_GHOST_OFFSET*8, ghost);
+	redefine(_FONT_START__+_POWERUP_OFFSET*8, powerUp);		
+	redefine(_FONT_START__+_SKULL_OFFSET*8, invincible_ghost);
+	redefine(_FONT_START__+_BOMB_OFFSET*8, bomb);	
 				
-	redefine(_FONT_START__+_BULLET*8, missile);
-	redefine(_FONT_START__+_GUN*8, gun);
-	
+	redefine(_FONT_START__+_BULLET_OFFSET*8, missile);
+	redefine(_FONT_START__+_GUN_OFFSET*8, gun);
+
+	#if defined(FULL_GAME)
+		redefine(_FONT_START__+_LEFT_HORIZONTAL_MISSILE_OFFSET*8, missile_left);
+		redefine(_FONT_START__+_RIGHT_HORIZONTAL_MISSILE_OFFSET*8, missile_right);		
+		redefine(_FONT_START__+_ROCKET_OFFSET*8, bubble);
+		redefine(_FONT_START__+_INVINCIBILITY_OFFSET*8, invincibility);				
+	#endif
+
 	redefine(_FONT_START__+_HORIZONTAL_BRICK*8, horizontal_brick);
 	redefine(_FONT_START__+_VERTICAL_BRICK*8, vertical_brick);
+		
+	*CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */	
 	
-	#if defined(FULL_GAME)
-		redefine(_FONT_START__+_LEFT_HORIZONTAL_MISSILE*8, missile_left);
-		redefine(_FONT_START__+_RIGHT_HORIZONTAL_MISSILE*8, missile_right);		
-		redefine(_FONT_START__+_ROCKET*8, bubble);
-		redefine(_FONT_START__+_INVINCIBILITY*8, invincibility);				
-	#endif
-	
-	*CHBAS = ((int)_FONT_START__ >> 8);  // enable the new font	
-*/
-
-
-	// {
-		// unsigned char i;
-
-		// gotoxy(0,0);
-		// for(i=0;i<=254;i++)
-		// {
-			// POKE(48512u+i,i);
-		// }
-		// cgetc();
-	// }
-	
-
 }
  
  

@@ -13,6 +13,26 @@ void redefine(unsigned long offset, const unsigned char * data)
 	}
 }
 
+void init_colors(void)
+{
+	unsigned char i;
+	
+	// Initialize colors 	
+	for(i=0;i<2;++i)
+	{
+		// red on black (inverted: cyan on white)		
+		POKE(0xBB80+i*40,16);
+		POKE(0xBB81+i*40,1); 
+	}
+
+	for(i=2;i<28;++i)
+	{
+		// yellow on black (inverted: blue on white)
+		POKE(0xBB80+i*40,16);
+		POKE(0xBB81+i*40,3); 
+	}		
+}
+
 void INIT_GRAPHICS(void)
 {		
 	#if !defined(REDEFINED_CHARS)	
@@ -75,5 +95,7 @@ void INIT_GRAPHICS(void)
 	
 	#if !defined(NO_DEAD_GHOST)
 		redefine(_DEAD_GHOST_OFFSET*8, dead_ghost);
-	#endif	
+	#endif
+
+	init_colors();
 }

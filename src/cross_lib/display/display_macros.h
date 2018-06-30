@@ -182,11 +182,11 @@ void _delete(unsigned char x, unsigned char y);
 	#define CLEAR_SCREEN()  {zx_cls(PAPER_BLACK|INK_WHITE);}
 #elif defined(__CPC__) 
 	#define CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
-#elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(EXT_GRAPHICS)) \
-		|| defined(__CMOC__) && !defined(__WINCMOC__) \
-		|| defined(__VG5K__)  \
-		|| defined(__SUPERVISION__)	 
-	void CLEAR_SCREEN(void);	
+// #elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(EXT_GRAPHICS)) \
+		// || defined(__CMOC__) && !defined(__WINCMOC__) \
+		// || defined(__VG5K__)  \
+		// || defined(__SUPERVISION__)	 
+	// void CLEAR_SCREEN(void);	
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define CLEAR_SCREEN() { \
 	clrscr(); \

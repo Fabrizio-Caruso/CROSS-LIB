@@ -71,14 +71,17 @@ COCO_OPTS       ?= -O0 -DALT_CLEAR_SCREEN -D__CMOC__ -DMEMORY_MAPPED -DNO_INIT_G
 # ------------------------------------------------------------------------------------------
 #CC65
 # 
+
+# 	$(CROSS_LIB_PATH)/display/cc65/atari/atari_mode1_redefined_chars_init_graphics.c 
+
 atari_color: 
 	$(CC65_PATH)$(MYCC65) -O -t atari \
 	-DREDEFINED_CHARS -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/display/cc65/atari/disable_setcursor.s \
-	$(CROSS_LIB_PATH)/sound/cc65/atari/atari_sounds.c \
 	$(CROSS_LIB_PATH)/display/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/atari/atari_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_atari_color.xex

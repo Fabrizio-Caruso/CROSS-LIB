@@ -39,6 +39,7 @@
 
 // unsigned short BASE_ADDR;
 
+/*
 void redefine(unsigned char * loc, const char *new_char)
 {
 	unsigned char i;
@@ -47,11 +48,11 @@ void redefine(unsigned char * loc, const char *new_char)
 		POKE(loc+i,new_char[i]);
 	}
 }
-
+*/
 
 void INIT_GRAPHICS(void)
 {	
-	// unsigned short BASE_ADDR;
+	/*
 
 	static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
 	static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
@@ -72,7 +73,7 @@ void INIT_GRAPHICS(void)
 	
 	extern char _FONT_START__[];
 	unsigned char *CHBAS = (unsigned char *)0x2f4;
-
+*/
 	// Mode 12 with no last monochromatic lines (12+16)
 	_graphics(GRAPHICS_MODE);
 	
@@ -82,9 +83,10 @@ void INIT_GRAPHICS(void)
 	_setcolor_low(3, TGI_COLOR_BROWN);
 	_setcolor_low(4, TGI_COLOR_BLACK);
 
+	/*
 	memcpy(_FONT_START__, (void *)0xE000, 512);
 	
-	/* modify your font at _FONT_START__, etc, then set the new font: */		
+	// modify your font at _FONT_START__, etc, then set the new font: 		
 		
 	redefine(_FONT_START__+_PLAYER_DOWN*8, player_down);
 	redefine(_FONT_START__+_PLAYER_UP*8, player_up);		
@@ -109,7 +111,9 @@ void INIT_GRAPHICS(void)
 		redefine(_FONT_START__+_INVINCIBILITY*8, invincibility);				
 	#endif
 	
-	*CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */	
+	*CHBAS = ((int)_FONT_START__ >> 8);  // enable the new font	
+*/
+
 
 	// {
 		// unsigned char i;

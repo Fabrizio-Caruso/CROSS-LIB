@@ -102,8 +102,8 @@ void INIT_GRAPHICS(void)
 		redefine(_FONT_START__+_INVINCIBILITY_OFFSET*8, invincibility);				
 	#endif
 
-	redefine(_FONT_START__+_HORIZONTAL_BRICK*8, horizontal_brick);
-	redefine(_FONT_START__+_VERTICAL_BRICK*8, vertical_brick);
+	redefine(_FONT_START__+_HORIZONTAL_BRICK_OFFSET*8, horizontal_brick);
+	redefine(_FONT_START__+_VERTICAL_BRICK_OFFSET*8, vertical_brick);
 		
 	*CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */	
 	

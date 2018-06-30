@@ -33,9 +33,6 @@
 
 #include "../display/display_macros.h"
 
-#define BASE_ADDR 0xC000
-#define COLOR_ADDR 0xD800
-
 #define _POWERUP (char) (0x7A-0x20)
 #define _GHOST (char) (0x76-0x20)
 #define _BOMB (char) (0x78-0x20)

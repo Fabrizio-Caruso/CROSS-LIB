@@ -14,6 +14,8 @@
 	#define BASE_ADDR 0x0400
 #elif defined(__ATARI__) && defined(ATARI_MODE1)
 	#define BASE_ADDR 0xBD80
+#elif defined(__ATMOS__)
+	#define BASE_ADDR 0xBB80
 #endif
 
 

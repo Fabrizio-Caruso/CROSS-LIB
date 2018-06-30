@@ -111,8 +111,8 @@ atmos:
 	-t atmos \
 	-DALT_MOVE \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/cc65/atmos/atmos_redefined_characters.c \
+	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/display/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_atmos_and_oric1_48k.tap

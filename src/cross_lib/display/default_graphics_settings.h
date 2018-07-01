@@ -79,9 +79,9 @@
 #endif 
 
 #define _HORIZONTAL_BRICK '-'
-#define _BROKEN_WALL _BOMB	
-#define _SPACE ' '
 
+#define _BROKEN_BRICK _BOMB	
+#define _SPACE ' '
 
 
 #endif // _DEFAULT_GRAPHICS_SETTINGS

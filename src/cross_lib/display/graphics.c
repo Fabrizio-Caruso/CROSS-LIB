@@ -1,5 +1,10 @@
 #include "display_macros.h"
 
+extern Image BROKEN_BRICK_IMAGE;
+extern Image VERTICAL_BRICK_IMAGE;
+extern Image HORIZONTAL_BRICK_IMAGE;
+
+
 #  if defined(MEMORY_MAPPED)
 	#include "memory_mapped/memory_mapped_graphics.h"
 #elif defined(CONIO)
@@ -25,13 +30,6 @@
 	}
 #endif
 
-
-#if defined(FULL_GAME)
-	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y)
-	{
-		_DRAW_BROKEN_WALL(x,y);
-	}
-#endif
 	
 void _draw(unsigned char x, unsigned char y, Image * image) 
 {
@@ -42,6 +40,14 @@ void _delete(unsigned char x, unsigned char y)
 {
 	_DELETE(x,y);
 }
+
+#if defined(FULL_GAME)
+	void DRAW_BROKEN_BRICK(unsigned char x, unsigned char y)
+	{
+		_draw(x,y,&BROKEN_BRICK_IMAGE);		
+	}
+#endif
+
 
 #if !defined(NO_BLINKING)
 void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
@@ -59,7 +65,6 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 }
 #endif
 
-
 #if defined(ALT_CLEAR_SCREEN)
 	void CLEAR_SCREEN(void)
 	{
@@ -70,7 +75,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		{
 			for(j=0;j<XSize;++j)
 			{
-				_DELETE(i,j);
+				_delete(i,j);
 			}
 		}
 	}
@@ -83,7 +88,7 @@ void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	unsigned char i;
 	for(i=0;i<length;++i)
 	{
-		_DRAW_HORIZONTAL_WALL(x+i,y);
+		_draw(x+i,y,&HORIZONTAL_BRICK_IMAGE);
 	}
 }
 
@@ -92,8 +97,12 @@ void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	unsigned char i;
 	for(i=0;i<length;++i)
 	{
-		_DRAW_VERTICAL_WALL(x,y+i);
+		_draw(x,y+i,&VERTICAL_BRICK_IMAGE);
 	}		
 }
 #endif
+
+
+
+
 

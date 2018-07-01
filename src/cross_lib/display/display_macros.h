@@ -51,7 +51,7 @@ typedef struct ImageStruct Image;
 void _draw(unsigned char x,unsigned char y,Image * image);
 
 #if defined(FULL_GAME)
-	void DRAW_BROKEN_WALL(unsigned char x, unsigned char y);
+	void DRAW_BROKEN_BRICK(unsigned char x, unsigned char y);
 #endif
 	
 #if !defined(NO_BLINKING)
@@ -176,7 +176,9 @@ void _delete(unsigned char x, unsigned char y);
 
 
 // CLEAR SCREEN
-#if defined(__SPECTRUM__) && !defined(CLIB_ANSI)
+#  if defined(ALT_CLEAR_SCREEN)
+	void CLEAR_SCREEN(void);
+#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
 	#include <stdio.h>
 	#include <arch/zx.h>
 	#define CLEAR_SCREEN()  {zx_cls(PAPER_BLACK|INK_WHITE);}

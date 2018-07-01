@@ -64,7 +64,7 @@
 	#define _HORIZONTAL_BRICK '-'	
 	
 	#define _SPACE ' '
-	#define _BROKEN_WALL _BOMB
+	#define _BROKEN_BRICK _BOMB
 	
 	#define _CHASE _BULLET
 	#define _LEFT_HORIZONTAL_MISSILE '>'

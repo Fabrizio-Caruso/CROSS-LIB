@@ -11,24 +11,6 @@
 		cputc(image->_imageData); \
 	} \
 	while(0)
-
-	#define _DRAW_VERTICAL_WALL(x,y) \
-	do \
-	{ \
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); \
-		SET_TEXT_COLOR(COLOR_WHITE); \
-		cputc(_VERTICAL_BRICK); \
-	} \
-	while(0)
-		
-	#define _DRAW_HORIZONTAL_WALL(x,y) \
-	do \
-	{ \
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); \
-		SET_TEXT_COLOR(COLOR_WHITE); \
-		cputc(_HORIZONTAL_BRICK); \
-	} \
-	while(0)
 		
 #else
 	#define _DRAW(x,y,image) \
@@ -36,23 +18,6 @@
 	{ \
 		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); \
 		cputc(image->_imageData); \
-	} \
-	while(0)
-
-
-	#define _DRAW_VERTICAL_WALL(x,y) \
-	do \
-	{ \
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); \
-		cputc(_VERTICAL_BRICK); \
-	} \
-	while(0)
-		
-	#define _DRAW_HORIZONTAL_WALL(x,y) \
-	do \
-	{ \
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); \
-		cputc(_HORIZONTAL_BRICK); \
 	} \
 	while(0)
 
@@ -66,14 +31,6 @@
 	} \
 	while(0)
 		
-#define _DRAW_BROKEN_WALL(x,y) \
-	do \
-	{ \
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); \
-		cputc(_BROKEN_WALL); \
-	} \
-	while(0)
-
 #endif // _CONIO_GRAPHICS
 
 

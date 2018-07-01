@@ -53,7 +53,6 @@
 #endif
 
 Image GHOST_IMAGE;
-
 Image BOMB_IMAGE;
 
 #if !defined(DNO_DEAD_GHOSTS)
@@ -85,7 +84,11 @@ Image BOMB_IMAGE;
 	Image CONFUSE_IMAGE;
 	Image ZOMBIE_IMAGE;
 	
-	Image BROKEN_WALL_IMAGE;
+	Image BROKEN_BRICK_IMAGE;
+	
+	Image HORIZONTAL_BRICK_IMAGE;
+	
+	Image VERTICAL_BRICK_IMAGE;
 #endif
 
 /*

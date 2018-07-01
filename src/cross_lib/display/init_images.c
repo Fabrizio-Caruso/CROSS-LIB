@@ -39,7 +39,10 @@ extern Image BOMB_IMAGE;
 	extern Image CONFUSE_IMAGE;
 	extern Image ZOMBIE_IMAGE;
 	
-	extern Image BROKEN_WALL_IMAGE;
+	
+	extern Image BROKEN_BRICK_IMAGE;
+	extern Image HORIZONTAL_BRICK_IMAGE;
+	extern Image VERTICAL_BRICK_IMAGE;
 #endif
 
 
@@ -84,6 +87,10 @@ void INIT_IMAGES(void)
 			SUPER_IMAGE._color = COLOR_RED;
 			CONFUSE_IMAGE._color = COLOR_RED;
 			ZOMBIE_IMAGE._color = COLOR_YELLOW;
+			
+			BROKEN_BRICK_IMAGE._color = COLOR_RED;
+			VERTICAL_BRICK_IMAGE._color = COLOR_YELLOW;
+			HORIZONTAL_BRICK_IMAGE._color = COLOR_YELLOW;
 		#endif	
 	#endif
 
@@ -132,6 +139,10 @@ void INIT_IMAGES(void)
 		SUPER_IMAGE._imageData = _POWERUP;
 		CONFUSE_IMAGE._imageData = _CONFUSE;
 		ZOMBIE_IMAGE._imageData = _GHOST;
+		
+		BROKEN_BRICK_IMAGE._imageData = _BROKEN_BRICK;
+		VERTICAL_BRICK_IMAGE._imageData = _VERTICAL_BRICK;
+		HORIZONTAL_BRICK_IMAGE._imageData = _HORIZONTAL_BRICK;
 	#endif
 }
 
@@ -239,7 +250,7 @@ void INIT_IMAGES(void)
 				LEFT_HORIZONTAL_MISSILE_IMAGE._color = COLOR_WHITE;
 				RIGHT_HORIZONTAL_MISSILE_IMAGE._color = COLOR_WHITE;
 				ROCKET_IMAGE._color = COLOR_WHITE;	
-				BROKEN_WALL_IMAGE._color = COLOR_RED;		
+				BROKEN_BRICK_IMAGE._color = COLOR_RED;		
 			#endif
 			LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = '>';
 			RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = '<';
@@ -270,7 +281,7 @@ void INIT_IMAGES(void)
 				CONFUSE_IMAGE._imageData = 'C';
 				ZOMBIE_IMAGE._imageData = 'Z';
 			#endif
-			BROKEN_WALL_IMAGE._imageData = 'X';
+			BROKEN_BRICK_IMAGE._imageData = 'X';
 		#endif
 	}
 */

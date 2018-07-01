@@ -28,28 +28,12 @@
 	} \
 	while(0)
 
-	#define _DRAW_VERTICAL_WALL(x,y) \
-	do \
-	{ \
-		POKE(loc(x,y),_VERTICAL_BRICK); \
-		POKE((unsigned short) (COLOR_ADDR+(x)+(unsigned short)((y)+Y_OFFSET)*XSize),COLOR_WHITE); \
-	} while(0)
-	
-	#define _DRAW_HORIZONTAL_WALL(x,y) \
-	do \
-	{ \
-		POKE(loc(x,y),_HORIZONTAL_BRICK); \
-		POKE((unsigned short) (COLOR_ADDR+(x)+(unsigned short)((y)+Y_OFFSET)*XSize),COLOR_WHITE); \
-	} while(0)
 #else
 	#define _DRAW(x,y,image) \
 		POKE(loc(x,y), image->_imageData);
 
-	#define _DRAW_VERTICAL_WALL(x,y) POKE(loc(x,y),_VERTICAL_BRICK)
-	#define _DRAW_HORIZONTAL_WALL(x,y)  POKE(loc(x,y),_HORIZONTAL_BRICK)
 #endif
 #define _DELETE(x,y) POKE(loc(x,y), _SPACE)
-#define _DRAW_BROKEN_WALL(x,y) POKE(loc(x,y),_BROKEN_WALL)
 
 
 unsigned short loc(unsigned char x, char y);

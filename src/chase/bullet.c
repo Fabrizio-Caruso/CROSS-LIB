@@ -216,7 +216,7 @@ unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPt
 		die(bulletPtr);
 		deleteBullet(bulletPtr);
 		#if defined(FULL_GAME)
-			DRAW_BROKEN_WALL(bulletPtr->_x, bulletPtr->_y);
+			DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
 		#endif
 		return 0;
 	}
@@ -244,7 +244,7 @@ void moveBullet(register Character * bulletPtr)
 		die(bulletPtr);
 		deleteBullet(bulletPtr);
 		#if defined(FULL_GAME)
-			DRAW_BROKEN_WALL(bulletPtr->_x, bulletPtr->_y);
+			DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
 			
 			if(oneMissileLevel())
 			{

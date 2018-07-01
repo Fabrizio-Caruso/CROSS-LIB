@@ -48,12 +48,12 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 {
 	if(*blinkCounter) 
 	{
-		_DRAW(x,y,image);
+		_draw(x,y,image);
 		*blinkCounter=0;
 	} 
 	else 
 	{
-		_DELETE(x,y);
+		_delete(x,y);
 		*blinkCounter=1;
 	}	
 }

@@ -26,7 +26,7 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 
 	unsigned short loc(unsigned char x, char y)
 	{
-		return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize);
+		return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize + X_OFFSET);
 	}
 #endif
 

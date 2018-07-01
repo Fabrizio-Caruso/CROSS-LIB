@@ -24,7 +24,7 @@
 	do \
 	{ \
 		POKE(loc(x,y), image->_imageData); \
-		POKE((unsigned short) (COLOR_ADDR+x+(unsigned short)(y+Y_OFFSET)*XSize),image->_color); \
+		POKE((unsigned short) (COLOR_ADDR+x+X_OFFSET +(unsigned short)(y+Y_OFFSET)*(XSize+X_OFFSET)),image->_color); \
 	} \
 	while(0)
 

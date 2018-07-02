@@ -69,11 +69,13 @@ void INIT_GRAPHICS(void)
 		const unsigned char invincibility[] =        {12,18,12,51, 0,12, 0,51};		
 	#endif
 		
-	redefine(_INVINCIBILITY_OFFSET*8,invincibility);					
-	redefine(_ROCKET_OFFSET*8,bubble);
-	redefine(_RIGHT_HORIZONTAL_MISSILE_OFFSET*8,left_arrow);
-	redefine(_LEFT_HORIZONTAL_MISSILE_OFFSET*8,right_arrow);
-
+	#if defined(FULL_GAME)
+		redefine(_INVINCIBILITY_OFFSET*8,invincibility);					
+		redefine(_ROCKET_OFFSET*8,bubble);
+		redefine(_RIGHT_HORIZONTAL_MISSILE_OFFSET*8,left_arrow);
+		redefine(_LEFT_HORIZONTAL_MISSILE_OFFSET*8,right_arrow);
+	#endif
+	
 	redefine(_GHOST_OFFSET*8, ghost);		
 	redefine(_BOMB_OFFSET*8,bomb);
 	redefine(_POWERUP_OFFSET*8,powerUp);		
@@ -90,8 +92,10 @@ void INIT_GRAPHICS(void)
 		redefine(_PLAYER_DOWN_OFFSET*8,player_down);
 	#endif
 		
-	redefine(_VERTICAL_BRICK_OFFSET*8,vertical_brick);
-	redefine(_HORIZONTAL_BRICK_OFFSET*8,horizontal_brick);		
+	#if !defined(TINY_GAME)
+		redefine(_VERTICAL_BRICK_OFFSET*8,vertical_brick);
+		redefine(_HORIZONTAL_BRICK_OFFSET*8,horizontal_brick);		
+	#endif
 	
 	#if !defined(NO_DEAD_GHOST)
 		redefine(_DEAD_GHOST_OFFSET*8, dead_ghost);

@@ -37,6 +37,14 @@
 	#define _DEAD_GHOST (_DEAD_GHOST_OFFSET + _INVERTED)
 #endif
 
+#if !defined(TINY_GAME)
+	#define _VERTICAL_BRICK_OFFSET '|'
+	#define _HORIZONTAL_BRICK_OFFSET '-'
+	
+	#define _VERTICAL_BRICK _VERTICAL_BRICK_OFFSET
+	#define _HORIZONTAL_BRICK _HORIZONTAL_BRICK_OFFSET	
+#endif
+
 #if defined(FULL_GAME)
 	#define _FREEZE_OFFSET 'F'
 	#define _EXTRA_LIFE_OFFSET _PLAYER_DOWN
@@ -57,13 +65,6 @@
 	#define _RIGHT_HORIZONTAL_MISSILE_OFFSET '<'
 	#define _ROCKET_OFFSET 0x23	
 	
-	#define _VERTICAL_BRICK_OFFSET '|'
-	#define _HORIZONTAL_BRICK_OFFSET '-'
-
-	#define _VERTICAL_BRICK _VERTICAL_BRICK_OFFSET
-	#define _HORIZONTAL_BRICK _HORIZONTAL_BRICK_OFFSET
-	
-	#define _SPACE ' '
 	#define _BROKEN_BRICK _BOMB
 	
 	#define _CHASE _BULLET
@@ -72,3 +73,6 @@
 	#define _ROCKET 0x23		
 #endif
 
+#define _SPACE ' '
+	
+	

@@ -120,9 +120,11 @@ atmos:
 
 oric1_16k: 
 	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DREDEFINED_CHARS \
-	-t atmos --config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/cc65/atmos/atmos_redefined_characters.c \
+	-t atmos \
+	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	-DMEMORY_MAPPED \
+	-DALT_MOVE \
+	$(CROSS_LIB_PATH)/display/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_oric1_16k.tap
 

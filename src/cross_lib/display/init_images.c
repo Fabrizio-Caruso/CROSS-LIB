@@ -24,6 +24,9 @@ extern Image BOMB_IMAGE;
 	extern Image GUN_IMAGE;
 	extern Image BULLET_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
+	
+	extern Image HORIZONTAL_BRICK_IMAGE;
+	extern Image VERTICAL_BRICK_IMAGE;
 #endif
 
 #if defined(FULL_GAME)
@@ -39,10 +42,7 @@ extern Image BOMB_IMAGE;
 	extern Image CONFUSE_IMAGE;
 	extern Image ZOMBIE_IMAGE;
 	
-	
 	extern Image BROKEN_BRICK_IMAGE;
-	extern Image HORIZONTAL_BRICK_IMAGE;
-	extern Image VERTICAL_BRICK_IMAGE;
 #endif
 
 
@@ -72,6 +72,9 @@ void INIT_IMAGES(void)
 			GUN_IMAGE._color = COLOR_BLUE;
 			EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
 			BULLET_IMAGE._color = COLOR_BLUE;
+			
+			VERTICAL_BRICK_IMAGE._color = COLOR_YELLOW;
+			HORIZONTAL_BRICK_IMAGE._color = COLOR_YELLOW;			
 		#endif
 		
 		#if defined(FULL_GAME)
@@ -89,8 +92,6 @@ void INIT_IMAGES(void)
 			ZOMBIE_IMAGE._color = COLOR_YELLOW;
 			
 			BROKEN_BRICK_IMAGE._color = COLOR_RED;
-			VERTICAL_BRICK_IMAGE._color = COLOR_YELLOW;
-			HORIZONTAL_BRICK_IMAGE._color = COLOR_YELLOW;
 		#endif	
 	#endif
 
@@ -118,6 +119,9 @@ void INIT_IMAGES(void)
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
 		BULLET_IMAGE._imageData = _BULLET;
+		
+		VERTICAL_BRICK_IMAGE._imageData = _VERTICAL_BRICK;
+		HORIZONTAL_BRICK_IMAGE._imageData = _HORIZONTAL_BRICK;		
 	#endif
 	
 	#if defined(FULL_GAME)
@@ -141,8 +145,6 @@ void INIT_IMAGES(void)
 		ZOMBIE_IMAGE._imageData = _GHOST;
 		
 		BROKEN_BRICK_IMAGE._imageData = _BROKEN_BRICK;
-		VERTICAL_BRICK_IMAGE._imageData = _VERTICAL_BRICK;
-		HORIZONTAL_BRICK_IMAGE._imageData = _HORIZONTAL_BRICK;
 	#endif
 }
 

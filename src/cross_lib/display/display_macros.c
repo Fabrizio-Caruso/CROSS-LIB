@@ -65,6 +65,9 @@ Image BOMB_IMAGE;
 	Image GUN_IMAGE;	
 	Image SKULL_IMAGE;		
 	Image EXTRA_POINTS_IMAGE;	
+	
+	Image HORIZONTAL_BRICK_IMAGE;
+	Image VERTICAL_BRICK_IMAGE;	
 #endif
 
 #if defined(FULL_GAME)
@@ -85,10 +88,7 @@ Image BOMB_IMAGE;
 	Image ZOMBIE_IMAGE;
 	
 	Image BROKEN_BRICK_IMAGE;
-	
-	Image HORIZONTAL_BRICK_IMAGE;
-	
-	Image VERTICAL_BRICK_IMAGE;
+
 #endif
 
 /*

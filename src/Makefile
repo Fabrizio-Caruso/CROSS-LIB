@@ -221,10 +221,11 @@ c64:
 	$(CC65_PATH)$(MYCC65) -O -t c64 \
 	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
-	-DEXT_GRAPHICS \
+	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/display/cc65/c64/graphics.s \
-	$(CROSS_LIB_PATH)/display/cc65/c64/c64_redefined_characters.c \
+	$(CROSS_LIB_PATH)/display/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c64.prg
@@ -305,7 +306,6 @@ c16_16k_full:
 	-DFULL_GAME \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DLESS_TEXT	\
-	-DNO_HINTS \
 	-DSOUNDS \
 	-DALT_PRINT \
 	-DREDEFINED_CHARS \

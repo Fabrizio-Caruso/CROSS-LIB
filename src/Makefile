@@ -261,16 +261,19 @@ c128_40col:
 	$(CC65_PATH)$(MYCC65) -O -t c128 \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c128_40col.prg
 
 c128_80col: 
 	$(CC65_PATH)$(MYCC65) -O -t c128  \
-	-D C128_80COL_VIDEO_MODE -DFULL_GAME -DSOUNDS \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
 	-DFORCE_GHOSTS_NUMBER=9 \
+	$(CROSS_LIB_PATH)/display/cc65/c128/c128_80col_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c128_80col.prg
@@ -379,7 +382,8 @@ apple2enh:
 	$(CC65_PATH)$(MYCC65) -O -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -393,9 +397,13 @@ apple2enh_80col:
 	$(CC65_PATH)$(MYCC65) -O -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DFORCE_XSIZE=80 -DAPPLE2ENH_80COL_VIDEO_MODE \
+	-DCONIO \
+	-DFORCE_XSIZE=80 \
+	-DFORCE_GHOSTS_NUMBER=9 \
+	-DAPPLE2ENH_80COL_VIDEO_MODE \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/cc65/apple2enh/apple2enh_80col_init_graphics.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/apple2enh_80col.bin
 	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_apple2enh_80col.dsk
@@ -1762,12 +1770,8 @@ ncurses:
 # ------------
 
 cc65_targets: \
-	supervision_targets \
-	vic20_targets \
 	atari_targets \
 	oric_targets \
-	c264_targets \
-	pet_targets \
 	cbm510_targets \
 	cbm610_targets \
 	apple2_targets \
@@ -1780,9 +1784,12 @@ cc65_targets: \
 	creativision_targets \
 	gamate_targets \
 	atari_lynx_targets \
-	osic1p_targets
-
-
+	osic1p_targets \
+	supervision_targets \
+	vic20_targets \
+	pet_targets \
+	c264_targets
+	
 # KO: 	
 # m5: out of memory
 # sg1000: interrupt

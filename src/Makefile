@@ -447,7 +447,7 @@ gamate:
 	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
-	$(CROSS_LIB_PATH)/display/cc65/gamate/gamate_graphics.c \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_gamate.bin
@@ -495,9 +495,9 @@ creativision_16k:
 atari_lynx:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
-	-DALT_PRINT \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/cc65/atari_lynx/atari_lynx_graphics.c \
+	-DNO_PRINT \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_ATARI_LYNX.lnx
 	
@@ -1785,11 +1785,11 @@ cc65_targets: \
 	nes_targets \
 	creativision_targets \
 	gamate_targets \
-	atari_lynx_targets \
 	osic1p_targets \
+	pet_targets \
+	atari_lynx_targets \
 	supervision_targets \
 	vic20_targets \
-	pet_targets \
 	c264_targets
 	
 # KO: 	

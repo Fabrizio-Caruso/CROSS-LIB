@@ -1,5 +1,5 @@
 #include<peekpoke.h>
-	
+
 void INIT_GRAPHICS(void)
 {
 	POKE(646,1);

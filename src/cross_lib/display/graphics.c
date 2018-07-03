@@ -18,15 +18,6 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 	#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 	#define PEEK(addr)         (*(unsigned char*) (addr))
 		
-	// #if !defined(CC65)
-		// #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
-		// #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
-		// #define PEEK(addr)         (*(unsigned char*) (addr))
-		// #define PEEKW(addr) (*(unsigned*) (addr))
-	// #else
-		// #include <peekpoke.h>
-	// #endif
-
 	unsigned short loc(unsigned char x, char y)
 	{
 		return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize + X_OFFSET);
@@ -39,10 +30,12 @@ void _draw(unsigned char x, unsigned char y, Image * image)
 	_DRAW(x,y,image);
 }
 
+
 void _delete(unsigned char x, unsigned char y)
 {
 	_DELETE(x,y);
 }
+
 
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_BRICK(unsigned char x, unsigned char y)
@@ -67,6 +60,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 #endif
+
 
 #if defined(ALT_CLEAR_SCREEN)
 	void CLEAR_SCREEN(void)

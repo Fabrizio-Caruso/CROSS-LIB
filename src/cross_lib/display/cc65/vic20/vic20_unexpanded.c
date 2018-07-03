@@ -109,7 +109,7 @@ extern Image BOMB_IMAGE;
 	Image PLAYER_LEFT;
 #endif
 
-#define BASE_ADDR 7680
+#define BASE_ADDR 0x1E00
 #define COLOR_ADDR 0x9600
 
 #if defined(ALT_PRINT) && !(defined(ALT_HIGHSCORE) || defined(ALT_DISPLAY_STATS))

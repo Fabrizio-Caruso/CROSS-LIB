@@ -4,7 +4,7 @@
 #  if defined(__C64__) || defined(__C128__)
 	#define BASE_ADDR 0xC000
 	#define COLOR_ADDR 0xD800
-#elif defined(__VIC20__)
+#elif defined(__VIC20__) && defined(MEMORY_MAPPED) && defined(VIC20_EXP_8K)
 	#define BASE_ADDR 0x1000
 	#define COLOR_ADDR 0x9400
 #elif defined(__C16__)
@@ -17,7 +17,7 @@
 #elif defined(__ATMOS__)
 	#define BASE_ADDR 0xBB80
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED)
-	#define BASE_ADDR 7680
+	#define BASE_ADDR 0x1E00
 	#define COLOR_ADDR 0x9600
 #endif
 
@@ -27,7 +27,7 @@
 	do \
 	{ \
 		POKE(loc(x,y), image->_imageData); \
-		POKE((unsigned short) (COLOR_ADDR+x+X_OFFSET +(unsigned short)(y+Y_OFFSET)*(XSize+X_OFFSET)),image->_color); \
+		POKE((unsigned short) ((unsigned short) (COLOR_ADDR+x+X_OFFSET) +(unsigned short)(y+Y_OFFSET)*(XSize+X_OFFSET)),image->_color); \
 	} \
 	while(0)
 

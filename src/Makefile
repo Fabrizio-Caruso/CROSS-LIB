@@ -163,25 +163,6 @@ vic20_exp_3k:
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 
-vic20_exp_8k: 
-	$(CC65_PATH)$(MYCC65) -Or  -t vic20  -DSOUNDS -DREDEFINED_CHARS --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/cc65/vic20/udc.s $(CROSS_LIB_PATH)/display/cc65/vic20/vic20_graphics.c  \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
-	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/bullet.c \
-	$(SOURCE_PATH)/move_player.c \
-	--code-name CODE2 \
-	$(CROSS_LIB_PATH)/display/display_macros.c  \
-	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/main.c \
-	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
-
-	
-# 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
-#	$(CROSS_LIB_PATH)/display/init_images.c  
-
 
 vic20_exp_8k_full:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/vic20-8k.cfg \
@@ -202,6 +183,25 @@ vic20_exp_8k_full:
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
+
+
+vic20_exp_8k: 
+	$(CC65_PATH)$(MYCC65) -Or  -t vic20  -DSOUNDS -DREDEFINED_CHARS --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
+	-DCONIO -DVIC20_EXP_8K \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/udc.s \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
+	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/bullet.c \
+	$(SOURCE_PATH)/move_player.c \
+	$(CROSS_LIB_PATH)/display/init_images.c \
+	$(CROSS_LIB_PATH)/display/display_macros.c  \
+	--code-name CODE2 \
+	$(CROSS_LIB_PATH)/display/graphics.c \
+	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/main.c \
+	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
 	
 vic20_exp_16k: 

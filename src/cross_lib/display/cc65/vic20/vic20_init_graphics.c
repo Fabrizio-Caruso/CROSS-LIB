@@ -8,6 +8,8 @@ void INIT_GRAPHICS(void)
 	
 		tmp = ~0x0F & PEEK(&(VIC.addr));
 		POKE(&(VIC.addr), tmp | 0x0F);
+	#elif defined(VIC20_EXP_3K)
+		POKE(0x9005,0xFF);		
 	#endif
 	
 	POKE(646,1);

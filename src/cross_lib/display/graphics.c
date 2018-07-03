@@ -11,7 +11,7 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 	#include "conio/conio_graphics.h"
 #endif
 
-#include "graphics.h"
+#include "graphics_settings.h"
 
 
 #if defined(MEMORY_MAPPED)	

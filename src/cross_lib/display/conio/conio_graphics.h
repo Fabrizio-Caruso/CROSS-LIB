@@ -2,6 +2,7 @@
 #define _CONIO_GRAPHICS
 
 
+
 #if !defined(NO_COLOR)
 	#define _DRAW(x,y,image) \
 	do \

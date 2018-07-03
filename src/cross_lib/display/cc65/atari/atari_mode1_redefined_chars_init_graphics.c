@@ -31,7 +31,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../../graphics.h"
+#include "../../graphics_settings.h"
 
 #define GRAPHICS_MODE (1+16)
 	

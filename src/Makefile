@@ -1314,7 +1314,7 @@ trs80_tiny:
 
 trs80:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
-	-lm -create-app \	
+	-lm -create-app \
 	-D__TRS80__ \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \

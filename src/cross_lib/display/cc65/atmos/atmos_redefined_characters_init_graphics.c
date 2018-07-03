@@ -1,6 +1,6 @@
 #include <peekpoke.h>
 
-#include "../../graphics.h"
+#include "../../graphics_settings.h"
 
 #define UDG_BASE_ADDR 0xb400
 

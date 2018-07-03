@@ -1,6 +1,6 @@
 #include "display_macros.h"
 
-#include "graphics.h"
+#include "graphics_settings.h"
 
 #if !defined(REDEFINED_CHARS)
 	extern Image PLAYER_IMAGE;

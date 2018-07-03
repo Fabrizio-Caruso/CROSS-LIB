@@ -242,7 +242,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#else
 		FLAT_SIX_GHOSTS();
 	#endif
-
+	
 	#if BOMBS_NUMBER==4
 		FOUR_BOMBS();
 	#elif BOMBS_NUMBER==3	
@@ -303,6 +303,6 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		initializeCharacter(&bullet, 0, 0,0,&BULLET_IMAGE);
 		initializeCharacter(&skull,XSize-2,YSize-2, 0, &SKULL_IMAGE);
 	#endif
-
+	
 }
 

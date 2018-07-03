@@ -426,25 +426,24 @@ int main(void)
 			
 			fillLevelWithCharacters(ghostCount);			
 			
-			// #if defined(TINY_GAME)
-				// displayBombs();
-			// #endif	
-			
 			#if !defined(TINY_GAME)
 				constructItems();	
 				
 				displayStatsTitles();
 			#endif
-			displayStats();			
-			printLevelStats();
-			printLivesStats();				
+			
+			#if !defined(NO_STATS)
+				displayStats();			
+				printLevelStats();
+				printLivesStats();
+			#endif
 			
 			//
 			#if !defined(TINY_GAME)
 				printGunsStats();
 				printGhostCountStats();
-			#endif
-
+			#endif		
+			
 			#if defined(FULL_GAME)
 			while(player._status && ((ghostCount>0 && !bossLevel()) || (skullAlive && bossLevel()))) // while alive && there are still ghosts
 			#else

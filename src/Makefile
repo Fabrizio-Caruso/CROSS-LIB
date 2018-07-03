@@ -135,7 +135,6 @@ vic20_unexpanded:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
 	-DVIC20_UNEXPANDED \
 	-DNO_PRINT \
-	-DALT_PRINT \
 	-DNO_SLEEP \
 	-DLESS_TEXT \
 	-DNO_SET_SCREEN_COLORS \
@@ -146,13 +145,11 @@ vic20_unexpanded:
 	-DNO_INITIAL_SCREEN \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
-	-DALT_DISPLAY_STATS \
-	-DALT_HIGHSCORE \
 	-DFORCE_BOMBS_NUMBER=4 \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_unexpanded.c \
+	-DMEMORY_MAPPED \
 	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
 	
 vic20_exp_3k:
@@ -210,9 +207,9 @@ vic20_exp_8k_full:
 vic20_exp_16k: 
 	$(CC65_PATH)$(MYCC65) -Or -t vic20 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
-	-DEXT_GRAPHICS \
+	-DCONIO -DVIC20_EXP_16K \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/udc.s \
-	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_graphics.c \
+	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -548,16 +545,16 @@ supervision:
 
 aquarius_exp_4k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius \
+	-clib=ansi \
 	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
 	-compiler=sdcc \
 	-opt-code-size \
 	$(ZSDCC_OPTS) \
 	-vn \
-	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DEXT_GRAPHICS \
+	-D__AQUARIUS__ -DTINY_GAME \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TINY_aquarius_exp_4k -create-app \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/aquarius/aquarius_graphics.c \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES)
 	rm $(SOURCE_PATH)/../TINY_aquarius_exp_4k
 	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)
@@ -568,6 +565,7 @@ aquarius_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi $(SCCZ80_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app	\
@@ -1308,7 +1306,6 @@ trs80_tiny:
 	-D__TRS80__ \
 	-DCONIO_VT52 \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
-	-DALT_PRINT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/TINY_trs80.bin \
 	$(TINY_FILES)

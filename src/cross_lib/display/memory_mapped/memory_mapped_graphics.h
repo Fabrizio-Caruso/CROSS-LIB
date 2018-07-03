@@ -16,6 +16,9 @@
 	#define BASE_ADDR 0xBD80
 #elif defined(__ATMOS__)
 	#define BASE_ADDR 0xBB80
+#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED)
+	#define BASE_ADDR 7680
+	#define COLOR_ADDR 0x9600
 #endif
 
 

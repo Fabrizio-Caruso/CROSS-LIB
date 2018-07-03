@@ -15,14 +15,17 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 
 
 #if defined(MEMORY_MAPPED)	
-	#if !defined(CC65)
-		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
-		#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
-		#define PEEK(addr)         (*(unsigned char*) (addr))
-		#define PEEKW(addr) (*(unsigned*) (addr))
-	#else
-		#include <peekpoke.h>
-	#endif
+	#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+	#define PEEK(addr)         (*(unsigned char*) (addr))
+		
+	// #if !defined(CC65)
+		// #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+		// #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
+		// #define PEEK(addr)         (*(unsigned char*) (addr))
+		// #define PEEKW(addr) (*(unsigned*) (addr))
+	// #else
+		// #include <peekpoke.h>
+	// #endif
 
 	unsigned short loc(unsigned char x, char y)
 	{

@@ -652,8 +652,7 @@ vg5k:
 	-DFORCE_BOMBS_NUMBER=4 \
 	-DSOUNDS \
 	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/vg5k/vg5k_graphics.c \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) 
 	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
 
@@ -664,8 +663,7 @@ vg5k_exp_16k:
 	$(SCCZ80_OPTS) \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k.prg \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/vg5k/vg5k_graphics.c \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
 	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg	
@@ -1918,10 +1916,10 @@ z88dk_targets: \
 	samcoupe_targets \
 	lambda_targets \
 	c128_z80_targets \
+	vg5k_targets \
 	mc1000_targets 
 	
 z88dk_to_implement: \
-	vg5k_targets \
 	msx_targets \
 	nc100_targets \
 	kc_targets \

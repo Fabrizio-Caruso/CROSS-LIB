@@ -857,6 +857,24 @@ svi_318:
 	$(LIGHT_FILES)
 	mv a.cas $(BUILD_PATH)/LIGHT_svi_318.cas
 	rm a.bin
+
+
+# It hangs if compiled with sdcc.
+# syntax error if compiled with sccz80
+# $(SOURCE_PATH)/svi/svi_graphics.c	
+svi_328:
+	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
+	-DSOUNDS \
+	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv a.cas $(BUILD_PATH)/FULL_svi_328.cas
+	rm a.bin
+	
 	
 
 sc3000_16k:
@@ -902,22 +920,6 @@ sg1000:
 	rm $(BUILD_PATH)/FULL_sg1000_BSS.bin
 	rm $(BUILD_PATH)/FULL_sg1000_DATA.bin
 
-	
-# It hangs if compiled with sdcc.
-# syntax error if compiled with sccz80
-# $(SOURCE_PATH)/svi/svi_graphics.c	
-svi_328:
-	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
-	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
-	-DSOUNDS \
-	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app \	
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	mv a.cas $(BUILD_PATH)/FULL_svi_328.cas
-	rm a.bin
 
 sharp_mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) \
@@ -1088,7 +1090,6 @@ spectrum_16k:
 	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -v  -D__SPECTRUM__ \
 	-create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_graphics.c \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin 
 	rm $(BUILD_PATH)/TINY_spectrum_16k_UNASSIGNED.bin
@@ -1881,6 +1882,9 @@ z88dk_test: \
 	zsdcc_test	
 	
 z88dk_targets: \
+	svi_targets \
+	aquarius_targets \
+	spectrum_targets \
 	pc6001_targets \
 	zx81_targets \
 	einstein_targets \
@@ -1905,7 +1909,6 @@ z88dk_targets: \
 	mtx_targets \
 	abc80_targets \
 	p2000_targets \
-	svi_targets \
 	vz200_targets \
 	microbee_targets \
 	gal_targets \
@@ -1914,13 +1917,11 @@ z88dk_targets: \
 	samcoupe_targets \
 	lambda_targets \
 	c128_z80_targets \
-	mc1000_targets \
-	aquarius_targets
+	mc1000_targets 
 	
 z88dk_to_implement: \
 	vg5k_targets \
 	msx_targets \
-	spectrum_targets \
 	nc100_targets \
 	kc_targets \
 	cpc_targets	
@@ -2086,7 +2087,7 @@ p2000_targets: \
 	p2000_16k p2000_32k
 
 svi_targets: \
-	svi_318 svi_318_mode0 svi_328
+	svi_318 svi_328
 
 msx_targets: \
 	msx_16k msx_32k_rom msx_32k

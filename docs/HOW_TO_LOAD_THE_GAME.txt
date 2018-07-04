@@ -55,6 +55,14 @@ Use Atari800 emulator with the Atari 5200 bios roms and select Atari 5200 emulat
 Load as 16k one chip cartridge.
 
 ---------------------------------------------------------
+ATARI LYNX
+
+Use Handy 0.95 emulator (https://sourceforge.net/projects/handy/?source=typ_redirect)
+Place the rom into same folder as Handy emulator (https://atariage.com/Lynx/roms/LynxBoot.zip)
+
+
+---------------------------------------------------------
+
 CBM 610
 
 Use WinVice 3.1 and try multiple times.

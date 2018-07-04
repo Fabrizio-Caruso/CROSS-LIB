@@ -690,6 +690,7 @@ zx80_16k_turn_based:
 	-DEND_SCREEN \
 	-DTURN_BASED \
 	-DALT_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \

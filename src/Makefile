@@ -1087,7 +1087,7 @@ spectrum_16k:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc -clib=sdcc_iy \
 	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -v  -D__SPECTRUM__ \
 	-create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg \
-	-DEXT_GRAPHICS \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_graphics.c \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin 
@@ -1101,9 +1101,10 @@ spectrum_48k:
 	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
 	-DALT_MOVE \
 	-lndos -create-app \
-	-DEXT_GRAPHICS \
+	-DCONIO \
 	-o $(BUILD_PATH)/FULL_spectrum_48k.prg \
-	$(CROSS_LIB_PATH)/display/z88dk/spectrum/udg.asm $(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/spectrum/udg.asm \
+	$(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_redefined_chars_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_spectrum_48k.prg

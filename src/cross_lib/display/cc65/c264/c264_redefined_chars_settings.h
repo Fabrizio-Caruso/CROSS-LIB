@@ -31,6 +31,10 @@
 #define _INVINCIBILITY 0x21
 #define _BULLET 0x23
 
+#define _CONFUSE _SKULL
+
+#define _BROKEN_BRICK _BOMB
+
 // WHITE
 #define _GHOST 0x28
 

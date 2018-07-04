@@ -300,8 +300,9 @@ c16_32k:
 	$(CC65_PATH)$(MYCC65) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DANIMATE_PLAYER -DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/cc65/c264/c264_graphics.c \
+	-DREDEFINED_CHARS \
+	-DCONIO \
+	$(CROSS_LIB_PATH)/display/cc65/c264/c264_redefined_chars_init_graphics.c  \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -1792,7 +1793,9 @@ cc65_targets: \
 	pet_targets \
 	vic20_targets \
 	c264_targets \
-	atari_lynx_targets \
+	atari_lynx_targets
+	
+cc65_to_implement: \
 	supervision_targets	
 	
 # KO: 	
@@ -1886,7 +1889,6 @@ z88dk_targets: \
 	x1_targets \
 	px4_targets \
 	px8_targets \
-	kc_targets \
 	trs80_targets \
 	cpm_targets \
 	nascom_targets \
@@ -1896,8 +1898,6 @@ z88dk_targets: \
 	abc80_targets \
 	p2000_targets \
 	svi_targets \
-	msx_targets \
-	aquarius_targets \
 	vz200_targets \
 	microbee_targets \
 	gal_targets \
@@ -1905,13 +1905,17 @@ z88dk_targets: \
 	ace_targets \
 	samcoupe_targets \
 	lambda_targets \
-	nc100_targets \
 	c128_z80_targets \
 	mc1000_targets \
+	aquarius_targets
+	
+z88dk_to_implement: \
 	vg5k_targets \
-	cpc_targets \
-	spectrum_targets
-
+	msx_targets \
+	spectrum_targets \
+	nc100_targets \
+	kc_targets \
+	cpc_targets	
 
 cmoc_targets: \
 	coco

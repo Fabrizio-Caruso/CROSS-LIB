@@ -1232,6 +1232,8 @@ px4_putc4x6_tiny:
 	-DTINY_GAME \
 	-DNO_WAIT \
 	-DZ88DK_PUTC4X6 \
+	-DNO_PRINT \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-Cz–-32k \
 	-create-app -o $(BUILD_PATH)/TINY_px4_putc4x6.bin \
 	-vn -lndos \
@@ -1277,6 +1279,8 @@ px4_putc4x6:
 	-DNO_WAIT \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DZ88DK_PUTC4X6 \
+	-DNO_PRINT \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-Cz–-32k \
 	-create-app -o $(BUILD_PATH)/FULL_px4_putc4x6.bin \
 	-vn -lndos \
@@ -1749,8 +1753,9 @@ ncurses_turn_based:
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DTURN_BASED \
-	-DCONIO  \	
+	-DCONIO  \
 	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/ncurses/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
 	mv a.exe $(BUILD_PATH)/FULL_ncurses_turn_based.exe
@@ -1761,6 +1766,7 @@ ncurses:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO  \
 	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/ncurses/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
 	mv a.exe $(BUILD_PATH)/FULL_ncurses.exe

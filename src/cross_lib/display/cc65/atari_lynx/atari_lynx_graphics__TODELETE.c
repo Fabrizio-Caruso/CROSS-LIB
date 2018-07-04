@@ -26,7 +26,8 @@
 #include <stdio.h>
 #include <string.h>
 
-#include <tgi.h>
+
+
 
 extern unsigned char XSize;
 
@@ -108,29 +109,7 @@ void CLEAR_SCREEN(void)
 }
 
 
-void INIT_GRAPHICS(void)
-{
-	    tgi_install (tgi_static_stddrv);
 
-
-	// tgi_setpalette(tgi_getdefpalette());
-    // tgi_clear ();
-	
-	// tgi_install(tgi_static_stddrv);
-	
-	// tgi_init();
-	tgi_init ();		
-	CLI();
-
-	while (tgi_busy())  {  };
-
-	tgi_setpalette(tgi_getdefpalette());
-	tgi_setcolor(COLOR_WHITE);
-	tgi_setbgcolor(_BG_COLOR);
-
-
-	CLEAR_SCREEN();
-}
 
 void INIT_IMAGES(void)
 {		

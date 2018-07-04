@@ -500,8 +500,9 @@ atari_lynx:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
 	-DNO_PRINT \
-	-DCONIO \
-	-DNO_INIT_GRAPHICS \
+	-DTGI \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/cc65/atari_lynx/atari_lynx_init_graphics.c \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_ATARI_LYNX.lnx
 	

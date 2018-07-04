@@ -72,8 +72,10 @@
 	#define _ROCKET ('^')
 #endif
 
-#if defined(__C128_Z80__) || defined(__ZX80__) || defined(__ZX81__)
+#if defined(__C128_Z80__) || defined(__ZX80__) || defined(__ZX81__) 
 	#define _VERTICAL_BRICK 'i'
+#elif defined(__ATARI_LYNX__)
+	#define _VERTICAL_BRICK 'I'
 #else
 	#define _VERTICAL_BRICK ('|')
 #endif 

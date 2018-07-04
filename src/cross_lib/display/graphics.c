@@ -70,9 +70,9 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		unsigned char i;
 		unsigned char j;
 		
-		for(i=0;i<YSize;++i)
+		for(i=0;i<XSize;++i)
 		{
-			for(j=0;j<XSize;++j)
+			for(j=0;j<YSize;++j)
 			{
 				_delete(i,j);
 			}

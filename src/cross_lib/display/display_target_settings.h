@@ -146,7 +146,7 @@
 	#elif defined(__VIC20__)
 		#define XSize 22
 	#elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
-		  || defined(__ATARI_LINX__) || defined(__SUPERVISION__)
+		  || defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
 		#define XSize 20
 	#else
 		#define XSize 16

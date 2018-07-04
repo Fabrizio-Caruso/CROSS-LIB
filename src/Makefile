@@ -1364,8 +1364,7 @@ kc_sprites_tiny:
 	-DNO_WAIT \
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
+	-DNO_INIT_GRAPHICS \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_kc_sprites.bin	
 
@@ -1380,8 +1379,7 @@ nc100_sprites_light:
 	-DNO_WAIT \
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/LIGHT_nc100_sprites.bin \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
+	-DNO_INIT_GRAPHICS \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
 
@@ -1917,12 +1915,12 @@ z88dk_targets: \
 	lambda_targets \
 	c128_z80_targets \
 	vg5k_targets \
-	mc1000_targets 
+	mc1000_targets \
+	nc100_targets \
+	kc_targets	
 	
 z88dk_to_implement: \
 	msx_targets \
-	nc100_targets \
-	kc_targets \
 	cpc_targets	
 
 cmoc_targets: \

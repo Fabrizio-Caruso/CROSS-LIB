@@ -9,6 +9,8 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 	#include "memory_mapped/memory_mapped_graphics.h"
 #elif defined(CONIO)
 	#include "conio/conio_graphics.h"
+#elif defined(Z88DK_SPRITES)
+	#include "z88dk/z88dk_sprites/z88dk_sprites_graphics.h"
 #elif defined(TGI)
 	#include "tgi/tgi_graphics.h"
 #endif

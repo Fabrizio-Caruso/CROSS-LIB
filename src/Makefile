@@ -289,9 +289,10 @@ c16_16k:
 	$(CC65_PATH)$(MYCC65) -Or -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k.cfg \
 	-DANIMATE_PLAYER  -DSOUNDS \
-	-DEXT_GRAPHICS \
+	-DREDEFINED_CHARS \
+	-DCONIO \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
-	$(CROSS_LIB_PATH)/display/cc65/c264/c264_graphics.c  \
+	$(CROSS_LIB_PATH)/display/cc65/c264/c264_redefined_chars_init_graphics.c  \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_c16_16k.prg
 	

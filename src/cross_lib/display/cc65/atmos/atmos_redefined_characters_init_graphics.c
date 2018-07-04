@@ -35,7 +35,7 @@ void init_colors(void)
 
 void INIT_GRAPHICS(void)
 {		
-	#if !defined(REDEFINED_CHARS)	
+	#if !defined(ANIMATE_PLAYER)	
 		const unsigned char player[] =                {12,18,12,51,45,12,18,51};
 	#else
 		const unsigned char player_left[] =           {12,22,12,62,13,12,20,20};
@@ -83,7 +83,7 @@ void INIT_GRAPHICS(void)
 	redefine(_GUN_OFFSET*8,gun);		
 	redefine(_BULLET_OFFSET*8,missile);
 	
-	#if !defined(REDEFINED_CHARS)
+	#if !defined(ANIMATE_PLAYER)
 		redefine(_PLAYER_OFFSET*8,player);		
 	#else	
 		redefine(_PLAYER_LEFT_OFFSET*8,player_left);

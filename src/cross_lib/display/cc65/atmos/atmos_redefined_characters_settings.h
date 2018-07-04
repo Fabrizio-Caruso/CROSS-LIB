@@ -1,7 +1,7 @@
 
 #define _INVERTED 128u
 
-#if !defined(REDEFINED_CHARS)
+#if !defined(ANIMATE_PLAYER)
 	#define _PLAYER_OFFSET 0x5c
 	#define _PLAYER  0x5c
 #else		

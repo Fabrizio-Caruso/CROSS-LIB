@@ -62,7 +62,7 @@ extern Image GUN_IMAGE;
 	extern Image BROKEN_WALL_IMAGE;
 #endif
 
-#if defined(REDEFINED_CHARS)
+#if defined(ANIMATE_PLAYER)
 	Image PLAYER_DOWN;
 	Image PLAYER_UP;
 	Image PLAYER_RIGHT;
@@ -169,7 +169,7 @@ void INIT_GRAPHICS(void)
 
 void INIT_IMAGES(void)
 {		
-	#if !defined(REDEFINED_CHARS)
+	#if !defined(ANIMATE_PLAYER)
 	PLAYER_IMAGE._imageData = _PLAYER;
 	PLAYER_IMAGE._color = CPC_YELLOW;
 	#endif
@@ -183,7 +183,7 @@ void INIT_IMAGES(void)
 	DEAD_GHOST_IMAGE._imageData = _GHOST;	
 	DEAD_GHOST_IMAGE._color = CPC_RED;
 	
-	#if defined(REDEFINED_CHARS)
+	#if defined(ANIMATE_PLAYER)
 		PLAYER_DOWN._imageData = _PLAYER_DOWN;
 		PLAYER_UP._imageData = _PLAYER_UP;
 		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
@@ -224,7 +224,7 @@ void INIT_IMAGES(void)
 		
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
 		
-		#if !defined(REDEFINED_CHARS)
+		#if !defined(ANIMATE_PLAYER)
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 		#else
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;			

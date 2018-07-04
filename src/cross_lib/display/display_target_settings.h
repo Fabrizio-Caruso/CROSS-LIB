@@ -195,7 +195,7 @@
 	#define STAT_GUN_IMAGE GUN_IMAGE._imageData
 	#define STAT_GHOST_IMAGE GHOST_IMAGE._imageData
 	#define STAT_PLAYER_IMAGE PLAYER_IMAGE._imageData	
-#elif defined(__C64__) && defined(REDEFINED_CHARS)
+#elif defined(__C64__) && defined(ANIMATE_PLAYER)
 	#define STAT_GUN_IMAGE (GUN_IMAGE._imageData+32)
 	#define STAT_GHOST_IMAGE (GHOST_IMAGE._imageData+32)
 	#define STAT_PLAYER_IMAGE 'T'

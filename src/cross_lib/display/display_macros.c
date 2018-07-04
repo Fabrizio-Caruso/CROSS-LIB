@@ -39,7 +39,7 @@
 	}
 #endif
 
-#if !defined(REDEFINED_CHARS)
+#if !defined(ANIMATE_PLAYER)
 	Image PLAYER_IMAGE;
 #else
 	Image PLAYER_DOWN;
@@ -94,19 +94,19 @@ Image BOMB_IMAGE;
 /*
 #if defined(__VG5K__)
 	//
-#elif defined(__C64__) && defined(REDEFINED_CHARS)
+#elif defined(__C64__) && defined(ANIMATE_PLAYER)
 	// 
-#elif defined(__ATMOS__) && defined(REDEFINED_CHARS)
+#elif defined(__ATMOS__) && defined(ANIMATE_PLAYER)
 	// 
-#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) && defined(REDEFINED_CHARS)
+#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) && defined(ANIMATE_PLAYER)
 	// 
-#elif (defined(__C16__)   || defined(__PLUS4__))   && defined(REDEFINED_CHARS)
+#elif (defined(__C16__)   || defined(__PLUS4__))   && defined(ANIMATE_PLAYER)
 	// 
 #elif defined(__C16__) && defined(ALT_PRINT)
 	// 
 #elif defined(__SPECTRUM__)
 	//	
-#elif defined(__MSX__) && defined(REDEFINED_CHARS) && defined(MSX_VPOKE)
+#elif defined(__MSX__) && defined(ANIMATE_PLAYER) && defined(MSX_VPOKE)
 	// 
 #elif defined(__SVI__) && defined(MSX_MODE0)
 	//
@@ -122,13 +122,13 @@ Image BOMB_IMAGE;
 	//
 #elif defined(__GAMATE__)
 	//	
-#elif defined(__VIC20__) && defined(REDEFINED_CHARS)
+#elif defined(__VIC20__) && defined(ANIMATE_PLAYER)
 	//
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED)
 	//
 #elif defined(__VIC20__) && defined(ALT_PRINT)
 	//	
-#elif (defined(__WINCMOC__) && defined(__CMOC__)) && defined(REDEFINED_CHARS)
+#elif (defined(__WINCMOC__) && defined(__CMOC__)) && defined(ANIMATE_PLAYER)
 	//
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	//

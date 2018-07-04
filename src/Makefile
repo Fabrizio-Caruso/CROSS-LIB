@@ -76,7 +76,7 @@ COCO_OPTS       ?= -O0 -DALT_CLEAR_SCREEN -D__CMOC__ -DMEMORY_MAPPED -DNO_INIT_G
 
 atari_color: 
 	$(CC65_PATH)$(MYCC65) -O -t atari \
-	-DREDEFINED_CHARS -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/display/cc65/atari/disable_setcursor.s \
@@ -107,7 +107,7 @@ atari5200:
 
 
 atmos: 
-	$(CC65_PATH)$(MYCC65)  -O  -DSOUNDS -DREDEFINED_CHARS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	$(CC65_PATH)$(MYCC65)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-t atmos \
 	-DALT_MOVE \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
@@ -119,7 +119,7 @@ atmos:
 
 
 oric1_16k: 
-	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DREDEFINED_CHARS \
+	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DANIMATE_PLAYER \
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	-DMEMORY_MAPPED \
@@ -154,7 +154,8 @@ vic20_unexpanded:
 	
 vic20_exp_3k:
 	$(CC65_PATH)$(MYCC65) -Or  -t vic20 \
-	-DNO_PRINT -DREDEFINED_CHARS -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 -DROUND_ENEMIES -DTINY_GAME -DSOUNDS \
+	-DREDEFINED_CHARS \
+	-DNO_PRINT -DANIMATE_PLAYER -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 -DROUND_ENEMIES -DTINY_GAME -DSOUNDS \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
 	-DMEMORY_MAPPED \
 	-DVIC20_EXP_3K \
@@ -176,8 +177,9 @@ vic20_exp_8k_full:
 	-DNO_HINTS \
 	-DSOUNDS \
 	-DALT_SLEEP \
-	-DREDEFINED_CHARS \
+	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
+	-DVIC20_EXP_8K \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \
@@ -187,8 +189,9 @@ vic20_exp_8k_full:
 
 
 vic20_exp_8k: 
-	$(CC65_PATH)$(MYCC65) -Or  -t vic20  -DSOUNDS -DREDEFINED_CHARS --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
+	$(CC65_PATH)$(MYCC65) -Or  -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
+	-DREDEFINED_CHARS \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/udc.s \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -206,9 +209,10 @@ vic20_exp_8k:
 
 	
 vic20_exp_16k: 
-	$(CC65_PATH)$(MYCC65) -Or -t vic20 -DREDEFINED_CHARS -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	$(CC65_PATH)$(MYCC65) -Or -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
+	-DREDEFINED_CHARS \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/udc.s \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -219,7 +223,7 @@ vic20_exp_16k:
 	
 c64: 
 	$(CC65_PATH)$(MYCC65) -O -t c64 \
-	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
@@ -236,7 +240,7 @@ c64:
 
 c64_8k_cart: 
 	$(CC65_PATH)$(MYCC65) -O -t c64 \
-	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS \
+	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS \
 	-DLESS_TEXT \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DEND_SCREEN \
@@ -284,7 +288,7 @@ c128_80col:
 c16_16k: 
 	$(CC65_PATH)$(MYCC65) -Or -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k.cfg \
-	-DREDEFINED_CHARS  -DSOUNDS \
+	-DANIMATE_PLAYER  -DSOUNDS \
 	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/cc65/c264/c264_graphics.c  \
@@ -293,7 +297,7 @@ c16_16k:
 	
 c16_32k: 
 	$(CC65_PATH)$(MYCC65) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
-	-DREDEFINED_CHARS -DFULL_GAME -DSOUNDS \
+	-DANIMATE_PLAYER -DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/cc65/c264/c264_graphics.c \
@@ -311,7 +315,7 @@ c16_16k_full:
 	-DLESS_TEXT	\
 	-DSOUNDS \
 	-DALT_PRINT \
-	-DREDEFINED_CHARS \
+	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/cc65/c264/c264_init_graphics.c \
@@ -734,7 +738,7 @@ lambda_16k:
 
 
 cpc:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DREDEFINED_CHARS -v -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -v -clib=ansi \
 	-D__CPC__ -DSOUNDS -DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB \
@@ -756,7 +760,7 @@ cpc:
 
 
 cpc_joystick:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DREDEFINED_CHARS -vn  -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \
 	-D__CPC_JOYSTICK__ \
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -786,7 +790,7 @@ cpc_joystick:
 		
 msx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -zorg=49200 \
-	-DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
+	-DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	-create-app -o $(BUILD_PATH)/LIGHT_msx_16k.prg \
 	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_graphics.c $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -796,7 +800,7 @@ msx_16k:
 
 msx_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) \
-	-DSOUNDS -DREDEFINED_CHARS \
+	-DSOUNDS -DANIMATE_PLAYER \
 	-create-app -vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_msx_32k.prg \
@@ -809,7 +813,7 @@ msx_32k:
 
 msx_32k_rom:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) \
-	-DSOUNDS -DREDEFINED_CHARS -vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DSOUNDS -DANIMATE_PLAYER -vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
 	-o $(BUILD_PATH)/FULL_msx_32k.rom \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1091,7 +1095,7 @@ spectrum_16k:
 spectrum_48k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -v  \
 	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
-	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
+	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
 	-DALT_MOVE \
 	-lndos -create-app \
 	-DEXT_GRAPHICS \
@@ -1106,7 +1110,7 @@ spectrum_48k:
 spectrum_48k_putc4x6:
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -vn  \
 	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
-	-DFULL_GAME -DREDEFINED_CHARS -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
+	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
 	-DZ88DK_PUTC4X6 \
 	-DNO_SLEEP -DLESS_TEXT -DNO_WAIT \
 	-lndos -create-app \
@@ -1350,7 +1354,7 @@ kc_sprites_tiny:
 	-DLESS_TEXT \
 	-DNO_SLEEP \
 	-DNO_WAIT \
-	-DREDEFINED_CHARS \
+	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \
 	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
@@ -1366,7 +1370,7 @@ nc100_sprites_light:
 	-DLESS_TEXT \
 	-DNO_SLEEP \
 	-DNO_WAIT \
-	-DREDEFINED_CHARS \
+	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/LIGHT_nc100_sprites.bin \
 	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
@@ -1785,10 +1789,10 @@ cc65_targets: \
 	gamate_targets \
 	osic1p_targets \
 	pet_targets \
-	atari_lynx_targets \
-	supervision_targets \
 	vic20_targets \
-	c264_targets
+	c264_targets \
+	atari_lynx_targets \
+	supervision_targets	
 	
 # KO: 	
 # m5: out of memory
@@ -2394,7 +2398,7 @@ kc_test:
 	-DZ88DK_SPRITES \
 	-DNO_SLEEP \
 	-DNO_WAIT \
-	-DREDEFINED_CHARS \
+	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/TEST_kc_sprites.bin \
 	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
@@ -2450,7 +2454,7 @@ vg5k_test:
 	rm $(BUILD_PATH)/TEST_vg5k.prg	
 
 cpc_test:	
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -DREDEFINED_CHARS -vn  -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ -DSOUNDS \
 	$(FAST_TEST_OPTS) \
 	-DCPCRSLIB \
@@ -2535,7 +2539,7 @@ svi_test:
 
 msx_test:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
-	-DSOUNDS -DREDEFINED_CHARS -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
+	-DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	$(FAST_TEST_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_msx.prg \
 	-DEXT_GRAPHICS \
@@ -2614,7 +2618,7 @@ zx81_test:
 spectrum_test:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -clib=ansi -vn  \
 	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
-	-DREDEFINED_CHARS -DSOUNDS -DCLIB_ANSI -D__SPECTRUM__ \
+	-DANIMATE_PLAYER -DSOUNDS -DCLIB_ANSI -D__SPECTRUM__ \
 	-lndos -create-app \
 	$(FAST_TEST_OPTS) \
 	-o $(BUILD_PATH)/TEST_spectrum.prg \
@@ -2653,7 +2657,7 @@ nc100_test:
 	-DLESS_TEXT \
 	-DNO_SLEEP \
 	-DNO_WAIT \
-	-DREDEFINED_CHARS \
+	-DANIMATE_PLAYER \
 	$(FAST_TEST_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_nc100.bin \
 	-DEXT_GRAPHICS \
@@ -2838,7 +2842,7 @@ spectrum_16k_light:
 	
 oric1_16k_full: 
 	$(CC65_PATH)$(MYCC65)  -Or -Cl \
-	-DREDEFINED_CHARS -DFULL_GAME \
+	-DANIMATE_PLAYER -DFULL_GAME \
 	-DLESS_TEXT -DNO_MESSAGE -DNO_SLEEP -DSIMPLE_STRATEGY -DNO_BLINKING -DNO_HINTS -DNO_STATS -DFORCE_GHOSTS_NUMBER=8 \
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
@@ -2871,7 +2875,7 @@ vg5k_light:
 	
 	
 cpc_no_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DREDEFINED_CHARS -vn  -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ -DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_cpc_no_udg.prg \
@@ -2917,7 +2921,7 @@ zx81_8k:
 
 msx_conio_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) \
-	-DSOUNDS -DREDEFINED_CHARS \
+	-DSOUNDS -DANIMATE_PLAYER \
 	-create-app -vn -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-clib=ansi \
@@ -3002,7 +3006,7 @@ nc100_sprites_tiny:
 	-DLESS_TEXT \
 	-DNO_SLEEP \
 	-DNO_WAIT \
-	-DREDEFINED_CHARS \
+	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/TINY_nc100_sprites.bin \
 	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
 	$(SOURCE_PATH)/display_macros.c \
@@ -3053,7 +3057,7 @@ nc200_sprites_tiny:
 	-DLESS_TEXT \
 	-DNO_SLEEP \
 	-DNO_WAIT \
-	-DREDEFINED_CHARS \
+	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/TINY_nc200_sprites.bin \
 	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
 	$(SOURCE_PATH)/display_macros.c \
@@ -3119,7 +3123,7 @@ abc800_tiny:
 
 
 # cpc_tiny:
-	# $(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DREDEFINED_CHARS -vn  -clib=ansi \
+	# $(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	# -D__CPC__ 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	# -DCPCRSLIB \
 	# -pragma-define:REGISTER_SP=-1 \
@@ -3141,7 +3145,7 @@ cpc_cpcrslib:
 	@$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst	
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) \
 	-pragma-define:REGISTER_SP=-1 \
-	-DREDEFINED_CHARS -DSOUNDS -DFULL_GAME -clib=ansi -D__CPC__ -DCPCRSLIB -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DANIMATE_PLAYER -DSOUNDS -DFULL_GAME -clib=ansi -D__CPC__ -DCPCRSLIB -DBETWEEN_LEVEL -DEND_SCREEN \
 	-l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos \
 	-create-app -o $(BUILD_PATH)/FULL_cpc_cpcrslib.prg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
@@ -3858,5 +3862,5 @@ z1013_wait_press:
 
 	
 msx_color_32k_msxdos:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -DSOUNDS -DREDEFINED_CHARS -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -lndos -subtype=msxdos -o $(BUILD_PATH)/FULL_msx_color_32k.com $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -DSOUNDS -DANIMATE_PLAYER -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -lndos -subtype=msxdos -o $(BUILD_PATH)/FULL_msx_color_32k.com $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	

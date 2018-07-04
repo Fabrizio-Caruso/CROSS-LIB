@@ -237,7 +237,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 	}	
 }
 
-// #if defined(REDEFINED_CHARS)
+// #if defined(ANIMATE_PLAYER)
 	// void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	// { 
 		// unsigned char i;

@@ -88,7 +88,7 @@ extern Image DEAD_GHOST_IMAGE;
 #endif
 
 
-#if defined(REDEFINED_CHARS)
+#if defined(ANIMATE_PLAYER)
 	Image PLAYER_DOWN;
 	Image PLAYER_UP;
 	Image PLAYER_RIGHT;
@@ -151,7 +151,7 @@ void INIT_IMAGES(void)
 		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;		
 	#endif
 
-	#if defined(REDEFINED_CHARS)
+	#if defined(ANIMATE_PLAYER)
 		PLAYER_DOWN._imageData = _PLAYER_DOWN;
 		PLAYER_UP._imageData = _PLAYER_UP;	
 		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;

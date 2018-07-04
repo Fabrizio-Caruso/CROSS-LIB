@@ -60,7 +60,7 @@ extern Image BULLET_IMAGE;
 #endif
 
 
-#if defined(REDEFINED_CHARS)
+#if defined(ANIMATE_PLAYER)
 	Image PLAYER_RIGHT;
 	Image PLAYER_LEFT;
 	Image PLAYER_UP;

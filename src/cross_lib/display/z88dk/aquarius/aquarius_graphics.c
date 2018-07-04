@@ -63,7 +63,7 @@ extern Image GUN_IMAGE;
 	extern Image BROKEN_WALL_IMAGE;
 #endif
 
-#if defined(REDEFINED_CHARS)
+#if defined(ANIMATE_PLAYER)
 	Image PLAYER_DOWN;
 	Image PLAYER_UP;
 	Image PLAYER_RIGHT;

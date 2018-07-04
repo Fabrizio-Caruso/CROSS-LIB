@@ -138,7 +138,7 @@ void redefine(unsigned short loc, const char *new_char)
 
 void INIT_GRAPHICS(void)
 {
-	#if defined(REDEFINED_CHARS)
+	#if defined(ANIMATE_PLAYER)
 		static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
 		static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
 		static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
@@ -181,7 +181,7 @@ void INIT_GRAPHICS(void)
 		msx_vpoke(8192+11, 8*16); // Red 88 --
 	#endif
 	
-	#if defined(REDEFINED_CHARS)
+	#if defined(ANIMATE_PLAYER)
 		redefine(CHAR_BASE+8*_PLAYER,player_down);
 		redefine(CHAR_BASE+8*_PLAYER_DOWN,player_down);
 		redefine(CHAR_BASE+8*_PLAYER_UP,player_up);	
@@ -221,7 +221,7 @@ void INIT_IMAGES(void)
 
 	GHOST_IMAGE._imageData = _GHOST;
 	BOMB_IMAGE._imageData = _BOMB;
-	#if !defined(REDEFINED_CHARS)
+	#if !defined(ANIMATE_PLAYER)
 		PLAYER_IMAGE._imageData = _PLAYER;
 	#endif
 	
@@ -237,7 +237,7 @@ void INIT_IMAGES(void)
 		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;
 	#endif
 	
-	#if defined(REDEFINED_CHARS)
+	#if defined(ANIMATE_PLAYER)
 		PLAYER_DOWN._imageData = _PLAYER_DOWN;
 		PLAYER_UP._imageData = _PLAYER_UP;	
 		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
@@ -295,7 +295,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 }
 #endif
 
-#if defined(REDEFINED_CHARS) && !defined(TINY_GAME)
+#if defined(ANIMATE_PLAYER) && !defined(TINY_GAME)
 	void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length)
 	{ 
 		unsigned char i;

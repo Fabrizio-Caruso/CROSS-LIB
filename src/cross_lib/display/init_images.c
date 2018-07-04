@@ -2,7 +2,7 @@
 
 #include "graphics_settings.h"
 
-#if !defined(REDEFINED_CHARS)
+#if !defined(ANIMATE_PLAYER)
 	extern Image PLAYER_IMAGE;
 #else
 	extern Image PLAYER_DOWN;
@@ -55,7 +55,7 @@ void INIT_IMAGES(void)
 {		
 	#if !defined(NO_COLOR)
 		
-		#if defined(REDEFINED_CHARS)
+		#if defined(ANIMATE_PLAYER)
 			PLAYER_DOWN._color = COLOR_IF_EXISTS_CYAN_ELSE_BLUE;
 			PLAYER_UP._color = COLOR_IF_EXISTS_CYAN_ELSE_BLUE;
 			PLAYER_RIGHT._color = COLOR_IF_EXISTS_CYAN_ELSE_BLUE;
@@ -100,7 +100,7 @@ void INIT_IMAGES(void)
 		#endif	
 	#endif
 
-	#if defined(REDEFINED_CHARS)
+	#if defined(ANIMATE_PLAYER)
 		PLAYER_DOWN._imageData = _PLAYER_DOWN;
 		PLAYER_UP._imageData = _PLAYER_UP;	
 		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
@@ -158,7 +158,7 @@ void INIT_IMAGES(void)
 	void INIT_IMAGES(void)
 	{		
 		#if !defined(NO_COLOR)
-			#if !defined(REDEFINED_CHARS)
+			#if !defined(ANIMATE_PLAYER)
 				PLAYER_IMAGE._color = COLOR_CYAN;
 			#endif
 			BOMB_IMAGE._color = COLOR_RED;
@@ -192,7 +192,7 @@ void INIT_IMAGES(void)
 			GHOST_IMAGE._imageData = 'o';			
 		#endif
 		
-		#if !defined(REDEFINED_CHARS)
+		#if !defined(ANIMATE_PLAYER)
 			#if !defined(__CREATIVISION__)
 				PLAYER_IMAGE._imageData = '*';			
 			#else
@@ -200,7 +200,7 @@ void INIT_IMAGES(void)
 			#endif
 		#endif
 		
-		#if defined(REDEFINED_CHARS)
+		#if defined(ANIMATE_PLAYER)
 			#if defined(__APPLE2ENH__)
 				PLAYER_DOWN._imageData = 77;
 				PLAYER_UP._imageData = 75;
@@ -265,7 +265,7 @@ void INIT_IMAGES(void)
 			ROCKET_IMAGE._imageData = '^';
 			#if defined(__WINCMOC__) || defined(__CMOC__)	
 				FREEZE_IMAGE._imageData = 'f';		
-				#if !defined(REDEFINED_CHARS)
+				#if !defined(ANIMATE_PLAYER)
 					EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 				#else
 					EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;				
@@ -277,7 +277,7 @@ void INIT_IMAGES(void)
 			#else
 				FREEZE_IMAGE._imageData = 'F';
 				
-				#if !defined(REDEFINED_CHARS)
+				#if !defined(ANIMATE_PLAYER)
 					EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 				#else
 					EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;				

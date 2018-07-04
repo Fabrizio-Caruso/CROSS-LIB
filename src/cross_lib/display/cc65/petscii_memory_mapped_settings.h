@@ -31,7 +31,7 @@
 #include <peekpoke.h>
 #include <string.h>
 
-#if defined(REDEFINED_CHARS)
+#if defined(ANIMATE_PLAYER)
 	#define _PLAYER_DOWN (0xB2-0x40)
 	//0x3B
 	#define _PLAYER_UP  (0xB1-0x40)

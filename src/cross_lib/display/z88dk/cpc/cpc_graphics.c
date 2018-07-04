@@ -71,7 +71,7 @@ void INIT_GRAPHICS(void)
 
 void INIT_IMAGES(void)
 {		
-	#if !defined(REDEFINED_CHARS)
+	#if !defined(ANIMATE_PLAYER)
 	PLAYER_IMAGE._color = CPC_YELLOW;
 	PLAYER_IMAGE._imageData = 0xF9;//'*';
 	#endif

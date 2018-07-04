@@ -51,7 +51,7 @@
 	//#define FULL_GAME
 	#define TINY_GAME	
 	#define ASM_KEY_DETECT
-	// #define REDEFINED_CHARS
+	// #define ANIMATE_PLAYER
 	// #define SOUNDS
 	// #define LESS_TEXT
 	// #define NO_SLEEP
@@ -95,9 +95,9 @@
 
 
 // TEXT SETTINGS
-#if (defined(__VIC20__) && defined(REDEFINED_CHARS)) || (defined(__VIC20__) && defined(ALT_PRINT)) \
+#if (defined(__VIC20__) && defined(ANIMATE_PLAYER)) || (defined(__VIC20__) && defined(ALT_PRINT)) \
 	|| defined(__WINCMOC__) || defined(__CMOC__) || defined(__GAMATE__) \
-    || defined(__APPLE2__) || (defined(__C64__) && defined(REDEFINED_CHARS)) || defined(__ATARI__) || defined(__ATARIXL__) \
+    || defined(__APPLE2__) || (defined(__C64__) && defined(ANIMATE_PLAYER)) || defined(__ATARI__) || defined(__ATARIXL__) \
 	|| defined(__ZX80__) || (defined(__C16__) && defined(ALT_PRINT))
 	#define NO_CASE_LETTERS
 #else

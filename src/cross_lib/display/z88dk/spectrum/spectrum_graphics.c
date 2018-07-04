@@ -43,7 +43,7 @@ extern Image FREEZE_IMAGE;
 	extern Image GUN_IMAGE;
 #endif
 
-#if defined(REDEFINED_CHARS)
+#if defined(ANIMATE_PLAYER)
 	extern char udg[];
 #endif
 	
@@ -65,7 +65,7 @@ extern Image FREEZE_IMAGE;
 #endif
 
 	
-#if defined(REDEFINED_CHARS)
+#if defined(ANIMATE_PLAYER)
 	Image PLAYER_DOWN;
 	Image PLAYER_UP;
 	Image PLAYER_RIGHT;
@@ -86,7 +86,7 @@ extern Image FREEZE_IMAGE;
 #define PEEK(addr)         (*(unsigned char*) (addr))
 #define PEEKW(addr) (*(unsigned*) (addr))
 
-#if defined(REDEFINED_CHARS)
+#if defined(ANIMATE_PLAYER)
 struct redefine_struct
 {
    unsigned char ascii;
@@ -129,7 +129,7 @@ struct redefine_struct
 #define _RIGHT_HORIZONTAL_MISSILE ((unsigned char)0x7D)
 #define _ROCKET ((unsigned char)0x60)
 
-#if defined(REDEFINED_CHARS)
+#if defined(ANIMATE_PLAYER)
 struct redefine_struct redefine_map[] =
 {
 	{_PLAYER_DOWN, { 24, 36, 24,102,153, 24, 36,102}},
@@ -160,7 +160,7 @@ struct redefine_struct redefine_map[] =
 #if !defined(TINY_GAME)
 	void INIT_GRAPHICS(void)
 	{
-		#if defined(REDEFINED_CHARS)
+		#if defined(ANIMATE_PLAYER)
 			unsigned char i;
 			for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
 			{
@@ -188,7 +188,7 @@ void INIT_IMAGES(void)
 {		
 
 	#if defined(COLOR)
-		#if !defined(REDEFINED_CHARS)
+		#if !defined(ANIMATE_PLAYER)
 		PLAYER_IMAGE._color = COLOR_CYAN;
 		#endif
 		BOMB_IMAGE._color = COLOR_RED;
@@ -214,7 +214,7 @@ void INIT_IMAGES(void)
 		ZOMBIE_IMAGE._color = COLOR_YELLOW;
 	#endif
 		
-	#if defined(REDEFINED_CHARS)	
+	#if defined(ANIMATE_PLAYER)	
 		PLAYER_DOWN._imageData = _PLAYER_DOWN;
 		PLAYER_UP._imageData = _PLAYER_UP;		
 		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
@@ -277,7 +277,7 @@ void INIT_IMAGES(void)
 		
 		ROCKET_IMAGE._color = COLOR_WHITE;
 		EXTRA_POINTS_IMAGE._imageData = '$';
-		#if !defined(REDEFINED_CHARS)
+		#if !defined(ANIMATE_PLAYER)
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_IMAGE._imageData;
 		#else
 		EXTRA_LIFE_IMAGE._imageData = PLAYER_DOWN._imageData;
@@ -285,7 +285,7 @@ void INIT_IMAGES(void)
 		INVINCIBILITY_IMAGE._imageData = '!';
 	#endif
 	
-	#if defined(REDEFINED_CHARS)
+	#if defined(ANIMATE_PLAYER)
 		PLAYER_DOWN._color = COLOR_CYAN;
 		PLAYER_UP._color = COLOR_CYAN;		
 		PLAYER_RIGHT._color = COLOR_CYAN;

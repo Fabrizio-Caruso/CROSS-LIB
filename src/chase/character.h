@@ -48,7 +48,7 @@ typedef struct CharacterStruct Character;
 
 #include "settings.h"
 
-#if defined(REDEFINED_CHARS)
+#if defined(ANIMATE_PLAYER)
 	#define PLAYER_IMAGE PLAYER_DOWN
 #endif
 
@@ -72,7 +72,7 @@ void deleteCharacter(Character * characterPtr);
 
 //
 
-#if defined(REDEFINED_CHARS)
+#if defined(ANIMATE_PLAYER)
 	extern Image PLAYER_LEFT;
 	extern Image PLAYER_RIGHT;
 	extern Image PLAYER_UP;

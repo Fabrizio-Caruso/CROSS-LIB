@@ -135,17 +135,17 @@ void INIT_IMAGES(void)
 		
 		ROCKET_IMAGE._imageData = _ROCKET;
 
+		// If colors are present POWERUP/FREEZE/SUPER are differentiated by the color attribute -> same _POWERUP for all of them
 		#if !defined(NO_COLOR)
 			FREEZE_IMAGE._imageData = _POWERUP;		
 			SUPER_IMAGE._imageData = _POWERUP;		
 		#else
 			FREEZE_IMAGE._imageData = _FREEZE;
-			SUPER_IMAGE._imageData = _SUPER;				
+			SUPER_IMAGE._imageData = _SUPER;		
 		#endif
 		
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
-		SUPER_IMAGE._imageData = _POWERUP;
 		CONFUSE_IMAGE._imageData = _SKULL;
 		ZOMBIE_IMAGE._imageData = _GHOST;
 		

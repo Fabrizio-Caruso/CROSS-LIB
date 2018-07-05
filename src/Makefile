@@ -81,6 +81,8 @@ atari_color:
 	-DMEMORY_MAPPED \
 	-DALT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	$(CROSS_LIB_PATH)/display/cc65/atari/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/atari/atari_sounds.c \

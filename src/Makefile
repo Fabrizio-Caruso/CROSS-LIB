@@ -794,8 +794,9 @@ msx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -zorg=49200 \
 	-DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	-create-app -o $(BUILD_PATH)/LIGHT_msx_16k.prg \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_graphics.c $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_msx_16k.prg 	
 
@@ -807,6 +808,7 @@ msx_32k:
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_msx_32k.prg \
 	-DMEMORY_MAPPED \
+	-DNO_PRINT \
 	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_redefined_chars_init_graphics.c	\
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -820,8 +822,9 @@ msx_32k_rom:
 	-lndos -subtype=rom \
 	-o $(BUILD_PATH)/FULL_msx_32k.rom \
 	$(SOURCE_PATH)/end_screen.c \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_graphics.c $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/FULL_msx_32k_DATA.bin
@@ -1918,10 +1921,10 @@ z88dk_targets: \
 	vg5k_targets \
 	mc1000_targets \
 	nc100_targets \
-	kc_targets	
+	kc_targets \
+	msx_targets
 	
 z88dk_to_implement: \
-	msx_targets \
 	cpc_targets	
 
 cmoc_targets: \

@@ -750,11 +750,10 @@ cpc:
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
-	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars.asm \
 	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_cpcrslib_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt

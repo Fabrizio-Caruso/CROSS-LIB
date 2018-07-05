@@ -24,12 +24,6 @@
 
 #include "display_macros.h"
 
-// #if defined(__VZ__) || defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__)
-	// #define VERTICAL_BRICK '#'
-// #else
-	// #define VERTICAL_BRICK '|'
-// #endif
-
 #if !defined(NO_SET_SCREEN_COLORS)
 	void setScreenColors(void)
 	{
@@ -91,57 +85,5 @@ Image BOMB_IMAGE;
 
 #endif
 
-/*
-#if defined(__VG5K__)
-	//
-#elif defined(__C64__) && defined(ANIMATE_PLAYER)
-	// 
-#elif defined(__ATMOS__) && defined(ANIMATE_PLAYER)
-	// 
-#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) && defined(ANIMATE_PLAYER)
-	// 
-#elif (defined(__C16__)   || defined(__PLUS4__))   && defined(ANIMATE_PLAYER)
-	// 
-#elif defined(__C16__) && defined(ALT_PRINT)
-	// 
-#elif defined(__SPECTRUM__)
-	//	
-#elif defined(__MSX__) && defined(ANIMATE_PLAYER) && defined(MSX_VPOKE)
-	// 
-#elif defined(__SVI__) && defined(MSX_MODE0)
-	//
-#elif defined(__CPC__)
-	//
-#elif defined(__AQUARIUS__) && defined(EXT_GRAPHICS)
-	//	
-#elif defined(__NES__) && defined(NES_COLOR)
-	//	
-#elif defined(__ZX80__) || defined(__ZX81__) || defined(__ACE__) || defined(__LAMBDA__)
-	//
-#elif defined(__ATARI_LYNX__)
-	//
-#elif defined(__GAMATE__)
-	//	
-#elif defined(__VIC20__) && defined(ANIMATE_PLAYER)
-	//
-#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED)
-	//
-#elif defined(__VIC20__) && defined(ALT_PRINT)
-	//	
-#elif (defined(__WINCMOC__) && defined(__CMOC__)) && defined(ANIMATE_PLAYER)
-	//
-#elif defined(__CMOC__) && !defined(__WINCMOC__)
-	//
-#elif defined(__ENTERPRISE__)
-	//
-#elif defined(__SUPERVISION__)
-	//
-#elif defined(__EG2K__) || defined(__TRS80__)
-	//
-#elif defined(Z88DK_SPRITES)
-	//
-
-#endif
-*/
 
 

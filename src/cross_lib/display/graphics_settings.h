@@ -21,6 +21,8 @@
 	#include "z88dk/z88dk_sprites/z88dk_sprites_settings.h"
 #elif defined(__MSX__)
 	#include "z88dk/msx/msx_redefined_chars_settings.h"
+#elif defined(CPCRSLIB)
+	#include "z88dk/cpc/cpc_cpcrslib_settings.h"
 #else
 	#include "default_graphics_settings.h"
 #endif 

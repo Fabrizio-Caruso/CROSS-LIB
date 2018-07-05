@@ -13,6 +13,8 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 	#include "z88dk/z88dk_sprites/z88dk_sprites_graphics.h"
 #elif defined(TGI)
 	#include "tgi/tgi_graphics.h"
+#elif defined(CPCRSLIB)
+	#include "z88dk/cpc/cpc_cpcrslib_graphics.h"
 #endif
 
 #include "graphics_settings.h"

@@ -166,7 +166,7 @@
     || defined(__PC6001__) || defined(__ATARI5200__) || defined(__CREATIVISION__) \
 	|| defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__) || defined(__MC1000__) \
 	|| defined(__LAMBDA__) || defined(__MSX__) \
-	|| (defined(__SVI__) && defined(MSX_MODE0) ) || defined(__VZ__) || defined(__VG5k__) \
+	|| defined(__VZ__) || defined(__VG5k__) \
 	|| (defined(__ATARI__) || defined(__ATARIXL__)) \
 	|| defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
 	|| defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \

@@ -806,8 +806,9 @@ msx_32k:
 	-create-app -vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_msx_32k.prg \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_graphics.c	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_redefined_chars_init_graphics.c	\
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_msx_32k.prg 

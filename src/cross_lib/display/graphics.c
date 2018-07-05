@@ -80,6 +80,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 			}
 		}
 	}
+	
 #endif
 
 

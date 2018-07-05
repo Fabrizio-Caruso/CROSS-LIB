@@ -184,19 +184,6 @@ void _delete(unsigned char x, unsigned char y);
 	#define CLEAR_SCREEN()  {zx_cls(PAPER_BLACK|INK_WHITE);}
 #elif defined(__CPC__) 
 	#define CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
-// #elif defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(EXT_GRAPHICS)) \
-		// || defined(__CMOC__) && !defined(__WINCMOC__) \
-		// || defined(__VG5K__)  \
-		// || defined(__SUPERVISION__)	 
-	// void CLEAR_SCREEN(void);	
-#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
-	#define CLEAR_SCREEN() { \
-	clrscr(); \
-	_setcolor_low(0, TGI_COLOR_RED); \
-	_setcolor_low(1, TGI_COLOR_WHITE); \
-	_setcolor_low(2, TGI_COLOR_CYAN); 	\
-	_setcolor_low(3, TGI_COLOR_BROWN); \
-	_setcolor_low(4, TGI_COLOR_BLACK);	};
 #elif defined(__ATMOS__)
 	#define CLEAR_SCREEN() do {clrscr(); INIT_GRAPHICS(); } while(0)
 #elif defined(Z88DK_SPRITES)
@@ -211,6 +198,7 @@ void _delete(unsigned char x, unsigned char y);
 #else // CONIO case
 	#define CLEAR_SCREEN() clrscr();
 #endif
+
 
 // BORDER AND BACKGROUND COLORS
 #if defined(CC65) && !defined(__ATARI5200__)

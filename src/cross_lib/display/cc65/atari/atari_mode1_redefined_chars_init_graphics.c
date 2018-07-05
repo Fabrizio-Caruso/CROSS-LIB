@@ -46,7 +46,7 @@ void redefine(unsigned char * loc, const char *new_char)
 }
 
 
-void INIT_GRAPHICS(void)
+void set_udg(void)
 {	
 	static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
 	static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
@@ -68,15 +68,6 @@ void INIT_GRAPHICS(void)
 	
 	extern char _FONT_START__[];
 	unsigned char *CHBAS = (unsigned char *)0x2f4;
-
-	// Mode 12 with no last monochromatic lines (12+16)
-	_graphics(GRAPHICS_MODE);
-	
-	_setcolor_low(0, TGI_COLOR_RED);
-	_setcolor_low(1, TGI_COLOR_WHITE);
-	_setcolor_low(2, TGI_COLOR_CYAN); 	
-	_setcolor_low(3, TGI_COLOR_BROWN);
-	_setcolor_low(4, TGI_COLOR_BLACK);
 
 	memcpy(_FONT_START__, (void *)0xE000, 512);
 	
@@ -109,4 +100,16 @@ void INIT_GRAPHICS(void)
 	
 }
  
- 
+void INIT_GRAPHICS(void)
+{
+	// Mode 12 with no last monochromatic lines (12+16)
+	_graphics(GRAPHICS_MODE);
+	
+	_setcolor_low(0, TGI_COLOR_RED);
+	_setcolor_low(1, TGI_COLOR_WHITE);
+	_setcolor_low(2, TGI_COLOR_CYAN); 	
+	_setcolor_low(3, TGI_COLOR_BROWN);
+	_setcolor_low(4, TGI_COLOR_BLACK);
+
+	set_udg();
+}

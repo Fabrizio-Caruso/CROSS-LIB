@@ -79,6 +79,8 @@ atari_color:
 	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DMEMORY_MAPPED \
+	-DALT_CLEAR_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
 	$(CROSS_LIB_PATH)/display/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/atari/atari_sounds.c \

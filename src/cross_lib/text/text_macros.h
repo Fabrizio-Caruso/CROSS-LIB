@@ -36,13 +36,6 @@
 #endif
 
 
-// #if !defined(NO_COLOR) && !defined(NO_TEXT_COLOR)
-	// void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text);
-// #else
-	// #define printCenteredMessageOnRowWithCol(row,col,Text) printCenteredMessageOnRow(row,Text)
-// #endif
-
-
 #if !defined(LESS_TEXT)
 	void deleteCenteredMessage(void);
 #endif

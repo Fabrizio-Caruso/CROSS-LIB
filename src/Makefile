@@ -193,7 +193,7 @@ vic20_exp_8k_full:
 
 
 vic20_exp_8k: 
-	$(CC65_PATH)$(MYCC65) -Or  -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
+	$(CC65_PATH)$(MYCC65) -Or -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
 	-DREDEFINED_CHARS \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/udc.s \
@@ -206,9 +206,10 @@ vic20_exp_8k:
 	$(SOURCE_PATH)/move_player.c \
 	$(CROSS_LIB_PATH)/display/init_images.c \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
+	$(SOURCE_PATH)/item.c	\
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/graphics.c \
-	$(SOURCE_PATH)/item.c $(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
 	

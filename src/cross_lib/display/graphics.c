@@ -30,8 +30,8 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 	49, '\0', // EXTRA_POINTS_IMAGE
 	46, '\0', // INVINCIBILITY
 	33, '\0', // EXTRA LIFE
-	39, '\0', // LEFT_MISSILE
-	38, '\0', // RIGHT_MISSILE
+	39, '\0', // LEFT_HORIZONTAL_MISSILE
+	38, '\0', // RIGHT_HORIZONTAL_MISSILE
 	45, '\0', // ROCKET
 	33, '\0', // PLAYER_DOWN
 	34, '\0', // PLAYER_UP
@@ -46,11 +46,17 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 #endif
 
 	
-void _draw(unsigned char x, unsigned char y, Image * image) 
+
+
+void _draw_stat(unsigned char x, unsigned char y, Image * image) 
 {
-	_DRAW(x,y,image);
+	_DRAW(-X_OFFSET+x,-Y_OFFSET+y,image);
 }
 
+void _draw(unsigned char x, unsigned char y, Image * image) 
+{
+	_draw_stat(X_OFFSET+x,Y_OFFSET+y,image);
+}
 
 void _delete(unsigned char x, unsigned char y)
 {

@@ -5,19 +5,8 @@ extern Image VERTICAL_BRICK_IMAGE;
 extern Image HORIZONTAL_BRICK_IMAGE;
 
 
-#  if defined(MEMORY_MAPPED)
-	#include "memory_mapped/memory_mapped_graphics.h"
-#elif defined(CONIO)
-	#include "conio/conio_graphics.h"
-#elif defined(Z88DK_SPRITES)
-	#include "z88dk/z88dk_sprites/z88dk_sprites_graphics.h"
-#elif defined(TGI)
-	#include "tgi/tgi_graphics.h"
-#elif defined(CPCRSLIB)
-	#include "z88dk/cpc/cpc_cpcrslib_graphics.h"
-#endif
-
 #include "graphics_settings.h"
+
 
 
 #if defined(MEMORY_MAPPED)	
@@ -28,6 +17,32 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 	{
 		return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize + X_OFFSET);
 	}
+#elif defined(CPCRSLIB)
+	char char_list[UDG_N*2] = 
+	{ 
+	33, '\0', // PLAYER
+	37, '\0', // GHOST
+	44, '\0', // BOMB
+	40, '\0', // SKULL
+	43, '\0', // BULLET
+	42, '\0', // POWERUP
+	41, '\0', // GUN
+	49, '\0', // EXTRA_POINTS_IMAGE
+	46, '\0', // INVINCIBILITY
+	33, '\0', // EXTRA LIFE
+	39, '\0', // LEFT_MISSILE
+	38, '\0', // RIGHT_MISSILE
+	45, '\0', // ROCKET
+	33, '\0', // PLAYER_DOWN
+	34, '\0', // PLAYER_UP
+	35, '\0', // PLAYER_RIGHT
+	36, '\0', // PLAYER_LEFT
+	47, '\0', // VERTICAL_BRICK
+	48, '\0' // HORIZONTAL_BRICK 
+	};
+
+	char space_str[2] = {' ', '\0'};
+		
 #endif
 
 	

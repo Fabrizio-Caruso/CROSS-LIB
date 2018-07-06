@@ -197,8 +197,8 @@ extern Image GHOST_IMAGE;
 	#define CPC_YELLOW 2 
 	#define CPC_RED 3
 	#define CPC_BLACK 4
-	#define DRAW_STAT_CHARACTER(x,y,image) 
-	//	cpc_PrintGphStrStdXY(CPC_YELLOW,image,x*2,y*8);gotoxy(x+1,y); cputc(':')
+	#define DRAW_STAT_CHARACTER(x,y,image) \
+		cpc_PrintGphStrStdXY(CPC_YELLOW,image,x*2,y*8);gotoxy(x+1,y); cputc(':')
 
 #elif (defined(__CMOC__) && !defined(__WINCMOC__)) \
 	|| defined(__TRS80__) || defined(__EG2K__) \

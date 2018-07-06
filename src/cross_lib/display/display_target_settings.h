@@ -191,23 +191,22 @@
 
 #define BORDER_COLOR COLOR_BLACK
 
-
-#if !defined(ALT_PRINT)
-	#define STAT_GUN_IMAGE GUN_IMAGE._imageData
-	#define STAT_GHOST_IMAGE GHOST_IMAGE._imageData
-	#define STAT_PLAYER_IMAGE PLAYER_IMAGE._imageData	
+#  if defined(__CPC__)
+	#define STAT_GUN_IMAGE 	")"
+	#define STAT_GHOST_IMAGE "%"
+	#define STAT_PLAYER_IMAGE "!"	
 #elif defined(__C64__) && defined(ANIMATE_PLAYER)
 	#define STAT_GUN_IMAGE (GUN_IMAGE._imageData+32)
 	#define STAT_GHOST_IMAGE (GHOST_IMAGE._imageData+32)
 	#define STAT_PLAYER_IMAGE 'T'
-#elif defined(__CPC__)
-	#define STAT_GUN_IMAGE ")"
-	#define STAT_GHOST_IMAGE "%"
-	#define STAT_PLAYER_IMAGE "!"	
 #elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)
 	#define STAT_GUN_IMAGE (GUN_IMAGE._imageData+160)
 	#define STAT_GHOST_IMAGE (GHOST_IMAGE._imageData+160)
 	#define STAT_PLAYER_IMAGE (PLAYER_IMAGE._imageData+160)
+#elif !defined(ALT_PRINT)
+	#define STAT_GUN_IMAGE GUN_IMAGE._imageData
+	#define STAT_GHOST_IMAGE GHOST_IMAGE._imageData
+	#define STAT_PLAYER_IMAGE PLAYER_IMAGE._imageData	
 #else
 	#define STAT_GUN_IMAGE 'G'
 	#define STAT_GHOST_IMAGE 'O'

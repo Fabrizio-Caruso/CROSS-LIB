@@ -80,7 +80,7 @@ extern Image BOMB_IMAGE;
 	#define _MISSILE_COLOR COLOR_WHITE
 	#define _ROCKET_COLOR COLOR_WHITE
 	#define _POWERUP_COLOR COLOR_GREEN
-	#define _FREEZE_COLOR COLOR_BLUE
+	#define _FREEZE_COLOR COLOR_CYAN
 	#define _SUPER_COLOR COLOR_RED
 	#define _GUN_COLOR COLOR_BLUE
 	#define _BULLET_COLOR COLOR_WHITE
@@ -103,7 +103,7 @@ void set_image_colors(void)
 			PLAYER_RIGHT._color = _PLAYER_COLOR;
 			PLAYER_LEFT._color = _PLAYER_COLOR;
 		#else
-			PLAYER_IMAGE._color = _PLAYER;
+			PLAYER_IMAGE._color = _PLAYER_COLOR;
 		#endif	
 	
 		BOMB_IMAGE._color = _BOMB_COLOR;

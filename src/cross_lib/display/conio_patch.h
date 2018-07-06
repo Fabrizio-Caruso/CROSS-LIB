@@ -165,7 +165,7 @@
 		#define COLOR_WHITE 7
 		#define COLOR_BLUE 1
 	#endif
-		
+	
 	#ifndef COLOR_RED
 		#if defined(__SPECTRUM__) && !defined(CLIB_ANSI)
 			#define COLOR_RED 2

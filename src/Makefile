@@ -1368,6 +1368,7 @@ kc_sprites_tiny:
 	-DLESS_TEXT \
 	-DNO_SLEEP \
 	-DNO_WAIT \
+	-DNO_PRINT \
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \
 	-DNO_INIT_GRAPHICS \

@@ -45,7 +45,7 @@
 	
 
 #define _BULLET (char) (0x7C-0x20)
-#define _ROCKET '^'
+#define _ROCKET ('^'-0x40)
 #define _EXTRA_POINTS '*'
 #define _LEFT_HORIZONTAL_MISSILE '>'
 #define _RIGHT_HORIZONTAL_MISSILE '<'

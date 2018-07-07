@@ -128,7 +128,7 @@ Run it directly with the command “A=CALL(49200)”
 Robotron Z 9001
 
 Use the JKCEMU emulator.
-Go to settings 
+Click on the "Extra" tab.
 Choose "Einstellungen"
 Select Z9001
 Press "Schliessen"
@@ -227,7 +227,7 @@ Use J1013 emulator (http://www.jens-mueller.org/j1013/download.html):
 Robotron KC 85/2, 85/3, 85/4, 85/5, HC 900
 
 Use the JKCEMU emulator.
-Go to settings 
+Click on "Extra" tab.
 Choose "Einstellungen"
 Select your target (e.g., KC 85/5)
 Press "Schliessen"

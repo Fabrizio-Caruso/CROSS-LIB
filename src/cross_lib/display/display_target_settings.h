@@ -11,15 +11,13 @@
 
 #if defined(__ATMOS__)
 	#define X_OFFSET 2
-#elif defined(__VG5K__)
-	#define X_OFFSET 1
 #else
 	#define X_OFFSET 0
 #endif
 
 
 #if defined(Z88DK_SPRITES)
-	#if defined(__NC100__) 
+	#if defined(__NC100__)
 		#define SPRITE_X_SIZE 8
 		#define SPRITE_X_STEP 6
 		#define SPRITE_Y_SIZE 7

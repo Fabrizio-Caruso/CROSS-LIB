@@ -1,16 +1,10 @@
 
-//#include "../../../display/display_macros.h"
-
 #include "z88dk_sprites_settings.h"
 
 #include <graphics.h>
 #include <games.h>
 
 #include "z88dk_sprites_definitions.h"
-
-
-extern unsigned char sprites[];
-
 
 #define _DRAW(x,y,image) \
 { \

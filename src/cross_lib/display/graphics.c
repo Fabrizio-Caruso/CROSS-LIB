@@ -42,21 +42,31 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 	};
 
 	char space_str[2] = {' ', '\0'};
-		
+
+#elif defined(Z88DK_SPRITES)
+
+	extern unsigned char sprites[];
+	
 #endif
 
 	
 
+#if !defined(NO_STATS)
+	void _draw_stat(unsigned char x, unsigned char y, Image * image) 
+	{
+		_DRAW(-X_OFFSET+x,-Y_OFFSET+y,image);
+	}
 
-void _draw_stat(unsigned char x, unsigned char y, Image * image) 
-{
-	_DRAW(-X_OFFSET+x,-Y_OFFSET+y,image);
-}
-
-void _draw(unsigned char x, unsigned char y, Image * image) 
-{
-	_draw_stat(X_OFFSET+x,Y_OFFSET+y,image);
-}
+	void _draw(unsigned char x, unsigned char y, Image * image) 
+	{
+		_draw_stat(X_OFFSET+x,Y_OFFSET+y,image);
+	}
+#else
+	void _draw(unsigned char x, unsigned char y, Image * image) 
+	{
+		_DRAW(x,y,image);
+	}	
+#endif
 
 void _delete(unsigned char x, unsigned char y)
 {

@@ -52,6 +52,10 @@ extern Image BOMB_IMAGE;
 #define CPC_RED 3
 #define CPC_BLACK 4
 
+#ifndef COLOR_CYAN
+	#define COLOR_CYAN COLOR_BLUE
+#endif
+
 #if defined(CPCRSLIB)
 	#define _PLAYER_COLOR CPC_YELLOW
 	#define _GHOST_COLOR CPC_WHITE

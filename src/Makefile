@@ -773,11 +773,11 @@ cpc_joystick:
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc_joystick.prg \
-	-DEXT_GRAPHICS \
+	-DCPCRSLIB_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars.asm \
 	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_cpcrslib_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_joystick.cpc  $(BUILD_PATH)/FULL_cpc_joystick.cdt
@@ -1924,12 +1924,10 @@ z88dk_targets: \
 	c128_z80_targets \
 	vg5k_targets \
 	mc1000_targets \
+	msx_targets \
+	cpc_targets \
 	nc100_targets \
-	kc_targets \
-	msx_targets
-	
-z88dk_to_implement: \
-	cpc_targets	
+	kc_targets
 
 cmoc_targets: \
 	coco
@@ -2679,8 +2677,7 @@ nc100_test:
 	-DANIMATE_PLAYER \
 	$(FAST_TEST_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_nc100.bin \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_init_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_nc100.bin	
 

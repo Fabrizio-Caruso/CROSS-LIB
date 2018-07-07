@@ -751,7 +751,6 @@ cpc:
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
-	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars.asm \
 	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
@@ -774,7 +773,6 @@ cpc_joystick:
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc_joystick.prg \
 	-DCPCRSLIB_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars.asm \
 	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_cpcrslib_init_graphics.c \

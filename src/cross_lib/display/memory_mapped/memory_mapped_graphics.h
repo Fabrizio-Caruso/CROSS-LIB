@@ -21,6 +21,9 @@
 	#define COLOR_ADDR 0x9600	
 #elif defined(__MSX__)
 	#define BASE_ADDR 0x1800
+#elif defined(__AQUARIUS__)
+	#define BASE_ADDR 12288
+	#define COLOR_ADDR (BASE_ADDR+1024)
 #endif
 
 #if defined(__MSX__)

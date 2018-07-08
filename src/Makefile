@@ -160,12 +160,17 @@ vic20_unexpanded:
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
 	
 vic20_exp_3k:
-	$(CC65_PATH)$(MYCC65) -Or  -t vic20 \
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
 	-DREDEFINED_CHARS \
-	-DNO_PRINT -DANIMATE_PLAYER -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 -DROUND_ENEMIES -DTINY_GAME -DSOUNDS \
+	-DANIMATE_PLAYER -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 \
+	-DROUND_ENEMIES \
+	-DTINY_GAME -DSOUNDS \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
 	-DMEMORY_MAPPED \
 	-DVIC20_EXP_3K \
+	-DALT_PRINT \
+	-DCBM_SCREEN_CODES \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/udc_3k.s  \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \

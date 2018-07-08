@@ -8,7 +8,7 @@ TODO for the integration release for Z88DK
 6. DONE - split settings
 7. DONE - Delete or move unused code to notes
 8. DONE - Remove or move unused tools
-9. Verify trs80/eg2k targets
+9. DONE Verify trs80/eg2k targets
 
 10 Make generic code for all joystick and keyboard configuration
 
@@ -25,11 +25,11 @@ IV)  DONE ENEMY -> GHOST (or viceversa?)
 
 13. DONE Fix chase item display
 
-14. Separate/Re-factor Stat display in text.h/c
+14. DONE Separate/Re-factor Stat display in text.h/c
 
 15. DONE Separate generic text routines from game specific text routines
 
-16. Optimize and Re-factor blink display
+16. DONE Optimize and Re-factor blink display
 
 17. PARTIAL Separate cases that require --max-alloc... from those that do not
 TEST WITH BLINKING AND NO --max-alloc...
@@ -49,11 +49,11 @@ light svi KO
 
 21. Rename strategy.h/m -> chase.h/m
 
-22. PARTIAL Separate alt_print from graphics
+22. DONE Separate alt_print from graphics
 
-23. Use EXT_GRAPHICS option instead of manuall editing display_macros.c
+23. NO LONGER NEEDED Use EXT_GRAPHICS option instead of manuall editing display_macros.c
 
-24. Document the new file structure and how to add new tarhets
+24. Document the new file structure and how to add new targets
 
 25. Implement color function for memory_mapped systems with color
 

@@ -799,6 +799,8 @@ msx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -zorg=49200 \
 	-DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	-create-app -o $(BUILD_PATH)/LIGHT_msx_16k.prg \
+	-DALT_PRINT \
+	-DLESS_TEXT \
 	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -829,6 +831,8 @@ msx_32k_rom:
 	-lndos -subtype=rom \
 	-o $(BUILD_PATH)/FULL_msx_32k.rom \
 	$(SOURCE_PATH)/end_screen.c \
+	-DALT_PRINT \
+	-DLESS_TEXT \
 	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -1373,7 +1377,8 @@ kc_sprites_tiny:
 	-DLESS_TEXT \
 	-DNO_SLEEP \
 	-DNO_WAIT \
-	-DNO_PRINT \
+	-DNO_MESSAGE \
+	-DNO_STATS \
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \
 	-DNO_INIT_GRAPHICS \

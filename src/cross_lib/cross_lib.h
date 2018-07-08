@@ -68,25 +68,37 @@
 #endif
 
 
-#if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) \
-    || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) 
+#  if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) \
+    || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) \
+	|| defined(__VIC20__) || defined(__GAMATE__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
+    || defined(__ATARI5200__) || defined(__OSIC1P__)
 	#define CC65
-	#define WIDE
-#elif defined(__VIC20__) || defined(__GAMATE__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
-      || defined(__ATARI5200__) || defined(__OSIC1P__)
-	#define CC65
-	#define NARROW
 #elif defined(__WINCMOC__) || defined(__CMOC__)
 	#define CMOC
-	#define NARROW
-#elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__) || defined(__ZX81__) || defined(__ZX80__) \
-      || defined(__AQUARIUS__) || (defined(__SVI__) && !defined(MSX_MODE0)) || defined(__MZ__)
+#else
 	#define Z88DK
-	#define WIDE
-#else 
-	#define Z88DK
-	#define NARROW
 #endif
+
+
+// #if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) \
+    // || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) 
+	// #define CC65
+	// #define WIDE
+// #elif defined(__VIC20__) || defined(__GAMATE__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
+      // || defined(__ATARI5200__) || defined(__OSIC1P__)
+	// #define CC65
+	// #define NARROW
+// #elif defined(__WINCMOC__) || defined(__CMOC__)
+	// #define CMOC
+	// #define NARROW
+// #elif defined(__SPECTRUM__) || defined(__CPC__) || defined(__VG5K__) || defined(__ZX81__) || defined(__ZX80__) \
+      // || defined(__AQUARIUS__) || defined(__SVI__) || defined(__MZ__)
+	// #define Z88DK
+	// #define WIDE
+// #else 
+	// #define Z88DK
+	// #define NARROW
+// #endif
 
 #if defined(FORCE_NARROW) && defined(WIDE)
 	#undef WIDE

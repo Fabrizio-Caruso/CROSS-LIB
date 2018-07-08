@@ -189,11 +189,5 @@
 
 #define BORDER_COLOR COLOR_BLACK
 
-#if defined(WIDE) && !defined(TINY_GAME)
-	#define STAT_SEPARATOR() cputc(':')
-#else
-	#define STAT_SEPARATOR()
-#endif
-
 
 #endif // _DISPLAY_TARGET_SETTINGS

@@ -23,30 +23,31 @@
 	#define BASE_ADDR 0x1800
 #endif
 
-#if defined(MSX_VPOKE)
-	#define _DRAW(x,y,image) \
-		msx_vpoke(loc(x,y), image->_imageData);	
-	
-	#define _DELETE(x,y) msx_vpoke(loc(x,y), _SPACE)
+#if defined(__MSX__)
+	#define DISPLAY_POKE(addr,val) msx_vpoke(addr,val)
 #else
-	#if !defined(NO_COLOR)
-		#define _DRAW(x,y,image) \
-		do \
-		{ \
-			POKE(loc(x,y), image->_imageData); \
-			POKE((unsigned short) ((unsigned short) (COLOR_ADDR+x+X_OFFSET) +(unsigned short)(y+Y_OFFSET)*(XSize+X_OFFSET)),image->_color); \
-		} \
-		while(0)
+	#define DISPLAY_POKE(addr,val) (*(unsigned char*) (addr) = (val))
+#endif
 
-	#else
-		#define _DRAW(x,y,image) \
-			POKE(loc(x,y), image->_imageData);
 
-	#endif
+#if !defined(NO_COLOR)
+	#define _DRAW(x,y,image) \
+	do \
+	{ \
+		DISPLAY_POKE(loc(x,y), image->_imageData); \
+		DISPLAY_POKE((unsigned short) ((unsigned short) (COLOR_ADDR+x+X_OFFSET) +(unsigned short)(y+Y_OFFSET)*(XSize+X_OFFSET)),image->_color); \
+	} \
+	while(0)
 
-	#define _DELETE(x,y) POKE(loc(x,y), _SPACE)
+#else
+	#define _DRAW(x,y,image) \
+		DISPLAY_POKE(loc(x,y), image->_imageData);
 
 #endif
+
+#define _DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
+
+
 unsigned short loc(unsigned char x, char y);
 
 #endif // _MEMORY_MAPPED_GRAPHICS

@@ -813,7 +813,9 @@ msx_32k:
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_msx_32k.prg \
 	-DMEMORY_MAPPED \
-	-DNO_PRINT \
+	-DALT_PRINT \
+	-DLESS_TEXT \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_redefined_chars_init_graphics.c	\
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \

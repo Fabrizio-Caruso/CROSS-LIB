@@ -71,6 +71,12 @@
 
 #define EXTRA_LIFE_THROUGH_POINTS 2000
 
+#  if XSize>=32 && YSize>=20
+	#define WIDE
+#else 
+	#define NARROW
+#endif
+
 #if defined(WIDE) || defined(FORCE_NARROW)
 	#define MIN_SKULL_HITS 4
 #else

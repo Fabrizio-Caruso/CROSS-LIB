@@ -11,6 +11,7 @@
 	#include <stdio.h>
 #endif
 
+
 #if defined(CBM_SCREEN_CODES)
 	char screenCode(char ch)
 	{
@@ -45,9 +46,9 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	while(str[i]!='\0')
 	{
 		#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))
-		POKE(loc(x,y)+i, screenCode(str[i])); 		
+		DISPLAY_POKE(loc(x,y)+i, screenCode(str[i])); 		
 		#else
-		POKE(loc(x,y)+i, str[i]); 
+		DISPLAY_POKE(loc(x,y)+i, str[i]); 
 		#endif
 		++i;
 	}
@@ -71,20 +72,20 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 	
 	for(i=0;i<6;++i)
 	{
-		POKE(loc(x,y)+i, (unsigned char) (digits[5-i])+48);
+		DISPLAY_POKE(loc(x,y)+i, (unsigned char) (digits[5-i])+48);
 	}
 }	
 
 void print_02u(unsigned char x, unsigned char y, unsigned short val)
 {
-	POKE((loc(x,y)), ((unsigned char) val)/10+48);
-	POKE((1+loc(x,y)), ((unsigned char) val)%10+48);
+	DISPLAY_POKE((loc(x,y)), ((unsigned char) val)/10+48);
+	DISPLAY_POKE((1+loc(x,y)), ((unsigned char) val)%10+48);
 }	
 
 
 void print_u(unsigned char x, unsigned char y, unsigned short val)
 {
-	POKE(loc(x,y), (unsigned char) (val+48));
+	DISPLAY_POKE(loc(x,y), (unsigned char) (val+48));
 }
 
 

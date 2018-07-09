@@ -570,9 +570,7 @@ aquarius_exp_4k:
 	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
 	-compiler=sdcc \
 	-opt-code-size \
-	-SO3 \
-	--max-allocs-per-node200000 \
-	-vn \
+	-v \
 	-D__AQUARIUS__ -DTINY_GAME \
 	-DNO_RANDOM_LEVEL \
 	-DNO_SLEEP \
@@ -581,8 +579,9 @@ aquarius_exp_4k:
 	-DNO_WAIT \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TINY_aquarius_exp_4k -create-app \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
-	$(TINY_FILES)
+	-DMEMORY_MAPPED \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/z88dk/aquarius/aquarius_init_graphics.c
 	rm $(SOURCE_PATH)/../TINY_aquarius_exp_4k
 	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)
 	mv $(SOURCE_PATH)/../_TINY_aquarius_exp_4k.caq $(BUILD_PATH)

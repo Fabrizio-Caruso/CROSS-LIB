@@ -3,11 +3,11 @@
 #include "text_macros.h"
 
 
-	#if !defined(NO_MESSAGE)
-		void printCenteredMessageOnRow(unsigned char row, char *Text)
-		{
-			PRINT(((XSize - strlen(Text))>>1), row, Text);	
-		}
+#if !defined(NO_MESSAGE)
+	void printCenteredMessageOnRow(unsigned char row, char *Text)
+	{
+		PRINT(((XSize - strlen(Text))>>1), row, Text);	
+	}
 
 
 	#if !defined(NO_TEXT_COLOR)

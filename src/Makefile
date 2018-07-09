@@ -488,6 +488,7 @@ creativision_8k_light:
 	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
 	--config $(CFG_PATH)/cc65/creativision-8k_less_stack.cfg \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_creativision_8k_less_text.bin	

@@ -23,7 +23,7 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include "settings.h"
-
+#include "../cross_lib/cross_lib.h"
 
 #include "game_text.h"
 #include "character.h"
@@ -97,6 +97,10 @@ extern unsigned short highScore;
 			SET_TEXT_COLOR(TEXT_COLOR);
 		#endif		
 		
+		#if (X_OFFSET==0) && (Y_OFFSET==0)
+			#define _draw_stat _draw
+		#endif
+	
 		_draw_stat(GUN_IMAGE_X, GUN_IMAGE_Y, &GUN_IMAGE);
 		_draw_stat(GHOST_IMAGE_X, GHOST_IMAGE_Y, &GHOST_IMAGE);
 		_draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);					

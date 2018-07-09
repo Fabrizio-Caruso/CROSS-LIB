@@ -3,20 +3,6 @@
 
 #include "../cross_lib.h"
 
-#  if defined(__AQUARIUS__) && defined(MEMORY_MAPPED)
-	#define Y_OFFSET 1
-#elif defined(NARROW) || defined(TINY_GAME)
-	#define Y_OFFSET 0
-#else
-	#define Y_OFFSET 2		
-#endif
-
-#if defined(__ATMOS__)
-	#define X_OFFSET 2
-#else
-	#define X_OFFSET 0
-#endif
-
 
 #if defined(Z88DK_SPRITES)
 	#if defined(__NC100__)
@@ -126,7 +112,7 @@
 		  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 		  || defined(__ENTERPRISE__) \
 		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
-		  || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) \
+		  || (defined(__ATARI__) && !defined(ATARI_MODE1)) \
 		  || defined(__CBM510__)
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
@@ -145,7 +131,7 @@
 		#define XSize 24
 	#elif defined(__VIC20__)
 		#define XSize 22
-	#elif ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
+	#elif (defined(__ATARI__) && defined(ATARI_MODE1)) \
 		  || defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
 		#define XSize 20
 	#else
@@ -160,6 +146,40 @@
 #else
 	#define MIN_SIZE YSize
 #endif
+
+#  if XSize>=32 && YSize>=20
+	#define WIDE
+#else 
+	#define NARROW
+#endif
+
+
+#if defined(WIDE) || defined(FORCE_NARROW)
+	#define MIN_SKULL_HITS 4
+#else
+	#define MIN_SKULL_HITS 3
+#endif	
+
+#if defined(FORCE_NARROW) && defined(WIDE)
+	#undef WIDE
+	#define NARROW
+#endif
+
+
+#  if defined(__AQUARIUS__) && defined(MEMORY_MAPPED)
+	#define Y_OFFSET 1
+#elif defined(NARROW) || defined(TINY_GAME)
+	#define Y_OFFSET 0
+#else
+	#define Y_OFFSET 2		
+#endif
+
+#if defined(__ATMOS__)
+	#define X_OFFSET 2
+#else
+	#define X_OFFSET 0
+#endif
+
 
 
 #if defined(__GAL__) || defined(__GAMATE__) \

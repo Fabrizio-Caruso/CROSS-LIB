@@ -49,9 +49,18 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 	
 #endif
 
+#ifndef X_OFFSET
+  COMPILATION ERROR
+#endif
 	
+#ifndef Y_OFFSET
+  COMPILATION ERROR
+#endif
 
-#if !defined(NO_STATS)
+
+#if !defined(NO_STATS) \
+	|| X_OFFSET!=0 || Y_OFFSET!=0
+
 	void _draw_stat(unsigned char x, unsigned char y, Image * image) 
 	{
 		_DRAW(-X_OFFSET+x,-Y_OFFSET+y,image);

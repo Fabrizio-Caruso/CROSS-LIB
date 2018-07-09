@@ -48,9 +48,23 @@ struct ImageStruct
 typedef struct ImageStruct Image;
 
 
-void _draw(unsigned char x,unsigned char y,Image * image);
+#if !defined(NO_STATS) \
+	|| X_OFFSET!=0 || Y_OFFSET!=0
 
-void _draw_stat(unsigned char x,unsigned char y,Image * image);
+	void _draw_stat(unsigned char x, unsigned char y, Image * image);
+
+	void _draw(unsigned char x, unsigned char y, Image * image);
+#else
+	void _draw(unsigned char x, unsigned char y, Image * image);	
+#endif
+
+
+
+// void _draw(unsigned char x,unsigned char y,Image * image);
+
+// #if ( (X_OFFSET==0) && (Y_OFFSET==0) )
+	// void _draw_stat(unsigned char x,unsigned char y,Image * image);
+// #endif
 
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_BRICK(unsigned char x, unsigned char y);

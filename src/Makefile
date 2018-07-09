@@ -578,6 +578,7 @@ aquarius_exp_4k:
 	-DNO_PRINT \
 	-DNO_DEAD_GHOSTS \
 	-DNO_WAIT \
+	-DFORCE_NARROW \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TINY_aquarius_exp_4k -create-app \
 	-DMEMORY_MAPPED \

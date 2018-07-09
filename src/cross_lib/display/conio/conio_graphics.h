@@ -7,7 +7,7 @@
 	#define _DRAW(x,y,image) \
 	do \
 	{ \
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); \
+		gotoxy((X_OFFSET+x),(Y_OFFSET+y)); \
 		SET_TEXT_COLOR(image->_color); \
 		cputc(image->_imageData); \
 	} \
@@ -17,7 +17,7 @@
 	#define _DRAW(x,y,image) \
 	do \
 	{ \
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); \
+		gotoxy((X_OFFSET+x),(Y_OFFSET+y)); \
 		cputc(image->_imageData); \
 	} \
 	while(0)
@@ -27,7 +27,7 @@
 #define _DELETE(x,y) \
 	do \
 	{ \
-		gotoxy((x+X_OFFSET),(y+Y_OFFSET)); \
+		gotoxy((X_OFFSET+x),(Y_OFFSET+y)); \
 		cputc(_SPACE); \
 	} \
 	while(0)

@@ -77,12 +77,12 @@ extern unsigned short highScore;
 
 #define PRINT_WIDE_TITLE() \
 	SET_TEXT_COLOR(SCORE_COLOR); \
-	PRINT(0, -Y_OFFSET,   SCORE_STRING); \
-	PRINT(0, -Y_OFFSET+1, LEVEL_STRING); \
+	PRINT(0, +0,   SCORE_STRING); \
+	PRINT(0, +0+1, LEVEL_STRING); \
 	\
 	SET_TEXT_COLOR(_RED); \
-	PRINT(XSize-11,-Y_OFFSET,  "-----------"); \
-	PRINT(XSize-11,-Y_OFFSET+1,"cross chase");	
+	PRINT(XSize-11,+0,  "-----------"); \
+	PRINT(XSize-11,+0+1,"cross chase");	
 
 
 // TODO: This is SLOW
@@ -112,9 +112,9 @@ extern unsigned short highScore;
 			SET_TEXT_COLOR(TEXT_COLOR);	
 		#endif
 		#if defined(WIDE)
-			PRINTF(GUN_IMAGE_X+2,0-Y_OFFSET,"%u",guns);
+			PRINTF(GUN_IMAGE_X+2,0+0,"%u",guns);
 		#else
-			PRINTF(GUN_IMAGE_X+1,0-Y_OFFSET,"%u",guns);
+			PRINTF(GUN_IMAGE_X+1,0+0,"%u",guns);
 		#endif
 	}
 #endif
@@ -124,9 +124,9 @@ extern unsigned short highScore;
 	{	
 		#if defined(WIDE) && !defined(TINY_GAME)
 			SET_TEXT_COLOR(TEXT_COLOR);	
-			PRINTF(LEVEL_X,1-Y_OFFSET,"%02u", level);
+			PRINTF(LEVEL_X,1+0,"%02u", level);
 		#else
-			PRINTF(LEVEL_X,-Y_OFFSET,"%02u",level);	
+			PRINTF(LEVEL_X,+0,"%02u",level);	
 		#endif	
 	}
 
@@ -137,9 +137,9 @@ extern unsigned short highScore;
 			SET_TEXT_COLOR(TEXT_COLOR);		
 		#endif
 		#if defined(WIDE) && !defined(TINY_GAME)
-			PRINTF(GHOST_IMAGE_X+2,-Y_OFFSET,"%u",ghostCount);
+			PRINTF(GHOST_IMAGE_X+2,+0,"%u",ghostCount);
 		#else
-			PRINTF(GHOST_IMAGE_X+1,-Y_OFFSET,"%u",ghostCount);	
+			PRINTF(GHOST_IMAGE_X+1,+0,"%u",ghostCount);	
 		#endif	
 	}
 
@@ -150,9 +150,9 @@ extern unsigned short highScore;
 			SET_TEXT_COLOR(TEXT_COLOR);
 		#endif
 		#if defined(WIDE) && !defined(TINY_GAME)
-			PRINTF(PLAYER_IMAGE_X+2,-Y_OFFSET+1,"%02u",lives);
+			PRINTF(PLAYER_IMAGE_X+2,+0+1,"%02u",lives);
 		#else
-			PRINTF(PLAYER_IMAGE_X+1,-Y_OFFSET,"%02u",lives);	
+			PRINTF(PLAYER_IMAGE_X+1,+0,"%02u",lives);	
 		#endif
 	}	
 	
@@ -172,7 +172,7 @@ void displayStats(void)
 		SET_TEXT_COLOR(TEXT_COLOR);
 	#endif
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(6,-Y_OFFSET,"%05u0",points);
+		PRINTF(6,+0,"%05u0",points);
 	#else
 		PRINTF(1,0,"%05u0",points);	
 	#endif	

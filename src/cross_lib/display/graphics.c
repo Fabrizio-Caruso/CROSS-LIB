@@ -15,7 +15,7 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 		
 	unsigned short loc(unsigned char x, char y)
 	{
-		return ((unsigned short) BASE_ADDR)+(x+X_OFFSET)+(unsigned char)(y+Y_OFFSET)*((unsigned short)XSize + X_OFFSET);
+		return ((unsigned short) BASE_ADDR)+x+(unsigned char)y*((unsigned short)XSize + X_OFFSET);
 	}
 #elif defined(CPCRSLIB)
 	char char_list[UDG_N*2] = 
@@ -63,12 +63,12 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 
 	void _draw_stat(unsigned char x, unsigned char y, Image * image) 
 	{
-		_DRAW(-X_OFFSET+x,-Y_OFFSET+y,image);
+		_DRAW(X_OFFSET+x,y,image);
 	}
 
 	void _draw(unsigned char x, unsigned char y, Image * image) 
 	{
-		_draw_stat(X_OFFSET+x,Y_OFFSET+y,image);
+		_draw_stat(x,Y_OFFSET+y,image);
 	}
 #else
 	void _draw(unsigned char x, unsigned char y, Image * image) 
@@ -79,7 +79,7 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 
 void _delete(unsigned char x, unsigned char y)
 {
-	_DELETE(x,y);
+	_DELETE(X_OFFSET+x,Y_OFFSET+y);
 }
 
 

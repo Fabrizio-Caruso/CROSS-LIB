@@ -59,13 +59,6 @@ typedef struct ImageStruct Image;
 #endif
 
 
-
-// void _draw(unsigned char x,unsigned char y,Image * image);
-
-// #if ( (X_OFFSET==0) && (Y_OFFSET==0) )
-	// void _draw_stat(unsigned char x,unsigned char y,Image * image);
-// #endif
-
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_BRICK(unsigned char x, unsigned char y);
 #endif
@@ -119,8 +112,8 @@ void _delete(unsigned char x, unsigned char y);
 	void PRINT(unsigned char x, unsigned char y, char * str);
 	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);
 #else
-	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str); } while(0);
-	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y+Y_OFFSET); cprintf(str,val); } while(0);
+	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y); cprintf(str); } while(0);
+	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y); cprintf(str,val); } while(0);
 #endif
 
 

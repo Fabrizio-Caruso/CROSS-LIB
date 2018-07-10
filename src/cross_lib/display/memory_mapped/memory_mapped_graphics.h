@@ -38,7 +38,7 @@
 	do \
 	{ \
 		DISPLAY_POKE(loc(x,y), image->_imageData); \
-		DISPLAY_POKE((unsigned short) ((unsigned short) (X_OFFSET+COLOR_ADDR+x) +(unsigned short)(Y_OFFSET+y)*(X_OFFSET+XSize)),image->_color); \
+		DISPLAY_POKE((unsigned short) ((unsigned short) (COLOR_ADDR+(x)) +(unsigned short)(y)*(XSize)),image->_color); \
 	} \
 	while(0)
 

@@ -14,7 +14,7 @@
 	chString[1]='\0'; \
 	tgi_setbgcolor(COLOR_BLACK); \
 	tgi_setcolor(image->_color); \
-	tgi_outtextxy(x*8,y*8,chString); \
+	tgi_outtextxy((x*8),(y*8),chString); \
 	}
 	
 
@@ -25,7 +25,7 @@
 	chString[1]='\0'; \
 	tgi_setbgcolor(_BG_COLOR); \
 	tgi_setcolor(COLOR_BLACK); \
-	tgi_outtextxy(x*8,y*8,chString); \
+	tgi_outtextxy((x*8),(y*8),chString); \
 	}    
 	
 #endif // _TGI_GRAPHICS

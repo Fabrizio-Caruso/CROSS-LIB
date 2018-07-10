@@ -814,6 +814,7 @@ msx_16k:
 	-DALT_PRINT \
 	-DLESS_TEXT \
 	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(LIGHT_FILES)
@@ -846,6 +847,7 @@ msx_32k_rom:
 	-DALT_PRINT \
 	-DLESS_TEXT \
 	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(FULL_FILES)

@@ -104,10 +104,10 @@ void handle_bullet(void)
 		--guns;
 		printGunsStats();
 		bulletDirection = playerDirection;
-		bullet._status = setBulletInitialPosition(&bullet, &player);
-		playerFire = 0;
-		displayBullet(&bullet);
-		checkBullet(&bullet);		
+		bullet._status = 1;
+		bullet._x = player._x; 
+		bullet._y = player._y;		
+		playerFire = 0;	
 	}
 	
 	// Move bullet if fired
@@ -206,22 +206,6 @@ void _moveBullet(register Character *bulletPtr)
 	}	
 }
 
-unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPtr)
-{
-	bulletPtr->_x = playerPtr->_x; 
-	bulletPtr->_y = playerPtr->_y;
-	_moveBullet(bulletPtr);
-	if(wallReached(bulletPtr))
-	{
-		die(bulletPtr);
-		deleteBullet(bulletPtr);
-		#if defined(FULL_GAME)
-			DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
-		#endif
-		return 0;
-	}
-	return 1;
-}
 
 #if defined(FULL_GAME)
 	void destroyHorizontalMissile(Character * horizontalMissilePtr)

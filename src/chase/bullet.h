@@ -41,9 +41,7 @@
 	void checkBulletVsGhosts(Character * bulletPtr);
 
 	void checkBulletVsSkull(register Character *bulletPtr);
-		
-	unsigned char setBulletInitialPosition(Character *bulletPtr, Character *playerPtr);
-		
+				
 	void _moveBullet(register Character * bulletPtr);
 		
 	void moveBullet(register Character * bulletPtr);

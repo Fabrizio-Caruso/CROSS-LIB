@@ -38,7 +38,16 @@
 
 void INIT_GRAPHICS(void)
 {
-	POKE(BASE_ADDR,32);
+	unsigned char i;
+	
 	POKE(COLOR_ADDR,7);
+	
+	for(i=0;i<251;++i)
+	{
+		POKE(COLOR_ADDR+1+i,0);
+		POKE(COLOR_ADDR+250+i,0);
+		POKE(COLOR_ADDR+500+i,0);
+		POKE(COLOR_ADDR+749+i,0);
+	}	
 }
 

@@ -83,6 +83,7 @@
 #define _HORIZONTAL_BRICK '-'
 
 #define _BROKEN_BRICK _BOMB	
+
 #define _SPACE ' '
 
 

@@ -567,10 +567,11 @@ supervision:
 
 aquarius_exp_4k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius \
-	-clib=ansi \
 	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
 	-compiler=sdcc \
 	-opt-code-size \
+	-SO3 \
+	--max-allocs-per-node200000 \
 	-v \
 	-D__AQUARIUS__ -DTINY_GAME \
 	-DNO_RANDOM_LEVEL \
@@ -579,6 +580,7 @@ aquarius_exp_4k:
 	-DNO_DEAD_GHOSTS \
 	-DNO_WAIT \
 	-DFORCE_NARROW \
+	-DALT_CLEAR_SCREEN \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TINY_aquarius_exp_4k -create-app \
 	-DMEMORY_MAPPED \
@@ -1825,12 +1827,12 @@ cc65_targets: \
 	atari5200_targets \
 	nes_targets \
 	creativision_targets \
-	gamate_targets \
 	osic1p_targets \
 	pet_targets \
 	vic20_targets \
 	c264_targets \
-	atari_lynx_targets
+	atari_lynx_targets \
+	gamate_targets	
 	
 cc65_to_implement: \
 	supervision_targets	

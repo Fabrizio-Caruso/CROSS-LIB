@@ -166,9 +166,7 @@
 #endif
 
 
-#  if defined(__AQUARIUS__) && defined(MEMORY_MAPPED)
-	#define Y_OFFSET 1
-#elif defined(NARROW) || defined(TINY_GAME)
+#if defined(NARROW) || defined(TINY_GAME)
 	#define Y_OFFSET 0
 #else
 	#define Y_OFFSET 2		

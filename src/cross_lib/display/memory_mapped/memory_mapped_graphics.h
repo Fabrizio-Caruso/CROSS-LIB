@@ -22,7 +22,7 @@
 #elif defined(__MSX__)
 	#define BASE_ADDR 0x1800
 #elif defined(__AQUARIUS__)
-	#define BASE_ADDR 12288
+	#define BASE_ADDR (12288+40)
 	#define COLOR_ADDR (BASE_ADDR+1024)
 #endif
 

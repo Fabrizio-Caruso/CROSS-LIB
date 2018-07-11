@@ -75,14 +75,22 @@ extern unsigned short highScore;
 	
 #endif
 
+#if defined(NO_TITLE_LINE)
+	#define TITLE_Y 0
+	#define TITLE_LINE()
+#else
+	#define TITLE_Y 1
+	#define TITLE_LINE() PRINT(XSize-11,+0,  "-----------")
+#endif
+
 #define PRINT_WIDE_TITLE() \
 	SET_TEXT_COLOR(SCORE_COLOR); \
 	PRINT(0, +0,   SCORE_STRING); \
 	PRINT(0, +0+1, LEVEL_STRING); \
 	\
 	SET_TEXT_COLOR(_RED); \
-	PRINT(XSize-11,+0,  "-----------"); \
-	PRINT(XSize-11,+0+1,"cross chase");	
+	TITLE_LINE(); \
+	PRINT(XSize-11,TITLE_Y,"cross chase");	
 
 
 // TODO: This is SLOW

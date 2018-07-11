@@ -320,6 +320,7 @@ c16_32k:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c16_32k.prg
 
+# 	-DFLAT_ENEMIES
 	
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t c16 \
@@ -331,8 +332,8 @@ c16_16k_full:
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
+	-DNO_RANDOM_LEVEL \
 	-DEND_SCREEN \
-	-DFLAT_ENEMIES \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/cc65/c264/c264_init_graphics.c \

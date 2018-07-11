@@ -81,10 +81,10 @@ extern Item extraPoints;
 			#if defined(FULL_GAME)
 			do
 			{
-				relocateCharacter(powerUpPtr, bombs,4);
+				relocateCharacter(powerUpPtr);
 			} while(nearInnerWall(powerUpPtr));		
 			#else
-				relocateCharacter(powerUpPtr, bombs,4);
+				relocateCharacter(powerUpPtr);
 			#endif	
 	}	
 	

@@ -179,28 +179,25 @@ unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Charac
 
 // TODO: To be replaced with something cleaner
 // also used with things different from global bombs
-unsigned char safeLocation(unsigned char x, unsigned char y, Character *dangerPtr, unsigned char dangerSize)
+unsigned char safeLocation(unsigned char x, unsigned char y)
 {
 	return !(sameLocationAsAnyLocation(x,y,ghosts,GHOSTS_NUMBER) 
-	      || sameLocationAsAnyLocation(x,y,dangerPtr, dangerSize)
+	      || sameLocationAsAnyLocation(x,y,bombs, BOMBS_NUMBER)
 		  || (x<SAFETY) || (x>XSize-SAFETY) || (y<=SAFETY) || (y>YSize-SAFETY));
 }
 
 
-void relocateCharacter(register Character * characterPtr, Character *dangerPtr, unsigned char dangerSize)
+void relocateCharacter(register Character * characterPtr)
 {
 	unsigned char x; 
 	unsigned char y;  
-	unsigned char safe;
 	
 	do
 	{
 		x = characterPtr->_x - (unsigned char)(RELOCATE_RANGE/2) + (unsigned char)(rand() % RELOCATE_RANGE);
 		y = characterPtr->_y - (unsigned char)(RELOCATE_RANGE/2) + (unsigned char)(rand() % RELOCATE_RANGE);
 
-		safe = safeLocation(x,y,dangerPtr, dangerSize);
-
-	} while(!safe);
+	} while(!safeLocation(x,y));
 
 	characterPtr->_x = x;
 	characterPtr->_y = y;

@@ -25,6 +25,11 @@
 #include "c264_sounds.h"
 
 
+void _set_sound()
+{
+	POKE(SELECT,MAX_VOLUME+VOICE_1); 
+	POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); 	
+}
 	
 void _noise_sound(unsigned char type)
 	{ 
@@ -40,12 +45,11 @@ void _noise_sound(unsigned char type)
 
 void _short_sound(unsigned char type) 
 { 
-	unsigned short j; 
-	POKE(SELECT,MAX_VOLUME+VOICE_1); 
-	POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); 
+	unsigned char j; 
+	_set_sound();
 
 	POKE(LO_FREQ_1,type); 
-	for(j=0;j<type*2;++j) 
+	for(j=0;j<type;++j) 
 	{
 	}; 
 
@@ -53,54 +57,11 @@ void _short_sound(unsigned char type)
 };
 
 
-// void PING_SOUND(void) 
-// { 
-	// unsigned char freq; unsigned char j; 
-	// POKE(SELECT,MAX_VOLUME+VOICE_1); 
-	// POKE(HI_FREQ_1,PEEK(HI_FREQ_1) | 1); 
-	// for(freq=100;freq<120;++freq) 
-	// { 
-		// for(j=0;j<150;++j) {}; 
-		// POKE(LO_FREQ_1,freq); 
-	// } 
-	// POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); 
-	// POKE(SELECT,128); 
-// };
-
-
-// void TOCK_SOUND(void) 
-// { 
-	// unsigned char freq; unsigned char j; 
-	// POKE(SELECT,MAX_VOLUME+VOICE_1); 
-	// POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); 
-	// for(freq=12;freq<16;++freq) 
-	// { 
-		// for(j=0;j<150;++j) {}; 
-		// POKE(LO_FREQ_1,freq); 
-	// } 
-	// POKE(SELECT,128); 
-// };
-
-
-// void TICK_SOUND(void) 
-// { 
-	// unsigned char freq; unsigned char j; 
-	// POKE(SELECT,MAX_VOLUME+VOICE_1); 
-	// POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); 
-	// for(freq=16;freq<20;++freq) 
-	// { 
-		// for(j=0;j<150;++j) {}; 
-		// POKE(LO_FREQ_1,freq); 
-	// } 
-	// POKE(SELECT,128); 
-// };
-
 
 void ZAP_SOUND(void) 
 { 
 	unsigned char freq; unsigned char j; 
-	POKE(SELECT,MAX_VOLUME+VOICE_1); 
-	POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); 
+	_set_sound();
 	for(freq=100;freq<255;++freq) 
 	{ 
 		for(j=0;j<25;++j) {}; 

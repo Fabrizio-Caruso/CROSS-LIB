@@ -53,11 +53,11 @@
 	
     // void TICK_SOUND(void);
 
-	#define PING_SOUND() _short_sound(120)
+	#define PING_SOUND() _short_sound(200)
 	
-	#define TOCK_SOUND() _short_sound(60)
+	#define TOCK_SOUND() _short_sound(150)
 	
-	#define TICK_SOUND() _short_sound(220)
+	#define TICK_SOUND() _short_sound(250)
 	
 	void ZAP_SOUND(void);
 		

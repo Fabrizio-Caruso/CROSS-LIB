@@ -332,11 +332,11 @@ c16_16k_full:
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
-	-DNO_RANDOM_LEVEL \
 	-DEND_SCREEN \
+	-DNO_TITLE_LINE \
+	-DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
-	$(CROSS_LIB_PATH)/display/cc65/c264/c264_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX.prg	

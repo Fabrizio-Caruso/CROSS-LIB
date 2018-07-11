@@ -36,6 +36,7 @@
 
 // TODO: REMOVE THIS
 //#define DEBUG_ITEMS
+// #define DEBUG_END
 
 #include "settings.h"
 
@@ -321,10 +322,7 @@ int main(void)
 			highScoreScreen();
 			WAIT_PRESS();	
 		#endif
-		// #if ((defined(TINY_GAME) || defined(FULL_GAME)) && !defined(LESS_TEXT)) || defined(ALT_HISCORE)
-			// highScoreScreen();
-			// WAIT_PRESS();
-		// #endif
+
 		#if !defined(TINY_GAME)
 
 			CLEAR_SCREEN();
@@ -450,6 +448,11 @@ int main(void)
 			while(player._status && (ghostCount>0) )
 			#endif
 			{
+				
+				#if defined(DEBUG_END)
+					gameCompleted();
+				#endif
+					
 				#if !defined(TURN_BASED)
 					MOVE_PLAYER();				
 					_DRAW_PLAYER();	

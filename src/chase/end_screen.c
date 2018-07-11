@@ -71,6 +71,7 @@ void gameCompleted(void)
 	guns = 1;
 	while(!playerFire)
 	{
+		bulletDirection++;
 		displayBombs();
 		for(k=0;k<GHOSTS_NUMBER;++k)
 		{
@@ -79,11 +80,11 @@ void gameCompleted(void)
 		dance(&player);
 		dance(&skull);
 	
-		printCenteredMessageOnRow(2+(loop&15),  YOU_MADE_IT_STRING);
+		printCenteredMessageOnRow(4+(loop&15),  YOU_MADE_IT_STRING);
 		#if defined(SLOW_DOWN)
-			for(k=0;k<GAME_SLOW_DOWN*4;++k) {};
+			for(k=0;k<GAME_SLOW_DOWN*16;++k) {};
 		#endif
-		printCenteredMessageOnRow(2+(loop&15), "             ");
+		printCenteredMessageOnRow(4+(loop&15), "             ");
 		
 		++loop;
 		

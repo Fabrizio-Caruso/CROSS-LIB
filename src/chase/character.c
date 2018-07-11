@@ -74,7 +74,7 @@ void deleteCharacter(Character * characterPtr)
 void playerDies(void)
 {
 	EXPLOSION_SOUND();
-	die(&player);
+	player._status=0;
 	#if !defined(LESS_TEXT)
 		printDefeatMessage();
 	#endif
@@ -118,16 +118,12 @@ unsigned char wallReached(register Character *characterPtr)
 		   (characterPtr->_y==0)||(characterPtr->_y==YSize-1);
 }
 
-void die(Character * playerPtr)
-{
-	playerPtr->_status = 0;
-}
-
 
 void ghostDies(Character * ghostPtr)
 {
 	EXPLOSION_SOUND();
-	die(ghostPtr);
+	
+	ghostPtr->_status=0;
 	displayStats();
 	--ghostCount;
 	printGhostCountStats();

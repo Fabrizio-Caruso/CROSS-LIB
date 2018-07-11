@@ -180,8 +180,6 @@ unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character 
 
 unsigned char wallReached(register Character *characterPtr);
 
-void die(Character * playerPtr);
-
 void playerDies(void);
 
 void checkBombsVsGhost(register Character * ghostPtr);

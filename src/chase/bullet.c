@@ -126,7 +126,7 @@ void checkBullet(Character *bulletPtr)
 }
 
 void checkBulletVsGhost(Character * bulletPtr,
-						 Character * ghostPtr)
+						Character * ghostPtr)
 {
 	if(ghostPtr->_status && 
 	   areCharctersAtSamePosition(bulletPtr, ghostPtr))
@@ -138,7 +138,8 @@ void checkBulletVsGhost(Character * bulletPtr,
 			ghostPtr->_imagePtr = (Image *)&SKULL_IMAGE;			
 		#endif
 		ghostDies(ghostPtr);
-		die(bulletPtr);
+		
+		bulletPtr->_status=0;
 	}
 }
 	
@@ -160,7 +161,9 @@ void checkBulletVsSkull(register Character *bulletPtr)
 	   areCharctersAtSamePosition(bulletPtr, &skull))
 	{
 		PING_SOUND();
-		die(bulletPtr);
+		
+		bulletPtr->_status=0;
+		
 		deleteBullet(bulletPtr);
 		bulletPtr->_x = 0; bulletPtr->_y = 0;
 		++skullHits;
@@ -225,7 +228,8 @@ void moveBullet(register Character * bulletPtr)
 	_moveBullet(bulletPtr);
 	if(wallReached(bulletPtr) && bulletPtr->_status)
 	{
-		die(bulletPtr);
+		bulletPtr->_status=0;
+		
 		deleteBullet(bulletPtr);
 		#if defined(FULL_GAME)
 			DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);

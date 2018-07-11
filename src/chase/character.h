@@ -174,8 +174,6 @@ void deleteCharacter(Character * characterPtr);
 
 void initializeCharacter(register Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr);
 
-void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y);
-
 unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr);
 
 unsigned char wallReached(register Character *characterPtr);

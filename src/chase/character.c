@@ -100,11 +100,6 @@ void initializeCharacter(register Character* characterPtr, unsigned char x, unsi
 	#endif
 }
 
-void setCharacterPosition(Character* characterPtr, unsigned char x, unsigned char y)
-{
-	characterPtr->_x = x;
-	characterPtr->_y = y;
-}
 
 unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr)
 {

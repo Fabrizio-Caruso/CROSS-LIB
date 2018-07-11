@@ -240,14 +240,20 @@ void displayStats(void)
 
 
 
+#if (defined(FULL_GAME) && !defined(NO_HINTS)) || !defined(NO_INITIAL_SCREEN)
+	void _printCrossChase(void)
+	{
+		printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);		
+		SET_TEXT_COLOR(TEXT_COLOR);			
+	}
+#endif
+
 
 #if defined(FULL_GAME) && !defined(NO_HINTS)
 	void printHints(void)
 	{
-		printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);		
-
-		SET_TEXT_COLOR(TEXT_COLOR);		
-
+		_printCrossChase();
+		
 		printCenteredMessageOnRow(6,  USE_THE_GUN_AGAINST_STRING);
 
 		printCenteredMessageOnRow(8,  THE_SKULL_AND_STRING);
@@ -263,9 +269,8 @@ void displayStats(void)
 #if !defined(NO_INITIAL_SCREEN)
 	void printStartMessage(void)
 	{
-		printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);
+		_printCrossChase();
 		
-		SET_TEXT_COLOR(TEXT_COLOR);
 		printCenteredMessageOnRow(5, AUTHOR_STRING);	
 
 		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)

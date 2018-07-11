@@ -675,7 +675,7 @@ int main(void)
 			}
 			else // if dead
 			{		
-				#if defined(BETWEEN_LEVEL)
+				#if defined(END_SCREEN)
 					for(bulletDirection=0;bulletDirection<80;++bulletDirection)
 					{
 						unsigned char i;
@@ -685,7 +685,10 @@ int main(void)
 								dance(&ghosts[i]);
 						}
 					}
-					chasedEnemyPtr = &skull;					
+				#endif
+				
+				#if defined(BETWEEN_LEVEL)
+					chasedEnemyPtr = &skull;	
 				#endif
 				
 				#if !defined(TINY_GAME)
@@ -697,7 +700,7 @@ int main(void)
 					player._status = 1;
 				}
 			}
-			#if defined(BETWEEN_LEVEL)
+			#if defined(BETWEEN_SCREEN)
 				spiral(chasedEnemyPtr, 2*MIN_SIZE-18);
 				SLEEP(1);
 			#endif				

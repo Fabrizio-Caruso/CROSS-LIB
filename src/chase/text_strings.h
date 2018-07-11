@@ -51,11 +51,11 @@
 	#define SCORE_STRING "score:"
 	#define LEVEL_STRING "level:"
 	#define START_LEVEL_STRING "level %u"
-	#define USE_THE_GUN_AGAINST_STRING "use the gun against"
+	#define USE_THE_GUN_AGAINST_STRING "shoot at"
 	#define THE_SKULL_AND_STRING "the skull and"
 	#define MISSILE_BASES_STRING "missile bases"
-	#define FOR_POINTS_AND___STRING "for points and  "
-	#define EXTRA_POWERUPS__STRING "extra powerups "
+	#define FOR_POINTS_AND___STRING "for points"
+	#define EXTRA_POWERUPS__STRING "and items"
 #elif defined(__PC6001__)
 	#define CROSS_CHASE_STRING "C R O S S  C H A S E"		
 	#define AUTHOR_STRING "BY FABRIZIO CARUSO"
@@ -66,11 +66,11 @@
 	#define SCORE_STRING "SCORE:"
 	#define LEVEL_STRING "LEVEL:"
 	#define START_LEVEL_STRING "LEVEL %u"
-	#define USE_THE_GUN_AGAINST_STRING "USE THE GUN AGAINST"
+	#define USE_THE_GUN_AGAINST_STRING "SHOOT AT"
 	#define THE_SKULL_AND_STRING "THE SKULL AND"
 	#define MISSILE_BASES_STRING "MISSILE BASES"
-	#define FOR_POINTS_AND___STRING "FOR POINTS AND  "
-	#define EXTRA_POWERUPS__STRING "EXTRA POWERUPS "	
+	#define FOR_POINTS_AND___STRING "FOR POINTS"
+	#define EXTRA_POWERUPS__STRING  "AND ITEMS"	
 #else
 	#if defined(TINY_GAME)
 		#define CROSS_CHASE_STRING "CROSS CHASE"
@@ -86,11 +86,11 @@
 	#define SCORE_STRING "SCORE:"
 	#define LEVEL_STRING "LEVEL:"	
 	#define START_LEVEL_STRING "LEVEL %u"	
-	#define USE_THE_GUN_AGAINST_STRING "Use the gun against"
+	#define USE_THE_GUN_AGAINST_STRING "Shoot at"
 	#define THE_SKULL_AND_STRING "the skull and"
 	#define MISSILE_BASES_STRING "missile bases"
-	#define FOR_POINTS_AND___STRING "for points and  "
-	#define EXTRA_POWERUPS__STRING "extra powerups "	
+	#define FOR_POINTS_AND___STRING "for points"
+	#define EXTRA_POWERUPS__STRING "and items"	
 #endif
 
 #if defined(JOYSTICK_CONTROL) || defined(__MSX__) || defined(__CPC_JOYSTICK__)
@@ -124,7 +124,7 @@
 		#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
 			#define PRESS_STRING "press fire"
 		#else
-			#define PRESS_STRING "press any key"
+			#define PRESS_STRING "press a key"
 		#endif
 		#define GAME_OVER_STRING "game over"
 		#define DEFEAT_STRING "you lost"
@@ -135,7 +135,7 @@
 		#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
 			#define PRESS_STRING "PRESS FIRE"
 		#else
-			#define PRESS_STRING "PRESS ANY KEY"
+			#define PRESS_STRING "PRESS A KEY"
 		#endif
 		#define GAME_OVER_STRING "GAME OVER"
 		#define DEFEAT_STRING "YOU LOST"	

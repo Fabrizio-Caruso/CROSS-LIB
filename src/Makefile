@@ -57,6 +57,7 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 # For cygwin posix build: use gcc
 # For windows 32 non-posix build: x86_64-w64-mingw32-gcc
 _CC ?= gcc
+_CC_OPTS ?= -Wpedantic -Wall
 
 
 COCO_OPTS_TINY  ?= -O0 -D__CMOC__ -DTINY_GAME
@@ -1785,7 +1786,7 @@ coco:
 # ------------------------------------
 
 ncurses_turn_based:
-	$(_CC) -D__NCURSES__ \
+	$(_CC) $(_CC_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DTURN_BASED \
@@ -1797,7 +1798,7 @@ ncurses_turn_based:
 	mv a.exe $(BUILD_PATH)/FULL_ncurses_turn_based.exe
 	
 ncurses:
-	$(_CC) -D__NCURSES__ \
+	$(_CC) $(_CC_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO  \

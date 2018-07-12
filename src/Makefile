@@ -487,15 +487,17 @@ creativision_8k_tiny:
 
 creativision_8k_light: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t creativision \
-	-DLESS_TEXT -DNO_SLEEP \
+	-DLESS_TEXT \
 	-DNO_SET_SCREEN_COLORS \
 	-DFLAT_ENEMIES \
 	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DFORCE_NARROW \
+	-DALT_SLEEP \
 	--config $(CFG_PATH)/cc65/creativision-8k_less_stack.cfg \
 	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/LIGHT_creativision_8k_less_text.bin	
 	
 creativision_16k:

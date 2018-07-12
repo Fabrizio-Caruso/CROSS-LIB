@@ -82,7 +82,7 @@ void gameCompleted(void)
 	
 		printCenteredMessageOnRow(4+(loop&15),  YOU_MADE_IT_STRING);
 		#if defined(SLOW_DOWN)
-			for(k=0;k<GAME_SLOW_DOWN*16;++k) {};
+			for(k=0;k<(unsigned short)GAME_SLOW_DOWN*(unsigned short) 8;++k) {};
 		#endif
 		printCenteredMessageOnRow(4+(loop&15), "             ");
 		

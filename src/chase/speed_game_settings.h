@@ -61,10 +61,10 @@
 		#define GAME_SLOW_DOWN 100
 	#elif defined(__SUPERVISION__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 3300			
+		#define GAME_SLOW_DOWN 3300U		
 	#elif defined(__MTX__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 3300			
+		#define GAME_SLOW_DOWN 3300U		
 	#elif defined(__MC1000__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 900			
@@ -90,7 +90,7 @@
 		#define GAME_SLOW_DOWN 500	
 	#elif defined(__NASCOM__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 9000
+		#define GAME_SLOW_DOWN 8000U
 	#elif defined(__GAMATE__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 1200
@@ -129,7 +129,7 @@
 		#define GAME_SLOW_DOWN 700
 	#elif defined(__VG5K__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 3600	
+		#define GAME_SLOW_DOWN 3600U
 	#elif defined(__AQUARIUS__) && defined(ALT_PRINT)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 1500		
@@ -144,7 +144,7 @@
 		#define GAME_SLOW_DOWN 550		
 	#elif defined(__PCE__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 3000		
+		#define GAME_SLOW_DOWN 3000U	
 	#elif defined(__VZ__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 800	
@@ -161,7 +161,7 @@
 		#define GAME_SLOW_DOWN 1200
 	#elif defined(__ATARI_LYNX__)
 		#define SLOW_DOWN 
-		#define GAME_SLOW_DOWN 2500	
+		#define GAME_SLOW_DOWN 2500U
 	#elif defined(__SVI__) && !defined(MSX_MODE0)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 1200	

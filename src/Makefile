@@ -675,13 +675,13 @@ vg5k:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DFORCE_BOMBS_NUMBER=4 \
 	-DSOUNDS \
+	-DSIMPLE_STRATEGY \
 	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
 	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
-
 
 # $(SCCZ80_OPTS) -zorg=18941 -vn
 vg5k_exp_16k:

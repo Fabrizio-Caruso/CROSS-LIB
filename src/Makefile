@@ -665,7 +665,7 @@ vz200_24k:
 vg5k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	-SO3 --max-allocs-per-node200000 \
 	-opt-code-size \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -677,6 +677,8 @@ vg5k:
 	-DSOUNDS \
 	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
 	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
 

@@ -155,7 +155,7 @@
 		#define GAME_SLOW_DOWN 1500
 	#elif defined(__CPC__) && defined(CPCRSLIB)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 400	
+		#define GAME_SLOW_DOWN 500	
 	#elif defined(__SVI__) && defined(MSX_MODE0)
 		#define SLOW_DOWN 
 		#define GAME_SLOW_DOWN 1200

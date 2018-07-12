@@ -700,7 +700,7 @@ int main(void)
 					player._status = 1;
 				}
 			}
-			#if defined(BETWEEN_SCREEN)
+			#if defined(BETWEEN_LEVEL)
 				spiral(chasedEnemyPtr, 2*MIN_SIZE-18);
 				SLEEP(1);
 			#endif				

@@ -6,7 +6,7 @@
 #if !defined(NO_MESSAGE)
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
-		PRINT(((XSize - strlen(Text))>>1), row, Text);	
+		PRINT(((unsigned char) (XSize - (unsigned char) strlen(Text))>>1), row, Text);	
 	}
 
 

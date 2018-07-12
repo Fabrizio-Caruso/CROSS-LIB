@@ -24,18 +24,23 @@
 
 #include<vic20.h>
 
+	void _pause(void)
+	{
+		unsigned short i;
+		for(i=0;i<500;++i) 
+			{ 
+			} 			
+	}
+
 	void _explosion_sound(unsigned char freq, unsigned char vol)
 	{ 
-		unsigned int i; 
 		unsigned char j;
 		VIC.noise = freq; 
 		VIC.volume_color |= vol; 
 
 		for(j=0;j<8;++j) 
-		{ \
-			for(i=0;i<400;++i) 
-			{ 
-			} 			
+		{ 
+			_pause();
 			VIC.volume_color &= 8-j; 		
 		} 
 		VIC.noise = 0x00; 
@@ -44,12 +49,9 @@
 
 	void _ping_sound(unsigned char freq)
 	{ 
-		unsigned int i; 
 		VIC.voice1 = freq; 
 		VIC.volume_color |= 0x08; 
-		for(i=0;i<600;++i) 
-		{ 
-		} 
+		_pause();
 		VIC.voice1 = 0x00; 
 		VIC.volume_color &= 0x00; 
 	};
@@ -57,21 +59,12 @@
 
 	void ZAP_SOUND() 
 	{ 
-		unsigned char i; 
 		unsigned char j;
 		VIC.volume_color |= 0x0B; 
 		for(j=0;j<15;++j) 
 		{ \
 			VIC.voice1 = j*15;
-			for(i=0;i<254;++i) 
-			{ 
-			} 
-			for(i=0;i<254;++i) 
-			{ 
-			} 	
-			for(i=0;i<254;++i) 
-			{ 
-			} 			
+			_pause();
 		} \
 		VIC.voice1 = 0x00; 
 		VIC.volume_color &= 0x00; 

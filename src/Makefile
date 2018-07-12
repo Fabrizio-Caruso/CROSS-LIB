@@ -1973,11 +1973,13 @@ clean_chase_obj:
 clean_lib_obj:
 	rm -rf $(CROSS_LIB_PATH)/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/cc65/apple2enh/*.o	
 	rm -rf $(CROSS_LIB_PATH)/display/cc65/atari/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/cc65/atari_lynx/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/cc65/atmos/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/cc65/c64/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/cc65/c264/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/cc65/c128/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/cc65/gamate/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/cc65/supervision/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/cc65/vic20/*.o

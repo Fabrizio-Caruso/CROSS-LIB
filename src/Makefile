@@ -192,6 +192,8 @@ vic20_exp_8k_full:
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	-DVIC20_EXP_8K \
+	-DEND_SCREEN \
+	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \

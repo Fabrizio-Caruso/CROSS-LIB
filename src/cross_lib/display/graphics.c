@@ -15,7 +15,7 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 		
 	unsigned short loc(unsigned char x, char y)
 	{
-		return ((unsigned short) BASE_ADDR)+x+(unsigned char)y*((unsigned short)XSize + X_OFFSET);
+		return ((unsigned short) BASE_ADDR)+x+(unsigned char)y*((unsigned short) (XSize + X_OFFSET));
 	}
 #elif defined(CPCRSLIB)
 	char char_list[UDG_N*2] = 

@@ -580,16 +580,15 @@ aquarius_exp_4k:
 	-v \
 	-D__AQUARIUS__ -DTINY_GAME \
 	-DNO_RANDOM_LEVEL \
-	-DNO_SLEEP \
-	-DNO_PRINT \
+	-DALT_PRINT \
 	-DNO_DEAD_GHOSTS \
-	-DNO_WAIT \
 	-DFORCE_NARROW \
 	-DALT_CLEAR_SCREEN \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TINY_aquarius_exp_4k -create-app \
 	-DMEMORY_MAPPED \
 	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/z88dk/aquarius/aquarius_init_graphics.c
 	rm $(SOURCE_PATH)/../TINY_aquarius_exp_4k
 	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)

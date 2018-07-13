@@ -15,21 +15,21 @@
 
 #define _DRAW(x,y,image) \
 { \
-	unsigned char k; \
+	unsigned short k; \
 	for(k=0;k<8;++k) \
 	{ \
-		SV_VIDEO[2*x+48*k+48*8*y]=128+32+8+2; \
-		SV_VIDEO[2*x+48*k+48*8*y+1]=128+32+8+2; \
+		SV_VIDEO[2*(x)+48*k+48*8*(y)]=128+32+8+2; \
+		SV_VIDEO[2*(x)+48*k+48*8*(y)+1]=128+32+8+2; \
 	} \
 }
 
 #define _DELETE(x,y) \
 { \
-	unsigned char k; \
+	unsigned short k; \
 	for(k=0;k<8;++k) \
 	{ \
-		SV_VIDEO[2*x+48*k+48*8*y]=0; \
-		SV_VIDEO[2*x+48*k+48*8*y+1]=0; \
+		SV_VIDEO[2*(x)+48*k+48*8*(y)]=0; \
+		SV_VIDEO[2*(x)+48*k+48*8*(y)+1]=0; \
 	} \
 }
 

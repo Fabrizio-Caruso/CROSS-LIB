@@ -1842,9 +1842,7 @@ cc65_targets: \
 	vic20_targets \
 	c264_targets \
 	atari_lynx_targets \
-	gamate_targets	
-	
-cc65_to_implement: \
+	gamate_targets	\
 	supervision_targets	
 	
 # KO: 	

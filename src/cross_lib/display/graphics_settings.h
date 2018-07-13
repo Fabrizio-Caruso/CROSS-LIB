@@ -24,6 +24,8 @@
 	#include "z88dk/msx/msx_redefined_chars_settings.h"
 #elif defined(CPCRSLIB)
 	#include "z88dk/cpc/cpc_cpcrslib_settings.h"
+#elif defined(__SUPERVISION__)
+	#include "cc65/supervision/supervision_settings.h"
 #else
 	#include "default_graphics_settings.h"
 #endif 
@@ -39,4 +41,6 @@
 	#include "tgi/tgi_graphics.h"
 #elif defined(CPCRSLIB)
 	#include "z88dk/cpc/cpc_cpcrslib_graphics.h"
+#elif defined(SUPERVISION)
+	#include "cc65/supervision/supervision_graphics.h"
 #endif

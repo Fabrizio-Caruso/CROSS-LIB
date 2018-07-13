@@ -31,7 +31,7 @@
 #define _INVINCIBILITY 14
 #define _BULLET 15
 
-#define _SPACE 16
+#define _SPACE 0
 
 #define _LEFT_HORIZONTAL_MISSILE 17
 #define _RIGHT_HORIZONTAL_MISSILE 18

@@ -5,7 +5,7 @@
 #include <supervision.h>
 
 
-#define EXTRA_INVISIBLE 4
+//#define EXTRA_INVISIBLE 4
 
 
 // TODO: Remove BOGUS graphics data (image->_imageData points to the real data and is not the data itself) 
@@ -18,8 +18,8 @@
 	unsigned char k; \
 	for(k=0;k<8;++k) \
 	{ \
-		SV_VIDEO[2*x+48*k+48*8*y]=image->_imageData; \
-		SV_VIDEO[2*x+48*k+48*8*y+1]=image->_imageData; \
+		SV_VIDEO[2*x+48*k+48*8*y]=128+32+8+2; \
+		SV_VIDEO[2*x+48*k+48*8*y+1]=128+32+8+2; \
 	} \
 }
 
@@ -34,4 +34,4 @@
 }
 
 
-#endif _BIT_MAPPED
+#endif // _SUPERVISION_GRAPHICS

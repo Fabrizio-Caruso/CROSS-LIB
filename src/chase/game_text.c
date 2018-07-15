@@ -33,7 +33,7 @@
 #define _YELLOW COLOR_YELLOW
 #define _WHITE COLOR_WHITE
 #define _RED   COLOR_RED
-#define SCORE_COLOR COLOR_IF_NO_BLUE_THEN_RED
+#define SCORE_COLOR COLOR_IF_NO_BLUE_THEN_YELLOW
 
 #if !defined(NO_TEXT_COLOR)
 	#define SET_COLOR(c) SET_TEXT_COLOR(c)
@@ -287,7 +287,7 @@ void displayStats(void)
 		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
 			_printTopScore();
 			
-			SET_COLOR(COLOR_IF_NO_BLUE_THEN_RED);
+			SET_COLOR(COLOR_IF_NO_BLUE_THEN_YELLOW);
 			
 			printCenteredMessageOnRow((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
 			printCenteredMessageOnRow((YSize>>1)+1, INTO_THE_MINES_STRING);

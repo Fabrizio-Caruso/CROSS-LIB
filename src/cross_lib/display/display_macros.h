@@ -178,9 +178,9 @@ void _delete(unsigned char x, unsigned char y);
 #endif	
 
 #if defined(__CPC__)
-	#define COLOR_IF_NO_BLUE_THEN_RED COLOR_RED
+	#define COLOR_IF_NO_BLUE_THEN_YELLOW COLOR_YELLOW
 #else
-	#define COLOR_IF_NO_BLUE_THEN_RED COLOR_BLUE
+	#define COLOR_IF_NO_BLUE_THEN_YELLOW COLOR_BLUE
 #endif
 
 #if !defined(TINY_GAME)

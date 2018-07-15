@@ -1796,6 +1796,8 @@ ncurses_turn_based:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DTURN_BASED \
 	-DCONIO  \
+	-DALT_PRINT \
+	$(CROSS_LIB_PATH)/display/ncurses/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/ncurses/ncurses_init_graphics.c \
 	$(FULL_FILES) \
@@ -1807,6 +1809,8 @@ ncurses:
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO  \
+	-DALT_PRINT \
+	$(CROSS_LIB_PATH)/display/ncurses/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/ncurses/ncurses_init_graphics.c \
 	$(FULL_FILES) \
@@ -3122,13 +3126,19 @@ nc200_sprites_tiny:
 
 kc_putc4x6_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
+	-v \
 	-D__KC__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-DZ88DK_PUTC4X6 \
+	-DCONIO \
+	-DALT_PRINT \
+	-DNO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/TINY_kc_putc4x6_.bin \
 	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/z88dk/z88dk_putc4x6/z88dk_putc4x6_alt_print.c 
-	rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
+	$(CROSS_LIB_PATH)/display/z88dk/z88dk_putc4x6/z88dk_putc4x6_alt_print.c
+	
+	
+	# rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
 	
 
 eg2k_tiny:
@@ -3231,6 +3241,7 @@ ncurses_turn_based_tiny:
 	$(_CC) -D__NCURSES__ \
 	-DTINY_GAME \
 	-DTURN_BASED \
+	-DALT_PRINT \
 	$(TINY_FILES) \
 	-lncurses
 	mv a.exe $(BUILD_PATH)/TINY_ncurses.exe

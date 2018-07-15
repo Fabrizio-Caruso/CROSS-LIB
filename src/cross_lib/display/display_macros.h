@@ -96,24 +96,22 @@ void _delete(unsigned char x, unsigned char y);
 	DRAW_HORIZONTAL_LINE(XSize-1-length,YSize/2,length);
 
 
+	
+//  
+//	|| (defined(__CMOC__) && !defined(__WINCMOC__)) 
+//	|| defined(Z88DK_PUTC4X6) 
+//	|| ( defined(ATARI_MODE1) && defined(__ATARI__) )	
+	
 // PRINT AND PRINTF
 #if defined(NO_PRINT)
 	#define PRINT(x,y,str)
 	#define PRINTF(x,y,str,val)
-#elif defined(__NCURSES__)
-	#include <ncurses.h>
-	
-	#define PRINT(x,y,str) do {move(y,x); printw(str); refresh();} while(0)
-	#define PRINTF(x,y,str, val) do {move(y,x); printw(str,val); refresh();} while(0)
-#elif defined(ALT_PRINT) \
-	|| (defined(__CMOC__) && !defined(__WINCMOC__)) \
-	|| defined(Z88DK_PUTC4X6) \
-	|| ( defined(ATARI_MODE1) && defined(__ATARI__) )
+#elif defined(ALT_PRINT)
 	void PRINT(unsigned char x, unsigned char y, char * str);
-	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short);
+	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val);
 #else
-	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y); cprintf(str); } while(0);
-	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y); cprintf(str,val); } while(0);
+	#define PRINT(x,y,str) do {gotoxy(x,y); cprintf(str); } while(0);
+	#define PRINTF(x,y,str,val) do {gotoxy(x,y); cprintf(str,val); } while(0);
 #endif
 
 

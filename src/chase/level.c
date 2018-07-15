@@ -223,11 +223,6 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 				displayRocket(&rockets[i]);
 			}
 		}
-
-		if(bossLevel())
-		{
-			nGhosts = level>>2;
-		}				
 	#endif
 	
 	#if GHOSTS_NUMBER >= 9

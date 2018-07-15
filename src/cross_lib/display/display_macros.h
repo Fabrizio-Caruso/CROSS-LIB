@@ -123,14 +123,12 @@ void _delete(unsigned char x, unsigned char y);
 #endif
 	
 // COLORS 
-#  if defined(ALT_PRINT) || defined(NO_COLOR) \
+#  if defined(NO_COLOR) \
 	|| defined(__ATARI5200__) \
 	|| (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) \
 	|| defined(__CMOC__) \
 	|| (defined(__SVI__) && defined(MSX_MODE0)) || defined(__MSX__) \
 	|| defined(__ATMOS__) \
-	|| (defined(__VIC20__) && defined(VIC20_UNEXPANDED)) \
-	|| defined(__ATARI_LYNX__) || (defined(__AQUARIUS__) && defined(EXT_GRAPHICS)) \
 	|| defined(Z88DK_SPRITES)
 	#define SET_TEXT_COLOR(c) 
 #elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)

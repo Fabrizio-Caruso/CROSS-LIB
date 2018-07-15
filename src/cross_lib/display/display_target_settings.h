@@ -29,7 +29,7 @@
 
 #if !defined(FORCE_YSIZE)
 	#  if defined(__NCURSES__)
-		#define YSize 24
+		#define YSize (24-Y_OFFSET)
 	#elif defined(__PPS__)
 		#define YSize (32-Y_OFFSET)
 	#elif defined(__Z1013__)
@@ -62,7 +62,7 @@
 		|| defined(__AQUARIUS__)
 		#define YSize (24-Y_OFFSET)		
 	#elif defined(__VIC20__)
-		#define YSize 23	
+		#define YSize 23
 	#elif defined(__SAM__)
 		#define YSize (24-2-Y_OFFSET)
 	#elif (defined(__NC200__) && defined(Z88DK_SPRITES))
@@ -199,7 +199,7 @@
 
 #if !defined(__ATMOS__)
 	#if defined(__ATARI__) || defined(__ATARIXL__) \
-		|| defined(ALT_PRINT) \
+		|| (defined(ALT_PRINT) && !defined(__NCURSES__)) \
 		|| defined(NO_COLOR)
 		#define NO_TEXT_COLOR
 	#endif

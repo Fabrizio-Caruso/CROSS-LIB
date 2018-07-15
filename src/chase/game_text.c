@@ -35,6 +35,12 @@
 #define _RED   COLOR_RED
 #define SCORE_COLOR COLOR_IF_NO_BLUE_THEN_RED
 
+#if !defined(NO_TEXT_COLOR)
+	#define SET_COLOR(c) SET_TEXT_COLOR(c)
+#else
+	#define SET_COLOR(c)
+#endif
+
 #if defined(WIDE) && !defined(TINY_GAME)
 	#define GUN_IMAGE_X 17
 	#define GUN_IMAGE_Y 0
@@ -83,12 +89,13 @@ extern unsigned short highScore;
 	#define TITLE_LINE() PRINT(XSize-11,+0,  "-----------")
 #endif
 
+
 #define PRINT_WIDE_TITLE() \
-	SET_TEXT_COLOR(SCORE_COLOR); \
+	SET_COLOR(SCORE_COLOR); \
 	PRINT(0, +0,   SCORE_STRING); \
 	PRINT(0, +0+1, LEVEL_STRING); \
 	\
-	SET_TEXT_COLOR(_RED); \
+	SET_COLOR(_RED); \
 	TITLE_LINE(); \
 	PRINT(XSize-11,TITLE_Y,"cross chase");	
 
@@ -101,9 +108,7 @@ extern unsigned short highScore;
 				PRINT_WIDE_TITLE();
 		#endif
 		
-		#if !defined(NO_COLOR)
-			SET_TEXT_COLOR(TEXT_COLOR);
-		#endif		
+		SET_COLOR(TEXT_COLOR);
 		
 		#if (X_OFFSET==0) && (Y_OFFSET==0)
 			#define _draw_stat _draw
@@ -116,9 +121,8 @@ extern unsigned short highScore;
 
 	void printGunsStats(void)
 	{
-		#if !defined(NO_COLOR)		
-			SET_TEXT_COLOR(TEXT_COLOR);	
-		#endif
+		SET_COLOR(TEXT_COLOR);	
+		
 		#if defined(WIDE)
 			PRINTF(GUN_IMAGE_X+2,0+0,"%u",guns);
 		#else
@@ -130,8 +134,9 @@ extern unsigned short highScore;
 #if !defined(NO_STATS)
 	void printLevelStats(void)
 	{	
+		SET_COLOR(TEXT_COLOR);
+	
 		#if defined(WIDE) && !defined(TINY_GAME)
-			SET_TEXT_COLOR(TEXT_COLOR);	
 			PRINTF(LEVEL_X,1+0,"%02u", level);
 		#else
 			PRINTF(LEVEL_X,+0,"%02u",level);	
@@ -141,9 +146,8 @@ extern unsigned short highScore;
 
 	void printGhostCountStats(void)
 	{
-		#if !defined(NO_COLOR)
-			SET_TEXT_COLOR(TEXT_COLOR);		
-		#endif
+		SET_COLOR(TEXT_COLOR);		
+		
 		#if defined(WIDE) && !defined(TINY_GAME)
 			PRINTF(GHOST_IMAGE_X+2,+0,"%u",ghostCount);
 		#else
@@ -154,9 +158,8 @@ extern unsigned short highScore;
 
 	void printLivesStats(void)
 	{
-		#if !defined(NO_COLOR)
-			SET_TEXT_COLOR(TEXT_COLOR);
-		#endif
+		SET_COLOR(TEXT_COLOR);
+		
 		#if defined(WIDE) && !defined(TINY_GAME)
 			PRINTF(PLAYER_IMAGE_X+2,+0+1,"%02u",lives);
 		#else
@@ -176,9 +179,8 @@ extern unsigned short highScore;
 #if !defined(ALT_DISPLAY_STATS)
 void displayStats(void)
 {	
-	#if !defined(NO_COLOR)
-		SET_TEXT_COLOR(TEXT_COLOR);
-	#endif
+	SET_COLOR(TEXT_COLOR);
+	
 	#if defined(WIDE) && !defined(TINY_GAME)
 		PRINTF(6,+0,"%05u0",points);
 	#else
@@ -252,7 +254,8 @@ void displayStats(void)
 	void _printCrossChase(void)
 	{
 		printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);		
-		SET_TEXT_COLOR(TEXT_COLOR);			
+		SET_COLOR(TEXT_COLOR);
+		
 	}
 #endif
 
@@ -284,11 +287,13 @@ void displayStats(void)
 		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
 			_printTopScore();
 			
-			SET_TEXT_COLOR(COLOR_IF_NO_BLUE_THEN_RED);
+			SET_COLOR(COLOR_IF_NO_BLUE_THEN_RED);
+			
 			printCenteredMessageOnRow((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
 			printCenteredMessageOnRow((YSize>>1)+1, INTO_THE_MINES_STRING);
 			
-			SET_TEXT_COLOR(TEXT_COLOR);				
+			SET_COLOR(TEXT_COLOR);	
+			
 		#endif
 
 		printCenteredMessageOnRow(YSize-3, USE_STRING);

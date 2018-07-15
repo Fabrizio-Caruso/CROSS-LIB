@@ -15,9 +15,9 @@
 			#include <peekpoke.h>
 			void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text)
 			{
-				POKE(0xBB80+3+(row+Y_OFFSET)*40,16);POKE(0xBB80+3+1+(row+Y_OFFSET)*40,col);
+				POKE(0xBB80+3+(row)*40,16);POKE(0xBB80+3+1+(row)*40,col);
 				printCenteredMessageOnRow(row, Text);						
-				POKE(0xBB80+35+(row+Y_OFFSET)*40,16);POKE(0xBB80+35+1+(row+Y_OFFSET)*40,3);			
+				POKE(0xBB80+35+(row)*40,16);POKE(0xBB80+35+1+(row)*40,3);			
 			}			
 		#else	
 			void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text)

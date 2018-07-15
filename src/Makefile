@@ -3136,9 +3136,7 @@ kc_putc4x6_tiny:
 	-create-app -o$(BUILD_PATH)/TINY_kc_putc4x6_.bin \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/z88dk/z88dk_putc4x6/z88dk_putc4x6_alt_print.c
-	
-	
-	# rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
+	rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
 	
 
 eg2k_tiny:

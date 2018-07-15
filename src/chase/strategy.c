@@ -141,7 +141,7 @@ extern unsigned char zombieActive;
 void computeStrategy(void)
 {
 	unsigned char i;
-	unsigned char skew = ((level - 1) / 5) % 4;
+	unsigned char skew = (level - 1) / 5;
 	
 	for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
 	{

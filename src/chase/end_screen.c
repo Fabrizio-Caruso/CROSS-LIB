@@ -51,6 +51,13 @@
 
 #endif
 
+#if YSize < 20
+	#define MESSAGE_START 1
+	#define MESSAGE_RANGE 7
+#else
+	#define MESSAGE_START 4
+	#define MESSAGE_RANGE 15
+#endif
 
 void gameCompleted(void)
 {
@@ -65,11 +72,11 @@ void gameCompleted(void)
 
 	playerFire = 0;
 	loop = 0;
-	skull._x = player._x-5;
+	skull._x = player._x-4;
 	skull._y = player._y;	
 	bullet._status = 0;
 	guns = 1;
-	while(!playerFire)
+	while(!playerFire && !wallReached(&player))
 	{
 		bulletDirection++;
 		displayBombs();
@@ -77,25 +84,22 @@ void gameCompleted(void)
 		{
 			dance(&ghosts[k]);
 		}
-		dance(&player);
+		
+		displayPlayer(&player);
+		
 		dance(&skull);
 	
-		printCenteredMessageOnRow(4+(loop&15),  YOU_MADE_IT_STRING);
+		printCenteredMessageOnRow(MESSAGE_START+(loop&MESSAGE_RANGE),  YOU_MADE_IT_STRING);
 		#if defined(SLOW_DOWN)
 			for(k=0;k<(unsigned short)GAME_SLOW_DOWN*(unsigned short) 8;++k) {};
 		#endif
-		printCenteredMessageOnRow(4+(loop&15), "             ");
+		printCenteredMessageOnRow(MESSAGE_START+(loop&MESSAGE_RANGE), "             ");
 		
 		++loop;
 		
 		MOVE_PLAYER();
-		if(wallReached(&player))
-		{
-			playerFire = 1;
-		}
 	}
-	printGameOver();
-	SLEEP(2);
+
 	printPressKeyToStart();
 	WAIT_PRESS();
 	playerFire = 0;

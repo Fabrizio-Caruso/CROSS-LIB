@@ -234,7 +234,7 @@ void displayStats(void)
 #if !defined(LESS_TEXT)	
 	void printGameOver(void)
 	{		
-		printCenteredMessageWithCol(_WHITE, GAME_OVER_STRING);
+		printCenteredMessageWithCol(_RED, GAME_OVER_STRING);
 	}
 	
 	void printDefeatMessage(void)
@@ -244,7 +244,7 @@ void displayStats(void)
 #elif !defined(NO_MESSAGE)
 	void printGameOver(void)
 	{
-		printCenteredMessage(GAME_OVER_STRING);
+		printCenteredMessageWithCol(_RED, GAME_OVER_STRING);
 	}	
 #endif
 

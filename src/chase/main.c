@@ -36,7 +36,7 @@
 
 // TODO: REMOVE THIS
 //#define DEBUG_ITEMS
-// #define DEBUG_END
+//#define DEBUG_END
 
 #include "settings.h"
 
@@ -62,7 +62,6 @@
 	#include "rocket.h"
 #endif
 
-	
 
 unsigned short ghostSlowDown;
 
@@ -595,10 +594,8 @@ int main(void)
 					}
 										
 				#else
-					// #if !defined(TINY_GAME)
 					SKIP_MORE_DRAW
 						displayBombs();
-					// #endif
 				#endif
 				
 				// Display ghosts
@@ -719,9 +716,10 @@ int main(void)
 	}
 
 	// GAME OVER	
+	
 	printGameOver();
-
-	SLEEP(2);
+	
+	SLEEP(1);
 	
 	#if !defined(TINY_GAME)
 		CLEAR_SCREEN();

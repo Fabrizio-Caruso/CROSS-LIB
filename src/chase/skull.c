@@ -42,8 +42,6 @@ extern Character skull;
 extern Character player;
 
 extern unsigned char skullAlive;
-// extern unsigned char skullCountTrigger;
-// extern unsigned short skullLoopTrigger;
 
 #if defined(FULL_GAME)
 	extern unsigned char confuseActive;
@@ -75,7 +73,7 @@ void computeSkullParameters(void)
 #define GHOST_COUNT_TRIGGER_REACHED (ghostCount<=SKULL_TRIGGER)
 #define BOSS_LOOP_TRIGGER_REACHED (loop>=SKULL_LOOP_TRIGGER)
 
-#define ONE_TRIGGER_REACHED (INACTIVITY_COUNT_DOWN_REACHED || GHOST_COUNT_TRIGGER_REACHED)
+#define NON_BOSS_TRIGGER_REACHED (INACTIVITY_COUNT_DOWN_REACHED || GHOST_COUNT_TRIGGER_REACHED)
 
 #if defined(__NCURSES__)
 	#define SKULL_RAND_CONDITION ((rand()&0x7fff)>skullSlowDown)
@@ -83,18 +81,16 @@ void computeSkullParameters(void)
 	#define SKULL_RAND_CONDITION (rand()>skullSlowDown)
 #endif
 
-void handle_skull_ghost(void)
+void handle_skull(void)
 {
 	if(!skull._status)
-	{
-		// Manage skull ghost
-		
+	{		
 		#if defined(FULL_GAME)
 		if(skullAlive && 
-			((!bossLevel() && ONE_TRIGGER_REACHED) || 
+			((!bossLevel() && NON_BOSS_TRIGGER_REACHED) || 
 			 (bossLevel() && BOSS_LOOP_TRIGGER_REACHED)))
 		#else
-		if(skullAlive && ONE_TRIGGER_REACHED)
+		if(skullAlive && NON_BOSS_TRIGGER_REACHED)
 		#endif
 		{
 			skull._status = 1;

@@ -504,7 +504,7 @@ int main(void)
 						++ghostLevel;				
 					}
 				
-					handle_skull_ghost();
+					handle_skull();
 
 					// This detects collisions of ghosts that have just moved
 					if(bullet._status)

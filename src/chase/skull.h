@@ -27,7 +27,7 @@
 
 #if !defined(TINY_GAME)
 
-void handle_skull_ghost(void);
+void handle_skull(void);
 
 unsigned short computeSkullSlowDown(void);
 

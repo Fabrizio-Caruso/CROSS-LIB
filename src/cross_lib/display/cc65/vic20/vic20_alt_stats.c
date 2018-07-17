@@ -21,7 +21,7 @@
 		while(str[i]!='\0')
 		{
 			#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))
-			POKE(loc(x,y)+i, screenCode(str[i])); 		
+			POKE(loc(x+i,y), screenCode(str[i])); 		
 			#else
 				
 			POKE(loc(x+i,y), str[i]); 

@@ -142,7 +142,6 @@ vic20_unexpanded:
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_TEXT_COLOR \
 	-DVIC20_UNEXPANDED \
-	-DNO_PRINT \
 	-DNO_SLEEP \
 	-DLESS_TEXT \
 	-DNO_SET_SCREEN_COLORS \
@@ -153,10 +152,10 @@ vic20_unexpanded:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DFORCE_BOMBS_NUMBER=4 \
-	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	-DMEMORY_MAPPED \
 	-DALT_DISPLAY_STATS \
 	-DALT_HIGHSCORE \
+	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_alt_stats.c \

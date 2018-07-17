@@ -189,6 +189,27 @@ void displayStats(void)
 }
 #endif
 
+#if defined(ALT_DISPLAY_STATS)
+	void displayStats(void)
+	{
+		PRINTF(0,0,"",points);
+	}
+#endif
+
+
+#if defined(ALT_HIGHSCORE) 
+void highScoreScreen(void)
+{
+	PRINTF(0,0,"",highScore);
+	// POKE(7686+2,'h'); 
+	// POKE(7686+3,'i');
+	// POKE(7686+5,'s'); POKE(7686+6,'c');		
+	// POKE(7686+7,'o'); POKE(7686+8,'r');		
+	// POKE(7686+9,'e');				
+}
+#endif
+
+
 
 #if !defined(LESS_TEXT)	
 	void printLevel(void)
@@ -299,4 +320,6 @@ void displayStats(void)
 		printCenteredMessageOnRow(YSize-3, USE_STRING);
 	}
 #endif
+
+
 

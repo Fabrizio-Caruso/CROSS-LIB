@@ -119,6 +119,7 @@ extern unsigned short highScore;
 		_draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);					
 	}
 
+	
 	void printGunsStats(void)
 	{
 		SET_COLOR(TEXT_COLOR);	
@@ -176,7 +177,7 @@ extern unsigned short highScore;
 	}	
 #endif
 
-#if !defined(ALT_DISPLAY_STATS)
+
 void displayStats(void)
 {	
 	SET_COLOR(TEXT_COLOR);
@@ -187,29 +188,6 @@ void displayStats(void)
 		PRINTF(1,0,"%05u0",points);	
 	#endif	
 }
-#endif
-
-#if defined(ALT_DISPLAY_STATS)
-	void displayStats(void)
-	{
-		PRINTF(0,0,"",points);
-	}
-#endif
-
-
-#if defined(ALT_HIGHSCORE) 
-void highScoreScreen(void)
-{
-	PRINTF(0,0,"",highScore);
-	// POKE(7686+2,'h'); 
-	// POKE(7686+3,'i');
-	// POKE(7686+5,'s'); POKE(7686+6,'c');		
-	// POKE(7686+7,'o'); POKE(7686+8,'r');		
-	// POKE(7686+9,'e');				
-}
-#endif
-
-
 
 #if !defined(LESS_TEXT)	
 	void printLevel(void)
@@ -253,16 +231,14 @@ void highScoreScreen(void)
 
 
 #if !defined(LESS_TEXT)	
-	void printGameOver(void)
-	{		
-		printCenteredMessageWithCol(_RED, GAME_OVER_STRING);
-	}
-	
 	void printDefeatMessage(void)
 	{			
 		printCenteredMessageWithCol(_RED, DEFEAT_STRING);
 	}	
-#elif !defined(NO_MESSAGE)
+#endif
+	
+	
+#if !defined(NO_MESSAGE)
 	void printGameOver(void)
 	{
 		printCenteredMessageWithCol(_RED, GAME_OVER_STRING);
@@ -272,12 +248,18 @@ void highScoreScreen(void)
 
 
 #if (defined(FULL_GAME) && !defined(NO_HINTS)) || !defined(NO_INITIAL_SCREEN)
+	#if defined(FULL_GAME) && !defined(NO_HINTS)
 	void _printCrossChase(void)
 	{
 		printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);		
 		SET_COLOR(TEXT_COLOR);
 		
 	}
+	#else
+		#define _printCrossChase() \
+			printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);	\
+			SET_COLOR(TEXT_COLOR);	
+	#endif
 #endif
 
 
@@ -317,7 +299,9 @@ void highScoreScreen(void)
 			
 		#endif
 
-		printCenteredMessageOnRow(YSize-3, USE_STRING);
+		#if !defined(NO_CONTROL_INSTRUCTIONS)
+			printCenteredMessageOnRow(YSize-3, USE_STRING);
+		#endif
 	}
 #endif
 

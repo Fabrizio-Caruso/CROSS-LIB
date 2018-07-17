@@ -98,8 +98,10 @@ void _delete(unsigned char x, unsigned char y);
 
 // PRINT AND PRINTF
 #  if defined(ALT_DISPLAY_STATS)
-	#define PRINT
-	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val);	
+	void PRINT(unsigned char x, unsigned char y, char * str);
+	#define PRINTF(x,y,str,val) _displayShort(val)
+	void _displayShort(unsigned short val);
+	unsigned short loc(unsigned char x, char y);
 #elif defined(NO_PRINT)
 	#define PRINT(x,y,str)
 	#define PRINTF(x,y,str,val)

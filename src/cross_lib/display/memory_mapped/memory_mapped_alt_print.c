@@ -58,21 +58,18 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 {
 	unsigned char i;
 	unsigned char digits[6];
-	unsigned short tmp;
-
-	tmp = val;
 	
 	digits[0] = 0;
 	for(i=1;i<6;++i)
 	{
-		digits[i] = (unsigned char) ((tmp)%10);
-		tmp-= digits[i];
-		tmp/=10;
+		digits[i] = (unsigned char) ((val)%10);
+		val-= digits[i];
+		val/=10;
 	}
 	
 	for(i=0;i<6;++i)
 	{
-		DISPLAY_POKE(loc(x,y)+i, (unsigned char) (digits[5-i])+48);
+		DISPLAY_POKE(loc(x+i,y), (unsigned char) (digits[5-i])+48);
 	}
 }	
 

@@ -4,10 +4,12 @@
 
 
 #if !defined(NO_MESSAGE)
+	#if !defined(ALT_DISPLAY_STATS)
 	void printCenteredMessageOnRow(unsigned char row, char *Text)
 	{
 		PRINT(((unsigned char) (XSize - (unsigned char) strlen(Text))>>1), row, Text);	
 	}
+	#endif
 
 
 	#if !defined(NO_TEXT_COLOR)

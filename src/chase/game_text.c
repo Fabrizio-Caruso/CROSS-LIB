@@ -60,6 +60,8 @@
 #endif
 
 #if defined(NO_TEXT_COLOR)
+	#define printCenteredMessageOnRow(row, text) PRINT(4,row,text)
+
 	#define printCenteredMessageOnRowWithCol(row,col,text) printCenteredMessageOnRow(row,text)
 #endif	
 

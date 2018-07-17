@@ -23,7 +23,8 @@
 			#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))
 			POKE(loc(x,y)+i, screenCode(str[i])); 		
 			#else
-			POKE(loc(x,y)+i, str[i]); 
+				
+			POKE(loc(x+i,y), str[i]); 
 			#endif
 			++i;
 		}

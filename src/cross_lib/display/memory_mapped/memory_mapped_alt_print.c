@@ -46,9 +46,9 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	while(str[i]!='\0')
 	{
 		#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))
-		DISPLAY_POKE(loc(x,y)+i, screenCode(str[i])); 		
+		DISPLAY_POKE(loc(x+i,y), screenCode(str[i])); 		
 		#else
-		DISPLAY_POKE(loc(x,y)+i, str[i]); 
+		DISPLAY_POKE(loc(x+i,y), str[i]); 
 		#endif
 		++i;
 	}

@@ -59,8 +59,11 @@
 	#define LEVEL_X 18
 #endif
 
+#if defined(ALT_DISPLAY_STATS)
+	#define printCenteredMessageOnRow(row, text) PRINT(6,row,text)
+#endif
+
 #if defined(NO_TEXT_COLOR)
-	#define printCenteredMessageOnRow(row, text) PRINT(4,row,text)
 
 	#define printCenteredMessageOnRowWithCol(row,col,text) printCenteredMessageOnRow(row,text)
 #endif	

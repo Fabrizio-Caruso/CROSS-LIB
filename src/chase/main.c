@@ -731,39 +731,42 @@ int main(void)
 			#endif				
 		} while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 
 			
-	if(level==FINAL_LEVEL+1) // if completed game
-	{
-		gameCompleted();
+		if(level==FINAL_LEVEL+1) // if completed game
+		{
+			gameCompleted();
+			#if !defined(NO_SLEEP)
+				SLEEP(1);
+			#else
+				WAIT_PRESS();
+			#endif
+		}
+
+		// GAME OVER	
+		CLEAR_SCREEN();
+		printGameOver();
+		
 		#if !defined(NO_SLEEP)
 			SLEEP(1);
 		#else
 			WAIT_PRESS();
 		#endif
-	}
-
-	// GAME OVER	
-	CLEAR_SCREEN();
-	
-	printGameOver();
-	
-	SLEEP(1);
-	
-	#if !defined(TINY_GAME)
-		CLEAR_SCREEN();
-	
-		finalScore();
-	#endif
-	
-	#if defined(NO_SLEEP)
-		WAIT_PRESS();
-	#endif
-	
-	SLEEP(2);
-	if(points>highScore)
-	{
-		highScore = points;
-	}
-	CLEAR_SCREEN();
+		
+		#if !defined(TINY_GAME) && !defined(LESS_TEXT)
+			CLEAR_SCREEN();
+			finalScore();
+		
+			#if !defined(NO_SLEEP)
+				SLEEP(1);
+			#else
+				WAIT_PRESS();
+			#endif
+		
+		#endif
+		if(points>highScore)
+		{
+			highScore = points;
+		}
+		
 	} // while(1) -> restart from the beginning
 
 	return EXIT_SUCCESS;

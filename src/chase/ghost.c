@@ -38,9 +38,9 @@ unsigned short computeGhostSlowDown(void)
 	if(ghostLevel<MAX_GHOST_LEVEL)
 	{
 		#if defined(TURN_BASED)
-			return INITIAL_GHOST_SLOWDOWN-level*256-ghostLevel*8;		
+			return INITIAL_GHOST_SLOWDOWN-(unsigned short)level*256-ghostLevel*8;		
 		#else
-			return INITIAL_GHOST_SLOWDOWN-level*256-ghostLevel*16;
+			return INITIAL_GHOST_SLOWDOWN-(unsigned short)level*256-ghostLevel*16;
 		#endif
 	}
 	return GHOST_MIN_SLOWDOWN;

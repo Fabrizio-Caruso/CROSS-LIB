@@ -294,9 +294,9 @@ void initialScreen(void)
 
 int main(void)
 {		
-	INIT_INPUT();
-
 	INIT_GRAPHICS();
+
+	INIT_INPUT();
 
 	highScore = 0;
 	
@@ -398,7 +398,7 @@ int main(void)
 			#endif
 
 			#if defined(TINY_GAME)
-				ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(unsigned short) level*256;
+				ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(unsigned short) level*512;
 			#else
 				ghostSlowDown = computeGhostSlowDown();
 			#endif
@@ -735,14 +735,14 @@ int main(void)
 	{
 		gameCompleted();
 		#if !defined(NO_SLEEP)
-			SLEEP(2);
+			SLEEP(1);
 		#else
-			CLEAR_SCREEN();
 			WAIT_PRESS();
 		#endif
 	}
 
 	// GAME OVER	
+	CLEAR_SCREEN();
 	
 	printGameOver();
 	

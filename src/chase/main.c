@@ -398,7 +398,7 @@ int main(void)
 			#endif
 
 			#if defined(TINY_GAME)
-				ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(unsigned short) level*512;
+				ghostSlowDown = INITIAL_GHOST_SLOWDOWN-((unsigned short) level)<<9;
 			#else
 				ghostSlowDown = computeGhostSlowDown();
 			#endif

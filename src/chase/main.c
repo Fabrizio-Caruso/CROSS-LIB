@@ -65,11 +65,17 @@
 
 unsigned short ghostSlowDown;
 
-unsigned short ghostLevel;
+#if !defined(TINY_GAME)
+	unsigned short ghostLevel;
+#endif
+
 unsigned short points;
 unsigned short highScore;
 unsigned char lives;
+
+#if !defined(TINY_GAME) || defined(TURN_BASED)
 unsigned short loop;
+#endif
 unsigned char level;
 
 
@@ -347,8 +353,13 @@ int main(void)
 		
 		do // Level (Re-)Start
 		{ 	
+			#if !defined(TINY_GAME) || defined(TURN_BASED)
 			loop = 0;
+			#endif
+			
+			#if !defined(TINY_GAME)
 			ghostLevel = 0;
+			#endif
 		
 			#if defined(FULL_GAME)
 			
@@ -386,7 +397,11 @@ int main(void)
 				computeSkullParameters();				
 			#endif
 
-			ghostSlowDown = computeGhostSlowDown();
+			#if defined(TINY_GAME)
+				ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(unsigned short) level*256;
+			#else
+				ghostSlowDown = computeGhostSlowDown();
+			#endif
 			
 			CLEAR_SCREEN();
 			#if !defined(LESS_TEXT)
@@ -467,7 +482,9 @@ int main(void)
 					handle_horizontal_missiles();
 				#endif
 				
+				#if !defined(TINY_GAME) || defined(TURN_BASED)
 				++loop;
+				#endif
 				
 				#if !defined(TINY_GAME)
 				if(points>(extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS))
@@ -479,8 +496,15 @@ int main(void)
 				}
 				#endif
 				
-				ghostSlowDown = computeGhostSlowDown();
-
+				#if defined(TINY_GAME)
+					if(ghostSlowDown) 
+					{
+						--ghostSlowDown;
+					}
+				#else
+					ghostSlowDown = computeGhostSlowDown();
+				#endif
+			
 				#if !defined(TINY_GAME)
 					handle_bullet();
 				#endif
@@ -501,7 +525,8 @@ int main(void)
 						#else
 							chaseCharacter(ghostSlowDown);
 						#endif
-						++ghostLevel;				
+						++ghostLevel;			
+						
 					}
 				
 					handle_skull();
@@ -513,8 +538,10 @@ int main(void)
 					}
 				#else
 					#if !defined(NO_CHASE)
-					chaseCharacter(ghostSlowDown);
-					++ghostLevel;
+						chaseCharacter(ghostSlowDown);
+						#if !defined(TINY_GAME)
+							++ghostLevel;
+						#endif
 					#endif
 				#endif
 				

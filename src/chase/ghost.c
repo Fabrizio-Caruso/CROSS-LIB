@@ -32,6 +32,7 @@ extern unsigned char level;
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 
+#if !defined(TINY_GAME)
 unsigned short computeGhostSlowDown(void)
 {
 	if(ghostLevel<MAX_GHOST_LEVEL)
@@ -44,6 +45,7 @@ unsigned short computeGhostSlowDown(void)
 	}
 	return GHOST_MIN_SLOWDOWN;
 }
+#endif
 
 #if !defined(TINY_GAME)
 	void decreaseGhostLevel(void)

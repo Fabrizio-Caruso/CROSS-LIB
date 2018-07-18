@@ -36,9 +36,5 @@
 #endif
 
 
-#if !defined(LESS_TEXT)
-	void deleteCenteredMessage(void);
-#endif
-
 #endif // _TEXT_MACROS
 

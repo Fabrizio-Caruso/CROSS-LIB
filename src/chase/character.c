@@ -51,7 +51,7 @@ extern Character bombs[BOMBS_NUMBER];
 extern Character player;
 
 
-void displayCharacter(Character * characterPtr)
+void displayCharacter(register Character * characterPtr)
 {
 	DRAW_CHARACTER(characterPtr->_x, characterPtr->_y, characterPtr->_imagePtr);
 }

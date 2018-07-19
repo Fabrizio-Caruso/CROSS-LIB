@@ -154,6 +154,7 @@ vic20_unexpanded:
 	-DMEMORY_MAPPED \
 	-DALT_DISPLAY_STATS \
 	-DALT_HIGHSCORE \
+	-DROUND_ENEMIES \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/cc65/vic20/vic20_init_graphics.c \

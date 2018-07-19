@@ -35,7 +35,6 @@ CFG_PATH ?= $(SOURCE_PATH)/../../cfg/
 NO_CHASE_FILES ?= \
 	$(CROSS_LIB_PATH)/display/display_macros.c \
 	$(CROSS_LIB_PATH)/display/init_images.c \
-	$(CROSS_LIB_PATH)/display/graphics.c \
 	$(CROSS_LIB_PATH)/input/input_macros.c \
 	$(CROSS_LIB_PATH)/text/text_macros.c \
 	$(SOURCE_PATH)/move_player.c \
@@ -216,10 +215,9 @@ vic20_exp_8k:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/bullet.c \
 	$(SOURCE_PATH)/move_player.c \
 	$(CROSS_LIB_PATH)/display/init_images.c \
-	$(CROSS_LIB_PATH)/display/display_macros.c  \
 	$(SOURCE_PATH)/item.c	\
 	--code-name CODE2 \
-	$(CROSS_LIB_PATH)/display/graphics.c \
+	$(CROSS_LIB_PATH)/display/display_macros.c  \
 	$(SOURCE_PATH)/main.c \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
@@ -1714,9 +1712,6 @@ coco:
 	-c $(CROSS_LIB_PATH)/display/init_images.c	
 	cmoc \
 	$(COCO_OPTS) \
-	-c $(CROSS_LIB_PATH)/display/graphics.c
-	cmoc \
-	$(COCO_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_alt_print.c
 	cmoc \
 	$(COCO_OPTS) \
@@ -1765,7 +1760,6 @@ coco:
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
 	init_images.o \
-	graphics.o \
 	memory_mapped_alt_print.o \
 	ghost.o \
 	move_player.o \
@@ -1777,7 +1771,6 @@ coco:
 	rocket.o horizontal_missile.o end_screen.o
 	rm 	display_macros.o \
 	init_images.o \
-	graphics.o \
 	memory_mapped_alt_print.o \
 	ghost.o \
 	move_player.o \

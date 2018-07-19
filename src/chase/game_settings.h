@@ -45,15 +45,15 @@
 #if defined(FORCE_GHOSTS_NUMBER)
 	#define GHOSTS_NUMBER FORCE_GHOSTS_NUMBER
 #elif defined(TURN_BASED)
-	#if defined(TINY_GAME)
-		#define GHOSTS_NUMBER 8
-	#else
+	#if !defined(TINY_GAME)
 		#define GHOSTS_NUMBER 9
+	#else
+		#define GHOSTS_NUMBER 8
 	#endif
 #else	
-	#if XSize>=40
+	#if XSize>=32 && YSize>=20
 		#define GHOSTS_NUMBER 9
-	#elif XSize>=16
+	#elif XSize>=16 && YSize>=16
 		#define GHOSTS_NUMBER 8
 	#else
 		#define GHOSTS_NUMBER 6
@@ -194,7 +194,16 @@
 
 #define ZOMBIE_BONUS 5
 
-#define SKULL_LOOP_TRIGGER (420-(level<<2))
+#define TURN_BASED_SKULL_LOOP_TRIGGER_SCALE 4
+#define ACTION_SKULL_LOOP_TRIGGER_SCALE 1
+
+#if defined(TURN_BASED)
+	#define SKULL_LOOP_TRIGGER_SCALE TURN_BASED_SKULL_LOOP_TRIGGER_SCALE
+#else
+	#define SKULL_LOOP_TRIGGER_SCALE ACTION_SKULL_LOOP_TRIGGER_SCALE
+#endif
+
+#define SKULL_LOOP_TRIGGER ((280-(level<<2))/SKULL_LOOP_TRIGGER_SCALE)
 
 #define SKULL_COUNT_DOWN 50
 

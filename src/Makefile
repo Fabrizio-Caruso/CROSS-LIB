@@ -494,6 +494,7 @@ creativision_8k_light:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DFORCE_NARROW \
 	-DALT_SLEEP \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	--config $(CFG_PATH)/cc65/creativision-8k_less_stack.cfg \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \

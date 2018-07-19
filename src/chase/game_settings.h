@@ -51,7 +51,7 @@
 		#define GHOSTS_NUMBER 9
 	#endif
 #else	
-	#if XSize>40
+	#if XSize>=40
 		#define GHOSTS_NUMBER 9
 	#elif XSize>=16
 		#define GHOSTS_NUMBER 8
@@ -95,20 +95,20 @@
 #define GUN_BONUS 30UL
 
 // Points gained at the end of each level (to be multipled by level)
-#define LEVEL_BONUS 50U
+#define LEVEL_BONUS 25U
 
 #if defined(TURN_BASED)
 	#define INITIAL_GHOST_SLOWDOWN 16000
 	#define INITIAL_SKULL_SLOWDOWN 15000
 #elif defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
 	#define INITIAL_GHOST_SLOWDOWN 31500
-	#define INITIAL_SKULL_SLOWDOWN 32000	
+	#define INITIAL_SKULL_SLOWDOWN 31000	
 #elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
 	#define INITIAL_GHOST_SLOWDOWN 29000
-	#define INITIAL_SKULL_SLOWDOWN 30000	
+	#define INITIAL_SKULL_SLOWDOWN 29000	
 #else
 	#define INITIAL_GHOST_SLOWDOWN 28000
-	#define INITIAL_SKULL_SLOWDOWN 29000
+	#define INITIAL_SKULL_SLOWDOWN 28000
 #endif
 
 
@@ -117,11 +117,11 @@
 #if defined(WIDE)
 	#define RELOCATE_RANGE 7
 	#define HORIZONTAL_WALLS_INITIAL_LENGTH 2
-	#define HORIZONTAL_WALLS_INCREASE_LOOP 250
+	#define HORIZONTAL_WALLS_INCREASE_LOOP 200
 #else
 	#define RELOCATE_RANGE 5
 	#define HORIZONTAL_WALLS_INITIAL_LENGTH 1
-	#define HORIZONTAL_WALLS_INCREASE_LOOP 350
+	#define HORIZONTAL_WALLS_INCREASE_LOOP 300
 #endif
 
 #define FIRST_ROCKETS_LEVEL 7 // 8 because of check on levels after missile level
@@ -194,7 +194,7 @@
 
 #define ZOMBIE_BONUS 5
 
-#define SKULL_LOOP_TRIGGER (480-(level<<2))
+#define SKULL_LOOP_TRIGGER (420-(level<<2))
 
 #define SKULL_COUNT_DOWN 50
 

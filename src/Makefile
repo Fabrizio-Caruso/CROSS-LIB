@@ -176,7 +176,7 @@ vic20_exp_3k:
 	-DCBM_SCREEN_CODES \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/udc_3k.s  \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_3k.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
@@ -209,7 +209,7 @@ vic20_exp_8k:
 	$(CC65_PATH)$(MYCC65) -Or -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
 	-DREDEFINED_CHARS \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/udc.s \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -230,7 +230,7 @@ vic20_exp_16k:
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
 	-DREDEFINED_CHARS \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/udc.s \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -778,7 +778,7 @@ cpc:
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -800,7 +800,7 @@ cpc_joystick:
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc_joystick.prg \
 	-DCPCRSLIB_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1792,9 +1792,9 @@ ncurses_turn_based:
 	-DTURN_BASED \
 	-DCONIO  \
 	-DALT_PRINT \
-	$(CROSS_LIB_PATH)/display/ncurses/ncurses_alt_print.c \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/display/ncurses/ncurses_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/ncurses/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
 	mv a.exe $(BUILD_PATH)/FULL_ncurses_turn_based.exe
@@ -1805,9 +1805,9 @@ ncurses:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO  \
 	-DALT_PRINT \
-	$(CROSS_LIB_PATH)/display/ncurses/ncurses_alt_print.c \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/display/ncurses/ncurses_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/ncurses/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
 	mv a.exe $(BUILD_PATH)/FULL_ncurses.exe

@@ -48,7 +48,7 @@ void set_udg_images(void)
 	static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
 	static const char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
 	static const char ghost[8] =            {129,126,165,129,129,189,129,126};
-	static const char invincible_ghost[8] = { 60, 66,165,129, 90, 36, 36, 60};
+	static const char skull[8] =            { 60, 66,165,129, 90, 36, 36, 60};
 	static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
 	static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
 	static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
@@ -78,7 +78,7 @@ void set_udg_images(void)
 		
 	redefine(_GHOST, ghost);
 	redefine(_ZOMBIE, ghost);
-	redefine(_SKULL, invincible_ghost);	
+	redefine(_SKULL, skull);	
 	redefine(_BULLET, missile);	
 		
 	redefine(_EXTRA_LIFE,player_down);	

@@ -1,3 +1,3 @@
 .segment "GFX"
-.include  "chars.s"
+.include  "../../../graphics_data/cc65/chars.s"
 .code

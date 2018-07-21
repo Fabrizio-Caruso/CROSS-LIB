@@ -26,7 +26,7 @@
 #define _AQUARIUS_WHITE (16+32+64)
 #define _AQUARIUS_CYAN (16+128)
 
-#include "../../../graphics_mode/memory_mapped/memory_mapped_graphics.h"
+#include "../../../graphics_mode/memory_mapped_graphics.h"
 
 #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))

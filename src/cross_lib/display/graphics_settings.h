@@ -32,15 +32,15 @@
 
 
 #  if defined(MEMORY_MAPPED)
-	#include "graphics_mode/memory_mapped/memory_mapped_graphics.h"
+	#include "graphics_mode/memory_mapped_graphics.h"
 #elif defined(CONIO)
-	#include "graphics_mode/conio/conio_graphics.h"
+	#include "graphics_mode/conio_graphics.h"
 #elif defined(Z88DK_SPRITES)
-	#include "graphics_mode/z88dk_sprites/z88dk_sprites_graphics.h"
+	#include "graphics_mode/z88dk_sprites_graphics.h"
 #elif defined(TGI)
-	#include "graphics_mode/tgi/tgi_graphics.h"
+	#include "graphics_mode/tgi_graphics.h"
 #elif defined(CPCRSLIB)
-	#include "graphics_mode/cpcrslib/cpc_cpcrslib_graphics.h"
+	#include "graphics_mode/cpc_cpcrslib_graphics.h"
 #elif defined(BIT_MAPPED)
-	#include "graphics_mode/bit_mapped/bit_mapped_graphics.h"
+	#include "graphics_mode/bit_mapped_graphics.h"
 #endif

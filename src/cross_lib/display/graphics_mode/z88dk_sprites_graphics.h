@@ -2,7 +2,7 @@
 #include <graphics.h>
 #include <games.h>
 
-#include "z88dk_sprites_definitions.h"
+#include "../graphics_data/z88dk/z88dk_sprites_definitions.h"
 
 #define _DRAW(x,y,image) \
 { \

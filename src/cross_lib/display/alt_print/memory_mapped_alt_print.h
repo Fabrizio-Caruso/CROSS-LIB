@@ -1,8 +1,6 @@
 #ifndef _MEMORY_MAPPED_ALT_PRINT
 #define _MEMORY_MAPPED_ALT_PRINT
 
-//#include "memory_mapped_graphics.h"
-
 #if !defined(CC65)
 	#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 	#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))

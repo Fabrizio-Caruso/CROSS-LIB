@@ -1,5 +1,5 @@
 
-#include "../graphics_mode/memory_mapped/memory_mapped_graphics.h"
+#include "../graphics_mode/memory_mapped_graphics.h"
 #include "memory_mapped_alt_print.h"
 
 

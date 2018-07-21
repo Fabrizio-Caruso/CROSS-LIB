@@ -25,7 +25,8 @@
 
 // RED
 #define _BOMB 0x5E
-#define _DEAD_GHOST 0x5B
+#define _DEAD_GHOST 0x7E
+//0x5B
 // #define _BULLET 0x5F
 
 // CYAN

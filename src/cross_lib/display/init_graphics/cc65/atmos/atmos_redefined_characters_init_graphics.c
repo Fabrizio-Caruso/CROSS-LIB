@@ -2,6 +2,8 @@
 
 #include "../../../graphics_settings.h"
 
+#include "../../../graphics_data/6x8_chars.h"
+
 #define UDG_BASE_ADDR 0xb400
 
 void redefine(unsigned long offset, const unsigned char * data)
@@ -36,42 +38,38 @@ void init_colors(void)
 void INIT_GRAPHICS(void)
 {		
 	#if !defined(ANIMATE_PLAYER)	
-		const unsigned char player[] =                {12,18,12,51,45,12,18,51};
+		const unsigned char player[] =                _PLAYER_UDG;
 	#else
-		const unsigned char player_left[] =           {12,22,12,62,13,12,20,20};
-		const unsigned char player_right[] =          {12,26,12,31,44,12,10,10};		
-		const unsigned char player_up[] =             {12,30,12,51,45,12,18,51};
-		const unsigned char player_down[] =           {12,18,12,51,45,12,18,51};		
+		const unsigned char player_left[] =           _PLAYER_LEFT_UDG;
+		const unsigned char player_right[] =          _PLAYER_RIGHT_UDG;		
+		const unsigned char player_up[] =             _PLAYER_UP_UDG;
+		const unsigned char player_down[] =           _PLAYER_DOWN_UDG;		
 	#endif
-	const unsigned char ghost[]  =                {33,30,33,51,33,45,33,30};
-	const unsigned char bomb[]  =                 {30,33,51,45,45,51,33,30};
-	const unsigned char powerUp[]  =              { 0,30,51,55,51,26,18,12};
-	const unsigned char skull[]  =                {30,33,51,33,33,18,18,12};
-	const unsigned char gun[]  =                  { 0,32,31,40,56,32, 0, 0};
-	const unsigned char missile[]  =              { 0, 0, 4,28,14, 8, 0, 0};
+	const unsigned char ghost[]  =                    _GHOST_UDG;
+	const unsigned char bomb[]  =                     _BOMB_UDG;
+	const unsigned char powerUp[]  =                  _POWERUP_UDG;
+	const unsigned char skull[]  =                    _SKULL_UDG;
+	const unsigned char gun[]  =                      _GUN_UDG;
+	const unsigned char bullet[]  =                   _BULLET_UDG;
 	
 	#if !defined(NO_DEAD_GHOST)
-		const unsigned char dead_ghost[]  =           {18,30,33,51,33,45,51,30};
+		const unsigned char dead_ghost[]  =           _DEAD_GHOST_UDG;
 	#endif
 
-	const unsigned char vertical_bar[] =             {12,12,12,12,12,12,12,12};
-	const unsigned char horizontal_bar[] =           { 0, 0, 0,63,63,00,00,00};
-	const unsigned char corner[] =                   {63,63,63,51,51,63,63,63};
+	const unsigned char vertical_brick[] =            _VERTICAL_BRICK_UDG;
+	const unsigned char horizontal_brick[] =          _HORIZONTAL_BRICK_UDG;
 
-	static const char vertical_brick[] =   { 24, 24, 24, 48, 24, 12, 24, 24};
-	static const char horizontal_brick[] = {  0,  0,  0,255,  0,  0,  0,  0};		
-	
 	#if defined(FULL_GAME)
-		const unsigned char right_arrow[] =          { 0, 0,56,31,31,56, 0, 0};
-		const unsigned char left_arrow[] =           { 0, 0, 7,62,62, 7, 0, 0};
+		const unsigned char right_arrow[] =           _RIGHT_HORIZONTAL_MISSILE_UDG;
+		const unsigned char left_arrow[] =            _LEFT_HORIZONTAL_MISSILE_UDG;
 		
-		const unsigned char bubble[] =               {12,30,30,30,63,45,33,33};
-		const unsigned char invincibility[] =        {12,18,12,51, 0,12, 0,51};		
+		const unsigned char rocket[] =                _ROCKET_UDG;
+		const unsigned char invincibility[] =         _INVINCIBILITY_UDG;		
 	#endif
 		
 	#if defined(FULL_GAME)
 		redefine(_INVINCIBILITY_OFFSET*8,invincibility);					
-		redefine(_ROCKET_OFFSET*8,bubble);
+		redefine(_ROCKET_OFFSET*8,rocket);
 		redefine(_RIGHT_HORIZONTAL_MISSILE_OFFSET*8,left_arrow);
 		redefine(_LEFT_HORIZONTAL_MISSILE_OFFSET*8,right_arrow);
 	#endif
@@ -81,7 +79,7 @@ void INIT_GRAPHICS(void)
 	redefine(_POWERUP_OFFSET*8,powerUp);		
 	redefine(_SKULL_OFFSET*8,skull);
 	redefine(_GUN_OFFSET*8,gun);		
-	redefine(_BULLET_OFFSET*8,missile);
+	redefine(_BULLET_OFFSET*8,bullet);
 	
 	#if !defined(ANIMATE_PLAYER)
 		redefine(_PLAYER_OFFSET*8,player);		

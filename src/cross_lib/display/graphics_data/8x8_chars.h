@@ -14,11 +14,11 @@
 
 	#define _POWERUP_UDG                  {  0, 60, 54,223,231,122, 36, 24}
 
-	#define _MISSILE_UDG                  {  0,  0,  8, 56, 28, 16,  0,  0}
+	#define _BULLET_UDG                   {  0,  0,  8, 56, 28, 16,  0,  0}
 
 	#define _BOMB_UDG                     { 60, 66,165,153,153,165, 66, 60}
 
-	#define _BUBBLE_UDG                   { 24, 60, 60, 60,126, 90, 66, 66}
+	#define _ROCKET_UDG                   { 24, 60, 60, 60,126, 90, 66, 66}
 
 	#define _RIGHT_HORIZONTAL_MISSILE_UDG {  0,  0, 15,252,252, 15,  0,  0}
 

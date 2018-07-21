@@ -6,6 +6,8 @@
 
 #include "../../../image_settings/msx_redefined_chars_settings.h"
 
+#include "../../../graphics_data/8x8_chars.h"
+
 void redefine(unsigned short offset, const char *new_char)
 {
 	unsigned char i;
@@ -43,34 +45,37 @@ void set_udg_colors(void)
 
 void set_udg_images(void)
 {
-	static const char player_down[8] =      { 24, 36, 24,102,153, 24, 36,102};
-	static const char player_up[8] =        { 24, 60, 24,102,153, 24, 36,102};
-	static const char player_right[8] =     { 24, 52, 25,118,152, 24, 20, 20};	
-	static const char player_left[8] =      { 24, 44,152,110, 25, 24, 40, 40};
-	static const char ghost[8] =            {129,126,165,129,129,189,129,126};
-	static const char skull[8] =            { 60, 66,165,129, 90, 36, 36, 60};
-	static const char gun[8] =              {  0,128,126,200,248,192,128,  0};
-	static const char powerUp[8] =          {  0, 60, 54,223,231,122, 36, 24};
-	static const char missile[8] =          {  0,  0,  8, 56, 28, 16,  0,  0};
-	static const char bomb[8] =             { 60, 66,165,153,153,165, 66, 60};
+	static const char player_down[8] =      _PLAYER_DOWN_UDG;
+	static const char player_up[8] =        _PLAYER_UP_UDG;
+	static const char player_right[8] =     _PLAYER_RIGHT_UDG;	
+	static const char player_left[8] =      _PLAYER_LEFT_UDG;
+	static const char ghost[8] =            _GHOST_UDG;
+	static const char skull[8] =            _SKULL_UDG;
+	static const char gun[8] =              _GUN_UDG;
+	static const char powerUp[8] =          _POWERUP_UDG;
+	static const char bullet[8] =           _BULLET_UDG;
+	static const char bomb[8] =             _BOMB_UDG;
 	
-	static const char bubble[8] =           { 24, 60, 60, 60,126, 90, 66, 66};	
-	static const char missile_right[8] =    {  0,  0, 15,252,252, 15,  0,  0};
-	static const char missile_left[8] =     {  0,  0,240, 63, 63,240,  0,  0};	
-	static const char invincibility[8] =    { 24, 36, 24,  0,153,  0, 36,102};
+	static const char rocket[8] =           _ROCKET_UDG;	
+	static const char missile_right[8] =    _RIGHT_HORIZONTAL_MISSILE_UDG;
+	static const char missile_left[8] =     _LEFT_HORIZONTAL_MISSILE_UDG;	
+	static const char invincibility[8] =    _INVINCIBILITY_UDG;
 	
-	static const char dead_ghost[8] =       {129,126,165,129,129,189,129,126};
+	static const char dead_ghost[8] =       _DEAD_GHOST_UDG;
 	
-	static const char vertical_brick[8] =   { 24, 24, 24, 48, 24, 12, 24, 24};
-	static const char horizontal_brick[8] = {  0,  0,  0,255,  0,  0,  0,  0};	
-	static const char extra_points[8]     = { 16, 62, 32, 60,  4,124,  8,  0};
+	static const char vertical_brick[8] =   _VERTICAL_BRICK_UDG;
+	static const char horizontal_brick[8] = _HORIZONTAL_BRICK_UDG;	
+	static const char extra_points[8]     = _EXTRA_POINTS_UDG;
 		
-	redefine(_PLAYER,player_down);
-	redefine(_PLAYER_DOWN,player_down);
-	redefine(_PLAYER_UP,player_up);	
-	redefine(_PLAYER_LEFT,player_left);	
-	redefine(_PLAYER_RIGHT, player_right);	
-		
+	#if !defined(ANIMATE_PLAYER)
+		redefine(_PLAYER,player_down);
+	#else
+		redefine(_PLAYER_DOWN,player_down);
+		redefine(_PLAYER_UP,player_up);	
+		redefine(_PLAYER_LEFT,player_left);	
+		redefine(_PLAYER_RIGHT, player_right);	
+	#endif
+	
 	redefine(_BOMB, bomb);
 	redefine(_GUN, gun);
 	redefine(_POWERUP, powerUp);		
@@ -79,11 +84,14 @@ void set_udg_images(void)
 	redefine(_GHOST, ghost);
 	redefine(_ZOMBIE, ghost);
 	redefine(_SKULL, skull);	
-	redefine(_BULLET, missile);	
+	redefine(_BULLET, bullet);	
 		
 	redefine(_EXTRA_LIFE,player_down);	
 	redefine(_INVINCIBILITY,invincibility);	
-	redefine(_DEAD_GHOST,dead_ghost);	
+	
+	#if !defined(NO_DEAD_GHOST)
+		redefine(_DEAD_GHOST,dead_ghost);	
+	#endif	
 		
 	redefine(_VERTICAL_BRICK,vertical_brick);	
 	redefine(_HORIZONTAL_BRICK,horizontal_brick);		
@@ -92,7 +100,7 @@ void set_udg_images(void)
 		
 	redefine(_LEFT_HORIZONTAL_MISSILE,missile_left);	
 	redefine(_RIGHT_HORIZONTAL_MISSILE,missile_right);	
-	redefine(_ROCKET, bubble);
+	redefine(_ROCKET, rocket);
 	redefine(_EXTRA_POINTS, extra_points);
 	
 }

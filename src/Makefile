@@ -1369,6 +1369,7 @@ trs80_tiny:
 
 trs80:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
+	-pragma-define:REGISTER_SP=0xffb5 \
 	-lm -create-app \
 	-D__TRS80__ \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -1379,7 +1380,32 @@ trs80:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_trs80.bin	
 
-
+	
+trs80_wav:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=wav \
+	-pragma-define:REGISTER_SP=0xffb5 \
+	-lm -create-app \
+	-D__TRS80__ \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO_VT52 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-o$(BUILD_PATH)/FULL_trs80.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_trs80.bin	
+	
+trs80_cmd:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=disk \
+	-lm -create-app \
+	-D__TRS80__ \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO_VT52 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-o$(BUILD_PATH)/FULL_trs80.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_trs80.bin	
+	
 eg2k:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 \
 	-D__EG2K__ \
@@ -2082,7 +2108,7 @@ kc_targets: \
 	kc_sprites_tiny
 	
 trs80_targets: \
-	trs80_tiny trs80 eg2k
+	trs80_tiny trs80 trs80_cmd eg2k
 
 cpm_targets: \
 	cpm_adm3a_tiny cpm_vt52_tiny cpm_vt100_tiny 

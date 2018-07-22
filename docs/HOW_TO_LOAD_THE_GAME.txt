@@ -246,10 +246,28 @@ Control-X to start the game
 
 TRS-80 Model 1/2/4
 
-Use trs80gp-1.8
+.cas version:
+If you use trs80gp-1.8
 Type enter to get to the console
 Use load option
 
+If you use trs32
+
+.cas version:
+Use trs32 emulator.
+Type L+enter at Cass?
+Type enter at Memory?
+Type System
+Attach .cas
+Show cassette
+Type ../BUI
+Press PLAY
+Wait...
+Press / + enter to start
+
+.cmd version:
+Get to BASIC prompt
+File->Run-> Select .cmd file
 ----------------------------------------------------------
 
 Generic CP/M with ADM-3A control sequences

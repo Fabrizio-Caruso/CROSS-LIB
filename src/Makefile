@@ -30,7 +30,7 @@ ZSDCC_OPTS ?=
 
 TOOLS_PATH ?= ../tools
 
-CFG_PATH ?= $(SOURCE_PATH)/cfg/
+CFG_PATH ?= $(CROSS_LIB_PATH)/cfg/
 
 BASIC_CROSS_LIB_FILES ?= \
 	$(CROSS_LIB_PATH)/display/display_macros.c \

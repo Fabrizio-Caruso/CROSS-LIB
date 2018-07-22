@@ -2896,8 +2896,9 @@ oric1_16k_full:
 	-DLESS_TEXT -DNO_SLEEP -DSIMPLE_STRATEGY -DNO_BLINKING -DNO_HINTS -DNO_STATS -DFORCE_GHOSTS_NUMBER=8 \
 	-t atmos \
 	-DMEMORY_MAPPED \
+	-DFORCE_NARROW \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	$(CROSS_LIB_PATH)/display/cc65/atmos/atmos_redefined_characters_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_oric1_16k_less_text.tap	
 	

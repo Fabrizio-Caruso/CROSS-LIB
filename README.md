@@ -134,19 +134,19 @@ The future main features of "Cross Lib":
 The tool-chain will produce a game with simple black and white ASCII graphics and no sound if none of these is available. 
 If colors, graphics and sounds are available the tool-chain will produce a game with some simple sound eggects and with some possibly colored graphics.
 
-![Atari 800](images/atari800.jpg)
-![Spectrum 48k](images/spectrum.jpg)
-![Vic 20](images/vic20_1.jpg)
-![MSX](images/msx.jpg)
-![Oric 1/Atmos](images/Oric.jpg)
-![Amstrad CPC](images/cpc.jpg)
-![ZX81](images/zx81_1.jpg)
-![title](images/title.jpg)
-![zx81_title](images/zx81_title.jpg)
-![Vic 20 title](images/vic20_title.jpg)
-![C16 title](images/c264_title.jpg)
-![C16 hints](images/c264_hints.jpg)
-![C16 first level](images/c264_level1.jpg)
+![Atari 800](snapshots/atari800.jpg)
+![Spectrum 48k](snapshots/spectrum.jpg)
+![Vic 20](snapshots/vic20_1.jpg)
+![MSX](snapshots/msx.jpg)
+![Oric 1/Atmos](snapshots/Oric.jpg)
+![Amstrad CPC](snapshots/cpc.jpg)
+![ZX81](snapshots/zx81_1.jpg)
+![title](snapshots/title.jpg)
+![zx81_title](snapshots/zx81_title.jpg)
+![Vic 20 title](snapshots/vic20_title.jpg)
+![C16 title](snapshots/c264_title.jpg)
+![C16 hints](snapshots/c264_hints.jpg)
+![C16 first level](snapshots/c264_level1.jpg)
 
 ## LICENCE
 

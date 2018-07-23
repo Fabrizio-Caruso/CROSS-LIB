@@ -37,35 +37,46 @@
 
 #define GRAPHICS_MODE (1+16)
 	
-	
-void redefine(unsigned char * loc, const char *new_char)
+
+struct redefine_struct
 {
-	unsigned char i;
-	for(i=0;i<8;++i)
-	{
-		POKE(loc+i,new_char[i]);
-	}
-}
+   unsigned char ascii;
+   unsigned char bitmap[8];
+} ;
+
+
+struct redefine_struct redefine_map[] =
+{
+	{_PLAYER_DOWN_OFFSET, _PLAYER_DOWN_UDG},
+	{_PLAYER_UP_OFFSET, _PLAYER_UP_UDG},
+	{_PLAYER_RIGHT_OFFSET, _PLAYER_RIGHT_UDG},	
+	{_PLAYER_LEFT_OFFSET, _PLAYER_LEFT_UDG},
+	{_GHOST_OFFSET, _GHOST_UDG},
+	{_BOMB_OFFSET, _BOMB_UDG},
+	
+	#if defined(FULL_GAME)
+	{_RIGHT_HORIZONTAL_MISSILE_OFFSET, _RIGHT_HORIZONTAL_MISSILE_UDG},
+	{_LEFT_HORIZONTAL_MISSILE_OFFSET, _LEFT_HORIZONTAL_MISSILE_UDG},
+	#endif
+	
+	#if !defined(TINY_GAME)
+	{_SKULL_OFFSET, _SKULL_UDG},
+	{_GUN_OFFSET, _GUN_UDG},
+	{_POWERUP_OFFSET, _POWERUP_UDG},
+	{_BULLET_OFFSET, _BULLET_UDG},
+	{_ROCKET_OFFSET, _ROCKET_UDG},
+	{_INVINCIBILITY_OFFSET, _INVINCIBILITY_UDG},
+	{_VERTICAL_BRICK_OFFSET, _VERTICAL_BRICK_UDG},
+	{_HORIZONTAL_BRICK_OFFSET, _HORIZONTAL_BRICK_UDG}		
+	#endif
+};
+
 
 
 void set_udg(void)
 {	
-	static const char player_down[8] =      _PLAYER_DOWN_UDG;
-	static const char player_up[8] =        _PLAYER_UP_UDG;
-	static const char player_right[8] =     _PLAYER_RIGHT_UDG;	
-	static const char player_left[8] =      _PLAYER_LEFT_UDG;
-	static const char ghost[8] =            _GHOST_UDG;
-	static const char missile_right[8] =    _RIGHT_HORIZONTAL_MISSILE_UDG;
-	static const char missile_left[8] =     _LEFT_HORIZONTAL_MISSILE_UDG;
-	static const char invincible_ghost[8] = _SKULL_UDG;
-	static const char gun[8] =              _GUN_UDG;
-	static const char powerUp[8] =          _POWERUP_UDG;
-	static const char bullet[8] =           _BULLET_UDG;
-	static const char bomb[8] =             _BOMB_UDG;
-	static const char rocket[8] =           _ROCKET_UDG;
-	static const char invincibility[8] =    _INVINCIBILITY_UDG;	
-	static const char vertical_brick[8] =   _VERTICAL_BRICK_UDG;
-	static const char horizontal_brick[8] = _HORIZONTAL_BRICK_UDG;
+
+	unsigned char i;
 	
 	extern char _FONT_START__[];
 	unsigned char *CHBAS = (unsigned char *)0x2f4;
@@ -73,30 +84,14 @@ void set_udg(void)
 	memcpy(_FONT_START__, (void *)0xE000, 512);
 	
 	/* modify your font at _FONT_START__, etc, then set the new font: */		
-		
-	redefine(_FONT_START__+_PLAYER_DOWN_OFFSET*8, player_down);
-	redefine(_FONT_START__+_PLAYER_UP_OFFSET*8, player_up);		
-	redefine(_FONT_START__+_PLAYER_RIGHT_OFFSET*8, player_right);
-	redefine(_FONT_START__+_PLAYER_LEFT_OFFSET*8, player_left);
 
-	redefine(_FONT_START__+_GHOST_OFFSET*8, ghost);
-	redefine(_FONT_START__+_POWERUP_OFFSET*8, powerUp);		
-	redefine(_FONT_START__+_SKULL_OFFSET*8, invincible_ghost);
-	redefine(_FONT_START__+_BOMB_OFFSET*8, bomb);	
-				
-	redefine(_FONT_START__+_BULLET_OFFSET*8, bullet);
-	redefine(_FONT_START__+_GUN_OFFSET*8, gun);
-
-	#if defined(FULL_GAME)
-		redefine(_FONT_START__+_LEFT_HORIZONTAL_MISSILE_OFFSET*8, missile_left);
-		redefine(_FONT_START__+_RIGHT_HORIZONTAL_MISSILE_OFFSET*8, missile_right);		
-		redefine(_FONT_START__+_ROCKET_OFFSET*8, rocket);
-		redefine(_FONT_START__+_INVINCIBILITY_OFFSET*8, invincibility);				
-	#endif
-
-	redefine(_FONT_START__+_HORIZONTAL_BRICK_OFFSET*8, horizontal_brick);
-	redefine(_FONT_START__+_VERTICAL_BRICK_OFFSET*8, vertical_brick);
-		
+	
+	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
+	{
+		memcpy(_FONT_START__ + (redefine_map[i].ascii)*8, redefine_map[i].bitmap, 8);
+	}
+	
+	
 	*CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */	
 	
 }
@@ -114,3 +109,4 @@ void INIT_GRAPHICS(void)
 
 	set_udg();
 }
+

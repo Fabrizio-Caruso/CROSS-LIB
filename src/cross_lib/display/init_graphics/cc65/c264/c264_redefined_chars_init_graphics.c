@@ -24,9 +24,6 @@ void INIT_GRAPHICS(void)
 	POKE(65299ul,(PEEK(65299ul)&3)|((UDG_BASE_FACTOR)*4)); // change character base address to 28th Kbyte
 	POKE(65298ul,PEEK(65298ul)&251); // make graphics chip get characters from RAM
 		
-	for(i=0;i<sizeof(redefine_map)/sizeof(*redefine_map);++i)
-	{
-		memcpy((unsigned char *)(UDG_BASE_FACTOR*1024 + (redefine_map[i].ascii)*8), redefine_map[i].bitmap, 8);		
-	}
+	REDEFINE_AT(UDG_BASE_FACTOR*1024);
 }
 

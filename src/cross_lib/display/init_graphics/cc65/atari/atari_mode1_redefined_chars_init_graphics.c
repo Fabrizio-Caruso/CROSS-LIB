@@ -40,22 +40,14 @@
 #include "../../../redefine_characters/udg_map.h"	
 
 void set_udg(void)
-{	
-
-	unsigned char i;
-	
+{
 	extern char _FONT_START__[];
 	unsigned char *CHBAS = (unsigned char *)0x2f4;
 
 	memcpy(_FONT_START__, (void *)0xE000, 512);
 	
 	/* modify your font at _FONT_START__, etc, then set the new font: */		
-
-	
-	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
-	{
-		memcpy(_FONT_START__ + (redefine_map[i].ascii)*8, redefine_map[i].bitmap, 8);
-	}
+	REDEFINE_AT(_FONT_START__);
 	
 	*CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */		
 }

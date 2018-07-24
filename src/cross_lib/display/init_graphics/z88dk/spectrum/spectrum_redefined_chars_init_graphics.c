@@ -13,11 +13,7 @@ extern char udg[];
 
 void INIT_GRAPHICS(void)
 {
-	unsigned char i;
-	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
-	{
-	   memcpy(udg + (redefine_map[i].ascii - 32)*8, redefine_map[i].bitmap, 8);
-	}
+	REDEFINE_AT(udg);
 
 	clg();
 	zx_border(0);

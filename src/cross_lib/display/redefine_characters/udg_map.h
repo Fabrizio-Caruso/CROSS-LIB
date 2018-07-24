@@ -141,5 +141,22 @@ struct redefine_struct redefine_map[] =
 	#endif
 };
 
+#if defined(__SPECTRUM__) && defined(CONIO)
+	#define ASCII_OFFSET 32
+#else
+	#define ASCII_OFFSET 0
+#endif
+
+#define REDEFINE_AT(addr) \
+{ \
+	unsigned char i; \
+	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) \
+	{ \
+		memcpy((unsigned char *)(addr) + (redefine_map[i].ascii - ASCII_OFFSET)*8, redefine_map[i].bitmap, 8); \
+	} \
+}
+
+
+
 #endif // _UDG_MAP
 

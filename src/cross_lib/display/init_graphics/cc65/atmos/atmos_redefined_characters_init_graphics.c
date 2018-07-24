@@ -35,12 +35,7 @@ void init_colors(void)
 
 void INIT_GRAPHICS(void)
 {		
-	unsigned char i;
-
-	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
-	{
-		memcpy((unsigned char *)UDG_BASE_ADDR + (redefine_map[i].ascii)*8, redefine_map[i].bitmap, 8);
-	}
+	REDEFINE_AT(((unsigned char *)UDG_BASE_ADDR));
 
 	init_colors();
 }

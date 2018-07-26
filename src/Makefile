@@ -1998,7 +1998,6 @@ clean_chase_obj:
 clean_lib_obj:
 	rm -rf $(CROSS_LIB_PATH)/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/*.o
-	
 	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2enh/*.o	
 	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/*.o

@@ -872,7 +872,6 @@ svi_318_mode0:
 	-D__SVI__ -DMSX_MODE0 \
 	-DSOUNDS \
 	-create-app \
-	-DEXT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/svi/svi_graphics.c \
 	$(LIGHT_FILES)
@@ -1160,7 +1159,6 @@ spectrum_48k:
 	# -DNO_SLEEP -DLESS_TEXT -DNO_WAIT \
 	# -lndos -create-app \
 	# -o $(BUILD_PATH)/FULL_spectrum_48k_putc4x6.prg \
-	# -DEXT_GRAPHICS \
 	# $(CROSS_LIB_PATH)/display/z88dk/spectrum/udg.asm \
 	# $(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_graphics.c \
 	# $(SOURCE_PATH)/end_screen.c \
@@ -1840,6 +1838,7 @@ ncurses:
 		
 		
 
+
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 # KO:
@@ -1932,9 +1931,7 @@ sccz80_test: \
 	gal_test \
 	zx80_test \
 	zx81_test \
-	spectrum_test
-
-totest: \
+	spectrum_test \
 	samcoupe_test \
 	lambda_test \
 	nc100_test \
@@ -2248,12 +2245,14 @@ atari_lynx_targets: \
 osic1p_targets: \
 	osic1p_8k osic1p_32k
 	
-
-
 c128_targets: \
 	c128_8502_targets c128_z80_targets
 
-	
+
+##
+
+ncurses_targets: \
+	ncurses ncurses_turn_based
 	
 ####################################################################################################################
 
@@ -2570,30 +2569,26 @@ vg5k_test:
 	-DNO_INIT_GRAPHICS \
 	-DSOUNDS -vn -D__VG5K__ -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_vg5k.prg \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/vg5k/vg5k_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_vg5k.prg	
 
 cpc_test:	
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -DANIMATE_PLAYER -vn  -clib=ansi \
-	-D__CPC__ -DSOUNDS \	
+	-D__CPC__ -DSOUNDS \
 	$(FAST_TEST_OPTS) \
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
-	-DEXT_GRAPHICS \
 	-lndos -create-app -o 	$(BUILD_PATH)/TEST_cpc.prg \
-	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars.asm \
-	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(CROSS_LIB_PATH)/display/z88dk/cpc/cpc_cpcrslib_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(TEST_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/TEST_cpc.cpc  $(BUILD_PATH)/TEST_cpc.cdt
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd TEST_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw TEST_cpc.dsk -p $(BUILD_PATH)/TEST_cpc.cpc xchase
-	mv TEST_cpc.dsk $(BUILD_PATH)/
-	rm $(BUILD_PATH)/TEST_cpc.cpc 
-	rm $(BUILD_PATH)/TEST_cpc.prg	
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd TEST_cpc.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw TEST_cpc.dsk -p $(BUILD_PATH)/TEST_cpc.cpc xchase
+	# mv TEST_cpc.dsk $(BUILD_PATH)/
+	# rm $(BUILD_PATH)/TEST_cpc.cpc 
+	# rm $(BUILD_PATH)/TEST_cpc.prg	
 
 mc1000_test:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 \
@@ -2655,7 +2650,7 @@ p2000_test:
 	$(FAST_TEST_OPTS) \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_p2000.prg \
 	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_p2000.prg	
+	rm $(BUILD_PATH)/TEST_p2000.prg
 
 svi_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
@@ -2675,12 +2670,10 @@ msx_test:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
 	-DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	$(FAST_TEST_OPTS) \
-	-DCONIO \
-	-DNO_INIT_GRAPHICS \
+	-DMEMORY_MAPPED \
 	-create-app -o $(BUILD_PATH)/TEST_msx.prg \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/msx/msx_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_msx.prg 	
 	
@@ -2692,7 +2685,6 @@ aquarius_test:
 	-DNO_INIT_GRAPHICS \
 	-lndos \
 	-o TEST_aquarius -create-app \
-	$(CROSS_LIB_PATH)/display/z88dk/aquarius/aquarius_graphics.c \
 	$(TEST_FILES)
 	rm $(SOURCE_PATH)/../TEST_aquarius
 	mv $(SOURCE_PATH)/../TEST_aquarius.caq $(BUILD_PATH)
@@ -2767,12 +2759,11 @@ spectrum_test:
 	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
 	-DANIMATE_PLAYER -DSOUNDS -DCLIB_ANSI -D__SPECTRUM__ \
 	-DCONIO \
-	-DNO_INIT_GRAPHICS \
 	-lndos -create-app \
 	$(FAST_TEST_OPTS) \
 	-o $(BUILD_PATH)/TEST_spectrum.prg \
-	$(CROSS_LIB_PATH)/display/z88dk/spectrum/udg.asm \
-	$(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/udg.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/spectrum_redefined_chars_init_graphics.c \
 	$(TEST_FILES) 
 	rm $(BUILD_PATH)/TEST_spectrum.prg
 	rm $(BUILD_PATH)/TEST_spectrum_BANK_7.bin	
@@ -2803,7 +2794,6 @@ lambda_test:
 	
 nc100_test:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
-	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-D__NC100__ \
 	-DNO_PRINT \
@@ -2814,7 +2804,6 @@ nc100_test:
 	-DANIMATE_PLAYER \
 	$(FAST_TEST_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_nc100.bin \
-	$(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/z88dk_sprites_init_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_nc100.bin	
 
@@ -2861,11 +2850,12 @@ aquarius_zsdcc_test:
 	-compiler=sdcc \
 	$(FAST_TEST_OPTS) \
 	-vn \
-	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME -DEXT_GRAPHICS \
+	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TEST_ZSDCC_aquarius -create-app \
 	-DMEMORY_MAPPED \
-	$(CROSS_LIB_PATH)/display/z88dk/aquarius/aquarius_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/aquarius_init_graphics.c \
 	$(TEST_FILES) 
 	rm $(SOURCE_PATH)/../TEST_ZSDCC_aquarius
 	mv $(SOURCE_PATH)/../TEST_ZSDCC_aquarius.caq $(BUILD_PATH)
@@ -2903,8 +2893,6 @@ spectrum_zsdcc_test:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/spectrum/spectrum_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_CODE.bin 
 	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_UNASSIGNED.bin
@@ -2921,7 +2909,6 @@ svi_zsdcc_test:
 	-D__SVI__ \
 	-DSOUNDS \
 	-DALT_SLEEP \
-	-DEXT_GRAPHICS \
 	$(FAST_TEST_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
@@ -2946,8 +2933,6 @@ vg5k_zsdcc_test:
 	-DNO_INIT_GRAPHICS \
 	$(FAST_TEST_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_vg5k.prg \
-	-DEXT_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/z88dk/vg5k/vg5k_graphics.c \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_vg5k.prg
 

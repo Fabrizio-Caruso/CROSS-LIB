@@ -1,7 +1,7 @@
 #ifndef _SPEED_TARGET_SETTINGS
 #define _SPEED_TARGET_SETTINGS
 
-#if defined(TURN_BASED)
+#if defined(TINY_GAME) || defined(TURN_BASED)
 	#define SKIP_DRAW 
 	#define SKIP_MORE_DRAW
 #elif defined(__ZX81__) || defined(__LAMBDA__)

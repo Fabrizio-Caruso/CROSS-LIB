@@ -2,7 +2,7 @@
 extern unsigned char XSize;
 extern unsigned char YSize;
 
-#include "../../../cross_lib.h"
+#include "../../cross_lib.h"
 
 # if defined(Z88DK_PUTC4X6)
 	void PRINT(unsigned char x, unsigned char y, char * str)

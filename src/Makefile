@@ -1998,30 +1998,21 @@ clean_chase_obj:
 clean_lib_obj:
 	rm -rf $(CROSS_LIB_PATH)/*.o
 	rm -rf $(CROSS_LIB_PATH)/display/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/cc65/apple2enh/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/cc65/atari/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/cc65/atari_lynx/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/cc65/atmos/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/cc65/c64/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/cc65/c264/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/cc65/c128/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/cc65/gamate/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/cc65/supervision/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/cc65/vic20/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/cmoc/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/memory_mapped/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/wincmoc/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/z88dk/aquarius/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/z88dk/cpc/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/z88dk/kc/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/z88dk/msx/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/z88dk/spectrum/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/z88dk/svi/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/z88dk/trs80/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/z88dk/vg5k/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/z88dk/z88dk_putc4x6/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/z88dk/z88dk_sprites/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/z88dk/zx81/*.o	
+	
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2enh/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/c128/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/ncurses/*.o
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/*.o		
+	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/alt_print/*.o	
+	rm -rf $(CROSS_LIB_PATH)/display/graphics_data/cc65/*.o	
 	rm -rf $(CROSS_LIB_PATH)/input/*.o
 	rm -rf $(CROSS_LIB_PATH)/sleep/*.o
 	rm -rf $(CROSS_LIB_PATH)/sound/*.o

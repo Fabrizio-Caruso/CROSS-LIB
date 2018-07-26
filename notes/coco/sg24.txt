@@ -1,7 +1,0 @@
-10 cls
-20 poke &hffc3,1
-30 poke &hffc5,1
-
-poke &h400,1
-poke &h420,1
-poke &h440,1

@@ -1,0 +1,62 @@
+TODO for the integration release for Z88DK
+
+1. DONE - re-factor input_macros.h/c (e.g., GETCHAR for ncurses)
+2. DONE verify ghosts in boss levels
+3. use joystick in Z88DK
+4. DONE - non-turn-based ncurses version
+5. DONE - use register in pointers to Characrters parameters 
+6. DONE - split settings
+7. DONE - Delete or move unused code to notes
+8. DONE - Remove or move unused tools
+9. DONE Verify trs80/eg2k targets
+
+10 Make generic code for all joystick and keyboard configuration
+
+11. DONE Rename files
+I)   DONE skull.h/c
+II)  DONE enemy.h/c -> ghost.h/c
+III) DONE missile.h/c -> bullet.h.c
+
+12. DONE Rename variables: 
+I)   DONE INVINCIBLE/INVINCIBLE_GHOST -> SKULL
+II)  DONE BUBBLE -> ROCKET
+III) DONE MISSILE -> BULLET
+IV)  DONE ENEMY -> GHOST (or viceversa?)
+
+13. DONE Fix chase item display
+
+14. DONE Separate/Re-factor Stat display in text.h/c
+
+15. DONE Separate generic text routines from game specific text routines
+
+16. DONE Optimize and Re-factor blink display
+
+17. PARTIAL Separate cases that require --max-alloc... from those that do not
+TEST WITH BLINKING AND NO --max-alloc...
+full mc1000 OK
+full vg5k OK
+full vz200 OK
+full c128 OK
+tiny aquarius OK
+full zx81 KO
+light svi KO
+
+18. DONE Fix WIDE/NARROW issues (mc1000, msx, etc.)
+
+19. Make ArrowYPosition a parameter (verify memory loss/gain)
+
+20. DONE Define a SLEEP macro (fix CMOC cases)
+
+21. Rename strategy.h/m -> chase.h/m
+
+22. DONE Separate alt_print from graphics
+
+23. DONE NO LONGER NEEDED Use EXT_GRAPHICS option instead of manuall editing display_macros.c
+
+24. Document the new file structure and how to add new targets
+
+25. DONE Implement color function for memory_mapped systems with color
+
+26. Test major targets with latest Z88DK snapshots
+
+

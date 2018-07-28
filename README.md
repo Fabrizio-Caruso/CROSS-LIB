@@ -132,7 +132,7 @@ The future main features of "Cross Lib":
 ## ADAPTIVE GRAPHICS
 
 The tool-chain will produce a game with simple black and white ASCII graphics and no sound if none of these is available. 
-If colors, graphics and sounds are available the tool-chain will produce a game with some simple sound eggects and with some possibly colored graphics.
+If colors, graphics and sounds are available the tool-chain will produce a game with some simple sound effects and with some possibly colored graphics.
 
 ![Atari 800](snapshots/atari800.jpg)
 ![Spectrum 48k](snapshots/spectrum.jpg)

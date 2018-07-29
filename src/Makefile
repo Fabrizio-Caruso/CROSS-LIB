@@ -244,6 +244,7 @@ c64:
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/graphics.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -267,6 +268,7 @@ c64_8k_cart:
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/graphics.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -275,8 +277,8 @@ c64_8k_cart:
 	-o $(BUILD_PATH)/FULL_c64_8k_cart.prg
 	$(TOOLS_PATH)/generic/exomizer sfx basic  $(BUILD_PATH)/FULL_c64_8k_cart.prg -o $(BUILD_PATH)/FULL_c64_8k_exomized.prg
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_c64_8k_exomized.prg  $(BUILD_PATH)/FULL_c64_8k_exomized.crt
-	rm $(BUILD_PATH)/FULL_c64_8k_cart.prg
-	rm $(BUILD_PATH)/FULL_c64_8k_exomized.prg
+	#rm $(BUILD_PATH)/FULL_c64_8k_cart.prg
+	#rm $(BUILD_PATH)/FULL_c64_8k_exomized.prg
 	
 c128_40col: 
 	$(CC65_PATH)$(MYCC65) -O -t c128 \
@@ -285,6 +287,7 @@ c128_40col:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c128_40col.prg
 
@@ -295,6 +298,7 @@ c128_80col:
 	-DCONIO \
 	-DFORCE_GHOSTS_NUMBER=9 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c128/c128_80col_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_c128_80col.prg

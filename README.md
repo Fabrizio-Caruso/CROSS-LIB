@@ -6,7 +6,7 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 ## THE GOAL
 
 This is a personal project whose goal is the creation of:
-1. the universal 8-bit abstraction layer "Cross Lib" for coding universal 8-games
+1. the universal 8-bit abstraction layer "Cross Lib" for coding universal 8-bit games
 2. the "universal" 8-bit game "Cross Chase" that has to be a fun and that should run
 on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs.
 The game will be the proof of concept of how flexible the library is.
@@ -35,8 +35,7 @@ The game should be as portable as possible.
 Therefore the following coding choices and design rules are applied:
 1. ANSI C (for the game logic);
 2. strictly separated input/output and hardware-dependent code from the game logic;
-3. the prefered default graphics and input implementation is provided by conio.h (as implemented in CC65, Z88DK and WinCMOC), whenever no specialized code for a specific target is implemented;
-4. joystick-related libraries as found in CC65 and in Z88DK;
+3. input for keyboard/joystick and output for sound and display are provided by CrossLib
 
 Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects.
 
@@ -44,12 +43,12 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 (as of 2017/06/08)
 
-### PC versions
+### Modern PC versions
 
-There is a ncurses version that can be compiled for multiple platforms for which an ANSI C compiler and ncurses are available.
+There is a ncurses version that can be compiled for multiple platforms for which an ANSI C compiler and ncurses are available, including Windows and Linux.
 For example:
-- cygwin (gcc + ncurses under cygwin/Windows) 
-- windows 32/64 bit console (mingw + ncurses even under cywin/Windows with x86_64-w64-mingw32-gcc)
+- Cygwin/Windows or Linux (gcc + ncurses, e.g., cygwin/Windows or Linux) 
+- Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
 
 ### 8-BIT versions
 
@@ -131,8 +130,8 @@ The future main features of "Cross Lib":
 
 ## ADAPTIVE GRAPHICS
 
-The tool-chain will produce a game with simple black and white ASCII graphics and no sound if none of these is available. 
-If colors, graphics and sounds are available the tool-chain will produce a game with some simple sound effects and with some possibly colored graphics.
+The tool-chain and CrossLib will produce a game with simple black and white ASCII graphics and no sound if none of these is available. 
+If colors, graphics and sounds are available the tool-chain and CrossLib will produce a game with some simple sound effects and with some possibly colored graphics.
 
 ![Atari 800](snapshots/atari800.jpg)
 ![Spectrum 48k](snapshots/spectrum.jpg)
@@ -147,6 +146,41 @@ If colors, graphics and sounds are available the tool-chain will produce a game 
 ![C16 title](snapshots/c264_title.jpg)
 ![C16 hints](snapshots/c264_hints.jpg)
 ![C16 first level](snapshots/c264_level1.jpg)
+
+
+## CROSSLIB DETAILS
+CrossLib provides an abstraction layer for sound, input, display, etc.
+
+### Sound
+Sound abstraction is achieved by providing common APIs for the (few) sounds that CrossLib provides.
+
+### Input
+Input abstraction is also achived by common APIs that support either keyboard and/or joystick input for each possible target.
+
+### Display
+Display abstaction is provided by (at least) two levels of abstraction:
+- Common APIs that, for each target, implement one of several graphics modes;
+- A Generic graphics modes that are shared among a few targets.
+
+So for each target, at least, one of the following mode has to be implemented:
+1. memory-mapped graphics (display can be implemented by writing bytes into video memory)
+2. conio-like (display is performed by either direct conio APIs or a wrapper that provides conio APIs, e.g., ADM3/A, VT52, VT100, etc.)
+3. TGI (CC65-specific graphics APIs)
+4. Z88DK Sprites (Z88DK-specific sprite APIs)
+5. CPCRSLIB (Amstrad CPC-specific graphics APIs)
+6. bit-mapped (display is implemented by writing into video memory and each bytes corresponds to one or more pixels)
+
+For example for a CPM target with ADM3/A control codes, we use
+1. CrossLib APIs that call
+2. conio.h APIs that call
+3. ADM3/A control codes
+
+For a target with direct or indirect video memory (e.g., Commodore 64, MSX, etc.), one may use:
+1. CrossLib APIs that implement
+2. Direct (or indirect) writes into video memory
+
+Remark: For some targets multiple implementations are possible (C64 may use conio APIs as provided by C65, memory-mapped graphics, TGI APIs)
+
 
 ## LICENCE
 

@@ -52,9 +52,9 @@ typedef struct CharacterStruct Character;
 	#define PLAYER_IMAGE PLAYER_DOWN
 #endif
 
-#define playerReached(preyPtr) sameLocationAsAnyLocation((preyPtr)->_x, (preyPtr)->_y, ghosts, GHOSTS_NUMBER)
+#define playerReachedGhosts() sameLocationAsAnyLocation(player._x, player._y, ghosts, GHOSTS_NUMBER)
 
-#define  playerReachedBombs(preyPtr) sameLocationAsAnyLocation((preyPtr)->_x, (preyPtr)->_y, bombs, BOMBS_NUMBER)
+#define characterReachedBombs(preyPtr) sameLocationAsAnyLocation((preyPtr)->_x, (preyPtr)->_y, bombs, BOMBS_NUMBER)
 
 #define areCharctersAtSamePosition(lhs, rhs)isCharacterAtLocation((lhs)->_x, (lhs)->_y,rhs)
 

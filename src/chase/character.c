@@ -157,7 +157,7 @@ void ghostDies(Character * ghostPtr)
 void checkBombsVsGhost(register Character * ghostPtr)
 {
 	
-	if(ghostPtr->_status && playerReachedBombs(ghostPtr))
+	if(ghostPtr->_status && characterReachedBombs(ghostPtr))
 	{		
 		points+=GHOST_VS_BOMBS_BONUS;
 		

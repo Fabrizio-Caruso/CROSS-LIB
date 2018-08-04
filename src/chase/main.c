@@ -596,7 +596,7 @@ int main(void)
 				
 				#if defined(FULL_GAME)
 					if(wallReached(&player) || 
-					   (!invincibilityActive && (playerReachedGhosts() || characterReachedBombs(&player) || innerWallReached(&player) || (horizontalWallsLevel() && horizontalWallsReached(&player))))
+					   (!invincibilityActive && (playerReachedGhosts() || characterReachedBombs(&player) || innerWallReached() || (horizontalWallsLevel() && horizontalWallsReached())))
 					  )
 				#else
 					if(wallReached(&player) || playerReachedGhosts() || characterReachedBombs(&player))

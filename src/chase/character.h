@@ -193,8 +193,8 @@ void ghostDies(Character * ghostPtr);
 unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length);
 
 #if defined(FULL_GAME)
-	unsigned char innerWallReached(register Character *characterPtr);
-	unsigned char horizontalWallsReached(register Character *characterPtr);
+	unsigned char innerWallReached(void);
+	unsigned char horizontalWallsReached(void);
 	unsigned char nearInnerWall(register Character *characterPtr);
 #endif
 

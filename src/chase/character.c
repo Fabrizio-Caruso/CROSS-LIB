@@ -41,6 +41,7 @@ extern unsigned short points;
 
 extern unsigned char ghostCount;
 extern unsigned short loop;
+extern unsigned char level;
 
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
@@ -120,6 +121,35 @@ void ghostDies(Character * ghostPtr)
 	
 	ghostPtr->_status=0;
 	displayStats();
+	
+	#if defined(FULL_GAME)
+		if(level>=FIRST_MOVING_BOMBS_LEVEL)
+			{
+				unsigned char i;
+
+				for(i=0;i<BOMBS_NUMBER;++i)
+				{
+					deleteCharacter(&bombs[i]);
+					if(ghostCount&1)
+					{
+						--bombs[i]._x;
+						--bombs[i]._y;
+					}
+					else
+					{
+						++bombs[i]._x;
+						++bombs[i]._y;
+					}
+				}
+			}		
+	#endif
+		
+	#if !defined(NO_DEAD_GHOSTS)
+		ghostPtr->_imagePtr = (Image *)&DEAD_GHOST_IMAGE;
+	#elif !defined(TINY_GAME)
+		ghostPtr->_imagePtr = (Image *)&SKULL_IMAGE;			
+	#endif
+	
 	--ghostCount;
 	printGhostCountStats();
 }
@@ -128,20 +158,17 @@ void checkBombsVsGhost(register Character * ghostPtr)
 {
 	
 	if(ghostPtr->_status && playerReachedBombs(ghostPtr))
-	{
-		points+=GHOST_VS_BOMBS_BONUS;	
-		#if defined(FULL_GAME)
-			if(zombieActive)
-			{
-				ghostPtr->_imagePtr = (Image *)& DEAD_GHOST_IMAGE;	
-			}
-			else
-			{
-				ghostPtr->_imagePtr = (Image *)& BOMB_IMAGE;
-			}			
+	{		
+		points+=GHOST_VS_BOMBS_BONUS;
+		
+		#if !defined(TINY_GAME)
+			ghostPtr->_x=1+GHOSTS_NUMBER-ghostCount;
 		#else
-			ghostPtr->_imagePtr = (Image *)& BOMB_IMAGE;
+			ghostPtr->_x=1;
 		#endif
+		ghostPtr->_y=1;
+		
+		
 		ghostDies(ghostPtr);
 	}
 	

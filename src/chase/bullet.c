@@ -132,11 +132,6 @@ void checkBulletVsGhost(Character * bulletPtr,
 	   areCharctersAtSamePosition(bulletPtr, ghostPtr))
 	{
 		points+=GHOST_VS_MISSILE;
-		#if !defined(NO_DEAD_GHOSTS)
-			ghostPtr->_imagePtr = (Image *)&DEAD_GHOST_IMAGE;
-		#else
-			ghostPtr->_imagePtr = (Image *)&SKULL_IMAGE;			
-		#endif
 		ghostDies(ghostPtr);
 		
 		bulletPtr->_status=0;

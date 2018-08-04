@@ -195,8 +195,6 @@ vic20_exp_8k_full:
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	-DVIC20_EXP_8K \
-	-DEND_SCREEN \
-	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
@@ -341,8 +339,6 @@ c16_16k_full:
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
-	-DEND_SCREEN \
-	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c264_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -688,8 +684,6 @@ vg5k:
 	-DSIMPLE_STRATEGY \
 	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DEND_SCREEN \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
 	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
 
@@ -2228,7 +2222,7 @@ nes_targets: \
 	nes
 	
 creativision_targets: \
-	creativision_8k_tiny creativision_8k_light creativision_16k
+	creativision_8k_tiny creativision_16k
 	
 gamate_targets: \
 	gamate

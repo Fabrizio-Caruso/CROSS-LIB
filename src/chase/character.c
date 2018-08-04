@@ -231,17 +231,18 @@ void relocateCharacter(register Character * characterPtr)
 }
 
 #if defined(FULL_GAME)
-	unsigned char innerWallReached(register Character *characterPtr)
+	unsigned char innerWallReached(void)
 	{
-		return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
+		return (player._x==innerVerticalWallX) && (player._y >= innerVerticalWallY) && (player._y<= (innerVerticalWallY + innerVerticalWallLength-1));
 	}
 
-	unsigned char horizontalWallsReached(register Character *characterPtr)
+	unsigned char horizontalWallsReached(void)
 	{
-		return (characterPtr->_y==YSize/2) && 
-		       ((characterPtr->_x<=horizontalWallsLength) ||
-			    (characterPtr->_x>=-1+XSize-horizontalWallsLength));
+		return (player._y==YSize/2) && 
+		       ((player._x<=horizontalWallsLength) ||
+			    (player._x>=-1+XSize-horizontalWallsLength));
 	}	
+		
 	
 	unsigned char nearInnerWall(register Character *characterPtr)
 	{

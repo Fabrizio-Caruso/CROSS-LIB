@@ -24,7 +24,7 @@ MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 SCCZ80_OPTS ?= -O3
-ZSDCC_OPTS ?=  
+ZSDCC_OPTS ?= -SO3 --max-allocs-per-node200000
 # --max-allocs-per-node200000
 #-SO3 --max-allocs-per-node200000
 
@@ -339,8 +339,6 @@ c16_16k_full:
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
-	-DEND_SCREEN \
-	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c264_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -714,15 +712,30 @@ ace_exp_16k:
 	rm full
 
 
+zx80_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) -vn \
+	-D__ZX80__ -DFULL_GAME \
+	-DEND_SCREEN \
+	-DALT_SLEEP \
+	-DCONIO \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx80/zx80_init_graphics.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_zx80_16k.prg	
+	
 zx80_16k_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) -vn \
 	-D__ZX80__ -DFULL_GAME \
 	-DEND_SCREEN \
 	-DTURN_BASED \
 	-DALT_SLEEP \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx80/zx80_init_graphics.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)

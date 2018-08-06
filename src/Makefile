@@ -718,8 +718,9 @@ zx80_16k:
 	-DEND_SCREEN \
 	-DALT_SLEEP \
 	-DCONIO \
+	-DZX80_GEN_TV_FIELD \
 	-lndos \
-	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg \
+	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx80/zx80_init_graphics.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -733,9 +734,9 @@ zx80_16k_turn_based:
 	-DTURN_BASED \
 	-DALT_SLEEP \
 	-DCONIO \
+	-DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx80/zx80_init_graphics.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)

@@ -80,9 +80,16 @@
 	
 #elif defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__)
 	#undef gotoxy
-	#define gotoxy(x,y) zx_setcursorpos(y,x)
+	
+	#if defined(__ZX80__) && defined(ZX80_GEN_TV_FIELD)
+		#define gotoxy(x,y) do {gen_tv_field(); zx_setcursorpos(y,x); gen_tv_field();} while(0)
+		#define cputc(c) do { gen_tv_field(); fputc_cons(c); gen_tv_field(); } while(0)
+	#else
+		#define gotoxy(x,y) zx_setcursorpos(y,x)
+		#define cputc(c) fputc_cons(c)
+	#endif
+	
 
-	#define cputc(c) fputc_cons(c)
  
 #elif defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0))
 	#define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)

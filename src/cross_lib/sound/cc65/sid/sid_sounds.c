@@ -14,14 +14,14 @@ void _short_sound(void)
 {
 	unsigned short i;
 	
-	SID.v3.freq  = 0x3000; 
+	SID.v3.freq  = 0x2000; 
 	SID.v3.ad    = 0x00; 
 	SID.v3.sr    = 0xC8; 
 	SID.flt_ctrl = 0x44; 
 	SID.amp      = 0x1F; 
 	SID.v3.ctrl  = 0x21; 	
 
-	for(i=0;i<500;++i) {} 
+	for(i=0;i<200;++i) {} 
 	SID.amp      = 0x00; 
 	SID.v3.ctrl  = 0x08; 	
 }
@@ -43,11 +43,11 @@ void SHOOT_SOUND(void)
 
 void EXPLOSION_SOUND(void)
 { 
-	unsigned int i; 
-	unsigned int j; 
+	unsigned short i; 
+	unsigned short j; 
 	
 	SID.v3.freq  = 0x1200; 
-	SID.flt_freq = 0x6000; 
+	SID.flt_freq = 0x2000; 
 
 	_set_noise();
 	
@@ -68,35 +68,42 @@ void EXPLOSION_SOUND(void)
 
 void PING_SOUND(void)
 { 
-	SID.flt_freq = 0x7800; 
+	SID.flt_freq = 0x3500; 
 	_short_sound();
 };
 
 
 void TICK_SOUND(void) 
 { 
-	SID.flt_freq = 0x8000; 
+	SID.flt_freq = 0x2000; 
 	_short_sound();
 };
 
 void TOCK_SOUND(void) 
 {
-	SID.flt_freq = 0x7000; 
+	SID.flt_freq = 0x1000; 
 	_short_sound();
 };
 
 void ZAP_SOUND(void) 
 { 
-	unsigned int i; 
-	SID.v3.freq  = 0x2000; 
-	SID.v3.ad    = 0x00; 
+	unsigned char i;
+	unsigned char j;
+	
+	SID.v3.freq  = 0x6800; 
+	SID.v3.ad    = 0x88; 
 	SID.v3.sr    = 0xC8; 
 	SID.flt_freq = 0x5000; 
 	SID.flt_ctrl = 0x44; 
 	SID.amp      = 0x1F; 
 	SID.v3.ctrl  = 0x21; 
 	
-	for(i=0;i<1200;++i) {} 
+	for(i=0;i<253;++i) 
+	{ 
+		SID.v3.freq+=8;
+		for(j=0;j<25;++j){};
+	}; 
+
 	SID.amp      = 0x00; 
 	SID.v3.ctrl  = 0x08; 
 };

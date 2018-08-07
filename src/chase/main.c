@@ -384,7 +384,12 @@ int main(void)
 			
 			#if !defined(TINY_GAME)
 				skullAlive = 1;
-				skullHits = !bossLevel();						
+				
+				#if defined(FULL_GAME)
+					skullHits = !bossLevel();
+				#else
+					skullHits = 0;
+				#endif
 				guns = 0;
 				
 				resetItems();

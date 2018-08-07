@@ -60,7 +60,7 @@
 
 #define _SPACE ' '
 #define _VERTICAL_BRICK ('|'-128)
-#define _HORIZONTAL_BRICK ('-')
+#define _HORIZONTAL_BRICK (0xC3-128)
 #define _BROKEN_BRICK _BOMB
 
 

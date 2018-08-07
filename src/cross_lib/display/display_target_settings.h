@@ -154,12 +154,6 @@
 #endif
 
 
-#if defined(WIDE) || defined(FORCE_NARROW)
-	#define MIN_SKULL_HITS 4
-#else
-	#define MIN_SKULL_HITS 3
-#endif	
-
 #if defined(FORCE_NARROW) && defined(WIDE)
 	#undef WIDE
 	#define NARROW

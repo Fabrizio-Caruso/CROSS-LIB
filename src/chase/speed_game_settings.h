@@ -129,7 +129,7 @@
 		#define GAME_SLOW_DOWN 700
 	#elif defined(__VG5K__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 3600U
+		#define GAME_SLOW_DOWN 5600U
 	#elif defined(__AQUARIUS__) && defined(ALT_PRINT)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 1500		

@@ -630,6 +630,18 @@ int main(void)
 						displayBombs();
 				#endif
 				
+				#if defined(FULL_GAME)
+					if((level==15 || level==20) && ghostCount<=2)
+					{
+						deleteCharacter(&bombs[loop&3]);
+						#if defined(SIMPLE_STRATEGY)
+							moveTowardCharacter(&player, &bombs[loop&3]);
+						#else
+							moveTowardCharacter(&player, &bombs[loop&3], 4);
+						#endif
+					}
+				#endif
+				
 				// Display ghosts
 				SKIP_DRAW
 					displayGhosts();

@@ -527,6 +527,19 @@ int main(void)
 							{
 								chaseCharacter(&player, ghostSlowDown);
 							}
+
+							#if BOMBS_NUMBER==4
+								if((level==15 || level==20) && ghostCount<=2)
+								{
+									deleteCharacter(&bombs[loop&3]);
+									#if defined(SIMPLE_STRATEGY)
+										moveTowardCharacter(&player, &bombs[loop&3]);
+									#else
+										moveTowardCharacter(&player, &bombs[loop&3], 4);
+									#endif
+								}
+							#endif							
+							
 						#else
 							chaseCharacter(ghostSlowDown);
 						#endif
@@ -628,18 +641,6 @@ int main(void)
 				#else
 					SKIP_MORE_DRAW
 						displayBombs();
-				#endif
-				
-				#if defined(FULL_GAME) && BOMBS_NUMBER==4
-					if((level==15 || level==20) && ghostCount<=2)
-					{
-						deleteCharacter(&bombs[loop&3]);
-						#if defined(SIMPLE_STRATEGY)
-							moveTowardCharacter(&player, &bombs[loop&3]);
-						#else
-							moveTowardCharacter(&player, &bombs[loop&3], 4);
-						#endif
-					}
 				#endif
 				
 				// Display ghosts

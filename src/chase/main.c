@@ -630,7 +630,7 @@ int main(void)
 						displayBombs();
 				#endif
 				
-				#if defined(FULL_GAME)
+				#if defined(FULL_GAME) && BOMBS_NUMBER==4
 					if((level==15 || level==20) && ghostCount<=2)
 					{
 						deleteCharacter(&bombs[loop&3]);

@@ -106,6 +106,25 @@ struct redefine_struct
 	#define _EXTRA_POINTS_OFFSET_ _EXTRA_POINTS_OFFSET
 #endif
 
+#ifndef _EXTRA_LIFE_OFFSET
+	#define _EXTRA_LIFE_OFFSET_ _EXTRA_LIFE
+#else
+	#define _EXTRA_LIFE_OFFSET_ _EXTRA_LIFE_OFFSET
+#endif
+
+#ifndef _SUPER_OFFSET
+	#define _SUPER_OFFSET_ _SUPER
+#else
+	#define _SUPER_OFFSET_ _SUPER_OFFSET
+#endif
+
+#ifndef _FREEZE_OFFSET
+	#define _FREEZE_OFFSET_ _FREEZE
+#else
+	#define _FREEZE_OFFSET_ _FREEZE_OFFSET
+#endif
+
+
 struct redefine_struct redefine_map[] =
 {
 	{_PLAYER_DOWN_OFFSET_, _PLAYER_DOWN_UDG},
@@ -137,7 +156,21 @@ struct redefine_struct redefine_map[] =
 	#endif
 
 	#if defined(_EXTRA_POINTS)
-		{_EXTRA_POINTS_OFFSET_, _EXTRA_POINTS_UDG}
+		{_EXTRA_POINTS_OFFSET_, _EXTRA_POINTS_UDG},
+	#endif
+	
+	#if defined(__MSX__)
+		#if defined(_EXTRA_LIFE)
+			{_EXTRA_LIFE_OFFSET_, _EXTRA_LIFE_UDG},
+		#endif
+		
+		#if defined(_SUPER)
+			{_SUPER_OFFSET_, _SUPER_UDG},
+		#endif
+		
+		#if defined(_FREEZE)
+			{_FREEZE_OFFSET_, _FREEZE_UDG},
+		#endif
 	#endif
 };
 

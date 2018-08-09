@@ -64,7 +64,10 @@
 		#define GAME_SLOW_DOWN 3300U		
 	#elif defined(__MTX__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 3300U		
+		#define GAME_SLOW_DOWN 3300U
+	#elif defined(__MSX__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 2000U		
 	#elif defined(__MC1000__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 900			

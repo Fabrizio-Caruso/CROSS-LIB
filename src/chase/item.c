@@ -214,9 +214,7 @@ extern Item extraPoints;
 	{
 		++lives;
 		skullsKilled=1;
-		// missileBasesDestroyed = 0;
 		extraLife_present_on_level = 0;
-		// extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*10; // second time must be impossible
 		printLivesStats();		
 	}
 

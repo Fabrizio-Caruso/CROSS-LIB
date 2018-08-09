@@ -33,7 +33,14 @@
 	#define _HORIZONTAL_BRICK_UDG         {  0,  0,  0,255,  0,  0,  0,  0}
 
 	#define _EXTRA_POINTS_UDG             { 16, 62, 32, 60,  4,124,  8,  0}
-
+	
+	#define _FREEZE_UDG                   _POWERUP_UDG
+	
+	#define _SUPER_UDG                    _POWERUP_UDG
+	
+	#define _EXTRA_LIFE_UDG               _PLAYER_DOWN_UDG
+	
+	#define _
 #endif // _8x8_CHARS
 
 

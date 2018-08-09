@@ -153,6 +153,8 @@ Character bombs[BOMBS_NUMBER];
 	Character chasingBullet;
 
 	Character * chasedEnemyPtr;
+	
+	Character * chasedByGhosts;
 
 	unsigned char rockets_x[ROCKETS_NUMBER];
 	
@@ -386,7 +388,7 @@ int main(void)
 				skullAlive = 1;
 				
 				#if defined(FULL_GAME)
-					skullHits = !bossLevel();
+					skullHits = (!bossLevel())<<1;
 				#else
 					skullHits = 0;
 				#endif
@@ -521,21 +523,23 @@ int main(void)
 						#if defined(FULL_GAME)
 							if(confuseActive && skullAlive && skull._status)
 							{
-								chaseCharacter(&skull, ghostSlowDown);
+								chasedByGhosts=&skull;
 							}
 							else
 							{
-								chaseCharacter(&player, ghostSlowDown);
+								chasedByGhosts=&player;
 							}
+							chaseCharacter(chasedByGhosts, ghostSlowDown);
+
 
 							#if BOMBS_NUMBER==4
 								if((level==15 || level==20) && ghostCount<=2)
 								{
 									deleteCharacter(&bombs[loop&3]);
 									#if defined(SIMPLE_STRATEGY)
-										moveTowardCharacter(&player, &bombs[loop&3]);
+										moveTowardCharacter(chasedByGhosts, &bombs[loop&3]);
 									#else
-										moveTowardCharacter(&player, &bombs[loop&3], 4);
+										moveTowardCharacter(chasedByGhosts, &bombs[loop&3], 4);
 									#endif
 								}
 							#endif							

@@ -98,9 +98,9 @@
 #define LEVEL_BONUS 25U
 
 #if defined(WIDE) || defined(FORCE_NARROW)
-	#define MIN_SKULL_HITS (4+1)
+	#define MIN_SKULL_HITS (4+2)
 #else
-	#define MIN_SKULL_HITS (3+1)
+	#define MIN_SKULL_HITS (3+2)
 #endif	
 
 #if defined(TURN_BASED)

@@ -17,7 +17,7 @@
 #define _SKULL 0x27
 #define _VERTICAL_BRICK 0x26
 #define _HORIZONTAL_BRICK 0x2B
-#define _EXTRA_LIFE 0x25
+#define _EXTRA_LIFE _PLAYER_DOWN
 #define _EXTRA_POINTS 0x24
 
 // GREEN

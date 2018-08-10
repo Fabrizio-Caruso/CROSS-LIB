@@ -833,24 +833,24 @@ cpc_joystick:
 	rm $(BUILD_PATH)/FULL_cpc_joystick.prg		
 
 		
-msx_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -zorg=49200 \
-	-DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
-	-create-app -o $(BUILD_PATH)/LIGHT_msx_16k.prg \
-	-DALT_PRINT \
-	-DLESS_TEXT \
-	-DMEMORY_MAPPED \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/LIGHT_msx_16k.prg 	
+# msx_16k:
+	# $(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -zorg=49200 \
+	# -DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
+	# -create-app -o $(BUILD_PATH)/LIGHT_msx_16k.prg \
+	# -DALT_PRINT \
+	# -DLESS_TEXT \
+	# -DMEMORY_MAPPED \
+	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
+	# $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	# $(LIGHT_FILES)
+	# rm $(BUILD_PATH)/LIGHT_msx_16k.prg 	
 
 
 msx_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) \
 	-DSOUNDS -DANIMATE_PLAYER \
-	-create-app -vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_msx_32k.prg \
 	-DMEMORY_MAPPED \
@@ -866,20 +866,21 @@ msx_32k:
 
 msx_32k_rom:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) \
-	-DSOUNDS -DANIMATE_PLAYER -vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DSOUNDS -DANIMATE_PLAYER \
+	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
-	-o $(BUILD_PATH)/FULL_msx_32k.rom \
-	$(SOURCE_PATH)/end_screen.c \
+	-create-app -o $(BUILD_PATH)/FULL_msx_32k.rom \
+	-DMEMORY_MAPPED \
 	-DALT_PRINT \
 	-DLESS_TEXT \
-	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/FULL_msx_32k_DATA.bin
-
+	
 
 svi_318_mode0:
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) -zorg=49200 -vn -lndos \
@@ -2154,7 +2155,7 @@ svi_targets: \
 	svi_318 svi_328
 
 msx_targets: \
-	msx_16k msx_32k_rom msx_32k
+	msx_32k_rom msx_32k
 
 c128_z80_targets: \
 	c128_z80_40col c128_z80_40col_turn_based

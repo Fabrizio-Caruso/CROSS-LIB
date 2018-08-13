@@ -142,9 +142,9 @@ void _delete(unsigned char x, unsigned char y);
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
 #elif defined(__NCURSES__)
 	#include <ncurses.h>
-	#define SET_TEXT_COLOR(c) attron(COLOR_PAIR(c)) 
+	#define SET_TEXT_COLOR(c) attron(COLOR_PAIR(c))
 #else
-	#define SET_TEXT_COLOR(c) textcolor(c);
+	#define SET_TEXT_COLOR(c) textcolor(c)
 #endif
 
 

@@ -28,7 +28,7 @@
 
 #if !defined(__SMS__) && !defined(__CMOC__) && !defined(__SUPERVISION__) \
 	&& !defined(__ATARI_LYNX__) && !defined(__MSX__) \
-    && !(defined(__SVI__) && defined(MSX_MODE0)) \
+    && !defined(__SVI__) \
 	&& !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) \
 	&& !defined(__ENTERPRISE__) \
 	&& !defined(__PX8__) && !defined(__KC__) \
@@ -39,10 +39,11 @@
 	&& !defined(__CPM_80X24__) \
 	&& !defined(__EINSTEIN__) \
 	&& !defined(__SRR__) \
-	&& !defined(__NCURSES__)
+	&& !defined(__NCURSES__) \
+	&& !defined(FORCE_NO_CONIO_LIB)
 	#define CONIO_LIB
 #endif
-#if defined(__WINCMOC__) || defined(FORCE_CONIO)
+#if defined(__WINCMOC__) || defined(FORCE_CONIO_LIB)
 	#define CONIO_LIB
 #endif
 

@@ -913,12 +913,26 @@ svi_318:
 	rm a.bin
 
 
-# It hangs if compiled with sdcc.
-# syntax error if compiled with sccz80
-# $(SOURCE_PATH)/svi/svi_graphics.c	
+# -pragma-define:ansicolumns=32 -clib=ansi 
+svi_328_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +svi -pragma-redirect:fputc_cons=fputc_cons_generic $(SCCZ80_OPTS) \
+	 -vn -lndos \
+	-DSOUNDS \
+	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO \
+	-DCONIO_VT52 \
+	-create-app \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv a.cas $(BUILD_PATH)/FULL_svi_328_udg.cas
+	rm a.bin
+	
 svi_328:
-	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
-	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
+	$(Z88DK_PATH)$(MYZ88DK) +svi -pragma-define:ansicolumns=32 -clib=ansi $(SCCZ80_OPTS) \
+	-vn -lndos \
 	-DSOUNDS \
 	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -928,7 +942,6 @@ svi_328:
 	$(FULL_FILES)
 	mv a.cas $(BUILD_PATH)/FULL_svi_328.cas
 	rm a.bin
-	
 	
 
 sc3000_16k:

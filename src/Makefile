@@ -687,7 +687,43 @@ vg5k:
 	$(FULL_FILES) 
 	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
 
+vg5k_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
+	-compiler=sdcc \
+	$(ZSDCC_OPTS) \
+	--reserve-regs-iy \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DNO_BLINKING \
+	-vn -DFULL_GAME -D__VG5K__ \
+	-DLESS_TEXT \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DSOUNDS \
+	-DSIMPLE_STRATEGY \
+	-create-app -o $(BUILD_PATH)/FULL_vg5k_udg_less_text.prg \
+	-DCONIO \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(FULL_FILES) 
+	rm $(BUILD_PATH)/FULL_vg5k_udg_less_text.prg		
+	
+	
 # $(SCCZ80_OPTS) -zorg=18941 -vn
+# 	-DCONIO_VT52 
+#	-DFORCE_NO_CONIO_LIB 
+vg5k_exp_16k_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
+	$(SCCZ80_OPTS) \
+	-clib=default \
+	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k_udg.prg \
+	-DCONIO \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_vg5k_exp_16k_udg.prg	
+
 vg5k_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	$(SCCZ80_OPTS) \
@@ -695,9 +731,8 @@ vg5k_exp_16k:
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k.prg \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) 
+	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg	
-
 
 ace_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) \
@@ -914,13 +949,16 @@ svi_318:
 
 
 # -pragma-define:ansicolumns=32 -clib=ansi 
+# 	-DCONIO_VT52 
+#	-DFORCE_NO_CONIO_LIB 
 svi_328_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +svi -pragma-redirect:fputc_cons=fputc_cons_generic $(SCCZ80_OPTS) \
 	 -vn -lndos \
 	-DSOUNDS \
 	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
-	-DCONIO_VT52 \
+	-DFORCE_CONIO_LIB \
+	-pragma-define:ansicolumns=32 \
 	-create-app \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
@@ -1520,7 +1558,7 @@ c128_z80_40col:
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DFULL_GAME -DEND_SCREEN -DNO_BLINKING \
-	-DFORCE_CONIO \
+	-DFORCE_CONIO_LIB \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -1556,7 +1594,7 @@ c128_z80_40col_turn_based:
 einstein:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -leinstein \
 	-D__EINSTEIN__ \
-	-DFORCE_CONIO \
+	-DFORCE_CONIO_LIB \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-clib=ansi \
@@ -2289,7 +2327,7 @@ FAST_TEST_OPTS ?= \
 einstein_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein  -v \
 	-D__EINSTEIN__ \
-	-DFORCE_CONIO \
+	-DFORCE_CONIO_LIB \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_TEST_OPTS) \
@@ -2830,7 +2868,7 @@ c128_z80_test:
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	$(FAST_TEST_OPTS) \
-	-DFORCE_CONIO \
+	-DFORCE_CONIO_LIB \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(TEST_FILES) \
@@ -2981,7 +3019,7 @@ c128_z80_zsdcc_test:
 	-compiler=sdcc \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
-	-DFORCE_CONIO \
+	-DFORCE_CONIO_LIB \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_TEST_OPTS) \
@@ -3194,7 +3232,7 @@ nc100_sprites_tiny:
 einstein_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \
 	-D__EINSTEIN__ \
-	-DFORCE_CONIO \
+	-DFORCE_CONIO_LIB \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-clib=ansi \
 	-create-app -o$(BUILD_PATH)/TINY_einstein.bin \

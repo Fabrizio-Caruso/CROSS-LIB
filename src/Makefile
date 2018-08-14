@@ -713,13 +713,13 @@ vg5k_udg:
 #	-DFORCE_NO_CONIO_LIB 
 vg5k_exp_16k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	-DUDG_GRAPHICS \
-	-DANIMATE_PLAYER \
 	$(SCCZ80_OPTS) \
-	-clib=default \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k_udg.prg \
 	-DCONIO \
+	-clib=default \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
@@ -736,6 +736,25 @@ vg5k_exp_16k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg	
 
+# 	-clib=ansi
+ace_exp_16k_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) \
+	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO \
+	-clib=default \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o full -Cz--audio -create-app	
+	cp full.wav $(BUILD_PATH)/FULL_ace_exp_16k_udg.wav
+	rm full.wav
+	rm full.tap
+	rm full
+	
+	
 ace_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -1073,7 +1092,25 @@ samcoupe:
 	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/FULL_samcoupe.dsk
 	rm $(BUILD_PATH)/FULL_samcoupe.bin
 
-
+# 	-clib=ansi -pragma-define:ansicolumns=32 
+mtx_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 $(SCCZ80_OPTS) \
+	-D__MTX__ \
+	-create-app -o FULL.bin -vn \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm FULL.bin
+	mv FULL.wav $(BUILD_PATH)/FULL_mtx_udg.wav
+	mv FULL $(BUILD_PATH)/FULL_mtx_udg.mtx
+	
 mtx:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 $(SCCZ80_OPTS) \
 	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app -o FULL.bin -vn \
@@ -1141,6 +1178,26 @@ z9001_16k:
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_z9001.z80	
 
+	
+# 	-pragma-define:ansicolumns=32
+mc1000_48k_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
+	-subtype=gaming \
+	-DFULL_GAME  \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-vn  -lndos -create-app -Cz--audio \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_udg.wav
+	rm a.bin
+	rm a.cas
 
 mc1000_48k:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
@@ -1719,6 +1776,27 @@ m5_tiny:
 	rm $(BUILD_PATH)/TINY_m5.bin
 	rm $(BUILD_PATH)/TINY_m5.cas
 
+
+# 	-DNO_SLEEP -DNO_WAIT
+m5_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +m5 \
+	-lm -create-app -Cz--audio -subtype=tape \
+	-D__M5__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-DFULL_GAME -DLESS_TEXT \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o$(BUILD_PATH)/FULL_m5_udg.bin	
+	rm $(BUILD_PATH)/FULL_m5_udg.bin
+	rm $(BUILD_PATH)/FULL_m5_udg.cas
+		
 m5:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
 	-lm -create-app -Cz--audio -subtype=tape \

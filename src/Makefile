@@ -713,6 +713,8 @@ vg5k_udg:
 #	-DFORCE_NO_CONIO_LIB 
 vg5k_exp_16k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
 	$(SCCZ80_OPTS) \
 	-clib=default \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
@@ -952,7 +954,10 @@ svi_318:
 # 	-DCONIO_VT52 
 #	-DFORCE_NO_CONIO_LIB 
 svi_328_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +svi -pragma-redirect:fputc_cons=fputc_cons_generic $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +svi \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-pragma-redirect:fputc_cons=fputc_cons_generic $(SCCZ80_OPTS) \
 	 -vn -lndos \
 	-DSOUNDS \
 	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \

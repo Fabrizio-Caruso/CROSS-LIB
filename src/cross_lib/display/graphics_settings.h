@@ -26,8 +26,10 @@
 	#include "image_settings/cpc_cpcrslib_settings.h"
 #elif defined(__SUPERVISION__)
 	#include "image_settings/supervision_settings.h"
+#elif defined(UDG_GRAPHICS)
+	#include "image_settings/udg_settings.h"
 #else
-	#include "image_settings/default_graphics_settings.h"
+	#include "image_settings/default_image_settings.h"
 #endif 
 
 

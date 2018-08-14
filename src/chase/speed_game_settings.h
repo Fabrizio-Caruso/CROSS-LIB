@@ -130,9 +130,12 @@
 	#elif defined(__CBM610__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 700
-	#elif defined(__VG5K__)
+	#elif defined(__VG5K__) && !defined(ALT_PRINT)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 5600U
+		#define GAME_SLOW_DOWN 2000U
+	#elif defined(__VG5K__) && defined(ALT_PRINT)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 5000U		
 	#elif defined(__AQUARIUS__) && defined(ALT_PRINT)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 1500		

@@ -363,3 +363,13 @@ Use the VTI emulator
 -  Custom + F1 (to select Rigel)
 - Select the game
 
+
+-----------------------------------------------------------
+
+
+SORD M5
+
+You can use Takeda's emulator.
+Click on CMT -> Play -> Select file
+
+

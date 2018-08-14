@@ -45,6 +45,11 @@
 // GREEN
 #define _POWERUP  0x2C
 
+#if defined(NO_COLOR)
+	#define _FREEZE 'F'
+	#define _SUPER 'H'
+#endif
+
 // RED
 #define _BOMB 0x29
 

@@ -144,7 +144,7 @@
 		#define GAME_SLOW_DOWN 800	
 	#elif defined(__ACE__) || defined(__BEE__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 500	
+		#define GAME_SLOW_DOWN 900	
 	#elif defined(__MSX__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 550		
@@ -176,7 +176,7 @@
 		#define GAME_SLOW_DOWN 100	
 	#elif defined(__M5__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 200		
+		#define GAME_SLOW_DOWN 500		
 	#else
 		#define GAME_SLOW_DOWN 0
 	#endif

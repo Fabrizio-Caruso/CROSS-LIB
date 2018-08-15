@@ -1018,6 +1018,24 @@ sc3000_16k:
 	rm $(BUILD_PATH)/LIGHT_sc3000_16k.prg
 	rm $(BUILD_PATH)/LIGHT_sc3000_16k.tap
 
+sc3000_32k_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
+	$(SCCZ80_OPTS) \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-vn -lndos -create-app -Cz--audio \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	-o $(BUILD_PATH)/FULL_sc3000_32k_udg.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_sc3000_32k_udg.prg
+	rm $(BUILD_PATH)/FULL_sc3000_32k_udg.tap	
+	
 
 sc3000_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
@@ -1310,17 +1328,41 @@ pc6001_16k:
 	
 # Warning at file 'c:/z88dk/\lib\pc6001_crt0.asm' line 112: integer '66384' out of range
 # Warning at file 'stdio/ansi/pc6001/f_ansi_char.asm' line 46: integer '66657' out of range
+#  -DEND_SCREEN -DBETWEEN_LEVEL
+# 	$(SOURCE_PATH)/end_screen.c 
+#  -DSOUNDS
+# 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c 
+
 pc6001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
-	-D__PC6001__ -v -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__PC6001__ -v \
+	-DFULL_GAME \
+	-DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_pc6001_32k.prg
 	rm $(BUILD_PATH)/FULL_pc6001_32k.wav
 	mv $(BUILD_PATH)/FULL_pc6001_32k.cas $(BUILD_PATH)/FULL_pc6001_32k.cp6
+	
+	
+	
+pc6001_32k_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
+	-D__PC6001__ -v -DFULL_GAME \
+	-DCONIO \
+	-DANIMATE_PLAYER -DUDG_GRAPHICS \
+	-DFORCE_SCREEN_MODE=2 \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k_udg.prg \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_pc6001_32k_udg.prg
+	rm $(BUILD_PATH)/FULL_pc6001_32k_udg.wav
+	mv $(BUILD_PATH)/FULL_pc6001_32k_udg.cas $(BUILD_PATH)/FULL_pc6001_32k_udg.cp6
+	
 
 	
 # kbhit KO
@@ -1548,6 +1590,7 @@ eg2k:
 	mv a.cmd $(BUILD_PATH)/FULL_eg2k.cmd
 	rm a.bin
 
+	
 kc_sprites_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
 	-D__KC__ \
@@ -1812,6 +1855,26 @@ m5:
 	rm $(BUILD_PATH)/FULL_m5.cas
 	
 
+srr_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SRR__ -vn \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	-create-app \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm a.srr
+	mv a.wav $(BUILD_PATH)/FULL_srr_udg.wav
+
+	
 srr:
 	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
@@ -3397,7 +3460,7 @@ eg2k_tiny:
 	mv a.cmd $(BUILD_PATH)/TINY_eg2k.cmd	
 
 kc_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap-subtype=tap \
 	-D__KC__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-create-app -o$(BUILD_PATH)/TINY_kc.bin \
@@ -3408,6 +3471,25 @@ kc_tiny:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_kc.bin
 
+kc_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap $(SCCZ80_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SRR__ -vn \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_kc.bin
+	
+	
 # -o$(BUILD_PATH)/TINY_abc800.bin 	
 abc800_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 -zorg=40000 \

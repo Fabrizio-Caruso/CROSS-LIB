@@ -230,8 +230,8 @@ Use the JKCEMU emulator.
 Click on "Extra" tab.
 Choose "Einstellungen"
 Select your target (e.g., KC 85/5)
-Press "Schliessen"
-Load file with "Laden"s
+Press "Uebernehmen" and then "Schliessen"
+Load file with "Datei" -> "Laden" -> Select File -> "Starten"
 
 ----------------------------------------------------------
 
@@ -373,3 +373,21 @@ You can use Takeda's emulator.
 Click on CMT -> Play -> Select file
 
 
+-----------------------------------------------------------
+
+EXIDY SORCERER
+
+Use Mess
+Attach the .wav file
+Type LOADG
+
+
+-----------------------------------------------------------
+
+NEC PC-6001
+
+Use Virtual Nec Trek 
+Select 2 pages at start-up
+Type "cload"
+Select cassette image
+Type "run"

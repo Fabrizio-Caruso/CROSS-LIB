@@ -78,6 +78,8 @@
 		#define YSize 8
 	#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
 		#define YSize ((64/SPRITE_Y_STEP)+1)
+	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
+		#define YSize 24
 	#else
 		#define YSize 16
 	#endif
@@ -119,7 +121,7 @@
 		#define XSize (320/SPRITE_X_STEP)
 	#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
 		  || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
-		  || defined(__LAMBDA__) || defined(__SPECTRUM__) || defined(__PC6001__) \
+		  || defined(__LAMBDA__) || defined(__SPECTRUM__) || (defined(__PC6001__) && !defined(FORCE_SCREEN_MODE))\
 		  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
 		  || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
@@ -134,6 +136,8 @@
 	#elif (defined(__ATARI__) && defined(ATARI_MODE1)) \
 		  || defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
 		#define XSize 20
+	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
+		#define XSize 16
 	#else
 		#define XSize 16
 	#endif

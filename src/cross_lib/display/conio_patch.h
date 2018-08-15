@@ -168,9 +168,15 @@
 
 #if !defined(NO_COLOR)
 	#ifndef COLOR_BLACK
-		#define COLOR_BLACK 0	
-		#define COLOR_WHITE 7
-		#define COLOR_BLUE 1
+		#if defined(Z88DK)
+			#define COLOR_BLACK BLACK
+			#define COLOR_WHITE WHITE
+			#define COLOR_BLUE BLUE			
+		#else
+			#define COLOR_BLACK 0	
+			#define COLOR_WHITE 7
+			#define COLOR_BLUE 1
+		#endif
 	#endif
 	
 	#ifndef COLOR_RED

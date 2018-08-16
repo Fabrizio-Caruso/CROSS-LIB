@@ -1196,6 +1196,27 @@ z9001_16k:
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_z9001.z80	
 
+
+mc1000_48k_joystick_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
+	-subtype=gaming \
+	-D__MC1000_JOYSTICK__ \
+	-DFULL_GAME  \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-DSOUND \
+	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-vn  -lndos -create-app -Cz--audio \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_joystick_udg.wav
+	mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_joystick_udg.bin
+	rm a.cas	
 	
 # 	-pragma-define:ansicolumns=32
 mc1000_48k_udg:
@@ -1204,6 +1225,7 @@ mc1000_48k_udg:
 	-DFULL_GAME  \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
+	-DSOUND \
 	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-vn  -lndos -create-app -Cz--audio \
@@ -1214,7 +1236,7 @@ mc1000_48k_udg:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_udg.wav
-	rm a.bin
+	mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_udg.bin
 	rm a.cas
 
 mc1000_48k:

@@ -70,7 +70,7 @@
 		#define GAME_SLOW_DOWN 2000U		
 	#elif defined(__MC1000__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 1100			
+		#define GAME_SLOW_DOWN 1200			
 	#elif defined(__VIC20__) && defined(ALT_PRINT)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 500	

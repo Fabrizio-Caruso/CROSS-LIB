@@ -59,7 +59,7 @@
 	#elif defined(__CPC__) && defined(SOUNDS)
 		#include "z88dk/psg/psg_sounds.h"	
 	#elif defined(__MC1000__) && defined(SOUNDS)
-		#include "z88dk/psg/psg_sounds.h"		
+		#include "z88dk/bit_bang/bit_bang_sounds.h"	
 	#elif (defined(__WINCMOC__) || defined(__CMOC__)) && defined(SOUNDS)
 		#include "wincmoc/wincmoc_sounds.h"					
 	#else

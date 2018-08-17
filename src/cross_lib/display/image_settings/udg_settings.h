@@ -45,10 +45,9 @@
 // GREEN
 #define _POWERUP  0x2C
 
-#if defined(NO_COLOR)
-	#define _FREEZE 'F'
-	#define _SUPER 'H'
-#endif
+#define _FREEZE '%'
+
+#define _SUPER ';'
 
 // RED
 #define _BOMB 0x29
@@ -64,7 +63,7 @@
 // WHITE
 #define _GHOST 0x28
 
-#define _DEAD_GHOST _GHOST
+#define _DEAD_GHOST '['
 
 #define _LEFT_HORIZONTAL_MISSILE 0x22
 

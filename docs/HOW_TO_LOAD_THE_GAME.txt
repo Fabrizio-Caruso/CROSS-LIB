@@ -369,8 +369,14 @@ Use the VTI emulator
 
 SORD M5
 
-You can use Takeda's emulator.
-Click on CMT -> Play -> Select file
+Use MESS/MAME
+You need the basic-i rom somewhere in your file system
+You could run:
+mess64.exe m5 -uimodekey DEL -cart1 basic-i\basic-i.rom -ramsize 36k -window
+You need to insert the tape
+Type TAPE
+Press ESC
+
 
 
 -----------------------------------------------------------

@@ -740,6 +740,7 @@ vg5k_exp_16k:
 ace_exp_16k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DSOUNDS \
 	-DCONIO \
 	-clib=default \
 	-DUDG_GRAPHICS \
@@ -758,6 +759,7 @@ ace_exp_16k_udg:
 ace_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DSOUNDS \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -o full -Cz--audio -create-app \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1844,11 +1846,13 @@ m5_tiny:
 m5_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
 	-lm -create-app -Cz--audio -subtype=tape \
+	-pragma-define:REGISTER_SP=65000 \
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-DFULL_GAME -DLESS_TEXT \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
+	-DSOUNDS \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -1863,6 +1867,7 @@ m5_udg:
 m5:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
 	-lm -create-app -Cz--audio -subtype=tape \
+	-pragma-define:REGISTER_SP=65000 \
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \

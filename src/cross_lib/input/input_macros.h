@@ -39,6 +39,9 @@
 			#define INIT_INPUT() { POKE(0x028A ,0xFF); }
 		#elif defined(__NCURSES__) && !defined(TURN_BASED)
 			#define INIT_INPUT() nodelay(stdscr,TRUE)
+		#elif defined(__M5__)
+			#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))			
+			#define INIT_INPUT() { POKE(0x703A,1); POKE(0x703B,1); }
 		#else
 			#define INIT_INPUT()
 		#endif

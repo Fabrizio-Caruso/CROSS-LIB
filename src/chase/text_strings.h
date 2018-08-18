@@ -121,7 +121,7 @@
 	#endif
 #else
 	#if defined(NO_CASE_LETTERS)
-		#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
+		#if defined(JOYSTICK_CONTROL) || defined(__MSX__) || defined(__CPC_JOYSTICK__) || defined(__MC1000_JOYSTICK__)
 			#define PRESS_STRING "press fire"
 		#else
 			#define PRESS_STRING "press a key"
@@ -132,7 +132,7 @@
 		#define EXTRA_LIFE_STRING "extra life"
 		#define YOU_MADE_IT_STRING "you made it"
 	#else
-		#if defined(JOYSTICK_CONTROL) || defined(__MSX__)
+		#if defined(JOYSTICK_CONTROL) || defined(__MSX__) || defined(__CPC_JOYSTICK__) || defined(__MC1000_JOYSTICK__)
 			#define PRESS_STRING "PRESS FIRE"
 		#else
 			#define PRESS_STRING "PRESS A KEY"

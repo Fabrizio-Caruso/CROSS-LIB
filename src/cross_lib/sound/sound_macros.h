@@ -52,6 +52,8 @@
 		#include "cc65/sid/sid_sounds.h"		
 	#elif defined(__CBM510__) && defined(SOUNDS)
 		#include "cc65/sid/sid_sounds.h"		
+	#elif defined(__M5__) && defined(SOUNDS)
+		#include "z88dk/psg/psg_sounds.h"		
 	#elif defined(__SVI__) && defined(SOUNDS)
 		#include "z88dk/psg/psg_sounds.h"
 	#elif defined(__MSX__) && defined(SOUNDS)

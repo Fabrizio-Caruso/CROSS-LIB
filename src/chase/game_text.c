@@ -152,8 +152,10 @@ extern unsigned short highScore;
 	
 		#if defined(WIDE) && !defined(TINY_GAME)
 			PRINTF(LEVEL_X,1+0,"%02u", level);
+		#elif XSize>16
+			PRINTF(LEVEL_X,+0,"%02u",level);
 		#else
-			PRINTF(LEVEL_X,+0,"%02u",level);	
+			// No space for level
 		#endif	
 	}
 

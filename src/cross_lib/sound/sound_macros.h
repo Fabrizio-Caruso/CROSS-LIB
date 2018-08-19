@@ -27,7 +27,7 @@
 	#  if defined(FORCE_BIT_BANG)
 		#include "z88dk/bit_bang/bit_bang_sounds.h"
 	#elif defined(FORCE_PSG)
-		#include "z88dk/psg/psg_sounds.g"
+		#include "z88dk/psg/psg_sounds.h"
 	#elif defined(__ATMOS__) && defined(SOUNDS)
 		#include "cc65/atmos/atmos_sounds.h"
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(SOUNDS)

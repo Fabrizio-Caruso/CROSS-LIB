@@ -956,6 +956,7 @@ svi_318:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
 	$(ZSDCC_OPTS) \
 	-compiler=sdcc \
+	-DFORCE_CONIO_LIB \
 	-zorg=49152 \
 	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
@@ -963,9 +964,9 @@ svi_318:
 	-vn -lndos \
 	-D__SVI__ \
 	-DSOUNDS \
+	-DFORCE_BIT_BANG \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c	\
 	$(LIGHT_FILES)
 	mv a.cas $(BUILD_PATH)/LIGHT_svi_318.cas
 	rm a.bin
@@ -1000,6 +1001,7 @@ svi_328:
 	-DSOUNDS \
 	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-DFORCE_CONIO_LIB \
 	-create-app \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
 	$(SOURCE_PATH)/end_screen.c \
@@ -2178,6 +2180,9 @@ z88dk_test: \
 	sccz80_test \
 	zsdcc_test	
 	
+tofix: \
+	vg5k_targets 
+	
 z88dk_targets: \
 	svi_targets \
 	aquarius_targets \
@@ -2214,7 +2219,6 @@ z88dk_targets: \
 	samcoupe_targets \
 	lambda_targets \
 	c128_z80_targets \
-	vg5k_targets \
 	mc1000_targets \
 	msx_targets \
 	cpc_targets \
@@ -2347,7 +2351,7 @@ z9001_targets: \
 	z9001_16k z9001_32k
 
 vg5k_targets: \
-	vg5k vg5k_exp_16k
+	vg5k vg5k_exp_16k_udg
 	
 sc3000_targets: \
 	sc3000_16k sc3000_32k sg1000
@@ -2374,7 +2378,7 @@ p2000_targets: \
 	p2000_16k p2000_32k
 
 svi_targets: \
-	svi_318 svi_328
+	svi_318 svi_328_udg
 
 msx_targets: \
 	msx_32k_rom msx_32k

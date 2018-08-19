@@ -174,7 +174,7 @@ void _delete(unsigned char x, unsigned char y);
 
 
 // BORDER AND BACKGROUND COLORS
-#if defined(CC65) && !defined(__ATARI5200__)
+#if defined(CC65) && !defined(__ATARI5200__) && !defined(__SUPERVISION__)
 	#define SET_BORDER_COLOR(c) (void) bordercolor(c)
 	#define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
 #else

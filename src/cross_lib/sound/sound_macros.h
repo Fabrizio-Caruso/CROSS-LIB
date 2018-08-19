@@ -24,7 +24,11 @@
 
 #ifndef _SOUNDS_MACROS
 #define _SOUNDS_MACROS
-	#if defined(__ATMOS__) && defined(SOUNDS)
+	#  if defined(FORCE_BIT_BANG)
+		#include "z88dk/bit_bang/bit_bang_sounds.h"
+	#elif defined(FORCE_PSG)
+		#include "z88dk/psg/psg_sounds.g"
+	#elif defined(__ATMOS__) && defined(SOUNDS)
 		#include "cc65/atmos/atmos_sounds.h"
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(SOUNDS)
 		#include "cc65/atari/atari_sounds.h"

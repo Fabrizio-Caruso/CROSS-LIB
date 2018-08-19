@@ -1338,7 +1338,7 @@ spectrum_48k:
 	
 
 pc6001_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
+	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi \
 	-D__PC6001__ -v  \
 	-DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \

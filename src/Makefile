@@ -1338,14 +1338,14 @@ spectrum_48k:
 	
 
 pc6001_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
+	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi \
 	-D__PC6001__ -v  \
 	-DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_pc6001.prg  \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/LIGHT_pc6001.prg
+	# rm $(BUILD_PATH)/LIGHT_pc6001.prg
 	rm $(BUILD_PATH)/LIGHT_pc6001.wav
 	mv $(BUILD_PATH)/LIGHT_pc6001.cas $(BUILD_PATH)/LIGHT_pc6001.cp6	
 

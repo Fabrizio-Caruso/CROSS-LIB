@@ -37,17 +37,21 @@
 
 
 #if defined(NO_CASE_LETTERS)
-	#if defined(TINY_GAME)
+	#if defined(TINY_GAME) || XSize<=16
 		#define CROSS_CHASE_STRING "cross chase"
 		#define AUTHOR_STRING "fabrizio caruso"
 	#else
 		#define CROSS_CHASE_STRING "c r o s s  c h a s e"	
 		#define AUTHOR_STRING "by fabrizio caruso"
 	#endif
-	#define KILL_THE_SKULL_STRING "kill the skull"
-	#define DESTROY_MISSILES_STRING "destroy the missiles"
-	#define LURE_THE_ENEMIES_STRING "lure the enemies"
-	#define INTO_THE_MINES_STRING 	"into the mines"
+	#define KILL_THE_SKULL_STRING       "kill the skull"
+	#if XSize<=16
+		#define DESTROY_MISSILES_STRING "destroy missiles"		
+	#else
+		#define DESTROY_MISSILES_STRING "destroy the missiles"
+	#endif
+	#define LURE_THE_ENEMIES_STRING     "lure the enemies"
+	#define INTO_THE_MINES_STRING 	    "into the mines"
 	#define SCORE_STRING "score:"
 	#define LEVEL_STRING "level:"
 	#define START_LEVEL_STRING "level %u"
@@ -56,33 +60,22 @@
 	#define MISSILE_BASES_STRING "missile bases"
 	#define FOR_POINTS_AND___STRING "for points"
 	#define EXTRA_POWERUPS__STRING "and items"
-#elif defined(__PC6001__)
-	#define CROSS_CHASE_STRING "C R O S S  C H A S E"		
-	#define AUTHOR_STRING "BY FABRIZIO CARUSO"
-	#define KILL_THE_SKULL_STRING "KILL THE SKULL"	
-	#define DESTROY_MISSILES_STRING "destroy the missiles"	
-	#define LURE_THE_ENEMIES_STRING "LURE THE ENEMIES"
-	#define INTO_THE_MINES_STRING 	"INTO THE MINES"
-	#define SCORE_STRING "SCORE:"
-	#define LEVEL_STRING "LEVEL:"
-	#define START_LEVEL_STRING "LEVEL %u"
-	#define USE_THE_GUN_AGAINST_STRING "SHOOT AT"
-	#define THE_SKULL_AND_STRING "THE SKULL AND"
-	#define MISSILE_BASES_STRING "MISSILE BASES"
-	#define FOR_POINTS_AND___STRING "FOR POINTS"
-	#define EXTRA_POWERUPS__STRING  "AND ITEMS"	
 #else
-	#if defined(TINY_GAME)
+	#if defined(TINY_GAME) || XSize<=16
 		#define CROSS_CHASE_STRING "CROSS CHASE"
 		#define AUTHOR_STRING "Fabrizio Caruso"
 	#else
 		#define CROSS_CHASE_STRING "C R O S S  C H A S E"		
 		#define AUTHOR_STRING "by Fabrizio Caruso"
 	#endif
-	#define KILL_THE_SKULL_STRING "Kill the skull"	
-	#define DESTROY_MISSILES_STRING "Destroy the missiles"	
-	#define LURE_THE_ENEMIES_STRING "Lure the enemies"
-	#define INTO_THE_MINES_STRING "into the mines"
+	#define KILL_THE_SKULL_STRING   "Kill the skull"	
+	#if XSize<=16
+		#define DESTROY_MISSILES_STRING "Destroy missiles"		
+	#else
+		#define DESTROY_MISSILES_STRING "Destroy the missiles"	
+	#endif
+	#define LURE_THE_ENEMIES_STRING     "Lure the enemies"
+	#define INTO_THE_MINES_STRING   "into the mines"
 	#define SCORE_STRING "SCORE:"
 	#define LEVEL_STRING "LEVEL:"	
 	#define START_LEVEL_STRING "LEVEL %u"	
@@ -95,18 +88,12 @@
 
 #if defined(JOYSTICK_CONTROL) || defined(__MSX__) || defined(__CPC_JOYSTICK__) || defined(__MC1000_JOYSTICK__)
 	#define USE_STRING "use the joystick"
-#elif !defined(TINY_GAME)		
-	#if !defined(__PC6001__)
-		#define USE_STRING "use i j k l space"
-	#else
-		#define USE_STRING "USE I J K L SPACE"
-	#endif
+#elif defined(TINY_GAME) 
+	#define USE_STRING "USE IJKL"
+#elif XSize<=16
+	#define USE_STRING "USE IJKL SPACE"	
 #else
-	#if !defined(__PC6001__)
-		#define USE_STRING "use ijkl"		
-	#else
-		#define USE_STRING "USE IJKL"
-	#endif			
+	#define USE_STRING "USE I J K L SPACE"	
 #endif	
 
 #if defined(LESS_TEXT)
@@ -152,7 +139,11 @@
 #else
 	#define BONUS_COLON_STRING "BONUS: "
 	#define SCORE_COLON__STRING "SCORE: "
-	#define HIGH_SCORE_COLON_STRING "HIGH SCORE: "
+	#if XSize<=16
+		#define HIGH_SCORE_COLON_STRING "HISCORE: "
+	#else
+		#define HIGH_SCORE_COLON_STRING "HIGH SCORE: "
+	#endif
 #endif
 
 #define BONUS_DIGITS "%u0"

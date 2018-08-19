@@ -169,16 +169,12 @@
 #if !defined(NO_COLOR)
 	#ifndef COLOR_BLACK
 		#if defined(Z88DK)
-			#define COLOR_BLACK BLACK
-			#if defined(__PC6001__)
-				#define COLOR_WHITE YELLOW
-			#else
-				#define COLOR_WHITE WHITE
-			#endif
-			#define COLOR_BLUE BLUE			
-		#else
 			#define COLOR_BLACK 0	
-			#define COLOR_WHITE 7
+			#if defined(__PC6001__)
+				#define COLOR_WHITE 7
+			#else
+				#define COLOR_WHITE 15
+			#endif
 			#define COLOR_BLUE 1
 		#endif
 	#endif

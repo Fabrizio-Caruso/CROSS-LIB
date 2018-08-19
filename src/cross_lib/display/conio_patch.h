@@ -170,7 +170,11 @@
 	#ifndef COLOR_BLACK
 		#if defined(Z88DK)
 			#define COLOR_BLACK BLACK
-			#define COLOR_WHITE WHITE
+			#if defined(__PC6001__)
+				#define COLOR_WHITE YELLOW
+			#else
+				#define COLOR_WHITE WHITE
+			#endif
 			#define COLOR_BLUE BLUE			
 		#else
 			#define COLOR_BLACK 0	

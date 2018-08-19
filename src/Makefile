@@ -1345,7 +1345,7 @@ pc6001_16k:
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_pc6001.prg  \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(LIGHT_FILES)
-	# rm $(BUILD_PATH)/LIGHT_pc6001.prg
+	rm $(BUILD_PATH)/LIGHT_pc6001.prg
 	rm $(BUILD_PATH)/LIGHT_pc6001.wav
 	mv $(BUILD_PATH)/LIGHT_pc6001.cas $(BUILD_PATH)/LIGHT_pc6001.cp6	
 

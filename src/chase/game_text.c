@@ -41,6 +41,13 @@
 	#define SET_COLOR(c)
 #endif
 
+#if XSize<=16
+	#define EXTRA_TINY 1
+#else
+	#define EXTRA_TINY 0
+#endif
+
+
 #if defined(WIDE) && !defined(TINY_GAME)
 	#define GUN_IMAGE_X 17
 	#define GUN_IMAGE_Y 0
@@ -50,14 +57,15 @@
 	#define PLAYER_IMAGE_Y 1
 	#define LEVEL_X 6
 #else
-	#define GUN_IMAGE_X 11
+	#define GUN_IMAGE_X (11-EXTRA_TINY)
 	#define GUN_IMAGE_Y 0
-	#define GHOST_IMAGE_X 8
+	#define GHOST_IMAGE_X (8-EXTRA_TINY)
 	#define GHOST_IMAGE_Y 0
-	#define PLAYER_IMAGE_X 14
+	#define PLAYER_IMAGE_X (14-EXTRA_TINY)
 	#define PLAYER_IMAGE_Y 0
 	#define LEVEL_X 18
 #endif
+
 
 #if defined(ALT_DISPLAY_STATS)
 	#define printCenteredMessageOnRow(row, text) PRINT(6,row,text)
@@ -190,7 +198,7 @@ void displayStats(void)
 	#if defined(WIDE) && !defined(TINY_GAME)
 		PRINTF(6,+0,"%05u0",points);
 	#else
-		PRINTF(1,0,"%05u0",points);	
+		PRINTF(!EXTRA_TINY,0,"%05u0",points);	
 	#endif	
 }
 

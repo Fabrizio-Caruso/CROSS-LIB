@@ -388,7 +388,7 @@ int main(void)
 				skullAlive = 1;
 				
 				#if defined(FULL_GAME)
-					skullHits = (!bossLevel())<<1;
+					skullHits = (!bossLevel())<<2;
 				#else
 					skullHits = 0;
 				#endif

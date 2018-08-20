@@ -673,9 +673,16 @@ vg5k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-compiler=sdcc \
 	$(ZSDCC_OPTS) \
+	-opt-code-size \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_HINTS \
+	-DALT_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DFLAT_ENEMIES \
+	-DFORCE_NARROW \
 	-vn -DFULL_GAME -D__VG5K__ \
 	-DLESS_TEXT \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -684,8 +691,9 @@ vg5k:
 	-DSIMPLE_STRATEGY \
 	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	$(FULL_FILES) 
-	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c
+#	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
 
 vg5k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
@@ -2180,8 +2188,6 @@ z88dk_test: \
 	sccz80_test \
 	zsdcc_test	
 	
-tofix: \
-	vg5k_targets 
 	
 z88dk_targets: \
 	svi_targets \
@@ -2223,7 +2229,8 @@ z88dk_targets: \
 	msx_targets \
 	cpc_targets \
 	nc100_targets \
-	kc_targets
+	kc_targets \
+	vg5k_targets	
 
 cmoc_targets: \
 	coco

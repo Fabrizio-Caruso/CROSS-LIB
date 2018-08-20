@@ -388,7 +388,7 @@ int main(void)
 				skullAlive = 1;
 				
 				#if defined(FULL_GAME)
-					skullHits = (!bossLevel())<<1;
+					skullHits = (!bossLevel())<<2;
 				#else
 					skullHits = 0;
 				#endif
@@ -539,7 +539,7 @@ int main(void)
 									#if defined(SIMPLE_STRATEGY)
 										moveTowardCharacter(chasedByGhosts, &bombs[loop&3]);
 									#else
-										moveTowardCharacter(chasedByGhosts, &bombs[loop&3], 4);
+										moveTowardCharacter(chasedByGhosts, &bombs[loop&3], (1+loop&3)<<1);
 									#endif
 								}
 							#endif							
@@ -741,8 +741,7 @@ int main(void)
 				#if !defined(TINY_GAME)
 					CLEAR_SCREEN();
 				#endif
-				--lives;
-				if(lives>0)
+				if(--lives>0)
 				{
 					player._status = 1;
 				}

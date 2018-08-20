@@ -741,8 +741,7 @@ int main(void)
 				#if !defined(TINY_GAME)
 					CLEAR_SCREEN();
 				#endif
-				--lives;
-				if(lives>0)
+				if(--lives>0)
 				{
 					player._status = 1;
 				}

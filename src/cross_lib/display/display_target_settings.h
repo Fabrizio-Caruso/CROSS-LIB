@@ -53,6 +53,7 @@
 		|| defined(__APPLE2ENH__) || defined(__APPLE2__) \
 		|| defined(__Z9001__) || defined(__P2000__) \
 		|| defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__)) \
+		|| defined(__ATARI5200__) \
 		|| defined(__ACE__) \
 		|| defined(__CPM_80X24__) \
 		|| defined(__EINSTEIN__) \
@@ -134,7 +135,8 @@
 	#elif defined(__VIC20__)
 		#define XSize 22
 	#elif (defined(__ATARI__) && defined(ATARI_MODE1)) \
-		  || defined(__ATARI_LYNX__) || defined(__SUPERVISION__)
+		  || defined(__ATARI_LYNX__) || defined(__SUPERVISION__) \
+		  || defined(__ATARI5200__)
 		#define XSize 20
 	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
 		#define XSize 16
@@ -188,7 +190,7 @@
 	|| defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \
 	|| defined(__TRS80__) || defined(__CPM_80X24__) || defined(__PX8__) || defined(__PX4__) \
 	|| defined(__ABC800__) || defined(__SRR__) || defined(__PV1000__) || defined(__PV2000__) \
-	|| defined(__KC__) || defined(__ATMOS__)
+	|| defined(__KC__) || defined(__ATMOS__) || defined(__SUPERVISION__)
 	#define NO_COLOR 
 #else
 	#define COLOR

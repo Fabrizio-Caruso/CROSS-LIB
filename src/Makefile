@@ -870,7 +870,29 @@ cpc:
 	rm $(BUILD_PATH)/FULL_cpc.cpc 
 	rm $(BUILD_PATH)/FULL_cpc.prg			
 
+cpc_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) \
+	-D__CPC__ \
+	-create-app -o $(BUILD_PATH)/FULL_cpc_udg.cpc -vn \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-DFORCE_SCREEN_MODE=2 \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(FULL_FILES)	
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_udg.cpc  $(BUILD_PATH)/FULL_cpc_udg.cdt
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_cpc_udg.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc_udg.dsk -p $(BUILD_PATH)/FULL_cpc_udg.cpc xchase
+	mv FULL_cpc_udg.dsk $(BUILD_PATH)/
+	rm $(BUILD_PATH)/FULL_cpc_udg.cpc
 
+	
 cpc_joystick:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \

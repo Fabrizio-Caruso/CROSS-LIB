@@ -117,33 +117,63 @@ extern Character player;
 
 
 #if defined(JOYSTICK_CONTROL)
-	#include <joystick.h>
-	
-	void movePlayerByJoystick(unsigned char joyInput)
-	{
-		if(JOY_UP(joyInput))
+	#if defined(Z88DK_JOYSTICK)
+		#include <games.h>
+		
+		void movePlayerByJoystick(unsigned char joyInput)
 		{
-			_DO_MOVE_UP
-		}
-		else if(JOY_DOWN(joyInput))
+			if(joyInput & MOVE_UP)
+			{
+				_DO_MOVE_UP
+			}
+			else if(joyInput & MOVE_DOWN)
+			{
+				_DO_MOVE_DOWN
+			}
+			else if(joyInput & MOVE_LEFT)
+			{
+				_DO_MOVE_LEFT
+			}
+			else if(joyInput & MOVE_RIGHT)
+			{
+				_DO_MOVE_RIGHT
+			}
+			#if !defined(TINY_GAME)
+			else if(joyInput & MOVE_FIRE && guns>0 && !bullet._status)
+			{
+				playerFire = 1;
+			}
+			#endif
+		}	
+	#else
+		#include <joystick.h>
+		
+		void movePlayerByJoystick(unsigned char joyInput)
 		{
-			_DO_MOVE_DOWN
-		}
-		else if(JOY_LEFT(joyInput))
-		{
-			_DO_MOVE_LEFT
-		}
-		else if(JOY_RIGHT(joyInput))
-		{
-			_DO_MOVE_RIGHT
-		}
-		#if !defined(TINY_GAME)
-		else if(JOY_BTN_1(joyInput) && guns>0 && !bullet._status)
-		{
-			playerFire = 1;
-		}
-		#endif
-	}	
+			if(JOY_UP(joyInput))
+			{
+				_DO_MOVE_UP
+			}
+			else if(JOY_DOWN(joyInput))
+			{
+				_DO_MOVE_DOWN
+			}
+			else if(JOY_LEFT(joyInput))
+			{
+				_DO_MOVE_LEFT
+			}
+			else if(JOY_RIGHT(joyInput))
+			{
+				_DO_MOVE_RIGHT
+			}
+			#if !defined(TINY_GAME)
+			else if(JOY_BTN_1(joyInput) && guns>0 && !bullet._status)
+			{
+				playerFire = 1;
+			}
+			#endif
+		}	
+	#endif
 #else
 	void movePlayerByKeyboard(unsigned char kbInput)
 	{
@@ -197,7 +227,13 @@ extern Character player;
 	#else
 		#define INPUT_POST_PROC()
 	#endif
-	void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));	INPUT_POST_PROC();}
+	#if defined(Z88DK_JOYSTICK)
+		extern unsigned char stick;
+		
+		void MOVE_PLAYER(void) { movePlayerByJoystick(joystick(stick));}
+	#else
+		void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));	INPUT_POST_PROC();}
+	#endif
 #endif
 
 

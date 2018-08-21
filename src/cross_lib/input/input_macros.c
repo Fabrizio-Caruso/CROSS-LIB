@@ -249,16 +249,32 @@ out			stb res
 		}
 	#endif	
 #else
-	#include<joystick.h>
+	#if defined(Z88DK_JOYSTICK)
+		#include <games.h>
+		
+		extern unsigned char stick;
+		
+		void WAIT_PRESS(void)
+		{
+			while ((joystick(stick) & MOVE_FIRE))
+			{
+			}
+			while (!(joystick(stick) & MOVE_FIRE))
+			{
+			}
+		}			
+	#else
+		#include<joystick.h>
 
-	void WAIT_PRESS(void)
-	{
-		while ((joy_read(JOY_1) & JOY_BTN_1_MASK))
+		void WAIT_PRESS(void)
 		{
-		}
-		while (! (joy_read(JOY_1) & JOY_BTN_1_MASK))
-		{
-		}
-	}	
+			while ((joy_read(JOY_1) & JOY_BTN_1_MASK))
+			{
+			}
+			while (! (joy_read(JOY_1) & JOY_BTN_1_MASK))
+			{
+			}
+		}	
+	#endif
 #endif
 

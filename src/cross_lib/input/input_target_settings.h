@@ -1,7 +1,6 @@
 #ifndef _INPUT_TARGET_SETTINGS
 #define _INPUT_TARGET_SETTINGS
 
-
 #  if defined(__CPC_JOYSTICK__) // Special Joystick 
 	#define _MOVE_UP 0x0B 
 	#define _MOVE_DOWN 0x0A 
@@ -51,7 +50,8 @@
 		|| defined(__CBM510__) || defined(__PET__) \
 		|| (defined(__C128__) && !defined(__C128_Z80__)) \
 		|| defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) || defined(__LYNX__) \
-		|| defined(__NES__) || defined(__PCE__)
+		|| defined(__NES__) || defined(__PCE__) \
+		|| defined(Z88DK_JOYSTICK)
 	#define JOYSTICK_CONTROL
 #else
 	#define KEYBOARD_CONTROL

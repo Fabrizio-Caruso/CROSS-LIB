@@ -62,6 +62,11 @@
 	#include "rocket.h"
 #endif
 
+#if defined(Z88DK_JOYSTICK)
+	unsigned char stick;
+#endif
+
+
 
 unsigned short ghostSlowDown;
 

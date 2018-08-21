@@ -41,5 +41,7 @@
 #define _CONFUSE 21
 #define _ZOMBIE 22
 
+#define _FREEZE 23
+
 #define _BROKEN_BRICK _BOMB
 #endif // _SUPERVISION_SETTINGS

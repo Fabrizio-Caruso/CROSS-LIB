@@ -112,6 +112,18 @@ atari5200:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_atari5200.rom
 
+	
+atari5200_2: 
+	$(CC65_PATH)$(MYCC65) -O -t atari5200 \
+	-D__ATARI5200__ \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DMEMORY_MAPPED \
+	-DANIMATE_PLAYER \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
+	-o $(BUILD_PATH)/FULL_atari5200_fx.rom
+	
 
 atmos: 
 	$(CC65_PATH)$(MYCC65)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \

@@ -544,7 +544,7 @@ int main(void)
 									#if defined(SIMPLE_STRATEGY)
 										moveTowardCharacter(chasedByGhosts, &bombs[loop&3]);
 									#else
-										moveTowardCharacter(chasedByGhosts, &bombs[loop&3], (1+(loop&3))<<1);
+										moveTowardCharacter(chasedByGhosts, &bombs[loop&3], (unsigned char) (1+(unsigned char)(loop&3))<<1);
 									#endif
 								}
 							#endif							

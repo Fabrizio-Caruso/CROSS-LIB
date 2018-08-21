@@ -433,7 +433,7 @@ int main(void)
 				{
 					printKillTheSkull();
 					SLEEP(2);
-					ghostCount = level>>2;
+					ghostCount = 1+(level>>2);
 				}
 				CLEAR_SCREEN();
 				

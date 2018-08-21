@@ -59,16 +59,20 @@
 			#define FULLER_JOYSTICK 5
 		#endif
 		
-		#if defined(__SPECTRUM__)
-			#define STICK SINCLAIR_1_JOYSTICK
-		#else
-			#define STICK 1
-		#endif
-		
 		#define INIT_INPUT() \
 		{ \
-			stick = STICK; \
+			stick = 1; \
 		}
+		// #if defined(__SPECTRUM__)
+			// #define STICK SINCLAIR_1_JOYSTICK
+		// #else
+			// #define STICK 1
+		// #endif
+		
+		// #define INIT_INPUT() \
+		// { \
+			// stick = STICK; \
+		// }
 		
 		// #define INIT_INPUT() \
 		// { \

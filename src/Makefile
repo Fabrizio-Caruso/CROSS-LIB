@@ -870,7 +870,29 @@ cpc:
 	rm $(BUILD_PATH)/FULL_cpc.cpc 
 	rm $(BUILD_PATH)/FULL_cpc.prg			
 
+cpc_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) \
+	-D__CPC__ \
+	-create-app -o $(BUILD_PATH)/FULL_cpc_udg.cpc -vn \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-DFORCE_SCREEN_MODE=2 \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(FULL_FILES)	
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_udg.cpc  $(BUILD_PATH)/FULL_cpc_udg.cdt
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_cpc_udg.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc_udg.dsk -p $(BUILD_PATH)/FULL_cpc_udg.cpc xchase
+	mv FULL_cpc_udg.dsk $(BUILD_PATH)/
+	rm $(BUILD_PATH)/FULL_cpc_udg.cpc
 
+	
 cpc_joystick:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \
@@ -983,8 +1005,9 @@ svi_318:
 # -pragma-define:ansicolumns=32 -clib=ansi 
 # 	-DCONIO_VT52 
 #	-DFORCE_NO_CONIO_LIB 
-svi_328_udg:
+svi_328_udg_cursor:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
+	-DZ88DK_JOYSTICK \
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-pragma-redirect:fputc_cons=fputc_cons_generic $(SCCZ80_OPTS) \
@@ -1230,6 +1253,26 @@ mc1000_48k_joystick_udg:
 	rm a.cas	
 	
 # 	-pragma-define:ansicolumns=32
+mc1000_48k_udg_joystick:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
+	-subtype=gaming \
+	-DZ88DK_JOYSTICK \
+	-DFULL_GAME  \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-DSOUND \
+	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-vn  -lndos -create-app -Cz--audio \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_udg_joystick.wav
+	mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_udg_joystick.bin
+	rm a.cas
+
 mc1000_48k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
 	-subtype=gaming \
@@ -1247,8 +1290,8 @@ mc1000_48k_udg:
 	$(FULL_FILES)
 	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_udg.wav
 	mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_udg.bin
-	rm a.cas
-
+	rm a.cas	
+	
 mc1000_48k:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
 	-subtype=gaming -pragma-define:ansicolumns=32 \
@@ -1328,6 +1371,21 @@ spectrum_48k:
 	rm $(BUILD_PATH)/FULL_spectrum_48k.prg
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin	
 
+	
+spectrum_48k_joystick:
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -v  \
+	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
+	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
+	-DZ88DK_JOYSTICK \
+	-lndos -create-app \
+	-DCONIO \
+	-o $(BUILD_PATH)/FULL_spectrum_48k_joystick.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/udg.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/spectrum_redefined_chars_init_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_spectrum_48k_joystick.prg
+	rm $(BUILD_PATH)/FULL_spectrum_48k_joystick_BANK_7.bin		
 	
 # spectrum_48k_putc4x6:
 	# $(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -vn  \
@@ -2307,10 +2365,10 @@ pv2000_targets: \
 	pv2000
 
 srr_targets: \
-	srr
+	srr_udg
 
 m5_targets: \
-	m5_tiny m5
+	m5_tiny m5_udg
 
 ti82_targets: \
 	ti82_turn_based ti82_tiny_turn_based 
@@ -2352,7 +2410,7 @@ nascom_targets: \
 	nascom_16k nascom_32k 
 	
 pc6001_targets: \
-	pc6001_16k pc6001_32k 	
+	pc6001_16k pc6001_32k_udg 	
 	
 z9001_targets: \
 	z9001_16k z9001_32k
@@ -2361,22 +2419,22 @@ vg5k_targets: \
 	vg5k vg5k_exp_16k_udg
 	
 sc3000_targets: \
-	sc3000_16k sc3000_32k sg1000
+	sc3000_16k sc3000_32k_udg sg1000
 	
 ace_targets: \
-	ace_exp_16k
+	ace_exp_16k_udg
 
 cpc_targets: \
 	cpc cpc_joystick
 	
 mc1000_targets: \
- 	mc1000_16k_full mc1000_48k
+ 	mc1000_16k_full mc1000_48k_udg mc1000_48k_udg_joystick
 	
 sharp_mz_targets: \
  	sharp_mz
 	
 mtx_targets: \
-	mtx 
+	mtx_udg
 	
 abc80_targets: \
 	abc80_16k abc80_32k
@@ -2385,7 +2443,7 @@ p2000_targets: \
 	p2000_16k p2000_32k
 
 svi_targets: \
-	svi_318 svi_328_udg
+	svi_318 svi_328_udg_cursor
 
 msx_targets: \
 	msx_32k_rom msx_32k
@@ -2412,7 +2470,7 @@ zx81_targets: \
 	zx81_16k zx81_16k_turn_based
 	
 spectrum_targets: \
-	spectrum_16k spectrum_48k
+	spectrum_16k spectrum_48k spectrum_48k_joystick
 	
 samcoupe_targets: \
 	samcoupe

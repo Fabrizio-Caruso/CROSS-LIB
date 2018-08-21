@@ -47,6 +47,56 @@
 		#else
 			#define INIT_INPUT()
 		#endif
+	#elif defined(Z88DK_JOYSTICK)
+	// TODO: BOGUS
+		extern unsigned char stick;
+		
+		#if defined(__SPECTRUM__)
+			#define KEMPSON_JOYSTICK 1
+			#define SINCLAIR_1_JOYSTICK 2
+			#define SINCLAIR_2_JOYSTICK 3
+			#define CURSOR_JOYSTICK 4
+			#define FULLER_JOYSTICK 5
+		#endif
+		
+		#if defined(__SPECTRUM__)
+			#define STICK SINCLAIR_1_JOYSTICK
+		#else
+			#define STICK 1
+		#endif
+		
+		#define INIT_INPUT() \
+		{ \
+			stick = STICK; \
+		}
+		
+		// #define INIT_INPUT() \
+		// { \
+			// unsigned char k; \
+			// \
+			// stick=0; \
+			// while ((stick<1) || (stick>GAME_DEVICES)) \
+			// { \
+				// stick=getk()-48; \
+			// } \
+		// }		
+		
+		// #define INIT_INPUT() \
+		// { \
+			// unsigned char k; \
+			// \
+			// printf("\n  CHOOSE YOUR JOYSTICK INTERFACE\n\n"); \
+			// for (k=0 ; k!=GAME_DEVICES; k++) \
+			// { \
+				// printf("    %u - %s\n\n",k+1,joystick_type[k]); \
+			// } \
+			// stick=0; \
+			// while ((stick<1) || (stick>GAME_DEVICES)) \
+			// { \
+				// stick=getk()-48; \
+			// } \
+		// }
+	//
 	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200
 		#include <joystick.h>
 		#if defined(__SUPERVISION__)

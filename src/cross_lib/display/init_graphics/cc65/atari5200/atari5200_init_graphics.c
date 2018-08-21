@@ -39,12 +39,15 @@
 
 #include "../../../redefine_characters/udg_map.h"	
 
+// TODO: BOGUS
+#define _FONT_START__ (unsigned char *) 0xF800
+
 void set_udg(void)
 {
-	extern char _FONT_START__[];
+	
 	unsigned char *CHBASE = (unsigned char *)0xD409;
 
-	memcpy(_FONT_START__, (void *)0x5800, 512);
+	memcpy(_FONT_START__, (void *)0xF800, 512);
 	
 	/* modify your font at _FONT_START__, etc, then set the new font: */		
 	REDEFINE_AT(_FONT_START__);

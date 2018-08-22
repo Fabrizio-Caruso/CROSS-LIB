@@ -403,7 +403,18 @@ nes:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_nes.nes
+	-o $(BUILD_PATH)/FULL_nes.nes	
+	
+nes_fx:
+	$(CC65_PATH)$(MYCC65) -O -t nes \
+	-DFULL_GAME \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/nes_tiles.s \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_nes_fx.nes
 	
 apple2:	 
 	$(CC65_PATH)$(MYCC65) -O -t apple2 \

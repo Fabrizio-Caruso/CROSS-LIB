@@ -38,7 +38,7 @@
 		  #define YSize (30-Y_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		  #define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)	
-	#elif defined(__ATMOS__)
+	#elif defined(__ATMOS__) || defined(__NES__)
 		#define YSize (28-Y_OFFSET)		  
 	#elif defined(__CBM610__) || defined(__PET__) || defined(__C128__) \
 		  || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
@@ -52,7 +52,7 @@
 		|| defined(__SPECTRUM__) || defined(__SC3000__) || defined(__MTX__) \
 		|| defined(__APPLE2ENH__) || defined(__APPLE2__) \
 		|| defined(__Z9001__) || defined(__P2000__) \
-		|| defined(__NES__) || (defined(__ATARI__) || defined(__ATARIXL__)) \
+		|| (defined(__ATARI__) || defined(__ATARIXL__)) \
 		|| defined(__ATARI5200__) \
 		|| defined(__ACE__) \
 		|| defined(__CPM_80X24__) \

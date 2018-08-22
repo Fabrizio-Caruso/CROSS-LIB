@@ -31,7 +31,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include <conio.h>
+#include "setcolor.h"
 
 #include "../../../graphics_settings.h"
 
@@ -60,15 +60,13 @@ void set_udg(void)
  
 void INIT_GRAPHICS(void)
 {
-	// Mode 12 with no last monochromatic lines (12+16)
-	// _graphics(GRAPHICS_MODE);
 	
-	// _setcolor_low(0, TGI_COLOR_RED);
-	// _setcolor_low(1, TGI_COLOR_WHITE);
-	// _setcolor_low(2, TGI_COLOR_CYAN); 	
-	// _setcolor_low(3, TGI_COLOR_BROWN);
-	// _setcolor_low(4, TGI_COLOR_BLACK);
-
+	POKE(COLOR0,TGI_COLOR_RED);
+	POKE(COLOR1,TGI_COLOR_WHITE);
+	POKE(COLOR2,TGI_COLOR_CYAN);
+	POKE(COLOR3,TGI_COLOR_BROWN);
+	POKE(COLOR4,TGI_COLOR_BLACK);
+	
 	set_udg();
 }
 

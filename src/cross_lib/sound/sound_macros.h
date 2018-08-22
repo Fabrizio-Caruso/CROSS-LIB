@@ -31,7 +31,9 @@
 	#elif defined(__ATMOS__) && defined(SOUNDS)
 		#include "cc65/atmos/atmos_sounds.h"
 	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(SOUNDS)
-		#include "cc65/atari/atari_sounds.h"
+		#include "cc65/pokey/pokey_sounds.h"
+	#elif defined(__ATARI5200__) && defined(SOUNDS)
+		#include "cc65/pokey/pokey_sounds.h"	
 	#elif defined(__SPECTRUM__) && defined(SOUNDS)
 		#include "z88dk/bit_bang/bit_bang_sounds.h"		
 	#elif defined(__BEE__) && defined(SOUNDS)

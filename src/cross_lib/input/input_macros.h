@@ -29,7 +29,6 @@
 	#if defined(KEYBOARD_CONTROL)
 		#if defined(__ATMOS__)
 			#include <peekpoke.h>
-		// Remove keyboard click sound
 			#define INIT_INPUT() { POKE(0x26A,PEEK(0x26A) | 8); }
 		#elif defined(__MSX__)
 			#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))		
@@ -42,7 +41,6 @@
 		#elif defined(__M5__)
 			#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))	
 			#define PEEK(addr)         (*(unsigned char*) (addr))		
-			// POKE(0x703A,1); POKE(0x703B,1);			
 			#define INIT_INPUT() { POKE(0x701A,PEEK(0x701A)&0x7F);}
 		#else
 			#define INIT_INPUT()

@@ -221,9 +221,12 @@ extern Character player;
 		#endif
 	}
 #else
-	#if defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__)
+	#if defined(__ATARI__) || defined(__ATARIXL__)
 		#include <peekpoke.h>
-		#define INPUT_POST_PROC() POKE(77,0)
+		#define INPUT_POST_PROC() POKE(0x4D,0)
+	#elif defined(__ATARI5200__)
+		#include <peekpoke.h>
+		#define INPUT_POST_PROC() POKE(0x04,0)	
 	#else
 		#define INPUT_POST_PROC()
 	#endif

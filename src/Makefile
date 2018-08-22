@@ -113,8 +113,9 @@ atari5200:
 	-o $(BUILD_PATH)/FULL_atari5200.rom
 
 	
-atari5200_2: 
+atari5200_fx: 
 	$(CC65_PATH)$(MYCC65) -O -t atari5200 \
+	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
 	-D__ATARI5200__ \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DMEMORY_MAPPED \

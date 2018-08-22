@@ -2336,7 +2336,7 @@ clean_lib_obj:
 	rm -rf $(CROSS_LIB_PATH)/input/*.o
 	rm -rf $(CROSS_LIB_PATH)/sleep/*.o
 	rm -rf $(CROSS_LIB_PATH)/sound/*.o
-	rm -rf $(CROSS_LIB_PATH)/sound/cc65/atari/*.o
+	rm -rf $(CROSS_LIB_PATH)/sound/cc65/pokey/*.o
 	rm -rf $(CROSS_LIB_PATH)/sound/cc65/atmos/*.o
 	rm -rf $(CROSS_LIB_PATH)/sound/cc65/c264/*.o
 	rm -rf $(CROSS_LIB_PATH)/sound/cc65/sid/*.o

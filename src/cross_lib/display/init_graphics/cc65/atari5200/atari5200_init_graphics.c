@@ -31,6 +31,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#include <conio.h>
+
 #include "../../../graphics_settings.h"
 
 #include "../../../graphics_data/8x8_chars.h"
@@ -40,19 +42,23 @@
 #include "../../../redefine_characters/udg_map.h"	
 
 // TODO: BOGUS
-#define _FONT_START__ (unsigned char *) 0xF800
+// #define _FONT_START__ (unsigned char *) 0xF800
+// export (unsigned char *) _FONT_START__;
 
 void set_udg(void)
 {
+	// gotoxy(2,2);
+	// cprintf("%d", PEEK(0x1B)+PEEK(0x1C)*256);
+	// while(1);
+	// extern char _FONT_START__[];
 	
-	unsigned char *CHBASE = (unsigned char *)0xD409;
+	// unsigned char *CHBASE = (unsigned char *)0xD409;
 
-	memcpy(_FONT_START__, (void *)0xF800, 512);
+	// memcpy(_FONT_START__, (void *)0xF800, 512);
 	
-	/* modify your font at _FONT_START__, etc, then set the new font: */		
-	REDEFINE_AT(_FONT_START__);
+	// REDEFINE_AT(_FONT_START__);
 	
-	*CHBASE = ((int)_FONT_START__ >> 8);  /* enable the new font */		
+	// *CHBASE = ((int)_FONT_START__ >> 8);  	
 }
  
 void INIT_GRAPHICS(void)

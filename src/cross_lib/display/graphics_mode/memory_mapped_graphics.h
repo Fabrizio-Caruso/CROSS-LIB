@@ -15,7 +15,7 @@
 #elif defined(__ATARI__) && defined(ATARI_MODE1)
 	#define BASE_ADDR 0xBD80
 #elif defined(__ATARI5200__)
-	#define BASE_ADDR 0xBD80
+	#define BASE_ADDR 0x3E20
 #elif defined(__ATMOS__)
 	#define BASE_ADDR 0xBB80
 #elif defined(__VIC20__) && (defined(VIC20_UNEXPANDED) || defined(VIC20_EXP_3K))

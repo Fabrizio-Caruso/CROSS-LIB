@@ -47,18 +47,15 @@
 
 void set_udg(void)
 {
-	// gotoxy(2,2);
-	// cprintf("%d", PEEK(0x1B)+PEEK(0x1C)*256);
-	// while(1);
-	// extern char _FONT_START__[];
+	extern char _FONT_START__[];
 	
-	// unsigned char *CHBASE = (unsigned char *)0xD409;
+	unsigned char *CHBASE = (unsigned char *)0xD409;
 
-	// memcpy(_FONT_START__, (void *)0xF800, 512);
+	memcpy(_FONT_START__, (void *)0xF800, 512);
 	
-	// REDEFINE_AT(_FONT_START__);
+	REDEFINE_AT(_FONT_START__);
 	
-	// *CHBASE = ((int)_FONT_START__ >> 8);  	
+	*CHBASE = ((int)_FONT_START__ >> 8);  	
 }
  
 void INIT_GRAPHICS(void)

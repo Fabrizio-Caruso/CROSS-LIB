@@ -88,7 +88,7 @@ atari_color:
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/atari/atari_sounds.c \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_atari_color.xex
@@ -97,33 +97,35 @@ atari_no_color:
 	$(CC65_PATH)$(MYCC65) -O -t atari \
 	-DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	$(CROSS_LIB_PATH)/sound/cc65/atari/atari_sounds.c \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_atari_no_color.xex
 
 
 # --config $(SOURCE_PATH)/../cfg/cc65/atari5200_less_stack.cfg
-atari5200: 
-	$(CC65_PATH)$(MYCC65) -O -t atari5200 \
-	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_atari5200.rom
+# atari5200: 
+	# $(CC65_PATH)$(MYCC65) -O -t atari5200 \
+	# -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	# -DCONIO -DNO_INIT_GRAPHICS \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(FULL_FILES) \
+	# -o $(BUILD_PATH)/FULL_atari5200.rom
 
 	
-atari5200_fx: 
+atari5200: 
 	$(CC65_PATH)$(MYCC65) -O -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
 	-D__ATARI5200__ \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DMEMORY_MAPPED \
 	-DANIMATE_PLAYER \
+	-DSOUNDS \
 	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
-	-o $(BUILD_PATH)/FULL_atari5200_fx.rom
+	-o $(BUILD_PATH)/FULL_atari5200.rom
 	
 
 atmos: 

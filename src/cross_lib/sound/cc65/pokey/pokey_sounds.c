@@ -22,20 +22,48 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#ifndef _ATARI_SOUNDS
-#define _ATARI_SOUNDS
-
-	#include<atari.h>
-
-	void _ping_sound(unsigned char freq);
-	#define PING_SOUND() _ping_sound(0xF0);	
-	#define TOCK_SOUND() _ping_sound(0x02);
-	#define TICK_SOUND() _ping_sound(0x60);
+#include "pokey_sounds.h"
 	
-	void _explosion_sound(unsigned char freq);
-	#define SHOOT_SOUND() _explosion_sound(0xF0);
-	#define EXPLOSION_SOUND() _explosion_sound(0x80);
-	
-	void ZAP_SOUND(void);	
+	void _explosion_sound(unsigned char freq)
+	{
+		unsigned short i; 
+		POKEY_WRITE.audctl = 0x00; 
+		POKEY_WRITE.skctl = 2;
+		POKEY_WRITE.audf1 = freq; 
+		POKEY_WRITE.audc1 = 0x07; 
+		for(i=150;i>0;--i) 
+		{ 
+			POKEY_WRITE.audc1 = i/10u; 
+		} 
+	}
 
-#endif // _ATARI_SOUNDS
+	
+	void _ping_sound(unsigned char freq)
+	{ 
+		unsigned short i; 
+		POKEY_WRITE.audctl = 0x00; 
+		POKEY_WRITE.skctl = 2;		
+		POKEY_WRITE.audf1 = freq; 
+		POKEY_WRITE.audc1 = 0xA7; 
+		for(i=700;i>0;--i) 
+		{ 
+		} 
+		POKEY_WRITE.audc1 = 0x00; 
+	};			
+	
+
+	void ZAP_SOUND(void) 
+	{ 
+		unsigned short i; 
+		unsigned short j; 
+		POKEY_WRITE.audctl = 0x00; 
+		POKEY_WRITE.skctl = 2;		
+		POKEY_WRITE.audf1 = 0x02;
+		POKEY_WRITE.audc1 = 0xA7; 
+		for(i=0;i<100;++i) 
+		{ 
+			for(j=0;j<50;++j) { } 
+			POKEY_WRITE.audf1 = 100+i; 
+		} 
+		POKEY_WRITE.audc1 = 0x00; 
+	};	

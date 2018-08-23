@@ -33,34 +33,36 @@
 
 #include "../display/display_macros.h"
 
-#define _POWERUP (char) (0x7A-0x20)
-#define _GHOST (char) (0x76-0x20)
-#define _BOMB (char) (0x78-0x20)
-#define _GUN (char) (0x7B-0x20)
+#define _POWERUP 248
+#define _GHOST (char) 35
+#define _BOMB 251
+#define _GUN 246
 
-#define _PLAYER_DOWN '\''
-#define _PLAYER_UP ((char) 0x76 - 6 - 0x20)
-#define _PLAYER_RIGHT ((char) 0x76 - 2 - 0x20)
-#define _PLAYER_LEFT ((char) 0x76 - 4 -0x20)
+#define _PLAYER_DOWN 252
+#define _PLAYER_UP 255
+#define _PLAYER_RIGHT 254
+#define _PLAYER_LEFT 253
 	
 
-#define _BULLET (char) (0x7C-0x20)
-#define _ROCKET ('^'-0x40)
-#define _EXTRA_POINTS '*'
-#define _LEFT_HORIZONTAL_MISSILE '>'
-#define _RIGHT_HORIZONTAL_MISSILE '<'
-#define _INVINCIBILITY (0x73 - 0x20)
+#define _BULLET 242
+#define _ROCKET 239
+#define _EXTRA_POINTS '$'
+#define _LEFT_HORIZONTAL_MISSILE 241
+#define _RIGHT_HORIZONTAL_MISSILE 240
+#define _INVINCIBILITY 238
 
-#define _SKULL (char) (0x77 - 0x20)
+#define _SKULL 250
 
-#define _DEAD_GHOST _GHOST
+#define _DEAD_GHOST 247
 #define _EXTRA_LIFE _PLAYER_DOWN
 #define _CONFUSE _SKULL
 
+#define _SUPER 245
+#define _FREEZE 243
 
 #define _SPACE ' '
-#define _VERTICAL_BRICK ('|'-128)
-#define _HORIZONTAL_BRICK (0xC3-128)
+#define _VERTICAL_BRICK 249
+#define _HORIZONTAL_BRICK 244
 #define _BROKEN_BRICK _BOMB
 
 

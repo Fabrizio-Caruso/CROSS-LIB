@@ -1,5 +1,6 @@
 #include <peekpoke.h>
 
+#include <nes.h>
 
 #define _RED 6
 #define _BROWN 24
@@ -23,9 +24,9 @@ void put_char(uint8 x, uint8 y, uint8 c)
 
 void set_color(unsigned char palette_group, unsigned char color_index, unsigned char color)
 {
-    POKE(0x2006,0x3f);
-    POKE(0x2006,(palette_group * 4 + color_index));   
-    POKE(0x2007,color);   
+    PPU.vram.address = 0x3f;
+    PPU.vram.address = palette_group * 4 + color_index;   
+    PPU.vram.data = color;   
 }
 
 //

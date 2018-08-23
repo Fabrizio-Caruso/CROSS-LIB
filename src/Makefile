@@ -411,6 +411,7 @@ nes_fx:
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
 	-DANIMATE_PLAYER \
+	-DALT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/nes_tiles.s \

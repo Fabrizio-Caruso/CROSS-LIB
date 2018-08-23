@@ -36,7 +36,7 @@
 #define _POWERUP 248
 #define _GHOST (char) 35
 #define _BOMB 251
-#define _GUN (char) (0x7B-0x20)
+#define _GUN 246
 
 #define _PLAYER_DOWN 252
 #define _PLAYER_UP 255
@@ -44,12 +44,12 @@
 #define _PLAYER_LEFT 253
 	
 
-#define _BULLET '.'
-#define _ROCKET ('^'-0x40)
-#define _EXTRA_POINTS '*'
-#define _LEFT_HORIZONTAL_MISSILE '>'
-#define _RIGHT_HORIZONTAL_MISSILE '<'
-#define _INVINCIBILITY (0x73 - 0x20)
+#define _BULLET 242
+#define _ROCKET 239
+#define _EXTRA_POINTS '$'
+#define _LEFT_HORIZONTAL_MISSILE 241
+#define _RIGHT_HORIZONTAL_MISSILE 240
+#define _INVINCIBILITY 238
 
 #define _SKULL 250
 
@@ -57,10 +57,12 @@
 #define _EXTRA_LIFE _PLAYER_DOWN
 #define _CONFUSE _SKULL
 
+#define _SUPER 245
+#define _FREEZE 243
 
 #define _SPACE ' '
 #define _VERTICAL_BRICK 249
-#define _HORIZONTAL_BRICK (0xC3-128)
+#define _HORIZONTAL_BRICK 244
 #define _BROKEN_BRICK _BOMB
 
 

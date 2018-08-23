@@ -157,10 +157,23 @@ Image BOMB_IMAGE;
 	}	
 #endif
 
-void _delete(unsigned char x, unsigned char y)
-{
-	_DELETE(X_OFFSET+x,Y_OFFSET+y);
-}
+#if !defined(NO_STATS) \
+	|| X_OFFSET!=0 || Y_OFFSET!=0
+	void _delete_stat(unsigned char x, unsigned char y)
+	{
+		_DELETE(X_OFFSET+x,y);
+	}
+	
+	void _delete(unsigned char x, unsigned char y)
+	{
+		_delete_stat(x,Y_OFFSET+y);
+	}	
+#else
+	void _delete(unsigned char x, unsigned char y)
+	{
+		_DELETE(x,y);
+	}
+#endif
 
 
 #if defined(FULL_GAME)
@@ -196,10 +209,20 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 		
 		for(i=0;i<XSize;++i)
 		{
+
+		#if !defined(NO_STATS) \
+			|| X_OFFSET!=0 || Y_OFFSET!=0	
+			
+			for(j=0;j<YSize+Y_OFFSET;++j)
+			{
+				_delete_stat(i,j);
+			}
+		#else
 			for(j=0;j<YSize;++j)
 			{
 				_delete(i,j);
 			}
+		#endif
 		}
 	}
 	

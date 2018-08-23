@@ -409,8 +409,10 @@ nes_fx:
 	$(CC65_PATH)$(MYCC65) -O -t nes \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO \
 	-DANIMATE_PLAYER \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/nes_tiles.s \
 	$(FULL_FILES) \

@@ -100,7 +100,22 @@ void INIT_GRAPHICS(void)
 
 	// set_color(3,2,_WHITE);
 	// set_color(3,1,_BROWN);
-	// set_color(3,3,_CYAN);
+	// set_color(3,3,_CYAN);	
+	
+	// {
+		// unsigned char j;
+	
+			// PPU.vram.address = 0x27;
+			// PPU.vram.address = 0xC0;
+			
+			// for(j=0;j<64;++j)
+			// {			
+				// PPU.vram.data = j;		
+			// }
+	// }
+	
+	
+
 
 	// All_Off();
 	// {

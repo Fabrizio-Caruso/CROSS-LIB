@@ -90,9 +90,9 @@ void INIT_GRAPHICS(void)
 	set_color(0,1,_RED);
 	set_color(0,3,_WHITE);
 
-	// set_color(1,2,_WHITE);
-	// set_color(1,1,_GREEN_BROWN);
-	// set_color(1,3,_LIGHT_YELLOW);
+	set_color(1,2,_DARK_YELLOW);
+	set_color(1,1,_GREEN_BROWN);
+	set_color(1,3,_RED);
 
 	// set_color(2,2,_BROWN);
 	// set_color(2,1,_ORANGE);
@@ -113,6 +113,13 @@ void INIT_GRAPHICS(void)
 				PPU.vram.address = 0x23;
 				PPU.vram.address = (0xC0+j);				
 				PPU.vram.data = 0xFF;//0b00001111;	
+			}
+			
+			for(j=4;j<8;++j)
+			{	
+				PPU.vram.address = 0x23;
+				PPU.vram.address = (0xC0+j);				
+				PPU.vram.data = 0x55;//0b00001111;	
 			}
 			
 			// for(j=5;j<8;++j)

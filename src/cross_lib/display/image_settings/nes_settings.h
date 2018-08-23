@@ -33,9 +33,9 @@
 
 #include "../display/display_macros.h"
 
-#define _POWERUP (char) (0x7A-0x20)
+#define _POWERUP 248
 #define _GHOST (char) 35
-#define _BOMB (char) (0x78-0x20)
+#define _BOMB 251
 #define _GUN (char) (0x7B-0x20)
 
 #define _PLAYER_DOWN 252
@@ -51,15 +51,15 @@
 #define _RIGHT_HORIZONTAL_MISSILE '<'
 #define _INVINCIBILITY (0x73 - 0x20)
 
-#define _SKULL (char) (0x77 - 0x20)
+#define _SKULL 250
 
-#define _DEAD_GHOST _GHOST
+#define _DEAD_GHOST 247
 #define _EXTRA_LIFE _PLAYER_DOWN
 #define _CONFUSE _SKULL
 
 
 #define _SPACE ' '
-#define _VERTICAL_BRICK ('|'-128)
+#define _VERTICAL_BRICK 249
 #define _HORIZONTAL_BRICK (0xC3-128)
 #define _BROKEN_BRICK _BOMB
 

@@ -125,7 +125,6 @@ atari5200:
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
-	$(CROSS_LIB_PATH)/input/patch/atari5200/atr5200std-joy.o \
 	-o $(BUILD_PATH)/FULL_atari5200.rom
 	
 

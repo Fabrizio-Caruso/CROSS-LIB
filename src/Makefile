@@ -405,8 +405,11 @@ nes:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_nes.nes	
 	
+	
+	
 nes_fx:
 	$(CC65_PATH)$(MYCC65) -O -t nes \
+	--config $(CFG_PATH)/cc65/nes_fx.cfg \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \

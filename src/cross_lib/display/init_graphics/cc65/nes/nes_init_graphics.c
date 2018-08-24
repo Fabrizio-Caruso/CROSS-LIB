@@ -66,19 +66,30 @@ void Load_Palette(void) {
 }
 */
 
+
 #define CTRL 0x2000
 #define MASK 0x2001
 #define SCROLL 0x2005
 
-// void All_Off(void) {
-	// POKE(CTRL,0);
-	// POKE(MASK,0); 
-// }
+
+void All_Off(void) {
+	PPU.control = 0;
+	PPU.mask = 0;
+}
 	
-// void All_On(void) {
-	// POKE(CTRL,0x90); //	screen is on, NMI on
-	// POKE(MASK,0x1e); 
-// }
+void All_On(void) {
+	PPU.control = 0x80;
+	PPU.mask = 0x1e;
+}
+
+void Reset_Scroll(void)
+{
+	PPU.vram.address = 0;
+	PPU.vram.address = 0;
+	
+	PPU.scroll = 0;
+	PPU.scroll = 0;
+}
 
 
 //
@@ -86,6 +97,8 @@ void Load_Palette(void) {
 
 void INIT_GRAPHICS(void)
 {
+	All_Off();
+
 	set_color(0,2,_DARK_YELLOW);
 	set_color(0,1,_RED);
 	set_color(0,3,_WHITE);
@@ -94,9 +107,6 @@ void INIT_GRAPHICS(void)
 	set_color(1,1,_GREEN_BROWN);
 	set_color(1,3,_RED);
 
-	// set_color(2,2,_BROWN);
-	// set_color(2,1,_ORANGE);
-	// set_color(2,3,_RED);
 
 	set_color(3,2,_DARK_YELLOW);
 	set_color(3,1,_BROWN);
@@ -105,80 +115,33 @@ void INIT_GRAPHICS(void)
 	{
 		unsigned char j;
 	
-			// PPU.vram.address = 0x23;
-			// PPU.vram.address = 0xC0;
-
-			for(j=0;j<8;++j)
-			{	
-				PPU.vram.address = 0x23;
-				PPU.vram.address = (0xC0+j);				
-				PPU.vram.data = 0xFF;//0b00001111;	
-			}
-			
-			for(j=4;j<8;++j)
-			{	
-				PPU.vram.address = 0x23;
-				PPU.vram.address = (0xC0+j);				
-				PPU.vram.data = 0x55;//0b00001111;	
-			}
-			
-			// for(j=5;j<8;++j)
-			// {	
-				// PPU.vram.address = 0x23;
-				// PPU.vram.address = (0xC0+j);				
-				// PPU.vram.data = 0x10;//0b00001010;	
-			// }			
-			
+		for(j=0;j<4;++j)
+		{	
 			PPU.vram.address = 0x23;
-			PPU.vram.address = 0xC3;
-			PPU.vram.data = 0xF0;			
-			
-			PPU.vram.address = 0x23;
-			PPU.vram.address = 0xC4;
-			PPU.vram.data = 0x00;
-			
-			// PPU.vram.address = 0x23;
-			// PPU.vram.address = 0xC5;
-			// PPU.vram.data = 0xF0;			
-			
-			for(j=56;j<64;++j)
-			{	
-				PPU.vram.address = 0x23;
-				PPU.vram.address = (0xC0+j);				
-				PPU.vram.data = 0xFF;//0b00001111;	
-			}			
-			// PPU.vram.address = 0x23;
-			// PPU.vram.address = 0xF0;
-			// for(j=0;j<8;++j)
-			// {	
-				// PPU.vram.data = 0xFF;//0b11110000;	
-			// }	
-			// PPU.vram.address = 0x23;
-			// PPU.vram.address = 0xF7;
-			// PPU.vram.data = 0xFF;
-			
-	}
-	
-	
-
-
-	// All_Off();
-	// {
-		// unsigned char i;
+			PPU.vram.address = (0xC0+j);				
+			PPU.vram.data = 0xFF;//0b00001111;	
+		}
 		
-
-		// POKE(0x2006,0x27);
-		// POKE(0x2006,0xC0);		
-		// for(i=0;i<sizeof(Attrib_Table);++i)
-		// {
-			// POKE(0x2007,i&3);
-		// }
-	// }
-	// POKE(0x2006,0);
-	// POKE(0x2006,0);
-	// POKE(SCROLL,0);
-	// POKE(SCROLL,0);
-	// All_On();
+		for(j=4;j<8;++j)
+		{	
+			PPU.vram.address = 0x23;
+			PPU.vram.address = (0xC0+j);				
+			PPU.vram.data = 0x55;//0b00001111;	
+		}
+					
+		PPU.vram.address = 0x23;
+		PPU.vram.address = 0xC3;
+		PPU.vram.data = 0xF0;			
+		
+		PPU.vram.address = 0x23;
+		PPU.vram.address = 0xC4;
+		PPU.vram.data = 0x00;
+				
+	}	
+	
+	
+	Reset_Scroll();
+	All_On();
 
 }
 

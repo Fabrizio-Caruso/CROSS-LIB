@@ -66,22 +66,21 @@
 	unsigned char stick;
 #endif
 
-
-
 unsigned short ghostSlowDown;
+unsigned short points;
+unsigned short highScore;
+unsigned char lives;
+unsigned char level;
 
 #if !defined(TINY_GAME)
 	unsigned short ghostLevel;
 #endif
 
-unsigned short points;
-unsigned short highScore;
-unsigned char lives;
 
 #if !defined(TINY_GAME) || defined(TURN_BASED)
-unsigned short loop;
+	unsigned short loop;
 #endif
-unsigned char level;
+
 
 
 #if !defined(TINY_GAME)

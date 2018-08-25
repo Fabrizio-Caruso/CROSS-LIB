@@ -150,7 +150,7 @@
 		#define GAME_SLOW_DOWN 550		
 	#elif defined(__PCE__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 3000U	
+		#define GAME_SLOW_DOWN 4200U	
 	#elif defined(__VZ__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 800	

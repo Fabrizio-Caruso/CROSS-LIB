@@ -571,6 +571,22 @@ pce_8k:
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_PCE_8k.pce
 
+pce_fx:
+	$(CC65_PATH)$(MYCC65) -O -t pce \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/pce/pce_init_graphics.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_PCE.bin
+	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_PCE_LOW.bin
+	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_PCE_HIGH.bin
+	rm $(BUILD_PATH)/FULL_PCE.bin 
+	cat $(BUILD_PATH)/FULL_PCE_HIGH.bin $(BUILD_PATH)/FULL_PCE_LOW.bin > $(BUILD_PATH)/FULL_PCE_SWAPPED.pce
+	rm $(BUILD_PATH)/FULL_PCE_LOW.bin
+	rm $(BUILD_PATH)/FULL_PCE_HIGH.bin	
 
 pce_16k:
 	$(CC65_PATH)$(MYCC65) -O -t pce \

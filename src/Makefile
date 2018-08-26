@@ -3620,7 +3620,7 @@ kc_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap $(SCCZ80_OPTS) \
 	-D__KC__ \
 	-DFULL_GAME  \
-	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \

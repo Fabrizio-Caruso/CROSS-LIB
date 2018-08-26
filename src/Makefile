@@ -1727,22 +1727,6 @@ eg2k:
 	mv a.cmd $(BUILD_PATH)/FULL_eg2k.cmd
 	rm a.bin
 
-	
-kc_sprites_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
-	-D__KC__ \
-	-DZ88DK_SPRITES \
-	-DTINY_GAME \
-	-DLESS_TEXT \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-DNO_MESSAGE \
-	-DNO_STATS \
-	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \
-	-DNO_INIT_GRAPHICS \
-	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_kc_sprites.bin	
 
 
 nc100_sprites_light:
@@ -3568,21 +3552,6 @@ nc200_sprites_tiny:
 	rm $(BUILD_PATH)/TINY_nc200_sprites.bin
 
 
-kc_putc4x6_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
-	-v \
-	-D__KC__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
-	-DZ88DK_PUTC4X6 \
-	-DCONIO \
-	-DALT_PRINT \
-	-DNO_INIT_GRAPHICS \
-	-create-app -o$(BUILD_PATH)/TINY_kc_putc4x6_.bin \
-	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/display/z88dk/z88dk_putc4x6/z88dk_putc4x6_alt_print.c
-	rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
-	
-
 eg2k_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 \
 	-subtype=eg2000disk \
@@ -3600,22 +3569,56 @@ eg2k_tiny:
 	$(SOURCE_PATH)/main.c
 	mv a.cmd $(BUILD_PATH)/TINY_eg2k.cmd	
 
-kc_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap-subtype=tap \
+	
+kc_tiny_putc4x6:
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
+	-v \
+	-D__KC__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DZ88DK_PUTC4X6 \
+	-DCONIO \
+	-DALT_PRINT \
+	-DNO_INIT_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/TINY_kc_putc4x6_.bin \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/z88dk/z88dk_putc4x6/z88dk_putc4x6_alt_print.c
+	rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
+	
+	
+	
+kc_tiny_sprites:
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
+	-D__KC__ \
+	-DZ88DK_SPRITES \
+	-DTINY_GAME \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DNO_MESSAGE \
+	-DNO_STATS \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \
+	-DNO_INIT_GRAPHICS \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TINY_kc_sprites.bin	
+	
+	
+kc_tiny_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
 	-D__KC__ \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	-create-app -o$(BUILD_PATH)/TINY_kc.bin \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DCONIO \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(TINY_FILES) 
 	rm $(BUILD_PATH)/TINY_kc.bin
 
 kc_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap $(SCCZ80_OPTS) \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__SRR__ -vn \
+	-D__KC__ -vn \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
 	-DCONIO_VT52 \
@@ -3623,7 +3626,7 @@ kc_udg:
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-clib=default \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \

@@ -38,6 +38,8 @@
 		  #define YSize (30-Y_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		  #define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)	
+	#elif defined(__KC__) && defined(UDG_GRAPHICS)
+		  #define YSize (32-Y_OFFSET)
 	#elif defined(__ATMOS__) || defined(__NES__)
 		#define YSize (28-Y_OFFSET)		  
 	#elif defined(__CBM610__) || defined(__PET__) || defined(__C128__) \
@@ -120,6 +122,8 @@
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)
+	#elif defined(__KC__) && defined(UDG_GRAPHICS)
+		#define XSize 40
 	#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
 		  || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
 		  || defined(__LAMBDA__) || defined(__SPECTRUM__) || (defined(__PC6001__) && !defined(FORCE_SCREEN_MODE))\

@@ -3618,20 +3618,37 @@ kc_tiny_udg:
 
 kc_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap $(SCCZ80_OPTS) \
-	-D__KC__ -vn \
-	-DFULL_GAME -DSOUNDS \
+	-D__KC__ \
+	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
-	-clib=default \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_kc.bin
+	rm $(BUILD_PATH)/FULL_kc.bin
+
+	# $(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap $(SCCZ80_OPTS) \
+	# -D__KC__ -vn \
+	# -DFULL_GAME -DSOUNDS \
+	# -DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	# -DCONIO_VT52 \
+	# -DCONIO \
+	# -lndos \
+	# -DANIMATE_PLAYER \
+	# -DUDG_GRAPHICS \
+	# -clib=default \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	# $(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(FULL_FILES) \
+	# -create-app -o$(BUILD_PATH)/FULL_kc.bin
 	
 	
 # -o$(BUILD_PATH)/TINY_abc800.bin 	

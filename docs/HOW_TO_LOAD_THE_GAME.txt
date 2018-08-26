@@ -397,3 +397,13 @@ Select 2 pages at start-up
 Type "cload"
 Select cassette image
 Type "run"
+
+
+
+-----------------------------------------------------------
+
+PETERS PLUS SPRINTER
+
+Use SPRINT (http://web.archive.org/web/20040905083237/http://shaos.ru/nedopc/sprinter/sprint.htm)
+run with something like SPRINTGW.EXE c:\Retro\CROSS-CHASE\build\FULL_pps.exe
+

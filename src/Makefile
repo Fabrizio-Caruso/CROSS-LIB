@@ -3581,7 +3581,7 @@ kc_tiny_putc4x6:
 	-DNO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/TINY_kc_putc4x6_.bin \
 	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/display/z88dk/z88dk_putc4x6/z88dk_putc4x6_alt_print.c
+	$(CROSS_LIB_PATH)/display/alt_print/z88dk_putc4x6_alt_print.c
 	rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
 	
 	

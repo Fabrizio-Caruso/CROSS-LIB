@@ -40,14 +40,14 @@
 		  #define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)	
 	#elif defined(__KC__) && defined(UDG_GRAPHICS)
 		  #define YSize (32-Y_OFFSET)
-	#elif defined(__ATMOS__) || defined(__NES__)
-		#define YSize (28-Y_OFFSET)		  
+	#elif defined(__ATMOS__) || defined(__NES__)  
+		#define YSize (28-Y_OFFSET) 		  
 	#elif defined(__CBM610__) || defined(__PET__) || defined(__C128__) \
 		  || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
 		  || defined(__PET__) || defined(__CBM510__) \
 		  || defined(__MZ__) || defined(__BEE__) || defined(__X1__) \
 		  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__) \
-		  || defined(__ENTERPRISE__)
+		  || defined(__ENTERPRISE__) 
 		#define YSize (25-Y_OFFSET)
 	#elif defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
 		|| defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) \
@@ -62,8 +62,9 @@
 		|| defined(__OSIC1P__) \
 		|| defined(__MC1000__) \
 		|| defined(__M5__) \
-		|| defined(__AQUARIUS__)
-		#define YSize (24-Y_OFFSET)		
+		|| defined(__AQUARIUS__) \
+		  || (defined(__EG2K__) && defined(UDG_GRAPHICS))
+		#define YSize (24-Y_OFFSET)
 	#elif defined(__VIC20__)
 		#define YSize 23
 	#elif defined(__SAM__)
@@ -100,7 +101,8 @@
 		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)) \
 		  || defined(__PPS__)
 		#define XSize 80
-	#elif defined(__TRS80__) || defined(__EG2K__) \
+	#elif (defined(__TRS80__) && !defined(__EG2K__)) \
+		  || (defined(__EG2K__) && !defined(UDG_GRAPHICS)) \
 		  || defined(__SRR__)
 		#define XSize 64
 	#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6))
@@ -118,7 +120,8 @@
 		  || defined(__ENTERPRISE__) \
 		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
 		  || (defined(__ATARI__) && !defined(ATARI_MODE1)) \
-		  || defined(__CBM510__)
+		  || defined(__CBM510__) \
+		  || (defined(__EG2K__) && defined(UDG_GRAPHICS))
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)
@@ -132,7 +135,7 @@
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
 		  || defined(__EINSTEIN__) \
 		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__) \
-		  || defined(__M5__)
+		  || defined(__M5__) 	  
 		#define XSize 32	
 	#elif defined(__OSIC1P__)
 		#define XSize 24

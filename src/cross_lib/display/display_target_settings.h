@@ -76,6 +76,8 @@
 		#define YSize ((128/SPRITE_Y_STEP)+1)
 	#elif defined(__SUPERVISION__) 
 		#define YSize 20
+	#elif defined(__GAMATE__)
+		#define YSize 19	
 	#elif defined(__ATARI_LYNX__)
 		#define YSize 13
 	#elif (defined(__PX4__) && defined(Z88DK_PUTC4X6))
@@ -146,7 +148,7 @@
 		#define XSize 22
 	#elif (defined(__ATARI__) && defined(ATARI_MODE1)) \
 		  || defined(__ATARI_LYNX__) || defined(__SUPERVISION__) \
-		  || defined(__ATARI5200__)
+		  || defined(__ATARI5200__) || defined(__GAMATE__)
 		#define XSize 20
 	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
 		#define XSize 16

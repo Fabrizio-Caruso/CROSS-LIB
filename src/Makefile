@@ -3875,6 +3875,8 @@ alphatro_udg:
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_alphatro.bin
 	rm $(BUILD_PATH)/FULL_alphatro.bin
+	rm $(BUILD_PATH)/FULL_alphatro_DATA.bin
+	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin	
 	
 # -o$(BUILD_PATH)/TINY_abc800.bin 	
 abc800_tiny:

@@ -64,7 +64,9 @@
 		|| defined(__M5__) \
 		|| defined(__AQUARIUS__) \
 		|| (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
-		|| defined(__COLECO__)
+		|| defined(__COLECO__) \
+		|| defined(__PV2000__) \
+		|| defined(__MULTI8__)
 		#define YSize (24-Y_OFFSET)
 	#elif defined(__VIC20__)
 		#define YSize 23
@@ -72,7 +74,7 @@
 		#define YSize (24-2-Y_OFFSET)
 	#elif (defined(__NC200__) && defined(Z88DK_SPRITES))
 		#define YSize ((128/SPRITE_Y_STEP)+1)
-	#elif defined(__SUPERVISION__)
+	#elif defined(__SUPERVISION__) 
 		#define YSize 20
 	#elif defined(__ATARI_LYNX__)
 		#define YSize 13
@@ -122,7 +124,8 @@
 		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
 		  || (defined(__ATARI__) && !defined(ATARI_MODE1)) \
 		  || defined(__CBM510__) \
-		  || (defined(__EG2K__) && defined(UDG_GRAPHICS))
+		  || (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
+		  || defined(__MULTI8__)
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)
@@ -136,7 +139,7 @@
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
 		  || defined(__EINSTEIN__) \
 		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__) \
-		  || defined(__M5__) || defined(__COLECO__)
+		  || defined(__M5__) || defined(__COLECO__) || defined(__PV2000__)
 		#define XSize 32	
 	#elif defined(__OSIC1P__)
 		#define XSize 24
@@ -197,7 +200,7 @@
 	|| defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
 	|| defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \
 	|| defined(__TRS80__) || defined(__CPM_80X24__) || defined(__PX8__) || defined(__PX4__) \
-	|| defined(__ABC800__) || defined(__SRR__) || defined(__PV1000__) || defined(__PV2000__) \
+	|| defined(__ABC800__) || defined(__SRR__) \
 	|| defined(__KC__) || defined(__ATMOS__) || defined(__SUPERVISION__)
 	#define NO_COLOR 
 #else

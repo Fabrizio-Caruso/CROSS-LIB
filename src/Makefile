@@ -1121,6 +1121,7 @@ sc3000_32k_udg:
 sg1000_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 -subtype=rom \
 	$(SCCZ80_OPTS) \
+	-DZ88DK_JOYSTICK \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-vn -lndos -create-app -Cz--audio \
@@ -3711,7 +3712,10 @@ rx78_udg:
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_rx78.bin
-	rm $(BUILD_PATH)/FULL_rx78.bin	
+	rm $(BUILD_PATH)/FULL_rx78.bin
+	rm $(BUILD_PATH)/FULL_rx78_DATA.bin
+	rm $(BUILD_PATH)/FULL_rx78_BSS.bin
+	
 
 	
 pv1000_light_udg:
@@ -3777,6 +3781,7 @@ pv2000_udg:
 coleco_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) \
 	-D__COLECO__ \
+	-DZ88DK_JOYSTICK \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \

@@ -63,7 +63,8 @@
 		|| defined(__MC1000__) \
 		|| defined(__M5__) \
 		|| defined(__AQUARIUS__) \
-		  || (defined(__EG2K__) && defined(UDG_GRAPHICS))
+		|| (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
+		|| defined(__COLECO__)
 		#define YSize (24-Y_OFFSET)
 	#elif defined(__VIC20__)
 		#define YSize 23
@@ -135,7 +136,7 @@
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
 		  || defined(__EINSTEIN__) \
 		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__) \
-		  || defined(__M5__) 	  
+		  || defined(__M5__) || defined(__COLECO__)
 		#define XSize 32	
 	#elif defined(__OSIC1P__)
 		#define XSize 24

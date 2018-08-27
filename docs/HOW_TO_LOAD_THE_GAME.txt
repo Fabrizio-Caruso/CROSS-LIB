@@ -407,3 +407,12 @@ PETERS PLUS SPRINTER
 Use SPRINT (http://web.archive.org/web/20040905083237/http://shaos.ru/nedopc/sprinter/sprint.htm)
 run with something like SPRINTGW.EXE c:\Retro\CROSS-CHASE\build\FULL_pps.exe
 
+
+-----------------------------------------------------------
+
+
+EACA 2000 - EG2K
+
+Use the Genious emulator: http://gaia.atilia.eu/content/view/3/4/
+
+

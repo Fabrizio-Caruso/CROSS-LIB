@@ -422,3 +422,12 @@ COLECOVISION
 Use ColEm: https://fms.komkon.org/ColEm/
 
 
+-----------------------------------------------------------
+
+MITSUBISHI MULTI 8
+
+Use Takeda emulator
+Type "MON"
+Then "R"
+Select tape file with CMT -> Play -> Select file
+Type "GC000"

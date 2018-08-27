@@ -2429,7 +2429,7 @@ px8_targets: \
 	px8_tiny px8
 	
 kc_targets: \
-	kc_sprites_tiny
+	kc_tiny_udg kc_light_udg kc_udg
 	
 trs80_targets: \
 	trs80_tiny trs80 trs80_cmd eg2k

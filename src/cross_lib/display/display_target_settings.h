@@ -102,7 +102,7 @@
 		  || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
 		  || defined(__PX8__) || defined(__CPM_80X24__) \
 		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)) \
-		  || defined(__PPS__)
+		  || defined(__PPS__) || (defined(__MULTI8__) && defined(UDG_GRAPHICS))
 		#define XSize 80
 	#elif (defined(__TRS80__) && !defined(__EG2K__)) \
 		  || (defined(__EG2K__) && !defined(UDG_GRAPHICS)) \
@@ -124,8 +124,7 @@
 		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
 		  || (defined(__ATARI__) && !defined(ATARI_MODE1)) \
 		  || defined(__CBM510__) \
-		  || (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
-		  || defined(__MULTI8__)
+		  || (defined(__EG2K__) && defined(UDG_GRAPHICS))
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)

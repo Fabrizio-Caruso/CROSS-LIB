@@ -501,14 +501,38 @@ osic1p_8k:
 gamate: 
 	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_HINTS \
+	-DNO_CONTROL_INSTRUCTIONS \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	-DSIMPLE_STRATEGY \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_gamate.bin
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
 
-
+gamate_light: 
+	$(CC65_PATH)$(MYCC65) -O -t gamate \
+	-DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	-DSIMPLE_STRATEGY \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/LIGHT_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/LIGHT_gamate.bin
+	
+gamate_tiny: 
+	$(CC65_PATH)$(MYCC65) -O -t gamate \
+	-DTINY_GAME \
+	-DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	-DSIMPLE_STRATEGY \
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/TINY_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/TINY_gamate.bin
+	
 creativision_8k_tiny: 
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
@@ -3875,6 +3899,8 @@ alphatro_udg:
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_alphatro.bin
 	rm $(BUILD_PATH)/FULL_alphatro.bin
+	rm $(BUILD_PATH)/FULL_alphatro_DATA.bin
+	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin	
 	
 # -o$(BUILD_PATH)/TINY_abc800.bin 	
 abc800_tiny:
@@ -4368,16 +4394,7 @@ joy-test:
 	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/joy-test.c -o  $(BUILD_PATH)/joy-test.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/joy-test.bin
 
-		
-gamate_tiny:
-	$(CC65_PATH)$(MYCC65) -O -t gamate -DTINY_GAME $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/gamate/gamate_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_gamate.bin
-	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/TINY_gamate.bin
-	
-gamate_light:
-	$(CC65_PATH)$(MYCC65) -O -t gamate $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/gamate/gamate_graphics.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_gamate.bin
-	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/LIGHT_gamate.bin
 
-	# TODO: Reduce size in order to compile	
 
 
 # -subtype=gaming

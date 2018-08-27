@@ -499,14 +499,10 @@ osic1p_8k:
 	
 		
 gamate: 
-	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	$(CC65_PATH)$(MYCC65) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
 	-DLESS_TEXT \
-	-DNO_BLINKING \
-	-DNO_HINTS \
-	-DNO_CONTROL_INSTRUCTIONS \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DFORCE_GHOSTS_NUMBER=7 \
 	-DSIMPLE_STRATEGY \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_gamate.bin

@@ -1121,6 +1121,7 @@ sc3000_32k_udg:
 sg1000_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 -subtype=rom \
 	$(SCCZ80_OPTS) \
+	-DZ88DK_JOYSTICK \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-vn -lndos -create-app -Cz--audio \
@@ -3510,6 +3511,7 @@ atari_no_color_16k:
 pv1000:
 	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
+	-DZ88DK_JOYSTICK \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
 	-DCONIO_VT52 \
@@ -3711,12 +3713,16 @@ rx78_udg:
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_rx78.bin
-	rm $(BUILD_PATH)/FULL_rx78.bin	
+	rm $(BUILD_PATH)/FULL_rx78.bin
+	rm $(BUILD_PATH)/FULL_rx78_DATA.bin
+	rm $(BUILD_PATH)/FULL_rx78_BSS.bin
+	
 
 	
 pv1000_light_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) \
 	-D__PV1000__ \
+	-DZ88DK_JOYSTICK \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
@@ -3728,6 +3734,9 @@ pv1000_light_udg:
 	$(LIGHT_FILES) \
 	-create-app -o$(BUILD_PATH)/LIGHT_pv1000.bin
 	rm $(BUILD_PATH)/LIGHT_pv1000.bin	
+	rm $(BUILD_PATH)/LIGHT_pv1000_DATA.bin	
+	rm $(BUILD_PATH)/LIGHT_pv1000_BSS.bin	
+	
 
 pv1000_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +pv1000 \
@@ -3770,6 +3779,8 @@ pv2000_udg:
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_pv2000.bin
 	rm $(BUILD_PATH)/FULL_pv2000.bin
+	rm $(BUILD_PATH)/FULL_pv2000_DATA.bin
+	rm $(BUILD_PATH)/FULL_pv2000_BSS.bin
 
 	
 	
@@ -3777,6 +3788,7 @@ pv2000_udg:
 coleco_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) \
 	-D__COLECO__ \
+	-DZ88DK_JOYSTICK \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
@@ -3792,6 +3804,22 @@ coleco_udg:
 	-create-app -o$(BUILD_PATH)/FULL_coleco.bin
 	rm $(BUILD_PATH)/FULL_coleco.bin	
 
+	
+multi8_tiny_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) \
+	-D__MULTI8__ \
+	-DTINY_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(TINY_FILES) \
+	-create-app -o$(BUILD_PATH)/TINY_multi8.bin
+	rm $(BUILD_PATH)/TINY_multi8.bin		
 
 multi8_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) \

@@ -18,6 +18,8 @@ void INIT_GRAPHICS(void)
 			#define SCREEN_MODE FORCE_SCREEN_MODE
 		#elif defined(__MC1000__)
 			#define SCREEN_MODE 1
+		#elif defined(__SPC1000__)
+			#define SCREEN_MODE 2
 		#else
 			#define SCREEN_MODE 2
 		#endif

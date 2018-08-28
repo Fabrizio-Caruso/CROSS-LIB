@@ -101,7 +101,7 @@ extern Image BOMB_IMAGE;
 	#define _INVINCIBILITY_COLOR _AQUARIUS_YELLOW
 	#define _CONFUSE_COLOR _AQUARIUS_RED
 	#define _ZOMBIE_COLOR _AQUARIUS_YELLOW	
-#elif defined(__PC6001__)
+#elif defined(__PC6001__) || defined(__SPC1000__)
 	#define _PLAYER_COLOR COLOR_BLUE 
 	#define _GHOST_COLOR COLOR_CYAN
 	#define _DEAD_GHOST_COLOR COLOR_RED

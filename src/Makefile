@@ -1281,6 +1281,15 @@ abc80_32k:
 	rm a
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 
+	
+abc800_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 -lm  $(SCCZ80_OPTS) \
+	-D__ABC80__ -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DFORCE_CONIO_LIB -DNO_INIT_GRAPHICS \
+	-lndos \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	
 p2000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) -clib=ansi -D__P2000__ -vn \
 	-DSOUNDS  \

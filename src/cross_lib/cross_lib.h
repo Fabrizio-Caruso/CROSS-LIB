@@ -95,6 +95,8 @@
 	#define TEXT_COLOR 3
 #elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
 	#define TEXT_COLOR COLOR_YELLOW
+#elif defined(__SPC1000__) 
+	#define TEXT_COLOR COLOR_BLUE
 #else
 	#define TEXT_COLOR COLOR_WHITE
 #endif

@@ -16,6 +16,10 @@
 	#endif
 #endif
 
+#if defined(__G800__)
+		#define cputc(c) fputc_cons(c)	
+#endif
+
 
 #  if defined(CONIO_ADM3A)
 	#define gotoxy(x,y) printf("\033=%c%c",y+32,x+32);

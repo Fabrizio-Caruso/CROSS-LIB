@@ -29,7 +29,7 @@
 	||  defined(__GAL__)  || defined(__Z9001__) || defined(__ABC80__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
 	|| defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__) || defined(__SC3000__) \
 	|| defined(__Z1013__) || defined(__TRS80__) || defined(__EG2K__) || defined(__KC__) || defined(__C128_Z80__) \
-	|| defined(__EINSTEIN__) || defined(__MULTI8__)
+	|| defined(__EINSTEIN__) || defined(__MULTI8__) || defined(__G800__)
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'
@@ -49,7 +49,7 @@
 		|| defined(__C64__) || defined(__C16__) || defined(__PLUS4__) \
 		|| defined(__CBM510__) || defined(__PET__) \
 		|| (defined(__C128__) && !defined(__C128_Z80__)) \
-		|| defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) || defined(__LYNX__) \
+		|| defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) \
 		|| defined(__NES__) || defined(__PCE__) \
 		|| defined(Z88DK_JOYSTICK)
 	#define JOYSTICK_CONTROL

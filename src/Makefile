@@ -499,14 +499,10 @@ osic1p_8k:
 	
 		
 gamate: 
-	$(CC65_PATH)$(MYCC65) -O -t gamate --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	$(CC65_PATH)$(MYCC65) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
 	-DLESS_TEXT \
-	-DNO_BLINKING \
-	-DNO_HINTS \
-	-DNO_CONTROL_INSTRUCTIONS \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DFORCE_GHOSTS_NUMBER=7 \
 	-DSIMPLE_STRATEGY \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_gamate.bin
@@ -1285,6 +1281,15 @@ abc80_32k:
 	rm a
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 
+	
+abc800_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 -lm  $(SCCZ80_OPTS) \
+	-D__ABC80__ -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DFORCE_CONIO_LIB -DNO_INIT_GRAPHICS \
+	-lndos \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	
 p2000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) -clib=ansi -D__P2000__ -vn \
 	-DSOUNDS  \
@@ -1811,37 +1816,43 @@ nc100_sprites_light:
 	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
 
 
-cpm_adm3a_tiny:
+cpm_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app -o$(BUILD_PATH)/TINY_cpm_adm3a.bin \
-	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_cpm_adm3a.bin
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_cpm_adm3a.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_cpm_adm3a.bin
 
 	
-cpm_vt52_tiny:
+cpm_vt52:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-DCONIO_VT52 \
 	-D__CPM_80X24__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app -o$(BUILD_PATH)/TINY_cpm_vt52.bin \
-	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_cpm_vt52.bin	
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_cpm_vt52.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_cpm_vt52.bin	
 	
 
-cpm_vt100_tiny:
+cpm_vt100:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-DCONIO_VT100 \
 	-D__CPM_80X24__ \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app -o$(BUILD_PATH)/TINY_cpm_vt100.bin \
-	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_cpm_vt100.bin	
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_cpm_vt100.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_cpm_vt100.bin	
 	
 
 c128_z80_40col:
@@ -2097,7 +2108,140 @@ pv2000:
 	rm a_BSS.bin
 	rm a_DATA.bin	
 	
+fp1100:
+	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__FP1000__ -vn \
+	-DCONIO_VT52 \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app 
+	
+		
+fp1100_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__FP1000__ -vn \
+	-DCONIO_VT52 \
+	-DTINY_GAME -DSOUNDS \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app -o $(BUILD_PATH)/TINY_fp1100.d88 \
+	$(TINY_FILES)
 
+camputers_lynx:
+	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) \
+	-DCAMPUTERS_LYNX \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/FULL_camputers_lynx.bin
+	rm $(BUILD_PATH)/FULL_camputers_lynx.bin
+	
+rex:
+	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \
+	-D__REX__ \
+	-DTURN_BASED \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/FULL_rex.bin
+	
+
+newbrain:
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
+	-D__NEWBRAIN__ \
+	-DTURN_BASED \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/FULL_newbrain.bin
+	mv _dir.txt $(BUILD_PATH)/
+	
+
+g800_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 -clib=g850b $(SCCZ80_OPTS) \
+	-D__G800__ \
+	-DTURN_BASED \
+	-DNO_BLINKING \
+	-vn \
+	-DFULL_GAME \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o 
+	rm a.bin 
+	rm a.rom
+	mv a.ihx $(BUILD_PATH)/FULL_g800_turn_based.ihx
+	
+g800_tiny_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 -clib=g850b $(SCCZ80_OPTS) \
+	-D__G800__ \
+	-DTURN_BASED \
+	-DNO_BLINKING \
+	-vn \
+	-DFORCE_CONIO_LIB \
+	-DTINY_GAME \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(TINY_FILES) \
+	-create-app -o
+	rm a.bin
+	rm a.rom
+	mv a.ihx $(BUILD_PATH)/TINY_g800_turn_based.ihx
+
+				
+	
+	
+mz2500:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
+	-D__MZ2500__ \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app
+
+	
+mz2500_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
+	-D__MZ2500__ \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(TINY_FILES) \
+	-create-app -o $(BUILD_PATH)/TINY_mz2500.bin
+	rm $(BUILD_PATH)/TINY_mz2500.bin	
+	
 pps:
 	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__PPS__ -vn \
@@ -2502,7 +2646,7 @@ trs80_targets: \
 	trs80_tiny trs80 trs80_cmd eg2k
 
 cpm_targets: \
-	cpm_adm3a_tiny cpm_vt52_tiny cpm_vt100_tiny 
+	cpm_adm3a cpm_vt52 cpm_vt100 
 
 nascom_targets: \
 	nascom_16k nascom_32k 
@@ -3484,21 +3628,21 @@ msx_conio_32k:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_msx_conio_32k.prg 	
 
-g800:
-	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__SRR__ -vn \
-	-DFULL_GAME -DSOUNDS \
-	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
-	-DCONIO_VT52 \
-	-lndos \
-	-clib=g850b \
-	-create-app \
-	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
+# g800:
+	# $(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# -D__SRR__ -vn \
+	# -DFULL_GAME -DSOUNDS \
+	# -DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	# -DCONIO_VT52 \
+	# -lndos \
+	# -clib=g850b \
+	# -create-app \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	# $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c \
+	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	# $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c
 	# mv a.rom $(BUILD_PATH)/FULL_g800.rom
 		
 

@@ -49,7 +49,7 @@
 		|| defined(__C64__) || defined(__C16__) || defined(__PLUS4__) \
 		|| defined(__CBM510__) || defined(__PET__) \
 		|| (defined(__C128__) && !defined(__C128_Z80__)) \
-		|| defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) || defined(__LYNX__) \
+		|| defined(__ATARI__) || defined(__ATARIXL__) || defined(__ATARI5200__) \
 		|| defined(__NES__) || defined(__PCE__) \
 		|| defined(Z88DK_JOYSTICK)
 	#define JOYSTICK_CONTROL

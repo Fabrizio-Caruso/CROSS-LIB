@@ -108,7 +108,8 @@
 		  || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
 		  || defined(__PX8__) || defined(__CPM_80X24__) \
 		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)) \
-		  || defined(__PPS__) || (defined(__MULTI8__) && defined(UDG_GRAPHICS))
+		  || defined(__PPS__) || (defined(__MULTI8__) && defined(UDG_GRAPHICS)) \
+		  || defined(__TS2068__)
 		#define XSize 80
 	#elif (defined(__TRS80__) && !defined(__EG2K__)) \
 		  || (defined(__EG2K__) && !defined(UDG_GRAPHICS)) \

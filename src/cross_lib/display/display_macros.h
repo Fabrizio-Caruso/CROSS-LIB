@@ -136,7 +136,7 @@ void _delete(unsigned char x, unsigned char y);
 	|| defined(__ATMOS__) \
 	|| defined(Z88DK_SPRITES)
 	#define SET_TEXT_COLOR(c) 
-#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
+#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI) && !defined(__TS2068__)
 	#include <stdio.h> 
 	#include <arch/zx.h>
 	#define SET_TEXT_COLOR(c) printf("\020%c",c)
@@ -151,7 +151,7 @@ void _delete(unsigned char x, unsigned char y);
 // CLEAR SCREEN
 #  if defined(ALT_CLEAR_SCREEN)
 	void CLEAR_SCREEN(void);
-#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
+#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI) && !defined(__TS2068__)
 	#include <stdio.h>
 	#include <arch/zx.h>
 	#define CLEAR_SCREEN()  {zx_cls(PAPER_BLACK|INK_WHITE);}

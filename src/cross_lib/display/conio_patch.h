@@ -16,7 +16,7 @@
 	#endif
 #endif
 
-#if defined(__G800__)
+#if defined(__G800__) || defined(__TS2068__)
 		#define cputc(c) fputc_cons(c)	
 #endif
 
@@ -139,7 +139,7 @@
 		fputc_cons(c); \
 		} while(0)
 		
-#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI)
+#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI) && !defined(__TS2068__)
 	#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
 	#define cprintf printf
 	#define cputc(c) printf("\x11%c%c",COLOR_BLACK,c);		

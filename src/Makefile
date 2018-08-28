@@ -2210,7 +2210,49 @@ g800_tiny_turn_based:
 	rm a.rom
 	mv a.ihx $(BUILD_PATH)/TINY_g800_turn_based.ihx
 
-				
+ts2068:
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
+	-clib=ansi \
+	-D__TS2068__ \
+	-DNO_COLOR \
+	-vn \
+	-DFULL_GAME \
+	-lndos \
+	-DFORCE_CONIO_LIB \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/FULL_ts2068.bin 
+	rm $(BUILD_PATH)/FULL_ts2068.bin		
+	
+ts2068_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
+	-clib=ansi \
+	-DTURN_BASED \
+	-D__TS2068__ \
+	-DNO_COLOR \
+	-vn \
+	-DFULL_GAME \
+	-lndos \
+	-DFORCE_CONIO_LIB \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/FULL_ts2068_turn_based.bin 
+	rm $(BUILD_PATH)/FULL_ts2068_turn_based.bin	
+	
+# ts2068_tiny_turn_based:
+	# $(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
+	# -clib=ansi \
+	# -DTURN_BASED \
+	# -D__TS2068__ \
+	# -DNO_COLOR \
+	# -vn \
+	# -DTINY_GAME \
+	# -lndos \
+	# -DFORCE_CONIO_LIB \
+	# -DCONIO -DNO_INIT_GRAPHICS \
+	# $(TINY_FILES) \
+	# -create-app -o $(BUILD_PATH)/TINY_ts2068.bin 
+	# rm $(BUILD_PATH)/TINY_ts2068.bin
 	
 	
 mz2500:
@@ -4265,28 +4307,28 @@ x1_getk:
 	-o $(BUILD_PATH)/x1_getk.bin -vn -lndos \
 	$(SOURCE_PATH)/../experiments/test_getk.c
 	
-ts2068:
-	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
-	-D__TS2068__ -DEND_SCREEN -DBETWEEN_LEVEL \
-	-clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-DFULL_GAME  -lndos \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c \
-	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c \
-	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
-	-o $(BUILD_PATH)/FULL_ts2068.bin
+# ts2068:
+	# $(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
+	# -D__TS2068__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	# -clib=ansi -pragma-define:ansicolumns=32 -vn \
+	# -DFULL_GAME  -lndos \
+	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	# $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c \
+	# $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c \
+	# $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
+	# -o $(BUILD_PATH)/FULL_ts2068.bin
 
 
 
-ts2068_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +ts2068 \
-	-D__TS2068__ \
-	-DTINY_GAME \
-	-clib=ansi -pragma-define:ansicolumns=32 -vn \
-	-o $(BUILD_PATH)/FULL_ts2068.bin -lndos \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+# ts2068_tiny:
+	# $(Z88DK_PATH)$(MYZ88DK) +ts2068 \
+	# -D__TS2068__ \
+	# -DTINY_GAME \
+	# -clib=ansi -pragma-define:ansicolumns=32 -vn \
+	# -o $(BUILD_PATH)/FULL_ts2068.bin -lndos \
+	# $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
+	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	
 z1013_light:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) -clib=ansi \

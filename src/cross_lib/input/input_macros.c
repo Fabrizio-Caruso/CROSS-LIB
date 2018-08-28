@@ -83,7 +83,7 @@
 		}
 		return '\0';
 	
-	#elif defined(__SPECTRUM__)
+	#elif defined(__SPECTRUM__) && !defined(__TS2068__)
 		#if defined(CLIB_ANSI)
 			return in_Inkey();
 		#else
@@ -207,7 +207,7 @@ out			stb res
 				getch();
 			#endif
 		}
-	#elif defined(__SPECTRUM__)
+	#elif defined(__SPECTRUM__) && !defined(__TS2068__)
 		#if defined(CLIB_ANSI)
 			void WAIT_PRESS(void) 
 			{ 

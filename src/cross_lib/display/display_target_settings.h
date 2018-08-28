@@ -70,6 +70,8 @@
 		#define YSize (24-Y_OFFSET)
 	#elif defined(__VIC20__)
 		#define YSize 23
+	#elif defined(__SPC1000__)
+		#define YSize 22
 	#elif defined(__SAM__)
 		#define YSize (24-2-Y_OFFSET)
 	#elif (defined(__NC200__) && defined(Z88DK_SPRITES))

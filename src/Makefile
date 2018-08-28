@@ -2093,7 +2093,29 @@ pv2000:
 	rm a_BSS.bin
 	rm a_DATA.bin	
 	
-
+fp1100:
+	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__FP1000__ -vn \
+	-DCONIO_VT52 \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app 
+	
+fp1100_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__FP1000__ -vn \
+	-DCONIO_VT52 \
+	-DTINY_GAME -DSOUNDS \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app -o $(BUILD_PATH)/TINY_fp1100.d88 \
+	$(TINY_FILES)
+	
+	
 pps:
 	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__PPS__ -vn \

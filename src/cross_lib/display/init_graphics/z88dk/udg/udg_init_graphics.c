@@ -12,7 +12,7 @@ void INIT_GRAPHICS(void)
 	void *param = &udgs;
 	console_ioctl(IOCTL_GENCON_SET_FONT32, &param);
 	
-	#if defined(__MC1000__) || defined(__PC6001__) || defined(__CPC__) || defined(__MULTI8__)
+	#if defined(__MC1000__) || defined(__PC6001__) || defined(__CPC__) || defined(__MULTI8__) || defined(__SPC1000__)
 	{
 		#if defined(FORCE_SCREEN_MODE)
 			#define SCREEN_MODE FORCE_SCREEN_MODE

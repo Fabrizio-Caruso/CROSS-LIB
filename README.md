@@ -57,6 +57,7 @@ For most targets, more than one version is built, in order to support different 
 
 - abc80: ABC 80
 - ace: Jupiter Ace
+- alphathro: Alphatronic
 - apple2: Apple //
 - apple2enh: Enhanced Apple //e
 - aquarius: Mattel Aquarius 
@@ -70,11 +71,13 @@ For most targets, more than one version is built, in order to support different 
 - cbm510: Commodore CBM 510
 - cbm610: Commodore CBM 610
 - coco: Color Computer / Dragon 32/64
+- coleco: Colecovision
 - cpc: Amstrad CPC
 - cpm: CP/M with adm3a/vt52/vt100 terminals
 - creativision: VTech Creativision
 - eg2k: EACA EG2000
 - einstein: Tatung Einstein
+- g800: Sharp PC-G800
 - gal: Galaksija
 - gamate: Gamate
 - kc: Robotron KC-85/2/3/4
@@ -84,6 +87,7 @@ For most targets, more than one version is built, in order to support different 
 - microbee: Microobee
 - msx: MSX
 - mtx: MTX 512
+- multi8: Mitsubishi Multi 8
 - nascom: Nascom
 - nc100: Amstrad NC-100
 - nes: Nintendo Enterteinment System
@@ -94,12 +98,14 @@ For most targets, more than one version is built, in order to support different 
 - pce: PCEngine
 - pet: Commodore Pet
 - pps: Peters Plus Sprinter
+- pv1000: Casio PV1000
 - pv2000: Casio PV2000
 - px4: Epson PX-4/HC-40
 - px8: Epson PX-8/HC-80
 - samcoupe: Sam Coupe
 - sc3000: Sega SC 3000
 - sharp_mz: Sharp MZ
+- spc1000: Samsung SPC 1000
 - spectrum: Sinclair Spectrum 16k/48k/128k
 - srr: Exidy Sorcerer
 - supervision: Watara Supervision
@@ -108,6 +114,7 @@ For most targets, more than one version is built, in order to support different 
 - ti83: Texas TI 83
 - ti85: Texas TI 85
 - trs80: TRS-80 Model I/III/IV
+- ts2068: Timex TS 2068
 - vg5k: VG-5000
 - vic20: Commodore Vic 20
 - vz200: VTech VZ200

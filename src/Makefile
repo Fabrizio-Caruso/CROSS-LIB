@@ -2533,6 +2533,14 @@ z88dk_test: \
 	
 	
 z88dk_targets: \
+	coleco_targets \
+	multi8_targets \
+	spc1000_targets \
+	alphatro_targets \
+	rx78_targets \
+	pv1000_targets \
+	g800_targets \
+	ts2068_targets \
 	svi_targets \
 	aquarius_targets \
 	spectrum_targets \
@@ -2647,7 +2655,7 @@ pps_targets: \
 	pps
 
 pv2000_targets: \
-	pv2000
+	pv2000_udg
 
 srr_targets: \
 	srr_udg
@@ -2756,7 +2764,31 @@ zx81_targets: \
 	
 spectrum_targets: \
 	spectrum_16k spectrum_48k spectrum_48k_joystick
+
+ts2068_targets: \
+	ts2068
 	
+g800_targets: \
+	g800_turn_based
+	
+rx78_targets: \
+	rx78_udg
+	
+pv1000_targets: \
+	pv1000_light_udg pv1000_udg
+	
+coleco_targets: \
+	coleco_udg
+	
+multi8_targets: \
+	multi8_udg
+	
+spc1000_targets: \
+	spc1000_udg
+	
+alphatro_targets: \
+	alphatro_udg
+
 samcoupe_targets: \
 	samcoupe
 	

@@ -146,9 +146,9 @@
 		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__) \
 		  || defined(__M5__) || defined(__COLECO__) || defined(__PV2000__)
 		#define XSize 32	
-	#elif defined(__OSIC1P__)
+	#elif defined(__OSIC1P__) || defined(__G800__)
 		#define XSize 24
-	#elif defined(__VIC20__) || defined(__G800__)
+	#elif defined(__VIC20__) 
 		#define XSize 22
 	#elif (defined(__ATARI__) && defined(ATARI_MODE1)) \
 		  || defined(__ATARI_LYNX__) || defined(__SUPERVISION__) \

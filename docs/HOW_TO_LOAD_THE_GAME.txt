@@ -440,3 +440,27 @@ SHARP PC G850
 Use g800win32 emulator (http://ver0.sakura.ne.jp/pc/)
 g800.exe -machine=200 c:\Retro\CROSS-CHASE\build\FULL_g800_turn_based.ihx
 Type "G100"
+
+
+
+-----------------------------------------------------------
+
+TATUNG EINSTEIN
+
+USE EDIP1 1e (http://www.einstein.talktalk.net/edip.html?showpage=true)
+to insert the .COM file into a disk image:
+0. Rename your file such that no special characters (no underscore) are present
+1. Run EDIP 1e
+2. Select DOS80.DSK
+3. Click on CREATE BLANK -> Name your disk image
+4. Select DOS TATUNG XTAL...
+5. Press SELECT -> Select File
+6. Press SELECT -> Cancel -> Quit
+
+Use MAME/MESS:
+1. mame64.exe einstein -window -uimodekey DEL -flop1 c:\Emulation\Mame\EDIP1e\XCHASE.DSK
+2. run the .COM file by typing its name
+
+
+
+

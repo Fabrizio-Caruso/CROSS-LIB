@@ -1897,9 +1897,10 @@ c128_z80_40col_turn_based:
 	
 einstein:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -leinstein \
+	-pragma-define:ansicolumns=32 \
 	-D__EINSTEIN__ \
 	-DFORCE_CONIO_LIB \
-	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DFULL_GAME -DLESS_TEXT \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-clib=ansi \
 	-DCONIO -DNO_INIT_GRAPHICS \

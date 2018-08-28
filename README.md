@@ -104,6 +104,7 @@ For most targets, more than one version is built, in order to support different 
 - px8: Epson PX-8/HC-80
 - samcoupe: Sam Coupe
 - sc3000: Sega SC 3000
+- sg1000: Sega SG 1000
 - sharp_mz: Sharp MZ
 - spc1000: Samsung SPC 1000
 - spectrum: Sinclair Spectrum 16k/48k/128k

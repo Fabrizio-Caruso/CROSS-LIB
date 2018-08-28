@@ -87,6 +87,8 @@
 	#elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__) \
 		|| defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)
 		#define YSize 8
+	#elif defined(__G800__)
+		#define YSize 7
 	#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
 		#define YSize ((64/SPRITE_Y_STEP)+1)
 	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
@@ -146,7 +148,7 @@
 		#define XSize 32	
 	#elif defined(__OSIC1P__)
 		#define XSize 24
-	#elif defined(__VIC20__)
+	#elif defined(__VIC20__) || defined(__G800__)
 		#define XSize 22
 	#elif (defined(__ATARI__) && defined(ATARI_MODE1)) \
 		  || defined(__ATARI_LYNX__) || defined(__SUPERVISION__) \

@@ -2146,6 +2146,72 @@ camputers_lynx:
 	-create-app -o $(BUILD_PATH)/FULL_camputers_lynx.bin
 	rm $(BUILD_PATH)/FULL_camputers_lynx.bin
 	
+rex:
+	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \
+	-D__REX__ \
+	-DTURN_BASED \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/FULL_rex.bin
+	
+
+newbrain:
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
+	-D__NEWBRAIN__ \
+	-DTURN_BASED \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/FULL_newbrain.bin
+	mv _dir.txt $(BUILD_PATH)/
+	
+
+g800_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 -clib=g850b $(SCCZ80_OPTS) \
+	-D__G800__ \
+	-DTURN_BASED \
+	-DNO_BLINKING \
+	-vn \
+	-DFULL_GAME \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o 
+	rm a.bin 
+	rm a.rom
+	mv a.ihx $(BUILD_PATH)/FULL_g800_turn_based.ihx
+	
+g800_tiny_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +g800 -clib=g850b $(SCCZ80_OPTS) \
+	-D__G800__ \
+	-DTURN_BASED \
+	-DNO_BLINKING \
+	-vn \
+	-DFORCE_CONIO_LIB \
+	-DTINY_GAME \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(TINY_FILES) \
+	-create-app -o
+	rm a.bin
+	rm a.rom
+	mv a.ihx $(BUILD_PATH)/TINY_g800_turn_based.ihx
+
+				
+	
 	
 mz2500:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
@@ -3562,21 +3628,21 @@ msx_conio_32k:
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/FULL_msx_conio_32k.prg 	
 
-g800:
-	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__SRR__ -vn \
-	-DFULL_GAME -DSOUNDS \
-	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
-	-DCONIO_VT52 \
-	-lndos \
-	-clib=g850b \
-	-create-app \
-	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
+# g800:
+	# $(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# -D__SRR__ -vn \
+	# -DFULL_GAME -DSOUNDS \
+	# -DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	# -DCONIO_VT52 \
+	# -lndos \
+	# -clib=g850b \
+	# -create-app \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	# $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c \
+	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	# $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c
 	# mv a.rom $(BUILD_PATH)/FULL_g800.rom
 		
 

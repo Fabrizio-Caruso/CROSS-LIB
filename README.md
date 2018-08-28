@@ -55,7 +55,7 @@ For example:
 For most targets, more than one version is built, in order to support different hardware configuratins and expansions 
 (e.g., memory expansions, second CPU, 80-col display card, etc.).
 
-- abc80: ABC 80
+- abc80: Luxor ABC 80
 - ace: Jupiter Ace
 - alphathro: Alphatronic
 - apple2: Apple //

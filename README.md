@@ -80,6 +80,7 @@ For most targets, more than one version is built, in order to support different 
 - g800: Sharp PC-G800
 - gal: Galaksija
 - gamate: Gamate
+- gx4000: Amstrad GX-4000
 - kc: Robotron KC-85/2/3/4
 - lambda: Lambda 8300
 - m5: Sord M5

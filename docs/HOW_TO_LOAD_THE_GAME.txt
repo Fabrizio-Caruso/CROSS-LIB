@@ -460,5 +460,23 @@ Use MAME/MESS:
 2. run the .COM file by typing its name
 
 
+-----------------------------------------------------------
+
+SAMSUNG SPC-1000
+
+Use ESPC emulator
+Type "LOAD"
+CMT -> Play -> Select file
+CMT -> Play button
+
+-----------------------------------------------------------
+
+ALPHATRONIC
+
+
+Use MAME/MESS
+
+mame64.exe alphatro -uimodekey DEL -window -cartridge1 c:\Retro\CROSS-CHASE\build\FULL_alphatro.rom
+
 
 

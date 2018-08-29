@@ -2790,7 +2790,7 @@ spc1000_targets: \
 	spc1000_udg
 	
 alphatro_targets: \
-	alphatro_udg
+	alphatro
 
 samcoupe_targets: \
 	samcoupe
@@ -4132,7 +4132,7 @@ spc1000_udg:
 	rm $(BUILD_PATH)/FULL_spc1000.bin
 	
 
-alphatro_udg:
+alphatro:
 	$(Z88DK_PATH)$(MYZ88DK) +alphatro $(SCCZ80_OPTS) \
 	-D__ALPHATRO__ \
 	-DFULL_GAME  \
@@ -4140,8 +4140,6 @@ alphatro_udg:
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \
-	-DANIMATE_PLAYER \
-	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \

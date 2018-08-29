@@ -69,7 +69,8 @@
 		|| defined(__PV2000__) \
 		|| defined(__PV1000__) \
 		|| (defined(__EG2K__) && !defined(UDG_GRAPHICS))  \
-		|| (defined(__EG2K__) && defined(UDG_GRAPHICS))
+		|| (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
+		|| defined(__ALPHATRO__)
 		#define YSize (24-Y_OFFSET)
 	#elif defined(__VIC20__) \
 		|| defined(__RX78__)
@@ -133,9 +134,10 @@
 		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
 		  || (defined(__ATARI__) && !defined(ATARI_MODE1)) \
 		  || defined(__CBM510__) \
-		  || (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
 		  || defined(__FP1100__) \
-		  || (defined(__EG2K__) && !defined(UDG_GRAPHICS))
+		  || (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
+		  || (defined(__EG2K__) && !defined(UDG_GRAPHICS)) \
+		  || defined(__ALPHATRO__)
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)

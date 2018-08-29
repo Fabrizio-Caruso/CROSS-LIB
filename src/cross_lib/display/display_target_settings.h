@@ -38,10 +38,10 @@
 		  #define YSize (30-Y_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		  #define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)	
-	#elif defined(__KC__) && defined(UDG_GRAPHICS)
+	#elif (defined(__KC__) && defined(UDG_GRAPHICS))		  
 		  #define YSize (32-Y_OFFSET)
-	#elif defined(__ATMOS__) || defined(__NES__)  
-		#define YSize (28-Y_OFFSET) 		  
+	#elif defined(__ATMOS__) || defined(__NES__) 
+		#define YSize (28-Y_OFFSET)	  
 	#elif defined(__CBM610__) || defined(__PET__) || defined(__C128__) \
 		  || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
 		  || defined(__PET__) || defined(__CBM510__) \
@@ -65,10 +65,11 @@
 		|| defined(__MC1000__) \
 		|| defined(__M5__) \
 		|| defined(__AQUARIUS__) \
-		|| (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
 		|| defined(__COLECO__) \
 		|| defined(__PV2000__) \
-		|| defined(__PV1000__) 
+		|| defined(__PV1000__) \
+		|| (defined(__EG2K__) && !defined(UDG_GRAPHICS))  \
+		|| (defined(__EG2K__) && defined(UDG_GRAPHICS))
 		#define YSize (24-Y_OFFSET)
 	#elif defined(__VIC20__) \
 		|| defined(__RX78__)
@@ -112,17 +113,15 @@
 		  || defined(__PX8__) || defined(__CPM_80X24__) \
 		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)) \
 		  || defined(__PPS__) || (defined(__MULTI8__) && defined(UDG_GRAPHICS)) \
-		  || defined(__TS2068__)
+		  || defined(__TS2068__) || (defined(__TRS80__) && !defined(__EG2K__))
 		#define XSize 80
-	#elif (defined(__TRS80__) && !defined(__EG2K__)) \
-		  || (defined(__EG2K__) && !defined(UDG_GRAPHICS)) \
-		  || defined(__SRR__)
+	#elif defined(__SRR__)
 		#define XSize 64
 	#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6))
 		 #define XSize 60
 	#elif ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
 		#define XSize (480/SPRITE_X_STEP)
-	#elif defined(__NASCOM__) 
+	#elif defined(__NASCOM__)	
 		#define XSize 48
 	#elif defined(__VG5K__) || (defined(__APPLE2ENH__) && !defined(APPLE2ENH_80COL_VIDEO_MODE))|| defined(__APPLE2__) \
 		  || defined(__Z9001__) || defined(__P2000__) || defined(__ABC80__) \
@@ -135,7 +134,8 @@
 		  || (defined(__ATARI__) && !defined(ATARI_MODE1)) \
 		  || defined(__CBM510__) \
 		  || (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
-		  || defined(__FP1100__)
+		  || defined(__FP1100__) \
+		  || (defined(__EG2K__) && !defined(UDG_GRAPHICS))
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)
@@ -150,7 +150,7 @@
 		  || defined(__EINSTEIN__) \
 		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__) \
 		  || defined(__M5__) || defined(__COLECO__) \
-		  || defined(__PV2000__)
+		  || defined(__PV2000__)	  
 		#define XSize 32	
 	#elif defined(__PV1000__)
 		#define XSize 28

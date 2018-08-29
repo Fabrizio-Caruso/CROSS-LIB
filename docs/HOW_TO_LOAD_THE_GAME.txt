@@ -378,7 +378,6 @@ Type TAPE
 Press ESC
 
 
-
 -----------------------------------------------------------
 
 EXIDY SORCERER
@@ -397,7 +396,6 @@ Select 2 pages at start-up
 Type "cload"
 Select cassette image
 Type "run"
-
 
 
 -----------------------------------------------------------

@@ -2119,9 +2119,12 @@ fp1100:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app 
+	-create-app
+	mv a.d88 $(BUILD_PATH)/FULL_fp1100.d88
+	rm a.bin
+	rm a_BOOTSTRAP.bin
 	
-		
+
 fp1100_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__FP1000__ -vn \
@@ -2129,8 +2132,11 @@ fp1100_tiny:
 	-DTINY_GAME -DSOUNDS \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app -o $(BUILD_PATH)/TINY_fp1100.d88 \
-	$(TINY_FILES)
+	$(TINY_FILES) \
+	-create-app
+	mv a.d88 $(BUILD_PATH)/TINY_fp1100.d88
+	rm a.bin
+	rm a_BOOTSTRAP.bin
 
 camputers_lynx:
 	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) \
@@ -2682,7 +2688,7 @@ z1013_targets: \
 	z1013
 	
 x1_targets: \
-	x1_tiny x1
+	x1
 
 px4_targets: \
 	px4_tiny px4 px4_putc4x6
@@ -2775,7 +2781,7 @@ rx78_targets: \
 	rx78_udg
 	
 pv1000_targets: \
-	pv1000_light_udg pv1000_udg
+	pv1000_light pv1000
 	
 coleco_targets: \
 	coleco_udg
@@ -3751,22 +3757,22 @@ atari_no_color_16k:
 	$(SOURCE_PATH)/main.c  -o \
 	$(BUILD_PATH)/LIGHT_atari_no_color_16k.xex
 
-pv1000:
-	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__SRR__ -vn \
-	-DZ88DK_JOYSTICK \
-	-DFULL_GAME -DSOUNDS \
-	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
-	-DCONIO_VT52 \
-	-lndos \
-	-create-app \
-	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	mv a.rom $(BUILD_PATH)/FULL_pv1000.rom
+# pv1000:
+	# $(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# -D__SRR__ -vn \
+	# -DZ88DK_JOYSTICK \
+	# -DFULL_GAME -DSOUNDS \
+	# -DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	# -DCONIO_VT52 \
+	# -lndos \
+	# -create-app \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	# $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c \
+	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	# $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c
+	# mv a.rom $(BUILD_PATH)/FULL_pv1000.rom
 
 
 nc100_sprites_tiny:
@@ -3961,46 +3967,43 @@ rx78_udg:
 	rm $(BUILD_PATH)/FULL_rx78_BSS.bin
 	
 
-	
-pv1000_light_udg:
+# UDG can be done but differently
+pv1000_light:
 	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) \
 	-D__PV1000__ \
 	-DZ88DK_JOYSTICK \
 	-DCONIO_VT52 \
 	-DCONIO \
+	-DNO_INIT_GRAPHICS \
 	-lndos \
-	-DANIMATE_PLAYER \
-	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
 	$(LIGHT_FILES) \
 	-create-app -o$(BUILD_PATH)/LIGHT_pv1000.bin
 	rm $(BUILD_PATH)/LIGHT_pv1000.bin	
 	rm $(BUILD_PATH)/LIGHT_pv1000_DATA.bin	
 	rm $(BUILD_PATH)/LIGHT_pv1000_BSS.bin	
 	
-
-pv1000_udg:
+# UDG can be done but differently
+pv1000:
 	$(Z88DK_PATH)$(MYZ88DK) +pv1000 \
 	-compiler=sdcc \
 	$(ZSDCC_OPTS) \
 	-D__PV1000__ \
+	-DZ88DK_JOYSTICK \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
 	-DCONIO \
+	-DNO_INIT_GRAPHICS \
 	-lndos \
-	-DANIMATE_PLAYER \
-	-DUDG_GRAPHICS \
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_pv1000.bin
 	rm $(BUILD_PATH)/FULL_pv1000.bin
+	rm $(BUILD_PATH)/FULL_pv1000_DATA.bin
+	rm $(BUILD_PATH)/FULL_pv1000_BSS.bin
 
 
 pv2000_udg:
@@ -4045,7 +4048,10 @@ coleco_udg:
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_coleco.bin
-	rm $(BUILD_PATH)/FULL_coleco.bin	
+	rm $(BUILD_PATH)/FULL_coleco.bin
+	rm $(BUILD_PATH)/FULL_coleco_DATA.bin	
+	rm $(BUILD_PATH)/FULL_coleco_BSS.bin	
+
 
 	
 multi8_tiny_udg:

@@ -47,7 +47,8 @@
 		  || defined(__PET__) || defined(__CBM510__) \
 		  || defined(__MZ__) || defined(__BEE__) || defined(__X1__) \
 		  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__) \
-		  || defined(__ENTERPRISE__) 
+		  || defined(__ENTERPRISE__) \
+		  || defined(__FP1100__) 
 		#define YSize (25-Y_OFFSET)
 	#elif defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
 		|| defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) \
@@ -66,6 +67,7 @@
 		|| (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
 		|| defined(__COLECO__) \
 		|| defined(__PV2000__) \
+		|| defined(__PV1000__) \
 		|| defined(__MULTI8__)
 		#define YSize (24-Y_OFFSET)
 	#elif defined(__VIC20__)
@@ -76,7 +78,7 @@
 		#define YSize (24-2-Y_OFFSET)
 	#elif (defined(__NC200__) && defined(Z88DK_SPRITES))
 		#define YSize ((128/SPRITE_Y_STEP)+1)
-	#elif defined(__SUPERVISION__) 
+	#elif defined(__SUPERVISION__)
 		#define YSize 20
 	#elif defined(__GAMATE__)
 		#define YSize 19	
@@ -119,7 +121,7 @@
 		 #define XSize 60
 	#elif ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
 		#define XSize (480/SPRITE_X_STEP)
-	#elif defined(__NASCOM__)
+	#elif defined(__NASCOM__) 
 		#define XSize 48
 	#elif defined(__VG5K__) || (defined(__APPLE2ENH__) && !defined(APPLE2ENH_80COL_VIDEO_MODE))|| defined(__APPLE2__) \
 		  || defined(__Z9001__) || defined(__P2000__) || defined(__ABC80__) \
@@ -131,7 +133,8 @@
 		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
 		  || (defined(__ATARI__) && !defined(ATARI_MODE1)) \
 		  || defined(__CBM510__) \
-		  || (defined(__EG2K__) && defined(UDG_GRAPHICS))
+		  || (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
+		  || defined(__FP1100__)
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)
@@ -145,9 +148,12 @@
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
 		  || defined(__EINSTEIN__) \
 		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__) \
-		  || defined(__M5__) || defined(__COLECO__) || defined(__PV2000__)
+		  || defined(__M5__) || defined(__COLECO__) \
+		  || defined(__PV2000__)
 		#define XSize 32	
-	#elif defined(__OSIC1P__) || defined(__G800__)
+	#elif defined(__PV1000__)
+		#define XSize 28
+	#elif defined(__OSIC1P__) || defined(__G800__) 
 		#define XSize 24
 	#elif defined(__VIC20__) 
 		#define XSize 22

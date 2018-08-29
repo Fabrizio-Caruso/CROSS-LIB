@@ -90,7 +90,7 @@
 			return in_inkey();
 		#endif
 	
-	#elif defined(__TRS80__) || defined(__EG2K__) 
+	#elif defined(__TRS80__) && (!defined(__EG2K__)) 
 		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 		#define PEEK(addr)         (*(unsigned char*) (addr))
 

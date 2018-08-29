@@ -1793,8 +1793,8 @@ eg2k_udg:
 	-DUDG_GRAPHICS \
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_eg2k_udg.bin
@@ -3906,8 +3906,8 @@ kc_tiny_udg:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(TINY_FILES) \
 	-create-app -o$(BUILD_PATH)/TINY_kc.bin
 	rm $(BUILD_PATH)/TINY_kc.bin
@@ -3921,8 +3921,8 @@ kc_light_udg:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(LIGHT_FILES) \
 	-create-app -o$(BUILD_PATH)/LIGHT_kc.bin
 	rm $(BUILD_PATH)/LIGHT_kc.bin
@@ -3939,8 +3939,8 @@ kc_udg:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_kc.bin
@@ -3957,8 +3957,8 @@ rx78_udg:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_rx78.bin
@@ -4019,8 +4019,8 @@ pv2000_udg:
 	-DUDG_GRAPHICS \
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_pv2000.bin
@@ -4043,8 +4043,8 @@ coleco_udg:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_coleco.bin
@@ -4064,14 +4064,36 @@ multi8_tiny_udg:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(TINY_FILES) \
 	-create-app -o$(BUILD_PATH)/TINY_multi8.bin
 	rm $(BUILD_PATH)/TINY_multi8.bin		
 
-multi8_udg:
+
+multi8_light_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) \
+	-D__MULTI8__ \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(LIGHT_FILES) \
+	-create-app -o$(BUILD_PATH)/LIGHT_multi8.bin
+	rm $(BUILD_PATH)/LIGHT_multi8.bin		
+	
+multi8_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +multi8 \
+	$(SCCZ80_OPTS) \
+	$(CROSS_LIB_PATH)/boot/multi8/bootstrap.c \
+	-create-app -o bootstrap
+	rm bootstrap
+	$(Z88DK_PATH)$(MYZ88DK) +multi8 -subtype=64k \
+	$(SCCZ80_OPTS) \
 	-D__MULTI8__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -4080,13 +4102,19 @@ multi8_udg:
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
+	-DNO_HINTS \
+	-DSIMPLE_STRATEGY \
+	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_multi8.bin
-	rm $(BUILD_PATH)/FULL_multi8.bin		
+	-create-app -o code
+	rm code
+	cat bootstrap.cas code.cas > $(BUILD_PATH)/FULL_multi8.cas
+	rm bootstrap.cas
+	rm code.cas
 	
 spc1000_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +spc1000 $(SCCZ80_OPTS) \
@@ -4099,8 +4127,8 @@ spc1000_udg:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_spc1000.bin
@@ -4118,8 +4146,8 @@ alphatro_udg:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	cross_lib/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	cross_lib/display/graphics_data/z88dk/xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_alphatro.bin

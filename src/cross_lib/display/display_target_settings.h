@@ -48,7 +48,8 @@
 		  || defined(__MZ__) || defined(__BEE__) || defined(__X1__) \
 		  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__) \
 		  || defined(__ENTERPRISE__) \
-		  || defined(__FP1100__) 
+		  || defined(__FP1100__) \
+		  || defined(__MULTI8__) 
 		#define YSize (25-Y_OFFSET)
 	#elif defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
 		|| defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) \
@@ -67,10 +68,10 @@
 		|| (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
 		|| defined(__COLECO__) \
 		|| defined(__PV2000__) \
-		|| defined(__PV1000__) \
-		|| defined(__MULTI8__)
+		|| defined(__PV1000__) 
 		#define YSize (24-Y_OFFSET)
-	#elif defined(__VIC20__)
+	#elif defined(__VIC20__) \
+		|| defined(__RX78__)
 		#define YSize 23
 	#elif defined(__SPC1000__)
 		#define YSize 22
@@ -153,7 +154,7 @@
 		#define XSize 32	
 	#elif defined(__PV1000__)
 		#define XSize 28
-	#elif defined(__OSIC1P__) || defined(__G800__) 
+	#elif defined(__OSIC1P__) || defined(__G800__) || defined(__RX78__) 
 		#define XSize 24
 	#elif defined(__VIC20__) 
 		#define XSize 22

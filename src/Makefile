@@ -2716,7 +2716,7 @@ vg5k_targets: \
 	vg5k vg5k_exp_16k_udg
 	
 sc3000_targets: \
-	sc3000_16k sc3000_32k_udg sg1000
+	sc3000_16k sc3000_32k_udg sg1000_udg
 	
 ace_targets: \
 	ace_exp_16k_udg

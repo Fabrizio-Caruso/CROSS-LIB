@@ -94,6 +94,7 @@
 		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 		#define PEEK(addr)         (*(unsigned char*) (addr))
 
+		// TODO: Use 0xF800 for EG2K
 		unsigned char ijkl = PEEK(0x3802);
 		
 		if(ijkl==2)

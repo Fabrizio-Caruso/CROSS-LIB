@@ -55,8 +55,9 @@ For example:
 For most targets, more than one version is built, in order to support different hardware configuratins and expansions 
 (e.g., memory expansions, second CPU, 80-col display card, etc.).
 
-- abc80: ABC 80
+- abc80: Luxor ABC 80
 - ace: Jupiter Ace
+- alphathro: Alphatronic
 - apple2: Apple //
 - apple2enh: Enhanced Apple //e
 - aquarius: Mattel Aquarius 
@@ -70,13 +71,16 @@ For most targets, more than one version is built, in order to support different 
 - cbm510: Commodore CBM 510
 - cbm610: Commodore CBM 610
 - coco: Color Computer / Dragon 32/64
+- coleco: Colecovision
 - cpc: Amstrad CPC
 - cpm: CP/M with adm3a/vt52/vt100 terminals
 - creativision: VTech Creativision
 - eg2k: EACA EG2000
 - einstein: Tatung Einstein
+- g800: Sharp PC-G800
 - gal: Galaksija
 - gamate: Gamate
+- gx4000: Amstrad GX-4000
 - kc: Robotron KC-85/2/3/4
 - lambda: Lambda 8300
 - m5: Sord M5
@@ -84,6 +88,7 @@ For most targets, more than one version is built, in order to support different 
 - microbee: Microobee
 - msx: MSX
 - mtx: MTX 512
+- multi8: Mitsubishi Multi 8
 - nascom: Nascom
 - nc100: Amstrad NC-100
 - nes: Nintendo Enterteinment System
@@ -94,12 +99,16 @@ For most targets, more than one version is built, in order to support different 
 - pce: PCEngine
 - pet: Commodore Pet
 - pps: Peters Plus Sprinter
+- pv1000: Casio PV1000
 - pv2000: Casio PV2000
 - px4: Epson PX-4/HC-40
 - px8: Epson PX-8/HC-80
+- rx78: Bandai RX-78
 - samcoupe: Sam Coupe
 - sc3000: Sega SC 3000
+- sg1000: Sega SG 1000
 - sharp_mz: Sharp MZ
+- spc1000: Samsung SPC 1000
 - spectrum: Sinclair Spectrum 16k/48k/128k
 - srr: Exidy Sorcerer
 - supervision: Watara Supervision
@@ -108,12 +117,13 @@ For most targets, more than one version is built, in order to support different 
 - ti83: Texas TI 83
 - ti85: Texas TI 85
 - trs80: TRS-80 Model I/III/IV
+- ts2068: Timex TS 2068
 - vg5k: VG-5000
 - vic20: Commodore Vic 20
 - vz200: VTech VZ200
 - x1: Sharp X1
 - z1013: Robotron Z1013
-- z9001: Robotron Z9001
+- z9001: Robotron Z9001, Robotron KC 85/1, Robotron KC 87 
 - zx80: Sinclair ZX80
 - zx81: Sinclair ZX81
 

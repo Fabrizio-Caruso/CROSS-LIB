@@ -114,9 +114,9 @@
 		  || defined(__PX8__) || defined(__CPM_80X24__) \
 		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)) \
 		  || defined(__PPS__) || (defined(__MULTI8__) && defined(UDG_GRAPHICS)) \
-		  || defined(__TS2068__) || (defined(__TRS80__) && !defined(__EG2K__))
+		  || defined(__TS2068__)
 		#define XSize 80
-	#elif defined(__SRR__)
+	#elif defined(__SRR__) || (defined(__TRS80__) && !defined(__EG2K__))
 		#define XSize 64
 	#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6))
 		 #define XSize 60

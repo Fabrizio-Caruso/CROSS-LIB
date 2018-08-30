@@ -90,27 +90,6 @@
 			return in_inkey();
 		#endif
 	
-	#elif defined(__TRS80__) && (!defined(__EG2K__)) 
-		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
-		#define PEEK(addr)         (*(unsigned char*) (addr))
-
-		// TODO: Use 0xF800 for EG2K
-		unsigned char ijkl = PEEK(0x3802);
-		
-		if(ijkl==2)
-			return 'I';
-		else if(ijkl==4)
-			return 'J';
-		else if(ijkl==8)
-			return 'K'; 
-		else if(ijkl==16)
-			return 'L';
-		
-		if(PEEK(0x3840)==128)
-			return ' ';
-		else
-			return '\0';
-	
 	#elif defined(__NCURSES__)
 		#define INPUT_LOOPS 10
 		

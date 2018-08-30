@@ -1709,6 +1709,7 @@ x1:
 # -subtype=disk
 trs80_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
+	-pragma-redirect:getk=getk_inkey \
 	-lm -create-app \
 	-D__TRS80__ \
 	-DCONIO_VT52 \
@@ -1721,6 +1722,7 @@ trs80_tiny:
 
 trs80:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
+	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-lm -create-app \
 	-D__TRS80__ \
@@ -1735,6 +1737,7 @@ trs80:
 	
 trs80_wav:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=wav \
+	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-lm -create-app \
 	-D__TRS80__ \
@@ -1750,6 +1753,7 @@ trs80_cmd:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=disk \
 	-lm -create-app \
 	-D__TRS80__ \
+	-pragma-redirect:getk=getk_inkey \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2849,7 +2853,7 @@ atari5200_targets: \
 	atari5200
 
 nes_targets: \
-	nes
+	nes_fx
 	
 creativision_targets: \
 	creativision_8k_tiny creativision_16k

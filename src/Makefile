@@ -1779,6 +1779,7 @@ eg2k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 \
 	-D__EG2K__ \
 	-subtype=eg2000disk \
+	-pragma-redirect:getk=getk_inkey \
 	$(SCCZ80_OPTS) \
 	-D__EG2K__ \
 	-DFULL_GAME  \

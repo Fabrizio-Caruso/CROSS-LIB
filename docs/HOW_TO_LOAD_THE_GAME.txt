@@ -118,7 +118,7 @@ RUN
 
 Luxor ABC 80 
 
-Use the ABC80SIM emulator 
+Use the ABC80SIM emulator (https://www.abc80.org/pub/abc80sim/)
 
 Pass the ihx file as a parameter to the emulator
 Run it directly with the command “A=CALL(49200)”
@@ -479,4 +479,9 @@ Use MAME/MESS
 mame64.exe alphatro -uimodekey DEL -window -cartridge1 c:\Retro\CROSS-CHASE\build\FULL_alphatro.rom
 
 
+-----------------------------------------------------------
 
+
+MICROBEE
+
+Use Nanowasp emulator: http://nanowasp.org/

@@ -1431,6 +1431,7 @@ gal_22k:
 	-pragma-need=ansiterminal \
 	-D__GAL__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1708,6 +1709,7 @@ x1:
 # -subtype=disk
 trs80_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
+	-pragma-redirect:getk=getk_inkey \
 	-lm -create-app \
 	-D__TRS80__ \
 	-DCONIO_VT52 \
@@ -1720,6 +1722,7 @@ trs80_tiny:
 
 trs80:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
+	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-lm -create-app \
 	-D__TRS80__ \
@@ -1734,6 +1737,7 @@ trs80:
 	
 trs80_wav:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=wav \
+	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-lm -create-app \
 	-D__TRS80__ \
@@ -1749,6 +1753,7 @@ trs80_cmd:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=disk \
 	-lm -create-app \
 	-D__TRS80__ \
+	-pragma-redirect:getk=getk_inkey \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2109,7 +2114,7 @@ pv2000:
 	
 fp1100:
 	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__FP1000__ -vn \
+	-D__FP1100__ -vn \
 	-DCONIO_VT52 \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -2125,7 +2130,7 @@ fp1100:
 
 fp1100_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__FP1000__ -vn \
+	-D__FP1100__ -vn \
 	-DCONIO_VT52 \
 	-DTINY_GAME -DSOUNDS \
 	-lndos \
@@ -2537,6 +2542,7 @@ z88dk_test: \
 	
 	
 z88dk_targets: \
+	fp1100_targets \
 	coleco_targets \
 	multi8_targets \
 	spc1000_targets \
@@ -2792,6 +2798,9 @@ spc1000_targets: \
 	
 alphatro_targets: \
 	alphatro
+	
+fp1100_targets: \
+	fp1100
 
 samcoupe_targets: \
 	samcoupe
@@ -2848,7 +2857,7 @@ atari5200_targets: \
 	atari5200
 
 nes_targets: \
-	nes
+	nes_fx
 	
 creativision_targets: \
 	creativision_8k_tiny creativision_16k

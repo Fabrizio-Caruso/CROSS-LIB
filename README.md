@@ -103,6 +103,7 @@ For most targets, more than one version is built, in order to support different 
 - pv2000: Casio PV2000
 - px4: Epson PX-4/HC-40
 - px8: Epson PX-8/HC-80
+- rx78: Bandai RX-78
 - samcoupe: Sam Coupe
 - sc3000: Sega SC 3000
 - sg1000: Sega SG 1000

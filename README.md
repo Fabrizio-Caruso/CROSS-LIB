@@ -77,6 +77,7 @@ For most targets, more than one version is built, in order to support different 
 - creativision: VTech Creativision
 - eg2k: EACA EG2000
 - einstein: Tatung Einstein
+- fp1100: Casio FP-1100
 - g800: Sharp PC-G800
 - gal: Galaksija
 - gamate: Gamate

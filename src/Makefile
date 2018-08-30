@@ -2114,7 +2114,7 @@ pv2000:
 	
 fp1100:
 	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__FP1000__ -vn \
+	-D__FP1100__ -vn \
 	-DCONIO_VT52 \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -2130,7 +2130,7 @@ fp1100:
 
 fp1100_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__FP1000__ -vn \
+	-D__FP1100__ -vn \
 	-DCONIO_VT52 \
 	-DTINY_GAME -DSOUNDS \
 	-lndos \
@@ -2542,6 +2542,7 @@ z88dk_test: \
 	
 	
 z88dk_targets: \
+	fp1100_targets \
 	coleco_targets \
 	multi8_targets \
 	spc1000_targets \
@@ -2797,6 +2798,9 @@ spc1000_targets: \
 	
 alphatro_targets: \
 	alphatro
+	
+fp1100_targets: \
+	fp1100
 
 samcoupe_targets: \
 	samcoupe

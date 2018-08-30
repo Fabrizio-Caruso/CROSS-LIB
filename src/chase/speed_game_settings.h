@@ -105,7 +105,7 @@
 		#define GAME_SLOW_DOWN 800	
 	#elif defined(__VZ__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 800
+		#define GAME_SLOW_DOWN 3000U
 	#elif defined(__NES__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 700
@@ -151,9 +151,6 @@
 	#elif defined(__PCE__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 4200U	
-	#elif defined(__VZ__)
-		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 800	
 	#elif defined(__SPECTRUM__) && defined(TINY_GAME)
 		#define GAME_SLOW_DOWN 0	
 	#elif defined(__SPECTRUM__) && !defined(TINY_GAME) && !defined(__TS2068__)
@@ -182,7 +179,7 @@
 		#define GAME_SLOW_DOWN 2000	
 	#elif defined(__M5__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 900		
+		#define GAME_SLOW_DOWN 900					
 	#else
 		#define GAME_SLOW_DOWN 0
 	#endif

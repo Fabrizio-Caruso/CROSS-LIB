@@ -94,6 +94,9 @@
 	#elif defined(__NASCOM__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 8000U
+	#elif defined(__ABC80__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 8000U		
 	#elif defined(__GAMATE__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 1200

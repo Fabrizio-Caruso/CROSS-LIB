@@ -46,7 +46,7 @@
 		  || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
 		  || defined(__PET__) || defined(__CBM510__) \
 		  || defined(__MZ__) || defined(__BEE__) || defined(__X1__) \
-		  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__) \
+		  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__)  \
 		  || defined(__ENTERPRISE__) \
 		  || defined(__FP1100__) \
 		  || defined(__MULTI8__) 
@@ -70,7 +70,7 @@
 		|| defined(__PV1000__) \
 		|| (defined(__EG2K__) && !defined(UDG_GRAPHICS))  \
 		|| (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
-		|| defined(__ALPHATRO__)
+		|| defined(__ALPHATRO__) || defined(__ABC80__)
 		#define YSize (24-Y_OFFSET)
 	#elif defined(__VIC20__) \
 		|| defined(__RX78__)

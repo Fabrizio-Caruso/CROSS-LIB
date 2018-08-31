@@ -1263,18 +1263,30 @@ mtx:
 	mv FULL.wav $(BUILD_PATH)/FULL_mtx.wav
 	mv FULL $(BUILD_PATH)/FULL_mtx.mtx
 	
+abc80_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 $(SCCZ80_OPTS) \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o a \
+	$(TINY_FILES)
+	rm a
+	mv a.ihx $(BUILD_PATH)/TINY_abc80.ihx 
+	
 abc80_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 $(SCCZ80_OPTS) \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-D__ABC80__ -clib=ansi -vn -DSOUNDS  -lndos -create-app -o a \
+	-DNO_WAIT \
+	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o a \
 	$(LIGHT_FILES)
 	rm a
 	mv a.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
 	
 abc80_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 $(SCCZ80_OPTS) \
-	-D__ABC80__ -clib=ansi -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__ABC80__ -clib=ansi -vn -DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
 	-lndos -create-app -o a \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)

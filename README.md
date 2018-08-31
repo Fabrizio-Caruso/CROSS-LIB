@@ -129,6 +129,13 @@ For most targets, more than one version is built, in order to support different 
 - zx81: Sinclair ZX81
 
 -------------------------------------------
+STATUS - ISSUES
+
+Z80-based targets:
+https://docs.google.com/spreadsheets/d/1qo2skBUtCUCAac3knEE2x-bUBdvxEA_6qvElacJ3xNY/edit?usp=sharing
+
+-------------------------------------------
+
 
 ## THE FUTURE
 

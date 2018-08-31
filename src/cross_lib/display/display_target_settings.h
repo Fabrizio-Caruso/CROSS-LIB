@@ -46,7 +46,7 @@
 		  || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
 		  || defined(__PET__) || defined(__CBM510__) \
 		  || defined(__MZ__) || defined(__BEE__) || defined(__X1__) \
-		  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__) || defined(__ABC80__) \
+		  || defined(__PCE__) || defined(__CPC__) || defined(__VG5K__)  \
 		  || defined(__ENTERPRISE__) \
 		  || defined(__FP1100__) \
 		  || defined(__MULTI8__) 
@@ -70,7 +70,7 @@
 		|| defined(__PV1000__) \
 		|| (defined(__EG2K__) && !defined(UDG_GRAPHICS))  \
 		|| (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
-		|| defined(__ALPHATRO__)
+		|| defined(__ALPHATRO__) || defined(__ABC80__)
 		#define YSize (24-Y_OFFSET)
 	#elif defined(__VIC20__) \
 		|| defined(__RX78__)
@@ -126,7 +126,7 @@
 		#define XSize 48
 	#elif defined(__VG5K__) || (defined(__APPLE2ENH__) && !defined(APPLE2ENH_80COL_VIDEO_MODE))|| defined(__APPLE2__) \
 		  || defined(__Z9001__) || defined(__P2000__) || defined(__ABC80__) \
-		  || defined(__MZ__) || defined(__X1__) || defined(__ATMOS__) \
+		  || defined(__X1__) || defined(__ATMOS__) \
 		  || defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
 		  || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
 		  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
@@ -152,7 +152,7 @@
 		  || defined(__EINSTEIN__) \
 		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__) \
 		  || defined(__M5__) || defined(__COLECO__) \
-		  || defined(__PV2000__)	  
+		  || defined(__PV2000__) || defined(__MZ__)
 		#define XSize 32	
 	#elif defined(__PV1000__)
 		#define XSize 28

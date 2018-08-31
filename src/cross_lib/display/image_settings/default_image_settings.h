@@ -74,8 +74,8 @@
 
 #if defined(__C128_Z80__) || defined(__ZX80__) || defined(__ZX81__) || defined(__GAL__)
 	#define _VERTICAL_BRICK 'i'
-#elif defined(__ATARI_LYNX__)
-	#define _VERTICAL_BRICK 'I'
+#elif defined(__ATARI_LYNX__) || defined(__ABC80__)
+	#define _VERTICAL_BRICK 'I' 
 #else
 	#define _VERTICAL_BRICK ('|')
 #endif 

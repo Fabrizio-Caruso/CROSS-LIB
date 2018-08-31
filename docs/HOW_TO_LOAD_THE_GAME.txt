@@ -190,7 +190,7 @@ RUN
 
 SHARP X1
 
-Use Takeda X1 emulator.
+Use Takeda X1 emulator (you need the roms)
 1. Start the emulator.
 2. Click on FD0.
 3. Select the disk image
@@ -485,3 +485,22 @@ mame64.exe alphatro -uimodekey DEL -window -cartridge1 c:\Retro\CROSS-CHASE\buil
 MICROBEE
 
 Use Nanowasp emulator: http://nanowasp.org/
+
+
+-----------------------------------------------------------
+
+CASIO FP-1100
+
+Use Takeda's fp1100.exe emulator
+Attach disk image
+Reset
+
+
+-----------------------------------------------------------
+
+NASCOM
+
+Use Virtual-Nascom (http://repo.or.cz/w/virtual-nascom.git)
+Type virtualnascom [.nas file]
+
+Once the monitor is running, enter “E 1000” 

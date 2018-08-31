@@ -646,7 +646,6 @@ supervision:
 
 aquarius_exp_4k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
 	-compiler=sdcc \
 	$(ZSDCC_OPTS) \
 	-v \
@@ -1263,20 +1262,63 @@ mtx:
 	mv FULL.wav $(BUILD_PATH)/FULL_mtx.wav
 	mv FULL $(BUILD_PATH)/FULL_mtx.mtx
 	
-abc80_16k:
+abc80_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 $(SCCZ80_OPTS) \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-D__ABC80__ -clib=ansi -vn -DSOUNDS  -lndos -create-app -o a \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o a \
+	$(TINY_FILES)
+	#rm a
+	mv a.ihx $(BUILD_PATH)/TINY_abc80.ihx 
+	
+abc80_light:
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm \
+	-subtype=hex \
+	-zorg=49200 $(SCCZ80_OPTS) \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o a \
 	$(LIGHT_FILES)
 	rm a
 	mv a.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
-	
-abc80_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 $(SCCZ80_OPTS) \
-	-D__ABC80__ -clib=ansi -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+
+abc80_full:
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
+	$(SCCZ80_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-D__ABC80__ -clib=ansi -vn -DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DSIMPLE_STRATEGY \
+	-DNO_BLINKING \
+	-DNO_COLOR \
+	-DNO_HINTS \
+	-DNO_WAIT \
+	-DNO_BORDER \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_SLEEP \
+	-DFLAT_ENEMIES \
 	-lndos -create-app -o a \
-	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm a
+	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
+	
+abc80_32k_zsdcc:
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
+	$(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	-D__ABC80__ -clib=ansi -vn -DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DSIMPLE_STRATEGY \
+	-DNO_BLINKING \
+	-DNO_COLOR \
+	-DNO_HINTS \
+	-DNO_WAIT \
+	-lndos -create-app -o a \
 	$(FULL_FILES)
 	rm a
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
@@ -1560,7 +1602,6 @@ nascom_32k:
 	-DSOUNDS \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_nascom_32k.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1574,7 +1615,6 @@ nascom_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
 	-DSOUNDS \
-	-DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/LIGHT_nascom_16k.prg \
 	$(LIGHT_FILES)
@@ -2740,7 +2780,7 @@ mtx_targets: \
 	mtx_udg
 	
 abc80_targets: \
-	abc80_16k abc80_32k
+	abc80_light abc80_full
 	
 p2000_targets: \
 	p2000_16k p2000_32k

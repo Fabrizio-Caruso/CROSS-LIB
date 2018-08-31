@@ -646,7 +646,6 @@ supervision:
 
 aquarius_exp_4k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
 	-compiler=sdcc \
 	$(ZSDCC_OPTS) \
 	-v \
@@ -1270,25 +1269,56 @@ abc80_tiny:
 	-DNO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o a \
 	$(TINY_FILES)
-	rm a
+	#rm a
 	mv a.ihx $(BUILD_PATH)/TINY_abc80.ihx 
 	
-abc80_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 $(SCCZ80_OPTS) \
+abc80_light:
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm \
+	-subtype=hex \
+	-zorg=49200 $(SCCZ80_OPTS) \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o a \
 	$(LIGHT_FILES)
 	rm a
 	mv a.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
-	
-abc80_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 $(SCCZ80_OPTS) \
-	-D__ABC80__ -clib=ansi -vn -DFULL_GAME   -DEND_SCREEN -DBETWEEN_LEVEL \
+
+abc80_full:
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
+	$(SCCZ80_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-D__ABC80__ -clib=ansi -vn -DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DSIMPLE_STRATEGY \
+	-DNO_BLINKING \
+	-DNO_COLOR \
+	-DNO_HINTS \
+	-DNO_WAIT \
+	-DNO_BORDER \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_SLEEP \
+	-DFLAT_ENEMIES \
+	-lndos -create-app -o a \
+	$(FULL_FILES)
+	rm a
+	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
+	
+abc80_32k_zsdcc:
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
+	$(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	-D__ABC80__ -clib=ansi -vn -DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DSIMPLE_STRATEGY \
+	-DNO_BLINKING \
+	-DNO_COLOR \
+	-DNO_HINTS \
 	-DNO_WAIT \
 	-lndos -create-app -o a \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm a
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
@@ -2750,7 +2780,7 @@ mtx_targets: \
 	mtx_udg
 	
 abc80_targets: \
-	abc80_16k abc80_32k
+	abc80_light abc80_full
 	
 p2000_targets: \
 	p2000_16k p2000_32k

@@ -2321,15 +2321,24 @@ mz2500:
 
 	
 mz2500_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
+	$(ZSDCC_OPTS) \
+	-compiler=sdcc \
 	-D__MZ2500__ \
 	-vn \
-	-DCONIO_VT52 \
 	-DNO_COLOR \
 	-DTINY_GAME \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_DEAD_GHOSTS \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
 	-lndos \
+	-DCONIO_VT100 \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(TINY_FILES) \
 	-create-app -o $(BUILD_PATH)/TINY_mz2500.bin
 	rm $(BUILD_PATH)/TINY_mz2500.bin	
@@ -2804,7 +2813,7 @@ microbee_targets: \
 	microbee_16k microbee_32k
 	
 gal_targets: \
-	gal_22k
+	gal_6k gal_22k
 	
 zx80_targets: \
 	zx80_16k_turn_based
@@ -4564,14 +4573,15 @@ gal_6k_sccz80:
 	#rm $(BUILD_PATH)/TINY_galaksija_6k_sccz80.wav
 	
 
+	
+# 	--opt-code-size 
 gal_6k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-compiler=sdcc \
 	$(ZSDCC_OPTS) \
-	--opt-code-size \
 	-pragma-need=ansiterminal \
 	--reserve-regs-iy \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-DTINY_GAME \
 	-DNO_SLEEP -DLESS_TEXT \
 	-D__GAL__ \
@@ -4586,9 +4596,10 @@ gal_6k:
 	-DFORCE_BOMBS_NUMBER=2 \
 	-DFORCE_GHOSTS_NUMBER=4 \
 	-DNO_DEAD_GHOSTS \
-	-vn -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
+	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
+	$(TINY_FILES)
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.prg
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 		

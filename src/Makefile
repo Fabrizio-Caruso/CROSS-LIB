@@ -2321,15 +2321,24 @@ mz2500:
 
 	
 mz2500_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
+	$(ZSDCC_OPTS) \
+	-compiler=sdcc \
 	-D__MZ2500__ \
 	-vn \
-	-DCONIO_VT52 \
 	-DNO_COLOR \
 	-DTINY_GAME \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_DEAD_GHOSTS \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
 	-lndos \
+	-DCONIO_VT100 \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(TINY_FILES) \
 	-create-app -o $(BUILD_PATH)/TINY_mz2500.bin
 	rm $(BUILD_PATH)/TINY_mz2500.bin	

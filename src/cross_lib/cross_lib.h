@@ -40,6 +40,7 @@
 	&& !defined(__EINSTEIN__) \
 	&& !defined(__SRR__) \
 	&& !defined(__NCURSES__) \
+	&& !defined(__MZ2500__) \
 	&& !defined(FORCE_NO_CONIO_LIB)
 	#define CONIO_LIB
 #endif

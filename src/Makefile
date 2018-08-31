@@ -2183,7 +2183,7 @@ fp1100_tiny:
 
 camputers_lynx:
 	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) \
-	-DCAMPUTERS_LYNX \
+	-D__CAMPUTERS_LYNX__ \
 	-vn \
 	-DCONIO_VT52 \
 	-DNO_COLOR \
@@ -2195,6 +2195,35 @@ camputers_lynx:
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_camputers_lynx.bin
 	rm $(BUILD_PATH)/FULL_camputers_lynx.bin
+	
+camputers_lynx_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) \
+	-D__CAMPUTERS_LYNX__ \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(TINY_FILES) \
+	-create-app -o $(BUILD_PATH)/TINY_camputers_lynx.bin
+	rm $(BUILD_PATH)/TINY_camputers_lynx.bin	
+	
+x07_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) \
+	-D__X07__ \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(TINY_FILES) \
+	-Cz--audio \
+	-create-app -o $(BUILD_PATH)/TINY_x07.bin
+	rm $(BUILD_PATH)/TINY_x07.bin	
+	
+		
 	
 rex:
 	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \

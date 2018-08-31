@@ -1560,7 +1560,6 @@ nascom_32k:
 	-DSOUNDS \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_nascom_32k.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1574,7 +1573,6 @@ nascom_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
 	-DSOUNDS \
-	-DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/LIGHT_nascom_16k.prg \
 	$(LIGHT_FILES)

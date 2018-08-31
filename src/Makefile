@@ -2813,7 +2813,7 @@ microbee_targets: \
 	microbee_16k microbee_32k
 	
 gal_targets: \
-	gal_22k
+	gal_6k gal_22k
 	
 zx80_targets: \
 	zx80_16k_turn_based
@@ -4573,14 +4573,15 @@ gal_6k_sccz80:
 	#rm $(BUILD_PATH)/TINY_galaksija_6k_sccz80.wav
 	
 
+	
+# 	--opt-code-size 
 gal_6k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-compiler=sdcc \
 	$(ZSDCC_OPTS) \
-	--opt-code-size \
 	-pragma-need=ansiterminal \
 	--reserve-regs-iy \
-	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-DTINY_GAME \
 	-DNO_SLEEP -DLESS_TEXT \
 	-D__GAL__ \
@@ -4595,9 +4596,10 @@ gal_6k:
 	-DFORCE_BOMBS_NUMBER=2 \
 	-DFORCE_GHOSTS_NUMBER=4 \
 	-DNO_DEAD_GHOSTS \
-	-vn -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
+	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
+	$(TINY_FILES)
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.prg
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 		

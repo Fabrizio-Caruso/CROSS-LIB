@@ -1881,7 +1881,22 @@ nc100_sprites_light:
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
 
+nc200_sprites_light:
+	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
+	-D__NC200__ \
+	-DNO_PRINT \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/LIGHT_nc200_sprites.bin \
+	-DNO_INIT_GRAPHICS \
+	$(LIGHT_FILES)
+	rm $(BUILD_PATH)/LIGHT_nc200_sprites.bin
 
+	
+	
 cpm_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-DCONIO_ADM3A \
@@ -3971,24 +3986,24 @@ mc1000_16k_light:
 	rm a.cas
 
 
-nc200_sprites_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
-	-D__NC200__ \
-	-DNO_PRINT \
-	-DZ88DK_SPRITES \
-	-DTINY_GAME \
-	-DLESS_TEXT \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/TINY_nc200_sprites.bin \
-	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
-	rm $(BUILD_PATH)/TINY_nc200_sprites.bin
+# nc200_sprites_tiny:
+	# $(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
+	# -D__NC200__ \
+	# -DNO_PRINT \
+	# -DZ88DK_SPRITES \
+	# -DTINY_GAME \
+	# -DLESS_TEXT \
+	# -DNO_SLEEP \
+	# -DNO_WAIT \
+	# -DANIMATE_PLAYER \
+	# -create-app -o$(BUILD_PATH)/TINY_nc200_sprites.bin \
+	# $(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
+	# $(SOURCE_PATH)/display_macros.c \
+	# $(SOURCE_PATH)/enemy.c \
+	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
+	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	# $(SOURCE_PATH)/main.c
+	# rm $(BUILD_PATH)/TINY_nc200_sprites.bin
 
 
 eg2k_tiny:

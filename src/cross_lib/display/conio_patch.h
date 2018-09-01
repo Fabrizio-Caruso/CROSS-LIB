@@ -16,7 +16,7 @@
 	#endif
 #endif
 
-#if defined(__G800__) || defined(__TS2068__)
+#if defined(__G800__) 
 		#define cputc(c) fputc_cons(c)	
 #endif
 
@@ -108,7 +108,7 @@
 	|| defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) \
 	|| defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) \
 	|| defined(__TI85__) || defined(__TI86__) || defined(__TI86S__) || defined(__MZ__) \
-	|| defined(__GAL__) || defined(__SC3000__) || (defined(__SPECTRUM__) && defined(CLIB_ANSI)) \
+	|| defined(__GAL__) || defined(__SC3000__) || defined(__SPECTRUM__) \
 	|| defined(__SAM__) || defined(__CPC__) || (defined(__SVI__) && !defined(MSX_MODE0)) \
 	|| defined(__VG5K__) || defined(__AQUARIUS__) || defined(__VZ__) \
 	|| defined(__MTX__) || defined(__Z88__) || defined(__PX4__) \
@@ -139,11 +139,6 @@
 		fputc_cons(c); \
 		} while(0)
 		
-#elif defined(__SPECTRUM__) && !defined(CLIB_ANSI) && !defined(__TS2068__)
-	#define gotoxy(x,y) printf("\x16%c%c",x+1,y+1); 
-	#define cprintf printf
-	#define cputc(c) printf("\x11%c%c",COLOR_BLACK,c);		
-
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 
 	#if defined(CMOC_RAND_FIX)
@@ -184,19 +179,11 @@
 	#endif
 	
 	#ifndef COLOR_RED
-		#if defined(__SPECTRUM__) && !defined(CLIB_ANSI)
-			#define COLOR_RED 2
-			#define COLOR_MAGENTA 3
-			#define COLOR_GREEN 4
-			#define COLOR_CYAN 5
-			#define COLOR_YELLOW 6
-		#else
-			#define COLOR_GREEN 2
-			#define COLOR_CYAN 3	
-			#define COLOR_MAGENTA 5
-			#define COLOR_RED 6		
-			#define COLOR_YELLOW 14		
-		#endif
+		#define COLOR_GREEN 2
+		#define COLOR_CYAN 3	
+		#define COLOR_MAGENTA 5
+		#define COLOR_RED 6		
+		#define COLOR_YELLOW 14		
 	#endif
 #endif
 

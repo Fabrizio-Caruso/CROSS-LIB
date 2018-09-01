@@ -106,9 +106,15 @@
 	#elif defined(__Z9001__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 800	
+	#elif defined(__X1__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 1500			
 	#elif defined(__VZ__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 3000U
+	#elif defined(__TI82__) || defined(__TI83__) || defined(__TI85__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 6000U		
 	#elif defined(__NES__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 700

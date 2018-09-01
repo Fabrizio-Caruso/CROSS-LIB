@@ -24,7 +24,8 @@ MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 SCCZ80_OPTS ?= -O3
-ZSDCC_OPTS ?= -SO3 --max-allocs-per-node200000
+ZSDCC_OPTS ?= 
+#-SO3 --max-allocs-per-node200000
 # --max-allocs-per-node200000
 #-SO3 --max-allocs-per-node200000
 
@@ -1496,15 +1497,22 @@ spectrum_16k:
 	
 # -pragma-redirect:ansifont=_font_8x8_zx_system -pragma-define:ansifont_is_packed=0
 spectrum_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -v  \
-	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
-	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -v  \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DFULL_GAME \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__SPECTRUM__ \
 	-DALT_MOVE \
 	-lndos -create-app \
 	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/FULL_spectrum_48k.prg \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/udg.asm \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/spectrum_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_spectrum_48k.prg
@@ -1596,6 +1604,21 @@ pc6001_32k_udg:
 	
 # kbhit KO
 # Everything displayed on the same line
+nascom_32k_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) -clib=ansi -vn -lndos \
+	-D__NASCOM__ \
+	-DTURN_BASED \
+	-DSOUNDS \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_nascom_32k_turn_based.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_nascom_32k_turn_based.prg
+	
+
+
 nascom_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
@@ -1906,7 +1929,8 @@ c128_z80_40col:
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DFULL_GAME -DEND_SCREEN -DNO_BLINKING \
 	-DFORCE_CONIO_LIB \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app
@@ -1955,6 +1979,7 @@ einstein:
 
 ti82_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \
+	-DZ88DK_JOYSTICK \
 	$(SCCZ80_OPTS) -D__TI82__ \
 	-DTURN_BASED -DNO_WAIT \
 	-clib=ansi -pragma-define:ansicolumns=32 \
@@ -1972,6 +1997,7 @@ ti82_turn_based:
 ti82_tiny_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \
 	$(SCCZ80_OPTS) -D__TI82__ \
+	-DZ88DK_JOYSTICK \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DTINY_GAME  \
@@ -1980,7 +2006,7 @@ ti82_tiny_turn_based:
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES) \
-	-create-app 	
+	-create-app
 	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/TINY_ti82_turn_based.82p
 	rm $(SOURCE_PATH)/../a.bin
 
@@ -1988,6 +2014,7 @@ ti82_tiny_turn_based:
 ti83_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
 	$(SCCZ80_OPTS) -D__TI83__ \
+	-DZ88DK_JOYSTICK \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DFULL_GAME  \
@@ -1996,8 +2023,8 @@ ti83_turn_based:
 	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	$(FULL_FILES)	
-	-create-app \
+	$(FULL_FILES) \
+	-create-app
 	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/FULL_ti83_turn_based.83p
 	rm $(SOURCE_PATH)/../a.bin
 
@@ -2005,6 +2032,7 @@ ti83_turn_based:
 ti83_tiny_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
 	$(SCCZ80_OPTS) -D__TI83__ \
+	-DZ88DK_JOYSTICK \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DTURN_BASED \
@@ -2018,10 +2046,10 @@ ti83_tiny_turn_based:
 	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/TINY_ti83_turn_based.83p	
 	rm $(SOURCE_PATH)/../a.bin
 
-	
-ti85:
-	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
-	$(SCCZ80_OPTS) -D__TI85__ \
+ti83:
+	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
+	$(SCCZ80_OPTS) -D__TI83__ \
+	-DZ88DK_JOYSTICK \
 	-DFORCE_XSIZE=32 \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
@@ -2030,13 +2058,30 @@ ti85:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app  \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/TINY_ti85.85s	
+	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/FULL_ti83.83p	
+	rm $(SOURCE_PATH)/../a.bin	
+	
+	
+ti85:
+	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
+	$(SCCZ80_OPTS) -D__TI85__ \
+	-DZ88DK_JOYSTICK \
+	-DFORCE_XSIZE=32 \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DFULL_GAME  \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app  \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85.85s	
 	rm $(SOURCE_PATH)/../a.bin
 
 
 ti85_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
 	$(SCCZ80_OPTS) -D__TI85__ \
+	-DZ88DK_JOYSTICK \
 	-DFORCE_XSIZE=32 \
 	-DTURN_BASED \
 	-clib=ansi -pragma-define:ansicolumns=32 \
@@ -2183,7 +2228,7 @@ fp1100_tiny:
 
 camputers_lynx:
 	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) \
-	-DCAMPUTERS_LYNX \
+	-D__CAMPUTERS_LYNX__ \
 	-vn \
 	-DCONIO_VT52 \
 	-DNO_COLOR \
@@ -2195,6 +2240,35 @@ camputers_lynx:
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_camputers_lynx.bin
 	rm $(BUILD_PATH)/FULL_camputers_lynx.bin
+	
+camputers_lynx_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) \
+	-D__CAMPUTERS_LYNX__ \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(TINY_FILES) \
+	-create-app -o $(BUILD_PATH)/TINY_camputers_lynx.bin
+	rm $(BUILD_PATH)/TINY_camputers_lynx.bin	
+	
+x07_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) \
+	-D__X07__ \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(TINY_FILES) \
+	-Cz--audio \
+	-create-app -o $(BUILD_PATH)/TINY_x07.bin
+	rm $(BUILD_PATH)/TINY_x07.bin	
+	
+		
 	
 rex:
 	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \
@@ -2591,6 +2665,7 @@ z88dk_test: \
 	
 	
 z88dk_targets: \
+	ts2068_targets \
 	fp1100_targets \
 	coleco_targets \
 	multi8_targets \
@@ -2599,10 +2674,8 @@ z88dk_targets: \
 	rx78_targets \
 	pv1000_targets \
 	g800_targets \
-	ts2068_targets \
 	svi_targets \
 	aquarius_targets \
-	spectrum_targets \
 	pc6001_targets \
 	zx81_targets \
 	einstein_targets \
@@ -2640,7 +2713,8 @@ z88dk_targets: \
 	cpc_targets \
 	nc100_targets \
 	kc_targets \
-	vg5k_targets	
+	vg5k_targets \
+	spectrum_targets	
 
 cmoc_targets: \
 	coco
@@ -2726,7 +2800,7 @@ ti82_targets: \
 	ti82_turn_based ti82_tiny_turn_based 
 
 ti83_targets: \
-	ti83_turn_based ti83_tiny_turn_based
+	ti83 ti83_turn_based ti83_tiny_turn_based
 
 ti8x_targets: \
 	ti8x_turn_based ti8x
@@ -2822,7 +2896,7 @@ zx81_targets: \
 	zx81_16k zx81_16k_turn_based
 	
 spectrum_targets: \
-	spectrum_16k spectrum_48k spectrum_48k_joystick
+	spectrum_48k
 
 ts2068_targets: \
 	ts2068

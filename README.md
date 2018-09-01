@@ -92,6 +92,7 @@ For most targets, more than one version is built, in order to support different 
 - multi8: Mitsubishi Multi 8
 - nascom: Nascom
 - nc100: Amstrad NC-100
+- nc200: Amstrad NC-200
 - nes: Nintendo Enterteinment System
 - oric: Tangerine Oric 1/Atmos
 - osic1p: Ohio Scientific Challenger 1P

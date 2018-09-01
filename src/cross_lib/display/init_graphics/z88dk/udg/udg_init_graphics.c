@@ -28,9 +28,7 @@ void INIT_GRAPHICS(void)
 	}
 	#elif defined(__SPECTRUM__)
 	printf("\x01\x20");
-    clg();
     zx_border(0);
-    zx_colour(PAPER_BLACK|INK_WHITE);
     textbackground(COLOR_BLACK);
 	#endif
 }

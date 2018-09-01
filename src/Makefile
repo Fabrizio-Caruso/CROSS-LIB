@@ -1604,6 +1604,21 @@ pc6001_32k_udg:
 	
 # kbhit KO
 # Everything displayed on the same line
+nascom_32k_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) -clib=ansi -vn -lndos \
+	-D__NASCOM__ \
+	-DTURN_BASED \
+	-DSOUNDS \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_nascom_32k_turn_based.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_nascom_32k_turn_based.prg
+	
+
+
 nascom_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
@@ -1914,7 +1929,8 @@ c128_z80_40col:
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DFULL_GAME -DEND_SCREEN -DNO_BLINKING \
 	-DFORCE_CONIO_LIB \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app

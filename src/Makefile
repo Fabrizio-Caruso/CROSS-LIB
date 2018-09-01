@@ -70,6 +70,12 @@ COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__CMOC__
 COCO_OPTS       ?= -O0 -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
 
 
+_ACK ?= ack
+_ACK_OPTS ?= 
+# -O 
+# -ansi
+
+
 # -DNO_SLEEP
 
 # ------------------------------------------------------------------------------------------
@@ -2287,6 +2293,14 @@ camputers_lynx_tiny:
 	
 x07_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) \
+	-Cz--audio \
+	-DFORCE_BOMBS_NUMBER=2 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLORS \
 	-D__X07__ \
 	-vn \
 	-DCONIO_VT52 \
@@ -2295,7 +2309,6 @@ x07_tiny:
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES) \
-	-Cz--audio \
 	-create-app -o $(BUILD_PATH)/TINY_x07.bin
 	rm $(BUILD_PATH)/TINY_x07.bin	
 	
@@ -2561,6 +2574,38 @@ coco:
 		
 
 # ------------------------------------
+
+dos_tiny:
+	$(_ACK) $(_ACK_OPTS) -pc86 \
+	-D__DOS__ \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DCONIO  \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	$(TINY_FILES)
+	# mv a.exe $(BUILD_PATH)/TINY_dos_turn_based.exe
+
+	
+dos:
+	$(_ACK) $(_ACK_OPTS) -pc86 \
+	-D__DOS__ \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DTURN_BASED \
+	-DCONIO  \
+	-DALT_PRINT \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/ncurses/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	# mv a.exe $(BUILD_PATH)/FULL_dos_turn_based.exe
+
+# ------------------------------------
+
 
 ncurses_turn_based:
 	$(_CC) $(_CC_OPTS) -D__NCURSES__ \

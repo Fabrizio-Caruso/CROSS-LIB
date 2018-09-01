@@ -30,8 +30,6 @@
 
 #if defined(__MSX__)
 	#include<msx/gfx.h>
-#elif defined(__SPECTRUM__)
-	#include<input.h>
 #endif
 		
 
@@ -82,13 +80,6 @@
 			break;
 		}
 		return '\0';
-	
-	#elif defined(__SPECTRUM__) && !defined(__TS2068__)
-		#if defined(CLIB_ANSI)
-			return in_Inkey();
-		#else
-			return in_inkey();
-		#endif
 	
 	#elif defined(__NCURSES__)
 		#define INPUT_LOOPS 10
@@ -187,21 +178,6 @@ out			stb res
 				getch();
 			#endif
 		}
-	#elif defined(__SPECTRUM__) && !defined(__TS2068__)
-		#if defined(CLIB_ANSI)
-			void WAIT_PRESS(void) 
-			{ 
-				in_WaitForKey();
-				in_Inkey();
-				in_WaitForNoKey();
-			}
-		#else
-			void WAIT_PRESS(void)
-			{ 
-				in_wait_key();
-				in_wait_nokey();
-			}
-		#endif
 	#elif defined(__CMOC__) && !defined(__WINCMOC__)	
 		#include <cmoc.h>
 		

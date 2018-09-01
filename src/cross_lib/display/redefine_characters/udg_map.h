@@ -174,11 +174,9 @@ struct redefine_struct redefine_map[] =
 	#endif
 };
 
-#if defined(__SPECTRUM__) && defined(CONIO)
-	#define ASCII_OFFSET 32
-#else
-	#define ASCII_OFFSET 0
-#endif
+
+#define ASCII_OFFSET 0
+
 
 #define REDEFINE_AT(addr) \
 { \

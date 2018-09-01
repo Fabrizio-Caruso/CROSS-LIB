@@ -25,11 +25,9 @@
 #if !defined(_TARGET_SETTINGS)
 #define _TARGET_SETTINGS
 
-
 #if !defined(__SMS__) && !defined(__CMOC__) && !defined(__SUPERVISION__) \
 	&& !defined(__ATARI_LYNX__) && !defined(__MSX__) \
     && !defined(__SVI__) \
-	&& !(defined(__SPECTRUM__) && !defined(CLIB_ANSI)) \
 	&& !defined(__ENTERPRISE__) \
 	&& !defined(__PX8__) && !defined(__KC__) \
 	&& !defined(__EG2K__) && !defined(__TRS80__) \

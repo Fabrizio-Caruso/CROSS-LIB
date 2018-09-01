@@ -26,6 +26,12 @@ void INIT_GRAPHICS(void)
 		int mode = SCREEN_MODE;
 		console_ioctl(IOCTL_GENCON_SET_MODE, &mode);
 	}
+	#elif defined(__SPECTRUM__)
+	printf("\x01\x20");
+    clg();
+    zx_border(0);
+    zx_colour(PAPER_BLACK|INK_WHITE);
+    textbackground(COLOR_BLACK);
 	#endif
 }
 

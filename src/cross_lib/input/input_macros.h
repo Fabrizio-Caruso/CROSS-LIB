@@ -66,6 +66,9 @@
 		#define TURN_BASED_INPUT() getch()
 	#elif defined(__NCURSES__)
 		#define TURN_BASED_INPUT() getchar()
+	#elif defined(__DOS__)
+	lkjòlkjòlk
+		#define TURN_BASED_INPUT() getchar()
 	#else
 		#define TURN_BASED_INPUT() cgetc()	
 	#endif	

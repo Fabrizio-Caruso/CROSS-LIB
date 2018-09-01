@@ -3,5 +3,6 @@
 
 void INIT_GRAPHICS(void)
 {
-	// POKE(53281u,0);
+	//POKE(53281u,0);
+	//textbackground(COLOR_BLACK);
 }

@@ -23,4 +23,6 @@ src/wincmoc_tmp.c
 tools/EDIP1e/xchase.DSK
 src/cross_lib/display/*.s
 src/chase/wincmoc*
+a.exe
+a.out
 

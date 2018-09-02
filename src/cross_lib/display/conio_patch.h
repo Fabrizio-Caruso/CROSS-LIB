@@ -8,7 +8,7 @@
 	#if defined(Z88DK)
 		#define cputc(c) fputc_cons(c)
 	#else
-		#define cputc(c) putchar()
+		#define cputc(c) putchar(c)
 	#endif
 		
 	#if defined(NO_COLOR)
@@ -16,10 +16,11 @@
 	#endif
 #endif
 
-#if defined(__G800__) || defined(__MZ2500__)
-		#define cputc(c) fputc_cons(c)	
+#if defined(__G800__) || defined(__MZ2500__) 
+	#define cputc(c) fputc_cons(c)	
 #endif
 
+// TODO: BOGUS! Implement this
 #if defined(__MZ2500__)
 	#define gotoxy(x,y)
 	/*

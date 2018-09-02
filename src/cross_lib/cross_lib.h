@@ -40,6 +40,7 @@
 	&& !defined(__NCURSES__) \
 	&& !defined(__MZ2500__) \
 	&& !defined(__VECTREX__) \
+	&& !defined(ACK) \
 	&& !defined(FORCE_NO_CONIO_LIB)
 	#define CONIO_LIB
 #endif
@@ -76,6 +77,8 @@
 	#define CC65
 #elif defined(__WINCMOC__) || defined(__CMOC__)
 	#define CMOC
+#elif defined(ACK)
+	//
 #else
 	#define Z88DK
 #endif

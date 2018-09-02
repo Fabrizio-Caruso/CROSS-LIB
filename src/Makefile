@@ -2449,10 +2449,9 @@ mz2500:
 	$(FULL_FILES) \
 	-create-app
 
-	
+# 	-compiler=sdcc 	
 mz2500_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
-	$(ZSDCC_OPTS) \
 	-compiler=sdcc \
 	-D__MZ2500__ \
 	-vn \
@@ -2466,12 +2465,14 @@ mz2500_tiny:
 	-DNO_INITIAL_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-lndos \
-	-DCONIO_VT100 \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
+	-DNO_STATS \
+	-DNO_PRINT \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(TINY_FILES) \
 	-create-app -o $(BUILD_PATH)/TINY_mz2500.bin
-	rm $(BUILD_PATH)/TINY_mz2500.bin	
+	# rm $(BUILD_PATH)/TINY_mz2500.bin	
 	
 pps:
 	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \

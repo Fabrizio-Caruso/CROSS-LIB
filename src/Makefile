@@ -2687,8 +2687,8 @@ pc8086_tiny:
 
 pc8086:
 	$(_ACK) $(_ACK_OPTS) -mpc86 \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=23 \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=19 \
 	-DCONIO_ADM3A \
 	-DNO_COLOR \
 	-DACK \
@@ -2702,7 +2702,6 @@ pc8086:
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DALT_CLEAR_SCREEN \
-	-DNO_BORDERS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv pc86.img $(BUILD_PATH)/FULL_pc8086_turn_based.img	

@@ -143,7 +143,7 @@ Image BOMB_IMAGE;
 
 	void _draw_stat(unsigned char x, unsigned char y, Image * image) 
 	{
-		_DRAW((X_OFFSET+x),(y),image);
+		__DRAW((X_OFFSET+x),(y),image);
 	}
 
 	void _draw(unsigned char x, unsigned char y, Image * image) 
@@ -153,7 +153,7 @@ Image BOMB_IMAGE;
 #else
 	void _draw(unsigned char x, unsigned char y, Image * image) 
 	{
-		_DRAW(x,y,image);
+		__DRAW(x,y,image);
 	}	
 #endif
 
@@ -161,7 +161,7 @@ Image BOMB_IMAGE;
 	|| X_OFFSET!=0 || Y_OFFSET!=0
 	void _delete_stat(unsigned char x, unsigned char y)
 	{
-		_DELETE(X_OFFSET+x,y);
+		__DELETE(X_OFFSET+x,y);
 	}
 	
 	void _delete(unsigned char x, unsigned char y)
@@ -171,7 +171,7 @@ Image BOMB_IMAGE;
 #else
 	void _delete(unsigned char x, unsigned char y)
 	{
-		_DELETE(x,y);
+		__DELETE(x,y);
 	}
 #endif
 

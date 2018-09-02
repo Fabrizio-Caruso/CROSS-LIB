@@ -63,11 +63,15 @@ _CC ?= gcc
 _CC_OPTS ?= -Wpedantic -Wall
 
 
-COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__CMOC__ -DTINY_GAME
+COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME
 
-COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__CMOC__
+COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
-COCO_OPTS       ?= -O0 -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
+COCO_OPTS       ?= -O0 -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__COCO__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
+
+
+VECTREX_OPTS    ?= -O0 --vectrex -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL -DCMOC_RAND_FIX
+
 
 
 _ACK ?= ack
@@ -2291,6 +2295,14 @@ camputers_lynx_tiny:
 	-create-app -o $(BUILD_PATH)/TINY_camputers_lynx.bin
 	rm $(BUILD_PATH)/TINY_camputers_lynx.bin	
 	
+	
+x07_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) \
+	-Cz--audio \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-create-app 
+		
+	
 x07_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) \
 	-Cz--audio \
@@ -2573,6 +2585,84 @@ coco:
 	rocket.o horizontal_missile.o end_screen.o
 		
 
+		
+
+vectrex:
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_images.c	
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/skull.c	
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c 
+	cmoc \
+	$(VECTREX_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	cmoc -o $(BUILD_PATH)/FULL_Vectrex.bin \
+	$(VECTREX_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	text_macros.o game_text.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm 	display_macros.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o text_macros.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+		
+		
+		
+		
 # ------------------------------------
 
 dos_tiny:
@@ -2788,6 +2878,7 @@ z88dk_targets: \
 	msx_targets \
 	cpc_targets \
 	nc100_targets \
+	nc200_targets \
 	kc_targets \
 	vg5k_targets \
 	spectrum_targets	
@@ -3011,6 +3102,9 @@ nc100_targets: \
 	nc100_sprites_light	
 	
 	
+nc200_targets: \
+	nc200_sprites_light	
+
 ##
 
 supervision_targets: \
@@ -4787,22 +4881,6 @@ error_cmoc:
 # CMOC
 
 	
-# cmoc_link:
-	# cmoc display_macros.o cmoc_graphics.o \
-	# enemy.o \
-	# level.o character.o text.o \
-	# strategy.o \
-	# input_macros.o \
-	# main.o
-
-# lwlink_link:
-	# lwlink display_macros.o cmoc_graphics.o \
-	# enemy.o \
-	# level.o character.o text.o \
-	# strategy.o \
-	# input_macros.o \
-	# main.o	
-
 pet_8k_LIGHT:
 	$(CC65_PATH)$(MYCC65) -O -t pet -DLESS_TEXT -DNO_SLEEP $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_pet_8k.prg
 

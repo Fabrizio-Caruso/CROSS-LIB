@@ -7,7 +7,7 @@
 #define _BG_COLOR COLOR_GREY
 
 
-#define _DRAW(x,y,image) \
+#define __DRAW(x,y,image) \
 	{ \
 	char chString[2]; \
 	chString[0] = image->_imageData; \
@@ -18,7 +18,7 @@
 	}
 	
 
-#define _DELETE(x,y) \
+#define __DELETE(x,y) \
 	{ \
 	char chString[2]; \
 	chString[0] = ' '; \

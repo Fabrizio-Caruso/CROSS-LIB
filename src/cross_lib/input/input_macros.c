@@ -36,7 +36,9 @@
 #if defined(KEYBOARD_CONTROL)
 	unsigned char GET_CHAR(void)
 	{
-	#if defined(TURN_BASED)
+	#  if defined(NO_INPUT)
+		return 0;
+	#elif defined(TURN_BASED)
 		return TURN_BASED_INPUT();
 	
 	#elif defined(__MSX__)
@@ -100,7 +102,7 @@
 		
 		return ch;
 	
-	#elif defined(__CMOC__) && !defined(__WINCMOC__)
+	#elif defined(__COCO__)
 		#include <cmoc.h>
 		#include <coco.h>
 		
@@ -131,20 +133,9 @@ test    	lda $ff00
 out			stb res
 		}
 		
-		#if !defined(__WINCMOC__)
-			if(res == 0)
-				return inkey();
-			return res;
-		#else
-			if(kbhit() && cgetc()==' ')
-			{
-				return ' ';
-			}
-			else
-			{
-				return '\0';
-			}
-		#endif
+		if(res == 0)
+			return inkey();
+		return res;
 		
 	#elif defined(__SRR__)
 		return getk_inkey(); 	

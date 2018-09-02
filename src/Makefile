@@ -2667,7 +2667,7 @@ vectrex:
 # ------------------------------------
 
 dos_tiny:
-	$(_ACK) $(_ACK_OPTS) -pc86 \
+	$(_ACK) $(_ACK_OPTS) -mpc86 \
 	-D__DOS__ \
 	-DTINY_GAME \
 	-DTURN_BASED \

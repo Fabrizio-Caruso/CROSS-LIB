@@ -22,22 +22,23 @@
 
 #if defined(__MZ2500__)
 	#define gotoxy(x,y)
-	// #define gotoxy(x,y) \
-		// do \
-		// { \
-			// unsigned char i; \
-			// \
-			// printf("\021"); \
-			// for(i=0;i<x;++i) \
-			// { \
-				// printf("\019"); \
-			// } \
-			// for(i=0;i<y;++i) \
-			// { \
-				// printf("\017"); \
-			// } \
-		// } while(0)
-					
+	/*
+	#define gotoxy(x,y) \
+		do \
+		{ \
+			unsigned char i; \
+			\
+			printf("\021"); \
+			for(i=0;i<x;++i) \
+			{ \
+				printf("\019"); \
+			} \
+			for(i=0;i<y;++i) \
+			{ \
+				printf("\017"); \
+			} \
+		} while(0)
+		*/			
 	#define clrscr() printf("--------------------\n");
 	//putchar((unsigned char) 22)
 #endif

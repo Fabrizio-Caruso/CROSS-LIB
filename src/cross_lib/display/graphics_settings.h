@@ -41,6 +41,8 @@
 	#include "graphics_mode/conio_graphics.h"
 #elif defined(VECTORIAL)
 	#include "graphics_mode/vectorial_graphics.h"
+#elif defined(BUFFERED)
+	#include "graphics_mode/buffered_graphics.h"
 #elif defined(Z88DK_SPRITES)
 	#include "graphics_mode/z88dk_sprites_graphics.h"
 #elif defined(TGI)

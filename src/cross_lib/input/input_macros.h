@@ -66,15 +66,20 @@
 		#define TURN_BASED_INPUT() getch()
 	#elif defined(__NCURSES__)
 		#define TURN_BASED_INPUT() getchar()
-	#elif defined(__DOS__)
-	lkjòlkjòlk
+	#elif defined(ACK)
 		#define TURN_BASED_INPUT() getchar()
 	#else
 		#define TURN_BASED_INPUT() cgetc()	
 	#endif	
 	
+
+	
 	#if defined(KEYBOARD_CONTROL)
-		unsigned char GET_CHAR(void);
+		#if defined(ACK)
+			#define GET_CHAR() getchar()
+		#else
+			unsigned char GET_CHAR(void);
+		#endif
 	#endif			
 				
 	#if !defined(NO_WAIT) || !defined(NO_SLEEP)

@@ -2667,17 +2667,20 @@ vectrex:
 # ------------------------------------
 
 dos_tiny:
-	$(_ACK) $(_ACK_OPTS) -pc86 \
+	$(_ACK) $(_ACK_OPTS) -mpc86 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
 	-D__DOS__ \
 	-DTINY_GAME \
 	-DTURN_BASED \
-	-DCONIO  \
+	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-DNO_PRINT \
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	$(TINY_FILES)
-	# mv a.exe $(BUILD_PATH)/TINY_dos_turn_based.exe
+	mv pc86.img $(BUILD_PATH)/TINY_dos_turn_based.img
 
 	
 dos:
@@ -2718,6 +2721,7 @@ ncurses:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO  \
 	-DALT_PRINT \
+	-DNO_TITLE_LINE \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/ncurses/ncurses_init_graphics.c \

@@ -8,7 +8,7 @@
 	#if defined(Z88DK)
 		#define cputc(c) fputc_cons(c)
 	#else
-		#define cputc(c) putchar()
+		#define cputc(c) putchar(c)
 	#endif
 		
 	#if defined(NO_COLOR)
@@ -16,28 +16,30 @@
 	#endif
 #endif
 
-#if defined(__G800__) || defined(__MZ2500__)
-		#define cputc(c) fputc_cons(c)	
+#if defined(__G800__) || defined(__MZ2500__) 
+	#define cputc(c) fputc_cons(c)	
 #endif
 
+// TODO: BOGUS! Implement this
 #if defined(__MZ2500__)
 	#define gotoxy(x,y)
-	// #define gotoxy(x,y) \
-		// do \
-		// { \
-			// unsigned char i; \
-			// \
-			// printf("\021"); \
-			// for(i=0;i<x;++i) \
-			// { \
-				// printf("\019"); \
-			// } \
-			// for(i=0;i<y;++i) \
-			// { \
-				// printf("\017"); \
-			// } \
-		// } while(0)
-					
+	/*
+	#define gotoxy(x,y) \
+		do \
+		{ \
+			unsigned char i; \
+			\
+			printf("\021"); \
+			for(i=0;i<x;++i) \
+			{ \
+				printf("\019"); \
+			} \
+			for(i=0;i<y;++i) \
+			{ \
+				printf("\017"); \
+			} \
+		} while(0)
+		*/			
 	#define clrscr() printf("--------------------\n");
 	//putchar((unsigned char) 22)
 #endif

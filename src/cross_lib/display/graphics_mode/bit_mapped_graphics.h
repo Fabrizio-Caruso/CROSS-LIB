@@ -8,7 +8,7 @@
 #endif
 	
 
-#define _DRAW(x,y,image) \
+#define __DRAW(x,y,image) \
 { \
 	unsigned short k; \
 	for(k=0;k<8;++k) \
@@ -18,7 +18,7 @@
 	} \
 }
 
-#define _DELETE(x,y) \
+#define __DELETE(x,y) \
 { \
 	unsigned short k; \
 	for(k=0;k<8;++k) \

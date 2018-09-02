@@ -36,7 +36,7 @@
 
 
 #if !defined(NO_COLOR)
-	#define _DRAW(x,y,image) \
+	#define __DRAW(x,y,image) \
 	do \
 	{ \
 		DISPLAY_POKE(loc(x,y), image->_imageData); \
@@ -45,12 +45,12 @@
 	while(0)
 
 #else
-	#define _DRAW(x,y,image) \
+	#define __DRAW(x,y,image) \
 		DISPLAY_POKE(loc(x,y), image->_imageData);
 
 #endif
 
-#define _DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
+#define __DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
 
 
 unsigned short loc(unsigned char x, char y);

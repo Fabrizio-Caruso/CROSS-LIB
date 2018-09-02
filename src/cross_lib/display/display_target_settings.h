@@ -147,7 +147,7 @@
 		  || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
 		  || defined(__LAMBDA__) || defined(__SPECTRUM__) || (defined(__PC6001__) && !defined(FORCE_SCREEN_MODE))\
 		  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
-		  || defined(__GAL__) || defined(__CMOC__) || defined(__WINCMOC__) \
+		  || defined(__GAL__) || defined(__COCO__) || defined(__WINCMOC__) \
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
 		  || defined(__EINSTEIN__) \
 		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__) \
@@ -208,7 +208,7 @@
 
 #if defined(__GAL__) || defined(__GAMATE__) \
     || (defined(__PC6001__) && !(FORCE_SCREEN_MODE==2)) || defined(__ATARI5200__) || defined(__CREATIVISION__) \
-	|| defined(__WINCMOC__) || defined(__CMOC__) || defined(__OSIC1P__) || defined(__MC1000__) \
+	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__OSIC1P__) || defined(__MC1000__) \
 	|| defined(__LAMBDA__) || defined(__MSX__) \
 	|| defined(__VZ__) || defined(__VG5k__) \
 	|| (defined(__ATARI__) || defined(__ATARIXL__)) \
@@ -216,7 +216,8 @@
 	|| defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \
 	|| defined(__TRS80__) || defined(__CPM_80X24__) || defined(__PX8__) || defined(__PX4__) \
 	|| defined(__ABC800__) || defined(__SRR__) \
-	|| defined(__KC__) || defined(__ATMOS__) || defined(__SUPERVISION__)
+	|| defined(__KC__) || defined(__ATMOS__) || defined(__SUPERVISION__) \
+	|| defined(__VECTREX__)
 	#define NO_COLOR 
 #else
 	#define COLOR

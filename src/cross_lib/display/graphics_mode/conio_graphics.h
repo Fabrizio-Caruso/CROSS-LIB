@@ -4,7 +4,7 @@
 
 
 #if !defined(NO_COLOR)
-	#define _DRAW(x,y,image) \
+	#define __DRAW(x,y,image) \
 	do \
 	{ \
 		gotoxy((x),(y)); \
@@ -14,7 +14,7 @@
 	while(0)
 		
 #else
-	#define _DRAW(x,y,image) \
+	#define __DRAW(x,y,image) \
 	do \
 	{ \
 		gotoxy((x),(y)); \
@@ -24,7 +24,7 @@
 
 #endif
 
-#define _DELETE(x,y) \
+#define __DELETE(x,y) \
 	do \
 	{ \
 		gotoxy((x),(y)); \

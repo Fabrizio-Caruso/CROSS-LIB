@@ -2681,9 +2681,32 @@ pc8086_tiny:
 	-DNO_PRINT \
 	-DNO_WAIT \
 	-DNO_SLEEP \
+	-DALT_CLEAR_SCREEN \
 	$(TINY_FILES)
 	mv pc86.img $(BUILD_PATH)/TINY_pc8086_turn_based.img
 
+pc8086:
+	$(_ACK) $(_ACK_OPTS) -mpc86 \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=23 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__PC8086__ \
+	-DFULL_GAME \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DALT_CLEAR_SCREEN \
+	-DNO_BORDERS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv pc86.img $(BUILD_PATH)/FULL_pc8086_turn_based.img	
+	
 	
 dos:
 	$(_ACK) $(_ACK_OPTS) -pc86 \

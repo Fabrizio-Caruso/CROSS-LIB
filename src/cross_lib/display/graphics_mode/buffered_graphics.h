@@ -8,6 +8,7 @@
 	{ \
 		video_buffer[y][x]=image->_imageData; \
 		display_all(); \
+		printf("\n"); \
 	} while(0)
 
 

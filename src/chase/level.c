@@ -113,24 +113,25 @@ extern Character bombs[BOMBS_NUMBER];
 #if defined(FULL_GAME)
 	void updateInnerWallVerticalData(void)
 	{	
-	unsigned char lvmod = level%5;
-	if((lvmod==1)||(lvmod==0))
-	{
-		innerVerticalWallLength = 0;
-	}
-	else
-	{
-		#if defined(WIDE)
-			innerVerticalWallLength = YSize-10+(lvmod-2)*2;
-		#elif YSize<=12
-			innerVerticalWallLength = 4;
-		#else
-			innerVerticalWallLength = YSize-14+(lvmod-2)*2;			
-		#endif
-	}
+		unsigned char lvmod = level%5;
 
-	innerVerticalWallX = (XSize>>1);
-	innerVerticalWallY = (YSize>>1)-(innerVerticalWallLength>>1);
+		if((lvmod==1)||(lvmod==0))
+		{
+			innerVerticalWallLength = 0;
+		}
+		else
+		{
+			#if defined(WIDE)
+				innerVerticalWallLength = YSize-10+(lvmod-2)*2;
+			#elif YSize<=12
+				innerVerticalWallLength = 4;
+			#else
+				innerVerticalWallLength = YSize-14+(lvmod-2)*2;		
+			#endif
+		}
+
+		innerVerticalWallX = (XSize>>1);
+		innerVerticalWallY = (YSize>>1)-(innerVerticalWallLength>>1);
 	}
 
 	unsigned char oneMissileLevel(void)

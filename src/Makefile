@@ -2666,21 +2666,23 @@ vectrex:
 		
 # ------------------------------------
 
-dos_tiny:
+pc8086_tiny:
 	$(_ACK) $(_ACK_OPTS) -mpc86 \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=20 \
 	-DCONIO_ADM3A \
 	-DNO_COLOR \
 	-DACK \
-	-D__DOS__ \
+	-D__PC8086__ \
 	-DTINY_GAME \
 	-DTURN_BASED \
-	-DCONIO \
+	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DNO_PRINT \
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	$(TINY_FILES)
-	mv pc86.img $(BUILD_PATH)/TINY_dos_turn_based.img
+	mv pc86.img $(BUILD_PATH)/TINY_pc8086_turn_based.img
 
 	
 dos:

@@ -8,7 +8,7 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 This is a personal project whose goal is the creation of:
 1. the universal 8-bit abstraction layer "Cross Lib" for coding universal 8-bit games
 2. the "universal" 8-bit game "Cross Chase" that has to be a fun and that should run
-on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs.
+on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs. I should run on other platforms such as bare metal PC 8088/8086, CP/M Intel 8080, Linux PPC, Linux 386, Linux 68K, PDP11, etc.
 The game will be the proof of concept of how flexible the library is.
 
 ## THE TOOL-CHAIN
@@ -25,6 +25,7 @@ The program is written in ANSI C and currently compiled with
 - ZSDCC (from Z88DK) for some Z80 targets (https://www.z88dk.org/),
 - CMOC for most 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
 - WinCMOC for some 6809 targets (https://sourceforge.net/projects/cmoc-win32/).
+- ACK for PC 8088/8086, CP/M 8080, Linux 386/68K/PPC, PDP11 (https://github.com/davidgiven/ack)
 
 For other targets, GCC6809 for other 6809 targets, sdcc (proper or its CPCTelera version), as well as "GCC for TI" for the Texas TI99/4a are being taken into consideration. 
 
@@ -50,6 +51,13 @@ For example:
 - Cygwin/Windows or Linux (gcc + ncurses, e.g., cygwin/Windows or Linux) 
 - Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
 
+### 16-BIT and 32 versions (Work in progress)
+- pc8088: IBM-compatible PC 
+- linux386: ELF linux 386
+- linux68k: ELF linux 68k
+- linuxppc: ELF linux PPC
+- pdp: PDP 11
+ 
 ### 8-BIT versions
 
 For most targets, more than one version is built, in order to support different hardware configuratins and expansions 

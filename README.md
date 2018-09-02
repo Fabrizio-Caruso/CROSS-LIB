@@ -52,7 +52,7 @@ For example:
 - Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
 
 ### 16-BIT and 32 versions (Work in progress)
-- pc8088: IBM-compatible PC 
+- pc8086: Intel 8088/8086 PC
 - linux386: ELF linux 386
 - linux68k: ELF linux 68k
 - linuxppc: ELF linux PPC

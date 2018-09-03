@@ -973,7 +973,7 @@ cpc_udg:
 cpc_joystick:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \
-	-D__CPC_JOYSTICK__ \
+	-DZ88DK_JOYSTICK \
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
@@ -1021,6 +1021,7 @@ msx_32k:
 	-DMEMORY_MAPPED \
 	-DALT_PRINT \
 	-DLESS_TEXT \
+	-DZ88DK_JOYSTICK \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -1038,6 +1039,7 @@ msx_32k_rom:
 	-DMEMORY_MAPPED \
 	-DALT_PRINT \
 	-DLESS_TEXT \
+	-DZ88DK_JOYSTICK \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -1384,7 +1386,7 @@ z9001_16k:
 mc1000_48k_joystick_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
 	-subtype=gaming \
-	-D__MC1000_JOYSTICK__ \
+	-DZ88DK_JOYSTICK \
 	-DFULL_GAME  \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -2984,6 +2986,9 @@ z88dk_targets: \
 
 cmoc_targets: \
 	coco vectrex
+	
+ack_targets: \
+	pc8086
 	
 all: cc65_targets z88dk_targets cmoc_targets ncurses_targets ack_targets
 

@@ -4,16 +4,7 @@
 
 
 #define __DRAW(x,y,image) \
-	do \
-	{ \
-		video_buffer[y][x]=image->_imageData; \
-		if(image->_imageData=='*') \
-		{ \
-			display_all(); \
-			printf("\n"); \
-		} \
-	} while(0)
-
+	video_buffer[y][x]=image->_imageData;
 
 
 #define __DELETE(x,y) \

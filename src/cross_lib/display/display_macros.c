@@ -135,7 +135,7 @@ Image BOMB_IMAGE;
 		unsigned char j; 
 		unsigned char i;
 		
-		for(j=0;j<YSize;++j)
+		for(j=0;j<YSize+Y_OFFSET;++j)
 		{
 			for(i=0;i<XSize;++i)
 			{
@@ -146,6 +146,7 @@ Image BOMB_IMAGE;
 	}
 	
 #endif
+
 
 #ifndef X_OFFSET
   COMPILATION ERROR

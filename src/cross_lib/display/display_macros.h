@@ -58,6 +58,17 @@ typedef struct ImageStruct Image;
 	void _draw(unsigned char x, unsigned char y, Image * image);	
 #endif
 
+#if !defined(BUFFERED)
+	#define REFRESH()
+#else
+	#include "graphics_mode/buffered_graphics.h"
+	#define REFRESH() \
+		do \
+		{ \
+			printf("\n"); \
+			display_all(); \
+		} while(0);
+#endif
 
 #if defined(FULL_GAME)
 	void DRAW_BROKEN_BRICK(unsigned char x, unsigned char y);

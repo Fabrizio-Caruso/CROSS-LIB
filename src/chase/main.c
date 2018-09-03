@@ -660,7 +660,8 @@ int main(void)
 						MOVE_PLAYER();
 					}					
 					_DRAW_PLAYER();	
-				#endif				
+				#endif	
+				REFRESH();
 			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
 
 			if(player._status) // if level finished

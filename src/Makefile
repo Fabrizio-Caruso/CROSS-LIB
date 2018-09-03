@@ -2626,7 +2626,7 @@ coco:
 		
 
 hello_vec:
-	cmoc $(VECTREX_OPTS) -o $(BUILD_PATH)/hello_vec.bin $(SOURCE_PATH)/../experiments/hello_vec.c
+	cmoc --vectrex $(VECTREX_OPTS) -o $(BUILD_PATH)/hello_vec.bin $(SOURCE_PATH)/../experiments/hello_vec.c
 
 vectrex:
 	cmoc \
@@ -2740,11 +2740,12 @@ pc8086_build:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
-	-DNO_PRINT \
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DALT_CLEAR_SCREEN \
-	$(FULL_FILES)
+	-DALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv pc86.img $(BUILD_PATH)/FULL_pc8086_turn_based.img 
 
 pc8086: \

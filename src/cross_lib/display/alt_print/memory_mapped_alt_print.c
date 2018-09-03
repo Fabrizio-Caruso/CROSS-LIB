@@ -2,6 +2,18 @@
 #include "../graphics_mode/memory_mapped_graphics.h"
 #include "memory_mapped_alt_print.h"
 
+#if defined(BUFFERED)	
+	//#include "../display_target_settings.h"
+	
+	// TODO: THIS IS BAD! You should use definitions in display_target_settings.h
+	#if defined(__PC86__)
+		#define YSize 22
+		#define Y_OFFSET 2
+		#define XSize 78
+	#endif
+	
+	extern unsigned char video_buffer[22+2][78];
+#endif
 
 #if defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <cmoc.h>
@@ -46,9 +58,11 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	while(str[i]!='\0')
 	{
 		#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))
-		DISPLAY_POKE(loc(x+i,y), screenCode(str[i])); 		
+			DISPLAY_POKE(loc(x+i,y), screenCode(str[i])); 		
+		#elif defined(BUFFERED)
+			video_buffer[y][x+i] = str[i];
 		#else
-		DISPLAY_POKE(loc(x+i,y), str[i]); 
+			DISPLAY_POKE(loc(x+i,y), str[i]);
 		#endif
 		++i;
 	}
@@ -69,20 +83,32 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 	
 	for(i=0;i<6;++i)
 	{
-		DISPLAY_POKE(loc(x+i,y), (unsigned char) (digits[5-i])+48);
+		#if defined(BUFFERED)
+			video_buffer[y][x+i] = (unsigned char) (digits[5-i])+48;
+		#else
+			DISPLAY_POKE(loc(x+i,y), (unsigned char) (digits[5-i])+48);
+		#endif
 	}
 }	
 
 void print_02u(unsigned char x, unsigned char y, unsigned short val)
 {
+	#if defined(BUFFERED)
+	//
+	#else
 	DISPLAY_POKE((loc(x,y)), ((unsigned char) val)/10+48);
 	DISPLAY_POKE((1+loc(x,y)), ((unsigned char) val)%10+48);
+	#endif
 }	
 
 
 void print_u(unsigned char x, unsigned char y, unsigned short val)
 {
+	#if defined(BUFFERED)
+	//
+	#else
 	DISPLAY_POKE(loc(x,y), (unsigned char) (val+48));
+	#endif
 }
 
 

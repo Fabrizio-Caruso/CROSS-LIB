@@ -1,6 +1,9 @@
 #ifndef _BUFFERED_GRAPHICS
 #define _BUFFERED_GRAPHICS
 
+#include "../display_target_settings.h"
+
+unsigned char video_buffer[YSize+Y_OFFSET][XSize];
 
 
 #define __DRAW(x,y,image) \

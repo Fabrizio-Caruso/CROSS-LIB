@@ -2433,7 +2433,21 @@ ts2068_turn_based:
 	# $(TINY_FILES) \
 	# -create-app -o $(BUILD_PATH)/TINY_ts2068.bin 
 	# rm $(BUILD_PATH)/TINY_ts2068.bin
-	
+
+mz2500_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
+	-D__MZ2500__ \
+	-vn \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DBUFFERED -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app
+	mv a.2D $(BUILD_PATH)/FULL_mz2500_turn_based.2D
+
 	
 mz2500:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
@@ -2449,7 +2463,32 @@ mz2500:
 	$(FULL_FILES) \
 	-create-app
 
-# 	-compiler=sdcc 	
+mz2500_tiny_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
+	$(SCCZ80_OPTS) \
+	-D__MZ2500__ \
+	-DFORCE_XSIZE=31 \
+	-DFORXE_YSIZE=20 \
+	-vn \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_DEAD_GHOSTS \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-lndos \
+	-DBUFFERED -DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
+	-DNO_STATS \
+	-DNO_PRINT \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	$(TINY_FILES) \
+	-create-app 
+	mv a.2D $(BUILD_PATH)/TINY_mz2500_turn_based.2D
+	
 mz2500_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
 	-compiler=sdcc \
@@ -2586,7 +2625,8 @@ coco:
 	rocket.o horizontal_missile.o end_screen.o
 		
 
-		
+hello_vec:
+	cmoc --vectrex $(VECTREX_OPTS) -o $(BUILD_PATH)/hello_vec.bin $(SOURCE_PATH)/../experiments/hello_vec.c
 
 vectrex:
 	cmoc \
@@ -2685,7 +2725,10 @@ pc8086_tiny:
 	$(TINY_FILES)
 	mv pc86.img $(BUILD_PATH)/TINY_pc8086_turn_based.img
 
-pc8086:
+clean_src:
+	rm $(SOURCE_PATH)/../*.o
+	
+pc8086_build:
 	$(_ACK) $(_ACK_OPTS) -mpc86 \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=22 \
@@ -2697,13 +2740,42 @@ pc8086:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DALT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	mv pc86.img $(BUILD_PATH)/FULL_pc8086_turn_based.img 
+
+pc8086: \
+	pc8086_build \
+	clean_src
+	
+	
+pdp11v7_build:
+	$(_ACK) $(_ACK_OPTS) -mpdpv7 \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=22 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__PDP11V7__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
 	-DNO_PRINT \
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DALT_CLEAR_SCREEN \
 	$(FULL_FILES)
-	mv pc86.img $(BUILD_PATH)/FULL_pc8086_turn_based.img	
-	
+	mv a.out $(BUILD_PATH)/FULL_pdp11v7_turn_based.bin	
+
+pdp11v7: \
+	pdp11v7_build \
+	clean_src
+
 	
 dos:
 	$(_ACK) $(_ACK_OPTS) -pc86 \
@@ -2911,9 +2983,9 @@ z88dk_targets: \
 	spectrum_targets	
 
 cmoc_targets: \
-	coco
+	coco vectrex
 	
-all: cc65_targets z88dk_targets cmoc_targets
+all: cc65_targets z88dk_targets cmoc_targets ncurses_targets ack_targets
 
 clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o
@@ -4906,7 +4978,8 @@ error_cmoc:
 #	rm -f cmoc.exe.stackdump
 
 # CMOC
-
+# hello_vec:
+	# cmoc -o $(BUILD_PATH)/hello_vec.bin $(SOURCE_PATH)/../experiments/hello_vec.c
 	
 pet_8k_LIGHT:
 	$(CC65_PATH)$(MYCC65) -O -t pet -DLESS_TEXT -DNO_SLEEP $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_pet_8k.prg

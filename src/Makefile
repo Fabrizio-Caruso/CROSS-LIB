@@ -2628,8 +2628,15 @@ coco:
 		
 
 hello_vec:
-	cmoc --vectrex $(VECTREX_OPTS) -o $(BUILD_PATH)/hello_vec.bin $(SOURCE_PATH)/../experiments/hello_vec.c
-
+	cmoc --vectrex -Wno-const -c $(SOURCE_PATH)/../experiments/hello_vec.c 
+	cmoc --vectrex -o $(BUILD_PATH)/hello_vec.bin $(SOURCE_PATH)/../hello_vec.o
+	rm $(SOURCE_PATH)/../hello_vec.o
+	
+hello_coco:
+	cmoc -D__CMOC__ -Wno-const -c $(SOURCE_PATH)/../experiments/hello.c 
+	cmoc -o $(BUILD_PATH)/hello_coco.bin $(SOURCE_PATH)/../hello.o
+	rm $(SOURCE_PATH)/../hello.o
+	
 vectrex:
 	cmoc \
 	$(VECTREX_OPTS) \

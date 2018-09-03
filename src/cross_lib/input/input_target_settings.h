@@ -1,31 +1,8 @@
 #ifndef _INPUT_TARGET_SETTINGS
 #define _INPUT_TARGET_SETTINGS
 
-#  if defined(__CPC_JOYSTICK__) // Special Joystick 
-	#define _MOVE_UP 0x0B 
-	#define _MOVE_DOWN 0x0A 
-	#define _MOVE_LEFT 0x08
-	#define _MOVE_RIGHT 0x09
-	#define _FIRE 0x58
-#elif defined(__MC1000_JOYSTICK__) // Special Joystick 
-	#define _MOVE_UP 'I' 
-	#define _MOVE_DOWN 'Q' 
-	#define _MOVE_LEFT 'Y'
-	#define _MOVE_RIGHT '1'
-	#define _FIRE '9'
-#elif defined(__MSX__) // Special Joystick 
-	#define _MOVE_UP 1
-	#define _MOVE_DOWN 5
-	#define _MOVE_LEFT 7
-	#define _MOVE_RIGHT 3
-	#define _FIRE 9		
-#elif defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)
-	#define _MOVE_UP '8'
-	#define _MOVE_DOWN '5'
-	#define _MOVE_LEFT '4'
-	#define _MOVE_RIGHT '6'
-	#define _FIRE '1' 
-#elif defined(__NASCOM__) || defined(__MC1000__) || defined(__OSIC1P__) || defined(__WINCMOC__) || defined(__CMOC__) \
+
+#  if defined(__NASCOM__) || defined(__MC1000__) || defined(__OSIC1P__) || defined(__WINCMOC__) || defined(__CMOC__) \
 	||  defined(__GAL__)  || defined(__Z9001__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
 	|| defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__) || defined(__SC3000__) \
 	|| defined(__Z1013__) || defined(__KC__) || defined(__C128_Z80__) \

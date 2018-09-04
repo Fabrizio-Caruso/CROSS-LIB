@@ -51,12 +51,15 @@ For example:
 - Cygwin/Windows or Linux (gcc + ncurses, e.g., cygwin/Windows or Linux) 
 - Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
 
-### 16-BIT and 32 versions (Work in progress)
+### 16-BIT and 32 versions
 - pc8086: Intel 8088/8086 PC
-- linux386: ELF linux 386
-- linux68k: ELF linux 68k
-- linuxppc: ELF linux PPC
-- pdp: PDP 11
+- linux386: ELF linux for Intel 386
+- pdp: PDP 11 v7
+
+### 32-BIT versions
+- linux68k: ELF linux for Motorola 68020
+- linuxppc: ELF linux for PPC
+
  
 ### 8-BIT versions
 

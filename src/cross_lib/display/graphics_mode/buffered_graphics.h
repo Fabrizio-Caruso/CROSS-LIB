@@ -1,7 +1,9 @@
 #ifndef _BUFFERED_GRAPHICS
 #define _BUFFERED_GRAPHICS
 
-#include "../display_target_settings.h"
+#include "../display_target_geometry.h"
+
+void display_all(void);
 
 unsigned char video_buffer[YSize+Y_OFFSET][XSize];
 

@@ -155,7 +155,7 @@ void computeStrategy(void)
 #endif
 
 
-#if defined(__NCURSES__)
+#if defined(__NCURSES__) || defined(__GCC_BUFFERED__)
 	#define GHOST_RANDOM_CONDITION ((rand()&0x7fff)>slowDown)
 #else
 	#define GHOST_RANDOM_CONDITION (rand()>slowDown)

@@ -53,10 +53,10 @@ For example:
 
 ### 16-BIT and 32 versions
 - pc8086: Intel 8088/8086 PC
-- linux386: ELF linux for Intel 386
 - pdp: PDP 11 v7
 
 ### 32-BIT versions
+- linux386: ELF linux for Intel 386
 - linux68k: ELF linux for Motorola 68020
 - linuxppc: ELF linux for PPC
 

@@ -52,9 +52,9 @@ For example:
 - Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
 
 ### 32-BIT versions
-- linux386: ELF linux for Intel 386 (work in progress)
-- linux68k: ELF linux for Motorola 68020 (work in progress)
-- linuxppc: ELF linux for PPC (work in progress)
+- linux386: ELF linux for Intel 386
+- linux68k: ELF linux for Motorola 68020
+- linuxppc: ELF linux for PPC
 
 ### 16-BIT versions
 - pc8086: Intel 8088/8086 PC

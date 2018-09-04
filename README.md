@@ -85,7 +85,8 @@ For most targets, more than one version is built, in order to support different 
 - coco: Color Computer / Dragon 32/64
 - coleco: Colecovision
 - cpc: Amstrad CPC
-- cpm: CP/M with adm3a/vt52/vt100 terminals
+- cpm8080: CP/M Intel 8080 (work in progress)
+- cpm: CP/M Z80 with adm3a/vt52/vt100 terminals
 - creativision: VTech Creativision
 - eg2k: EACA EG2000
 - einstein: Tatung Einstein
@@ -102,6 +103,7 @@ For most targets, more than one version is built, in order to support different 
 - msx: MSX
 - mtx: MTX 512
 - multi8: Mitsubishi Multi 8
+- mz: Sharp MZ 80/700
 - mz2500: Sharp MZ 2500 (work in progress)
 - nascom: Nascom
 - nc100: Amstrad NC-100/150
@@ -124,7 +126,6 @@ For most targets, more than one version is built, in order to support different 
 - samcoupe: Sam Coupe
 - sc3000: Sega SC 3000
 - sg1000: Sega SG 1000
-- sharp_mz: Sharp MZ
 - spc1000: Samsung SPC 1000
 - spectrum: Sinclair Spectrum 16k/48k/128k
 - srr: Exidy Sorcerer

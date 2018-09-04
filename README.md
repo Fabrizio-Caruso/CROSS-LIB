@@ -78,6 +78,7 @@ For most targets, more than one version is built, in order to support different 
 - c64: Commodore 64
 - cbm510: Commodore CBM 510
 - cbm610: Commodore CBM 610
+- camputers_lynx: Camputers Lynx 48k/96k/128k
 - coco: Color Computer / Dragon 32/64
 - coleco: Colecovision
 - cpc: Amstrad CPC

@@ -52,13 +52,13 @@ For example:
 - Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
 
 ### 32-BIT versions
-- linux386: ELF linux for Intel 386
-- linux68k: ELF linux for Motorola 68020
-- linuxppc: ELF linux for PPC
+- linux386: ELF linux for Intel 386 (work in progress)
+- linux68k: ELF linux for Motorola 68020 (work in progress)
+- linuxppc: ELF linux for PPC (work in progress)
 
 ### 16-BIT versions
 - pc8086: Intel 8088/8086 PC
-- pdp: PDP 11 v7
+- pdp: PDP 11 v7 (work in progress)
  
 ### 8-BIT versions
 
@@ -66,6 +66,7 @@ For most targets, more than one version is built, in order to support different 
 (e.g., memory expansions, second CPU, 80-col display card, etc.).
 
 - abc80: Luxor ABC 80
+- abc800: Luxor ABC 800 (work in progress)
 - ace: Jupiter Ace
 - alphathro: Alphatronic
 - apple2: Apple //
@@ -101,11 +102,14 @@ For most targets, more than one version is built, in order to support different 
 - msx: MSX
 - mtx: MTX 512
 - multi8: Mitsubishi Multi 8
+- mz2500: Sharp MZ 2500 (work in progress)
 - nascom: Nascom
-- nc100: Amstrad NC-100
+- nc100: Amstrad NC-100/150
 - nc200: Amstrad NC-200
 - nes: Nintendo Enterteinment System
+- newbrain: Newbrain (work in progress)
 - oric: Tangerine Oric 1/Atmos
+- osca: OSCA (work in progress)
 - osic1p: Ohio Scientific Challenger 1P
 - p2000: Philips P2000
 - pc6001: NEC PC 6001
@@ -127,13 +131,15 @@ For most targets, more than one version is built, in order to support different 
 - supervision: Watara Supervision
 - svi: Spectravideo 318/328
 - ti82: Texas TI 82
-- ti83: Texas TI 83
+- ti83: Texas TI 83 (work in progress)
 - ti85: Texas TI 85
+- ti8x: Texas TI 83 Plus (work in progress)
 - trs80: TRS-80 Model I/III/IV
 - ts2068: Timex TS 2068
 - vg5k: VG-5000
 - vic20: Commodore Vic 20
 - vz200: VTech VZ200
+- x07: Casio X-07 (work in progress)
 - x1: Sharp X1
 - z1013: Robotron Z1013
 - z9001: Robotron Z9001, Robotron KC 85/1, Robotron KC 87 

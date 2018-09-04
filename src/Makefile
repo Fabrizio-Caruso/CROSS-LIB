@@ -900,9 +900,7 @@ zx81_16k_turn_based:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg
 
-	
-# 	$(ZSDCC_OPTS) 
-	
+		
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	$(ZSDCC_OPTS) \
@@ -919,7 +917,8 @@ zx81_16k:
 	
 lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) \
-	-vn -D__LAMBDA__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-vn -D__LAMBDA__ -DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o  $(BUILD_PATH)/FULL_lambda_16k.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1319,7 +1318,7 @@ abc80_full:
 	rm a
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 	
-abc80_32k_zsdcc:
+abc80_zsdcc:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
 	$(ZSDCC_OPTS) \
 	-compiler=sdcc \
@@ -2257,7 +2256,8 @@ fp1100:
 	
 
 fp1100_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__FP1100__ -vn \
 	-DCONIO_VT52 \
 	-DTINY_GAME -DSOUNDS \
@@ -2271,10 +2271,11 @@ fp1100_tiny:
 
 camputers_lynx:
 	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-pragma-redirect:getk=getk_inkey \
 	-D__CAMPUTERS_LYNX__ \
 	-vn \
 	-DCONIO_VT52 \
-	-DNO_COLOR \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
@@ -2286,6 +2287,8 @@ camputers_lynx:
 	
 camputers_lynx_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-pragma-redirect:getk=getk_inkey \
 	-D__CAMPUTERS_LYNX__ \
 	-vn \
 	-DCONIO_VT52 \

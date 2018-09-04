@@ -3,13 +3,8 @@
 #include "memory_mapped_alt_print.h"
 
 #if defined(BUFFERED)	
-	// TODO: #include "../display_target_settings.h"
-	// TODO: THIS IS BAD! You should use definitions in display_target_settings.h
-	#if defined(__PC8086__)
-		#define YSize 22
-		#define Y_OFFSET 2
-		#define XSize 78
-	#endif
+
+	#include "../display_target_geometry.h"
 	
 	extern unsigned char video_buffer[YSize+Y_OFFSET][XSize];
 #endif

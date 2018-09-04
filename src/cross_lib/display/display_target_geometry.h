@@ -35,7 +35,8 @@
 		  #define YSize (30-Y_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		  #define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)	
-	#elif (defined(__KC__) && defined(UDG_GRAPHICS))		  
+	#elif (defined(__KC__) && defined(UDG_GRAPHICS)) \
+		  || defined(__CAMPUTERS_LYNX__)
 		  #define YSize (32-Y_OFFSET)
 	#elif defined(__ATMOS__) || defined(__NES__) 
 		#define YSize (28-Y_OFFSET)	  
@@ -149,7 +150,8 @@
 		  || defined(__EINSTEIN__) \
 		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__) \
 		  || defined(__M5__) || defined(__COLECO__) \
-		  || defined(__PV2000__) || defined(__MZ__)
+		  || defined(__PV2000__) || defined(__MZ__) \
+		  || defined(__CAMPUTERS_LYNX__)
 		#define XSize 32	
 	#elif defined(__PV1000__)
 		#define XSize 28

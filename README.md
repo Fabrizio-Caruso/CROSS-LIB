@@ -51,7 +51,7 @@ For example:
 - Cygwin/Windows or Linux (gcc + ncurses, e.g., cygwin/Windows or Linux) 
 - Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
 
-### 16-BIT and 32 versions
+### 16-BIT versions
 - pc8086: Intel 8088/8086 PC
 - pdp: PDP 11 v7
 

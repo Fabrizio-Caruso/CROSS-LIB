@@ -42,24 +42,23 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 ## SUPPORTED TARGETS 
 
-(as of 2017/06/08)
+(as of 2018/09/04)
 
-### Modern PC versions
+### Modern 32/64-BIT PC versions
 
 There is a ncurses version that can be compiled for multiple platforms for which an ANSI C compiler and ncurses are available, including Windows and Linux.
 For example:
 - Cygwin/Windows or Linux (gcc + ncurses, e.g., cygwin/Windows or Linux) 
 - Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
 
-### 16-BIT versions
-- pc8086: Intel 8088/8086 PC
-- pdp: PDP 11 v7
-
 ### 32-BIT versions
 - linux386: ELF linux for Intel 386
 - linux68k: ELF linux for Motorola 68020
 - linuxppc: ELF linux for PPC
 
+### 16-BIT versions
+- pc8086: Intel 8088/8086 PC
+- pdp: PDP 11 v7
  
 ### 8-BIT versions
 

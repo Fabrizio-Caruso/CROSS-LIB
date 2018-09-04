@@ -521,3 +521,20 @@ Use Virtual-Nascom (http://repo.or.cz/w/virtual-nascom.git)
 Type virtualnascom [.nas file]
 
 Once the monitor is running, enter “E 1000” 
+
+-----------------------------------------------------------
+
+CREATIVISION
+
+Use MAME/MESS 
+Mess 0.148 with crvision works fine
+
+-----------------------------------------------------------
+
+PC 8088/8086
+
+Use qemu-system-i386 to start a bare metal PC 8088/8086 and attach the floppy image
+
+qemu-system-i386.exe c:\Retro\CROSS-CHASE\build\FULL_pc8086_turn_based.img
+
+

@@ -157,7 +157,12 @@ out			stb res
 #elif defined(NO_WAIT)
 //
 #elif defined(WAIT_FOR_KEY)
-	#  if defined(__NCURSES__)
+	#  if defined(__GCC_BUFFERED__)
+		void WAIT_PRESS(void)
+		{
+			getchar();
+		}
+	#elif defined(__NCURSES__)
 		#include <ncurses.h>
 		
 		void WAIT_PRESS(void)

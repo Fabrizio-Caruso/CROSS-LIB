@@ -22,7 +22,7 @@
 
 #include "../../cross_lib/cross_lib.h"
 
-#include "display_macros.h"
+//#include "display_macros.h"
 
 #if !defined(NO_SET_SCREEN_COLORS)
 	void setScreenColors(void)

@@ -41,7 +41,8 @@
 	&& !defined(__MZ2500__) \
 	&& !defined(__VECTREX__) \
 	&& !defined(ACK) \
-	&& !defined(FORCE_NO_CONIO_LIB)
+	&& !defined(FORCE_NO_CONIO_LIB) \
+	&& !defined(__GCC_BUFFERED__)
 	#define CONIO_LIB
 #endif
 #if defined(__WINCMOC__) || defined(FORCE_CONIO_LIB)
@@ -77,7 +78,7 @@
 	#define CC65
 #elif defined(__WINCMOC__) || defined(__CMOC__)
 	#define CMOC
-#elif defined(ACK)
+#elif defined(ACK) || defined(__NCURSES__) || defined(__GCC_BUFFERED__)
 	//
 #else
 	#define Z88DK

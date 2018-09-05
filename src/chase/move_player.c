@@ -221,15 +221,6 @@ extern Character player;
 		#endif
 	}
 #else
-	#if defined(__ATARI__) || defined(__ATARIXL__)
-		#include <peekpoke.h>
-		#define INPUT_POST_PROC() POKE(0x4D,0)
-	#elif defined(__ATARI5200__)
-		#include <peekpoke.h>
-		#define INPUT_POST_PROC() POKE(0x04,0)	
-	#else
-		#define INPUT_POST_PROC()
-	#endif
 	#if defined(Z88DK_JOYSTICK)
 		extern unsigned char stick;
 		

@@ -235,7 +235,7 @@ extern Character player;
 		
 		void MOVE_PLAYER(void) { movePlayerByJoystick(joystick(stick));}
 	#else
-		void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));	INPUT_POST_PROC();}
+		void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
 	#endif
 #endif
 

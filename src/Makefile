@@ -2910,7 +2910,7 @@ linux386:
 	rm $(SOURCE_PATH)/../*.o
 	
 	
-pdp11v7_build:
+pdp11v7:
 	$(_ACK) $(_ACK_OPTS) -mpdpv7 \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=22 \
@@ -2927,11 +2927,9 @@ pdp11v7_build:
 	-DNO_SLEEP \
 	-DALT_CLEAR_SCREEN \
 	$(FULL_FILES)
-	mv a.out $(BUILD_PATH)/FULL_pdp11v7_turn_based.bin	
-
-pdp11v7: \
-	pdp11v7_build \
-	clean_src
+	mv a.out $(BUILD_PATH)/FULL_pdp11v7_turn_based.bin
+	rm $(SOURCE_PATH)/../*.o
+	
 
 	
 dos:
@@ -3157,7 +3155,7 @@ cmoc_targets: \
 	coco vectrex
 	
 ack_targets: \
-	pc8086 linux386 linux68k linuxppc pdp11v7
+	pdp11v7 cpm8080 pc8086 linux386 linux68k linuxppc  
 	
 all: cc65_targets z88dk_targets cmoc_targets ncurses_targets ack_targets
 

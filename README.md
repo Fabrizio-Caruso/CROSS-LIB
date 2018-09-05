@@ -90,6 +90,7 @@ For most targets, more than one version is built, in order to support different 
 - creativision: VTech Creativision
 - eg2k: EACA EG2000
 - einstein: Tatung Einstein
+- enterprise: Enterprise 64/128 (work in progress)
 - fp1100: Casio FP-1100
 - g800: Sharp PC-G800
 - gal: Galaksija
@@ -135,6 +136,7 @@ For most targets, more than one version is built, in order to support different 
 - ti83: Texas TI 83 (work in progress)
 - ti85: Texas TI 85
 - ti8x: Texas TI 83 Plus (work in progress)
+- ti86: Texas TI 86 (work in progress)
 - trs80: TRS-80 Model I/III/IV
 - ts2068: Timex TS 2068
 - vg5k: VG-5000

@@ -1924,6 +1924,10 @@ nc100_sprites_light:
 	-DNO_INIT_GRAPHICS \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
+	cp $(BUILD_PATH)/LIGHT_nc100_sprites.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
+	rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
+
+	
 
 nc200_sprites_light:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
@@ -4415,6 +4419,8 @@ nc100_sprites_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_nc100_sprites.bin
+	cp $(BUILD_PATH)/TINY_nc100_sprites.rom /cygwin/c/Emulation/nc100em-1.2-2014/nc100.card
+
 	
 einstein_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \

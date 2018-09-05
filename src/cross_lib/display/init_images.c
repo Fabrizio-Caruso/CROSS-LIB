@@ -203,6 +203,7 @@ void set_image_data(void)
 		PLAYER_DOWN._imageData = _PLAYER_DOWN;
 		PLAYER_UP._imageData = _PLAYER_UP;	
 		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
+		
 		PLAYER_LEFT._imageData = _PLAYER_LEFT;	
 	#else
 		PLAYER_IMAGE._imageData = _PLAYER;			
@@ -230,6 +231,7 @@ void set_image_data(void)
 	
 	#if defined(FULL_GAME)
 		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _LEFT_HORIZONTAL_MISSILE;
+		
 		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _RIGHT_HORIZONTAL_MISSILE;
 		
 		ROCKET_IMAGE._imageData = _ROCKET;

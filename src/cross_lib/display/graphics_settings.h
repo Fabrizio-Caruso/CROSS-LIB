@@ -19,7 +19,7 @@
 #elif defined(__ATMOS__)
 	#include "image_settings/atmos_redefined_characters_settings.h"
 #elif defined(Z88DK_SPRITES) 
-	#include "image_settings/z88dk_sprites_settings.h"
+	#include "image_settings/udg_settings.h"
 #elif defined(__MSX__)
 	#include "image_settings/msx_redefined_chars_settings.h"
 #elif defined(CPCRSLIB)

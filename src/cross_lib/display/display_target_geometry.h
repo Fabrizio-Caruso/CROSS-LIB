@@ -72,7 +72,7 @@
 	#elif defined(__SAM__)
 		#define YSize (24-2-Y_OFFSET)
 	#elif (defined(__NC200__) && defined(Z88DK_SPRITES))
-		#define YSize ((128/SPRITE_Y_STEP)+1)
+		#define YSize ((128/SPRITE_Y_STEP)-2)
 	#elif defined(__SUPERVISION__)
 		#define YSize 20
 	#elif defined(__GAMATE__)

@@ -1917,8 +1917,7 @@ nc100_sprites_light:
 	-DNO_PRINT \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
-	-DNO_SLEEP \
-	-DNO_WAIT \
+	-DFLAT_ENEMIES \
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/LIGHT_nc100_sprites.bin \
 	-DNO_INIT_GRAPHICS \
@@ -1927,6 +1926,22 @@ nc100_sprites_light:
 	cp $(BUILD_PATH)/LIGHT_nc100_sprites.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
 	rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
 
+nc100:
+	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
+	-D__NC100__ \
+	-DNO_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/FULL_nc100.bin \
+	-DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_nc100.bin
+	# cp $(BUILD_PATH)/FULL_nc100.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
+	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
 	
 
 nc200_sprites_light:
@@ -1943,6 +1958,23 @@ nc200_sprites_light:
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_nc200_sprites.bin
 
+nc200:
+	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
+	-D__NC200__ \
+	-DNO_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/FULL_nc200.bin \
+	-DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_nc200.bin
+	# cp $(BUILD_PATH)/FULL_nc200.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.card
+	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.ram
+		
 	
 	
 cpm_adm3a:
@@ -3426,11 +3458,10 @@ lambda_targets: \
 	lambda_16k
 	
 nc100_targets: \
-	nc100_sprites_light	
-	
+	nc100
 	
 nc200_targets: \
-	nc200_sprites_light	
+	nc200
 
 ##
 

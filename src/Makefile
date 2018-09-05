@@ -2021,17 +2021,18 @@ c128_z80_40col_turn_based:
 	rm a.bin
 	
 	
+# Opt
 einstein:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -leinstein \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=einstein -leinstein \
 	-pragma-define:ansicolumns=32 \
+	-compiler=sdcc \
+	$(ZSDCC_OPTS) \
 	-D__EINSTEIN__ \
 	-DFORCE_CONIO_LIB \
 	-DFULL_GAME -DLESS_TEXT \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-clib=ansi \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/FULL_einstein.bin \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_einstein.bin
 
@@ -2864,7 +2865,7 @@ linuxppc:
 	-DALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	mv linuxppc.exe $(BUILD_PATH)/FULL_linuxppc.exe
+	mv linuxppc.exe $(BUILD_PATH)/FULL_linuxppc_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o
 
 linux68k:
@@ -2885,7 +2886,7 @@ linux68k:
 	-DALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	mv linux68k.exe $(BUILD_PATH)/FULL_linux68k.exe
+	mv linux68k.exe $(BUILD_PATH)/FULL_linux68k_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o
 	
 linux386:
@@ -2906,7 +2907,7 @@ linux386:
 	-DALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	mv linux386.exe $(BUILD_PATH)/FULL_linux386.exe
+	mv linux386.exe $(BUILD_PATH)/FULL_linux386_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o
 	
 	
@@ -3028,7 +3029,6 @@ cc65_targets: \
 # KO: 	
 # m5: out of memory
 # sg1000: interrupt
-# einstein: 'msx_attr' not defined 
 
 # OK:
 

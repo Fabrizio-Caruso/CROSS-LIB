@@ -185,7 +185,7 @@
 		#define GAME_SLOW_DOWN 100	
 	#elif defined(__EINSTEIN__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 2000	
+		#define GAME_SLOW_DOWN 5000	
 	#elif defined(__M5__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 900					

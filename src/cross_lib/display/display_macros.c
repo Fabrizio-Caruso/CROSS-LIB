@@ -128,7 +128,7 @@ Image BOMB_IMAGE;
 	extern unsigned char sprites[];
 
 #elif defined(BUFFERED)
-	extern unsigned char video_buffer[YSize+Y_OFFSET][XSize];
+	unsigned char video_buffer[YSize+Y_OFFSET][XSize];
 	
 	void display_all(void)
 	{

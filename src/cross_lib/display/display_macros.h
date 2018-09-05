@@ -62,8 +62,7 @@ typedef struct ImageStruct Image;
 	#define REFRESH()
 #else
 	#include "graphics_mode/buffered_graphics.h"
-	extern unsigned char video_buffer[YSize+Y_OFFSET][XSize];
-
+	
 	#define REFRESH() \
 		do \
 		{ \

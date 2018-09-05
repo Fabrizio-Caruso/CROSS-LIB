@@ -2138,6 +2138,58 @@ ti8x:
 	rm $(SOURCE_PATH)/../a.bin	
 
 	
+# ti86:
+	# $(Z88DK_PATH)$(MYZ88DK) +ti86 \
+	# -subtype=asm \
+	# -compiler=sdcc \
+	# -SO3 --max-allocs-per-node200000 -opt-code-size \
+	# -D__TI86__ \
+	# -DFULL_GAME \
+	# -DZ88DK_JOYSTICK \
+	# -DFORCE_XSIZE=32 \
+	# -DLESS_TEXT	\
+	# -DNO_COLOR \
+	# -DNO_BLINKING \
+	# -DNO_HINTS \
+	# -DNO_BORDER \
+	# -DNO_CONTROL_INSTRUCTIONS \
+	# -DNO_RANDOM_LEVEL \
+	# -DNO_SET_SCREEN_COLORS \
+	# -DNO_SLEEP \
+	# -DSIMPLE_STRATEGY \
+	# -DFLAT_ENEMIES \
+	# -DFORCE_NARROW \
+	# -DFORCE_GHOSTS_NUMBER=6 \
+	# -clib=ansi -pragma-define:ansicolumns=32 \
+	# -vn \
+	# -lndos \
+	# -DCONIO -DNO_INIT_GRAPHICS \
+	# -create-app  \
+	# $(FULL_FILES)
+	# mv $(SOURCE_PATH)/../pt-code-size.86p $(BUILD_PATH)/FULL_ti86.8xp	
+	# rm $(SOURCE_PATH)/../a.bin		
+	
+ti86_light:
+	$(Z88DK_PATH)$(MYZ88DK) +ti86 \
+	-subtype=asm \
+	$(SCCZ80_OPTS) \
+	-D__TI86__ \
+	-DZ88DK_JOYSTICK \
+	-DFORCE_XSIZE=32 \
+	-DLESS_TEXT	\
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DNO_HINTS \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app  \
+	$(LIGHT_FILES)
+	mv $(SOURCE_PATH)/../a.86p $(BUILD_PATH)/LIGHT_ti86.8xp	
+	rm $(SOURCE_PATH)/../a.bin	
+	
+	
 ti85:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
 	$(SCCZ80_OPTS) -D__TI85__ \
@@ -2489,10 +2541,9 @@ ts2068_turn_based:
 	
 enterprise_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +enterprise $(SCCZ80_OPTS) \
-	-compiler=sdcc \
 	-v \
-	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
+	-D__ENTERPRISE__ \
+	-DFORCE_XSIZE=39 \
 	-DFORCE_YSIZE=22 \
 	-DNO_COLOR \
 	-DFULL_GAME \
@@ -2502,9 +2553,10 @@ enterprise_turn_based:
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES)
-	-create-app -o $(BUILD_PATH)/FULL_enterprise.bin
-	rm $(BUILD_PATH)/FULL_enterprise.bin
+	$(FULL_FILES) \
+	-create-app
+	mv a.app $(BUILD_PATH)/FULL_enterprise.app
+	rm a.bin
 	
 mz2500_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
@@ -5296,9 +5348,6 @@ osca:
 	
 
 
-#All of these may work
-# ti86s:
-	# $(Z88DK_PATH)$(MYZ88DK) +ti86s $(SCCZ80_OPTS) -D__TI86S__ -clib=ansi -pragma-define:ansicolumns=32 -vn -DFULL_GAME -DSOUNDS   -lndos -create-app -o $(BUILD_PATH)/FULL_ti86_mz.prg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 
 
 # ti86:
@@ -5330,40 +5379,6 @@ osca:
 	# $(SOURCE_PATH)/main.c
 
 
-	
-# ti8x:
-	# $(Z88DK_PATH)$(MYZ88DK) +ti8x \
-	# $(SCCZ80_OPTS) -D__TI8X__ \
-	# -clib=ansi -pragma-define:ansicolumns=32 \
-	# -vn \
-	# -DFULL_GAME  \
-	# -DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
-	# -lndos \
-	# -create-app -o $(BUILD_PATH)/FULL_ti8x.bin  \
-	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	# $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c \
-	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	# $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	# $(SOURCE_PATH)/main.c
-	# rm $(BUILD_PATH)/FULL_ti8x.bin
-	
-	
-# ti8x_turn_based:
-	# $(Z88DK_PATH)$(MYZ88DK) +ti8x \
-	# $(SCCZ80_OPTS) -D__TI8X__ \
-	# -clib=ansi -pragma-define:ansicolumns=32 \
-	# -vn \
-	# -DFULL_GAME  \
-	# -DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
-	# -DTURN_BASED \
-	# -lndos \
-	# -create-app -o $(BUILD_PATH)/FULL_ti8x_turn_based.bin  \
-	# $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	# $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c \
-	# $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	# $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	# $(SOURCE_PATH)/main.c
-	# rm $(BUILD_PATH)/FULL_ti8x_turn_based.bin
 
 # it may work
 mtx_16k:

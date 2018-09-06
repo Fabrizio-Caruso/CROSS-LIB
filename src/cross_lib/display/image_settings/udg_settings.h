@@ -79,7 +79,11 @@
 
 #define _ROCKET (0x2F-_Z88DK_SPRITE_OFFSET)
 
-#define _SPACE (' '-_Z88DK_SPRITE_OFFSET)
+#if defined(Z88DK_SPRITES)
+	#define _SPACE ('@'-_Z88DK_SPRITE_OFFSET)
+#else
+	#define _SPACE (' ')
+#endif
 
 #endif // _UDG_GRAPHICS_SETTINGS
 

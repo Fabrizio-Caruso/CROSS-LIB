@@ -6,7 +6,7 @@
 	#define SPRITE_X_SIZE 8
 	#define SPRITE_X_STEP 7	
 	#define SPRITE_Y_SIZE 8
-	#define SPRITE_Y_STEP 5	
+	#define SPRITE_Y_STEP 5
 		
 	#ifndef SPRITE_X_STEP
 		#define SPRITE_X_STEP SPRITE_X_SIZE
@@ -72,7 +72,7 @@
 	#elif defined(__SAM__)
 		#define YSize (24-2-Y_OFFSET)
 	#elif (defined(__NC200__) && defined(Z88DK_SPRITES))
-		#define YSize ((128/SPRITE_Y_STEP)-2)
+		#define YSize ((128/SPRITE_Y_STEP)-Y_OFFSET)
 	#elif defined(__SUPERVISION__)
 		#define YSize 20
 	#elif defined(__GAMATE__)
@@ -187,8 +187,10 @@
 
 #if defined(NARROW) || defined(TINY_GAME)
 	#define Y_OFFSET 0
-#else
-	#define Y_OFFSET 2		
+#elif !defined(Z88DK_SPRITES)
+	#define Y_OFFSET 2
+#else 
+	#define Y_OFFSET 3
 #endif
 
 #if defined(__ATMOS__)

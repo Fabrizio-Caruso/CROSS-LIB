@@ -17,7 +17,8 @@
 	|| defined(__TRS80__) || defined(__CPM_80X24__) || defined(__PX8__) || defined(__PX4__) \
 	|| defined(__ABC800__) || defined(__SRR__) \
 	|| defined(__KC__) || defined(__ATMOS__) || defined(__SUPERVISION__) \
-	|| defined(__VECTREX__)
+	|| defined(__VECTREX__) \
+	|| defined(__NC100__) || defined(__NC200__)
 	#define NO_COLOR 
 #else
 	#define COLOR

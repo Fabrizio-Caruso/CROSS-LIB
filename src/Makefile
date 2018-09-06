@@ -12,6 +12,13 @@ ifeq ($(DO_WIN),1)
 EXEEXT = .exe
 endif
 
+ifeq ($(DO_WIN),1)
+COMPILEDEXT = .exe
+else
+COMPILEDEXT = .out
+endif
+
+
 SOURCE_PATH := chase
 CROSS_LIB_PATH := cross_lib
 
@@ -3051,7 +3058,7 @@ ncurses_turn_based:
 	$(CROSS_LIB_PATH)/display/init_graphics/ncurses/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
-	mv a.exe $(BUILD_PATH)/FULL_ncurses_turn_based.exe
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses_turn_based$(COMPILEDEXT)
 	
 ncurses:
 	$(_CC) $(_CC_OPTS) -D__NCURSES__ \
@@ -3065,7 +3072,7 @@ ncurses:
 	$(CROSS_LIB_PATH)/display/init_graphics/ncurses/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
-	mv a.exe $(BUILD_PATH)/FULL_ncurses.exe
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses$(COMPILEDEXT)
 		
 gcc_buffered:
 	$(_CC) $(_CC_OPTS) \
@@ -3081,7 +3088,7 @@ gcc_buffered:
 	-DALT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv a.exe $(BUILD_PATH)/FULL_gcc_buffered.exe
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)
 
 
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh

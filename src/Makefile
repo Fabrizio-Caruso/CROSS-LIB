@@ -12,6 +12,13 @@ ifeq ($(DO_WIN),1)
 EXEEXT = .exe
 endif
 
+ifeq ($(DO_WIN),1)
+COMPILEDEXT = .exe
+else
+COMPILEDEXT = .out
+endif
+
+
 SOURCE_PATH := chase
 CROSS_LIB_PATH := cross_lib
 
@@ -1309,12 +1316,12 @@ abc80_light:
 	-zorg=49200 $(SCCZ80_OPTS) \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
-	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o a \
+	-D__ABC80__ -clib=ansi -vn  -lndos -create-app  \
 	$(LIGHT_FILES)
-	rm a
+	mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
 	mv a.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
 
-abc80_full:
+abc80:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
 	$(SCCZ80_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -1332,9 +1339,9 @@ abc80_full:
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_SLEEP \
 	-DFLAT_ENEMIES \
-	-lndos -create-app -o a \
+	-lndos -create-app \
 	$(FULL_FILES)
-	rm a
+	mv a.bin $(BUILD_PATH)/FULL_abc80.bin
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 	
 abc80_zsdcc:
@@ -1917,13 +1924,32 @@ nc100_sprites_light:
 	-DNO_PRINT \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
-	-DNO_SLEEP \
-	-DNO_WAIT \
+	-DFLAT_ENEMIES \
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/LIGHT_nc100_sprites.bin \
 	-DNO_INIT_GRAPHICS \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
+	cp $(BUILD_PATH)/LIGHT_nc100_sprites.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
+	rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
+
+nc100:
+	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
+	-D__NC100__ \
+	-DNO_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/FULL_nc100.bin \
+	-DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_nc100.bin
+	# cp $(BUILD_PATH)/FULL_nc100.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
+	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
+	
 
 nc200_sprites_light:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
@@ -1939,6 +1965,23 @@ nc200_sprites_light:
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_nc200_sprites.bin
 
+nc200:
+	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
+	-D__NC200__ \
+	-DNO_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/FULL_nc200.bin \
+	-DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_nc200.bin
+	# cp $(BUILD_PATH)/FULL_nc200.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.card
+	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.ram
+		
 	
 	
 cpm_adm3a:
@@ -2902,7 +2945,7 @@ pc8086:
 linuxppc:
 	$(_ACK) $(_ACK_OPTS) -mlinuxppc \
 	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=22 \
+	-DFORCE_YSIZE=21 \
 	-DCONIO_ADM3A \
 	-DNO_COLOR \
 	-DACK \
@@ -2923,7 +2966,7 @@ linuxppc:
 linux68k:
 	$(_ACK) $(_ACK_OPTS) -mlinux68k \
 	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=22 \
+	-DFORCE_YSIZE=21 \
 	-DCONIO_ADM3A \
 	-DNO_COLOR \
 	-DACK \
@@ -2944,7 +2987,7 @@ linux68k:
 linux386:
 	$(_ACK) $(_ACK_OPTS) -mlinux386 \
 	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=22 \
+	-DFORCE_YSIZE=21 \
 	-DCONIO_ADM3A \
 	-DNO_COLOR \
 	-DACK \
@@ -3015,7 +3058,7 @@ ncurses_turn_based:
 	$(CROSS_LIB_PATH)/display/init_graphics/ncurses/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
-	mv a.exe $(BUILD_PATH)/FULL_ncurses_turn_based.exe
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses_turn_based$(COMPILEDEXT)
 	
 ncurses:
 	$(_CC) $(_CC_OPTS) -D__NCURSES__ \
@@ -3029,7 +3072,7 @@ ncurses:
 	$(CROSS_LIB_PATH)/display/init_graphics/ncurses/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
-	mv a.exe $(BUILD_PATH)/FULL_ncurses.exe
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses$(COMPILEDEXT)
 		
 gcc_buffered:
 	$(_CC) $(_CC_OPTS) \
@@ -3045,7 +3088,7 @@ gcc_buffered:
 	-DALT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv a.exe $(BUILD_PATH)/FULL_gcc_buffered.exe
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)
 
 
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
@@ -3422,11 +3465,10 @@ lambda_targets: \
 	lambda_16k
 	
 nc100_targets: \
-	nc100_sprites_light	
-	
+	nc100
 	
 nc200_targets: \
-	nc200_sprites_light	
+	nc200
 
 ##
 
@@ -4415,6 +4457,8 @@ nc100_sprites_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_nc100_sprites.bin
+	cp $(BUILD_PATH)/TINY_nc100_sprites.rom /cygwin/c/Emulation/nc100em-1.2-2014/nc100.card
+
 	
 einstein_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein \

@@ -15,7 +15,7 @@ extern Character player;
 extern unsigned char arrowRange;
 unsigned char arrowYPosition;
 
-	unsigned char _playerInArrowRange()
+	unsigned char _playerInArrowRange(void)
 	{
 		return (loop&1 && player._y<=(arrowYPosition+arrowRange) && player._y>=(arrowYPosition-arrowRange));
 	}

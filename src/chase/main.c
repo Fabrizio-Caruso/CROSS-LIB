@@ -210,7 +210,7 @@ unsigned char ghostCount; // = GHOSTS_NUMBER;
 
 
 #if !defined(TINY_GAME)
-	void resetItems()
+	void resetItems(void)
 	{
 		gun._coolDown = GUN_COOL_DOWN;
 		powerUp._coolDown = POWER_UP_COOL_DOWN;
@@ -233,7 +233,7 @@ unsigned char ghostCount; // = GHOSTS_NUMBER;
 
 	
 	// Constructor for all items
-	void constructItems()
+	void constructItems(void)
 	{
 		powerUp._effect = &powerUpEffect;
 		powerUp2._effect = &powerUp2Effect;

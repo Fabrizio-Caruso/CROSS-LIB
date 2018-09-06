@@ -58,6 +58,11 @@ typedef struct ImageStruct Image;
 	void _draw(unsigned char x, unsigned char y, Image * image);	
 #endif
 
+#if defined(Z88DK_SPRITES) && defined(ALT_PRINT)
+	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch);
+#endif
+
+
 #if !defined(BUFFERED)
 	#define REFRESH()
 #else

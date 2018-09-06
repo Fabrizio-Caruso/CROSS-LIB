@@ -742,6 +742,22 @@ vz200_18k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vz200_18k.cas
 
+
+
+vz700: 	
+	$(Z88DK_PATH)$(MYZ88DK) +vz700 -vn \
+	-compiler=sdcc \
+	$(ZSDCC_OPTS) \
+	-DSOUNDS -D__VZ__ -clib=ansi \
+	-DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_vz350.vz \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_vz700.cas
+
+		
+	
 	
 vz200_24k: 
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
@@ -1933,40 +1949,6 @@ tiki100_sprites_light:
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_tiki100_sprites.bin	
 
-nc100_sprites_light:
-	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
-	-D__NC100__ \
-	-DNO_PRINT \
-	-DZ88DK_SPRITES \
-	-DLESS_TEXT \
-	-DFLAT_ENEMIES \
-	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/LIGHT_nc100_sprites.bin \
-	-DNO_INIT_GRAPHICS \
-	-DINITIAL_GHOST_FREEZE \
-	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
-	cp $(BUILD_PATH)/LIGHT_nc100_sprites.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
-	rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
-
-	
-nc100:
-	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
-	-D__NC100__ \
-	-DNO_PRINT \
-	-DFULL_GAME \
-	-DZ88DK_SPRITES \
-	-DLESS_TEXT \
-	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/FULL_nc100.bin \
-	-DNO_INIT_GRAPHICS \
-	-DINITIAL_GHOST_FREEZE \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_nc100.bin
-	# cp $(BUILD_PATH)/FULL_nc100.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
-	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
 
 
 tiki100: 
@@ -2005,8 +1987,8 @@ kaypro:
 	# $(SOURCE_PATH)/end_screen.c 
 
 	
-nc100_alt_print:
-	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 -v \
+nc100:
+	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
 	-D__NC100__ \
 	-DALT_PRINT \
 	-DFULL_GAME \
@@ -2019,40 +2001,29 @@ nc100_alt_print:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_nc100_alt_print.bin
-	cp $(BUILD_PATH)/FULL_nc100_alt_print.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
-	rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
-	
+	# cp $(BUILD_PATH)/FULL_nc100_alt_print.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
+	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
 
-nc200_sprites_light:
-	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
-	-D__NC200__ \
-	-DNO_PRINT \
-	-DZ88DK_SPRITES \
-	-DLESS_TEXT \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/LIGHT_nc200_sprites.bin \
-	-DNO_INIT_GRAPHICS \
-	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/LIGHT_nc200_sprites.bin
 
 nc200:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
 	-D__NC200__ \
-	-DNO_PRINT \
+	-DALT_PRINT \
 	-DFULL_GAME \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/FULL_nc200.bin \
+	-create-app -o$(BUILD_PATH)/FULL_nc200_alt_print.bin \
 	-DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_nc200.bin
-	# cp $(BUILD_PATH)/FULL_nc200.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.card
-	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.ram
+	rm $(BUILD_PATH)/FULL_nc200_alt_print.bin
+	# cp $(BUILD_PATH)/FULL_nc200_alt_print.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.card
+	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.ram	
+	
+
 		
 	
 	

@@ -48,14 +48,21 @@
 #endif
 
 
+#if Y_OFFSET==3
+	#define SKIP_ROW 1
+#else
+	#define SKIP_ROW 0
+#endif
+
 #if defined(WIDE) && !defined(TINY_GAME)
 	#define GUN_IMAGE_X 17
 	#define GUN_IMAGE_Y 0
 	#define GHOST_IMAGE_X 13
 	#define GHOST_IMAGE_Y 0
 	#define PLAYER_IMAGE_X 16
-	#define PLAYER_IMAGE_Y 1
+	#define PLAYER_IMAGE_Y (1+SKIP_ROW)
 	#define LEVEL_X 6
+	#define LEVEL_Y (1+SKIP_ROW)
 #else
 	#define GUN_IMAGE_X (11-EXTRA_TINY)
 	#define GUN_IMAGE_Y 0
@@ -64,6 +71,7 @@
 	#define PLAYER_IMAGE_X (14-EXTRA_TINY)
 	#define PLAYER_IMAGE_Y 0
 	#define LEVEL_X 18
+	#define LEVEL_Y 0
 #endif
 
 
@@ -105,8 +113,8 @@ extern unsigned short highScore;
 
 #define PRINT_WIDE_TITLE() \
 	SET_COLOR(SCORE_COLOR); \
-	PRINT(0, +0,   SCORE_STRING); \
-	PRINT(0, +0+1, LEVEL_STRING); \
+	PRINT(0,       0, SCORE_STRING); \
+	PRINT(0, LEVEL_Y, LEVEL_STRING); \
 	\
 	SET_COLOR(_RED); \
 	TITLE_LINE(); \
@@ -151,9 +159,9 @@ extern unsigned short highScore;
 		SET_COLOR(TEXT_COLOR);
 	
 		#if defined(WIDE) && !defined(TINY_GAME)
-			PRINTF(LEVEL_X,1+0,"%02u", level);
+			PRINTF(LEVEL_X,LEVEL_Y,"%02u", level);
 		#elif XSize>16
-			PRINTF(LEVEL_X,+0,"%02u",level);
+			PRINTF(LEVEL_X,LEVEL_Y,"%02u",level);
 		#else
 			// No space for level
 		#endif	
@@ -177,9 +185,9 @@ extern unsigned short highScore;
 		SET_COLOR(TEXT_COLOR);
 		
 		#if defined(WIDE) && !defined(TINY_GAME)
-			PRINTF(PLAYER_IMAGE_X+2,+0+1,"%02u",lives);
+			PRINTF(PLAYER_IMAGE_X+2,PLAYER_IMAGE_Y,"%02u",lives);
 		#else
-			PRINTF(PLAYER_IMAGE_X+1,+0,"%02u",lives);	
+			PRINTF(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,"%02u",lives);	
 		#endif
 	}	
 	

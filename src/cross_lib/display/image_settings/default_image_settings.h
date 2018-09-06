@@ -34,7 +34,11 @@
 // WHITE
 #define _GHOST 'o'
 
-#define _DEAD_GHOST '#'
+#if defined(__ALPHATRO__)
+	#define _DEAD_GHOST _GHOST
+#else
+	#define _DEAD_GHOST '#'
+#endif
 
 // BLUE
 #if defined(__ZX80__)

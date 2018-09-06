@@ -1986,6 +1986,26 @@ kaypro:
 	# -DEND_SCREEN -DBETWEEN_LEVEL 
 	# $(SOURCE_PATH)/end_screen.c 
 
+
+alphatro:
+	$(Z88DK_PATH)$(MYZ88DK) +alphatro $(SCCZ80_OPTS) \
+	-D__ALPHATRO__ \
+	-DFULL_GAME  \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
+	-lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	chase/end_screen.c \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_alphatro.bin
+	rm $(BUILD_PATH)/FULL_alphatro.bin
+	rm $(BUILD_PATH)/FULL_alphatro_DATA.bin
+	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin	
+
+
+
 	
 nc100:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
@@ -4866,23 +4886,6 @@ spc1000_udg:
 	rm $(BUILD_PATH)/FULL_spc1000.bin
 	
 
-alphatro:
-	$(Z88DK_PATH)$(MYZ88DK) +alphatro $(SCCZ80_OPTS) \
-	-D__ALPHATRO__ \
-	-DFULL_GAME  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	chase/end_screen.c \
-	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_alphatro.bin
-	rm $(BUILD_PATH)/FULL_alphatro.bin
-	rm $(BUILD_PATH)/FULL_alphatro_DATA.bin
-	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin	
 	
 # -o$(BUILD_PATH)/TINY_abc800.bin 	
 abc800_tiny:

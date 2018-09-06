@@ -4,7 +4,7 @@
 #if defined(Z88DK_SPRITES)
 
 	#define SPRITE_X_SIZE 8
-	#define SPRITE_X_STEP 6	
+	#define SPRITE_X_STEP 7	
 	#define SPRITE_Y_SIZE 8
 	#define SPRITE_Y_STEP 5	
 		

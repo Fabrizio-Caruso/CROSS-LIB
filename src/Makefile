@@ -1309,12 +1309,12 @@ abc80_light:
 	-zorg=49200 $(SCCZ80_OPTS) \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
-	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o a \
+	-D__ABC80__ -clib=ansi -vn  -lndos -create-app  \
 	$(LIGHT_FILES)
-	rm a
+	mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
 	mv a.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
 
-abc80_full:
+abc80:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
 	$(SCCZ80_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -1332,9 +1332,9 @@ abc80_full:
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_SLEEP \
 	-DFLAT_ENEMIES \
-	-lndos -create-app -o a \
+	-lndos -create-app \
 	$(FULL_FILES)
-	rm a
+	mv a.bin $(BUILD_PATH)/FULL_abc80.bin
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 	
 abc80_zsdcc:
@@ -2938,7 +2938,7 @@ pc8086:
 linuxppc:
 	$(_ACK) $(_ACK_OPTS) -mlinuxppc \
 	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=22 \
+	-DFORCE_YSIZE=21 \
 	-DCONIO_ADM3A \
 	-DNO_COLOR \
 	-DACK \
@@ -2959,7 +2959,7 @@ linuxppc:
 linux68k:
 	$(_ACK) $(_ACK_OPTS) -mlinux68k \
 	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=22 \
+	-DFORCE_YSIZE=21 \
 	-DCONIO_ADM3A \
 	-DNO_COLOR \
 	-DACK \
@@ -2980,7 +2980,7 @@ linux68k:
 linux386:
 	$(_ACK) $(_ACK_OPTS) -mlinux386 \
 	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=22 \
+	-DFORCE_YSIZE=21 \
 	-DCONIO_ADM3A \
 	-DNO_COLOR \
 	-DACK \

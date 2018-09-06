@@ -1928,6 +1928,7 @@ nc100_sprites_light:
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/LIGHT_nc100_sprites.bin \
 	-DNO_INIT_GRAPHICS \
+	-DINITIAL_GHOST_FREEZE \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
 	cp $(BUILD_PATH)/LIGHT_nc100_sprites.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
@@ -1943,12 +1944,13 @@ nc100:
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/FULL_nc100.bin \
 	-DNO_INIT_GRAPHICS \
+	-DINITIAL_GHOST_FREEZE \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_nc100.bin
-	# cp $(BUILD_PATH)/FULL_nc100.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
-	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
+	cp $(BUILD_PATH)/FULL_nc100.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
+	rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
 	
 
 nc200_sprites_light:

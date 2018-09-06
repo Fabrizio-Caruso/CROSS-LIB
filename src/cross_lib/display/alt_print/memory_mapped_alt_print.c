@@ -45,12 +45,29 @@
 	}
 #endif
 
-#if !defined(BUFFERED)
+#  if defined(Z88DK_SPRITES)
+	#include <graphics.h>
+	#include <games.h>
+
+	
+	// #include "../graphics_data/z88dk/z88dk_sprites_definitions.h"
+
+	//#include "../graphics_mode/z88dk_sprites_graphics.h"
+	
+	//#include "../display_target_geometry.h"
+	
+	
+		
 	#define _DISPLAY(x,y,ch) \
-		DISPLAY_POKE((loc(x,y)), (ch))
-#else
+		_draw_ch(x,y,ch);
+
+	
+#elif defined(BUFFERED)
 	#define _DISPLAY(x,y,ch) \
 		video_buffer[(y)][(x)] = (ch)
+#else
+	#define _DISPLAY(x,y,ch) \
+		DISPLAY_POKE((loc(x,y)), (ch))
 #endif
 
 

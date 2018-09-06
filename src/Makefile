@@ -710,7 +710,7 @@ vz200_8k:
 	-DTINY_GAME \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-compiler=sdcc \
-	-opt-code-size \
+	--opt-code-size \
 	$(ZSDCC_OPTS) \
 	-D__VZ__ -clib=ansi \
 	-DLESS_TEXT \
@@ -755,7 +755,7 @@ vz200_24k:
 
 
 # 	$(ZSDCC_OPTS) 
-#   -opt-code-size 
+#   --opt-code-size 
 #	-DSOUNDS
 #	-DNO_INITIAL_SCREEN
 # 	-DNO_MESSAGE
@@ -764,7 +764,7 @@ vg5k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-compiler=sdcc \
 	$(ZSDCC_OPTS) \
-	-opt-code-size \
+	--opt-code-size \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DNO_BLINKING \
@@ -1320,6 +1320,18 @@ abc80_light:
 	$(LIGHT_FILES)
 	mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
 	mv a.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
+	
+abc800_light:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 -lm \
+	-zorg=49200 $(SCCZ80_OPTS) \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO_VT100 \
+	-DNO_WAIT \
+	-D__ABC80__ -vn  -lndos  \
+	$(LIGHT_FILES)
+	mv a.bin $(BUILD_PATH)/LIGHT_abc800.bin 
+	
+	
 
 abc80:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
@@ -1341,25 +1353,28 @@ abc80:
 	-DFLAT_ENEMIES \
 	-lndos -create-app \
 	$(FULL_FILES)
-	mv a.bin $(BUILD_PATH)/FULL_abc80.bin
+	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/FULL_abc80.bac 49200
+	rm a.bin 
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 	
-abc80_zsdcc:
-	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
-	$(ZSDCC_OPTS) \
-	-compiler=sdcc \
-	-D__ABC80__ -clib=ansi -vn -DFULL_GAME \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-DLESS_TEXT \
-	-DSIMPLE_STRATEGY \
-	-DNO_BLINKING \
-	-DNO_COLOR \
-	-DNO_HINTS \
-	-DNO_WAIT \
-	-lndos -create-app -o a \
-	$(FULL_FILES)
-	rm a
-	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
+# zsdcc is producing wrong binaries
+# TODO: Test different optimization options
+# abc80:
+	# $(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
+	# $(ZSDCC_OPTS) \
+	# -pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	# -compiler=sdcc \
+	# --max-allocs-per-node200000 -SO3 --opt-code-size \
+	# -D__ABC80__ -clib=ansi -vn -DFULL_GAME \
+	# -DCONIO -DNO_INIT_GRAPHICS \
+	# -DLESS_TEXT \
+	# -DNO_BLINKING \
+	# -DNO_COLOR \
+	# -lndos -create-app \
+	# $(FULL_FILES)
+	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/FULL_abc80.bac 49200
+	# rm a.bin 
+	# mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 
 	
 abc800_32k:
@@ -1928,11 +1943,13 @@ nc100_sprites_light:
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/LIGHT_nc100_sprites.bin \
 	-DNO_INIT_GRAPHICS \
+	-DINITIAL_GHOST_FREEZE \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_nc100_sprites.bin
 	cp $(BUILD_PATH)/LIGHT_nc100_sprites.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
 	rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
 
+	
 nc100:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
 	-D__NC100__ \
@@ -1943,12 +1960,67 @@ nc100:
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/FULL_nc100.bin \
 	-DNO_INIT_GRAPHICS \
+	-DINITIAL_GHOST_FREEZE \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_nc100.bin
 	# cp $(BUILD_PATH)/FULL_nc100.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
 	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
+
+
+tiki100: 
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -startup=2 -lm -ltiki100 \
+	-D__TIKI100__ \
+	-DNO_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/FULL_tiki100.bin \
+	-DNO_INIT_GRAPHICS \
+	-DINITIAL_GHOST_FREEZE \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	# rm $(BUILD_PATH)/FULL_tiki100.bin	
+	
+kaypro: 
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxkp \
+	-D__KAYPRO__ \
+	-DNO_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/FULL_kaypro.bin \
+	-DNO_INIT_GRAPHICS \
+	-DINITIAL_GHOST_FREEZE \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+
+
+	# -DEND_SCREEN -DBETWEEN_LEVEL 
+	# $(SOURCE_PATH)/end_screen.c 
+
+	
+nc100_alt_print:
+	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 -v \
+	-D__NC100__ \
+	-DALT_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/FULL_nc100_alt_print.bin \
+	-DNO_INIT_GRAPHICS \
+	-DINITIAL_GHOST_FREEZE \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_nc100_alt_print.bin
+	cp $(BUILD_PATH)/FULL_nc100_alt_print.rom /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.card
+	rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc100.ram
 	
 
 nc200_sprites_light:
@@ -2185,7 +2257,7 @@ ti8x:
 	# $(Z88DK_PATH)$(MYZ88DK) +ti86 \
 	# -subtype=asm \
 	# -compiler=sdcc \
-	# -SO3 --max-allocs-per-node200000 -opt-code-size \
+	# -SO3 --max-allocs-per-node200000 --opt-code-size \
 	# -D__TI86__ \
 	# -DFULL_GAME \
 	# -DZ88DK_JOYSTICK \
@@ -3194,6 +3266,9 @@ z88dk_test: \
 	
 	
 z88dk_targets: \
+	kaypro_targets \
+	enterprise_targets \
+	newbrain_targets \
 	ts2068_targets \
 	fp1100_targets \
 	coleco_targets \
@@ -3216,7 +3291,10 @@ z88dk_targets: \
 	srr_targets \
 	ti82_targets \
 	ti83_targets \
+	ti8x_targets \
 	ti85_targets \
+	ti86_targets \
+	tiki100_targets \
 	z1013_targets \
 	x1_targets \
 	px4_targets \
@@ -3340,9 +3418,24 @@ ti8x_targets: \
 	
 ti85_targets: \
 	ti85 ti85_turn_based
+	
+ti86_targets: \
+	ti86_light
+	
+tiki100_targets: \
+	tiki100
 
+enterprise_targets: \
+	enterprise_turn_based
+	
 einstein_targets: \
 	einstein
+	
+newbrain_targets: \
+	newbrain
+
+kaypro_targets:
+	kaypro
 
 z1013_targets: \
 	z1013
@@ -3396,7 +3489,7 @@ mtx_targets: \
 	mtx_udg
 	
 abc80_targets: \
-	abc80_light abc80_full
+	abc80_light abc80
 	
 p2000_targets: \
 	p2000_16k p2000_32k

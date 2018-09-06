@@ -157,9 +157,17 @@ Image BOMB_IMAGE;
 #endif
 
 
+#if defined(Z88DK_SPRITES) && defined(ALT_PRINT)
+	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch)
+	{
+		__DELETE(x,y);
+		putsprite(spr_or,x*(SPRITE_X_STEP),y*(SPRITE_Y_STEP),sprites + (unsigned char *) ((ch-32)*(2+SPRITE_Y_SIZE))); \
+	}
+#endif
+
 #if !defined(NO_STATS) \
 	|| X_OFFSET!=0 || Y_OFFSET!=0
-
+	
 	void _draw_stat(unsigned char x, unsigned char y, Image * image) 
 	{
 		__DRAW((X_OFFSET+x),(y),image);

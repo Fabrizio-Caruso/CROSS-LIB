@@ -1152,7 +1152,9 @@ svi_328:
 sc3000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
 	$(SCCZ80_OPTS) \
+	-DZ88DK_JOYSTICK \
 	-clib=ansi \
+	-D__SC3000__ \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-pragma-define:ansicolumns=32 \
 	-vn -lndos -create-app -Cz--audio \
@@ -1164,7 +1166,12 @@ sc3000_16k:
 sc3000_32k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
 	$(SCCZ80_OPTS) \
-	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__SC3000__ \
+	-DFULL_GAME \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DZ88DK_JOYSTICK \
 	-DCONIO \
 	-vn -lndos -create-app -Cz--audio \
 	-DANIMATE_PLAYER \
@@ -1172,7 +1179,6 @@ sc3000_32k_udg:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-o $(BUILD_PATH)/FULL_sc3000_32k_udg.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1182,16 +1188,19 @@ sc3000_32k_udg:
 sg1000_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 -subtype=rom \
 	$(SCCZ80_OPTS) \
+	-D__SC3000__ \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DFULL_GAME \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
-	-vn -lndos -create-app -Cz--audio \
+	-vn -lndos -create-app \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-o $(BUILD_PATH)/FULL_sg1000_udg.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1985,6 +1994,26 @@ kaypro:
 
 	# -DEND_SCREEN -DBETWEEN_LEVEL 
 	# $(SOURCE_PATH)/end_screen.c 
+
+
+alphatro:
+	$(Z88DK_PATH)$(MYZ88DK) +alphatro $(SCCZ80_OPTS) \
+	-D__ALPHATRO__ \
+	-DFULL_GAME  \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
+	-lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	chase/end_screen.c \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_alphatro.bin
+	rm $(BUILD_PATH)/FULL_alphatro.bin
+	rm $(BUILD_PATH)/FULL_alphatro_DATA.bin
+	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin	
+
+
 
 	
 nc100:
@@ -4866,23 +4895,6 @@ spc1000_udg:
 	rm $(BUILD_PATH)/FULL_spc1000.bin
 	
 
-alphatro:
-	$(Z88DK_PATH)$(MYZ88DK) +alphatro $(SCCZ80_OPTS) \
-	-D__ALPHATRO__ \
-	-DFULL_GAME  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	chase/end_screen.c \
-	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_alphatro.bin
-	rm $(BUILD_PATH)/FULL_alphatro.bin
-	rm $(BUILD_PATH)/FULL_alphatro_DATA.bin
-	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin	
 	
 # -o$(BUILD_PATH)/TINY_abc800.bin 	
 abc800_tiny:

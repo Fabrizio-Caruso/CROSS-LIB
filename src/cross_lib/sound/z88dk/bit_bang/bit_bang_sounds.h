@@ -77,13 +77,15 @@ bit_fx4(7)	Very quick duck squeak
 		#define EXPLOSION_SOUND() bit_fx3(3)	
 	#elif defined(__MC1000__)
 		#define EXPLOSION_SOUND() bit_fx(1)
+	#elif defined(__SC3000__)
+		#define EXPLOSION_SOUND() bit_fx3(3)
 	#else
 		#define EXPLOSION_SOUND() bit_fx3(0)	// TODO: Improve this sound
 	#endif
 	
 	// TODO: Remove these HACKS
-	#if defined(__M5__)
-		#define ZAP_SOUND()bit_fx3(3)
+	#if defined(__M5__) || defined(__SC3000__)
+		#define ZAP_SOUND() bit_fx3(0)
 		#define SHOOT_SOUND() bit_fx3(0)
 	#else
 		#define ZAP_SOUND() bit_fx(7)

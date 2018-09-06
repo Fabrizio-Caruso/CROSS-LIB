@@ -1152,7 +1152,9 @@ svi_328:
 sc3000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
 	$(SCCZ80_OPTS) \
+	-DZ88DK_JOYSTICK \
 	-clib=ansi \
+	-D__SC3000__ \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-pragma-define:ansicolumns=32 \
 	-vn -lndos -create-app -Cz--audio \
@@ -1164,7 +1166,10 @@ sc3000_16k:
 sc3000_32k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
 	$(SCCZ80_OPTS) \
-	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__SC3000__ \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DZ88DK_JOYSTICK \
 	-DCONIO \
 	-vn -lndos -create-app -Cz--audio \
 	-DANIMATE_PLAYER \
@@ -1182,10 +1187,12 @@ sc3000_32k_udg:
 sg1000_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 -subtype=rom \
 	$(SCCZ80_OPTS) \
+	-D__SC3000__ \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
-	-vn -lndos -create-app -Cz--audio \
+	-vn -lndos -create-app \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \

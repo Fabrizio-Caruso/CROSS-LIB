@@ -59,6 +59,9 @@
 	#  if defined(__NCURSES__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 100
+	#elif defined(__SC3000__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 2500
 	#elif defined(__SUPERVISION__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 3300U	

@@ -1168,6 +1168,8 @@ sc3000_32k_udg:
 	$(SCCZ80_OPTS) \
 	-D__SC3000__ \
 	-DFULL_GAME \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DZ88DK_JOYSTICK \
 	-DCONIO \
@@ -1177,7 +1179,6 @@ sc3000_32k_udg:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-o $(BUILD_PATH)/FULL_sc3000_32k_udg.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -1190,6 +1191,8 @@ sg1000_udg:
 	-D__SC3000__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-vn -lndos -create-app \
@@ -1198,7 +1201,6 @@ sg1000_udg:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-o $(BUILD_PATH)/FULL_sg1000_udg.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)

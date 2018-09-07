@@ -2011,19 +2011,26 @@ tiki100_sprites_light:
 
 tiki100: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -startup=2 -lm -ltiki100 \
+	$(SCCZ80_OPTS) \
 	-D__TIKI100__ \
 	-DNO_PRINT \
 	-DFULL_GAME \
+	-DNO_COLOR \
+	-DALT_MOVE \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SLEEP \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
+	-DNO_HINTS \
+	-DNO_SET_SCREEN_COLORS \
 	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/FULL_tiki100.bin \
+	-create-app \
 	-DNO_INIT_GRAPHICS \
-	-DINITIAL_GHOST_FREEZE \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	# rm $(BUILD_PATH)/FULL_tiki100.bin	
+	cp $(TOOLS_PATH)/z88dk/tiki100/empty.dsk $(BUILD_PATH)/FULL_tiki100.dsk
+	$(TOOLS_PATH)/z88dk/tiki100/tikidisk$(COMPILEDEXT) $(BUILD_PATH)/FULL_tiki100.dsk a A.COM
+	rm A.COM
+	rm a.bin
 	
 kaypro: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxkp \

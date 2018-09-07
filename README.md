@@ -75,6 +75,8 @@ For most targets, more than one version is built, in order to support different 
 - atari5200: Atari 5200
 - atari: Atari 400/800/600XL/800XL/1200XL/65XE/130XE
 - atari_lynx: Atari Lynx
+- attache: Otrona Attache (work in progress)
+- aussie: Aussie Byte (work in progress)
 - c128_8502: Commodore 128 [8502 CPU; additionally Z80 versions are built]
 - c128_z80: Commodore 128 [Z80 CPU; additionally 8502 versions are built]
 - c16: Commodore 264 series (16/116/+4)

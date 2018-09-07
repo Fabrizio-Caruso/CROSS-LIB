@@ -90,6 +90,8 @@
 		#define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)
 	#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
 		#define YSize ((64/SPRITE_Y_STEP)+1)
+	#elif defined(__KAYPRO__)
+		#define YSize (100/SPRITE_Y_STEP)
 	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
 		#define YSize 24
 	#else
@@ -137,6 +139,8 @@
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)
+	#elif defined(__KAYPRO__)
+		#define XSize (160/SPRITE_X_STEP)
 	#elif defined(__KC__) && defined(UDG_GRAPHICS)
 		#define XSize 40
 	#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \

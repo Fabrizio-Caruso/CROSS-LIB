@@ -549,3 +549,11 @@ a
 folowed by enter.
 
 
+------------------------------------------------------------
+
+KAYPRO
+
+Use Mame (See CP/M target)
+
+mame64.exe kaypro2x -flop1 ..\disk\kaypro\k10hald1.td0 -uimodekey DEL
+

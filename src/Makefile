@@ -2046,7 +2046,7 @@ kaypro:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-
+	rm $(BUILD_PATH)/FULL_kaypro.bin
 
 	# -DEND_SCREEN -DBETWEEN_LEVEL 
 	# $(SOURCE_PATH)/end_screen.c 

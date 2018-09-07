@@ -2046,7 +2046,7 @@ kaypro:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-
+	rm $(BUILD_PATH)/FULL_kaypro.bin
 
 	# -DEND_SCREEN -DBETWEEN_LEVEL 
 	# $(SOURCE_PATH)/end_screen.c 
@@ -3338,6 +3338,7 @@ z88dk_targets: \
 	kaypro_targets \
 	enterprise_targets \
 	newbrain_targets \
+	tiki100_targets \
 	ts2068_targets \
 	fp1100_targets \
 	coleco_targets \
@@ -3483,7 +3484,7 @@ ti83_targets: \
 	ti83 ti83_turn_based ti83_tiny_turn_based
 
 ti8x_targets: \
-	ti8x_turn_based ti8x
+	ti8x
 	
 ti85_targets: \
 	ti85 ti85_turn_based
@@ -3503,8 +3504,11 @@ einstein_targets: \
 newbrain_targets: \
 	newbrain
 
-kaypro_targets:
+kaypro_targets: \
 	kaypro
+	
+tiki100_targets: \
+	tiki100
 
 z1013_targets: \
 	z1013

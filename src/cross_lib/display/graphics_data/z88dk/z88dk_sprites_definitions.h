@@ -2,7 +2,7 @@
 #define _Z88DK_SPRITES_DEFINITIONS
 
 
-	#asm
+	__asm
 	._sprites
 
 	defb    8,8
@@ -966,8 +966,7 @@
 	defb %"-#----#-"
 	defb %"--####--"
 
-	
-	#endasm
+	__endasm;
 
 #endif // _Z88DK_SPRITES_DEFINITIONS
 

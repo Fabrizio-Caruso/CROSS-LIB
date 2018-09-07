@@ -4,12 +4,18 @@
 #if defined(TINY_GAME) || defined(TURN_BASED)
 	#define SKIP_DRAW 
 	#define SKIP_MORE_DRAW
-#elif defined(__ZX81__) || defined(__LAMBDA__)
+#elif defined(__ZX81__) || defined(__LAMBDA__) 
 	#define SKIP_DRAW \
 		if((loop&1)==1)
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&15)==1)	
+#elif defined(__KAYPRO__)
+	#define SKIP_DRAW \
+		if((loop&3)==1)
+	
+	#define SKIP_MORE_DRAW \
+		if((loop&15)==1)
 #elif defined(__C128_Z80__)
 	#define SKIP_DRAW \
 		if(loop&1)

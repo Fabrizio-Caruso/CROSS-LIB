@@ -538,3 +538,22 @@ Use qemu-system-i386 to start a bare metal PC 8088/8086 and attach the floppy im
 qemu-system-i386.exe c:\Retro\CROSS-CHASE\build\FULL_pc8086_turn_based.img
 
 
+-----------------------------------------------------------
+
+TIKI-100
+
+Use TIKI-100_emul (http://www.djupdal.org/tiki/emulator/)
+
+Attach the image and type: 
+a 
+folowed by enter.
+
+
+------------------------------------------------------------
+
+KAYPRO
+
+Use Mame (See CP/M target)
+
+mame64.exe kaypro2x -flop1 ..\disk\kaypro\k10hald1.td0 -uimodekey DEL
+

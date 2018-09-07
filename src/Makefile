@@ -1564,15 +1564,61 @@ gal_22k:
 
 # -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
 # $(ZSDCC_OPTS)
+# spectrum_16k:
+	# $(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -zorg=24055 \
+	# -pragma-include:$(CFG_PATH)/z88dk/zpragma.inc -clib=sdcc_iy \
+	# -DNO_SLEEP -DLESS_TEXT -DTINY_GAME -v  -D__SPECTRUM__ \
+	# -create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg \
+	# -DCONIO -DNO_INIT_GRAPHICS \
+	# $(TINY_FILES)
+	# rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin 
+	# rm $(BUILD_PATH)/TINY_spectrum_16k_UNASSIGNED.bin
+
 spectrum_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -zorg=24055 \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc -clib=sdcc_iy \
-	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -v  -D__SPECTRUM__ \
-	-create-app -o $(BUILD_PATH)/TINY_spectrum_16k.prg \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -v -zorg=24055 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DZ88DK_JOYSTICK \
+	-DTINY_GAME \
+	-DFORCE_NARROW \
+	-DANIMATE_PLAYER \
+	-D__SPECTRUM__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/TINY_spectrum_16k.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_spectrum_16k_CODE.bin 
-	rm $(BUILD_PATH)/TINY_spectrum_16k_UNASSIGNED.bin
+	rm $(BUILD_PATH)/TINY_spectrum_16k.prg
+	rm $(BUILD_PATH)/TINY_spectrum_16k_BANK_7.bin		
+	
+spectrum_16k_light:
+	$(Z88DK_PATH)$(MYZ88DK) +zx \
+	-compiler=sdcc \
+	$(ZSDCC_OPTS) \
+	--max-allocs-per-node200000 -SO3 -opt-code-size \
+	-v -zorg=24055 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_HINTS \
+	-DSIMPLE_STRATEGY \
+	-DANIMATE_PLAYER \
+	-D__SPECTRUM__ \
+	-DALT_MOVE \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/LIGHT_spectrum_16k.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(LIGHT_FILES)
+	# rm $(BUILD_PATH)/LIGHT_spectrum_16k.prg
+	# rm $(BUILD_PATH)/LIGHT_spectrum_16k_BANK_7.bin			
 	
 	
 # -pragma-redirect:ansifont=_font_8x8_zx_system -pragma-define:ansifont_is_packed=0
@@ -1581,11 +1627,11 @@ spectrum_48k:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DFULL_GAME \
+	-DZ88DK_JOYSTICK \
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-D__SPECTRUM__ \
-	-DALT_MOVE \
 	-lndos -create-app \
 	-DCONIO \
 	-DUDG_GRAPHICS \
@@ -1599,20 +1645,20 @@ spectrum_48k:
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin	
 
 	
-spectrum_48k_joystick:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -v  \
-	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
-	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
-	-DZ88DK_JOYSTICK \
-	-lndos -create-app \
-	-DCONIO \
-	-o $(BUILD_PATH)/FULL_spectrum_48k_joystick.prg \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/udg.asm \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/spectrum_redefined_chars_init_graphics.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_spectrum_48k_joystick.prg
-	rm $(BUILD_PATH)/FULL_spectrum_48k_joystick_BANK_7.bin		
+# spectrum_48k_joystick:
+	# $(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -v  \
+	# -pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
+	# -DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DCLIB_ANSI -DEND_SCREEN -DBETWEEN_LEVEL -D__SPECTRUM__ \
+	# -DZ88DK_JOYSTICK \
+	# -lndos -create-app \
+	# -DCONIO \
+	# -o $(BUILD_PATH)/FULL_spectrum_48k_joystick.prg \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/udg.asm \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/spectrum_redefined_chars_init_graphics.c \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(FULL_FILES)
+	# rm $(BUILD_PATH)/FULL_spectrum_48k_joystick.prg
+	# rm $(BUILD_PATH)/FULL_spectrum_48k_joystick_BANK_7.bin		
 	
 # spectrum_48k_putc4x6:
 	# $(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -vn  \
@@ -1965,19 +2011,26 @@ tiki100_sprites_light:
 
 tiki100: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -startup=2 -lm -ltiki100 \
+	$(SCCZ80_OPTS) \
 	-D__TIKI100__ \
 	-DNO_PRINT \
 	-DFULL_GAME \
+	-DNO_COLOR \
+	-DALT_MOVE \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SLEEP \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
+	-DNO_HINTS \
+	-DNO_SET_SCREEN_COLORS \
 	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/FULL_tiki100.bin \
+	-create-app \
 	-DNO_INIT_GRAPHICS \
-	-DINITIAL_GHOST_FREEZE \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	# rm $(BUILD_PATH)/FULL_tiki100.bin	
+	cp $(TOOLS_PATH)/z88dk/tiki100/empty.dsk $(BUILD_PATH)/FULL_tiki100.dsk
+	$(TOOLS_PATH)/z88dk/tiki100/tikidisk$(COMPILEDEXT) $(BUILD_PATH)/FULL_tiki100.dsk a A.COM
+	rm A.COM
+	rm a.bin
 	
 kaypro: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxkp \
@@ -2017,7 +2070,20 @@ alphatro:
 	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin	
 
 
-
+microbee_sprites:
+	$(Z88DK_PATH)$(MYZ88DK) +bee -lgfxnc100 \
+	-D__NC100__ \
+	-DALT_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/FULL_nc100_alt_print.bin \
+	-DNO_INIT_GRAPHICS \
+	-DINITIAL_GHOST_FREEZE \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_nc100_alt_print.bin
 	
 nc100:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
@@ -3525,7 +3591,7 @@ zx81_targets: \
 	zx81_16k zx81_16k_turn_based
 	
 spectrum_targets: \
-	spectrum_48k
+	spectrum_16k spectrum_48k
 
 ts2068_targets: \
 	ts2068
@@ -4362,17 +4428,6 @@ c128_z80_zsdcc_test:
 	
 # DEBUG	
 
-	
-spectrum_16k_light:
-	$(Z88DK_PATH)$(MYZ88DK) +zx --opt-code-size  -startup=1 -zorg=24055 \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc -clib=sdcc_iy \
-	-DNO_SLEEP -DLESS_TEXT -vn  -D__SPECTRUM__ \
-	-create-app -o $(BUILD_PATH)/LIGHT_spectrum_16k.prg \
-	$(CROSS_LIB_PATH)/z88dk/spectrum/spectrum_graphics.c \
-	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/LIGHT_spectrum_16k_CODE.bin 
-	rm $(BUILD_PATH)/LIGHT_spectrum_16k_UNASSIGNED.bin
-	
 	
 oric1_16k_full: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl \

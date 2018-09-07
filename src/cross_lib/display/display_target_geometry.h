@@ -86,6 +86,8 @@
 		#define YSize 8
 	#elif defined(__G800__)
 		#define YSize 7
+	#elif defined(__TIKI100__)
+		#define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)
 	#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
 		#define YSize ((64/SPRITE_Y_STEP)+1)
 	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
@@ -112,6 +114,8 @@
 		#define XSize 64
 	#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6))
 		 #define XSize 60
+	#elif defined(__TIKI100__)
+		#define XSize (1024/SPRITE_X_STEP)
 	#elif ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
 		#define XSize (480/SPRITE_X_STEP)
 	#elif defined(__NASCOM__)	
@@ -187,10 +191,10 @@
 
 #if defined(NARROW) || defined(TINY_GAME)
 	#define Y_OFFSET 0
-#elif !defined(Z88DK_SPRITES)
-	#define Y_OFFSET 2
-#else 
+#elif defined(Z88DK_SPRITES) && (SPRITE_Y_SIZE - SPRITE_Y_STEP)>1
 	#define Y_OFFSET 3
+#else 
+	#define Y_OFFSET 2
 #endif
 
 #if defined(__ATMOS__)

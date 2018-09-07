@@ -68,12 +68,12 @@ For most targets, more than one version is built, in order to support different 
 - abc80: Luxor ABC 80
 - abc800: Luxor ABC 800 (work in progress)
 - ace: Jupiter Ace
-- alphathro: Alphatronic
+- alphatro: Alphatronic
 - apple2: Apple //
 - apple2enh: Enhanced Apple //e
 - aquarius: Mattel Aquarius 
 - atari5200: Atari 5200
-- atari: Atari 400/800
+- atari: Atari 400/800/600XL/800XL/1200XL/65XE/130XE
 - atari_lynx: Atari Lynx
 - c128_8502: Commodore 128 [8502 CPU; additionally Z80 versions are built]
 - c128_z80: Commodore 128 [Z80 CPU; additionally 8502 versions are built]
@@ -88,7 +88,7 @@ For most targets, more than one version is built, in order to support different 
 - cpm8080: CP/M Intel 8080 (work in progress)
 - cpm: CP/M Z80 with adm3a/vt52/vt100 terminals
 - creativision: VTech Creativision
-- eg2k: EACA EG2000
+- eg2k: EACA EG2000 Color Genie
 - einstein: Tatung Einstein
 - enterprise: Enterprise 64/128 (work in progress)
 - fp1100: Casio FP-1100
@@ -110,7 +110,7 @@ For most targets, more than one version is built, in order to support different 
 - nc100: Amstrad NC-100/150
 - nc200: Amstrad NC-200
 - nes: Nintendo Enterteinment System
-- newbrain: Newbrain (work in progress)
+- newbrain: Grundy Newbrain (work in progress)
 - oric: Tangerine Oric 1/Atmos
 - osca: OSCA (work in progress)
 - osic1p: Ohio Scientific Challenger 1P

@@ -1378,8 +1378,11 @@ abc80:
 	-DFLAT_ENEMIES \
 	-lndos -create-app \
 	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/FULL_abc80.bac 49200
+	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/xchase.bac 49200
+	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk 
+	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk -b $(BUILD_PATH)/xchase.bac
 	rm a.bin 
+	rm $(BUILD_PATH)/xchase.bac
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 	
 # zsdcc is producing wrong binaries

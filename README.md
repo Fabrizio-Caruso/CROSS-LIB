@@ -24,8 +24,10 @@ The program is written in ANSI C and currently compiled with
 - SCCZ80 (from Z88DK) for most Z80 targets (https://www.z88dk.org/), 
 - ZSDCC (from Z88DK) for some Z80 targets (https://www.z88dk.org/),
 - CMOC for most 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
-- WinCMOC for some 6809 targets (https://sourceforge.net/projects/cmoc-win32/).
 - ACK for PC 8088/8086, CP/M 8080, Linux 386/68K/PPC, PDP11 (https://github.com/davidgiven/ack)
+
+Previous versions used WinCMOC (https://sourceforge.net/projects/cmoc-win32/) for 6809 targets. 
+WinCMOC has been abandoned because it uses an old CMOC version that has broken pointer to functions and because it is no longer maintained by its author. 
 
 For other targets, GCC6809 for other 6809 targets, sdcc (proper or its CPCTelera version), as well as "GCC for TI" for the Texas TI99/4a are being taken into consideration. 
 

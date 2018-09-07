@@ -218,6 +218,7 @@ So, for each target, at least one of the following modes has to be implemented:
 4. Z88DK Sprites (Z88DK-specific sprite APIs)
 5. CPCRSLIB (Amstrad CPC-specific graphics APIs)
 6. bit-mapped (display is implemented by writing into video memory and each bytes corresponds to one or more pixels)
+7. buffered (stdlib-only "graphics" for targets with just stdlib support)
 
 A graphic mode may implement the concrete graphics by either calling low level graphics instructions (e.g., writing into video-memory) or by calling higher level instructions (e.g., using control codes).
 

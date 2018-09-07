@@ -2007,7 +2007,7 @@ tiki100_sprites_light:
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_tiki100_sprites.bin	
 
-
+	
 
 tiki100: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -startup=2 -lm -ltiki100 \
@@ -2122,7 +2122,35 @@ nc200:
 	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.ram	
 	
 
-		
+
+aussie:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -laussie \
+	-DCONIO_VT100 \
+	-D__CPM_80X24__ \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_aussie.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_aussie.bin
+
+
+attache:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache \
+	-DCONIO_ADM3A \
+	-D__CPM_80X24__ \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_attache.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_attache.bin
+	appmake +cpm -f ATTACHE -b $(BUILD_PATH)/FULL_ATTACHE.raw
+	$(TOOLS_PATH)/cpm/BIN2BIND.COM FULL_ATTACHE.raw FULL_ATTACHE.imd /2 DM=5 N=40 SS=512 SM=1-10
 	
 	
 cpm_adm3a:
@@ -2694,34 +2722,6 @@ ts2068_turn_based:
 	-create-app -o $(BUILD_PATH)/FULL_ts2068_turn_based.bin 
 	rm $(BUILD_PATH)/FULL_ts2068_turn_based.bin	
 	
-# ts2068_tiny_turn_based:
-	# $(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
-	# -clib=ansi \
-	# -DTURN_BASED \
-	# -D__TS2068__ \
-	# -DNO_COLOR \
-	# -vn \
-	# -DTINY_GAME \
-	# -lndos \
-	# -DFORCE_CONIO_LIB \
-	# -DCONIO -DNO_INIT_GRAPHICS \
-	# $(TINY_FILES) \
-	# -create-app -o $(BUILD_PATH)/TINY_ts2068.bin 
-	# rm $(BUILD_PATH)/TINY_ts2068.bin
-
-# tiki100:
-	# $(Z88DK_PATH)$(MYZ88DK) +cpm -startup=2 -lm -ltiki100 $(SCCZ80_OPTS) \
-	# -D__TIKI100__ \
-	# -DNO_COLOR \
-	# -vn \
-	# -DFULL_GAME \
-	# -DEND_SCREEN -DBETWEEN_LEVEL \
-	# -lndos \
-	# -DCONIO -DNO_INIT_GRAPHICS \
-	# $(SOURCE_PATH)/end_screen.c \
-	# $(FULL_FILES) \
-	# -create-app
-	# mv A.COM $(BUILD_PATH)/FULL_tiki100.COM
 	
 enterprise_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +enterprise $(SCCZ80_OPTS) \
@@ -3335,6 +3335,7 @@ z88dk_test: \
 	
 	
 z88dk_targets: \
+	osca_targets \
 	kaypro_targets \
 	enterprise_targets \
 	newbrain_targets \
@@ -3510,6 +3511,9 @@ kaypro_targets: \
 tiki100_targets: \
 	tiki100
 
+osca_targets: \
+	osca
+	
 z1013_targets: \
 	z1013
 	

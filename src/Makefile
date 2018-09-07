@@ -2017,7 +2017,20 @@ alphatro:
 	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin	
 
 
-
+microbee_sprites:
+	$(Z88DK_PATH)$(MYZ88DK) +bee -lgfxnc100 \
+	-D__NC100__ \
+	-DALT_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/FULL_nc100_alt_print.bin \
+	-DNO_INIT_GRAPHICS \
+	-DINITIAL_GHOST_FREEZE \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_nc100_alt_print.bin
 	
 nc100:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \

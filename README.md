@@ -24,13 +24,17 @@ The program is written in ANSI C and currently compiled with
 - SCCZ80 (from Z88DK) for most Z80 targets (https://www.z88dk.org/), 
 - ZSDCC (from Z88DK) for some Z80 targets (https://www.z88dk.org/),
 - CMOC for 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
-- ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC, PDP11 (https://github.com/davidgiven/ack)
+- ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC, PDP11 (https://github.com/davidgiven/ack).
 
-Previous versions used WinCMOC (https://sourceforge.net/projects/cmoc-win32/) for 6809 targets. 
+Previous versions used 
+- WinCMOC for 6809 targets  (https://sourceforge.net/projects/cmoc-win32/).
 WinCMOC has been abandoned because it uses an old CMOC version that has broken pointer to functions and because it is no longer maintained by its author. 
 
-For other targets, GCC6809 for other 6809 targets, sdcc (proper or its CPCTelera version), as well as "GCC for TI" for the Texas TI99/4a are being taken into consideration. 
-
+For other targets, the following compilers and dev-kits may be included in future versions of the tool-chain:
+- GCC6809 for other 6809 targets (https://sourceforge.net/projects/freewpc/files/GCC-6809/),
+- SDCC for Z80 and other targets (http://sdcc.sourceforge.net/),
+- "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
+- TIGCC for 68k-based TI calculators (http://tigcc.ticalc.org/).
 
 ## THE GAME CODE
 

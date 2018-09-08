@@ -2150,6 +2150,9 @@ cpm_adm3a:
 	rm $(BUILD_PATH)/FULL_cpm_adm3a.bin
 
 	
+	
+	
+	
 cpm_vt52:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-DCONIO_VT52 \
@@ -3051,6 +3054,7 @@ cpm8080:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_turn_based.com
 	rm $(SOURCE_PATH)/../*.o
+
 	
 	
 pc8086:
@@ -5101,17 +5105,22 @@ sms_chicken:
 
 
 sms_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +sms \
+	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy \
 	-D__SMS__ \
+	-DNO_COLOR \
 	-DTINY_GAME \
-	-DNO_SLEEP -DLESS_TEXT -DALT_PRINT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DNO_INPUT \
+	-DLESS_TEXT \
+	-DNO_PRINT \
 	-create-app \
+	-DCONIO \
+	-DALT_CLEAR_SCREEN \
 	-o $(BUILD_PATH)/TINY_sms.bin \
-	-vn -lndos \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	-vn \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
+	$(TINY_FILES)
 	mv $(BUILD_PATH)/TINY_sms.bin $(BUILD_PATH)/TINY_sms.sms
 
 # 	-pragma-need=ansiterminal -pragma-define:ansipixels=240 -pragma-define:ansicolumns=40 

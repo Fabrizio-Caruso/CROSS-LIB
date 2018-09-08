@@ -83,8 +83,8 @@ For most targets, more than one version is built, in order to support different 
 - atari_lynx: Atari Lynx
 - attache: Otrona Attache (work in progress)
 - aussie: Aussie Byte (work in progress)
-- c128_8502: Commodore 128 [8502 CPU; additionally Z80 versions are built]
-- c128_z80: Commodore 128 [Z80 CPU; additionally 8502 versions are built]
+- c128_8502: Commodore 128 [8502 CPU]
+- c128_z80: Commodore 128 [Z80 CPU]
 - c16: Commodore 264 series (16/116/+4)
 - c64: Commodore 64
 - cbm510: Commodore CBM 510
@@ -93,7 +93,7 @@ For most targets, more than one version is built, in order to support different 
 - coco: Color Computer / Dragon 32/64
 - coleco: Colecovision
 - cpc: Amstrad CPC
-- cpm8080: CP/M Intel 8080 (work in progress)
+- cpm8080: CP/M Intel 8080
 - cpm: CP/M Z80 with adm3a/vt52/vt100 terminals
 - creativision: VTech Creativision
 - eg2k: EACA EG2000 Color Genie
@@ -121,8 +121,10 @@ For most targets, more than one version is built, in order to support different 
 - nes: Nintendo Enterteinment System
 - newbrain: Grundy Newbrain (work in progress)
 - oric: Tangerine Oric 1/Atmos
+- osborne1: Osborne 1 (work in progress)
 - osca: OSCA (work in progress)
 - osic1p: Ohio Scientific Challenger 1P
+- attache: Otrona Attache (work in progress)
 - p2000: Philips P2000
 - pc6001: NEC PC 6001
 - pce: PCEngine
@@ -136,6 +138,7 @@ For most targets, more than one version is built, in order to support different 
 - samcoupe: Sam Coupe
 - sc3000: Sega SC 3000
 - sg1000: Sega SG 1000
+- sms: Sega Master System (work in progress)
 - spc1000: Samsung SPC 1000
 - spectrum: Sinclair Spectrum 16k/48k/128k
 - srr: Exidy Sorcerer

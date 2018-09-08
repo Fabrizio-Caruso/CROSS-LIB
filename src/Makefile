@@ -2007,7 +2007,7 @@ tiki100_sprites_light:
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_tiki100_sprites.bin	
 
-
+	
 
 tiki100: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -startup=2 -lm -ltiki100 \
@@ -2122,7 +2122,19 @@ nc200:
 	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.ram	
 	
 
-		
+attache:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache \
+	-DCONIO_ADM3A \
+	-D__CPM_80X24__ \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_attache.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_attache.bin
+	appmake +cpm -f ATTACHE -b $(BUILD_PATH)/FULL_ATTACHE.raw
+	$(TOOLS_PATH)/cpm/BIN2IMD.COM FULL_ATTACHE.raw FULL_ATTACHE.imd /2 DM=5 N=40 SS=512 SM=1-10
 	
 	
 cpm_adm3a:
@@ -2576,7 +2588,14 @@ x07_hello:
 	-Cz--audio \
 	$(SOURCE_PATH)/../experiments/hello.c \
 	-create-app 
-		
+
+cpm_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-create-app
+	rm a.bin
+	mv A.COM $(BUILD_PATH)/CPMHELLO.COM
+	
 	
 x07_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) \
@@ -2694,34 +2713,6 @@ ts2068_turn_based:
 	-create-app -o $(BUILD_PATH)/FULL_ts2068_turn_based.bin 
 	rm $(BUILD_PATH)/FULL_ts2068_turn_based.bin	
 	
-# ts2068_tiny_turn_based:
-	# $(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
-	# -clib=ansi \
-	# -DTURN_BASED \
-	# -D__TS2068__ \
-	# -DNO_COLOR \
-	# -vn \
-	# -DTINY_GAME \
-	# -lndos \
-	# -DFORCE_CONIO_LIB \
-	# -DCONIO -DNO_INIT_GRAPHICS \
-	# $(TINY_FILES) \
-	# -create-app -o $(BUILD_PATH)/TINY_ts2068.bin 
-	# rm $(BUILD_PATH)/TINY_ts2068.bin
-
-# tiki100:
-	# $(Z88DK_PATH)$(MYZ88DK) +cpm -startup=2 -lm -ltiki100 $(SCCZ80_OPTS) \
-	# -D__TIKI100__ \
-	# -DNO_COLOR \
-	# -vn \
-	# -DFULL_GAME \
-	# -DEND_SCREEN -DBETWEEN_LEVEL \
-	# -lndos \
-	# -DCONIO -DNO_INIT_GRAPHICS \
-	# $(SOURCE_PATH)/end_screen.c \
-	# $(FULL_FILES) \
-	# -create-app
-	# mv A.COM $(BUILD_PATH)/FULL_tiki100.COM
 	
 enterprise_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +enterprise $(SCCZ80_OPTS) \
@@ -3214,7 +3205,27 @@ ncurses:
 	$(FULL_FILES) \
 	-lncurses
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses$(COMPILEDEXT)
-		
+
+cpm_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-create-app
+	rm a.bin
+	mv A.COM $(BUILD_PATH)/FULL_CPM_BUFFERED.COM
+	cp $(BUILD_PATH)/FULL_CPM_BUFFERED.COM $(BUILD_PATH)/CPM.COM
+	
+	
 gcc_buffered:
 	$(_CC) $(_CC_OPTS) \
 	-D__GCC_BUFFERED__ \
@@ -3335,6 +3346,7 @@ z88dk_test: \
 	
 	
 z88dk_targets: \
+	osca_targets \
 	kaypro_targets \
 	enterprise_targets \
 	newbrain_targets \
@@ -3510,6 +3522,9 @@ kaypro_targets: \
 tiki100_targets: \
 	tiki100
 
+osca_targets: \
+	osca
+	
 z1013_targets: \
 	z1013
 	
@@ -5135,12 +5150,14 @@ z88_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +z88 \
 	-D__Z88__ \
 	-DTINY_GAME \
+	-DNO_COLOR \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DFORCE_YSIZE=8 \
+	-DFORCE_XSIZE=20 \
 	-subtype=app -create-app \
 	-o $(BUILD_PATH)/TINY_z88.bin \
 	-vn -lndos \
-	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(TINY_FILES)
 
 
 osca_tiny:
@@ -5520,13 +5537,13 @@ osca:
 	-DFULL_GAME \
 	-DSOUNDS  -lndos \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o $(BUILD_PATH)/FULL_osca.exe \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app  \
 	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
+	$(FULL_FILES)
+	rm a.bin
+	mv A.EXE $(BUILD_PATH)/FULL_OSCA.EXE
+	
 	
 
 

@@ -71,7 +71,7 @@ typedef struct ImageStruct Image;
 	#define REFRESH() \
 		do \
 		{ \
-			printf("\n"); \
+			putchar('\n'); \
 			display_all(); \
 		} while(0);
 #endif

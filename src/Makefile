@@ -80,7 +80,7 @@ VECTREX_OPTS    ?= -O0 --vectrex -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno
 
 
 _ACK ?= ack
-_ACK_OPTS ?= 
+_ACK_OPTS ?= -O6
 # -O 
 # -ansi
 
@@ -1598,7 +1598,7 @@ spectrum_16k_light:
 	$(Z88DK_PATH)$(MYZ88DK) +zx \
 	-compiler=sdcc \
 	$(ZSDCC_OPTS) \
-	--max-allocs-per-node200000 -SO3 -opt-code-size \
+	--max-allocs-per-node200000 -SO3 --opt-code-size \
 	-v -zorg=24055 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
@@ -3034,7 +3034,7 @@ pc8086_tiny:
 	$(TINY_FILES)
 	mv pc86.img $(BUILD_PATH)/TINY_pc8086_turn_based.img
 
-cpm8080:
+cpm8080_buffered:
 	$(_ACK) $(_ACK_OPTS) -mcpm \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=22 \
@@ -3052,9 +3052,27 @@ cpm8080:
 	-DALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_turn_based.com
+	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_buffered.com
 	rm $(SOURCE_PATH)/../*.o
 
+	
+cpm8080_adm3a:
+	$(_ACK) $(_ACK_OPTS) -mcpm \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=22 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__CPM8080__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	$(FULL_FILES)
+	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_adm3a.com
+	rm $(SOURCE_PATH)/../*.o	
 	
 	
 pc8086:
@@ -3211,7 +3229,9 @@ ncurses:
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses$(COMPILEDEXT)
 
 cpm_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
+	--max-allocs-per-node200000 -SO3 --opt-code-size \
+	-compiler=sdcc \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \

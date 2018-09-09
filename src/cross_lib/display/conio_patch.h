@@ -20,6 +20,23 @@
 	#define cputc(c) fputc_cons(c)	
 #endif
 
+#if defined(__SMS__)
+	#include <stdio.h>
+	#include <stropts.h>
+	#include <arch/sms.h>
+	#include <rect.h>
+	#include <input.h>
+	#include <arch/sms/SMSlib.h>
+	#include <arch/sms/PSGlib.h>
+
+	#define gotoxy(x,y) \
+		SMS_setNextTileatXY(x,y)
+		
+	#define cputc(c) \
+		SMS_setTile(c)
+
+#endif
+
 // TODO: BOGUS! Implement this
 #if defined(__MZ2500__)
 	#define gotoxy(x,y)

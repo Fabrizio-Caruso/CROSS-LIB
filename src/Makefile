@@ -5125,7 +5125,8 @@ sms_chicken:
 
 
 sms_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy \
+	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=16 -v \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-D__SMS__ \
 	-DNO_COLOR \
 	-DTINY_GAME \
@@ -5137,8 +5138,8 @@ sms_tiny:
 	-create-app \
 	-DCONIO \
 	-DALT_CLEAR_SCREEN \
+	-DSIMPLE_STRATEGY \
 	-o $(BUILD_PATH)/TINY_sms.bin \
-	-vn \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(TINY_FILES)
 	mv $(BUILD_PATH)/TINY_sms.bin $(BUILD_PATH)/TINY_sms.sms

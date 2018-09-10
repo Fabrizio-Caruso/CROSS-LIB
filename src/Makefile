@@ -743,6 +743,19 @@ vz200_18k:
 	rm $(BUILD_PATH)/FULL_vz200_18k.cas
 
 
+laser500: 	
+	$(Z88DK_PATH)$(MYZ88DK) +laser500 -vn -create-app -Cz--audio \
+	$(SCCZ80_OPTS) \
+	-D__VZ__ \
+	-DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app  \
+	$(FULL_FILES)
+	rm a.bin
+	rm a.cas
+	mv a.wav $(BUILD_PATH)/FULL_vz500.wav
+	
 
 vz200_sprites_18k:
 	$(Z88DK_PATH)$(MYZ88DK) +vz \
@@ -2310,7 +2323,7 @@ ti82:
 	$(FULL_FILES)
 	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/FULL_ti82.82p
 	rm $(SOURCE_PATH)/../a.bin
-	cp $(BUILD_PATH)/FULL_ti82.82p "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
+	# cp $(BUILD_PATH)/FULL_ti82.82p "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
 	
 # ti82_tiny_turn_based:
 	# $(Z88DK_PATH)$(MYZ88DK) +ti82 \
@@ -2448,7 +2461,7 @@ ti86_light:
 	rm $(SOURCE_PATH)/../a.bin	
 	
 	
-ti85:
+ti85_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
 	$(SCCZ80_OPTS) -D__TI85__ \
 	-DZ88DK_JOYSTICK \
@@ -2460,27 +2473,49 @@ ti85:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app  \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85.85s	
+	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85_chars.85s	
 	rm $(SOURCE_PATH)/../a.bin
 
-
+ti85:
+	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
+	$(SCCZ80_OPTS) \
+	-D__TI85__ \
+	-DZ88DK_JOYSTICK \
+	-DFULL_GAME \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85.85s
+	rm $(SOURCE_PATH)/../a.bin
+	# cp $(BUILD_PATH)/FULL_ti85.85s "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
+		
+	
 ti85_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
-	$(SCCZ80_OPTS) -D__TI85__ \
+	$(SCCZ80_OPTS) \
+	-D__TI85__ \
 	-DZ88DK_JOYSTICK \
-	-DFORCE_XSIZE=32 \
+	-DFULL_GAME \
 	-DTURN_BASED \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DFULL_GAME  \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
 	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85_turn_based.85s	
+	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85_turn_based.85s
 	rm $(SOURCE_PATH)/../a.bin
-
-
+	cp $(BUILD_PATH)/FULL_ti85_turn_based.85s "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
+		
 m5_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
 	-lm -create-app -Cz--audio -subtype=tape \
@@ -3603,7 +3638,7 @@ ti8x_targets: \
 	ti8x
 	
 ti85_targets: \
-	ti85 ti85_turn_based
+	ti85
 	
 ti86_targets: \
 	ti86_light

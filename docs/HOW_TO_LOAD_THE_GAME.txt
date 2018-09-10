@@ -381,6 +381,17 @@ Alternative instructions:
     Click Custom, then F1, and select SPICE program.
 
 
+QUICK
+	Load Rigel savestate 
+	Click 2nd OFF On
+    Click 2nd Link, then press F2 to receive.
+    Right Mouse click and choose Send File to VTI. Choose the .85s file
+    Click 2nd OFF On, to init the Rigel Shell.
+    Click Custom, then F1, and select A program.	
+	
+	 
+	
+	
 -----------------------------------------------------------
 
 

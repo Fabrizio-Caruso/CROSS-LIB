@@ -3,10 +3,28 @@
 
 #if defined(Z88DK_SPRITES)
 
+#if (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES))
+	#define EXTRA_TINY_Y
+	#define EXTRA_TINT_X
+#endif
+
+	#if !defined(EXTRA_TINY_Y)
+		#define SPRITE_Y_STEP 5	
+	#else
+		#define SPRITE_Y_STEP 3
+	#endif
+	
+
+	#if !defined(EXTRA_TINY_X)
+		#define SPRITE_X_STEP 7	
+	#else
+		#define SPRITE_X_STEP 6
+	#endif	
+
 	#define SPRITE_X_SIZE 8
 	#define SPRITE_X_STEP 7	
 	#define SPRITE_Y_SIZE 8
-	#define SPRITE_Y_STEP 5
+
 		
 	#ifndef SPRITE_X_STEP
 		#define SPRITE_X_STEP SPRITE_X_SIZE
@@ -100,6 +118,8 @@
 		#define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)
 	#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
 		#define YSize ((64/SPRITE_Y_STEP)+1)
+	#elif (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES))
+		#define YSize ((48/SPRITE_Y_STEP)-1)
 	#elif defined(__KAYPRO__)
 		#define YSize (100/SPRITE_Y_STEP)
 	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
@@ -122,7 +142,7 @@
 		  || defined(__PPS__) || (defined(__MULTI8__) && defined(UDG_GRAPHICS)) \
 		  || (defined(__TS2068__) && !defined(Z88DK_SPRITES))
 		#define XSize 80
-	#elif defined(__SRR__) || (defined(__TRS80__) && !defined(__EG2K__))
+	#elif defined(__SRR__) || (defined(__TRS80__) && !defined(__EG2K__) && !defined(Z88DK_SPRITES))
 		#define XSize 64
 	#elif defined(__PCE__) || (defined(__PX4__) && defined(Z88DK_PUTC4X6))
 		 #define XSize 60
@@ -162,6 +182,8 @@
 		#define XSize ((96/SPRITE_X_STEP)+1)
 	#elif ((defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)) && defined(Z88DK_SPRITES))
 		#define XSize (128/SPRITE_X_STEP)	
+	#elif (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES))
+		#define XSize (128/SPRITE_X_STEP)
 	#elif defined(__KC__) && defined(UDG_GRAPHICS)
 		#define XSize 40
 	#elif (defined(__VZ__) && !defined(Z88DK_SPRITES)) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \

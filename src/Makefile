@@ -1964,7 +1964,7 @@ trs80_tiny:
 	rm $(BUILD_PATH)/TINY_trs80.bin
 	
 
-trs80:
+trs80_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
 	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
@@ -1973,11 +1973,32 @@ trs80:
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-o$(BUILD_PATH)/FULL_trs80.bin \
+	-o$(BUILD_PATH)/FULL_trs80_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_trs80.bin	
+	rm $(BUILD_PATH)/FULL_trs80_chars.bin	
 
+
+trs80:	
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
+	$(SCCZ80_OPTS) \
+	-pragma-redirect:getk=getk_inkey \
+	-pragma-define:REGISTER_SP=0xffb5 \
+	-D__TRS80__ \
+	-DFULL_GAME \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-create-app \
+	-DBETWEEN_LEVEL \
+	-o$(BUILD_PATH)/FULL_trs80.bin \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_trs80.bin	
+	
 	
 trs80_wav:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=wav \
@@ -3680,7 +3701,7 @@ kc_targets: \
 	kc_tiny_udg kc_light_udg kc_udg
 	
 trs80_targets: \
-	trs80_tiny trs80 trs80_cmd eg2k
+	trs80_chars trs80_tiny trs80 trs80_cmd eg2k
 
 cpm_targets: \
 	cpm_adm3a cpm_vt52 cpm_vt100 

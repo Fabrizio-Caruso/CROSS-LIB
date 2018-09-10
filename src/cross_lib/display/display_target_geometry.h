@@ -5,7 +5,7 @@
 
 #if (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES))
 	#define EXTRA_TINY_Y
-	#define EXTRA_TINT_X
+	#define EXTRA_TINY_X
 #endif
 
 	#if !defined(EXTRA_TINY_Y)
@@ -22,7 +22,6 @@
 	#endif	
 
 	#define SPRITE_X_SIZE 8
-	#define SPRITE_X_STEP 7	
 	#define SPRITE_Y_SIZE 8
 
 		

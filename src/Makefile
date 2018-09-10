@@ -1888,6 +1888,8 @@ px4:
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm a.bin
@@ -3692,10 +3694,10 @@ x1_targets: \
 	x1
 
 px4_targets: \
-	px4_tiny px4 px4_putc4x6 px4_tiny_putc4x6
+	px4 
 
 px8_targets: \
-	px8_tiny px8
+	px8 px8_tiny
 	
 kc_targets: \
 	kc_tiny_udg kc_light_udg kc_udg

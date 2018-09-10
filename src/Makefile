@@ -1800,10 +1800,15 @@ px8_tiny:
 px8:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
 	-D__PX8__ \
-	-DCONIO_ADM3A \
 	-DFULL_GAME \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-subtype=px32k  -Cz--32k \
 	-create-app \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/FULL_px8.ROM
@@ -1840,8 +1845,24 @@ px4_tiny:
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/TINY_px4.ROM
 
-
+	
 px4:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
+	-D__PX4__ \
+	-DFULL_GAME \
+	-subtype=px4 -Cz--32k \
+	-create-app \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm a.bin
+	mv A.ROM $(BUILD_PATH)/FULL_px4.ROM		
+
+px4_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
 	-D__PX4__ \
 	-DFULL_GAME \

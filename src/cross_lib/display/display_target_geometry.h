@@ -83,11 +83,15 @@
 		#define YSize 13
 	#elif (defined(__PX4__) && defined(Z88DK_PUTC4X6))
 		#define YSize (10+1)
-	#elif defined(__Z88__) || (defined(__PX4__) && !defined(Z88DK_PUTC4X6))|| defined(__PX8__) \
+	#elif defined(__Z88__) || (defined(__PX8__) && !defined(Z88DK_SPRITES)) \
 		|| defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)
 		#define YSize 8
 	#elif defined(__G800__)
 		#define YSize 7
+	#elif (defined(__PX8__) && defined(Z88DK_SPRITES))
+		#define YSize ((64/SPRITE_Y_STEP)+1)		
+	#elif (defined(__PX4__) && defined(Z88DK_SPRITES))
+		#define YSize ((64/SPRITE_Y_STEP)+1)		
 	#elif defined(__TIKI100__)
 		#define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)
 	#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
@@ -109,7 +113,7 @@
 		#define XSize 80
 	#elif defined(__CBM610__) || defined(__PET__) || (defined(__C128__) && defined(C128_80COL_VIDEO_MODE)) \
 		  || defined(__BEE__) || defined(__PET__) || defined(__CBM610__) \
-		  || defined(__PX8__) || defined(__CPM_80X24__) \
+		  || (defined(__PX8__) && !defined(Z88DK_SPRITES))|| defined(__CPM_80X24__) \
 		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)) \
 		  || defined(__PPS__) || (defined(__MULTI8__) && defined(UDG_GRAPHICS)) \
 		  || (defined(__TS2068__) && !defined(Z88DK_SPRITES))
@@ -122,6 +126,10 @@
 		#define XSize (1024/SPRITE_X_STEP)
 	#elif ((defined(__NC100__) || defined(__NC200__)) && defined(Z88DK_SPRITES))
 		#define XSize (480/SPRITE_X_STEP)
+	#elif (defined(__PX8__) && defined(Z88DK_SPRITES))	
+		#define XSize (480/SPRITE_X_STEP)
+	#elif (defined(__PX4__) && defined(Z88DK_SPRITES))
+		#define XSize (240/SPRITE_X_STEP)
 	#elif defined(__NASCOM__)	
 		#define XSize 48
 	#elif defined(__VG5K__) || (defined(__APPLE2ENH__) && !defined(APPLE2ENH_80COL_VIDEO_MODE))|| defined(__APPLE2__) \
@@ -131,7 +139,6 @@
 		  || (defined(__C128__) && !defined(C128_80COL_VIDEO_MODE)) \
 		  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 		  || defined(__ENTERPRISE__) \
-		  || (defined(__PX4__) && !defined(Z88DK_PUTC4X6)) \
 		  || (defined(__ATARI__) && !defined(ATARI_MODE1)) \
 		  || defined(__CBM510__) \
 		  || defined(__FP1100__) \

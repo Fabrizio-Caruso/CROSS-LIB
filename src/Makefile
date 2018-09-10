@@ -744,6 +744,24 @@ vz200_18k:
 
 
 
+vz200_sprites_18k:
+	$(Z88DK_PATH)$(MYZ88DK) +vz \
+	$(SCCZ80_OPTS) \
+	-DSOUNDS \
+	-D__VZ__ \
+	-DFULL_GAME \
+	-create-app -o $(BUILD_PATH)/FULL_vz200_sprites_18k.vz \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_vz200_sprites_18k.cas	
+	
+
 vz700: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz700 -vn \
 	-compiler=sdcc \
@@ -1261,7 +1279,10 @@ microbee_16k:
 	
 microbee_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) \
-	-D__BEE__ -clib=ansi -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__BEE__ \
+	-clib=ansi \
+	-vn \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_microbee_32k.prg  \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1795,12 +1816,17 @@ px8_tiny:
 
 
 px8:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-D__PX8__ \
-	-DCONIO_ADM3A \
 	-DFULL_GAME \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-subtype=px32k  -Cz--32k \
 	-create-app \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/FULL_px8.ROM
@@ -1837,8 +1863,24 @@ px4_tiny:
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/TINY_px4.ROM
 
-
+	
 px4:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
+	-D__PX4__ \
+	-DFULL_GAME \
+	-subtype=px4 -Cz--32k \
+	-create-app \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm a.bin
+	mv A.ROM $(BUILD_PATH)/FULL_px4.ROM		
+
+px4_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
 	-D__PX4__ \
 	-DFULL_GAME \
@@ -2078,12 +2120,12 @@ microbee_sprites:
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/FULL_nc100_alt_print.bin \
+	-create-app -o$(BUILD_PATH)/FULL_microbee_sprites.bin \
 	-DNO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_nc100_alt_print.bin
+	rm $(BUILD_PATH)/FULL_microbee_sprites.bin
 	
 nc100:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
@@ -2688,6 +2730,27 @@ g800_tiny_turn_based:
 	mv a.ihx $(BUILD_PATH)/TINY_g800_turn_based.ihx
 
 ts2068:
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
+	-clib=ansi \
+	-D__TS2068__ \
+	-DNO_COLOR \
+	-vn \
+	-DFULL_GAME \
+	-DLESS_TEXT \
+	-lndos \
+	-DALT_PRINT \
+	-DZ88DK_SPRITES \
+	-DANIMATE_PLAYER \
+	-DNO_INIT_GRAPHICS \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o $(BUILD_PATH)/FULL_ts2068.bin 
+	rm $(BUILD_PATH)/FULL_ts2068.bin		
+		
+	
+ts2068_characters:
 	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
 	-clib=ansi \
 	-D__TS2068__ \
@@ -3619,7 +3682,7 @@ aquarius_targets: \
 	aquarius_exp_4k aquarius_exp_16k
 	
 vz200_targets: \
-	vz200_8k vz200_18k
+	vz200_8k vz200_18k vz200_sprites_18k
 	
 microbee_targets: \
 	microbee_16k microbee_32k
@@ -5079,6 +5142,25 @@ sms_libctest:
 	-o $(BUILD_PATH)/sms_libctest.sms \
 	$(SOURCE_PATH)/../experiments/libctest.c
 
+m5_sounds:
+	$(Z88DK_PATH)$(MYZ88DK) +m5 -create-app \
+	-vn -lndos \
+	$(SOURCE_PATH)/../experiments/sounds.c
+	rm -f a.bin
+	rm -f A_BSS.bin
+	rm -f A_DATA.bin
+	mv a.rom $(BUILD_PATH)/m5_sounds.rom
+
+
+spectrum_sounds:
+	$(Z88DK_PATH)$(MYZ88DK) +zx -create-app \
+	-vn -lndos \
+	$(SOURCE_PATH)/../experiments/sounds.c
+	rm -f a.bin
+	rm -f a_BANK_7.bin
+	mv a.tap $(BUILD_PATH)/spectrum_sounds.tap
+	
+	
 sms_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +sms \
 	-vn -lndos \
@@ -5396,10 +5478,11 @@ gal_6k:
 	-DNO_PRINT \
 	-DALT_PRINT \
 	-DNO_MESSAGE \
-	-DFORCE_BOMBS_NUMBER=2 \
-	-DFORCE_GHOSTS_NUMBER=4 \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DCONIO \
+	-DALT_CLEAR_SCREEN \
 	-DNO_INIT_GRAPHICS \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(TINY_FILES)

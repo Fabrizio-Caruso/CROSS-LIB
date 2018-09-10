@@ -41,7 +41,7 @@
 	#define SET_COLOR(c)
 #endif
 
-#if XSize<=16
+#if XSize<20
 	#define EXTRA_TINY 1
 #else
 	#define EXTRA_TINY 0
@@ -271,11 +271,12 @@ void displayStats(void)
 
 
 
+
 #if (defined(FULL_GAME) && !defined(NO_HINTS)) || !defined(NO_INITIAL_SCREEN)
 	#if defined(FULL_GAME) && !defined(NO_HINTS)
 	void _printCrossChase(void)
 	{
-		printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);		
+		printCenteredMessageOnRowWithCol(2, _RED,  CROSS_CHASE_STRING);		
 		SET_COLOR(TEXT_COLOR);
 		
 	}
@@ -286,21 +287,28 @@ void displayStats(void)
 	#endif
 #endif
 
+#if YSize>=20
+	#define EXTRA_Y 3
+#else
+	#define EXTRA_Y 0
+#endif
 
 #if defined(FULL_GAME) && !defined(NO_HINTS)
 	void printHints(void)
 	{
 		_printCrossChase();
 		
-		printCenteredMessageOnRow(6,  USE_THE_GUN_AGAINST_STRING);
+		printCenteredMessageOnRow(4+EXTRA_Y,  USE_THE_GUN_AGAINST_STRING);
 
-		printCenteredMessageOnRow(8,  THE_SKULL_AND_STRING);
+		printCenteredMessageOnRow(6+EXTRA_Y,  THE_SKULL_AND_STRING);
 
-		printCenteredMessageOnRow(10, MISSILE_BASES_STRING);	
+		printCenteredMessageOnRow(8+EXTRA_Y, MISSILE_BASES_STRING);	
 		
-		printCenteredMessageOnRow(12, FOR_POINTS_AND___STRING);
+		#if YSize>=14
+			printCenteredMessageOnRow(10+EXTRA_Y, FOR_POINTS_AND___STRING);
 
-		printCenteredMessageOnRow(14, EXTRA_POWERUPS__STRING);
+			printCenteredMessageOnRow(12+EXTRA_Y, EXTRA_POWERUPS__STRING);
+		#endif
 	}
 #endif
 

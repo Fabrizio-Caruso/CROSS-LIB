@@ -747,6 +747,7 @@ vz200_18k:
 vz200_sprites_18k:
 	$(Z88DK_PATH)$(MYZ88DK) +vz \
 	$(SCCZ80_OPTS) \
+	-DSOUNDS \
 	-D__VZ__ \
 	-DFULL_GAME \
 	-create-app -o $(BUILD_PATH)/FULL_vz200_sprites_18k.vz \

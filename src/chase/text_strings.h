@@ -37,7 +37,7 @@
 
 
 #if defined(NO_CASE_LETTERS)
-	#if defined(TINY_GAME) || XSize<=16
+	#if defined(TINY_GAME) || XSize<20
 		#define CROSS_CHASE_STRING "cross chase"
 		#define AUTHOR_STRING "fabrizio caruso"
 	#else
@@ -61,7 +61,7 @@
 	#define FOR_POINTS_AND___STRING "for points"
 	#define EXTRA_POWERUPS__STRING "and items"
 #else
-	#if defined(TINY_GAME) || XSize<=16
+	#if defined(TINY_GAME) || XSize<20
 		#define CROSS_CHASE_STRING "CROSS CHASE"
 		#define AUTHOR_STRING "Fabrizio Caruso"
 	#else

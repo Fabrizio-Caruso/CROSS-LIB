@@ -41,7 +41,7 @@
 	#define SET_COLOR(c)
 #endif
 
-#if XSize<=16
+#if XSize<20
 	#define EXTRA_TINY 1
 #else
 	#define EXTRA_TINY 0

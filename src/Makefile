@@ -744,6 +744,23 @@ vz200_18k:
 
 
 
+vz200_sprites_18k:
+	$(Z88DK_PATH)$(MYZ88DK) +vz \
+	$(SCCZ80_OPTS) \
+	-D__VZ__ \
+	-DFULL_GAME \
+	-create-app -o $(BUILD_PATH)/FULL_vz200_sprites_18k.vz \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_vz200_sprites_18k.cas	
+	
+
 vz700: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz700 -vn \
 	-compiler=sdcc \
@@ -1798,7 +1815,7 @@ px8_tiny:
 
 
 px8:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-D__PX8__ \
 	-DFULL_GAME \
 	-subtype=px32k  -Cz--32k \
@@ -3664,7 +3681,7 @@ aquarius_targets: \
 	aquarius_exp_4k aquarius_exp_16k
 	
 vz200_targets: \
-	vz200_8k vz200_18k
+	vz200_8k vz200_18k vz200_sprites_18k
 	
 microbee_targets: \
 	microbee_16k microbee_32k

@@ -88,6 +88,8 @@
 		#define YSize 8
 	#elif defined(__G800__)
 		#define YSize 7
+	#elif (defined(__VZ__) && defined(Z88DK_SPRITES))
+		#define YSize ((64/SPRITE_Y_STEP)+1)
 	#elif (defined(__PX8__) && defined(Z88DK_SPRITES))
 		#define YSize ((64/SPRITE_Y_STEP)+1)		
 	#elif (defined(__PX4__) && defined(Z88DK_SPRITES))
@@ -150,11 +152,13 @@
 		#define XSize (320/SPRITE_X_STEP)
 	#elif (defined(__TS2068__) && defined(Z88DK_SPRITES))
 		#define XSize (512/SPRITE_X_STEP)
+	#elif (defined(__VZ__) && defined(Z88DK_SPRITES))
+		#define XSize (128/SPRITE_X_STEP)
 	#elif defined(__KAYPRO__)
 		#define XSize (160/SPRITE_X_STEP)
 	#elif defined(__KC__) && defined(UDG_GRAPHICS)
 		#define XSize 40
-	#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
+	#elif (defined(__VZ__) && !defined(Z88DK_SPRITES)) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
 		  || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
 		  || defined(__LAMBDA__) || (defined(__SPECTRUM__)&&!defined(__TS2068)) || (defined(__PC6001__) && !defined(FORCE_SCREEN_MODE))\
 		  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \

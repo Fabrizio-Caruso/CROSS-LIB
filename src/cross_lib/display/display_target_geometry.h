@@ -7,6 +7,9 @@
 	#define EXTRA_TINY_Y
 	#define EXTRA_TINY_X
 #endif
+#if defined(__TI82__) && defined(Z88DK_SPRITES)
+	#define EXTRA_TINY_X
+#endif
 
 	#if !defined(EXTRA_TINY_Y)
 		#define SPRITE_Y_STEP 5	
@@ -178,7 +181,7 @@
 	#elif defined(__KAYPRO__)
 		#define XSize (160/SPRITE_X_STEP)
 	#elif ((defined(__TI82__) || defined(__TI83__)) && defined(Z88DK_SPRITES))
-		#define XSize ((96/SPRITE_X_STEP)+1)
+		#define XSize ((96/SPRITE_X_STEP))
 	#elif ((defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)) && defined(Z88DK_SPRITES))
 		#define XSize (128/SPRITE_X_STEP)	
 	#elif (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES))

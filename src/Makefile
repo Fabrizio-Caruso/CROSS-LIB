@@ -1894,7 +1894,8 @@ px4:
 	$(FULL_FILES)
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/FULL_px4.ROM		
-
+	#cp $(BUILD_PATH)/FULL_px4.ROM /cygdrive/c/Emulation/TEST/PX-4/hc40emulator/
+	
 px4_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
 	-D__PX4__ \
@@ -2414,6 +2415,7 @@ ti83:
 	$(FULL_FILES)
 	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/FULL_ti83.83p	
 	rm $(SOURCE_PATH)/../a.bin	
+	# cp $(BUILD_PATH)/FULL_ti83.83p "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
 	
 ti8x:
 	$(Z88DK_PATH)$(MYZ88DK) +ti8x \
@@ -2432,40 +2434,8 @@ ti8x:
 	rm $(SOURCE_PATH)/../a.bin	
 
 	
-# ti86:
-	# $(Z88DK_PATH)$(MYZ88DK) +ti86 \
-	# -subtype=asm \
-	# -compiler=sdcc \
-	# -SO3 --max-allocs-per-node200000 --opt-code-size \
-	# -D__TI86__ \
-	# -DFULL_GAME \
-	# -DZ88DK_JOYSTICK \
-	# -DFORCE_XSIZE=32 \
-	# -DLESS_TEXT	\
-	# -DNO_COLOR \
-	# -DNO_BLINKING \
-	# -DNO_HINTS \
-	# -DNO_BORDER \
-	# -DNO_CONTROL_INSTRUCTIONS \
-	# -DNO_RANDOM_LEVEL \
-	# -DNO_SET_SCREEN_COLORS \
-	# -DNO_SLEEP \
-	# -DSIMPLE_STRATEGY \
-	# -DFLAT_ENEMIES \
-	# -DFORCE_NARROW \
-	# -DFORCE_GHOSTS_NUMBER=6 \
-	# -clib=ansi -pragma-define:ansicolumns=32 \
-	# -vn \
-	# -lndos \
-	# -DCONIO -DNO_INIT_GRAPHICS \
-	# -create-app  \
-	# $(FULL_FILES)
-	# mv $(SOURCE_PATH)/../pt-code-size.86p $(BUILD_PATH)/FULL_ti86.8xp	
-	# rm $(SOURCE_PATH)/../a.bin		
-	
 ti86_light:
 	$(Z88DK_PATH)$(MYZ88DK) +ti86 \
-	-subtype=asm \
 	$(SCCZ80_OPTS) \
 	-D__TI86__ \
 	-DZ88DK_JOYSTICK \
@@ -2480,9 +2450,10 @@ ti86_light:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app  \
 	$(LIGHT_FILES)
-	mv $(SOURCE_PATH)/../a.86p $(BUILD_PATH)/LIGHT_ti86.8xp	
+	mv $(SOURCE_PATH)/../a.86p $(BUILD_PATH)/LIGHT_ti86.86p	
 	rm $(SOURCE_PATH)/../a.bin	
-	
+	# cp $(BUILD_PATH)/LIGHT_ti86.86p "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
+
 	
 ti85_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
@@ -2537,7 +2508,7 @@ ti85_turn_based:
 	$(FULL_FILES)
 	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85_turn_based.85s
 	rm $(SOURCE_PATH)/../a.bin
-	cp $(BUILD_PATH)/FULL_ti85_turn_based.85s "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
+	# cp $(BUILD_PATH)/FULL_ti85_turn_based.85s "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
 		
 m5_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \

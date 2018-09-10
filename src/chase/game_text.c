@@ -272,11 +272,23 @@ void displayStats(void)
 
 
 
+
+#if YSize>=20
+	#define EXTRA_Y 2
+	#define AUTHOR_Y 5
+	#define CROSS_CHASE_Y 2
+#else
+	#define EXTRA_Y 0
+	#define AUTHOR_Y 3
+	#define CROSS_CHASE_Y 1
+#endif
+
+
 #if (defined(FULL_GAME) && !defined(NO_HINTS)) || !defined(NO_INITIAL_SCREEN)
 	#if defined(FULL_GAME) && !defined(NO_HINTS)
 	void _printCrossChase(void)
 	{
-		printCenteredMessageOnRowWithCol(2, _RED,  CROSS_CHASE_STRING);		
+		printCenteredMessageOnRowWithCol(CROSS_CHASE_Y, _RED,  CROSS_CHASE_STRING);		
 		SET_COLOR(TEXT_COLOR);
 		
 	}
@@ -287,27 +299,22 @@ void displayStats(void)
 	#endif
 #endif
 
-#if YSize>=20
-	#define EXTRA_Y 3
-#else
-	#define EXTRA_Y 0
-#endif
 
 #if defined(FULL_GAME) && !defined(NO_HINTS)
 	void printHints(void)
 	{
 		_printCrossChase();
 		
-		printCenteredMessageOnRow(4+EXTRA_Y,  USE_THE_GUN_AGAINST_STRING);
+		printCenteredMessageOnRow(AUTHOR_Y+2+EXTRA_Y,  USE_THE_GUN_AGAINST_STRING);
 
-		printCenteredMessageOnRow(6+EXTRA_Y,  THE_SKULL_AND_STRING);
+		printCenteredMessageOnRow(AUTHOR_Y+4+EXTRA_Y,  THE_SKULL_AND_STRING);
 
-		printCenteredMessageOnRow(8+EXTRA_Y, MISSILE_BASES_STRING);	
+		printCenteredMessageOnRow(AUTHOR_Y+6+EXTRA_Y, MISSILE_BASES_STRING);	
 		
 		#if YSize>=14
-			printCenteredMessageOnRow(10+EXTRA_Y, FOR_POINTS_AND___STRING);
+			printCenteredMessageOnRow(AUTHOR_Y+8+EXTRA_Y, FOR_POINTS_AND___STRING);
 
-			printCenteredMessageOnRow(12+EXTRA_Y, EXTRA_POWERUPS__STRING);
+			printCenteredMessageOnRow(AUTHOR_Y+10+EXTRA_Y, EXTRA_POWERUPS__STRING);
 		#endif
 	}
 #endif
@@ -317,7 +324,7 @@ void displayStats(void)
 	{
 		_printCrossChase();
 		
-		printCenteredMessageOnRow(5, AUTHOR_STRING);	
+		printCenteredMessageOnRow(AUTHOR_Y, AUTHOR_STRING);	
 
 		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
 			_printTopScore();

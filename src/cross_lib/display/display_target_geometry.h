@@ -84,10 +84,12 @@
 	#elif (defined(__PX4__) && defined(Z88DK_PUTC4X6))
 		#define YSize (10+1)
 	#elif defined(__Z88__) || (defined(__PX8__) && !defined(Z88DK_SPRITES)) \
-		|| defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)
+		|| ((defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)) && !defined(Z88DK_SPRITES))
 		#define YSize 8
 	#elif defined(__G800__)
 		#define YSize 7
+	#elif ((defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)) && defined(Z88DK_SPRITES))
+		#define YSize ((64/SPRITE_Y_STEP)+1)
 	#elif (defined(__VZ__) && defined(Z88DK_SPRITES))
 		#define YSize ((64/SPRITE_Y_STEP)+1)
 	#elif (defined(__PX8__) && defined(Z88DK_SPRITES))
@@ -156,6 +158,10 @@
 		#define XSize (128/SPRITE_X_STEP)
 	#elif defined(__KAYPRO__)
 		#define XSize (160/SPRITE_X_STEP)
+	#elif ((defined(__TI82__) || defined(__TI83__)) && defined(Z88DK_SPRITES))
+		#define XSize ((96/SPRITE_X_STEP)+1)
+	#elif ((defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)) && defined(Z88DK_SPRITES))
+		#define XSize (128/SPRITE_X_STEP)	
 	#elif defined(__KC__) && defined(UDG_GRAPHICS)
 		#define XSize 40
 	#elif (defined(__VZ__) && !defined(Z88DK_SPRITES)) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
@@ -165,7 +171,7 @@
 		  || defined(__GAL__) || defined(__COCO__) || defined(__WINCMOC__) \
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
 		  || defined(__EINSTEIN__) \
-		  || defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__) \
+		  || ((defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)) && !defined(Z88DK_SPRITES)) \
 		  || defined(__M5__) || defined(__COLECO__) \
 		  || defined(__PV2000__) || defined(__MZ__) \
 		  || defined(__CAMPUTERS_LYNX__)

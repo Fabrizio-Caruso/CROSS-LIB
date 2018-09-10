@@ -2278,11 +2278,10 @@ einstein:
 	rm $(BUILD_PATH)/FULL_einstein.bin
 
 
-ti82_turn_based:
+ti82_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \
 	-DZ88DK_JOYSTICK \
 	$(SCCZ80_OPTS) -D__TI82__ \
-	-DTURN_BASED -DNO_WAIT \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DFULL_GAME  \
@@ -2291,25 +2290,43 @@ ti82_turn_based:
 	-lndos \
 	-create-app  \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/FULL_ti82_turn_based.82p
+	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/FULL_ti82_chars.82p
 	rm $(SOURCE_PATH)/../a.bin
 
-	
-ti82_tiny_turn_based:
+ti82:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \
-	$(SCCZ80_OPTS) -D__TI82__ \
+	$(SCCZ80_OPTS) \
+	-D__TI82__ \
 	-DZ88DK_JOYSTICK \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DTINY_GAME  \
-	-DTURN_BASED -DNO_WAIT \
-	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(TINY_FILES) \
-	-create-app
-	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/TINY_ti82_turn_based.82p
+	-DFULL_GAME \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/FULL_ti82.82p
 	rm $(SOURCE_PATH)/../a.bin
+	cp $(BUILD_PATH)/FULL_ti82.82p "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
+	
+# ti82_tiny_turn_based:
+	# $(Z88DK_PATH)$(MYZ88DK) +ti82 \
+	# $(SCCZ80_OPTS) -D__TI82__ \
+	# -DZ88DK_JOYSTICK \
+	# -clib=ansi -pragma-define:ansicolumns=32 \
+	# -vn \
+	# -DTINY_GAME  \
+	# -DTURN_BASED -DNO_WAIT \
+	# -DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
+	# -lndos \
+	# -DCONIO -DNO_INIT_GRAPHICS \
+	# $(TINY_FILES) \
+	# -create-app
+	# mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/TINY_ti82_turn_based.82p
+	# rm $(SOURCE_PATH)/../a.bin
 
 
 ti83_turn_based:
@@ -3577,7 +3594,7 @@ m5_targets: \
 	m5_tiny m5_udg
 
 ti82_targets: \
-	ti82_turn_based ti82_tiny_turn_based 
+	ti82
 
 ti83_targets: \
 	ti83 ti83_turn_based ti83_tiny_turn_based

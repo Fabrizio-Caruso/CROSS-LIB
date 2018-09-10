@@ -5149,9 +5149,17 @@ m5_sounds:
 	rm -f a.bin
 	rm -f A_BSS.bin
 	rm -f A_DATA.bin
-	mv a.rom $(BUILD_PATH)/sounds.rom
+	mv a.rom $(BUILD_PATH)/m5_sounds.rom
 
 
+spectrum_sounds:
+	$(Z88DK_PATH)$(MYZ88DK) +zx -create-app \
+	-vn -lndos \
+	$(SOURCE_PATH)/../experiments/sounds.c
+	rm -f a.bin
+	rm -f a_BANK_7.bin
+	mv a.tap $(BUILD_PATH)/spectrum_sounds.tap
+	
 	
 sms_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +sms \
@@ -5470,10 +5478,11 @@ gal_6k:
 	-DNO_PRINT \
 	-DALT_PRINT \
 	-DNO_MESSAGE \
-	-DFORCE_BOMBS_NUMBER=2 \
-	-DFORCE_GHOSTS_NUMBER=4 \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DCONIO \
+	-DALT_CLEAR_SCREEN \
 	-DNO_INIT_GRAPHICS \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(TINY_FILES)

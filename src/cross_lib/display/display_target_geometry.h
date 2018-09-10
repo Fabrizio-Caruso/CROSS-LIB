@@ -45,7 +45,7 @@
 		#define YSize (25-Y_OFFSET)
 	#elif defined(__CREATIVISION__) || defined(__MSX__) || defined(__SVI__) \
 		|| defined(__ZX81__) || defined(__ZX80__) || defined(__LAMBDA__) \
-		|| defined(__SPECTRUM__) || defined(__SC3000__) || defined(__MTX__) \
+		|| (defined(__SPECTRUM__) && !defined(__TS2068__)) || defined(__SC3000__) || defined(__MTX__) \
 		|| defined(__APPLE2ENH__) || defined(__APPLE2__) \
 		|| defined(__Z9001__) || defined(__P2000__) \
 		|| (defined(__ATARI__) || defined(__ATARIXL__)) \
@@ -71,6 +71,8 @@
 		#define YSize 22
 	#elif defined(__SAM__)
 		#define YSize (24-2-Y_OFFSET)
+	#elif (defined(__TS2068__) && defined(Z88DK_SPRITES))
+		#define YSize (192/SPRITE_Y_STEP -Y_OFFSET)
 	#elif (defined(__NC200__) && defined(Z88DK_SPRITES))
 		#define YSize ((128/SPRITE_Y_STEP)-Y_OFFSET)
 	#elif defined(__SUPERVISION__)
@@ -110,7 +112,7 @@
 		  || defined(__PX8__) || defined(__CPM_80X24__) \
 		  || (defined(__APPLE2ENH__) && defined(APPLE2ENH_80COL_VIDEO_MODE)) \
 		  || defined(__PPS__) || (defined(__MULTI8__) && defined(UDG_GRAPHICS)) \
-		  || defined(__TS2068__)
+		  || (defined(__TS2068__) && !defined(Z88DK_SPRITES))
 		#define XSize 80
 	#elif defined(__SRR__) || (defined(__TRS80__) && !defined(__EG2K__))
 		#define XSize 64
@@ -139,13 +141,15 @@
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)
+	#elif (defined(__TS2068__) && defined(Z88DK_SPRITES))
+		#define XSize (512/SPRITE_X_STEP)
 	#elif defined(__KAYPRO__)
 		#define XSize (160/SPRITE_X_STEP)
 	#elif defined(__KC__) && defined(UDG_GRAPHICS)
 		#define XSize 40
 	#elif defined(__VZ__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \
 		  || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
-		  || defined(__LAMBDA__) || defined(__SPECTRUM__) || (defined(__PC6001__) && !defined(FORCE_SCREEN_MODE))\
+		  || defined(__LAMBDA__) || (defined(__SPECTRUM__)&&!defined(__TS2068)) || (defined(__PC6001__) && !defined(FORCE_SCREEN_MODE))\
 		  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
 		  || defined(__GAL__) || defined(__COCO__) || defined(__WINCMOC__) \
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \

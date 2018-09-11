@@ -271,17 +271,25 @@ void displayStats(void)
 
 
 
-
-
 #if YSize>=20
 	#define EXTRA_Y 1
 	#define AUTHOR_Y 5
 	#define CROSS_CHASE_Y 2
+	#define INTERLINE 2
+	#define INSTR_Y_OFFSET 3
 #else
 	#define EXTRA_Y 0
 	#define AUTHOR_Y 3
 	#define CROSS_CHASE_Y 1
+	#if defined(Z88DK_SPRITES)
+		#define INTERLINE 2
+	#else
+		#define INTERLINE 1
+	#endif
+	#define INSTR_Y_OFFSET 1
 #endif
+
+ 
 
 
 #if (defined(FULL_GAME) && !defined(NO_HINTS)) || !defined(NO_INITIAL_SCREEN)
@@ -305,16 +313,16 @@ void displayStats(void)
 	{
 		_printCrossChase();
 		
-		printCenteredMessageOnRow(AUTHOR_Y+2+EXTRA_Y,  USE_THE_GUN_AGAINST_STRING);
+		printCenteredMessageOnRow(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  USE_THE_GUN_AGAINST_STRING);
 
-		printCenteredMessageOnRow(AUTHOR_Y+4+EXTRA_Y,  THE_SKULL_AND_STRING);
+		printCenteredMessageOnRow(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  THE_SKULL_AND_STRING);
 
-		printCenteredMessageOnRow(AUTHOR_Y+6+EXTRA_Y, MISSILE_BASES_STRING);	
+		printCenteredMessageOnRow(AUTHOR_Y+3*INTERLINE+EXTRA_Y, MISSILE_BASES_STRING);	
 		
 		#if YSize>=14
-			printCenteredMessageOnRow(AUTHOR_Y+8+EXTRA_Y, FOR_POINTS_AND___STRING);
+			printCenteredMessageOnRow(AUTHOR_Y+4*INTERLINE+EXTRA_Y, FOR_POINTS_AND___STRING);
 
-			printCenteredMessageOnRow(AUTHOR_Y+10+EXTRA_Y, EXTRA_POWERUPS__STRING);
+			printCenteredMessageOnRow(AUTHOR_Y+5*INTERLINE+EXTRA_Y, EXTRA_POWERUPS__STRING);
 		#endif
 	}
 #endif
@@ -331,15 +339,17 @@ void displayStats(void)
 			
 			SET_COLOR(COLOR_IF_NO_BLUE_THEN_YELLOW);
 			
-			printCenteredMessageOnRow((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
-			printCenteredMessageOnRow((YSize>>1)+1, INTO_THE_MINES_STRING);
+			printCenteredMessageOnRow(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
+			printCenteredMessageOnRow(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);			
+			// printCenteredMessageOnRow((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
+			// printCenteredMessageOnRow((YSize>>1)+1, INTO_THE_MINES_STRING);
 			
 			SET_COLOR(TEXT_COLOR);	
 			
 		#endif
 
 		#if !defined(NO_CONTROL_INSTRUCTIONS)
-			printCenteredMessageOnRow(YSize-3, USE_STRING);
+			printCenteredMessageOnRow(YSize-INSTR_Y_OFFSET, USE_STRING);
 		#endif
 	}
 #endif

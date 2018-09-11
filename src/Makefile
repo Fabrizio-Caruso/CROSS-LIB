@@ -2237,6 +2237,19 @@ attache:
 	# $(TOOLS_PATH)/cpm/BIN2IMD.COM FULL_ATTACHE.raw FULL_ATTACHE.imd /2 DM=5 N=40 SS=512 SM=1-10
 	
 	
+osborne1:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 \
+	-DCONIO_ADM3A \
+	-D__CPM_80X24__ \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_osborne1.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_osborne1.bin
+
+	
 cpm_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-DCONIO_ADM3A \

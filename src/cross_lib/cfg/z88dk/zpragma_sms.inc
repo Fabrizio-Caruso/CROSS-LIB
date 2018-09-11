@@ -1,5 +1,3 @@
-
-
 // Standard SMS Header
 
 #pragma output   SMS_HDR_PRODUCT_CODE = 107026

@@ -2314,6 +2314,21 @@ attache:
 	rm $(BUILD_PATH)/FULL_attache.bin
 
 
+aussie:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -laussie  \
+	-D__AUSSIE__ \
+	-DCONIO_ADM3A \
+	-D__CPM_80X24__ \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_aussie.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_aussie.bin
+
+	
+# -subtype=osborne1
 osborne1:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 \
 	-DCONIO_ADM3A \
@@ -5388,7 +5403,7 @@ sms_chicken:
 
 
 sms_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=16 -v \
+	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=1 -v \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-D__SMS__ \
 	-DNO_COLOR \
@@ -5399,7 +5414,7 @@ sms_tiny:
 	-DLESS_TEXT \
 	-DNO_PRINT \
 	-create-app \
-	-DCONIO \
+	-DBUFFRED \
 	-DALT_CLEAR_SCREEN \
 	-DSIMPLE_STRATEGY \
 	-o $(BUILD_PATH)/TINY_sms.bin \

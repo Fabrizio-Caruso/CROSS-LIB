@@ -743,6 +743,19 @@ vz200_18k:
 	rm $(BUILD_PATH)/FULL_vz200_18k.cas
 
 
+laser500: 	
+	$(Z88DK_PATH)$(MYZ88DK) +laser500 -vn -create-app -Cz--audio \
+	$(SCCZ80_OPTS) \
+	-D__VZ__ \
+	-DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app  \
+	$(FULL_FILES)
+	mv a.bin $(BUILD_PATH)/FULL_vz500.bin
+	rm a.cas
+	mv a.wav $(BUILD_PATH)/FULL_vz500.wav
+	
 
 vz200_sprites_18k:
 	$(Z88DK_PATH)$(MYZ88DK) +vz \
@@ -1875,11 +1888,14 @@ px4:
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/FULL_px4.ROM		
-
+	#cp $(BUILD_PATH)/FULL_px4.ROM /cygdrive/c/Emulation/TEST/PX-4/hc40emulator/
+	
 px4_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
 	-D__PX4__ \
@@ -1951,7 +1967,7 @@ trs80_tiny:
 	rm $(BUILD_PATH)/TINY_trs80.bin
 	
 
-trs80:
+trs80_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
 	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
@@ -1960,11 +1976,32 @@ trs80:
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-o$(BUILD_PATH)/FULL_trs80.bin \
+	-o$(BUILD_PATH)/FULL_trs80_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_trs80.bin	
+	rm $(BUILD_PATH)/FULL_trs80_chars.bin	
 
+
+trs80:	
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
+	$(SCCZ80_OPTS) \
+	-pragma-redirect:getk=getk_inkey \
+	-pragma-define:REGISTER_SP=0xffb5 \
+	-D__TRS80__ \
+	-DFULL_GAME \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-create-app \
+	-DBETWEEN_LEVEL \
+	-o$(BUILD_PATH)/FULL_trs80.bin \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_trs80.bin	
+	
 	
 trs80_wav:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=wav \
@@ -2165,7 +2202,7 @@ nc200:
 	
 
 attache:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache -subtype=attache \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
@@ -2175,8 +2212,8 @@ attache:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_attache.bin
-	appmake +cpm -f ATTACHE -b $(BUILD_PATH)/FULL_ATTACHE.raw
-	$(TOOLS_PATH)/cpm/BIN2IMD.COM FULL_ATTACHE.raw FULL_ATTACHE.imd /2 DM=5 N=40 SS=512 SM=1-10
+	# appmake +cpm -f ATTACHE -b $(BUILD_PATH)/FULL_ATTACHE.raw
+	# $(TOOLS_PATH)/cpm/BIN2IMD.COM FULL_ATTACHE.raw FULL_ATTACHE.imd /2 DM=5 N=40 SS=512 SM=1-10
 	
 	
 cpm_adm3a:
@@ -2278,11 +2315,10 @@ einstein:
 	rm $(BUILD_PATH)/FULL_einstein.bin
 
 
-ti82_turn_based:
+ti82_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \
 	-DZ88DK_JOYSTICK \
 	$(SCCZ80_OPTS) -D__TI82__ \
-	-DTURN_BASED -DNO_WAIT \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DFULL_GAME  \
@@ -2291,25 +2327,43 @@ ti82_turn_based:
 	-lndos \
 	-create-app  \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/FULL_ti82_turn_based.82p
+	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/FULL_ti82_chars.82p
 	rm $(SOURCE_PATH)/../a.bin
 
-	
-ti82_tiny_turn_based:
+ti82:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \
-	$(SCCZ80_OPTS) -D__TI82__ \
+	$(SCCZ80_OPTS) \
+	-D__TI82__ \
 	-DZ88DK_JOYSTICK \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DTINY_GAME  \
-	-DTURN_BASED -DNO_WAIT \
-	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(TINY_FILES) \
-	-create-app
-	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/TINY_ti82_turn_based.82p
+	-DFULL_GAME \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/FULL_ti82.82p
 	rm $(SOURCE_PATH)/../a.bin
+	# cp $(BUILD_PATH)/FULL_ti82.82p "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
+	
+# ti82_tiny_turn_based:
+	# $(Z88DK_PATH)$(MYZ88DK) +ti82 \
+	# $(SCCZ80_OPTS) -D__TI82__ \
+	# -DZ88DK_JOYSTICK \
+	# -clib=ansi -pragma-define:ansicolumns=32 \
+	# -vn \
+	# -DTINY_GAME  \
+	# -DTURN_BASED -DNO_WAIT \
+	# -DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
+	# -lndos \
+	# -DCONIO -DNO_INIT_GRAPHICS \
+	# $(TINY_FILES) \
+	# -create-app
+	# mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/TINY_ti82_turn_based.82p
+	# rm $(SOURCE_PATH)/../a.bin
 
 
 ti83_turn_based:
@@ -2361,6 +2415,7 @@ ti83:
 	$(FULL_FILES)
 	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/FULL_ti83.83p	
 	rm $(SOURCE_PATH)/../a.bin	
+	# cp $(BUILD_PATH)/FULL_ti83.83p "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
 	
 ti8x:
 	$(Z88DK_PATH)$(MYZ88DK) +ti8x \
@@ -2379,40 +2434,8 @@ ti8x:
 	rm $(SOURCE_PATH)/../a.bin	
 
 	
-# ti86:
-	# $(Z88DK_PATH)$(MYZ88DK) +ti86 \
-	# -subtype=asm \
-	# -compiler=sdcc \
-	# -SO3 --max-allocs-per-node200000 --opt-code-size \
-	# -D__TI86__ \
-	# -DFULL_GAME \
-	# -DZ88DK_JOYSTICK \
-	# -DFORCE_XSIZE=32 \
-	# -DLESS_TEXT	\
-	# -DNO_COLOR \
-	# -DNO_BLINKING \
-	# -DNO_HINTS \
-	# -DNO_BORDER \
-	# -DNO_CONTROL_INSTRUCTIONS \
-	# -DNO_RANDOM_LEVEL \
-	# -DNO_SET_SCREEN_COLORS \
-	# -DNO_SLEEP \
-	# -DSIMPLE_STRATEGY \
-	# -DFLAT_ENEMIES \
-	# -DFORCE_NARROW \
-	# -DFORCE_GHOSTS_NUMBER=6 \
-	# -clib=ansi -pragma-define:ansicolumns=32 \
-	# -vn \
-	# -lndos \
-	# -DCONIO -DNO_INIT_GRAPHICS \
-	# -create-app  \
-	# $(FULL_FILES)
-	# mv $(SOURCE_PATH)/../pt-code-size.86p $(BUILD_PATH)/FULL_ti86.8xp	
-	# rm $(SOURCE_PATH)/../a.bin		
-	
 ti86_light:
 	$(Z88DK_PATH)$(MYZ88DK) +ti86 \
-	-subtype=asm \
 	$(SCCZ80_OPTS) \
 	-D__TI86__ \
 	-DZ88DK_JOYSTICK \
@@ -2427,11 +2450,12 @@ ti86_light:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app  \
 	$(LIGHT_FILES)
-	mv $(SOURCE_PATH)/../a.86p $(BUILD_PATH)/LIGHT_ti86.8xp	
+	mv $(SOURCE_PATH)/../a.86p $(BUILD_PATH)/LIGHT_ti86.86p	
 	rm $(SOURCE_PATH)/../a.bin	
+	# cp $(BUILD_PATH)/LIGHT_ti86.86p "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
+
 	
-	
-ti85:
+ti85_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
 	$(SCCZ80_OPTS) -D__TI85__ \
 	-DZ88DK_JOYSTICK \
@@ -2443,27 +2467,49 @@ ti85:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app  \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85.85s	
+	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85_chars.85s	
 	rm $(SOURCE_PATH)/../a.bin
 
-
+ti85:
+	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
+	$(SCCZ80_OPTS) \
+	-D__TI85__ \
+	-DZ88DK_JOYSTICK \
+	-DFULL_GAME \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85.85s
+	rm $(SOURCE_PATH)/../a.bin
+	# cp $(BUILD_PATH)/FULL_ti85.85s "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
+		
+	
 ti85_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
-	$(SCCZ80_OPTS) -D__TI85__ \
+	$(SCCZ80_OPTS) \
+	-D__TI85__ \
 	-DZ88DK_JOYSTICK \
-	-DFORCE_XSIZE=32 \
+	-DFULL_GAME \
 	-DTURN_BASED \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DFULL_GAME  \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
 	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85_turn_based.85s	
+	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85_turn_based.85s
 	rm $(SOURCE_PATH)/../a.bin
-
-
+	# cp $(BUILD_PATH)/FULL_ti85_turn_based.85s "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
+		
 m5_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
 	-lm -create-app -Cz--audio -subtype=tape \
@@ -3577,7 +3623,7 @@ m5_targets: \
 	m5_tiny m5_udg
 
 ti82_targets: \
-	ti82_turn_based ti82_tiny_turn_based 
+	ti82
 
 ti83_targets: \
 	ti83 ti83_turn_based ti83_tiny_turn_based
@@ -3586,7 +3632,7 @@ ti8x_targets: \
 	ti8x
 	
 ti85_targets: \
-	ti85 ti85_turn_based
+	ti85
 	
 ti86_targets: \
 	ti86_light
@@ -3619,16 +3665,16 @@ x1_targets: \
 	x1
 
 px4_targets: \
-	px4_tiny px4 px4_putc4x6 px4_tiny_putc4x6
+	px4 
 
 px8_targets: \
-	px8_tiny px8
+	px8 px8_tiny
 	
 kc_targets: \
 	kc_tiny_udg kc_light_udg kc_udg
 	
 trs80_targets: \
-	trs80_tiny trs80 trs80_cmd eg2k
+	trs80_chars trs80_tiny trs80 trs80_cmd eg2k
 
 cpm_targets: \
 	cpm_adm3a cpm_vt52 cpm_vt100 

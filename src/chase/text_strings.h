@@ -45,7 +45,7 @@
 		#define AUTHOR_STRING "by fabrizio caruso"
 	#endif
 	#define KILL_THE_SKULL_STRING       "kill the skull"
-	#if XSize<=16
+	#if XSize<20
 		#define DESTROY_MISSILES_STRING "destroy missiles"		
 	#else
 		#define DESTROY_MISSILES_STRING "destroy the missiles"
@@ -69,12 +69,12 @@
 		#define AUTHOR_STRING "by Fabrizio Caruso"
 	#endif
 	#define KILL_THE_SKULL_STRING   "Kill the skull"	
-	#if XSize<=16
+	#if XSize<20
 		#define DESTROY_MISSILES_STRING "Destroy missiles"		
 	#else
 		#define DESTROY_MISSILES_STRING "Destroy the missiles"	
 	#endif
-	#define LURE_THE_ENEMIES_STRING     "Lure the enemies"
+	#define LURE_THE_ENEMIES_STRING     "Lure enemies"
 	#define INTO_THE_MINES_STRING   "into the mines"
 	#define SCORE_STRING "SCORE:"
 	#define LEVEL_STRING "LEVEL:"	

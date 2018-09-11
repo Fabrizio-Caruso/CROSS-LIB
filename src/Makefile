@@ -1857,7 +1857,7 @@ px8_chars:
 	$(FULL_FILES)
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/FULL_px8_chars.ROM	
-	cp $(BUILD_PATH)/FULL_px8_chars.ROM /cygdrive/c/Emulation/TEST/PX-8/px8emul/BASIC.ROM
+	# cp $(BUILD_PATH)/FULL_px8_chars.ROM /cygdrive/c/Emulation/TEST/PX-8/px8emul/BASIC.ROM
 	
 
 px8:
@@ -1876,7 +1876,7 @@ px8:
 	$(FULL_FILES)
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/FULL_px8.ROM
-	cp $(BUILD_PATH)/FULL_px8.ROM /cygdrive/c/Emulation/TEST/PX-8/px8emul/BASIC.ROM
+	# cp $(BUILD_PATH)/FULL_px8.ROM /cygdrive/c/Emulation/TEST/PX-8/px8emul/BASIC.ROM
 
 
 px4_tiny_putc4x6:
@@ -1911,6 +1911,31 @@ px4_tiny:
 	mv A.ROM $(BUILD_PATH)/TINY_px4.ROM
 
 
+oz_buffered: 	
+	$(Z88DK_PATH)$(MYZ88DK) +oz \
+	$(SCCZ80_OPTS) \
+	-D__OZ__ \
+	-DTINY_GAME \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=8 \
+	-vn -lndos \
+	-DBUFFERED -DTURN_BASED -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DNO_RANDOM_LEVEL \
+	-DSIMPLE_STRATEGY \
+	-DALT_MOVE \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_PRINT \
+	$(TINY_FILES)
+	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
+	rm a.bin
+	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
+	
+	
 oz:
 	$(Z88DK_PATH)$(MYZ88DK) +oz \
 	$(SCCZ80_OPTS) \
@@ -1930,6 +1955,9 @@ oz:
 	-DNO_SLEEP \
 	-DNO_PRINT \
 	$(TINY_FILES)
+	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
+	rm a.bin
+	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
 	
 
 px4:
@@ -2256,21 +2284,36 @@ nc200:
 	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.ram	
 	
 
-attache:
+attache_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache -subtype=attache \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_attache.bin \
+	-create-app -o$(BUILD_PATH)/FULL_attache_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_attache_chars.bin
+
+attache:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache -subtype=attache \
+	$(SCCZ80_OPTS) \
+	-D__ATTACHE__ \
+	-DFULL_GAME \
+	-DALT_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-create-app -o$(BUILD_PATH)/FULL_attache.bin \
+	-DNO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)	
 	rm $(BUILD_PATH)/FULL_attache.bin
-	# appmake +cpm -f ATTACHE -b $(BUILD_PATH)/FULL_ATTACHE.raw
-	# $(TOOLS_PATH)/cpm/BIN2IMD.COM FULL_ATTACHE.raw FULL_ATTACHE.imd /2 DM=5 N=40 SS=512 SM=1-10
-	
-	
+
+
 osborne1:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 \
 	-DCONIO_ADM3A \

@@ -51,7 +51,7 @@
 		  #define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)	
 	#elif (defined(__KC__) && defined(UDG_GRAPHICS)) \
 		  || defined(__CAMPUTERS_LYNX__)
-		  #define YSize (32-Y_OFFSET)
+		  #define YSize (32-Y_OFFSET)		  
 	#elif defined(__ATMOS__) || defined(__NES__) 
 		#define YSize (28-Y_OFFSET)	  
 	#elif defined(__CBM610__) || defined(__PET__) || defined(__C128__) \
@@ -124,6 +124,10 @@
 		#define YSize ((48/SPRITE_Y_STEP)-1)
 	#elif defined(__KAYPRO__)
 		#define YSize (100/SPRITE_Y_STEP)
+	#elif defined(__ATTACHE__) && defined(Z88DK_SPRITES)
+		#define YSize (240/SPRITE_Y_STEP)	
+	#elif (defined(__OZ__) && defined(Z88DK_SPRITES))
+		#define YSize (80/SPRITE_Y_STEP)
 	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
 		#define YSize 24
 	#else
@@ -156,6 +160,10 @@
 		#define XSize (480/SPRITE_X_STEP)
 	#elif (defined(__PX4__) && defined(Z88DK_SPRITES))
 		#define XSize (240/SPRITE_X_STEP)
+	#elif (defined(__ATTACHE__) && defined(Z88DK_SPRITES))
+		#define XSize (320/SPRITE_X_STEP)	
+	#elif (defined(__OZ__) && defined(Z88DK_SPRITES))
+		#define XSize (239/SPRITE_X_STEP)
 	#elif defined(__NASCOM__)	
 		#define XSize 48
 	#elif defined(__VG5K__) || (defined(__APPLE2ENH__) && !defined(APPLE2ENH_80COL_VIDEO_MODE))|| defined(__APPLE2__) \

@@ -10,7 +10,15 @@
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&15)==1)	
-#elif defined(__KAYPRO__) || (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES)) || (defined(__PX8__) && defined(Z88DK_SPRITES))
+#elif (defined(__ATTACHE__) && defined(Z88DK_SPRITES))
+	#define SKIP_DRAW \
+		if((loop&7)==1)
+	
+	#define SKIP_MORE_DRAW \
+		if((loop&31)==1)	
+#elif defined(__KAYPRO__) \
+	|| (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES)) \
+	|| (defined(__PX8__) && defined(Z88DK_SPRITES))
 	#define SKIP_DRAW \
 		if((loop&3)==1)
 	

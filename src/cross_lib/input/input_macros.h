@@ -62,12 +62,10 @@
 	#endif
 
 	
-	#if defined(Z88DK)
+	#  if defined(__NCURSES__) || defined(STDLIB)
+		#define TURN_BASED_INPUT() getchar()
+	#elif defined(Z88DK)
 		#define TURN_BASED_INPUT() getch()
-	#elif defined(__GCC_BUFFERED__)
-		#define TURN_BASED_INPUT() getchar()
-	#elif defined(__NCURSES__) 
-		#define TURN_BASED_INPUT() getchar()
 	#elif defined(ACK)
 		#define TURN_BASED_INPUT() getchar()
 	#else

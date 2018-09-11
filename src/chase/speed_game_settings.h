@@ -196,9 +196,12 @@
 	#elif defined(__EINSTEIN__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 5000	
-	#elif defined(__PX4__) || defined(__PX8__)
+	#elif defined(__PX4__) 
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 2500
+	#elif defined(__PX8__) && !defined(Z88DK_SPRITES)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 9000U
 	#elif defined(__M5__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 900					

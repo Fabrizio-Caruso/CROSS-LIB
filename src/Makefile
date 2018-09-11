@@ -1876,7 +1876,28 @@ px4_tiny:
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/TINY_px4.ROM
 
+
+oz:
+	$(Z88DK_PATH)$(MYZ88DK) +oz \
+	$(SCCZ80_OPTS) \
+	-D__OZ__ \
+	-DTINY_GAME \
+	-vn -lndos \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DNO_RANDOM_LEVEL \
+	-DSIMPLE_STRATEGY \
+	-DALT_MOVE \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_PRINT \
+	$(TINY_FILES)
 	
+
 px4:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
 	-D__PX4__ \
@@ -2826,9 +2847,10 @@ ts2068_turn_based:
 	rm $(BUILD_PATH)/FULL_ts2068_turn_based.bin	
 	
 	
-enterprise_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +enterprise $(SCCZ80_OPTS) \
-	-v \
+enterprise_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +enterprise \
+	$(SCCZ80_OPTS) \
+	-vn \
 	-D__ENTERPRISE__ \
 	-DFORCE_XSIZE=39 \
 	-DFORCE_YSIZE=22 \
@@ -2845,7 +2867,7 @@ enterprise_turn_based:
 	mv a.app $(BUILD_PATH)/FULL_enterprise.app
 	rm a.bin
 	
-mz2500_turn_based:
+mz2500_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
 	-D__MZ2500__ \
 	-vn \
@@ -2874,10 +2896,11 @@ mz2500:
 	$(FULL_FILES) \
 	-create-app
 
-mz2500_tiny_turn_based:
+mz2500_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
 	$(SCCZ80_OPTS) \
 	-D__MZ2500__ \
+	-DTURN_BASED \
 	-DFORCE_XSIZE=31 \
 	-DFORXE_YSIZE=20 \
 	-vn \
@@ -2898,11 +2921,13 @@ mz2500_tiny_turn_based:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(TINY_FILES) \
 	-create-app 
-	mv a.2D $(BUILD_PATH)/TINY_mz2500_turn_based.2D
+	mv a.2D $(BUILD_PATH)/TINY_mz2500_buffered.2D
 	
 mz2500_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
 	-compiler=sdcc \
+	-DFORCE_XSIZE=31 \
+	-DFORXE_YSIZE=20 \
 	-D__MZ2500__ \
 	-vn \
 	-DNO_COLOR \
@@ -3124,7 +3149,7 @@ vectrex:
 		
 # ------------------------------------
 
-pc8086_tiny:
+pc8086_tiny_buffered:
 	$(_ACK) $(_ACK_OPTS) -mpc86 \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=20 \
@@ -3182,8 +3207,9 @@ cpm8080_adm3a:
 	$(FULL_FILES)
 	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_adm3a.com
 	rm $(SOURCE_PATH)/../*.o	
+
 	
-	
+# buffered	
 pc8086:
 	$(_ACK) $(_ACK_OPTS) -mpc86 \
 	-DFORCE_XSIZE=78 \
@@ -3204,7 +3230,9 @@ pc8086:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv pc86.img $(BUILD_PATH)/FULL_pc8086_turn_based.img
 	rm $(SOURCE_PATH)/../*.o
+
 	
+# buffered
 linuxppc:
 	$(_ACK) $(_ACK_OPTS) -mlinuxppc \
 	-DFORCE_XSIZE=78 \
@@ -3226,6 +3254,8 @@ linuxppc:
 	mv linuxppc.exe $(BUILD_PATH)/FULL_linuxppc_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o
 
+
+#buffered
 linux68k:
 	$(_ACK) $(_ACK_OPTS) -mlinux68k \
 	-DFORCE_XSIZE=78 \
@@ -3247,6 +3277,8 @@ linux68k:
 	mv linux68k.exe $(BUILD_PATH)/FULL_linux68k_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o
 	
+
+# buffered
 linux386:
 	$(_ACK) $(_ACK_OPTS) -mlinux386 \
 	-DFORCE_XSIZE=78 \
@@ -3268,7 +3300,8 @@ linux386:
 	mv linux386.exe $(BUILD_PATH)/FULL_linux386_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o
 	
-	
+
+# buffered
 pdp11v7:
 	$(_ACK) $(_ACK_OPTS) -mpdpv7 \
 	-DFORCE_XSIZE=78 \
@@ -3290,7 +3323,7 @@ pdp11v7:
 	rm $(SOURCE_PATH)/../*.o
 	
 
-	
+# no ncurses in ACK
 dos:
 	$(_ACK) $(_ACK_OPTS) -pc86 \
 	-D__DOS__ \

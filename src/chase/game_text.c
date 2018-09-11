@@ -274,7 +274,7 @@ void displayStats(void)
 
 
 #if YSize>=20
-	#define EXTRA_Y 2
+	#define EXTRA_Y 1
 	#define AUTHOR_Y 5
 	#define CROSS_CHASE_Y 2
 #else

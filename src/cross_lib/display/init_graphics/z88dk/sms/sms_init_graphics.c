@@ -111,11 +111,18 @@ void INIT_GRAPHICS(void)
 	ioctl(1, IOCTL_OTERM_CLS);
 	ioctl(1, IOCTL_OTERM_PAUSE, 0);
 
-	SMS_setNextTileatXY(10,10);
-	SMS_setTile(65);
+	{
+		unsigned char i;
+		
+		for(i=0;i<20;++i)
+		{
+		SMS_setNextTileatXY(i,i);
+		SMS_setTile(65);
+		
+		}
+	}
 	
 	in_pause(250);
-	printf("Something else...\n");
 	in_pause(250);
 	
 	while(1);

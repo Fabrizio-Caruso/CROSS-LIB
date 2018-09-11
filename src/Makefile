@@ -752,7 +752,7 @@ laser500:
 	-lndos \
 	-create-app  \
 	$(FULL_FILES)
-	rm a.bin
+	mv a.bin $(BUILD_PATH)/FULL_vz500.bin
 	rm a.cas
 	mv a.wav $(BUILD_PATH)/FULL_vz500.wav
 	
@@ -2202,7 +2202,7 @@ nc200:
 	
 
 attache:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache -subtype=attache \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
@@ -2212,8 +2212,8 @@ attache:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_attache.bin
-	appmake +cpm -f ATTACHE -b $(BUILD_PATH)/FULL_ATTACHE.raw
-	$(TOOLS_PATH)/cpm/BIN2IMD.COM FULL_ATTACHE.raw FULL_ATTACHE.imd /2 DM=5 N=40 SS=512 SM=1-10
+	# appmake +cpm -f ATTACHE -b $(BUILD_PATH)/FULL_ATTACHE.raw
+	# $(TOOLS_PATH)/cpm/BIN2IMD.COM FULL_ATTACHE.raw FULL_ATTACHE.imd /2 DM=5 N=40 SS=512 SM=1-10
 	
 	
 cpm_adm3a:

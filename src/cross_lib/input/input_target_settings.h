@@ -6,7 +6,8 @@
 	||  defined(__GAL__)  || defined(__Z9001__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
 	|| defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__) || defined(__SC3000__) \
 	|| defined(__Z1013__) || defined(__KC__) || defined(__C128_Z80__) \
-	|| defined(__EINSTEIN__) || defined(__MULTI8__) || defined(__G800__) || defined(__FP1100__) 
+	|| defined(__EINSTEIN__) || defined(__MULTI8__) || defined(__G800__) || defined(__FP1100__) \
+	|| defined(__LASER500__)
 	#define _MOVE_UP 'I'
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'

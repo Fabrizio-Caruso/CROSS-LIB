@@ -107,6 +107,7 @@ For most targets, more than one version is built, in order to support different 
 - kaypro: Kaypro 2X
 - kc: Robotron KC-85/2/3/4
 - lambda: Lambda 8300
+- lazer500: Lazer 500 (work in progress)
 - m5: Sord M5
 - mc1000: CCE MC-1000
 - microbee: Microobee

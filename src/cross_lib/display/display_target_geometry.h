@@ -82,7 +82,8 @@
 		|| defined(__PV1000__) \
 		|| (defined(__EG2K__) && !defined(UDG_GRAPHICS))  \
 		|| (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
-		|| defined(__ALPHATRO__) || defined(__ABC80__)
+		|| defined(__ALPHATRO__) || defined(__ABC80__) \
+		|| defined(__LASER500__)
 		#define YSize (24-Y_OFFSET)
 	#elif defined(__VIC20__) \
 		|| defined(__RX78__)
@@ -178,7 +179,8 @@
 		  || defined(__FP1100__) \
 		  || (defined(__EG2K__) && defined(UDG_GRAPHICS)) \
 		  || (defined(__EG2K__) && !defined(UDG_GRAPHICS)) \
-		  || defined(__ALPHATRO__)
+		  || defined(__ALPHATRO__) \
+		  || defined(__LASER500__)
 		#define XSize (40-X_OFFSET)
 	#elif defined(__KC__) && defined(Z88DK_SPRITES)
 		#define XSize (320/SPRITE_X_STEP)

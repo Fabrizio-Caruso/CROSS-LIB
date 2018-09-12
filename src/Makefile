@@ -746,7 +746,7 @@ vz200_18k:
 laser500: 	
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 -vn -create-app -Cz--audio \
 	$(SCCZ80_OPTS) \
-	-D__VZ__ \
+	-D__LASER500__ \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
@@ -1588,7 +1588,6 @@ gal_22k:
 	-pragma-need=ansiterminal \
 	-D__GAL__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -2330,7 +2329,7 @@ aussie:
 	
 # -subtype=osborne1
 osborne1:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 -subtype=osborne1 \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
@@ -5678,7 +5677,6 @@ gal_6k:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DCONIO \
-	-DALT_CLEAR_SCREEN \
 	-DNO_INIT_GRAPHICS \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(TINY_FILES)

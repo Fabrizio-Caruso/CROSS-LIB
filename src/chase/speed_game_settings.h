@@ -212,7 +212,10 @@
 		#define GAME_SLOW_DOWN 9000U
 	#elif defined(__M5__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 900					
+		#define GAME_SLOW_DOWN 900		
+	#elif defined(__LASER500__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 500			
 	#else
 		#define GAME_SLOW_DOWN 0
 	#endif

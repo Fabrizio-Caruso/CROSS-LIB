@@ -115,7 +115,7 @@ For most targets, more than one version is built, in order to support different 
 - mtx: MTX 512
 - multi8: Mitsubishi Multi 8
 - mz: Sharp MZ 80/700
-- mz2500: Sharp MZ 2500 (work in progress)
+- mz2500: Sharp MZ 2500
 - nascom: Nascom
 - nc100: Amstrad NC-100/150
 - nc200: Amstrad NC-200

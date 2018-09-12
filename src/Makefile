@@ -2979,6 +2979,7 @@ mz2500_buffered:
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
+	-DALT_CLEAR_SCREEN \
 	-DBUFFERED -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -3000,13 +3001,14 @@ mz2500:
 	$(FULL_FILES) \
 	-create-app
 
+# It almost works except for TURN_BASED
 mz2500_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
 	$(SCCZ80_OPTS) \
-	-D__MZ2500__ \
-	-DTURN_BASED \
+	-compiler=sdcc \
 	-DFORCE_XSIZE=31 \
 	-DFORXE_YSIZE=20 \
+	-D__MZ2500__ \
 	-vn \
 	-DNO_COLOR \
 	-DTINY_GAME \
@@ -3021,9 +3023,12 @@ mz2500_tiny_buffered:
 	-DBUFFERED -DNO_INIT_GRAPHICS \
 	-DFORCE_NARROW \
 	-DNO_STATS \
-	-DNO_PRINT \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DSTDLIB \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app 
 	mv a.2D $(BUILD_PATH)/TINY_mz2500_buffered.2D
 	
@@ -3680,7 +3685,8 @@ z88dk_targets: \
 	nc200_targets \
 	kc_targets \
 	vg5k_targets \
-	spectrum_targets	
+	spectrum_targets \
+	laser500_targets
 
 cmoc_targets: \
 	coco vectrex
@@ -3933,6 +3939,8 @@ nc100_targets: \
 nc200_targets: \
 	nc200
 
+laser500_targets: \
+	laser500
 ##
 
 supervision_targets: \

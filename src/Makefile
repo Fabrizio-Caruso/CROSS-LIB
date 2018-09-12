@@ -1958,7 +1958,7 @@ oz_buffered:
 	$(TINY_FILES)
 	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
 	rm a.bin
-	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
+	mv a.wzd $(BUILD_PATH)/TINY_oz_buffered.wzd
 	
 	
 oz:
@@ -2835,6 +2835,13 @@ camputers_lynx_tiny:
 	$(TINY_FILES) \
 	-create-app -o $(BUILD_PATH)/TINY_camputers_lynx.bin
 	rm $(BUILD_PATH)/TINY_camputers_lynx.bin	
+
+oz_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) \
+	$(SOURCE_PATH)/../experiments/hello.c 
+	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
+	rm a.bin
+	mv a.wzd $(BUILD_PATH)/oz_hello.wzd
 	
 	
 x07_hello:

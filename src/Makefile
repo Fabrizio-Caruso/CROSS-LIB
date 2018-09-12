@@ -3004,10 +3004,11 @@ mz2500:
 # It almost works except for TURN_BASED
 mz2500_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
-	$(SCCZ80_OPTS) \
+	-SO3 \
 	-compiler=sdcc \
-	-DFORCE_XSIZE=31 \
-	-DFORXE_YSIZE=20 \
+	-DFORCE_XSIZE=16 \
+	-DFORXE_YSIZE=16 \
+	-DFORCE_GHOSTS_NUMBER=6 \
 	-D__MZ2500__ \
 	-vn \
 	-DNO_COLOR \
@@ -3016,7 +3017,6 @@ mz2500_tiny_buffered:
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_DEAD_GHOSTS \
 	-DNO_SLEEP \
-	-DNO_WAIT \
 	-DNO_INITIAL_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-lndos \
@@ -3026,6 +3026,7 @@ mz2500_tiny_buffered:
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
 	-DSTDLIB \
+	-DNO_WAIT \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -5355,7 +5356,13 @@ m5_sounds:
 	rm -f A_DATA.bin
 	mv a.rom $(BUILD_PATH)/m5_sounds.rom
 
-
+mz2500_getchar:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 -create-app \
+	-vn -lndos \
+	$(SOURCE_PATH)/../experiments/getchar_test.c
+	rm -f a.bin
+	mv a.2D $(BUILD_PATH)/mz2500_getchar.2D
+	
 spectrum_sounds:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -create-app \
 	-vn -lndos \

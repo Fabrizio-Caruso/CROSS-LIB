@@ -38,6 +38,9 @@
 	{
 	#  if defined(NO_INPUT)
 		return 0;
+	// TODO: Remove this BOGUS MZ2500 CASE
+	#elif defined(__MZ2500__)
+		return TURN_BASED_INPUT();
 	#elif defined(TURN_BASED)
 		return TURN_BASED_INPUT();
 	
@@ -157,7 +160,7 @@ out			stb res
 #elif defined(NO_WAIT)
 //
 #elif defined(WAIT_FOR_KEY)
-	#  if defined(__GCC_BUFFERED__)
+	#  if defined(__GCC_BUFFERED__) || defined(STDLIB)
 		void WAIT_PRESS(void)
 		{
 			getchar();

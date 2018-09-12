@@ -10,7 +10,15 @@
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&15)==1)	
-#elif defined(__KAYPRO__) || (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES))
+#elif (defined(__ATTACHE__) && defined(Z88DK_SPRITES))
+	#define SKIP_DRAW \
+		if((loop&7)==1)
+	
+	#define SKIP_MORE_DRAW \
+		if((loop&31)==1)	
+#elif defined(__KAYPRO__) \
+	|| (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES)) \
+	|| (defined(__PX8__) && defined(Z88DK_SPRITES))
 	#define SKIP_DRAW \
 		if((loop&3)==1)
 	
@@ -196,9 +204,12 @@
 	#elif defined(__EINSTEIN__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 5000	
-	#elif defined(__PX4__) || defined(__PX8__)
+	#elif defined(__PX4__) 
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 2500
+	#elif defined(__PX8__) && !defined(Z88DK_SPRITES)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 9000U
 	#elif defined(__M5__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 900					

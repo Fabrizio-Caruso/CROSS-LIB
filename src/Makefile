@@ -961,7 +961,7 @@ zx81_16k_turn_based:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg
 
-		
+	
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	$(ZSDCC_OPTS) \
@@ -1679,6 +1679,24 @@ spectrum_48k:
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin	
 
 	
+spectrum_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -vn  \
+	-DTINY_GAME \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DBUFFERED \
+	-DFORCE_XSIZE=29 \
+	-DFORCE_YSIZE=19 \
+	-DTURN_BASED \
+	-DNO_INIT_GRAPHICS \
+	-D__SPECTRUM__ \
+	-lndos -create-app \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/TINY_spectrum_buffered.prg \
+	$(TINY_FILES)	
+	rm $(BUILD_PATH)/TINY_spectrum_buffered.prg
+	rm $(BUILD_PATH)/TINY_spectrum_buffered_BANK_7.bin	
+	
 # spectrum_48k_joystick:
 	# $(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -v  \
 	# -pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
@@ -1827,9 +1845,24 @@ px8_tiny:
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/TINY_px8.ROM
 
+px8_chars:	
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
+	$(SCCZ80_OPTS) \
+	-D__PX8__ \
+	-DCONIO_ADM3A \
+	-DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN \
+	-create-app \
+	$(FULL_FILES)
+	rm a.bin
+	mv A.ROM $(BUILD_PATH)/FULL_px8_chars.ROM	
+	# cp $(BUILD_PATH)/FULL_px8_chars.ROM /cygdrive/c/Emulation/TEST/PX-8/px8emul/BASIC.ROM
+	
 
 px8:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
+	$(SCCZ80_OPTS) \
 	-D__PX8__ \
 	-DFULL_GAME \
 	-subtype=px32k  -Cz--32k \
@@ -1843,6 +1876,7 @@ px8:
 	$(FULL_FILES)
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/FULL_px8.ROM
+	# cp $(BUILD_PATH)/FULL_px8.ROM /cygdrive/c/Emulation/TEST/PX-8/px8emul/BASIC.ROM
 
 
 px4_tiny_putc4x6:
@@ -1877,6 +1911,31 @@ px4_tiny:
 	mv A.ROM $(BUILD_PATH)/TINY_px4.ROM
 
 
+oz_buffered: 	
+	$(Z88DK_PATH)$(MYZ88DK) +oz \
+	$(SCCZ80_OPTS) \
+	-D__OZ__ \
+	-DTINY_GAME \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=8 \
+	-vn -lndos \
+	-DBUFFERED -DTURN_BASED -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DNO_RANDOM_LEVEL \
+	-DSIMPLE_STRATEGY \
+	-DALT_MOVE \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_PRINT \
+	$(TINY_FILES)
+	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
+	rm a.bin
+	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
+	
+	
 oz:
 	$(Z88DK_PATH)$(MYZ88DK) +oz \
 	$(SCCZ80_OPTS) \
@@ -1896,6 +1955,9 @@ oz:
 	-DNO_SLEEP \
 	-DNO_PRINT \
 	$(TINY_FILES)
+	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
+	rm a.bin
+	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
 	
 
 px4:
@@ -2222,20 +2284,63 @@ nc200:
 	# rm -f /cygdrive/c/Emulation/TEST/nc100em-1.2-2014/nc200.ram	
 	
 
-attache:
+attache_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache -subtype=attache \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_attache.bin \
+	-create-app -o$(BUILD_PATH)/FULL_attache_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_attache_chars.bin
+
+attache:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache -subtype=attache \
+	$(SCCZ80_OPTS) \
+	-D__ATTACHE__ \
+	-DFULL_GAME \
+	-DALT_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-create-app -o$(BUILD_PATH)/FULL_attache.bin \
+	-DNO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)	
 	rm $(BUILD_PATH)/FULL_attache.bin
-	# appmake +cpm -f ATTACHE -b $(BUILD_PATH)/FULL_ATTACHE.raw
-	# $(TOOLS_PATH)/cpm/BIN2IMD.COM FULL_ATTACHE.raw FULL_ATTACHE.imd /2 DM=5 N=40 SS=512 SM=1-10
+
+
+aussie:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -laussie  \
+	-D__AUSSIE__ \
+	-DCONIO_ADM3A \
+	-D__CPM_80X24__ \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_aussie.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_aussie.bin
+
 	
+# -subtype=osborne1
+osborne1:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 \
+	-DCONIO_ADM3A \
+	-D__CPM_80X24__ \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_osborne1.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_osborne1.bin
+
 	
 cpm_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
@@ -3170,8 +3275,8 @@ pc8086_tiny_buffered:
 
 cpm8080_buffered:
 	$(_ACK) $(_ACK_OPTS) -mcpm \
-	-DFORCE_XSIZE=78 \
-	-DFORCE_YSIZE=22 \
+	-DFORCE_XSIZE=24 \
+	-DFORCE_YSIZE=16 \
 	-DCONIO_ADM3A \
 	-DNO_COLOR \
 	-DACK \
@@ -3179,6 +3284,7 @@ cpm8080_buffered:
 	-DFULL_GAME \
 	-DTURN_BASED \
 	-DBUFFERED \
+	-DSTDLIB \
 	-DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
 	-DNO_SLEEP \
@@ -3370,13 +3476,16 @@ ncurses:
 	-lncurses
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses$(COMPILEDEXT)
 
+# cannot run in Mame (Kaypro 2x)
+# 	--max-allocs-per-node200000 -SO3 --opt-code-size 
+#	-compiler=sdcc
+# MAX: 79, 21 
 cpm_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	--max-allocs-per-node200000 -SO3 --opt-code-size \
-	-compiler=sdcc \
-	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
+	$(SCCZ80_OPTS) \
+	-DSTDLIB \
+	-DFORCE_XSIZE=24 \
+	-DFORCE_YSIZE=16 \
 	-DNO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
@@ -3389,7 +3498,7 @@ cpm_buffered:
 	-create-app
 	rm a.bin
 	mv A.COM $(BUILD_PATH)/FULL_CPM_BUFFERED.COM
-	cp $(BUILD_PATH)/FULL_CPM_BUFFERED.COM $(BUILD_PATH)/CPM.COM
+	# cp $(BUILD_PATH)/FULL_CPM_BUFFERED.COM $(BUILD_PATH)/CPM.COM
 	
 	
 gcc_buffered:
@@ -3512,6 +3621,8 @@ z88dk_test: \
 	
 	
 z88dk_targets: \
+	attache_targets \
+	osborne1_targets \
 	osca_targets \
 	kaypro_targets \
 	enterprise_targets \
@@ -3576,7 +3687,7 @@ cmoc_targets: \
 	coco vectrex
 	
 ack_targets: \
-	pdp11v7 cpm8080 pc8086 linux386 linux68k linuxppc  
+	pdp11v7 cpm8080_buffered pc8086 linux386 linux68k linuxppc  
 	
 all: cc65_targets z88dk_targets cmoc_targets ncurses_targets ack_targets
 
@@ -3674,7 +3785,7 @@ tiki100_targets: \
 	tiki100
 
 enterprise_targets: \
-	enterprise_turn_based
+	enterprise_buffered
 	
 einstein_targets: \
 	einstein
@@ -3691,6 +3802,12 @@ tiki100_targets: \
 osca_targets: \
 	osca
 	
+attache_targets: \
+	attache
+	
+osborne1_targets: \
+	osborne1
+	
 z1013_targets: \
 	z1013
 	
@@ -3701,7 +3818,7 @@ px4_targets: \
 	px4 
 
 px8_targets: \
-	px8 px8_tiny
+	px8 px8_chars
 	
 kc_targets: \
 	kc_tiny_udg kc_light_udg kc_udg
@@ -5286,7 +5403,7 @@ sms_chicken:
 
 
 sms_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=16 -v \
+	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=1 -v \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-D__SMS__ \
 	-DNO_COLOR \
@@ -5297,7 +5414,7 @@ sms_tiny:
 	-DLESS_TEXT \
 	-DNO_PRINT \
 	-create-app \
-	-DCONIO \
+	-DBUFFRED \
 	-DALT_CLEAR_SCREEN \
 	-DSIMPLE_STRATEGY \
 	-o $(BUILD_PATH)/TINY_sms.bin \

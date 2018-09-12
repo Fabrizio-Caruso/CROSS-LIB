@@ -746,7 +746,7 @@ vz200_18k:
 laser500: 	
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 -vn -create-app -Cz--audio \
 	$(SCCZ80_OPTS) \
-	-D__VZ__ \
+	-D__LASER500__ \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \

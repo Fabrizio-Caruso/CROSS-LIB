@@ -3,7 +3,8 @@
 
 #if defined(Z88DK_SPRITES)
 
-#if (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES))
+#if (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES)) \
+	|| (defined(__OSBORNE1__) && defined(Z88DK_SPRITES))
 	#define EXTRA_TINY_Y
 	#define EXTRA_TINY_X
 #endif
@@ -116,7 +117,9 @@
 	#elif (defined(__PX8__) && defined(Z88DK_SPRITES))
 		#define YSize ((64/SPRITE_Y_STEP)+1)		
 	#elif (defined(__PX4__) && defined(Z88DK_SPRITES))
-		#define YSize ((64/SPRITE_Y_STEP)+1)		
+		#define YSize ((64/SPRITE_Y_STEP)+1)
+	#elif (defined(__OSBORNE1__) && defined(Z88DK_SPRITES))
+		#define YSize ((48/SPRITE_Y_STEP)-1)
 	#elif defined(__TIKI100__)
 		#define YSize ((256/SPRITE_Y_STEP)-Y_OFFSET)
 	#elif (defined(__NC100__) && defined(Z88DK_SPRITES)) 
@@ -165,6 +168,8 @@
 		#define XSize (320/SPRITE_X_STEP)	
 	#elif (defined(__OZ__) && defined(Z88DK_SPRITES))
 		#define XSize (239/SPRITE_X_STEP)
+	#elif (defined(__OSBORNE1__) && defined(Z88DK_SPRITES))
+		#define XSize ((104/SPRITE_X_STEP))
 	#elif defined(__NASCOM__)	
 		#define XSize 48
 	#elif defined(__VG5K__) || (defined(__APPLE2ENH__) && !defined(APPLE2ENH_80COL_VIDEO_MODE))|| defined(__APPLE2__) \

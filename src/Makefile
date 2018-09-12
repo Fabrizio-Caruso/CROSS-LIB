@@ -194,6 +194,31 @@ vic20_unexpanded:
 	$(CROSS_LIB_PATH)/display/alt_print/vic20_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
 	
+vic20_unexpanded_turn_based:
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	-DFORCE_KEYBOARD \
+	-DTURN_BASED \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_TEXT_COLOR \
+	-DVIC20_UNEXPANDED \
+	-DNO_SLEEP \
+	-DLESS_TEXT \
+	-DNO_SET_SCREEN_COLORS \
+	-DTINY_GAME \
+	-DNO_RANDOM_LEVEL \
+	-DNO_STATS \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_DEAD_GHOSTS \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DMEMORY_MAPPED \
+	-DALT_DISPLAY_STATS \
+	-DFLAT_ENEMIES \
+	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/vic20_alt_stats.c \
+	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg	
+	
 vic20_exp_3k:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
 	-DREDEFINED_CHARS \
@@ -212,7 +237,8 @@ vic20_exp_3k:
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 
-
+	
+	
 vic20_exp_8k_full:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/vic20-8k.cfg \
 	-DFULL_GAME \
@@ -2328,18 +2354,30 @@ aussie:
 
 	
 # -subtype=osborne1
-osborne1:
+osborne1_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 -subtype=osborne1 \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
-	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DFULL_GAME -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_osborne1.bin \
+	-create-app -o$(BUILD_PATH)/FULL_osborne1_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_osborne1.bin
+	rm $(BUILD_PATH)/FULL_osborne1_chars.bin
 
+osborne1:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 -subtype=osborne1 \
+	-D__OSBORNE1__ \
+	-DFULL_GAME -DLESS_TEXT \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DALT_PRINT \
+	-create-app -o$(BUILD_PATH)/FULL_osborne1.bin \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/FULL_osborne1.bin	
+	
 	
 cpm_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \

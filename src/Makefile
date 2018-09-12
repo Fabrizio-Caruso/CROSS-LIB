@@ -3031,6 +3031,7 @@ mz2500_tiny_buffered:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app 
 	mv a.2D $(BUILD_PATH)/TINY_mz2500_buffered.2D
+	rm a.bin
 	
 mz2500_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \

@@ -3023,7 +3023,28 @@ ts2068_turn_based:
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_ts2068_turn_based.bin 
 	rm $(BUILD_PATH)/FULL_ts2068_turn_based.bin	
-	
+
+aussie_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -laussie  \
+	$(SCCZ80_OPTS) \
+	-vn \
+	-D__AUSSIE__ \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
+	-DFORCE_XSIZE=16 \
+	-DFORCE_YSIZE=12 \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-create-app	
+	rm a.bin
+	mv a.COM $(BUILD_PATH)/FULL_aussie.COM
 	
 # TODO: Try -subtype=com
 enterprise_buffered:
@@ -3806,6 +3827,7 @@ z88dk_test: \
 	
 	
 z88dk_targets: \
+	aussie_targets \
 	attache_targets \
 	osborne1_targets \
 	osca_targets \
@@ -3937,6 +3959,9 @@ list:
 #
 #
 
+aussie_targets: \
+	aussie_buffered
+
 eg2k_targets: \
 	eg2k_udg
 
@@ -3989,10 +4014,10 @@ osca_targets: \
 	osca
 	
 attache_targets: \
-	attache
+	attache attache_chars
 	
 osborne1_targets: \
-	osborne1
+	osborne1 osborne1_chars
 	
 z1013_targets: \
 	z1013

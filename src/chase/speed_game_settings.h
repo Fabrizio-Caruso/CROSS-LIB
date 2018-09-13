@@ -149,10 +149,7 @@
 		#define GAME_SLOW_DOWN 250
 	#elif (defined(__C16__) || defined(__PLUS4__)) && !defined(FULL_GAME)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 250		
-	#elif defined(__C64__)
-		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 50		
+		#define GAME_SLOW_DOWN 250			
 	#elif defined(__ATMOS__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 50		

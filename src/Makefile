@@ -3108,7 +3108,7 @@ mz2500_tiny_buffered:
 	-SO3 \
 	-compiler=sdcc \
 	-DFORCE_XSIZE=16 \
-	-DFORXE_YSIZE=12 \
+	-DFORCE_YSIZE=12 \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	-DFORCE_BOMBS_NUMBER=4 \
 	-D__MZ2500__ \
@@ -3129,7 +3129,6 @@ mz2500_tiny_buffered:
 	-DALT_CLEAR_SCREEN \
 	-DSTDLIB \
 	-DNO_WAIT \
-	-DBUFFRED \
 	-DTURN_BASED \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(TINY_FILES) \
@@ -3165,7 +3164,6 @@ newbrain:
 	-DALT_CLEAR_SCREEN \
 	-DSTDLIB \
 	-DNO_WAIT \
-	-DBUFFRED \
 	-DTURN_BASED \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(FULL_FILES) \
@@ -3184,7 +3182,7 @@ test:
 	-SO3 \
 	-compiler=sdcc \
 	-DFORCE_XSIZE=16 \
-	-DFORXE_YSIZE=16 \
+	-DFORCE_YSIZE=16 \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	-DFORCE_BOMBS_NUMBER=2 \
 	-vn \
@@ -3204,7 +3202,6 @@ test:
 	-DALT_CLEAR_SCREEN \
 	-DSTDLIB \
 	-DNO_WAIT \
-	-DBUFFRED \
 	-DTURN_BASED \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -3238,7 +3235,7 @@ mz2500_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
 	-compiler=sdcc \
 	-DFORCE_XSIZE=31 \
-	-DFORXE_YSIZE=20 \
+	-DFORCE_YSIZE=20 \
 	-D__MZ2500__ \
 	-vn \
 	-DNO_COLOR \
@@ -5633,7 +5630,7 @@ sms_tiny:
 	-DLESS_TEXT \
 	-DNO_PRINT \
 	-create-app \
-	-DBUFFRED \
+	-DBUFFERD \
 	-DALT_CLEAR_SCREEN \
 	-DSIMPLE_STRATEGY \
 	-o $(BUILD_PATH)/TINY_sms.bin \

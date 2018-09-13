@@ -2857,6 +2857,18 @@ camputers_lynx_tiny:
 	-create-app -o $(BUILD_PATH)/TINY_camputers_lynx.bin
 	rm $(BUILD_PATH)/TINY_camputers_lynx.bin	
 
+newbrain_newline:
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
+	-lndos \
+	$(SOURCE_PATH)/../experiments/newline_test.c \
+	-create-app
+	tar czvf newline_test.tar.zip _dir.txt a.bas a.dat
+	mv newline_test.tar.zip $(BUILD_PATH)
+	rm _dir.txt
+	rm a.bas
+	rm a.dat
+	rm a.bin	
+	
 newbrain_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
 	-lndos \
@@ -2929,27 +2941,6 @@ rex:
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_rex.bin
 	
-
-newbrain:
-	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
-	-D__NEWBRAIN__ \
-	-DTURN_BASED \
-	-vn \
-	-DCONIO_VT52 \
-	-DNO_COLOR \
-	-DFULL_GAME -DSOUNDS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	-create-app 
-	tar czvf FULL_newbrain.tar.zip _dir.txt a.bas a.dat
-	rm _dir.txt
-	rm a.bas
-	rm a.dat
-	rm a.bin	
-
 	
 
 g800_turn_based:
@@ -3032,7 +3023,28 @@ ts2068_turn_based:
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_ts2068_turn_based.bin 
 	rm $(BUILD_PATH)/FULL_ts2068_turn_based.bin	
-	
+
+aussie_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -laussie  \
+	$(SCCZ80_OPTS) \
+	-vn \
+	-D__AUSSIE__ \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
+	-DFORCE_XSIZE=16 \
+	-DFORCE_YSIZE=12 \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-create-app	
+	rm a.bin
+	mv a.COM $(BUILD_PATH)/FULL_aussie.COM
 	
 # TODO: Try -subtype=com
 enterprise_buffered:
@@ -3096,7 +3108,7 @@ mz2500_tiny_buffered:
 	-SO3 \
 	-compiler=sdcc \
 	-DFORCE_XSIZE=16 \
-	-DFORXE_YSIZE=12 \
+	-DFORCE_YSIZE=12 \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	-DFORCE_BOMBS_NUMBER=4 \
 	-D__MZ2500__ \
@@ -3117,7 +3129,6 @@ mz2500_tiny_buffered:
 	-DALT_CLEAR_SCREEN \
 	-DSTDLIB \
 	-DNO_WAIT \
-	-DBUFFRED \
 	-DTURN_BASED \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(TINY_FILES) \
@@ -3125,13 +3136,53 @@ mz2500_tiny_buffered:
 	-create-app 
 	mv a.2D $(BUILD_PATH)/TINY_mz2500_buffered.2D
 	rm a.bin
+
+
+newbrain:
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
+	-D__NEWBRAIN__ \
+	-SO3 \
+	-compiler=sdcc \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=11 \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-vn \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_DEAD_GHOSTS \
+	-DNO_SLEEP \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-lndos \
+	-DBUFFERED -DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
+	-DNO_STATS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DSTDLIB \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app
+	tar czvf FULL_newbrain.tar.zip _dir.txt a.bas a.dat
+	mv FULL_newbrain.tar.zip $(BUILD_PATH)
+	rm _dir.txt
+	rm a.bas
+	rm a.dat
+	rm a.bin	
+
 	
 test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-SO3 \
 	-compiler=sdcc \
 	-DFORCE_XSIZE=16 \
-	-DFORXE_YSIZE=16 \
+	-DFORCE_YSIZE=16 \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	-DFORCE_BOMBS_NUMBER=2 \
 	-vn \
@@ -3151,7 +3202,6 @@ test:
 	-DALT_CLEAR_SCREEN \
 	-DSTDLIB \
 	-DNO_WAIT \
-	-DBUFFRED \
 	-DTURN_BASED \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -3185,7 +3235,7 @@ mz2500_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
 	-compiler=sdcc \
 	-DFORCE_XSIZE=31 \
-	-DFORXE_YSIZE=20 \
+	-DFORCE_YSIZE=20 \
 	-D__MZ2500__ \
 	-vn \
 	-DNO_COLOR \
@@ -3774,6 +3824,7 @@ z88dk_test: \
 	
 	
 z88dk_targets: \
+	aussie_targets \
 	attache_targets \
 	osborne1_targets \
 	osca_targets \
@@ -3905,6 +3956,9 @@ list:
 #
 #
 
+aussie_targets: \
+	aussie_buffered
+
 eg2k_targets: \
 	eg2k_udg
 
@@ -3957,10 +4011,10 @@ osca_targets: \
 	osca
 	
 attache_targets: \
-	attache
+	attache attache_chars
 	
 osborne1_targets: \
-	osborne1
+	osborne1 osborne1_chars
 	
 z1013_targets: \
 	z1013
@@ -5576,7 +5630,7 @@ sms_tiny:
 	-DLESS_TEXT \
 	-DNO_PRINT \
 	-create-app \
-	-DBUFFRED \
+	-DBUFFERD \
 	-DALT_CLEAR_SCREEN \
 	-DSIMPLE_STRATEGY \
 	-o $(BUILD_PATH)/TINY_sms.bin \

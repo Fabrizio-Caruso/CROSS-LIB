@@ -568,3 +568,30 @@ Use Mame (See CP/M target)
 
 mame64.exe kaypro2x -flop1 ..\disk\kaypro\k10hald1.td0 -uimodekey DEL
 
+
+------------------------------------------------------------
+
+OSCA 
+
+Use the OSCA emulator (http://www.basoft.co.uk/wordpress/emulation/computer-system-emulation/v6z80p/osca-emulator/)
+Use WinImage to inject the .exe binary into a working .img file
+Edit the config.txt to make it point to the modified .img file
+Run by typing the executable name (whitout .exe)
+
+------------------------------------------------------------
+
+GRUNDY NEWBRAIN
+
+Use NBemulator15
+Create a directory with _dir.txt, a.bas, a.dat 
+Insert this directory into the BASIC directory
+Start the emulator
+File -> Start Emulation
+File -> Tape Management -> Select directory with the game's files
+Type "LOAD"
+Type "RUN"
+
+
+
+
+

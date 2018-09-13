@@ -3096,9 +3096,9 @@ mz2500_tiny_buffered:
 	-SO3 \
 	-compiler=sdcc \
 	-DFORCE_XSIZE=16 \
-	-DFORXE_YSIZE=16 \
+	-DFORXE_YSIZE=12 \
 	-DFORCE_GHOSTS_NUMBER=6 \
-	-DFORCE_BOMBS_NUMBER=2 \
+	-DFORCE_BOMBS_NUMBER=4 \
 	-D__MZ2500__ \
 	-vn \
 	-DNO_COLOR \
@@ -3125,6 +3125,61 @@ mz2500_tiny_buffered:
 	-create-app 
 	mv a.2D $(BUILD_PATH)/TINY_mz2500_buffered.2D
 	rm a.bin
+	
+test:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
+	-SO3 \
+	-compiler=sdcc \
+	-DFORCE_XSIZE=16 \
+	-DFORXE_YSIZE=16 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DFORCE_BOMBS_NUMBER=2 \
+	-vn \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_DEAD_GHOSTS \
+	-DNO_SLEEP \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-lndos \
+	-DBUFFERED -DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
+	-DNO_STATS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DSTDLIB \
+	-DNO_WAIT \
+	-DBUFFRED \
+	-DTURN_BASED \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES) \
+	-create-app
+	rm a.bin
+	mv A.COM $(BUILD_PATH)/TINY_CPM_TINY_BUFFERED.COM
+
+	
+# OK
+cpm_tiny_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm \
+	$(SCCZ80_OPTS) \
+	-DSTDLIB \
+	-DFORCE_XSIZE=24 \
+	-DFORCE_YSIZE=16 \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES) \
+	-create-app
+	rm a.bin
+	mv A.COM $(BUILD_PATH)/TINY_CPM_TINY_BUFFERED.COM
 	
 mz2500_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \

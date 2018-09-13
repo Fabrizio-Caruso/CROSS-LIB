@@ -123,7 +123,7 @@ For most targets, more than one version is built, in order to support different 
 - newbrain: Grundy Newbrain (work in progress)
 - oric: Tangerine Oric 1/Atmos
 - osborne1: Osborne 1
-- osca: OSCA (work in progress)
+- osca: OSCA v6z80p
 - osic1p: Ohio Scientific Challenger 1P
 - oz: Sharp OZ-700 (work in progress)
 - p2000: Philips P2000

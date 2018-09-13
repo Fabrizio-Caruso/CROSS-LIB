@@ -2857,6 +2857,18 @@ camputers_lynx_tiny:
 	-create-app -o $(BUILD_PATH)/TINY_camputers_lynx.bin
 	rm $(BUILD_PATH)/TINY_camputers_lynx.bin	
 
+newbrain_newline:
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
+	-lndos \
+	$(SOURCE_PATH)/../experiments/newline_test.c \
+	-create-app
+	tar czvf newline_test.tar.zip _dir.txt a.bas a.dat
+	mv newline_test.tar.zip $(BUILD_PATH)
+	rm _dir.txt
+	rm a.bas
+	rm a.dat
+	rm a.bin	
+	
 newbrain_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
 	-lndos \
@@ -2929,27 +2941,6 @@ rex:
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_rex.bin
 	
-
-newbrain:
-	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
-	-D__NEWBRAIN__ \
-	-DTURN_BASED \
-	-vn \
-	-DCONIO_VT52 \
-	-DNO_COLOR \
-	-DFULL_GAME -DSOUNDS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	-create-app 
-	tar czvf FULL_newbrain.tar.zip _dir.txt a.bas a.dat
-	rm _dir.txt
-	rm a.bas
-	rm a.dat
-	rm a.bin	
-
 	
 
 g800_turn_based:
@@ -3125,6 +3116,47 @@ mz2500_tiny_buffered:
 	-create-app 
 	mv a.2D $(BUILD_PATH)/TINY_mz2500_buffered.2D
 	rm a.bin
+
+
+newbrain:
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
+	-D__NEWBRAIN__ \
+	-SO3 \
+	-compiler=sdcc \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=11 \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-vn \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_DEAD_GHOSTS \
+	-DNO_SLEEP \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-lndos \
+	-DBUFFERED -DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
+	-DNO_STATS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DSTDLIB \
+	-DNO_WAIT \
+	-DBUFFRED \
+	-DTURN_BASED \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app
+	tar czvf FULL_newbrain.tar.zip _dir.txt a.bas a.dat
+	mv FULL_newbrain.tar.zip $(BUILD_PATH)
+	rm _dir.txt
+	rm a.bas
+	rm a.dat
+	rm a.bin	
+
 	
 test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \

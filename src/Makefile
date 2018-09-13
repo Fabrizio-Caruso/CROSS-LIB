@@ -194,6 +194,31 @@ vic20_unexpanded:
 	$(CROSS_LIB_PATH)/display/alt_print/vic20_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
 	
+vic20_unexpanded_turn_based:
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	-DFORCE_KEYBOARD \
+	-DTURN_BASED \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_TEXT_COLOR \
+	-DVIC20_UNEXPANDED \
+	-DNO_SLEEP \
+	-DLESS_TEXT \
+	-DNO_SET_SCREEN_COLORS \
+	-DTINY_GAME \
+	-DNO_RANDOM_LEVEL \
+	-DNO_STATS \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_DEAD_GHOSTS \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DMEMORY_MAPPED \
+	-DALT_DISPLAY_STATS \
+	-DFLAT_ENEMIES \
+	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/vic20_alt_stats.c \
+	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg	
+	
 vic20_exp_3k:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
 	-DREDEFINED_CHARS \
@@ -212,7 +237,8 @@ vic20_exp_3k:
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 
-
+	
+	
 vic20_exp_8k_full:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/vic20-8k.cfg \
 	-DFULL_GAME \
@@ -686,9 +712,12 @@ aquarius_exp_4k:
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/aquarius_init_graphics.c
-	rm $(SOURCE_PATH)/../TINY_aquarius_exp_4k
-	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)
-	mv $(SOURCE_PATH)/../_TINY_aquarius_exp_4k.caq $(BUILD_PATH)
+	rm TINY_aquarius_exp_4k
+	tar czvf TINY_aquarius_exp_4k.tar.zip TINY_aquarius_exp_4k.caq _TINY_aquarius_exp_4k.caq
+	rm TINY_aquarius_exp_4k.caq
+	rm _TINY_aquarius_exp_4k.caq
+	mv TINY_aquarius_exp_4k.tar.zip $(BUILD_PATH)
+
 
 
 aquarius_exp_16k: 
@@ -700,9 +729,14 @@ aquarius_exp_16k:
 	$(FULL_FILES) \
 	-create-app	\
 	-o FULL_aquarius_exp_16k
-	rm $(SOURCE_PATH)/../FULL_aquarius_exp_16k
-	mv $(SOURCE_PATH)/../FULL_aquarius_exp_16k.caq $(BUILD_PATH)
-	mv $(SOURCE_PATH)/../_FULL_aquarius_exp_16k.caq $(BUILD_PATH)
+	rm FULL_aquarius_exp_16k
+	tar czvf FULL_aquarius_exp_16k.tar.zip FULL_aquarius_exp_16k.caq _FULL_aquarius_exp_16k.caq
+	rm FULL_aquarius_exp_16k.caq
+	rm _FULL_aquarius_exp_16k.caq
+	mv FULL_aquarius_exp_16k.tar.zip $(BUILD_PATH)	
+	# rm $(SOURCE_PATH)/../FULL_aquarius_exp_16k
+	# mv $(SOURCE_PATH)/../FULL_aquarius_exp_16k.caq $(BUILD_PATH)
+	# mv $(SOURCE_PATH)/../_FULL_aquarius_exp_16k.caq $(BUILD_PATH)
 
 
 vz200_8k:
@@ -1302,6 +1336,19 @@ microbee_32k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_microbee_32k.prg
 
+microbee_32k_wav:
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) -subtype=wav \
+	-D__BEE__ \
+	-clib=ansi \
+	-vn \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_microbee_32k.prg  \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_microbee_32k.prg	
+	
+	
 # import as data into ram at 32768 - call 32768
 samcoupe:
 	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) \
@@ -1932,7 +1979,7 @@ oz_buffered:
 	$(TINY_FILES)
 	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
 	rm a.bin
-	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
+	mv a.wzd $(BUILD_PATH)/TINY_oz_buffered.wzd
 	
 	
 oz:
@@ -2328,18 +2375,30 @@ aussie:
 
 	
 # -subtype=osborne1
-osborne1:
+osborne1_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 -subtype=osborne1 \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
-	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DFULL_GAME -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_osborne1.bin \
+	-create-app -o$(BUILD_PATH)/FULL_osborne1_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_osborne1.bin
+	rm $(BUILD_PATH)/FULL_osborne1_chars.bin
 
+osborne1:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 -subtype=osborne1 \
+	-D__OSBORNE1__ \
+	-DFULL_GAME -DLESS_TEXT \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DALT_PRINT \
+	-create-app -o$(BUILD_PATH)/FULL_osborne1.bin \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/FULL_osborne1.bin	
+	
 	
 cpm_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
@@ -2797,6 +2856,25 @@ camputers_lynx_tiny:
 	$(TINY_FILES) \
 	-create-app -o $(BUILD_PATH)/TINY_camputers_lynx.bin
 	rm $(BUILD_PATH)/TINY_camputers_lynx.bin	
+
+newbrain_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
+	-lndos \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-create-app
+	tar czvf xchase.tar.zip _dir.txt a.bas a.dat
+	rm _dir.txt
+	rm a.bas
+	rm a.dat
+	rm a.bin
+	
+	
+oz_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) \
+	$(SOURCE_PATH)/../experiments/hello.c 
+	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
+	rm a.bin
+	mv a.wzd $(BUILD_PATH)/oz_hello.wzd
 	
 	
 x07_hello:
@@ -2865,8 +2943,13 @@ newbrain:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app -o $(BUILD_PATH)/FULL_newbrain.bin
-	mv _dir.txt $(BUILD_PATH)/
+	-create-app 
+	tar czvf FULL_newbrain.tar.zip _dir.txt a.bas a.dat
+	rm _dir.txt
+	rm a.bas
+	rm a.dat
+	rm a.bin	
+
 	
 
 g800_turn_based:
@@ -2951,8 +3034,9 @@ ts2068_turn_based:
 	rm $(BUILD_PATH)/FULL_ts2068_turn_based.bin	
 	
 	
+# TODO: Try -subtype=com
 enterprise_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +enterprise \
+	$(Z88DK_PATH)$(MYZ88DK) +enterprise  \
 	$(SCCZ80_OPTS) \
 	-vn \
 	-D__ENTERPRISE__ \
@@ -2970,7 +3054,7 @@ enterprise_buffered:
 	-create-app
 	mv a.app $(BUILD_PATH)/FULL_enterprise.app
 	rm a.bin
-	
+
 mz2500_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
 	-D__MZ2500__ \
@@ -2979,6 +3063,7 @@ mz2500_buffered:
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
+	-DALT_CLEAR_SCREEN \
 	-DBUFFERED -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -3000,13 +3085,15 @@ mz2500:
 	$(FULL_FILES) \
 	-create-app
 
+# It almost works except for TURN_BASED
 mz2500_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
-	$(SCCZ80_OPTS) \
+	-SO3 \
+	-compiler=sdcc \
+	-DFORCE_XSIZE=16 \
+	-DFORXE_YSIZE=16 \
+	-DFORCE_GHOSTS_NUMBER=6 \
 	-D__MZ2500__ \
-	-DTURN_BASED \
-	-DFORCE_XSIZE=31 \
-	-DFORXE_YSIZE=20 \
 	-vn \
 	-DNO_COLOR \
 	-DTINY_GAME \
@@ -3014,18 +3101,22 @@ mz2500_tiny_buffered:
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_DEAD_GHOSTS \
 	-DNO_SLEEP \
-	-DNO_WAIT \
 	-DNO_INITIAL_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-lndos \
 	-DBUFFERED -DNO_INIT_GRAPHICS \
 	-DFORCE_NARROW \
 	-DNO_STATS \
-	-DNO_PRINT \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DSTDLIB \
+	-DNO_WAIT \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app 
 	mv a.2D $(BUILD_PATH)/TINY_mz2500_buffered.2D
+	rm a.bin
 	
 mz2500_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
@@ -3680,7 +3771,8 @@ z88dk_targets: \
 	nc200_targets \
 	kc_targets \
 	vg5k_targets \
-	spectrum_targets	
+	spectrum_targets \
+	laser500_targets
 
 cmoc_targets: \
 	coco vectrex
@@ -3933,6 +4025,8 @@ nc100_targets: \
 nc200_targets: \
 	nc200
 
+laser500_targets: \
+	laser500
 ##
 
 supervision_targets: \
@@ -5346,7 +5440,13 @@ m5_sounds:
 	rm -f A_DATA.bin
 	mv a.rom $(BUILD_PATH)/m5_sounds.rom
 
-
+mz2500_getchar:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 -create-app \
+	-vn -lndos \
+	$(SOURCE_PATH)/../experiments/getchar_test.c
+	rm -f a.bin
+	mv a.2D $(BUILD_PATH)/mz2500_getchar.2D
+	
 spectrum_sounds:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -create-app \
 	-vn -lndos \

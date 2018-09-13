@@ -208,23 +208,24 @@
 #if !defined(NO_COLOR)
 	#ifndef COLOR_BLACK
 		#if defined(Z88DK)
-			#define COLOR_BLUE 1
-			#define COLOR_BLACK 0	
+			#define COLOR_BLUE BLUE
+			#define COLOR_BLACK BLACK
 			#if defined(__PC6001__)
 				#define COLOR_WHITE 7
 			#else
-				#define COLOR_WHITE 15
+				#define COLOR_WHITE WHITE
 			#endif
 		#endif
 	#endif
 	
 	#ifndef COLOR_RED
-		#define COLOR_GREEN 2
-		#define COLOR_CYAN 3	
-		#define COLOR_MAGENTA 5
-		#define COLOR_RED 6		
-		#define COLOR_YELLOW 14		
-	#endif
+		#define COLOR_GREEN GREEN
+		#define COLOR_CYAN CYAN
+		#define COLOR_MAGENTA MAGENTA
+		#define COLOR_RED RED
+		#define COLOR_YELLOW YELLOW		
+	#endif	
+	
 #endif
 
 

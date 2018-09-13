@@ -712,9 +712,12 @@ aquarius_exp_4k:
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/aquarius_init_graphics.c
-	rm $(SOURCE_PATH)/../TINY_aquarius_exp_4k
-	mv $(SOURCE_PATH)/../TINY_aquarius_exp_4k.caq $(BUILD_PATH)
-	mv $(SOURCE_PATH)/../_TINY_aquarius_exp_4k.caq $(BUILD_PATH)
+	rm TINY_aquarius_exp_4k
+	tar czvf TINY_aquarius_exp_4k.tar.zip TINY_aquarius_exp_4k.caq _TINY_aquarius_exp_4k.caq
+	rm TINY_aquarius_exp_4k.caq
+	rm _TINY_aquarius_exp_4k.caq
+	mv TINY_aquarius_exp_4k.tar.zip $(BUILD_PATH)
+
 
 
 aquarius_exp_16k: 
@@ -726,9 +729,14 @@ aquarius_exp_16k:
 	$(FULL_FILES) \
 	-create-app	\
 	-o FULL_aquarius_exp_16k
-	rm $(SOURCE_PATH)/../FULL_aquarius_exp_16k
-	mv $(SOURCE_PATH)/../FULL_aquarius_exp_16k.caq $(BUILD_PATH)
-	mv $(SOURCE_PATH)/../_FULL_aquarius_exp_16k.caq $(BUILD_PATH)
+	rm FULL_aquarius_exp_16k
+	tar czvf FULL_aquarius_exp_16k.tar.zip FULL_aquarius_exp_16k.caq _FULL_aquarius_exp_16k.caq
+	rm FULL_aquarius_exp_16k.caq
+	rm _FULL_aquarius_exp_16k.caq
+	mv FULL_aquarius_exp_16k.tar.zip $(BUILD_PATH)	
+	# rm $(SOURCE_PATH)/../FULL_aquarius_exp_16k
+	# mv $(SOURCE_PATH)/../FULL_aquarius_exp_16k.caq $(BUILD_PATH)
+	# mv $(SOURCE_PATH)/../_FULL_aquarius_exp_16k.caq $(BUILD_PATH)
 
 
 vz200_8k:
@@ -1328,6 +1336,19 @@ microbee_32k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_microbee_32k.prg
 
+microbee_32k_wav:
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) -subtype=wav \
+	-D__BEE__ \
+	-clib=ansi \
+	-vn \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_microbee_32k.prg  \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_microbee_32k.prg	
+	
+	
 # import as data into ram at 32768 - call 32768
 samcoupe:
 	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) \
@@ -2836,6 +2857,18 @@ camputers_lynx_tiny:
 	-create-app -o $(BUILD_PATH)/TINY_camputers_lynx.bin
 	rm $(BUILD_PATH)/TINY_camputers_lynx.bin	
 
+newbrain_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
+	-lndos \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-create-app
+	tar czvf xchase.tar.zip _dir.txt a.bas a.dat
+	rm _dir.txt
+	rm a.bas
+	rm a.dat
+	rm a.bin
+	
+	
 oz_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) \
 	$(SOURCE_PATH)/../experiments/hello.c 
@@ -2910,8 +2943,13 @@ newbrain:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app -o $(BUILD_PATH)/FULL_newbrain.bin
-	mv _dir.txt $(BUILD_PATH)/
+	-create-app 
+	tar czvf FULL_newbrain.tar.zip _dir.txt a.bas a.dat
+	rm _dir.txt
+	rm a.bas
+	rm a.dat
+	rm a.bin	
+
 	
 
 g800_turn_based:
@@ -2996,8 +3034,9 @@ ts2068_turn_based:
 	rm $(BUILD_PATH)/FULL_ts2068_turn_based.bin	
 	
 	
+# TODO: Try -subtype=com
 enterprise_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +enterprise \
+	$(Z88DK_PATH)$(MYZ88DK) +enterprise  \
 	$(SCCZ80_OPTS) \
 	-vn \
 	-D__ENTERPRISE__ \
@@ -3015,7 +3054,7 @@ enterprise_buffered:
 	-create-app
 	mv a.app $(BUILD_PATH)/FULL_enterprise.app
 	rm a.bin
-	
+
 mz2500_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
 	-D__MZ2500__ \

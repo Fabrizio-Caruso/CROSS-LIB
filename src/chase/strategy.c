@@ -157,6 +157,9 @@ void computeStrategy(void)
 
 #if defined(__NCURSES__) || defined(__GCC_BUFFERED__)
 	#define GHOST_RANDOM_CONDITION ((rand()&0x7fff)>slowDown)
+// TODO: This is a hack
+#elif defined(__MZ2500__)
+	#define GHOST_RANDOM_CONDITION (loop%1)
 #else
 	#define GHOST_RANDOM_CONDITION (rand()>slowDown)
 #endif
@@ -178,15 +181,15 @@ void chaseCharacter(unsigned short slowDown)
 		#else
 			if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)	
 		#endif
-		{
-			deleteGhost(&ghosts[i]);
-			#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
-				moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]);	
-			#elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
-				moveTowardCharacter(preyPtr, &ghosts[i]);	
-			#else
-				moveTowardCharacter(&ghosts[i]);	
-			#endif
-		}
+			{
+				deleteGhost(&ghosts[i]);
+				#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
+					moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]);	
+				#elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
+					moveTowardCharacter(preyPtr, &ghosts[i]);	
+				#else
+					moveTowardCharacter(&ghosts[i]);	
+				#endif
+			}
 	}
 }

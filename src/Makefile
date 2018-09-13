@@ -3084,6 +3084,11 @@ mz2500:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app
+	
+mz2500_random:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 -compiler=sdcc -SO3 $(SCCZ80_OPTS) \
+	$(SOURCE_PATH)/../experiments/random_test.c \
+	-create-app -o $(BUILD_PATH)/mz2500_random_test.bin
 
 # It almost works except for TURN_BASED
 mz2500_tiny_buffered:
@@ -3093,6 +3098,7 @@ mz2500_tiny_buffered:
 	-DFORCE_XSIZE=16 \
 	-DFORXE_YSIZE=16 \
 	-DFORCE_GHOSTS_NUMBER=6 \
+	-DFORCE_BOMBS_NUMBER=2 \
 	-D__MZ2500__ \
 	-vn \
 	-DNO_COLOR \
@@ -3111,6 +3117,8 @@ mz2500_tiny_buffered:
 	-DALT_CLEAR_SCREEN \
 	-DSTDLIB \
 	-DNO_WAIT \
+	-DBUFFRED \
+	-DTURN_BASED \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

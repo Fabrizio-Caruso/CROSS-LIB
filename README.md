@@ -120,7 +120,7 @@ For most targets, more than one version is built, in order to support different 
 - nc100: Amstrad NC-100/150
 - nc200: Amstrad NC-200
 - nes: Nintendo Enterteinment System
-- newbrain: Grundy Newbrain (work in progress)
+- newbrain: Grundy Newbrain
 - oric: Tangerine Oric 1/Atmos
 - osborne1: Osborne 1
 - osca: OSCA v6z80p

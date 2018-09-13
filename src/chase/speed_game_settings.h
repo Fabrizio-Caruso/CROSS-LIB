@@ -73,6 +73,9 @@
 	#  if defined(__NCURSES__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 100
+	#elif defined(__OSCA__)
+		#define SLOW_DOWN
+		#define GAME_SLOW_DOWN 8167U		
 	#elif defined(__SC3000__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 2500

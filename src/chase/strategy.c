@@ -158,8 +158,8 @@ void computeStrategy(void)
 #if defined(__NCURSES__) || defined(__GCC_BUFFERED__)
 	#define GHOST_RANDOM_CONDITION ((rand()&0x7fff)>slowDown)
 // TODO: This is a hack
-#elif defined(__MZ2500__)
-	#define GHOST_RANDOM_CONDITION (loop%1)
+// #elif defined(__MZ2500__)
+	// #define GHOST_RANDOM_CONDITION (loop%1)
 #else
 	#define GHOST_RANDOM_CONDITION (rand()>slowDown)
 #endif

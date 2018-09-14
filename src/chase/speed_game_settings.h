@@ -24,12 +24,6 @@
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&15)==1)
-#elif defined(__C128_Z80__)
-	#define SKIP_DRAW \
-		if(loop&1)
-	
-	#define SKIP_MORE_DRAW \
-		if((loop&15)==1)	
 						
 #elif defined(__SVI__) && !defined(MSX_MODE0)
 	#define SKIP_DRAW \

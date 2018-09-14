@@ -592,6 +592,15 @@ Type "LOAD"
 Type "RUN"
 
 
+------------------------------------------------------------
+
+ENTERPRISE
+
+Use ep128emu (https://sourceforge.net/projects/ep128emu/files/)
+Select config EP_128k_EXDOS_FileIO.cfg
+Set working directory to the directory with your binary
+F1 -> Select binary
+
 
 
 

@@ -3052,8 +3052,8 @@ enterprise_buffered:
 	$(SCCZ80_OPTS) \
 	-vn \
 	-D__ENTERPRISE__ \
-	-DFORCE_XSIZE=39 \
-	-DFORCE_YSIZE=22 \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=16 \
 	-DNO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
@@ -5630,13 +5630,17 @@ sms_tiny:
 	-DLESS_TEXT \
 	-DNO_PRINT \
 	-create-app \
-	-DBUFFERD \
+	-DBUFFERED \
 	-DALT_CLEAR_SCREEN \
 	-DSIMPLE_STRATEGY \
 	-o $(BUILD_PATH)/TINY_sms.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(TINY_FILES)
-	mv $(BUILD_PATH)/TINY_sms.bin $(BUILD_PATH)/TINY_sms.sms
+	rm $(BUILD_PATH)/TINY_sms_CODE.bin 
+	rm $(BUILD_PATH)/TINY_sms_DATA.bin
+	rm $(BUILD_PATH)/TINY_sms_BSS.bin
+	rm $(BUILD_PATH)/TINY_sms_UNASSIGNED.bin
+	
 
 # 	-pragma-need=ansiterminal -pragma-define:ansipixels=240 -pragma-define:ansicolumns=40 
 # -DNO_BORDER

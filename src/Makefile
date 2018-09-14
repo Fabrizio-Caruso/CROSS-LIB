@@ -2585,7 +2585,7 @@ ti83_tiny_turn_based:
 	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/TINY_ti83_turn_based.83p	
 	rm $(SOURCE_PATH)/../a.bin
 
-ti83:
+ti83_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
 	$(SCCZ80_OPTS) -D__TI83__ \
 	-DZ88DK_JOYSTICK \
@@ -2595,11 +2595,30 @@ ti83:
 	-DFULL_GAME  \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app  \
+	-create-app -oxchase \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/FULL_ti83.83p	
-	rm $(SOURCE_PATH)/../a.bin	
+	mv $(SOURCE_PATH)/../xchase.83p $(BUILD_PATH)/FULL_ti83_chars.83p	
+	rm $(SOURCE_PATH)/../xchase
 	# cp $(BUILD_PATH)/FULL_ti83.83p "/cygdrive/c/Emulation/TI Calc/vti/BACKED_UP_SHELLS/"
+	
+	
+ti83:
+	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
+	$(SCCZ80_OPTS) \
+	-D__TI83__ \
+	-DZ88DK_JOYSTICK \
+	-DFULL_GAME \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-create-app -oxchase \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../xchase.83p $(BUILD_PATH)/FULL_ti83.83p
+	rm $(SOURCE_PATH)/../xchase	
 	
 ti8x:
 	$(Z88DK_PATH)$(MYZ88DK) +ti8x \
@@ -3052,8 +3071,8 @@ enterprise_buffered:
 	$(SCCZ80_OPTS) \
 	-vn \
 	-D__ENTERPRISE__ \
-	-DFORCE_XSIZE=39 \
-	-DFORCE_YSIZE=22 \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=16 \
 	-DNO_COLOR \
 	-DFULL_GAME \
 	-DTURN_BASED \
@@ -3978,7 +3997,7 @@ ti82_targets: \
 	ti82
 
 ti83_targets: \
-	ti83 ti83_turn_based ti83_tiny_turn_based
+	ti83
 
 ti8x_targets: \
 	ti8x
@@ -5630,13 +5649,17 @@ sms_tiny:
 	-DLESS_TEXT \
 	-DNO_PRINT \
 	-create-app \
-	-DBUFFERD \
+	-DBUFFERED \
 	-DALT_CLEAR_SCREEN \
 	-DSIMPLE_STRATEGY \
 	-o $(BUILD_PATH)/TINY_sms.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(TINY_FILES)
-	mv $(BUILD_PATH)/TINY_sms.bin $(BUILD_PATH)/TINY_sms.sms
+	rm $(BUILD_PATH)/TINY_sms_CODE.bin 
+	rm $(BUILD_PATH)/TINY_sms_DATA.bin
+	rm $(BUILD_PATH)/TINY_sms_BSS.bin
+	rm $(BUILD_PATH)/TINY_sms_UNASSIGNED.bin
+	
 
 # 	-pragma-need=ansiterminal -pragma-define:ansipixels=240 -pragma-define:ansicolumns=40 
 # -DNO_BORDER

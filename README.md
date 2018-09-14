@@ -25,6 +25,7 @@ The program is written in ANSI C and currently compiled with
 - ZSDCC (from Z88DK) for some Z80 targets (https://www.z88dk.org/),
 - CMOC for 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
 - ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC, PDP11 (https://github.com/davidgiven/ack).
+- GCC for modern 32/64-bit PC under any operating systems 
 
 Previous versions used 
 - WinCMOC for 6809 targets  (https://sourceforge.net/projects/cmoc-win32/).

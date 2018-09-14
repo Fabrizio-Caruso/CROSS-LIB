@@ -99,7 +99,7 @@ For most targets, more than one version is built, in order to support different 
 - creativision: VTech Creativision
 - eg2k: EACA EG2000 Color Genie
 - einstein: Tatung Einstein
-- enterprise: Enterprise 64/128 (work in progress)
+- enterprise: Enterprise 64/128
 - fp1100: Casio FP-1100
 - g800: Sharp PC-G800
 - gal: Galaksija

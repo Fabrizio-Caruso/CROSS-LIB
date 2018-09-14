@@ -147,9 +147,9 @@ For most targets, more than one version is built, in order to support different 
 - supervision: Watara Supervision
 - svi: Spectravideo 318/328
 - ti82: Texas TI 82
-- ti83: Texas TI 83 (work in progress)
-- ti85: Texas TI 85
+- ti83: Texas TI 83
 - ti8x: Texas TI 83 Plus (work in progress)
+- ti85: Texas TI 85
 - ti86: Texas TI 86 (work in progress)
 - tiki100: TIKI 100
 - trs80: TRS-80 Model I/III/IV

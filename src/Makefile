@@ -3997,7 +3997,7 @@ ti82_targets: \
 	ti82
 
 ti83_targets: \
-	ti83 ti83_turn_based ti83_tiny_turn_based
+	ti83
 
 ti8x_targets: \
 	ti8x

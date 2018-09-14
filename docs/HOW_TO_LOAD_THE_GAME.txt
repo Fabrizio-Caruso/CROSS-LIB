@@ -343,6 +343,22 @@ Use the VTI emulator
 - Select the game
 
 
+Alternative load instructions:
+
+Use VTI 2.5 beta 4 or beta 5.
+Select TI83 (v1.07)
+Reset calculator (MEM CLEARED)
+2nd, LINK, RECEIVE (do not press ENTER, yet)
+Look for ION.83G (memory dump)
+Press ENTER on ION
+Drag the file onto VTI
+Transmission error. Retry.
+PRGM -> ION (see prgmION) -> press Enter (INSTALLED)
+Compile your program with a name different from default abc80
+Transfer program as done with ION.83G
+Start the shell and program
+
+
 -----------------------------------------------------------
 
 TI-85

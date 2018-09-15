@@ -2454,6 +2454,8 @@ c128_z80_80col:
 	-DSOUNDS \
 	-DFORCE_BIT_BANG \
 	-DZ88DK_JOYSTICK \
+	-DSIMPLE_STRATEGY \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	-DALT_PRINT \
 	-DNO_COLOR \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

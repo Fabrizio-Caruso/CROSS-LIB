@@ -2412,9 +2412,44 @@ cpm_adm3a:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_cpm_adm3a.bin
 
+	
+sos:
+	$(Z88DK_PATH)$(MYZ88DK) +sos \
+	$(SCCZ80_OPTS) \
+	-lndos \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DBUFFERED -DALT_PRINT \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DNO_INIT_GRAPHICS \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm a.bin
+	mv a.obj $(BUILD_PATH)/FULL_sos.obj
+	
+sos_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +sos \
+	$(SCCZ80_OPTS) \
+	-lndos \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DBUFFERED -DALT_PRINT \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DNO_INIT_GRAPHICS \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	rm a.bin
+	mv a.obj $(BUILD_PATH)/TINY_sos.obj
+		
+
+	
+	
 c7420:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 \
 	$(SCCZ80_OPTS) \
+	-lndos \
 	-DSTDLIB \
 	-DNO_COLOR \
 	-DBUFFERED -DALT_PRINT \
@@ -2430,6 +2465,7 @@ c7420:
 c7420_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 \
 	$(SCCZ80_OPTS) \
+	-lndos \
 	-DSTDLIB \
 	-DNO_COLOR \
 	-DBUFFERED -DALT_PRINT \

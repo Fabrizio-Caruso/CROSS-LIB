@@ -3,6 +3,11 @@
 
 void INIT_GRAPHICS(void)
 {
-	//POKE(53281u,0);
-	//textbackground(COLOR_BLACK);
+	clg();
+	
+	__asm
+	ld a,0
+	ld bc,$d011
+	out (c),a
+	__endasm;
 }

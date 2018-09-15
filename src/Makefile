@@ -2441,6 +2441,30 @@ cpm_vt100:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_cpm_vt100.bin	
 	
+	
+
+c128_z80_80col:
+	$(Z88DK_PATH)$(MYZ88DK) +c128 -lgfx128hr \
+	$(SCCZ80_OPTS) \
+	-lndos -subtype=disk \
+	-D__C128_Z80__ \
+	-DFORCE_XSIZE=80 \
+	-DFORCE_YSIZE=25 \
+	-DZ88DK_SPRITES -DANIMATE_PLAYER \
+	-DFULL_GAME -DEND_SCREEN \
+	-DALT_PRINT \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app
+	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_80col.d64
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_80col.d64 -write a.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_80col.d64 -write a
+	mv FULL_c128_z80_80col.d64 $(BUILD_PATH)/
+	rm A.LDR
+	rm A
+	rm a.bin
 
 c128_z80_40col:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 \
@@ -2450,8 +2474,7 @@ c128_z80_40col:
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DFULL_GAME -DEND_SCREEN -DNO_BLINKING \
 	-DFORCE_CONIO_LIB \
-	-DCONIO \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app
@@ -4099,7 +4122,7 @@ msx_targets: \
 	msx_32k_rom msx_32k
 
 c128_z80_targets: \
-	c128_z80_40col c128_z80_40col_turn_based
+	c128_z80_40col c128_z80_80col
 	
 aquarius_targets: \
 	aquarius_exp_4k aquarius_exp_16k

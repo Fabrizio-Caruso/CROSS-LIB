@@ -633,10 +633,13 @@ int main(void)
 
 				
 				#if defined(FULL_GAME)
+					SKIP_DRAW
+					{
+						displayBombs();	
+					}
 					SKIP_MORE_DRAW
 					{						
 						DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);			
-						displayBombs();	
 				
 						if(horizontalWallsLevel())
 						{				

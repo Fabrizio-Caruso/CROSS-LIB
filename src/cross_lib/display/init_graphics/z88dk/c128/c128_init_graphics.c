@@ -5,6 +5,7 @@ void INIT_GRAPHICS(void)
 {
 	clg();
 	
+	// Disable VIC to get a little speed-up (about 7%)
 	__asm
 	ld a,0
 	ld bc,$d011

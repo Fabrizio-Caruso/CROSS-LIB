@@ -1305,16 +1305,16 @@ sg1000:
 	rm $(BUILD_PATH)/FULL_sg1000_DATA.bin
 
 
-sharp_mz:
+mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-lndos -create-app -o $(BUILD_PATH)/FULL_sharp_mz.prg \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_mz.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_sharp_mz.prg
-	mv $(BUILD_PATH)/FULL_sharp_mz.mzt $(BUILD_PATH)/FULL_sharp_mz.mzf
+	rm $(BUILD_PATH)/FULL_mz.prg
+	mv $(BUILD_PATH)/FULL_mz.mzt $(BUILD_PATH)/FULL_mz.mzf
 	
 microbee_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) \
@@ -2412,7 +2412,34 @@ cpm_adm3a:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_cpm_adm3a.bin
 
-	
+c7420:
+	$(Z88DK_PATH)$(MYZ88DK) +c7420 \
+	$(SCCZ80_OPTS) \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DBUFFERED -DALT_PRINT \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DNO_INIT_GRAPHICS \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm a.bin
+	mv _a.bas $(BUILD_PATH)/FULL_c7420.bas	
+
+
+c7420_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +c7420 \
+	$(SCCZ80_OPTS) \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DBUFFERED -DALT_PRINT \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DNO_INIT_GRAPHICS \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	rm a.bin
+	mv _a.bas $(BUILD_PATH)/TINY_c7420.bas	
 	
 	
 	
@@ -2454,6 +2481,8 @@ c128_z80_80col:
 	-DSOUNDS \
 	-DFORCE_BIT_BANG \
 	-DZ88DK_JOYSTICK \
+	-DSIMPLE_STRATEGY \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	-DALT_PRINT \
 	-DNO_COLOR \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -3845,7 +3874,7 @@ sccz80_test: \
 	vg5k_test \
 	cpc_test \
 	mc1000_test \
-	sharp_mz_test \
+	mz_test \
 	mtx_test \
 	abc80_test \
 	p2000_test \
@@ -3869,69 +3898,69 @@ z88dk_test: \
 	
 	
 z88dk_targets: \
-	aussie_targets \
-	attache_targets \
-	osborne1_targets \
-	osca_targets \
-	kaypro_targets \
-	enterprise_targets \
-	newbrain_targets \
-	tiki100_targets \
-	ts2068_targets \
-	fp1100_targets \
-	coleco_targets \
-	multi8_targets \
-	spc1000_targets \
-	alphatro_targets \
-	rx78_targets \
-	pv1000_targets \
-	g800_targets \
-	svi_targets \
-	aquarius_targets \
-	pc6001_targets \
-	zx81_targets \
-	einstein_targets \
-	sc3000_targets \
-	m5_targets \
- 	eg2k_targets \
-	pps_targets \
-	pv2000_targets \
-	srr_targets \
-	ti82_targets \
-	ti83_targets \
-	ti8x_targets \
-	ti85_targets \
-	ti86_targets \
-	tiki100_targets \
-	z1013_targets \
-	x1_targets \
-	px4_targets \
-	px8_targets \
-	trs80_targets \
-	cpm_targets \
-	nascom_targets \
-	z9001_targets \
-	sharp_mz_targets \
-	mtx_targets \
 	abc80_targets \
-	p2000_targets \
-	vz200_targets \
-	microbee_targets \
-	gal_targets \
-	zx80_targets \
 	ace_targets \
-	samcoupe_targets \
-	lambda_targets \
+	alphatro_targets \
+	aquarius_targets \
+	attache_targets \
+	aussie_targets \
+	camputers_lynx_targets \
 	c128_z80_targets \
-	mc1000_targets \
-	msx_targets \
+	coleco_targets \
 	cpc_targets \
+	cpm_targets \
+ 	eg2k_targets \
+	einstein_targets \
+	enterprise_targets \
+	fp1100_targets \
+	g800_targets \
+	gal_targets \
+	kaypro_targets \
+	kc_targets \
+	lambda_targets \
+	laser500_targets \
+	m5_targets \
+	mc1000_targets \
+	microbee_targets \
+	msx_targets \
+	mtx_targets \
+	multi8_targets \
+	mz_targets \
+	nascom_targets \
 	nc100_targets \
 	nc200_targets \
-	kc_targets \
-	vg5k_targets \
+	newbrain_targets \
+	osborne1_targets \
+	osca_targets \
+	p2000_targets \
+	pc6001_targets \
+	pps_targets \
+	pv1000_targets \
+	pv2000_targets \
+	px4_targets \
+	px8_targets \
+	rx78_targets \
+	samcoupe_targets \
+	sc3000_targets \
+	spc1000_targets \
 	spectrum_targets \
-	laser500_targets
+	srr_targets \
+	svi_targets \
+	ti82_targets \
+	ti83_targets \
+	ti85_targets \
+	ti86_targets \
+	ti8x_targets \
+	tiki100_targets \
+	trs80_targets \
+	ts2068_targets \
+	vg5k_targets \
+	vz200_targets \
+	x1_targets \
+	z1013_targets \
+	z9001_targets \
+	zx80_targets \
+	zx81_targets \
 
 cmoc_targets: \
 	coco vectrex
@@ -4055,6 +4084,9 @@ tiki100_targets: \
 osca_targets: \
 	osca
 	
+camputers_lynx_targets: \
+	camputers_lynx camputers_lynx_tiny
+	
 attache_targets: \
 	attache attache_chars
 	
@@ -4077,7 +4109,7 @@ kc_targets: \
 	kc_tiny_udg kc_light_udg kc_udg
 	
 trs80_targets: \
-	trs80_chars trs80_tiny trs80 trs80_cmd eg2k
+	trs80_chars trs80_tiny trs80 trs80_cmd
 
 cpm_targets: \
 	cpm_adm3a cpm_vt52 cpm_vt100 
@@ -4106,8 +4138,8 @@ cpc_targets: \
 mc1000_targets: \
  	mc1000_16k_full mc1000_48k_udg mc1000_48k_udg_joystick
 	
-sharp_mz_targets: \
- 	sharp_mz
+mz_targets: \
+ 	mz
 	
 mtx_targets: \
 	mtx_udg
@@ -4608,17 +4640,17 @@ mc1000_test:
 	rm a.bin
 	rm a.cas	
 
-sharp_mz_test:	
+mz_test:	
 	$(Z88DK_PATH)$(MYZ88DK) +mz \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DSOUNDS \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_TEST_OPTS) \
-	-lndos -create-app -o $(BUILD_PATH)/TEST_sharp_mz.prg \
+	-lndos -create-app -o $(BUILD_PATH)/TEST_mz.prg \
 	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_sharp_mz.prg
-	mv $(BUILD_PATH)/TEST_sharp_mz.mzt $(BUILD_PATH)/TEST_sharp_mz.mzf
+	rm $(BUILD_PATH)/TEST_mz.prg
+	mv $(BUILD_PATH)/TEST_mz.mzt $(BUILD_PATH)/TEST_mz.mzf
 
 mtx_test:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 \

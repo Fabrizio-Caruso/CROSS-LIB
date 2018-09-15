@@ -2414,18 +2414,32 @@ cpm_adm3a:
 
 c7420:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 \
+	$(SCCZ80_OPTS) \
 	-DSTDLIB \
 	-DNO_COLOR \
 	-DBUFFERED -DALT_PRINT \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DNO_INIT_GRAPHICS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-create-app \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm a.bin
 	mv _a.bas $(BUILD_PATH)/FULL_c7420.bas	
+
+
+c7420_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +c7420 \
+	$(SCCZ80_OPTS) \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DBUFFERED -DALT_PRINT \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DNO_INIT_GRAPHICS \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	rm a.bin
+	mv _a.bas $(BUILD_PATH)/TINY_c7420.bas	
 	
 	
 	

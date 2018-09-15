@@ -2448,11 +2448,14 @@ c128_z80_80col:
 	$(SCCZ80_OPTS) \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ \
-	-DFORCE_XSIZE=80 \
-	-DFORCE_YSIZE=25 \
 	-DZ88DK_SPRITES -DANIMATE_PLAYER \
 	-DFULL_GAME -DEND_SCREEN \
+	-DLESS_TEXT \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
+	-DZ88DK_JOYSTICK \
 	-DALT_PRINT \
+	-DNO_COLOR \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \

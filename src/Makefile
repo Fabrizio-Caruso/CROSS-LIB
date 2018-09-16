@@ -2004,6 +2004,20 @@ oz:
 	rm a.bin
 	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
 	
+z88:
+	$(Z88DK_PATH)$(MYZ88DK) +z88 \
+	-D__Z88__ \
+	-DFULL_GAME \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-create-app
 
 px4:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
@@ -2997,6 +3011,10 @@ oz_hello:
 	rm a.bin
 	mv a.wzd $(BUILD_PATH)/oz_hello.wzd
 	
+
+z88_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -create-app \
+	$(SOURCE_PATH)/../experiments/hello.c 
 	
 x07_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) \
@@ -3177,37 +3195,37 @@ enterprise_buffered:
 	mv a.app $(BUILD_PATH)/FULL_enterprise.app
 	rm a.bin
 
-mz2500_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
-	-compiler=sdcc \
-	-D__MZ2500__ \
-	-vn \
-	-DNO_COLOR \
-	-DFULL_GAME \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos \
-	-DALT_CLEAR_SCREEN \
-	-DBUFFERED -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	-DSTDLIB \
-	-create-app
-	mv a.2D $(BUILD_PATH)/FULL_mz2500_turn_based.2D
+# mz2500_buffered:
+	# $(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
+	# -compiler=sdcc \
+	# -D__MZ2500__ \
+	# -vn \
+	# -DNO_COLOR \
+	# -DFULL_GAME \
+	# -DEND_SCREEN -DBETWEEN_LEVEL \
+	# -lndos \
+	# -DALT_CLEAR_SCREEN \
+	# -DBUFFERED -DNO_INIT_GRAPHICS \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(FULL_FILES) \
+	# -DSTDLIB \
+	# -create-app
+	# mv a.2D $(BUILD_PATH)/FULL_mz2500_turn_based.2D
 
 	
-mz2500:
-	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
-	-D__MZ2500__ \
-	-vn \
-	-DCONIO_VT52 \
-	-DNO_COLOR \
-	-DFULL_GAME -DSOUNDS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	-create-app
+# mz2500:
+	# $(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
+	# -D__MZ2500__ \
+	# -vn \
+	# -DCONIO_VT52 \
+	# -DNO_COLOR \
+	# -DFULL_GAME -DSOUNDS \
+	# -DEND_SCREEN -DBETWEEN_LEVEL \
+	# -lndos \
+	# -DCONIO -DNO_INIT_GRAPHICS \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(FULL_FILES) \
+	# -create-app
 	
 mz2500_random:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 -compiler=sdcc -SO3 $(SCCZ80_OPTS) \
@@ -3343,30 +3361,30 @@ cpm_tiny_buffered:
 	rm a.bin
 	mv A.COM $(BUILD_PATH)/TINY_CPM_TINY_BUFFERED.COM
 	
-mz2500_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
-	-compiler=sdcc \
-	-DFORCE_XSIZE=31 \
-	-DFORCE_YSIZE=20 \
-	-D__MZ2500__ \
-	-vn \
-	-DNO_COLOR \
-	-DTINY_GAME \
-	-DNO_BLINKING \
-	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_DEAD_GHOSTS \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-DNO_INITIAL_SCREEN \
-	-DNO_SET_SCREEN_COLORS \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-DFORCE_NARROW \
-	-DNO_STATS \
-	-DNO_PRINT \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	$(TINY_FILES) \
-	-create-app -o $(BUILD_PATH)/TINY_mz2500.bin
+# mz2500_tiny:
+	# $(Z88DK_PATH)$(MYZ88DK) +mz2500 \
+	# -compiler=sdcc \
+	# -DFORCE_XSIZE=31 \
+	# -DFORCE_YSIZE=20 \
+	# -D__MZ2500__ \
+	# -vn \
+	# -DNO_COLOR \
+	# -DTINY_GAME \
+	# -DNO_BLINKING \
+	# -DNO_CONTROL_INSTRUCTIONS \
+	# -DNO_DEAD_GHOSTS \
+	# -DNO_SLEEP \
+	# -DNO_WAIT \
+	# -DNO_INITIAL_SCREEN \
+	# -DNO_SET_SCREEN_COLORS \
+	# -lndos \
+	# -DCONIO -DNO_INIT_GRAPHICS \
+	# -DFORCE_NARROW \
+	# -DNO_STATS \
+	# -DNO_PRINT \
+	# -pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	# $(TINY_FILES) \
+	# -create-app -o $(BUILD_PATH)/TINY_mz2500.bin
 	# rm $(BUILD_PATH)/TINY_mz2500.bin	
 	
 pps:
@@ -5635,21 +5653,6 @@ cpc_cpcrslib:
 	rm $(BUILD_PATH)/FULL_cpc_cpcrslib.cpc 
 	rm $(BUILD_PATH)/FULL_cpc_cpcrslib.prg
 	
-
-enterprise_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +enterprise \
-	-create-app -o $(BUILD_PATH)/TINY_enterprise.app \
-	-lm -vn -lndos \
-	-DTINY_GAME \
-	-DNO_PRINT \
-	-DNO_INPUT \
-	-DNO_SLEEP -DLESS_TEXT -DALT_PRINT \
-	$(SOURCE_PATH)/enterprise/enterprise_graphics.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-
 
 ncurses_turn_based_tiny:
 	$(_CC) -D__NCURSES__ \

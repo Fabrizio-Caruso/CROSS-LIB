@@ -135,6 +135,8 @@
 		#define YSize (80/SPRITE_Y_STEP)
 	#elif (defined(__C128_Z80__) && defined(Z88DK_SPRITES))
 		#define YSize ((200/SPRITE_Y_STEP)-Y_OFFSET)
+	#elif (defined(__Z88__) && defined(Z88DK_SPRITES))
+		#define YSize ((64/SPRITE_Y_STEP))
 	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
 		#define YSize 24
 	#else
@@ -207,6 +209,8 @@
 		#define XSize (128/SPRITE_X_STEP)	
 	#elif (defined(__TRS80__) && !defined(__EG2K__) && defined(Z88DK_SPRITES))
 		#define XSize (128/SPRITE_X_STEP)
+	#elif (defined(__Z88__) && defined(Z88DK_SPRITES))
+		#define XSize (256/SPRITE_X_STEP)
 	#elif defined(__KC__) && defined(UDG_GRAPHICS)
 		#define XSize 40
 	#elif (defined(__VZ__) && !defined(Z88DK_SPRITES)) || defined(__NES__) || defined(__CREATIVISION__) || defined(__MSX__) \

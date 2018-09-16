@@ -5696,11 +5696,21 @@ spectrum_sounds:
 	
 	
 sms_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +sms \
+	$(Z88DK_PATH)$(MYZ88DK) +sms -startup=1 -clib=new -O3 \
+	-vn -pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
+	-create-app	\
+	$(SOURCE_PATH)/../experiments/z88dk_hello.c 
+	rm a_BSS.bin
+	rm a_CODE.bin
+	rm a_DATA.bin
+	rm a_UNASSIGNED.bin
+
+
+rex_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +rex \
 	-vn -lndos \
 	$(SOURCE_PATH)/../experiments/hello.c \
 	-create-app	
-	mv a.sms $(BUILD_PATH)/hello.sms
 	
 mtx_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx \

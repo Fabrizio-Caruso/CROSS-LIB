@@ -2005,7 +2005,7 @@ oz:
 	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
 	
 z88:
-	$(Z88DK_PATH)$(MYZ88DK) +z88 \
+	$(Z88DK_PATH)$(MYZ88DK) +z88 -subtype=app \
 	-D__Z88__ \
 	-DFULL_GAME \
 	-vn -lndos \
@@ -3013,7 +3013,7 @@ oz_hello:
 	
 
 z88_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -create-app \
+	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -D__Z88__ -create-app -subtype=app \
 	$(SOURCE_PATH)/../experiments/hello.c 
 	
 x07_hello:

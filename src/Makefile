@@ -1022,74 +1022,73 @@ lambda_16k:
 	
 
 
+# cpc:
+	# $(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -v -clib=ansi \
+	# -D__CPC__ -DSOUNDS -DFULL_GAME \
+	# -DBETWEEN_LEVEL -DEND_SCREEN \
+	# -DCPCRSLIB \
+	# -pragma-define:REGISTER_SP=-1 \
+	# -lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
+	# $(CROSS_LIB_PATH)/display/graphics_data/z88dk/cpc_Chars8.asm \
+	# $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(FULL_FILES)
+	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_cpc.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc.dsk -p $(BUILD_PATH)/FULL_cpc.cpc xchase
+	# mv FULL_cpc.dsk $(BUILD_PATH)/
+	# rm $(BUILD_PATH)/FULL_cpc.cpc 
+	# rm $(BUILD_PATH)/FULL_cpc.prg			
+
+# cpc_udg:
+	# $(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) \
+	# -D__CPC__ \
+	# -create-app -o $(BUILD_PATH)/FULL_cpc_udg.cpc -vn \
+	# -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	# -DCONIO \
+	# -DFORCE_SCREEN_MODE=2 \
+	# -lndos \
+	# -DANIMATE_PLAYER \
+	# -DUDG_GRAPHICS \
+	# -clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	# $(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	# $(FULL_FILES)	
+	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_udg.cpc  $(BUILD_PATH)/FULL_cpc_udg.cdt
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_cpc_udg.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc_udg.dsk -p $(BUILD_PATH)/FULL_cpc_udg.cpc xchase
+	# mv FULL_cpc_udg.dsk $(BUILD_PATH)/
+	# rm $(BUILD_PATH)/FULL_cpc_udg.cpc
+
 cpc:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -v -clib=ansi \
-	-D__CPC__ -DSOUNDS -DFULL_GAME \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCPCRSLIB \
-	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/cpc_Chars8.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc.dsk -p $(BUILD_PATH)/FULL_cpc.cpc xchase
-	mv FULL_cpc.dsk $(BUILD_PATH)/
-	rm $(BUILD_PATH)/FULL_cpc.cpc 
-	rm $(BUILD_PATH)/FULL_cpc.prg			
-
-cpc_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) \
-	-D__CPC__ \
-	-create-app -o $(BUILD_PATH)/FULL_cpc_udg.cpc -vn \
-	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO \
-	-DFORCE_SCREEN_MODE=2 \
-	-lndos \
-	-DANIMATE_PLAYER \
-	-DUDG_GRAPHICS \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(FULL_FILES)	
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_udg.cpc  $(BUILD_PATH)/FULL_cpc_udg.cdt
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_cpc_udg.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc_udg.dsk -p $(BUILD_PATH)/FULL_cpc_udg.cpc xchase
-	mv FULL_cpc_udg.dsk $(BUILD_PATH)/
-	rm $(BUILD_PATH)/FULL_cpc_udg.cpc
-
-	
-cpc_joystick:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \
 	-DZ88DK_JOYSTICK \
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc_joystick.prg \
+	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_joystick.cpc  $(BUILD_PATH)/FULL_cpc_joystick.cdt
-	rm -rf FULL_cpc_joystick.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_cpc_joystick.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc_joystick.dsk -p $(BUILD_PATH)/FULL_cpc_joystick.cpc xchase
-	mv FULL_cpc_joystick.dsk $(BUILD_PATH)/
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt
+	rm -rf FULL_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc.dsk -p $(BUILD_PATH)/FULL_cpc.cpc xchase
+	mv FULL_cpc.dsk $(BUILD_PATH)/
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_cpc_joystick.dsk  $(BUILD_PATH)/FULL_gx4000.cpr   -c 'run"xchase'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_cpc.dsk  $(BUILD_PATH)/FULL_gx4000.cpr   -c 'run"xchase'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
-	rm $(BUILD_PATH)/FULL_cpc_joystick.cpc 
-	rm $(BUILD_PATH)/FULL_cpc_joystick.prg		
+	rm $(BUILD_PATH)/FULL_cpc.cpc 
+	rm $(BUILD_PATH)/FULL_cpc.prg		
 
 		
 # msx_16k:
@@ -3159,7 +3158,7 @@ aussie_buffered:
 # TODO: Try -subtype=com
 enterprise_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +enterprise  \
-	$(SCCZ80_OPTS) \
+	-compiler=sdcc \
 	-vn \
 	-D__ENTERPRISE__ \
 	-DFORCE_XSIZE=20 \
@@ -3171,6 +3170,7 @@ enterprise_buffered:
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
+	-DSTDLIB \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-create-app
@@ -3179,6 +3179,7 @@ enterprise_buffered:
 
 mz2500_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
+	-compiler=sdcc \
 	-D__MZ2500__ \
 	-vn \
 	-DNO_COLOR \
@@ -3189,6 +3190,7 @@ mz2500_buffered:
 	-DBUFFERED -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
+	-DSTDLIB \
 	-create-app
 	mv a.2D $(BUILD_PATH)/FULL_mz2500_turn_based.2D
 
@@ -3962,6 +3964,7 @@ z88dk_targets: \
 	mtx_targets \
 	multi8_targets \
 	mz_targets \
+	mz2500_targets \
 	nascom_targets \
 	nc100_targets \
 	nc200_targets \
@@ -4105,6 +4108,9 @@ tiki100_targets: \
 enterprise_targets: \
 	enterprise_buffered
 	
+mz2500_targets: \
+	mz2500_tiny_buffered
+	
 einstein_targets: \
 	einstein
 	
@@ -4169,7 +4175,7 @@ ace_targets: \
 	ace_exp_16k_udg
 
 cpc_targets: \
-	cpc cpc_joystick
+	cpc
 	
 mc1000_targets: \
  	mc1000_16k_full mc1000_48k_udg mc1000_48k_udg_joystick

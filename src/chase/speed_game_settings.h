@@ -10,6 +10,11 @@
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&15)==1)	
+#elif defined(__C64__) 
+	#define SKIP_DRAW
+	
+	#define SKIP_MORE_DRAW \
+		if((loop&3)==1)	
 #elif defined(__ZX81__) || defined(__LAMBDA__) 
 	#define SKIP_DRAW \
 		if((loop&1)==1)

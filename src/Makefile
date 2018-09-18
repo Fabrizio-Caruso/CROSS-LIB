@@ -3003,6 +3003,11 @@ newbrain_hello:
 	rm a.dat
 	rm a.bin
 	
+c7420_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
+	-lndos \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-create-app	
 	
 oz_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) \
@@ -3058,13 +3063,14 @@ rex:
 	-D__REX__ \
 	-DTURN_BASED \
 	-vn \
-	-DCONIO_VT52 \
+	-DBUFFERED \
+	-DSTDLIB \
 	-DNO_COLOR \
 	-DFULL_GAME -DSOUNDS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
+	-DNO_PRINT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_rex.bin
 	
@@ -3195,24 +3201,39 @@ enterprise_buffered:
 	mv a.app $(BUILD_PATH)/FULL_enterprise.app
 	rm a.bin
 
-# mz2500_buffered:
-	# $(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
-	# -compiler=sdcc \
-	# -D__MZ2500__ \
-	# -vn \
-	# -DNO_COLOR \
-	# -DFULL_GAME \
-	# -DEND_SCREEN -DBETWEEN_LEVEL \
-	# -lndos \
-	# -DALT_CLEAR_SCREEN \
-	# -DBUFFERED -DNO_INIT_GRAPHICS \
-	# $(SOURCE_PATH)/end_screen.c \
-	# $(FULL_FILES) \
-	# -DSTDLIB \
-	# -create-app
-	# mv a.2D $(BUILD_PATH)/FULL_mz2500_turn_based.2D
-
-	
+mz2500_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
+	-SO3 \
+	-compiler=sdcc \
+	-DFORCE_XSIZE=16 \
+	-DFORCE_YSIZE=12 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-D__MZ2500__ \
+	-vn \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_DEAD_GHOSTS \
+	-DNO_SLEEP \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-lndos \
+	-DBUFFERED -DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
+	-DNO_STATS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DSTDLIB \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app 
+	mv a.2D $(BUILD_PATH)/FULL_mz2500_buffered.2D
+	rm a.bin
 # mz2500:
 	# $(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
 	# -D__MZ2500__ \
@@ -6117,6 +6138,10 @@ conio:
 	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/conio.c -o  $(BUILD_PATH)/conio.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/conio.bin
 
+c64_joy-test:
+	$(CC65_PATH)$(MYCC65) -O -t c64 -DJOYSTICK_DRIVER=c64_hitjoy_joy experiments/joy-test.c -o $(BUILD_PATH)/joy-test.prg
+	
+	
 joy-test:
 	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/joy-test.c -o  $(BUILD_PATH)/joy-test.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/joy-test.bin

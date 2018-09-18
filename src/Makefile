@@ -3003,6 +3003,11 @@ newbrain_hello:
 	rm a.dat
 	rm a.bin
 	
+c7420_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
+	-lndos \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-create-app	
 	
 oz_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) \
@@ -3058,13 +3063,14 @@ rex:
 	-D__REX__ \
 	-DTURN_BASED \
 	-vn \
-	-DCONIO_VT52 \
+	-DBUFFERED \
+	-DSTDLIB \
 	-DNO_COLOR \
 	-DFULL_GAME -DSOUNDS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
+	-DNO_PRINT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_rex.bin
 	
@@ -6117,6 +6123,10 @@ conio:
 	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/conio.c -o  $(BUILD_PATH)/conio.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/conio.bin
 
+c64_joy-test:
+	$(CC65_PATH)$(MYCC65) -O -t c64 -DJOYSTICK_DRIVER=c64_hitjoy_joy experiments/joy-test.c -o $(BUILD_PATH)/joy-test.prg
+	
+	
 joy-test:
 	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/joy-test.c -o  $(BUILD_PATH)/joy-test.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/joy-test.bin

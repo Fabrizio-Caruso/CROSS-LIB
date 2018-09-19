@@ -1956,32 +1956,31 @@ px4_tiny:
 	mv A.ROM $(BUILD_PATH)/TINY_px4.ROM
 
 
-oz_buffered: 	
+oz_tiny_buffered: 	
 	$(Z88DK_PATH)$(MYZ88DK) +oz \
-	$(SCCZ80_OPTS) \
+	-compiler=sdcc \
+	-SO3 \
 	-D__OZ__ \
 	-DTINY_GAME \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=8 \
+	-DFORCE_XSIZE=59 \
+	-DFORCE_YSIZE=9 \
+	-DFORCE_NARROW \
 	-vn -lndos \
 	-DBUFFERED -DTURN_BASED -DNO_INIT_GRAPHICS \
 	-DLESS_TEXT \
 	-DNO_COLOR \
-	-DNO_RANDOM_LEVEL \
 	-DSIMPLE_STRATEGY \
-	-DALT_MOVE \
-	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_WAIT \
-	-DNO_SLEEP \
-	-DNO_PRINT \
-	$(TINY_FILES)
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c	
 	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
 	rm a.bin
 	mv a.wzd $(BUILD_PATH)/TINY_oz_buffered.wzd
 	
 	
-oz:
+oz_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +oz \
 	$(SCCZ80_OPTS) \
 	-D__OZ__ \
@@ -1998,8 +1997,10 @@ oz:
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DNO_PRINT \
-	$(TINY_FILES)
+	-DALT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
 	rm a.bin
 	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
@@ -3019,7 +3020,11 @@ oz_hello:
 
 z88_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -D__Z88__ -create-app -subtype=app \
-	$(SOURCE_PATH)/../experiments/hello.c 
+	$(SOURCE_PATH)/../experiments/hello.c
+	rm a.bin
+	rm a_BSS.bin
+	rm a_DATA.bin
+	mv a.63 $(BUILD_PATH)/
 	
 x07_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) \
@@ -5725,6 +5730,7 @@ sms_hello:
 	rm a_CODE.bin
 	rm a_DATA.bin
 	rm a_UNASSIGNED.bin
+	mv a.sms $(BUILD_PATH)
 
 
 rex_hello:

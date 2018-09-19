@@ -5783,17 +5783,18 @@ sms_tiny:
 	-D__SMS__ \
 	-DNO_COLOR \
 	-DTINY_GAME \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-DNO_INPUT \
+	-DSTDLIB \
 	-DLESS_TEXT \
-	-DNO_PRINT \
 	-create-app \
 	-DBUFFERED \
+	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
-	-DSIMPLE_STRATEGY \
+	-DNO_SLEEP \
+	-DNO_INPUT \
+	-DNO_WAIT \
 	-o $(BUILD_PATH)/TINY_sms.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_sms_CODE.bin 
 	rm $(BUILD_PATH)/TINY_sms_DATA.bin

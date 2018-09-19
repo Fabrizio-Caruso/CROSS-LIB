@@ -8,8 +8,30 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 This is a personal project whose goal is the creation of:
 1. the universal 8-bit abstraction layer "Cross Lib" for coding universal 8-bit games
 2. the "universal" 8-bit game "Cross Chase" that has to be a fun and that should run
-on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs. I should run on other platforms such as bare metal PC 8088/8086, CP/M Intel 8080, Linux PPC, Linux 386, Linux 68K, PDP11, etc.
+on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators. 
 The game will be the proof of concept of how flexible the library is.
+
+## CURRENTLY SUPPORTED ARCHITECTURES
+The main goal is to get the library and game to work on most 8-bit architectures but other systems are also considered.
+
+### 8-BIT ARCHITECTURES
+- Intel 8080 and its derivatives
+- MOS 6502 and its derivatives
+- Motorola 6809 and its derivatives
+- Zilog 80 and its derivatives
+
+### 16-BIT ARCHITECTURES
+- Intel 8088/8086 
+- PDP11
+
+### 32-BIT ARCHITECTURES
+- PPC
+- Intel 386
+- Motorola 68020
+
+### 32/64-BIT ARCHITECTURE
+We also support any current architecture for which GCC can produce a working binary.
+
 
 ## THE TOOL-CHAIN
 
@@ -32,6 +54,8 @@ Previous versions used
 WinCMOC has been abandoned because it uses an old CMOC version that has broken pointer to functions and because it is no longer maintained by its author. 
 
 For other targets, the following compilers and dev-kits may be included in future versions of the tool-chain:
+- Z8KGCC for the Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
+- amiga-os-toolchain for all Amigas (https://github.com/cahirwpz/amigaos-cross-toolchain),
 - GCC6809 for other 6809 targets (https://sourceforge.net/projects/freewpc/files/GCC-6809/),
 - SDCC for Z80 and other targets (http://sdcc.sourceforge.net/),
 - "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),

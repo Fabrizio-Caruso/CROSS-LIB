@@ -126,7 +126,7 @@ For most targets, more than one version is built, in order to support different 
 - osborne1: Osborne 1
 - osca: OSCA v6z80p
 - osic1p: Ohio Scientific Challenger 1P
-- oz: Sharp OZ-700 (work in progress)
+- oz: Sharp OZ-700
 - p2000: Philips P2000
 - pc6001: NEC PC 6001
 - pce: PCEngine

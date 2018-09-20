@@ -25,7 +25,7 @@
 	#define APP_INFO "by Fabrizio Caruso"
 	#define APP_KEY  'X'
 	#define APP_NAME "XChase"
-	#define APP_TYPE AT_Good
+	// #define APP_TYPE AT_Good
 	
 
 	// #define TOPIC1   "Action"

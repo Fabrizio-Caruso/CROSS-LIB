@@ -1986,6 +1986,8 @@ oz_tiny:
 	-D__OZ__ \
 	-DTINY_GAME \
 	-vn -lndos \
+	-DFORCE_XSIZE=59 \
+	-DFORCE_YSIZE=9 \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
@@ -2012,8 +2014,8 @@ z88_tiny_buffered:
 	-SO3 \
 	-D__Z88__ \
 	-DTINY_GAME \
-	-DFORCE_XSIZE=59 \
-	-DFORCE_YSIZE=9 \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=6 \
 	-DFORCE_NARROW \
 	-vn -lndos \
 	-DBUFFERED -DTURN_BASED \
@@ -2030,6 +2032,7 @@ z88_tiny_buffered:
 	rm a.bin
 	rm a_BSS.bin
 	rm a_DATA.bin
+	rm  a_bss_fardata.bin
 	mv a.63 $(BUILD_PATH)/TINY_z88_buffered.63
 	mv a.epr $(BUILD_PATH)/TINY_z88_buffered.epr
 		
@@ -4078,6 +4081,7 @@ z88dk_targets: \
 	newbrain_targets \
 	osborne1_targets \
 	osca_targets \
+	oz_targets \
 	p2000_targets \
 	pc6001_targets \
 	pps_targets \
@@ -4104,6 +4108,7 @@ z88dk_targets: \
 	vz200_targets \
 	x1_targets \
 	z1013_targets \
+	z88_targets \
 	z9001_targets \
 	zx80_targets \
 	zx81_targets \
@@ -4370,6 +4375,13 @@ nc200_targets: \
 
 laser500_targets: \
 	laser500
+	
+oz_targets: \
+	oz_tiny_buffered
+	
+z88_targets: \
+	z88_tiny_buffered
+
 ##
 
 supervision_targets: \

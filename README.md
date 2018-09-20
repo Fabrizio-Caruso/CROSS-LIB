@@ -184,6 +184,7 @@ For most targets, more than one version is built, in order to support different 
 - x07: Casio X-07 (work in progress)
 - x1: Sharp X1
 - z1013: Robotron Z1013
+- z88: Cambridge Z88 (work in progress)
 - z9001: Robotron Z9001, Robotron KC 85/1, Robotron KC 87 
 - zx80: Sinclair ZX80
 - zx81: Sinclair ZX81

@@ -4092,6 +4092,7 @@ z88dk_targets: \
 	rx78_targets \
 	samcoupe_targets \
 	sc3000_targets \
+	sms_targets \
 	spc1000_targets \
 	spectrum_targets \
 	srr_targets \
@@ -4382,6 +4383,9 @@ oz_targets: \
 z88_targets: \
 	z88_tiny_buffered
 
+sms_targets: \
+	sms_tiny_buffered
+	
 ##
 
 supervision_targets: \
@@ -5852,7 +5856,7 @@ sms_chicken:
 	$(SOURCE_PATH)/../experiments/chicken/chicken_graphics.asm	
 
 
-sms_tiny:
+sms_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=1 -v \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-D__SMS__ \
@@ -5867,14 +5871,14 @@ sms_tiny:
 	-DNO_SLEEP \
 	-DNO_INPUT \
 	-DNO_WAIT \
-	-o $(BUILD_PATH)/TINY_sms.bin \
+	-o $(BUILD_PATH)/TINY_sms_buffered.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_sms_CODE.bin 
-	rm $(BUILD_PATH)/TINY_sms_DATA.bin
-	rm $(BUILD_PATH)/TINY_sms_BSS.bin
-	rm $(BUILD_PATH)/TINY_sms_UNASSIGNED.bin
+	rm $(BUILD_PATH)/TINY_sms_buffered_CODE.bin
+	rm $(BUILD_PATH)/TINY_sms_buffered_DATA.bin
+	rm $(BUILD_PATH)/TINY_sms_buffered_BSS.bin
+	rm $(BUILD_PATH)/TINY_sms_buffered_UNASSIGNED.bin
 	
 
 # 	-pragma-need=ansiterminal -pragma-define:ansipixels=240 -pragma-define:ansicolumns=40 

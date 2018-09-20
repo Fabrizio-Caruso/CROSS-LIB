@@ -1986,6 +1986,8 @@ oz_tiny:
 	-D__OZ__ \
 	-DTINY_GAME \
 	-vn -lndos \
+	-DFORCE_XSIZE=59 \
+	-DFORCE_YSIZE=9 \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
@@ -2005,21 +2007,84 @@ oz_tiny:
 	rm a.bin
 	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
 	
+	
+# it fails with sdcc
+z88_tiny_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +z88 -subtype=app \
+	-SO3 \
+	-D__Z88__ \
+	-DTINY_GAME \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=6 \
+	-DFORCE_NARROW \
+	-vn -lndos \
+	-DBUFFERED -DTURN_BASED \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES) \
+	-create-app
+	rm a.bin
+	rm a_BSS.bin
+	rm a_DATA.bin
+	rm  a_bss_fardata.bin
+	mv a.63 $(BUILD_PATH)/TINY_z88_buffered.63
+	mv a.epr $(BUILD_PATH)/TINY_z88_buffered.epr
+		
+	
+z88_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +z88 -subtype=app \
+	-D__Z88__ \
+	-DTINY_GAME \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DZ88DK_SPRITES \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DFORCE_BOMBS_NUMBER=2 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES) \
+	-create-app
+	rm a.bin
+	rm a_BSS.bin
+	rm a_DATA.bin
+	mv a.63 $(BUILD_PATH)/TINY_z88.63
+	mv a.epr $(BUILD_PATH)/TINY_z88.epr
+	
 z88:
 	$(Z88DK_PATH)$(MYZ88DK) +z88 -subtype=app \
 	-D__Z88__ \
 	-DFULL_GAME \
 	-vn -lndos \
 	-DALT_PRINT \
-	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DZ88DK_SPRITES \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	$(SOURCE_PATH)/end_screen.c \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-create-app
+	rm a.bin
+	rm a_BSS.bin
+	rm a_DATA.bin
+	mv a.63 $(BUILD_PATH)/FULL_z88.63
+	mv a.epr $(BUILD_PATH)/FULL_z88.epr
+	
 
+	
 px4:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
 	-D__PX4__ \
@@ -3025,6 +3090,7 @@ z88_hello:
 	rm a_BSS.bin
 	rm a_DATA.bin
 	mv a.63 $(BUILD_PATH)/
+	mv a.epr $(BUILD_PATH)/
 	
 x07_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) \
@@ -4015,6 +4081,7 @@ z88dk_targets: \
 	newbrain_targets \
 	osborne1_targets \
 	osca_targets \
+	oz_targets \
 	p2000_targets \
 	pc6001_targets \
 	pps_targets \
@@ -4025,6 +4092,7 @@ z88dk_targets: \
 	rx78_targets \
 	samcoupe_targets \
 	sc3000_targets \
+	sms_targets \
 	spc1000_targets \
 	spectrum_targets \
 	srr_targets \
@@ -4041,6 +4109,7 @@ z88dk_targets: \
 	vz200_targets \
 	x1_targets \
 	z1013_targets \
+	z88_targets \
 	z9001_targets \
 	zx80_targets \
 	zx81_targets \
@@ -4307,6 +4376,16 @@ nc200_targets: \
 
 laser500_targets: \
 	laser500
+	
+oz_targets: \
+	oz_tiny_buffered
+	
+z88_targets: \
+	z88_tiny_buffered
+
+sms_targets: \
+	sms_tiny_buffered
+	
 ##
 
 supervision_targets: \
@@ -5777,28 +5856,29 @@ sms_chicken:
 	$(SOURCE_PATH)/../experiments/chicken/chicken_graphics.asm	
 
 
-sms_tiny:
+sms_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=1 -v \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-D__SMS__ \
 	-DNO_COLOR \
 	-DTINY_GAME \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-DNO_INPUT \
+	-DSTDLIB \
 	-DLESS_TEXT \
-	-DNO_PRINT \
 	-create-app \
 	-DBUFFERED \
+	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
-	-DSIMPLE_STRATEGY \
-	-o $(BUILD_PATH)/TINY_sms.bin \
+	-DNO_SLEEP \
+	-DNO_INPUT \
+	-DNO_WAIT \
+	-o $(BUILD_PATH)/TINY_sms_buffered.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_sms_CODE.bin 
-	rm $(BUILD_PATH)/TINY_sms_DATA.bin
-	rm $(BUILD_PATH)/TINY_sms_BSS.bin
-	rm $(BUILD_PATH)/TINY_sms_UNASSIGNED.bin
+	rm $(BUILD_PATH)/TINY_sms_buffered_CODE.bin
+	rm $(BUILD_PATH)/TINY_sms_buffered_DATA.bin
+	rm $(BUILD_PATH)/TINY_sms_buffered_BSS.bin
+	rm $(BUILD_PATH)/TINY_sms_buffered_UNASSIGNED.bin
 	
 
 # 	-pragma-need=ansiterminal -pragma-define:ansipixels=240 -pragma-define:ansicolumns=40 
@@ -5831,21 +5911,6 @@ zx81_light:
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_zx81_8k.prg
-
-
-z88_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +z88 \
-	-D__Z88__ \
-	-DTINY_GAME \
-	-DNO_COLOR \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-DFORCE_YSIZE=8 \
-	-DFORCE_XSIZE=20 \
-	-subtype=app -create-app \
-	-o $(BUILD_PATH)/TINY_z88.bin \
-	-vn -lndos \
-	$(TINY_FILES)
-
 
 osca_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +osca \

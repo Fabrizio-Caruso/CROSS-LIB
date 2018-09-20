@@ -33,7 +33,7 @@
 #endif
 		
 
-#if defined(KEYBOARD_CONTROL) && !defined(ACK)
+#if defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB)
 	unsigned char GET_CHAR(void)
 	{
 	#  if defined(NO_INPUT)

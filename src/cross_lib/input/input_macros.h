@@ -75,7 +75,7 @@
 
 	
 	#if defined(KEYBOARD_CONTROL)
-		#if defined(ACK)
+		#if defined(ACK) || defined(STDLIB)
 			#define GET_CHAR() getchar()
 		#else
 			unsigned char GET_CHAR(void);

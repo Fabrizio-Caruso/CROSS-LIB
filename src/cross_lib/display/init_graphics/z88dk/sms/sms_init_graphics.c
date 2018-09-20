@@ -34,11 +34,4 @@ void INIT_GRAPHICS(void)
 	ioctl(1, IOCTL_OTERM_CLS);
 	ioctl(1, IOCTL_OTERM_PAUSE, 0);
 
-	while (1)
-	{
-		printf("SMS says Hello World!\n");
-		in_pause(250);
-		printf("Something else...\n");
-		in_pause(250);
-	}
 }

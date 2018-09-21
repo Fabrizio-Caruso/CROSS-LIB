@@ -618,5 +618,21 @@ Set working directory to the directory with your binary
 F1 -> Select binary
 
 
+------------------------------------------------------------
+
+OZ
+
+
+Launch vOZ
+Drag oz750.rom on the emulator's windows
+choose the memory size (256K in my case)
+press ENTER (CTRL key) to exit the display settings
+press ENTER (CTRL key) again
+(optional) Press F6 for brighter display
+Drag <program>.wzd on the emulator's windows
+Choose the program 'slot' from the emulator's dialog window
+Press F5 to select the custom program
+
+
 
 

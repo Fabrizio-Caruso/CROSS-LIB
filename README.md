@@ -165,6 +165,7 @@ For most targets, more than one version is built, in order to support different 
 - sc3000: Sega SC 3000
 - sg1000: Sega SG 1000
 - sms: Sega Master System (work in progress)
+- sos: S-OS 
 - spc1000: Samsung SPC 1000
 - spectrum: Sinclair Spectrum 16k/48k/128k
 - srr: Exidy Sorcerer

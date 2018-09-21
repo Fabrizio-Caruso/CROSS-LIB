@@ -2782,19 +2782,20 @@ ti83:
 	
 ti8x:
 	$(Z88DK_PATH)$(MYZ88DK) +ti8x \
-	-subtype=asm \
-	$(SCCZ80_OPTS) -D__TI8X__ \
+	-D__TI8X__ \
 	-DZ88DK_JOYSTICK \
-	-DFORCE_XSIZE=32 \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DFULL_GAME  \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app  \
+	-DFULL_GAME \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-create-app -oxchase \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.8xp $(BUILD_PATH)/FULL_ti8x.8xp	
-	rm $(SOURCE_PATH)/../a.bin	
+	mv $(SOURCE_PATH)/../xchase.8xp $(BUILD_PATH)/FULL_ti8x.8xp	
+	rm $(SOURCE_PATH)/../xchase
 
 	
 ti86_light:

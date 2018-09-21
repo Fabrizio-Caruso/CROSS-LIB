@@ -1434,8 +1434,8 @@ abc800_light:
 	-DNO_WAIT \
 	-D__ABC80__ -vn  -lndos  \
 	$(LIGHT_FILES)
+	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) -800 a.bin $(BUILD_PATH)/LIGHT_ABC800.bac 49200	
 	mv a.bin $(BUILD_PATH)/LIGHT_abc800.bin 
-	
 	
 
 abc80:
@@ -1466,23 +1466,6 @@ abc80:
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 	
 # zsdcc is producing wrong binaries
-# TODO: Test different optimization options
-# abc80:
-	# $(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
-	# $(ZSDCC_OPTS) \
-	# -pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	# -compiler=sdcc \
-	# --max-allocs-per-node200000 -SO3 --opt-code-size \
-	# -D__ABC80__ -clib=ansi -vn -DFULL_GAME \
-	# -DCONIO -DNO_INIT_GRAPHICS \
-	# -DLESS_TEXT \
-	# -DNO_BLINKING \
-	# -DNO_COLOR \
-	# -lndos -create-app \
-	# $(FULL_FILES)
-	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/FULL_abc80.bac 49200
-	# rm a.bin 
-	# mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 
 	
 abc800_32k:
@@ -2032,7 +2015,7 @@ z88_tiny_buffered:
 	rm a.bin
 	rm a_BSS.bin
 	rm a_DATA.bin
-	rm  a_bss_fardata.bin
+	rm a_bss_fardata.bin
 	mv a.63 $(BUILD_PATH)/TINY_z88_buffered.63
 	mv a.epr $(BUILD_PATH)/TINY_z88_buffered.epr
 		
@@ -2073,6 +2056,8 @@ z88:
 	-DLESS_TEXT \
 	-DNO_WAIT \
 	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DALT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
@@ -2080,6 +2065,7 @@ z88:
 	rm a.bin
 	rm a_BSS.bin
 	rm a_DATA.bin
+	rm a_bss_fardata.bin
 	mv a.63 $(BUILD_PATH)/FULL_z88.63
 	mv a.epr $(BUILD_PATH)/FULL_z88.epr
 	
@@ -2492,35 +2478,39 @@ cpm_adm3a:
 	rm $(BUILD_PATH)/FULL_cpm_adm3a.bin
 
 	
-sos:
+sos_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sos \
 	$(SCCZ80_OPTS) \
 	-lndos \
 	-DSTDLIB \
 	-DNO_COLOR \
 	-DBUFFERED -DALT_PRINT \
+	-DTURN-BASED \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN \
 	-create-app \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm a.bin
-	mv a.obj $(BUILD_PATH)/FULL_sos.obj
+	mv a.obj $(BUILD_PATH)/FULL_sos_buffered.obj
 	
-sos_tiny:
+sos_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sos \
 	$(SCCZ80_OPTS) \
 	-lndos \
 	-DSTDLIB \
 	-DNO_COLOR \
 	-DBUFFERED -DALT_PRINT \
+	-DTURN-BASED \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN \
 	-create-app \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES)
 	rm a.bin
-	mv a.obj $(BUILD_PATH)/TINY_sos.obj
+	mv a.obj $(BUILD_PATH)/TINY_sos_buffered.obj
 		
 
 	
@@ -4045,6 +4035,10 @@ z88dk_test: \
 	zsdcc_test	
 	
 	
+# mz2500 has broken rand()
+# ti8x untested
+# ti86 untested
+# sms lacks input
 z88dk_targets: \
 	abc80_targets \
 	ace_targets \
@@ -4093,6 +4087,7 @@ z88dk_targets: \
 	samcoupe_targets \
 	sc3000_targets \
 	sms_targets \
+	sos_targets \
 	spc1000_targets \
 	spectrum_targets \
 	srr_targets \
@@ -4382,6 +4377,9 @@ oz_targets: \
 	
 z88_targets: \
 	z88_tiny_buffered
+	
+sos_targets: \
+	sos_buffered sos_tiny_buffered
 
 sms_targets: \
 	sms_tiny_buffered
@@ -5812,6 +5810,14 @@ sms_hello:
 	mv a.sms $(BUILD_PATH)
 
 
+abc800_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 -Ca --reloc-info \
+	-vn -lndos \
+	$(SOURCE_PATH)/../experiments/hello.c
+	perl $(TOOLS_PATH)/z88dk/abc80/bin2bac.pl -800 $(SOURCE_PATH)/../a.bin $(SOURCE_PATH)/../a.reloc > a.bac
+	# a.reloc > $(BUILD_PATH)/hello.bac
+	# rm a.bin
+	
 rex_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +rex \
 	-vn -lndos \

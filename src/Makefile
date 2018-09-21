@@ -4034,11 +4034,11 @@ z88dk_test: \
 	sccz80_test \
 	zsdcc_test	
 	
+
 	
-# mz2500 has broken rand()
-# ti8x untested
-# ti86 untested
-# sms lacks input
+# with issues: mz2500 [has broken rand()]
+# untested: ti8x, ti86 
+# incomplete: sms [lacks input]
 z88dk_targets: \
 	abc80_targets \
 	ace_targets \

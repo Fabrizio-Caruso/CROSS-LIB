@@ -24,6 +24,8 @@
 	#include "image_settings/msx_redefined_chars_settings.h"
 #elif defined(CPCRSLIB)
 	#include "image_settings/cpc_cpcrslib_settings.h"
+#elif defined(__REX__)
+	#include "image_settings/cpc_cpcrslib_settings.h"
 #elif defined(__SUPERVISION__)
 	#include "image_settings/supervision_settings.h"
 #elif defined(__NES__) && defined(ANIMATE_PLAYER)
@@ -51,4 +53,6 @@
 	#include "graphics_mode/cpc_cpcrslib_graphics.h"
 #elif defined(BIT_MAPPED)
 	#include "graphics_mode/bit_mapped_graphics.h"
+#elif defined(REX)
+	#include "graphics_mode/rex_graphics.h"
 #endif

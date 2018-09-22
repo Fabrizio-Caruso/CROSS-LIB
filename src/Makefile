@@ -2782,19 +2782,20 @@ ti83:
 	
 ti8x:
 	$(Z88DK_PATH)$(MYZ88DK) +ti8x \
-	-subtype=asm \
-	$(SCCZ80_OPTS) -D__TI8X__ \
+	-D__TI8X__ \
 	-DZ88DK_JOYSTICK \
-	-DFORCE_XSIZE=32 \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DFULL_GAME  \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app  \
+	-DFULL_GAME \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-create-app -oxchase \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.8xp $(BUILD_PATH)/FULL_ti8x.8xp	
-	rm $(SOURCE_PATH)/../a.bin	
+	mv $(SOURCE_PATH)/../xchase.8xp $(BUILD_PATH)/FULL_ti8x.8xp	
+	rm $(SOURCE_PATH)/../xchase
 
 	
 ti86_light:
@@ -3117,9 +3118,27 @@ x07_tiny:
 	-create-app -o $(BUILD_PATH)/TINY_x07.bin
 	rm $(BUILD_PATH)/TINY_x07.bin	
 	
-		
 	
 rex:
+	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \
+	-D__REX__ \
+	-DTURN_BASED \
+	-vn \
+	-DREX \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DFULL_GAME -DSOUNDS \
+	-lndos \
+	-DNO_PRINT \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/FULL_rex.bin	
+	
+rex_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \
 	-D__REX__ \
 	-DTURN_BASED \
@@ -3130,10 +3149,13 @@ rex:
 	-DFULL_GAME -DSOUNDS \
 	-lndos \
 	-DNO_PRINT \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_CLEAR_SCREEN \
 	$(FULL_FILES) \
-	-create-app -o $(BUILD_PATH)/FULL_rex.bin
+	-create-app -o $(BUILD_PATH)/FULL_rex_buffered.bin
 	
 	
 
@@ -4034,11 +4056,11 @@ z88dk_test: \
 	sccz80_test \
 	zsdcc_test	
 	
+
 	
-# mz2500 has broken rand()
-# ti8x untested
-# ti86 untested
-# sms lacks input
+# with issues: mz2500 [has broken rand()]
+# untested: ti8x, ti86 
+# incomplete: sms [lacks input]
 z88dk_targets: \
 	abc80_targets \
 	ace_targets \

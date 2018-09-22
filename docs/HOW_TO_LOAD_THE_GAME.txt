@@ -633,6 +633,15 @@ Drag <program>.wzd on the emulator's windows
 Choose the program 'slot' from the emulator's dialog window
 Press F5 to select the custom program
 
+-------------------------------------------------------------
+
+S-OS
+
+Use sword05 (http://www.retropc.net/ohishi/s-os/sword05.lzh)
+Place the file (a.obj) in the same directory as the emulator
+(no space)L<SPACE>a.obj
+(no space)J 3000
+
 
 
 

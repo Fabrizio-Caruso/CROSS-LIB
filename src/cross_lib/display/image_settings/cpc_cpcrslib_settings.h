@@ -24,6 +24,10 @@
 #define _BROKEN_BRICK _BOMB
 #define _DEAD_GHOST _GHOST
 
+// TODO: UNIMPLEMENTED
+#define _SPACE 19*2
+#define _FREEZE 20*2
+#define _SUPER 21*2
 #endif // _CPC_CPCRSLIB_SETTINGS
 
 

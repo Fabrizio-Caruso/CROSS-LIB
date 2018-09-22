@@ -3120,7 +3120,7 @@ x07_tiny:
 	
 		
 	
-rex:
+rex_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \
 	-D__REX__ \
 	-DTURN_BASED \
@@ -3131,10 +3131,13 @@ rex:
 	-DFULL_GAME -DSOUNDS \
 	-lndos \
 	-DNO_PRINT \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_CLEAR_SCREEN \
 	$(FULL_FILES) \
-	-create-app -o $(BUILD_PATH)/FULL_rex.bin
+	-create-app -o $(BUILD_PATH)/FULL_rex_buffered.bin
 	
 	
 

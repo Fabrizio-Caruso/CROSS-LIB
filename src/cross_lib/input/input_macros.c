@@ -38,9 +38,6 @@
 	{
 	#  if defined(NO_INPUT)
 		return 0;
-	// TODO: Remove this BOGUS MZ2500 CASE
-	#elif defined(__MZ2500__)
-		return TURN_BASED_INPUT();
 	#elif defined(TURN_BASED)
 		return TURN_BASED_INPUT();
 	

@@ -1001,7 +1001,8 @@ zx81_16k:
 	$(ZSDCC_OPTS) \
 	-compiler=sdcc \
 	-vn \
-	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__ZX81__ -DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg \
@@ -2795,7 +2796,8 @@ ti8x:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv $(SOURCE_PATH)/../xchase.8xp $(BUILD_PATH)/FULL_ti8x.8xp	
-	rm $(SOURCE_PATH)/../xchase
+	mv $(SOURCE_PATH)/../xchase $(BUILD_PATH)/FULL_ti8x.bin
+	# rm $(SOURCE_PATH)/../xchase
 
 	
 ti86_light:
@@ -3368,7 +3370,7 @@ mz2500_tiny_buffered:
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app 
-	mv a.2D $(BUILD_PATH)/TINY_mz2500_buffered.2D
+	mv a.dsk $(BUILD_PATH)/TINY_mz2500_buffered.dsk
 	rm a.bin
 
 

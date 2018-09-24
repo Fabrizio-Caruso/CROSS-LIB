@@ -177,7 +177,7 @@ For most targets, more than one version is built, in order to support different 
 - ti83: Texas TI 83
 - ti8x: Texas TI 83 Plus (work in progress)
 - ti85: Texas TI 85
-- ti86: Texas TI 86 (work in progress)
+- ti86: Texas TI 86
 - tiki100: TIKI 100
 - trs80: TRS-80 Model I/III/IV
 - ts2068: Timex TS 2068

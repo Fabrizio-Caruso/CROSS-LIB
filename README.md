@@ -112,6 +112,7 @@ For most targets, more than one version is built, in order to support different 
 - c128_z80: Commodore 128 [Z80 CPU]
 - c16: Commodore 264 series (16/116/+4)
 - c64: Commodore 64
+- c7420: Philips VideoPac C7420 module (work in progress)
 - cbm510: Commodore CBM 510
 - cbm610: Commodore CBM 610
 - camputers_lynx: Camputers Lynx 48k/96k/128k

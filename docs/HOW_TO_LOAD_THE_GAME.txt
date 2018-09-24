@@ -405,9 +405,25 @@ QUICK
     Click 2nd OFF On, to init the Rigel Shell.
     Click Custom, then F1, and select A program.	
 	
-	 
+		
 	
-	
+-----------------------------------------------------------
+
+TI-86
+
+Use Wabbitemu
+
+You can load the .86p files by directly dragging them on VTI, 
+no need to go through the 'link" sequence, they'l be pushed in the TI86 memory.
+So, first drag InstLASM.86p, then enter:
+asm(InstLASM)
+press F5 and confirm the reset process
+once you get the message "MEM CLEARED", 
+drag LargeLd.86p on the calculator.
+Now you can upload ONE SINGLE "big" executable (built with the LASM startup option), just drag it on the calculator.
+To run: asm(LargeLd)
+
+
 -----------------------------------------------------------
 
 

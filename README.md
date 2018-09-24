@@ -73,7 +73,7 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 ## SUPPORTED TARGETS 
 
-(as of 2018/09/04)
+(as of 2018/09/24)
 
 ### Modern 32/64-BIT PC versions
 

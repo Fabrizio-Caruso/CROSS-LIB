@@ -175,7 +175,7 @@ For most targets, more than one version is built, in order to support different 
 - svi: Spectravideo 318/328
 - ti82: Texas TI 82
 - ti83: Texas TI 83
-- ti8x: Texas TI 83 Plus (work in progress)
+- ti8x: Texas TI 83 Plus
 - ti85: Texas TI 85
 - ti86: Texas TI 86
 - tiki100: TIKI 100

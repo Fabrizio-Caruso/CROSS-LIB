@@ -2782,7 +2782,7 @@ ti83:
 	rm $(SOURCE_PATH)/../xchase	
 	
 ti8x:
-	$(Z88DK_PATH)$(MYZ88DK) +ti8x \
+	$(Z88DK_PATH)$(MYZ88DK) +ti8x -clib=ansi  -subtype=ion -Cz--altfmt \
 	-D__TI8X__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME \

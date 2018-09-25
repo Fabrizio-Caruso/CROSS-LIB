@@ -5899,7 +5899,6 @@ sms_tiny_buffered:
 	-DALT_CLEAR_SCREEN \
 	-DNO_SLEEP \
 	-DNO_INPUT \
-	-DNO_WAIT \
 	-o $(BUILD_PATH)/TINY_sms_buffered.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

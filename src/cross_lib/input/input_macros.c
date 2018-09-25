@@ -214,7 +214,19 @@ out			stb res
 			while (!(joystick(stick) & MOVE_FIRE))
 			{
 			}
-		}			
+		}	
+	#elif defined(__SMS__)
+		#include <arch/sms/SMSlib.h>
+				
+		void WAIT_PRESS(void)
+		{
+			while ((SMS_getKeysStatus() | PORT_A_KEY_1))
+			{
+			}
+			while (!(SMS_getKeysStatus() | PORT_A_KEY_1))
+			{
+			}
+		}		
 	#else
 		#include<joystick.h>
 

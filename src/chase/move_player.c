@@ -145,6 +145,11 @@ extern Character player;
 			}
 			#endif
 		}	
+	#elif defined(__SMS__)
+	// TODO: BOGUS - IMPLEMENT THIS!
+		void movePlayerByJoystick(unsigned char joyInput)
+		{
+		}
 	#else
 		#include <joystick.h>
 		

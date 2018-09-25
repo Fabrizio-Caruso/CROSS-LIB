@@ -52,7 +52,8 @@
 		{ \
 			stick = 1; \
 		}
-
+	#elif defined(__SMS__)
+		#define INIT_INPUT()
 	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200
 		#include <joystick.h>
 		#if defined(__SUPERVISION__)

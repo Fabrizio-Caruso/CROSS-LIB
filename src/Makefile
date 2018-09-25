@@ -2782,7 +2782,7 @@ ti83:
 	rm $(SOURCE_PATH)/../xchase	
 	
 ti8x:
-	$(Z88DK_PATH)$(MYZ88DK) +ti8x \
+	$(Z88DK_PATH)$(MYZ88DK) +ti8x -clib=ansi  -subtype=ion -Cz--altfmt \
 	-D__TI8X__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME \
@@ -5899,7 +5899,6 @@ sms_tiny_buffered:
 	-DALT_CLEAR_SCREEN \
 	-DNO_SLEEP \
 	-DNO_INPUT \
-	-DNO_WAIT \
 	-o $(BUILD_PATH)/TINY_sms_buffered.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

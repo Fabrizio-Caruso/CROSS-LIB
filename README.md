@@ -188,7 +188,7 @@ For most targets, more than one version is built, in order to support different 
 - linux386:  ELF linux for Intel 386
 - linux68k:  ELF linux for Motorola 68020
 - linuxppc:  ELF linux for PPC
-- linuxmips: ELP linux for MIPS32r2 (little endian)
+- linuxmips: ELF linux for MIPS32r2 (little endian)
 
 
 ### Modern 32/64-BIT PC versions

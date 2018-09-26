@@ -250,16 +250,30 @@ extern Character player;
 		#endif
 	}
 #else
+	
 	#if defined(Z88DK_JOYSTICK)
 		extern unsigned char stick;
 		
-		void MOVE_PLAYER(void) { movePlayerByJoystick(joystick(stick));}
+		#define JOY_INPUT() joystick(stick)
 	#elif defined(__SMS__)
 		#include <arch/sms/SMSLib.h>
 		
-		void MOVE_PLAYER(void) { movePlayerByJoystick(SMS_getKeysStatus() & 0xFF);}
+		#define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
 	#else
-		void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
+		#define JOY_INPUT() joy_read(JOY_1)
+	#endif	
+
+	#if defined(TURN_BASED)
+		void MOVE_PLAYER(void) 
+		{ 
+			unsigned char joyInput; 
+			while(!(joyInput=JOY_INPUT())) 
+			{ 
+			}; 
+			movePlayerByJoystick(joyInput); 
+		}	
+	#else
+		void MOVE_PLAYER(void) { movePlayerByJoystick(JOY_INPUT()); }
 	#endif
 #endif
 

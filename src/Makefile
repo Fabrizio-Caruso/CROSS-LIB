@@ -5884,7 +5884,7 @@ sms_chicken:
 	$(SOURCE_PATH)/../experiments/chicken/chicken_graphics.asm	
 
 sms_joy_test:
-	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=1 -v \
+	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=17 -v \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-create-app \
 	$(SOURCE_PATH)/../experiments/sms_joy_test.c \
@@ -5895,7 +5895,7 @@ sms_joy_test:
 	rm $(BUILD_PATH)/sms_joy_test_UNASSIGNED.bin	
 	
 sms_tiny_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=1 -v \
+	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=17 -v \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-D__SMS__ \
 	-DNO_COLOR \

@@ -3138,6 +3138,9 @@ rex:
 	-DALT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_rex.bin	
+	rm $(BUILD_PATH)/FULL_rex_BSS.bin
+	rm $(BUILD_PATH)/FULL_rex.bin
+
 	
 rex_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \
@@ -3157,7 +3160,8 @@ rex_buffered:
 	-DALT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_rex_buffered.bin
-	
+	rm $(BUILD_PATH)/FULL_rex_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_rex_buffered.bin	
 	
 
 g800_turn_based:

@@ -118,10 +118,25 @@ RUN
 
 Luxor ABC 80 
 
-Use the ABC80SIM emulator (https://www.abc80.org/pub/abc80sim/)
+Use the ABC80SIM emulator (https://www.abc80.org/pub/abc80sim/, https://git.zytor.com/abc80/abc80sim.git/)
 
+.ihx
 Pass the ihx file as a parameter to the emulator
 Run it directly with the command “A=CALL(49200)”
+
+.bas
+abc80 --memfile program.bac
+Then "run mem:"
+
+
+---------------------------------------------------------
+
+Luxor ABC 800
+
+.bas
+abc80 --abc802 --memfile program.bac
+Then "run mem:"
+
 
 ---------------------------------------------------------
 
@@ -174,6 +189,7 @@ Memory configs in WinOSI
 Open Osi.ini
 32K -> RAMTOP=0x7FFF
 8k  _> RAMTOP=0x1FFF
+
 ---------------------------------------------------------
 
 SC 3000

@@ -3843,7 +3843,30 @@ linux386:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv linux386.exe $(BUILD_PATH)/FULL_linux386_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o
-	
+
+
+# buffered
+linuxmips:
+	$(_ACK) $(_ACK_OPTS) -mlinuxmips \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=21 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__LINUXPPC__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DALT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	mv linuxppc.exe $(BUILD_PATH)/FULL_linuxmips_turn_based.exe
+	rm $(SOURCE_PATH)/../*.o	
+
 
 # buffered
 pdp11v7:

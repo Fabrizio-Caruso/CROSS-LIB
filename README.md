@@ -28,6 +28,7 @@ The main goal is to get the library and game to work on most 8-bit architectures
 - PPC
 - Intel 386
 - Motorola 68020
+- MIPS32r2 (little-endian)
 
 ### 32/64-BIT ARCHITECTURE
 We also support any current architecture for which GCC can produce a working binary.
@@ -46,7 +47,7 @@ The program is written in ANSI C and currently compiled with
 - SCCZ80 (from Z88DK) for most Z80 targets (https://www.z88dk.org/), 
 - ZSDCC (from Z88DK) for some Z80 targets (https://www.z88dk.org/),
 - CMOC for 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
-- ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC, PDP11 (https://github.com/davidgiven/ack).
+- ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC/MIPS, PDP11 (https://github.com/davidgiven/ack).
 - GCC for modern 32/64-bit PC under any operating systems 
 
 Previous versions used 
@@ -73,23 +74,7 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 ## SUPPORTED TARGETS 
 
-(as of 2018/09/24)
-
-### Modern 32/64-BIT PC versions
-
-There is a ncurses version that can be compiled for multiple platforms for which an ANSI C compiler and ncurses are available, including Windows and Linux.
-For example:
-- Cygwin/Windows or Linux (gcc + ncurses, e.g., cygwin/Windows or Linux) 
-- Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
-
-### 32-BIT versions
-- linux386: ELF linux for Intel 386
-- linux68k: ELF linux for Motorola 68020
-- linuxppc: ELF linux for PPC
-
-### 16-BIT versions
-- pc8086: Intel 8088/8086 PC
-- pdp: PDP 11 v7 (work in progress)
+(as of 2018/09/26)
  
 ### 8-BIT versions
 
@@ -191,6 +176,29 @@ For most targets, more than one version is built, in order to support different 
 - z9001: Robotron Z9001, Robotron KC 85/1, Robotron KC 87 
 - zx80: Sinclair ZX80
 - zx81: Sinclair ZX81
+
+
+### 16-BIT versions
+- pc8086: Intel 8088/8086 PC
+- pdp: PDP 11 v7 (work in progress)
+
+
+### 32-BIT versions
+- linux386:  ELF linux for Intel 386
+- linux68k:  ELF linux for Motorola 68020
+- linuxppc:  ELF linux for PPC
+- linuxmips: ELP linux for MIPS32r2 (little endian)
+
+
+### Modern 32/64-BIT PC versions
+
+There are a plain stdlib (turn based) and an ncurses (action) version that can be compiled for multiple platforms for which an ANSI C compiler and ncurses are available, including Windows and Linux.
+For example:
+- Cygwin/Windows or Linux (gcc + ncurses, e.g., cygwin/Windows or Linux) 
+- Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
+
+Remark: 
+You can compile the game for any recent or old/ancient architecture for which there is an ANSI C capable compiler.
 
 -------------------------------------------
 STATUS - ISSUES

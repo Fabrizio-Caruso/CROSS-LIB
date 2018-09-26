@@ -25,7 +25,7 @@ The main goal is to get the library and game to work on most 8-bit architectures
 - PDP11
 
 ### 32-BIT ARCHITECTURES
-- PPC
+- PowerPC
 - Intel 386
 - Motorola 68020
 - MIPS32r2 (little-endian)
@@ -55,6 +55,7 @@ Previous versions used
 WinCMOC has been abandoned because it uses an old CMOC version that has broken pointer to functions and because it is no longer maintained by its author. 
 
 For other targets, the following compilers and dev-kits may be included in future versions of the tool-chain:
+- PVSNESLIB for the Super Nintendo Entertainment System (https://github.com/alekmaul/pvsneslib),
 - Z8KGCC for the Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
 - amiga-os-toolchain for all Amigas (https://github.com/cahirwpz/amigaos-cross-toolchain),
 - GCC6809 for other 6809 targets (https://sourceforge.net/projects/freewpc/files/GCC-6809/),

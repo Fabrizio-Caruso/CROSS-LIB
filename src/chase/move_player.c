@@ -147,8 +147,32 @@ extern Character player;
 		}	
 	#elif defined(__SMS__)
 	// TODO: BOGUS - IMPLEMENT THIS!
+		#include <arch/sms/SMSLib.h>
+		
 		void movePlayerByJoystick(unsigned char joyInput)
 		{
+			if(joyInput & PORT_A_KEY_UP)
+			{
+				_DO_MOVE_UP
+			}
+			else if(joyInput & PORT_A_KEY_DOWN)
+			{
+				_DO_MOVE_DOWN
+			}
+			else if(joyInput & PORT_A_KEY_LEFT)
+			{
+				_DO_MOVE_LEFT
+			}
+			else if(joyInput & PORT_A_KEY_RIGHT)
+			{
+				_DO_MOVE_RIGHT
+			}
+			#if !defined(TINY_GAME)
+			else if(joyInput & PORT_A_KEY_1 && guns>0 && !bullet._status)
+			{
+				playerFire = 1;
+			}
+			#endif			
 		}
 	#else
 		#include <joystick.h>
@@ -226,12 +250,30 @@ extern Character player;
 		#endif
 	}
 #else
+	
 	#if defined(Z88DK_JOYSTICK)
 		extern unsigned char stick;
 		
-		void MOVE_PLAYER(void) { movePlayerByJoystick(joystick(stick));}
+		#define JOY_INPUT() joystick(stick)
+	#elif defined(__SMS__)
+		#include <arch/sms/SMSLib.h>
+		
+		#define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
 	#else
-		void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));}
+		#define JOY_INPUT() joy_read(JOY_1)
+	#endif	
+
+	#if defined(TURN_BASED)
+		void MOVE_PLAYER(void) 
+		{ 
+			unsigned char joyInput; 
+			while(!(joyInput=JOY_INPUT())) 
+			{ 
+			}; 
+			movePlayerByJoystick(joyInput); 
+		}	
+	#else
+		void MOVE_PLAYER(void) { movePlayerByJoystick(JOY_INPUT()); }
 	#endif
 #endif
 

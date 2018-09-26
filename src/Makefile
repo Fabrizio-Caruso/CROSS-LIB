@@ -2486,7 +2486,7 @@ sos_buffered:
 	-DSTDLIB \
 	-DNO_COLOR \
 	-DBUFFERED -DALT_PRINT \
-	-DTURN-BASED \
+	-DTURN_BASED \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_CLEAR_SCREEN \
@@ -2503,7 +2503,7 @@ sos_tiny_buffered:
 	-DSTDLIB \
 	-DNO_COLOR \
 	-DBUFFERED -DALT_PRINT \
-	-DTURN-BASED \
+	-DTURN_BASED \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_CLEAR_SCREEN \
@@ -4058,9 +4058,8 @@ z88dk_test: \
 	zsdcc_test	
 	
 
-	
-# with issues: mz2500 [has broken rand()]
-# untested: ti8x, ti86 
+
+# missing: xo7, rex, c7420	
 # incomplete: sms [lacks input]
 z88dk_targets: \
 	abc80_targets \
@@ -5884,9 +5883,19 @@ sms_chicken:
 	$(SOURCE_PATH)/../experiments/chicken/chicken.c \
 	$(SOURCE_PATH)/../experiments/chicken/chicken_graphics.asm	
 
-
+sms_joy_test:
+	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=17 -v \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
+	-create-app \
+	$(SOURCE_PATH)/../experiments/sms_joy_test.c \
+	-o $(BUILD_PATH)/sms_joy_test.bin
+	rm $(BUILD_PATH)/sms_joy_test_CODE.bin
+	rm $(BUILD_PATH)/sms_joy_test_DATA.bin
+	rm $(BUILD_PATH)/sms_joy_test_BSS.bin
+	rm $(BUILD_PATH)/sms_joy_test_UNASSIGNED.bin	
+	
 sms_tiny_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=1 -v \
+	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=17 -v \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-D__SMS__ \
 	-DNO_COLOR \
@@ -5895,10 +5904,11 @@ sms_tiny_buffered:
 	-DLESS_TEXT \
 	-create-app \
 	-DBUFFERED \
+	-DTURN_BASED \
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
 	-DNO_SLEEP \
-	-DNO_INPUT \
+	-DNO_WAIT \
 	-o $(BUILD_PATH)/TINY_sms_buffered.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

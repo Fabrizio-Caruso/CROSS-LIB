@@ -1448,7 +1448,6 @@ abc80:
 	-DLESS_TEXT \
 	-DSIMPLE_STRATEGY \
 	-DNO_BLINKING \
-	-DNO_COLOR \
 	-DNO_HINTS \
 	-DNO_WAIT \
 	-DNO_BORDER \
@@ -1463,9 +1462,36 @@ abc80:
 	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk 
 	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk -b $(BUILD_PATH)/xchase.bac
 	rm a.bin 
-	rm $(BUILD_PATH)/xchase.bac
+	mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/FULL_abc80.bac
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 	
+	
+abc800:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 -lm -subtype=hex -zorg=49200 \
+	$(SCCZ80_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DFORCE_CONIO_LIB \
+	-D__ABC800__  -vn -DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DSIMPLE_STRATEGY \
+	-DNO_BLINKING \
+	-DNO_HINTS \
+	-DNO_WAIT \
+	-DNO_BORDER \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_SLEEP \
+	-DFLAT_ENEMIES \
+	-lndos -create-app \
+	$(FULL_FILES)
+	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/xchase.bac 49200
+	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc800.dsk 
+	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc800.dsk -b $(BUILD_PATH)/xchase.bac
+	rm a.bin 
+	rm $(BUILD_PATH)/xchase.bac
+	mv a.ihx $(BUILD_PATH)/FULL_abc800.ihx 	
 # zsdcc is producing wrong binaries
 
 	
@@ -4086,8 +4112,7 @@ z88dk_test: \
 	
 
 
-# missing: xo7, rex, c7420	
-# incomplete: sms [lacks input]
+# missing: abc800, xo7, c7420, rex
 z88dk_targets: \
 	abc80_targets \
 	ace_targets \
@@ -5859,13 +5884,22 @@ sms_hello:
 	mv a.sms $(BUILD_PATH)
 
 
+abc80_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 \
+	-vn -lndos \
+	$(SOURCE_PATH)/../experiments/hello.c
+	perl $(TOOLS_PATH)/z88dk/abc80/bin2bac.pl $(SOURCE_PATH)/../a.bin > a.bac	
+	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/abc80_hello.bac 49200
+	rm a.bin	
+	
 abc800_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 -Ca --reloc-info \
 	-vn -lndos \
 	$(SOURCE_PATH)/../experiments/hello.c
 	perl $(TOOLS_PATH)/z88dk/abc80/bin2bac.pl -800 $(SOURCE_PATH)/../a.bin $(SOURCE_PATH)/../a.reloc > a.bac
-	# a.reloc > $(BUILD_PATH)/hello.bac
-	# rm a.bin
+	mv a.bac $(BUILD_PATH)/abc800_hello.bac
+	rm a.reloc
+	rm a.bin
 	
 rex_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +rex \

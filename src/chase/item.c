@@ -154,13 +154,13 @@ extern Item extraPoints;
 		}
 	}
 
-	void handle_count_down(unsigned char * flagPtr, unsigned short * countDownPtr)
+	void handle_count_down(unsigned char * activeItemFlagPtr, unsigned short * countDownPtr)
 	{
-		if(*flagPtr)
+		if(*activeItemFlagPtr)
 		{
 			if(*countDownPtr<=0)
 			{
-				*flagPtr=0;
+				*activeItemFlagPtr=0;
 			}
 			else
 			{

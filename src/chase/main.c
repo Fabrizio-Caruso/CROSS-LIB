@@ -272,8 +272,8 @@ void initialScreen(void)
 	void handle_special_triggers(void)
 	{
 		// confuse_present_on_level_condition is defined as missileBasesDestroyed
-		zombie_present_on_level = missileBasesDestroyed>=3;
-		super_present_on_level = skullsKilled>=2;
+		zombie_present_on_level = missileBasesDestroyed>=MISSILES_FOR_ZOMBIE;
+		super_present_on_level = skullsKilled>=SKULLS_FOR_SUPER;
 		// chase_present_on_level_condition is defined as skullsKilled;
 		extraLife_present_on_level = super_present_on_level && zombie_present_on_level;
 	}
@@ -348,8 +348,8 @@ int main(void)
 		ghostCount = GHOSTS_NUMBER;
 		#if defined(FULL_GAME)
 			#if defined(DEBUG_ITEMS)
-				missileBasesDestroyed = 3;
-				skullsKilled = 2;
+				missileBasesDestroyed = 99;
+				skullsKilled = 99;
 			#else
 				missileBasesDestroyed = 0;
 				skullsKilled = 0;			

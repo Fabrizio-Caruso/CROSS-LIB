@@ -178,7 +178,7 @@ extern Item extraPoints;
 		extraPoints._coolDown/=2;
 		invincibility._coolDown/=2;
 		freeze._coolDown/=2;
-		extraLife._coolDown/=2;
+		// extraLife._coolDown/=2;
 		TICK_SOUND();		
 	}
 #elif !defined(TINY_GAME)

@@ -153,7 +153,7 @@
 		initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE)
 #elif defined(TINY_GAME)
 	#define PLACE_BOMB_4() \
-		initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-(unsigned char)(rand()&1)), \
+		initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)+(unsigned char)(rand()&1)), \
 													  (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);
 #else
 	#define PLACE_BOMB_4() \

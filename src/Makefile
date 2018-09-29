@@ -172,6 +172,7 @@ oric1_16k:
 # 	-DNO_MESSAGE 
 vic20_unexpanded:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	-DANIMATE_PLAYER \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_TEXT_COLOR \
 	-DVIC20_UNEXPANDED \
@@ -179,7 +180,6 @@ vic20_unexpanded:
 	-DLESS_TEXT \
 	-DNO_SET_SCREEN_COLORS \
 	-DTINY_GAME \
-	-DNO_RANDOM_LEVEL \
 	-DNO_STATS \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
@@ -190,6 +190,7 @@ vic20_unexpanded:
 	-DROUND_ENEMIES \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
+	$(SOURCE_PATH)/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/vic20_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
@@ -235,6 +236,7 @@ vic20_exp_3k:
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_3k.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(TINY_FILES) \
+	$(SOURCE_PATH)/vic20_memory.s \
 	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 
 	
@@ -252,11 +254,13 @@ vic20_exp_8k_full:
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	-DVIC20_EXP_8K \
+	-DBETWEEN_LEVEL \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
+	$(SOURCE_PATH)/vic20_memory.s \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
 
@@ -277,6 +281,7 @@ vic20_exp_8k:
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
 	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/vic20_memory.s \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
 	
@@ -290,6 +295,7 @@ vic20_exp_16k:
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
+	$(SOURCE_PATH)/vic20_memory.s \
 	-o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
 
 	

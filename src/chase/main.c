@@ -66,11 +66,6 @@
 	unsigned char stick;
 #endif
 
-unsigned short ghostSlowDown;
-unsigned short points;
-unsigned short highScore;
-unsigned char lives;
-unsigned char level;
 
 #if !defined(TINY_GAME)
 	unsigned short ghostLevel;
@@ -80,7 +75,6 @@ unsigned char level;
 #if !defined(TINY_GAME) || defined(TURN_BASED)
 	unsigned short loop;
 #endif
-
 
 
 #if !defined(TINY_GAME)
@@ -113,8 +107,6 @@ unsigned char level;
 	unsigned char playerBlink;	
 #endif
 
-Character player; 
-
 #if !defined(TINY_GAME)
 	Character skull;
 	Item powerUp;
@@ -125,8 +117,31 @@ Character player;
 	Character bullet;
 #endif
 
-Character ghosts[GHOSTS_NUMBER];
-Character bombs[BOMBS_NUMBER];
+#if defined(__VIC20__)
+	extern Character ghosts[];
+	extern Character bombs[];
+	
+	extern Character player;
+	
+	extern unsigned short ghostSlowDown;
+	extern unsigned short points;
+	extern unsigned short highScore;
+
+	extern unsigned char lives;
+	extern unsigned char level;	
+#else
+	Character ghosts[GHOSTS_NUMBER];
+	Character bombs[BOMBS_NUMBER];
+
+	Character player; 
+
+	unsigned short ghostSlowDown;
+	unsigned short points;
+	unsigned short highScore;	
+	
+	unsigned char lives;
+	unsigned char level;	
+#endif
 
 #if defined(FULL_GAME)
 

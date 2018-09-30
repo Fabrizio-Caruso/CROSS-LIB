@@ -66,11 +66,6 @@
 	unsigned char stick;
 #endif
 
-unsigned short ghostSlowDown;
-unsigned short points;
-unsigned short highScore;
-unsigned char lives;
-unsigned char level;
 
 #if !defined(TINY_GAME)
 	unsigned short ghostLevel;
@@ -80,7 +75,6 @@ unsigned char level;
 #if !defined(TINY_GAME) || defined(TURN_BASED)
 	unsigned short loop;
 #endif
-
 
 
 #if !defined(TINY_GAME)
@@ -113,8 +107,6 @@ unsigned char level;
 	unsigned char playerBlink;	
 #endif
 
-Character player; 
-
 #if !defined(TINY_GAME)
 	Character skull;
 	Item powerUp;
@@ -125,8 +117,31 @@ Character player;
 	Character bullet;
 #endif
 
-Character ghosts[GHOSTS_NUMBER];
-Character bombs[BOMBS_NUMBER];
+#if defined(__VIC20__)
+	extern Character ghosts[];
+	extern Character bombs[];
+	
+	extern Character player;
+	
+	extern unsigned short ghostSlowDown;
+	extern unsigned short points;
+	extern unsigned short highScore;
+
+	extern unsigned char lives;
+	extern unsigned char level;	
+#else
+	Character ghosts[GHOSTS_NUMBER];
+	Character bombs[BOMBS_NUMBER];
+
+	Character player; 
+
+	unsigned short ghostSlowDown;
+	unsigned short points;
+	unsigned short highScore;	
+	
+	unsigned char lives;
+	unsigned char level;	
+#endif
 
 #if defined(FULL_GAME)
 
@@ -272,8 +287,8 @@ void initialScreen(void)
 	void handle_special_triggers(void)
 	{
 		// confuse_present_on_level_condition is defined as missileBasesDestroyed
-		zombie_present_on_level = missileBasesDestroyed>=3;
-		super_present_on_level = skullsKilled>=2;
+		zombie_present_on_level = missileBasesDestroyed>=MISSILES_FOR_ZOMBIE;
+		super_present_on_level = skullsKilled>=SKULLS_FOR_SUPER;
 		// chase_present_on_level_condition is defined as skullsKilled;
 		extraLife_present_on_level = super_present_on_level && zombie_present_on_level;
 	}
@@ -348,8 +363,8 @@ int main(void)
 		ghostCount = GHOSTS_NUMBER;
 		#if defined(FULL_GAME)
 			#if defined(DEBUG_ITEMS)
-				missileBasesDestroyed = 3;
-				skullsKilled = 2;
+				missileBasesDestroyed = 99;
+				skullsKilled = 99;
 			#else
 				missileBasesDestroyed = 0;
 				skullsKilled = 0;			

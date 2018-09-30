@@ -172,6 +172,7 @@ oric1_16k:
 # 	-DNO_MESSAGE 
 vic20_unexpanded:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	-DANIMATE_PLAYER \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_TEXT_COLOR \
 	-DVIC20_UNEXPANDED \
@@ -179,7 +180,6 @@ vic20_unexpanded:
 	-DLESS_TEXT \
 	-DNO_SET_SCREEN_COLORS \
 	-DTINY_GAME \
-	-DNO_RANDOM_LEVEL \
 	-DNO_STATS \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
@@ -190,6 +190,7 @@ vic20_unexpanded:
 	-DROUND_ENEMIES \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
+	$(SOURCE_PATH)/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/vic20_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
@@ -235,6 +236,7 @@ vic20_exp_3k:
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_3k.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(TINY_FILES) \
+	$(SOURCE_PATH)/vic20_memory.s \
 	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 
 	
@@ -252,11 +254,13 @@ vic20_exp_8k_full:
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	-DVIC20_EXP_8K \
+	-DBETWEEN_LEVEL \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
+	$(SOURCE_PATH)/vic20_memory.s \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
 
@@ -277,6 +281,7 @@ vic20_exp_8k:
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
 	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/vic20_memory.s \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
 	
@@ -290,6 +295,7 @@ vic20_exp_16k:
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
+	$(SOURCE_PATH)/vic20_memory.s \
 	-o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
 
 	
@@ -1448,7 +1454,6 @@ abc80:
 	-DLESS_TEXT \
 	-DSIMPLE_STRATEGY \
 	-DNO_BLINKING \
-	-DNO_COLOR \
 	-DNO_HINTS \
 	-DNO_WAIT \
 	-DNO_BORDER \
@@ -1463,9 +1468,36 @@ abc80:
 	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk 
 	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk -b $(BUILD_PATH)/xchase.bac
 	rm a.bin 
-	rm $(BUILD_PATH)/xchase.bac
+	mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/FULL_abc80.bac
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
 	
+	
+abc800:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 -lm -subtype=hex -zorg=49200 \
+	$(SCCZ80_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DFORCE_CONIO_LIB \
+	-D__ABC800__  -vn -DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DSIMPLE_STRATEGY \
+	-DNO_BLINKING \
+	-DNO_HINTS \
+	-DNO_WAIT \
+	-DNO_BORDER \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_SLEEP \
+	-DFLAT_ENEMIES \
+	-lndos -create-app \
+	$(FULL_FILES)
+	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/xchase.bac 49200
+	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc800.dsk 
+	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc800.dsk -b $(BUILD_PATH)/xchase.bac
+	rm a.bin 
+	rm $(BUILD_PATH)/xchase.bac
+	mv a.ihx $(BUILD_PATH)/FULL_abc800.ihx 	
 # zsdcc is producing wrong binaries
 
 	
@@ -3138,6 +3170,9 @@ rex:
 	-DALT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_rex.bin	
+	rm $(BUILD_PATH)/FULL_rex_BSS.bin
+	rm $(BUILD_PATH)/FULL_rex.bin
+
 	
 rex_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \
@@ -3157,7 +3192,8 @@ rex_buffered:
 	-DALT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_rex_buffered.bin
-	
+	rm $(BUILD_PATH)/FULL_rex_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_rex_buffered.bin	
 	
 
 g800_turn_based:
@@ -4082,8 +4118,7 @@ z88dk_test: \
 	
 
 
-# missing: xo7, rex, c7420	
-# incomplete: sms [lacks input]
+# missing: abc800, xo7, c7420, rex
 z88dk_targets: \
 	abc80_targets \
 	ace_targets \
@@ -5855,13 +5890,22 @@ sms_hello:
 	mv a.sms $(BUILD_PATH)
 
 
+abc80_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 \
+	-vn -lndos \
+	$(SOURCE_PATH)/../experiments/hello.c
+	perl $(TOOLS_PATH)/z88dk/abc80/bin2bac.pl $(SOURCE_PATH)/../a.bin > a.bac	
+	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/abc80_hello.bac 49200
+	rm a.bin	
+	
 abc800_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 -Ca --reloc-info \
 	-vn -lndos \
 	$(SOURCE_PATH)/../experiments/hello.c
 	perl $(TOOLS_PATH)/z88dk/abc80/bin2bac.pl -800 $(SOURCE_PATH)/../a.bin $(SOURCE_PATH)/../a.reloc > a.bac
-	# a.reloc > $(BUILD_PATH)/hello.bac
-	# rm a.bin
+	mv a.bac $(BUILD_PATH)/abc800_hello.bac
+	rm a.reloc
+	rm a.bin
 	
 rex_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +rex \

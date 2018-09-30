@@ -154,13 +154,13 @@ extern Item extraPoints;
 		}
 	}
 
-	void handle_count_down(unsigned char * flagPtr, unsigned short * countDownPtr)
+	void handle_count_down(unsigned char * activeItemFlagPtr, unsigned short * countDownPtr)
 	{
-		if(*flagPtr)
+		if(*activeItemFlagPtr)
 		{
 			if(*countDownPtr<=0)
 			{
-				*flagPtr=0;
+				*activeItemFlagPtr=0;
 			}
 			else
 			{
@@ -178,7 +178,7 @@ extern Item extraPoints;
 		extraPoints._coolDown/=2;
 		invincibility._coolDown/=2;
 		freeze._coolDown/=2;
-		extraLife._coolDown/=2;
+		// extraLife._coolDown/=2;
 		TICK_SOUND();		
 	}
 #elif !defined(TINY_GAME)

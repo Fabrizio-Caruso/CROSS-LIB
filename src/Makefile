@@ -375,7 +375,7 @@ c16_16k:
 	-DREDEFINED_CHARS \
 	-DCONIO \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c264_redefined_chars_init_graphics.c  \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
 	$(LIGHT_FILES) \
 	$(SOURCE_PATH)/c16_memory.s \
 	-o $(BUILD_PATH)/LIGHT_c16_16k.prg
@@ -386,7 +386,7 @@ c16_32k:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DREDEFINED_CHARS \
 	-DCONIO \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c264_redefined_chars_init_graphics.c  \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -408,11 +408,13 @@ c16_16k_gfx:
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c264_redefined_chars_init_graphics.c \
+	-DC16_UNEXPANDED \
+	$(SOURCE_PATH)/c16_memory.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/c16_memory.s \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
 	-o $(BUILD_PATH)/FULL_c16_16k_GFX.prg	
 	
 c16_16k_full: 

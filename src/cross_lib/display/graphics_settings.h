@@ -6,8 +6,10 @@
 	#include "image_settings/vic20_exp_3k_settings.h"	
 #elif defined(__VIC20__) && defined(CONIO)
 	#include "image_settings/vic20_exp_16k_settings.h"
-#elif defined(__C16__) && defined(REDEFINED_CHARS)
+#elif defined(__C16__) && defined(REDEFINED_CHARS) && !defined(C16_UNEXPANDED)
 	#include "image_settings/c264_redefined_chars_settings.h"
+#elif defined(__C16__) && defined(REDEFINED_CHARS) && defined(C16_UNEXPANDED)
+	#include "image_settings/c264_redefined_chars_settings_2.h"	
 #elif defined(__CBM__) && defined(MEMORY_MAPPED)
 	#include "image_settings/petscii_memory_mapped_settings.h"
 #elif defined(__CMOC__) && !defined(__WINCMOC__)

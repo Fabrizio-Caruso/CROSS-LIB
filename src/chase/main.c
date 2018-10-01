@@ -108,16 +108,26 @@
 #endif
 
 #if !defined(TINY_GAME)
-	Character skull;
-	Item powerUp;
-	Item powerUp2;
-	Item gun;
-	Item extraPoints;	
-	
-	Character bullet;
+	#if defined(__VIC20__) || defined(__C16__)
+		extern Character skull;
+		extern Character bullet;	
+
+		extern Item powerUp;
+		extern Item powerUp2;
+		extern Item gun;
+		extern Item extraPoints;	
+	#else
+		Character skull;
+		Item powerUp;
+		Item powerUp2;
+		Item gun;
+		Item extraPoints;	
+		
+		Character bullet;
+	#endif
 #endif
 
-#if defined(__VIC20__)
+#if defined(__VIC20__) || defined(__C16__)
 	extern Character ghosts[];
 	extern Character bombs[];
 	
@@ -149,14 +159,23 @@
 	unsigned char innerVerticalWallX; 
 	unsigned char innerVerticalWallLength;
 
-	Item freeze;
-	Item invincibility;
-	
-	Item extraLife;
-	Item super;
-	Item confuse;
-	Item zombie;
-	Item chase;
+	#if defined(__VIC20__) || defined(__C16__)
+		extern Item freeze;
+		extern Item invincibility;
+		extern Item extraLife;
+		extern Item super;
+		extern Item confuse;
+		extern Item zombie;
+		extern Item chase;	
+	#else
+		Item freeze;
+		Item invincibility;
+		Item extraLife;
+		Item super;
+		Item confuse;
+		Item zombie;
+		Item chase;
+	#endif
 	 
 	unsigned char extraLife_present_on_level;
 	unsigned char super_present_on_level;
@@ -166,8 +185,6 @@
 
 	Character leftHorizontalMissile;
 	Character rightHorizontalMissile;
-
-	Character rockets[ROCKETS_NUMBER];
 	
 	Character chasingBullet;
 
@@ -198,6 +215,12 @@
 	unsigned short confuse_count_down;
 	
 	unsigned short zombie_count_down;
+
+	#if defined(__VIC20__) || defined(__C16__)
+		extern Character rockets[];
+	#else
+		Character rockets[ROCKETS_NUMBER];
+	#endif
 	
 #endif
 

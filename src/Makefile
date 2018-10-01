@@ -254,13 +254,14 @@ vic20_exp_8k_full:
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	-DVIC20_EXP_8K \
-	-DBETWEEN_LEVEL \
+	-DEND_SCREEN \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/vic20_memory.s \
+	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
 
@@ -369,13 +370,14 @@ c128_80col:
 # -Cl 
 c16_16k: 
 	$(CC65_PATH)$(MYCC65) -Or -t c16 \
-	--config $(CFG_PATH)/cc65/c16-16k.cfg \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
 	-DANIMATE_PLAYER  -DSOUNDS \
 	-DREDEFINED_CHARS \
 	-DCONIO \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c264_redefined_chars_init_graphics.c  \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
 	$(LIGHT_FILES) \
+	$(SOURCE_PATH)/c16_memory.s \
 	-o $(BUILD_PATH)/LIGHT_c16_16k.prg
 	
 c16_32k: 
@@ -384,17 +386,40 @@ c16_32k:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DREDEFINED_CHARS \
 	-DCONIO \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c264_redefined_chars_init_graphics.c  \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
+	$(SOURCE_PATH)/c16_memory.s \
 	-o $(BUILD_PATH)/FULL_c16_32k.prg
 
 # 	-DFLAT_ENEMIES
 	
+c16_16k_gfx:
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t c16 \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_2.cfg \
+	-DFULL_GAME \
+	-DREDEFINED_CHARS \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DSIMPLE_STRATEGY \
+	-DNO_HINTS \
+	-DLESS_TEXT	\
+	-DSOUNDS \
+	-DALT_PRINT \
+	-DANIMATE_PLAYER \
+	-DMEMORY_MAPPED \
+	-DC16_UNEXPANDED \
+	$(SOURCE_PATH)/c16_memory.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
+	-o $(BUILD_PATH)/FULL_c16_16k_GFX.prg	
+	
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t c16 \
-	--config $(CFG_PATH)/cc65/c16_16k_less_stack.cfg \
+	--config $(CFG_PATH)/cc65/c16-16k.cfg \
 	-DFULL_GAME \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DLESS_TEXT	\
@@ -402,10 +427,13 @@ c16_16k_full:
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
+	-DEND_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c264_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
+	$(SOURCE_PATH)/c16_memory.s \
 	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX.prg	
 
 	

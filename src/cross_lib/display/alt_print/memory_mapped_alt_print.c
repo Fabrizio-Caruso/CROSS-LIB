@@ -43,6 +43,18 @@
 			return ch-32;
 		}	
 	}
+#elif defined(__C16__) && defined(C16_UNEXPANDED)
+	char screenCode(char ch)
+	{
+		if(ch==32) 
+		{
+			return 0x60;
+		}
+		else
+		{
+			return ch;
+		}	
+	}
 #endif
 
 #  if defined(Z88DK_SPRITES)
@@ -76,7 +88,7 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	unsigned char i = 0;
 	while(str[i]!='\0')
 	{
-		#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))
+		#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__)) || (defined(__C16__) && defined(C16_UNEXPANDED))
 			_DISPLAY(x+i,y, screenCode(str[i]));
 		#else
 			_DISPLAY(x+i,y, str[i]);

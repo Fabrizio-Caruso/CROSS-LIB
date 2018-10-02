@@ -401,14 +401,15 @@ c16_16k_gfx:
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
 	-DFORCE_GHOSTS_NUMBER=8 \
-	-DSIMPLE_STRATEGY \
-	-DNO_HINTS \
 	-DLESS_TEXT	\
 	-DSOUNDS \
+	-DNO_HINTS \
+	-DSIMPLE_STRATEGY \
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	-DC16_UNEXPANDED \
+	-DALT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/c16_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \

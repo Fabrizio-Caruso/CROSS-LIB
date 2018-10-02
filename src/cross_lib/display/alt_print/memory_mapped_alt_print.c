@@ -46,9 +46,13 @@
 #elif defined(__C16__) && defined(C16_UNEXPANDED)
 	char screenCode(char ch)
 	{
-		if(ch==32) 
+		// if(ch==32) 
+		// {
+			// return 0x60;
+		// }
+		if(ch<64)
 		{
-			return 0x60;
+			return ch+64;
 		}
 		else
 		{
@@ -112,20 +116,33 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 	
 	for(i=0;i<6;++i)
 	{
+		#if (defined(__C16__) && defined(C16_UNEXPANDED))
+		_DISPLAY(x+i,y, screenCode((unsigned char) (digits[5-i])+48));			
+		#else
 		_DISPLAY(x+i,y, (unsigned char) (digits[5-i])+48);
+		#endif
 	}
 }	
 
 void print_02u(unsigned char x, unsigned char y, unsigned short val)
 {
+	#if (defined(__C16__) && defined(C16_UNEXPANDED))
+	_DISPLAY(x,y, screenCode(((unsigned char) val)/10+48));
+	_DISPLAY(1+x,y, screenCode(((unsigned char) val)%10+48));		
+	#else
 	_DISPLAY(x,y, ((unsigned char) val)/10+48);
 	_DISPLAY(1+x,y, ((unsigned char) val)%10+48);
+	#endif
 }	
 
 
 void print_u(unsigned char x, unsigned char y, unsigned short val)
 {
+	#if (defined(__C16__) && defined(C16_UNEXPANDED))
+	_DISPLAY(x,y, screenCode((unsigned char) (val+48)));		
+	#else
 	_DISPLAY(x,y, (unsigned char) (val+48));
+	#endif
 }
 
 

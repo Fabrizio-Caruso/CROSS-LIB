@@ -42,32 +42,32 @@ _Charset:
 .byte $66,$66,$3c,$18,$3c,$66,$66,$00,$66,$66,$66,$3c,$18,$18,$18,$00
 .byte $7e,$06,$0c,$18,$30,$60,$7e,$00
 
-; left (open) bracket
-.byte $3c,$30,$30,$30,$30,$30,$3c,$00
+; gun
+.byte 0,128,126,200,248,192,128,  0
 
-; pound 
-.byte $0c,$12,$30,$7c,$30,$62,$fc,$00
+; pound - invincibility
+.byte 24, 36, 24,  0,153,  0, 36,102
 
-; right (closed) bracket
-.byte $3c,$0c,$0c,$0c,$0c,$0c,$3c,$00
+; powerup
+.byte 0, 60, 54,223,231,122, 36, 24
 
 ; rocket
 .byte $18,$3c,$3c,$3c,$7e,$7e,$5a,$42
 
-; cbm left arrow
+; cbm left arrow - left missile
 .byte 0,  0,240, 63, 63,240,  0,  0
 
 ; space
 .byte $00,$00,$00,$00,$00,$00,$00,$00
 
-; exlamation
-.byte $18,$18,$18,$18,$00,$00,$18,$00
+; bullet
+.byte 0,  0,  8, 56, 28, 16,  0,  0
 
-; quote
-.byte $66,$66,$66,$00,$00,$00,$00,$00
+; vertical
+.byte 24, 24, 24, 48, 24, 12, 24, 24
 
-; sharp
-.byte $66,$66,$ff,$66,$ff,$66,$66,$00
+; horizontal
+.byte  0,  0,  0,255,  0,  0,  0,  0
 
 ; ghost
 .byte $bd,$42,$a5,$81,$81,$99,$81,$7e

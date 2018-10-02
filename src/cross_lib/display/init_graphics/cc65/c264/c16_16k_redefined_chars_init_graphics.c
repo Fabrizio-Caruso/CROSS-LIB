@@ -23,15 +23,15 @@ void INIT_GRAPHICS(void)
 	POKE(65298ul,PEEK(65298ul)&251); // make graphics chip get characters from RAM
 	
 	
-	{
-		unsigned short i;
-		for(i=0;i<64;++i)
-		{
-			POKE((3072+i),i+0x40);
-		}
+	// {
+		// unsigned short i;
+		// for(i=0;i<64;++i)
+		// {
+			// POKE((3072+i),i+0x40);
+		// }
 		
-		sleep(4);
-	}
+		// sleep(4);
+	// }
 	
 	// while(1){};	
 
@@ -44,8 +44,6 @@ void INIT_GRAPHICS(void)
 		++i;
 	} while(i<255);
 	
-		
-
 
 }
 

@@ -6,8 +6,12 @@
 #endif
 
 
-#if !defined(TINY_GAME)
+#if !defined(TINY_GAME) 
+	#if defined(__VIC20__) || defined(__C16__)
+	extern unsigned short ghostLevel;
+	#else
 	unsigned short ghostLevel;
+	#endif
 #endif
 
 
@@ -103,6 +107,10 @@
 		extern Item confuse;
 		extern Item zombie;
 		extern Item chase;	
+
+		extern Character leftHorizontalMissile;
+		extern Character rightHorizontalMissile;
+		extern Character chasingBullet;		
 	#else
 		Item freeze;
 		Item invincibility;
@@ -111,6 +119,10 @@
 		Item confuse;
 		Item zombie;
 		Item chase;
+		
+		Character leftHorizontalMissile;
+		Character rightHorizontalMissile;
+		Character chasingBullet;			
 	#endif
 	 
 	unsigned char extraLife_present_on_level;
@@ -118,11 +130,6 @@
 	unsigned char zombie_present_on_level;
 	#define chase_present_on_level_condition skullsKilled
 	#define confuse_present_on_level_condition missileBasesDestroyed
-
-	Character leftHorizontalMissile;
-	Character rightHorizontalMissile;
-	
-	Character chasingBullet;
 
 	Character * chasedEnemyPtr;
 	
@@ -145,17 +152,23 @@
 	unsigned char confuseActive; 
 	
 	unsigned char zombieActive; 
-		
-	unsigned short invincibility_count_down;	
-	
-	unsigned short confuse_count_down;
-	
-	unsigned short zombie_count_down;
 
 	#if defined(__VIC20__) || defined(__C16__)
 		extern Character rockets[];
+
+		extern unsigned short invincibility_count_down;	
+	
+		extern unsigned short confuse_count_down;
+	
+		extern unsigned short zombie_count_down;		
 	#else
 		Character rockets[ROCKETS_NUMBER];
+	
+		unsigned short invincibility_count_down;	
+	
+		unsigned short confuse_count_down;
+	
+		unsigned short zombie_count_down;	
 	#endif
 	
 #endif

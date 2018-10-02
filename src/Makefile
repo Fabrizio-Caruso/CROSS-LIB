@@ -403,16 +403,19 @@ c16_16k_gfx:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DLESS_TEXT	\
 	-DSOUNDS \
+	-DNO_HINTS \
 	-DSIMPLE_STRATEGY \
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	-DC16_UNEXPANDED \
 	-DALT_CLEAR_SCREEN \
+	-DALT_SLEEP \
 	$(SOURCE_PATH)/c16_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
 	-o $(BUILD_PATH)/FULL_c16_16k_GFX.prg	

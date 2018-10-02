@@ -46,13 +46,9 @@
 #elif defined(__C16__) && defined(C16_UNEXPANDED)
 	char screenCode(char ch)
 	{
-		// if(ch==32) 
-		// {
-			// return 0x60;
-		// }
 		if(ch<64)
 		{
-			return ch+64;
+			return 64+ch;
 		}
 		else
 		{
@@ -65,22 +61,20 @@
 	#include <graphics.h>
 	#include <games.h>
 
-	
-	// #include "../graphics_data/z88dk/z88dk_sprites_definitions.h"
-
-	//#include "../graphics_mode/z88dk_sprites_graphics.h"
-	
-	//#include "../display_target_geometry.h"
-	
-	
-		
 	#define _DISPLAY(x,y,ch) \
 		_draw_ch(x,y,ch);
-
 	
 #elif defined(BUFFERED)
 	#define _DISPLAY(x,y,ch) \
 		video_buffer[(y)][(x)] = (ch)
+		
+#elif defined(__C16__) && defined(C16_UNEXPANDED)
+	#define _DISPLAY(x,y,ch) \
+		do \
+		{ \
+			DISPLAY_POKE((loc(x,y)), (ch)); \
+			DISPLAY_POKE((loc(x,y)-1024), 0x71); \
+		} while(0)
 #else
 	#define _DISPLAY(x,y,ch) \
 		DISPLAY_POKE((loc(x,y)), (ch))

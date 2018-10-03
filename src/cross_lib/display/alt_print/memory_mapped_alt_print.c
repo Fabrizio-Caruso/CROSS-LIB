@@ -43,28 +43,45 @@
 			return ch-32;
 		}	
 	}
+#elif (defined(__C16__) && defined(C16_UNEXPANDED)) || (defined(__VIC20__) && defined(VIC20_EXP_8K))
+	char screenCode(char ch)
+	{
+		if(ch<64)
+		{
+			return 64+ch;
+		}
+		else
+		{
+			return ch;
+		}	
+	}
 #endif
 
 #  if defined(Z88DK_SPRITES)
 	#include <graphics.h>
 	#include <games.h>
 
-	
-	// #include "../graphics_data/z88dk/z88dk_sprites_definitions.h"
-
-	//#include "../graphics_mode/z88dk_sprites_graphics.h"
-	
-	//#include "../display_target_geometry.h"
-	
-	
-		
 	#define _DISPLAY(x,y,ch) \
 		_draw_ch(x,y,ch);
-
 	
 #elif defined(BUFFERED)
 	#define _DISPLAY(x,y,ch) \
 		video_buffer[(y)][(x)] = (ch)
+		
+#elif (defined(__C16__) && defined(C16_UNEXPANDED)) 
+	#define _DISPLAY(x,y,ch) \
+		do \
+		{ \
+			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
+			DISPLAY_POKE((loc(x,y)-1024), 0x71); \
+		} while(0)
+#elif (defined(__VIC20__) && defined(VIC20_EXP_8K)) && defined(REDEFINED_CHARS)
+	#define _DISPLAY(x,y,ch) \
+		do \
+		{ \
+			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
+			DISPLAY_POKE((loc(x,y)+0x8400), 0x01); \
+		} while(0)
 #else
 	#define _DISPLAY(x,y,ch) \
 		DISPLAY_POKE((loc(x,y)), (ch))
@@ -76,7 +93,7 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	unsigned char i = 0;
 	while(str[i]!='\0')
 	{
-		#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))
+		#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__)) 
 			_DISPLAY(x+i,y, screenCode(str[i]));
 		#else
 			_DISPLAY(x+i,y, str[i]);

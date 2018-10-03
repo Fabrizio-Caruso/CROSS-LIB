@@ -285,7 +285,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 			initializeCharacter(&(extraPoints._character), (XSize>>1), (YSize>>1), 0, &EXTRA_POINTS_IMAGE);	
 		#endif
 		
-		#if defined(NO_RANDOM_LEVEL) || defined(TINY_GAME)
+		#if defined(NO_RANDOM_LEVEL) || defined(TINY_GAME) || defined(SIMPLE_RANDOM_LEVEL)
 			initializeCharacter(&player,(unsigned char) ((XSize>>1)),(unsigned char) ((YSize>>1)),1,&PLAYER_IMAGE);			
 		#else
 			initializeCharacter(&player,(unsigned char) ((XSize>>1)+(unsigned char) (rand()&1)),

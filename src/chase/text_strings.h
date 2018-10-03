@@ -1,35 +1,26 @@
-/*****************************************************************************/
-/*                                                                           */
-/*                                   vic20.h                                 */
-/*                                                                           */
-/*                      vic20 system specific definitions                    */
-/*                                                                           */
-/*                                                                           */
-/*                                                                           */
-/* (C) 1998-2004 Ullrich von Bassewitz                                       */
-/*               Römerstraße 52                                              */
-/*               D-70794 Filderstadt                                         */
-/* EMail:        uz@cc65.org                                                 */
-/*                                                                           */
-/*                                                                           */
-/* This software is provided 'as-is', without any expressed or implied       */
-/* warranty.  In no event will the authors be held liable for any damages    */
-/* arising from the use of this software.                                    */
-/*                                                                           */
-/* Permission is granted to anyone to use this software for any purpose,     */
-/* including commercial applications, and to alter it and redistribute it    */
-/* freely, subject to the following restrictions:                            */
-/*                                                                           */
-/* 1. The origin of this software must not be misrepresented; you must not   */
-/*    claim that you wrote the original software. If you use this software   */
-/*    in a product, an acknowledgment in the product documentation would be  */
-/*    appreciated but is not required.                                       */
-/* 2. Altered source versions must be plainly marked as such, and must not   */
-/*    be misrepresented as being the original software.                      */
-/* 3. This notice may not be removed or altered from any source              */
-/*    distribution.                                                          */
-/*                                                                           */
-/*****************************************************************************/
+/* --------------------------------------------------------------------------------------- */ 
+// 
+// CROSS CHASE by Fabrizio Caruso
+//
+// Fabrizio_Caruso@hotmail.com
+//
+// This software is provided 'as-is', without any express or implied warranty.
+// In no event will the authors be held liable for any damages arising from
+// the use of this software.
+
+// Permission is granted to anyone to use this software for non-commercial applications, 
+// subject to the following restrictions:
+
+// 1. The origin of this software must not be misrepresented; you must not
+// claim that you wrote the original software. If you use this software in
+// a product, an acknowledgment in the product documentation would be
+// appreciated but is not required.
+
+// 2. Altered source versions must be plainly marked as such, and must not
+// be misrepresented as being the original software.
+
+// 3. This notice may not be removed or altered from any source distribution.
+/* --------------------------------------------------------------------------------------- */ 
 
 
 #ifndef _TEXT_STRINGS_H
@@ -52,8 +43,8 @@
 	#endif
 	#define LURE_THE_ENEMIES_STRING     "lure the enemies"
 	#define INTO_THE_MINES_STRING 	    "into the mines"
-	#define SCORE_STRING "score:"
-	#define LEVEL_STRING "level:"
+	#define SCORE_STRING "score "
+	#define LEVEL_STRING "level "
 	#define START_LEVEL_STRING "level %u"
 	#define USE_THE_GUN_AGAINST_STRING "shoot at"
 	#define THE_SKULL_AND_STRING "the skull and"
@@ -76,8 +67,8 @@
 	#endif
 	#define LURE_THE_ENEMIES_STRING     "Lure enemies"
 	#define INTO_THE_MINES_STRING   "into the mines"
-	#define SCORE_STRING "SCORE:"
-	#define LEVEL_STRING "LEVEL:"	
+	#define SCORE_STRING "SCORE "
+	#define LEVEL_STRING "LEVEL "	
 	#define START_LEVEL_STRING "LEVEL %u"	
 	#define USE_THE_GUN_AGAINST_STRING "Shoot at"
 	#define THE_SKULL_AND_STRING "the skull and"
@@ -133,16 +124,16 @@
 #endif
 
 #if defined(NO_CASE_LETTERS)
-	#define BONUS_COLON_STRING "bonus: "
-	#define SCORE_COLON__STRING "score: "
-	#define HIGH_SCORE_COLON_STRING "high score: "
+	#define BONUS_COLON_STRING "bonus "
+	#define SCORE_COLON__STRING "score "
+	#define HIGH_SCORE_COLON_STRING "high score "
 #else
-	#define BONUS_COLON_STRING "BONUS: "
-	#define SCORE_COLON__STRING "SCORE: "
+	#define BONUS_COLON_STRING "BONUS "
+	#define SCORE_COLON__STRING "SCORE "
 	#if XSize<=16
-		#define HIGH_SCORE_COLON_STRING "HISCORE: "
+		#define HIGH_SCORE_COLON_STRING "HISCORE "
 	#else
-		#define HIGH_SCORE_COLON_STRING "HIGH SCORE: "
+		#define HIGH_SCORE_COLON_STRING "HIGH SCORE "
 	#endif
 #endif
 

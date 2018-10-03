@@ -226,10 +226,12 @@ void displayStats(void)
 		PRINTF((unsigned char) ((XSize-strlen(text))>>1), row, text, score);
 	}	
 	
+	#if !defined(LESS_TEXT)
 	void _printScore(char * text, unsigned short score)
 	{
 		_printScoreOnRow((YSize>>1), text, score);
 	}
+	#endif
 #endif
 
 #if !defined(END_SCREEN) && !defined(NO_MESSAGE)

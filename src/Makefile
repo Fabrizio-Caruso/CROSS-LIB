@@ -266,9 +266,12 @@ vic20_exp_8k_full:
 
 
 vic20_exp_8k: 
-	$(CC65_PATH)$(MYCC65) -Or -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
 	-DREDEFINED_CHARS \
+	-DALT_SLEEP \
+	-DSIMPLE_STRATEGY \
+	-DNO_HINTS \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -283,6 +286,7 @@ vic20_exp_8k:
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
 	$(SOURCE_PATH)/main.c \
 	$(SOURCE_PATH)/vic20_memory.s \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
 	
@@ -404,7 +408,6 @@ c16_16k_gfx:
 	-DLESS_TEXT	\
 	-DSOUNDS \
 	-DNO_HINTS \
-	-DSIMPLE_STRATEGY \
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \

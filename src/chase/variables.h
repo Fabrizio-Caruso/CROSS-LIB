@@ -174,7 +174,11 @@
 #endif
 
 #if !defined(TINY_GAME)
-	unsigned char strategyArray[GHOSTS_NUMBER];
+	#if defined(__VIC20__) || defined(__C16__)
+		extern unsigned char strategyArray[GHOSTS_NUMBER];	
+	#else
+		unsigned char strategyArray[GHOSTS_NUMBER];
+	#endif
 
 	unsigned char playerDirection; // 0: right, 1: down, 2: left, 3: up
 	

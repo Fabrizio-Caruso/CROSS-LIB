@@ -16,9 +16,8 @@
 
 void INIT_GRAPHICS(void)
 {
-	unsigned char i = 0;
+	unsigned short i;
 
-			
 	POKE(65299ul,(PEEK(65299ul)&3)|((15)*4)); // change character base address to 28th Kbyte
 	POKE(65298ul,PEEK(65298ul)&251); // make graphics chip get characters from RAM
 	
@@ -35,15 +34,19 @@ void INIT_GRAPHICS(void)
 	
 	// while(1){};	
 
-	do
+	for(i=0;i<1000;++i)
 	{
 		POKE(2048+i,0x71);
-		POKE(2048+256+i,0x71);
-		POKE(2048+512+i,0x71);
-		POKE(2048+1000-256+i,0x71);
-		++i;
-	} while(i<255);
+	}
+			
+	// do
+	// {
+		// POKE(2048+i,0x71);
+		// POKE(2048+256+i,0x71);
+		// POKE(2048+512+i,0x71);
+		// POKE(2048+1000-256+i,0x71);
+		// ++i;
+	// } while(i<255);
 	
-
 }
 

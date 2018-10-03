@@ -16,5 +16,16 @@ void INIT_GRAPHICS(void)
 	
 	POKE(646,1);
 	POKE(36879L,9);
+	
+	// {
+		// unsigned char i;
+		
+		// for(i=0;i<64;++i)
+		// {
+			// POKE(0x1000+i,64+i);
+		// }
+		// while(1);
+	// }
+	
 }
 

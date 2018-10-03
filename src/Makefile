@@ -264,6 +264,34 @@ vic20_exp_8k_full:
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
+vic20_exp_8k_gfx: 
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX_2.cfg \
+	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
+	-DREDEFINED_CHARS \
+	-DALT_SLEEP \
+	-DALT_PRINT \
+	-DSIMPLE_STRATEGY \
+	-DNO_HINTS \
+	-DSIMPLE_RANDOM_LEVEL \
+	-DLESS_TEXT \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
+	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/bullet.c \
+	$(SOURCE_PATH)/move_player.c \
+	$(CROSS_LIB_PATH)/display/init_images.c \
+	$(SOURCE_PATH)/item.c	\
+	--code-name CODE2 \
+	$(CROSS_LIB_PATH)/display/display_macros.c  \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/vic20_memory.s \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k_gfx.prg
+
 
 vic20_exp_8k: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
@@ -387,6 +415,7 @@ c16_16k:
 c16_32k: 
 	$(CC65_PATH)$(MYCC65) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DANIMATE_PLAYER -DFULL_GAME -DSOUNDS \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DREDEFINED_CHARS \
 	-DCONIO \

@@ -1,9 +1,10 @@
 
-
 #  if defined(__C64__)
 	#include "image_settings/c64_memory_mapped_settings.h"
 #elif defined(__VIC20__) && defined(VIC20_EXP_3K)
 	#include "image_settings/vic20_exp_3k_settings.h"	
+#elif defined(__VIC20__) && defined(VIC20_EXP_8K) && defined(REDEFINED_CHARS)
+	#include "image_settings/c264_redefined_chars_settings_2.h"
 #elif defined(__VIC20__) && defined(CONIO)
 	#include "image_settings/vic20_exp_16k_settings.h"
 #elif defined(__C16__) && defined(REDEFINED_CHARS) && !defined(C16_UNEXPANDED)
@@ -37,6 +38,7 @@
 #else
 	#include "image_settings/default_image_settings.h"
 #endif 
+
 
 
 #  if defined(MEMORY_MAPPED)

@@ -7,7 +7,6 @@ src/experiments/*
 src/wincmoc_main.c
 src/*.asm
 build/*.asm
-src/*.s
 src/chase/*.s
 src/nes/*.o
 src/nes/nes_graphics.s

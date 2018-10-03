@@ -546,20 +546,21 @@ int main(void)
 						printVictoryMessage();
 						SLEEP(2);
 
-						CLEAR_SCREEN();
-					#endif
+						CLEAR_SCREEN();	
 
-					if(level<=10)
-					{
-						points+= LEVEL_BONUS*level;
-						printLevelBonus(LEVEL_BONUS*level);
-					}
-					else
-					{				
-						points+= LEVEL_BONUS*10;
-						printLevelBonus(LEVEL_BONUS*10);
-					}
-					SLEEP(1);
+						if(level<=10)
+						{
+							points+= LEVEL_BONUS*level;
+							printLevelBonus(LEVEL_BONUS*level);
+						}
+						else
+						{				
+							points+= LEVEL_BONUS*10;
+							printLevelBonus(LEVEL_BONUS*10);
+						}
+						SLEEP(1);
+					#endif
+					
 					CLEAR_SCREEN();						
 				#else
 					points += LEVEL_BONUS * 4;
@@ -570,13 +571,11 @@ int main(void)
 				#if defined(FULL_GAME)			
 					if(bossLevel())
 					{	
-						CLEAR_SCREEN();
-						SLEEP(1);
 						PING_SOUND();
 						#if !defined(LESS_TEXT)
 							printExtraLife();
+							SLEEP(2);
 						#endif
-						SLEEP(2);
 						++lives;
 						skullsKilled = 1;
 						missileBasesDestroyed/=2;

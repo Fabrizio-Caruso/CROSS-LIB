@@ -21,10 +21,18 @@
 
 
 #if !defined(TINY_GAME)
-	unsigned short skullSlowDown;
-	unsigned char skullXCountDown;
-	unsigned char skullYCountDown;
-	unsigned char bulletDirection;
+	#if defined(__VIC20__) || defined(__C16__)
+		extern unsigned short skullSlowDown;
+		extern unsigned char skullXCountDown;
+		extern unsigned char skullYCountDown;
+		extern unsigned char bulletDirection;		
+	#else
+		unsigned short skullSlowDown;		
+		unsigned char skullXCountDown;
+		unsigned char skullYCountDown;
+		unsigned char bulletDirection;
+	#endif
+
 #endif
 
 #if !defined(TINY_GAME)
@@ -176,17 +184,17 @@
 #if !defined(TINY_GAME)
 	#if defined(__VIC20__) || defined(__C16__)
 		extern unsigned char strategyArray[GHOSTS_NUMBER];	
+		extern unsigned short freeze_count_down;
 	#else
 		unsigned char strategyArray[GHOSTS_NUMBER];
+		unsigned short freeze_count_down;
 	#endif
 
 	unsigned char playerDirection; // 0: right, 1: down, 2: left, 3: up
 	
 	unsigned char freezeActive; // freezeActive	
-
-	unsigned short freeze_count_down;
 		
-	unsigned short extraLifeThroughPointsCounter;	
+	unsigned char extraLifeThroughPointsCounter;	
 #endif
 
 

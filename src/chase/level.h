@@ -151,7 +151,7 @@
 #if defined(NO_RANDOM_LEVEL)
 	#define PLACE_BOMB_4() \
 		initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE)
-#elif defined(TINY_GAME)
+#elif defined(TINY_GAME) || defined(SIMPLE_RANDOM_LEVEL)
 	#define PLACE_BOMB_4() \
 		initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)+(unsigned char)(rand()&1)), \
 													  (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);

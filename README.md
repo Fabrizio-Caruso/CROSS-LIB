@@ -8,8 +8,31 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 This is a personal project whose goal is the creation of:
 1. the universal 8-bit abstraction layer "Cross Lib" for coding universal 8-bit games
 2. the "universal" 8-bit game "Cross Chase" that has to be a fun and that should run
-on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators using the Motorola 6809, the MOS 6502, the Zilog Z80 and derivatives CPUs.
+on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators. 
 The game will be the proof of concept of how flexible the library is.
+
+## CURRENTLY SUPPORTED ARCHITECTURES
+The main goal is to get the library and game to work on most 8-bit architectures but other systems are also considered.
+
+### 8-BIT ARCHITECTURES
+- Intel 8080 and its derivatives
+- MOS 6502 and its derivatives
+- Motorola 6809 and its derivatives
+- Zilog 80 and its derivatives
+
+### 16-BIT ARCHITECTURES
+- Intel 8088/8086 
+- PDP11
+
+### 32-BIT ARCHITECTURES
+- PowerPC
+- Intel 386
+- Motorola 68020
+- MIPS32r2 (little-endian)
+
+### 32/64-BIT ARCHITECTURE
+We also support any current architecture for which GCC can produce a working binary.
+
 
 ## THE TOOL-CHAIN
 
@@ -23,11 +46,22 @@ The program is written in ANSI C and currently compiled with
 - CC65 for all 6502 targets (http://www.cc65.org/), 
 - SCCZ80 (from Z88DK) for most Z80 targets (https://www.z88dk.org/), 
 - ZSDCC (from Z88DK) for some Z80 targets (https://www.z88dk.org/),
-- CMOC for most 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
-- WinCMOC for some 6809 targets (https://sourceforge.net/projects/cmoc-win32/).
+- CMOC for 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
+- ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC/MIPS, PDP11 (https://github.com/davidgiven/ack).
+- GCC for modern 32/64-bit PC under any operating systems 
 
-For other targets, GCC6809 for other 6809 targets, sdcc (proper or its CPCTelera version), as well as "GCC for TI" for the Texas TI99/4a are being taken into consideration. 
+Previous versions used 
+- WinCMOC for 6809 targets  (https://sourceforge.net/projects/cmoc-win32/).
+WinCMOC has been abandoned because it uses an old CMOC version that has broken pointer to functions and because it is no longer maintained by its author. 
 
+For other targets, the following compilers and dev-kits may be included in future versions of the tool-chain:
+- PVSNESLIB for the Super Nintendo Entertainment System (https://github.com/alekmaul/pvsneslib),
+- Z8KGCC for the Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
+- amiga-os-toolchain for all Amigas (https://github.com/cahirwpz/amigaos-cross-toolchain),
+- GCC6809 for other 6809 targets (https://sourceforge.net/projects/freewpc/files/GCC-6809/),
+- SDCC for Z80 and other targets (http://sdcc.sourceforge.net/),
+- "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
+- TIGCC for 68k-based TI calculators (http://tigcc.ticalc.org/).
 
 ## THE GAME CODE
 
@@ -41,61 +75,69 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 ## SUPPORTED TARGETS 
 
-(as of 2017/06/08)
-
-### Modern PC versions
-
-There is a ncurses version that can be compiled for multiple platforms for which an ANSI C compiler and ncurses are available, including Windows and Linux.
-For example:
-- Cygwin/Windows or Linux (gcc + ncurses, e.g., cygwin/Windows or Linux) 
-- Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
-
+(as of 2018/09/26)
+ 
 ### 8-BIT versions
 
 For most targets, more than one version is built, in order to support different hardware configuratins and expansions 
 (e.g., memory expansions, second CPU, 80-col display card, etc.).
 
 - abc80: Luxor ABC 80
+- abc800: Luxor ABC 800 (work in progress)
 - ace: Jupiter Ace
-- alphathro: Alphatronic
+- alphatro: Alphatronic
 - apple2: Apple //
 - apple2enh: Enhanced Apple //e
 - aquarius: Mattel Aquarius 
 - atari5200: Atari 5200
-- atari: Atari 400/800
+- atari: Atari 400/800/600XL/800XL/1200XL/65XE/130XE
 - atari_lynx: Atari Lynx
-- c128_8502: Commodore 128 [8502 CPU; additionally Z80 versions are built]
-- c128_z80: Commodore 128 [Z80 CPU; additionally 8502 versions are built]
+- attache: Otrona Attache
+- aussie: Aussie Byte
+- c128_8502: Commodore 128 [8502 CPU]
+- c128_z80: Commodore 128 [Z80 CPU]
 - c16: Commodore 264 series (16/116/+4)
 - c64: Commodore 64
+- c7420: Philips VideoPac C7420 module (work in progress)
 - cbm510: Commodore CBM 510
 - cbm610: Commodore CBM 610
+- camputers_lynx: Camputers Lynx 48k/96k/128k
 - coco: Color Computer / Dragon 32/64
 - coleco: Colecovision
 - cpc: Amstrad CPC
-- cpm: CP/M with adm3a/vt52/vt100 terminals
+- cpm8080: CP/M Intel 8080
+- cpm: CP/M Z80 with adm3a/vt52/vt100 terminals
 - creativision: VTech Creativision
-- eg2k: EACA EG2000
+- eg2k: EACA EG2000 Color Genie
 - einstein: Tatung Einstein
+- enterprise: Enterprise 64/128
 - fp1100: Casio FP-1100
 - g800: Sharp PC-G800
 - gal: Galaksija
 - gamate: Gamate
 - gx4000: Amstrad GX-4000
+- kaypro: Kaypro 2X
 - kc: Robotron KC-85/2/3/4
 - lambda: Lambda 8300
+- laser500: Laser 500
 - m5: Sord M5
 - mc1000: CCE MC-1000
 - microbee: Microobee
 - msx: MSX
 - mtx: MTX 512
 - multi8: Mitsubishi Multi 8
+- mz: Sharp MZ 80/700
+- mz2500: Sharp MZ 2500
 - nascom: Nascom
-- nc100: Amstrad NC-100
+- nc100: Amstrad NC-100/150
 - nc200: Amstrad NC-200
 - nes: Nintendo Enterteinment System
+- newbrain: Grundy Newbrain
 - oric: Tangerine Oric 1/Atmos
+- osborne1: Osborne 1
+- osca: OSCA v6z80p
 - osic1p: Ohio Scientific Challenger 1P
+- oz: Sharp OZ-700
 - p2000: Philips P2000
 - pc6001: NEC PC 6001
 - pce: PCEngine
@@ -105,11 +147,13 @@ For most targets, more than one version is built, in order to support different 
 - pv2000: Casio PV2000
 - px4: Epson PX-4/HC-40
 - px8: Epson PX-8/HC-80
+- rex: Xircom Rex 6000 (work in progress)
 - rx78: Bandai RX-78
 - samcoupe: Sam Coupe
 - sc3000: Sega SC 3000
 - sg1000: Sega SG 1000
-- sharp_mz: Sharp MZ
+- sms: Sega Master System
+- sos: S-OS 
 - spc1000: Samsung SPC 1000
 - spectrum: Sinclair Spectrum 16k/48k/128k
 - srr: Exidy Sorcerer
@@ -117,17 +161,45 @@ For most targets, more than one version is built, in order to support different 
 - svi: Spectravideo 318/328
 - ti82: Texas TI 82
 - ti83: Texas TI 83
+- ti8x: Texas TI 83 Plus
 - ti85: Texas TI 85
+- ti86: Texas TI 86
+- tiki100: TIKI 100
 - trs80: TRS-80 Model I/III/IV
 - ts2068: Timex TS 2068
 - vg5k: VG-5000
 - vic20: Commodore Vic 20
 - vz200: VTech VZ200
+- x07: Casio X-07 (work in progress)
 - x1: Sharp X1
 - z1013: Robotron Z1013
+- z88: Cambridge Z88
 - z9001: Robotron Z9001, Robotron KC 85/1, Robotron KC 87 
 - zx80: Sinclair ZX80
 - zx81: Sinclair ZX81
+
+
+### 16-BIT versions
+- pc8086: Intel 8088/8086 PC
+- pdp: PDP 11 v7 (work in progress)
+
+
+### 32-BIT versions
+- linux386:  ELF linux for Intel 386
+- linux68k:  ELF linux for Motorola 68020
+- linuxppc:  ELF linux for PPC
+- linuxmips: ELF linux for MIPS32r2 (little endian)
+
+
+### Modern 32/64-BIT PC versions
+
+There are a plain stdlib (turn based) and an ncurses (action) version that can be compiled for multiple platforms for which an ANSI C compiler and ncurses are available, including Windows and Linux.
+For example:
+- Cygwin/Windows or Linux (gcc + ncurses, e.g., cygwin/Windows or Linux) 
+- Windows 32/64 bit console (mingw-gcc + ncurses, e.g., x86_64-w64-mingw32-gcc)
+
+Remark: 
+You can compile the game for any recent or old/ancient architecture for which there is an ANSI C capable compiler.
 
 -------------------------------------------
 STATUS - ISSUES
@@ -188,6 +260,7 @@ So, for each target, at least one of the following modes has to be implemented:
 4. Z88DK Sprites (Z88DK-specific sprite APIs)
 5. CPCRSLIB (Amstrad CPC-specific graphics APIs)
 6. bit-mapped (display is implemented by writing into video memory and each bytes corresponds to one or more pixels)
+7. buffered (stdlib-only "graphics" for targets with just stdlib support)
 
 A graphic mode may implement the concrete graphics by either calling low level graphics instructions (e.g., writing into video-memory) or by calling higher level instructions (e.g., using control codes).
 

@@ -2,7 +2,7 @@ TODO for the integration release for Z88DK
 
 1. DONE - re-factor input_macros.h/c (e.g., GETCHAR for ncurses)
 2. DONE verify ghosts in boss levels
-3. use joystick in Z88DK
+3. DONE use joystick in Z88DK
 4. DONE - non-turn-based ncurses version
 5. DONE - use register in pointers to Characrters parameters 
 6. DONE - split settings
@@ -10,7 +10,7 @@ TODO for the integration release for Z88DK
 8. DONE - Remove or move unused tools
 9. DONE Verify trs80/eg2k targets
 
-10 Make generic code for all joystick and keyboard configuration
+10 PARTIAL Make generic code for all joystick and keyboard configuration
 
 11. DONE Rename files
 I)   DONE skull.h/c
@@ -47,8 +47,6 @@ light svi KO
 
 20. DONE Define a SLEEP macro (fix CMOC cases)
 
-21. Rename strategy.h/m -> chase.h/m
-
 22. DONE Separate alt_print from graphics
 
 23. DONE NO LONGER NEEDED Use EXT_GRAPHICS option instead of manuall editing display_macros.c
@@ -57,6 +55,6 @@ light svi KO
 
 25. DONE Implement color function for memory_mapped systems with color
 
-26. Test major targets with latest Z88DK snapshots
+26. DONE Test major targets with latest Z88DK snapshots
 
 

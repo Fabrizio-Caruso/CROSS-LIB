@@ -47,9 +47,9 @@ _rockets = _extraPoints + $A
 .export _freeze;
 _freeze = _rockets + $14
 
-
 .export _invincibility;
 _invincibility = _freeze + $A
+;_invincibility = $200
 
 .export _extraLife;
 _extraLife = _invincibility + $A
@@ -59,19 +59,19 @@ _super = _extraLife + $A
 
 .export _confuse;
 _confuse = _super + $A
-
-;
+;_confuse = $200
 
 .export _zombie;
-_zombie = _confuse + $A
-;_zombie = $200
+;_zombie = _confuse + $A
+_zombie = $200
 
 .export _chase;
-;_chase = _zombie + $A
-_chase = $200
+_chase = _zombie + $A
+;_chase = $200
 
 .export _ghostCount;
 _ghostCount = _chase + $A
+;_ghostCount = $200
 
 .export _ghostLevel;
 _ghostLevel = _ghostCount + $1
@@ -97,8 +97,6 @@ _zombie_count_down = _confuse_count_down + $2
 .export _strategyArray;
 _strategyArray = _zombie_count_down + $2
 
-; 241
-
 .export _freeze_count_down;
 _freeze_count_down = _strategyArray + $8
 
@@ -113,8 +111,6 @@ _skullYCountDown = _skullXCountDown + $1
 
 .export _bulletDirection;
 _bulletDirection = _skullYCountDown + $1
-
-
 
 .export _chasedEnemyPtr;
 _chasedEnemyPtr = _bulletDirection + $1

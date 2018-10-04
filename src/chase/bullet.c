@@ -169,8 +169,6 @@ void checkBulletVsSkull(register Character *bulletPtr)
 		{
 			skull._status = 0;
 			deleteSkull(&skull);
-			skull._x=XSize-2; 
-			skull._y=YSize-2;
 			skullAlive = 0;
 			EXPLOSION_SOUND();
 			points+=SKULL_POINTS;

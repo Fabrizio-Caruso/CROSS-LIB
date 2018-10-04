@@ -190,7 +190,7 @@ vic20_unexpanded:
 	-DROUND_ENEMIES \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
-	$(SOURCE_PATH)/vic20_memory.s \
+	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/vic20_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
@@ -236,7 +236,7 @@ vic20_exp_3k:
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_3k.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(TINY_FILES) \
-	$(SOURCE_PATH)/vic20_memory.s \
+	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 
 	
@@ -260,7 +260,7 @@ vic20_exp_8k_full:
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/vic20_memory.s \
+	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
@@ -291,7 +291,7 @@ vic20_exp_8k_gfx:
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
 	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/vic20_memory.s \
+	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_gfx.prg
 
@@ -316,7 +316,7 @@ vic20_exp_8k:
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
 	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/vic20_memory.s \
+	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
 
@@ -331,7 +331,7 @@ vic20_exp_16k:
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/vic20_memory.s \
+	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	-o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
 
 	
@@ -412,7 +412,7 @@ c16_16k:
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
 	$(LIGHT_FILES) \
-	$(SOURCE_PATH)/c16_memory.s \
+	$(CROSS_LIB_PATH)/memory/c16_memory.s \
 	-o $(BUILD_PATH)/LIGHT_c16_16k.prg
 	
 c16_32k: 
@@ -426,7 +426,7 @@ c16_32k:
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/c16_memory.s \
+	$(CROSS_LIB_PATH)/memory/c16_memory.s \
 	-o $(BUILD_PATH)/FULL_c16_32k.prg
 
 # 	-DFLAT_ENEMIES
@@ -446,7 +446,7 @@ c16_16k_gfx:
 	-DC16_UNEXPANDED \
 	-DALT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	$(SOURCE_PATH)/c16_memory.s \
+	$(CROSS_LIB_PATH)/memory/c16_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -471,7 +471,7 @@ c16_16k_full:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/c16_memory.s \
+	$(CROSS_LIB_PATH)/memory/c16_memory.s \
 	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX.prg	
 
 	

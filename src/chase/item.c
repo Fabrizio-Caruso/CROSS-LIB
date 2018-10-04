@@ -148,7 +148,7 @@ extern Item extraPoints;
 		}
 		else
 		{
-			--itemPtr->_coolDown;
+			--(itemPtr->_coolDown);
 		}
 	}
 

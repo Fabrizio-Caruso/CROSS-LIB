@@ -231,14 +231,14 @@ void moveBullet(register Character * bulletPtr)
 			{
 				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==YSize/2 && rightHorizontalMissile._status)
 				{
-					destroyHorizontalMissile(&rightHorizontalMissile);
+					goto _destroyHorizontalMissile; //destroyHorizontalMissile(&rightHorizontalMissile);
 				}
 			}				
 			else if(missileLevel() || bossLevel())
 			{
 				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==HORIZONTAL_MISSILE_OFFSET && rightHorizontalMissile._status)
 				{
-					destroyHorizontalMissile(&rightHorizontalMissile);	
+					_destroyHorizontalMissile: destroyHorizontalMissile(&rightHorizontalMissile);	
 				}
 				else if(bulletPtr->_x==0 && bulletPtr->_y==YSize-1-HORIZONTAL_MISSILE_OFFSET && leftHorizontalMissile._status)
 				{

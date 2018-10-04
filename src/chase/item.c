@@ -142,15 +142,13 @@ extern Item extraPoints;
 				_blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
 			}		
 		}
-		else if (itemPtr->_coolDown <= 0)
+		else if (itemPtr->_coolDown == 0)
 		{
 			relocatePowerUp((Character *) itemPtr);
-
-			_blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
 		}
 		else
 		{
-			--itemPtr->_coolDown;
+			--(itemPtr->_coolDown);
 		}
 	}
 

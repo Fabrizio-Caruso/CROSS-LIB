@@ -269,7 +269,6 @@ vic20_exp_8k_gfx:
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
-	-DNO_SLEEP \
 	-DALT_PRINT \
 	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
@@ -277,7 +276,7 @@ vic20_exp_8k_gfx:
 	-DNO_BLINKING \
 	-DLESS_TEXT \
 	-DALT_CLEAR_SCREEN \
-	-DNO_WAIT \
+	-DNO_SLEEP \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \

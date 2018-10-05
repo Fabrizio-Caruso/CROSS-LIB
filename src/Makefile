@@ -273,26 +273,27 @@ vic20_exp_8k_gfx:
 	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
 	-DNO_RANDOM_LEVEL \
-	-DNO_BLINKING \
 	-DLESS_TEXT \
 	-DALT_CLEAR_SCREEN \
 	-DNO_SLEEP \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
-	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
+	$(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/bullet.c \
 	$(SOURCE_PATH)/move_player.c \
-	$(CROSS_LIB_PATH)/display/init_images.c \
 	$(SOURCE_PATH)/item.c	\
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c \
-	--code-name CODE2 \
+	$(SOURCE_PATH)/skull.c \
+	$(SOURCE_PATH)/rocket.c \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
+	$(SOURCE_PATH)/horizontal_missile.c \
+	--code-name CODE2 \
+	$(CROSS_LIB_PATH)/display/init_images.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/main.c \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_gfx.prg
 
 

@@ -275,7 +275,7 @@ vic20_exp_8k_gfx:
 	-DSIMPLE_RANDOM_LEVEL \
 	-DLESS_TEXT \
 	-DALT_CLEAR_SCREEN \
-	-DNO_SLEEP \
+	-DALT_SLEEP \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -289,6 +289,7 @@ vic20_exp_8k_gfx:
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
 	$(SOURCE_PATH)/horizontal_missile.c \
 	--code-name CODE2 \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/display/init_images.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

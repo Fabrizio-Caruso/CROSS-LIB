@@ -82,7 +82,7 @@ extern Item extraPoints;
 			do
 			{
 				relocateCharacter(powerUpPtr);
-			} while(nearInnerWall(powerUpPtr));		
+			} while(innerWallReached(powerUpPtr));		
 			#else
 				relocateCharacter(powerUpPtr);
 			#endif	

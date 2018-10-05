@@ -231,10 +231,15 @@ void relocateCharacter(register Character * characterPtr)
 }
 
 #if defined(FULL_GAME)
-	unsigned char innerWallReached(void)
+	unsigned char innerWallReached(register Character *characterPtr)
 	{
-		return (player._x==innerVerticalWallX) && (player._y >= innerVerticalWallY) && (player._y<= (innerVerticalWallY + innerVerticalWallLength-1));
+		return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
 	}
+
+	// unsigned char innerWallReached(void)
+	// {
+		// return (player._x==innerVerticalWallX) && (player._y >= innerVerticalWallY) && (player._y<= (innerVerticalWallY + innerVerticalWallLength-1));
+	// }
 
 	unsigned char horizontalWallsReached(void)
 	{
@@ -242,12 +247,11 @@ void relocateCharacter(register Character * characterPtr)
 		       ((player._x<=horizontalWallsLength) ||
 			    (player._x>=-1+XSize-horizontalWallsLength));
 	}	
-		
 	
-	unsigned char nearInnerWall(register Character *characterPtr)
-	{
-		return (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
-			   (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
-	}
+	// unsigned char nearInnerWall(register Character *characterPtr)
+	// {
+		// return (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
+			   // (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
+	// }
 #endif
 

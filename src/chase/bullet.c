@@ -159,8 +159,8 @@ void checkBulletVsSkull(register Character *bulletPtr)
 		
 		bulletPtr->_status=0;
 		
-		deleteBullet(bulletPtr);
-		bulletPtr->_x = 0; bulletPtr->_y = 0;
+		// deleteBullet(bulletPtr);
+		// bulletPtr->_x = 0; bulletPtr->_y = 0;
 		++skullHits;
 		decreaseGhostLevel();
 		reducePowerUpsCoolDowns();

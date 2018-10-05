@@ -122,7 +122,27 @@
 
 		extern Character * chasedEnemyPtr;
 		extern Character * chasedByGhosts;
-		extern unsigned char rockets_x[];			
+		extern unsigned char rockets_x[];	
+
+		extern unsigned char extraLife_present_on_level;
+		extern unsigned char super_present_on_level;
+		extern unsigned char zombie_present_on_level;
+		
+		extern unsigned char dead_rockets;
+		
+		extern unsigned char arrowRange;
+		
+		extern unsigned char skullsKilled;
+		
+		extern unsigned char missileBasesDestroyed;
+		
+		extern unsigned char horizontalWallsLength;
+		
+		extern unsigned char invincibilityActive;
+		
+		extern unsigned char confuseActive; 
+		
+		extern unsigned char zombieActive; 		
 	#else
 		Item freeze;
 		Item invincibility;
@@ -139,30 +159,32 @@
 		Character * chasedEnemyPtr;
 		Character * chasedByGhosts;
 		unsigned char rockets_x[ROCKETS_NUMBER];		
+		
+		unsigned char extraLife_present_on_level;
+		unsigned char super_present_on_level;
+		unsigned char zombie_present_on_level;
+		
+		unsigned char dead_rockets;
+		
+		unsigned char arrowRange;
+		
+		unsigned char skullsKilled;
+		
+		unsigned char missileBasesDestroyed;
+		
+		unsigned char horizontalWallsLength;
+		
+		unsigned char invincibilityActive;
+		
+		unsigned char confuseActive; 
+		
+		unsigned char zombieActive; 
+			
 	#endif
-	 
-	unsigned char extraLife_present_on_level;
-	unsigned char super_present_on_level;
-	unsigned char zombie_present_on_level;
+
 	#define chase_present_on_level_condition skullsKilled
 	#define confuse_present_on_level_condition missileBasesDestroyed
 	
-	unsigned char dead_rockets;
-	
-	unsigned char arrowRange;
-	
-	unsigned char skullsKilled;
-	
-	unsigned char missileBasesDestroyed;
-	
-	unsigned char horizontalWallsLength;
-	
-	unsigned char invincibilityActive;
-	
-	unsigned char confuseActive; 
-	
-	unsigned char zombieActive; 
-
 	#if defined(__VIC20__) || defined(__C16__)
 		extern Character rockets[];
 

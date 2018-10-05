@@ -116,3 +116,45 @@ _chasedByGhosts = _chasedEnemyPtr + $2
 
 .export _rockets_x;
 _rockets_x = _chasedByGhosts + $2
+
+.export _extraLife_present_on_level;
+_extraLife_present_on_level = _rockets_x + $4
+
+.export _super_present_on_level;
+_super_present_on_level = _extraLife_present_on_level + $1
+
+.export _zombie_present_on_level;
+_zombie_present_on_level = _super_present_on_level + $1
+
+.export _dead_rockets;
+_dead_rockets = _zombie_present_on_level + $1
+
+.export _arrowRange;
+_arrowRange = _dead_rockets + $1
+
+.export _skullsKilled;
+_skullsKilled = _arrowRange + $1
+
+.export _missileBasesDestroyed;
+_missileBasesDestroyed = _skullsKilled + $1
+
+.export _horizontalWallsLength;
+_horizontalWallsLength = _missileBasesDestroyed + $1
+
+.export _invincibilityActive;
+_invincibilityActive = _horizontalWallsLength + $1
+
+.export _confuseActive;
+_confuseActive = _invincibilityActive + $1
+
+.export _zombieActive;
+_zombieActive = _confuseActive + $1
+
+
+		
+		
+		
+		
+		
+		
+		

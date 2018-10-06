@@ -265,11 +265,12 @@ vic20_exp_8k_full:
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
 vic20_exp_8k_gfx: 
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX_2.cfg \
+	$(CC65_PATH)$(MYCC65) -m -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX_2.cfg \
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
 	-DALT_PRINT \
+	-DNO_BLINKING \
 	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
 	-DLESS_TEXT \
@@ -282,7 +283,7 @@ vic20_exp_8k_gfx:
 	$(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/bullet.c \
 	$(SOURCE_PATH)/move_player.c \
-	$(SOURCE_PATH)/item.c	\
+	$(SOURCE_PATH)/item.c \
 	$(SOURCE_PATH)/skull.c \
 	$(SOURCE_PATH)/rocket.c \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \

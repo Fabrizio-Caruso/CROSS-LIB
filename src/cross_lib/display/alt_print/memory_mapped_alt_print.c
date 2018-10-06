@@ -83,7 +83,7 @@
 		do \
 		{ \
 			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
-			DISPLAY_POKE((loc(x,y)+0x8400), 0x01); \
+			DISPLAY_POKE((loc(x,y)+0x8400), PEEK(0x0286)); \
 		} while(0)
 #else
 	#define _DISPLAY(x,y,ch) \

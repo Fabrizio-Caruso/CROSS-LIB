@@ -27,7 +27,7 @@
 
 #if !defined(__ATMOS__)
 	#if defined(__ATARI__) || defined(__ATARIXL__) \
-		|| (defined(ALT_PRINT) && !defined(__NCURSES__) && !defined(C16_UNEXPANDED)) \
+		|| (defined(ALT_PRINT) && !defined(__NCURSES__) && !defined(C16_UNEXPANDED) && !defined(VIC20_EXP_8K)) \
 		|| defined(NO_COLOR)
 		#define NO_TEXT_COLOR
 	#endif

@@ -491,6 +491,11 @@ pet_8k:
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_pet_8k.prg
 	
+pet_8k_light:
+	$(CC65_PATH)$(MYCC65) -Or -t pet -Cl \
+	-DNO_INIT_GRAPHICS -DCONIO -DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_RANDOM_LEVEL \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/LIGHT_pet_8k.prg
 	
 pet_16k: 
 	$(CC65_PATH)$(MYCC65) -O -t pet \
@@ -4579,7 +4584,7 @@ nes_targets: \
 	nes_fx
 	
 creativision_targets: \
-	creativision_8k_tiny creativision_16k
+	creativision_8k_tiny creativision_8k_light creativision_16k
 	
 gamate_targets: \
 	gamate
@@ -5333,6 +5338,7 @@ oric1_16k_full:
 	-DANIMATE_PLAYER -DFULL_GAME \
 	-DLESS_TEXT -DNO_SLEEP -DNO_BORDER -DSIMPLE_STRATEGY -DNO_BLINKING -DNO_HINTS -DNO_STATS -DFORCE_GHOSTS_NUMBER=6 \
 	-DFLAT_ENEMIES -DNO_DEAD_GHOSTS \
+	-DNO_RANDOM_LEVEL \
 	-t atmos \
 	-DMEMORY_MAPPED \
 	-DFORCE_NARROW \
@@ -5345,6 +5351,7 @@ oric1_16k_full:
 pet_light:
 	$(CC65_PATH)$(MYCC65) -Or -t pet -Cl \
 	-DLESS_TEXT -DNO_MESSAGE -DNO_BLINKING -DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL -DFORCE_GHOSTS_NUMBER=8 \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_pet.prg
 
@@ -6423,7 +6430,7 @@ creativision_16k_2:
 			
 
 pce_light:
-	$(CC65_PATH)$(MYCC65) -O -t pce -Cl \
+	$(CC65_PATH)$(MYCC65) -Or -t pce -Cl \
 	--config $(CFG_PATH)cc65/pce_8k_less_stack.cfg \
 	-DNO_SLEEP -DLESS_TEXT -DNO_COLOR -DNO_RANDOM_LEVEL \
 	-DNO_MESSAGE -DNO_BLINKING -DNO_INITIAL_SCREEN -DNO_SET_SCREEN_COLORS -DNO_STATS \

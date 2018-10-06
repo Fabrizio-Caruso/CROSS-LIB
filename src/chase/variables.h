@@ -103,10 +103,6 @@
 
 #if defined(FULL_GAME)
 
-	unsigned char innerVerticalWallY; 
-	unsigned char innerVerticalWallX; 
-	unsigned char innerVerticalWallLength;
-
 	#if defined(__VIC20__) || defined(__C16__)
 		extern Item freeze;
 		extern Item invincibility;
@@ -143,6 +139,11 @@
 		extern unsigned char confuseActive; 
 		
 		extern unsigned char zombieActive; 		
+		
+		extern unsigned char innerVerticalWallY; 
+		extern unsigned char innerVerticalWallX; 
+		extern unsigned char innerVerticalWallLength;
+
 	#else
 		Item freeze;
 		Item invincibility;
@@ -179,7 +180,12 @@
 		unsigned char confuseActive; 
 		
 		unsigned char zombieActive; 
-			
+
+
+		unsigned char innerVerticalWallY; 
+		unsigned char innerVerticalWallX; 
+		unsigned char innerVerticalWallLength;
+		
 	#endif
 
 	#define chase_present_on_level_condition skullsKilled

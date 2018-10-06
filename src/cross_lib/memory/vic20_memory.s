@@ -150,8 +150,16 @@ _confuseActive = _invincibilityActive + $1
 .export _zombieActive;
 _zombieActive = _confuseActive + $1
 
+.export _innerVerticalWallY;
+_innerVerticalWallY = _zombieActive + $1
 
-		
+.export _innerVerticalWallX;
+_innerVerticalWallX = _innerVerticalWallY + $1
+
+.export _innerVerticalWallLength;
+_innerVerticalWallLength = _innerVerticalWallX + $1
+
+
 		
 		
 		

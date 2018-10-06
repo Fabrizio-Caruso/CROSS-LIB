@@ -168,7 +168,26 @@ _freezeActive = _playerDirection + $1
 .export _extraLifeThroughPointsCounter;
 _extraLifeThroughPointsCounter = _freezeActive + $1
 
+.export _playerFire;
+_playerFire = _extraLifeThroughPointsCounter + $1
 
+.export _guns;
+_guns = _playerFire + $1
+
+.export _skullHits;
+_skullHits = _guns + $1
+
+.export _skullAlive;
+_skullAlive = _skullHits + $1
+
+.export _loop;
+_loop = _skullAlive + $1
+
+.export _playerBlink;
+_playerBlink = _loop + $2
+
+		
+		
 		
 		
 		

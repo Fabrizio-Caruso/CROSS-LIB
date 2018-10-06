@@ -6,17 +6,30 @@
 #endif
 
 
+#if !defined(TINY_GAME) || defined(TURN_BASED)
+	#if defined(__VIC20__) || defined(__C16__)
+		extern unsigned short loop;
+	#else
+		unsigned short loop;	
+	#endif	
+#endif
+
+
+#if defined(FULL_GAME) && !defined(NO_BLINKING)
+	#if defined(__VIC20__) || defined(__C16__)
+		extern unsigned char playerBlink;	
+	#else
+		unsigned char playerBlink;
+	#endif
+#endif
+
+
 #if !defined(TINY_GAME) 
 	#if defined(__VIC20__) || defined(__C16__)
 		extern unsigned short ghostLevel;
 	#else
 		unsigned short ghostLevel;
 	#endif
-#endif
-
-
-#if !defined(TINY_GAME) || defined(TURN_BASED)
-	unsigned short loop;
 #endif
 
 
@@ -44,10 +57,6 @@
 	extern Image DEAD_GHOST_IMAGE;
 #endif
 
-
-#if defined(FULL_GAME) && !defined(NO_BLINKING)
-	unsigned char playerBlink;	
-#endif
 
 #if !defined(TINY_GAME)
 	#if defined(__VIC20__) || defined(__C16__)
@@ -233,11 +242,17 @@
 
 
 #if !defined(TINY_GAME)
-	unsigned char playerFire;
-	unsigned char guns; // = GUNS_NUMBER;
-
-	unsigned char skullHits;
-	unsigned char skullAlive;
+	#if defined(__VIC20__) || defined(__C16__)
+		extern unsigned char playerFire;
+		extern unsigned char guns; 
+		extern unsigned char skullHits;
+		extern unsigned char skullAlive;		
+	#else
+		unsigned char playerFire;
+		unsigned char guns; 
+		unsigned char skullHits;
+		unsigned char skullAlive;	
+	#endif
 #endif
 
 

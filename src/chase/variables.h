@@ -215,16 +215,20 @@
 	#if defined(__VIC20__) || defined(__C16__)
 		extern unsigned char strategyArray[GHOSTS_NUMBER];	
 		extern unsigned short freeze_count_down;
+		
+		extern unsigned char playerDirection; // 0: right, 1: down, 2: left, 3: up
+		extern unsigned char freezeActive; // freezeActive			
+		extern unsigned char extraLifeThroughPointsCounter;			
 	#else
 		unsigned char strategyArray[GHOSTS_NUMBER];
 		unsigned short freeze_count_down;
+		
+		unsigned char playerDirection; // 0: right, 1: down, 2: left, 3: up
+		unsigned char freezeActive; // freezeActive	
+		unsigned char extraLifeThroughPointsCounter;			
 	#endif
 
-	unsigned char playerDirection; // 0: right, 1: down, 2: left, 3: up
-	
-	unsigned char freezeActive; // freezeActive	
-		
-	unsigned char extraLifeThroughPointsCounter;	
+
 #endif
 
 

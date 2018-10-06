@@ -159,6 +159,15 @@ _innerVerticalWallX = _innerVerticalWallY + $1
 .export _innerVerticalWallLength;
 _innerVerticalWallLength = _innerVerticalWallX + $1
 
+.export _playerDirection;
+_playerDirection = _innerVerticalWallLength + $1
+
+.export _freezeActive;
+_freezeActive = _playerDirection + $1
+
+.export _extraLifeThroughPointsCounter;
+_extraLifeThroughPointsCounter = _freezeActive + $1
+
 
 		
 		

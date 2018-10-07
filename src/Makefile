@@ -31,8 +31,7 @@ MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 SCCZ80_OPTS ?= -O3
-ZSDCC_OPTS ?= 
-#-SO3 --max-allocs-per-node200000
+ZSDCC_OPTS ?= -SO3 --max-allocs-per-node200000
 
 TOOLS_PATH ?= ../tools
 
@@ -192,7 +191,7 @@ vic20_unexpanded:
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/vic20_alt_stats.c \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
 	
 vic20_unexpanded_turn_based:
@@ -217,7 +216,7 @@ vic20_unexpanded_turn_based:
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/vic20_alt_stats.c \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg	
 	
 vic20_exp_3k:
@@ -271,7 +270,6 @@ vic20_exp_8k_gfx:
 	-DREDEFINED_CHARS \
 	-DALT_PRINT \
 	-DSIMPLE_RANDOM_LEVEL \
-	-DNO_BLINKING \
 	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
 	-DLESS_TEXT \
@@ -449,12 +447,14 @@ c16_16k_gfx:
 	-DC16_UNEXPANDED \
 	-DALT_CLEAR_SCREEN \
 	-DALT_SLEEP \
+	-DDANCE \
 	$(CROSS_LIB_PATH)/memory/c16_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
 	-o $(BUILD_PATH)/FULL_c16_16k_GFX.prg	
 	
@@ -6287,28 +6287,54 @@ gal_6k:
 	$(ZSDCC_OPTS) \
 	-pragma-need=ansiterminal \
 	--reserve-regs-iy \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DTINY_GAME \
 	-DNO_SLEEP -DLESS_TEXT \
 	-D__GAL__ \
+	-DNO_INITIAL_SCREEN \
+	-DNO_CONTROL_INSTRUCTIONS \
 	-DALT_MOVE \
 	-DNO_RANDOM_LEVEL \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_STATS \
-	-DNO_INITIAL_SCREEN \
-	-DNO_PRINT \
-	-DALT_PRINT \
-	-DNO_MESSAGE \
 	-DFORCE_BOMBS_NUMBER=4 \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
-	-DCONIO \
 	-DNO_INIT_GRAPHICS \
+	-DNO_STATS \
+	-DNO_MESSAGE \
+	-DFLAT_ENEMIES \
+	-DCONIO \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
-	$(TINY_FILES)
+	$(TINY_FILES) 	
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.prg
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 		
+	
+gal_6k_mm:
+	$(Z88DK_PATH)$(MYZ88DK) +gal \
+	-compiler=sdcc \
+	$(ZSDCC_OPTS) \
+	-pragma-need=ansiterminal \
+	--reserve-regs-iy \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DTINY_GAME \
+	-DNO_SLEEP -DLESS_TEXT \
+	-D__GAL__ \
+	-DNO_INITIAL_SCREEN \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DALT_MOVE \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLORS \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_DEAD_GHOSTS \
+	-DNO_INIT_GRAPHICS \
+	-DNO_STATS \
+	-DNO_MESSAGE \
+	-DFLAT_ENEMIES \
+	-DMEMORY_MAPPED \
+	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k_mm.prg \
+	$(TINY_FILES)	
 	
 # too big for a 16k machine ?
 # -DSOUNDS $(SOURCE_PATH)/psg/psg_sounds.c

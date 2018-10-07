@@ -558,9 +558,8 @@ int main(void)
 							points+= LEVEL_BONUS*10;
 							printLevelBonus(LEVEL_BONUS*10);
 						}
-						SLEEP(1);
 					#endif
-					
+					SLEEP(1);					
 					CLEAR_SCREEN();						
 				#else
 					points += LEVEL_BONUS * 4;
@@ -594,7 +593,7 @@ int main(void)
 			}
 			else // if dead
 			{		
-				#if defined(END_SCREEN)
+				#if defined(END_SCREEN) || defined(DANCE)
 					for(bulletDirection=0;bulletDirection<80;++bulletDirection)
 					{
 						unsigned char i;

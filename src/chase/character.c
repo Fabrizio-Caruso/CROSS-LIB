@@ -221,8 +221,8 @@ void relocateCharacter(register Character * characterPtr)
 	
 	do
 	{
-		x = characterPtr->_x - (unsigned char)(RELOCATE_RANGE/2) + (unsigned char)(rand() % RELOCATE_RANGE);
-		y = characterPtr->_y - (unsigned char)(RELOCATE_RANGE/2) + (unsigned char)(rand() % RELOCATE_RANGE);
+		x = characterPtr->_x  + (unsigned char)(rand() % RELOCATE_RANGE) - (unsigned char)(RELOCATE_RANGE/2);
+		y = characterPtr->_y  + (unsigned char)(rand() % RELOCATE_RANGE) - (unsigned char)(RELOCATE_RANGE/2);
 
 	} while(!safeLocation(x,y));
 
@@ -236,11 +236,6 @@ void relocateCharacter(register Character * characterPtr)
 		return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
 	}
 
-	// unsigned char innerWallReached(void)
-	// {
-		// return (player._x==innerVerticalWallX) && (player._y >= innerVerticalWallY) && (player._y<= (innerVerticalWallY + innerVerticalWallLength-1));
-	// }
-
 	unsigned char horizontalWallsReached(void)
 	{
 		return (player._y==YSize/2) && 
@@ -248,10 +243,5 @@ void relocateCharacter(register Character * characterPtr)
 			    (player._x>=-1+XSize-horizontalWallsLength));
 	}	
 	
-	// unsigned char nearInnerWall(register Character *characterPtr)
-	// {
-		// return (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
-			   // (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
-	// }
 #endif
 

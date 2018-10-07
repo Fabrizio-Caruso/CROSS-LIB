@@ -558,9 +558,8 @@ int main(void)
 							points+= LEVEL_BONUS*10;
 							printLevelBonus(LEVEL_BONUS*10);
 						}
-						SLEEP(1);
 					#endif
-					
+					SLEEP(1);					
 					CLEAR_SCREEN();						
 				#else
 					points += LEVEL_BONUS * 4;

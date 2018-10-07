@@ -194,11 +194,9 @@ extern Item extraPoints;
 
 	void _freezeEffect(void)
 	{
-		unsigned char i;
-		for(i=0;i<3;++i)
-		{
-			_commonPowerUpEffect();
-		}	
+		_commonPowerUpEffect();
+		_commonPowerUpEffect();
+		_commonPowerUpEffect();
 	}
 
 	void freezeEffect(void)

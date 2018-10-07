@@ -6291,21 +6291,50 @@ gal_6k:
 	-DTINY_GAME \
 	-DNO_SLEEP -DLESS_TEXT \
 	-D__GAL__ \
+	-DNO_INITIAL_SCREEN \
+	-DNO_CONTROL_INSTRUCTIONS \
 	-DALT_MOVE \
 	-DNO_RANDOM_LEVEL \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_INITIAL_SCREEN \
-	-DNO_MESSAGE \
 	-DFORCE_BOMBS_NUMBER=4 \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
-	-DCONIO \
 	-DNO_INIT_GRAPHICS \
+	-DNO_STATS \
+	-DNO_MESSAGE \
+	-DFLAT_ENEMIES \
+	-DCONIO \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(TINY_FILES) 	
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.prg
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 		
+	
+gal_6k_mm:
+	$(Z88DK_PATH)$(MYZ88DK) +gal \
+	-compiler=sdcc \
+	$(ZSDCC_OPTS) \
+	-pragma-need=ansiterminal \
+	--reserve-regs-iy \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DTINY_GAME \
+	-DNO_SLEEP -DLESS_TEXT \
+	-D__GAL__ \
+	-DNO_INITIAL_SCREEN \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DALT_MOVE \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLORS \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_DEAD_GHOSTS \
+	-DNO_INIT_GRAPHICS \
+	-DNO_STATS \
+	-DNO_MESSAGE \
+	-DFLAT_ENEMIES \
+	-DMEMORY_MAPPED \
+	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k_mm.prg \
+	$(TINY_FILES)	
 	
 # too big for a 16k machine ?
 # -DSOUNDS $(SOURCE_PATH)/psg/psg_sounds.c

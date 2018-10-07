@@ -255,5 +255,10 @@
 	#endif
 #endif
 
+#if !defined(TINY_GAME)
+	extern unsigned char arrowYPosition;
+#else
+	unsigned char arrowYPosition;
+#endif
 
 #endif // _VARIABLES_H

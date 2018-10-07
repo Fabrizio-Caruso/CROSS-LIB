@@ -186,6 +186,9 @@ _loop = _skullAlive + $1
 .export _playerBlink;
 _playerBlink = _loop + $2
 
+.export _arrowYPosition;
+_arrowYPosition = _playerBlink + $1
+
 		
 		
 		

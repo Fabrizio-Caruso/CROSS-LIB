@@ -39,7 +39,7 @@ extern unsigned char ghostCount;
 					if(rockets[i]._y<=1)
 					{	
 						deleteRocket(&rockets[i]);
-						rockets[i]._x = (i+1)*(XSize/(ROCKETS_NUMBER+1));
+						rockets[i]._x = (1+i)*(XSize/(ROCKETS_NUMBER+1));
 						rockets[i]._y = YSize-2;							
 					}
 				}

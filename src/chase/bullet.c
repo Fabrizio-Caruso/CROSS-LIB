@@ -128,8 +128,7 @@ void checkBullet(Character *bulletPtr)
 void checkBulletVsGhost(Character * bulletPtr,
 						Character * ghostPtr)
 {
-	if(ghostPtr->_status && 
-	   areCharctersAtSamePosition(bulletPtr, ghostPtr))
+	if(areCharctersAtSamePosition(bulletPtr, ghostPtr))
 	{
 		points+=GHOST_VS_MISSILE;
 		ghostDies(ghostPtr);

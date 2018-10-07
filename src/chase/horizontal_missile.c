@@ -13,7 +13,7 @@ extern Character rightHorizontalMissile;
 extern Character player;
 
 extern unsigned char arrowRange;
-unsigned char arrowYPosition;
+extern unsigned char arrowYPosition;
 
 	unsigned char _playerInArrowRange(void)
 	{

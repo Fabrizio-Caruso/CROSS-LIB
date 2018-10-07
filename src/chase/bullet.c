@@ -156,11 +156,7 @@ void checkBulletVsSkull(register Character *bulletPtr)
 	   areCharctersAtSamePosition(bulletPtr, &skull))
 	{
 		PING_SOUND();
-		
 		bulletPtr->_status=0;
-		
-		deleteBullet(bulletPtr);
-		bulletPtr->_x = 0; bulletPtr->_y = 0;
 		++skullHits;
 		decreaseGhostLevel();
 		reducePowerUpsCoolDowns();
@@ -173,10 +169,6 @@ void checkBulletVsSkull(register Character *bulletPtr)
 			EXPLOSION_SOUND();
 			points+=SKULL_POINTS;
 			displayStats();
-		}
-		else
-		{
-			displaySkull(&skull);
 		}
 	}	
 }
@@ -231,14 +223,14 @@ void moveBullet(register Character * bulletPtr)
 			{
 				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==YSize/2 && rightHorizontalMissile._status)
 				{
-					goto _destroyHorizontalMissile; //destroyHorizontalMissile(&rightHorizontalMissile);
+					destroyHorizontalMissile(&rightHorizontalMissile);
 				}
 			}				
 			else if(missileLevel() || bossLevel())
 			{
 				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==HORIZONTAL_MISSILE_OFFSET && rightHorizontalMissile._status)
 				{
-					_destroyHorizontalMissile: destroyHorizontalMissile(&rightHorizontalMissile);	
+					destroyHorizontalMissile(&rightHorizontalMissile);	
 				}
 				else if(bulletPtr->_x==0 && bulletPtr->_y==YSize-1-HORIZONTAL_MISSILE_OFFSET && leftHorizontalMissile._status)
 				{

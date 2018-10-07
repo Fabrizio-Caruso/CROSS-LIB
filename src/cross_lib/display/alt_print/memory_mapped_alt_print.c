@@ -2,6 +2,8 @@
 #include "../graphics_mode/memory_mapped_graphics.h"
 #include "memory_mapped_alt_print.h"
 
+
+
 #if defined(BUFFERED)	
 
 	#include "../display_target_geometry.h"
@@ -68,19 +70,20 @@
 	#define _DISPLAY(x,y,ch) \
 		video_buffer[(y)][(x)] = (ch)
 		
+// WHITE 0x71
 #elif (defined(__C16__) && defined(C16_UNEXPANDED)) 
 	#define _DISPLAY(x,y,ch) \
 		do \
 		{ \
 			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
-			DISPLAY_POKE((loc(x,y)-1024), 0x71); \
+			DISPLAY_POKE((loc(x,y)-1024), PEEK(0x053B)); \
 		} while(0)
 #elif (defined(__VIC20__) && defined(VIC20_EXP_8K)) && defined(REDEFINED_CHARS)
 	#define _DISPLAY(x,y,ch) \
 		do \
 		{ \
 			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
-			DISPLAY_POKE((loc(x,y)+0x8400), 0x01); \
+			DISPLAY_POKE((loc(x,y)+0x8400), PEEK(0x0286)); \
 		} while(0)
 #else
 	#define _DISPLAY(x,y,ch) \

@@ -270,29 +270,32 @@ vic20_exp_8k_gfx:
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
 	-DALT_PRINT \
+	-DSIMPLE_RANDOM_LEVEL \
+	-DNO_BLINKING \
 	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
-	-DNO_RANDOM_LEVEL \
-	-DNO_BLINKING \
 	-DLESS_TEXT \
 	-DALT_CLEAR_SCREEN \
-	-DNO_SLEEP \
+	-DALT_SLEEP \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
-	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
+	$(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/bullet.c \
 	$(SOURCE_PATH)/move_player.c \
-	$(CROSS_LIB_PATH)/display/init_images.c \
-	$(SOURCE_PATH)/item.c	\
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c \
-	--code-name CODE2 \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/skull.c \
+	$(SOURCE_PATH)/rocket.c \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
+	$(SOURCE_PATH)/horizontal_missile.c \
+	--code-name CODE2 \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/display/init_images.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/main.c \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_gfx.prg
 
 
@@ -490,6 +493,11 @@ pet_8k:
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_pet_8k.prg
 	
+pet_8k_light:
+	$(CC65_PATH)$(MYCC65) -Or -t pet -Cl \
+	-DNO_INIT_GRAPHICS -DCONIO -DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_RANDOM_LEVEL \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/LIGHT_pet_8k.prg
 	
 pet_16k: 
 	$(CC65_PATH)$(MYCC65) -O -t pet \
@@ -4578,7 +4586,7 @@ nes_targets: \
 	nes_fx
 	
 creativision_targets: \
-	creativision_8k_tiny creativision_16k
+	creativision_8k_tiny creativision_8k_light creativision_16k
 	
 gamate_targets: \
 	gamate
@@ -5332,6 +5340,7 @@ oric1_16k_full:
 	-DANIMATE_PLAYER -DFULL_GAME \
 	-DLESS_TEXT -DNO_SLEEP -DNO_BORDER -DSIMPLE_STRATEGY -DNO_BLINKING -DNO_HINTS -DNO_STATS -DFORCE_GHOSTS_NUMBER=6 \
 	-DFLAT_ENEMIES -DNO_DEAD_GHOSTS \
+	-DNO_RANDOM_LEVEL \
 	-t atmos \
 	-DMEMORY_MAPPED \
 	-DFORCE_NARROW \
@@ -5344,6 +5353,7 @@ oric1_16k_full:
 pet_light:
 	$(CC65_PATH)$(MYCC65) -Or -t pet -Cl \
 	-DLESS_TEXT -DNO_MESSAGE -DNO_BLINKING -DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL -DFORCE_GHOSTS_NUMBER=8 \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_pet.prg
 
@@ -6422,7 +6432,7 @@ creativision_16k_2:
 			
 
 pce_light:
-	$(CC65_PATH)$(MYCC65) -O -t pce -Cl \
+	$(CC65_PATH)$(MYCC65) -Or -t pce -Cl \
 	--config $(CFG_PATH)cc65/pce_8k_less_stack.cfg \
 	-DNO_SLEEP -DLESS_TEXT -DNO_COLOR -DNO_RANDOM_LEVEL \
 	-DNO_MESSAGE -DNO_BLINKING -DNO_INITIAL_SCREEN -DNO_SET_SCREEN_COLORS -DNO_STATS \

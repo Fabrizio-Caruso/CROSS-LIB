@@ -49,7 +49,6 @@ _freeze = _rockets + $14
 
 .export _invincibility;
 _invincibility = _freeze + $A
-;_invincibility = $200
 
 .export _extraLife;
 _extraLife = _invincibility + $A
@@ -59,7 +58,6 @@ _super = _extraLife + $A
 
 .export _confuse;
 _confuse = _super + $A
-;_confuse = $200
 
 .export _zombie;
 ;_zombie = _confuse + $A
@@ -67,11 +65,9 @@ _zombie = $200
 
 .export _chase;
 _chase = _zombie + $A
-;_chase = $200
 
 .export _ghostCount;
 _ghostCount = _chase + $A
-;_ghostCount = $200
 
 .export _ghostLevel;
 _ghostLevel = _ghostCount + $1
@@ -120,3 +116,84 @@ _chasedByGhosts = _chasedEnemyPtr + $2
 
 .export _rockets_x;
 _rockets_x = _chasedByGhosts + $2
+
+.export _extraLife_present_on_level;
+_extraLife_present_on_level = _rockets_x + $4
+
+.export _super_present_on_level;
+_super_present_on_level = _extraLife_present_on_level + $1
+
+.export _zombie_present_on_level;
+_zombie_present_on_level = _super_present_on_level + $1
+
+.export _dead_rockets;
+_dead_rockets = _zombie_present_on_level + $1
+
+.export _arrowRange;
+_arrowRange = _dead_rockets + $1
+
+.export _skullsKilled;
+_skullsKilled = _arrowRange + $1
+
+.export _missileBasesDestroyed;
+_missileBasesDestroyed = _skullsKilled + $1
+
+.export _horizontalWallsLength;
+_horizontalWallsLength = _missileBasesDestroyed + $1
+
+.export _invincibilityActive;
+_invincibilityActive = _horizontalWallsLength + $1
+
+.export _confuseActive;
+_confuseActive = _invincibilityActive + $1
+
+.export _zombieActive;
+_zombieActive = _confuseActive + $1
+
+.export _innerVerticalWallY;
+_innerVerticalWallY = _zombieActive + $1
+
+.export _innerVerticalWallX;
+_innerVerticalWallX = _innerVerticalWallY + $1
+
+.export _innerVerticalWallLength;
+_innerVerticalWallLength = _innerVerticalWallX + $1
+
+.export _playerDirection;
+_playerDirection = _innerVerticalWallLength + $1
+
+.export _freezeActive;
+_freezeActive = _playerDirection + $1
+
+.export _extraLifeThroughPointsCounter;
+_extraLifeThroughPointsCounter = _freezeActive + $1
+
+.export _playerFire;
+_playerFire = _extraLifeThroughPointsCounter + $1
+
+.export _guns;
+_guns = _playerFire + $1
+
+.export _skullHits;
+_skullHits = _guns + $1
+
+.export _skullAlive;
+_skullAlive = _skullHits + $1
+
+.export _loop;
+_loop = _skullAlive + $1
+
+.export _playerBlink;
+_playerBlink = _loop + $2
+
+.export _arrowYPosition;
+_arrowYPosition = _playerBlink + $1
+
+		
+		
+		
+		
+		
+		
+		
+		

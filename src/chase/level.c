@@ -164,7 +164,7 @@ extern Character bombs[BOMBS_NUMBER];
 		do{
 			initializeCharacter(characterPtr, x, y, status, imagePtr);
 			relocateCharacter(characterPtr);
-		} while(nearInnerWall(characterPtr));
+		} while(innerWallReached(characterPtr));
 	}
 
 #endif 

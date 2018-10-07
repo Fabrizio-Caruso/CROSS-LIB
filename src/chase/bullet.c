@@ -156,11 +156,7 @@ void checkBulletVsSkull(register Character *bulletPtr)
 	   areCharctersAtSamePosition(bulletPtr, &skull))
 	{
 		PING_SOUND();
-		
 		bulletPtr->_status=0;
-		
-		// deleteBullet(bulletPtr);
-		// bulletPtr->_x = 0; bulletPtr->_y = 0;
 		++skullHits;
 		decreaseGhostLevel();
 		reducePowerUpsCoolDowns();
@@ -173,10 +169,6 @@ void checkBulletVsSkull(register Character *bulletPtr)
 			EXPLOSION_SOUND();
 			points+=SKULL_POINTS;
 			displayStats();
-		}
-		else
-		{
-			displaySkull(&skull);
 		}
 	}	
 }

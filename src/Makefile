@@ -191,7 +191,7 @@ vic20_unexpanded:
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/vic20_alt_stats.c \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
 	
 vic20_unexpanded_turn_based:
@@ -216,7 +216,7 @@ vic20_unexpanded_turn_based:
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/vic20_alt_stats.c \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg	
 	
 vic20_exp_3k:

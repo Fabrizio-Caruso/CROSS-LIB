@@ -31,8 +31,7 @@ MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 SCCZ80_OPTS ?= -O3
-ZSDCC_OPTS ?= 
-#-SO3 --max-allocs-per-node200000
+ZSDCC_OPTS ?= -SO3 --max-allocs-per-node200000
 
 TOOLS_PATH ?= ../tools
 
@@ -6288,17 +6287,14 @@ gal_6k:
 	$(ZSDCC_OPTS) \
 	-pragma-need=ansiterminal \
 	--reserve-regs-iy \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DTINY_GAME \
 	-DNO_SLEEP -DLESS_TEXT \
 	-D__GAL__ \
 	-DALT_MOVE \
 	-DNO_RANDOM_LEVEL \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_STATS \
 	-DNO_INITIAL_SCREEN \
-	-DNO_PRINT \
-	-DALT_PRINT \
 	-DNO_MESSAGE \
 	-DFORCE_BOMBS_NUMBER=4 \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -6306,7 +6302,7 @@ gal_6k:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
-	$(TINY_FILES)
+	$(TINY_FILES) 	
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.prg
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 		

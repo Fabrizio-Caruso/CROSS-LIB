@@ -6300,8 +6300,6 @@ gal_6k:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DNO_INIT_GRAPHICS \
-	-DNO_STATS \
-	-DNO_MESSAGE \
 	-DFLAT_ENEMIES \
 	-DCONIO \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
@@ -6333,6 +6331,7 @@ gal_6k_mm:
 	-DNO_MESSAGE \
 	-DFLAT_ENEMIES \
 	-DMEMORY_MAPPED \
+	-DALT_CLEAR_SCREEN \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k_mm.prg \
 	$(TINY_FILES)	
 	

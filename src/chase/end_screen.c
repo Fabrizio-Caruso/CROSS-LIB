@@ -20,13 +20,14 @@
 	extern unsigned char playerFire;
 	extern unsigned char level;
 	extern unsigned char loop;
-	extern unsigned char bulletDirection;
 	extern unsigned char guns;
 #endif
 
 
 
-#if defined(END_SCREEN) || defined(BETWEEN_SCREEN)
+#if defined(END_SCREEN) || defined(DANCE)
+	extern unsigned char bulletDirection;
+
 	void dance(Character * characterPtr)
 	{
 		deleteCharacter(characterPtr);
@@ -59,6 +60,7 @@
 	#define MESSAGE_RANGE 15
 #endif
 
+#if defined(END_SCREEN)
 void gameCompleted(void)
 {
 	unsigned short k;
@@ -102,6 +104,7 @@ void gameCompleted(void)
 	WAIT_PRESS();
 	playerFire = 0;
 }
+#endif
 
 #endif
 

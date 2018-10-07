@@ -448,12 +448,14 @@ c16_16k_gfx:
 	-DC16_UNEXPANDED \
 	-DALT_CLEAR_SCREEN \
 	-DALT_SLEEP \
+	-DDANCE \
 	$(CROSS_LIB_PATH)/memory/c16_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
 	-o $(BUILD_PATH)/FULL_c16_16k_GFX.prg	
 	

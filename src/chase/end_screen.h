@@ -3,7 +3,7 @@
 
 #include "character.h"
 
-#if defined(END_SCREEN) || defined(BETWEEN_SCREEN)
+#if defined(END_SCREEN) || defined(DANCE)
 	void dance(Character *characterPtr);
 #endif
 

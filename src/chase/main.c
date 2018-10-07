@@ -593,7 +593,7 @@ int main(void)
 			}
 			else // if dead
 			{		
-				#if defined(END_SCREEN)
+				#if defined(END_SCREEN) || defined(DANCE)
 					for(bulletDirection=0;bulletDirection<80;++bulletDirection)
 					{
 						unsigned char i;

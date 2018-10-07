@@ -43,8 +43,8 @@
 	#endif
 	#define LURE_THE_ENEMIES_STRING     "lure the enemies"
 	#define INTO_THE_MINES_STRING 	    "into the mines"
-	#define SCORE_STRING "score "
-	#define LEVEL_STRING "level "
+	#define SCORE_STRING "score"
+	#define LEVEL_STRING "level"
 	#define START_LEVEL_STRING "level %u"
 	#define USE_THE_GUN_AGAINST_STRING "shoot at"
 	#define THE_SKULL_AND_STRING "the skull and"
@@ -67,8 +67,8 @@
 	#endif
 	#define LURE_THE_ENEMIES_STRING     "Lure enemies"
 	#define INTO_THE_MINES_STRING   "into the mines"
-	#define SCORE_STRING "SCORE "
-	#define LEVEL_STRING "LEVEL "	
+	#define SCORE_STRING "SCORE"
+	#define LEVEL_STRING "LEVEL"	
 	#define START_LEVEL_STRING "LEVEL %u"	
 	#define USE_THE_GUN_AGAINST_STRING "Shoot at"
 	#define THE_SKULL_AND_STRING "the skull and"

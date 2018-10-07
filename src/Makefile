@@ -6301,6 +6301,7 @@ gal_6k:
 	-DNO_DEAD_GHOSTS \
 	-DNO_INIT_GRAPHICS \
 	-DFLAT_ENEMIES \
+	-DALT_HIGHSCORE \
 	-DCONIO \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(TINY_FILES) 	

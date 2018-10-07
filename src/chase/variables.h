@@ -256,9 +256,11 @@
 #endif
 
 #if !defined(TINY_GAME)
-	extern unsigned char arrowYPosition;
-#else
-	unsigned char arrowYPosition;
+	#if defined(__VIC20__) || defined(__C16__)
+		extern unsigned char arrowYPosition;
+	#else
+		unsigned char arrowYPosition;
+	#endif
 #endif
 
 #endif // _VARIABLES_H

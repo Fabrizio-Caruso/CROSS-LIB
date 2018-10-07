@@ -172,6 +172,9 @@ _freezeActive = _playerDirection + $1
 .export _extraLifeThroughPointsCounter;
 _extraLifeThroughPointsCounter = _freezeActive + $1
 
+.export _playerFire;
+_playerFire = _extraLifeThroughPointsCounter + $1
+
 .export _guns;
 _guns = _playerFire + $1
 

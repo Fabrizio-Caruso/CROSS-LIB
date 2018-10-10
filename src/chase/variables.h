@@ -78,7 +78,7 @@
 	#endif
 #endif
 
-#if defined(__VIC20__) || defined(__C16__) || defined(__GAL__)
+#if defined(__VIC20__) || defined(__C16__) || defined(__GAL__) || defined(__PET__)
 	extern Character ghosts[];
 	extern Character bombs[];
 	

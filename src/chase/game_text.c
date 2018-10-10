@@ -304,7 +304,7 @@ void displayStats(void)
 	}
 	#else
 		#define _printCrossChase() \
-			printCenteredMessageOnRowWithCol(3, _RED,  CROSS_CHASE_STRING);	\
+			printCenteredMessageOnRowWithCol(CROSS_CHASE_Y, _RED,  CROSS_CHASE_STRING);	\
 			SET_COLOR(TEXT_COLOR);	
 	#endif
 #endif

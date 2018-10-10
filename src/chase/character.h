@@ -132,13 +132,13 @@ void deleteCharacter(Character * characterPtr);
 #define DELETE_CHARACTER(x,y) _delete(x,y)
 
 #if defined(__GAMATE__)
-	#define DELETE_PLAYER(x,y,image) do {textcolor(COLOR_CYAN); _delete(x,y);} while(0)
+	#define DELETE_PLAYER(x,y,image) do {SET_TEXT_COLOR(COLOR_CYAN); _delete(x,y);} while(0)
 #else
 	#define DELETE_PLAYER(x,y,image) _delete(x,y)
 #endif
 #define DELETE_GHOST(x,y,image) _delete(x,y)
 #if defined(__GAMATE__)
-	#define DELETE_SKULL(x,y,image) do {textcolor(COLOR_YELLOW); _delete(x,y);} while(0)
+	#define DELETE_SKULL(x,y,image) do {SET_TEXT_COLOR(COLOR_YELLOW); _delete(x,y);} while(0)
 #else
 	#define DELETE_SKULL(x,y,image) _delete(x,y)	
 #endif

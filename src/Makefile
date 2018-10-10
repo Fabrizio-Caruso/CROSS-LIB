@@ -6304,7 +6304,8 @@ gal_6k:
 	-DALT_HIGHSCORE \
 	-DCONIO \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
-	$(TINY_FILES) 	
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/memory/gal_memory.asm
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.prg
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 		

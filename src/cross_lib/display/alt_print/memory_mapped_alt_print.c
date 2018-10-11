@@ -70,7 +70,6 @@
 	#define _DISPLAY(x,y,ch) \
 		video_buffer[(y)][(x)] = (ch)
 		
-// WHITE 0x71
 #elif (defined(__C16__) && defined(C16_UNEXPANDED)) 
 	#define _DISPLAY(x,y,ch) \
 		do \
@@ -83,7 +82,14 @@
 		do \
 		{ \
 			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
-			DISPLAY_POKE((loc(x,y)+0x8400), PEEK(0x0286)); \
+			DISPLAY_POKE((0x8400+loc(x,y)), PEEK(0x0286)); \
+		} while(0)
+#elif defined(__C64__)
+	#define _DISPLAY(x,y,ch) \
+		do \
+		{ \
+			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
+			DISPLAY_POKE((0x1800+loc(x,y)), PEEK(0x0286)); \
 		} while(0)
 #else
 	#define _DISPLAY(x,y,ch) \

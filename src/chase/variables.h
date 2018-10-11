@@ -7,7 +7,7 @@
 
 
 #if !defined(TINY_GAME) || defined(TURN_BASED)
-	#if defined(__VIC20__) || defined(__C16__)
+	#if defined(USE_MEMORY_BUFFERS)
 		extern unsigned short loop;
 	#else
 		unsigned short loop;	
@@ -16,7 +16,7 @@
 
 
 #if defined(FULL_GAME) && !defined(NO_BLINKING)
-	#if defined(__VIC20__) || defined(__C16__)
+	#if defined(USE_MEMORY_BUFFERS)
 		extern unsigned char playerBlink;	
 	#else
 		unsigned char playerBlink;
@@ -25,7 +25,7 @@
 
 
 #if !defined(TINY_GAME) 
-	#if defined(__VIC20__) || defined(__C16__)
+	#if defined(USE_MEMORY_BUFFERS)
 		extern unsigned short ghostLevel;
 	#else
 		unsigned short ghostLevel;
@@ -34,7 +34,7 @@
 
 
 #if !defined(TINY_GAME)
-	#if defined(__VIC20__) || defined(__C16__)
+	#if defined(USE_MEMORY_BUFFERS)
 		extern unsigned short skullSlowDown;
 		extern unsigned char skullXCountDown;
 		extern unsigned char skullYCountDown;
@@ -59,7 +59,7 @@
 
 
 #if !defined(TINY_GAME)
-	#if defined(__VIC20__) || defined(__C16__)
+	#if defined(USE_MEMORY_BUFFERS)
 		extern Character skull;
 		extern Character bullet;	
 
@@ -78,7 +78,7 @@
 	#endif
 #endif
 
-#if defined(__VIC20__) || defined(__C16__) || defined(__GAL__) || defined(__PET__)
+#if defined(USE_MEMORY_BUFFERS) || defined(USE_TINY_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
 	extern Character ghosts[];
 	extern Character bombs[];
 	
@@ -112,7 +112,7 @@
 
 #if defined(FULL_GAME)
 
-	#if defined(__VIC20__) || defined(__C16__)
+	#if defined(USE_MEMORY_BUFFERS)
 		extern Item freeze;
 		extern Item invincibility;
 		extern Item extraLife;
@@ -200,7 +200,7 @@
 	#define chase_present_on_level_condition skullsKilled
 	#define confuse_present_on_level_condition missileBasesDestroyed
 	
-	#if defined(__VIC20__) || defined(__C16__)
+	#if defined(USE_MEMORY_BUFFERS)
 		extern Character rockets[];
 
 		extern unsigned short invincibility_count_down;	
@@ -221,7 +221,7 @@
 #endif
 
 #if !defined(TINY_GAME)
-	#if defined(__VIC20__) || defined(__C16__)
+	#if defined(USE_MEMORY_BUFFERS)
 		extern unsigned char strategyArray[GHOSTS_NUMBER];	
 		extern unsigned short freeze_count_down;
 		
@@ -242,7 +242,7 @@
 
 
 #if !defined(TINY_GAME)
-	#if defined(__VIC20__) || defined(__C16__)
+	#if defined(USE_MEMORY_BUFFERS)
 		extern unsigned char playerFire;
 		extern unsigned char guns; 
 		extern unsigned char skullHits;
@@ -256,7 +256,7 @@
 #endif
 
 #if !defined(TINY_GAME)
-	#if defined(__VIC20__) || defined(__C16__)
+	#if defined(USE_MEMORY_BUFFERS)
 		extern unsigned char arrowYPosition;
 	#else
 		unsigned char arrowYPosition;

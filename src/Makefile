@@ -187,6 +187,7 @@ vic20_unexpanded:
 	-DALT_DISPLAY_STATS \
 	-DALT_HIGHSCORE \
 	-DROUND_ENEMIES \
+	-DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
@@ -230,6 +231,7 @@ vic20_exp_3k:
 	-DVIC20_EXP_3K \
 	-DALT_PRINT \
 	-DCBM_SCREEN_CODES \
+	-DUSE_TINY_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_3k.s \
@@ -254,6 +256,7 @@ vic20_exp_8k_full:
 	-DMEMORY_MAPPED \
 	-DVIC20_EXP_8K \
 	-DEND_SCREEN \
+	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
@@ -275,6 +278,7 @@ vic20_exp_8k_gfx:
 	-DLESS_TEXT \
 	-DALT_CLEAR_SCREEN \
 	-DALT_SLEEP \
+	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -304,6 +308,7 @@ vic20_exp_8k:
 	-DALT_SLEEP \
 	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -327,6 +332,7 @@ vic20_exp_16k:
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
 	-DREDEFINED_CHARS \
+	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -358,7 +364,7 @@ c64_8k_cart:
 	$(CC65_PATH)$(MYCC65) -O -t c64 \
 	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS \
 	-DLESS_TEXT \
-	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_GHOSTS_NUMBER=9 \
 	-DEND_SCREEN \
 	-DALT_PRINT \
 	-DBETWEEN_LEVEL \
@@ -410,6 +416,7 @@ c16_16k:
 	-DANIMATE_PLAYER  -DSOUNDS \
 	-DREDEFINED_CHARS \
 	-DCONIO \
+	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
 	$(LIGHT_FILES) \
@@ -423,6 +430,7 @@ c16_32k:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DREDEFINED_CHARS \
 	-DCONIO \
+	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -448,6 +456,7 @@ c16_16k_gfx:
 	-DALT_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-DDANCE \
+	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/memory/c16_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -469,6 +478,7 @@ c16_16k_full:
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	-DEND_SCREEN \
+	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c264_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -483,6 +493,7 @@ pet_8k_buffered:
 	-DTINY_GAME -DNO_INIT_GRAPHICS \
 	-DBUFFERED \
 	-DALT_PRINT \
+	-DUSE_TINY_MEMORY_BUFFERS \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
@@ -491,6 +502,7 @@ pet_8k_buffered:
 pet_8k: 
 	$(CC65_PATH)$(MYCC65) -O -t pet -Cl \
 	-DTINY_GAME -DNO_INIT_GRAPHICS -DCONIO \
+	-DUSE_TINY_MEMORY_BUFFERS \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/TINY_pet_8k.prg
@@ -498,6 +510,7 @@ pet_8k:
 pet_8k_light:
 	$(CC65_PATH)$(MYCC65) -Or -t pet -Cl \
 	-DNO_INIT_GRAPHICS -DCONIO -DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_RANDOM_LEVEL \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/LIGHT_pet_8k.prg
@@ -5364,6 +5377,7 @@ pet_light:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DFORCE_NARROW \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/LIGHT_pet.prg
@@ -6312,6 +6326,7 @@ gal_6k:
 	-DFLAT_ENEMIES \
 	-DALT_HIGHSCORE \
 	-DCONIO \
+	-DUSE_TINY_MEMORY_BUFFERS \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/memory/gal_memory.asm

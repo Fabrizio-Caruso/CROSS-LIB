@@ -67,7 +67,10 @@ bit_fx4(4)	High pitch fall-down sound, long duration
 bit_fx4(5)	Short high pitch slightly noisy decreasing sound
 bit_fx4(6)	Short jump sound
 bit_fx4(7)	Very quick duck squeak
+
+extern void __LIB__ bit_beep(int duration, int period) __smallc;
 */
+
 #ifndef __BIT_BANG_SOUNDS
 #define __BIT_BANG_SOUNDS
 	#include <sound.h>
@@ -92,8 +95,13 @@ bit_fx4(7)	Very quick duck squeak
 		#define SHOOT_SOUND() bit_fx(1)	
 	#endif
 	#define PING_SOUND() bit_fx3(3)
+	// bit_beep(40,20)
+	//
+	
 	#define TICK_SOUND() bit_fx(0)
-	#define TOCK_SOUND() {} 	// TODO: (skull moving)
+	// bit_beep(40,40)
+	
+	#define TOCK_SOUND() bit_beep(50,20)
 
 #endif // __BIT_BANG_SOUNDS
 

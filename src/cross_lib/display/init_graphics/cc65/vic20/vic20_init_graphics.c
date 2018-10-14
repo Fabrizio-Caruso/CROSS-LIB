@@ -9,7 +9,7 @@ void INIT_GRAPHICS(void)
 		
 			tmp = ~0x0F & PEEK(&(VIC.addr));
 			POKE(&(VIC.addr), tmp | 0x0F);
-		#elif defined(VIC20_EXP_3K)
+		#elif defined(VIC20_EXP_3K) || defined(VIC20_UNEXPANDED) 
 			POKE(0x9005,0xFF);		
 		#endif
 	#endif
@@ -17,15 +17,24 @@ void INIT_GRAPHICS(void)
 	POKE(646,1);
 	POKE(36879L,9);
 	
-	// {
-		// unsigned char i;
+	#if defined(DEBUG)
+	#if defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K)
+		#define BASE_ADDR 0x1000
+	#else
+		#define BASE_ADDR 0x1E00
+	#endif
+	{
+		unsigned char i;
 		
-		// for(i=0;i<64;++i)
-		// {
-			// POKE(0x1000+i,64+i);
-		// }
-		// while(1);
-	// }
+		i=0;
+		do
+		{
+			POKE(BASE_ADDR+i,i);
+			++i;
+		} while(i!=0);
+		while(1);
+	}
+	#endif
 	
 }
 

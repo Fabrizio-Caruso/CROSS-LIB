@@ -13,6 +13,20 @@
 		#include <peekpoke.h>	
 	#endif
 
+	#if  defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
+		char screenCode(char ch)
+		{
+			if(ch<64)
+			{
+				return 64+ch;
+			}
+			else
+			{
+				return 128+64+ch;
+			}	
+		}
+	#endif
+	
 	void _displayShort(unsigned short value)
 	{ 
 		unsigned char i; 
@@ -33,8 +47,9 @@
 		{
 			#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))
 			POKE(loc(x+i,y), screenCode(str[i])); 		
+			#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
+			POKE(loc(x+i,y), screenCode(str[i])); 
 			#else
-				
 			POKE(loc(x+i,y), str[i]); 
 			#endif
 			++i;

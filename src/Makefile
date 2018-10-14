@@ -195,6 +195,37 @@ vic20_unexpanded:
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
 	
+	
+vic20_unexpanded_gfx:
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	-DREDEFINED_CHARS \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_TEXT_COLOR \
+	-DVIC20_UNEXPANDED \
+	-DNO_SLEEP \
+	-DLESS_TEXT \
+	-DNO_SET_SCREEN_COLORS \
+	-DTINY_GAME \
+	-DNO_STATS \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_DEAD_GHOSTS \
+	-DNO_RANDOM_LEVEL \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DMEMORY_MAPPED \
+	-DALT_DISPLAY_STATS \
+	-DALT_HIGHSCORE \
+	-DFLAT_ENEMIES \
+	-DALT_CLEAR_SCREEN \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_8chars.s \
+	-o $(BUILD_PATH)/TINY_vic20_unexpanded_gfx.prg
+
+
 vic20_unexpanded_turn_based:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
 	-DFORCE_KEYBOARD \
@@ -279,7 +310,7 @@ vic20_exp_8k_gfx:
 	-DALT_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
-	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_64chars.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
@@ -464,7 +495,7 @@ c16_16k_gfx:
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_c16.s \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_64chars.s \
 	-o $(BUILD_PATH)/FULL_c16_16k_GFX.prg	
 	
 c16_16k_full: 

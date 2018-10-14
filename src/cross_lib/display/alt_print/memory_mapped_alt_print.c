@@ -23,13 +23,13 @@
 #if defined(CBM_SCREEN_CODES)
 	char screenCode(char ch)
 	{
-		if(ch>64)
+		if(ch<64)
 		{
-			return ch-64;
+			return ch;
 		}
 		else
 		{
-			return ch;
+			return ch-64;
 		}
 		return ch;
 	}

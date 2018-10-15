@@ -16,13 +16,13 @@
 	#if  defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
 		char screenCode(char ch)
 		{
-			if(ch<64)
+			if(ch==32)
 			{
-				return 64+ch;
+				return (32+128);
 			}
 			else
 			{
-				return 128+64+ch;
+				return 64+ch;
 			}	
 		}
 	#endif

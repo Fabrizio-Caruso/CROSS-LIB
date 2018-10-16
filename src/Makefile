@@ -557,9 +557,7 @@ pet_16k:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/FULL_pet_16k.prg
-
 
 cbm610: 
 	$(CC65_PATH)$(MYCC65) -O -t cbm610 \

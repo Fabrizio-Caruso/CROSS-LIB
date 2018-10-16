@@ -22,7 +22,6 @@
 
 #include "../../cross_lib/cross_lib.h"
 
-//#include "display_macros.h"
 
 #if !defined(NO_SET_SCREEN_COLORS)
 	void setScreenColors(void)
@@ -33,24 +32,10 @@
 	}
 #endif
 
-#if !defined(ANIMATE_PLAYER)
-	Image PLAYER_IMAGE;
-#else
-	Image PLAYER_DOWN;
-	Image PLAYER_UP;
-	Image PLAYER_RIGHT;
-	Image PLAYER_LEFT;	
-#endif
+#include "images.h"
 
 #if defined(NO_MESSAGE)	
 	extern short highScore;
-#endif
-
-Image GHOST_IMAGE;
-Image BOMB_IMAGE;
-
-#if !defined(DNO_DEAD_GHOSTS)
-	Image DEAD_GHOST_IMAGE;
 #endif
 
 #if !defined(TINY_GAME)

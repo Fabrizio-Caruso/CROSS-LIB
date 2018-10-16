@@ -2,10 +2,10 @@
 //#define UDG_BASE_FACTOR 15
 
 // BLUE
-#define _PLAYER_DOWN 59
-#define _PLAYER_UP 58
-#define _PLAYER_RIGHT 61
-#define _PLAYER_LEFT 60
+#define _PLAYER_DOWN 61
+#define _PLAYER_UP 60
+#define _PLAYER_RIGHT 63
+#define _PLAYER_LEFT 62
 #define _PLAYER _PLAYER_DOWN
 
 #define _GUN 0x5B
@@ -21,7 +21,7 @@
 #define _POWERUP  0x5D
 
 // RED
-#define _BOMB 57
+#define _BOMB 59
 
 // CYAN
 #define _INVINCIBILITY 0x5C
@@ -32,7 +32,7 @@
 #define _BROKEN_BRICK _BOMB
 
 // WHITE
-#define _GHOST 56
+#define _GHOST 58
 
 #define _DEAD_GHOST _GHOST
 

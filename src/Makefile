@@ -210,10 +210,10 @@ vic20_unexpanded_gfx:
 	-DNO_SET_SCREEN_COLORS \
 	-DTINY_GAME \
 	-DNO_STATS \
-	-DFORCE_GHOSTS_NUMBER=4 \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DNO_RANDOM_LEVEL \
-	-DFORCE_BOMBS_NUMBER=1 \
+	-DFORCE_BOMBS_NUMBER=2 \
 	-DMEMORY_MAPPED \
 	-DALT_HIGHSCORE \
 	-DALT_DISPLAY_STATS \
@@ -225,7 +225,7 @@ vic20_unexpanded_gfx:
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_8chars.s \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_6chars.s \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded_gfx.prg
 
 

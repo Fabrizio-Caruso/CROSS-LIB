@@ -26,9 +26,25 @@ _level = _lives + $1
 .export _ghostCount;
 _ghostCount = _level + $1
 
+.export _PLAYER_DOWN;
+_PLAYER_DOWN = _ghostCount + $1
 
-	
-		
+.export _PLAYER_UP;
+_PLAYER_UP = _PLAYER_DOWN + $2
+
+.export _PLAYER_LEFT;
+_PLAYER_LEFT = _PLAYER_UP + $2
+
+.export _PLAYER_RIGHT;
+_PLAYER_RIGHT = _PLAYER_LEFT + $2
+
+.export _GHOST_IMAGE;
+_GHOST_IMAGE = _PLAYER_RIGHT + $2
+
+.export _BOMB_IMAGE;
+_BOMB_IMAGE = _GHOST_IMAGE + $2
+
+
 		
 		
 		

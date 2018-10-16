@@ -195,9 +195,12 @@ vic20_unexpanded:
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
 	
-	
+# 	-DALT_DISPLAY_STATS 	
+# 	-DANIMATE_PLAYER 
 vic20_unexpanded_gfx:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	-DCC65_GOTO \
+	-DANIMATE_PLAYER \
 	-DREDEFINED_CHARS \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_TEXT_COLOR \
@@ -210,10 +213,10 @@ vic20_unexpanded_gfx:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DNO_RANDOM_LEVEL \
-	-DFORCE_BOMBS_NUMBER=4 \
+	-DFORCE_BOMBS_NUMBER=2 \
 	-DMEMORY_MAPPED \
-	-DALT_DISPLAY_STATS \
 	-DALT_HIGHSCORE \
+	-DALT_DISPLAY_STATS \
 	-DFLAT_ENEMIES \
 	-DALT_CLEAR_SCREEN \
 	-DUSE_TINY_MEMORY_BUFFERS \
@@ -222,7 +225,7 @@ vic20_unexpanded_gfx:
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_8chars.s \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_6chars.s \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded_gfx.prg
 
 
@@ -299,6 +302,7 @@ vic20_exp_8k_full:
 
 vic20_exp_8k_gfx: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX_2.cfg \
+	-DCC65_GOTO \
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
@@ -553,9 +557,7 @@ pet_16k:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/FULL_pet_16k.prg
-
 
 cbm610: 
 	$(CC65_PATH)$(MYCC65) -O -t cbm610 \

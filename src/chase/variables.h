@@ -1,6 +1,8 @@
 #ifndef _VARIABLES_H
 #define _VARIABLES_H
 
+
+
 #if defined(Z88DK_JOYSTICK)
 	unsigned char stick;
 #endif

@@ -26,6 +26,12 @@
 			}	
 		}
 	#endif
+
+	#if defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
+		#define UDG_OFFSET 128
+	#else
+		#define UDG_OFFSET 0
+	#endif
 	
 	void _displayShort(unsigned short value)
 	{ 
@@ -35,9 +41,9 @@
 		{ 
 			value -= POKE(BASE_ADDR+6-i,(unsigned char) ((value)%10)); 
 			value/=10; 
-			POKE(BASE_ADDR+6-i,PEEK(BASE_ADDR+6-i)+48); 
+			POKE(BASE_ADDR+6-i,PEEK(BASE_ADDR+6-i)+48+UDG_OFFSET); 
 		} 
-		POKE(BASE_ADDR+6,48); 	
+		POKE(BASE_ADDR+6,48+UDG_OFFSET); 	
 	}
 
 	void PRINT(unsigned char x, unsigned char y, char * str)

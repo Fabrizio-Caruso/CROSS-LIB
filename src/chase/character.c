@@ -164,10 +164,9 @@ void checkBombsVsGhost(register Character * ghostPtr)
 		#if !defined(TINY_GAME)
 			ghostPtr->_x=1+GHOSTS_NUMBER-ghostCount;
 		#else
-			ghostPtr->_x=1;
+			// ghostPtr->_x=1;
 		#endif
-		ghostPtr->_y=1;
-		
+		ghostPtr->_y=1;		
 		
 		ghostDies(ghostPtr);
 	}

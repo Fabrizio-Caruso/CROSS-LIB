@@ -28,7 +28,10 @@
 
 
 #if defined(NO_CASE_LETTERS)
-	#if defined(TINY_GAME) || XSize<20
+	#  if defined(NO_SPACE_TEXT)
+		#define CROSS_CHASE_STRING "xchase"
+		#define AUTHOR_STRING "f" "\xA0" "caruso"	
+	#elif defined(TINY_GAME) || XSize<20
 		#define CROSS_CHASE_STRING "cross chase"
 		#define AUTHOR_STRING "fabrizio caruso"
 	#else

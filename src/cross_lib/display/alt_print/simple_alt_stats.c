@@ -28,7 +28,7 @@
 		{ 
 			value -= POKE(BASE_ADDR+6-i,(unsigned char) ((value)%10)); 
 			value/=10; 
-			POKE(BASE_ADDR+6-i,UDG_OFFSET+PEEK(BASE_ADDR+6-i)+48); 
+			POKE(BASE_ADDR+6-i,UDG_OFFSET+48+PEEK(BASE_ADDR+6-i)); 
 		} 
 		POKE(BASE_ADDR+6,48+UDG_OFFSET); 	
 	}

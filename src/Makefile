@@ -331,8 +331,8 @@ vic20_exp_8k_gfx:
 	$(SOURCE_PATH)/rocket.c \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
 	$(SOURCE_PATH)/horizontal_missile.c \
-	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/init_images.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

@@ -63,6 +63,8 @@
 #endif
 
 #include "variables.h"
+unsigned char i;
+
 
 // Level
 // The level affects:
@@ -516,12 +518,19 @@ int main(void)
 										
 				#else
 					SKIP_MORE_DRAW
+					{
 						displayBombs();
+					}
 				#endif
 				
 				// Display ghosts
 				SKIP_DRAW
-					displayGhosts();
+				{
+					for(i=0;i<GHOSTS_NUMBER;++i)
+					{
+						displayGhost(&ghosts[i]);
+					}
+				}
 					
 				#if defined(TURN_BASED) 
 					if((loop<TURN_BASED_MAX_LOOP) || loop&1)
@@ -596,7 +605,6 @@ int main(void)
 				#if defined(END_SCREEN) || defined(DANCE)
 					for(bulletDirection=0;bulletDirection<80;++bulletDirection)
 					{
-						unsigned char i;
 						for(i=0;i<GHOSTS_NUMBER;++i)
 						{
 							if(ghosts[i]._status)

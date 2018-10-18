@@ -202,6 +202,7 @@ vic20_unexpanded_gfx:
 	-DCC65_GOTO \
 	-DANIMATE_PLAYER \
 	-DREDEFINED_CHARS \
+	-DNO_SPACE_TEXT \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_TEXT_COLOR \
 	-DVIC20_UNEXPANDED \
@@ -212,8 +213,8 @@ vic20_unexpanded_gfx:
 	-DNO_STATS \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
-	-DNO_RANDOM_LEVEL \
-	-DFORCE_BOMBS_NUMBER=2 \
+	-DSIMPLE_RANDOM_LEVEL \
+	-DFORCE_BOMBS_NUMBER=4 \
 	-DMEMORY_MAPPED \
 	-DALT_HIGHSCORE \
 	-DALT_DISPLAY_STATS \
@@ -301,7 +302,9 @@ vic20_exp_8k_full:
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
 vic20_exp_8k_gfx: 
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX_2.cfg \
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/vic20-8k_GFX_2.cfg \
+	-DSOUNDS -DANIMATE_PLAYER \
 	-DCC65_GOTO \
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	-DFULL_GAME \
@@ -326,8 +329,8 @@ vic20_exp_8k_gfx:
 	$(SOURCE_PATH)/rocket.c \
 	$(CROSS_LIB_PATH)/display/display_macros.c  \
 	$(SOURCE_PATH)/horizontal_missile.c \
-	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/init_images.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

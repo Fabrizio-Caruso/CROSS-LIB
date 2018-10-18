@@ -33,8 +33,6 @@ unsigned short computeGhostSlowDown(void);
 	void decreaseGhostLevel(void);
 #endif
 
-void displayGhosts(void);
-
 void displayBombs(void);
 
 #if defined(FULL_GAME)

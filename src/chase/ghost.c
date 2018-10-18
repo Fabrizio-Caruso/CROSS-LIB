@@ -57,16 +57,6 @@ unsigned short computeGhostSlowDown(void)
 	}
 #endif
 
-void displayGhosts(void)
-{
-	unsigned char i;
-
-	for(i=0;i<GHOSTS_NUMBER;++i)
-	{
-		displayGhost(&ghosts[i]);
-	}
-}
-
 void displayBombs(void)
 {
 	unsigned char i;

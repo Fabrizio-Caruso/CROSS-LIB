@@ -13,19 +13,6 @@
 		#include <peekpoke.h>	
 	#endif
 
-	#if  defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
-		char screenCode(char ch)
-		{
-			if(ch==32)
-			{
-				return (32+128);
-			}
-			else
-			{
-				return 64+ch;
-			}	
-		}
-	#endif
 
 	#if defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
 		#define UDG_OFFSET 128
@@ -41,7 +28,7 @@
 		{ 
 			value -= POKE(BASE_ADDR+6-i,(unsigned char) ((value)%10)); 
 			value/=10; 
-			POKE(BASE_ADDR+6-i,PEEK(BASE_ADDR+6-i)+48+UDG_OFFSET); 
+			POKE(BASE_ADDR+6-i,UDG_OFFSET+48+PEEK(BASE_ADDR+6-i)); 
 		} 
 		POKE(BASE_ADDR+6,48+UDG_OFFSET); 	
 	}
@@ -54,7 +41,8 @@
 			#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))
 			POKE(loc(x+i,y), screenCode(str[i])); 		
 			#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
-			POKE(loc(x+i,y), screenCode(str[i])); 
+			POKE(loc(x+i,y), 64+str[i]); 
+			// POKE(0x8400+loc(x+i,y),0x01);
 			#else
 			POKE(loc(x+i,y), str[i]); 
 			#endif

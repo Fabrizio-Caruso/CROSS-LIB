@@ -304,7 +304,9 @@ vic20_exp_8k_full:
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
 vic20_exp_8k_gfx: 
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX_2.cfg \
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/vic20-8k_GFX_2.cfg \
+	-DSOUNDS -DANIMATE_PLAYER \
 	-DCC65_GOTO \
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	-DFULL_GAME \

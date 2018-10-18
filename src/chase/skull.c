@@ -62,7 +62,6 @@ unsigned short computeSkullSlowDown(void)
 
 void computeSkullParameters(void)
 {
-	skullSlowDown = computeSkullSlowDown();
 	skullXCountDown = SKULL_COUNT_DOWN;
 	skullYCountDown = SKULL_COUNT_DOWN;
 }
@@ -94,7 +93,6 @@ void handle_skull(void)
 		#endif
 		{
 			skull._status = 1;
-			displaySkull(&skull);
 		}
 		else
 		{

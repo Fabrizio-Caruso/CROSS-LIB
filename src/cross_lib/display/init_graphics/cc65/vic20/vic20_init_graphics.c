@@ -18,22 +18,22 @@ void INIT_GRAPHICS(void)
 	POKE(36879L,9);
 	
 	#if defined(DEBUG)
-	#if defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K)
-		#define BASE_ADDR 0x1000
-	#else
-		#define BASE_ADDR 0x1E00
-	#endif
-	{
-		unsigned char i;
-		
-		i=0;
-		do
+		#if defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K)
+			#define BASE_ADDR 0x1000
+		#else
+			#define BASE_ADDR 0x1E00
+		#endif
 		{
-			POKE(BASE_ADDR+i,i);
-			++i;
-		} while(i!=0);
-		while(1);
-	}
+			unsigned char i;
+			
+			i=0;
+			do
+			{
+				POKE(BASE_ADDR+i,i);
+				++i;
+			} while(i!=0);
+			while(1);
+		}
 	#endif
 	
 }

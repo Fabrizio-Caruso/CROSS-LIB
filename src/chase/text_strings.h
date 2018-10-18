@@ -93,8 +93,13 @@
 #if defined(LESS_TEXT)
 	#if defined(NO_CASE_LETTERS)
 		#define PRESS_STRING "go"
-		#define GAME_OVER_STRING "game over"
-		#define YOU_MADE_IT_STRING "the end"		
+		#if defined(NO_SPACE_TEXT)
+			#define GAME_OVER_STRING "game" "\xA0" "over"
+			#define YOU_MADE_IT_STRING "the" "\xA0" "end"			
+		#else
+			#define GAME_OVER_STRING "game over"
+			#define YOU_MADE_IT_STRING "the end"	
+		#endif
 	#else
 		#define PRESS_STRING "GO"	
 		#define GAME_OVER_STRING "GAME OVER"

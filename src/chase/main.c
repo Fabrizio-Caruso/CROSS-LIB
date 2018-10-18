@@ -528,7 +528,14 @@ int main(void)
 				{
 					for(i=0;i<GHOSTS_NUMBER;++i)
 					{
-						displayGhost(&ghosts[i]);
+						#if defined(NO_DEAD_GHOST_DISPLAY) && defined(TINY_GAME)
+							if(ghosts[i]._status)
+							{
+								displayGhost(ghosts+i);
+							}
+						#else
+							displayGhost(&ghosts[i]);
+						#endif
 					}
 				}
 					

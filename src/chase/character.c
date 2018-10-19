@@ -215,7 +215,7 @@ unsigned char safeLocation(unsigned char x, unsigned char y)
 		  || (x<SAFETY) || (x>XSize-SAFETY) || (y<=SAFETY) || (y>YSize-SAFETY));
 }
 
-
+#if !defined(TINY_GAME)
 void relocateCharacter(register Character * characterPtr)
 {
 	unsigned char x; 
@@ -231,6 +231,7 @@ void relocateCharacter(register Character * characterPtr)
 	characterPtr->_x = x;
 	characterPtr->_y = y;
 }
+#endif
 
 #if defined(FULL_GAME)
 	unsigned char innerWallReached(register Character *characterPtr)

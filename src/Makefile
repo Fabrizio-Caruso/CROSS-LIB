@@ -218,9 +218,9 @@ vic20_unexpanded_gfx:
 	-DMEMORY_MAPPED \
 	-DALT_HIGHSCORE \
 	-DALT_DISPLAY_STATS \
-	-DFLAT_ENEMIES \
 	-DALT_CLEAR_SCREEN \
 	-DUSE_TINY_MEMORY_BUFFERS \
+	-DROUND_ENEMIES \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \

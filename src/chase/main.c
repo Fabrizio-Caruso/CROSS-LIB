@@ -324,8 +324,8 @@ int main(void)
 				displayStatsTitles();
 			#endif
 			
-			#if !defined(NO_STATS)
-				displayStats();			
+			displayStats();		
+			#if !defined(NO_STATS)	
 				printLevelStats();
 				printLivesStats();
 			#endif

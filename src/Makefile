@@ -197,8 +197,11 @@ vic20_unexpanded:
 	
 # 	-DALT_DISPLAY_STATS 	
 # 	-DANIMATE_PLAYER 
+#   -DSIMPLE_RANDOM_LEVEL \
+
 vic20_unexpanded_gfx:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	-DSOUNDS \
 	-DCC65_GOTO \
 	-DANIMATE_PLAYER \
 	-DREDEFINED_CHARS \
@@ -213,16 +216,17 @@ vic20_unexpanded_gfx:
 	-DNO_STATS \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
-	-DSIMPLE_RANDOM_LEVEL \
 	-DFORCE_BOMBS_NUMBER=4 \
 	-DMEMORY_MAPPED \
 	-DALT_HIGHSCORE \
 	-DALT_DISPLAY_STATS \
 	-DALT_CLEAR_SCREEN \
 	-DUSE_TINY_MEMORY_BUFFERS \
-	-DROUND_ENEMIES \
+	-DFLAT_ENEMIES \
+	-DSIMPLE_RANDOM_LEVEL \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
 	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \

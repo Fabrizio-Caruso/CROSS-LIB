@@ -144,10 +144,11 @@ extern Image BOMB_IMAGE;
 	#define _CONFUSE_COLOR COLOR_RED
 	#define _ZOMBIE_COLOR COLOR_YELLOW
 #endif
-//
 
-void set_image_colors(void)
+
+void INIT_IMAGES(void)
 {
+	// Set color data 
 	#if !defined(NO_COLOR)
 		
 		#if defined(ANIMATE_PLAYER)
@@ -194,11 +195,8 @@ void set_image_colors(void)
 			BROKEN_BRICK_IMAGE._color = _BRICK_COLOR;
 		#endif	
 	#endif	
-}
 
-void set_image_data(void)
-{		
-
+	// Set Image Data
 	#if defined(ANIMATE_PLAYER)
 		PLAYER_DOWN._imageData = _PLAYER_DOWN;
 		PLAYER_UP._imageData = _PLAYER_UP;	
@@ -254,9 +252,5 @@ void set_image_data(void)
 	#endif
 }
 
-void INIT_IMAGES(void)
-{
-	set_image_colors();
-	set_image_data();
-}
+
 

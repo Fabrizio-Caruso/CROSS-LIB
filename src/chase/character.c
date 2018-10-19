@@ -164,8 +164,10 @@ void checkBombsVsGhost(register Character * ghostPtr)
 
 		#	if defined(TINY_GAME) && defined(MOVE_DEAD_GHOST)
 			ghostPtr->_y=1;
-		#elif defined(TINY_GAME) 
+		#elif defined(TINY_GAME) && defined(BOMB_DEAD_GHOST)
 			ghostPtr->_imagePtr = &BOMB_IMAGE;			
+		#elif defined(TINY_GAME) && defined(HIDE_DEAD_GHOST)
+			//
 		#else
 			ghostPtr->_x=1+GHOSTS_NUMBER-ghostCount;
 			ghostPtr->_y=1;	

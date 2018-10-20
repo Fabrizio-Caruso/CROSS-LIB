@@ -164,8 +164,10 @@ void checkBombsVsGhost(register Character * ghostPtr)
 
 		#	if defined(TINY_GAME) && defined(MOVE_DEAD_GHOST)
 			ghostPtr->_y=1;
-		#elif defined(TINY_GAME) 
+		#elif defined(TINY_GAME) && defined(BOMB_DEAD_GHOST)
 			ghostPtr->_imagePtr = &BOMB_IMAGE;			
+		#elif defined(TINY_GAME) && defined(HIDE_DEAD_GHOST)
+			//
 		#else
 			ghostPtr->_x=1+GHOSTS_NUMBER-ghostCount;
 			ghostPtr->_y=1;	
@@ -215,7 +217,7 @@ unsigned char safeLocation(unsigned char x, unsigned char y)
 		  || (x<SAFETY) || (x>XSize-SAFETY) || (y<=SAFETY) || (y>YSize-SAFETY));
 }
 
-
+#if !defined(TINY_GAME)
 void relocateCharacter(register Character * characterPtr)
 {
 	unsigned char x; 
@@ -231,6 +233,7 @@ void relocateCharacter(register Character * characterPtr)
 	characterPtr->_x = x;
 	characterPtr->_y = y;
 }
+#endif
 
 #if defined(FULL_GAME)
 	unsigned char innerWallReached(register Character *characterPtr)

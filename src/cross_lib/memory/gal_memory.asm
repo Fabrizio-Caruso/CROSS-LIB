@@ -1,4 +1,4 @@
-PUBLIC _ghosts, _bombs, _player, _ghostSlowDown, _points, _highScore, _lives, _level, _ghostCount, _GHOST_IMAGE, _BOMB_IMAGE
+PUBLIC _ghosts, _bombs, _player, _ghostSlowDown, _points, _highScore, _lives, _level, _ghostCount, _GHOST_IMAGE, _BOMB_IMAGE, _ind
 
 defc _ghosts = 0x2A00
 
@@ -21,4 +21,6 @@ defc _ghostCount = _level + $1
 defc _GHOST_IMAGE = _ghostCount + $1
 
 defc _BOMB_IMAGE = _GHOST_IMAGE + $1
+
+defc _ind = _BOMB_IMAGE + $1
 

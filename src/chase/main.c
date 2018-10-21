@@ -63,7 +63,6 @@
 #endif
 
 #include "variables.h"
-unsigned char i;
 
 
 // Level
@@ -526,9 +525,9 @@ int main(void)
 				// Display ghosts
 				SKIP_DRAW
 				{
-					for(i=0;i<GHOSTS_NUMBER;++i)
+					for(ind=0;ind<GHOSTS_NUMBER;++ind)
 					{
-						displayGhost(&ghosts[i]);
+						displayGhost(&ghosts[ind]);
 					}
 				}
 					
@@ -605,10 +604,10 @@ int main(void)
 				#if defined(END_SCREEN) || defined(DANCE)
 					for(bulletDirection=0;bulletDirection<80;++bulletDirection)
 					{
-						for(i=0;i<GHOSTS_NUMBER;++i)
+						for(ind=0;ind<GHOSTS_NUMBER;++ind)
 						{
-							if(ghosts[i]._status)
-								dance(&ghosts[i]);
+							if(ghosts[ind]._status)
+								dance(&ghosts[ind]);
 						}
 					}
 				#endif

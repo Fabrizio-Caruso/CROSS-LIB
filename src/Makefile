@@ -200,7 +200,7 @@ vic20_unexpanded:
 #   -DSIMPLE_RANDOM_LEVEL \
 
 vic20_unexpanded_gfx:
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	$(CC65_PATH)$(MYCC65) -m map.txt -Or -Cl -t vic20 \
 	-DSOUNDS \
 	-DCC65_GOTO \
 	-DANIMATE_PLAYER \

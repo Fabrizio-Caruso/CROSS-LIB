@@ -31,7 +31,7 @@
 
 #if defined(TINY_GAME) || defined(NO_DEAD_GHOSTS)
 	#define PLACE_DEAD_GHOST() \
-		initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&GHOST_IMAGE);	
+		initializeCharacter(&ghosts[count],(unsigned char) (count),(unsigned char) 1,0,&GHOST_IMAGE);	
 #else
 	#define PLACE_DEAD_GHOST() \
 		initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);

@@ -187,6 +187,7 @@ vic20_unexpanded:
 	-DALT_DISPLAY_STATS \
 	-DALT_HIGHSCORE \
 	-DROUND_ENEMIES \
+	-DOPTIMIZE_ROUND_ENEMIES \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
@@ -200,7 +201,7 @@ vic20_unexpanded:
 #   -DSIMPLE_RANDOM_LEVEL \
 
 vic20_unexpanded_gfx:
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	$(CC65_PATH)$(MYCC65) -m map.txt -Or -Cl -t vic20 \
 	-DSOUNDS \
 	-DCC65_GOTO \
 	-DANIMATE_PLAYER \
@@ -223,6 +224,7 @@ vic20_unexpanded_gfx:
 	-DALT_CLEAR_SCREEN \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	-DFLAT_ENEMIES \
+	-DOPTIMIZE_ROUND_ENEMIES \
 	-DSIMPLE_RANDOM_LEVEL \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
 	$(TINY_FILES) \

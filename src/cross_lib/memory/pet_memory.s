@@ -30,21 +30,22 @@ _ghostCount = _level + $1
 _PLAYER_DOWN = _ghostCount + $1
 
 .export _PLAYER_UP;
-_PLAYER_UP = _PLAYER_DOWN + $2
+_PLAYER_UP = _PLAYER_DOWN + $1
 
 .export _PLAYER_LEFT;
-_PLAYER_LEFT = _PLAYER_UP + $2
+_PLAYER_LEFT = _PLAYER_UP + $1
 
 .export _PLAYER_RIGHT;
-_PLAYER_RIGHT = _PLAYER_LEFT + $2
+_PLAYER_RIGHT = _PLAYER_LEFT + $1
 
 .export _GHOST_IMAGE;
-_GHOST_IMAGE = _PLAYER_RIGHT + $2
+_GHOST_IMAGE = _PLAYER_RIGHT + $1
 
 .export _BOMB_IMAGE;
-_BOMB_IMAGE = _GHOST_IMAGE + $2
+_BOMB_IMAGE = _GHOST_IMAGE + $1
 
-
+.export _ind;
+_ind = _BOMB_IMAGE + $1
 		
 		
 		

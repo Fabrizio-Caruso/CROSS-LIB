@@ -211,8 +211,8 @@ _GHOST_IMAGE = _PLAYER_RIGHT + $2
 .export _BOMB_IMAGE;
 _BOMB_IMAGE = _GHOST_IMAGE + $2
 
-
-
+.export _ind;
+_ind = _BOMB_IMAGE + $2
 
 	
 	

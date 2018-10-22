@@ -168,6 +168,9 @@ void checkBombsVsGhost(register Character * ghostPtr)
 			ghostPtr->_imagePtr = &BOMB_IMAGE;			
 		#elif defined(TINY_GAME) && defined(HIDE_DEAD_GHOST)
 			//
+		#elif defined(TINY_GAME)
+			ghostPtr->_x=ghostCount;
+			ghostPtr->_y=1;				
 		#else
 			ghostPtr->_x=1+GHOSTS_NUMBER-ghostCount;
 			ghostPtr->_y=1;	
@@ -178,16 +181,6 @@ void checkBombsVsGhost(register Character * ghostPtr)
 	
 }
 						
-
-void checkBombsVsGhosts(void)
-{
-	unsigned char i;
-	for(i=0;i<GHOSTS_NUMBER;++i)
-	  {
-		 checkBombsVsGhost(&ghosts[i]);
-	  }
-}
-
 
 unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length)
 {

@@ -343,8 +343,6 @@ void displayStats(void)
 			
 			printCenteredMessageOnRow(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
 			printCenteredMessageOnRow(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);			
-			// printCenteredMessageOnRow((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
-			// printCenteredMessageOnRow((YSize>>1)+1, INTO_THE_MINES_STRING);
 			
 			SET_COLOR(TEXT_COLOR);	
 			

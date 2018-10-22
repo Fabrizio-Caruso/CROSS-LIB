@@ -31,7 +31,7 @@
 
 #if defined(TINY_GAME) || defined(NO_DEAD_GHOSTS)
 	#define PLACE_DEAD_GHOST() \
-		initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&GHOST_IMAGE);	
+		initializeCharacter(&ghosts[count],(unsigned char) (count),(unsigned char) 1,0,&GHOST_IMAGE);	
 #else
 	#define PLACE_DEAD_GHOST() \
 		initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
@@ -42,14 +42,22 @@
 #if XSize>48
 	#define ROUND_X_POS (unsigned char) ((2*j-1)*(unsigned char)(XSize/6))
 #else
-	#define ROUND_X_POS (unsigned char) ((2*j-1)*XSize/6)
+	#if defined(OPTIMIZE_ROUND_ENEMIES)
+		#define ROUND_X_POS (unsigned char) ((2*j)*XSize/8)		
+	#else
+		#define ROUND_X_POS (unsigned char) ((2*j-1)*XSize/6)
+	#endif
 #endif
 
 // Check YSize to avoid overflow
 #if YSize>48
 	#define ROUND_Y_POS (unsigned char) ((2*i-1)*(unsigned char)(YSize/6))
 #else
-	#define ROUND_Y_POS (unsigned char) ((2*i-1)*YSize/6)
+	#if defined(OPTIMIZE_ROUND_ENEMIES)
+		#define ROUND_Y_POS (unsigned char) ((2*i)*YSize/8)
+	#else
+		#define ROUND_Y_POS (unsigned char) ((2*i-1)*YSize/6)
+	#endif
 #endif
 
 

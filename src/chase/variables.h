@@ -94,6 +94,8 @@
 	extern unsigned char level;	
 	
 	extern unsigned char ghostCount; // = GHOSTS_NUMBER;
+	
+	extern unsigned char ind;
 
 #else
 	Character ghosts[GHOSTS_NUMBER];
@@ -109,6 +111,8 @@
 	unsigned char level;	
 	
 	unsigned char ghostCount; // = GHOSTS_NUMBER;
+	
+	extern unsigned char ind;	
 	
 #endif
 

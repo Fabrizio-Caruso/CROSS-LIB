@@ -439,7 +439,10 @@ int main(void)
 				#endif
 				
 				// Check collisions bombs vs ghosts
-				checkBombsVsGhosts();
+				for(ind=0;ind<GHOSTS_NUMBER;++ind)
+					{
+						checkBombsVsGhost(&ghosts[ind]);
+					}
 				
 				#if !defined(TINY_GAME)
 					handle_extraPoints_item();

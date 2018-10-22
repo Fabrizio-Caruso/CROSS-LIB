@@ -182,16 +182,6 @@ void checkBombsVsGhost(register Character * ghostPtr)
 }
 						
 
-void checkBombsVsGhosts(void)
-{
-	unsigned char i;
-	for(i=0;i<GHOSTS_NUMBER;++i)
-	  {
-		 checkBombsVsGhost(&ghosts[i]);
-	  }
-}
-
-
 unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length)
 {
 	unsigned char i;

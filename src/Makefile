@@ -171,6 +171,7 @@ oric1_16k:
 # 	-DNO_MESSAGE 
 vic20_unexpanded:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	-DSOUNDS \
 	-DANIMATE_PLAYER \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_TEXT_COLOR \
@@ -187,11 +188,11 @@ vic20_unexpanded:
 	-DALT_DISPLAY_STATS \
 	-DALT_HIGHSCORE \
 	-DROUND_ENEMIES \
-	-DOPTIMIZE_ROUND_ENEMIES \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
@@ -201,7 +202,7 @@ vic20_unexpanded:
 #   -DSIMPLE_RANDOM_LEVEL \
 
 vic20_unexpanded_gfx:
-	$(CC65_PATH)$(MYCC65) -m map.txt -Or -Cl -t vic20 \
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
 	-DSOUNDS \
 	-DCC65_GOTO \
 	-DANIMATE_PLAYER \
@@ -223,7 +224,7 @@ vic20_unexpanded_gfx:
 	-DALT_DISPLAY_STATS \
 	-DALT_CLEAR_SCREEN \
 	-DUSE_TINY_MEMORY_BUFFERS \
-	-DFLAT_ENEMIES \
+	-DROUND_ENEMIES \
 	-DOPTIMIZE_ROUND_ENEMIES \
 	-DSIMPLE_RANDOM_LEVEL \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
@@ -238,6 +239,7 @@ vic20_unexpanded_gfx:
 
 vic20_unexpanded_turn_based:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	-DSOUNDS \
 	-DFORCE_KEYBOARD \
 	-DTURN_BASED \
 	-DNO_CONTROL_INSTRUCTIONS \
@@ -255,8 +257,11 @@ vic20_unexpanded_turn_based:
 	-DMEMORY_MAPPED \
 	-DALT_DISPLAY_STATS \
 	-DFLAT_ENEMIES \
+	-DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg	

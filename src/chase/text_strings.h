@@ -29,8 +29,10 @@
 
 #if defined(NO_CASE_LETTERS)
 	#  if defined(NO_SPACE_TEXT)
-		#define CROSS_CHASE_STRING "cross" "\xA0" "chase"
-		#define AUTHOR_STRING "fabrizio" "\xA0" "caruso"	
+		#define CROSS_CHASE_STRING "x" "\xA0" "chase"
+		//"cross" "\xA0" "chase"
+		#define AUTHOR_STRING "f" "\xA0" "c"
+		// "fabrizio" "\xA0" "caruso"	
 	#elif defined(TINY_GAME) || XSize<20
 		#define CROSS_CHASE_STRING "cross chase"
 		#define AUTHOR_STRING "fabrizio caruso"
@@ -95,7 +97,8 @@
 		#define PRESS_STRING "go"
 		#if defined(NO_SPACE_TEXT)
 			#define GAME_OVER_STRING "game" "\xA0" "over"
-			#define YOU_MADE_IT_STRING "the" "\xA0" "end"			
+			#define YOU_MADE_IT_STRING "end"
+			//"the" "\xA0" "end"			
 		#else
 			#define GAME_OVER_STRING "game over"
 			#define YOU_MADE_IT_STRING "the end"	

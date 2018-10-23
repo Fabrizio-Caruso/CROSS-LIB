@@ -28,17 +28,16 @@
 
 	void _explosion_sound(unsigned char freq, unsigned char vol)
 	{ 
-		unsigned int i; 
+		unsigned char i; 
 		unsigned char j;
 		VIC.noise = freq; 
 		VIC.volume_color |= vol; 
 
-		for(j=0;j<8;++j) 
+		for(j=0;j<24;++j) 
 		{ \
-			for(i=0;i<400;++i) 
+			for(i=0;i<253;++i) 
 			{ 
 			} 			
-			VIC.volume_color &= 8-j; 		
 		} 
 		VIC.noise = 0x00; 
 		VIC.volume_color &= 0x00; 

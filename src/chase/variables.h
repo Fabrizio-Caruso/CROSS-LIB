@@ -112,7 +112,7 @@
 	
 	unsigned char ghostCount; // = GHOSTS_NUMBER;
 	
-	extern unsigned char ind;	
+	unsigned char ind;	
 	
 #endif
 

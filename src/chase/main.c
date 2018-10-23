@@ -573,7 +573,7 @@ int main(void)
 					SLEEP(1);					
 					CLEAR_SCREEN();						
 				#else
-					points += LEVEL_BONUS * 4;
+					// points += LEVEL_BONUS * 4;
 				#endif			
 
 				ghostCount = GHOSTS_NUMBER;

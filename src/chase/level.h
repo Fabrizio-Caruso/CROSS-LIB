@@ -40,23 +40,23 @@
 
 // Check XSize to avoid overflow
 #if XSize>48
-	#define ROUND_X_POS (unsigned char) ((2*j-1)*(unsigned char)(XSize/6))
+	#define ROUND_X_POS (unsigned char) ((2*j+1)*(unsigned char)(XSize/6))
 #else
 	#if defined(OPTIMIZE_ROUND_ENEMIES)
-		#define ROUND_X_POS (unsigned char) ((2*j)*XSize/8)		
+		#define ROUND_X_POS (unsigned char) (6*j)		
 	#else
-		#define ROUND_X_POS (unsigned char) ((2*j-1)*XSize/6)
+		#define ROUND_X_POS (unsigned char) ((2*j+1)*XSize/6)
 	#endif
 #endif
 
 // Check YSize to avoid overflow
 #if YSize>48
-	#define ROUND_Y_POS (unsigned char) ((2*i-1)*(unsigned char)(YSize/6))
+	#define ROUND_Y_POS (unsigned char) ((2*i+1)*(unsigned char)(YSize/6))
 #else
 	#if defined(OPTIMIZE_ROUND_ENEMIES)
-		#define ROUND_Y_POS (unsigned char) ((2*i)*YSize/8)
+		#define ROUND_Y_POS (unsigned char) (6*i)
 	#else
-		#define ROUND_Y_POS (unsigned char) ((2*i-1)*YSize/6)
+		#define ROUND_Y_POS (unsigned char) ((2*i+1)*YSize/6)
 	#endif
 #endif
 
@@ -78,9 +78,9 @@
 
 	
 #define ROUND_NINE_GHOSTS() \
-	for(i=1;i<=3;++i) \
+	for(i=0;i<=2;++i) \
 	{ \
-		for(j=1;j<=3;++j) \
+		for(j=0;j<=2;++j) \
 		{ \
 			if(nGhosts>count) \
 			{ \
@@ -101,13 +101,19 @@
 		} \
 	}
 
+	
+#if defined(OPTIMIZE_ROUND_ENEMIES)
+	#define OPT_OFFSET 1
+#else
+	#define OPT_OFFSET 0
+#endif
 
 #define ROUND_EIGHT_GHOSTS() \
-	for(i=1;i<=3;++i) \
+	for(i=0+OPT_OFFSET;i<=2+OPT_OFFSET;++i) \
 	{ \
-		for(j=1;j<=3;++j) \
+		for(j=0+OPT_OFFSET;j<=2+OPT_OFFSET;++j) \
 		{ \
-			if(i!=2 || j !=2) \
+			if(i!=1+OPT_OFFSET || j !=1+OPT_OFFSET) \
 			{ \
 				if(nGhosts>count) \
 				{ \

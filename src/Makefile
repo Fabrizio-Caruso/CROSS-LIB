@@ -169,6 +169,7 @@ oric1_16k:
 # 	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -m 746e3d1.map -Wl -vm 
 # 	-DNO_INITIAL_SCREEN 
 # 	-DNO_MESSAGE 
+#   -DOPTIMIZE_ROUND_ENEMIES 
 vic20_unexpanded:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
 	-DSOUNDS \
@@ -210,6 +211,7 @@ vic20_unexpanded_gfx:
 	-DNO_SPACE_TEXT \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_TEXT_COLOR \
+	-DNO_RANDOM_LEVEL \
 	-DVIC20_UNEXPANDED \
 	-DNO_SLEEP \
 	-DLESS_TEXT \
@@ -225,7 +227,6 @@ vic20_unexpanded_gfx:
 	-DALT_CLEAR_SCREEN \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	-DROUND_ENEMIES \
-	-DOPTIMIZE_ROUND_ENEMIES \
 	-DSIMPLE_RANDOM_LEVEL \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
 	$(TINY_FILES) \

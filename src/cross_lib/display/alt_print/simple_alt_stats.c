@@ -20,6 +20,11 @@
 		#define UDG_OFFSET 0
 	#endif
 	
+	// void colorize(unsigned char x, unsigned char y)
+	// {
+			// POKE((unsigned short) (0x9600-0x1E00+BASE_ADDR+loc(x,y)),0x01);		
+	// }
+	
 	void _displayShort(unsigned short value)
 	{ 
 		unsigned char i; 
@@ -30,7 +35,7 @@
 			value/=10; 
 			POKE(BASE_ADDR+6-i,UDG_OFFSET+48+PEEK(BASE_ADDR+6-i)); 
 		} 
-		POKE(BASE_ADDR+6,48+UDG_OFFSET); 	
+		POKE(BASE_ADDR+6,48+UDG_OFFSET); 
 	}
 
 	void PRINT(unsigned char x, unsigned char y, char * str)

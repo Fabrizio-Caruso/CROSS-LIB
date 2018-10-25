@@ -29,7 +29,11 @@
 
 #include "speed_game_settings.h"
 
-#define INITIAL_LEVEL 10
+#if !defined(FORCE_LEVEL)
+	#define INITIAL_LEVEL 1
+#else
+	#define INITIAL_LEVEL FORCE_LEVEL
+#endif
 
 // Final level 
 #define FINAL_LEVEL 20

@@ -26,8 +26,8 @@
 
 	void _pause(void)
 	{
-		unsigned short i;
-		for(i=0;i<500;++i) 
+		unsigned char i;
+		for(i=0;i<254;++i) 
 			{ 
 			} 			
 	}
@@ -38,10 +38,9 @@
 		VIC.noise = freq; 
 		VIC.volume_color |= vol; 
 
-		for(j=0;j<8;++j) 
+		for(j=0;j<18;++j) 
 		{ 
 			_pause();
-			VIC.volume_color &= 8-j; 		
 		} 
 		VIC.noise = 0x00; 
 		VIC.volume_color &= 0x00; 
@@ -51,7 +50,7 @@
 	{ 
 		VIC.voice1 = freq; 
 		VIC.volume_color |= 0x08; 
-		_pause();
+		_pause(); _pause();
 		VIC.voice1 = 0x00; 
 		VIC.volume_color &= 0x00; 
 	};
@@ -64,7 +63,7 @@
 		for(j=0;j<15;++j) 
 		{ \
 			VIC.voice1 = j*15;
-			_pause();
+			_pause(); _pause(); _pause();
 		} \
 		VIC.voice1 = 0x00; 
 		VIC.volume_color &= 0x00; 

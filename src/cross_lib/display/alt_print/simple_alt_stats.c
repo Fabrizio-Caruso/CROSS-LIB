@@ -34,8 +34,10 @@
 			value -= POKE(BASE_ADDR+6-i,(unsigned char) ((value)%10)); 
 			value/=10; 
 			POKE(BASE_ADDR+6-i,UDG_OFFSET+48+PEEK(BASE_ADDR+6-i)); 
+			// POKE(0x7806-i,0x01);
 		} 
 		POKE(BASE_ADDR+6,48+UDG_OFFSET); 
+		// POKE(0x7806,0x01);
 	}
 
 	void PRINT(unsigned char x, unsigned char y, char * str)
@@ -47,7 +49,7 @@
 			POKE(loc(x+i,y), screenCode(str[i])); 		
 			#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
 			POKE(loc(x+i,y), 64+str[i]); 
-			POKE((unsigned short) (0x9600-0x1E00+loc(x+i,y)),0x01);
+			POKE((0x7800+loc(x+i,y)),0x01);
 			#else
 			POKE(loc(x+i,y), str[i]); 
 			#endif

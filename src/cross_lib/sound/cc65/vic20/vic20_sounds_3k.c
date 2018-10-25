@@ -34,12 +34,11 @@
 		VIC.volume_color |= vol; 
 
 		for(j=0;j<24;++j) 
-		{ \
+		{
 			for(i=0;i<253;++i) 
 			{ 
 			} 			
 		} 
-		VIC.noise = 0x00; 
 		VIC.volume_color &= 0x00; 
 	};	
 

@@ -45,7 +45,19 @@
 			return ch-32;
 		}	
 	}
-#elif (defined(__C16__) && defined(C16_UNEXPANDED)) || (defined(__VIC20__) && defined(VIC20_EXP_8K))
+#elif (defined(__VIC20__) && defined(VIC20_EXP_8K))
+	char screenCode(char ch)
+	{
+		if(ch<64)
+		{
+			return 64+ch;
+		}
+		else
+		{
+			return ch;
+		}	
+	}	
+#elif (defined(__C16__) && defined(C16_UNEXPANDED))
 	char screenCode(char ch)
 	{
 		if(ch<64)

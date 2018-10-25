@@ -3,7 +3,7 @@
 
 // BLUE
 #define _PLAYER_DOWN 0x67
-#define _PLAYER_UP 0x40
+#define _PLAYER_UP 0x6B
 #define _PLAYER_RIGHT 0x69
 #define _PLAYER_LEFT 0x68
 #define _PLAYER _PLAYER_DOWN

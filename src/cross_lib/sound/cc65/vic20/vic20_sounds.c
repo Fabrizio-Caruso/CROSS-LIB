@@ -43,7 +43,7 @@
 			_pause();
 		} 
 		VIC.noise = 0x00; 
-		VIC.volume_color &= 0x00; 
+		VIC.volume_color = 0x00; 
 	};	
 
 	void _ping_sound(unsigned char freq)
@@ -52,7 +52,7 @@
 		VIC.volume_color |= 0x08; 
 		_pause(); _pause();
 		VIC.voice1 = 0x00; 
-		VIC.volume_color &= 0x00; 
+		VIC.volume_color = 0x00; 
 	};
 	
 
@@ -66,7 +66,7 @@
 			_pause(); _pause(); _pause();
 		} \
 		VIC.voice1 = 0x00; 
-		VIC.volume_color &= 0x00; 
+		VIC.volume_color = 0x00; 
 	};		
 
 		

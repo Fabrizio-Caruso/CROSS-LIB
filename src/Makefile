@@ -513,7 +513,7 @@ c16_16k_gfx:
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_64chars.s \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_63chars.s \
 	-o $(BUILD_PATH)/FULL_c16_16k_GFX.prg	
 	
 c16_16k_full: 

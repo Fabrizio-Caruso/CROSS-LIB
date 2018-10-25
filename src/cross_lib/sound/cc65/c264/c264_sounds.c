@@ -31,12 +31,21 @@ void _set_sound()
 	POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); 	
 }
 	
+void _pause(unsigned char length)
+{
+	unsigned char i;
+	for(i=0;i<length;++i)
+	{
+	}
+}
+	
 void _noise_sound(unsigned char type)
 	{ 
-		unsigned char volume = 0; unsigned char j; 
+		unsigned char volume = 0; 
+
 		for(;volume<=MAX_VOLUME;++volume) 
 		{ 
-			for(j=0;j<type;++j){};
+			_pause(type);
 			POKE(SELECT,volume+NOISE); 
 		} 
 		POKE(SELECT,128); 
@@ -45,14 +54,9 @@ void _noise_sound(unsigned char type)
 
 void _short_sound(unsigned char type) 
 { 
-	unsigned char j; 
 	_set_sound();
-
 	POKE(LO_FREQ_1,type); 
-	for(j=0;j<type;++j) 
-	{
-	}; 
-
+	_pause(type);
 	POKE(SELECT,128); 
 };
 
@@ -60,11 +64,12 @@ void _short_sound(unsigned char type)
 
 void ZAP_SOUND(void) 
 { 
-	unsigned char freq; unsigned char j; 
+	unsigned char freq; 
+
 	_set_sound();
 	for(freq=100;freq<255;++freq) 
 	{ 
-		for(j=0;j<25;++j) {}; 
+		_pause(25);
 		POKE(LO_FREQ_1,freq); 
 	} 
 	POKE(SELECT,128); 

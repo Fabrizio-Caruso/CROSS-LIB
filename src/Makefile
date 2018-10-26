@@ -314,7 +314,7 @@ vic20_exp_8k_full:
 
 vic20_exp_8k_gfx: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
-	--config $(CFG_PATH)/cc65/vic20-8k_GFX_2.cfg \
+	--config $(CFG_PATH)/cc65/vic20-8k_GFX_3.cfg \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-DCC65_GOTO \
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
@@ -328,7 +328,8 @@ vic20_exp_8k_gfx:
 	-DALT_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
-	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_64chars.s \
+	-DDANCE \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_vic20.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
@@ -347,6 +348,7 @@ vic20_exp_8k_gfx:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/main.c \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_gfx.prg
 
 

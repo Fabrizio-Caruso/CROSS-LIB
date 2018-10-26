@@ -50,11 +50,11 @@
 	{
 		if(ch<64)
 		{
-			return 64+ch;
+			return 128+ch;
 		}
 		else
 		{
-			return ch;
+			return 64+ch;
 		}	
 	}	
 #elif (defined(__C16__) && defined(C16_UNEXPANDED))

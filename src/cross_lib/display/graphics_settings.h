@@ -4,7 +4,7 @@
 #elif defined(__VIC20__) && defined(VIC20_EXP_3K)
 	#include "image_settings/vic20_exp_3k_settings.h"	
 #elif defined(__VIC20__) && defined(VIC20_EXP_8K) && defined(REDEFINED_CHARS)
-	#include "image_settings/c264_redefined_chars_settings_2.h"
+	#include "image_settings/vic20_exp_8k_settings_2.h"
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
 	#include "image_settings/vic20_unexpanded_gfx.h"
 #elif defined(__VIC20__) && defined(CONIO)

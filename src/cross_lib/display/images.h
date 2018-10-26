@@ -30,5 +30,50 @@
 	Image DEAD_GHOST_IMAGE;
 #endif
 
+#if !defined(TINY_GAME)
+	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
+		extern Image POWERUP_IMAGE;
+		extern Image BULLET_IMAGE;
+		extern Image GUN_IMAGE;	
+		extern Image SKULL_IMAGE;		
+		extern Image EXTRA_POINTS_IMAGE;	
+		
+		extern Image HORIZONTAL_BRICK_IMAGE;
+		extern Image VERTICAL_BRICK_IMAGE;	
+	#else
+		Image POWERUP_IMAGE;
+		Image BULLET_IMAGE;
+		Image GUN_IMAGE;	
+		Image SKULL_IMAGE;		
+		Image EXTRA_POINTS_IMAGE;	
+		
+		Image HORIZONTAL_BRICK_IMAGE;
+		Image VERTICAL_BRICK_IMAGE;	
+	#endif
+#endif
+
+#if defined(FULL_GAME)
+	Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+	Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
+
+	Image ROCKET_IMAGE;
+
+	Image FREEZE_IMAGE;	
+	
+	Image EXTRA_LIFE_IMAGE;
+	Image INVINCIBILITY_IMAGE;	
+	
+	Image CHASE_IMAGE;
+	
+	Image SUPER_IMAGE;
+	Image CONFUSE_IMAGE;
+	Image ZOMBIE_IMAGE;
+	
+	Image BROKEN_BRICK_IMAGE;
+
+#endif
+
+
+
 #endif // _IMAGES_H
 

@@ -21,6 +21,7 @@
 	extern unsigned char level;
 	extern unsigned char loop;
 	extern unsigned char guns;
+	extern unsigned char ind;
 #endif
 
 
@@ -63,8 +64,7 @@
 #if defined(END_SCREEN)
 void gameCompleted(void)
 {
-	unsigned short k;
-	
+
 	level = 1;
 	
 	CLEAR_SCREEN();
@@ -73,7 +73,6 @@ void gameCompleted(void)
 	DRAW_BORDERS();
 
 	playerFire = 0;
-	loop = 0;
 	skull._x = player._x-4;
 	skull._y = player._y;	
 	bullet._status = 0;
@@ -82,9 +81,9 @@ void gameCompleted(void)
 	{
 		++bulletDirection;
 		displayBombs();
-		for(k=0;k<GHOSTS_NUMBER;++k)
+		for(ind=0;ind<GHOSTS_NUMBER;++ind)
 		{
-			dance(&ghosts[k]);
+			dance(&ghosts[ind]);
 		}
 		
 		displayPlayer(&player);
@@ -93,15 +92,15 @@ void gameCompleted(void)
 	
 		printCenteredMessageOnRow(MESSAGE_START+(bulletDirection&MESSAGE_RANGE),  YOU_MADE_IT_STRING);
 		#if defined(SLOW_DOWN)
-			for(k=0;k<(unsigned short)GAME_SLOW_DOWN*(unsigned short) 8;++k) {};
+			for(ind=0;ind<254;++ind){};
 		#endif
 		printCenteredMessageOnRow(MESSAGE_START+(bulletDirection&MESSAGE_RANGE), "             ");
 				
 		MOVE_PLAYER();
 	}
 
-	printPressKeyToStart();
-	WAIT_PRESS();
+	// printPressKeyToStart();
+	// WAIT_PRESS();
 	playerFire = 0;
 }
 #endif

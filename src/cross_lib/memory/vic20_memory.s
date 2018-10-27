@@ -59,9 +59,13 @@ _super = _extraLife + $A
 .export _confuse;
 _confuse = _super + $A
 
+.export _BROKEN_BRICK_IMAGE;
+_BROKEN_BRICK_IMAGE = _confuse + $A
+
 .export _zombie;
 ;_zombie = _confuse + $A
 _zombie = $200
+
 
 .export _chase;
 _chase = _zombie + $A
@@ -253,7 +257,7 @@ _INVINCIBILITY_IMAGE = _EXTRA_LIFE_IMAGE + $2
 _CHASE_IMAGE = _INVINCIBILITY_IMAGE + $2
 
 .export _SUPER_IMAGE;
-_SUPER_IMAGE = _CHASE_IMAGE + $2
+_SUPER_IMAGE = _CHASE_IMAGE + $4
 
 .export _CONFUSE_IMAGE;
 _CONFUSE_IMAGE = _SUPER_IMAGE + $2
@@ -261,8 +265,7 @@ _CONFUSE_IMAGE = _SUPER_IMAGE + $2
 .export _ZOMBIE_IMAGE;
 _ZOMBIE_IMAGE = _CONFUSE_IMAGE + $2
 
-.export _BROKEN_BRICK_IMAGE;
-_BROKEN_BRICK_IMAGE = _ZOMBIE_IMAGE + $2
+
 
 
 

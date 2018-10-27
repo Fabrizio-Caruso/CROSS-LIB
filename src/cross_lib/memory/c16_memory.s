@@ -185,7 +185,9 @@ _skullHits = _guns + $1
 _skullAlive = _skullHits + $1
 
 .export _loop;
-_loop = _skullAlive + $1
+;_loop = _skullAlive + $1
+_loop = $200
+
 
 .export _playerBlink;
 _playerBlink = _loop + $2

@@ -53,24 +53,46 @@
 #endif
 
 #if defined(FULL_GAME)
-	Image LEFT_HORIZONTAL_MISSILE_IMAGE;
-	Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
+	#if defined(USE_MEMORY_BUFFERS)
+	
+		extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+		extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
-	Image ROCKET_IMAGE;
+		extern Image ROCKET_IMAGE;
 
-	Image FREEZE_IMAGE;	
-	
-	Image EXTRA_LIFE_IMAGE;
-	Image INVINCIBILITY_IMAGE;	
-	
-	Image CHASE_IMAGE;
-	
-	Image SUPER_IMAGE;
-	Image CONFUSE_IMAGE;
-	Image ZOMBIE_IMAGE;
-	
-	Image BROKEN_BRICK_IMAGE;
+		extern Image FREEZE_IMAGE;	
+		
+		extern Image EXTRA_LIFE_IMAGE;
+		extern Image INVINCIBILITY_IMAGE;	
+		
+		extern Image CHASE_IMAGE;
+		
+		extern Image SUPER_IMAGE;
+		extern Image CONFUSE_IMAGE;
+		extern Image ZOMBIE_IMAGE;
+		
+		extern Image BROKEN_BRICK_IMAGE;
 
+	#else	
+		
+		Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+		Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
+
+		Image ROCKET_IMAGE;
+
+		Image FREEZE_IMAGE;	
+		
+		Image EXTRA_LIFE_IMAGE;
+		Image INVINCIBILITY_IMAGE;	
+		
+		Image CHASE_IMAGE;
+		
+		Image SUPER_IMAGE;
+		Image CONFUSE_IMAGE;
+		Image ZOMBIE_IMAGE;
+		
+		Image BROKEN_BRICK_IMAGE;
+	#endif
 #endif
 
 

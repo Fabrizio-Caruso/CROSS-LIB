@@ -62,47 +62,42 @@
 #endif
 
 #if defined(END_SCREEN)
-void gameCompleted(void)
-{
-
-	level = 1;
-	
-	CLEAR_SCREEN();
-	fillLevelWithCharacters(GHOSTS_NUMBER);	
-	
-	// DRAW_BORDERS();
-
-	playerFire = 0;
-	skull._x = player._x-4;
-	skull._y = player._y;	
-	bullet._status = 0;
-	guns = 1;
-	while(!playerFire && !wallReached(&player))
+	void gameCompleted(void)
 	{
-		++bulletDirection;
-		displayBombs();
-		for(ind=0;ind<GHOSTS_NUMBER;++ind)
-		{
-			dance(&ghosts[ind]);
-		}
-		
-		displayPlayer(&player);
-		
-		dance(&skull);
-	
-		printCenteredMessageOnRow(MESSAGE_START+(bulletDirection&MESSAGE_RANGE),  YOU_MADE_IT_STRING);
-		#if defined(SLOW_DOWN)
-			for(ind=0;ind<254;++ind){};
-		#endif
-		printCenteredMessageOnRow(MESSAGE_START+(bulletDirection&MESSAGE_RANGE), "             ");
-				
-		MOVE_PLAYER();
-	}
 
-	// printPressKeyToStart();
-	// WAIT_PRESS();
-	playerFire = 0;
-}
+		level = 1;
+		
+		CLEAR_SCREEN();
+		fillLevelWithCharacters(GHOSTS_NUMBER);	
+
+		playerFire = 0;
+		skull._x = player._x-4;
+		skull._y = player._y;	
+		bullet._status = 0;
+		guns = 1;
+		while(!playerFire && !wallReached(&player))
+		{
+			++bulletDirection;
+			displayBombs();
+			for(ind=0;ind<GHOSTS_NUMBER;++ind)
+			{
+				dance(&ghosts[ind]);
+			}
+			
+			displayPlayer(&player);
+			
+			dance(&skull);
+		
+			printCenteredMessageOnRow(MESSAGE_START,  YOU_MADE_IT_STRING);		
+			#if defined(SLOW_DOWN)
+				for(ind=0;ind<254;++ind){};
+			#endif
+					
+			MOVE_PLAYER();
+		}
+
+		playerFire = 0;
+	}
 #endif
 
 #endif

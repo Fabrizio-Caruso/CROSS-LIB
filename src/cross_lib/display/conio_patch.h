@@ -1,4 +1,10 @@
 
+#if defined(FORCE_NO_CONIO_LIB) && defined(C16_UNEXPANDED)
+	#include<peekpoke.h>
+	#define textcolor(c) POKE(0x053B,c)
+	#define bgcolor(c)
+	#define bordercolor(c)
+#endif
 
 #if defined(CONIO_ADM3A) || defined(CONIO_VT52) || defined(CONIO_VT100)
 	#include <stdio.h>

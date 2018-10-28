@@ -492,6 +492,7 @@ c16_32k:
 c16_16k_gfx:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_2.cfg \
+	-DFORCE_NO_CONIO_LIB \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
 	-DFORCE_GHOSTS_NUMBER=8 \

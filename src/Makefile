@@ -328,7 +328,7 @@ vic20_exp_8k_gfx:
 	-DALT_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
-	-DDANCE \
+	-DDANCE -DEND_SCREEN \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_vic20.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \

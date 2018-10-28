@@ -29,6 +29,10 @@ void INIT_GRAPHICS(void)
 	}
 	#endif
 	
+	#if defined(FORCE_NO_CONIO_LIB)
+		POKE(65301u,0);
+		POKE(65305u,0);
+	#endif
 
 	for(i=0;i<1000;++i)
 	{

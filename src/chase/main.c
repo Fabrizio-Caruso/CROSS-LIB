@@ -227,11 +227,12 @@ int main(void)
 		do // Level (Re-)Start
 		{ 	
 			#if !defined(TINY_GAME) || defined(TURN_BASED)
-			loop = 0;
+				loop = 0;
 			#endif
 			
 			#if !defined(TINY_GAME)
-			ghostLevel = 0;
+				ghostLevel = 0;
+				playerFire = 0;
 			#endif
 		
 			#if defined(FULL_GAME)

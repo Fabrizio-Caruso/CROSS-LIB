@@ -95,8 +95,6 @@
 					
 			MOVE_PLAYER();
 		}
-
-		playerFire = 0;
 	}
 #endif
 

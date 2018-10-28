@@ -69,7 +69,9 @@ extern Item extraPoints;
 	{
 		ZAP_SOUND();
 		deletePowerUp(powerUpPtr);
-		displayPlayer(&player);
+		#if defined(TURN_BASED)
+			displayPlayer(&player);
+		#endif
 		powerUpPtr->_status = 0;
 		displayStats();
 	}
@@ -176,7 +178,6 @@ extern Item extraPoints;
 		extraPoints._coolDown/=2;
 		invincibility._coolDown/=2;
 		freeze._coolDown/=2;
-		// extraLife._coolDown/=2;
 		TICK_SOUND();		
 	}
 #elif !defined(TINY_GAME)
@@ -237,7 +238,7 @@ extern Item extraPoints;
 	void confuseEffect(void)
 	{
 		confuseActive = 1;
-		confuse._coolDown = SECOND_CONFUSE_COOL_DOWN; //20000UL;//(CONFUSE_COOL_DOWN<<4);
+		confuse._coolDown = SECOND_CONFUSE_COOL_DOWN;
 		confuse_count_down = CONFUSE_COUNT_DOWN;
 	}
 	

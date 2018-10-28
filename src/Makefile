@@ -328,7 +328,7 @@ vic20_exp_8k_gfx:
 	-DALT_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
-	-DDANCE \
+	-DDANCE -DEND_SCREEN \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_vic20.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
@@ -383,13 +383,11 @@ vic20_exp_16k:
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
 	-DREDEFINED_CHARS \
-	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	-o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
 
 	

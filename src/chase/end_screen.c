@@ -70,7 +70,7 @@ void gameCompleted(void)
 	CLEAR_SCREEN();
 	fillLevelWithCharacters(GHOSTS_NUMBER);	
 	
-	DRAW_BORDERS();
+	// DRAW_BORDERS();
 
 	playerFire = 0;
 	skull._x = player._x-4;

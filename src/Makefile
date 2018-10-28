@@ -319,10 +319,9 @@ vic20_exp_8k_gfx:
 	-DCC65_GOTO \
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	-DFULL_GAME \
+	-DSIMPLE_STRATEGY \
 	-DREDEFINED_CHARS \
 	-DALT_PRINT \
-	-DSIMPLE_RANDOM_LEVEL \
-	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
 	-DLESS_TEXT \
 	-DALT_CLEAR_SCREEN \
@@ -349,7 +348,7 @@ vic20_exp_8k_gfx:
 	$(SOURCE_PATH)/main.c \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_vic20_exp_8k_gfx.prg
+	-o $(BUILD_PATH)/FULL_vic20_exp_8k.prg
 
 
 vic20_exp_8k: 
@@ -505,7 +504,7 @@ c16_16k_gfx:
 	-DC16_UNEXPANDED \
 	-DALT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DDANCE \
+	-DDANCE -DEND_SCREEN \
 	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/memory/c16_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
@@ -515,7 +514,7 @@ c16_16k_gfx:
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_63chars.s \
-	-o $(BUILD_PATH)/FULL_c16_16k_GFX.prg	
+	-o $(BUILD_PATH)/FULL_c16_16k.prg	
 	
 c16_16k_full: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t c16 \
@@ -4610,7 +4609,7 @@ supervision_targets: \
 	supervision
 
 vic20_targets: \
-	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_8k_full vic20_exp_16k
+	vic20_unexpanded_gfx vic20_exp_3k vic20_exp_8k_gfx vic20_exp_16k
 
 atari_targets: \
 	atari_color atari_no_color
@@ -4619,7 +4618,7 @@ oric_targets: \
 	atmos oric1_16k
 
 c264_targets: \
-	c16_16k c16_16k_full c16_32k
+	c16_16k_gfx c16_32k
 	
 pet_targets: \
 	pet_8k pet_16k

@@ -1790,8 +1790,7 @@ gal_22k:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg \
 	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/memory/gal_memory.asm
+	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_galaksija.prg	
 	rm $(BUILD_PATH)/FULL_galaksija.wav
 	
@@ -3562,7 +3561,6 @@ newbrain:
 	-DFULL_GAME \
 	-DNO_BLINKING \
 	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_DEAD_GHOSTS \
 	-DNO_SLEEP \
 	-DNO_INITIAL_SCREEN \
 	-DNO_SET_SCREEN_COLORS \

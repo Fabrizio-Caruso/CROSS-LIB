@@ -1009,7 +1009,7 @@ vg5k:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c
-#	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
+	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg	
 
 vg5k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
@@ -1017,9 +1017,10 @@ vg5k_udg:
 	$(ZSDCC_OPTS) \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-DNO_BLINKING \
 	-vn -DFULL_GAME -D__VG5K__ \
 	-DLESS_TEXT \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DFORCE_BOMBS_NUMBER=4 \
 	-DSOUNDS \
@@ -1028,7 +1029,7 @@ vg5k_udg:
 	-DCONIO \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(FULL_FILES) 
+	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vg5k_udg_less_text.prg		
 	
 	
@@ -1568,7 +1569,7 @@ abc80_light:
 	-DNO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app  \
 	$(LIGHT_FILES)
-	mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
+	# mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
 	mv a.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
 	
 abc800_light:
@@ -1723,7 +1724,8 @@ mc1000_48k_udg_joystick:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_udg_joystick.wav
-	mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_udg_joystick.bin
+	rm a.bin
+	# mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_udg_joystick.bin
 	rm a.cas
 
 mc1000_48k_udg:
@@ -1742,7 +1744,8 @@ mc1000_48k_udg:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_udg.wav
-	mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_udg.bin
+	rm a.bin
+	# mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_udg.bin
 	rm a.cas	
 	
 mc1000_48k:
@@ -4491,7 +4494,7 @@ z9001_targets: \
 	z9001_16k z9001_32k
 
 vg5k_targets: \
-	vg5k vg5k_exp_16k_udg
+	vg5k_udg vg5k_exp_16k_udg
 	
 sc3000_targets: \
 	sc3000_16k sc3000_32k_udg sg1000_udg

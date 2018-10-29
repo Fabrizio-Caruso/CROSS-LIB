@@ -1568,7 +1568,7 @@ abc80_light:
 	-DNO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app  \
 	$(LIGHT_FILES)
-	mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
+	# mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
 	mv a.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
 	
 abc800_light:
@@ -1723,7 +1723,8 @@ mc1000_48k_udg_joystick:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_udg_joystick.wav
-	mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_udg_joystick.bin
+	rm a.bin
+	# mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_udg_joystick.bin
 	rm a.cas
 
 mc1000_48k_udg:
@@ -1742,7 +1743,8 @@ mc1000_48k_udg:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_udg.wav
-	mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_udg.bin
+	rm a.bin
+	# mv a.bin $(BUILD_PATH)/FULL_mc1000_48k_udg.bin
 	rm a.cas	
 	
 mc1000_48k:

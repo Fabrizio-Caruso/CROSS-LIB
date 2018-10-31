@@ -58,7 +58,7 @@
 		else
 			return 0;
 	
-	#elif defined(__ATMOS__)
+	#elif defined(__ATMOS__) || defined(__TELESTRAT__)
 		#include <peekpoke.h>	
 		
 		unsigned char polledValue = PEEK(0x208);
@@ -152,7 +152,7 @@ out			stb res
 #if defined(NO_WAIT) && !defined(NO_SLEEP)
 	void WAIT_PRESS(void)
 	{
-		sleep(2);
+		SLEEP(2);
 	}
 #elif defined(NO_WAIT)
 //

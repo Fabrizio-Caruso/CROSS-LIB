@@ -68,7 +68,6 @@ extern Item extraPoints;
 	void powerUpReached(Character * powerUpPtr)
 	{
 		ZAP_SOUND();
-		deletePowerUp(powerUpPtr);
 		#if defined(TURN_BASED)
 			displayPlayer(&player);
 		#endif

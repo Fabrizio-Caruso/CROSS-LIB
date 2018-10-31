@@ -573,6 +573,21 @@ pet_16k:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_pet_16k.prg
 
+telestrat: 
+	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	-DFORCE_CONIO_LIB \
+	-DNO_WAIT \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_SLEEP \
+	-DFULL_GAME \
+	-DNO_COLOR \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_telestrat.prg	
+	
 cbm610: 
 	$(CC65_PATH)$(MYCC65) -O -t cbm610 \
 	-DFULL_GAME \

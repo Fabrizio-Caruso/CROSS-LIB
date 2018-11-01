@@ -99,7 +99,7 @@
 #define GUN_BONUS 30UL
 
 // Points gained at the end of each level (to be multipled by level)
-#define LEVEL_BONUS 25U
+#define LEVEL_BONUS 100U
 
 #if defined(WIDE) || defined(FORCE_NARROW)
 	#define MIN_SKULL_HITS (4+4)

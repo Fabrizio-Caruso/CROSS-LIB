@@ -785,6 +785,7 @@ atari_lynx:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
 	-DNO_PRINT \
+	-DNO_SLEEP \
 	-DTGI \
 	-DALT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
@@ -1810,7 +1811,7 @@ gal_22k:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_galaksija.prg	
-	rm $(BUILD_PATH)/FULL_galaksija.wav
+	#rm $(BUILD_PATH)/FULL_galaksija.wav
 	
 
 # -DLESS_TEXT -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL 
@@ -1856,6 +1857,7 @@ spectrum_16k_light:
 	-DLESS_TEXT \
 	-DNO_SLEEP \
 	-DNO_HINTS \
+	-DNO_RANDOM_LEVEL \
 	-DSIMPLE_STRATEGY \
 	-DANIMATE_PLAYER \
 	-D__SPECTRUM__ \
@@ -6393,7 +6395,7 @@ gal_6k:
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/memory/gal_memory.asm
-	#rm $(BUILD_PATH)/TINY_galaksija_6k.prg
+	rm $(BUILD_PATH)/TINY_galaksija_6k.prg
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 		
 	

@@ -226,16 +226,22 @@
 	
 #endif
 
-#if !defined(TINY_GAME)
+#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	#if defined(USE_MEMORY_BUFFERS)
 		extern unsigned char strategyArray[GHOSTS_NUMBER];	
+	#else
+		unsigned char strategyArray[GHOSTS_NUMBER];
+	#endif	
+#endif
+
+#if !defined(TINY_GAME)
+	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
 		extern unsigned short freeze_count_down;
 		
 		extern unsigned char playerDirection; // 0: right, 1: down, 2: left, 3: up
 		extern unsigned char freezeActive; // freezeActive			
 		extern unsigned char extraLifeThroughPointsCounter;			
 	#else
-		unsigned char strategyArray[GHOSTS_NUMBER];
 		unsigned short freeze_count_down;
 		
 		unsigned char playerDirection; // 0: right, 1: down, 2: left, 3: up

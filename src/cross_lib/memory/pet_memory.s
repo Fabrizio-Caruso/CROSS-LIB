@@ -98,6 +98,18 @@ _CONFUSE_IMAGE = _SUPER_IMAGE + $2
 .export _ZOMBIE_IMAGE;
 _ZOMBIE_IMAGE = _CONFUSE_IMAGE + $2
 
+.export _freeze_count_down;
+_freeze_count_down = _ZOMBIE_IMAGE + $8
+
+.export _playerDirection;
+_playerDirection = _freeze_count_down + $1
+
+.export _freezeActive;
+_freezeActive = _playerDirection + $1
+
+.export _extraLifeThroughPointsCounter;
+_extraLifeThroughPointsCounter = _freezeActive + $1
+
 		
 		
 		

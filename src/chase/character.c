@@ -64,7 +64,6 @@ void deleteCharacter(Character * characterPtr)
 
 #if defined(FULL_GAME)
 	extern unsigned char invincibilityActive;
-	extern unsigned char innerVerticalWallX;
 	extern unsigned char innerVerticalWallY;
 	extern unsigned char innerVerticalWallLength;
 	
@@ -231,7 +230,7 @@ void relocateCharacter(register Character * characterPtr)
 #if defined(FULL_GAME)
 	unsigned char innerWallReached(register Character *characterPtr)
 	{
-		return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
+		return (characterPtr->_x==XSize/2) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
 	}
 
 	unsigned char horizontalWallsReached(void)

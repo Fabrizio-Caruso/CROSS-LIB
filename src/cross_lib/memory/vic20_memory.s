@@ -157,11 +157,8 @@ _zombieActive = _confuseActive + $1
 .export _innerVerticalWallY;
 _innerVerticalWallY = _zombieActive + $1
 
-.export _innerVerticalWallX;
-_innerVerticalWallX = _innerVerticalWallY + $1
-
 .export _innerVerticalWallLength;
-_innerVerticalWallLength = _innerVerticalWallX + $1
+_innerVerticalWallLength = _innerVerticalWallY + $1
 
 .export _playerDirection;
 _playerDirection = _innerVerticalWallLength + $1

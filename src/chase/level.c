@@ -76,7 +76,6 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Item chase;
 	extern Character chasingBullet;
 
-	extern unsigned char innerVerticalWallX;
 	extern unsigned char innerVerticalWallY;
 	extern unsigned char innerVerticalWallLength;
 
@@ -130,7 +129,6 @@ extern Character bombs[BOMBS_NUMBER];
 			#endif
 		}
 
-		innerVerticalWallX = (XSize>>1);
 		innerVerticalWallY = (YSize>>1)-(innerVerticalWallLength>>1);
 	}
 

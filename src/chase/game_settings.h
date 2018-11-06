@@ -102,10 +102,12 @@
 #define LEVEL_BONUS 100U
 
 #if defined(WIDE) || defined(FORCE_NARROW)
-	#define MIN_SKULL_HITS (4+4)
+	#define NON_BOSS_SKULL_HITS 4
 #else
-	#define MIN_SKULL_HITS (3+4)
+	#define NON_BOSS_SKULL_HITS 3
 #endif	
+
+#define BOSS_SKULL_HITS (NON_BOSS_SKULL_HITS + 4)
 
 #if defined(TURN_BASED)
 	#define INITIAL_GHOST_SLOWDOWN 16000

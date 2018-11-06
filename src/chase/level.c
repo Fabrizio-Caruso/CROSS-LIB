@@ -294,7 +294,10 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		displayPlayer(&player);
 			
 		initializeCharacter(&bullet, 0, 0,0,&BULLET_IMAGE);
-		initializeCharacter(&skull,XSize-2,YSize-2, 0, &SKULL_IMAGE);
+
+		initializeCharacter(&skull,XSize-2,YSize-2, NON_BOSS_SKULL_HITS + (bossLevel()<<2), &SKULL_IMAGE);		
+		
+		
 	#endif
 	
 }

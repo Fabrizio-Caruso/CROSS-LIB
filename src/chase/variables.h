@@ -257,13 +257,11 @@
 	#if defined(USE_MEMORY_BUFFERS)
 		extern unsigned char playerFire;
 		extern unsigned char guns; 
-		extern unsigned char skullHits;
-		extern unsigned char skullAlive;		
+		extern unsigned char skullActive;		
 	#else
 		unsigned char playerFire;
 		unsigned char guns; 
-		unsigned char skullHits;
-		unsigned char skullAlive;	
+		unsigned char skullActive;	
 	#endif
 #endif
 

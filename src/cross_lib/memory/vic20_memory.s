@@ -175,14 +175,11 @@ _playerFire = _extraLifeThroughPointsCounter + $1
 .export _guns;
 _guns = _playerFire + $1
 
-.export _skullHits;
-_skullHits = _guns + $1
-
-.export _skullAlive;
-_skullAlive = _skullHits + $1
+.export _skullActive;
+_skullActive = _guns + $1
 
 .export _loop;
-_loop = _skullAlive + $1
+_loop = _skullActive + $1
 
 .export _playerBlink;
 _playerBlink = _loop + $2
@@ -254,7 +251,7 @@ _INVINCIBILITY_IMAGE = _EXTRA_LIFE_IMAGE + $2
 _CHASE_IMAGE = _INVINCIBILITY_IMAGE + $2
 
 .export _SUPER_IMAGE;
-_SUPER_IMAGE = _CHASE_IMAGE + $4
+_SUPER_IMAGE = _CHASE_IMAGE + $2
 
 .export _CONFUSE_IMAGE;
 _CONFUSE_IMAGE = _SUPER_IMAGE + $2

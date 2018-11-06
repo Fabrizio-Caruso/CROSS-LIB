@@ -41,7 +41,7 @@ extern unsigned short ghostLevel;
 extern Character skull;
 extern Character player;
 
-extern unsigned char skullAlive;
+extern unsigned char skullActive;
 
 #if defined(FULL_GAME)
 	extern unsigned char confuseActive;
@@ -82,17 +82,16 @@ void computeSkullParameters(void)
 
 void handle_skull(void)
 {
-	if(!skull._status)
+	if(!skullActive)
 	{		
 		#if defined(FULL_GAME)
-		if(skullAlive && 
-			((!bossLevel() && NON_BOSS_TRIGGER_REACHED) || 
+		if(((!bossLevel() && NON_BOSS_TRIGGER_REACHED) || 
 			 (bossLevel() && BOSS_LOOP_TRIGGER_REACHED)))
 		#else
-		if(skullAlive && NON_BOSS_TRIGGER_REACHED)
+		if(NON_BOSS_TRIGGER_REACHED)
 		#endif
 		{
-			skull._status = 1;
+			skullActive = 1;
 		}
 		else
 		{

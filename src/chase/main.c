@@ -257,13 +257,8 @@ int main(void)
 			#endif			
 			
 			#if !defined(TINY_GAME)
-				skullAlive = 1;
+				skullActive = 0;
 				
-				#if defined(FULL_GAME)
-					skullHits = (!bossLevel())<<2;
-				#else
-					skullHits = 0;
-				#endif
 				guns = 0;
 				
 				resetItems();
@@ -337,7 +332,7 @@ int main(void)
 			#endif		
 			
 			#if defined(FULL_GAME)
-			while(player._status && ((ghostCount>0 && !bossLevel()) || (skullAlive && bossLevel()))) // while alive && there are still ghosts
+			while(player._status && ((ghostCount>0 && !bossLevel()) || (skull._status && bossLevel()))) // while alive && there are still ghosts
 			#else
 			while(player._status && (ghostCount>0) )
 			#endif
@@ -393,7 +388,7 @@ int main(void)
 					if(!freezeActive)
 					{
 						#if defined(FULL_GAME)
-							if(confuseActive && skullAlive && skull._status)
+							if(confuseActive && skullActive && skull._status)
 							{
 								chasedByGhosts=&skull;
 							}
@@ -422,8 +417,11 @@ int main(void)
 						++ghostLevel;			
 						
 					}
-				
-					handle_skull();
+					
+					if(skull._status)
+					{
+						handle_skull();
+					}
 
 					// This detects collisions of ghosts that have just moved
 					if(bullet._status)
@@ -580,7 +578,7 @@ int main(void)
 					}
 					else
 					{
-						if(!skullAlive)
+						if(!skull._status)
 						{
 							++skullsKilled;
 						}

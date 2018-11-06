@@ -49,8 +49,7 @@ extern unsigned char level;
 extern Item extraPoints;
 
 extern Character skull;
-extern unsigned char skullHits;
-extern unsigned char skullAlive;
+extern unsigned char skullActive;
 extern unsigned char playerFire;
 extern unsigned char guns;
 extern unsigned char playerDirection;
@@ -148,20 +147,17 @@ void checkBulletVsGhosts(Character * bulletPtr)
 
 void checkBulletVsSkull(register Character *bulletPtr)
 {
-	if(skull._status && 
+	if(skullActive && 
 	   areCharctersAtSamePosition(bulletPtr, &skull))
 	{
 		PING_SOUND();
 		bulletPtr->_status=0;
-		++skullHits;
 		decreaseGhostLevel();
 		reducePowerUpsCoolDowns();
 		
-		if(skullHits>=MIN_SKULL_HITS)
+		if(!(--skull._status))
 		{
-			skull._status = 0;
 			deleteSkull(&skull);
-			skullAlive = 0;
 			EXPLOSION_SOUND();
 			points+=SKULL_POINTS;
 			displayStats();

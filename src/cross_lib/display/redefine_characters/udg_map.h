@@ -155,11 +155,12 @@ struct redefine_struct redefine_map[] =
 		{_LEFT_HORIZONTAL_MISSILE_OFFSET_, _LEFT_HORIZONTAL_MISSILE_UDG},
 	#endif
 
-	#if defined(_EXTRA_POINTS)
-		{_EXTRA_POINTS_OFFSET_, _EXTRA_POINTS_UDG},
-	#endif
 	
 	#if defined(__MSX__)
+		#if defined(_EXTRA_POINTS) 
+			{_EXTRA_POINTS_OFFSET_, _EXTRA_POINTS_UDG},
+		#endif	
+	
 		#if defined(_EXTRA_LIFE)
 			{_EXTRA_LIFE_OFFSET_, _EXTRA_LIFE_UDG},
 		#endif
@@ -175,15 +176,13 @@ struct redefine_struct redefine_map[] =
 };
 
 
-#define ASCII_OFFSET 0
-
-
 #define REDEFINE_AT(addr) \
 { \
 	unsigned char i; \
-	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) \
+	\
+	for (i = 0; i < (sizeof(redefine_map)/sizeof(*redefine_map)); ++i) \
 	{ \
-		memcpy((unsigned char *)(addr) + (redefine_map[i].ascii - ASCII_OFFSET)*8, redefine_map[i].bitmap, 8); \
+		memcpy((unsigned char *)(addr) + (redefine_map[i].ascii)*8, redefine_map[i].bitmap, 8); \
 	} \
 }
 

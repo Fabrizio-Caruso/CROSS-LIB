@@ -39,6 +39,7 @@
 
 #include "../../../redefine_characters/udg_map.h"	
 
+#if defined(REDEFINED_CHARS)
 void set_udg(void)
 {
 	extern char _FONT_START__[];
@@ -51,6 +52,7 @@ void set_udg(void)
 	
 	*CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */		
 }
+#endif
  
 void INIT_GRAPHICS(void)
 {
@@ -63,7 +65,9 @@ void INIT_GRAPHICS(void)
 	_setcolor_low(3, TGI_COLOR_BROWN);
 	_setcolor_low(4, TGI_COLOR_BLACK);
 
+	#if defined(REDEFINED_CHARS)
 	set_udg();
+	#endif
 }
 
 

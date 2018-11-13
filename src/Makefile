@@ -94,6 +94,7 @@ _ACK_OPTS ?= -O6
 
 atari_color: 
 	$(CC65_PATH)$(MYCC65) -O -t atari \
+	-DREDEFINED_CHARS \
 	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DMEMORY_MAPPED \

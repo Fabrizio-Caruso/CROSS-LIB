@@ -147,7 +147,7 @@ void checkBulletVsGhosts(Character * bulletPtr)
 
 void checkBulletVsSkull(register Character *bulletPtr)
 {
-	if(skullActive && 
+	if(skullActive && skull._status &&
 	   areCharctersAtSamePosition(bulletPtr, &skull))
 	{
 		PING_SOUND();

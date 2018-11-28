@@ -857,6 +857,22 @@ supervision:
 # 	-DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL \
 # 	$(ZSDCC_OPTS) \
 
+pc88:
+	$(Z88DK_PATH)$(MYZ88DK) +pc88  -Cz--audio $(SCCZ80_OPTS) -vn \
+	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app	\
+	-o FULL_pc88
+	rm FULL_pc88
+	tar czvf FULL_pc88.tar.zip FULL_pc88.t88 FULL_pc88.wav
+	rm FULL_pc88.t88
+	rm FULL_pc88.wav
+	mv FULL_pc88.tar.zip $(BUILD_PATH)
+
+
 aquarius_exp_4k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius \
 	-compiler=sdcc \

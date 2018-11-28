@@ -22,7 +22,7 @@
 	#endif
 #endif
 
-#if defined(__G800__) || defined(__MZ2500__) || defined(__LASER500__)
+#if defined(__G800__) || defined(__MZ2500__) || defined(__LASER500__) || defined(__PC88__)
 	#define cputc(c) fputc_cons(c)	
 #endif
 

@@ -3734,8 +3734,8 @@ pps_turn_based:
 	# $(CROSS_LIB_PATH)/display/init_images.c \
 	# $(CROSS_LIB_PATH)/display/cc65/c64/c64_init_graphics.c \
 	# $(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-
+	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \	
+	
 coco:
 	cmoc \
 	$(COCO_OPTS) \
@@ -3813,7 +3813,10 @@ coco:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-		
+	
+coco_test_rand: 
+	cmoc -O0 -c $(SOURCE_PATH)/../experiments/coco_rand_test.c
+	cmoc -O0 -o $(BUILD_PATH)/coco_rand_test.bin $(SOURCE_PATH)/../coco_rand_test.o
 
 hello_vec:
 	cmoc --vectrex -Wno-const -c $(SOURCE_PATH)/../experiments/hello_vec.c 

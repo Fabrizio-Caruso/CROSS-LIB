@@ -73,6 +73,7 @@ COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
 COCO_OPTS       ?= -O0 -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__COCO__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
+DRAGON_OPTS     ?= --dragon $(COCO_OPTS)
 
 VECTREX_OPTS    ?= -O0 --vectrex -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
@@ -3735,6 +3736,85 @@ pps_turn_based:
 	# $(CROSS_LIB_PATH)/display/cc65/c64/c64_init_graphics.c \
 	# $(CROSS_LIB_PATH)/display/memory_mapped/memory_mapped_graphics.c \
 	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \	
+
+dragon:
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_images.c	
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/skull.c	
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c 
+	cmoc \
+	$(DRAGON_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	cmoc -o $(BUILD_PATH)/FULL_Dragon.bin \
+	$(DRAGON_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	text_macros.o game_text.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm 	display_macros.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o text_macros.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	
 	
 coco:
 	cmoc \
@@ -3788,7 +3868,7 @@ coco:
 	cmoc \
 	$(COCO_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
-	cmoc -o $(BUILD_PATH)/FULL_CoCoDragon.bin \
+	cmoc -o $(BUILD_PATH)/FULL_CoCo.bin \
 	$(COCO_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \

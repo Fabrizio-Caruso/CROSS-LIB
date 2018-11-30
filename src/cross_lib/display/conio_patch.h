@@ -187,16 +187,6 @@
 		
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 
-	#if defined(CMOC_RAND_FIX)
-		int seed = 0;
-		
-		int rand()
-		{
-			seed = seed * (256 + 128 + 1) + 1;
-			return seed & 0x7FFF;
-		}
-	#endif
-
 	#define cprintf printf
 	#define gotoxy(x,y) locate(y,x)
 	#define cputc(c) printf("%c",c)

@@ -112,11 +112,11 @@
 		asm {
 			ldd $8000
 			cmpd #$7EBB
-			beq dragon
+			beq _dragon
 			lda #253
 			sta machine
 			bra pia
-dragon		lda #247
+_dragon		lda #247
 			sta machine
 pia			lda #253		
 			sta $FF02

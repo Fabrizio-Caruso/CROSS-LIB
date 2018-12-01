@@ -59,7 +59,6 @@ extern Character player;
 	extern Character skull;
 
 	extern Item powerUp;
-	extern Item powerUp2;
 	extern Item gun;
 	extern Item extraPoints;
 
@@ -72,6 +71,7 @@ extern Character bombs[BOMBS_NUMBER];
 
 
 #if defined(FULL_GAME) 
+	extern Item powerUp2;
 
 	extern Item chase;
 	extern Character chasingBullet;
@@ -278,7 +278,6 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 	#else
 		#if !defined(TINY_GAME)
 			initializeCharacter(&(powerUp._character),(XSize>>1),(YSize>>1),1,&POWERUP_IMAGE);
-			initializeCharacter(&(powerUp2._character),(XSize>>1),(YSize>>1),0,&POWERUP_IMAGE);
 			initializeCharacter(&(gun._character),(XSize>>1), (YSize>>1), 0, &GUN_IMAGE);	
 			initializeCharacter(&(extraPoints._character), (XSize>>1), (YSize>>1), 0, &EXTRA_POINTS_IMAGE);	
 		#endif

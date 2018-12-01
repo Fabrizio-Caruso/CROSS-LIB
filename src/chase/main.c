@@ -81,10 +81,10 @@
 	{
 		gun._coolDown = GUN_COOL_DOWN;
 		powerUp._coolDown = POWER_UP_COOL_DOWN;
-		powerUp2._coolDown = POWER_UP2_COOL_DOWN;
 		extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;		
 		
 		#if defined(FULL_GAME)
+			powerUp2._coolDown = POWER_UP2_COOL_DOWN;
 			freeze._coolDown = FREEZE_COOL_DOWN;				
 			invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
 
@@ -103,10 +103,10 @@
 	void constructItems(void)
 	{
 		powerUp._effect = &powerUpEffect;
-		powerUp2._effect = &powerUp2Effect;
 		gun._effect = &gunEffect;
 		extraPoints._effect = &extraPointsEffect;
 		#if defined(FULL_GAME)
+			powerUp2._effect = &powerUp2Effect;		
 			freeze._effect = &freezeEffect;
 			extraLife._effect = &extraLifeEffect;
 			invincibility._effect = &invincibilityEffect;
@@ -447,11 +447,11 @@ int main(void)
 					handle_extraPoints_item();
 					handle_gun_item();
 					handle_powerup_item();
-					handle_powerup2_item();	
 					handle_freeze_count_down();					
 				#endif
 				
 				#if defined(FULL_GAME)
+					handle_powerup2_item();					
 					handle_freeze_item();	
 					handle_invincibility_item();
 					handle_invincibility_count_down();					

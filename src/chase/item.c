@@ -103,12 +103,6 @@ extern Item extraPoints;
 		powerUp._coolDown = POWER_UP_COOL_DOWN;		
 	}
 
-	void powerUp2Effect(void)
-	{
-		_commonPowerUpEffect();
-		powerUp2._coolDown = POWER_UP2_COOL_DOWN;	
-	}
-
 	void _gunEffect(void)
 	{
 		guns = GUNS_NUMBER;
@@ -191,6 +185,11 @@ extern Item extraPoints;
 
 	
 #if defined(FULL_GAME)
+	void powerUp2Effect(void)
+	{
+		_commonPowerUpEffect();
+		powerUp2._coolDown = POWER_UP2_COOL_DOWN;	
+	}
 
 	void _freezeEffect(void)
 	{

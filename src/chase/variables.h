@@ -66,13 +66,11 @@
 		extern Character bullet;	
 
 		extern Item powerUp;
-		extern Item powerUp2;
 		extern Item gun;
 		extern Item extraPoints;	
 	#else
 		Character skull;
 		Item powerUp;
-		Item powerUp2;
 		Item gun;
 		Item extraPoints;	
 		
@@ -119,6 +117,7 @@
 #if defined(FULL_GAME)
 
 	#if defined(USE_MEMORY_BUFFERS)
+		extern Item powerUp2;
 		extern Item freeze;
 		extern Item invincibility;
 		extern Item extraLife;
@@ -160,6 +159,7 @@
 		extern unsigned char innerVerticalWallLength;
 
 	#else
+		Item powerUp2;		
 		Item freeze;
 		Item invincibility;
 		Item extraLife;

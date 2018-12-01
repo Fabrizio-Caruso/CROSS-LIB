@@ -102,12 +102,13 @@ For most targets, more than one version is built, in order to support different 
 - cbm510: Commodore CBM 510
 - cbm610: Commodore CBM 610
 - camputers_lynx: Camputers Lynx 48k/96k/128k
-- coco: Color Computer / Dragon 32/64
+- coco: Color Computer
 - coleco: Colecovision
 - cpc: Amstrad CPC
 - cpm8080: CP/M Intel 8080
 - cpm: CP/M Z80 with adm3a/vt52/vt100 terminals
 - creativision: VTech Creativision
+- dragon: Dragon 32/64
 - eg2k: EACA EG2000 Color Genie
 - einstein: Tatung Einstein
 - enterprise: Enterprise 64/128
@@ -140,6 +141,7 @@ For most targets, more than one version is built, in order to support different 
 - oz: Sharp OZ-700
 - p2000: Philips P2000
 - pc6001: NEC PC 6001
+- pc88: NEC PC 8801 (work in progress)
 - pce: PCEngine
 - pet: Commodore Pet
 - pps: Peters Plus Sprinter
@@ -188,7 +190,7 @@ For most targets, more than one version is built, in order to support different 
 - linux386:  ELF linux for Intel 386
 - linux68k:  ELF linux for Motorola 68020
 - linuxppc:  ELF linux for PPC
-- linuxmips: ELF linux for MIPS32r2 (little endian)
+- linuxmips: ELF linux for little endian MIPS32r2 
 
 
 ### Modern 32/64-BIT PC versions

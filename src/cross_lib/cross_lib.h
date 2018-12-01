@@ -90,7 +90,7 @@
 #if (defined(__VIC20__) && defined(ANIMATE_PLAYER)) || (defined(__VIC20__) && defined(ALT_PRINT)) \
 	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__GAMATE__) \
     || defined(__APPLE2__) || (defined(__C64__) && defined(ANIMATE_PLAYER)) || defined(__ATARI__) || defined(__ATARIXL__) \
-	|| defined(__ZX80__) || (defined(__C16__) && defined(ALT_PRINT))
+	|| defined(__ZX80__) || (defined(__C16__) && defined(ALT_PRINT)) || defined(__CMOC__)
 	#define NO_CASE_LETTERS
 #else
 	#define CASE_LETTERS

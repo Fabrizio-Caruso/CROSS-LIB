@@ -82,16 +82,28 @@
 	#define EXTRA_POWERUPS__STRING "and items"	
 #endif
 
-#if defined(JOYSTICK_CONTROL)
-	#define USE_STRING "use the joystick"
-#elif defined(TINY_GAME) 
-	#define USE_STRING "USE IJKL"
-#elif XSize<=16
-	#define USE_STRING "USE IJKL SPACE"	
+#if defined(NO_CASE_LETTERS)
+	#if defined(JOYSTICK_CONTROL)
+		#define USE_STRING "use the joystick"
+	#elif defined(TINY_GAME) 
+		#define USE_STRING "use ijkl"
+	#elif XSize<=16
+		#define USE_STRING "use ijkl space"	
+	#else
+		#define USE_STRING "use i j k l space"	
+	#endif	
 #else
-	#define USE_STRING "USE I J K L SPACE"	
-#endif	
-
+	#if defined(JOYSTICK_CONTROL)
+		#define USE_STRING "Use the joystick"
+	#elif defined(TINY_GAME) 
+		#define USE_STRING "Use IJKL"
+	#elif XSize<=16
+		#define USE_STRING "Use IJKL SPACE"	
+	#else
+		#define USE_STRING "Use I J K L SPACE"	
+	#endif	
+#endif
+	
 #if defined(LESS_TEXT)
 	#if defined(NO_CASE_LETTERS)
 		#define PRESS_STRING "go"

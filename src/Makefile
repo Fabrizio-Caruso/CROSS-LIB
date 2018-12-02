@@ -783,8 +783,20 @@ creativision_16k:
 	rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
 	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin	
 	
-	
+
 atari_lynx:
+	$(CC65_PATH)$(MYCC65) -O -t lynx \
+	-D__ATARI_LYNX__ \
+	-DNO_PRINT \
+	-DNO_SLEEP \
+	-DTGI \
+	-DALT_CLEAR_SCREEN \
+	-DFULL_GAME \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_ATARI_LYNX.lnx
+	
+atari_lynx_light:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
 	-DNO_PRINT \

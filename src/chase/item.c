@@ -89,32 +89,51 @@ extern Item extraPoints;
 			#endif	
 	}	
 	
-	void _commonPowerUpEffect(void)
-	{
-		points+=POWER_UP_BONUS;
-		decreaseGhostLevel();
-		freezeActive = 1;	
-		freeze_count_down += FROZEN_COUNT_DOWN;	
-	}
+	#if defined(FULL_GAME)
+		void _commonPowerUpEffect(void)
+		{
+			points+=POWER_UP_BONUS;
+			decreaseGhostLevel();
+			freezeActive = 1;	
+			freeze_count_down += FROZEN_COUNT_DOWN;	
+		}
 
-	void powerUpEffect(void)
-	{
-		_commonPowerUpEffect();
-		powerUp._coolDown = POWER_UP_COOL_DOWN;		
-	}
+		void powerUpEffect(void)
+		{
+			_commonPowerUpEffect();
+			powerUp._coolDown = POWER_UP_COOL_DOWN;		
+		}
 
-	void _gunEffect(void)
-	{
-		guns = GUNS_NUMBER;
-		printGunsStats();		
-		points+=GUN_BONUS;		
-	}
+		void _gunEffect(void)
+		{
+			guns = GUNS_NUMBER;
+			printGunsStats();		
+			points+=GUN_BONUS;		
+		}
 
-	void gunEffect(void)
-	{
-		_gunEffect();
-		gun._coolDown = GUN_COOL_DOWN;	
-	}
+		void gunEffect(void)
+		{
+			_gunEffect();
+			gun._coolDown = GUN_COOL_DOWN;	
+		}
+	#else
+
+		void powerUpEffect(void)
+		{
+			points+=POWER_UP_BONUS;
+			freezeActive = 1;	
+			freeze_count_down += FROZEN_COUNT_DOWN;	
+			powerUp._coolDown = POWER_UP_COOL_DOWN;		
+		}
+
+		void gunEffect(void)
+		{
+			guns = GUNS_NUMBER;
+			printGunsStats();		
+			points+=GUN_BONUS;	
+			gun._coolDown = GUN_COOL_DOWN;	
+		}		
+	#endif
 
 	void extraPointsEffect(void)
 	{

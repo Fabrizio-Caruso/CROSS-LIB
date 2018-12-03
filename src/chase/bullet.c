@@ -152,7 +152,9 @@ void checkBulletVsSkull(register Character *bulletPtr)
 	{
 		PING_SOUND();
 		bulletPtr->_status=0;
+		#if defined(FULL_GAME)
 		decreaseGhostLevel();
+		#endif
 		reducePowerUpsCoolDowns();
 		
 		if(!(--skull._status))

@@ -316,7 +316,9 @@ int main(void)
 			#if !defined(TINY_GAME)
 				constructItems();	
 				
+				#if !defined(NO_STATS)
 				displayStatsTitles();
+				#endif
 			#endif
 			
 			displayStats();		
@@ -327,7 +329,9 @@ int main(void)
 			
 			//
 			#if !defined(TINY_GAME)
+				#if !defined(NO_STATS)
 				printGunsStats();
+				#endif
 				printGhostCountStats();
 			#endif		
 			

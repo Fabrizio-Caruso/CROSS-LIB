@@ -101,7 +101,9 @@ void handle_bullet(void)
 	{
 		SHOOT_SOUND();
 		--guns;
+		#if !defined(NO_STATS)
 		printGunsStats();
+		#endif
 		bulletDirection = playerDirection;
 		bullet._status = 1;
 		bullet._x = player._x; 

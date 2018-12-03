@@ -5557,6 +5557,8 @@ pet_light:
 	-DFORCE_NARROW \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DNO_STATS \
+	-DNO_WALL \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/LIGHT_pet.prg

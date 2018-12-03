@@ -41,7 +41,6 @@ extern Character skull;
 extern Character player;
 
 extern Item powerUp;
-extern Item powerUp2;
 extern Item gun;
 extern Item extraPoints;
 
@@ -50,6 +49,8 @@ extern Item extraPoints;
 	extern Character *chasedEnemyPtr;
 	extern Character chasingBullet;
 
+	extern Item powerUp2;	
+	
 	extern Item freeze;
 
 	extern Item invincibility;
@@ -107,7 +108,9 @@ extern Item extraPoints;
 		void _gunEffect(void)
 		{
 			guns = GUNS_NUMBER;
-			printGunsStats();		
+			#if !defined(NO_STATS)
+			printGunsStats();	
+			#endif
 			points+=GUN_BONUS;		
 		}
 
@@ -129,7 +132,9 @@ extern Item extraPoints;
 		void gunEffect(void)
 		{
 			guns = GUNS_NUMBER;
-			printGunsStats();		
+			#if !defined(NO_STATS)
+			printGunsStats();	
+			#endif
 			points+=GUN_BONUS;	
 			gun._coolDown = GUN_COOL_DOWN;	
 		}		

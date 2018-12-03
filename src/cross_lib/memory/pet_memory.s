@@ -110,6 +110,31 @@ _freezeActive = _playerDirection + $1
 .export _extraLifeThroughPointsCounter;
 _extraLifeThroughPointsCounter = _freezeActive + $1
 
+.export _playerFire;
+_playerFire = _extraLifeThroughPointsCounter + $1
+
+.export _guns;
+_guns = _playerFire + $1
+
+.export _skullActive;
+_skullActive = _guns + $1
+
+.export _skull;
+_skull = _skullActive + $1
+
+.export _bullet;
+_bullet = _skull + $5
+
+.export _powerUp;
+_powerUp = _bullet + $5
+
+.export _gun;
+_gun = _powerUp + $A
+
+.export _extraPoints;
+_extraPoints = _gun + $A
+
+		
 		
 		
 		

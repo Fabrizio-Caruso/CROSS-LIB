@@ -61,7 +61,7 @@
 
 
 #if !defined(TINY_GAME)
-	#if defined(USE_MEMORY_BUFFERS)
+	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
 		extern Character skull;
 		extern Character bullet;	
 
@@ -254,7 +254,7 @@
 
 
 #if !defined(TINY_GAME)
-	#if defined(USE_MEMORY_BUFFERS)
+	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
 		extern unsigned char playerFire;
 		extern unsigned char guns; 
 		extern unsigned char skullActive;		

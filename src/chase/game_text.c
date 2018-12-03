@@ -122,7 +122,7 @@ extern unsigned short highScore;
 
 
 // TODO: This is SLOW
-#if !defined(TINY_GAME)
+#if !defined(TINY_GAME) && !defined(NO_STATS)
 	void displayStatsTitles(void)
 	{				
 		#if defined(WIDE)

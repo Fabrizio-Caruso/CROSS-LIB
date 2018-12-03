@@ -47,7 +47,7 @@ unsigned short computeGhostSlowDown(void)
 }
 #endif
 
-#if !defined(TINY_GAME)
+#if defined(FULL_GAME)
 	void decreaseGhostLevel(void)
 	{
 		if(ghostLevel>GHOST_LEVEL_DECREASE)

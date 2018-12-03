@@ -783,8 +783,20 @@ creativision_16k:
 	rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
 	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin	
 	
-	
+
 atari_lynx:
+	$(CC65_PATH)$(MYCC65) -O -t lynx \
+	-D__ATARI_LYNX__ \
+	-DNO_PRINT \
+	-DNO_SLEEP \
+	-DTGI \
+	-DALT_CLEAR_SCREEN \
+	-DFULL_GAME \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_ATARI_LYNX.lnx
+	
+atari_lynx_light:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
 	-DNO_PRINT \
@@ -5545,6 +5557,8 @@ pet_light:
 	-DFORCE_NARROW \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DNO_STATS \
+	-DNO_WALL \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/LIGHT_pet.prg
@@ -6652,9 +6666,16 @@ creativision_16k_2:
 pce_light:
 	$(CC65_PATH)$(MYCC65) -Or -t pce -Cl \
 	--config $(CFG_PATH)cc65/pce_8k_less_stack.cfg \
-	-DNO_SLEEP -DLESS_TEXT -DNO_COLOR -DNO_RANDOM_LEVEL \
-	-DNO_MESSAGE -DNO_BLINKING -DNO_INITIAL_SCREEN -DNO_SET_SCREEN_COLORS -DNO_STATS \
+	-DLESS_TEXT \
+	-DNO_MESSAGE -DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_INITIAL_SCREEN \
+	-DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_NARROW \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DNO_STATS \
+	-DNO_WALL \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_pce.pce
 

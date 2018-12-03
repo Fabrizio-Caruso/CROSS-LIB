@@ -101,7 +101,9 @@ void handle_bullet(void)
 	{
 		SHOOT_SOUND();
 		--guns;
+		#if !defined(NO_STATS)
 		printGunsStats();
+		#endif
 		bulletDirection = playerDirection;
 		bullet._status = 1;
 		bullet._x = player._x; 
@@ -152,7 +154,9 @@ void checkBulletVsSkull(register Character *bulletPtr)
 	{
 		PING_SOUND();
 		bulletPtr->_status=0;
+		#if defined(FULL_GAME)
 		decreaseGhostLevel();
+		#endif
 		reducePowerUpsCoolDowns();
 		
 		if(!(--skull._status))

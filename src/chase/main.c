@@ -271,7 +271,7 @@ int main(void)
 				computeSkullParameters();				
 			#endif
 
-			#if defined(TINY_GAME)
+			#if !defined(FULL_GAME)
 				ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(unsigned short)level*256;
 			#else
 				ghostSlowDown = computeGhostSlowDown();
@@ -374,7 +374,7 @@ int main(void)
 				}
 				#endif
 				
-				#if defined(TINY_GAME)
+				#if !defined(FULL_GAME)
 					if(ghostSlowDown) 
 					{
 						--ghostSlowDown;

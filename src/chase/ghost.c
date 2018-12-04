@@ -32,7 +32,7 @@ extern unsigned char level;
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 
-#if !defined(TINY_GAME)
+#if defined(FULL_GAME)
 unsigned short computeGhostSlowDown(void)
 {
 	if(ghostLevel<MAX_GHOST_LEVEL)

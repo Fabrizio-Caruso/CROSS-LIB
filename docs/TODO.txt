@@ -57,4 +57,30 @@ light svi KO
 
 26. DONE Test major targets with latest Z88DK snapshots
 
+27. LIGHT -> FULL promotions:
+	abc80 16k
+	microbee 16k 
+	nascom 16k
+	oric1 16k
+	p2000 16k
+	pc6001 16k
+	pv1000 16k
+	sc3000 16k
+	svi-318 16k
+	ti86
+	Z9001 16k
+
+28. TINY -> LIGHT/FULL promotions:
+	camputers_lynx 48k (FULL)
+	mz2500_buffered (FULL)
+	osic1p 8k (LIGHT)
+	oz_buffered (TINY/LIGHT/FULL)
+	pce 8k (LIGHT)
+	sms_buffered (FULL)
+	sos_buffered (TINY/LIGHT/FULL)
+	spectrum 16k (LIGHT)
+	trs80 (LIGHT)
+	vic20 +3K (LIGHT)
+	vz200 8k (LIGHT)
+	z88_buffered (LIGHT)
 

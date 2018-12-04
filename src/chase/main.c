@@ -268,10 +268,14 @@ int main(void)
 					freeze_count_down = INITIAL_FROZEN_COUNT_DOWN;
 				#endif
 				
-				computeSkullParameters();				
+				skullXCountDown = SKULL_COUNT_DOWN;
+				skullYCountDown = SKULL_COUNT_DOWN;		
+				#if !defined(FULL_GAME)
+					skullSlowDown = INITIAL_SKULL_SLOWDOWN;
+				#endif
 			#endif
 
-			#if defined(TINY_GAME)
+			#if !defined(FULL_GAME)
 				ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(unsigned short)level*256;
 			#else
 				ghostSlowDown = computeGhostSlowDown();
@@ -374,7 +378,7 @@ int main(void)
 				}
 				#endif
 				
-				#if defined(TINY_GAME)
+				#if !defined(FULL_GAME)
 					if(ghostSlowDown) 
 					{
 						--ghostSlowDown;

@@ -559,14 +559,36 @@ pet_8k:
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/TINY_pet_8k.prg
 	
-pet_8k_light:
+pet_8k_light_experimental:
 	$(CC65_PATH)$(MYCC65) -Or -t pet -Cl \
 	-DNO_INIT_GRAPHICS -DCONIO -DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_RANDOM_LEVEL \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_NARROW \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_STATS \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_DEAD_GHOSTS \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
-	-o $(BUILD_PATH)/LIGHT_pet_8k.prg
+	-o $(BUILD_PATH)/LIGHT_pet_8k_experimental.prg
 	
+pet_8k_light:
+	$(CC65_PATH)$(MYCC65) -Or -t pet -Cl \
+	-DLESS_TEXT \
+	-DNO_MESSAGE -DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_INITIAL_SCREEN \
+	-DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_NARROW \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DNO_STATS \
+	-DNO_WALL \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/memory/pet_memory.s \
+	-o $(BUILD_PATH)/LIGHT_pet_8k_less_text.prg
+
 pet_16k: 
 	$(CC65_PATH)$(MYCC65) -O -t pet \
 	-DFULL_GAME \
@@ -4753,7 +4775,7 @@ c264_targets: \
 	c16_16k_gfx c16_32k
 	
 pet_targets: \
-	pet_8k pet_16k
+	pet_8k pet_8k_light pet_16k
 	
 cbm510_targets: \
 	cbm510
@@ -5546,23 +5568,6 @@ oric1_16k_full:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_oric1_16k_less_text.tap	
 	
-
-pet_light:
-	$(CC65_PATH)$(MYCC65) -Or -t pet -Cl \
-	-DLESS_TEXT \
-	-DNO_MESSAGE -DNO_BLINKING \
-	-DNO_CONTROL_INSTRUCTIONS -DNO_INITIAL_SCREEN \
-	-DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL \
-	-DFORCE_GHOSTS_NUMBER=8 \
-	-DFORCE_NARROW \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-DUSE_LIGHT_MEMORY_BUFFERS \
-	-DNO_STATS \
-	-DNO_WALL \
-	$(LIGHT_FILES) \
-	$(CROSS_LIB_PATH)/memory/pet_memory.s \
-	-o $(BUILD_PATH)/LIGHT_pet.prg
-
 # TODO: Adapt code to work with -compiler=sdcc
 # $(ZSDCC_OPTS)
 # $(SCCZ80_OPTS) -zorg=18941 -vn 

@@ -1908,8 +1908,11 @@ spectrum_16k_light:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DLESS_TEXT \
+	-DFORCE_NARROW \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_SLEEP \
 	-DNO_HINTS \
+	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_RANDOM_LEVEL \
 	-DSIMPLE_STRATEGY \
 	-DANIMATE_PLAYER \

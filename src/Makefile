@@ -4569,7 +4569,7 @@ srr_targets: \
 	srr_udg
 
 m5_targets: \
-	m5_tiny m5_udg
+	m5_udg
 
 ti82_targets: \
 	ti82

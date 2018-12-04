@@ -268,7 +268,11 @@ int main(void)
 					freeze_count_down = INITIAL_FROZEN_COUNT_DOWN;
 				#endif
 				
-				computeSkullParameters();				
+				skullXCountDown = SKULL_COUNT_DOWN;
+				skullYCountDown = SKULL_COUNT_DOWN;		
+				#if !defined(FULL_GAME)
+					skullSlowDown = INITIAL_SKULL_SLOWDOWN;
+				#endif
 			#endif
 
 			#if !defined(FULL_GAME)

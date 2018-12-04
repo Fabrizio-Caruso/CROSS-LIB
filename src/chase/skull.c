@@ -47,6 +47,7 @@ extern unsigned char skullActive;
 	extern unsigned char confuseActive;
 #endif
 
+#if defined(FULL_GAME)
 unsigned short computeSkullSlowDown(void)
 {
 	if(loop<MAX_SKULL_LOOP)
@@ -59,12 +60,7 @@ unsigned short computeSkullSlowDown(void)
 	}
 	return SKULL_MIN_SLOWDOWN; // You must die!
 }
-
-void computeSkullParameters(void)
-{
-	skullXCountDown = SKULL_COUNT_DOWN;
-	skullYCountDown = SKULL_COUNT_DOWN;
-}
+#endif
 
 
 // Redability macros
@@ -101,7 +97,11 @@ void handle_skull(void)
 	}
 	else
 	{ 	
-		skullSlowDown = computeSkullSlowDown();
+		#if defined(FULL_GAME)
+			skullSlowDown = computeSkullSlowDown();
+		#else
+			--skullSlowDown;
+		#endif
 
 		if(SKULL_RAND_CONDITION)
 		{

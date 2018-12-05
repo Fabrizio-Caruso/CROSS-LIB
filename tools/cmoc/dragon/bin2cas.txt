@@ -1,0 +1,216 @@
+NAME
+    bin2cas.pl - convert binary data to CAS or WAV with optional autorun
+
+SYNOPSIS
+    bin2cas.pl [*option*]... *input-file* [[*option*]... *input-file*]...
+
+DESCRIPTION
+    Creates CAS or WAV cassette images from Dragon or Tandy CoCo binary
+    input. WAV output timing are tweaked to target the delays in the ROM
+    tape loading routines exactly.
+
+    Optionally generates complex autorunning code supporting dzip-compressed
+    parts, faster waveforms, and video mode changing between parts.
+
+OPTIONS
+    Output options:
+
+    -o, --output *file*
+        output filename (required)
+
+    -m, --mode *mode*
+        output file mode (cas, wav) [from filename]
+
+    -r, --wav-rate *rate*
+        sample rate in Hz for WAV output [9600]
+
+    --wav-bits *n*
+        bits per sample (8, 16) [8]
+
+    Global options:
+
+    -A, --autorun
+        build a single autorunning program
+
+    --leader *count*
+        leader length (in bytes) [256]
+
+    --reverse-dzip
+        dzipped files are streamed in reverse
+
+    Per-file options:
+
+    -B  file is raw binary (default)
+
+    -D  file is DragonDOS binary
+
+    -C  file is CoCo RS-DOS (DECB) binary
+
+    -n, --name *name*
+        name in filename block [from filename]
+
+    -l, --load *addr*
+        load address [0x0000]
+
+    -e, --exec *addr*
+        exec address [0x0000]
+
+    --zload *addr*
+        override automatic load address for dzipped file
+
+    --no-filename
+        no filename block required [default when --autorun]
+
+    --no-delay
+        no initial delay / leader before data
+
+    --block-size *n*
+        maximum block size [255]
+
+    --no-eof
+        don't emit EOF block
+
+    --gapped
+        write gapped file
+
+    -T, --timing *name*
+        timing spec (rom, fast, simple) [rom]
+
+    --fast
+        alias for --timing fast
+
+    --flasher
+        enable cursor flasher in autorun
+
+    -x, --vxor *stride*
+        apply vertical-XOR to file with given stride
+
+    -i *file*
+        input filename (prevents *file* being parsed as an option if it
+        begins with "-")
+
+    Per-file persistent options:
+
+    -z, --dzip
+        dzip file data (dunzip to autorun)
+
+    -E, --eof-data
+        EOF blocks allowed to contain data (non-standard)
+
+    Inter-file options:
+
+    --lds *a*
+        set the stack pointer to *a*
+
+    --pause
+        insert (additional) half second pause before next file
+
+    --sam-f *f*
+        set SAM display offset to *f* * 512
+
+    --sam-v *v*
+        set SAM VDG mode to *v* (0-7, see SAM docs)
+
+    --vdg *mode*
+        set VDG mode before next file
+
+    --poke *addr*,*value*
+        set one specific byte at *addr* to *value*
+
+    Other options:
+
+    --help
+        show this help
+
+    --version
+        show program version
+
+USAGE
+    The default sample rate for WAV output is 9600Hz, which has proved to
+    survive speed variations well when loading on real hardware, while
+    keeping file size to a minimum. However, if you are going to write the
+    output to tape, it is highly recommended that you specify a higher rate,
+    e.g., with -r 48000.
+
+    Per-file options apply to the next input file. Persistent options apply
+    to all subsequent files, the rest are reset to defaults after each file.
+
+    The --autorun option generates a special loader file containing
+    instructions for each input file, intended to create a single
+    autorunning program. It changes the defaults for input files to:
+    --no-filename --eof-data.
+
+    When autorunning, the following options apply to the program as a whole,
+    not just the next file: --name, --exec.
+
+    If the --omit option is used, subsequent data parts are not included in
+    the autorunning loader code. Useful if handling loading yourself.
+
+    To compress data, the "dzip" tool is required to be in your PATH.
+
+    Compressed data can overlap the destination, but some non-overlapping
+    clearance is required depending on the input. The default is to
+    calculate the clearance required and otherwise overlap the destination
+    as much as possible. Sometimes the extra bytes required stray somewhere
+    inconvenient, so this calculated address can be overridden with the
+    --zload option. e.g., the extra bytes beyond a text loading screen
+    encroaches into DOS workspace ($0600), so --zload 0x0e00 would ensure
+    the zipped data was loaded beyond it (usefully, the end user then
+    doesn't get to *see* the zipped data loading in this case).
+
+    The order of compressed data can be reversed using --reverse-dzip. In
+    this case, the extra required byte where source and destination overlap
+    must be *before* the destination area. This is probably only useful when
+    data resides right at the top of RAM. This is a global option: if one
+    dzipped part is reversed, all are.
+
+    For loading screens, "vertical XOR" may help achieve better compression.
+    Generally, you'll want to specify a stride of 32 (bytes per line).
+
+    The default timing spec ("rom") accounts for the slight variations of
+    delay in the Dragon ROM before it starts to count a pulse width. The
+    "simple" timing spec is closer to the output of CSAVE. The "fast" timing
+    spec is similar to "rom", but with shortened cycle widths; code is added
+    to the autorun file to support this.
+
+    Use the --flasher option when the SAM display offset has been changed,
+    e.g., during a custom loading screen. The ROM routine will continue to
+    flash $0400, but this will not be visible, so this adds code to do it
+    manually.
+
+    Normally the stack pointer is left at the top of BASIC. Use the --lds
+    option to adjust it at any point.
+
+EXAMPLES
+    A very simple example:
+
+        $0 -o game.cas -D game.bin
+
+    Builds a non-autorunning CAS file from the DragonDOS binary game.bin.
+    Load & exec addresses are taken from the header of the input binary.
+
+    A more complex example:
+
+        $0 --autorun -r 22050 -o game.wav --eof-data --dzip --timing fast \
+                -B --load 0x0e00 --vxor 32 screen.bin \
+                --vdg 8 --sam-v 4 --sam-f 7 \
+                -C --flasher game.bin
+
+    Builds an autorunning 22kHz WAV file with two parts - a loading screen
+    and the main game. Each part is dzipped, and a small amount of space is
+    saved by combining the last data block with the EOF indicator. Vertical
+    XOR is applied to the loading screen to improve compression. Each part
+    is written using shorter cycles - just over 30% faster than usual.
+
+    The loading screen data is a raw binary, so the load address is
+    specified. Once the screen has been loaded (including unzipping into
+    place, and reversing the vertical XOR), the VDG is put into
+    alpha/semigraphics mode with CSS=1, the SAM is configured to G3C (these
+    two combined configure Semigraphics 12 mode), and the SAM display offset
+    set to $0e00.
+
+    The game code is taken from a CoCo RS-DOS binary which contains load and
+    exec information. Extra cursor flashing code is added to the autorunner,
+    as the display offset is no longer $0400. As the last input file, its
+    exec address is used to autorun once loading is complete.
+

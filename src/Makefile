@@ -3962,6 +3962,11 @@ coco:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
+	rm -rf $(BUILD_PATH)/FULL_CoCo.dsk
+	cp $(BUILD_PATH)/FULL_CoCo.bin XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/FULL_CoCo.dsk
+	rm XCHASE.BIN
 	
 coco_test_rand: 
 	cmoc -O0 -c $(SOURCE_PATH)/../experiments/coco_rand_test.c

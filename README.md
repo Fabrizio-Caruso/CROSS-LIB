@@ -63,6 +63,9 @@ For other targets, the following compilers and dev-kits may be included in futur
 - "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
 - TIGCC for 68k-based TI calculators (http://tigcc.ticalc.org/).
 
+The tool-chain also uses some target-specific tools to create usable cassette/disk/rom images.
+This is documented in https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/tools/README.txt
+
 ## THE GAME CODE
 
 The game should be as portable as possible.

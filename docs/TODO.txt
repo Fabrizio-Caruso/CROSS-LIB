@@ -67,8 +67,8 @@ light svi KO
 	pv1000 16k
 	sc3000 16k
 	svi-318 16k
-	ti86
-	Z9001 16k
+	ti86 [TO TEST]
+	Z9001 16k  [OK]
 
 28. TINY -> LIGHT/FULL promotions:
 	camputers_lynx 48k (FULL)

@@ -1745,6 +1745,19 @@ z9001_32k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_z9001.z80	
 
+z9001_16k_full:
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 -compiler=sdcc $(ZSDCC_OPTS) -clib=ansi \
+	-D__Z9001__ -vn -DFULL_GAME  \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_RANDOM_LEVEL \
+	-DNO_HINTS \
+	-DSIMPLE_STRATEGY \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_z9001_less_text.z80 \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_z9001_less_text.z80
+	
 	
 z9001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) -clib=ansi \
@@ -3045,6 +3058,25 @@ ti8x:
 	mv $(SOURCE_PATH)/../xchase $(BUILD_PATH)/FULL_ti8x.bin
 	# rm $(SOURCE_PATH)/../xchase
 
+
+ti86:
+	$(Z88DK_PATH)$(MYZ88DK) +ti86 \
+	$(SCCZ80_OPTS) \
+	-D__TI86__ \
+	-DFULL_GAME \
+	-DZ88DK_JOYSTICK \
+	-DLESS_TEXT	\
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DNO_HINTS \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app  \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../a.86p $(BUILD_PATH)/FULL_ti86.86p	
+	rm $(SOURCE_PATH)/../a.bin	
 	
 ti86_light:
 	$(Z88DK_PATH)$(MYZ88DK) +ti86 \
@@ -3851,7 +3883,7 @@ dragon:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_Dragon.cas -D $(BUILD_PATH)/FULL_Dragon.bin	
 	
 coco:
 	cmoc \
@@ -4647,7 +4679,7 @@ pc6001_targets: \
 	pc6001_16k pc6001_32k_udg 	
 	
 z9001_targets: \
-	z9001_16k z9001_32k
+	z9001_16k_full z9001_32k
 
 vg5k_targets: \
 	vg5k_udg vg5k_exp_16k_udg

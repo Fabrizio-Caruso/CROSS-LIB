@@ -3883,7 +3883,7 @@ dragon:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_Dragon.cas -D $(BUILD_PATH)/FULL_Dragon.bin	
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_CoCoDragon.cas -D $(BUILD_PATH)/FULL_Dragon.bin	
 	
 coco:
 	cmoc \

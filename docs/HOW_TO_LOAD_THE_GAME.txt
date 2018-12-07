@@ -676,13 +676,28 @@ Place the file (a.obj) in the same directory as the emulator
 
 -------------------------------------------------------------
 
-Dragon
+Color Computer
 
 Use XROAR emulator (Emulate CoCo DISK EXTENDED)
-Attach the disk image
+Attach the .dsk disk image
 Type:
 LOADM"XCHASE
 EXEC
+
+-------------------------------------------------------------
+
+Dragon
+
+- Tape
+Use XROAR emulator
+Use run option
+
+- Disk 
+Use XROAR emulator (Emulate DOSPLUS)
+Attach the .vdk disk image
+Type:
+RUN"XCHASE.BIN"
+
 
 
 

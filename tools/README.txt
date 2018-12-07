@@ -19,6 +19,7 @@ file2dsk.exe http://www.colorcomputerarchive.com/coco/Utilities/?fbclid=IwAR2BOf
 
 - cmoc/dragon
 bin2cas.pl https://www.6809.org.uk/dragon/
+File2VDK.exe https://github.com/rolfmichelsen/dragontools
 
 - gcc
 libncurses https://www.gnu.org/software/ncurses/

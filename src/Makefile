@@ -3858,7 +3858,7 @@ dragon:
 	cmoc \
 	$(DRAGON_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
-	cmoc -o $(BUILD_PATH)/FULL_Dragon.bin \
+	cmoc -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
@@ -3883,7 +3883,11 @@ dragon:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_Dragon.cas -D $(BUILD_PATH)/FULL_Dragon.bin	
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_Dragon.cas -D $(BUILD_PATH)/xchase.bin	
+	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
+	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/FULL_Dragon.vdk
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/FULL_Dragon.bin
+
 	
 coco:
 	cmoc \
@@ -3962,6 +3966,11 @@ coco:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
+	rm -rf $(BUILD_PATH)/FULL_CoCo.dsk
+	cp $(BUILD_PATH)/FULL_CoCo.bin XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/FULL_CoCo.dsk
+	rm XCHASE.BIN
 	
 coco_test_rand: 
 	cmoc -O0 -c $(SOURCE_PATH)/../experiments/coco_rand_test.c

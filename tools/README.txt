@@ -14,8 +14,12 @@ gamate-fixcart.exe https://github.com/cc65/cc65/blob/master/util/gamate/gamate-f
 - cc65/osic1p
 srec_cat.exe http://srecord.sourceforge.net/
 
+- cmoc/coco
+file2dsk.exe http://www.colorcomputerarchive.com/coco/Utilities/?fbclid=IwAR2BOfF9KYC1hE8OaBU2vad_Y1iWDCbtX6lvLNIpns7OcpgJlWuqguybH5U
+
 - cmoc/dragon
 bin2cas.pl https://www.6809.org.uk/dragon/
+File2VDK.exe https://github.com/rolfmichelsen/dragontools
 
 - gcc
 libncurses https://www.gnu.org/software/ncurses/

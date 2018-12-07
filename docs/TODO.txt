@@ -84,3 +84,7 @@ light svi KO
 	vz200 8k (LIGHT)
 	z88_buffered (LIGHT)
 
+29. Factorize cmoc/stdlib includes in all concerned files
+
+30. Factorize the main.c file
+

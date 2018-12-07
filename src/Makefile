@@ -3883,7 +3883,7 @@ dragon:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_Dragon.cas -D $(BUILD_PATH)/xchase.bin	
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_Dragon.cas -D $(BUILD_PATH)/xchase.bin -A
 	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
 	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/FULL_Dragon.vdk
 	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/FULL_Dragon.bin
@@ -3970,6 +3970,7 @@ coco:
 	cp $(BUILD_PATH)/FULL_CoCo.bin XCHASE.BIN
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/FULL_CoCo.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_CoCo.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 	
 coco_test_rand: 

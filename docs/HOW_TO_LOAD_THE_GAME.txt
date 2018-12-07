@@ -678,6 +678,16 @@ Place the file (a.obj) in the same directory as the emulator
 
 Color Computer
 
+- Tape
+Use XROAR emulator
+Attach the .cas image
+Type
+CLOADM
+
+Remark: You can also simply use the "run" option
+
+
+- Disk
 Use XROAR emulator (Emulate CoCo DISK EXTENDED)
 Attach the .dsk disk image
 Type:
@@ -690,7 +700,11 @@ Dragon
 
 - Tape
 Use XROAR emulator
-Use run option
+Attach the .cas image
+Type
+CLOADM
+
+Remark: You can also simply use the "run" option
 
 - Disk 
 Use XROAR emulator (Emulate DOSPLUS)

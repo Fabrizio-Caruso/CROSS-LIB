@@ -21,6 +21,10 @@ file2dsk.exe http://www.colorcomputerarchive.com/coco/Utilities/?fbclid=IwAR2BOf
 bin2cas.pl https://www.6809.org.uk/dragon/
 File2VDK.exe https://github.com/rolfmichelsen/dragontools
 
+- cmoc/mo5
+f2k5.exe  http://pulkomandy.tk/projects/thomson/browser/Thomson/tools/
+sapfs.exe http://pulkomandy.tk/projects/thomson/browser/Thomson/tools/
+
 - gcc
 libncurses https://www.gnu.org/software/ncurses/
 

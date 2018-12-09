@@ -59,6 +59,8 @@
 	#include "graphics_mode/cpc_cpcrslib_graphics.h"
 #elif defined(BIT_MAPPED)
 	#include "graphics_mode/bit_mapped_graphics.h"
+#elif defined(MO5_BIT_MAPPED)
+	#include "graphics_mode/mo5_bit_mapped_graphics.h"
 #elif defined(REX)
 	#include "graphics_mode/rex_graphics.h"
 #endif

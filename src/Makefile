@@ -4060,6 +4060,19 @@ vectrex:
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 		
+mo5_test: 
+	cmoc -c -nodefaultlibs ./experiments/mo5.c
+	cmoc -nodefaultlibs  -o $(BUILD_PATH)/mo5.bin ./mo5.o
+	rm ./mo5.o
+	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/mo5.bin
+	mv $(BUILD_PATH)/mo5.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c mo5.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add mo5.sap mo5.bin
+	mv ./mo5.bin $(BUILD_PATH)
+	mv ./mo5.sap $(BUILD_PATH)
+	mv ./FILE.k5 $(BUILD_PATH)/mo5.k5
+	
+	
 		
 		
 		

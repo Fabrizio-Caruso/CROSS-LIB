@@ -77,7 +77,7 @@ DRAGON_OPTS     ?= --dragon $(COCO_OPTS)
 
 VECTREX_OPTS    ?= -O0 --vectrex -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-
+MO5_OPTS        ?= -O0 -DFORCE_NO_CONIO_LIB -DNO_RANDOM_LEVEL -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DMO5_BIT_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 _ACK ?= ack
 _ACK_OPTS ?= -O6
@@ -4059,10 +4059,92 @@ vectrex:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-		
+
+mo5:
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_images.c	
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/skull.c	
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c 
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	cmoc -o $(BUILD_PATH)/FULL_MO5.bin \
+	$(MO5_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	text_macros.o game_text.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm \
+	display_macros.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o text_macros.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o	
+	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin
+	mv $(BUILD_PATH)/FULL_MO5.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c FULL_MO5.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add FULL_MO5.sap FULL_MO5.bin
+	mv ./FULL_MO5.bin $(BUILD_PATH)
+	mv ./FULL_MO5.sap $(BUILD_PATH)
+	mv ./FILE.k5 $(BUILD_PATH)/FULL_MO5.k5
+	
+	
 mo5_test: 
-	cmoc -c -nodefaultlibs ./experiments/mo5.c
-	cmoc -nodefaultlibs  -o $(BUILD_PATH)/mo5.bin ./mo5.o
+	cmoc -c -nodefaultlibs $(MO5_OPTS) ./experiments/mo5.c
+	cmoc -nodefaultlibs $(MO5_OPTS) -o $(BUILD_PATH)/mo5.bin ./mo5.o
 	rm ./mo5.o
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/mo5.bin
 	mv $(BUILD_PATH)/mo5.bin .

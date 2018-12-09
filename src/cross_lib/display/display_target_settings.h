@@ -18,7 +18,8 @@
 	|| defined(__ABC80__) || defined(__ABC800__) || defined(__SRR__) \
 	|| defined(__KC__) || defined(__ATMOS__) || defined(__SUPERVISION__) \
 	|| defined(__VECTREX__) \
-	|| defined(__NC100__) || defined(__NC200__)
+	|| defined(__NC100__) || defined(__NC200__) \
+	|| defined(__MO5__)
 	#define NO_COLOR 
 #else
 	#define COLOR

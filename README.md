@@ -127,8 +127,9 @@ For most targets, more than one version is built, in order to support different 
 - m5: Sord M5
 - mc1000: CCE MC-1000
 - microbee: Microobee
+- mo5: Thomson Mo5/Mo6/Prodest PC128 (work in progress)
 - msx: MSX
-- mtx: MTX 512
+- mtx: Memotech MTX 512
 - multi8: Mitsubishi Multi 8
 - mz: Sharp MZ 80/700
 - mz2500: Sharp MZ 2500

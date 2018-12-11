@@ -83,6 +83,54 @@
 		}
 		return '\0';
 	
+	#elif defined(__MO5__)
+		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))	
+		#define PEEK(addr)         (*(unsigned char*) (addr))	
+
+		#define KEYREG 0xA7C1
+		
+		POKE(KEYREG,0x18);
+		if(!(PEEK(KEYREG)&128))
+		{
+			return 'I';
+		}
+		else 
+		{
+			POKE(KEYREG,0x04);
+			if(!(PEEK(KEYREG)&128))
+			{
+				return 'J';
+			}
+			else
+			{
+				POKE(KEYREG,0x14);
+				if(!(PEEK(KEYREG)&128))
+				{
+					return 'K';
+				}
+				else
+				{
+					POKE(KEYREG,0x24);
+					if(!(PEEK(KEYREG)&128))
+					{
+						return 'L';
+					}
+					else
+					{
+						POKE(KEYREG,0x40);
+						if(!(PEEK(KEYREG)&128))
+						{
+							return ' ';
+						}
+						else
+						{
+							return 0;
+						}
+					}
+				}
+			}
+		}
+			
 	#elif defined(__NCURSES__)
 		#define INPUT_LOOPS 10
 		

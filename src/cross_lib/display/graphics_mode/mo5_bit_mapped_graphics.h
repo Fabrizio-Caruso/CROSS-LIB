@@ -21,12 +21,26 @@
 
 #define __DRAW(x,y,image) \
 { \
-	SV_VIDEO[(x)+40*8*(y)] = 255; \
+	SV_VIDEO[(x)+40*8*(y)] = ((image)->_imageData); \
+	SV_VIDEO[(x)+40*8*(y)+1*40] = ((image)->_imageData); \
+	SV_VIDEO[(x)+40*8*(y)+2*40] = ((image)->_imageData); \
+	SV_VIDEO[(x)+40*8*(y)+3*40] = ((image)->_imageData); \
+	SV_VIDEO[(x)+40*8*(y)+4*40] = ((image)->_imageData); \
+	SV_VIDEO[(x)+40*8*(y)+5*40] = ((image)->_imageData); \
+	SV_VIDEO[(x)+40*8*(y)+6*40] = ((image)->_imageData); \
+	SV_VIDEO[(x)+40*8*(y)+7*40] = ((image)->_imageData); \
 }
 
 #define __DELETE(x,y) \
 { \
 	SV_VIDEO[(x)+40*8*(y)] = 0; \
+	SV_VIDEO[(x)+40*8*(y)+1*40] = 0; \
+	SV_VIDEO[(x)+40*8*(y)+2*40] = 0; \
+	SV_VIDEO[(x)+40*8*(y)+3*40] = 0; \
+	SV_VIDEO[(x)+40*8*(y)+4*40] = 0; \
+	SV_VIDEO[(x)+40*8*(y)+5*40] = 0; \
+	SV_VIDEO[(x)+40*8*(y)+6*40] = 0; \
+	SV_VIDEO[(x)+40*8*(y)+7*40] = 0; \
 }
 
 

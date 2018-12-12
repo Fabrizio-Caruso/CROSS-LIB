@@ -185,12 +185,33 @@
 		fputc_cons(c); \
 		} while(0)
 		
-#elif defined(__CMOC__) && !defined(__WINCMOC__)
+#elif defined(__CMOC__) && !defined(__WINCMOC__) && !defined(__MO5__)
 
 	#define cprintf printf
 	#define gotoxy(x,y) locate(y,x)
 	#define cputc(c) printf("%c",c)
 
+#elif defined(__MO5__)
+	#define cprint 
+
+	#define cputc(c) \
+		asm { \
+		   ldb c \
+		   swi \
+		   .byte 2 \
+		}
+
+					
+		
+	#define gotoxy(x,y)	\
+			do \
+			{ \
+				cputc(0x1B); \
+				cputc(0x3F+(y)); \
+				cputc(0x40+(x)); \
+			} while(0)
+			
+		
 #elif defined(__NCURSES__)
 	#include <ncurses.h>
 	

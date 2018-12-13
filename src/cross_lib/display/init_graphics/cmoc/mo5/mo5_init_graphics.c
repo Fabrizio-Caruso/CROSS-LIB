@@ -9,9 +9,9 @@ void INIT_GRAPHICS(void)
 			.byte 2 
 		}
 		
-		// cputc(#$14);
+		PUTCH(0x14);
 		
-		// cputc('A');
+		// PUTCH('a');
 		
 		// cputc('B');
 		

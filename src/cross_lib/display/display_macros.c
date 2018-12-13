@@ -123,6 +123,16 @@
 			putchar('\n');
 		}
 	}
+#elif defined(__MO5__)
+	void PUTCH(unsigned char ch)
+	{
+		asm
+		{
+			ldb ch
+			swi
+			.byte 2
+		}
+	}
 	
 #endif
 

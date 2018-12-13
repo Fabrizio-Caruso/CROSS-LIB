@@ -192,14 +192,18 @@
 	#define cputc(c) printf("%c",c)
 
 #elif defined(__MO5__)
-	#define cprint 
-
+	void PUTCH(unsigned char ch);
+	
 	#define cputc(c) \
-		asm { \
-		   ldb c \
-		   swi \
-		   .byte 2 \
-		}
+		PUTCH(c)
+
+	
+	// #define cputc(c) \
+		// asm { \
+		   // ldb c \
+		   // swi \
+		   // .byte 2 \
+		// }
 
 					
 		

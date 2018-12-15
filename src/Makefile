@@ -4481,7 +4481,8 @@ cc65_targets: \
 	c264_targets \
 	atari_lynx_targets \
 	gamate_targets	\
-	supervision_targets	
+	supervision_targets \
+	telestrat_targets 
 	
 # KO: 	
 # m5: out of memory
@@ -4905,6 +4906,9 @@ sms_targets: \
 	sms_tiny_buffered
 	
 ##
+
+telestrat_targets: \
+	telestrat
 
 supervision_targets: \
 	supervision

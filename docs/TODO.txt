@@ -90,14 +90,16 @@ light svi KO
 
 31. Update Compilation TESTS
 
-32. Complete
+32. Fix implicit declaraton of kbhit and getch
+
+33. Complete
 	6502:
 	- Supervision (lacks any graphics and text)
 	
 	6809:
 	- Thomson Mo5 (lacks any graphics and text)
 	
-33. Improve
+34. Improve
 	6502:
 	- Atari Lynx (improve graphics and implement text)
 	
@@ -112,7 +114,7 @@ light svi KO
 	- Sharp OZ
 	- S-OS (use syscalls?)
 
-34. Implement the following targets:
+35. Implement the following targets:
 	Z80:
 	- Coleco Adam
 	- Super 80

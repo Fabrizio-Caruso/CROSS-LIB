@@ -78,7 +78,7 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 ## SUPPORTED TARGETS 
 
-(as of 2018/09/26)
+(as of 2018/12/15)
  
 ### 8-BIT versions
 

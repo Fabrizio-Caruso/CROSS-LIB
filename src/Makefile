@@ -4514,6 +4514,7 @@ sccz80_test: \
 	c128_z80_test \
 	cpc_test \
 	cpm_test \
+ 	eg2k_test \
 	einstein_test \
 	gal_test \
 	kc_test \
@@ -4548,9 +4549,7 @@ sccz80_test: \
 	z1013_test \
 	z9001_test \
 	zx80_test \
-	zx81_test \
- 	eg2k_test 
-
+	zx81_test 
 z88dk_test: \
 	sccz80_test \
 	zsdcc_test	

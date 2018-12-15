@@ -4499,17 +4499,13 @@ cc65_targets: \
 
 zsdcc_test: \
 	aquarius_zsdcc_test \
+	c128_z80_zsdcc_test \
+	mc1000_zsdcc_test \
 	spectrum_zsdcc_test \
+	svi_zsdcc_test	\
 	vz200_zsdcc_test \
 	vg5k_zsdcc_test \
-	mc1000_zsdcc_test \
-	zx81_zsdcc_test \
-	svi_zsdcc_test \
-	c128_z80_zsdcc_test
-
-# sccz80 to fix
-# 	
-
+	zx81_zsdcc_test 
 
 sccz80_test: \
 	abc80_test \
@@ -5616,21 +5612,36 @@ vz200_zsdcc_test:
 
 
 spectrum_zsdcc_test:
-	$(Z88DK_PATH)$(MYZ88DK) +zx -startup=1 -zorg=24055 \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc -clib=sdcc_iy \
-	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ \
+	$(Z88DK_PATH)$(MYZ88DK) +zx  -v -zorg=24055 \
+	-compiler=sdcc \
+	$(FAST_TEST_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DZ88DK_JOYSTICK \
+	-DTINY_GAME \
+	-DFORCE_NARROW \
+	-DANIMATE_PLAYER \
+	-D__SPECTRUM__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(FAST_TEST_OPTS) \
 	-DCONIO \
-	-DNO_INIT_GRAPHICS \
-	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
 	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_CODE.bin 
-	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_UNASSIGNED.bin
+	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg 
+	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_BANK_7.bin
 
 
 svi_zsdcc_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
 	-compiler=sdcc \
+	$(FAST_TEST_OPTS) \
+	-compiler=sdcc \
+	-DFORCE_CONIO_LIB \
 	-zorg=49152 \
 	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
@@ -5638,13 +5649,10 @@ svi_zsdcc_test:
 	-vn -lndos \
 	-D__SVI__ \
 	-DSOUNDS \
-	-DALT_SLEEP \
-	$(FAST_TEST_OPTS) \
-	-DCONIO \
-	-DNO_INIT_GRAPHICS \
+	-DFORCE_BIT_BANG \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	-create-app \
 	$(TEST_FILES) 
 	mv a.cas $(BUILD_PATH)/TEST_ZSDCC_svi.cas
 	rm a.bin

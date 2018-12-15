@@ -4555,10 +4555,13 @@ z88dk_test: \
 	zsdcc_test	
 	
 
+z88dk_092018_targets: \
+	abc80_targets \
+	tiki100_targets 
+
 
 # missing: abc800, xo7, c7420, rex
 z88dk_targets: \
-	abc80_targets \
 	ace_targets \
 	alphatro_targets \
 	aquarius_targets \
@@ -4615,7 +4618,6 @@ z88dk_targets: \
 	ti85_targets \
 	ti86_targets \
 	ti8x_targets \
-	tiki100_targets \
 	trs80_targets \
 	ts2068_targets \
 	vg5k_targets \
@@ -4625,10 +4627,10 @@ z88dk_targets: \
 	z88_targets \
 	z9001_targets \
 	zx80_targets \
-	zx81_targets \
+	zx81_targets
 
 cmoc_targets: \
-	coco vectrex
+	coco vectrex mo5
 	
 ack_targets: \
 	pdp11v7 cpm8080_buffered pc8086 linux386 linux68k linuxppc  

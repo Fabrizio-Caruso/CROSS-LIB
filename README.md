@@ -63,7 +63,7 @@ For other targets, the following compilers and dev-kits may be included in futur
 - "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
 - TIGCC for 68k-based TI calculators (http://tigcc.ticalc.org/).
 
-The tool-chain also uses some target-specific tools to create usable cassette/disk/rom images.
+The tool-chain also uses some third-party target-specific tools to create usable cassette/disk/rom images.
 This is documented in https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/tools/README.txt
 
 ## THE GAME CODE
@@ -78,7 +78,7 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 ## SUPPORTED TARGETS 
 
-(as of 2018/09/26)
+(as of 2018/12/15)
  
 ### 8-BIT versions
 
@@ -163,7 +163,7 @@ For most targets, more than one version is built, in order to support different 
 - spc1000: Samsung SPC 1000
 - spectrum: Sinclair Spectrum 16k/48k/128k
 - srr: Exidy Sorcerer
-- supervision: Watara Supervision
+- supervision: Watara Supervision (work in progress)
 - svi: Spectravideo 318/328
 - ti82: Texas TI 82
 - ti83: Texas TI 83
@@ -171,6 +171,7 @@ For most targets, more than one version is built, in order to support different 
 - ti85: Texas TI 85
 - ti86: Texas TI 86
 - tiki100: TIKI 100
+- to7: Thomson To7(/70)/To8/To8d/To8+/To9/To9+ (work in progress)
 - trs80: TRS-80 Model I/III/IV
 - ts2068: Timex TS 2068
 - vg5k: VG-5000

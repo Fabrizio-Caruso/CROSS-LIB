@@ -4481,7 +4481,8 @@ cc65_targets: \
 	c264_targets \
 	atari_lynx_targets \
 	gamate_targets	\
-	supervision_targets	
+	supervision_targets \
+	telestrat_targets 
 	
 # KO: 	
 # m5: out of memory
@@ -4498,57 +4499,57 @@ cc65_targets: \
 
 zsdcc_test: \
 	aquarius_zsdcc_test \
+	c128_z80_zsdcc_test \
+	mc1000_zsdcc_test \
 	spectrum_zsdcc_test \
+	svi_zsdcc_test	\
 	vz200_zsdcc_test \
 	vg5k_zsdcc_test \
-	mc1000_zsdcc_test \
-	zx81_zsdcc_test \
-	svi_zsdcc_test \
-	c128_z80_zsdcc_test
+	zx81_zsdcc_test 
 
 sccz80_test: \
-	einstein_test \
-	sc3000_test \
-	sg1000_test \
-	m5_test \
+	abc80_test \
 	ace_test \
+	aquarius_test \
+	c128_z80_test \
+	cpc_test \
+	cpm_test \
+	einstein_test \
+	gal_test \
+	kc_test \
+	lambda_test \
+	m5_test \
+	mc1000_test \
+	microbee_test \
+	msx_test \
+	mtx_test \
+	mz_test \
+	nascom_test \
+	nc100_test \
+	p2000_test \
 	pc6001_test \
- 	eg2k_test \
 	pps_test \
 	pv2000_test \
+	px4_test \
+	px8_test \
+	samcoupe_test \
+	sc3000_test \
+	sg1000_test \
+	spectrum_test \
 	srr_test \
+	svi_test \
 	ti82_test \
 	ti83_test \
 	ti85_test \
-	z1013_test \
-	x1_test \
-	px4_test \
-	px8_test \
-	kc_test \
 	trs80_test \
-	cpm_test \
-	nascom_test \
-	z9001_test \
 	vg5k_test \
-	cpc_test \
-	mc1000_test \
-	mz_test \
-	mtx_test \
-	abc80_test \
-	p2000_test \
-	svi_test \
-	msx_test \
-	aquarius_test \
 	vz200_test \
-	microbee_test \
-	gal_test \
+	x1_test \
+	z1013_test \
+	z9001_test \
 	zx80_test \
 	zx81_test \
-	spectrum_test \
-	samcoupe_test \
-	lambda_test \
-	nc100_test \
-	c128_z80_test
+ 	eg2k_test 
 
 z88dk_test: \
 	sccz80_test \
@@ -4905,6 +4906,9 @@ sms_targets: \
 	sms_tiny_buffered
 	
 ##
+
+telestrat_targets: \
+	telestrat
 
 supervision_targets: \
 	supervision
@@ -5372,6 +5376,12 @@ p2000_test:
 
 svi_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
+	 -vn -lndos \
+	-DSOUNDS \
+	-D__SVI__ \
+	-DCONIO \
+	-DFORCE_CONIO_LIB \
+	-pragma-define:ansicolumns=32 \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
 	-DSOUNDS \
 	-DCONIO \
@@ -5474,17 +5484,15 @@ zx81_test:
 		
 spectrum_test:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -clib=ansi -vn  \
-	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
-	-DANIMATE_PLAYER -DSOUNDS -DCLIB_ANSI -D__SPECTRUM__ \
+	-pragma-define:ansicolumns=32 \
+	-DSOUNDS -DCLIB_ANSI -D__SPECTRUM__ \
+	-DNO_INIT_GRAPHICS \
 	-DCONIO \
-	-lndos -create-app \
+	-lndos -create-app -o $(BUILD_PATH)/TEST_spectrum.prg \
 	$(FAST_TEST_OPTS) \
-	-o $(BUILD_PATH)/TEST_spectrum.prg \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/udg.asm \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/spectrum_redefined_chars_init_graphics.c \
-	$(TEST_FILES) 
+	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_spectrum.prg
-	rm $(BUILD_PATH)/TEST_spectrum_BANK_7.bin	
+	rm $(BUILD_PATH)/TEST_spectrum_BANK_7.bin
 	
 samcoupe_test:
 	$(Z88DK_PATH)$(MYZ88DK) +sam \
@@ -5604,21 +5612,36 @@ vz200_zsdcc_test:
 
 
 spectrum_zsdcc_test:
-	$(Z88DK_PATH)$(MYZ88DK) +zx -startup=1 -zorg=24055 \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc -clib=sdcc_iy \
-	-DNO_SLEEP -DLESS_TEXT -DTINY_GAME -vn  -D__SPECTRUM__ \
+	$(Z88DK_PATH)$(MYZ88DK) +zx  -v -zorg=24055 \
+	-compiler=sdcc \
+	$(FAST_TEST_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DZ88DK_JOYSTICK \
+	-DTINY_GAME \
+	-DFORCE_NARROW \
+	-DANIMATE_PLAYER \
+	-D__SPECTRUM__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(FAST_TEST_OPTS) \
 	-DCONIO \
-	-DNO_INIT_GRAPHICS \
-	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
 	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_CODE.bin 
-	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_UNASSIGNED.bin
+	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg 
+	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_BANK_7.bin
 
 
 svi_zsdcc_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
 	-compiler=sdcc \
+	$(FAST_TEST_OPTS) \
+	-compiler=sdcc \
+	-DFORCE_CONIO_LIB \
 	-zorg=49152 \
 	-clib=ansi \
 	-pragma-define:ansicolumns=32 \
@@ -5626,13 +5649,10 @@ svi_zsdcc_test:
 	-vn -lndos \
 	-D__SVI__ \
 	-DSOUNDS \
-	-DALT_SLEEP \
-	$(FAST_TEST_OPTS) \
-	-DCONIO \
-	-DNO_INIT_GRAPHICS \
+	-DFORCE_BIT_BANG \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	-create-app \
 	$(TEST_FILES) 
 	mv a.cas $(BUILD_PATH)/TEST_ZSDCC_svi.cas
 	rm a.bin

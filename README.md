@@ -165,6 +165,7 @@ For most targets, more than one version is built, in order to support different 
 - srr: Exidy Sorcerer
 - supervision: Watara Supervision (work in progress)
 - svi: Spectravideo 318/328
+- telestrat: Oric Telestrat (work in progress)
 - ti82: Texas TI 82
 - ti83: Texas TI 83
 - ti8x: Texas TI 83 Plus

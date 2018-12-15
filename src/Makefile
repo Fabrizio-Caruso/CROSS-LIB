@@ -4507,49 +4507,53 @@ zsdcc_test: \
 	svi_zsdcc_test \
 	c128_z80_zsdcc_test
 
+# sccz80 to fix
+# 	
+
+
 sccz80_test: \
-	einstein_test \
-	sc3000_test \
-	sg1000_test \
-	m5_test \
+	abc80_test \
 	ace_test \
+	aquarius_test \
+	c128_z80_test \
+	cpc_test \
+	cpm_test \
+	einstein_test \
+	gal_test \
+	kc_test \
+	lambda_test \
+	m5_test \
+	mc1000_test \
+	microbee_test \
+	msx_test \
+	mtx_test \
+	mz_test \
+	nascom_test \
+	nc100_test \
+	p2000_test \
 	pc6001_test \
- 	eg2k_test \
 	pps_test \
 	pv2000_test \
+	px4_test \
+	px8_test \
+	samcoupe_test \
+	sc3000_test \
+	sg1000_test \
+	spectrum_test \
 	srr_test \
+	svi_test \
 	ti82_test \
 	ti83_test \
 	ti85_test \
-	z1013_test \
-	x1_test \
-	px4_test \
-	px8_test \
-	kc_test \
 	trs80_test \
-	cpm_test \
-	nascom_test \
-	z9001_test \
 	vg5k_test \
-	cpc_test \
-	mc1000_test \
-	mz_test \
-	mtx_test \
-	abc80_test \
-	p2000_test \
-	svi_test \
-	msx_test \
-	aquarius_test \
 	vz200_test \
-	microbee_test \
-	gal_test \
+	x1_test \
+	z1013_test \
+	z9001_test \
 	zx80_test \
 	zx81_test \
-	spectrum_test \
-	samcoupe_test \
-	lambda_test \
-	nc100_test \
-	c128_z80_test
+ 	eg2k_test 
 
 z88dk_test: \
 	sccz80_test \
@@ -5376,6 +5380,12 @@ p2000_test:
 
 svi_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
+	 -vn -lndos \
+	-DSOUNDS \
+	-D__SVI__ \
+	-DCONIO \
+	-DFORCE_CONIO_LIB \
+	-pragma-define:ansicolumns=32 \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
 	-DSOUNDS \
 	-DCONIO \
@@ -5478,17 +5488,15 @@ zx81_test:
 		
 spectrum_test:
 	$(Z88DK_PATH)$(MYZ88DK) +zx -clib=ansi -vn  \
-	-pragma-redirect:ansifont=_udg -pragma-define:ansifont_is_packed=0 -pragma-define:ansicolumns=32 \
-	-DANIMATE_PLAYER -DSOUNDS -DCLIB_ANSI -D__SPECTRUM__ \
+	-pragma-define:ansicolumns=32 \
+	-DSOUNDS -DCLIB_ANSI -D__SPECTRUM__ \
+	-DNO_INIT_GRAPHICS \
 	-DCONIO \
-	-lndos -create-app \
+	-lndos -create-app -o $(BUILD_PATH)/TEST_spectrum.prg \
 	$(FAST_TEST_OPTS) \
-	-o $(BUILD_PATH)/TEST_spectrum.prg \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/udg.asm \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/spectrum/spectrum_redefined_chars_init_graphics.c \
-	$(TEST_FILES) 
+	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_spectrum.prg
-	rm $(BUILD_PATH)/TEST_spectrum_BANK_7.bin	
+	rm $(BUILD_PATH)/TEST_spectrum_BANK_7.bin
 	
 samcoupe_test:
 	$(Z88DK_PATH)$(MYZ88DK) +sam \

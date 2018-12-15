@@ -195,17 +195,7 @@
 	void PUTCH(unsigned char ch);
 	
 	#define cputc(c) \
-		PUTCH(c)
-
-	
-	// #define cputc(c) \
-		// asm { \
-		   // ldb c \
-		   // swi \
-		   // .byte 2 \
-		// }
-
-					
+		PUTCH(c)	
 		
 	#define gotoxy(x,y)	\
 			do \

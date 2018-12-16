@@ -124,16 +124,21 @@ Use the ABC80SIM emulator (https://www.abc80.org/pub/abc80sim/, https://git.zyto
 Pass the ihx file as a parameter to the emulator
 Run it directly with the command “A=CALL(49200)”
 
-.bas
+.bac
 abc80 --memfile program.bac
 Then "run mem:"
 
+
+Use ABC80Win
+Attach .dsk image
+load"xchase"
+run
 
 ---------------------------------------------------------
 
 Luxor ABC 800
 
-.bas
+.bac
 abc80 --abc802 --memfile program.bac
 Then "run mem:"
 

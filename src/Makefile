@@ -2543,7 +2543,7 @@ tiki100_sprites_light:
 	
 
 tiki100: 
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -startup=2 -lm -ltiki100 \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=tiki100 -ltiki100 \
 	$(SCCZ80_OPTS) \
 	-D__TIKI100__ \
 	-DNO_PRINT \
@@ -2559,11 +2559,10 @@ tiki100:
 	-DANIMATE_PLAYER \
 	-create-app \
 	-DNO_INIT_GRAPHICS \
-	$(FULL_FILES)
-	cp $(TOOLS_PATH)/z88dk/tiki100/empty.dsk $(BUILD_PATH)/FULL_tiki100.dsk
-	$(TOOLS_PATH)/z88dk/tiki100/tikidisk$(COMPILEDEXT) $(BUILD_PATH)/FULL_tiki100.dsk a A.COM
-	rm A.COM
+	$(FULL_FILES) 
+	mv a.dsk $(BUILD_PATH)/FULL_tiki100.dsk
 	rm a.bin
+	rm a_HIMEM.bin
 	
 kaypro: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxkp \
@@ -4514,6 +4513,7 @@ sccz80_test: \
 	c128_z80_test \
 	cpc_test \
 	cpm_test \
+ 	eg2k_test \
 	einstein_test \
 	gal_test \
 	kc_test \
@@ -4548,18 +4548,14 @@ sccz80_test: \
 	z1013_test \
 	z9001_test \
 	zx80_test \
-	zx81_test \
- 	eg2k_test 
-
+	zx81_test 
 z88dk_test: \
 	sccz80_test \
 	zsdcc_test	
 	
 
 z88dk_092018_targets: \
-	abc80_targets \
-	tiki100_targets 
-
+	abc80_targets 
 
 # missing: abc800, xo7, c7420, rex
 z88dk_targets: \
@@ -4619,6 +4615,7 @@ z88dk_targets: \
 	ti85_targets \
 	ti86_targets \
 	ti8x_targets \
+	tiki100_targets \	
 	trs80_targets \
 	ts2068_targets \
 	vg5k_targets \

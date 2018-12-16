@@ -46,5 +46,3 @@ makewzd.exe https://github.com/z88dk/z88dk/blob/master/support/oz/makewzd.c
 - z88dk/samcoupe 
 pyz80.py https://github.com/simonowen/pyz80
 
-- z88dk/tiki100
-tikidisk.exe http://www.djupdal.org/tiki/emulator/

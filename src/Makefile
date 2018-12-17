@@ -1656,7 +1656,7 @@ abc800_light:
 	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) -800 a.bin $(BUILD_PATH)/LIGHT_ABC800.bac 49200	
 	mv a.bin $(BUILD_PATH)/LIGHT_abc800.bin 
 	
-	
+
 
 abc80:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
@@ -6134,7 +6134,57 @@ pv2000_udg:
 	rm $(BUILD_PATH)/FULL_pv2000_DATA.bin
 	rm $(BUILD_PATH)/FULL_pv2000_BSS.bin
 
+super80:
+	$(Z88DK_PATH)$(MYZ88DK) +super80 $(SCCZ80_OPTS) \
+	-D__SUPER80__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=16 \
+	-DFULL_GAME  \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-DCONIO_VT52 \
+	-DNO_INIT_GRAPHICS \
+	-lndos \
+	chase/end_screen.c \
+	$(FULL_FILES) \
+	-create-app 
+	mv a.ql $(BUILD_PATH)/FULL_super80.ql
+	rm a.bin	
 	
+super80r:
+	$(Z88DK_PATH)$(MYZ88DK) +super80 $(SCCZ80_OPTS) -clib=vduem \
+	-D__SUPER80R__ \
+	-DFORCE_XSIZE=80 \
+	-DFORCE_YSIZE=25 \
+	-DUDG_GRAPHICS \
+	-DFULL_GAME  \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-DCONIO_VT52 \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	chase/end_screen.c \
+	$(FULL_FILES) \
+	-lndos \
+	-create-app
+	mv a.ql $(BUILD_PATH)/FULL_super80r.ql
+	rm a.bin
+
+	
+coleco_adam:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=adam \
+	-D__COLECO_ADAM__ \
+	-DFULL_GAME  \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
+	-lndos \
+	chase/end_screen.c \
+	$(FULL_FILES) \
+	-create-app 
+	mv a.dsk $(BUILD_PATH)/FULL_coleco_adam.dsk
+	rm a.bin
 	
 	
 coleco_udg:

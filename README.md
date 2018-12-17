@@ -107,6 +107,7 @@ For most targets, more than one version is built, in order to support different 
 - camputers_lynx: Camputers Lynx 48k/96k/128k
 - coco: Color Computer
 - coleco: Colecovision
+- coleco_adam: Colecovision Adam (work in progress)
 - cpc: Amstrad CPC
 - cpm8080: CP/M Intel 8080
 - cpm: CP/M Z80 with adm3a/vt52/vt100 terminals
@@ -163,6 +164,8 @@ For most targets, more than one version is built, in order to support different 
 - spc1000: Samsung SPC 1000
 - spectrum: Sinclair Spectrum 16k/48k/128k
 - srr: Exidy Sorcerer
+- super80: Super 80/80d/80e/80m (work in progress)
+- super80r: Super 80r/Super80v (work in progress)
 - supervision: Watara Supervision (work in progress)
 - svi: Spectravideo 318/328
 - telestrat: Oric Telestrat (work in progress)

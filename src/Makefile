@@ -30,8 +30,10 @@ BUILD_PATH ?= ../build
 MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
-SCCZ80_OPTS ?= -O3
-ZSDCC_OPTS ?= -SO3 --max-allocs-per-node200000
+SCCZ80_OPTS ?= 
+#-O3
+ZSDCC_OPTS ?= 
+#-SO3 --max-allocs-per-node200000
 
 TOOLS_PATH ?= ../tools
 
@@ -4601,6 +4603,7 @@ z88dk_targets: \
 	oz_targets \
 	p2000_targets \
 	pc6001_targets \
+	pc88_targets \
 	pps_targets \
 	pv1000_targets \
 	pv2000_targets \
@@ -4614,13 +4617,14 @@ z88dk_targets: \
 	spc1000_targets \
 	spectrum_targets \
 	srr_targets \
+	super80_targets \
 	svi_targets \
 	ti82_targets \
 	ti83_targets \
 	ti85_targets \
 	ti86_targets \
 	ti8x_targets \
-	tiki100_targets \	
+	tiki100_targets \
 	trs80_targets \
 	ts2068_targets \
 	vg5k_targets \
@@ -4816,9 +4820,15 @@ mz_targets: \
 	
 mtx_targets: \
 	mtx_udg
-	
+		
 abc80_targets: \
 	abc80_light abc80
+	
+pc88_targets: \
+	pc88
+	
+super80_targets: \
+	super80 super80r
 	
 p2000_targets: \
 	p2000_16k p2000_32k
@@ -4866,7 +4876,7 @@ pv1000_targets: \
 	pv1000_light pv1000
 	
 coleco_targets: \
-	coleco_udg
+	coleco_udg coleco_adam
 	
 multi8_targets: \
 	multi8_udg

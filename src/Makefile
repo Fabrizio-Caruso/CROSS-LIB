@@ -1640,6 +1640,10 @@ abc80_light:
 	$(LIGHT_FILES)
 	# mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
 	mv a.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
+	# $(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 a.bin
+	# $(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/LIGHT_abc80.dsk 
+	# $(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/LIGHT_abc80.dsk -b $(BUILD_PATH)/xchase.bac
+	mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
 	
 abc800_light:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 -lm \
@@ -1651,6 +1655,7 @@ abc800_light:
 	$(LIGHT_FILES)
 	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) -800 a.bin $(BUILD_PATH)/LIGHT_ABC800.bac 49200	
 	mv a.bin $(BUILD_PATH)/LIGHT_abc800.bin 
+	
 	
 
 abc80:
@@ -1671,12 +1676,14 @@ abc80:
 	-DFLAT_ENEMIES \
 	-lndos -create-app \
 	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/xchase.bac 49200
-	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk 
-	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk -b $(BUILD_PATH)/xchase.bac
-	rm a.bin 
-	mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/FULL_abc80.bac
+	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/xchase.bac 49200
+	# $(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 a.bin	
+	# $(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk 
+	# $(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk -b $(BUILD_PATH)/xchase.bac
+	# rm a.bin 
+	# mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/FULL_abc80.bac
 	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
+	mv a.bin $(BUILD_PATH)/FULL_abc80.bin
 	
 	
 abc800:
@@ -4548,16 +4555,15 @@ sccz80_test: \
 	z9001_test \
 	zx80_test \
 	zx81_test 
+	
 z88dk_test: \
 	sccz80_test \
 	zsdcc_test	
 	
 
-z88dk_092018_targets: \
-	abc80_targets 
-
 # missing: abc800, xo7, c7420, rex
 z88dk_targets: \
+	abc80_targets \
 	ace_targets \
 	alphatro_targets \
 	aquarius_targets \

@@ -185,13 +185,13 @@
 		fputc_cons(c); \
 		} while(0)
 		
-#elif defined(__CMOC__) && !defined(__WINCMOC__) && !defined(__MO5__)
+#elif defined(__CMOC__) && !defined(__WINCMOC__) && !defined(__MO5__) && !defined(__TO7__)
 
 	#define cprintf printf
 	#define gotoxy(x,y) locate(y,x)
 	#define cputc(c) printf("%c",c)
 
-#elif defined(__MO5__)
+#elif defined(__MO5__) || defined(__TO7__)
 	void PUTCH(unsigned char ch);
 	
 	#define cputc(c) \

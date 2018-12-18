@@ -81,6 +81,8 @@ VECTREX_OPTS    ?= -O0 --vectrex -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno
 
 MO5_OPTS        ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
+TO7_OPTS		?= -O1 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
 _ACK ?= ack
 _ACK_OPTS ?= -O6
 # -O 
@@ -4152,6 +4154,91 @@ mo5:
 	mv ./FULL_MO5.bin $(BUILD_PATH)
 	mv ./FULL_MO5.sap $(BUILD_PATH)
 	mv ./FILE.k5 $(BUILD_PATH)/FULL_MO5.k5
+	
+
+to7:
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_images.c	
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/skull.c	
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c 
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	cmoc -o $(BUILD_PATH)/FULL_TO7.bin \
+	$(TO7_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	text_macros.o game_text.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o text_macros.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o	
+	mv $(BUILD_PATH)/FULL_TO7.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c FULL_TO7.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add FULL_TO7.sap FULL_TO7.bin
+	mv ./FULL_TO7.bin $(BUILD_PATH)
+	mv ./FULL_TO7.sap $(BUILD_PATH)
 	
 	
 mo5_test: 

@@ -133,7 +133,15 @@
 			.byte 2
 		}
 	}
-	
+#elif defined(__TO7__)
+	void PUTCH(unsigned char ch)
+	{
+		asm
+		{
+			ldb ch
+			jsr	0xE803
+		}
+	}
 #endif
 
 

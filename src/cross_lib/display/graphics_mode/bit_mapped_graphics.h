@@ -2,7 +2,11 @@
 #ifndef _MO5_BIT_MAPPED_GRAPHICS
 #define _MO5_BIT_MAPPED_GRAPHICS
 
-#define SV_VIDEO  ((unsigned char*)0x0000)
+#if defined(__MO5__)
+	#define SV_VIDEO  ((unsigned char*)0x0000)
+#elif defined(__TO7__)
+	#define SV_VIDEO  ((unsigned char*)0x4000)
+#endif
 
 
 #define __DRAW(x,y,image) \

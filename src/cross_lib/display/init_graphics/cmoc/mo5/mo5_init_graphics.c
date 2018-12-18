@@ -2,13 +2,7 @@
 
 
 void INIT_GRAPHICS(void)
-{			
-		// asm { 
-			// ldb #$14 
-			// swi 
-			// .byte 2 
-		// }
-		
+{					
 		PUTCH(0x14);
 		
 		// PUTCH('a');

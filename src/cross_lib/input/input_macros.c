@@ -83,7 +83,7 @@
 		}
 		return '\0';
 	
-	#elif defined(__MO5__)
+	#elif defined(__MO5__) || defined(__TO7__)
 		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))	
 		#define PEEK(addr)         (*(unsigned char*) (addr))	
 
@@ -222,7 +222,7 @@ out			stb res
 				getch();
 			#endif
 		}
-	#elif defined(__CMOC__) && !defined(__WINCMOC__)	
+	#elif defined(__CMOC__) && !defined(__WINCMOC__) && !defined(__MO5__) && !defined(__TO7__)
 		#include <cmoc.h>
 		
 		void WAIT_PRESS(void)

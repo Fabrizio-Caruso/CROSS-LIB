@@ -19,7 +19,7 @@
 	|| defined(__KC__) || defined(__ATMOS__) || defined(__SUPERVISION__) \
 	|| defined(__VECTREX__) \
 	|| defined(__NC100__) || defined(__NC200__) \
-	|| defined(__MO5__)
+	|| defined(__MO5__) || defined(__TO7__)
 	#define NO_COLOR 
 #else
 	#define COLOR

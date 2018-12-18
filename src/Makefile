@@ -30,8 +30,10 @@ BUILD_PATH ?= ../build
 MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
-SCCZ80_OPTS ?= -O3
-ZSDCC_OPTS ?= -SO3 --max-allocs-per-node200000
+SCCZ80_OPTS ?= 
+#-O3
+ZSDCC_OPTS ?= 
+#-SO3 --max-allocs-per-node200000
 
 TOOLS_PATH ?= ../tools
 
@@ -78,6 +80,8 @@ DRAGON_OPTS     ?= --dragon $(COCO_OPTS)
 VECTREX_OPTS    ?= -O0 --vectrex -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 MO5_OPTS        ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
+TO7_OPTS		?= -O1 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 _ACK ?= ack
 _ACK_OPTS ?= -O6
@@ -4151,6 +4155,91 @@ mo5:
 	mv ./FULL_MO5.sap $(BUILD_PATH)
 	mv ./FILE.k5 $(BUILD_PATH)/FULL_MO5.k5
 	
+
+to7:
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_images.c	
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/move_player.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/ghost.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/level.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/character.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/strategy.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/item.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/bullet.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/skull.c	
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/horizontal_missile.c
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/rocket.c 
+	cmoc \
+	$(TO7_OPTS) \
+	-c $(SOURCE_PATH)/end_screen.c	
+	cmoc -o $(BUILD_PATH)/FULL_TO7.bin \
+	$(TO7_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	text_macros.o game_text.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o
+	rm \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o \
+	ghost.o \
+	move_player.o \
+	level.o character.o \
+	game_text.o text_macros.o \
+	strategy.o \
+	input_macros.o \
+	item.o bullet.o skull.o \
+	rocket.o horizontal_missile.o end_screen.o	
+	mv $(BUILD_PATH)/FULL_TO7.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c FULL_TO7.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add FULL_TO7.sap FULL_TO7.bin
+	mv ./FULL_TO7.bin $(BUILD_PATH)
+	mv ./FULL_TO7.sap $(BUILD_PATH)
+	
 	
 mo5_test: 
 	cmoc -c -nodefaultlibs $(MO5_OPTS) ./experiments/mo5.c
@@ -4601,6 +4690,7 @@ z88dk_targets: \
 	oz_targets \
 	p2000_targets \
 	pc6001_targets \
+	pc88_targets \
 	pps_targets \
 	pv1000_targets \
 	pv2000_targets \
@@ -4614,13 +4704,14 @@ z88dk_targets: \
 	spc1000_targets \
 	spectrum_targets \
 	srr_targets \
+	super80_targets \
 	svi_targets \
 	ti82_targets \
 	ti83_targets \
 	ti85_targets \
 	ti86_targets \
 	ti8x_targets \
-	tiki100_targets \	
+	tiki100_targets \
 	trs80_targets \
 	ts2068_targets \
 	vg5k_targets \
@@ -4816,9 +4907,15 @@ mz_targets: \
 	
 mtx_targets: \
 	mtx_udg
-	
+		
 abc80_targets: \
 	abc80_light abc80
+	
+pc88_targets: \
+	pc88
+	
+super80_targets: \
+	super80 super80r
 	
 p2000_targets: \
 	p2000_16k p2000_32k
@@ -4866,7 +4963,7 @@ pv1000_targets: \
 	pv1000_light pv1000
 	
 coleco_targets: \
-	coleco_udg
+	coleco_udg coleco_adam
 	
 multi8_targets: \
 	multi8_udg

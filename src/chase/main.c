@@ -245,6 +245,7 @@ int main(void)
 				
 				#if !defined(INITIAL_GHOST_FREEZE)
 					freezeActive = 0;
+					freeze_count_down = 0;
 				#endif
 				confuseActive = 0;
 				zombieActive = 0; 
@@ -346,7 +347,6 @@ int main(void)
 			while(player._status && (ghostCount>0) )
 			#endif
 			{
-				
 				#if defined(DEBUG_END)
 					gameCompleted();
 				#endif

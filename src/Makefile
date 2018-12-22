@@ -5022,7 +5022,7 @@ atari_targets: \
 	atari_color atari_no_color
 	
 oric_targets: \
-	atmos oric1_16k
+	atmos oric1_16k oric1_16k_full
 
 c264_targets: \
 	c16_16k_gfx c16_32k
@@ -5822,21 +5822,24 @@ c128_z80_zsdcc_test:
 	
 # DEBUG	
 
+# 	$(CROSS_LIB_PATH)/memory/oric1.s 
+# 	-DUSE_MEMORY_BUFFERS
 	
 oric1_16k_full: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl \
-	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DANIMATE_PLAYER -DFULL_GAME \
-	-DLESS_TEXT -DNO_SLEEP -DNO_BORDER -DSIMPLE_STRATEGY -DNO_BLINKING -DNO_HINTS -DNO_STATS -DFORCE_GHOSTS_NUMBER=6 \
-	-DFLAT_ENEMIES \
+	-DLESS_TEXT -DNO_SLEEP -DNO_BORDER \
+	-DSIMPLE_STRATEGY -DNO_HINTS -DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
 	-t atmos \
 	-DMEMORY_MAPPED \
 	-DFORCE_NARROW \
+	-DUSE_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
-	$(CROSS_LIB_PATH)/memory/oric1_light.s \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/memory/oric1.s \
 	-o $(BUILD_PATH)/FULL_oric1_16k_less_text.tap	
 	
 # TODO: Adapt code to work with -compiler=sdcc

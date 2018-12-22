@@ -81,7 +81,7 @@ VECTREX_OPTS    ?= -O0 --vectrex -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno
 
 MO5_OPTS        ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-TO7_OPTS		?= -O1 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+TO7_OPTS        ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 _ACK ?= ack
 _ACK_OPTS ?= -O6
@@ -160,6 +160,8 @@ atmos:
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_atmos_and_oric1_48k.tap
 
+# 	-DUSE_LIGHT_MEMORY_BUFFERS 
+# 	$(CROSS_LIB_PATH)/memory/oric1.s 
 
 oric1_16k: 
 	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DANIMATE_PLAYER \
@@ -469,6 +471,7 @@ c16_16k:
 	$(CC65_PATH)$(MYCC65) -Or -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
 	-DANIMATE_PLAYER  -DSOUNDS \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS \
 	-DCONIO \
 	-DUSE_MEMORY_BUFFERS \
@@ -5822,15 +5825,17 @@ c128_z80_zsdcc_test:
 	
 oric1_16k_full: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DANIMATE_PLAYER -DFULL_GAME \
 	-DLESS_TEXT -DNO_SLEEP -DNO_BORDER -DSIMPLE_STRATEGY -DNO_BLINKING -DNO_HINTS -DNO_STATS -DFORCE_GHOSTS_NUMBER=6 \
-	-DFLAT_ENEMIES -DNO_DEAD_GHOSTS \
+	-DFLAT_ENEMIES \
 	-DNO_RANDOM_LEVEL \
 	-t atmos \
 	-DMEMORY_MAPPED \
 	-DFORCE_NARROW \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
+	$(CROSS_LIB_PATH)/memory/oric1_light.s \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_oric1_16k_less_text.tap	
 	
@@ -6896,10 +6901,6 @@ error_cmoc:
 # CMOC
 # hello_vec:
 	# cmoc -o $(BUILD_PATH)/hello_vec.bin $(SOURCE_PATH)/../experiments/hello_vec.c
-	
-pet_8k_LIGHT:
-	$(CC65_PATH)$(MYCC65) -O -t pet -DLESS_TEXT -DNO_SLEEP $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_pet_8k.prg
-
 
 c16_16k_no_udg:
 	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl -DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DSOUNDS --config $(SOURCE_PATH)/../cfg/cc65/c16-16k_plus.cfg $(SOURCE_PATH)/c264/c264_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k_no_udg.prg

@@ -26,7 +26,7 @@
 #endif
 
 
-#if !defined(TINY_GAME) 
+#if defined(FULL_GAME) 
 	#if defined(USE_MEMORY_BUFFERS)
 		extern unsigned short ghostLevel;
 	#else

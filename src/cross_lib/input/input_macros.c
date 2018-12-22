@@ -82,8 +82,17 @@
 			break;
 		}
 		return '\0';
+	#elif defined(__TO7__)
+		unsigned char res;
+		
+		asm
+		{
+			jsr 0xE806
+			stb res
+		}
+		return res; 
 	
-	#elif defined(__MO5__) || defined(__TO7__)
+	#elif defined(__MO5__) 
 		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))	
 		#define PEEK(addr)         (*(unsigned char*) (addr))	
 
@@ -150,7 +159,7 @@
 		
 		return ch;
 	
-	#elif defined(__COCO__)
+	#elif defined(__COCO__) || defined(__DRAGON__)
 		#include <cmoc.h>
 		#include <coco.h>
 		

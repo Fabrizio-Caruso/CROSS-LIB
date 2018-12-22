@@ -231,12 +231,13 @@ int main(void)
 			#endif
 			
 			#if !defined(TINY_GAME)
-				ghostLevel = 0;
+		
 				playerFire = 0;
 			#endif
 		
 			#if defined(FULL_GAME)
-			
+				ghostLevel = 0;
+				
 				dead_rockets = 0;
 				
 				invincibilityActive = 1;				
@@ -418,11 +419,10 @@ int main(void)
 									#endif
 								}
 							#endif							
-							
+							++ghostLevel;
 						#else
 							chaseCharacter(ghostSlowDown);
 						#endif
-						++ghostLevel;			
 						
 					}
 					
@@ -439,9 +439,6 @@ int main(void)
 				#else
 					#if !defined(NO_CHASE)
 						chaseCharacter(ghostSlowDown);
-						#if !defined(TINY_GAME)
-							++ghostLevel;
-						#endif
 					#endif
 				#endif
 				

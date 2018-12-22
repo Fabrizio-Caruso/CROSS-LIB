@@ -17,7 +17,9 @@ void init_colors(void)
 {
 	unsigned char i;
 	
+	
 	// Initialize colors 	
+	#if !defined(FORCE_NARROW)
 	for(i=0;i<2;++i)
 	{
 		// red on black (inverted: cyan on white)		
@@ -26,6 +28,9 @@ void init_colors(void)
 	}
 
 	for(i=2;i<28;++i)
+	#else
+	for(i=0;i<28;++i)
+	#endif
 	{
 		// yellow on black (inverted: blue on white)
 		POKE(0xBB80+i*40,16);

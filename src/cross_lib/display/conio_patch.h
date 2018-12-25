@@ -115,7 +115,7 @@
 	
 	#define gotoxy(a,b) tgi_gotoxy(a*8,b*8)
 	#define clrscr() tgi_clear()
-	#define cprintf 
+	#define cprintf(str) tgi_outtext(str)
 	#define cputc(c) 
 	#define textcolor tgi_setcolor
 

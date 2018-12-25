@@ -816,12 +816,13 @@ creativision_16k:
 atari_lynx:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
-	-DNO_PRINT \
 	-DNO_SLEEP \
 	-DTGI \
 	-DALT_CLEAR_SCREEN \
 	-DFULL_GAME \
+	-DALT_PRINT \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/tgi_alt_print.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_ATARI_LYNX.lnx
 	

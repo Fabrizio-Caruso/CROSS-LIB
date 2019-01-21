@@ -63,4 +63,6 @@
 	#include "graphics_mode/bit_mapped_graphics.h"
 #elif defined(REX)
 	#include "graphics_mode/rex_graphics.h"
+#elif defined(NO_GRAPHICS)
+	#include "graphics_mode/no_graphics.h"
 #endif

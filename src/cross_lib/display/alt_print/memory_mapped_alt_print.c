@@ -82,6 +82,9 @@
 	#define _DISPLAY(x,y,ch) \
 		video_buffer[(y)][(x)] = (ch)
 		
+#elif defined(NO_GRAPHICS)
+	#define _DISPLAY(x,y,ch)
+		
 #elif (defined(__C16__) && defined(C16_UNEXPANDED)) 
 	#define _DISPLAY(x,y,ch) \
 		do \

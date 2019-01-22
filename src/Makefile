@@ -34,7 +34,7 @@ SCCZ80_OPTS ?=
 
 
 Z8K-PCOS-GCC ?= /opt/z8kgcc-jan-19-2009/bin/z8k-pcos-gcc
-Z8K-PCOS-GCC ?= 
+Z8K-PCOS-GCC_OPTS ?= -Wno-cpg
 #-O3
 ZSDCC_OPTS ?= 
 #-SO3 --max-allocs-per-node200000
@@ -4579,6 +4579,23 @@ olivetti_m20_buffered:
 	-DSTDLIB \
 	-DNO_COLOR \
 	-DFULL_GAME \
+	-DNO_GRAPHICS \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv aout.cmd $(BUILD_PATH)/FULL_olivetti_m20_buffered.cmd
+	
+	
+olivetti_m20_no_graphics:
+	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DFULL_GAME \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-DNO_INIT_GRAPHICS \
@@ -4586,7 +4603,7 @@ olivetti_m20_buffered:
 	-DALT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)	
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)		
 	
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 

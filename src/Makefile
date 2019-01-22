@@ -72,6 +72,8 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 _CC ?= gcc
 _CC_OPTS ?= -Wpedantic -Wall
 
+LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
+LC1802_OPTS ?=
 
 COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME
 
@@ -4570,6 +4572,26 @@ gcc_no_graphics:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)	
+	
+	
+lcc1802_no_graphics:
+	$(LCC1802) $(LC1802_OPTS) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)	
+
+	
 	
 olivetti_m20_buffered:
 	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) \

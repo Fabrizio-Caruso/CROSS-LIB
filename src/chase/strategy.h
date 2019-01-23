@@ -29,14 +29,6 @@
 #define X_MOVE 0
 #define Y_MOVE 1
 
-#if defined(__CMOC__) && !defined(__WINCMOC__)
-	#include <cmoc.h>
-#else
-	#include <stdlib.h>
-	#include <string.h>
-	#include <stdio.h>
-#endif
-
 #include "character.h"
 
 // Required by horizontal missile

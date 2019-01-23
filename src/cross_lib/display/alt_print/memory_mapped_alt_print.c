@@ -2,21 +2,13 @@
 #include "../graphics_mode/memory_mapped_graphics.h"
 #include "memory_mapped_alt_print.h"
 
-
+#include "../../include/standard_libs.h"
 
 #if defined(BUFFERED)	
 
 	#include "../display_target_geometry.h"
 	
 	extern unsigned char video_buffer[YSize+Y_OFFSET][XSize];
-#endif
-
-#if defined(__CMOC__) && !defined(__WINCMOC__)
-	#include <cmoc.h>
-#else
-	#include <stdlib.h>
-	#include <string.h>
-	#include <stdio.h>
 #endif
 
 
@@ -173,6 +165,9 @@ void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
 		print_u(x,y,val);		
 	}
 }
+
+
+
 
 
 

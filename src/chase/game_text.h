@@ -31,15 +31,6 @@
 
 
 
-#if defined(__CMOC__) && !defined(__WINCMOC__)
-	#include <cmoc.h>
-#else
-	#include <stdio.h>
-	#include <stdlib.h>
-	#include <string.h>	
-#endif
-
-
 // game_stat
 void displayStats(void);
 

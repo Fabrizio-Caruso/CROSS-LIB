@@ -21,6 +21,7 @@ The main goal is to get the library and game to work on most 8-bit architectures
 - Zilog 80 and its derivatives
 
 ### 16-BIT ARCHITECTURES
+- Zilog Z8000
 - Intel 8088/8086 
 - PDP11
 
@@ -48,6 +49,7 @@ The program is written in ANSI C and currently compiled with
 - ZSDCC (from Z88DK) for some Z80 targets (https://www.z88dk.org/),
 - CMOC for 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
 - ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC/MIPS, PDP11 (https://github.com/davidgiven/ack).
+- Z8KGCC for the Zilog Z8000-based Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
 - GCC for modern 32/64-bit PC under any operating systems 
 
 Previous versions used 
@@ -56,7 +58,6 @@ WinCMOC has been abandoned because it uses an old CMOC version that has broken p
 
 For other targets, the following compilers and dev-kits may be included in future versions of the tool-chain:
 - PVSNESLIB for the Super Nintendo Entertainment System (https://github.com/alekmaul/pvsneslib),
-- Z8KGCC for the Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
 - amiga-os-toolchain for all Amigas (https://github.com/cahirwpz/amigaos-cross-toolchain),
 - GCC6809 for other 6809 targets (https://sourceforge.net/projects/freewpc/files/GCC-6809/),
 - SDCC for Z80 and other targets (http://sdcc.sourceforge.net/),
@@ -191,6 +192,7 @@ For most targets, more than one version is built, in order to support different 
 
 
 ### 16-BIT versions
+- olivetti_m20: Olivetti M20 (work in progress)
 - pc8086: Intel 8088/8086 PC
 - pdp: PDP 11 v7 (work in progress)
 

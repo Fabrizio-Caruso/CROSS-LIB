@@ -1,13 +1,6 @@
 #ifndef _TEXT_MACROS
 #define _TEXT_MACROS
 
-#if defined(__CMOC__) && !defined(__WINCMOC__)
-	#include <cmoc.h>
-#else
-	#include <stdio.h>
-	#include <stdlib.h>
-	#include <string.h>	
-#endif
 
 #include "../cross_lib.h"
 

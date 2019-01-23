@@ -22,7 +22,9 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+#if !defined(NO_GRAPHICS)
 #include "include/standard_libs.h"
+#endif
 
 #if !defined(_TARGET_SETTINGS)
 #define _TARGET_SETTINGS

@@ -22,6 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+#include "include/standard_libs.h"
+
 #if !defined(_TARGET_SETTINGS)
 #define _TARGET_SETTINGS
 

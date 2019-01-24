@@ -4618,13 +4618,17 @@ olivetti_m20_buffered:
 	-DSTDLIB \
 	-DNO_COLOR \
 	-DFULL_GAME \
-	-DNO_GRAPHICS \
+	-DTURN_BASED \
+	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv aout.cmd $(BUILD_PATH)/FULL_olivetti_m20_buffered.cmd
+	cp $(TOOLS_PATH)/olivetti_m20/pcos20h_empty.img FULL_m20_buffered.img
+	$(TOOLS_PATH)/olivetti_m20/m20 FULL_m20_buffered.img put aout.cmd
+	rm aout.cmd
+	mv FULL_m20_buffered.img $(BUILD_PATH)
 	
 	
 olivetti_m20_no_graphics:

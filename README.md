@@ -192,7 +192,7 @@ For most targets, more than one version is built, in order to support different 
 
 
 ### 16-BIT versions
-- olivetti_m20: Olivetti M20 (work in progress)
+- olivetti_m20: Olivetti M20 
 - pc8086: Intel 8088/8086 PC
 - pdp: PDP 11 v7 (work in progress)
 

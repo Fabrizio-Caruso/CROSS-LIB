@@ -4559,21 +4559,23 @@ gcc_buffered:
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)
 
-cc_no_graphics:
+cc_tiny_no_graphics:
 	$(_CC) $(_CC_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
 	-DNO_COLOR \
-	-DFULL_GAME \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
-	$(FULL_FILES)
+	$(TINY_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_cc_no_graphics$(COMPILEDEXT)	
 	
 	

@@ -4756,6 +4756,9 @@ z88dk_test: \
 	zsdcc_test	
 	
 
+# 	
+	
+	
 # missing: abc800, xo7, c7420, rex
 z88dk_targets: \
 	abc80_targets \
@@ -4764,8 +4767,8 @@ z88dk_targets: \
 	aquarius_targets \
 	attache_targets \
 	aussie_targets \
-	camputers_lynx_targets \
 	c128_z80_targets \
+	camputers_lynx_targets \
 	coleco_targets \
 	cpc_targets \
 	cpm_targets \
@@ -6391,7 +6394,7 @@ coleco_adam:
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app 
-	mv a.dsk $(BUILD_PATH)/FULL_coleco_adam.dsk
+	mv a.img $(BUILD_PATH)/FULL_coleco_adam.dsk
 	rm a.bin
 	
 	
@@ -6416,6 +6419,58 @@ coleco_udg:
 	rm $(BUILD_PATH)/FULL_coleco_DATA.bin	
 	rm $(BUILD_PATH)/FULL_coleco_BSS.bin	
 
+smc777:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=smc777 $(SCCZ80_OPTS) \
+	-D__SMC777__ \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-DFORCE_NO_CONIO_LIB \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_smc777.bin
+	rm $(BUILD_PATH)/FULL_smc777.bin
+	# rm $(BUILD_PATH)/FULL_coleco_DATA.bin	
+	# rm $(BUILD_PATH)/FULL_coleco_BSS.bin		
+	
+	
+pasopia7:
+	$(Z88DK_PATH)$(MYZ88DK) +pasopia7 $(SCCZ80_OPTS) \
+	-D__PASOPIA__ \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-DFORCE_NO_CONIO_LIB \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_pasopia7.bin
+	# rm $(BUILD_PATH)/FULL_coleco.bin
+	# rm $(BUILD_PATH)/FULL_coleco_DATA.bin	
+	# rm $(BUILD_PATH)/FULL_coleco_BSS.bin			
+	
+	
+z80tvgame: 
+	$(Z88DK_PATH)$(MYZ88DK) +z80tvgame $(SCCZ80_OPTS) \
+	-D__PASOPIA__ \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-DFORCE_NO_CONIO_LIB \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_z80tvgame.bin
+	rm $(BUILD_PATH)/FULL_z80tvgame.bin
+	rm $(BUILD_PATH)/FULL_z80tvgame_DATA.bin	
+	rm $(BUILD_PATH)/FULL_z80tvgame_BSS.bin	
 
 	
 multi8_tiny_udg:

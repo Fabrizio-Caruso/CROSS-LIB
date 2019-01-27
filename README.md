@@ -57,11 +57,12 @@ Previous versions used
 WinCMOC has been abandoned because it uses an old CMOC version that has broken pointer to functions and because it is no longer maintained by its author. 
 
 For other targets, the following compilers and dev-kits may be included in future versions of the tool-chain:
+- QDOS-GCC for the Sinclair QL (https://github.com/stronnag/xtc68)
+- "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
+- SDCC for Z80 and other targets (http://sdcc.sourceforge.net/),
 - PVSNESLIB for the Super Nintendo Entertainment System (https://github.com/alekmaul/pvsneslib),
 - amiga-os-toolchain for all Amigas (https://github.com/cahirwpz/amigaos-cross-toolchain),
 - GCC6809 for other 6809 targets (https://sourceforge.net/projects/freewpc/files/GCC-6809/),
-- SDCC for Z80 and other targets (http://sdcc.sourceforge.net/),
-- "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
 - TIGCC for 68k-based TI calculators (http://tigcc.ticalc.org/).
 
 The tool-chain also uses some third-party target-specific tools to create usable cassette/disk/rom images.

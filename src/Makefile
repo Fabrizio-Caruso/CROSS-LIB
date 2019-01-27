@@ -70,7 +70,10 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 # For cygwin posix build: use gcc
 # For windows 32 non-posix build: x86_64-w64-mingw32-gcc
 _CC ?= gcc
-_CC_OPTS ?= -Wpedantic -Wall
+_CC_OPTS ?= 
+
+GCC ?= gcc
+GCC_OPTS ?= -Wpedantic -Wall
 
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
 LC1802_OPTS ?=
@@ -4487,7 +4490,7 @@ dos:
 
 
 ncurses_turn_based:
-	$(_CC) $(_CC_OPTS) -D__NCURSES__ \
+	$(GCC) $(GCC_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DTURN_BASED \
@@ -4501,7 +4504,7 @@ ncurses_turn_based:
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses_turn_based$(COMPILEDEXT)
 	
 ncurses:
-	$(_CC) $(_CC_OPTS) -D__NCURSES__ \
+	$(GCC) $(GCC_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO  \
@@ -4540,7 +4543,7 @@ cpm_buffered:
 	
 	
 gcc_buffered:
-	$(_CC) $(_CC_OPTS) \
+	$(GCC) $(GCC_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
@@ -4556,22 +4559,24 @@ gcc_buffered:
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)
 
-gcc_no_graphics:
+cc_tiny_no_graphics:
 	$(_CC) $(_CC_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
 	-DNO_COLOR \
-	-DFULL_GAME \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
+	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES)
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_no_graphics$(COMPILEDEXT)	
+	$(TINY_FILES)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_cc_no_graphics$(COMPILEDEXT)	
 	
 	
 lcc1802_no_graphics:
@@ -6547,7 +6552,7 @@ cpc_cpcrslib:
 	
 
 ncurses_turn_based_tiny:
-	$(_CC) -D__NCURSES__ \
+	$(GCC) -D__NCURSES__ \
 	-DTINY_GAME \
 	-DTURN_BASED \
 	-DALT_PRINT \

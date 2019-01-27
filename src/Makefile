@@ -4756,6 +4756,9 @@ z88dk_test: \
 	zsdcc_test	
 	
 
+# 	
+	
+	
 # missing: abc800, xo7, c7420, rex
 z88dk_targets: \
 	abc80_targets \
@@ -4764,8 +4767,8 @@ z88dk_targets: \
 	aquarius_targets \
 	attache_targets \
 	aussie_targets \
-	camputers_lynx_targets \
 	c128_z80_targets \
+	camputers_lynx_targets \
 	coleco_targets \
 	cpc_targets \
 	cpm_targets \
@@ -6391,7 +6394,7 @@ coleco_adam:
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app 
-	mv a.dsk $(BUILD_PATH)/FULL_coleco_adam.dsk
+	mv a.img $(BUILD_PATH)/FULL_coleco_adam.dsk
 	rm a.bin
 	
 	

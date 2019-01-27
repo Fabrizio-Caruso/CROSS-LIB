@@ -149,6 +149,7 @@ For most targets, more than one version is built, in order to support different 
 - oz: Sharp OZ-700
 - p2000: Philips P2000
 - pc6001: NEC PC 6001
+- pasaopia7: Toshiba Pasopia 7 (work in progress)
 - pc88: NEC PC 8801 (work in progress)
 - pce: PCEngine
 - pet: Commodore Pet
@@ -162,6 +163,7 @@ For most targets, more than one version is built, in order to support different 
 - samcoupe: Sam Coupe
 - sc3000: Sega SC 3000
 - sg1000: Sega SG 1000
+- smc777: Sony SMC-70 / SMC-777 (work in progress)
 - sms: Sega Master System
 - sos: S-OS 
 - spc1000: Samsung SPC 1000
@@ -181,6 +183,7 @@ For most targets, more than one version is built, in order to support different 
 - to7: Thomson To7(/70)/To8/To8d/To8+/To9/To9+ (work in progress)
 - trs80: TRS-80 Model I/III/IV
 - ts2068: Timex TS 2068
+- tvz80game: TV Z80 Game (work in progress)
 - vg5k: VG-5000
 - vic20: Commodore Vic 20
 - vz200: VTech VZ200

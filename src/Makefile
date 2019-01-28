@@ -6450,9 +6450,8 @@ pasopia7:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_pasopia7.bin
-	# rm $(BUILD_PATH)/FULL_coleco.bin
-	# rm $(BUILD_PATH)/FULL_coleco_DATA.bin	
-	# rm $(BUILD_PATH)/FULL_coleco_BSS.bin			
+	rm $(BUILD_PATH)/FULL_pasopia7.bin
+	rm $(BUILD_PATH)/FULL_pasopia7_BOOTSTRAP.bin	
 	
 	
 z80tvgame: 

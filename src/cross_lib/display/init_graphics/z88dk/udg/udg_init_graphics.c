@@ -1,7 +1,7 @@
 
 #include <graphics.h>
 
-#include "../../../display_macros.h"
+#include "display_macros.h"
 
 #include <sys/ioctl.h>
 

@@ -25,7 +25,7 @@
 #ifndef _DISPLAY_MACROS
 #define _DISPLAY_MACROS
 
-#include "../cross_lib.h"
+#include "cross_lib.h"
 #include "display_target_settings.h"
 
 
@@ -66,7 +66,7 @@ typedef struct ImageStruct Image;
 #if !defined(BUFFERED)
 	#define REFRESH()
 #else
-	#include "graphics_mode/buffered_graphics.h"
+	#include "buffered_graphics.h"
 	
 	#define REFRESH() \
 		do \

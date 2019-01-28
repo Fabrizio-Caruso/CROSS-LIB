@@ -24,7 +24,7 @@
 #ifndef _CMOC_GRAPHICS_SETTINGS
 #define _CMOC_GRAPHICS_SETTINGS
 
-#include "../../cross_lib.h"
+#include "cross_lib.h"
 
 
 #define NOT_INVERTED 64

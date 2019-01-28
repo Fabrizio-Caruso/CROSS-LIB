@@ -1,7 +1,7 @@
 #ifndef _DISPLAY_TARGET_SETTINGS
 #define _DISPLAY_TARGET_SETTINGS
 
-#include "../cross_lib.h"
+#include "cross_lib.h"
 
 #include "display_target_geometry.h"
 

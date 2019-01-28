@@ -31,7 +31,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../display/display_macros.h"
+#include "display_macros.h"
 
 #define _POWERUP (char) (0x7A-0x20)
 #define _GHOST (char) (0x76-0x20)

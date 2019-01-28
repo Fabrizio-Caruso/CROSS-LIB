@@ -33,13 +33,13 @@
 
 #include "setcolor.h"
 
-#include "../../../graphics_settings.h"
+#include "graphics_settings.h"
 
-#include "../../../graphics_data/8x8_chars.h"
+#include "8x8_chars.h"
 
 #define GRAPHICS_MODE (1+16)
 
-#include "../../../redefine_characters/udg_map.h"	
+#include "udg_map.h"	
 
 // TODO: BOGUS
 // #define _FONT_START__ (unsigned char *) 0xF800

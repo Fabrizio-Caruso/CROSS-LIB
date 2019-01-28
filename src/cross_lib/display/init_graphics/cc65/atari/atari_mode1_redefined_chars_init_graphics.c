@@ -31,13 +31,13 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../../../graphics_settings.h"
+#include "graphics_settings.h"
 
-#include "../../../graphics_data/8x8_chars.h"
+#include "8x8_chars.h"
 
 #define GRAPHICS_MODE (1+16)
 
-#include "../../../redefine_characters/udg_map.h"	
+#include "udg_map.h"	
 
 #if defined(REDEFINED_CHARS)
 void set_udg(void)

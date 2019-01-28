@@ -4,11 +4,11 @@
 #define CHAR_BASE 0x0100
 #define COLOR_DEF 0x2000
 
-#include "../../../image_settings/msx_redefined_chars_settings.h"
+#include "msx_redefined_chars_settings.h"
 
-#include "../../../graphics_data/8x8_chars.h"
+#include "8x8_chars.h"
 
-#include "../../../redefine_characters/udg_map.h"
+#include "udg_map.h"
 
 void redefine(unsigned short offset, const char *new_char)
 {

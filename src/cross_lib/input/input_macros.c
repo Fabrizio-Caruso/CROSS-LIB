@@ -22,9 +22,9 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#include "../cross_lib.h"
+#include "cross_lib.h"
 
-#include "../sleep/sleep_macros.h"
+#include "sleep_macros.h"
 
 #include "input_macros.h"
 

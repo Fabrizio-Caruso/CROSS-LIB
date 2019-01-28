@@ -2,7 +2,7 @@
 #define _TEXT_MACROS
 
 
-#include "../cross_lib.h"
+#include "cross_lib.h"
 
 #define printCenteredMessage(Text) \
 	printCenteredMessageOnRow((YSize>>1), Text)

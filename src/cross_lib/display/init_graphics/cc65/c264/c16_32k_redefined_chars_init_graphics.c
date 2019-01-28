@@ -5,11 +5,11 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../../../graphics_settings.h"
+#include "graphics_settings.h"
 
-#include "../../../graphics_data/8x8_chars.h"
+#include "8x8_chars.h"
 
-#include "../../../redefine_characters/udg_map.h"
+#include "udg_map.h"
 
 void INIT_GRAPHICS(void)
 {

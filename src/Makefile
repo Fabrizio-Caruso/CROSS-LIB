@@ -27,7 +27,26 @@ Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
 Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
 Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
 BUILD_PATH ?= ../build
-INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep
+INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
+-I$(CROSS_LIB_PATH)/display \
+-I$(CROSS_LIB_PATH)/display/graphics_data \
+-I$(CROSS_LIB_PATH)/display/graphics_data/cc65 \
+-I$(CROSS_LIB_PATH)/display/graphics_data/z88dk \
+-I$(CROSS_LIB_PATH)/display/graphics_mode \
+-I$(CROSS_LIB_PATH)/display/image_settings \
+-I$(CROSS_LIB_PATH)/display/redefine_characters \
+-I$(CROSS_LIB_PATH)/include \
+-I$(CROSS_LIB_PATH)/sound \
+-I$(CROSS_LIB_PATH)/sound/cc65/atmos \
+-I$(CROSS_LIB_PATH)/sound/cc65/c264 \
+-I$(CROSS_LIB_PATH)/sound/cc65/pokey \
+-I$(CROSS_LIB_PATH)/sound/cc65/sid \
+-I$(CROSS_LIB_PATH)/sound/cc65/vic20 \
+-I$(CROSS_LIB_PATH)/sound/z88dk/bit_bang \
+-I$(CROSS_LIB_PATH)/sound/z88dk/psg \
+-I$(CROSS_LIB_PATH)/text \
+-I$(CROSS_LIB_PATH)/input 
+
 MYCC65 ?= cl65$(EXEEXT) $(INCLUDE_OPTS) 
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)

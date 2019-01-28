@@ -20,7 +20,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#include "../../cross_lib/cross_lib.h"
+#include "cross_lib.h"
 
 
 #if !defined(NO_SET_SCREEN_COLORS)

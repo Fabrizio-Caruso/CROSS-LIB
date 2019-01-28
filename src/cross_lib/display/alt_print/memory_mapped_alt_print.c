@@ -1,12 +1,12 @@
 
-#include "../graphics_mode/memory_mapped_graphics.h"
+#include "memory_mapped_graphics.h"
 #include "memory_mapped_alt_print.h"
 
-#include "../../include/standard_libs.h"
+#include "standard_libs.h"
 
 #if defined(BUFFERED)	
 
-	#include "../display_target_geometry.h"
+	#include "display_target_geometry.h"
 	
 	extern unsigned char video_buffer[YSize+Y_OFFSET][XSize];
 #endif

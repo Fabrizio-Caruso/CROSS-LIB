@@ -1,7 +1,7 @@
 #ifndef _BUFFERED_GRAPHICS
 #define _BUFFERED_GRAPHICS
 
-#include "../display_target_geometry.h"
+#include "display_target_geometry.h"
 
 void display_all(void);
 

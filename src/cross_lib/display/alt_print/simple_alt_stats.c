@@ -1,6 +1,6 @@
-#include "../display_macros.h"
+#include "display_macros.h"
 
-#include "../graphics_mode/memory_mapped_graphics.h"
+#include "memory_mapped_graphics.h"
 
 #if defined(ALT_DISPLAY_STATS) || defined(ALT_HISCORE)
 

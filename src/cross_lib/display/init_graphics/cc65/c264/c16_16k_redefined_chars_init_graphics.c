@@ -5,7 +5,7 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../../../graphics_settings.h"
+#include "graphics_settings.h"
 
 #define UDG_BASE_FACTOR 15
 

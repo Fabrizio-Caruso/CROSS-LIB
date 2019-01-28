@@ -23,7 +23,7 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #if !defined(NO_GRAPHICS)
-#include "include/standard_libs.h"
+#include "standard_libs.h"
 #endif
 
 #if !defined(_TARGET_SETTINGS)
@@ -110,17 +110,17 @@
 	#define TEXT_COLOR COLOR_WHITE
 #endif
 
-#include "input/input_target_settings.h"
-#include "input/input_macros.h"
+#include "input_target_settings.h"
+#include "input_macros.h"
 
-#include "display/display_target_settings.h"
-#include "display/display_macros.h"
+#include "display_target_settings.h"
+#include "display_macros.h"
 
-#include "sound/sound_macros.h"
+#include "sound_macros.h"
 
-#include "sleep/sleep_macros.h"
+#include "sleep_macros.h"
 
-#include "text/text_macros.h"
+#include "text_macros.h"
 
 #endif // _TARGET_SETTINGS
 

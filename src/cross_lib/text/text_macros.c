@@ -1,4 +1,4 @@
-#include "../cross_lib.h"
+#include "cross_lib.h"
 
 #include "text_macros.h"
 

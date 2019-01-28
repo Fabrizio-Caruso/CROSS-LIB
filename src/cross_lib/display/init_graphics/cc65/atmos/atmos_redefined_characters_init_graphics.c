@@ -5,13 +5,13 @@
 #include <string.h>
 #include <unistd.h>
 
-#include "../../../graphics_settings.h"
+#include "graphics_settings.h"
 
-#include "../../../graphics_data/6x8_chars.h"
+#include "6x8_chars.h"
 
 #define UDG_BASE_ADDR 0xb400
 
-#include "../../../redefine_characters/udg_map.h"
+#include "udg_map.h"
 
 void init_colors(void)
 {

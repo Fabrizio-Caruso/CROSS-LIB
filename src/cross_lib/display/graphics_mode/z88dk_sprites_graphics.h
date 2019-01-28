@@ -4,8 +4,8 @@
 #include <graphics.h>
 #include <games.h>
 
-#include "../graphics_data/z88dk/z88dk_sprites_definitions.h"
-#include "../display_target_geometry.h"
+#include "z88dk_sprites_definitions.h"
+#include "display_target_geometry.h"
 
 
 #define __DRAW(x,y,image) \

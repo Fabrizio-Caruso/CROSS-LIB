@@ -22,9 +22,10 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#include "sleep_macros.h"
 
 #if !defined(NO_SLEEP)
+
+	#include "sleep_macros.h"
 
 	#if defined(__OSIC1P__)
 		#define CYCLES 500UL

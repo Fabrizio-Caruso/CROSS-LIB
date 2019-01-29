@@ -26,14 +26,16 @@
 #define _SLEEP_MACROS
 	#define ALT_SLEEP_SCALE 4000UL
 	
-	#  if !defined(__CMOC__)
-		#include <time.h>
-		#include <unistd.h>
-		#include <stdlib.h>		
-	#else
-		#include <coco.h>
-		#include <cmoc.h>
-	#endif		
+	#if !defined(NO_SLEEP)
+		#  if !defined(__CMOC__)
+			#include <time.h>
+			#include <unistd.h>
+			#include <stdlib.h>		
+		#else
+			#include <coco.h>
+			#include <cmoc.h>
+		#endif	
+	#endif
 
 	#  if defined(NO_SLEEP)
 		#define SLEEP(s)

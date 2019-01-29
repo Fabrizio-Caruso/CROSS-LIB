@@ -21,6 +21,7 @@ The main goal is to get the library and game to work on most 8-bit architectures
 - Zilog 80 and its derivatives
 
 ### 16-BIT ARCHITECTURES
+- Motorola 68008
 - Zilog Z8000
 - Intel 8088/8086 
 - PDP11
@@ -49,6 +50,7 @@ The program is written in ANSI C and currently compiled with
 - ZSDCC (from Z88DK) for some Z80 targets (https://www.z88dk.org/),
 - CMOC for 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
 - ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC/MIPS, PDP11 (https://github.com/davidgiven/ack).
+- XTC68 (C68) for the Motorola 68008-based Sinclair QL (https://github.com/stronnag/xtc68)
 - Z8KGCC for the Zilog Z8000-based Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
 - GCC for modern 32/64-bit PC under any operating systems 
 
@@ -58,7 +60,6 @@ WinCMOC has been abandoned because it uses an old CMOC version that has broken p
 
 For other targets, the following compilers and dev-kits may be included in future versions of the tool-chain:
 - QDOS-GCC for the Sinclair QL (http://morloch.hd.free.fr/qdos/qdosgcc.html)
-- C68 for the Sinclair QL (https://github.com/stronnag/xtc68)
 - "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
 - SDCC for Z80 and other targets (http://sdcc.sourceforge.net/),
 - PVSNESLIB for the Super Nintendo Entertainment System (https://github.com/alekmaul/pvsneslib),
@@ -81,7 +82,7 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 ## SUPPORTED TARGETS 
 
-(as of 2018/12/15)
+(as of 2019/01/29)
  
 ### 8-BIT versions
 
@@ -197,6 +198,7 @@ For most targets, more than one version is built, in order to support different 
 
 
 ### 16-BIT versions
+- sinclair_ql: Sinclair QL (work in progress)
 - olivetti_m20: Olivetti M20 
 - pc8086: Intel 8088/8086 PC
 - pdp: PDP 11 v7 (work in progress)

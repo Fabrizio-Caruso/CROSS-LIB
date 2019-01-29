@@ -47,6 +47,11 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/text \
 -I$(CROSS_LIB_PATH)/input 
 
+
+XTC68 ?= qcc
+XTC68_OPTS = $(INCLUDE_OPTS) -I$(SOURCE_PATH) \
+
+
 MYCC65 ?= cl65$(EXEEXT) $(INCLUDE_OPTS) 
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
@@ -4618,12 +4623,17 @@ gcc_buffered:
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)
 
-cc_tiny_no_graphics:
-	$(_CC) $(_CC_OPTS) \
+
+
+xtc68_tiny_no_graphics:
+	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/..
+	$(XTC68) $(XTC68_OPTS) \
+	-I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
+	-DNO_SLEEP \
 	-DNO_COLOR \
 	-DNO_PRINT \
 	-DTINY_GAME \
@@ -4635,7 +4645,30 @@ cc_tiny_no_graphics:
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
 	$(TINY_FILES)
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_cc_no_graphics$(COMPILEDEXT)	
+	rm crt.o
+	mv a_out $(BUILD_PATH)/TINY_xtc_no_graphics$(COMPILEDEXT)	
+		
+	
+	
+cc_tiny_no_graphics:
+	$(_CC) $(_CC_OPTS) \
+	-I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(TINY_FILES)
 	
 	
 lcc1802_no_graphics:

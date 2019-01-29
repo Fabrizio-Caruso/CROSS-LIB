@@ -4656,7 +4656,6 @@ cc_tiny_no_graphics:
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
-	-DSTDLIB \
 	-DNO_SLEEP \
 	-DNO_COLOR \
 	-DNO_PRINT \

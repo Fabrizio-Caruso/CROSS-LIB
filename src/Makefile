@@ -27,6 +27,20 @@ Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
 Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
 Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
 BUILD_PATH ?= ../build
+MACROS_NO_GRAPHICS ?= \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_CHASE \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN
 INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/display \
 -I$(CROSS_LIB_PATH)/display/graphics_data \
@@ -101,7 +115,7 @@ GCC ?= gcc
 GCC_OPTS ?= -Wpedantic -Wall $(INCLUDE_OPTS)
 
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
-LC1802_OPTS ?= $(INCLUDE_OPTS)
+LC1802_OPTS ?= $(INCLUDE_OPTS) -I$(SOURCE_PATH)
 
 COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME $(INCLUDE_OPTS)
 
@@ -4670,6 +4684,10 @@ cc_tiny_no_graphics:
 	$(TINY_FILES)
 	
 	
+sdcc_display_macros: 
+	sdcc -c $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MACROS_NO_GRAPHICS) $(CROSS_LIB_PATH)/display/display_macros.c
+	
+	
 lcc1802_no_graphics:
 	$(LCC1802) $(LC1802_OPTS) \
 	-D__GCC_BUFFERED__ \
@@ -4689,22 +4707,34 @@ lcc1802_no_graphics:
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_lcc1802_no_graphics$(COMPILEDEXT)	
 
+
 lcc1802_debug:
-	$(LCC1802) $(LC1802_OPTS) \
-	-Icross_lib \
+	cat \
+	$(CROSS_LIB_PATH)/display/display_macros.c \
+	$(CROSS_LIB_PATH)/display/init_images.c \
+	$(CROSS_LIB_PATH)/input/input_macros.c \
+	$(CROSS_LIB_PATH)/text/text_macros.c \
+	$(SOURCE_PATH)/move_player.c \
+	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/main.c \
+	> combo.c
+	
+	$(LCC1802) -S  $(LC1802_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
+	-DNO_SLEEP \
 	-DNO_COLOR \
+	-DNO_CHASE \
 	-DTINY_GAME \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-DNO_INIT_GRAPHICS \
-	-DNO_PRINT \
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
-	$(TINY_FILES)
+	combo.c
+	rm combo.c
 
 	
 	

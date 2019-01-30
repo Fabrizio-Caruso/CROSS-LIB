@@ -4678,6 +4678,7 @@ lcc1802_no_graphics:
 	-DSTDLIB \
 	-DNO_SLEEP \
 	-DNO_COLOR \
+	-DNO_CHASE \
 	-DFULL_GAME \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \

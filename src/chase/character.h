@@ -23,7 +23,7 @@
 #ifndef _CHARACTER
 #define _CHARACTER
 
-#include "../cross_lib/display/display_macros.h"
+#include "display_macros.h"
 
 struct CharacterStruct
 {
@@ -39,12 +39,6 @@ struct CharacterStruct
 
 typedef struct CharacterStruct Character;
 
-
-#if defined(__CMOC__) && !defined(__WINCMOC__)
-	#include <cmoc.h>
-#else
-	#include <stdlib.h>
-#endif
 
 #include "settings.h"
 

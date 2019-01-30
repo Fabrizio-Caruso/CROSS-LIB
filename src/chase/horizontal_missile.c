@@ -3,7 +3,7 @@
 #include "level.h"
 #include "strategy.h"
 
-#include "../cross_lib/display/display_macros.h"
+#include "display_macros.h"
 
 extern unsigned short loop;
 extern unsigned char level;

@@ -26,8 +26,8 @@
 #define _GAME_TEXT
 
 #include "settings.h"
-#include "../cross_lib/cross_lib.h"
-#include "../cross_lib/text/text_macros.h"
+#include "cross_lib.h"
+#include "text_macros.h"
 
 
 

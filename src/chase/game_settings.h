@@ -25,7 +25,7 @@
 #if !defined(_GAME_SETTINGS)
 #define _GAME_SETTINGS
 
-#include "../cross_lib/cross_lib.h"
+#include "cross_lib.h"
 
 #include "speed_game_settings.h"
 

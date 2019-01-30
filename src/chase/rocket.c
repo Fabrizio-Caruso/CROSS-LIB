@@ -1,6 +1,6 @@
 #if defined(FULL_GAME)
 
-#include "../cross_lib/display/display_macros.h"
+#include "display_macros.h"
 
 #include "settings.h"
 #include "character.h"

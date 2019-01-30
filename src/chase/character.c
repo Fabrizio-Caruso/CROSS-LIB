@@ -25,7 +25,7 @@
 #include "character.h"
 #include "settings.h"
 
-#include "../cross_lib/cross_lib.h"
+#include "cross_lib.h"
 
 #include "game_text.h"
 

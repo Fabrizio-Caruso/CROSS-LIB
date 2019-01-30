@@ -29,7 +29,7 @@
 #include "ghost.h"
 
 
-#include "../cross_lib/cross_lib.h"
+#include "cross_lib.h"
 
 #include "level.h"
 

@@ -27,6 +27,20 @@ Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
 Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
 Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
 BUILD_PATH ?= ../build
+MACROS_NO_GRAPHICS ?= \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_CHASE \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN
 INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/display \
 -I$(CROSS_LIB_PATH)/display/graphics_data \
@@ -4668,6 +4682,10 @@ cc_tiny_no_graphics:
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
 	$(TINY_FILES)
+	
+	
+sdcc_display_macros: 
+	sdcc -c $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MACROS_NO_GRAPHICS) $(CROSS_LIB_PATH)/display/display_macros.c
 	
 	
 lcc1802_no_graphics:

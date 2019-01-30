@@ -115,7 +115,7 @@ GCC ?= gcc
 GCC_OPTS ?= -Wpedantic -Wall $(INCLUDE_OPTS)
 
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
-LC1802_OPTS ?= $(INCLUDE_OPTS)
+LC1802_OPTS ?= $(INCLUDE_OPTS) -I$(SOURCE_PATH)
 
 COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME $(INCLUDE_OPTS)
 
@@ -4707,22 +4707,45 @@ lcc1802_no_graphics:
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_lcc1802_no_graphics$(COMPILEDEXT)	
 
+# BASIC_CROSS_LIB_FILES ?= \
+	# $(CROSS_LIB_PATH)/display/display_macros.c \
+	# $(CROSS_LIB_PATH)/display/init_images.c \
+	# $(CROSS_LIB_PATH)/input/input_macros.c \
+	# $(CROSS_LIB_PATH)/text/text_macros.c
+
+# NO_CHASE_FILES ?= \
+	# $(BASIC_CROSS_LIB_FILES) \
+	# $(SOURCE_PATH)/move_player.c \
+	# $(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	# $(SOURCE_PATH)/main.c	
+	
 lcc1802_debug:
-	$(LCC1802) $(LC1802_OPTS) \
-	-Icross_lib \
+	cat \
+	$(CROSS_LIB_PATH)/display/display_macros.c \
+	$(CROSS_LIB_PATH)/display/init_images.c \
+	$(CROSS_LIB_PATH)/input/input_macros.c \
+	$(CROSS_LIB_PATH)/text/text_macros.c \
+	$(BASIC_CROSS_LIB_FILES) \
+	$(SOURCE_PATH)/move_player.c \
+	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/main.c \
+	> combo.c
+	
+	$(LCC1802) -S $(LC1802_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
+	-DNO_SLEEP \
 	-DNO_COLOR \
-	-DTINY_GAME \
+	-DNO_CHASE \
+	-DFULL_GAME \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-DNO_INIT_GRAPHICS \
-	-DNO_PRINT \
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
-	$(TINY_FILES)
+	combo.c
 
 	
 	

@@ -22,11 +22,16 @@ endif
 SOURCE_PATH := chase
 CROSS_LIB_PATH := cross_lib
 
-WINCMOC ?= /cygdrive/c/cmoc-win32/bin/cmoc.exe 
+WINCMOC_DIR ?= /cygdrive/c/cmoc-win32/bin/
+LWAR ?= $(WINCMOC_DIR)lwar.exe
+WINCMOC ?= $(WINCMOC_DIR)cmoc.exe 
+WINCMOC2 ?= $(WINCMOC_DIR)cmoc2.exe 
+WINCMOC_OPTS ?= -c -o combo.o -t coco --org 10240 
+
 WINCMOC_MACROS ?= \
 	--emit-uncalled -c -O1 -D__CMOC__=0.1.32 -D__6809__= -D__COCO__= -Dnullptr=0 "-Dbool=unsigned char" \
 	-Dfalse=0 -Dtrue=1 "-Dbyte=unsigned char" -Dsbyte=char -Dword=unsigned -Dsword=int -Dconst= \
-	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES=
+	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES= 
 	
 
 CC65_PATH ?= /cygdrive/c/cc65-snapshot-win32/bin/
@@ -4728,11 +4733,26 @@ combo.cat:
 
 wincmoc_debug: combo.cat 
 	mv combo.cat combo.c
-	$(WINCMOC)  $(LC1802_OPTS) $(WINCMOC_MACROS) \
+	$(WINCMOC_DIR)cmoc.exe  $(LC1802_OPTS) $(WINCMOC_MACROS) \
 	$(DEBUG_MACROS) \
 	combo.c
+	$(WINCMOC_DIR)lwasm.exe -f obj -o combo.o combo.asm
 
-
+# lwasm -f obj -o "C:/cmoc-win32/examples/helloworld_.o" "C:/cmoc-win32/examples/helloworld_.asm"
+#Coco the clown says you look funnier than my left nostrel
+# // Compilation complete
+#C:/cmoc-win32/bin/cmoc2.exe -o,C:\cmoc-win32\examples\helloworld_.coco.bin,-t,coco,--org,10240,C:\cmoc-win32\examples\helloworld_.o
+# > lwar --create "C:/Users/Brizio/AppData/Local/Temp/libmain [275C,0].a" "C:/cmoc-win32/examples/helloworld_.o"
+# > lwlink -o "C:/cmoc-win32/examples/helloworld_.coco.bin" -L "C:/cmoc-win32/lib/" -L "C:/Users/Brizio/AppData/Local/Temp/" -l "main [275C,0]" -l all -f decb -s "C:/cmoc-win32/lib/linkscript.txt" -m "C:/Users/Brizio/AppData/Local/Temp/lwlinkmap [275C,1].txt" "C:/cmoc-win32/lib/program_start.o" "C:/cmoc-win32/lib/program_end.o"
+# > lwasm -f obj -o "C:/Users/Brizio/AppData/Local/Temp/INITGL [275C,2].o" "C:/Users/Brizio/AppData/Local/Temp/INITGL [275C,2].asm"
+# > lwar --add "C:/Users/Brizio/AppData/Local/Temp/libmain [275C,0].a" "C:/Users/Brizio/AppData/Local/Temp/INITGL [275C,2].o"
+# > lwlink -o "C:/cmoc-win32/examples/helloworld_.coco.bin" -L "C:/cmoc-win32/lib/" -L "C:/Users/Brizio/AppData/Local/Temp/" -l "main [275C,0]" -l all -f decb -s "C:/cmoc-win32/lib/linkscript.txt" -m "C:/Users/Brizio/AppData/Local/Temp/lwlinkmap [275C,1].txt" "C:/cmoc-win32/lib/program_start.o" "C:/cmoc-win32/lib/program_end.o"
+# output="C:/cmoc-win32/examples/helloworld_.coco.bin" target="coco" origin=$2800(10240) finish=$37C7(14279) length=$0FC7(4039)
+#Coco the clown says all the other clowns at clown school kept kicking my bottom
+# // Build complete
+# // Running Vcc emulator
+#C:/cmoc-win32/vcc/Vcc.exe C:\Users\Brizio\AppData\Local\Temp\cmocide.bin             
+	
 lcc1802_debug: combo.cat
 	mv combo.cat combo.c
 	$(LCC1802)  $(LC1802_OPTS) \

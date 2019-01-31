@@ -26,10 +26,11 @@ WINCMOC_DIR ?= /cygdrive/c/cmoc-win32/bin/
 LWAR ?= $(WINCMOC_DIR)lwar.exe
 WINCMOC ?= $(WINCMOC_DIR)cmoc.exe 
 WINCMOC2 ?= $(WINCMOC_DIR)cmoc2.exe 
-WINCMOC_OPTS ?= -c -o combo.o -t coco --org 10240 
+WINCMOC2_OPTS ?= -c -o combo.o -t coco --org 10240 
 
-WINCMOC_MACROS ?= \
-	--emit-uncalled -c -O1 -D__CMOC__=0.1.32 -D__6809__= -D__COCO__= -Dnullptr=0 "-Dbool=unsigned char" \
+WINCMOC_OPTS ?= \
+	--emit-uncalled \
+	-c -O1 -D__CMOC__=0.1.32 -D__6809__= -D__COCO__= -Dnullptr=0 "-Dbool=unsigned char" \
 	-Dfalse=0 -Dtrue=1 "-Dbyte=unsigned char" -Dsbyte=char -Dword=unsigned -Dsword=int -Dconst= \
 	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES= 
 	
@@ -138,6 +139,8 @@ LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES)
 
 FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
+INCLUDE_ALL ?= $(INCLUDE_OPTS) -I$(SOURCE_PATH)
+
 # For cygwin posix build: use gcc
 # For windows 32 non-posix build: x86_64-w64-mingw32-gcc
 _CC ?= gcc
@@ -147,7 +150,7 @@ GCC ?= gcc
 GCC_OPTS ?= -Wpedantic -Wall $(INCLUDE_OPTS)
 
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
-LC1802_OPTS ?= $(INCLUDE_OPTS) -I$(SOURCE_PATH)
+LC1802_OPTS ?= $(INCLUDE_ALL)
 
 COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME $(INCLUDE_OPTS)
 
@@ -4722,18 +4725,19 @@ sdcc_display_macros:
 	
 combo.cat:
 	cat \
-	$(CROSS_LIB_PATH)/display/display_macros.c \
+	$(SOURCE_PATH)/level.c \
 	$(CROSS_LIB_PATH)/display/init_images.c \
+	$(CROSS_LIB_PATH)/display/display_macros.c \
 	$(CROSS_LIB_PATH)/input/input_macros.c \
 	$(CROSS_LIB_PATH)/text/text_macros.c \
 	$(SOURCE_PATH)/move_player.c \
-	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/ghost.c   $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
 	$(SOURCE_PATH)/main.c \
 	> combo.cat
 
 wincmoc_debug: combo.cat 
 	mv combo.cat combo.c
-	$(WINCMOC_DIR)cmoc.exe  $(LC1802_OPTS) $(WINCMOC_MACROS) \
+	$(WINCMOC_DIR)cmoc.exe  $(INCLUDE_ALL) $(WINCMOC_OPTS) \
 	$(DEBUG_MACROS) \
 	combo.c
 	$(WINCMOC_DIR)lwasm.exe -f obj -o combo.o combo.asm

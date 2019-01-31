@@ -21,6 +21,7 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include "cross_lib.h"
+#include "images.h"
 
 
 #if !defined(NO_SET_SCREEN_COLORS)
@@ -32,7 +33,6 @@
 	}
 #endif
 
-#include "images.h"
 
 #if defined(NO_MESSAGE)	
 	extern short highScore;
@@ -201,6 +201,7 @@
 
 
 #if defined(FULL_GAME)
+
 	void DRAW_BROKEN_BRICK(unsigned char x, unsigned char y)
 	{
 		_draw(x,y,&BROKEN_BRICK_IMAGE);		
@@ -254,6 +255,7 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 
 
 #if !defined(TINY_GAME)
+
 void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
 {
 	unsigned char i;

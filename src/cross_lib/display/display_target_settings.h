@@ -20,7 +20,9 @@
 	|| defined(__VECTREX__) \
 	|| defined(__NC100__) || defined(__NC200__) \
 	|| defined(__MO5__) || defined(__TO7__)
-	#define NO_COLOR 
+	#if !defined(NO_COLOR)
+		#define NO_COLOR 
+	#endif
 #else
 	#define COLOR
 #endif

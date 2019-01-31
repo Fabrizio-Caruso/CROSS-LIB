@@ -22,11 +22,44 @@ endif
 SOURCE_PATH := chase
 CROSS_LIB_PATH := cross_lib
 
+WINCMOC_DIR ?= /cygdrive/c/cmoc-win32/bin/
+LWAR ?= $(WINCMOC_DIR)lwar.exe
+WINCMOC ?= $(WINCMOC_DIR)cmoc.exe 
+WINCMOC2 ?= $(WINCMOC_DIR)cmoc2.exe 
+WINCMOC2_OPTS ?= -c -o combo.o -t coco --org 10240 
+
+WINCMOC_OPTS ?= \
+	--emit-uncalled \
+	-c -O1 -D__WINCMOC__ -D__CMOC__=0.1.32 -D__6809__= -D__COCO__= -Dnullptr=0 "-Dbool=unsigned char" \
+	-Dfalse=0 -Dtrue=1 "-Dbyte=unsigned char" -Dsbyte=char -Dword=unsigned -Dsword=int -Dconst= \
+	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES= 
+	
+
 CC65_PATH ?= /cygdrive/c/cc65-snapshot-win32/bin/
 Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
 Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
 Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
 BUILD_PATH ?= ../build
+
+DEBUG_MACROS ?= \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_RANDOM_LEVEL \
+	-DNO_WAIT \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_INPUT \
+	-DNO_PRINT \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_CHASE \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN 
+
 MACROS_NO_GRAPHICS ?= \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -106,6 +139,8 @@ LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES)
 
 FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
+INCLUDE_ALL ?= $(INCLUDE_OPTS) -I$(SOURCE_PATH)
+
 # For cygwin posix build: use gcc
 # For windows 32 non-posix build: x86_64-w64-mingw32-gcc
 _CC ?= gcc
@@ -115,7 +150,7 @@ GCC ?= gcc
 GCC_OPTS ?= -Wpedantic -Wall $(INCLUDE_OPTS)
 
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
-LC1802_OPTS ?= $(INCLUDE_OPTS) -I$(SOURCE_PATH)
+LC1802_OPTS ?= $(INCLUDE_ALL)
 
 COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME $(INCLUDE_OPTS)
 
@@ -4688,53 +4723,47 @@ sdcc_display_macros:
 	sdcc -c $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MACROS_NO_GRAPHICS) $(CROSS_LIB_PATH)/display/display_macros.c
 	
 	
-lcc1802_no_graphics:
-	$(LCC1802) $(LC1802_OPTS) \
-	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
-	-DSTDLIB \
-	-DNO_SLEEP \
-	-DNO_COLOR \
-	-DNO_CHASE \
-	-DFULL_GAME \
-	-DTURN_BASED \
-	-DNO_GRAPHICS \
-	-DNO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES)
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_lcc1802_no_graphics$(COMPILEDEXT)	
-
-
-lcc1802_debug:
+combo.cat:
 	cat \
-	$(CROSS_LIB_PATH)/display/display_macros.c \
+	$(SOURCE_PATH)/level.c \
 	$(CROSS_LIB_PATH)/display/init_images.c \
+	$(CROSS_LIB_PATH)/display/display_macros.c \
 	$(CROSS_LIB_PATH)/input/input_macros.c \
 	$(CROSS_LIB_PATH)/text/text_macros.c \
 	$(SOURCE_PATH)/move_player.c \
-	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/ghost.c   $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
 	$(SOURCE_PATH)/main.c \
-	> combo.c
+	> combo.cat
+
+wincmoc_debug: combo.cat 
+	mv combo.cat combo.c
+	$(WINCMOC_DIR)cmoc.exe  $(INCLUDE_ALL) $(WINCMOC_OPTS) \
+	$(DEBUG_MACROS) \
+	combo.c
+	$(WINCMOC_DIR)lwasm.exe -f obj -o combo.o combo.asm
+
+# lwasm -f obj -o "C:/cmoc-win32/examples/helloworld_.o" "C:/cmoc-win32/examples/helloworld_.asm"
+#Coco the clown says you look funnier than my left nostrel
+# // Compilation complete
+#C:/cmoc-win32/bin/cmoc2.exe -o,C:\cmoc-win32\examples\helloworld_.coco.bin,-t,coco,--org,10240,C:\cmoc-win32\examples\helloworld_.o
+# > lwar --create "C:/Users/Brizio/AppData/Local/Temp/libmain [275C,0].a" "C:/cmoc-win32/examples/helloworld_.o"
+# > lwlink -o "C:/cmoc-win32/examples/helloworld_.coco.bin" -L "C:/cmoc-win32/lib/" -L "C:/Users/Brizio/AppData/Local/Temp/" -l "main [275C,0]" -l all -f decb -s "C:/cmoc-win32/lib/linkscript.txt" -m "C:/Users/Brizio/AppData/Local/Temp/lwlinkmap [275C,1].txt" "C:/cmoc-win32/lib/program_start.o" "C:/cmoc-win32/lib/program_end.o"
+# > lwasm -f obj -o "C:/Users/Brizio/AppData/Local/Temp/INITGL [275C,2].o" "C:/Users/Brizio/AppData/Local/Temp/INITGL [275C,2].asm"
+# > lwar --add "C:/Users/Brizio/AppData/Local/Temp/libmain [275C,0].a" "C:/Users/Brizio/AppData/Local/Temp/INITGL [275C,2].o"
+# > lwlink -o "C:/cmoc-win32/examples/helloworld_.coco.bin" -L "C:/cmoc-win32/lib/" -L "C:/Users/Brizio/AppData/Local/Temp/" -l "main [275C,0]" -l all -f decb -s "C:/cmoc-win32/lib/linkscript.txt" -m "C:/Users/Brizio/AppData/Local/Temp/lwlinkmap [275C,1].txt" "C:/cmoc-win32/lib/program_start.o" "C:/cmoc-win32/lib/program_end.o"
+# output="C:/cmoc-win32/examples/helloworld_.coco.bin" target="coco" origin=$2800(10240) finish=$37C7(14279) length=$0FC7(4039)
+#Coco the clown says all the other clowns at clown school kept kicking my bottom
+# // Build complete
+# // Running Vcc emulator
+#C:/cmoc-win32/vcc/Vcc.exe C:\Users\Brizio\AppData\Local\Temp\cmocide.bin             
 	
-	$(LCC1802) -S  $(LC1802_OPTS) \
-	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
-	-DSTDLIB \
-	-DNO_SLEEP \
-	-DNO_COLOR \
-	-DNO_CHASE \
-	-DTINY_GAME \
-	-DTURN_BASED \
-	-DNO_GRAPHICS \
-	-DNO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+lcc1802_debug: combo.cat
+	mv combo.cat combo.c
+	$(LCC1802)  $(LC1802_OPTS) \
+	$(DEBUG_MACROS) \
 	combo.c
 	rm combo.c
+	mv a.hex $(BUILD_PATH)/TINY_lcc1802_debug.hex
 
 	
 	

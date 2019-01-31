@@ -4688,27 +4688,7 @@ sdcc_display_macros:
 	sdcc -c $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MACROS_NO_GRAPHICS) $(CROSS_LIB_PATH)/display/display_macros.c
 	
 	
-lcc1802_no_graphics:
-	$(LCC1802) $(LC1802_OPTS) \
-	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
-	-DSTDLIB \
-	-DNO_SLEEP \
-	-DNO_COLOR \
-	-DNO_CHASE \
-	-DFULL_GAME \
-	-DTURN_BASED \
-	-DNO_GRAPHICS \
-	-DNO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES)
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_lcc1802_no_graphics$(COMPILEDEXT)	
-
-
-lcc1802_debug:
+combo.cat:
 	cat \
 	$(CROSS_LIB_PATH)/display/display_macros.c \
 	$(CROSS_LIB_PATH)/display/init_images.c \
@@ -4717,8 +4697,13 @@ lcc1802_debug:
 	$(SOURCE_PATH)/move_player.c \
 	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
 	$(SOURCE_PATH)/main.c \
-	> combo.c
-	
+	> combo.cat
+
+
+
+
+lcc1802_debug: combo.cat
+	mv combo.cat combo.c
 	$(LCC1802)  $(LC1802_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -4739,6 +4724,7 @@ lcc1802_debug:
 	-DALT_CLEAR_SCREEN \
 	combo.c
 	rm combo.c
+	mv a.hex $(BUILD_PATH)/TINY_lcc1802_debug.hex
 
 	
 	

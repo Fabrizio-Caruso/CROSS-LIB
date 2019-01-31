@@ -56,7 +56,7 @@
 
 #if defined(__WINCMOC__)
 	//#define FULL_GAME
-	#define TINY_GAME	
+	//#define TINY_GAME	
 	#define ASM_KEY_DETECT
 	// #define ANIMATE_PLAYER
 	// #define SOUNDS

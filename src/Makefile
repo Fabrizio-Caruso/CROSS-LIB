@@ -30,7 +30,7 @@ WINCMOC2_OPTS ?= -c -o combo.o -t coco --org 10240
 
 WINCMOC_OPTS ?= \
 	--emit-uncalled \
-	-c -O1 -D__CMOC__=0.1.32 -D__6809__= -D__COCO__= -Dnullptr=0 "-Dbool=unsigned char" \
+	-c -O1 -D__WINCMOC__ -D__CMOC__=0.1.32 -D__6809__= -D__COCO__= -Dnullptr=0 "-Dbool=unsigned char" \
 	-Dfalse=0 -Dtrue=1 "-Dbyte=unsigned char" -Dsbyte=char -Dword=unsigned -Dsword=int -Dconst= \
 	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES= 
 	

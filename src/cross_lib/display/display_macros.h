@@ -29,10 +29,12 @@
 #include "display_target_settings.h"
 
 
-#if defined(CONIO_LIB)
-	#include<conio.h>
-#elif defined(__CMOC__) && !defined(__WINCMOC__)
-	#include <coco.h>
+#if !defined(NO_GRAPHICS)
+	#if defined(CONIO_LIB)
+		#include<conio.h>
+	#elif defined(__CMOC__) && !defined(__WINCMOC__)
+		#include <coco.h>
+	#endif
 #endif
 
 #include "conio_patch.h"

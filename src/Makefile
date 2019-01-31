@@ -22,11 +22,38 @@ endif
 SOURCE_PATH := chase
 CROSS_LIB_PATH := cross_lib
 
+WINCMOC ?= /cygdrive/c/cmoc-win32/bin/cmoc.exe 
+WINCMOC_MACROS ?= \
+	--emit-uncalled -c -O1 -D__CMOC__=0.1.32 -D__6809__= -D__COCO__= -Dnullptr=0 "-Dbool=unsigned char" \
+	-Dfalse=0 -Dtrue=1 "-Dbyte=unsigned char" -Dsbyte=char -Dword=unsigned -Dsword=int -Dconst= \
+	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES=
+	
+
 CC65_PATH ?= /cygdrive/c/cc65-snapshot-win32/bin/
 Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
 Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
 Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
 BUILD_PATH ?= ../build
+
+DEBUG_MACROS ?= \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_RANDOM_LEVEL \
+	-DNO_WAIT \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_INPUT \
+	-DNO_PRINT \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_CHASE \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN 
+
 MACROS_NO_GRAPHICS ?= \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -4699,29 +4726,17 @@ combo.cat:
 	$(SOURCE_PATH)/main.c \
 	> combo.cat
 
-
+wincmoc_debug: combo.cat 
+	mv combo.cat combo.c
+	$(WINCMOC)  $(LC1802_OPTS) $(WINCMOC_MACROS) \
+	$(DEBUG_MACROS) \
+	combo.c
 
 
 lcc1802_debug: combo.cat
 	mv combo.cat combo.c
 	$(LCC1802)  $(LC1802_OPTS) \
-	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
-	-DSTDLIB \
-	-DNO_RANDOM_LEVEL \
-	-DNO_WAIT \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_INPUT \
-	-DNO_PRINT \
-	-DNO_SLEEP \
-	-DNO_COLOR \
-	-DNO_CHASE \
-	-DTINY_GAME \
-	-DTURN_BASED \
-	-DNO_GRAPHICS \
-	-DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN \
+	$(DEBUG_MACROS) \
 	combo.c
 	rm combo.c
 	mv a.hex $(BUILD_PATH)/TINY_lcc1802_debug.hex

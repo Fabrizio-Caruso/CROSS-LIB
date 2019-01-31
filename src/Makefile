@@ -4719,11 +4719,16 @@ lcc1802_debug:
 	$(SOURCE_PATH)/main.c \
 	> combo.c
 	
-	$(LCC1802) -S  $(LC1802_OPTS) \
+	$(LCC1802)  $(LC1802_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
+	-DNO_RANDOM_LEVEL \
+	-DNO_WAIT \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_INPUT \
+	-DNO_PRINT \
 	-DNO_SLEEP \
 	-DNO_COLOR \
 	-DNO_CHASE \
@@ -4731,7 +4736,6 @@ lcc1802_debug:
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-DNO_INIT_GRAPHICS \
-	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
 	combo.c
 	rm combo.c

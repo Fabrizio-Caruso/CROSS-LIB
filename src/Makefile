@@ -4675,10 +4675,9 @@ gcc_buffered:
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)
 
-
-xtc68_tiny_buffered:
-	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/..
-	$(XTC68) $(XTC68_OPTS) \
+	
+gcc_no_print:
+	$(GCC) $(GCC_OPTS) \
 	-I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -4694,11 +4693,50 @@ xtc68_tiny_buffered:
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DNO_RANDOM_LEVEL \
-	$(TINY_FILES)
-	rm crt.o
-	mv a_out $(BUILD_PATH)/TINY_xtc_buffered$(COMPILEDEXT)	
+	-DNO_PRINT \
+	$(TINY_FILES)	
+
+XTC68_ALL_OPTS ?= \
+	$(XTC68_OPTS) \
+	-I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT 	
+	
 	
 
+xtc68_tiny_buffered:
+	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/.. 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/level.c -o level.o
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/display/init_images.c -o init_images.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/display/display_macros.c -o display_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/input/input_macros.c -o input_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/text/text_macros.c -o text_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/move_player.c -o move_player.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/ghost.c  -o ghost.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/character.c -o character.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/game_text.c -o game_test.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/strategy.c -o strategy.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/main.c -o main.o 
+	$(XTC68) $(XTC68_ALL_OPTS) crt.o \
+	level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o 
+	rm level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o
+	rm crt.o
+	mv a_out $(BUILD_PATH)/TINY_SinclairQL_buffered.out
+
+	
 gcc_tiny_buffered:
 	$(GCC) $(GCC_OPTS) \
 	-D__GCC_BUFFERED__ \
@@ -4717,7 +4755,7 @@ gcc_tiny_buffered:
 	-DNO_RANDOM_LEVEL \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES)
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/TINY_gcc_buffered$(COMPILEDEXT)		
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/TINY_gcc_buffered$(COMPILEDEXT)	
 	
 xtc68_test:
 	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/..

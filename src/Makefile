@@ -4696,9 +4696,8 @@ gcc_no_print:
 	-DNO_PRINT \
 	$(TINY_FILES)	
 
-xtc68_tiny_buffered:
-	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/..
-	$(XTC68) $(XTC68_OPTS) \
+XTC68_ALL_OPTS ?= \
+	$(XTC68_OPTS) \
 	-I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -4714,12 +4713,27 @@ xtc68_tiny_buffered:
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DNO_RANDOM_LEVEL \
-	-DNO_PRINT \
-	$(TINY_FILES)
-	rm crt.o
-	mv a_out $(BUILD_PATH)/TINY_xtc_buffered$(COMPILEDEXT)	
+	-DNO_PRINT 	
+	
 	
 
+xtc68_tiny_buffered:
+	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/.. 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/level.c -o level.o
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/display/init_images.c -o init_images.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/display/display_macros.c -o display_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/input/input_macros.c -o input_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/text/text_macros.c -o text_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/move_player.c -o move_player.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/ghost.c  -o ghost.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/character.c -o character.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/game_text.c -o game_test.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/strategy.c -o strategy.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/main.c -o main.o 
+	$(XTC68) $(XTC68_ALL_OPTS) crt.o \
+	level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o 
+
+	
 gcc_tiny_buffered:
 	$(GCC) $(GCC_OPTS) \
 	-D__GCC_BUFFERED__ \

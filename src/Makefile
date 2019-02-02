@@ -4757,52 +4757,7 @@ gcc_tiny_buffered:
 	$(TINY_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/TINY_gcc_buffered$(COMPILEDEXT)	
 	
-xtc68_test:
-	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/..
-	$(XTC68) $(XTC68_OPTS) \
-	-I$(SOURCE_PATH) \
-	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
-	-DSTDLIB \
-	-DNO_COLOR \
-	-DTINY_GAME \
-	-DTURN_BASED \
-	-DBUFFERED \
-	-DNO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
-	-DNO_WAIT \
-	-DNO_SLEEP \
-	-DNO_RANDOM_LEVEL \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(TINY_FILES)
-	
-	
-xtc68_tiny_no_graphics:
-	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/..
-	$(XTC68) $(XTC68_OPTS) \
-	-I$(SOURCE_PATH) \
-	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
-	-DSTDLIB \
-	-DNO_SLEEP \
-	-DNO_COLOR \
-	-DNO_PRINT \
-	-DTINY_GAME \
-	-DNO_WAIT \
-	-DTURN_BASED \
-	-DNO_GRAPHICS \
-	-DNO_INPUT \
-	-DNO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
-	$(TINY_FILES)
-	rm crt.o
-	mv a_out $(BUILD_PATH)/TINY_xtc_no_graphics$(COMPILEDEXT)	
-		
-	
+
 	
 cc_tiny_no_graphics:
 	$(_CC) $(_CC_OPTS) \

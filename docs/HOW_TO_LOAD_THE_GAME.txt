@@ -720,3 +720,12 @@ RUN"XCHASE.BIN"
 
 
 
+--------------------------------------------------------------
+
+Olivetti M20
+
+Use Mame
+You need to attach the floppy image
+mame64.exe m20 -window -flop1 c:\Retro\CROSS-CHASE\build\FULL_m20_buffered.img
+At the prompt run with 
+aout.cmd

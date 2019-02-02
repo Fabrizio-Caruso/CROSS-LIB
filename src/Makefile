@@ -80,6 +80,7 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/display/graphics_data/cc65 \
 -I$(CROSS_LIB_PATH)/display/graphics_data/z88dk \
 -I$(CROSS_LIB_PATH)/display/graphics_mode \
+-I$(CROSS_LIB_PATH)/display/alt_print \
 -I$(CROSS_LIB_PATH)/display/image_settings \
 -I$(CROSS_LIB_PATH)/display/redefine_characters \
 -I$(CROSS_LIB_PATH)/include \
@@ -4655,6 +4656,8 @@ cpm_buffered:
 	# cp $(BUILD_PATH)/FULL_CPM_BUFFERED.COM $(BUILD_PATH)/CPM.COM
 	
 	
+
+	
 gcc_buffered:
 	$(GCC) $(GCC_OPTS) \
 	-D__GCC_BUFFERED__ \
@@ -4673,7 +4676,71 @@ gcc_buffered:
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)
 
 
+xtc68_tiny_buffered:
+	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/..
+	$(XTC68) $(XTC68_OPTS) \
+	-I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	$(TINY_FILES)
+	rm crt.o
+	mv a_out $(BUILD_PATH)/TINY_xtc_buffered$(COMPILEDEXT)	
+	
 
+gcc_tiny_buffered:
+	$(GCC) $(GCC_OPTS) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/TINY_gcc_buffered$(COMPILEDEXT)		
+	
+xtc68_test:
+	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/..
+	$(XTC68) $(XTC68_OPTS) \
+	-I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	
+	
 xtc68_tiny_no_graphics:
 	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/..
 	$(XTC68) $(XTC68_OPTS) \

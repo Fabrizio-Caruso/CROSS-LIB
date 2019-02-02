@@ -4675,6 +4675,26 @@ gcc_buffered:
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)
 
+	
+gcc_no_print:
+	$(GCC) $(GCC_OPTS) \
+	-I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT \
+	$(TINY_FILES)	
 
 xtc68_tiny_buffered:
 	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/..
@@ -4694,6 +4714,7 @@ xtc68_tiny_buffered:
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT \
 	$(TINY_FILES)
 	rm crt.o
 	mv a_out $(BUILD_PATH)/TINY_xtc_buffered$(COMPILEDEXT)	

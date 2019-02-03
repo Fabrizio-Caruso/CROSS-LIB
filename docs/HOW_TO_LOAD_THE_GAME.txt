@@ -720,7 +720,7 @@ RUN"XCHASE.BIN"
 
 
 
---------------------------------------------------------------
+-------------------------------------------------------------
 
 Olivetti M20
 
@@ -729,3 +729,25 @@ You need to attach the floppy image
 mame64.exe m20 -window -flop1 c:\Retro\CROSS-CHASE\build\FULL_m20_buffered.img
 At the prompt run with 
 aout.cmd
+
+
+-------------------------------------------------------------
+
+Sinclair QL
+
+Use QPC https://www.kilgus.net/qpc/ 
+
+Rename the binary to something short, e.g., xchase
+
+Type the following commands to add the necessary meta-data and have the binary inside the emulated Sinclair QL
+"
+f$=“dos1_<path fo file with '_' instead of '/'>“
+l=FLEN(\f$)
+mem=RESPR(l)
+LBYTES f$,mem
+SEXEC ram1_<name given to the binary inside the QL>,mem,l,<dataspace value (*)>
+"
+(*) dataspace has to be big enough, i.e., bigger than what the compiler shows as output.
+A possible value is 4096.
+
+Now the ram1 disk has the executable binary inside the QL. Select ram1 and then the game to start

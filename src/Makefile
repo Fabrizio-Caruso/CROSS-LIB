@@ -2250,7 +2250,7 @@ px8_tiny:
 	mv A.ROM $(BUILD_PATH)/TINY_px8.ROM
 
 px8_chars:	
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px8 \
 	$(SCCZ80_OPTS) \
 	-D__PX8__ \
 	-DCONIO_ADM3A \
@@ -2269,7 +2269,7 @@ px8:
 	$(SCCZ80_OPTS) \
 	-D__PX8__ \
 	-DFULL_GAME \
-	-subtype=px32k  -Cz--32k \
+	-subtype=px8 \
 	-create-app \
 	-vn -lndos \
 	-DALT_PRINT \

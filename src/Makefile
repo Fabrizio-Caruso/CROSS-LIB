@@ -1317,6 +1317,22 @@ zx81_16k:
 	rm $(BUILD_PATH)/FULL_zx81_16k.prg
 	
 	
+zx81_16k_wrx:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
+	$(SCCZ80_OPTS) -O3 \
+	-DFORCE_XSIZE=16 \
+	-DFORCE_YSIZE=12 \
+	-vn \
+	-D__ZX81__ \
+	-DZ88DK_SPRITES \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg \
+	$(LIGHT_FILES)
+	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg
+		
+	
 lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) \
 	-vn -D__LAMBDA__ -DFULL_GAME \
@@ -2234,7 +2250,7 @@ px8_tiny:
 	mv A.ROM $(BUILD_PATH)/TINY_px8.ROM
 
 px8_chars:	
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px8 \
 	$(SCCZ80_OPTS) \
 	-D__PX8__ \
 	-DCONIO_ADM3A \
@@ -2253,7 +2269,7 @@ px8:
 	$(SCCZ80_OPTS) \
 	-D__PX8__ \
 	-DFULL_GAME \
-	-subtype=px32k  -Cz--32k \
+	-subtype=px8 \
 	-create-app \
 	-vn -lndos \
 	-DALT_PRINT \

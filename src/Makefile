@@ -5204,7 +5204,7 @@ px4_targets: \
 	px4 
 
 px8_targets: \
-	px8 px8_chars
+	px8
 	
 kc_targets: \
 	kc_tiny_udg kc_light_udg kc_udg

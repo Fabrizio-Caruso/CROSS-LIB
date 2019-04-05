@@ -67,6 +67,8 @@
 	#include <graphics.h>
 	#include <games.h>
 
+	#include "display_macros.h"
+	
 	#define _DISPLAY(x,y,ch) \
 		_draw_ch(x,y,ch);
 	

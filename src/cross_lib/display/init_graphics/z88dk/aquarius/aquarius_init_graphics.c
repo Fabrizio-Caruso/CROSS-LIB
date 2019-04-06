@@ -42,10 +42,10 @@ void INIT_GRAPHICS(void)
 	
 	for(i=0;i<251;++i)
 	{
-		POKE(COLOR_ADDR+1+i,0+128);
-		POKE(COLOR_ADDR+250+i,0+128);
-		POKE(COLOR_ADDR+500+i,0+128);
-		POKE(COLOR_ADDR+749+i,0+128);
+		POKE((unsigned short) (COLOR_ADDR+1+i),128);
+		POKE((unsigned short) (COLOR_ADDR+250+i),128);
+		POKE((unsigned short) (COLOR_ADDR+500+i),128);
+		POKE((unsigned short) (COLOR_ADDR+749+i),128);
 	}	
 }
 

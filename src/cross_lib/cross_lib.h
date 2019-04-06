@@ -35,7 +35,6 @@
 	&& !defined(__ENTERPRISE__) \
 	&& !defined(__ABC800__) \
 	&& !(defined(__KC__) && defined(Z88DK_SPRITES)) \
-	&& !(defined(__NC100__) && defined(Z88DK_SPRITES)) \
 	&& !defined(__CPM_80X24__) \
 	&& !defined(__EINSTEIN__) \
 	&& !defined(__SRR__) \

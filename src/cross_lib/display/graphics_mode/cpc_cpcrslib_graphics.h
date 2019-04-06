@@ -8,6 +8,8 @@
 
 #define UDG_N 20
 
+#include <cpc.h>
+
 #define _DRAW_AUX(color,str,x,y) cpc_PrintGphStrStdXY(color,str,(x*2),(y*8))
 
 #define __DRAW(x,y,image) _DRAW_AUX(image->_color, char_list+image->_imageData, (x), (y))

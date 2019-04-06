@@ -33,8 +33,6 @@
 	&& !defined(__ATARI_LYNX__) && !defined(__MSX__) \
     && !defined(__SVI__) \
 	&& !defined(__ENTERPRISE__) \
-	&& !defined(__PX8__) && !defined(__KC__) \
-	&& !defined(__EG2K__) && !defined(__TRS80__) \
 	&& !defined(__ABC800__) \
 	&& !(defined(__KC__) && defined(Z88DK_SPRITES)) \
 	&& !(defined(__NC100__) && defined(Z88DK_SPRITES)) \

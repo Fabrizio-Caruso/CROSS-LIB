@@ -17,9 +17,6 @@
 		#define cputc(c) putchar(c)
 	#endif
 		
-	#if defined(NO_COLOR)
-		#define textcolor 
-	#endif
 #endif
 
 #if defined(__G800__) || defined(__MZ2500__) || defined(__LASER500__) || defined(__PC88__)
@@ -236,7 +233,10 @@
 		#define COLOR_RED RED
 		#define COLOR_YELLOW YELLOW		
 	#endif	
-	
+#else
+	#if !defined(CONIO_LIB)
+		#define textcolor 
+	#endif
 #endif
 
 

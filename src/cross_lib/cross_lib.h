@@ -76,7 +76,7 @@
     || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) \
 	|| defined(__VIC20__) || defined(__GAMATE__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
     || defined(__ATARI5200__) || defined(__OSIC1P__) || defined(__SUPERVISION__) \
-	|| defined(__TELESTRAT__)
+	|| defined(__TELESTRAT__) || defined(__PCE__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__ATARI_LYNX__)
 	#define CC65
 #elif defined(__WINCMOC__) || defined(__CMOC__)
 	#define CMOC

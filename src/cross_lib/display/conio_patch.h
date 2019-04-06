@@ -6,22 +6,14 @@
 	#define bordercolor(c)
 #endif
 
-#if defined(CONIO_ADM3A) || defined(CONIO_VT52) || defined(CONIO_VT100)
-	#include <stdio.h>
-	
+#if defined(Z88DK)
 	#define cprintf printf
-	
-	#if defined(Z88DK)
-		#define cputc(c) fputc_cons(c)
-	#else
-		#define cputc(c) putchar(c)
-	#endif
-		
 #endif
 
-#if defined(__G800__) || defined(__MZ2500__) || defined(__LASER500__) || defined(__PC88__)
+#if defined(Z88DK) && !defined(__SMS__) && !defined(Z88DK_PUTC4X6) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__)
 	#define cputc(c) fputc_cons(c)	
 #endif
+
 
 #if defined(__SMS__)
 	#include <stdio.h>
@@ -43,31 +35,20 @@
 // TODO: BOGUS! Implement this
 #if defined(__MZ2500__)
 	#define gotoxy(x,y)
-	/*
-	#define gotoxy(x,y) \
-		do \
-		{ \
-			unsigned char i; \
-			\
-			printf("\021"); \
-			for(i=0;i<x;++i) \
-			{ \
-				printf("\019"); \
-			} \
-			for(i=0;i<y;++i) \
-			{ \
-				printf("\017"); \
-			} \
-		} while(0)
-		*/			
+		
 	#define clrscr() printf("--------------------\n");
-	//putchar((unsigned char) 22)
 #endif
 
 #  if defined(CONIO_ADM3A)
 	#define gotoxy(x,y) printf("\033=%c%c",y+32,x+32);
 	#define clrscr() printf("\032")
 
+#elif defined(CONIO_ADM3A_WITH_UNDEF)
+	// TODO: Remove undef's below
+	#undef gotoxy
+	#undef clrscr 
+	#define gotoxy(x,y) printf("\033=%c%c",y+32,x+32);
+	#define clrscr() printf("\032")	
 #elif defined(CONIO_VT52)
 	#undef gotoxy
 	#define gotoxy(x,y) printf("\033Y%c%c",y+32,x+32)
@@ -142,27 +123,6 @@
 	#define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
 	#define clrscr() printf("\033E") 
 
-	#define cputc(c) fputc_cons(c)
-	
-#elif defined(__C128_Z80__) || defined(__X1__) || defined(__Z9001__) \
-	|| defined(__Z1013__) || defined(__OSCA__) || defined(__MC1000__) \
-	|| defined(__ABC80__) || defined(__ABC800__) || defined(__PC6001__) || defined(__SRR__) \
-	|| defined(__NASCOM__) || defined(__P2000__) || defined(__BEE__) \
-	|| defined(__TI8X__) || defined(__TI82__) || defined(__TI83__) \
-	|| defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) \
-	|| defined(__TI85__) || defined(__TI86__) || defined(__TI86S__) || defined(__MZ__) \
-	|| defined(__GAL__) || defined(__SC3000__) || defined(__SPECTRUM__) \
-	|| defined(__SAM__) || defined(__CPC__) || (defined(__SVI__) && !defined(MSX_MODE0)) \
-	|| defined(__VG5K__) || defined(__AQUARIUS__) || defined(__VZ__) \
-	|| defined(__MTX__) || defined(__Z88__) || defined(__PX4__) \
-	|| defined(__EG2K__) || defined(__TRS80__) || defined(__ACE__) \
-	|| defined(__EINSTEIN__) || defined(__M5__)
-
-	#  if defined(__NASCOM__) || defined(__VG5K__)
-		#define cputc(c) fputc_cons(c)		
-	#else
-		#define cputc(c) putch(c);
-	#endif
 
 #elif defined(__KC__)
 	#include <stdio.h>
@@ -176,11 +136,6 @@
 	#define clrscr() printf("\0C");
 
 	#define cprintf printf
-			
-	#define cputc(c) do \
-		{ \
-		fputc_cons(c); \
-		} while(0)
 		
 #elif defined(__CMOC__) && !defined(__WINCMOC__) && !defined(__MO5__) && !defined(__TO7__)
 

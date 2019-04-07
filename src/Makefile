@@ -2903,6 +2903,66 @@ osborne1:
 	rm $(BUILD_PATH)/FULL_osborne1.bin	
 	
 	
+excalibur64:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=excali64 \
+	$(SCCZ80_OPTS) \
+	-D__CPM_80X24__ \
+	-DFORCE_CONIO_LIB \
+	-D__EXCALI64__ \
+	-DFULL_GAME -DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_excalibur64.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_excalibur64.bin	
+	
+bic:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=bic \
+	$(SCCZ80_OPTS) \
+	-D__CPM_80X24__ \
+	-DCONIO_ADM3A_WITH_UNDEF \
+	-DFORCE_CONIO_LIB \
+	-D__BIC__ \
+	-DFULL_GAME -DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_bic.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_bic.bin		
+	
+qc10:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=qc10 \
+	$(SCCZ80_OPTS) \
+	-D__CPM_80X24__ \
+	-DCONIO_ADM3A_WITH_UNDEF \
+	-DFORCE_CONIO_LIB \
+	-D__QC10__ \
+	-DFULL_GAME -DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_qc10.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_qc10.bin	
+	
+dmv:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=dmv \
+	$(SCCZ80_OPTS) \
+	-D__CPM_80X24__ \
+	-DCONIO_ADM3A_WITH_UNDEF \
+	-DFORCE_CONIO_LIB \
+	-D__DMV__ \
+	-DFULL_GAME -DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_dmv.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_dmv.bin	
+	
+	
 cpm_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	$(SCCZ80_OPTS) \
@@ -3987,6 +4047,7 @@ pps_turn_based:
 	$(FULL_FILES)
 	mv a.bin $(BUILD_PATH)/FULL_pps_turn_based.exe
 
+
 	
 # ------------------------------------
 
@@ -5032,14 +5093,17 @@ z88dk_targets: \
 	aquarius_targets \
 	attache_targets \
 	aussie_targets \
+	bic_targets \
 	c128_z80_targets \
 	camputers_lynx_targets \
 	coleco_targets \
 	cpc_targets \
 	cpm_targets \
+	dmv_targets \
  	eg2k_targets \
 	einstein_targets \
 	enterprise_targets \
+	excalibur64_targets \
 	fp1100_targets \
 	g800_targets \
 	gal_targets \
@@ -5062,6 +5126,7 @@ z88dk_targets: \
 	osborne1_targets \
 	osca_targets \
 	oz_targets \
+	pasopia7_targets \
 	p2000_targets \
 	pc6001_targets \
 	pc88_targets \
@@ -5070,9 +5135,11 @@ z88dk_targets: \
 	pv2000_targets \
 	px4_targets \
 	px8_targets \
+	qc10_targets \
 	rx78_targets \
 	samcoupe_targets \
 	sc3000_targets \
+	smc777_targets \
 	sms_targets \
 	sos_targets \
 	spc1000_targets \
@@ -5092,6 +5159,7 @@ z88dk_targets: \
 	vz200_targets \
 	x1_targets \
 	z1013_targets \
+	z80tvgame_targets \
 	z88_targets \
 	z9001_targets \
 	zx80_targets \
@@ -5377,6 +5445,27 @@ sos_targets: \
 
 sms_targets: \
 	sms_tiny_buffered
+	
+excalibur64_targets: \
+	excalibur64
+	
+smc777_targets: \
+	smc777
+	
+pasopia7_targets: \
+	pasopia7
+	
+z80tvgame_targets: \
+	z80tvgame
+	
+qc10_targets: \
+	qc10
+	
+dmv_targets: \
+	dmv
+	
+bic_targets: \
+	bic
 	
 ##
 
@@ -6692,7 +6781,6 @@ smc777:
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-DFORCE_NO_CONIO_LIB \
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -6710,7 +6798,6 @@ pasopia7:
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-DFORCE_NO_CONIO_LIB \
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
@@ -6727,7 +6814,6 @@ z80tvgame:
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-DFORCE_NO_CONIO_LIB \
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \

@@ -2875,9 +2875,11 @@ osborne1_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 -subtype=osborne1 \
 	$(SCCZ80_OPTS) \
 	-D__OSBORNE1__ \
-	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DFORCE_CONIO_LIB \
+	-DCONIO_ADM3A_WITH_UNDEF \
 	-D__CPM_80X24__ \
-	-DFULL_GAME -DLESS_TEXT -DNO_WAIT \
+	-DFULL_GAME -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-create-app -o$(BUILD_PATH)/FULL_osborne1_chars.bin \
@@ -2889,6 +2891,8 @@ osborne1:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 -subtype=osborne1 \
 	$(SCCZ80_OPTS) \
 	-D__OSBORNE1__ \
+	-DNO_COLOR \
+	-DFORCE_CONIO_LIB \
 	-DFULL_GAME -DLESS_TEXT \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \

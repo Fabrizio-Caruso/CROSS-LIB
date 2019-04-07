@@ -101,6 +101,7 @@ For most targets, more than one version is built, in order to support different 
 - atari_lynx: Atari Lynx
 - attache: Otrona Attache
 - aussie: Aussie Byte
+- bic: BIC/A5105 (work in progress)
 - c128_8502: Commodore 128 [8502 CPU]
 - c128_z80: Commodore 128 [Z80 CPU]
 - c16: Commodore 264 series (16/116/+4)
@@ -116,10 +117,12 @@ For most targets, more than one version is built, in order to support different 
 - cpm8080: CP/M Intel 8080
 - cpm: CP/M Z80 with adm3a/vt52/vt100 terminals
 - creativision: VTech Creativision
+- dmv: Decision Mate V (work in progress)
 - dragon: Dragon 32/64
 - eg2k: EACA EG2000 Color Genie
 - einstein: Tatung Einstein
 - enterprise: Enterprise 64/128
+- excalibur64: Excalibur64 (work in progress)
 - fp1100: Casio FP-1100
 - g800: Sharp PC-G800
 - gal: Galaksija
@@ -159,6 +162,7 @@ For most targets, more than one version is built, in order to support different 
 - pv2000: Casio PV2000
 - px4: Epson PX-4/HC-40
 - px8: Epson PX-8/HC-80
+- qc10: Epson QC-10/QX-10 (work in progress)
 - rex: Xircom Rex 6000 (work in progress)
 - rx78: Bandai RX-78
 - samcoupe: Sam Coupe
@@ -191,6 +195,7 @@ For most targets, more than one version is built, in order to support different 
 - x07: Casio X-07 (work in progress)
 - x1: Sharp X1
 - z1013: Robotron Z1013
+- z80tvgame: ZX80 TV Game (work in progress)
 - z88: Cambridge Z88
 - z9001: Robotron Z9001, Robotron KC 85/1, Robotron KC 87 
 - zx80: Sinclair ZX80

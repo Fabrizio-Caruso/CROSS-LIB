@@ -1324,7 +1324,7 @@ zx81_16k:
 	
 zx81_16k_wrx:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
-	$(SCCZ80_OPTS) -O3 \
+	$(SCCZ80_OPTS) \
 	-DFORCE_XSIZE=16 \
 	-DFORCE_YSIZE=12 \
 	-vn \
@@ -2916,6 +2916,7 @@ excalibur64:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_excalibur64.bin	
+	rm $(BUILD_PATH)/FULL_excalibur64_HIMEM.bin
 	
 bic:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=bic \
@@ -3736,7 +3737,8 @@ ts2068:
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o $(BUILD_PATH)/FULL_ts2068.bin 
-	rm $(BUILD_PATH)/FULL_ts2068.bin		
+	rm $(BUILD_PATH)/FULL_ts2068.bin	
+	rm $(BUILD_PATH)/FULL_ts2068_BANK_7.bin	
 		
 	
 ts2068_characters:

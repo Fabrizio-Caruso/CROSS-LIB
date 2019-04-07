@@ -859,6 +859,7 @@ creativision_8k_tiny:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
 	-DTINY_GAME -DNO_SLEEP \
+	-DNO_SET_SCREEN_COLORS \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(TINY_FILES) \
@@ -866,6 +867,7 @@ creativision_8k_tiny:
 
 creativision_8k_light: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t creativision \
+	-DNO_SET_SCREEN_COLORS \
 	-DLESS_TEXT \
 	-DNO_SET_SCREEN_COLORS \
 	-DFLAT_ENEMIES \
@@ -882,6 +884,7 @@ creativision_8k_light:
 	
 creativision_16k:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	-DNO_SET_SCREEN_COLORS \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
@@ -900,6 +903,7 @@ creativision_16k:
 atari_lynx:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-D__ATARI_LYNX__ \
+	-DNO_SET_SCREEN_COLORS \
 	-DNO_SLEEP \
 	-DTGI \
 	-DALT_CLEAR_SCREEN \
@@ -912,6 +916,7 @@ atari_lynx:
 	
 atari_lynx_light:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
+	-DNO_SET_SCREEN_COLORS \
 	-D__ATARI_LYNX__ \
 	-DNO_PRINT \
 	-DNO_SLEEP \
@@ -2249,11 +2254,37 @@ px8_tiny:
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/TINY_px8.ROM
 
-px8_chars:	
+px8_broken:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px8 \
 	$(SCCZ80_OPTS) \
 	-D__PX8__ \
-	-DCONIO_ADM3A \
+	-DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN \
+	-create-app \
+	$(FULL_FILES)
+	rm a.bin
+	mv A.ROM $(BUILD_PATH)/FULL_px8_chars.ROM
+	# cp $(BUILD_PATH)/FULL_px8_chars.ROM /cygdrive/c/Emulation/TEST/PX-8/px8emul/BASIC.ROM	
+	
+px8_chars_ansi:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px8ansi \
+	$(SCCZ80_OPTS) \
+	-D__PX8__ \
+	-DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN \
+	-create-app \
+	$(FULL_FILES)
+	rm a.bin
+	mv A.ROM $(BUILD_PATH)/FULL_px8_chars.ROM	
+	# cp $(BUILD_PATH)/FULL_px8_chars.ROM /cygdrive/c/Emulation/TEST/PX-8/px8emul/BASIC.ROM	
+	
+px8_chars:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px8 \
+	$(SCCZ80_OPTS) \
+	-D__PX8__ \
+	-DCONIO_ADM3A_WITH_UNDEF \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DALT_CLEAR_SCREEN \
@@ -2263,7 +2294,8 @@ px8_chars:
 	mv A.ROM $(BUILD_PATH)/FULL_px8_chars.ROM	
 	# cp $(BUILD_PATH)/FULL_px8_chars.ROM /cygdrive/c/Emulation/TEST/PX-8/px8emul/BASIC.ROM
 	
-
+	
+	
 px8:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	$(SCCZ80_OPTS) \
@@ -2842,7 +2874,10 @@ aussie:
 osborne1_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 -subtype=osborne1 \
 	$(SCCZ80_OPTS) \
-	-DCONIO_ADM3A \
+	-D__OSBORNE1__ \
+	-DNO_COLOR \
+	-DFORCE_CONIO_LIB \
+	-DCONIO_ADM3A_WITH_UNDEF \
 	-D__CPM_80X24__ \
 	-DFULL_GAME -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2856,6 +2891,8 @@ osborne1:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 -subtype=osborne1 \
 	$(SCCZ80_OPTS) \
 	-D__OSBORNE1__ \
+	-DNO_COLOR \
+	-DFORCE_CONIO_LIB \
 	-DFULL_GAME -DLESS_TEXT \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \

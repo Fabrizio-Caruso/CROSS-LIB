@@ -1325,16 +1325,16 @@ zx81_16k:
 zx81_16k_wrx:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
 	$(SCCZ80_OPTS) \
-	-DFORCE_XSIZE=16 \
-	-DFORCE_YSIZE=12 \
+	-DFORCE_XSIZE=36 \
+	-DFORCE_YSIZE=30 \
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES \
-	-DNO_INIT_GRAPHICS \
 	-DNO_PRINT \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg \
-	$(LIGHT_FILES)
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c
 	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg
 		
 	

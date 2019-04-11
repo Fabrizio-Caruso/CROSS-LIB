@@ -15,6 +15,8 @@
 	#include "c264_redefined_chars_settings_2.h"	
 #elif defined(__CBM__) && defined(MEMORY_MAPPED)
 	#include "petscii_memory_mapped_settings.h"
+#elif defined(__MO5__)
+	#include "udg_settings.h"
 #elif defined(__CMOC__) && !defined(__WINCMOC__)
 	#include "cmoc_memory_mapped_settings.h"
 #elif (defined(__ATARI__) && defined(ATARI_MODE1))

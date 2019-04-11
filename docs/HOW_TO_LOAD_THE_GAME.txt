@@ -719,8 +719,21 @@ RUN"XCHASE.BIN"
 
 
 
+-------------------------------------------------------------
+
+Mo5/Mo6/Prodest PC 128
+
+- Tape
+Use DCMOTO
+Select Mo5 or Mo6 or Prodest PC 128
+Attach .k7 image
+Type
+LOADM
+EXEC
+
 
 -------------------------------------------------------------
+
 
 Olivetti M20
 

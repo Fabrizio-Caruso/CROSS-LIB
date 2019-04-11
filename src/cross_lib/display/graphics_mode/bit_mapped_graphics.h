@@ -14,14 +14,15 @@ extern unsigned char udgs[];
 { \
 	unsigned char i; \
 	unsigned short base = (x)+(XSize)*8*(y); \
-	unsigned short delta = 0; \
+	unsigned char delta = 0; \
 	unsigned char offset = (8*(unsigned char)(image)->_imageData) ; \
 	\
-	for(i=0;i<8;++i) \
+	for(i=0;i<7;++i) \
 	{ \
 		SV_VIDEO[base+delta]  = udgs[offset+i]; \
 		delta+=XSize; \
 	} \
+	SV_VIDEO[base+(XSize)*7] = udgs[offset+7]; \
 }
 
 
@@ -29,13 +30,14 @@ extern unsigned char udgs[];
 { \
 	unsigned char i; \
 	unsigned short base = (x)+(XSize)*8*(y); \
-	unsigned short delta = 0; \
+	unsigned char delta = 0; \
 	\
-	for(i=0;i<8;++i) \
+	for(i=0;i<7;++i) \
 	{ \
 		SV_VIDEO[(unsigned short) base+delta] = 0; \
 		delta+=XSize; \
 	} \
+	SV_VIDEO[base+(XSize)*7] = 0; \
 }
 
 #endif // _MO5_BIT_MAPPED_GRAPHICS

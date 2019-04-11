@@ -4364,11 +4364,15 @@ mo5:
 	cmoc \
 	$(MO5_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/graphics_data/cmoc/xchase.s	
 	cmoc -o $(BUILD_PATH)/FULL_MO5.bin \
 	$(MO5_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_init_graphics.o \
 	display_macros.o \
+	xchase.o \
 	init_images.o \
 	ghost.o \
 	move_player.o \
@@ -4379,6 +4383,7 @@ mo5:
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm \
+	xchase.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	init_images.o \

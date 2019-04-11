@@ -12,14 +12,14 @@ extern unsigned char udgs[];
 
 #define __DRAW(x,y,image) \
 { \
-	SV_VIDEO[(x)+(XSize)*8*(y)]           = udgs[(8*(image)->_imageData)]; \
-	SV_VIDEO[(x)+(XSize)*8*(y)+1*(XSize)] = udgs[(8*(image)->_imageData)+1]; \
-	SV_VIDEO[(x)+(XSize)*8*(y)+2*(XSize)] = udgs[(8*(image)->_imageData)+2]; \
-	SV_VIDEO[(x)+(XSize)*8*(y)+3*(XSize)] = udgs[(8*(image)->_imageData)+3]; \
-	SV_VIDEO[(x)+(XSize)*8*(y)+4*(XSize)] = udgs[(8*(image)->_imageData)+4]; \
-	SV_VIDEO[(x)+(XSize)*8*(y)+5*(XSize)] = udgs[(8*(image)->_imageData)+5]; \
-	SV_VIDEO[(x)+(XSize)*8*(y)+6*(XSize)] = udgs[(8*(image)->_imageData)+6]; \
-	SV_VIDEO[(x)+(XSize)*8*(y)+7*(XSize)] = udgs[(8*(image)->_imageData)+7]; \
+	SV_VIDEO[(x)+(XSize)*8*(y)]           = udgs[(8*(unsigned char)(image)->_imageData)]; \
+	SV_VIDEO[(x)+(XSize)*8*(y)+1*(XSize)] = udgs[(8*(unsigned char)(image)->_imageData)+1]; \
+	SV_VIDEO[(x)+(XSize)*8*(y)+2*(XSize)] = udgs[(8*(unsigned char)(image)->_imageData)+2]; \
+	SV_VIDEO[(x)+(XSize)*8*(y)+3*(XSize)] = udgs[(8*(unsigned char)(image)->_imageData)+3]; \
+	SV_VIDEO[(x)+(XSize)*8*(y)+4*(XSize)] = udgs[(8*(unsigned char)(image)->_imageData)+4]; \
+	SV_VIDEO[(x)+(XSize)*8*(y)+5*(XSize)] = udgs[(8*(unsigned char)(image)->_imageData)+5]; \
+	SV_VIDEO[(x)+(XSize)*8*(y)+6*(XSize)] = udgs[(8*(unsigned char)(image)->_imageData)+6]; \
+	SV_VIDEO[(x)+(XSize)*8*(y)+7*(XSize)] = udgs[(8*(unsigned char)(image)->_imageData)+7]; \
 }
 
 #define __DELETE(x,y) \

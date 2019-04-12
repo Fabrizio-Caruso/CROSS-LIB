@@ -136,7 +136,7 @@
 	#define clrscr() printf("\0C");
 
 	#define cprintf printf
-		
+
 #elif defined(__CMOC__) && !defined(__WINCMOC__) && !defined(__MO5__) && !defined(__TO7__)
 
 	#define cprintf printf
@@ -144,18 +144,17 @@
 	#define cputc(c) printf("%c",c)
 
 #elif defined(__MO5__) || defined(__TO7__)
+	void SWITCH_COLOR_BANK_OFF(void);
+	void SWITCH_COLOR_BANK_ON(void);
+	
 	void PUTCH(unsigned char ch);
+	
+	#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
 	
 	#define cputc(c) \
 		PUTCH(c)	
-		
-	#define gotoxy(x,y)	\
-			do \
-			{ \
-				cputc(0x1B); \
-				cputc(0x3F+(y)); \
-				cputc(0x40+(x)); \
-			} while(0)
+
+	void gotoxy(unsigned char x, unsigned char y);
 			
 		
 #elif defined(__NCURSES__)

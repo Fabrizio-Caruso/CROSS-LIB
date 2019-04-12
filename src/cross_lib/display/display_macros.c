@@ -124,8 +124,29 @@
 		}
 	}
 #elif defined(__MO5__)
+	#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+
+	void SWITCH_COLOR_BANK_ON(void)
+	{
+		asm
+		{
+			swi
+			.byte 4
+		}	
+	}
+	
+	void SWITCH_COLOR_BANK_OFF(void)
+	{
+		asm
+		{
+			swi
+			.byte 6
+		}	
+	}	
+	
 	void PUTCH(unsigned char ch)
 	{
+		POKE(0x201B,0);
 		asm
 		{
 			ldb ch
@@ -133,6 +154,15 @@
 			.byte 2
 		}
 	}
+	
+
+	void gotoxy(unsigned char xx, unsigned char yy)
+	{
+		PUTCH(0x1F);
+		PUTCH(0x40+yy);
+		PUTCH(0x41+xx);
+	}	
+	
 #elif defined(__TO7__)
 	void PUTCH(unsigned char ch)
 	{

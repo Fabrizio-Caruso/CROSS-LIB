@@ -163,7 +163,7 @@ DRAGON_OPTS     ?= --dragon $(COCO_OPTS)
 
 VECTREX_OPTS    ?= -O0 --vectrex $(INCLUDE_OPTS) -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-MO5_OPTS        ?= -O2 $(INCLUDE_OPTS) -DANIMATE_PLAYER -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+MO5_OPTS        ?= -O2 $(INCLUDE_OPTS) -DANIMATE_PLAYER -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 TO7_OPTS        ?= -O1 $(INCLUDE_OPTS) -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
@@ -4312,7 +4312,10 @@ vectrex:
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 
-mo5:
+mo5: 
+	cmoc \
+	$(MO5_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	cmoc \
 	$(MO5_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
@@ -4370,6 +4373,7 @@ mo5:
 	cmoc -o $(BUILD_PATH)/FULL_MO5.bin \
 	$(MO5_OPTS) \
 	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	xchase.o \
@@ -4383,6 +4387,7 @@ mo5:
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm \
+	mo5_alt_print.o \
 	xchase.o \
 	mo5_init_graphics.o \
 	display_macros.o \

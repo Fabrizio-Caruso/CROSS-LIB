@@ -234,8 +234,8 @@ void INIT_IMAGES(void)
 		
 		ROCKET_IMAGE._imageData = _ROCKET;
 
-		// If colors are present POWERUP/FREEZE/SUPER are differentiated by the color attribute -> same _POWERUP for all of them
-		#if !defined(NO_COLOR) && !defined(UDG_GRAPHICS) && !defined(__NES__)
+		// If colors are present POWERUP/FREEZE/SUPER can be differentiated by the color attribute -> same _POWERUP for all of them
+		#if !defined(NO_COLOR) && !defined(UDG_GRAPHICS) && !defined(__NES__) && !defined(__MO5__)
 			FREEZE_IMAGE._imageData = _POWERUP;		
 			SUPER_IMAGE._imageData = _POWERUP;		
 		#else

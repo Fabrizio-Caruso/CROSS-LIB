@@ -26,7 +26,7 @@
 #define _DISPLAY_MACROS
 
 #include "cross_lib.h"
-#include "display_target_settings.h"
+#include "display_target_color.h"
 
 
 #if !defined(NO_GRAPHICS)

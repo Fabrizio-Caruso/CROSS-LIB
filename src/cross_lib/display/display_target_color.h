@@ -1,5 +1,5 @@
-#ifndef _DISPLAY_TARGET_SETTINGS
-#define _DISPLAY_TARGET_SETTINGS
+#ifndef _DISPLAY_TARGET_COLOR
+#define _DISPLAY_TARGET_COLOR
 
 #include "cross_lib.h"
 
@@ -19,7 +19,7 @@
 	|| defined(__KC__) || defined(__ATMOS__) || defined(__SUPERVISION__) \
 	|| defined(__VECTREX__) \
 	|| defined(__NC100__) || defined(__NC200__) \
-	|| defined(__MO5__) || defined(__TO7__)
+	|| defined(__TO7__)
 	#if !defined(NO_COLOR)
 		#define NO_COLOR 
 	#endif
@@ -41,4 +41,4 @@
 #define BORDER_COLOR COLOR_BLACK
 
 
-#endif // _DISPLAY_TARGET_SETTINGS
+#endif // _DISPLAY_TARGET_COLOR

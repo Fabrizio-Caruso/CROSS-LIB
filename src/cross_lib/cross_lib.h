@@ -111,7 +111,7 @@
 #include "input_target_settings.h"
 #include "input_macros.h"
 
-#include "display_target_settings.h"
+#include "display_target_color.h"
 #include "display_macros.h"
 
 #include "sound_macros.h"

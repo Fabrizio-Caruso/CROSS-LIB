@@ -1,8 +1,6 @@
 
 #include "display_macros.h"
 
-#define _DISPLAY(x,y,c)
-
 void PRINT(unsigned char x, unsigned char y, char * str)
 {
 	unsigned char i = 0;

@@ -5178,7 +5178,7 @@ z88dk_targets: \
 	zx81_targets
 
 cmoc_targets: \
-	coco vectrex mo5
+	coco dragon mo5
 	
 ack_targets: \
 	pdp11v7 cpm8080_buffered pc8086 linux386 linux68k linuxppc  

@@ -147,6 +147,9 @@ INCLUDE_ALL ?= $(INCLUDE_OPTS) -I$(SOURCE_PATH)
 _CC ?= gcc
 _CC_OPTS ?= $(INCLUDE_OPTS)
 
+TI99_CC ?= tms9900-gcc
+TI99_OPTS ?= $(INCLUDE_OPTS)
+
 GCC ?= gcc
 GCC_OPTS ?= -Wpedantic -Wall $(INCLUDE_OPTS)
 
@@ -4901,7 +4904,24 @@ gcc_tiny_buffered:
 	$(TINY_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/TINY_gcc_buffered$(COMPILEDEXT)	
 	
-
+ti99_tiny_no_graphics:
+	$(TI99_CC) $(TI99_OPTS) \
+	-I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(TINY_FILES)
 	
 cc_tiny_no_graphics:
 	$(_CC) $(_CC_OPTS) \

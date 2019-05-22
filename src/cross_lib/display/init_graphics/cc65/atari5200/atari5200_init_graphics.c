@@ -41,9 +41,6 @@
 
 #include "udg_map.h"	
 
-// TODO: BOGUS
-// #define _FONT_START__ (unsigned char *) 0xF800
-// export (unsigned char *) _FONT_START__;
 
 void set_udg(void)
 {
@@ -61,11 +58,11 @@ void set_udg(void)
 void INIT_GRAPHICS(void)
 {
 	
-	POKE(COLOR0,TGI_COLOR_RED);
-	POKE(COLOR1,TGI_COLOR_WHITE);
-	POKE(COLOR2,TGI_COLOR_CYAN);
-	POKE(COLOR3,TGI_COLOR_BROWN);
-	POKE(COLOR4,TGI_COLOR_BLACK);
+	POKE(COLOR0,GTIA_COLOR_RED);
+	POKE(COLOR1,GTIA_COLOR_WHITE);
+	POKE(COLOR2,GTIA_COLOR_CYAN);
+	POKE(COLOR3,GTIA_COLOR_BROWN);
+	POKE(COLOR4,GTIA_COLOR_BLACK);
 	
 	set_udg();
 }

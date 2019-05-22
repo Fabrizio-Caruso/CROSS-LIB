@@ -4684,7 +4684,7 @@ linuxmips:
 	-DALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	mv linuxppc.exe $(BUILD_PATH)/FULL_linuxmips_turn_based.exe
+	mv linuxmips.exe $(BUILD_PATH)/FULL_linuxmips_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o	
 
 
@@ -5178,10 +5178,10 @@ z88dk_targets: \
 	zx81_targets
 
 cmoc_targets: \
-	coco vectrex mo5
+	coco dragon mo5
 	
 ack_targets: \
-	pdp11v7 cpm8080_buffered pc8086 linux386 linux68k linuxppc  
+	pdp11v7 cpm8080_buffered pc8086 linux386 linux68k linuxppc linuxmips
 	
 all: cc65_targets z88dk_targets cmoc_targets ncurses_targets ack_targets
 

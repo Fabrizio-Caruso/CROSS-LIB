@@ -147,8 +147,14 @@ INCLUDE_ALL ?= $(INCLUDE_OPTS) -I$(SOURCE_PATH)
 _CC ?= gcc
 _CC_OPTS ?= $(INCLUDE_OPTS)
 
+TI99_CC ?= tms9900-gcc
+TI99_OPTS ?= $(INCLUDE_OPTS)
+
 GCC ?= gcc
 GCC_OPTS ?= -Wpedantic -Wall $(INCLUDE_OPTS)
+
+ATARI_ST_CC ?= m68k-atari-mint-gcc
+ATARI_ST_OPTS ?= $(INCLUDE_OPTS)
 
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
 LC1802_OPTS ?= $(INCLUDE_ALL)
@@ -4782,7 +4788,22 @@ cpm_buffered:
 	# cp $(BUILD_PATH)/FULL_CPM_BUFFERED.COM $(BUILD_PATH)/CPM.COM
 	
 	
-
+atari_st_buffered:
+	$(ATARI_ST_CC) $(ATARI_ST_OPTS) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv a.out $(BUILD_PATH)/FULL_atari_st_buffered$(COMPILEDEXT)
 	
 gcc_buffered:
 	$(GCC) $(GCC_OPTS) \
@@ -4883,7 +4904,24 @@ gcc_tiny_buffered:
 	$(TINY_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/TINY_gcc_buffered$(COMPILEDEXT)	
 	
-
+ti99_tiny_no_graphics:
+	$(TI99_CC) $(TI99_OPTS) \
+	-I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(TINY_FILES)
 	
 cc_tiny_no_graphics:
 	$(_CC) $(_CC_OPTS) \

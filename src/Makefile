@@ -150,6 +150,9 @@ _CC_OPTS ?= $(INCLUDE_OPTS)
 GCC ?= gcc
 GCC_OPTS ?= -Wpedantic -Wall $(INCLUDE_OPTS)
 
+ATARI_ST_CC ?= m68k-atari-mint-gcc
+ATARI_ST_OPTS ?= $(INCLUDE_OPTS)
+
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
 LC1802_OPTS ?= $(INCLUDE_ALL)
 
@@ -4782,7 +4785,22 @@ cpm_buffered:
 	# cp $(BUILD_PATH)/FULL_CPM_BUFFERED.COM $(BUILD_PATH)/CPM.COM
 	
 	
-
+atari_st_buffered:
+	$(ATARI_ST_CC) $(ATARI_ST_OPTS) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv a.out $(BUILD_PATH)/FULL_atari_st_buffered$(COMPILEDEXT)
 	
 gcc_buffered:
 	$(GCC) $(GCC_OPTS) \

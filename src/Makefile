@@ -2968,8 +2968,22 @@ dmv:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_dmv.bin	
-	
-	
+
+
+sv8000:
+	$(Z88DK_PATH)$(MYZ88DK) +sv8000 -subtype=32k \
+	$(SCCZ80_OPTS) \
+	-DFORCE_CONIO_LIB \
+    -DZ88DK_JOYSTICK \
+	-D__SV8000__ \
+	-DFULL_GAME -DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/FULL_sv8000.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_sv8000.bin	
+    
 cpm_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	$(SCCZ80_OPTS) \
@@ -4904,6 +4918,53 @@ gcc_tiny_buffered:
 	$(TINY_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/TINY_gcc_buffered$(COMPILEDEXT)	
 	
+
+# Paths to TMS9900 compilation tools
+GAS=tms9900-as
+LD=tms9900-ld
+TI99CC=tms9900-gcc
+CXX=tms9900-c++
+OBJCOPY=tms9900-objcopy
+
+# Flags used during linking
+# Refer to the linker rules in an external file
+LDFLAGS=\
+  --script=$(CFG_PATH)/gcc4ti99/linkfile
+
+# List of compiled objects used in executable
+OBJECT_LIST= \
+  cart_header.o \
+  crt0.o \
+  main.o
+
+# Recipes to compile individual files
+%.o: %.asm
+	$(GAS) $< -o $@
+%.o: %.c
+	$(TI99CC) -c $< -O2 -o $@
+%.o: %.cpp
+	$(CXX) -c $< -O2 -o $@
+
+# List of all files needed in executable
+PREREQUISITES=\
+  $(OBJECT_LIST)
+  
+# Recipe to compile the executable
+ti99: ti99_cross_chase.elf
+	$(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart
+
+ti99_cross_chase.elf: $(PREREQUISITES)
+	$(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@
+
+# Recipe to clean all compiled objects
+.phony ti99clean:
+	rm -f *.o
+	rm -f *.elf
+	rm -f *.cart
+
+
+    
+    
 ti99_tiny_no_graphics:
 	$(TI99_CC) $(TI99_OPTS) \
 	-I$(SOURCE_PATH) \
@@ -5196,6 +5257,7 @@ z88dk_targets: \
 	spectrum_targets \
 	srr_targets \
 	super80_targets \
+	sv8000_targets \
 	svi_targets \
 	ti82_targets \
 	ti83_targets \
@@ -5510,13 +5572,16 @@ z80tvgame_targets: \
 	
 qc10_targets: \
 	qc10
-	
+	    
 dmv_targets: \
 	dmv
 	
 bic_targets: \
 	bic
 	
+sv8000_targets: \
+	sv8000  
+    
 ##
 
 telestrat_targets: \

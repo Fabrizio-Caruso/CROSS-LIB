@@ -177,6 +177,7 @@ For most targets, more than one version is built, in order to support different 
 - super80: Super 80/80d/80e/80m (work in progress)
 - super80r: Super 80r/Super80v (work in progress)
 - supervision: Watara Supervision (work in progress)
+- sv8000: Bandai Supervision 8000 (work in progress)
 - svi: Spectravideo 318/328
 - telestrat: Oric Telestrat (work in progress)
 - ti82: Texas TI 82

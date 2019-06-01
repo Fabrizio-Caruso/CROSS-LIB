@@ -5283,7 +5283,14 @@ cmoc_targets: \
 ack_targets: \
 	pdp11v7 cpm8080_buffered pc8086 linux386 linux68k linuxppc linuxmips
 	
-all: cc65_targets z88dk_targets cmoc_targets ncurses_targets ack_targets
+atari_st_targets: \
+	atari_st_buffered
+
+gcc_targets: \
+	gcc_buffered ncurses_targets  
+    
+# All targets that can be compiled under CYGWIN, i.e., not including xtc68, m20
+all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets
 
 clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o

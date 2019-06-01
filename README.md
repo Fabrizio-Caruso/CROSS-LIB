@@ -208,13 +208,14 @@ For most targets, more than one version is built, in order to support different 
 - olivetti_m20: Olivetti M20 
 - pc8086: Intel 8088/8086 PC
 - pdp: PDP 11 v7 (work in progress)
+- atari_st: Atari ST (work in progress)
 
 
 ### 32-BIT versions
 - linux386:  ELF linux for Intel 386
 - linux68k:  ELF linux for Motorola 68020
 - linuxppc:  ELF linux for PPC
-- linuxmips: ELF linux for little endian MIPS32r2 
+- linuxmips: ELF linux for little endian MIPS32r2 (work in progress)
 
 
 ### Modern 32/64-BIT PC versions

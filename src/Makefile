@@ -4929,13 +4929,20 @@ OBJCOPY=tms9900-objcopy
 # Flags used during linking
 # Refer to the linker rules in an external file
 LDFLAGS=\
-  --script=$(CFG_PATH)/gcc4ti99/linkfile
+  --script=$(CFG_PATH)gcc4ti99/linkfile.cfg
 
 # List of compiled objects used in executable
 OBJECT_LIST= \
-  cart_header.o \
-  crt0.o \
-  main.o
+  $(TOOLS_PATH)/ti99/cart_header.o \
+  $(TOOLS_PATH)/ti99/crt0.o \
+  $(CROSS_LIB_PATH)/display/display_macros.o \
+  $(CROSS_LIB_PATH)/display/init_images.o \
+  $(CROSS_LIB_PATH)/input/input_macros.o \
+  $(CROSS_LIB_PATH)/text/text_macros.o \
+  $(SOURCE_PATH)/move_player.c \
+  $(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+  $(SOURCE_PATH)/main.c
+  
 
 # Recipes to compile individual files
 %.o: %.asm
@@ -4966,7 +4973,7 @@ ti99_cross_chase.elf: $(PREREQUISITES)
     
     
 ti99_tiny_no_graphics:
-	$(TI99_CC) $(TI99_OPTS) \
+	$(TI99_CC) $(TI99_OPTS) -c \
 	-I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \

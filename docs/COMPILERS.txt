@@ -14,7 +14,7 @@ for the Motorola 68008-based Sinclair QL
 
 1. set up a 32-bit dev environment, e.g., "sudo apt install libc6-dev-i386"
 2. clone the repository
-3. download the disk1 from http://www.dilwyn.me.uk/c/index.html and put it inside the "support" directory
+3. download the disk1 http://www.dilwyn.me.uk/c/424frun1.zip from http://www.dilwyn.me.uk/c/index.html and put it inside the "support" directory
 4. run "make all"
 5. run the "install.sh" script
 
@@ -22,3 +22,24 @@ for the Motorola 68008-based Sinclair QL
 Z8KGCC 
 for the Zilog Z8000-based Olivetti M20 series 
 (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
+
+1. download and use the pre-compiled compiler for Linux from http://www.z80ne.com/m20/index.php.
+2. in order to insert the binary inside a disk image download the tool m20floppy from  ftp://ftp.groessler.org/…/ol…/imgtools/m20floppy-0.61.tar.gz
+3. use a bootable image from https://github.com/…/m…/tools/olivetti_m20/pcos20h_empty.img
+4. to compile and link use the qcc command:
+- to produce an object file do something like : qcc -c hello.c -o hello.o
+- to link and produce a binary "a_out" do something like qcc crt.o part1.o part2.o
+Remark:
+After linking and compilation the command will give us the number of bytes used for the "dataspace".
+5. in order to use the binary inside an emulator we need to add some meta-data and choose an emulator, e.g.,
+QPC from https://www.kilgus.net/qpc/ :
+- run the following commands
+"
+f$=“dos1_<path to binary in C: where you use '_' instead of '/'>“
+l=FLEN(\f$)
+mem=RESPR(l)
+LBYTES f$,mem
+SEXEC ram1_<name in QL>,mem,l,<value >= dataspace bytes>
+"
+- you will have the program in ram1 with the name chosen by the SEXEC command, which you run by selecting ram1 and the program.
+ 

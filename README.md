@@ -49,9 +49,11 @@ The program is written in ANSI C and currently compiled with
 - SCCZ80 (from Z88DK) for most Z80 targets (https://www.z88dk.org/), 
 - ZSDCC (from Z88DK) for some Z80 targets (https://www.z88dk.org/),
 - CMOC for 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
-- ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC/MIPS, PDP11 (https://github.com/davidgiven/ack).
-- XTC68 (C68) for the Motorola 68008-based Sinclair QL (https://github.com/stronnag/xtc68)
+- ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC/MIPS, PDP11 (https://github.com/davidgiven/ack),
+- XTC68 (C68) for the Motorola 68008-based Sinclair QL (https://github.com/stronnag/xtc68),
 - Z8KGCC for the Zilog Z8000-based Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
+- "GCC for Atari ST" (http://vincent.riviere.free.fr/soft/m68k-atari-mint/),
+- "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
 - GCC for modern 32/64-bit PC under any operating systems 
 
 Previous versions used 
@@ -60,7 +62,6 @@ WinCMOC has been abandoned because it uses an old CMOC version that has broken p
 
 For other targets, the following compilers and dev-kits may be included in future versions of the tool-chain:
 - QDOS-GCC for the Sinclair QL (http://morloch.hd.free.fr/qdos/qdosgcc.html)
-- "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
 - SDCC for Z80 and other targets (http://sdcc.sourceforge.net/),
 - PVSNESLIB for the Super Nintendo Entertainment System (https://github.com/alekmaul/pvsneslib),
 - amiga-os-toolchain for all Amigas (https://github.com/cahirwpz/amigaos-cross-toolchain),

@@ -42,4 +42,9 @@ LBYTES f$,mem
 SEXEC ram1_<name in QL>,mem,l,<value >= dataspace bytes>
 "
 - you will have the program in ram1 with the name chosen by the SEXEC command, which you run by selecting ram1 and the program.
- 
+
+
+GCC for Atari ST
+1. download the cross compiler from http://vincent.riviere.free.fr/soft/m68k-atari-mint/ 
+2. follow the instructions from the installation site
+3. use as GCC

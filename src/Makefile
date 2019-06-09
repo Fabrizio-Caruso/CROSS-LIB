@@ -148,7 +148,7 @@ _CC ?= gcc
 _CC_OPTS ?= $(INCLUDE_OPTS)
 
 TI99_CC ?= tms9900-gcc
-TI99_OPTS ?= $(INCLUDE_OPTS)
+TI99_OPTS ?= $(INCLUDE_OPTS) -nostdlib -DNO_RANDOM_LEVEL
 
 GCC ?= gcc
 GCC_OPTS ?= -Wpedantic -Wall $(INCLUDE_OPTS)
@@ -4973,7 +4973,7 @@ ti99_cross_chase.elf: $(PREREQUISITES)
     
     
 ti99_tiny_no_graphics:
-	$(TI99_CC) $(TI99_OPTS) -c \
+	$(TI99_CC) $(TI99_OPTS) \
 	-I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -4989,7 +4989,10 @@ ti99_tiny_no_graphics:
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
-	$(TINY_FILES)
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(TOOLS_PATH)/ti99/cart_header.o \
+	$(TOOLS_PATH)/ti99/crt0.o
 	
 cc_tiny_no_graphics:
 	$(_CC) $(_CC_OPTS) \

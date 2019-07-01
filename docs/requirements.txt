@@ -1,0 +1,7 @@
+REQUIREMENTS
+
+In order to build the binaries for all targets, you need the compilers (see README.md) and some additionals tools, such as:
+- Java
+- Python
+
+

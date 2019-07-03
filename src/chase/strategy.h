@@ -32,11 +32,8 @@
 #include "character.h"
 
 // Required by horizontal missile
-#if defined(FULL_GAME) 
-	unsigned char moveCharacter(Character* hunterPtr, Character* preyPtr, unsigned char offset);
-#else
-	unsigned char moveCharacter(Character* hunterPtr, unsigned char offset);
-#endif
+
+unsigned char moveCharacter(unsigned char *hunterOffsetPtr, unsigned char *preyOffsetPtr);
 
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);

@@ -37,7 +37,7 @@ extern unsigned char arrowYPosition;
 				{
 					if(player._x>=leftHorizontalMissile._x)
 					{
-						moveCharacter(&leftHorizontalMissile, &player, Y_MOVE);			
+						moveCharacter((unsigned char *)&leftHorizontalMissile+Y_MOVE, (unsigned char *)&player+Y_MOVE);			
 					}
 				}
 			}
@@ -67,7 +67,7 @@ extern unsigned char arrowYPosition;
 				{
 					if(player._x<= rightHorizontalMissile._x)	
 					{
-						moveCharacter(&rightHorizontalMissile, &player,Y_MOVE);			
+						moveCharacter((unsigned char *)&rightHorizontalMissile+Y_MOVE, (unsigned char *)&player+Y_MOVE);			
 					}
 				}
 			}

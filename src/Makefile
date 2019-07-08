@@ -385,6 +385,36 @@ vic20_exp_3k:
 	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 
 	
+vic20_exp_3k_light:
+	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/vic20-3k.cfg  \
+	-DANIMATE_PLAYER -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 \
+	-DROUND_ENEMIES \
+	-DSOUNDS \
+	-DVIC20_EXP_3K \
+	-DMEMORY_MAPPED \
+	-DNO_PRINT \
+	-DCBM_SCREEN_CODES \
+	-DUSE_MEMORY_BUFFERS \
+	-DLESS_TEXT \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_BLINKING \
+	-DNO_RANDOM_LEVEL \
+	-DALT_SLEEP \
+	-DNO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
+	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/ghost.c $(CROSS_LIB_PATH)/input/input_macros.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/bullet.c \
+	$(SOURCE_PATH)/move_player.c \
+	$(CROSS_LIB_PATH)/display/init_images.c \
+	$(SOURCE_PATH)/item.c	\
+	$(CROSS_LIB_PATH)/display/display_macros.c  \
+	$(SOURCE_PATH)/main.c \
+	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/LIGHT_vic20_exp_3k.prg
 	
 vic20_exp_8k_full:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/vic20-8k.cfg \
@@ -456,7 +486,11 @@ vic20_exp_8k:
 	-DALT_SLEEP \
 	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
-	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DUSE_MEMORY_BUFFERS \
+	-DLESS_TEXT \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_BLINKING \
+	-DNO_RANDOM_LEVEL \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \

@@ -1,9 +1,9 @@
 
 #  if defined(__C64__)
 	#include "c64_memory_mapped_settings.h"
-#elif defined(__VIC20__) && defined(VIC20_EXP_3K)
+#elif defined(__VIC20__) && defined(VIC20_EXP_3K) && defined(TINY_GAME)
 	#include "vic20_exp_3k_settings.h"	
-#elif defined(__VIC20__) && defined(VIC20_EXP_8K) && defined(REDEFINED_CHARS)
+#elif defined(__VIC20__) && (defined(VIC20_EXP_8K) || (defined(VIC20_EXP_3K) && !defined(TINY_GAME))) && defined(REDEFINED_CHARS)
 	#include "vic20_exp_8k_settings_2.h"
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
 	#include "vic20_unexpanded_gfx.h"

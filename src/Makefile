@@ -521,6 +521,24 @@ vic20_exp_16k:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
 
+c64_bench: 
+	$(CC65_PATH)$(MYCC65) -O -t c64 \
+	-DBENCHMARK -DBENCHMARK_MAX=40 \
+	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DCBM_SCREEN_CODES \
+	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/graphics.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_c64.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_c64.prg -o $(BUILD_PATH)/FULL_c64_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_c64_exomized.prg  $(BUILD_PATH)/FULL_c64_exomized.crt
+	rm $(BUILD_PATH)/FULL_c64.prg
+
 	
 c64: 
 	$(CC65_PATH)$(MYCC65) -O -t c64 \
@@ -1351,6 +1369,7 @@ zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	$(ZSDCC_OPTS) \
 	-compiler=sdcc \
+	--opt-code-size \
 	-vn \
 	-D__ZX81__ -DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \

@@ -1,7 +1,17 @@
 #ifndef _VARIABLES_H
 #define _VARIABLES_H
 
+#if defined(BENCHMARK)
+    #if !defined(BENCHMARK_MAX)
+        #define BENCHMARK_MAX 70
+    #endif
+    
+    clock_t Ticks, TicksDelta;
+    unsigned int Sec;
+    unsigned int Milli; 
 
+    unsigned short benchmark_count;
+#endif
 
 #if defined(Z88DK_JOYSTICK)
 	unsigned char stick;

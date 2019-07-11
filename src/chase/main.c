@@ -55,6 +55,12 @@
 	#include "rocket.h"
 #endif
 
+
+#if defined(BENCHMARK)
+    #include <stdio.h>
+    #include <time.h>
+#endif
+
 #include "variables.h"
 
 
@@ -335,11 +341,20 @@ int main(void)
 			#endif		
 			
 			#if defined(FULL_GAME)
-			while(player._status && ((ghostCount>0 && !bossLevel()) || (skull._status && bossLevel()))) // while alive && there are still ghosts
+                #if !defined(BENCHMARK)
+                    while(player._status && ((ghostCount>0 && !bossLevel()) || (skull._status && bossLevel()))) // while alive && there are still ghosts
+                #else
+                    Ticks = clock();
+
+                    while(benchmark_count<BENCHMARK_MAX && player._status && ((ghostCount>0 && !bossLevel()) || (skull._status && bossLevel()))) // while alive && there are still ghosts
+                #endif
 			#else
-			while(player._status && (ghostCount>0) )
+                while(player._status && (ghostCount>0) )
 			#endif
 			{
+                #if defined(BENCHMARK)
+                    ++benchmark_count;
+                #endif
 				#if defined(DEBUG_END)
 					gameCompleted();
 				#endif
@@ -540,6 +555,14 @@ int main(void)
 				#endif	
 				REFRESH();
 			}; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
+    
+            #if defined(BENCHMARK)
+                TicksDelta = clock() - Ticks;
+                Sec = (unsigned short) (TicksDelta / CLOCKS_PER_SEC);
+                Milli = ((TicksDelta % CLOCKS_PER_SEC) * 1000) / CLOCKS_PER_SEC;
+                printf ("\nTime used: %u.%03u secs = %u ticks\n", Sec, Milli, (unsigned short) TicksDelta);    
+                getchar();
+            #endif
 
 			if(player._status) // if level finished
 			{

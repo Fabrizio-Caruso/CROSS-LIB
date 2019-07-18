@@ -1383,7 +1383,8 @@ zx81_16k:
 	
 zx81_16k_wrx:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
-	$(SCCZ80_OPTS) \
+	$(SCCZ80_OPTS) -O3 \
+    -DANIMATE_PLAYER \
 	-DFORCE_XSIZE=36 \
 	-DFORCE_YSIZE=30 \
 	-vn \

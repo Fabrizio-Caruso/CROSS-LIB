@@ -1410,7 +1410,18 @@ zx81_16k_wrx_p:
 	-DZ88DK_SPRITES \
 	-DLESS_PRINT \
 	-lndos \
-    -DALT_PRINT \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DNO_RANDOM_LEVEL \
+	-DSIMPLE_STRATEGY \
+	-DALT_MOVE \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DALT_CLEAR_SCREEN \
+	-DALT_PRINT \
 	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx_p.prg \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \

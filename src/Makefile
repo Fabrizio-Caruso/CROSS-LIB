@@ -1397,7 +1397,26 @@ zx81_16k_wrx:
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c
 	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg
-		
+
+
+zx81_16k_wrx_p:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
+	$(SCCZ80_OPTS) -O3 \
+    -DANIMATE_PLAYER \
+	-DFORCE_XSIZE=36 \
+	-DFORCE_YSIZE=30 \
+	-vn \
+	-D__ZX81__ \
+	-DZ88DK_SPRITES \
+	-DLESS_PRINT \
+	-lndos \
+    -DALT_PRINT \
+	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx_p.prg \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx_p.prg
+
 	
 lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) \
@@ -1698,6 +1717,7 @@ mz:
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_mz.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)

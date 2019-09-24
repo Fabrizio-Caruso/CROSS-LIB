@@ -109,6 +109,7 @@
 void PRINT(unsigned char x, unsigned char y, char * str)
 {
 	unsigned char i = 0;
+
 	while(str[i]!='\0')
 	{
 		#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__)) 

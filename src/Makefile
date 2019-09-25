@@ -1429,7 +1429,39 @@ zx81_16k_wrx:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg
 
-	
+zx81_16k_wrx_zsdcc:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
+	$(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+    -DANIMATE_PLAYER \
+	-DFORCE_XSIZE=36 \
+	-DFORCE_YSIZE=30 \
+	-vn \
+	-D__ZX81__ \
+	-DZ88DK_SPRITES \
+	-DLESS_PRINT \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DNO_RANDOM_LEVEL \
+	-DSIMPLE_STRATEGY \
+	-DALT_MOVE \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DSEPARATE_SPRITE_DEFINITIONS \
+	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/z88dk_sprites_definitions.asm \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg
+
 lambda_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) \
 	-vn -D__LAMBDA__ -DFULL_GAME \

@@ -1382,7 +1382,7 @@ zx81_16k:
 	rm $(BUILD_PATH)/FULL_zx81_16k.prg
 	
 	
-zx81_16k_wrx:
+zx81_16k_wrx_no_text:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
 	$(SCCZ80_OPTS) -O3 \
     -DANIMATE_PLAYER \
@@ -1393,15 +1393,16 @@ zx81_16k_wrx:
 	-DZ88DK_SPRITES \
 	-DNO_PRINT \
 	-lndos \
-	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg \
+	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx_no_text.prg \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c
-	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg
+	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx_no_text.prg
 
 
-zx81_16k_wrx_p:
+zx81_16k_wrx:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
 	$(SCCZ80_OPTS) -O3 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
     -DANIMATE_PLAYER \
 	-DFORCE_XSIZE=36 \
 	-DFORCE_YSIZE=30 \
@@ -1420,13 +1421,13 @@ zx81_16k_wrx_p:
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DALT_CLEAR_SCREEN \
 	-DALT_PRINT \
-	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx_p.prg \
+	-DALT_CLEAR_SCREEN \
+	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx_p.prg
+	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg
 
 	
 lambda_16k:

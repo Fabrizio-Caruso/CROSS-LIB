@@ -1729,7 +1729,7 @@ mz:
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-define:REGISTER_SP=0xd000 \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_mz.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)

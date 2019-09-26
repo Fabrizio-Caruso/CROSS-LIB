@@ -1422,7 +1422,7 @@ zx81_16k_wrx:
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DFEWER_SPRITES \
 	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \

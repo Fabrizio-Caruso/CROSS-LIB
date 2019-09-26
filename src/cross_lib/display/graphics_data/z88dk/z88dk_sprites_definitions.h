@@ -606,6 +606,7 @@ __asm
 	defb    @10000001
 	defb    @01111110 
 
+#if !defined(FEWER_SPRITES)
 	defb 8,8
 	defb %"--------"
 	defb %"--------"
@@ -965,6 +966,8 @@ __asm
 	defb %"#--##--#"
 	defb %"-#----#-"
 	defb %"--####--"
+
+#endif
 
 __endasm;
 

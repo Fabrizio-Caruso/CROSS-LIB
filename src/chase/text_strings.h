@@ -133,7 +133,7 @@
 #if defined(NO_SMALL_LETTERS)
     #define TITLE_LINE_STRING "CROSS CHASE"
 #else
-    àdefine TITLE_LINE_STRING "cross chase"
+    #define TITLE_LINE_STRING "cross chase"
 #endif
 
 #if defined(LESS_TEXT)

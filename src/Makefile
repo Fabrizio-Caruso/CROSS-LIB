@@ -1404,7 +1404,7 @@ zx81_16k_wrx:
 	$(SCCZ80_OPTS) -O3 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-DANIMATE_PLAYER \
-	-DFORCE_GHOSTS_NUMBER=7 \   
+	-DFORCE_GHOSTS_NUMBER=7 \
 	-DFORCE_XSIZE=36 \
 	-DFORCE_YSIZE=30 \
 	-vn \
@@ -1457,6 +1457,8 @@ zx81_32k_wrx:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	rm $(BUILD_PATH)/FULL_zx81_32k_wrx.prg
 
+zx81_wrx_targets: \
+    zx81_16k_wrx zx81_32k_wrx
 
 zx81_16k_wrx_zsdcc:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
@@ -5662,7 +5664,7 @@ zx80_targets: \
 	zx80_16k_turn_based
 	
 zx81_targets: \
-	zx81_16k zx81_16k_turn_based
+	zx81_16k zx81_16k_turn_based zx81_16k_wrx zx81_32k_wrx
 	
 spectrum_targets: \
 	spectrum_16k spectrum_48k

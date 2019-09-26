@@ -1414,15 +1414,12 @@ zx81_16k_wrx:
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
 	-DNO_COLOR \
-	-DNO_RANDOM_LEVEL \
 	-DSIMPLE_STRATEGY \
 	-DALT_MOVE \
-	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_WAIT \
-	-DNO_SLEEP \
 	-DALT_PRINT \
 	-DFEWER_SPRITES \
+	-DNO_SMALL_LETTERS \
 	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \

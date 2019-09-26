@@ -118,7 +118,7 @@ extern unsigned short highScore;
 	\
 	SET_COLOR(_RED); \
 	TITLE_LINE(); \
-	PRINT(XSize-11,TITLE_Y,"cross chase");	
+	PRINT(XSize-11,TITLE_Y,TITLE_LINE_STRING);	
 
 
 // TODO: This is SLOW

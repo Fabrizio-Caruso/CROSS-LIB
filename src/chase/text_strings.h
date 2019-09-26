@@ -56,6 +56,30 @@
 	#define MISSILE_BASES_STRING "missile bases"
 	#define FOR_POINTS_AND___STRING "for points"
 	#define EXTRA_POWERUPS__STRING "and items"
+#elif defined(NO_SMALL_LETTERS)
+	#if defined(TINY_GAME) || XSize<20
+		#define CROSS_CHASE_STRING "CROSS CHASE"
+		#define AUTHOR_STRING "FABRIZIO CARUSO"
+	#else
+		#define CROSS_CHASE_STRING "C R O S S   C H A S E"	
+		#define AUTHOR_STRING "BY FABRIZIO CARUSO"
+	#endif
+	#define KILL_THE_SKULL_STRING       "KILL THE SKULL"
+	#if XSize<20
+		#define DESTROY_MISSILES_STRING "DESTROY MISSILES"		
+	#else
+		#define DESTROY_MISSILES_STRING "DESTROY THE MISSILES"
+	#endif
+	#define LURE_THE_ENEMIES_STRING     "LURE THE ENEMIES"
+	#define INTO_THE_MINES_STRING 	    "INTO THE MINES"
+	#define SCORE_STRING "SCORE"
+	#define LEVEL_STRING "LEVEL"
+	#define START_LEVEL_STRING "LEVEL %u"
+	#define USE_THE_GUN_AGAINST_STRING "SHOOT AT"
+	#define THE_SKULL_AND_STRING "THE SKULL AND"
+	#define MISSILE_BASES_STRING "MISSILE BASES"
+	#define FOR_POINTS_AND___STRING "FOR POINTS"
+	#define EXTRA_POWERUPS__STRING "ANS ITEMS"
 #else
 	#if defined(TINY_GAME) || XSize<20
 		#define CROSS_CHASE_STRING "CROSS CHASE"
@@ -93,7 +117,9 @@
 		#define USE_STRING "use i j k l space"	
 	#endif	
 #else
-	#if defined(JOYSTICK_CONTROL)
+    #if defined(NO_SMALL_LETTERS) 
+        #define USE_STRING "USE IJKL SPACE"
+	#elif defined(JOYSTICK_CONTROL)
 		#define USE_STRING "Use the joystick"
 	#elif defined(TINY_GAME) 
 		#define USE_STRING "Use IJKL"
@@ -103,7 +129,13 @@
 		#define USE_STRING "Use I J K L SPACE"	
 	#endif	
 #endif
-	
+
+#if defined(NO_SMALL_LETTERS)
+    #define TITLE_LINE_STRING "CROSS CHASE"
+#else
+    àdefine TITLE_LINE_STRING "cross chase"
+#endif
+
 #if defined(LESS_TEXT)
 	#if defined(NO_CASE_LETTERS)
 		#define PRESS_STRING "go"

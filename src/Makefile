@@ -1454,9 +1454,7 @@ zx81_16k_wrx_zsdcc:
 	-DNO_SLEEP \
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
-	-DSEPARATE_SPRITE_DEFINITIONS \
 	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/z88dk_sprites_definitions.asm \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c

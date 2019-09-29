@@ -269,7 +269,7 @@ oric1_16k:
 # 	-DNO_INITIAL_SCREEN 
 # 	-DNO_MESSAGE 
 #   -DOPTIMIZE_ROUND_ENEMIES 
-vic20_unexpanded:
+vic20_unexpanded_no_gfx:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
 	-DSOUNDS \
 	-DANIMATE_PLAYER \
@@ -295,13 +295,13 @@ vic20_unexpanded:
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
-	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
+	-o $(BUILD_PATH)/TINY_vic20_unexpanded_no_gfx.prg
 	
 # 	-DALT_DISPLAY_STATS 	
 # 	-DANIMATE_PLAYER 
 #   -DSIMPLE_RANDOM_LEVEL \
 
-vic20_unexpanded_gfx:
+vic20_unexpanded:
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
 	-DSOUNDS \
 	-DCC65_GOTO \
@@ -333,7 +333,7 @@ vic20_unexpanded_gfx:
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_6chars.s \
-	-o $(BUILD_PATH)/TINY_vic20_unexpanded_gfx.prg
+	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
 
 
 vic20_unexpanded_turn_based:
@@ -441,7 +441,7 @@ vic20_exp_8k_full:
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
-vic20_exp_8k_gfx: 
+vic20_exp_8k: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_GFX_3.cfg \
 	-DSOUNDS -DANIMATE_PLAYER \
@@ -480,7 +480,7 @@ vic20_exp_8k_gfx:
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k.prg
 
 
-vic20_exp_8k: 
+vic20_exp_8k_old: 
 	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
 	-DREDEFINED_CHARS \
@@ -5774,7 +5774,7 @@ supervision_targets: \
 	supervision
 
 vic20_targets: \
-	vic20_unexpanded_gfx vic20_exp_3k vic20_exp_8k_gfx vic20_exp_16k
+	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
 
 atari_targets: \
 	atari_color atari_no_color

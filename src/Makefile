@@ -1046,7 +1046,7 @@ supervision:
     
 supervision_x:
 	$(CC65_PATH)$(MYCC65) -O -t supervision  \
-	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
+	--config $(CFG_PATH)/cc65/supervision-32k_GFX.cfg \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
 	-DBIT_MAPPED -DNO_INIT_GRAPHICS \
@@ -1055,7 +1055,7 @@ supervision_x:
 	-DNO_SLEEP \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_supervision.sv
+	-o $(BUILD_PATH)/FULL_supervision_x.sv
 # ------------------------------------------------------------------------------------------
 #Z88DK
 # 	-DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL \

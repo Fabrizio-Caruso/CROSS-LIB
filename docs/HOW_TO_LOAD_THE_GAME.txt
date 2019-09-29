@@ -25,6 +25,14 @@ run"xchase
 You need to attch the image as a cartridge
 
 ---------------------------------------------------------
+
+SUPERVISION
+
+Use Potator (https://emulationrealm.net/downloads/file/235-potator)
+
+Use arrows for movements and C for fire
+
+---------------------------------------------------------
 NES 
 
 Use mednafen and run the following command:

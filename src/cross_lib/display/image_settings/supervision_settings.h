@@ -1,47 +1,59 @@
 #ifndef _SUPERVISION_SETTINGS
 #define _SUPERVISION_SETTINGS
+// BLUE
+#define _PLAYER '\'';
 
-#define _PLAYER 255
+// OK
+#define _PLAYER_DOWN '\'';
 
-#define _PLAYER_DOWN 255
-#define _PLAYER_UP 254
-#define _PLAYER_RIGHT 253
-#define _PLAYER_LEFT 252
+// OK
+#define _PLAYER_UP 0x50
 
-#define _GHOST 4
+#define _PLAYER_RIGHT 0x57 
 
-#define _BOMB 5
+//OK
+#define _PLAYER_LEFT 0x54
 
-#define _POWERUP 6
+#define _GUN 0x58
 
-// YELLOW
-#define _VERTICAL_BRICK 7
-#define _HORIZONTAL_BRICK 8
-#define _EXTRA_LIFE 9
-#define _EXTRA_POINTS 10
+// OK
+#define _SKULL 0x57
+
+// OK
+#define _VERTICAL_BRICK 0x52
+
+#define _HORIZONTAL_BRICK '-'
+#define _EXTRA_LIFE _PLAYER
+#define _EXTRA_POINTS '*'
 
 // GREEN
-#define _SKULL 11
-
+#define _POWERUP  0x60
+#define _FREEZE _POWERUP
+#define _SUPER _POWERUP
 // RED
-#define _GUN 12
+#define _BOMB 0x61
 
-#define _DEAD_GHOST 13
 
-#define _INVINCIBILITY 14
-#define _BULLET 15
+// OK
+#define _INVINCIBILITY 0x53
 
-#define _SPACE 0
+#define _BULLET 0x62
 
-#define _LEFT_HORIZONTAL_MISSILE 17
-#define _RIGHT_HORIZONTAL_MISSILE 18
-#define _ROCKET 19
+// OK
+#define _GHOST 0x56
 
-#define _SUPER 20
-#define _CONFUSE 21
-#define _ZOMBIE 22
+#define _DEAD_GHOST _GHOST
 
-#define _FREEZE 23
+
+#define _LEFT_HORIZONTAL_MISSILE '<'
+
+#define _RIGHT_HORIZONTAL_MISSILE '>'
+
+#define _ROCKET '^'
 
 #define _BROKEN_BRICK _BOMB
+
+#define _CONFUSE _SKULL
+
+#define _SPACE ' '
 #endif // _SUPERVISION_SETTINGS

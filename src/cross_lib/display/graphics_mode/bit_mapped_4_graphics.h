@@ -19,7 +19,7 @@ extern unsigned char udgs[];
 		unsigned char k; \
 		unsigned short base = (x)+(XSize)*8*(y); \
 		unsigned char delta = 0; \
-		unsigned char offset = (8*(unsigned char)(image)->_imageData) ; \
+		unsigned short offset = (8*(unsigned char)(image)->_imageData) ; \
         \
         for(k=0;k<8;++k) \
         { \

@@ -1043,6 +1043,19 @@ supervision:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_supervision.sv
 	
+    
+supervision_x:
+	$(CC65_PATH)$(MYCC65) -O -t supervision  \
+	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
+	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
+	-DBIT_MAPPED -DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_supervision.sv
 # ------------------------------------------------------------------------------------------
 #Z88DK
 # 	-DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL \
@@ -5488,33 +5501,7 @@ clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/wincmoc_main.coco.bin
 
 clean_lib_obj:
-	rm -rf $(CROSS_LIB_PATH)/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2enh/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/c128/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/ncurses/*.o
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/*.o		
-	rm -rf $(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/alt_print/*.o	
-	rm -rf $(CROSS_LIB_PATH)/display/graphics_data/cc65/*.o	
-	rm -rf $(CROSS_LIB_PATH)/input/*.o
-	rm -rf $(CROSS_LIB_PATH)/sleep/*.o
-	rm -rf $(CROSS_LIB_PATH)/sound/*.o
-	rm -rf $(CROSS_LIB_PATH)/sound/cc65/pokey/*.o
-	rm -rf $(CROSS_LIB_PATH)/sound/cc65/atmos/*.o
-	rm -rf $(CROSS_LIB_PATH)/sound/cc65/c264/*.o
-	rm -rf $(CROSS_LIB_PATH)/sound/cc65/sid/*.o
-	rm -rf $(CROSS_LIB_PATH)/sound/cc65/vic20/*.o	
-	rm -rf $(CROSS_LIB_PATH)/sound/z88dk/bit_bang/*.o
-	rm -rf $(CROSS_LIB_PATH)/sound/z88dk/psg/*.o	
-	rm -rf $(CROSS_LIB_PATH)/text/*.o	
+	find -type f -name '*.o' -delete
 
 clean_obj: \
 	clean_chase_obj \

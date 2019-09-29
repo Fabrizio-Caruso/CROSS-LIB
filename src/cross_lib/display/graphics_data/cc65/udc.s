@@ -1,7 +1,7 @@
 		.segment "UDCCHAR"
-		.export _Charset
+		.export _udgs
 
-_Charset:
+_udgs:
 
 .byte $3c,$66,$6e,$6e,$60,$62,$3c,$00, $18,$3c,$66,$7e,$66,$66,$66,$00 ; @ a
 .byte $7c,$66,$66,$7c,$66,$66,$7c,$00, $3c,$66,$60,$60,$60,$66,$3c,$00 ; b c

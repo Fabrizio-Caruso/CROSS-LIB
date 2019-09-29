@@ -1032,9 +1032,23 @@ pce_16k:
 
 # It lacks conio and TGI
 # --config $(SOURCE_PATH)/../cfg/cc65/supervision-16k.cfg
-supervision:
+supervision_dummy:
 	$(CC65_PATH)$(MYCC65) -O -t supervision  \
 	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
+	-DBIT_MAPPED_4_DUMMY -DNO_INIT_GRAPHICS \
+	-DALT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_supervision_dummy.sv
+	
+    
+supervision:
+	$(CC65_PATH)$(MYCC65) -O -t supervision  \
+	--config $(CFG_PATH)/cc65/supervision-32k_GFX.cfg \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
+	-DNO_PRINT_4 -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
 	-DBIT_MAPPED_4 -DNO_INIT_GRAPHICS \
 	-DALT_CLEAR_SCREEN \
 	-DNO_WAIT \
@@ -1042,20 +1056,6 @@ supervision:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_supervision.sv
-	
-    
-supervision_x:
-	$(CC65_PATH)$(MYCC65) -O -t supervision  \
-	--config $(CFG_PATH)/cc65/supervision-32k_GFX.cfg \
-	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
-	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
-	-DBIT_MAPPED -DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN \
-	-DNO_WAIT \
-	-DNO_SLEEP \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_supervision_x.sv
 # ------------------------------------------------------------------------------------------
 #Z88DK
 # 	-DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL \

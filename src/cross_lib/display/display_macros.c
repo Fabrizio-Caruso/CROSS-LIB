@@ -172,6 +172,35 @@
 			jsr	0xE803
 		}
 	}
+#elif defined(__SUPERVISION__)
+    unsigned char bit_reverse_lookup[16] = 
+    {
+        0x0, 0x8, 0x4, 0xC, 0x2, 0xA, 0x6, 0xE,
+        0x1, 0x9, 0x5, 0xD, 0x3, 0xB, 0x7, 0xF 
+    };
+
+    unsigned char bit_reverse(unsigned char n) 
+    {
+       // Reverse the top and bottom nibble then swap them.
+       return (bit_reverse_lookup[n&0b1111] << 4) | bit_reverse_lookup[n>>4];
+    }
+    
+    unsigned char map_one_to_two_lookup[16] = 
+    {
+        0x00, 0x03, 0x0C, 0x0F, 0x30, 0x33, 0x3C, 0x3F,
+        0xC0, 0xC3, 0xCC, 0xCF, 0xF0, 0xF3, 0xFC, 0xFF
+    };
+    
+    unsigned char right_map_one_to_two(unsigned char n)
+    {
+        return map_one_to_two_lookup[n >> 4];
+    }
+    
+    unsigned char left_map_one_to_two(unsigned char n)
+    {
+        return map_one_to_two_lookup[n&0x0F];
+    }
+
 #endif
 
 

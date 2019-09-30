@@ -1046,7 +1046,7 @@ supervision_dummy:
     
 supervision:
 	$(CC65_PATH)$(MYCC65) -O -t supervision  \
-	--config $(CFG_PATH)/cc65/supervision-32k_GFX.cfg \
+	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
 	-DBIT_MAPPED_4 -DNO_INIT_GRAPHICS \

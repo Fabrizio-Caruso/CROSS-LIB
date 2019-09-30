@@ -13,19 +13,8 @@
 
 extern unsigned char udgs[];
 
-// extern    unsigned char lookup[];
-
 unsigned char left_map_one_to_two(unsigned char n);
 unsigned char right_map_one_to_two(unsigned char n);
-
-
-// unsigned char bit_reverse(unsigned char n);
-
-#define reverse(b) \
-   b = (b & 0xF0) >> 4 | (b & 0x0F) << 4; \
-   b = (b & 0xCC) >> 2 | (b & 0x33) << 2; \
-   b = (b & 0xAA) >> 1 | (b & 0x55) << 1;
-
 
 #if defined(NO_COLOR)
     #define __DRAW(x,y,image) \

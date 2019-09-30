@@ -191,14 +191,14 @@
         0xC0, 0xC3, 0xCC, 0xCF, 0xF0, 0xF3, 0xFC, 0xFF
     };
     
-    unsigned char right_map_one_to_two(unsigned char n)
-    {
-        return map_one_to_two_lookup[n >> 4];
-    }
-    
     unsigned char left_map_one_to_two(unsigned char n)
     {
-        return map_one_to_two_lookup[n&0x0F];
+        return bit_reverse(map_one_to_two_lookup[n >> 4]);
+    }
+    
+    unsigned char right_map_one_to_two(unsigned char n)
+    {
+        return bit_reverse(map_one_to_two_lookup[n&0x0F]);
     }
 
 #endif

@@ -1049,12 +1049,13 @@ supervision:
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
-	-DBIT_MAPPED_4 -DNO_INIT_GRAPHICS \
+	-DBIT_MAPPED_4 \
 	-DALT_CLEAR_SCREEN \
 	-DANIMATE_PLAYER \
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_supervision.sv
 # ------------------------------------------------------------------------------------------

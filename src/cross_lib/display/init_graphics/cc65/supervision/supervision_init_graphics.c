@@ -4,6 +4,8 @@
 
 void INIT_GRAPHICS(void)
 {
-    POKE(SV_BANK,PEEK(SV_BANK) | 8);
+    SV_LCD.height = 0xA0;
+    SV_LCD.width = 0xA0;
+    SV_BANK = 0xC9;
 }
 

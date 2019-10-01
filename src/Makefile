@@ -1058,6 +1058,13 @@ supervision:
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_supervision.sv
+    
+supervision_test:
+	$(CC65_PATH)$(MYCC65) -O -t supervision  \
+	--config $(CFG_PATH)/cc65/supervision-16k.cfg \
+	$(SOURCE_PATH)/../test/supervision_test.c \
+	-o $(BUILD_PATH)/TEST_supervision.sv
+
 # ------------------------------------------------------------------------------------------
 #Z88DK
 # 	-DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL \
@@ -7574,10 +7581,10 @@ supervision_tiny:
 	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
 	$(SOURCE_PATH)/main.c
 	
-supervision_test:
-	$(CC65_PATH)$(MYCC65) -t supervision \
-	$(SOURCE_PATH)/../experiments/supervision_test.c \
-	-o $(BUILD_PATH)/supervision_test.sv
+# supervision_test:
+	# $(CC65_PATH)$(MYCC65) -t supervision \
+	# $(SOURCE_PATH)/../experiments/supervision_test.c \
+	# -o $(BUILD_PATH)/supervision_test.sv
 
 sound_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \

@@ -23,7 +23,6 @@
 	chString[0] = ' '; \
 	chString[1]='\0'; \
 	tgi_setbgcolor(_BG_COLOR); \
-	tgi_setcolor(COLOR_BLACK); \
 	tgi_outtextxy((x*8),(y*8),chString); \
 	}    
 	

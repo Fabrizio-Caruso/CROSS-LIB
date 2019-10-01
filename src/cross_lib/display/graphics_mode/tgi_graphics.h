@@ -12,7 +12,6 @@
 	char chString[2]; \
 	chString[0] = image->_imageData; \
 	chString[1]='\0'; \
-	tgi_setbgcolor(COLOR_BLACK); \
 	tgi_setcolor(image->_color); \
 	tgi_outtextxy((x*8),(y*8),chString); \
 	}

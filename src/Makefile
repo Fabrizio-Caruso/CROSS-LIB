@@ -36,6 +36,8 @@ WINCMOC_OPTS ?= \
 	
 
 CC65_PATH ?= /cygdrive/c/cc65-snapshot-win32/bin/
+#/home/fabri/CC65_FIX/cc65/bin/
+#/cygdrive/c/cc65-snapshot-win32/bin/
 Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
 Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
 Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
@@ -893,6 +895,12 @@ gamate:
 	-o $(BUILD_PATH)/FULL_gamate.bin
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
 
+gamate_test:
+	$(CC65_PATH)$(MYCC65) -O -t gamate \
+	$(SOURCE_PATH)/../test/gamate_test.c \
+	-o $(BUILD_PATH)/gamate_test.bin 
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/gamate_test.bin
+
 gamate_light: 
 	$(CC65_PATH)$(MYCC65) -O -t gamate \
 	-DLESS_TEXT \
@@ -1064,6 +1072,11 @@ supervision_test:
 	--config $(CFG_PATH)/cc65/supervision-16k.cfg \
 	$(SOURCE_PATH)/../test/supervision_test.c \
 	-o $(BUILD_PATH)/TEST_supervision.sv
+
+supervision_cc65_test:
+	$(CC65_PATH)$(MYCC65) -O -t supervision  \
+	$(SOURCE_PATH)/../test/supervisionhello.c \
+	-o $(BUILD_PATH)/TEST_hellosupervision.sv
 
 # ------------------------------------------------------------------------------------------
 #Z88DK

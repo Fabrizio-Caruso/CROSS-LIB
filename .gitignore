@@ -24,4 +24,3 @@ src/cross_lib/display/*.s
 src/chase/wincmoc*
 a.exe
 a.out
-src/test/*

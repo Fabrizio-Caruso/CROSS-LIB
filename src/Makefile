@@ -35,7 +35,7 @@ WINCMOC_OPTS ?= \
 	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES= 
 	
 
-CC65_PATH ?= /cygdrive/c/cc65-snapshot-win32/bin/
+CC65_PATH ?= /home/fabri/CC65_FIX/cc65/bin/
 #/home/fabri/CC65_FIX/cc65/bin/
 #/cygdrive/c/cc65-snapshot-win32/bin/
 Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
@@ -1061,9 +1061,8 @@ supervision:
 	-DALT_CLEAR_SCREEN \
 	-DANIMATE_PLAYER \
 	-DNO_WAIT \
-	-DNO_SLEEP \
+	-DNO_SLEEP -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_supervision.sv
     

@@ -599,7 +599,8 @@ Once the monitor is running, enter “E 1000”
 CREATIVISION
 
 Use MAME/MESS 
-Mess 0.148 with crvision works fine
+Mess 0.148 with crvision works fine:
+mess64.exe crvision -window -cart1 c:\Retro\CROSS-CHASE\build\FULL_creativision_16k_SWAPPED.bin
 
 -----------------------------------------------------------
 

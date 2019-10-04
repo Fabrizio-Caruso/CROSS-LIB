@@ -85,7 +85,7 @@
 		#define GAME_SLOW_DOWN 2500
 	#elif defined(__SUPERVISION__)
 		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 3300U	
+		#define GAME_SLOW_DOWN 500U	
 	#elif defined(__NC100__) || defined(__NC200__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 1500

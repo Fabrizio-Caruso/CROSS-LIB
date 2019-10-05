@@ -6,6 +6,8 @@
 #define COLOR_DEF 0x1800    
 
 #include "8x8_chars.h"
+
+#include "creativision_settings.h"
   // you need to set up the VDP vectors at $BFF0.
   // .byte $00  ; VDP 0: External video off, M2=0
   // .byte $A2  ; VDP 1: 16K mode, Screen not active, Generate interrupts
@@ -72,14 +74,17 @@ void debug(unsigned short base, unsigned short range)
     }
 }
 
-unsigned char player_down_image[8] = _PLAYER_DOWN_UDG;
-unsigned char player_up_image[8] = _PLAYER_UP_UDG;
-unsigned char player_left_image[8] = _PLAYER_LEFT_UDG;
-unsigned char player_right_image[8] = _PLAYER_RIGHT_UDG;
-unsigned char skull_image[8] = _SKULL_UDG;
+const unsigned char player_down_image[8] = _PLAYER_DOWN_UDG;
+const unsigned char player_up_image[8] = _PLAYER_UP_UDG;
+const unsigned char player_left_image[8] = _PLAYER_LEFT_UDG;
+const unsigned char player_right_image[8] = _PLAYER_RIGHT_UDG;
+const unsigned char skull_image[8] = _SKULL_UDG;
+const unsigned char ghost_image[8] = _GHOST_UDG;
+const unsigned char bomb_image[8] = _BOMB_UDG;
+const unsigned char gun_image[8] = _GUN_UDG;
+const unsigned char powerup_image[8] = _POWERUP_UDG;
 
-
-void redefine(unsigned short ch, unsigned char* image)
+void redefine(unsigned short ch, const unsigned char* image)
 {
     unsigned short i;
     
@@ -133,15 +138,16 @@ void INIT_GRAPHICS(void)
     // POKE(COLOR_DEF+14,32+16);
     // POKE(COLOR_DEF+15,16+128);       
 
-    gotoxy(2,6);
-    cprintf("abcdefghijklmnopqrstuvwxyz");    
-
  
-    redefine(160+39,player_right_image);
-    redefine(160+40,player_left_image);
-    redefine(160+41,player_up_image);
-    redefine(160+42,player_down_image);
-    redefine(160+43,skull_image);
+    redefine(160+_PLAYER_RIGHT,player_right_image);
+    redefine(160+_PLAYER_LEFT,player_left_image);
+    redefine(160+_PLAYER_UP,player_up_image);
+    redefine(160+_PLAYER_DOWN,player_down_image);
+    redefine(160+_SKULL,skull_image);
+    redefine(160+_GUN,gun_image);
+    // redefine(160+0x5E,ghost_image);
+    redefine(160+_POWERUP,powerup_image);   
+    // redefine(160+0x7E,ghost_image);
     
     for(k=0;k<5000;++k){};
 }

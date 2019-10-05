@@ -15,7 +15,10 @@
 #define _SKULL 0x27
 #define _VERTICAL_BRICK 0x26
 #define _HORIZONTAL_BRICK 0x24
-#define _EXTRA_POINTS 0x22
+
+// 0x22
+#define _EXTRA_POINTS (160+'$')
+
 #define _ZOMBIE 0x28
 
 // GREEN
@@ -23,15 +26,26 @@
 
 // RED
 #define _BOMB 0x3A
-#define _DEAD_GHOST 0x5B
-#define _SUPER 0x5C
-#define _CONFUSE 0x5A
-#define _EXTRA_LIFE 0x5D
+
+//0x5B
+#define _DEAD_GHOST 0x28
+
+// 0x5C
+#define _SUPER (160+'S')
+
+// 0x5A
+#define _CONFUSE (160+'C')
+
+// 0x5S
+#define _EXTRA_LIFE (160+'E')
 
 
 // CYAN
 #define _INVINCIBILITY 0x08
-#define _BULLET 0x09
+
+//0x09
+#define _BULLET 0x23
+
 #define _FREEZE 0x0A
 
 // WHITE

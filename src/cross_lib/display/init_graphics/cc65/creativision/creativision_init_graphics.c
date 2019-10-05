@@ -86,6 +86,17 @@ const unsigned char bomb_image[8] = _BOMB_UDG;
 const unsigned char gun_image[8] = _GUN_UDG;
 const unsigned char powerup_image[8] = _POWERUP_UDG;
 
+const unsigned char super_image[8] = _SUPER_UDG;
+const unsigned char extra_life_image[8] = _EXTRA_LIFE_UDG;
+const unsigned char bullet_image[8] = _BULLET_UDG;
+const unsigned char freeze_image[8] = _FREEZE_UDG;
+const unsigned char invincibility_image[8] = _INVINCIBILITY_UDG;
+
+const unsigned char dead_ghost_image[8] = _DEAD_GHOST_UDG;
+const unsigned char rocket_image[8] = _ROCKET_UDG;
+const unsigned char left_horizontal_missile_image[8] = _LEFT_HORIZONTAL_MISSILE_UDG;
+const unsigned char right_horizontal_missile_image[8] = _RIGHT_HORIZONTAL_MISSILE_UDG;
+
 
 // void redefine(unsigned short offset, const char *new_char)
 // {
@@ -161,7 +172,17 @@ void INIT_GRAPHICS(void)
     redefine(160+_POWERUP,powerup_image);
     redefine(160+_BOMB,bomb_image);
     redefine(160-0x20+_GHOST,ghost_image);
-    
+ 
+    redefine(160+_SUPER,super_image);
+    redefine(160+_EXTRA_LIFE,extra_life_image);
+    redefine(160+_BULLET,bullet_image);
+    redefine(160+_FREEZE,freeze_image);
+    redefine(160+_INVINCIBILITY,invincibility_image); 
+
+    redefine(160+_DEAD_GHOST,dead_ghost_image);
+    redefine(160+_ROCKET,rocket_image);
+    redefine(160+_LEFT_HORIZONTAL_MISSILE,left_horizontal_missile_image);
+    redefine(160+_RIGHT_HORIZONTAL_MISSILE,right_horizontal_missile_image);
     
     for(k=0;k<5000;++k){};
 }

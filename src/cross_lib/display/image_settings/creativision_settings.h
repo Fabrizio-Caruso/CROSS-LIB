@@ -22,7 +22,7 @@
 #define _POWERUP  0x2C
 
 // RED
-#define _BOMB 0x5E
+#define _BOMB 0x3A
 #define _DEAD_GHOST 0x5B
 #define _SUPER 0x5C
 #define _CONFUSE 0x5A

@@ -6,8 +6,10 @@
 #define COLOR_DEF 0x1800    
 
 #include "8x8_chars.h"
-
+// #include "udg_map.h"
 #include "creativision_settings.h"
+
+
   // you need to set up the VDP vectors at $BFF0.
   // .byte $00  ; VDP 0: External video off, M2=0
   // .byte $A2  ; VDP 1: 16K mode, Screen not active, Generate interrupts
@@ -84,13 +86,24 @@ const unsigned char bomb_image[8] = _BOMB_UDG;
 const unsigned char gun_image[8] = _GUN_UDG;
 const unsigned char powerup_image[8] = _POWERUP_UDG;
 
+
+// void redefine(unsigned short offset, const char *new_char)
+// {
+	// unsigned char i;
+	
+	// for(i=0;i<8;++i)
+	// {
+		// VDP_POKE(CHAR_BASE+(offset<<3)+i-32*8,new_char[i]);
+	// }
+// }
+
 void redefine(unsigned short ch, const unsigned char* image)
 {
     unsigned short i;
     
     for(i=0;i<8;++i)
     {
-        VDP_POKE(CHAR_BASE-1+(unsigned short)ch*(unsigned short)8u+i,image[i]);
+        VDP_POKE(CHAR_BASE-1+(unsigned short)(ch<<3)+i,image[i]);
     }   
 }
 
@@ -145,9 +158,10 @@ void INIT_GRAPHICS(void)
     redefine(160+_PLAYER_DOWN,player_down_image);
     redefine(160+_SKULL,skull_image);
     redefine(160+_GUN,gun_image);
-    // redefine(160+0x5E,ghost_image);
-    redefine(160+_POWERUP,powerup_image);   
-    // redefine(160+0x7E,ghost_image);
+    redefine(160+_POWERUP,powerup_image);
+    redefine(160+_BOMB,bomb_image);
+    redefine(160-0x20+_GHOST,ghost_image);
+    
     
     for(k=0;k<5000;++k){};
 }

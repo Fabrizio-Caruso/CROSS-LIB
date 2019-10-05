@@ -953,7 +953,8 @@ creativision_8k_light:
 creativision_16k_x:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DFULL_GAME -DALT_SLEEP \
+	-DSIMPLE_STRATEGY \
 	-DCONIO \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \

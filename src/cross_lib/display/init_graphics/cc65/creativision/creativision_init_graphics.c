@@ -50,9 +50,11 @@
 
 void VDP_POKE(unsigned short address, unsigned char value)
 {
+    __asm__("sei");
     POKE(VDP_CONTROL,(unsigned char) (address&0x00FF));
     POKE(VDP_CONTROL,(unsigned char) (address>>8)|0x4000);
     POKE(VDP_DATA,value);
+    __asm__("cli");
 }
 
 void set_group_color(unsigned char group, unsigned char color)
@@ -71,6 +73,10 @@ void debug(unsigned short base, unsigned short range)
 }
 
 unsigned char player_down_image[8] = _PLAYER_DOWN_UDG;
+unsigned char player_up_image[8] = _PLAYER_UP_UDG;
+unsigned char player_left_image[8] = _PLAYER_LEFT_UDG;
+unsigned char player_right_image[8] = _PLAYER_RIGHT_UDG;
+
 
 void redefine(unsigned short ch, unsigned char* image)
 {
@@ -125,43 +131,15 @@ void INIT_GRAPHICS(void)
     // POKE(COLOR_DEF+13,64+32);
     // POKE(COLOR_DEF+14,32+16);
     // POKE(COLOR_DEF+15,16+128);       
-    gotoxy(2,4);
-    cprintf("abc  defghijklmno  pqrstuvwxyz");
-    
-    // debug(0x0000,0x0100);    
-    gotoxy(2,3);
-    cprintf("abc  defghijklmno  pqrstuvwxyz");    
-    
-    // debug(0x0100,0x0100);    
-    gotoxy(2,4);
-    cprintf("abc  defghijklmno  pqrstuvwxyz");    
 
-    // debug(0x0200,0x0100);    
-    gotoxy(2,5);
-    cprintf("abc  defghijklmno  pqrstuvwxyz");    
-
-    // debug(0x0300,0x0100);    
     gotoxy(2,6);
-    cprintf("abc  defghijklmno  pqrstuvwxyz");    
+    cprintf("abcdefghijklmnopqrstuvwxyz");    
+
  
-    // debug(0x0400,0x0100);    
-    gotoxy(2,7);
-    cprintf("abc  defghijklmno  pqrstuvwxyz");    
- 
-    gotoxy(4,8);
-    cprintf("abc  defghijklmno  pqrstuvwxyz");    
-    
-    {
-        unsigned char j; unsigned short k;
-        
-        for(j=128+65;j<=128+65+26;++j)
-        {
-            redefine(j,player_down_image);
-            gotoxy(4,15);
-            cprintf("j: %d  -> ch: %c", j, j);
-            for(k=0;k<999;++k){};
-        }
-    }
+    redefine(160+39,player_right_image);
+    redefine(160+40,player_left_image);
+    redefine(160+41,player_up_image);
+    redefine(160+42,player_down_image);
     
     for(k=0;k<5000;++k){};
 }

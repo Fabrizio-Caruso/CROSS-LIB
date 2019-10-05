@@ -26,7 +26,16 @@
 #define _DEFAULT_GRAPHICS_SETTINGS
 
 
-#define _PLAYER '*'
+
+#if defined(ANIMATE_PLAYER)
+    #define _PLAYER_DOWN '*'
+    #define _PLAYER_UP ')'
+    #define _PLAYER_LEFT '('
+    #define _PLAYER_RIGHT '\''
+#else
+    #define _PLAYER '*'
+#endif
+
 
 // RED
 #define _BOMB 'X'

@@ -956,6 +956,7 @@ creativision_16k_x:
 	-DFULL_GAME -DALT_SLEEP \
 	-DSIMPLE_STRATEGY \
 	-DCONIO \
+	-DANIMATE_PLAYER \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \

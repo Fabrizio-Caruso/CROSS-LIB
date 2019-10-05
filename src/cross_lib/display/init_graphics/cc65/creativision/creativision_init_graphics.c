@@ -2,9 +2,10 @@
 #define VDP_CONTROL 0x3001
 #include <peekpoke.h>
     
-#define CHAR_BASE 0x0000
+#define CHAR_BASE ((unsigned short) 0x0000)
 #define COLOR_DEF 0x1800    
 
+#include "8x8_chars.h"
   // you need to set up the VDP vectors at $BFF0.
   // .byte $00  ; VDP 0: External video off, M2=0
   // .byte $A2  ; VDP 1: 16K mode, Screen not active, Generate interrupts
@@ -69,29 +70,29 @@ void debug(unsigned short base, unsigned short range)
     }
 }
 
-unsigned char my_char[8] = {255,24,24,255,255,24,24,255};
+unsigned char player_down_image[8] = _PLAYER_DOWN_UDG;
 
-void redefine(unsigned char ch)
+void redefine(unsigned short ch, unsigned char* image)
 {
     unsigned short i;
     
     for(i=0;i<8;++i)
     {
-        VDP_POKE(0x0000+(unsigned short)ch*8u+i,0xAA);
+        VDP_POKE(CHAR_BASE-1+(unsigned short)ch*(unsigned short)8u+i,image[i]);
     }   
 }
 
 #include <conio.h>
 void INIT_GRAPHICS(void)
 {
+    unsigned short k;
+    
     // debug(0x000,0x07ff);
     
     //debug(0x0000,0x0400);
     //debug(0x1000,0x0400);
     // VDP_POKE(0x0000,65);
     // VDP_POKE(0x0001,66);
-    VDP_POKE(0x0002,255);
-    VDP_POKE(0x0003,24);
   
     
 
@@ -153,17 +154,14 @@ void INIT_GRAPHICS(void)
     {
         unsigned char j; unsigned short k;
         
-        for(j=0;j<=254;++j)
+        for(j=128+65;j<=128+65+26;++j)
         {
-
-            redefine(j);
+            redefine(j,player_down_image);
             gotoxy(4,15);
             cprintf("j: %d  -> ch: %c", j, j);
             for(k=0;k<999;++k){};
         }
-        for(k=0;k<5000;++k){};
     }
-    // debug(0x3000,0x0A);
     
-
+    for(k=0;k<5000;++k){};
 }

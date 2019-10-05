@@ -76,6 +76,7 @@ unsigned char player_down_image[8] = _PLAYER_DOWN_UDG;
 unsigned char player_up_image[8] = _PLAYER_UP_UDG;
 unsigned char player_left_image[8] = _PLAYER_LEFT_UDG;
 unsigned char player_right_image[8] = _PLAYER_RIGHT_UDG;
+unsigned char skull_image[8] = _SKULL_UDG;
 
 
 void redefine(unsigned short ch, unsigned char* image)
@@ -140,6 +141,7 @@ void INIT_GRAPHICS(void)
     redefine(160+40,player_left_image);
     redefine(160+41,player_up_image);
     redefine(160+42,player_down_image);
+    redefine(160+43,skull_image);
     
     for(k=0;k<5000;++k){};
 }

@@ -172,17 +172,18 @@ void INIT_GRAPHICS(void)
     redefine(160+_POWERUP,powerup_image);
     redefine(160+_BOMB,bomb_image);
     redefine(160-0x20+_GHOST,ghost_image);
+    redefine(160-0x20+_ROCKET,rocket_image);
+    redefine(160-0x20+_LEFT_HORIZONTAL_MISSILE,left_horizontal_missile_image);
+    redefine(160-0x20+_RIGHT_HORIZONTAL_MISSILE,right_horizontal_missile_image);
  
-    redefine(160+_SUPER,super_image);
-    redefine(160+_EXTRA_LIFE,extra_life_image);
-    redefine(160+_BULLET,bullet_image);
-    redefine(160+_FREEZE,freeze_image);
-    redefine(160+_INVINCIBILITY,invincibility_image); 
+    // redefine(160+_SUPER,super_image);
+    // redefine(160+_EXTRA_LIFE,extra_life_image);
+    // redefine(160-0x80+_BULLET,bullet_image);
+    // redefine(160-0x40+_FREEZE,freeze_image);
+    // redefine(160-0x20+_INVINCIBILITY,invincibility_image); 
 
-    redefine(160+_DEAD_GHOST,dead_ghost_image);
-    redefine(160+_ROCKET,rocket_image);
-    redefine(160+_LEFT_HORIZONTAL_MISSILE,left_horizontal_missile_image);
-    redefine(160+_RIGHT_HORIZONTAL_MISSILE,right_horizontal_missile_image);
+    // redefine(160-0x60+_DEAD_GHOST,dead_ghost_image);
+
     
     for(k=0;k<5000;++k){};
 }

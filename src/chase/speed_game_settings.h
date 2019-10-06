@@ -10,7 +10,7 @@
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&15)==1)	
-#elif defined(__C64__) 
+#elif defined(__C64__) || defined(__SUPERVISION__)
 	#define SKIP_DRAW
 	
 	#define SKIP_MORE_DRAW \
@@ -83,9 +83,6 @@
 	#elif defined(__SC3000__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 2500
-	#elif defined(__SUPERVISION__)
-		#define SLOW_DOWN
-		#define GAME_SLOW_DOWN 500U	
 	#elif defined(__NC100__) || defined(__NC200__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 1500

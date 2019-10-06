@@ -97,6 +97,7 @@ const unsigned char rocket_image[8] = _ROCKET_UDG;
 const unsigned char left_horizontal_missile_image[8] = _LEFT_HORIZONTAL_MISSILE_UDG;
 const unsigned char right_horizontal_missile_image[8] = _RIGHT_HORIZONTAL_MISSILE_UDG;
 
+const unsigned char extra_points_image[8] = _EXTRA_POINTS_UDG;
 
 // void redefine(unsigned short offset, const char *new_char)
 // {
@@ -175,9 +176,9 @@ void INIT_GRAPHICS(void)
     redefine(160-0x20+_ROCKET,rocket_image);
     redefine(160-0x20+_LEFT_HORIZONTAL_MISSILE,left_horizontal_missile_image);
     redefine(160-0x20+_RIGHT_HORIZONTAL_MISSILE,right_horizontal_missile_image);
-    redefine(160+_BULLET,bullet_image);
- 
-    redefine(160+_DEAD_GHOST,dead_ghost_image);
+    redefine(160+_BULLET,bullet_image); 
+    redefine(160+_DEAD_GHOST,dead_ghost_image);    
+    redefine(160+_EXTRA_POINTS,extra_points_image);
  
     // redefine(160+_SUPER,super_image);
     // redefine(160+_EXTRA_LIFE,extra_life_image);

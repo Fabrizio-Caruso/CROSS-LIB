@@ -14,12 +14,10 @@
 // YELLOW
 #define _SKULL 0x27
 #define _VERTICAL_BRICK 0x26
-#define _HORIZONTAL_BRICK 0x24
+#define _HORIZONTAL_BRICK 0x25
 
 // 0x22
-#define _EXTRA_POINTS (160+'$')
-
-#define _ZOMBIE 0x28
+#define _EXTRA_POINTS 0x24
 
 // GREEN
 #define _POWERUP  0x2C
@@ -31,14 +29,10 @@
 #define _DEAD_GHOST 0x28
 
 // 0x5C
-#define _SUPER (160+'S')
-
-// 0x5A
-#define _CONFUSE (160+'C')
+#define _SUPER 'S'
 
 // 0x5S
-#define _EXTRA_LIFE (160+'E')
-
+#define _EXTRA_LIFE 'E'
 
 // CYAN
 #define _INVINCIBILITY 0x08
@@ -46,7 +40,8 @@
 //0x09
 #define _BULLET 0x23
 
-#define _FREEZE 0x0A
+//0x0A
+#define _FREEZE 'F' 
 
 // WHITE
 #define _GHOST 0x7E

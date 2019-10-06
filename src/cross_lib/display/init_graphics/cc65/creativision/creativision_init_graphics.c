@@ -56,7 +56,7 @@ void VDP_POKE(unsigned short address, unsigned char value)
 {
     __asm__("sei");
     POKE(VDP_CONTROL,(unsigned char) (address&0x00FF));
-    POKE(VDP_CONTROL,(unsigned char) (address>>8)|0x4000);
+    POKE(VDP_CONTROL,(unsigned char) (address>>8)|0x40);
     POKE(VDP_DATA,value);
     __asm__("cli");
 }
@@ -115,7 +115,7 @@ void redefine(unsigned short ch, const unsigned char* image)
     
     for(i=0;i<8;++i)
     {
-        VDP_POKE(CHAR_BASE-1+(unsigned short)(ch<<3)+i,image[i]);
+        VDP_POKE(CHAR_BASE+(unsigned short)(ch<<3)+i,image[i]);
     }   
 }
 
@@ -133,14 +133,14 @@ void INIT_GRAPHICS(void)
   
     
 
-	// set_group_color(0,9);
-	// set_group_color(1,7);
-	// set_group_color(2,9);
-	// set_group_color(3,11);
-	// set_group_color(4,10);
-	// set_group_color(5,2);
-	// set_group_color(6,4);
-	// set_group_color(7,4); 
+	set_group_color(0,9);
+	set_group_color(1,7);
+	set_group_color(2,9);
+	set_group_color(3,11);
+	set_group_color(4,10);
+	set_group_color(5,2);
+	set_group_color(6,4);
+	set_group_color(7,4); 
 
 	// set_group_color(2,255);
 	// set_group_color(3,255);

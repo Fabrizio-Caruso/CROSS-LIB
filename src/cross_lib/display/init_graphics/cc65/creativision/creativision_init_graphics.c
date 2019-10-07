@@ -1,14 +1,9 @@
-#define VDP_DATA  0x3000
-#define VDP_CONTROL 0x3001
-#include <peekpoke.h>
-    
-#define CHAR_BASE ((unsigned short) 0x0000)
-#define COLOR_DEF ((unsigned short) 0x1800)   
 
 #include "8x8_chars.h"
 // #include "udg_map.h"
 #include "creativision_settings.h"
 
+#include "memory_mapped_graphics.h"
 
 const unsigned char player_down_image[8] = _PLAYER_DOWN_UDG;
 const unsigned char player_up_image[8] = _PLAYER_UP_UDG;
@@ -75,18 +70,18 @@ const unsigned char extra_points_image[8] = _EXTRA_POINTS_UDG;
     // POKE(VDP_CONTROL,(reg|0x80));
 // }
 
-void VDP_POKE(unsigned short address, unsigned char value)
-{
-    __asm__("sei");
-    POKE(VDP_CONTROL,(unsigned char) (address&0x00FF));
-    POKE(VDP_CONTROL,(unsigned char) (address>>8)|0x40);
-    __asm__("cli");    
-    POKE(VDP_DATA,value);
-}
+// void DISPLAY_POKE(unsigned short address, unsigned char value)
+// {
+    // __asm__("sei");
+    // POKE(VDP_CONTROL,(unsigned char) (address&0x00FF));
+    // POKE(VDP_CONTROL,(unsigned char) (address>>8)|0x40);
+    // __asm__("cli");    
+    // POKE(VDP_DATA,value);
+// }
 
 void set_group_color(unsigned char group, unsigned char color)
 {
-	VDP_POKE((unsigned short) COLOR_DEF+ (unsigned short) group, ((unsigned short) color)<<4);
+	DISPLAY_POKE((unsigned short) COLOR_DEF+ (unsigned short) group, ((unsigned short) color)<<4);
 }
 
 void redefine(unsigned short ch, const unsigned char* image)
@@ -95,7 +90,7 @@ void redefine(unsigned short ch, const unsigned char* image)
     
     for(i=0;i<8;++i)
     {
-        VDP_POKE(CHAR_BASE+(unsigned short)(ch<<3)+i,image[i]);
+        DISPLAY_POKE(CHAR_BASE+(unsigned short)(ch<<3)+i,image[i]);
     }   
 }
 
@@ -103,18 +98,18 @@ void set_udg_colors(void)
 {
 	unsigned char i;
 	
-	set_group_color(16+0,9);
-	set_group_color(16+1,7);
-	set_group_color(16+2,9);
-	set_group_color(16+3,11);
-	set_group_color(16+4,10);
-	set_group_color(16+5,2);
-	set_group_color(16+6,4);
-	set_group_color(16+7,4);
+	set_group_color(0,9);
+	set_group_color(1,7);
+	set_group_color(2,9);
+	set_group_color(3,11);
+	set_group_color(4,10);
+	set_group_color(5,2);
+	set_group_color(6,4);
+	set_group_color(7,4);
 	
 	for(i=8;i<=11;++i)
 	{
-		set_group_color(16+i,8);
+		set_group_color(i,8);
 	}
 }
 
@@ -129,44 +124,44 @@ void INIT_GRAPHICS(void)
 	// set_group_color(3,255);
 	// set_group_color(4,255);
 	// set_group_color(5,255);    
-    // VDP_POKE(COLOR_DEF,0x1F);
-    // VDP_POKE(COLOR_DEF,0x1E);
+    // DISPLAY_POKE(COLOR_DEF,0x1F);
+    // DISPLAY_POKE(COLOR_DEF,0x1E);
   
-    // VDP_POKE(COLOR_DEF+(unsigned short)1u,64);
-    // VDP_POKE(COLOR_DEF+16,32);
-    // VDP_POKE(COLOR_DEF+17,16);
-    // VDP_POKE(COLOR_DEF+18,128+64);
-    // VDP_POKE(COLOR_DEF+19,64+32);
-    // VDP_POKE(COLOR_DEF+20,32+16);
-    // VDP_POKE(COLOR_DEF+21,16+128);   
-    // VDP_POKE(COLOR_DEF+22,128);
-    // VDP_POKE(COLOR_DEF+23,64);
-    // VDP_POKE(COLOR_DEF+24,32);
-    // VDP_POKE(COLOR_DEF+25,16);
-    // VDP_POKE(COLOR_DEF+26,128+64);
-    // VDP_POKE(COLOR_DEF+27,64+32);
-    // VDP_POKE(COLOR_DEF+28,32+16);
-    // VDP_POKE(COLOR_DEF+29,16+128);       
-    // VDP_POKE(COLOR_DEF+30,32+16);
-    // VDP_POKE(COLOR_DEF+31,16+128);
+    // DISPLAY_POKE(COLOR_DEF+(unsigned short)1u,64);
+    // DISPLAY_POKE(COLOR_DEF+16,32);
+    // DISPLAY_POKE(COLOR_DEF+17,16);
+    // DISPLAY_POKE(COLOR_DEF+18,128+64);
+    // DISPLAY_POKE(COLOR_DEF+19,64+32);
+    // DISPLAY_POKE(COLOR_DEF+20,32+16);
+    // DISPLAY_POKE(COLOR_DEF+21,16+128);   
+    // DISPLAY_POKE(COLOR_DEF+22,128);
+    // DISPLAY_POKE(COLOR_DEF+23,64);
+    // DISPLAY_POKE(COLOR_DEF+24,32);
+    // DISPLAY_POKE(COLOR_DEF+25,16);
+    // DISPLAY_POKE(COLOR_DEF+26,128+64);
+    // DISPLAY_POKE(COLOR_DEF+27,64+32);
+    // DISPLAY_POKE(COLOR_DEF+28,32+16);
+    // DISPLAY_POKE(COLOR_DEF+29,16+128);       
+    // DISPLAY_POKE(COLOR_DEF+30,32+16);
+    // DISPLAY_POKE(COLOR_DEF+31,16+128);
     
     psg_silence();
  
-    redefine(160+_PLAYER_RIGHT,player_right_image);
-    redefine(160+_PLAYER_LEFT,player_left_image);
-    redefine(160+_PLAYER_UP,player_up_image);
-    redefine(160+_PLAYER_DOWN,player_down_image);
-    redefine(160+_SKULL,skull_image);
-    redefine(160+_GUN,gun_image);
-    redefine(160+_POWERUP,powerup_image);
-    redefine(160+_BOMB,bomb_image);
-    redefine(160-0x20+_GHOST,ghost_image);
-    redefine(160-0x20+_ROCKET,rocket_image);
-    redefine(160-0x20+_LEFT_HORIZONTAL_MISSILE,left_horizontal_missile_image);
-    redefine(160-0x20+_RIGHT_HORIZONTAL_MISSILE,right_horizontal_missile_image);
-    redefine(160+_BULLET,bullet_image); 
-    redefine(160+_DEAD_GHOST,dead_ghost_image);    
-    redefine(160+_EXTRA_POINTS,extra_points_image);
+    redefine(_PLAYER_RIGHT,player_right_image);
+    redefine(_PLAYER_LEFT,player_left_image);
+    redefine(_PLAYER_UP,player_up_image);
+    redefine(_PLAYER_DOWN,player_down_image);
+    redefine(_SKULL,skull_image);
+    redefine(_GUN,gun_image);
+    redefine(_POWERUP,powerup_image);
+    redefine(_BOMB,bomb_image);
+    redefine(32-0x20+_GHOST,ghost_image);
+    redefine(32-0x20+_ROCKET,rocket_image);
+    redefine(32-0x20+_LEFT_HORIZONTAL_MISSILE,left_horizontal_missile_image);
+    redefine(32-0x20+_RIGHT_HORIZONTAL_MISSILE,right_horizontal_missile_image);
+    redefine(_BULLET,bullet_image); 
+    redefine(_DEAD_GHOST,dead_ghost_image);    
+    redefine(_EXTRA_POINTS,extra_points_image);
  
     // redefine(160+_SUPER,super_image);
     // redefine(160+_EXTRA_LIFE,extra_life_image);

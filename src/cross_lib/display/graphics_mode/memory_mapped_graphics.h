@@ -25,6 +25,8 @@
 	#define COLOR_ADDR 0x9600	
 #elif defined(__MSX__)
 	#define BASE_ADDR 0x1800
+#elif defined(__CREATIVISION__) && defined(MEMORY_MAPPED)
+    #define BASE_ADDR 0x1000
 #elif defined(__AQUARIUS__)
 	#define BASE_ADDR (12288+40)
 	#define COLOR_ADDR (BASE_ADDR+1024)
@@ -32,6 +34,20 @@
 
 #if defined(__MSX__)
 	#define DISPLAY_POKE(addr,val) msx_vpoke(addr,val)
+#elif defined(__CREATIVISION__)
+    #define VDP_DATA  0x3000
+    #define VDP_CONTROL 0x3001
+    #include <peekpoke.h>
+        
+    #define CHAR_BASE ((unsigned short) 0x0000)
+    #define COLOR_DEF ((unsigned short) 0x1800)   
+
+    #define DISPLAY_POKE(addr,val) \
+        __asm__("sei"); \
+        POKE(VDP_CONTROL,(unsigned char) (addr&0x00FF)); \
+        POKE(VDP_CONTROL,(unsigned char) (addr>>8)|0x40); \
+        POKE(VDP_DATA,val); \
+        __asm__("cli");    
 #else
 	#define DISPLAY_POKE(addr,val) (*(unsigned char*) (addr) = (val))
 #endif

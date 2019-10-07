@@ -3,12 +3,35 @@
 #include <peekpoke.h>
     
 #define CHAR_BASE ((unsigned short) 0x0000)
-#define COLOR_DEF 0x1800    
+#define COLOR_DEF ((unsigned short) 0x1800)   
 
 #include "8x8_chars.h"
 // #include "udg_map.h"
 #include "creativision_settings.h"
 
+
+const unsigned char player_down_image[8] = _PLAYER_DOWN_UDG;
+const unsigned char player_up_image[8] = _PLAYER_UP_UDG;
+const unsigned char player_left_image[8] = _PLAYER_LEFT_UDG;
+const unsigned char player_right_image[8] = _PLAYER_RIGHT_UDG;
+const unsigned char skull_image[8] = _SKULL_UDG;
+const unsigned char ghost_image[8] = _GHOST_UDG;
+const unsigned char bomb_image[8] = _BOMB_UDG;
+const unsigned char gun_image[8] = _GUN_UDG;
+const unsigned char powerup_image[8] = _POWERUP_UDG;
+
+const unsigned char super_image[8] = _SUPER_UDG;
+const unsigned char extra_life_image[8] = _EXTRA_LIFE_UDG;
+const unsigned char bullet_image[8] = _BULLET_UDG;
+const unsigned char freeze_image[8] = _FREEZE_UDG;
+const unsigned char invincibility_image[8] = _INVINCIBILITY_UDG;
+
+const unsigned char dead_ghost_image[8] = _DEAD_GHOST_UDG;
+const unsigned char rocket_image[8] = _ROCKET_UDG;
+const unsigned char left_horizontal_missile_image[8] = _LEFT_HORIZONTAL_MISSILE_UDG;
+const unsigned char right_horizontal_missile_image[8] = _RIGHT_HORIZONTAL_MISSILE_UDG;
+
+const unsigned char extra_points_image[8] = _EXTRA_POINTS_UDG;
 
   // you need to set up the VDP vectors at $BFF0.
   // .byte $00  ; VDP 0: External video off, M2=0
@@ -57,57 +80,14 @@ void VDP_POKE(unsigned short address, unsigned char value)
     __asm__("sei");
     POKE(VDP_CONTROL,(unsigned char) (address&0x00FF));
     POKE(VDP_CONTROL,(unsigned char) (address>>8)|0x40);
+    __asm__("cli");    
     POKE(VDP_DATA,value);
-    __asm__("cli");
 }
 
 void set_group_color(unsigned char group, unsigned char color)
 {
 	VDP_POKE((unsigned short) COLOR_DEF+ (unsigned short) group, ((unsigned short) color)<<4);
 }
-
-void debug(unsigned short base, unsigned short range)
-{
-    unsigned short i;
-    
-    for(i=base;i<base+range;++i)
-    {
-        VDP_POKE(i,i&0xF0);
-    }
-}
-
-const unsigned char player_down_image[8] = _PLAYER_DOWN_UDG;
-const unsigned char player_up_image[8] = _PLAYER_UP_UDG;
-const unsigned char player_left_image[8] = _PLAYER_LEFT_UDG;
-const unsigned char player_right_image[8] = _PLAYER_RIGHT_UDG;
-const unsigned char skull_image[8] = _SKULL_UDG;
-const unsigned char ghost_image[8] = _GHOST_UDG;
-const unsigned char bomb_image[8] = _BOMB_UDG;
-const unsigned char gun_image[8] = _GUN_UDG;
-const unsigned char powerup_image[8] = _POWERUP_UDG;
-
-const unsigned char super_image[8] = _SUPER_UDG;
-const unsigned char extra_life_image[8] = _EXTRA_LIFE_UDG;
-const unsigned char bullet_image[8] = _BULLET_UDG;
-const unsigned char freeze_image[8] = _FREEZE_UDG;
-const unsigned char invincibility_image[8] = _INVINCIBILITY_UDG;
-
-const unsigned char dead_ghost_image[8] = _DEAD_GHOST_UDG;
-const unsigned char rocket_image[8] = _ROCKET_UDG;
-const unsigned char left_horizontal_missile_image[8] = _LEFT_HORIZONTAL_MISSILE_UDG;
-const unsigned char right_horizontal_missile_image[8] = _RIGHT_HORIZONTAL_MISSILE_UDG;
-
-const unsigned char extra_points_image[8] = _EXTRA_POINTS_UDG;
-
-// void redefine(unsigned short offset, const char *new_char)
-// {
-	// unsigned char i;
-	
-	// for(i=0;i<8;++i)
-	// {
-		// VDP_POKE(CHAR_BASE+(offset<<3)+i-32*8,new_char[i]);
-	// }
-// }
 
 void redefine(unsigned short ch, const unsigned char* image)
 {
@@ -119,50 +99,58 @@ void redefine(unsigned short ch, const unsigned char* image)
     }   
 }
 
+void set_udg_colors(void)
+{
+	unsigned char i;
+	
+	set_group_color(16+0,9);
+	set_group_color(16+1,7);
+	set_group_color(16+2,9);
+	set_group_color(16+3,11);
+	set_group_color(16+4,10);
+	set_group_color(16+5,2);
+	set_group_color(16+6,4);
+	set_group_color(16+7,4);
+	
+	for(i=8;i<=11;++i)
+	{
+		set_group_color(16+i,8);
+	}
+}
+
+
 #include <conio.h>
 void INIT_GRAPHICS(void)
 {
     unsigned short k;
-    
-    // debug(0x000,0x07ff);
-    
-    //debug(0x0000,0x0400);
-    //debug(0x1000,0x0400);
-    // VDP_POKE(0x0000,65);
-    // VDP_POKE(0x0001,66);
-  
-    
-
-	set_group_color(0,9);
-	set_group_color(1,7);
-	set_group_color(2,9);
-	set_group_color(3,11);
-	set_group_color(4,10);
-	set_group_color(5,2);
-	set_group_color(6,4);
-	set_group_color(7,4); 
+   
 
 	// set_group_color(2,255);
 	// set_group_color(3,255);
 	// set_group_color(4,255);
 	// set_group_color(5,255);    
-    // POKE(COLOR_DEF,0x1F);
-    // POKE(COLOR_DEF+1,64);
-    // POKE(COLOR_DEF+2,32);
-    // POKE(COLOR_DEF+3,16);
-    // POKE(COLOR_DEF+4,128+64);
-    // POKE(COLOR_DEF+5,64+32);
-    // POKE(COLOR_DEF+6,32+16);
-    // POKE(COLOR_DEF+7,16+128);   
-    // POKE(COLOR_DEF+8,128);
-    // POKE(COLOR_DEF+9,64);
-    // POKE(COLOR_DEF+10,32);
-    // POKE(COLOR_DEF+11,16);
-    // POKE(COLOR_DEF+12,128+64);
-    // POKE(COLOR_DEF+13,64+32);
-    // POKE(COLOR_DEF+14,32+16);
-    // POKE(COLOR_DEF+15,16+128);       
-
+    // VDP_POKE(COLOR_DEF,0x1F);
+    // VDP_POKE(COLOR_DEF,0x1E);
+  
+    // VDP_POKE(COLOR_DEF+(unsigned short)1u,64);
+    // VDP_POKE(COLOR_DEF+16,32);
+    // VDP_POKE(COLOR_DEF+17,16);
+    // VDP_POKE(COLOR_DEF+18,128+64);
+    // VDP_POKE(COLOR_DEF+19,64+32);
+    // VDP_POKE(COLOR_DEF+20,32+16);
+    // VDP_POKE(COLOR_DEF+21,16+128);   
+    // VDP_POKE(COLOR_DEF+22,128);
+    // VDP_POKE(COLOR_DEF+23,64);
+    // VDP_POKE(COLOR_DEF+24,32);
+    // VDP_POKE(COLOR_DEF+25,16);
+    // VDP_POKE(COLOR_DEF+26,128+64);
+    // VDP_POKE(COLOR_DEF+27,64+32);
+    // VDP_POKE(COLOR_DEF+28,32+16);
+    // VDP_POKE(COLOR_DEF+29,16+128);       
+    // VDP_POKE(COLOR_DEF+30,32+16);
+    // VDP_POKE(COLOR_DEF+31,16+128);
+    
+    psg_silence();
  
     redefine(160+_PLAYER_RIGHT,player_right_image);
     redefine(160+_PLAYER_LEFT,player_left_image);
@@ -185,7 +173,15 @@ void INIT_GRAPHICS(void)
     // redefine(160-0x40+_FREEZE,freeze_image);
     // redefine(160-0x20+_INVINCIBILITY,invincibility_image); 
     // redefine(160-0x60+_DEAD_GHOST,dead_ghost_image);
-
+    
+    
+    set_udg_colors();
+    
+    // gotoxy(1,3);
+    // cprintf("abcdefghijklmnopqrstuvwxyz");
+    // gotoxy(1,5);
+    // cprintf("01234567890");
+    // while(1){};
     
     for(k=0;k<5000;++k){};
 }

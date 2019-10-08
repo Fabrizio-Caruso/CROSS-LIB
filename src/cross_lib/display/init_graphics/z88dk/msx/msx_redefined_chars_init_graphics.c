@@ -10,15 +10,17 @@
 
 #include "udg_map.h"
 
-void redefine(unsigned short offset, const char *new_char)
-{
-	unsigned char i;
+#include "memory_mapped_graphics.h"
+
+// void redefine(unsigned short offset, const char *new_char)
+// {
+	// unsigned char i;
 	
-	for(i=0;i<8;++i)
-	{
-		msx_vpoke(CHAR_BASE+(offset<<3)+i-32*8,new_char[i]);
-	}
-}
+	// for(i=0;i<8;++i)
+	// {
+		// msx_vpoke(CHAR_BASE+(offset<<3)+i-32*8,new_char[i]);
+	// }
+// }
 
 void set_group_color(unsigned char group, unsigned char color)
 {
@@ -46,15 +48,15 @@ void set_udg_colors(void)
 }
 
 
-void set_udg_images(void)
-{
-	unsigned char i;
+// void set_udg_images(void)
+// {
+	// unsigned char i;
 	
-	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
-	{
-	   redefine(redefine_map[i].ascii, redefine_map[i].bitmap);
-	}
-}
+	// for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
+	// {
+	   // redefine(redefine_map[i].ascii, redefine_map[i].bitmap);
+	// }
+// }
 
 void INIT_GRAPHICS(void)
 {
@@ -62,5 +64,5 @@ void INIT_GRAPHICS(void)
 	set_mode(mode_1);
 	
 	set_udg_colors();
-	set_udg_images();
+	SET_UDG_IMAGES();
 }

@@ -30,32 +30,6 @@ const unsigned char right_horizontal_missile_image[8] = _RIGHT_HORIZONTAL_MISSIL
 
 const unsigned char extra_points_image[8] = _EXTRA_POINTS_UDG;
 
-
-
-// ;** VDP
-// VDP_DATA_R              = $2000
-// VDP_STATUS_R            = $2001
-// VDP_DATA_W              = $3000
-// VDP_CONTROL_W           = $3001    
-
-// CC65
-        // .byte   $00             ; Register 0
-        // .byte   $C0             ; Register 1 16K RAM, Active Display, Mode 1, VBI disabled
-        // .byte   $04             ; Register 2 Name Table at $1000 - $12FF
-        // .byte   $60             ; Register 3 Colour Table at $1800 - $181F
-        // .byte   $00             ; Register 4 Pattern Table at $0000 - $07FF
-        // .byte   $10             ; Register 5 Sprite Attribute at $0800 - $087F
-        // .byte   $01             ; Register 6 Sprite Pattern
-        // .byte   $F1             ; Register 7 Text colour Foreground / background
-
-    
-// void VDP_REGISTER(unsigned char reg, unsigned char value)
-// {
-    // POKE(VDP_DATA,value);
-    // POKE(VDP_CONTROL,(reg|0x80));
-// }
-
-
 void set_group_color(unsigned char group, unsigned char color)
 {
 	DISPLAY_POKE((unsigned short) COLOR_DEF + (unsigned short) group, ((unsigned short) color)<<4);
@@ -80,7 +54,6 @@ void set_udg_colors(void)
 	}
 }
 
-
 void redefine(const unsigned char ch, const unsigned char* image) 
 { 
     unsigned char i; 
@@ -91,27 +64,59 @@ void redefine(const unsigned char ch, const unsigned char* image)
     } 
 } 
 
+// #include <conio.h>
+// #define redefine(offset, data) \
+// { \
+    // unsigned short i; \
+    // \
+    // for(i=0;i<8;++i) \
+    // { \
+        // gotoxy(1,0); \
+        // cprintf("offset %d ", offset); \
+        // gotoxy(1,i+1); \
+        // cprintf("i: %d  addr: %d <- %d ", i, (offset)*8,  (data)[i]); \
+        // DISPLAY_POKE(CHAR_BASE+(unsigned short)((offset)*8)+i,(data)[i]); \
+    // } \
+    // clrscr(); \
+// } \
+
+#include<conio.h>
+void SET_UDG_IMAGES(void) 
+{ 
+	unsigned char i;
+    
+	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) 
+	{ 
+       gotoxy(1,15); cprintf("i: %d - %d <- %d %d", i, redefine_map[i].ascii, redefine_map[i].bitmap[0], redefine_map[i].bitmap[1]); 
+	   redefine(redefine_map[i].ascii, redefine_map[i].bitmap); 
+	} 
+}
 
 #include <conio.h>
 void INIT_GRAPHICS(void)
 {
-    // SET_UDG_IMAGES();
-    redefine(_PLAYER_RIGHT,player_right_image);
-    redefine(_PLAYER_LEFT,player_left_image);
-    redefine(_PLAYER_UP,player_up_image);
-    redefine(_PLAYER_DOWN,player_down_image);
-    redefine(_SKULL,skull_image);
-    redefine(_GUN,gun_image);
-    redefine(_POWERUP,powerup_image);
-    redefine(_BOMB,bomb_image);
-    redefine(_GHOST,ghost_image);
-    redefine(_ROCKET,rocket_image);
-    redefine(_LEFT_HORIZONTAL_MISSILE,left_horizontal_missile_image);
-    redefine(_RIGHT_HORIZONTAL_MISSILE,right_horizontal_missile_image);
-    redefine(_BULLET,bullet_image); 
-    redefine(_DEAD_GHOST,dead_ghost_image);    
-    redefine(_EXTRA_POINTS,extra_points_image);
+    SET_UDG_IMAGES();
+    // redefine(_PLAYER_RIGHT,player_right_image);
+    // redefine(_PLAYER_LEFT,player_left_image);
+    // redefine(_PLAYER_UP,player_up_image);
+    // redefine(_PLAYER_DOWN,player_down_image);
+    // redefine(_SKULL,skull_image);
+    // redefine(_GUN,gun_image);
+    // redefine(_POWERUP,powerup_image);
+    // redefine(_BOMB,bomb_image);
+    // redefine(_GHOST,ghost_image);
+    // redefine(_ROCKET,rocket_image);
+    // redefine(_LEFT_HORIZONTAL_MISSILE,left_horizontal_missile_image);
+    // redefine(_RIGHT_HORIZONTAL_MISSILE,right_horizontal_missile_image);
+    // redefine(_BULLET,bullet_image); 
+    // redefine(_DEAD_GHOST,dead_ghost_image);    
+    // redefine(_EXTRA_POINTS,extra_points_image);
+    
+    // REDEFINE_CHAR(59, player_down_image);
+    // gotoxy(1,12);
+    // cprintf("debug 1: %d", _PLAYER_DOWN);
+    // cprintf("debug 1 off: %d", _PLAYER_DOWN_OFFSET_); 
     
     set_udg_colors();  
-    
+    // while(1){};
 }

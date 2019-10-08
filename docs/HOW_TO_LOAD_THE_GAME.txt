@@ -604,6 +604,15 @@ mess64.exe crvision -window -cart1 c:\Retro\CROSS-CHASE\build\FULL_creativision_
 
 -----------------------------------------------------------
 
+MSX
+
+Use BlueMSX
+Attach image.
+Run bload"cas:",r
+
+-----------------------------------------------------------
+
+
 PC 8088/8086
 
 Use qemu-system-i386 to start a bare metal PC 8088/8086 and attach the floppy image

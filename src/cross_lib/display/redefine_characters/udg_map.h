@@ -2,10 +2,10 @@
 #ifndef _UDG_MAP
 #define _UDG_MAP
 
-struct redefine_struct
+const struct redefine_struct
 {
-   unsigned char ascii;
-   unsigned char bitmap[8];
+   const unsigned char ascii;
+   const unsigned char bitmap[8];
 } ;
 
 #ifndef _PLAYER_DOWN_OFFSET
@@ -125,7 +125,7 @@ struct redefine_struct
 #endif
 
 
-struct redefine_struct redefine_map[] =
+const struct redefine_struct redefine_map[] =
 {
 	{_PLAYER_DOWN_OFFSET_, _PLAYER_DOWN_UDG},
 	{_PLAYER_UP_OFFSET_, _PLAYER_UP_UDG},

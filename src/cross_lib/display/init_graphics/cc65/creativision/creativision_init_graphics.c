@@ -1,7 +1,9 @@
 
 #include "8x8_chars.h"
-// #include "udg_map.h"
+
 #include "creativision_settings.h"
+
+#include "udg_map.h"
 
 #include "memory_mapped_graphics.h"
 
@@ -70,21 +72,13 @@ const unsigned char extra_points_image[8] = _EXTRA_POINTS_UDG;
     // POKE(VDP_CONTROL,(reg|0x80));
 // }
 
-// void DISPLAY_POKE(unsigned short address, unsigned char value)
-// {
-    // __asm__("sei");
-    // POKE(VDP_CONTROL,(unsigned char) (address&0x00FF));
-    // POKE(VDP_CONTROL,(unsigned char) (address>>8)|0x40);
-    // __asm__("cli");    
-    // POKE(VDP_DATA,value);
-// }
 
 void set_group_color(unsigned char group, unsigned char color)
 {
 	DISPLAY_POKE((unsigned short) COLOR_DEF+ (unsigned short) group, ((unsigned short) color)<<4);
 }
 
-void redefine(unsigned short ch, const unsigned char* image)
+void redefine(const unsigned short ch, const unsigned char* image)
 {
     unsigned short i;
     
@@ -114,54 +108,37 @@ void set_udg_colors(void)
 }
 
 
+void set_udg_images(void)
+{
+	unsigned char i;
+	
+	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
+	{
+	   redefine(redefine_map[i].ascii, redefine_map[i].bitmap);
+	}
+}
+
 #include <conio.h>
 void INIT_GRAPHICS(void)
 {
-    unsigned short k;
-   
 
-	// set_group_color(2,255);
-	// set_group_color(3,255);
-	// set_group_color(4,255);
-	// set_group_color(5,255);    
-    // DISPLAY_POKE(COLOR_DEF,0x1F);
-    // DISPLAY_POKE(COLOR_DEF,0x1E);
-  
-    // DISPLAY_POKE(COLOR_DEF+(unsigned short)1u,64);
-    // DISPLAY_POKE(COLOR_DEF+16,32);
-    // DISPLAY_POKE(COLOR_DEF+17,16);
-    // DISPLAY_POKE(COLOR_DEF+18,128+64);
-    // DISPLAY_POKE(COLOR_DEF+19,64+32);
-    // DISPLAY_POKE(COLOR_DEF+20,32+16);
-    // DISPLAY_POKE(COLOR_DEF+21,16+128);   
-    // DISPLAY_POKE(COLOR_DEF+22,128);
-    // DISPLAY_POKE(COLOR_DEF+23,64);
-    // DISPLAY_POKE(COLOR_DEF+24,32);
-    // DISPLAY_POKE(COLOR_DEF+25,16);
-    // DISPLAY_POKE(COLOR_DEF+26,128+64);
-    // DISPLAY_POKE(COLOR_DEF+27,64+32);
-    // DISPLAY_POKE(COLOR_DEF+28,32+16);
-    // DISPLAY_POKE(COLOR_DEF+29,16+128);       
-    // DISPLAY_POKE(COLOR_DEF+30,32+16);
-    // DISPLAY_POKE(COLOR_DEF+31,16+128);
-    
-    psg_silence();
+    // psg_silence();
  
-    redefine(_PLAYER_RIGHT,player_right_image);
-    redefine(_PLAYER_LEFT,player_left_image);
-    redefine(_PLAYER_UP,player_up_image);
-    redefine(_PLAYER_DOWN,player_down_image);
-    redefine(_SKULL,skull_image);
-    redefine(_GUN,gun_image);
-    redefine(_POWERUP,powerup_image);
-    redefine(_BOMB,bomb_image);
-    redefine(32-0x20+_GHOST,ghost_image);
-    redefine(32-0x20+_ROCKET,rocket_image);
-    redefine(32-0x20+_LEFT_HORIZONTAL_MISSILE,left_horizontal_missile_image);
-    redefine(32-0x20+_RIGHT_HORIZONTAL_MISSILE,right_horizontal_missile_image);
-    redefine(_BULLET,bullet_image); 
-    redefine(_DEAD_GHOST,dead_ghost_image);    
-    redefine(_EXTRA_POINTS,extra_points_image);
+    // redefine(_PLAYER_RIGHT,player_right_image);
+    // redefine(_PLAYER_LEFT,player_left_image);
+    // redefine(_PLAYER_UP,player_up_image);
+    // redefine(_PLAYER_DOWN,player_down_image);
+    // redefine(_SKULL,skull_image);
+    // redefine(_GUN,gun_image);
+    // redefine(_POWERUP,powerup_image);
+    // redefine(_BOMB,bomb_image);
+    // redefine(32-0x20+_GHOST,ghost_image);
+    // redefine(32-0x20+_ROCKET,rocket_image);
+    // redefine(32-0x20+_LEFT_HORIZONTAL_MISSILE,left_horizontal_missile_image);
+    // redefine(32-0x20+_RIGHT_HORIZONTAL_MISSILE,right_horizontal_missile_image);
+    // redefine(_BULLET,bullet_image); 
+    // redefine(_DEAD_GHOST,dead_ghost_image);    
+    // redefine(_EXTRA_POINTS,extra_points_image);
  
     // redefine(160+_SUPER,super_image);
     // redefine(160+_EXTRA_LIFE,extra_life_image);
@@ -169,14 +146,6 @@ void INIT_GRAPHICS(void)
     // redefine(160-0x20+_INVINCIBILITY,invincibility_image); 
     // redefine(160-0x60+_DEAD_GHOST,dead_ghost_image);
     
-    
     set_udg_colors();
     
-    // gotoxy(1,3);
-    // cprintf("abcdefghijklmnopqrstuvwxyz");
-    // gotoxy(1,5);
-    // cprintf("01234567890");
-    // while(1){};
-    
-    for(k=0;k<5000;++k){};
 }

@@ -186,7 +186,25 @@ const struct redefine_struct redefine_map[] =
 	} \
 }
 
+#define REDEFINE_CHARACTER(ch, image) \
+{ \
+    unsigned short i; \
+    \
+    for(i=0;i<8;++i) \
+    { \
+        DISPLAY_POKE(CHAR_BASE+(unsigned short)(ch<<3)+i,image[i]); \
+    } \
+} \
 
+#define SET_UDG_IMAGES() \
+{ \
+	unsigned char i; \
+	\
+	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) \
+	{ \
+	   REDEFINE_CHARACTER(redefine_map[i].ascii, redefine_map[i].bitmap); \
+	} \
+}
 
 #endif // _UDG_MAP
 

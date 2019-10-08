@@ -970,6 +970,28 @@ creativision_16k_x:
 	rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
 	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin	    
     
+
+creativision_16k_m:
+	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	-DNO_SET_SCREEN_COLORS \
+	-DFULL_GAME -DALT_SLEEP \
+	-DSIMPLE_STRATEGY \
+	-DMEMORY_MAPPED \
+	-DANIMATE_PLAYER \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/FULL_creativision_16k.bin	
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_creativision_16k_LOW.bin
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
+	rm $(BUILD_PATH)/FULL_creativision_16k.bin 
+	cat $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin $(BUILD_PATH)/FULL_creativision_16k_LOW.bin > $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
+	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin	      
+    
+    
 creativision_16k:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS \
@@ -1093,9 +1115,11 @@ supervision_test:
 	$(SOURCE_PATH)/../test/supervision_test.c \
 	-o $(BUILD_PATH)/TEST_supervision.sv
 
+#	$(SOURCE_PATH)/../test/supervisionhello.c \
+
 supervision_cc65_test:
 	$(CC65_PATH)$(MYCC65) -O -t supervision  \
-	$(SOURCE_PATH)/../test/supervisionhello.c \
+	/home/fabri/CC65_FIX/cc65/samples/supervisionhello.c \
 	-o $(BUILD_PATH)/TEST_hellosupervision.sv
 
 # ------------------------------------------------------------------------------------------

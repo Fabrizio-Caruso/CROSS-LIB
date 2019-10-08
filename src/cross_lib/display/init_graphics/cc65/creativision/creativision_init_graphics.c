@@ -64,30 +64,13 @@ void redefine(const unsigned char ch, const unsigned char* image)
     } 
 } 
 
-// #include <conio.h>
-// #define redefine(offset, data) \
-// { \
-    // unsigned short i; \
-    // \
-    // for(i=0;i<8;++i) \
-    // { \
-        // gotoxy(1,0); \
-        // cprintf("offset %d ", offset); \
-        // gotoxy(1,i+1); \
-        // cprintf("i: %d  addr: %d <- %d ", i, (offset)*8,  (data)[i]); \
-        // DISPLAY_POKE(CHAR_BASE+(unsigned short)((offset)*8)+i,(data)[i]); \
-    // } \
-    // clrscr(); \
-// } \
 
-#include<conio.h>
 void SET_UDG_IMAGES(void) 
 { 
 	unsigned char i;
     
 	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) 
 	{ 
-       gotoxy(1,15); cprintf("i: %d - %d <- %d %d", i, redefine_map[i].ascii, redefine_map[i].bitmap[0], redefine_map[i].bitmap[1]); 
 	   redefine(redefine_map[i].ascii, redefine_map[i].bitmap); 
 	} 
 }

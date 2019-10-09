@@ -35,7 +35,7 @@ WINCMOC_OPTS ?= \
 	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES= 
 	
 
-CC65_PATH ?= /home/fabri/CC65_FIX/cc65/bin/
+CC65_PATH ?=
 #/home/fabri/CC65_FIX/cc65/bin/
 #/cygdrive/c/cc65-snapshot-win32/bin/
 Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
@@ -971,6 +971,8 @@ creativision_16k_x:
 	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin	    
     
 
+
+
 creativision_16k_m:
 	$(CC65_PATH)$(MYCC65) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS \
@@ -1104,9 +1106,10 @@ supervision:
 	-DALT_CLEAR_SCREEN \
 	-DANIMATE_PLAYER \
 	-DNO_WAIT \
-	-DNO_SLEEP -DNO_INIT_GRAPHICS \
+	-DNO_SLEEP \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
 	-o $(BUILD_PATH)/FULL_supervision.sv
     
 supervision_test:
@@ -1114,6 +1117,7 @@ supervision_test:
 	--config $(CFG_PATH)/cc65/supervision-16k.cfg \
 	$(SOURCE_PATH)/../test/supervision_test.c \
 	-o $(BUILD_PATH)/TEST_supervision.sv
+
 
 #	$(SOURCE_PATH)/../test/supervisionhello.c \
 
@@ -1695,6 +1699,13 @@ cpc:
 	# $(LIGHT_FILES)
 	# rm $(BUILD_PATH)/LIGHT_msx_16k.prg 	
 
+msx_mode1_test:
+	$(Z88DK_PATH)$(MYZ88DK) +msx -subtype=rom \
+	-vn \
+	-lndos \
+	$(SOURCE_PATH)/../test/msx_test.c \
+	-create-app -o $(BUILD_PATH)/TEST_msx.prg
+	rm $(BUILD_PATH)/TEST_msx.prg
 
 msx_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) \
@@ -1704,6 +1715,7 @@ msx_32k:
 	-create-app -o $(BUILD_PATH)/FULL_msx_32k.prg \
 	-DMEMORY_MAPPED \
 	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \   
 	-DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -1721,6 +1733,7 @@ msx_32k_rom:
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/FULL_msx_32k.rom \
 	-DMEMORY_MAPPED \
+	-DALT_CLEAR_SCREEN \
 	-DALT_PRINT \
 	-DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
@@ -5461,8 +5474,7 @@ z88dk_test: \
 	zsdcc_test	
 	
 
-# 	
-	
+# 		
 	
 # missing: abc800, xo7, c7420, rex
 z88dk_targets: \

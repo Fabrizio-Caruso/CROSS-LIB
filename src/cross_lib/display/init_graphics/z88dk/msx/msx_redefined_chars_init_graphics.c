@@ -1,8 +1,8 @@
 
 #include <msx/gfx.h>
 
-#define CHAR_BASE 0x0100
-#define COLOR_DEF 0x2000
+#define COLOR_DEF 0x1000
+#define CHAR_BASE 0x2000
 
 #include "msx_redefined_chars_settings.h"
 
@@ -12,15 +12,6 @@
 
 #include "memory_mapped_graphics.h"
 
-// void redefine(unsigned short offset, const char *new_char)
-// {
-	// unsigned char i;
-	
-	// for(i=0;i<8;++i)
-	// {
-		// msx_vpoke(CHAR_BASE+(offset<<3)+i-32*8,new_char[i]);
-	// }
-// }
 
 void set_group_color(unsigned char group, unsigned char color)
 {
@@ -48,21 +39,35 @@ void set_udg_colors(void)
 }
 
 
-// void set_udg_images(void)
-// {
-	// unsigned char i;
-	
-	// for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i)
-	// {
-	   // redefine(redefine_map[i].ascii, redefine_map[i].bitmap);
-	// }
-// }
+void redefine(const unsigned char ch, const unsigned char* image) 
+{ 
+    unsigned char i; 
+    
+    for(i=0;i<8;++i) 
+    { 
+        DISPLAY_POKE(CHAR_BASE +(unsigned short)(ch<<3)+i,image[i]); 
+    } 
+} 
 
+
+void SET_UDG_IMAGES(void) 
+{ 
+	unsigned char i;
+    
+	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) 
+	{ 
+	   redefine(redefine_map[i].ascii, redefine_map[i].bitmap); 
+	} 
+}
+
+#include <conio.h>
 void INIT_GRAPHICS(void)
 {
+	set_mode(mode_0);
+    
 	set_color(15, 1, 1);	
-	set_mode(mode_1);
-	
+    
 	set_udg_colors();
+    
 	SET_UDG_IMAGES();
 }

@@ -24,7 +24,11 @@
 	#define BASE_ADDR 0x1E00
 	#define COLOR_ADDR 0x9600	
 #elif defined(__MSX__)
-	#define BASE_ADDR 0x0000
+    #if !defined(USE_MSX_BIOS)
+        #define BASE_ADDR 0x0000
+    #else
+        #define BASE_ADDR 0x1800
+    #endif
 #elif defined(__CREATIVISION__) && defined(MEMORY_MAPPED)
     #define BASE_ADDR 0x1000
 #elif defined(__AQUARIUS__)

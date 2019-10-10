@@ -1,8 +1,13 @@
 
 #include <msx/gfx.h>
 
-#define COLOR_DEF 0x1000
-#define CHAR_BASE 0x2000
+#if !defined(USE_MSX_BIOS)
+    #define COLOR_DEF 0x1000
+    #define CHAR_BASE 0x2000
+#else
+    #define COLOR_DEF 0x0100
+    #define CHAR_BASE 0x2000
+#endif
 
 #include "msx_redefined_chars_settings.h"
 

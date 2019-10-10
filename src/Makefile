@@ -1031,7 +1031,10 @@ atari_lynx_hello_test:
 	$(CC65_PATH)$(MYCC65) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_test.c \
 	-o $(BUILD_PATH)/ATARI_LYNX_HELLO_TEST.lnx
     
-    
+atari_lynx_black_test:
+	$(CC65_PATH)$(MYCC65) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_black_test.c \
+	-o $(BUILD_PATH)/ATARI_LYNX_BLACK_TEST.lnx
+ 
 atari_lynx_light:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-DNO_SET_SCREEN_COLORS \

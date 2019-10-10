@@ -1519,36 +1519,6 @@ zx81_16k_wrx:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg
 
-# zx81_16k_wrx_turn_based:
-	# $(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
-	# $(SCCZ80_OPTS) -O3 \
-	# -pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
-	# -DANIMATE_PLAYER \
-	# -DFORCE_GHOSTS_NUMBER=7 \
-	# -DFORCE_XSIZE=36 \
-	# -DFORCE_YSIZE=35 \
-	# -vn \
-	# -D__ZX81__ \
-	# -DZ88DK_SPRITES \
-	# -DNO_BLINKING \
-	# -DTURN_BASED \
-	# -DALT_MOVE \
-	# -DLESS_PRINT \
-	# -lndos \
-	# -DANIMATE_PLAYER \
-	# -DLESS_TEXT \
-	# -DNO_COLOR \
-	# -DSIMPLE_STRATEGY \
-	# -DALT_MOVE \
-	# -DNO_SET_SCREEN_COLORS \
-	# -DALT_PRINT \
-	# -DFEWER_SPRITES \
-	# -DNO_SMALL_LETTERS \
-	# -create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx_turn_based.prg \
-	# $(LIGHT_FILES) \
-	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	# rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx_turn_based.prg
 
 zx81_32k_wrx:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \

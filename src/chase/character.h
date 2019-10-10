@@ -56,6 +56,8 @@ extern unsigned short points;
 
 extern unsigned char ghostCount;
 
+extern Image INVINCIBILITY_IMAGE;
+
 #if defined(FULL_GAME)
 	unsigned char playerKilledBy(Character *enemyPtr);
 #endif
@@ -98,7 +100,7 @@ void deleteCharacter(Character * characterPtr);
 		#define _DRAW_PLAYER() \
 			if(invincibilityActive) \
 			{ \
-				DRAW_PLAYER(player._x, player._y, skull._imagePtr); \
+				DRAW_PLAYER(player._x, player._y, &INVINCIBILITY_IMAGE); \
 			} \
 			else \
 			{ \

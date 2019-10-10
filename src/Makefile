@@ -1545,7 +1545,7 @@ zx81_32k_wrx_turn_based:
 	$(SCCZ80_OPTS) -O3 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
-	-DFORCE_GHOSTS_NUMBER=7 \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	-DANIMATE_PLAYER \
 	-DNO_BLINKING \
 	-DTURN_BASED \

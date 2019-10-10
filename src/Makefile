@@ -1717,7 +1717,8 @@ msx_mode1_test:
 	rm $(BUILD_PATH)/TEST_msx.prg
 
 msx_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -lmsxbios \
+	-DUSE_MSX_BIOS \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
@@ -1736,26 +1737,6 @@ msx_32k:
 
 
 msx_32k_rom:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) \
-	-DSOUNDS -DANIMATE_PLAYER \
-	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos -subtype=rom \
-	-create-app -o $(BUILD_PATH)/FULL_msx_32k.rom \
-	-DMEMORY_MAPPED \
-	-DALT_CLEAR_SCREEN \
-	-DALT_PRINT \
-	-DLESS_TEXT \
-	-DZ88DK_JOYSTICK \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_msx_32k_BSS.bin
-	rm $(BUILD_PATH)/FULL_msx_32k_DATA.bin
-	
-
-msx_32k_rom_msxbios:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DSOUNDS -DANIMATE_PLAYER \

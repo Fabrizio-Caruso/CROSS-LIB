@@ -1,12 +1,23 @@
 
 #include <msx/gfx.h>
 
+// 0000 | 07FF | VRAM: Main Tile Patterns (1/3)
+// 0800 | 0FFF | VRAM: Extra Tile Patterns (2/3)
+// 1000 | 17FF | VRAM: Extra Tile Patterns (3/3)
+// 1800 | 1AFF | VRAM: Tilemap
+// 1B00 | 1B7F | VRAM: Sprite Attributes
+// 1B80 | 1BAF | VRAM: Palette Table
+// 2000 | 37FF | VRAM: Colormap
+// 3800 | 3FFF | VRAM: Sprite Patterns
+
 #if !defined(USE_MSX_BIOS)
     #define COLOR_DEF 0x1000
     #define CHAR_BASE 0x2000
+    #define TEXT_MODE_32x40 mode_0
 #else
-    #define COLOR_DEF 0x0100
-    #define CHAR_BASE 0x2000
+    #define COLOR_DEF 0x2000
+    #define CHAR_BASE 0x0000
+    #define TEXT_MODE_32x40 mode_1    
 #endif
 
 #include "msx_redefined_chars_settings.h"
@@ -68,7 +79,7 @@ void SET_UDG_IMAGES(void)
 #include <conio.h>
 void INIT_GRAPHICS(void)
 {
-	set_mode(mode_0);
+	set_mode(TEXT_MODE_32x40);
     
 	set_color(15, 1, 1);	
     

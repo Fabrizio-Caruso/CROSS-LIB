@@ -10,13 +10,6 @@
 	#define cprintf printf
 #endif
 
-// #if defined(Z88DK) && !defined(__SMS__) && !defined(Z88DK_PUTC4X6) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__)
-	// #if !defined(cputc)
-        // #define cputc(c) fputc_cons(c)	
-    // #endif
-// #endif
-
-
 
 #if defined(__SMS__)
 	#include <stdio.h>
@@ -117,7 +110,6 @@
 		#define cputc(c) do { gen_tv_field(); fputc_cons(c); gen_tv_field(); } while(0)
 	#else
 		#define gotoxy(x,y) zx_setcursorpos(y,x)
-		// #define cputc(c) fputc_cons(c)
 	#endif
 	
 

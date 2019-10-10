@@ -243,11 +243,6 @@ out			stb res
 			#include<conio.h>
 		#endif
 		
-		#if defined(Z88DK)
-            #undef cgetc
-			#define cgetc() getch()
-		#endif
-		
 		void WAIT_PRESS(void)
 		{
 			while(kbhit())

@@ -29,269 +29,274 @@
 #include "input_macros.h"
 
 #if defined(__MSX__)
-	#include<msx/gfx.h>
+    #include<msx/gfx.h>
 #endif
-		
+        
 
 #if defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB)
-	unsigned char GET_CHAR(void)
-	{
-	#  if defined(NO_INPUT)
-		return 0;
-	#elif defined(TURN_BASED)
-		return TURN_BASED_INPUT();
-	
-	#elif defined(__MSX__)
-		if(!get_trigger(0)) 
-		{
-			return get_stick(0);
-		} 
-		else 
-		{
-			return 9;
-		}
-	
-	#elif defined(__VIC20__) || defined(__SUPERVISION__) || defined(__CREATIVISION__) || defined(__OSIC1P__) \
-	|| defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) || defined(__C16__)
-		if(kbhit())
-			return cgetc();
-		else
-			return 0;
-	
-	#elif defined(__ATMOS__) || defined(__TELESTRAT__)
-		#include <peekpoke.h>	
-		
-		unsigned char polledValue = PEEK(0x208);
+    unsigned char GET_CHAR(void)
+    {
+    #  if defined(NO_INPUT)
+        return 0;
+    #elif defined(TURN_BASED)
+        return TURN_BASED_INPUT();
+    
+    #elif defined(__MSX__)
+        if(!get_trigger(0)) 
+        {
+            return get_stick(0);
+        } 
+        else 
+        {
+            return 9;
+        }
+    
+    #elif defined(__VIC20__) || defined(__SUPERVISION__) || defined(__CREATIVISION__) || defined(__OSIC1P__) \
+    || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__CBM610__) || defined(__C16__)
+        if(kbhit())
+            return cgetc();
+        else
+            return 0;
+    
+    #elif defined(__ATMOS__) || defined(__TELESTRAT__)
+        #include <peekpoke.h>    
+        
+        unsigned char polledValue = PEEK(0x208);
 
-		switch(polledValue)
-		{
-			case 141:
-				return 'I';
-			break;
-			case 129:
-				return 'J';
-			break;
-			case 131:
-				return 'K';
-			break;
-			case 143:
-				return 'L';
-			break;
-			case 132:
-				return ' ';
-			break;
-		}
-		return '\0';
-	#elif defined(__TO7__)
-		unsigned char res;
-		
-		asm
-		{
-			jsr 0xE806
-			stb res
-		}
-		return res; 
-	
-	#elif defined(__MO5__) 
-		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))	
-		#define PEEK(addr)         (*(unsigned char*) (addr))	
+        switch(polledValue)
+        {
+            case 141:
+                return 'I';
+            break;
+            case 129:
+                return 'J';
+            break;
+            case 131:
+                return 'K';
+            break;
+            case 143:
+                return 'L';
+            break;
+            case 132:
+                return ' ';
+            break;
+        }
+        return '\0';
+    #elif defined(__TO7__)
+        unsigned char res;
+        
+        asm
+        {
+            jsr 0xE806
+            stb res
+        }
+        return res; 
+    
+    #elif defined(__MO5__) 
+        #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))    
+        #define PEEK(addr)         (*(unsigned char*) (addr))    
 
-		#define KEYREG 0xA7C1
-		
-		POKE(KEYREG,0x18);
-		if(!(PEEK(KEYREG)&128))
-		{
-			return 'I';
-		}
-		else 
-		{
-			POKE(KEYREG,0x04);
-			if(!(PEEK(KEYREG)&128))
-			{
-				return 'J';
-			}
-			else
-			{
-				POKE(KEYREG,0x14);
-				if(!(PEEK(KEYREG)&128))
-				{
-					return 'K';
-				}
-				else
-				{
-					POKE(KEYREG,0x24);
-					if(!(PEEK(KEYREG)&128))
-					{
-						return 'L';
-					}
-					else
-					{
-						POKE(KEYREG,0x40);
-						if(!(PEEK(KEYREG)&128))
-						{
-							return ' ';
-						}
-						else
-						{
-							return 0;
-						}
-					}
-				}
-			}
-		}
-			
-	#elif defined(__NCURSES__)
-		#define INPUT_LOOPS 10
-		
-		unsigned long delay = 0;
-		char _ch;
-		char ch;
+        #define KEYREG 0xA7C1
+        
+        POKE(KEYREG,0x18);
+        if(!(PEEK(KEYREG)&128))
+        {
+            return 'I';
+        }
+        else 
+        {
+            POKE(KEYREG,0x04);
+            if(!(PEEK(KEYREG)&128))
+            {
+                return 'J';
+            }
+            else
+            {
+                POKE(KEYREG,0x14);
+                if(!(PEEK(KEYREG)&128))
+                {
+                    return 'K';
+                }
+                else
+                {
+                    POKE(KEYREG,0x24);
+                    if(!(PEEK(KEYREG)&128))
+                    {
+                        return 'L';
+                    }
+                    else
+                    {
+                        POKE(KEYREG,0x40);
+                        if(!(PEEK(KEYREG)&128))
+                        {
+                            return ' ';
+                        }
+                        else
+                        {
+                            return 0;
+                        }
+                    }
+                }
+            }
+        }
+            
+    #elif defined(__NCURSES__)
+        #define INPUT_LOOPS 10
+        
+        unsigned long delay = 0;
+        char _ch;
+        char ch;
 
-		while(delay<INPUT_LOOPS)
-		{	
-			_ch = getch();
-			if(_ch!=ERR)
-			{
-				ch = _ch;
-			}
-			++delay;
-		}
-		
-		return ch;
-	
-	#elif defined(__COCO__) || defined(__DRAGON__)
-		#include <cmoc.h>
-		#include <coco.h>
-		
-		unsigned char res;
-		unsigned char machine;
-		
-		asm {
-			ldd $8000
-			cmpd #$7EBB
-			beq _dragon
-			lda #253
-			sta machine
-			bra pia
-_dragon		lda #247
-			sta machine
-pia			lda #253		
-			sta $FF02
-			ldb #73
-test    	lda $ff00
-			cmpa machine
-			beq out
-			incb
-			rol $ff02
-			inc $ff02
-			cmpb #77
-			bne test
-			clrb 
-out			stb res
-		}
-		
-		if(res == 0)
-			return inkey();
-		return res;
-		
-	#elif defined(__SRR__)
-		return getk_inkey(); 	
-	#else
-		#if defined(ALT_MOVE)
-			return getch();
-		#else
-			return getk();
-		#endif
-	#endif
-	}
-#endif	
-	
+        while(delay<INPUT_LOOPS)
+        {    
+            _ch = getch();
+            if(_ch!=ERR)
+            {
+                ch = _ch;
+            }
+            ++delay;
+        }
+        
+        return ch;
+    
+    #elif defined(__COCO__) || defined(__DRAGON__)
+        #include <cmoc.h>
+        #include <coco.h>
+        
+        unsigned char res;
+        unsigned char machine;
+        
+        asm {
+            ldd $8000
+            cmpd #$7EBB
+            beq _dragon
+            lda #253
+            sta machine
+            bra pia
+_dragon        lda #247
+            sta machine
+pia            lda #253        
+            sta $FF02
+            ldb #73
+test        lda $ff00
+            cmpa machine
+            beq out
+            incb
+            rol $ff02
+            inc $ff02
+            cmpb #77
+            bne test
+            clrb 
+out            stb res
+        }
+        
+        if(res == 0)
+            return inkey();
+        return res;
+        
+    #elif defined(__SRR__)
+        return getk_inkey();     
+    #else
+        #if defined(ALT_MOVE)
+            return getch();
+        #else
+            return getk();
+        #endif
+    #endif
+    }
+#endif    
+    
 #if defined(NO_WAIT) && !defined(NO_SLEEP)
-	void WAIT_PRESS(void)
-	{
-		SLEEP(2);
-	}
+    void WAIT_PRESS(void)
+    {
+        SLEEP(2);
+    }
 #elif defined(NO_WAIT)
 //
 #elif defined(WAIT_FOR_KEY)
-	#  if defined(__GCC_BUFFERED__) || defined(STDLIB)
-		void WAIT_PRESS(void)
-		{
-			getchar();
-		}
-	#elif defined(__NCURSES__)
-		#include <ncurses.h>
-		
-		void WAIT_PRESS(void)
-		{
-			#if !defined(TURN_BASED)
-				while(getch()==ERR)
-				{}
-			#else
-				getch();
-			#endif
-		}
-	#elif defined(__CMOC__) && !defined(__WINCMOC__) && !defined(__MO5__) && !defined(__TO7__)
-		#include <cmoc.h>
-		
-		void WAIT_PRESS(void)
-		{
-			waitkey(0);
-		}	
-	#else 
-		#if defined(CONIO_LIB)
-			#include<conio.h>
-		#endif
-		
-		void WAIT_PRESS(void)
-		{
-			while(kbhit())
-				cgetc();
-			while(!kbhit())
-			{ 
-			}; 
-			cgetc();
-		}
-	#endif	
-#else
-	#if defined(Z88DK_JOYSTICK)
-		#include <games.h>
-		
-		extern unsigned char stick;
-		
-		void WAIT_PRESS(void)
-		{
-			while ((joystick(stick) & MOVE_FIRE))
-			{
-			}
-			while (!(joystick(stick) & MOVE_FIRE))
-			{
-			}
-		}	
-	#elif defined(__SMS__)
-		#include <arch/sms/SMSlib.h>
-				
-		void WAIT_PRESS(void)
-		{
-			while ((SMS_getKeysStatus() | PORT_A_KEY_1))
-			{
-			}
-			while (!(SMS_getKeysStatus() | PORT_A_KEY_1))
-			{
-			}
-		}		
-	#else
-		#include<joystick.h>
+    #  if defined(__GCC_BUFFERED__) || defined(STDLIB)
+        void WAIT_PRESS(void)
+        {
+            getchar();
+        }
+    #elif defined(__NCURSES__)
+        #include <ncurses.h>
+        
+        void WAIT_PRESS(void)
+        {
+            #if !defined(TURN_BASED)
+                while(getch()==ERR)
+                {}
+            #else
+                getch();
+            #endif
+        }
+    #elif defined(__CMOC__) && !defined(__WINCMOC__) && !defined(__MO5__) && !defined(__TO7__)
+        #include <cmoc.h>
+        
+        void WAIT_PRESS(void)
+        {
+            waitkey(0);
+        }    
+    #else 
+        #if defined(CONIO_LIB)
+            #include<conio.h>
+        #endif
 
-		void WAIT_PRESS(void)
-		{
-			while ((joy_read(JOY_1) & JOY_BTN_1_MASK))
-			{
-			}
-			while (! (joy_read(JOY_1) & JOY_BTN_1_MASK))
-			{
-			}
-		}	
-	#endif
+        #if defined(Z88DK)
+            #undef cgetc
+            #define cgetc() getch()
+        #endif
+        
+        void WAIT_PRESS(void)
+        {
+            while(kbhit())
+                cgetc();
+            while(!kbhit())
+            { 
+            }; 
+            cgetc();
+        }
+    #endif    
+#else
+    #if defined(Z88DK_JOYSTICK)
+        #include <games.h>
+        
+        extern unsigned char stick;
+        
+        void WAIT_PRESS(void)
+        {
+            while ((joystick(stick) & MOVE_FIRE))
+            {
+            }
+            while (!(joystick(stick) & MOVE_FIRE))
+            {
+            }
+        }    
+    #elif defined(__SMS__)
+        #include <arch/sms/SMSlib.h>
+                
+        void WAIT_PRESS(void)
+        {
+            while ((SMS_getKeysStatus() | PORT_A_KEY_1))
+            {
+            }
+            while (!(SMS_getKeysStatus() | PORT_A_KEY_1))
+            {
+            }
+        }        
+    #else
+        #include<joystick.h>
+
+        void WAIT_PRESS(void)
+        {
+            while ((joy_read(JOY_1) & JOY_BTN_1_MASK))
+            {
+            }
+            while (! (joy_read(JOY_1) & JOY_BTN_1_MASK))
+            {
+            }
+        }    
+    #endif
 #endif
 

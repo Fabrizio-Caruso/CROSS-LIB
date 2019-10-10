@@ -244,6 +244,7 @@ out			stb res
 		#endif
 		
 		#if defined(Z88DK)
+            #undef cgetc
 			#define cgetc() getch()
 		#endif
 		

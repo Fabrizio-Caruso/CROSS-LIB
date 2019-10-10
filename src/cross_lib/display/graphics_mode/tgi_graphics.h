@@ -3,10 +3,6 @@
 
 #include <tgi.h>
 
-
-#define _BG_COLOR COLOR_GREY
-
-
 #define __DRAW(x,y,image) \
 { \
     char chString[2]; \
@@ -19,7 +15,6 @@
 
 #define __DELETE(x,y) \
 { \
-    tgi_setbgcolor(_BG_COLOR); \
     tgi_outtextxy((x*8),(y*8)," "); \
 }    
     

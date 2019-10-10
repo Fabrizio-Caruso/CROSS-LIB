@@ -1025,7 +1025,13 @@ atari_lynx:
 	$(CROSS_LIB_PATH)/display/alt_print/tgi_alt_print.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_ATARI_LYNX.lnx
-	
+
+
+atari_lynx_hello_test:
+	$(CC65_PATH)$(MYCC65) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_test.c \
+	-o $(BUILD_PATH)/ATARI_LYNX_HELLO_TEST.lnx
+    
+    
 atari_lynx_light:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \
 	-DNO_SET_SCREEN_COLORS \

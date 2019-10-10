@@ -5,7 +5,7 @@
 
 #define CLI() asm("\tcli")
 
-#define _BG_COLOR COLOR_GREY
+#define _BG_COLOR TGI_COLOR_GREY
 
 void INIT_GRAPHICS(void)
 {
@@ -20,7 +20,6 @@ void INIT_GRAPHICS(void)
 	tgi_setpalette(tgi_getdefpalette());
 	tgi_setcolor(COLOR_WHITE);
 	tgi_setbgcolor(_BG_COLOR);
-
 
 	CLEAR_SCREEN();
 }

@@ -215,7 +215,7 @@ atari_no_color:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_atari_no_color.xex
 
-	
+    
 atari5200: 
 	$(CC65_PATH)$(MYCC65) -O -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
@@ -230,6 +230,14 @@ atari5200:
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
 	-o $(BUILD_PATH)/FULL_atari5200.rom
 	
+
+atari2600_tiny:
+	$(CC65_PATH)$(MYCC65) -O -t atari2600 \
+	-D__ATARI2600__ \
+	$(DEBUG_MACROS) \
+	-DTINY_GAME \
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/TINY_atari2600.rom
 
 atmos: 
 	$(CC65_PATH)$(MYCC65)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -5264,8 +5272,6 @@ lcc1802_debug: combo.cat
 	combo.c
 	rm combo.c
 	mv a.hex $(BUILD_PATH)/TINY_lcc1802_debug.hex
-
-
 
 # ------------------------------------------------------------------------------------------
 # Z8K-PCOS-GCC

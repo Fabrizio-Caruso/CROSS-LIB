@@ -2,35 +2,33 @@ THE GAME
 by Fabrizio Caruso
 
 - Game idea
-The game idea is my original idea and I was not inspired by any other game.
-I later found out that GNOME Robots is somehow similar in its basic concept.
-The main differences are that 
+
+The idea behind the game was my own and it was not inspired by any other game. 
+However, I later discovered that GNOME Robots is in some respects similar in its basic concept.
+
+The key differences are that:
 1. the main version of Cross Chase is an action game, whereas Robots is only a turn-based game
 2. Cross Chase has other enemy types (skull, missiles, rockets) that require the use of the gun.
 3. Cross Chase has other game elements such as different types of walls and items
 
 - Game goals
 The game goal is to kill two different types of enemies:
-1. the "ghosts" (shown as faces or "O" in no graphics versions) who die if end up on a mine (or if shot by a bullet)
-2. the "skull" (shown as a skull or "+" in no graphics versions) who die only if hit multiple times by bullets 
+1. the "ghosts" (shown as faces or "O" in no graphics versions), which die if they end up on a mine (or if shot by a bullet)
+2. the "skull" (shown as a skull or "+" in no graphics versions), which only dies if hit multiple times by bullets
 
 Optionally the player can destroy (horizontal and possibly chasing) missiles and (vertical) rockets by shooting at their bases.
 
-All enemies and walls are mortal for the player.
+All enemies and walls are deadly for the player.
 
 - Levels
 There are 20 levels. The game has an end. Levels vary in terms of walls, missiles, rockets, items, speed, enemy's chasing strategy, etc.
 
-Normal levels are completed only by killing all ghosts.
+Normal levels are completed only by killing all the ghosts.
+
 Boss levels (every fifth level) are completed only by killing the skull.
 
 - Items
-Any item shown on the screen has a positive effect for the player. There a 10 items.
+Any item shown on the screen has a positive effect for the player. There are 10 items. 
 Special and secret items require the player to perform some actions on the same level and/or previous levels.
 
 HINT: Use the gun to hit or even kill the skull and/or destroy missile and rocket bases to unlock more items in current and next levels.
-
-
-
-
-

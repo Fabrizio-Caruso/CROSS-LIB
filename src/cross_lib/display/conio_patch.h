@@ -28,6 +28,11 @@
 
 #endif
 
+#if defined(Z88DK) && !defined(__SMS__) && !defined(Z88DK_PUTC4X6) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__)
+	#undef cputc
+    #define cputc(c) fputc_cons(c)	
+#endif
+
 // TODO: BOGUS! Implement this
 #if defined(__MZ2500__)
 	#define gotoxy(x,y)

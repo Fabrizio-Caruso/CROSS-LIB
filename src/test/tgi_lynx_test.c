@@ -20,10 +20,10 @@ int main(void)
     tgi_setbgcolor(TGI_COLOR_GREY);
 
     tgi_setcolor(TGI_COLOR_RED);
-    tgi_outtextxy(8*6,8,"hello"); 
+    tgi_outtextxy(8*6,8,"** ##"); 
     
     tgi_setcolor(TGI_COLOR_WHITE);
-    tgi_outtextxy(8,8,"hello"); 
+    tgi_outtextxy(8,8,"** ##"); 
 
     while(1){};
     return 0;

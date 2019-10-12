@@ -116,10 +116,18 @@
 	#else
 		#define USE_STRING "use i j k l space"	
 	#endif	
+#elif defined(NO_SMALL_LETTERS) 
+	#if defined(JOYSTICK_CONTROL)
+		#define USE_STRING "USE THE JOYSTICK"
+	#elif defined(TINY_GAME) 
+		#define USE_STRING "USE IJKL"
+	#elif XSize<=16
+		#define USE_STRING "USE IJKL SPACE"	
+	#else
+		#define USE_STRING "USE I J K L SPACE"	
+	#endif	
 #else
-    #if defined(NO_SMALL_LETTERS) 
-        #define USE_STRING "USE IJKL SPACE"
-	#elif defined(JOYSTICK_CONTROL)
+	#if defined(JOYSTICK_CONTROL)
 		#define USE_STRING "Use the joystick"
 	#elif defined(TINY_GAME) 
 		#define USE_STRING "Use IJKL"
@@ -129,6 +137,11 @@
 		#define USE_STRING "Use I J K L SPACE"	
 	#endif	
 #endif
+
+#if (defined(__ZX81__) || defined(__ZX80__)) && defined(JOYSTICK_CONTROL)
+    #undef USE_STRING
+    #define USE_STRING "USE Q A O P M"
+#endif    
 
 #if defined(NO_SMALL_LETTERS)
     #define TITLE_LINE_STRING "CROSS CHASE"

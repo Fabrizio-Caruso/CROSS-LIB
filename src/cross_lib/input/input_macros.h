@@ -48,10 +48,17 @@
 	#elif defined(Z88DK_JOYSTICK)
 		extern unsigned char stick;
 		
-		#define INIT_INPUT() \
-		{ \
-			stick = 1; \
-		}
+        #if !defined(__ZX81__)
+            #define INIT_INPUT() \
+            { \
+                stick = 1; \
+            }
+        #else
+            #define INIT_INPUT() \
+            { \
+                stick = 3; \
+            }            
+        #endif
 	#elif defined(__SMS__)
 		#define INIT_INPUT()
 	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200

@@ -17,7 +17,7 @@ void INIT_GRAPHICS(void)
 
 	tgi_setpalette(tgi_getdefpalette());
 	tgi_setcolor(COLOR_WHITE);
-	tgi_setbgcolor(TGI_COLOR_GREY);
+	tgi_setbgcolor(TGI_COLOR_BLACK);
 
 	CLEAR_SCREEN();
 }

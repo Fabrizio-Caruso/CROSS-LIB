@@ -1018,7 +1018,6 @@ atari_lynx:
 	-DNO_SET_SCREEN_COLORS \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DTGI \
-	-DALT_CLEAR_SCREEN \
 	-DFULL_GAME \
 	-DALT_PRINT \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \

@@ -12,6 +12,8 @@ int main(void)
     tgi_init ();        
     CLI();
 
+    tgi_clear();
+
     while (tgi_busy())  {  };
 
     tgi_setpalette(tgi_getdefpalette());

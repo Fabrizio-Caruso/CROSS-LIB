@@ -166,6 +166,8 @@ void _delete(unsigned char x, unsigned char y);
 // CLEAR SCREEN
 #  if defined(ALT_CLEAR_SCREEN)
 	void CLEAR_SCREEN(void);
+#elif defined(__ATARI_LYNX__)
+    #define CLEAR_SCREEN() tgi_clear()
 #elif defined(__CPC__) 
 	#define CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__ATMOS__)

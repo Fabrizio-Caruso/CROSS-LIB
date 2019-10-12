@@ -1441,6 +1441,14 @@ zx81_16k_turn_based_qaopm:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k_turn_based_qaopm.prg
+
+    
+getk_test:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
+	-compiler=sdcc \
+	-create-app -o  $(BUILD_PATH)/getk_test.prg \
+	$(SOURCE_PATH)/../test/getk_test.c
+	rm $(BUILD_PATH)/getk_test.prg
 	
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
@@ -7300,6 +7308,7 @@ spectrum_sounds:
 	rm -f a_BANK_7.bin
 	mv a.tap $(BUILD_PATH)/spectrum_sounds.tap
 	
+   
 	
 sms_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +sms -startup=1 -clib=new -O3 \

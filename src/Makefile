@@ -1017,6 +1017,10 @@ atari_lynx_hello_test:
 atari_lynx_black_test:
 	$(CC65_PATH)$(MYCC65) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_black_test.c \
 	-o $(BUILD_PATH)/ATARI_LYNX_BLACK_TEST.lnx
+
+atari_lynx_cgetc_test:
+	$(CC65_PATH)$(MYCC65) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_cgetc_test.c \
+	-o $(BUILD_PATH)/ATARI_LYNX_CGETC_TEST.lnx
  
 atari_lynx_light:
 	$(CC65_PATH)$(MYCC65) -O -t lynx \

@@ -1,6 +1,3 @@
-#include "display_macros.h"
-#include "graphics_settings.h"
-
 #include <tgi.h>
 
 #define CLI() asm("\tcli")

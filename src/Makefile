@@ -5706,7 +5706,7 @@ zx81_targets_qaopm: \
 	zx81_16k_qaopm zx81_16k_turn_based_qaopm zx81_16k_wrx_qaopm zx81_32k_wrx_qaopm zx81_32k_wrx_turn_based_qaopm
 
 zx81_targets: \
-    zx81_targets_qaopm
+    zx81_targets_ijkl_spc
 	
 spectrum_targets: \
 	spectrum_16k spectrum_48k

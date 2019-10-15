@@ -6,6 +6,10 @@
 
 int main(void)
 {
+    unsigned short i;
+    unsigned char str[2];
+    
+    str[1] = '\0';
     tgi_install (tgi_static_stddrv);
 
     tgi_init ();        
@@ -20,16 +24,30 @@ int main(void)
 
     tgi_setcolor(TGI_COLOR_RED);
 
-    tgi_outtextxy(8,8*0,"step 0"); 
+    tgi_outtextxy(8,8*0,"press a key"); 
+    for(i=0;i<30000;++i){}
     
-    cgetc();   
+    str[0] = cgetc();   
     tgi_outtextxy(8,8*1,"step 1"); 
+    tgi_outtextxy(8*8,8*1,str); 
+    for(i=0;i<30000;++i){}
 
-    cgetc();   
+    str[0] = cgetc();   
     tgi_outtextxy(8,8*2,"step 2"); 
+    tgi_outtextxy(8*8,8*2,str); 
+    for(i=0;i<30000;++i){}
     
-    cgetc();   
-    tgi_outtextxy(8,8*3,"step 3"); 
+    str[0] = cgetc();   
+    tgi_outtextxy(8,8*3,"step 3");
+    tgi_outtextxy(8*8,8*3,str);     
+    for(i=0;i<30000;++i){}
+    
+    while(!kbhit())
+    {
+        str[0] = cgetc();
+        tgi_outtextxy(8,8*4,"step 4");
+        tgi_outtextxy(8*8,8*4,str);     
+    }
     
     while(1){};
     return 0;

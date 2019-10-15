@@ -186,7 +186,7 @@ In BASIC run: RUN
 
 Ohio Scientific C1P
 
-Start the WinOSI executable.
+Start the WinOSI executable (http://osi.marks-lab.com/)
 Under "Options" select "System Configuration...".
 Select "OSI C1P / Superboard II (600 BOard)" as machine type.
 On the "System ROMs" tab under "Specify ROM Type" select SYN600.

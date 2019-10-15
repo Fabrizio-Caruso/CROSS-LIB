@@ -838,13 +838,12 @@ apple2enh_80col:
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/FULL_apple2enh_80col.dsk aschase < $(BUILD_PATH)/apple2enh_80col.bin
 	rm $(BUILD_PATH)/apple2enh_80col.bin	
 
-	
+
 osic1p_32k: 
 	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
 	-DALT_SLEEP \
 	-DNO_SET_SCREEN_COLORS \
-	-DTURN_BASED \
-	-DFORCE_GHOSTS_NUMBER=9 \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -855,20 +854,49 @@ osic1p_32k:
 	rm $(BUILD_PATH)/FULL_osic1p_32k.lod
 	mv $(BUILD_PATH)/FULL_osic1p_32k.c1p $(BUILD_PATH)/FULL_osic1p_32k.lod
 
+	
+osic1p_32k_turn_based: 
+	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
+	-DALT_SLEEP \
+	-DNO_SET_SCREEN_COLORS \
+	-DTURN_BASED \
+	-DFORCE_GHOSTS_NUMBER=9 \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	-o $(BUILD_PATH)/FULL_osic1p_32k_turn_based.lod
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/FULL_osic1p_32k_turn_based.lod -binary -offset 0x200 -o $(BUILD_PATH)/FULL_osic1p_32k_turn_based.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/FULL_osic1p_32k_turn_based.lod
+	mv $(BUILD_PATH)/FULL_osic1p_32k_turn_based.c1p $(BUILD_PATH)/FULL_osic1p_32k_turn_based.lod
+
 
 osic1p_8k: 
 	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(CFG_PATH)/cc65/osic1p_less_stack.cfg -t osic1p \
 	-DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME \
-	-DTURN_BASED \
-	-DFORCE_GHOSTS_NUMBER=9 \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_osic1p_8k.lod	
 	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/TINY_osic1p_8k.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p_8k.c1p -Ohio_Scientific -execution-start-address=0x200	
 	rm $(BUILD_PATH)/TINY_osic1p_8k.lod
 	mv $(BUILD_PATH)/TINY_osic1p_8k.c1p $(BUILD_PATH)/TINY_osic1p_8k.lod
+
+
+osic1p_8k_turn_based: 
+	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(CFG_PATH)/cc65/osic1p_less_stack.cfg -t osic1p \
+	-DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME \
+	-DTURN_BASED \
+	-DFORCE_GHOSTS_NUMBER=9 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/TINY_osic1p_8k_turn_based.lod	
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/TINY_osic1p_8k_turn_based.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p_8k_turn_based.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/TINY_osic1p_8k_turn_based.lod
+	mv $(BUILD_PATH)/TINY_osic1p_8k_turn_based.c1p $(BUILD_PATH)/TINY_osic1p_8k_turn_based.lod
 	
-		
+	
 gamate: 
 	$(CC65_PATH)$(MYCC65) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
@@ -5849,7 +5877,7 @@ atari_lynx_targets: \
 	atari_lynx
 	
 osic1p_targets: \
-	osic1p_8k osic1p_32k
+	osic1p_8k osic1p_32k osic1p_8k_turn_based osic1p_32k_turn_based
 	
 c128_targets: \
 	c128_8502_targets c128_z80_targets

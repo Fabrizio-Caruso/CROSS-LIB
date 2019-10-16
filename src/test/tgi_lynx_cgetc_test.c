@@ -42,13 +42,12 @@ int main(void)
     tgi_outtextxy(8*8,8*3,str);     
     for(i=0;i<30000;++i){}
     
-    while(!kbhit())
+    while(1)
     {
         str[0] = cgetc();
         tgi_outtextxy(8,8*4,"step 4");
         tgi_outtextxy(8*8,8*4,str);     
     }
     
-    while(1){};
     return 0;
 }

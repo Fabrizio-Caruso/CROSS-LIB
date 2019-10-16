@@ -35,7 +35,7 @@ WINCMOC_OPTS ?= \
 	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES= 
 	
 
-CC65_PATH ?=
+CC65_PATH ?= /home/fabri/CC65_FIX/cc65/bin/
 #/home/fabri/CC65_FIX/cc65/bin/
 #/cygdrive/c/cc65-snapshot-win32/bin/
 Z88DK_PATH ?= /cygdrive/c/z88dk/bin/

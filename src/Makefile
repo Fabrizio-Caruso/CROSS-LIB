@@ -229,7 +229,14 @@ atari5200:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
 	-o $(BUILD_PATH)/FULL_atari5200.rom
-	
+
+atari2600_graphics_test:
+	$(CC65_PATH)$(MYCC65) -O -t atari2600 \
+	-D__ATARI2600__ \
+	$(DEBUG_MACROS) \
+	-DTINY_GAME \
+	$(SOURCE_PATH)/../test/atari2600_graphics_test.c \
+	-o $(BUILD_PATH)/atari2600_graphics_test.rom	
 
 atari2600_tiny:
 	$(CC65_PATH)$(MYCC65) -O -t atari2600 \
@@ -4931,11 +4938,11 @@ linuxmips:
 
 
 # buffered
-pdp11v7:
+pdp11v7_buffered:
 	$(_ACK) $(_ACK_OPTS) -mpdpv7 \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=22 \
-	-DCONIO_ADM3A \
+	-DCONIO_VT100 \
 	-DNO_COLOR \
 	-DACK \
 	-D__PDP11V7__ \
@@ -4951,6 +4958,25 @@ pdp11v7:
 	mv a.out $(BUILD_PATH)/FULL_pdp11v7_turn_based.bin
 	rm $(SOURCE_PATH)/../*.o
 	
+    
+pdp11v7:
+	$(_ACK) $(_ACK_OPTS) -mpdpv7 \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=22 \
+	-DCONIO_VT100 \
+	-DCONIO \
+	-DNO_COLOR \
+	-DACK \
+	-D__PDP11V7__ \
+	-DFULL_GAME \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DALT_CLEAR_SCREEN \
+	$(FULL_FILES)
+	mv a.out $(BUILD_PATH)/FULL_pdp11v7.bin
+	rm $(SOURCE_PATH)/../*.o    
 
 # no ncurses in ACK
 dos:

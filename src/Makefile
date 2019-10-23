@@ -4821,7 +4821,10 @@ cpm8080_adm3a:
 	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_adm3a.com
 	rm $(SOURCE_PATH)/../*.o	
 
-	
+cpm8080_targets: \
+	cpm8080_buffered
+
+
 # buffered	
 pc8086:
 	$(_ACK) $(_ACK_OPTS) -mpc86 \
@@ -4843,6 +4846,9 @@ pc8086:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv pc86.img $(BUILD_PATH)/FULL_pc8086_turn_based.img
 	rm $(SOURCE_PATH)/../*.o
+
+pc8086_targets: \
+	pc8086
 
 	
 # buffered
@@ -4867,6 +4873,9 @@ linuxppc:
 	mv linuxppc.exe $(BUILD_PATH)/FULL_linuxppc_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o
 
+linuxppc_targets: \
+	linuxppc
+
 
 #buffered
 linux68k:
@@ -4890,6 +4899,9 @@ linux68k:
 	mv linux68k.exe $(BUILD_PATH)/FULL_linux68k_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o
 	
+linux68k_targets: \
+	linux68k
+
 
 # buffered
 linux386:
@@ -4913,6 +4925,9 @@ linux386:
 	mv linux386.exe $(BUILD_PATH)/FULL_linux386_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o
 
+linux386_targets: \
+	linux386
+
 
 # buffered
 linuxmips:
@@ -4935,6 +4950,9 @@ linuxmips:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv linuxmips.exe $(BUILD_PATH)/FULL_linuxmips_turn_based.exe
 	rm $(SOURCE_PATH)/../*.o	
+
+linuxmips_targets: \
+	linuxmips
 
 
 # buffered
@@ -4978,6 +4996,11 @@ pdp11v7:
 	mv a.out $(BUILD_PATH)/FULL_pdp11v7.bin
 	rm $(SOURCE_PATH)/../*.o    
 
+pdp11v7_targets: \
+	pdp11v7 \
+	pdp11v7_buffered
+
+
 # no ncurses in ACK
 dos:
 	$(_ACK) $(_ACK_OPTS) -pc86 \
@@ -4993,6 +5016,9 @@ dos:
 	$(FULL_FILES) \
 	-lncurses
 	# mv a.exe $(BUILD_PATH)/FULL_dos_turn_based.exe
+
+dos_targets: \
+	dos
 
 # ------------------------------------------------------------------------------------------
 # GCC
@@ -5554,8 +5580,15 @@ z88dk_targets: \
 cmoc_targets: \
 	coco dragon mo5
 	
+        
 ack_targets: \
-	pdp11v7 cpm8080_buffered pc8086 linux386 linux68k linuxppc linuxmips
+	pdp11v7_targets \
+    cpm8080_targets \
+    pc8086_targets \
+    linux386_targets \
+    linux68k_targets \
+    linuxppc_targets \
+    linuxmips_targets
 	
 atari_st_targets: \
 	atari_st_buffered

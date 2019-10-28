@@ -45,8 +45,18 @@ int main(void)
     
     while(1)
     {
-        str[0] = cgetc();
-        tgi_outtextxy(8*8,8*4,str);     
+        if(kbhit())
+        {
+            str[0] = cgetc();
+            tgi_outtextxy(8*8,8*4,str);
+        }
+        else
+        {
+            tgi_outtextxy(8*8,8*6,"*");
+            for(i=0;i<4000;++i){}
+            tgi_outtextxy(8*8,8*6,"+");            
+            tgi_outtextxy(8*8,8*4," ");            
+        }
     }
     
     return 0;

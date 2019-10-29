@@ -26,11 +26,24 @@ int main(void)
 
     tgi_outtextxy(8,8*0,"press a key"); 
     for(i=0;i<30000;++i){}
+    if(kbhit())
+    {
+    }
+    else
+    {
+    }    
     
     str[0] = cgetc();   
     tgi_outtextxy(8,8*1,"step 1"); 
     tgi_outtextxy(8*8,8*1,str); 
     for(i=0;i<30000;++i){}
+
+    if(kbhit())
+    {
+    }
+    else
+    {
+    }
 
     str[0] = cgetc();   
     tgi_outtextxy(8,8*2,"step 2"); 

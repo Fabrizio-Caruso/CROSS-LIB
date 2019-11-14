@@ -25,7 +25,6 @@
 #include "settings.h"
 #include "character.h"
 #include "strategy.h"
-#include <stdlib.h>
 
 extern unsigned char level;
 extern unsigned short loop;

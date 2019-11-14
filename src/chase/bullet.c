@@ -36,24 +36,24 @@
 
 
 
-extern unsigned short points;
-extern unsigned char ghostCount;
+extern uint16_t points;
+extern uint8_t ghostCount;
 extern Character ghosts[GHOSTS_NUMBER];
 #if !defined(NO_DEAD_GHOSTS)
 extern Image DEAD_GHOST_IMAGE;
 #else
 extern Image SKULL_IMAGE;	
 #endif
-extern unsigned char level;
+extern uint8_t level;
 
 extern Item extraPoints;
 
 extern Character skull;
-extern unsigned char skullActive;
-extern unsigned char playerFire;
-extern unsigned char guns;
-extern unsigned char playerDirection;
-extern unsigned char bulletDirection;
+extern uint8_t skullActive;
+extern uint8_t playerFire;
+extern uint8_t guns;
+extern uint8_t playerDirection;
+extern uint8_t bulletDirection;
 
 extern Character bullet;
 extern Character player;
@@ -69,10 +69,10 @@ extern Character player;
 	
 	extern Character leftHorizontalMissile;
 	extern Character rightHorizontalMissile;
-	extern unsigned char rockets_x[ROCKETS_NUMBER];
+	extern uint8_t rockets_x[ROCKETS_NUMBER];
 	extern Character rockets[ROCKETS_NUMBER];
-	extern unsigned char dead_rockets;
-	extern unsigned char missileBasesDestroyed;
+	extern uint8_t dead_rockets;
+	extern uint8_t missileBasesDestroyed;
 
 	extern Character *chasedEnemyPtr;	
 #endif
@@ -140,7 +140,7 @@ void checkBulletVsGhost(Character * bulletPtr,
 	
 void checkBulletVsGhosts(Character * bulletPtr)
 {
-	unsigned char i = 0;
+	uint8_t i = 0;
 	for(;i<GHOSTS_NUMBER;++i)
 	{
 		checkBulletVsGhost(bulletPtr, &ghosts[i]);
@@ -245,7 +245,7 @@ void moveBullet(register Character * bulletPtr)
 			}
 			if((rocketLevel() || bossLevel()) && bulletPtr->_y==YSize-1)
 			{
-				unsigned char i;
+				uint8_t i;
 				for(i=0;i<ROCKETS_NUMBER;++i)
 				{
 					if(bulletPtr->_x==rockets_x[i] && rockets[i]._status)

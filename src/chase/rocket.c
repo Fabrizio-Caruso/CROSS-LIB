@@ -8,13 +8,13 @@
 
 extern Character rockets[ROCKETS_NUMBER];
 
-extern unsigned char ghostCount;
+extern uint8_t ghostCount;
 
 	void handle_rockets(void)
 	{	
 		if((ghostCount<=MAX_GHOST_COUNT_FOR_ROCKETS && rocketLevel()) || bossLevel())
 		{ 
-			unsigned char i;
+			uint8_t i;
 
 			for(i=0;i<ROCKETS_NUMBER;++i)
 			{

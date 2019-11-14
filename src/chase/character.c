@@ -29,11 +29,11 @@
 
 #include "game_text.h"
 
-extern unsigned short points;
+extern uint16_t points;
 
-extern unsigned char ghostCount;
-extern unsigned short loop;
-extern unsigned char level;
+extern uint8_t ghostCount;
+extern uint16_t loop;
+extern uint8_t level;
 
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
@@ -55,12 +55,12 @@ void deleteCharacter(Character * characterPtr)
 }
 
 #if defined(FULL_GAME)
-	extern unsigned char invincibilityActive;
-	extern unsigned char innerVerticalWallY;
-	extern unsigned char innerVerticalWallLength;
+	extern uint8_t invincibilityActive;
+	extern uint8_t innerVerticalWallY;
+	extern uint8_t innerVerticalWallLength;
 	
-	extern unsigned char horizontalWallsLength;
-	extern unsigned char zombieActive;	
+	extern uint8_t horizontalWallsLength;
+	extern uint8_t zombieActive;	
 #endif 
 
 void playerDies(void)
@@ -74,13 +74,13 @@ void playerDies(void)
 }
 
 #if defined(FULL_GAME)
-	unsigned char playerKilledBy(Character *enemyPtr)
+	uint8_t playerKilledBy(Character *enemyPtr)
 	{
 		return !invincibilityActive && areCharctersAtSamePosition(enemyPtr,&player);
 	}
 #endif
 
-void initializeCharacter(register Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr)
+void initializeCharacter(register Character* characterPtr, uint8_t x, uint8_t y, uint8_t status, Image * imagePtr)
 {
 	characterPtr->_x = x;
 	characterPtr->_y = y;
@@ -93,13 +93,13 @@ void initializeCharacter(register Character* characterPtr, unsigned char x, unsi
 }
 
 
-unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr)
+uint8_t isCharacterAtLocation(uint8_t x, uint8_t y, Character * characterPtr)
 {
 	return(characterPtr->_x==x) && (characterPtr->_y==y);
 }
 
 
-unsigned char wallReached(register Character *characterPtr)
+uint8_t wallReached(register Character *characterPtr)
 {
 	return (characterPtr->_x==0)||(characterPtr->_x==XSize-1) || 
 		   (characterPtr->_y==0)||(characterPtr->_y==YSize-1);
@@ -116,7 +116,7 @@ void ghostDies(Character * ghostPtr)
 	#if defined(FULL_GAME)
 		if(level>=FIRST_MOVING_BOMBS_LEVEL)
 			{
-				unsigned char i;
+				uint8_t i;
 
 				for(i=0;i<BOMBS_NUMBER;++i)
 				{
@@ -173,9 +173,9 @@ void checkBombsVsGhost(register Character * ghostPtr)
 }
 						
 
-unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length)
+uint8_t sameLocationAsAnyLocation(uint8_t x, uint8_t y, Character *characterList, uint8_t length)
 {
-	unsigned char i;
+	uint8_t i;
 
 	for(i=0;i<length;++i)
 	{
@@ -194,7 +194,7 @@ unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Charac
 
 // TODO: To be replaced with something cleaner
 // also used with things different from global bombs
-unsigned char safeLocation(unsigned char x, unsigned char y)
+uint8_t safeLocation(uint8_t x, uint8_t y)
 {
 	return !(sameLocationAsAnyLocation(x,y,ghosts,GHOSTS_NUMBER) 
 	      || sameLocationAsAnyLocation(x,y,bombs, BOMBS_NUMBER)
@@ -204,13 +204,13 @@ unsigned char safeLocation(unsigned char x, unsigned char y)
 #if !defined(TINY_GAME)
 void relocateCharacter(register Character * characterPtr)
 {
-	unsigned char x; 
-	unsigned char y;  
+	uint8_t x; 
+	uint8_t y;  
 	
 	do
 	{
-		x = characterPtr->_x  + (unsigned char)(rand() % RELOCATE_RANGE) - (unsigned char)(RELOCATE_RANGE/2);
-		y = characterPtr->_y  + (unsigned char)(rand() % RELOCATE_RANGE) - (unsigned char)(RELOCATE_RANGE/2);
+		x = characterPtr->_x  + (uint8_t)(rand() % RELOCATE_RANGE) - (uint8_t)(RELOCATE_RANGE/2);
+		y = characterPtr->_y  + (uint8_t)(rand() % RELOCATE_RANGE) - (uint8_t)(RELOCATE_RANGE/2);
 
 	} while(!safeLocation(x,y));
 
@@ -220,12 +220,12 @@ void relocateCharacter(register Character * characterPtr)
 #endif
 
 #if defined(FULL_GAME)
-	unsigned char innerWallReached(register Character *characterPtr)
+	uint8_t innerWallReached(register Character *characterPtr)
 	{
 		return (characterPtr->_x==XSize/2) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
 	}
 
-	unsigned char horizontalWallsReached(void)
+	uint8_t horizontalWallsReached(void)
 	{
 		return (player._y==YSize/2) && 
 		       ((player._x<=horizontalWallsLength) ||

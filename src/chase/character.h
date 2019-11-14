@@ -28,11 +28,11 @@
 struct CharacterStruct
 {
 	// character coordinates
-	unsigned char _x;
-	unsigned char _y;
+	uint8_t _x;
+	uint8_t _y;
 	
 	// _status decides whether the character is active
-	unsigned char _status;
+	uint8_t _status;
 	
 	Image* _imagePtr;
 };
@@ -52,14 +52,14 @@ typedef struct CharacterStruct Character;
 
 #define areCharctersAtSamePosition(lhs, rhs)isCharacterAtLocation((lhs)->_x, (lhs)->_y,rhs)
 
-extern unsigned short points;
+extern uint16_t points;
 
-extern unsigned char ghostCount;
+extern uint8_t ghostCount;
 
 extern Image INVINCIBILITY_IMAGE;
 
 #if defined(FULL_GAME)
-	unsigned char playerKilledBy(Character *enemyPtr);
+	uint8_t playerKilledBy(Character *enemyPtr);
 #endif
 
 void displayCharacter(Character * characterPtr);
@@ -168,27 +168,27 @@ void deleteCharacter(Character * characterPtr);
 #define deleteSkull(characterPtr) deleteCharacter(characterPtr);
 #define deletePowerUp(characterPtr) deleteCharacter(characterPtr);
 
-void initializeCharacter(register Character* characterPtr, unsigned char x, unsigned char y, unsigned char status, Image * imagePtr);
+void initializeCharacter(register Character* characterPtr, uint8_t x, uint8_t y, uint8_t status, Image * imagePtr);
 
-unsigned char isCharacterAtLocation(unsigned char x, unsigned char y, Character * characterPtr);
+uint8_t isCharacterAtLocation(uint8_t x, uint8_t y, Character * characterPtr);
 
-unsigned char wallReached(register Character *characterPtr);
+uint8_t wallReached(register Character *characterPtr);
 
 void playerDies(void);
 
 void checkBombsVsGhost(register Character * ghostPtr);
 						
-unsigned char safeLocation(unsigned char x, unsigned char y);
+uint8_t safeLocation(uint8_t x, uint8_t y);
 
 void relocateCharacter(register Character * characterPtr);
 
 void ghostDies(Character * ghostPtr);
 
-unsigned char sameLocationAsAnyLocation(unsigned char x, unsigned char y, Character *characterList, unsigned char length);
+uint8_t sameLocationAsAnyLocation(uint8_t x, uint8_t y, Character *characterList, uint8_t length);
 
 #if defined(FULL_GAME)
-	unsigned char innerWallReached(register Character *characterPtr);
-	unsigned char horizontalWallsReached(void);
+	uint8_t innerWallReached(register Character *characterPtr);
+	uint8_t horizontalWallsReached(void);
 #endif
 
 #endif // _CHARACTER

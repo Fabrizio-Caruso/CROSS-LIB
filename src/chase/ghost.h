@@ -27,7 +27,7 @@
 
 #include "character.h"
 
-unsigned short computeGhostSlowDown(void);
+uint16_t computeGhostSlowDown(void);
 
 #if !defined(TINY_GAME)
 	void decreaseGhostLevel(void);
@@ -36,7 +36,7 @@ unsigned short computeGhostSlowDown(void);
 void displayBombs(void);
 
 #if defined(FULL_GAME)
-	unsigned char firstAlive(void);
+	uint8_t firstAlive(void);
 #endif
 
 #endif // _GHOST_H

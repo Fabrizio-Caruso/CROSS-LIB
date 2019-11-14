@@ -12,17 +12,17 @@
 extern Character player;
 
 #if !defined(TINY_GAME)
-	extern unsigned char skullXCountDown;
-	extern unsigned char skullYCountDown;
-	extern unsigned char playerFire;
+	extern uint8_t skullXCountDown;
+	extern uint8_t skullYCountDown;
+	extern uint8_t playerFire;
 	extern Character bullet;
-	extern unsigned char guns;
-	extern unsigned char playerDirection;
+	extern uint8_t guns;
+	extern uint8_t playerDirection;
 #endif
 
 #if defined(FULL_GAME)
-	extern unsigned char player_invincibility;
-	extern unsigned char playerBlink;	
+	extern uint8_t player_invincibility;
+	extern uint8_t playerBlink;	
 #endif
 
 #if !defined(TINY_GAME) 
@@ -120,7 +120,7 @@ extern Character player;
 	#if defined(Z88DK_JOYSTICK)
 		#include <games.h>
 		
-		void movePlayerByJoystick(unsigned char joyInput)
+		void movePlayerByJoystick(uint8_t joyInput)
 		{
 			if(joyInput & MOVE_UP)
 			{
@@ -149,7 +149,7 @@ extern Character player;
 	// TODO: BOGUS - IMPLEMENT THIS!
 		#include <arch/sms/SMSLib.h>
 		
-		void movePlayerByJoystick(unsigned char joyInput)
+		void movePlayerByJoystick(uint8_t joyInput)
 		{
 			if(joyInput & PORT_A_KEY_UP)
 			{
@@ -177,7 +177,7 @@ extern Character player;
 	#else
 		#include <joystick.h>
 		
-		void movePlayerByJoystick(unsigned char joyInput)
+		void movePlayerByJoystick(uint8_t joyInput)
 		{
 			if(JOY_UP(joyInput))
 			{
@@ -204,7 +204,7 @@ extern Character player;
 		}	
 	#endif
 #else
-	void movePlayerByKeyboard(unsigned char kbInput)
+	void movePlayerByKeyboard(uint8_t kbInput)
 	{
 		#if defined(ALT_MOVE)
 			deletePlayer(&player);
@@ -252,7 +252,7 @@ extern Character player;
 #else
 	
 	#if defined(Z88DK_JOYSTICK)
-		extern unsigned char stick;
+		extern uint8_t stick;
 		
 		#define JOY_INPUT() joystick(stick)
 	#elif defined(__SMS__)
@@ -266,7 +266,7 @@ extern Character player;
 	#if defined(TURN_BASED)
 		void MOVE_PLAYER(void) 
 		{ 
-			unsigned char joyInput; 
+			uint8_t joyInput; 
 			while(!(joyInput=JOY_INPUT())) 
 			{ 
 			}; 

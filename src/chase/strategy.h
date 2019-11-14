@@ -33,7 +33,7 @@
 
 // Required by horizontal missile
 
-unsigned char moveCharacter(unsigned char *hunterOffsetPtr, unsigned char *preyOffsetPtr);
+uint8_t moveCharacter(uint8_t *hunterOffsetPtr, uint8_t *preyOffsetPtr);
 
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
@@ -41,7 +41,7 @@ unsigned char moveCharacter(unsigned char *hunterOffsetPtr, unsigned char *preyO
 #endif
 
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
-	void moveTowardCharacter(Character *preyPtr, Character *hunterPtr, unsigned char strategy);
+	void moveTowardCharacter(Character *preyPtr, Character *hunterPtr, uint8_t strategy);
 #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
 	void moveTowardCharacter(Character *preyPtr, Character *hunterPtr);
 #else	
@@ -53,9 +53,9 @@ unsigned char moveCharacter(unsigned char *hunterOffsetPtr, unsigned char *preyO
 #endif
 
 #if defined(FULL_GAME)
-	void chaseCharacter(Character *preyPtr, unsigned short slowDown);	
+	void chaseCharacter(Character *preyPtr, uint16_t slowDown);	
 #else
-	void chaseCharacter(unsigned short slowDown);	
+	void chaseCharacter(uint16_t slowDown);	
 #endif
 	
 #endif // _STRATEGY

@@ -10,15 +10,15 @@
 	{
 		Character _character;
 		void (*_effect)(void);
-		unsigned short _coolDown;
+		uint16_t _coolDown;
 		#if !defined(NO_BLINKING)
-		unsigned char _blink;
+		uint8_t _blink;
 		#endif
 	};
 
 	typedef struct ItemStruct Item;
 
-	void handle_count_down(unsigned char * activeItemFlagPtr, unsigned short * countDownPtr);	
+	void handle_count_down(uint8_t * activeItemFlagPtr, uint16_t * countDownPtr);	
 
 	void reducePowerUpsCoolDowns(void);
 	

@@ -17,17 +17,17 @@
 	extern Character skull;
 	extern Character ghosts[GHOSTS_NUMBER];
 	extern Character bullet;
-	extern unsigned char playerFire;
-	extern unsigned char level;
-	extern unsigned char loop;
-	extern unsigned char guns;
-	extern unsigned char ind;
+	extern uint8_t playerFire;
+	extern uint8_t level;
+	extern uint8_t loop;
+	extern uint8_t guns;
+	extern uint8_t ind;
 #endif
 
 
 
 #if defined(END_SCREEN) || defined(DANCE)
-	extern unsigned char bulletDirection;
+	extern uint8_t bulletDirection;
 
 	void dance(Character * characterPtr)
 	{

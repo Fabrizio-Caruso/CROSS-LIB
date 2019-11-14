@@ -26,21 +26,21 @@
 #include "ghost.h"
 #include "settings.h"
 
-extern unsigned short ghostLevel;
-extern unsigned char level;
+extern uint16_t ghostLevel;
+extern uint8_t level;
 
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 
 #if defined(FULL_GAME)
-unsigned short computeGhostSlowDown(void)
+uint16_t computeGhostSlowDown(void)
 {
 	if(ghostLevel<MAX_GHOST_LEVEL)
 	{
 		#if defined(TURN_BASED)
-			return INITIAL_GHOST_SLOWDOWN-(unsigned short)level*256-ghostLevel*8;		
+			return INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256-ghostLevel*8;		
 		#else
-			return INITIAL_GHOST_SLOWDOWN-(unsigned short)level*256-ghostLevel*16;
+			return INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256-ghostLevel*16;
 		#endif
 	}
 	return GHOST_MIN_SLOWDOWN;
@@ -59,7 +59,7 @@ unsigned short computeGhostSlowDown(void)
 
 void displayBombs(void)
 {
-	unsigned char i;
+	uint8_t i;
 
 	for(i=0;i<BOMBS_NUMBER;++i)
 	{
@@ -68,9 +68,9 @@ void displayBombs(void)
 }	
 
 #if defined(FULL_GAME)
-	unsigned char firstAlive(void)
+	uint8_t firstAlive(void)
 	{
-		unsigned char i;
+		uint8_t i;
 		
 		i=0;
 		while(i<GHOSTS_NUMBER)

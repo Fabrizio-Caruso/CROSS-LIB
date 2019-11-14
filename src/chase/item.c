@@ -5,31 +5,31 @@
 #include "ghost.h"
 #include "game_text.h"
 
-extern unsigned short points;
+extern uint16_t points;
 
-extern unsigned char guns;
-extern unsigned char lives;
+extern uint8_t guns;
+extern uint8_t lives;
 
-extern unsigned char level;
+extern uint8_t level;
 
-extern unsigned char freezeActive;
-extern unsigned short freeze_count_down;
+extern uint8_t freezeActive;
+extern uint16_t freeze_count_down;
 
 
 #if defined(FULL_GAME)
-	extern unsigned char invincibilityActive;
-	extern unsigned char confuseActive;
-	extern unsigned char zombieActive;
+	extern uint8_t invincibilityActive;
+	extern uint8_t confuseActive;
+	extern uint8_t zombieActive;
 	
-	extern unsigned short invincibility_count_down;
-	extern unsigned short confuse_count_down;
-	extern unsigned short zombie_count_down;
+	extern uint16_t invincibility_count_down;
+	extern uint16_t confuse_count_down;
+	extern uint16_t zombie_count_down;
 	
-	extern unsigned char missileBasesDestroyed;
-	extern unsigned char skullsKilled;	
+	extern uint8_t missileBasesDestroyed;
+	extern uint8_t skullsKilled;	
 	
-	extern unsigned char extraLife_present_on_level;
-	extern unsigned char zombie_present_on_level;
+	extern uint8_t extraLife_present_on_level;
+	extern uint8_t zombie_present_on_level;
 #endif
 
 extern Image DEAD_GHOST_IMAGE;
@@ -171,7 +171,7 @@ extern Item extraPoints;
 		}
 	}
 
-	void handle_count_down(unsigned char * activeItemFlagPtr, unsigned short * countDownPtr)
+	void handle_count_down(uint8_t * activeItemFlagPtr, uint16_t * countDownPtr)
 	{
 		if(*activeItemFlagPtr)
 		{
@@ -225,7 +225,7 @@ extern Item extraPoints;
 	void freezeEffect(void)
 	{
 		_freezeEffect();
-		freeze._coolDown = ((unsigned short) (FREEZE_COOL_DOWN)*2);	
+		freeze._coolDown = ((uint16_t) (FREEZE_COOL_DOWN)*2);	
 	}
 	
 	
@@ -246,7 +246,7 @@ extern Item extraPoints;
 	void invincibilityEffect(void)
 	{
 		_invincibilityEffect();
-		invincibility._coolDown = ((unsigned short) (INVINCIBILITY_COOL_DOWN)*4);
+		invincibility._coolDown = ((uint16_t) (INVINCIBILITY_COOL_DOWN)*4);
 	}
 	
 	void superEffect(void)
@@ -254,7 +254,7 @@ extern Item extraPoints;
 		_freezeEffect();
 		_gunEffect();
 		_invincibilityEffect();
-		super._coolDown = ((unsigned short) (SUPER_COOL_DOWN)*8);
+		super._coolDown = ((uint16_t) (SUPER_COOL_DOWN)*8);
 	}
 
 	void confuseEffect(void)
@@ -266,7 +266,7 @@ extern Item extraPoints;
 	
 	void zombieEffect(void)
 	{
-		unsigned char i;
+		uint8_t i;
 		
 		zombieActive = 1;
 		missileBasesDestroyed = 1;
@@ -289,7 +289,7 @@ extern Item extraPoints;
 		chasingBullet._x = chase._character._x;
 		chasingBullet._y = chase._character._y;
 		
-		chase._coolDown = ((unsigned short)(CHASE_COOL_DOWN)*2);
+		chase._coolDown = ((uint16_t)(CHASE_COOL_DOWN)*2);
 		
 		firstAliveIndex = firstAlive();
 		if(firstAliveIndex == GHOSTS_NUMBER)

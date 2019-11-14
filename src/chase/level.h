@@ -27,36 +27,36 @@
 
 #include "character.h"
 
-// 		initializeCharacter(&ghosts[count], 0,(unsigned char) 0,0,&GHOST_IMAGE);
+// 		initializeCharacter(&ghosts[count], 0,(uint8_t) 0,0,&GHOST_IMAGE);
 
 #if defined(TINY_GAME) || defined(NO_DEAD_GHOSTS)
 	#define PLACE_DEAD_GHOST() \
-		initializeCharacter(&ghosts[count],(unsigned char) (count),(unsigned char) 1,0,&GHOST_IMAGE);	
+		initializeCharacter(&ghosts[count],(uint8_t) (count),(uint8_t) 1,0,&GHOST_IMAGE);	
 #else
 	#define PLACE_DEAD_GHOST() \
-		initializeCharacter(&ghosts[count],(unsigned char) (GHOSTS_NUMBER-count),(unsigned char) 1,0,&DEAD_GHOST_IMAGE);
+		initializeCharacter(&ghosts[count],(uint8_t) (GHOSTS_NUMBER-count),(uint8_t) 1,0,&DEAD_GHOST_IMAGE);
 #endif
 
 
 // Check XSize to avoid overflow
 #if XSize>48
-	#define ROUND_X_POS (unsigned char) ((2*j+1)*(unsigned char)(XSize/6))
+	#define ROUND_X_POS (uint8_t) ((2*j+1)*(uint8_t)(XSize/6))
 #else
 	#if defined(OPTIMIZE_ROUND_ENEMIES)
-		#define ROUND_X_POS (unsigned char) (6*j)		
+		#define ROUND_X_POS (uint8_t) (6*j)		
 	#else
-		#define ROUND_X_POS (unsigned char) ((2*j+1)*XSize/6)
+		#define ROUND_X_POS (uint8_t) ((2*j+1)*XSize/6)
 	#endif
 #endif
 
 // Check YSize to avoid overflow
 #if YSize>48
-	#define ROUND_Y_POS (unsigned char) ((2*i+1)*(unsigned char)(YSize/6))
+	#define ROUND_Y_POS (uint8_t) ((2*i+1)*(uint8_t)(YSize/6))
 #else
 	#if defined(OPTIMIZE_ROUND_ENEMIES)
-		#define ROUND_Y_POS (unsigned char) (6*i)
+		#define ROUND_Y_POS (uint8_t) (6*i)
 	#else
-		#define ROUND_Y_POS (unsigned char) ((2*i+1)*YSize/6)
+		#define ROUND_Y_POS (uint8_t) ((2*i+1)*YSize/6)
 	#endif
 #endif
 
@@ -68,13 +68,13 @@
 		1 ,&GHOST_IMAGE);
 
 #define PLACE_FLAT_GHOST() \
-	initializeCharacter(&ghosts[count],(unsigned char) (j*(XSize/5)),(i*(YSize/5)),1,&GHOST_IMAGE);
+	initializeCharacter(&ghosts[count],(uint8_t) (j*(XSize/5)),(i*(YSize/5)),1,&GHOST_IMAGE);
 
 #define PLACE_FLAT_GHOST_6() \
-	initializeCharacter(&ghosts[count],(unsigned char) (j*(XSize>>2)),(i*(YSize/5)),1,&GHOST_IMAGE);	
+	initializeCharacter(&ghosts[count],(uint8_t) (j*(XSize>>2)),(i*(YSize/5)),1,&GHOST_IMAGE);	
 	
 #define PLACE_NINTH_GHOST() \
-	initializeCharacter(&ghosts[4],(unsigned char) (XSize-4),(unsigned char) (YSize-4),1,&GHOST_IMAGE);
+	initializeCharacter(&ghosts[4],(uint8_t) (XSize-4),(uint8_t) (YSize-4),1,&GHOST_IMAGE);
 
 	
 #define ROUND_NINE_GHOSTS() \
@@ -166,15 +166,15 @@
 
 #if defined(NO_RANDOM_LEVEL)
 	#define PLACE_BOMB_4() \
-		initializeCharacter(&bombs[count],(unsigned char) ((XSize/3)*i), (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE)
+		initializeCharacter(&bombs[count],(uint8_t) ((XSize/3)*i), (uint8_t) ((YSize/3)*j),0,&BOMB_IMAGE)
 #elif defined(TINY_GAME) || defined(SIMPLE_RANDOM_LEVEL)
 	#define PLACE_BOMB_4() \
-		initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)+(unsigned char)(rand()&1)), \
-													  (unsigned char) ((YSize/3)*j),0,&BOMB_IMAGE);
+		initializeCharacter(&bombs[count],(uint8_t) (((XSize/3)*i)+(uint8_t)(rand()&1)), \
+													  (uint8_t) ((YSize/3)*j),0,&BOMB_IMAGE);
 #else
 	#define PLACE_BOMB_4() \
-		initializeCharacter(&bombs[count],(unsigned char) (((XSize/3)*i)-(unsigned char)(rand()&1)), \
-									  (unsigned char) (((YSize/3)*j)+(unsigned char)(rand()&1)),0,&BOMB_IMAGE);		
+		initializeCharacter(&bombs[count],(uint8_t) (((XSize/3)*i)-(uint8_t)(rand()&1)), \
+									  (uint8_t) (((YSize/3)*j)+(uint8_t)(rand()&1)),0,&BOMB_IMAGE);		
 #endif
 
 	
@@ -207,7 +207,7 @@
 	#define THREE_BOMBS() \
 		do \
 		{ \
-			unsigned char rnd = rand()&1; \
+			uint8_t rnd = rand()&1; \
 			initializeCharacter(&bombs[0],XSize/3+rnd, (YSize/3)+rnd,0,&BOMB_IMAGE); \
 			initializeCharacter(&bombs[1],(XSize>>1)+rnd, ((YSize/3)*2)+rnd,0,&BOMB_IMAGE); \
 			initializeCharacter(&bombs[2],2*(XSize/3)+rnd, (YSize/3)-rnd,0,&BOMB_IMAGE); \
@@ -244,25 +244,25 @@
 #endif
 
 #if defined(BETWEEN_LEVEL)
-	void spiral(register Character *characterPtr, unsigned char length);
+	void spiral(register Character *characterPtr, uint8_t length);
 #endif
 
-void fillLevelWithCharacters(unsigned char nGhosts);
+void fillLevelWithCharacters(uint8_t nGhosts);
 
 #if defined(FULL_GAME)
 	void updateInnerWallVerticalData(void);
 	
-	unsigned char oneMissileLevel(void);
+	uint8_t oneMissileLevel(void);
 	
-	unsigned char rocketLevel(void);
+	uint8_t rocketLevel(void);
 
-	unsigned char missileLevel(void);	
+	uint8_t missileLevel(void);	
 
-	unsigned char bossLevel(void);
+	uint8_t bossLevel(void);
 	
-	unsigned char horizontalWallsLevel(void);
+	uint8_t horizontalWallsLevel(void);
 	
-	void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr);
+	void initializeAwayFromWall(Character * characterPtr, uint8_t x, uint8_t y, uint8_t status, Image *imagePtr);
 
 #endif 
 

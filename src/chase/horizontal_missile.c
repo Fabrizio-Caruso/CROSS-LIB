@@ -5,17 +5,17 @@
 
 #include "display_macros.h"
 
-extern unsigned short loop;
-extern unsigned char level;
+extern uint16_t loop;
+extern uint8_t level;
 
 extern Character leftHorizontalMissile;
 extern Character rightHorizontalMissile;
 extern Character player;
 
-extern unsigned char arrowRange;
-extern unsigned char arrowYPosition;
+extern uint8_t arrowRange;
+extern uint8_t arrowYPosition;
 
-	unsigned char _playerInArrowRange(void)
+	uint8_t _playerInArrowRange(void)
 	{
 		return (loop&1 && player._y<=(arrowYPosition+arrowRange) && player._y>=(arrowYPosition-arrowRange));
 	}
@@ -37,7 +37,7 @@ extern unsigned char arrowYPosition;
 				{
 					if(player._x>=leftHorizontalMissile._x)
 					{
-						moveCharacter((unsigned char *)&leftHorizontalMissile+Y_MOVE, (unsigned char *)&player+Y_MOVE);			
+						moveCharacter((uint8_t *)&leftHorizontalMissile+Y_MOVE, (uint8_t *)&player+Y_MOVE);			
 					}
 				}
 			}
@@ -67,7 +67,7 @@ extern unsigned char arrowYPosition;
 				{
 					if(player._x<= rightHorizontalMissile._x)	
 					{
-						moveCharacter((unsigned char *)&rightHorizontalMissile+Y_MOVE, (unsigned char *)&player+Y_MOVE);			
+						moveCharacter((uint8_t *)&rightHorizontalMissile+Y_MOVE, (uint8_t *)&player+Y_MOVE);			
 					}
 				}
 			}

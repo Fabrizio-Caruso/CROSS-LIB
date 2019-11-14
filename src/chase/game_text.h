@@ -78,8 +78,8 @@ void printStartMessage(void);
 #endif
 
 #if !defined(TINY_GAME) && !defined(NO_MESSAGE)
-	void _printScoreOnRow(unsigned char row, char * text, unsigned short score);
-	void _printScore(char * text, unsigned short score);
+	void _printScoreOnRow(uint8_t row, char * text, uint16_t score);
+	void _printScore(char * text, uint16_t score);
 	void printKillTheSkull(void);
 #else
 	#define _printScoreOnRow(r,t,score)

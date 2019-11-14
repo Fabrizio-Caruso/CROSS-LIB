@@ -29,26 +29,26 @@
 #include "level.h"
 #include "strategy.h"
 
-extern unsigned char level;
-extern unsigned short loop;
+extern uint8_t level;
+extern uint16_t loop;
 
-extern unsigned short skullSlowDown;
-extern unsigned char skullXCountDown;
-extern unsigned char skullYCountDown ;
+extern uint16_t skullSlowDown;
+extern uint8_t skullXCountDown;
+extern uint8_t skullYCountDown ;
 
-extern unsigned short ghostLevel;
+extern uint16_t ghostLevel;
 
 extern Character skull;
 extern Character player;
 
-extern unsigned char skullActive;
+extern uint8_t skullActive;
 
 #if defined(FULL_GAME)
-	extern unsigned char confuseActive;
+	extern uint8_t confuseActive;
 #endif
 
 #if defined(FULL_GAME)
-unsigned short computeSkullSlowDown(void)
+uint16_t computeSkullSlowDown(void)
 {
 	if(loop<MAX_SKULL_LOOP)
 	{

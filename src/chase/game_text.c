@@ -84,20 +84,20 @@
 	#define printCenteredMessageOnRowWithCol(row,col,text) printCenteredMessageOnRow(row,text)
 #endif	
 
-extern unsigned char level;
-extern unsigned char lives;
+extern uint8_t level;
+extern uint8_t lives;
 
-extern unsigned short points;
-extern unsigned char ghostCount;
-extern unsigned short ghostLevel;
-extern unsigned short highScore;
+extern uint16_t points;
+extern uint8_t ghostCount;
+extern uint16_t ghostLevel;
+extern uint16_t highScore;
 
 
 #if defined(FULL_GAME) && !defined(NO_MESSAGE)
 	void printKillTheSkull(void)
 	{
 		printCenteredMessage(KILL_THE_SKULL_STRING);	
-		printCenteredMessageOnRow(((unsigned char)YSize)/2+2,DESTROY_MISSILES_STRING);
+		printCenteredMessageOnRow(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING);
 	}
 	
 #endif
@@ -221,13 +221,13 @@ void displayStats(void)
 
 
 #if !defined(TINY_GAME) && !defined(NO_MESSAGE)
-	void _printScoreOnRow(unsigned char row, char * text, unsigned short score)
+	void _printScoreOnRow(uint8_t row, char * text, uint16_t score)
 	{
-		PRINTF((unsigned char) ((XSize-strlen(text))>>1), row, text, score);
+		PRINTF((uint8_t) ((XSize-strlen(text))>>1), row, text, score);
 	}	
 	
 	#if !defined(LESS_TEXT)
-	void _printScore(char * text, unsigned short score)
+	void _printScore(char * text, uint16_t score)
 	{
 		_printScoreOnRow((YSize>>1), text, score);
 	}

@@ -26,29 +26,29 @@
 #include "character.h"
 #include "strategy.h"
 
-extern unsigned char level;
-extern unsigned short loop;
-extern unsigned char ghostCount;
+extern uint8_t level;
+extern uint16_t loop;
+extern uint8_t ghostCount;
 
 extern Character player; 
 extern Character ghosts[GHOSTS_NUMBER];
 
-extern unsigned char strategyArray[GHOSTS_NUMBER];
+extern uint8_t strategyArray[GHOSTS_NUMBER];
 
 #if defined(FULL_GAME)
-	extern unsigned char zombieActive;
+	extern uint8_t zombieActive;
 #endif
 
 
-unsigned char moveCharacter(register unsigned char *hunterOffsetPtr, register unsigned char *preyOffsetPtr)
+uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyOffsetPtr)
 {
-	if((unsigned char) *((unsigned char *)hunterOffsetPtr) < (unsigned char) *((unsigned char *)preyOffsetPtr))
+	if((uint8_t) *((uint8_t *)hunterOffsetPtr) < (uint8_t) *((uint8_t *)preyOffsetPtr))
 	{
-		++(*((unsigned char *) hunterOffsetPtr));		
+		++(*((uint8_t *) hunterOffsetPtr));		
 	}
-	else if((unsigned char) *((unsigned char *) hunterOffsetPtr) > (unsigned char) *((unsigned char *)preyOffsetPtr))
+	else if((uint8_t) *((uint8_t *) hunterOffsetPtr) > (uint8_t) *((uint8_t *)preyOffsetPtr))
 	{
-		--(*((unsigned char *) hunterOffsetPtr));		
+		--(*((uint8_t *) hunterOffsetPtr));		
 	}	
 	else
 	{
@@ -61,25 +61,25 @@ unsigned char moveCharacter(register unsigned char *hunterOffsetPtr, register un
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
 	{
-		if(moveCharacter((unsigned char *)hunterPtr+X_MOVE, (unsigned char *)preyPtr + X_MOVE))
+		if(moveCharacter((uint8_t *)hunterPtr+X_MOVE, (uint8_t *)preyPtr + X_MOVE))
 		{
 			return;
 		}
 		else
 		{
-			moveCharacter((unsigned char *)hunterPtr+Y_MOVE, (unsigned char *)preyPtr + Y_MOVE);
+			moveCharacter((uint8_t *)hunterPtr+Y_MOVE, (uint8_t *)preyPtr + Y_MOVE);
 		}
 	}
 
 	void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
 	{
-		if(moveCharacter((unsigned char *)hunterPtr+Y_MOVE, (unsigned char *)preyPtr + Y_MOVE))
+		if(moveCharacter((uint8_t *)hunterPtr+Y_MOVE, (uint8_t *)preyPtr + Y_MOVE))
 		{
 			return;
 		}
 		else
 		{
-			moveCharacter((unsigned char *)hunterPtr+X_MOVE, (unsigned char *)preyPtr + X_MOVE);
+			moveCharacter((uint8_t *)hunterPtr+X_MOVE, (uint8_t *)preyPtr + X_MOVE);
 		}
 	}
 #endif
@@ -90,7 +90,7 @@ unsigned char moveCharacter(register unsigned char *hunterOffsetPtr, register un
 // 0 means always horizontal
 // 9 means always vertical
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
-	void moveTowardCharacter(Character* preyPtr, Character *hunterPtr, unsigned char strategy)
+	void moveTowardCharacter(Character* preyPtr, Character *hunterPtr, uint8_t strategy)
 	{
 		if(rand()%10 > strategy) // Select blind chase strategy
 			{ // 0 - 4
@@ -104,16 +104,16 @@ unsigned char moveCharacter(register unsigned char *hunterOffsetPtr, register un
 #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
 	void moveTowardCharacter(Character* preyPtr, Character *hunterPtr)
 	{
-		unsigned char offset = (unsigned char) rand()&1;
+		uint8_t offset = (uint8_t) rand()&1;
 		
-		moveCharacter((unsigned char *)hunterPtr+offset, (unsigned char *)preyPtr + offset);
+		moveCharacter((uint8_t *)hunterPtr+offset, (uint8_t *)preyPtr + offset);
 	}	
 #else
 	void moveTowardCharacter(Character *hunterPtr)
 	{
-		unsigned char offset = (unsigned char) rand()&1;
+		uint8_t offset = (uint8_t) rand()&1;
 		
-		moveCharacter((unsigned char *)hunterPtr+offset,(unsigned char *)(&player)+offset);
+		moveCharacter((uint8_t *)hunterPtr+offset,(uint8_t *)(&player)+offset);
 	}
 #endif
 
@@ -122,8 +122,8 @@ unsigned char moveCharacter(register unsigned char *hunterOffsetPtr, register un
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 void computeStrategy(void)
 {
-	unsigned char i;
-	unsigned char skew = (level - 1) / 5;
+	uint8_t i;
+	uint8_t skew = (level - 1) / 5;
 	
 	for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
 	{
@@ -146,12 +146,12 @@ void computeStrategy(void)
 // #if defined(FULL_GAME)
 // Ghosts move to new positions if they get their chanche
 #if defined(FULL_GAME)
-void chaseCharacter(Character *preyPtr, unsigned short slowDown)
+void chaseCharacter(Character *preyPtr, uint16_t slowDown)
 #else
-void chaseCharacter(unsigned short slowDown)	
+void chaseCharacter(uint16_t slowDown)	
 #endif
 {
-	unsigned char i;
+	uint8_t i;
 	
 	for(i=0;i<GHOSTS_NUMBER;++i)
 	{

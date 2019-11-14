@@ -10,52 +10,52 @@
     unsigned int Sec;
     unsigned int Milli; 
 
-    unsigned short benchmark_count;
+    uint16_t benchmark_count;
 #endif
 
 #if defined(Z88DK_JOYSTICK)
-	unsigned char stick;
+	uint8_t stick;
 #endif
 
 
 #if !defined(TINY_GAME) || defined(TURN_BASED)
 	#if defined(USE_MEMORY_BUFFERS)
-		extern unsigned short loop;
+		extern uint16_t loop;
 	#else
-		unsigned short loop;	
+		uint16_t loop;	
 	#endif	
 #endif
 
 
 #if defined(FULL_GAME) && !defined(NO_BLINKING)
 	#if defined(USE_MEMORY_BUFFERS)
-		extern unsigned char playerBlink;	
+		extern uint8_t playerBlink;	
 	#else
-		unsigned char playerBlink;
+		uint8_t playerBlink;
 	#endif
 #endif
 
 
 #if defined(FULL_GAME) 
 	#if defined(USE_MEMORY_BUFFERS)
-		extern unsigned short ghostLevel;
+		extern uint16_t ghostLevel;
 	#else
-		unsigned short ghostLevel;
+		uint16_t ghostLevel;
 	#endif
 #endif
 
 
 #if !defined(TINY_GAME)
 	#if defined(USE_MEMORY_BUFFERS)
-		extern unsigned short skullSlowDown;
-		extern unsigned char skullXCountDown;
-		extern unsigned char skullYCountDown;
-		extern unsigned char bulletDirection;		
+		extern uint16_t skullSlowDown;
+		extern uint8_t skullXCountDown;
+		extern uint8_t skullYCountDown;
+		extern uint8_t bulletDirection;		
 	#else
-		unsigned short skullSlowDown;		
-		unsigned char skullXCountDown;
-		unsigned char skullYCountDown;
-		unsigned char bulletDirection;
+		uint16_t skullSlowDown;		
+		uint8_t skullXCountDown;
+		uint8_t skullYCountDown;
+		uint8_t bulletDirection;
 	#endif
 
 #endif
@@ -94,16 +94,16 @@
 	
 	extern Character player;
 	
-	extern unsigned short ghostSlowDown;
-	extern unsigned short points;
-	extern unsigned short highScore;
+	extern uint16_t ghostSlowDown;
+	extern uint16_t points;
+	extern uint16_t highScore;
 
-	extern unsigned char lives;
-	extern unsigned char level;	
+	extern uint8_t lives;
+	extern uint8_t level;	
 	
-	extern unsigned char ghostCount; // = GHOSTS_NUMBER;
+	extern uint8_t ghostCount; // = GHOSTS_NUMBER;
 	
-	extern unsigned char ind;
+	extern uint8_t ind;
 
 #else
 	Character ghosts[GHOSTS_NUMBER];
@@ -111,16 +111,16 @@
 
 	Character player; 
 
-	unsigned short ghostSlowDown;
-	unsigned short points;
-	unsigned short highScore;	
+	uint16_t ghostSlowDown;
+	uint16_t points;
+	uint16_t highScore;	
 	
-	unsigned char lives;
-	unsigned char level;	
+	uint8_t lives;
+	uint8_t level;	
 	
-	unsigned char ghostCount; // = GHOSTS_NUMBER;
+	uint8_t ghostCount; // = GHOSTS_NUMBER;
 	
-	unsigned char ind;	
+	uint8_t ind;	
 	
 #endif
 
@@ -142,31 +142,31 @@
 
 		extern Character * chasedEnemyPtr;
 		extern Character * chasedByGhosts;
-		extern unsigned char rockets_x[];	
+		extern uint8_t rockets_x[];	
 
-		extern unsigned char extraLife_present_on_level;
-		extern unsigned char super_present_on_level;
-		extern unsigned char zombie_present_on_level;
+		extern uint8_t extraLife_present_on_level;
+		extern uint8_t super_present_on_level;
+		extern uint8_t zombie_present_on_level;
 		
-		extern unsigned char dead_rockets;
+		extern uint8_t dead_rockets;
 		
-		extern unsigned char arrowRange;
+		extern uint8_t arrowRange;
 		
-		extern unsigned char skullsKilled;
+		extern uint8_t skullsKilled;
 		
-		extern unsigned char missileBasesDestroyed;
+		extern uint8_t missileBasesDestroyed;
 		
-		extern unsigned char horizontalWallsLength;
+		extern uint8_t horizontalWallsLength;
 		
-		extern unsigned char invincibilityActive;
+		extern uint8_t invincibilityActive;
 		
-		extern unsigned char confuseActive; 
+		extern uint8_t confuseActive; 
 		
-		extern unsigned char zombieActive; 		
+		extern uint8_t zombieActive; 		
 		
-		extern unsigned char innerVerticalWallY; 
-		extern unsigned char innerVerticalWallX; 
-		extern unsigned char innerVerticalWallLength;
+		extern uint8_t innerVerticalWallY; 
+		extern uint8_t innerVerticalWallX; 
+		extern uint8_t innerVerticalWallLength;
 
 	#else
 		Item powerUp2;		
@@ -184,32 +184,32 @@
 		
 		Character * chasedEnemyPtr;
 		Character * chasedByGhosts;
-		unsigned char rockets_x[ROCKETS_NUMBER];		
+		uint8_t rockets_x[ROCKETS_NUMBER];		
 		
-		unsigned char extraLife_present_on_level;
-		unsigned char super_present_on_level;
-		unsigned char zombie_present_on_level;
+		uint8_t extraLife_present_on_level;
+		uint8_t super_present_on_level;
+		uint8_t zombie_present_on_level;
 		
-		unsigned char dead_rockets;
+		uint8_t dead_rockets;
 		
-		unsigned char arrowRange;
+		uint8_t arrowRange;
 		
-		unsigned char skullsKilled;
+		uint8_t skullsKilled;
 		
-		unsigned char missileBasesDestroyed;
+		uint8_t missileBasesDestroyed;
 		
-		unsigned char horizontalWallsLength;
+		uint8_t horizontalWallsLength;
 		
-		unsigned char invincibilityActive;
+		uint8_t invincibilityActive;
 		
-		unsigned char confuseActive; 
+		uint8_t confuseActive; 
 		
-		unsigned char zombieActive; 
+		uint8_t zombieActive; 
 
 
-		unsigned char innerVerticalWallY; 
-		unsigned char innerVerticalWallX; 
-		unsigned char innerVerticalWallLength;
+		uint8_t innerVerticalWallY; 
+		uint8_t innerVerticalWallX; 
+		uint8_t innerVerticalWallLength;
 		
 	#endif
 
@@ -219,44 +219,44 @@
 	#if defined(USE_MEMORY_BUFFERS)
 		extern Character rockets[];
 
-		extern unsigned short invincibility_count_down;	
+		extern uint16_t invincibility_count_down;	
 	
-		extern unsigned short confuse_count_down;
+		extern uint16_t confuse_count_down;
 	
-		extern unsigned short zombie_count_down;		
+		extern uint16_t zombie_count_down;		
 	#else
 		Character rockets[ROCKETS_NUMBER];
 	
-		unsigned short invincibility_count_down;	
+		uint16_t invincibility_count_down;	
 	
-		unsigned short confuse_count_down;
+		uint16_t confuse_count_down;
 	
-		unsigned short zombie_count_down;	
+		uint16_t zombie_count_down;	
 	#endif
 	
 #endif
 
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
 	#if defined(USE_MEMORY_BUFFERS)
-		extern unsigned char strategyArray[GHOSTS_NUMBER];	
+		extern uint8_t strategyArray[GHOSTS_NUMBER];	
 	#else
-		unsigned char strategyArray[GHOSTS_NUMBER];
+		uint8_t strategyArray[GHOSTS_NUMBER];
 	#endif	
 #endif
 
 #if !defined(TINY_GAME)
 	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
-		extern unsigned short freeze_count_down;
+		extern uint16_t freeze_count_down;
 		
-		extern unsigned char playerDirection; // 0: right, 1: down, 2: left, 3: up
-		extern unsigned char freezeActive; // freezeActive			
-		extern unsigned char extraLifeThroughPointsCounter;			
+		extern uint8_t playerDirection; // 0: right, 1: down, 2: left, 3: up
+		extern uint8_t freezeActive; // freezeActive			
+		extern uint8_t extraLifeThroughPointsCounter;			
 	#else
-		unsigned short freeze_count_down;
+		uint16_t freeze_count_down;
 		
-		unsigned char playerDirection; // 0: right, 1: down, 2: left, 3: up
-		unsigned char freezeActive; // freezeActive	
-		unsigned char extraLifeThroughPointsCounter;			
+		uint8_t playerDirection; // 0: right, 1: down, 2: left, 3: up
+		uint8_t freezeActive; // freezeActive	
+		uint8_t extraLifeThroughPointsCounter;			
 	#endif
 
 
@@ -265,21 +265,21 @@
 
 #if !defined(TINY_GAME)
 	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
-		extern unsigned char playerFire;
-		extern unsigned char guns; 
-		extern unsigned char skullActive;		
+		extern uint8_t playerFire;
+		extern uint8_t guns; 
+		extern uint8_t skullActive;		
 	#else
-		unsigned char playerFire;
-		unsigned char guns; 
-		unsigned char skullActive;	
+		uint8_t playerFire;
+		uint8_t guns; 
+		uint8_t skullActive;	
 	#endif
 #endif
 
 #if defined(FULL_GAME)
 	#if defined(USE_MEMORY_BUFFERS)
-		extern unsigned char arrowYPosition;
+		extern uint8_t arrowYPosition;
 	#else
-		unsigned char arrowYPosition;
+		uint8_t arrowYPosition;
 	#endif
 #endif
 

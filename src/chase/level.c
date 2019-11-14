@@ -33,7 +33,7 @@
 
 #include "level.h"
 
-extern unsigned char level;
+extern uint8_t level;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -71,8 +71,8 @@ extern Character bombs[BOMBS_NUMBER];
 	extern Item chase;
 	extern Character chasingBullet;
 
-	extern unsigned char innerVerticalWallY;
-	extern unsigned char innerVerticalWallLength;
+	extern uint8_t innerVerticalWallY;
+	extern uint8_t innerVerticalWallLength;
 
 	extern Image ROCKET_IMAGE;
 
@@ -107,7 +107,7 @@ extern Character bombs[BOMBS_NUMBER];
 #if defined(FULL_GAME)
 	void updateInnerWallVerticalData(void)
 	{	
-		unsigned char lvmod = level%5;
+		uint8_t lvmod = level%5;
 
 		if((lvmod==1)||(lvmod==0))
 		{
@@ -127,32 +127,32 @@ extern Character bombs[BOMBS_NUMBER];
 		innerVerticalWallY = (YSize>>1)-(innerVerticalWallLength>>1);
 	}
 
-	unsigned char oneMissileLevel(void)
+	uint8_t oneMissileLevel(void)
 	{
 		return ((level%5)==3) || (level==5);
 	}
 
-	unsigned char rocketLevel(void)
+	uint8_t rocketLevel(void)
 	{
 		return (level >= FIRST_ROCKETS_LEVEL) && ((level%5)==2 || (level%5)==3);
 	}
 
-	unsigned char missileLevel(void)
+	uint8_t missileLevel(void)
 	{
 		return level%5==4;
 	}	
 
-	unsigned char bossLevel(void)
+	uint8_t bossLevel(void)
 	{
 		return !(level%5);
 	}
 	
-	unsigned char horizontalWallsLevel(void)
+	uint8_t horizontalWallsLevel(void)
 	{
 		return ((level >= FIRST_HORIZONTAL_WALLS_LEVEL) && ((level%5==1) || (level%5==4)));
 	}	
 
-	void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr)
+	void initializeAwayFromWall(Character * characterPtr, uint8_t x, uint8_t y, uint8_t status, Image *imagePtr)
 	{
 		do{
 			initializeCharacter(characterPtr, x, y, status, imagePtr);
@@ -166,15 +166,15 @@ extern Character bombs[BOMBS_NUMBER];
 
 void _spiral_slow_down()
 {
-	unsigned char k;
+	uint8_t k;
 	
 	for(k=0;k<254;++k){};
 }
 
-void spiral(register Character *characterPtr, unsigned char length)
+void spiral(register Character *characterPtr, uint8_t length)
 {
-	unsigned char i;
-	unsigned char j;
+	uint8_t i;
+	uint8_t j;
 	
 	characterPtr->_x = XSize/2;
 	characterPtr->_y = YSize/2;
@@ -185,11 +185,11 @@ void spiral(register Character *characterPtr, unsigned char length)
 				displayCharacter(characterPtr);		
 				if(i&2)
 				{
-					++(*((unsigned char *) characterPtr + (i&1)));
+					++(*((uint8_t *) characterPtr + (i&1)));
 				}
 				else
 				{
-					--(*((unsigned char *) characterPtr + (i&1)));				
+					--(*((uint8_t *) characterPtr + (i&1)));				
 				}
 				#if defined(SLOW_DOWN)
 				_spiral_slow_down();	
@@ -201,19 +201,19 @@ void spiral(register Character *characterPtr, unsigned char length)
 #endif
 
 
-void fillLevelWithCharacters(unsigned char nGhosts)
+void fillLevelWithCharacters(uint8_t nGhosts)
 {
-	unsigned char i;
-	unsigned char j;
-	unsigned char count = 0;
+	uint8_t i;
+	uint8_t j;
+	uint8_t count = 0;
 	
 	#if defined(FULL_GAME)
 		if(rocketLevel() || bossLevel())
 		{
 			for(i=0;i<ROCKETS_NUMBER;i++)
 			{
-				rockets_x[i] = (unsigned char) (i+1)*(XSize/(ROCKETS_NUMBER+1));
-				initializeCharacter(&rockets[i],(unsigned char) rockets_x[i],(unsigned char)(YSize-1),1,&ROCKET_IMAGE);
+				rockets_x[i] = (uint8_t) (i+1)*(XSize/(ROCKETS_NUMBER+1));
+				initializeCharacter(&rockets[i],(uint8_t) rockets_x[i],(uint8_t)(YSize-1),1,&ROCKET_IMAGE);
 				displayRocket(&rockets[i]);
 			}
 		}
@@ -252,7 +252,7 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		
 		initializeAwayFromWall(&(gun._character),(XSize>>1), (YSize>>1), (bossLevel() ? 1 : 0), &GUN_IMAGE);
 
-		initializeAwayFromWall(&player,(unsigned char) ((XSize>>1)+(rand()&1)),(unsigned char) ((YSize>>1)+(rand()&1)),1,&PLAYER_IMAGE);
+		initializeAwayFromWall(&player,(uint8_t) ((XSize>>1)+(rand()&1)),(uint8_t) ((YSize>>1)+(rand()&1)),1,&PLAYER_IMAGE);
 				
 		initializeAwayFromWall(&(extraLife._character), (XSize>>1), (YSize>>1), 0, &EXTRA_LIFE_IMAGE);
 
@@ -278,10 +278,10 @@ void fillLevelWithCharacters(unsigned char nGhosts)
 		#endif
 		
 		#if defined(NO_RANDOM_LEVEL) || defined(TINY_GAME) || defined(SIMPLE_RANDOM_LEVEL)
-			initializeCharacter(&player,(unsigned char) ((XSize>>1)),(unsigned char) ((YSize>>1)),1,&PLAYER_IMAGE);			
+			initializeCharacter(&player,(uint8_t) ((XSize>>1)),(uint8_t) ((YSize>>1)),1,&PLAYER_IMAGE);			
 		#else
-			initializeCharacter(&player,(unsigned char) ((XSize>>1)+(unsigned char) (rand()&1)),
-										(unsigned char) ((YSize>>1)+(unsigned char) (rand()&1)),1,&PLAYER_IMAGE);	
+			initializeCharacter(&player,(uint8_t) ((XSize>>1)+(uint8_t) (rand()&1)),
+										(uint8_t) ((YSize>>1)+(uint8_t) (rand()&1)),1,&PLAYER_IMAGE);	
 		#endif
 	#endif
 	#if !defined(TINY_GAME)

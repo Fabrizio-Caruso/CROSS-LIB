@@ -29,7 +29,7 @@
 
 void handle_skull(void);
 
-unsigned short computeSkullSlowDown(void);
+uint16_t computeSkullSlowDown(void);
 
 void computeSkullParameters(void);
 #endif

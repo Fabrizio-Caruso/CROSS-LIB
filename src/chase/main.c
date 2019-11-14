@@ -277,7 +277,7 @@ int main(void)
 			#endif
 
 			#if !defined(FULL_GAME)
-				ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(unsigned short)level*256;
+				ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256;
 			#else
 				ghostSlowDown = computeGhostSlowDown();
 			#endif
@@ -423,7 +423,7 @@ int main(void)
 									#if defined(SIMPLE_STRATEGY)
 										moveTowardCharacter(chasedByGhosts, &bombs[loop&3]);
 									#else
-										moveTowardCharacter(chasedByGhosts, &bombs[loop&3], (unsigned char) (1+(unsigned char)(loop&3))<<1);
+										moveTowardCharacter(chasedByGhosts, &bombs[loop&3], (uint8_t) (1+(uint8_t)(loop&3))<<1);
 									#endif
 								}
 							#endif							
@@ -525,7 +525,7 @@ int main(void)
 				
 						if(horizontalWallsLevel())
 						{				
-							horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + (level>>4) + (unsigned char) (loop/HORIZONTAL_WALLS_INCREASE_LOOP);		
+							horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + (level>>4) + (uint8_t) (loop/HORIZONTAL_WALLS_INCREASE_LOOP);		
 							DRAW_HORIZONTAL_WALLS(horizontalWallsLength);	
 						}						
 					}
@@ -558,9 +558,9 @@ int main(void)
     
             #if defined(BENCHMARK)
                 TicksDelta = clock() - Ticks;
-                Sec = (unsigned short) (TicksDelta / CLOCKS_PER_SEC);
+                Sec = (uint16_t) (TicksDelta / CLOCKS_PER_SEC);
                 Milli = ((TicksDelta % CLOCKS_PER_SEC) * 1000) / CLOCKS_PER_SEC;
-                printf ("\nTime used: %u.%03u secs = %u ticks\n", Sec, Milli, (unsigned short) TicksDelta);    
+                printf ("\nTime used: %u.%03u secs = %u ticks\n", Sec, Milli, (uint16_t) TicksDelta);    
                 getchar();
             #endif
 

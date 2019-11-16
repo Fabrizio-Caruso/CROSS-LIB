@@ -73,8 +73,8 @@
 	#include <games.h>
 
 	extern int _LIB_putc4x6(char c);
-	extern unsigned char x_4x6;
-	extern unsigned char y_4x6;
+	extern uint8_t x_4x6;
+	extern uint8_t y_4x6;
 
 	#undef gotoxy
 	#define gotoxy(x,y) do \
@@ -148,17 +148,16 @@
 	#define cputc(c) printf("%c",c)
 
 #elif defined(__MO5__) || defined(__TO7__)
-	void SWITCH_COLOR_BANK_OFF(void);
+	#include "coco.h"
+    void SWITCH_COLOR_BANK_OFF(void);
 	void SWITCH_COLOR_BANK_ON(void);
 	
-	void PUTCH(unsigned char ch);
-	
-	#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+	void PUTCH(char ch);
 	
 	#define cputc(c) \
 		PUTCH(c)	
 
-	void gotoxy(unsigned char x, unsigned char y);
+	void gotoxy(uint8_t x, uint8_t y);
 			
 		
 #elif defined(__NCURSES__)

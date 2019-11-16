@@ -1,6 +1,8 @@
 #ifndef _MEMORY_MAPPED_GRAPHICS
 #define _MEMORY_MAPPED_GRAPHICS
 
+#include "standard_libs.h"
+
 #  if defined(__C64__) || defined(__C128__)
 	#define BASE_ADDR 0xC000
 	#define COLOR_ADDR 0xD800
@@ -68,14 +70,14 @@
 
 #else
 	#define __DRAW(x,y,image) \
-		DISPLAY_POKE(loc(x,y), image->_imageData);
+		DISPLAY_POKE((unsigned short) loc(x,y), image->_imageData);
 
 #endif
 
 #define __DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
 
 
-unsigned short loc(unsigned char x, char y);
+uint16_t loc(uint8_t x, uint8_t y);
 
 #endif // _MEMORY_MAPPED_GRAPHICS
 

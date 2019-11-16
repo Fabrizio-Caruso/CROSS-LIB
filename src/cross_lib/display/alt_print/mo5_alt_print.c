@@ -1,9 +1,9 @@
-
+#include "standard_libs.h"
 #include "display_macros.h"
 
-void PRINT(unsigned char x, unsigned char y, char * str)
+void PRINT(uint8_t x, uint8_t y, char * str)
 {
-	unsigned char i = 0;
+	uint8_t i = 0;
 	
 	gotoxy(x,y);
 	while(str[i]!='\0')
@@ -14,15 +14,15 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 	SWITCH_COLOR_BANK_OFF();
 }
 
-void print_05u0(unsigned char x, unsigned char y, unsigned short val)
+void print_05u0(uint8_t x, uint8_t y, uint16_t val)
 {
-	unsigned char i;
-	unsigned char digits[6];
+	uint8_t i;
+	uint8_t digits[6];
 	
 	digits[0] = 0;
 	for(i=1;i<6;++i)
 	{
-		digits[i] = (unsigned char) ((val)%10);
+		digits[i] = (uint8_t) ((val)%10);
 		val-= digits[i];
 		val/=10;
 	}
@@ -30,26 +30,26 @@ void print_05u0(unsigned char x, unsigned char y, unsigned short val)
 	gotoxy(x,y);
 	for(i=0;i<6;++i)
 	{
-		PUTCH((unsigned char) (digits[5-i])+48);
+		PUTCH((uint8_t) (digits[5-i])+48);
 	}
 }	
 
-void print_02u(unsigned char x, unsigned char y, unsigned short val)
+void print_02u(uint8_t x, uint8_t y, uint16_t val)
 {
 	gotoxy(x,y);
-	PUTCH(((unsigned char) val)/10+48);
-	PUTCH(((unsigned char) val)%10+48);
+	PUTCH(((uint8_t) val)/10+48);
+	PUTCH(((uint8_t) val)%10+48);
 }	
 
 
-void print_u(unsigned char x, unsigned char y, unsigned short val)
+void print_u(uint8_t x, uint8_t y, uint16_t val)
 {
 	gotoxy(x,y);
-	PUTCH((unsigned char) (val+48));	
+	PUTCH((uint8_t) (val+48));	
 }
 
 
-void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
+void PRINTF(uint8_t x, uint8_t y, char * str, uint16_t val)
 {
 	if(strlen(str)==5)
 	{	

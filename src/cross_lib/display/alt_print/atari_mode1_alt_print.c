@@ -1,8 +1,9 @@
 
+#include <stdint.h>
 #include <conio.h>
 
 	
-void PRINT(unsigned char x, unsigned char y, char * str)
+void PRINT(uint8_t x, uint8_t y, char * str)
 { 
 	if((y)&1)
 	{ 
@@ -16,7 +17,7 @@ void PRINT(unsigned char x, unsigned char y, char * str)
 };
 
 
-void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
+void PRINTF(uint8_t x, uint8_t y, char * str, uint16_t val)
 { 
 	if((y)&1) 
 	{ 

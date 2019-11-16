@@ -11,17 +11,17 @@
 
 #define BYTES_PER_LINE ((XSize)*2+EXTRA_PADDING)
 
-extern unsigned char udgs[];
+extern uint8_t udgs[];
 
-unsigned char left_map_one_to_two(unsigned char n);
-unsigned char right_map_one_to_two(unsigned char n);
+uint8_t left_map_one_to_two(uint8_t n);
+uint8_t right_map_one_to_two(uint8_t n);
 
 #if defined(NO_COLOR)
     #define __DRAW(x,y,image) \
     { \
-        unsigned char k; \
-        unsigned short base = (x)+(XSize)*8*(y); \
-        unsigned short offset = (8*(unsigned char)(image)->_imageData) ; \
+        uint8_t k; \
+        uint16_t base = (x)+(XSize)*8*(y); \
+        uint16_t offset = (8*(uint8_t)(image)->_imageData) ; \
         \
         for(k=0;k<8;++k) \
         { \
@@ -32,7 +32,7 @@ unsigned char right_map_one_to_two(unsigned char n);
 
     #define __DELETE(x,y) \
     { \
-        unsigned short k; \
+        uint16_t k; \
         for(k=0;k<8;++k) \
         { \
             SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)]=0; \

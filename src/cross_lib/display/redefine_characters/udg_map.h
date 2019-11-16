@@ -2,10 +2,12 @@
 #ifndef _UDG_MAP
 #define _UDG_MAP
 
+#include <stdint.h>
+
 const struct redefine_struct
 {
-   const unsigned char ascii;
-   const unsigned char bitmap[8];
+   const uint8_t ascii;
+   const uint8_t bitmap[8];
 } ;
 
 #ifndef _PLAYER_DOWN_OFFSET
@@ -178,15 +180,13 @@ const struct redefine_struct redefine_map[] =
 
 #define REDEFINE_AT(addr) \
 { \
-	unsigned char i; \
+	uint8_t i; \
 	\
 	for (i = 0; i < (sizeof(redefine_map)/sizeof(*redefine_map)); ++i) \
 	{ \
-		memcpy((unsigned char *)(addr) + (redefine_map[i].ascii)*8, redefine_map[i].bitmap, 8); \
+		memcpy((uint8_t *)(addr) + (redefine_map[i].ascii)*8, redefine_map[i].bitmap, 8); \
 	} \
 }
-
-
 
 
 #endif // _UDG_MAP

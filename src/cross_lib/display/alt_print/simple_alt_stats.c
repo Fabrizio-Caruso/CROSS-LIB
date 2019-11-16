@@ -1,3 +1,5 @@
+#include "standard_libs.h"
+
 #include "display_macros.h"
 
 #include "memory_mapped_graphics.h"
@@ -5,9 +7,9 @@
 #if defined(ALT_DISPLAY_STATS) || defined(ALT_HISCORE)
 
 	#if !defined(CC65)
-		#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+		#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 		#define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
-		#define PEEK(addr)         (*(unsigned char*) (addr))
+		#define PEEK(addr)         (*(uint8_t*) (addr))
 		#define PEEKW(addr) (*(unsigned*) (addr))
 	#else
 		#include <peekpoke.h>	
@@ -20,29 +22,22 @@
 		#define UDG_OFFSET 0
 	#endif
 	
-	// void colorize(unsigned char x, unsigned char y)
-	// {
-			// POKE((unsigned short) (0x9600-0x1E00+BASE_ADDR+loc(x,y)),0x01);		
-	// }
-	
-	void _displayShort(unsigned short value)
+	void _displayShort(uint16_t value)
 	{ 
-		unsigned char i; 
+		uint8_t i; 
 
 		for(i=1;i<6;++i) 
 		{ 
-			value -= POKE(BASE_ADDR+6-i,(unsigned char) ((value)%10)); 
+			value -= POKE(BASE_ADDR+6-i,(uint8_t) ((value)%10)); 
 			value/=10; 
 			POKE(BASE_ADDR+6-i,UDG_OFFSET+48+PEEK(BASE_ADDR+6-i)); 
-			// POKE(0x7806-i,0x01);
 		} 
 		POKE(BASE_ADDR+6,48+UDG_OFFSET); 
-		// POKE(0x7806,0x01);
 	}
 
-	void PRINT(unsigned char x, unsigned char y, char * str)
+	void PRINT(uint8_t x, uint8_t y, char * str)
 	{
-		unsigned char i = 0;
+		uint8_t i = 0;
 		while(str[i]!='\0')
 		{
 			#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))

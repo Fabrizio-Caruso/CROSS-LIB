@@ -44,12 +44,12 @@
 
 
 #if defined(MEMORY_MAPPED)	
-	#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
-	#define PEEK(addr)         (*(unsigned char*) (addr))
+	// #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
+	// #define PEEK(addr)         (*(uint8_t*) (addr))
 		
-	unsigned short loc(unsigned char x, char y)
+	uint16_t loc(uint8_t x, uint8_t y)
 	{
-		return ((unsigned short) BASE_ADDR)+x+(unsigned char)y*((unsigned short) (XSize + X_OFFSET));
+		return ((uint16_t) BASE_ADDR)+x+(uint8_t)y*((uint16_t) (XSize + X_OFFSET));
 	}
 #elif defined(REX)
 	char char_list[UDG_N*2] = 
@@ -104,15 +104,15 @@
 
 #elif defined(Z88DK_SPRITES)
 
-	extern unsigned char sprites[];
+	extern uint8_t sprites[];
 
 #elif defined(BUFFERED)
-	unsigned char video_buffer[YSize+Y_OFFSET][XSize];
+	uint8_t video_buffer[YSize+Y_OFFSET][XSize];
 	
 	void display_all(void)
 	{
-		unsigned char j; 
-		unsigned char i;
+		uint8_t j; 
+		uint8_t i;
 		
 		for(j=0;j<YSize+Y_OFFSET;++j)
 		{
@@ -124,7 +124,7 @@
 		}
 	}
 #elif defined(__MO5__)
-	#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+	#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 
 	void SWITCH_COLOR_BANK_ON(void)
 	{
@@ -144,7 +144,7 @@
 		}	
 	}	
 	
-	void PUTCH(unsigned char ch)
+	void PUTCH(char ch)
 	{
 		POKE(0x201B,0);
 		asm
@@ -156,7 +156,7 @@
 	}
 	
 
-	void gotoxy(unsigned char xx, unsigned char yy)
+	void gotoxy(uint8_t xx, uint8_t yy)
 	{
 		PUTCH(0x1F);
 		PUTCH(0x40+yy);
@@ -164,7 +164,7 @@
 	}	
 	
 #elif defined(__TO7__)
-	void PUTCH(unsigned char ch)
+	void PUTCH(char ch)
 	{
 		asm
 		{
@@ -173,18 +173,18 @@
 		}
 	}
 #elif defined(__SUPERVISION__)
-    unsigned char reversed_map_one_to_two_lookup[16] = 
+    uint8_t reversed_map_one_to_two_lookup[16] = 
     {
         0x00, 0xC0, 0x30, 0xF0, 0x0C, 0xCC, 0x3C, 0xFC,
         0x03, 0xC3, 0x33, 0xF3, 0x0F, 0xCF, 0x3F, 0xFF
     };
     
-    unsigned char left_map_one_to_two(unsigned char n)
+    uint8_t left_map_one_to_two(uint8_t n)
     {
         return reversed_map_one_to_two_lookup[n >> 4];
     }
     
-    unsigned char right_map_one_to_two(unsigned char n)
+    uint8_t right_map_one_to_two(uint8_t n)
     {
         return reversed_map_one_to_two_lookup[n&0x0F];
     }
@@ -202,27 +202,27 @@
 
 
 #if defined(Z88DK_SPRITES) && defined(ALT_PRINT)
-	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch)
+	void _draw_ch(uint8_t x, uint8_t y, uint8_t ch)
 	{
 		__DELETE(x,y);
-		putsprite(spr_or,x*(SPRITE_X_STEP),y*(SPRITE_Y_STEP),sprites + (unsigned char *) ((ch-32)*(2+SPRITE_Y_SIZE))); \
+		putsprite(spr_or,x*(SPRITE_X_STEP),y*(SPRITE_Y_STEP),sprites + (uint8_t *) ((ch-32)*(2+SPRITE_Y_SIZE))); \
 	}
 #endif
 
 #if !defined(NO_STATS) \
 	|| X_OFFSET!=0 || Y_OFFSET!=0
 	
-	void _draw_stat(unsigned char x, unsigned char y, Image * image) 
+	void _draw_stat(uint8_t x, uint8_t y, Image * image) 
 	{
 		__DRAW((X_OFFSET+x),(y),image);
 	}
 
-	void _draw(unsigned char x, unsigned char y, Image * image) 
+	void _draw(uint8_t x, uint8_t y, Image * image) 
 	{
 		_draw_stat(x,Y_OFFSET+y,image);
 	}
 #else
-	void _draw(unsigned char x, unsigned char y, Image * image) 
+	void _draw(uint8_t x, uint8_t y, Image * image) 
 	{
 		__DRAW(x,y,image);
 	}	
@@ -230,17 +230,17 @@
 
 #if !defined(NO_STATS) \
 	|| X_OFFSET!=0 || Y_OFFSET!=0
-	void _delete_stat(unsigned char x, unsigned char y)
+	void _delete_stat(uint8_t x, uint8_t y)
 	{
 		__DELETE(X_OFFSET+x,y);
 	}
 	
-	void _delete(unsigned char x, unsigned char y)
+	void _delete(uint8_t x, uint8_t y)
 	{
 		_delete_stat(x,Y_OFFSET+y);
 	}	
 #else
-	void _delete(unsigned char x, unsigned char y)
+	void _delete(uint8_t x, uint8_t y)
 	{
 		__DELETE(x,y);
 	}
@@ -249,7 +249,7 @@
 
 #if defined(FULL_GAME)
 
-	void DRAW_BROKEN_BRICK(unsigned char x, unsigned char y)
+	void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y)
 	{
 		_draw(x,y,&BROKEN_BRICK_IMAGE);		
 	}
@@ -257,7 +257,7 @@
 
 
 #if !defined(NO_BLINKING)
-void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char *blinkCounter) 
+void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter) 
 {
 	if(*blinkCounter) 
 	{
@@ -276,8 +276,8 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 #if defined(ALT_CLEAR_SCREEN)
 	void CLEAR_SCREEN(void)
 	{
-		unsigned char i;
-		unsigned char j;
+		uint8_t i;
+		uint8_t j;
 		
 		for(i=0;i<XSize;++i)
 		{
@@ -303,18 +303,18 @@ void _blink_draw(unsigned char x, unsigned char y, Image * image, unsigned char 
 
 #if !defined(TINY_GAME)
 
-void DRAW_HORIZONTAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
+void DRAW_HORIZONTAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
 {
-	unsigned char i;
+	uint8_t i;
 	for(i=0;i<length;++i)
 	{
 		_draw(x+i,y,&HORIZONTAL_BRICK_IMAGE);
 	}
 }
 
-void DRAW_VERTICAL_LINE(unsigned char x,unsigned char y, unsigned char length) 
+void DRAW_VERTICAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
 {
-	unsigned char i;
+	uint8_t i;
 	for(i=0;i<length;++i)
 	{
 		_draw(x,y+i,&VERTICAL_BRICK_IMAGE);

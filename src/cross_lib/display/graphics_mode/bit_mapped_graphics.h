@@ -3,20 +3,20 @@
 #define _MO5_BIT_MAPPED_GRAPHICS
 
 #if defined(__MO5__)
-	#define SV_VIDEO  ((unsigned char*)0x0000)
+	#define SV_VIDEO  ((uint8_t*)0x0000)
 #elif defined(__TO7__)
-	#define SV_VIDEO  ((unsigned char*)0x4000)
+	#define SV_VIDEO  ((uint8_t*)0x4000)
 #endif
 
-extern unsigned char udgs[];
+extern uint8_t udgs[];
 
 #if defined(NO_COLOR)
 	#define __DRAW(x,y,image) \
 	{ \
-		unsigned char i; \
-		unsigned short base = (x)+(XSize)*8*(y); \
-		unsigned char delta = 0; \
-		unsigned char offset = (8*(unsigned char)(image)->_imageData) ; \
+		uint8_t i; \
+		uint16_t base = (x)+(XSize)*8*(y); \
+		uint8_t delta = 0; \
+		uint8_t offset = (8*(uint8_t)(image)->_imageData) ; \
 		\
 		for(i=0;i<7;++i) \
 		{ \
@@ -29,13 +29,13 @@ extern unsigned char udgs[];
 
 	#define __DELETE(x,y) \
 	{ \
-		unsigned char i; \
-		unsigned short base = (x)+(XSize)*8*(y); \
-		unsigned char delta = 0; \
+		uint8_t i; \
+		uint16_t base = (x)+(XSize)*8*(y); \
+		uint8_t delta = 0; \
 		\
 		for(i=0;i<7;++i) \
 		{ \
-			SV_VIDEO[(unsigned short) base+delta] = 0; \
+			SV_VIDEO[(uint16_t) base+delta] = 0; \
 			delta+=XSize; \
 		} \
 		SV_VIDEO[base+(XSize)*7] = 0; \
@@ -44,10 +44,10 @@ extern unsigned char udgs[];
 	#include "conio_patch.h"
 	#define __DRAW(x,y,image) \
 	{ \
-		unsigned char i; \
-		unsigned short base = (x)+(XSize)*8*(y); \
-		unsigned char delta = 0; \
-		unsigned char offset = (8*(unsigned char)(image)->_imageData) ; \
+		uint8_t i; \
+		uint16_t base = (x)+(XSize)*8*(y); \
+		uint8_t delta = 0; \
+		uint8_t offset = (8*(uint8_t)(image)->_imageData) ; \
 		\
 		for(i=0;i<7;++i) \
 		{ \
@@ -70,13 +70,13 @@ extern unsigned char udgs[];
 
 	#define __DELETE(x,y) \
 	{ \
-		unsigned char i; \
-		unsigned short base = (x)+(XSize)*8*(y); \
-		unsigned char delta = 0; \
+		uint8_t i; \
+		uint16_t base = (x)+(XSize)*8*(y); \
+		uint8_t delta = 0; \
 		\
 		for(i=0;i<7;++i) \
 		{ \
-			SV_VIDEO[(unsigned short) base+delta] = 0; \
+			SV_VIDEO[(uint16_t) base+delta] = 0; \
 			delta+=XSize; \
 		} \
 		SV_VIDEO[base+(XSize)*7] = 0; \

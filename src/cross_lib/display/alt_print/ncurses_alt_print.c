@@ -1,16 +1,17 @@
+#include <stdint.h>
 #include <ncurses.h>
-	
-void PRINT(unsigned char x, unsigned char y, char * str)
+
+
+void PRINT(uint8_t x, uint8_t y, char * str)
 {
 	move(y,x); 
 	printw(str); 
 	refresh();
 }
 
-void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val)
+void PRINTF(uint8_t x, uint8_t y, char * str, uint16_t val)
 {
 	move(y,x); 
 	printw(str,val); 
 	refresh();
 }
-		

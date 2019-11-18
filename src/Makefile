@@ -7515,6 +7515,33 @@ sms_tiny_buffered:
 	rm $(BUILD_PATH)/TINY_sms_buffered_BSS.bin
 	rm $(BUILD_PATH)/TINY_sms_buffered_UNASSIGNED.bin
 	
+    
+gamegear_tiny_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +sms -lgamegear -clib=sdcc_iy -startup=17 -v \
+	$(ZSDCC_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=16 \
+	-D__SMS__ \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DSTDLIB \
+	-DLESS_TEXT \
+	-create-app \
+	-DBUFFERED \
+	-DTURN_BASED \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-o $(BUILD_PATH)/TINY_gamegear_buffered.bin \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_CODE.bin
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_DATA.bin
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_BSS.bin
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_UNASSIGNED.bin    
 
 # 	-pragma-need=ansiterminal -pragma-define:ansipixels=240 -pragma-define:ansicolumns=40 
 # -DNO_BORDER

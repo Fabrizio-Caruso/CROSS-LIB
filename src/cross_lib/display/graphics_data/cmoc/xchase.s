@@ -33,7 +33,7 @@ string_literals_end	EQU	*
 
 
 * Globals with static initializers
-_udgs	EQU	*		udgs: unsigned char[]
+_udgs	EQU	*		udgs: uint8_t[]
 
 
 

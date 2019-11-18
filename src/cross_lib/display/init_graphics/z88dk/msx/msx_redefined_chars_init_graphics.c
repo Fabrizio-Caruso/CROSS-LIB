@@ -29,7 +29,7 @@
 #include "memory_mapped_graphics.h"
 
 
-void set_group_color(unsigned char group, unsigned char color)
+void set_group_color(uint8_t group, uint8_t color)
 {
 	msx_vpoke(COLOR_DEF+group, color<<4);
 }
@@ -37,7 +37,7 @@ void set_group_color(unsigned char group, unsigned char color)
 
 void set_udg_colors(void)
 {
-	unsigned char i;
+	uint8_t i;
 	
 	set_group_color(0,9);
 	set_group_color(1,7);
@@ -55,20 +55,20 @@ void set_udg_colors(void)
 }
 
 
-void redefine(const unsigned char ch, const unsigned char* image) 
+void redefine(const uint8_t ch, const uint8_t* image) 
 { 
-    unsigned char i; 
+    uint8_t i; 
     
     for(i=0;i<8;++i) 
     { 
-        DISPLAY_POKE(CHAR_BASE +(unsigned short)(ch<<3)+i,image[i]); 
+        DISPLAY_POKE(CHAR_BASE +(uint16_t)(ch<<3)+i,image[i]); 
     } 
 } 
 
 
 void SET_UDG_IMAGES(void) 
 { 
-	unsigned char i;
+	uint8_t i;
     
 	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) 
 	{ 

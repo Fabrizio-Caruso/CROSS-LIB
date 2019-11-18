@@ -15,8 +15,8 @@ VDC_DATA_HI = $0003
 
 void INIT_GRAPHICS(void)
 {
-	unsigned char i;
-	// unsigned char j;
+	uint8_t i;
+	// uint8_t j;
 	
 	// for(j=0;j<8;++j)
 		for(i=0;i<254;++i)

@@ -1,11 +1,12 @@
 #include <peekpoke.h>
 #include <vic20.h>
+#include <stdint.h>
 
 void INIT_GRAPHICS(void)
 {
 	#if defined(REDEFINED_CHARS)
 		#if defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K)
-			unsigned char tmp;
+			uint8_t tmp;
 		
 			tmp = ~0x0F & PEEK(&(VIC.addr));
 			POKE(&(VIC.addr), tmp | 0x0F);
@@ -24,7 +25,7 @@ void INIT_GRAPHICS(void)
 			#define BASE_ADDR 0x1E00
 		#endif
 		{
-			unsigned char i;
+			uint8_t i;
 			
 			i=0;
 			do

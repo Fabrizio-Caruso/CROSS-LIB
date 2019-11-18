@@ -4,13 +4,13 @@
 #include <rect.h>
 #include <input.h>
 
-const unsigned char author[] = "z88dk";
-const unsigned char name[] = "Hello World";
-const unsigned char description[] = "Test program for the output terminal.";
+const uint8_t author[] = "z88dk";
+const uint8_t name[] = "Hello World";
+const uint8_t description[] = "Test program for the output terminal.";
 
-extern unsigned char font_8x8_bbc_system[];
+extern uint8_t font_8x8_bbc_system[];
 
-const unsigned char palette[] = {0x00,0x01,0x05,0x15,0x24,0x25,0x29,0x39,0x16,0x1a,0x1b,0x2a,0x3a,0x3e,0x2b,0x3f};
+const uint8_t palette[] = {0x00,0x01,0x05,0x15,0x24,0x25,0x29,0x39,0x16,0x1a,0x1b,0x2a,0x3a,0x3e,0x2b,0x3f};
 
 const struct r_Rect8 rect = {0, 32, 0, 24};
 

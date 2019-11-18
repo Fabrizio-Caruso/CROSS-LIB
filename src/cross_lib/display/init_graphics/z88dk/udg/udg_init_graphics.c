@@ -5,7 +5,7 @@
 
 #include <sys/ioctl.h>
 
-extern unsigned char udgs[];
+extern uint8_t udgs[];
 
 void INIT_GRAPHICS(void)
 {

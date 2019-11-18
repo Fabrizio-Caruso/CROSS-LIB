@@ -46,7 +46,7 @@ void set_udg(void)
 {
 	extern char _FONT_START__[];
 	
-	unsigned char *CHBASE = (unsigned char *)0xD409;
+	uint8_t *CHBASE = (uint8_t *)0xD409;
 
 	memcpy(_FONT_START__, (void *)0xF800, 512);
 	

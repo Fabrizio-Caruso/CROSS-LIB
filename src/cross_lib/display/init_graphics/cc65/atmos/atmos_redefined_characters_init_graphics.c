@@ -15,7 +15,7 @@
 
 void init_colors(void)
 {
-	unsigned char i;
+	uint8_t i;
 	
 	
 	// Initialize colors 	
@@ -40,7 +40,7 @@ void init_colors(void)
 
 void INIT_GRAPHICS(void)
 {		
-	REDEFINE_AT(((unsigned char *)UDG_BASE_ADDR));
+	REDEFINE_AT(((uint8_t *)UDG_BASE_ADDR));
 
 	init_colors();
 }

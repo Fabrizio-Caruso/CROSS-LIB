@@ -41,9 +41,9 @@
 
 struct ImageStruct
 {
-	unsigned char _imageData;
+	uint8_t _imageData;
 	#if !defined(NO_COLOR)
-		unsigned char _color;
+		uint8_t _color;
 	#endif
 };
 
@@ -53,15 +53,15 @@ typedef struct ImageStruct Image;
 #if !defined(NO_STATS) \
 	|| X_OFFSET!=0 || Y_OFFSET!=0
 
-	void _draw_stat(unsigned char x, unsigned char y, Image * image);
+	void _draw_stat(uint8_t x, uint8_t y, Image * image);
 
-	void _draw(unsigned char x, unsigned char y, Image * image);
+	void _draw(uint8_t x, uint8_t y, Image * image);
 #else
-	void _draw(unsigned char x, unsigned char y, Image * image);	
+	void _draw(uint8_t x, uint8_t y, Image * image);	
 #endif
 
 #if defined(Z88DK_SPRITES) && defined(ALT_PRINT)
-	void _draw_ch(unsigned char x, unsigned char y, unsigned char ch);
+	void _draw_ch(uint8_t x, uint8_t y, uint8_t ch);
 #endif
 
 
@@ -79,16 +79,16 @@ typedef struct ImageStruct Image;
 #endif
 
 #if defined(FULL_GAME)
-	void DRAW_BROKEN_BRICK(unsigned char x, unsigned char y);
+	void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y);
 #endif
 	
 #if !defined(NO_BLINKING)
-	void _blink_draw(unsigned char x,unsigned char y,Image * image, unsigned char * blinkCounter);
+	void _blink_draw(uint8_t x,uint8_t y,Image * image, uint8_t * blinkCounter);
 #else
 	#define _blink_draw(x,y,image,blinkCounter) _draw(x,y,image)
 #endif
 
-void _delete(unsigned char x, unsigned char y);
+void _delete(uint8_t x, uint8_t y);
 
 // VERTICAL AND HORIZONTAL BORDER
 #if !defined(TINY_GAME)
@@ -117,7 +117,7 @@ void _delete(unsigned char x, unsigned char y);
 
 // PRINT AND PRINTF
 #  if defined(ALT_DISPLAY_STATS)
-	void PRINT(unsigned char x, unsigned char y, char * str);
+	void PRINT(uint8_t x, uint8_t y, char * str);
 	#define PRINTF(x,y,str,val) _displayShort(val)
 	void _displayShort(uint16_t val);
 	uint16_t loc(uint8_t x, uint8_t y);
@@ -125,8 +125,8 @@ void _delete(unsigned char x, unsigned char y);
 	#define PRINT(x,y,str)
 	#define PRINTF(x,y,str,val)
 #elif defined(ALT_PRINT)
-	void PRINT(unsigned char x, unsigned char y, char * str);
-	void PRINTF(unsigned char x, unsigned char y, char * str, unsigned short val);
+	void PRINT(uint8_t x, uint8_t y, char * str);
+	void PRINTF(uint8_t x, uint8_t y, char * str, uint16_t val);
 #else
 	#define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y); cprintf(str); } while(0);
 	#define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y); cprintf(str,val); } while(0);
@@ -135,8 +135,8 @@ void _delete(unsigned char x, unsigned char y);
 
 // DRAW HORIZONTAL AND VERTICAL LINES
 #if !defined(TINY_GAME)
-	void DRAW_HORIZONTAL_LINE(unsigned char x, unsigned char y, unsigned char length);
-	void DRAW_VERTICAL_LINE(unsigned char x, unsigned char y, unsigned char length);	
+	void DRAW_HORIZONTAL_LINE(uint8_t x, uint8_t y, uint8_t length);
+	void DRAW_VERTICAL_LINE(uint8_t x, uint8_t y, uint8_t length);	
 #else
 	#define DRAW_HORIZONTAL_LINE(x,y,length)
 	#define DRAW_VERTICAL_LINE(x,y,length)
@@ -202,7 +202,7 @@ void _delete(unsigned char x, unsigned char y);
 #endif
 
 #if !defined(TINY_GAME)
-	extern unsigned char guns;
+	extern uint8_t guns;
 	extern Image GUN_IMAGE;
 	extern Image SKULL_IMAGE;
 #endif

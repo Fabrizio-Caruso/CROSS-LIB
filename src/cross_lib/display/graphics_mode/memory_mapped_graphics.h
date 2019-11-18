@@ -45,17 +45,17 @@
     #define VDP_CONTROL 0x3001
     #include <peekpoke.h>
         
-    #define CHAR_BASE ((unsigned short) 0x0000)
-    #define COLOR_DEF ((unsigned short) 0x1800)   
+    #define CHAR_BASE ((uint16_t) 0x0000)
+    #define COLOR_DEF ((uint16_t) 0x1800)   
 
     #define DISPLAY_POKE(addr,val) \
         __asm__("sei"); \
-        POKE(VDP_CONTROL,(unsigned char) (addr&0x00FF)); \
-        POKE(VDP_CONTROL,(unsigned char) (addr>>8)|0x40); \
+        POKE(VDP_CONTROL,(uint8_t) (addr&0x00FF)); \
+        POKE(VDP_CONTROL,(uint8_t) (addr>>8)|0x40); \
         POKE(VDP_DATA,val); \
         __asm__("cli");    
 #else
-	#define DISPLAY_POKE(addr,val) (*(unsigned char*) (addr) = (val))
+	#define DISPLAY_POKE(addr,val) (*(uint8_t*) (addr) = (val))
 #endif
 
 
@@ -64,13 +64,13 @@
 	do \
 	{ \
 		DISPLAY_POKE(loc(x,y), image->_imageData); \
-		DISPLAY_POKE((unsigned short) ((unsigned short) (COLOR_ADDR+(x)) +(unsigned short)(y)*(XSize)),image->_color); \
+		DISPLAY_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),image->_color); \
 	} \
 	while(0)
 
 #else
 	#define __DRAW(x,y,image) \
-		DISPLAY_POKE((unsigned short) loc(x,y), image->_imageData);
+		DISPLAY_POKE((uint16_t) loc(x,y), image->_imageData);
 
 #endif
 

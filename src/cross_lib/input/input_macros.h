@@ -31,22 +31,22 @@
 			#include <peekpoke.h>
 			#define INIT_INPUT() { POKE(0x26A,PEEK(0x26A) | 8); }
 		#elif defined(__MSX__)
-			#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))		
+			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))		
 			#define INIT_INPUT() { POKE(0xF3DB,0); }
 		#elif defined(__VIC20__)
-			#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))		
+			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))		
 			#define INIT_INPUT() { POKE(0x028A ,0xFF); }
 		#elif defined(__NCURSES__) && !defined(TURN_BASED)
 			#define INIT_INPUT() nodelay(stdscr,TRUE)
 		#elif defined(__M5__)
-			#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))	
-			#define PEEK(addr)         (*(unsigned char*) (addr))		
+			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))	
+			#define PEEK(addr)         (*(uint8_t*) (addr))		
 			#define INIT_INPUT() { POKE(0x701A,PEEK(0x701A)&0x7F);}
 		#else
 			#define INIT_INPUT()
 		#endif
 	#elif defined(Z88DK_JOYSTICK)
-		extern unsigned char stick;
+		extern uint8_t stick;
 		
         #if !defined(__ZX81__)
             #define INIT_INPUT() \
@@ -86,7 +86,7 @@
 		#if defined(ACK) || defined(STDLIB)
 			#define GET_CHAR() getchar()
 		#else
-			unsigned char GET_CHAR(void);
+			char GET_CHAR(void);
 		#endif
 	#endif			
 				

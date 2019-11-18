@@ -1,5 +1,6 @@
 #include <graphics.h>
-#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+
+#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 
 void INIT_GRAPHICS(void)
 {

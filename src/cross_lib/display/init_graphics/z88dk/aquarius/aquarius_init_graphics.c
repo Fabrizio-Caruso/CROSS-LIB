@@ -28,24 +28,24 @@
 
 #include "memory_mapped_graphics.h"
 
-#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
-#define PEEK(addr)         (*(unsigned char*) (addr))
+#define PEEK(addr)         (*(uint8_t*) (addr))
 #define PEEKW(addr) (*(unsigned*) (addr))
 
 
 void INIT_GRAPHICS(void)
 {
-	unsigned char i;
+	uint8_t i;
 	
 	POKE(COLOR_ADDR,7);
 	
 	for(i=0;i<251;++i)
 	{
-		POKE((unsigned short) (COLOR_ADDR+1+i),128);
-		POKE((unsigned short) (COLOR_ADDR+250+i),128);
-		POKE((unsigned short) (COLOR_ADDR+500+i),128);
-		POKE((unsigned short) (COLOR_ADDR+749+i),128);
+		POKE((uint16_t) (COLOR_ADDR+1+i),128);
+		POKE((uint16_t) (COLOR_ADDR+250+i),128);
+		POKE((uint16_t) (COLOR_ADDR+500+i),128);
+		POKE((uint16_t) (COLOR_ADDR+749+i),128);
 	}	
 }
 

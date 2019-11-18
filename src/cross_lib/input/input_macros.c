@@ -34,7 +34,7 @@
         
 
 #if defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB)
-    unsigned char GET_CHAR(void)
+    char GET_CHAR(void)
     {
     #  if defined(NO_INPUT)
         return 0;
@@ -61,7 +61,7 @@
     #elif defined(__ATMOS__) || defined(__TELESTRAT__)
         #include <peekpoke.h>    
         
-        unsigned char polledValue = PEEK(0x208);
+        uint8_t polledValue = PEEK(0x208);
 
         switch(polledValue)
         {
@@ -83,7 +83,7 @@
         }
         return '\0';
     #elif defined(__TO7__)
-        unsigned char res;
+        uint8_t res;
         
         asm
         {
@@ -93,8 +93,8 @@
         return res; 
     
     #elif defined(__MO5__) 
-        #define POKE(addr,val)     (*(unsigned char*) (addr) = (val))    
-        #define PEEK(addr)         (*(unsigned char*) (addr))    
+        #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))    
+        #define PEEK(addr)         (*(uint8_t*) (addr))    
 
         #define KEYREG 0xA7C1
         
@@ -163,8 +163,8 @@
         #include <cmoc.h>
         #include <coco.h>
         
-        unsigned char res;
-        unsigned char machine;
+        uint8_t res;
+        uint8_t machine;
         
         asm {
             ldd $8000
@@ -262,7 +262,7 @@ out            stb res
     #if defined(Z88DK_JOYSTICK)
         #include <games.h>
         
-        extern unsigned char stick;
+        extern uint8_t stick;
         
         void WAIT_PRESS(void)
         {

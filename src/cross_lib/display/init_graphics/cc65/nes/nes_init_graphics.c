@@ -1,5 +1,7 @@
 #include <peekpoke.h>
 
+#include <stdint.h>
+
 #include <nes.h>
 
 #define _RED 6
@@ -22,7 +24,7 @@ void put_char(uint8 x, uint8 y, uint8 c)
 } 
 */
 
-void set_color(unsigned char palette_group, unsigned char color_index, unsigned char color)
+void set_color(uint8_t palette_group, uint8_t color_index, uint8_t color)
 {
     PPU.vram.address = 0x3f;
     PPU.vram.address = palette_group * 4 + color_index;   
@@ -31,7 +33,7 @@ void set_color(unsigned char palette_group, unsigned char color_index, unsigned 
 
 //
 /*
-const unsigned char PALETTE[]={
+const uint8_t PALETTE[]={
 0x1F, 0x00, 0x20, 0x31, // blues
 0x00, 0x00, 0x00, 0x15, // red
 0x00, 0x00, 0x00, 0x27, // yellow
@@ -39,7 +41,7 @@ const unsigned char PALETTE[]={
 }; 
 // note, 11 is the default background color = blue
 
-const unsigned char Attrib_Table[]={
+const uint8_t Attrib_Table[]={
 0x44, // 0100 0100, 
 0xbb, // 1011 1011, 
 0x44, // 0100 0100, 
@@ -113,7 +115,7 @@ void INIT_GRAPHICS(void)
 	set_color(3,3,_CYAN);	
 	
 	{
-		unsigned char j;
+		uint8_t j;
 	
 		for(j=0;j<4;++j)
 		{	

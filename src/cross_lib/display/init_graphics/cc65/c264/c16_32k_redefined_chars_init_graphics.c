@@ -13,7 +13,7 @@
 
 void INIT_GRAPHICS(void)
 {
-	unsigned short i;
+	uint16_t i;
 	
 	POKE(1177,62); // disable switch to RAM in PEEK
 	for(i=0;i<1023;++i)

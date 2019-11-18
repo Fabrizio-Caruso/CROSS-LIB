@@ -9,8 +9,7 @@
 
 // YELLOW
 #define _SKULL 0x77
-// #define _VERTICAL_BRICK 0x26
-// #define _HORIZONTAL_BRICK 0x2B
+
 #define _VERTICAL_BRICK '|'
 #define _HORIZONTAL_BRICK '-'
 #define _EXTRA_LIFE _PLAYER
@@ -30,17 +29,14 @@
 
 // WHITE
 #define _GHOST 0x76
-//_GHOST 0x7E
 
 #define _DEAD_GHOST _GHOST
 
 
 #define _LEFT_HORIZONTAL_MISSILE '>'
 
-//((unsigned char)0x7B)
 #define _RIGHT_HORIZONTAL_MISSILE '<'
 
-//((unsigned char)0x7D)
 #define _ROCKET '^'
 
 #define _BROKEN_BRICK _BOMB

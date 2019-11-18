@@ -6,8 +6,8 @@
 
 int main(void)
 {
-    unsigned short i;
-    unsigned char str[2];
+    uint16_t i;
+    uint8_t str[2];
     
     str[1] = '\0';
     tgi_install (tgi_static_stddrv);

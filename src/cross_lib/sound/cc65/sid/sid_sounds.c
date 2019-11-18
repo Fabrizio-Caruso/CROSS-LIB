@@ -1,5 +1,6 @@
 
 #include "sid_sounds.h"
+#include <stdint.h>
 
 void _set_noise(void)
 {
@@ -12,7 +13,7 @@ void _set_noise(void)
 
 void _short_sound(void)
 {
-	unsigned short i;
+	uint16_t i;
 	
 	SID.v3.freq  = 0x2000; 
 	SID.v3.ad    = 0x00; 
@@ -28,7 +29,7 @@ void _short_sound(void)
 
 void SHOOT_SOUND(void) 
 { 
-	unsigned short i; 
+	uint16_t i; 
 	
 	SID.v3.freq  = 0x3000; 
 	SID.flt_freq = 0x9000; 
@@ -43,8 +44,8 @@ void SHOOT_SOUND(void)
 
 void EXPLOSION_SOUND(void)
 { 
-	unsigned short i; 
-	unsigned short j; 
+	uint16_t i; 
+	uint16_t j; 
 	
 	SID.v3.freq  = 0x1200; 
 	SID.flt_freq = 0x2000; 
@@ -87,8 +88,8 @@ void TOCK_SOUND(void)
 
 void ZAP_SOUND(void) 
 { 
-	unsigned char i;
-	unsigned char j;
+	uint8_t i;
+	uint8_t j;
 	
 	SID.v3.freq  = 0x6800; 
 	SID.v3.ad    = 0x88; 

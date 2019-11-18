@@ -26,10 +26,10 @@
 
 #include "vic20_sounds_3k.h"
 
-	void _explosion_sound(unsigned char freq, unsigned char vol)
+	void _explosion_sound(uint8_t freq, uint8_t vol)
 	{ 
-		unsigned char i; 
-		unsigned char j;
+		uint8_t i; 
+		uint8_t j;
 		VIC.noise = freq; 
 		VIC.volume_color |= vol; 
 

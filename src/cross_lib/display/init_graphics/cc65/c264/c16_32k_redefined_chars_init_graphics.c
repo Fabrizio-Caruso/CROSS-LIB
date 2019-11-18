@@ -11,6 +11,8 @@
 
 #include "udg_map.h"
 
+#include <stdint.h>
+
 void INIT_GRAPHICS(void)
 {
 	uint16_t i;
@@ -18,7 +20,7 @@ void INIT_GRAPHICS(void)
 	POKE(1177,62); // disable switch to RAM in PEEK
 	for(i=0;i<1023;++i)
 	{
-		POKE(UDG_BASE_FACTOR*1024+i,PEEK((unsigned long) (54272ul+(unsigned long) i)));
+		POKE(UDG_BASE_FACTOR*1024+i,PEEK((uint16_t) (54272ul+(uint16_t) i)));
 	}
 	POKE(1177,63); // re-enable switch to RAM in PEEK
 	POKE(65299ul,(PEEK(65299ul)&3)|((UDG_BASE_FACTOR)*4)); // change character base address to 28th Kbyte

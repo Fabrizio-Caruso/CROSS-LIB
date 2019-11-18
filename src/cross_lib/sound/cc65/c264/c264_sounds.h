@@ -25,6 +25,7 @@
 #ifndef __C264_SOUNDS
 #define __C264_SOUNDS
 	#include<peekpoke.h>
+    #include<stdint.h>
 	
 	#define NOISE 64
 	#define VOICE_1 16
@@ -35,7 +36,7 @@
 	#define SELECT 0xFF11 
 
 	
-	void _noise_sound(unsigned char type);
+	void _noise_sound(uint8_t type);
 	
 	// void EXPLOSION_SOUND(void);
 	
@@ -45,7 +46,7 @@
 	
 	#define SHOOT_SOUND() _noise_sound(160)
 	
-	void _short_sound(unsigned char freq);
+	void _short_sound(uint8_t freq);
 	
 	// void PING_SOUND(void);
 	

@@ -1,7 +1,7 @@
 #include <msx/gfx.h>
 int main()
 {
-    unsigned char i;
+    uint8_t i;
     set_color(15, 1, 1);	    
     set_mode(mode_0);
 

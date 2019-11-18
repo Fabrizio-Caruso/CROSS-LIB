@@ -26,6 +26,8 @@
 #if !defined(NO_SLEEP)
 
 	#include "sleep_macros.h"
+    
+    #include <stdint.h>
 
 	#if defined(__OSIC1P__)
 		#define CYCLES 500UL
@@ -33,9 +35,9 @@
 		#define CYCLES 1000UL
 	#endif
 
-	void SLEEP(unsigned char sec)
+	void SLEEP(uint8_t sec)
 	{
-		unsigned short ii;
+		uint16_t ii;
 		
 		for(ii=0;ii<sec*CYCLES;++ii){}; 		
 	}

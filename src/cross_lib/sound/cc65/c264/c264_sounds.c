@@ -24,6 +24,7 @@
 
 #include "c264_sounds.h"
 
+#include <stdint.h>
 
 void _set_sound()
 {
@@ -31,17 +32,17 @@ void _set_sound()
 	POKE(HI_FREQ_1,PEEK(HI_FREQ_1) & (255-3)); 	
 }
 	
-void _pause(unsigned char length)
+void _pause(uint8_t length)
 {
-	unsigned char i;
+	uint8_t i;
 	for(i=0;i<length;++i)
 	{
 	}
 }
 	
-void _noise_sound(unsigned char type)
+void _noise_sound(uint8_t type)
 	{ 
-		unsigned char volume = 0; 
+		uint8_t volume = 0; 
 
 		for(;volume<=MAX_VOLUME;++volume) 
 		{ 
@@ -52,7 +53,7 @@ void _noise_sound(unsigned char type)
 	};	
 
 
-void _short_sound(unsigned char type) 
+void _short_sound(uint8_t type) 
 { 
 	_set_sound();
 	POKE(LO_FREQ_1,type); 
@@ -64,7 +65,7 @@ void _short_sound(unsigned char type)
 
 void ZAP_SOUND(void) 
 { 
-	unsigned char freq; 
+	uint8_t freq; 
 
 	_set_sound();
 	for(freq=100;freq<255;++freq) 

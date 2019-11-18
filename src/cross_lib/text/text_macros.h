@@ -19,9 +19,9 @@
 
 #if !defined(NO_MESSAGE)
 	#if !defined(NO_TEXT_COLOR)
-		void printCenteredMessageOnRowWithCol(unsigned char row, unsigned char col, char *Text);
+		void printCenteredMessageOnRowWithCol(uint8_t row, uint8_t col, char *Text);
 	#endif
-	void printCenteredMessageOnRow(unsigned char row, char *Text);
+	void printCenteredMessageOnRow(uint8_t row, char *Text);
 	void printPressKeyToStart(void);
 #else
 	#define printCenteredMessageOnRow(row,Text)

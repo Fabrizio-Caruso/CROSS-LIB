@@ -24,6 +24,9 @@
 
 #ifndef _SLEEP_MACROS
 #define _SLEEP_MACROS
+
+    #include <standard_libs.h>
+
 	#define ALT_SLEEP_SCALE 4000UL
 	
 	#if !defined(NO_SLEEP)
@@ -40,9 +43,9 @@
 	#  if defined(NO_SLEEP)
 		#define SLEEP(s)
 	#elif defined(MACRO_SLEEP)
-		#define SLEEP(s)  do {unsigned short ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
+		#define SLEEP(s)  do {uint16_t ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
 	#elif defined(ALT_SLEEP)
-		void SLEEP(unsigned char s);
+		void SLEEP(uint8_t s);
 	#else
 		#define SLEEP(s) sleep(s)
 	#endif

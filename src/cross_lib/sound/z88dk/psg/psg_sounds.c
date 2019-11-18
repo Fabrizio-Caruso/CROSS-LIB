@@ -25,6 +25,8 @@
 #include "psg_sounds.h"
 #include <psg.h>
 
+#include <stdint.h>
+
 /*
 R0	Channel A Period	pa7	pa6	pa5	pa4	pa3	pa2	pa1	pa0
 R1	-	-	-	-	paB	paA	pa9	pa8
@@ -82,8 +84,8 @@ Sel	Pulse
 
 void ZAP_SOUND(void) 
 {
-	unsigned char i;
-	unsigned char j;
+	uint8_t i;
+	uint8_t j;
 	
 	set_psg(A_VOLUME,15);
 	set_psg(A_PERIOD_LOW,255);
@@ -104,9 +106,9 @@ void ZAP_SOUND(void)
 }
 
 
-void _ping_sound(unsigned char freq)
+void _ping_sound(uint8_t freq)
 { 
-	unsigned char i;
+	uint8_t i;
 	
 	set_psg(A_VOLUME,15);
 	set_psg(A_PERIOD_LOW,255);
@@ -123,10 +125,10 @@ void _ping_sound(unsigned char freq)
 }			
 
 
-void _explosion_sound(unsigned char freq)
+void _explosion_sound(uint8_t freq)
 { 
-	unsigned char i;
-	unsigned char j;
+	uint8_t i;
+	uint8_t j;
 	
 	set_psg(NOISE,15);
 	set_psg(A_VOLUME,15);

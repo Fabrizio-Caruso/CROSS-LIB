@@ -25,11 +25,13 @@
 #ifndef _VIC_SOUNDS
 #define _VIC_SOUNDS
 
+#include <stdint.h>
+
 	#define PING_SOUND() 
 	#define TOCK_SOUND() 
 	#define TICK_SOUND() 
 	
-	void _explosion_sound(unsigned char freq, unsigned char vol);
+	void _explosion_sound(uint8_t freq, uint8_t vol);
 	#define SHOOT_SOUND() 
 	#define EXPLOSION_SOUND() _explosion_sound(0x80, 0x08);
 	

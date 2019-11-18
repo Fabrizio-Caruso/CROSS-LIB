@@ -40,7 +40,7 @@ static void reset_memory_map() __naked
 #endasm
 }
 
-static void write_string(unsigned char *str) __z88dk_fastcall 
+static void write_string(char *str) __z88dk_fastcall 
 {
     while (*str)
        fputc_cons(*str++);

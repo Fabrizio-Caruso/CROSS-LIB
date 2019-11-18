@@ -24,52 +24,52 @@
 
 #include<vic20.h>
 
-	void _pause(void)
-	{
-		unsigned char i;
-		for(i=0;i<254;++i) 
-			{ 
-			} 			
-	}
+#include <stdint.h>
 
-	void _explosion_sound(unsigned char freq, unsigned char vol)
-	{ 
-		unsigned char j;
-		VIC.noise = freq; 
-		VIC.volume_color |= vol; 
+void _pause(void)
+{
+    uint8_t i;
+    for(i=0;i<254;++i) 
+        { 
+        } 			
+}
 
-		for(j=0;j<18;++j) 
-		{ 
-			_pause();
-		} 
-		VIC.noise = 0x00; 
-		VIC.volume_color = 0x00; 
-	};	
+void _explosion_sound(uint8_t freq, uint8_t vol)
+{ 
+    uint8_t j;
+    VIC.noise = freq; 
+    VIC.volume_color |= vol; 
 
-	void _ping_sound(unsigned char freq)
-	{ 
-		VIC.voice1 = freq; 
-		VIC.volume_color |= 0x08; 
-		_pause(); _pause();
-		VIC.voice1 = 0x00; 
-		VIC.volume_color = 0x00; 
-	};
-	
+    for(j=0;j<18;++j) 
+    { 
+        _pause();
+    } 
+    VIC.noise = 0x00; 
+    VIC.volume_color = 0x00; 
+};	
 
-	void ZAP_SOUND() 
-	{ 
-		unsigned char j;
-		VIC.volume_color |= 0x0B; 
-		for(j=0;j<15;++j) 
-		{ \
-			VIC.voice1 = j*15;
-			_pause(); _pause(); _pause();
-		} \
-		VIC.voice1 = 0x00; 
-		VIC.volume_color = 0x00; 
-	};		
+void _ping_sound(uint8_t freq)
+{ 
+    VIC.voice1 = freq; 
+    VIC.volume_color |= 0x08; 
+    _pause(); _pause();
+    VIC.voice1 = 0x00; 
+    VIC.volume_color = 0x00; 
+};
 
-		
-	
-	
-	
+
+void ZAP_SOUND() 
+{ 
+    uint8_t j;
+    VIC.volume_color |= 0x0B; 
+    for(j=0;j<15;++j) 
+    { \
+        VIC.voice1 = j*15;
+        _pause(); _pause(); _pause();
+    } \
+    VIC.voice1 = 0x00; 
+    VIC.volume_color = 0x00; 
+};		
+
+    
+

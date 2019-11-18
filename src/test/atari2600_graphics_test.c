@@ -16,12 +16,12 @@
 #define OVERSCAN_TIM64 42 // 36 lines * 76 cycles/line / 64 cycles/tick
 
 // Testing memory zones
-const unsigned char rodata_v[] = "Hello!";
-unsigned char data_v = 0x77;
-unsigned char bss_v;
+const uint8_t rodata_v[] = "Hello!";
+uint8_t data_v = 0x77;
+uint8_t bss_v;
 
 void main(void) {
-    unsigned char color = 0x79; // Stack variable
+    uint8_t color = 0x79; // Stack variable
     bss_v = 0x88; // Testing BSS variable
 
     for/*ever*/(;;) {

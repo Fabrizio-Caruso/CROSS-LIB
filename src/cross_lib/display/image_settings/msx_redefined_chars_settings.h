@@ -37,9 +37,9 @@
 // WHITE
 #define _GHOST 0x7E
 
-#define _LEFT_HORIZONTAL_MISSILE ((unsigned char)0x7B)
-#define _RIGHT_HORIZONTAL_MISSILE ((unsigned char)0x7D)
-#define _ROCKET ((unsigned char)0x60)
+#define _LEFT_HORIZONTAL_MISSILE ((uint8_t)0x7B)
+#define _RIGHT_HORIZONTAL_MISSILE ((uint8_t)0x7D)
+#define _ROCKET ((uint8_t)0x60)
 
 #define _BROKEN_BRICK _BOMB
 #define _SPACE ' '

@@ -5608,7 +5608,7 @@ ack_targets: \
     linuxmips_targets
 	
 atari_st_targets: \
-	atari_st_buffered atari_st_ncurses
+	atari_st_buffered
 
 gcc_targets: \
 	gcc_buffered ncurses_targets  

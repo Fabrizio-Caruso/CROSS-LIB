@@ -5097,6 +5097,7 @@ atari_st_buffered:
 	
 atari_st_ncurses:
 	$(ATARI_ST_CC) $(ATARI_ST_OPTS) -D__NCURSES__ \
+	-D__ATARI_ST__ \
 	-DFULL_GAME \
 	-DFORCE_XSIZE=39 \
 	-DFORCE_YSIZE=22 \
@@ -5608,7 +5609,7 @@ ack_targets: \
     linuxmips_targets
 	
 atari_st_targets: \
-	atari_st_buffered
+	atari_st_buffered atari_st_ncurses
 
 gcc_targets: \
 	gcc_buffered ncurses_targets  

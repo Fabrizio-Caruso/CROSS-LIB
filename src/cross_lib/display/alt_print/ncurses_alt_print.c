@@ -1,5 +1,5 @@
 #include <stdint.h>
-#if !defined(__ATARI_ST__)
+#if defined(__ATARI_ST__)
     #include <ncurses/curses.h>
 #else
     #include <ncurses.h>

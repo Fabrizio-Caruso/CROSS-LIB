@@ -5,7 +5,10 @@
 #endif
     
 void INIT_GRAPHICS(void)
-{							
+{
+    #if defined(__ATARI_ST__)
+        putenv("TERM=st52");
+    #endif
 	initscr();   
 	noecho();
 	curs_set(0);

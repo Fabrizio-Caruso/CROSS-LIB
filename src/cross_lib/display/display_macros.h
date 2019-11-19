@@ -156,7 +156,11 @@ void _delete(uint8_t x, uint8_t y);
 	|| defined(Z88DK_SPRITES)
 	#define SET_TEXT_COLOR(c) 
 #elif defined(__NCURSES__)
-	#include <ncurses.h>
+    #if !defined(__ATARI_ST__)
+        #include <ncurses/curses.h>
+    #else
+        #include <ncurses.h>
+    #endif
 	#define SET_TEXT_COLOR(c) attron(COLOR_PAIR(c))
 #else
 	#define SET_TEXT_COLOR(c) textcolor(c)
@@ -178,8 +182,11 @@ void _delete(uint8_t x, uint8_t y);
 
 	#define CLEAR_SCREEN() clg()
 #elif defined(__NCURSES__)
-	#include <ncurses.h>
-	
+    #if !defined(__ATARI_ST__)
+        #include <ncurses/curses.h>
+    #else
+        #include <ncurses.h>
+    #endif
 	#define CLEAR_SCREEN() clear();
 #else // CONIO case
 	#define CLEAR_SCREEN() clrscr();

@@ -43,10 +43,7 @@
 #include "graphics_settings.h"
 
 
-#if defined(MEMORY_MAPPED)	
-	// #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
-	// #define PEEK(addr)         (*(uint8_t*) (addr))
-		
+#if defined(MEMORY_MAPPED)		
 	uint16_t loc(uint8_t x, uint8_t y)
 	{
 		return ((uint16_t) BASE_ADDR)+x+(uint8_t)y*((uint16_t) (XSize + X_OFFSET));

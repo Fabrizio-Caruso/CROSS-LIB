@@ -1,6 +1,9 @@
-#include <ncurses.h>
-
-	
+#if !defined(__ATARI_ST__)
+    #include <ncurses/curses.h>
+#else
+    #include <ncurses.h>
+#endif
+    
 void INIT_GRAPHICS(void)
 {							
 	initscr();   

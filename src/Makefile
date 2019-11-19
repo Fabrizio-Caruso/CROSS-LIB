@@ -5079,8 +5079,9 @@ cpm_buffered:
 	
 atari_st_buffered:
 	$(ATARI_ST_CC) $(ATARI_ST_OPTS) \
+	-D__ATARI_ST__ \
 	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
+	-DFORCE_XSIZE=39 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
 	-DNO_COLOR \
@@ -5092,8 +5093,24 @@ atari_st_buffered:
 	-DALT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv a.out $(BUILD_PATH)/FULL_atari_st_buffered$(COMPILEDEXT)
+	mv a.out $(BUILD_PATH)/FULL_atari_st_buffered.tos
 	
+atari_st_ncurses:
+	$(ATARI_ST_CC) $(ATARI_ST_OPTS) -D__NCURSES__ \
+	-DFULL_GAME \
+	-DFORCE_XSIZE=39 \
+	-DFORCE_YSIZE=22 \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO  \
+	-DALT_PRINT \
+	-DNO_TITLE_LINE \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a.out $(BUILD_PATH)/FULL_atari_st_ncurses.tos
+    
 gcc_buffered:
 	$(GCC) $(GCC_OPTS) \
 	-D__GCC_BUFFERED__ \
@@ -5591,7 +5608,7 @@ ack_targets: \
     linuxmips_targets
 	
 atari_st_targets: \
-	atari_st_buffered
+	atari_st_buffered atari_st_ncurses
 
 gcc_targets: \
 	gcc_buffered ncurses_targets  

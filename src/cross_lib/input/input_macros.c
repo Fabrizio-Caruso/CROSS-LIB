@@ -220,7 +220,11 @@ out            stb res
             getchar();
         }
     #elif defined(__NCURSES__)
-        #include <ncurses.h>
+        #if !defined(__ATARI_ST__)
+            #include <ncurses/curses.h>
+        #else
+            #include <ncurses.h>
+        #endif
         
         void WAIT_PRESS(void)
         {

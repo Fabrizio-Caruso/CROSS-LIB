@@ -5112,6 +5112,26 @@ atari_st_ncurses:
 	-lncurses
 	mv a.out $(BUILD_PATH)/FULL_atari_st_ncurses.tos
     
+
+atari_st_ncurses_turn_based:
+	$(ATARI_ST_CC) $(ATARI_ST_OPTS) -D__NCURSES__ \
+	-D__ATARI_ST__ \
+	-DTURN_BASED \
+	-DFULL_GAME \
+	-DFORCE_XSIZE=39 \
+	-DFORCE_YSIZE=22 \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO  \
+	-DALT_PRINT \
+	-DNO_TITLE_LINE \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a.out $(BUILD_PATH)/FULL_atari_st_ncurses_turn_based.tos
+    
+    
 gcc_buffered:
 	$(GCC) $(GCC_OPTS) \
 	-D__GCC_BUFFERED__ \

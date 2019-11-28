@@ -3,6 +3,7 @@
 
 
 #include "cross_lib.h"
+#include "standard_libs.h"
 
 #define printCenteredMessage(Text) \
 	printCenteredMessageOnRow((YSize>>1), Text)

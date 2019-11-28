@@ -1,0 +1,19 @@
+Using the bbcim library
+-----------------------
+
+Put
+	#include <bbcim.h>
+in your C/C++ source, and link the objects with -lbbcim (and  possibly
+-L<install location of libbbcim>)
+
+All functions  return 0 if there  was no error,  otherwise, a negative
+value is returned (docs on this will come later). Use verbose=1 to let
+the library print out errors to stderr.
+
+In both  cases 'bbcim_error' is  a pointer to  a string with  the last
+error message, and 'bbcim_errno' the corresponding error number.
+
+See lib/include/bbcim.h  for all structs  and error messages  (this is
+not yet complete).
+
+Wouter Scholten

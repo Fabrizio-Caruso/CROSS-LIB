@@ -38,6 +38,7 @@
 #endif
 
 #include "conio_patch.h"
+#include "standard_libs.h"
 
 struct ImageStruct
 {

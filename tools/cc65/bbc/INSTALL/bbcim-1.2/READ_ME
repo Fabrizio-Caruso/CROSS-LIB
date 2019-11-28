@@ -1,0 +1,39 @@
+bbcim (BBC computer file conversion utility) (C) 1995-2016 W.H.Scholten
+-----------------------------------------------------------------------
+This is version 1.2
+
+       bbcim  is  a  file conversion utility to help in transferring files and
+       for use with emulators, like creating disk images (Acorn DFS  and other
+       formats),  adding  files  to them, extracting files from them, minimise
+       the size of these images etc.
+
+For more information, see the manual page: 'man bbcim'. The manual page is
+also included in the help function. Start with 'bbcim -h' and then e.g.
+'bbcim -help -c' will give more information on the catalogue option -c.
+
+
+Compiling and installing bbcim:
+-------------------------------
+You need an ansi C-compiler. I used: pcc 1.1.0, clang 3.4.1 and gcc 4.8.5.
+Set the environment variable CC to the compiler you want to use, e.g.
+
+  export CC=pcc
+
+Edit prog/_config.h and lib/_config.h before compiling, then:
+
+'make'			compiles bbcim, linked against a static library.
+'make clean'		removes objects, libraries and executables.
+'make install'		installs bbcim in $(HOME)/bin/, and the manpage in
+			$(HOME)/man/.
+'make uninstall'	removes bbcim from $(HOME)/bin/, and the manpage from
+			$(HOME)/man/.
+
+
+If you want to make/install shared libraries, go to the directory lib:
+
+'make shared'		compiles the shared library.
+'make install.lib'	installs the shared library libbbcim.so.1.0 and the
+			header file bbcim.h
+'make uninstall.lib'	removes the library and header file.
+
+

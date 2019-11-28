@@ -1,0 +1,46 @@
+What needs to be done in the current version:
+---------------------------------------------
+
+Reorganise code:
+----------------
+These should be moved from the library to the main bbcim program (=interface to the library) as they are not much of interest as library functions?:
+DONE   catalogue_to_inf.c
+DONE   archive_cleanup.c
+DONE   crc.c
+?   disk_id.c
+
+
+Functions that need testing:
+----------------------------
+  - ddos -> dfs
+  - w62 -> dfs
+
+
+Desired changes/fixes/improvements:
+-----------------------------------
+
+Needed fixes:
+?
+
+
+Desired improvements:
+- Add: -id : identify diskformat (single/doublesided, dfs/ddos). It's not possible to do this in a foolproof way...
+
+- disk_catalogue_extract__dfs.c : add LOAD_FILE function.
+
+- Add: bbcim_ddos_to_dfs: double sided DDOS disk images.
+- Add: bbcim_w62_to_dfs: ditto
+
+- Add: DDOS/W62 catalogue/extract/delete/add/crc using the dfs functions with an offset.
+- Add: -rename <disk> [-dir <dir>] <filename> <new filename>
+
+ -sectors nn: custom disksize (for DDOS)
+
+
+
+Possible changes:
+-----------------
+Q -e with list, should suboption 'r'  remove  the  extracted files? (using -d)
+Q - Rename? disk_combine_ss -> disk_ss_to_ds
+    disk_split_ds   -> disk_ds_to_ss
+Q - Allow .w62 and .ddos to identify watford 62 file and DDOS disk formats?

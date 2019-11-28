@@ -1,0 +1,43 @@
+Functions to read and write Acorn BBC microcomputer file and disk image attributes on a PC.
+Copyright (C) W.H.Scholten 1996-2014
+
+
+The directory test contains a program to show these functions in action.
+
+
+Files:
+------
+Structs:
+  struct bbc_archive__file_attr
+  struct bbc_archive__file
+
+Functions:
+  int   bbc_archive__read_file_attributes(char *filename, struct bbc_archive__file_attr *file, int verbose);
+  void  bbc_archive__free_file_attributes(struct bbc_archive__file_attr *file);
+  char* bbc_archive__new_inf_filename(char *filename, int verbose); /* make .inf filename */
+  int   bbc_archive__is_inf_file(char *filename); /* Is the file a .inf file? */
+  int   bbc_archive__write_file_attributes(char *filename, struct bbc_archive__file_attr *file, int verbose);
+
+
+
+Diskimages:
+-----------
+Definitions/types (integers):
+  bbc_archive__dfs_bootoption: BBCIM_DFS_BOOTOPTION_NONE, BBCIM_DFS_BOOTOPTION_LOAD, BBCIM_DFS_BOOTOPTION_RUN, BBCIM_DFS_BOOTOPTION_EXEC };
+
+  bbc_archive__disktype: BBC_ARCHIVE__UNKNOWN_DISK, BBC_ARCHIVE__DFS_DISK, BBC_ARCHIVE__DDOS_DISK, BBC_ARCHIVE__W62_DISK, BBC_ARCHIVE__SOLIDISK_DDFS_DISK, BBC_ARCHIVE__ADFS_DISK, BBC_ARCHIVE__HDFS_DISK };
+
+Structures:
+  struct bbc_archive__diskimage_attr
+  struct bbc_archive__diskimage
+
+Functions:
+  int   bbc_archive__read_disk_attributes(char *diskname, struct bbc_archive__diskimage_attr *image, int verbose);
+  void  bbc_archive__free_disk_attributes(struct bbc_archive__diskimage_attr *disk);
+
+  char* bbc_archive__new_dsk_filename(char *diskname, int verbose); /* make .dsk filename */
+
+  int   bbc_archive__write_disk_attributes(char *diskname, struct bbc_archive__diskimage_attr *image, int verbose);
+  int   bbc_archive__write_disk_attributes2(char *diskname, int sides, int tracks, int sectors, int bytes, int type, int verbose);
+
+  int   bbc_archive__diskinfo_from_string(char *string, struct bbc_archive__diskimage_attr *image); /* Should be internal? But used in bbcim for command line processing */

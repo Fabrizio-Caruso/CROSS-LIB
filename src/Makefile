@@ -1045,6 +1045,28 @@ atari_lynx:
 	-o $(BUILD_PATH)/FULL_ATARI_LYNX.lnx
 
 
+bbc_no_graphics:
+	$(CC65_PATH)$(MYCC65) -O -t bbc \
+	-D__BBC__ \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/TINY_bbc_no_graphics.bin
+
+
+
 atari_lynx_hello_test:
 	$(CC65_PATH)$(MYCC65) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_test.c \
 	-o $(BUILD_PATH)/ATARI_LYNX_HELLO_TEST.lnx

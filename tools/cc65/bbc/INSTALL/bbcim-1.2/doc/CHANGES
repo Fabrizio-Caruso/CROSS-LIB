@@ -1,0 +1,187 @@
+Overview of changes in bbcim:
+-----------------------------
+c denotes a change, + denotes a new feature, - denotes a removed feature:
+
+The first bbcim version was  0.60 (I think), a combination of separate
+programs that I first put on my website in 1995.
+
+   Changes in 0.83 (from 0.70):
+    +  xcrc implemented
+    +  -ed may work on a mac (LET ME KNOW): uncomment #define MAC
+    +  -e options now in any order
+    +  -e, -x and  -y: if  a file  exists, you  can choose  whether to
+       overwrite or rename.
+    c  seeks  immediately  before  read/write in  add-loop,  otherwise
+       segmentation faults sometimes (bug in GCC?).
+    c  fixed small mistake in xcrc.
+
+   Changes in 0.91 (from 0.83):
+    +  'use' added.
+    +  -s file overwrite choice.
+    +  -e file {list}
+    c  -x : rename file to itself fixed (no overwrite question)
+    c  -xcrc: filenames < 7 char's now OK.
+    c  -s : L before load  address (as in xbeeb's  __CATALOG__) is now
+       acceptable.
+
+   Changes in 0.92:
+    +  -ab : adds bare files, otherwise info file is used by default.
+    c  -e; b->s, info file is now added by default, b=bare.
+
+   Changes in 0.93-beta (9-3-97):
+    +  code cleaned up with explicit type conversions
+    +  added code  to  replace characters  in  filenames (usually  not
+       needed in linux); e.g. '/' gives problems.
+    +  Help in english
+
+   Changes in 0.94 (16-3-97):
+    c  w62 conversion now included in bbcim.
+
+   Changes in 0.95 (30-6-97 - 4-7-97):
+    c  w62 conversion to Acorn DFS:  if there are less  than 32 files,
+       only one disk image is made.
+    c  disknames without a . didn't extract with -ed  (as the dir name
+       was equal to the disk image name). Added a rename.
+    c  Cleaned up 'mkdir' selection. You now have 3 choices.
+    +  Config additions:  bbcim now  compiles on  other  OS'es without
+       changes.
+    c  bugfix: -s# works again (no idea when it got broken).
+
+   Changes in 0.96 (31-7-1997 & 1-8-1997):
+    c  char's 1-31 are replaced by _ in the check for bad char's.
+    +  ADFS catalogue & file extraction.
+    +  ADFS  interleaved disk  image  into  usable  linear disk  image
+       conversion.
+    c  option decoding separated from functions.
+    +  set bootoption (unfinished).
+    +  identify disk type (unfinished).
+    +  compilable as a separate library.
+
+   Changes in 0.97-a28 (ca. 25-10-1997):
+    c  uniform format of functions for use with any disk image type.
+    c  files and functions renamed for the lib.
+    c  ADFS code debugged.
+    +  standard disk format: file + file.dsk.
+
+   Changes in 0.98 (dd 1999, 2000, 2001; Not released):
+    c  proper library organisation.
+    c  removed need for gmake.
+    c  cleaned up the code.
+    c  cleaned up the man page.
+
+   Changes in 0.99 (2001, 2003; Not released):
+    -  removed xbeeb support.
+    c  large parts  rewritten, e.g. for use of  -c/-e/-a/-d with double
+       sided disk images.
+    c  disk attributes are set with -type/-sides/-tracks/-sectors/-bytes.
+    c  side of double sided image is selected with -side.
+    c  no more considerations for short host file names or 16 bit compilers.
+    c  path lengths increased to 256.
+
+   Changes in 0.100 (2003; Not released):
+    c  DFS: extract doesn't produce a catalogue file.
+    c  Various code sections tested.
+
+   Changes in 0.101 (6 jun 2003; yes that's nearly 6 YEARS after 0.97-a28!):
+    c  ADFS cat/extract fixed for double sided (interleaved) images.
+
+   Changes in 0.102 (10 jun 2003):
+    +  -e and -s: suboption '@' implemented.
+    +  disk attributes created for interleave/split/ddos->dfs/w62->dfs.
+    c  updated various documentation and Makefiles.
+    c  ADFS: extract doesn't produce a catalogue file.
+
+    +  more  error  messages,  esp.  for as  yet  unsupported  actions
+       (e.g. -c on a W62/DDOS format disk).
+
+    c  renamed the options  ddos2dfs /  w62dfs /  ds2ss to  ddos_dfs /
+       w62_dfs / adfs_ss.
+
+    +  -help <option> implemented  for all options, giving  an extract
+        of the bbcim man page for a given option. Very useful!
+
+   Changes in 0.103 (12 jun 2003):
+    c  fixed the filemode to rb+ for disk expansion (-40/-80/-max).
+
+    c  -40/-80/-max also set the filing system size if the filesize is
+       equal to the required size  (this is useful for reducing images
+       in  size,   together  with  -min).   Also   added  the  missing
+       bbcim_disk_write().
+
+    c  -adfs_ss/-min rename the old .dsk file (if it exists) along with
+       the disk image, and makes a new one.
+
+    c  -40/-80/-max/-new create a .dsk file.
+    c  free 'inf_file' in archive_cleanup.c.
+    c  options -y/-icrc renamed to -inf_clean/-inf_crc.
+    c  various man page improvements.
+
+   Changes in 0.104 (2003- 26 feb 2009, not released):
+    +  made a start with -id.
+    -  removed TURBOC/WIN32/MAC  code which  was  all  old and  barely
+       tested (by  others) since the  late 1990s. The TURBOC  code may
+       not have been used at all.
+
+   Changes in 0.105 (22 apr 2009):
+    -  I only used ADFS a few times to extract files from a disk image
+       and I didn't like working with ADFS on the BBC micro itself, so
+       I've decided not to waste any more energy  on supporting it. If
+       you want ADFS, help me with  the ADFS code  in bbcim, otherwise
+       it's not coming back.
+    c Many changes and cleanups related to using the separate archive-
+      format code. This also removed a lot of duplicate code/defines.
+    c Updated the w62_dfs and ddos_dfs code and more.
+    c DFS: Added  disk title terminator. A disk  title shorter than 12
+      characters ends  with 0, but a  12 character one  has none. This
+      gave some garbage in catalogue output.
+    c .ssd  and .dsd  suffixes  are  recognized  and  disk  sides  set
+      accordingly. A .dsk file will override this.
+    c Naming scheme changes: no more considerations  meant for old DOS
+      filenames.   E.g.   mydisk.bbc  with  A  file  $.ELITE  gave  an
+      extracted filename  mydisk.$.ELITE or mydisk/$_ELITE  instead of
+      mydisk.bbc.$.ELITE or mydisk.bbc.d/$.ELITE which is what happens
+      now.   DOS was  also  the main  reason  for the  option to  make
+      hostnames without  a dot as character  2, from the  bbc name, by
+      glueing  the directory  name  to the  file  name (A.ELITE  would
+      become  AELITE).  This  is not  needed except  for DOS  which is
+      really an  obsolete OS. So,  option # removed, option  @ changed
+      behaviour to keep the root dir '$'.
+    c Manpage  updated to  fix various typos  and also the  new naming
+      behaviour.  The  help <option>  function  of  course  too as  it
+      consists essentially of sections of the man page.
+    c Tested & debugged the minimise function.
+    c Much more checking in the sanity check for diskimages.
+    c Invalid arguments now show the syntax of the given option.
+    c Check there is at least 1 filename given for inf_clean, inf_crc.
+
+   Changes in 0.106 (14 may 2009)
+    c Changes to always use fprintf with a literal format string.
+
+    c Some  changes to the  archived format  function that  reads file
+      attributes.  CRC reading was  not ok  in particular  which means
+      some files weren't recognized as archive format.
+
+   Changes in 0.107 (21 may 2009)
+    c INSTALL  in  the top  Makefile is  used to  select where  to put
+      files.  By  default, this  is now in  the home directory  of the
+      user (i.e. $(HOME)/bin/ and $(HOME)/man/man1/)
+    c 2  includes in bbcimlib.c changed  from ../../archive_format/ to
+      archive_format/ as the  former only exist in the  source tree on
+      my PC in which I use symbolic links to shared files.
+    c fixed DFS -c with list, DFS -ab
+
+   Changes in 1.1 (2014-1-26)
+    c small changes in READ_ME
+    c Version number changed from 0.107 to 1.1 to signify that this is
+      the new development branch that  came after the original version
+      of which  the  last  number was 0.95b11  (which I renamed to 1.0 
+      because of its stability).
+
+   Changes in 1.2 (2016-7-28)
+    c code reorganised.
+
+    c Colour output to the console didn't work with pcc because of colour codes using \e (escape sequence) in the front end. Instead I now use my shared _ansi_console.h (which uses \033) there as I already did for a long time in the library.
+
+    c char subopties[] had 1 entry too few in prog/bbcim.c
+
+Wouter Scholten

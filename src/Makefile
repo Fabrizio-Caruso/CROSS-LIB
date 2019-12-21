@@ -1045,8 +1045,9 @@ atari_lynx:
 	-o $(BUILD_PATH)/FULL_ATARI_LYNX.lnx
 
 
-bbc_no_graphics:
-	$(CC65_PATH)$(MYCC65) -O -t bbc \
+bbc_test:
+	$(CC65_PATH)$(MYCC65) -t bbc -c \
+	-o $(BUILD_PATH)/bbc_test.o \
 	-D__BBC__ \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -1062,8 +1063,83 @@ bbc_no_graphics:
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
-	$(TINY_FILES) \
-	-o $(BUILD_PATH)/TINY_bbc_no_graphics.bin
+	$(SOURCE_PATH)/main.c
+
+TINY_OBJ ?= character.o game_text.o level.o main.o move_player.o strategy.o
+
+bbc_no_graphics:
+	$(CC65_PATH)$(MYCC65) -t bbc -c \
+	-D__BBC__ \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(TINY_FILES)
+	$(CC65_PATH)/ld65$(EXE) -t bbc \
+	--obj-path $(SOURCE_PATH) \
+	-m $(BUILD_PATH)/bbc_no_graphics.map \
+	-o $(BUILD_PATH)/bbc_no_graphics.bin \
+	$(TINY_OBJ)
+
+
+c64_no_graphics:
+	$(CC65_PATH)$(MYCC65) -t supervision -c \
+	-D__BBC__ \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(TINY_FILES)
+	$(CC65_PATH)/ld65$(EXE) -t none \
+	--obj-path $(SOURCE_PATH) \
+	-m $(BUILD_PATH)/supervision_no_graphics.map \
+	-o $(BUILD_PATH)/supervision_no_graphics.bin \
+	$(TINY_OBJ)
+
+
+none_no_graphics:
+	$(CC65_PATH)$(MYCC65) -t none -c \
+	-D__BBC__ \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(TINY_FILES)
+	$(CC65_PATH)/ld65$(EXE) -t none \
+	--obj-path $(SOURCE_PATH) \
+	-m $(BUILD_PATH)/none_no_graphics.map \
+	-o $(BUILD_PATH)/none_no_graphics.bin \
+	$(TINY_OBJ)
 
 
 

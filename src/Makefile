@@ -3226,7 +3226,7 @@ nc200:
 	
 
 attache_chars:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache -subtype=attache \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=attache \
 	$(SCCZ80_OPTS) \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
@@ -3239,7 +3239,7 @@ attache_chars:
 	rm $(BUILD_PATH)/FULL_attache_chars.bin
 
 attache:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxattache -subtype=attache \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=attache \
 	$(SCCZ80_OPTS) \
 	-D__ATTACHE__ \
 	-DFULL_GAME \
@@ -5630,8 +5630,10 @@ z88dk_test: \
 	zsdcc_test	
 	
 
-# 		
-	
+# broken : 	
+
+#OK
+
 # missing: abc800, xo7, c7420, rex
 z88dk_targets: \
 	abc80_targets \

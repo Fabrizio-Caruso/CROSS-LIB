@@ -118,6 +118,7 @@ For most targets, more than one version is built, in order to support different 
 - cpm8080: CP/M Intel 8080
 - cpm: CP/M Z80 with adm3a/vt52/vt100 terminals
 - creativision: VTech Creativision
+- cx16: Commander X16
 - dmv: Decision Mate V (work in progress)
 - dragon: Dragon 32/64
 - eg2k: EACA EG2000 Color Genie

@@ -5646,6 +5646,7 @@ z88dk_test: \
 #OK
 
 # missing: abc800, xo7, c7420, rex
+# missing 8080: m100
 z88dk_targets: \
 	abc80_targets \
 	ace_targets \
@@ -5667,8 +5668,13 @@ z88dk_targets: \
 	fp1100_targets \
 	g800_targets \
 	gal_targets \
+	hemc_targets \
+	hgmc_targets \
+	homelab2_targets \
+	homelab_targets \
 	kaypro_targets \
 	kc_targets \
+	kramermc_targets \
 	lambda_targets \
 	laser500_targets \
 	m5_targets \
@@ -5677,6 +5683,7 @@ z88dk_targets: \
 	msx_targets \
 	mtx_targets \
 	multi8_targets \
+	myvision_targets \
 	mz_targets \
 	mz2500_targets \
 	nascom_targets \
@@ -5690,12 +5697,14 @@ z88dk_targets: \
 	p2000_targets \
 	pc6001_targets \
 	pc88_targets \
+	pmd85_targets \
 	pps_targets \
 	pv1000_targets \
 	pv2000_targets \
 	px4_targets \
 	px8_targets \
 	qc10_targets \
+	rc700_targets \
 	rx78_targets \
 	samcoupe_targets \
 	sc3000_targets \
@@ -5716,6 +5725,8 @@ z88dk_targets: \
 	tiki100_targets \
 	trs80_targets \
 	ts2068_targets \
+	tvc_targets \
+	vector06c_targets \
 	vg5k_targets \
 	vz200_targets \
 	x1_targets \
@@ -6023,8 +6034,45 @@ bic_targets: \
 	bic
 	
 sv8000_targets: \
-	sv8000  
-    
+	sv8000
+
+tvc_targets: \
+	tvc
+	
+rc700_targets: \
+	rc700
+	    
+myvision_targets: \
+	myvision
+	
+kramermc_targets: \
+	kramermc
+	
+hgmc_targets: \
+	hgmc
+
+hemc_targets: \
+	hemc
+	    
+homelab2_targets: \
+	homelab2
+	
+homelab_targets: \
+	homelab
+	
+pencil2_targets: \
+	pencil2
+
+m100_targets: \
+	m100
+	
+vector06c_targets: \
+	vector06c
+	
+pmd85_targets: \
+	pmd85
+
+
 ##
 
 telestrat_targets: \
@@ -7354,7 +7402,197 @@ smc777:
 	# rm $(BUILD_PATH)/FULL_coleco_DATA.bin	
 	# rm $(BUILD_PATH)/FULL_coleco_BSS.bin		
 	
-	
+    
+pencil2:
+	$(Z88DK_PATH)$(MYZ88DK) +pencil2 $(SCCZ80_OPTS) \
+	-D__PENCIL2__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_pencil2.bin
+
+homelab2:
+	$(Z88DK_PATH)$(MYZ88DK) +homelab2 $(SCCZ80_OPTS) \
+	-D__HOMELAB2__ \
+	-DFORCE_XSIZE=40 \
+	-DFORCE_YSIZE=25 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_homelab2.bin
+
+
+homelab:
+	$(Z88DK_PATH)$(MYZ88DK) +homelab $(SCCZ80_OPTS) \
+	-D__HOMELAB__ \
+	-DFORCE_XSIZE=64 \
+	-DFORCE_YSIZE=32 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_homelab.bin
+
+
+hemc:
+	$(Z88DK_PATH)$(MYZ88DK) +hemc $(SCCZ80_OPTS) \
+	-D__HEMC__ \
+	-DFORCE_XSIZE=64 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_hemc.bin
+
+
+hgmc:
+	$(Z88DK_PATH)$(MYZ88DK) +hgmc $(SCCZ80_OPTS) \
+	-D__HGMC__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=32 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_hgmc.bin
+
+
+kramermc:
+	$(Z88DK_PATH)$(MYZ88DK) +kramermc $(SCCZ80_OPTS) \
+	-D__KRAMERMC__ \
+	-DFORCE_XSIZE=64 \
+	-DFORCE_YSIZE=16 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_kramermc.bin
+
+
+myvision:
+	$(Z88DK_PATH)$(MYZ88DK) +myvision $(SCCZ80_OPTS) \
+	-D__MYVISION__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_myvision.bin
+
+
+pmd85:
+	$(Z88DK_PATH)$(MYZ88DK) +pmd85 $(SCCZ80_OPTS) \
+	-D__PMD85__ \
+	-DFORCE_XSIZE=48 \
+	-DFORCE_YSIZE=32 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-v -lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_pmd85.bin
+
+
+rc700:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=rc700 $(SCCZ80_OPTS) \
+	-D__RC700__ \
+	-DFORCE_XSIZE=80 \
+	-DFORCE_YSIZE=25 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_rc700.bin
+
+
+m100:
+	$(Z88DK_PATH)$(MYZ88DK) +m100 $(SCCZ80_OPTS) \
+	-D__M100__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-v -lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_m100.bin
+
+
+tvc:
+	$(Z88DK_PATH)$(MYZ88DK) +tvc $(SCCZ80_OPTS) \
+	-D__TVC__ \
+	-DFORCE_XSIZE=40 \
+	-DFORCE_YSIZE=25 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_tvc.bin
+
+
+vector06c:
+	$(Z88DK_PATH)$(MYZ88DK) +vector06c $(SCCZ80_OPTS) \
+	-D__VECTOR06C__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=32 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_vector06c.bin
+
 pasopia7:
 	$(Z88DK_PATH)$(MYZ88DK) +pasopia7 $(SCCZ80_OPTS) \
 	-D__PASOPIA__ \

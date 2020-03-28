@@ -27,7 +27,7 @@
 
     #include <standard_libs.h>
 
-	#define ALT_SLEEP_SCALE 4000UL
+	#define ALT_SLEEP_SCALE 4000
 	
 	#if !defined(NO_SLEEP)
 		#  if !defined(__CMOC__)

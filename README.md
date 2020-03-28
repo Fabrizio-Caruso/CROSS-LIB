@@ -159,6 +159,7 @@ For most targets, more than one version is built, in order to support different 
 - pc88: NEC PC 8801 (work in progress)
 - pce: PCEngine
 - pet: Commodore Pet
+- pmd85: PMD85
 - pps: Peters Plus Sprinter
 - pv1000: Casio PV1000
 - pv2000: Casio PV2000
@@ -192,6 +193,7 @@ For most targets, more than one version is built, in order to support different 
 - trs80: TRS-80 Model I/III/IV
 - ts2068: Timex TS 2068
 - tvz80game: TV Z80 Game (work in progress)
+- vector06: Вектор-06Ц - Vector06c
 - vg5k: VG-5000
 - vic20: Commodore Vic 20
 - vz200: VTech VZ200

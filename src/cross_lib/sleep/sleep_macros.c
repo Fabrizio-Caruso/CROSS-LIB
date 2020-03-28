@@ -30,9 +30,9 @@
     #include <stdint.h>
 
 	#if defined(__OSIC1P__)
-		#define CYCLES 500UL
+		#define CYCLES 500
 	#else
-		#define CYCLES 1000UL
+		#define CYCLES 1000
 	#endif
 
 	void SLEEP(uint8_t sec)

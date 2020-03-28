@@ -75,31 +75,31 @@
 
 #define EXTRA_LIFE_THROUGH_POINTS 2000
 
-#define HORIZONTAL_MISSILE_BONUS 50UL
+#define HORIZONTAL_MISSILE_BONUS 50
 
-#define VERTICAL_MISSILE_BONUS 20UL
+#define VERTICAL_MISSILE_BONUS 20
 
-#define SKULL_POINTS 200UL;
+#define SKULL_POINTS 200;
 
 // Points given by extra points bonus: 
 // EXTRA_POINTS + level X EXTRA_POINTS_LEVEL_INCREASE
-#define EXTRA_POINTS 100UL 
-#define EXTRA_POINTS_LEVEL_INCREASE 5UL
+#define EXTRA_POINTS 100
+#define EXTRA_POINTS_LEVEL_INCREASE 5
 
 // If a ghost bumps into a bomb
-#define GHOST_VS_BOMBS_BONUS 25UL
+#define GHOST_VS_BOMBS_BONUS 25
 
 // Points for shooting a ghost
-#define GHOST_VS_MISSILE 10UL
+#define GHOST_VS_MISSILE 10
 
 // Extra points for the power up
-#define POWER_UP_BONUS 20UL
+#define POWER_UP_BONUS 20
 
 // Extra points for the power up
-#define GUN_BONUS 30UL
+#define GUN_BONUS 30
 
 // Points gained at the end of each level (to be multipled by level)
-#define LEVEL_BONUS 100U
+#define LEVEL_BONUS 100
 
 #if defined(WIDE) || defined(FORCE_NARROW)
 	#define NON_BOSS_SKULL_HITS 4

@@ -2708,8 +2708,7 @@ px8_chars:
 	$(FULL_FILES)
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/FULL_px8_chars.ROM	
-	
-	
+
 px8:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	$(SCCZ80_OPTS) \
@@ -5583,15 +5582,9 @@ zsdcc_test: \
 	zx81_zsdcc_test 
 
 
-#to fix
-broken_test:
-	ace_test \
-	msx_test \
-	px4_test \
-	px8_test 
-    
 sccz80_test: \
 	abc80_test \
+	ace_test \
 	aquarius_test \
 	c128_z80_test \
 	cpc_test \
@@ -5604,6 +5597,7 @@ sccz80_test: \
 	m5_test \
 	mc1000_test \
 	microbee_test \
+	msx_test \
 	mtx_test \
 	mz_test \
 	nascom_test \
@@ -5612,6 +5606,8 @@ sccz80_test: \
 	pc6001_test \
 	pps_test \
 	pv2000_test \
+	px4_test \
+	px8_test \
 	samcoupe_test \
 	sc3000_test \
 	sg1000_test \
@@ -6157,15 +6153,17 @@ m5_test:
 ace_test:
 	$(Z88DK_PATH)$(MYZ88DK) +ace \
 	-D__ACE__ \
+	-DSOUNDS \
 	-DCONIO \
+	-clib=default \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_TEST_OPTS) \
-	-clib=ansi -o test -Cz--audio -create-app \
+	-Cz--audio -create-app \
 	$(TEST_FILES)
-	cp test.wav $(BUILD_PATH)/TEST_ace_exp_16k.wav
-	rm test.wav
-	rm test.tap
-	rm test	
+	cp a.wav $(BUILD_PATH)/TEST_ace_exp_16k.wav
+	rm a.wav
+	rm a.tap
+	rm a.bin
 	
 pc6001_test:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -Cz--audio -clib=ansi -subtype=32k \
@@ -6308,37 +6306,32 @@ x1_test:
 	
 px4_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
-	-DCONIO \
-	-DNO_INIT_GRAPHICS \
-	-pragma-define:ansicolumns=40 \
-	-pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
- 	-subtype=px4ansi \
+	$(FAST_TEST_OPTS) \
 	-D__PX4__ \
-	-DNO_WAIT \
-	$(FAST_TEST_OPTS) \
-	-DCONIO \
-	-DNO_INIT_GRAPHICS \
-	-DZ88DK_PUTC4X6 \
-	-DALT_PRINT \
-	-Cz–-32k \
-	-create-app -o $(BUILD_PATH)/TEST_px4.bin \
+	-subtype=px4 -Cz--32k \
+	-create-app \
 	-vn -lndos \
-	$(CROSS_LIB_PATH)/display/alt_print/z88dk_putc4x6_alt_print.c \
+	-DALT_PRINT \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_px4.bin
+	rm a.bin
+	mv A.ROM $(BUILD_PATH)/FULL_px4.ROM		
 	
+    
+
 px8_test:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
-	-D__PX8__ \
-	-DCONIO \
-	-DNO_INIT_GRAPHICS \
-	-DCONIO_ADM3A \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px8 \
 	$(FAST_TEST_OPTS) \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-create-app -o$(BUILD_PATH)/TEST_px8.bin \
-	$(TEST_FILES)
-	rm $(BUILD_PATH)/TEST_px8.bin
+	-D__PX8__ \
+	-create-app \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	$(TEST_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c 
+	rm a.bin
+	mv A.ROM $(BUILD_PATH)/FULL_px8.ROM		
 	
 kc_test:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
@@ -6514,6 +6507,12 @@ msx_test:
 	-DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	$(FAST_TEST_OPTS) \
 	-DMEMORY_MAPPED \
+	-DUSE_MSX_BIOS \
+	-DSOUNDS -DANIMATE_PLAYER \
+	-vn \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_msx_32k.prg \
+	-DZ88DK_JOYSTICK \
 	-create-app -o $(BUILD_PATH)/TEST_msx.prg \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \

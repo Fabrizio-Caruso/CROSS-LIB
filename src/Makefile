@@ -189,6 +189,15 @@ _ACK_OPTS ?= -O6 $(INCLUDE_OPTS)
 # CC65
 # 
 
+cx16: 
+	$(CC65_PATH)$(MYCC65) -O -t cx16 \
+	-D__CX16__ \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_cx16.prg
+
 
 atari_color: 
 	$(CC65_PATH)$(MYCC65) -O -t atari \
@@ -5554,6 +5563,7 @@ cc65_targets: \
 	apple2enh_targets \
 	c64_targets \
 	c128_8502_targets \
+	cx16_targets \
 	pce_targets \
 	atari5200_targets \
 	nes_targets \
@@ -5576,7 +5586,7 @@ zsdcc_test: \
 	c128_z80_zsdcc_test \
 	mc1000_zsdcc_test \
 	spectrum_zsdcc_test \
-	svi_zsdcc_test	\
+	svi_zsdcc_test \
 	vz200_zsdcc_test \
 	vg5k_zsdcc_test \
 	zx81_zsdcc_test 
@@ -6025,6 +6035,9 @@ supervision_targets: \
 
 vic20_targets: \
 	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
+
+cx16_targets: \
+	cx16
 
 atari_targets: \
 	atari_color atari_no_color

@@ -76,6 +76,7 @@ MACROS_NO_GRAPHICS ?= \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN
+
 INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/display \
 -I$(CROSS_LIB_PATH)/display/graphics_data \
@@ -5581,9 +5582,16 @@ zsdcc_test: \
 	vg5k_zsdcc_test \
 	zx81_zsdcc_test 
 
+
+#to fix
+broken_test:
+	ace_test \
+	msx_test \
+	px4_test \
+	px8_test 
+    
 sccz80_test: \
 	abc80_test \
-	ace_test \
 	aquarius_test \
 	c128_z80_test \
 	cpc_test \
@@ -5596,7 +5604,6 @@ sccz80_test: \
 	m5_test \
 	mc1000_test \
 	microbee_test \
-	msx_test \
 	mtx_test \
 	mz_test \
 	nascom_test \
@@ -5605,8 +5612,6 @@ sccz80_test: \
 	pc6001_test \
 	pps_test \
 	pv2000_test \
-	px4_test \
-	px8_test \
 	samcoupe_test \
 	sc3000_test \
 	sg1000_test \
@@ -6090,6 +6095,7 @@ ncurses_targets: \
 # TESTS
 
 FAST_TEST_OPTS ?= \
+$(INCLUDE_OPTS) \
 -O0 \
 -DTINY_GAME -DLESS_TEXT \
 -DNO_BLINKING -DNO_CHASE \

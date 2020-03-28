@@ -7546,6 +7546,22 @@ rc700:
 	-create-app -o$(BUILD_PATH)/FULL_rc700.bin
 
 
+gb:
+	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_OPTS) \
+	-D__GB__ \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=18 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_gc.bin
+
+
 m100:
 	$(Z88DK_PATH)$(MYZ88DK) +m100 $(SCCZ80_OPTS) \
 	-D__M100__ \

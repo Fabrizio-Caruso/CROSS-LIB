@@ -7386,6 +7386,7 @@ coleco_udg:
 	rm $(BUILD_PATH)/FULL_coleco_DATA.bin	
 	rm $(BUILD_PATH)/FULL_coleco_BSS.bin	
 
+
 smc777:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=smc777 $(SCCZ80_OPTS) \
 	-D__SMC777__ \
@@ -7399,10 +7400,8 @@ smc777:
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_smc777.bin
 	rm $(BUILD_PATH)/FULL_smc777.bin
-	# rm $(BUILD_PATH)/FULL_coleco_DATA.bin	
-	# rm $(BUILD_PATH)/FULL_coleco_BSS.bin		
-	
-    
+
+
 pencil2:
 	$(Z88DK_PATH)$(MYZ88DK) +pencil2 $(SCCZ80_OPTS) \
 	-D__PENCIL2__ \
@@ -7417,6 +7416,11 @@ pencil2:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_pencil2.bin
+	rm $(BUILD_PATH)/FULL_pencil2.bin
+	rm $(BUILD_PATH)/FULL_pencil2_BSS.bin
+	rm $(BUILD_PATH)/FULL_pencil2_DATA.bin
+
+
 
 homelab2:
 	$(Z88DK_PATH)$(MYZ88DK) +homelab2 $(SCCZ80_OPTS) \
@@ -7432,6 +7436,7 @@ homelab2:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_homelab2.bin
+	rm $(BUILD_PATH)/FULL_homelab2.bin
 
 
 homelab:
@@ -7448,7 +7453,7 @@ homelab:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_homelab.bin
-
+	rm $(BUILD_PATH)/FULL_homelab.bin
 
 hemc:
 	$(Z88DK_PATH)$(MYZ88DK) +hemc $(SCCZ80_OPTS) \
@@ -7464,6 +7469,7 @@ hemc:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_hemc.bin
+	rm $(BUILD_PATH)/FULL_hemc.bin
 
 
 hgmc:
@@ -7480,6 +7486,7 @@ hgmc:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_hgmc.bin
+	rm $(BUILD_PATH)/FULL_hgmc.bin
 
 
 kramermc:
@@ -7496,6 +7503,7 @@ kramermc:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_kramermc.bin
+	rm $(BUILD_PATH)/FULL_kramermc.bin
 
 
 myvision:
@@ -7512,6 +7520,8 @@ myvision:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_myvision.bin
+	rm $(BUILD_PATH)/FULL_myvision_BSS.bin
+	rm $(BUILD_PATH)/FULL_myvision_DATA.bin
 
 
 pmd85:
@@ -7528,7 +7538,7 @@ pmd85:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_pmd85.bin
-
+	rm $(BUILD_PATH)/FULL_pmd85.bin
 
 rc700:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=rc700 $(SCCZ80_OPTS) \
@@ -7544,6 +7554,7 @@ rc700:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_rc700.bin
+	rm $(BUILD_PATH)/FULL_rc700.bin
 
 
 gb:
@@ -7592,6 +7603,7 @@ tvc:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_tvc.bin
+	rm $(BUILD_PATH)/FULL_tvc.bin
 
 
 vector06c:
@@ -7608,6 +7620,8 @@ vector06c:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_vector06c.bin
+	rm $(BUILD_PATH)/FULL_vector06c.bin
+
 
 pasopia7:
 	$(Z88DK_PATH)$(MYZ88DK) +pasopia7 $(SCCZ80_OPTS) \

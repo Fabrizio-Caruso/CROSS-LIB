@@ -130,7 +130,12 @@ For most targets, more than one version is built, in order to support different 
 - gal: Galaksija
 - gamate: Gamate
 - gx4000: Amstrad GX-4000
+- hemc: HueblerEvertMC
+- hgmc: HueblerGrafikMC
+- homelab: Homelab 4
+- homelab2: Homelab 2
 - kaypro: Kaypro 2X
+- kramermc: Kramer-MC
 - kc: Robotron KC-85/2/3/4
 - lambda: Lambda 8300
 - laser500: Laser 500
@@ -141,6 +146,7 @@ For most targets, more than one version is built, in order to support different 
 - msx: MSX
 - mtx: Memotech MTX 512
 - multi8: Mitsubishi Multi 8
+- myvision: Nichibutsu My Vision
 - mz: Sharp MZ 80/700
 - mz2500: Sharp MZ 2500
 - nascom: Nascom
@@ -158,6 +164,7 @@ For most targets, more than one version is built, in order to support different 
 - pasaopia7: Toshiba Pasopia 7 (work in progress)
 - pc88: NEC PC 8801 (work in progress)
 - pce: PCEngine
+- pencil2: Hanimex Pencil II
 - pet: Commodore Pet
 - pmd85: PMD85
 - pps: Peters Plus Sprinter
@@ -167,6 +174,7 @@ For most targets, more than one version is built, in order to support different 
 - px8: Epson PX-8/HC-80
 - qc10: Epson QC-10/QX-10 (work in progress)
 - rex: Xircom Rex 6000 (work in progress)
+- rc700: Regnecentralen RC700
 - rx78: Bandai RX-78
 - samcoupe: Sam Coupe
 - sc3000: Sega SC 3000
@@ -192,6 +200,7 @@ For most targets, more than one version is built, in order to support different 
 - to7: Thomson To7(/70)/To8/To8d/To8+/To9/To9+ (work in progress)
 - trs80: TRS-80 Model I/III/IV
 - ts2068: Timex TS 2068
+- tvc: Videoton TV Computer 
 - tvz80game: TV Z80 Game (work in progress)
 - vector06: Вектор-06Ц - Vector06c
 - vg5k: VG-5000

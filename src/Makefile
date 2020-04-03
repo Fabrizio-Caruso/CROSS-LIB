@@ -4209,8 +4209,12 @@ enterprise_buffered:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-create-app
-	mv a.app $(BUILD_PATH)/FULL_enterprise.app
+	mv a.app FULL_enterprise.app
 	rm a.bin
+	tar czvf FULL_enterprise.tar.zip FULL_enterprise.app
+	rm FULL_enterprise.app
+	mv FULL_enterprise.tar.zip $(BUILD_PATH)
+
 
 mz2500_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
@@ -5547,12 +5551,18 @@ olivetti_m20_no_graphics:
 	
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
+# xtc86 targets
+xtc68_targets: \
+	xtc68_tiny_buffered
+
+
 # KO:
 #  
 # OK: 
 #
 # No. of systems: 19
 # ------------
+
 
 cc65_targets: \
 	atari_targets \

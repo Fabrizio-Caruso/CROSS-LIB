@@ -1,0 +1,32 @@
+Tape to disk V2 README :
+
+This is a PC tool that builds a Sedoric3 master disk image (.dsk) from the files found in zero or more Oric tape images (.tap). The program is provided in both binary forms for DOS/Windows users, and in source form for unix/mac/other users.
+Beware that the disk image uses the obsolete Oric disk image format, not the one that is currently used by Euphoric. This means that you need to further convert the disk image to the new format, using the old2mfm tool.
+
+Examples of use:
+
+	tap2dsk newdisk.dsk
+	old2mfm newdisk.dsk
+
+	=> this builds an empty master Sedoric disk image
+
+	tap2dsk krillys.tap krillys.dsk
+	old2mfm krillys.dsk
+
+	=> this takes all the files in krillys.tap and stores them in a bootable Sedoric disk
+
+	tap2dsk *.tap bigdisk.dsk
+	old2mfm bigdisk.dsk
+
+	=> this takes all the files in all tape images and stores them in a bootable Sedoric disk
+
+Some remarks:
+- the size of the disk image is made as small as possible. As a minimum, it will be 21 tracks, single sided (this allows faster writing to real floppies with writedsk). When the tape image contains a lot of data, the disk image extends to up to 80 tracks. It always has 17 sectors per track, and it is always single sided. Minimal space is wasted in only 3 sectors (system sector, bitmap sector and directory sector) instead of 16 in a usual slave disk. This means that the smallest disk image (21 tracks) still offers 88.5 KB free. More directory sectors are allocated when needed.
+- a tape image may contain several files, this program will converts all of them into the disk image, provided they are in standard tape format.
+- the name of the files inside the disk images are extracted from the tape image, but as an Oric program name might be as long as 17 characters, it is truncated to 9 characters. Every non-alphanumeric character is removed (non-alphanumeric characters aren't allowed with Sedoric). Beware, tap2dsk does not provide name-collision detection, so it may generate a disk containing two files with the same name.
+- Also, an Oric program on tape might have a zero-length name. In this case, tap2dsk generates a unique name such as NONAME001.
+
+Enjoy,
+
+Fabrice
+

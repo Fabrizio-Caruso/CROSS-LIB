@@ -1,6 +1,6 @@
 TOOLS
 
-All the programs heare are third-party tools:
+All the programs here are third-party tools:
 
 - cc65/apple2
 ac.jar https://github.com/AppleCommander

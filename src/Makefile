@@ -5764,7 +5764,7 @@ atari_st_targets: \
 gcc_targets: \
 	gcc_buffered ncurses_targets  
     
-# All targets that can be compiled under CYGWIN, i.e., not including xtc68, m20
+# All targets that can be compiled under CYGWIN, i.e., not including m20
 all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets xtc68_targets
 
 clean_chase_obj:

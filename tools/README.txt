@@ -35,6 +35,9 @@ c1541.exe http://vice-emu.sourceforge.net/
 - olivetti_m20
 m20 ftp://ftp.groessler.org/pub/chris/olivetti_m20/imgtools/m20floppy-0.61.tar.gz
 
+- xtc68
+424frun1.zip  http://www.dilwyn.me.uk/c/index.html 
+
 - z88dk/abc80
 bin2bac2.exe
 dosgen

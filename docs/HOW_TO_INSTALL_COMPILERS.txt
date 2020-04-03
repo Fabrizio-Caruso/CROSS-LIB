@@ -1,0 +1,19 @@
+-------------------------------------------------------------------------------------------------------
+XTC68
+----------------------------------------
+
+1. You need to clone 
+https://github.com/stronnag/xtc68
+
+2. So you need a 32bit development environment on a x86-64 machine. 
+So, you may need to run:
+"sudo apt install libc6-dev-i386"
+or install the corresponding Cygwin package
+or just be in a 32-bit environment
+
+3. You need to unzip 
+424frun1.zip 
+(found inside the tools/xtc68 directory and originally taken from "Runtime disk1" 
+in http://www.dilwyn.me.uk/c/index.html into the "support" directory which you find inside the newly cloned code.
+4. Run "make all"
+5. Run "install.sh"

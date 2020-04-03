@@ -10,6 +10,14 @@
 	#include <stdlib.h>
 	#include <string.h>
 	#include <stdio.h>
-	#include <stdint.h>
+    #if !defined(__XTC68__)
+        #include <stdint.h>
+    #else
+        #if !defined(_STDINT)
+            #define _STDINT
+            typedef unsigned char uint8_t;
+            typedef unsigned short uint16_t;
+        #endif // _STDINT
+    #endif
 #endif
 

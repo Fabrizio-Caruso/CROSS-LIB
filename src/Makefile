@@ -100,7 +100,7 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 
 
 XTC68 ?= qcc
-XTC68_OPTS = $(INCLUDE_OPTS) -I$(SOURCE_PATH) \
+XTC68_OPTS = -D__XTC68__ $(INCLUDE_OPTS) -I$(SOURCE_PATH) \
 
 
 MYCC65 ?= cl65$(EXEEXT) $(INCLUDE_OPTS) 
@@ -5329,7 +5329,6 @@ XTC68_ALL_OPTS ?= \
 	
 
 xtc68_tiny_buffered:
-	cp $(TOOLS_PATH)/sinclair_ql/crt.o $(SOURCE_PATH)/.. 
 	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/level.c -o level.o
 	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/display/init_images.c -o init_images.o 
 	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/display/display_macros.c -o display_macros.o 
@@ -5341,10 +5340,9 @@ xtc68_tiny_buffered:
 	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/game_text.c -o game_test.o 
 	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/strategy.c -o strategy.o 
 	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/main.c -o main.o 
-	$(XTC68) $(XTC68_ALL_OPTS) crt.o \
+	$(XTC68) $(XTC68_ALL_OPTS) /usr/local/qdos/lib/crt.o \
 	level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o 
 	rm level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o
-	rm crt.o
 	mv a_out $(BUILD_PATH)/TINY_SinclairQL_buffered.out
 	
 	
@@ -5767,7 +5765,7 @@ gcc_targets: \
 	gcc_buffered ncurses_targets  
     
 # All targets that can be compiled under CYGWIN, i.e., not including xtc68, m20
-all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets
+all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets xtc68_targets
 
 clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o

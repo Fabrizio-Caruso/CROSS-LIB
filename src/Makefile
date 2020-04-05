@@ -1303,7 +1303,11 @@ aquarius_exp_4k:
 	rm _TINY_aquarius_exp_4k.caq
 	mv TINY_aquarius_exp_4k.tar.zip $(BUILD_PATH)
 
-
+aquarius_hello_world:
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi $(SCCZ80_OPTS) -vn \
+	$(SOURCE_PATH)/../test/hello_conio.c \
+	-create-app
+    
 aquarius_exp_16k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi $(SCCZ80_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \

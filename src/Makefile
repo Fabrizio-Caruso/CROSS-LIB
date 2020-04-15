@@ -7619,7 +7619,7 @@ tvc:
 
 
 zxn:
-	$(Z88DK_PATH)$(MYZ88DK) +zxn $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +zxn -clib=classic -subtype=nex $(SCCZ80_OPTS) \
 	-D__ZXN__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=24 \

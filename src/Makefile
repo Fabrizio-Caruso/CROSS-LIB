@@ -7632,6 +7632,41 @@ zxn:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_zxn.bin
+	rm $(BUILD_PATH)/FULL_zxn.bin
+	rm $(BUILD_PATH)/FULL_zxn.rom
+	rm $(BUILD_PATH)/FULL_zxn_UNASSIGNED.bin
+
+
+rc2014:
+	$(Z88DK_PATH)$(MYZ88DK) +rc2014  $(SCCZ80_OPTS) \
+	-D__ZXN__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_rc2014.bin
+
+
+yaz180:
+	$(Z88DK_PATH)$(MYZ88DK) +yaz180 $(SCCZ80_OPTS) \
+	-D__ZXN__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_yaz180.bin
 
 
 vector06c:

@@ -10,7 +10,7 @@
 	#include <stdlib.h>
 	#include <string.h>
 	#include <stdio.h>
-    #if !defined(__XTC68__)
+    #if !defined(__XTC68__) && !defined(__OLIVETTI_M20__)
         #include <stdint.h>
     #else
         #if !defined(_STDINT)

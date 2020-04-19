@@ -5516,6 +5516,7 @@ lcc1802_debug: combo.cat
 olivetti_m20_buffered:
 	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) \
 	-D__GCC_BUFFERED__ \
+	-D__OLIVETTI_M20__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \

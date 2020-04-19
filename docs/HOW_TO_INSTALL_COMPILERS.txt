@@ -24,7 +24,11 @@ Z8K-GCC
 -------------------------------------------------------------------------------------------------------
 
 0. Under Linux 64-bit, you may need to install
-libc6:i386, libncurses5:i386, and libstdc++6:i386
+libc6:i386, 
+libncurses5:i386, 
+libstdc++6:i386
+zlib1g:i386
+
 
 1. Use: z8kgcc-jan-19-2009-linux-fc9.tar
 from:
@@ -33,3 +37,7 @@ or:
 http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc-jan-19-2009-linux-fc9.tar.bz2
 
 2. Decompress it into /opt in order to have "z8k-pcos-gcc" inside /opt/z8kgcc-jan-2009/bin
+
+3. Add "/opt/z8kgcc-jan-2009/bin" to your PATH
+For example by inserting the following line in .bashrc
+export PATH="/opt/z8kgcc-jan-2009/bin:$PATH"

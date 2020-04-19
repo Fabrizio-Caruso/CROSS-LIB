@@ -1,6 +1,6 @@
 -------------------------------------------------------------------------------------------------------
 XTC68
-----------------------------------------
+-------------------------------------------------------------------------------------------------------
 
 1. You need to clone 
 https://github.com/stronnag/xtc68
@@ -17,3 +17,19 @@ or just be in a 32-bit environment
 in http://www.dilwyn.me.uk/c/index.html into the "support" directory which you find inside the newly cloned code.
 4. Run "make all"
 5. Run "install.sh"
+
+
+-------------------------------------------------------------------------------------------------------
+Z8K-GCC
+-------------------------------------------------------------------------------------------------------
+
+0. Under Linux 64-bit, you may need to install
+libc6:i386, libncurses5:i386, and libstdc++6:i386
+
+1. Use: z8kgcc-jan-19-2009-linux-fc9.tar
+from:
+ftp://ftp.groessler.org/pub/chris/olivetti_m20/misc/z8kgcc/z8kgcc-jan-19-2009.tar.bz2
+or:
+http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc-jan-19-2009-linux-fc9.tar.bz2
+
+2. Decompress it into /opt in order to have "z8k-pcos-gcc" inside /opt/z8kgcc-jan-2009/bin

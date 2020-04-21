@@ -160,6 +160,9 @@ GCC_OPTS ?= -Wpedantic -Wall $(INCLUDE_OPTS)
 ATARI_ST_CC ?= m68k-atari-mint-gcc
 ATARI_ST_OPTS ?= $(INCLUDE_OPTS)
 
+AMIGA_CC ?= m68k-amigaos-gcc
+AMIGA_OPTS ?= $(INCLUDE_OPTS)
+
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
 LC1802_OPTS ?= $(INCLUDE_ALL)
 
@@ -5192,6 +5195,25 @@ cpm_buffered:
 	# cp $(BUILD_PATH)/FULL_CPM_BUFFERED.COM $(BUILD_PATH)/CPM.COM
 	
 	
+    
+amiga_buffered:
+	$(AMIGA_CC) $(AMIGA_OPTS) \
+	-D__AMIGA__ \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=39 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+
+    
 atari_st_buffered:
 	$(ATARI_ST_CC) $(ATARI_ST_OPTS) \
 	-D__ATARI_ST__ \
@@ -5237,6 +5259,7 @@ atari_st_ncurses_turn_based:
 	-DFORCE_YSIZE=22 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO  \
+	-DNO_SLEEP  \
 	-DALT_PRINT \
 	-DNO_TITLE_LINE \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \

@@ -26,29 +26,28 @@
 #define _SLEEP_MACROS
 
     #include <standard_libs.h>
+    #define ALT_SLEEP_SCALE 4000
+    
+    #if !defined(NO_SLEEP)
+        #  if !defined(__CMOC__)
+            #include <time.h>
+            #include <unistd.h>
+            #include <stdlib.h>        
+        #else
+            #include <coco.h>
+            #include <cmoc.h>
+        #endif    
+    #endif
 
-	#define ALT_SLEEP_SCALE 4000
-	
-	#if !defined(NO_SLEEP)
-		#  if !defined(__CMOC__)
-			#include <time.h>
-			#include <unistd.h>
-			#include <stdlib.h>		
-		#else
-			#include <coco.h>
-			#include <cmoc.h>
-		#endif	
-	#endif
-
-	#  if defined(NO_SLEEP)
-		#define SLEEP(s)
-	#elif defined(MACRO_SLEEP)
-		#define SLEEP(s)  do {uint16_t ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
-	#elif defined(ALT_SLEEP)
-		void SLEEP(uint8_t s);
-	#else
-		#define SLEEP(s) sleep(s)
-	#endif
+    #if defined(NO_SLEEP)
+        #define SLEEP(s)
+    #elif defined(MACRO_SLEEP)
+        #define SLEEP(s)  do {uint16_t ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
+    #elif defined(ALT_SLEEP)
+        void SLEEP(uint8_t s);
+    #else
+        #define SLEEP(s) sleep(s)
+    #endif
 
 #endif // _SLEEP_MACROS
 

@@ -5204,6 +5204,7 @@ amiga_buffered:
 	-DFORCE_YSIZE=22 \
 	-DSTDLIB \
 	-DNO_COLOR \
+	-DNO_SLEEP \
 	-DFULL_GAME \
 	-DTURN_BASED \
 	-DBUFFERED \

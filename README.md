@@ -11,6 +11,18 @@ This is a personal project whose goal is the creation of:
 on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators. 
 The game will be the proof of concept of how flexible the library is.
 
+## THE GAME 
+The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
+You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.
+All flashing items have positive effects and can grant you some special powers. Discover the 10 items.
+If you use the gun against the skull and/or the missiles and rockets, you can unlock some special secret items.
+
+You can play the game on-line for different targets:
+
+1. MSX version: https://homebrew.file-hunter.com/index.php?id=crosschase
+2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
+3. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
+
 ## CURRENTLY SUPPORTED ARCHITECTURES
 The main goal is to get the library and game to work on most 8-bit architectures but other systems are also considered.
 
@@ -53,6 +65,7 @@ The program is written in ANSI C and currently compiled with
 - XTC68 (C68) for the Motorola 68008-based Sinclair QL (https://github.com/stronnag/xtc68),
 - Z8KGCC for the Zilog Z8000-based Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
 - "GCC for Atari ST" (http://vincent.riviere.free.fr/soft/m68k-atari-mint/),
+- "GCC for Amiga" (https://github.com/bebbo/amiga-gcc),
 - "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
 - GCC for modern 32/64-bit PC under any operating systems 
 

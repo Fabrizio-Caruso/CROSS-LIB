@@ -7608,7 +7608,10 @@ gb:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_gb.bin
-
+	rm $(BUILD_PATH)/FULL_gb.bin
+	rm $(BUILD_PATH)/FULL_gb_BSS.bin
+	rm $(BUILD_PATH)/FULL_gb_DATA.bin
+	rm $(BUILD_PATH)/FULL_gb_BANK_1F.bin
 
 m100:
 	$(Z88DK_PATH)$(MYZ88DK) +m100 $(SCCZ80_OPTS) \
@@ -7658,7 +7661,6 @@ zxn:
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_zxn.bin
 	rm $(BUILD_PATH)/FULL_zxn.bin
-	rm $(BUILD_PATH)/FULL_zxn.rom
 	rm $(BUILD_PATH)/FULL_zxn_UNASSIGNED.bin
 
 

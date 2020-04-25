@@ -5197,7 +5197,7 @@ cpm_buffered:
 	
     
 amiga_buffered:
-	$(AMIGA_CC) $(AMIGA_OPTS) \
+	$(AMIGA_CC) $(AMIGA_OPTS) -mcrt=nix13 \
 	-D__AMIGA__ \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=39 \
@@ -5213,8 +5213,8 @@ amiga_buffered:
 	-DALT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
+	mv a.out $(BUILD_PATH)/FULL_amiga_buffered.exe
 
-    
 atari_st_buffered:
 	$(ATARI_ST_CC) $(ATARI_ST_OPTS) \
 	-D__ATARI_ST__ \
@@ -5250,6 +5250,7 @@ atari_st_ncurses:
 	-lncurses
 	mv a.out $(BUILD_PATH)/FULL_atari_st_ncurses.tos
     
+
 
 atari_st_ncurses_turn_based:
 	$(ATARI_ST_CC) $(ATARI_ST_OPTS) -D__NCURSES__ \

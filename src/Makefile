@@ -5711,6 +5711,7 @@ z88dk_targets: \
 	fp1100_targets \
 	g800_targets \
 	gal_targets \
+	gb_targets \
 	hemc_targets \
 	hgmc_targets \
 	homelab2_targets \
@@ -6118,6 +6119,8 @@ vector06c_targets: \
 pmd85_targets: \
 	pmd85
 
+gb_targets: \
+	gb
 
 ##
 

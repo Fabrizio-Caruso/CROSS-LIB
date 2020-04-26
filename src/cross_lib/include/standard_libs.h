@@ -5,7 +5,11 @@
     #include <stdint.h>
     #include <stdlib.h>
 #elif defined(NO_GRAPHICS)
-	//
+    #if !defined(_STDINT)
+        #define _STDINT
+        typedef unsigned char uint8_t;
+        typedef unsigned short uint16_t;
+    #endif // _STDINT
 #else
 	#include <stdlib.h>
 	#include <string.h>

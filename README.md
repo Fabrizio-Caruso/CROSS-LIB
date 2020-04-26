@@ -236,6 +236,7 @@ For most targets, more than one version is built, in order to support different 
 - pc8086: Intel 8088/8086 PC
 - pdp: PDP 11 v7 (work in progress)
 - atari_st: Atari ST (work in progress)
+- amiga: Amiga
 
 
 ### 32-BIT versions

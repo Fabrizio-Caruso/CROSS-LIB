@@ -5238,8 +5238,11 @@ emcc_buffered:
 	-DALT_PRINT \
 	-DALT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES)
+	$(FULL_FILES) \
 	-o FULL_emcc_buffered.html
+	mv FULL_emcc_buffered.js $(BUILD_PATH)
+	mv FULL_emcc_buffered.wasm $(BUILD_PATH)
+	mv FULL_emcc_buffered.html $(BUILD_PATH)
 
 atari_st_buffered:
 	$(ATARI_ST_CC) $(ATARI_ST_OPTS) \

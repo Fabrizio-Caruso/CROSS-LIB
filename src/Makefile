@@ -163,6 +163,9 @@ ATARI_ST_OPTS ?= $(INCLUDE_OPTS)
 AMIGA_CC ?= m68k-amigaos-gcc
 AMIGA_OPTS ?= $(INCLUDE_OPTS)
 
+EM_CC ?= emcc
+EM_OPTS = $(INCLUDE_OPTS)
+
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
 LC1802_OPTS ?= $(INCLUDE_ALL)
 
@@ -5218,6 +5221,25 @@ amiga_buffered:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a.out $(BUILD_PATH)/FULL_amiga_buffered.exe
+
+emcc_buffered:
+	$(EM_CC) $(EM_OPTS)  \
+	-D__AMIGA__ \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=80 \
+	-DFORCE_YSIZE=24 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DNO_SLEEP \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DALT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	-o FULL_emcc_buffered.html
 
 atari_st_buffered:
 	$(ATARI_ST_CC) $(ATARI_ST_OPTS) \

@@ -97,7 +97,7 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 ## SUPPORTED TARGETS 
 
-(as of 2019/01/29)
+(as of 2020/04/26)
  
 ### 8-BIT versions
 
@@ -132,7 +132,7 @@ For most targets, more than one version is built, in order to support different 
 - cpm8080: CP/M Intel 8080
 - cpm: CP/M Z80 with adm3a/vt52/vt100 terminals
 - creativision: VTech Creativision
-- cx16: Commander X16
+- cx16: Commander X16 (work in progress)
 - dmv: Decision Mate V (work in progress)
 - dragon: Dragon 32/64
 - eg2k: EACA EG2000 Color Genie
@@ -143,13 +143,14 @@ For most targets, more than one version is built, in order to support different 
 - g800: Sharp PC-G800
 - gal: Galaksija
 - gamate: Gamate
+- gb: Game Boy (work in progress)
 - gx4000: Amstrad GX-4000
-- hemc: HueblerEvertMC
-- hgmc: HueblerGrafikMC
-- homelab: Homelab 4
-- homelab2: Homelab 2
+- hemc: HueblerEvertMC (work in progress)
+- hgmc: HueblerGrafikMC (work in progress)
+- homelab: Homelab 4 (work in progress)
+- homelab2: Homelab 2 (work in progress)
 - kaypro: Kaypro 2X
-- kramermc: Kramer-MC
+- kramermc: Kramer-MC (work in progress)
 - kc: Robotron KC-85/2/3/4
 - lambda: Lambda 8300
 - laser500: Laser 500
@@ -160,7 +161,7 @@ For most targets, more than one version is built, in order to support different 
 - msx: MSX
 - mtx: Memotech MTX 512
 - multi8: Mitsubishi Multi 8
-- myvision: Nichibutsu My Vision
+- myvision: Nichibutsu My Vision (work in progress)
 - mz: Sharp MZ 80/700
 - mz2500: Sharp MZ 2500
 - nascom: Nascom
@@ -180,7 +181,7 @@ For most targets, more than one version is built, in order to support different 
 - pce: PCEngine
 - pencil2: Hanimex Pencil II
 - pet: Commodore Pet
-- pmd85: PMD85
+- pmd85: PMD85 (work in progress)
 - pps: Peters Plus Sprinter
 - pv1000: Casio PV1000
 - pv2000: Casio PV2000
@@ -214,9 +215,9 @@ For most targets, more than one version is built, in order to support different 
 - to7: Thomson To7(/70)/To8/To8d/To8+/To9/To9+ (work in progress)
 - trs80: TRS-80 Model I/III/IV
 - ts2068: Timex TS 2068
-- tvc: Videoton TV Computer 
+- tvc: Videoton TV Computer (work in progress)
 - tvz80game: TV Z80 Game (work in progress)
-- vector06: Вектор-06Ц - Vector06c
+- vector06: Вектор-06Ц - Vector06c (work in progress)
 - vg5k: VG-5000
 - vic20: Commodore Vic 20
 - vz200: VTech VZ200
@@ -236,7 +237,7 @@ For most targets, more than one version is built, in order to support different 
 - pc8086: Intel 8088/8086 PC
 - pdp: PDP 11 v7 (work in progress)
 - atari_st: Atari ST (work in progress)
-- amiga: Amiga
+- amiga: Amiga (work in progress)
 
 
 ### 32-BIT versions

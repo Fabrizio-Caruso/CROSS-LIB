@@ -5195,7 +5195,11 @@ cpm_buffered:
 	# cp $(BUILD_PATH)/FULL_CPM_BUFFERED.COM $(BUILD_PATH)/CPM.COM
 	
 	
-    
+
+amiga_core_test:
+	$(AMIGA_CC) -mcrt=nix13 \
+	$(SOURCE_PATH)/../test/main_use_amiga_core.c
+
 amiga_buffered:
 	$(AMIGA_CC) $(AMIGA_OPTS) -mcrt=nix13 \
 	-D__AMIGA__ \
@@ -5528,6 +5532,7 @@ wincmoc_debug: combo.cat
 lcc1802_debug: combo.cat
 	mv combo.cat combo.c
 	$(LCC1802)  $(LC1802_OPTS) \
+	-D__LCC1802__ \
 	$(DEBUG_MACROS) \
 	combo.c
 	rm combo.c
@@ -5791,11 +5796,14 @@ ack_targets: \
 atari_st_targets: \
 	atari_st_buffered atari_st_ncurses
 
+amiga_targets: \
+	amiga_buffered
+
 gcc_targets: \
 	gcc_buffered ncurses_targets  
     
 # All targets that can be compiled under CYGWIN, i.e., not including m20
-all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets xtc68_targets
+all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets xtc68_targets amiga_targets
 
 clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o

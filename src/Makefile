@@ -6146,6 +6146,12 @@ pmd85_targets: \
 
 gb_targets: \
 	gb
+	
+mikro80_targets: \
+	mikro80
+
+primo_targets: \
+	primo
 
 ##
 
@@ -7596,6 +7602,40 @@ myvision:
 	-create-app -o$(BUILD_PATH)/FULL_myvision.bin
 	rm $(BUILD_PATH)/FULL_myvision_BSS.bin
 	rm $(BUILD_PATH)/FULL_myvision_DATA.bin
+
+
+mikro80:
+	$(Z88DK_PATH)$(MYZ88DK) +mikro80 $(SCCZ80_OPTS) \
+	-D__PMD85__ \
+	-DFORCE_XSIZE=48 \
+	-DFORCE_YSIZE=32 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-v -lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_mikro80.bin
+	rm $(BUILD_PATH)/FULL_mikro80.bin
+
+
+primo:
+	$(Z88DK_PATH)$(MYZ88DK) +primo $(SCCZ80_OPTS) \
+	-D__PMD85__ \
+	-DFORCE_XSIZE=48 \
+	-DFORCE_YSIZE=32 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-v -lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_primo.bin
+	rm $(BUILD_PATH)/FULL_primo.bin
 
 
 pmd85:

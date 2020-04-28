@@ -5746,9 +5746,11 @@ z88dk_targets: \
 	kramermc_targets \
 	lambda_targets \
 	laser500_targets \
+	m100_targets \
 	m5_targets \
 	mc1000_targets \
 	microbee_targets \
+	mikro80_targets \
 	msx_targets \
 	mtx_targets \
 	multi8_targets \
@@ -5768,6 +5770,7 @@ z88dk_targets: \
 	pc88_targets \
 	pmd85_targets \
 	pps_targets \
+	primo_targets \
 	pv1000_targets \
 	pv2000_targets \
 	px4_targets \
@@ -7606,7 +7609,7 @@ myvision:
 
 mikro80:
 	$(Z88DK_PATH)$(MYZ88DK) +mikro80 $(SCCZ80_OPTS) \
-	-D__PMD85__ \
+	-D__MIKRO80__ \
 	-DFORCE_XSIZE=48 \
 	-DFORCE_YSIZE=32 \
 	-DNO_SET_SCREEN_COLORS \
@@ -7623,7 +7626,7 @@ mikro80:
 
 primo:
 	$(Z88DK_PATH)$(MYZ88DK) +primo $(SCCZ80_OPTS) \
-	-D__PMD85__ \
+	-D__PRIMO__ \
 	-DFORCE_XSIZE=48 \
 	-DFORCE_YSIZE=32 \
 	-DNO_SET_SCREEN_COLORS \
@@ -7704,7 +7707,7 @@ m100:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_m100.bin
-
+	rm $(BUILD_PATH)/FULL_m100.bin
 
 tvc:
 	$(Z88DK_PATH)$(MYZ88DK) +tvc $(SCCZ80_OPTS) \

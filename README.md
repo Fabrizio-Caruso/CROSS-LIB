@@ -34,7 +34,7 @@ The main goal is to get the library and game to work on most 8-bit architectures
 - Zilog 80 and its derivatives
 
 ### 16-BIT ARCHITECTURES
-- Motorola 68008
+- Motorola 68000/68008
 - Zilog Z8000
 - Intel 8088/8086 
 - PDP11
@@ -97,7 +97,7 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 ## SUPPORTED TARGETS 
 
-(as of 2020/04/26)
+(as of 2020/04/28)
  
 ### 8-BIT versions
 
@@ -154,9 +154,11 @@ For most targets, more than one version is built, in order to support different 
 - kc: Robotron KC-85/2/3/4
 - lambda: Lambda 8300
 - laser500: Laser 500
+- m100: TRS-80 M100
 - m5: Sord M5
 - mc1000: CCE MC-1000
 - microbee: Microobee
+- mikro80: Mikro 80 (work in progress)
 - mo5: Thomson Mo5/Mo6/Prodest PC128 (work in progress)
 - msx: MSX
 - mtx: Memotech MTX 512
@@ -183,6 +185,7 @@ For most targets, more than one version is built, in order to support different 
 - pet: Commodore Pet
 - pmd85: PMD85 (work in progress)
 - pps: Peters Plus Sprinter
+- primo: Primo (work in progress)
 - pv1000: Casio PV1000
 - pv2000: Casio PV2000
 - px4: Epson PX-4/HC-40

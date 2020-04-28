@@ -1313,7 +1313,14 @@ aquarius_hello_world:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi $(SCCZ80_OPTS) -vn \
 	$(SOURCE_PATH)/../test/hello_conio.c \
 	-create-app
-    
+
+
+aquarius_hello_stack:
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -pragma-redirect:fputc_cons=fputc_cons_generic -pragma-output:STACKPTR=20000 $(SCCZ80_OPTS) -vn \
+	$(SOURCE_PATH)/../test/hello_fputc.c \
+	-create-app -o minimal_hello
+
+
 aquarius_exp_16k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi $(SCCZ80_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \

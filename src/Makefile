@@ -5571,6 +5571,11 @@ comx_debug : combo.cat
 	mv a.hex $(BUILD_PATH)/TINY_comx_debug.hex
 
 
+comx_hello: 
+	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
+	$(SOURCE_PATH)/../test/hwcomx.c
+
+
 lcc1802_debug : combo.cat
 	mv combo.cat combo.c
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile \

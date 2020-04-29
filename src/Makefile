@@ -5559,11 +5559,21 @@ wincmoc_debug: combo.cat
 
 # ------------------------------------------------------------------------------------------
 # LCC1802
-#    
-    
-lcc1802_debug: combo.cat
+#    -target=xr18CX
+# https://sites.google.com/site/lcc1802/downloads/Quarrantine.zip?attredirects=0&d=1
+comx_debug : combo.cat
 	mv combo.cat combo.c
-	$(LCC1802)  $(LC1802_OPTS) \
+	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
+	-D__LCC1802__ \
+	$(DEBUG_MACROS) \
+	combo.c
+	rm combo.c
+	mv a.hex $(BUILD_PATH)/TINY_comx_debug.hex
+
+
+lcc1802_debug : combo.cat
+	mv combo.cat combo.c
+	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile \
 	-D__LCC1802__ \
 	$(DEBUG_MACROS) \
 	combo.c

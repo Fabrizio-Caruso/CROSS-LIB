@@ -32,12 +32,14 @@ The main goal is to get the library and game to work on most 8-bit architectures
 - MOS 6502 and its derivatives
 - Motorola 6809 and its derivatives
 - Zilog 80 and its derivatives
+- COSMAC RCA 1802
 
 ### 16-BIT ARCHITECTURES
 - Motorola 68000/68008
 - Zilog Z8000
 - Intel 8088/8086 
 - PDP11
+- MOS 65816
 
 ### 32-BIT ARCHITECTURES
 - PowerPC
@@ -67,6 +69,7 @@ The program is written in ANSI C and currently compiled with
 - Z8KGCC for the Zilog Z8000-based Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
 - "GCC for Atari ST" (http://vincent.riviere.free.fr/soft/m68k-atari-mint/),
 - "GCC for Amiga" (https://github.com/bebbo/amiga-gcc),
+- LCC1802 (https://sites.google.com/site/lcc1802/downloads),
 - "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
 - GCC for modern 32/64-bit PC under any operating systems 
 
@@ -132,7 +135,6 @@ For most targets, more than one version is built, in order to support different 
 - cpm8080: CP/M Intel 8080
 - cpm: CP/M Z80 with adm3a/vt52/vt100 terminals
 - creativision: VTech Creativision
-- cx16: Commander X16 (work in progress)
 - dmv: Decision Mate V (work in progress)
 - dragon: Dragon 32/64
 - eg2k: EACA EG2000 Color Genie
@@ -241,6 +243,9 @@ For most targets, more than one version is built, in order to support different 
 - pdp: PDP 11 v7 (work in progress)
 - atari_st: Atari ST (work in progress)
 - amiga: Amiga (work in progress)
+- cx16: Commander X16 (work in progress)
+
+
 
 
 ### 32-BIT versions

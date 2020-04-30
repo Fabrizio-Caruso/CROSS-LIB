@@ -1382,7 +1382,6 @@ laser500:
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
-	-create-app  \
 	$(FULL_FILES)
 	mv a.bin $(BUILD_PATH)/FULL_vz500.bin
 	rm a.cas

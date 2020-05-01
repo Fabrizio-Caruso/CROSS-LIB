@@ -5562,10 +5562,16 @@ wincmoc_debug: combo.cat
 # https://sites.google.com/site/lcc1802/downloads/Quarrantine.zip?attredirects=0&d=1
 
 
-comx_hello: 
-	$(LCC1802)  -v -Wf-volatile -target=xr18CX \
+comx_hello0: 
+	$(LCC1802)  -O -Wf-volatile -target=xr18CX \
 	$(SOURCE_PATH)/../test/hwcomx.c
+	mv a.hex $(BUILD_PATH)/comx_hello0.hex
 
+
+comx_hello: 
+	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(SOURCE_PATH)/../test/hwcomx.c
+	mv a.hex $(BUILD_PATH)/comx_hello.hex
 
 comx_debug : combo.cat
 	mv combo.cat combo.c

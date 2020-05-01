@@ -1,6 +1,48 @@
 /*
     Hello World for the COMX-35
+    by Marcel van Tongoren
 */
+
+char shapes[] =
+{
+	97, // First byte is the character to shape followed by 9 bytes for the shape
+	0x00, 0xcc, 0xde, 0xed, 0xff, 0xf3, 0xed, 0xe1, 0x00,
+	98, // next character to shape
+	0x00, 0x8c, 0x9e, 0xad, 0xbf, 0xb3, 0xad, 0xa1, 0x00,
+	99,
+	0x00, 0x00, 0xcc, 0xde, 0xff, 0xde, 0xcc, 0x00, 0x00,
+};
+
+void shapechar(char * shapelocation, int number)
+{
+	asm( //shapelocation pointer is R12, number of shapes is R13
+	" ldi 0xf7\n"
+	" phi R8\n"
+	" ldi 0xfb\n"
+	" phi R9\n"
+	"$$nextshape:\n"
+	" ldi 0xC0 \n"
+	" plo R8 ; R8 = charmem pointer\n"
+	" plo r9 ; R9 = vidmem pointer\n"
+	" ldi 9 \n"
+	" plo R10 ; R10.0 = number of lines, we need to somehowe make a NTSC version for 8 lines\n"
+	" lda 12\n" 
+	" phi R10 ; R10.1 = character\n"
+	"$$nextline:\n"
+	" ghi R10\n"
+	" b1  $	; wait til video is quiet\n"
+	" str R9 ; store character in vidmem\n"
+	" inc R9\n"
+	" lda R12\n"
+	" str R8 ; store first shape line in charmem\n"
+	" inc R8\n"
+	" dec R10\n"
+	" glo R10\n"
+	" bnz $$nextline ; number of lines - 1 if not zero do next line\n"
+	" dec r13\n"
+	" glo r13\n"
+	" bnz $$nextshape\n");
+}
 
 void setvideobase(){
 	asm(" ldiReg R8,0xF800\n"
@@ -22,7 +64,7 @@ void vidstrcpy(char * vidmem,char * text){ //write to video memory
 void vidclr(char * vidmem, int vidlen){ //write 0's to video memory
 	asm( //vidmem pointer is R12, vidlen is R13
 	"$$cpy:\n"
-	" ldi 0 ;;source a 0 for clearing the screen\n"
+	" ldi 0 ;source a 0 for clearing the screen\n"
 	" b1  $	;wait til video is quiet\n"
 	" str R12 ;move the byte\n"
 	" inc R12 ;++\n"
@@ -80,15 +122,20 @@ void generatetone(int tone, int range, int volume){
 void main(){
 	char* vidmem=(char *)0xf800;
 	char key;
-	int loop, vidmemaddress;
+	unsigned int loop, vidmemaddress;
 
 	setvideobase();
 	vidclr(vidmem,24*80);
-	vidstrcpy(vidmem, "HELLO WORLD");
+	vidstrcpy(vidmem, "HELLO WORLD, abc");
+	vidmemaddress = (unsigned int) 0xf811;
+	vidchar(vidmemaddress, 0xe1); // print character a in second color scheme
+	vidchar(vidmemaddress+1, 0xe2); // print character b in second color scheme
+	vidchar(vidmemaddress+2, 0xe3); // print character c in second color scheme
+	shapechar(shapes, 3);
 
 	loop = 1;
 	vidmem = (char *)0xf828;
-	vidmemaddress = 0xf828;
+	vidmemaddress = (unsigned int) 0xf828;
 	while (1){
 		key = getkey();
 		switch (key){

@@ -1,6 +1,7 @@
 /*
     Hello World for the COMX-35
     by Marcel van Tongoren
+    modified by Fabrizio Caruso
 */
 
 

@@ -1,4 +1,5 @@
 
+// Code by Marcel van Tongeren
 void vidchar(int vidmem, int character){ //write character to vidmem location in video memory
 	asm(//vidmem pointer is R12, character is R13.0
 	" glo r13\n"

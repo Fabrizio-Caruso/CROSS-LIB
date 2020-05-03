@@ -1,3 +1,5 @@
+
+// Code by Marcel van Tongeren
 void vidclr(unsigned char * vidmem, int vidlen){ //write 0's to video memory
 	asm( //vidmem pointer is R12, vidlen is R13
 	"$$cpy:\n"

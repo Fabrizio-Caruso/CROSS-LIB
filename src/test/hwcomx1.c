@@ -3,12 +3,29 @@
     by Marcel van Tongoren
 */
 
+
+
 #define _PLAYER_DOWN_UDG              12,18,12,51,45,12,18,51,0
 #define _PLAYER_UP_UDG                12,30,12,51,45,12,18,51,0
 #define _PLAYER_LEFT_UDG              12,22,12,62,13,12,20,20,0
 #define _PLAYER_RIGHT_UDG             12,26,12,31,44,12,10,10,0
 
-char shapes[] =
+#define _PLAYER_DOWN_UDG_1              12+64,18+64,12+64,51+64,45+64,12+64,18+64,51+64,0+64
+#define _PLAYER_UP_UDG_1                12+64,30+64,12+64,51+64,45+64,12+64,18+64,51+64,0+64
+#define _PLAYER_LEFT_UDG_1              12+64,22+64,12+64,62+64,13+64,12+64,20+64,20+64,0+64
+#define _PLAYER_RIGHT_UDG_1             12+64,26+64,12+64,31+64,44+64,12+64,10+64,10+64,0+64
+
+#define _PLAYER_DOWN_UDG_2              12+128,18+128,12+128,51+128,45+128,12+128,18+128,51+128,0+128
+#define _PLAYER_UP_UDG_2                12+128,30+128,12+128,51+128,45+128,12+128,18+128,51+128,0+128
+#define _PLAYER_LEFT_UDG_2              12+128,22+128,12+128,62+128,13+128,12+128,20+128,20+128,0+128
+#define _PLAYER_RIGHT_UDG_2             12+128,26+128,12+128,31+128,44+128,12+128,10+128,10+128,0+128
+
+#define _PLAYER_DOWN_UDG_3              12+192,18+192,12+192,51+192,45+192,12+192,18+192,51+192,0+192
+#define _PLAYER_UP_UDG_3                12+192,30+192,12+192,51+192,45+192,12+192,18+192,51+192,0+192
+#define _PLAYER_LEFT_UDG_3              12+192,22+192,12+192,62+192,13+192,12+192,20+192,20+192,0+192
+#define _PLAYER_RIGHT_UDG_3             12+192,26+192,12+192,31+192,44+192,12+192,10+192,10+192,0+192
+
+unsigned char shapes[] =
 {
 	97, // First byte is the character to shape followed by 9 bytes for the shape
 	_PLAYER_DOWN_UDG,
@@ -17,10 +34,34 @@ char shapes[] =
 	99,
 	_PLAYER_RIGHT_UDG,
 	100,
-	_PLAYER_LEFT_UDG
+	_PLAYER_LEFT_UDG,
+	101, // First byte is the character to shape followed by 9 bytes for the shape
+	_PLAYER_DOWN_UDG_1,
+	102, // next character to shape
+	_PLAYER_UP_UDG_1,
+	103,
+	_PLAYER_RIGHT_UDG_1,
+	104,
+	_PLAYER_LEFT_UDG_1,
+	105, // First byte is the character to shape followed by 9 bytes for the shape
+	_PLAYER_DOWN_UDG_2,
+	106, // next character to shape
+	_PLAYER_UP_UDG_2,
+	107,
+	_PLAYER_RIGHT_UDG_2,
+	108,
+	_PLAYER_LEFT_UDG_2,
+	109, // First byte is the character to shape followed by 9 bytes for the shape
+	_PLAYER_DOWN_UDG_3,
+	110, // next character to shape
+	_PLAYER_UP_UDG_3,
+	111,
+	_PLAYER_RIGHT_UDG_3,
+	112,
+	_PLAYER_LEFT_UDG_3
 };
 
-void shapechar(char * shapelocation, int number)
+void shapechar(unsigned char * shapelocation, int number)
 {
 	asm( //shapelocation pointer is R12, number of shapes is R13
 	" ldi 0xf7\n"
@@ -58,7 +99,7 @@ void setvideobase(){
 	    " sex R2\n");
 }
 
-void vidstrcpy(char * vidmem,char * text){ //write to video memory
+void vidstrcpy(unsigned char * vidmem,char * text){ //write to video memory
 	asm(
 	"$$cpy:\n"
 	" lda R13 ;pick up input pointer\n"
@@ -68,7 +109,7 @@ void vidstrcpy(char * vidmem,char * text){ //write to video memory
 	" bnz $$cpy\n");
 }
 
-void vidclr(char * vidmem, int vidlen){ //write 0's to video memory
+void vidclr(unsigned char * vidmem, int vidlen){ //write 0's to video memory
 	asm( //vidmem pointer is R12, vidlen is R13
 	"$$cpy:\n"
 	" ldi 0 ;source a 0 for clearing the screen\n"
@@ -127,22 +168,25 @@ void generatetone(int tone, int range, int volume){
 }
 
 void main(){
-	char* vidmem=(char *)0xf800;
+	unsigned char* vidmem=(unsigned char *)0xf800;
 	char key;
 	unsigned int loop, vidmemaddress;
+    int i;
 
 	setvideobase();
 	vidclr(vidmem,24*80);
-	vidstrcpy(vidmem, "HELLO WORLD, abcd");
-	vidmemaddress = (unsigned int) 0xf811;
-	vidchar(vidmemaddress+1, 0xe1); // print character a in second color scheme
-	vidchar(vidmemaddress+3, 0xe2); // print character b in second color scheme
-	vidchar(vidmemaddress+5, 0xe3); // print character c in second color scheme
-	vidchar(vidmemaddress+7, 0xe4); // print character c in second color scheme
-	shapechar(shapes, 4);
+	vidstrcpy(vidmem, "HELLO WORLD");
+    vidstrcpy(vidmem+40, "a b c d  e f g h  i j k l  m n o p");
+	vidmemaddress = (unsigned int) 0xf800+120;
+	// vidchar(vidmemaddress+21, 0xe1); // print character a in second color scheme
+	for(i = 0;i<16;++i)
+	{
+        vidchar(vidmemaddress+i*2,0xe1+i);
+	}
+	shapechar(shapes, 16);
 
 	loop = 1;
-	vidmem = (char *)0xf828;
+	vidmem = (unsigned char *)0xf828;
 	vidmemaddress = (unsigned int) 0xf828;
 	while (1){
 		key = getkey();

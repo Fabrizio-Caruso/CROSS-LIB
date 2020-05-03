@@ -56,6 +56,10 @@
         POKE(VDP_CONTROL,(uint8_t) (addr>>8)|0x40); \
         POKE(VDP_DATA,val); \
         __asm__("cli");    
+        
+#elif defined(__COMX__)
+    void vidchar(int addr, int val);
+    #define DISPLAY_POKE(addr,val) vidchar(addr,val)
 #else
 	#define DISPLAY_POKE(addr,val) (*(uint8_t*) (addr) = (val))
 #endif

@@ -41,7 +41,11 @@
 #define _BOMB 'X'
 
 // WHITE
-#define _GHOST 'o'
+#if defined(__COMX__)
+    #define _GHOST 'O'
+#else
+    #define _GHOST 'o'
+#endif
 
 #if defined(__ALPHATRO__)
 	#define _DEAD_GHOST _GHOST
@@ -98,7 +102,6 @@
 #define _BROKEN_BRICK _BOMB	
 
 #define _SPACE ' '
-
 
 #endif // _DEFAULT_GRAPHICS_SETTINGS
 

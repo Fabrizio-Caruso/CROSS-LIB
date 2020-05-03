@@ -5600,9 +5600,9 @@ COMX_DEBUG_MACROS ?= \
 	-DNO_COLOR \
 	-DNO_CHASE \
 	-DTINY_GAME \
-	-DTURN_BASED \
 	-DNO_RANDOM_LEVEL \
-	-DNO_GRAPHICS
+	-DMEMORY_MAPPED
+
 
 comx_debug : comx_combo.cat
 	mv comx_combo.cat comx_combo.c
@@ -5610,7 +5610,6 @@ comx_debug : comx_combo.cat
 	-DFORCE_XSIZE=40 \
 	-DFORCE_YSIZE=24 \
 	-D__COMX__ \
-	-D__LCC1802__ \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
 	comx_combo.c
@@ -5621,7 +5620,6 @@ comx_debug : comx_combo.cat
 lcc1802_debug : combo.cat
 	mv combo.cat combo.c
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile \
-	-D__LCC1802__ \
 	$(DEBUG_MACROS) \
 	combo.c
 	rm combo.c

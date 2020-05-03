@@ -4,7 +4,7 @@
 #elif defined(__BBC__) && defined(NO_GRAPHICS)
     #include <stdint.h>
     #include <stdlib.h>
-#elif defined(NO_GRAPHICS)
+#elif defined(NO_GRAPHICS) || defined(__COMX__)
     #if !defined(_STDINT)
         #define _STDINT
         typedef unsigned char uint8_t;

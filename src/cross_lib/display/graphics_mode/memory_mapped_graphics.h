@@ -36,6 +36,8 @@
 #elif defined(__AQUARIUS__)
 	#define BASE_ADDR (12288+40)
 	#define COLOR_ADDR (BASE_ADDR+1024)
+#elif defined(__COMX__)
+	#define BASE_ADDR (unsigned short) 0xF800
 #endif
 
 #if defined(__MSX__)

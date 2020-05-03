@@ -168,6 +168,9 @@ void generatetone(int tone, int range, int volume){
 	settone(tonevalue);
 }
 
+#define POKE(addr,val)     (*(unsigned char*) (addr) = (val))
+
+
 void main(){
 	unsigned char* vidmem=(unsigned char *)0xf800;
 	char key;
@@ -185,6 +188,11 @@ void main(){
         vidchar(vidmemaddress+i*2,0xe1+i);
 	}
 	shapechar(shapes, 16);
+    
+    POKE(0xf800+200,0xe1);    
+    POKE(0xf800+201,0xe2);
+    POKE(0xf800+202,0xe3);    
+    POKE(0xf800+203,0xe4);
 
 	loop = 1;
 	vidmem = (unsigned char *)0xf828;

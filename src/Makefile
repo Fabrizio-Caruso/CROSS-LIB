@@ -60,7 +60,7 @@ DEBUG_MACROS ?= \
 	-DTURN_BASED \
 	-DNO_GRAPHICS \
 	-DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN 
+	-DDEFAULT_CLEAR_SCREEN 
 
 MACROS_NO_GRAPHICS ?= \
 	-D__GCC_BUFFERED__ \
@@ -75,7 +75,7 @@ MACROS_NO_GRAPHICS ?= \
 	-DNO_GRAPHICS \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN
+	-DDEFAULT_CLEAR_SCREEN
 
 INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/display \
@@ -173,15 +173,15 @@ COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME $(INCLUDE_OPTS)
 
 COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
-COCO_OPTS       ?= -O0 -Wno-const  $(INCLUDE_OPTS) -DALT_CLEAR_SCREEN -D__CMOC__ -D__COCO__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+COCO_OPTS       ?= -O0 -Wno-const  $(INCLUDE_OPTS) -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__COCO__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 DRAGON_OPTS     ?= --dragon $(COCO_OPTS)
 
-VECTREX_OPTS    ?= -O0 --vectrex $(INCLUDE_OPTS) -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+VECTREX_OPTS    ?= -O0 --vectrex $(INCLUDE_OPTS) -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-MO5_OPTS        ?= -O2 $(INCLUDE_OPTS) -DANIMATE_PLAYER -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+MO5_OPTS        ?= -O2 $(INCLUDE_OPTS) -DANIMATE_PLAYER -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-TO7_OPTS        ?= -O1 $(INCLUDE_OPTS) -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DALT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+TO7_OPTS        ?= -O1 $(INCLUDE_OPTS) -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 _ACK ?= ack
 _ACK_OPTS ?= -O6 $(INCLUDE_OPTS)
@@ -211,7 +211,7 @@ atari_color:
 	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DMEMORY_MAPPED \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
@@ -334,7 +334,7 @@ vic20_unexpanded:
 	-DMEMORY_MAPPED \
 	-DALT_HIGHSCORE \
 	-DALT_DISPLAY_STATS \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	-DROUND_ENEMIES \
 	-DSIMPLE_RANDOM_LEVEL \
@@ -465,7 +465,7 @@ vic20_exp_8k:
 	-DALT_PRINT \
 	-DNO_HINTS \
 	-DLESS_TEXT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
 	-DDANCE -DEND_SCREEN \
@@ -664,7 +664,7 @@ c16_16k_gfx:
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
 	-DC16_UNEXPANDED \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
 	-DDANCE -DEND_SCREEN \
 	-DUSE_MEMORY_BUFFERS \
@@ -808,7 +808,7 @@ nes_fx:
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
 	-DANIMATE_PLAYER \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/nes_tiles.s \
@@ -1078,7 +1078,7 @@ bbc_test:
 	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/main.c
 
 TINY_OBJ ?= character.o game_text.o level.o main.o move_player.o strategy.o
@@ -1099,7 +1099,7 @@ bbc_no_graphics:
 	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES)
 	$(CC65_PATH)/ld65$(EXE) -t bbc \
 	--obj-path $(SOURCE_PATH) \
@@ -1124,7 +1124,7 @@ c64_no_graphics:
 	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES)
 	$(CC65_PATH)/ld65$(EXE) -t none \
 	--obj-path $(SOURCE_PATH) \
@@ -1149,7 +1149,7 @@ none_no_graphics:
 	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES)
 	$(CC65_PATH)/ld65$(EXE) -t none \
 	--obj-path $(SOURCE_PATH) \
@@ -1178,7 +1178,7 @@ atari_lynx_light:
 	-DNO_PRINT \
 	-DNO_SLEEP \
 	-DTGI \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_ATARI_LYNX.lnx
@@ -1230,7 +1230,7 @@ supervision_dummy:
 	$(CC65_PATH)$(MYCC65) -O -t supervision  \
 	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
 	-DBIT_MAPPED_4_DUMMY -DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	$(SOURCE_PATH)/end_screen.c \
@@ -1244,7 +1244,7 @@ supervision:
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
 	-DBIT_MAPPED_4 \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DANIMATE_PLAYER \
 	-DNO_WAIT \
 	-DNO_SLEEP \
@@ -1296,7 +1296,7 @@ aquarius_exp_4k:
 	-DALT_PRINT \
 	-DNO_DEAD_GHOSTS \
 	-DFORCE_NARROW \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-lndos -o TINY_aquarius_exp_4k -create-app \
 	-DMEMORY_MAPPED \
@@ -1880,7 +1880,7 @@ zx81_16k_wrx_zsdcc:
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
@@ -1956,7 +1956,7 @@ msx_32k:
 	-create-app -o $(BUILD_PATH)/FULL_msx_32k.prg \
 	-DMEMORY_MAPPED \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -1975,7 +1975,7 @@ msx_32k_rom:
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/FULL_msx_32k.rom \
 	-DMEMORY_MAPPED \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
 	-DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
@@ -2701,7 +2701,7 @@ px8_broken:
 	-D__PX8__ \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-create-app \
 	$(FULL_FILES)
 	rm a.bin
@@ -2714,7 +2714,7 @@ px8_chars_ansi:
 	-D__PX8__ \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-create-app \
 	$(FULL_FILES)
 	rm a.bin
@@ -2728,7 +2728,7 @@ px8_chars:
 	-DCONIO_ADM3A_WITH_UNDEF \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-create-app \
 	$(FULL_FILES)
 	rm a.bin
@@ -2803,7 +2803,7 @@ oz_tiny_buffered:
 	-DSIMPLE_STRATEGY \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c	
 	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
@@ -2830,7 +2830,7 @@ oz_tiny:
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -2855,7 +2855,7 @@ z88_tiny_buffered:
 	-DSIMPLE_STRATEGY \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES) \
@@ -2883,7 +2883,7 @@ z88_tiny:
 	-DNO_COLOR \
 	-DFORCE_BOMBS_NUMBER=2 \
 	-DFORCE_GHOSTS_NUMBER=6 \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES) \
@@ -2908,7 +2908,7 @@ z88:
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DNO_COLOR \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
@@ -3427,7 +3427,7 @@ sos_buffered:
 	-DTURN_BASED \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-create-app \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -3444,7 +3444,7 @@ sos_tiny_buffered:
 	-DTURN_BASED \
 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-create-app \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES)
@@ -4072,7 +4072,7 @@ rex:
 	-DNO_SLEEP \
 	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_rex.bin	
 	rm $(BUILD_PATH)/FULL_rex_BSS.bin
@@ -4094,7 +4094,7 @@ rex_buffered:
 	-DNO_SLEEP \
 	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_rex_buffered.bin
 	rm $(BUILD_PATH)/FULL_rex_buffered_BSS.bin
@@ -4198,7 +4198,7 @@ aussie_buffered:
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-create-app	
@@ -4220,7 +4220,7 @@ enterprise_buffered:
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DSTDLIB \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
@@ -4256,7 +4256,7 @@ mz2500_buffered:
 	-DFORCE_NARROW \
 	-DNO_STATS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DSTDLIB \
 	-DNO_WAIT \
 	-DTURN_BASED \
@@ -4297,7 +4297,7 @@ mz2500_tiny_buffered:
 	-DFORCE_NARROW \
 	-DNO_STATS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DSTDLIB \
 	-DNO_WAIT \
 	-DTURN_BASED \
@@ -4331,7 +4331,7 @@ newbrain:
 	-DFORCE_NARROW \
 	-DNO_STATS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DSTDLIB \
 	-DNO_WAIT \
 	-DTURN_BASED \
@@ -4370,7 +4370,7 @@ test:
 	-DFORCE_NARROW \
 	-DNO_STATS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DSTDLIB \
 	-DNO_WAIT \
 	-DTURN_BASED \
@@ -4395,7 +4395,7 @@ cpm_tiny_buffered:
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES) \
 	-create-app
@@ -4903,7 +4903,7 @@ pc8086_tiny_buffered:
 	-DNO_PRINT \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES)
 	mv pc86.img $(BUILD_PATH)/TINY_pc8086_turn_based.img
 
@@ -4922,7 +4922,7 @@ cpm8080_buffered:
 	-DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -4967,7 +4967,7 @@ pc8086:
 	-DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -4993,7 +4993,7 @@ linuxppc:
 	-DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -5019,7 +5019,7 @@ linux68k:
 	-DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -5045,7 +5045,7 @@ linux386:
 	-DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -5071,7 +5071,7 @@ linuxmips:
 	-DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -5098,7 +5098,7 @@ pdp11v7_buffered:
 	-DNO_PRINT \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES)
 	mv a.out $(BUILD_PATH)/FULL_pdp11v7_turn_based.bin
 	rm $(SOURCE_PATH)/../*.o
@@ -5118,7 +5118,7 @@ pdp11v7:
 	-DNO_PRINT \
 	-DNO_WAIT \
 	-DNO_SLEEP \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES)
 	mv a.out $(BUILD_PATH)/FULL_pdp11v7.bin
 	rm $(SOURCE_PATH)/../*.o    
@@ -5195,7 +5195,7 @@ cpm_buffered:
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-create-app
@@ -5223,7 +5223,7 @@ amiga_buffered:
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a.out $(BUILD_PATH)/FULL_amiga_buffered.exe
@@ -5242,7 +5242,7 @@ emcc_buffered:
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-o FULL_emcc_buffered.html
@@ -5263,7 +5263,7 @@ atari_st_buffered:
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a.out $(BUILD_PATH)/FULL_atari_st_buffered.tos
@@ -5319,7 +5319,7 @@ gcc_buffered:
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)
@@ -5338,7 +5338,7 @@ gcc_no_print:
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DNO_RANDOM_LEVEL \
@@ -5358,7 +5358,7 @@ gcc_tiny_buffered:
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DNO_RANDOM_LEVEL \
@@ -5384,7 +5384,7 @@ XTC68_ALL_OPTS ?= \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DNO_RANDOM_LEVEL \
@@ -5484,7 +5484,7 @@ ti99_tiny_no_graphics:
 	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	$(TOOLS_PATH)/ti99/cart_header.o \
@@ -5506,7 +5506,7 @@ cc_tiny_no_graphics:
 	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES)
 	
 # ------------------------------------------------------------------------------------------
@@ -5531,6 +5531,8 @@ combo.cat:
 	$(SOURCE_PATH)/ghost.c   $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
 	$(SOURCE_PATH)/main.c \
 	> combo.cat
+
+
 
 wincmoc_debug: combo.cat 
 	mv combo.cat combo.c
@@ -5578,15 +5580,41 @@ comx_hello1:
 	$(SOURCE_PATH)/../test/hwcomx1.c
 	mv a.hex $(BUILD_PATH)/comx_hello1.hex
 
-comx_debug : combo.cat
-	mv combo.cat combo.c
+comx_combo.cat: combo.cat
+	cat \
+	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
+	combo.cat > comx_combo.cat
+	rm combo.cat
+
+COMX_DEBUG_MACROS ?= \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_WAIT \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_INPUT \
+	-DNO_PRINT \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_CHASE \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DNO_RANDOM_LEVEL \
+	-DNO_GRAPHICS
+
+comx_debug : comx_combo.cat
+	mv comx_combo.cat comx_combo.c
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
 	-DFORCE_XSIZE=40 \
 	-DFORCE_YSIZE=24 \
+	-D__COMX__ \
 	-D__LCC1802__ \
-	$(DEBUG_MACROS) \
-	combo.c
-	rm combo.c
+	-DALT_CLEAR_SCREEN \
+	$(COMX_DEBUG_MACROS) \
+	comx_combo.c
+	rm comx_combo.c
 	mv a.hex $(BUILD_PATH)/TINY_comx_debug.hex
 
 
@@ -5617,7 +5645,7 @@ olivetti_m20_buffered:
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	cp $(TOOLS_PATH)/olivetti_m20/pcos20h_empty.img FULL_m20_buffered.img
@@ -5638,7 +5666,7 @@ olivetti_m20_no_graphics:
 	-DNO_GRAPHICS \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)		
@@ -8133,7 +8161,7 @@ sms_tiny_buffered:
 	-DBUFFERED \
 	-DTURN_BASED \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SLEEP \
 	-DNO_WAIT \
 	-o $(BUILD_PATH)/TINY_sms_buffered.bin \
@@ -8161,7 +8189,7 @@ gamegear_tiny_buffered:
 	-DBUFFERED \
 	-DTURN_BASED \
 	-DALT_PRINT \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SLEEP \
 	-DNO_WAIT \
 	-o $(BUILD_PATH)/TINY_gamegear_buffered.bin \
@@ -8445,7 +8473,7 @@ gal_6k_mm:
 	-DNO_MESSAGE \
 	-DFLAT_ENEMIES \
 	-DMEMORY_MAPPED \
-	-DALT_CLEAR_SCREEN \
+	-DDEFAULT_CLEAR_SCREEN \
 	-v -lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k_mm.prg \
 	$(TINY_FILES)	
 	

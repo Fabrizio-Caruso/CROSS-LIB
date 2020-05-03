@@ -169,7 +169,7 @@ void _delete(uint8_t x, uint8_t y);
 
 
 // CLEAR SCREEN
-#  if defined(ALT_CLEAR_SCREEN)
+#  if defined(ALT_CLEAR_SCREEN) || defined(DEFAULT_CLEAR_SCREEN)
 	void CLEAR_SCREEN(void);
 #elif defined(__ATARI_LYNX__)
     #define CLEAR_SCREEN() tgi_clear()
@@ -188,9 +188,9 @@ void _delete(uint8_t x, uint8_t y);
     #else
         #include <ncurses.h>
     #endif
-	#define CLEAR_SCREEN() clear();
+	#define CLEAR_SCREEN() clear()
 #else // CONIO case
-	#define CLEAR_SCREEN() clrscr();
+	#define CLEAR_SCREEN() clrscr()
 #endif
 
 

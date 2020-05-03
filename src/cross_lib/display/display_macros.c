@@ -270,7 +270,7 @@ void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter)
 #endif
 
 
-#if defined(ALT_CLEAR_SCREEN)
+#if defined(DEFAULT_CLEAR_SCREEN)
 	void CLEAR_SCREEN(void)
 	{
 		uint8_t i;

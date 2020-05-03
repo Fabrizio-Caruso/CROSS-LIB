@@ -5529,10 +5529,17 @@ combo.cat:
 	$(CROSS_LIB_PATH)/text/text_macros.c \
 	$(SOURCE_PATH)/move_player.c \
 	$(SOURCE_PATH)/ghost.c   $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/main.c \
 	> combo.cat
 
 
+combo_rand.cat: combo.cat
+	cat \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	combo.cat \
+	> combo_rand.cat
+	rm combo.cat
 
 wincmoc_debug: combo.cat 
 	mv combo.cat combo.c
@@ -5580,12 +5587,12 @@ comx_hello1:
 	$(SOURCE_PATH)/../test/hwcomx1.c
 	mv a.hex $(BUILD_PATH)/comx_hello1.hex
 
-comx_combo.cat: combo.cat
+comx_combo.cat: combo_rand.cat
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
-	combo.cat > comx_combo.cat
-	rm combo.cat
+	combo_rand.cat > comx_combo.cat
+	rm combo_rand.cat
 
 COMX_DEBUG_MACROS ?= \
 	-D__GCC_BUFFERED__ \
@@ -5598,9 +5605,9 @@ COMX_DEBUG_MACROS ?= \
 	-DNO_PRINT \
 	-DNO_SLEEP \
 	-DNO_COLOR \
-	-DNO_CHASE \
 	-DTINY_GAME \
 	-DNO_RANDOM_LEVEL \
+	-DALT_RAND \
 	-DMEMORY_MAPPED
 
 
@@ -5617,12 +5624,13 @@ comx_debug : comx_combo.cat
 	mv a.hex $(BUILD_PATH)/TINY_comx_debug.hex
 
 
-lcc1802_debug : combo.cat
-	mv combo.cat combo.c
+lcc1802_debug : combo_rand.cat
+	mv combo_rand.cat combo_rand.c
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile \
 	$(DEBUG_MACROS) \
-	combo.c
-	rm combo.c
+	-DALT_RAND \
+	combo_rand.c
+	rm combo_rand.c
 	mv a.hex $(BUILD_PATH)/TINY_lcc1802_debug.hex
 
 # ------------------------------------------------------------------------------------------

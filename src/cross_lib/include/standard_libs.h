@@ -25,3 +25,6 @@
     #endif
 #endif
 
+#if defined(ALT_RAND)
+    int rand(void);
+#endif

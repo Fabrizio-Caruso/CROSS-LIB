@@ -43,34 +43,58 @@ void shapechar(const unsigned char * shapelocation, int number)
 
 void redefine_char(const unsigned char * shapelocation, int color)
 {
-    unsigned char colored_shape[9];
+    unsigned char colored_shape[10];
     unsigned char i;
     
+    colored_shape[0] = *shapelocation;
     for(i=1;i<9;++i)
     {
        colored_shape[i]=shapelocation[i]+color*64;
     }
+    colored_shape[9]=0;
     shapechar(colored_shape, 1);
 }
 
-#define PLAYER_DOWN_UDG              12,18,12,51,45,12,18,51
-#define PLAYER_UP_UDG                12,30,12,51,45,12,18,51
-#define PLAYER_LEFT_UDG              12,22,12,62,13,12,20,20
-#define PLAYER_RIGHT_UDG             12,26,12,31,44,12,10,10
-const unsigned char player_down[10] = {  97, PLAYER_DOWN_UDG, 0 };
-const unsigned char player_up[10] = { 98 , PLAYER_UP_UDG, 0 };
-const unsigned char player_right[10] = { 99 , PLAYER_LEFT_UDG, 0 };
-const unsigned char player_left[10] = { 100 , PLAYER_RIGHT_UDG, 0};
+#define __PLAYER_DOWN_UDG              12,18,12,51,45,12,18,51
+#define __PLAYER_UP_UDG                12,30,12,51,45,12,18,51
+#define __PLAYER_LEFT_UDG              12,22,12,62,13,12,20,20
+#define __PLAYER_RIGHT_UDG             12,26,12,31,44,12,10,10
+
+
+#define __GHOST_UDG                    33,30,33,51,33,45,33,30
+#define __SKULL_UDG                    30,33,51,33,33,18,18,12
+#define __GUN_UDG                       0,32,31,40,56,32, 0, 0
+#define __POWERUP_UDG                   0,30,51,55,51,26,18,12
+#define __BULLET_UDG                    0, 0, 4,28,14, 8, 0, 0
+#define __BOMB_UDG                     30,33,51,45,45,51,33,30
+
+const unsigned char player_down[10] = {  97, __PLAYER_DOWN_UDG, 0 };
+const unsigned char player_up[10] = { 98 , __PLAYER_UP_UDG, 0 };
+const unsigned char player_right[10] = { 99 , __PLAYER_LEFT_UDG, 0 };
+const unsigned char player_left[10] = { 100 , __PLAYER_RIGHT_UDG, 0};
+
+const unsigned char ghost[10] = { 102 , __GHOST_UDG, 0 };
+const unsigned char bomb[10] =  { 101 , __BOMB_UDG, 0};
 
 void INIT_GRAPHICS(void)
 {
-    redefine_char(player_down, 1);
-    redefine_char(player_up, 1);
-    redefine_char(player_right, 2);
-    redefine_char(player_left, 3);
+
     
 	asm(" ldiReg R8,0xF800\n"
 	    " sex R8\n"
 	    " out 7\n"
 	    " sex R2\n");
+        
+    redefine_char(player_down, 3);
+    redefine_char(player_up, 1);
+    redefine_char(player_right, 2);
+    redefine_char(player_left, 3);
+    redefine_char(ghost, 3);
+    redefine_char(bomb, 0);
+    
+    // vidchar(0xf800, 0xe1);
+    // vidchar(0xf801, 0xe2);
+    // vidchar(0xf802, 0xe3);
+    // vidchar(0xf803, 0xe4);
+    // while(1){};
 }

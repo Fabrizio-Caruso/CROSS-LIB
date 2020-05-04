@@ -11,10 +11,12 @@
 		extern Image PLAYER_RIGHT;
 		extern Image PLAYER_LEFT;	
 	#else
-		Image PLAYER_DOWN;
-		Image PLAYER_UP;
-		Image PLAYER_RIGHT;
-		Image PLAYER_LEFT;	
+        #if !defined(__LCC1802__)
+            Image PLAYER_DOWN;
+            Image PLAYER_UP;
+            Image PLAYER_RIGHT;
+            Image PLAYER_LEFT;
+        #endif
 	#endif
 #endif
 

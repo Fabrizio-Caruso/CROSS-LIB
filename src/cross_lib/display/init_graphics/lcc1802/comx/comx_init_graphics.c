@@ -76,6 +76,7 @@ const unsigned char player_left[10] = { 100 , __PLAYER_RIGHT_UDG, 0};
 const unsigned char ghost[10] = { 102 , __GHOST_UDG, 0 };
 const unsigned char bomb[10] =  { 101 , __BOMB_UDG, 0};
 
+
 void INIT_GRAPHICS(void)
 {
 
@@ -86,8 +87,8 @@ void INIT_GRAPHICS(void)
 	    " sex R2\n");
         
     redefine_char(player_down, 3);
-    redefine_char(player_up, 1);
-    redefine_char(player_right, 2);
+    redefine_char(player_up, 3);
+    redefine_char(player_right, 3);
     redefine_char(player_left, 3);
     redefine_char(ghost, 3);
     redefine_char(bomb, 0);

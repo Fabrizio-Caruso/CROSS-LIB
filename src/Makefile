@@ -5595,6 +5595,7 @@ comx_combo.cat: combo_rand.cat
 	rm combo_rand.cat
 
 COMX_DEBUG_MACROS ?= \
+	-D__LCC1802__ \
 	-DFORCE_NO_CONIO_LIB \
 	-DFORCE_XSIZE=40 \
 	-DFORCE_YSIZE=24 \
@@ -5618,6 +5619,7 @@ comx_debug : comx_combo.cat
 	-DFORCE_XSIZE=40 \
 	-DFORCE_YSIZE=24 \
 	-D__COMX__ \
+	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
 	comx_combo.c

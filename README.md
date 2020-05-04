@@ -60,16 +60,16 @@ The game and library code are  separated:
 - the APIs do not depend on the game code. Therefore it must be possible to re-use the same library for other games/programs.
 
 The program is written in ANSI C and currently compiled with 
-- CC65 for all 6502 targets (http://www.cc65.org/), 
-- SCCZ80 (from Z88DK) for most Z80 targets (https://www.z88dk.org/), 
-- ZSDCC (from Z88DK) for some Z80 targets (https://www.z88dk.org/),
-- CMOC for 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
+- CC65 for all MOS 6502 targets (http://www.cc65.org/), 
+- SCCZ80 (from Z88DK) for most Zilog 80 and Intel 8080 targets (https://www.z88dk.org/), 
+- ZSDCC (from Z88DK) for some Zilog 80 and Intel 8080 targets (https://www.z88dk.org/),
+- CMOC for Motorola 6809 targets (https://perso.b2b2c.ca/~sarrazip/dev/cmoc.html),
+- LCC1802 for COSMAC RCA 1802 targets (https://sites.google.com/site/lcc1802/downloads),
 - ACK for PC 8088/8086, CP/M Intel 8080, Linux 386/68K/PPC/MIPS, PDP11 (https://github.com/davidgiven/ack),
 - XTC68 (C68) for the Motorola 68008-based Sinclair QL (https://github.com/stronnag/xtc68),
 - Z8KGCC for the Zilog Z8000-based Olivetti M20 series (http://www.z80ne.com/m20/sections/download/z8kgcc/z8kgcc.html),
 - "GCC for Atari ST" (http://vincent.riviere.free.fr/soft/m68k-atari-mint/),
 - "GCC for Amiga" (https://github.com/bebbo/amiga-gcc),
-- LCC1802 (https://sites.google.com/site/lcc1802/downloads),
 - "GCC for TI" for the Texas TI99/4a (http://atariage.com/forums/topic/164295-gcc-for-the-ti/page-6),
 - GCC for modern 32/64-bit PC under any operating systems 
 

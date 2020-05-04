@@ -57,7 +57,16 @@
             return cgetc();
         else
             return 0;
-    
+
+    #elif defined(__COMX__)
+        asm(
+        " inp 3\n"
+        " plo R15\n"
+        " ldi 0\n"
+        " phi R15\n"
+        " Cretn\n");
+        return 0; //this statement will never be executed but it keeps the compiler happy
+
     #elif defined(__ATMOS__) || defined(__TELESTRAT__)
         #include <peekpoke.h>    
         

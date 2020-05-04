@@ -28,11 +28,12 @@ You can play the game on-line for different targets:
 The main goal is to get the library and game to work on most 8-bit architectures but other systems are also considered.
 
 ### 8-BIT ARCHITECTURES
+- COSMAC RCA 1802
 - Intel 8080 and its derivatives
 - MOS 6502 and its derivatives
 - Motorola 6809 and its derivatives
 - Zilog 80 and its derivatives
-- COSMAC RCA 1802
+
 
 ### 16-BIT ARCHITECTURES
 - Motorola 68000/68008

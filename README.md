@@ -100,7 +100,7 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 ## SUPPORTED TARGETS 
 
-(as of 2020/04/28)
+(as of 2020/05/04)
  
 ### 8-BIT versions
 
@@ -131,6 +131,7 @@ For most targets, more than one version is built, in order to support different 
 - coco: Color Computer
 - coleco: Colecovision
 - coleco_adam: Colecovision Adam (work in progress)
+- comx: COMX-35 (work in progress)
 - cpc: Amstrad CPC
 - cpm8080: CP/M Intel 8080
 - cpm: CP/M Z80 with adm3a/vt52/vt100 terminals

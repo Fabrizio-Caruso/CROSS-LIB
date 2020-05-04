@@ -58,6 +58,7 @@
         else
             return 0;
 
+    // Code by Marcel van Tongeren
     #elif defined(__COMX__)
         asm(
         " inp 3\n"

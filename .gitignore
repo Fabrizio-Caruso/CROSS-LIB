@@ -2,7 +2,8 @@ deliverables
 *.o
 *.def
 *.swp
-build
+build/*
+!build/.keepthisfile.txt
 src/experiments/*
 src/wincmoc_main.c
 src/*.asm

@@ -178,7 +178,7 @@ void main(){
     int i;
 
 	setvideobase();
-	vidclr(vidmem,24*80);
+	vidclr(vidmem,24*40);
 	vidstrcpy(vidmem, "HELLO WORLD");
     vidstrcpy(vidmem+40, "a b c d  e f g h  i j k l  m n o p");
 	vidmemaddress = (unsigned int) 0xf800+120;

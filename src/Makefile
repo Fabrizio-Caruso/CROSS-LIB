@@ -5587,6 +5587,11 @@ comx_hello1:
 	$(SOURCE_PATH)/../test/hwcomx1.c
 	mv a.hex $(BUILD_PATH)/comx_hello1.hex
 
+comx_pp_debug0: 
+	$(LCC1802) -Wf-volatile -target=xr18CX -D_FOO_DEF \
+	$(SOURCE_PATH)/../test/hwcomx_pp_debug.c
+	mv a.hex $(BUILD_PATH)/comx_pp_debug0.hex
+
 comx_combo.cat: combo_rand.cat
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
@@ -5625,6 +5630,20 @@ comx_debug : comx_combo.cat
 	comx_combo.c
 	rm comx_combo.c
 	mv a.hex $(BUILD_PATH)/TINY_comx_debug.hex
+
+comx_targets: \
+    comx_debug
+
+comx_pp_debug: 
+	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
+	-DFORCE_XSIZE=40 \
+	-DFORCE_YSIZE=24 \
+	-D__COMX__ \
+	-DANIMATE_PLAYER \
+	-DALT_CLEAR_SCREEN \
+	$(COMX_DEBUG_MACROS) \
+	$(SOURCE_PATH)/../test/comx_combo.c
+	mv a.hex $(BUILD_PATH)/comx_pp_debug.hex
 
 
 lcc1802_debug : combo_rand.cat

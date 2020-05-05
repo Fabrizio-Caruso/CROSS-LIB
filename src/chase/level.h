@@ -29,7 +29,7 @@
 
 // 		initializeCharacter(&ghosts[count], 0,(uint8_t) 0,0,&GHOST_IMAGE);
 
-#if defined(TINY_GAME) || defined(NO_DEAD_GHOSTS)
+#if defined(NO_DEAD_GHOSTS)
 	#define PLACE_DEAD_GHOST() \
 		initializeCharacter(&ghosts[count],(uint8_t) (count),(uint8_t) 1,0,&GHOST_IMAGE);	
 #else

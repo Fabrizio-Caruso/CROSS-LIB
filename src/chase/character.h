@@ -43,7 +43,7 @@ typedef struct CharacterStruct Character;
 #include "settings.h"
 
 #if defined(ANIMATE_PLAYER)
-	#define PLAYER_IMAGE PLAYER_DOWN
+	#define PLAYER_IMAGE PLAYER_DOWN_IMAGE
 #endif
 
 #define playerReachedGhosts() sameLocationAsAnyLocation(player._x, player._y, ghosts, GHOSTS_NUMBER)
@@ -69,15 +69,15 @@ void deleteCharacter(Character * characterPtr);
 //
 
 #if defined(ANIMATE_PLAYER)
-	extern Image PLAYER_LEFT;
-	extern Image PLAYER_RIGHT;
-	extern Image PLAYER_UP;
-	extern Image PLAYER_DOWN;
+	extern Image PLAYER_LEFT_IMAGE;
+	extern Image PLAYER_RIGHT_IMAGE;
+	extern Image PLAYER_UP_IMAGE;
+	extern Image PLAYER_DOWN_IMAGE;
 
-	#define SHOW_LEFT() player._imagePtr = (Image *)&PLAYER_LEFT
-	#define SHOW_RIGHT() player._imagePtr = (Image *)&PLAYER_RIGHT 
-	#define SHOW_UP() player._imagePtr = (Image *)&PLAYER_UP
-	#define SHOW_DOWN() player._imagePtr = (Image *)&PLAYER_DOWN
+	#define SHOW_LEFT() player._imagePtr = (Image *)&PLAYER_LEFT_IMAGE
+	#define SHOW_RIGHT() player._imagePtr = (Image *)&PLAYER_RIGHT_IMAGE 
+	#define SHOW_UP() player._imagePtr = (Image *)&PLAYER_UP_IMAGE
+	#define SHOW_DOWN() player._imagePtr = (Image *)&PLAYER_DOWN_IMAGE
 #else
 	#define SHOW_LEFT() { }
 	#define SHOW_RIGHT() { }

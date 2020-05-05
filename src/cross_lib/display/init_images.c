@@ -5,10 +5,10 @@
 #if !defined(ANIMATE_PLAYER)
 	extern Image PLAYER_IMAGE;
 #else
-	extern Image PLAYER_DOWN;
-	extern Image PLAYER_UP;
-	extern Image PLAYER_RIGHT;
-	extern Image PLAYER_LEFT;	
+	extern Image PLAYER_DOWN_IMAGE;
+	extern Image PLAYER_UP_IMAGE;
+	extern Image PLAYER_RIGHT_IMAGE;
+	extern Image PLAYER_LEFT_IMAGE;	
 #endif
 	
 extern Image GHOST_IMAGE;
@@ -152,10 +152,10 @@ void INIT_IMAGES(void)
 	#if !defined(NO_COLOR)
 		
 		#if defined(ANIMATE_PLAYER)
-			PLAYER_DOWN._color = _PLAYER_COLOR;
-			PLAYER_UP._color = _PLAYER_COLOR;
-			PLAYER_RIGHT._color = _PLAYER_COLOR;
-			PLAYER_LEFT._color = _PLAYER_COLOR;
+			PLAYER_DOWN_IMAGE._color = _PLAYER_COLOR;
+			PLAYER_UP_IMAGE._color = _PLAYER_COLOR;
+			PLAYER_RIGHT_IMAGE._color = _PLAYER_COLOR;
+			PLAYER_LEFT_IMAGE._color = _PLAYER_COLOR;
 		#else
 			PLAYER_IMAGE._color = _PLAYER_COLOR;
 		#endif	
@@ -198,11 +198,10 @@ void INIT_IMAGES(void)
 
 	// Set Image Data
 	#if defined(ANIMATE_PLAYER)
-		PLAYER_DOWN._imageData = _PLAYER_DOWN;
-		PLAYER_UP._imageData = _PLAYER_UP;	
-		PLAYER_RIGHT._imageData = _PLAYER_RIGHT;
-		
-		PLAYER_LEFT._imageData = _PLAYER_LEFT;	
+		PLAYER_DOWN_IMAGE._imageData = _PLAYER_DOWN;
+		PLAYER_UP_IMAGE._imageData = _PLAYER_UP;	
+		PLAYER_RIGHT_IMAGE._imageData = _PLAYER_RIGHT;
+		PLAYER_LEFT_IMAGE._imageData = _PLAYER_LEFT;	
 	#else
 		PLAYER_IMAGE._imageData = _PLAYER;			
 	#endif

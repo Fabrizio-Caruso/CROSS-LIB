@@ -6,17 +6,15 @@
 	Image PLAYER_IMAGE;
 #else
 	#if defined(USE_MEMORY_BUFFERS) || defined(USE_TINY_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
-		extern Image PLAYER_DOWN;
-		extern Image PLAYER_UP;
-		extern Image PLAYER_RIGHT;
-		extern Image PLAYER_LEFT;	
+		extern Image PLAYER_DOWN_IMAGE;
+		extern Image PLAYER_UP_IMAGE;
+		extern Image PLAYER_RIGHT_IMAGE;
+		extern Image PLAYER_LEFT_IMAGE;	
 	#else
-        #if !defined(__LCC1802__)
-            Image PLAYER_DOWN;
-            Image PLAYER_UP;
-            Image PLAYER_RIGHT;
-            Image PLAYER_LEFT;
-        #endif
+        Image PLAYER_DOWN_IMAGE;
+        Image PLAYER_UP_IMAGE;
+        Image PLAYER_RIGHT_IMAGE;
+        Image PLAYER_LEFT_IMAGE;
 	#endif
 #endif
 

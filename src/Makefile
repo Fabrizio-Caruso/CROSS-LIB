@@ -5642,7 +5642,7 @@ comx_pp_debug:
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
-	$(SOURCE_PATH)/../test/comx_combo.c
+	$(SOURCE_PATH)/../test/comx_pp_debug.c
 	mv a.hex $(BUILD_PATH)/comx_pp_debug.hex
 
 

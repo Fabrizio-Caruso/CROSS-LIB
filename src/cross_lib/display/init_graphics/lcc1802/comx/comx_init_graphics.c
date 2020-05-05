@@ -77,6 +77,14 @@ const unsigned char ghost[10] = { 102 , __GHOST_UDG, 0 };
 const unsigned char bomb[10] =  { 101 , __BOMB_UDG, 0};
 
 
+void disableinterrupt(void){
+    asm( 
+        " sex 3\n"
+        " dis\n"
+        " db 0x23\n");
+}
+
+
 void INIT_GRAPHICS(void)
 {
 
@@ -85,7 +93,8 @@ void INIT_GRAPHICS(void)
 	    " sex R8\n"
 	    " out 7\n"
 	    " sex R2\n");
-        
+    
+    
     redefine_char(player_down, 3);
     redefine_char(player_up, 3);
     redefine_char(player_right, 3);
@@ -93,9 +102,6 @@ void INIT_GRAPHICS(void)
     redefine_char(ghost, 3);
     redefine_char(bomb, 0);
     
-    // vidchar(0xf800, 0xe1);
-    // vidchar(0xf801, 0xe2);
-    // vidchar(0xf802, 0xe3);
-    // vidchar(0xf803, 0xe4);
-    // while(1){};
+    disableinterrupt();
+
 }

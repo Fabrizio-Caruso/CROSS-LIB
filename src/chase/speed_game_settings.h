@@ -15,7 +15,7 @@
 	
 	#define SKIP_MORE_DRAW \
 		if((loop&3)==1)	
-#elif defined(__ZX81__) || defined(__LAMBDA__) 
+#elif defined(__ZX81__) || defined(__LAMBDA__) || defined(__COMX__)
 	#define SKIP_DRAW \
 		if((loop&1)==1)
 	

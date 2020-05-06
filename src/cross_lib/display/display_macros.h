@@ -102,18 +102,22 @@ void _delete(uint8_t x, uint8_t y);
 
 #define WALL_COLOR COLOR_YELLOW
 
-#define DRAW_BORDERS() \
-	SET_TEXT_COLOR(WALL_COLOR); \
-	DRAW_HORIZONTAL_BORDER(0); \
-	DRAW_HORIZONTAL_BORDER(YSize-1); \
-	DRAW_VERTICAL_BORDER(0); \
-	DRAW_VERTICAL_BORDER(XSize-1); 
+#if !defined(NO_WALL)
+    #define DRAW_BORDERS() \
+        SET_TEXT_COLOR(WALL_COLOR); \
+        DRAW_HORIZONTAL_BORDER(0); \
+        DRAW_HORIZONTAL_BORDER(YSize-1); \
+        DRAW_VERTICAL_BORDER(0); \
+        DRAW_VERTICAL_BORDER(XSize-1); 
+#else
+    #define DRAW_BORDERS()
+#endif
 
 
 #define DRAW_HORIZONTAL_WALLS(length) \
-	SET_TEXT_COLOR(WALL_COLOR); \
-	DRAW_HORIZONTAL_LINE(1,YSize/2,length); \
-	DRAW_HORIZONTAL_LINE(XSize-1-length,YSize/2,length);
+    SET_TEXT_COLOR(WALL_COLOR); \
+    DRAW_HORIZONTAL_LINE(1,YSize/2,length); \
+    DRAW_HORIZONTAL_LINE(XSize-1-length,YSize/2,length);
 
 
 // PRINT AND PRINTF

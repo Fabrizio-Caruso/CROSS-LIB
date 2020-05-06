@@ -743,7 +743,6 @@ pet_8k_light:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DNO_STATS \
-	-DNO_WALL \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/LIGHT_pet_8k_less_text.prg
@@ -5639,7 +5638,7 @@ COMX_DEBUG_MACROS ?= \
 	-DMEMORY_MAPPED
 
 
-tiny_comx : tiny_comx_combo.cat
+tiny_comx: tiny_comx_combo.cat
 	mv tiny_comx_combo.cat tiny_comx_combo.c
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
 	-DFORCE_XSIZE=40 \
@@ -5654,13 +5653,14 @@ tiny_comx : tiny_comx_combo.cat
 	mv a.hex $(BUILD_PATH)/TINY_comx_debug.hex
 
 
-light_comx : light_comx_combo.cat
+light_comx: light_comx_combo.cat
 	mv light_comx_combo.cat light_comx_combo.c
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
 	-DFORCE_XSIZE=40 \
 	-DFORCE_YSIZE=24 \
 	-D__COMX__ \
 	-DLIGHT_GAME \
+	-DNO_WALL \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
@@ -5676,6 +5676,7 @@ full_comx : full_comx_combo.cat
 	-DFORCE_YSIZE=24 \
 	-D__COMX__ \
 	-DFULL_GAME \
+	-DNO_WALL \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
@@ -8691,7 +8692,6 @@ pce_light:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DNO_STATS \
-	-DNO_WALL \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/LIGHT_pce.pce
 

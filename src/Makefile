@@ -5599,6 +5599,13 @@ comx_pp_debug0:
 	$(SOURCE_PATH)/../test/hwcomx_pp_debug.c
 	mv a.hex $(BUILD_PATH)/comx_pp_debug0.hex
 
+
+comx_size_debug:
+	$(LCC1802) -Wf-volatile -target=xr18CX -D_FOO_DEF \
+	$(SOURCE_PATH)/../test/comx_size_debug.c
+	mv a.hex $(BUILD_PATH)/comx_size_debug.hex
+
+
 tiny_comx_combo.cat: tiny_combo_rand.cat
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
@@ -5702,6 +5709,7 @@ comx_pp_debug:
 	$(COMX_DEBUG_MACROS) \
 	$(SOURCE_PATH)/../test/comx_pp_debug.c
 	mv a.hex $(BUILD_PATH)/comx_pp_debug.hex
+
 
 
 lcc1802_debug : tiny_combo_rand.cat

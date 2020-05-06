@@ -6002,6 +6002,9 @@ clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/wincmoc_main.c
 	rm -rf $(SOURCE_PATH)/wincmoc_main.asm
 	rm -rf $(SOURCE_PATH)/wincmoc_main.coco.bin
+	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../light_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
 
 clean_lib_obj:
 	find -type f -name '*.o' -delete

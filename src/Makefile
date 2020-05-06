@@ -5612,6 +5612,12 @@ comx_conv_debug:
 	mv a.hex $(BUILD_PATH)/comx_conv_debug.hex
 
 
+comx_class:
+	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(SOURCE_PATH)/../test/comx_class.c
+	mv a.hex $(BUILD_PATH)/comx_class.hex
+
+
 tiny_comx_combo.cat: tiny_combo_rand.cat
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \

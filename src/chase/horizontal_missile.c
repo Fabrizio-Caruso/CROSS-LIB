@@ -37,7 +37,7 @@ extern uint8_t arrowYPosition;
 				{
 					if(player._x>=leftHorizontalMissile._x)
 					{
-						moveCharacter((uint8_t *)&leftHorizontalMissile+Y_MOVE, (uint8_t *)&player+Y_MOVE);			
+						(void) moveCharacter((uint8_t *)&leftHorizontalMissile+Y_MOVE, (uint8_t *)&player+Y_MOVE);			
 					}
 				}
 			}
@@ -67,7 +67,7 @@ extern uint8_t arrowYPosition;
 				{
 					if(player._x<= rightHorizontalMissile._x)	
 					{
-						moveCharacter((uint8_t *)&rightHorizontalMissile+Y_MOVE, (uint8_t *)&player+Y_MOVE);			
+						(void) moveCharacter((uint8_t *)&rightHorizontalMissile+Y_MOVE, (uint8_t *)&player+Y_MOVE);			
 					}
 				}
 			}

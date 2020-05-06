@@ -68,7 +68,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
         }
         else
         {
-            moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
+            (void) moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
                           (uint8_t *)preyPtr + Y_MOVE);
         }
     }
@@ -82,7 +82,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
         }
         else
         {
-            moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
+            (void) moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
                           (uint8_t *)preyPtr + X_MOVE);
         }
     }
@@ -110,7 +110,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
     {
         uint8_t offset = (uint8_t) rand()&1;
         
-        moveCharacter((uint8_t *)hunterPtr + offset, 
+        (void) moveCharacter((uint8_t *)hunterPtr + offset, 
                       (uint8_t *)preyPtr + offset);
     }    
 #else
@@ -118,7 +118,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
     {
         uint8_t offset = (uint8_t) rand()&1;
         
-        moveCharacter((uint8_t *)hunterPtr + offset,
+        (void) moveCharacter((uint8_t *)hunterPtr + offset,
                       (uint8_t *)(&player) + offset);
     }
 #endif

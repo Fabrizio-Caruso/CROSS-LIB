@@ -120,7 +120,7 @@
 	
 	uint8_t ghostCount; // = GHOSTS_NUMBER;
 	
-	uint8_t ind;	
+	uint8_t ind;
 	
 #endif
 
@@ -138,11 +138,11 @@
 
 		extern Character leftHorizontalMissile;
 		extern Character rightHorizontalMissile;
-		extern Character chasingBullet;		
+		extern Character chasingBullet;
 
 		extern Character * chasedEnemyPtr;
 		extern Character * chasedByGhosts;
-		extern uint8_t rockets_x[];	
+		extern uint8_t rockets_x[];
 
 		extern uint8_t extraLife_present_on_level;
 		extern uint8_t super_present_on_level;

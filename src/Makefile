@@ -5391,7 +5391,7 @@ XTC68_ALL_OPTS ?= \
 	
 	
 
-xtc68_tiny_buffered:
+sinclair_ql_tiny_buffered:
 	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/level.c -o level.o
 	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/display/init_images.c -o init_images.o 
 	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/display/display_macros.c -o display_macros.o 
@@ -5773,8 +5773,8 @@ olivetti_m20_no_graphics:
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 # xtc86 targets
-xtc68_targets: \
-	xtc68_tiny_buffered
+sinclair_ql_targets: \
+	sinclair_ql_tiny_buffered
 
 
 # KO:
@@ -5995,7 +5995,7 @@ gcc_targets: \
 	gcc_buffered ncurses_targets  
     
 # All targets that can be compiled under CYGWIN, i.e., not including m20
-all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets xtc68_targets amiga_targets
+all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets sinclair_ql_targets amiga_targets
 
 clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o

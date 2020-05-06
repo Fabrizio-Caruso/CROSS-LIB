@@ -5571,21 +5571,6 @@ wincmoc_debug: tiny_combo_rand.cat
 	tiny_combo_rand.c
 	$(WINCMOC_DIR)lwasm.exe -f obj -o tiny_combo_rand.o tiny_combo_rand.asm
 
-# lwasm -f obj -o "C:/cmoc-win32/examples/helloworld_.o" "C:/cmoc-win32/examples/helloworld_.asm"
-#Coco the clown says you look funnier than my left nostrel
-# // Compilation complete
-#C:/cmoc-win32/bin/cmoc2.exe -o,C:\cmoc-win32\examples\helloworld_.coco.bin,-t,coco,--org,10240,C:\cmoc-win32\examples\helloworld_.o
-# > lwar --create "C:/Users/Brizio/AppData/Local/Temp/libmain [275C,0].a" "C:/cmoc-win32/examples/helloworld_.o"
-# > lwlink -o "C:/cmoc-win32/examples/helloworld_.coco.bin" -L "C:/cmoc-win32/lib/" -L "C:/Users/Brizio/AppData/Local/Temp/" -l "main [275C,0]" -l all -f decb -s "C:/cmoc-win32/lib/linkscript.txt" -m "C:/Users/Brizio/AppData/Local/Temp/lwlinkmap [275C,1].txt" "C:/cmoc-win32/lib/program_start.o" "C:/cmoc-win32/lib/program_end.o"
-# > lwasm -f obj -o "C:/Users/Brizio/AppData/Local/Temp/INITGL [275C,2].o" "C:/Users/Brizio/AppData/Local/Temp/INITGL [275C,2].asm"
-# > lwar --add "C:/Users/Brizio/AppData/Local/Temp/libmain [275C,0].a" "C:/Users/Brizio/AppData/Local/Temp/INITGL [275C,2].o"
-# > lwlink -o "C:/cmoc-win32/examples/helloworld_.coco.bin" -L "C:/cmoc-win32/lib/" -L "C:/Users/Brizio/AppData/Local/Temp/" -l "main [275C,0]" -l all -f decb -s "C:/cmoc-win32/lib/linkscript.txt" -m "C:/Users/Brizio/AppData/Local/Temp/lwlinkmap [275C,1].txt" "C:/cmoc-win32/lib/program_start.o" "C:/cmoc-win32/lib/program_end.o"
-# output="C:/cmoc-win32/examples/helloworld_.coco.bin" target="coco" origin=$2800(10240) finish=$37C7(14279) length=$0FC7(4039)
-#Coco the clown says all the other clowns at clown school kept kicking my bottom
-# // Build complete
-# // Running Vcc emulator
-#C:/cmoc-win32/vcc/Vcc.exe C:\Users\Brizio\AppData\Local\Temp\cmocide.bin             
-	
 
 
 # ------------------------------------------------------------------------------------------
@@ -5701,7 +5686,10 @@ full_comx : full_comx_combo.cat
 
 tiny_comx_debug: tiny_comx
 
-comx_targets: tiny_comx light_comx full_comx
+comx_targets: 
+	make tiny_comx 
+	make light_comx 
+	make full_comx
 
 comx_pp_debug: 
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \

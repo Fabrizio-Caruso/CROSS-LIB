@@ -5641,7 +5641,6 @@ COMX_DEBUG_MACROS ?= \
 	-DNO_COLOR \
 	-DNO_RANDOM_LEVEL \
 	-DALT_RAND \
-	-DSIMPLE_STRATEGY \
 	-DMEMORY_MAPPED
 
 
@@ -5656,7 +5655,7 @@ tiny_comx: tiny_comx_combo.cat
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
 	tiny_comx_combo.c
-	rm tiny_comx_combo.c
+	# rm tiny_comx_combo.c
 	mv a.hex $(BUILD_PATH)/TINY_comx_debug.hex
 
 
@@ -5672,7 +5671,7 @@ light_comx: light_comx_combo.cat
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
 	light_comx_combo.c
-	rm light_comx_combo.c
+	# rm light_comx_combo.c
 	mv a.hex $(BUILD_PATH)/LIGHT_comx_debug.hex
 
 
@@ -5688,7 +5687,7 @@ full_comx : full_comx_combo.cat
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
 	full_comx_combo.c
-	rm full_comx_combo.c
+	# rm full_comx_combo.c
 	mv a.hex $(BUILD_PATH)/FULL_comx_debug.hex
 
 

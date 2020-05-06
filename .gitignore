@@ -17,6 +17,7 @@ src/wincmoc_graphics.c
 ./map.txt
 *.stackdump
 src/wincmoc_tmp.c
+src/*combo.c
 *.lst
 tools/EDIP1e/xchase.DSK
 src/cross_lib/display/*.s

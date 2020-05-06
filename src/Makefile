@@ -5520,7 +5520,7 @@ sdcc_display_macros:
 # WINCMOC
 #
 	
-combo.cat:
+tiny_combo.cat:
 	cat \
 	$(SOURCE_PATH)/level.c \
 	$(CROSS_LIB_PATH)/display/init_images.c \
@@ -5531,22 +5531,22 @@ combo.cat:
 	$(SOURCE_PATH)/ghost.c   $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
 	$(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/main.c \
-	> combo.cat
+	> tiny_combo.cat
 
 
-combo_rand.cat: combo.cat
+tiny_combo_rand.cat: tiny_combo.cat
 	cat \
 	$(CROSS_LIB_PATH)/rand/rand.c \
-	combo.cat \
-	> combo_rand.cat
-	rm combo.cat
+	tiny_combo.cat \
+	> tiny_combo_rand.cat
+	rm tiny_combo.cat
 
-wincmoc_debug: combo.cat 
-	mv combo.cat combo.c
+wincmoc_debug: tiny_combo_rand.cat 
+	mv tiny_combo_rand.cat tiny_combo_rand.c
 	$(WINCMOC_DIR)cmoc.exe  $(INCLUDE_ALL) $(WINCMOC_OPTS) \
 	$(DEBUG_MACROS) \
-	combo.c
-	$(WINCMOC_DIR)lwasm.exe -f obj -o combo.o combo.asm
+	tiny_combo_rand.c
+	$(WINCMOC_DIR)lwasm.exe -f obj -o tiny_combo_rand.o tiny_combo_rand.asm
 
 # lwasm -f obj -o "C:/cmoc-win32/examples/helloworld_.o" "C:/cmoc-win32/examples/helloworld_.asm"
 #Coco the clown says you look funnier than my left nostrel
@@ -5592,12 +5592,12 @@ comx_pp_debug0:
 	$(SOURCE_PATH)/../test/hwcomx_pp_debug.c
 	mv a.hex $(BUILD_PATH)/comx_pp_debug0.hex
 
-comx_combo.cat: combo_rand.cat
+tiny_comx_combo.cat: tiny_combo_rand.cat
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
-	combo_rand.cat > comx_combo.cat
-	rm combo_rand.cat
+	tiny_combo_rand.cat > tiny_comx_combo.cat
+	rm tiny_combo_rand.cat
 
 COMX_DEBUG_MACROS ?= \
 	-D__LCC1802__ \
@@ -5618,8 +5618,8 @@ COMX_DEBUG_MACROS ?= \
 	-DMEMORY_MAPPED
 
 
-comx_debug : comx_combo.cat
-	mv comx_combo.cat comx_combo.c
+tiny_comx_debug : tiny_comx_combo.cat
+	mv tiny_comx_combo.cat tiny_comx_combo.c
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
 	-DFORCE_XSIZE=40 \
 	-DFORCE_YSIZE=24 \
@@ -5627,12 +5627,12 @@ comx_debug : comx_combo.cat
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
-	comx_combo.c
-	rm comx_combo.c
+	tiny_comx_combo.c
+	rm tiny_comx_combo.c
 	mv a.hex $(BUILD_PATH)/TINY_comx_debug.hex
 
 comx_targets: \
-    comx_debug
+    tiny_comx_debug
 
 comx_pp_debug: 
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
@@ -5646,13 +5646,13 @@ comx_pp_debug:
 	mv a.hex $(BUILD_PATH)/comx_pp_debug.hex
 
 
-lcc1802_debug : combo_rand.cat
-	mv combo_rand.cat combo_rand.c
+lcc1802_debug : tiny_combo_rand.cat
+	mv tiny_combo_rand.cat tiny_combo_rand.c
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile \
 	$(DEBUG_MACROS) \
 	-DALT_RAND \
-	combo_rand.c
-	rm combo_rand.c
+	tiny_combo_rand.c
+	rm tiny_combo_rand.c
 	mv a.hex $(BUILD_PATH)/TINY_lcc1802_debug.hex
 
 # ------------------------------------------------------------------------------------------

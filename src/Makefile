@@ -5606,6 +5606,12 @@ comx_size_debug:
 	mv a.hex $(BUILD_PATH)/comx_size_debug.hex
 
 
+comx_conv_debug:
+	$(LCC1802) -S -Wf-volatile -target=xr18CX \
+	$(SOURCE_PATH)/../test/comx_conv_debug.c
+	mv a.hex $(BUILD_PATH)/comx_conv_debug.hex
+
+
 tiny_comx_combo.cat: tiny_combo_rand.cat
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \

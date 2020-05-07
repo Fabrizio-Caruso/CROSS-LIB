@@ -5630,6 +5630,12 @@ comx_simplest_class:
 	mv a.hex $(BUILD_PATH)/comx_simplest_class.hex
 
 
+comx_pointer2func:
+	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(SOURCE_PATH)/../test/comx_pointer2func.c
+	mv a.hex $(BUILD_PATH)/comx_pointer2func.hex
+
+
 tiny_comx_combo.cat: tiny_combo_rand.cat
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \

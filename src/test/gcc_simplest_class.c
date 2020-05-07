@@ -6,7 +6,6 @@
 
 struct ClassStruct
 {
-    int data;
     void (*method_t)(void);
 };
 typedef struct ClassStruct class_t;

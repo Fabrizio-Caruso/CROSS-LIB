@@ -20,7 +20,6 @@ void vidstrcpy(unsigned int vidmem,char * text){ //write to video memory
 
 struct ClassStruct
 {
-    int data;
     void (*method_t)(void);
 };
 
@@ -37,14 +36,10 @@ void _print_42(void)
 int main()
 {
     class_t foo;
-
     setvideobase(vidmem);
 
     foo.method_t = _print_42;
-    
     foo.method_t();
-    
-
 
     return 0;
 }

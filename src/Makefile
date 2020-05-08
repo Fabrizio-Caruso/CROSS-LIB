@@ -5606,6 +5606,13 @@ comx_hello_integer:
 	$(SOURCE_PATH)/../test/comx_hello_integer.c
 	mv a.hex $(BUILD_PATH)/comx_hello_integer.hex
 
+
+comx_mod: 
+	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(SOURCE_PATH)/../test/comx_mod.c
+	mv a.hex $(BUILD_PATH)/comx_mod.hex
+
+
 comx_pp_debug0: 
 	$(LCC1802) -Wf-volatile -target=xr18CX -D_FOO_DEF \
 	$(SOURCE_PATH)/../test/hwcomx_pp_debug.c

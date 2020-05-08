@@ -174,6 +174,32 @@ extern Character player;
             }
             #endif            
         }
+    #elif defined(LCC1802_JOYSTICK)
+        void movePlayerByJoystick(uint8_t joyInput)
+        {
+            if(joyInput == 0x82)
+            {
+                _DO_MOVE_UP
+            }
+            else if(joyInput == 0x85)
+            {
+                _DO_MOVE_DOWN
+            }
+            else if(joyInput == 0x84)
+            {
+                _DO_MOVE_LEFT
+            }
+            else if(joyInput == 0x83)
+            {
+                _DO_MOVE_RIGHT
+            }
+            #if !defined(TINY_GAME)
+            else if((joyInput == 0x5f) && guns>0 && !bullet._status)
+            {
+                playerFire = 1;
+            }
+            #endif            
+        }
     #else
         #include <joystick.h>
         
@@ -259,6 +285,8 @@ extern Character player;
         #include <arch/sms/SMSLib.h>
         
         #define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
+    #elif defined(__COMX__)
+        #define JOY_INPUT() GET_CHAR()
     #else
         #define JOY_INPUT() joy_read(JOY_1)
     #endif    

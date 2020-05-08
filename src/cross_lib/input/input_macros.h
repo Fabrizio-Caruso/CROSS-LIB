@@ -59,7 +59,7 @@
                 stick = 3; \
             }            
         #endif
-	#elif defined(__SMS__)
+	#elif defined(__SMS__) || defined(__LCC1802__)
 		#define INIT_INPUT()
 	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200
 		#include <joystick.h>

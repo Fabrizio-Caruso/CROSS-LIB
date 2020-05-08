@@ -5697,6 +5697,7 @@ tiny_comx: tiny_comx_combo.cat
 	-DFORCE_YSIZE=21 \
 	-D__COMX__ \
 	-DTINY_GAME \
+	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
@@ -5710,6 +5711,7 @@ light_comx: light_comx_combo.cat
 	$(LCC1802)  $(LC1802_OPTS) "-target=xr18CX" "-Wf-g,;"  "-Wf-volatile"  \
 	-D__COMX__ \
 	-DLIGHT_GAME \
+	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
@@ -5723,6 +5725,7 @@ full_comx : full_comx_combo.cat
 	$(LCC1802)  $(LC1802_OPTS) "-target=xr18CX" "-Wf-g,;"  "-Wf-volatile"  \
 	-D__COMX__ \
 	-DFULL_GAME \
+	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \

@@ -33,7 +33,7 @@
 #endif
         
 
-#if defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB)
+#if defined(__COMX__) || (defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB))
     char GET_CHAR(void)
     {
     #  if defined(NO_INPUT)
@@ -73,29 +73,6 @@
         " phi R15\n"
         " Cretn\n");
         return 0; //this statement will never be executed but it keeps the compiler happy
-        // asm(
-        // " bn3 $$nokey ;check if key pressed\n"
-        // " inp 3\n"
-        // " lskp\n"
-        // "$$nokey:\n"
-        // " ldi 0\n"
-        // " plo R15\n"
-        // " ldi 0\n"
-        // " phi R15\n"
-        // " Cretn\n");
-        // return 0; //this statement will never be executed but it keeps the compiler happy
-        // asm(
-        // " ldiReg R8,0x41A3\n"
-        // " ldn R8\n"
-        // " plo R15\n"
-        // " bz  $$nokey\n"
-        // " ldi 0\n"
-        // " str R8\n"
-        // "$$nokey:\n"
-        // " phi R15\n"
-        // " Cretn\n");
-        // return 0; //this statement will never be executed but it keeps the compiler happy
-
     #elif defined(__ATMOS__) || defined(__TELESTRAT__)
         #include <peekpoke.h>    
         

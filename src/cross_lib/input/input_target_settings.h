@@ -17,7 +17,11 @@
 	#define _MOVE_DOWN 'k'
 	#define _MOVE_LEFT 'j'
 	#define _MOVE_RIGHT 'l'
-	#define _FIRE ' '		
+    #if !defined(__COMX__)
+        #define _FIRE ' '		
+    #else
+        #define _FIRE 0x5f 
+    #endif
 #endif
 
 

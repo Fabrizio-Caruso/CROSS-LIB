@@ -167,7 +167,10 @@ EM_CC ?= emcc
 EM_OPTS = $(INCLUDE_OPTS)
 
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
-LC1802_OPTS ?= $(INCLUDE_ALL)
+#/cygdrive/c/lcc42/bat/caCX.bat
+#/cygdrive/c/lcc42/bin/lcc.exe
+LCC1802_OPTS ?= $(INCLUDE_ALL)
+LCC1802_COMPILER_OPTS ?= -Wf-volatile -target=xr18CX
 
 COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME $(INCLUDE_OPTS)
 
@@ -5579,90 +5582,90 @@ wincmoc_debug: tiny_combo_rand.cat
 
 
 comx_hello0: 
-	$(LCC1802)  -O -Wf-volatile -target=xr18CX \
+	$(LCC1802)  $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx.c
 	mv a.hex $(BUILD_PATH)/comx_hello0.hex
 
 
 comx_hello: 
-	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx.c
 	mv a.hex $(BUILD_PATH)/comx_hello.hex
 
 
 comx_hello1: 
-	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx1.c
 	mv a.hex $(BUILD_PATH)/comx_hello1.hex
 
 
 comx_hello2: 
-	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx2.c
 	mv a.hex $(BUILD_PATH)/comx_hello2.hex
 
 comx_hello_integer: 
-	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/comx_hello_integer.c
 	mv a.hex $(BUILD_PATH)/comx_hello_integer.hex
 
 
 comx_gotoxy: 
-	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx_gotoxy.c
 	mv a.hex $(BUILD_PATH)/hwcomx_gotoxy.hex
 
 
 comx_gotoxy2: 
-	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx_gotoxy2.c
 	mv a.hex $(BUILD_PATH)/hwcomx_gotoxy2.hex
 
 
 comx_mod: 
-	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/comx_mod.c
 	mv a.hex $(BUILD_PATH)/comx_mod.hex
 
 
 comx_pp_debug0: 
-	$(LCC1802) -Wf-volatile -target=xr18CX -D_FOO_DEF \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) -D_FOO_DEF \
 	$(SOURCE_PATH)/../test/hwcomx_pp_debug.c
 	mv a.hex $(BUILD_PATH)/comx_pp_debug0.hex
 
 
 comx_size_debug:
-	$(LCC1802) -Wf-volatile -target=xr18CX -D_FOO_DEF \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) -D_FOO_DEF \
 	$(SOURCE_PATH)/../test/comx_size_debug.c
 	mv a.hex $(BUILD_PATH)/comx_size_debug.hex
 
 
 comx_conv_debug:
-	$(LCC1802) -S -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/comx_conv_debug.c
 	mv a.hex $(BUILD_PATH)/comx_conv_debug.hex
 
 
 comx_class:
-	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/comx_class.c
 	mv a.hex $(BUILD_PATH)/comx_class.hex
 
 
 comx_simple_class:
-	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/comx_simple_class.c
 	mv a.hex $(BUILD_PATH)/comx_simple_class.hex
 
 
 comx_simplest_class:
-	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/comx_simplest_class.c
 	mv a.hex $(BUILD_PATH)/comx_simplest_class.hex
 
 
 comx_pointer2func:
-	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
 	$(SOURCE_PATH)/../test/comx_pointer2func.c
 	mv a.hex $(BUILD_PATH)/comx_pointer2func.hex
 
@@ -5704,7 +5707,7 @@ COMX_DEBUG_MACROS ?= \
 
 tiny_comx: tiny_comx_combo.cat
 	mv tiny_comx_combo.cat tiny_comx_combo.c
-	$(LCC1802)  $(LC1802_OPTS) "-target=xr18CX" "-Wf-g,;"  "-Wf-volatile" \
+	$(LCC1802) $(LCC1802_OPTS) $(LCC1802_COMPILER_OPTS) \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=21 \
 	-D__COMX__ \
@@ -5720,7 +5723,7 @@ tiny_comx: tiny_comx_combo.cat
 
 light_comx: light_comx_combo.cat
 	mv light_comx_combo.cat light_comx_combo.c
-	$(LCC1802)  $(LC1802_OPTS) "-target=xr18CX" "-Wf-g,;"  "-Wf-volatile"  \
+	$(LCC1802) $(LCC1802_OPTS) $(LCC1802_COMPILER_OPTS)  \
 	-D__COMX__ \
 	-DLIGHT_GAME \
 	-DLCC1802_JOYSTICK \
@@ -5734,7 +5737,7 @@ light_comx: light_comx_combo.cat
 
 full_comx : full_comx_combo.cat
 	mv full_comx_combo.cat full_comx_combo.c
-	$(LCC1802)  $(LC1802_OPTS) "-target=xr18CX" "-Wf-g,;"  "-Wf-volatile"  \
+	$(LCC1802) $(LCC1802_OPTS) $(LCC1802_COMPILER_OPTS)  \
 	-D__COMX__ \
 	-DFULL_GAME \
 	-DLCC1802_JOYSTICK \
@@ -5754,7 +5757,7 @@ comx_targets:
 	make full_comx
 
 comx_pp_debug: 
-	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
+	$(LCC1802)  $(LC1802_OPTS) $(LCC1802_COMPILER_OPTS) \
 	-DFORCE_XSIZE=40 \
 	-DFORCE_YSIZE=24 \
 	-D__COMX__ \

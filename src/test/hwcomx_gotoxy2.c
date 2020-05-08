@@ -106,7 +106,7 @@ void gotoxycomx(unsigned int vidmem, unsigned char column){
     // gotoxycomx(vidmem, x);
 // }
 
-#define gotoxy(x,y) gotoxycomx(y*40 + x, x)
+#define gotoxy(x,y) gotoxycomx((y)*40 + (x), (x))
 
 void vidstrcpy(unsigned int vidmem,char * text){ //write to video memory
 	asm(

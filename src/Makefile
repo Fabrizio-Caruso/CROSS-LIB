@@ -5589,15 +5589,22 @@ comx_hello:
 	$(SOURCE_PATH)/../test/hwcomx.c
 	mv a.hex $(BUILD_PATH)/comx_hello.hex
 
-comx_hello2: 
-	$(LCC1802) -Wf-volatile -target=xr18CX \
-	$(SOURCE_PATH)/../test/hwcomx2.c
-	mv a.hex $(BUILD_PATH)/comx_hello2.hex
 
 comx_hello1: 
 	$(LCC1802) -Wf-volatile -target=xr18CX \
 	$(SOURCE_PATH)/../test/hwcomx1.c
 	mv a.hex $(BUILD_PATH)/comx_hello1.hex
+
+
+comx_hello2: 
+	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(SOURCE_PATH)/../test/hwcomx2.c
+	mv a.hex $(BUILD_PATH)/comx_hello2.hex
+
+comx_hello_integer: 
+	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(SOURCE_PATH)/../test/comx_hello_integer.c
+	mv a.hex $(BUILD_PATH)/comx_hello_integer.hex
 
 comx_pp_debug0: 
 	$(LCC1802) -Wf-volatile -target=xr18CX -D_FOO_DEF \

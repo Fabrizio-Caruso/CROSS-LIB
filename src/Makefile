@@ -5613,6 +5613,12 @@ comx_gotoxy:
 	mv a.hex $(BUILD_PATH)/hwcomx_gotoxy.hex
 
 
+comx_gotoxy2: 
+	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(SOURCE_PATH)/../test/hwcomx_gotoxy2.c
+	mv a.hex $(BUILD_PATH)/hwcomx_gotoxy2.hex
+
+
 comx_mod: 
 	$(LCC1802) -Wf-volatile -target=xr18CX \
 	$(SOURCE_PATH)/../test/comx_mod.c

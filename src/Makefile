@@ -5688,16 +5688,15 @@ COMX_DEBUG_MACROS ?= \
 	-DNO_PRINT \
 	-DNO_SLEEP \
 	-DNO_COLOR \
-	-DNO_RANDOM_LEVEL \
 	-DALT_RAND \
 	-DMEMORY_MAPPED
 
 
 tiny_comx: tiny_comx_combo.cat
 	mv tiny_comx_combo.cat tiny_comx_combo.c
-	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
+	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX -Wf-g \
 	-DFORCE_XSIZE=40 \
-	-DFORCE_YSIZE=24 \
+	-DFORCE_YSIZE=21 \
 	-D__COMX__ \
 	-DTINY_GAME \
 	-DANIMATE_PLAYER \
@@ -5710,12 +5709,11 @@ tiny_comx: tiny_comx_combo.cat
 
 light_comx: light_comx_combo.cat
 	mv light_comx_combo.cat light_comx_combo.c
-	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
+	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX -Wf-g  \
 	-DFORCE_XSIZE=40 \
-	-DFORCE_YSIZE=24 \
+	-DFORCE_YSIZE=21 \
 	-D__COMX__ \
 	-DLIGHT_GAME \
-	-DNO_WALL \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
@@ -5726,9 +5724,9 @@ light_comx: light_comx_combo.cat
 
 full_comx : full_comx_combo.cat
 	mv full_comx_combo.cat full_comx_combo.c
-	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX \
+	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX -Wf-g  \
 	-DFORCE_XSIZE=40 \
-	-DFORCE_YSIZE=24 \
+	-DFORCE_YSIZE=21 \
 	-D__COMX__ \
 	-DFULL_GAME \
 	-DNO_WALL \

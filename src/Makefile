@@ -5692,7 +5692,7 @@ COMX_DEBUG_MACROS ?= \
 
 tiny_comx: tiny_comx_combo.cat
 	mv tiny_comx_combo.cat tiny_comx_combo.c
-	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX -Wf-g \
+	$(LCC1802)  $(LC1802_OPTS) "-target=xr18CX" "-Wf-g,;"  "-Wf-volatile" \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=21 \
 	-D__COMX__ \
@@ -5707,7 +5707,7 @@ tiny_comx: tiny_comx_combo.cat
 
 light_comx: light_comx_combo.cat
 	mv light_comx_combo.cat light_comx_combo.c
-	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX -Wf-g  \
+	$(LCC1802)  $(LC1802_OPTS) "-target=xr18CX" "-Wf-g,;"  "-Wf-volatile"  \
 	-D__COMX__ \
 	-DLIGHT_GAME \
 	-DANIMATE_PLAYER \
@@ -5720,7 +5720,7 @@ light_comx: light_comx_combo.cat
 
 full_comx : full_comx_combo.cat
 	mv full_comx_combo.cat full_comx_combo.c
-	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX -Wf-g  \
+	$(LCC1802)  $(LC1802_OPTS) "-target=xr18CX" "-Wf-g,;"  "-Wf-volatile"  \
 	-D__COMX__ \
 	-DFULL_GAME \
 	-DANIMATE_PLAYER \

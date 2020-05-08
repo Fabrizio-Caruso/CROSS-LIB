@@ -11,17 +11,16 @@
 	#define _MOVE_DOWN 'K'
 	#define _MOVE_LEFT 'J'
 	#define _MOVE_RIGHT 'L'
-	#define _FIRE ' '	
 #else
 	#define _MOVE_UP 'i'
 	#define _MOVE_DOWN 'k'
 	#define _MOVE_LEFT 'j'
 	#define _MOVE_RIGHT 'l'
-    #if !defined(__COMX__)
-        #define _FIRE ' '		
-    #else
-        #define _FIRE 0x5f 
-    #endif
+#endif
+#if defined(__COMX__)
+    #define _FIRE 0x5f 
+#else
+    #define _FIRE ' '
 #endif
 
 

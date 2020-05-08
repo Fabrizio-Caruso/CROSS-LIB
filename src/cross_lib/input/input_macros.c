@@ -60,9 +60,10 @@
 
     // Code by Marcel van Tongeren
     #elif defined(__COMX__)
-    
         asm(
-        " bn3 $$nokey ;check if key pressed\n"
+        " b3 $$keypressed\n" // Check if a key is pressed for the 'first time'
+        " bn2 $$nokey\n"     // Branch to nokey if no key was pressed previously
+        "$$keypressed:\n"
         " inp 3\n"
         " lskp\n"
         "$$nokey:\n"
@@ -72,6 +73,17 @@
         " phi R15\n"
         " Cretn\n");
         return 0; //this statement will never be executed but it keeps the compiler happy
+        // asm(
+        // " bn3 $$nokey ;check if key pressed\n"
+        // " inp 3\n"
+        // " lskp\n"
+        // "$$nokey:\n"
+        // " ldi 0\n"
+        // " plo R15\n"
+        // " ldi 0\n"
+        // " phi R15\n"
+        // " Cretn\n");
+        // return 0; //this statement will never be executed but it keeps the compiler happy
         // asm(
         // " ldiReg R8,0x41A3\n"
         // " ldn R8\n"

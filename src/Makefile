@@ -5589,6 +5589,11 @@ comx_hello:
 	$(SOURCE_PATH)/../test/hwcomx.c
 	mv a.hex $(BUILD_PATH)/comx_hello.hex
 
+comx_hello2: 
+	$(LCC1802) -Wf-volatile -target=xr18CX \
+	$(SOURCE_PATH)/../test/hwcomx2.c
+	mv a.hex $(BUILD_PATH)/comx_hello2.hex
+
 comx_hello1: 
 	$(LCC1802) -Wf-volatile -target=xr18CX \
 	$(SOURCE_PATH)/../test/hwcomx1.c
@@ -6029,6 +6034,9 @@ clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
 	rm -rf $(SOURCE_PATH)/../light_comx_combo.c
 	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../full_comx_combo.asm
+	rm -rf $(SOURCE_PATH)/../light_comx_combo.asm
+	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.asm
 
 clean_lib_obj:
 	find -type f -name '*.o' -delete

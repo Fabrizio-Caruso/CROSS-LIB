@@ -100,21 +100,21 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 
 
 XTC68 ?= qcc
-XTC68_OPTS = -D__XTC68__ $(INCLUDE_OPTS) -I$(SOURCE_PATH) \
+XTC68_OPTS = -D__XTC68__ -I$(SOURCE_PATH) \
 
 
-MYCC65 ?= cl65$(EXEEXT) $(INCLUDE_OPTS) 
+MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 
-SCCZ80_OPTS ?= $(INCLUDE_OPTS) 
+SCCZ80_OPTS ?=
 #-O3
 
-ZSDCC_OPTS ?= $(INCLUDE_OPTS)
+ZSDCC_OPTS ?=
 #-SO3 --max-allocs-per-node200000
 
 Z8K-PCOS-GCC ?= /opt/z8kgcc-jan-19-2009/bin/z8k-pcos-gcc
-Z8K-PCOS-GCC_OPTS ?= -Wno-cpg $(INCLUDE_OPTS)
+Z8K-PCOS-GCC_OPTS ?= -Wno-cpg 
 
 TOOLS_PATH ?= ../tools
 
@@ -144,50 +144,48 @@ LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES)
 
 FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
-INCLUDE_ALL ?= $(INCLUDE_OPTS) -I$(SOURCE_PATH)
 
 # For cygwin posix build: use gcc
 # For windows 32 non-posix build: x86_64-w64-mingw32-gcc
 _CC ?= gcc
-_CC_OPTS ?= $(INCLUDE_OPTS)
+_CC_OPTS ?= 
 
 TI99_CC ?= tms9900-gcc
-TI99_OPTS ?= $(INCLUDE_OPTS) -nostdlib -DNO_RANDOM_LEVEL
+TI99_OPTS ?= -nostdlib -DNO_RANDOM_LEVEL
 
 GCC ?= gcc
-GCC_OPTS ?= -Wpedantic -Wall $(INCLUDE_OPTS)
+GCC_OPTS ?= -Wpedantic -Wall
 
 ATARI_ST_CC ?= m68k-atari-mint-gcc
-ATARI_ST_OPTS ?= $(INCLUDE_OPTS)
+ATARI_ST_OPTS ?= 
 
 AMIGA_CC ?= m68k-amigaos-gcc
-AMIGA_OPTS ?= $(INCLUDE_OPTS)
+AMIGA_OPTS ?= 
 
 EM_CC ?= emcc
-EM_OPTS = $(INCLUDE_OPTS)
+EM_OPTS = 
 
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
 #/cygdrive/c/lcc42/bat/caCX.bat
 #/cygdrive/c/lcc42/bin/lcc.exe
-LCC1802_OPTS ?= $(INCLUDE_ALL)
-LCC1802_COMPILER_OPTS ?= -Wf-volatile -target=xr18CX
+LCC1802_OPTS ?= -Wf-volatile -target=xr18CX
 
-COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME $(INCLUDE_OPTS)
+COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME 
 
 COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
-COCO_OPTS       ?= -O0 -Wno-const  $(INCLUDE_OPTS) -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__COCO__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+COCO_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__COCO__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-DRAGON_OPTS     ?= --dragon $(COCO_OPTS)
+DRAGON_OPTS     ?= --dragon $(COCO_OPTS) 
 
-VECTREX_OPTS    ?= -O0 --vectrex $(INCLUDE_OPTS) -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+VECTREX_OPTS    ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-MO5_OPTS        ?= -O2 $(INCLUDE_OPTS) -DANIMATE_PLAYER -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+MO5_OPTS        ?= -O2 -DANIMATE_PLAYER -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-TO7_OPTS        ?= -O1 $(INCLUDE_OPTS) -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+TO7_OPTS        ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 _ACK ?= ack
-_ACK_OPTS ?= -O6 $(INCLUDE_OPTS)
+_ACK_OPTS ?= -O6 
 # -O 
 # -ansi
 
@@ -199,7 +197,7 @@ _ACK_OPTS ?= -O6 $(INCLUDE_OPTS)
 # 
 
 cx16: 
-	$(CC65_PATH)$(MYCC65) -O -t cx16 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cx16 \
 	-D__CX16__ \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -209,7 +207,7 @@ cx16:
 
 
 atari_color: 
-	$(CC65_PATH)$(MYCC65) -O -t atari \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DREDEFINED_CHARS \
 	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
@@ -226,7 +224,7 @@ atari_color:
 	-o $(BUILD_PATH)/FULL_atari_color.xex
 
 atari_no_color: 
-	$(CC65_PATH)$(MYCC65) -O -t atari \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
@@ -236,7 +234,7 @@ atari_no_color:
 
     
 atari5200: 
-	$(CC65_PATH)$(MYCC65) -O -t atari5200 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
 	-D__ATARI5200__ \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -250,7 +248,7 @@ atari5200:
 	-o $(BUILD_PATH)/FULL_atari5200.rom
 
 atari2600_graphics_test:
-	$(CC65_PATH)$(MYCC65) -O -t atari2600 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari2600 \
 	-D__ATARI2600__ \
 	$(DEBUG_MACROS) \
 	-DTINY_GAME \
@@ -258,7 +256,7 @@ atari2600_graphics_test:
 	-o $(BUILD_PATH)/atari2600_graphics_test.rom	
 
 atari2600_tiny:
-	$(CC65_PATH)$(MYCC65) -O -t atari2600 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari2600 \
 	-D__ATARI2600__ \
 	$(DEBUG_MACROS) \
 	-DTINY_GAME \
@@ -266,7 +264,7 @@ atari2600_tiny:
 	-o $(BUILD_PATH)/TINY_atari2600.rom
 
 atmos: 
-	$(CC65_PATH)$(MYCC65)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-t atmos \
 	-DALT_MOVE \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
@@ -278,7 +276,7 @@ atmos:
 
 
 oric1_16k: 
-	$(CC65_PATH)$(MYCC65)  -O -D__ORIC1__ -DSOUNDS -DANIMATE_PLAYER \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O -D__ORIC1__ -DSOUNDS -DANIMATE_PLAYER \
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	-DMEMORY_MAPPED \
@@ -289,7 +287,7 @@ oric1_16k:
 
 
 vic20_unexpanded_no_gfx:
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DSOUNDS \
 	-DANIMATE_PLAYER \
 	-DNO_CONTROL_INSTRUCTIONS \
@@ -317,7 +315,7 @@ vic20_unexpanded_no_gfx:
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded_no_gfx.prg
 
 vic20_unexpanded:
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DSOUNDS \
 	-DCC65_GOTO \
 	-DANIMATE_PLAYER \
@@ -352,7 +350,7 @@ vic20_unexpanded:
 
 
 vic20_unexpanded_turn_based:
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DSOUNDS \
 	-DFORCE_KEYBOARD \
 	-DTURN_BASED \
@@ -381,7 +379,7 @@ vic20_unexpanded_turn_based:
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg	
 	
 vic20_exp_3k:
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DREDEFINED_CHARS \
 	-DANIMATE_PLAYER -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 \
 	-DROUND_ENEMIES \
@@ -402,7 +400,7 @@ vic20_exp_3k:
 
 	
 vic20_exp_3k_light:
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-3k.cfg  \
 	-DANIMATE_PLAYER -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 \
 	-DROUND_ENEMIES \
@@ -433,7 +431,7 @@ vic20_exp_3k_light:
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_3k.prg
 	
 vic20_exp_8k_full:
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/vic20-8k.cfg \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/vic20-8k.cfg \
 	-DFULL_GAME \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DSIMPLE_STRATEGY \
@@ -457,7 +455,7 @@ vic20_exp_8k_full:
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg		
 
 vic20_exp_8k: 
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_GFX_3.cfg \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-DCC65_GOTO \
@@ -496,7 +494,7 @@ vic20_exp_8k:
 
 
 vic20_exp_8k_old: 
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
 	-DREDEFINED_CHARS \
 	-DALT_SLEEP \
@@ -526,7 +524,7 @@ vic20_exp_8k_old:
 
 	
 vic20_exp_16k: 
-	$(CC65_PATH)$(MYCC65) -Or -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
 	-DREDEFINED_CHARS \
@@ -538,7 +536,7 @@ vic20_exp_16k:
 	-o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
 
 c64_bench: 
-	$(CC65_PATH)$(MYCC65) -O -t c64 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
 	-DBENCHMARK -DBENCHMARK_MAX=40 \
 	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
@@ -557,7 +555,7 @@ c64_bench:
 
 	
 c64: 
-	$(CC65_PATH)$(MYCC65) -O -t c64 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
 	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES \
@@ -575,7 +573,7 @@ c64:
 
 
 c64_8k_cart: 
-	$(CC65_PATH)$(MYCC65) -O -t c64 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
 	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS \
 	-DLESS_TEXT \
 	-DFORCE_GHOSTS_NUMBER=9 \
@@ -599,7 +597,7 @@ c64_8k_cart:
 	rm $(BUILD_PATH)/FULL_c64_8k_exomized.prg
 	
 c128_40col: 
-	$(CC65_PATH)$(MYCC65) -O -t c128 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128 \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
@@ -610,7 +608,7 @@ c128_40col:
 	-o $(BUILD_PATH)/FULL_c128_40col.prg
 
 c128_80col: 
-	$(CC65_PATH)$(MYCC65) -O -t c128  \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128  \
 	-DFULL_GAME -DSOUNDS \
 	-DFORCE_XSIZE=80 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -624,7 +622,7 @@ c128_80col:
 
 
 c16_16k: 
-	$(CC65_PATH)$(MYCC65) -Or -t c16 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
 	-DANIMATE_PLAYER  -DSOUNDS \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -638,7 +636,7 @@ c16_16k:
 	-o $(BUILD_PATH)/LIGHT_c16_16k.prg
 	
 c16_32k: 
-	$(CC65_PATH)$(MYCC65) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DANIMATE_PLAYER -DFULL_GAME -DSOUNDS \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -654,7 +652,7 @@ c16_32k:
 
 
 c16_16k_gfx:
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t c16 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_2.cfg \
 	-DFORCE_NO_CONIO_LIB \
 	-DFULL_GAME \
@@ -682,7 +680,7 @@ c16_16k_gfx:
 	-o $(BUILD_PATH)/FULL_c16_16k.prg	
 	
 c16_16k_full: 
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t c16 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k.cfg \
 	-DFULL_GAME \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -703,7 +701,7 @@ c16_16k_full:
 
 	
 pet_8k_buffered: 
-	$(CC65_PATH)$(MYCC65) -O -t pet -Cl \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet -Cl \
 	-DTINY_GAME -DNO_INIT_GRAPHICS \
 	-DBUFFERED \
 	-DALT_PRINT \
@@ -714,7 +712,7 @@ pet_8k_buffered:
 	-o $(BUILD_PATH)/TINY_pet_8k_buffered.prg	
 	
 pet_8k: 
-	$(CC65_PATH)$(MYCC65) -O -t pet -Cl \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet -Cl \
 	-DTINY_GAME -DNO_INIT_GRAPHICS -DCONIO \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	$(TINY_FILES) \
@@ -722,7 +720,7 @@ pet_8k:
 	-o $(BUILD_PATH)/TINY_pet_8k.prg
 	
 pet_8k_light_experimental:
-	$(CC65_PATH)$(MYCC65) -Or -t pet -Cl \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
 	-DNO_INIT_GRAPHICS -DCONIO -DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_RANDOM_LEVEL \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -736,7 +734,7 @@ pet_8k_light_experimental:
 	-o $(BUILD_PATH)/LIGHT_pet_8k_experimental.prg
 	
 pet_8k_light:
-	$(CC65_PATH)$(MYCC65) -Or -t pet -Cl \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
 	-DLESS_TEXT \
 	-DNO_MESSAGE -DNO_BLINKING \
 	-DNO_CONTROL_INSTRUCTIONS -DNO_INITIAL_SCREEN \
@@ -751,7 +749,7 @@ pet_8k_light:
 	-o $(BUILD_PATH)/LIGHT_pet_8k_less_text.prg
 
 pet_16k: 
-	$(CC65_PATH)$(MYCC65) -O -t pet \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -760,7 +758,7 @@ pet_16k:
 	-o $(BUILD_PATH)/FULL_pet_16k.prg
 
 telestrat: 
-	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
 	-DFORCE_CONIO_LIB \
 	-DNO_WAIT \
 	-DNO_SET_SCREEN_COLORS \
@@ -775,7 +773,7 @@ telestrat:
 	-o $(BUILD_PATH)/FULL_telestrat.prg	
 	
 cbm610: 
-	$(CC65_PATH)$(MYCC65) -O -t cbm610 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm610 \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -784,7 +782,7 @@ cbm610:
 	-o $(BUILD_PATH)/FULL_cbm610.prg
 	
 cbm510: 
-	$(CC65_PATH)$(MYCC65) -O -t cbm510 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm510 \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -793,7 +791,7 @@ cbm510:
 	-o $(BUILD_PATH)/FULL_cbm510.prg
 
 nes: 
-	$(CC65_PATH)$(MYCC65) -O -t nes \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -804,7 +802,7 @@ nes:
 	
 	
 nes_fx:
-	$(CC65_PATH)$(MYCC65) -O -t nes \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
@@ -818,7 +816,7 @@ nes_fx:
 	-o $(BUILD_PATH)/FULL_nes_fx.nes
 	
 apple2:	 
-	$(CC65_PATH)$(MYCC65) -O -t apple2 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
 	-DFULL_GAME -DALT_SLEEP \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -832,7 +830,7 @@ apple2:
 
 
 apple2enh: 
-	$(CC65_PATH)$(MYCC65) -O -t apple2enh \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
@@ -847,7 +845,7 @@ apple2enh:
 
 
 apple2enh_80col: 
-	$(CC65_PATH)$(MYCC65) -O -t apple2enh \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
@@ -865,7 +863,7 @@ apple2enh_80col:
 
 
 osic1p_32k: 
-	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
 	-DALT_SLEEP \
 	-DNO_SET_SCREEN_COLORS \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -881,7 +879,7 @@ osic1p_32k:
 
 	
 osic1p_32k_turn_based: 
-	$(CC65_PATH)$(MYCC65) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
 	-DALT_SLEEP \
 	-DNO_SET_SCREEN_COLORS \
 	-DTURN_BASED \
@@ -898,7 +896,7 @@ osic1p_32k_turn_based:
 
 
 osic1p_8k: 
-	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(CFG_PATH)/cc65/osic1p_less_stack.cfg -t osic1p \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(CFG_PATH)/cc65/osic1p_less_stack.cfg -t osic1p \
 	-DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -910,7 +908,7 @@ osic1p_8k:
 
 
 osic1p_8k_turn_based: 
-	$(CC65_PATH)$(MYCC65) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(CFG_PATH)/cc65/osic1p_less_stack.cfg -t osic1p \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Cl --start-addr 0x200 -Wl -D,__HIMEM__=0x2000 -O --config $(CFG_PATH)/cc65/osic1p_less_stack.cfg -t osic1p \
 	-DROUND_ENEMIES -DNO_SLEEP  -DNO_RANDOM_LEVEL -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DTINY_GAME \
 	-DTURN_BASED \
 	-DFORCE_GHOSTS_NUMBER=9 \
@@ -923,7 +921,7 @@ osic1p_8k_turn_based:
 	
 	
 gamate: 
-	$(CC65_PATH)$(MYCC65) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
 	-DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -933,13 +931,13 @@ gamate:
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
 
 gamate_test:
-	$(CC65_PATH)$(MYCC65) -O -t gamate \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate \
 	$(SOURCE_PATH)/../test/gamate_test.c \
 	-o $(BUILD_PATH)/gamate_test.bin 
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/gamate_test.bin
 
 gamate_light: 
-	$(CC65_PATH)$(MYCC65) -O -t gamate \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate \
 	-DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DFORCE_GHOSTS_NUMBER=7 \
@@ -949,7 +947,7 @@ gamate_light:
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/LIGHT_gamate.bin
 	
 gamate_tiny: 
-	$(CC65_PATH)$(MYCC65) -O -t gamate \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate \
 	-DTINY_GAME \
 	-DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -960,7 +958,7 @@ gamate_tiny:
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/TINY_gamate.bin
 	
 creativision_8k_tiny: 
-	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
 	-DTINY_GAME -DNO_SLEEP \
 	-DNO_SET_SCREEN_COLORS \
@@ -970,7 +968,7 @@ creativision_8k_tiny:
 	-o $(BUILD_PATH)/TINY_creativision_8k.bin
 
 creativision_8k_light: 
-	$(CC65_PATH)$(MYCC65) -Or -Cl -t creativision \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision \
 	-DNO_SET_SCREEN_COLORS \
 	-DLESS_TEXT \
 	-DNO_SET_SCREEN_COLORS \
@@ -988,7 +986,7 @@ creativision_8k_light:
 	
 
 creativision_16k_x:
-	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS \
 	-DFULL_GAME -DALT_SLEEP \
 	-DSIMPLE_STRATEGY \
@@ -1011,7 +1009,7 @@ creativision_16k_x:
 
 
 creativision_16k_m:
-	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS \
 	-DFULL_GAME -DALT_SLEEP \
 	-DSIMPLE_STRATEGY \
@@ -1032,7 +1030,7 @@ creativision_16k_m:
     
     
 creativision_16k:
-	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1050,7 +1048,7 @@ creativision_16k:
 	
 
 atari_lynx:
-	$(CC65_PATH)$(MYCC65) -O -t lynx \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx \
 	-D__ATARI_LYNX__ \
 	-DNO_SET_SCREEN_COLORS \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -1064,7 +1062,7 @@ atari_lynx:
 
 
 bbc_test:
-	$(CC65_PATH)$(MYCC65) -t bbc -c \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t bbc -c \
 	-o $(BUILD_PATH)/bbc_test.o \
 	-D__BBC__ \
 	-D__GCC_BUFFERED__ \
@@ -1086,7 +1084,7 @@ bbc_test:
 TINY_OBJ ?= character.o game_text.o level.o main.o move_player.o strategy.o
 
 bbc_no_graphics:
-	$(CC65_PATH)$(MYCC65) -t bbc -c \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t bbc -c \
 	-D__BBC__ \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -1111,7 +1109,7 @@ bbc_no_graphics:
 
 
 c64_no_graphics:
-	$(CC65_PATH)$(MYCC65) -t supervision -c \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t supervision -c \
 	-D__BBC__ \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -1136,7 +1134,7 @@ c64_no_graphics:
 
 
 none_no_graphics:
-	$(CC65_PATH)$(MYCC65) -t none -c \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t none -c \
 	-D__BBC__ \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -1162,19 +1160,19 @@ none_no_graphics:
 
 
 atari_lynx_hello_test:
-	$(CC65_PATH)$(MYCC65) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_test.c \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_test.c \
 	-o $(BUILD_PATH)/ATARI_LYNX_HELLO_TEST.lnx
     
 atari_lynx_black_test:
-	$(CC65_PATH)$(MYCC65) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_black_test.c \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_black_test.c \
 	-o $(BUILD_PATH)/ATARI_LYNX_BLACK_TEST.lnx
 
 atari_lynx_cgetc_test:
-	$(CC65_PATH)$(MYCC65) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_cgetc_test.c \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_cgetc_test.c \
 	-o $(BUILD_PATH)/ATARI_LYNX_CGETC_TEST.lnx
  
 atari_lynx_light:
-	$(CC65_PATH)$(MYCC65) -O -t lynx \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx \
 	-DNO_SET_SCREEN_COLORS \
 	-D__ATARI_LYNX__ \
 	-DNO_PRINT \
@@ -1187,7 +1185,7 @@ atari_lynx_light:
 	
 	
 pce_8k:
-	$(CC65_PATH)$(MYCC65) -O -Cl -t pce \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t pce \
 	-DTINY_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_8k_less_stack.cfg \
@@ -1195,7 +1193,7 @@ pce_8k:
 	-o $(BUILD_PATH)/TINY_PCE_8k.pce
 
 pce_fx:
-	$(CC65_PATH)$(MYCC65) -O -t pce \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
@@ -1212,7 +1210,7 @@ pce_fx:
 	rm $(BUILD_PATH)/FULL_PCE_HIGH.bin	
 
 pce_16k:
-	$(CC65_PATH)$(MYCC65) -O -t pce \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1229,7 +1227,7 @@ pce_16k:
 
 
 supervision_dummy:
-	$(CC65_PATH)$(MYCC65) -O -t supervision  \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
 	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
 	-DBIT_MAPPED_4_DUMMY -DNO_INIT_GRAPHICS \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -1241,7 +1239,7 @@ supervision_dummy:
 	
     
 supervision:
-	$(CC65_PATH)$(MYCC65) -O -t supervision  \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
@@ -1256,14 +1254,14 @@ supervision:
 	-o $(BUILD_PATH)/FULL_supervision.sv
     
 supervision_test:
-	$(CC65_PATH)$(MYCC65) -O -t supervision  \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
 	--config $(CFG_PATH)/cc65/supervision-16k.cfg \
 	$(SOURCE_PATH)/../test/supervision_test.c \
 	-o $(BUILD_PATH)/TEST_supervision.sv
 
 
 supervision_cc65_test:
-	$(CC65_PATH)$(MYCC65) -O -t supervision  \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
 	/home/fabri/CC65_FIX/cc65/samples/supervisionhello.c \
 	-o $(BUILD_PATH)/TEST_hellosupervision.sv
 
@@ -1273,7 +1271,7 @@ supervision_cc65_test:
 
 
 pc88:
-	$(Z88DK_PATH)$(MYZ88DK) +pc88  -Cz--audio $(SCCZ80_OPTS) -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +pc88  -Cz--audio $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1291,7 +1289,7 @@ pc88:
 aquarius_exp_4k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-v \
 	-D__AQUARIUS__ -DTINY_GAME \
 	-DNO_RANDOM_LEVEL \
@@ -1312,19 +1310,19 @@ aquarius_exp_4k:
 	mv TINY_aquarius_exp_4k.tar.zip $(BUILD_PATH)
 
 aquarius_hello_world:
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi $(SCCZ80_OPTS) -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi $(INCLUDE_OPTS) -vn \
 	$(SOURCE_PATH)/../test/hello_conio.c \
 	-create-app
 
 
 aquarius_hello_stack:
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius -pragma-redirect:fputc_cons=fputc_cons_generic -pragma-output:STACKPTR=20000 $(SCCZ80_OPTS) -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -pragma-redirect:fputc_cons=fputc_cons_generic -pragma-output:STACKPTR=20000 $(INCLUDE_OPTS) -vn \
 	$(SOURCE_PATH)/../test/hello_fputc.c \
 	-create-app -o minimal_hello
 
 
 aquarius_exp_16k: 
-	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi $(SCCZ80_OPTS) -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1345,7 +1343,7 @@ vz200_8k:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-compiler=sdcc \
 	--opt-code-size \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__VZ__ -clib=ansi \
 	-DLESS_TEXT \
 	-DNO_BLINKING \
@@ -1367,7 +1365,7 @@ vz200_8k:
 vz200_18k: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz -vn \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DSOUNDS -D__VZ__ -clib=ansi \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1379,7 +1377,7 @@ vz200_18k:
 
 laser500: 	
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 -vn -create-app -Cz--audio \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__LASER500__ \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1392,7 +1390,7 @@ laser500:
 
 vz200_sprites_18k:
 	$(Z88DK_PATH)$(MYZ88DK) +vz \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DSOUNDS \
 	-D__VZ__ \
 	-DFULL_GAME \
@@ -1411,7 +1409,7 @@ vz200_sprites_18k:
 vz700: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz700 -vn \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DSOUNDS -D__VZ__ -clib=ansi \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1422,7 +1420,7 @@ vz700:
 	
 	
 vz200_24k: 
-	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__VZ__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -lndos -create-app -o  $(BUILD_PATH)/FULL_vz200_24k.vz \
@@ -1434,7 +1432,7 @@ vz200_24k:
 vg5k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	--opt-code-size \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -1460,7 +1458,7 @@ vg5k:
 vg5k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-vn -DFULL_GAME -D__VG5K__ \
@@ -1481,7 +1479,7 @@ vg5k_udg:
 
 vg5k_exp_16k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k_udg.prg \
 	-DCONIO \
@@ -1496,7 +1494,7 @@ vg5k_exp_16k_udg:
 
 vg5k_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k.prg \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1505,7 +1503,7 @@ vg5k_exp_16k:
 	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg	
 
 ace_exp_16k_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +ace $(INCLUDE_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DSOUNDS \
 	-DCONIO \
@@ -1524,7 +1522,7 @@ ace_exp_16k_udg:
 	
 	
 ace_exp_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +ace $(INCLUDE_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DSOUNDS \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1538,7 +1536,7 @@ ace_exp_16k:
 
 
 zx80_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(INCLUDE_OPTS) -vn \
 	-D__ZX80__ -DFULL_GAME \
 	-DEND_SCREEN \
 	-DALT_SLEEP \
@@ -1553,7 +1551,7 @@ zx80_16k:
 	rm $(BUILD_PATH)/FULL_zx80_16k.prg	
 	
 zx80_16k_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(INCLUDE_OPTS) -vn \
 	-D__ZX80__ -DFULL_GAME \
 	-DEND_SCREEN \
 	-DTURN_BASED \
@@ -1569,7 +1567,7 @@ zx80_16k_turn_based:
 	
 
 zx80_16k_turn_based_qaopm:
-	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(INCLUDE_OPTS) -vn \
 	-D__ZX80__ -DFULL_GAME \
 	-DZ88DK_JOYSTICK \
 	-DEND_SCREEN \
@@ -1588,7 +1586,7 @@ zx80_16k_turn_based_qaopm:
 zx81_16k_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-v \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DTURN_BASED \
@@ -1603,7 +1601,7 @@ zx81_16k_turn_based:
 zx81_16k_turn_based_qaopm:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-v \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DZ88DK_JOYSTICK \
@@ -1625,7 +1623,7 @@ getk_test:
 	
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-compiler=sdcc \
 	--opt-code-size \
 	-vn \
@@ -1641,7 +1639,7 @@ zx81_16k:
 
 zx81_16k_qaopm:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-compiler=sdcc \
 	--opt-code-size \
 	-vn \
@@ -1657,7 +1655,7 @@ zx81_16k_qaopm:
 	
 zx81_16k_wrx_no_text:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
-	$(SCCZ80_OPTS) -O3 \
+	$(INCLUDE_OPTS) -O3 \
     -DANIMATE_PLAYER \
 	-DFORCE_XSIZE=36 \
 	-DFORCE_YSIZE=30 \
@@ -1674,7 +1672,7 @@ zx81_16k_wrx_no_text:
 
 zx81_16k_wrx:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
-	$(SCCZ80_OPTS) -O3 \
+	$(INCLUDE_OPTS) -O3 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-DALT_MODE \
 	-DANIMATE_PLAYER \
@@ -1703,7 +1701,7 @@ zx81_16k_wrx:
 
 zx81_16k_wrx_qaopm:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
-	$(SCCZ80_OPTS) -O3 \
+	$(INCLUDE_OPTS) -O3 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-DZ88DK_JOYSTICK \
 	-DANIMATE_PLAYER \
@@ -1732,7 +1730,7 @@ zx81_16k_wrx_qaopm:
 
 zx81_32k_wrx:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
-	$(SCCZ80_OPTS) -O3 \
+	$(INCLUDE_OPTS) -O3 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DFORCE_GHOSTS_NUMBER=7 \
@@ -1762,7 +1760,7 @@ zx81_32k_wrx:
 
 zx81_32k_wrx_qaopm:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
-	$(SCCZ80_OPTS) -O3 \
+	$(INCLUDE_OPTS) -O3 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DFORCE_GHOSTS_NUMBER=7 \
@@ -1793,7 +1791,7 @@ zx81_32k_wrx_qaopm:
 
 zx81_32k_wrx_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
-	$(SCCZ80_OPTS) -O3 \
+	$(INCLUDE_OPTS) -O3 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DFORCE_GHOSTS_NUMBER=9 \
@@ -1825,7 +1823,7 @@ zx81_32k_wrx_turn_based:
 
 zx81_32k_wrx_turn_based_qaopm:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
-	$(SCCZ80_OPTS) -O3 \
+	$(INCLUDE_OPTS) -O3 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DZ88DK_JOYSTICK \
@@ -1860,7 +1858,7 @@ zx81_wrx_targets: \
 
 zx81_16k_wrx_zsdcc:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -subtype=wrx -clib=wrx \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-compiler=sdcc \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
     -DANIMATE_PLAYER \
@@ -1890,7 +1888,7 @@ zx81_16k_wrx_zsdcc:
 	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx.prg
 
 lambda_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +lambda $(INCLUDE_OPTS) \
 	-vn -D__LAMBDA__ -DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -1901,7 +1899,7 @@ lambda_16k:
 
 
 cpc:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \
 	-DZ88DK_JOYSTICK \
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -1929,7 +1927,7 @@ cpc:
 
 		
 # msx_16k:
-	# $(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -zorg=49200 \
+	# $(Z88DK_PATH)$(MYZ88DK) +msx $(INCLUDE_OPTS) -zorg=49200 \
 	# -DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	# -create-app -o $(BUILD_PATH)/LIGHT_msx_16k.prg \
 	# -DALT_PRINT \
@@ -1950,7 +1948,7 @@ msx_mode1_test:
 	rm $(BUILD_PATH)/TEST_msx.prg
 
 msx_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -lmsxbios \
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -1970,7 +1968,7 @@ msx_32k:
 
 
 msx_32k_rom:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -lmsxbios \
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -1990,7 +1988,7 @@ msx_32k_rom:
 	rm $(BUILD_PATH)/FULL_msx_32k_DATA.bin
 
 svi_318_mode0:
-	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) -zorg=49200 -vn -lndos \
+	$(Z88DK_PATH)$(MYZ88DK) +svi $(INCLUDE_OPTS) -zorg=49200 -vn -lndos \
 	-D__SVI__ -DMSX_MODE0 \
 	-DSOUNDS \
 	-create-app \
@@ -2003,7 +2001,7 @@ svi_318_mode0:
 
 svi_318:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-compiler=sdcc \
 	-DFORCE_CONIO_LIB \
 	-zorg=49152 \
@@ -2026,7 +2024,7 @@ svi_328_udg_cursor:
 	-DZ88DK_JOYSTICK \
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
-	-pragma-redirect:fputc_cons=fputc_cons_generic $(SCCZ80_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic $(INCLUDE_OPTS) \
 	 -vn -lndos \
 	-DSOUNDS \
 	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -2043,7 +2041,7 @@ svi_328_udg_cursor:
 	rm a.bin
 	
 svi_328:
-	$(Z88DK_PATH)$(MYZ88DK) +svi -pragma-define:ansicolumns=32 -clib=ansi $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +svi -pragma-define:ansicolumns=32 -clib=ansi $(INCLUDE_OPTS) \
 	-vn -lndos \
 	-DSOUNDS \
 	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -2059,7 +2057,7 @@ svi_328:
 
 sc3000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DZ88DK_JOYSTICK \
 	-clib=ansi \
 	-D__SC3000__ \
@@ -2073,7 +2071,7 @@ sc3000_16k:
 
 sc3000_32k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__SC3000__ \
 	-DFULL_GAME \
 	-DSOUNDS \
@@ -2095,7 +2093,7 @@ sc3000_32k_udg:
 	
 sg1000_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 -subtype=rom \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__SC3000__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME \
@@ -2119,7 +2117,7 @@ sg1000_udg:
 	
 sc3000_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-clib=ansi \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2134,7 +2132,7 @@ sc3000_32k:
 	
 sg1000:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 -subtype=rom \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi \
@@ -2149,7 +2147,7 @@ sg1000:
 
 
 mz:
-	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mz $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2161,7 +2159,7 @@ mz:
 	mv $(BUILD_PATH)/FULL_mz.mzt $(BUILD_PATH)/FULL_mz.mzf
 	
 microbee_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(INCLUDE_OPTS) \
 	-D__BEE__ -clib=ansi -vn -DSOUNDS  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_microbee_16k.prg  \
@@ -2169,7 +2167,7 @@ microbee_16k:
 	rm $(BUILD_PATH)/LIGHT_microbee_16k.prg
 	
 microbee_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(INCLUDE_OPTS) \
 	-D__BEE__ \
 	-clib=ansi \
 	-vn \
@@ -2181,7 +2179,7 @@ microbee_32k:
 	rm $(BUILD_PATH)/FULL_microbee_32k.prg
 
 microbee_32k_wav:
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) -subtype=wav \
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(INCLUDE_OPTS) -subtype=wav \
 	-D__BEE__ \
 	-clib=ansi \
 	-vn \
@@ -2195,7 +2193,7 @@ microbee_32k_wav:
 	
 # import as data into ram at 32768 - call 32768
 samcoupe:
-	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +sam $(INCLUDE_OPTS) \
 	-D__SAM__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
@@ -2209,7 +2207,7 @@ samcoupe:
 
 
 mtx_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ \
 	-create-app -o FULL.bin -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -2227,7 +2225,7 @@ mtx_udg:
 	mv FULL $(BUILD_PATH)/FULL_mtx_udg.mtx
 	
 mtx:
-	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app  \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2240,7 +2238,7 @@ mtx:
 
 	
 abc80_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 $(INCLUDE_OPTS) \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DTINY_GAME \
 	-DNO_WAIT \
@@ -2252,7 +2250,7 @@ abc80_tiny:
 abc80_light:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm \
 	-subtype=hex \
-	-zorg=49200 $(SCCZ80_OPTS) \
+	-zorg=49200 $(INCLUDE_OPTS) \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app  \
@@ -2266,7 +2264,7 @@ abc80_light:
 	
 abc800_light:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 -lm \
-	-zorg=49200 $(SCCZ80_OPTS) \
+	-zorg=49200 $(INCLUDE_OPTS) \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DCONIO_VT100 \
 	-DNO_WAIT \
@@ -2279,7 +2277,7 @@ abc800_light:
 
 abc80:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-D__ABC80__ -clib=ansi -vn -DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2307,7 +2305,7 @@ abc80:
 	
 abc800:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 -lm -subtype=hex -zorg=49200 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-DFORCE_CONIO_LIB \
 	-D__ABC800__  -vn -DFULL_GAME \
@@ -2334,7 +2332,7 @@ abc800:
 
 	
 abc800_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +abc800 -lm  $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 -lm  $(INCLUDE_OPTS) \
 	-D__ABC80__ -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DFORCE_CONIO_LIB -DNO_INIT_GRAPHICS \
 	-lndos \
@@ -2342,7 +2340,7 @@ abc800_32k:
 	$(FULL_FILES)
 	
 p2000_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) -clib=ansi -D__P2000__ -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(INCLUDE_OPTS) -clib=ansi -D__P2000__ -vn \
 	-DSOUNDS  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_p2000.prg \
@@ -2351,7 +2349,7 @@ p2000_16k:
 
 
 p2000_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) -clib=ansi -D__P2000__ -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(INCLUDE_OPTS) -clib=ansi -D__P2000__ -vn \
 	-DFULL_GAME -DSOUNDS  -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_p2000.prg \
@@ -2361,7 +2359,7 @@ p2000_32k:
 	
 
 z9001_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z9001__ -vn -DFULL_GAME  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_z9001.z80 \
@@ -2370,7 +2368,7 @@ z9001_32k:
 	rm $(BUILD_PATH)/FULL_z9001.z80	
 
 z9001_16k_full:
-	$(Z88DK_PATH)$(MYZ88DK) +z9001 -compiler=sdcc $(ZSDCC_OPTS) -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 -compiler=sdcc $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z9001__ -vn -DFULL_GAME  \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DLESS_TEXT \
@@ -2384,7 +2382,7 @@ z9001_16k_full:
 	
 	
 z9001_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z9001__ -vn   \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_z9001.z80 \
@@ -2393,7 +2391,7 @@ z9001_16k:
 
 
 mc1000_48k_joystick_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(INCLUDE_OPTS) \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME  \
@@ -2413,7 +2411,7 @@ mc1000_48k_joystick_udg:
 	rm a.cas	
 	
 mc1000_48k_udg_joystick:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(INCLUDE_OPTS) \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME  \
@@ -2433,7 +2431,7 @@ mc1000_48k_udg_joystick:
 	rm a.cas
 
 mc1000_48k_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(INCLUDE_OPTS) \
 	-subtype=gaming \
 	-DFULL_GAME  \
 	-DANIMATE_PLAYER \
@@ -2452,7 +2450,7 @@ mc1000_48k_udg:
 	rm a.cas	
 	
 mc1000_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(INCLUDE_OPTS) \
 	-subtype=gaming -pragma-define:ansicolumns=32 \
 	-DFULL_GAME  \
 	-clib=ansi \
@@ -2468,7 +2466,7 @@ mc1000_48k:
 
 
 mc1000_16k_full:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc $(ZSDCC_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc $(INCLUDE_OPTS) \
 	-subtype=gaming -pragma-define:ansicolumns=32 \
 	-DFULL_GAME  \
 	-DLESS_TEXT \
@@ -2490,7 +2488,7 @@ mc1000_16k_full:
 
 gal_22k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal \
 	-D__GAL__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2501,7 +2499,7 @@ gal_22k:
 	
 
 spectrum_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -v -zorg=24055 \
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(INCLUDE_OPTS) -v -zorg=24055 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DZ88DK_JOYSTICK \
@@ -2523,7 +2521,7 @@ spectrum_16k:
 spectrum_16k_light:
 	$(Z88DK_PATH)$(MYZ88DK) +zx \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	--max-allocs-per-node200000 -SO3 --opt-code-size \
 	-v -zorg=24055 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -2550,7 +2548,7 @@ spectrum_16k_light:
 
 	
 spectrum_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -v  \
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(INCLUDE_OPTS) -v  \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DFULL_GAME \
@@ -2573,7 +2571,7 @@ spectrum_48k:
 
 	
 spectrum_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -vn  \
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(INCLUDE_OPTS) -vn  \
 	-DTINY_GAME \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
@@ -2592,7 +2590,7 @@ spectrum_buffered:
 
 
 pc6001_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(INCLUDE_OPTS) -Cz--audio -clib=ansi \
 	-D__PC6001__ -v  \
 	-DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2605,7 +2603,7 @@ pc6001_16k:
 
 
 pc6001_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
+	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -v \
 	-DFULL_GAME \
 	-DALT_SLEEP \
@@ -2620,7 +2618,7 @@ pc6001_32k:
 	
 	
 pc6001_32k_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) -Cz--audio -clib=ansi -subtype=32k \
+	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -v -DFULL_GAME \
 	-DCONIO \
 	-DANIMATE_PLAYER -DUDG_GRAPHICS \
@@ -2636,7 +2634,7 @@ pc6001_32k_udg:
 	
 
 nascom_32k_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) -clib=ansi -vn -lndos \
+	$(Z88DK_PATH)$(MYZ88DK) +nascom $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
 	-DTURN_BASED \
 	-DSOUNDS \
@@ -2651,7 +2649,7 @@ nascom_32k_turn_based:
 
 
 nascom_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) -clib=ansi -vn -lndos \
+	$(Z88DK_PATH)$(MYZ88DK) +nascom $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
 	-DSOUNDS \
 	-DFULL_GAME \
@@ -2664,7 +2662,7 @@ nascom_32k:
 	
 
 nascom_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) -clib=ansi -vn -lndos \
+	$(Z88DK_PATH)$(MYZ88DK) +nascom $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
 	-DSOUNDS \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2674,7 +2672,7 @@ nascom_16k:
 	
 
 z1013:
-	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(INCLUDE_OPTS) -clib=ansi \
 	-vn -lndos \
 	-D__Z1013__  -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2687,7 +2685,7 @@ z1013:
 
 px8_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px32k \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__PX8__ \
 	-DCONIO_ADM3A \
 	-DTINY_GAME -DLESS_TEXT \
@@ -2699,7 +2697,7 @@ px8_tiny:
 
 px8_broken:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px8 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__PX8__ \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2712,7 +2710,7 @@ px8_broken:
 	
 px8_chars_ansi:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px8ansi \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__PX8__ \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2725,7 +2723,7 @@ px8_chars_ansi:
 	
 px8_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px8 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__PX8__ \
 	-DCONIO_ADM3A_WITH_UNDEF \
 	-DFULL_GAME \
@@ -2738,7 +2736,7 @@ px8_chars:
 
 px8:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__PX8__ \
 	-DFULL_GAME \
 	-subtype=px8 \
@@ -2756,7 +2754,7 @@ px8:
 
 px4_tiny_putc4x6:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-define:ansicolumns=40 \
 	-pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
  	-subtype=px4ansi \
@@ -2775,7 +2773,7 @@ px4_tiny_putc4x6:
 
 px4_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__PX4__ \
 	-DTINY_GAME \
 	-subtype=px4ansi -Cz–-32k \
@@ -2790,7 +2788,7 @@ px4_tiny:
 
 oz_tiny_buffered: 	
 	$(Z88DK_PATH)$(MYZ88DK) +oz \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-compiler=sdcc \
 	-SO3 \
 	-D__OZ__ \
@@ -2815,7 +2813,7 @@ oz_tiny_buffered:
 	
 oz_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +oz \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__OZ__ \
 	-DTINY_GAME \
 	-vn -lndos \
@@ -2844,7 +2842,7 @@ oz_tiny:
 # it fails with sdcc
 z88_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +z88 -subtype=app \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__Z88__ \
 	-DTINY_GAME \
 	-DFORCE_XSIZE=79 \
@@ -2872,7 +2870,7 @@ z88_tiny_buffered:
 	
 z88_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +z88 -subtype=app \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__Z88__ \
 	-DTINY_GAME \
 	-vn -lndos \
@@ -2899,7 +2897,7 @@ z88_tiny:
 
 z88:
 	$(Z88DK_PATH)$(MYZ88DK) +z88 -subtype=app \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__Z88__ \
 	-DFULL_GAME \
 	-vn -lndos \
@@ -2926,7 +2924,7 @@ z88:
 	
 px4:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__PX4__ \
 	-DFULL_GAME \
 	-subtype=px4 -Cz--32k \
@@ -2946,7 +2944,7 @@ px4:
 	
 px4_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__PX4__ \
 	-DFULL_GAME \
 	-subtype=px4ansi -Cz–-32k \
@@ -2961,7 +2959,7 @@ px4_chars:
 
 px4_putc4x6:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-define:ansicolumns=40 \
 	-pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
  	-subtype=px4ansi \
@@ -2983,7 +2981,7 @@ px4_putc4x6:
 
 x1_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__X1__ \
 	-DTINY_GAME -DNO_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
@@ -2994,7 +2992,7 @@ x1_tiny:
 	
 x1:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__X1__ \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
@@ -3006,7 +3004,7 @@ x1:
 
 trs80_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-redirect:getk=getk_inkey \
 	-lm -create-app \
 	-D__TRS80__ \
@@ -3020,7 +3018,7 @@ trs80_tiny:
 
 trs80_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-lm -create-app \
@@ -3036,7 +3034,7 @@ trs80_chars:
 
 trs80:	
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-D__TRS80__ \
@@ -3057,7 +3055,7 @@ trs80:
 	
 trs80_wav:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=wav \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-lm -create-app \
@@ -3072,7 +3070,7 @@ trs80_wav:
 	
 trs80_cmd:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos -subtype=disk \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-lm -create-app \
 	-D__TRS80__ \
 	-pragma-redirect:getk=getk_inkey \
@@ -3086,7 +3084,7 @@ trs80_cmd:
 	
 eg2k:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__EG2K__ \
 	-subtype=eg2000disk \
 	-lndos \
@@ -3105,11 +3103,11 @@ eg2k:
 
 eg2k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__EG2K__ \
 	-subtype=eg2000disk \
 	-pragma-redirect:getk=getk_inkey \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__EG2K__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -3130,7 +3128,7 @@ eg2k_udg:
 
 tiki100_sprites_light:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -ltiki100 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__TIKI100__ \
 	-DNO_PRINT \
 	-DZ88DK_SPRITES \
@@ -3147,7 +3145,7 @@ tiki100_sprites_light:
 
 tiki100: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=tiki100 -ltiki100 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__TIKI100__ \
 	-DNO_PRINT \
 	-DFULL_GAME \
@@ -3169,7 +3167,7 @@ tiki100:
 	
 kaypro: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxkp \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__KAYPRO__ \
 	-DNO_PRINT \
 	-DFULL_GAME \
@@ -3185,7 +3183,7 @@ kaypro:
 	rm $(BUILD_PATH)/FULL_kaypro.bin
 
 alphatro:
-	$(Z88DK_PATH)$(MYZ88DK) +alphatro $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +alphatro $(INCLUDE_OPTS) \
 	-D__ALPHATRO__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -3204,7 +3202,7 @@ alphatro:
 
 microbee_sprites:
 	$(Z88DK_PATH)$(MYZ88DK) +bee -lgfxnc100 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__NC100__ \
 	-DALT_PRINT \
 	-DFULL_GAME \
@@ -3220,7 +3218,7 @@ microbee_sprites:
 	
 nc100:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__NC100__ \
 	-DALT_PRINT \
 	-DFULL_GAME \
@@ -3236,7 +3234,7 @@ nc100:
 
 nc200:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc200 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__NC200__ \
 	-DALT_PRINT \
 	-DFULL_GAME \
@@ -3254,7 +3252,7 @@ nc200:
 
 attache_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=attache \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
@@ -3267,7 +3265,7 @@ attache_chars:
 
 attache:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=attache \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__ATTACHE__ \
 	-DFULL_GAME \
 	-DALT_PRINT \
@@ -3285,7 +3283,7 @@ attache:
 
 aussie:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -laussie  \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__AUSSIE__ \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
@@ -3300,7 +3298,7 @@ aussie:
 	
 osborne1_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 -subtype=osborne1 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__OSBORNE1__ \
 	-DNO_COLOR \
 	-DFORCE_CONIO_LIB \
@@ -3316,7 +3314,7 @@ osborne1_chars:
 
 osborne1:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lgfxosborne1 -subtype=osborne1 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__OSBORNE1__ \
 	-DNO_COLOR \
 	-DFORCE_CONIO_LIB \
@@ -3332,7 +3330,7 @@ osborne1:
 	
 excalibur64:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=excali64 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
 	-DFORCE_CONIO_LIB \
 	-D__EXCALI64__ \
@@ -3347,7 +3345,7 @@ excalibur64:
 	
 bic:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=bic \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
 	-DCONIO_ADM3A_WITH_UNDEF \
 	-DFORCE_CONIO_LIB \
@@ -3362,7 +3360,7 @@ bic:
 	
 qc10:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=qc10 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
 	-DCONIO_ADM3A_WITH_UNDEF \
 	-DFORCE_CONIO_LIB \
@@ -3377,7 +3375,7 @@ qc10:
 	
 dmv:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=dmv \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
 	-DCONIO_ADM3A_WITH_UNDEF \
 	-DFORCE_CONIO_LIB \
@@ -3393,7 +3391,7 @@ dmv:
 
 sv8000:
 	$(Z88DK_PATH)$(MYZ88DK) +sv8000 -subtype=32k \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DFORCE_CONIO_LIB \
     -DZ88DK_JOYSTICK \
 	-D__SV8000__ \
@@ -3407,7 +3405,7 @@ sv8000:
     
 cpm_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
@@ -3421,7 +3419,7 @@ cpm_adm3a:
 	
 sos_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sos \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-lndos \
 	-DSTDLIB \
 	-DNO_COLOR \
@@ -3438,7 +3436,7 @@ sos_buffered:
 	
 sos_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sos \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-lndos \
 	-DSTDLIB \
 	-DNO_COLOR \
@@ -3456,7 +3454,7 @@ sos_tiny_buffered:
 	
 c7420:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-lndos \
 	-DSTDLIB \
 	-DNO_COLOR \
@@ -3472,7 +3470,7 @@ c7420:
 
 c7420_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-lndos \
 	-DSTDLIB \
 	-DNO_COLOR \
@@ -3489,7 +3487,7 @@ c7420_tiny:
 	
 cpm_vt52:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DCONIO_VT52 \
 	-D__CPM_80X24__ \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
@@ -3503,7 +3501,7 @@ cpm_vt52:
 
 cpm_vt100:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DCONIO_VT100 \
 	-D__CPM_80X24__ \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
@@ -3518,7 +3516,7 @@ cpm_vt100:
 
 c128_z80_80col:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 -lgfx128hr \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ \
 	-DZ88DK_SPRITES -DANIMATE_PLAYER \
@@ -3547,7 +3545,7 @@ c128_z80_80col:
 c128_z80_40col:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DFULL_GAME -DEND_SCREEN -DNO_BLINKING \
@@ -3566,7 +3564,7 @@ c128_z80_40col:
 
 
 c128_z80_40col_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 $(INCLUDE_OPTS) \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
 	-DFULL_GAME -DEND_SCREEN \
@@ -3588,7 +3586,7 @@ einstein:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=einstein -leinstein \
 	-pragma-define:ansicolumns=32 \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__EINSTEIN__ \
 	-DFORCE_CONIO_LIB \
 	-DFULL_GAME -DLESS_TEXT \
@@ -3602,7 +3600,7 @@ einstein:
 ti82_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \
 	-DZ88DK_JOYSTICK \
-	$(SCCZ80_OPTS) -D__TI82__ \
+	$(INCLUDE_OPTS) -D__TI82__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
 	-DFULL_GAME  \
@@ -3616,7 +3614,7 @@ ti82_chars:
 
 ti82:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__TI82__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME \
@@ -3635,7 +3633,7 @@ ti82:
 
 ti83_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
-	$(SCCZ80_OPTS) -D__TI83__ \
+	$(INCLUDE_OPTS) -D__TI83__ \
 	-DZ88DK_JOYSTICK \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
@@ -3653,7 +3651,7 @@ ti83_turn_based:
 	
 ti83_tiny_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
-	$(SCCZ80_OPTS) -D__TI83__ \
+	$(INCLUDE_OPTS) -D__TI83__ \
 	-DZ88DK_JOYSTICK \
 	-clib=ansi -pragma-define:ansicolumns=32 \
 	-vn \
@@ -3670,7 +3668,7 @@ ti83_tiny_turn_based:
 
 ti83_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
-	$(SCCZ80_OPTS) -D__TI83__ \
+	$(INCLUDE_OPTS) -D__TI83__ \
 	-DZ88DK_JOYSTICK \
 	-DFORCE_XSIZE=32 \
 	-clib=ansi -pragma-define:ansicolumns=32 \
@@ -3686,7 +3684,7 @@ ti83_chars:
 	
 ti83:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__TI83__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME \
@@ -3704,7 +3702,7 @@ ti83:
 	
 ti8x:
 	$(Z88DK_PATH)$(MYZ88DK) +ti8x -clib=ansi  -subtype=ion -Cz--altfmt \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__TI8X__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME \
@@ -3723,7 +3721,7 @@ ti8x:
 
 ti86:
 	$(Z88DK_PATH)$(MYZ88DK) +ti86 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__TI86__ \
 	-DFULL_GAME \
 	-DZ88DK_JOYSTICK \
@@ -3742,7 +3740,7 @@ ti86:
 	
 ti86_light:
 	$(Z88DK_PATH)$(MYZ88DK) +ti86 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__TI86__ \
 	-DZ88DK_JOYSTICK \
 	-DLESS_TEXT	\
@@ -3761,7 +3759,7 @@ ti86_light:
 	
 ti85_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
-	$(SCCZ80_OPTS) -D__TI85__ \
+	$(INCLUDE_OPTS) -D__TI85__ \
 	-DZ88DK_JOYSTICK \
 	-DFORCE_XSIZE=32 \
 	-clib=ansi -pragma-define:ansicolumns=32 \
@@ -3776,7 +3774,7 @@ ti85_chars:
 
 ti85:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__TI85__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME \
@@ -3794,7 +3792,7 @@ ti85:
 	
 ti85_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__TI85__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME \
@@ -3814,7 +3812,7 @@ ti85_turn_based:
 		
 m5_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-lm -create-app -Cz--audio -subtype=tape \
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
@@ -3828,7 +3826,7 @@ m5_tiny:
 
 m5_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-lm -create-app -Cz--audio -subtype=tape \
 	-pragma-define:REGISTER_SP=65000 \
 	-D__M5__ \
@@ -3850,7 +3848,7 @@ m5_udg:
 		
 m5:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-lm -create-app -Cz--audio -subtype=tape \
 	-pragma-define:REGISTER_SP=65000 \
 	-D__M5__ \
@@ -3866,7 +3864,7 @@ m5:
 	
 
 srr_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +srr $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
@@ -3886,7 +3884,7 @@ srr_udg:
 
 	
 srr:
-	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +srr $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
@@ -3901,7 +3899,7 @@ srr:
 
 
 pv2000:
-	$(Z88DK_PATH)$(MYZ88DK) +pv2000 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +pv2000 $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
@@ -3917,7 +3915,7 @@ pv2000:
 	rm a_DATA.bin	
 	
 fp1100:
-	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__FP1100__ -vn \
 	-DCONIO_VT52 \
 	-DFULL_GAME -DSOUNDS \
@@ -3933,7 +3931,7 @@ fp1100:
 	
 
 fp1100_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__FP1100__ -vn \
 	-DCONIO_VT52 \
@@ -3947,7 +3945,7 @@ fp1100_tiny:
 	rm a_BOOTSTRAP.bin
 
 camputers_lynx:
-	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +lynx $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-pragma-redirect:getk=getk_inkey \
 	-D__CAMPUTERS_LYNX__ \
@@ -3963,7 +3961,7 @@ camputers_lynx:
 	rm $(BUILD_PATH)/FULL_camputers_lynx.bin
 	
 camputers_lynx_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +lynx $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-pragma-redirect:getk=getk_inkey \
 	-D__CAMPUTERS_LYNX__ \
@@ -3978,7 +3976,7 @@ camputers_lynx_tiny:
 	rm $(BUILD_PATH)/TINY_camputers_lynx.bin	
 
 newbrain_newline:
-	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(INCLUDE_OPTS) \
 	-lndos \
 	$(SOURCE_PATH)/../experiments/newline_test.c \
 	-create-app
@@ -3990,7 +3988,7 @@ newbrain_newline:
 	rm a.bin	
 	
 newbrain_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(INCLUDE_OPTS) \
 	-lndos \
 	$(SOURCE_PATH)/../experiments/hello.c \
 	-create-app
@@ -4001,13 +3999,13 @@ newbrain_hello:
 	rm a.bin
 	
 c7420_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(INCLUDE_OPTS) \
 	-lndos \
 	$(SOURCE_PATH)/../experiments/hello.c \
 	-create-app	
 	
 oz_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +oz $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/../experiments/hello.c 
 	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
 	rm a.bin
@@ -4015,7 +4013,7 @@ oz_hello:
 	
 
 z88_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -D__Z88__ -create-app -subtype=app \
+	$(Z88DK_PATH)$(MYZ88DK) +z88 $(INCLUDE_OPTS) -D__Z88__ -create-app -subtype=app \
 	$(SOURCE_PATH)/../experiments/hello.c
 	rm a.bin
 	rm a_BSS.bin
@@ -4024,13 +4022,13 @@ z88_hello:
 	mv a.epr $(BUILD_PATH)/
 	
 x07_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +x07 $(INCLUDE_OPTS) \
 	-Cz--audio \
 	$(SOURCE_PATH)/../experiments/hello.c \
 	-create-app 
 
 cpm_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/../experiments/hello.c \
 	-create-app
 	rm a.bin
@@ -4038,7 +4036,7 @@ cpm_hello:
 	
 	
 x07_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +x07 $(INCLUDE_OPTS) \
 	-Cz--audio \
 	-DFORCE_BOMBS_NUMBER=2 \
 	-DFORCE_GHOSTS_NUMBER=6 \
@@ -4060,7 +4058,7 @@ x07_tiny:
 	
 	
 rex:
-	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +rex $(INCLUDE_OPTS) \
 	-D__REX__ \
 	-DTURN_BASED \
 	-vn \
@@ -4082,7 +4080,7 @@ rex:
 
 	
 rex_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +rex $(INCLUDE_OPTS) \
 	-D__REX__ \
 	-DTURN_BASED \
 	-vn \
@@ -4104,7 +4102,7 @@ rex_buffered:
 	
 
 g800_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +g800 -clib=g850b $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +g800 -clib=g850b $(INCLUDE_OPTS) \
 	-D__G800__ \
 	-DTURN_BASED \
 	-DNO_BLINKING \
@@ -4119,7 +4117,7 @@ g800_turn_based:
 	mv a.ihx $(BUILD_PATH)/FULL_g800_turn_based.ihx
 	
 g800_tiny_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +g800 -clib=g850b $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +g800 -clib=g850b $(INCLUDE_OPTS) \
 	-D__G800__ \
 	-DTURN_BASED \
 	-DNO_BLINKING \
@@ -4135,7 +4133,7 @@ g800_tiny_turn_based:
 	mv a.ihx $(BUILD_PATH)/TINY_g800_turn_based.ihx
 
 ts2068:
-	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(INCLUDE_OPTS) \
 	-clib=ansi \
 	-D__TS2068__ \
 	-DNO_COLOR \
@@ -4157,7 +4155,7 @@ ts2068:
 		
 	
 ts2068_characters:
-	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(INCLUDE_OPTS) \
 	-clib=ansi \
 	-D__TS2068__ \
 	-DNO_COLOR \
@@ -4171,7 +4169,7 @@ ts2068_characters:
 	rm $(BUILD_PATH)/FULL_ts2068.bin		
 	
 ts2068_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(INCLUDE_OPTS) \
 	-clib=ansi \
 	-DTURN_BASED \
 	-D__TS2068__ \
@@ -4187,7 +4185,7 @@ ts2068_turn_based:
 
 aussie_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -laussie  \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-vn \
 	-D__AUSSIE__ \
 	-DSOUNDS \
@@ -4210,7 +4208,7 @@ aussie_buffered:
 # TODO: Try -subtype=com
 enterprise_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +enterprise  \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-compiler=sdcc \
 	-vn \
 	-D__ENTERPRISE__ \
@@ -4236,7 +4234,7 @@ enterprise_buffered:
 
 mz2500_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-SO3 \
 	-compiler=sdcc \
 	-DFORCE_XSIZE=16 \
@@ -4270,14 +4268,14 @@ mz2500_buffered:
 	rm a.bin
 
 mz2500_random:
-	$(Z88DK_PATH)$(MYZ88DK) +mz2500 -compiler=sdcc -SO3 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 -compiler=sdcc -SO3 $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/../experiments/random_test.c \
 	-create-app -o $(BUILD_PATH)/mz2500_random_test.bin
 
 # It almost works except for TURN_BASED
 mz2500_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-SO3 \
 	-compiler=sdcc \
 	-DFORCE_XSIZE=16 \
@@ -4312,7 +4310,7 @@ mz2500_tiny_buffered:
 
 
 newbrain:
-	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(INCLUDE_OPTS) \
 	-D__NEWBRAIN__ \
 	-SO3 \
 	-compiler=sdcc \
@@ -4351,7 +4349,7 @@ newbrain:
 	
 test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-SO3 \
 	-compiler=sdcc \
 	-DFORCE_XSIZE=16 \
@@ -4387,7 +4385,7 @@ test:
 # OK
 cpm_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DSTDLIB \
 	-DFORCE_XSIZE=24 \
 	-DFORCE_YSIZE=16 \
@@ -4406,7 +4404,7 @@ cpm_tiny_buffered:
 	
 
 pps:
-	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +pps $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__PPS__ -vn \
 	-DCONIO_VT52 \
 	-DFULL_GAME -DSOUNDS \
@@ -4418,7 +4416,7 @@ pps:
 	mv a.bin $(BUILD_PATH)/FULL_pps.exe	
 	
 pps_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +pps $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__PPS__ -vn \
 	-DCONIO_VT52 \
 	-DTURN_BASED \
@@ -4437,58 +4435,58 @@ pps_turn_based:
 
 dragon:
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_images.c	
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
 	cmoc \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
 	cmoc -o $(BUILD_PATH)/xchase.bin \
-	$(DRAGON_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
 	init_images.o \
@@ -4520,58 +4518,58 @@ dragon:
 	
 coco:
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_images.c	
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
 	cmoc \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
 	cmoc -o $(BUILD_PATH)/FULL_CoCo.bin \
-	$(COCO_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
 	init_images.o \
@@ -4619,55 +4617,55 @@ hello_coco:
 	
 vectrex:
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_images.c	
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
 	cmoc \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
 	cmoc -o $(BUILD_PATH)/FULL_Vectrex.bin \
-	$(VECTREX_OPTS) \
+	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
 	init_images.o \
@@ -4692,64 +4690,64 @@ vectrex:
 
 mo5: 
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_images.c	
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
 	cmoc \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/graphics_data/cmoc/xchase.s	
 	cmoc -o $(BUILD_PATH)/FULL_MO5.bin \
-	$(MO5_OPTS) \
+	$(MO5_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o \
 	mo5_init_graphics.o \
@@ -4789,58 +4787,58 @@ mo5:
 
 to7:
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_images.c	
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
 	cmoc \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
 	cmoc -o $(BUILD_PATH)/FULL_TO7.bin \
-	$(TO7_OPTS) \
+	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_init_graphics.o \
 	display_macros.o \
@@ -4873,8 +4871,8 @@ to7:
 	
 	
 mo5_test: 
-	cmoc -c -nodefaultlibs $(MO5_OPTS) ./experiments/mo5.c
-	cmoc -nodefaultlibs $(MO5_OPTS) -o $(BUILD_PATH)/mo5.bin ./mo5.o
+	cmoc -c -nodefaultlibs $(MO5_OPTS) $(INCLUDE_OPTS) ./experiments/mo5.c
+	cmoc -nodefaultlibs $(MO5_OPTS) $(INCLUDE_OPTS) -o $(BUILD_PATH)/mo5.bin ./mo5.o
 	rm ./mo5.o
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/mo5.bin
 	mv $(BUILD_PATH)/mo5.bin .
@@ -4891,7 +4889,7 @@ mo5_test:
 #
 
 pc8086_tiny_buffered:
-	$(_ACK) $(_ACK_OPTS) -mpc86 \
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=20 \
 	-DCONIO_ADM3A \
@@ -4910,7 +4908,7 @@ pc8086_tiny_buffered:
 	mv pc86.img $(BUILD_PATH)/TINY_pc8086_turn_based.img
 
 cpm8080_buffered:
-	$(_ACK) $(_ACK_OPTS) -mcpm \
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
 	-DFORCE_XSIZE=24 \
 	-DFORCE_YSIZE=16 \
 	-DCONIO_ADM3A \
@@ -4933,7 +4931,7 @@ cpm8080_buffered:
 
 	
 cpm8080_adm3a:
-	$(_ACK) $(_ACK_OPTS) -mcpm \
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=22 \
 	-DCONIO_ADM3A \
@@ -4956,7 +4954,7 @@ cpm8080_targets: \
 
 # buffered	
 pc8086:
-	$(_ACK) $(_ACK_OPTS) -mpc86 \
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=22 \
 	-DCONIO_ADM3A \
@@ -4982,7 +4980,7 @@ pc8086_targets: \
 	
 # buffered
 linuxppc:
-	$(_ACK) $(_ACK_OPTS) -mlinuxppc \
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinuxppc \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=21 \
 	-DCONIO_ADM3A \
@@ -5008,7 +5006,7 @@ linuxppc_targets: \
 
 #buffered
 linux68k:
-	$(_ACK) $(_ACK_OPTS) -mlinux68k \
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinux68k \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=21 \
 	-DCONIO_ADM3A \
@@ -5034,7 +5032,7 @@ linux68k_targets: \
 
 # buffered
 linux386:
-	$(_ACK) $(_ACK_OPTS) -mlinux386 \
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinux386 \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=21 \
 	-DCONIO_ADM3A \
@@ -5060,7 +5058,7 @@ linux386_targets: \
 
 # buffered
 linuxmips:
-	$(_ACK) $(_ACK_OPTS) -mlinuxmips \
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinuxmips \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=21 \
 	-DCONIO_ADM3A \
@@ -5086,7 +5084,7 @@ linuxmips_targets: \
 
 # buffered
 pdp11v7_buffered:
-	$(_ACK) $(_ACK_OPTS) -mpdpv7 \
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpdpv7 \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=22 \
 	-DCONIO_VT100 \
@@ -5107,7 +5105,7 @@ pdp11v7_buffered:
 	
     
 pdp11v7:
-	$(_ACK) $(_ACK_OPTS) -mpdpv7 \
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpdpv7 \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=22 \
 	-DCONIO_VT100 \
@@ -5132,7 +5130,7 @@ pdp11v7_targets: \
 
 # no ncurses in ACK
 dos:
-	$(_ACK) $(_ACK_OPTS) -pc86 \
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -pc86 \
 	-D__DOS__ \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -5154,7 +5152,7 @@ dos_targets: \
 #
 
 ncurses_turn_based:
-	$(GCC) $(GCC_OPTS) -D__NCURSES__ \
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DTURN_BASED \
@@ -5168,7 +5166,7 @@ ncurses_turn_based:
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses_turn_based$(COMPILEDEXT)
 	
 ncurses:
-	$(GCC) $(GCC_OPTS) -D__NCURSES__ \
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO  \
@@ -5187,7 +5185,7 @@ ncurses:
 # MAX: 79, 21 
 cpm_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DSTDLIB \
 	-DFORCE_XSIZE=24 \
 	-DFORCE_YSIZE=16 \
@@ -5212,7 +5210,7 @@ amiga_core_test:
 	$(SOURCE_PATH)/../test/main_use_amiga_core.c
 
 amiga_buffered:
-	$(AMIGA_CC) $(AMIGA_OPTS) -mcrt=nix13 \
+	$(AMIGA_CC) $(INCLUDE_OPTS) -mcrt=nix13 \
 	-D__AMIGA__ \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=39 \
@@ -5231,7 +5229,7 @@ amiga_buffered:
 	mv a.out $(BUILD_PATH)/FULL_amiga_buffered.exe
 
 emcc_buffered:
-	$(EM_CC) $(EM_OPTS)  \
+	$(EM_CC) $(INCLUDE_OPTS)  \
 	-D__AMIGA__ \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=80 \
@@ -5253,7 +5251,7 @@ emcc_buffered:
 	mv FULL_emcc_buffered.html $(BUILD_PATH)
 
 atari_st_buffered:
-	$(ATARI_ST_CC) $(ATARI_ST_OPTS) \
+	$(ATARI_ST_CC) $(INCLUDE_OPTS) \
 	-D__ATARI_ST__ \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=39 \
@@ -5271,7 +5269,7 @@ atari_st_buffered:
 	mv a.out $(BUILD_PATH)/FULL_atari_st_buffered.tos
 	
 atari_st_ncurses:
-	$(ATARI_ST_CC) $(ATARI_ST_OPTS) -D__NCURSES__ \
+	$(ATARI_ST_CC) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-D__ATARI_ST__ \
 	-DFULL_GAME \
 	-DFORCE_XSIZE=39 \
@@ -5290,7 +5288,7 @@ atari_st_ncurses:
 
 
 atari_st_ncurses_turn_based:
-	$(ATARI_ST_CC) $(ATARI_ST_OPTS) -D__NCURSES__ \
+	$(ATARI_ST_CC) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-D__ATARI_ST__ \
 	-DTURN_BASED \
 	-DFULL_GAME \
@@ -5310,7 +5308,7 @@ atari_st_ncurses_turn_based:
     
     
 gcc_buffered:
-	$(GCC) $(GCC_OPTS) \
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
@@ -5328,7 +5326,7 @@ gcc_buffered:
 
 	
 gcc_no_print:
-	$(GCC) $(GCC_OPTS) \
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -5349,7 +5347,7 @@ gcc_no_print:
 
 
 gcc_tiny_buffered:
-	$(GCC) $(GCC_OPTS) \
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
@@ -5374,7 +5372,7 @@ gcc_tiny_buffered:
 
 
 XTC68_ALL_OPTS ?= \
-	$(XTC68_OPTS) \
+	$(XTC68_OPTS) $(INCLUDE_OPTS)\
 	-I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
@@ -5472,7 +5470,7 @@ ti99_cross_chase.elf: $(PREREQUISITES)
     
 ti99_tiny_no_graphics:
 	$(TI99_CC) $(TI99_OPTS) \
-	-I$(SOURCE_PATH) \
+	$(INCLUDE_OPTS) -I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
@@ -5493,8 +5491,8 @@ ti99_tiny_no_graphics:
 	$(TOOLS_PATH)/ti99/crt0.o
 	
 cc_tiny_no_graphics:
-	$(_CC) $(_CC_OPTS) \
-	-I$(SOURCE_PATH) \
+	$(_CC) \
+	$(INCLUDE_OPTS) -I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
@@ -5568,7 +5566,7 @@ full_combo_rand.cat: full_combo.cat
 
 wincmoc_debug: tiny_combo_rand.cat 
 	mv tiny_combo_rand.cat tiny_combo_rand.c
-	$(WINCMOC_DIR)cmoc.exe  $(INCLUDE_ALL) $(WINCMOC_OPTS) \
+	$(WINCMOC_DIR)cmoc.exe  $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(WINCMOC_OPTS) \
 	$(DEBUG_MACROS) \
 	tiny_combo_rand.c
 	$(WINCMOC_DIR)lwasm.exe -f obj -o tiny_combo_rand.o tiny_combo_rand.asm
@@ -5582,90 +5580,90 @@ wincmoc_debug: tiny_combo_rand.cat
 
 
 comx_hello0: 
-	$(LCC1802)  $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802)  $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx.c
 	mv a.hex $(BUILD_PATH)/comx_hello0.hex
 
 
 comx_hello: 
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx.c
 	mv a.hex $(BUILD_PATH)/comx_hello.hex
 
 
 comx_hello1: 
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx1.c
 	mv a.hex $(BUILD_PATH)/comx_hello1.hex
 
 
 comx_hello2: 
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx2.c
 	mv a.hex $(BUILD_PATH)/comx_hello2.hex
 
 comx_hello_integer: 
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/comx_hello_integer.c
 	mv a.hex $(BUILD_PATH)/comx_hello_integer.hex
 
 
 comx_gotoxy: 
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx_gotoxy.c
 	mv a.hex $(BUILD_PATH)/hwcomx_gotoxy.hex
 
 
 comx_gotoxy2: 
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx_gotoxy2.c
 	mv a.hex $(BUILD_PATH)/hwcomx_gotoxy2.hex
 
 
 comx_mod: 
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/comx_mod.c
 	mv a.hex $(BUILD_PATH)/comx_mod.hex
 
 
 comx_pp_debug0: 
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) -D_FOO_DEF \
+	$(LCC1802) $(LCC1802_OPTS) -D_FOO_DEF \
 	$(SOURCE_PATH)/../test/hwcomx_pp_debug.c
 	mv a.hex $(BUILD_PATH)/comx_pp_debug0.hex
 
 
 comx_size_debug:
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) -D_FOO_DEF \
+	$(LCC1802) $(LCC1802_OPTS) -D_FOO_DEF \
 	$(SOURCE_PATH)/../test/comx_size_debug.c
 	mv a.hex $(BUILD_PATH)/comx_size_debug.hex
 
 
 comx_conv_debug:
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/comx_conv_debug.c
 	mv a.hex $(BUILD_PATH)/comx_conv_debug.hex
 
 
 comx_class:
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/comx_class.c
 	mv a.hex $(BUILD_PATH)/comx_class.hex
 
 
 comx_simple_class:
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/comx_simple_class.c
 	mv a.hex $(BUILD_PATH)/comx_simple_class.hex
 
 
 comx_simplest_class:
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/comx_simplest_class.c
 	mv a.hex $(BUILD_PATH)/comx_simplest_class.hex
 
 
 comx_pointer2func:
-	$(LCC1802) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) \
 	$(SOURCE_PATH)/../test/comx_pointer2func.c
 	mv a.hex $(BUILD_PATH)/comx_pointer2func.hex
 
@@ -5707,7 +5705,7 @@ COMX_DEBUG_MACROS ?= \
 
 tiny_comx: tiny_comx_combo.cat
 	mv tiny_comx_combo.cat tiny_comx_combo.c
-	$(LCC1802) $(LCC1802_OPTS) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=21 \
 	-D__COMX__ \
@@ -5723,7 +5721,7 @@ tiny_comx: tiny_comx_combo.cat
 
 light_comx: light_comx_combo.cat
 	mv light_comx_combo.cat light_comx_combo.c
-	$(LCC1802) $(LCC1802_OPTS) $(LCC1802_COMPILER_OPTS)  \
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS)  \
 	-D__COMX__ \
 	-DLIGHT_GAME \
 	-DLCC1802_JOYSTICK \
@@ -5737,7 +5735,7 @@ light_comx: light_comx_combo.cat
 
 full_comx : full_comx_combo.cat
 	mv full_comx_combo.cat full_comx_combo.c
-	$(LCC1802) $(LCC1802_OPTS) $(LCC1802_COMPILER_OPTS)  \
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS)  \
 	-D__COMX__ \
 	-DFULL_GAME \
 	-DLCC1802_JOYSTICK \
@@ -5757,7 +5755,7 @@ comx_targets:
 	make full_comx
 
 comx_pp_debug: 
-	$(LCC1802)  $(LC1802_OPTS) $(LCC1802_COMPILER_OPTS) \
+	$(LCC1802)  $(LC1802_OPTS) $(LCC1802_OPTS) \
 	-DFORCE_XSIZE=40 \
 	-DFORCE_YSIZE=24 \
 	-D__COMX__ \
@@ -5784,7 +5782,7 @@ lcc1802_debug : tiny_combo_rand.cat
 
 	
 olivetti_m20_buffered:
-	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) \
+	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-D__OLIVETTI_M20__ \
 	-DFORCE_XSIZE=79 \
@@ -5806,7 +5804,7 @@ olivetti_m20_buffered:
 	
 	
 olivetti_m20_no_graphics:
-	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) \
+	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
@@ -6456,7 +6454,6 @@ ncurses_targets: \
 # TESTS
 
 FAST_TEST_OPTS ?= \
-$(INCLUDE_OPTS) \
 -O0 \
 -DTINY_GAME -DLESS_TEXT \
 -DNO_BLINKING -DNO_CHASE \
@@ -6472,7 +6469,7 @@ einstein_test:
 	-DFORCE_CONIO_LIB \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-clib=ansi \
 	-create-app -o$(BUILD_PATH)/TEST_einstein.bin \
 	$(TEST_FILES) 
@@ -6480,7 +6477,7 @@ einstein_test:
 
 sc3000_test:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-clib=ansi \
@@ -6494,7 +6491,7 @@ sc3000_test:
 	
 sg1000_test:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 -subtype=rom \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-clib=ansi \
@@ -6511,7 +6508,7 @@ m5_test:
 	-lm -create-app -Cz--audio -subtype=tape \
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-o$(BUILD_PATH)/TEST_m5.bin \
 	$(TEST_FILES)
 	
@@ -6522,7 +6519,7 @@ ace_test:
 	-DCONIO \
 	-clib=default \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-Cz--audio -create-app \
 	$(TEST_FILES)
 	cp a.wav $(BUILD_PATH)/TEST_ace_exp_16k.wav
@@ -6535,7 +6532,7 @@ pc6001_test:
 	-D__PC6001__ -v \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_pc6001_32k.prg \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(TEST_FILES)
@@ -6552,7 +6549,7 @@ eg2k_test:
 	-lndos \
 	-lm \
 	-D__TRS80__ \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app \
 	-DCONIO_VT52 \
 	$(TEST_FILES)
@@ -6565,7 +6562,7 @@ pps_test:
 	-DCONIO_VT52 \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DNO_WAIT \
 	-lndos \
 	$(TEST_FILES) 
@@ -6580,7 +6577,7 @@ pv2000_test:
 	-DNO_WAIT \
 	-DCONIO_VT52 \
 	-lndos \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app \
 	$(TEST_FILES)
 	mv a.rom $(BUILD_PATH)/TEST_pv2000.rom
@@ -6596,7 +6593,7 @@ srr_test:
 	-DSOUNDS \
 	-DNO_WAIT \
 	-DCONIO_VT52 \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos \
 	-create-app \
 	$(TEST_FILES)
@@ -6606,7 +6603,7 @@ srr_test:
 	
 ti82_test:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \
-	$(FAST_TEST_OPTS) -D__TI82__ \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) -D__TI82__ \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 \
@@ -6620,7 +6617,7 @@ ti82_test:
 	
 ti83_test:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
-	$(FAST_TEST_OPTS) -D__TI83__ \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) -D__TI83__ \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 \
@@ -6634,7 +6631,7 @@ ti83_test:
 
 ti85_test:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
-	$(FAST_TEST_OPTS) -D__TI85__ \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) -D__TI85__ \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-clib=ansi -pragma-define:ansicolumns=32 \
@@ -6652,7 +6649,7 @@ z1013_test:
 	-DNO_INIT_GRAPHICS \
 	-vn -lndos \
 	-D__Z1013__ \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	$(TEST_FILES) \
 	-create-app
 	mv $(SOURCE_PATH)/../A.Z80 $(BUILD_PATH)/TEST_z1013.z80
@@ -6664,14 +6661,14 @@ x1_test:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-DNO_SLEEP \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_x1.bin -vn -lndos \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_x1.bin
 	
 px4_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-D__PX4__ \
 	-subtype=px4 -Cz--32k \
 	-create-app \
@@ -6687,7 +6684,7 @@ px4_test:
 
 px8_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px8 \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-D__PX8__ \
 	-create-app \
 	-vn -lndos \
@@ -6702,7 +6699,7 @@ kc_test:
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
 	-D__KC__ \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DZ88DK_SPRITES \
 	-DNO_SLEEP \
 	-DNO_WAIT \
@@ -6717,7 +6714,7 @@ trs80_test:
 	-D__TRS80__ \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DNO_SLEEP \
 	-DCONIO_VT52 \
 	-o$(BUILD_PATH)/TEST_trs80.bin \
@@ -6731,7 +6728,7 @@ cpm_test:
 	-DNO_INIT_GRAPHICS \
 	-D__CPM_80X24__ \
 	-DNO_SLEEP -DNO_WAIT \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_cpm.bin \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_cpm.bin
@@ -6742,7 +6739,7 @@ nascom_test:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-DSOUNDS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_nascom.prg \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_nascom.prg
@@ -6752,14 +6749,14 @@ z9001_test:
 	-D__Z9001__ -vn   \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_z9001.z80 \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_z9001.z80	
 	
 vg5k_test:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-DSOUNDS -vn -D__VG5K__ -DASM_DISPLAY \
@@ -6770,7 +6767,7 @@ vg5k_test:
 cpc_test:	
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ -DSOUNDS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/TEST_cpc.prg \
@@ -6788,7 +6785,7 @@ cpc_test:
 mc1000_test:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 \
 	-subtype=gaming -pragma-define:ansicolumns=32 \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-clib=ansi \
@@ -6806,7 +6803,7 @@ mz_test:
 	-DSOUNDS \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_mz.prg \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_mz.prg
@@ -6818,7 +6815,7 @@ mtx_test:
 	-DSOUNDS \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos \
 	$(TEST_FILES)
 	rm TEST_mtx.bin
@@ -6828,7 +6825,7 @@ mtx_test:
 abc80_test: 	
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
 	-D__ABC80__ -clib=ansi -vn -DSOUNDS  -lndos \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-create-app -o a \
@@ -6842,7 +6839,7 @@ p2000_test:
 	-DSOUNDS  \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_p2000.prg \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_p2000.prg
@@ -6860,7 +6857,7 @@ svi_test:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-D__SVI__ \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
 	$(TEST_FILES)
@@ -6870,7 +6867,7 @@ svi_test:
 msx_test:
 	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
 	-DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DMEMORY_MAPPED \
 	-DUSE_MSX_BIOS \
 	-DSOUNDS -DANIMATE_PLAYER \
@@ -6887,7 +6884,7 @@ msx_test:
 aquarius_test: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn \
 	-DSOUNDS -D__AQUARIUS__  -DTINY_GAME \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-lndos \
@@ -6903,7 +6900,7 @@ vz200_test:
 	-D__VZ__ -clib=ansi \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/TEST_vz200.vz \
 	$(TEST_FILES)
@@ -6915,7 +6912,7 @@ microbee_test:
 	-D__BEE__ -clib=ansi -vn -DSOUNDS  \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_microbee.prg  \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_microbee.prg
@@ -6927,7 +6924,7 @@ gal_test:
 	-D__GAL__ \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-vn -lndos -create-app -o  $(BUILD_PATH)/TEST_galaksija.prg \
 	$(TEST_FILES) 
 	rm $(BUILD_PATH)/TEST_galaksija.prg	
@@ -6939,7 +6936,7 @@ zx80_test:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-DTURN_BASED \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_zx80.prg \
@@ -6953,7 +6950,7 @@ zx81_test:
 	-DTURN_BASED \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DALT_SLEEP \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_zx81.prg \
@@ -6968,7 +6965,7 @@ spectrum_test:
 	-DNO_INIT_GRAPHICS \
 	-DCONIO \
 	-lndos -create-app -o $(BUILD_PATH)/TEST_spectrum.prg \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_spectrum.prg
 	rm $(BUILD_PATH)/TEST_spectrum_BANK_7.bin
@@ -6978,7 +6975,7 @@ samcoupe_test:
 	-D__SAM__ \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-o $(BUILD_PATH)/FULL_samcoupe.bin -lndos \
 	$(TEST_FILES)
@@ -6992,7 +6989,7 @@ lambda_test:
 	-vn -D__LAMBDA__ \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos -create-app -o  $(BUILD_PATH)/TEST_lambda.prg \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_lambda.prg		
@@ -7007,7 +7004,7 @@ nc100_test:
 	-DNO_SLEEP \
 	-DNO_WAIT \
 	-DANIMATE_PLAYER \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o$(BUILD_PATH)/TEST_nc100.bin \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_nc100.bin	
@@ -7016,7 +7013,7 @@ c128_z80_test:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DFORCE_CONIO_LIB \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
@@ -7041,7 +7038,7 @@ zx81_zsdcc_test:
 	-DALT_SLEEP \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-lndos \
 	-create-app -o  $(BUILD_PATH)/TEST_ZSDCC_zx81.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -7053,7 +7050,7 @@ aquarius_zsdcc_test:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-compiler=sdcc \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-vn \
 	-DALT_PRINT -D__AQUARIUS__ -DTINY_GAME \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -7074,7 +7071,7 @@ vz200_zsdcc_test:
 	-compiler=sdcc \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-D__VZ__ -clib=ansi \
 	-DLESS_TEXT \
 	-DNO_BLINKING \
@@ -7093,7 +7090,7 @@ vz200_zsdcc_test:
 spectrum_zsdcc_test:
 	$(Z88DK_PATH)$(MYZ88DK) +zx  -v -zorg=24055 \
 	-compiler=sdcc \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DZ88DK_JOYSTICK \
@@ -7108,7 +7105,7 @@ spectrum_zsdcc_test:
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg 
@@ -7118,7 +7115,7 @@ spectrum_zsdcc_test:
 svi_zsdcc_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
 	-compiler=sdcc \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-compiler=sdcc \
 	-DFORCE_CONIO_LIB \
 	-zorg=49152 \
@@ -7148,7 +7145,7 @@ vg5k_zsdcc_test:
 	-DSOUNDS \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_vg5k.prg \
 	$(TEST_FILES)
 	rm $(BUILD_PATH)/TEST_ZSDCC_vg5k.prg
@@ -7161,7 +7158,7 @@ mc1000_zsdcc_test:
 	-DNO_BLINKING \
 	-DNO_HINTS \
 	-clib=ansi \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-D__MC1000__ -DSOUNDS \
@@ -7183,7 +7180,7 @@ c128_z80_zsdcc_test:
 	-DFORCE_CONIO_LIB \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
-	$(FAST_TEST_OPTS) \
+	$(FAST_TEST_OPTS) $(INCLUDE_OPTS) \
 	$(TEST_FILES) \
 	-create-app
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 TEST_c128_z80.d64
@@ -7203,7 +7200,7 @@ c128_z80_zsdcc_test:
 # 	-DUSE_MEMORY_BUFFERS
 	
 oric1_16k_full: 
-	$(CC65_PATH)$(MYCC65) -Or -Cl \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl \
 	-DANIMATE_PLAYER -DFULL_GAME \
 	-DLESS_TEXT -DNO_SLEEP -DNO_BORDER \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DFORCE_GHOSTS_NUMBER=8 \
@@ -7220,13 +7217,13 @@ oric1_16k_full:
 	-o $(BUILD_PATH)/FULL_oric1_16k_less_text.tap	
 	
 # TODO: Adapt code to work with -compiler=sdcc
-# $(ZSDCC_OPTS)
-# $(SCCZ80_OPTS) -zorg=18941 -vn 
+# $(INCLUDE_OPTS)
+# $(INCLUDE_OPTS) -zorg=18941 -vn 
 #  -DNO_RANDOM_LEVEL
 # -DLESS_TEXT -DNO_SLEEP
 vg5k_light: 
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-vn \
 	-D__VG5K__ -DSOUNDS  \
 	-DASM_DISPLAY \
@@ -7237,7 +7234,7 @@ vg5k_light:
 	
 	
 cpc_no_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ -DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_cpc_no_udg.prg \
@@ -7254,7 +7251,7 @@ cpc_no_udg:
 
 
 zx80_8k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(INCLUDE_OPTS) -vn \
 	-D__ZX80__ -DROUND_ENEMIES -DTINY_GAME \
 	-DTURN_BASED \
 	-lndos -create-app -o  $(BUILD_PATH)/TINY_zx80_8k.prg \
@@ -7266,7 +7263,7 @@ zx80_8k:
 zx81_8k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-vn \
 	-D__ZX81__ -DTINY_GAME -DROUND_ENEMIES \
 	-DALT_SLEEP \
@@ -7282,7 +7279,7 @@ zx81_8k:
 
 
 msx_conio_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(INCLUDE_OPTS) \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-create-app -vn -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
@@ -7296,7 +7293,7 @@ msx_conio_32k:
 	rm $(BUILD_PATH)/FULL_msx_conio_32k.prg 	
 
 # g800:
-	# $(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# $(Z88DK_PATH)$(MYZ88DK) +g800 $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	# -D__SRR__ -vn \
 	# -DFULL_GAME -DSOUNDS \
 	# -DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
@@ -7314,7 +7311,7 @@ msx_conio_32k:
 		
 
 atari_no_color_16k_full: 
-	$(CC65_PATH)$(MYCC65) -O -Cl -t atari \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
 	-DFULL_GAME \
 	-DNO_HINTS \
 	-DNO_BLINKING \
@@ -7332,7 +7329,7 @@ atari_no_color_16k_full:
 	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_atari_no_color_16k.xex	
 	
 atari_no_color_16k: 
-	$(CC65_PATH)$(MYCC65) -O -Cl -t atari \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
 	-DLESS_TEXT \
 	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
@@ -7344,7 +7341,7 @@ atari_no_color_16k:
 	$(BUILD_PATH)/LIGHT_atari_no_color_16k.xex
 
 # pv1000:
-	# $(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# $(Z88DK_PATH)$(MYZ88DK) +pv1000 $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	# -D__SRR__ -vn \
 	# -DZ88DK_JOYSTICK \
 	# -DFULL_GAME -DSOUNDS \
@@ -7400,7 +7397,7 @@ einstein_tiny:
 
 
 mc1000_16k_light:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(INCLUDE_OPTS) \
 	-pragma-define:ansicolumns=32 -subtype=gaming -clib=ansi -D__MC1000__ -DSOUNDS -vn \
 	 \
 	-lndos -create-app -Cz--audio \
@@ -7485,7 +7482,7 @@ kc_tiny_sprites:
 	
 	
 kc_tiny_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap $(INCLUDE_OPTS) \
 	-D__KC__ \
 	-DTINY_GAME  \
 	-DCONIO_VT52 \
@@ -7501,7 +7498,7 @@ kc_tiny_udg:
 	rm $(BUILD_PATH)/TINY_kc.bin
 
 kc_light_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap $(INCLUDE_OPTS) \
 	-D__KC__ \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -7517,7 +7514,7 @@ kc_light_udg:
 	
 	
 kc_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap $(INCLUDE_OPTS) \
 	-D__KC__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -7535,7 +7532,7 @@ kc_udg:
 	rm $(BUILD_PATH)/FULL_kc.bin
 
 rx78_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +rx78 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +rx78 $(INCLUDE_OPTS) \
 	-D__RX78__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -7557,7 +7554,7 @@ rx78_udg:
 
 # UDG can be done but differently
 pv1000_light:
-	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(INCLUDE_OPTS) \
 	-D__PV1000__ \
 	-DZ88DK_JOYSTICK \
 	-DCONIO_VT52 \
@@ -7575,7 +7572,7 @@ pv1000_light:
 pv1000:
 	$(Z88DK_PATH)$(MYZ88DK) +pv1000 \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__PV1000__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME  \
@@ -7596,7 +7593,7 @@ pv1000:
 
 pv2000_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +pv2000 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__PV1000__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -7617,7 +7614,7 @@ pv2000_udg:
 	rm $(BUILD_PATH)/FULL_pv2000_BSS.bin
 
 super80:
-	$(Z88DK_PATH)$(MYZ88DK) +super80 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +super80 $(INCLUDE_OPTS) \
 	-D__SUPER80__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=16 \
@@ -7634,7 +7631,7 @@ super80:
 	rm a.bin	
 	
 super80r:
-	$(Z88DK_PATH)$(MYZ88DK) +super80 $(SCCZ80_OPTS) -clib=vduem \
+	$(Z88DK_PATH)$(MYZ88DK) +super80 $(INCLUDE_OPTS) -clib=vduem \
 	-D__SUPER80R__ \
 	-DFORCE_XSIZE=80 \
 	-DFORCE_YSIZE=25 \
@@ -7654,7 +7651,7 @@ super80r:
 
 	
 coleco_adam:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=adam \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(INCLUDE_OPTS) -subtype=adam \
 	-D__COLECO_ADAM__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -7670,7 +7667,7 @@ coleco_adam:
 	
 	
 coleco_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +coleco $(INCLUDE_OPTS) \
 	-D__COLECO__ \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME  \
@@ -7692,7 +7689,7 @@ coleco_udg:
 
 
 smc777:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=smc777 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=smc777 $(INCLUDE_OPTS) \
 	-D__SMC777__ \
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_COLOR \
@@ -7707,7 +7704,7 @@ smc777:
 
 
 pencil2:
-	$(Z88DK_PATH)$(MYZ88DK) +pencil2 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +pencil2 $(INCLUDE_OPTS) \
 	-D__PENCIL2__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=24 \
@@ -7727,7 +7724,7 @@ pencil2:
 
 
 homelab2:
-	$(Z88DK_PATH)$(MYZ88DK) +homelab2 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +homelab2 $(INCLUDE_OPTS) \
 	-D__HOMELAB2__ \
 	-DFORCE_XSIZE=40 \
 	-DFORCE_YSIZE=25 \
@@ -7744,7 +7741,7 @@ homelab2:
 
 
 homelab:
-	$(Z88DK_PATH)$(MYZ88DK) +homelab $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +homelab $(INCLUDE_OPTS) \
 	-D__HOMELAB__ \
 	-DFORCE_XSIZE=64 \
 	-DFORCE_YSIZE=32 \
@@ -7760,7 +7757,7 @@ homelab:
 	rm $(BUILD_PATH)/FULL_homelab.bin
 
 hemc:
-	$(Z88DK_PATH)$(MYZ88DK) +hemc $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +hemc $(INCLUDE_OPTS) \
 	-D__HEMC__ \
 	-DFORCE_XSIZE=64 \
 	-DFORCE_YSIZE=24 \
@@ -7777,7 +7774,7 @@ hemc:
 
 
 hgmc:
-	$(Z88DK_PATH)$(MYZ88DK) +hgmc $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +hgmc $(INCLUDE_OPTS) \
 	-D__HGMC__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=32 \
@@ -7794,7 +7791,7 @@ hgmc:
 
 
 kramermc:
-	$(Z88DK_PATH)$(MYZ88DK) +kramermc $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +kramermc $(INCLUDE_OPTS) \
 	-D__KRAMERMC__ \
 	-DFORCE_XSIZE=64 \
 	-DFORCE_YSIZE=16 \
@@ -7811,7 +7808,7 @@ kramermc:
 
 
 myvision:
-	$(Z88DK_PATH)$(MYZ88DK) +myvision $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +myvision $(INCLUDE_OPTS) \
 	-D__MYVISION__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=24 \
@@ -7829,7 +7826,7 @@ myvision:
 
 
 mikro80:
-	$(Z88DK_PATH)$(MYZ88DK) +mikro80 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mikro80 $(INCLUDE_OPTS) \
 	-D__MIKRO80__ \
 	-DFORCE_XSIZE=48 \
 	-DFORCE_YSIZE=32 \
@@ -7846,7 +7843,7 @@ mikro80:
 
 
 primo:
-	$(Z88DK_PATH)$(MYZ88DK) +primo $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +primo $(INCLUDE_OPTS) \
 	-D__PRIMO__ \
 	-DFORCE_XSIZE=48 \
 	-DFORCE_YSIZE=32 \
@@ -7863,7 +7860,7 @@ primo:
 
 
 pmd85:
-	$(Z88DK_PATH)$(MYZ88DK) +pmd85 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +pmd85 $(INCLUDE_OPTS) \
 	-D__PMD85__ \
 	-DFORCE_XSIZE=48 \
 	-DFORCE_YSIZE=32 \
@@ -7879,7 +7876,7 @@ pmd85:
 	rm $(BUILD_PATH)/FULL_pmd85.bin
 
 rc700:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=rc700 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=rc700 $(INCLUDE_OPTS) \
 	-D__RC700__ \
 	-DFORCE_XSIZE=80 \
 	-DFORCE_YSIZE=25 \
@@ -7896,7 +7893,7 @@ rc700:
 
 
 gb:
-	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +gb $(INCLUDE_OPTS) \
 	-D__GB__ \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=18 \
@@ -7915,7 +7912,7 @@ gb:
 	rm $(BUILD_PATH)/FULL_gb_BANK_1F.bin
 
 m100:
-	$(Z88DK_PATH)$(MYZ88DK) +m100 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +m100 $(INCLUDE_OPTS) \
 	-D__M100__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=24 \
@@ -7931,7 +7928,7 @@ m100:
 	rm $(BUILD_PATH)/FULL_m100.bin
 
 tvc:
-	$(Z88DK_PATH)$(MYZ88DK) +tvc $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +tvc $(INCLUDE_OPTS) \
 	-D__TVC__ \
 	-DFORCE_XSIZE=40 \
 	-DFORCE_YSIZE=25 \
@@ -7948,7 +7945,7 @@ tvc:
 
 
 zxn:
-	$(Z88DK_PATH)$(MYZ88DK) +zxn -clib=classic -subtype=nex $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +zxn -clib=classic -subtype=nex $(INCLUDE_OPTS) \
 	-D__ZXN__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=24 \
@@ -7966,7 +7963,7 @@ zxn:
 
 
 rc2014:
-	$(Z88DK_PATH)$(MYZ88DK) +rc2014  $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +rc2014  $(INCLUDE_OPTS) \
 	-D__ZXN__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=24 \
@@ -7982,7 +7979,7 @@ rc2014:
 
 
 yaz180:
-	$(Z88DK_PATH)$(MYZ88DK) +yaz180 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +yaz180 $(INCLUDE_OPTS) \
 	-D__ZXN__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=24 \
@@ -7998,7 +7995,7 @@ yaz180:
 
 
 vector06c:
-	$(Z88DK_PATH)$(MYZ88DK) +vector06c $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +vector06c $(INCLUDE_OPTS) \
 	-D__VECTOR06C__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=32 \
@@ -8015,7 +8012,7 @@ vector06c:
 
 
 pasopia7:
-	$(Z88DK_PATH)$(MYZ88DK) +pasopia7 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +pasopia7 $(INCLUDE_OPTS) \
 	-D__PASOPIA__ \
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_COLOR \
@@ -8031,7 +8028,7 @@ pasopia7:
 	
 	
 z80tvgame: 
-	$(Z88DK_PATH)$(MYZ88DK) +z80tvgame $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +z80tvgame $(INCLUDE_OPTS) \
 	-D__PASOPIA__ \
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_COLOR \
@@ -8048,7 +8045,7 @@ z80tvgame:
 
 	
 multi8_tiny_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(INCLUDE_OPTS) \
 	-D__MULTI8__ \
 	-DTINY_GAME  \
 	-DCONIO_VT52 \
@@ -8065,7 +8062,7 @@ multi8_tiny_udg:
 
 
 multi8_light_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(INCLUDE_OPTS) \
 	-D__MULTI8__ \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -8081,12 +8078,12 @@ multi8_light_udg:
 	
 multi8_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	$(CROSS_LIB_PATH)/boot/multi8/bootstrap.c \
 	-create-app -o bootstrap
 	rm bootstrap
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 -subtype=64k \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__MULTI8__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -8110,7 +8107,7 @@ multi8_udg:
 	rm code.cas
 	
 spc1000_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +spc1000 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +spc1000 $(INCLUDE_OPTS) \
 	-D__SPC1000__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -8144,7 +8141,7 @@ abc800_tiny:
 
 
 # cpc_tiny:
-	# $(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
+	# $(Z88DK_PATH)$(MYZ88DK) +cpc $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	# -D__CPC__ 	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
 	# -DCPCRSLIB \
 	# -pragma-define:REGISTER_SP=-1 \
@@ -8164,7 +8161,7 @@ cpc_cpcrslib:
 	$(Z88DK_PATH)$(MYZ88DKASM) -v \
 	-x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib \
 	@$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst	
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(INCLUDE_OPTS) \
 	-pragma-define:REGISTER_SP=-1 \
 	-DANIMATE_PLAYER -DSOUNDS -DFULL_GAME -clib=ansi -D__CPC__ -DCPCRSLIB -DBETWEEN_LEVEL -DEND_SCREEN \
 	-l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos \
@@ -8307,7 +8304,7 @@ sms_joy_test:
 	
 sms_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sms -clib=sdcc_iy -startup=17 -v \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-D__SMS__ \
 	-DNO_COLOR \
@@ -8333,7 +8330,7 @@ sms_tiny_buffered:
     
 gamegear_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sms -lgamegear -clib=sdcc_iy -startup=17 -v \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=16 \
@@ -8363,7 +8360,7 @@ gamegear_tiny_buffered:
 
 
 creativision_32k:
-	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(SOURCE_PATH)/../cfg/cc65/creativision-32k.cfg \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/end_screen.c \
@@ -8377,7 +8374,7 @@ creativision_32k:
 zx81_light:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-vn \
 	-D__ZX81__ -DNO_SLEEP -DLESS_TEXT \
 	-lndos \
@@ -8391,7 +8388,7 @@ zx81_light:
 
 osca_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +osca \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__OSCA__ -DNO_SLEEP -DLESS_TEXT \
 	-DTINY_GAME \
 	-o $(BUILD_PATH)/TINY_osca.bin -vn -lndos \
@@ -8432,7 +8429,7 @@ x1_getk:
 	$(SOURCE_PATH)/../experiments/test_getk.c
 	
 # ts2068:
-	# $(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) \
+	# $(Z88DK_PATH)$(MYZ88DK) +ts2068 $(INCLUDE_OPTS) \
 	# -D__TS2068__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	# -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	# -DFULL_GAME  -lndos \
@@ -8455,7 +8452,7 @@ x1_getk:
 	# $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	
 z1013_light:
-	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(INCLUDE_OPTS) -clib=ansi \
 	-vn -lndos \
 	-D__Z1013__  \
 	$(SOURCE_PATH)/item.c \
@@ -8468,7 +8465,7 @@ z1013_light:
 
 
 z1013_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) -clib=ansi \
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(INCLUDE_OPTS) -clib=ansi \
 	-D__Z1013__ -vn   -DTINY_GAME -DNO_SLEEP \
 	-lndos \
 	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
@@ -8482,7 +8479,7 @@ z1013_tiny:
 # import as data into ram at 32768 - call 32768
 samcoupe_light:
 	$(Z88DK_PATH)$(MYZ88DK) +sam -O0 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-D__SAM__  \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	 -o $(BUILD_PATH)/LIGHT_samcoupe.bin -lndos \
@@ -8504,7 +8501,7 @@ samcoupe_tiny:
 	
 zx81_16k_sccz80:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-DTURN_BASED \
 	-vn \
 	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -8515,7 +8512,7 @@ zx81_16k_sccz80:
 
 
 supervision_tiny:
-	$(CC65_PATH)$(MYCC65) -t supervision \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t supervision \
 	-DTINY_GAME -DLESS_TEXT -DNO_WAIT -DNO_SLEEP -DALT_PRINT -DNO_CHASE \
 	-o $(BUILD_PATH)/TINY_supervision.sv \
 	$(SOURCE_PATH)/sleep_macros.c \
@@ -8527,7 +8524,7 @@ supervision_tiny:
 	$(SOURCE_PATH)/main.c
 	
 # supervision_test:
-	# $(CC65_PATH)$(MYCC65) -t supervision \
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t supervision \
 	# $(SOURCE_PATH)/../experiments/supervision_test.c \
 	# -o $(BUILD_PATH)/supervision_test.sv
 
@@ -8540,7 +8537,7 @@ sound_test:
 
 sc3000_tiny: 
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal \
 	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE -DNO_STATS \
 	-clib=ansi \
@@ -8552,21 +8549,21 @@ sc3000_tiny:
 
 
 pointerToFunction:
-	$(CC65_PATH)$(MYCC65) -t pce \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t pce \
 	$(SOURCE_PATH)/../experiments/pointerToFunction.c \
 	-o $(BUILD_PATH)/pointerToFunctions.pce
 	
 
 # -DNO_MESSAGE \
 # 	-compiler=sdcc \
-#	$(ZSDCC_OPTS) \
+#	$(INCLUDE_OPTS) \
 # -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL
 # -DALT_PRINT
 # -pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc
 
 gal_6k_sccz80: 
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
-	$(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal \
 	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE -DNO_STATS \
 	-vn -lndos -create-app -Cz--audio \
@@ -8582,7 +8579,7 @@ gal_6k_sccz80:
 gal_6k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -8610,7 +8607,7 @@ gal_6k:
 gal_6k_mm:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -8655,7 +8652,7 @@ svi_318_tiny:
 
 
 error_cc65:
-	$(CC65_PATH)$(MYCC65) -t vic20 $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_cc65.prg
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t vic20 $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_cc65.prg
 
 error_z88dk:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_z88dk.prg
@@ -8669,13 +8666,13 @@ error_cmoc:
 	# cmoc -o $(BUILD_PATH)/hello_vec.bin $(SOURCE_PATH)/../experiments/hello_vec.c
 
 c16_16k_no_udg:
-	$(CC65_PATH)$(MYCC65) -O -t c16 -Cl -DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DSOUNDS --config $(SOURCE_PATH)/../cfg/cc65/c16-16k_plus.cfg $(SOURCE_PATH)/c264/c264_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k_no_udg.prg
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c16 -Cl -DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DSOUNDS --config $(SOURCE_PATH)/../cfg/cc65/c16-16k_plus.cfg $(SOURCE_PATH)/c264/c264_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k_no_udg.prg
 
 
 
 	
 lambda_8k:
-	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLORS \
+	$(Z88DK_PATH)$(MYZ88DK) +lambda $(INCLUDE_OPTS) -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLORS \
 	-DLESS_TEXT -DNO_SLEEP -lndos \
 	-create-app -o  $(BUILD_PATH)/TINY_lambda_8k.prg \
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
@@ -8685,7 +8682,7 @@ lambda_8k:
 	
 
 atari5200_light:
-	$(CC65_PATH)$(MYCC65) -O -t atari5200 $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_atari5200.rom	
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_atari5200.rom	
 	
 
 vg5k_tiny:
@@ -8698,7 +8695,7 @@ vg5k_tiny:
 
 
 spectrum_clib_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -clib=ansi -pragma-define:ansicolumns=32 -vn                           -DCLIB_ANSI -DNO_SLEEP -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DLESS_TEXT -DTINY_GAME -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/TINY_spectrum_clib.prg  $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(INCLUDE_OPTS) -clib=ansi -pragma-define:ansicolumns=32 -vn                           -DCLIB_ANSI -DNO_SLEEP -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DLESS_TEXT -DTINY_GAME -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/TINY_spectrum_clib.prg  $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/TINY_spectrum_clib.prg
 	rm $(BUILD_PATH)/TINY_spectrum_clib_BANK_7.bin	
 	
@@ -8707,15 +8704,15 @@ conio_nascom:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom experiments/coniotest.c -create-app -o  $(BUILD_PATH)/conio.nas
 			
 conio:
-	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/conio.c -o  $(BUILD_PATH)/conio.bin
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate experiments/conio.c -o  $(BUILD_PATH)/conio.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/conio.bin
 
 c64_joy-test:
-	$(CC65_PATH)$(MYCC65) -O -t c64 -DJOYSTICK_DRIVER=c64_hitjoy_joy experiments/joy-test.c -o $(BUILD_PATH)/joy-test.prg
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 -DJOYSTICK_DRIVER=c64_hitjoy_joy experiments/joy-test.c -o $(BUILD_PATH)/joy-test.prg
 	
 	
 joy-test:
-	$(CC65_PATH)$(MYCC65) -O -t gamate experiments/joy-test.c -o  $(BUILD_PATH)/joy-test.bin
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate experiments/joy-test.c -o  $(BUILD_PATH)/joy-test.bin
 	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/joy-test.bin
 
 
@@ -8723,17 +8720,17 @@ joy-test:
 
 # -subtype=gaming
 mc1000_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -DDEBUG -DTINY_GAME $(SCCZ80_OPTS) -pragma-define:ansicolumns=32  -clib=ansi -D__MC1000__ -vn  -lndos -create-app -Cz--audio $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -DDEBUG -DTINY_GAME $(INCLUDE_OPTS) -pragma-define:ansicolumns=32  -clib=ansi -D__MC1000__ -vn  -lndos -create-app -Cz--audio $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	mv a.wav $(BUILD_PATH)/TINY_mc1000.wav
 	rm a.bin
 	rm a.cas	
 
 # -DFULL_GAME
 vic20_exp_3k_NO_GFX: 
-	$(CC65_PATH)$(MYCC65) -O -Cl -t vic20 -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS   -DTINY_GAME --config $(SOURCE_PATH)/../cfg/cc65/vic20-3k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t vic20 -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS   -DTINY_GAME --config $(SOURCE_PATH)/../cfg/cc65/vic20-3k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 	
 creativision_16k_2:
-	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SLEEP -DLESS_TEXT \
 	--config $(SOURCE_PATH)/../cfg/cc65/creativision-16k_2.cfg \
 	$(SOURCE_PATH)/item.c \
@@ -8752,7 +8749,7 @@ creativision_16k_2:
 			
 
 pce_light:
-	$(CC65_PATH)$(MYCC65) -Or -t pce -Cl \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pce -Cl \
 	--config $(CFG_PATH)cc65/pce_8k_less_stack.cfg \
 	-DLESS_TEXT \
 	-DNO_MESSAGE -DNO_BLINKING \
@@ -8788,14 +8785,14 @@ nes_color:
 	$(CC65_PATH)cc65 $(SOURCE_PATH)/nes/nes_graphics.c
 	$(CC65_PATH)ca65 $(SOURCE_PATH)/nes/nes_graphics.s		
 	$(CC65_PATH)ld65 -t nes -o $(BUILD_PATH)/TINY_nes_color.nes $(SOURCE_PATH)/nes/reset.o $(SOURCE_PATH)/display_macros.o $(SOURCE_PATH)/nes/nes_graphics.o $(SOURCE_PATH)/enemy.o $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/text.o $(SOURCE_PATH)/strategy.o $(SOURCE_PATH)/input_macros.o nes.lib
-	#$(CC65_PATH)$(MYCC65) -O -t nes -DTINY_GAME --config $(SOURCE_PATH)/nes/nes.cfg -DNES_COLOR $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/nes/reset.s $(SOURCE_PATH)/nes/nes_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_nes_color.nes
+	#$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes -DTINY_GAME --config $(SOURCE_PATH)/nes/nes.cfg -DNES_COLOR $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/nes/reset.s $(SOURCE_PATH)/nes/nes_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_nes_color.nes
 	# -C $(SOURCE_PATH)/nes/nes.cfg
 	
 nes_16k:
-	$(CC65_PATH)$(MYCC65) -O -t nes $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_nes.nes
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_nes.nes
 
 osca:
-	$(Z88DK_PATH)$(MYZ88DK) +osca $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +osca $(INCLUDE_OPTS) \
 	-clib=ansi -D__OSCA__ -vn \
 	-DFULL_GAME \
 	-DSOUNDS  -lndos \
@@ -8814,7 +8811,7 @@ osca:
 
 # ti86:
 	# $(Z88DK_PATH)$(MYZ88DK) +ti86 \
-	# $(SCCZ80_OPTS) -D__TI86__ \
+	# $(INCLUDE_OPTS) -D__TI86__ \
 	# -clib=ansi -pragma-define:ansicolumns=32 \
 	# -vn \
 	# -DFULL_GAME  \
@@ -8829,7 +8826,7 @@ osca:
 
 # ti86_tiny:
 	# $(Z88DK_PATH)$(MYZ88DK) +ti86 \
-	# $(SCCZ80_OPTS) -D__TI86__ \
+	# $(INCLUDE_OPTS) -D__TI86__ \
 	# -clib=ansi -pragma-define:ansicolumns=32 \
 	# -vn \
 	# -DTINY_GAME -DLESS_TEXT  \
@@ -8844,7 +8841,7 @@ osca:
 
 # it may work
 mtx_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 $(SCCZ80_OPTS) -D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -vn   -lndos -create-app -o LIGHT.bin $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 $(INCLUDE_OPTS) -D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -vn   -lndos -create-app -o LIGHT.bin $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	mv LIGHT $(BUILD_PATH)
 	mv LIGHT.bin $(BUILD_PATH)
 	mv LIGHT.wav $(BUILD_PATH)
@@ -8856,20 +8853,20 @@ lambda_light:
 	rm $(BUILD_PATH)/LIGHT_lambda.prg	
 	
 msx_no_color_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS)  -zorg=49200 -DSOUNDS -create-app -vn -D__MSX__ -lndos -create-app -o $(BUILD_PATH)/LIGHT_msx_no_color_16k.prg $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(INCLUDE_OPTS)  -zorg=49200 -DSOUNDS -create-app -vn -D__MSX__ -lndos -create-app -o $(BUILD_PATH)/LIGHT_msx_no_color_16k.prg $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
 	rm $(BUILD_PATH)/LIGHT_msx_no_color_16k.prg 	
 
 
 	
 creativision_hello:
-	$(CC65_PATH)$(MYCC65) -O -t creativision \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	$(SOURCE_PATH)/../experiments/hello.c \
 	-o $(BUILD_PATH)/creativision_hello.bin
 	
 gal_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-compiler=sdcc \
-	$(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
 	-pragma-need=ansiterminal \
 	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
 	-vn -lndos -create-app -Cz--audio \
@@ -8885,7 +8882,7 @@ ti85_hello:
 	rm $(BUILD_PATH)/ti85_hello.bin
 	
 cpc_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(SOURCE_PATH)/../experiments/hello.c \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(INCLUDE_OPTS) $(SOURCE_PATH)/../experiments/hello.c \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/hello.prg
 	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/hello.cpc $(BUILD_PATH)/hello.cdt
@@ -8893,20 +8890,20 @@ cpc_hello:
 	rm $(BUILD_PATH)/hello.prg	
 
 pps_vt52_test:
-	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +pps $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/../experiments/vt52_test.c \
 	-lndos -vn
 	
 g800_vt52_test:
-	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +g800 $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/../experiments/vt52_test.c \
 	-lndos -vn  \
 	-create-app -o	
 	
 srr_vt52_test:
-	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +srr $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/../experiments/vt52_test.c \
 	-lndos -vn  \
@@ -8915,12 +8912,12 @@ srr_vt52_test:
 	mv a.wav $(BUILD_PATH)/srr_vt52_test.wav
 
 eg2k_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +trs80 -subtype=eg2000disk -create-app $(SCCZ80_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 -subtype=eg2000disk -create-app $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/../experiments/hello.c
 	mv a.cmd $(BUILD_PATH)/eg2k_hello.cmd
 	
 z1013_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) $(SOURCE_PATH)/../experiments/hello.c \
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(INCLUDE_OPTS) $(SOURCE_PATH)/../experiments/hello.c \
 	-lndos -vn -clib=ansi \
 	-create-app -o
 	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/z1013_hello.z80
@@ -8941,5 +8938,5 @@ z1013_wait_press:
 
 	
 msx_color_32k_msxdos:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -DSOUNDS -DANIMATE_PLAYER -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -lndos -subtype=msxdos -o $(BUILD_PATH)/FULL_msx_color_32k.com $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(INCLUDE_OPTS) -DSOUNDS -DANIMATE_PLAYER -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -lndos -subtype=msxdos -o $(BUILD_PATH)/FULL_msx_color_32k.com $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
 	

@@ -5679,8 +5679,6 @@ full_comx_combo.cat: full_combo_rand.cat
 COMX_DEBUG_MACROS ?= \
 	-D__LCC1802__ \
 	-DFORCE_NO_CONIO_LIB \
-	-DFORCE_XSIZE=40 \
-	-DFORCE_YSIZE=24 \
 	-DNO_WAIT \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	-DROUND_ENEMIES \
@@ -5695,7 +5693,7 @@ COMX_DEBUG_MACROS ?= \
 tiny_comx: tiny_comx_combo.cat
 	mv tiny_comx_combo.cat tiny_comx_combo.c
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX -Wf-g \
-	-DFORCE_XSIZE=40 \
+	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=21 \
 	-D__COMX__ \
 	-DTINY_GAME \
@@ -5710,8 +5708,6 @@ tiny_comx: tiny_comx_combo.cat
 light_comx: light_comx_combo.cat
 	mv light_comx_combo.cat light_comx_combo.c
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX -Wf-g  \
-	-DFORCE_XSIZE=40 \
-	-DFORCE_YSIZE=21 \
 	-D__COMX__ \
 	-DLIGHT_GAME \
 	-DANIMATE_PLAYER \
@@ -5725,11 +5721,8 @@ light_comx: light_comx_combo.cat
 full_comx : full_comx_combo.cat
 	mv full_comx_combo.cat full_comx_combo.c
 	$(LCC1802)  $(LC1802_OPTS) -Wf-volatile -target=xr18CX -Wf-g  \
-	-DFORCE_XSIZE=40 \
-	-DFORCE_YSIZE=21 \
 	-D__COMX__ \
 	-DFULL_GAME \
-	-DNO_WALL \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \

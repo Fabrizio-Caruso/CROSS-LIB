@@ -5523,46 +5523,46 @@ sdcc_display_macros:
 tiny_combo.cat:
 	cat \
 	$(TINY_FILES) \
-	> tiny_combo.cat
+	> $(SOURCE_PATH)/../tiny_combo.cat
 
 
 light_combo.cat: tiny_combo.cat
 	cat \
-	tiny_combo.cat \
+	$(SOURCE_PATH)/../tiny_combo.cat \
 	$(LIGHT_ONLY_FILES) \
-	> light_combo.cat
-	rm tiny_combo.cat
+	> $(SOURCE_PATH)/../light_combo.cat
+	rm -rf tiny_combo.cat
 
 
 full_combo.cat: light_combo.cat
 	cat \
-	light_combo.cat \
+	$(SOURCE_PATH)/../light_combo.cat \
 	$(FULL_ONLY_FILES) \
-	> full_combo.cat
-	rm light_combo.cat
+	> $(SOURCE_PATH)/../full_combo.cat
+	rm -rf light_combo.cat
 
 
 tiny_combo_rand.cat: tiny_combo.cat
 	cat \
 	$(CROSS_LIB_PATH)/rand/rand.c \
-	tiny_combo.cat \
-	> tiny_combo_rand.cat
-	rm tiny_combo.cat
+	$(SOURCE_PATH)/../tiny_combo.cat \
+	> $(SOURCE_PATH)/../tiny_combo_rand.cat
+	rm -rf tiny_combo.cat
     
 light_combo_rand.cat: light_combo.cat
 	cat \
 	$(CROSS_LIB_PATH)/rand/rand.c \
-	light_combo.cat \
-	> light_combo_rand.cat
-	rm light_combo.cat
+	$(SOURCE_PATH)/../light_combo.cat \
+	> $(SOURCE_PATH)/../light_combo_rand.cat
+	rm -rf light_combo.cat
     
     
 full_combo_rand.cat: full_combo.cat
 	cat \
 	$(CROSS_LIB_PATH)/rand/rand.c \
-	full_combo.cat \
-	> full_combo_rand.cat
-	rm full_combo.cat
+	$(SOURCE_PATH)/../full_combo.cat \
+	> $(SOURCE_PATH)/../full_combo_rand.cat
+	rm -rf full_combo.cat
 
 wincmoc_debug: tiny_combo_rand.cat 
 	mv tiny_combo_rand.cat tiny_combo_rand.c
@@ -5673,7 +5673,7 @@ tiny_comx_combo.cat: tiny_combo_rand.cat
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
-	tiny_combo_rand.cat > tiny_comx_combo.cat
+	$(SOURCE_PATH)/../tiny_combo_rand.cat > $(SOURCE_PATH)/../tiny_comx_combo.cat
 	rm tiny_combo_rand.cat
 
 #	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c 
@@ -5683,7 +5683,7 @@ light_comx_combo.cat: light_combo_rand.cat
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
-	light_combo_rand.cat > light_comx_combo.cat
+	$(SOURCE_PATH)/../light_combo_rand.cat > $(SOURCE_PATH)/../light_comx_combo.cat
 	rm light_combo_rand.cat
     
 full_comx_combo.cat: full_combo_rand.cat
@@ -5691,7 +5691,7 @@ full_comx_combo.cat: full_combo_rand.cat
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
-	full_combo_rand.cat > full_comx_combo.cat
+	$(SOURCE_PATH)/../full_combo_rand.cat > $(SOURCE_PATH)/../full_comx_combo.cat
 	rm full_combo_rand.cat
 
 COMX_DEBUG_MACROS ?= \
@@ -5715,7 +5715,7 @@ COMX_DEBUG_MACROS ?= \
 # 	-DNO_PRINT \
 
 tiny_comx: tiny_comx_combo.cat
-	mv tiny_comx_combo.cat tiny_comx_combo.c
+	mv $(SOURCE_PATH)/../tiny_comx_combo.cat $(SOURCE_PATH)/../tiny_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) \
 	-D__COMX__ \
 	-DTINY_GAME \
@@ -5723,13 +5723,13 @@ tiny_comx: tiny_comx_combo.cat
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
-	tiny_comx_combo.c
-	# rm tiny_comx_combo.c
-	mv a.hex $(BUILD_PATH)/TINY_comx.hex
+	$(SOURCE_PATH)/../tiny_comx_combo.c
+	# rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_comx.hex
 
 
 light_comx: light_comx_combo.cat
-	mv light_comx_combo.cat light_comx_combo.c
+	mv $(SOURCE_PATH)/../light_comx_combo.cat $(SOURCE_PATH)/../light_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS)  \
 	-D__COMX__ \
 	-DLIGHT_GAME \
@@ -5737,13 +5737,13 @@ light_comx: light_comx_combo.cat
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
-	light_comx_combo.c
-	# rm light_comx_combo.c
-	mv a.hex $(BUILD_PATH)/LIGHT_comx.hex
+	$(SOURCE_PATH)/../light_comx_combo.c
+	# rm -rf $(SOURCE_PATH)/../light_comx_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_comx.hex
 
 
 full_comx: full_comx_combo.cat
-	mv full_comx_combo.cat full_comx_combo.c
+	mv $(SOURCE_PATH)/../full_comx_combo.cat $(SOURCE_PATH)/../full_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS)  \
 	-D__COMX__ \
 	-DFULL_GAME \
@@ -5751,9 +5751,9 @@ full_comx: full_comx_combo.cat
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
 	$(COMX_DEBUG_MACROS) \
-	full_comx_combo.c
-	# rm full_comx_combo.c
-	mv a.hex $(BUILD_PATH)/FULL_comx.hex
+	$(SOURCE_PATH)/../full_comx_combo.c
+	# rm -rf $(SOURCE_PATH)/../full_comx_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_comx.hex
 
 
 tiny_comx_debug: tiny_comx

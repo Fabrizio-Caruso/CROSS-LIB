@@ -22,15 +22,6 @@ void gotoxycomx(unsigned int vidmem, unsigned char column){
 	" stxd\n");
 }
 
-// void gotoxy(unsigned char x, unsigned char y){
-	// unsigned int vidmem;
-	// vidmem = y*40 + x;
-    // gotoxycomx(vidmem, x);
-// }
-
-#define gotoxy(x,y) gotoxycomx((y)*40 + (x), (x))
-
-// #define cprintf 
 
 void vidstrcpy(unsigned int vidmem,char * text){ //write to video memory
 	asm(
@@ -45,19 +36,9 @@ void vidstrcpy(unsigned int vidmem,char * text){ //write to video memory
 void PRINT(uint8_t x, uint8_t y, char * str)
 {
     vidstrcpy((unsigned short)0xf800+x+y*40,str);
-	// gotoxy(x,y);
-    // printf(str);
+
 }
 
-// void vidchar(unsigned int vidmem, int character){ //write character to vidmem location in video memory
-	// asm(//vidmem pointer is R12, character is R13.0
-	// " glo r13\n"
-	// " b1  $	;wait til video is quiet\n"
-	// " str R12 ;move the byte\n");
-	// return;
-// }
-
-// void vidchar(unsigned int vidmem, int character);
 
 #define _DISPLAY(x,y,ch) vidchar((unsigned short)0xf800+x+y*40, ch+48)
 

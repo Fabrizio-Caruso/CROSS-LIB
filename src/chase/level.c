@@ -218,7 +218,14 @@ void fillLevelWithCharacters(uint8_t nGhosts)
 			}
 		}
 	#endif
-	
+            
+#if defined(DEBUG_LEVEL)
+if(level==0)
+{
+    PRINT(5,5,"KO FILLLEVEL START");
+}
+#endif
+
 	#if GHOSTS_NUMBER >= 9
 		ROUND_NINE_GHOSTS();
 	#elif GHOSTS_NUMBER>=7 
@@ -230,7 +237,14 @@ void fillLevelWithCharacters(uint8_t nGhosts)
 	#else
 		FLAT_SIX_GHOSTS();
 	#endif
-	
+            
+#if defined(DEBUG_LEVEL)
+if(level==0)
+{
+    PRINT(5,6,"KO GHOSTS");
+}
+#endif
+
 	#if BOMBS_NUMBER==4
 		FOUR_BOMBS();
 	#elif BOMBS_NUMBER==3	
@@ -240,7 +254,14 @@ void fillLevelWithCharacters(uint8_t nGhosts)
 	#elif BOMBS_NUMBER==1
 		ONE_BOMB();
 	#endif
-	
+            
+#if defined(DEBUG_LEVEL)
+if(level==0)
+{
+    PRINT(5,7,"KO BOMBS");
+}
+#endif
+
 	#if defined(FULL_GAME)
 		initializeAwayFromWall(&(powerUp._character),(XSize>>1),(YSize>>1),1,&POWERUP_IMAGE);
 		initializeAwayFromWall(&(powerUp2._character),(XSize>>1),(YSize>>1),0,&POWERUP_IMAGE);

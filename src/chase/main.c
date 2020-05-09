@@ -291,7 +291,6 @@ int main(void)
 				CLEAR_SCREEN();
 			#endif
 				
-			
 			#if defined(FULL_GAME)
 						
 				arrowRange = computeArrowRange();
@@ -311,13 +310,27 @@ int main(void)
 			WAIT_PRESS();
 			CLEAR_SCREEN();
 			
-			
+            
+#if defined(DEBUG_LEVEL)
+if(level==0)
+{
+    PRINT(5,11,"KO CLEARSCREEN PRINTPRESSKEYTOSTART");
+}
+#endif
+                
 			#if !defined(TINY_GAME) && !defined(NO_BORDERS)
 				DRAW_BORDERS();
 			#endif
 			
 			fillLevelWithCharacters(ghostCount);			
-			
+            
+#if defined(DEBUG_LEVEL)
+if(level==0)
+{
+    PRINT(5,13,"KO FILLLEVELWITHCHARACTERS");
+}
+#endif
+                
 			#if !defined(TINY_GAME)
 				constructItems();	
 				
@@ -331,7 +344,6 @@ int main(void)
 				printLevelStats();
 				printLivesStats();
 			#endif
-			
 			//
 			#if !defined(TINY_GAME)
 				#if !defined(NO_STATS)
@@ -339,7 +351,6 @@ int main(void)
 				#endif
 				printGhostCountStats();
 			#endif		
-			
 			#if defined(FULL_GAME)
                 #if !defined(BENCHMARK)
                     while(player._status && ((ghostCount>0 && !bossLevel()) || (skull._status && bossLevel()))) // while alive && there are still ghosts
@@ -363,7 +374,6 @@ int main(void)
 					MOVE_PLAYER();				
 					_DRAW_PLAYER();	
 				#endif
-				
 				#if defined(SLOW_DOWN)
 					_slow_down();
 				#endif
@@ -376,7 +386,6 @@ int main(void)
 				#if !defined(TINY_GAME) || defined(TURN_BASED)
 				++loop;
 				#endif
-				
 				#if !defined(TINY_GAME)
 				if(points>(extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS))
 				{
@@ -395,11 +404,9 @@ int main(void)
 				#else
 					ghostSlowDown = computeGhostSlowDown();
 				#endif
-			
 				#if !defined(TINY_GAME)
 					handle_bullet();
 				#endif
-				
 				#if !defined(TINY_GAME)						
 
 					if(!freezeActive)
@@ -456,13 +463,6 @@ int main(void)
 						checkBombsVsGhost(&ghosts[ind]);
 					}
 				
-                #if defined(DEBUG_LEVEL)
-                if(level==0)
-                {
-                    PRINT(5,5,"KO KO KO KO KO KO KO");
-                }
-                #endif
-                
 				#if !defined(TINY_GAME)
 					handle_extraPoints_item();
 					handle_gun_item();

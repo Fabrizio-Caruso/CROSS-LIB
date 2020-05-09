@@ -29,21 +29,21 @@
 
 
 #if defined(ANIMATE_PLAYER)
-    #define _PLAYER_DOWN ('a')
-    #define _PLAYER_UP ('b')
-    #define _PLAYER_LEFT ('c')
-    #define _PLAYER_RIGHT ('d')
+    #define _PLAYER_DOWN ('k')
+    #define _PLAYER_UP ('l')
+    #define _PLAYER_LEFT ('m')
+    #define _PLAYER_RIGHT ('n')
 #else
-    #define _PLAYER ('a')
+    #define _PLAYER ('k')
 #endif
 
 
 // RED
-#define _BOMB ('e'+PALETTE_SWITCH)
+#define _BOMB ('o'+PALETTE_SWITCH)
 
 // WHITE
 #if defined(__COMX__)
-    #define _GHOST ('f'+PALETTE_SWITCH)
+    #define _GHOST ('p'+PALETTE_SWITCH)
 #else
     #define _GHOST 'o'
 #endif

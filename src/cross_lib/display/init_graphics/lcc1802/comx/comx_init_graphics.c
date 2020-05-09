@@ -68,13 +68,13 @@ void redefine_char(const unsigned char * shapelocation, int color)
 #define __BULLET_UDG                    0, 0, 4,28,14, 8, 0, 0
 #define __BOMB_UDG                     30,33,51,45,45,51,33,30
 
-const unsigned char player_down[10] = {  97, __PLAYER_DOWN_UDG, 0 };
-const unsigned char player_up[10] = { 98 , __PLAYER_UP_UDG, 0 };
-const unsigned char player_right[10] = { 99 , __PLAYER_LEFT_UDG, 0 };
-const unsigned char player_left[10] = { 100 , __PLAYER_RIGHT_UDG, 0};
+const unsigned char player_down[10] = {  107, __PLAYER_DOWN_UDG, 0 };
+const unsigned char player_up[10] = { 108 , __PLAYER_UP_UDG, 0 };
+const unsigned char player_right[10] = { 109 , __PLAYER_LEFT_UDG, 0 };
+const unsigned char player_left[10] = { 110 , __PLAYER_RIGHT_UDG, 0};
 
-const unsigned char ghost[10] = { 102 , __GHOST_UDG, 0 };
-const unsigned char bomb[10] =  { 101 , __BOMB_UDG, 0};
+const unsigned char ghost[10] = { 112 , __GHOST_UDG, 0 };
+const unsigned char bomb[10] =  { 111 , __BOMB_UDG, 0};
 
 
 void disableinterrupt(void){

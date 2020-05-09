@@ -64,7 +64,9 @@
 	#endif
 #endif
 
-#define ROCKETS_NUMBER 4
+#if !defined(ROCKETS_NUMBER)
+    #define ROCKETS_NUMBER 4
+#endif
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 3

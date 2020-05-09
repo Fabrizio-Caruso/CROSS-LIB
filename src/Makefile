@@ -5675,6 +5675,8 @@ tiny_comx_combo.cat: tiny_combo_rand.cat
 	tiny_combo_rand.cat > tiny_comx_combo.cat
 	rm tiny_combo_rand.cat
 
+#	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c 
+
 light_comx_combo.cat: light_combo_rand.cat
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
@@ -5696,18 +5698,19 @@ COMX_DEBUG_MACROS ?= \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	-DROUND_ENEMIES \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_PRINT \
 	-DNO_SLEEP \
 	-DNO_COLOR \
 	-DALT_RAND \
-	-DMEMORY_MAPPED
+	-DMEMORY_MAPPED \
+	-DNO_PRINT \
+	-DROCKETS_NUMBER=2 \
+	-DSIMPLE_STRATEGY \
+	-DNO_MESSAGE
 
 
 tiny_comx: tiny_comx_combo.cat
 	mv tiny_comx_combo.cat tiny_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=21 \
 	-D__COMX__ \
 	-DTINY_GAME \
 	-DLCC1802_JOYSTICK \
@@ -5733,7 +5736,7 @@ light_comx: light_comx_combo.cat
 	mv a.hex $(BUILD_PATH)/LIGHT_comx_debug.hex
 
 
-full_comx : full_comx_combo.cat
+full_comx: full_comx_combo.cat
 	mv full_comx_combo.cat full_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS)  \
 	-D__COMX__ \
@@ -8554,12 +8557,6 @@ pointerToFunction:
 	-o $(BUILD_PATH)/pointerToFunctions.pce
 	
 
-# -DNO_MESSAGE \
-# 	-compiler=sdcc \
-#	$(INCLUDE_OPTS) \
-# -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL
-# -DALT_PRINT
-# -pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc
 
 gal_6k_sccz80: 
 	$(Z88DK_PATH)$(MYZ88DK) +gal \

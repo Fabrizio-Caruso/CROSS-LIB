@@ -34,12 +34,6 @@
 #endif
 
 
-#if defined(NO_MESSAGE)    
-    extern short highScore;
-#endif
-
-
-
 #include "graphics_settings.h"
 
 

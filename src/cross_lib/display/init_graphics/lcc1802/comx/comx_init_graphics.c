@@ -102,6 +102,6 @@ void INIT_GRAPHICS(void)
     redefine_char(ghost, 3);
     redefine_char(bomb, 0);
     
-    disableinterrupt();
+    // disableinterrupt();
 
 }

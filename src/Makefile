@@ -5709,8 +5709,9 @@ COMX_DEBUG_MACROS ?= \
 	-DSIMPLE_STRATEGY \
 	-DNO_MESSAGE \
 	-DALT_PRINT \
-	-DNO_SMALL_LETTERS
- 
+	-DNO_SMALL_LETTERS \
+	-DDEBUG_LEVEL
+
 # 	-DNO_PRINT \
 
 tiny_comx: tiny_comx_combo.cat

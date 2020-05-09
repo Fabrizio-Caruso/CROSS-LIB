@@ -456,6 +456,13 @@ int main(void)
 						checkBombsVsGhost(&ghosts[ind]);
 					}
 				
+                #if defined(DEBUG_LEVEL)
+                if(level==0)
+                {
+                    PRINT(5,5,"KO KO KO KO KO KO KO");
+                }
+                #endif
+                
 				#if !defined(TINY_GAME)
 					handle_extraPoints_item();
 					handle_gun_item();

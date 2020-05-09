@@ -5725,7 +5725,7 @@ tiny_comx: tiny_comx_combo.cat
 	$(COMX_DEBUG_MACROS) \
 	tiny_comx_combo.c
 	# rm tiny_comx_combo.c
-	mv a.hex $(BUILD_PATH)/TINY_comx_debug.hex
+	mv a.hex $(BUILD_PATH)/TINY_comx.hex
 
 
 light_comx: light_comx_combo.cat
@@ -5739,7 +5739,7 @@ light_comx: light_comx_combo.cat
 	$(COMX_DEBUG_MACROS) \
 	light_comx_combo.c
 	# rm light_comx_combo.c
-	mv a.hex $(BUILD_PATH)/LIGHT_comx_debug.hex
+	mv a.hex $(BUILD_PATH)/LIGHT_comx.hex
 
 
 full_comx: full_comx_combo.cat
@@ -5753,7 +5753,7 @@ full_comx: full_comx_combo.cat
 	$(COMX_DEBUG_MACROS) \
 	full_comx_combo.c
 	# rm full_comx_combo.c
-	mv a.hex $(BUILD_PATH)/FULL_comx_debug.hex
+	mv a.hex $(BUILD_PATH)/FULL_comx.hex
 
 
 tiny_comx_debug: tiny_comx

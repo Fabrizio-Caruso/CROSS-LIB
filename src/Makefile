@@ -5672,6 +5672,7 @@ tiny_comx_combo.cat: tiny_combo_rand.cat
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
 	tiny_combo_rand.cat > tiny_comx_combo.cat
 	rm tiny_combo_rand.cat
 
@@ -5681,6 +5682,7 @@ light_comx_combo.cat: light_combo_rand.cat
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
 	light_combo_rand.cat > light_comx_combo.cat
 	rm light_combo_rand.cat
     
@@ -5688,6 +5690,7 @@ full_comx_combo.cat: full_combo_rand.cat
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
 	full_combo_rand.cat > full_comx_combo.cat
 	rm full_combo_rand.cat
 
@@ -5702,11 +5705,13 @@ COMX_DEBUG_MACROS ?= \
 	-DNO_COLOR \
 	-DALT_RAND \
 	-DMEMORY_MAPPED \
-	-DNO_PRINT \
 	-DROCKETS_NUMBER=2 \
 	-DSIMPLE_STRATEGY \
-	-DNO_MESSAGE
-
+	-DNO_MESSAGE \
+	-DALT_PRINT \
+	-DNO_SMALL_LETTERS
+ 
+# 	-DNO_PRINT \
 
 tiny_comx: tiny_comx_combo.cat
 	mv tiny_comx_combo.cat tiny_comx_combo.c

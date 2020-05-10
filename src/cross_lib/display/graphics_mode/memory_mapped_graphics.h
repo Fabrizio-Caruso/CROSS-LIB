@@ -36,7 +36,7 @@
 #elif defined(__AQUARIUS__)
 	#define BASE_ADDR (12288+40)
 	#define COLOR_ADDR (BASE_ADDR+1024)
-#elif defined(__COMX__)
+#elif defined(__COMX__) || defined(__PECOM__)
 	#define BASE_ADDR 0xF800
 #endif
 
@@ -57,7 +57,7 @@
         POKE(VDP_DATA,val); \
         __asm__("cli");    
         
-#elif defined(__COMX__)
+#elif defined(__COMX__) || defined(__PECOM__)
     void vidchar(int addr, int val);
     #define DISPLAY_POKE(addr,val) vidchar(addr,val)
 #else

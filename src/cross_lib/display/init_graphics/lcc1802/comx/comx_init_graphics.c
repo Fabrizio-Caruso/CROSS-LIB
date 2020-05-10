@@ -1,7 +1,14 @@
 
+
 // Code by Marcel van Tongeren
 void vidchar(int vidmem, int character){ //write character to vidmem location in video memory
 	asm(//vidmem pointer is R12, character is R13.0
+#if defined(__PECOM__)
+	" sex R3\n"
+	" out 1\n"
+	" db  2\n"
+    " sex R2\n"
+#endif
 	" glo r13\n"
 	" b1  $	;wait til video is quiet\n"
 	" str R12 ;move the byte\n");
@@ -9,9 +16,16 @@ void vidchar(int vidmem, int character){ //write character to vidmem location in
 }
 
 
+
 void shapechar(const unsigned char * shapelocation, int number)
 {
 	asm( //shapelocation pointer is R12, number of shapes is R13
+#if defined(__PECOM__)
+	" sex R3\n" 
+	" out 1\n" 
+	" db  2\n" 
+    " sex R2\n"
+#endif
 	" ldi 0xf7\n"
 	" phi R8\n"
 	" ldi 0xfb\n"
@@ -85,10 +99,10 @@ void disableinterrupt(void){
 }
 
 
+
+
 void INIT_GRAPHICS(void)
 {
-
-    
 	asm(" ldiReg R8,0xF800\n"
 	    " sex R8\n"
 	    " out 7\n"

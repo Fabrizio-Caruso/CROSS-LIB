@@ -168,7 +168,9 @@ EM_OPTS =
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
 #/cygdrive/c/lcc42/bat/caCX.bat
 #/cygdrive/c/lcc42/bin/lcc.exe
-LCC1802_OPTS ?= -Wf-volatile -target=xr18CX
+LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wa-D CODELOC=0x4400" "-Wa-D LCCCX=1"
+#-target=xr18CX -O "-Wf-volatile" "-Wa-D CODELOC=0x4400" "-Wa-D LCCCX=1"
+#-Wf-volatile -target=xr18CX
 
 COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME 
 
@@ -5698,8 +5700,7 @@ COMX_DEBUG_MACROS ?= \
 	-D__LCC1802__ \
 	-DFORCE_NO_CONIO_LIB \
 	-DNO_WAIT \
-	-DFORCE_GHOSTS_NUMBER=8 \
-	-DROUND_ENEMIES \
+	-DFORCE_GHOSTS_NUMBER=6 \
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_SLEEP \
 	-DNO_COLOR \

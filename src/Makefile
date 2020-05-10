@@ -168,7 +168,9 @@ EM_OPTS =
 LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
 #/cygdrive/c/lcc42/bat/caCX.bat
 #/cygdrive/c/lcc42/bin/lcc.exe
-LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wa-D CODELOC=0x4400" "-Wa-D LCCCX=1"
+LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wa-D LCCCX=1"
+COMX_OPTS ?= "-Wa-D CODELOC=0x4400"
+PECOM_OPTS ?= "-Wa-D CODELOC=0x200"
 #-target=xr18CX -O "-Wf-volatile" "-Wa-D CODELOC=0x4400" "-Wa-D LCCCX=1"
 #-Wf-volatile -target=xr18CX
 
@@ -5582,90 +5584,90 @@ wincmoc_debug: tiny_combo_rand.cat
 
 
 comx_hello0: 
-	$(LCC1802)  $(LCC1802_OPTS) \
+	$(LCC1802)  $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx.c
 	mv a.hex $(BUILD_PATH)/comx_hello0.hex
 
 
 comx_hello: 
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx.c
 	mv a.hex $(BUILD_PATH)/comx_hello.hex
 
 
 comx_hello1: 
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx1.c
 	mv a.hex $(BUILD_PATH)/comx_hello1.hex
 
 
 comx_hello2: 
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx2.c
 	mv a.hex $(BUILD_PATH)/comx_hello2.hex
 
 comx_hello_integer: 
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/comx_hello_integer.c
 	mv a.hex $(BUILD_PATH)/comx_hello_integer.hex
 
 
 comx_gotoxy: 
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx_gotoxy.c
 	mv a.hex $(BUILD_PATH)/hwcomx_gotoxy.hex
 
 
 comx_gotoxy2: 
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx_gotoxy2.c
 	mv a.hex $(BUILD_PATH)/hwcomx_gotoxy2.hex
 
 
 comx_mod: 
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/comx_mod.c
 	mv a.hex $(BUILD_PATH)/comx_mod.hex
 
 
 comx_pp_debug0: 
-	$(LCC1802) $(LCC1802_OPTS) -D_FOO_DEF \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) -D_FOO_DEF \
 	$(SOURCE_PATH)/../test/hwcomx_pp_debug.c
 	mv a.hex $(BUILD_PATH)/comx_pp_debug0.hex
 
 
 comx_size_debug:
-	$(LCC1802) $(LCC1802_OPTS) -D_FOO_DEF \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) -D_FOO_DEF \
 	$(SOURCE_PATH)/../test/comx_size_debug.c
 	mv a.hex $(BUILD_PATH)/comx_size_debug.hex
 
 
 comx_conv_debug:
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/comx_conv_debug.c
 	mv a.hex $(BUILD_PATH)/comx_conv_debug.hex
 
 
 comx_class:
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/comx_class.c
 	mv a.hex $(BUILD_PATH)/comx_class.hex
 
 
 comx_simple_class:
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/comx_simple_class.c
 	mv a.hex $(BUILD_PATH)/comx_simple_class.hex
 
 
 comx_simplest_class:
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/comx_simplest_class.c
 	mv a.hex $(BUILD_PATH)/comx_simplest_class.hex
 
 
 comx_pointer2func:
-	$(LCC1802) $(LCC1802_OPTS) \
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/comx_pointer2func.c
 	mv a.hex $(BUILD_PATH)/comx_pointer2func.hex
 
@@ -5677,8 +5679,6 @@ tiny_comx_combo.cat: tiny_combo_rand.cat
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
 	$(SOURCE_PATH)/../tiny_combo_rand.cat > $(SOURCE_PATH)/../tiny_comx_combo.cat
 	rm tiny_combo_rand.cat
-
-#	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c 
 
 light_comx_combo.cat: light_combo_rand.cat
 	cat \
@@ -5694,6 +5694,31 @@ full_comx_combo.cat: full_combo_rand.cat
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
 	$(SOURCE_PATH)/../full_combo_rand.cat > $(SOURCE_PATH)/../full_comx_combo.cat
+	rm full_combo_rand.cat
+
+
+tiny_pecom_combo.cat: tiny_combo_rand.cat
+	cat \
+	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
+	$(SOURCE_PATH)/../tiny_combo_rand.cat > $(SOURCE_PATH)/../tiny_pecom_combo.cat
+	rm tiny_combo_rand.cat
+
+light_pecom_combo.cat: light_combo_rand.cat
+	cat \
+	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
+	$(SOURCE_PATH)/../light_combo_rand.cat > $(SOURCE_PATH)/../light_pecom_combo.cat
+	rm light_combo_rand.cat
+    
+full_pecom_combo.cat: full_combo_rand.cat
+	cat \
+	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
+	$(SOURCE_PATH)/../full_combo_rand.cat > $(SOURCE_PATH)/../full_pecom_combo.cat
 	rm full_combo_rand.cat
 
 COMX_DEBUG_MACROS ?= \
@@ -5717,7 +5742,7 @@ COMX_DEBUG_MACROS ?= \
 
 tiny_comx: tiny_comx_combo.cat
 	mv $(SOURCE_PATH)/../tiny_comx_combo.cat $(SOURCE_PATH)/../tiny_comx_combo.c
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) \
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS) \
 	-D__COMX__ \
 	-DTINY_GAME \
 	-DLCC1802_JOYSTICK \
@@ -5731,7 +5756,7 @@ tiny_comx: tiny_comx_combo.cat
 
 light_comx: light_comx_combo.cat
 	mv $(SOURCE_PATH)/../light_comx_combo.cat $(SOURCE_PATH)/../light_comx_combo.c
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS)  \
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS)  \
 	-D__COMX__ \
 	-DLIGHT_GAME \
 	-DLCC1802_JOYSTICK \
@@ -5745,7 +5770,7 @@ light_comx: light_comx_combo.cat
 
 full_comx: full_comx_combo.cat
 	mv $(SOURCE_PATH)/../full_comx_combo.cat $(SOURCE_PATH)/../full_comx_combo.c
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS)  \
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS)  \
 	-D__COMX__ \
 	-DFULL_GAME \
 	-DLCC1802_JOYSTICK \
@@ -5757,6 +5782,52 @@ full_comx: full_comx_combo.cat
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_comx.hex
 
 
+
+# PECOM
+tiny_pecom: tiny_pecom_combo.cat
+	mv $(SOURCE_PATH)/../tiny_pecom_combo.cat $(SOURCE_PATH)/../tiny_pecom_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS) \
+	-D__COMX__ \
+	-DTINY_GAME \
+	-DNO_INPUT \
+	-DANIMATE_PLAYER \
+	-DALT_CLEAR_SCREEN \
+	$(COMX_DEBUG_MACROS) \
+	$(SOURCE_PATH)/../tiny_pecom_combo.c
+	# rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_pecom.hex
+
+
+light_pecom: light_pecom_combo.cat
+	mv $(SOURCE_PATH)/../light_pecom_combo.cat $(SOURCE_PATH)/../light_pecom_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
+	-D__COMX__ \
+	-DLIGHT_GAME \
+	-DNO_INPUT \
+	-DANIMATE_PLAYER \
+	-DALT_CLEAR_SCREEN \
+	$(COMX_DEBUG_MACROS) \
+	$(SOURCE_PATH)/../light_pecom_combo.c
+	# rm -rf $(SOURCE_PATH)/../light_pecom_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_pecom.hex
+
+
+full_pecom: full_pecom_combo.cat
+	mv $(SOURCE_PATH)/../full_pecom_combo.cat $(SOURCE_PATH)/../full_pecom_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
+	-D__PECOM__ \
+	-DFULL_GAME \
+	-DNO_INPUT \
+	-DANIMATE_PLAYER \
+	-DALT_CLEAR_SCREEN \
+	$(COMX_DEBUG_MACROS) \
+	$(SOURCE_PATH)/../full_pecom_combo.c
+	# rm -rf $(SOURCE_PATH)/../full_pecom_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_pecom.hex
+
+
+
+
 tiny_comx_debug: tiny_comx
 
 comx_targets: 
@@ -5764,8 +5835,13 @@ comx_targets:
 	make light_comx 
 	make full_comx
 
+pecom_targets: 
+	make tiny_pecom 
+	make light_pecom 
+	make full_pecom
+
 comx_pp_debug: 
-	$(LCC1802)  $(LC1802_OPTS) $(LCC1802_OPTS) \
+	$(LCC1802)  $(LC1802_OPTS) $(LCC1802_OPTS) $(COMX_OPTS) \
 	-DFORCE_XSIZE=40 \
 	-DFORCE_YSIZE=24 \
 	-D__COMX__ \
@@ -6068,6 +6144,12 @@ clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/../full_comx_combo.asm
 	rm -rf $(SOURCE_PATH)/../light_comx_combo.asm
 	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.asm
+	rm -rf $(SOURCE_PATH)/../full_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../light_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../full_pecom_combo.asm
+	rm -rf $(SOURCE_PATH)/../light_pecom_combo.asm
+	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.asm
 
 clean_lib_obj:
 	find -type f -name '*.o' -delete

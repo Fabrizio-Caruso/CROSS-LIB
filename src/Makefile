@@ -5595,6 +5595,12 @@ comx_hello:
 	mv a.hex $(BUILD_PATH)/comx_hello.hex
 
 
+pecom_hello: 
+	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
+	$(SOURCE_PATH)/../test/hwpecom.c
+	mv a.hex $(BUILD_PATH)/pecom_hello.hex
+
+
 comx_hello1: 
 	$(LCC1802) $(LCC1802_OPTS) $(COMX_OPTS) \
 	$(SOURCE_PATH)/../test/hwcomx1.c

@@ -91,23 +91,42 @@ const unsigned char ghost[10] = { 112 , __GHOST_UDG, 0 };
 const unsigned char bomb[10] =  { 111 , __BOMB_UDG, 0};
 
 
-void disableinterrupt(void){
+
+// COMX and PECOM 
+void disableinterrupt(){
     asm( 
         " sex 3\n"
         " dis\n"
         " db 0x23\n");
 }
 
+// COMX and PECOM
+void enableinterrupt(){
+    asm( 
+        " sex 3\n"
+        " ret\n"
+        " db 0x23\n");
+}
 
-
+void setvideobase(unsigned int vidmem){
+    asm( //vidmem pointer is R12
+#if defined(__PECOM__)
+		" ldireg R8, 0x7cc8\n"
+		" ghi R12\n"
+		" str R8\n"
+		" inc R8\n"
+		" glo R12\n"
+		" str R8\n"
+#endif
+		" sex R12\n"
+        " out 7\n"
+        " sex R2\n");
+}
 
 void INIT_GRAPHICS(void)
 {
-	asm(" ldiReg R8,0xF800\n"
-	    " sex R8\n"
-	    " out 7\n"
-	    " sex R2\n");
     
+    setvideobase(0x7800);
     
     redefine_char(player_down, 3);
     redefine_char(player_up, 3);

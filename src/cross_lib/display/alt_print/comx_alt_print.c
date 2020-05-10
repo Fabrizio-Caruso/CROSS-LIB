@@ -2,6 +2,7 @@
 
 #include "standard_libs.h"
 
+// COMX
 void gotoxycomx(unsigned int vidmem, unsigned char column){
 	asm(
 	" ldireg R8, 0x419A\n"
@@ -23,27 +24,24 @@ void gotoxycomx(unsigned int vidmem, unsigned char column){
 }
 
 
-// void vidstrcpy(unsigned int vidmem,char * text){ //write to video memory
-	// asm(
-	// "$$cpy:\n"
-	// " lda R13 ;pick up input pointer\n"
-	// " b1  $	;wait til video is quiet\n"
-	// " str R12 ;move the byte\n"
-	// " inc R12 ;++\n"
-	// " bnz $$cpy\n");
-// }
-
 void vidstrcpy(unsigned int vidmem,char * text){ //write to video memory
-asm(
-"$$cpy:\n"
-" lda R13 ;pick up input pointer\n"
-" bz $$end\n"
-" b1  $;wait til video is quiet\n"
-" str R12 ;move the byte\n"
-" inc R12 ;++\n"
-" br $$cpy\n"
-"$$end:\n");
+	asm(
+#if defined(__PECOM__)
+	" sex R3\n"
+	" out 1\n"
+	" db  2\n"
+    " sex R2\n"
+#endif
+	"$$cpy:\n"
+	" lda R13 ;pick up input pointer\n"
+	" bz $$end\n"
+	" b1  $	;wait til video is quiet\n"
+	" str R12 ;move the byte\n"
+	" inc R12 ;++\n"
+	" br $$cpy\n"
+	"$$end:\n");
 }
+
 
 void PRINT(uint8_t x, uint8_t y, char * str)
 {

@@ -5727,7 +5727,7 @@ full_pecom_combo.cat: full_combo_rand.cat
 	$(SOURCE_PATH)/../full_combo_rand.cat > $(SOURCE_PATH)/../full_pecom_combo.cat
 	rm full_combo_rand.cat
 
-COMX_DEBUG_MACROS ?= \
+COMX_MACROS ?= \
 	-D__LCC1802__ \
 	-DFORCE_NO_CONIO_LIB \
 	-DNO_WAIT \
@@ -5754,7 +5754,7 @@ tiny_comx: tiny_comx_combo.cat
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
-	$(COMX_DEBUG_MACROS) \
+	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../tiny_comx_combo.c
 	# rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_comx.hex
@@ -5768,7 +5768,7 @@ light_comx: light_comx_combo.cat
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
-	$(COMX_DEBUG_MACROS) \
+	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../light_comx_combo.c
 	# rm -rf $(SOURCE_PATH)/../light_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_comx.hex
@@ -5782,7 +5782,7 @@ full_comx: full_comx_combo.cat
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
-	$(COMX_DEBUG_MACROS) \
+	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../full_comx_combo.c
 	# rm -rf $(SOURCE_PATH)/../full_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_comx.hex
@@ -5798,7 +5798,7 @@ tiny_pecom: tiny_pecom_combo.cat
 	-DNO_INPUT \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
-	$(COMX_DEBUG_MACROS) \
+	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../tiny_pecom_combo.c
 	# rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_pecom.hex
@@ -5812,7 +5812,7 @@ light_pecom: light_pecom_combo.cat
 	-DNO_INPUT \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
-	$(COMX_DEBUG_MACROS) \
+	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../light_pecom_combo.c
 	# rm -rf $(SOURCE_PATH)/../light_pecom_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_pecom.hex
@@ -5826,7 +5826,7 @@ full_pecom: full_pecom_combo.cat
 	-DNO_INPUT \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
-	$(COMX_DEBUG_MACROS) \
+	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../full_pecom_combo.c
 	# rm -rf $(SOURCE_PATH)/../full_pecom_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_pecom.hex
@@ -5853,7 +5853,7 @@ comx_pp_debug:
 	-D__COMX__ \
 	-DANIMATE_PLAYER \
 	-DALT_CLEAR_SCREEN \
-	$(COMX_DEBUG_MACROS) \
+	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../test/comx_pp_debug.c
 	mv a.hex $(BUILD_PATH)/comx_pp_debug.hex
 
@@ -6135,7 +6135,10 @@ amiga_targets: \
 
 gcc_targets: \
 	gcc_buffered ncurses_targets  
-    
+
+lcc1802_targets: \
+	comx_targets pecom_targets
+
 # All targets that can be compiled under CYGWIN, i.e., not including m20
 all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets sinclair_ql_targets amiga_targets
 

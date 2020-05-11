@@ -33,7 +33,7 @@
 #endif
         
 
-#if defined(__COMX__) || (defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB))
+#if defined(__COMX__) || defined(__PECOM__) || (defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB))
     char GET_CHAR(void)
     {
     #  if defined(NO_INPUT)
@@ -71,6 +71,33 @@
         " plo R15\n"
         " ldi 0\n"
         " phi R15\n"
+        " Cretn\n");
+        return 0; //this statement will never be executed but it keeps the compiler happy
+    #elif defined(__PECOM__)
+        asm(
+        " ldireg R8, 0x7CCA\n"
+        " sex R8\n"				//Set stack to R8 which counts up from 0x7CCA to 0x7CE3 to check all keys
+        "$$checknext:\n"
+        " inp 3\n"				// bit 0 and 1 indicate key press
+        " ani 3\n"
+        " bnz $$keypressed\n"	// bit 0 or 1 are 1 so a key is pressed
+        " glo R8\n"
+        " inc R8\n"
+        " xri 0xe3\n"
+        " bnz $$checknext\n"	// R8++ if not 0xE3 check next key
+        " ldi 0\n"
+        " br  $$exit\n"			// all keys checked - return 0
+        "$$keypressed:\n"
+        " shr\n"	
+        " shr\n"				// move bit 1 into DF
+        " glo R8\n"				// get value 'keyset'
+        " shlc\n"				// shift left and move DF to b0 so key value is unique
+        " adi 0x98\n"			// convert to ASCII
+        "$$exit:\n"
+        " plo R15\n"
+        " ldi 0\n"
+        " phi R15\n"
+        " sex R2\n"
         " Cretn\n");
         return 0; //this statement will never be executed but it keeps the compiler happy
     #elif defined(__ATMOS__) || defined(__TELESTRAT__)

@@ -175,21 +175,32 @@ extern Character player;
             #endif            
         }
     #elif defined(LCC1802_JOYSTICK)
+        #if defined(__COMX__)
+            #define MOVE_UP 0x82
+            #define MOVE_DOWN 0x85
+            #define MOVE_LEFT 0x84
+            #define MOVE_RIGHT 0x83
+        #elif defined(__PECOM__)
+            #define MOVE_UP 0x5E
+            #define MOVE_DOWN 0x5B
+            #define MOVE_LEFT 0x5C
+            #define MOVE_RIGHT 0x5D
+        #endif
         void movePlayerByJoystick(uint8_t joyInput)
         {
-            if(joyInput == 0x82)
+            if(joyInput == MOVE_UP)
             {
                 _DO_MOVE_UP
             }
-            else if(joyInput == 0x85)
+            else if(joyInput == MOVE_DOWN)
             {
                 _DO_MOVE_DOWN
             }
-            else if(joyInput == 0x84)
+            else if(joyInput == MOVE_LEFT)
             {
                 _DO_MOVE_LEFT
             }
-            else if(joyInput == 0x83)
+            else if(joyInput == MOVE_RIGHT)
             {
                 _DO_MOVE_RIGHT
             }
@@ -285,7 +296,7 @@ extern Character player;
         #include <arch/sms/SMSLib.h>
         
         #define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
-    #elif defined(__COMX__)
+    #elif defined(__COMX__) || defined(__PECOM__)
         #define JOY_INPUT() GET_CHAR()
     #else
         #define JOY_INPUT() joy_read(JOY_1)

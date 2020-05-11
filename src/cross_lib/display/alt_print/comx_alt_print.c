@@ -24,7 +24,7 @@ void gotoxycomx(unsigned int vidmem, unsigned char column){
 }
 
 
-void vidstrcpy(unsigned int vidmem,char * text){ //write to video memory
+void vidstrcpy(uint16_t vidmem, char * text){ //write to video memory
 	asm(
 #if defined(__PECOM__)
 	" sex R3\n"
@@ -45,12 +45,12 @@ void vidstrcpy(unsigned int vidmem,char * text){ //write to video memory
 
 void PRINT(uint8_t x, uint8_t y, char * str)
 {
-    vidstrcpy((unsigned short)0xf800+x+y*40,str);
+    vidstrcpy((uint16_t) 0xf800+x+y*40,str);
 
 }
 
 
-#define _DISPLAY(x,y,ch) vidchar((unsigned short)0xf800+x+y*40, ch+48)
+#define _DISPLAY(x,y,ch) vidchar((uint16_t)0xf800+x+y*40, ch+48)
 
 void print_05u0(uint8_t x, uint8_t y, uint16_t val)
 {

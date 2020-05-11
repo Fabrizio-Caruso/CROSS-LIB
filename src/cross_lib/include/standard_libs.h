@@ -8,7 +8,7 @@
     #if !defined(_STDINT)
         #define _STDINT
         typedef unsigned char uint8_t;
-        typedef unsigned short uint16_t;
+        typedef unsigned int uint16_t;
     #endif // _STDINT
 #else
 	#include <stdlib.h>

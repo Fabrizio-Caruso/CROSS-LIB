@@ -1,10 +1,14 @@
 
+#define rnd_m 2345
+#define rnd_a 6789
 
+// #define rnd_m 58653
+// #define rnd_a 13849
 #if defined(__COMX__) || defined(__PECOM__)
 static unsigned int next = 1;
 int rand(void) // RAND_MAX assumed to be 32767
 {
-    next = next * 115 + 125;
+    next = next * rnd_m + rnd_a;
     return next;
 }
 

@@ -1,7 +1,16 @@
 /*
     Hello World for the COMX-35
-    by Marcel van Tongoren
+    by Marcel van Tongoren & Bill Rowe
 */
+
+#include <nstdlib.h>
+#define putc(c) putcomx(c,0x3302)
+
+void putcomx(unsigned char c, unsigned int r13val){
+    asm(
+        " glo r12\n"
+        " lbr 0x2cd3\n");
+}
 
 char shapes[] =
 {
@@ -44,24 +53,73 @@ void shapechar(char * shapelocation, int number)
 	" bnz $$nextshape\n");
 }
 
-void setvideobase(){
-	asm(" ldiReg R8,0xF800\n"
-	    " sex R8\n"
-	    " out 7\n"
-	    " sex R2\n");
+void setvideobase(unsigned int vidmem){
+    asm( //vidmem pointer is R12
+		" ldireg R8, 0x4195\n"
+		" ghi R12\n"
+		" str R8\n"
+		" inc R8\n"
+		" glo R12\n"
+		" str R8\n"
+		" sex R12\n"
+        " out 7\n"
+        " sex R2\n");
 }
 
-void vidstrcpy(char * vidmem,char * text){ //write to video memory
+void disableinterrupt(){
+    asm( 
+        " sex 3\n"
+        " dis\n"
+        " db 0x23\n");
+}
+
+void enableinterrupt(){
+    asm( 
+        " sex 3\n"
+        " ret\n"
+        " db 0x23\n");
+}
+ 
+void gotoxycomx(unsigned int vidmem, unsigned char column){
+	asm(
+	" ldireg R8, 0x419A\n"
+	" sex R8\n"
+	" glo R13\n"
+	" stxd\n"
+	" dec R8\n"
+	" glo R12\n"
+	" stxd\n"
+	" ghi R12\n"
+	" stxd\n"
+	" dec R8\n"
+	" dec R8\n"
+	" glo R12\n"
+	" stxd\n"
+	" ghi R12\n"
+	" adi 0xf8\n"
+	" stxd\n"
+    " sex R2\n");
+}
+
+void gotoxy(unsigned char x, unsigned char y){
+	unsigned int vidmem;
+	vidmem = y*40 + x;
+    gotoxycomx(vidmem, x);
+}
+
+void vidstrcpy(unsigned int vidmem,char * text){ //write to video memory
 	asm(
 	"$$cpy:\n"
 	" lda R13 ;pick up input pointer\n"
+	" bz $$end\n"
 	" b1  $	;wait til video is quiet\n"
 	" str R12 ;move the byte\n"
 	" inc R12 ;++\n"
-	" bnz $$cpy\n");
+	" br $$cpy\n"
+	"$$end:\n");
 }
 
-void vidclr(char * vidmem, int vidlen){ //write 0's to video memory
+void vidclr(unsigned int vidmem, int vidlen){ //write 0's to video memory
 	asm( //vidmem pointer is R12, vidlen is R13
 	"$$cpy:\n"
 	" ldi 0 ;source a 0 for clearing the screen\n"
@@ -76,7 +134,7 @@ void vidclr(char * vidmem, int vidlen){ //write 0's to video memory
 	return;
 }
 
-void vidchar(int vidmem, int character){ //write character to vidmem location in video memory
+void vidchar(unsigned int vidmem, int character){ //write character to vidmem location in video memory
 	asm(//vidmem pointer is R12, character is R13.0
 	" glo r13\n"
 	" b1  $	;wait til video is quiet\n"
@@ -84,21 +142,45 @@ void vidchar(int vidmem, int character){ //write character to vidmem location in
 	return;
 }
 
-int getlastkey(){ //get last key
+unsigned char getkey(){ //get key value if pressed, otherwise return 0
 	asm(
-	" ldiReg R8,0x41A3\n"
-	" ldn R8\n"
+	" b3 $$keypressed\n" // Check if a key is pressed for the 'first time'
+	" bn2 $$nokey\n"     // Branch to nokey if no key was pressed previously
+	"$$keypressed:\n"
+	" inp 3\n"
+	" lskp\n"
+	"$$nokey:\n"
+	" ldi 0\n"
 	" plo R15\n"
 	" ldi 0\n"
-	" str R8\n"
 	" phi R15\n"
 	" Cretn\n");
 	return 0; //this statement will never be executed but it keeps the compiler happy
 }
 
-int getkey(){ //get key value if currently pressed
+unsigned char cgetc(){ //wait for key press
 	asm(
+	"$$loop:\n"
+	" b3 $$keypressed\n" // Check if a key is pressed for the 'first time'
+	" bn2 $$loop\n"		 // Loop if no key was pressed previously
+	"$$keypressed:\n"
 	" inp 3\n"
+	" plo R15\n"
+	" ldi 0\n"
+	" phi R15\n"
+	" Cretn\n");
+	return 0; //this statement will never be executed but it keeps the compiler happy
+}
+
+int kbhit(){ //return 1 if a key is pressed, 0 if not
+	asm(
+    " b3 $$keypressed\n" // Check if a key is pressed for the 'first time'
+    " bn2 $$nokey\n"     // Branch to nokey if no key was pressed previously
+    "$$keypressed:\n"
+	" ldi 1\n"
+	" lskp\n"
+	"$$nokey:\n"
+	" ldi 0\n"
 	" plo R15\n"
 	" ldi 0\n"
 	" phi R15\n"
@@ -119,48 +201,180 @@ void generatetone(int tone, int range, int volume){
 	settone(tonevalue);
 }
 
-void main(){
-	char* vidmem=(char *)0xf800;
-	char key;
-	unsigned int loop, vidmemaddress;
+void setnoise(int value){
+	asm(
+	" ldireg R8,0x41C3\n"
+	" ldn R8\n"		    
+	" plo R12 ; load current OUT 5 (low byte) video setting from 0x41C3 and store in R12.0\n"	  
+	" sex R12 ; Noise  generation value\n"
+	" out 5\n"
+	" sex R2\n");
+}
 
-	setvideobase();
-	vidclr(vidmem,24*80);
-	vidstrcpy(vidmem, "HELLO WORLD, abc");
-	vidmemaddress = (unsigned int) 0xf811;
-	vidchar(vidmemaddress, 0xe1); // print character a in second color scheme
-	vidchar(vidmemaddress+1, 0xe2); // print character b in second color scheme
-	vidchar(vidmemaddress+2, 0xe3); // print character c in second color scheme
+void generatenoise(int range, int volume){
+	int tonevalue;
+	tonevalue = ((volume & 0xf) + ((range &0x7) << 4) + 0x8) << 8;
+	setnoise(tonevalue);
+}
+
+unsigned char bgcolor(unsigned char color){
+	asm( //color is in R12.0
+		 //0: black
+		 //1: green
+		 //2: blue
+		 //3: cyan
+		 //4: red
+		 //5: yellow
+		 //6: magenta
+		 //7: white
+		" ldireg R8, 0x41C0\n"
+		" ldn R8\n"				//get latest OUT 3 value
+		" ani 7\n"				//get old background color
+		" plo R15\n"
+		" ldi 0\n"
+		" phi R15\n"			//return old background in R15
+		" ldn R8\n"				//get latest OUT 3 value
+		" ani 0xf8\n"			//clear background color
+		" str R2\n"				//store value on stack
+		" glo R12\n"			//get new color
+		" ani 7\n"				//limit to 3 bits
+		" or\n"					//new color OR latest OUT3 value
+		" str R8\n"				//store new value 
+		" sex R8\n"
+		" out 3\n"				//set new color value
+		" sex R2\n"
+		" Cretn\n");
+	return 0; //this statement will never be executed but it keeps the compiler happy
+}
+
+void textcolordefinition(unsigned char definition){
+	asm( //definition is in R12.0
+		 // b1	b0	RED	 BLUE	GREEN
+		 //  0	 0	CB0	 CB1	PCB
+		 //  0	 1  CCB0 PCB	CCB1
+		 //  1  0/1 PCB	 CCB0	CCB1
+		" ldireg R8, 0x41C0\n"
+		" ldn R8\n"				//get latest OUT 3 value
+		" ani 0x9f\n"			//clear text color definition
+		" str R2\n"				//store value on stack
+		" glo R12\n"			//get new color
+		" ani 3\n"				//limit to 2 bits
+		" shrc\n"
+		" shrc\n"
+		" shrc\n"
+		" shrc\n"
+		" or\n"					//new text color definition OR latest OUT3 value
+		" str R8\n"				//store new value 
+		" sex R8\n"
+		" out 3\n"				//set new color definition value
+		" sex R2\n");
+}
+
+void monochrome(unsigned char mono){
+	asm( //mono/cfc is in R12.0, 0=color, 1=mono
+		" ldireg R8, 0x41C0\n"
+		" ldn R8\n"				//get latest OUT 3 value
+		" ani 0xf7\n"			//clear cfc
+		" str R2\n"				//store value on stack
+		" glo R12\n"			//get new cfc
+		" ani 1\n"				//limit to 1 bits
+		" shl\n"
+		" shl\n"
+		" shl\n"
+		" or\n"					//new cfc OR latest OUT3 value
+		" str R8\n"				//store new value 
+		" sex R8\n"
+		" out 3\n"				//set new cfc value
+		" sex R2\n");
+}
+
+void main(){
+	unsigned int vidmem=0xf800;
+	unsigned char key;
+	unsigned int loop;
+	unsigned int oldbkcolor;
+
+    setvideobase(vidmem);
+
+	oldbkcolor = bgcolor(0);
+	textcolordefinition(3);
+	monochrome(0);
+
+	disableinterrupt();
+    vidclr(vidmem,24*40);
+	vidstrcpy(vidmem, "HELLO WORLD, abc \xe1\xe2\xe3");
 	shapechar(shapes, 3);
 
 	loop = 1;
-	vidmem = (char *)0xf828;
-	vidmemaddress = (unsigned int) 0xf828;
+	vidmem = 0xf828;
 	while (1){
 		key = getkey();
 		switch (key){
 			case 0x82:
-				vidchar(vidmemaddress,'U');
-				vidchar(vidmemaddress+1,'P');
-				vidchar(vidmemaddress+2,' ');
-				vidchar(vidmemaddress+3,' ');
-				vidchar(vidmemaddress+4,' ');
+				vidchar(vidmem,'U');
+				vidchar(vidmem+1,'P');
+				vidchar(vidmem+2,' ');
+				vidchar(vidmem+3,' ');
+				vidchar(vidmem+4,' ');
 				generatetone(80,5,7);
 			break;
 			case 0x83:
 				vidstrcpy(vidmem,"RIGHT");
-				generatetone(80,6,7);
+				generatenoise(2,7);
 			break;
 			case 0x84:
 				vidstrcpy(vidmem,"LEFT ");
-				generatetone(80,4,7);
+				generatenoise(6,7);
 			break;
 			case 0x85:
 				vidstrcpy(vidmem,"DOWN ");
 				generatetone(80,7,7);
 			break;
 			case 0x71:  // Q
-				settone(0);
+				loop = 0;
+			break;	
+			default:
+			break;			
+		}
+		if (kbhit() == 0)
+		{
+			settone(0);
+			setnoise(0);
+		}
+		if (loop == 0)  break;
+	}
+
+	while (kbhit() == 1)
+	{
+	}
+
+	loop = 1;
+	vidmem = 0xfa00;
+	vidchar(vidmem,'X');
+	while (1){
+		key = getkey();
+		switch (key){
+			case 0x82:
+				vidchar(vidmem,' ');
+				vidmem = vidmem - 40;
+				vidchar(vidmem,'X');
+			break;
+			case 0x83:
+				vidchar(vidmem,' ');
+				vidmem++;
+				vidchar(vidmem,'X');
+			break;
+			case 0x84:
+				vidchar(vidmem,' ');
+				vidmem--;
+				vidchar(vidmem,'X');
+			break;
+			case 0x85:
+				vidchar(vidmem,' ');
+				vidmem = vidmem + 40;
+				vidchar(vidmem,'X');
+			break;
+			case 0x71:  // Q
 				loop = 0;
 			break;	
 			default:
@@ -169,6 +383,16 @@ void main(){
 		if (loop == 0)  break;
 	}
 
+	enableinterrupt();
+    vidclr(vidmem,24*40);
+	gotoxy(0,0);
+    printf("HELLO WORLD!");
+	gotoxy(20,0);
+    printf("20,0");
+	gotoxy(0,20);
+    printf("0,20");
+	gotoxy(10,10);
+    printf("10,10");
 }
 
-
+#include <nstdlib.c>

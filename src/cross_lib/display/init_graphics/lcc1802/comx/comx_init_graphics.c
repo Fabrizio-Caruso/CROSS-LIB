@@ -125,16 +125,18 @@ void setvideobase(unsigned int vidmem){
 
 void INIT_GRAPHICS(void)
 {
-    
     setvideobase(0x7800);
-    
+
     redefine_char(player_down, 3);
     redefine_char(player_up, 3);
     redefine_char(player_right, 3);
     redefine_char(player_left, 3);
     redefine_char(ghost, 3);
     redefine_char(bomb, 0);
+
     
+    #if defined(__COMX__)
     disableinterrupt();
+    #endif
 
 }

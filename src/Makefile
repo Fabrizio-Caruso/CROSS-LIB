@@ -5793,7 +5793,7 @@ full_comx: full_comx_combo.cat
 tiny_pecom: tiny_pecom_combo.cat
 	mv $(SOURCE_PATH)/../tiny_pecom_combo.cat $(SOURCE_PATH)/../tiny_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS) \
-	-D__COMX__ \
+	-D__PECOM__ \
 	-DTINY_GAME \
 	-DNO_INPUT \
 	-DANIMATE_PLAYER \
@@ -5807,7 +5807,7 @@ tiny_pecom: tiny_pecom_combo.cat
 light_pecom: light_pecom_combo.cat
 	mv $(SOURCE_PATH)/../light_pecom_combo.cat $(SOURCE_PATH)/../light_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
-	-D__COMX__ \
+	-D__PECOM__ \
 	-DLIGHT_GAME \
 	-DNO_INPUT \
 	-DANIMATE_PLAYER \

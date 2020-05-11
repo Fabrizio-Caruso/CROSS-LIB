@@ -39,7 +39,7 @@
 	#include "supervision_settings.h"
 #elif defined(__NES__) && defined(ANIMATE_PLAYER)
 	#include "nes_settings.h"
-#elif defined(__COMX__)
+#elif defined(__COMX__) || defined(__PECOM__)
 	#include "comx_settings.h"
 #elif defined(UDG_GRAPHICS)
 	#include "udg_settings.h"

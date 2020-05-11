@@ -5756,7 +5756,7 @@ tiny_comx: tiny_comx_combo.cat
 	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../tiny_comx_combo.c
-	# rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_comx.hex
 
 
@@ -5770,7 +5770,7 @@ light_comx: light_comx_combo.cat
 	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../light_comx_combo.c
-	# rm -rf $(SOURCE_PATH)/../light_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../light_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_comx.hex
 
 
@@ -5784,7 +5784,7 @@ full_comx: full_comx_combo.cat
 	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../full_comx_combo.c
-	# rm -rf $(SOURCE_PATH)/../full_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_comx.hex
 
 
@@ -5800,7 +5800,7 @@ tiny_pecom: tiny_pecom_combo.cat
 	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../tiny_pecom_combo.c
-	# rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_pecom.hex
 
 
@@ -5814,7 +5814,7 @@ light_pecom: light_pecom_combo.cat
 	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../light_pecom_combo.c
-	# rm -rf $(SOURCE_PATH)/../light_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../light_pecom_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_pecom.hex
 
 
@@ -5828,7 +5828,7 @@ full_pecom: full_pecom_combo.cat
 	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../full_pecom_combo.c
-	# rm -rf $(SOURCE_PATH)/../full_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../full_pecom_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_pecom.hex
 
 

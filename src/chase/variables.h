@@ -283,4 +283,12 @@
 	#endif
 #endif
 
+#if defined(FULL_GAME)
+    uint8_t isBossLevel;
+    uint8_t isOneMissileLevel;
+    uint8_t isMissileLevel;
+    uint8_t isRocketLevel;
+    uint8_t isHorizontalWallsLevel;
+#endif
+
 #endif // _VARIABLES_H

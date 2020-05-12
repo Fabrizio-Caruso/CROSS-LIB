@@ -6052,7 +6052,6 @@ z88dk_targets: \
 	kramermc_targets \
 	lambda_targets \
 	laser500_targets \
-	m100_targets \
 	m5_targets \
 	mc1000_targets \
 	microbee_targets \
@@ -6141,7 +6140,7 @@ lcc1802_targets: \
 	comx_targets pecom_targets
 
 # All targets that can be compiled under CYGWIN, i.e., not including m20
-all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets sinclair_ql_targets amiga_targets
+all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets sinclair_ql_targets amiga_targets lcc1802_targets
 
 clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o

@@ -75,6 +75,11 @@ extern Character player;
 	extern uint8_t missileBasesDestroyed;
 
 	extern Character *chasedEnemyPtr;	
+    
+    extern uint8_t isBossLevel;
+    extern uint8_t isMissileLevel;
+    extern uint8_t isOneMissileLevel;
+    extern uint8_t isRocketLevel;
 #endif
 
 #if defined(FULL_GAME)
@@ -224,7 +229,7 @@ void moveBullet(register Character * bulletPtr)
 		#if defined(FULL_GAME)
 			DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
 			
-			if(oneMissileLevel())
+			if(isOneMissileLevel)
 			{
 				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==YSize/2 && rightHorizontalMissile._status)
 				{
@@ -232,7 +237,7 @@ void moveBullet(register Character * bulletPtr)
 					// goto _destroy; //destroyHorizontalMissile(&rightHorizontalMissile);
 				}
 			}				
-			else if(missileLevel() || bossLevel())
+			else if(isMissileLevel || isBossLevel)
 			{
 				if(bulletPtr->_x==XSize-1 && bulletPtr->_y==HORIZONTAL_MISSILE_OFFSET && rightHorizontalMissile._status)
 				{
@@ -243,7 +248,7 @@ void moveBullet(register Character * bulletPtr)
 					destroyHorizontalMissile(&leftHorizontalMissile);	
 				}
 			}
-			if((rocketLevel() || bossLevel()) && bulletPtr->_y==YSize-1)
+			if((isRocketLevel || isBossLevel) && bulletPtr->_y==YSize-1)
 			{
 				uint8_t i;
 				for(i=0;i<ROCKETS_NUMBER;++i)

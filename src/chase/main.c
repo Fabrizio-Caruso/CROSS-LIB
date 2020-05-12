@@ -224,7 +224,14 @@ int main(void)
 		
 		
 		do // Level (Re-)Start
-		{ 	
+		{
+            #if defined(FULL_GAME)
+                isBossLevel = bossLevel();
+                isRocketLevel = rocketLevel();
+                isOneMissileLevel = oneMissileLevel();
+                isMissileLevel = missileLevel();
+                isHorizontalWallsLevel = horizontalWallsLevel();
+            #endif
 			#if !defined(TINY_GAME) || defined(TURN_BASED)
 				loop = 0;
 			#endif
@@ -285,7 +292,6 @@ int main(void)
 			CLEAR_SCREEN();
 			#if !defined(LESS_TEXT)
 				// Clear the screen, put cursor in upper left corner
-
 				printLevel();
 				SLEEP(1);
 				CLEAR_SCREEN();
@@ -295,11 +301,10 @@ int main(void)
 						
 				arrowRange = computeArrowRange();
 			
-				if(bossLevel())
+				if(isBossLevel)
 				{
 					printKillTheSkull();
 					SLEEP(2);
-					ghostCount = 1+(level>>2);
 				}
 				CLEAR_SCREEN();
 				
@@ -310,27 +315,11 @@ int main(void)
 			WAIT_PRESS();
 			CLEAR_SCREEN();
 			
-            
-#if defined(DEBUG_LEVEL)
-if(level==0)
-{
-    PRINT(5,11,"KO CLEARSCREEN PRINTPRESSKEYTOSTART");
-}
-#endif
-                
 			#if !defined(TINY_GAME) && !defined(NO_BORDERS)
 				DRAW_BORDERS();
 			#endif
 			
-			fillLevelWithCharacters(ghostCount);			
-            
-#if defined(DEBUG_LEVEL)
-if(level==0)
-{
-    PRINT(5,13,"KO FILLLEVELWITHCHARACTERS");
-}
-#endif
-                
+			fillLevelWithCharacters(ghostCount);
 			#if !defined(TINY_GAME)
 				constructItems();	
 				
@@ -353,11 +342,11 @@ if(level==0)
 			#endif		
 			#if defined(FULL_GAME)
                 #if !defined(BENCHMARK)
-                    while(player._status && ((ghostCount>0 && !bossLevel()) || (skull._status && bossLevel()))) // while alive && there are still ghosts
+                    while(player._status && ((ghostCount>0 && !isBossLevel) || (skull._status && isBossLevel))) // while alive && there are still ghosts
                 #else
                     Ticks = clock();
 
-                    while(benchmark_count<BENCHMARK_MAX && player._status && ((ghostCount>0 && !bossLevel()) || (skull._status && bossLevel()))) // while alive && there are still ghosts
+                    while(benchmark_count<BENCHMARK_MAX && player._status && ((ghostCount>0 && isBossLevel) || (skull._status && isBossLevel))) // while alive && there are still ghosts
                 #endif
 			#else
                 while(player._status && (ghostCount>0) )
@@ -511,7 +500,7 @@ if(level==0)
 				
 				#if defined(FULL_GAME)
 					if(wallReached(&player) || 
-					   (!invincibilityActive && (playerReachedGhosts() || characterReachedBombs(&player) || innerWallReached(&player) || (horizontalWallsLevel() && horizontalWallsReached())))
+					   (!invincibilityActive && (playerReachedGhosts() || characterReachedBombs(&player) || innerWallReached(&player) || (isHorizontalWallsLevel && horizontalWallsReached())))
 					  )
 				#else
 					if(wallReached(&player) || playerReachedGhosts() || characterReachedBombs(&player))
@@ -530,7 +519,7 @@ if(level==0)
 					{						
 						DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);			
 				
-						if(horizontalWallsLevel())
+						if(isHorizontalWallsLevel)
 						{				
 							horizontalWallsLength = HORIZONTAL_WALLS_INITIAL_LENGTH + (level>>4) + (uint8_t) (loop/HORIZONTAL_WALLS_INCREASE_LOOP);		
 							DRAW_HORIZONTAL_WALLS(horizontalWallsLength);	
@@ -591,9 +580,9 @@ if(level==0)
 				#endif			
 
 				ghostCount = GHOSTS_NUMBER;
-				
+
 				#if defined(FULL_GAME)			
-					if(bossLevel())
+					if(isBossLevel)
 					{	
 						PING_SOUND();
 						#if !defined(LESS_TEXT)
@@ -614,7 +603,6 @@ if(level==0)
 					}
 				#endif
 				++level;
-
 			}
 			else // if dead
 			{		

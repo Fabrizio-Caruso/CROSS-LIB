@@ -123,6 +123,114 @@ void setvideobase(unsigned int vidmem){
         " sex R2\n");
 }
 
+
+
+void textcolordefinition(unsigned char definition){
+	asm( //definition is in R12.0
+		 // b1	b0	RED	 BLUE	GREEN
+		 //  0	 0	CB0	 CB1	PCB
+		 //  0	 1  CCB0 PCB	CCB1
+		 //  1  0/1 PCB	 CCB0	CCB1
+#if defined(__PECOM__)
+		" ldireg R8, 0x7cc4\n"
+#elif defined(__COMX__)
+		" ldireg R8, 0x41C0\n"
+#endif
+		" ldn R8\n"				//get latest OUT 3 value
+		" ani 0x9f\n"			//clear text color definition
+		" str R2\n"				//store value on stack
+		" glo R12\n"			//get new color
+		" ani 3\n"				//limit to 2 bits
+		" shrc\n"
+		" shrc\n"
+		" shrc\n"
+		" shrc\n"
+		" or\n"					//new text color definition OR latest OUT3 value
+		" str R8\n"				//store new value 
+		" sex R8\n"
+		" out 3\n"				//set new color definition value
+		" sex R2\n");
+}
+
+
+
+void monochrome(unsigned char mono){
+	asm( //mono/cfc is in R12.0, 0=color, 1=mono
+#if defined(__PERCOM__)
+		" ldireg R8, 0x7cc4\n"
+#elif defined(__COMX__)
+		" ldireg R8, 0x41C0\n"
+#endif
+		" ldn R8\n"				//get latest OUT 3 value
+		" ani 0xf7\n"			//clear cfc
+		" str R2\n"				//store value on stack
+		" glo R12\n"			//get new cfc
+		" ani 1\n"				//limit to 1 bits
+		" shl\n"
+		" shl\n"
+		" shl\n"
+		" or\n"					//new cfc OR latest OUT3 value
+		" str R8\n"				//store new value 
+		" sex R8\n"
+		" out 3\n"				//set new cfc value
+		" sex R2\n");
+}
+
+// void monochrome(unsigned char mono){
+	// asm( //mono/cfc is in R12.0, 0=color, 1=mono
+		// " ldireg R8, 0x41C0\n"
+		// " ldn R8\n"				//get latest OUT 3 value
+		// " ani 0xf7\n"			//clear cfc
+		// " str R2\n"				//store value on stack
+		// " glo R12\n"			//get new cfc
+		// " ani 1\n"				//limit to 1 bits
+		// " shl\n"
+		// " shl\n"
+		// " shl\n"
+		// " or\n"					//new cfc OR latest OUT3 value
+		// " str R8\n"				//store new value 
+		// " sex R8\n"
+		// " out 3\n"				//set new cfc value
+		// " sex R2\n");
+// }
+
+
+unsigned char bgcolor(unsigned char color){
+	asm( //color is in R12.0
+		 //0: black
+		 //1: green
+		 //2: blue
+		 //3: cyan
+		 //4: red
+		 //5: yellow
+		 //6: magenta
+		 //7: white
+#if defined(__PECOM__)
+		" ldireg R8, 0x7cc4\n"
+#elif defined(__COMX__)
+		" ldireg R8, 0x41C0\n"
+#endif
+		" ldn R8\n"				//get latest OUT 3 value
+		" ani 7\n"				//get old background color
+		" plo R15\n"
+		" ldi 0\n"
+		" phi R15\n"			//return old background in R15
+		" ldn R8\n"				//get latest OUT 3 value
+		" ani 0xf8\n"			//clear background color
+		" str R2\n"				//store value on stack
+		" glo R12\n"			//get new color
+		" ani 7\n"				//limit to 3 bits
+		" or\n"					//new color OR latest OUT3 value
+		" str R8\n"				//store new value 
+		" sex R8\n"
+		" out 3\n"				//set new color value
+		" sex R2\n"
+		" Cretn\n");
+	return 0; //this statement will never be executed but it keeps the compiler happy
+}
+
+
+
 void INIT_GRAPHICS(void)
 {
     setvideobase(0x7800);
@@ -136,7 +244,14 @@ void INIT_GRAPHICS(void)
 
     
     #if defined(__COMX__)
-    disableinterrupt();
+        disableinterrupt();
+    #endif
+    (void) bgcolor(0);
+    #if defined(__COMX__)
+    	textcolordefinition(3);
+        monochrome(0);
+    #elif defined(__PECOM__)
+    	textcolordefinition(3);
     #endif
 
 }

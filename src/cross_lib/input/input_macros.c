@@ -28,9 +28,6 @@
 
 #include "input_macros.h"
 
-#if defined(__MSX__)
-    #include<msx/gfx.h>
-#endif
         
 
 #if defined(__COMX__) || defined(__PECOM__) || (defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB))

@@ -80,11 +80,11 @@
         "$$checknext:\n"
         " inp 3\n"				// bit 0 and 1 indicate key press
         " ani 3\n"
-        " bnz $$keypressed\n"	// bit 0 or 1 are 1 so a key is pressed
+        " lbnz $$keypressed\n"	// bit 0 or 1 are 1 so a key is pressed
         " glo R8\n"
         " inc R8\n"
         " xri 0xe3\n"
-        " bnz $$checknext\n"	// R8++ if not 0xE3 check next key
+        " lbnz $$checknext\n"	// R8++ if not 0xE3 check next key
         " ldi 0\n"
         " br  $$exit\n"			// all keys checked - return 0
         "$$keypressed:\n"

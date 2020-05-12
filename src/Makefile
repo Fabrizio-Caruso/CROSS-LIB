@@ -5807,7 +5807,7 @@ tiny_pecom: tiny_pecom_combo.cat
 
 light_pecom: light_pecom_combo.cat
 	mv $(SOURCE_PATH)/../light_pecom_combo.cat $(SOURCE_PATH)/../light_pecom_combo.c
-	$(LCC1802) $(INCLUDE_OPTS) -S -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
 	-D__PECOM__ \
 	-DLIGHT_GAME \
 	-DLCC1802_JOYSTICK \

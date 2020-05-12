@@ -48,10 +48,10 @@ void shapechar(const unsigned char * shapelocation, int number)
 	" inc R8\n"
 	" dec R10\n"
 	" glo R10\n"
-	" bnz $$nextline ; number of lines - 1 if not zero do next line\n"
+	" lbnz $$nextline ; number of lines - 1 if not zero do next line\n"
 	" dec r13\n"
 	" glo r13\n"
-	" bnz $$nextshape\n");
+	" lbnz $$nextshape\n");
 }
 
 

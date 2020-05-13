@@ -29,7 +29,7 @@
 #if !defined(_TARGET_SETTINGS)
 #define _TARGET_SETTINGS
 
-#if !defined(__SMS__) && !defined(__COCO__) && !defined(__SUPERVISION__) \
+#if !defined(__SMS__) && !defined(__COCO__) && !defined(__DRAGON__) && !defined(__SUPERVISION__) \
 	&& !defined(__ATARI_LYNX__) && !defined(__MSX__) \
     && !defined(__SVI__) \
 	&& !defined(__ENTERPRISE__) \
@@ -91,9 +91,9 @@
 
 // TEXT SETTINGS
 #if (defined(__VIC20__) && defined(ANIMATE_PLAYER)) || (defined(__VIC20__) && defined(ALT_PRINT)) \
-	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__GAMATE__) \
+	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MO5__) || defined(__GAMATE__) \
     || defined(__APPLE2__) || (defined(__C64__) && defined(ANIMATE_PLAYER)) || defined(__ATARI__) || defined(__ATARIXL__) \
-	|| defined(__ZX80__) || (defined(__C16__) && defined(ALT_PRINT)) || defined(__CMOC__)
+	|| defined(__ZX80__) || (defined(__C16__) && defined(ALT_PRINT))
 	#define NO_CASE_LETTERS
 #else
 	#define CASE_LETTERS

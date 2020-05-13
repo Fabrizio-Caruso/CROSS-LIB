@@ -224,7 +224,7 @@
 		  || (defined(__SVI__) && !defined(MSX_MODE0) ) || defined(__ZX81__) || defined(__ZX80__) \
 		  || defined(__LAMBDA__) || (defined(__SPECTRUM__)&&!defined(__TS2068)) || (defined(__PC6001__) && !defined(FORCE_SCREEN_MODE))\
 		  || defined(__SC3000__) || defined(__MC1000__) || defined(__MTX__) || defined(__SAM__) \
-		  || defined(__GAL__) || defined(__COCO__) || defined(__WINCMOC__) \
+		  || defined(__GAL__) || defined(__COCO__) || defined(__DRAGON__) || defined(__WINCMOC__) \
 		  || defined(__Z1013__) || defined(__Z88__) || defined(__ACE__) \
 		  || defined(__EINSTEIN__) \
 		  || ((defined(__TI82__) || defined(__TI83__) || defined(__TI8X__) || defined(__TI85__) || defined(__TI86__)) && !defined(Z88DK_SPRITES)) \

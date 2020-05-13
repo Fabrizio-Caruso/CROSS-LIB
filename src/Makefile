@@ -179,9 +179,11 @@ COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME
 
 COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
-COCO_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__COCO__ -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+CMOC_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-DRAGON_OPTS     ?= --dragon $(COCO_OPTS) 
+COCO_OPTS       ?= -D__COCO__ $(CMOC_OPTS)
+
+DRAGON_OPTS     ?= --dragon -D__DRAGON__ $(COCO_OPTS) 
 
 VECTREX_OPTS    ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
@@ -214,6 +216,7 @@ cx16:
 atari_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DMEMORY_MAPPED \
@@ -242,6 +245,7 @@ atari5200:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
 	-D__ATARI5200__ \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DMEMORY_MAPPED \
 	-DANIMATE_PLAYER \
@@ -322,6 +326,7 @@ vic20_unexpanded_no_gfx:
 vic20_unexpanded:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DSOUNDS \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DCC65_GOTO \
 	-DANIMATE_PLAYER \
 	-DREDEFINED_CHARS \
@@ -386,6 +391,7 @@ vic20_unexpanded_turn_based:
 vic20_exp_3k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DANIMATE_PLAYER -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 \
 	-DROUND_ENEMIES \
 	-DTINY_GAME -DSOUNDS \
@@ -463,6 +469,7 @@ vic20_exp_8k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_GFX_3.cfg \
 	-DSOUNDS -DANIMATE_PLAYER \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DCC65_GOTO \
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	-DFULL_GAME \
@@ -533,6 +540,7 @@ vic20_exp_16k:
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
 	-DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
@@ -780,6 +788,7 @@ telestrat:
 cbm610: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm610 \
 	-DFULL_GAME \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -823,6 +832,7 @@ nes_fx:
 apple2:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
 	-DFULL_GAME -DALT_SLEEP \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
@@ -837,6 +847,7 @@ apple2:
 apple2enh: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
@@ -852,6 +863,7 @@ apple2enh:
 apple2enh_80col: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh \
 	-DFULL_GAME -DALT_SLEEP \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-DFORCE_XSIZE=80 \
@@ -928,6 +940,7 @@ osic1p_8k_turn_based:
 gamate: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
 	-DFULL_GAME \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY \
@@ -1345,6 +1358,7 @@ aquarius_exp_16k:
 vz200_8k:
 	$(Z88DK_PATH)$(MYZ88DK) +vz -v \
 	-DTINY_GAME \
+	-DINITIAL_SLOWDOWN=31500 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-compiler=sdcc \
 	--opt-code-size \
@@ -1373,6 +1387,7 @@ vz200_18k:
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -D__VZ__ -clib=ansi \
 	-DFULL_GAME \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/FULL_vz200_18k.vz \
@@ -1397,6 +1412,7 @@ vz200_sprites_18k:
 	$(Z88DK_PATH)$(MYZ88DK) +vz \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS \
+	-DINITIAL_SLOWDOWN=31500 \
 	-D__VZ__ \
 	-DFULL_GAME \
 	-create-app -o $(BUILD_PATH)/FULL_vz200_sprites_18k.vz \
@@ -1467,6 +1483,7 @@ vg5k_udg:
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-vn -DFULL_GAME -D__VG5K__ \
+	-DINITIAL_SLOWDOWN=29000 \
 	-DLESS_TEXT \
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
@@ -1488,6 +1505,7 @@ vg5k_exp_16k_udg:
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k_udg.prg \
 	-DCONIO \
+	-DINITIAL_SLOWDOWN=29000 \
 	-clib=default \
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
@@ -1959,6 +1977,7 @@ msx_mode1_test:
 msx_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
+	-DINITIAL_SLOWDOWN=29000 \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos \
@@ -1979,6 +1998,7 @@ msx_32k:
 msx_32k_rom:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
+	-DINITIAL_SLOWDOWN=29000 \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
@@ -2600,7 +2620,8 @@ spectrum_buffered:
 
 pc6001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(INCLUDE_OPTS) -Cz--audio -clib=ansi \
-	-D__PC6001__ -v  \
+	-D__PC6001__ \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_pc6001.prg  \
@@ -2615,6 +2636,7 @@ pc6001_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -v \
 	-DFULL_GAME \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
@@ -2629,6 +2651,7 @@ pc6001_32k:
 pc6001_32k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -v -DFULL_GAME \
+	-DINITIAL_SLOWDOWN=31500 \
 	-DCONIO \
 	-DANIMATE_PLAYER -DUDG_GRAPHICS \
 	-DFORCE_SCREEN_MODE=2 \

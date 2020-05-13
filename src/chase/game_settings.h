@@ -111,18 +111,13 @@
 
 #define BOSS_SKULL_HITS (NON_BOSS_SKULL_HITS + 4)
 
+
 #if defined(TURN_BASED)
 	#define INITIAL_GHOST_SLOWDOWN 16000
 	#define INITIAL_SKULL_SLOWDOWN 15000
-#elif defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
-	#define INITIAL_GHOST_SLOWDOWN 31500
-	#define INITIAL_SKULL_SLOWDOWN 31000	
-#elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
-	#define INITIAL_GHOST_SLOWDOWN 29000
-	#define INITIAL_SKULL_SLOWDOWN 29000
-#elif defined(__COMX__)
-	#define INITIAL_GHOST_SLOWDOWN 17000
-	#define INITIAL_SKULL_SLOWDOWN 17000
+#elif defined(INITIAL_SLOWDOWN)
+	#define INITIAL_GHOST_SLOWDOWN INITIAL_SLOWDOWN
+	#define INITIAL_SKULL_SLOWDOWN INITIAL_SLOWDOWN
 #else
 	#define INITIAL_GHOST_SLOWDOWN 28000
 	#define INITIAL_SKULL_SLOWDOWN 28000

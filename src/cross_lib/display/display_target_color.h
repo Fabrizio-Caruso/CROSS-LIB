@@ -8,7 +8,7 @@
 
 #if defined(__GAL__) || defined(__GAMATE__) \
     || (defined(__PC6001__) && !(FORCE_SCREEN_MODE==2)) || defined(__ATARI5200__) || defined(__CREATIVISION__) \
-	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__OSIC1P__) || defined(__MC1000__) \
+	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__DRAGON__) || defined(__OSIC1P__) || defined(__MC1000__) \
 	|| defined(__LAMBDA__) || defined(__MSX__) \
 	|| defined(__VZ__) || defined(__VG5k__) \
 	|| (defined(__ATARI__) || defined(__ATARIXL__)) \

@@ -33,6 +33,38 @@ Use Potator (https://emulationrealm.net/downloads/file/235-potator)
 Use arrows for movements and C for fire
 
 ---------------------------------------------------------
+GAMATE
+
+Use MAME/MESS (e.g., Mess 0.148)
+Run mess.exe gamate
+File Manager -> Select cartridge -> Choose the .bin file
+
+
+---------------------------------------------------------
+COMX
+
+Use EMMA 02 (https://www.emma02.hobby-site.com/download.html)
+Select COMX tab
+Click on START (window may hide the option -> make it bigger)
+Click on LOAD
+Go to the directory with the .hex file
+Select HEX Files 
+Chose the .hex file
+Run with CALL(@4400)
+
+---------------------------------------------------------
+Pecom
+
+Use EMMA 02 (https://www.emma02.hobby-site.com/download.html)
+Select Pecom tab
+Click on START (window may hide the option -> make it bigger)
+Click on LOAD
+Go to the directory with the .hex file
+Select HEX Files 
+Chose the .hex file
+Run with CALL(&0200)
+
+---------------------------------------------------------
 NES 
 
 Use mednafen and run the following command:

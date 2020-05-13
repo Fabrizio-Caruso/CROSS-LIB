@@ -40,6 +40,7 @@
 #include "level.h"
 #include "ghost.h"
 #include "move_player.h"
+#include "sleep_macros.h"
 
 #include "text_strings.h"
 
@@ -144,24 +145,6 @@ void initialScreen(void)
 		extraLife_present_on_level = super_present_on_level && zombie_present_on_level;
 	}
 	
-#endif
-
-#if defined(SLOW_DOWN)
-	#  if defined(__NCURSES__)
-	
-		void _slow_down(void)
-		{
-			usleep(GAME_SLOW_DOWN*1024);
-		}
-	#else
-	void _slow_down(void)
-	{
-		short i;
-		for(i=0;i<GAME_SLOW_DOWN;++i)
-		{	
-		}
-	}
-	#endif
 #endif
 
 int main(void)
@@ -364,7 +347,7 @@ int main(void)
 					_DRAW_PLAYER();	
 				#endif
 				#if defined(SLOW_DOWN)
-					_slow_down();
+					DO_SLOW_DOWN(GAME_SLOW_DOWN);
 				#endif
 						
 				#if defined(FULL_GAME)

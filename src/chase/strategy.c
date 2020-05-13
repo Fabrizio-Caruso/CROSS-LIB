@@ -25,6 +25,7 @@
 #include "settings.h"
 #include "character.h"
 #include "strategy.h"
+#include "rand.h"
 
 extern uint8_t level;
 extern uint16_t loop;
@@ -142,12 +143,8 @@ void computeStrategy(void)
 }
 #endif
 
+#define GHOST_RANDOM_CONDITION (RAND()>slowDown)
 
-#if defined(__NCURSES__) || defined(__GCC_BUFFERED__)
-    #define GHOST_RANDOM_CONDITION ((rand()&0x7fff)>slowDown)
-#else
-    #define GHOST_RANDOM_CONDITION (rand()>slowDown)
-#endif
 
 // #if defined(FULL_GAME)
 // Ghosts move to new positions if they get their chanche

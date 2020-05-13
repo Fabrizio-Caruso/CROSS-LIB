@@ -168,18 +168,9 @@ extern Character bombs[BOMBS_NUMBER];
             relocateCharacter(characterPtr);
         } while(innerWallReached(characterPtr));
     }
-
 #endif 
 
 #if defined(BETWEEN_LEVEL)
-
-void _spiral_slow_down()
-{
-    uint8_t k;
-    
-    for(k=0;k<254;++k){};
-}
-
 void spiral(register Character *characterPtr, uint8_t length)
 {
     uint8_t i;
@@ -201,7 +192,7 @@ void spiral(register Character *characterPtr, uint8_t length)
                     --(*((uint8_t *) characterPtr + (i&1)));                
                 }
                 #if defined(SLOW_DOWN)
-                _spiral_slow_down();    
+                    DO_SLOW_DOWN(70);
                 #endif
             }
     }

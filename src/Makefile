@@ -96,7 +96,8 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/sound/z88dk/bit_bang \
 -I$(CROSS_LIB_PATH)/sound/z88dk/psg \
 -I$(CROSS_LIB_PATH)/text \
--I$(CROSS_LIB_PATH)/input 
+-I$(CROSS_LIB_PATH)/input \
+-I$(CROSS_LIB_PATH)/rand
 
 
 XTC68 ?= qcc

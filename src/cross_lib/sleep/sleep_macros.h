@@ -49,5 +49,19 @@
         #define SLEEP(s) sleep(s)
     #endif
 
+
+#if defined(__NCURSES__)
+    #define DO_SLOW_DOWN(t) \
+        usleep((t)*1024);
+#else
+    #define DO_SLOW_DOWN(t) \
+    { \
+        uint16_t i; \
+        for(i=0;i<(t);++i) \
+        { \
+        } \
+    }
+#endif
+
 #endif // _SLEEP_MACROS
 

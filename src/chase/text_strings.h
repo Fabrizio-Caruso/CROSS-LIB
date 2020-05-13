@@ -138,7 +138,7 @@
 	#endif	
 #endif
 
-#if (defined(__ZX81__) || defined(__ZX80__)) && defined(JOYSTICK_CONTROL)
+#if defined(QAOPM) && defined(JOYSTICK_CONTROL)
     #undef USE_STRING
     #define USE_STRING "USE Q A O P M"
 #endif    

@@ -1650,6 +1650,7 @@ zx81_16k_qaopm:
 	-vn \
 	-D__ZX81__ -DFULL_GAME \
 	-DZ88DK_JOYSTICK \
+	-DQAOPM \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
@@ -1716,6 +1717,7 @@ zx81_16k_wrx_qaopm:
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES \
+	-DQAOPM \
 	-DLESS_PRINT \
 	-lndos \
 	-DANIMATE_PLAYER \
@@ -1773,6 +1775,7 @@ zx81_32k_wrx_qaopm:
 	-DFORCE_XSIZE=36 \
 	-DFORCE_YSIZE=35 \
 	-DZ88DK_JOYSTICK \
+	-DQAOPM \
 	-vn \
 	-D__ZX81__ \
 	-DZ88DK_SPRITES \
@@ -1832,6 +1835,7 @@ zx81_32k_wrx_turn_based_qaopm:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DZ88DK_JOYSTICK \
+	-DQAOPM \
 	-DFORCE_GHOSTS_NUMBER=9 \
 	-DANIMATE_PLAYER \
 	-DNO_BLINKING \

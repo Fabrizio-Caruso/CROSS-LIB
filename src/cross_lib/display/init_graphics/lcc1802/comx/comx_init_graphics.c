@@ -229,8 +229,17 @@ unsigned char bgcolor(unsigned char color){
 	return 0; //this statement will never be executed but it keeps the compiler happy
 }
 
-
-
+void init_rand(void){
+	asm(
+	" ldireg R8, 0x407e\n"	
+    "$$loop:\n"
+	" ghi R0\n"
+	" bz $$loop\n"
+	" str R8\n"
+	" inc R8\n"
+	" glo R0\n"
+	" str R8\n");
+}
 void INIT_GRAPHICS(void)
 {
     setvideobase(0x7800);
@@ -241,6 +250,8 @@ void INIT_GRAPHICS(void)
     redefine_char(player_left, 3);
     redefine_char(ghost, 3);
     redefine_char(bomb, 0);
+
+    init_rand();
 
     
     #if defined(__COMX__)

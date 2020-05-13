@@ -69,7 +69,67 @@
 		#define INIT_INPUT() { joy_install(joy_static_stddrv); };		
 	#endif
 
-	
+#if defined(JOYSTICK_CONTROL)
+    #if defined(Z88DK_JOYSTICK)
+        #include <games.h>
+        
+        #define JOY_UP(joyInput) ((joyInput) & MOVE_UP)
+        #define JOY_DOWN(joyInput) ((joyInput) & MOVE_DOWN)
+        #define JOY_LEFT(joyInput) ((joyInput) & MOVE_LEFT)
+        #define JOY_RIGHT(joyInput) ((joyInput) & MOVE_RIGHT)
+        #define JOY_FIRE(joyInput) ((joyInput) & MOVE_FIRE)
+    #elif defined(__SMS__)
+        #include <arch/sms/SMSLib.h>
+        
+        #define JOY_UP(joyInput) ((joyInput) & PORT_A_KEY_UP)
+        #define JOY_DOWN(joyInput) ((joyInput) & PORT_A_KEY_DOWN)
+        #define JOY_LEFT(joyInput) ((joyInput) & PORT_A_KEY_LEFT)
+        #define JOY_RIGHT(joyInput) ((joyInput) & PORT_A_KEY_RIGHT)
+        #define JOY_FIRE(joyInput) ((joyInput) & PORT_A_KEY_1)
+    #elif defined(LCC1802_JOYSTICK)
+        #if defined(__COMX__)
+            #define MOVE_UP 0x82
+            #define MOVE_DOWN 0x85
+            #define MOVE_LEFT 0x84
+            #define MOVE_RIGHT 0x83
+            #define MOVE_FIRE 0x5f
+        #elif defined(__PECOM__)
+            #define MOVE_UP 0x5E
+            #define MOVE_DOWN 0x5B
+            #define MOVE_LEFT 0x5C
+            #define MOVE_RIGHT 0x5D
+            #define MOVE_FIRE 0x40
+        #endif
+
+        #define JOY_UP(joyInput) ((joyInput) == MOVE_UP)
+        #define JOY_DOWN(joyInput) ((joyInput) == MOVE_DOWN)
+        #define JOY_LEFT(joyInput) ((joyInput) == MOVE_LEFT)
+        #define JOY_RIGHT(joyInput) ((joyInput) == MOVE_RIGHT)
+        #define JOY_FIRE(joyInput) ((joyInput) == MOVE_FIRE)
+    #else // CC65
+        #include <joystick.h>
+        #if !defined(JOY_FIRE)
+            #define JOY_FIRE(joyKey) JOY_BTN_1(joyKey)
+        #endif
+    #endif
+    
+    #if defined(Z88DK_JOYSTICK)
+        extern uint8_t stick;
+        
+        #define JOY_INPUT() joystick(stick)
+    #elif defined(__SMS__)
+        #include <arch/sms/SMSLib.h>
+        
+        #define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
+    #elif defined(__COMX__) || defined(__PECOM__)
+        #define JOY_INPUT() GET_CHAR()
+    #else
+        #define JOY_INPUT() joy_read(JOY_1)
+    #endif    
+    
+#endif
+
+
 	#  if defined(__NCURSES__) || defined(STDLIB)
 		#define TURN_BASED_INPUT() getchar()
 	#elif defined(Z88DK)

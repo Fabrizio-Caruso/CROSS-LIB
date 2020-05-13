@@ -117,129 +117,31 @@ extern Character player;
 
 
 #if defined(JOYSTICK_CONTROL)
-    #if defined(Z88DK_JOYSTICK)
-        #include <games.h>
-        
-        void movePlayerByJoystick(uint8_t joyInput)
+    void movePlayerByJoystick(uint8_t joyInput)
+    {
+        if(JOY_UP(joyInput))
         {
-            if(joyInput & MOVE_UP)
-            {
-                _DO_MOVE_UP
-            }
-            else if(joyInput & MOVE_DOWN)
-            {
-                _DO_MOVE_DOWN
-            }
-            else if(joyInput & MOVE_LEFT)
-            {
-                _DO_MOVE_LEFT
-            }
-            else if(joyInput & MOVE_RIGHT)
-            {
-                _DO_MOVE_RIGHT
-            }
-            #if !defined(TINY_GAME)
-            else if(joyInput & MOVE_FIRE && guns>0 && !bullet._status)
-            {
-                playerFire = 1;
-            }
-            #endif
-        }    
-    #elif defined(__SMS__)
-    // TODO: BOGUS - IMPLEMENT THIS!
-        #include <arch/sms/SMSLib.h>
-        
-        void movePlayerByJoystick(uint8_t joyInput)
-        {
-            if(joyInput & PORT_A_KEY_UP)
-            {
-                _DO_MOVE_UP
-            }
-            else if(joyInput & PORT_A_KEY_DOWN)
-            {
-                _DO_MOVE_DOWN
-            }
-            else if(joyInput & PORT_A_KEY_LEFT)
-            {
-                _DO_MOVE_LEFT
-            }
-            else if(joyInput & PORT_A_KEY_RIGHT)
-            {
-                _DO_MOVE_RIGHT
-            }
-            #if !defined(TINY_GAME)
-            else if(joyInput & PORT_A_KEY_1 && guns>0 && !bullet._status)
-            {
-                playerFire = 1;
-            }
-            #endif            
+            _DO_MOVE_UP
         }
-    #elif defined(LCC1802_JOYSTICK)
-        #if defined(__COMX__)
-            #define MOVE_UP 0x82
-            #define MOVE_DOWN 0x85
-            #define MOVE_LEFT 0x84
-            #define MOVE_RIGHT 0x83
-        #elif defined(__PECOM__)
-            #define MOVE_UP 0x5E
-            #define MOVE_DOWN 0x5B
-            #define MOVE_LEFT 0x5C
-            #define MOVE_RIGHT 0x5D
+        else if(JOY_DOWN(joyInput))
+        {
+            _DO_MOVE_DOWN
+        }
+        else if(JOY_LEFT(joyInput))
+        {
+            _DO_MOVE_LEFT
+        }
+        else if(JOY_RIGHT(joyInput))
+        {
+            _DO_MOVE_RIGHT
+        }
+        #if !defined(TINY_GAME)
+        else if(JOY_FIRE(joyInput) && guns>0 && !bullet._status)
+        {
+            playerFire = 1;
+        }
         #endif
-        void movePlayerByJoystick(uint8_t joyInput)
-        {
-            if(joyInput == MOVE_UP)
-            {
-                _DO_MOVE_UP
-            }
-            else if(joyInput == MOVE_DOWN)
-            {
-                _DO_MOVE_DOWN
-            }
-            else if(joyInput == MOVE_LEFT)
-            {
-                _DO_MOVE_LEFT
-            }
-            else if(joyInput == MOVE_RIGHT)
-            {
-                _DO_MOVE_RIGHT
-            }
-            #if !defined(TINY_GAME)
-            else if((joyInput == 0x5f) && guns>0 && !bullet._status)
-            {
-                playerFire = 1;
-            }
-            #endif            
-        }
-    #else
-        #include <joystick.h>
-        
-        void movePlayerByJoystick(uint8_t joyInput)
-        {
-            if(JOY_UP(joyInput))
-            {
-                _DO_MOVE_UP
-            }
-            else if(JOY_DOWN(joyInput))
-            {
-                _DO_MOVE_DOWN
-            }
-            else if(JOY_LEFT(joyInput))
-            {
-                _DO_MOVE_LEFT
-            }
-            else if(JOY_RIGHT(joyInput))
-            {
-                _DO_MOVE_RIGHT
-            }
-            #if !defined(TINY_GAME)
-            else if(JOY_BTN_1(joyInput) && guns>0 && !bullet._status)
-            {
-                playerFire = 1;
-            }
-            #endif
-        }    
-    #endif
+    }    
 #else
     void movePlayerByKeyboard(uint8_t kbInput)
     {
@@ -288,19 +190,7 @@ extern Character player;
     }
 #else
     
-    #if defined(Z88DK_JOYSTICK)
-        extern uint8_t stick;
-        
-        #define JOY_INPUT() joystick(stick)
-    #elif defined(__SMS__)
-        #include <arch/sms/SMSLib.h>
-        
-        #define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
-    #elif defined(__COMX__) || defined(__PECOM__)
-        #define JOY_INPUT() GET_CHAR()
-    #else
-        #define JOY_INPUT() joy_read(JOY_1)
-    #endif    
+
 
     #if defined(TURN_BASED)
         void MOVE_PLAYER(void) 

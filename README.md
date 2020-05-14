@@ -117,10 +117,10 @@ Run "make [compiler name]_targets where the [compiler name] is of one these:
 
 
 Examples: 
-- "make cmoc_targets" builds all targets that are built with the "cmoc" cross-compiler for the Motorola 6809 systems.
-- "make gcc_targets" builds all targets for the host console (e.g., CYGWIN, Linux, etc. console)
-- "make cc65_targets" builds all targets that are built with the "cc65" cross-compiler for the MOS 6502 systems.
-- "make z88dk_targets" [EXTREMELY SLOW] builds all targets that are built with the "sccz80" and "zdcc" cross-compilers of the Z88DK dev-kit for Zilog 80 and Intel 80 systems.
+- "make cmoc_targets" builds all targets that are built with the CMOC cross-compiler for the Motorola 6809 systems.
+- "make gcc_targets" builds all targets by using GCC for the host console (e.g., CYGWIN, Linux, etc. console)
+- "make cc65_targets" builds all targets that are built with the CC65 cross-compiler for the MOS 6502 systems.
+- "make z88dk_targets" [EXTREMELY SLOW] builds all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80 and Intel 80 systems.
 
 
 ### Compile all targets for a given system 
@@ -132,7 +132,7 @@ Examples:
 - "make zx81_targets" builds all ZX81 binaries ((different versions of the game for different memory configurations and different graphics configurations such as WRX hi-res)
 
 ### Compile a specific target
-For this you currently need to look inside the Makefile to have the exact target name to use with the "make" command.
+For this you currently need to look inside the Makefile file to have the exact target name to use with the "make" command.
 
 Examples: 
 - "make c64" builds a Commodore 64 binary
@@ -141,14 +141,14 @@ Examples:
 - "make pc8086" builds a binary for the PC 8086/8088 (a floppy disk image to be run on a Intel 8086/8088 PC)
 - "make nes" builds a bianry for the Nintendo NES videogame console
 
-### Special cases. 
+### Special cases
 Some targets, e.g., CP/M and Commodore 128, can be built by two different compilers because they can run different CPU architectures or because we may want to have multiple versions.
 In such cases we can specify the the architecture of the version.
 
 Examples:
 - "make c128_targets" builds all Commodore 128 targets for both the MOS 6502 and for the more exotic Zilog 80 non-CP/M mode
 - "make c128_8052_targets" builds all Commodore 128 targets for the MOS 6502 architecture in both 40 and 80 column mode
-- "make c128_z80_targets" builds all Commoodore 128 targets for the Zilog 80 non-CP/M mode in both 40 and 80 column mode
+- "make c128_z80_targets" builds all Commodore 128 targets for the Zilog 80 non-CP/M mode in both 40 and 80 column mode
 - "make cpm_targets" builds all generic CP/M targets for both the Intel 8080 and Zilog 80 architecture
 - "make cpm_8080_targets" builds all generic CP/M targets for the Intel 8080 architecture (compatible with Zilog 80 systems)
 - "make cpm_z80_targets" builds all generic CP/M targets for both the Zilog 80 architecture (not compatible with Intel 8080 systems)

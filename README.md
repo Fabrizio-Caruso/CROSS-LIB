@@ -148,8 +148,8 @@ Examples:
 - `make ti83` builds a binary for the Texas Instrument TI 83 scientific calculator.
 - `make pc8086` builds a binary for the PC 8086/8088 (a floppy disk image to be run on a Intel 8086/8088 PC).
 - `make nes` builds a binary for the Nintendo NES videogame console.
-vic20_exp_8k
-vic20_exp_8k
+- `make vic20_exp_8k` builds a binary for the Commodore Vic20 with an 8k memory expansion (`exp` means that the expansion brings 8k of "additional" memory)
+
 
 ### Special cases
 Some targets, e.g., CP/M and Commodore 128, can be built by two different compilers because they can run different CPU architectures or because we may want to have multiple versions.

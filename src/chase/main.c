@@ -494,11 +494,11 @@ int main(void)
 
 				
 				#if defined(FULL_GAME)
-					SKIP_DRAW
+					SKIP_BOMB_DRAW
 					{
 						displayBombs();	
 					}
-					SKIP_MORE_DRAW
+					SKIP_WALL_DRAW
 					{						
 						DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);			
 				
@@ -510,14 +510,14 @@ int main(void)
 					}
 										
 				#else
-					SKIP_MORE_DRAW
+					SKIP_BOMB_DRAW
 					{
 						displayBombs();
 					}
 				#endif
 				
 				// Display ghosts
-				SKIP_DRAW
+				SKIP_GHOST_DRAW
 				{
 					for(ind=0;ind<GHOSTS_NUMBER;++ind)
 					{

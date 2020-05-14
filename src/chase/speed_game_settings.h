@@ -1,9 +1,48 @@
 #ifndef _SPEED_TARGET_SETTINGS
 #define _SPEED_TARGET_SETTINGS
 
-#if defined(TINY_GAME) || defined(TURN_BASED)
+
+#if defined(TURN_BASED) || !defined(GHOST_DRAW_SKIP)
+    #define SKIP_GHOST_DRAW 
+#else
+    #define SKIP_GHOST_DRAW if((loop&(GHOST_DRAW_SKIP))==1)
+#endif
+
+#if defined(TURN_BASED) || !defined(BOMB_DRAW_SKIP)
+    #define SKIP_BOMB_DRAW 
+#else
+    #define SKIP_BOMB_DRAW if((loop&(BOMB_DRAW_SKIP))==1)
+#endif
+
+#if defined(TURN_BASED) || !defined(WALL_DRAW_SKIP)
+    #define SKIP_WALL_DRAW 
+#else
+    #define SKIP_WALL_DRAW if((loop&(WALL_DRAW_SKIP))==1)
+#endif
+
+
+/*
+#if defined(TURN_BASED)
 	#define SKIP_DRAW 
 	#define SKIP_MORE_DRAW
+#elif defined(DRAW_SKIP) 
+	#define SKIP_DRAW \
+		if((loop&(DRAW_SKIP))==1)
+	#if defined(MORE_DRAW_SKIP)
+		#define SKIP_MORE_DRAW \
+			if((loop&(MORE_DRAW_SKIP))==1)
+	#else \
+		#define SKIP_MORE_DRAW
+	#endif
+#elif defined(MORE_DRAW_SKIP) 
+	#define SKIP_MORE_DRAW \
+		if((loop&(MORE_DRAW_SKIP))==1)
+	#if defined(DRAW_SKIP)
+		#define SKIP_DRAW \
+			if((loop&(DRAW_SKIP))==1)
+	#else \
+		define SKIP_DRAW
+	#endif
 #elif defined(__C128_Z80__) && defined(Z88DK_SPRITES)
 	#define SKIP_DRAW \
 		if((loop&1)==1)
@@ -53,10 +92,10 @@
 		if((loop%8)==1)					
 #else
 	#define SKIP_DRAW 
-
 	#define SKIP_MORE_DRAW 
-
 #endif
+*/
+
 	
 #if defined(WIDE)
 	#define ADVANCED_LEFT_MISSILE()  ++leftHorizontalMissile._x

@@ -93,11 +93,11 @@ This is documented in https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master
 In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
 
 ### Prerequisites
-- Install a POSIX environment if not already available, 
-- Install "make" in your environment,
-- Install the required cross-compilers (see list of supported cross-compilers above)
-- Install the additional requirements for a given cross-compiler (linker, libraries, etc.), e.g., CMOC and LCC1802 require a separate linker, some GCC targets require "ncurses"
-- Make sure they are either installed as described in the Makefile variables: Z88DK_PATH, CC65_PATH, CMOC_PATH, ACK_PATH, LCC1802_PATH, etc. or set these variables accordingly
+- Install a POSIX environment if not already available.
+- Install "make" in your environment.
+- Install the required cross-compilers (see list of supported cross-compilers above).
+- Install the additional requirements for a given cross-compiler, e.g., CMOC and LCC1802 require a separate linker, some GCC targets require "ncurses".
+- Make sure they are either installed as described in the Makefile variables: Z88DK_PATH, CC65_PATH, CMOC_PATH, ACK_PATH, LCC1802_PATH, etc. or set these variables accordingly.
 
 ### Compile all targets for a given cross-compiler
 Run "make [compiler name]_targets where the [compiler name] is of one these:
@@ -117,7 +117,7 @@ Examples:
 - "make gcc_targets" will build all targets for the host console (e.g., CYGWIN, Linux, etc. console)
 - "make cc65_targets" will build all targets that are built with the "cc65" cross-compiler for the MOS 6502 systems.
 
-### Compile all targets for a given systems
+### Compile all targets for a given system 
 Run "make [system name]_targets, where [system name] is one of the systems listed in this README.
 
 Examples:

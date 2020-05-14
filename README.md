@@ -135,7 +135,7 @@ For this you may need to look inside the Makefile file to have the exact target 
 The name of the target is given by the `[system name]_[optional attribute(s)]`.
 The most common attributes are:
 - memory (e.g., `exp`, `3k`, `8k`, `16k`, `32k`, etc.);
-- target video mode (e.g., `40col`, `80col`, `wrx`, etc.);
+- target video mode (e.g., `40col`, `80col`, `wrx`, `adm3a`, `vt52`, `vt100`, etc.);
 - display mode (e.g., `buffered`, `udg`, etc.);
 - CPU used for models with more than one CPU architecture (e.g., for the Commodore 128 you may have `z80` or `8502`);
 - game mode (`turnbased`);
@@ -148,7 +148,7 @@ Examples:
 - `make ti83` builds a binary for the Texas Instrument TI 83 scientific calculator.
 - `make pc8086` builds a binary for the PC 8086/8088 (a floppy disk image to be run on a Intel 8086/8088 PC).
 - `make nes` builds a binary for the Nintendo NES videogame console.
-- `make vic20_exp_8k` builds a binary for the Commodore Vic20 with an 8k memory expansion (`exp` means that the expansion brings 8k of "additional" memory)
+- `make vic20_exp_8k` builds a binary for the Commodore Vic 20 with an 8k memory expansion (`exp` means that the expansion brings 8k of "additional" memory)
 
 
 ### Special cases
@@ -159,9 +159,9 @@ Examples:
 - `make c128_targets` builds all Commodore 128 targets for both the MOS 8502 and for the more exotic Zilog 80 non-CP/M mode.
 - `make c128_8502_targets` builds all Commodore 128 targets for the MOS 8502 architecture in both 40 and 80 column mode.
 - `make c128_z80_targets` builds all Commodore 128 targets for the Zilog 80 non-CP/M mode in both 40 and 80 column mode.
-- `make cpm_targets` builds all generic CP/M targets for both the Intel 8080 and Zilog 80 architecture.
-- `make cpm_8080_targets` builds all generic CP/M targets for the Intel 8080 architecture (compatible with Zilog 80 systems).
-- `make cpm_z80_targets` builds all generic CP/M targets for both the Zilog 80 architecture (not compatible with Intel 8080 systems).
+- `make cpm_targets` builds all "generic" CP/M targets for both the Intel 8080 and Zilog 80 architecture.
+- `make cpm_8080_targets` builds all "generic" CP/M targets for the Intel 8080 architecture (compatible with Zilog 80 systems).
+- `make cpm_z80_targets` builds all "generic" CP/M targets for both the Zilog 80 architecture (not compatible with Intel 8080 systems).
 
 
 ## THE GAME CODE

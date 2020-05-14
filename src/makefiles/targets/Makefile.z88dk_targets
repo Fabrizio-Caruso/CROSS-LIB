@@ -392,30 +392,16 @@ zx81_16k_qaopm:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k_qaopm.prg
 	
-zx81_16k_wrx_no_text:
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
-	$(INCLUDE_OPTS) -O3 \
-    -DANIMATE_PLAYER \
-	-DFORCE_XSIZE=36 \
-	-DFORCE_YSIZE=30 \
-	-vn \
-	-D__ZX81__ \
-	-DZ88DK_SPRITES \
-	-DNO_PRINT \
-	-lndos \
-	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx_no_text.prg \
-	$(LIGHT_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c
-	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx_no_text.prg
 
 
 zx81_16k_wrx:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
-	$(INCLUDE_OPTS) -O3 -DEXTRA_DRAW_SKIP \
+	$(INCLUDE_OPTS) -O3 $(ULTRA_DRAW_SKIP) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-DALT_MODE \
 	-DANIMATE_PLAYER \
-	-DFORCE_GHOSTS_NUMBER=7 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DINITIAL_SLOWDOWN=15000 \
 	-DFORCE_XSIZE=36 \
 	-DFORCE_YSIZE=35 \
 	-vn \
@@ -424,6 +410,7 @@ zx81_16k_wrx:
 	-DLESS_PRINT \
 	-lndos \
 	-DANIMATE_PLAYER \
+	-DNO_BLINKING \
 	-DLESS_TEXT \
 	-DNO_COLOR \
 	-DSIMPLE_STRATEGY \
@@ -440,11 +427,12 @@ zx81_16k_wrx:
 
 zx81_16k_wrx_qaopm:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
-	$(INCLUDE_OPTS) -O3 \
+	$(INCLUDE_OPTS) -O3 $(ULTRA_DRAW_SKIP) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-DZ88DK_JOYSTICK \
 	-DANIMATE_PLAYER \
-	-DFORCE_GHOSTS_NUMBER=7 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DINITIAL_SLOWDOWN=15000 \
 	-DFORCE_XSIZE=36 \
 	-DFORCE_YSIZE=35 \
 	-vn \
@@ -454,6 +442,7 @@ zx81_16k_wrx_qaopm:
 	-DLESS_PRINT \
 	-lndos \
 	-DANIMATE_PLAYER \
+	-DNO_BLINKING \
 	-DLESS_TEXT \
 	-DNO_COLOR \
 	-DSIMPLE_STRATEGY \
@@ -470,11 +459,13 @@ zx81_16k_wrx_qaopm:
 
 zx81_32k_wrx:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
-	$(INCLUDE_OPTS) -O3 -DEXTRA_DRAW_SKIP \
+	$(INCLUDE_OPTS) -O3 $(ULTRA_DRAW_SKIP) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
-	-DFORCE_GHOSTS_NUMBER=7 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DINITIAL_SLOWDOWN=15000 \
 	-DANIMATE_PLAYER \
+	-DNO_BLINKING \
 	-DFORCE_XSIZE=36 \
 	-DFORCE_YSIZE=35 \
 	-vn \
@@ -500,11 +491,13 @@ zx81_32k_wrx:
 
 zx81_32k_wrx_qaopm:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
-	$(INCLUDE_OPTS) -O3 \
+	$(INCLUDE_OPTS) -O3 $(ULTRA_DRAW_SKIP) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
-	-DFORCE_GHOSTS_NUMBER=7 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DINITIAL_SLOWDOWN=15000 \
 	-DANIMATE_PLAYER \
+	-DNO_BLINKING \
 	-DFORCE_XSIZE=36 \
 	-DFORCE_YSIZE=35 \
 	-DZ88DK_JOYSTICK \
@@ -1834,7 +1827,7 @@ trs80_chars:
 
 trs80:	
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos \
-	$(INCLUDE_OPTS) -DULTRA_DRAW_SKIP \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
 	-D__TRS80__ \
@@ -1967,7 +1960,7 @@ tiki100:
 	
 kaypro: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lgfxkp \
-	$(INCLUDE_OPTS) -DULTRA_DRAW_SKIP \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-D__KAYPRO__ \
 	-DNO_PRINT \
 	-DFULL_GAME \
@@ -2065,7 +2058,7 @@ attache_chars:
 
 attache:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache \
-	$(INCLUDE_OPTS) -DULTRA_DRAW_SKIP \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-D__ATTACHE__ \
 	-DFULL_GAME \
 	-DALT_PRINT \
@@ -2316,13 +2309,14 @@ cpm_vt100:
 
 c128_z80_80col:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
-	$(INCLUDE_OPTS) -DEXTRA_DRAW_SKIP \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ \
 	-DZ88DK_SPRITES -DANIMATE_PLAYER \
 	-DFULL_GAME -DEND_SCREEN \
 	-DLESS_TEXT \
 	-DSOUNDS \
+	-DNO_BLINKING \
 	-DFORCE_BIT_BANG \
 	-DZ88DK_JOYSTICK \
 	-DSIMPLE_STRATEGY \

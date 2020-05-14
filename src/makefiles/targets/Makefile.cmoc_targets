@@ -256,64 +256,64 @@ vectrex_targets: \
 
 mo5: 
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_images.c	
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
 	cmoc \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/graphics_data/cmoc/xchase.s	
 	cmoc -o $(BUILD_PATH)/FULL_MO5.bin \
-	$(MO5_OPTS) -DDRAW_SKIP $(INCLUDE_OPTS) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o \
 	mo5_init_graphics.o \

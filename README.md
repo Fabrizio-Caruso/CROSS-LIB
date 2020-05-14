@@ -131,7 +131,7 @@ Examples:
 - `make zx81_targets` builds all ZX81 binaries (different versions of the game for different memory configurations and different graphics configurations such as WRX hi-res).
 
 ### Compile a specific target
-For this you currently may need to look inside the Makefile file to have the exact target name to use with the "make" command. 
+For this you may need to look inside the Makefile file to have the exact target name to use with the "make" command. 
 The name of the target is given by the `[system name]_[optional attribute(s)]`.
 The most common attributes are:
 - memory (e.g., `exp`, `3k`, `8k`, `16k`, `32k`, etc.);

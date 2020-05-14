@@ -22,7 +22,7 @@ pc8086_tiny_buffered:
 	$(TINY_FILES)
 	mv pc86.img $(BUILD_PATH)/TINY_pc8086_turn_based.img
 
-cpm8080_buffered:
+cpm_8080_buffered:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
 	-DFORCE_XSIZE=24 \
 	-DFORCE_YSIZE=16 \
@@ -45,7 +45,7 @@ cpm8080_buffered:
 	rm $(SOURCE_PATH)/../*.o
 
 	
-cpm8080_adm3a:
+cpm_8080_adm3a:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=22 \
@@ -63,8 +63,8 @@ cpm8080_adm3a:
 	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_adm3a.com
 	rm $(SOURCE_PATH)/../*.o	
 
-cpm8080_targets: \
-	cpm8080_buffered
+cpm_8080_targets: \
+	cpm_8080_buffered
 
 
 # buffered	

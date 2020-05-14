@@ -1091,7 +1091,6 @@ atari_lynx_targets: \
 osic1p_targets: \
 	osic1p_8k osic1p_32k osic1p_8k_turn_based osic1p_32k_turn_based
 	
-c128_targets: \
-	c128_8502_targets c128_z80_targets
+
 
 

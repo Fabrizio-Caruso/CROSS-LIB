@@ -113,22 +113,18 @@ Run "make [compiler name]_targets where the [compiler name] is of one these:
 - gcc_z8k (currently buildable only under Linux)
 - lcc1802
 - xtc68
-- z88dk (both sccz80 and zdcc cross-compilers)
+- z88dk (for both SCCZ80 and ZSDCC cross-compilers in Z88DK)
 
-Given the number of targets handled by the Z88DK dev-kit you can also specify the specific compiler in z88dk with:
-- sccz80
-- zdcc
 
 Examples: 
-- "make cmoc_targets" will build all targets that are built with the "cmoc" cross-compiler for the Motorola 6809 systems.
-- "make gcc_targets" will build all targets for the host console (e.g., CYGWIN, Linux, etc. console)
-- "make cc65_targets" will build all targets that are built with the "cc65" cross-compiler for the MOS 6502 systems.
-- "make sccz80_targets" [VERY SLOW] will build all targets that are built with the "sccz80" cross-compiler in Z88DK for Zilog 80 and Intel 80 systems.
-- "make z88dk_targets" [EXTREMELY SLOW] will build all targets that are built with the "sccz80" and "zdcc" Z88DK cross-compilers for Zilog 80 and Intel 80 systems.
+- "make cmoc_targets" builds all targets that are built with the "cmoc" cross-compiler for the Motorola 6809 systems.
+- "make gcc_targets" builds all targets for the host console (e.g., CYGWIN, Linux, etc. console)
+- "make cc65_targets" builds all targets that are built with the "cc65" cross-compiler for the MOS 6502 systems.
+- "make z88dk_targets" [EXTREMELY SLOW] builds all targets that are built with the "sccz80" and "zdcc" cross-compilers of the Z88DK dev-kit for Zilog 80 and Intel 80 systems.
 
 
 ### Compile all targets for a given system 
-Run "make [system name]_targets, where [system name] is one of the systems listed in this README.
+Run "make [system name]_targets, where [system name] is one of the systems listed in the section "SUPPORTED TARGETS " of this document.
 
 Examples:
 - "make vic20_targets" builds all Commodore Vic 20 binaries (different versions of the game for different memory configurations)
@@ -144,6 +140,19 @@ Examples:
 - "make ti83" builds a binary for the Texas Instrument TI 83 scientific calculator
 - "make pc8086" builds a binary for the PC 8086/8088 (a floppy disk image to be run on a Intel 8086/8088 PC)
 - "make nes" builds a bianry for the Nintendo NES videogame console
+
+### Special cases. 
+Some targets, e.g., CP/M and Commodore 128, can be built by two different compilers because they can run different CPU architectures or because we may want to have multiple versions.
+In such cases we can specify the the architecture of the version.
+
+Examples:
+- "make c128_targets" builds all Commodore 128 targets for both the MOS 6502 and for the more exotic Zilog 80 non-CP/M mode
+- "make c128_8052_targets" builds all Commodore 128 targets for the MOS 6502 architecture in both 40 and 80 column mode
+- "make c128_z80_targets" builds all Commoodore 128 targets for the Zilog 80 non-CP/M mode in both 40 and 80 column mode
+- "make cpm_targets" builds all generic CP/M targets for both the Intel 8080 and Zilog 80 architecture
+- "make cpm_8080_targets" builds all generic CP/M targets for the Intel 8080 architecture (compatible with Zilog 80 systems)
+- "make cpm_z80_targets" builds all generic CP/M targets for both the Zilog 80 architecture (not compatible with Intel 8080 systems)
+
 
 ## THE GAME CODE
 

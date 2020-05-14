@@ -4030,7 +4030,7 @@ kc_targets: \
 trs80_targets: \
 	trs80_chars trs80_tiny trs80 trs80_cmd
 
-cpm_targets: \
+cpm_z80_targets: \
 	cpm_adm3a cpm_vt52 cpm_vt100 
 
 nascom_targets: \

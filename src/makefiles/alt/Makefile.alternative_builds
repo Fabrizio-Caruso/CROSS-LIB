@@ -3,6 +3,23 @@
 # -----------------------------------------------------
 # Z88DK
 
+zx81_16k_wrx_no_text:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS) -O3 \
+	-DANIMATE_PLAYER \
+	-DFORCE_XSIZE=36 \
+	-DFORCE_YSIZE=30 \
+	-vn \
+	-D__ZX81__ \
+	-DZ88DK_SPRITES \
+	-DNO_PRINT \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_16k_wrx_no_text.prg \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c
+	rm $(BUILD_PATH)/LIGHT_zx81_16k_wrx_no_text.prg
+
+
 # TODO: Adapt code to work with -compiler=sdcc
 # $(INCLUDE_OPTS)
 # $(INCLUDE_OPTS) -zorg=18941 -vn 

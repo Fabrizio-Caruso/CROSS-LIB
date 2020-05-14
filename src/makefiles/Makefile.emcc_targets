@@ -1,0 +1,24 @@
+# ------------------------------------------------------------------------------------------
+# EMCC
+
+emcc_buffered:
+	$(EM_CC) $(INCLUDE_OPTS)  \
+	-D__AMIGA__ \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=80 \
+	-DFORCE_YSIZE=24 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DNO_SLEEP \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o FULL_emcc_buffered.html
+	mv FULL_emcc_buffered.js $(BUILD_PATH)
+	mv FULL_emcc_buffered.wasm $(BUILD_PATH)
+	mv FULL_emcc_buffered.html $(BUILD_PATH)

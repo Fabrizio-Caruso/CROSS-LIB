@@ -1,0 +1,99 @@
+# ------------------------------------------------------------------------------------------
+# GCC
+#
+
+gcc_buffered:
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)
+
+	
+gcc_no_print:
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
+	-I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT \
+	$(TINY_FILES)	
+
+
+gcc_tiny_buffered:
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/TINY_gcc_buffered$(COMPILEDEXT)
+
+
+ncurses_turn_based:
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DTURN_BASED \
+	-DCONIO  \
+	-DALT_PRINT \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses_turn_based$(COMPILEDEXT)
+	
+ncurses:
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO  \
+	-DALT_PRINT \
+	-DNO_TITLE_LINE \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses$(COMPILEDEXT)
+    
+    
+
+##
+
+ncurses_targets: \
+	ncurses ncurses_turn_based
+	

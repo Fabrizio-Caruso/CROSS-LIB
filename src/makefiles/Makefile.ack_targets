@@ -1,0 +1,263 @@
+
+# ------------------------------------------------------------------------------------------
+# ACK
+#
+
+pc8086_tiny_buffered:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=20 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__PC8086__ \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(TINY_FILES)
+	mv pc86.img $(BUILD_PATH)/TINY_pc8086_turn_based.img
+
+cpm8080_buffered:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
+	-DFORCE_XSIZE=24 \
+	-DFORCE_YSIZE=16 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__CPM8080__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DSTDLIB \
+	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_buffered.com
+	rm $(SOURCE_PATH)/../*.o
+
+	
+cpm8080_adm3a:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=22 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__CPM8080__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	$(FULL_FILES)
+	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_adm3a.com
+	rm $(SOURCE_PATH)/../*.o	
+
+cpm8080_targets: \
+	cpm8080_buffered
+
+
+# buffered	
+pc8086:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=22 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__PC8086__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	mv pc86.img $(BUILD_PATH)/FULL_pc8086_turn_based.img
+	rm $(SOURCE_PATH)/../*.o
+
+pc8086_targets: \
+	pc8086
+
+	
+# buffered
+linuxppc:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinuxppc \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=21 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__LINUXPPC__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	mv linuxppc.exe $(BUILD_PATH)/FULL_linuxppc_turn_based.exe
+	rm $(SOURCE_PATH)/../*.o
+
+linuxppc_targets: \
+	linuxppc
+
+
+#buffered
+linux68k:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinux68k \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=21 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__LINUX68K__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	mv linux68k.exe $(BUILD_PATH)/FULL_linux68k_turn_based.exe
+	rm $(SOURCE_PATH)/../*.o
+	
+linux68k_targets: \
+	linux68k
+
+
+# buffered
+linux386:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinux386 \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=21 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__LINUX386__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	mv linux386.exe $(BUILD_PATH)/FULL_linux386_turn_based.exe
+	rm $(SOURCE_PATH)/../*.o
+
+linux386_targets: \
+	linux386
+
+
+# buffered
+linuxmips:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mlinuxmips \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=21 \
+	-DCONIO_ADM3A \
+	-DNO_COLOR \
+	-DACK \
+	-D__LINUXPPC__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	mv linuxmips.exe $(BUILD_PATH)/FULL_linuxmips_turn_based.exe
+	rm $(SOURCE_PATH)/../*.o	
+
+linuxmips_targets: \
+	linuxmips
+
+
+# buffered
+pdp11v7_buffered:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpdpv7 \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=22 \
+	-DCONIO_VT100 \
+	-DNO_COLOR \
+	-DACK \
+	-D__PDP11V7__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES)
+	mv a.out $(BUILD_PATH)/FULL_pdp11v7_turn_based.bin
+	rm $(SOURCE_PATH)/../*.o
+	
+    
+pdp11v7:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpdpv7 \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=22 \
+	-DCONIO_VT100 \
+	-DCONIO \
+	-DNO_COLOR \
+	-DACK \
+	-D__PDP11V7__ \
+	-DFULL_GAME \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES)
+	mv a.out $(BUILD_PATH)/FULL_pdp11v7.bin
+	rm $(SOURCE_PATH)/../*.o    
+
+pdp11v7_targets: \
+	pdp11v7 \
+	pdp11v7_buffered
+
+
+# no ncurses in ACK
+dos:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -pc86 \
+	-D__DOS__ \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DTURN_BASED \
+	-DCONIO  \
+	-DALT_PRINT \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	# mv a.exe $(BUILD_PATH)/FULL_dos_turn_based.exe
+
+dos_targets: \
+	dos

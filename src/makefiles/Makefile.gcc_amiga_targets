@@ -1,0 +1,26 @@
+# ------------------------------------------------------------------------------------------
+# GCC AMIGA
+
+
+amiga_core_test:
+	$(AMIGA_CC) -mcrt=nix13 \
+	$(SOURCE_PATH)/../test/main_use_amiga_core.c
+
+amiga_buffered:
+	$(AMIGA_CC) $(INCLUDE_OPTS) -mcrt=nix13 \
+	-D__AMIGA__ \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=39 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DNO_SLEEP \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv a.out $(BUILD_PATH)/FULL_amiga_buffered.exe

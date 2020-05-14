@@ -1,0 +1,79 @@
+creativision_hello:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-o $(BUILD_PATH)/creativision_hello.bin
+
+pointerToFunction:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t pce \
+	$(SOURCE_PATH)/../experiments/pointerToFunction.c \
+	-o $(BUILD_PATH)/pointerToFunctions.pce
+	
+
+
+conio:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate experiments/conio.c -o  $(BUILD_PATH)/conio.bin
+	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/conio.bin
+
+c64_joy-test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 -DJOYSTICK_DRIVER=c64_hitjoy_joy experiments/joy-test.c -o $(BUILD_PATH)/joy-test.prg
+	
+	
+joy-test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate experiments/joy-test.c -o  $(BUILD_PATH)/joy-test.bin
+	$(TOOLS_PATH)/gamate-fixcart $(BUILD_PATH)/joy-test.bin
+
+
+
+
+none_no_graphics:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t none -c \
+	-D__BBC__ \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(TINY_FILES)
+	$(CC65_PATH)/ld65$(EXE) -t none \
+	--obj-path $(SOURCE_PATH) \
+	-m $(BUILD_PATH)/none_no_graphics.map \
+	-o $(BUILD_PATH)/none_no_graphics.bin \
+	$(TINY_OBJ)
+
+supervision_dummy:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
+	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
+	-DBIT_MAPPED_4_DUMMY -DNO_INIT_GRAPHICS \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_supervision_dummy.sv
+	
+
+atari_lynx_hello_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_test.c \
+	-o $(BUILD_PATH)/ATARI_LYNX_HELLO_TEST.lnx
+    
+atari_lynx_black_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_black_test.c \
+	-o $(BUILD_PATH)/ATARI_LYNX_BLACK_TEST.lnx
+
+atari_lynx_cgetc_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx $(SOURCE_PATH)/../test/tgi_lynx_cgetc_test.c \
+	-o $(BUILD_PATH)/ATARI_LYNX_CGETC_TEST.lnx
+
+
+error_cc65:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t vic20 $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_cc65.prg
+

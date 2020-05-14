@@ -1,0 +1,29 @@
+
+coco_test_rand: 
+	cmoc -O0 -c $(SOURCE_PATH)/../experiments/coco_rand_test.c
+	cmoc -O0 -o $(BUILD_PATH)/coco_rand_test.bin $(SOURCE_PATH)/../coco_rand_test.o
+
+hello_vec:
+	cmoc --vectrex -Wno-const -c $(SOURCE_PATH)/../experiments/hello_vec.c 
+	cmoc --vectrex -o $(BUILD_PATH)/hello_vec.bin $(SOURCE_PATH)/../hello_vec.o
+	rm $(SOURCE_PATH)/../hello_vec.o
+	
+hello_coco:
+	cmoc -D__CMOC__ -Wno-const -c $(SOURCE_PATH)/../experiments/hello.c 
+	cmoc -o $(BUILD_PATH)/hello_coco.bin $(SOURCE_PATH)/../hello.o
+	rm $(SOURCE_PATH)/../hello.o
+
+mo5_test: 
+	cmoc -c -nodefaultlibs $(MO5_OPTS) $(INCLUDE_OPTS) ./experiments/mo5.c
+	cmoc -nodefaultlibs $(MO5_OPTS) $(INCLUDE_OPTS) -o $(BUILD_PATH)/mo5.bin ./mo5.o
+	rm ./mo5.o
+	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/mo5.bin
+	mv $(BUILD_PATH)/mo5.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c mo5.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add mo5.sap mo5.bin
+	mv ./mo5.bin $(BUILD_PATH)
+	mv ./mo5.sap $(BUILD_PATH)
+	mv ./FILE.k5 $(BUILD_PATH)/mo5.k5
+	
+	
+

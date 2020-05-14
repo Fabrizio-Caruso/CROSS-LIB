@@ -1,0 +1,44 @@
+# ------------------------------------------------------------------------------------------
+# XTC68
+#
+
+
+XTC68_ALL_OPTS ?= \
+	$(XTC68_OPTS) $(INCLUDE_OPTS)\
+	-I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DBUFFERED \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT 	
+	
+	
+
+sinclair_ql_tiny_buffered:
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/level.c -o level.o
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/display/init_images.c -o init_images.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/display/display_macros.c -o display_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/input/input_macros.c -o input_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(CROSS_LIB_PATH)/text/text_macros.c -o text_macros.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/move_player.c -o move_player.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/ghost.c  -o ghost.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/character.c -o character.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/game_text.c -o game_test.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/strategy.c -o strategy.o 
+	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/main.c -o main.o 
+	$(XTC68) $(XTC68_ALL_OPTS) /usr/local/qdos/lib/crt.o \
+	level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o 
+	rm level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o
+	mv a_out $(BUILD_PATH)/TINY_SinclairQL_buffered.out
+	
+	

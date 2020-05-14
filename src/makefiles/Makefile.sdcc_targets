@@ -1,0 +1,9 @@
+# JUST A STUB
+
+# ------------------------------------------------------------------------------------------
+# SDCC
+#
+	
+sdcc_display_macros: 
+	sdcc -c $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MACROS_NO_GRAPHICS) $(CROSS_LIB_PATH)/display/display_macros.c
+	

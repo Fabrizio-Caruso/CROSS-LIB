@@ -1,0 +1,99 @@
+# ------------------------------------------------------------------------------------------
+# TMS9000-GCC
+#   
+    
+
+# Paths to TMS9900 compilation tools
+GAS=tms9900-as
+LD=tms9900-ld
+TI99CC=tms9900-gcc
+CXX=tms9900-c++
+OBJCOPY=tms9900-objcopy
+
+# Flags used during linking
+# Refer to the linker rules in an external file
+LDFLAGS=\
+  --script=$(CFG_PATH)gcc4ti99/linkfile.cfg
+
+# List of compiled objects used in executable
+OBJECT_LIST= \
+  $(TOOLS_PATH)/ti99/cart_header.o \
+  $(TOOLS_PATH)/ti99/crt0.o \
+  $(CROSS_LIB_PATH)/display/display_macros.o \
+  $(CROSS_LIB_PATH)/display/init_images.o \
+  $(CROSS_LIB_PATH)/input/input_macros.o \
+  $(CROSS_LIB_PATH)/text/text_macros.o \
+  $(SOURCE_PATH)/move_player.c \
+  $(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+  $(SOURCE_PATH)/main.c
+  
+
+# Recipes to compile individual files
+%.o: %.asm
+	$(GAS) $< -o $@
+%.o: %.c
+	$(TI99CC) -c $< -O2 -o $@
+%.o: %.cpp
+	$(CXX) -c $< -O2 -o $@
+
+# List of all files needed in executable
+PREREQUISITES=\
+  $(OBJECT_LIST)
+  
+# Recipe to compile the executable
+ti99: ti99_cross_chase.elf
+	$(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart
+
+ti99_cross_chase.elf: $(PREREQUISITES)
+	$(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@
+
+# Recipe to clean all compiled objects
+.phony ti99clean:
+	rm -f *.o
+	rm -f *.elf
+	rm -f *.cart
+
+
+    
+    
+ti99_tiny_no_graphics:
+	$(TI99_CC) $(TI99_OPTS) \
+	$(INCLUDE_OPTS) -I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/rand/rand.c \
+	$(TOOLS_PATH)/ti99/cart_header.o \
+	$(TOOLS_PATH)/ti99/crt0.o
+	
+cc_tiny_no_graphics:
+	$(_CC) \
+	$(INCLUDE_OPTS) -I$(SOURCE_PATH) \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(TINY_FILES)
+	

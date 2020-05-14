@@ -1,0 +1,11 @@
+# ------------------------------------------------------------------------------------------
+# WINCMOC
+#
+
+wincmoc_debug: tiny_combo_rand.cat 
+	mv tiny_combo_rand.cat tiny_combo_rand.c
+	$(WINCMOC_DIR)cmoc.exe  $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(WINCMOC_OPTS) \
+	$(DEBUG_MACROS) \
+	tiny_combo_rand.c
+	$(WINCMOC_DIR)lwasm.exe -f obj -o tiny_combo_rand.o tiny_combo_rand.asm
+

@@ -1,0 +1,592 @@
+# ALTERNATIVE VERSIONS
+
+# -----------------------------------------------------
+# Z88DK
+
+# TODO: Adapt code to work with -compiler=sdcc
+# $(INCLUDE_OPTS)
+# $(INCLUDE_OPTS) -zorg=18941 -vn 
+#  -DNO_RANDOM_LEVEL
+# -DLESS_TEXT -DNO_SLEEP
+vg5k_light: 
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-vn \
+	-D__VG5K__ -DSOUNDS  \
+	-DASM_DISPLAY \
+	-lndos -create-app -o $(BUILD_PATH)/LIGHT_vg5k.prg \
+	$(CROSS_LIB_PATH)/z88dk/vg5k/vg5k_graphics.c  \
+	$(LIGHT_FILES)
+	rm $(BUILD_PATH)/LIGHT_vg5k.prg	
+	
+	
+cpc_no_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
+	-D__CPC__ -DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-pragma-define:REGISTER_SP=-1 \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_cpc_no_udg.prg \
+	$(SOURCE_PATH)/z88dk/cpc/cpc_graphics.c  \
+	$(SOURCE_PATH)/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_no_udg.cpc  $(BUILD_PATH)/FULL_cpc_no_udg.cdt
+	rm $(BUILD_PATH)/FULL_cpc_no_udg.cpc 
+	rm $(BUILD_PATH)/FULL_cpc_no_udg.prg	
+
+
+zx80_8k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
+	-D__ZX80__ -DROUND_ENEMIES -DTINY_GAME \
+	-DTURN_BASED \
+	-lndos -create-app -o  $(BUILD_PATH)/TINY_zx80_8k.prg \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_zx80_8k.prg
+
+
+zx81_8k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-vn \
+	-D__ZX81__ -DTINY_GAME -DROUND_ENEMIES \
+	-DALT_SLEEP \
+	-DMACRO_SLEEP \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/TINY_zx81_8k.prg \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_zx81_8k.prg
+
+kc_tiny_putc4x6:
+	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap \
+	\
+	-D__KC__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DZ88DK_PUTC4X6 \
+	-DCONIO \
+	-DALT_PRINT \
+	-DNO_INIT_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/TINY_kc_putc4x6_.bin \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/z88dk_putc4x6_alt_print.c
+	rm $(BUILD_PATH)/TINY_kc_putc4x6_.bin
+	
+	
+	
+kc_tiny_sprites:
+	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap \
+	-D__KC__ \
+	-DZ88DK_SPRITES \
+	-DTINY_GAME \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DNO_MESSAGE \
+	-DNO_STATS \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/TINY_kc_sprites.bin \
+	-DNO_INIT_GRAPHICS \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TINY_kc_sprites.bin	
+	
+
+
+nc100_sprites_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_OPTS) -lgfxnc100 \
+	-D__NC100__ \
+	-DZ88DK_SPRITES \
+	-DTINY_GAME \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/TINY_nc100_sprites.bin \
+	$(SOURCE_PATH)/z88dk_sprites/z88dk_sprites_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_nc100_sprites.bin
+	cp $(BUILD_PATH)/TINY_nc100_sprites.rom /cygwin/c/Emulation/nc100em-1.2-2014/nc100.card
+
+	
+einstein_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -leinstein \
+	-D__EINSTEIN__ \
+	-DFORCE_CONIO_LIB \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-clib=ansi \
+	-create-app -o$(BUILD_PATH)/TINY_einstein.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_einstein.bin
+	
+
+
+# it may work
+mtx_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) -D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -vn   -lndos -create-app -o LIGHT.bin $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	mv LIGHT $(BUILD_PATH)
+	mv LIGHT.bin $(BUILD_PATH)
+	mv LIGHT.wav $(BUILD_PATH)
+	
+
+lambda_light:
+	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) -vn -D__LAMBDA__ -lndos -create-app -o  $(BUILD_PATH)/LIGHT_lambda.prg \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/LIGHT_lambda.prg	
+	
+
+
+msx_no_color_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -zorg=49200 -DSOUNDS -create-app -vn -D__MSX__ -lndos -create-app -o $(BUILD_PATH)/LIGHT_msx_no_color_16k.prg $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/LIGHT_msx_no_color_16k.prg 	
+
+
+	
+msx_color_32k_msxdos:
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DSOUNDS -DANIMATE_PLAYER -vn -DMSX_MODE1 -DFULL_GAME -D__MSX__ -lndos -subtype=msxdos -o $(BUILD_PATH)/FULL_msx_color_32k.com $(SOURCE_PATH)/msx/msx_graphics.c $(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c	
+	
+
+
+spectrum_clib_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -pragma-define:ansicolumns=32 -vn                           -DCLIB_ANSI -DNO_SLEEP -DNO_INITIAL_SCREEN -DNO_RANDOM_LEVEL -DLESS_TEXT -DTINY_GAME -D__SPECTRUM__ -lndos -create-app -o $(BUILD_PATH)/TINY_spectrum_clib.prg  $(SOURCE_PATH)/spectrum/spectrum_graphics.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_spectrum_clib.prg
+	rm $(BUILD_PATH)/TINY_spectrum_clib_BANK_7.bin	
+	
+	
+
+
+	
+vg5k_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) -O0 -vn -DTINY_GAME -D__VG5K__ -lndos -create-app -o $(BUILD_PATH)/TINY_vg5k.prg \
+	$(SOURCE_PATH)/vg5k/vg5k_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_vg5k.prg
+
+	
+lambda_8k:
+	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLORS \
+	-DLESS_TEXT -DNO_SLEEP -lndos \
+	-create-app -o  $(BUILD_PATH)/TINY_lambda_8k.prg \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_lambda_8k.prg	
+	
+
+
+mc1000_16k_light:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-define:ansicolumns=32 -subtype=gaming -clib=ansi -D__MC1000__ -DSOUNDS -vn \
+	 \
+	-lndos -create-app -Cz--audio \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	mv a.wav $(BUILD_PATH)/LIGHT_mc1000_16k.wav
+	rm a.bin
+	rm a.cas
+    
+eg2k_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) \
+	-subtype=eg2000disk \
+	-lndos \
+	-lm \
+	-D__TRS80__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DALT_PRINT \
+	-create-app \
+	$(SOURCE_PATH)/trs80/trs80_graphics.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	mv a.cmd $(BUILD_PATH)/TINY_eg2k.cmd	
+
+
+
+msx_conio_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-DSOUNDS -DANIMATE_PLAYER \
+	-create-app -vn -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-clib=ansi \
+	-create-app -o $(BUILD_PATH)/FULL_msx_conio_32k.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/FULL_msx_conio_32k.prg 	
+		
+
+
+	
+# -o$(BUILD_PATH)/TINY_abc800.bin 	
+abc800_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -zorg=40000 \
+	-D__ABC800__ \
+	-DCONIO_ADM3A \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-o$(BUILD_PATH)/TINY_abc800.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+
+cpc_cpcrslib:
+	$(Z88DK_PATH)$(MYZ88DKASM) \
+	-x$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lib \
+	@$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib.lst	
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-define:REGISTER_SP=-1 \
+	-DANIMATE_PLAYER -DSOUNDS -DFULL_GAME -clib=ansi -D__CPC__ -DCPCRSLIB -DBETWEEN_LEVEL -DEND_SCREEN \
+	-l$(SOURCE_PATH)/../tools/cpcrslib/cpcrslib -lndos \
+	-create-app -o $(BUILD_PATH)/FULL_cpc_cpcrslib.prg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/psg/psg_sounds.c \
+	$(SOURCE_PATH)/cpc/cpc_cpcrslib_graphics.c $(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc_cpcrslib.cpc  $(BUILD_PATH)/FULL_cpc_cpcrslib.cdt
+	rm $(BUILD_PATH)/FULL_cpc_cpcrslib.cpc 
+	rm $(BUILD_PATH)/FULL_cpc_cpcrslib.prg
+	
+
+ncurses_turn_based_tiny:
+	$(GCC) -D__NCURSES__ \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DALT_PRINT \
+	$(TINY_FILES) \
+	-lncurses
+	mv a.exe $(BUILD_PATH)/TINY_ncurses.exe
+	
+
+
+# import as data into ram at 32768 - call 32768
+samcoupe_light:
+	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) -O0 \
+	$(INCLUDE_OPTS) \
+	-D__SAM__  \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn \
+	 -o $(BUILD_PATH)/LIGHT_samcoupe.bin -lndos \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	
+	
+samcoupe_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) -O0 \
+	-D__SAM__ -DTINY_GAME \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn \
+	 -o $(BUILD_PATH)/TINY_samcoupe.bin -lndos \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	
+	
+zx81_16k_sccz80:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DTURN_BASED \
+	-vn \
+	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -create-app -o  $(BUILD_PATH)/FULL_zx81_16k_sccz80.prg \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c
+	rm $(BUILD_PATH)/FULL_zx81_16k_sccz80.prg
+
+
+zx81_light:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-vn \
+	-D__ZX81__ -DNO_SLEEP -DLESS_TEXT \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/LIGHT_zx81_8k.prg \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/LIGHT_zx81_8k.prg
+
+
+
+
+sc3000_tiny: 
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-pragma-need=ansiterminal \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE -DNO_STATS \
+	-clib=ansi \
+	-vn -lndos -create-app -Cz--audio \
+	-o $(BUILD_PATH)/TINY_sc3000.prg \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	#rm $(BUILD_PATH)/TINY_sc3000.prg
+
+
+
+
+gal_6k_sccz80: 
+	$(Z88DK_PATH)$(MYZ88DK) +gal $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-pragma-need=ansiterminal \
+	-DTINY_GAME -DNO_SLEEP -DLESS_TEXT -D__GAL__ -DNO_RANDOM_LEVEL -DALT_PRINT -DNO_MESSAGE -DNO_STATS \
+	-vn -lndos -create-app -Cz--audio \
+	-o  $(BUILD_PATH)/TINY_galaksija_6k_sccz80.prg \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	rm $(BUILD_PATH)/TINY_galaksija_6k_sccz80.prg
+	#rm $(BUILD_PATH)/TINY_galaksija_6k_sccz80.wav
+	
+
+	
+
+
+	
+gal_6k_mm:
+	$(Z88DK_PATH)$(MYZ88DK) +gal $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-pragma-need=ansiterminal \
+	--reserve-regs-iy \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DTINY_GAME \
+	-DNO_SLEEP -DLESS_TEXT \
+	-D__GAL__ \
+	-DNO_INITIAL_SCREEN \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DALT_MOVE \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLORS \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_DEAD_GHOSTS \
+	-DNO_INIT_GRAPHICS \
+	-DNO_STATS \
+	-DNO_MESSAGE \
+	-DFLAT_ENEMIES \
+	-DMEMORY_MAPPED \
+	-DDEFAULT_CLEAR_SCREEN \
+	-lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k_mm.prg \
+	$(TINY_FILES)	
+	
+# too big for a 16k machine ?
+# -DSOUNDS $(SOURCE_PATH)/psg/psg_sounds.c
+# 
+# sdcc ONLY without PSG
+# sccz80 works with AND without PSG
+svi_318_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +svi $(ZSDCC_OPTS) -zorg=49152 \
+	-clib=ansi -pragma-define:ansicolumns=32 -vn -lndos \
+	-compiler=sdcc \
+	-DTINY_GAME \
+	-D__SVI__ -create-app -o $(BUILD_PATH)/TINY_svi_318 \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	#rm $(BUILD_PATH)/TINY_svi_318
+
+
+osca_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +osca $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__OSCA__ -DNO_SLEEP -DLESS_TEXT \
+	-DTINY_GAME \
+	-o $(BUILD_PATH)/TINY_osca.bin -vn -lndos \
+	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+
+
+z1013_light:
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
+	-vn -lndos \
+	-D__Z1013__  \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
+	-create-app -o
+	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/LIGHT_z1013.z80
+	rm $(BUILD_PATH)/../a.bin
+
+
+z1013_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
+	-D__Z1013__ -vn   -DTINY_GAME -DNO_SLEEP \
+	-lndos \
+	$(SOURCE_PATH)/sleep_macros.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  $(SOURCE_PATH)/strategy.c \
+	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c \
+	-create-app -o
+	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/TINY_z1013.z80
+	rm $(BUILD_PATH)/../a.bin
+	
+	
+
+# -subtype=gaming
+mc1000_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) -DDEBUG -DTINY_GAME $(INCLUDE_OPTS) -pragma-define:ansicolumns=32  -clib=ansi -D__MC1000__ -vn  -lndos -create-app -Cz--audio $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
+	mv a.wav $(BUILD_PATH)/TINY_mc1000.wav
+	rm a.bin
+	rm a.cas	
+
+# -----------------------------------------------
+# CC65
+
+atari5200_light:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_atari5200.rom	
+	
+
+atari_no_color_16k_full: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
+	-DFULL_GAME \
+	-DNO_HINTS \
+	-DNO_BLINKING \
+	-DLESS_TEXT \
+	-DFLAT_ENEMIES \
+	-DALT_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DNO_MESSAGE \
+	-DNO_PRINT \
+	$(SOURCE_PATH)/sleep_macros.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_atari_no_color_16k.xex	
+	
+atari_no_color_16k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT \
+	-DNO_MESSAGE \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c  -o \
+	$(BUILD_PATH)/LIGHT_atari_no_color_16k.xex
+
+
+c16_16k_no_udg:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c16 -Cl -DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DSOUNDS --config $(SOURCE_PATH)/../cfg/cc65/c16-16k_plus.cfg $(SOURCE_PATH)/c264/c264_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k_no_udg.prg
+
+
+creativision_16k_2:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SLEEP -DLESS_TEXT \
+	--config $(SOURCE_PATH)/../cfg/cc65/creativision-16k_2.cfg \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	--code-name CODE2 \
+	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	-o $(BUILD_PATH)/LIGHT_creativision_16k.bin	
+	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
+	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k.bin 
+	cat $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin > $(BUILD_PATH)/LIGHT_creativision_16k.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
+
+creativision_32k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(SOURCE_PATH)/../cfg/cc65/creativision-32k.cfg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	-o $(BUILD_PATH)/FULL_creativision_32k.bin
+
+	
+nes_color:
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/nes/reset.s
+	$(CC65_PATH)cc65 -D__NES__ -DNES_COLOR $(SOURCE_PATH)/display_macros.c
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/display_macros.s
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/enemy.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/enemy.s
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/level.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/level.s
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/character.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/character.s	
+	$(CC65_PATH)cc65 -D__NES__ $(SOURCE_PATH)/game_text.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/text.s 	
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/strategy.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/strategy.s	
+	$(CC65_PATH)cc65 -D__NES__ $(SOURCE_PATH)/input_macros.c
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/input_macros.s	
+	$(CC65_PATH)cc65 -D__NES__ -DTINY_GAME $(SOURCE_PATH)/main.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/main.s		
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/nes/nes_graphics.c
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/nes/nes_graphics.s		
+	$(CC65_PATH)ld65 -t nes -o $(BUILD_PATH)/TINY_nes_color.nes $(SOURCE_PATH)/nes/reset.o $(SOURCE_PATH)/display_macros.o $(SOURCE_PATH)/nes/nes_graphics.o $(SOURCE_PATH)/enemy.o $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/text.o $(SOURCE_PATH)/strategy.o $(SOURCE_PATH)/input_macros.o nes.lib
+	#$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes -DTINY_GAME --config $(SOURCE_PATH)/nes/nes.cfg -DNES_COLOR $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/nes/reset.s $(SOURCE_PATH)/nes/nes_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_nes_color.nes
+	# -C $(SOURCE_PATH)/nes/nes.cfg
+
+
+nes_16k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_nes.nes
+
+pce_light:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pce -Cl \
+	--config $(CFG_PATH)cc65/pce_8k_less_stack.cfg \
+	-DLESS_TEXT \
+	-DNO_MESSAGE -DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_INITIAL_SCREEN \
+	-DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_NARROW \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DNO_STATS \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/LIGHT_pce.pce
+
+
+supervision_tiny:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t supervision \
+	-DTINY_GAME -DLESS_TEXT -DNO_WAIT -DNO_SLEEP -DALT_PRINT -DNO_CHASE \
+	-o $(BUILD_PATH)/TINY_supervision.sv \
+	$(SOURCE_PATH)/sleep_macros.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/supervision/supervision_graphics.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	
+
+
+# -DFULL_GAME
+vic20_exp_3k_NO_GFX: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t vic20 -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS   -DTINY_GAME --config $(SOURCE_PATH)/../cfg/cc65/vic20-3k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
+	
+

@@ -107,7 +107,7 @@ Run "make [compiler name]_targets where the [compiler name] is of one these:
 - gcc
 - gcc_amiga
 - gcc_atari_st
-- gcc_z8k_targets (currently buildable only under Linux)
+- gcc_z8k (currently buildable only under Linux)
 - lcc1802
 - xtc68
 - z88dk
@@ -129,7 +129,7 @@ Examples:
 For this you currently need to look inside the Makefile to have the exact target name to use with the "make" command.
 
 Examples: 
-- "make c64" builds a Commodore 64 target
+- "make c64" builds a Commodore 64 binary
 - "make gcc_buffered" builds a GCC buffered and turn-based version for the host console
 - "make ti83" builds a binary for the Texas Instrument TI 83 scientific calculator
 - "make pc8086" builds a binary for the PC 8086/8088 (a floppy disk image to be run on a Intel 8086/8088 PC)

@@ -96,11 +96,11 @@ In order to compile the game you need to be in a POSIX environment such as Windo
 - Install a POSIX environment if not already available, 
 - Install "make" in your environment,
 - Install the required cross-compilers (see list of supported cross-compilers above)
-- Install the additional requirements for a given cross-compiler (linker, libraries, etc.), e.g., CMOC and LCC1802 requires a separate linker, some GCC targets require "ncurses"
+- Install the additional requirements for a given cross-compiler (linker, libraries, etc.), e.g., CMOC and LCC1802 require a separate linker, some GCC targets require "ncurses"
 - Make sure they are either installed as described in the Makefile variables: Z88DK_PATH, CC65_PATH, CMOC_PATH, ACK_PATH, LCC1802_PATH, etc. or set these variables accordingly
 
 ### Compile all targets for a given cross-compiler
-Run "make <compiler name>_targets where the compiler is of one these:
+Run "make [compiler name]_targets where the [compiler name] is of one these:
 - ack
 - cc65
 - cmoc
@@ -118,7 +118,7 @@ Examples:
 - "make cc65_targets" will build all targets that are built with the "cc65" cross-compiler for the MOS 6502 systems.
 
 ### Compile all targets for a given systems
-Run "make <system name>_targets, where <system name> is one of the systems listed in this README.
+Run "make [system name]_targets, where [system name] is one of the systems listed in this README.
 
 Examples:
 - "make vic20_targets" builds all Commodore Vic 20 binaries (different versions of the game for different memory configurations)

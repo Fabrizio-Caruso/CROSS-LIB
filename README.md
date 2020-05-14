@@ -134,13 +134,13 @@ Examples:
 For this you currently may need to look inside the Makefile file to have the exact target name to use with the "make" command. 
 The name of the target is given by the `[system name]_[optional attribute(s)]`.
 The most common attributes are:
-- memory (e.g., model memory, memory expansion);
-- target video mode (e.g., 40col, 80col, wrx);
-- display mode (e.g., buffered, udg);
-- CPU used for models with more than one CPU architecture (e.g., for the Commodore 128 you may have z80 or 8502);
-- game mode (e.g., turnbased);
-- input mode (e.g., qaopm, ijkl, joystick, etc.)
-- binary format (e.g., wav, crt, cmd, etc.)
+- memory (e.g., `exp`, `3k`, `8k`, `16k`, `32k`, etc.);
+- target video mode (e.g., `40col`, `80col`, `wrx`, etc.);
+- display mode (e.g., `buffered`, `udg`, etc.);
+- CPU used for models with more than one CPU architecture (e.g., for the Commodore 128 you may have `z80` or `8502`);
+- game mode (`turnbased`);
+- input mode (e.g., `qaopm`, `ijkl`, `joystick`, etc.)
+- binary format (e.g., `wav`, `crt`, `cmd`, etc.)
 
 Examples: 
 - `make c64` builds a Commodore 64 binary.
@@ -148,6 +148,8 @@ Examples:
 - `make ti83` builds a binary for the Texas Instrument TI 83 scientific calculator.
 - `make pc8086` builds a binary for the PC 8086/8088 (a floppy disk image to be run on a Intel 8086/8088 PC).
 - `make nes` builds a binary for the Nintendo NES videogame console.
+vic20_exp_8k
+vic20_exp_8k
 
 ### Special cases
 Some targets, e.g., CP/M and Commodore 128, can be built by two different compilers because they can run different CPU architectures or because we may want to have multiple versions.

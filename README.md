@@ -128,7 +128,7 @@ Run `make [system name]_targets`, where [system name] is one of the systems list
 Examples:
 - `make vic20_targets` builds all Commodore Vic 20 binaries (different versions of the game for different memory configurations).
 - `make spectrum_targets` builds all Sinclair Spectrum binaries (different versions of the game for different memory configurations).
-- `make zx81_targets` builds all ZX81 binaries ((different versions of the game for different memory configurations and different graphics configurations such as WRX hi-res).
+- `make zx81_targets` builds all ZX81 binaries (different versions of the game for different memory configurations and different graphics configurations such as WRX hi-res).
 
 ### Compile a specific target
 For this you currently need to look inside the Makefile file to have the exact target name to use with the "make" command.
@@ -138,7 +138,7 @@ Examples:
 - `make gcc_buffered` builds a GCC buffered and turn-based version for the host console.
 - `make ti83` builds a binary for the Texas Instrument TI 83 scientific calculator.
 - `make pc8086` builds a binary for the PC 8086/8088 (a floppy disk image to be run on a Intel 8086/8088 PC).
-- `make nes` builds a bianry for the Nintendo NES videogame console.
+- `make nes` builds a binary for the Nintendo NES videogame console.
 
 ### Special cases
 Some targets, e.g., CP/M and Commodore 128, can be built by two different compilers because they can run different CPU architectures or because we may want to have multiple versions.

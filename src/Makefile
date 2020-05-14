@@ -485,8 +485,14 @@ ack_targets: \
 atari_st_targets: \
 	atari_st_buffered atari_st_ncurses
 
+gcc_atari_st_targets: \
+    atari_st_targets
+
 amiga_targets: \
 	amiga_buffered
+
+gcc_amiga_targets: \
+    amiga_targets
 
 gcc_targets: \
 	gcc_buffered ncurses_targets  
@@ -494,8 +500,15 @@ gcc_targets: \
 lcc1802_targets: \
 	comx_targets pecom_targets
 
-# All targets that can be compiled under CYGWIN, i.e., not including m20
-all: cc65_targets z88dk_targets cmoc_targets gcc_targets ack_targets atari_st_targets sinclair_ql_targets amiga_targets lcc1802_targets
+# Currently to be compiled in Linux (because the source code of the compiler won't easily compile)
+olivetti_m20_targets: \
+	olivetti_m20_buffered
+    
+gcc_z8k_targets: \
+    olivetti_m20_targets
+
+# All targets that can be compiled under CYGWIN, i.e., not including gcc_z8k_targets
+all: cc65_targets z88dk_targets cmoc_targets ack_targets xtc68_ql_targets gcc_targets gcc_atari_st_targets gcc_amiga_targets lcc1802_targets
 
 clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o

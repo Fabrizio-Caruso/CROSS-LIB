@@ -43,5 +43,3 @@ olivetti_m20_no_graphics:
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)		
 
-olivetti_m20_targets: \
-	olivetti_m20_buffered

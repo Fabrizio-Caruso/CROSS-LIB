@@ -603,7 +603,7 @@ cbm510:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_cbm510.prg
 
-nes: 
+nes_no_fx: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
@@ -614,7 +614,7 @@ nes:
 	
 	
 	
-nes_fx:
+nes:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
 	-DFULL_GAME \
@@ -1077,7 +1077,7 @@ atari5200_targets: \
 	atari5200
 
 nes_targets: \
-	nes_fx
+	nes
 	
 creativision_targets: \
 	creativision_8k_tiny creativision_8k_light creativision_16k

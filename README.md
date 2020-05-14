@@ -89,6 +89,52 @@ For other targets, the following compilers and dev-kits may be included in futur
 The tool-chain also uses some third-party target-specific tools to create usable cassette/disk/rom images.
 This is documented in https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/tools/README.txt
 
+## HOW TO COMPILE THE GAME
+In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
+
+### Prerequisites
+- Install a POSIX environment if not already available, 
+- Install "make" in your environment,
+- Install the required cross-compilers (see list of supported cross-compilers above)
+- Install the additional requirements for a given cross-compiler (linker, libraries, etc.), e.g., CMOC and LCC1802 requires a separate linker, some GCC targets require "ncurses"
+- Make sure they are either installed as described in the Makefile variables: Z88DK_PATH, CC65_PATH, CMOC_PATH, ACK_PATH, LCC1802_PATH, etc. or set these variables accordingly
+
+### Compile all targets for a given cross-compiler
+Run "make <compiler name>_targets where the compiler is of one these:
+- ack
+- cc65
+- cmoc
+- gcc
+- gcc_amiga
+- gcc_atari_st
+- gcc_z8k_targets (currently buildable only under Linux)
+- lcc1802
+- xtc68
+- z88dk
+
+Examples: 
+- "make cmoc_targets" will build all targets that are built with the "cmoc" cross-compiler for the Motorola 6809 systems.
+- "make gcc_targets" will build all targets for the host console (e.g., CYGWIN, Linux, etc. console)
+- "make cc65_targets" will build all targets that are built with the "cc65" cross-compiler for the MOS 6502 systems.
+
+### Compile all targets for a given systems
+Run "make <system name>_targets, where <system name> is one of the systems listed in this README.
+
+Examples:
+- "make vic20_targets" builds all Commodore Vic 20 binaries (different versions of the game for different memory configurations)
+- "make spectrum_targets" builds all Sinclair Spectrum binaries (different versions of the game for different memory configurations)
+- "make zx81_targets" builds all ZX81 binaries ((different versions of the game for different memory configurations and different graphics configurations such as WRX hi-res)
+
+### Compile a specific target
+For this you currently need to look inside the Makefile to have the exact target name to use with the "make" command.
+
+Examples: 
+- "make c64" builds a Commodore 64 target
+- "make gcc_buffered" builds a GCC buffered and turn-based version for the host console
+- "make ti83" builds a binary for the Texas Instrument TI 83 scientific calculator
+- "make pc8086" builds a binary for the PC 8086/8088 (a floppy disk image to be run on a Intel 8086/8088 PC)
+- "make nes" builds a bianry for the Nintendo NES videogame console
+
 ## THE GAME CODE
 
 The game should be as portable as possible.

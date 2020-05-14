@@ -351,13 +351,7 @@ zx81_16k_turn_based_qaopm:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k_turn_based_qaopm.prg
 
-    
-getk_test:
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
-	-compiler=sdcc \
-	-create-app -o  $(BUILD_PATH)/getk_test.prg \
-	$(SOURCE_PATH)/../test/getk_test.c
-	rm $(BUILD_PATH)/getk_test.prg
+LD_PATH)/getk_test.prg
 	
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
@@ -660,27 +654,6 @@ cpc:
 	rm $(BUILD_PATH)/FULL_cpc.cpc 
 	rm $(BUILD_PATH)/FULL_cpc.prg		
 
-		
-# msx_16k:
-	# $(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -zorg=49200 \
-	# -DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
-	# -create-app -o $(BUILD_PATH)/LIGHT_msx_16k.prg \
-	# -DALT_PRINT \
-	# -DLESS_TEXT \
-	# -DMEMORY_MAPPED \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
-	# $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	# $(LIGHT_FILES)
-	# rm $(BUILD_PATH)/LIGHT_msx_16k.prg 	
-
-msx_mode1_test:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -subtype=rom \
-	-vn \
-	-lndos \
-	$(SOURCE_PATH)/../test/msx_test.c \
-	-create-app -o $(BUILD_PATH)/TEST_msx.prg
-	rm $(BUILD_PATH)/TEST_msx.prg
 
 msx_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \

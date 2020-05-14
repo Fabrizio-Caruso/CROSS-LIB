@@ -3,6 +3,28 @@
 # -----------------------------------------------------
 # Z88DK
 
+		
+# msx_16k:
+	# $(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -zorg=49200 \
+	# -DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
+	# -create-app -o $(BUILD_PATH)/LIGHT_msx_16k.prg \
+	# -DALT_PRINT \
+	# -DLESS_TEXT \
+	# -DMEMORY_MAPPED \
+	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
+	# $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	# $(LIGHT_FILES)
+	# rm $(BUILD_PATH)/LIGHT_msx_16k.prg 	
+
+msx_mode1_test:
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -subtype=rom \
+	-vn \
+	-lndos \
+	$(SOURCE_PATH)/../test/msx_test.c \
+	-create-app -o $(BUILD_PATH)/TEST_msx.prg
+	rm $(BUILD_PATH)/TEST_msx.prg
+
 zx81_16k_wrx_no_text:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
 	$(INCLUDE_OPTS) -O3 \

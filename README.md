@@ -119,7 +119,7 @@ Examples:
 - `make cmoc_targets` builds all targets that are built with the CMOC cross-compiler for the Motorola 6809 systems.
 - `make gcc_targets` builds all targets by using GCC for the host console (e.g., CYGWIN, Linux, etc. console).
 - `make cc65_targets` builds all targets that are built with the CC65 cross-compiler for the MOS 6502 systems.
-- `make z88dk_targets` [EXTREMELY SLOW] builds all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80 and Intel 80 systems.
+- `make z88dk_targets` [EXTREMELY SLOW] builds all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80 and Intel 8080 systems.
 
 
 ### Compile all targets for a given system 
@@ -131,7 +131,16 @@ Examples:
 - `make zx81_targets` builds all ZX81 binaries (different versions of the game for different memory configurations and different graphics configurations such as WRX hi-res).
 
 ### Compile a specific target
-For this you currently need to look inside the Makefile file to have the exact target name to use with the "make" command.
+For this you currently may need to look inside the Makefile file to have the exact target name to use with the "make" command. 
+The name of the target is given by the `[system name]_[optional attribute(s)]`.
+The most common attributes are:
+- memory (e.g., model memory, memory expansion);
+- target video mode (e.g., 40col, 80col, wrx);
+- display mode (e.g., buffered, udg);
+- CPU used for models with more than one CPU architecture (e.g., for the Commodore 128 you may have z80 or 8502);
+- game mode (e.g., turnbased);
+- input mode (e.g., qaopm, ijkl, joystick, etc.)
+- binary format (e.g., wav, crt, cmd, etc.)
 
 Examples: 
 - `make c64` builds a Commodore 64 binary.

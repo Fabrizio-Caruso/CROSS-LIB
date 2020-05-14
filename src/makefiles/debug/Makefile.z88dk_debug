@@ -1,4 +1,13 @@
 # Z88DK Debugging Tests
+
+    
+getk_test:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	-create-app -o  $(BUILD_PATH)/getk_test.prg \
+	$(SOURCE_PATH)/../test/getk_test.c
+	rm $(BUI
+
 sms_libctest:
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) \
 	-vn -lndos \

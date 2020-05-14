@@ -176,24 +176,6 @@ void monochrome(unsigned char mono){
 		" sex R2\n");
 }
 
-// void monochrome(unsigned char mono){
-	// asm( //mono/cfc is in R12.0, 0=color, 1=mono
-		// " ldireg R8, 0x41C0\n"
-		// " ldn R8\n"				//get latest OUT 3 value
-		// " ani 0xf7\n"			//clear cfc
-		// " str R2\n"				//store value on stack
-		// " glo R12\n"			//get new cfc
-		// " ani 1\n"				//limit to 1 bits
-		// " shl\n"
-		// " shl\n"
-		// " shl\n"
-		// " or\n"					//new cfc OR latest OUT3 value
-		// " str R8\n"				//store new value 
-		// " sex R8\n"
-		// " out 3\n"				//set new cfc value
-		// " sex R2\n");
-// }
-
 
 unsigned char bgcolor(unsigned char color){
 	asm( //color is in R12.0
@@ -229,17 +211,7 @@ unsigned char bgcolor(unsigned char color){
 	return 0; //this statement will never be executed but it keeps the compiler happy
 }
 
-void init_rand(void){
-	asm(
-	" ldireg R8, 0x407e\n"	
-    "$$loop:\n"
-	" ghi R0\n"
-	" bz $$loop\n"
-	" str R8\n"
-	" inc R8\n"
-	" glo R0\n"
-	" str R8\n");
-}
+
 void INIT_GRAPHICS(void)
 {
     setvideobase(0x7800);
@@ -250,8 +222,6 @@ void INIT_GRAPHICS(void)
     redefine_char(player_left, 3);
     redefine_char(ghost, 3);
     redefine_char(bomb, 0);
-
-    init_rand();
 
     
     #if defined(__COMX__)

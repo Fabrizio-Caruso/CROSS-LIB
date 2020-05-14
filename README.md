@@ -96,8 +96,11 @@ In order to compile the game you need to be in a POSIX environment such as Windo
 - Install a POSIX environment if not already available.
 - Install "make" in your environment.
 - Install the required cross-compilers (see list of supported cross-compilers above).
-- Install the additional requirements for a given cross-compiler, e.g., CMOC and LCC1802 require a separate linker, some GCC targets require "ncurses".
+- [Only some compilers] Install the additional requirements for a given cross-compiler, e.g., CMOC and LCC1802 require a separate linker, some GCC targets require "ncurses".
 - Make sure they are either installed as described in the Makefile variables: Z88DK_PATH, CC65_PATH, CMOC_PATH, ACK_PATH, LCC1802_PATH, etc. or set these variables accordingly.
+- [Z88DK-only] Select the optimization level in Makefile by setting the variables:
+-- SCZZ80_OPTS ("-O3" for highest optimizations)
+-- ZSDCC_OPTS ("-SO3" for high optimizations, -SO3; "-SO3 --max-allocs-per-node200000" for extremely high and very slow optimizations)
 
 ### Compile all targets for a given cross-compiler
 Run "make [compiler name]_targets where the [compiler name] is of one these:
@@ -110,12 +113,19 @@ Run "make [compiler name]_targets where the [compiler name] is of one these:
 - gcc_z8k (currently buildable only under Linux)
 - lcc1802
 - xtc68
-- z88dk
+- z88dk (both sccz80 and zdcc cross-compilers)
+
+Given the number of targets handled by the Z88DK dev-kit you can also specify the specific compiler in z88dk with:
+- sccz80
+- zdcc
 
 Examples: 
 - "make cmoc_targets" will build all targets that are built with the "cmoc" cross-compiler for the Motorola 6809 systems.
 - "make gcc_targets" will build all targets for the host console (e.g., CYGWIN, Linux, etc. console)
 - "make cc65_targets" will build all targets that are built with the "cc65" cross-compiler for the MOS 6502 systems.
+- "make sccz80_targets" [VERY SLOW] will build all targets that are built with the "sccz80" cross-compiler in Z88DK for Zilog 80 and Intel 80 systems.
+- "make z88dk_targets" [EXTREMELY SLOW] will build all targets that are built with the "sccz80" and "zdcc" Z88DK cross-compilers for Zilog 80 and Intel 80 systems.
+
 
 ### Compile all targets for a given system 
 Run "make [system name]_targets, where [system name] is one of the systems listed in this README.

@@ -154,8 +154,8 @@ void _delete(uint8_t x, uint8_t y);
 // COLORS 
 #  if defined(NO_COLOR) \
     || defined(__ATARI5200__) \
-    || (defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1) \
-    || defined(__CMOC__) \
+    || (defined(__ATARI__) && defined(ATARI_MODE1)) \
+    || defined(__COCO__) || defined(__DRAGON__) || defined(__MO5__) || defined(__WINCMOC__) \
     || (defined(__SVI__) && defined(MSX_MODE0)) || defined(__MSX__) \
     || defined(__ATMOS__) \
     || defined(Z88DK_SPRITES)

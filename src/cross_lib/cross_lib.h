@@ -74,8 +74,8 @@
 
 
 #  if (defined(__CBM__) && !defined(__VIC20__)) || defined(__APPLE2__) || defined(__APPLE2ENH__) || defined(__ATMOS__) \
-    || ((defined(__ATARI__) || defined(__ATARIXL__)) && !defined(ATARI_MODE1)) \
-	|| defined(__VIC20__) || defined(__GAMATE__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) \
+    || defined(__ATARI__) \
+	|| defined(__VIC20__) || defined(__GAMATE__) \
     || defined(__ATARI5200__) || defined(__OSIC1P__) || defined(__SUPERVISION__) \
 	|| defined(__TELESTRAT__) || defined(__PCE__) || defined(__NES__) || defined(__CREATIVISION__) || defined(__ATARI_LYNX__) \
     || defined(__CX16__)
@@ -92,7 +92,7 @@
 // TEXT SETTINGS
 #if (defined(__VIC20__) && defined(ANIMATE_PLAYER)) || (defined(__VIC20__) && defined(ALT_PRINT)) \
 	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MO5__) || defined(__GAMATE__) \
-    || defined(__APPLE2__) || (defined(__C64__) && defined(ANIMATE_PLAYER)) || defined(__ATARI__) || defined(__ATARIXL__) \
+    || defined(__APPLE2__) || (defined(__C64__) && defined(ANIMATE_PLAYER)) || defined(__ATARI__)  \
 	|| defined(__ZX80__) || (defined(__C16__) && defined(ALT_PRINT))
 	#define NO_CASE_LETTERS
 #else

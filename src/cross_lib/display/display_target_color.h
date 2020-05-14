@@ -11,7 +11,7 @@
 	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__DRAGON__) || defined(__OSIC1P__) || defined(__MC1000__) \
 	|| defined(__LAMBDA__) || defined(__MSX__) \
 	|| defined(__VZ__) || defined(__VG5k__) \
-	|| (defined(__ATARI__) || defined(__ATARIXL__)) \
+	|| defined(__ATARI__) \
 	|| defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
 	|| defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \
 	|| defined(__TRS80__) || defined(__CPM_80X24__) || defined(__PX8__) || defined(__PX4__) \
@@ -29,7 +29,7 @@
 
 
 #if !defined(__ATMOS__)
-	#if defined(__ATARI__) || defined(__ATARIXL__) \
+	#if defined(__ATARI__) \
 		|| (defined(ALT_PRINT) && !defined(__NCURSES__) && !defined(__C64__) && !defined(C16_UNEXPANDED) && !defined(VIC20_EXP_8K)) \
 		|| defined(NO_COLOR)
 		#define NO_TEXT_COLOR

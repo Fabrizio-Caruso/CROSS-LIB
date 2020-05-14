@@ -141,14 +141,14 @@
 
 	#define cprintf printf
 
-#elif defined(__CMOC__) && !defined(__WINCMOC__) && !defined(__MO5__) && !defined(__TO7__)
+#elif defined(__COCO__) || defined(__DRAGON__)
 
 	#define cprintf printf
 	#define gotoxy(x,y) locate(y,x)
 	#define cputc(c) printf("%c",c)
 
 #elif defined(__MO5__) || defined(__TO7__)
-	#include "coco.h"
+	#include "coco.h" // uint8_t definition
     void SWITCH_COLOR_BANK_OFF(void);
 	void SWITCH_COLOR_BANK_ON(void);
 	

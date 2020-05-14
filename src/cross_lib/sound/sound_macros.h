@@ -30,7 +30,7 @@
 		#include "psg_sounds.h"
 	#elif defined(__ATMOS__) && defined(SOUNDS)
 		#include "atmos_sounds.h"
-	#elif (defined(__ATARI__) || defined(__ATARIXL__)) && defined(SOUNDS)
+	#elif (defined(__ATARI__) && defined(SOUNDS))
 		#include "pokey_sounds.h"
 	#elif defined(__ATARI5200__) && defined(SOUNDS)
 		#include "pokey_sounds.h"	
@@ -68,7 +68,7 @@
 		#include "psg_sounds.h"	
 	#elif defined(__MC1000__) && defined(SOUNDS)
 		#include "bit_bang_sounds.h"	
-	#elif (defined(__WINCMOC__) || defined(__CMOC__)) && defined(SOUNDS)
+	#elif defined(__WINCMOC__) && defined(SOUNDS)
 		#include "wincmoc_sounds.h"					
 	#else
 		#define EXPLOSION_SOUND() 

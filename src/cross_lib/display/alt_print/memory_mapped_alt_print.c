@@ -26,7 +26,7 @@
 		}
 		return ch;
 	}
-#elif defined(__CMOC__) && !defined(__WINCMOC__)
+#elif defined(__COCO__) || defined(__DRAGON__)
 	char screenCode(char ch)
 	{
 		if(ch==32) 
@@ -113,7 +113,7 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 
 	while(str[i]!='\0')
 	{
-		#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__)) 
+		#if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__) 
 			_DISPLAY(x+i,y, screenCode(str[i]));
 		#else
 			_DISPLAY(x+i,y, str[i]);

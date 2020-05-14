@@ -127,7 +127,7 @@
 	#elif defined(__GAMATE__)
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 1200
-	#elif defined(__CREATIVISION__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) 
+	#elif defined(__CREATIVISION__) || defined(__ATARI5200__) || (defined(__ATARI__) && defined(ATARI_MODE1)) 
 		#define SLOW_DOWN
 		#define GAME_SLOW_DOWN 1000
 	#elif defined(__Z9001__)

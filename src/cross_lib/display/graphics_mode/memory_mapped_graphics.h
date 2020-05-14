@@ -14,7 +14,7 @@
 	#define COLOR_ADDR 0x0800
 #elif defined(__GAL__)
 	#define BASE_ADDR 0x2800
-#elif defined(__CMOC__) && !defined(__WINCMOC__)
+#elif defined(__COCO__) || defined(__DRAGON__)
 	#define BASE_ADDR 0x0400
 #elif defined(__ATARI__) && defined(ATARI_MODE1)
 	#define BASE_ADDR 0xBD80

@@ -69,7 +69,7 @@
 		|| (defined(__SPECTRUM__) && !defined(__TS2068__)) || defined(__SC3000__) || defined(__MTX__) \
 		|| defined(__APPLE2ENH__) || defined(__APPLE2__) \
 		|| defined(__Z9001__) || defined(__P2000__) \
-		|| (defined(__ATARI__) || defined(__ATARIXL__)) \
+		|| defined(__ATARI__) \
 		|| defined(__ATARI5200__) \
 		|| defined(__ACE__) \
 		|| defined(__CPM_80X24__) \

@@ -40,7 +40,7 @@
 		uint8_t i = 0;
 		while(str[i]!='\0')
 		{
-			#if defined(CBM_SCREEN_CODES) || (defined(__CMOC__) && !defined(__WINCMOC__))
+			#if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__)
 			POKE(loc(x+i,y), screenCode(str[i])); 		
 			#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
 			POKE(loc(x+i,y), 64+str[i]); 

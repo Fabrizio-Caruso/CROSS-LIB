@@ -274,7 +274,7 @@ out            stb res
                 getch();
             #endif
         }
-    #elif defined(__CMOC__) && !defined(__WINCMOC__) && !defined(__MO5__) && !defined(__TO7__)
+    #elif defined(__COCO__) || defined(__DRAGON__)
         #include <cmoc.h>
         
         void WAIT_PRESS(void)

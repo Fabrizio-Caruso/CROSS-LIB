@@ -4547,6 +4547,9 @@ dragon:
 	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/FULL_Dragon.vdk
 	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/FULL_Dragon.bin
 
+dragon_targets: \
+	dragon
+
 	
 coco:
 	cmoc \
@@ -4632,7 +4635,10 @@ coco:
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_CoCo.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 	
-      
+
+coco_targets: \
+	coco
+
 coco_test_rand: 
 	cmoc -O0 -c $(SOURCE_PATH)/../experiments/coco_rand_test.c
 	cmoc -O0 -o $(BUILD_PATH)/coco_rand_test.bin $(SOURCE_PATH)/../coco_rand_test.o
@@ -4719,6 +4725,9 @@ vectrex:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
+
+vectrex_targets: \
+	vectrex
 
 mo5: 
 	cmoc \
@@ -4901,7 +4910,10 @@ to7:
 	mv ./FULL_TO7.bin $(BUILD_PATH)
 	mv ./FULL_TO7.sap $(BUILD_PATH)
 	
-	
+
+to7_targets: \
+	to7
+
 mo5_test: 
 	cmoc -c -nodefaultlibs $(MO5_OPTS) $(INCLUDE_OPTS) ./experiments/mo5.c
 	cmoc -nodefaultlibs $(MO5_OPTS) $(INCLUDE_OPTS) -o $(BUILD_PATH)/mo5.bin ./mo5.o
@@ -4915,6 +4927,10 @@ mo5_test:
 	mv ./FILE.k5 $(BUILD_PATH)/mo5.k5
 	
 	
+
+
+mo5_targets: \
+	mo5
 
 # ------------------------------------------------------------------------------------------
 # ACK
@@ -5940,7 +5956,10 @@ olivetti_m20_no_graphics:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_gcc_buffered$(COMPILEDEXT)		
-	
+
+olivetti_m20_targets: \
+	olivetti_m20_buffered
+
 .PHONY: mtx vic20exp_8k vic20exp_16k  atari_color atari_no_color atari_no_color_16k atari5200 atmos c128_40col c128_80col c16_16k c16_32k c64 pet cbm510 cbm610 nes apple2 apple2enh
 
 # xtc86 targets
@@ -6143,7 +6162,7 @@ z88dk_targets: \
 	zx81_targets
 
 cmoc_targets: \
-	coco dragon mo5
+	coco_targets dragon_targets mo5_targets
 	
         
 ack_targets: \

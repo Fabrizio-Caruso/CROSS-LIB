@@ -171,7 +171,9 @@ AMIGA_OPTS ?=
 EM_CC ?= emcc
 EM_OPTS = 
 
-LCC1802 ?= /cygdrive/c/lcc42/bin/lcc.exe
+LCC1802_PATH ?= /cygdrive/c/lcc42/bin/
+LCC1802_EXE ?= lcc$(EXEEXT)
+LCC1802 ?= $(LCC1802_PATH)$(LCC1802_EXE)
 #/cygdrive/c/lcc42/bat/caCX.bat
 #/cygdrive/c/lcc42/bin/lcc.exe
 LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wa-D LCCCX=1"

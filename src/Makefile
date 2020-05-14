@@ -207,74 +207,74 @@ _ACK_OPTS ?= -O6
 # ------------------------------------------------------------------------------------------
 # Z88DK 
 
-include makefiles/Makefile.cc65_targets
+include makefiles/targets/Makefile.cc65_targets
 
 # ------------------------------------------------------------------------------------------
 # Z88DK 
 
-include makefiles/Makefile.z88dk_targets
+include makefiles/targets/Makefile.z88dk_targets
 
 # ------------------------------------------------------------------------------------------
 # CMOC
 
-include makefiles/Makefile.cmoc_targets
+include makefiles/targets/Makefile.cmoc_targets
 
 # ------------------------------------------------------------------------------------------
 # ACK
 
-include makefiles/Makefile.ack_targets
+include makefiles/targets/Makefile.ack_targets
 
 # ------------------------------------------------------------------------------------------
 # GCC
 
-include makefiles/Makefile.gcc_targets
+include makefiles/targets/Makefile.gcc_targets
 
 # ------------------------------------------------------------------------------------------
 # GCC AMIGA
 
-include makefiles/Makefile.gcc_amiga_targets
+include makefiles/targets/Makefile.gcc_amiga_targets
 
 # ------------------------------------------------------------------------------------------
 # GCC ATARI_ST
 
-include makefiles/Makefile.gcc_atari_st_targets
+include makefiles/targets/Makefile.gcc_atari_st_targets
 
 # ------------------------------------------------------------------------------------------
 # EMCC
 
-include makefiles/Makefile.emcc_targets
+include makefiles/targets/Makefile.emcc_targets
 
 # ------------------------------------------------------------------------------------------
 # XTC68
 
-include makefiles/Makefile.xtc68_targets
+include makefiles/targets/Makefile.xtc68_targets
 
 # ------------------------------------------------------------------------------------------
 # GCC TMS9900
 
-include makefiles/Makefile.gcc_tms9900_targets
+include makefiles/targets/Makefile.gcc_tms9900_targets
 
 # ------------------------------------------------------------------------------------------
 # SDCC
 
-include makefiles/Makefile.sdcc_targets
+include makefiles/targets/Makefile.sdcc_targets
 
 # ------------------------------------------------------------------------------------------
 # LCC1802
 
-include makefiles/Makefile.lcc1802_targets
+include makefiles/targets/Makefile.lcc1802_targets
 
 # ------------------------------------------------------------------------------------------
 # GCC Z8K PCOS
 
-include makefiles/Makefile.gcc_z8k_pcos_targets
+include makefiles/targets/Makefile.gcc_z8k_pcos_targets
 
 
 # ------------------------------------------------------------------------------------------
 # WINCMOC
 #
 
-#include makefiles/Makefile.wincmoc_targets
+#include makefiles/targets/Makefile.wincmoc_targets
 
 # ------------------------------------------------------------------------------------------
 # Combine all .c source files into one for cross-compilers that only handle single files, e.g., LCC1802, WINCMOC
@@ -468,35 +468,6 @@ z88dk_targets: \
 	zx80_targets \
 	zx81_targets
 
-test_mk: \
-	sms_targets \
-	sos_targets \
-	spc1000_targets \
-	spectrum_targets \
-	srr_targets \
-	super80_targets \
-	sv8000_targets \
-	svi_targets \
-	ti82_targets \
-	ti83_targets \
-	ti85_targets \
-	ti86_targets \
-	ti8x_targets \
-	tiki100_targets \
-	trs80_targets \
-	ts2068_targets \
-	tvc_targets \
-	vector06c_targets \
-	vg5k_targets \
-	vz200_targets \
-	x1_targets \
-	z1013_targets \
-	z80tvgame_targets \
-	z88_targets \
-	z9001_targets \
-	zx80_targets \
-	zx81_targets
-
 
 cmoc_targets: \
 	coco_targets dragon_targets mo5_targets
@@ -572,22 +543,22 @@ list:
 
 ####################################################################################################################
 
-include makefiles/Makefile.z88dk_tests
+include makefiles/tests/Makefile.z88dk_tests
 
 ####################################################################################################################
 	
 # Alternative builds	
 
-#include makefiles/Makefile.alternative_builds
+#include makefiles/alt/Makefile.alternative_builds
 
 
 ####################################################################################################################
 	
 # DEBUG	
 
-#include makefiles/Makefile.cc65_debug
+#include makefiles/debug/Makefile.cc65_debug
 
-#include makefiles/Makefile.z88dk_debug
+#include makefiles/debug/Makefile.z88dk_debug
 
-include makefiles/Makefile.lcc1802_debug
+include makefiles/debug/Makefile.lcc1802_debug
 

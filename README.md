@@ -112,7 +112,7 @@ Run `make [compiler name]_targets` where the [compiler name] is of one these:
 - `gcc_z8k` (currently buildable only under Linux)
 - `lcc1802`
 - `xtc68`
-- `z88dk` (for both SCCZ80 and ZSDCC cross-compilers in Z88DK)
+- `z88dk` (for both the SCCZ80 and the ZSDCC cross-compiler in Z88DK)
 
 
 Examples: 
@@ -207,7 +207,7 @@ For most targets, more than one version is built, in order to support different 
 - coco: Color Computer
 - coleco: Colecovision
 - coleco_adam: Colecovision Adam (work in progress)
-- comx: COMX-35 (work in progress)
+- comx: COMX-35
 - cpc: Amstrad CPC
 - cpm8080: CP/M Intel 8080
 - cpm: CP/M Z80 with adm3a/vt52/vt100 terminals
@@ -260,6 +260,7 @@ For most targets, more than one version is built, in order to support different 
 - pasaopia7: Toshiba Pasopia 7 (work in progress)
 - pc88: NEC PC 8801 (work in progress)
 - pce: PCEngine
+- pecom: Pecom 32/64 (work in progress)
 - pencil2: Hanimex Pencil II
 - pet: Commodore Pet
 - pmd85: PMD85 (work in progress)

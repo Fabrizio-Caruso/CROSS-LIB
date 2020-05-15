@@ -346,7 +346,7 @@ int main(void)
 					MOVE_PLAYER();				
 					_DRAW_PLAYER();	
 				#endif
-				#if defined(SLOW_DOWN)
+				#if GAME_SLOW_DOWN>0
 					DO_SLOW_DOWN(GAME_SLOW_DOWN);
 				#endif
 						

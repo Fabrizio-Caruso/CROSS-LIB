@@ -191,7 +191,7 @@ void spiral(register Character *characterPtr, uint8_t length)
                 {
                     --(*((uint8_t *) characterPtr + (i&1)));                
                 }
-                #if defined(SLOW_DOWN)
+                #if GAME_SLOW_DOWN>0
                     DO_SLOW_DOWN(70);
                 #endif
             }

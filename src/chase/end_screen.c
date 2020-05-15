@@ -89,7 +89,7 @@
 			dance(&skull);
 		
 			printCenteredMessageOnRow(MESSAGE_START,  YOU_MADE_IT_STRING);		
-			#if defined(SLOW_DOWN)
+			#if GAME_SLOW_DOWN>0
 				for(ind=0;ind<254;++ind){};
 			#endif
 					

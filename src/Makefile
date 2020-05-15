@@ -113,11 +113,9 @@ MYCC65 ?= cl65$(EXEEXT)
 MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 
-SCCZ80_OPTS ?= 
-# -O3
+SCCZ80_OPTS ?= -O3
 
-ZSDCC_OPTS ?= 
-#-SO3 --max-allocs-per-node200000
+ZSDCC_OPTS ?= -SO3 --max-allocs-per-node200000
 
 Z8K-PCOS-GCC ?= /opt/z8kgcc-jan-19-2009/bin/z8k-pcos-gcc
 Z8K-PCOS-GCC_OPTS ?= -Wno-cpg 

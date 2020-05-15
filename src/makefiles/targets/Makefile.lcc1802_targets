@@ -85,7 +85,7 @@ tiny_comx: tiny_comx_combo.cat
 	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../tiny_comx_combo.c
-	#rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_comx.hex
 
 
@@ -113,7 +113,7 @@ full_comx: full_comx_combo.cat
 	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../full_comx_combo.c
-	# rm -rf $(SOURCE_PATH)/../full_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_comx.hex
 
 

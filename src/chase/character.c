@@ -32,7 +32,9 @@
 extern uint16_t points;
 
 extern uint8_t ghostCount;
+#if !defined(TINY_GAME) || defined(TURN_BASED)
 extern uint16_t loop;
+#endif
 extern uint8_t level;
 
 extern Image DEAD_GHOST_IMAGE;

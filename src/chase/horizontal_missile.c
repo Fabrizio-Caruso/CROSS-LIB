@@ -5,7 +5,9 @@
 
 #include "display_macros.h"
 
+#if !defined(TINY_GAME) || defined(TURN_BASED)
 extern uint16_t loop;
+#endif
 extern uint8_t level;
 
 extern Character leftHorizontalMissile;

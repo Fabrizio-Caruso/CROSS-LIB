@@ -1,5 +1,85 @@
 # Z88DK Debugging Tests
 
+newbrain_newline:
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-lndos \
+	$(SOURCE_PATH)/../experiments/newline_test.c \
+	-create-app
+	tar czvf newline_test.tar.zip _dir.txt a.bas a.dat
+	mv newline_test.tar.zip $(BUILD_PATH)
+	rm _dir.txt
+	rm a.bas
+	rm a.dat
+	rm a.bin	
+
+
+newbrain_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-lndos \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-create-app
+	tar czvf xchase.tar.zip _dir.txt a.bas a.dat
+	rm _dir.txt
+	rm a.bas
+	rm a.dat
+	rm a.bin
+
+
+mz2500_random:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(ZSDCC_OPTS) -compiler=sdcc -SO3 $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/../experiments/random_test.c \
+	-create-app -o $(BUILD_PATH)/mz2500_random_test.bin
+
+
+c7420_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-lndos \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-create-app	
+	
+oz_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/../experiments/hello.c 
+	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
+	rm a.bin
+	mv a.wzd $(BUILD_PATH)/oz_hello.wzd
+	
+
+z88_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -D__Z88__ -create-app -subtype=app \
+	$(SOURCE_PATH)/../experiments/hello.c
+	rm a.bin
+	rm a_BSS.bin
+	rm a_DATA.bin
+	mv a.63 $(BUILD_PATH)/
+	mv a.epr $(BUILD_PATH)/
+	
+x07_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-Cz--audio \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-create-app 
+
+cpm_hello:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/../experiments/hello.c \
+	-create-app
+	rm a.bin
+	mv A.COM $(BUILD_PATH)/CPMHELLO.COM
+	
+	
+
+aquarius_hello_world:
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
+	$(SOURCE_PATH)/../test/hello_conio.c \
+	-create-app
+
+
+aquarius_hello_stack:
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic -pragma-output:STACKPTR=20000 $(INCLUDE_OPTS) -vn \
+	$(SOURCE_PATH)/../test/hello_fputc.c \
+	-create-app -o minimal_hello
+
     
 getk_test:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \

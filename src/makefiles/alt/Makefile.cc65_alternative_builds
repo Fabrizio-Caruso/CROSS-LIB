@@ -1,0 +1,135 @@
+# -----------------------------------------------
+# CC65
+
+atari5200_light:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_atari5200.rom	
+	
+
+atari_no_color_16k_full: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
+	-DFULL_GAME \
+	-DNO_HINTS \
+	-DNO_BLINKING \
+	-DLESS_TEXT \
+	-DFLAT_ENEMIES \
+	-DALT_SLEEP \
+	-DNO_RANDOM_LEVEL \
+	-DNO_MESSAGE \
+	-DNO_PRINT \
+	$(SOURCE_PATH)/sleep_macros.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_atari_no_color_16k.xex	
+	
+atari_no_color_16k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_RANDOM_LEVEL \
+	-DNO_PRINT \
+	-DNO_MESSAGE \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c  -o \
+	$(BUILD_PATH)/LIGHT_atari_no_color_16k.xex
+
+
+c16_16k_no_udg:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c16 -Cl -DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DSOUNDS --config $(SOURCE_PATH)/../cfg/cc65/c16-16k_plus.cfg $(SOURCE_PATH)/c264/c264_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k_no_udg.prg
+
+
+creativision_16k_2:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SLEEP -DLESS_TEXT \
+	--config $(SOURCE_PATH)/../cfg/cc65/creativision-16k_2.cfg \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	--code-name CODE2 \
+	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	-o $(BUILD_PATH)/LIGHT_creativision_16k.bin	
+	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
+	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k.bin 
+	cat $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin > $(BUILD_PATH)/LIGHT_creativision_16k.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
+	rm $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
+
+creativision_32k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(SOURCE_PATH)/../cfg/cc65/creativision-32k.cfg \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/item.c \
+	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	-o $(BUILD_PATH)/FULL_creativision_32k.bin
+
+	
+nes_color:
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/nes/reset.s
+	$(CC65_PATH)cc65 -D__NES__ -DNES_COLOR $(SOURCE_PATH)/display_macros.c
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/display_macros.s
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/enemy.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/enemy.s
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/level.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/level.s
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/character.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/character.s	
+	$(CC65_PATH)cc65 -D__NES__ $(SOURCE_PATH)/game_text.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/text.s 	
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/strategy.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/strategy.s	
+	$(CC65_PATH)cc65 -D__NES__ $(SOURCE_PATH)/input_macros.c
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/input_macros.s	
+	$(CC65_PATH)cc65 -D__NES__ -DTINY_GAME $(SOURCE_PATH)/main.c 
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/main.s		
+	$(CC65_PATH)cc65 $(SOURCE_PATH)/nes/nes_graphics.c
+	$(CC65_PATH)ca65 $(SOURCE_PATH)/nes/nes_graphics.s		
+	$(CC65_PATH)ld65 -t nes -o $(BUILD_PATH)/TINY_nes_color.nes $(SOURCE_PATH)/nes/reset.o $(SOURCE_PATH)/display_macros.o $(SOURCE_PATH)/nes/nes_graphics.o $(SOURCE_PATH)/enemy.o $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/text.o $(SOURCE_PATH)/strategy.o $(SOURCE_PATH)/input_macros.o nes.lib
+	#$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes -DTINY_GAME --config $(SOURCE_PATH)/nes/nes.cfg -DNES_COLOR $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/nes/reset.s $(SOURCE_PATH)/nes/nes_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_nes_color.nes
+	# -C $(SOURCE_PATH)/nes/nes.cfg
+
+
+nes_16k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_nes.nes
+
+pce_light:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pce -Cl \
+	--config $(CFG_PATH)cc65/pce_8k_less_stack.cfg \
+	-DLESS_TEXT \
+	-DNO_MESSAGE -DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_INITIAL_SCREEN \
+	-DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_NARROW \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DNO_STATS \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/LIGHT_pce.pce
+
+
+supervision_tiny:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t supervision \
+	-DTINY_GAME -DLESS_TEXT -DNO_WAIT -DNO_SLEEP -DALT_PRINT -DNO_CHASE \
+	-o $(BUILD_PATH)/TINY_supervision.sv \
+	$(SOURCE_PATH)/sleep_macros.c \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/supervision/supervision_graphics.c \
+	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
+	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+	
+
+
+# -DFULL_GAME
+vic20_exp_3k_NO_GFX: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t vic20 -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS   -DTINY_GAME --config $(SOURCE_PATH)/../cfg/cc65/vic20-3k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
+	

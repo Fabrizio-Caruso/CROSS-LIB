@@ -446,7 +446,7 @@ cpm_targets: \
     cpm_8080_targets cpm_z80_targets
 
 # All vintage and GCC targets that can be compiled under CYGWIN, i.e., not including gcc_z8k_targets and not including emcc_targets
-all: cc65_targets z88dk_targets cmoc_targets ack_targets xtc68_ql_targets gcc_targets gcc_atari_st_targets gcc_amiga_targets lcc1802_targets
+all: cc65_targets z88dk_targets cmoc_targets ack_targets xtc68_targets gcc_targets gcc_atari_st_targets gcc_amiga_targets lcc1802_targets
 
 clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o

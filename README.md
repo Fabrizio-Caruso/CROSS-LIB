@@ -62,7 +62,7 @@ The game and library code are  separated:
 
 The tool-chain currently supports: CC65, Z88DK (SCCZ80 and ZSDCC), CMOC, LCC1802, ACK, XTC68, GCC, GCC-Z8K, GCC-ATARI-ST, GCC-AMIGA, GCC-TI.
 
-For more details look at: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+For more details look at: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
 
 ## HOW TO COMPILE THE GAME
 In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
@@ -81,7 +81,7 @@ You can build all targets for a given system with
 
 `make [system_name]_targets`
 
-For the list of systems either run `make list` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
+For the list of systems either run `make list` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
 
 ### Build all targets that are built by a given compiler or devkit:
 

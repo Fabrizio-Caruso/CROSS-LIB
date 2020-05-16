@@ -112,18 +112,19 @@ The game code is in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/
 
 -------------------------------------------
 
-## SUPPORTED TARGETS 
+## SUPPORTED SYSTEMS 
 
 In principle you can compile the game in turn-based mode with minimal input and output (*stdlib*) for any architecture for which there is an ANSI C capable compiler.
 You can also compile the game in action mode with minimal input and output for any architecture for which there an ANCI C compiler with *ncurses* or *conio* libraries.
-For most vintage targets, you can build a version of the game with some graphics, sounds and real time input.
+For most vintage systems, you can build a version of the game with some graphics, sounds and real time input.
 
 For a complete list look at:
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
 
 
 -------------------------------------------
-STATUS - ISSUES
+
+# TESTS 
 
 Z80-based targets:
 https://docs.google.com/spreadsheets/d/1qo2skBUtCUCAac3knEE2x-bUBdvxEA_6qvElacJ3xNY/edit?usp=sharing

@@ -81,7 +81,7 @@ You can build all targets for a given system with
 
 `make [system_name]_targets`
 
-For the list of systems either run `make list` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+For the list of systems either run `make list` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
 
 ### Build all targets that are built by a given compiler or devkit:
 

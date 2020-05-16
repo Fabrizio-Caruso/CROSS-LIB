@@ -511,6 +511,12 @@ list:
 	cat ../docs/SYSTEMS.md
 
 
+simple_test: gcc_buffered
+
+
+test: simple_test z88dk_test
+
+
 ####################################################################################################################
 # TARGETS PER DEV-KIT
 

@@ -77,6 +77,15 @@ In order to compile the game you need to be in a POSIX environment such as Windo
 For more details we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/PREREQUISITES.md
 
 
+### Compilation tests
+
+You can test many targets if you have installed `GCC` by simply running `make simple_test`, which will build targets that only depend on `GCC`.
+
+If you want to run multiple tests that depend on multiple cross-compilers by running `make test` (very long execution time).
+
+More details on tests are in:  https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TESTS.md
+
+
 ### Build all targets for a given system
 
 You can build all targets for a given system with
@@ -124,7 +133,7 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
 
 -------------------------------------------
 
-## TESTS 
+## KNOWN ISSUES
 
 Z80-based targets:
 https://docs.google.com/spreadsheets/d/1qo2skBUtCUCAac3knEE2x-bUBdvxEA_6qvElacJ3xNY/edit?usp=sharing

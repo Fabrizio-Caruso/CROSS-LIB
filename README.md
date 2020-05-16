@@ -67,13 +67,8 @@ For more details look at: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/ma
 ## HOW TO COMPILE THE GAME
 In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
 
-### Prerequisites
-- [Non-UNIX only] Install a POSIX environment if necessary, e.g., Cygwin.
-- Install `make` in your environment.
-- Install the required cross-compilers (see list of supported cross-compilers above).
-- [Only some compilers] Install the additional requirements for a given cross-compiler, e.g., CMOC and LCC1802 require a separate linker, some GCC targets require "ncurses".
-- [Only some compilers] Make sure they are either installed as described in the Makefile variables: `Z88DK_PATH`, `CC65_PATH`, `LCC1802_PATH`, etc. or set these variables accordingly.
-- [Z88DK-only] Select the optimization level in Makefile by setting the variables: `SCZZ80_OPTS` (`-O3` for highest optimizations), `ZSDCC_OPTS` (`-SO3` for high optimizations; `-SO3 --max-allocs-per-node200000` for highest and extremely slow optimizations).
+For more details we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/PREREQUISITES.md
+
 
 ### Build all targets for a given system
 
@@ -139,20 +134,12 @@ The main future goals are
 The tool-chain and CrossLib will produce a game with simple black and white ASCII graphics and no sound if none of these is available. 
 If colors, graphics and sounds are available the tool-chain and CrossLib will produce a game with some simple sound effects and with some possibly colored graphics.
 
-![Atari 800](snapshots/atari800.jpg)
-![Spectrum 48k](snapshots/spectrum.jpg)
-![Vic 20](snapshots/vic20_1.jpg)
-![MSX](snapshots/msx.jpg)
-![Oric 1/Atmos](snapshots/Oric.jpg)
-![Amstrad CPC](snapshots/cpc.jpg)
-![ZX81](snapshots/zx81_1.jpg)
-![title](snapshots/title.jpg)
-![zx81_title](snapshots/zx81_title.jpg)
 ![Vic 20 title](snapshots/vic20_title.jpg)
+![ZX81](snapshots/zx81_1.jpg)
 ![C16 title](snapshots/c264_title.jpg)
-![C16 hints](snapshots/c264_hints.jpg)
 ![C16 first level](snapshots/c264_level1.jpg)
 
+For more snapshots we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SNAPSHOTS.md
 
 ## CROSSLIB DETAILS
 CrossLib provides an abstraction layer for sound, input, display, etc.
@@ -161,34 +148,14 @@ CrossLib provides an abstraction layer for sound, input, display, etc.
 Sound abstraction is achieved by providing common APIs for the (few) sounds that CrossLib provides.
 
 ### Input
-Input abstraction is also achived by common APIs that support either keyboard and/or joystick input for each possible target.
+Input abstraction is also achieved by common APIs that support either keyboard and/or joystick input for each possible target.
 
 ### Display
 Display abstaction is provided by (at least) two levels of abstraction:
 - Common APIs that, for each target, implement one of several graphics modes;
 - Generic graphics modes that may be shared among a few targets.
 
-So, for each target, at least one of the following modes has to be implemented:
-1. memory-mapped graphics (display can be implemented by writing bytes into video memory)
-2. conio-like (display is performed by either direct conio APIs or a wrapper that provides conio APIs, e.g., ADM3/A, VT52, VT100, etc.)
-3. TGI (CC65-specific graphics APIs)
-4. Z88DK Sprites (Z88DK-specific sprite APIs)
-5. CPCRSLIB (Amstrad CPC-specific graphics APIs)
-6. bit-mapped (display is implemented by writing into video memory and each bytes corresponds to one or more pixels)
-7. buffered (stdlib-only "graphics" for targets with just stdlib support)
-
-A graphic mode may implement the concrete graphics by either calling low level graphics instructions (e.g., writing into video-memory) or by calling higher level instructions (e.g., using control codes).
-
-For example for a CPM target with ADM3/A control codes, we use
-1. CrossLib APIs that call
-2. conio.h APIs that call
-3. ADM3/A control codes
-
-For a target with direct or indirect video memory (e.g., Commodore 64, MSX, etc.), one may use:
-1. CrossLib APIs that implement
-2. Direct (or indirect) writes into video memory
-
-Remark: For some targets multiple implementations are possible (C64 may use conio APIs as provided by C65, memory-mapped graphics, TGI APIs)
+For more details on CrossLib we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/CROSSLIB.md
 
 
 ## LICENCE

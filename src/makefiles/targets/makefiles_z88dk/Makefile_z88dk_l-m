@@ -15,6 +15,7 @@ laser500:
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -create-app -Cz--audio \
 	$(INCLUDE_OPTS) \
 	-D__LASER500__ \
+	-DFORCE_BIT_BANG -DSOUNDS \
 	-DFULL_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \

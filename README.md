@@ -100,8 +100,8 @@ For more details on how to build either run `make help` or look at https://githu
 
 ## THE GAME CODE
 
-The game code is *hardware-agnostic* and as to be as portable as possible.
-Therefore the following coding choices and design rules are applied:
+The game code is *hardware-agnostic* and has to be as portable as possible.
+Therefore the following coding choices and design decisions have been made:
 1. ANSI C (for the game logic);
 2. strictly separated input/output and hardware-dependent code (in CrossLib) from the game logic;
 3. input for keyboard/joystick and output for sound and display are provided by CrossLib
@@ -114,8 +114,8 @@ The game code is in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/
 
 ## SUPPORTED TARGETS 
 
-In principle you can compile the game in turn-based mode with minimal input and output (stdlib) for any architecture for which there is an ANSI C capable compiler.
-You can also compile the game in action mode with minimal input and output for any architecture for which there an ANCI C compiler with ncurses or conio libraries.
+In principle you can compile the game in turn-based mode with minimal input and output (*stdlib*) for any architecture for which there is an ANSI C capable compiler.
+You can also compile the game in action mode with minimal input and output for any architecture for which there an ANCI C compiler with *ncurses* or *conio* libraries.
 For most vintage targets, you can build a version of the game with some graphics, sounds and real time input.
 
 For a complete list look at:

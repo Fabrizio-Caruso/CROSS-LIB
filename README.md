@@ -126,11 +126,12 @@ https://docs.google.com/spreadsheets/d/1qo2skBUtCUCAac3knEE2x-bUBdvxEA_6qvElacJ3
 
 ## THE FUTURE
 
-It should be possible to write more universal games using "Cross Lib".
+It should be possible to write more universal games using "Cross Lib" such as: https://github.com/Fabrizio-Caruso/CROSS-SHOOT
 
-The future main features of "Cross Lib":
-- better separation and dependences with the game 
-- better support multi-target input/output
+The main future goals are
+- better separation of CrossLib and the game code
+- adding more systems and more compilers/dev-kits to support more architectures.
+
 
 
 ## ADAPTIVE GRAPHICS

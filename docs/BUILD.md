@@ -4,20 +4,7 @@
 # BUILD INSTRUCTIONS
 
 ## Compile all targets for a given cross-compiler
-Run `make [compiler name]_targets` where the [compiler name] is of one the supported compilers and dev-kits as shown below:
-
-- `ack`
-- `cc65`
-- `cmoc`
-- `emcc` (totally experimental Emscripten to produce WebAssembly/Javascript)
-- `gcc`
-- `gcc_amiga`
-- `gcc_atari_st`
-- `gcc_z8k` (currently buildable only under Linux)
-- `lcc1802`
-- `xtc68`
-- `z88dk` (for both the SCCZ80 and the ZSDCC cross-compiler in Z88DK)
-
+Run `make [compiler name]_targets` where the [compiler name] is of one the supported compilers and dev-kits as shown in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILER_NAMES.md
 
 Examples: 
 - `make cmoc_targets` builds all targets that are built with the CMOC cross-compiler for the Motorola 6809 systems.

@@ -11,6 +11,8 @@ This is a personal project whose goal is the creation of:
 on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators. 
 The game will be the proof of concept of how flexible the library is.
 
+-------------------------------------------
+
 ## THE GAME 
 The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
 You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.
@@ -23,6 +25,8 @@ You can play the game on-line for different targets:
 2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
 3. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
 4. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
+
+-------------------------------------------
 
 ## CURRENTLY SUPPORTED ARCHITECTURES
 The main goal is to get the library and game to work on most 8-bit architectures but other systems are also considered.
@@ -51,6 +55,7 @@ The main goal is to get the library and game to work on most 8-bit architectures
 ### 32/64-BIT ARCHITECTURE
 We also support any current architecture for which GCC can produce a working binary.
 
+-------------------------------------------
 
 ## THE TOOL-CHAIN
 
@@ -63,6 +68,8 @@ The game and library code are  separated:
 The tool-chain currently supports: CC65, Z88DK (SCCZ80 and ZSDCC), CMOC, LCC1802, ACK, XTC68, GCC, GCC-Z8K, GCC-ATARI-ST, GCC-AMIGA, GCC-TI.
 
 For more details look at: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
+
+-------------------------------------------
 
 ## HOW TO COMPILE THE GAME
 In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
@@ -89,6 +96,8 @@ You can find the list of compilers and dev-kit if you either run `make help` or 
 
 For more details on how to build either run `make help` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
 
+-------------------------------------------
+
 ## THE GAME CODE
 
 The game should be as portable as possible.
@@ -99,6 +108,8 @@ Therefore the following coding choices and design rules are applied:
 
 Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects.
 
+
+-------------------------------------------
 
 ## SUPPORTED TARGETS 
 
@@ -127,7 +138,7 @@ The main future goals are
 - better separation of CrossLib and the game code
 - adding more systems and more compilers/dev-kits to support more architectures.
 
-
+-------------------------------------------
 
 ## ADAPTIVE GRAPHICS
 
@@ -140,6 +151,8 @@ If colors, graphics and sounds are available the tool-chain and CrossLib will pr
 ![C16 first level](snapshots/c264_level1.jpg)
 
 For more snapshots we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SNAPSHOTS.md
+
+-------------------------------------------
 
 ## CROSSLIB DETAILS
 CrossLib provides an abstraction layer for sound, input, display, etc.
@@ -157,6 +170,8 @@ Display abstaction is provided by (at least) two levels of abstraction:
 
 For more details on CrossLib we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/CROSSLIB.md
 
+
+-------------------------------------------
 
 ## LICENCE
 

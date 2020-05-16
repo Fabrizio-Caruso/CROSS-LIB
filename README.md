@@ -106,19 +106,18 @@ You can build all targets for a given system with
 
 `make [system_name]_targets`
 
-For the list of systems `make list`
+For the list of systems either run `make list` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
 
 ### Build all targets that are built by a given compiler or devkit:
 
 `make [compiler_name]_targets`
 
-For the list of compilers and dev-kits look at:
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TARGETS.md
+You can find the list of compilers and dev-kit if you either run `make help` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
 
-### Detailed build instructions with examples
 
-More details on how to build 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
+### Detailed build instructions 
+
+For more details on how to build either run `make help` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
 
 ## THE GAME CODE
 
@@ -139,7 +138,7 @@ In principle you can compile the game with minimal input and output for any rece
 For most vintage targets, you can build a version of the game with some graphics, sounds and real time input.
 
 For a complete list look at:
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TARGETS.md
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
 
 
 -------------------------------------------

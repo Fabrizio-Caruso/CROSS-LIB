@@ -201,10 +201,13 @@ void _delete(uint8_t x, uint8_t y);
 // BORDER AND BACKGROUND COLORS
 #if defined(CC65) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && !(defined(FORCE_NO_CONIO_LIB) && defined(C16_UNEXPANDED))
     #define SET_BORDER_COLOR(c) (void) bordercolor(c)
-    #define SET_BACKGROUND_COLOR(c) (void) bgcolor (c);
+    #define SET_BACKGROUND_COLOR(c) (void) bgcolor (c)
+#elif defined(__LASER500__)
+    #define SET_BORDER_COLOR(c) (void) bordercolor(c)
+    #define SET_BACKGROUND_COLOR(c) {}
 #else
     #define SET_BORDER_COLOR(c) {}
-    #define SET_BACKGROUND_COLOR(c) {}    
+    #define SET_BACKGROUND_COLOR(c) {}
 #endif    
 
 #if defined(__CPC__)

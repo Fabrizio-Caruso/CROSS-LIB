@@ -100,14 +100,15 @@ For more details on how to build either run `make help` or look at https://githu
 
 ## THE GAME CODE
 
-The game should be as portable as possible.
+The game code is *hardware-agnostic* and as to be as portable as possible.
 Therefore the following coding choices and design rules are applied:
 1. ANSI C (for the game logic);
-2. strictly separated input/output and hardware-dependent code from the game logic;
+2. strictly separated input/output and hardware-dependent code (in CrossLib) from the game logic;
 3. input for keyboard/joystick and output for sound and display are provided by CrossLib
 
-Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects.
+Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects but the game code is hardware-agnostic.
 
+The game code is in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/src/chase
 
 -------------------------------------------
 
@@ -154,8 +155,10 @@ For more snapshots we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/b
 
 -------------------------------------------
 
-## CROSSLIB DETAILS
-CrossLib provides an abstraction layer for sound, input, display, etc.
+## CROSSLIB
+CrossLib provides a *retro-hardware abstraction layer* for sound, input, display, etc.
+
+CrossLib code in in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/src/cross_lib
 
 ### Sound
 Sound abstraction is achieved by providing common APIs for the (few) sounds that CrossLib provides.

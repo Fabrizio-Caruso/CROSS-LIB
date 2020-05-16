@@ -27,3 +27,4 @@ void CLEAR_SCREEN(void)
 {
     vidclr((unsigned char*)0xf800, 40*24);
 }
+

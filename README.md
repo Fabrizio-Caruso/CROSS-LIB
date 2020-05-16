@@ -179,7 +179,7 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 (as of 2020/05/04)
 
 For a complete list look at:
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TARGETS.txt
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TARGETS.md
 
 Remark: 
 You can compile the game for any recent or old/ancient architecture for which there is an ANSI C capable compiler.

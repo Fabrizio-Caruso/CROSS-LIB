@@ -483,11 +483,10 @@ clean: \
 
 
 help:
-	cat docs/BUILD.txt
-	cat docs/TARGETS.txt
+	cat ../docs/BUILD.txt
 
 list:
-	cat docs/TARGETS.txt
+	cat ../docs/TARGETS.txt
 
 
 ####################################################################################################################

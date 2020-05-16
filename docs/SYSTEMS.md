@@ -1,14 +1,14 @@
-## SUPPORTED TARGETS 
+## SUPPORTED SYSTEMS 
 
 (as of 2020/05/04)
 
 In principle you can compile the game with minimal input and output for any recent or old/ancient architecture for which there is an ANSI C capable compiler.
-For most vintage targets, you can build a version of the game with some graphics, sounds and real time input.
+For most vintage systems, you can build a version of the game with some graphics, sounds and real time input.
 
 
 ### 8-BIT versions
 
-For most targets, more than one version is built, in order to support different hardware configuratins and expansions 
+For most systems, more than one version is built, in order to support different hardware configurations and expansions 
 (e.g., memory expansions, second CPU, 80-col display card, etc.).
 
 - abc80: Luxor ABC 80

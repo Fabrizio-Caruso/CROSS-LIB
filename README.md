@@ -100,9 +100,7 @@ In order to compile the game you need to be in a POSIX environment such as Windo
 - [Only some compilers] Make sure they are either installed as described in the Makefile variables: `Z88DK_PATH`, `CC65_PATH`, `LCC1802_PATH`, etc. or set these variables accordingly.
 - [Z88DK-only] Select the optimization level in Makefile by setting the variables: `SCZZ80_OPTS` (`-O3` for highest optimizations), `ZSDCC_OPTS` (`-SO3` for high optimizations; `-SO3 --max-allocs-per-node200000` for highest and extremely slow optimizations).
 
-# BUILD INSTRUCTIONS
-
-## Build all targets for a given system
+### Build all targets for a given system
 
 You can build all targets for a given system with
 
@@ -110,14 +108,16 @@ You can build all targets for a given system with
 
 For the list of systems `make list`
 
-## Build all targets that are built by a given compiler or devkit:
+### Build all targets that are built by a given compiler or devkit:
 
 `make [compiler_name]_targets`
 
-For the list of compilers and dev-kits look at the README.md file.
+For the list of compilers and dev-kits look at:
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TARGETS.md
 
-## Detailed build instructions with examples
+### Detailed build instructions with examples
 
+More details on how to build 
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
 
 ## THE GAME CODE
@@ -129,6 +129,7 @@ Therefore the following coding choices and design rules are applied:
 3. input for keyboard/joystick and output for sound and display are provided by CrossLib
 
 Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects.
+
 
 ## SUPPORTED TARGETS 
 

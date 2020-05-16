@@ -25,6 +25,7 @@ You can play the game on-line for different systems:
 2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
 3. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
 4. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
+5. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_chase
 
 -------------------------------------------
 

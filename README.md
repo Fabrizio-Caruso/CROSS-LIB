@@ -87,7 +87,7 @@ For the list of systems either run `make list` or look at https://github.com/Fab
 
 `make [compiler_name]_targets`
 
-You can find the list of compilers and dev-kit if you either run `make help` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
+You can find the list of compilers and dev-kit if you either run `make help` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILER_NAMES.md
 
 
 ### Detailed build instructions 

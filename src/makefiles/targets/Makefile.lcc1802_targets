@@ -4,54 +4,54 @@
 # https://sites.google.com/site/lcc1802/downloads/Quarrantine.zip?attredirects=0&d=1
 
 
-tiny_comx_combo.cat: tiny_combo_rand.cat
+tiny_comx_combo.c: tiny_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
-	$(SOURCE_PATH)/../tiny_combo_rand.cat > $(SOURCE_PATH)/../tiny_comx_combo.cat
-	rm tiny_combo_rand.cat
+	$(SOURCE_PATH)/../tiny_combo_rand.c > $(SOURCE_PATH)/../tiny_comx_combo.c
+	rm tiny_combo_rand.c
 
-light_comx_combo.cat: light_combo_rand.cat
+light_comx_combo.c: light_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
-	$(SOURCE_PATH)/../light_combo_rand.cat > $(SOURCE_PATH)/../light_comx_combo.cat
-	rm light_combo_rand.cat
+	$(SOURCE_PATH)/../light_combo_rand.c > $(SOURCE_PATH)/../light_comx_combo.c
+	rm light_combo_rand.c
     
-full_comx_combo.cat: full_combo_rand.cat
+full_comx_combo.c: full_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
-	$(SOURCE_PATH)/../full_combo_rand.cat > $(SOURCE_PATH)/../full_comx_combo.cat
-	rm full_combo_rand.cat
+	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_comx_combo.c
+	rm full_combo_rand.c
 
 
-tiny_pecom_combo.cat: tiny_combo_rand.cat
+tiny_pecom_combo.c: tiny_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
-	$(SOURCE_PATH)/../tiny_combo_rand.cat > $(SOURCE_PATH)/../tiny_pecom_combo.cat
-	rm tiny_combo_rand.cat
+	$(SOURCE_PATH)/../tiny_combo_rand.c > $(SOURCE_PATH)/../tiny_pecom_combo.c
+	rm tiny_combo_rand.c
 
-light_pecom_combo.cat: light_combo_rand.cat
+light_pecom_combo.c: light_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
-	$(SOURCE_PATH)/../light_combo_rand.cat > $(SOURCE_PATH)/../light_pecom_combo.cat
-	rm light_combo_rand.cat
+	$(SOURCE_PATH)/../light_combo_rand.c > $(SOURCE_PATH)/../light_pecom_combo.c
+	rm light_combo_rand.c
     
-full_pecom_combo.cat: full_combo_rand.cat
+full_pecom_combo.c: full_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
-	$(SOURCE_PATH)/../full_combo_rand.cat > $(SOURCE_PATH)/../full_pecom_combo.cat
-	rm full_combo_rand.cat
+	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_pecom_combo.c
+	rm full_combo_rand.c
 
 COMX_MACROS ?= \
 	-D__LCC1802__ \
@@ -70,13 +70,13 @@ COMX_MACROS ?= \
 	-DNO_MESSAGE \
 	-DALT_PRINT \
 	-DNO_SMALL_LETTERS
-	-DINITIAL_SLOWDOWN=15000
+	-DINITIAL_SLOWDOWN=14000
 
 #	-DDEBUG_LEVEL
 # 	-DNO_PRINT \
 
-tiny_comx: tiny_comx_combo.cat
-	mv $(SOURCE_PATH)/../tiny_comx_combo.cat $(SOURCE_PATH)/../tiny_comx_combo.c
+
+tiny_comx: tiny_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS) \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \
@@ -89,8 +89,7 @@ tiny_comx: tiny_comx_combo.cat
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_comx.hex
 
 
-light_comx: light_comx_combo.cat
-	mv $(SOURCE_PATH)/../light_comx_combo.cat $(SOURCE_PATH)/../light_comx_combo.c
+light_comx: light_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
@@ -103,8 +102,7 @@ light_comx: light_comx_combo.cat
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_comx.hex
 
 
-full_comx: full_comx_combo.cat
-	mv $(SOURCE_PATH)/../full_comx_combo.cat $(SOURCE_PATH)/../full_comx_combo.c
+full_comx: full_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS)  \
 	-D__COMX__ \
 	-DFULL_GAME \
@@ -119,8 +117,7 @@ full_comx: full_comx_combo.cat
 
 
 # PECOM
-tiny_pecom: tiny_pecom_combo.cat
-	mv $(SOURCE_PATH)/../tiny_pecom_combo.cat $(SOURCE_PATH)/../tiny_pecom_combo.c
+tiny_pecom: tiny_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS) \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \
@@ -133,8 +130,7 @@ tiny_pecom: tiny_pecom_combo.cat
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_pecom.hex
 
 
-light_pecom: light_pecom_combo.cat
-	mv $(SOURCE_PATH)/../light_pecom_combo.cat $(SOURCE_PATH)/../light_pecom_combo.c
+light_pecom: light_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
@@ -147,8 +143,7 @@ light_pecom: light_pecom_combo.cat
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_pecom.hex
 
 
-full_pecom: full_pecom_combo.cat
-	mv $(SOURCE_PATH)/../full_pecom_combo.cat $(SOURCE_PATH)/../full_pecom_combo.c
+full_pecom: full_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \

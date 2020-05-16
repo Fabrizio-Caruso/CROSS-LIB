@@ -208,49 +208,49 @@ _ACK_OPTS ?= -O6
 # Combine all .c source files into one for cross-compilers that only handle single files, e.g., LCC1802, WINCMOC
 
 	
-tiny_combo.cat:
+tiny_combo.c:
 	cat \
 	$(TINY_FILES) \
-	> $(SOURCE_PATH)/../tiny_combo.cat
+	> $(SOURCE_PATH)/../tiny_combo.c
 
 
-light_combo.cat: tiny_combo.cat
+light_combo.c: tiny_combo.c
 	cat \
-	$(SOURCE_PATH)/../tiny_combo.cat \
+	$(SOURCE_PATH)/../tiny_combo.c \
 	$(LIGHT_ONLY_FILES) \
-	> $(SOURCE_PATH)/../light_combo.cat
-	rm -rf tiny_combo.cat
+	> $(SOURCE_PATH)/../light_combo.c
+	rm -rf tiny_combo.c
 
 
-full_combo.cat: light_combo.cat
+full_combo.c: light_combo.c
 	cat \
-	$(SOURCE_PATH)/../light_combo.cat \
+	$(SOURCE_PATH)/../light_combo.c \
 	$(FULL_ONLY_FILES) \
-	> $(SOURCE_PATH)/../full_combo.cat
-	rm -rf light_combo.cat
+	> $(SOURCE_PATH)/../full_combo.c
+	rm -rf light_combo.c
 
 
-tiny_combo_rand.cat: tiny_combo.cat
+tiny_combo_rand.c: tiny_combo.c
 	cat \
 	$(CROSS_LIB_PATH)/rand/rand.c \
-	$(SOURCE_PATH)/../tiny_combo.cat \
-	> $(SOURCE_PATH)/../tiny_combo_rand.cat
-	rm -rf tiny_combo.cat
+	$(SOURCE_PATH)/../tiny_combo.c \
+	> $(SOURCE_PATH)/../tiny_combo_rand.c
+	rm -rf tiny_combo.c
     
-light_combo_rand.cat: light_combo.cat
+light_combo_rand.c: light_combo.c
 	cat \
 	$(CROSS_LIB_PATH)/rand/rand.c \
-	$(SOURCE_PATH)/../light_combo.cat \
-	> $(SOURCE_PATH)/../light_combo_rand.cat
-	rm -rf light_combo.cat
+	$(SOURCE_PATH)/../light_combo.c \
+	> $(SOURCE_PATH)/../light_combo_rand.c
+	rm -rf light_combo.c
     
     
-full_combo_rand.cat: full_combo.cat
+full_combo_rand.c: full_combo.c
 	cat \
 	$(CROSS_LIB_PATH)/rand/rand.c \
-	$(SOURCE_PATH)/../full_combo.cat \
-	> $(SOURCE_PATH)/../full_combo_rand.cat
-	rm -rf full_combo.cat
+	$(SOURCE_PATH)/../full_combo.c \
+	> $(SOURCE_PATH)/../full_combo_rand.c
+	rm -rf full_combo.c
 
 
 

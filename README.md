@@ -148,7 +148,6 @@ If colors, graphics and sounds are available the tool-chain and CrossLib will pr
 
 ![Vic 20 title](snapshots/vic20_title.jpg)
 ![ZX81](snapshots/zx81_1.jpg)
-![C16 title](snapshots/c264_title.jpg)
 ![C16 first level](snapshots/c264_level1.jpg)
 
 For more snapshots we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SNAPSHOTS.md

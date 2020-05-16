@@ -19,9 +19,9 @@ laser500:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	$(FULL_FILES)
-	mv a.bin $(BUILD_PATH)/FULL_vz500.bin
+	mv a.bin $(BUILD_PATH)/FULL_laser500.bin
 	rm a.cas
-	mv a.wav $(BUILD_PATH)/FULL_vz500.wav
+	mv a.wav $(BUILD_PATH)/FULL_laser500.wav
 
 
 m100:

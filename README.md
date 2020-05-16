@@ -178,11 +178,12 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 (as of 2020/05/04)
 
+In principle you can compile the game with minimal input and output for any recent or old/ancient architecture for which there is an ANSI C capable compiler.
+For most vintage targets, you can build a version of the game with some graphics, sounds and real time input.
+
 For a complete list look at:
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TARGETS.md
 
-Remark: 
-You can compile the game for any recent or old/ancient architecture for which there is an ANSI C capable compiler.
 
 -------------------------------------------
 STATUS - ISSUES

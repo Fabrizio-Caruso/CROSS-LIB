@@ -424,7 +424,7 @@ cmoc_targets: \
 	
         
 ack_targets: \
-	pdp11v7_targets \
+    pdp11v7_targets \
     cpm_8080_targets \
     pc8086_targets \
     linux386_targets \

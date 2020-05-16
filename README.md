@@ -9,7 +9,7 @@ This is a personal project whose goal is the creation of:
 1. *CrossLib*, a *retro-hardware abstraction layer* for coding "universal" (mostly 8-bit) games
 2. *Cross Chase*, a "universal" 8-bit game that can be compiled to run
 on (nearly) ALL 8 bit computers, game consoles, hand-held game consoles and scientific calculators. 
-The game will be the proof of concept for *CrossLib*'s flexibility.
+The game will be a proof of concept for *CrossLib*'s flexibility.
 
 -------------------------------------------
 
@@ -19,7 +19,7 @@ You have to avoid all enemies, the mines, all walls, rockets and chasing missile
 All flashing items have positive effects and can grant you some special powers. Discover the 10 items.
 If you use the gun against the skull and/or the missiles and rockets, you can unlock some special secret items.
 
-You can play the game on-line for different targets:
+You can play the game on-line for different systems:
 
 1. MSX version: https://homebrew.file-hunter.com/index.php?id=crosschase
 2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
@@ -29,7 +29,7 @@ You can play the game on-line for different targets:
 -------------------------------------------
 
 ## CURRENTLY SUPPORTED ARCHITECTURES
-The main goal is to get the library and game to work on most 8-bit architectures but other systems are also considered.
+The main goal is to get the library and game to work on most 8-bit architectures as well as many other architectures:
 
 ### 8-BIT ARCHITECTURES
 - COSMAC RCA 1802
@@ -65,7 +65,7 @@ The game and library code are  separated:
 - the game code only depends on the APIs interface and 
 - the APIs do not depend on the game code. Therefore it must be possible to re-use the same library for other games/programs.
 
-The tool-chain currently supports: CC65, Z88DK (SCCZ80 and ZSDCC), CMOC, LCC1802, ACK, XTC68, GCC, GCC-Z8K, GCC-ATARI-ST, GCC-AMIGA, GCC-TI.
+The tool-chain currently supports: *CC65*, *Z88DK* (*SCCZ80* and *ZSDCC*), *CMOC*, *LCC1802*, *ACK*, *XTC68*, *GCC*, *GCC-Z8K*, *GCC-ATARI-ST*, *GCC-AMIGA*, *GCC-TI*.
 
 For more details look at: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
 

@@ -301,9 +301,7 @@ cc65_targets: \
 
 #OK
 
-# missing: abc800, xo7, c7420, rex
-# missing 8080: m100
-z88dk_targets: \
+z88dk_targets_a-c: \
 	abc80_targets \
 	ace_targets \
 	alphatro_targets \
@@ -315,7 +313,9 @@ z88dk_targets: \
 	camputers_lynx_targets \
 	coleco_targets \
 	cpc_targets \
-	cpm_z80_targets \
+	cpm_z80_targets
+
+z88dk_targets_d-k: \
 	dmv_targets \
  	eg2k_targets \
 	einstein_targets \
@@ -331,7 +331,9 @@ z88dk_targets: \
 	homelab_targets \
 	kaypro_targets \
 	kc_targets \
-	kramermc_targets \
+	kramermc_targets
+
+z88dk_targets_l-m: \
 	lambda_targets \
 	laser500_targets \
 	m5_targets \
@@ -343,7 +345,9 @@ z88dk_targets: \
 	multi8_targets \
 	myvision_targets \
 	mz_targets \
-	mz2500_targets \
+	mz2500_targets
+
+z88dk_targets_n-p: \
 	nascom_targets \
 	nc100_targets \
 	nc200_targets \
@@ -361,7 +365,9 @@ z88dk_targets: \
 	pv1000_targets \
 	pv2000_targets \
 	px4_targets \
-	px8_targets \
+	px8_targets
+
+z88dk_targets_q-s: \
 	qc10_targets \
 	rc700_targets \
 	rx78_targets \
@@ -375,7 +381,9 @@ z88dk_targets: \
 	srr_targets \
 	super80_targets \
 	sv8000_targets \
-	svi_targets \
+	svi_targets 
+
+z88dk_targets_t-v: \
 	ti82_targets \
 	ti83_targets \
 	ti85_targets \
@@ -387,7 +395,9 @@ z88dk_targets: \
 	tvc_targets \
 	vector06c_targets \
 	vg5k_targets \
-	vz200_targets \
+	vz200_targets 
+
+z88dk_targets_w-z: \
 	x1_targets \
 	z1013_targets \
 	z80tvgame_targets \
@@ -395,6 +405,18 @@ z88dk_targets: \
 	z9001_targets \
 	zx80_targets \
 	zx81_targets
+
+
+# missing: abc800, xo7, c7420, rex
+# missing 8080: m100
+z88dk_targets:
+	make z88dk_targets_a-c \
+	make z88dk_targets_d-k \
+	make z88dk_targets_l-m \
+	make z88dk_targets_o-p \
+	make z88dk_targets_q-s \
+	make z88dk_targets_t-v \
+	make z88dk_targets_w-z
 
 
 cmoc_targets: \

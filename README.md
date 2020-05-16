@@ -6,10 +6,10 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 ## THE GOAL
 
 This is a personal project whose goal is the creation of:
-1. the universal 8-bit abstraction layer "Cross Lib" for coding universal 8-bit games
-2. the "universal" 8-bit game "Cross Chase" that has to be a fun and that should run
-on (nearly) ALL 8 bit computers, consoles, handhelds and scientific calculators. 
-The game will be the proof of concept of how flexible the library is.
+1. *CrossLib*, a *retro-hardware abstraction layer* for coding "universal" (mostly 8-bit) games
+2. *Cross Chase*, a "universal" 8-bit game that can be compiled to run
+on (nearly) ALL 8 bit computers, game consoles, hand-held game consoles and scientific calculators. 
+The game will be the proof of concept for *CrossLib*'s flexibility.
 
 -------------------------------------------
 
@@ -155,9 +155,9 @@ For more snapshots we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/b
 -------------------------------------------
 
 ## CROSSLIB
-CrossLib provides a *retro-hardware abstraction layer* for sound, input, display, etc.
+CrossLib provides a *retro-hardware abstraction layer* for display, sound, input, etc.
 
-CrossLib code in in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/src/cross_lib
+CrossLib code is in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/src/cross_lib
 
 ### Sound
 Sound abstraction is achieved by providing common APIs for the (few) sounds that CrossLib provides.
@@ -166,7 +166,7 @@ Sound abstraction is achieved by providing common APIs for the (few) sounds that
 Input abstraction is also achieved by common APIs that support either keyboard and/or joystick input for each possible target.
 
 ### Display
-Display abstaction is provided by (at least) two levels of abstraction:
+Display abstraction is provided by (at least) two levels of abstraction:
 - Common APIs that, for each target, implement one of several graphics modes;
 - Generic graphics modes that may be shared among a few targets.
 

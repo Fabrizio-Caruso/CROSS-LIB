@@ -42,53 +42,41 @@
 #define _BOMB ('o'+PALETTE_SWITCH)
 
 // WHITE
-#if defined(__COMX__)
-    #define _GHOST ('p'+PALETTE_SWITCH)
-#else
-    #define _GHOST 'o'
-#endif
+#define _GHOST ('p'+PALETTE_SWITCH)
 
-#if defined(__ALPHATRO__)
-	#define _DEAD_GHOST _GHOST
-#else
-	#define _DEAD_GHOST '#'
-#endif
+#define _DEAD_GHOST ('u'+PALETTE_SWITCH)
+
 
 // BLUE
-#if defined(__ZX80__)
-	#define _GUN 'G'
-#else
-	#define _GUN '!'
-#endif
+#define _GUN ('s'+PALETTE_SWITCH)
+
 
 // YELLOW
-#define _SKULL '+'
-#define _CONFUSE '+'
+#define _SKULL ('q'+PALETTE_SWITCH)
+#define _CONFUSE _SKULL
 #define _ZOMBIE 'O'	
 
 #define _EXTRA_LIFE ('*')
 #define _EXTRA_POINTS '$'
 
 // GREEN
-#define _POWERUP  'S'
+#define _POWERUP  'r'
 
 #define _FREEZE 'F'
 
 #define _SUPER 'H'
 
 // CYAN
-#define _INVINCIBILITY 'V'
-#define _BULLET '.'
+#define _INVINCIBILITY 'j'
+#define _BULLET ('t'+PALETTE_SWITCH)
 
 #define _LEFT_HORIZONTAL_MISSILE '>'
 
 #define _RIGHT_HORIZONTAL_MISSILE '<'
 
-#if defined(__ZX80__) || defined(__ZX81__)
-	#define _ROCKET 'I'
-#else
-	#define _ROCKET ('^')
-#endif
+
+#define _ROCKET ('^')
+
 
 #if defined(__C128_Z80__) || defined(__ZX80__) || defined(__ZX81__) || defined(__GAL__)
 	#define _VERTICAL_BRICK 'i'

@@ -53,8 +53,8 @@
 
 // YELLOW
 #define _SKULL ('q'+PALETTE_SWITCH)
-#define _CONFUSE _SKULL
-#define _ZOMBIE 'O'	
+#define _CONFUSE 'q'
+#define _ZOMBIE 'p'
 
 #define _EXTRA_LIFE ('*')
 #define _EXTRA_POINTS '$'
@@ -62,9 +62,9 @@
 // GREEN
 #define _POWERUP 'r'
 
-#define _FREEZE 'F'
+#define _FREEZE ('z'+1)
 
-#define _SUPER 'H'
+#define _SUPER ('z'+2+PALETTE_SWITCH)
 
 // CYAN
 #define _INVINCIBILITY 'j'

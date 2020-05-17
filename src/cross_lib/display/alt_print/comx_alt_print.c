@@ -6,12 +6,12 @@
 
 void PRINT(uint8_t x, uint8_t y, char * str)
 {
-    vidstrcpy((uint16_t) 0xf800+x+y*40,str);
+    vidstrcpy((uint16_t) 0xF800+x+y*40,str);
 
 }
 
 
-#define _DISPLAY(x,y,ch) vidchar((uint16_t)0xf800+x+y*40, ch+48)
+#define _DISPLAY(x,y,ch) vidchar((uint16_t)0xF800+x+y*40, ch+48)
 
 void print_05u0(uint8_t x, uint8_t y, uint16_t val)
 {
@@ -43,20 +43,6 @@ void print_u(uint8_t x, uint8_t y, uint16_t val)
 {
 	_DISPLAY(x,y, (uint8_t) (val+48));
 }
-
-/*
-unsigned char strlen(const char *s)
-{
-    unsigned char count = 0;
-    
-    while(*s)
-    {
-        ++count;
-        ++s;
-    };
-    return count;
-}
-*/
 
 
 void PRINTD(uint8_t x, uint8_t y, char * str, uint16_t val)

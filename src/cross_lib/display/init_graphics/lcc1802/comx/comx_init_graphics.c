@@ -65,6 +65,10 @@ const unsigned char invincibility_udg[10] =  { 106 , __INVINCIBILITY_UDG, 0};
 
 const unsigned char skull_udg[10] = { 113 , __SKULL_UDG, 0 };
 const unsigned char power_udg[10] = { 114 , __POWERUP_UDG, 0 };
+const unsigned char freeze_udg[10] = { 123 , __POWERUP_UDG, 0 };
+const unsigned char super_udg[10] = { 124 , __POWERUP_UDG, 0 };
+
+
 const unsigned char gun_udg[10] =  { 115 , __GUN_UDG, 0};
 const unsigned char bullet_udg[10] =  { 116 , __BULLET_UDG, 0};
 const unsigned char dead_ghost_udg[10] = {117, __DEAD_GHOST_UDG, 0};
@@ -98,7 +102,9 @@ void INIT_GRAPHICS(void)
     redefine_char(right_missile_udg, 3);
     redefine_char(vertical_brick_udg, 2);
     redefine_char(horizontal_brick_udg, 2);
-    
+    redefine_char(freeze_udg, 3);
+    redefine_char(super_udg, 0);
+
     #if defined(__COMX__)
         disableinterrupt();
     #endif

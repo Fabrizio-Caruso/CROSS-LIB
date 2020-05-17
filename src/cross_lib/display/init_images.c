@@ -235,17 +235,23 @@ void INIT_IMAGES(void)
 
 		// If colors are present POWERUP/FREEZE/SUPER can be differentiated by the color attribute -> same _POWERUP for all of them
 		#if !defined(NO_COLOR) && !defined(UDG_GRAPHICS) && !defined(__NES__) && !defined(__MO5__)
-			FREEZE_IMAGE._imageData = _POWERUP;		
-			SUPER_IMAGE._imageData = _POWERUP;		
+			FREEZE_IMAGE._imageData = _POWERUP;
+			SUPER_IMAGE._imageData = _POWERUP;
 		#else
 			FREEZE_IMAGE._imageData = _FREEZE;
-			SUPER_IMAGE._imageData = _SUPER;		
+			SUPER_IMAGE._imageData = _SUPER;
 		#endif
 		
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
-		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;	
-		CONFUSE_IMAGE._imageData = _SKULL;
-		ZOMBIE_IMAGE._imageData = _GHOST;
+		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
+        
+        #if defined(NO_BLINKING)
+            CONFUSE_IMAGE._imageData = _CONFUSE;
+            ZOMBIE_IMAGE._imageData = _ZOMBIE;
+        #else
+            CONFUSE_IMAGE._imageData = _SKULL;
+            ZOMBIE_IMAGE._imageData = _GHOST;
+        #endif
 		
 		BROKEN_BRICK_IMAGE._imageData = _BROKEN_BRICK;
 	#endif

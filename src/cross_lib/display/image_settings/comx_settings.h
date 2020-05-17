@@ -60,7 +60,7 @@
 #define _EXTRA_POINTS '$'
 
 // GREEN
-#define _POWERUP  'r'
+#define _POWERUP 'r'
 
 #define _FREEZE 'F'
 
@@ -70,25 +70,18 @@
 #define _INVINCIBILITY 'j'
 #define _BULLET ('t'+PALETTE_SWITCH)
 
-#define _LEFT_HORIZONTAL_MISSILE '>'
+#define _LEFT_HORIZONTAL_MISSILE ('w'+PALETTE_SWITCH)
 
-#define _RIGHT_HORIZONTAL_MISSILE '<'
+#define _RIGHT_HORIZONTAL_MISSILE ('x'+PALETTE_SWITCH)
 
+#define _ROCKET ('v'+PALETTE_SWITCH)
 
-#define _ROCKET ('^')
+#define _VERTICAL_BRICK ('y'+PALETTE_SWITCH)
+ 
 
+#define _HORIZONTAL_BRICK ('z'+PALETTE_SWITCH)
 
-#if defined(__C128_Z80__) || defined(__ZX80__) || defined(__ZX81__) || defined(__GAL__)
-	#define _VERTICAL_BRICK 'i'
-#elif defined(__ATARI_LYNX__) || defined(__ABC80__) || defined(__OSIC1P__) || defined(__COMX__)
-	#define _VERTICAL_BRICK 'I' 
-#else
-	#define _VERTICAL_BRICK ('|')
-#endif 
-
-#define _HORIZONTAL_BRICK '-'
-
-#define _BROKEN_BRICK _BOMB	
+#define _BROKEN_BRICK _BOMB
 
 #define _SPACE ' '
 

@@ -72,19 +72,19 @@ COMX_MACROS ?= \
 
 tiny_comx: tiny_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS) \
-	-D__COMX__ $(EXTRA_DRAW_SKIP) \
+	-D__COMX__ "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../tiny_comx_combo.c
-	#rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_comx.hex
 
 
 light_comx: light_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS)  \
-	-D__COMX__ $(EXTRA_DRAW_SKIP) \
+	-D__COMX__  "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
@@ -96,7 +96,7 @@ light_comx: light_comx_combo.c
 
 full_comx: full_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS)  \
-	-D__COMX__ \
+	-D__COMX__ "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
@@ -110,7 +110,7 @@ full_comx: full_comx_combo.c
 # PECOM
 tiny_pecom: tiny_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS) \
-	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
+	-D__PECOM__ "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
@@ -122,7 +122,7 @@ tiny_pecom: tiny_pecom_combo.c
 
 light_pecom: light_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
-	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
+	-D__PECOM__ "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
@@ -134,7 +134,7 @@ light_pecom: light_pecom_combo.c
 
 full_pecom: full_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
-	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
+	-D__PECOM__ "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \

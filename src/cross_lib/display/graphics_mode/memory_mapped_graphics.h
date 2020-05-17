@@ -58,7 +58,7 @@
         __asm__("cli");    
         
 #elif defined(__COMX__) || defined(__PECOM__)
-    void vidchar(int addr, int val);
+    #include "rca_vis_video.h"
     #define DISPLAY_POKE(addr,val) vidchar(addr,val)
 #else
 	#define DISPLAY_POKE(addr,val) (*(uint8_t*) (addr) = (val))

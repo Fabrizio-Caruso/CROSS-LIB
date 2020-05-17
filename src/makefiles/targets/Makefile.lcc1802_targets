@@ -6,7 +6,6 @@
 
 tiny_comx_combo.c: tiny_combo_rand.c
 	cat \
-	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
 	$(SOURCE_PATH)/../tiny_combo_rand.c > $(SOURCE_PATH)/../tiny_comx_combo.c
@@ -14,7 +13,6 @@ tiny_comx_combo.c: tiny_combo_rand.c
 
 light_comx_combo.c: light_combo_rand.c
 	cat \
-	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
 	$(SOURCE_PATH)/../light_combo_rand.c > $(SOURCE_PATH)/../light_comx_combo.c
@@ -22,7 +20,6 @@ light_comx_combo.c: light_combo_rand.c
     
 full_comx_combo.c: full_combo_rand.c
 	cat \
-	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_comx_combo.c
@@ -31,7 +28,6 @@ full_comx_combo.c: full_combo_rand.c
 
 tiny_pecom_combo.c: tiny_combo_rand.c
 	cat \
-	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
 	$(SOURCE_PATH)/../tiny_combo_rand.c > $(SOURCE_PATH)/../tiny_pecom_combo.c
@@ -39,7 +35,6 @@ tiny_pecom_combo.c: tiny_combo_rand.c
 
 light_pecom_combo.c: light_combo_rand.c
 	cat \
-	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
 	$(SOURCE_PATH)/../light_combo_rand.c > $(SOURCE_PATH)/../light_pecom_combo.c
@@ -47,7 +42,6 @@ light_pecom_combo.c: light_combo_rand.c
     
 full_pecom_combo.c: full_combo_rand.c
 	cat \
-	$(CROSS_LIB_PATH)/display/clear_screen/lcc1802/comx/comx_clear_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_pecom_combo.c
@@ -82,7 +76,6 @@ tiny_comx: tiny_comx_combo.c
 	-DTINY_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
-	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../tiny_comx_combo.c
 	#rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
@@ -95,7 +88,6 @@ light_comx: light_comx_combo.c
 	-DLIGHT_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
-	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../light_comx_combo.c
 	rm -rf $(SOURCE_PATH)/../light_comx_combo.c
@@ -108,7 +100,6 @@ full_comx: full_comx_combo.c
 	-DFULL_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
-	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../full_comx_combo.c
 	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
@@ -123,7 +114,6 @@ tiny_pecom: tiny_pecom_combo.c
 	-DTINY_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
-	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../tiny_pecom_combo.c
 	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
@@ -136,7 +126,6 @@ light_pecom: light_pecom_combo.c
 	-DLIGHT_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
-	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../light_pecom_combo.c
 	rm -rf $(SOURCE_PATH)/../light_pecom_combo.c
@@ -149,7 +138,6 @@ full_pecom: full_pecom_combo.c
 	-DFULL_GAME \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
-	-DALT_CLEAR_SCREEN \
 	$(COMX_MACROS) \
 	$(SOURCE_PATH)/../full_pecom_combo.c
 	rm -rf $(SOURCE_PATH)/../full_pecom_combo.c

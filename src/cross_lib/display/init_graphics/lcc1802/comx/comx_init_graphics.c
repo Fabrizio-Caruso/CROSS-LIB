@@ -1,58 +1,4 @@
-
-
-// Code by Marcel van Tongeren
-void vidchar(int vidmem, int character){ //write character to vidmem location in video memory
-	asm(//vidmem pointer is R12, character is R13.0
-#if defined(__PECOM__)
-	" sex R3\n"
-	" out 1\n"
-	" db  2\n"
-    " sex R2\n"
-#endif
-	" glo r13\n"
-	" b1  $	;wait til video is quiet\n"
-	" str R12 ;move the byte\n");
-	return;
-}
-
-
-
-void shapechar(const unsigned char * shapelocation, int number)
-{
-	asm( //shapelocation pointer is R12, number of shapes is R13
-#if defined(__PECOM__)
-	" sex R3\n" 
-	" out 1\n" 
-	" db  2\n" 
-    " sex R2\n"
-#endif
-	" ldi 0xf7\n"
-	" phi R8\n"
-	" ldi 0xfb\n"
-	" phi R9\n"
-	"$$nextshape:\n"
-	" ldi 0xC0 \n"
-	" plo R8 ; R8 = charmem pointer\n"
-	" plo r9 ; R9 = vidmem pointer\n"
-	" ldi 9 \n"
-	" plo R10 ; R10.0 = number of lines, we need to somehowe make a NTSC version for 8 lines\n"
-	" lda 12\n" 
-	" phi R10 ; R10.1 = character\n"
-	"$$nextline:\n"
-	" ghi R10\n"
-	" b1  $	; wait til video is quiet\n"
-	" str R9 ; store character in vidmem\n"
-	" inc R9\n"
-	" lda R12\n"
-	" str R8 ; store first shape line in charmem\n"
-	" inc R8\n"
-	" dec R10\n"
-	" glo R10\n"
-	" lbnz $$nextline ; number of lines - 1 if not zero do next line\n"
-	" dec r13\n"
-	" glo r13\n"
-	" lbnz $$nextshape\n");
-}
+#include "rca_vis_video.h"
 
 
 void redefine_char(const unsigned char * shapelocation, int color)
@@ -91,10 +37,9 @@ const unsigned char ghost[10] = { 112 , __GHOST_UDG, 0 };
 const unsigned char bomb[10] =  { 111 , __BOMB_UDG, 0};
 
 
-
-// COMX and PECOM 
+// COMX and PECOM
 void disableinterrupt(){
-    asm( 
+    asm(
         " sex 3\n"
         " dis\n"
         " db 0x23\n");
@@ -102,114 +47,12 @@ void disableinterrupt(){
 
 // COMX and PECOM
 void enableinterrupt(){
-    asm( 
+    asm(
         " sex 3\n"
         " ret\n"
         " db 0x23\n");
 }
 
-void setvideobase(unsigned int vidmem){
-    asm( //vidmem pointer is R12
-#if defined(__PECOM__)
-		" ldireg R8, 0x7cc8\n"
-		" ghi R12\n"
-		" str R8\n"
-		" inc R8\n"
-		" glo R12\n"
-		" str R8\n"
-#endif
-		" sex R12\n"
-        " out 7\n"
-        " sex R2\n");
-}
-
-
-
-void textcolordefinition(unsigned char definition){
-	asm( //definition is in R12.0
-		 // b1	b0	RED	 BLUE	GREEN
-		 //  0	 0	CB0	 CB1	PCB
-		 //  0	 1  CCB0 PCB	CCB1
-		 //  1  0/1 PCB	 CCB0	CCB1
-#if defined(__PECOM__)
-		" ldireg R8, 0x7cc4\n"
-#elif defined(__COMX__)
-		" ldireg R8, 0x41C0\n"
-#endif
-		" ldn R8\n"				//get latest OUT 3 value
-		" ani 0x9f\n"			//clear text color definition
-		" str R2\n"				//store value on stack
-		" glo R12\n"			//get new color
-		" ani 3\n"				//limit to 2 bits
-		" shrc\n"
-		" shrc\n"
-		" shrc\n"
-		" shrc\n"
-		" or\n"					//new text color definition OR latest OUT3 value
-		" str R8\n"				//store new value 
-		" sex R8\n"
-		" out 3\n"				//set new color definition value
-		" sex R2\n");
-}
-
-
-
-void monochrome(unsigned char mono){
-	asm( //mono/cfc is in R12.0, 0=color, 1=mono
-#if defined(__PERCOM__)
-		" ldireg R8, 0x7cc4\n"
-#elif defined(__COMX__)
-		" ldireg R8, 0x41C0\n"
-#endif
-		" ldn R8\n"				//get latest OUT 3 value
-		" ani 0xf7\n"			//clear cfc
-		" str R2\n"				//store value on stack
-		" glo R12\n"			//get new cfc
-		" ani 1\n"				//limit to 1 bits
-		" shl\n"
-		" shl\n"
-		" shl\n"
-		" or\n"					//new cfc OR latest OUT3 value
-		" str R8\n"				//store new value 
-		" sex R8\n"
-		" out 3\n"				//set new cfc value
-		" sex R2\n");
-}
-
-
-unsigned char bgcolor(unsigned char color){
-	asm( //color is in R12.0
-		 //0: black
-		 //1: green
-		 //2: blue
-		 //3: cyan
-		 //4: red
-		 //5: yellow
-		 //6: magenta
-		 //7: white
-#if defined(__PECOM__)
-		" ldireg R8, 0x7cc4\n"
-#elif defined(__COMX__)
-		" ldireg R8, 0x41C0\n"
-#endif
-		" ldn R8\n"				//get latest OUT 3 value
-		" ani 7\n"				//get old background color
-		" plo R15\n"
-		" ldi 0\n"
-		" phi R15\n"			//return old background in R15
-		" ldn R8\n"				//get latest OUT 3 value
-		" ani 0xf8\n"			//clear background color
-		" str R2\n"				//store value on stack
-		" glo R12\n"			//get new color
-		" ani 7\n"				//limit to 3 bits
-		" or\n"					//new color OR latest OUT3 value
-		" str R8\n"				//store new value 
-		" sex R8\n"
-		" out 3\n"				//set new color value
-		" sex R2\n"
-		" Cretn\n");
-	return 0; //this statement will never be executed but it keeps the compiler happy
-}
 
 
 void INIT_GRAPHICS(void)

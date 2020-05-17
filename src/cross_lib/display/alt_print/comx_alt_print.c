@@ -1,46 +1,7 @@
 //#include <nstdlib.h>
 
+#include "rca_vis_video.h"
 #include "standard_libs.h"
-
-// COMX
-void gotoxycomx(unsigned int vidmem, unsigned char column){
-	asm(
-	" ldireg R8, 0x419A\n"
-	" sex R8\n"
-	" glo R13\n"
-	" stxd\n"
-	" dec R8\n"
-	" glo R12\n"
-	" stxd\n"
-	" ghi R12\n"
-	" stxd\n"
-	" dec R8\n"
-	" dec R8\n"
-	" glo R12\n"
-	" stxd\n"
-	" ghi R12\n"
-	" adi 0xf8\n"
-	" stxd\n");
-}
-
-
-void vidstrcpy(uint16_t vidmem, char * text){ //write to video memory
-	asm(
-#if defined(__PECOM__)
-	" sex R3\n"
-	" out 1\n"
-	" db  2\n"
-    " sex R2\n"
-#endif
-	"$$cpy:\n"
-	" lda R13 ;pick up input pointer\n"
-	" bz $$end\n"
-	" b1  $	;wait til video is quiet\n"
-	" str R12 ;move the byte\n"
-	" inc R12 ;++\n"
-	" br $$cpy\n"
-	"$$end:\n");
-}
 
 
 void PRINT(uint8_t x, uint8_t y, char * str)

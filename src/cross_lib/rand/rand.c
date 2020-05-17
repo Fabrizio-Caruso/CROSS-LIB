@@ -5,12 +5,15 @@
 // #define rnd_m 58653
 // #define rnd_a 13849
 
-// static unsigned int next = 1;
-// int rand(void) // RAND_MAX assumed to be 32767
-// {
-    // next = next * rnd_m + rnd_a;
-    // return next;
-// }
+/*
+static unsigned int next = 1;
+int rand(void) // RAND_MAX assumed to be 32767
+{
+    next = next * rnd_m + rnd_a;
+    return next;
+}
+*/
+
 
 #if defined(__COMX__) || defined(__PECOM__)
     #include "rca_rand.h"

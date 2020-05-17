@@ -62,7 +62,7 @@ extern uint8_t YSize;
 		print_05u0(XSize/2+2, YSize/2, val);
 	}
 
-	void PRINTF(uint8_t x, uint8_t y, char * str, uint16_t val)
+	void PRINTD(uint8_t x, uint8_t y, char * str, uint16_t val)
 	{
 		if(strlen(str)==5)
 		{	

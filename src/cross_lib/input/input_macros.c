@@ -31,7 +31,10 @@
         
 
 #if defined(__COMX__) || defined(__PECOM__) || (defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB))
-    #include "rca_keyboard_encoder.h"
+    
+    #if defined(__COMX__) || defined(__PECOM__) 
+        #include "rca_keyboard_encoder.h"
+    #endif 
     
     char GET_CHAR(void)
     {

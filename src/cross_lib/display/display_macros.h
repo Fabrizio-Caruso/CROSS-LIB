@@ -120,21 +120,21 @@ void _delete(uint8_t x, uint8_t y);
     DRAW_HORIZONTAL_LINE(XSize-1-length,YSize/2,length);
 
 
-// PRINT AND PRINTF
+// PRINT AND PRINTD
 #  if defined(ALT_DISPLAY_STATS)
     void PRINT(uint8_t x, uint8_t y, char * str);
-    #define PRINTF(x,y,str,val) _displayShort(val)
+    #define PRINTD(x,y,str,val) _displayShort(val)
     void _displayShort(uint16_t val);
     uint16_t loc(uint8_t x, uint8_t y);
 #elif defined(NO_PRINT)
     #define PRINT(x,y,str)
-    #define PRINTF(x,y,str,val)
+    #define PRINTD(x,y,str,val)
 #elif defined(ALT_PRINT)
     void PRINT(uint8_t x, uint8_t y, char * str);
-    void PRINTF(uint8_t x, uint8_t y, char * str, uint16_t val);
+    void PRINTD(uint8_t x, uint8_t y, char * str, uint16_t val);
 #else
     #define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y); cprintf(str); } while(0);
-    #define PRINTF(x,y,str,val) do {gotoxy(x+X_OFFSET,y); cprintf(str,val); } while(0);
+    #define PRINTD(x,y,str,val) do {gotoxy(x+X_OFFSET,y); cprintf(str,val); } while(0);
 #endif
 
 

@@ -146,9 +146,9 @@ extern uint16_t highScore;
 		SET_COLOR(TEXT_COLOR);	
 		
 		#if defined(WIDE)
-			PRINTF(GUN_IMAGE_X+2,0+0,"%u",guns);
+			PRINTD(GUN_IMAGE_X+2,0+0,"%u",guns);
 		#else
-			PRINTF(GUN_IMAGE_X+1,0+0,"%u",guns);
+			PRINTD(GUN_IMAGE_X+1,0+0,"%u",guns);
 		#endif
 	}
 #endif
@@ -159,9 +159,9 @@ extern uint16_t highScore;
 		SET_COLOR(TEXT_COLOR);
 	
 		#if defined(WIDE) && !defined(TINY_GAME)
-			PRINTF(LEVEL_X,LEVEL_Y,"%02u", level);
+			PRINTD(LEVEL_X,LEVEL_Y,"%02u", level);
 		#elif XSize>16
-			PRINTF(LEVEL_X,LEVEL_Y,"%02u",level);
+			PRINTD(LEVEL_X,LEVEL_Y,"%02u",level);
 		#else
 			// No space for level
 		#endif	
@@ -173,9 +173,9 @@ extern uint16_t highScore;
 		SET_COLOR(TEXT_COLOR);		
 		
 		#if defined(WIDE) && !defined(TINY_GAME)
-			PRINTF(GHOST_IMAGE_X+2,+0,"%u",ghostCount);
+			PRINTD(GHOST_IMAGE_X+2,+0,"%u",ghostCount);
 		#else
-			PRINTF(GHOST_IMAGE_X+1,+0,"%u",ghostCount);	
+			PRINTD(GHOST_IMAGE_X+1,+0,"%u",ghostCount);	
 		#endif	
 	}
 
@@ -185,9 +185,9 @@ extern uint16_t highScore;
 		SET_COLOR(TEXT_COLOR);
 		
 		#if defined(WIDE) && !defined(TINY_GAME)
-			PRINTF(PLAYER_IMAGE_X+2,PLAYER_IMAGE_Y,"%02u",lives);
+			PRINTD(PLAYER_IMAGE_X+2,PLAYER_IMAGE_Y,"%02u",lives);
 		#else
-			PRINTF(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,"%02u",lives);	
+			PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,"%02u",lives);	
 		#endif
 	}	
 	
@@ -206,16 +206,16 @@ void displayStats(void)
 	SET_COLOR(TEXT_COLOR);
 	
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTF(6,+0,"%05u0",points);
+		PRINTD(6,+0,"%05u0",points);
 	#else
-		PRINTF(!EXTRA_TINY,0,"%05u0",points);	
+		PRINTD(!EXTRA_TINY,0,"%05u0",points);	
 	#endif	
 }
 
 #if !defined(LESS_TEXT)	
 	void printLevel(void)
 	{
-		PRINTF(((XSize -7)>>1), (YSize>>1), START_LEVEL_STRING, level);
+		PRINTD(((XSize -7)>>1), (YSize>>1), START_LEVEL_STRING, level);
 	}
 #endif
 
@@ -223,7 +223,7 @@ void displayStats(void)
 #if !defined(TINY_GAME) && !defined(NO_MESSAGE)
 	void _printScoreOnRow(uint8_t row, char * text, uint16_t score)
 	{
-		PRINTF((uint8_t) ((XSize-strlen(text))>>1), row, text, score);
+		PRINTD((uint8_t) ((XSize-strlen(text))>>1), row, text, score);
 	}	
 	
 	#if !defined(LESS_TEXT)

@@ -22,7 +22,7 @@ void print_02u(uint8_t x, uint8_t y, uint16_t val);
 
 void print_u(uint8_t x, uint8_t y, uint16_t val);
 
-void PRINTF(uint8_t x, uint8_t y, char * str, uint16_t val);
+void PRINTD(uint8_t x, uint8_t y, char * str, uint16_t val);
 
 #endif // _MEMORY_MAPPED_ALT_PRINT
 

@@ -1,4 +1,4 @@
-//#include <nstdlib.h>
+#include <nstdlib.h>
 
 #include "rca_vis_video.h"
 #include "standard_libs.h"
@@ -44,7 +44,7 @@ void print_u(uint8_t x, uint8_t y, uint16_t val)
 	_DISPLAY(x,y, (uint8_t) (val+48));
 }
 
-
+/*
 unsigned char strlen(const char *s)
 {
     unsigned char count = 0;
@@ -56,9 +56,10 @@ unsigned char strlen(const char *s)
     };
     return count;
 }
+*/
 
 
-void PRINTF(uint8_t x, uint8_t y, char * str, uint16_t val)
+void PRINTD(uint8_t x, uint8_t y, char * str, uint16_t val)
 {
 	if(strlen(str)==5)
 	{	
@@ -75,5 +76,5 @@ void PRINTF(uint8_t x, uint8_t y, char * str, uint16_t val)
 }
 
 
-//#include <nstdlib.c>
+#include <nstdlib.c>
 

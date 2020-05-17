@@ -40,7 +40,7 @@ void print_u(uint8_t x, uint8_t y, uint16_t val)
 }
 
 
-void PRINTF(uint8_t x, uint8_t y, char * str, uint16_t val)
+void PRINTD(uint8_t x, uint8_t y, char * str, uint16_t val)
 {
 	if(strlen(str)==5)
 	{	

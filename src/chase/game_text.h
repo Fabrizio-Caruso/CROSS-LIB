@@ -93,7 +93,7 @@ void printStartMessage(void);
 
 #if defined(TINY_GAME)
 	#if !defined(NO_MESSAGE)
-		#define highScoreScreen() PRINTF((XSize-6)/2, 0, "%05u0", highScore)
+		#define highScoreScreen() PRINTD((XSize-6)/2, 0, "%05u0", highScore)
 	#else
 		#define highScoreScreen()
 	#endif
@@ -105,7 +105,7 @@ void printStartMessage(void);
 #else
     #define printLevelBonus(bonus) _printScore(BONUS_COLON_STRING BONUS_DIGITS, bonus);
     #define finalScore() _printScore(SCORE_COLON__STRING SCORE_DIGITS, points);
-    #define highScoreScreen() _printScore(HIGH_SCORE_COLON_STRING SCORE_DIGITS, highScore);  	
+    #define highScoreScreen() _printScore(HIGH_SCORE_COLON_STRING SCORE_DIGITS, highScore);
 #endif
 
 #if defined(FULL_GAME)

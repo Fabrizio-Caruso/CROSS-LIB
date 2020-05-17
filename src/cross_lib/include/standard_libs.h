@@ -25,6 +25,6 @@
     #endif
 #endif
 
-#if defined(ALT_RAND)
+#if defined(ALT_RAND) && !defined(__LCC1802__)
     int rand(void);
 #endif

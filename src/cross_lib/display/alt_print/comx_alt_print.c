@@ -83,6 +83,7 @@ void print_u(uint8_t x, uint8_t y, uint16_t val)
 	_DISPLAY(x,y, (uint8_t) (val+48));
 }
 
+
 unsigned char strlen(const char *s)
 {
     unsigned char count = 0;
@@ -94,6 +95,7 @@ unsigned char strlen(const char *s)
     };
     return count;
 }
+
 
 void PRINTF(uint8_t x, uint8_t y, char * str, uint16_t val)
 {

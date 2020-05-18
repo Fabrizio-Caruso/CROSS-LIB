@@ -95,6 +95,7 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/sound/cc65/vic20 \
 -I$(CROSS_LIB_PATH)/sound/z88dk/bit_bang \
 -I$(CROSS_LIB_PATH)/sound/z88dk/psg \
+-I$(CROSS_LIB_PATH)/sound/lcc1802/comx \
 -I$(CROSS_LIB_PATH)/text \
 -I$(CROSS_LIB_PATH)/input \
 -I$(CROSS_LIB_PATH)/rand

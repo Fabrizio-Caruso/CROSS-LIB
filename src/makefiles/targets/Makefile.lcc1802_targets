@@ -8,6 +8,7 @@ tiny_comx_combo.c: tiny_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/../tiny_combo_rand.c > $(SOURCE_PATH)/../tiny_comx_combo.c
 	rm tiny_combo_rand.c
 
@@ -15,6 +16,7 @@ light_comx_combo.c: light_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/../light_combo_rand.c > $(SOURCE_PATH)/../light_comx_combo.c
 	rm light_combo_rand.c
     
@@ -22,6 +24,7 @@ full_comx_combo.c: full_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_comx_combo.c
 	rm full_combo_rand.c
 
@@ -30,6 +33,7 @@ tiny_pecom_combo.c: tiny_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/../tiny_combo_rand.c > $(SOURCE_PATH)/../tiny_pecom_combo.c
 	rm tiny_combo_rand.c
 
@@ -37,6 +41,7 @@ light_pecom_combo.c: light_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/../light_combo_rand.c > $(SOURCE_PATH)/../light_pecom_combo.c
 	rm light_combo_rand.c
     
@@ -44,18 +49,17 @@ full_pecom_combo.c: full_combo_rand.c
 	cat \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_pecom_combo.c
 	rm full_combo_rand.c
 
 COMX_MACROS ?= \
 	-D__LCC1802__ \
 	-DFORCE_NO_CONIO_LIB \
-	-DNO_WAIT \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	-DNO_BLINKING \
-	$(ULTRA_DRAW_SKIP) \
 	-DNO_SET_SCREEN_COLORS \
-	-DMACRO_SLEEP \
+	-DALT_SLEEP \
 	-DNO_HINTS \
 	-DNO_COLOR \
 	-DALT_RAND \

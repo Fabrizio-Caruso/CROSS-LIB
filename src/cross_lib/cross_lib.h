@@ -82,7 +82,7 @@
 	#define CC65
 #elif defined(__WINCMOC__) || defined(__CMOC__)
 	#define CMOC
-#elif defined(ACK) || defined(__NCURSES__) || defined(__GCC_BUFFERED__)
+#elif defined(ACK) || defined(__NCURSES__) || defined(__GCC_BUFFERED__) || defined(__LCC1802__)
 	//
 #else
 	#define Z88DK

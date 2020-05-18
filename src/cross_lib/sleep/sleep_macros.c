@@ -27,11 +27,13 @@
 
 	#include "sleep_macros.h"
     
-    #include <stdint.h>
+    #include "standard_libs.h"
 
 	#if defined(__OSIC1P__)
 		#define CYCLES 500
-	#else
+	#elif defined(__COMX__) || defined(__PECOM__)
+        #define CYCLES 2000
+    #else
 		#define CYCLES 1000
 	#endif
 
@@ -39,7 +41,7 @@
 	{
 		uint16_t ii;
 		
-		for(ii=0;ii<sec*CYCLES;++ii){}; 		
+		for(ii=0;ii<sec*CYCLES;++ii){}; 
 	}
 
 #endif

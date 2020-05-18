@@ -247,7 +247,7 @@ out            stb res
         void WAIT_PRESS(void)
         {
             waitkey(0);
-        }    
+        }
     #else 
         #if defined(CONIO_LIB)
             #include<conio.h>
@@ -256,16 +256,18 @@ out            stb res
         #if defined(Z88DK)
             #undef cgetc
             #define cgetc() getch()
+        #endif 
+        #if defined(__LCC1802__)
+            #include "rca_keyboard_encoder.h"
         #endif
-        
         void WAIT_PRESS(void)
         {
             while(kbhit())
-                cgetc();
+                (void) cgetc();
             while(!kbhit())
             { 
             }; 
-            cgetc();
+            (void) cgetc();
         }
     #endif    
 #else

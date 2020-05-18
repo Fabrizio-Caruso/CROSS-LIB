@@ -29,11 +29,11 @@
     #define ALT_SLEEP_SCALE 4000
     
     #if !defined(NO_SLEEP)
-        #  if !defined(__CMOC__)
+        #  if !defined(__CMOC__) && !defined(__COMX__) && !defined(__PECOM__)
             #include <time.h>
             #include <unistd.h>
             #include <stdlib.h>        
-        #else
+        #elif defined(__CMC__)
             #include <coco.h>
             #include <cmoc.h>
         #endif    
@@ -42,7 +42,7 @@
     #if defined(NO_SLEEP)
         #define SLEEP(s)
     #elif defined(MACRO_SLEEP)
-        #define SLEEP(s)  do {uint16_t ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
+        #define SLEEP(sec)  do {uint16_t ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
     #elif defined(ALT_SLEEP)
         void SLEEP(uint8_t s);
     #else

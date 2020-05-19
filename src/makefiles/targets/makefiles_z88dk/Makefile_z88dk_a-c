@@ -1,3 +1,60 @@
+# ------------------------------------------------------------------------------------------
+# Z88DK A-C
+#
+
+z88dk_targets_a-c: \
+	abc80_targets \
+	ace_targets \
+	alphatro_targets \
+	aquarius_targets \
+	attache_targets \
+	aussie_targets \
+	bic_targets \
+	c128_z80_targets \
+	camputers_lynx_targets \
+	coleco_targets \
+	cpc_targets \
+	cpm_z80_targets
+
+# ------------------------------------------------------------------------------------------
+
+abc80_targets: \
+	abc80_light abc80
+
+ace_targets: \
+	ace_exp_16k_udg
+
+alphatro_targets: \
+	alphatro
+
+aquarius_targets: \
+	aquarius_exp_4k aquarius_exp_16k
+
+attache_targets: \
+	attache attache_chars
+
+aussie_targets: \
+	aussie_buffered
+
+bic_targets: \
+	bic
+
+c128_z80_targets: \
+	c128_z80_40col c128_z80_80col
+
+camputers_lynx_targets: \
+	camputers_lynx camputers_lynx_tiny
+
+coleco_targets: \
+	coleco_udg coleco_adam
+
+cpc_targets: \
+	cpc
+
+cpm_z80_targets: \
+	cpm_z80_adm3a cpm_z80_vt52 cpm_z80_vt100 
+# ------------------------------------------------------------------------------------------
+
 
 abc80_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 $(INCLUDE_OPTS) \

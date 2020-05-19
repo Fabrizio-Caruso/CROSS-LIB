@@ -1,3 +1,47 @@
+# ------------------------------------------------------------------------------------------
+# Z88DK W-Z
+#
+
+z88dk_targets_w-z: \
+	x1_targets \
+	z1013_targets \
+	z80tvgame_targets \
+	z88_targets \
+	z9001_targets \
+	zx80_targets \
+	zx81_targets
+
+# ------------------------------------------------------------------------------------------
+
+x1_targets: \
+	x1
+
+z1013_targets: \
+	z1013
+
+z80tvgame_targets: \
+	z80tvgame
+
+z88_targets: \
+	z88_tiny_buffered
+
+z9001_targets: \
+	z9001_16k_full z9001_32k
+
+zx80_targets: \
+	zx80_16k_turn_based
+	
+zx81_targets_ijkl_spc: \
+	zx81_16k zx81_16k_turn_based zx81_16k_wrx zx81_32k_wrx zx81_32k_wrx_turn_based
+  
+zx81_targets_qaopm: \
+	zx81_16k_qaopm zx81_16k_turn_based_qaopm zx81_16k_wrx_qaopm zx81_32k_wrx_qaopm zx81_32k_wrx_turn_based_qaopm
+
+zx81_targets: \
+	zx81_targets_ijkl_spc
+
+# ------------------------------------------------------------------------------------------
+
 x07_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-Cz--audio \

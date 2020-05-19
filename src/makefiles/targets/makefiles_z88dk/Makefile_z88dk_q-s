@@ -1,3 +1,69 @@
+# ------------------------------------------------------------------------------------------
+# Z88DK Q-S
+#
+z88dk_targets_q-s: \
+	qc10_targets \
+	rc700_targets \
+	rx78_targets \
+	samcoupe_targets \
+	sc3000_targets \
+	smc777_targets \
+	sms_targets \
+	sos_targets \
+	spc1000_targets \
+	spectrum_targets \
+	srr_targets \
+	super80_targets \
+	sv8000_targets \
+	svi_targets 
+
+# ------------------------------------------------------------------------------------------
+
+qc10_targets: \
+	qc10
+
+srr_targets: \
+	srr_udg
+
+sc3000_targets: \
+	sc3000_16k sc3000_32k_udg sg1000_udg
+
+super80_targets: \
+	super80 super80r
+
+svi_targets: \
+	svi_318 svi_328_udg_cursor
+
+rx78_targets: \
+	rx78_udg
+
+spc1000_targets: \
+	spc1000_udg
+
+samcoupe_targets: \
+	samcoupe
+
+sos_targets: \
+	sos_buffered sos_tiny_buffered
+
+sms_targets: \
+	sms_tiny_buffered
+
+smc777_targets: \
+	smc777
+
+spectrum_targets: \
+	spectrum_16k spectrum_48k
+
+sv8000_targets: \
+	sv8000
+
+rc700_targets: \
+	rc700
+
+# ------------------------------------------------------------------------------------------
+
+
 
 qc10:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=qc10 \

@@ -24,7 +24,7 @@
 #include "images.h"
 
 
-#if !defined(NO_SET_SCREEN_COLORS)
+#if !defined(NO_SET_SCREEN_COLORS) && !defined(NO_GRAPHICS)
     void setScreenColors(void)
     {
         SET_TEXT_COLOR(TEXT_COLOR);

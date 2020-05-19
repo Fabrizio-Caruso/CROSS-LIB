@@ -248,6 +248,8 @@ out            stb res
         {
             waitkey(0);
         }
+    #elif defined(NO_INPUT)
+    //
     #else 
         #if defined(CONIO_LIB)
             #include<conio.h>

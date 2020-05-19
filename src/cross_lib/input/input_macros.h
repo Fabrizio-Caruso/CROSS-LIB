@@ -24,6 +24,7 @@
 
 #ifndef _INPUT_MACROS
 #define _INPUT_MACROS
+
 	#include "input_target_settings.h"
 
 	#if defined(KEYBOARD_CONTROL)
@@ -66,8 +67,8 @@
 		#if defined(__SUPERVISION__)
 			#include <supervision.h>
 		#endif
-		#define INIT_INPUT() { joy_install(joy_static_stddrv); };		
-	#endif
+		#define INIT_INPUT() { joy_install(joy_static_stddrv); };
+	#endif // defined(Z88DK_JOYSTICK)
 
 #if defined(JOYSTICK_CONTROL)
     #if defined(Z88DK_JOYSTICK)
@@ -111,7 +112,7 @@
         #if !defined(JOY_FIRE)
             #define JOY_FIRE(joyKey) JOY_BTN_1(joyKey)
         #endif
-    #endif
+    #endif // defined(Z88DK_JOYSTICK)
     
     #if defined(Z88DK_JOYSTICK)
         extern uint8_t stick;
@@ -125,7 +126,7 @@
         #define JOY_INPUT() GET_CHAR()
     #else
         #define JOY_INPUT() joy_read(JOY_1)
-    #endif    
+    #endif // defined(Z88DK_JOYSTICK)
     
 #endif
 
@@ -136,24 +137,30 @@
 		#define TURN_BASED_INPUT() getch()
 	#elif defined(ACK)
 		#define TURN_BASED_INPUT() getchar()
+    #elif defined(NO_INPUT)
+        #define TURN_BASED_INPUT()
 	#else
 		#define TURN_BASED_INPUT() cgetc()	
-	#endif	
+	#endif	// TURN_BASED_INPUT definitions
 	
 
-	
-	#if defined(KEYBOARD_CONTROL)
-		#if defined(ACK) || defined(STDLIB)
-			#define GET_CHAR() getchar()
-		#else
-			char GET_CHAR(void);
-		#endif
-	#endif			
-				
-	#if !defined(NO_WAIT) || !defined(NO_SLEEP)
-		void WAIT_PRESS(void);
-	#else // NO_WAIT + NO_SLEEP
-		#define WAIT_PRESS()
-	#endif
+	#if !defined(NO_INPUT)
+        #if defined(KEYBOARD_CONTROL)
+            #if defined(ACK) || defined(STDLIB)
+                #define GET_CHAR() getchar()
+            #else
+                char GET_CHAR(void);
+            #endif
+        #endif // defined(KEYBOARD_CONTROL)
+
+        #if !defined(NO_WAIT) || !defined(NO_SLEEP)
+            void WAIT_PRESS(void);
+        #else // NO_WAIT + NO_SLEEP
+            #define WAIT_PRESS()
+        #endif // !defined(NO_WAIT) || !defined(NO_SLEEP)
+    #else
+        #define WAIT_PRESS()
+    #endif // !defined(NO_INPUT)
+
 #endif // _INPUT_MACROS
 

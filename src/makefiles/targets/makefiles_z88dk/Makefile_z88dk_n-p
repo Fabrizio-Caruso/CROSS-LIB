@@ -1,3 +1,89 @@
+# ------------------------------------------------------------------------------------------
+# Z88DK N-P
+#
+
+z88dk_targets_n-p: \
+	nascom_targets \
+	nc100_targets \
+	nc200_targets \
+	newbrain_targets \
+	osborne1_targets \
+	osca_targets \
+	oz_targets \
+	pasopia7_targets \
+	pencil2_targets \
+	p2000_targets \
+	pc6001_targets \
+	pc88_targets \
+	pmd85_targets \
+	pps_targets \
+	primo_targets \
+	pv1000_targets \
+	pv2000_targets \
+	px4_targets \
+	px8_targets
+
+# ------------------------------------------------------------------------------------------
+
+nc100_targets: \
+	nc100
+
+nc200_targets: \
+	nc200
+
+nascom_targets: \
+	nascom_16k nascom_32k
+
+newbrain_targets: \
+	newbrain
+
+osborne1_targets: \
+	osborne1 osborne1_chars
+
+osca_targets: \
+	osca
+
+oz_targets: \
+	oz_tiny_buffered
+
+p2000_targets: \
+	p2000_16k p2000_32k
+
+pasopia7_targets: \
+	pasopia7
+
+pencil2_targets: \
+	pencil2
+
+pc6001_targets: \
+	pc6001_16k pc6001_32k_udg
+
+pc88_targets: \
+	pc88
+
+pmd85_targets: \
+	pmd85
+
+pps_targets: \
+	pps
+
+primo_targets: \
+	primo
+
+pv1000_targets: \
+	pv1000_light pv1000
+
+pv2000_targets: \
+	pv2000_udg
+
+px4_targets: \
+	px4 
+
+px8_targets: \
+	px8
+
+
+# ------------------------------------------------------------------------------------------
 
 nascom_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -vn -lndos \

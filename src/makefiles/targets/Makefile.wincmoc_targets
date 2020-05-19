@@ -2,6 +2,23 @@
 # WINCMOC
 #
 
+WINCMOC_DIR ?= /cygdrive/c/cmoc-win32/bin/
+LWAR ?= $(WINCMOC_DIR)lwar.exe
+WINCMOC ?= $(WINCMOC_DIR)cmoc.exe 
+WINCMOC2 ?= $(WINCMOC_DIR)cmoc2.exe 
+WINCMOC2_OPTS ?= -c -o combo.o -t coco --org 10240 
+
+WINCMOC_OPTS ?= \
+	--emit-uncalled \
+	-c -O1 -D__WINCMOC__ -D__CMOC__=0.1.32 -D__6809__= -D__COCO__= -Dnullptr=0 "-Dbool=unsigned char" \
+	-Dfalse=0 -Dtrue=1 "-Dbyte=unsigned char" -Dsbyte=char -Dword=unsigned -Dsword=int -Dconst= \
+	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES= 
+	
+
+################################################################################
+
+
+
 wincmoc_debug: tiny_combo_rand.cat 
 	mv tiny_combo_rand.cat tiny_combo_rand.c
 	$(WINCMOC_DIR)cmoc.exe  $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(WINCMOC_OPTS) \

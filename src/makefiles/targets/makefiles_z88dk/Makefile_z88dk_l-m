@@ -1,3 +1,63 @@
+# ------------------------------------------------------------------------------------------
+# Z88DK L-M
+#
+
+z88dk_targets_l-m: \
+	lambda_targets \
+	laser500_targets \
+	m5_targets \
+	mc1000_targets \
+	microbee_targets \
+	mikro80_targets \
+	msx_targets \
+	mtx_targets \
+	multi8_targets \
+	myvision_targets \
+	mz_targets \
+	mz2500_targets
+
+# ------------------------------------------------------------------------------------------
+
+lambda_targets: \
+	lambda_16k
+
+laser500_targets: \
+	laser500
+
+m100_targets: \
+	m100
+
+m5_targets: \
+	m5_udg
+
+mc1000_targets: \
+	mc1000_16k_full mc1000_48k_udg mc1000_48k_udg_joystick
+
+microbee_targets: \
+	microbee_16k microbee_32k
+
+mikro80_targets: \
+	mikro80
+
+msx_targets: \
+	msx_32k_rom msx_32k
+
+mtx_targets: \
+	mtx_udg
+
+multi8_targets: \
+	multi8_udg
+
+myvision_targets: \
+	myvision
+
+mz_targets: \
+	mz
+
+mz2500_targets: \
+	mz2500_tiny_buffered
+
+# ------------------------------------------------------------------------------------------
 
 
 lambda_16k:
@@ -23,6 +83,21 @@ laser500:
 	mv a.bin $(BUILD_PATH)/FULL_laser500.bin
 	rm a.cas
 	mv a.wav $(BUILD_PATH)/FULL_laser500.wav
+
+
+laser500_bitmap: 	
+	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -create-app -Cz--audio -v \
+	$(INCLUDE_OPTS) \
+	-D__LASER500__ \
+	-DFORCE_BIT_BANG -DSOUNDS \
+	-DFULL_GAME \
+	-DNO_GRAPHICS -DNO_PRINT -DNO_INPUT -DNO_SET_SCREEN_COLORS \
+	-lndos \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/laser500/laser500_bitmap_init_graphics.c
+	mv a.bin $(BUILD_PATH)/laser500_bitmap.bin
+	rm a.cas
+	mv a.wav $(BUILD_PATH)/laser500_bitmap.wav
 
 
 m100:

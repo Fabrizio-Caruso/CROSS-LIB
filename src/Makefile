@@ -22,19 +22,6 @@ endif
 SOURCE_PATH := chase
 CROSS_LIB_PATH := cross_lib
 
-WINCMOC_DIR ?= /cygdrive/c/cmoc-win32/bin/
-LWAR ?= $(WINCMOC_DIR)lwar.exe
-WINCMOC ?= $(WINCMOC_DIR)cmoc.exe 
-WINCMOC2 ?= $(WINCMOC_DIR)cmoc2.exe 
-WINCMOC2_OPTS ?= -c -o combo.o -t coco --org 10240 
-
-WINCMOC_OPTS ?= \
-	--emit-uncalled \
-	-c -O1 -D__WINCMOC__ -D__CMOC__=0.1.32 -D__6809__= -D__COCO__= -Dnullptr=0 "-Dbool=unsigned char" \
-	-Dfalse=0 -Dtrue=1 "-Dbyte=unsigned char" -Dsbyte=char -Dword=unsigned -Dsword=int -Dconst= \
-	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES= 
-	
-
 
 BUILD_PATH ?= ../build
 
@@ -101,19 +88,6 @@ EXTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
 ULTRA_DRAW_SKIP ?= -DGHOST_DRAW_SKIP=1 -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
 
 
-XTC68 ?= qcc
-XTC68_OPTS = -D__XTC68__ -I$(SOURCE_PATH) \
-
-
-SCCZ80_OPTS ?= 
-#-O3
-
-ZSDCC_OPTS ?= 
-# -SO3 --max-allocs-per-node200000
-
-Z8K-PCOS-GCC ?= /opt/z8kgcc-jan-19-2009/bin/z8k-pcos-gcc
-Z8K-PCOS-GCC_OPTS ?= -Wno-cpg 
-
 TOOLS_PATH ?= ../tools
 
 CFG_PATH ?= $(CROSS_LIB_PATH)/cfg/
@@ -142,56 +116,6 @@ LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES)
 
 FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
-
-# For cygwin posix build: use gcc
-# For windows 32 non-posix build: x86_64-w64-mingw32-gcc
-_CC ?= gcc
-_CC_OPTS ?= 
-
-TI99_CC ?= tms9900-gcc
-TI99_OPTS ?= -nostdlib -DNO_RANDOM_LEVEL
-
-GCC ?= gcc
-GCC_OPTS ?= -Wpedantic -Wall
-
-ATARI_ST_CC ?= m68k-atari-mint-gcc
-ATARI_ST_OPTS ?= 
-
-AMIGA_CC ?= m68k-amigaos-gcc
-AMIGA_OPTS ?= 
-
-EM_CC ?= emcc
-EM_OPTS = 
-
-LCC1802_PATH ?= /cygdrive/c/lcc42/bin/
-LCC1802_EXE ?= lcc$(EXEEXT)
-LCC1802 ?= $(LCC1802_PATH)$(LCC1802_EXE)
-#/cygdrive/c/lcc42/bat/caCX.bat
-#/cygdrive/c/lcc42/bin/lcc.exe
-LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wa-D LCCCX=1"
-COMX_OPTS ?= "-Wa-D CODELOC=0x4400"
-PECOM_OPTS ?= "-Wa-D CODELOC=0x200"
-#-target=xr18CX -O "-Wf-volatile" "-Wa-D CODELOC=0x4400" "-Wa-D LCCCX=1"
-#-Wf-volatile -target=xr18CX
-
-COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME 
-
-COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
-
-CMOC_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
-
-COCO_OPTS       ?= -D__COCO__ $(CMOC_OPTS)
-
-DRAGON_OPTS     ?= --dragon -D__DRAGON__ $(COCO_OPTS) 
-
-VECTREX_OPTS    ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
-
-MO5_OPTS        ?= -O2 -DANIMATE_PLAYER -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
-
-TO7_OPTS        ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
-
-# -O 
-# -ansi
 
 #############################################################################################################################################
 # Auxiliary targets

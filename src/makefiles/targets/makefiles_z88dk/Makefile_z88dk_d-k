@@ -1,3 +1,77 @@
+# ------------------------------------------------------------------------------------------
+# Z88DK D-K
+#
+
+z88dk_targets_d-k: \
+	dmv_targets \
+ 	eg2k_targets \
+	einstein_targets \
+	enterprise_targets \
+	excalibur64_targets \
+	fp1100_targets \
+	g800_targets \
+	gal_targets \
+	gb_targets \
+	hemc_targets \
+	hgmc_targets \
+	homelab2_targets \
+	homelab_targets \
+	kaypro_targets \
+	kc_targets \
+	kramermc_targets
+
+# ------------------------------------------------------------------------------------------
+
+dmv_targets: \
+	dmv
+
+eg2k_targets: \
+	eg2k_udg
+
+einstein_targets: \
+	einstein
+
+enterprise_targets: \
+	enterprise_buffered
+
+excalibur64_targets: \
+	excalibur64
+
+fp1100_targets: \
+	fp1100
+
+g800_targets: \
+	g800_turn_based
+
+gal_targets: \
+	gal_6k gal_22k
+
+gb_targets: \
+	gb
+
+hemc_targets: \
+	hemc
+
+hgmc_targets: \
+	hgmc
+
+homelab_targets: \
+	homelab
+
+homelab2_targets: \
+	homelab2
+
+kaypro_targets: \
+	kaypro
+
+kc_targets: \
+	kc_tiny_udg kc_light_udg kc_udg
+
+kramermc_targets: \
+	kramermc
+
+
+# ------------------------------------------------------------------------------------------
 
 
 dmv:

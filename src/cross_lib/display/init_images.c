@@ -63,6 +63,13 @@ extern Image BOMB_IMAGE;
 	#define COLOR_CYAN COLOR_BLUE
 #endif
 
+#if defined(NO_GRAPHICS) || defined(NO_PRINT)
+    #if !defined(COLOR_RED)
+        #define COLOR_RED 0
+    #endif
+#endif 
+
+
 #if defined(CPCRSLIB)
 	#define _PLAYER_COLOR CPC_YELLOW
 	#define _GHOST_COLOR CPC_WHITE
@@ -120,6 +127,25 @@ extern Image BOMB_IMAGE;
 	#define _INVINCIBILITY_COLOR COLOR_YELLOW
 	#define _CONFUSE_COLOR COLOR_RED
 	#define _ZOMBIE_COLOR COLOR_YELLOW
+#elif defined(NO_GRAPHICS)
+	#define _PLAYER_COLOR 0 
+	#define _GHOST_COLOR 0
+	#define _DEAD_GHOST_COLOR 0
+	#define _SKULL_COLOR 0
+	#define _BOMB_COLOR 0
+	#define _MISSILE_COLOR 0
+	#define _ROCKET_COLOR 0
+	#define _POWERUP_COLOR 0
+	#define _FREEZE_COLOR 0
+	#define _SUPER_COLOR 0
+	#define _GUN_COLOR 0
+	#define _BULLET_COLOR 0
+	#define _BRICK_COLOR 0
+	#define _EXTRA_POINTS_COLOR 0
+	#define _EXTRA_LIFE_COLOR 0
+	#define _INVINCIBILITY_COLOR 0
+	#define _CONFUSE_COLOR 0
+	#define _ZOMBIE_COLOR 0
 #else
 	#define _PLAYER_COLOR COLOR_CYAN
 	#define _GHOST_COLOR COLOR_WHITE
@@ -148,6 +174,7 @@ extern Image BOMB_IMAGE;
 
 void INIT_IMAGES(void)
 {
+# if !defined(NO_GRAPHICS)
 	// Set color data 
 	#if !defined(NO_COLOR)
 		
@@ -245,7 +272,7 @@ void INIT_IMAGES(void)
 		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
 		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
         
-        #if defined(NO_BLINKING)
+        #if defined(NO_BLINKING) && defined(_CONFUSE) && defined(_ZOMBIE)
             CONFUSE_IMAGE._imageData = _CONFUSE;
             ZOMBIE_IMAGE._imageData = _ZOMBIE;
         #else
@@ -255,6 +282,7 @@ void INIT_IMAGES(void)
 		
 		BROKEN_BRICK_IMAGE._imageData = _BROKEN_BRICK;
 	#endif
+#endif 
 }
 
 

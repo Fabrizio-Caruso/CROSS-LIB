@@ -7,6 +7,10 @@ sinclair_ql_targets: \
 	sinclair_ql_tiny_buffered
 
 
+XTC68 ?= qcc
+XTC68_OPTS = -D__XTC68__ -I$(SOURCE_PATH) \
+
+
 xtc68_targets: sinclair_ql_targets
 
 

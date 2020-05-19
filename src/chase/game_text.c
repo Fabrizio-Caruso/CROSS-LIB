@@ -35,7 +35,7 @@
 #define _RED   COLOR_RED
 #define SCORE_COLOR COLOR_IF_NO_BLUE_THEN_YELLOW
 
-#if !defined(NO_TEXT_COLOR)
+#if !defined(NO_TEXT_COLOR) || defined(NO_GRAPHICS)
 	#define SET_COLOR(c) SET_TEXT_COLOR(c)
 #else
 	#define SET_COLOR(c)
@@ -79,10 +79,9 @@
 	#define printCenteredMessageOnRow(row, text) PRINT(6,row,text)
 #endif
 
-#if defined(NO_TEXT_COLOR)
-
+#if defined(NO_TEXT_COLOR) && !defined(NO_MESSAGE) && !defined(NO_PRINT)
 	#define printCenteredMessageOnRowWithCol(row,col,text) printCenteredMessageOnRow(row,text)
-#endif	
+#endif
 
 extern uint8_t level;
 extern uint8_t lives;
@@ -143,7 +142,7 @@ extern uint16_t highScore;
 	
 	void printGunsStats(void)
 	{
-		SET_COLOR(TEXT_COLOR);	
+		SET_COLOR(TEXT_COLOR);
 		
 		#if defined(WIDE)
 			PRINTD(GUN_IMAGE_X+2,0+0,"%u",guns);
@@ -193,7 +192,7 @@ extern uint16_t highScore;
 	
 #endif
 
-#if !defined(NO_MESSAGE)
+#if !defined(NO_MESSAGE) && !defined(NO_PRINT)
 	void printPressKeyToStart(void)
 	{
 		printCenteredMessage(PRESS_STRING);

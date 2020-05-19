@@ -220,7 +220,15 @@ void main(){
     {
         vidstrcpy(vidmem+200, "UNSIGNED LONG DOES NOT HAVE SIZE 4!");
     }
-    // printf("HELLO WORLD!");
+    
+    if(sizeof(unsigned long long)==8)
+    {
+        vidstrcpy(vidmem+240, "UNSIGNED LONG LONG HAS SIZE 8");
+    }
+    else
+    {
+        vidstrcpy(vidmem+240, "UNSIGNED LONG LONG DOES NOT HAVE SIZE 8!");
+    }
     
     while(1);
 }

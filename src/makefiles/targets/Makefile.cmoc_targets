@@ -2,6 +2,12 @@
 # CMOC
 #
 
+cmoc_targets: \
+	coco_targets dragon_targets mo5_targets
+
+#############################################################################################
+
+
 dragon:
 	cmoc \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \

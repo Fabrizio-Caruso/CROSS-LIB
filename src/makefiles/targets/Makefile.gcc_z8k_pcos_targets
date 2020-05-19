@@ -3,7 +3,18 @@
 # Z8K-PCOS-GCC
 #
 
-	
+# Currently to be compiled in Linux (because the source code of the compiler won't easily compile)
+olivetti_m20_targets: \
+	olivetti_m20_buffered
+
+
+gcc_z8k_targets: \
+    olivetti_m20_targets
+
+
+###################################################################################################
+
+
 olivetti_m20_buffered:
 	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \

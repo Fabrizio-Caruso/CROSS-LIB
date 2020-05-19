@@ -2,6 +2,142 @@
 # Z88DK
 #
 
+Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
+Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
+Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
+
+MYZ88DK ?= zcc$(EXEEXT)
+MYZ88DKASM ?= z80asm$(EXEEXT)
+
+
+
+# Number of systems: 41 - 1 (c128_z80) = 40
+
+# broken : 	
+
+#OK
+
+z88dk_targets_a-c: \
+	abc80_targets \
+	ace_targets \
+	alphatro_targets \
+	aquarius_targets \
+	attache_targets \
+	aussie_targets \
+	bic_targets \
+	c128_z80_targets \
+	camputers_lynx_targets \
+	coleco_targets \
+	cpc_targets \
+	cpm_z80_targets
+
+z88dk_targets_d-k: \
+	dmv_targets \
+ 	eg2k_targets \
+	einstein_targets \
+	enterprise_targets \
+	excalibur64_targets \
+	fp1100_targets \
+	g800_targets \
+	gal_targets \
+	gb_targets \
+	hemc_targets \
+	hgmc_targets \
+	homelab2_targets \
+	homelab_targets \
+	kaypro_targets \
+	kc_targets \
+	kramermc_targets
+
+z88dk_targets_l-m: \
+	lambda_targets \
+	laser500_targets \
+	m5_targets \
+	mc1000_targets \
+	microbee_targets \
+	mikro80_targets \
+	msx_targets \
+	mtx_targets \
+	multi8_targets \
+	myvision_targets \
+	mz_targets \
+	mz2500_targets
+
+z88dk_targets_n-p: \
+	nascom_targets \
+	nc100_targets \
+	nc200_targets \
+	newbrain_targets \
+	osborne1_targets \
+	osca_targets \
+	oz_targets \
+	pasopia7_targets \
+	p2000_targets \
+	pc6001_targets \
+	pc88_targets \
+	pmd85_targets \
+	pps_targets \
+	primo_targets \
+	pv1000_targets \
+	pv2000_targets \
+	px4_targets \
+	px8_targets
+
+z88dk_targets_q-s: \
+	qc10_targets \
+	rc700_targets \
+	rx78_targets \
+	samcoupe_targets \
+	sc3000_targets \
+	smc777_targets \
+	sms_targets \
+	sos_targets \
+	spc1000_targets \
+	spectrum_targets \
+	srr_targets \
+	super80_targets \
+	sv8000_targets \
+	svi_targets 
+
+z88dk_targets_t-v: \
+	ti82_targets \
+	ti83_targets \
+	ti85_targets \
+	ti86_targets \
+	ti8x_targets \
+	tiki100_targets \
+	trs80_targets \
+	ts2068_targets \
+	tvc_targets \
+	vector06c_targets \
+	vg5k_targets \
+	vz200_targets 
+
+z88dk_targets_w-z: \
+	x1_targets \
+	z1013_targets \
+	z80tvgame_targets \
+	z88_targets \
+	z9001_targets \
+	zx80_targets \
+	zx81_targets
+
+
+# missing: abc800, xo7, c7420, rex
+# missing 8080: m100
+z88dk_targets:
+	make z88dk_targets_a-c \
+	make z88dk_targets_d-k \
+	make z88dk_targets_l-m \
+	make z88dk_targets_o-p \
+	make z88dk_targets_q-s \
+	make z88dk_targets_t-v \
+	make z88dk_targets_w-z
+
+
+
+##################################################################
+
 include makefiles/targets/makefiles_z88dk/Makefile_z88dk_a-c
 
 include makefiles/targets/makefiles_z88dk/Makefile_z88dk_d-k

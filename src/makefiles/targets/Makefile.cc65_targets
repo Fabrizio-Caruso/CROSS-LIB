@@ -2,6 +2,48 @@
 # CC65
 # 
 
+CC65_PATH ?= /home/fabri/CC65_FIX/cc65/bin/
+
+MYCC65 ?= cl65$(EXEEXT)
+
+
+################################################################################################
+
+# KO:
+#  
+# OK: 
+#
+# No. of systems: 19
+# ------------
+
+
+cc65_targets: \
+	atari_targets \
+	oric_targets \
+	cbm510_targets \
+	cbm610_targets \
+	apple2_targets \
+	apple2enh_targets \
+	c64_targets \
+	c128_8502_targets \
+	cx16_targets \
+	pce_targets \
+	atari5200_targets \
+	nes_targets \
+	creativision_targets \
+	osic1p_targets \
+	pet_targets \
+	vic20_targets \
+	c264_targets \
+	atari_lynx_targets \
+	gamate_targets	\
+	supervision_targets \
+	telestrat_targets 
+
+
+################################################################################################
+
+
 cx16: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cx16 \
 	-D__CX16__ \

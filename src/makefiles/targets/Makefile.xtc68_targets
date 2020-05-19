@@ -2,6 +2,15 @@
 # XTC68
 #
 
+# xtc86 targets
+sinclair_ql_targets: \
+	sinclair_ql_tiny_buffered
+
+
+xtc68_targets: sinclair_ql_targets
+
+
+#############################################################################################
 
 XTC68_ALL_OPTS ?= \
 	$(XTC68_OPTS) $(INCLUDE_OPTS)\

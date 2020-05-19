@@ -1,6 +1,14 @@
 # ------------------------------------------------------------------------------------------
 # GCC ATARI ST
 
+atari_st_targets: \
+	atari_st_buffered atari_st_ncurses
+
+gcc_atari_st_targets: \
+    atari_st_targets
+    
+#############################################################################################
+
 
 atari_st_buffered:
 	$(ATARI_ST_CC) $(INCLUDE_OPTS) \

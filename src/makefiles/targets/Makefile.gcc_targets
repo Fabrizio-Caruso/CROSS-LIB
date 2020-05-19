@@ -2,6 +2,12 @@
 # GCC
 #
 
+gcc_targets: \
+	gcc_buffered ncurses_targets  
+    
+###############################################################################################
+
+
 gcc_buffered:
 	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \

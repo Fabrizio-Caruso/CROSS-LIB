@@ -3,6 +3,11 @@
 #    -target=xr18CX
 # https://sites.google.com/site/lcc1802/downloads/Quarrantine.zip?attredirects=0&d=1
 
+lcc1802_targets: \
+	comx_targets pecom_targets
+
+################################################################################
+
 
 tiny_comx_combo.c: tiny_combo_rand.c
 	cat \

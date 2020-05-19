@@ -3,6 +3,22 @@
 # ACK
 #
 
+_ACK ?= ack
+_ACK_OPTS ?= -O6 
+
+
+ack_targets: \
+    pdp11v7_targets \
+    cpm_8080_targets \
+    pc8086_targets \
+    linux386_targets \
+    linux68k_targets \
+    linuxppc_targets \
+    linuxmips_targets
+    
+############################################################################################
+
+
 pc8086_tiny_buffered:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpc86 \
 	-DFORCE_XSIZE=20 \

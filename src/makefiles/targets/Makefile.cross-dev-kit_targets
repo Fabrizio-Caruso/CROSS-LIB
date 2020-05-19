@@ -1,0 +1,9 @@
+# ------------------------------------------------------------------------------------------
+# CROSSS-DEV-KIT
+#
+
+c128_targets: \
+	c128_8502_targets c128_z80_targets
+    
+cpm_targets: \
+    cpm_8080_targets cpm_z80_targets

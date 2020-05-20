@@ -6,7 +6,7 @@
     #define cputc(c) putchar(c)
 #endif
 
-#if (defined(NO_PRINT) || defined(NO_GRAPHICS)) && !defined(__KAYPRO__)
+#if defined(NO_PRINT) || defined(NO_GRAPHICS)
     #define gotoxy(x,y)
     #define clrscr()
     #define textcolor(c)

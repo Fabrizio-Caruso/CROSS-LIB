@@ -83,9 +83,9 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/rand
 
 LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3
-DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=7
+DRAW_SKIP ?=       -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=7
 EXTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
-ULTRA_DRAW_SKIP ?= -DGHOST_DRAW_SKIP=1 -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
+ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1 
 
 
 TOOLS_PATH ?= ../tools
@@ -127,12 +127,23 @@ include makefiles/auxiliary/Makefile_combo
 #############################################################################################################################################
 
 # All vintage and GCC targets that can be compiled under CYGWIN, i.e., not including gcc_z8k_targets and not including emcc_targets
-all: cc65_targets cmoc_targets ack_targets xtc68_targets gcc_targets gcc_atari_st_targets gcc_amiga_targets lcc1802_targets z88dk_targets
+all: \
+    cc65_targets \
+    cmoc_targets \
+    ack_targets \
+    lcc1802_targets \
+    xtc68_targets \
+    gcc_targets \
+    gcc_atari_st_targets \
+    gcc_amiga_targets \
+    z88dk_targets
 
 
 # Clean targets
 clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o
+
+clean_chase_temp:
 	rm -rf $(SOURCE_PATH)/wincmoc_main.c
 	rm -rf $(SOURCE_PATH)/wincmoc_main.asm
 	rm -rf $(SOURCE_PATH)/wincmoc_main.coco.bin
@@ -154,6 +165,7 @@ clean_lib_obj:
 
 clean_obj: \
 	clean_chase_obj \
+	clean_chase_temp \
 	clean_lib_obj
 
 clean_build:

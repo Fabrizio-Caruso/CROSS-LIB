@@ -3,7 +3,7 @@
 #include "text_macros.h"
 
 
-#if !defined(NO_MESSAGE) && !defined(NO_PRINT)
+#if !defined(NO_PRINT)
 	#if !defined(ALT_DISPLAY_STATS)
 	void printCenteredMessageOnRow(uint8_t row, char *Text)
 	{

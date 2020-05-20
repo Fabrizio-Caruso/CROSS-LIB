@@ -11,6 +11,70 @@ FAST_TEST_OPTS ?= \
 -DNO_RANDOM_LEVEL -DFLAT_ENEMIES -DFORCE_GHOSTS_NUMBER=8 \
 -DNO_STATS
 
+####################################################################################################################
+
+zsdcc_test: \
+	aquarius_zsdcc_test \
+	c128_z80_zsdcc_test \
+	mc1000_zsdcc_test \
+	spectrum_zsdcc_test \
+	svi_zsdcc_test \
+	vz200_zsdcc_test \
+	vg5k_zsdcc_test \
+	zx81_zsdcc_test 
+
+
+sccz80_test: \
+	abc80_test \
+	ace_test \
+	aquarius_test \
+	c128_z80_test \
+	cpc_test \
+	cpm_test \
+ 	eg2k_test \
+	einstein_test \
+	gal_test \
+	kc_test \
+	lambda_test \
+	m5_test \
+	mc1000_test \
+	microbee_test \
+	msx_test \
+	mtx_test \
+	mz_test \
+	nascom_test \
+	nc100_test \
+	p2000_test \
+	pc6001_test \
+	pps_test \
+	pv2000_test \
+	px4_test \
+	px8_test \
+	samcoupe_test \
+	sc3000_test \
+	sg1000_test \
+	spectrum_test \
+	srr_test \
+	svi_test \
+	ti82_test \
+	ti83_test \
+	ti85_test \
+	trs80_test \
+	vg5k_test \
+	vz200_test \
+	x1_test \
+	z1013_test \
+	z9001_test \
+	zx80_test \
+	zx81_test 
+
+
+z88dk_test: \
+	sccz80_test \
+	zsdcc_test	
+	
+
+####################################################################################################################
 
 einstein_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein  -v \
@@ -547,7 +611,7 @@ nc100_test:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
 	-DNO_INIT_GRAPHICS \
 	-D__NC100__ \
-	-DNO_PRINT \
+	-DNO_PRINT -DNO_MESSAGE -DFORCE_NO_CONIO_LIB \
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DNO_SLEEP \
@@ -741,65 +805,4 @@ c128_z80_zsdcc_test:
 	rm A
 	rm a.bin
 
-###############################################################################
 
-zsdcc_test: \
-	aquarius_zsdcc_test \
-	c128_z80_zsdcc_test \
-	mc1000_zsdcc_test \
-	spectrum_zsdcc_test \
-	svi_zsdcc_test \
-	vz200_zsdcc_test \
-	vg5k_zsdcc_test \
-	zx81_zsdcc_test 
-
-
-sccz80_test: \
-	abc80_test \
-	ace_test \
-	aquarius_test \
-	c128_z80_test \
-	cpc_test \
-	cpm_test \
- 	eg2k_test \
-	einstein_test \
-	gal_test \
-	kc_test \
-	lambda_test \
-	m5_test \
-	mc1000_test \
-	microbee_test \
-	msx_test \
-	mtx_test \
-	mz_test \
-	nascom_test \
-	nc100_test \
-	p2000_test \
-	pc6001_test \
-	pps_test \
-	pv2000_test \
-	px4_test \
-	px8_test \
-	samcoupe_test \
-	sc3000_test \
-	sg1000_test \
-	spectrum_test \
-	srr_test \
-	svi_test \
-	ti82_test \
-	ti83_test \
-	ti85_test \
-	trs80_test \
-	vg5k_test \
-	vz200_test \
-	x1_test \
-	z1013_test \
-	z9001_test \
-	zx80_test \
-	zx81_test 
-	
-
-z88dk_test: \
-	sccz80_test \
-	zsdcc_test	
-	

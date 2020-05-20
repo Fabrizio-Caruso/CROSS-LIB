@@ -1,0 +1,23 @@
+
+-------------------------------------
+NO_MESSAGE
+
+It disables:
+- printGameOver
+- gameCompleted
+- _printScoreOnRow
+- _printScore
+- printKillTheSkull
+- highScoreScreen
+
+-------------------------------------
+LESS_TEXT
+
+It disables:
+- printLevel
+- printVictoryMessage
+- printExtraLife
+
+
+-------------------------------------
+

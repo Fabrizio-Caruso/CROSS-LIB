@@ -77,6 +77,12 @@ void printStartMessage(void);
 	#define gameCompleted()
 #endif
 
+#if !defined(NO_MESSAGE) && !defined(NO_PRINT)
+	void printPressKeyToStart(void);
+#else
+	#define printPressKeyToStart()
+#endif
+
 #if !defined(TINY_GAME) && !defined(NO_MESSAGE)
 	void _printScoreOnRow(uint8_t row, char * text, uint16_t score);
 	void _printScore(char * text, uint16_t score);

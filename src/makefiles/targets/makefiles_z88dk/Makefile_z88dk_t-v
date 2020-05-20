@@ -263,20 +263,22 @@ tiki100:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=tiki100 -ltiki100 \
 	$(INCLUDE_OPTS) \
 	-D__TIKI100__ \
-	-DNO_PRINT \
+	-DALT_PRINT \
 	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-DINITIAL_GHOST_FREEZE \
 	-DNO_COLOR \
 	-DALT_MOVE \
 	-DNO_RANDOM_LEVEL \
 	-DNO_SLEEP \
-	-DZ88DK_SPRITES \
-	-DLESS_TEXT \
 	-DNO_HINTS \
 	-DNO_SET_SCREEN_COLORS \
-	-DANIMATE_PLAYER \
 	-create-app \
 	-DNO_INIT_GRAPHICS \
-	$(FULL_FILES) 
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv a.dsk $(BUILD_PATH)/FULL_tiki100.dsk
 	rm a.bin
 	rm a_HIMEM.bin

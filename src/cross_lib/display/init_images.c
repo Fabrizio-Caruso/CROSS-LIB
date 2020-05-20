@@ -67,6 +67,18 @@ extern Image BOMB_IMAGE;
     #if !defined(COLOR_RED)
         #define COLOR_RED 0
     #endif
+    #if !defined(COLOR_BLUE)
+        #define COLOR_BLUE 0
+    #endif
+    #if !defined(COLOR_WHITE)
+        #define COLOR_WHITE 0
+    #endif
+    #if !defined(COLOR_YELLOW)
+        #define COLOR_YELLOW 0
+    #endif
+    #if !defined(COLOR_GREEN)
+        #define COLOR_GREEN 0
+    #endif
 #endif 
 
 

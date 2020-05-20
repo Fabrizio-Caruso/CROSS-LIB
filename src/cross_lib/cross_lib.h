@@ -58,7 +58,6 @@
 	#define ASM_KEY_DETECT
 	// #define ANIMATE_PLAYER
 	// #define SOUNDS
-	// #define LESS_TEXT
 	// #define NO_SLEEP
 	// #define NO_RANDOM_LEVEL
 	// #define NO_SET_SCREEN_COLORS

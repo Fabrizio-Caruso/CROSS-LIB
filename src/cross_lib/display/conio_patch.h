@@ -212,12 +212,8 @@
             #define COLOR_CYAN CYAN
             #define COLOR_MAGENTA MAGENTA
             #define COLOR_RED RED
-            #define COLOR_YELLOW YELLOW		
+            #define COLOR_YELLOW YELLOW
         #endif	
-    #else
-        #if !defined(CONIO_LIB)
-            #define textcolor 
-        #endif
     #endif
 #endif // defined(NO_GRAPHICS)
 #endif // _CONIO_PATH_H

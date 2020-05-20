@@ -53,15 +53,7 @@
 
 
 #if defined(__WINCMOC__)
-	//#define FULL_GAME
-	//#define TINY_GAME	
 	#define ASM_KEY_DETECT
-	// #define ANIMATE_PLAYER
-	// #define SOUNDS
-	// #define NO_SLEEP
-	// #define NO_RANDOM_LEVEL
-	// #define NO_SET_SCREEN_COLORS
-	// #define NO_INITIAL_SCREEN
 #endif
 
 

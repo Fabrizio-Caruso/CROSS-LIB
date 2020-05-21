@@ -19,7 +19,7 @@
         #define bordercolor(c)
     #endif
 
-    #if defined(Z88DK)
+    #if defined(Z88DK) || defined(ACK)
         #define cprintf printf
     #endif
 

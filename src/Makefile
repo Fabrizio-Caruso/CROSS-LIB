@@ -184,11 +184,11 @@ list:
 	cat ../docs/SYSTEMS.md
 
 
-simple_test: gcc_buffered
+####################################################################################################################
+# TESTS
 
 
-test: simple_test z88dk_test
-
+include makefiles/tests/Makefile.tests
 
 ####################################################################################################################
 # TARGETS PER DEV-KIT
@@ -273,12 +273,6 @@ include makefiles/targets/Makefile.sdcc_targets
 # Cross dev-kit 
 include makefiles/targets/Makefile.cross-dev-kit_targets
 
-
-####################################################################################################################
-# Compilation Tests
-
-# - Z88DK
-include makefiles/tests/Makefile.z88dk_tests
 
 ####################################################################################################################
 	

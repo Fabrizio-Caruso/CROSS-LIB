@@ -1,0 +1,118 @@
+#########################################################
+# (FAST) SIMPLE TESTS
+
+
+#######################################################
+# (LONG) TESTS
+# Compilers and Dev-kits covered:
+# - gcc
+
+simple_test: gcc_buffered
+
+
+#######################################################
+# TESTS EXCLUDING Z88DK
+# Compilers and Dev-kits covered:
+# - gcc
+# - cmoc
+# - cc65
+# - ack
+# - gcc_amiga
+# - gcc_atari_st
+# - xtc68
+# - lcc1802
+
+test_without_z88dk: \
+    gcc_full_tests \
+    cmoc_full_tests \
+    cc65_full_tests \
+    ack_full_tests \
+    mod_gcc_full_tests \
+    xtc68_full_tests \
+    lcc1802_full_tests
+    
+
+mod_gcc_full_tests: \
+    gcc_amiga_targets \
+    gcc_atari_st_targets \
+
+xtc68_full_tests: \
+    xtc68_targets
+
+
+cmoc_full_tests: \
+    coco_targets \
+    mo5_targets 
+
+cc65_full_tests: \
+    vic20_targets \
+    supervision_targets \
+    atari_lynx_targets \
+    pet_targets \
+    c64_targets \
+    gamate_targets 
+
+ack_full_tests: \
+    pc8086_targets \
+    cpm_8080_adm3a 
+    
+gcc_full_tests: \
+    simple_test \
+    ncurses
+
+lcc1802_full_tests: \
+    full_comx
+
+
+
+#######################################################
+# (LONG) TESTS
+# Compilers and Dev-kits covered:
+# - gcc
+# - cmoc
+# - cc65
+# - ack
+# - gcc_amiga
+# - gcc_atari_st
+# - xtc68
+# - lcc1802
+# - z88dk 
+
+test: \
+    test_without_z88dk \
+    z88dk_full_tests
+
+
+z88dk_full_tests: \
+    cpm_z80_adm3a \
+    c128_z80_80col \
+    msx_32k \
+    spectrum_48k \
+    zx81_16k_wrx \
+    tiki100_targets \
+    aquarius_targets \
+    cpc 
+
+
+
+####################################################################################################################
+# Z88DK Compilation Tests with several minimal versions of the game
+# 
+include makefiles/tests/Makefile.z88dk_tests
+
+
+
+#######################################################
+# HARD (EXTREMELY LONG) TESTS
+# Compilers and Dev-kits covered:
+# - gcc
+# - cmoc
+# - cc65
+# - ack
+# - gcc_amiga
+# - gcc_atari_st
+# - xtc68
+# - z88dk 
+
+hard_test: test z88dk_test
+

@@ -1,5 +1,5 @@
 #include <rca_vis_video.h>
-
+#include <rca_system.h>
 
 void redefine_char(const unsigned char * shapelocation, int color)
 {
@@ -14,23 +14,6 @@ void redefine_char(const unsigned char * shapelocation, int color)
     colored_shape[9]=0;
     shapechar(colored_shape, 1);
 }
-
-// COMX and PECOM
-void disableinterrupt(){
-    asm(
-        " sex 3\n"
-        " dis\n"
-        " db 0x23\n");
-}
-
-// COMX and PECOM
-void enableinterrupt(){
-    asm(
-        " sex 3\n"
-        " ret\n"
-        " db 0x23\n");
-}
-
 
 #define __PLAYER_DOWN_UDG              12,18,12,51,45,12,18,51
 #define __PLAYER_UP_UDG                12,30,12,51,45,12,18,51
@@ -105,15 +88,14 @@ void INIT_GRAPHICS(void)
     redefine_char(freeze_udg, 3);
     redefine_char(super_udg, 0);
 
-    #if defined(__COMX__)
-        //disableinterrupt();
+    #if defined(__COMX__) || defined(__PECOM__)
+        disableinterrupt();
     #endif
+    
     (void) bgcolor(0);
-    #if defined(__COMX__)
+    #if defined(__COMX__) || defined(__PECOM__)
     	textcolordefinition(3);
         monochrome(0);
-    #elif defined(__PECOM__)
-    	textcolordefinition(3);
     #endif
-
+    
 }

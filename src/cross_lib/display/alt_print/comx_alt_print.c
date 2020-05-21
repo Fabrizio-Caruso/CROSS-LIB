@@ -1,7 +1,7 @@
 #include <nstdlib.h>
 
 #include <rca_vis_video.h>
-#include <rca_printf.h>
+// #include <rca_printf.h>
 
 #include "standard_libs.h"
 
@@ -14,8 +14,14 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 
 }
 
+#if defined(__COMX__)
+    #define CHAR_OFFSET 48
+#else
+    #define CHAR_OFFSET 48
+#endif
 
-#define _DISPLAY(x,y,ch) vidchar((uint16_t)0xF800+x+y*40, ch+48)
+
+#define _DISPLAY(x,y,ch) vidchar((uint16_t)0xF800+x+y*40, ch+CHAR_OFFSET)
 
 void print_05u0(uint8_t x, uint8_t y, uint16_t val)
 {
@@ -32,20 +38,20 @@ void print_05u0(uint8_t x, uint8_t y, uint16_t val)
 	
 	for(i=0;i<6;++i)
 	{
-		_DISPLAY(x+i,y, (uint8_t) (digits[5-i])+48);
+		_DISPLAY(x+i,y, (uint8_t) (digits[5-i])+CHAR_OFFSET);
 	}
 }	
 
 void print_02u(uint8_t x, uint8_t y, uint16_t val)
 {
-	_DISPLAY(x,y, ((uint8_t) val)/10+48);
-	_DISPLAY(1+x,y, ((uint8_t) val)%10+48);
+	_DISPLAY(x,y, ((uint8_t) val)/10+CHAR_OFFSET);
+	_DISPLAY(1+x,y, ((uint8_t) val)%10+CHAR_OFFSET);
 }	
 
 
 void print_u(uint8_t x, uint8_t y, uint16_t val)
 {
-	_DISPLAY(x,y, (uint8_t) (val+48));
+	_DISPLAY(x,y, (uint8_t) (val+CHAR_OFFSET));
 }
 
 

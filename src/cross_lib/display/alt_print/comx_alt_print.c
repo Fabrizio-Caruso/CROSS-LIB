@@ -1,12 +1,16 @@
 #include <nstdlib.h>
 
 #include <rca_vis_video.h>
+#include <rca_printf.h>
+
 #include "standard_libs.h"
 
 
 void PRINT(uint8_t x, uint8_t y, char * str)
 {
     vidstrcpy((uint16_t) 0xF800+x+y*40,str);
+    // gotoxy(x,y);
+    // printf(str);
 
 }
 

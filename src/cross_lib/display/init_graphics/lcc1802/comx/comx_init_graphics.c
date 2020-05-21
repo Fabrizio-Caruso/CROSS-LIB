@@ -106,7 +106,7 @@ void INIT_GRAPHICS(void)
     redefine_char(super_udg, 0);
 
     #if defined(__COMX__)
-        disableinterrupt();
+        //disableinterrupt();
     #endif
     (void) bgcolor(0);
     #if defined(__COMX__)

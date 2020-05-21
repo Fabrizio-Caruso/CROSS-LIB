@@ -194,7 +194,7 @@ void _delete(uint8_t x, uint8_t y);
     #endif
     #define CLEAR_SCREEN() clear()
 #elif defined(__COMX__) || defined(__PECOM__)
-    #include "rca_vis_video.h"
+    #include <rca_vis_video.h>
     
     #define CLEAR_SCREEN() vidclr(0xF800,24*40)
 #else // CONIO case

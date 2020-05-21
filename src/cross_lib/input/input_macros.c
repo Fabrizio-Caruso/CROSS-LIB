@@ -33,7 +33,7 @@
 #if defined(__COMX__) || defined(__PECOM__) || (defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB))
     
     #if defined(__COMX__) || defined(__PECOM__) 
-        #include "rca_keyboard_encoder.h"
+        #include <rca_keyboard_encoder.h>
     #endif 
     
     char GET_CHAR(void)
@@ -260,7 +260,7 @@ out            stb res
             #define cgetc() getch()
         #endif 
         #if defined(__LCC1802__)
-            #include "rca_keyboard_encoder.h"
+            #include <rca_keyboard_encoder.h>
         #endif
         void WAIT_PRESS(void)
         {

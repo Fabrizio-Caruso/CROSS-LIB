@@ -64,7 +64,7 @@ const unsigned char horizontal_brick_udg[10] = {122, __HORIZONTAL_BRICK_UDG, 0};
 
 void INIT_GRAPHICS(void)
 {
-    setvideobase(0x7800);
+    setvideobase(0xF800);
 
     redefine_char(player_down, 3);
     redefine_char(player_up, 3);

@@ -82,7 +82,7 @@ For more details we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blo
 
 You can test many targets if you have installed `GCC` by simply running `make simple_test`, which will build targets that only depend on `GCC`.
 
-If you want to run multiple tests that depend on several cross-compilers, except Z88DK, you can run `make no_z88dk_test`.
+If you want to run multiple tests that depend on several cross-compilers, not including Z88DK, you can run `make no_z88dk_test`.
 
 If you want to run multiple tests that depend on several cross-compilers, including Z88DK, you can run`make test` (very long execution time).
 

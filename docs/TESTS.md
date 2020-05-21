@@ -7,8 +7,12 @@ The purpose of these tests is to test the compilation.
 If you have installed `GCC`, you can run `make simple_test` (short compilation time), which builds the game by only using `GCC` for the host system.
 This test will produce a binary that can be run on the host console.
 
+### MORE TESTS
+You can run many tests that use several cross-compilers and dev-kits not including Z88DK by running `make no_z88dk_test`.
 
-### Z88DK
+You can run many tests that use several cross-compilers and dev-kits including Z88DK by running `make test` (long compilation time).
+
+### MORE Z88DK TESTS
 If you have installed `Z88DK` you can test lots of Z80 systems and targets by 
 - `make sccz80_test` to test the compilation of different targets with `SCCZ80`;
 - `make zsdcc_test` to test the compilation of different targets with `ZSDCC`
@@ -16,5 +20,5 @@ If you have installed `Z88DK` you can test lots of Z80 systems and targets by
 
 Compilation for these tests will be very long.
 
-### ALL TESTS
-You can run all tests by running `make test` (long compilation time).
+### EXTRA TESTS
+You can run all of the above tests by running `make hard_test` (extremely long compilation time).

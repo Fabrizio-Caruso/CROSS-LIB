@@ -68,14 +68,16 @@ The game and library code are  separated:
 
 The tool-chain currently supports: *CC65*, *Z88DK* (*SCCZ80* and *ZSDCC*), *CMOC*, *LCC1802*, *ACK*, *XTC68*, *GCC*, *GCC-Z8K*, *GCC-ATARI-ST*, *GCC-AMIGA*, *GCC-TI*.
 
-For more details look at: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
+For more details look at: 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
 
 -------------------------------------------
 
 ## HOW TO COMPILE THE GAME
 In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
 
-For more details we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/PREREQUISITES.md
+For more details we refer to: 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/PREREQUISITES.md
 
 
 ### Compilation tests
@@ -86,7 +88,8 @@ If you want to run multiple tests that depend on several cross-compilers, not in
 
 If you want to run multiple tests that depend on several cross-compilers, including Z88DK, you can run`make test` (very long execution time).
 
-More details on tests are in:  https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TESTS.md
+More details on tests are in:  
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TESTS.md
 
 
 ### Build all targets for a given system
@@ -95,18 +98,21 @@ You can build all targets for a given system with
 
 `make [system_name]_targets`
 
-For the list of systems either run `make list` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+For the list of systems either run `make list` or look at 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
 
 ### Build all targets that are built by a given compiler or devkit:
 
 `make [compiler_name]_targets`
 
-You can find the list of compilers and dev-kit if you either run `make help` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILER_NAMES.md
+You can find the list of compilers and dev-kit if you either run `make help` or look at 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILER_NAMES.md
 
 
 ### Detailed build instructions 
 
-For more details on how to build either run `make help` or look at https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
+For more details on how to build either run `make help` or look at 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
 
 -------------------------------------------
 
@@ -114,8 +120,9 @@ For more details on how to build either run `make help` or look at https://githu
 In order to run the game you will have to follow a different procedure depending on whether you want to load it into an emulated system or a real system.
 
 ### Loading the game into an emulated vintage system
-Each emulator for each system may be different but most emulators are straightforward. 
-For a guide on to load the game on many not so obvious cases we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/HOW_TO_LOAD_THE_GAME.txt
+In most cases loading an executable into an emulator is straightforward. 
+For a detailed guide on how to load the game on several emulated systems for which the procedure is not obvious, we refer to: 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/HOW_TO_LOAD_THE_GAME.txt
 
 ### Loading the game into a real vintage system
 This depends on the systems and the format used to store the game. 
@@ -142,7 +149,8 @@ Therefore the following coding choices and design decisions have been made:
 
 Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects but the game code is hardware-agnostic.
 
-The game code is in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/src/chase
+The game code is in: 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/src/chase
 
 -------------------------------------------
 
@@ -185,14 +193,16 @@ If colors, graphics and sounds are available the tool-chain and CrossLib will pr
 ![ZX81](snapshots/zx81_1.jpg)
 ![C16 first level](snapshots/c264_level1.jpg)
 
-For more snapshots we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SNAPSHOTS.md
+For more snapshots we refer to: 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SNAPSHOTS.md
 
 -------------------------------------------
 
 ## CROSSLIB
 CrossLib provides a *retro-hardware abstraction layer* for display, sound, input, etc.
 
-CrossLib code is in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/src/cross_lib
+CrossLib code is in: 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/src/cross_lib
 
 ### Sound
 Sound abstraction is achieved by providing common APIs for the (few) sounds that CrossLib provides.
@@ -205,7 +215,8 @@ Display abstraction is provided by (at least) two levels of abstraction:
 - Common APIs that, for each target, implement one of several graphics modes;
 - Generic graphics modes that may be shared among a few targets.
 
-For more details on CrossLib we refer to: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/CROSSLIB.md
+For more details on CrossLib we refer to: 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/CROSSLIB.md
 
 
 -------------------------------------------

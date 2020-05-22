@@ -68,7 +68,7 @@
 		#include "psg_sounds.h"
 	#elif defined(__MC1000__) && defined(SOUNDS)
 		#include "bit_bang_sounds.h"
-	#elif defined(__COMX__) || defined(__PECOM__)
+	#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
 		#include "comx_sounds.h"
 	#elif defined(__WINCMOC__) && defined(SOUNDS)
 		#include "wincmoc_sounds.h"

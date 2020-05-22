@@ -36,7 +36,7 @@
 #elif defined(__AQUARIUS__)
 	#define BASE_ADDR (12288+40)
 	#define COLOR_ADDR (BASE_ADDR+1024)
-#elif defined(__COMX__) || defined(__PECOM__)
+#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
 	#define BASE_ADDR 0xF800
 #endif
 

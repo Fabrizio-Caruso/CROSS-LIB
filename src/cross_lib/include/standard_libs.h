@@ -4,7 +4,7 @@
 #elif defined(__BBC__) && defined(NO_GRAPHICS)
     #include <stdint.h>
     #include <stdlib.h>
-#elif defined(__COMX__) || defined(__PECOM__)
+#elif defined(__LCC1802__)
     #include <stdint.h>
 #elif defined(NO_GRAPHICS) 
     #if !defined(_STDINT)

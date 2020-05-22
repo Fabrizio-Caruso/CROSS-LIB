@@ -193,7 +193,7 @@ void _delete(uint8_t x, uint8_t y);
         #include <ncurses.h>
     #endif
     #define CLEAR_SCREEN() clear()
-#elif defined(__COMX__) || defined(__PECOM__)
+#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
     #include <rca_vis_video.h>
     
     #define CLEAR_SCREEN() vidclr(0xF800,24*40)

@@ -100,6 +100,12 @@
             #define MOVE_LEFT 0x5C
             #define MOVE_RIGHT 0x5D
             #define MOVE_FIRE 0x40
+        #elif defined(__TMC600__)
+            #define MOVE_UP 0x0B
+            #define MOVE_DOWN 0x0A
+            #define MOVE_LEFT 0x08
+            #define MOVE_RIGHT 0x09
+            #define MOVE_FIRE 0x20
         #endif
 
         #define JOY_UP(joyInput) ((joyInput) == MOVE_UP)
@@ -122,7 +128,7 @@
         #include <arch/sms/SMSLib.h>
         
         #define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
-    #elif defined(__COMX__) || defined(__PECOM__)
+    #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
         #define JOY_INPUT() GET_CHAR()
     #else
         #define JOY_INPUT() joy_read(JOY_1)

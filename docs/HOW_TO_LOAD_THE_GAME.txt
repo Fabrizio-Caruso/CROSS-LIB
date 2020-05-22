@@ -64,6 +64,20 @@ Select HEX Files
 Chose the .hex file
 Run with CALL(&0200)
 
+
+---------------------------------------------------------
+TMC-600
+
+Use EMMA 02 (https://www.emma02.hobby-site.com/download.html)
+Select telmac tab.
+Select TMC-600
+Click on START (window may hide the option -> make it bigger)
+Click on LOAD
+Go to the directory with the .hex file
+Select HEX Files 
+Chose the .hex file
+Run with CALL(@6300)
+
 ---------------------------------------------------------
 NES 
 

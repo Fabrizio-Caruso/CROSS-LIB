@@ -58,6 +58,25 @@ extern Image BOMB_IMAGE;
 #define _AQUARIUS_VIOLET (16+64) 
 #define _AQUARIUS_CYAN (32+64)
 
+/*
+					; 0: black
+					; 1: green
+					; 2: blue
+					; 3: cyan
+					; 4: red
+					; 5: yellow
+					; 6: magenta
+					; 7: white
+*/
+#if defined(__TMC600__)
+    #define CYAN 2
+    #define RED 4
+    #define GREEN 1
+    #define YELLOW 5
+    #define WHITE 7
+    #define COLOR_WHITE WHITE
+    #define COLOR_BLUE CYAN
+#endif
 
 #ifndef COLOR_CYAN
 	#define COLOR_CYAN COLOR_BLUE

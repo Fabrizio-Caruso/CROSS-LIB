@@ -88,7 +88,7 @@ For most systems, more than one version is built, in order to support different 
 - pasaopia7: Toshiba Pasopia 7 (work in progress)
 - pc88: NEC PC 8801 (work in progress)
 - pce: PCEngine
-- pecom: Pecom 32/64 (work in progress)
+- pecom: Pecom 32/64
 - pencil2: Hanimex Pencil II
 - pet: Commodore Pet
 - pmd85: PMD85 (work in progress)
@@ -117,6 +117,7 @@ For most systems, more than one version is built, in order to support different 
 - sv8000: Bandai Supervision 8000 (work in progress)
 - svi: Spectravideo 318/328
 - telestrat: Oric Telestrat (work in progress)
+- tmc600: Telmac TMC-600
 - ti82: Texas TI 82
 - ti83: Texas TI 83
 - ti8x: Texas TI 83 Plus

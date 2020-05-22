@@ -140,7 +140,7 @@ full_comx: full_comx_combo.c
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	$(COMX_MACROS) \
-	-DFORCE_GHOSTS_NUMBER=6 \
+	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../full_comx_combo.c
 	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_comx.hex
@@ -181,7 +181,7 @@ full_pecom: full_pecom_combo.c
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	$(COMX_MACROS) \
-	-DFORCE_GHOSTS_NUMBER=6 \
+	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../full_pecom_combo.c
 	rm -rf $(SOURCE_PATH)/../full_pecom_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_pecom.hex
@@ -194,7 +194,7 @@ tiny_tmc600: tiny_tmc600_combo.c
 	-DTINY_GAME \
 	-DLCC1802_JOYSTICK \
 	$(COMX_MACROS) \
-	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../tiny_tmc600_combo.c
 	rm -rf $(SOURCE_PATH)/../tiny_tmc600_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_tmc600.hex
@@ -206,7 +206,7 @@ light_tmc600: light_tmc600_combo.c
 	-DLIGHT_GAME \
 	-DLCC1802_JOYSTICK \
 	$(COMX_MACROS) \
-	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../light_tmc600_combo.c
 	rm -rf $(SOURCE_PATH)/../light_tmc600_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_tmc600.hex
@@ -218,7 +218,7 @@ full_tmc600: full_tmc600_combo.c
 	-DFULL_GAME \
 	-DLCC1802_JOYSTICK \
 	$(COMX_MACROS) \
-	-DFORCE_GHOSTS_NUMBER=6 \
+	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../full_tmc600_combo.c
 	rm -rf $(SOURCE_PATH)/../full_tmc600_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_tmc600.hex

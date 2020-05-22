@@ -129,6 +129,30 @@
 	}
 
 
+#define ROUND_SEVEN_GHOSTS() \
+	for(i=0+OPT_OFFSET;i<=2+OPT_OFFSET;++i) \
+	{ \
+		for(j=0+OPT_OFFSET;j<=2+OPT_OFFSET;++j) \
+		{ \
+			if(i!=1+OPT_OFFSET || j !=1+OPT_OFFSET) \
+			{ \
+				if(count<7) \
+                { \
+                    if(nGhosts>count) \
+                    { \
+                        PLACE_ROUND_GHOST(); \
+                    } \
+                    else \
+                    { \
+                        PLACE_DEAD_GHOST(); \
+                    } \
+                    ++count; \
+                } \
+			} \
+		} \
+	}
+
+
 #define FLAT_EIGHT_GHOSTS() \
 	for(j=1;j<=4;++j) \
 	{ \

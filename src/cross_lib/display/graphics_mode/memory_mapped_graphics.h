@@ -57,7 +57,7 @@
         POKE(VDP_DATA,val); \
         __asm__("cli");    
         
-#elif defined(__COMX__) || defined(__PECOM__)
+#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
     #include <comx/rca_vis_video.h>
     #define DISPLAY_POKE(addr,val) vidchar(addr,val)
 #else

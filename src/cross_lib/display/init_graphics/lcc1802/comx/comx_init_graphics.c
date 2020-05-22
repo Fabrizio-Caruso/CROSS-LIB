@@ -1,5 +1,5 @@
-#include <rca_vis_video.h>
-#include <rca_system.h>
+#include <comx/rca_vis_video.h>
+#include <comx/rca_system.h>
 
 #if defined(__COMX__) || defined(__PECOM__)
     void redefine_char(const unsigned char * shapelocation, int color)

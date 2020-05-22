@@ -25,7 +25,7 @@
 #ifndef _COMX_SOUNDS
 #define _COMX_SOUNDS
 
-#include <rca_vis_sound.h>
+#include <comx/rca_vis_sound.h>
 
     void _ping_sound(uint8_t freq);
     

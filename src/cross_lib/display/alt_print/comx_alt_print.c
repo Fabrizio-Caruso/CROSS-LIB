@@ -1,7 +1,7 @@
 #include <nstdlib.h>
 
-#include <rca_vis_video.h>
-// #include <rca_printf.h>
+#include <comx/rca_vis_video.h>
+// #include <comx/rca_printf.h>
 
 #include "standard_libs.h"
 

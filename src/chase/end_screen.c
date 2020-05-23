@@ -19,7 +19,6 @@
 	extern Character bullet;
 	extern uint8_t playerFire;
 	extern uint8_t level;
-	extern uint8_t loop;
 	extern uint8_t guns;
 	extern uint8_t ind;
 #endif

@@ -29,6 +29,11 @@ COMX_EXTRA_FILES ?= \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
 
+COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
+	$(SOURCE_PATH)/end_screen.c \
+	$(COMX_EXTRA_FILES) 
+
+
 tiny_comx_combo.c: tiny_combo_rand.c
 	cat \
 	$(COMX_EXTRA_FILES) \
@@ -43,7 +48,7 @@ light_comx_combo.c: light_combo_rand.c
     
 full_comx_combo.c: full_combo_rand.c
 	cat \
-	$(COMX_EXTRA_FILES) \
+	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_comx_combo.c
 	rm full_combo_rand.c
 
@@ -80,7 +85,7 @@ light_tmc600_combo.c: light_combo_rand.c
 
 full_tmc600_combo.c: full_combo_rand.c
 	cat \
-	$(COMX_EXTRA_FILES) \
+	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_tmc600_combo.c
 	rm full_combo_rand.c
 
@@ -141,10 +146,11 @@ full_comx: full_comx_combo.c
 	-DNO_COLOR \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(COMX_MACROS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../full_comx_combo.c
-	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
+	# rm -rf $(SOURCE_PATH)/../full_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_comx.hex
 
 
@@ -185,6 +191,7 @@ full_pecom: full_pecom_combo.c
 	-DNO_COLOR \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
+	-DBETWEEN_LEVEL \
 	$(COMX_MACROS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../full_pecom_combo.c
@@ -224,6 +231,7 @@ full_tmc600: full_tmc600_combo.c
 	-DLCC1802_JOYSTICK \
 	$(COMX_MACROS) \
 	-DFORCE_GHOSTS_NUMBER=8 \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/../full_tmc600_combo.c
 	rm -rf $(SOURCE_PATH)/../full_tmc600_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_tmc600.hex

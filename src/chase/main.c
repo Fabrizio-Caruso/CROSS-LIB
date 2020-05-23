@@ -590,7 +590,7 @@ int main(void)
 			else // if dead
 			{		
 				#if defined(END_SCREEN) || defined(DANCE)
-					for(bulletDirection=0;bulletDirection<80;++bulletDirection)
+					for(bulletDirection=0;bulletDirection<30;++bulletDirection)
 					{
 						for(ind=0;ind<GHOSTS_NUMBER;++ind)
 						{

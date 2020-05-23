@@ -50,7 +50,8 @@ Click on LOAD
 Go to the directory with the .hex file
 Select HEX Files 
 Chose the .hex file
-Run with CALL(@4400)
+Type RUN
+[equivalent to CALL(@4400)]
 
 ---------------------------------------------------------
 Pecom
@@ -62,7 +63,8 @@ Click on LOAD
 Go to the directory with the .hex file
 Select HEX Files 
 Chose the .hex file
-Run with CALL(&0200)
+Type RUN
+[equivalent to CALL(&0200)]
 
 
 ---------------------------------------------------------
@@ -76,7 +78,8 @@ Click on LOAD
 Go to the directory with the .hex file
 Select HEX Files 
 Chose the .hex file
-Run with CALL(@6300)
+Type RUN
+[equivalent to CALL(@6300)]
 
 ---------------------------------------------------------
 NES 

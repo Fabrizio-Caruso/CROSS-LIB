@@ -20,7 +20,7 @@
 	#define _LEFT_HORIZONTAL_MISSILE_UDG { 0, 0,56,31,31,56, 0, 0}
 	#define _RIGHT_HORIZONTAL_MISSILE_UDG  { 0, 0, 7,62,62, 7, 0, 0}
 	#define _INVINCIBILITY_UDG            {12,18,12,51, 0,12, 0,51}
-	#define _VERTICAL_BRICK_UDG           {12,12,12,12,12,12,12,12}
+	#define _VERTICAL_BRICK_UDG           {12,12,28,12,12,14,12,12}
 	#define _HORIZONTAL_BRICK_UDG         { 0, 0, 0,63,63,00,00,00}
 	#define _EXTRA_POINTS_UDG             
 

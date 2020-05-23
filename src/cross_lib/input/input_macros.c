@@ -33,7 +33,11 @@
 #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || (defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB))
     
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
-        #include <comx/rca_keyboard_encoder.h>
+        #if defined(LCC1802_JOYSTICK) && !defined(__COMX__)
+            #include <comx/rca_joystick.h>
+        #else
+            #include <comx/rca_keyboard_encoder.h>
+        #endif
     #endif 
     
     char GET_CHAR(void)
@@ -259,9 +263,7 @@ out            stb res
             #undef cgetc
             #define cgetc() getch()
         #endif 
-        #if defined(__LCC1802__)
-            #include <comx/rca_keyboard_encoder.h>
-        #endif
+
         void WAIT_PRESS(void)
         {
             while(kbhit())

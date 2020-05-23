@@ -8,11 +8,10 @@
         unsigned char i;
         
         colored_shape[0] = *shapelocation;
-        for(i=1;i<9;++i)
+        for(i=1;i<10;++i)
         {
            colored_shape[i]=shapelocation[i]+color*64;
         }
-        colored_shape[9]=0;
         shapechar(colored_shape, 1);
     }
 
@@ -35,7 +34,7 @@
     #define __ROCKET_UDG                   12,30,30,30,63,45,33,33
     #define __LEFT_HORIZONTAL_MISSILE_UDG   0, 0,56,31,31,56, 0, 0
     #define __RIGHT_HORIZONTAL_MISSILE_UDG  0, 0, 7,62,62, 7, 0, 0
-    #define __VERTICAL_BRICK_UDG           12,12,12,12,12,12,12,12
+    #define __VERTICAL_BRICK_UDG           12,12,28,12,12,14,12,12
     #define __HORIZONTAL_BRICK_UDG          0, 0, 0,63,63,00,00,00
 
     const unsigned char player_down[10] = {  107, __PLAYER_DOWN_UDG, 0 };
@@ -60,7 +59,7 @@
     const unsigned char rocket_udg[10] = { 118 , __ROCKET_UDG, 0 };
     const unsigned char left_missile_udg[10] = { 119 , __LEFT_HORIZONTAL_MISSILE_UDG, 0 };
     const unsigned char right_missile_udg[10] =  { 120 , __RIGHT_HORIZONTAL_MISSILE_UDG, 0};
-    const unsigned char vertical_brick_udg[10] =  { 121 , __VERTICAL_BRICK_UDG, 0};
+    const unsigned char vertical_brick_udg[10] =  { 121 , __VERTICAL_BRICK_UDG, 12 };
     const unsigned char horizontal_brick_udg[10] = {122, __HORIZONTAL_BRICK_UDG, 0};
 #endif
 

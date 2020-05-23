@@ -1,9 +1,23 @@
-#include <nstdlib.h>
+// #include <nstdlib.h>
 
 #include <comx/rca_vis_video.h>
 // #include <comx/rca_printf.h>
 
 #include "standard_libs.h"
+
+
+unsigned char strlen(const char *s)
+{
+    unsigned char count = 0;
+    
+    while(*s)
+    {
+        ++count;
+        ++s;
+    };
+    return count;
+}
+
 
 
 void PRINT(uint8_t x, uint8_t y, char * str)
@@ -81,5 +95,5 @@ void PRINTD(uint8_t x, uint8_t y, char * str, uint16_t val)
 }
 
 
-#include <nstdlib.c>
+// #include <nstdlib.c>
 

@@ -272,3 +272,4 @@ tmc600_targets:
 	make tiny_tmc600
 	make light_tmc600 
 	make full_tmc600
+	make full_tmc600_no_end

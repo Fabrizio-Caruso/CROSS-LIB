@@ -103,7 +103,7 @@ void INIT_GRAPHICS(void)
     #endif
     
     #if defined(__PECOM__)
-        shapecolor(48, 10, 2); // to reshape the numbers
+        shapecolor(36, 22, 2); // to reshape the numbers
         shapecolor(65, 26, 3); // to reshape the capitals
     #endif
 }

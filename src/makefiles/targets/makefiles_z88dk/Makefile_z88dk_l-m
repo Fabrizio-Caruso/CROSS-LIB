@@ -84,20 +84,21 @@ laser500:
 	rm a.cas
 	mv a.wav $(BUILD_PATH)/FULL_laser500.wav
 
+	# -compiler=sdcc 
 
 laser500_bitmap: 	
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -create-app -Cz--audio -v \
 	$(INCLUDE_OPTS) \
-	-D__LASER500__ \
-	-DFORCE_BIT_BANG -DSOUNDS \
-	-DFULL_GAME \
+	-D__LASER500__ -DLASER500_BITMAP \
+	-DFORCE_BIT_BANG -DSOUNDS -DNO_STATS \
+	-DTINY_GAME \
 	-DNO_GRAPHICS -DNO_PRINT -DNO_INPUT -DNO_SET_SCREEN_COLORS \
 	-lndos \
-	$(FULL_FILES) \
+	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/laser500/laser500_bitmap_init_graphics.c
-	mv a.bin $(BUILD_PATH)/laser500_bitmap.bin
+	mv a.bin $(BUILD_PATH)/TINY_laser500_bitmap.bin
 	rm a.cas
-	mv a.wav $(BUILD_PATH)/laser500_bitmap.wav
+	mv a.wav $(BUILD_PATH)/TINY_laser500_bitmap.wav
 
 
 m100:

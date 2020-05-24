@@ -65,6 +65,10 @@ typedef struct ImageStruct Image;
     void _draw_ch(uint8_t x, uint8_t y, uint8_t ch);
 #endif
 
+#if defined(__LASER500__) && defined(LASER500_BITMAP)
+    void laser500_gr4_draw(unsigned char x, unsigned char y, unsigned char *image, unsigned char color);
+#endif
+
 
 #if !defined(BUFFERED)
     #define REFRESH()

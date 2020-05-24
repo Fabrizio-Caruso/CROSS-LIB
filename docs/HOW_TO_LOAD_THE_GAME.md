@@ -839,4 +839,10 @@ Get to BASIC prompt
 File->Run-> Select .cmd file
 
 
+----------------------------------------------------------
+
+### VTECH Laser 500
+
+Use the online Laser500emu (https://nippur72.github.io/laser500emu/)
+Drop the .bin or .wav file onto the browser window
 

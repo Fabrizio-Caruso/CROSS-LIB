@@ -203,7 +203,8 @@ void laser500_gr4_cls() {
    __endasm
 }
 
-void laser500_gr4_draw(unsigned char x, unsigned char y, unsigned char *image, unsigned char color) {
+void laser500_gr4_draw(unsigned char x, unsigned char y, unsigned char *image, unsigned char color) 
+{
 
    __asm
    di
@@ -261,5 +262,5 @@ void INIT_GRAPHICS(void) {
          ch++;
       }     
    }
-   while(1){};
+   // while(1){};
 }

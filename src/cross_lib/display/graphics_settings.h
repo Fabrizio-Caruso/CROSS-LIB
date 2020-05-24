@@ -63,14 +63,14 @@
 	#include "tgi_graphics.h"
 #elif defined(CPCRSLIB)
 	#include "cpc_cpcrslib_graphics.h"
-#elif defined(BIT_MAPPED_4_DUMMY)
-	#include "bit_mapped_4_graphics_DUMMY.h"
 #elif defined(BIT_MAPPED_4)
 	#include "bit_mapped_4_graphics.h"
 #elif defined(BIT_MAPPED)
 	#include "bit_mapped_graphics.h"
 #elif defined(REX)
 	#include "rex_graphics.h"
+#elif defined(LASER500_BITMAP)
+	#include "bitmapped_graphics_laser500.h"
 #elif defined(NO_GRAPHICS)
 	#include "no_graphics.h"
 #endif

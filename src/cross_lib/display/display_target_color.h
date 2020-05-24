@@ -30,9 +30,11 @@
 
 #if !defined(__ATMOS__)
 	#if defined(__ATARI__) \
-		|| (defined(ALT_PRINT) && !defined(__NCURSES__) && !defined(__C64__) && !defined(C16_UNEXPANDED) && !defined(VIC20_EXP_8K)) \
+		|| (defined(ALT_PRINT) && !defined(__NCURSES__) && !defined(__C64__) && !defined(C16_UNEXPANDED) && !defined(VIC20_EXP_8K) && !defined(__TMC600__)) \
 		|| defined(NO_COLOR)
 		#define NO_TEXT_COLOR
+    #else
+        //
 	#endif
 #endif
 

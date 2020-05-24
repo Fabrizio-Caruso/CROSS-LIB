@@ -1,5 +1,5 @@
 // #include <nstdlib.h>
-
+#include "display_macros.h"
 #include <comx/rca_vis_video.h>
 // #include <comx/rca_printf.h>
 
@@ -23,9 +23,6 @@ unsigned char strlen(const char *s)
 void PRINT(uint8_t x, uint8_t y, char * str)
 {
     vidstrcpy((uint16_t) 0xF800+x+y*40,str);
-    // gotoxy(x,y);
-    // printf(str);
-
 }
 
 #define CHAR_OFFSET 48

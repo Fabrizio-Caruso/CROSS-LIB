@@ -150,7 +150,8 @@ void _delete(uint8_t x, uint8_t y);
 #if !defined(NO_SET_SCREEN_COLORS)
     void setScreenColors(void);
 #endif
-    
+
+
 // COLORS 
 #  if defined(NO_COLOR) \
     || defined(__ATARI5200__) \

@@ -98,7 +98,6 @@ full_tmc600_combo_no_end.c: full_combo_rand.c
 COMX_MACROS ?= \
 	-D__LCC1802__ \
 	-DFORCE_NO_CONIO_LIB \
-	-DNO_BLINKING \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_SLEEP \
 	-DLESS_TEXT \
@@ -122,6 +121,7 @@ tiny_comx: tiny_comx_combo.c
 	-D__COMX__ "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \
 	-DNO_COLOR \
+	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	$(COMX_MACROS) \
@@ -136,6 +136,7 @@ light_comx: light_comx_combo.c
 	-D__COMX__  "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
 	-DNO_COLOR \
+	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	$(COMX_MACROS) \
@@ -150,13 +151,14 @@ full_comx: full_comx_combo.c
 	-D__COMX__ "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
 	-DNO_COLOR \
+	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(COMX_MACROS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../full_comx_combo.c
-	# rm -rf $(SOURCE_PATH)/../full_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_comx.hex
 
 
@@ -167,6 +169,7 @@ tiny_pecom: tiny_pecom_combo.c
 	-D__PECOM__ "-Wa-D PECOM=1" $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \
 	-DNO_COLOR \
+	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	$(COMX_MACROS) \
@@ -181,6 +184,7 @@ light_pecom: light_pecom_combo.c
 	-D__PECOM__ "-Wa-D PECOM=1" $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
 	-DNO_COLOR \
+	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	$(COMX_MACROS) \
@@ -195,6 +199,7 @@ full_pecom: full_pecom_combo.c
 	-D__PECOM__ "-Wa-D PECOM=1" $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
 	-DNO_COLOR \
+	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
@@ -236,7 +241,7 @@ full_tmc600: full_tmc600_combo.c
 	-DFULL_GAME \
 	-DLCC1802_JOYSTICK \
 	$(COMX_MACROS) \
-	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_GHOSTS_NUMBER=7 \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/../full_tmc600_combo.c
 	rm -rf $(SOURCE_PATH)/../full_tmc600_combo.c
@@ -248,6 +253,7 @@ full_tmc600_no_end: full_tmc600_combo_no_end.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(TMC600_OPTS)  \
 	-D__TMC600__ "-Wa-D TMC600=1" $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
+	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK -DNO_HINTS \
 	$(COMX_MACROS) \
 	-DFORCE_GHOSTS_NUMBER=6  \

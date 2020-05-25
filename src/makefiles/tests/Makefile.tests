@@ -24,12 +24,13 @@ simple_test: gcc_buffered
 
 test_without_z88dk: \
     gcc_full_tests \
-    cmoc_full_tests \
     cc65_full_tests \
+    cmoc_full_tests \
     ack_full_tests \
+    lcc1802_full_tests \
     mod_gcc_full_tests \
-    xtc68_full_tests \
-    lcc1802_full_tests
+    xtc68_full_tests 
+
     
 
 mod_gcc_full_tests: \
@@ -84,14 +85,15 @@ test: \
 
 
 z88dk_full_tests: \
-    cpm_z80_adm3a \
+    aquarius_targets \
     c128_z80_80col \
+    cpc \
+    cpm_z80_adm3a \
     msx_32k \
     spectrum_48k \
-    zx81_16k_wrx \
     tiki100_targets \
-    aquarius_targets \
-    cpc 
+    zx81_16k_wrx 
+
 
 
 

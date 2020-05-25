@@ -63,11 +63,11 @@
 #if defined(END_SCREEN)
 	void gameCompleted(void)
 	{
-
 		level = 1;
 		
 		CLEAR_SCREEN();
-		fillLevelWithCharacters(GHOSTS_NUMBER);	
+        ghostCount = GHOSTS_NUMBER;
+		fillLevelWithCharacters();	
 
 		playerFire = 0;
 		skull._x = player._x-4;

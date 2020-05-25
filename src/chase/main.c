@@ -302,7 +302,7 @@ int main(void)
 				DRAW_BORDERS();
 			#endif
 			
-			fillLevelWithCharacters(ghostCount);
+			fillLevelWithCharacters();
 			#if !defined(TINY_GAME)
 				constructItems();	
 				

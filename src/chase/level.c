@@ -201,7 +201,7 @@ void spiral(register Character *characterPtr, uint8_t length)
 #endif
 
 
-void fillLevelWithCharacters(uint8_t nGhosts)
+void fillLevelWithCharacters(void)
 {
     uint8_t i;
     uint8_t j;
@@ -211,7 +211,7 @@ void fillLevelWithCharacters(uint8_t nGhosts)
     
         if(isBossLevel)
         {
-            nGhosts = 1+(level>>2);
+            ghostCount = 1+(level>>2);
         }
     
         if(isRocketLevel || isBossLevel)

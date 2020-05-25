@@ -82,7 +82,7 @@
 	{ \
 		for(j=0;j<=2;++j) \
 		{ \
-			if(nGhosts>count) \
+			if(ghostCount>count) \
 			{ \
 				if(count!=4) \
 				{ \
@@ -115,7 +115,7 @@
 		{ \
 			if(i!=1+OPT_OFFSET || j !=1+OPT_OFFSET) \
 			{ \
-				if(nGhosts>count) \
+				if(ghostCount>count) \
 				{ \
 					PLACE_ROUND_GHOST(); \
 				} \
@@ -138,7 +138,7 @@
 			{ \
 				if(count<7) \
                 { \
-                    if(nGhosts>count) \
+                    if(ghostCount>count) \
                     { \
                         PLACE_ROUND_GHOST(); \
                     } \
@@ -158,7 +158,7 @@
 	{ \
 		for(i=1;i<=4;i+=3) \
 		{ \
-			if(nGhosts>count) \
+			if(ghostCount>count) \
 			{ \
 				PLACE_FLAT_GHOST(); \
 			} \
@@ -176,7 +176,7 @@
 	{ \
 		for(i=1;i<=4;i+=3) \
 		{ \
-			if(nGhosts>count) \
+			if(ghostCount>count) \
 			{ \
 				PLACE_FLAT_GHOST_6(); \
 			} \
@@ -271,7 +271,7 @@
 	void spiral(register Character *characterPtr, uint8_t length);
 #endif
 
-void fillLevelWithCharacters(uint8_t nGhosts);
+void fillLevelWithCharacters(void);
 
 #if defined(FULL_GAME)
 	void updateInnerWallVerticalData(void);

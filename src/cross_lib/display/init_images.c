@@ -69,7 +69,7 @@ extern Image BOMB_IMAGE;
 					; 7: white
 */
 #if defined(__TMC600__)
-    #define CYAN 2
+    #define CYAN 3
     #define RED 4
     #define GREEN 1
     #define YELLOW 5

@@ -282,7 +282,7 @@ include makefiles/targets/Makefile.cross-dev-kit_targets
 #include makefiles/alt/Makefile.z88dk_alternative_builds
 
 # - CC65
-#include makefiles/alt/Makefile.cc65_alternative_builds
+include makefiles/alt/Makefile.cc65_alternative_builds
 
 ####################################################################################################################
 	

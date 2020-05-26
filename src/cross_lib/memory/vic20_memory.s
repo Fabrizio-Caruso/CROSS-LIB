@@ -77,8 +77,7 @@ _ghostCount = _chase + $A
 _ghostLevel = _ghostCount + $1
 
 .export _leftHorizontalMissile;
-;_leftHorizontalMissile = _ghostLevel + $2;
-_leftHorizontalMissile = $218
+_leftHorizontalMissile = _ghostLevel + $2;
 
 .export _rightHorizontalMissile;
 _rightHorizontalMissile = _leftHorizontalMissile + $5;

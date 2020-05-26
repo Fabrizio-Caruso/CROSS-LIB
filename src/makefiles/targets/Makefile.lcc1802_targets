@@ -9,9 +9,9 @@ LCC1802 ?= $(LCC1802_PATH)$(LCC1802_EXE)
 #/cygdrive/c/lcc42/bat/caCX.bat
 #/cygdrive/c/lcc42/bin/lcc.exe
 LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wa-D LCCCX=1" "-Wp-D nofloats" "-Wa-D LCCNOLONG"
-COMX_OPTS ?= "-Wa-D CODELOC=0x4400"
-PECOM_OPTS ?= "-Wa-D CODELOC=0x200"
-TMC600_OPTS ?= "-Wa-D CODELOC=0x6300"
+COMX_OPTS ?= "-Wa-D CODELOC=0x4400" "-Wa-D COMX=1"
+PECOM_OPTS ?= "-Wa-D CODELOC=0x200" "-Wa-D PECOM=1"
+TMC600_OPTS ?= "-Wa-D CODELOC=0x6300" "-Wa-D TMC600=1"
 #-target=xr18CX -O "-Wf-volatile" "-Wa-D CODELOC=0x4400" "-Wa-D LCCCX=1"
 #-Wf-volatile -target=xr18CX
 
@@ -117,7 +117,7 @@ COMX_MACROS ?= \
 
 tiny_comx: tiny_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS) \
-	-D__COMX__ "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
+	-D__COMX__  $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \
 	-DNO_COLOR \
 	-DNO_BLINKING \
@@ -132,7 +132,7 @@ tiny_comx: tiny_comx_combo.c
 
 light_comx: light_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS)  \
-	-D__COMX__  "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
+	-D__COMX__   $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
 	-DNO_COLOR \
 	-DNO_BLINKING \
@@ -147,7 +147,7 @@ light_comx: light_comx_combo.c
 
 full_comx: full_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS)  \
-	-D__COMX__ "-Wa-D COMX=1" $(EXTRA_DRAW_SKIP) \
+	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
 	-DNO_COLOR \
 	-DNO_BLINKING \
@@ -165,7 +165,7 @@ full_comx: full_comx_combo.c
 # PECOM
 tiny_pecom: tiny_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS) \
-	-D__PECOM__ "-Wa-D PECOM=1" $(EXTRA_DRAW_SKIP) \
+	-D__PECOM__  $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \
 	-DNO_COLOR \
 	-DNO_BLINKING \
@@ -180,7 +180,7 @@ tiny_pecom: tiny_pecom_combo.c
 
 light_pecom: light_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
-	-D__PECOM__ "-Wa-D PECOM=1" $(EXTRA_DRAW_SKIP) \
+	-D__PECOM__  $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
 	-DNO_COLOR \
 	-DNO_BLINKING \
@@ -195,7 +195,7 @@ light_pecom: light_pecom_combo.c
 
 full_pecom: full_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
-	-D__PECOM__ "-Wa-D PECOM=1" $(EXTRA_DRAW_SKIP) \
+	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
 	-DNO_COLOR \
 	-DNO_BLINKING \
@@ -211,7 +211,7 @@ full_pecom: full_pecom_combo.c
 
 debug_pecom: tiny_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
-	-D__PECOM__ "-Wa-D PECOM=1" \
+	-D__PECOM__  \
 	-DTINY_GAME -DNO_CHASE \
 	-DNO_COLOR \
 	-DNO_BLINKING \
@@ -227,7 +227,7 @@ debug_pecom: tiny_pecom_combo.c
 # TMC600
 tiny_tmc600: tiny_tmc600_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(TMC600_OPTS) \
-	-D__TMC600__ "-Wa-D TMC600=1" $(EXTRA_DRAW_SKIP) \
+	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \
 	-DLCC1802_JOYSTICK \
 	$(COMX_MACROS) \
@@ -239,7 +239,7 @@ tiny_tmc600: tiny_tmc600_combo.c
 
 light_tmc600: light_tmc600_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(TMC600_OPTS)  \
-	-D__TMC600__ "-Wa-D TMC600=1" $(EXTRA_DRAW_SKIP) \
+	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
 	-DLCC1802_JOYSTICK \
 	$(COMX_MACROS) \
@@ -251,7 +251,7 @@ light_tmc600: light_tmc600_combo.c
 
 full_tmc600: full_tmc600_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(TMC600_OPTS)  \
-	-D__TMC600__ "-Wa-D TMC600=1" $(EXTRA_DRAW_SKIP) \
+	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
 	-DLCC1802_JOYSTICK \
 	$(COMX_MACROS) \
@@ -265,7 +265,7 @@ full_tmc600: full_tmc600_combo.c
 # -DNO_PRINT -DNO_MESSAGE -DNO_TITLE 
 full_tmc600_no_end: full_tmc600_combo_no_end.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(TMC600_OPTS)  \
-	-D__TMC600__ "-Wa-D TMC600=1" $(EXTRA_DRAW_SKIP) \
+	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK -DNO_HINTS \

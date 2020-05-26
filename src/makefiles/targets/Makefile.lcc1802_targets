@@ -209,6 +209,21 @@ full_pecom: full_pecom_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_pecom.hex
 
 
+debug_pecom: tiny_pecom_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
+	-D__PECOM__ "-Wa-D PECOM=1" \
+	-DTINY_GAME -DNO_CHASE \
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DLCC1802_JOYSTICK \
+	-DANIMATE_PLAYER \
+	$(COMX_MACROS) \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	$(SOURCE_PATH)/../tiny_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/DEBUG_pecom.hex
+
+
 # TMC600
 tiny_tmc600: tiny_tmc600_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(TMC600_OPTS) \

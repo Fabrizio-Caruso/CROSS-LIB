@@ -1,6 +1,23 @@
 # -----------------------------------------------
 # CC65
 
+#############################
+# VIC 20
+
+vic20_alt_targets: \
+    vic20_exp_3k_light \
+    vic20_exp_8k_full \
+    vic20_exp_8k_old \
+    vic20_unexpanded_no_gfx
+    
+ 
+# Broken: 
+#vic20_unexpanded_turn_based
+    
+
+###############################################################
+
+
 atari5200_light:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_atari5200.rom	
 	
@@ -131,9 +148,12 @@ supervision_tiny:
 
 # -DFULL_GAME
 
+
+#############################
+# VIC 20
 vic20_exp_3k_light:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	--config $(CFG_PATH)/cc65/vic20-3k.cfg  \
+	--config $(CFG_PATH)/cc65/alt/vic20-3k.cfg  \
 	-DANIMATE_PLAYER -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 \
 	-DROUND_ENEMIES \
 	-DSOUNDS \
@@ -162,12 +182,9 @@ vic20_exp_3k_light:
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_3k.prg
 
-vic20_exp_3k_NO_GFX: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t vic20 -DNO_SLEEP -DLESS_TEXT -DNO_SET_SCREEN_COLORS   -DTINY_GAME --config $(SOURCE_PATH)/../cfg/cc65/vic20-3k.cfg  $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
-
 
 vic20_exp_8k_full:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/vic20-8k.cfg \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/alt/vic20-8k.cfg \
 	-DFULL_GAME \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DSIMPLE_STRATEGY \
@@ -191,7 +208,7 @@ vic20_exp_8k_full:
 	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg
 
 vic20_exp_8k_old: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/vic20-8k_old_GFX.cfg \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/alt/vic20-8k_old_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
 	-DREDEFINED_CHARS \
 	-DALT_SLEEP \
@@ -239,7 +256,7 @@ vic20_unexpanded_no_gfx:
 	-DALT_HIGHSCORE \
 	-DROUND_ENEMIES \
 	-DUSE_TINY_MEMORY_BUFFERS \
-	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
+	--config $(CFG_PATH)/cc65/alt/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
@@ -247,6 +264,8 @@ vic20_unexpanded_no_gfx:
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded_no_gfx.prg
 
+
+### TODO: Fix duplicate extern loop
 vic20_unexpanded_turn_based:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DSOUNDS \
@@ -268,7 +287,7 @@ vic20_unexpanded_turn_based:
 	-DALT_DISPLAY_STATS \
 	-DFLAT_ENEMIES \
 	-DUSE_TINY_MEMORY_BUFFERS \
-	--config $(CFG_PATH)/cc65/vic20_unexpanded.cfg  \
+	--config $(CFG_PATH)/cc65/alt/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \

@@ -35,7 +35,7 @@
 			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))		
 			#define INIT_INPUT() { POKE(0xF3DB,0); }
 		#elif defined(__VIC20__)
-			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))		
+			#include <peekpoke.h>
 			#define INIT_INPUT() { POKE(0x028A ,0xFF); }
 		#elif defined(__NCURSES__) && !defined(TURN_BASED)
 			#define INIT_INPUT() nodelay(stdscr,TRUE)

@@ -12,7 +12,7 @@
 		#define PEEK(addr)         (*(uint8_t*) (addr))
 		#define PEEKW(addr) (*(unsigned*) (addr))
 	#else
-		#include <peekpoke.h>	
+		#include <peekpoke.h>
 	#endif
 
 

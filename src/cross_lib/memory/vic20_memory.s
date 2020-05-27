@@ -1,6 +1,9 @@
-
+; $33C - $407 (828-1031) / $334-$3FF  (820-1023)
+;0334-033B    820-827       ??
+;*033C-03FB   828-1019      Cassette buffer
+;0400-0FFF    1024-4095     3K expansion RAM area
 .export _ghosts;
-_ghosts = $33c
+_ghosts = $334
 
 .export _bombs;
 _bombs = _ghosts + $28 
@@ -64,6 +67,17 @@ _BROKEN_BRICK_IMAGE = _confuse + $A
 
 .export _zombie;
 ;_zombie = _confuse + $A
+; $200 - $287 (512-647)
+;*0200-0258  512-600  Basic input buffer
+;*0259-0262  601-610  Logical file table
+;*0263-026C  611-620  Device # table
+;*026D-0276  621-630  Secondary Address table
+;*0277-0280  631-640  Keyboard buffer
+;*0281-0282  641-642  Start of memory for op system
+;*0283-0284  643-644  Top of memory for op system
+;0285        645      Serial bus timeout flag
+;*0286       646      Current color code
+;0287        647      Color under cursor
 _zombie = $200
 
 

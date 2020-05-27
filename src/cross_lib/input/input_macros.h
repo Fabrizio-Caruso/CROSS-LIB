@@ -34,9 +34,10 @@
 		#elif defined(__MSX__)
 			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))		
 			#define INIT_INPUT() { POKE(0xF3DB,0); }
+        // Enable key-repeat on all VIC 20 targets that use the keyboard
 		#elif defined(__VIC20__)
 			#include <peekpoke.h>
-			#define INIT_INPUT() { POKE(0x028A ,0xFF); }
+			#define INIT_INPUT() POKE(0x028A ,0xFF)
 		#elif defined(__NCURSES__) && !defined(TURN_BASED)
 			#define INIT_INPUT() nodelay(stdscr,TRUE)
 		#elif defined(__M5__)
@@ -46,6 +47,11 @@
 		#else
 			#define INIT_INPUT()
 		#endif
+    // Disable keyboard
+    // #elif defined(__VIC20__) && defined(VIC20_EXP_8K)
+        // #include <peekpoke.h>
+        // #define INIT_INPUT() \
+            // POKE(0x289,0)
 	#elif defined(Z88DK_JOYSTICK)
 		extern uint8_t stick;
 		

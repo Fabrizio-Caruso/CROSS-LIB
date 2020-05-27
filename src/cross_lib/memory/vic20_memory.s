@@ -1,7 +1,6 @@
-; $33C - $407 (828-1031) / $334-$3FF  (820-1023)
+; $334-$3FF  (820-1023)
 ;0334-033B    820-827       ??
 ;*033C-03FB   828-1019      Cassette buffer
-;0400-0FFF    1024-4095     3K expansion RAM area
 .export _ghosts;
 _ghosts = $334
 

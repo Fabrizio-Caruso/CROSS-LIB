@@ -61,22 +61,14 @@ _super = _extraLife + $A
 .export _confuse;
 _confuse = _super + $A
 
-.export _BROKEN_BRICK_IMAGE;
-_BROKEN_BRICK_IMAGE = _confuse + $A
 
 .export _zombie;
 ;_zombie = _confuse + $A
-; $200 - $287 (512-647)
+; $200 - $276 (512-630)
 ;*0200-0258  512-600  Basic input buffer
 ;*0259-0262  601-610  Logical file table
 ;*0263-026C  611-620  Device # table
 ;*026D-0276  621-630  Secondary Address table
-;*0277-0280  631-640  Keyboard buffer
-;*0281-0282  641-642  Start of memory for op system
-;*0283-0284  643-644  Top of memory for op system
-;0285        645      Serial bus timeout flag
-;*0286       646      Current color code
-;0287        647      Color under cursor
 _zombie = $200
 
 
@@ -245,9 +237,15 @@ _VERTICAL_BRICK_IMAGE = _HORIZONTAL_BRICK_IMAGE + $2
 .export _LEFT_HORIZONTAL_MISSILE_IMAGE;
 _LEFT_HORIZONTAL_MISSILE_IMAGE = _VERTICAL_BRICK_IMAGE + $2
 
-.export _RIGHT_HORIZONTAL_MISSILE_IMAGE;
-_RIGHT_HORIZONTAL_MISSILE_IMAGE = _LEFT_HORIZONTAL_MISSILE_IMAGE + $2
 
+; This is the hardware stack. Is it safe?
+; $100-$113 (256-275)
+; broken by keyboard if in $200 area?
+.export _RIGHT_HORIZONTAL_MISSILE_IMAGE;
+;_RIGHT_HORIZONTAL_MISSILE_IMAGE = _LEFT_HORIZONTAL_MISSILE_IMAGE + $2
+_RIGHT_HORIZONTAL_MISSILE_IMAGE = $100
+
+; broken by keyboard?
 .export _ROCKET_IMAGE;
 _ROCKET_IMAGE = _RIGHT_HORIZONTAL_MISSILE_IMAGE + $2
 
@@ -272,11 +270,6 @@ _CONFUSE_IMAGE = _SUPER_IMAGE + $2
 .export _ZOMBIE_IMAGE;
 _ZOMBIE_IMAGE = _CONFUSE_IMAGE + $2
 
+.export _BROKEN_BRICK_IMAGE;
+_BROKEN_BRICK_IMAGE = _ZOMBIE_IMAGE + $2
 
-
-
-
-
-
-		
-		

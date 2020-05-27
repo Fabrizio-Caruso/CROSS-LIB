@@ -47,11 +47,6 @@
 		#else
 			#define INIT_INPUT()
 		#endif
-    // Disable keyboard
-    // #elif defined(__VIC20__) && defined(VIC20_EXP_8K)
-        // #include <peekpoke.h>
-        // #define INIT_INPUT() \
-            // POKE(0x289,0)
 	#elif defined(Z88DK_JOYSTICK)
 		extern uint8_t stick;
 		

@@ -268,7 +268,7 @@
 #endif
 
 #if defined(BETWEEN_LEVEL)
-	void spiral(register Character *characterPtr, uint8_t length);
+	void spiral(register Character *characterPtr);
 #endif
 
 void fillLevelWithCharacters(void);

@@ -171,14 +171,14 @@ extern Character bombs[BOMBS_NUMBER];
 #endif 
 
 #if defined(BETWEEN_LEVEL)
-void spiral(register Character *characterPtr, uint8_t length)
+void spiral(register Character *characterPtr)
 {
     uint8_t i;
     uint8_t j;
     
     characterPtr->_x = XSize/2;
     characterPtr->_y = YSize/2;
-    for(i=0;i<length;++i)
+    for(i=0;i<2*MIN_SIZE-18;++i)
     {
         for(j=0;j<i/2;++j)
             {
@@ -192,7 +192,7 @@ void spiral(register Character *characterPtr, uint8_t length)
                     --(*((uint8_t *) characterPtr + (i&1)));                
                 }
                 #if SLOW_DOWN>0
-                    DO_SLOW_DOWN(70);
+                    DO_SLOW_DOWN(55);
                 #endif
             }
     }

@@ -2,44 +2,45 @@
 //#define UDG_BASE_FACTOR 15
 
 // BLUE
-#define _PLAYER_DOWN 0x67
-#define _PLAYER_UP 0x40
-#define _PLAYER_RIGHT 0x69
-#define _PLAYER_LEFT 0x68
+#define _PLAYER_DOWN 0x79
+#define _PLAYER_UP 0x6C
+#define _PLAYER_RIGHT 0x7B
+#define _PLAYER_LEFT 0x7A
 #define _PLAYER _PLAYER_DOWN
 
-#define _GUN 0x5B
+#define _GUN 0x6D
 
 // YELLOW
-#define _SKULL 0x65
-#define _VERTICAL_BRICK 0x62
-#define _HORIZONTAL_BRICK 0x63
+#define _SKULL 0x77
+#define _VERTICAL_BRICK 0x74
+#define _HORIZONTAL_BRICK 0x75
 #define _EXTRA_LIFE _PLAYER_DOWN
-#define _EXTRA_POINTS 0x6A
+#define _EXTRA_POINTS ('$'+128)
 
 // GREEN
-#define _POWERUP  0x5D
+#define _POWERUP  0x6F
 
 // RED
-#define _BOMB 0x66
+#define _BOMB 0x78
 
 // CYAN
-#define _INVINCIBILITY 0x5C
-#define _BULLET 0x61
+#define _INVINCIBILITY 0x6E
+#define _BULLET 0x73
 
 #define _CONFUSE _SKULL
 
 #define _BROKEN_BRICK _BOMB
 
 // WHITE
-#define _GHOST 0x64
+#define _GHOST 0x76
 
 #define _DEAD_GHOST _GHOST
 
-#define _LEFT_HORIZONTAL_MISSILE 0x5F
+#define _LEFT_HORIZONTAL_MISSILE 0x71
 
-#define _RIGHT_HORIZONTAL_MISSILE 0x7A
+#define _RIGHT_HORIZONTAL_MISSILE 0x7C
 
-#define _ROCKET 0x5E
+#define _ROCKET 0x70
 
-#define _SPACE 0x60
+#define _SPACE 0x72
+

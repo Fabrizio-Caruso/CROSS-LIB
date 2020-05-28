@@ -31,7 +31,7 @@
 
 	#if defined(__OSIC1P__)
 		#define CYCLES 500
-	#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
+	#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__VIC20__)
         #define CYCLES 2000
     #else
 		#define CYCLES 1000

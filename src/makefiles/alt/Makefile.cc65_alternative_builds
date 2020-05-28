@@ -154,8 +154,7 @@ supervision_tiny:
 vic20_exp_3k_light:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/alt/vic20-3k.cfg  \
-	-DANIMATE_PLAYER -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 \
-	-DROUND_ENEMIES \
+	-DANIMATE_PLAYER -DLESS_TEXT -DFORCE_GHOSTS_NUMBER=8 \
 	-DSOUNDS \
 	-DVIC20_EXP_3K \
 	-DMEMORY_MAPPED \
@@ -165,9 +164,9 @@ vic20_exp_3k_light:
 	-DLESS_TEXT \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_BLINKING \
-	-DNO_RANDOM_LEVEL \
 	-DALT_SLEEP \
-	-DNO_INIT_GRAPHICS \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \

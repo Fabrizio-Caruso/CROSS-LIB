@@ -52,7 +52,7 @@
 
 #if defined(__NCURSES__)
     #define DO_SLOW_DOWN(t) \
-        usleep((t)*1024);
+        usleep((t)*800);
 #else
     #define DO_SLOW_DOWN(t) \
     { \

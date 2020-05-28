@@ -276,7 +276,7 @@ int main(void)
             #if !defined(LESS_TEXT)
                 // Clear the screen, put cursor in upper left corner
                 printLevel();
-                SLEEP(1);
+                SLEEP(2);
                 CLEAR_SCREEN();
             #endif
                 
@@ -555,7 +555,6 @@ int main(void)
                     #if !defined(LESS_TEXT)
                         printVictoryMessage();
                         SLEEP(2);
-                        CLEAR_SCREEN();    
                     #endif
 
                     points+= LEVEL_BONUS;
@@ -603,16 +602,13 @@ int main(void)
                     chasedEnemyPtr = &skull;    
                 #endif
                 
-                #if !defined(TINY_GAME)
-                    CLEAR_SCREEN();
-                #endif
                 if(--lives>0)
                 {
                     player._status = 1;
                 }
             }
             #if defined(BETWEEN_LEVEL)
-                spiral(chasedEnemyPtr, 2*MIN_SIZE-18);
+                spiral(chasedEnemyPtr);
                 SLEEP(1);
             #endif                
         } while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 

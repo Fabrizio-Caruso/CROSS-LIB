@@ -11,7 +11,7 @@
 #define _SKULL 0x77
 
 #define _VERTICAL_BRICK '|'
-#define _HORIZONTAL_BRICK '-'
+#define _HORIZONTAL_BRICK ('z'+1)
 #define _EXTRA_LIFE _PLAYER
 #define _EXTRA_POINTS '*'
 

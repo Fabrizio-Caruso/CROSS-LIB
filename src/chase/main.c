@@ -638,7 +638,7 @@ int main(void)
             finalScore();
         
             #if !defined(NO_SLEEP)
-                SLEEP(1);
+                SLEEP(2);
             #else
                 WAIT_PRESS();
             #endif

@@ -4,6 +4,17 @@
 # Z88DK
 
 
+abc80_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 $(INCLUDE_OPTS) \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o a \
+	$(TINY_FILES)
+	rm a
+	mv a.ihx $(BUILD_PATH)/TINY_abc80.ihx 
+
+
 cpm_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \

@@ -75,8 +75,10 @@
 #endif
 
 
-#if defined(ALT_DISPLAY_STATS)
-	#define printCenteredMessageOnRow(row, text) PRINT(6,row,text)
+#ifndef printCenteredMessageOnRow
+    #if defined(ALT_DISPLAY_STATS)
+        #define printCenteredMessageOnRow(row, text) PRINT(6,row,text)
+    #endif
 #endif
 
 #if defined(NO_TEXT_COLOR) && !defined(NO_MESSAGE) && !defined(NO_PRINT)

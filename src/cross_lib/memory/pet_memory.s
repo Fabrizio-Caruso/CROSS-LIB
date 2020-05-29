@@ -134,7 +134,18 @@ _gun = _powerUp + $A
 .export _extraPoints;
 _extraPoints = _gun + $A
 
-		
-		
-		
-		
+
+.export _loop;
+_loop = $100
+
+.export _skullSlowDown;
+_skullSlowDown = _loop + $2
+
+.export _bulletDirection;
+_bulletDirection = _skullSlowDown + $2
+
+.export _skullXCountDown;
+_skullXCountDown = _bulletDirection + $1
+
+.export _skullYCountDown;
+_skullYCountDown = _skullXCountDown + $1

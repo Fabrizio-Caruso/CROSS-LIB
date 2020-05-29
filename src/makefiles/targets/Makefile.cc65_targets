@@ -413,18 +413,6 @@ c16_16k_full:
 	$(CROSS_LIB_PATH)/memory/c16_memory.s \
 	-o $(BUILD_PATH)/FULL_c16_16k_NO_GFX.prg	
 
-	
-pet_8k_buffered: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet -Cl \
-	-DTINY_GAME -DNO_INIT_GRAPHICS \
-	-DBUFFERED \
-	-DALT_PRINT \
-	-DUSE_TINY_MEMORY_BUFFERS \
-	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/memory/pet_memory.s \
-	-o $(BUILD_PATH)/TINY_pet_8k_buffered.prg	
-	
 pet_8k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet -Cl \
 	-DTINY_GAME -DNO_INIT_GRAPHICS -DCONIO \
@@ -432,21 +420,8 @@ pet_8k:
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/TINY_pet_8k.prg
-	
-pet_8k_light_experimental:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
-	-DNO_INIT_GRAPHICS -DCONIO -DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_RANDOM_LEVEL \
-	-DUSE_LIGHT_MEMORY_BUFFERS \
-	-DFORCE_GHOSTS_NUMBER=8 \
-	-DFORCE_NARROW \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_STATS \
-	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_DEAD_GHOSTS \
-	$(LIGHT_FILES) \
-	$(CROSS_LIB_PATH)/memory/pet_memory.s \
-	-o $(BUILD_PATH)/LIGHT_pet_8k_experimental.prg
-	
+
+
 pet_8k_light:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
 	-DLESS_TEXT \

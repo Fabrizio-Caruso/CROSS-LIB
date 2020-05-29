@@ -85,13 +85,14 @@ test: \
 
 
 z88dk_full_tests: \
-    aquarius_targets \
+    aquarius_exp_4k \
     c128_z80_80col \
     cpc \
     cpm_z80_adm3a \
+    gal_6k \
     msx_32k \
     spectrum_48k \
-    tiki100_targets \
+    tiki100 \
     zx81_16k_wrx 
 
 

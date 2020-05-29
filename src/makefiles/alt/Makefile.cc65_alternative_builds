@@ -2,25 +2,27 @@
 # CC65
 
 #############################
+# PET
+
+pet_alt_targets: \
+    pet_8k_buffered \
+    pet_8k_light_experimental
+
+#############################
 # VIC 20
 
 vic20_alt_targets: \
     vic20_exp_3k_light \
     vic20_exp_8k_full \
     vic20_exp_8k_old \
-    vic20_unexpanded_no_gfx
-    
- 
-# Broken: 
-#vic20_unexpanded_turn_based
+    vic20_unexpanded_no_gfx \
+    vic20_unexpanded_turn_based
     
 
 ###############################################################
 
-
-atari5200_light:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_atari5200.rom	
-	
+#############################
+# ATARI 8-BIT
 
 atari_no_color_16k_full: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
@@ -32,89 +34,46 @@ atari_no_color_16k_full:
 	-DALT_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	-DNO_MESSAGE \
-	-DNO_PRINT \
-	$(SOURCE_PATH)/sleep_macros.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/FULL_atari_no_color_16k.xex	
-	
+	-DNO_PRINT -DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) -o $(BUILD_PATH)/ALT_FULL_atari_no_color_16k.xex	
+
+
 atari_no_color_16k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
 	-DLESS_TEXT \
 	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT \
-	-DNO_MESSAGE \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c  -o \
-	$(BUILD_PATH)/LIGHT_atari_no_color_16k.xex
+	-DNO_MESSAGE -DMEMORY_MAPPED \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/ALT_LIGHT_atari_no_color_16k.xex
+
+#############################
+# C264
 
 
 c16_16k_no_udg:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c16 -Cl -DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DSOUNDS --config $(SOURCE_PATH)/../cfg/cc65/c16-16k_plus.cfg $(SOURCE_PATH)/c264/c264_sounds.c $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_c16_16k_no_udg.prg
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c16 -Cl -DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DSOUNDS -DMEMORY_MAPPED  --config $(CFG_PATH)/cc65/c16-16k.cfg \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c  \
+	$(CROSS_LIB_PATH)/memory/c16_memory.s \
+	$(FULL_FILES) -o $(BUILD_PATH)/ALT_FULL_c16_16k_no_udg.prg
 
 
-creativision_16k_2:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DNO_SLEEP -DLESS_TEXT \
-	--config $(SOURCE_PATH)/../cfg/cc65/creativision-16k_2.cfg \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
-	--code-name CODE2 \
-	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	-o $(BUILD_PATH)/LIGHT_creativision_16k.bin	
-	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
-	dd if=$(BUILD_PATH)/LIGHT_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
-	rm $(BUILD_PATH)/LIGHT_creativision_16k.bin 
-	cat $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin > $(BUILD_PATH)/LIGHT_creativision_16k.bin
-	rm $(BUILD_PATH)/LIGHT_creativision_16k_LOW.bin
-	rm $(BUILD_PATH)/LIGHT_creativision_16k_HIGH.bin
+#############################
+# CREATIVISION
 
 creativision_32k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	--config $(SOURCE_PATH)/../cfg/cc65/creativision-32k.cfg \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/item.c \
-	$(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c \
-	$(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	-o $(BUILD_PATH)/FULL_creativision_32k.bin
-
-	
-nes_color:
-	$(CC65_PATH)ca65 $(SOURCE_PATH)/nes/reset.s
-	$(CC65_PATH)cc65 -D__NES__ -DNES_COLOR $(SOURCE_PATH)/display_macros.c
-	$(CC65_PATH)ca65 $(SOURCE_PATH)/display_macros.s
-	$(CC65_PATH)cc65 $(SOURCE_PATH)/enemy.c 
-	$(CC65_PATH)ca65 $(SOURCE_PATH)/enemy.s
-	$(CC65_PATH)cc65 $(SOURCE_PATH)/level.c 
-	$(CC65_PATH)ca65 $(SOURCE_PATH)/level.s
-	$(CC65_PATH)cc65 $(SOURCE_PATH)/character.c 
-	$(CC65_PATH)ca65 $(SOURCE_PATH)/character.s	
-	$(CC65_PATH)cc65 -D__NES__ $(SOURCE_PATH)/game_text.c 
-	$(CC65_PATH)ca65 $(SOURCE_PATH)/text.s 	
-	$(CC65_PATH)cc65 $(SOURCE_PATH)/strategy.c 
-	$(CC65_PATH)ca65 $(SOURCE_PATH)/strategy.s	
-	$(CC65_PATH)cc65 -D__NES__ $(SOURCE_PATH)/input_macros.c
-	$(CC65_PATH)ca65 $(SOURCE_PATH)/input_macros.s	
-	$(CC65_PATH)cc65 -D__NES__ -DTINY_GAME $(SOURCE_PATH)/main.c 
-	$(CC65_PATH)ca65 $(SOURCE_PATH)/main.s		
-	$(CC65_PATH)cc65 $(SOURCE_PATH)/nes/nes_graphics.c
-	$(CC65_PATH)ca65 $(SOURCE_PATH)/nes/nes_graphics.s		
-	$(CC65_PATH)ld65 -t nes -o $(BUILD_PATH)/TINY_nes_color.nes $(SOURCE_PATH)/nes/reset.o $(SOURCE_PATH)/display_macros.o $(SOURCE_PATH)/nes/nes_graphics.o $(SOURCE_PATH)/enemy.o $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/text.o $(SOURCE_PATH)/strategy.o $(SOURCE_PATH)/input_macros.o nes.lib
-	#$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes -DTINY_GAME --config $(SOURCE_PATH)/nes/nes.cfg -DNES_COLOR $(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/nes/reset.s $(SOURCE_PATH)/nes/nes_graphics.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/TINY_nes_color.nes
-	# -C $(SOURCE_PATH)/nes/nes.cfg
+	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
+	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
+	-o $(BUILD_PATH)/ALT_FULL_creativision_32k.bin
 
 
-nes_16k:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes $(SOURCE_PATH)/display_macros.c  $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c  -o $(BUILD_PATH)/LIGHT_nes.nes
+#############################
+# PCE
 
 pce_light:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pce -Cl \
@@ -129,24 +88,38 @@ pce_light:
 	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DNO_STATS \
 	$(LIGHT_FILES) \
-	-o $(BUILD_PATH)/LIGHT_pce.pce
+	-o $(BUILD_PATH)/ALT_LIGHT_pce.pce
 
 
-supervision_tiny:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t supervision \
-	-DTINY_GAME -DLESS_TEXT -DNO_WAIT -DNO_SLEEP -DALT_PRINT -DNO_CHASE \
-	-o $(BUILD_PATH)/TINY_supervision.sv \
-	$(SOURCE_PATH)/sleep_macros.c \
-	$(SOURCE_PATH)/display_macros.c \
-	$(SOURCE_PATH)/supervision/supervision_graphics.c \
-	$(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/level.c \
-	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
-	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
-	$(SOURCE_PATH)/main.c
+#############################
+# PET
+
+pet_8k_buffered: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet -Cl \
+	-DTINY_GAME -DNO_INIT_GRAPHICS \
+	-DBUFFERED \
+	-DALT_PRINT \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/memory/pet_memory.s \
+	-o $(BUILD_PATH)/ALT_TINY_pet_8k_buffered.prg	
 	
 
+pet_8k_light_experimental:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
+	-DNO_INIT_GRAPHICS -DCONIO -DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_RANDOM_LEVEL \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_NARROW \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_STATS \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_DEAD_GHOSTS \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/memory/pet_memory.s \
+	-o $(BUILD_PATH)/ALT_LIGHT_pet_8k_experimental.prg
 
-# -DFULL_GAME
 
 
 #############################
@@ -154,24 +127,32 @@ supervision_tiny:
 vic20_exp_3k_light:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/alt/vic20-3k.cfg  \
-	-DANIMATE_PLAYER -DLESS_TEXT -DFORCE_GHOSTS_NUMBER=8 \
+	-DANIMATE_PLAYER -DFORCE_GHOSTS_NUMBER=8 \
 	-DSOUNDS \
+	-DCC65_GOTO \
+	-DNO_PRINT \
 	-DVIC20_EXP_3K \
 	-DMEMORY_MAPPED \
-	-DNO_PRINT \
 	-DCBM_SCREEN_CODES \
-	-DUSE_MEMORY_BUFFERS \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DNO_HINTS \
+	-DNO_INITIAL_SCREEN \
 	-DLESS_TEXT \
 	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_MESSAGE \
+	-DNO_TEXT_COLOR \
 	-DNO_BLINKING \
 	-DALT_SLEEP \
+	-DALT_DISPLAY_STATS \
+	-DALT_HIGHSCORE \
 	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	-o $(BUILD_PATH)/LIGHT_vic20_exp_3k.prg
+	-o $(BUILD_PATH)/ALT_LIGHT_vic20_exp_3k_no_gfx.prg
 
 
 vic20_exp_8k_full:
@@ -196,7 +177,7 @@ vic20_exp_8k_full:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_vic20_exp_8k_NO_GFX.prg
+	-o $(BUILD_PATH)/ALT_FULL_vic20_exp_8k_no_gfx.prg
 
 vic20_exp_8k_old: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/alt/vic20-8k_old_GFX.cfg \
@@ -205,7 +186,7 @@ vic20_exp_8k_old:
 	-DALT_SLEEP \
 	-DSIMPLE_STRATEGY \
 	-DNO_HINTS \
-	-DUSE_MEMORY_BUFFERS \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DLESS_TEXT \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_BLINKING \
@@ -225,7 +206,7 @@ vic20_exp_8k_old:
 	$(SOURCE_PATH)/main.c \
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	-o $(BUILD_PATH)/LIGHT_vic20_exp_8k.prg
+	-o $(BUILD_PATH)/ALT_LIGHT_vic20_exp_8k.prg
 
 vic20_unexpanded_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
@@ -238,7 +219,6 @@ vic20_unexpanded_no_gfx:
 	-DLESS_TEXT \
 	-DNO_SET_SCREEN_COLORS \
 	-DTINY_GAME \
-	-DNO_STATS \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_DEAD_GHOSTS \
 	-DFORCE_BOMBS_NUMBER=4 \
@@ -253,7 +233,7 @@ vic20_unexpanded_no_gfx:
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
-	-o $(BUILD_PATH)/TINY_vic20_unexpanded_no_gfx.prg
+	-o $(BUILD_PATH)/ALT_TINY_vic20_unexpanded_no_gfx.prg
 
 
 ### TODO: Fix duplicate extern loop
@@ -284,6 +264,6 @@ vic20_unexpanded_turn_based:
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
-	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
+	-o $(BUILD_PATH)/ALT_TINY_vic20_unexpanded_turn_based.prg
 
 

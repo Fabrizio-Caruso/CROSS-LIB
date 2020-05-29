@@ -19,7 +19,7 @@
 
 
 #if !defined(TINY_GAME) || defined(TURN_BASED)
-	#if defined(USE_MEMORY_BUFFERS)
+	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS) || (defined(USE_TINY_MEMORY_BUFFERS) && defined(TURN_BASED))
 		extern uint16_t loop;
 	#else
 		uint16_t loop;	
@@ -46,7 +46,7 @@
 
 
 #if !defined(TINY_GAME)
-	#if defined(USE_MEMORY_BUFFERS)
+	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
 		extern uint16_t skullSlowDown;
 		extern uint8_t skullXCountDown;
 		extern uint8_t skullYCountDown;

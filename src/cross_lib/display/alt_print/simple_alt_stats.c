@@ -40,8 +40,8 @@
 		uint8_t i = 0;
 		while(str[i]!='\0')
 		{
-			#if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__)
-			POKE(loc(x+i,y), screenCode(str[i])); 		
+			#if (!defined(ALT_DISPLAY_STATS) && (defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__)))
+			POKE(loc(x+i,y), screenCode(str[i]));
 			#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
 			POKE(loc(x+i,y), 64+str[i]); 
 			POKE((0x7800+loc(x+i,y)),0x01);

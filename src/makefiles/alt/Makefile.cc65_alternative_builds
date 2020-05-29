@@ -1,12 +1,57 @@
 # -----------------------------------------------
 # CC65
 
+cc65_alt_targets: \
+    atari_alt_targets \
+    atari_lynx_alt_targets \
+    c16_alt_targets \
+    creativision_alt_targets \
+    nes_no_fx \
+    pet_alt_targets \
+    vic20_alt_targets
+    
+
+#############################
+# ATARI 8-bit
+
+atari_alt_targets: \
+    atari_no_color_16k_full \
+    atari_no_color_16k
+
+
+#############################
+# ATARI LYNX
+
+atari_lynx_alt_targets: \
+    atari_lynx_light 
+
+
+#############################
+# C16
+
+c16_alt_targets: \
+    c16_16k_no_udg
+
+
+#############################
+# CREATIVISION
+creativision_alt_targets: \
+    creativision_32k
+
+
+#############################
+# CREATIVISION
+nes_alt_targets: \
+    nes_no_fx
+
+
 #############################
 # PET
 
 pet_alt_targets: \
     pet_8k_buffered \
     pet_8k_light_experimental
+
 
 #############################
 # VIC 20
@@ -17,7 +62,7 @@ vic20_alt_targets: \
     vic20_exp_8k_old \
     vic20_unexpanded_no_gfx \
     vic20_unexpanded_turn_based
-    
+
 
 ###############################################################
 
@@ -34,7 +79,8 @@ atari_no_color_16k_full:
 	-DALT_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	-DNO_MESSAGE \
-	-DNO_PRINT -DMEMORY_MAPPED \
+	-DNO_PRINT -DCONIO \
+	-DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) -o $(BUILD_PATH)/ALT_FULL_atari_no_color_16k.xex	
 
@@ -45,16 +91,34 @@ atari_no_color_16k:
 	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT \
-	-DNO_MESSAGE -DMEMORY_MAPPED \
+	-DNO_MESSAGE -DCONIO -DNO_INIT_GRAPHICS \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/ALT_LIGHT_atari_no_color_16k.xex
+
+
+#############################
+# ATARI 8-BIT
+atari_lynx_light:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx \
+	-DNO_SET_SCREEN_COLORS \
+	-D__ATARI_LYNX__ \
+	-DNO_PRINT \
+	-DNO_SLEEP \
+	-DTGI \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/ALT_LIGHT_ATARI_LYNX.lnx
+
 
 #############################
 # C264
 
 
 c16_16k_no_udg:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c16 -Cl -DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DSOUNDS -DMEMORY_MAPPED  --config $(CFG_PATH)/cc65/c16-16k.cfg \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 -Cl \
+	-DFULL_GAME -DNO_INIT_GRAPHICS -DLESS_TEXT -DUSE_MEMORY_BUFFERS -DNO_SLEEP -DSOUNDS -DMEMORY_MAPPED  \
+	--config $(CFG_PATH)/cc65/c16-16k.cfg \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c  \
 	$(CROSS_LIB_PATH)/memory/c16_memory.s \
 	$(FULL_FILES) -o $(BUILD_PATH)/ALT_FULL_c16_16k_no_udg.prg
@@ -73,6 +137,19 @@ creativision_32k:
 
 
 #############################
+# NES
+
+nes_no_fx: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
+	-DFULL_GAME \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/ALT_FULL_nes_no_fx.nes	
+
+
+#############################
 # PCE
 
 pce_light:
@@ -82,10 +159,9 @@ pce_light:
 	-DNO_MESSAGE -DNO_BLINKING \
 	-DNO_CONTROL_INSTRUCTIONS -DNO_INITIAL_SCREEN \
 	-DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL \
-	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_GHOSTS_NUMBER=6 \
 	-DFORCE_NARROW \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DNO_STATS \
 	$(LIGHT_FILES) \
 	-o $(BUILD_PATH)/ALT_LIGHT_pce.pce
@@ -104,7 +180,7 @@ pet_8k_buffered:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/ALT_TINY_pet_8k_buffered.prg	
-	
+
 
 pet_8k_light_experimental:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
@@ -119,7 +195,6 @@ pet_8k_light_experimental:
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/ALT_LIGHT_pet_8k_experimental.prg
-
 
 
 #############################
@@ -179,6 +254,7 @@ vic20_exp_8k_full:
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/ALT_FULL_vic20_exp_8k_no_gfx.prg
 
+
 vic20_exp_8k_old: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20  -DSOUNDS -DANIMATE_PLAYER --config $(CFG_PATH)/cc65/alt/vic20-8k_old_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
@@ -208,6 +284,7 @@ vic20_exp_8k_old:
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/ALT_LIGHT_vic20_exp_8k.prg
 
+
 vic20_unexpanded_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DSOUNDS \
@@ -236,7 +313,6 @@ vic20_unexpanded_no_gfx:
 	-o $(BUILD_PATH)/ALT_TINY_vic20_unexpanded_no_gfx.prg
 
 
-### TODO: Fix duplicate extern loop
 vic20_unexpanded_turn_based:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DSOUNDS \
@@ -265,5 +341,4 @@ vic20_unexpanded_turn_based:
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	-o $(BUILD_PATH)/ALT_TINY_vic20_unexpanded_turn_based.prg
-
 

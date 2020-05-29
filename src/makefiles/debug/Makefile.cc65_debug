@@ -77,3 +77,15 @@ atari_lynx_cgetc_test:
 error_cc65:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t vic20 $(SOURCE_PATH)/../experiments/error.c -o $(BUILD_PATH)/error_cc65.prg
 
+
+supervision_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
+	--config $(CFG_PATH)/cc65/supervision-16k.cfg \
+	$(SOURCE_PATH)/../test/supervision_test.c \
+	-o $(BUILD_PATH)/TEST_supervision.sv
+
+
+supervision_cc65_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
+	/home/fabri/CC65_FIX/cc65/samples/supervisionhello.c \
+	-o $(BUILD_PATH)/TEST_hellosupervision.sv

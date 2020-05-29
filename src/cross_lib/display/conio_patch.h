@@ -9,7 +9,9 @@
 #if defined(NO_PRINT) || defined(NO_GRAPHICS)
     #define gotoxy(x,y)
     #define clrscr()
-    #define textcolor(c)
+    #ifndef textcolor
+        #define textcolor(c)
+    #endif
 #else
     
     #if defined(FORCE_NO_CONIO_LIB) && defined(C16_UNEXPANDED)

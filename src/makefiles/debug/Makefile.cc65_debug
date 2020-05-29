@@ -89,3 +89,30 @@ supervision_cc65_test:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
 	/home/fabri/CC65_FIX/cc65/samples/supervisionhello.c \
 	-o $(BUILD_PATH)/TEST_hellosupervision.sv
+
+
+bbc_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t bbc -c \
+	-o $(BUILD_PATH)/bbc_test.o \
+	-D__BBC__ \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_PRINT \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INPUT \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(SOURCE_PATH)/main.c
+
+gamate_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate \
+	$(SOURCE_PATH)/../test/gamate_test.c \
+	-o $(BUILD_PATH)/gamate_test.bin 
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/gamate_test.bin

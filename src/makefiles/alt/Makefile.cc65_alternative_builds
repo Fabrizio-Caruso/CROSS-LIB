@@ -6,10 +6,11 @@ cc65_alt_targets: \
     atari_lynx_alt_targets \
     c16_alt_targets \
     creativision_alt_targets \
+    gamate_alt_targets \
     nes_no_fx \
     pet_alt_targets \
     vic20_alt_targets
-    
+
 
 #############################
 # ATARI 8-bit
@@ -30,17 +31,30 @@ atari_lynx_alt_targets: \
 # C16
 
 c16_alt_targets: \
-    c16_16k_no_udg
+    c16_16k_no_gfx \
+    c16_16k_full_no_gfx \
+    c16_16k_light
 
 
 #############################
 # CREATIVISION
 creativision_alt_targets: \
-    creativision_32k
+    creativision_32k \
+    creativision_16k_m \
+    creativision_16k_x
+
+
+#############################
+# GAMATE
+
+gamate_alt_targets: \
+    gamate_tiny \
+    gamate_light
 
 
 #############################
 # CREATIVISION
+
 nes_alt_targets: \
     nes_no_fx
 
@@ -112,17 +126,50 @@ atari_lynx_light:
 
 
 #############################
-# C264
+# C16
 
 
-c16_16k_no_udg:
+c16_16k_no_gfx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 -Cl \
 	-DFULL_GAME -DNO_INIT_GRAPHICS -DLESS_TEXT -DUSE_MEMORY_BUFFERS -DNO_SLEEP -DSOUNDS -DMEMORY_MAPPED  \
 	--config $(CFG_PATH)/cc65/c16-16k.cfg \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c  \
 	$(CROSS_LIB_PATH)/memory/c16_memory.s \
-	$(FULL_FILES) -o $(BUILD_PATH)/ALT_FULL_c16_16k_no_udg.prg
+	$(FULL_FILES) -o $(BUILD_PATH)/ALT_FULL_c16_16k_no_gfx.prg
 
+c16_16k_light: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
+	-DANIMATE_PLAYER  -DSOUNDS \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DREDEFINED_CHARS \
+	-DCONIO \
+	-DUSE_MEMORY_BUFFERS \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/memory/c16_memory.s \
+	-o $(BUILD_PATH)/ALT_LIGHT_c16_16k.prg
+
+c16_16k_full_no_gfx: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
+	--config $(CFG_PATH)/cc65/c16-16k.cfg \
+	-DFULL_GAME \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DLESS_TEXT	\
+	-DSOUNDS \
+	-DALT_PRINT \
+	-DANIMATE_PLAYER \
+	-DMEMORY_MAPPED \
+	-DEND_SCREEN \
+	-DUSE_MEMORY_BUFFERS \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c264_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/memory/c16_memory.s \
+	-o $(BUILD_PATH)/ALT_FULL_c16_16k_no_gfx.prg	
 
 #############################
 # CREATIVISION
@@ -134,6 +181,73 @@ creativision_32k:
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/ALT_FULL_creativision_32k.bin
+
+creativision_16k_x:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SET_SCREEN_COLORS \
+	-DFULL_GAME -DALT_SLEEP \
+	-DSIMPLE_STRATEGY \
+	-DCONIO \
+	-DANIMATE_PLAYER \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/FULL_creativision_16k.bin	
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_creativision_16k_LOW.bin
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
+	rm $(BUILD_PATH)/FULL_creativision_16k.bin 
+	cat $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin $(BUILD_PATH)/FULL_creativision_16k_LOW.bin > $(BUILD_PATH)/ALT_FULL_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
+	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin	    
+
+
+creativision_16k_m:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SET_SCREEN_COLORS \
+	-DFULL_GAME -DALT_SLEEP \
+	-DSIMPLE_STRATEGY \
+	-DMEMORY_MAPPED \
+	-DANIMATE_PLAYER \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/FULL_creativision_16k.bin	
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_creativision_16k_LOW.bin
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
+	rm $(BUILD_PATH)/FULL_creativision_16k.bin 
+	cat $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin $(BUILD_PATH)/FULL_creativision_16k_LOW.bin > $(BUILD_PATH)/ALT_FULL_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
+	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin	      
+
+
+#############################
+# GAMATE
+
+
+gamate_light: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate \
+	-DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	-DSIMPLE_STRATEGY \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/ALT_LIGHT_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/ALT_LIGHT_gamate.bin
+	
+gamate_tiny: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate \
+	-DTINY_GAME \
+	-DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	-DSIMPLE_STRATEGY \
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/ALT_TINY_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/ALT_TINY_gamate.bin
 
 
 #############################

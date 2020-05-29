@@ -25,6 +25,15 @@ newbrain_hello:
 	rm a.bin
 
 
+msx_mode1_test:
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -subtype=rom \
+	-vn \
+	-lndos \
+	$(SOURCE_PATH)/../test/msx_test.c \
+	-create-app -o $(BUILD_PATH)/TEST_msx.prg
+	rm $(BUILD_PATH)/TEST_msx.prg
+
+
 mz2500_random:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(ZSDCC_OPTS) -compiler=sdcc -SO3 $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/../experiments/random_test.c \

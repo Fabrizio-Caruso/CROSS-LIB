@@ -43,7 +43,7 @@ c128_z80_targets: \
 	c128_z80_40col c128_z80_80col
 
 camputers_lynx_targets: \
-	camputers_lynx camputers_lynx_tiny
+	camputers_lynx
 
 coleco_targets: \
 	coleco_udg coleco_adam
@@ -99,55 +99,6 @@ abc80_light:
 	mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
 
 
-abc800_light:
-	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm \
-	-zorg=49200 $(INCLUDE_OPTS) \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-DCONIO_VT100 \
-	-DNO_WAIT \
-	-D__ABC80__ -vn  -lndos  \
-	$(LIGHT_FILES)
-	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) -800 a.bin $(BUILD_PATH)/LIGHT_ABC800.bac 49200	
-	mv a.bin $(BUILD_PATH)/LIGHT_abc800.bin 
-
-
-abc800:
-	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
-	$(INCLUDE_OPTS) \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-DFORCE_CONIO_LIB \
-	-D__ABC800__  -vn -DFULL_GAME \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-DLESS_TEXT \
-	-DSIMPLE_STRATEGY \
-	-DNO_BLINKING \
-	-DNO_HINTS \
-	-DNO_WAIT \
-	-DNO_BORDER \
-	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_RANDOM_LEVEL \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_SLEEP \
-	-DFLAT_ENEMIES \
-	-lndos -create-app \
-	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/xchase.bac 49200
-	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc800.dsk 
-	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc800.dsk -b $(BUILD_PATH)/xchase.bac
-	rm a.bin 
-	rm $(BUILD_PATH)/xchase.bac
-	mv a.ihx $(BUILD_PATH)/FULL_abc800.ihx 	
-
-
-abc800_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm  $(INCLUDE_OPTS) \
-	-D__ABC80__ -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DFORCE_CONIO_LIB -DNO_INIT_GRAPHICS \
-	-lndos \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-
-
 ace_exp_16k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -162,20 +113,6 @@ ace_exp_16k_udg:
 	$(FULL_FILES) \
 	-o full -Cz--audio -create-app	
 	cp full.wav $(BUILD_PATH)/FULL_ace_exp_16k_udg.wav
-	rm full.wav
-	rm full.tap
-	rm full
-
-
-ace_exp_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DSOUNDS \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-clib=ansi -o full -Cz--audio -create-app \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	cp full.wav $(BUILD_PATH)/FULL_ace_exp_16k.wav
 	rm full.wav
 	rm full.tap
 	rm full
@@ -285,29 +222,6 @@ aussie:
 	rm $(BUILD_PATH)/FULL_aussie.bin
 
 
-aussie_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -laussie  \
-	$(INCLUDE_OPTS) \
-	-vn \
-	-D__AUSSIE__ \
-	-DSOUNDS \
-	-DFORCE_BIT_BANG \
-	-DFORCE_XSIZE=16 \
-	-DFORCE_YSIZE=12 \
-	-DNO_COLOR \
-	-DFULL_GAME \
-	-DTURN_BASED \
-	-DBUFFERED \
-	-DNO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) \
-	-create-app	
-	rm a.bin
-	mv a.COM $(BUILD_PATH)/FULL_aussie.COM
-
-
 bic:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=bic \
 	$(INCLUDE_OPTS) \
@@ -376,57 +290,6 @@ c128_z80_40col:
 	rm a.bin
 
 
-c128_z80_40col_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-lndos -subtype=disk \
-	-D__C128_Z80__ -DFORCE_XSIZE=40 \
-	-DFULL_GAME -DEND_SCREEN \
-	-DTURN_BASED \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	-create-app
-	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col_turn_based.d64
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col_turn_based.d64 -write a.ldr
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col_turn_based.d64 -write a
-	mv FULL_c128_z80_40col_turn_based.d64 $(BUILD_PATH)/
-	rm A.LDR
-	rm A
-	rm a.bin
-
-
-c7420:
-	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-lndos \
-	-DSTDLIB \
-	-DNO_COLOR \
-	-DBUFFERED -DALT_PRINT \
-	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
-	-DNO_INIT_GRAPHICS \
-	-create-app \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES)
-	rm a.bin
-	mv _a.bas $(BUILD_PATH)/FULL_c7420.bas	
-
-
-c7420_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-lndos \
-	-DSTDLIB \
-	-DNO_COLOR \
-	-DBUFFERED -DALT_PRINT \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
-	-DNO_INIT_GRAPHICS \
-	-create-app \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(TINY_FILES)
-	rm a.bin
-	mv _a.bas $(BUILD_PATH)/TINY_c7420.bas	
-
-
 camputers_lynx:
 	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -442,22 +305,6 @@ camputers_lynx:
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/FULL_camputers_lynx.bin
 	rm $(BUILD_PATH)/FULL_camputers_lynx.bin
-
-
-camputers_lynx_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-pragma-redirect:getk=getk_inkey \
-	-D__CAMPUTERS_LYNX__ \
-	-vn \
-	-DCONIO_VT52 \
-	-DNO_COLOR \
-	-DTINY_GAME \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(TINY_FILES) \
-	-create-app -o $(BUILD_PATH)/TINY_camputers_lynx.bin
-	rm $(BUILD_PATH)/TINY_camputers_lynx.bin	
 
 
 coleco_adam:

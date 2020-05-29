@@ -1,0 +1,149 @@
+
+
+
+abc800_light:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm \
+	-zorg=49200 $(INCLUDE_OPTS) \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO_VT100 \
+	-DNO_WAIT \
+	-D__ABC80__ -vn  -lndos  \
+	$(LIGHT_FILES)
+	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) -800 a.bin $(BUILD_PATH)/LIGHT_ABC800.bac 49200	
+	mv a.bin $(BUILD_PATH)/LIGHT_abc800.bin 
+
+
+abc800:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DFORCE_CONIO_LIB \
+	-D__ABC800__  -vn -DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DSIMPLE_STRATEGY \
+	-DNO_BLINKING \
+	-DNO_HINTS \
+	-DNO_WAIT \
+	-DNO_BORDER \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_SLEEP \
+	-DFLAT_ENEMIES \
+	-lndos -create-app \
+	$(FULL_FILES)
+	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/xchase.bac 49200
+	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc800.dsk 
+	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc800.dsk -b $(BUILD_PATH)/xchase.bac
+	rm a.bin 
+	rm $(BUILD_PATH)/xchase.bac
+	mv a.ihx $(BUILD_PATH)/FULL_abc800.ihx 	
+
+
+abc800_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm  $(INCLUDE_OPTS) \
+	-D__ABC80__ -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DFORCE_CONIO_LIB -DNO_INIT_GRAPHICS \
+	-lndos \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+
+
+c7420:
+	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-lndos \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DBUFFERED -DALT_PRINT \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DNO_INIT_GRAPHICS \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm a.bin
+	mv _a.bas $(BUILD_PATH)/FULL_c7420.bas	
+
+
+c7420_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-lndos \
+	-DSTDLIB \
+	-DNO_COLOR \
+	-DBUFFERED -DALT_PRINT \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DNO_INIT_GRAPHICS \
+	-create-app \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	rm a.bin
+	mv _a.bas $(BUILD_PATH)/TINY_c7420.bas
+
+
+gamegear_tiny_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -lgamegear -clib=sdcc_iy -startup=17 \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=16 \
+	-D__SMS__ \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DSTDLIB \
+	-DLESS_TEXT \
+	-create-app \
+	-DBUFFERED \
+	-DTURN_BASED \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-o $(BUILD_PATH)/TINY_gamegear_buffered.bin \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_CODE.bin
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_DATA.bin
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_BSS.bin
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_UNASSIGNED.bin
+
+
+rc2014:
+	$(Z88DK_PATH)$(MYZ88DK) +rc2014 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__ZXN__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_rc2014.bin
+
+
+x07_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-Cz--audio \
+	-DFORCE_BOMBS_NUMBER=2 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLORS \
+	-D__X07__ \
+	-vn \
+	-DCONIO_VT52 \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(TINY_FILES) \
+	-create-app -o $(BUILD_PATH)/TINY_x07.bin
+	rm $(BUILD_PATH)/TINY_x07.bin
+

@@ -90,24 +90,6 @@ dmv:
 	rm $(BUILD_PATH)/FULL_dmv.bin
 
 
-eg2k:
-	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-D__EG2K__ \
-	-subtype=eg2000disk \
-	-lndos \
-	-lm \
-	-D__TRS80__ \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCONIO_VT52 \
-	-create-app \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	mv a.cmd $(BUILD_PATH)/FULL_eg2k.cmd
-	rm a.bin
-
-
 eg2k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -207,21 +189,6 @@ fp1100:
 	rm a_BOOTSTRAP.bin
 
 
-fp1100_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__FP1100__ -vn \
-	-DCONIO_VT52 \
-	-DTINY_GAME -DSOUNDS \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(TINY_FILES) \
-	-create-app
-	mv a.d88 $(BUILD_PATH)/TINY_fp1100.d88
-	rm a.bin
-	rm a_BOOTSTRAP.bin
-
-
 g800_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_OPTS) -clib=g850b $(INCLUDE_OPTS) \
 	-D__G800__ \
@@ -236,51 +203,6 @@ g800_turn_based:
 	rm a.bin 
 	rm a.rom
 	mv a.ihx $(BUILD_PATH)/FULL_g800_turn_based.ihx
-
-
-g800_tiny_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_OPTS) -clib=g850b $(INCLUDE_OPTS) \
-	-D__G800__ \
-	-DTURN_BASED \
-	-DNO_BLINKING \
-	-vn \
-	-DFORCE_CONIO_LIB \
-	-DTINY_GAME \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(TINY_FILES) \
-	-create-app -o
-	rm a.bin
-	rm a.rom
-	mv a.ihx $(BUILD_PATH)/TINY_g800_turn_based.ihx
-
-
-gamegear_tiny_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -lgamegear -clib=sdcc_iy -startup=17 \
-	$(INCLUDE_OPTS) \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=16 \
-	-D__SMS__ \
-	-DNO_COLOR \
-	-DTINY_GAME \
-	-DSTDLIB \
-	-DLESS_TEXT \
-	-create-app \
-	-DBUFFERED \
-	-DTURN_BASED \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-o $(BUILD_PATH)/TINY_gamegear_buffered.bin \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_gamegear_buffered_CODE.bin
-	rm $(BUILD_PATH)/TINY_gamegear_buffered_DATA.bin
-	rm $(BUILD_PATH)/TINY_gamegear_buffered_BSS.bin
-	rm $(BUILD_PATH)/TINY_gamegear_buffered_UNASSIGNED.bin    
 
 
 gal_22k:

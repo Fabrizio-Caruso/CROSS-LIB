@@ -9,7 +9,9 @@ z88dk_targets_w-z: \
 	z88_targets \
 	z9001_targets \
 	zx80_targets \
-	zx81_targets
+	zx81_targets \
+	zxn
+
 
 # ------------------------------------------------------------------------------------------
 
@@ -23,7 +25,7 @@ z80tvgame_targets: \
 	z80tvgame
 
 z88_targets: \
-	z88_tiny_buffered
+	z88 z88_tiny_buffered
 
 z9001_targets: \
 	z9001_16k_full z9001_32k
@@ -33,35 +35,11 @@ zx80_targets: \
 	
 zx81_targets_ijkl_spc: \
 	zx81_16k zx81_16k_turn_based zx81_16k_wrx zx81_32k_wrx zx81_32k_wrx_turn_based
-  
-zx81_targets_qaopm: \
-	zx81_16k_qaopm zx81_16k_turn_based_qaopm zx81_16k_wrx_qaopm zx81_32k_wrx_qaopm zx81_32k_wrx_turn_based_qaopm
 
 zx81_targets: \
 	zx81_targets_ijkl_spc
 
 # ------------------------------------------------------------------------------------------
-
-x07_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-Cz--audio \
-	-DFORCE_BOMBS_NUMBER=2 \
-	-DFORCE_GHOSTS_NUMBER=6 \
-	-DLESS_TEXT \
-	-DNO_BLINKING \
-	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_RANDOM_LEVEL \
-	-DNO_SET_SCREEN_COLORS \
-	-D__X07__ \
-	-vn \
-	-DCONIO_VT52 \
-	-DNO_COLOR \
-	-DTINY_GAME \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(TINY_FILES) \
-	-create-app -o $(BUILD_PATH)/TINY_x07.bin
-	rm $(BUILD_PATH)/TINY_x07.bin
 
 
 x1:
@@ -75,33 +53,6 @@ x1:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_x1.bin
-
-
-x1_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-D__X1__ \
-	-DTINY_GAME -DNO_SLEEP \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app -o $(BUILD_PATH)/TINY_x1.bin -vn -lndos \
-	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_x1.bin
-
-
-yaz180:
-	$(Z88DK_PATH)$(MYZ88DK) +yaz180 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__ZXN__ \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=24 \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
-	-DFULL_GAME  \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
-	-DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_yaz180.bin
 
 
 zx80_16k:
@@ -321,33 +272,6 @@ z88:
 	mv a.epr $(BUILD_PATH)/FULL_z88.epr
 
 
-z88_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -subtype=app \
-	$(INCLUDE_OPTS) \
-	-D__Z88__ \
-	-DTINY_GAME \
-	-vn -lndos \
-	-DALT_PRINT \
-	-DZ88DK_SPRITES \
-	-DANIMATE_PLAYER \
-	-DLESS_TEXT \
-	-DNO_WAIT \
-	-DNO_SLEEP \
-	-DNO_COLOR \
-	-DFORCE_BOMBS_NUMBER=2 \
-	-DFORCE_GHOSTS_NUMBER=6 \
-	-DDEFAULT_CLEAR_SCREEN \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(TINY_FILES) \
-	-create-app
-	rm a.bin
-	rm a_BSS.bin
-	rm a_DATA.bin
-	mv a.63 $(BUILD_PATH)/TINY_z88.63
-	mv a.epr $(BUILD_PATH)/TINY_z88.epr
-
-
 # it fails with sdcc
 z88_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -subtype=app \
@@ -417,3 +341,4 @@ zxn:
 	-create-app -o$(BUILD_PATH)/FULL_zxn.bin
 	rm $(BUILD_PATH)/FULL_zxn.bin
 	rm $(BUILD_PATH)/FULL_zxn_UNASSIGNED.bin
+

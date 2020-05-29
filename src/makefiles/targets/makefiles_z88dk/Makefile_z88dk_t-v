@@ -56,6 +56,7 @@ vz200_targets: \
 
 # ------------------------------------------------------------------------------------------
 
+
 ti82:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -388,37 +389,6 @@ ts2068:
 	rm $(BUILD_PATH)/FULL_ts2068_BANK_7.bin
 
 
-ts2068_characters:
-	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-clib=ansi \
-	-D__TS2068__ \
-	-DNO_COLOR \
-	-vn \
-	-DFULL_GAME \
-	-lndos \
-	-DFORCE_CONIO_LIB \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app -o $(BUILD_PATH)/FULL_ts2068.bin 
-	rm $(BUILD_PATH)/FULL_ts2068.bin
-
-
-ts2068_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-clib=ansi \
-	-DTURN_BASED \
-	-D__TS2068__ \
-	-DNO_COLOR \
-	-vn \
-	-DFULL_GAME \
-	-lndos \
-	-DFORCE_CONIO_LIB \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app -o $(BUILD_PATH)/FULL_ts2068_turn_based.bin
-	rm $(BUILD_PATH)/FULL_ts2068_turn_based.bin
-
-
 tvc:
 	$(Z88DK_PATH)$(MYZ88DK) +tvc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__TVC__ \
@@ -453,42 +423,21 @@ vector06c:
 	rm $(BUILD_PATH)/FULL_vector06c.bin
 
 
-vg5k:
-	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(ZSDCC_OPTS) \
-	-compiler=sdcc \
-	$(INCLUDE_OPTS) \
-	--opt-code-size \
-	--reserve-regs-iy \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-DNO_BLINKING \
-	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_HINTS \
-	-DALT_SLEEP \
-	-DNO_RANDOM_LEVEL \
-	-DFLAT_ENEMIES \
-	-DFORCE_NARROW \
-	-vn -DFULL_GAME -D__VG5K__ \
-	-DLESS_TEXT \
-	-DFORCE_GHOSTS_NUMBER=8 \
-	-DFORCE_BOMBS_NUMBER=4 \
-	-DSOUNDS \
-	-DSIMPLE_STRATEGY \
-	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c
-	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg
-
-
-vg5k_exp_16k:
+vg5k_exp_16k_udg:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
-	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k.prg \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k_udg.prg \
+	-DCONIO \
+	-DINITIAL_SLOWDOWN=29000 \
+	-clib=default \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg
+	rm $(BUILD_PATH)/FULL_vg5k_exp_16k_udg.prg
 
 
 vg5k_udg:
@@ -512,23 +461,6 @@ vg5k_udg:
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vg5k_udg_less_text.prg
-	
-
-vg5k_exp_16k_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
-	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k_udg.prg \
-	-DCONIO \
-	-DINITIAL_SLOWDOWN=29000 \
-	-clib=default \
-	-DUDG_GRAPHICS \
-	-DANIMATE_PLAYER \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_vg5k_exp_16k_udg.prg
 
 
 vz200_18k: 	

@@ -24,9 +24,6 @@ lambda_targets: \
 laser500_targets: \
 	laser500
 
-m100_targets: \
-	m100
-
 m5_targets: \
 	m5_udg
 
@@ -99,23 +96,6 @@ laser500_bitmap:
 	mv a.bin $(BUILD_PATH)/TINY_laser500_bitmap.bin
 	rm a.cas
 	mv a.wav $(BUILD_PATH)/TINY_laser500_bitmap.wav
-
-
-m100:
-	$(Z88DK_PATH)$(MYZ88DK) +m100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__M100__ \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=24 \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
-	-DFULL_GAME  \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
-	-DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_m100.bin
-	rm $(BUILD_PATH)/FULL_m100.bin
 
 
 m5:
@@ -393,39 +373,6 @@ mtx:
 	rm a.bin
 	mv a.wav $(BUILD_PATH)/
 	mv a $(BUILD_PATH)/a.mtx
-
-
-multi8_light_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__MULTI8__ \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
-	-DANIMATE_PLAYER \
-	-DUDG_GRAPHICS \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(LIGHT_FILES) \
-	-create-app -o$(BUILD_PATH)/LIGHT_multi8.bin
-	rm $(BUILD_PATH)/LIGHT_multi8.bin		
-
-
-multi8_tiny_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__MULTI8__ \
-	-DTINY_GAME  \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
-	-DANIMATE_PLAYER \
-	-DUDG_GRAPHICS \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(TINY_FILES) \
-	-create-app -o$(BUILD_PATH)/TINY_multi8.bin
-	rm $(BUILD_PATH)/TINY_multi8.bin
 
 
 multi8_udg:

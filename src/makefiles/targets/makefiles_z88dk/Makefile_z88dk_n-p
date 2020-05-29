@@ -242,34 +242,6 @@ osborne1:
 	rm $(BUILD_PATH)/FULL_osborne1.bin
 
 
-oz_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-D__OZ__ \
-	-DTINY_GAME \
-	-vn -lndos \
-	-DFORCE_XSIZE=59 \
-	-DFORCE_YSIZE=9 \
-	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
-	-DANIMATE_PLAYER \
-	-DLESS_TEXT \
-	-DNO_COLOR \
-	-DNO_RANDOM_LEVEL \
-	-DSIMPLE_STRATEGY \
-	-DALT_MOVE \
-	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_WAIT \
-	-DNO_SLEEP \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_PRINT \
-	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
-	rm a.bin
-	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
-
-
 oz_tiny_buffered: 	
 	$(Z88DK_PATH)$(MYZ88DK) +oz $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \

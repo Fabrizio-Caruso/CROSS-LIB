@@ -31,7 +31,7 @@ mc1000_targets: \
 	mc1000_16k_full mc1000_48k_udg_joystick
 
 microbee_targets: \
-	microbee_16k microbee_32k microbee_32k_sprites
+	microbee_16k microbee_32k_sprites
 
 mikro80_targets: \
 	mikro80
@@ -170,19 +170,6 @@ microbee_16k:
 	-lndos -create-app -o $(BUILD_PATH)/LIGHT_microbee_16k.prg  \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/LIGHT_microbee_16k.prg
-
-
-microbee_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__BEE__ \
-	-clib=ansi \
-	-vn \
-	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-lndos -create-app -o $(BUILD_PATH)/FULL_microbee_32k.prg  \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_microbee_32k.prg
 
 
 microbee_32k_sprites:

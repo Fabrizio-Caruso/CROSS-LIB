@@ -14,8 +14,8 @@ z88dk_targets_d-k: \
 	gb_targets \
 	hemc_targets \
 	hgmc_targets \
-	homelab2_targets \
 	homelab_targets \
+	homelab2_targets \
 	kaypro_targets \
 	kc_targets \
 	kramermc_targets

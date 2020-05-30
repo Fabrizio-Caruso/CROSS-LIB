@@ -37,9 +37,6 @@ svi_targets: \
 rx78_targets: \
 	rx78_udg
 
-spc1000_targets: \
-	spc1000_udg
-
 samcoupe_targets: \
 	samcoupe
 
@@ -51,6 +48,9 @@ sms_targets: \
 
 smc777_targets: \
 	smc777
+
+spc1000_targets: \
+	spc1000_udg
 
 spectrum_targets: \
 	spectrum_16k spectrum_48k

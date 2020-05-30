@@ -109,7 +109,7 @@ nascom_32k:
 
 
 nc100:
-	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_OPTS) -lgfxnc100 \
+	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_ROM_OPTS) -lgfxnc100 \
 	$(INCLUDE_OPTS) \
 	-D__NC100__ \
 	-DALT_PRINT \
@@ -126,7 +126,7 @@ nc100:
 
 
 nc200:
-	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_OPTS) -lgfxnc200 \
+	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_ROM_OPTS) -lgfxnc200 \
 	$(INCLUDE_OPTS) \
 	-D__NC200__ \
 	-DALT_PRINT \

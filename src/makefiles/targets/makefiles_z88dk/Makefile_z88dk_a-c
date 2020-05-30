@@ -16,6 +16,7 @@ z88dk_targets_a-c: \
 	cpc_targets \
 	cpm_z80_targets
 
+
 # ------------------------------------------------------------------------------------------
 
 abc80_targets: \
@@ -34,7 +35,7 @@ attache_targets: \
 	attache attache_chars
 
 aussie_targets: \
-	aussie_buffered
+	aussie
 
 bic_targets: \
 	bic

@@ -333,21 +333,35 @@ lambda_light:
 	rm $(BUILD_PATH)/LIGHT_lambda.prg
 
 
-m100:
-	$(Z88DK_PATH)$(MYZ88DK) +m100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__M100__ \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=24 \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
-	-DFULL_GAME  \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
-	-DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_m100.bin
-	rm $(BUILD_PATH)/FULL_m100.bin
+m5:
+	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-lm -create-app -Cz--audio -subtype=tape \
+	-pragma-define:REGISTER_SP=65000 \
+	-D__M5__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-o$(BUILD_PATH)/FULL_m5.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_m5.bin
+	rm $(BUILD_PATH)/FULL_m5.cas
+
+
+m5_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-lm -create-app -Cz--audio -subtype=tape \
+	-D__M5__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-DTINY_GAME -DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-o$(BUILD_PATH)/TINY_m5.bin \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TINY_m5.bin
+	rm $(BUILD_PATH)/TINY_m5.cas
 
 
 mc1000_16k_light:
@@ -361,6 +375,68 @@ mc1000_16k_light:
 	rm a.cas
 
 
+mc1000_48k:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-subtype=gaming -pragma-define:ansicolumns=32 \
+	-DFULL_GAME  \
+	-clib=ansi \
+	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-vn  -lndos -create-app -Cz--audio \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k.wav
+	rm a.bin
+	rm a.cas
+
+
+mc1000_48k_udg:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-subtype=gaming \
+	-DFULL_GAME  \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-DSOUND \
+	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-vn  -lndos -create-app -Cz--audio \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_udg.wav
+	rm a.bin
+	rm a.cas
+
+
+microbee_32k_wav:
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) -subtype=wav \
+	-D__BEE__ \
+	-clib=ansi \
+	-vn \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_microbee_32k.prg  \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_microbee_32k.prg
+
+
+mtx:
+	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
+	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app  \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm a.bin
+	mv a.wav $(BUILD_PATH)/
+	mv a $(BUILD_PATH)/a.mtx
+
+
 # it may work
 mtx_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) -D__MTX__ \
@@ -369,6 +445,7 @@ mtx_16k:
 	mv LIGHT $(BUILD_PATH)
 	mv LIGHT.bin $(BUILD_PATH)
 	mv LIGHT.wav $(BUILD_PATH)
+
 
 
 # msx_16k:
@@ -418,6 +495,42 @@ multi8_tiny_udg:
 	rm $(BUILD_PATH)/TINY_multi8.bin
 
 
+mz2500_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
+	-compiler=sdcc \
+	-DFORCE_XSIZE=16 \
+	-DFORCE_YSIZE=12 \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-D__MZ2500__ \
+	-v \
+	-DFULL_GAME \
+	-DNO_SET_SCREEN_COLORS \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
+	-DFORCE_CONIO_LIB -DCONIO \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	$(FULL_FILES) \
+	-create-app 
+	mv a.dsk $(BUILD_PATH)/FULL_mz2500_buffered.dsk
+	rm a.bin
+
+
+nascom_32k_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
+	-D__NASCOM__ \
+	-DTURN_BASED \
+	-DSOUNDS \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_nascom_32k_turn_based.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_nascom_32k_turn_based.prg
+
+
 nc100_sprites_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_OPTS) -lgfxnc100 \
 	-D__NC100__ \
@@ -464,6 +577,69 @@ oz_tiny:
 	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
 	rm a.bin
 	mv a.wzd $(BUILD_PATH)/TINY_oz.wzd
+
+
+pc6001_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
+	-D__PC6001__ \
+	-DFULL_GAME \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DALT_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_pc6001_32k.prg
+	rm $(BUILD_PATH)/FULL_pc6001_32k.wav
+	mv $(BUILD_PATH)/FULL_pc6001_32k.cas $(BUILD_PATH)/FULL_pc6001_32k.cp6
+
+
+pps_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__PPS__ -vn \
+	-DCONIO_VT52 \
+	-DTURN_BASED \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv a.bin $(BUILD_PATH)/FULL_pps_turn_based.exe
+
+
+# UDG can be done but differently
+pv1000_light:
+	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__PV1000__ \
+	-DZ88DK_JOYSTICK \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
+	-lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(LIGHT_FILES) \
+	-create-app -o$(BUILD_PATH)/LIGHT_pv1000.bin
+	rm $(BUILD_PATH)/LIGHT_pv1000.bin
+	rm $(BUILD_PATH)/LIGHT_pv1000_DATA.bin
+	rm $(BUILD_PATH)/LIGHT_pv1000_BSS.bin
+
+
+pv2000:
+	$(Z88DK_PATH)$(MYZ88DK) +pv2000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SRR__ -vn \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	-DCONIO_VT52 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv a.rom $(BUILD_PATH)/FULL_pv2000.rom
+	rm a.bin
+	rm a_BSS.bin
+	rm a_DATA.bin
 
 
 px4_tiny:
@@ -578,52 +754,6 @@ px8_tiny:
 	mv A.ROM $(BUILD_PATH)/TINY_px8.ROM
 
 
-
-
-rex:
-	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__REX__ \
-	-DTURN_BASED \
-	-vn \
-	-DREX \
-	-DSTDLIB \
-	-DNO_COLOR \
-	-DFULL_GAME -DSOUNDS \
-	-lndos \
-	-DNO_PRINT \
-	-DNO_WAIT \
-	-DNO_SLEEP \
-	-DNO_INPUT \
-	-DNO_INIT_GRAPHICS \
-	-DDEFAULT_CLEAR_SCREEN \
-	$(FULL_FILES) \
-	-create-app -o $(BUILD_PATH)/FULL_rex.bin
-	rm $(BUILD_PATH)/FULL_rex_BSS.bin
-	rm $(BUILD_PATH)/FULL_rex.bin
-
-
-rex_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__REX__ \
-	-DTURN_BASED \
-	-vn \
-	-DBUFFERED \
-	-DSTDLIB \
-	-DNO_COLOR \
-	-DFULL_GAME -DSOUNDS \
-	-lndos \
-	-DNO_PRINT \
-	-DNO_WAIT \
-	-DNO_SLEEP \
-	-DNO_INPUT \
-	-DNO_INIT_GRAPHICS \
-	-DDEFAULT_CLEAR_SCREEN \
-	$(FULL_FILES) \
-	-create-app -o $(BUILD_PATH)/FULL_rex_buffered.bin
-	rm $(BUILD_PATH)/FULL_rex_buffered_BSS.bin
-	rm $(BUILD_PATH)/FULL_rex_buffered.bin
-
-
 # import as data into ram at 32768 - call 32768
 samcoupe_light:
 	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) -O0 \
@@ -635,14 +765,45 @@ samcoupe_light:
 	$(SOURCE_PATH)/display_macros.c $(SOURCE_PATH)/enemy.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/level.c \
 	$(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c $(SOURCE_PATH)/bullet.c $(SOURCE_PATH)/strategy.c \
 	$(SOURCE_PATH)/input_macros.c $(SOURCE_PATH)/main.c
-	
-	
+
+
 samcoupe_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) -O0 \
 	-D__SAM__ -DTINY_GAME \
 	-clib=ansi -pragma-define:ansicolumns=32 -vn \
 	 -o $(BUILD_PATH)/TINY_samcoupe.bin -lndos \
 	$(TINY_FILES)
+
+
+sc3000_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-clib=ansi \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-pragma-define:ansicolumns=32 \
+	-vn -lndos -create-app -Cz--audio \
+	-o $(BUILD_PATH)/FULL_sc3000_32k.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_sc3000_32k.prg
+	rm $(BUILD_PATH)/FULL_sc3000_32k.tap
+
+
+sg1000:
+	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) -subtype=rom \
+	$(INCLUDE_OPTS) \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-clib=ansi \
+	-pragma-define:ansicolumns=32 \
+	-vn -lndos -create-app \
+	-o $(BUILD_PATH)/FULL_sg1000.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_sg1000.prg
+	rm $(BUILD_PATH)/FULL_sg1000_BSS.bin
+	rm $(BUILD_PATH)/FULL_sg1000_DATA.bin
 
 
 spectrum_16k_light:
@@ -693,6 +854,21 @@ spectrum_buffered:
 	rm $(BUILD_PATH)/TINY_spectrum_buffered_BANK_7.bin	
 
 
+srr:
+	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SRR__ -vn \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DNO_WAIT \
+	-DCONIO_VT52 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm a.srr
+	mv a.wav $(BUILD_PATH)/FULL_srr.wav
+
+
 svi_318_mode0:
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) $(INCLUDE_OPTS) -zorg=49200 -vn -lndos \
 	-D__SVI__ -DMSX_MODE0 \
@@ -734,6 +910,36 @@ ti85_chars:
 	$(FULL_FILES)
 	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85_chars.85s	
 	rm $(SOURCE_PATH)/../a.bin
+
+
+trs80_chars_cas:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos \
+	$(INCLUDE_OPTS) \
+	-pragma-redirect:getk=getk_inkey \
+	-pragma-define:REGISTER_SP=0xffb5 \
+	-lm -create-app \
+	-D__TRS80__ \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO_VT52 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-o$(BUILD_PATH)/FULL_trs80_chars.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_trs80_chars.bin
+
+
+trs80_tiny_cas:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos \
+	$(INCLUDE_OPTS) \
+	-pragma-redirect:getk=getk_inkey \
+	-lm -create-app \
+	-D__TRS80__ \
+	-DCONIO_VT52 \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-o$(BUILD_PATH)/TINY_trs80.bin \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TINY_trs80.bin
 
 
 trs80_wav:
@@ -848,20 +1054,14 @@ vg5k_tiny:
 	rm $(BUILD_PATH)/TINY_vg5k.prg
 
 
-yaz180:
-	$(Z88DK_PATH)$(MYZ88DK) +yaz180 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__ZXN__ \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=24 \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
-	-DFULL_GAME  \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
-	-DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_yaz180.bin
+vz200_24k: 
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__VZ__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-clib=ansi -lndos -create-app -o  $(BUILD_PATH)/FULL_vz200_24k.vz \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_vz200_24k.cas
 
 
 z1013_light:

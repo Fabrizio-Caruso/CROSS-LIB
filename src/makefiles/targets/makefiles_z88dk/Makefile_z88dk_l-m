@@ -28,10 +28,10 @@ m5_targets: \
 	m5_udg
 
 mc1000_targets: \
-	mc1000_16k_full mc1000_48k_udg mc1000_48k_udg_joystick
+	mc1000_16k_full mc1000_48k_udg_joystick
 
 microbee_targets: \
-	microbee_16k microbee_32k
+	microbee_16k microbee_32k microbee_32k_sprites
 
 mikro80_targets: \
 	mikro80
@@ -82,7 +82,6 @@ laser500:
 	mv a.wav $(BUILD_PATH)/FULL_laser500.wav
 
 	# -compiler=sdcc 
-
 laser500_bitmap: 	
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -create-app -Cz--audio -v \
 	$(INCLUDE_OPTS) \
@@ -96,37 +95,6 @@ laser500_bitmap:
 	mv a.bin $(BUILD_PATH)/TINY_laser500_bitmap.bin
 	rm a.cas
 	mv a.wav $(BUILD_PATH)/TINY_laser500_bitmap.wav
-
-
-m5:
-	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-lm -create-app -Cz--audio -subtype=tape \
-	-pragma-define:REGISTER_SP=65000 \
-	-D__M5__ \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-o$(BUILD_PATH)/FULL_m5.bin \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_m5.bin
-	rm $(BUILD_PATH)/FULL_m5.cas
-
-
-m5_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-lm -create-app -Cz--audio -subtype=tape \
-	-D__M5__ \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-DTINY_GAME -DLESS_TEXT \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-o$(BUILD_PATH)/TINY_m5.bin \
-	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_m5.bin
-	rm $(BUILD_PATH)/TINY_m5.cas
 
 
 m5_udg:
@@ -174,42 +142,6 @@ mc1000_16k_full:
 	rm a.cas
 
 
-mc1000_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-subtype=gaming -pragma-define:ansicolumns=32 \
-	-DFULL_GAME  \
-	-clib=ansi \
-	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-vn  -lndos -create-app -Cz--audio \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k.wav
-	rm a.bin
-	rm a.cas
-
-
-mc1000_48k_udg:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-subtype=gaming \
-	-DFULL_GAME  \
-	-DANIMATE_PLAYER \
-	-DUDG_GRAPHICS \
-	-DSOUND \
-	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO \
-	-vn  -lndos -create-app -Cz--audio \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_udg.wav
-	rm a.bin
-	rm a.cas
-
-
 mc1000_48k_udg_joystick:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-subtype=gaming \
@@ -253,20 +185,7 @@ microbee_32k:
 	rm $(BUILD_PATH)/FULL_microbee_32k.prg
 
 
-microbee_32k_wav:
-	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) -subtype=wav \
-	-D__BEE__ \
-	-clib=ansi \
-	-vn \
-	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-lndos -create-app -o $(BUILD_PATH)/FULL_microbee_32k.prg  \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_microbee_32k.prg
-
-
-microbee_sprites:
+microbee_32k_sprites:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) -lgfxnc100 \
 	$(INCLUDE_OPTS) \
 	-D__NC100__ \
@@ -275,12 +194,12 @@ microbee_sprites:
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/FULL_microbee_sprites.bin \
+	-create-app -o$(BUILD_PATH)/FULL_microbee_32k_sprites.bin \
 	-DNO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_microbee_sprites.bin
+	rm $(BUILD_PATH)/FULL_microbee_32k_sprites.bin
 
 
 mikro80:
@@ -301,7 +220,7 @@ mikro80:
 
 
 msx_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DINITIAL_SLOWDOWN=29000 \
 	-DSOUNDS -DANIMATE_PLAYER \
@@ -360,19 +279,6 @@ mtx_udg:
 	rm FULL.bin
 	mv FULL.wav $(BUILD_PATH)/FULL_mtx_udg.wav
 	mv FULL $(BUILD_PATH)/FULL_mtx_udg.mtx
-
-
-mtx:
-	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
-	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app  \
-	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-lndos \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm a.bin
-	mv a.wav $(BUILD_PATH)/
-	mv a $(BUILD_PATH)/a.mtx
 
 
 multi8_udg:
@@ -437,47 +343,10 @@ mz:
 	mv $(BUILD_PATH)/FULL_mz.mzt $(BUILD_PATH)/FULL_mz.mzf
 
 
-mz2500_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(ZSDCC_OPTS) \
-	$(INCLUDE_OPTS) \
-	-SO3 \
-	-compiler=sdcc \
-	-DFORCE_XSIZE=16 \
-	-DFORCE_YSIZE=12 \
-	-DFORCE_GHOSTS_NUMBER=6 \
-	-DFORCE_BOMBS_NUMBER=4 \
-	-D__MZ2500__ \
-	-vn \
-	-DNO_COLOR \
-	-DFULL_GAME \
-	-DNO_BLINKING \
-	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_DEAD_GHOSTS \
-	-DNO_SLEEP \
-	-DNO_INITIAL_SCREEN \
-	-DNO_SET_SCREEN_COLORS \
-	-lndos \
-	-DBUFFERED -DNO_INIT_GRAPHICS \
-	-DFORCE_NARROW \
-	-DNO_STATS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DSTDLIB \
-	-DNO_WAIT \
-	-DTURN_BASED \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app 
-	mv a.2D $(BUILD_PATH)/FULL_mz2500_buffered.2D
-	rm a.bin
-
-
 # It almost works except for TURN_BASED
 mz2500_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \
-	-SO3 \
 	-compiler=sdcc \
 	-DFORCE_XSIZE=16 \
 	-DFORCE_YSIZE=12 \
@@ -508,3 +377,5 @@ mz2500_tiny_buffered:
 	-create-app 
 	mv a.dsk $(BUILD_PATH)/TINY_mz2500_buffered.dsk
 	rm a.bin
+
+

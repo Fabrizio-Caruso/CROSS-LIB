@@ -37,7 +37,7 @@ tiki100_targets: \
 	tiki100
 
 trs80_targets: \
-	trs80_chars trs80_tiny trs80 trs80_cmd
+	trs80 trs80_chars
 
 ts2068_targets: \
 	ts2068
@@ -302,7 +302,7 @@ tiki100_sprites_light:
 
 
 trs80:
-	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos \
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos -subtype=disk \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-pragma-redirect:getk=getk_inkey \
 	-pragma-define:REGISTER_SP=0xffb5 \
@@ -323,22 +323,6 @@ trs80:
 
 
 trs80_chars:
-	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos \
-	$(INCLUDE_OPTS) \
-	-pragma-redirect:getk=getk_inkey \
-	-pragma-define:REGISTER_SP=0xffb5 \
-	-lm -create-app \
-	-D__TRS80__ \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCONIO_VT52 \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-o$(BUILD_PATH)/FULL_trs80_chars.bin \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_trs80_chars.bin
-
-
-trs80_cmd:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos -subtype=disk \
 	$(INCLUDE_OPTS) \
 	-lm -create-app \
@@ -350,21 +334,7 @@ trs80_cmd:
 	-o$(BUILD_PATH)/FULL_trs80.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_trs80.bin
-
-
-trs80_tiny:
-	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos \
-	$(INCLUDE_OPTS) \
-	-pragma-redirect:getk=getk_inkey \
-	-lm -create-app \
-	-D__TRS80__ \
-	-DCONIO_VT52 \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-o$(BUILD_PATH)/TINY_trs80.bin \
-	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_trs80.bin
+	rm $(BUILD_PATH)/FULL_trs80_chars.bin
 
 
 ts2068:
@@ -475,16 +445,6 @@ vz200_18k:
 	-create-app -o $(BUILD_PATH)/FULL_vz200_18k.vz \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vz200_18k.cas
-
-
-vz200_24k: 
-	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
-	-DSOUNDS -D__VZ__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-clib=ansi -lndos -create-app -o  $(BUILD_PATH)/FULL_vz200_24k.vz \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_vz200_24k.cas
 
 
 vz200_8k:

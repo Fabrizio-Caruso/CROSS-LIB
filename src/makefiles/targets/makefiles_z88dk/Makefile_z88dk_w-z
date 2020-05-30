@@ -55,22 +55,6 @@ x1:
 	rm $(BUILD_PATH)/FULL_x1.bin
 
 
-zx80_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
-	-D__ZX80__ -DFULL_GAME \
-	-DEND_SCREEN \
-	-DALT_SLEEP \
-	-DCONIO \
-	-DZX80_GEN_TV_FIELD \
-	-lndos \
-	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k.prg \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx80/zx80_init_graphics.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_zx80_16k.prg	
-
-
 zx80_16k_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
 	-D__ZX80__ -DFULL_GAME \
@@ -116,6 +100,10 @@ zx81_16k_turn_based:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_zx81_16k_turn_based.prg
+
+
+# wrx taregets
+zx81_wrx_targets: zx81_16k_wrx zx81_32k_wrx zx81_32k_wrx_turn_based
 
 
 zx81_16k_wrx:
@@ -212,9 +200,6 @@ zx81_32k_wrx_turn_based:
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	rm $(BUILD_PATH)/FULL_zx81_32k_wrx_turn_based.prg
-
-
-zx81_wrx_targets: zx81_16k_wrx zx81_32k_wrx zx81_32k_wrx_turn_based
 
 
 z1013:

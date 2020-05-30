@@ -118,8 +118,9 @@ ace_exp_16k_udg:
 	rm full
 
 
+# -O3 necessary to build the rom 
 alphatro:
-	$(Z88DK_PATH)$(MYZ88DK) +alphatro $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +alphatro $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) \
 	-D__ALPHATRO__ \
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \

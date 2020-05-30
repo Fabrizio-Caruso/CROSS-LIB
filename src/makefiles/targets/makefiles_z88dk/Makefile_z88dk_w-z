@@ -108,7 +108,7 @@ zx81_wrx_targets: zx81_16k_wrx zx81_32k_wrx zx81_32k_wrx_turn_based
 
 zx81_16k_wrx:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
-	$(INCLUDE_OPTS) -O3 $(ULTRA_DRAW_SKIP) \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-DALT_MODE \
 	-DANIMATE_PLAYER \
@@ -139,7 +139,7 @@ zx81_16k_wrx:
 
 zx81_32k_wrx:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
-	$(INCLUDE_OPTS) -O3 $(ULTRA_DRAW_SKIP) \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DFORCE_GHOSTS_NUMBER=6 \
@@ -172,7 +172,7 @@ zx81_32k_wrx:
 
 zx81_32k_wrx_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
-	$(INCLUDE_OPTS) -O3 \
+	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \
 	-DFORCE_GHOSTS_NUMBER=9 \

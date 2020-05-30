@@ -131,7 +131,7 @@ Go to the directory with the .hex file
 Select HEX Files 
 Chose the .hex file
 Type RUN
-[equivalent to CALL(@4400)]
+[equivalent to CALL(@4401)]
 
 ----------------------------------------------------------
 
@@ -451,7 +451,7 @@ Go to the directory with the .hex file
 Select HEX Files 
 Chose the .hex file
 Type RUN
-[equivalent to CALL(&0200)]
+[equivalent to CALL(&0201)]
 
 -----------------------------------------------------------
 

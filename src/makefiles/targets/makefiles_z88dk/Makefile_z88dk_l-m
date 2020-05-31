@@ -37,7 +37,7 @@ mikro80_targets: \
 	mikro80
 
 msx_targets: \
-	msx_32k_rom msx_32k
+	msx_32k_rom
 
 mtx_targets: \
 	mtx_udg
@@ -204,27 +204,6 @@ mikro80:
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_mikro80.bin
 	rm $(BUILD_PATH)/FULL_mikro80.bin
-
-
-msx_32k:
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -lmsxbios \
-	-DUSE_MSX_BIOS \
-	-DINITIAL_SLOWDOWN=29000 \
-	-DSOUNDS -DANIMATE_PLAYER \
-	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos \
-	-create-app -o $(BUILD_PATH)/FULL_msx_32k.prg \
-	-DMEMORY_MAPPED \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DLESS_TEXT \
-	-DZ88DK_JOYSTICK \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_msx_32k.prg 
 
 
 msx_32k_rom:

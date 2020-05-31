@@ -16,6 +16,7 @@ z88dk_targets_t-v: \
 	vg5k_targets \
 	vz200_targets 
 
+
 # ------------------------------------------------------------------------------------------
 
 ti82_targets: \
@@ -76,22 +77,6 @@ ti82:
 	rm $(SOURCE_PATH)/../a.bin
 
 
-ti82_chars:
-	$(Z88DK_PATH)$(MYZ88DK) +ti82 $(SCCZ80_OPTS) \
-	-DZ88DK_JOYSTICK \
-	$(INCLUDE_OPTS) -D__TI82__ \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DFULL_GAME  \
-	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-lndos \
-	-create-app  \
-	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/FULL_ti82_chars.82p
-	rm $(SOURCE_PATH)/../a.bin
-
-
 ti83:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -111,58 +96,6 @@ ti83:
 	rm $(SOURCE_PATH)/../xchase
 
 
-ti83_chars:
-	$(Z88DK_PATH)$(MYZ88DK) +ti83 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) -D__TI83__ \
-	-DZ88DK_JOYSTICK \
-	-DFORCE_XSIZE=32 \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DFULL_GAME  \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app -oxchase \
-	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../xchase.83p $(BUILD_PATH)/FULL_ti83_chars.83p	
-	rm $(SOURCE_PATH)/../xchase
-
-
-ti83_tiny_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +ti83 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) -D__TI83__ \
-	-DZ88DK_JOYSTICK \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DTURN_BASED \
-	-DNO_WAIT \
-	-DTINY_GAME  \
-	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app \
-	$(TINY_FILES)
-	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/TINY_ti83_turn_based.83p	
-	rm $(SOURCE_PATH)/../a.bin
-
-
-ti83_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +ti83 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) -D__TI83__ \
-	-DZ88DK_JOYSTICK \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-DFULL_GAME  \
-	-DTURN_BASED \
-	-DNO_WAIT \
-	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app
-	mv $(SOURCE_PATH)/../a.83p $(BUILD_PATH)/FULL_ti83_turn_based.83p
-	rm $(SOURCE_PATH)/../a.bin
-
-
 ti85:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -179,46 +112,6 @@ ti85:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85.85s
-	rm $(SOURCE_PATH)/../a.bin
-
-
-ti85_turn_based:
-	$(Z88DK_PATH)$(MYZ88DK) +ti85 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-D__TI85__ \
-	-DZ88DK_JOYSTICK \
-	-DFULL_GAME \
-	-DTURN_BASED \
-	-vn -lndos \
-	-DALT_PRINT \
-	-DFORCE_NARROW \
-	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
-	-DANIMATE_PLAYER \
-	-DLESS_TEXT \
-	-create-app \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85_turn_based.85s
-	rm $(SOURCE_PATH)/../a.bin
-
-
-ti86:
-	$(Z88DK_PATH)$(MYZ88DK) +ti86 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-D__TI86__ \
-	-DFULL_GAME \
-	-DZ88DK_JOYSTICK \
-	-DLESS_TEXT	\
-	-DNO_COLOR \
-	-DNO_BLINKING \
-	-DNO_HINTS \
-	-clib=ansi -pragma-define:ansicolumns=32 \
-	-vn \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app  \
-	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.86p $(BUILD_PATH)/FULL_ti86.86p	
 	rm $(SOURCE_PATH)/../a.bin
 
 
@@ -331,7 +224,7 @@ trs80_chars:
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-o$(BUILD_PATH)/FULL_trs80.bin \
+	-o$(BUILD_PATH)/FULL_trs80_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_trs80_chars.bin

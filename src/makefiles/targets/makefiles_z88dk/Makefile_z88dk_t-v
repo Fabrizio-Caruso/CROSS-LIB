@@ -70,11 +70,11 @@ ti82:
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
-	-create-app \
+	-create-app -o ti82 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.82p $(BUILD_PATH)/FULL_ti82.82p
-	rm $(SOURCE_PATH)/../a.bin
+	mv $(SOURCE_PATH)/../ti82.82p $(BUILD_PATH)/FULL_ti82.82p
+	rm $(SOURCE_PATH)/../ti82
 
 
 ti83:
@@ -108,11 +108,11 @@ ti85:
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
-	-create-app \
+	-create-app -oti85 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../a.85s $(BUILD_PATH)/FULL_ti85.85s
-	rm $(SOURCE_PATH)/../a.bin
+	mv $(SOURCE_PATH)/../ti85.85s $(BUILD_PATH)/FULL_ti85.85s
+	rm $(SOURCE_PATH)/../ti85
 
 
 ti86_light:
@@ -128,10 +128,10 @@ ti86_light:
 	-vn \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app  \
+	-create-app  -oti86 \
 	$(LIGHT_FILES)
-	mv $(SOURCE_PATH)/../a.86p $(BUILD_PATH)/LIGHT_ti86.86p	
-	rm $(SOURCE_PATH)/../a.bin
+	mv $(SOURCE_PATH)/../ti86.86p $(BUILD_PATH)/LIGHT_ti86.86p	
+	rm $(SOURCE_PATH)/../ti86
 
 
 ti8x:
@@ -146,11 +146,11 @@ ti8x:
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
-	-create-app -oxchase \
+	-create-app -oxchase8x \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../xchase.8xp $(BUILD_PATH)/FULL_ti8x.8xp	
-	mv $(SOURCE_PATH)/../xchase $(BUILD_PATH)/FULL_ti8x.bin
+	mv $(SOURCE_PATH)/../xchase8x.8xp $(BUILD_PATH)/FULL_ti8x.8xp	
+	mv $(SOURCE_PATH)/../xchase8x $(BUILD_PATH)/FULL_ti8x.bin
 
 
 tiki100: 
@@ -169,13 +169,13 @@ tiki100:
 	-DNO_SLEEP \
 	-DNO_HINTS \
 	-DNO_SET_SCREEN_COLORS \
-	-create-app \
+	-create-app -o tiki100 \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	mv a.dsk $(BUILD_PATH)/FULL_tiki100.dsk
-	rm a.bin
-	rm a_HIMEM.bin
+	mv $(SOURCE_PATH)/../tiki100.dsk $(BUILD_PATH)/FULL_tiki100.dsk
+	rm $(SOURCE_PATH)/../tiki100
+	rm $(SOURCE_PATH)/../tiki100_HIMEM.bin
 
 
 tiki100_sprites_light:
@@ -383,3 +383,4 @@ vz200_sprites_18k:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vz200_sprites_18k.cas
+

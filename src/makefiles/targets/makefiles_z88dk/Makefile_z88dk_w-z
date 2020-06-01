@@ -13,12 +13,6 @@ z88dk_targets_w-z: \
 	zxn_targets
 
 
-continue_test: \
-	z9001_targets \
-	zx80_targets \
-	zx81_targets \
-	zxn_targets
-
 # ------------------------------------------------------------------------------------------
 
 x1_targets: \

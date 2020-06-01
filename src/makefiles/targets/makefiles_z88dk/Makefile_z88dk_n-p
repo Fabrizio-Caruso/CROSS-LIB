@@ -75,7 +75,7 @@ pv1000_targets: \
 	pv1000
 
 pv2000_targets: \
-	pv2000_udg
+	pv2000
 
 px4_targets: \
 	px4 
@@ -425,7 +425,7 @@ pv1000:
 
 
 # -SO3 necessary to build a 16k rom image
-pv2000_udg:
+pv2000:
 	$(Z88DK_PATH)$(MYZ88DK) +pv2000 $(SCCZ80_ROM_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__PV2000__ \

@@ -23,7 +23,7 @@ abc80_targets: \
 	abc80_light abc80
 
 ace_targets: \
-	ace_exp_16k_udg
+	ace_exp_16k
 
 alphatro_targets: \
 	alphatro
@@ -100,7 +100,7 @@ abc80_light:
 	mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
 
 
-ace_exp_16k_udg:
+ace_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DSOUNDS \
@@ -113,7 +113,7 @@ ace_exp_16k_udg:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o full -Cz--audio -create-app	
-	cp full.wav $(BUILD_PATH)/FULL_ace_exp_16k_udg.wav
+	cp full.wav $(BUILD_PATH)/FULL_ace_exp_16k.wav
 	rm full.wav
 	rm full.tap
 	rm full

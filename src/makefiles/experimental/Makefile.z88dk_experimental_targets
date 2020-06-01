@@ -1,6 +1,20 @@
 
 
 
+# -o$(BUILD_PATH)/TINY_abc800.bin 	
+abc800_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -zorg=40000 \
+	-D__ABC800__ \
+	-DCONIO_ADM3A \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-o$(BUILD_PATH)/TINY_abc800.bin \
+	$(SOURCE_PATH)/display_macros.c \
+	$(SOURCE_PATH)/enemy.c \
+	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c  \
+	$(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/input_macros.c \
+	$(SOURCE_PATH)/main.c
+
+
 abc800_light:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm \
 	-zorg=49200 $(INCLUDE_OPTS) \
@@ -110,6 +124,21 @@ gamegear_tiny_buffered:
 	rm $(BUILD_PATH)/TINY_gamegear_buffered_UNASSIGNED.bin
 
 
+kc_tiny_putc4x6:
+	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap \
+	\
+	-D__KC__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DZ88DK_PUTC4X6 \
+	-DCONIO \
+	-DALT_PRINT \
+	-DNO_INIT_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/ALT_TINY_kc_putc4x6_.bin \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/z88dk_putc4x6_alt_print.c
+	rm $(BUILD_PATH)/ALT_TINY_kc_putc4x6_.bin
+
+
 m100:
 	$(Z88DK_PATH)$(MYZ88DK) +m100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__M100__ \
@@ -125,6 +154,71 @@ m100:
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_m100.bin
 	rm $(BUILD_PATH)/FULL_m100.bin
+
+
+mz2500_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
+	-compiler=sdcc \
+	-DFORCE_XSIZE=16 \
+	-DFORCE_YSIZE=12 \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-D__MZ2500__ \
+	-v \
+	-DFULL_GAME \
+	-DNO_SET_SCREEN_COLORS \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
+	-DFORCE_CONIO_LIB -DCONIO \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	$(FULL_FILES) \
+	-create-app 
+	mv a.dsk $(BUILD_PATH)/ALT_FULL_mz2500_buffered.dsk
+	rm a.bin
+
+
+
+
+px4_putc4x6:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lpx4 \
+	$(INCLUDE_OPTS) \
+	-pragma-define:ansicolumns=40 \
+	-pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
+ 	-subtype=px4ansi \
+	-D__PX4__ \
+	-DFULL_GAME \
+	-DNO_WAIT \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DZ88DK_PUTC4X6 \
+	-DNO_PRINT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-Cz–-32k \
+	-create-app \
+	-vn -lndos \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm a.bin
+	mv A.ROM $(BUILD_PATH)/FULL_px4_putc4x6.ROM
+
+
+px4_tiny_putc4x6:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lpx4 \
+	$(INCLUDE_OPTS) \
+	-pragma-define:ansicolumns=40 \
+	-pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
+ 	-subtype=px4ansi \
+	-D__PX4__ \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DZ88DK_PUTC4X6 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-Cz–-32k \
+	-create-app \
+	-vn -lndos \
+	$(TINY_FILES)
+	rm a.bin
+	mv A.ROM $(BUILD_PATH)/TINY_px4_putc4x6.ROM
 
 
 rc2014:

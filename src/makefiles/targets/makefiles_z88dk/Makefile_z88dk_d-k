@@ -26,7 +26,7 @@ dmv_targets: \
 	dmv
 
 eg2k_targets: \
-	eg2k_udg
+	eg2k
 
 einstein_targets: \
 	einstein
@@ -90,7 +90,7 @@ dmv:
 	rm $(BUILD_PATH)/FULL_dmv.bin
 
 
-eg2k_udg:
+eg2k:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__EG2K__ \
@@ -111,8 +111,8 @@ eg2k_udg:
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_eg2k_udg.bin
-	rm $(BUILD_PATH)/FULL_eg2k_udg.bin
+	-create-app -o$(BUILD_PATH)/FULL_eg2k.bin
+	rm $(BUILD_PATH)/FULL_eg2k.bin
 
 
 einstein:

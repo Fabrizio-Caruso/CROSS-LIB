@@ -25,13 +25,13 @@ laser500_targets: \
 	laser500
 
 m5_targets: \
-	m5_udg
+	m5
 
 mc1000_targets: \
-	mc1000_16k_full mc1000_48k_udg_joystick
+	mc1000_16k_no_gfx mc1000_48k
 
 microbee_targets: \
-	microbee_16k microbee_32k_sprites
+	microbee_16k_no_gfx microbee_32k
 
 mikro80_targets: \
 	mikro80
@@ -40,10 +40,10 @@ msx_targets: \
 	msx_32k_rom
 
 mtx_targets: \
-	mtx_udg
+	mtx
 
 multi8_targets: \
-	multi8_udg
+	multi8
 
 myvision_targets: \
 	myvision
@@ -97,7 +97,7 @@ laser500_bitmap:
 	mv a.wav $(BUILD_PATH)/TINY_laser500_bitmap.wav
 
 
-m5_udg:
+m5:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-lm -create-app -Cz--audio -subtype=tape \
@@ -115,12 +115,12 @@ m5_udg:
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o$(BUILD_PATH)/FULL_m5_udg.bin	
-	rm $(BUILD_PATH)/FULL_m5_udg.bin
-	rm $(BUILD_PATH)/FULL_m5_udg.cas
+	-o$(BUILD_PATH)/FULL_m5.bin	
+	rm $(BUILD_PATH)/FULL_m5.bin
+	rm $(BUILD_PATH)/FULL_m5.cas
 
 
-mc1000_16k_full:
+mc1000_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) \
 	-subtype=gaming -pragma-define:ansicolumns=32 \
 	-DFULL_GAME  \
@@ -137,12 +137,12 @@ mc1000_16k_full:
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	mv a.wav $(BUILD_PATH)/FULL_mc1000_16k_less_text.wav
+	mv a.wav $(BUILD_PATH)/FULL_mc1000_16k_no_gfx.wav
 	rm a.bin
 	rm a.cas
 
 
-mc1000_48k_udg_joystick:
+mc1000_48k:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
@@ -158,21 +158,21 @@ mc1000_48k_udg_joystick:
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_udg_joystick.wav
+	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_joystick.wav
 	rm a.bin
 	rm a.cas
 
 
-microbee_16k:
+microbee_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__BEE__ -clib=ansi -vn -DSOUNDS  \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-lndos -create-app -o $(BUILD_PATH)/LIGHT_microbee_16k.prg  \
+	-lndos -create-app -o $(BUILD_PATH)/LIGHT_microbee_16k_no_gfx.prg  \
 	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/LIGHT_microbee_16k.prg
+	rm $(BUILD_PATH)/LIGHT_microbee_16k_no_gfx.prg
 
 
-microbee_32k_sprites:
+microbee_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) -lgfxnc100 \
 	$(INCLUDE_OPTS) \
 	-D__NC100__ \
@@ -181,12 +181,12 @@ microbee_32k_sprites:
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/FULL_microbee_32k_sprites.bin \
+	-create-app -o$(BUILD_PATH)/FULL_microbee_32k.bin \
 	-DNO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_microbee_32k_sprites.bin
+	rm $(BUILD_PATH)/FULL_microbee_32k.bin
 
 
 mikro80:
@@ -228,7 +228,7 @@ msx_32k_rom:
 	rm $(BUILD_PATH)/FULL_msx_32k_DATA.bin
 
 
-mtx_udg:
+mtx:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ \
 	-create-app -o FULL.bin -vn \
@@ -243,11 +243,11 @@ mtx_udg:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm FULL.bin
-	mv FULL.wav $(BUILD_PATH)/FULL_mtx_udg.wav
-	mv FULL $(BUILD_PATH)/FULL_mtx_udg.mtx
+	mv FULL.wav $(BUILD_PATH)/FULL_mtx.wav
+	mv FULL $(BUILD_PATH)/FULL_mtx.mtx
 
 
-multi8_udg:
+multi8:
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	$(CROSS_LIB_PATH)/boot/multi8/bootstrap.c \

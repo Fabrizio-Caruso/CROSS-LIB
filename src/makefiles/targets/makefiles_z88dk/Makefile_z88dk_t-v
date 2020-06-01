@@ -50,7 +50,7 @@ vector06c_targets: \
 	vector06c
 
 vg5k_targets: \
-	vg5k_udg vg5k_exp_16k_udg
+	vg5k vg5k_exp_16k
 
 vz200_targets: \
 	vz200_8k vz200_18k vz200_sprites_18k
@@ -286,11 +286,11 @@ vector06c:
 	rm $(BUILD_PATH)/FULL_vector06c.bin
 
 
-vg5k_exp_16k_udg:
+vg5k_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
-	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k_udg.prg \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k.prg \
 	-DCONIO \
 	-DINITIAL_SLOWDOWN=29000 \
 	-clib=default \
@@ -300,10 +300,10 @@ vg5k_exp_16k_udg:
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_vg5k_exp_16k_udg.prg
+	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg
 
 
-vg5k_udg:
+vg5k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(ZSDCC_OPTS) \
 	-compiler=sdcc \
 	$(INCLUDE_OPTS) \
@@ -318,12 +318,12 @@ vg5k_udg:
 	-DFORCE_BOMBS_NUMBER=4 \
 	-DSOUNDS \
 	-DSIMPLE_STRATEGY \
-	-create-app -o $(BUILD_PATH)/FULL_vg5k_udg_less_text.prg \
+	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
 	-DCONIO \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_vg5k_udg_less_text.prg
+	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg
 
 
 vz200_18k: 	

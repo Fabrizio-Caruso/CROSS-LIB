@@ -90,11 +90,10 @@ z88dk_full_tests: \
     cpc \
     cpm_z80_adm3a \
     gal_6k \
-    msx_32k \
+    msx_32k_rom \
     spectrum_48k \
     tiki100 \
-    zx81_16k_wrx 
-
+    zx81_32k_wrx_turn_based 
 
 
 

@@ -8,7 +8,6 @@ z88dk_alt_targets_o-u: \
     pv1000_alt_targets \
     px4_alt_targets \
     px8_alt_targets \
-    spectrum_alt_targets \
     ti82_alt_targets \
     ti83_alt_targets \
     ti85_alt_targets \
@@ -38,11 +37,6 @@ px4_alt_targets: \
 px8_alt_targets: \
     px8_chars \
     px8_chars_ansi
-
-spectrum_alt_targets: \
-    spectrum_16k_light \
-    spectrum_buffered
-    
 
 
 ti82_alt_targets: \
@@ -193,57 +187,6 @@ px8_chars_ansi:
 	$(FULL_FILES)
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/ALT_FULL_px8_chars.ROM	
-
-
-#############################
-# SPECTRUM
-spectrum_16k_light:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(ZSDCC_OPTS) \
-	-compiler=sdcc \
-	$(INCLUDE_OPTS) \
-	--opt-code-size \
-	-zorg=24055 \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-pragma-redirect:getk=getk_inkey \
-	-DLESS_TEXT \
-	-DFORCE_NARROW \
-	-DFORCE_GHOSTS_NUMBER=8 \
-	-DNO_SLEEP \
-	-DNO_HINTS \
-	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_RANDOM_LEVEL \
-	-DSIMPLE_STRATEGY \
-	-DANIMATE_PLAYER \
-	-D__SPECTRUM__ \
-	-DALT_MOVE \
-	-lndos -create-app \
-	-DCONIO \
-	-DUDG_GRAPHICS \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/ALT_LIGHT_spectrum_16k.prg \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/ALT_LIGHT_spectrum_16k.prg
-	rm $(BUILD_PATH)/ALT_LIGHT_spectrum_16k_BANK_7.bin
-
-spectrum_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn  \
-	-DTINY_GAME \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-pragma-redirect:getk=getk_inkey \
-	-DBUFFERED \
-	-DFORCE_XSIZE=29 \
-	-DFORCE_YSIZE=19 \
-	-DTURN_BASED \
-	-DNO_INIT_GRAPHICS \
-	-D__SPECTRUM__ \
-	-lndos -create-app \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/ALT_TINY_spectrum_buffered.prg \
-	$(TINY_FILES)	
-	rm $(BUILD_PATH)/ALT_TINY_spectrum_buffered.prg
-	rm $(BUILD_PATH)/ALT_TINY_spectrum_buffered_BANK_7.bin	
 
 
 #############################

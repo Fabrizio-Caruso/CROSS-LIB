@@ -304,17 +304,6 @@ cbm510:
 	-o $(BUILD_PATH)/FULL_cbm510.prg
 
 
-creativision_8k_tiny: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
-	-DTINY_GAME -DNO_SLEEP \
-	-DNO_SET_SCREEN_COLORS \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(TINY_FILES) \
-	-o $(BUILD_PATH)/TINY_creativision_8k.bin
-
-
 creativision_8k_light: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision \
 	-DNO_SET_SCREEN_COLORS \
@@ -422,15 +411,6 @@ pet_16k:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_pet_16k.prg
-
-
-pet_8k: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet -Cl \
-	-DTINY_GAME -DNO_INIT_GRAPHICS -DCONIO \
-	-DUSE_TINY_MEMORY_BUFFERS \
-	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/memory/pet_memory.s \
-	-o $(BUILD_PATH)/TINY_pet_8k.prg
 
 
 pet_8k_light:
@@ -715,7 +695,7 @@ c16_targets: \
 	c16_16k c16_32k
 	
 pet_targets: \
-	pet_8k pet_8k_light pet_16k
+	pet_8k_light pet_16k
 	
 cbm510_targets: \
 	cbm510
@@ -745,7 +725,7 @@ nes_targets: \
 	nes
 	
 creativision_targets: \
-	creativision_8k_tiny creativision_8k_light creativision_16k
+	creativision_8k_light creativision_16k
 	
 gamate_targets: \
 	gamate

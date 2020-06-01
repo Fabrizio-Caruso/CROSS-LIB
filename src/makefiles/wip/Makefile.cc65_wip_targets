@@ -10,13 +10,13 @@ pce_fx:
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/pce/pce_init_graphics.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_PCE.bin
-	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_PCE_LOW.bin
-	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_PCE_HIGH.bin
-	rm $(BUILD_PATH)/FULL_PCE.bin 
-	cat $(BUILD_PATH)/FULL_PCE_HIGH.bin $(BUILD_PATH)/FULL_PCE_LOW.bin > $(BUILD_PATH)/FULL_PCE_SWAPPED.pce
-	rm $(BUILD_PATH)/FULL_PCE_LOW.bin
-	rm $(BUILD_PATH)/FULL_PCE_HIGH.bin
+	-o $(BUILD_PATH)/WIP_FULL_PCE.bin
+	dd if=$(BUILD_PATH)/WIP_FULL_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/WIP_FULL_PCE_LOW.bin
+	dd if=$(BUILD_PATH)/WIP_FULL_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/WIP_FULL_PCE_HIGH.bin
+	rm $(BUILD_PATH)/WIP_FULL_PCE.bin 
+	cat $(BUILD_PATH)/WIP_FULL_PCE_HIGH.bin $(BUILD_PATH)/WIP_FULL_PCE_LOW.bin > $(BUILD_PATH)/WIP_FULL_PCE_SWAPPED.pce
+	rm $(BUILD_PATH)/WIP_FULL_PCE_LOW.bin
+	rm $(BUILD_PATH)/WIP_FULL_PCE_HIGH.bin
 
 
 TINY_OBJ ?= character.o game_text.o level.o main.o move_player.o strategy.o

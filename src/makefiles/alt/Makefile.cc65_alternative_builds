@@ -41,8 +41,7 @@ c16_alt_targets: \
 # CREATIVISION
 creativision_alt_targets: \
     creativision_32k \
-    creativision_16k_m \
-    creativision_16k_x
+    creativision_8k_tiny 
 
 
 #############################
@@ -64,6 +63,7 @@ nes_alt_targets: \
 # PET
 
 pet_alt_targets: \
+    pet_8k
     pet_8k_buffered \
     pet_8k_light_experimental
 
@@ -184,46 +184,17 @@ creativision_32k:
 	-o $(BUILD_PATH)/ALT_FULL_creativision_32k.bin
 
 
-creativision_16k_m:
+creativision_8k_tiny: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	--config $(CFG_PATH)/cc65/creativision-8k.cfg \
+	-DTINY_GAME -DNO_SLEEP \
 	-DNO_SET_SCREEN_COLORS \
-	-DFULL_GAME -DALT_SLEEP \
-	-DSIMPLE_STRATEGY \
-	-DMEMORY_MAPPED \
-	-DANIMATE_PLAYER \
-	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	-DCONIO -DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
-	-o $(BUILD_PATH)/FULL_creativision_16k.bin	
-	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_creativision_16k_LOW.bin
-	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
-	rm $(BUILD_PATH)/FULL_creativision_16k.bin 
-	cat $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin $(BUILD_PATH)/FULL_creativision_16k_LOW.bin > $(BUILD_PATH)/ALT_FULL_creativision_16k_SWAPPED.bin
-	rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
-	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin	      
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/TINY_creativision_8k.bin
 
 
-creativision_16k_x:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DNO_SET_SCREEN_COLORS \
-	-DFULL_GAME -DALT_SLEEP \
-	-DSIMPLE_STRATEGY \
-	-DCONIO \
-	-DANIMATE_PLAYER \
-	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
-	-o $(BUILD_PATH)/FULL_creativision_16k.bin	
-	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_creativision_16k_LOW.bin
-	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
-	rm $(BUILD_PATH)/FULL_creativision_16k.bin 
-	cat $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin $(BUILD_PATH)/FULL_creativision_16k_LOW.bin > $(BUILD_PATH)/ALT_FULL_creativision_16k_SWAPPED.bin
-	rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
-	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
 #############################
 # GAMATE
 
@@ -283,6 +254,16 @@ pce_light:
 
 #############################
 # PET
+
+
+pet_8k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet -Cl \
+	-DTINY_GAME -DNO_INIT_GRAPHICS -DCONIO \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/memory/pet_memory.s \
+	-o $(BUILD_PATH)/TINY_pet_8k.prg
+
 
 pet_8k_buffered: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet -Cl \

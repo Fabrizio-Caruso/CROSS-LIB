@@ -1,0 +1,223 @@
+# -----------------------------------------------------------------------
+# WIP
+# Targets that are in a work in progress status
+
+
+gamegear_tiny_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -lgamegear -clib=sdcc_iy -startup=17 \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=16 \
+	-D__SMS__ \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DSTDLIB \
+	-DLESS_TEXT \
+	-create-app \
+	-DBUFFERED \
+	-DTURN_BASED \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-o $(BUILD_PATH)/WIP_TINY_gamegear_buffered.bin \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/WIP_TINY_gamegear_buffered_CODE.bin
+	rm $(BUILD_PATH)/WIP_TINY_gamegear_buffered_DATA.bin
+	rm $(BUILD_PATH)/WIP_TINY_gamegear_buffered_BSS.bin
+	rm $(BUILD_PATH)/WIP_TINY_gamegear_buffered_UNASSIGNED.bin
+
+
+kc_tiny_putc4x6:
+	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -subtype=tap \
+	\
+	-D__KC__ \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DZ88DK_PUTC4X6 \
+	-DCONIO \
+	-DALT_PRINT \
+	-DNO_INIT_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/WIP_TINY_kc_putc4x6_.bin \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/z88dk_putc4x6_alt_print.c
+	rm $(BUILD_PATH)/WIP_TINY_kc_putc4x6_.bin
+
+
+mz2500_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
+	-compiler=sdcc \
+	-DFORCE_XSIZE=16 \
+	-DFORCE_YSIZE=12 \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-D__MZ2500__ \
+	-v \
+	-DFULL_GAME \
+	-DNO_SET_SCREEN_COLORS \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
+	-DFORCE_CONIO_LIB -DCONIO \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	$(FULL_FILES) \
+	-create-app 
+	mv a.dsk $(BUILD_PATH)/WIP_FULL_mz2500_buffered.dsk
+	rm a.bin
+
+
+px4_putc4x6:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lpx4 \
+	$(INCLUDE_OPTS) \
+	-pragma-define:ansicolumns=40 \
+	-pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
+ 	-subtype=px4ansi \
+	-D__PX4__ \
+	-DFULL_GAME \
+	-DNO_WAIT \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DZ88DK_PUTC4X6 \
+	-DNO_PRINT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-Cz–-32k \
+	-create-app \
+	-vn -lndos \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm a.bin
+	mv A.ROM $(BUILD_PATH)/WIP_FULL_px4_putc4x6.ROM
+
+
+px4_tiny_putc4x6:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lpx4 \
+	$(INCLUDE_OPTS) \
+	-pragma-define:ansicolumns=40 \
+	-pragma-define:ansipixels=240 -pragma-define:ansicolumns=60 \
+ 	-subtype=px4ansi \
+	-D__PX4__ \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DZ88DK_PUTC4X6 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-Cz–-32k \
+	-create-app \
+	-vn -lndos \
+	$(TINY_FILES)
+	rm a.bin
+	mv A.ROM $(BUILD_PATH)/WIP_TINY_px4_putc4x6.ROM
+
+
+rc2014:
+	$(Z88DK_PATH)$(MYZ88DK) +rc2014 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__ZXN__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/WIP_FULL_rc2014.bin
+
+
+special:
+	$(Z88DK_PATH)$(MYZ88DK) +special $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__SPECIAL__ \
+	-DFORCE_XSIZE=48 \
+	-DFORCE_YSIZE=32 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/WIP_FULL_special.bin
+	rm $(BUILD_PATH)/WIP_FULL_special.bin
+
+
+spectrum_16k_light:
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	--opt-code-size \
+	-zorg=24055 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DLESS_TEXT \
+	-DFORCE_NARROW \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_SLEEP \
+	-DNO_HINTS \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_RANDOM_LEVEL \
+	-DSIMPLE_STRATEGY \
+	-DANIMATE_PLAYER \
+	-D__SPECTRUM__ \
+	-DALT_MOVE \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/WIP_LIGHT_spectrum_16k.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(LIGHT_FILES)
+	rm $(BUILD_PATH)/WIP_LIGHT_spectrum_16k.prg
+	rm $(BUILD_PATH)/WIP_LIGHT_spectrum_16k_BANK_7.bin
+
+spectrum_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn  \
+	-DTINY_GAME \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DBUFFERED \
+	-DFORCE_XSIZE=29 \
+	-DFORCE_YSIZE=19 \
+	-DTURN_BASED \
+	-DNO_INIT_GRAPHICS \
+	-D__SPECTRUM__ \
+	-lndos -create-app \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/WIP_TINY_spectrum_buffered.prg \
+	$(TINY_FILES)	
+	rm $(BUILD_PATH)/WIP_TINY_spectrum_buffered.prg
+	rm $(BUILD_PATH)/WIP_TINY_spectrum_buffered_BANK_7.bin
+
+
+yaz180:
+	$(Z88DK_PATH)$(MYZ88DK) +yaz180 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__ZXN__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/WIP_FULL_yaz180.bin
+
+
+zx80_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \
+	-D__ZX80__ -DFULL_GAME \
+	-DEND_SCREEN \
+	-DALT_SLEEP \
+	-DCONIO \
+	-DZX80_GEN_TV_FIELD \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx80/zx80_init_graphics.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/WIP_FULL_zx80_16k.prg

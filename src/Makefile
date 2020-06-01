@@ -281,17 +281,17 @@ include makefiles/targets/Makefile.sdcc_targets
 
 #############################################################################################################################################
 # Cross dev-kit 
-include makefiles/targets/Makefile.cross-dev-kit_targets
+#include makefiles/targets/Makefile.cross-dev-kit_targets
 
 
 ####################################################################################################################
 # Alternative builds	
 
 # - Z88DK
-include makefiles/alt/Makefile.z88dk_alternative_builds
+#include makefiles/alt/Makefile.z88dk_alternative_builds
 
 # - CC65
-include makefiles/alt/Makefile.cc65_alternative_builds
+#include makefiles/alt/Makefile.cc65_alternative_builds
 
 
 ####################################################################################################################

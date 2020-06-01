@@ -163,9 +163,6 @@ cpm_tiny_buffered:
 
 
 # cannot run in Mame (Kaypro 2x)
-# 	--max-allocs-per-node200000 -SO3 --opt-code-size 
-#	-compiler=sdcc
-# MAX: 79, 21 
 cpm_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \

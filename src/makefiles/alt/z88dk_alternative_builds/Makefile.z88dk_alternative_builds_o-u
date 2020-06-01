@@ -201,7 +201,7 @@ spectrum_16k_light:
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(ZSDCC_OPTS) \
 	-compiler=sdcc \
 	$(INCLUDE_OPTS) \
-	--max-allocs-per-node200000 -SO3 --opt-code-size \
+	--opt-code-size \
 	-zorg=24055 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \

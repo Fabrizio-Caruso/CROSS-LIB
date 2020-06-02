@@ -17,8 +17,10 @@ TMC600_OPTS ?= "-Wa-D CODELOC=0x6300" "-Wa-D TMC600=1"
 
 ################################################################################
 
-lcc1802_targets: \
-	comx_targets pecom_targets tmc600_targets
+lcc1802_targets: 
+	make comx_targets 
+	make pecom_targets 
+	make tmc600_targets
 
 ################################################################################
 
@@ -89,10 +91,10 @@ full_tmc600_combo.c: full_combo_rand.c
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_tmc600_combo.c
 	rm full_combo_rand.c
 
-full_tmc600_combo_no_end.c: full_combo_rand.c
+tmc600_no_end_screen.c: full_combo_rand.c
 	cat \
 	$(COMX_EXTRA_FILES) \
-	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_tmc600_combo_no_end.c
+	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../tmc600_no_end_screen.c
 	rm full_combo_rand.c
 
 COMX_MACROS ?= \
@@ -145,6 +147,8 @@ light_comx: light_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_comx.hex
 
 
+comx: full_comx
+
 full_comx: full_comx_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
@@ -159,7 +163,6 @@ full_comx: full_comx_combo.c
 	$(SOURCE_PATH)/../full_comx_combo.c
 	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_comx.hex
-
 
 
 # PECOM
@@ -193,6 +196,9 @@ light_pecom: light_pecom_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_pecom.hex
 
 
+
+pecom: full_pecom
+
 full_pecom: full_pecom_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
@@ -223,6 +229,8 @@ debug_pecom: tiny_pecom_combo.c
 	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/DEBUG_pecom.hex
 
+
+tmc600: full_tmc600
 
 # TMC600
 tiny_tmc600: tiny_tmc600_combo.c
@@ -263,7 +271,7 @@ full_tmc600: full_tmc600_combo.c
 
 
 # -DNO_PRINT -DNO_MESSAGE -DNO_TITLE 
-full_tmc600_no_end: full_tmc600_combo_no_end.c
+tmc600_no_end_screen: tmc600_no_end_screen.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(TMC600_OPTS)  \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
@@ -271,25 +279,20 @@ full_tmc600_no_end: full_tmc600_combo_no_end.c
 	-DLCC1802_JOYSTICK -DNO_HINTS \
 	$(COMX_MACROS) \
 	-DFORCE_GHOSTS_NUMBER=8  \
-	$(SOURCE_PATH)/../full_tmc600_combo_no_end.c
-	rm -rf $(SOURCE_PATH)/../full_tmc600_combo_no_end.c
-	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_tmc600_no_end.hex
+	$(SOURCE_PATH)/../tmc600_no_end_screen.c
+	rm -rf $(SOURCE_PATH)/../tmc600_no_end_screen.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_tmc600_no_end_screen.hex
 
 
 tiny_comx_debug: tiny_comx
 
-comx_targets: 
-	make tiny_comx 
-	make light_comx 
-	make full_comx
+comx_targets: comx
 
-pecom_targets: 
-	make tiny_pecom 
-	make light_pecom 
-	make full_pecom
 
-tmc600_targets: 
-	make tiny_tmc600
-	make light_tmc600 
-	make full_tmc600
-	make full_tmc600_no_end
+pecom_targets: pecom
+
+tmc600_targets:
+	make tmc600
+	make tmc600_no_end_screen
+
+

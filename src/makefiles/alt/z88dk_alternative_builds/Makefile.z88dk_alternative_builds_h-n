@@ -30,7 +30,7 @@ microbee_alt_targets: \
     microbee_32k_wav
 
 msx_alt_targets: \
-    msx_32k
+    msx_32k_cas
 
 mtx_alt_targets: \
     mtx_no_gfx \
@@ -135,7 +135,7 @@ microbee_32k_wav:
 
 #############################
 # MSX
-msx_32k:
+msx_32k_cas:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DINITIAL_SLOWDOWN=29000 \

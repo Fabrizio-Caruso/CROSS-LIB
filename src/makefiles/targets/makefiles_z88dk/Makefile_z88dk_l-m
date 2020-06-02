@@ -231,7 +231,7 @@ msx_32k_rom:
 mtx:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ \
-	-create-app -o FULL.bin -vn \
+	-create-app -o MTX.bin -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-lndos \
@@ -242,9 +242,9 @@ mtx:
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm FULL.bin
-	mv FULL.wav $(BUILD_PATH)/FULL_mtx.wav
-	mv FULL $(BUILD_PATH)/FULL_mtx.mtx
+	rm MTX.bin
+	mv MTX.wav $(BUILD_PATH)/FULL_mtx.wav
+	mv MTX $(BUILD_PATH)/FULL_mtx.mtx
 
 
 multi8:
@@ -340,8 +340,8 @@ mz2500_tiny_buffered:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app 
-	mv a.dsk $(BUILD_PATH)/TINY_mz2500_buffered.dsk
-	rm a.bin
+	-create-app -o mz2500
+	mv mz2500.dsk $(BUILD_PATH)/TINY_mz2500_buffered.dsk
+	rm mz2500.bin
 
 

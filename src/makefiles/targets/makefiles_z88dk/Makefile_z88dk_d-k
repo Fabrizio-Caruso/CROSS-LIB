@@ -65,7 +65,7 @@ kaypro_targets: \
 	kaypro
 
 kc_targets: \
-	kc_tiny_udg kc_light_udg kc_udg
+	kc_tiny kc_light kc
 
 kramermc_targets: \
 	kramermc
@@ -353,7 +353,7 @@ kaypro:
 	rm $(BUILD_PATH)/FULL_kaypro.bin
 
 
-kc_light_udg:
+kc_light:
 	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap $(INCLUDE_OPTS) \
 	-D__KC__ \
 	-DCONIO_VT52 \
@@ -369,7 +369,7 @@ kc_light_udg:
 	rm $(BUILD_PATH)/LIGHT_kc.bin
 
 
-kc_tiny_udg:
+kc_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap $(INCLUDE_OPTS) \
 	-D__KC__ \
 	-DTINY_GAME  \
@@ -386,7 +386,7 @@ kc_tiny_udg:
 	rm $(BUILD_PATH)/TINY_kc.bin
 
 
-kc_udg:
+kc:
 	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap $(INCLUDE_OPTS) \
 	-D__KC__ \
 	-DFULL_GAME  \
@@ -420,3 +420,4 @@ kramermc:
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_kramermc.bin
 	rm $(BUILD_PATH)/FULL_kramermc.bin
+

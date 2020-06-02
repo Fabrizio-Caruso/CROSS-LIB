@@ -172,13 +172,13 @@ newbrain:
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app
-	tar czvf FULL_newbrain.tar.zip _dir.txt a.bas a.dat
+	-create-app -o newbrain
+	tar czvf FULL_newbrain.tar.zip _dir.txt newbrain.bas newbrain.dat
 	mv FULL_newbrain.tar.zip $(BUILD_PATH)
 	rm _dir.txt
-	rm a.bas
-	rm a.dat
-	rm a.bin
+	rm newbrain.bas
+	rm newbrain.dat
+	rm newbrain
 
 
 osca:
@@ -188,11 +188,11 @@ osca:
 	-DSOUNDS  -lndos \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app  \
+	-create-app -o osca \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm a.bin
-	mv A.EXE $(BUILD_PATH)/FULL_OSCA.EXE
+	rm osca
+	mv osca.EXE $(BUILD_PATH)/FULL_OSCA.EXE
 
 
 osborne1_chars:
@@ -232,6 +232,7 @@ oz_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +oz $(ZSDCC_ROM_OPTS) \
 	$(INCLUDE_OPTS) \
 	-compiler=sdcc \
+	-ooz.bin \
 	-D__OZ__ \
 	-DTINY_GAME \
 	-DFORCE_XSIZE=59 \
@@ -246,10 +247,10 @@ oz_tiny_buffered:
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c	
-	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
-	rm a.bin
-	mv a.wzd $(BUILD_PATH)/TINY_oz_buffered.wzd
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(TOOLS_PATH)/z88dk/oz/makewzd.exe $(SOURCE_PATH)/../oz
+	rm oz.bin
+	mv oz.wzd $(BUILD_PATH)/TINY_oz_buffered.wzd
 
 
 p2000_16k:
@@ -373,6 +374,7 @@ pmd85:
 pps:
 	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__PPS__ -vn \
+	-o pps \
 	-DCONIO_VT52 \
 	-DFULL_GAME -DSOUNDS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -380,7 +382,7 @@ pps:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	mv a.bin $(BUILD_PATH)/FULL_pps.exe	
+	mv pps $(BUILD_PATH)/FULL_pps.exe	
 
 
 primo:
@@ -454,7 +456,7 @@ px4:
 	-D__PX4__ \
 	-DFULL_GAME \
 	-subtype=px4 -Cz--32k \
-	-create-app \
+	-create-app -o px4 \
 	-vn -lndos \
 	-DALT_PRINT \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
@@ -464,8 +466,8 @@ px4:
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	rm a.bin
-	mv A.ROM $(BUILD_PATH)/FULL_px4.ROM
+	rm px4
+	mv px4.ROM $(BUILD_PATH)/FULL_px4.ROM
 
 
 px8:
@@ -474,7 +476,7 @@ px8:
 	-D__PX8__ \
 	-DFULL_GAME \
 	-subtype=px8 \
-	-create-app \
+	-create-app -o px8 \
 	-vn -lndos \
 	-DALT_PRINT \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
@@ -482,5 +484,7 @@ px8:
 	-DLESS_TEXT \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	rm a.bin
-	mv A.ROM $(BUILD_PATH)/FULL_px8.ROM
+	rm px8
+	mv px8.ROM $(BUILD_PATH)/FULL_px8.ROM
+
+

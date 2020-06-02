@@ -63,7 +63,7 @@ nes_alt_targets: \
 # PET
 
 pet_alt_targets: \
-    pet_8k
+    pet_8k \
     pet_8k_buffered \
     pet_8k_light_experimental
 

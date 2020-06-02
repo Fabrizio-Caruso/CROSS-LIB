@@ -178,22 +178,6 @@ tiki100:
 	rm $(SOURCE_PATH)/../tiki100_HIMEM.bin
 
 
-tiki100_sprites_light:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -ltiki100 \
-	$(INCLUDE_OPTS) \
-	-D__TIKI100__ \
-	-DNO_PRINT \
-	-DZ88DK_SPRITES \
-	-DLESS_TEXT \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/LIGHT_tiki100_sprites.bin \
-	-DNO_INIT_GRAPHICS \
-	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/LIGHT_tiki100_sprites.bin
-
-
 trs80:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos -subtype=disk \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \

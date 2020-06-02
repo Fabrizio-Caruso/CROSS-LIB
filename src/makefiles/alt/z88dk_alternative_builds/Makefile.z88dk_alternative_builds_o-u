@@ -12,6 +12,7 @@ z88dk_alt_targets_o-u: \
     ti83_alt_targets \
     ti85_alt_targets \
     ti86_alt_targets \
+    tiki100_alt_targets \
     trs80_alt_targets \
     ts2068_alt_targets
 
@@ -23,7 +24,7 @@ oz_alt_targets: \
     oz_tiny
 
 pc6001_alt_targets: \
-    pc6001_32k
+    pc6001_32k_no_gfx
 
 pps_alt_targets: \
     pps_turn_based
@@ -52,6 +53,9 @@ ti85_alt_targets: \
 
 ti86_alt_targets: \
     ti86
+
+tiki_alt_targets: \
+    tiki100_light
 
 trs80_alt_targets: \
     trs80_chars_cas \
@@ -94,19 +98,19 @@ oz_tiny:
 
 #############################
 # PC6001
-pc6001_32k:
+pc6001_32k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ \
 	-DFULL_GAME \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_pc6001_32k.prg \
+	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/ALT_FULL_pc6001_32k.prg
-	rm $(BUILD_PATH)/ALT_FULL_pc6001_32k.wav
-	mv $(BUILD_PATH)/ALT_FULL_pc6001_32k.cas $(BUILD_PATH)/ALT_FULL_pc6001_32k.cp6
+	rm $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.prg
+	rm $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.wav
+	mv $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.cas $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.cp6
 
 
 #############################
@@ -301,6 +305,24 @@ ti86:
 	$(FULL_FILES)
 	mv $(SOURCE_PATH)/../a.86p $(BUILD_PATH)/ALT_FULL_ti86.86p	
 	rm $(SOURCE_PATH)/../a.bin
+
+
+#############################
+# TIKI100
+tiki100_light:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -ltiki100 \
+	$(INCLUDE_OPTS) \
+	-D__TIKI100__ \
+	-DNO_PRINT \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/ALT_LIGHT_tiki100.bin \
+	-DNO_INIT_GRAPHICS \
+	$(LIGHT_FILES)
+	rm $(BUILD_PATH)/ALT_LIGHT_tiki100.bin
 
 
 #############################

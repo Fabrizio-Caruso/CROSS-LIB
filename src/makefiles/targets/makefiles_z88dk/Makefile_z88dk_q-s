@@ -23,19 +23,19 @@ qc10_targets: \
 	qc10
 
 srr_targets: \
-	srr_udg
+	srr
 
 sc3000_targets: \
-	sc3000_16k sc3000_32k_udg sg1000_udg
+	sc3000_16k sc3000_32k sg1000
 
 super80_targets: \
 	super80 super80r
 
 svi_targets: \
-	svi_318 svi_328_udg_cursor
+	svi_318 svi_328
 
 rx78_targets: \
-	rx78_udg
+	rx78
 
 samcoupe_targets: \
 	samcoupe
@@ -50,7 +50,7 @@ smc777_targets: \
 	smc777
 
 spc1000_targets: \
-	spc1000_udg
+	spc1000
 
 spectrum_targets: \
 	spectrum_16k spectrum_48k
@@ -97,7 +97,7 @@ rc700:
 	rm $(BUILD_PATH)/FULL_rc700.bin
 
 
-rx78_udg:
+rx78:
 	$(Z88DK_PATH)$(MYZ88DK) +rx78 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__RX78__ \
 	-DFULL_GAME  \
@@ -148,7 +148,7 @@ sc3000_16k:
 	rm $(BUILD_PATH)/LIGHT_sc3000_16k.tap
 
 
-sc3000_32k_udg:
+sc3000_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__SC3000__ \
@@ -164,14 +164,14 @@ sc3000_32k_udg:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	-o $(BUILD_PATH)/FULL_sc3000_32k_udg.prg \
+	-o $(BUILD_PATH)/FULL_sc3000_32k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_sc3000_32k_udg.prg
-	rm $(BUILD_PATH)/FULL_sc3000_32k_udg.tap
+	rm $(BUILD_PATH)/FULL_sc3000_32k.prg
+	rm $(BUILD_PATH)/FULL_sc3000_32k.tap
 
 
-sg1000_udg:
+sg1000:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_ROM_OPTS) -subtype=rom \
 	$(INCLUDE_OPTS) \
 	-D__SC3000__ \
@@ -187,12 +187,12 @@ sg1000_udg:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	-o $(BUILD_PATH)/FULL_sg1000_udg.prg \
+	-o $(BUILD_PATH)/FULL_sg1000.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_sg1000_udg.prg
-	rm $(BUILD_PATH)/FULL_sg1000_udg_BSS.bin
-	rm $(BUILD_PATH)/FULL_sg1000_udg_DATA.bin
+	rm $(BUILD_PATH)/FULL_sg1000.prg
+	rm $(BUILD_PATH)/FULL_sg1000_BSS.bin
+	rm $(BUILD_PATH)/FULL_sg1000_DATA.bin
 
 
 smc777:
@@ -272,7 +272,7 @@ sos_tiny_buffered:
 	mv sos_tiny_buffered.obj $(BUILD_PATH)/TINY_sos_buffered.obj
 
 
-spc1000_udg:
+spc1000:
 	$(Z88DK_PATH)$(MYZ88DK) +spc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__SPC1000__ \
 	-DFULL_GAME  \
@@ -335,7 +335,7 @@ spectrum_48k:
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin
 
 
-srr_udg:
+srr:
 	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
 	-DFULL_GAME -DSOUNDS \
@@ -348,12 +348,12 @@ srr_udg:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	-create-app -o srr_udg \
+	-create-app -o srr \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm srr_udg
-	rm srr_udg.srr
-	mv srr_udg.wav $(BUILD_PATH)/FULL_srr_udg.wav
+	rm srr
+	rm srr.srr
+	mv srr.wav $(BUILD_PATH)/FULL_srr.wav
 
 
 super80:
@@ -429,7 +429,7 @@ svi_318:
 	rm svi_318
 
 
-svi_328_udg_cursor:
+svi_328:
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
 	-DZ88DK_JOYSTICK \
 	-DUDG_GRAPHICS \
@@ -441,12 +441,12 @@ svi_328_udg_cursor:
 	-DCONIO \
 	-DFORCE_CONIO_LIB \
 	-pragma-define:ansicolumns=32 \
-	-create-app -o svi_328_udg_cursor \
+	-create-app -o svi_328 \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	mv svi_328_udg_cursor.cas $(BUILD_PATH)/FULL_svi_328_udg.cas
-	rm svi_328_udg_cursor
+	mv svi_328.cas $(BUILD_PATH)/FULL_svi_328.cas
+	rm svi_328
 

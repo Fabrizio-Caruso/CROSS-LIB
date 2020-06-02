@@ -131,7 +131,7 @@ z1013:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o z1013
-	mv $(SOURCE_PATH)/../z1013.Z80 $(BUILD_PATH)/FULL_z1013.z80
+	mv $(SOURCE_PATH)/../Z1013.Z80 $(BUILD_PATH)/FULL_z1013.z80
 	rm $(SOURCE_PATH)/../z1013
 
 

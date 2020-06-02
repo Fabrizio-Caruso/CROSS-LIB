@@ -288,10 +288,10 @@ include makefiles/targets/Makefile.sdcc_targets
 # Alternative builds	
 
 # - Z88DK
-#include makefiles/alt/Makefile.z88dk_alternative_builds
+include makefiles/alt/Makefile.z88dk_alternative_builds
 
 # - CC65
-#include makefiles/alt/Makefile.cc65_alternative_builds
+include makefiles/alt/Makefile.cc65_alternative_builds
 
 ####################################################################################################################
 # WIP
@@ -305,7 +305,7 @@ include makefiles/wip/Makefile.cc65_wip_targets
 ####################################################################################################################
 # EXPERIMENTAL
 
-#include makefiles/experimental/Makefile.z88dk_experimental_targets
+include makefiles/experimental/Makefile.z88dk_experimental_targets
 
 
 ####################################################################################################################

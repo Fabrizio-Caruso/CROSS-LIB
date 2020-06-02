@@ -342,6 +342,6 @@ mz2500_tiny_buffered:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o mz2500
 	mv mz2500.dsk $(BUILD_PATH)/TINY_mz2500_buffered.dsk
-	rm mz2500.bin
+	rm mz2500
 
 

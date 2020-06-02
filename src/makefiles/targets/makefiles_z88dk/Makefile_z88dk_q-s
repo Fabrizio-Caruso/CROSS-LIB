@@ -407,6 +407,8 @@ sv8000:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_sv8000.bin
+	rm $(BUILD_PATH)/FULL_sv8000_BSS.bin
+	rm $(BUILD_PATH)/FULL_sv8000_DATA.bin
 
 
 svi_318:

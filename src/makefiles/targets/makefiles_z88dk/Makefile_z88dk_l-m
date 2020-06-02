@@ -292,6 +292,7 @@ myvision:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_myvision.bin
+	rm $(BUILD_PATH)/FULL_myvision.bin
 	rm $(BUILD_PATH)/FULL_myvision_BSS.bin
 	rm $(BUILD_PATH)/FULL_myvision_DATA.bin
 

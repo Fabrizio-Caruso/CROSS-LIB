@@ -35,7 +35,7 @@ cpm_z80_alt_targets: \
     cpm_z80_tiny_buffered \
     cpm_z80_buffered \
     cpm_z80_vt52 \
-    cpc_Z80_vt100
+    cpm_z80_vt100
 
 cpc_alt_targets: \
     cpc_no_udg

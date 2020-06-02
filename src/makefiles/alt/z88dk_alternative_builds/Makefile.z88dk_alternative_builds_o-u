@@ -12,7 +12,6 @@ z88dk_alt_targets_o-u: \
     ti83_alt_targets \
     ti85_alt_targets \
     ti86_alt_targets \
-    tiki100_alt_targets \
     trs80_alt_targets \
     ts2068_alt_targets
 
@@ -53,9 +52,6 @@ ti85_alt_targets: \
 
 ti86_alt_targets: \
     ti86
-
-tiki_alt_targets: \
-    tiki100_light
 
 trs80_alt_targets: \
     trs80_chars_cas \
@@ -308,24 +304,6 @@ ti86:
 
 
 #############################
-# TIKI100
-tiki100_light:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -ltiki100 \
-	$(INCLUDE_OPTS) \
-	-D__TIKI100__ \
-	-DNO_PRINT \
-	-DZ88DK_SPRITES \
-	-DLESS_TEXT \
-	-DNO_SLEEP \
-	-DNO_WAIT \
-	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/ALT_LIGHT_tiki100.bin \
-	-DNO_INIT_GRAPHICS \
-	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/ALT_LIGHT_tiki100.bin
-
-
-#############################
 # TRS80
 trs80_chars_cas:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos \
@@ -389,5 +367,5 @@ ts2068_turn_based:
 	$(FULL_FILES) \
 	-create-app -o $(BUILD_PATH)/ALT_FULL_ts2068_turn_based.bin
 	rm $(BUILD_PATH)/ALT_FULL_ts2068_turn_based.bin
-
+	rm $(BUILD_PATH)/ALT_FULL_ts2068_turn_based_BANK_7.bin
 

@@ -32,8 +32,10 @@ camputers_alt_targets: \
     camputers_lynx_tiny
 
 cpm_z80_alt_targets: \
-    cpm_tiny_buffered \
-    cpm_buffered
+    cpm_z80_tiny_buffered \
+    cpm_z80_buffered \
+    cpm_z80_vt52 \
+    cpc_Z80_vt100
 
 cpc_alt_targets: \
     cpc_no_udg
@@ -142,7 +144,7 @@ camputers_lynx_tiny:
 
 #############################
 # CPM
-cpm_tiny_buffered:
+cpm_z80_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSTDLIB \
@@ -163,7 +165,7 @@ cpm_tiny_buffered:
 
 
 # cannot run in Mame (Kaypro 2x)
-cpm_buffered:
+cpm_z80_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSTDLIB \
@@ -183,6 +185,33 @@ cpm_buffered:
 	mv A.COM $(BUILD_PATH)/ALT_FULL_CPM_BUFFERED.COM
 	# cp $(BUILD_PATH)/FULL_CPM_BUFFERED.COM $(BUILD_PATH)/CPM.COM
 
+
+cpm_z80_vt52:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DCONIO_VT52 \
+	-D__CPM_80X24__ \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/ALT_FULL_cpm_vt52.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/ALT_FULL_cpm_vt52.bin	
+
+
+cpm_z80_vt100:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DCONIO_VT100 \
+	-D__CPM_80X24__ \
+	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(BUILD_PATH)/ALT_FULL_cpm_vt100.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/ALT_FULL_cpm_vt100.bin	
 
 #############################
 # CPC

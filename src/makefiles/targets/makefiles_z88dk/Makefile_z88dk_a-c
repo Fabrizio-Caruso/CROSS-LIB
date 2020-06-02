@@ -47,13 +47,14 @@ camputers_lynx_targets: \
 	camputers_lynx
 
 coleco_targets: \
-	coleco_udg coleco_adam
+	coleco coleco_adam
 
 cpc_targets: \
 	cpc
 
 cpm_z80_targets: \
-	cpm_z80_adm3a cpm_z80_vt52 cpm_z80_vt100 
+	cpm_z80_adm3a
+
 # ------------------------------------------------------------------------------------------
 
 abc80:
@@ -72,16 +73,16 @@ abc80:
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_SLEEP \
 	-DFLAT_ENEMIES \
-	-lndos -create-app \
+	-lndos -create-app -o abc80.bin \
 	$(FULL_FILES)
-	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/xchase.bac 49200
+	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) abc80.bin $(BUILD_PATH)/xchase.bac 49200
 	# $(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 a.bin	
 	# $(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk 
 	# $(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk -b $(BUILD_PATH)/xchase.bac
-	# rm a.bin 
+	# rm abc80.bin 
 	# mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/FULL_abc80.bac
-	mv a.ihx $(BUILD_PATH)/FULL_abc80.ihx 
-	mv a.bin $(BUILD_PATH)/FULL_abc80.bin
+	mv abc80.ihx $(BUILD_PATH)/FULL_abc80.ihx 
+	mv abc80.bin $(BUILD_PATH)/FULL_abc80.bin
 
 
 abc80_light:
@@ -90,14 +91,14 @@ abc80_light:
 	-zorg=49200 $(INCLUDE_OPTS) \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DNO_WAIT \
-	-D__ABC80__ -clib=ansi -vn  -lndos -create-app  \
+	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o abc80light.bin  \
 	$(LIGHT_FILES)
 	# mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
-	mv a.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
+	mv abc80light.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
 	# $(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 a.bin
 	# $(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/LIGHT_abc80.dsk 
 	# $(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/LIGHT_abc80.dsk -b $(BUILD_PATH)/xchase.bac
-	mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
+	mv abc80light.bin $(BUILD_PATH)/LIGHT_abc80.bin
 
 
 ace_exp_16k:
@@ -112,11 +113,11 @@ ace_exp_16k:
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o full -Cz--audio -create-app	
-	cp full.wav $(BUILD_PATH)/FULL_ace_exp_16k.wav
-	rm full.wav
-	rm full.tap
-	rm full
+	-o ace -Cz--audio -create-app	
+	cp ace.wav $(BUILD_PATH)/FULL_ace_exp_16k.wav
+	rm ace.wav
+	rm ace.tap
+	rm ace
 
 
 # -O3 necessary to build the rom 
@@ -135,7 +136,7 @@ alphatro:
 	-create-app -o$(BUILD_PATH)/FULL_alphatro.bin
 	rm $(BUILD_PATH)/FULL_alphatro.bin
 	rm $(BUILD_PATH)/FULL_alphatro_DATA.bin
-	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin	
+	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin
 
 
 aquarius_exp_4k:
@@ -240,7 +241,6 @@ bic:
 	rm $(BUILD_PATH)/FULL_bic.bin
 
 
-
 c128_z80_80col:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
@@ -261,35 +261,36 @@ c128_z80_80col:
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app
+	-create-app -oa80.bin
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_80col.d64
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_80col.d64 -write a.ldr
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_80col.d64 -write a
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_80col.d64 -write a80.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_80col.d64 -write a80
 	mv FULL_c128_z80_80col.d64 $(BUILD_PATH)/
-	rm A.LDR
-	rm A
-	rm a.bin
+	rm A80.LDR
+	rm A80
+	rm a80.bin
 
 
 c128_z80_40col:
-	$(Z88DK_PATH)$(MYZ88DK) +c128 $(ZSDCC_OPTS) \
-	-compiler=sdcc \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
 	-DFULL_GAME -DEND_SCREEN -DNO_BLINKING \
 	-DFORCE_CONIO_LIB \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app
+	-create-app -oa40.bin
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a.ldr
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40
 	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/
-	rm A.LDR
-	rm A
-	rm a.bin
+	rm A40.LDR
+	rm A40
+	rm a40.bin
 
 
 camputers_lynx:
@@ -325,7 +326,7 @@ coleco_adam:
 	rm a.bin
 
 
-coleco_udg:
+coleco:
 	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__COLECO__ \
 	-DZ88DK_JOYSTICK \
@@ -389,29 +390,3 @@ cpm_z80_adm3a:
 	rm $(BUILD_PATH)/FULL_cpm_adm3a.bin
 
 
-cpm_z80_vt52:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-DCONIO_VT52 \
-	-D__CPM_80X24__ \
-	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_cpm_vt52.bin \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_cpm_vt52.bin	
-	
-
-cpm_z80_vt100:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-DCONIO_VT100 \
-	-D__CPM_80X24__ \
-	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_cpm_vt100.bin \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_cpm_vt100.bin	

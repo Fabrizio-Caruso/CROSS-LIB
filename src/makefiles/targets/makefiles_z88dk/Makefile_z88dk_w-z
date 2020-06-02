@@ -130,9 +130,9 @@ z1013:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app
-	mv $(SOURCE_PATH)/../A.Z80 $(BUILD_PATH)/FULL_z1013.z80
-	rm $(SOURCE_PATH)/../a.bin
+	-create-app -o z1013
+	mv $(SOURCE_PATH)/../z1013.Z80 $(BUILD_PATH)/FULL_z1013.z80
+	rm $(SOURCE_PATH)/../z1013
 
 
 z80tvgame: 
@@ -169,13 +169,13 @@ z88:
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
-	-create-app
-	rm a.bin
-	rm a_BSS.bin
-	rm a_DATA.bin
-	rm a_bss_fardata.bin
-	mv a.63 $(BUILD_PATH)/FULL_z88.63
-	mv a.epr $(BUILD_PATH)/FULL_z88.epr
+	-create-app -o z88
+	rm z88
+	rm z88_BSS.bin
+	rm z88_DATA.bin
+	rm z88_bss_fardata.bin
+	mv z88.63 $(BUILD_PATH)/FULL_z88.63
+	mv z88.epr $(BUILD_PATH)/FULL_z88.epr
 
 
 z9001_16k_full:

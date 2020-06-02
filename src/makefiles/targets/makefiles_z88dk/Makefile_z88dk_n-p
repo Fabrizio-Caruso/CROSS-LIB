@@ -192,7 +192,7 @@ osca:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm osca
-	mv osca.EXE $(BUILD_PATH)/FULL_OSCA.EXE
+	mv OSCA.EXE $(BUILD_PATH)/FULL_OSCA.EXE
 
 
 osborne1_chars:
@@ -467,7 +467,7 @@ px4:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm px4
-	mv px4.ROM $(BUILD_PATH)/FULL_px4.ROM
+	mv PX4.ROM $(BUILD_PATH)/FULL_px4.ROM
 
 
 px8:
@@ -485,6 +485,6 @@ px8:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm px8
-	mv px8.ROM $(BUILD_PATH)/FULL_px8.ROM
+	mv PX8.ROM $(BUILD_PATH)/FULL_px8.ROM
 
 

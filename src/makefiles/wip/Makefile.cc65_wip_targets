@@ -20,7 +20,6 @@ pce_fx:
 
 
 TINY_OBJ ?= character.o game_text.o level.o main.o move_player.o strategy.o
-
 bbc_no_graphics:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -t bbc -c \
 	-D__BBC__ \
@@ -42,6 +41,34 @@ bbc_no_graphics:
 	$(CC65_PATH)/ld65$(EXE) -t bbc \
 	--obj-path $(SOURCE_PATH) \
 	-m $(BUILD_PATH)/bbc_no_graphics.map \
-	-o $(BUILD_PATH)/bbc_no_graphics.bin \
+	-o $(BUILD_PATH)/WIP_bbc_no_graphics.bin \
 	$(TINY_OBJ)
-    
+
+
+pce_light:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pce -Cl \
+	--config $(CFG_PATH)cc65/pce_8k_less_stack.cfg \
+	-DLESS_TEXT -DNO_PRINT \
+	-DNO_MESSAGE -DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_INITIAL_SCREEN \
+	-DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DFORCE_NARROW \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DNO_STATS \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/WIP_LIGHT_pce.pce
+
+
+pet_8k_buffered: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet -Cl \
+	-DTINY_GAME -DNO_INIT_GRAPHICS \
+	-DBUFFERED \
+	-DALT_PRINT \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/memory/pet_memory.s \
+	-o $(BUILD_PATH)/WIP_TINY_pet_8k_buffered.prg
+
+

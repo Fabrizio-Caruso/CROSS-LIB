@@ -259,31 +259,6 @@ c64:
 	rm $(BUILD_PATH)/FULL_c64.prg
 
 
-c64_8k_cart: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
-	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS \
-	-DLESS_TEXT \
-	-DFORCE_GHOSTS_NUMBER=9 \
-	-DEND_SCREEN \
-	-DALT_PRINT \
-	-DBETWEEN_LEVEL \
-	-DROUND_ENEMIES \
-	-DCBM_SCREEN_CODES \
-	-DMEMORY_MAPPED \
-	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg \
-	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/graphics.s \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_c64_8k_cart.prg
-	$(TOOLS_PATH)/generic/exomizer sfx basic  $(BUILD_PATH)/FULL_c64_8k_cart.prg -o $(BUILD_PATH)/FULL_c64_8k_exomized.prg
-	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_c64_8k_exomized.prg  $(BUILD_PATH)/FULL_c64_8k_exomized.crt
-	rm $(BUILD_PATH)/FULL_c64_8k_cart.prg
-	rm $(BUILD_PATH)/FULL_c64_8k_exomized.prg
-
-
 cbm610: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm610 \
 	-DFULL_GAME \

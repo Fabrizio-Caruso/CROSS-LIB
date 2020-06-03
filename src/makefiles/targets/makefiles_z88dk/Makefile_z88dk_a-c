@@ -76,7 +76,7 @@ abc80:
 	-lndos -create-app -o abc80.bin \
 	$(FULL_FILES)
 	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) abc80.bin $(BUILD_PATH)/xchase.bac 49200
-	# $(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 a.bin	
+	# $(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 abc80.bin	
 	# $(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk 
 	# $(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk -b $(BUILD_PATH)/xchase.bac
 	# rm abc80.bin 
@@ -93,9 +93,9 @@ abc80_light:
 	-DNO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o abc80light.bin  \
 	$(LIGHT_FILES)
-	# mv a.bin $(BUILD_PATH)/LIGHT_abc80.bin
+	# mv abc80.bin $(BUILD_PATH)/LIGHT_abc80.bin
 	mv abc80light.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
-	# $(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 a.bin
+	# $(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 abc80.bin
 	# $(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/LIGHT_abc80.dsk 
 	# $(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/LIGHT_abc80.dsk -b $(BUILD_PATH)/xchase.bac
 	mv abc80light.bin $(BUILD_PATH)/LIGHT_abc80.bin
@@ -321,9 +321,8 @@ coleco_adam:
 	-lndos \
 	chase/end_screen.c \
 	$(FULL_FILES) \
-	-create-app 
-	mv a.img $(BUILD_PATH)/FULL_coleco_adam.dsk
-	rm a.bin
+	-create-app -o$(BUILD_PATH)/FULL_coleco_adam.bin
+	rm $(BUILD_PATH)/FULL_coleco_adam.bin
 
 
 coleco:

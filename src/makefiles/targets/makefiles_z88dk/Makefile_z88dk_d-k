@@ -149,9 +149,9 @@ enterprise_buffered:
 	-DSTDLIB \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
-	-create-app
-	mv a.app FULL_enterprise.app
-	rm a.bin
+	-create-app -o enterprise.bin
+	mv enterprise.app FULL_enterprise.app
+	rm enterprise.bin
 	tar czvf FULL_enterprise.tar.zip FULL_enterprise.app
 	rm FULL_enterprise.app
 	mv FULL_enterprise.tar.zip $(BUILD_PATH)
@@ -183,10 +183,10 @@ fp1100:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app
-	mv a.d88 $(BUILD_PATH)/FULL_fp1100.d88
-	rm a.bin
-	rm a_BOOTSTRAP.bin
+	-create-app -o fp1100.bin
+	mv fp1100.d88 $(BUILD_PATH)/FULL_fp1100.d88
+	rm fp1100.bin
+	rm fp1100_BOOTSTRAP.bin
 
 
 g800_turn_based:
@@ -199,10 +199,10 @@ g800_turn_based:
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o 
-	rm a.bin 
-	rm a.rom
-	mv a.ihx $(BUILD_PATH)/FULL_g800_turn_based.ihx
+	-create-app -o g800.bin
+	rm g800.bin 
+	rm g800.rom
+	mv g800.ihx $(BUILD_PATH)/FULL_g800_turn_based.ihx
 
 
 gal_22k:

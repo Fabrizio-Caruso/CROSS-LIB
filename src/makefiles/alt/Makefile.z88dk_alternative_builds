@@ -6,19 +6,12 @@
 # Z88DK
 
 
-include makefiles/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds_a-g
+include makefiles/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds_a-n
 
-include makefiles/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds_h-n
-
-include makefiles/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds_o-u
-
-include makefiles/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds_v-z
-
+include makefiles/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds_o-z
 
 z88dk_alt_targets: \
-    z88dk_alt_targets_a-g \
-    z88dk_alt_targets_h-n \
-    z88dk_alt_targets_o-u \
-    z88dk_alt_targets_v-z
+    z88dk_alt_targets_a-n \
+    z88dk_alt_targets_o-z
 
 

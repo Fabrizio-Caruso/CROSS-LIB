@@ -1,7 +1,19 @@
 # -----------------------------------------------
 # Z88DK
 
-z88dk_alt_targets_v-z: \
+z88dk_alt_targets_o-z: \
+    oz_alt_targets \
+    pc6001_alt_targets \
+    pps_alt_targets \
+    pv1000_alt_targets \
+    px4_alt_targets \
+    px8_alt_targets \
+    ti82_alt_targets \
+    ti83_alt_targets \
+    ti85_alt_targets \
+    ti86_alt_targets \
+    trs80_alt_targets \
+    ts2068_alt_targets \
     vg5k_alt_targets \
     vz200_alt_targets \
     z88_alt_targets \
@@ -9,8 +21,51 @@ z88dk_alt_targets_v-z: \
     zx80_alt_targets \
     zx81_alt_targets
 
-
 #############################
+
+
+oz_alt_targets: \
+    oz_tiny
+
+pc6001_alt_targets: \
+    pc6001_32k_no_gfx
+
+pps_alt_targets: \
+    pps_turn_based
+
+pv1000_alt_targets: \
+    pv1000_light
+
+px4_alt_targets: \
+    px4_chars
+
+px8_alt_targets: \
+    px8_chars \
+    px8_chars_ansi
+
+
+ti82_alt_targets: \
+    ti82_chars 
+
+ti83_alt_targets: \
+    ti83_chars \
+    ti83_turn_based
+
+ti85_alt_targets: \
+    ti85_chars \
+    ti85_turn_based
+
+ti86_alt_targets: \
+    ti86
+
+trs80_alt_targets: \
+    trs80_chars_cas \
+    trs80_tiny_cas \
+    trs80_wav
+
+ts2068_alt_targets: \
+    ts2068_turn_based
+
 vg5k_alt_targets: \
     vg5k_no_gfx
 
@@ -34,6 +89,316 @@ zx81_alt_targets: \
     zx81_16k_wrx \
     zx81_32k_wrx \
     zx81_targets_qaopm
+
+#############################
+# OZ
+oz_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__OZ__ \
+	-DTINY_GAME \
+	-vn -lndos \
+	-DFORCE_XSIZE=59 \
+	-DFORCE_YSIZE=9 \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DNO_RANDOM_LEVEL \
+	-DSIMPLE_STRATEGY \
+	-DALT_MOVE \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	-o ozt.bin \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(TOOLS_PATH)/z88dk/oz/makewzd.exe ozt
+	rm ozt.bin
+	mv ozt.wzd $(BUILD_PATH)/ALT_TINY_oz.wzd
+
+
+#############################
+# PC6001
+pc6001_32k_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
+	-D__PC6001__ \
+	-DFULL_GAME \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DALT_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.prg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.prg
+	rm $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.wav
+	mv $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.cas $(BUILD_PATH)/ALT_FULL_pc6001_32k_no_gfx.cp6
+
+
+#############################
+# PPS
+pps_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__PPS__ -vn \
+	-DCONIO_VT52 \
+	-DTURN_BASED \
+	-DFULL_GAME -DSOUNDS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-o ppstb.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv ppstb.bin $(BUILD_PATH)/ALT_FULL_pps_turn_based.exe
+
+
+#############################
+# PV1000
+# UDG can be done but differently
+pv1000_light:
+	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__PV1000__ \
+	-DZ88DK_JOYSTICK \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
+	-lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(LIGHT_FILES) \
+	-create-app -o$(BUILD_PATH)/ALT_LIGHT_pv1000.bin
+	rm $(BUILD_PATH)/ALT_LIGHT_pv1000.bin
+	rm $(BUILD_PATH)/ALT_LIGHT_pv1000_DATA.bin
+	rm $(BUILD_PATH)/ALT_LIGHT_pv1000_BSS.bin
+
+
+#############################
+# PX4
+px4_chars:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lpx4 \
+	$(INCLUDE_OPTS) \
+	-D__PX4__ \
+	-DCONIO_ADM3A_WITH_UNDEF \
+	-DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DDEFAULT_CLEAR_SCREEN \
+	-create-app  -o px4ch.bin \
+	$(FULL_FILES)
+	rm px4ch.bin
+	mv PX4CH.COM $(BUILD_PATH)/ALT_FULL_px4.ROM	
+
+
+#############################
+# PX8
+px8_chars:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=px8 \
+	$(INCLUDE_OPTS) \
+	-D__PX8__ \
+	-DCONIO_ADM3A_WITH_UNDEF \
+	-DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DDEFAULT_CLEAR_SCREEN \
+	-create-app  -o px8ch.bin \
+	$(FULL_FILES)
+	rm px8ch.bin
+	mv PX8CH.ROM $(BUILD_PATH)/ALT_FULL_px8_chars.ROM
+
+
+px8_chars_ansi:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=px8ansi \
+	$(INCLUDE_OPTS) \
+	-D__PX8__ \
+	-DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DDEFAULT_CLEAR_SCREEN \
+	-create-app  -o px8cha.bin \
+	$(FULL_FILES)
+	rm px8cha.bin
+	mv PX8CHA.ROM $(BUILD_PATH)/ALT_FULL_px8_chars.ROM	
+
+
+#############################
+# TI82
+ti82_chars:
+	$(Z88DK_PATH)$(MYZ88DK) +ti82 $(SCCZ80_OPTS) \
+	-DZ88DK_JOYSTICK \
+	$(INCLUDE_OPTS) -D__TI82__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DFULL_GAME  \
+	-DLESS_TEXT -DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app  -o ti82ch.bin \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../ti82ch.82p $(BUILD_PATH)/ALT_FULL_ti82_chars.82p
+	rm $(SOURCE_PATH)/../ti82ch.bin
+
+
+#############################
+# TI83
+ti83_chars:
+	$(Z88DK_PATH)$(MYZ88DK) +ti83 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -D__TI83__ \
+	-DZ88DK_JOYSTICK \
+	-DFORCE_XSIZE=32 \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DFULL_GAME  \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app -oxchasetc \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../xchasetc.83p $(BUILD_PATH)/ALT_FULL_ti83_chars.83p	
+	rm $(SOURCE_PATH)/../xchasetc
+
+
+ti83_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +ti83 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -D__TI83__ \
+	-DZ88DK_JOYSTICK \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DFULL_GAME  \
+	-DTURN_BASED \
+	-DNO_WAIT \
+	-DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_COLOR \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -oxchasett
+	mv $(SOURCE_PATH)/../xchasett.83p $(BUILD_PATH)/ALT_FULL_ti83_turn_based.83p
+	rm $(SOURCE_PATH)/../xchasett
+
+
+#############################
+# TI85
+ti85_chars:
+	$(Z88DK_PATH)$(MYZ88DK) +ti85 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) -D__TI85__ \
+	-DZ88DK_JOYSTICK \
+	-DFORCE_XSIZE=32 \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-DFULL_GAME  \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app -o ti85ch \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../ti85ch.85s $(BUILD_PATH)/ALT_FULL_ti85_chars.85s
+	rm $(SOURCE_PATH)/../ti85ch
+
+
+ti85_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +ti85 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__TI85__ \
+	-DZ88DK_JOYSTICK \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-create-app -o ti85tb \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../ti85tb.85s $(BUILD_PATH)/ALT_FULL_ti85_turn_based.85s
+	rm $(SOURCE_PATH)/../ti85tb
+
+
+#############################
+# TI86
+ti86:
+	$(Z88DK_PATH)$(MYZ88DK) +ti86 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-D__TI86__ \
+	-DFULL_GAME \
+	-DZ88DK_JOYSTICK \
+	-DLESS_TEXT	\
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DNO_HINTS \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-vn \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app  -o ti86fu \
+	$(FULL_FILES)
+	mv $(SOURCE_PATH)/../ti86fu.86p $(BUILD_PATH)/ALT_FULL_ti86.86p	
+	rm $(SOURCE_PATH)/../ti86fu
+
+
+#############################
+# TRS80
+trs80_chars_cas:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos \
+	$(INCLUDE_OPTS) \
+	-pragma-redirect:getk=getk_inkey \
+	-pragma-define:REGISTER_SP=0xffb5 \
+	-lm -create-app \
+	-D__TRS80__ \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO_VT52 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-o$(BUILD_PATH)/ALT_FULL_trs80_chars.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/ALT_FULL_trs80_chars.bin
+
+
+trs80_tiny_cas:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos \
+	$(INCLUDE_OPTS) \
+	-pragma-redirect:getk=getk_inkey \
+	-lm -create-app \
+	-D__TRS80__ \
+	-DCONIO_VT52 \
+	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-o$(BUILD_PATH)/ALT_TINY_trs80.bin \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/ALT_TINY_trs80.bin
+
+
+trs80_wav:
+	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos -subtype=wav \
+	$(INCLUDE_OPTS) \
+	-pragma-redirect:getk=getk_inkey \
+	-pragma-define:REGISTER_SP=0xffb5 \
+	-lm -create-app \
+	-D__TRS80__ \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO_VT52 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-o$(BUILD_PATH)/ALT_FULL_trs80.bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/ALT_FULL_trs80.bin	
+
+
+#############################
+# TS2068
+ts2068_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-clib=ansi \
+	-DTURN_BASED \
+	-D__TS2068__ \
+	-DNO_COLOR \
+	-vn \
+	-DFULL_GAME \
+	-lndos \
+	-DFORCE_CONIO_LIB \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/ALT_FULL_ts2068_turn_based.bin
+	rm $(BUILD_PATH)/ALT_FULL_ts2068_turn_based.bin
+	rm $(BUILD_PATH)/ALT_FULL_ts2068_turn_based_BANK_7.bin
+
 
 #############################
 # VG5K
@@ -97,13 +462,13 @@ z88_tiny:
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES) \
-	-create-app
-	rm -rf a_bss_fardata.bin
-	rm a.bin
-	rm a_BSS.bin
-	rm a_DATA.bin
-	mv a.63 $(BUILD_PATH)/ALT_TINY_z88.63
-	mv a.epr $(BUILD_PATH)/ALT_TINY_z88.epr
+	-create-app -o z88tiny.bin
+	rm -rf z88tiny_bss_fardata.bin
+	rm z88tiny.bin
+	rm z88tiny_BSS.bin
+	rm z88tiny_DATA.bin
+	mv z88tiny.63 $(BUILD_PATH)/ALT_TINY_z88.63
+	mv z88tiny.epr $(BUILD_PATH)/ALT_TINY_z88.epr
 
 
 # it fails with sdcc
@@ -126,13 +491,13 @@ z88_tiny_buffered:
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES) \
-	-create-app
-	rm a.bin
-	rm a_BSS.bin
-	rm a_DATA.bin
-	rm -rf a_bss_fardata.bin
-	mv a.63 $(BUILD_PATH)/ALT_TINY_z88_buffered.63
-	mv a.epr $(BUILD_PATH)/ALT_TINY_z88_buffered.epr
+	-create-app -o z88tinyt.bin
+	rm z88tinyt.bin
+	rm z88tinyt_BSS.bin
+	rm z88tinyt_DATA.bin
+	rm -rf z88tinyt_bss_fardata.bin
+	mv z88tinyt.63 $(BUILD_PATH)/ALT_TINY_z88_buffered.63
+	mv z88tinyt.epr $(BUILD_PATH)/ALT_TINY_z88_buffered.epr
 
 
 #############################

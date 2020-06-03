@@ -24,6 +24,9 @@ lcc1802_targets:
 
 ################################################################################
 
+COMX_REDUCED_EXTRA_FILES ?= \
+	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c 
 
 COMX_EXTRA_FILES ?= \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
@@ -57,13 +60,13 @@ full_comx_combo.c: full_combo_rand.c
 
 tiny_pecom_combo.c: tiny_combo_rand.c
 	cat \
-	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
+	$(COMX_EXTRA_FILES) \
 	$(SOURCE_PATH)/../tiny_combo_rand.c > $(SOURCE_PATH)/../tiny_pecom_combo.c
 	rm tiny_combo_rand.c
 
 light_pecom_combo.c: light_combo_rand.c
 	cat \
-	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
+	$(COMX_EXTRA_FILES) \
 	$(SOURCE_PATH)/../light_combo_rand.c > $(SOURCE_PATH)/../light_pecom_combo.c
 	rm light_combo_rand.c
 
@@ -91,6 +94,12 @@ full_tmc600_combo.c: full_combo_rand.c
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_tmc600_combo.c
 	rm full_combo_rand.c
 
+reduced_tiny_tmc600_combo.c: tiny_combo_rand.c
+	cat \
+	$(COMX_REDUCED_EXTRA_FILES) \
+	$(SOURCE_PATH)/../tiny_combo_rand.c > $(SOURCE_PATH)/../reduced_tiny_tmc600_combo.c
+	rm tiny_combo_rand.c
+
 tmc600_no_end_screen.c: full_combo_rand.c
 	cat \
 	$(COMX_EXTRA_FILES) \
@@ -111,6 +120,20 @@ COMX_MACROS ?= \
 	-DSOUNDS \
 	-DINITIAL_SLOWDOWN=21150
 
+
+REDUCED_TINY_TMC600_MACROS ?= \
+	-D__LCC1802__ \
+	-DFORCE_NO_CONIO_LIB \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_SLEEP \
+	-DLESS_TEXT \
+	-DNO_RANDOM_LEVEL \
+	-DMEMORY_MAPPED \
+	-DFLAT_BOMBS \
+	-DROCKETS_NUMBER=2 \
+	-DALT_PRINT \
+	-DNO_SMALL_LETTERS \
+	-DINITIAL_SLOWDOWN=21150
 
 #	-DSIMPLE_STRATEGY 
 #	-DDEBUG_LEVEL
@@ -231,6 +254,18 @@ debug_pecom: tiny_pecom_combo.c
 
 
 # TMC600
+
+tmc600_8k: reduced_tiny_tmc600_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(TMC600_OPTS) \
+	-D__TMC600__ \
+	-DTINY_GAME \
+	-DLCC1802_JOYSTICK \
+	$(REDUCED_TINY_TMC600_MACROS) \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	$(SOURCE_PATH)/../reduced_tiny_tmc600_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_tiny_tmc600_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_tmc600_8k.hex
+
 tiny_tmc600: tiny_tmc600_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(TMC600_OPTS) \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) \

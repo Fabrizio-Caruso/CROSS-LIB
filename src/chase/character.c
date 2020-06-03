@@ -88,16 +88,12 @@ void initializeCharacter(register Character* characterPtr, uint8_t x, uint8_t y,
 	characterPtr->_y = y;
 	characterPtr->_status = status;
 	characterPtr->_imagePtr = imagePtr;
-	
-	#if defined(DEBUG)
-		displayCharacter(characterPtr);
-	#endif
 }
 
 
 uint8_t isCharacterAtLocation(uint8_t x, uint8_t y, Character * characterPtr)
 {
-	return(characterPtr->_x==x) && (characterPtr->_y==y);
+	return(characterPtr->_y==y) && (characterPtr->_x==x);
 }
 
 

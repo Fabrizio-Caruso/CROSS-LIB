@@ -10,8 +10,8 @@ include makefiles/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds
 
 include makefiles/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds_o-z
 
-z88dk_alt_targets: \
-    z88dk_alt_targets_a-n \
-    z88dk_alt_targets_o-z
+z88dk_alt_targets:
+	make $(Z88DK_MAKE_OPTS) z88dk_alt_targets_a-n
+	make $(Z88DK_MAKE_OPTS) z88dk_alt_targets_o-z
 
 

@@ -5,7 +5,7 @@
 
 #include "standard_libs.h"
 
-
+#if !defined(NO_STATS)
 unsigned char strlen(const char *s)
 {
     unsigned char count = 0;
@@ -17,8 +17,7 @@ unsigned char strlen(const char *s)
     };
     return count;
 }
-
-
+#endif
 
 void PRINT(uint8_t x, uint8_t y, char * str)
 {
@@ -52,6 +51,7 @@ void print_05u0(uint8_t x, uint8_t y, uint16_t val)
 	}
 }	
 
+#if !defined(NO_STATS)
 void print_02u(uint8_t x, uint8_t y, uint16_t val)
 {
      #if defined(__COMX__)
@@ -73,10 +73,11 @@ void print_u(uint8_t x, uint8_t y, uint16_t val)
     vidchar((uint16_t)0xF800+x+y*40, ((uint8_t) val)+CHAR_OFFSET);
     #endif
 }
-
+#endif
 
 void PRINTD(uint8_t x, uint8_t y, char * str, uint16_t val)
 {
+    #if !defined(NO_STATS)
 	if(strlen(str)==5)
 	{	
 		print_05u0(x,y,val);
@@ -89,6 +90,9 @@ void PRINTD(uint8_t x, uint8_t y, char * str, uint16_t val)
 	{
 		print_u(x,y,val);		
 	}
+    #else
+		print_05u0(x,y,val);
+    #endif
 }
 
 

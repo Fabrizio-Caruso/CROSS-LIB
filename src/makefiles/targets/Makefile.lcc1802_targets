@@ -258,7 +258,8 @@ debug_pecom: tiny_pecom_combo.c
 tmc600_8k: reduced_tiny_tmc600_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(TMC600_OPTS) \
 	-D__TMC600__ \
-	-DTINY_GAME \
+	-DTINY_GAME -DSIMPLE_STRATEGY \
+	-DNO_STATS -DNO_COLOR -DNO_MESSAGE -DNO_INITIAL_SCREEN  \
 	-DLCC1802_JOYSTICK \
 	$(REDUCED_TINY_TMC600_MACROS) \
 	-DFORCE_GHOSTS_NUMBER=6 \
@@ -331,6 +332,7 @@ comx_targets: comx
 pecom_targets: pecom
 
 tmc600_targets:
+	make tmc600_8k
 	make tmc600_16k
 	make tmc600_24k
 	make tmc600_37k

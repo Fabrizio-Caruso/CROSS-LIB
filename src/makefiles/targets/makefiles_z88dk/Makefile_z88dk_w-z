@@ -32,7 +32,7 @@ z9001_targets: \
 
 zx80_targets: \
 	zx80_16k_turn_based
-	
+
 zx81_targets_ijkl_spc: \
 	zx81_16k zx81_32k_wrx_turn_based
 

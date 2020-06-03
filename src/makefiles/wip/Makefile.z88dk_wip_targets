@@ -3,6 +3,29 @@
 # Targets that are in a work in progress status
 
 
+#############################
+# CPC
+cpc_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
+	-D__CPC__ -DSOUNDS -DFULL_GAME -DNO_INIT_GRAPHICS -DCONIO \
+	-pragma-define:REGISTER_SP=-1 \
+	-lndos -create-app -o $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.prg \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(FULL_FILES) 
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.cpc  $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.cdt
+	rm -rf WIP_FULL_cpc_no_gfx.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd WIP_FULL_cpc_no_gfx.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw WIP_FULL_cpc_no_gfx.dsk -p $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.cpc xchase
+	mv WIP_FULL_cpc_no_gfx.dsk $(BUILD_PATH)/
+	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.dsk  $(BUILD_PATH)/FULL_gx4000_no_gfx.cpr   -c 'run"xchase'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
+	rm $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.cpc 
+	rm $(BUILD_PATH)/WIP_FULL_cpc_no_gfx.prg
+
+
 gamegear_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -lgamegear -clib=sdcc_iy -startup=17 \
 	$(INCLUDE_OPTS) \

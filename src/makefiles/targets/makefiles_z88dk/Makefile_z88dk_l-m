@@ -69,7 +69,8 @@ lambda_16k:
 
 
 laser500: 	
-	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -create-app -Cz--audio \
+	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
+	-create-app -o laser500.bin \
 	$(INCLUDE_OPTS) \
 	-D__LASER500__ \
 	-DFORCE_BIT_BANG -DSOUNDS \
@@ -77,13 +78,15 @@ laser500:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	$(FULL_FILES)
-	mv a.bin $(BUILD_PATH)/FULL_laser500.bin
-	rm a.cas
-	mv a.wav $(BUILD_PATH)/FULL_laser500.wav
+	mv laser500.bin $(BUILD_PATH)/FULL_laser500.bin
+	rm laser500.cas
+	mv laser500.wav $(BUILD_PATH)/FULL_laser500.wav
+
 
 	# -compiler=sdcc 
 laser500_bitmap: 	
-	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -create-app -Cz--audio -v \
+	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio -v \
+	-create-app -o laser500bm.bin \
 	$(INCLUDE_OPTS) \
 	-D__LASER500__ -DLASER500_BITMAP \
 	-DFORCE_BIT_BANG -DSOUNDS -DNO_STATS \
@@ -92,9 +95,9 @@ laser500_bitmap:
 	-lndos \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/laser500/laser500_bitmap_init_graphics.c
-	mv a.bin $(BUILD_PATH)/TINY_laser500_bitmap.bin
-	rm a.cas
-	mv a.wav $(BUILD_PATH)/TINY_laser500_bitmap.wav
+	mv laser500bm.bin $(BUILD_PATH)/TINY_laser500_bitmap.bin
+	rm laser500bm.cas
+	mv laser500bm.wav $(BUILD_PATH)/TINY_laser500_bitmap.wav
 
 
 m5:
@@ -132,14 +135,15 @@ mc1000_16k_no_gfx:
 	-DEND_SCREEN \
 	-DALT_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-vn  -lndos -create-app -Cz--audio \
+	-vn  -lndos -Cz--audio \
+	-create-app -o mc1000ng.bin \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	mv a.wav $(BUILD_PATH)/FULL_mc1000_16k_no_gfx.wav
-	rm a.bin
-	rm a.cas
+	mv mc1000ng.wav $(BUILD_PATH)/FULL_mc1000_16k_no_gfx.wav
+	rm mc1000ng.bin
+	rm mc1000ng.cas
 
 
 mc1000_48k:
@@ -152,15 +156,16 @@ mc1000_48k:
 	-DSOUND \
 	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
-	-vn  -lndos -create-app -Cz--audio \
+	-vn  -lndos -Cz--audio \
+	-create-app -o mc1000.bin \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	mv a.wav $(BUILD_PATH)/FULL_mc1000_48k_joystick.wav
-	rm a.bin
-	rm a.cas
+	mv mc1000.wav $(BUILD_PATH)/FULL_mc1000_48k_joystick.wav
+	rm mc1000.bin
+	rm mc1000.cas
 
 
 microbee_16k_no_gfx:

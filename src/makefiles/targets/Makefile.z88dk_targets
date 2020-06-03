@@ -24,19 +24,20 @@ ZSDCC_OPTS ?= -SO0
 
 ZSDCC_ROM_OPTS ?= 
 
+Z88DK_MAKE_OPTS ?= -j 8
 
 ################################################################################
 
 # missing: abc800, xo7, c7420, rex
 # missing 8080: m100
 z88dk_targets:
-	make z88dk_targets_a-c 
-	make z88dk_targets_d-k 
-	make z88dk_targets_l-m 
-	make z88dk_targets_n-p 
-	make z88dk_targets_q-s 
-	make z88dk_targets_t-v 
-	make z88dk_targets_w-z
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_a-c 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_d-k 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_l-m 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_n-p 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_q-s 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_t-v 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_w-z
 
 
 

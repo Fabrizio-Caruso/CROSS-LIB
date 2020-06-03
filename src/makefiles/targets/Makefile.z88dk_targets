@@ -36,9 +36,7 @@ z88dk_targets:
 	make $(Z88DK_MAKE_OPTS) z88dk_targets_l-m 
 	make $(Z88DK_MAKE_OPTS) z88dk_targets_n-p 
 	make $(Z88DK_MAKE_OPTS) z88dk_targets_q-s 
-	make $(Z88DK_MAKE_OPTS) z88dk_targets_t-v 
-	make $(Z88DK_MAKE_OPTS) z88dk_targets_w-z
-
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_t-z 
 
 
 ##################################################################
@@ -53,10 +51,7 @@ include makefiles/targets/makefiles_z88dk/Makefile_z88dk_n-p
 
 include makefiles/targets/makefiles_z88dk/Makefile_z88dk_q-s
 
-include makefiles/targets/makefiles_z88dk/Makefile_z88dk_t-v
-
-include makefiles/targets/makefiles_z88dk/Makefile_z88dk_w-z
-
+include makefiles/targets/makefiles_z88dk/Makefile_z88dk_t-z
 
 # ----------------------------------------------------------------
 

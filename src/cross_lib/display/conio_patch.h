@@ -76,7 +76,7 @@
         #include <stdio.h>
 
         #define gotoxy(x,y) printf("\033[%d;%dH", y+1, x+1)
-        #define clrscr() printf("\033[H\033[2J")
+        #define clrscr() printf("\033[2J\033[H")
         
     #elif defined(Z88DK_PUTC4X6)
         #include <stdio.h>

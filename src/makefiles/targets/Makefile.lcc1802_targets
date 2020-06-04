@@ -22,7 +22,8 @@ lcc1802_targets:
 	make comx_targets 
 	make pecom_targets 
 	make tmc600_targets
-
+	make cidelsa_targets
+ 
 ################################################################################
 
 COMX_REDUCED_EXTRA_FILES ?= \
@@ -245,21 +246,6 @@ pecom: full_pecom_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_pecom.hex
 
 
-debug_pecom: tiny_pecom_combo.c
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(PECOM_OPTS)  \
-	-D__PECOM__  \
-	-DTINY_GAME -DNO_CHASE \
-	-DNO_COLOR \
-	-DNO_BLINKING \
-	-DLCC1802_JOYSTICK \
-	-DANIMATE_PLAYER \
-	$(COMX_MACROS) \
-	-DFORCE_GHOSTS_NUMBER=7 \
-	$(SOURCE_PATH)/../tiny_pecom_combo.c
-	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
-	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/DEBUG_pecom.hex
-
-
 # TMC600
 
 tmc600_8k: reduced_tiny_tmc600_combo.c
@@ -293,6 +279,7 @@ tmc600_16k: light_tmc600_combo.c
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
 	-DLCC1802_JOYSTICK \
+	-DNO_COLOR \
 	$(COMX_MACROS) \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../light_tmc600_combo.c
@@ -333,11 +320,16 @@ tmc600_24k: tmc600_no_end_screen.c
 
 
 cidelsa: full_cidelsa_combo.c
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(TMC600_OPTS)  \
-	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(LCC1802_OPTS) $(CIDELSA_OPTS)  \
+	-D__CIDELSA__  $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
+	-DNO_COLOR \
+	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
+	-DANIMATE_PLAYER \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(COMX_MACROS) \
+	-DNO_WAIT \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/../full_cidelsa_combo.c
@@ -354,5 +346,8 @@ tmc600_targets:
 	make tmc600_16k
 	make tmc600_24k
 	make tmc600_37k
+
+cidelsa_targets: cidelsa
+
 
 

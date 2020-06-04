@@ -29,7 +29,7 @@
     #define ALT_SLEEP_SCALE 4000
     
     #if !defined(NO_SLEEP)
-        #  if !defined(__CMOC__) && !defined(__COMX__) && !defined(__PECOM__) && !defined(__TMC600__)
+        #  if !defined(__CMOC__) && !defined(__LCC1802__)
             #include <time.h>
             #include <unistd.h>
             #include <stdlib.h>        

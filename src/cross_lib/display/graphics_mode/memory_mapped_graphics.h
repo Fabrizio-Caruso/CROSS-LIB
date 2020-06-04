@@ -42,7 +42,7 @@
         #define COLOR_ADDR 0
     #endif
 #elif defined(__CIDELSA__)
-	#define BASE_ADDR 0x0xFC10
+	#define BASE_ADDR 0xFC10
 #endif
 
 #if defined(__MSX__)
@@ -62,7 +62,7 @@
         POKE(VDP_DATA,val); \
         __asm__("cli");    
         
-#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
+#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
     #include <comx/rca_vis_video.h>
     #define DISPLAY_POKE(addr,val) vidchar(addr,val)
 #else

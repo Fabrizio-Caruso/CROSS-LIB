@@ -107,6 +107,12 @@
             #define MOVE_LEFT 0x08
             #define MOVE_RIGHT 0x09
             #define MOVE_FIRE 0x20
+        #elif defined(__CIDELSA__)
+            #define MOVE_UP 0x10
+            #define MOVE_DOWN 0x20
+            #define MOVE_LEFT 0x80
+            #define MOVE_RIGHT 0x40
+            #define MOVE_FIRE 0x01
         #endif
 
         #define JOY_UP(joyInput) ((joyInput) == MOVE_UP)
@@ -129,7 +135,7 @@
         #include <arch/sms/SMSLib.h>
         
         #define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
-    #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
+    #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
         #define JOY_INPUT() GET_CHAR()
     #else
         #define JOY_INPUT() joy_read(JOY_1)
@@ -147,7 +153,7 @@
     #elif defined(NO_INPUT)
         #define TURN_BASED_INPUT()
 	#else
-		#define TURN_BASED_INPUT() cgetc()	
+		#define TURN_BASED_INPUT() cgetc()
 	#endif	// TURN_BASED_INPUT definitions
 	
 

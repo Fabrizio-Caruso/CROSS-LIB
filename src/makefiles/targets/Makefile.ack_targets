@@ -40,8 +40,8 @@ pc8086_tiny_buffered:
 
 cpm_8080_buffered:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
-	-DFORCE_XSIZE=24 \
-	-DFORCE_YSIZE=16 \
+	-DFORCE_XSIZE=39 \
+	-DFORCE_YSIZE=23 \
 	-DCONIO_ADM3A \
 	-DNO_COLOR \
 	-DACK \

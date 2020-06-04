@@ -1,15 +1,25 @@
 # ------------------------------------------------------------------------------------------
-# Z88DK N-P
+# Z88DK L-P
 #
 
-z88dk_targets_n-p: \
+z88dk_targets_l-p: \
+	lambda_targets \
+	laser500_targets \
+	m5_targets \
+	microbee_targets \
+	mikro80_targets \
+	msx_targets \
+	mtx_targets \
+	multi8_targets \
+	myvision_targets \
+	mz_targets \
+	mz2500_targets \
 	nascom_targets \
 	nc100_targets \
 	nc200_targets \
 	newbrain_targets \
 	osborne1_targets \
 	osca_targets \
-	oz_targets \
 	pasopia7_targets \
 	pencil2_targets \
 	p2000_targets \
@@ -18,13 +28,45 @@ z88dk_targets_n-p: \
 	pmd85_targets \
 	pps_targets \
 	primo_targets \
-	pv1000_targets \
 	pv2000_targets \
 	px4_targets \
 	px8_targets
 
 
 # ------------------------------------------------------------------------------------------
+
+lambda_targets: \
+	lambda_16k
+
+laser500_targets: \
+	laser500
+
+m5_targets: \
+	m5
+
+microbee_targets: \
+	microbee_16k_no_gfx microbee_32k
+
+mikro80_targets: \
+	mikro80
+
+msx_targets: \
+	msx_32k_rom
+
+mtx_targets: \
+	mtx
+
+multi8_targets: \
+	multi8
+
+myvision_targets: \
+	myvision
+
+mz_targets: \
+	mz
+
+mz2500_targets: \
+	mz2500_tiny_buffered
 
 nc100_targets: \
 	nc100
@@ -43,9 +85,6 @@ osborne1_targets: \
 
 osca_targets: \
 	osca
-
-oz_targets: \
-	oz_tiny_buffered
 
 p2000_targets: \
 	p2000_16k p2000_32k
@@ -71,9 +110,6 @@ pps_targets: \
 primo_targets: \
 	primo
 
-pv1000_targets: \
-	pv1000
-
 pv2000_targets: \
 	pv2000
 
@@ -83,8 +119,256 @@ px4_targets: \
 px8_targets: \
 	px8
 
-
 # ------------------------------------------------------------------------------------------
+
+
+lambda_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-vn -D__LAMBDA__ -DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o  $(BUILD_PATH)/FULL_lambda_16k.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_lambda_16k.prg
+
+
+laser500: 	
+	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
+	-create-app -o laser500.bin \
+	$(INCLUDE_OPTS) \
+	-D__LASER500__ \
+	-DFORCE_BIT_BANG -DSOUNDS \
+	-DFULL_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	$(FULL_FILES)
+	mv laser500.bin $(BUILD_PATH)/FULL_laser500.bin
+	rm laser500.cas
+	mv laser500.wav $(BUILD_PATH)/FULL_laser500.wav
+
+
+	# -compiler=sdcc 
+laser500_bitmap: 	
+	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio -v \
+	-create-app -o laser500bm.bin \
+	$(INCLUDE_OPTS) \
+	-D__LASER500__ -DLASER500_BITMAP \
+	-DFORCE_BIT_BANG -DSOUNDS -DNO_STATS \
+	-DTINY_GAME \
+	-DNO_GRAPHICS -DNO_PRINT -DNO_INPUT -DNO_SET_SCREEN_COLORS \
+	-lndos \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/laser500/laser500_bitmap_init_graphics.c
+	mv laser500bm.bin $(BUILD_PATH)/TINY_laser500_bitmap.bin
+	rm laser500bm.cas
+	mv laser500bm.wav $(BUILD_PATH)/TINY_laser500_bitmap.wav
+
+
+m5:
+	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-lm -create-app -Cz--audio -subtype=tape \
+	-pragma-define:REGISTER_SP=65000 \
+	-D__M5__ \
+	-clib=ansi -pragma-define:ansicolumns=32 \
+	-DFULL_GAME -DLESS_TEXT \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO \
+	-DSOUNDS \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o$(BUILD_PATH)/FULL_m5.bin	
+	rm $(BUILD_PATH)/FULL_m5.bin
+	rm $(BUILD_PATH)/FULL_m5.cas
+
+
+microbee_16k_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__BEE__ -clib=ansi -vn -DSOUNDS  \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/LIGHT_microbee_16k_no_gfx.prg  \
+	$(LIGHT_FILES)
+	rm $(BUILD_PATH)/LIGHT_microbee_16k_no_gfx.prg
+
+
+microbee_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) -lgfxnc100 \
+	$(INCLUDE_OPTS) \
+	-D__NC100__ \
+	-DALT_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-create-app -o$(BUILD_PATH)/FULL_microbee_32k.bin \
+	-DNO_INIT_GRAPHICS \
+	-DINITIAL_GHOST_FREEZE \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_microbee_32k.bin
+
+
+mikro80:
+	$(Z88DK_PATH)$(MYZ88DK) +mikro80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__MIKRO80__ \
+	-DFORCE_XSIZE=48 \
+	-DFORCE_YSIZE=32 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_mikro80.bin
+	rm $(BUILD_PATH)/FULL_mikro80.bin
+
+
+msx_32k_rom:
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
+	-DUSE_MSX_BIOS \
+	-DINITIAL_SLOWDOWN=29000 \
+	-DSOUNDS -DANIMATE_PLAYER \
+	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -subtype=rom \
+	-create-app -o $(BUILD_PATH)/FULL_msx_32k.rom \
+	-DMEMORY_MAPPED \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	-DLESS_TEXT \
+	-DZ88DK_JOYSTICK \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_msx_32k_BSS.bin
+	rm $(BUILD_PATH)/FULL_msx_32k_DATA.bin
+
+
+mtx:
+	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
+	-D__MTX__ \
+	-create-app -o MTX.bin -vn \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm MTX.bin
+	mv MTX.wav $(BUILD_PATH)/FULL_mtx.wav
+	mv MTX $(BUILD_PATH)/FULL_mtx.mtx
+
+
+multi8:
+	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	$(CROSS_LIB_PATH)/boot/multi8/bootstrap.c \
+	-create-app -o bootstrap
+	rm bootstrap
+	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) -subtype=64k \
+	$(INCLUDE_OPTS) \
+	-D__MULTI8__ \
+	-DFULL_GAME  \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-DNO_HINTS \
+	-DSIMPLE_STRATEGY \
+	-DLESS_TEXT \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	chase/end_screen.c \
+	$(FULL_FILES) \
+	-create-app -o code
+	rm code
+	cat bootstrap.cas code.cas > $(BUILD_PATH)/FULL_multi8.cas
+	rm bootstrap.cas
+	rm code.cas
+
+
+myvision:
+	$(Z88DK_PATH)$(MYZ88DK) +myvision $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__MYVISION__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_myvision.bin
+	rm $(BUILD_PATH)/FULL_myvision.bin
+	rm $(BUILD_PATH)/FULL_myvision_BSS.bin
+	rm $(BUILD_PATH)/FULL_myvision_DATA.bin
+
+
+mz:
+	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-pragma-define:REGISTER_SP=0xd000 \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_mz.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_mz.prg
+	mv $(BUILD_PATH)/FULL_mz.mzt $(BUILD_PATH)/FULL_mz.mzf
+
+
+# It almost works except for TURN_BASED
+mz2500_tiny_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DFORCE_XSIZE=16 \
+	-DFORCE_YSIZE=12 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-D__MZ2500__ \
+	-vn \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_DEAD_GHOSTS \
+	-DNO_SLEEP \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-lndos \
+	-DBUFFERED -DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
+	-DNO_STATS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DSTDLIB \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o mz2500
+	mv mz2500.dsk $(BUILD_PATH)/TINY_mz2500_buffered.dsk
+	rm mz2500
+
 
 nascom_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
@@ -145,9 +429,8 @@ nc200:
 
 
 newbrain:
-	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(ZSDCC_ROM_OPTS) $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__NEWBRAIN__ \
-	-compiler=sdcc \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=11 \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -226,31 +509,6 @@ osborne1:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	rm $(BUILD_PATH)/FULL_osborne1.bin
-
-
-oz_tiny_buffered: 	
-	$(Z88DK_PATH)$(MYZ88DK) +oz $(ZSDCC_ROM_OPTS) \
-	$(INCLUDE_OPTS) \
-	-compiler=sdcc \
-	-ooz.bin \
-	-D__OZ__ \
-	-DTINY_GAME \
-	-DFORCE_XSIZE=59 \
-	-DFORCE_YSIZE=9 \
-	-DFORCE_NARROW \
-	-vn -lndos \
-	-DBUFFERED -DTURN_BASED -DNO_INIT_GRAPHICS \
-	-DLESS_TEXT \
-	-DNO_COLOR \
-	-DSIMPLE_STRATEGY \
-	-DNO_SET_SCREEN_COLORS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
-	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	$(TOOLS_PATH)/z88dk/oz/makewzd.exe $(SOURCE_PATH)/../oz
-	rm oz.bin
-	mv oz.wzd $(BUILD_PATH)/TINY_oz_buffered.wzd
 
 
 p2000_16k:
@@ -400,30 +658,6 @@ primo:
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_primo.bin
 	rm $(BUILD_PATH)/FULL_primo.bin
-
-
-# UDG can be done but differently
-# -SO3 necessary to build a 16K rom
-pv1000:
-	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(ZSDCC_ROM_OPTS) \
-	-compiler=sdcc \
-	$(INCLUDE_OPTS) \
-	-D__PV1000__ \
-	-DZ88DK_JOYSTICK \
-	-DFULL_GAME  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-DNO_INIT_GRAPHICS \
-	-lndos \
-	-DLESS_TEXT \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	chase/end_screen.c \
-	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_pv1000.bin
-	rm $(BUILD_PATH)/FULL_pv1000.bin
-	rm $(BUILD_PATH)/FULL_pv1000_DATA.bin
-	rm $(BUILD_PATH)/FULL_pv1000_BSS.bin
 
 
 # -SO3 necessary to build a 16k rom image

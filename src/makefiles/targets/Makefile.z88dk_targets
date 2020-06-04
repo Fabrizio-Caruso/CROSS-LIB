@@ -10,19 +10,22 @@ MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 
 
-SCCZ80_OPTS ?= -O0
+SCCZ80_OPTS ?= -O3
 #-O0
 #-O3
 
-SCCZ80_ROMS_OPTS ?= 
+SCCZ80_ROMS_OPTS ?= -O3
 #-O0
 #-O3
 
-ZSDCC_OPTS ?= -SO0
+ZSDCC_OPTS ?= -SO3 --max-allocs-per-node200000
 #-SO0
 # -SO3 --max-allocs-per-node200000
 
-ZSDCC_ROM_OPTS ?= 
+ZSDCC_ROM_OPTS ?= -SO3 --max-allocs-per-node200000
+# -SO3
+# -SO3 --max-allocs-per-node200000
+
 
 Z88DK_MAKE_OPTS ?= -j 8
 
@@ -30,28 +33,25 @@ Z88DK_MAKE_OPTS ?= -j 8
 
 # missing: abc800, xo7, c7420, rex
 # missing 8080: m100
+z88dk_targets_sccz80:
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_a-k 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_l-p 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_q-z
+
 z88dk_targets:
-	make $(Z88DK_MAKE_OPTS) z88dk_targets_a-c 
-	make $(Z88DK_MAKE_OPTS) z88dk_targets_d-k 
-	make $(Z88DK_MAKE_OPTS) z88dk_targets_l-m 
-	make $(Z88DK_MAKE_OPTS) z88dk_targets_n-p 
-	make $(Z88DK_MAKE_OPTS) z88dk_targets_q-s 
-	make $(Z88DK_MAKE_OPTS) z88dk_targets_t-z 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_sccz80
+	make $(Z88DK_MAKE_OPTS) z88dk_targets_zsdcc 
 
 
 ##################################################################
 
-include makefiles/targets/makefiles_z88dk/Makefile_z88dk_a-c
+include makefiles/targets/makefiles_z88dk/Makefile_z88dk_a-k
 
-include makefiles/targets/makefiles_z88dk/Makefile_z88dk_d-k
+include makefiles/targets/makefiles_z88dk/Makefile_z88dk_l-p
 
-include makefiles/targets/makefiles_z88dk/Makefile_z88dk_l-m
+include makefiles/targets/makefiles_z88dk/Makefile_z88dk_q-z
 
-include makefiles/targets/makefiles_z88dk/Makefile_z88dk_n-p
-
-include makefiles/targets/makefiles_z88dk/Makefile_z88dk_q-s
-
-include makefiles/targets/makefiles_z88dk/Makefile_z88dk_t-z
+include makefiles/targets/makefiles_z88dk/Makefile_z88dk_zsdcc
 
 # ----------------------------------------------------------------
 

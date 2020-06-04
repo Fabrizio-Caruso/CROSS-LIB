@@ -1,0 +1,442 @@
+# ------------------------------------------------------------------------------------------
+# Z88DK ZSDCC
+#
+
+
+z88dk_targets_zsdcc: \
+	aquarius_targets \
+	gal_targets \
+	mc1000_targets \
+	oz_targets \
+	pv1000_targets \
+	svi_targets \
+	vg5k_targets \
+	vz200_targets \
+	z9001_targets \
+	zx81_targets
+
+
+# ------------------------------------------------------------------------------------------
+
+
+aquarius_targets: \
+	aquarius_exp_4k aquarius_exp_16k
+
+gal_targets: \
+	gal_6k gal_22k
+
+mc1000_targets: \
+	mc1000_16k_no_gfx mc1000_48k
+
+oz_targets: \
+	oz_tiny_buffered
+
+pv1000_targets: \
+	pv1000
+
+svi_targets: \
+	svi_318 svi_328
+
+vg5k_targets: \
+	vg5k vg5k_exp_16k
+
+vz200_targets: \
+	vz200_8k vz200_18k vz200_sprites_18k
+
+z9001_targets: \
+	z9001_16k_full z9001_32k
+
+zx81_targets_ijkl_spc: \
+	zx81_16k zx81_32k_wrx_turn_based
+
+
+# ------------------------------------------------------------------------------------------
+
+
+aquarius_exp_4k:
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	\
+	-D__AQUARIUS__ -DTINY_GAME \
+	-DNO_RANDOM_LEVEL \
+	-DALT_PRINT \
+	-DNO_DEAD_GHOSTS \
+	-DFORCE_NARROW \
+	-DDEFAULT_CLEAR_SCREEN \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-lndos -o TINY_aquarius_exp_4k -create-app \
+	-DMEMORY_MAPPED \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/aquarius_init_graphics.c
+	rm TINY_aquarius_exp_4k
+	tar czvf TINY_aquarius_exp_4k.tar.zip TINY_aquarius_exp_4k.caq _TINY_aquarius_exp_4k.caq
+	rm TINY_aquarius_exp_4k.caq
+	rm _TINY_aquarius_exp_4k.caq
+	mv TINY_aquarius_exp_4k.tar.zip $(BUILD_PATH)
+
+
+aquarius_exp_16k: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app	\
+	-o FULL_aquarius_exp_16k
+	rm FULL_aquarius_exp_16k
+	tar czvf FULL_aquarius_exp_16k.tar.zip FULL_aquarius_exp_16k.caq _FULL_aquarius_exp_16k.caq
+	rm FULL_aquarius_exp_16k.caq
+	rm _FULL_aquarius_exp_16k.caq
+	mv FULL_aquarius_exp_16k.tar.zip $(BUILD_PATH)	
+
+
+gal_22k:
+	$(Z88DK_PATH)$(MYZ88DK) +gal $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-pragma-need=ansiterminal \
+	-D__GAL__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-vn -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_galaksija.prg
+
+
+# 	--opt-code-size 
+gal_6k:
+	$(Z88DK_PATH)$(MYZ88DK) +gal $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-pragma-need=ansiterminal \
+	--reserve-regs-iy \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DTINY_GAME \
+	-DNO_SLEEP -DLESS_TEXT \
+	-D__GAL__ \
+	-DALT_MOVE \
+	-DNO_RANDOM_LEVEL \
+	-DNO_SET_SCREEN_COLORS \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_DEAD_GHOSTS \
+	-DNO_INIT_GRAPHICS \
+	-DFLAT_ENEMIES \
+	-DALT_HIGHSCORE \
+	-DCONIO \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	-lndos -create-app -Cz--audio -o  $(BUILD_PATH)/TINY_galaksija_6k.prg \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/memory/gal_memory.asm
+	rm $(BUILD_PATH)/TINY_galaksija_6k.prg
+	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
+
+
+mc1000_16k_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) \
+	-subtype=gaming -pragma-define:ansicolumns=32 \
+	-DFULL_GAME  \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_HINTS \
+	-clib=ansi \
+	-D__MC1000__ -DSOUNDS \
+	-DEND_SCREEN \
+	-DALT_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-vn  -lndos -Cz--audio \
+	-create-app -o mc1000ng.bin \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv mc1000ng.wav $(BUILD_PATH)/FULL_mc1000_16k_no_gfx.wav
+	rm mc1000ng.bin
+	rm mc1000ng.cas
+
+
+mc1000_48k:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-subtype=gaming \
+	-DZ88DK_JOYSTICK \
+	-DFULL_GAME  \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-DSOUND \
+	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-vn  -lndos -Cz--audio \
+	-create-app -o mc1000.bin \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv mc1000.wav $(BUILD_PATH)/FULL_mc1000_48k_joystick.wav
+	rm mc1000.bin
+	rm mc1000.cas
+
+
+oz_tiny_buffered: 	
+	$(Z88DK_PATH)$(MYZ88DK) +oz $(ZSDCC_ROM_OPTS) \
+	$(INCLUDE_OPTS) \
+	-compiler=sdcc \
+	-ooz.bin \
+	-D__OZ__ \
+	-DTINY_GAME \
+	-DFORCE_XSIZE=59 \
+	-DFORCE_YSIZE=9 \
+	-DFORCE_NARROW \
+	-vn -lndos \
+	-DBUFFERED -DTURN_BASED -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(TOOLS_PATH)/z88dk/oz/makewzd.exe $(SOURCE_PATH)/../oz
+	rm oz.bin
+	mv oz.wzd $(BUILD_PATH)/TINY_oz_buffered.wzd
+
+
+# UDG can be done but differently
+# -SO3 necessary to build a 16K rom
+pv1000:
+	$(Z88DK_PATH)$(MYZ88DK) +pv1000 $(ZSDCC_ROM_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-D__PV1000__ \
+	-DZ88DK_JOYSTICK \
+	-DFULL_GAME  \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-DNO_INIT_GRAPHICS \
+	-lndos \
+	-DLESS_TEXT \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	chase/end_screen.c \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_pv1000.bin
+	rm $(BUILD_PATH)/FULL_pv1000.bin
+	rm $(BUILD_PATH)/FULL_pv1000_DATA.bin
+	rm $(BUILD_PATH)/FULL_pv1000_BSS.bin
+
+
+svi_318:
+	$(Z88DK_PATH)$(MYZ88DK) +svi $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
+	-compiler=sdcc \
+	-DFORCE_CONIO_LIB \
+	-zorg=49152 \
+	-clib=ansi \
+	-pragma-define:ansicolumns=32 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-vn -lndos \
+	-D__SVI__ \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app -o svi_318 \
+	$(LIGHT_FILES)
+	mv svi_318.cas $(BUILD_PATH)/LIGHT_svi_318.cas
+	rm svi_318
+
+
+svi_328:
+	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
+	-DZ88DK_JOYSTICK \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-pragma-redirect:fputc_cons=fputc_cons_generic $(INCLUDE_OPTS) \
+	 -vn -lndos \
+	-DSOUNDS \
+	-DFULL_GAME -D__SVI__ -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO \
+	-DFORCE_CONIO_LIB \
+	-pragma-define:ansicolumns=32 \
+	-create-app -o svi_328 \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv svi_328.cas $(BUILD_PATH)/FULL_svi_328.cas
+	rm svi_328
+
+
+vg5k_exp_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_vg5k_exp_16k.prg \
+	-DCONIO \
+	-DINITIAL_SLOWDOWN=29000 \
+	-clib=default \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg
+
+
+vg5k:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	--reserve-regs-iy \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-vn -DFULL_GAME -D__VG5K__ \
+	-DINITIAL_SLOWDOWN=29000 \
+	-DLESS_TEXT \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-DSOUNDS \
+	-DSIMPLE_STRATEGY \
+	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
+	-DCONIO \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg
+
+
+vz200_18k: 	
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) -vn \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-DSOUNDS -D__VZ__ -clib=ansi \
+	-DFULL_GAME \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/FULL_vz200_18k.vz \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_vz200_18k.cas
+
+
+vz200_8k:
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) \
+	-DTINY_GAME \
+	-DINITIAL_SLOWDOWN=31500 \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
+	-compiler=sdcc \
+	--opt-code-size \
+	$(INCLUDE_OPTS) \
+	-D__VZ__ -clib=ansi \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_RANDOM_LEVEL \
+	-DNO_DEAD_GHOSTS \
+	-DFORCE_GHOSTS_NUMBER=4 \
+	-DFORCE_BOMBS_NUMBER=2 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_STATS \
+	-DNO_INITIAL_SCREEN \
+	-DNO_MESSAGE \
+	-lndos \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app -o $(BUILD_PATH)/TINY_vz200_8k.vz \
+	$(TINY_FILES) 
+	rm $(BUILD_PATH)/TINY_vz200_8k.cas
+
+
+vz200_sprites_18k:
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DSOUNDS \
+	-DINITIAL_SLOWDOWN=31500 \
+	-D__VZ__ \
+	-DFULL_GAME \
+	-create-app -o $(BUILD_PATH)/FULL_vz200_sprites_18k.vz \
+	-vn -lndos \
+	-DALT_PRINT \
+	-DFORCE_NARROW \
+	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_vz200_sprites_18k.cas
+
+
+zx81_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	$(INCLUDE_OPTS) \
+	-compiler=sdcc \
+	--opt-code-size \
+	-vn \
+	-D__ZX81__ -DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/FULL_zx81_16k.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_zx81_16k.prg
+
+
+zx81_32k_wrx_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+	-pragma-define:hrgpage=36096 \
+	-DFORCE_GHOSTS_NUMBER=9 \
+	-DANIMATE_PLAYER \
+	-DNO_BLINKING \
+	-DTURN_BASED \
+	-DFORCE_XSIZE=36 \
+	-DFORCE_YSIZE=35 \
+	-vn \
+	-D__ZX81__ \
+	-DZ88DK_SPRITES \
+	-DLESS_PRINT \
+	-DFULL_GAME \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DFEWER_SPRITES \
+	-DNO_SMALL_LETTERS \
+	-create-app -o  $(BUILD_PATH)/FULL_zx81_32k_wrx_turn_based.prg \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/FULL_zx81_32k_wrx_turn_based.prg
+
+
+z9001_16k_full:
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) -clib=ansi \
+	-D__Z9001__ -vn -DFULL_GAME  \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DLESS_TEXT \
+	-DNO_BLINKING \
+	-DNO_RANDOM_LEVEL \
+	-DNO_HINTS \
+	-DSIMPLE_STRATEGY \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_z9001_less_text.z80 \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_z9001_less_text.z80
+
+
+z9001_32k:
+	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
+	-D__Z9001__ -vn -DFULL_GAME  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_z9001.z80 \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_z9001.z80
+

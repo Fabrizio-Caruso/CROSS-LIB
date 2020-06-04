@@ -63,9 +63,11 @@
     const unsigned char horizontal_brick_udg[10] = {122, __HORIZONTAL_BRICK_UDG, 0};
 #endif
 
+#include "memory_mapped_graphics.h"
+
 void INIT_GRAPHICS(void)
 {
-    setvideobase(0xF800);
+    setvideobase(BASE_ADDR);
     
     #if defined(__TMC600__)
     	textcolor(5);

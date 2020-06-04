@@ -41,6 +41,8 @@
     #if defined(__TMC600__)
         #define COLOR_ADDR 0
     #endif
+#elif defined(__CIDELSA__)
+	#define BASE_ADDR 0x0xFC10
 #endif
 
 #if defined(__MSX__)

@@ -10,7 +10,7 @@ MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 
 
-SCCZ80_OPTS ?= -O3
+SCCZ80_OPTS ?=
 #-O0
 #-O3
 
@@ -18,11 +18,11 @@ SCCZ80_ROMS_OPTS ?= -O3
 #-O0
 #-O3
 
-ZSDCC_OPTS ?= -SO3 --max-allocs-per-node200000
+ZSDCC_OPTS ?= -SO0
 #-SO0
 # -SO3 --max-allocs-per-node200000
 
-ZSDCC_ROM_OPTS ?= -SO3 --max-allocs-per-node200000
+ZSDCC_ROM_OPTS ?= -SO3
 # -SO3
 # -SO3 --max-allocs-per-node200000
 

@@ -50,6 +50,9 @@ zx81_targets_ijkl_spc: \
 	zx81_16k zx81_32k_wrx_turn_based
 
 
+zx81_targets: \
+	zx81_targets_ijkl_spc
+
 # ------------------------------------------------------------------------------------------
 
 
@@ -105,7 +108,7 @@ gal_22k:
 	rm $(BUILD_PATH)/FULL_galaksija.prg
 
 
-# 	--opt-code-size 
+# --opt-code-size 
 gal_6k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal $(ZSDCC_OPTS) \
 	-compiler=sdcc \

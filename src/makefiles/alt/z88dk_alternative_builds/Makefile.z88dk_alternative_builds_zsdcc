@@ -1,0 +1,131 @@
+
+# ------------------------------------------------------------------------------------------
+# Z88DK ALT ZSDCC
+#
+
+z88dk_alt_targets_zsdcc: \
+    zx81_alt_targets
+
+# ------------------------------------------------------------------------------------------
+
+
+zx81_alt_targets: \
+    zx81_light \
+    zx81_8k \
+    zx81_16k_turn_based \
+    zx81_16k_wrx \
+    zx81_32k_wrx \
+
+
+###################################################################
+# ZX81
+
+zx81_16k_wrx:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+	-DALT_MODE \
+	-DANIMATE_PLAYER \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DINITIAL_SLOWDOWN=21150 \
+	-DFORCE_XSIZE=36 \
+	-DFORCE_YSIZE=35 \
+	-vn \
+	-D__ZX81__ \
+	-DZ88DK_SPRITES \
+	-DLESS_PRINT \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DNO_BLINKING \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DFEWER_SPRITES \
+	-DNO_SMALL_LETTERS \
+	-create-app -o  $(BUILD_PATH)/ALT_LIGHT_zx81_16k_wrx.prg \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/ALT_LIGHT_zx81_16k_wrx.prg
+
+
+zx81_32k_wrx:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+	-pragma-define:hrgpage=36096 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DINITIAL_SLOWDOWN=21150 \
+	-DANIMATE_PLAYER \
+	-DNO_BLINKING \
+	-DFORCE_XSIZE=36 \
+	-DFORCE_YSIZE=35 \
+	-vn \
+	-D__ZX81__ \
+	-DZ88DK_SPRITES \
+	-DLESS_PRINT \
+	-DFULL_GAME \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-DALT_MOVE \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DFEWER_SPRITES \
+	-DNO_SMALL_LETTERS \
+	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx.prg \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx.prg
+
+zx81_light:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-vn \
+	-D__ZX81__ -DLIGHT_GAME \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DNO_SLEEP \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/ALT_LIGHT_zx81_8k.prg \
+	$(LIGHT_FILES)
+	rm $(BUILD_PATH)/ALT_LIGHT_zx81_8k.prg
+
+
+zx81_8k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-vn \
+	-D__ZX81__ -DTINY_GAME -DROUND_ENEMIES \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DALT_SLEEP \
+	-DMACRO_SLEEP \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/ALT_TINY_zx81_8k.prg \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/ALT_TINY_zx81_8k.prg
+
+
+# ZX81_IJKL EXTRA
+
+zx81_16k_turn_based:
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	\
+	-D__ZX81__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DTURN_BASED \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_16k_turn_based.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/ALT_FULL_zx81_16k_turn_based.prg
+
+

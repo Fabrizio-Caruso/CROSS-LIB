@@ -49,6 +49,8 @@ void print_05u0(uint8_t x, uint8_t y, uint16_t val)
 		_DISPLAY(x+i,y, (uint8_t) (digits[5-i])+CHAR_OFFSET);
         #elif defined(__PECOM__) || defined(__TMC600__)
         vidchar((uint16_t)BASE_ADDR+x+i+y*40, (uint8_t) (digits[5-i])+CHAR_OFFSET);
+        #elif defined(__DRACO__)
+        vidchar((uint16_t)0xFC10-(x+i)*40+y, (uint8_t) (digits[5-i])+CHAR_OFFSET);
         #endif
 	}
 }	
@@ -62,6 +64,9 @@ void print_02u(uint8_t x, uint8_t y, uint16_t val)
     #elif defined(__PECOM__) || defined(__TMC600__)
     vidchar((uint16_t)BASE_ADDR+x+y*40, ((uint8_t) val)/10+CHAR_OFFSET);
     vidchar((uint16_t)BASE_ADDR+1+x+y*40, ((uint8_t) val)%10+CHAR_OFFSET);
+    #elif defined(__DRACO__)
+    vidchar((uint16_t)0XFC10-x*40+y, ((uint8_t) val)/10+CHAR_OFFSET);
+    vidchar((uint16_t)0XFBE8-x*40+y, ((uint8_t) val)%10+CHAR_OFFSET);
     #endif
 }	
 
@@ -73,6 +78,8 @@ void print_u(uint8_t x, uint8_t y, uint16_t val)
 	_DISPLAY(x,y, (uint8_t) (val+CHAR_OFFSET));
     #elif defined(__PECOM__) || defined(__TMC600__)
     vidchar((uint16_t)BASE_ADDR+x+y*40, ((uint8_t) val)+CHAR_OFFSET);
+    #elif defined(__DRACO__)
+    vidchar((uint16_t)BASE_ADDR-x*40+y, ((uint8_t) val)+CHAR_OFFSET);
     #endif
 }
 #endif

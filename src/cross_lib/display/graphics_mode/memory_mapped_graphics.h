@@ -36,13 +36,11 @@
 #elif defined(__AQUARIUS__)
 	#define BASE_ADDR (12288+40)
 	#define COLOR_ADDR (BASE_ADDR+1024)
-#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
+#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
 	#define BASE_ADDR 0xF800
     #if defined(__TMC600__)
         #define COLOR_ADDR 0
     #endif
-#elif defined(__CIDELSA__)
-	#define BASE_ADDR 0xFC10
 #endif
 
 #if defined(__MSX__)
@@ -62,7 +60,7 @@
         POKE(VDP_DATA,val); \
         __asm__("cli");    
         
-#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
+#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__DRACO__)
     #include <comx/rca_vis_video.h>
     #define DISPLAY_POKE(addr,val) vidchar(addr,val)
 #else
@@ -84,7 +82,6 @@
 		COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),image->_color); \
 	} \
 	while(0)
-
 #else
 	#define __DRAW(x,y,image) \
 		DISPLAY_POKE((uint16_t) loc(x,y), image->_imageData);

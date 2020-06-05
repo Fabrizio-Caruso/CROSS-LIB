@@ -54,7 +54,6 @@
             
         #define clrscr() printf("--------------------\n");
     #endif
-
     #  if defined(CONIO_ADM3A)
         #define gotoxy(x,y) printf("\033=%c%c",y+32,x+32);
         #define clrscr() printf("\032")
@@ -77,7 +76,37 @@
 
         #define gotoxy(x,y) printf("\033[%d;%dH", y+1, x+1)
         #define clrscr() printf("\033[2J\033[H")
+
+    #elif defined(CONIO_PDP)
+/*
+                       <ESC>+     FUNCTION
+                       ---------------------------------------------------
+     
+                       =          Alternate keypad mode
+                       >          Exit alternate keypad mode
+                       A          Move cursor up one line
+                       B          Move cursor down one line
+                       C          Move cursor left one space
+                       D          Move cursor right one space
+                       F          Enter graphics mode
+                       G          Exit graphics mode
+                       H          Home cursor
+                       I          Reverse scroll
+                       J          Erase screen from cursor to bottom
+                       K          Erase screen from cursor to end of line
+                       Z          Ident terminal type
+                       [          Enter hold screen mode
+                       ]          "Copy" screen to printer
+                       \          Exit hold screen mode
+                       ----------------------------------------------------
+*/
+        #include <stdio.h>
         
+        // TODO: BOGUS gotoxy
+        #define gotoxy(x,y)
+        // #define gotoxy(x,y) printf("\033[%d;%dH", y+1, x+1)
+        #define clrscr() printf("\033H\033J")
+
     #elif defined(Z88DK_PUTC4X6)
         #include <stdio.h>
         #include <graphics.h>

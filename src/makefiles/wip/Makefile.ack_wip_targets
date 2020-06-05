@@ -1,0 +1,53 @@
+# -----------------------------------------------
+# ACK
+
+ack_wip_targets: \
+	pdp11v7 \
+	pdp11v7_buffered
+
+pdp11v7_wip_targets: \
+	pdp11v7 \
+	pdp11v7_buffered
+
+
+# buffered
+pdp11v7_buffered:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpdpv7 \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=22 \
+	-DCONIO_PDP \
+	-DNO_COLOR \
+	-DACK \
+	-D__PDP11V7__ \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DBUFFERED -DSTDLIB \
+	-DNO_INIT_GRAPHICS \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES)
+	mv a.out $(BUILD_PATH)/WIP_FULL_pdp11v7_turn_based.bin
+	rm $(SOURCE_PATH)/../*.o
+
+
+pdp11v7:
+	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mpdpv7 \
+	-DFORCE_XSIZE=78 \
+	-DFORCE_YSIZE=22 \
+	-DCONIO_PDP \
+	-DCONIO \
+	-DNO_COLOR \
+	-DACK \
+	-D__PDP11V7__ \
+	-DFULL_GAME \
+	-DNO_INIT_GRAPHICS \
+	-DNO_PRINT \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(FULL_FILES)
+	mv a.out $(BUILD_PATH)/WIP_FULL_pdp11v7.bin
+	rm $(SOURCE_PATH)/../*.o    
+
+

@@ -12,7 +12,7 @@ LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wa-D LCCCX=1" "-Wp-D nofloats
 COMX_OPTS ?= "-Wa-D CODELOC=0x4401" "-Wa-D COMX=1"
 PECOM_OPTS ?= "-Wa-D CODELOC=0x201" "-Wa-D PECOM=1"
 TMC600_OPTS ?= "-Wa-D CODELOC=0x6300" "-Wa-D TMC600=1"
-CIDELSA_OPTS ?= "-Wa-D DATALOC=0x8000 -D CODELOC=0 -D STACKLOC=0x83ff -D CIDELSA=1"
+CIDELSA_OPTS ?= "-Wa-D DATALOC=0x8000" "-Wa-D CODELOC=0" "-Wa-D STACKLOC=0x83ff" "-Wa-D CIDELSA=1"
 #-target=xr18CX -O "-Wf-volatile" "-Wa-D CODELOC=0x4401" "-Wa-D LCCCX=1"
 #-Wf-volatile -target=xr18CX
 

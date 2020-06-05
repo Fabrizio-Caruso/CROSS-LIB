@@ -110,7 +110,6 @@ comx_pp_debug:
 	mv a.hex $(BUILD_PATH)/comx_pp_debug.hex
 
 
-
 lcc1802_debug : tiny_combo_rand.cat
 	mv tiny_combo_rand.cat tiny_combo_rand.c
 	$(LCC1802)  $(LC1802_OPTS) $(INCLUDE_OPTS) -Wf-volatile \
@@ -119,3 +118,8 @@ lcc1802_debug : tiny_combo_rand.cat
 	tiny_combo_rand.c
 	rm tiny_combo_rand.c
 	mv a.hex $(BUILD_PATH)/TINY_lcc1802_debug.hex
+
+cidelsa_hello: 
+	$(LCC1802) $(LCC1802_OPTS) $(CIDELSA_OPTS) -D__CIDELSA__ \
+	$(SOURCE_PATH)/../test/lcc1802_test.c
+	mv a.hex $(BUILD_PATH)/cidelsa_hello.hex

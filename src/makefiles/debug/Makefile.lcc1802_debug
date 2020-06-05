@@ -119,7 +119,8 @@ lcc1802_debug : tiny_combo_rand.cat
 	rm tiny_combo_rand.c
 	mv a.hex $(BUILD_PATH)/TINY_lcc1802_debug.hex
 
-cidelsa_hello: 
-	$(LCC1802) $(LCC1802_OPTS) $(CIDELSA_OPTS) -D__CIDELSA__ \
+draco_hello: 
+	$(LCC1802) $(LCC1802_OPTS) $(DRACO_OPTS) -D__CIDELSA__ \
 	$(SOURCE_PATH)/../test/lcc1802_test.c
-	mv a.hex $(BUILD_PATH)/cidelsa_hello.hex
+	mv a.hex $(BUILD_PATH)/draco_hello.hex
+

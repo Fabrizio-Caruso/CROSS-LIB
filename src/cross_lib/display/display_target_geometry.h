@@ -41,7 +41,7 @@
 #if !defined(FORCE_YSIZE)
 	#  if defined(__NCURSES__)
 		#define YSize (24-Y_OFFSET)
-	#elif defined(__DRAGO__)
+	#elif defined(__DRACO__)
 		#define YSize (40-Y_OFFSET)
 	#elif defined(__PPS__)
 		#define YSize (32-Y_OFFSET)

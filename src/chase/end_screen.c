@@ -60,7 +60,7 @@
 	#define MESSAGE_RANGE 15
 #endif
 
-#if defined(END_SCREEN)
+#if defined(END_SCREEN) && !defined(NO_MESSAGE)
 	void gameCompleted(void)
 	{
 		level = 1;

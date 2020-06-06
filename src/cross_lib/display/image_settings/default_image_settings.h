@@ -41,7 +41,7 @@
 #define _BOMB 'X'
 
 // WHITE
-#if defined(__COMX__)
+#if defined(__LCC1802__) 
     #define _GHOST 'O'
 #else
     #define _GHOST 'o'

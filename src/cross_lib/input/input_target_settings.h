@@ -43,7 +43,7 @@
 	#define KEYBOARD_CONTROL
 #endif
 
-#if defined(KEYBOARD_CONTROL) || defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
+#if defined(KEYBOARD_CONTROL)
 	#define WAIT_FOR_KEY
 #else
 	#define WAIT_FOR_JOY

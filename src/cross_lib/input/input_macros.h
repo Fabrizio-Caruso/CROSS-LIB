@@ -89,31 +89,7 @@
         #define JOY_RIGHT(joyInput) ((joyInput) & PORT_A_KEY_RIGHT)
         #define JOY_FIRE(joyInput) ((joyInput) & PORT_A_KEY_1)
     #elif defined(LCC1802_JOYSTICK)
-        #if defined(__COMX__)
-            #define MOVE_UP 0x82
-            #define MOVE_DOWN 0x85
-            #define MOVE_LEFT 0x84
-            #define MOVE_RIGHT 0x83
-            #define MOVE_FIRE 0x5f
-        #elif defined(__PECOM__)
-            #define MOVE_UP 0x5E
-            #define MOVE_DOWN 0x5B
-            #define MOVE_LEFT 0x5C
-            #define MOVE_RIGHT 0x5D
-            #define MOVE_FIRE 0x40
-        #elif defined(__TMC600__)
-            #define MOVE_UP 0x0B
-            #define MOVE_DOWN 0x0A
-            #define MOVE_LEFT 0x08
-            #define MOVE_RIGHT 0x09
-            #define MOVE_FIRE 0x20
-        #elif defined(__CIDELSA__)
-            #define MOVE_UP 0x10
-            #define MOVE_DOWN 0x20
-            #define MOVE_LEFT 0x80
-            #define MOVE_RIGHT 0x40
-            #define MOVE_FIRE 0x01
-        #endif
+        #include <comx/rca_joystick.h>
 
         #define JOY_UP(joyInput) ((joyInput) == MOVE_UP)
         #define JOY_DOWN(joyInput) ((joyInput) == MOVE_DOWN)
@@ -135,8 +111,8 @@
         #include <arch/sms/SMSLib.h>
         
         #define JOY_INPUT() (SMS_getKeysStatus() & 0xFF)
-    #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
-        #define JOY_INPUT() GET_CHAR()
+    #elif defined(__LCC1802__)
+        #define JOY_INPUT() get_stick(0)
     #else
         #define JOY_INPUT() joy_read(JOY_1)
     #endif // defined(Z88DK_JOYSTICK)

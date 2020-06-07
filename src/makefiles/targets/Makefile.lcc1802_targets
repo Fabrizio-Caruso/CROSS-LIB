@@ -25,7 +25,7 @@ lcc1802_targets:
 	make comx_targets 
 	make pecom_targets 
 	make tmc600_targets
-	make cidelsa_targets
+	# make cidelsa_targets
  
 ################################################################################
 

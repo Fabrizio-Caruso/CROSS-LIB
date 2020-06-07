@@ -29,11 +29,9 @@
 #include "input_macros.h"
 
 
-#if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__) || (defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB))
-    #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
-        #if defined(LCC1802_JOYSTICK) && !defined(__COMX__)
-            #include <comx/rca_joystick.h>
-        #else
+#if defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB)
+    #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
+        #if !defined(LCC1802_JOYSTICK)
             #include <comx/rca_keyboard_encoder.h>
         #endif
     #endif 
@@ -65,8 +63,6 @@
     // Code by Marcel van Tongeren
     #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
         return getkey();
-    #elif defined(__CIDELSA__)
-        return get_trigger();
         
     #elif defined(__ATMOS__) || defined(__TELESTRAT__)
         #include <peekpoke.h>    
@@ -301,6 +297,15 @@ out            stb res
             {
             }
         }        
+    #elif defined(__LCC1802__)
+        #include <comx/rca_joystick.h>
+        
+        void WAIT_PRESS(void)
+        {
+            while(!get_stick(0))
+            {
+            }
+        }
     #else
         #include<joystick.h>
 

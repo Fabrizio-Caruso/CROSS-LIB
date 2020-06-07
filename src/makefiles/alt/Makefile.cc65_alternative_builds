@@ -72,8 +72,6 @@ nes_alt_targets: \
 # All tested OK
 pet_alt_targets: \
     pet_8k \
-    pet_8k_light_experimental
-
 
 #############################
 # VIC 20
@@ -270,21 +268,6 @@ pet_8k:
 	-o $(BUILD_PATH)/ALT_TINY_pet_8k.prg
 
 
-pet_8k_light_experimental:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
-	-DNO_INIT_GRAPHICS -DCONIO -DLESS_TEXT -DNO_HINTS -DNO_BLINKING -DNO_RANDOM_LEVEL \
-	-DUSE_LIGHT_MEMORY_BUFFERS \
-	-DFORCE_GHOSTS_NUMBER=8 \
-	-DFORCE_NARROW \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_STATS \
-	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_DEAD_GHOSTS \
-	$(LIGHT_FILES) \
-	$(CROSS_LIB_PATH)/memory/pet_memory.s \
-	-o $(BUILD_PATH)/ALT_LIGHT_pet_8k_experimental.prg
-
-
 #############################
 # VIC 20
 
@@ -294,16 +277,12 @@ vic20_exp_3k_light:
 	-DANIMATE_PLAYER -DFORCE_GHOSTS_NUMBER=8 \
 	-DSOUNDS \
 	-DCC65_GOTO \
-	-DNO_PRINT \
 	-DVIC20_EXP_3K \
 	-DMEMORY_MAPPED \
 	-DCBM_SCREEN_CODES \
 	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DNO_HINTS \
-	-DNO_INITIAL_SCREEN \
 	-DLESS_TEXT \
-	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_MESSAGE \
 	-DNO_TEXT_COLOR \
 	-DNO_BLINKING \
 	-DALT_SLEEP \

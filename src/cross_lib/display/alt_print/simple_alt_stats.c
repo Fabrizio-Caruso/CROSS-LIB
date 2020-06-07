@@ -45,6 +45,9 @@
 			#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
 			POKE(loc(x+i,y), 64+str[i]); 
 			POKE((0x7800+loc(x+i,y)),0x01);
+			#elif defined(__VIC20__)
+			POKE(loc(x+i,y), str[i]); 
+			POKE((0x7800+loc(x+i,y)),0x01);
 			#else
 			POKE(loc(x+i,y), str[i]); 
 			#endif

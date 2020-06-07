@@ -77,7 +77,7 @@
 
 #ifndef printCenteredMessageOnRow
     #if defined(ALT_DISPLAY_STATS)
-        #define printCenteredMessageOnRow(row, text) PRINT(6,row,text)
+        #define printCenteredMessageOnRow(row, text) PRINT(2,row,text)
     #endif
 #endif
 

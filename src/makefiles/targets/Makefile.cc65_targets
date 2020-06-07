@@ -371,6 +371,7 @@ pce_16k:
 
 pce_8k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t pce \
+	--config $(CFG_PATH)/cc65/pet_8k.cfg \
 	-DTINY_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_8k_less_stack.cfg \
@@ -390,17 +391,16 @@ pet_16k:
 
 pet_8k_light:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t pet -Cl \
+	--config $(CFG_PATH)/cc65/pet_8k.cfg \
 	-DLESS_TEXT \
 	-DNO_MESSAGE -DNO_BLINKING \
-	-DNO_CONTROL_INSTRUCTIONS -DNO_INITIAL_SCREEN \
+	-DNO_CONTROL_INSTRUCTIONS -DNO_INITIAL_SCREEN  \
 	-DNO_DEAD_GHOSTS -DNO_SET_SCREEN_COLORS -DNO_RANDOM_LEVEL \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DFORCE_NARROW \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DUSE_LIGHT_MEMORY_BUFFERS \
 	-DNO_STATS \
 	$(LIGHT_FILES) \
-	$(CROSS_LIB_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/LIGHT_pet_8k_less_text.prg
 
 

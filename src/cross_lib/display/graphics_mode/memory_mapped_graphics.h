@@ -24,7 +24,7 @@
 	#define BASE_ADDR 0xBB80
 #elif defined(__VIC20__) && (defined(VIC20_UNEXPANDED) || defined(VIC20_EXP_3K))
 	#define BASE_ADDR 0x1E00
-	#define COLOR_ADDR 0x9600	
+	#define COLOR_ADDR 0x9600
 #elif defined(__MSX__)
     #if !defined(USE_MSX_BIOS)
         #define BASE_ADDR 0x0000
@@ -41,6 +41,8 @@
     #if defined(__TMC600__)
         #define COLOR_ADDR 0
     #endif
+#elif defined(__PET__)
+	#define BASE_ADDR 0x8000
 #endif
 
 #if defined(__MSX__)

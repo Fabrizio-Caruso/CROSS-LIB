@@ -8,11 +8,8 @@ _bombs = _ghosts + $28
 .export _player;
 _player = _bombs + $14
 
-.export _ghostSlowDown;
-_ghostSlowDown = _player + $5
-
 .export _points;
-_points = _ghostSlowDown + $2
+_points = _player + $5
 
 .export _highScore;
 _highScore = _points + $2
@@ -46,7 +43,7 @@ _BOMB_IMAGE = _GHOST_IMAGE + $1
 
 .export _ind;
 _ind = _BOMB_IMAGE + $1
-				
+
 .export _POWERUP_IMAGE;
 _POWERUP_IMAGE = _ind + 1
 	
@@ -101,23 +98,23 @@ _ZOMBIE_IMAGE = _CONFUSE_IMAGE + $2
 .export _freeze_count_down;
 _freeze_count_down = _ZOMBIE_IMAGE + $8
 
-.export _playerDirection;
-_playerDirection = _freeze_count_down + $1
+.export _loop;
+_loop = $100
 
-.export _freezeActive;
-_freezeActive = _playerDirection + $1
+.export _bulletDirection;
+_bulletDirection = _loop + $2
 
-.export _extraLifeThroughPointsCounter;
-_extraLifeThroughPointsCounter = _freezeActive + $1
+.export _skullXCountDown;
+_skullXCountDown = _bulletDirection + $1
 
-.export _playerFire;
-_playerFire = _extraLifeThroughPointsCounter + $1
+.export _skullYCountDown;
+_skullYCountDown = _skullXCountDown + $1
 
-.export _guns;
-_guns = _playerFire + $1
+.export _ghostSlowDown;
+_ghostSlowDown = _skullYCountDown + $1
 
 .export _skullActive;
-_skullActive = _guns + $1
+_skullActive = _ghostSlowDown + $2
 
 .export _skull;
 _skull = _skullActive + $1
@@ -134,18 +131,20 @@ _gun = _powerUp + $A
 .export _extraPoints;
 _extraPoints = _gun + $A
 
+.export _playerDirection;
+_playerDirection = _extraPoints + $A
 
-.export _loop;
-_loop = $100
+.export _freezeActive;
+_freezeActive = _playerDirection + $1
+
+.export _extraLifeThroughPointsCounter;
+_extraLifeThroughPointsCounter = _freezeActive + $1
+
+.export _playerFire;
+_playerFire = _extraLifeThroughPointsCounter + $1
+
+.export _guns;
+_guns = _playerFire + $1
 
 .export _skullSlowDown;
-_skullSlowDown = _loop + $2
-
-.export _bulletDirection;
-_bulletDirection = _skullSlowDown + $2
-
-.export _skullXCountDown;
-_skullXCountDown = _bulletDirection + $1
-
-.export _skullYCountDown;
-_skullYCountDown = _skullXCountDown + $1
+_skullSlowDown = _guns + $2

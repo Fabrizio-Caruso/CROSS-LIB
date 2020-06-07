@@ -68,6 +68,8 @@
 #else	
 	#  if defined(__NCURSES__)
 		#define SLOW_DOWN 100
+    #elif defined(__PET__)
+        #define SLOW_DOWN 1000U
     #elif defined(__OSIC1P__)
         #define SLOW_DOWN 500U
 	#elif defined(__OSCA__)

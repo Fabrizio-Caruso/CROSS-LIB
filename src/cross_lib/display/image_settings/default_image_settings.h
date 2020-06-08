@@ -32,11 +32,14 @@
     #define _PLAYER_UP ')'
     #define _PLAYER_LEFT '('
     #define _PLAYER_RIGHT '\''
-#else
-    #define _PLAYER '*'
 #endif
 
+#if !defined(__CIDELSA__)
+    #define _PLAYER '*'
+#else
+    #define _PLAYER 'H'
 
+#endif
 // RED
 #define _BOMB 'X'
 
@@ -54,18 +57,24 @@
 #endif
 
 // BLUE
-#if defined(__ZX80__)
+#if defined(__ZX80__) || defined(__CIDELSA__)
 	#define _GUN 'G'
 #else
 	#define _GUN '!'
 #endif
 
 // YELLOW
-#define _SKULL '+'
-#define _CONFUSE '+'
+#if !defined(__CIDELSA__)
+    #define _SKULL '+'
+    #define _CONFUSE '+'
+#else
+    #define _SKULL 'A'
+    #define _CONFUSE 'A'
+#endif
+
 #define _ZOMBIE 'O'	
 
-#define _EXTRA_LIFE ('*')
+#define _EXTRA_LIFE _PLAYER
 #define _EXTRA_POINTS '$'
 
 // GREEN

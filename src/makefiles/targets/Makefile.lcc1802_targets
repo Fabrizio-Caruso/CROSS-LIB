@@ -350,12 +350,11 @@ draco: full_cidelsa_combo.c
 	-DNO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
-	-DANIMATE_PLAYER \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(COMX_MACROS) \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../full_cidelsa_combo.c
-	# rm -rf $(SOURCE_PATH)/../full_cidelsa_combo.c
+	rm -rf $(SOURCE_PATH)/../full_cidelsa_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_draco.hex
 
 

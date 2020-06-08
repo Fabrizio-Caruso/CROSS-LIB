@@ -53,7 +53,7 @@ ti85_alt_targets: \
     ti85_turn_based
 
 ti86_alt_targets: \
-    ti86
+    ti86_full
 
 trs80_alt_targets: \
     trs80_chars_cas \
@@ -297,7 +297,7 @@ ti85_turn_based:
 
 #############################
 # TI86
-ti86:
+ti86_full:
 	$(Z88DK_PATH)$(MYZ88DK) +ti86 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__TI86__ \

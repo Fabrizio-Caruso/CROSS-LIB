@@ -80,6 +80,8 @@ aquarius_exp_4k:
 	mv TINY_aquarius_exp_4k.tar.zip $(BUILD_PATH)
 
 
+aquarius: aquarius_exp_16k
+
 aquarius_exp_16k: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__AQUARIUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -95,6 +97,8 @@ aquarius_exp_16k:
 	rm _FULL_aquarius_exp_16k.caq
 	mv FULL_aquarius_exp_16k.tar.zip $(BUILD_PATH)	
 
+
+gal: gal_22k
 
 gal_22k:
 	$(Z88DK_PATH)$(MYZ88DK) +gal $(SCCZ80_OPTS) \
@@ -160,6 +164,8 @@ mc1000_16k_no_gfx:
 	rm mc1000ng.cas
 
 
+mc1000: mc1000_48k
+
 mc1000_48k:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-subtype=gaming \
@@ -181,6 +187,8 @@ mc1000_48k:
 	rm mc1000.bin
 	rm mc1000.cas
 
+
+oz: oz_tiny_buffered
 
 oz_tiny_buffered: 	
 	$(Z88DK_PATH)$(MYZ88DK) +oz $(ZSDCC_ROM_OPTS) \
@@ -251,6 +259,8 @@ svi_318:
 	rm svi_318
 
 
+svi: svi_328
+
 svi_328:
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
 	-DZ88DK_JOYSTICK \
@@ -313,6 +323,8 @@ vg5k:
 	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg
 
 
+vz200: vz200_18k
+
 vz200_18k: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) -vn \
 	-compiler=sdcc \
@@ -372,6 +384,8 @@ vz200_sprites_18k:
 	rm $(BUILD_PATH)/FULL_vz200_sprites_18k.cas
 
 
+zx81: zx81_16k
+
 zx81_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -419,6 +433,8 @@ zx81_32k_wrx_turn_based:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	rm $(BUILD_PATH)/FULL_zx81_32k_wrx_turn_based.prg
 
+
+z9001: z9001_16k_full
 
 z9001_16k_full:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) -clib=ansi \

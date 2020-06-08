@@ -209,6 +209,8 @@ sc3000_16k:
 	rm $(BUILD_PATH)/LIGHT_sc3000_16k.tap
 
 
+sc3000: sc3000_32k
+
 sc3000_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -271,6 +273,8 @@ smc777:
 	rm $(BUILD_PATH)/FULL_smc777.bin
 
 
+sms: sms_tiny_buffered
+
 sms_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -clib=sdcc_iy -startup=17 \
 	$(INCLUDE_OPTS) \
@@ -296,6 +300,8 @@ sms_tiny_buffered:
 	rm $(BUILD_PATH)/TINY_sms_buffered_BSS.bin
 	rm $(BUILD_PATH)/TINY_sms_buffered_UNASSIGNED.bin
 
+
+sos: sos_buffered
 
 sos_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sos $(SCCZ80_OPTS) \
@@ -372,6 +378,8 @@ spectrum_16k:
 	rm $(BUILD_PATH)/TINY_spectrum_16k.prg
 	rm $(BUILD_PATH)/TINY_spectrum_16k_BANK_7.bin
 
+
+spectrum: spectrum_48k
 
 spectrum_48k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -v \
@@ -528,6 +536,8 @@ ti85:
 	mv $(SOURCE_PATH)/../ti85.85s $(BUILD_PATH)/FULL_ti85.85s
 	rm $(SOURCE_PATH)/../ti85
 
+
+ti86: ti86_light
 
 ti86_light:
 	$(Z88DK_PATH)$(MYZ88DK) +ti86 $(SCCZ80_OPTS) \
@@ -696,6 +706,8 @@ x1:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_x1.bin
 
+
+zx80: zx80_16k_turn_based
 
 zx80_16k_turn_based:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn \

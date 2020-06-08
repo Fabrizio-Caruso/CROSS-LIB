@@ -23,12 +23,20 @@ unsigned char strlen(const char *s)
 
 void PRINT(uint8_t x, uint8_t y, char * str)
 {
+#if !defined(__DRACO__)
     vidstrcpy((uint16_t) BASE_ADDR+x+y*40,str);
+#else
+    vidstrcpy((uint16_t) 0xFC10-x*40+y,str);
+#endif
 }
 
 #define CHAR_OFFSET 48
 
+#if !defined(__DRACO__)
 #define _DISPLAY(x,y,ch) vidchar((uint16_t)BASE_ADDR+(x)+(y)*40, (uint8_t) (ch+CHAR_OFFSET))
+#else
+#define _DISPLAY(x,y,ch) vidchar((uint16_t)0xFC10-x*40+y, (uint8_t) (ch+CHAR_OFFSET))
+#endif
 
 void print_05u0(uint8_t x, uint8_t y, uint16_t val)
 {
@@ -79,7 +87,7 @@ void print_u(uint8_t x, uint8_t y, uint16_t val)
     #elif defined(__PECOM__) || defined(__TMC600__)
     vidchar((uint16_t)BASE_ADDR+x+y*40, ((uint8_t) val)+CHAR_OFFSET);
     #elif defined(__DRACO__)
-    vidchar((uint16_t)0XFC10-x*40+y, ((uint8_t) val)+CHAR_OFFSET);
+    vidchar((uint16_t)0xFC10-x*40+y, ((uint8_t) val)+CHAR_OFFSET);
     #endif
 }
 #endif

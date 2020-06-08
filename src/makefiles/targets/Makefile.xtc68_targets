@@ -34,8 +34,10 @@ XTC68_ALL_OPTS ?= \
 	-DNO_SLEEP \
 	-DNO_RANDOM_LEVEL \
 	-DNO_PRINT 	
-	
-	
+
+
+sinclair_ql: sinclair_ql_tiny_buffered
+
 
 sinclair_ql_tiny_buffered:
 	$(XTC68) $(XTC68_ALL_OPTS) -c $(SOURCE_PATH)/level.c -o level.o
@@ -53,5 +55,5 @@ sinclair_ql_tiny_buffered:
 	level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o 
 	rm level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o
 	mv a_out $(BUILD_PATH)/TINY_SinclairQL_buffered.out
-	
-	
+
+

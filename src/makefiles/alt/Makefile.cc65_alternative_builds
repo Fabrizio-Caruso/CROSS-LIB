@@ -8,7 +8,8 @@ cc65_alt_targets: \
     c16_alt_targets \
     creativision_alt_targets \
     gamate_alt_targets \
-    nes_no_fx \
+    nes_alt_targets \
+    oric1_alt_targets \
     pet_alt_targets \
     vic20_alt_targets
 
@@ -67,11 +68,18 @@ nes_alt_targets: \
 
 
 #############################
+# ORIC1
+oric1_alt_targets: \
+    oric1_16k_light
+
+
+#############################
 # PET
 
 # All tested OK
 pet_alt_targets: \
     pet_8k \
+
 
 #############################
 # VIC 20
@@ -82,6 +90,7 @@ vic20_alt_targets: \
     vic20_exp_8k_full \
     vic20_unexpanded_no_gfx \
     vic20_unexpanded_turn_based
+
 
 
 ###############################################################
@@ -254,6 +263,20 @@ nes_no_fx:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/ALT_FULL_nes_no_fx.nes	
+
+
+#############################
+# ORIC1
+
+oric1_16k_light: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O -D__ORIC1__ -DSOUNDS -DANIMATE_PLAYER \
+	-t atmos \
+	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	-DMEMORY_MAPPED \
+	-DALT_MOVE \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
+	$(LIGHT_FILES) \
+	-o $(BUILD_PATH)/ALT_LIGHT_oric1_16k.tap
 
 
 #############################

@@ -45,6 +45,93 @@ cc65_targets: \
 ################################################################################################
 
 
+apple2_targets: \
+	apple2
+
+
+apple2enh_targets: \
+	apple2enh apple2enh_80col
+
+
+atari_targets: \
+	atari_color atari_no_color
+
+
+atari5200_targets: \
+	atari5200
+
+
+atari_lynx_targets: \
+	atari_lynx
+
+
+c128_8502_targets: \
+	c128_40col c128_80col
+
+
+c16_targets: \
+	c16_16k c16_32k
+
+
+c64_targets: \
+	c64
+
+
+cbm510_targets: \
+	cbm510
+
+
+cbm610_targets: \
+	cbm610
+
+
+creativision_targets: \
+	creativision_8k_light creativision_16k
+
+
+cx16_targets: \
+	cx16
+
+
+gamate_targets: \
+	gamate
+
+
+nes_targets: \
+	nes
+
+
+pce_targets: \
+	pce_8k pce_16k 
+
+
+pet_targets: \
+	pet_8k_light pet_16k
+
+
+oric_targets: \
+	oric_atmos oric1_16k
+
+
+osic1p_targets: \
+	osic1p_8k osic1p_32k osic1p_8k_turn_based osic1p_32k_turn_based
+
+
+supervision_targets: \
+	supervision
+
+
+telestrat_targets: \
+	telestrat
+
+
+vic20_targets: \
+	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
+
+
+#######################################################################################
+# APPLE2
+
 apple2:	 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2 \
 	-DFULL_GAME -DALT_SLEEP \
@@ -59,6 +146,9 @@ apple2:
 	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/FULL_apple2.dsk aschase < $(BUILD_PATH)/apple2.bin
 	rm $(BUILD_PATH)/apple2.bin
 
+
+#######################################################################################
+# APPLE2ENH
 
 apple2enh: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t apple2enh \
@@ -95,6 +185,11 @@ apple2enh_80col:
 	rm $(BUILD_PATH)/apple2enh_80col.bin	
 
 
+#######################################################################################
+# ATARI
+
+atari: atari_color
+
 atari_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DREDEFINED_CHARS \
@@ -123,6 +218,9 @@ atari_no_color:
 	-o $(BUILD_PATH)/FULL_atari_no_color.xex
 
 
+#######################################################################################
+# ATARI5200
+
 atari5200: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
@@ -139,6 +237,9 @@ atari5200:
 	-o $(BUILD_PATH)/FULL_atari5200.rom
 
 
+#######################################################################################
+# ATARI LYNX
+
 atari_lynx:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t lynx \
 	-D__ATARI_LYNX__ \
@@ -153,22 +254,10 @@ atari_lynx:
 	-o $(BUILD_PATH)/FULL_ATARI_LYNX.lnx
 
 
-atari2600_graphics_test:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari2600 \
-	-D__ATARI2600__ \
-	$(DEBUG_MACROS) \
-	-DTINY_GAME \
-	$(SOURCE_PATH)/../test/atari2600_graphics_test.c \
-	-o $(BUILD_PATH)/atari2600_graphics_test.rom	
+#######################################################################################
+# C128
 
-atari2600_tiny:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari2600 \
-	-D__ATARI2600__ \
-	$(DEBUG_MACROS) \
-	-DTINY_GAME \
-	$(TINY_FILES) \
-	-o $(BUILD_PATH)/TINY_atari2600.rom
-
+c128: c128_40col
 
 c128_40col: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128 \
@@ -195,7 +284,9 @@ c128_80col:
 	-o $(BUILD_PATH)/FULL_c128_80col.prg
 
 
-	
+#######################################################################################
+# C16
+
 c16_32k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DANIMATE_PLAYER -DFULL_GAME -DSOUNDS \
@@ -211,6 +302,8 @@ c16_32k:
 	$(CROSS_LIB_PATH)/memory/c16_memory.s \
 	-o $(BUILD_PATH)/FULL_c16_32k.prg
 
+
+c16: c16_16k
 
 c16_16k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
@@ -241,6 +334,9 @@ c16_16k:
 	-o $(BUILD_PATH)/FULL_c16_16k.prg	
 
 
+#######################################################################################
+# C64
+
 c64: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
 	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -259,6 +355,9 @@ c64:
 	rm $(BUILD_PATH)/FULL_c64.prg
 
 
+#######################################################################################
+# CBM610
+
 cbm610: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm610 \
 	-DFULL_GAME \
@@ -268,7 +367,11 @@ cbm610:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_cbm610.prg
-	
+
+
+#######################################################################################
+# CBM510
+
 cbm510: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cbm510 \
 	-DFULL_GAME \
@@ -278,6 +381,9 @@ cbm510:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_cbm510.prg
 
+
+#######################################################################################
+# CREATIVISION
 
 creativision_8k_light: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision \
@@ -297,6 +403,8 @@ creativision_8k_light:
 	-o $(BUILD_PATH)/LIGHT_creativision_8k_less_text.bin	
 
 
+creativision: creativision_16k
+
 creativision_16k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS \
@@ -315,6 +423,9 @@ creativision_16k:
 	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin	
 
 
+#######################################################################################
+# CX16
+
 cx16: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t cx16 \
 	-D__CX16__ \
@@ -324,6 +435,9 @@ cx16:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_cx16.prg
 
+
+#######################################################################################
+# GAMATE
 
 gamate: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
@@ -337,6 +451,9 @@ gamate:
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
 
 
+#######################################################################################
+# NES
+
 nes:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
@@ -349,8 +466,13 @@ nes:
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/nes_tiles.s \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_nes_fx.nes
+	-o $(BUILD_PATH)/FULL_nes.nes
 
+
+#######################################################################################
+# PCE
+
+pce: pce_16k
 
 pce_16k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
@@ -371,13 +493,17 @@ pce_16k:
 
 pce_8k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t pce \
-	--config $(CFG_PATH)/cc65/pet_8k.cfg \
 	-DTINY_GAME \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_8k_less_stack.cfg \
 	$(TINY_FILES) \
 	-o $(BUILD_PATH)/TINY_PCE_8k.pce
 
+
+#######################################################################################
+# PET
+
+pet: pet_16k
 
 pet_16k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet \
@@ -406,27 +532,22 @@ pet_8k_light:
 	-o $(BUILD_PATH)/LIGHT_pet_8k_less_text.prg
 
 
+#######################################################################################
+# ORIC1
+
+oric: oric1
+
+oric1: oric1_16k
+
 oric1_16k: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O -D__ORIC1__ -DSOUNDS -DANIMATE_PLAYER \
-	-t atmos \
-	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	-DMEMORY_MAPPED \
-	-DALT_MOVE \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
-	$(LIGHT_FILES) \
-	-o $(BUILD_PATH)/LIGHT_oric1_16k.tap
-
-
-oric1_16k_full: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -D__ORIC1__ -DSOUNDS \
 	-DANIMATE_PLAYER -DFULL_GAME \
-	-DLESS_TEXT -DNO_SLEEP -DNO_BORDER \
+	-DLESS_TEXT -DNO_SLEEP \
 	-DSIMPLE_STRATEGY -DNO_HINTS -DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_BLINKING \
-	-DNO_RANDOM_LEVEL \
 	-t atmos \
 	-DMEMORY_MAPPED \
-	-DFORCE_NARROW \
+	-DALT_MOVE \
 	-DUSE_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
@@ -434,6 +555,7 @@ oric1_16k_full:
 	$(CROSS_LIB_PATH)/memory/oric1.s \
 	-o $(BUILD_PATH)/FULL_oric1_16k_less_text.tap
 
+atmos: oric_atmos
 
 oric_atmos: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -446,6 +568,9 @@ oric_atmos:
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_atmos_and_oric1_48k.tap
 
+
+#######################################################################################
+# OSIC1P
 
 osic1p_32k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) --start-addr 0x200 -Wl -D,__HIMEM__=0x8000 -O -t osic1p -DFULL_GAME \
@@ -505,6 +630,9 @@ osic1p_8k_turn_based:
 	mv $(BUILD_PATH)/TINY_osic1p_8k_turn_based.c1p $(BUILD_PATH)/TINY_osic1p_8k_turn_based.lod
 
 
+#######################################################################################
+# SUPERVISION
+
 supervision:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
@@ -521,6 +649,9 @@ supervision:
 	-o $(BUILD_PATH)/FULL_supervision.sv
 
 
+#######################################################################################
+# TELESTRAT
+
 telestrat: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
 	-DFORCE_CONIO_LIB \
@@ -536,6 +667,9 @@ telestrat:
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_telestrat.prg	
 
+
+#######################################################################################
+# VIC20
 
 vic20_exp_16k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -572,6 +706,8 @@ vic20_exp_3k:
 	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
 	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
 
+
+vic20: vic20_exp_8k
 
 vic20_exp_8k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
@@ -647,72 +783,5 @@ vic20_unexpanded:
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_6chars.s \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
-
-##
-
-telestrat_targets: \
-	telestrat
-
-supervision_targets: \
-	supervision
-
-vic20_targets: \
-	vic20_unexpanded vic20_exp_3k vic20_exp_8k vic20_exp_16k
-
-cx16_targets: \
-	cx16
-
-atari_targets: \
-	atari_color atari_no_color
-	
-oric_targets: \
-	oric_atmos oric1_16k oric1_16k_full
-
-c16_targets: \
-	c16_16k c16_32k
-	
-pet_targets: \
-	pet_8k_light pet_16k
-	
-cbm510_targets: \
-	cbm510
-	
-cbm610_targets: \
-	cbm610
-	
-apple2_targets: \
-	apple2
-
-apple2enh_targets: \
-	apple2enh apple2enh_80col
-
-c64_targets: \
-	c64 c64_8k_cart
-	
-c128_8502_targets: \
-	c128_40col c128_80col
-	
-pce_targets: \
-	pce_8k pce_16k 
-	
-atari5200_targets: \
-	atari5200
-
-nes_targets: \
-	nes
-	
-creativision_targets: \
-	creativision_8k_light creativision_16k
-	
-gamate_targets: \
-	gamate
-	
-atari_lynx_targets: \
-	atari_lynx
-	
-osic1p_targets: \
-	osic1p_8k osic1p_32k osic1p_8k_turn_based osic1p_32k_turn_based
-	
-
 
 

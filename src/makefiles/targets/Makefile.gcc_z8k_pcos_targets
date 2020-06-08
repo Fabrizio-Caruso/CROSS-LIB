@@ -18,6 +18,9 @@ gcc_z8k_targets: \
 ###################################################################################################
 
 
+olivetti_m20: olivetti_m20_buffered
+
+
 olivetti_m20_buffered:
 	$(Z8K-PCOS-GCC) $(Z8K-PCOS-GCC_OPTS) $(INCLUDE_OPTS) \
 	-D__GCC_BUFFERED__ \

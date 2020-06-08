@@ -20,6 +20,8 @@ amiga_core_test:
 	$(AMIGA_CC) -mcrt=nix13 \
 	$(SOURCE_PATH)/../test/main_use_amiga_core.c
 
+amiga: amiga_buffered
+
 amiga_buffered:
 	$(AMIGA_CC) $(INCLUDE_OPTS) -mcrt=nix13 \
 	-D__AMIGA__ \

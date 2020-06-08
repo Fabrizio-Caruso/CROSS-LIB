@@ -20,6 +20,7 @@ gcc_targets: \
     
 ###############################################################################################
 
+gcc: buffered
 
 gcc_buffered:
 	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \
@@ -94,7 +95,8 @@ ncurses_turn_based:
 	$(FULL_FILES) \
 	-lncurses
 	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_ncurses_turn_based$(COMPILEDEXT)
-	
+
+
 ncurses:
 	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
@@ -115,4 +117,4 @@ ncurses:
 
 ncurses_targets: \
 	ncurses ncurses_turn_based
-	
+

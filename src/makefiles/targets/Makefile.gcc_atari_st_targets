@@ -32,7 +32,9 @@ atari_st_buffered:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv a.out $(BUILD_PATH)/FULL_atari_st_buffered.tos
-	
+
+atari_st: atari_st_ncurses
+
 atari_st_ncurses:
 	$(ATARI_ST_CC) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-D__ATARI_ST__ \
@@ -49,7 +51,8 @@ atari_st_ncurses:
 	$(FULL_FILES) \
 	-lncurses
 	mv a.out $(BUILD_PATH)/FULL_atari_st_ncurses.tos
-    
+
+
 
 
 atari_st_ncurses_turn_based:

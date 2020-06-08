@@ -66,6 +66,23 @@ abc800_32k:
 	$(FULL_FILES)
 
 
+atari2600_graphics_test:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari2600 \
+	-D__ATARI2600__ \
+	$(DEBUG_MACROS) \
+	-DTINY_GAME \
+	$(SOURCE_PATH)/../test/atari2600_graphics_test.c \
+	-o $(BUILD_PATH)/atari2600_graphics_test.rom	
+
+atari2600_tiny:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari2600 \
+	-D__ATARI2600__ \
+	$(DEBUG_MACROS) \
+	-DTINY_GAME \
+	$(TINY_FILES) \
+	-o $(BUILD_PATH)/TINY_atari2600.rom
+
+
 c7420:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \

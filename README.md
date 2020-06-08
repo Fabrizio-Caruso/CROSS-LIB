@@ -92,14 +92,24 @@ More details on tests are in:
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TESTS.md
 
 
+### Build the default target for a given system
+
+If you just want to build the game only for a specific system without choosing a specific version, 
+you can build the default target for a given system with
+
+`make [system_name]`
+
+For the list of systems either run `make list` or look at 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+
+
 ### Build all targets for a given system
 
 You can build all targets for a given system with
 
 `make [system_name]_targets`
 
-For the list of systems either run `make list` or look at 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+See the list of systems above or run `make list`.
 
 ### Build all targets that are built by a given compiler or devkit:
 

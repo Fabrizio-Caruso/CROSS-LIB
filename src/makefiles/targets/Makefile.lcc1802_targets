@@ -25,7 +25,7 @@ lcc1802_targets:
 	make comx_targets 
 	make pecom_targets 
 	make tmc600_targets
-	# make cidelsa_targets
+	make cidelsa_targets
  
 ################################################################################
 
@@ -353,10 +353,9 @@ draco: full_cidelsa_combo.c
 	-DANIMATE_PLAYER \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(COMX_MACROS) \
-	-DNO_WAIT \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../full_cidelsa_combo.c
-	rm -rf $(SOURCE_PATH)/../full_cidelsa_combo.c
+	# rm -rf $(SOURCE_PATH)/../full_cidelsa_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_draco.hex
 
 

@@ -125,6 +125,9 @@ zxn_targets: \
 # ------------------------------------------------------------------------------------------
 
 
+#############################
+# QC10
+
 qc10:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=qc10 \
 	$(INCLUDE_OPTS) \
@@ -140,6 +143,9 @@ qc10:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_qc10.bin	
 
+
+#############################
+# RC700
 
 rc700:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=rc700 $(INCLUDE_OPTS) \
@@ -157,6 +163,9 @@ rc700:
 	-create-app -o$(BUILD_PATH)/FULL_rc700.bin
 	rm $(BUILD_PATH)/FULL_rc700.bin
 
+
+#############################
+# RX78
 
 rx78:
 	$(Z88DK_PATH)$(MYZ88DK) +rx78 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -181,6 +190,9 @@ rx78:
 	rm $(BUILD_PATH)/FULL_rx78_BSS.bin
 
 
+#############################
+# SAMCOUPE
+
 # import as data into ram at 32768 - call 32768
 samcoupe:
 	$(Z88DK_PATH)$(MYZ88DK) +sam $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -195,6 +207,9 @@ samcoupe:
 	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/FULL_samcoupe.dsk
 	rm $(BUILD_PATH)/FULL_samcoupe.bin
 
+
+#############################
+# SC3000
 
 sc3000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) \
@@ -236,6 +251,9 @@ sc3000_32k:
 	rm $(BUILD_PATH)/FULL_sc3000_32k.tap
 
 
+#############################
+# SG1000
+
 sg1000:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_ROM_OPTS) -subtype=rom \
 	$(INCLUDE_OPTS) \
@@ -260,6 +278,9 @@ sg1000:
 	rm $(BUILD_PATH)/FULL_sg1000_DATA.bin
 
 
+#############################
+# SMC777
+
 smc777:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=smc777 $(INCLUDE_OPTS) \
 	-D__SMC777__ \
@@ -275,6 +296,9 @@ smc777:
 	-create-app -o$(BUILD_PATH)/FULL_smc777.bin
 	rm $(BUILD_PATH)/FULL_smc777.bin
 
+
+#############################
+# SMS
 
 sms: sms_buffered
 
@@ -303,6 +327,7 @@ sms_buffered:
 	rm $(BUILD_PATH)/FULL_sms_buffered_BSS.bin
 	rm $(BUILD_PATH)/FULL_sms_buffered_UNASSIGNED.bin
 
+
 sms_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -clib=sdcc_iy -startup=17 \
 	$(INCLUDE_OPTS) \
@@ -328,6 +353,9 @@ sms_tiny_buffered:
 	rm $(BUILD_PATH)/TINY_sms_buffered_BSS.bin
 	rm $(BUILD_PATH)/TINY_sms_buffered_UNASSIGNED.bin
 
+
+#############################
+# SOS
 
 sos: sos_buffered
 
@@ -367,6 +395,9 @@ sos_tiny_buffered:
 	mv sos_tiny_buffered.obj $(BUILD_PATH)/TINY_sos_buffered.obj
 
 
+#############################
+# SPC1000
+
 spc1000:
 	$(Z88DK_PATH)$(MYZ88DK) +spc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__SPC1000__ \
@@ -385,6 +416,9 @@ spc1000:
 	-create-app -o$(BUILD_PATH)/FULL_spc1000.bin
 	rm $(BUILD_PATH)/FULL_spc1000.bin
 
+
+#############################
+# SPECTRUM
 
 spectrum_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -zorg=24055 \
@@ -432,6 +466,9 @@ spectrum_48k:
 	rm $(BUILD_PATH)/FULL_spectrum_48k_BANK_7.bin
 
 
+#############################
+# SRR
+
 srr:
 	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
@@ -453,6 +490,9 @@ srr:
 	mv srr.wav $(BUILD_PATH)/FULL_srr.wav
 
 
+#############################
+# SUPER80
+
 super80:
 	$(Z88DK_PATH)$(MYZ88DK) +super80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__SUPER80__ \
@@ -471,6 +511,9 @@ super80:
 	mv super80.ql $(BUILD_PATH)/FULL_super80.ql
 	rm super80
 
+
+#############################
+# SUPER80R
 
 super80r:
 	$(Z88DK_PATH)$(MYZ88DK) +super80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=vduem \
@@ -493,6 +536,9 @@ super80r:
 	rm super80r
 
 
+#############################
+# SV8000
+
 sv8000:
 	$(Z88DK_PATH)$(MYZ88DK) +sv8000 $(SCCZ80_OPTS) -subtype=32k \
 	$(INCLUDE_OPTS) \
@@ -511,6 +557,9 @@ sv8000:
 	rm $(BUILD_PATH)/FULL_sv8000_BSS.bin
 	rm $(BUILD_PATH)/FULL_sv8000_DATA.bin
 
+
+#############################
+# TI82
 
 ti82:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 $(SCCZ80_OPTS) \
@@ -531,6 +580,9 @@ ti82:
 	rm $(SOURCE_PATH)/../ti82
 
 
+#############################
+# TI82
+
 ti83:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -550,6 +602,9 @@ ti83:
 	rm $(SOURCE_PATH)/../xchase
 
 
+#############################
+# TI85
+
 ti85:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -568,6 +623,9 @@ ti85:
 	mv $(SOURCE_PATH)/../ti85.85s $(BUILD_PATH)/FULL_ti85.85s
 	rm $(SOURCE_PATH)/../ti85
 
+
+#############################
+# TI86
 
 ti86: ti86_light
 
@@ -590,6 +648,9 @@ ti86_light:
 	rm $(SOURCE_PATH)/../ti86
 
 
+#############################
+# TI8X
+
 ti8x:
 	$(Z88DK_PATH)$(MYZ88DK) +ti8x $(SCCZ80_OPTS) -clib=ansi  -subtype=ion -Cz--altfmt \
 	$(INCLUDE_OPTS) \
@@ -609,6 +670,10 @@ ti8x:
 	mv $(SOURCE_PATH)/../xchase8x $(BUILD_PATH)/FULL_ti8x.bin
 
 ti: ti82 ti83 ti85 ti86 ti8x
+
+
+#############################
+# TIKI100
 
 tiki100: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=tiki100 -ltiki100 \
@@ -635,6 +700,9 @@ tiki100:
 	rm $(SOURCE_PATH)/../tiki100
 	rm $(SOURCE_PATH)/../tiki100_HIMEM.bin
 
+
+#############################
+# TRS80
 
 trs80:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos -subtype=disk \
@@ -672,6 +740,9 @@ trs80_chars:
 	rm $(BUILD_PATH)/FULL_trs80_chars.bin
 
 
+#############################
+# TS2068
+
 ts2068:
 	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-clib=ansi \
@@ -694,6 +765,9 @@ ts2068:
 	rm $(BUILD_PATH)/FULL_ts2068_BANK_7.bin
 
 
+#############################
+# TVC
+
 tvc:
 	$(Z88DK_PATH)$(MYZ88DK) +tvc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__TVC__ \
@@ -710,6 +784,9 @@ tvc:
 	-create-app -o$(BUILD_PATH)/FULL_tvc.bin
 	rm $(BUILD_PATH)/FULL_tvc.bin
 
+
+#############################
+# VECTOR06C
 
 vector06c:
 	$(Z88DK_PATH)$(MYZ88DK) +vector06c $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -729,6 +806,9 @@ vector06c:
 	rm $(BUILD_PATH)/FULL_vector06c.bin
 
 
+#############################
+# X1
+
 x1:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -742,6 +822,9 @@ x1:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_x1.bin
 
+
+#############################
+# ZX80
 
 zx80: zx80_16k_turn_based
 
@@ -761,6 +844,9 @@ zx80_16k_turn_based:
 	rm $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg
 
 
+#############################
+# Z1013
+
 z1013:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi \
 	-vn -lndos \
@@ -772,6 +858,9 @@ z1013:
 	mv $(SOURCE_PATH)/../Z1013.Z80 $(BUILD_PATH)/FULL_z1013.z80
 	rm $(SOURCE_PATH)/../z1013
 
+
+#############################
+# Z80TVGAME
 
 z80tvgame: 
 	$(Z88DK_PATH)$(MYZ88DK) +z80tvgame $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -789,6 +878,9 @@ z80tvgame:
 	rm $(BUILD_PATH)/FULL_z80tvgame_DATA.bin
 	rm $(BUILD_PATH)/FULL_z80tvgame_BSS.bin
 
+
+#############################
+# Z88
 
 z88:
 	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -subtype=app \
@@ -816,6 +908,9 @@ z88:
 	mv z88.63 $(BUILD_PATH)/FULL_z88.63
 	mv z88.epr $(BUILD_PATH)/FULL_z88.epr
 
+
+#############################
+# ZXN
 
 zxn:
 	$(Z88DK_PATH)$(MYZ88DK) +zxn $(SCCZ80_OPTS) -clib=classic -subtype=nex $(INCLUDE_OPTS) \

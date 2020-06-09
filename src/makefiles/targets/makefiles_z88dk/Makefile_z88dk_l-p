@@ -122,6 +122,9 @@ px8_targets: \
 # ------------------------------------------------------------------------------------------
 
 
+#############################
+# LAMBDA
+
 lambda: lambda_16k
 
 lambda_16k:
@@ -134,6 +137,9 @@ lambda_16k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_lambda_16k.prg
 
+
+#############################
+# LASER500
 
 laser500:
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
@@ -167,6 +173,9 @@ laser500_bitmap:
 	mv laser500bm.wav $(BUILD_PATH)/TINY_laser500_bitmap.wav
 
 
+#############################
+# M5
+
 m5:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -190,6 +199,9 @@ m5:
 	rm $(BUILD_PATH)/FULL_m5.bin
 	rm $(BUILD_PATH)/FULL_m5.cas
 
+
+#############################
+# MICROBEE
 
 microbee_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -219,6 +231,9 @@ microbee_32k:
 	rm $(BUILD_PATH)/FULL_microbee_32k.bin
 
 
+#############################
+# MIKRO80
+
 mikro80:
 	$(Z88DK_PATH)$(MYZ88DK) +mikro80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MIKRO80__ \
@@ -235,6 +250,9 @@ mikro80:
 	-create-app -o$(BUILD_PATH)/FULL_mikro80.bin
 	rm $(BUILD_PATH)/FULL_mikro80.bin
 
+
+#############################
+# MSX
 
 msx: msx_32k_rom 
 
@@ -260,6 +278,9 @@ msx_32k_rom:
 	rm $(BUILD_PATH)/FULL_msx_32k_DATA.bin
 
 
+#############################
+# MTX
+
 mtx:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ \
@@ -279,6 +300,9 @@ mtx:
 	mv MTX.wav $(BUILD_PATH)/FULL_mtx.wav
 	mv MTX $(BUILD_PATH)/FULL_mtx.mtx
 
+
+#############################
+# MULTI8
 
 multi8:
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) \
@@ -312,6 +336,9 @@ multi8:
 	rm code.cas
 
 
+#############################
+# MYVISION
+
 myvision:
 	$(Z88DK_PATH)$(MYZ88DK) +myvision $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MYVISION__ \
@@ -332,6 +359,9 @@ myvision:
 	rm $(BUILD_PATH)/FULL_myvision_DATA.bin
 
 
+#############################
+# MZ
+
 mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
@@ -345,6 +375,9 @@ mz:
 	rm $(BUILD_PATH)/FULL_mz.prg
 	mv $(BUILD_PATH)/FULL_mz.mzt $(BUILD_PATH)/FULL_mz.mzf
 
+
+#############################
+# MZ2500
 
 mz2500: mz2500_tiny_buffered
 
@@ -383,6 +416,9 @@ mz2500_tiny_buffered:
 	rm mz2500
 
 
+#############################
+# NASCOM
+
 nascom_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
@@ -408,6 +444,9 @@ nascom_32k:
 	rm $(BUILD_PATH)/FULL_nascom_32k.prg
 
 
+#############################
+# NC100
+
 nc100:
 	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_ROM_OPTS) -lgfxnc100 \
 	$(INCLUDE_OPTS) \
@@ -424,6 +463,9 @@ nc100:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_nc100_alt_print.bin
 
+
+#############################
+# NC200
 
 nc200:
 	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_ROM_OPTS) -lgfxnc200 \
@@ -442,6 +484,9 @@ nc200:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_nc200_alt_print.bin
 
+
+#############################
+# NEWBRAIN
 
 newbrain:
 	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -479,6 +524,9 @@ newbrain:
 	rm newbrain
 
 
+#############################
+# OSCA
+
 osca:
 	$(Z88DK_PATH)$(MYZ88DK) +osca $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-clib=ansi -D__OSCA__ -vn \
@@ -492,6 +540,9 @@ osca:
 	rm osca
 	mv OSCA.EXE $(BUILD_PATH)/FULL_OSCA.EXE
 
+
+#############################
+# OSBORNE1
 
 osborne1_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lgfxosborne1 -subtype=osborne1 \
@@ -526,6 +577,9 @@ osborne1:
 	rm $(BUILD_PATH)/FULL_osborne1.bin
 
 
+#############################
+# P2000
+
 p2000_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=ansi -D__P2000__ -vn \
 	-DSOUNDS  \
@@ -547,6 +601,9 @@ p2000_32k:
 	rm $(BUILD_PATH)/FULL_p2000.prg	
 
 
+#############################
+# PASAPIA7
+
 pasopia7:
 	$(Z88DK_PATH)$(MYZ88DK) +pasopia7 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__PASOPIA__ \
@@ -562,6 +619,9 @@ pasopia7:
 	rm $(BUILD_PATH)/FULL_pasopia7.bin
 	rm $(BUILD_PATH)/FULL_pasopia7_BOOTSTRAP.bin	
 
+
+#############################
+# PC6001
 
 pc6001_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi \
@@ -597,6 +657,9 @@ pc6001_32k:
 	mv $(BUILD_PATH)/FULL_pc6001_32k.cas $(BUILD_PATH)/FULL_pc6001_32k.cp6
 
 
+#############################
+# PC88
+
 pc88:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -612,6 +675,9 @@ pc88:
 	rm FULL_pc88.wav
 	mv FULL_pc88.tar.zip $(BUILD_PATH)
 
+
+#############################
+# PENCIL2
 
 pencil2:
 	$(Z88DK_PATH)$(MYZ88DK) +pencil2 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -633,6 +699,9 @@ pencil2:
 	rm $(BUILD_PATH)/FULL_pencil2_DATA.bin
 
 
+#############################
+# PMD85
+
 pmd85:
 	$(Z88DK_PATH)$(MYZ88DK) +pmd85 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__PMD85__ \
@@ -650,6 +719,9 @@ pmd85:
 	rm $(BUILD_PATH)/FULL_pmd85.bin
 
 
+#############################
+# PPS
+
 pps:
 	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__PPS__ -vn \
@@ -663,6 +735,9 @@ pps:
 	$(FULL_FILES)
 	mv pps $(BUILD_PATH)/FULL_pps.exe	
 
+
+#############################
+# PRIMO
 
 primo:
 	$(Z88DK_PATH)$(MYZ88DK) +primo $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -680,6 +755,9 @@ primo:
 	-create-app -o$(BUILD_PATH)/FULL_primo.bin
 	rm $(BUILD_PATH)/FULL_primo.bin
 
+
+#############################
+# PV2000
 
 # -SO3 necessary to build a 16k rom image
 pv2000:
@@ -705,6 +783,9 @@ pv2000:
 	rm $(BUILD_PATH)/FULL_pv2000_BSS.bin
 
 
+#############################
+# PX4
+
 px4:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_ROM_OPTS) -lpx4 \
 	$(INCLUDE_OPTS) \
@@ -724,6 +805,9 @@ px4:
 	rm px4
 	mv PX4.ROM $(BUILD_PATH)/FULL_px4.ROM
 
+
+#############################
+# PX8
 
 px8:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_ROM_OPTS) \

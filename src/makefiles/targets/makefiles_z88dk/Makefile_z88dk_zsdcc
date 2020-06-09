@@ -56,6 +56,9 @@ zx81_targets: \
 # ------------------------------------------------------------------------------------------
 
 
+#############################
+# AQUARIUS
+
 aquarius_exp_4k:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(ZSDCC_OPTS) \
 	-compiler=sdcc \
@@ -97,6 +100,9 @@ aquarius_exp_16k:
 	rm _FULL_aquarius_exp_16k.caq
 	mv FULL_aquarius_exp_16k.tar.zip $(BUILD_PATH)	
 
+
+#############################
+# GAL
 
 gal: gal_22k
 
@@ -140,6 +146,9 @@ gal_6k:
 	rm $(BUILD_PATH)/TINY_galaksija_6k.prg
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 
+
+#############################
+# MC1000
 
 mc1000_16k_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) \
@@ -187,6 +196,9 @@ mc1000_48k:
 	rm mc1000.cas
 
 
+#############################
+# OZ
+
 oz: oz_tiny_buffered
 
 oz_tiny_buffered: 	
@@ -214,6 +226,9 @@ oz_tiny_buffered:
 	mv oz.wzd $(BUILD_PATH)/TINY_oz_buffered.wzd
 
 
+#############################
+# PV1000
+
 # UDG can be done but differently
 # -SO3 necessary to build a 16K rom
 pv1000:
@@ -237,6 +252,9 @@ pv1000:
 	rm $(BUILD_PATH)/FULL_pv1000_DATA.bin
 	rm $(BUILD_PATH)/FULL_pv1000_BSS.bin
 
+
+#############################
+# SVI
 
 svi_318:
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(ZSDCC_OPTS) \
@@ -282,6 +300,9 @@ svi_328:
 	rm svi_328
 
 
+#############################
+# VG5K
+
 vg5k_exp_16k:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -321,6 +342,9 @@ vg5k:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg
 
+
+#############################
+# VZ200
 
 vz200: vz200_18k
 
@@ -383,6 +407,9 @@ vz200_sprites_18k:
 	rm $(BUILD_PATH)/FULL_vz200_sprites_18k.cas
 
 
+#############################
+# ZX81
+
 zx81: zx81_16k
 
 zx81_16k:
@@ -433,6 +460,9 @@ zx81_32k_wrx_turn_based:
 	rm $(BUILD_PATH)/FULL_zx81_32k_wrx_turn_based.prg
 
 
+#############################
+# Z9001
+
 z9001: z9001_32k
 
 z9001_16k_full:
@@ -457,4 +487,5 @@ z9001_32k:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_z9001.z80
+
 

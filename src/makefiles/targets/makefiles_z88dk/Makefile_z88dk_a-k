@@ -115,6 +115,9 @@ kramermc_targets: \
 
 # ------------------------------------------------------------------------------------------
 
+#############################
+# ABC80
+
 abc80:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
 	$(INCLUDE_OPTS) \
@@ -159,6 +162,9 @@ abc80_light:
 	mv abc80light.bin $(BUILD_PATH)/LIGHT_abc80.bin
 
 
+#############################
+# ACE
+
 ace: ace_exp_16k
 
 ace_exp_16k:
@@ -180,6 +186,9 @@ ace_exp_16k:
 	rm ace
 
 
+#############################
+# ALPHATRO
+
 # -O3 necessary to build the rom 
 alphatro:
 	$(Z88DK_PATH)$(MYZ88DK) +alphatro $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) \
@@ -198,6 +207,9 @@ alphatro:
 	rm $(BUILD_PATH)/FULL_alphatro_DATA.bin
 	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin
 
+
+#############################
+# ATTACHE
 attache_chars:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache \
 	$(INCLUDE_OPTS) \
@@ -229,6 +241,9 @@ attache:
 	rm $(BUILD_PATH)/FULL_attache.bin
 
 
+#############################
+# AUSSIE
+
 aussie:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -laussie  \
 	$(INCLUDE_OPTS) \
@@ -246,6 +261,9 @@ aussie:
 	rm $(BUILD_PATH)/FULL_aussie.bin
 
 
+#############################
+# BIC
+
 bic:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=bic \
 	$(INCLUDE_OPTS) \
@@ -261,6 +279,9 @@ bic:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_bic.bin
 
+
+#############################
+# C128_Z80
 
 c128_z80_80col:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
@@ -316,6 +337,9 @@ c128_z80_40col:
 	rm a40.bin
 
 
+#############################
+# CAMPUTERS_LYNX
+
 camputers_lynx:
 	$(Z88DK_PATH)$(MYZ88DK) +lynx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
@@ -333,6 +357,9 @@ camputers_lynx:
 	rm $(BUILD_PATH)/FULL_camputers_lynx.bin
 
 
+#############################
+# COLECO_ADAM
+
 coleco_adam:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) $(INCLUDE_OPTS) -subtype=adam \
 	-D__COLECO_ADAM__ \
@@ -348,6 +375,9 @@ coleco_adam:
 	-create-app -o$(BUILD_PATH)/FULL_coleco_adam.bin
 	rm $(BUILD_PATH)/FULL_coleco_adam.bin
 
+
+#############################
+# COLECO
 
 coleco:
 	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -371,6 +401,9 @@ coleco:
 	rm $(BUILD_PATH)/FULL_coleco_DATA.bin
 	rm $(BUILD_PATH)/FULL_coleco_BSS.bin
 
+
+#############################
+# CPC
 
 cpc:
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
@@ -400,6 +433,9 @@ cpc:
 	rm $(BUILD_PATH)/FULL_cpc.prg
 
 
+#############################
+# CPM (Z80)
+
 cpm: cpm_z80_adm3a
 
 cpm_z80_adm3a:
@@ -416,6 +452,9 @@ cpm_z80_adm3a:
 	rm $(BUILD_PATH)/FULL_cpm_adm3a.bin
 
 
+#############################
+# DMV
+
 dmv:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=dmv \
 	$(INCLUDE_OPTS) \
@@ -431,6 +470,9 @@ dmv:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_dmv.bin
 
+
+#############################
+# EG2K
 
 eg2k:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) \
@@ -458,6 +500,9 @@ eg2k:
 	rm $(BUILD_PATH)/FULL_eg2k.bin
 
 
+#############################
+# EINSTEIN
+
 einstein:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=einstein -leinstein \
 	-pragma-define:ansicolumns=32 \
@@ -471,6 +516,9 @@ einstein:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_einstein.bin
 
+
+#############################
+# ENTERPRISE
 
 enterprise: enterprise_buffered
 
@@ -500,6 +548,9 @@ enterprise_buffered:
 	mv FULL_enterprise.tar.zip $(BUILD_PATH)
 
 
+#############################
+# EXCALIBUR64
+
 excalibur64:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=excali64 \
 	$(INCLUDE_OPTS) \
@@ -516,6 +567,9 @@ excalibur64:
 	rm $(BUILD_PATH)/FULL_excalibur64_HIMEM.bin
 
 
+#############################
+# FP1100
+
 fp1100:
 	$(Z88DK_PATH)$(MYZ88DK) +fp1100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__FP1100__ -vn \
@@ -531,6 +585,9 @@ fp1100:
 	rm fp1100.bin
 	rm fp1100_BOOTSTRAP.bin
 
+
+#############################
+# G800
 
 g800: g800_turn_based
 
@@ -549,6 +606,9 @@ g800_turn_based:
 	rm g800.rom
 	mv g800.ihx $(BUILD_PATH)/FULL_g800_turn_based.ihx
 
+
+#############################
+# GB
 
 gb:
 	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) \
@@ -570,6 +630,9 @@ gb:
 	rm $(BUILD_PATH)/FULL_gb_BANK_1F.bin
 
 
+#############################
+# HOMELAB (4)
+
 homelab:
 	$(Z88DK_PATH)$(MYZ88DK) +homelab $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__HOMELAB__ \
@@ -586,6 +649,9 @@ homelab:
 	-create-app -o$(BUILD_PATH)/FULL_homelab.bin
 	rm $(BUILD_PATH)/FULL_homelab.bin
 
+
+#############################
+# HOMELAB2
 
 homelab2:
 	$(Z88DK_PATH)$(MYZ88DK) +homelab2 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -604,6 +670,9 @@ homelab2:
 	rm $(BUILD_PATH)/FULL_homelab2.bin
 
 
+#############################
+# HEMC
+
 hemc:
 	$(Z88DK_PATH)$(MYZ88DK) +hemc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__HEMC__ \
@@ -621,6 +690,9 @@ hemc:
 	rm $(BUILD_PATH)/FULL_hemc.bin
 
 
+#############################
+# HGMC
+
 hgmc:
 	$(Z88DK_PATH)$(MYZ88DK) +hgmc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__HGMC__ \
@@ -637,6 +709,9 @@ hgmc:
 	-create-app -o$(BUILD_PATH)/FULL_hgmc.bin
 	rm $(BUILD_PATH)/FULL_hgmc.bin
 
+
+#############################
+# KAYPRO
 
 kaypro: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lgfxkp \
@@ -656,6 +731,9 @@ kaypro:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_kaypro.bin
 
+
+#############################
+# KC
 
 kc_light:
 	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap $(INCLUDE_OPTS) \
@@ -709,6 +787,9 @@ kc:
 	rm $(BUILD_PATH)/FULL_kc.bin
 
 
+#############################
+# KRAMERMC
+
 kramermc:
 	$(Z88DK_PATH)$(MYZ88DK) +kramermc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__KRAMERMC__ \
@@ -724,4 +805,5 @@ kramermc:
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_kramermc.bin
 	rm $(BUILD_PATH)/FULL_kramermc.bin
+
 

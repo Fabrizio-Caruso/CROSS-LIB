@@ -40,7 +40,6 @@ px8_alt_targets: \
     px8_chars \
     px8_chars_ansi
 
-
 ti82_alt_targets: \
     ti82_chars 
 

@@ -166,22 +166,20 @@ special:
 
 
 spectrum_16k_light:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(ZSDCC_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +zx -SO1 \
 	-compiler=sdcc \
 	$(INCLUDE_OPTS) \
-	--opt-code-size \
 	-zorg=24055 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DLESS_TEXT \
 	-DFORCE_NARROW \
 	-DFORCE_GHOSTS_NUMBER=8 \
-	-DNO_SLEEP \
-	-DNO_HINTS \
+	-DNO_SLEEP -DNO_WALL \
+	-DNO_HINTS -DNO_CONTROL_INSTRUCTIONS -DNO_SET_SCREEN_COLORS \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_RANDOM_LEVEL \
 	-DSIMPLE_STRATEGY \
-	-DANIMATE_PLAYER \
 	-D__SPECTRUM__ \
 	-DALT_MOVE \
 	-lndos -create-app \
@@ -194,6 +192,7 @@ spectrum_16k_light:
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/WIP_LIGHT_spectrum_16k.prg
 	rm $(BUILD_PATH)/WIP_LIGHT_spectrum_16k_BANK_7.bin
+
 
 spectrum_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn  \

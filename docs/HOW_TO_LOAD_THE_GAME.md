@@ -399,6 +399,15 @@ aout.cmd
 
 ------------------------------------------------------------
 
+### ORIC 1 / ORIC ATMOS
+
+Use the Oricutron emulator (https://github.com/pete-gordon/oricutron)
+Attach the image.
+Run CLOAD""
+
+
+------------------------------------------------------------
+
 ### OSCA 
 
 Use the OSCA emulator (http://www.basoft.co.uk/wordpress/emulation/computer-system-emulation/v6z80p/osca-emulator/)

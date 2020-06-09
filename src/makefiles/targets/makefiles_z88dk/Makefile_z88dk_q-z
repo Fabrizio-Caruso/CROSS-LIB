@@ -57,7 +57,7 @@ sos_targets: \
 	sos_buffered sos_tiny_buffered
 
 sms_targets: \
-	sms_tiny_buffered
+	sms_tiny_buffered sms_buffered
 
 smc777_targets: \
 	smc777
@@ -162,6 +162,7 @@ rx78:
 	$(Z88DK_PATH)$(MYZ88DK) +rx78 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__RX78__ \
 	-DFULL_GAME  \
+	-DSOUNDS  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -171,7 +172,8 @@ rx78:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
-	chase/end_screen.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_rx78.bin
 	rm $(BUILD_PATH)/FULL_rx78.bin
@@ -265,15 +267,41 @@ smc777:
 	-DNO_COLOR \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
-	-DCONIO \
+	-DCONIO -DSOUNDS -DFORCE_PSG \
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_smc777.bin
 	rm $(BUILD_PATH)/FULL_smc777.bin
 
 
-sms: sms_tiny_buffered
+sms: sms_buffered
+
+sms_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -clib=sdcc_iy -startup=17 \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
+	-D__SMS__ \
+	-DNO_COLOR \
+	-DFULL_GAME \
+	-DSTDLIB \
+	-DLESS_TEXT \
+	-create-app \
+	-DBUFFERED \
+	-DTURN_BASED \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-o $(BUILD_PATH)/FULL_sms_buffered.bin \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) 
+	rm $(BUILD_PATH)/FULL_sms_buffered_CODE.bin
+	rm $(BUILD_PATH)/FULL_sms_buffered_DATA.bin
+	rm $(BUILD_PATH)/FULL_sms_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_sms_buffered_UNASSIGNED.bin
 
 sms_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -clib=sdcc_iy -startup=17 \
@@ -294,7 +322,7 @@ sms_tiny_buffered:
 	-o $(BUILD_PATH)/TINY_sms_buffered.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(TINY_FILES)
+	$(TINY_FILES) 
 	rm $(BUILD_PATH)/TINY_sms_buffered_CODE.bin
 	rm $(BUILD_PATH)/TINY_sms_buffered_DATA.bin
 	rm $(BUILD_PATH)/TINY_sms_buffered_BSS.bin
@@ -345,7 +373,7 @@ spc1000:
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
-	-DCONIO \
+	-DCONIO -DSOUNDS -DFORCE_BIT_BANG \
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
@@ -431,6 +459,7 @@ super80:
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=16 \
 	-DFULL_GAME  \
+	-DSOUNDS -DFORCE_BIT_BANG  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-DCONIO_VT52 \
@@ -450,6 +479,7 @@ super80r:
 	-DFORCE_YSIZE=25 \
 	-DUDG_GRAPHICS \
 	-DFULL_GAME  \
+	-DSOUNDS -DFORCE_BIT_BANG  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-DCONIO_VT52 \
@@ -468,13 +498,15 @@ sv8000:
 	$(INCLUDE_OPTS) \
 	-DFORCE_CONIO_LIB \
 	-DZ88DK_JOYSTICK \
+	-DSOUNDS \
 	-D__SV8000__ \
 	-DFULL_GAME -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-create-app -o$(BUILD_PATH)/FULL_sv8000.bin \
 	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c
 	rm $(BUILD_PATH)/FULL_sv8000.bin
 	rm $(BUILD_PATH)/FULL_sv8000_BSS.bin
 	rm $(BUILD_PATH)/FULL_sv8000_DATA.bin
@@ -491,7 +523,7 @@ ti82:
 	-DFORCE_NARROW \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
-	-DLESS_TEXT \
+	-DLESS_TEXT -DSOUNDS -DFORCE_BIT_BANG \
 	-create-app -o ti82 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -510,7 +542,7 @@ ti83:
 	-DFORCE_NARROW \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
-	-DLESS_TEXT \
+	-DLESS_TEXT -DSOUNDS -DFORCE_BIT_BANG \
 	-create-app -oxchase \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -529,7 +561,7 @@ ti85:
 	-DFORCE_NARROW \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
-	-DLESS_TEXT \
+	-DLESS_TEXT -DSOUNDS -DFORCE_BIT_BANG \
 	-create-app -oti85 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
@@ -569,13 +601,14 @@ ti8x:
 	-DFORCE_NARROW \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
-	-DLESS_TEXT \
+	-DLESS_TEXT -DSOUNDS -DFORCE_BIT_BANG \
 	-create-app -oxchase8x \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	mv $(SOURCE_PATH)/../xchase8x.8xp $(BUILD_PATH)/FULL_ti8x.8xp	
 	mv $(SOURCE_PATH)/../xchase8x $(BUILD_PATH)/FULL_ti8x.bin
 
+ti: ti82 ti83 ti85 ti86 ti8x
 
 tiki100: 
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=tiki100 -ltiki100 \
@@ -591,11 +624,12 @@ tiki100:
 	-DALT_MOVE \
 	-DNO_RANDOM_LEVEL \
 	-DNO_SLEEP \
-	-DNO_HINTS \
+	-DNO_HINTS -DSOUNDS -DFORCE_PSG \
 	-DNO_SET_SCREEN_COLORS \
 	-create-app -o tiki100 \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv $(SOURCE_PATH)/../tiki100.dsk $(BUILD_PATH)/FULL_tiki100.dsk
 	rm $(SOURCE_PATH)/../tiki100
@@ -610,7 +644,7 @@ trs80:
 	-D__TRS80__ \
 	-DFULL_GAME \
 	-vn -lndos \
-	-DALT_PRINT \
+	-DALT_PRINT -DSOUNDS -DFORCE_BIT_BANG \
 	-DFORCE_NARROW \
 	-DZ88DK_SPRITES -DNO_INIT_GRAPHICS \
 	-DANIMATE_PLAYER \
@@ -631,7 +665,7 @@ trs80_chars:
 	-pragma-redirect:getk=getk_inkey \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DCONIO -DNO_INIT_GRAPHICS -DSOUNDS -DFORCE_BIT_BANG \
 	-o$(BUILD_PATH)/FULL_trs80_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -645,7 +679,7 @@ ts2068:
 	-DNO_COLOR \
 	-vn \
 	-DFULL_GAME \
-	-DLESS_TEXT \
+	-DLESS_TEXT -DSOUNDS -DFORCE_BIT_BANG \
 	-lndos \
 	-DALT_PRINT \
 	-DZ88DK_SPRITES \
@@ -687,9 +721,10 @@ vector06c:
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-lndos \
+	-lndos -DSOUNDS -DFORCE_PSG \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_vector06c.bin
 	rm $(BUILD_PATH)/FULL_vector06c.bin
 
@@ -698,11 +733,12 @@ x1:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__X1__ \
-	-DFULL_GAME \
+	-DFULL_GAME -DSOUNDS -DFORCE_PSG \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o $(BUILD_PATH)/FULL_x1.bin -vn -lndos \
 	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_x1.bin
 
@@ -745,7 +781,7 @@ z80tvgame:
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-lndos \
+	-lndos -DSOUNDS -DFORCE_BIT_BANG \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_z80tvgame.bin
@@ -762,6 +798,7 @@ z88:
 	-vn -lndos \
 	-DALT_PRINT \
 	-DZ88DK_SPRITES \
+	-DSOUNDS -DFORCE_BIT_BANG \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
 	-DNO_WAIT \
@@ -789,10 +826,11 @@ zxn:
 	-DNO_COLOR \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
-	-DCONIO \
+	-DCONIO -DSOUNDS -DFORCE_PSG \
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_zxn.bin
 	rm $(BUILD_PATH)/FULL_zxn.bin
 	rm $(BUILD_PATH)/FULL_zxn_UNASSIGNED.bin

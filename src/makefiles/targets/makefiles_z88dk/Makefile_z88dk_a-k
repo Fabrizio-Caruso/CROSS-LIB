@@ -233,6 +233,8 @@ aussie:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -laussie  \
 	$(INCLUDE_OPTS) \
 	-D__AUSSIE__ \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
@@ -342,6 +344,7 @@ coleco_adam:
 	-lndos \
 	chase/end_screen.c \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_coleco_adam.bin
 	rm $(BUILD_PATH)/FULL_coleco_adam.bin
 
@@ -362,6 +365,7 @@ coleco:
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_coleco.bin
 	rm $(BUILD_PATH)/FULL_coleco.bin
 	rm $(BUILD_PATH)/FULL_coleco_DATA.bin
@@ -443,12 +447,13 @@ eg2k:
 	-lndos \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
-	-DLESS_TEXT \
+	-DLESS_TEXT -DSOUNDS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_eg2k.bin
 	rm $(BUILD_PATH)/FULL_eg2k.bin
 
@@ -484,7 +489,7 @@ enterprise_buffered:
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN \
-	-DSTDLIB \
+	-DSTDLIB -DSOUNDS -DFORCE_BIT_BANG \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-create-app -o enterprise.bin

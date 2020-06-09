@@ -28,28 +28,18 @@
 		#include "bit_bang_sounds.h"
 	#elif defined(FORCE_PSG)
 		#include "psg_sounds.h"
-	#elif defined(__ATMOS__) && defined(SOUNDS)
-		#include "atmos_sounds.h"
+	#elif defined(__ACE__) && defined(SOUNDS)
+		#include "bit_bang_sounds.h"
 	#elif (defined(__ATARI__) && defined(SOUNDS))
 		#include "pokey_sounds.h"
 	#elif defined(__ATARI5200__) && defined(SOUNDS)
 		#include "pokey_sounds.h"
-	#elif defined(__SPECTRUM__) && defined(SOUNDS)
+	#elif defined(__ATMOS__) && defined(SOUNDS)
+		#include "atmos_sounds.h"
+	#elif defined(__AQUARIUS__) && defined(SOUNDS)
 		#include "bit_bang_sounds.h"
 	#elif defined(__BEE__) && defined(SOUNDS)
 		#include "bit_bang_sounds.h"
-	#elif defined(__VG5K__) && defined(SOUNDS)
-		#include "bit_bang_sounds.h"
-	#elif defined(__VZ__) && defined(SOUNDS)
-		#include "bit_bang_sounds.h"
-	#elif defined(__AQUARIUS__) && defined(SOUNDS)
-		#include "bit_bang_sounds.h"
-	#elif defined(__ACE__) && defined(SOUNDS)
-		#include "bit_bang_sounds.h"
-	#elif defined(__VIC20__) && !defined(TINY_GAME) && defined(SOUNDS)
-		#include "vic20_sounds.h"
-	#elif defined(__VIC20__) && defined(TINY_GAME) && defined(SOUNDS)
-		#include "vic20_sounds_3k.h"
 	#elif defined(__C16__) && defined(SOUNDS)
 		#include "c264_sounds.h"
 	#elif defined(__C64__) && defined(SOUNDS)
@@ -58,18 +48,34 @@
 		#include "sid_sounds.h"
 	#elif defined(__CBM510__) && defined(SOUNDS)
 		#include "sid_sounds.h"
-	#elif defined(__M5__) && defined(SOUNDS)
-		#include "bit_bang_sounds.h"
-	#elif defined(__SVI__) && defined(SOUNDS)
+	#elif defined(__COLECO__) && defined(SOUNDS)
 		#include "psg_sounds.h"
-	#elif defined(__MSX__) && defined(SOUNDS)
+	#elif defined(__COLECO_ADAM__) && defined(SOUNDS)
 		#include "psg_sounds.h"
+	#elif (defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)) && defined(SOUNDS)
+		#include "comx_sounds.h"
 	#elif defined(__CPC__) && defined(SOUNDS)
 		#include "psg_sounds.h"
 	#elif defined(__MC1000__) && defined(SOUNDS)
 		#include "bit_bang_sounds.h"
-	#elif (defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)) && defined(SOUNDS)
-		#include "comx_sounds.h"
+	#elif defined(__MSX__) && defined(SOUNDS)
+		#include "psg_sounds.h"
+	#elif defined(__RX78__) && defined(SOUNDS)
+		#include "psg_sounds.h"
+	#elif defined(__SPECTRUM__) && defined(SOUNDS)
+		#include "bit_bang_sounds.h"
+	#elif defined(__SV8000__) && defined(SOUNDS)
+		#include "psg_sounds.h"
+	#elif defined(__SVI__) && defined(SOUNDS)
+		#include "psg_sounds.h"
+	#elif defined(__VG5K__) && defined(SOUNDS)
+		#include "bit_bang_sounds.h"
+	#elif defined(__VIC20__) && !defined(TINY_GAME) && defined(SOUNDS)
+		#include "vic20_sounds.h"
+	#elif defined(__VIC20__) && defined(TINY_GAME) && defined(SOUNDS)
+		#include "vic20_sounds_3k.h"
+	#elif defined(__VZ__) && defined(SOUNDS)
+		#include "bit_bang_sounds.h"
 	#elif defined(__WINCMOC__) && defined(SOUNDS)
 		#include "wincmoc_sounds.h"
 	#else

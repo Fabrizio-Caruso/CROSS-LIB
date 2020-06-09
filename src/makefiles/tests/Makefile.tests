@@ -79,9 +79,9 @@ lcc1802_full_tests: \
 # - lcc1802
 # - z88dk 
 
-test: \
-    test_without_z88dk \
-    z88dk_full_tests
+.PHONY: test z88dk_full_tests
+
+test: test_without_z88dk z88dk_full_tests
 
 
 z88dk_full_tests: \

@@ -164,20 +164,20 @@ special:
 	-create-app -o$(BUILD_PATH)/WIP_FULL_special.bin
 	rm $(BUILD_PATH)/WIP_FULL_special.bin
 
-
+# --list -m --c-code-in-asm
+# -compiler=sdcc -SO0
 spectrum_16k_light:
-	$(Z88DK_PATH)$(MYZ88DK) +zx -SO1 \
-	-compiler=sdcc \
+	$(Z88DK_PATH)$(MYZ88DK) +zx --list -m --c-code-in-asm   \
 	$(INCLUDE_OPTS) \
 	-zorg=24055 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
-	-DLESS_TEXT \
-	-DFORCE_NARROW \
+	-DLESS_TEXT -DANIMATE_PLAYER \
+	-DFORCE_NARROW -DNO_BLINKING \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_SLEEP -DNO_WALL \
-	-DNO_HINTS -DNO_CONTROL_INSTRUCTIONS -DNO_SET_SCREEN_COLORS \
-	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_MESSAGE -DNO_HINTS -DNO_CONTROL_INSTRUCTIONS -DNO_SET_SCREEN_COLORS \
+	-DNO_TITLE_LINE -DNO_INITIAL_SCREEN \
 	-DNO_RANDOM_LEVEL \
 	-DSIMPLE_STRATEGY \
 	-D__SPECTRUM__ \

@@ -3,26 +3,16 @@
 
 # BUILD INSTRUCTIONS
 
-## Compile all targets for a given cross-compiler
-Run `make [compiler name]_targets` where the [compiler name] is of one the supported compilers and dev-kits as shown in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILER_NAMES.md
-
-Examples: 
-- `make cmoc_targets` builds all targets that are built with the CMOC cross-compiler for the Motorola 6809 systems.
-- `make gcc_targets` builds all targets by using GCC for the host console (e.g., CYGWIN, Linux, etc. console).
-- `make cc65_targets` builds all targets that are built with the CC65 cross-compiler for the MOS 6502 systems.
-- `make z88dk_targets` [EXTREMELY SLOW] builds all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80 and Intel 8080 systems.
-
-
-## Compile all targets for a given system 
-Run `make [system name]_targets`, where [system name] is one of the systems listed in link in the section "SUPPORTED TARGETS " of this document.
-
-Examples:
-- `make vic20_targets` builds all Commodore Vic 20 binaries (different versions of the game for different memory configurations).
-- `make spectrum_targets` builds all Sinclair Spectrum binaries (different versions of the game for different memory configurations).
-- `make zx81_targets` builds all ZX81 binaries (different versions of the game for different memory configurations and different graphics configurations such as WRX hi-res).
-
 ## Compile a specific target
 For this you may need to look inside the Makefile file to have the exact target name to use with the "make" command. 
+The name of the default target for a given system is given by `[system name]`. For the list of systems either run `make list` or look at 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+
+Examples: 
+- `make c64` builds a Commodore 64 binary.
+- `make nes` builds a binary for the Nintendo NES videogame console.
+- `make ti83` builds a binary for the Texas Instrument TI 83 scientific calculator.
+
 The name of the target is given by the `[system name]_[optional attribute(s)]`.
 The most common attributes are:
 - memory (e.g., `exp`, `3k`, `8k`, `16k`, `32k`, etc.);
@@ -34,12 +24,29 @@ The most common attributes are:
 - binary format (e.g., `wav`, `crt`, `cmd`, etc.)
 
 Examples: 
-- `make c64` builds a Commodore 64 binary.
 - `make gcc_buffered` builds a GCC buffered and turn-based version for the host console.
-- `make ti83` builds a binary for the Texas Instrument TI 83 scientific calculator.
 - `make pc8086` builds a binary for the PC 8086/8088 (a floppy disk image to be run on a Intel 8086/8088 PC).
-- `make nes` builds a binary for the Nintendo NES videogame console.
 - `make vic20_exp_8k` builds a binary for the Commodore Vic 20 with an 8k memory expansion (`exp` means that the expansion brings 8k of "additional" memory)
+
+
+## Compile all targets for a given system 
+Run `make [system name]_targets`, where [system name] is one of the systems listed in link in the section "SUPPORTED TARGETS " of this document.
+
+Examples:
+- `make vic20_targets` builds all Commodore Vic 20 binaries (different versions of the game for different memory configurations).
+- `make spectrum_targets` builds all Sinclair Spectrum binaries (different versions of the game for different memory configurations).
+- `make zx81_targets` builds all ZX81 binaries (different versions of the game for different memory configurations and different graphics configurations such as WRX hi-res).
+
+
+
+## Compile all targets for a given cross-compiler
+Run `make [compiler name]_targets` where the [compiler name] is of one the supported compilers and dev-kits as shown in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILER_NAMES.md
+
+Examples: 
+- `make cmoc_targets` builds all targets that are built with the CMOC cross-compiler for the Motorola 6809 systems.
+- `make gcc_targets` builds all targets by using GCC for the host console (e.g., CYGWIN, Linux, etc. console).
+- `make cc65_targets` builds all targets that are built with the CC65 cross-compiler for the MOS 6502 systems.
+- `make z88dk_targets` [EXTREMELY SLOW] builds all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80 and Intel 8080 systems.
 
 
 ## Special cases

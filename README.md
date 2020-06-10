@@ -102,6 +102,12 @@ you can build the default target for a given system with
 For the list of systems either run `make list` or look at 
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
 
+Examples: 
+- `make c64` builds the default Commodore 64 binary.
+- `make nes` builds the default binary for the Nintendo NES videogame console.
+- `make ti83` builds the default binary for the Texas Instrument TI 83 scientific calculator.
+- `make spectrum` builds the default binary for the Sinclair ZX Spectrum.
+
 
 ### Build all targets for a given system
 
@@ -111,6 +117,11 @@ You can build all targets for a given system with
 
 See the list of systems above or run `make list`.
 
+Examples:
+- `make vic20_targets` builds the binaries for the Commodore Vic 20.
+- `make spectrum_targets` builds the binaries for the Sinclair ZX Spectrum.
+
+
 ### Build all targets that are built by a given compiler or devkit:
 
 `make [compiler_name]_targets`
@@ -118,6 +129,11 @@ See the list of systems above or run `make list`.
 You can find the list of compilers and dev-kit if you either run `make help` or look at 
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILER_NAMES.md
 
+
+Exampeles:
+- `make gcc_targets` builds all targets by using GCC for the native host console (e.g., CYGWIN, Linux, etc. console).
+- `make cc65_targets` builds all targets that are built with the CC65 cross-compiler for the MOS 6502 systems.
+- `make z88dk_targets` [EXTREMELY SLOW] builds all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80 and Intel 8080 systems.
 
 ### Detailed build instructions 
 

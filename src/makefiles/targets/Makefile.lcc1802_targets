@@ -470,7 +470,11 @@ tmc600_targets:
 	make tmc600_24k
 	make tmc600_37k
 
-cidelsa_targets: draco
+cidelsa_targets:
+	make draco
+	make light_altair
+	make tiny_altair
+	make tiny_destroyer
 
 
 

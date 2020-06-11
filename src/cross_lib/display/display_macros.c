@@ -40,10 +40,10 @@
 #if defined(MEMORY_MAPPED)
     uint16_t loc(uint8_t x, uint8_t y)
     {
-        #if !defined(__DRACO__)
+        #if !defined(__CIDELSA__)
         return ((uint16_t) BASE_ADDR)+x+(uint8_t)y*((uint16_t) (XSize + X_OFFSET));
         #else
-        return ((uint16_t) 0xFC10)-x*YSize+(uint8_t)y;
+        return ((uint16_t) 0xF800+XSize*YSize-YSize)-x*YSize+(uint8_t)y;
     #endif
     }
 #elif defined(REX)

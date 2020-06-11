@@ -41,7 +41,7 @@
 #if !defined(FORCE_YSIZE)
 	#  if defined(__NCURSES__)
 		#define YSize (24-Y_OFFSET)
-	#elif defined(__DRACO__)
+	#elif defined(__CIDELSA__) // DRACO/DESTROYER/ALTAIR
 		#define YSize (40-Y_OFFSET)
 	#elif defined(__PPS__)
 		#define YSize (32-Y_OFFSET)
@@ -238,6 +238,8 @@
 		#define XSize 28
 	#elif defined(__DRACO__)
 		#define XSize 27
+	#elif defined(__DESTROYER__) || defined(__ALTAIR__)
+		#define XSize 25
 	#elif defined(__OSIC1P__) || defined(__G800__) || defined(__RX78__) 
 		#define XSize 24
 	#elif defined(__VIC20__) 

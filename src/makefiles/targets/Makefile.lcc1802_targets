@@ -103,18 +103,6 @@ full_tmc600_combo.c: full_combo_rand.c
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_tmc600_combo.c
 	rm full_combo_rand.c
 
-tiny_cidelsa_combo.c: tiny_combo_rand.c
-	cat \
-	$(COMX_EXTRA_FILES) \
-	$(SOURCE_PATH)/../tiny_combo_rand.c > $(SOURCE_PATH)/../tiny_cidelsa_combo.c
-	rm tiny_combo_rand.c
-
-full_cidelsa_combo.c: full_combo_rand.c
-	cat \
-	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
-	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_cidelsa_combo.c
-	rm full_combo_rand.c
-
 reduced_tiny_tmc600_combo.c: tiny_combo_rand.c
 	cat \
 	$(COMX_REDUCED_EXTRA_FILES) \
@@ -126,6 +114,27 @@ tmc600_no_end_screen.c: full_combo_rand.c
 	$(COMX_EXTRA_FILES) \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../tmc600_no_end_screen.c
 	rm full_combo_rand.c
+
+tiny_cidelsa_combo.c: tiny_combo_rand.c
+	cat \
+	$(COMX_EXTRA_FILES) \
+	$(SOURCE_PATH)/../tiny_combo_rand.c > $(SOURCE_PATH)/../tiny_cidelsa_combo.c
+	rm tiny_combo_rand.c
+
+light_cidelsa_combo.c: light_combo_rand.c
+	cat \
+	$(COMX_EXTRA_FILES) \
+	$(SOURCE_PATH)/../light_combo_rand.c > $(SOURCE_PATH)/../light_cidelsa_combo.c
+	rm light_combo_rand.c
+
+full_cidelsa_combo.c: full_combo_rand.c
+	cat \
+	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
+	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_cidelsa_combo.c
+	rm full_combo_rand.c
+
+
+
 
 COMX_MACROS ?= \
 	-D__LCC1802__ \
@@ -346,6 +355,95 @@ debug_draco: tiny_cidelsa_combo.c
 	$(SOURCE_PATH)/../tiny_cidelsa_combo.c
 	# rm -rf $(SOURCE_PATH)/../tiny_cidelsa_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/DEBUG_draco.hex
+
+tiny_draco: tiny_cidelsa_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  \
+	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
+	-DTINY_GAME \
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DLCC1802_JOYSTICK \
+	$(COMX_MACROS) \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	$(SOURCE_PATH)/../tiny_cidelsa_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_cidelsa_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_draco.hex
+
+tiny_altair: tiny_cidelsa_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(ALTAIR_24K_OPTS)  \
+	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
+	-DTINY_GAME \
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DLCC1802_JOYSTICK \
+	$(COMX_MACROS) \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	$(SOURCE_PATH)/../tiny_cidelsa_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_cidelsa_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_altair.hex
+
+tiny_destroyer: tiny_cidelsa_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DESTROYER_12K_OPTS)  \
+	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
+	-DTINY_GAME \
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DLCC1802_JOYSTICK \
+	$(COMX_MACROS) \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	$(SOURCE_PATH)/../tiny_cidelsa_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_cidelsa_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_destroyer.hex
+
+light_altair: light_cidelsa_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(ALTAIR_24K_OPTS)  \
+	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DLCC1802_JOYSTICK \
+	$(COMX_MACROS) \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	$(SOURCE_PATH)/../light_cidelsa_combo.c
+	rm -rf $(SOURCE_PATH)/../light_cidelsa_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_altair.hex
+
+light_destroyer: light_cidelsa_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DESTROYER_12K_OPTS)  \
+	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DLCC1802_JOYSTICK \
+	$(COMX_MACROS) \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	$(SOURCE_PATH)/../light_cidelsa_combo.c
+	rm -rf $(SOURCE_PATH)/../light_cidelsa_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_destroyer.hex
+
+full_altair: full_cidelsa_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(ALTAIR_24K_OPTS)  \
+	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
+	-DFULL_GAME \
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DLCC1802_JOYSTICK \
+	$(COMX_MACROS) \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	$(SOURCE_PATH)/../full_cidelsa_combo.c
+	rm -rf $(SOURCE_PATH)/../full_cidelsa_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_altair.hex
+
+full_destroyer: full_cidelsa_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DESTROYER_12K_OPTS)  \
+	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
+	-DFULL_GAME \
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DLCC1802_JOYSTICK \
+	$(COMX_MACROS) \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	$(SOURCE_PATH)/../full_cidelsa_combo.c
+	rm -rf $(SOURCE_PATH)/../full_cidelsa_combo.c
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_destroyer.hex
 
 draco: full_cidelsa_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  \

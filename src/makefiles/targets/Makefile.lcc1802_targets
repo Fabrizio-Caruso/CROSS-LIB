@@ -412,7 +412,7 @@ reduced_tiny_cidelsa_destroyer: reduced_tiny_lcc1802_combo.c
 	$(REDUCED_TINY_MACROS) \
 	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../reduced_tiny_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../tiny_lcc1802_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_tiny_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/TINY_cidelsa_destroyer_8K.hex
 
 

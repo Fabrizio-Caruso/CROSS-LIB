@@ -6,7 +6,7 @@
 #endif
 
 
-#if defined(__COMX__) || defined(__PECOM__)
+#if defined(__COMX__) || defined(__PECOM__) || defined(REDEFINED_CHARS)
     void redefine_char(const unsigned char * shapelocation, int color)
     {
         unsigned char colored_shape[9];
@@ -78,7 +78,7 @@ void INIT_GRAPHICS(void)
     	textcolor(5);
     #endif
     
-    #if defined(__COMX__) || defined(__PECOM__)
+    #if defined(__COMX__) || defined(__PECOM__) || defined(REDEFINED_CHARS) 
         redefine_char(player_down, 3);
         redefine_char(player_up, 3);
         redefine_char(player_right, 3);

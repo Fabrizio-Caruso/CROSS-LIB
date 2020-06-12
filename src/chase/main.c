@@ -168,25 +168,18 @@ int main(void)
         #if !defined(NO_INITIAL_SCREEN)
             initialScreen();
             
-            #if !defined(TINY_GAME)
-                WAIT_PRESS();
-                CLEAR_SCREEN();    
-            #endif
         #else
-            CLEAR_SCREEN();    
-            
             printPressKeyToStart();                
         #endif
+        WAIT_PRESS();
+        CLEAR_SCREEN();
 
         #if !defined(LESS_TEXT) || defined(ALT_HIGHSCORE)
             highScoreScreen();
             WAIT_PRESS();
-        #endif
-
-        #if !defined(TINY_GAME)
-
             CLEAR_SCREEN();
         #endif
+
         
         #if !defined(TINY_GAME)
             extraLifeThroughPointsCounter = 1;

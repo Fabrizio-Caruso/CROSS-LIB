@@ -125,7 +125,7 @@ void _delete(uint8_t x, uint8_t y);
 
 
 // PRINT AND PRINTD
-#  if defined(ALT_DISPLAY_STATS)
+#  if defined(ALT_DISPLAY_STATS) 
     void PRINT(uint8_t x, uint8_t y, char * str);
     #define PRINTD(x,y,str,val) _displayShort(val)
     void _displayShort(uint16_t val);

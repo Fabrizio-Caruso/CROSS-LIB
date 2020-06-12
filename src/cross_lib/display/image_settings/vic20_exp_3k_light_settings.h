@@ -24,7 +24,7 @@
 #define _GUN 0x3F
 
 // YELLOW
-#define _SKULL 0x25
+#define _SKULL 0x3A
 #define _VERTICAL_BRICK 0x3E
 #define _HORIZONTAL_BRICK 0x3D
 #define _EXTRA_LIFE _PLAYER_DOWN
@@ -35,7 +35,7 @@
 
 // CYAN
 #define _INVINCIBILITY 0x6E
-#define _BULLET 0x73
+#define _BULLET 0x3B
 
 #define _CONFUSE _SKULL
 

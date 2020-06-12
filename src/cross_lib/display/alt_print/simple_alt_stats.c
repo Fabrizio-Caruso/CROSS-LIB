@@ -21,7 +21,8 @@
 	#else
 		#define UDG_OFFSET 0
 	#endif
-	
+
+
 	void _displayShort(uint16_t value)
 	{ 
 		uint8_t i; 

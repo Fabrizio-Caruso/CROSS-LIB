@@ -49,7 +49,7 @@
 		{
 			return 64+ch;
 		}	
-	}	
+	}
 #elif (defined(__C16__) && defined(C16_UNEXPANDED))
 	char screenCode(char ch)
 	{

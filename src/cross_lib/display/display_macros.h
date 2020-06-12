@@ -199,7 +199,7 @@ void _delete(uint8_t x, uint8_t y);
     #endif
     #define CLEAR_SCREEN() clear()
 #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
-    #include <comx/rca_vis_video.h>
+    #include <devkit/video/vis_video.h>
     #include "memory_mapped_graphics.h"
     
 

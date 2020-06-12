@@ -1,8 +1,8 @@
-#include <comx/rca_vis_video.h>
-#include <comx/rca_system.h>
+#include <devkit/video/vis_video.h>
+#include <devkit/system/system.h>
 
 #if defined(__CIDELSA__)
-#include "comx\rca_character_set.h"
+#include <devkit/video/cidelsa_char.h>
 #endif
 
 
@@ -120,6 +120,6 @@ void INIT_GRAPHICS(void)
 }
 
 #if defined(__CIDELSA__)
-#include <comx\rca_character_set.c>
+#include <devkit/video/cidelsa_char.c>
 #endif
 

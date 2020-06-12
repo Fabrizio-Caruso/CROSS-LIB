@@ -63,14 +63,14 @@
         __asm__("cli");    
         
 #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
-    #include <comx/rca_vis_video.h>
+    #include <devkit/video/vis_video.h>
     #define DISPLAY_POKE(addr,val) vidchar(addr,val)
 #else
 	#define DISPLAY_POKE(addr,val) (*(uint8_t*) (addr) = (val))
 #endif
 
 #if defined(__TMC600__)
-    #include <comx/rca_vis_video.h>
+    #include <devkit/video/vis_video.h>
     #define COLOR_POKE(addr,val) setcolor(addr,val)
 #else
     #define COLOR_POKE(addr, val) DISPLAY_POKE(addr,val)

@@ -32,7 +32,7 @@
 #if defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB)
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
         #if !defined(LCC1802_JOYSTICK)
-            #include <comx/rca_keyboard_encoder.h>
+            #include <devkit/input/keyboard_encoder.h>
         #endif
     #endif 
     
@@ -298,7 +298,7 @@ out            stb res
             }
         }        
     #elif defined(__LCC1802__)
-        #include <comx/rca_joystick.h>
+        #include <devkit/input/joystick.h>
         
         void WAIT_PRESS(void)
         {

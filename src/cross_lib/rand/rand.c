@@ -16,7 +16,7 @@ int rand(void) // RAND_MAX assumed to be 32767
 
 
 #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
-    #include <comx/rca_rand.h>
+    #include <devkit/system/rand.h>
 #else
 static unsigned long int next = 1;
 int rand(void) // RAND_MAX assumed to be 32767

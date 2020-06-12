@@ -89,7 +89,7 @@
         #define JOY_RIGHT(joyInput) ((joyInput) & PORT_A_KEY_RIGHT)
         #define JOY_FIRE(joyInput) ((joyInput) & PORT_A_KEY_1)
     #elif defined(LCC1802_JOYSTICK)
-        #include <comx/rca_joystick.h>
+        #include <devkit/input/joystick.h>
 
         #define JOY_UP(joyInput) ((joyInput) == MOVE_UP)
         #define JOY_DOWN(joyInput) ((joyInput) == MOVE_DOWN)

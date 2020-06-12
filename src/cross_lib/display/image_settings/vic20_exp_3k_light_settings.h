@@ -21,17 +21,17 @@
 // BLUE
 #define _PLAYER _PLAYER_DOWN
 
-#define _GUN 0x6D
+#define _GUN 0x3F
 
 // YELLOW
-#define _SKULL 0x77
-#define _VERTICAL_BRICK 0x74
-#define _HORIZONTAL_BRICK 0x75
+#define _SKULL 0x25
+#define _VERTICAL_BRICK 0x3E
+#define _HORIZONTAL_BRICK 0x3D
 #define _EXTRA_LIFE _PLAYER_DOWN
 #define _EXTRA_POINTS ('$'+128)
 
 // GREEN
-#define _POWERUP  0x6F
+#define _POWERUP  0x3C
 
 // CYAN
 #define _INVINCIBILITY 0x6E
@@ -45,5 +45,5 @@
 
 #define _RIGHT_HORIZONTAL_MISSILE 0x7C
 
-#define _ROCKET 0x70
+#define _ROCKET 0x1E
 

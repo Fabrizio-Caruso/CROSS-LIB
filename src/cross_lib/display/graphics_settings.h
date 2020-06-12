@@ -4,7 +4,9 @@
 #elif defined(__CREATIVISION__) && defined(ANIMATE_PLAYER)
     #include "creativision_settings.h"
 #elif defined(__VIC20__) && defined(VIC20_EXP_3K) && defined(TINY_GAME)
-	#include "vic20_exp_3k_settings.h"	
+	#include "vic20_exp_3k_settings.h"
+#elif defined(__VIC20__) && defined(VIC20_EXP_3K) && !defined(TINY_GAME)
+	#include "vic20_exp_3k_light_settings.h"
 #elif defined(__VIC20__) && (defined(VIC20_EXP_8K) || (defined(VIC20_EXP_3K) && !defined(TINY_GAME))) && defined(REDEFINED_CHARS)
 	#include "vic20_exp_8k_settings.h"
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)

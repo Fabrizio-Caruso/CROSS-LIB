@@ -321,6 +321,55 @@ vic20_exp_3k_light:
 	-o $(BUILD_PATH)/ALT_LIGHT_vic20_exp_3k_no_gfx.prg
 
 
+t_vic20_exp_3k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	-DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DANIMATE_PLAYER -DLESS_TEXT -DNO_SET_SCREEN_COLORS -DNO_DEAD_GHOSTS -DFORCE_GHOSTS_NUMBER=8 \
+	-DROUND_ENEMIES \
+	-DTINY_GAME -DSOUNDS \
+	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
+	-DMEMORY_MAPPED \
+	-DVIC20_EXP_3K \
+	-DALT_PRINT \
+	-DCBM_SCREEN_CODES \
+	-DUSE_TINY_MEMORY_BUFFERS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_3k.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	-o $(BUILD_PATH)/TINY_vic20_exp_3k.prg
+
+
+vic20_exp_3k_light_gfx:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
+	-DANIMATE_PLAYER -DFORCE_GHOSTS_NUMBER=6 \
+	-DREDEFINED_CHARS \
+	-DSOUNDS \
+	-DCC65_GOTO \
+	-DVIC20_EXP_3K \
+	-DMEMORY_MAPPED \
+	-DCBM_SCREEN_CODES \
+	-DUSE_LIGHT_MEMORY_BUFFERS \
+	-DNO_HINTS \
+	-DLESS_TEXT \
+	-DNO_TEXT_COLOR \
+	-DNO_BLINKING \
+	-DNO_SLEEP \
+	-DALT_DISPLAY_STATS \
+	-DALT_HIGHSCORE \
+	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_3k.s \
+	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	-o $(BUILD_PATH)/ALT_LIGHT_vic20_exp_3k.prg
+
+
 vic20_exp_8k_full:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 --config $(CFG_PATH)/cc65/alt/vic20-8k.cfg \
 	-DFULL_GAME \

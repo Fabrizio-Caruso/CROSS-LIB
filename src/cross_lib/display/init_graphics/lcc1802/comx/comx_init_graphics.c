@@ -72,6 +72,7 @@
 
 void INIT_GRAPHICS(void)
 {
+    initvideo();
     setvideobase(BASE_ADDR);
     
     #if defined(__TMC600__)

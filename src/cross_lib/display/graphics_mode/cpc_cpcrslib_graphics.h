@@ -1,10 +1,11 @@
 #ifndef _CPC_CPCRSLIB_GRAPHICS
 #define _CPC_CPCRSLIB_GRAPHICS
 
+#include "standard_libs.h"
 
-extern char char_list[];
+extern uint8_t char_list[];
 
-extern char space_str[];
+extern uint8_t space_str[];
 
 #define CPC_WHITE 1
 #define CPC_YELLOW 2 

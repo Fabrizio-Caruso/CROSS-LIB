@@ -7,8 +7,12 @@
 #endif
 
 #if defined(NO_PRINT) || defined(NO_GRAPHICS)
-    #define gotoxy(x,y)
-    #define clrscr()
+    #ifndef gotoxy
+        #define gotoxy(x,y)
+    #endif
+    #ifndef clrscr
+        #define clrscr()
+    #endif
     #ifndef textcolor
         #define textcolor(c)
     #endif
@@ -195,7 +199,7 @@
         void PUTCH(char ch);
         
         #define cputc(c) \
-            PUTCH(c)	
+            PUTCH(c)
 
         void gotoxy(uint8_t x, uint8_t y);
                 
@@ -247,5 +251,6 @@
         #endif	
     #endif
 #endif // defined(NO_GRAPHICS)
+
 #endif // _CONIO_PATH_H
 

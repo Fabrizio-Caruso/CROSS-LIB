@@ -133,10 +133,10 @@ m100:
 
 
 rex:
-	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +rex -O0 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__REX__ \
 	-DTURN_BASED \
-	-vn \
+	-v \
 	-DREX \
 	-DSTDLIB \
 	-DNO_COLOR \
@@ -146,14 +146,15 @@ rex:
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DNO_INPUT \
-	-DNO_INIT_GRAPHICS \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/rex/rex_init_graphics.c \
 	-create-app -o $(BUILD_PATH)/FULL_rex.bin
 	rm $(BUILD_PATH)/FULL_rex_BSS.bin
 	rm $(BUILD_PATH)/FULL_rex.bin
 
 
+# 'fputc_callee' not defined
 rex_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__REX__ \
@@ -164,13 +165,14 @@ rex_buffered:
 	-DNO_COLOR \
 	-DFULL_GAME -DSOUNDS \
 	-lndos \
-	-DNO_PRINT \
+	-DNO_PRINT -DNO_MESSAGE \
 	-DNO_WAIT \
 	-DNO_SLEEP \
 	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/rex/rex_init_graphics.c \
 	-create-app -o $(BUILD_PATH)/FULL_rex_buffered.bin
 	rm $(BUILD_PATH)/FULL_rex_buffered_BSS.bin
 	rm $(BUILD_PATH)/FULL_rex_buffered.bin

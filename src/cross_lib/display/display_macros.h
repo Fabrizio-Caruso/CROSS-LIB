@@ -230,8 +230,6 @@ void _delete(uint8_t x, uint8_t y);
     extern Image GUN_IMAGE;
     extern Image SKULL_IMAGE;
 #endif
-extern Image PLAYER_IMAGE;
-extern Image GHOST_IMAGE;
 
 void INIT_IMAGES(void);
 

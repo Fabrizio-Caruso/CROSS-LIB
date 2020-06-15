@@ -93,6 +93,8 @@ extern uint8_t ghostCount;
 extern uint16_t ghostLevel;
 extern uint16_t highScore;
 
+extern Image GHOST_IMAGE;
+extern Image PLAYER_IMAGE;
 
 #if defined(FULL_GAME) && !defined(NO_MESSAGE)
 	void printKillTheSkull(void)
@@ -138,7 +140,7 @@ extern uint16_t highScore;
 	
 		_draw_stat(GUN_IMAGE_X, GUN_IMAGE_Y, &GUN_IMAGE);
 		_draw_stat(GHOST_IMAGE_X, GHOST_IMAGE_Y, &GHOST_IMAGE);
-		_draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);					
+		_draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
 	}
 
 	

@@ -2,6 +2,8 @@
 
 #include "graphics_settings.h"
 
+#include "images.h"
+
 #if !defined(ANIMATE_PLAYER)
 	extern Image PLAYER_IMAGE;
 #else

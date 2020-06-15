@@ -21,7 +21,9 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include "cross_lib.h"
-#include "images.h"
+
+extern Image HORIZONTAL_BRICK_IMAGE;
+extern Image VERTICAL_BRICK_IMAGE;
 
 
 #if !defined(NO_SET_SCREEN_COLORS) && !defined(NO_GRAPHICS)
@@ -192,15 +194,6 @@
 #endif
 
 
-#if defined(FULL_GAME)
-
-    void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y)
-    {
-        _draw(x,y,&BROKEN_BRICK_IMAGE);        
-    }
-#endif
-
-
 #if !defined(NO_BLINKING)
 void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter) 
 {
@@ -246,27 +239,26 @@ void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter)
 #endif
 
 
-#if !defined(TINY_GAME)
+#if !defined(TINY_GAME) 
 
-void DRAW_HORIZONTAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
-{
-    uint8_t i;
-    for(i=0;i<length;++i)
+    void DRAW_HORIZONTAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
     {
-        _draw(x+i,y,&HORIZONTAL_BRICK_IMAGE);
+        uint8_t i;
+        for(i=0;i<length;++i)
+        {
+            _draw(x+i,y,&HORIZONTAL_BRICK_IMAGE);
+        }
     }
-}
 
-void DRAW_VERTICAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
-{
-    uint8_t i;
-    for(i=0;i<length;++i)
+    void DRAW_VERTICAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
     {
-        _draw(x,y+i,&VERTICAL_BRICK_IMAGE);
-    }        
-}
+        uint8_t i;
+        for(i=0;i<length;++i)
+        {
+            _draw(x,y+i,&VERTICAL_BRICK_IMAGE);
+        }        
+    }
 #endif
-
 
 
 

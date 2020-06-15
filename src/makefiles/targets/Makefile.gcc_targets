@@ -20,7 +20,7 @@ gcc_targets: \
     
 ###############################################################################################
 
-gcc: buffered
+gcc: gcc_buffered
 
 gcc_buffered:
 	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) \

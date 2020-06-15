@@ -83,9 +83,6 @@ typedef struct ImageStruct Image;
         } while(0);
 #endif
 
-#if defined(FULL_GAME)
-    void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y);
-#endif
     
 #if !defined(NO_BLINKING)
     void _blink_draw(uint8_t x,uint8_t y,Image * image, uint8_t * blinkCounter);

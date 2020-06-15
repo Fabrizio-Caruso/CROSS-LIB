@@ -40,6 +40,7 @@ extern uint8_t level;
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
+extern Image BROKEN_BRICK_IMAGE;
 
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
@@ -55,6 +56,14 @@ void deleteCharacter(Character * characterPtr)
 {
 	DELETE_CHARACTER(characterPtr->_x, characterPtr->_y);
 }
+
+#if defined(FULL_GAME)
+
+    void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y)
+    {
+        _draw(x,y,&BROKEN_BRICK_IMAGE);        
+    }
+#endif
 
 #if defined(FULL_GAME)
 	extern uint8_t invincibilityActive;

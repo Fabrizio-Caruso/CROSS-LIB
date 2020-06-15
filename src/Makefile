@@ -94,7 +94,6 @@ CFG_PATH ?= $(CROSS_LIB_PATH)/cfg/
 
 BASIC_CROSS_LIB_FILES ?= \
 	$(CROSS_LIB_PATH)/display/display_macros.c \
-	$(CROSS_LIB_PATH)/display/init_images.c \
 	$(CROSS_LIB_PATH)/input/input_macros.c \
 	$(CROSS_LIB_PATH)/text/text_macros.c
 
@@ -102,9 +101,10 @@ NO_CHASE_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
 	$(SOURCE_PATH)/move_player.c \
 	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
-	$(SOURCE_PATH)/main.c
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/init_images.c 
 
-	
+
 TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c
 
 TEST_FILES ?= $(NO_CHASE_FILES)

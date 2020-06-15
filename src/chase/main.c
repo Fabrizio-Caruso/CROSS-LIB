@@ -65,6 +65,8 @@
 #include "variables.h"
 
 
+#include "display_macros.h" 
+
 // Level
 // The level affects:
 // 1. powerUpCoolDown (how long before a new powerUp is spawned)

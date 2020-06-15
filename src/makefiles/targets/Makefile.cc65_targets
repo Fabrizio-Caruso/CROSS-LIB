@@ -696,7 +696,7 @@ vic20_exp_3k:
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
 	-DANIMATE_PLAYER -DFORCE_GHOSTS_NUMBER=8 \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DREDEFINED_CHARS \
+	-DREDEFINED_CHARS  \
 	-DSOUNDS \
 	-DCC65_GOTO \
 	-DVIC20_EXP_3K \
@@ -752,7 +752,7 @@ vic20_exp_8k:
 	$(SOURCE_PATH)/horizontal_missile.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	--code-name CODE2 \
-	$(CROSS_LIB_PATH)/display/init_images.c \
+	$(SOURCE_PATH)/init_images.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/main.c \

@@ -33,7 +33,7 @@ dragon:
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/display/init_images.c	
+	-c $(SOURCE_PATH)/init_images.c	
 	cmoc \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -119,7 +119,7 @@ coco:
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/display/init_images.c	
+	-c $(SOURCE_PATH)/init_images.c	
 	cmoc \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
@@ -209,7 +209,7 @@ vectrex:
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/display/init_images.c	
+	-c $(SOURCE_PATH)/init_images.c	
 	cmoc \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
@@ -291,7 +291,7 @@ mo5:
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/display/init_images.c	
+	-c $(SOURCE_PATH)/init_images.c	
 	cmoc \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
@@ -385,7 +385,7 @@ to7:
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	cmoc \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
-	-c $(CROSS_LIB_PATH)/display/init_images.c	
+	-c $(SOURCE_PATH)/init_images.c	
 	cmoc \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c

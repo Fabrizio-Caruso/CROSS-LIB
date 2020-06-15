@@ -181,4 +181,8 @@ uint8_t sameLocationAsAnyLocation(uint8_t x, uint8_t y, Character *characterList
 	uint8_t horizontalWallsReached(void);
 #endif
 
+#if defined(FULL_GAME)
+    void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y);
+#endif
+
 #endif // _CHARACTER

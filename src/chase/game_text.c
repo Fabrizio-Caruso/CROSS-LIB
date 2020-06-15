@@ -35,6 +35,10 @@
 #define _RED   COLOR_RED
 #define SCORE_COLOR COLOR_IF_NO_BLUE_THEN_YELLOW
 
+extern uint8_t guns;
+extern Image GUN_IMAGE;
+extern Image SKULL_IMAGE;
+
 #if !defined(NO_TEXT_COLOR) || defined(NO_GRAPHICS)
 	#define SET_COLOR(c) SET_TEXT_COLOR(c)
 #else

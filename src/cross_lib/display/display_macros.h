@@ -225,13 +225,6 @@ void _delete(uint8_t x, uint8_t y);
     #define COLOR_IF_NO_BLUE_THEN_YELLOW COLOR_BLUE
 #endif
 
-#if !defined(TINY_GAME)
-    extern uint8_t guns;
-    extern Image GUN_IMAGE;
-    extern Image SKULL_IMAGE;
-#endif
-
-void INIT_IMAGES(void);
 
 #if !defined(NO_INIT_GRAPHICS)
     void INIT_GRAPHICS(void);

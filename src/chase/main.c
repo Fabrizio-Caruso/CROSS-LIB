@@ -43,6 +43,7 @@
 #include "sleep_macros.h"
 
 #include "text_strings.h"
+#include "init_images.h"
 
 #if !defined(TINY_GAME)
     #include "bullet.h"
@@ -158,7 +159,6 @@ int main(void)
     
     while(1)
     {
-
         INIT_IMAGES();
         
         #if !defined(NO_SET_SCREEN_COLORS)

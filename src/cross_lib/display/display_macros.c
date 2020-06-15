@@ -46,56 +46,6 @@
         return ((uint16_t) 0xF800+XSize*YSize-YSize)-x*YSize+(uint8_t)y;
     #endif
     }
-#elif defined(REX)
-    char char_list[UDG_N*2] = 
-    { 
-    '*', '\0', // PLAYER
-    'O', '\0', // GHOST
-    'X', '\0', // BOMB
-    '+', '\0', // SKULL
-    '.', '\0', // BULLET
-    'P', '\0', // POWERUP
-    '!', '\0', // GUN
-    '$', '\0', // EXTRA_POINTS_IMAGE
-    'V', '\0', // INVINCIBILITY
-    '*', '\0', // EXTRA LIFE
-    '>', '\0', // LEFT_HORIZONTAL_MISSILE
-    '<', '\0', // RIGHT_HORIZONTAL_MISSILE
-    '^', '\0', // ROCKET
-    '*', '\0', // PLAYER_DOWN
-    '*', '\0', // PLAYER_UP
-    '*', '\0', // PLAYER_RIGHT
-    '*', '\0', // PLAYER_LEFT    
-    '|', '\0', // VERTICAL_BRICK
-    '-', '\0' // HORIZONTAL_BRICK 
-    };
-
-    char space_str[2] = {' ', '\0'};
-#elif defined(CPCRSLIB)
-    char char_list[UDG_N*2] = 
-    { 
-    33, '\0', // PLAYER
-    37, '\0', // GHOST
-    44, '\0', // BOMB
-    40, '\0', // SKULL
-    43, '\0', // BULLET
-    42, '\0', // POWERUP
-    41, '\0', // GUN
-    49, '\0', // EXTRA_POINTS_IMAGE
-    46, '\0', // INVINCIBILITY
-    33, '\0', // EXTRA LIFE
-    39, '\0', // LEFT_HORIZONTAL_MISSILE
-    38, '\0', // RIGHT_HORIZONTAL_MISSILE
-    45, '\0', // ROCKET
-    33, '\0', // PLAYER_DOWN
-    34, '\0', // PLAYER_UP
-    35, '\0', // PLAYER_RIGHT
-    36, '\0', // PLAYER_LEFT
-    47, '\0', // VERTICAL_BRICK
-    48, '\0' // HORIZONTAL_BRICK 
-    };
-
-    char space_str[2] = {' ', '\0'};
 
 #elif defined(Z88DK_SPRITES)
 

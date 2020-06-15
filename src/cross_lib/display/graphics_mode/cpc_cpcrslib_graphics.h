@@ -1,12 +1,15 @@
 #ifndef _CPC_CPCRSLIB_GRAPHICS
 #define _CPC_CPCRSLIB_GRAPHICS
 
+
+extern char char_list[];
+
+extern char space_str[];
+
 #define CPC_WHITE 1
 #define CPC_YELLOW 2 
 #define CPC_RED 3
 #define CPC_BLACK 4
-
-#define UDG_N 20
 
 #include <cpc.h>
 

@@ -2,6 +2,7 @@
 #include <devkit/system/system.h>
 
 #include "6x8_chars.h"
+#include "standard_libs.h"
 
 #if defined(__CIDELSA__)
     #include <devkit/video/cidelsa_char.h>
@@ -9,10 +10,10 @@
 
 
 #if defined(__COMX__) || defined(__PECOM__) || defined(REDEFINED_CHARS)
-    void redefine_char(unsigned char ch, const unsigned char * shapelocation, int color)
+    void redefine_char(uint8_t ch, const uint8_t * shapelocation, int color)
     {
-        unsigned char colored_shape[9];
-        unsigned char i;
+        uint8_t colored_shape[9];
+        uint8_t i;
         
         for(i=0;i<9;++i)
         {
@@ -22,25 +23,25 @@
     }
 
 
-    const unsigned char invincibility_udg[9] =  _INVINCIBILITY_UDG;
-    const unsigned char player_down[9] = _PLAYER_DOWN_UDG;
-    const unsigned char player_up[9] = _PLAYER_UP_UDG;
-    const unsigned char player_right[9] = _PLAYER_LEFT_UDG;
-    const unsigned char player_left[9] = _PLAYER_RIGHT_UDG;
-    const unsigned char bomb[9] =  _BOMB_UDG;
-    const unsigned char ghost[9] = _GHOST_UDG;
-    const unsigned char skull_udg[9] = _SKULL_UDG;
-    const unsigned char power_udg[9] = _POWERUP_UDG;
-    const unsigned char gun_udg[9] =  _GUN_UDG;
-    const unsigned char bullet_udg[9] =  _BULLET_UDG;
-    const unsigned char dead_ghost_udg[9] = _DEAD_GHOST_UDG;
-    const unsigned char rocket_udg[9] = _ROCKET_UDG;
-    const unsigned char left_missile_udg[9] = _LEFT_HORIZONTAL_MISSILE_UDG;
-    const unsigned char right_missile_udg[9] =  _RIGHT_HORIZONTAL_MISSILE_UDG;
-    const unsigned char vertical_brick_udg[9] =  _VERTICAL_BRICK_UDG;
-    const unsigned char horizontal_brick_udg[9] = _HORIZONTAL_BRICK_UDG;
-    const unsigned char freeze_udg[9] = _POWERUP_UDG;
-    const unsigned char super_udg[9] = _POWERUP_UDG;
+    const uint8_t invincibility_udg[9] =  _INVINCIBILITY_UDG;
+    const uint8_t player_down[9] = _PLAYER_DOWN_UDG;
+    const uint8_t player_up[9] = _PLAYER_UP_UDG;
+    const uint8_t player_right[9] = _PLAYER_LEFT_UDG;
+    const uint8_t player_left[9] = _PLAYER_RIGHT_UDG;
+    const uint8_t bomb[9] =  _BOMB_UDG;
+    const uint8_t ghost[9] = _GHOST_UDG;
+    const uint8_t skull_udg[9] = _SKULL_UDG;
+    const uint8_t power_udg[9] = _POWERUP_UDG;
+    const uint8_t gun_udg[9] =  _GUN_UDG;
+    const uint8_t bullet_udg[9] =  _BULLET_UDG;
+    const uint8_t dead_ghost_udg[9] = _DEAD_GHOST_UDG;
+    const uint8_t rocket_udg[9] = _ROCKET_UDG;
+    const uint8_t left_missile_udg[9] = _LEFT_HORIZONTAL_MISSILE_UDG;
+    const uint8_t right_missile_udg[9] =  _RIGHT_HORIZONTAL_MISSILE_UDG;
+    const uint8_t vertical_brick_udg[9] =  _VERTICAL_BRICK_UDG;
+    const uint8_t horizontal_brick_udg[9] = _HORIZONTAL_BRICK_UDG;
+    const uint8_t freeze_udg[9] = _POWERUP_UDG;
+    const uint8_t super_udg[9] = _POWERUP_UDG;
 
 
 #endif

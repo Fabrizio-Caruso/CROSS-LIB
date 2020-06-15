@@ -1,9 +1,9 @@
 # -----------------------------------------------------------------------
 # EXPERIMENTAL
-# Targets which are either impossible to test or that are known to be broken because of bugs in the dev-kit
+# Targets which are either impossible to test or that are known to be broken because of bugs in their respective dev-kit
 
 
-# -o$(BUILD_PATH)/TINY_abc800.bin 	
+# # No full support in Z88DK / Untestable
 abc800_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -zorg=40000 \
 	-D__ABC800__ \
@@ -17,6 +17,7 @@ abc800_tiny:
 	$(SOURCE_PATH)/main.c
 
 
+# No full support in Z88DK / Untestable
 abc800_light:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm \
 	-zorg=49200 $(INCLUDE_OPTS) \
@@ -29,6 +30,7 @@ abc800_light:
 	mv a.bin $(BUILD_PATH)/LIGHT_abc800.bin 
 
 
+# No full support in Z88DK / Untestable
 abc800:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \
 	$(INCLUDE_OPTS) \
@@ -57,6 +59,7 @@ abc800:
 	mv a.ihx $(BUILD_PATH)/FULL_abc800.ihx 	
 
 
+# No full support in Z88DK / Untestable
 abc800_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm  $(INCLUDE_OPTS) \
 	-D__ABC80__ -vn -DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
@@ -66,6 +69,7 @@ abc800_32k:
 	$(FULL_FILES)
 
 
+# No resl support in CC65
 atari2600_graphics_test:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari2600 \
 	-D__ATARI2600__ \
@@ -74,6 +78,7 @@ atari2600_graphics_test:
 	$(SOURCE_PATH)/../test/atari2600_graphics_test.c \
 	-o $(BUILD_PATH)/atari2600_graphics_test.rom	
 
+# No resl support in CC65
 atari2600_tiny:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari2600 \
 	-D__ATARI2600__ \
@@ -83,6 +88,7 @@ atari2600_tiny:
 	-o $(BUILD_PATH)/TINY_atari2600.rom
 
 
+# Z88DK target is broken
 c7420:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -99,6 +105,7 @@ c7420:
 	mv _a.bas $(BUILD_PATH)/FULL_c7420.bas	
 
 
+# Z88DK target is broken
 c7420_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -115,6 +122,7 @@ c7420_tiny:
 	mv _a.bas $(BUILD_PATH)/TINY_c7420.bas
 
 
+# Z88DK target is broken
 m100:
 	$(Z88DK_PATH)$(MYZ88DK) +m100 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__M100__ \
@@ -132,6 +140,7 @@ m100:
 	rm $(BUILD_PATH)/FULL_m100.bin
 
 
+# No emulator exixts
 rex:
 	$(Z88DK_PATH)$(MYZ88DK) +rex -O0 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__REX__ \
@@ -178,6 +187,7 @@ rex_buffered:
 	rm $(BUILD_PATH)/FULL_rex_buffered.bin
 
 
+# Z88DK target is broken
 x07_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-Cz--audio \

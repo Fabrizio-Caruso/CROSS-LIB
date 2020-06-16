@@ -175,8 +175,8 @@ ace_exp_16k:
 	-clib=default \
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o ace -Cz--audio -create-app	
@@ -300,7 +300,7 @@ c128_z80_80col:
 	-DALT_PRINT \
 	-DNO_COLOR \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
+	$(SOURCE_PATH)/init_graphics/z88dk/c128/c128_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -oa80.bin
@@ -391,8 +391,8 @@ coleco:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -414,9 +414,9 @@ cpc:
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/cpc_Chars8.asm \
+	$(SOURCE_PATH)/graphics_data/z88dk/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
+	$(SOURCE_PATH)/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt
@@ -491,8 +491,8 @@ eg2k:
 	-DUDG_GRAPHICS \
 	-DLESS_TEXT -DSOUNDS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -744,8 +744,8 @@ kc_light:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(LIGHT_FILES) \
 	-create-app -o$(BUILD_PATH)/LIGHT_kc.bin
 	rm $(BUILD_PATH)/LIGHT_kc.bin
@@ -761,8 +761,8 @@ kc_tiny:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(TINY_FILES) \
 	-create-app -o$(BUILD_PATH)/TINY_kc.bin
 	rm $(BUILD_PATH)/TINY_kc.bin
@@ -779,8 +779,8 @@ kc:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	chase/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_kc.bin

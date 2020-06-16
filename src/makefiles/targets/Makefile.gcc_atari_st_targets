@@ -47,7 +47,7 @@ atari_st_ncurses:
 	-DNO_TITLE_LINE \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(SOURCE_PATH)/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
 	mv a.out $(BUILD_PATH)/FULL_atari_st_ncurses.tos
@@ -69,7 +69,7 @@ atari_st_ncurses_turn_based:
 	-DNO_TITLE_LINE \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(SOURCE_PATH)/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
 	mv a.out $(BUILD_PATH)/FULL_atari_st_ncurses_turn_based.tos

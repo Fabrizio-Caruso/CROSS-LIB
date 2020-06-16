@@ -81,9 +81,9 @@
 
 
 // TEXT SETTINGS
-#if (defined(__VIC20__) && defined(ANIMATE_PLAYER)) || (defined(__VIC20__) && defined(ALT_PRINT)) \
+#if defined(__VIC20__) || (defined(__VIC20__) && defined(ALT_PRINT)) \
 	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MO5__) || defined(__GAMATE__) \
-    || defined(__APPLE2__) || (defined(__C64__) && defined(ANIMATE_PLAYER)) || defined(__ATARI__)  \
+    || defined(__APPLE2__) || defined(__C64__) || defined(__ATARI__)  \
 	|| defined(__ZX80__) || (defined(__C16__) && defined(ALT_PRINT))
 	#define NO_CASE_LETTERS
 #else

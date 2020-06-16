@@ -173,6 +173,40 @@ void _delete(uint8_t x, uint8_t y);
     #define SET_TEXT_COLOR(c) textcolor(c)
 #endif
 
+#if defined(Z88DK_SPRITES) || defined(__MO5__)
+	#define _Z88DK_SPRITE_OFFSET 0x20
+#else
+	
+	#define _Z88DK_SPRITE_OFFSET 0x00
+#endif
+
+#if defined(__COCO__) || defined(__DRAGON__)
+    #define NOT_INVERTED 64
+    #define INVERTED -64
+#endif
+
+#  if defined(__VIC20__) && (defined(VIC20_EXP_8K) || (defined(VIC20_EXP_3K) && !defined(TINY_GAME))) && defined(REDEFINED_CHARS)
+    #define _SPACE 0x72
+#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
+    #define _SPACE 0xA0
+#elif (defined(__ATARI__) && defined(ATARI_MODE1))
+    #define _SPACE 0
+#elif defined(__C16__) && defined(REDEFINED_CHARS) && defined(C16_UNEXPANDED)
+    #define _SPACE 0x60
+#elif defined(Z88DK_SPRITES)
+    #define _SPACE (0x40-_Z88DK_SPRITE_OFFSET)
+#elif defined(__COCO__) || defined(__DRAGON__)
+    #define _SPACE (' '+NOT_INVERTED)
+#elif defined(__ATARI5200__) && defined(MEMORY_MAPPED)
+    #define _SPACE 0
+#elif defined(CPCRSLIB)
+    #define _SPACE (19*2)
+#elif defined(__REX__)
+	#include "cpc_cpcrslib_settings.h"
+#else
+    #define _SPACE ' '
+#endif 
+
 
 // CLEAR SCREEN
 #  if defined(ALT_CLEAR_SCREEN) || defined(DEFAULT_CLEAR_SCREEN)

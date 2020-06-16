@@ -61,13 +61,8 @@ MACROS_NO_GRAPHICS ?= \
 
 INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/display \
--I$(CROSS_LIB_PATH)/display/graphics_data \
--I$(CROSS_LIB_PATH)/display/graphics_data/cc65 \
--I$(CROSS_LIB_PATH)/display/graphics_data/z88dk \
 -I$(CROSS_LIB_PATH)/display/graphics_mode \
 -I$(CROSS_LIB_PATH)/display/alt_print \
--I$(CROSS_LIB_PATH)/display/image_settings \
--I$(CROSS_LIB_PATH)/display/redefine_characters \
 -I$(CROSS_LIB_PATH)/include \
 -I$(CROSS_LIB_PATH)/sound \
 -I$(CROSS_LIB_PATH)/sound/cc65/atmos \
@@ -80,7 +75,13 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/sound/lcc1802/comx \
 -I$(CROSS_LIB_PATH)/text \
 -I$(CROSS_LIB_PATH)/input \
--I$(CROSS_LIB_PATH)/rand
+-I$(CROSS_LIB_PATH)/rand \
+-I$(SOURCE_PATH)/graphics_data \
+-I$(SOURCE_PATH)/graphics_data/cc65 \
+-I$(SOURCE_PATH)/graphics_data/z88dk \
+-I$(SOURCE_PATH)/redefine_characters \
+-I$(SOURCE_PATH)/image_settings \
+-I$(SOURCE_PATH)/
 
 LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3
 DRAW_SKIP ?=       -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=7
@@ -102,7 +103,7 @@ NO_CHASE_FILES ?= \
 	$(SOURCE_PATH)/move_player.c \
 	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
 	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/init_images.c 
+	$(SOURCE_PATH)/init_images.c
 
 
 TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c

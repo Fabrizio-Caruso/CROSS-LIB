@@ -1,6 +1,6 @@
 #include "display_macros.h"
 
-#include "graphics_settings.h"
+#include "image_settings.h"
 
 #include "images.h"
 

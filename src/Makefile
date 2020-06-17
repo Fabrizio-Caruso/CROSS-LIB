@@ -19,7 +19,7 @@ COMPILEDEXT = .out
 endif
 
 
-SOURCE_PATH := chase
+SOURCE_PATH := games/chase
 CROSS_LIB_PATH := cross_lib
 
 

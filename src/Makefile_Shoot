@@ -19,7 +19,7 @@ COMPILEDEXT = .out
 endif
 
 
-SOURCE_PATH := shoot
+SOURCE_PATH := games/shoot
 CROSS_LIB_PATH := cross_lib
 
 

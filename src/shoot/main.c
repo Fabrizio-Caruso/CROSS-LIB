@@ -55,6 +55,9 @@
 
 #include "display_macros.h"
 
+#include "speed_game_settings.h"
+
+#include "sleep_macros.h"
 
 #if !defined(TINY_GAME)
     #include "bullet.h"
@@ -287,13 +290,13 @@ void initialScreen(void)
     
         void _slow_down(void)
         {
-            usleep(GAME_SLOW_DOWN*1024);
+            usleep(SLOW_DOWN*1024);
         }
     #else
     void _slow_down(void)
     {
         short i;
-        for(i=0;i<GAME_SLOW_DOWN;++i)
+        for(i=0;i<SLOW_DOWN;++i)
         {    
         }
     }
@@ -638,7 +641,7 @@ int main(void)
                     }
                 
                 // Display ghosts
-                SKIP_DRAW
+                SKIP_GHOST_DRAW
                     displayGhosts();
                     
                 #if defined(TURN_BASED) 
@@ -651,7 +654,7 @@ int main(void)
                 
                 #if defined(FULL_GAME)
                     
-                    SKIP_MORE_DRAW
+                    SKIP_WALL_DRAW
                     {
                         if(innerVerticalWallLevel())
                         {
@@ -665,7 +668,7 @@ int main(void)
                     }
                                         
                 #else
-                    SKIP_MORE_DRAW
+                    SKIP_BOMB_DRAW
                         displayBombs();
                 #endif                
             }; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]

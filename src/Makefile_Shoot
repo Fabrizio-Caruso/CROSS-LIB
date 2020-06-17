@@ -1,0 +1,194 @@
+# Makefile for CROSS-CHASE 
+
+
+ifneq ($(COMSPEC),)
+DO_WIN:=1
+endif
+ifneq ($(ComSpec),)
+DO_WIN:=1
+endif 
+
+ifeq ($(DO_WIN),1)
+EXEEXT = .exe
+endif
+
+ifeq ($(DO_WIN),1)
+COMPILEDEXT = .exe
+else
+COMPILEDEXT = .out
+endif
+
+
+SOURCE_PATH := shoot
+CROSS_LIB_PATH := cross_lib
+
+
+BUILD_PATH ?= ../build
+
+DEBUG_MACROS ?= \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_RANDOM_LEVEL \
+	-DNO_WAIT \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_INPUT \
+	-DNO_PRINT \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_CHASE \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INIT_GRAPHICS \
+	-DDEFAULT_CLEAR_SCREEN 
+
+MACROS_NO_GRAPHICS ?= \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_CHASE \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN
+
+INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
+-I$(CROSS_LIB_PATH)/display \
+-I$(CROSS_LIB_PATH)/display/graphics_mode \
+-I$(CROSS_LIB_PATH)/display/alt_print \
+-I$(CROSS_LIB_PATH)/include \
+-I$(CROSS_LIB_PATH)/sound \
+-I$(CROSS_LIB_PATH)/sound/cc65/atmos \
+-I$(CROSS_LIB_PATH)/sound/cc65/c264 \
+-I$(CROSS_LIB_PATH)/sound/cc65/pokey \
+-I$(CROSS_LIB_PATH)/sound/cc65/sid \
+-I$(CROSS_LIB_PATH)/sound/cc65/vic20 \
+-I$(CROSS_LIB_PATH)/sound/z88dk/bit_bang \
+-I$(CROSS_LIB_PATH)/sound/z88dk/psg \
+-I$(CROSS_LIB_PATH)/sound/lcc1802/comx \
+-I$(CROSS_LIB_PATH)/text \
+-I$(CROSS_LIB_PATH)/input \
+-I$(CROSS_LIB_PATH)/rand \
+-I$(SOURCE_PATH)/graphics_data \
+-I$(SOURCE_PATH)/graphics_data/cc65 \
+-I$(SOURCE_PATH)/graphics_data/z88dk \
+-I$(SOURCE_PATH)/redefine_characters \
+-I$(SOURCE_PATH)/image_settings \
+-I$(SOURCE_PATH)/
+
+LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3
+DRAW_SKIP ?=       -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=7
+EXTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
+ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1 
+
+
+TOOLS_PATH ?= ../tools
+
+CFG_PATH ?= $(CROSS_LIB_PATH)/cfg/
+
+BASIC_CROSS_LIB_FILES ?= \
+	$(CROSS_LIB_PATH)/display/display_macros.c \
+	$(CROSS_LIB_PATH)/input/input_macros.c \
+	$(CROSS_LIB_PATH)/text/text_macros.c
+
+NO_CHASE_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+	$(SOURCE_PATH)/move_player.c \
+	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/init_images.c
+
+
+TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c
+
+TEST_FILES ?= $(NO_CHASE_FILES)
+
+LIGHT_ONLY_FILES ?= $(SOURCE_PATH)/item.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c 
+FULL_ONLY_FILES ?= $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c 
+
+LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES) 
+
+FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
+
+
+
+
+# Clean targets
+clean_chase_obj:
+	rm -rf $(SOURCE_PATH)/*.o
+
+clean_chase_temp:
+	rm -rf $(SOURCE_PATH)/wincmoc_main.c
+	rm -rf $(SOURCE_PATH)/wincmoc_main.asm
+	rm -rf $(SOURCE_PATH)/wincmoc_main.coco.bin
+	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../light_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../full_comx_combo.asm
+	rm -rf $(SOURCE_PATH)/../light_comx_combo.asm
+	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.asm
+	rm -rf $(SOURCE_PATH)/../full_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../light_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../full_pecom_combo.asm
+	rm -rf $(SOURCE_PATH)/../light_pecom_combo.asm
+	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.asm
+
+clean_lib_obj:
+	find -type f -name '*.o' -delete
+
+clean_obj: \
+	clean_chase_obj \
+	clean_chase_temp \
+	clean_lib_obj
+
+clean_build:
+	rm -rf $(BUILD_PATH)/*
+
+
+clean: \
+	clean_obj \
+	clean_build
+
+
+help:
+	cat ../docs/BUILD.md
+
+list:
+	cat ../docs/SYSTEMS.md
+
+
+
+#################################################################
+CC65_PATH ?= 
+#/home/fabri/CC65_FIX/cc65/bin/
+
+MYCC65 ?= cl65$(EXEEXT)
+
+#################################################################
+
+c64: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
+	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DCBM_SCREEN_CODES \
+	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(SOURCE_PATH)/graphics_data/cc65/graphics.s \
+	$(SOURCE_PATH)/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_c64.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_c64.prg -o $(BUILD_PATH)/FULL_c64_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_c64_exomized.prg  $(BUILD_PATH)/FULL_c64_exomized.crt
+	rm $(BUILD_PATH)/FULL_c64.prg
+
+

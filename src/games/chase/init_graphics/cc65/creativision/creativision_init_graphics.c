@@ -79,27 +79,7 @@ void SET_UDG_IMAGES(void)
 void INIT_GRAPHICS(void)
 {
     SET_UDG_IMAGES();
-    // redefine(_PLAYER_RIGHT,player_right_image);
-    // redefine(_PLAYER_LEFT,player_left_image);
-    // redefine(_PLAYER_UP,player_up_image);
-    // redefine(_PLAYER_DOWN,player_down_image);
-    // redefine(_SKULL,skull_image);
-    // redefine(_GUN,gun_image);
-    // redefine(_POWERUP,powerup_image);
-    // redefine(_BOMB,bomb_image);
-    // redefine(_GHOST,ghost_image);
-    // redefine(_ROCKET,rocket_image);
-    // redefine(_LEFT_HORIZONTAL_MISSILE,left_horizontal_missile_image);
-    // redefine(_RIGHT_HORIZONTAL_MISSILE,right_horizontal_missile_image);
-    // redefine(_BULLET,bullet_image); 
-    // redefine(_DEAD_GHOST,dead_ghost_image);    
-    // redefine(_EXTRA_POINTS,extra_points_image);
-    
-    // REDEFINE_CHAR(59, player_down_image);
-    // gotoxy(1,12);
-    // cprintf("debug 1: %d", _PLAYER_DOWN);
-    // cprintf("debug 1 off: %d", _PLAYER_DOWN_OFFSET_); 
+
     
     set_udg_colors();  
-    // while(1){};
 }

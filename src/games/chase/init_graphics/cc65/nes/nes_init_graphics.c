@@ -13,16 +13,6 @@
 #define _DARK_YELLOW 40
 #define _LIGHT_YELLOW 56
 
-/*
-void put_char(uint8 x, uint8 y, uint8 c) 
-{
-    uint16 adr = 0x2000;
-    adr = adr + 0x20 * y + x;
-    ADDR(0x2006) = adr >> 8;  // high byte
-    ADDR(0x2006) = (uint8)adr;   // low byte
-    ADDR(0x2007) = c; 
-} 
-*/
 
 void set_color(uint8_t palette_group, uint8_t color_index, uint8_t color)
 {
@@ -30,44 +20,6 @@ void set_color(uint8_t palette_group, uint8_t color_index, uint8_t color)
     PPU.vram.address = palette_group * 4 + color_index;   
     PPU.vram.data = color;   
 }
-
-//
-/*
-const uint8_t PALETTE[]={
-0x1F, 0x00, 0x20, 0x31, // blues
-0x00, 0x00, 0x00, 0x15, // red
-0x00, 0x00, 0x00, 0x27, // yellow
-0x00, 0x00, 0x00, 0x1a, // green
-}; 
-// note, 11 is the default background color = blue
-
-const uint8_t Attrib_Table[]={
-0x44, // 0100 0100, 
-0xbb, // 1011 1011, 
-0x44, // 0100 0100, 
-0xbb}; // 1011 1011
-*/
-
-// 33221100 = 2 bits per attribute area
-// 0 1		= their relative position on the screen
-// 2 3
-// each box is 16x16 pixels
-
-/*
-void Load_Palette(void) {
-	PPU_ADDRESS = 0x3f;
-	PPU_ADDRESS = 0x00;
-	for( index = 0; index < sizeof(PALETTE); ++index ){
-		PPU_DATA = PALETTE[index];
-	}
-	PPU_ADDRESS = 0x23;
-	PPU_ADDRESS = 0xda;
-	for( index = 0; index < sizeof(Attrib_Table); ++index ){
-		PPU_DATA = Attrib_Table[index];
-	}
-}
-*/
-
 
 #define CTRL 0x2000
 #define MASK 0x2001
@@ -140,7 +92,6 @@ void INIT_GRAPHICS(void)
 		PPU.vram.data = 0x00;
 				
 	}	
-	
 	
 	Reset_Scroll();
 	All_On();

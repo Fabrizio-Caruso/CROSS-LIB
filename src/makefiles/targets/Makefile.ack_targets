@@ -57,7 +57,7 @@ cpm_8080_buffered:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_buffered.com
-	rm $(SOURCE_PATH)/../*.o
+	rm $(SOURCE_PATH)/../../*.o
 
 	
 cpm_8080_adm3a:
@@ -76,7 +76,7 @@ cpm_8080_adm3a:
 	-DNO_SLEEP \
 	$(FULL_FILES)
 	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_adm3a.com
-	rm $(SOURCE_PATH)/../*.o	
+	rm $(SOURCE_PATH)/../../*.o
 
 cpm_8080_targets: \
 	cpm_8080_buffered
@@ -102,7 +102,7 @@ pc8086:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv pc86.img $(BUILD_PATH)/FULL_pc8086_turn_based.img
-	rm $(SOURCE_PATH)/../*.o
+	rm $(SOURCE_PATH)/../../*.o
 
 pc8086_targets: \
 	pc8086
@@ -128,7 +128,7 @@ linuxppc:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv linuxppc.exe $(BUILD_PATH)/FULL_linuxppc_turn_based.exe
-	rm $(SOURCE_PATH)/../*.o
+	rm $(SOURCE_PATH)/../../*.o
 
 linuxppc_targets: \
 	linuxppc
@@ -154,7 +154,7 @@ linux68k:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv linux68k.exe $(BUILD_PATH)/FULL_linux68k_turn_based.exe
-	rm $(SOURCE_PATH)/../*.o
+	rm $(SOURCE_PATH)/../../*.o
 	
 linux68k_targets: \
 	linux68k
@@ -180,7 +180,7 @@ linux386:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv linux386.exe $(BUILD_PATH)/FULL_linux386_turn_based.exe
-	rm $(SOURCE_PATH)/../*.o
+	rm $(SOURCE_PATH)/../../*.o
 
 linux386_targets: \
 	linux386
@@ -206,7 +206,7 @@ linuxmips:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	mv linuxmips.exe $(BUILD_PATH)/FULL_linuxmips_turn_based.exe
-	rm $(SOURCE_PATH)/../*.o	
+	rm $(SOURCE_PATH)/../../*.o
 
 linuxmips_targets: \
 	linuxmips

@@ -2,6 +2,7 @@
 #ifndef _CONIO_PATH_H
 #define _CONIO_PATH_H
 
+
 #if defined(ACK)
     #define cputc(c) putchar(c)
 #endif
@@ -251,6 +252,79 @@
         #endif	
     #endif
 #endif // defined(NO_GRAPHICS)
+
+#define CPC_WHITE 1
+#define CPC_YELLOW 2 
+#define CPC_RED 3
+#define CPC_BLACK 4
+
+#define CPC_TEXT_WHITE 3
+
+#if defined(NO_GRAPHICS) || defined(NO_PRINT)
+    #if !defined(COLOR_RED)
+        #define COLOR_RED 0
+    #endif
+    #if !defined(COLOR_BLUE)
+        #define COLOR_BLUE 0
+    #endif
+    #if !defined(COLOR_WHITE)
+        #define COLOR_WHITE 0
+    #endif
+    #if !defined(COLOR_YELLOW)
+        #define COLOR_YELLOW 0
+    #endif
+    #if !defined(COLOR_GREEN)
+        #define COLOR_GREEN 0
+    #endif
+#endif 
+
+
+#ifndef COLOR_CYAN
+	#define COLOR_CYAN COLOR_BLUE
+#endif
+
+#ifndef COLOR_PURPLE
+	#define COLOR_PURPLE COLOR_CYAN
+#endif
+
+
+#if defined(CPCRSLIB)
+    #undef COLOR_BLUE
+    #define COLOR_BLUE CPC_WHITE
+    
+    #undef COLOR_CYAN
+    #define COLOR_CYAN CPC_YELLOW
+    
+    #undef COLOR_RED 
+    #define COLOR_RED CPC_RED
+    
+    #undef COLOR_WHITE 
+    #define COLOR_WHITE CPC_WHITE
+    
+    #undef COLOR_YELLOW
+    #define COLOR_YELLOW CPC_YELLOW
+
+    #undef COLOR_PURPLE 
+    #define COLOR_PURPLE CPC_YELLOW
+    
+    #undef COLOR_GREEN
+    #define COLOR_GREEN CPC_YELLOW
+#endif
+
+#  if defined(__PC6001__) || defined(__SPC1000__)
+    #undef COLOR_WHITE
+    #define COLOR_WHITE COLOR_CYAN
+#endif
+
+// Text-only colors
+#define _RED CPC_TEXT_WHITE
+#if defined(CPCRSLIB)
+    #define _CYAN CPC_TEXT_WHITE
+    #define _WHITE CPC_TEXT_WHITE
+#else
+    #define _CYAN COLOR_CYAN
+    #define _WHITE COLOR_WHITE
+#endif
 
 #endif // _CONIO_PATH_H
 

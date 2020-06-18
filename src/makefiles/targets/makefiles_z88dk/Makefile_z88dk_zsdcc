@@ -221,8 +221,8 @@ oz_tiny_buffered:
 	-DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	$(TOOLS_PATH)/z88dk/oz/makewzd.exe $(SOURCE_PATH)/../oz
-	rm oz.bin
+	$(TOOLS_PATH)/z88dk/oz/makewzd.exe $(SOURCE_PATH)/../../oz
+	rm $(SOURCE_PATH)/../../oz.bin
 	mv oz.wzd $(BUILD_PATH)/TINY_oz_buffered.wzd
 
 
@@ -245,7 +245,7 @@ pv1000:
 	-lndos \
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	chase/end_screen.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_pv1000.bin
 	rm $(BUILD_PATH)/FULL_pv1000.bin

@@ -200,7 +200,7 @@ alphatro:
 	-DNO_INIT_GRAPHICS \
 	-lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	chase/end_screen.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_alphatro.bin
 	rm $(BUILD_PATH)/FULL_alphatro.bin
@@ -369,7 +369,7 @@ coleco_adam:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-lndos \
-	chase/end_screen.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_coleco_adam.bin
@@ -393,7 +393,7 @@ coleco:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
-	chase/end_screen.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_coleco.bin
@@ -493,7 +493,7 @@ eg2k:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
-	chase/end_screen.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_eg2k.bin
@@ -781,7 +781,7 @@ kc:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
-	chase/end_screen.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_kc.bin
 	rm $(BUILD_PATH)/FULL_kc.bin

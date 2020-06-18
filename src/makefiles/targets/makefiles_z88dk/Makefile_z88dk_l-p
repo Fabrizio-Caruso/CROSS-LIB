@@ -326,7 +326,7 @@ multi8:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
-	chase/end_screen.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o code
@@ -775,7 +775,7 @@ pv2000:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
-	chase/end_screen.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_pv2000.bin
 	rm $(BUILD_PATH)/FULL_pv2000.bin

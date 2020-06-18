@@ -411,7 +411,7 @@ spc1000:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
-	chase/end_screen.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_spc1000.bin
 	rm $(BUILD_PATH)/FULL_spc1000.bin
@@ -505,7 +505,7 @@ super80:
 	-DCONIO_VT52 \
 	-DNO_INIT_GRAPHICS \
 	-lndos \
-	chase/end_screen.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o super80
 	mv super80.ql $(BUILD_PATH)/FULL_super80.ql
@@ -528,7 +528,7 @@ super80r:
 	-DCONIO_VT52 \
 	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
-	chase/end_screen.c \
+	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-lndos \
 	-create-app -o super80r
@@ -576,8 +576,8 @@ ti82:
 	-create-app -o ti82 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../ti82.82p $(BUILD_PATH)/FULL_ti82.82p
-	rm $(SOURCE_PATH)/../ti82
+	mv $(SOURCE_PATH)/../../ti82.82p $(BUILD_PATH)/FULL_ti82.82p
+	rm $(SOURCE_PATH)/../../ti82
 
 
 #############################
@@ -598,8 +598,8 @@ ti83:
 	-create-app -oxchase \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../xchase.83p $(BUILD_PATH)/FULL_ti83.83p
-	rm $(SOURCE_PATH)/../xchase
+	mv $(SOURCE_PATH)/../../xchase.83p $(BUILD_PATH)/FULL_ti83.83p
+	rm $(SOURCE_PATH)/../../xchase
 
 
 #############################
@@ -620,8 +620,8 @@ ti85:
 	-create-app -oti85 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../ti85.85s $(BUILD_PATH)/FULL_ti85.85s
-	rm $(SOURCE_PATH)/../ti85
+	mv $(SOURCE_PATH)/../../ti85.85s $(BUILD_PATH)/FULL_ti85.85s
+	rm $(SOURCE_PATH)/../../ti85
 
 
 #############################
@@ -644,8 +644,8 @@ ti86_light:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app  -oti86 \
 	$(LIGHT_FILES)
-	mv $(SOURCE_PATH)/../ti86.86p $(BUILD_PATH)/LIGHT_ti86.86p	
-	rm $(SOURCE_PATH)/../ti86
+	mv $(SOURCE_PATH)/../../ti86.86p $(BUILD_PATH)/LIGHT_ti86.86p	
+	rm $(SOURCE_PATH)/../../ti86
 
 
 #############################
@@ -666,8 +666,8 @@ ti8x:
 	-create-app -oxchase8x \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../xchase8x.8xp $(BUILD_PATH)/FULL_ti8x.8xp	
-	mv $(SOURCE_PATH)/../xchase8x $(BUILD_PATH)/FULL_ti8x.bin
+	mv $(SOURCE_PATH)/../../xchase8x.8xp $(BUILD_PATH)/FULL_ti8x.8xp	
+	mv $(SOURCE_PATH)/../../xchase8x $(BUILD_PATH)/FULL_ti8x.bin
 
 ti: ti82 ti83 ti85 ti86 ti8x
 
@@ -696,9 +696,9 @@ tiki100:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	mv $(SOURCE_PATH)/../tiki100.dsk $(BUILD_PATH)/FULL_tiki100.dsk
-	rm $(SOURCE_PATH)/../tiki100
-	rm $(SOURCE_PATH)/../tiki100_HIMEM.bin
+	mv $(SOURCE_PATH)/../../tiki100.dsk $(BUILD_PATH)/FULL_tiki100.dsk
+	rm $(SOURCE_PATH)/../../tiki100
+	rm $(SOURCE_PATH)/../../tiki100_HIMEM.bin
 
 
 #############################
@@ -855,8 +855,8 @@ z1013:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o z1013
-	mv $(SOURCE_PATH)/../Z1013.Z80 $(BUILD_PATH)/FULL_z1013.z80
-	rm $(SOURCE_PATH)/../z1013
+	mv $(SOURCE_PATH)/../../Z1013.Z80 $(BUILD_PATH)/FULL_z1013.z80
+	rm $(SOURCE_PATH)/../../z1013
 
 
 #############################

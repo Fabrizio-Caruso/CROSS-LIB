@@ -30,11 +30,6 @@
 #include "settings.h"
 #include "text_strings.h"
 
-#define _YELLOW COLOR_YELLOW
-#define _WHITE COLOR_WHITE
-#define _RED   COLOR_RED
-#define SCORE_COLOR COLOR_IF_NO_BLUE_THEN_YELLOW
-
 extern uint8_t guns;
 extern Image GUN_IMAGE;
 extern Image SKULL_IMAGE;
@@ -119,7 +114,7 @@ extern Image PLAYER_IMAGE;
 
 
 #define PRINT_WIDE_TITLE() \
-	SET_COLOR(SCORE_COLOR); \
+	SET_COLOR(_CYAN); \
 	PRINT(0,       0, SCORE_STRING); \
 	PRINT(0, LEVEL_Y, LEVEL_STRING); \
 	\
@@ -346,7 +341,7 @@ void displayStats(void)
 		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
 			_printTopScore();
 			
-			SET_COLOR(COLOR_IF_NO_BLUE_THEN_YELLOW);
+			SET_COLOR(_WHITE);
 			
 			printCenteredMessageOnRow(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
 			printCenteredMessageOnRow(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);			

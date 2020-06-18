@@ -317,13 +317,14 @@
 #endif
 
 // Text-only colors
-#define _RED CPC_TEXT_WHITE
 #if defined(CPCRSLIB)
     #define _CYAN CPC_TEXT_WHITE
     #define _WHITE CPC_TEXT_WHITE
+    #define _RED CPC_TEXT_WHITE
 #else
     #define _CYAN COLOR_CYAN
     #define _WHITE COLOR_WHITE
+    #define _RED COLOR_RED
 #endif
 
 #endif // _CONIO_PATH_H

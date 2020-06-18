@@ -30,10 +30,6 @@
 #include "settings.h"
 #include "text_strings.h"
 
-#define _YELLOW COLOR_YELLOW
-#define _WHITE COLOR_WHITE
-#define _RED   COLOR_RED
-#define SCORE_COLOR COLOR_IF_NO_BLUE_THEN_YELLOW
 
 extern Image GHOST_IMAGE;
 extern Image BULLET_IMAGE;
@@ -103,7 +99,7 @@ extern Image BULLET_IMAGE;
 
 
 #define PRINT_WIDE_TITLE() \
-    SET_COLOR(SCORE_COLOR); \
+    SET_COLOR(_CYAN); \
     PRINT(0, +0,   SCORE_STRING); \
     PRINT(0, +0+1, LEVEL_STRING); \
     \

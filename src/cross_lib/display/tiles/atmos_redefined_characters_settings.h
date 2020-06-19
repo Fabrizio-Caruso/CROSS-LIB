@@ -1,19 +1,17 @@
 
 #define _INVERTED 128u
 
-#if !defined(ANIMATE_PLAYER)
-	#define _TILE_0_OFFSET 0x5c
-#else		
-	#define _TILE_3_OFFSET '*'
-	#define _TILE_2_OFFSET ','
-	#define _TILE_1_OFFSET '.'
-	#define _TILE_0_OFFSET '/'	
-	
-	#define _TILE_2 '*'
-	#define _TILE_3 ','
-	#define _TILE_1 '.'
-	#define _TILE_0 '/'		
-#endif
+
+#define _TILE_2_OFFSET '*'
+#define _TILE_3_OFFSET ','
+#define _TILE_1_OFFSET '.'
+#define _TILE_0_OFFSET '/'
+
+#define _TILE_2 _TILE_3_OFFSET
+#define _TILE_3 _TILE_2_OFFSET
+#define _TILE_1 _TILE_1_OFFSET
+#define _TILE_0 _TILE_0_OFFSET
+
 	
 #define _TILE_4_OFFSET 0x60
 #define _TILE_7_OFFSET 0x7b

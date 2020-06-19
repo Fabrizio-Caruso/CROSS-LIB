@@ -59,40 +59,20 @@ MACROS_NO_GRAPHICS ?= \
 	-DALT_PRINT \
 	-DDEFAULT_CLEAR_SCREEN
 
-INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
--I$(CROSS_LIB_PATH)/display \
--I$(CROSS_LIB_PATH)/display/graphics_mode \
--I$(CROSS_LIB_PATH)/display/alt_print \
--I$(CROSS_LIB_PATH)/include \
--I$(CROSS_LIB_PATH)/sound \
--I$(CROSS_LIB_PATH)/sound/cc65/atmos \
--I$(CROSS_LIB_PATH)/sound/cc65/c264 \
--I$(CROSS_LIB_PATH)/sound/cc65/pokey \
--I$(CROSS_LIB_PATH)/sound/cc65/sid \
--I$(CROSS_LIB_PATH)/sound/cc65/vic20 \
--I$(CROSS_LIB_PATH)/sound/z88dk/bit_bang \
--I$(CROSS_LIB_PATH)/sound/z88dk/psg \
--I$(CROSS_LIB_PATH)/sound/lcc1802/comx \
--I$(CROSS_LIB_PATH)/text \
--I$(CROSS_LIB_PATH)/input \
--I$(CROSS_LIB_PATH)/rand \
--I$(CROSS_LIB_PATH)/display/redefine_characters \
--I$(CROSS_LIB_PATH)/display/image_settings \
--I$(SOURCE_PATH)/graphics_data \
--I$(SOURCE_PATH)/graphics_data/cc65 \
--I$(SOURCE_PATH)/graphics_data/z88dk \
--I$(SOURCE_PATH)/
+#####################################################################
+# Common includes and targets
+include makefiles/auxiliary/Makefile_common
 
+
+# Draw skip
 LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3
 DRAW_SKIP ?=       -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=7
 EXTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
 ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1 
 
 
-TOOLS_PATH ?= ../tools
 
-CFG_PATH ?= $(CROSS_LIB_PATH)/cfg/
-
+#
 BASIC_CROSS_LIB_FILES ?= \
 	$(CROSS_LIB_PATH)/display/display_macros.c \
 	$(CROSS_LIB_PATH)/input/input_macros.c \
@@ -105,7 +85,7 @@ NO_CHASE_FILES ?= \
 	$(SOURCE_PATH)/main.c \
 	$(SOURCE_PATH)/init_images.c
 
-
+#
 TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c
 
 TEST_FILES ?= $(NO_CHASE_FILES)
@@ -139,50 +119,6 @@ all: \
     gcc_amiga_targets \
     z88dk_targets
 
-
-# Clean targets
-clean_chase_obj:
-	rm -rf $(SOURCE_PATH)/*.o
-
-clean_chase_temp:
-	rm -rf $(SOURCE_PATH)/wincmoc_main.c
-	rm -rf $(SOURCE_PATH)/wincmoc_main.asm
-	rm -rf $(SOURCE_PATH)/wincmoc_main.coco.bin
-	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
-	rm -rf $(SOURCE_PATH)/../light_comx_combo.c
-	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
-	rm -rf $(SOURCE_PATH)/../full_comx_combo.asm
-	rm -rf $(SOURCE_PATH)/../light_comx_combo.asm
-	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.asm
-	rm -rf $(SOURCE_PATH)/../full_pecom_combo.c
-	rm -rf $(SOURCE_PATH)/../light_pecom_combo.c
-	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
-	rm -rf $(SOURCE_PATH)/../full_pecom_combo.asm
-	rm -rf $(SOURCE_PATH)/../light_pecom_combo.asm
-	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.asm
-
-clean_lib_obj:
-	find -type f -name '*.o' -delete
-
-clean_obj: \
-	clean_chase_obj \
-	clean_chase_temp \
-	clean_lib_obj
-
-clean_build:
-	rm -rf $(BUILD_PATH)/*
-
-
-clean: \
-	clean_obj \
-	clean_build
-
-
-help:
-	cat ../docs/BUILD.md
-
-list:
-	cat ../docs/SYSTEMS.md
 
 
 ####################################################################################################################

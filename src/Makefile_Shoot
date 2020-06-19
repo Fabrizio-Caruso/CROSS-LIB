@@ -77,11 +77,15 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/input \
 -I$(CROSS_LIB_PATH)/rand \
 -I$(CROSS_LIB_PATH)/display/redefine_characters \
--I$(CROSS_LIB_PATH)/display/image_settings \
+-I$(CROSS_LIB_PATH)/display/tiles \
 -I$(SOURCE_PATH)/graphics_data \
 -I$(SOURCE_PATH)/graphics_data/cc65 \
 -I$(SOURCE_PATH)/graphics_data/z88dk \
 -I$(SOURCE_PATH)/
+
+TOOLS_PATH ?= ../tools
+
+CFG_PATH ?= $(CROSS_LIB_PATH)/cfg/
 
 LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3
 DRAW_SKIP ?=       -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=7
@@ -89,9 +93,9 @@ EXTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
 ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1 
 
 
-TOOLS_PATH ?= ../tools
 
-CFG_PATH ?= $(CROSS_LIB_PATH)/cfg/
+
+
 
 BASIC_CROSS_LIB_FILES ?= \
 	$(CROSS_LIB_PATH)/display/display_macros.c \

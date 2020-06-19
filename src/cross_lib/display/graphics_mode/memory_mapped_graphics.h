@@ -54,7 +54,6 @@
         
     #define CHAR_BASE ((uint16_t) 0x0000)
     #define COLOR_DEF ((uint16_t) 0x1800)   
-
     #define DISPLAY_POKE(addr,val) \
         __asm__("sei"); \
         POKE(VDP_CONTROL,(uint8_t) (addr&0x00FF)); \

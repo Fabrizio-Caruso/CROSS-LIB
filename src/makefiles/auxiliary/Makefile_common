@@ -1,0 +1,72 @@
+
+INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
+-I$(CROSS_LIB_PATH)/display \
+-I$(CROSS_LIB_PATH)/display/graphics_mode \
+-I$(CROSS_LIB_PATH)/display/alt_print \
+-I$(CROSS_LIB_PATH)/include \
+-I$(CROSS_LIB_PATH)/sound \
+-I$(CROSS_LIB_PATH)/sound/cc65/atmos \
+-I$(CROSS_LIB_PATH)/sound/cc65/c264 \
+-I$(CROSS_LIB_PATH)/sound/cc65/pokey \
+-I$(CROSS_LIB_PATH)/sound/cc65/sid \
+-I$(CROSS_LIB_PATH)/sound/cc65/vic20 \
+-I$(CROSS_LIB_PATH)/sound/z88dk/bit_bang \
+-I$(CROSS_LIB_PATH)/sound/z88dk/psg \
+-I$(CROSS_LIB_PATH)/sound/lcc1802/comx \
+-I$(CROSS_LIB_PATH)/text \
+-I$(CROSS_LIB_PATH)/input \
+-I$(CROSS_LIB_PATH)/rand \
+-I$(CROSS_LIB_PATH)/display/redefine_characters \
+-I$(CROSS_LIB_PATH)/display/tiles \
+-I$(SOURCE_PATH)/graphics_data \
+-I$(SOURCE_PATH)/graphics_data/cc65 \
+-I$(SOURCE_PATH)/graphics_data/z88dk \
+-I$(SOURCE_PATH)/
+
+TOOLS_PATH ?= ../tools
+
+CFG_PATH ?= $(CROSS_LIB_PATH)/cfg/
+
+# Clean targets
+clean_chase_obj:
+	rm -rf $(SOURCE_PATH)/*.o
+
+clean_chase_temp:
+	rm -rf $(SOURCE_PATH)/wincmoc_main.c
+	rm -rf $(SOURCE_PATH)/wincmoc_main.asm
+	rm -rf $(SOURCE_PATH)/wincmoc_main.coco.bin
+	rm -rf $(SOURCE_PATH)/../full_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../light_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.c
+	rm -rf $(SOURCE_PATH)/../full_comx_combo.asm
+	rm -rf $(SOURCE_PATH)/../light_comx_combo.asm
+	rm -rf $(SOURCE_PATH)/../tiny_comx_combo.asm
+	rm -rf $(SOURCE_PATH)/../full_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../light_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.c
+	rm -rf $(SOURCE_PATH)/../full_pecom_combo.asm
+	rm -rf $(SOURCE_PATH)/../light_pecom_combo.asm
+	rm -rf $(SOURCE_PATH)/../tiny_pecom_combo.asm
+
+clean_lib_obj:
+	find -type f -name '*.o' -delete
+
+clean_obj: \
+	clean_chase_obj \
+	clean_chase_temp \
+	clean_lib_obj
+
+clean_build:
+	rm -rf $(BUILD_PATH)/*
+
+
+clean: \
+	clean_obj \
+	clean_build
+
+
+help:
+	cat ../docs/BUILD.md
+
+list:
+	cat ../docs/SYSTEMS.md

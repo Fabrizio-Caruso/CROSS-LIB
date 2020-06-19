@@ -167,7 +167,7 @@ laser500_bitmap:
 	-DNO_GRAPHICS -DNO_PRINT -DNO_INPUT -DNO_SET_SCREEN_COLORS \
 	-lndos \
 	$(TINY_FILES) \
-	$(SOURCE_PATH)/init_graphics/z88dk/laser500/laser500_bitmap_init_graphics.c
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/laser500/laser500_bitmap_init_graphics.c
 	mv laser500bm.bin $(BUILD_PATH)/TINY_laser500_bitmap.bin
 	rm laser500bm.cas
 	mv laser500bm.wav $(BUILD_PATH)/TINY_laser500_bitmap.wav
@@ -190,7 +190,7 @@ m5:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -270,7 +270,7 @@ msx_32k_rom:
 	-DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(SOURCE_PATH)/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -291,7 +291,7 @@ mtx:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -324,7 +324,7 @@ multi8:
 	-DSIMPLE_STRATEGY \
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -647,7 +647,7 @@ pc6001_32k:
 	-DANIMATE_PLAYER -DUDG_GRAPHICS \
 	-DFORCE_SCREEN_MODE=2 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
 	$(FULL_FILES) \
@@ -773,7 +773,7 @@ pv2000:
 	-DUDG_GRAPHICS \
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \

@@ -75,7 +75,7 @@ aquarius_exp_4k:
 	-DMEMORY_MAPPED \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(SOURCE_PATH)/init_graphics/z88dk/aquarius/aquarius_init_graphics.c
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/aquarius_init_graphics.c
 	rm TINY_aquarius_exp_4k
 	tar czvf TINY_aquarius_exp_4k.tar.zip TINY_aquarius_exp_4k.caq _TINY_aquarius_exp_4k.caq
 	rm TINY_aquarius_exp_4k.caq
@@ -187,7 +187,7 @@ mc1000_48k:
 	-vn  -lndos -Cz--audio \
 	-create-app -o mc1000.bin \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -292,7 +292,7 @@ svi_328:
 	-pragma-define:ansicolumns=32 \
 	-create-app -o svi_328 \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -313,7 +313,7 @@ vg5k_exp_16k:
 	-clib=default \
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -337,7 +337,7 @@ vg5k:
 	-DSIMPLE_STRATEGY \
 	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
 	-DCONIO \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg
@@ -455,7 +455,7 @@ zx81_32k_wrx_turn_based:
 	-DNO_SMALL_LETTERS \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_32k_wrx_turn_based.prg \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	rm $(BUILD_PATH)/FULL_zx81_32k_wrx_turn_based.prg
 

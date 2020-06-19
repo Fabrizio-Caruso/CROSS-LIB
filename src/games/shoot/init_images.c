@@ -1,6 +1,6 @@
 #include "display_macros.h"
 
-#include "image_settings.h"
+#include "tiles.h"
 
 #include "images.h"
 
@@ -102,62 +102,68 @@ void INIT_IMAGES(void)
 
 	// Set Image Data
 	#if defined(ANIMATE_PLAYER)
-		PLAYER_DOWN_IMAGE._imageData = _PLAYER_DOWN;
-		PLAYER_UP_IMAGE._imageData = _PLAYER_UP;	
-		PLAYER_RIGHT_IMAGE._imageData = _PLAYER_RIGHT;
-		PLAYER_LEFT_IMAGE._imageData = _PLAYER_LEFT;	
+		PLAYER_DOWN_IMAGE._imageData = _TILE_0;
+		PLAYER_UP_IMAGE._imageData = _TILE_1;
+		PLAYER_RIGHT_IMAGE._imageData = _TILE_2;
+		PLAYER_LEFT_IMAGE._imageData = _TILE_3;	
 	#else
-		PLAYER_IMAGE._imageData = _PLAYER;			
+		PLAYER_IMAGE._imageData = _TILE_0;
 	#endif
 	
-	GHOST_IMAGE._imageData = _GHOST;
-	BOMB_IMAGE._imageData = _BOMB;
+	GHOST_IMAGE._imageData = _TILE_4;
+	BOMB_IMAGE._imageData = _TILE_5;
 	
 	#if !defined(NO_DEAD_GHOSTS)
-		DEAD_GHOST_IMAGE._imageData = _DEAD_GHOST;	
+		DEAD_GHOST_IMAGE._imageData = _TILE_6;
 	#endif
 	
 	#if !defined(TINY_GAME)
-		SKULL_IMAGE._imageData = _SKULL;
+		SKULL_IMAGE._imageData = _TILE_7;
 
-		POWERUP_IMAGE._imageData = _POWERUP;
-		GUN_IMAGE._imageData = _GUN;
-		EXTRA_POINTS_IMAGE._imageData = _EXTRA_POINTS;
+		POWERUP_IMAGE._imageData = _TILE_8;
+		GUN_IMAGE._imageData = _TILE_9;
+		EXTRA_POINTS_IMAGE._imageData = _TILE_10;
 		
-		BULLET_IMAGE._imageData = _BULLET;
+		BULLET_IMAGE._imageData = _TILE_11;
 		
-		VERTICAL_BRICK_IMAGE._imageData = _VERTICAL_BRICK;
-		HORIZONTAL_BRICK_IMAGE._imageData = _HORIZONTAL_BRICK;		
+		VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
+		HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
 	#endif
 	
 	#if defined(FULL_GAME)
-		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _LEFT_HORIZONTAL_MISSILE;
+		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_14;
 		
-		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _RIGHT_HORIZONTAL_MISSILE;
+		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_15;
 		
-		ROCKET_IMAGE._imageData = _ROCKET;
+		ROCKET_IMAGE._imageData = _TILE_16;
 
 		// If colors are present POWERUP/FREEZE/SUPER can be differentiated by the color attribute -> same _POWERUP for all of them
-		#if !defined(NO_COLOR) && !defined(UDG_GRAPHICS) && !defined(__NES__) && !defined(__MO5__)
-			FREEZE_IMAGE._imageData = _POWERUP;
-			SUPER_IMAGE._imageData = _POWERUP;
-		#else
-			FREEZE_IMAGE._imageData = _FREEZE;
-			SUPER_IMAGE._imageData = _SUPER;
-		#endif
+		// #if !defined(NO_COLOR) && !defined(UDG_GRAPHICS) && !defined(__NES__) && !defined(__MO5__)
+			// FREEZE_IMAGE._imageData = _POWERUP;
+			// SUPER_IMAGE._imageData = _POWERUP;
+		// #else
+			// FREEZE_IMAGE._imageData = _FREEZE;
+			// SUPER_IMAGE._imageData = _SUPER;
+		// #endif
 		
-		EXTRA_LIFE_IMAGE._imageData = _EXTRA_LIFE;
-		INVINCIBILITY_IMAGE._imageData = _INVINCIBILITY;
+        FREEZE_IMAGE._imageData = _TILE_17;
+        SUPER_IMAGE._imageData = _TILE_18;
+
+		EXTRA_LIFE_IMAGE._imageData = _TILE_19;
+		INVINCIBILITY_IMAGE._imageData = _TILE_20;
         
-        #if defined(NO_BLINKING) && defined(_CONFUSE) && defined(_ZOMBIE)
-            CONFUSE_IMAGE._imageData = _CONFUSE;
-            ZOMBIE_IMAGE._imageData = _ZOMBIE;
-        #else
-            CONFUSE_IMAGE._imageData = _SKULL;
-            ZOMBIE_IMAGE._imageData = _GHOST;
-        #endif
+        // #if defined(NO_BLINKING) && defined(_CONFUSE) && defined(_ZOMBIE)
+            // CONFUSE_IMAGE._imageData = _CONFUSE;
+            // ZOMBIE_IMAGE._imageData = _ZOMBIE;
+        // #else
+            // CONFUSE_IMAGE._imageData = _SKULL;
+            // ZOMBIE_IMAGE._imageData = _GHOST;
+        // #endif
+        
+        CONFUSE_IMAGE._imageData = _TILE_21;
+        ZOMBIE_IMAGE._imageData = _TILE_22;
 		
-		BROKEN_BRICK_IMAGE._imageData = _BROKEN_BRICK;
+		BROKEN_BRICK_IMAGE._imageData = _TILE_23;
 	#endif
 #endif 
 }

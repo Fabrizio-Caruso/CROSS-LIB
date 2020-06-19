@@ -36,7 +36,7 @@ lcc1802_targets:
 
 
 COMX_REDUCED_EXTRA_FILES ?= \
-	$(SOURCE_PATH)/init_graphics/lcc1802/comx/comx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c 
 
 COMX_EXTRA_FILES ?= \

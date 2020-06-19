@@ -76,11 +76,11 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/text \
 -I$(CROSS_LIB_PATH)/input \
 -I$(CROSS_LIB_PATH)/rand \
+-I$(CROSS_LIB_PATH)/display/redefine_characters \
+-I$(CROSS_LIB_PATH)/display/image_settings \
 -I$(SOURCE_PATH)/graphics_data \
 -I$(SOURCE_PATH)/graphics_data/cc65 \
 -I$(SOURCE_PATH)/graphics_data/z88dk \
--I$(SOURCE_PATH)/redefine_characters \
--I$(SOURCE_PATH)/image_settings \
 -I$(SOURCE_PATH)/
 
 LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3

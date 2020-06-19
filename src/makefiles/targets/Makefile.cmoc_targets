@@ -285,7 +285,7 @@ mo5:
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
 	cmoc \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
 	cmoc \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -379,7 +379,7 @@ mo5:
 to7:
 	cmoc \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
 	cmoc \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c

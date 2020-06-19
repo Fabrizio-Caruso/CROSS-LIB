@@ -179,7 +179,7 @@ rx78:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -242,7 +242,7 @@ sc3000_32k:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	-o $(BUILD_PATH)/FULL_sc3000_32k.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -268,7 +268,7 @@ sg1000:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	-o $(BUILD_PATH)/FULL_sg1000.prg \
 	$(SOURCE_PATH)/end_screen.c \
@@ -319,7 +319,7 @@ sms_buffered:
 	-DNO_SLEEP \
 	-DNO_WAIT \
 	-o $(BUILD_PATH)/FULL_sms_buffered.bin \
-	$(SOURCE_PATH)/init_graphics/z88dk/sms/sms_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) 
 	rm $(BUILD_PATH)/FULL_sms_buffered_CODE.bin
@@ -345,7 +345,7 @@ sms_tiny_buffered:
 	-DNO_SLEEP \
 	-DNO_WAIT \
 	-o $(BUILD_PATH)/TINY_sms_buffered.bin \
-	$(SOURCE_PATH)/init_graphics/z88dk/sms/sms_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES) 
 	rm $(BUILD_PATH)/TINY_sms_buffered_CODE.bin
@@ -409,7 +409,7 @@ spc1000:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -434,7 +434,7 @@ spectrum_16k:
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/TINY_spectrum_16k.prg \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_spectrum_16k.prg
@@ -458,7 +458,7 @@ spectrum_48k:
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/FULL_spectrum_48k.prg \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -480,7 +480,7 @@ srr:
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	-create-app -o srr \
 	$(SOURCE_PATH)/end_screen.c \
@@ -526,7 +526,7 @@ super80r:
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-DCONIO_VT52 \
-	$(SOURCE_PATH)/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -897,7 +897,7 @@ z88:
 	-DNO_SLEEP \
 	-DNO_COLOR \
 	-DDEFAULT_CLEAR_SCREEN \
-	$(SOURCE_PATH)/init_graphics/z88dk/z88/z88_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/z88/z88_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-create-app -o z88

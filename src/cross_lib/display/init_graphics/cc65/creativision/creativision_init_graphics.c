@@ -1,34 +1,10 @@
 
 #include "8x8_chars.h"
 
-#include "creativision_settings.h"
-
 #include "udg_map.h"
 
 #include "memory_mapped_graphics.h"
 
-// const uint8_t player_down_image[8] = _TILE_0_UDG;
-// const uint8_t player_up_image[8] = _TILE_1_UDG;
-// const uint8_t player_left_image[8] = _TILE_3_UDG;
-// const uint8_t player_right_image[8] = _TILE_2_UDG;
-// const uint8_t skull_image[8] = _TILE_7_UDG;
-// const uint8_t ghost_image[8] = _TILE_4_UDG;
-// const uint8_t bomb_image[8] = _TILE_5_UDG;
-// const uint8_t gun_image[8] = _TILE_9_UDG;
-// const uint8_t powerup_image[8] = _TILE_8_UDG;
-
-// const uint8_t super_image[8] = _TILE_18_UDG;
-// const uint8_t extra_life_image[8] = _TILE_19_UDG;
-// const uint8_t bullet_image[8] = _TILE_11_UDG;
-// const uint8_t freeze_image[8] = _TILE_17_UDG;
-// const uint8_t invincibility_image[8] = _TILE_20_UDG;
-
-// const uint8_t dead_ghost_image[8] = _TILE_6_UDG;
-// const uint8_t rocket_image[8] = _TILE_16_UDG;
-// const uint8_t left_horizontal_missile_image[8] = _TILE_14_UDG;
-// const uint8_t right_horizontal_missile_image[8] = _TILE_15_UDG;
-
-// const uint8_t extra_points_image[8] = _TILE_10_UDG;
 
 void set_group_color(uint8_t group, uint8_t color)
 {
@@ -75,11 +51,13 @@ void SET_UDG_IMAGES(void)
 	} 
 }
 
-#include <conio.h>
+
 void INIT_GRAPHICS(void)
 {
+    
     SET_UDG_IMAGES();
 
-    
     set_udg_colors();  
 }
+
+

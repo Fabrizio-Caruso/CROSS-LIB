@@ -55,11 +55,13 @@
     #define CHAR_BASE ((uint16_t) 0x0000)
     #define COLOR_DEF ((uint16_t) 0x1800)   
     #define DISPLAY_POKE(addr,val) \
+    do { \
         __asm__("sei"); \
         POKE(VDP_CONTROL,(uint8_t) (addr&0x00FF)); \
         POKE(VDP_CONTROL,(uint8_t) (addr>>8)|0x40); \
         POKE(VDP_DATA,val); \
-        __asm__("cli");    
+        __asm__("cli"); \
+    } while(0)
         
 #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
     #include <devkit/video/vis_video.h>

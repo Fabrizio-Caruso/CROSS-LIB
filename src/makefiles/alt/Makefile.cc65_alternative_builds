@@ -49,8 +49,8 @@ c64_alt_targets: \
 # CREATIVISION
 creativision_alt_targets: \
     creativision_32k \
-    creativision_8k_tiny 
-
+    creativision_8k_tiny \
+    creativision_16k_no_gfx
 
 #############################
 # GAMATE
@@ -207,6 +207,23 @@ c64_8k_cart:
 
 #############################
 # CREATIVISION
+
+creativision_16k_no_gfx:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SET_SCREEN_COLORS \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/ALT_FULL_creativision_16k.bin	
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/ALT_FULL_creativision_16k_LOW.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/ALT_FULL_creativision_16k_HIGH.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_16k.bin 
+	cat $(BUILD_PATH)/ALT_FULL_creativision_16k_HIGH.bin $(BUILD_PATH)/ALT_FULL_creativision_16k_LOW.bin > $(BUILD_PATH)/ALT_FULL_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_16k_LOW.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_16k_HIGH.bin	
 
 creativision_32k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \

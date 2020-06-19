@@ -4,7 +4,6 @@
 
 // BLUE
 #define _TILE_0 0x3B
-#define _TILE_0 0x3B
 #define _TILE_1 0x3C
 #define _TILE_2 0x3D 
 #define _TILE_3 0x3E

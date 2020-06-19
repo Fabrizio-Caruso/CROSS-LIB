@@ -1,0 +1,85 @@
+######################################################################
+# Makefile for CROSS-SHOOT 
+
+
+SOURCE_PATH := games/shoot
+
+
+#####################################################################
+# Common includes and targets
+include makefiles/auxiliary/Makefile_common
+
+
+#####################################################################
+# Draw skip
+LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3
+DRAW_SKIP ?=       -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=7
+EXTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
+ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1 
+
+
+######################################################################
+# Cross-Shoot files
+#
+NO_CHASE_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+	$(SOURCE_PATH)/move_player.c \
+	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/init_images.c
+
+TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c
+
+#
+TEST_FILES ?= $(NO_CHASE_FILES)
+
+#
+LIGHT_ONLY_FILES ?= $(SOURCE_PATH)/item.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c 
+
+#
+FULL_ONLY_FILES ?= $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c 
+
+#
+LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES) 
+
+#
+FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
+
+
+#################################################################
+CC65_PATH ?= 
+#/home/fabri/CC65_FIX/cc65/bin/
+
+MYCC65 ?= cl65$(EXEEXT)
+
+#################################################################
+
+c64: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
+	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DCBM_SCREEN_CODES \
+	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(SOURCE_PATH)/graphics_data/cc65/graphics.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_c64.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_c64.prg -o $(BUILD_PATH)/FULL_c64_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_c64_exomized.prg  $(BUILD_PATH)/FULL_c64_exomized.crt
+	rm $(BUILD_PATH)/FULL_c64.prg
+
+
+vic20_exp_16k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS  \
+	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
+	-DCONIO -DVIC20_EXP_16K \
+	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
+	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_vic20_exp_16k.prg

@@ -3,7 +3,22 @@
 # ------------------------------------------------------------------------------------------
 # SDCC
 #
-	
+
+MACROS_NO_GRAPHICS ?= \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_CHASE \
+	-DFULL_GAME \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INIT_GRAPHICS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN
+
 sdcc_display_macros: 
 	sdcc -c $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MACROS_NO_GRAPHICS) $(CROSS_LIB_PATH)/display/display_macros.c
 	

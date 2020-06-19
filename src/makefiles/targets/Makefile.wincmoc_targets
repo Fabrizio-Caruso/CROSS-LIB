@@ -15,6 +15,26 @@ WINCMOC_OPTS ?= \
 	-D__fastcall__= -D__cdecl= -Drestrict= -DNO_OLDNAMES= 
 	
 
+
+WINCMOC_DEBUG_OPTS ?= \
+	-D__GCC_BUFFERED__ \
+	-DFORCE_XSIZE=79 \
+	-DFORCE_YSIZE=22 \
+	-DSTDLIB \
+	-DNO_RANDOM_LEVEL \
+	-DNO_WAIT \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_INPUT \
+	-DNO_PRINT \
+	-DNO_SLEEP \
+	-DNO_COLOR \
+	-DNO_CHASE \
+	-DTINY_GAME \
+	-DTURN_BASED \
+	-DNO_GRAPHICS \
+	-DNO_INIT_GRAPHICS \
+	-DDEFAULT_CLEAR_SCREEN 
+
 ################################################################################
 
 
@@ -22,7 +42,7 @@ WINCMOC_OPTS ?= \
 wincmoc_debug: tiny_combo_rand.cat 
 	mv tiny_combo_rand.cat tiny_combo_rand.c
 	$(WINCMOC_DIR)cmoc.exe  $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(WINCMOC_OPTS) \
-	$(DEBUG_MACROS) \
+	$(WINCMOC_DEBUG_OPTS) \
 	tiny_combo_rand.c
 	$(WINCMOC_DIR)lwasm.exe -f obj -o tiny_combo_rand.o tiny_combo_rand.asm
 

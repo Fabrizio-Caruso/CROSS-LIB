@@ -1,69 +1,16 @@
+######################################################################
 # Makefile for CROSS-CHASE 
 
 
-ifneq ($(COMSPEC),)
-DO_WIN:=1
-endif
-ifneq ($(ComSpec),)
-DO_WIN:=1
-endif 
-
-ifeq ($(DO_WIN),1)
-EXEEXT = .exe
-endif
-
-ifeq ($(DO_WIN),1)
-COMPILEDEXT = .exe
-else
-COMPILEDEXT = .out
-endif
-
-
 SOURCE_PATH := games/chase
-CROSS_LIB_PATH := cross_lib
 
-
-BUILD_PATH ?= ../build
-
-DEBUG_MACROS ?= \
-	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
-	-DSTDLIB \
-	-DNO_RANDOM_LEVEL \
-	-DNO_WAIT \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_INPUT \
-	-DNO_PRINT \
-	-DNO_SLEEP \
-	-DNO_COLOR \
-	-DNO_CHASE \
-	-DTINY_GAME \
-	-DTURN_BASED \
-	-DNO_GRAPHICS \
-	-DNO_INIT_GRAPHICS \
-	-DDEFAULT_CLEAR_SCREEN 
-
-MACROS_NO_GRAPHICS ?= \
-	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
-	-DSTDLIB \
-	-DNO_SLEEP \
-	-DNO_COLOR \
-	-DNO_CHASE \
-	-DFULL_GAME \
-	-DTURN_BASED \
-	-DNO_GRAPHICS \
-	-DNO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN
 
 #####################################################################
 # Common includes and targets
 include makefiles/auxiliary/Makefile_common
 
 
+#####################################################################
 # Draw skip
 LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3
 DRAW_SKIP ?=       -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=7
@@ -71,13 +18,9 @@ EXTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
 ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1 
 
 
-
+######################################################################
+# Cross-Shoot files
 #
-BASIC_CROSS_LIB_FILES ?= \
-	$(CROSS_LIB_PATH)/display/display_macros.c \
-	$(CROSS_LIB_PATH)/input/input_macros.c \
-	$(CROSS_LIB_PATH)/text/text_macros.c
-
 NO_CHASE_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
 	$(SOURCE_PATH)/move_player.c \
@@ -88,13 +31,19 @@ NO_CHASE_FILES ?= \
 #
 TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c
 
+#
 TEST_FILES ?= $(NO_CHASE_FILES)
 
+#
 LIGHT_ONLY_FILES ?= $(SOURCE_PATH)/item.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c 
+
+#
 FULL_ONLY_FILES ?= $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c 
 
+#
 LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES) 
 
+#
 FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
 

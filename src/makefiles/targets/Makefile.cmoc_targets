@@ -28,58 +28,58 @@ cmoc_targets: \
 
 
 dragon:
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c	
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
-	cmoc \
+	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
-	cmoc -o $(BUILD_PATH)/xchase.bin \
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
@@ -114,58 +114,58 @@ dragon_targets: \
 
 	
 coco:
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c	
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
-	cmoc \
+	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
-	cmoc -o $(BUILD_PATH)/FULL_CoCo.bin \
+	$(CMOC) -o $(BUILD_PATH)/FULL_CoCo.bin \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
@@ -204,55 +204,55 @@ coco_targets: \
 
 	
 vectrex:
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c	
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
-	cmoc \
+	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
-	cmoc -o $(BUILD_PATH)/FULL_Vectrex.bin \
+	$(CMOC) -o $(BUILD_PATH)/FULL_Vectrex.bin \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
@@ -280,64 +280,64 @@ vectrex_targets: \
 	vectrex
 
 mo5: 
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c	
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
-	cmoc \
+	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/graphics_data/cmoc/xchase.s	
-	cmoc -o $(BUILD_PATH)/FULL_MO5.bin \
+	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o \
@@ -377,58 +377,58 @@ mo5:
 	
 
 to7:
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c	
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
-	cmoc \
+	$(CMOC) \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
-	cmoc -o $(BUILD_PATH)/FULL_TO7.bin \
+	$(CMOC) -o $(BUILD_PATH)/FULL_TO7.bin \
 	$(TO7_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_init_graphics.o \

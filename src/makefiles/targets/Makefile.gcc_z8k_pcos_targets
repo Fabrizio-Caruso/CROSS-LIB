@@ -3,8 +3,6 @@
 # Z8K-PCOS-GCC
 #
 
-Z8K-PCOS-GCC ?= /opt/z8kgcc-jan-19-2009/bin/z8k-pcos-gcc
-Z8K-PCOS-GCC_OPTS ?= -Wno-cpg 
 
 # Currently to be compiled in Linux (because the source code of the compiler won't easily compile)
 olivetti_m20_targets: \

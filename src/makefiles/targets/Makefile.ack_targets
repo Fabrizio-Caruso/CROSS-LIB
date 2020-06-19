@@ -3,9 +3,6 @@
 # ACK
 #
 
-_ACK ?= ack
-_ACK_OPTS ?= -O6 
-
 
 ack_targets: \
     cpm_8080_targets \

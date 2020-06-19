@@ -1,0 +1,83 @@
+
+
+###########################
+
+###########################
+# ACK
+_ACK ?= ack
+_ACK_OPTS ?= -O6 
+
+
+
+###########################
+# CC65
+CC65_PATH ?= 
+#/home/fabri/CC65_FIX/cc65/bin/
+
+MYCC65 ?= cl65$(EXEEXT)
+
+
+
+###########################
+# CMOC
+CMOC ?= cmoc
+
+
+
+###########################
+# GCC AMIGA
+AMIGA_CC ?= m68k-amigaos-gcc
+AMIGA_OPTS ?= 
+
+
+
+###########################
+# GCC ATARI ST
+ATARI_ST_CC ?= m68k-atari-mint-gcc
+ATARI_ST_OPTS ?=
+
+
+###########################
+# GCC 
+
+# For cygwin posix build: use gcc
+# For windows 32 non-posix build: x86_64-w64-mingw32-gcc
+_CC ?= gcc
+_CC_OPTS ?= 
+
+#############
+
+
+GCC ?= gcc
+GCC_OPTS ?= -Wpedantic -Wall
+
+
+
+###########################
+# GCC Z8K_PCOS 
+Z8K-PCOS-GCC ?= /opt/z8kgcc-jan-19-2009/bin/z8k-pcos-gcc
+Z8K-PCOS-GCC_OPTS ?= -Wno-cpg 
+
+
+
+###########################
+# LCC1802 
+LCC1802_PATH ?= /cygdrive/c/lcc42/bin/
+LCC1802_EXE ?= lcc$(EXEEXT)
+LCC1802 ?= $(LCC1802_PATH)$(LCC1802_EXE)
+
+
+
+###########################
+# XTC68 
+XTC68 ?= qcc
+
+
+Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
+Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
+Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
+
+MYZ88DK ?= zcc$(EXEEXT)
+MYZ88DKASM ?= z80asm$(EXEEXT)
+
+

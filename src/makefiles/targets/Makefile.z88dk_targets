@@ -2,13 +2,6 @@
 # Z88DK
 #
 
-Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
-Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
-Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
-
-MYZ88DK ?= zcc$(EXEEXT)
-MYZ88DKASM ?= z80asm$(EXEEXT)
-
 
 SCCZ80_OPTS ?=
 #-O0

@@ -3,17 +3,6 @@
 #
 
 
-# For cygwin posix build: use gcc
-# For windows 32 non-posix build: x86_64-w64-mingw32-gcc
-_CC ?= gcc
-_CC_OPTS ?= 
-
-###############################################################################################
-
-
-GCC ?= gcc
-GCC_OPTS ?= -Wpedantic -Wall
-
 
 gcc_targets: \
 	gcc_buffered ncurses_targets  

@@ -2,9 +2,6 @@
 # GCC ATARI ST
 
 
-ATARI_ST_CC ?= m68k-atari-mint-gcc
-ATARI_ST_OPTS ?= 
-
 ##############################################################################################
 atari_st_targets: \
 	atari_st_buffered atari_st_ncurses

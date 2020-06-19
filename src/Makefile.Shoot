@@ -6,9 +6,13 @@ SOURCE_PATH := games/shoot
 
 
 #####################################################################
+# Compilers variables
+include makefiles/auxiliary/Makefile_compilers
+
+
+#####################################################################
 # Common includes and targets
 include makefiles/auxiliary/Makefile_common
-
 
 #####################################################################
 # Draw skip
@@ -45,12 +49,6 @@ LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES)
 #
 FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
-
-#################################################################
-CC65_PATH ?= 
-#/home/fabri/CC65_FIX/cc65/bin/
-
-MYCC65 ?= cl65$(EXEEXT)
 
 #################################################################
 

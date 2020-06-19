@@ -3,9 +3,7 @@
 #    -target=xr18CX
 # https://sites.google.com/site/lcc1802/downloads/Quarrantine.zip?attredirects=0&d=1
 
-LCC1802_PATH ?= /cygdrive/c/lcc42/bin/
-LCC1802_EXE ?= lcc$(EXEEXT)
-LCC1802 ?= $(LCC1802_PATH)$(LCC1802_EXE)
+
 #/cygdrive/c/lcc42/bat/caCX.bat
 #/cygdrive/c/lcc42/bin/lcc.exe
 LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG"

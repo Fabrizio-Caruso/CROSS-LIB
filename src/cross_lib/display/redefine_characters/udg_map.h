@@ -2,8 +2,6 @@
 #ifndef _UDG_MAP
 #define _UDG_MAP
 
-// #include <stdint.h>
-
 #if !defined(USE_MSX_BIOS)
     #include "display_macros.h"
     #include "tiles.h"
@@ -152,12 +150,12 @@ const struct redefine_struct redefine_map[] =
 		{_TILE_8_OFFSET_, _TILE_8_UDG},
 		{_TILE_11_OFFSET_, _TILE_11_UDG},
 		{_TILE_12_OFFSET_, _TILE_12_UDG},
-		{_TILE_13_OFFSET_, _TILE_13_UDG},		
+		{_TILE_13_OFFSET_, _TILE_13_UDG},
 	#endif	
 	
 	#if defined(FULL_GAME)
 		{_TILE_16_OFFSET_, _TILE_16_UDG},
-		{_TILE_20_OFFSET_, _TILE_20_UDG},	
+		{_TILE_20_OFFSET_, _TILE_20_UDG},
 		{_TILE_15_OFFSET_, _TILE_15_UDG},
 		{_TILE_14_OFFSET_, _TILE_14_UDG},
 	#endif

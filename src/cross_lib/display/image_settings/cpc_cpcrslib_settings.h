@@ -24,8 +24,8 @@
 #define _TILE_6 _TILE_4
 
 // TODO: UNIMPLEMENTED
-#define _TILE_17 20*2
-#define _TILE_18 21*2
+#define _TILE_17 _TILE_8
+#define _TILE_18 _TILE_8
 
 #define _TILE_21 _TILE_7
 #define _TILE_22 _TILE_4

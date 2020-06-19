@@ -5,25 +5,25 @@
 
 char char_list[UDG_N*2] = 
 { 
-33, '\0', // PLAYER
-37, '\0', // GHOST
-44, '\0', // BOMB
-40, '\0', // SKULL
-43, '\0', // BULLET
-42, '\0', // POWERUP
-41, '\0', // GUN
-49, '\0', // EXTRA_POINTS_IMAGE
-46, '\0', // INVINCIBILITY
-33, '\0', // EXTRA LIFE
-39, '\0', // LEFT_HORIZONTAL_MISSILE
-38, '\0', // RIGHT_HORIZONTAL_MISSILE
-45, '\0', // ROCKET
-33, '\0', // PLAYER_DOWN
-34, '\0', // PLAYER_UP
-35, '\0', // PLAYER_RIGHT
-36, '\0', // PLAYER_LEFT
-47, '\0', // VERTICAL_BRICK
-48, '\0' // HORIZONTAL_BRICK 
+33, '\0', // TILE_0
+37, '\0', // TILE_1
+44, '\0', // TILE_2
+40, '\0', // TILE_3
+43, '\0', // TILE_4
+42, '\0', // TILE_5
+41, '\0', // TILE_6
+49, '\0', // TILE_7
+46, '\0', // TILE_8
+33, '\0', // TILE_9
+39, '\0', // TILE_10
+38, '\0', // TILE_11
+45, '\0', // TILE_12
+33, '\0', // TILE_13
+34, '\0', // TILE_14
+35, '\0', // TILE_15
+36, '\0', // TILE_16
+47, '\0', // TILE_17
+48, '\0' // TILE_18
 };
 
 char space_str[2] = {' ', '\0'};

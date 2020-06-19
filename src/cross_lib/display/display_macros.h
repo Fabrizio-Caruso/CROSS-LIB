@@ -220,7 +220,6 @@ void _delete(uint8_t x, uint8_t y);
 #elif defined(Z88DK_SPRITES)
     #include <games.h>
     #include <graphics.h>
-
     #define CLEAR_SCREEN() clg()
 #elif defined(__NCURSES__)
     #if defined(__ATARI_ST__)
@@ -233,9 +232,7 @@ void _delete(uint8_t x, uint8_t y);
     #include <devkit/video/vis_video.h>
     #include "memory_mapped_graphics.h"
     
-
     #define CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
-
 #else // CONIO case
     #define CLEAR_SCREEN() clrscr()
 #endif

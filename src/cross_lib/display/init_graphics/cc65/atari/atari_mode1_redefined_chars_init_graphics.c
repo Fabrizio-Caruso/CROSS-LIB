@@ -47,10 +47,10 @@ void set_udg(void)
 
 	memcpy(_FONT_START__, (void *)0xE000, 512);
 	
-	/* modify your font at _FONT_START__, etc, then set the new font: */		
+	/* modify your font at _FONT_START__, etc, then set the new font: */
 	REDEFINE_AT(_FONT_START__);
 	
-	*_CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */		
+	*_CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */
 }
 #endif
  

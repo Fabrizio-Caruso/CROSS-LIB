@@ -23,25 +23,25 @@
     }
 
 
-    const uint8_t invincibility_udg[9] =  _TILE_20_UDG;
-    const uint8_t player_down[9] = _TILE_0_UDG;
-    const uint8_t player_up[9] = _TILE_1_UDG;
-    const uint8_t player_right[9] = _TILE_2_UDG;
-    const uint8_t player_left[9] = _TILE_3_UDG;
-    const uint8_t bomb[9] =  _TILE_5_UDG;
-    const uint8_t ghost[9] = _TILE_4_UDG;
-    const uint8_t skull_udg[9] = _TILE_7_UDG;
-    const uint8_t power_udg[9] = _TILE_8_UDG;
-    const uint8_t gun_udg[9] =  _TILE_9_UDG;
-    const uint8_t bullet_udg[9] =  _TILE_11_UDG;
-    const uint8_t dead_ghost_udg[9] = _TILE_6_UDG;
-    const uint8_t rocket_udg[9] = _TILE_16_UDG;
-    const uint8_t left_missile_udg[9] = _TILE_14_UDG;
-    const uint8_t right_missile_udg[9] =  _TILE_15_UDG;
-    const uint8_t vertical_brick_udg[9] =  _TILE_12_UDG;
-    const uint8_t horizontal_brick_udg[9] = _TILE_13_UDG;
-    const uint8_t freeze_udg[9] = _TILE_17_UDG;
-    const uint8_t super_udg[9] = _TILE_18_UDG;
+    const uint8_t tile_20_udg[9] =  _TILE_20_UDG;
+    const uint8_t tile_0_udg[9] = _TILE_0_UDG;
+    const uint8_t tile_1_udg[9] = _TILE_1_UDG;
+    const uint8_t tile_2_udg[9] = _TILE_2_UDG;
+    const uint8_t tile_3_udg[9] = _TILE_3_UDG;
+    const uint8_t tile_5_udg[9] =  _TILE_5_UDG;
+    const uint8_t tile_4_udg[9] = _TILE_4_UDG;
+    const uint8_t tile_7_udg[9] = _TILE_7_UDG;
+    const uint8_t tile_8_udg[9] = _TILE_8_UDG;
+    const uint8_t tile_9_udg[9] =  _TILE_9_UDG;
+    const uint8_t tile_11_udg[9] =  _TILE_11_UDG;
+    const uint8_t tile_6_udg[9] = _TILE_6_UDG;
+    const uint8_t tile_16_udg[9] = _TILE_16_UDG;
+    const uint8_t tile_14_udg[9] = _TILE_14_UDG;
+    const uint8_t tile_15_udg[9] =  _TILE_15_UDG;
+    const uint8_t tile_12_udg[9] =  _TILE_12_UDG;
+    const uint8_t tile_13_udg[9] = _TILE_13_UDG;
+    const uint8_t tile_17_udg[9] = _TILE_17_UDG;
+    const uint8_t tile_18_udg[9] = _TILE_18_UDG;
 
 
 #endif
@@ -58,27 +58,27 @@ void INIT_GRAPHICS(void)
     #endif
     
     #if defined(__COMX__) || defined(__PECOM__) || defined(REDEFINED_CHARS) 
-        redefine_char(106, invincibility_udg, 3);
-        redefine_char(107, player_down, 3);
-        redefine_char(108, player_up, 3);
-        redefine_char(109, player_right, 3);
-        redefine_char(110, player_left, 3);
-        redefine_char(111, bomb, 0);
-        redefine_char(112, ghost, 3);
+        redefine_char(106, tile_20_udg, 3);
+        redefine_char(107, tile_0_udg, 3);
+        redefine_char(108, tile_1_udg, 3);
+        redefine_char(109, tile_2_udg, 3);
+        redefine_char(110, tile_3_udg, 3);
+        redefine_char(111, tile_5_udg, 0);
+        redefine_char(112, tile_4_udg, 3);
 
-        redefine_char(113, skull_udg, 2);
-        redefine_char(114, power_udg, 2);
-        redefine_char(115, gun_udg, 1);
-        redefine_char(116, bullet_udg, 3);
-        redefine_char(117, dead_ghost_udg, 0);
+        redefine_char(113, tile_7_udg, 2);
+        redefine_char(114, tile_8_udg, 2);
+        redefine_char(115, tile_9_udg, 1);
+        redefine_char(116, tile_11_udg, 3);
+        redefine_char(117, tile_6_udg, 0);
 
-        redefine_char(118, rocket_udg, 3);
-        redefine_char(119, left_missile_udg, 3);
-        redefine_char(120, right_missile_udg, 3);
-        redefine_char(121, vertical_brick_udg, 2);
-        redefine_char(122, horizontal_brick_udg, 2);
-        redefine_char(123, freeze_udg, 3);
-        redefine_char(124, super_udg, 0);
+        redefine_char(118, tile_16_udg, 3);
+        redefine_char(119, tile_14_udg, 3);
+        redefine_char(120, tile_15_udg, 3);
+        redefine_char(121, tile_12_udg, 2);
+        redefine_char(122, tile_13_udg, 2);
+        redefine_char(123, tile_17_udg, 3);
+        redefine_char(124, tile_18_udg, 0);
     #endif
     #if defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__)
         disableinterrupt();

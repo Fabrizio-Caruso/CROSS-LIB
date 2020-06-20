@@ -35,7 +35,7 @@
 
 #include "8x8_chars.h"
 
-#define GRAPHICS_MODE (1+16)
+#define GRAPHICS_MODE_1 (1+16)
 
 #include "udg_map.h"	
 
@@ -57,7 +57,7 @@ void set_udg(void)
 void INIT_GRAPHICS(void)
 {
 	// Mode 12 with no last monochromatic lines (12+16)
-	_graphics(GRAPHICS_MODE);
+	_graphics(GRAPHICS_MODE_1);
 	
 	_setcolor_low(0, TGI_COLOR_RED);
 	_setcolor_low(1, TGI_COLOR_WHITE);
@@ -68,6 +68,15 @@ void INIT_GRAPHICS(void)
 	#if defined(REDEFINED_CHARS)
 	set_udg();
 	#endif
+    
+    // {
+        // uint8_t i;
+        // for(i=0;i<254;++i)
+        // {
+            // POKE(BASE_ADDR+i,i);
+        // }
+    // }
+    // while(1);
 }
 
 

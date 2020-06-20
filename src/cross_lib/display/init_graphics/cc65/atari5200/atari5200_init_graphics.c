@@ -37,8 +37,6 @@
 
 #include "8x8_chars.h"
 
-#define GRAPHICS_MODE (1+16)
-
 #include "udg_map.h"	
 
 

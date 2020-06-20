@@ -69,14 +69,6 @@ void INIT_GRAPHICS(void)
 	set_udg();
 	#endif
     
-    // {
-        // uint8_t i;
-        // for(i=0;i<254;++i)
-        // {
-            // POKE(BASE_ADDR+i,i);
-        // }
-    // }
-    // while(1);
 }
 
 

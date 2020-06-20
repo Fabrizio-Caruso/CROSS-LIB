@@ -17,7 +17,7 @@
 #elif defined(__COCO__) || defined(__DRAGON__)
 	#define BASE_ADDR 0x0400
 #elif defined(__ATARI__) && defined(ATARI_MODE1)
-	#define BASE_ADDR 0xBD80
+	#define BASE_ADDR_VALUE (PEEK(88)+PEEK(89)*256)
 #elif defined(__ATARI5200__)
 	#define BASE_ADDR 0x3E20
 #elif defined(__ATMOS__)

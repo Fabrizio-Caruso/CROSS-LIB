@@ -53,7 +53,9 @@ void set_udg(void)
 	*_CHBAS = ((int)_FONT_START__ >> 8);  /* enable the new font */
 }
 #endif
- 
+
+uint16_t BASE_ADDR;
+    
 void INIT_GRAPHICS(void)
 {
 	// Mode 12 with no last monochromatic lines (12+16)
@@ -69,6 +71,8 @@ void INIT_GRAPHICS(void)
 	set_udg();
 	#endif
     
+    BASE_ADDR = BASE_ADDR_VALUE;
+
 }
 
 

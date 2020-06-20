@@ -38,6 +38,9 @@ extern Image VERTICAL_BRICK_IMAGE;
 
 #include "graphics_settings.h"
 
+#if defined(__ATARI__) && defined(ATARI_MODE1)
+extern uint16_t BASE_ADDR;
+#endif
 
 #if defined(MEMORY_MAPPED)
     uint16_t loc(uint8_t x, uint8_t y)

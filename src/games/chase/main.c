@@ -270,7 +270,7 @@ int main(void)
             #if !defined(LESS_TEXT)
                 // Clear the screen, put cursor in upper left corner
                 printLevel();
-                SLEEP(2);
+                SLEEP(1);
                 CLEAR_SCREEN();
             #endif
                 

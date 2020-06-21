@@ -1,10 +1,11 @@
-#include "display_macros.h"
 
 #include "tiles.h"
-
 #include "images.h"
-
 #include "init_images.h"
+
+
+#include "cross_lib.h"
+
 
 #if !defined(ANIMATE_PLAYER)
 	extern Image PLAYER_IMAGE;

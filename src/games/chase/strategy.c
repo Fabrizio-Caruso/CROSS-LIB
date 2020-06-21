@@ -25,7 +25,8 @@
 #include "settings.h"
 #include "character.h"
 #include "strategy.h"
-#include "rand.h"
+
+#include "cross_lib.h"
 
 extern uint8_t level;
 #if !defined(TINY_GAME) || defined(TURN_BASED)

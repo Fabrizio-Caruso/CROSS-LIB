@@ -112,6 +112,8 @@
 
 #include "text_macros.h"
 
+#include "rand.h"
+
 #endif // _TARGET_SETTINGS
 
 

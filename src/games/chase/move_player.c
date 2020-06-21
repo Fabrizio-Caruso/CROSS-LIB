@@ -1,11 +1,8 @@
 
 #include "settings.h"
-
 #include "move_player.h"
-
 #include "character.h"
 #include "skull.h"
-
 #include "definitions.h"
 
 

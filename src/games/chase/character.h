@@ -23,7 +23,7 @@
 #ifndef _CHARACTER
 #define _CHARACTER
 
-#include "display_macros.h"
+#include "cross_lib.h"
 
 struct CharacterStruct
 {

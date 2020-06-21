@@ -1,10 +1,13 @@
 #if defined(FULL_GAME)
 
-#include "display_macros.h"
 
 #include "settings.h"
 #include "character.h"
 #include "level.h"
+
+
+#include "cross_lib.h"
+
 
 extern Character rockets[ROCKETS_NUMBER];
 

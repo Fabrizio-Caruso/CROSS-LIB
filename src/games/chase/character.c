@@ -24,10 +24,9 @@
 
 #include "character.h"
 #include "settings.h"
+#include "game_text.h"
 
 #include "cross_lib.h"
-
-#include "game_text.h"
 
 extern uint16_t points;
 

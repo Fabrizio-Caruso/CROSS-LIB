@@ -40,17 +40,16 @@
 #include "level.h"
 #include "ghost.h"
 #include "move_player.h"
-#include "sleep_macros.h"
-
-#include "text_strings.h"
 #include "init_images.h"
+
+#include "end_screen.h"
+#include "variables.h"
 
 #if !defined(TINY_GAME)
     #include "bullet.h"
     #include "skull.h"
 #endif
     
-#include "end_screen.h"
 
 #if defined(FULL_GAME)
     #include "horizontal_missile.h"
@@ -63,9 +62,7 @@
     #include <time.h>
 #endif
 
-#include "variables.h"
-
-#include "display_macros.h" 
+#include "cross_lib.h"
 
 // Level
 // The level affects:

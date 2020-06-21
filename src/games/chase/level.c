@@ -27,11 +27,10 @@
 #include "item.h"
 #include "settings.h"
 #include "ghost.h"
+#include "level.h"
 
 
 #include "cross_lib.h"
-
-#include "level.h"
 
 
 extern uint8_t level;

@@ -23,12 +23,13 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include "settings.h"
-#include "cross_lib.h"
-
 #include "game_text.h"
 #include "character.h"
 #include "settings.h"
 #include "text_strings.h"
+
+#include "cross_lib.h"
+
 
 extern uint8_t guns;
 extern Image GUN_IMAGE;

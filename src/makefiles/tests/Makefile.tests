@@ -48,9 +48,12 @@ cmoc_full_tests: \
 cc65_full_tests: \
     vic20_targets \
     supervision_targets \
+    atari_targets \
     atari_lynx_targets \
+    creativision_targets \
     pet_targets \
     c64_targets \
+    oric_targets \
     gamate_targets 
 
 ack_full_tests: \

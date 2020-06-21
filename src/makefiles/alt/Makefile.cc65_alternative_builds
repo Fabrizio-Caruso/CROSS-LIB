@@ -159,7 +159,7 @@ c16_16k_full_no_gfx:
 	-DBETWEEN_LEVEL \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c  \
-	$(CROSS_LIB_PATH)/memory/c16_memory.s \
+	$(SOURCE_PATH)/memory/c16_memory.s \
 	$(FULL_FILES) -o $(BUILD_PATH)/ALT_FULL_c16_16k_no_gfx.prg
 
 c16_16k_light: 
@@ -173,7 +173,7 @@ c16_16k_light:
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
 	$(LIGHT_FILES) \
-	$(CROSS_LIB_PATH)/memory/c16_memory.s \
+	$(SOURCE_PATH)/memory/c16_memory.s \
 	-o $(BUILD_PATH)/ALT_LIGHT_c16_16k.prg
 
 
@@ -305,7 +305,7 @@ pet_8k:
 	-DTINY_GAME -DNO_INIT_GRAPHICS -DCONIO \
 	-DUSE_TINY_MEMORY_BUFFERS \
 	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/memory/pet_memory.s \
+	$(SOURCE_PATH)/memory/pet_memory.s \
 	-o $(BUILD_PATH)/ALT_TINY_pet_8k.prg
 
 
@@ -334,7 +334,7 @@ vic20_exp_3k_light_no_gfx:
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(LIGHT_FILES) \
-	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/ALT_LIGHT_vic20_exp_3k_no_gfx.prg
 
@@ -354,10 +354,10 @@ vic20_exp_3k_tiny:
 	-DUSE_TINY_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/cc65/udc_3k.s \
+	$(SOURCE_PATH)/graphics_data/cc65/udc_3k.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
 	-o $(BUILD_PATH)/ALT_TINY_vic20_exp_3k.prg
 
 
@@ -381,7 +381,7 @@ vic20_exp_8k_full:
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/ALT_FULL_vic20_exp_8k_no_gfx.prg
 
@@ -407,7 +407,7 @@ vic20_unexpanded_no_gfx:
 	-DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/alt/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
@@ -437,7 +437,7 @@ vic20_unexpanded_turn_based:
 	-DUSE_TINY_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/alt/vic20_unexpanded.cfg  \
 	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/memory/vic20_memory.s \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \

@@ -216,8 +216,8 @@ ti82_chars:
 	-lndos \
 	-create-app  -o ti82ch.bin \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../ti82ch.82p $(BUILD_PATH)/ALT_FULL_ti82_chars.82p
-	rm $(SOURCE_PATH)/../ti82ch.bin
+	mv ti82ch.82p $(BUILD_PATH)/ALT_FULL_ti82_chars.82p
+	rm ti82ch.bin
 
 
 #############################
@@ -234,8 +234,8 @@ ti83_chars:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -oxchasetc \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../xchasetc.83p $(BUILD_PATH)/ALT_FULL_ti83_chars.83p	
-	rm $(SOURCE_PATH)/../xchasetc
+	mv xchasetc.83p $(BUILD_PATH)/ALT_FULL_ti83_chars.83p	
+	rm xchasetc
 
 
 ti83_turn_based:
@@ -252,8 +252,8 @@ ti83_turn_based:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app -oxchasett
-	mv $(SOURCE_PATH)/../xchasett.83p $(BUILD_PATH)/ALT_FULL_ti83_turn_based.83p
-	rm $(SOURCE_PATH)/../xchasett
+	mv xchasett.83p $(BUILD_PATH)/ALT_FULL_ti83_turn_based.83p
+	rm xchasett
 
 
 #############################
@@ -270,8 +270,8 @@ ti85_chars:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o ti85ch \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../ti85ch.85s $(BUILD_PATH)/ALT_FULL_ti85_chars.85s
-	rm $(SOURCE_PATH)/../ti85ch
+	mv ti85ch.85s $(BUILD_PATH)/ALT_FULL_ti85_chars.85s
+	rm ti85ch
 
 
 ti85_turn_based:
@@ -290,8 +290,8 @@ ti85_turn_based:
 	-create-app -o ti85tb \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../ti85tb.85s $(BUILD_PATH)/ALT_FULL_ti85_turn_based.85s
-	rm $(SOURCE_PATH)/../ti85tb
+	mv ti85tb.85s $(BUILD_PATH)/ALT_FULL_ti85_turn_based.85s
+	rm ti85tb
 
 
 #############################
@@ -312,8 +312,8 @@ ti86_full:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app  -o ti86fu \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../ti86fu.86p $(BUILD_PATH)/ALT_FULL_ti86.86p	
-	rm $(SOURCE_PATH)/../ti86fu
+	mv ti86fu.86p $(BUILD_PATH)/ALT_FULL_ti86.86p	
+	rm ti86fu
 
 
 #############################

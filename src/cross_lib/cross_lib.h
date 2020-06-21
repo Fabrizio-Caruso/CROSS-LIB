@@ -112,7 +112,9 @@
 
 #include "text_macros.h"
 
-#include "rand.h"
+#if !defined(__LCC1802__)
+    #include "rand.h"
+#endif
 
 #endif // _TARGET_SETTINGS
 

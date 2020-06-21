@@ -118,9 +118,9 @@ aquarius_test:
 	-lndos \
 	-o TEST_aquarius -create-app \
 	$(TEST_FILES)
-	rm $(SOURCE_PATH)/../TEST_aquarius
-	mv $(SOURCE_PATH)/../TEST_aquarius.caq $(BUILD_PATH)
-	mv $(SOURCE_PATH)/../_TEST_aquarius.caq $(BUILD_PATH)	
+	rm TEST_aquarius
+	mv TEST_aquarius.caq $(BUILD_PATH)
+	mv _TEST_aquarius.caq $(BUILD_PATH)	
 
 
 c128_z80_test:	
@@ -149,7 +149,7 @@ cpc_test:
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/TEST_cpc.prg \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/cpc_Chars8.asm \
+	$(SOURCE_PATH)/graphics_data/z88dk/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(TEST_FILES)
@@ -546,8 +546,8 @@ ti82_test:
 	-lndos \
 	-create-app -o ti82t.bin \
 	$(TEST_FILES)
-	mv $(SOURCE_PATH)/../ti82t.82p $(BUILD_PATH)/TEST_ti82.82p
-	rm $(SOURCE_PATH)/../ti82t.bin
+	mv ti82t.82p $(BUILD_PATH)/TEST_ti82.82p
+	rm ti82t.bin
 
 
 ti83_test:
@@ -561,8 +561,8 @@ ti83_test:
 	-lndos \
 	-create-app -o ti83t.bin \
 	$(TEST_FILES)
-	mv $(SOURCE_PATH)/../ti83t.83p $(BUILD_PATH)/TEST_ti83.83p
-	rm $(SOURCE_PATH)/../ti83t.bin
+	mv ti83t.83p $(BUILD_PATH)/TEST_ti83.83p
+	rm ti83t.bin
 
 
 ti85_test:
@@ -576,8 +576,8 @@ ti85_test:
 	-lndos \
 	-create-app -o ti85t.bin \
 	$(TEST_FILES)
-	mv $(SOURCE_PATH)/../ti85t.85s $(BUILD_PATH)/TEST_ti85.85s
-	rm $(SOURCE_PATH)/../ti85t.bin	
+	mv ti85t.85s $(BUILD_PATH)/TEST_ti85.85s
+	rm ti85t.bin
 
 
 trs80_test:
@@ -639,8 +639,8 @@ z1013_test:
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	$(TEST_FILES) \
 	-create-app -o z1013t.bin
-	mv $(SOURCE_PATH)/../Z1013T.Z80 $(BUILD_PATH)/TEST_z1013.z80
-	rm $(SOURCE_PATH)/../z1013t.bin
+	mv Z1013T.Z80 $(BUILD_PATH)/TEST_z1013.z80
+	rm z1013t.bin
 
 
 z9001_test:
@@ -716,9 +716,9 @@ aquarius_zsdcc_test:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/aquarius_init_graphics.c \
 	$(TEST_FILES) 
-	rm $(SOURCE_PATH)/../TEST_ZSDCC_aquarius
-	mv $(SOURCE_PATH)/../TEST_ZSDCC_aquarius.caq $(BUILD_PATH)
-	mv $(SOURCE_PATH)/../_TEST_ZSDCC_aquarius.caq $(BUILD_PATH)	
+	rm TEST_ZSDCC_aquarius
+	mv TEST_ZSDCC_aquarius.caq $(BUILD_PATH)
+	mv _TEST_ZSDCC_aquarius.caq $(BUILD_PATH)	
 
 
 vz200_zsdcc_test:
@@ -760,7 +760,7 @@ spectrum_zsdcc_test:
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	$(TEST_FILES)

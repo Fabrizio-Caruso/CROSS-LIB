@@ -26,8 +26,7 @@
 #define _LEVEL
 
 #include "character.h"
-
-// 		initializeCharacter(&ghosts[count], 0,(uint8_t) 0,0,&GHOST_IMAGE);
+#include "cross_lib.h"
 
 #if defined(NO_DEAD_GHOSTS)
 	#define PLACE_DEAD_GHOST() \

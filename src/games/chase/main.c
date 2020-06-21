@@ -40,8 +40,8 @@
 #include "level.h"
 #include "ghost.h"
 #include "move_player.h"
+#include "text_strings.h"
 #include "init_images.h"
-
 #include "end_screen.h"
 #include "variables.h"
 

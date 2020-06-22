@@ -167,7 +167,7 @@ special:
 # --list -m --c-code-in-asm
 # -compiler=sdcc -SO0
 spectrum_16k_light:
-	$(Z88DK_PATH)$(MYZ88DK) +zx --list -m --c-code-in-asm   \
+	$(Z88DK_PATH)$(MYZ88DK) +zx --peep-file "" --list -m --c-code-in-asm   \
 	$(INCLUDE_OPTS) -compiler=sdcc -SO0 \
 	-zorg=24055 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \

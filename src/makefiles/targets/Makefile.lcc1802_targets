@@ -187,7 +187,6 @@ light_pecom: light_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/LIGHT_pecom.hex
 
 
-
 full_pecom: pecom
 
 pecom: full_lcc1802_combo.c
@@ -220,6 +219,7 @@ tmc600_8k: reduced_tiny_lcc1802_combo.c
 	$(SOURCE_PATH)/../reduced_tiny_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_tiny_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_tmc600_8k.hex
+
 
 tiny_tmc600: tiny_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS) \
@@ -318,7 +318,7 @@ cidelsa_draco_32k: cidelsa_draco
 cidelsa_draco: full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  \
 	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
-	-DFULL_GAME  -DANIMATE_PLAYER \
+	-DFULL_GAME  \
 	-DNO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \

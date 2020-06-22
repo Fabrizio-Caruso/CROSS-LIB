@@ -50,7 +50,7 @@
 	#define INTO_THE_MINES_STRING 	    "into the mines"
 	#define SCORE_STRING "score"
 	#define LEVEL_STRING "level"
-	#define START_LEVEL_STRING "level %u"
+	#define START_LEVEL_STRING "level "
 	#define USE_THE_GUN_AGAINST_STRING "shoot at"
 	#define THE_SKULL_AND_STRING "the skull and"
 	#define MISSILE_BASES_STRING "missile bases"
@@ -74,7 +74,7 @@
 	#define INTO_THE_MINES_STRING 	    "INTO THE MINES"
 	#define SCORE_STRING "SCORE"
 	#define LEVEL_STRING "LEVEL"
-	#define START_LEVEL_STRING "LEVEL %u"
+	#define START_LEVEL_STRING "LEVEL "
 	#define USE_THE_GUN_AGAINST_STRING "SHOOT AT"
 	#define THE_SKULL_AND_STRING "THE SKULL AND"
 	#define MISSILE_BASES_STRING "MISSILE BASES"
@@ -98,7 +98,7 @@
 	#define INTO_THE_MINES_STRING   "into the mines"
 	#define SCORE_STRING "SCORE"
 	#define LEVEL_STRING "LEVEL"	
-	#define START_LEVEL_STRING "LEVEL %u"	
+	#define START_LEVEL_STRING "LEVEL "	
 	#define USE_THE_GUN_AGAINST_STRING "Shoot at"
 	#define THE_SKULL_AND_STRING "the skull and"
 	#define MISSILE_BASES_STRING "missile bases"
@@ -203,9 +203,6 @@
 		#define HIGH_SCORE_COLON_STRING "HIGH SCORE "
 	#endif
 #endif
-
-#define BONUS_DIGITS "%u0"
-#define SCORE_DIGITS "%05u0"
 
 #endif // _TEXT_STRINGS_H
 

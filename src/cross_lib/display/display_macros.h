@@ -124,18 +124,30 @@ void _delete(uint8_t x, uint8_t y);
 // PRINT AND PRINTD
 #  if defined(ALT_DISPLAY_STATS) 
     void PRINT(uint8_t x, uint8_t y, char * str);
-    #define PRINTD(x,y,str,val) _displayShort(val)
+    #define PRINTD(x,y,length,val) _displayShort(val)
     void _displayShort(uint16_t val);
     uint16_t loc(uint8_t x, uint8_t y);
 #elif defined(NO_PRINT)
     #define PRINT(x,y,str)
-    #define PRINTD(x,y,str,val)
+    #define PRINTD(x,y,length, val)
+#elif defined(__ATARI__) && defined(ATARI_MODE1)
+    void _GOTOXY(uint8_t x, uint8_t y);
+    void PRINT(uint8_t x, uint8_t y, char * str);
+    #define PRINTD(x,y,length,val) do {_GOTOXY(x,y); cprintf("%0" #length "u",val); } while(0);
+#elif defined(__NCURSES__)
+    void PRINT(uint8_t x, uint8_t y, char * str);
+    #define PRINTD(x,y,length,val) \
+    do { \
+        move(y,x); \
+        printw("%0" #length "u",val); \
+        refresh(); \
+    } while(0)
 #elif defined(ALT_PRINT)
     void PRINT(uint8_t x, uint8_t y, char * str);
-    void PRINTD(uint8_t x, uint8_t y, char * str, uint16_t val);
+    void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
 #else
     #define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y); cprintf(str); } while(0);
-    #define PRINTD(x,y,str,val) do {gotoxy(x+X_OFFSET,y); cprintf(str,val); } while(0);
+    #define PRINTD(x,y,length,val) do {gotoxy(x+X_OFFSET,y); cprintf("%0" #length "u",val); } while(0);
 #endif
 
 

@@ -85,6 +85,10 @@ clean_chase_temp:
 
 clean_lib_obj:
 	find -type f -name '*.o' -delete
+    
+clean_lis:
+	find -type f -name '*.lis' -delete
+
 
 clean_obj: \
 	clean_chase_obj \

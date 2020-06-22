@@ -169,6 +169,26 @@ void _delete(uint8_t x, uint8_t y);
         #include <ncurses.h>
     #endif
     #define SET_TEXT_COLOR(c) attron(COLOR_PAIR(c))
+#elif defined(__CPC__)
+    #define CPC_TEXT_WHITE 3
+    #define CPC_TEXT_RED 4
+    #define CPC_TEXT_BLACK 7
+    #define CPC_TEXT_YELLOW 0
+
+    #define SET_TEXT_COLOR(c) \
+    if(c==COLOR_WHITE) \
+    { \
+        textcolor(CPC_TEXT_WHITE); \
+    } \
+    else if(c==COLOR_RED) \
+    { \
+        textcolor(CPC_TEXT_RED); \
+    } \
+    else \
+    { \
+        textcolor(CPC_TEXT_YELLOW); \
+    }
+     
 #else
     #define SET_TEXT_COLOR(c) textcolor(c)
 #endif
@@ -201,8 +221,6 @@ void _delete(uint8_t x, uint8_t y);
     #define _SPACE 0
 #elif defined(CPCRSLIB)
     #define _SPACE (19*2)
-#elif defined(__REX__)
-	#include "cpc_cpcrslib_settings.h"
 #else
     #define _SPACE ' '
 #endif 

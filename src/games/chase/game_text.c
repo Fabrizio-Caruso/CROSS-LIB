@@ -115,11 +115,11 @@ extern Image PLAYER_IMAGE;
 
 
 #define PRINT_WIDE_TITLE() \
-	SET_COLOR(_CYAN); \
+	SET_COLOR(COLOR_CYAN); \
 	PRINT(0,       0, SCORE_STRING); \
 	PRINT(0, LEVEL_Y, LEVEL_STRING); \
 	\
-	SET_COLOR(_RED); \
+	SET_COLOR(COLOR_RED); \
 	TITLE_LINE(); \
 	PRINT(XSize-11,TITLE_Y,TITLE_LINE_STRING);	
 
@@ -249,12 +249,12 @@ void displayStats(void)
 #if !defined(LESS_TEXT)
 	void printExtraLife(void)
 	{
-		printCenteredMessageWithCol(_RED, EXTRA_LIFE_STRING); 
+		printCenteredMessageWithCol(COLOR_RED, EXTRA_LIFE_STRING); 
 	}
 
 	void printVictoryMessage(void)
 	{
-		printCenteredMessageWithCol(_RED, VICTORY_STRING);
+		printCenteredMessageWithCol(COLOR_RED, VICTORY_STRING);
 	}	
 #endif
 
@@ -262,7 +262,7 @@ void displayStats(void)
 #if !defined(LESS_TEXT)	
 	void printDefeatMessage(void)
 	{			
-		printCenteredMessageWithCol(_RED, DEFEAT_STRING);
+		printCenteredMessageWithCol(COLOR_RED, DEFEAT_STRING);
 	}	
 #endif
 	
@@ -270,7 +270,7 @@ void displayStats(void)
 #if !defined(NO_MESSAGE)
 	void printGameOver(void)
 	{
-		printCenteredMessageWithCol(_RED, GAME_OVER_STRING);
+		printCenteredMessageWithCol(COLOR_RED, GAME_OVER_STRING);
 	}	
 #endif
 
@@ -301,13 +301,13 @@ void displayStats(void)
 	#if defined(FULL_GAME) && !defined(NO_HINTS)
 	void _printCrossChase(void)
 	{
-		printCenteredMessageOnRowWithCol(CROSS_CHASE_Y, _RED,  CROSS_CHASE_STRING);		
+		printCenteredMessageOnRowWithCol(CROSS_CHASE_Y, COLOR_RED,  CROSS_CHASE_STRING);		
 		SET_COLOR(TEXT_COLOR);
 		
 	}
 	#else
 		#define _printCrossChase() \
-			printCenteredMessageOnRowWithCol(CROSS_CHASE_Y, _RED,  CROSS_CHASE_STRING);	\
+			printCenteredMessageOnRowWithCol(CROSS_CHASE_Y, COLOR_RED,  CROSS_CHASE_STRING);	\
 			SET_COLOR(TEXT_COLOR);	
 	#endif
 #endif
@@ -342,7 +342,7 @@ void displayStats(void)
 		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
 			_printTopScore();
 			
-			SET_COLOR(_WHITE);
+			SET_COLOR(COLOR_WHITE);
 			
 			printCenteredMessageOnRow(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
 			printCenteredMessageOnRow(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);			

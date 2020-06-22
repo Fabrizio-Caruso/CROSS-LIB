@@ -90,7 +90,7 @@
 	#define CASE_LETTERS
 #endif
 
-#if (defined(__CPC__) && defined(CPCRSLIB)) || defined(__GAMATE__)
+#if defined(__GAMATE__)
 	#define TEXT_COLOR 3
 #elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
 	#define TEXT_COLOR COLOR_YELLOW

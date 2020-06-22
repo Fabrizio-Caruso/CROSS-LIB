@@ -250,11 +250,6 @@ void _delete(uint8_t x, uint8_t y);
     #define SET_BACKGROUND_COLOR(c) {}
 #endif    
 
-#if defined(__CPC__)
-    #define COLOR_IF_NO_BLUE_THEN_YELLOW COLOR_YELLOW
-#else
-    #define COLOR_IF_NO_BLUE_THEN_YELLOW COLOR_BLUE
-#endif
 
 
 #if !defined(NO_INIT_GRAPHICS)

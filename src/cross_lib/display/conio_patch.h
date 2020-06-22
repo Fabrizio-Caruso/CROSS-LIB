@@ -259,6 +259,9 @@
 #define CPC_BLACK 4
 
 #define CPC_TEXT_WHITE 3
+#define CPC_TEXT_RED 4
+#define CPC_TEXT_BLACK 7
+#define CPC_TEXT_YELLOW 0
 
 #if defined(NO_GRAPHICS) || defined(NO_PRINT)
     #if !defined(COLOR_RED)
@@ -318,9 +321,9 @@
 
 // Text-only colors
 #if defined(CPCRSLIB)
-    #define _CYAN CPC_TEXT_WHITE
+    #define _CYAN CPC_TEXT_YELLOW
     #define _WHITE CPC_TEXT_WHITE
-    #define _RED CPC_TEXT_WHITE
+    #define _RED CPC_TEXT_RED
 #else
     #define _CYAN COLOR_CYAN
     #define _WHITE COLOR_WHITE

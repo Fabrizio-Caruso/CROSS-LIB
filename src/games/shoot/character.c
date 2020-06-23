@@ -166,7 +166,7 @@ uint8_t sameLocationAsAnyActiveLocation(uint8_t x, uint8_t y, Character *charact
 // also used with things different from global bombs
 uint8_t safeLocation(uint8_t x, uint8_t y)
 {
-    return !((sameLocationAsAnyGhostLocation(x,y,ghosts,ghostsOnScreen)<ghostsOnScreen)
+    return !((sameLocationAsAnyGhostLocation(x,y,ghosts,GHOSTS_NUMBER)<GHOSTS_NUMBER)
           || (sameLocationAsAnyLocation(x,y,bombs, BOMBS_NUMBER)<BOMBS_NUMBER)
           || (x<SAFETY) || (x>XSize-SAFETY) || (y<=SAFETY) || (y>YSize-SAFETY));
 }

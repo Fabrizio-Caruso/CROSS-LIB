@@ -18,8 +18,8 @@
 			void printCenteredMessageOnRowWithCol(uint8_t row, uint8_t col, char *Text)
 			{
 				POKE(0xBB80+3+(row)*40,16);POKE(0xBB80+3+1+(row)*40,col);
-				printCenteredMessageOnRow(row, Text);						
-				POKE(0xBB80+35+(row)*40,16);POKE(0xBB80+35+1+(row)*40,3);			
+				printCenteredMessageOnRow(row, Text);
+				POKE(0xBB80+35+(row)*40,16);POKE(0xBB80+35+1+(row)*40,3);
 			}			
 		#else	
 			void printCenteredMessageOnRowWithCol(uint8_t row, uint8_t col, char *Text)

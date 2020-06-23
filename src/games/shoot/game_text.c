@@ -208,7 +208,7 @@ void displayStats(void)
 #if !defined(TINY_GAME) && !defined(NO_MESSAGE)
     void _printScoreOnRow(uint8_t row, uint16_t score)
     {
-        PRINTD((uint8_t) ((XSize)>>1)-3, row, 5, score);
+        PRINTD((uint8_t) ((XSize)>>1)-2, row, 5, score);
     }    
     
     void _printScore(uint16_t score)

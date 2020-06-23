@@ -227,7 +227,7 @@ void displayStats(void)
 #if !defined(TINY_GAME) && !defined(NO_MESSAGE)
 	void _printScoreOnRow(uint8_t row, uint16_t score)
 	{
-		PRINTD((uint8_t) ((XSize)>>1)-3, row, 5, score);
+		PRINTD((uint8_t) ((XSize)>>1)-2, row, 5, score);
 	}	
 	
 	#if !defined(LESS_TEXT)
@@ -343,7 +343,7 @@ void displayStats(void)
 		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
 			_printTopScore();
 			
-			SET_COLOR(COLOR_WHITE);
+			SET_COLOR(COLOR_CYAN);
 			
 			printCenteredMessageOnRow(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
 			printCenteredMessageOnRow(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);			

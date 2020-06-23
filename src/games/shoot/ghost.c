@@ -89,7 +89,7 @@ void spawnGhost(Ghost *ghostPtr, uint8_t ghostIndex)
             initializeGhost(ghostPtr  , 2      ,     2, GHOST_LIFE, 0, &GHOST_IMAGE);
         break;
         case 1:
-            initializeGhost(ghostPtr, XSize-3, YSize-3, GHOST_LIFE, 0, &GHOST_IMAGE);    
+            initializeGhost(ghostPtr, XSize-3, YSize-3, GHOST_LIFE, 0, &GHOST_IMAGE);
         break;
         case 2:
             initializeGhost(ghostPtr, 2      , YSize-3, GHOST_LIFE, 0, &GHOST_IMAGE);

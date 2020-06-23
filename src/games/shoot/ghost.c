@@ -119,12 +119,6 @@ void ghostDies(Ghost * ghostPtr)
     
     ghostPtr->_character._status=0;
     displayStats();
-        
-    #if !defined(NO_DEAD_GHOSTS)
-        ghostPtr->_character._imagePtr = (Image *)&DEAD_GHOST_IMAGE;
-    #elif !defined(TINY_GAME)
-        ghostPtr->_character._imagePtr = (Image *)&SKULL_IMAGE;            
-    #endif
     
     --ghostCount;
     if(ghostCount>=ghostsOnScreen)
@@ -166,7 +160,10 @@ void displayGhosts(void)
 
     for(i=0;i<GHOSTS_NUMBER;++i)
     {
-        displayGhost((Character *)&ghosts[i]);
+        if (ghosts[i]._character._status)
+        {
+            displayGhost((Character *)&ghosts[i]);
+        }
     }
 }
 
@@ -206,7 +203,7 @@ uint8_t sameLocationAsAnyGhostLocation(uint8_t x, uint8_t y, Ghost *ghostList, u
 
     for(i=0;i<length;++i)
     {
-        if(isCharacterAtLocation(x,y,&(ghostList[i]._character)))
+        if(ghostList[i]._character._status && isCharacterAtLocation(x,y,&(ghostList[i]._character)))
         {
             return i;
         }

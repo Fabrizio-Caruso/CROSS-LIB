@@ -129,10 +129,6 @@ uint8_t bombCount;
 // Character *chasedEnemyPtr;
 
 #if !defined(TINY_GAME)
-    // Item powerUp;
-    // Item powerUp2;
-    // Item gun;
-    // Item extraPoints;    
     
     Character bullets[BULLETS_NUMBER];
 #endif
@@ -144,78 +140,14 @@ Character skulls[SKULLS_NUMBER];
 
 #if defined(FULL_GAME)
 
-    // uint8_t innerVerticalWallY; 
-    // uint8_t innerVerticalWallX; 
-    // uint8_t innerVerticalWallLength;
-
     uint8_t innerHorizontalWallY; 
     uint8_t innerHorizontalWallX; 
     uint8_t innerHorizontalWallLength;
 
-    // Item freeze;
-    // Item invincibility;
-    
-    // Item extraLife;
-    // Item super;
-    // Item confuse;
-    // Item zombie;
-     
-    // uint8_t extraLife_present_on_level;
-    // uint8_t super_present_on_level;
-    // uint8_t zombie_present_on_level;
-    // #define confuse_present_on_level_condition missileBasesDestroyed
-
-    // Character leftHorizontalMissile;
-    // Character rightHorizontalMissile;
-
-    // Character rockets[ROCKETS_NUMBER];
-
-    // uint8_t rockets_x[ROCKETS_NUMBER];
-    
-    // uint8_t dead_rockets;
-    
-    // uint8_t arrowRange;
-    
-    // uint8_t skullsKilled;
-    
-    // uint8_t missileBasesDestroyed;
-        
-    // uint8_t invincibilityActive;
-    
-    // uint8_t confuseActive; 
-    
-    // uint8_t zombieActive; 
-        
-    // uint16_t invincibility_count_down;    
-    
-    // uint16_t confuse_count_down;
-    
-    // uint16_t zombie_count_down;
     
     uint8_t ghostsOnScreen;
     
 #endif
-
-// #if !defined(TINY_GAME)
-    // uint8_t strategyArray[GHOSTS_NUMBER];
-
-    // uint8_t playerDirection; // 0: right, 1: down, 2: left, 3: up
-    
-    // uint8_t freezeActive; // freezeActive    
-
-    // uint16_t freeze_count_down;
-        
-    // uint16_t extraLifeThroughPointsCounter;    
-// #endif
-
-// uint8_t ghostCount; // = GHOSTS_NUMBER;
-
-// #if !defined(TINY_GAME)
-    // uint8_t playerFire;
-    // uint8_t guns; // = GUNS_NUMBER;
-
-    // uint8_t skullActive;
-// #endif
 
 
 #if !defined(TINY_GAME)
@@ -563,11 +495,13 @@ int main(void)
                         #else
                             chaseCharacter(ghostSlowDown);
                         #endif
+                        
+                        handle_skulls();
+                        
                         ++ghostLevel;            
                         
                     }
                 
-                    handle_skulls();
 
                     // This detects collisions of ghosts that have just moved
                     checkBullets();

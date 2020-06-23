@@ -93,22 +93,22 @@ void printStartMessage(void);
 #endif
 
 #if !defined(TINY_GAME) && !defined(NO_MESSAGE)
-	void _printScoreOnRow(uint8_t row, char * text, uint16_t score);
-	void _printScore(char * text, uint16_t score);
+	void _printScoreOnRow(uint8_t row, uint16_t score);
+	void _printScore(uint16_t score);
 	void printKillTheSkull(void);
 #else
-	#define _printScoreOnRow(r,t,score)
-	#define _printScore(t,s)
+	#define _printScoreOnRow(r,score)
+	#define _printScore(s)
 	#define printKillTheSkull()
 #endif
 
 #if !defined(TINY_GAME)
-	#define _printTopScore() _printScoreOnRow(0,"%05u0", highScore);
+	#define _printTopScore() _printScoreOnRow(0,highScore);
 #endif
 
 #if defined(TINY_GAME)
 	#if !defined(NO_MESSAGE)
-		#define highScoreScreen() PRINTF((XSize-6)/2, 0, "%05u0", highScore)
+		#define highScoreScreen() PRINTF((XSize-6)/2, 0, 5, highScore)
 	#else
 		#define highScoreScreen()
 	#endif
@@ -118,9 +118,9 @@ void printStartMessage(void);
 		#define highScoreScreen() 
 		
 #else
-    #define printLevelBonus(bonus) _printScore(BONUS_COLON_STRING BONUS_DIGITS, bonus);
-    #define finalScore() _printScore(SCORE_COLON__STRING SCORE_DIGITS, points);
-    #define highScoreScreen() _printScore(HIGH_SCORE_COLON_STRING SCORE_DIGITS, highScore);  	
+    #define printLevelBonus(bonus) _printScore(bonus);
+    #define finalScore() _printScore(points);
+    #define highScoreScreen() _printScore(highScore);  	
 #endif
 
 #if defined(FULL_GAME)

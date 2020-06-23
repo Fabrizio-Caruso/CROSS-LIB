@@ -99,11 +99,11 @@ extern Image BULLET_IMAGE;
 
 
 #define PRINT_WIDE_TITLE() \
-    SET_COLOR(_CYAN); \
+    SET_COLOR(COLOR_CYAN); \
     PRINT(0, +0,   SCORE_STRING); \
     PRINT(0, +0+1, LEVEL_STRING); \
     \
-    SET_COLOR(_RED); \
+    SET_COLOR(COLOR_RED); \
     TITLE_LINE(); \
     PRINT(XSize-11,TITLE_Y,"cross shoot");    
 
@@ -133,9 +133,9 @@ extern Image BULLET_IMAGE;
         SET_COLOR(TEXT_COLOR);    
         
         #if defined(WIDE)
-            PRINTD(BULLET_IMAGE_X+1,0+0,"%02u",guns);
+            PRINTD(BULLET_IMAGE_X+1,0+0,2,guns);
         #else
-            PRINTD(BULLET_IMAGE_X+0,0+0,"%02u",guns);
+            PRINTD(BULLET_IMAGE_X+0,0+0,2,guns);
         #endif
     }
 #endif
@@ -146,9 +146,9 @@ extern Image BULLET_IMAGE;
         SET_COLOR(TEXT_COLOR);
     
         #if defined(WIDE) && !defined(TINY_GAME)
-            PRINTD(LEVEL_X,1+0,"%02u",level);
+            PRINTD(LEVEL_X,1+0,2,level);
         #else
-            PRINTD(LEVEL_X,+0,"%02u",level);    
+            PRINTD(LEVEL_X,+0,2,level);    
         #endif    
     }
 
@@ -158,9 +158,9 @@ extern Image BULLET_IMAGE;
         SET_COLOR(TEXT_COLOR);        
         
         #if defined(WIDE) && !defined(TINY_GAME)
-            PRINTD(GHOST_IMAGE_X+1,+0,"%02u",ghostCount);
+            PRINTD(GHOST_IMAGE_X+1,+0,2,ghostCount);
         #else
-            PRINTD(GHOST_IMAGE_X+0,+0,"%02u",ghostCount);    
+            PRINTD(GHOST_IMAGE_X+0,+0,2,ghostCount);    
         #endif    
     }
 
@@ -170,9 +170,9 @@ extern Image BULLET_IMAGE;
         SET_COLOR(TEXT_COLOR);
         
         #if defined(WIDE) && !defined(TINY_GAME)
-            PRINTD(PLAYER_IMAGE_X+1,+0+1,"%02u",lives);
+            PRINTD(PLAYER_IMAGE_X+1,+0+1,2,lives);
         #else
-            PRINTD(PLAYER_IMAGE_X+0,+0,"%02u",lives);    
+            PRINTD(PLAYER_IMAGE_X+0,+0,2,lives);    
         #endif
     }    
     
@@ -191,29 +191,29 @@ void displayStats(void)
     SET_COLOR(TEXT_COLOR);
     
     #if defined(WIDE) && !defined(TINY_GAME)
-        PRINTD(6,+0,"%05u0",points);
+        PRINTD(6,+0,5,points);
     #else
-        PRINTD(1,0,"%05u0",points);    
+        PRINTD(1,0,5,points);    
     #endif    
 }
 
 #if !defined(LESS_TEXT)    
     void printLevel(void)
     {
-        PRINTD(((XSize -7)>>1), (YSize>>1), START_LEVEL_STRING, level);
+        PRINTD(((XSize -7)>>1), (YSize>>1), 2, level);
     }
 #endif
 
 
 #if !defined(TINY_GAME) && !defined(NO_MESSAGE)
-    void _printScoreOnRow(uint8_t row, char * text, uint16_t score)
+    void _printScoreOnRow(uint8_t row, uint16_t score)
     {
-        PRINTD((uint8_t) ((XSize-strlen(text))>>1), row, text, score);
+        PRINTD((uint8_t) ((XSize)>>1)-3, row, 5, score);
     }    
     
-    void _printScore(char * text, uint16_t score)
+    void _printScore(uint16_t score)
     {
-        _printScoreOnRow((YSize>>1), text, score);
+        _printScoreOnRow((YSize>>1), score);
     }
 #endif
 
@@ -229,12 +229,12 @@ void displayStats(void)
 #if !defined(LESS_TEXT)
     void printExtraLife(void)
     {
-        printCenteredMessageWithCol(_RED, EXTRA_LIFE_STRING); 
+        printCenteredMessageWithCol(COLOR_RED, EXTRA_LIFE_STRING); 
     }
 
     void printVictoryMessage(void)
     {
-        printCenteredMessageWithCol(_RED, VICTORY_STRING);
+        printCenteredMessageWithCol(COLOR_RED, VICTORY_STRING);
     }    
 #endif
 
@@ -242,7 +242,7 @@ void displayStats(void)
 #if !defined(LESS_TEXT)    
     void printDefeatMessage(void)
     {            
-        printCenteredMessageWithCol(_RED, DEFEAT_STRING);
+        printCenteredMessageWithCol(COLOR_RED, DEFEAT_STRING);
     }    
 #endif
     
@@ -250,7 +250,7 @@ void displayStats(void)
 #if !defined(NO_MESSAGE)
     void printGameOver(void)
     {
-        printCenteredMessageWithCol(_RED, GAME_OVER_STRING);
+        printCenteredMessageWithCol(COLOR_RED, GAME_OVER_STRING);
     }    
 #endif
 
@@ -260,13 +260,13 @@ void displayStats(void)
     #if defined(FULL_GAME) && !defined(NO_HINTS)
     void _printCrossShoot(void)
     {
-        printCenteredMessageOnRowWithCol(3, _RED,  CROSS_SHOOT_STRING);        
+        printCenteredMessageOnRowWithCol(3, COLOR_RED,  CROSS_SHOOT_STRING);        
         SET_COLOR(TEXT_COLOR);
         
     }
     #else
         #define _printCrossShoot() \
-            printCenteredMessageOnRowWithCol(3, _RED,  CROSS_SHOOT_STRING);    \
+            printCenteredMessageOnRowWithCol(3, COLOR_RED,  CROSS_SHOOT_STRING);    \
             SET_COLOR(TEXT_COLOR);    
     #endif
 #endif
@@ -299,7 +299,7 @@ void displayStats(void)
         #if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
             _printTopScore();
             
-            SET_COLOR(COLOR_IF_NO_BLUE_THEN_YELLOW);
+            SET_COLOR(COLOR_CYAN);
             
             printCenteredMessageOnRow((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
             printCenteredMessageOnRow((YSize>>1)+1, INTO_THE_MINES_STRING);

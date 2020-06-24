@@ -322,11 +322,7 @@ void chaseCharacter(uint16_t slowDown)
     {
         for(i=0;i<GHOSTS_NUMBER;++i)
         {
-            #if defined(FULL_GAME)
-                if((ghosts[i]._status || (zombieActive && loop&1)) && GHOST_RANDOM_CONDITION)
-            #else
-                if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)    
-            #endif
+            if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)    
             {
                 deleteGhost(&ghosts[i]);
                 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)

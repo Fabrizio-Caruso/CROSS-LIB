@@ -59,7 +59,7 @@ uint16_t computeSkullSlowDown(void)
         #if defined(TURN_BASED)
             return INITIAL_SKULL_SLOWDOWN - level * 256 - ghostLevel*8;                
         #else
-            return INITIAL_SKULL_SLOWDOWN - level * 256 - ghostLevel*32;        
+            return INITIAL_SKULL_SLOWDOWN - level * 256 - ghostLevel*16;        
         #endif
     }
     return SKULL_MIN_SLOWDOWN; // You must die!
@@ -126,12 +126,15 @@ void handle_skulls(void)
     else
     {     
         uint8_t i;
-        
-        skullSlowDown = computeSkullSlowDown();
 
-        for(i=0;i<SKULLS_NUMBER;++i)
+        if(!confuseActive || !(loop&3))
         {
-            handle_skull(&skulls[i]);
+            skullSlowDown = computeSkullSlowDown();
+
+            for(i=0;i<SKULLS_NUMBER;++i)
+            {
+                handle_skull(&skulls[i]);
+            }
         }
 
     }

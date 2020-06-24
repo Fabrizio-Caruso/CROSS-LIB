@@ -35,7 +35,7 @@
 #endif
 
 // TODO: REMOVE THIS
-//#define DEBUG_ITEMS
+// #define DEBUG_ITEMS
 //#define DEBUG_END
 
 
@@ -435,14 +435,7 @@ int main(void)
                     if(!freezeActive)
                     {
                         #if defined(FULL_GAME)
-                            if(confuseActive && skullActive && skulls[0]._status)
-                            {
-                                chaseCharacter(&skulls[0], ghostSlowDown);
-                            }
-                            else
-                            {
-                                chaseCharacter(&player, ghostSlowDown);
-                            }
+                            chaseCharacter(&player, ghostSlowDown);
                         #else
                             chaseCharacter(ghostSlowDown);
                         #endif

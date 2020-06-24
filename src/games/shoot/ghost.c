@@ -36,14 +36,14 @@ extern uint8_t ghostsOnScreen;
 extern uint16_t ghostLevel;
 extern uint8_t level;
 
-extern Ghost ghosts[GHOSTS_NUMBER];
+extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 
 
-void checkBombsVsGhost(register Ghost * ghostPtr)
+void checkBombsVsGhost(register Character * ghostPtr)
 {
-    uint8_t reachedBombInd = characterReachedBombs((Character *)ghostPtr);
-    if(((Character *)ghostPtr)->_status && reachedBombInd<BOMBS_NUMBER)
+    uint8_t reachedBombInd = characterReachedBombs(ghostPtr);
+    if(ghostPtr->_status && reachedBombInd<BOMBS_NUMBER)
     {
         points+=GHOST_VS_BOMBS_BONUS;
 
@@ -66,50 +66,43 @@ void checkBombsVsGhosts(void)
 }
 
 
-
-void initializeGhost(Ghost *ghostPtr, uint8_t x, uint8_t y, uint8_t status, uint8_t type, Image *imagePtr)
-{
-    initializeCharacter(&(ghostPtr->_character),x,y,status,imagePtr);
-    ghostPtr->type=type;
-}
-
-void spawnGhost(Ghost *ghostPtr, uint8_t ghostIndex)
+void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
 {
     switch(ghostIndex % GHOSTS_NUMBER)
     {
         case 0:
-            initializeGhost(ghostPtr  , 2      ,     2, GHOST_LIFE, 0, &GHOST_IMAGE);
+            initializeCharacter(ghostPtr  , 2      ,     2, GHOST_LIFE, &GHOST_IMAGE);
         break;
         case 1:
-            initializeGhost(ghostPtr, XSize-3, YSize-3, GHOST_LIFE, 0, &GHOST_IMAGE);
+            initializeCharacter(ghostPtr, XSize-3, YSize-3, GHOST_LIFE, &GHOST_IMAGE);
         break;
         case 2:
-            initializeGhost(ghostPtr, 2      , YSize-3, GHOST_LIFE, 0, &GHOST_IMAGE);
+            initializeCharacter(ghostPtr, 2      , YSize-3, GHOST_LIFE, &GHOST_IMAGE);
         break;
         case 3:
-            initializeGhost(ghostPtr, XSize-3,       2, GHOST_LIFE, 0, &GHOST_IMAGE);
+            initializeCharacter(ghostPtr, XSize-3,       2, GHOST_LIFE, &GHOST_IMAGE);
         break;
         case 4:
-            initializeGhost(ghostPtr  , 2    , YSize/2, GHOST_LIFE, 0, &GHOST_IMAGE);
+            initializeCharacter(ghostPtr  , 2    , YSize/2, GHOST_LIFE, &GHOST_IMAGE);
         break;
         case 5:
-            initializeGhost(ghostPtr, XSize/2, YSize-3, GHOST_LIFE, 0, &GHOST_IMAGE);
+            initializeCharacter(ghostPtr, XSize/2, YSize-3, GHOST_LIFE, &GHOST_IMAGE);
         break;
         case 6:
-            initializeGhost(ghostPtr, XSize-3, YSize/2, GHOST_LIFE, 0, &GHOST_IMAGE);
+            initializeCharacter(ghostPtr, XSize-3, YSize/2, GHOST_LIFE, &GHOST_IMAGE);
         break;
         case 7:
-            initializeGhost(ghostPtr, XSize/2,       2, GHOST_LIFE, 0, &GHOST_IMAGE);
+            initializeCharacter(ghostPtr, XSize/2,       2, GHOST_LIFE, &GHOST_IMAGE);
         break;    
     }        
 }
 
 
-void ghostDies(Ghost * ghostPtr)
+void ghostDies(Character * ghostPtr)
 {
     EXPLOSION_SOUND();
     
-    ghostPtr->_character._status=0;
+    ghostPtr->_status=0;
     displayStats();
     
     --ghostCount;
@@ -152,9 +145,9 @@ void displayGhosts(void)
 
     for(i=0;i<GHOSTS_NUMBER;++i)
     {
-        if (ghosts[i]._character._status)
+        if (ghosts[i]._status)
         {
-            displayGhost((Character *)&ghosts[i]);
+            displayGhost(&ghosts[i]);
         }
     }
 }
@@ -180,7 +173,7 @@ void displayBombs(void)
         i=0;
         while(i<GHOSTS_NUMBER)
         {
-            if(ghosts[i]._character._status)
+            if(ghosts[i]._status)
                 return i;
             ++i;
         }
@@ -189,13 +182,13 @@ void displayBombs(void)
 #endif
 
 
-uint8_t sameLocationAsAnyGhostLocation(uint8_t x, uint8_t y, Ghost *ghostList, uint8_t length)
+uint8_t sameLocationAsAnyGhostLocation(uint8_t x, uint8_t y, Character *ghostList, uint8_t length)
 {
     uint8_t i;
 
     for(i=0;i<length;++i)
     {
-        if(ghostList[i]._character._status && isCharacterAtLocation(x,y,&(ghostList[i]._character)))
+        if(ghostList[i]._status && isCharacterAtLocation(x,y,&(ghostList[i])))
         {
             return i;
         }

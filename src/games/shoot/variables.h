@@ -89,7 +89,7 @@
 #endif
 
 #if defined(USE_MEMORY_BUFFERS) || defined(USE_TINY_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
-	extern Ghost ghosts[];
+	extern Character ghosts[];
 	extern Character bombs[];
 	
 	extern Character player;
@@ -106,7 +106,7 @@
 	extern uint8_t ind;
 
 #else
-	Ghost ghosts[GHOSTS_NUMBER];
+	Character ghosts[GHOSTS_NUMBER];
 	Character bombs[BOMBS_NUMBER];
 
 	Character player; 

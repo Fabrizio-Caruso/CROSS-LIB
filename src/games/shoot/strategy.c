@@ -32,7 +32,7 @@ extern uint16_t loop;
 extern uint8_t ghostCount;
 
 extern Character player; 
-extern Ghost ghosts[GHOSTS_NUMBER];
+extern Character ghosts[GHOSTS_NUMBER];
 
 extern uint8_t strategyArray[GHOSTS_NUMBER];
 
@@ -323,12 +323,12 @@ void chaseCharacter(uint16_t slowDown)
         for(i=0;i<GHOSTS_NUMBER;++i)
         {
             #if defined(FULL_GAME)
-                if((ghosts[i]._character._status || (zombieActive && loop&1)) && GHOST_RANDOM_CONDITION)
+                if((ghosts[i]._status || (zombieActive && loop&1)) && GHOST_RANDOM_CONDITION)
             #else
-                if((ghosts[i]._character._status) && GHOST_RANDOM_CONDITION)    
+                if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)    
             #endif
             {
-                deleteGhost((Character *)&ghosts[i]);
+                deleteGhost(&ghosts[i]);
                 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
                     moveTowardCharacter(preyPtr, (Character *)&ghosts[i], strategyArray[i]);    
                 #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
@@ -342,12 +342,12 @@ void chaseCharacter(uint16_t slowDown)
         for(i=0;i<GHOSTS_NUMBER;++i)
         {
             #if defined(FULL_GAME)
-                if((ghosts[i]._character._status || (zombieActive && loop&1)) && GHOST_RANDOM_CONDITION)
+                if((ghosts[i]._status || (zombieActive && loop&1)) && GHOST_RANDOM_CONDITION)
             #else
-                if((ghosts[i]._character._status) && GHOST_RANDOM_CONDITION)    
+                if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)    
             #endif
             {
-                deleteGhost((Character *)&ghosts[i]);
+                deleteGhost(&ghosts[i]);
                 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
                     horizontalWallMoveTowardCharacter(preyPtr, (Character *)&ghosts[i], strategyArray[i]);    
                 #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)

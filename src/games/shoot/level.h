@@ -233,7 +233,7 @@ void fillLevelWithCharacters(void);
     
     void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr);
 
-    void spawnGhost(Ghost *ghostPtr, unsigned char ghostIndex);
+    void spawnGhost(Character *ghostPtr, unsigned char ghostIndex);
 #endif 
 
 void placeBombs(void);

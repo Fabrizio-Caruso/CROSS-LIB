@@ -45,7 +45,7 @@ extern uint16_t points;
 
 extern uint16_t loop;
 
-extern Ghost ghosts[GHOSTS_NUMBER];
+extern Character ghosts[GHOSTS_NUMBER];
 #if !defined(NO_DEAD_GHOSTS)
 extern Image DEAD_GHOST_IMAGE;
 #else
@@ -254,19 +254,19 @@ void checkBullet(Character *bulletPtr, uint8_t bulletDirection)
 
 void checkBulletVsGhost(Character * bulletPtr,
                         uint8_t bulletDirection,
-                        Ghost * ghostPtr)
+                        Character * ghostPtr)
 {
-    if(ghostPtr->_character._status &&
-       areCharctersAtSamePosition(bulletPtr, &(ghostPtr->_character)))
+    if(ghostPtr->_status &&
+       areCharctersAtSamePosition(bulletPtr, ghostPtr))
     {
         uint8_t i;
         
         deleteBullet(bulletPtr);
         bulletPtr->_status=0;
 
-        if((ghostPtr->_character._status)<=bulletStrength)
+        if((ghostPtr->_status)<=bulletStrength)
         {
-            ghostPtr->_character._status=0;
+            ghostPtr->_status=0;
             deleteGhost((Character *) ghostPtr);
             EXPLOSION_SOUND();
             points+=GHOST_VS_MISSILE;
@@ -275,8 +275,8 @@ void checkBulletVsGhost(Character * bulletPtr,
         }
         else
         {
-            (ghostPtr->_character._status)-=bulletStrength;
-            displayGhost(&(ghostPtr->_character));
+            (ghostPtr->_status)-=bulletStrength;
+            displayGhost(ghostPtr);
         
             for(i=0;i<bulletStrength/2;++i)
             {
@@ -302,7 +302,7 @@ void checkBulletVsGhosts(Character * bulletPtr, uint8_t bulletDirection)
     
     for(;i<ghostsOnScreen;++i)
     {
-        if(ghosts[i]._character._status)
+        if(ghosts[i]._status)
         {
             checkBulletVsGhost(bulletPtr, bulletDirection, &ghosts[i]);
         }

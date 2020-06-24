@@ -29,22 +29,11 @@
 
 uint16_t computeGhostSlowDown(void);
 
-struct GhostStruct
-{
-    Character _character;
-    
-    uint8_t type;
-};
+void spawnGhost(Character *ghostPtr, uint8_t ghostIndex);
 
-typedef struct GhostStruct Ghost;
+void ghostDies(Character * ghostPtr);
 
-void initializeGhost(Ghost *ghostPtr, uint8_t x, uint8_t y, uint8_t status, uint8_t type, Image *imagePtr);
-
-void spawnGhost(Ghost *ghostPtr, uint8_t ghostIndex);
-
-void ghostDies(Ghost * ghostPtr);
-
-void checkBombsVsGhost(register Ghost * ghostPtr);
+void checkBombsVsGhost(register Character * ghostPtr);
 
 void checkBombsVsSkull(register Character * skullPtr);
 
@@ -52,7 +41,7 @@ void checkBombsVsGhosts(void);
 
 void checkBombsVsSkulls(void);
 
-uint8_t sameLocationAsAnyGhostLocation(uint8_t x, uint8_t y, Ghost *characterList, uint8_t length);
+uint8_t sameLocationAsAnyGhostLocation(uint8_t x, uint8_t y, Character *characterList, uint8_t length);
 
 #if !defined(TINY_GAME)
     void decreaseGhostLevel(void);
@@ -66,7 +55,7 @@ void displayBombs(void);
     uint8_t firstAlive(void);
 #endif
 
-#define playerReachedGhosts() (sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, GHOSTS_NUMBER)<GHOSTS_NUMBER)
+#define playerReachedGhosts() (sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, ghostsOnScreen)<ghostsOnScreen)
 
 #endif // _GHOST_H
 

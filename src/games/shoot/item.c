@@ -63,7 +63,7 @@ extern uint8_t bulletStrength;
 
 extern Image DEAD_GHOST_IMAGE;
 
-extern Ghost ghosts[GHOSTS_NUMBER];
+extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 extern Character skull;
 
@@ -304,9 +304,9 @@ extern uint8_t ghostsOnScreen;
         zombie_count_down = ZOMBIE_COUNT_DOWN;
         for(i=0;i<GHOSTS_NUMBER;++i)
         {
-            if(!(ghosts[i]._character._status))
+            if(!(ghosts[i]._status))
             {
-                ghosts[i]._character._imagePtr = &DEAD_GHOST_IMAGE;
+                ghosts[i]._imagePtr = &DEAD_GHOST_IMAGE;
             }
         }
     }

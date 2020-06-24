@@ -51,7 +51,7 @@ extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image BROKEN_BRICK_IMAGE;
 
-extern Ghost ghosts[GHOSTS_NUMBER];
+extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 extern Character skulls[SKULLS_NUMBER];
 

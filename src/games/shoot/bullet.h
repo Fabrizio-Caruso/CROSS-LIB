@@ -45,7 +45,7 @@
     void checkBullets(void);
     
     void checkBulletVsGhost(Character * bulletPtr, unsigned char bulletDirection,
-                            Ghost * ghostPtr);
+                            Character * ghostPtr);
         
     void checkBulletVsGhosts(Character * bulletPtr, unsigned char bulletDirection);
 

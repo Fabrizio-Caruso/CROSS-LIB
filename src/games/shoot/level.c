@@ -71,7 +71,7 @@ extern Character player;
 
 #endif
 
-extern Ghost ghosts[GHOSTS_NUMBER];
+extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 
 
@@ -298,16 +298,16 @@ void fillLevelWithCharacters(void)
         #if defined(DEBUG)
         gotoxy(1,1);cprintf("initialized dead ghost.......");        
         #endif        
-        initializeGhost(&ghosts[i],1,1,0,0,&DEAD_GHOST_IMAGE);
+        initializeCharacter(&ghosts[i],1,1,0,&DEAD_GHOST_IMAGE);
         #if defined(DEBUG)
             displayCharacter((Character *)&ghosts[i]);
         #endif        
     }
     
-    for(i=ghostsOnScreen;i<GHOSTS_NUMBER;++i)
-    {
-        initializeGhost(&ghosts[i],1,1,0,0,&DEAD_GHOST_IMAGE);
-    }    
+    // for(i=ghostsOnScreen;i<GHOSTS_NUMBER;++i)
+    // {
+        // initializeCharacter(&ghosts[i],1,1,0,&DEAD_GHOST_IMAGE);
+    // }    
     
     placeBombs();
     

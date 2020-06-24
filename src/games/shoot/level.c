@@ -304,10 +304,10 @@ void fillLevelWithCharacters(void)
         #endif        
     }
     
-    // for(i=ghostsOnScreen;i<GHOSTS_NUMBER;++i)
-    // {
-        // initializeCharacter(&ghosts[i],1,1,0,&DEAD_GHOST_IMAGE);
-    // }    
+    for(i=ghostsOnScreen;i<GHOSTS_NUMBER;++i)
+    {
+        initializeCharacter(&ghosts[i],1,1,0,NULL);
+    }    
     
     placeBombs();
     

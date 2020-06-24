@@ -53,7 +53,7 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 #################################################################
 
 c64: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES \

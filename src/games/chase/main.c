@@ -337,9 +337,6 @@ int main(void)
                     MOVE_PLAYER();                
                     _DRAW_PLAYER();    
                 #endif
-                #if SLOW_DOWN>0
-                    DO_SLOW_DOWN(SLOW_DOWN);
-                #endif
                         
                 #if defined(FULL_GAME)
                     handle_rockets();

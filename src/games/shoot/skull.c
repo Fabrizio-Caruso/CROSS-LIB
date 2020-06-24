@@ -108,7 +108,7 @@ void handle_skull(Character *skullPtr)
 void handle_skulls(void)
 {
     if(!skullActive)
-    {        
+    {   
         if(skullsCount==SKULLS_NUMBER && 
             ((!bossLevel() && NON_BOSS_TRIGGER_REACHED) || 
              (bossLevel() && BOSS_LOOP_TRIGGER_REACHED)))
@@ -147,15 +147,17 @@ void checkBombsVsSkull(register Character * skullPtr)
         
         bombs[reachedBombInd]._status = 0;
         deleteBomb(&bombs[reachedBombInd]);
+        EXPLOSION_SOUND();
         
         if(skullPtr->_status<=10)
         {
             skullPtr->_status=0;
             --skullsCount;
+            EXPLOSION_SOUND();
         }
         else
         {
-            (skullPtr->_status)-=10;
+            (skullPtr->_status)>>=1;
         }
     }
 }

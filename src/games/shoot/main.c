@@ -471,6 +471,12 @@ int main(void)
                 {
                     checkBombsVsSkulls();
                 }
+                if(freezeActive || !skullActive)
+                {
+                    #if SLOW_DOWN>0
+                        DO_SLOW_DOWN(SLOW_DOWN);
+                    #endif
+                }
                 #if !defined(TINY_GAME)
                     handle_extraPoints_item();
                     handle_gun_item();

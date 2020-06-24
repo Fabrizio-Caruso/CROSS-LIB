@@ -104,6 +104,8 @@ void handle_bomb(void)
         
         deleteCharacter(&bombs[bombCount]);
         
+        bombs[bombCount]._status=1;
+        
         if(playerDirection==RIGHT)
         {
             bombs[bombCount]._x = player._x+1; 

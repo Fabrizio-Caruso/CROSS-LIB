@@ -153,7 +153,7 @@
     { \
         for(i=0;i<BOMBS_NUMBER;++i) \
         { \
-            initializeCharacter(&bombs[i], 1+i, YSize-2,1,&BOMB_IMAGE); \
+            initializeCharacter(&bombs[i], 1+i, YSize-2,0,&BOMB_IMAGE); \
         } \
     } \
     while(0)

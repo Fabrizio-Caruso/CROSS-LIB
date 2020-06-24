@@ -47,14 +47,6 @@ void checkBombsVsGhost(register Ghost * ghostPtr)
     {
         points+=GHOST_VS_BOMBS_BONUS;
 
-        #if !defined(TINY_GAME)
-            ((Character *)ghostPtr)->_x=1+GHOSTS_NUMBER-ghostCount;
-        #else
-            ((Character *)ghostPtr)->_x=1;
-        #endif
-        ((Character *)ghostPtr)->_y=1;
-
-
         bombs[reachedBombInd]._status = 0;
         deleteBomb(&bombs[reachedBombInd]);
 

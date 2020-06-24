@@ -73,60 +73,12 @@
 
 #include "variables.h"
 
-// uint16_t ghostSlowDown;
-
-// #if !defined(TINY_GAME)
-    // uint16_t ghostLevel;
-// #endif
-
-// uint16_t points;
-// uint16_t highScore;
-// uint8_t lives;
-
 uint8_t skullsCount;
 
 uint8_t bulletStrength;
 
-// #if !defined(TINY_GAME) || defined(TURN_BASED)
-// uint16_t loop;
-// #endif
-// uint8_t level;
-
 uint8_t bombCount;
 
-// #if !defined(TINY_GAME)
-    // uint16_t skullSlowDown;
-    // uint8_t skullXCountDown;
-    // uint8_t skullYCountDown;
-    // uint8_t bulletDirection[BULLETS_NUMBER];
-// #endif
-
-// Level
-// The level affects:
-// 1. powerUpCoolDown (how long before a new powerUp is spawned)
-// 2. ghostSlowDown (how much the power up slows the enemies down)
-// 3. skullXCountDown (time needed to activate the skull ghost)
-// 4. skullYCountDown
-// 5. skullSlowDown (how much the skull ghost is slowed-down)
-// 6. skullLoopTrigger (how long before the skull ghost appears)
-
-// #if !defined(TINY_GAME)
-    // extern Image SKULL_IMAGE;
-    // extern Image POWERUP_IMAGE;
-    // extern Image BULLET_IMAGE;
-    // extern Image GUN_IMAGE;
-    // extern Image EXTRA_POINTS_IMAGE;    
-    // extern Image DEAD_GHOST_IMAGE;
-// #endif
-
-
-// #if defined(FULL_GAME) && !defined(NO_BLINKING)
-    // uint8_t playerBlink;    
-// #endif
-
-// Character player; 
-
-// Character *chasedEnemyPtr;
 
 #if !defined(TINY_GAME)
     
@@ -135,8 +87,7 @@ uint8_t bombCount;
 
 Character skulls[SKULLS_NUMBER];
 
-// Ghost ghosts[GHOSTS_NUMBER];
-// Character bombs[BOMBS_NUMBER];
+
 
 #if defined(FULL_GAME)
 

@@ -69,7 +69,7 @@
     #define GHOSTS_NUMBER 8
 #endif
 
-#define ROCKETS_NUMBER 6
+#define ROCKETS_NUMBER 3
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 40

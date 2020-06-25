@@ -58,7 +58,7 @@ c64:
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
-	-DSLOW_DOWN=200 \
+	-DSLOW_DOWN=180 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(SOURCE_PATH)/graphics_data/cc65/graphics.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \

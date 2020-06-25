@@ -295,16 +295,18 @@ void skullMoveTowardCharacter(Character *preyPtr, Character *hunterPtr, uint8_t 
 void computeStrategy(void)
 {
     uint8_t i;
-    uint8_t skew = (level - 1) / 5;
+    uint8_t skew = (level - 1) / 4;
     
-    for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
+    for(i=0; i<2; ++i) // 3 (if total=8)
     {
         strategyArray[i] = 5+skew; // 6,7,8,(9 if GHOSTS are 9) (prefer Y (60%, 70%, 80%, 90)
-        strategyArray[9-i] = 3-skew; // 4,3,2,(1 if GHOSTS are 9) prefer X (60%, 70%, 80%, 90%)
+        strategyArray[3-i] = 3-skew; // 4,3,2,(1 if GHOSTS are 9) prefer X (60%, 70%, 80%, 90%)
             
     }
-    strategyArray[0] = 4;
-    strategyArray[1] = 4;                
+    for(i=4;i<ghostsOnScreen;++i)
+    {
+        strategyArray[i] = 4;
+    }
 }
 #endif
 

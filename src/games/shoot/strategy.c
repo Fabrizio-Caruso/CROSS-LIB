@@ -44,6 +44,7 @@ extern uint8_t innerHorizontalWallX;
 extern uint8_t innerHorizontalWallY;
 extern uint8_t innerHorizontalWallLength;
 
+extern uint8_t ghostsOnScreen;
 
 #if defined(FULL_GAME)
 extern uint8_t zombieActive;
@@ -320,7 +321,7 @@ void chaseCharacter(uint16_t slowDown)
     
     if(innerVerticalWallLevel())
     {
-        for(i=0;i<GHOSTS_NUMBER;++i)
+        for(i=0;i<ghostsOnScreen;++i)
         {
             if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)    
             {
@@ -335,7 +336,7 @@ void chaseCharacter(uint16_t slowDown)
     }
     else
     {
-        for(i=0;i<GHOSTS_NUMBER;++i)
+        for(i=0;i<ghostsOnScreen;++i)
         {
             #if defined(FULL_GAME)
                 if((ghosts[i]._status || (zombieActive && loop&1)) && GHOST_RANDOM_CONDITION)

@@ -306,7 +306,7 @@ void fillLevelWithCharacters(void)
     
     for(i=ghostsOnScreen;i<GHOSTS_NUMBER;++i)
     {
-        initializeCharacter(&ghosts[i],1,1,0,NULL);
+        initializeCharacter(&ghosts[i],0,0,0,NULL);
     }    
     
     placeBombs();

@@ -219,7 +219,7 @@ void displayStats(void)
 	void printLevel(void)
 	{
 		PRINT(((XSize -7)>>1), (YSize>>1), START_LEVEL_STRING);
-        PRINTD(((XSize -7)>>1)+6, (YSize>>1), 1, level);
+        PRINTD(((XSize -7)>>1)+6, (YSize>>1), 2, level);
 	}
 #endif
 

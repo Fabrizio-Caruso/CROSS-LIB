@@ -30,7 +30,7 @@
 #include "speed_game_settings.h"
 
 #if !defined(FORCE_LEVEL)
-    #define INITIAL_LEVEL 7
+    #define INITIAL_LEVEL 1
 #else
     #define INITIAL_LEVEL FORCE_LEVEL
 #endif

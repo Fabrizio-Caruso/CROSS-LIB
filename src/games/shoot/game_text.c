@@ -200,7 +200,9 @@ void displayStats(void)
 #if !defined(LESS_TEXT)    
     void printLevel(void)
     {
-        PRINTD(((XSize -7)>>1), (YSize>>1), 2, level);
+        SET_COLOR(TEXT_COLOR);
+        PRINT(((XSize -7)>>1), (YSize>>1), LEVEL_STRING);
+        PRINTD(((XSize -7)>>1)+6, (YSize>>1), 2, level);
     }
 #endif
 

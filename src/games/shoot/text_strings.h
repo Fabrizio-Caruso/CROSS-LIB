@@ -38,8 +38,8 @@
     #define DESTROY_MISSILES_STRING "destroy the missiles"
     #define LURE_THE_ENEMIES_STRING "kill all enemies"
     #define INTO_THE_MINES_STRING     ""
-    #define SCORE_STRING "score:"
-    #define LEVEL_STRING "level:"
+    #define SCORE_STRING "score "
+    #define LEVEL_STRING "level "
     #define START_LEVEL_STRING "level %u"
     #define USE_THE_GUN_AGAINST_STRING "shoot at"
     #define THE_SKULL_AND_STRING "the skulls and"
@@ -53,8 +53,8 @@
     #define DESTROY_MISSILES_STRING "destroy the missiles"    
     #define LURE_THE_ENEMIES_STRING "KILL ALL ENEMIES"
     #define INTO_THE_MINES_STRING     ""
-    #define SCORE_STRING "SCORE:"
-    #define LEVEL_STRING "LEVEL:"
+    #define SCORE_STRING "SCORE "
+    #define LEVEL_STRING "LEVEL "
     #define START_LEVEL_STRING "LEVEL %u"
     #define USE_THE_GUN_AGAINST_STRING "SHOOT AT"
     #define THE_SKULL_AND_STRING "THE SKULLS AND"
@@ -73,8 +73,8 @@
     #define DESTROY_MISSILES_STRING "Destroy the missiles"    
     #define LURE_THE_ENEMIES_STRING "Kill all enemies"
     #define INTO_THE_MINES_STRING ""
-    #define SCORE_STRING "SCORE:"
-    #define LEVEL_STRING "LEVEL:"    
+    #define SCORE_STRING "SCORE "
+    #define LEVEL_STRING "LEVEL "    
     #define START_LEVEL_STRING "LEVEL %u"    
     #define USE_THE_GUN_AGAINST_STRING "Shoot at"
     #define THE_SKULL_AND_STRING "the skulls and"
@@ -136,13 +136,13 @@
 #endif
 
 #if defined(NO_CASE_LETTERS)
-    #define BONUS_COLON_STRING "bonus: "
-    #define SCORE_COLON__STRING "score: "
-    #define HIGH_SCORE_COLON_STRING "high score: "
+    #define BONUS_COLON_STRING "bonus "
+    #define SCORE_COLON__STRING "score "
+    #define HIGH_SCORE_COLON_STRING "high score "
 #else
-    #define BONUS_COLON_STRING "BONUS: "
-    #define SCORE_COLON__STRING "SCORE: "
-    #define HIGH_SCORE_COLON_STRING "HIGH SCORE: "
+    #define BONUS_COLON_STRING "BONUS "
+    #define SCORE_COLON__STRING "SCORE "
+    #define HIGH_SCORE_COLON_STRING "HIGH SCORE "
 #endif
 
 #define BONUS_DIGITS "%u0"

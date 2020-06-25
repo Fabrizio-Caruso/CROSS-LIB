@@ -155,7 +155,7 @@ void moveTowardCharacter(Character* preyPtr, register Character *hunterPtr, uint
         #if defined(DEBUG_STRATEGY)
         gotoxy(4,1);cprintf("same vertical side      ");           
         #endif
-        if(rand()%10 > strategy) // Select blind chase strategy
+        if(rand()&7 > strategy) // Select blind chase strategy
             { // 0 - 4
                 blindChaseCharacterXStrategy(hunterPtr, preyPtr);    
             }
@@ -229,7 +229,7 @@ void horizontalWallMoveTowardCharacter(Character* preyPtr, register Character *h
         #if defined(DEBUG_STRATEGY)
         gotoxy(4,1);cprintf("same horizontal side  ");   
         #endif
-        if(rand()%10 > strategy) // Select blind chase strategy
+        if(rand()&7 > strategy) // Select blind chase strategy
             { // 0 - 4
                 blindChaseCharacterXStrategy(hunterPtr, preyPtr);    
             }
@@ -279,7 +279,7 @@ void horizontalWallMoveTowardCharacter(Character* preyPtr, register Character *h
 
 void skullMoveTowardCharacter(Character *preyPtr, Character *hunterPtr, uint8_t strategy)
 {
-    if(rand()%10 > strategy) // Select blind chase strategy
+    if(rand()&7 > strategy) // Select blind chase strategy
         { // 0 - 4
             blindChaseCharacterXStrategy(hunterPtr, preyPtr);    
         }
@@ -295,17 +295,17 @@ void skullMoveTowardCharacter(Character *preyPtr, Character *hunterPtr, uint8_t 
 void computeStrategy(void)
 {
     uint8_t i;
-    uint8_t skew = (level - 1) / 4;
+    uint8_t skew = level / 8;
     
     for(i=0; i<2; ++i) // 3 (if total=8)
     {
-        strategyArray[i] = 5+skew; // 6,7,8,(9 if GHOSTS are 9) (prefer Y (60%, 70%, 80%, 90)
-        strategyArray[3-i] = 3-skew; // 4,3,2,(1 if GHOSTS are 9) prefer X (60%, 70%, 80%, 90%)
+        strategyArray[i] = 4+skew; // 5,6,7,8 prefer Y (60%, 70%, 80%, 90)
+        strategyArray[3-i] = 2-skew; // 3,2,1,0 prefer X (60%, 70%, 80%, 90%)
             
     }
     for(i=4;i<ghostsOnScreen;++i)
     {
-        strategyArray[i] = 4;
+        strategyArray[i] = 3;
     }
 }
 #endif

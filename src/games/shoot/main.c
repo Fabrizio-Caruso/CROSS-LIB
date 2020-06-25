@@ -235,7 +235,7 @@ int main(void)
         level = INITIAL_LEVEL;     
         lives = LIVES_NUMBER;
         
-        ghostCount = GHOSTS_NUMBER + 4*level; 
+        ghostCount = GHOSTS_NUMBER + 2*level; 
          
         
         #if defined(FULL_GAME)
@@ -345,7 +345,7 @@ int main(void)
                 {
                     printKillTheSkull();
                     SLEEP(2);
-                    ghostCount = level>>2;
+                    ghostCount = level;
                 }
                 CLEAR_SCREEN();
                 
@@ -590,7 +590,7 @@ int main(void)
                     points += LEVEL_BONUS * 4;
                 #endif            
 
-                ghostCount = GHOSTS_NUMBER + 4*level; 
+                ghostCount = GHOSTS_NUMBER + 2*level; 
                 
                 #if defined(FULL_GAME)            
                     if(bossLevel())

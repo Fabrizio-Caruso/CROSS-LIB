@@ -70,6 +70,7 @@ c64:
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_c64_exomized.prg  $(BUILD_PATH)/FULL_c64_exomized.crt
 	rm $(BUILD_PATH)/FULL_c64.prg
 
+vic20: vic20_exp_16k
 
 vic20_exp_16k: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS  \

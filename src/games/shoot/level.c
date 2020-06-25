@@ -293,21 +293,17 @@ void fillLevelWithCharacters(void)
         #endif          
     }
     
-    for(i=count;i<ghostsOnScreen;++i)
+    for(i=count;i<GHOSTS_NUMBER;++i)
     {
         #if defined(DEBUG)
         gotoxy(1,1);cprintf("initialized dead ghost.......");        
         #endif        
-        initializeCharacter(&ghosts[i],1,1,0,&DEAD_GHOST_IMAGE);
+        initializeCharacter(&ghosts[i],0,0,0,NULL);
         #if defined(DEBUG)
             displayCharacter((Character *)&ghosts[i]);
         #endif        
     }
     
-    for(i=ghostsOnScreen;i<GHOSTS_NUMBER;++i)
-    {
-        initializeCharacter(&ghosts[i],0,0,0,NULL);
-    }    
     
     placeBombs();
     

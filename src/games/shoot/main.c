@@ -345,7 +345,7 @@ int main(void)
                 {
                     printKillTheSkull();
                     SLEEP(2);
-                    ghostCount = level;
+                    ghostCount = level>>1;
                 }
                 CLEAR_SCREEN();
                 

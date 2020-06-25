@@ -65,7 +65,7 @@
 
 #if defined(TURN_BASED)
 		#define SLOW_DOWN 0
-#else	
+#elif !defined(SLOW_DOWN)
 	#  if defined(__NCURSES__)
 		#define SLOW_DOWN 100
     #elif defined(__OSIC1P__)

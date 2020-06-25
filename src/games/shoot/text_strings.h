@@ -28,10 +28,10 @@
 
 #if defined(NO_CASE_LETTERS)
     #if defined(TINY_GAME)
-        #define CROSS_SHOOT_STRING "cross shoot beta"
+        #define CROSS_SHOOT_STRING "cross shoot"
         #define AUTHOR_STRING "fabrizio caruso"
     #else
-        #define CROSS_SHOOT_STRING "c r o s s  s h o o t  beta"    
+        #define CROSS_SHOOT_STRING "c r o s s  s h o o t"    
         #define AUTHOR_STRING "by fabrizio caruso"
     #endif
     #define KILL_THE_SKULL_STRING "kill the skulls"
@@ -47,7 +47,7 @@
     #define FOR_POINTS_AND___STRING "for points"
     #define EXTRA_POWERUPS__STRING "and items"
 #elif defined(__PC6001__)
-    #define CROSS_SHOOT_STRING "C R O S S  S H O O T  BETA"        
+    #define CROSS_SHOOT_STRING "C R O S S  S H O O T"        
     #define AUTHOR_STRING "BY FABRIZIO CARUSO"
     #define KILL_THE_SKULL_STRING "KILL THE SKULLS"    
     #define DESTROY_MISSILES_STRING "destroy the missiles"    
@@ -63,10 +63,10 @@
     #define EXTRA_POWERUPS__STRING  "AND ITEMS"    
 #else
     #if defined(TINY_GAME)
-        #define CROSS_SHOOT_STRING "CROSS SHOOT BETA"
+        #define CROSS_SHOOT_STRING "CROSS SHOOT"
         #define AUTHOR_STRING "Fabrizio Caruso"
     #else
-        #define CROSS_SHOOT_STRING "C R O S S  S H O O T  BETA"        
+        #define CROSS_SHOOT_STRING "C R O S S  S H O O T"        
         #define AUTHOR_STRING "by Fabrizio Caruso"
     #endif
     #define KILL_THE_SKULL_STRING "Kill the skulls"    

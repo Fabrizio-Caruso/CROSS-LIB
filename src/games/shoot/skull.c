@@ -48,6 +48,8 @@ extern Character player;
 
 extern uint8_t skullActive;
 
+extern uint8_t isBossLevel;
+
 #if defined(FULL_GAME)
     extern uint8_t confuseActive;
 #endif
@@ -110,8 +112,8 @@ void handle_skulls(void)
     if(!skullActive)
     {   
         if(skullsCount==SKULLS_NUMBER && 
-            ((!bossLevel() && NON_BOSS_TRIGGER_REACHED) || 
-             (bossLevel() && BOSS_LOOP_TRIGGER_REACHED)))
+            ((!isBossLevel && NON_BOSS_TRIGGER_REACHED) || 
+             (isBossLevel && BOSS_LOOP_TRIGGER_REACHED)))
         {
             #if !defined(DEBUG_NO_SKULL)
             skullActive = 1;

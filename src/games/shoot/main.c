@@ -250,7 +250,14 @@ int main(void)
         
         
         do // Level (Re-)Start
-        {     
+        {
+            isBossLevel = bossLevel();
+            isRocketLevel = rocketLevel();
+            isOneMissileLevel = oneMissileLevel();
+            isMissileLevel = missileLevel();
+            isInnerHorizontalWallLevel = innerHorizontalWallLevel();
+            isInnerVerticalWallLevel = innerVerticalWallLevel();
+            
             #if defined(DEBUG_STRATEGY)
             ghostsOnScreen = 1;
             #else
@@ -341,7 +348,7 @@ int main(void)
             
                 bulletStrength = 2;
             
-                if(bossLevel())
+                if(isBossLevel)
                 {
                     printKillTheSkull();
                     SLEEP(2);
@@ -350,6 +357,7 @@ int main(void)
                 CLEAR_SCREEN();
                 
                 updateInnerVerticalWall();    
+                
                 updateInnerHorizontalWall();                
             #endif
             
@@ -382,7 +390,7 @@ int main(void)
                 printGhostCountStats();
             #endif        
             
-            while(player._status && (( ((ghostCount>0)&&(skullsCount)) && !bossLevel()) || (skullsCount && bossLevel()))) // while alive && there are still ghosts
+            while(player._status && (( ((ghostCount>0)&&(skullsCount)) && !isBossLevel) || (skullsCount && isBossLevel))) // while alive && there are still ghosts
             {                
                 #if defined(DEBUG_END)
                     gameCompleted();
@@ -435,7 +443,10 @@ int main(void)
                     if(!freezeActive)
                     {
                         #if defined(FULL_GAME)
-                            chaseCharacter(&player, ghostSlowDown);
+                            if(ghostCount)
+                            {
+                                chaseCharacter(&player, ghostSlowDown);
+                            }
                         #else
                             chaseCharacter(ghostSlowDown);
                         #endif
@@ -540,11 +551,12 @@ int main(void)
                     
                     SKIP_WALL_DRAW
                     {
-                        if(innerVerticalWallLevel())
+                        
+                        if(isInnerVerticalWallLevel)
                         {
-                            DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);    
+                            DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
                         }
-                        else if(innerHorizontalWallLevel())
+                        else if(isInnerHorizontalWallLevel)
                         {
                             DRAW_HORIZONTAL_LINE(XSize/2-(innerHorizontalWallLength/2), YSize/2, innerHorizontalWallLength);                                
                         }
@@ -593,7 +605,7 @@ int main(void)
                 ghostCount = GHOSTS_NUMBER + 2*level; 
                 
                 #if defined(FULL_GAME)            
-                    if(bossLevel())
+                    if(isBossLevel)
                     {    
                         CLEAR_SCREEN();
                         SLEEP(1);

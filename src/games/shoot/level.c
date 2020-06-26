@@ -117,13 +117,20 @@ extern Character bombs[BOMBS_NUMBER];
     extern char skullsKilled;
 #endif
 
+extern uint8_t isBossLevel;
+extern uint8_t isOneMissileLevel;
+extern uint8_t isMissileLevel;
+extern uint8_t isRocketLevel;
+extern uint8_t isInnerHorizontalWallLevel;
+extern uint8_t isInnerVerticalWallLevel;
+
 
 #if defined(FULL_GAME)
     void updateInnerVerticalWall(void)
     {    
         unsigned char lvmod = level&7;
         
-        if(!innerVerticalWallLevel())
+        if(!isInnerVerticalWallLevel)
         {
             innerVerticalWallLength = 0;
         }
@@ -147,7 +154,7 @@ extern Character bombs[BOMBS_NUMBER];
     {    
         unsigned char lvmod = level&7;
         
-        if(!innerHorizontalWallLevel())
+        if(!isInnerHorizontalWallLevel)
         {
             innerHorizontalWallLength = 0;
         }
@@ -166,32 +173,32 @@ extern Character bombs[BOMBS_NUMBER];
         innerHorizontalWallY = (YSize>>1);
     }
 
-    unsigned char innerHorizontalWallLevel(void)
+    uint8_t innerHorizontalWallLevel(void)
     {
         return ((level&7)==2) || ((level&7)==4) || ((level&7)==6);
     }
     
-    unsigned char innerVerticalWallLevel(void)
+    uint8_t innerVerticalWallLevel(void)
     {
         return ((level&7)==1) || ((level&7)==3) || ((level&7)==5);
     }    
     
-    unsigned char oneMissileLevel(void)
+    uint8_t oneMissileLevel(void)
     {
         return ((level&7)==3) || ((level&7)==7);
     }
 
-    unsigned char rocketLevel(void)
+    uint8_t rocketLevel(void)
     {
         return ((level&7)==7) || ((level&7)==0);
     }
 
-    unsigned char missileLevel(void)
+    uint8_t missileLevel(void)
     {
         return ((level&7)==0) || ((level&7)==6) || ((level&7)==5) || ((level&7)==4);
     }    
 
-    unsigned char bossLevel(void)
+    uint8_t bossLevel(void)
     {
         return !(level&7);
     }
@@ -260,7 +267,7 @@ void fillLevelWithCharacters(void)
     #if defined(DEBUG)
     gotoxy(1,1);cprintf("filling level.........");
     #endif
-    if(rocketLevel() || bossLevel())
+    if(isRocketLevel || isBossLevel)
     {
         for(i=0;i<ROCKETS_NUMBER;i++)
         {
@@ -323,11 +330,11 @@ void fillLevelWithCharacters(void)
 
         initializeAwayFromWall(&(invincibility._character), (XSize>>1), (YSize>>1), 0, &INVINCIBILITY_IMAGE);
 
-        if(oneMissileLevel())
+        if(isOneMissileLevel)
         {
             initializeCharacter(&rightHorizontalMissile,         XSize-1,                      (YSize>>1), 1,&RIGHT_HORIZONTAL_MISSILE_IMAGE);            
         }
-        else if(missileLevel() || bossLevel())
+        else if(isMissileLevel || isBossLevel)
         {    
             initializeCharacter(&rightHorizontalMissile,         XSize-1,         HORIZONTAL_MISSILE_OFFSET, 1,&RIGHT_HORIZONTAL_MISSILE_IMAGE);
             initializeCharacter(&leftHorizontalMissile,                0, YSize-1-HORIZONTAL_MISSILE_OFFSET, 1,&LEFT_HORIZONTAL_MISSILE_IMAGE);        
@@ -345,13 +352,13 @@ void fillLevelWithCharacters(void)
         #if SKULLS_NUMBER>4
             for(i=4;i<SKULLS_NUMBER;++i)
             {    
-                initializeCharacter(&skulls[i],XSize-2,YSize-2, MIN_SKULL_HITS+(bossLevel()<<6), &SKULL_IMAGE);
+                initializeCharacter(&skulls[i],XSize-2,YSize-2, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
             }
         #else
-            initializeCharacter(&skulls[0],XSize-3,YSize-3, MIN_SKULL_HITS+(bossLevel()<<6), &SKULL_IMAGE);
-            initializeCharacter(&skulls[1],2,YSize-3, MIN_SKULL_HITS+(bossLevel()<<6), &SKULL_IMAGE);
-            initializeCharacter(&skulls[2],XSize-3,2, MIN_SKULL_HITS+(bossLevel()<<6), &SKULL_IMAGE);
-            initializeCharacter(&skulls[3],2,2, MIN_SKULL_HITS+(bossLevel()<<6), &SKULL_IMAGE);
+            initializeCharacter(&skulls[0],XSize-3,YSize-3, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
+            initializeCharacter(&skulls[1],2,YSize-3, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
+            initializeCharacter(&skulls[2],XSize-3,2, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
+            initializeCharacter(&skulls[3],2,2, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
         
         #endif
     #endif

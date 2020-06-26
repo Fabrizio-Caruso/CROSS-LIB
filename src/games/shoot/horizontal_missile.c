@@ -39,6 +39,10 @@ extern Character player;
 extern uint8_t arrowRange;
 extern uint8_t arrowYPosition;
 
+extern uint8_t isOneMissileLevel;
+extern uint8_t isMissileLevel;
+extern uint8_t isBossLevel;
+
     uint8_t _playerInArrowRange()
     {
         return (loop&1 && player._y<=(arrowYPosition+arrowRange) && player._y>=(arrowYPosition-arrowRange));
@@ -106,12 +110,12 @@ extern uint8_t arrowYPosition;
     
     void handle_horizontal_missiles(void)
     {    
-        if(oneMissileLevel())
+        if(isOneMissileLevel)
         {
             arrowYPosition = YSize/2;
             _handle_horizontal_missile_from_the_right();
         }    
-        else if(missileLevel() || bossLevel())
+        else if(isMissileLevel || isBossLevel)
         {
             arrowYPosition = HORIZONTAL_MISSILE_OFFSET;
             _handle_horizontal_missile_from_the_right();

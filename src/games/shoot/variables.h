@@ -288,7 +288,8 @@
     uint8_t isOneMissileLevel;
     uint8_t isMissileLevel;
     uint8_t isRocketLevel;
-    uint8_t isHorizontalWallsLevel;
+    uint8_t isInnerHorizontalWallLevel;
+    uint8_t isInnerVerticalWallLevel;
 #endif
 
 #endif // _VARIABLES_H

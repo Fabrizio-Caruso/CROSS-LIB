@@ -39,6 +39,7 @@ extern uint8_t level;
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 
+extern uint8_t isBossLevel;
 
 void checkBombsVsGhost(register Character * ghostPtr)
 {
@@ -106,7 +107,7 @@ void ghostDies(Character * ghostPtr)
     displayStats();
     
     --ghostCount;
-    if(ghostCount>=ghostsOnScreen)
+    if(!isBossLevel && (ghostCount>=ghostsOnScreen))
     {
         spawnGhost(ghostPtr, ghostCount % ghostsOnScreen);
     }

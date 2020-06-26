@@ -46,6 +46,8 @@ extern uint8_t innerHorizontalWallLength;
 
 extern uint8_t ghostsOnScreen;
 
+extern uint8_t isInnerVerticalWallLevel;
+
 #if defined(FULL_GAME)
 extern uint8_t zombieActive;
 #endif
@@ -321,7 +323,7 @@ void chaseCharacter(uint16_t slowDown)
 {
     uint8_t i;
     
-    if(innerVerticalWallLevel())
+    if(isInnerVerticalWallLevel)
     {
         for(i=0;i<ghostsOnScreen;++i)
         {

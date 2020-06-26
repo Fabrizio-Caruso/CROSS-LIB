@@ -219,17 +219,17 @@ void fillLevelWithCharacters(void);
     
     void updateInnerHorizontalWall(void);
     
-    unsigned char innerHorizontalWallLevel(void);
+    uint8_t innerHorizontalWallLevel(void);
     
-    unsigned char oneMissileLevel(void);
+    uint8_t oneMissileLevel(void);
     
-    unsigned char rocketLevel(void);
+    uint8_t rocketLevel(void);
 
-    unsigned char missileLevel(void);    
+    uint8_t missileLevel(void);    
 
-    unsigned char innerVerticalWallLevel(void);
+    uint8_t innerVerticalWallLevel(void);
 
-    unsigned char bossLevel(void);
+    uint8_t bossLevel(void);
     
     void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr);
 

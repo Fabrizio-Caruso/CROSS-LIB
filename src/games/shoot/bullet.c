@@ -72,7 +72,7 @@ extern Character player;
 
 extern uint8_t ghostsOnScreen;
 
-    
+
 #if defined(FULL_GAME) 
     extern Item freeze;
     extern Item extraLife;
@@ -85,6 +85,7 @@ extern uint8_t ghostsOnScreen;
     extern uint8_t dead_rockets;
     extern uint8_t missileBasesDestroyed;
 #endif
+
 
 uint8_t availableBullet(void)
 {
@@ -99,7 +100,8 @@ uint8_t availableBullet(void)
     }
     return BULLETS_NUMBER;
 }
-    
+
+
 void handle_bomb(void)
 {
     // Check if player has fired the gun
@@ -157,47 +159,48 @@ void handle_bullet_fire(uint8_t bulletIndex)
         bulletDirection[bulletIndex] = playerDirection;
         bullets[bulletIndex]._status = 1;
         
-        bullets[bulletIndex]._x = player._x;
-        bullets[bulletIndex]._y = player._y;
-        // if(playerDirection==LEFT)
-        // {
-            // bullets[bulletIndex]._x = player._x-1;             
-        // }
-        // else if(playerDirection==RIGHT)
-        // {
-            // bullets[bulletIndex]._x = player._x+1;                
-        // }
-        // else
-        // {
-            // bullets[bulletIndex]._x = player._x;                            
-        // }
+        if(playerDirection==LEFT)
+        {
+            bullets[bulletIndex]._x = player._x-1;             
+        }
+        else if(playerDirection==RIGHT)
+        {
+            bullets[bulletIndex]._x = player._x+1;                
+        }
+        else
+        {
+            bullets[bulletIndex]._x = player._x;                            
+        }
         
-        // if(playerDirection==UP)
-        // {
-            // bullets[bulletIndex]._y = player._y-1;        
-        // }
-        // else if(playerDirection==DOWN)
-        // {
-            // bullets[bulletIndex]._y = player._y+1;        
-        // }
-        // else
-        // {
-            // bullets[bulletIndex]._y = player._y;        
-        // }
-        //displayBullet(&bullets[bulletIndex]);
+        if(playerDirection==UP)
+        {
+            bullets[bulletIndex]._y = player._y-1;        
+        }
+        else if(playerDirection==DOWN)
+        {
+            bullets[bulletIndex]._y = player._y+1;        
+        }
+        else
+        {
+            bullets[bulletIndex]._y = player._y;        
+        }
+        displayBullet(&bullets[bulletIndex]);
         playerFire = 0;    
+        checkBullet(&bullets[bulletIndex],playerDirection);
     }    
 }    
-    
+
+
 void handle_bullet(uint8_t bulletIndex)
 {
     // Move bullet if fired
-    if(bullets[bulletIndex]._status==1)
+    if(bullets[bulletIndex]._status)
     {
         moveBullet(&bullets[bulletIndex], bulletDirection[bulletIndex]);
         checkBullet(&bullets[bulletIndex], bulletDirection[bulletIndex]);
     }
 }
+
 
 void handle_bullets(void)
 {
@@ -215,6 +218,7 @@ void handle_bullets(void)
         handle_bullet(i);
     }
 }
+
 
 void pushGhost(Character * ghostPtr, uint8_t bulletDirection)
 {
@@ -235,6 +239,7 @@ void pushGhost(Character * ghostPtr, uint8_t bulletDirection)
     }
 }
 
+
 void checkBullets(void)
 {
     uint8_t i;
@@ -244,6 +249,7 @@ void checkBullets(void)
         checkBullet(&bullets[i], bulletDirection[i]);
     }
 }
+
 
 void checkBullet(Character *bulletPtr, uint8_t bulletDirection)
 {
@@ -256,6 +262,7 @@ void checkBullet(Character *bulletPtr, uint8_t bulletDirection)
         checkBulletVsGhosts(bulletPtr, bulletDirection);
     }
 }
+
 
 void checkBulletVsGhost(Character * bulletPtr,
                         uint8_t bulletDirection,
@@ -300,7 +307,8 @@ void checkBulletVsGhost(Character * bulletPtr,
         }
     }
 }
-    
+
+
 void checkBulletVsGhosts(Character * bulletPtr, uint8_t bulletDirection)
 {
     uint8_t i = 0;
@@ -348,6 +356,7 @@ void checkBulletVsSkull(register Character *bulletPtr, Character *skullPtr)
         }
     }    
 }
+
 
 void checkBulletVsSkulls(Character *bulletPtr)
 {
@@ -397,14 +406,13 @@ void _moveBullet(register Character *bulletPtr, uint8_t bulletDirection)
     }
 #endif
 
+
 void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
 {
-    _moveBullet(bulletPtr, bulletDirection);
     if((wallReached(bulletPtr) || innerWallReached(bulletPtr) || innerHorizontalWallReached(bulletPtr)) && bulletPtr->_status)
     {
         bulletPtr->_status=0;
         
-        deleteBullet(bulletPtr);
         #if defined(FULL_GAME)
             DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
             
@@ -446,6 +454,7 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
     }
     else
     {
+        _moveBullet(bulletPtr, bulletDirection);
         displayBullet(bulletPtr);
     }
 }

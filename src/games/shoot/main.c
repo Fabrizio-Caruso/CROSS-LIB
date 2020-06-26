@@ -221,13 +221,8 @@ int main(void)
          
         
         #if defined(FULL_GAME)
-            #if defined(DEBUG_ITEMS)
-                missileBasesDestroyed = 2;
-                skullsKilled = 2;
-            #else
-                missileBasesDestroyed = 0;
-                skullsKilled = 0;            
-            #endif            
+            missileBasesDestroyed = 0;
+            skullsKilled = 0;            
         #endif
         
         
@@ -285,9 +280,14 @@ int main(void)
                 #endif
                 confuseActive = 0;
                 zombieActive = 0; 
-                
+
+                #if defined(DEBUG_ITEMS)
+                    missileBasesDestroyed = 2;
+                    skullsKilled = 2;
+                #endif
+
                 handle_special_triggers();
-                
+
                 #if !defined(SIMPLE_STRATEGY)
                     computeStrategy();            
                 #endif

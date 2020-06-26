@@ -456,6 +456,10 @@ int main(void)
                         ++ghostLevel;            
                         
                     }
+                    else
+                    {
+                        displaySkulls();
+                    }
                 
 
                     // This detects collisions of ghosts that have just moved

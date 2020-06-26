@@ -175,5 +175,20 @@ void checkBombsVsSkulls(void)
          checkBombsVsSkull(&skulls[i]);
       }
 }   
+
+
+void displaySkulls(void)
+{
+    uint8_t i;
+
+    for(i=0;i<SKULLS_NUMBER;++i)
+    {
+        if (skulls[i]._status)
+        {
+            displaySkull(&skulls[i]);
+        }
+    }
+}
+
 #endif
 

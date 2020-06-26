@@ -40,6 +40,9 @@ void computeSkullParameters(void);
 void checkBombsVsSkull(register Character * skullPtr);
 
 void checkBombsVsSkulls(void);
+
+void displaySkulls(void);
+
 #endif
 
 

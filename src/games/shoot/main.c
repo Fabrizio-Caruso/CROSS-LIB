@@ -168,24 +168,6 @@ void initialScreen(void)
     
 #endif
 
-#if defined(SLOW_DOWN)
-    #  if defined(__NCURSES__)
-    
-        void _slow_down(void)
-        {
-            usleep(SLOW_DOWN*1024);
-        }
-    #else
-    void _slow_down(void)
-    {
-        short i;
-        for(i=0;i<SLOW_DOWN;++i)
-        {    
-        }
-    }
-    #endif
-#endif
-
 
 int main(void)
 {        
@@ -400,10 +382,6 @@ int main(void)
                     MOVE_PLAYER();                
                     _DRAW_PLAYER();    
                 #endif
-                
-                #if defined(SLOW_DOWN)
-                    _slow_down();
-                #endif
                         
                 #if defined(FULL_GAME)
                     handle_rockets();
@@ -458,7 +436,10 @@ int main(void)
                     }
                     else
                     {
-                        displaySkulls();
+                        if(skullActive)
+                        {
+                            displaySkulls();
+                        }
                     }
                 
 

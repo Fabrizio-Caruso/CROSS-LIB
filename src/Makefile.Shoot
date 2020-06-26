@@ -58,7 +58,7 @@ c64:
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
-	-DSLOW_DOWN=160 \
+	-DSLOW_DOWN=200 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(SOURCE_PATH)/graphics_data/cc65/graphics.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
@@ -76,7 +76,7 @@ vic20_exp_16k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
-	-DSLOW_DOWN=160 \
+	-DSLOW_DOWN=200 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \

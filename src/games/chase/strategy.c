@@ -100,7 +100,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
     void moveTowardCharacter(Character* preyPtr, Character *hunterPtr, uint8_t strategy)
     {
-        if(rand()%10 > strategy) // Select blind chase strategy
+        if(rand()&7 > strategy) // Select blind chase strategy
             { // 0 - 4
                 blindChaseCharacterXStrategy(hunterPtr, preyPtr);    
             }
@@ -133,16 +133,16 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 void computeStrategy(void)
 {
     uint8_t i;
-    uint8_t skew = (level - 1) / 5;
+    uint8_t skew = level / 8;
     
     for(i=5; i<GHOSTS_NUMBER; ++i) // 3 (if total=8)
     {
-        strategyArray[i] = 5+skew; // 5,6,7,(8 if GHOSTS are 9): prefer Y (60%, 70%, 80%, 90%)
-        strategyArray[9-i] = 3-skew; // 4,3,2,(1 if GHOSTS are 9): prefer X (60%, 70%, 80%, 90%)
+        strategyArray[i] = 4+skew; // 4,5,6 
+        strategyArray[9-i] = 2-skew; // 2,1,0
             
     }
-    strategyArray[0] = 4;
-    strategyArray[1] = 4;                
+    strategyArray[0] = 3;
+    strategyArray[1] = 3;                
 }
 #endif
 

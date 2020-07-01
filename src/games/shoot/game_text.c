@@ -59,6 +59,8 @@ extern uint8_t bulletStrength;
 #else
     #define BULLET_IMAGE_X 11
     #define BULLET_IMAGE_Y 0
+    #define FIRE_POWER_IMAGE_X 0
+    #define FIRE_POWER_IMAGE_Y 0
     #define GHOST_IMAGE_X 8
     #define GHOST_IMAGE_Y 0
     #define PLAYER_IMAGE_X 14
@@ -142,6 +144,7 @@ extern Image BULLET_IMAGE;
         #endif
     }
     
+    #if !defined(WIDE)
     void printFirePowerStats(void)
     {
         #if !defined(NO_TEXT_COLOR)
@@ -161,6 +164,7 @@ extern Image BULLET_IMAGE;
             PRINTD(FIRE_POWER_IMAGE_X+0,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
         #endif
     }
+    #endif
 #endif
 
 #if !defined(NO_STATS)

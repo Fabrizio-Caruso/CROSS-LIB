@@ -48,7 +48,11 @@ void displayStats(void);
 
 	void printGunsStats(void);
     
-	void printFirePowerStats(void);
+    #if !defined(WIDE)
+        void printFirePowerStats(void);
+    #else
+        #define printFirePowerStats()
+    #endif
 #endif
 
 

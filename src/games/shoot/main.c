@@ -238,15 +238,15 @@ int main(void)
             #if defined(DEBUG_STRATEGY)
             ghostsOnScreen = 1;
             #else
-            if(level<=3) // 1, 2, 3
+            if(isMissileLevel && isRocketLevel)
             {
                 ghostsOnScreen = 5;
             }
-            else if((level<=6) || ((level&7)>2)) // 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16
+            else if(isMissileLevel || isRocketLevel)
             {
                 ghostsOnScreen = 6;
             }
-            else // 9, 10
+            else 
             {
                 ghostsOnScreen = 7;
             }

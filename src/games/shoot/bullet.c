@@ -414,7 +414,6 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
         bulletPtr->_status=0;
         
         #if defined(FULL_GAME)
-            DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
             
             if(isOneMissileLevel)
             {
@@ -451,6 +450,7 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
                 }
             }            
         #endif        
+        DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
     }
     else
     {

@@ -165,7 +165,8 @@ extern uint8_t ghostsOnScreen;
     void _firePowerEffect(void)
     {
         ++bulletStrength;
-        points+=FIRE_POWER_BONUS;        
+        points+=FIRE_POWER_BONUS;
+        printFirePowerStats();
     }
 
     void firePowerEffect(void)

@@ -365,6 +365,7 @@ int main(void)
             //
             #if !defined(TINY_GAME)
                 printGunsStats();
+                printFirePowerStats();
                 printGhostCountStats();
             #endif        
             

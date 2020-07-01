@@ -47,6 +47,8 @@ void displayStats(void);
 	void displayStatsTitles(void);
 
 	void printGunsStats(void);
+    
+	void printFirePowerStats(void);
 #endif
 
 

@@ -34,8 +34,11 @@
 extern Image GHOST_IMAGE;
 extern Image BULLET_IMAGE;
 extern Image PLAYER_IMAGE;
+extern Image FIRE_POWER_IMAGE;
 
 extern uint8_t guns; 
+
+extern uint8_t bulletStrength;
 
 #if !defined(NO_TEXT_COLOR)
     #define SET_COLOR(c) SET_TEXT_COLOR(c)
@@ -44,10 +47,12 @@ extern uint8_t guns;
 #endif
 
 #if defined(WIDE) && !defined(TINY_GAME)
-    #define BULLET_IMAGE_X 18
+    #define BULLET_IMAGE_X 13
     #define BULLET_IMAGE_Y 0
-    #define GHOST_IMAGE_X 14
-    #define GHOST_IMAGE_Y 0
+    #define FIRE_POWER_IMAGE_X 17
+    #define FIRE_POWER_IMAGE_Y 0
+    #define GHOST_IMAGE_X 13
+    #define GHOST_IMAGE_Y 1
     #define PLAYER_IMAGE_X 17
     #define PLAYER_IMAGE_Y 1
     #define LEVEL_X 6
@@ -125,6 +130,7 @@ extern Image BULLET_IMAGE;
         _draw_stat(BULLET_IMAGE_X, BULLET_IMAGE_Y, &BULLET_IMAGE);
         _draw_stat(GHOST_IMAGE_X, GHOST_IMAGE_Y, &GHOST_IMAGE);
         _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);                    
+        _draw_stat(FIRE_POWER_IMAGE_X, FIRE_POWER_IMAGE_Y, &FIRE_POWER_IMAGE); 
     }
 
     
@@ -133,9 +139,29 @@ extern Image BULLET_IMAGE;
         SET_COLOR(TEXT_COLOR);    
         
         #if defined(WIDE)
-            PRINTD(BULLET_IMAGE_X+1,0+0,2,guns);
+            PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
         #else
-            PRINTD(BULLET_IMAGE_X+0,0+0,2,guns);
+            PRINTD(BULLET_IMAGE_X+0,BULLET_IMAGE_X,2,guns);
+        #endif
+    }
+    
+    void printFirePowerStats(void)
+    {
+        #if !defined(NO_COLOR)
+        if(bulletStrength<4)
+        {
+            SET_COLOR(TEXT_COLOR);
+        }
+        else
+        {
+            SET_COLOR(COLOR_RED);
+        }
+        #endif
+        
+        #if defined(WIDE)
+            PRINTD(FIRE_POWER_IMAGE_X+1,FIRE_POWER_IMAGE_Y,1,bulletStrength);
+        #else
+            PRINTD(FIRE_POWER_IMAGE_X+0,FIRE_POWER_IMAGE_Y,1,bulletStrength);
         #endif
     }
 #endif
@@ -158,9 +184,9 @@ extern Image BULLET_IMAGE;
         SET_COLOR(TEXT_COLOR);        
         
         #if defined(WIDE) && !defined(TINY_GAME)
-            PRINTD(GHOST_IMAGE_X+1,+0,2,ghostCount);
+            PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);
         #else
-            PRINTD(GHOST_IMAGE_X+0,+0,2,ghostCount);    
+            PRINTD(GHOST_IMAGE_X+0,GHOST_IMAGE_Y,2,ghostCount);    
         #endif    
     }
 

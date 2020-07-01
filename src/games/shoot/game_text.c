@@ -140,7 +140,7 @@ extern Image BULLET_IMAGE;
         #if defined(WIDE)
             PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
         #else
-            PRINTD(BULLET_IMAGE_X+0,BULLET_IMAGE_X,2,guns);
+            PRINTD(BULLET_IMAGE_X+0,BULLET_IMAGE_Y,2,guns);
         #endif
     }
     

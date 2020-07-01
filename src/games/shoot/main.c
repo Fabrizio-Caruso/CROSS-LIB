@@ -59,17 +59,13 @@
 
 #include "sleep_macros.h"
 
-#if !defined(TINY_GAME)
-    #include "bullet.h"
-    #include "skull.h"
-#endif
+#include "bullet.h"
+#include "skull.h"
     
 #include "end_screen.h"
 
-#if defined(FULL_GAME)
-    #include "horizontal_missile.h"
-    #include "rocket.h"
-#endif
+#include "horizontal_missile.h"
+#include "rocket.h"
 
 #include "variables.h"
 
@@ -79,67 +75,56 @@ uint8_t bulletStrength;
 
 uint8_t bombCount;
 
-
-#if !defined(TINY_GAME)
     
-    Character bullets[BULLETS_NUMBER];
-#endif
+Character bullets[BULLETS_NUMBER];
 
 Character skulls[SKULLS_NUMBER];
 
 
 
-#if defined(FULL_GAME)
 
-    uint8_t innerHorizontalWallY; 
-    uint8_t innerHorizontalWallX; 
-    uint8_t innerHorizontalWallLength;
+uint8_t innerHorizontalWallY; 
+uint8_t innerHorizontalWallX; 
+uint8_t innerHorizontalWallLength;
 
+uint8_t ghostsOnScreen;
+
+
+
+
+void resetItems()
+{
+    firePower._coolDown = FIRE_POWER_COOL_DOWN;
+    fireCharge._coolDown = FIRE_CHARGE_COOL_DOWN;
+    bombCharge._coolDown = BOMB_CHARGE_COOL_DOWN;
+    extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;        
     
-    uint8_t ghostsOnScreen;
+    freeze._coolDown = FREEZE_COOL_DOWN;                
+    invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
+
+    super._coolDown = SUPER_COOL_DOWN;
+    extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
     
-#endif
+    confuse._coolDown = CONFUSE_COOL_DOWN;
+    zombie._coolDown = ZOMBIE_COOL_DOWN;                
+}
 
 
-#if !defined(TINY_GAME)
-    void resetItems()
-    {
-        firePower._coolDown = FIRE_POWER_COOL_DOWN;
-        fireCharge._coolDown = FIRE_CHARGE_COOL_DOWN;
-        bombCharge._coolDown = BOMB_CHARGE_COOL_DOWN;
-        extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;        
-        
-        #if defined(FULL_GAME)
-            freeze._coolDown = FREEZE_COOL_DOWN;                
-            invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
+// Constructor for all items
+void constructItems()
+{
+    fireCharge._effect = &fireChargeEffect;
+    bombCharge._effect = &bombChargeEffect;
+    firePower._effect = &firePowerEffect;
+    extraPoints._effect = &extraPointsEffect;
+    freeze._effect = &freezeEffect;
+    extraLife._effect = &extraLifeEffect;
+    invincibility._effect = &invincibilityEffect;
+    super._effect = &superEffect;
+    confuse._effect = &confuseEffect;
+    zombie._effect = &zombieEffect;
+}    
 
-            super._coolDown = SUPER_COOL_DOWN;
-            extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
-            
-            confuse._coolDown = CONFUSE_COOL_DOWN;
-            zombie._coolDown = ZOMBIE_COOL_DOWN;                
-        #endif
-    }
-
-    
-    // Constructor for all items
-    void constructItems()
-    {
-        fireCharge._effect = &fireChargeEffect;
-        bombCharge._effect = &bombChargeEffect;
-        firePower._effect = &firePowerEffect;
-        extraPoints._effect = &extraPointsEffect;
-        #if defined(FULL_GAME)
-            freeze._effect = &freezeEffect;
-            extraLife._effect = &extraLifeEffect;
-            invincibility._effect = &invincibilityEffect;
-            super._effect = &superEffect;
-            confuse._effect = &confuseEffect;
-            zombie._effect = &zombieEffect;
-        #endif    
-    }    
-
-#endif
 
 #if !defined(NO_INITIAL_SCREEN)            
 void initialScreen(void)
@@ -148,7 +133,7 @@ void initialScreen(void)
     printStartMessage();
     WAIT_PRESS();
     
-    #if defined(FULL_GAME) && !defined(NO_HINTS)
+    #if !defined(NO_HINTS)
         CLEAR_SCREEN();
         printHints();    
     #endif
@@ -156,17 +141,13 @@ void initialScreen(void)
 #endif
 
 
-#if defined(FULL_GAME)
-    
-    void handle_special_triggers(void)
-    {
-        // confuse_present_on_level_condition is defined as missileBasesDestroyed
-        zombie_present_on_level = missileBasesDestroyed>=2;
-        super_present_on_level = skullsKilled>=2;
-        extraLife_present_on_level = super_present_on_level && confuse_present_on_level_condition;
-    }
-    
-#endif
+void handle_special_triggers(void)
+{
+    // confuse_present_on_level_condition is defined as missileBasesDestroyed
+    zombie_present_on_level = missileBasesDestroyed>=2;
+    super_present_on_level = skullsKilled>=2;
+    extraLife_present_on_level = super_present_on_level && confuse_present_on_level_condition;
+}
 
 
 int main(void)
@@ -190,10 +171,8 @@ int main(void)
         #if !defined(NO_INITIAL_SCREEN)
             initialScreen();
             
-            #if !defined(TINY_GAME)
-                WAIT_PRESS();
-                CLEAR_SCREEN();    
-            #endif
+            WAIT_PRESS();
+            CLEAR_SCREEN();    
         #else
             CLEAR_SCREEN();    
             
@@ -205,14 +184,10 @@ int main(void)
             WAIT_PRESS();    
         #endif
 
-        #if !defined(TINY_GAME)
+        CLEAR_SCREEN();
 
-            CLEAR_SCREEN();
-        #endif
         
-        #if !defined(TINY_GAME)
-            extraLifeThroughPointsCounter = 1;
-        #endif
+        extraLifeThroughPointsCounter = 1;
         points = 0;
         level = INITIAL_LEVEL;     
         lives = LIVES_NUMBER;
@@ -220,10 +195,8 @@ int main(void)
         ghostCount = GHOSTS_NUMBER + 2*level; 
          
         
-        #if defined(FULL_GAME)
-            missileBasesDestroyed = 0;
-            skullsKilled = 0;            
-        #endif
+        missileBasesDestroyed = 0;
+        skullsKilled = 0;
         
         
         do // Level (Re-)Start
@@ -256,59 +229,46 @@ int main(void)
             
             bombCount = BOMBS_NUMBER;
             
-            #if !defined(TINY_GAME) || defined(TURN_BASED)
             loop = 0;
-            #endif
             
-            #if !defined(TINY_GAME)
             ghostLevel = 0;
-            #endif
         
-            #if defined(FULL_GAME)
             
-                dead_rockets = 0;
-                
-                invincibilityActive = 1;                
-                invincibility_count_down = INITIAL_INVINCIBILITY_COUNT_DOWN;
-                
-                #if !defined(INITIAL_GHOST_FREEZE)
-                    freezeActive = 0;
-                #endif
-                confuseActive = 0;
-                zombieActive = 0; 
-
-                #if defined(DEBUG_ITEMS)
-                    missileBasesDestroyed = 2;
-                    skullsKilled = 2;
-                #endif
-
-                handle_special_triggers();
-
-                #if !defined(SIMPLE_STRATEGY)
-                    computeStrategy();            
-                #endif
-                                
-            #endif            
+            dead_rockets = 0;
             
-            #if !defined(TINY_GAME)
-                skullActive = 0;
-                guns = 0;
-                
-                resetItems();
-                
-                #if defined(INITIAL_GHOST_FREEZE)
-                    freezeActive = 1;
-                    freeze_count_down = INITIAL_FROZEN_COUNT_DOWN;
-                #endif
-                
-                computeSkullParameters();                
+            invincibilityActive = 1;                
+            invincibility_count_down = INITIAL_INVINCIBILITY_COUNT_DOWN;
+            
+            #if !defined(INITIAL_GHOST_FREEZE)
+                freezeActive = 0;
+            #endif
+            confuseActive = 0;
+            zombieActive = 0; 
+
+            #if defined(DEBUG_ITEMS)
+                missileBasesDestroyed = 2;
+                skullsKilled = 2;
             #endif
 
-            #if defined(TINY_GAME)
-                ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256;
-            #else
-                ghostSlowDown = computeGhostSlowDown();
+            handle_special_triggers();
+
+            #if !defined(SIMPLE_STRATEGY)
+                computeStrategy();            
             #endif
+                            
+            
+            skullActive = 0;
+            guns = 0;
+            
+            resetItems();
+            
+            #if defined(INITIAL_GHOST_FREEZE)
+                freezeActive = 1;
+                freeze_count_down = INITIAL_FROZEN_COUNT_DOWN;
+            #endif
+            
+            computeSkullParameters();                
+            ghostSlowDown = computeGhostSlowDown();
             
             CLEAR_SCREEN();
             #if !defined(LESS_TEXT)
@@ -320,41 +280,39 @@ int main(void)
             #endif
                 
             
-            #if defined(FULL_GAME)
                         
-                arrowRange = computeArrowRange();
+            arrowRange = computeArrowRange();
+        
+            bulletStrength = 2;
+        
+            if(isBossLevel)
+            {
+                printKillTheSkull();
+                SLEEP(2);
+                ghostCount = 4;
+            }
+            CLEAR_SCREEN();
             
-                bulletStrength = 2;
+            updateInnerVerticalWall();    
             
-                if(isBossLevel)
-                {
-                    printKillTheSkull();
-                    SLEEP(2);
-                    ghostCount = 4;
-                }
-                CLEAR_SCREEN();
-                
-                updateInnerVerticalWall();    
-                
-                updateInnerHorizontalWall();                
-            #endif
+            updateInnerHorizontalWall();                
             
             printPressKeyToStart();
             WAIT_PRESS();
             CLEAR_SCREEN();
             
             
-            #if !defined(TINY_GAME) && !defined(NO_BORDERS)
+            #if !defined(NO_BORDERS)
                 DRAW_BORDERS();
             #endif
             
             fillLevelWithCharacters();            
             
-            #if !defined(TINY_GAME)
-                constructItems();    
-                
-                displayStatsTitles();
-            #endif
+
+            constructItems();    
+            
+            displayStatsTitles();
+
             
             #if !defined(NO_STATS)
                 displayStats();            
@@ -363,11 +321,9 @@ int main(void)
             #endif
             
             //
-            #if !defined(TINY_GAME)
-                printGunsStats();
-                printFirePowerStats();
-                printGhostCountStats();
-            #endif        
+            printGunsStats();
+            printFirePowerStats();
+            printGhostCountStats();
             
             while(player._status && (( ((ghostCount>0)&&(skullsCount)) && !isBossLevel) || (skullsCount && isBossLevel))) // while alive && there are still ghosts
             {                
@@ -380,16 +336,11 @@ int main(void)
                     _DRAW_PLAYER();    
                 #endif
                         
-                #if defined(FULL_GAME)
-                    handle_rockets();
-                    handle_horizontal_missiles();
-                #endif
+                handle_rockets();
+                handle_horizontal_missiles();
                 
-                #if !defined(TINY_GAME) || defined(TURN_BASED)
                 ++loop;
-                #endif
                 
-                #if !defined(TINY_GAME)
                 if(points>(extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS))
                 {
                     ++extraLifeThroughPointsCounter;
@@ -397,59 +348,37 @@ int main(void)
                     ++lives;
                     printLivesStats();
                 }
-                #endif
-                
-                #if defined(TINY_GAME)
-                    if(ghostSlowDown) 
-                    {
-                        --ghostSlowDown;
-                    }
-                #else
-                    ghostSlowDown = computeGhostSlowDown();
-                #endif
+
+                ghostSlowDown = computeGhostSlowDown();
             
-                #if !defined(TINY_GAME)
-                    handle_bullets();
-                #endif
+                handle_bullets();
                 handle_bomb();
                 
-                #if !defined(TINY_GAME)                        
 
-                    if(!freezeActive)
+                if(!freezeActive)
+                {
+                    if(ghostCount)
                     {
-                        #if defined(FULL_GAME)
-                            if(ghostCount)
-                            {
-                                chaseCharacter(&player, ghostSlowDown);
-                            }
-                        #else
-                            chaseCharacter(ghostSlowDown);
-                        #endif
-                        
-                        handle_skulls();
-                        
-                        ++ghostLevel;            
-                        
+                        chaseCharacter(&player, ghostSlowDown);
                     }
-                    else
-                    {
-                        if(skullActive)
-                        {
-                            displaySkulls();
-                        }
-                    }
-                
 
-                    // This detects collisions of ghosts that have just moved
-                    checkBullets();
-                #else
-                    #if !defined(NO_CHASE)
-                        chaseCharacter(ghostSlowDown);
-                        #if !defined(TINY_GAME)
-                            ++ghostLevel;
-                        #endif
-                    #endif
-                #endif
+                    
+                    handle_skulls();
+                    
+                    ++ghostLevel;            
+                    
+                }
+                else
+                {
+                    if(skullActive)
+                    {
+                        displaySkulls();
+                    }
+                }
+            
+                // This detects collisions of ghosts that have just moved
+                checkBullets();
+
                 
                 // Check collisions bombs vs ghosts
                 checkBombsVsGhosts();
@@ -463,59 +392,52 @@ int main(void)
                         DO_SLOW_DOWN(SLOW_DOWN);
                     #endif
                 }
-                #if !defined(TINY_GAME)
-                    handle_extraPoints_item();
-                    handle_firePower_item();
-                    handle_fireCharge_item();
-                    handle_bombCharge_item();    
-                    handle_freeze_count_down();                    
-                #endif
+                handle_extraPoints_item();
+                handle_firePower_item();
+                handle_fireCharge_item();
+                handle_bombCharge_item();    
                 
-                #if defined(FULL_GAME)
-                    handle_freeze_item();    
-                    handle_invincibility_item();
-                    handle_invincibility_count_down();                    
+                handle_freeze_count_down();                    
+                
+                handle_freeze_item();    
+                handle_invincibility_item();
+                handle_invincibility_count_down();                    
 
-                        
-                    if(super_present_on_level)
-                    {
-                        handle_super_item();
-                        if(extraLife_present_on_level)
-                        {
-                            handle_extraLife_item();
-                        }
-                    }
                     
-                                        
-                    if(confuse_present_on_level_condition)
+                if(super_present_on_level)
+                {
+                    handle_super_item();
+                    if(extraLife_present_on_level)
                     {
-                        handle_confuse_item();
-                        handle_confuse_count_down();
-                        if(zombie_present_on_level)
-                        {
-                            handle_zombie_item();
-                            handle_zombie_count_down();    
-                            if(zombieActive && !(loop&15))
-                            {
-                                points+=ZOMBIE_BONUS;
-                                displayStats();
-                                reduceItemCoolDowns();
-                            }
-                        }
+                        handle_extraLife_item();
                     }
-                    
-                #endif
+                }
                 
-                #if defined(FULL_GAME)
-                    if(wallReached(&player) || 
-                       (!invincibilityActive && (playerReachedGhosts() || innerWallReached(&player) || innerHorizontalWallReached(&player)))
-                      )
-                #else
-                    if(wallReached(&player) || playerReachedGhosts() )
-                #endif
+                                    
+                if(confuse_present_on_level_condition)
+                {
+                    handle_confuse_item();
+                    handle_confuse_count_down();
+                    if(zombie_present_on_level)
                     {
-                        playerDies();
+                        handle_zombie_item();
+                        handle_zombie_count_down();    
+                        if(zombieActive && !(loop&15))
+                        {
+                            points+=ZOMBIE_BONUS;
+                            displayStats();
+                            reduceItemCoolDowns();
+                        }
                     }
+                }
+                
+                
+                if(wallReached(&player) || 
+                   (!invincibilityActive && (playerReachedGhosts() || innerWallReached(&player) || innerHorizontalWallReached(&player)))
+                  )
+                {
+                    playerDies();
+                }
                 
                 // Display ghosts
                 SKIP_GHOST_DRAW
@@ -529,26 +451,21 @@ int main(void)
                     _DRAW_PLAYER();    
                 #endif
                 
-                #if defined(FULL_GAME)
                     
-                    SKIP_WALL_DRAW
+                SKIP_WALL_DRAW
+                {
+                    
+                    if(isInnerVerticalWallLevel)
                     {
-                        
-                        if(isInnerVerticalWallLevel)
-                        {
-                            DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
-                        }
-                        else if(isInnerHorizontalWallLevel)
-                        {
-                            DRAW_HORIZONTAL_LINE(XSize/2-(innerHorizontalWallLength/2), YSize/2, innerHorizontalWallLength);                                
-                        }
-                        displayBombs();                                                        
+                        DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);
                     }
-                                        
-                #else
-                    SKIP_BOMB_DRAW
-                        displayBombs();
-                #endif                
+                    else if(isInnerHorizontalWallLevel)
+                    {
+                        DRAW_HORIZONTAL_LINE(XSize/2-(innerHorizontalWallLength/2), YSize/2, innerHorizontalWallLength);                                
+                    }
+                    displayBombs();                                                        
+                }
+                    
             }; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
 
             _DRAW_PLAYER();
@@ -559,56 +476,43 @@ int main(void)
                     SHOW_DOWN();
                 #endif
                 
-                #if !defined(TINY_GAME)
-                    #if !defined(LESS_TEXT)
-                        SLEEP(1);
-                        printVictoryMessage();
-                        SLEEP(2);
-
-                        CLEAR_SCREEN();
-                    #endif
-
-                    if(level<=10)
-                    {
-                        points+= LEVEL_BONUS*level;
-                        printLevelBonus(LEVEL_BONUS*level);
-                    }
-                    else
-                    {                
-                        points+= LEVEL_BONUS*10;
-                        printLevelBonus(LEVEL_BONUS*10);
-                    }
+                #if !defined(LESS_TEXT)
                     SLEEP(1);
-                    CLEAR_SCREEN();                        
-                #else
-                    points += LEVEL_BONUS * 4;
-                #endif            
+                    printVictoryMessage();
+                    SLEEP(2);
+
+                    CLEAR_SCREEN();
+                #endif
+
+                points+= LEVEL_BONUS*level+ghostCount*GHOST_VS_BOMBS_BONUS;
+                printLevelBonus(LEVEL_BONUS*level+ghostCount*GHOST_VS_BOMBS_BONUS);
+
+                SLEEP(2);
+                CLEAR_SCREEN();                        
 
                 ghostCount = GHOSTS_NUMBER + 2*level; 
                 
-                #if defined(FULL_GAME)            
-                    if(isBossLevel)
-                    {    
-                        CLEAR_SCREEN();
-                        SLEEP(1);
-                        PING_SOUND();
-                        #if !defined(LESS_TEXT)
-                            printExtraLife();
-                        #endif
-                        SLEEP(2);
-                        ++lives;
-                        skullsKilled = 1;
-                        missileBasesDestroyed/=2;
-                    }
-                    else
+                if(isBossLevel)
+                {    
+                    CLEAR_SCREEN();
+                    SLEEP(1);
+                    PING_SOUND();
+                    #if !defined(LESS_TEXT)
+                        printExtraLife();
+                    #endif
+                    SLEEP(2);
+                    ++lives;
+                    skullsKilled = 1;
+                    missileBasesDestroyed/=2;
+                }
+                else
+                {
+                    if(!skullsCount)
                     {
-                        if(!skullsCount)
-                        {
-                            ++skullsKilled;
-                        }
-                        missileBasesDestroyed+=dead_rockets;
+                        ++skullsKilled;
                     }
-                #endif
+                    missileBasesDestroyed+=dead_rockets;
+                }
                 ++level;
 
             }
@@ -618,9 +522,7 @@ int main(void)
                     chasedEnemyPtr = &skulls[0];    
                 #endif
                 
-                #if !defined(TINY_GAME)
-                    CLEAR_SCREEN();
-                #endif
+                CLEAR_SCREEN();
                 --lives;
                 if(lives>0)
                 {
@@ -653,7 +555,7 @@ int main(void)
             WAIT_PRESS();
         #endif
         
-        #if !defined(TINY_GAME) && !defined(LESS_TEXT)
+        #if !defined(LESS_TEXT)
             CLEAR_SCREEN();
             finalScore();
         

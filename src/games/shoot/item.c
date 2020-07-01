@@ -231,7 +231,8 @@ extern uint8_t ghostsOnScreen;
     {
         extraPoints._coolDown-=extraPoints._coolDown/8;
         invincibility._coolDown-=invincibility._coolDown/16;
-        freeze._coolDown-=freeze._coolDown/4;
+        freeze._coolDown-=freeze._coolDown/32;
+        fireCharge._coolDown-=fireCharge._coolDown/64;
         TICK_SOUND();        
     }
 #elif !defined(TINY_GAME)

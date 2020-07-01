@@ -124,119 +124,116 @@
 	
 #endif
 
-#if defined(FULL_GAME)
 
-	#if defined(USE_MEMORY_BUFFERS)
-		extern Item bombCharge;
-		extern Item freeze;
-		extern Item invincibility;
-		extern Item extraLife;
-		extern Item super;
-		extern Item confuse;
-		extern Item zombie;
-		extern Item chase;	
+#if defined(USE_MEMORY_BUFFERS)
+    extern Item bombCharge;
+    extern Item freeze;
+    extern Item invincibility;
+    extern Item extraLife;
+    extern Item super;
+    extern Item confuse;
+    extern Item zombie;
+    extern Item chase;	
 
-		extern Character leftHorizontalMissile;
-		extern Character rightHorizontalMissile;
-		extern Character chasingBullet;
+    extern Character leftHorizontalMissile;
+    extern Character rightHorizontalMissile;
+    extern Character chasingBullet;
 
-		extern Character * chasedEnemyPtr;
-		extern Character * chasedByGhosts;
-		extern uint8_t rockets_x[];
+    extern Character * chasedEnemyPtr;
+    extern Character * chasedByGhosts;
+    extern uint8_t rockets_x[];
 
-		extern uint8_t extraLife_present_on_level;
-		extern uint8_t super_present_on_level;
-		extern uint8_t zombie_present_on_level;
-		
-		extern uint8_t dead_rockets;
-		
-		extern uint8_t arrowRange;
-		
-		extern uint8_t skullsKilled;
-		
-		extern uint8_t missileBasesDestroyed;
-		
-		extern uint8_t horizontalWallsLength;
-		
-		extern uint8_t invincibilityActive;
-		
-		extern uint8_t confuseActive; 
-		
-		extern uint8_t zombieActive; 		
-		
-		extern uint8_t innerVerticalWallY; 
-		extern uint8_t innerVerticalWallX; 
-		extern uint8_t innerVerticalWallLength;
+    extern uint8_t extraLife_present_on_level;
+    extern uint8_t super_present_on_level;
+    extern uint8_t zombie_present_on_level;
+    
+    extern uint8_t dead_rockets;
+    
+    extern uint8_t arrowRange;
+    
+    extern uint8_t skullsKilled;
+    
+    extern uint8_t missileBasesDestroyed;
+    
+    extern uint8_t horizontalWallsLength;
+    
+    extern uint8_t invincibilityActive;
+    
+    extern uint8_t confuseActive; 
+    
+    extern uint8_t zombieActive; 		
+    
+    extern uint8_t innerVerticalWallY; 
+    extern uint8_t innerVerticalWallX; 
+    extern uint8_t innerVerticalWallLength;
 
-	#else
-		Item bombCharge;		
-		Item freeze;
-		Item invincibility;
-		Item extraLife;
-		Item super;
-		Item confuse;
-		Item zombie;
-		Item chase;
-		
-		Character leftHorizontalMissile;
-		Character rightHorizontalMissile;
-		Character chasingBullet;			
-		
-		Character * chasedEnemyPtr;
-		Character * chasedByGhosts;
-		uint8_t rockets_x[ROCKETS_NUMBER];		
-		
-		uint8_t extraLife_present_on_level;
-		uint8_t super_present_on_level;
-		uint8_t zombie_present_on_level;
-		
-		uint8_t dead_rockets;
-		
-		uint8_t arrowRange;
-		
-		uint8_t skullsKilled;
-		
-		uint8_t missileBasesDestroyed;
-		
-		uint8_t horizontalWallsLength;
-		
-		uint8_t invincibilityActive;
-		
-		uint8_t confuseActive; 
-		
-		uint8_t zombieActive; 
+#else
+    Item bombCharge;		
+    Item freeze;
+    Item invincibility;
+    Item extraLife;
+    Item super;
+    Item confuse;
+    Item zombie;
+    Item chase;
+    
+    Character leftHorizontalMissile;
+    Character rightHorizontalMissile;
+    Character chasingBullet;			
+    
+    Character * chasedEnemyPtr;
+    Character * chasedByGhosts;
+    uint8_t rockets_x[ROCKETS_NUMBER];		
+    
+    uint8_t extraLife_present_on_level;
+    uint8_t super_present_on_level;
+    uint8_t zombie_present_on_level;
+    
+    uint8_t dead_rockets;
+    
+    uint8_t arrowRange;
+    
+    uint8_t skullsKilled;
+    
+    uint8_t missileBasesDestroyed;
+    
+    uint8_t horizontalWallsLength;
+    
+    uint8_t invincibilityActive;
+    
+    uint8_t confuseActive; 
+    
+    uint8_t zombieActive; 
 
-
-		uint8_t innerVerticalWallY; 
-		uint8_t innerVerticalWallX; 
-		uint8_t innerVerticalWallLength;
-		
-	#endif
-
-	#define chase_present_on_level_condition skullsKilled
-	#define confuse_present_on_level_condition missileBasesDestroyed
-	
-	#if defined(USE_MEMORY_BUFFERS)
-		extern Character rockets[];
-
-		extern uint16_t invincibility_count_down;	
-	
-		extern uint16_t confuse_count_down;
-	
-		extern uint16_t zombie_count_down;		
-	#else
-		Character rockets[ROCKETS_NUMBER];
-	
-		uint16_t invincibility_count_down;	
-	
-		uint16_t confuse_count_down;
-	
-		uint16_t zombie_count_down;	
-	#endif
-	
+    uint8_t innerVerticalWallY; 
+    uint8_t innerVerticalWallX; 
+    uint8_t innerVerticalWallLength;
+    
 #endif
 
-#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
+#define chase_present_on_level_condition skullsKilled
+#define confuse_present_on_level_condition missileBasesDestroyed
+
+#if defined(USE_MEMORY_BUFFERS)
+    extern Character rockets[];
+
+    extern uint16_t invincibility_count_down;	
+
+    extern uint16_t confuse_count_down;
+
+    extern uint16_t zombie_count_down;		
+#else
+    Character rockets[ROCKETS_NUMBER];
+
+    uint16_t invincibility_count_down;	
+
+    uint16_t confuse_count_down;
+
+    uint16_t zombie_count_down;	
+#endif
+	
+
+#if !defined(SIMPLE_STRATEGY)
 	#if defined(USE_MEMORY_BUFFERS)
 		extern uint8_t strategyArray[GHOSTS_NUMBER];	
 	#else
@@ -244,52 +241,44 @@
 	#endif	
 #endif
 
-#if !defined(TINY_GAME)
-	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
-		extern uint16_t freeze_count_down;
-		
-		extern uint8_t playerDirection; // 0: right, 1: down, 2: left, 3: up
-		extern uint8_t freezeActive; // freezeActive			
-		extern uint8_t extraLifeThroughPointsCounter;			
-	#else
-		uint16_t freeze_count_down;
-		
-		uint8_t playerDirection; // 0: right, 1: down, 2: left, 3: up
-		uint8_t freezeActive; // freezeActive	
-		uint8_t extraLifeThroughPointsCounter;			
-	#endif
 
-
+#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
+    extern uint16_t freeze_count_down;
+    
+    extern uint8_t playerDirection; // 0: right, 1: down, 2: left, 3: up
+    extern uint8_t freezeActive; // freezeActive			
+    extern uint8_t extraLifeThroughPointsCounter;			
+#else
+    uint16_t freeze_count_down;
+    
+    uint8_t playerDirection; // 0: right, 1: down, 2: left, 3: up
+    uint8_t freezeActive; // freezeActive	
+    uint8_t extraLifeThroughPointsCounter;			
 #endif
 
 
-#if !defined(TINY_GAME)
-	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
-		extern uint8_t playerFire;
-		extern uint8_t guns; 
-		extern uint8_t skullActive;		
-	#else
-		uint8_t playerFire;
-		uint8_t guns; 
-		uint8_t skullActive;	
-	#endif
+#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
+    extern uint8_t playerFire;
+    extern uint8_t guns; 
+    extern uint8_t skullActive;		
+#else
+    uint8_t playerFire;
+    uint8_t guns; 
+    uint8_t skullActive;	
+#endif
+#
+
+#if defined(USE_MEMORY_BUFFERS)
+    extern uint8_t arrowYPosition;
+#else
+    uint8_t arrowYPosition;
 #endif
 
-#if defined(FULL_GAME)
-	#if defined(USE_MEMORY_BUFFERS)
-		extern uint8_t arrowYPosition;
-	#else
-		uint8_t arrowYPosition;
-	#endif
-#endif
-
-#if defined(FULL_GAME)
-    uint8_t isBossLevel;
-    uint8_t isOneMissileLevel;
-    uint8_t isMissileLevel;
-    uint8_t isRocketLevel;
-    uint8_t isInnerHorizontalWallLevel;
-    uint8_t isInnerVerticalWallLevel;
-#endif
+uint8_t isBossLevel;
+uint8_t isOneMissileLevel;
+uint8_t isMissileLevel;
+uint8_t isRocketLevel;
+uint8_t isInnerHorizontalWallLevel;
+uint8_t isInnerVerticalWallLevel;
 
 #endif // _VARIABLES_H

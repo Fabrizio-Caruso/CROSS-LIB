@@ -104,7 +104,7 @@ Character skulls[SKULLS_NUMBER];
 #if !defined(TINY_GAME)
     void resetItems()
     {
-        gun._coolDown = GUN_COOL_DOWN;
+        firePower._coolDown = FIRE_POWER_COOL_DOWN;
         powerUp._coolDown = POWER_UP_COOL_DOWN;
         powerUp2._coolDown = POWER_UP2_COOL_DOWN;
         extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;        
@@ -127,7 +127,7 @@ Character skulls[SKULLS_NUMBER];
     {
         powerUp._effect = &powerUpEffect;
         powerUp2._effect = &powerUp2Effect;
-        gun._effect = &gunEffect;
+        firePower._effect = &firePowerEffect;
         extraPoints._effect = &extraPointsEffect;
         #if defined(FULL_GAME)
             freeze._effect = &freezeEffect;
@@ -464,7 +464,7 @@ int main(void)
                 }
                 #if !defined(TINY_GAME)
                     handle_extraPoints_item();
-                    handle_gun_item();
+                    handle_firePower_item();
                     handle_powerup_item();
                     handle_powerup2_item();    
                     handle_freeze_count_down();                    

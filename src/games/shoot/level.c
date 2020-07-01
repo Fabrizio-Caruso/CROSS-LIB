@@ -53,7 +53,7 @@ extern Image DEAD_GHOST_IMAGE;
     extern Image SKULL_IMAGE;
     extern Image BULLET_IMAGE;
     extern Image POWERUP_IMAGE;
-    extern Image GUN_IMAGE;
+    extern Image FIRE_POWER_IMAGE;
     extern Image EXTRA_POINTS_IMAGE;
 #endif
 
@@ -64,7 +64,7 @@ extern Character player;
 
     extern Item powerUp;
     extern Item powerUp2;
-    extern Item gun;
+    extern Item firePower;
     extern Item extraPoints;
 
     extern Character bullets[BULLETS_NUMBER];
@@ -322,7 +322,7 @@ void fillLevelWithCharacters(void)
         initializeAwayFromWall(&(confuse._character), (XSize>>1), (YSize>>1), 0, &CONFUSE_IMAGE);        
         initializeAwayFromWall(&(zombie._character), (XSize>>1), (YSize>>1), 0, &ZOMBIE_IMAGE);    
         
-        initializeAwayFromWall(&(gun._character),(XSize>>1), (YSize>>1), 0, &GUN_IMAGE);
+        initializeAwayFromWall(&(firePower._character),(XSize>>1), (YSize>>1), 0, &FIRE_POWER_IMAGE);
 
         initializeAwayFromWall(&player,(unsigned char) ((XSize>>1)+(rand()&1)),(unsigned char) ((YSize>>1)+(rand()&1)),1,&PLAYER_IMAGE);
                 

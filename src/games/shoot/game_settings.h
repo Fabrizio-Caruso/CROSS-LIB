@@ -105,7 +105,7 @@
 #define POWER_UP_BONUS 20UL
 
 // Extra points for the power up
-#define GUN_BONUS 30UL
+#define FIRE_POWER_BONUS 30UL
 
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 25U
@@ -182,7 +182,7 @@
 
 #define FREEZE_COOL_DOWN (180/WAIT_SCALE)
 
-#define GUN_COOL_DOWN (180/WAIT_SCALE)    
+#define FIRE_POWER_COOL_DOWN (180/WAIT_SCALE)    
 
 #define SUPER_COOL_DOWN (150/WAIT_SCALE)
 

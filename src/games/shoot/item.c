@@ -71,7 +71,7 @@ extern Character player;
 
 extern Item powerUp;
 extern Item powerUp2;
-extern Item gun;
+extern Item firePower;
 extern Item extraPoints;
 
 extern uint8_t ghostsOnScreen;
@@ -162,16 +162,16 @@ extern uint8_t ghostsOnScreen;
         powerUp2._coolDown = POWER_UP2_COOL_DOWN;    
     }
 
-    void _gunEffect(void)
+    void _firePowerEffect(void)
     {
         ++bulletStrength;
-        points+=GUN_BONUS;        
+        points+=FIRE_POWER_BONUS;        
     }
 
-    void gunEffect(void)
+    void firePowerEffect(void)
     {
-        _gunEffect();
-        gun._coolDown = GUN_COOL_DOWN*2;    
+        _firePowerEffect();
+        firePower._coolDown = FIRE_POWER_COOL_DOWN*2;    
     }
 
     void extraPointsEffect(void)
@@ -282,7 +282,7 @@ extern uint8_t ghostsOnScreen;
     void superEffect(void)
     {
         _freezeEffect();
-        _gunEffect();
+        _firePowerEffect();
         _invincibilityEffect();
         super._coolDown = ((uint16_t) (SUPER_COOL_DOWN)*8);
     }

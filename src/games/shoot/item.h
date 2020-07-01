@@ -57,9 +57,9 @@
 
     #define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
 
-    void _gunEffect(void);
+    void _firePowerEffect(void);
 
-    void gunEffect(void);
+    void firePowerEffect(void);
 
     void extraPointsEffect(void);
 
@@ -95,7 +95,7 @@
         #define handle_zombie_count_down() handle_count_down(&zombieActive,&zombie_count_down)
     #endif    
     
-    #define handle_gun_item() handle_item(&gun);
+    #define handle_firePower_item() handle_item(&firePower);
     #define handle_powerup_item() handle_item(&powerUp);
     #define handle_powerup2_item() handle_item(&powerUp2);
     #define handle_extraPoints_item() handle_item(&extraPoints);
@@ -121,7 +121,7 @@
     #endif
 
     
-    #define handle_gun_item() handle_item(&gun);
+    #define handle_firePower_item() handle_item(&firePower);
     #define handle_powerup_item() handle_item(&powerUp);
     #define handle_powerup2_item() handle_item(&powerUp2);
     #define handle_extraPoints_item() handle_item(&extraPoints);

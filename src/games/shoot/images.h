@@ -33,7 +33,7 @@
 	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
 		extern Image POWERUP_IMAGE;
 		extern Image BULLET_IMAGE;
-		extern Image GUN_IMAGE;	
+		extern Image FIRE_POWER_IMAGE;	
 		extern Image SKULL_IMAGE;		
 		extern Image EXTRA_POINTS_IMAGE;	
 		
@@ -42,7 +42,7 @@
 	#else
 		Image POWERUP_IMAGE;
 		Image BULLET_IMAGE;
-		Image GUN_IMAGE;	
+		Image FIRE_POWER_IMAGE;	
 		Image SKULL_IMAGE;		
 		Image EXTRA_POINTS_IMAGE;	
 		

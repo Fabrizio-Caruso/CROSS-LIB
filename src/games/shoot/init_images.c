@@ -25,7 +25,7 @@ extern Image BOMB_IMAGE;
 #if !defined(TINY_GAME)
 	extern Image SKULL_IMAGE;
 	extern Image POWERUP_IMAGE;
-	extern Image GUN_IMAGE;
+	extern Image FIRE_POWER_IMAGE;
 	extern Image BULLET_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
 	
@@ -74,7 +74,7 @@ void INIT_IMAGES(void)
 		#if !defined(TINY_GAME)
 			SKULL_IMAGE._color = _SKULL_COLOR;
 			POWERUP_IMAGE._color = _POWERUP_COLOR;
-			GUN_IMAGE._color = _GUN_COLOR;
+			FIRE_POWER_IMAGE._color = _GUN_COLOR;
 			EXTRA_POINTS_IMAGE._color = _EXTRA_POINTS_COLOR;
 			BULLET_IMAGE._color = _BULLET_COLOR;
 			
@@ -121,7 +121,7 @@ void INIT_IMAGES(void)
 		SKULL_IMAGE._imageData = _TILE_7;
 
 		POWERUP_IMAGE._imageData = _TILE_8;
-		GUN_IMAGE._imageData = _TILE_9;
+		FIRE_POWER_IMAGE._imageData = _TILE_9;
 		EXTRA_POINTS_IMAGE._imageData = _TILE_10;
 		
 		BULLET_IMAGE._imageData = _TILE_11;

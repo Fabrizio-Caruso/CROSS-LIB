@@ -133,11 +133,7 @@ extern Image PLAYER_IMAGE;
 		#endif
 		
 		SET_COLOR(TEXT_COLOR);
-		
-		#if (X_OFFSET==0) && (Y_OFFSET==0)
-			#define _draw_stat _draw
-		#endif
-	
+
 		_draw_stat(GUN_IMAGE_X, GUN_IMAGE_Y, &GUN_IMAGE);
 		_draw_stat(GHOST_IMAGE_X, GHOST_IMAGE_Y, &GHOST_IMAGE);
 		_draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
@@ -149,9 +145,9 @@ extern Image PLAYER_IMAGE;
 		SET_COLOR(TEXT_COLOR);
 		
 		#if defined(WIDE)
-			PRINTD(GUN_IMAGE_X+2,0+0,1,guns);
+			PRINTD(GUN_IMAGE_X+2,GUN_IMAGE_Y,1,guns);
 		#else
-			PRINTD(GUN_IMAGE_X+1,0+0,1,guns);
+			PRINTD(GUN_IMAGE_X+1,GUN_IMAGE_Y,1,guns);
 		#endif
 	}
 #endif

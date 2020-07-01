@@ -156,9 +156,9 @@ extern Image BULLET_IMAGE;
         #endif
         
         #if defined(WIDE)
-            PRINTD(FIRE_POWER_IMAGE_X+2,FIRE_POWER_IMAGE_Y,1,bulletStrength);
+            PRINTD(FIRE_POWER_IMAGE_X+2,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
         #else
-            PRINTD(FIRE_POWER_IMAGE_X+0,FIRE_POWER_IMAGE_Y,1,bulletStrength);
+            PRINTD(FIRE_POWER_IMAGE_X+0,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
         #endif
     }
 #endif

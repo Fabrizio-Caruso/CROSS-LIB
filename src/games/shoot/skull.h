@@ -27,8 +27,6 @@
 
 #include "character.h"
 
-#if !defined(TINY_GAME)
-
 void handle_skull(Character *skullPtr);
 
 void handle_skulls(void);
@@ -42,8 +40,6 @@ void checkBombsVsSkull(register Character * skullPtr);
 void checkBombsVsSkulls(void);
 
 void displaySkulls(void);
-
-#endif
 
 
 #endif // SKULL

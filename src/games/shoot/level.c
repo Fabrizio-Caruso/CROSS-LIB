@@ -49,73 +49,66 @@ extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image DEAD_GHOST_IMAGE;
 
-#if !defined(TINY_GAME)
-    extern Image SKULL_IMAGE;
-    extern Image BULLET_IMAGE;
-    extern Image FIRE_CHARGE_IMAGE;
-    extern Image FIRE_POWER_IMAGE;
-    extern Image EXTRA_POINTS_IMAGE;
-#endif
+extern Image SKULL_IMAGE;
+extern Image BULLET_IMAGE;
+extern Image FIRE_CHARGE_IMAGE;
+extern Image FIRE_POWER_IMAGE;
+extern Image EXTRA_POINTS_IMAGE;
 
 extern Character player; 
 
-#if !defined(TINY_GAME)
-    extern Character skulls[SKULLS_NUMBER];
+extern Character skulls[SKULLS_NUMBER];
 
-    extern Item fireCharge;
-    extern Item bombCharge;
-    extern Item firePower;
-    extern Item extraPoints;
+extern Item fireCharge;
+extern Item bombCharge;
+extern Item firePower;
+extern Item extraPoints;
 
-    extern Character bullets[BULLETS_NUMBER];
+extern Character bullets[BULLETS_NUMBER];
 
-#endif
 
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 
 
-#if defined(FULL_GAME) 
+extern Item chase;
+extern Character chasingBullet;
 
-    extern Item chase;
-    extern Character chasingBullet;
+extern unsigned char innerVerticalWallX;
+extern unsigned char innerVerticalWallY;
+extern unsigned char innerVerticalWallLength;
 
-    extern unsigned char innerVerticalWallX;
-    extern unsigned char innerVerticalWallY;
-    extern unsigned char innerVerticalWallLength;
+extern unsigned char innerHorizontalWallX;
+extern unsigned char innerHorizontalWallY;
+extern unsigned char innerHorizontalWallLength;
 
-    extern unsigned char innerHorizontalWallX;
-    extern unsigned char innerHorizontalWallY;
-    extern unsigned char innerHorizontalWallLength;
+extern Image ROCKET_IMAGE;
 
-    extern Image ROCKET_IMAGE;
+extern Image FREEZE_IMAGE;
+extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
-    extern Image FREEZE_IMAGE;
-    extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
-    extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
+extern Image EXTRA_LIFE_IMAGE;
+extern Image INVINCIBILITY_IMAGE;
+extern Image SUPER_IMAGE;
+extern Image CONFUSE_IMAGE;
+extern Image ZOMBIE_IMAGE;
 
-    extern Image EXTRA_LIFE_IMAGE;
-    extern Image INVINCIBILITY_IMAGE;
-    extern Image SUPER_IMAGE;
-    extern Image CONFUSE_IMAGE;
-    extern Image ZOMBIE_IMAGE;
+extern Character leftHorizontalMissile;
+extern Character rightHorizontalMissile;
 
-    extern Character leftHorizontalMissile;
-    extern Character rightHorizontalMissile;
+extern Item freeze;
+extern Item extraLife;
+extern Item invincibility;
+extern Item super;
+extern Item confuse;
+extern Item zombie;
 
-    extern Item freeze;
-    extern Item extraLife;
-    extern Item invincibility;
-    extern Item super;
-    extern Item confuse;
-    extern Item zombie;
-    
-    extern Character rockets[ROCKETS_NUMBER];
+extern Character rockets[ROCKETS_NUMBER];
 
-    extern char rockets_x[ROCKETS_NUMBER];
-    
-    extern char skullsKilled;
-#endif
+extern char rockets_x[ROCKETS_NUMBER];
+
+extern char skullsKilled;
 
 extern uint8_t isBossLevel;
 extern uint8_t isOneMissileLevel;
@@ -125,93 +118,91 @@ extern uint8_t isInnerHorizontalWallLevel;
 extern uint8_t isInnerVerticalWallLevel;
 
 
-#if defined(FULL_GAME)
-    void updateInnerVerticalWall(void)
-    {    
-        unsigned char lvmod = level&7;
-        
-        if(!isInnerVerticalWallLevel)
-        {
-            innerVerticalWallLength = 0;
-        }
-        else
-        {
-            #if defined(WIDE)
-                innerVerticalWallLength = YSize-9-lvmod;
-            #elif YSize<=12
-                innerVerticalWallLength = 4;
-            #else
-                innerVerticalWallLength = YSize-7-lvmod;            
-            #endif
-        }
-
-        innerVerticalWallX = (XSize>>1);
-        innerVerticalWallY = (YSize>>1)-(innerVerticalWallLength>>1);
-    }
-
-
-    void updateInnerHorizontalWall(void)
-    {    
-        unsigned char lvmod = level&7;
-        
-        if(!isInnerHorizontalWallLevel)
-        {
-            innerHorizontalWallLength = 0;
-        }
-        else
-        {
-            #if defined(WIDE)
-                innerHorizontalWallLength = XSize-13-lvmod;
-            #elif YSize<=12
-                innerHorizontalWallLength = 8;
-            #else
-                innerHorizontalWallLength = XSize-11-lvmod;            
-            #endif
-        }
-
-        innerHorizontalWallX = (XSize>>1)-(innerHorizontalWallLength>>1);
-        innerHorizontalWallY = (YSize>>1);
-    }
-
-    uint8_t innerHorizontalWallLevel(void)
-    {
-        return ((level&7)==2) || ((level&7)==4) || ((level&7)==6);
-    }
+void updateInnerVerticalWall(void)
+{    
+    unsigned char lvmod = level&7;
     
-    uint8_t innerVerticalWallLevel(void)
+    if(!isInnerVerticalWallLevel)
     {
-        return ((level&7)==1) || ((level&7)==3) || ((level&7)==5);
-    }    
+        innerVerticalWallLength = 0;
+    }
+    else
+    {
+        #if defined(WIDE)
+            innerVerticalWallLength = YSize-9-lvmod;
+        #elif YSize<=12
+            innerVerticalWallLength = 4;
+        #else
+            innerVerticalWallLength = YSize-7-lvmod;            
+        #endif
+    }
+
+    innerVerticalWallX = (XSize>>1);
+    innerVerticalWallY = (YSize>>1)-(innerVerticalWallLength>>1);
+}
+
+
+void updateInnerHorizontalWall(void)
+{    
+    unsigned char lvmod = level&7;
     
-    uint8_t oneMissileLevel(void)
+    if(!isInnerHorizontalWallLevel)
     {
-        return ((level&7)==3) || ((level&7)==7);
+        innerHorizontalWallLength = 0;
+    }
+    else
+    {
+        #if defined(WIDE)
+            innerHorizontalWallLength = XSize-13-lvmod;
+        #elif YSize<=12
+            innerHorizontalWallLength = 8;
+        #else
+            innerHorizontalWallLength = XSize-11-lvmod;            
+        #endif
     }
 
-    uint8_t rocketLevel(void)
-    {
-        return ((level&7)==3) || ((level&7)==6) || ((level&7)==7) || ((level&7)==0);
-    }
+    innerHorizontalWallX = (XSize>>1)-(innerHorizontalWallLength>>1);
+    innerHorizontalWallY = (YSize>>1);
+}
 
-    uint8_t missileLevel(void)
-    {
-        return ((level&7)==0) || ((level&7)==6) || ((level&7)==5) || ((level&7)==4);
-    }    
+uint8_t innerHorizontalWallLevel(void)
+{
+    return ((level&7)==2) || ((level&7)==4) || ((level&7)==6);
+}
 
-    uint8_t bossLevel(void)
-    {
-        return !(level&7);
-    }
+uint8_t innerVerticalWallLevel(void)
+{
+    return ((level&7)==1) || ((level&7)==3) || ((level&7)==5);
+}    
 
-    void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr)
-    {
-        do{
-            initializeCharacter(characterPtr, x, y, status, imagePtr);
-            relocateCharacter(characterPtr);
-        } while(nearInnerWall(characterPtr)||nearInnerHorizontalWall(characterPtr));
-    }
+uint8_t oneMissileLevel(void)
+{
+    return ((level&7)==3) || ((level&7)==7);
+}
 
-#endif 
+uint8_t rocketLevel(void)
+{
+    return ((level&7)==3) || ((level&7)==6) || ((level&7)==7) || ((level&7)==0);
+}
+
+uint8_t missileLevel(void)
+{
+    return ((level&7)==0) || ((level&7)==6) || ((level&7)==5) || ((level&7)==4);
+}    
+
+uint8_t bossLevel(void)
+{
+    return !(level&7);
+}
+
+void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr)
+{
+    do{
+        initializeCharacter(characterPtr, x, y, status, imagePtr);
+        relocateCharacter(characterPtr);
+    } while(nearInnerWall(characterPtr)||nearInnerHorizontalWall(characterPtr));
+}
+
 
 #if defined(BETWEEN_LEVEL)
 
@@ -341,26 +332,24 @@ void fillLevelWithCharacters(void)
         }        
         
 
-    #if !defined(TINY_GAME)
-        displayPlayer(&player);
-            
-        for(i=0;i<BULLETS_NUMBER;++i)
-        {
-            initializeCharacter(&bullets[i], 0, 0,0,&BULLET_IMAGE);
+    displayPlayer(&player);
+        
+    for(i=0;i<BULLETS_NUMBER;++i)
+    {
+        initializeCharacter(&bullets[i], 0, 0,0,&BULLET_IMAGE);
+    }
+    
+    #if SKULLS_NUMBER>4
+        for(i=4;i<SKULLS_NUMBER;++i)
+        {    
+            initializeCharacter(&skulls[i],XSize-2,YSize-2, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
         }
-        
-        #if SKULLS_NUMBER>4
-            for(i=4;i<SKULLS_NUMBER;++i)
-            {    
-                initializeCharacter(&skulls[i],XSize-2,YSize-2, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
-            }
-        #else
-            initializeCharacter(&skulls[0],XSize-3,YSize-3, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
-            initializeCharacter(&skulls[1],2,YSize-3, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
-            initializeCharacter(&skulls[2],XSize-3,2, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
-            initializeCharacter(&skulls[3],2,2, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
-        
-        #endif
+    #else
+        initializeCharacter(&skulls[0],XSize-3,YSize-3, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
+        initializeCharacter(&skulls[1],2,YSize-3, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
+        initializeCharacter(&skulls[2],XSize-3,2, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
+        initializeCharacter(&skulls[3],2,2, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
+    
     #endif
     
 }

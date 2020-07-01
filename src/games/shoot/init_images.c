@@ -22,32 +22,29 @@ extern Image BOMB_IMAGE;
 	extern Image DEAD_GHOST_IMAGE;
 #endif
 
-#if !defined(TINY_GAME)
-	extern Image SKULL_IMAGE;
-	extern Image FIRE_CHARGE_IMAGE;
-	extern Image FIRE_POWER_IMAGE;
-	extern Image BULLET_IMAGE;
-	extern Image EXTRA_POINTS_IMAGE;
-	
-	extern Image HORIZONTAL_BRICK_IMAGE;
-	extern Image VERTICAL_BRICK_IMAGE;
-#endif
+extern Image SKULL_IMAGE;
+extern Image FIRE_CHARGE_IMAGE;
+extern Image FIRE_POWER_IMAGE;
+extern Image BULLET_IMAGE;
+extern Image EXTRA_POINTS_IMAGE;
 
-#if defined(FULL_GAME)
-	extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
-	extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
+extern Image HORIZONTAL_BRICK_IMAGE;
+extern Image VERTICAL_BRICK_IMAGE;
 
-	extern Image ROCKET_IMAGE;
+extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
-	extern Image FREEZE_IMAGE;
-	extern Image EXTRA_LIFE_IMAGE;
-	extern Image INVINCIBILITY_IMAGE;
-	extern Image SUPER_IMAGE;	
-	extern Image CONFUSE_IMAGE;
-	extern Image ZOMBIE_IMAGE;
-	
-	extern Image BROKEN_BRICK_IMAGE;
-#endif
+extern Image ROCKET_IMAGE;
+
+extern Image FREEZE_IMAGE;
+extern Image EXTRA_LIFE_IMAGE;
+extern Image INVINCIBILITY_IMAGE;
+extern Image SUPER_IMAGE;	
+extern Image CONFUSE_IMAGE;
+extern Image ZOMBIE_IMAGE;
+
+extern Image BROKEN_BRICK_IMAGE;
+
 
 void INIT_IMAGES(void)
 {
@@ -71,33 +68,29 @@ void INIT_IMAGES(void)
 			DEAD_GHOST_IMAGE._color = _DEAD_GHOST_COLOR;
 		#endif
 		
-		#if !defined(TINY_GAME)
-			SKULL_IMAGE._color = _SKULL_COLOR;
-			FIRE_CHARGE_IMAGE._color = _FIRE_CHARGE_COLOR;
-			FIRE_POWER_IMAGE._color = _GUN_COLOR;
-			EXTRA_POINTS_IMAGE._color = _EXTRA_POINTS_COLOR;
-			BULLET_IMAGE._color = _BULLET_COLOR;
-			
-			VERTICAL_BRICK_IMAGE._color = _BRICK_COLOR;
-			HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;			
-		#endif
-		
-		#if defined(FULL_GAME)
-			RIGHT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;		
-			LEFT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;
-			
-			ROCKET_IMAGE._color = _ROCKET_COLOR;
+        SKULL_IMAGE._color = _SKULL_COLOR;
+        FIRE_CHARGE_IMAGE._color = _FIRE_CHARGE_COLOR;
+        FIRE_POWER_IMAGE._color = _GUN_COLOR;
+        EXTRA_POINTS_IMAGE._color = _EXTRA_POINTS_COLOR;
+        BULLET_IMAGE._color = _BULLET_COLOR;
+        
+        VERTICAL_BRICK_IMAGE._color = _BRICK_COLOR;
+        HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;			
+    
+        RIGHT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;		
+        LEFT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;
+        
+        ROCKET_IMAGE._color = _ROCKET_COLOR;
 
-			FREEZE_IMAGE._color = _FREEZE_COLOR;
-			EXTRA_LIFE_IMAGE._color = _EXTRA_LIFE_COLOR;
-			
-			INVINCIBILITY_IMAGE._color = _INVINCIBILITY_COLOR;
-			SUPER_IMAGE._color = _SUPER_COLOR;
-			CONFUSE_IMAGE._color = _CONFUSE_COLOR;
-			ZOMBIE_IMAGE._color = _ZOMBIE_COLOR;
-			
-			BROKEN_BRICK_IMAGE._color = _BRICK_COLOR;
-		#endif	
+        FREEZE_IMAGE._color = _FREEZE_COLOR;
+        EXTRA_LIFE_IMAGE._color = _EXTRA_LIFE_COLOR;
+        
+        INVINCIBILITY_IMAGE._color = _INVINCIBILITY_COLOR;
+        SUPER_IMAGE._color = _SUPER_COLOR;
+        CONFUSE_IMAGE._color = _CONFUSE_COLOR;
+        ZOMBIE_IMAGE._color = _ZOMBIE_COLOR;
+        
+        BROKEN_BRICK_IMAGE._color = _BRICK_COLOR;
 	#endif	
 
 	// Set Image Data
@@ -117,54 +110,51 @@ void INIT_IMAGES(void)
 		DEAD_GHOST_IMAGE._imageData = _TILE_6;
 	#endif
 	
-	#if !defined(TINY_GAME)
-		SKULL_IMAGE._imageData = _TILE_7;
+    SKULL_IMAGE._imageData = _TILE_7;
 
-		FIRE_CHARGE_IMAGE._imageData = _TILE_8;
-		FIRE_POWER_IMAGE._imageData = _TILE_9;
-		EXTRA_POINTS_IMAGE._imageData = _TILE_10;
-		
-		BULLET_IMAGE._imageData = _TILE_11;
-		
-		VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
-		HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
-	#endif
-	
-	#if defined(FULL_GAME)
-		LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_14;
-		
-		RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_15;
-		
-		ROCKET_IMAGE._imageData = _TILE_16;
+    FIRE_CHARGE_IMAGE._imageData = _TILE_8;
+    FIRE_POWER_IMAGE._imageData = _TILE_9;
+    EXTRA_POINTS_IMAGE._imageData = _TILE_10;
+    
+    BULLET_IMAGE._imageData = _TILE_11;
+    
+    VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
+    HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
 
-		// If colors are present FIRE_CHARGE/FREEZE/SUPER can be differentiated by the color attribute -> same _FIRE_CHARGE for all of them
-		// #if !defined(NO_COLOR) && !defined(UDG_GRAPHICS) && !defined(__NES__) && !defined(__MO5__)
-			// FREEZE_IMAGE._imageData = _FIRE_CHARGE;
-			// SUPER_IMAGE._imageData = _FIRE_CHARGE;
-		// #else
-			// FREEZE_IMAGE._imageData = _FREEZE;
-			// SUPER_IMAGE._imageData = _SUPER;
-		// #endif
-		
-        FREEZE_IMAGE._imageData = _TILE_17;
-        SUPER_IMAGE._imageData = _TILE_18;
 
-		EXTRA_LIFE_IMAGE._imageData = _TILE_19;
-		INVINCIBILITY_IMAGE._imageData = _TILE_20;
-        
-        // #if defined(NO_BLINKING) && defined(_CONFUSE) && defined(_ZOMBIE)
-            // CONFUSE_IMAGE._imageData = _CONFUSE;
-            // ZOMBIE_IMAGE._imageData = _ZOMBIE;
-        // #else
-            // CONFUSE_IMAGE._imageData = _SKULL;
-            // ZOMBIE_IMAGE._imageData = _GHOST;
-        // #endif
-        
-        CONFUSE_IMAGE._imageData = _TILE_21;
-        ZOMBIE_IMAGE._imageData = _TILE_22;
-		
-		BROKEN_BRICK_IMAGE._imageData = _TILE_23;
-	#endif
+    LEFT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_14;
+    
+    RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_15;
+    
+    ROCKET_IMAGE._imageData = _TILE_16;
+
+    // If colors are present FIRE_CHARGE/FREEZE/SUPER can be differentiated by the color attribute -> same _FIRE_CHARGE for all of them
+    // #if !defined(NO_COLOR) && !defined(UDG_GRAPHICS) && !defined(__NES__) && !defined(__MO5__)
+        // FREEZE_IMAGE._imageData = _FIRE_CHARGE;
+        // SUPER_IMAGE._imageData = _FIRE_CHARGE;
+    // #else
+        // FREEZE_IMAGE._imageData = _FREEZE;
+        // SUPER_IMAGE._imageData = _SUPER;
+    // #endif
+    
+    FREEZE_IMAGE._imageData = _TILE_17;
+    SUPER_IMAGE._imageData = _TILE_18;
+
+    EXTRA_LIFE_IMAGE._imageData = _TILE_19;
+    INVINCIBILITY_IMAGE._imageData = _TILE_20;
+    
+    // #if defined(NO_BLINKING) && defined(_CONFUSE) && defined(_ZOMBIE)
+        // CONFUSE_IMAGE._imageData = _CONFUSE;
+        // ZOMBIE_IMAGE._imageData = _ZOMBIE;
+    // #else
+        // CONFUSE_IMAGE._imageData = _SKULL;
+        // ZOMBIE_IMAGE._imageData = _GHOST;
+    // #endif
+    
+    CONFUSE_IMAGE._imageData = _TILE_21;
+    ZOMBIE_IMAGE._imageData = _TILE_22;
+    
+    BROKEN_BRICK_IMAGE._imageData = _TILE_23;
 #endif 
 }
 

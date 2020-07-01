@@ -48,9 +48,7 @@ extern uint8_t ghostsOnScreen;
 
 extern uint8_t isInnerVerticalWallLevel;
 
-#if defined(FULL_GAME)
 extern uint8_t zombieActive;
-#endif
 
 
 #if defined(__NCURSES__)
@@ -61,44 +59,25 @@ extern uint8_t zombieActive;
 
 
 // Required by horizontal missile
-#if defined(FULL_GAME)
-    uint8_t moveCharacter(Character* hunterPtr, Character* preyPtr, uint8_t offset)
+uint8_t moveCharacter(Character* hunterPtr, Character* preyPtr, uint8_t offset)
+{
+    if((uint8_t) *((uint8_t *)hunterPtr+offset) < (uint8_t) *((uint8_t *)preyPtr+offset))
     {
-        if((uint8_t) *((uint8_t *)hunterPtr+offset) < (uint8_t) *((uint8_t *)preyPtr+offset))
-        {
-            ++(*((uint8_t *) hunterPtr+offset));        
-        }
-        else if((uint8_t) *((uint8_t *) hunterPtr+offset) > (uint8_t) *((uint8_t *)preyPtr+offset))
-        {
-            --(*((uint8_t *) hunterPtr+offset));        
-        }    
-        else
-        {
-            return 0;
-        }
-        return 1;
+        ++(*((uint8_t *) hunterPtr+offset));        
     }
-#else
-    uint8_t moveCharacter(Character* hunterPtr, uint8_t offset)    
+    else if((uint8_t) *((uint8_t *) hunterPtr+offset) > (uint8_t) *((uint8_t *)preyPtr+offset))
     {
-        if((uint8_t) *((uint8_t *)hunterPtr+offset) < (uint8_t) *((uint8_t *)(&player)+offset))
-        {
-            ++(*((uint8_t *) hunterPtr+offset));        
-        }
-        else if((uint8_t) *((uint8_t *) hunterPtr+offset) > (uint8_t) *((uint8_t *)(&player)+offset))
-        {
-            --(*((uint8_t *) hunterPtr+offset));        
-        }    
-        else
-        {
-            return 0;
-        }
-        return 1;
+        --(*((uint8_t *) hunterPtr+offset));        
     }    
-#endif
+    else
+    {
+        return 0;
+    }
+    return 1;
+}
 
 
-#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
+#if !defined(SIMPLE_STRATEGY)
     void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
     {
         if(moveCharacter(hunterPtr, preyPtr,X_MOVE))
@@ -292,8 +271,7 @@ void skullMoveTowardCharacter(Character *preyPtr, Character *hunterPtr, uint8_t 
 }
 
 
-// #if !defined(TINY_GAME) 
-#if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
+#if !defined(SIMPLE_STRATEGY)
 void computeStrategy(void)
 {
     uint8_t i;
@@ -313,13 +291,8 @@ void computeStrategy(void)
 #endif
 
 
-// #if defined(FULL_GAME)
 // Ghosts move to new positions if they get their chanche
-#if defined(FULL_GAME)
 void chaseCharacter(Character *preyPtr, uint16_t slowDown)
-#else
-void chaseCharacter(uint16_t slowDown)    
-#endif
 {
     uint8_t i;
     
@@ -330,9 +303,9 @@ void chaseCharacter(uint16_t slowDown)
             if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)    
             {
                 deleteGhost(&ghosts[i]);
-                #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
+                #if !defined(SIMPLE_STRATEGY)
                     moveTowardCharacter(preyPtr, (Character *)&ghosts[i], strategyArray[i]);    
-                #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
+                #else
                     moveTowardCharacter(preyPtr, (Character *)&ghosts[i]);        
                 #endif
             }
@@ -342,16 +315,12 @@ void chaseCharacter(uint16_t slowDown)
     {
         for(i=0;i<ghostsOnScreen;++i)
         {
-            #if defined(FULL_GAME)
-                if((ghosts[i]._status || (zombieActive && loop&1)) && GHOST_RANDOM_CONDITION)
-            #else
-                if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)    
-            #endif
+             if((ghosts[i]._status || (zombieActive && loop&1)) && GHOST_RANDOM_CONDITION)
             {
                 deleteGhost(&ghosts[i]);
-                #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
+                #if !defined(SIMPLE_STRATEGY)
                     horizontalWallMoveTowardCharacter(preyPtr, (Character *)&ghosts[i], strategyArray[i]);    
-                #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
+                #else
                     horizontalWallMoveTowardCharacter(preyPtr, (Character *)&ghosts[i]);        
                 #endif
             }

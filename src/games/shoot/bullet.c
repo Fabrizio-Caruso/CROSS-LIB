@@ -22,8 +22,6 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
  
-#if !defined(TINY_GAME) 
-
 #include "settings.h"
  
 #include "bullet.h"
@@ -73,18 +71,16 @@ extern Character player;
 extern uint8_t ghostsOnScreen;
 
 
-#if defined(FULL_GAME) 
-    extern Item freeze;
-    extern Item extraLife;
-    extern Item invincibility;
-        
-    extern Character leftHorizontalMissile;
-    extern Character rightHorizontalMissile;
-    extern uint8_t rockets_x[ROCKETS_NUMBER];
-    extern Character rockets[ROCKETS_NUMBER];
-    extern uint8_t dead_rockets;
-    extern uint8_t missileBasesDestroyed;
-#endif
+extern Item freeze;
+extern Item extraLife;
+extern Item invincibility;
+    
+extern Character leftHorizontalMissile;
+extern Character rightHorizontalMissile;
+extern uint8_t rockets_x[ROCKETS_NUMBER];
+extern Character rockets[ROCKETS_NUMBER];
+extern uint8_t dead_rockets;
+extern uint8_t missileBasesDestroyed;
 
 
 uint8_t availableBullet(void)
@@ -393,18 +389,16 @@ void _moveBullet(register Character *bulletPtr, uint8_t bulletDirection)
 }
 
 
-#if defined(FULL_GAME)
-    void destroyHorizontalMissile(Character * horizontalMissilePtr)
-    {
-        horizontalMissilePtr->_status = 0;
-        EXPLOSION_SOUND();
-        deleteHorizontalMissile(horizontalMissilePtr);
-        points+=HORIZONTAL_MISSILE_BONUS;
-        displayStats();                
-        ++dead_rockets;
-        reduceItemCoolDowns();        
-    }
-#endif
+void destroyHorizontalMissile(Character * horizontalMissilePtr)
+{
+    horizontalMissilePtr->_status = 0;
+    EXPLOSION_SOUND();
+    deleteHorizontalMissile(horizontalMissilePtr);
+    points+=HORIZONTAL_MISSILE_BONUS;
+    displayStats();                
+    ++dead_rockets;
+    reduceItemCoolDowns();        
+}
 
 
 void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
@@ -412,44 +406,41 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
     if((wallReached(bulletPtr) || innerWallReached(bulletPtr) || innerHorizontalWallReached(bulletPtr)) && bulletPtr->_status)
     {
         bulletPtr->_status=0;
-        
-        #if defined(FULL_GAME)
-            
-            if(isOneMissileLevel)
+
+        if(isOneMissileLevel)
+        {
+            if(bulletPtr->_x==XSize-1 && bulletPtr->_y==YSize/2 && rightHorizontalMissile._status)
             {
-                if(bulletPtr->_x==XSize-1 && bulletPtr->_y==YSize/2 && rightHorizontalMissile._status)
-                {
-                    destroyHorizontalMissile(&rightHorizontalMissile);
-                }
-            }                
-            else if(isMissileLevel || isBossLevel)
+                destroyHorizontalMissile(&rightHorizontalMissile);
+            }
+        }                
+        else if(isMissileLevel || isBossLevel)
+        {
+            if(bulletPtr->_x==XSize-1 && bulletPtr->_y==HORIZONTAL_MISSILE_OFFSET && rightHorizontalMissile._status)
             {
-                if(bulletPtr->_x==XSize-1 && bulletPtr->_y==HORIZONTAL_MISSILE_OFFSET && rightHorizontalMissile._status)
+                destroyHorizontalMissile(&rightHorizontalMissile);    
+            }
+            else if(bulletPtr->_x==0 && bulletPtr->_y==YSize-1-HORIZONTAL_MISSILE_OFFSET && leftHorizontalMissile._status)
+            {
+                destroyHorizontalMissile(&leftHorizontalMissile);    
+            }
+        }
+        if((isRocketLevel || isBossLevel) && bulletPtr->_y==YSize-1)
+        {
+            uint8_t i;
+            for(i=0;i<ROCKETS_NUMBER;++i)
+            {
+                if(bulletPtr->_x==rockets_x[i] && rockets[i]._status)
                 {
-                    destroyHorizontalMissile(&rightHorizontalMissile);    
-                }
-                else if(bulletPtr->_x==0 && bulletPtr->_y==YSize-1-HORIZONTAL_MISSILE_OFFSET && leftHorizontalMissile._status)
-                {
-                    destroyHorizontalMissile(&leftHorizontalMissile);    
+                    rockets[i]._status = 0;
+                    ++dead_rockets;
+                    EXPLOSION_SOUND();
+                    deleteRocket(&rockets[i]);
+                    points+=VERTICAL_MISSILE_BONUS;
+                    displayStats();        
                 }
             }
-            if((isRocketLevel || isBossLevel) && bulletPtr->_y==YSize-1)
-            {
-                uint8_t i;
-                for(i=0;i<ROCKETS_NUMBER;++i)
-                {
-                    if(bulletPtr->_x==rockets_x[i] && rockets[i]._status)
-                    {
-                        rockets[i]._status = 0;
-                        ++dead_rockets;
-                        EXPLOSION_SOUND();
-                        deleteRocket(&rockets[i]);
-                        points+=VERTICAL_MISSILE_BONUS;
-                        displayStats();        
-                    }
-                }
-            }            
-        #endif        
+        }            
         DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
     }
     else
@@ -459,5 +450,4 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
     }
 }
 
-#endif
 

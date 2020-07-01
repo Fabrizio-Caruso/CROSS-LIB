@@ -21,7 +21,7 @@
 
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
-#if !defined(TINY_GAME)
+
 
 #include "settings.h"
 
@@ -50,9 +50,7 @@ extern uint8_t skullActive;
 
 extern uint8_t isBossLevel;
 
-#if defined(FULL_GAME)
-    extern uint8_t confuseActive;
-#endif
+extern uint8_t confuseActive;
 
 uint16_t computeSkullSlowDown(void)
 {
@@ -190,5 +188,4 @@ void displaySkulls(void)
     }
 }
 
-#endif
 

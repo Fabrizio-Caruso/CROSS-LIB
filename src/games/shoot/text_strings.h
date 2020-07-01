@@ -27,7 +27,7 @@
 
 
 #if defined(NO_CASE_LETTERS)
-    #if defined(TINY_GAME)
+    #if defined(TINY_TEXT)
         #define CROSS_SHOOT_STRING "cross shoot"
         #define AUTHOR_STRING "fabrizio caruso"
     #else
@@ -62,7 +62,7 @@
     #define FOR_POINTS_AND___STRING "FOR POINTS"
     #define EXTRA_POWERUPS__STRING  "AND ITEMS"    
 #else
-    #if defined(TINY_GAME)
+    #if defined(TINY_TEXT)
         #define CROSS_SHOOT_STRING "CROSS SHOOT"
         #define AUTHOR_STRING "Fabrizio Caruso"
     #else
@@ -85,7 +85,7 @@
 
 #if defined(JOYSTICK_CONTROL) || defined(__MSX__) || defined(__CPC_JOYSTICK__)
     #define USE_STRING "use the joystick"
-#elif !defined(TINY_GAME)        
+#elif !defined(TINY_TEXT)        
     #if !defined(__PC6001__)
         #define USE_STRING "use i j k l space"
     #else

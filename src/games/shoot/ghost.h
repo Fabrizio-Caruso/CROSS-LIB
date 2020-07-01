@@ -43,17 +43,13 @@ void checkBombsVsSkulls(void);
 
 uint8_t sameLocationAsAnyGhostLocation(uint8_t x, uint8_t y, Character *characterList, uint8_t length);
 
-#if !defined(TINY_GAME)
-    void decreaseGhostLevel(void);
-#endif
+void decreaseGhostLevel(void);
 
 void displayGhosts(void);
 
 void displayBombs(void);
 
-#if defined(FULL_GAME)
-    uint8_t firstAlive(void);
-#endif
+// uint8_t firstAlive(void);
 
 #define playerReachedGhosts() (sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, ghostsOnScreen)<ghostsOnScreen)
 

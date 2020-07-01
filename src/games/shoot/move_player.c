@@ -37,19 +37,15 @@ extern uint8_t bombCount;
 
 extern Character player;
 
-#if !defined(TINY_GAME)
-    extern uint8_t skullXCountDown;
-    extern uint8_t skullYCountDown;
-    extern uint8_t playerFire;
-    extern Character bullet;
-    extern uint8_t guns;
-    extern uint8_t playerDirection;
-#endif
+extern uint8_t skullXCountDown;
+extern uint8_t skullYCountDown;
+extern uint8_t playerFire;
+extern Character bullet;
+extern uint8_t guns;
+extern uint8_t playerDirection;
 
-#if defined(FULL_GAME)
-    extern uint8_t player_invincibility;
-    extern uint8_t playerBlink;    
-#endif
+extern uint8_t player_invincibility;
+extern uint8_t playerBlink;    
 
 
 #if !defined(ALT_MOVE)
@@ -130,12 +126,10 @@ extern Character player;
         {
             _DO_MOVE_RIGHT
         }
-        #if !defined(TINY_GAME)
         else if(JOY_BTN_1(joyInput) && (bombCount<BOMBS_NUMBER || (guns>0 && availableBullet()<BULLETS_NUMBER)))
         {
             playerFire = 1;
         }
-        #endif
     }    
 #else
     void movePlayerByKeyboard(uint8_t kbInput)
@@ -159,12 +153,10 @@ extern Character player;
         {
             _DO_MOVE_RIGHT
         }
-        #if !defined(TINY_GAME)
         else if(kbInput==_FIRE &&(bombCount<BOMBS_NUMBER || (guns>0 && availableBullet()<BULLETS_NUMBER)))
         {
             playerFire = 1;
         }
-        #endif
     }
 #endif
 

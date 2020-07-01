@@ -22,8 +22,6 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#if defined(FULL_GAME) 
-
 #include "level.h"
 #include "strategy.h"
 
@@ -126,5 +124,4 @@ extern uint8_t isBossLevel;
 
     }
     
-#endif // defined(FULL_GAME)
 

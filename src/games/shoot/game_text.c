@@ -46,7 +46,7 @@ extern uint8_t bulletStrength;
     #define SET_COLOR(c)
 #endif
 
-#if defined(WIDE) && !defined(TINY_GAME)
+#if defined(WIDE)
     #define BULLET_IMAGE_X 13
     #define BULLET_IMAGE_Y 0
     #define FIRE_POWER_IMAGE_X 17
@@ -87,14 +87,12 @@ extern uint16_t highScore;
 
 extern Image BULLET_IMAGE;
 
-#if defined(FULL_GAME) && !defined(NO_MESSAGE)
-    void printKillTheSkull(void)
-    {
-        printCenteredMessage(KILL_THE_SKULL_STRING);    
-        printCenteredMessageOnRow(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING);
-    }
-    
-#endif
+void printKillTheSkull(void)
+{
+    printCenteredMessage(KILL_THE_SKULL_STRING);    
+    printCenteredMessageOnRow(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING);
+}
+
 
 #if defined(NO_TITLE_LINE)
     #define TITLE_Y 0
@@ -116,61 +114,59 @@ extern Image BULLET_IMAGE;
 
 
 // TODO: This is SLOW
-#if !defined(TINY_GAME)
-    void displayStatsTitles(void)
-    {                
-        #if defined(WIDE)
-                PRINT_WIDE_TITLE();
-        #endif
-        
-        SET_COLOR(TEXT_COLOR);
-        
+void displayStatsTitles(void)
+{                
+    #if defined(WIDE)
+            PRINT_WIDE_TITLE();
+    #endif
     
-        _draw_stat(BULLET_IMAGE_X, BULLET_IMAGE_Y, &BULLET_IMAGE);
-        _draw_stat(GHOST_IMAGE_X, GHOST_IMAGE_Y, &GHOST_IMAGE);
-        _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);                    
-        _draw_stat(FIRE_POWER_IMAGE_X, FIRE_POWER_IMAGE_Y, &FIRE_POWER_IMAGE); 
-    }
+    SET_COLOR(TEXT_COLOR);
+    
 
+    _draw_stat(BULLET_IMAGE_X, BULLET_IMAGE_Y, &BULLET_IMAGE);
+    _draw_stat(GHOST_IMAGE_X, GHOST_IMAGE_Y, &GHOST_IMAGE);
+    _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);                    
+    _draw_stat(FIRE_POWER_IMAGE_X, FIRE_POWER_IMAGE_Y, &FIRE_POWER_IMAGE); 
+}
+
+
+void printGunsStats(void)
+{
+    SET_COLOR(TEXT_COLOR);    
     
-    void printGunsStats(void)
+    #if defined(WIDE)
+        PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
+    #else
+        PRINTD(BULLET_IMAGE_X+0,BULLET_IMAGE_Y,2,guns);
+    #endif
+}
+
+void printFirePowerStats(void)
+{
+    #if !defined(NO_TEXT_COLOR)
+    if(bulletStrength<4)
     {
-        SET_COLOR(TEXT_COLOR);    
-        
-        #if defined(WIDE)
-            PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
-        #else
-            PRINTD(BULLET_IMAGE_X+0,BULLET_IMAGE_Y,2,guns);
-        #endif
+        SET_COLOR(TEXT_COLOR);
     }
+    else
+    {
+        SET_COLOR(COLOR_RED);
+    }
+    #endif
     
-    void printFirePowerStats(void)
-    {
-        #if !defined(NO_TEXT_COLOR)
-        if(bulletStrength<4)
-        {
-            SET_COLOR(TEXT_COLOR);
-        }
-        else
-        {
-            SET_COLOR(COLOR_RED);
-        }
-        #endif
-        
-        #if defined(WIDE)
-            PRINTD(FIRE_POWER_IMAGE_X+2,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
-        #else
-            PRINTD(FIRE_POWER_IMAGE_X+0,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
-        #endif
-    }
-#endif
+    #if defined(WIDE)
+        PRINTD(FIRE_POWER_IMAGE_X+2,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
+    #else
+        PRINTD(FIRE_POWER_IMAGE_X+0,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
+    #endif
+}
 
 #if !defined(NO_STATS)
     void printLevelStats(void)
     {    
         SET_COLOR(TEXT_COLOR);
     
-        #if defined(WIDE) && !defined(TINY_GAME)
+        #if defined(WIDE)
             PRINTD(LEVEL_X,1+0,2,level);
         #else
             PRINTD(LEVEL_X,+0,2,level);    
@@ -182,7 +178,7 @@ extern Image BULLET_IMAGE;
     {
         SET_COLOR(TEXT_COLOR);        
         
-        #if defined(WIDE) && !defined(TINY_GAME)
+        #if defined(WIDE)
             PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);
         #else
             PRINTD(GHOST_IMAGE_X+0,GHOST_IMAGE_Y,2,ghostCount);    
@@ -194,7 +190,7 @@ extern Image BULLET_IMAGE;
     {
         SET_COLOR(TEXT_COLOR);
         
-        #if defined(WIDE) && !defined(TINY_GAME)
+        #if defined(WIDE)
             PRINTD(PLAYER_IMAGE_X+1,+0+1,2,lives);
         #else
             PRINTD(PLAYER_IMAGE_X+0,+0,2,lives);    
@@ -215,7 +211,7 @@ void displayStats(void)
 {    
     SET_COLOR(TEXT_COLOR);
     
-    #if defined(WIDE) && !defined(TINY_GAME)
+    #if defined(WIDE)
         PRINTD(6,+0,5,points);
     #else
         PRINTD(1,0,5,points);    
@@ -232,7 +228,7 @@ void displayStats(void)
 #endif
 
 
-#if !defined(TINY_GAME) && !defined(NO_MESSAGE)
+#if !defined(NO_MESSAGE)
     void _printScoreOnRow(uint8_t row, uint16_t score)
     {
         PRINTD((uint8_t) ((XSize)>>1)-2, row, 5, score);
@@ -283,8 +279,8 @@ void displayStats(void)
 
 
 
-#if (defined(FULL_GAME) && !defined(NO_HINTS)) || !defined(NO_INITIAL_SCREEN)
-    #if defined(FULL_GAME) && !defined(NO_HINTS)
+#if !defined(NO_HINTS)) || !defined(NO_INITIAL_SCREEN)
+    #if !defined(NO_HINTS)
     void _printCrossShoot(void)
     {
         printCenteredMessageOnRowWithCol(3, COLOR_RED,  CROSS_SHOOT_STRING);        
@@ -299,7 +295,7 @@ void displayStats(void)
 #endif
 
 
-#if defined(FULL_GAME) && !defined(NO_HINTS)
+#if !defined(NO_HINTS)
     void printHints(void)
     {
         _printCrossShoot();
@@ -323,7 +319,7 @@ void displayStats(void)
         
         printCenteredMessageOnRow(5, AUTHOR_STRING);    
 
-        #if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
+        #if !defined(NO_TITLE_INFO)
             _printTopScore();
             
             SET_COLOR(COLOR_CYAN);

@@ -63,9 +63,7 @@ extern uint16_t points;
 
 extern uint8_t ghostCount;
 
-#if defined(FULL_GAME)
-    uint8_t playerKilledBy(Character *enemyPtr);
-#endif
+uint8_t playerKilledBy(Character *enemyPtr);
 
 void displayCharacter(Character * characterPtr);
 
@@ -100,32 +98,28 @@ void deleteCharacter(Character * characterPtr);
 
 
 
-#if defined(FULL_GAME) 
-    #if defined(NO_BLINKING)
-        #define _DRAW_PLAYER() \
-            if(invincibilityActive) \
-            { \
-                DRAW_PLAYER(player._x, player._y, skull._imagePtr); \
-            } \
-            else \
-            { \
-                DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-            }    
-    #else
-        #define _DRAW_PLAYER() \
-            if(invincibilityActive) \
-            { \
-                DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
-            } \
-            else \
-            { \
-                DRAW_PLAYER(player._x, player._y, player._imagePtr); \
-            }
-    #endif
+#if defined(NO_BLINKING)
+    #define _DRAW_PLAYER() \
+        if(invincibilityActive) \
+        { \
+            DRAW_PLAYER(player._x, player._y, skull._imagePtr); \
+        } \
+        else \
+        { \
+            DRAW_PLAYER(player._x, player._y, player._imagePtr); \
+        }    
 #else
     #define _DRAW_PLAYER() \
-        DRAW_PLAYER(player._x, player._y, player._imagePtr); 
+        if(invincibilityActive) \
+        { \
+            DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
+        } \
+        else \
+        { \
+            DRAW_PLAYER(player._x, player._y, player._imagePtr); \
+        }
 #endif
+
 
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
 
@@ -187,15 +181,11 @@ void relocateCharacter(register Character * characterPtr);
 
 uint8_t sameLocationAsAnyLocation(uint8_t x, uint8_t y, Character *characterList, uint8_t length);
 
-#if defined(FULL_GAME)
-    uint8_t innerWallReached(Character *characterPtr);
-    uint8_t innerHorizontalWallReached(Character *characterPtr);
-    uint8_t nearInnerWall(register Character *characterPtr);
-    uint8_t nearInnerHorizontalWall(register Character *characterPtr);    
-#endif
+uint8_t innerWallReached(Character *characterPtr);
+uint8_t innerHorizontalWallReached(Character *characterPtr);
+uint8_t nearInnerWall(register Character *characterPtr);
+uint8_t nearInnerHorizontalWall(register Character *characterPtr);    
 
-#if defined(FULL_GAME)
-    void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y);
-#endif
+void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y);
 
 #endif // _CHARACTER

@@ -25,7 +25,6 @@
 #ifndef _MISSILE_HEADER
 #define _MISSILE_HEADER
 
-#if !defined(TINY_GAME)
 
     #include "character.h"
     #include "settings.h"
@@ -57,13 +56,10 @@
         
     void moveBullet(register Character * bulletPtr, unsigned char bulletDirection);
 
-    #if defined(FULL_GAME)
-        void handle_chasing_bullet(void);
-    #endif
+    void handle_chasing_bullet(void);
         
     void pushGhost(Character * ghostPtr, unsigned char bulletDirection);    
         
-#endif    // !defined(TINY_GAME)
 
 #endif //_MISSILE
 

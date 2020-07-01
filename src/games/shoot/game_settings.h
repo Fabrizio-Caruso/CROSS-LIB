@@ -56,18 +56,8 @@
 #else
     #define BOMBS_NUMBER 3
 #endif
-    
-#if defined(FORCE_GHOSTS_NUMBER)
-    #define GHOSTS_NUMBER FORCE_GHOSTS_NUMBER
-#elif defined(TURN_BASED)
-    #if !defined(TINY_GAME)
-        #define GHOSTS_NUMBER 7
-    #else
-        #define GHOSTS_NUMBER 7
-    #endif
-#else    
-    #define GHOSTS_NUMBER 7
-#endif
+
+#define GHOSTS_NUMBER 7
 
 #define ROCKETS_NUMBER 2
 

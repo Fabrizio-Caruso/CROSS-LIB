@@ -69,19 +69,17 @@ void deleteCharacter(Character * characterPtr)
     DELETE_CHARACTER(characterPtr->_x, characterPtr->_y);
 }
 
-#if defined(FULL_GAME)
-    extern uint8_t invincibilityActive;
+extern uint8_t invincibilityActive;
 
-    extern uint8_t innerVerticalWallX;
-    extern uint8_t innerVerticalWallY;
-    extern uint8_t innerVerticalWallLength;
+extern uint8_t innerVerticalWallX;
+extern uint8_t innerVerticalWallY;
+extern uint8_t innerVerticalWallLength;
 
-    extern uint8_t innerHorizontalWallX;
-    extern uint8_t innerHorizontalWallY;
-    extern uint8_t innerHorizontalWallLength;
-    
-    extern uint8_t zombieActive;    
-#endif 
+extern uint8_t innerHorizontalWallX;
+extern uint8_t innerHorizontalWallY;
+extern uint8_t innerHorizontalWallLength;
+
+extern uint8_t zombieActive;    
 
 void playerDies(void)
 {
@@ -93,12 +91,10 @@ void playerDies(void)
     SLEEP(1);    
 }
 
-#if defined(FULL_GAME)
-    uint8_t playerKilledBy(Character *enemyPtr)
-    {
-        return !invincibilityActive && areCharctersAtSamePosition(enemyPtr,&player);
-    }
-#endif
+uint8_t playerKilledBy(Character *enemyPtr)
+{
+    return !invincibilityActive && areCharctersAtSamePosition(enemyPtr,&player);
+}
 
 void initializeCharacter(register Character* characterPtr, uint8_t x, uint8_t y, uint8_t status, Image * imagePtr)
 {
@@ -188,38 +184,34 @@ void relocateCharacter(register Character * characterPtr)
     characterPtr->_y = y;
 }
 
-#if defined(FULL_GAME)
-    uint8_t innerWallReached(Character *characterPtr)
-    {
-        return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
-    }
+uint8_t innerWallReached(Character *characterPtr)
+{
+    return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
+}
 
-    
-    uint8_t nearInnerWall(register Character *characterPtr)
-    {
-        return innerVerticalWallLevel() && (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
-               (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
-    }
-    
-    
-    uint8_t innerHorizontalWallReached(Character *characterPtr)
-    {
-        return (characterPtr->_y==innerHorizontalWallY) && (characterPtr->_x >= innerHorizontalWallX) && (characterPtr->_x<= (innerHorizontalWallX + innerHorizontalWallLength-1));
-    }
 
-    
-    uint8_t nearInnerHorizontalWall(register Character *characterPtr)
-    {
-        return innerHorizontalWallLevel() && (characterPtr->_y>=innerHorizontalWallY-1) && (characterPtr->_y<=innerHorizontalWallY+1) &&
-               (characterPtr->_x >= innerHorizontalWallX-1) && (characterPtr->_x<= (innerHorizontalWallX + innerHorizontalWallLength));
-    }    
-#endif
+uint8_t nearInnerWall(register Character *characterPtr)
+{
+    return innerVerticalWallLevel() && (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
+           (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
+}
 
-#if defined(FULL_GAME)
 
-    void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y)
-    {
-        _draw(x,y,&BROKEN_BRICK_IMAGE);        
-    }
-#endif
+uint8_t innerHorizontalWallReached(Character *characterPtr)
+{
+    return (characterPtr->_y==innerHorizontalWallY) && (characterPtr->_x >= innerHorizontalWallX) && (characterPtr->_x<= (innerHorizontalWallX + innerHorizontalWallLength-1));
+}
+
+
+uint8_t nearInnerHorizontalWall(register Character *characterPtr)
+{
+    return innerHorizontalWallLevel() && (characterPtr->_y>=innerHorizontalWallY-1) && (characterPtr->_y<=innerHorizontalWallY+1) &&
+           (characterPtr->_x >= innerHorizontalWallX-1) && (characterPtr->_x<= (innerHorizontalWallX + innerHorizontalWallLength));
+}    
+
+
+void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y)
+{
+    _draw(x,y,&BROKEN_BRICK_IMAGE);        
+}
 

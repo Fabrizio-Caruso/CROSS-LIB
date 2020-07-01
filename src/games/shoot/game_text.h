@@ -43,14 +43,12 @@
 // game_stat
 void displayStats(void);
 
-#if !defined(TINY_GAME)
-	void displayStatsTitles(void);
+void displayStatsTitles(void);
 
-	void printGunsStats(void);
-    
-    void printFirePowerStats(void);
+void printGunsStats(void);
 
-#endif
+void printFirePowerStats(void);
+
 
 
 #if !defined(NO_STATS)
@@ -95,7 +93,7 @@ void printStartMessage(void);
 	#define printPressKeyToStart()
 #endif
 
-#if !defined(TINY_GAME) && !defined(NO_MESSAGE)
+#if !defined(NO_MESSAGE)
 	void _printScoreOnRow(uint8_t row, uint16_t score);
 	void _printScore(uint16_t score);
 	void printKillTheSkull(void);
@@ -105,17 +103,10 @@ void printStartMessage(void);
 	#define printKillTheSkull()
 #endif
 
-#if !defined(TINY_GAME)
-	#define _printTopScore() _printScoreOnRow(0,highScore);
-#endif
+#define _printTopScore() _printScoreOnRow(0,highScore);
 
-#if defined(TINY_GAME)
-	#if !defined(NO_MESSAGE)
-		#define highScoreScreen() PRINTF((XSize-6)/2, 0, 5, highScore)
-	#else
-		#define highScoreScreen()
-	#endif
-#elif defined(LESS_TEXT) 
+
+#if defined(LESS_TEXT) 
 		#define printLevelBonus(bonus) 
 		#define finalScore()
 		#define highScoreScreen() 
@@ -126,9 +117,7 @@ void printStartMessage(void);
     #define highScoreScreen() _printScore(highScore);  	
 #endif
 
-#if defined(FULL_GAME)
-	void printHints(void);
-#endif
+void printHints(void);
 
 	
 #endif // _GAME_TEXT

@@ -27,74 +27,65 @@
 
 #include "character.h"
 
-#if !defined(TINY_GAME)
 
-    struct ItemStruct
-    {
-        Character _character;
-        void (*_effect)(void);
-        uint16_t _coolDown;
-        #if !defined(NO_BLINKING)
-        uint8_t _blink;
-        #endif
-    };
+struct ItemStruct
+{
+    Character _character;
+    void (*_effect)(void);
+    uint16_t _coolDown;
+    #if !defined(NO_BLINKING)
+    uint8_t _blink;
+    #endif
+};
 
-    typedef struct ItemStruct Item;
+typedef struct ItemStruct Item;
 
-    void handle_count_down(uint8_t * flagPtr, uint16_t * countDownPtr);    
+void handle_count_down(uint8_t * flagPtr, uint16_t * countDownPtr);    
 
-    void reduceItemCoolDowns(void);
-    
-    void itemReached(Character * itemPtr);
-    
-    void relocateItem(Character * itemPtr);
-    
-    void _freezeEffect(void);
+void reduceItemCoolDowns(void);
 
-    void fireChargeEffect(void);
+void itemReached(Character * itemPtr);
 
-    void bombChargeEffect(void);
+void relocateItem(Character * itemPtr);
 
-    #define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
+void _freezeEffect(void);
 
-    void _firePowerEffect(void);
+void fireChargeEffect(void);
 
-    void firePowerEffect(void);
+void bombChargeEffect(void);
 
-    void extraPointsEffect(void);
+#define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
 
-    void handle_item(register Item *itemPtr);
+void _firePowerEffect(void);
 
+void firePowerEffect(void);
 
-#endif // !defined(TINY_GAME)
-    
-#if defined(FULL_GAME)
+void extraPointsEffect(void);
 
-    void _freezeEffect(void);
+void handle_item(register Item *itemPtr);
 
-    void freezeEffect(void);
-    
-    void extraLifeEffect(void);
+void _freezeEffect(void);
 
-    void _invincibilityEffect(void);
-    
-    void invincibilityEffect(void);
-    
-    void superEffect(void);
+void freezeEffect(void);
 
-    void confuseEffect(void);
-    
-    void zombieEffect(void);
-    
+void extraLifeEffect(void);
+
+void _invincibilityEffect(void);
+
+void invincibilityEffect(void);
+
+void superEffect(void);
+
+void confuseEffect(void);
+
+void zombieEffect(void);
+
     void chaseEffect(void);
-#endif // defined(FULL_GAME)
     
-    #if defined(FULL_GAME)
-        #define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)    
-        #define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
-        #define handle_zombie_count_down() handle_count_down(&zombieActive,&zombie_count_down)
-    #endif    
-    
+    #define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)    
+    #define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
+    #define handle_zombie_count_down() handle_count_down(&zombieActive,&zombie_count_down)
+
     #define handle_firePower_item() handle_item(&firePower);
     #define handle_fireCharge_item() handle_item(&fireCharge);
     #define handle_bombCharge_item() handle_item(&bombCharge);
@@ -102,24 +93,20 @@
     
     #define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
 
-    #if defined(FULL_GAME)
-        #define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)    
-        #define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
-        #define handle_zombie_count_down() handle_count_down(&zombieActive,&zombie_count_down)
+    #define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)    
+    #define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
+    #define handle_zombie_count_down() handle_count_down(&zombieActive,&zombie_count_down)
 
-        #define handle_freeze_item() handle_item(&freeze);    
-        #define handle_invincibility_item() handle_item(&invincibility)
-        
-        #define handle_chase_item() handle_item(&chase);
-        
-        #define handle_super_item() handle_item(&super)
-        #define handle_extraLife_item() handle_item(&extraLife)
-        
-        #define handle_confuse_item() handle_item(&confuse);
-        #define handle_zombie_item() handle_item(&zombie);
-        
-    #endif
-
+    #define handle_freeze_item() handle_item(&freeze);    
+    #define handle_invincibility_item() handle_item(&invincibility)
+    
+    #define handle_chase_item() handle_item(&chase);
+    
+    #define handle_super_item() handle_item(&super)
+    #define handle_extraLife_item() handle_item(&extraLife)
+    
+    #define handle_confuse_item() handle_item(&confuse);
+    #define handle_zombie_item() handle_item(&zombie);
     
     #define handle_firePower_item() handle_item(&firePower);
     #define handle_fireCharge_item() handle_item(&fireCharge);

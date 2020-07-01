@@ -1,4 +1,3 @@
-#if !defined(TINY_GAME)
 
 #include "settings.h"
 
@@ -14,7 +13,7 @@
 	#include "ghost.h"
 	
 	extern Character player;
-	extern Character skull;
+	extern Character skull[];
 	extern Character ghosts[GHOSTS_NUMBER];
 	extern Character bullet;
 	extern uint8_t playerFire;
@@ -70,8 +69,8 @@
 		fillLevelWithCharacters();	
 
 		playerFire = 0;
-		skull._x = player._x-4;
-		skull._y = player._y;	
+		skull[0]._x = player._x-4;
+		skull[0]._y = player._y;	
 		bullet._status = 0;
 		guns = 1;
 		while(!playerFire && !wallReached(&player))
@@ -85,7 +84,7 @@
 			
 			displayPlayer(&player);
 			
-			dance(&skull);
+			dance(skull);
 		
 			printCenteredMessageOnRow(MESSAGE_START,  YOU_MADE_IT_STRING);		
 			#if SLOW_DOWN>0
@@ -97,5 +96,4 @@
 	}
 #endif
 
-#endif
 

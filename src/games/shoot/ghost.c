@@ -115,7 +115,6 @@ void ghostDies(Character * ghostPtr)
 }
 
 
-#if !defined(TINY_GAME)
 uint16_t computeGhostSlowDown(void)
 {
     if(ghostLevel<MAX_GHOST_LEVEL)
@@ -128,17 +127,15 @@ uint16_t computeGhostSlowDown(void)
     }
     return GHOST_MIN_SLOWDOWN;
 }
-#endif
 
-#if !defined(TINY_GAME)
-    void decreaseGhostLevel(void)
-    {
-        if(ghostLevel>GHOST_LEVEL_DECREASE)
-            ghostLevel-=GHOST_LEVEL_DECREASE;
-        else
-            ghostLevel=0;
-    }
-#endif
+
+void decreaseGhostLevel(void)
+{
+    if(ghostLevel>GHOST_LEVEL_DECREASE)
+        ghostLevel-=GHOST_LEVEL_DECREASE;
+    else
+        ghostLevel=0;
+}
 
 void displayGhosts(void)
 {
@@ -166,21 +163,21 @@ void displayBombs(void)
     }
 }    
 
-#if defined(FULL_GAME)
-    uint8_t firstAlive(void)
+/*
+uint8_t firstAlive(void)
+{
+    uint8_t i;
+    
+    i=0;
+    while(i<GHOSTS_NUMBER)
     {
-        uint8_t i;
-        
-        i=0;
-        while(i<GHOSTS_NUMBER)
-        {
-            if(ghosts[i]._status)
-                return i;
-            ++i;
-        }
-        return GHOSTS_NUMBER;
+        if(ghosts[i]._status)
+            return i;
+        ++i;
     }
-#endif
+    return GHOSTS_NUMBER;
+}
+*/
 
 
 uint8_t sameLocationAsAnyGhostLocation(uint8_t x, uint8_t y, Character *ghostList, uint8_t length)

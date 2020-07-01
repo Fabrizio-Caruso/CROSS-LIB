@@ -28,7 +28,7 @@
 #include "character.h"
 #include "ghost.h"
 
-#if defined(TINY_GAME) || defined(NO_DEAD_GHOSTS)
+#if defined(NO_DEAD_GHOSTS)
     #define PLACE_DEAD_GHOST() \
         initializeCharacter(&ghosts[count], 0,(unsigned char) 0,0,&GHOST_IMAGE);
 #else
@@ -214,27 +214,25 @@
 
 void fillLevelWithCharacters(void);
 
-#if defined(FULL_GAME)
-    void updateInnerVerticalWall(void);
-    
-    void updateInnerHorizontalWall(void);
-    
-    uint8_t innerHorizontalWallLevel(void);
-    
-    uint8_t oneMissileLevel(void);
-    
-    uint8_t rocketLevel(void);
+void updateInnerVerticalWall(void);
 
-    uint8_t missileLevel(void);    
+void updateInnerHorizontalWall(void);
 
-    uint8_t innerVerticalWallLevel(void);
+uint8_t innerHorizontalWallLevel(void);
 
-    uint8_t bossLevel(void);
-    
-    void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr);
+uint8_t oneMissileLevel(void);
 
-    void spawnGhost(Character *ghostPtr, unsigned char ghostIndex);
-#endif 
+uint8_t rocketLevel(void);
+
+uint8_t missileLevel(void);    
+
+uint8_t innerVerticalWallLevel(void);
+
+uint8_t bossLevel(void);
+
+void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr);
+
+void spawnGhost(Character *ghostPtr, unsigned char ghostIndex); 
 
 void placeBombs(void);
 

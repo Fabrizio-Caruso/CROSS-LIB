@@ -18,16 +18,14 @@
 #endif
 
 
-#if !defined(TINY_GAME) || defined(TURN_BASED)
-	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS) || (defined(USE_TINY_MEMORY_BUFFERS) && defined(TURN_BASED))
-		extern uint16_t loop;
-	#else
-		uint16_t loop;	
-	#endif	
-#endif
+#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS) || (defined(USE_TINY_MEMORY_BUFFERS) && defined(TURN_BASED))
+    extern uint16_t loop;
+#else
+    uint16_t loop;	
+#endif	
 
 
-#if defined(FULL_GAME) && !defined(NO_BLINKING)
+#if !defined(NO_BLINKING)
 	#if defined(USE_MEMORY_BUFFERS)
 		extern uint8_t playerBlink;	
 	#else
@@ -36,56 +34,48 @@
 #endif
 
 
-#if defined(FULL_GAME) 
-	#if defined(USE_MEMORY_BUFFERS)
-		extern uint16_t ghostLevel;
-	#else
-		uint16_t ghostLevel;
-	#endif
+#if defined(USE_MEMORY_BUFFERS)
+    extern uint16_t ghostLevel;
+#else
+    uint16_t ghostLevel;
 #endif
 
 
-#if !defined(TINY_GAME)
-	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
-		extern uint16_t skullSlowDown;
-		extern uint8_t skullXCountDown;
-		extern uint8_t skullYCountDown;
-		extern uint8_t bulletDirection;		
-	#else
-		uint16_t skullSlowDown;		
-		uint8_t skullXCountDown;
-		uint8_t skullYCountDown;
-		uint8_t bulletDirection;
-	#endif
-
-#endif
-
-#if !defined(TINY_GAME)
-	extern Image SKULL_IMAGE;
-	extern Image FIRE_CHARGE_IMAGE;
-	extern Image BULLET_IMAGE;
-	extern Image FIRE_POWER_IMAGE;
-	extern Image EXTRA_POINTS_IMAGE;	
-	extern Image DEAD_GHOST_IMAGE;
+#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
+    extern uint16_t skullSlowDown;
+    extern uint8_t skullXCountDown;
+    extern uint8_t skullYCountDown;
+    extern uint8_t bulletDirection;		
+#else
+    uint16_t skullSlowDown;		
+    uint8_t skullXCountDown;
+    uint8_t skullYCountDown;
+    uint8_t bulletDirection;
 #endif
 
 
-#if !defined(TINY_GAME)
-	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
-		extern Character skull;
-		extern Character bullet;	
+extern Image SKULL_IMAGE;
+extern Image FIRE_CHARGE_IMAGE;
+extern Image BULLET_IMAGE;
+extern Image FIRE_POWER_IMAGE;
+extern Image EXTRA_POINTS_IMAGE;	
+extern Image DEAD_GHOST_IMAGE;
 
-		extern Item fireCharge;
-		extern Item firePower;
-		extern Item extraPoints;	
-	#else
-		Character skull;
-		Item fireCharge;
-		Item firePower;
-		Item extraPoints;	
-		
-		Character bullet;
-	#endif
+
+#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
+    extern Character skull;
+    extern Character bullet;	
+
+    extern Item fireCharge;
+    extern Item firePower;
+    extern Item extraPoints;	
+#else
+    Character skull;
+    Item fireCharge;
+    Item firePower;
+    Item extraPoints;	
+    
+    Character bullet;
 #endif
 
 #if defined(USE_MEMORY_BUFFERS) || defined(USE_TINY_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)

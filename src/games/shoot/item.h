@@ -49,7 +49,7 @@
     
     void relocateItem(Character * itemPtr);
     
-    void _commonPowerUpEffect(void);
+    void _freezeEffect(void);
 
     void powerUpEffect(void);
 

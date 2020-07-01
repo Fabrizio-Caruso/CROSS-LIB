@@ -116,7 +116,7 @@ extern uint8_t ghostsOnScreen;
             #endif    
     }    
     
-    void _commonPowerUpEffect(void)
+    void _freezeEffect(void)
     {
         points+=POWER_UP_BONUS;
         decreaseGhostLevel();
@@ -245,11 +245,6 @@ extern uint8_t ghostsOnScreen;
 
     
 #if defined(FULL_GAME)
-
-    void _freezeEffect(void)
-    {
-        _commonPowerUpEffect();
-    }
 
     void freezeEffect(void)
     {

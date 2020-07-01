@@ -53,7 +53,7 @@
 
     void powerUpEffect(void);
 
-    void powerUp2Effect(void);
+    void bombChargeEffect(void);
 
     #define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
 
@@ -97,7 +97,7 @@
     
     #define handle_firePower_item() handle_item(&firePower);
     #define handle_powerup_item() handle_item(&powerUp);
-    #define handle_powerup2_item() handle_item(&powerUp2);
+    #define handle_bombCharge_item() handle_item(&bombCharge);
     #define handle_extraPoints_item() handle_item(&extraPoints);
     
     #define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
@@ -123,7 +123,7 @@
     
     #define handle_firePower_item() handle_item(&firePower);
     #define handle_powerup_item() handle_item(&powerUp);
-    #define handle_powerup2_item() handle_item(&powerUp2);
+    #define handle_bombCharge_item() handle_item(&bombCharge);
     #define handle_extraPoints_item() handle_item(&extraPoints);
 
 #endif // _item.h

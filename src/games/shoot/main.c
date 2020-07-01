@@ -106,7 +106,7 @@ Character skulls[SKULLS_NUMBER];
     {
         firePower._coolDown = FIRE_POWER_COOL_DOWN;
         powerUp._coolDown = POWER_UP_COOL_DOWN;
-        powerUp2._coolDown = POWER_UP2_COOL_DOWN;
+        bombCharge._coolDown = BOMB_CHARGE_COOL_DOWN;
         extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;        
         
         #if defined(FULL_GAME)
@@ -126,7 +126,7 @@ Character skulls[SKULLS_NUMBER];
     void constructItems()
     {
         powerUp._effect = &powerUpEffect;
-        powerUp2._effect = &powerUp2Effect;
+        bombCharge._effect = &bombChargeEffect;
         firePower._effect = &firePowerEffect;
         extraPoints._effect = &extraPointsEffect;
         #if defined(FULL_GAME)
@@ -466,7 +466,7 @@ int main(void)
                     handle_extraPoints_item();
                     handle_firePower_item();
                     handle_powerup_item();
-                    handle_powerup2_item();    
+                    handle_bombCharge_item();    
                     handle_freeze_count_down();                    
                 #endif
                 

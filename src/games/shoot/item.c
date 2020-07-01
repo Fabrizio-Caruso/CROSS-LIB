@@ -70,7 +70,7 @@ extern Character skull;
 extern Character player;
 
 extern Item powerUp;
-extern Item powerUp2;
+extern Item bombCharge;
 extern Item firePower;
 extern Item extraPoints;
 
@@ -147,7 +147,7 @@ extern uint8_t ghostsOnScreen;
         powerUp._coolDown = POWER_UP_COOL_DOWN;        
     }
 
-    void powerUp2Effect(void)
+    void bombChargeEffect(void)
     {
         uint8_t i;
         
@@ -159,7 +159,7 @@ extern uint8_t ghostsOnScreen;
         placeBombs();
         bombCount = 0;
         // TODO: delete Bombs
-        powerUp2._coolDown = POWER_UP2_COOL_DOWN;    
+        bombCharge._coolDown = BOMB_CHARGE_COOL_DOWN;    
     }
 
     void _firePowerEffect(void)

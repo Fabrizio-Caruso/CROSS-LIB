@@ -63,7 +63,7 @@ extern Character player;
     extern Character skulls[SKULLS_NUMBER];
 
     extern Item powerUp;
-    extern Item powerUp2;
+    extern Item bombCharge;
     extern Item firePower;
     extern Item extraPoints;
 
@@ -315,7 +315,7 @@ void fillLevelWithCharacters(void)
     placeBombs();
     
         initializeAwayFromWall(&(powerUp._character),(XSize>>1),(YSize>>1),1,&BULLET_IMAGE);
-        initializeAwayFromWall(&(powerUp2._character),(XSize>>1),(YSize>>1),0,&BOMB_IMAGE);
+        initializeAwayFromWall(&(bombCharge._character),(XSize>>1),(YSize>>1),0,&BOMB_IMAGE);
         initializeAwayFromWall(&(freeze._character),(XSize>>1),(YSize>>1),0,&FREEZE_IMAGE);
         initializeAwayFromWall(&(extraPoints._character), (XSize>>1), (YSize>>1), 0, &EXTRA_POINTS_IMAGE);
         initializeAwayFromWall(&(super._character), (XSize>>1), (YSize>>1), 0, &SUPER_IMAGE);

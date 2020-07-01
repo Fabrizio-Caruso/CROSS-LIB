@@ -127,7 +127,7 @@
 #if defined(FULL_GAME)
 
 	#if defined(USE_MEMORY_BUFFERS)
-		extern Item powerUp2;
+		extern Item bombCharge;
 		extern Item freeze;
 		extern Item invincibility;
 		extern Item extraLife;
@@ -169,7 +169,7 @@
 		extern uint8_t innerVerticalWallLength;
 
 	#else
-		Item powerUp2;		
+		Item bombCharge;		
 		Item freeze;
 		Item invincibility;
 		Item extraLife;

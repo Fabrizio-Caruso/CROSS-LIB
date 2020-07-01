@@ -484,8 +484,8 @@ int main(void)
                     CLEAR_SCREEN();
                 #endif
 
-                points+= LEVEL_BONUS*level+ghostCount*GHOST_VS_BOMBS_BONUS;
-                printLevelBonus(LEVEL_BONUS*level+ghostCount*GHOST_VS_BOMBS_BONUS);
+                points+= LEVEL_BONUS*level+ghostCount*GHOSTS_VS_ZOMBIE_BONUS;
+                printLevelBonus(LEVEL_BONUS*level+ghostCount*GHOSTS_VS_ZOMBIE_BONUS);
 
                 SLEEP(2);
                 CLEAR_SCREEN();                        

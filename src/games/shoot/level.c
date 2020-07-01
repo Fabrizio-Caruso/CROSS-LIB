@@ -253,7 +253,7 @@ void placeBombs(void)
 void fillLevelWithCharacters(void)
 {
     unsigned char i;
-    unsigned char count = 0;
+    unsigned char count;
     
     #if defined(DEBUG)
     gotoxy(1,1);cprintf("filling level.........");
@@ -280,6 +280,7 @@ void fillLevelWithCharacters(void)
     for(i=0;i<count;++i)
     {
         #if defined(DEBUG)
+        gotoxy(0,0);cprintf("count %d", count);SLEEP(3);
         gotoxy(1,1);cprintf("spawning ghost......");        
         #endif
         spawnGhost(&ghosts[i],i);
@@ -294,9 +295,9 @@ void fillLevelWithCharacters(void)
     for(i=count;i<GHOSTS_NUMBER;++i)
     {
         #if defined(DEBUG)
-        gotoxy(1,1);cprintf("initialized dead ghost.......");        
+        gotoxy(1,1);cprintf("initialized dead ghost......."); 
         #endif        
-        initializeCharacter(&ghosts[i],0,0,0,NULL);
+        initializeCharacter(&ghosts[i],0,0,0,&DEAD_GHOST_IMAGE);
         #if defined(DEBUG)
             displayCharacter((Character *)&ghosts[i]);
         #endif        

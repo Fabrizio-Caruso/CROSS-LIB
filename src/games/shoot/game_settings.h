@@ -57,7 +57,7 @@
     #define BOMBS_NUMBER 3
 #endif
 
-#define GHOSTS_NUMBER 7
+#define GHOSTS_NUMBER 9
 
 #define ROCKETS_NUMBER 2
 

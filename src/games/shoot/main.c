@@ -213,15 +213,15 @@ int main(void)
             #else
             if(isMissileLevel && isRocketLevel)
             {
-                ghostsOnScreen = 5;
+                ghostsOnScreen = 6;
             }
             else if(isMissileLevel || isRocketLevel)
             {
-                ghostsOnScreen = 6;
+                ghostsOnScreen = 7;
             }
             else 
             {
-                ghostsOnScreen = 7;
+                ghostsOnScreen = 9;
             }
             #endif
             

@@ -69,7 +69,7 @@ void checkBombsVsGhosts(void)
 
 void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
 {
-    switch(ghostIndex % GHOSTS_NUMBER)
+    switch(ghostIndex % 8)
     {
         case 0:
             initializeCharacter(ghostPtr  , 2      ,     2, GHOST_LIFE, &GHOST_IMAGE);

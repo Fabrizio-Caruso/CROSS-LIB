@@ -43,7 +43,7 @@
 
     void handle_count_down(uint8_t * flagPtr, uint16_t * countDownPtr);    
 
-    void reducePowerUpsCoolDowns(void);
+    void reduceItemCoolDowns(void);
     
     void itemReached(Character * itemPtr);
     
@@ -51,7 +51,7 @@
     
     void _freezeEffect(void);
 
-    void powerUpEffect(void);
+    void fireChargeEffect(void);
 
     void bombChargeEffect(void);
 
@@ -96,7 +96,7 @@
     #endif    
     
     #define handle_firePower_item() handle_item(&firePower);
-    #define handle_powerup_item() handle_item(&powerUp);
+    #define handle_fireCharge_item() handle_item(&fireCharge);
     #define handle_bombCharge_item() handle_item(&bombCharge);
     #define handle_extraPoints_item() handle_item(&extraPoints);
     
@@ -122,7 +122,7 @@
 
     
     #define handle_firePower_item() handle_item(&firePower);
-    #define handle_powerup_item() handle_item(&powerUp);
+    #define handle_fireCharge_item() handle_item(&fireCharge);
     #define handle_bombCharge_item() handle_item(&bombCharge);
     #define handle_extraPoints_item() handle_item(&extraPoints);
 

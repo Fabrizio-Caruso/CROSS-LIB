@@ -335,7 +335,7 @@ void checkBulletVsSkull(register Character *bulletPtr, Character *skullPtr)
         deleteBullet(bulletPtr);
         bulletPtr->_x = 0; bulletPtr->_y = 0;
         decreaseGhostLevel();
-        reducePowerUpsCoolDowns();
+        reduceItemCoolDowns();
         
         if((skullPtr->_status)<=bulletStrength)
         {
@@ -402,7 +402,7 @@ void _moveBullet(register Character *bulletPtr, uint8_t bulletDirection)
         points+=HORIZONTAL_MISSILE_BONUS;
         displayStats();                
         ++dead_rockets;
-        reducePowerUpsCoolDowns();        
+        reduceItemCoolDowns();        
     }
 #endif
 

@@ -102,7 +102,7 @@
 #define GHOSTS_VS_ZOMBIE_BONUS 10UL
 
 // Extra points for the power up
-#define POWER_UP_BONUS 20UL
+#define FIRE_CHARGE_BONUS 20UL
 
 // Extra points for the power up
 #define FIRE_POWER_BONUS 30UL
@@ -176,7 +176,7 @@
     #define WAIT_SCALE ACTION_WAIT_SCALE
 #endif
     
-#define POWER_UP_COOL_DOWN (110/WAIT_SCALE)
+#define FIRE_CHARGE_COOL_DOWN (110/WAIT_SCALE)
 
 #define BOMB_CHARGE_COOL_DOWN (350/WAIT_SCALE)
 

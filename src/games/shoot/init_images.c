@@ -24,7 +24,7 @@ extern Image BOMB_IMAGE;
 
 #if !defined(TINY_GAME)
 	extern Image SKULL_IMAGE;
-	extern Image POWERUP_IMAGE;
+	extern Image FIRE_CHARGE_IMAGE;
 	extern Image FIRE_POWER_IMAGE;
 	extern Image BULLET_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;
@@ -73,7 +73,7 @@ void INIT_IMAGES(void)
 		
 		#if !defined(TINY_GAME)
 			SKULL_IMAGE._color = _SKULL_COLOR;
-			POWERUP_IMAGE._color = _POWERUP_COLOR;
+			FIRE_CHARGE_IMAGE._color = _FIRE_CHARGE_COLOR;
 			FIRE_POWER_IMAGE._color = _GUN_COLOR;
 			EXTRA_POINTS_IMAGE._color = _EXTRA_POINTS_COLOR;
 			BULLET_IMAGE._color = _BULLET_COLOR;
@@ -120,7 +120,7 @@ void INIT_IMAGES(void)
 	#if !defined(TINY_GAME)
 		SKULL_IMAGE._imageData = _TILE_7;
 
-		POWERUP_IMAGE._imageData = _TILE_8;
+		FIRE_CHARGE_IMAGE._imageData = _TILE_8;
 		FIRE_POWER_IMAGE._imageData = _TILE_9;
 		EXTRA_POINTS_IMAGE._imageData = _TILE_10;
 		
@@ -137,10 +137,10 @@ void INIT_IMAGES(void)
 		
 		ROCKET_IMAGE._imageData = _TILE_16;
 
-		// If colors are present POWERUP/FREEZE/SUPER can be differentiated by the color attribute -> same _POWERUP for all of them
+		// If colors are present FIRE_CHARGE/FREEZE/SUPER can be differentiated by the color attribute -> same _FIRE_CHARGE for all of them
 		// #if !defined(NO_COLOR) && !defined(UDG_GRAPHICS) && !defined(__NES__) && !defined(__MO5__)
-			// FREEZE_IMAGE._imageData = _POWERUP;
-			// SUPER_IMAGE._imageData = _POWERUP;
+			// FREEZE_IMAGE._imageData = _FIRE_CHARGE;
+			// SUPER_IMAGE._imageData = _FIRE_CHARGE;
 		// #else
 			// FREEZE_IMAGE._imageData = _FREEZE;
 			// SUPER_IMAGE._imageData = _SUPER;

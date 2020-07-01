@@ -144,7 +144,7 @@ void deleteCharacter(Character * characterPtr);
     #define DELETE_SKULL(x,y,image) _delete(x,y)    
 #endif
 #define DELETE_BOMB(x,y,image) _delete(x,y)
-#define DELETE_POWERUP(x,y,image) _delete(x,y)
+#define DELETE_ITEM(x,y,image) _delete(x,y)
 #define DELETE_GUN(x,y,image) _delete(x,y)
 #define DELETE_MISSILE(x,y,image) _delete(x,y)
 #define DELETE_EXTRA_POINTS(x,y,image) _delete(x,y)
@@ -171,7 +171,7 @@ void deleteCharacter(Character * characterPtr);
 #define deleteBullet(characterPtr) deleteCharacter(characterPtr);
 #define deleteChasingBullet(characterPtr) deleteCharacter(characterPtr);
 #define deleteSkull(characterPtr) deleteCharacter(characterPtr);
-#define deletePowerUp(characterPtr) deleteCharacter(characterPtr);
+#define deleteItem(characterPtr) deleteCharacter(characterPtr);
 
 void initializeCharacter(register Character* characterPtr, uint8_t x, uint8_t y, uint8_t status, Image * imagePtr);
 

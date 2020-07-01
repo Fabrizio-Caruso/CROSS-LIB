@@ -62,7 +62,7 @@
 
 #if !defined(TINY_GAME)
 	extern Image SKULL_IMAGE;
-	extern Image POWERUP_IMAGE;
+	extern Image FIRE_CHARGE_IMAGE;
 	extern Image BULLET_IMAGE;
 	extern Image FIRE_POWER_IMAGE;
 	extern Image EXTRA_POINTS_IMAGE;	
@@ -75,12 +75,12 @@
 		extern Character skull;
 		extern Character bullet;	
 
-		extern Item powerUp;
+		extern Item fireCharge;
 		extern Item firePower;
 		extern Item extraPoints;	
 	#else
 		Character skull;
-		Item powerUp;
+		Item fireCharge;
 		Item firePower;
 		Item extraPoints;	
 		

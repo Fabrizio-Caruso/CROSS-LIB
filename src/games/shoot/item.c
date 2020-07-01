@@ -69,7 +69,7 @@ extern Character skull;
 
 extern Character player;
 
-extern Item powerUp;
+extern Item fireCharge;
 extern Item bombCharge;
 extern Item firePower;
 extern Item extraPoints;
@@ -96,7 +96,7 @@ extern uint8_t ghostsOnScreen;
     void itemReached(Character * itemPtr)
     {
         ZAP_SOUND();
-        deletePowerUp(itemPtr);
+        deleteItem(itemPtr);
         displayPlayer(&player);
         itemPtr->_status = 0;
         displayStats();
@@ -118,7 +118,7 @@ extern uint8_t ghostsOnScreen;
     
     void _freezeEffect(void)
     {
-        points+=POWER_UP_BONUS;
+        points+=FIRE_CHARGE_BONUS;
         decreaseGhostLevel();
         freezeActive = 1;    
         freeze_count_down += FROZEN_COUNT_DOWN;    
@@ -140,11 +140,11 @@ extern uint8_t ghostsOnScreen;
     }
     
     
-    void powerUpEffect(void)
+    void fireChargeEffect(void)
     {
         _increaseBullets(BULLET_GUNS);
 
-        powerUp._coolDown = POWER_UP_COOL_DOWN;        
+        fireCharge._coolDown = FIRE_CHARGE_COOL_DOWN;        
     }
 
     void bombChargeEffect(void)
@@ -227,14 +227,15 @@ extern uint8_t ghostsOnScreen;
 
     
 #if defined(FULL_GAME)
-    void reducePowerUpsCoolDowns(void)
+    void reduceItemCoolDowns(void)
     {
         extraPoints._coolDown-=extraPoints._coolDown/8;
         invincibility._coolDown-=invincibility._coolDown/16;
+        freeze._coolDown-=freeze._coolDown/4;
         TICK_SOUND();        
     }
 #elif !defined(TINY_GAME)
-    void reducePowerUpsCoolDowns(void)
+    void reduceItemCoolDowns(void)
     {
         extraPoints._coolDown/=2;
         TICK_SOUND();        

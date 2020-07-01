@@ -52,7 +52,7 @@ extern Image DEAD_GHOST_IMAGE;
 #if !defined(TINY_GAME)
     extern Image SKULL_IMAGE;
     extern Image BULLET_IMAGE;
-    extern Image POWERUP_IMAGE;
+    extern Image FIRE_CHARGE_IMAGE;
     extern Image FIRE_POWER_IMAGE;
     extern Image EXTRA_POINTS_IMAGE;
 #endif
@@ -62,7 +62,7 @@ extern Character player;
 #if !defined(TINY_GAME)
     extern Character skulls[SKULLS_NUMBER];
 
-    extern Item powerUp;
+    extern Item fireCharge;
     extern Item bombCharge;
     extern Item firePower;
     extern Item extraPoints;
@@ -314,7 +314,7 @@ void fillLevelWithCharacters(void)
     
     placeBombs();
     
-        initializeAwayFromWall(&(powerUp._character),(XSize>>1),(YSize>>1),1,&BULLET_IMAGE);
+        initializeAwayFromWall(&(fireCharge._character),(XSize>>1),(YSize>>1),1,&BULLET_IMAGE);
         initializeAwayFromWall(&(bombCharge._character),(XSize>>1),(YSize>>1),0,&BOMB_IMAGE);
         initializeAwayFromWall(&(freeze._character),(XSize>>1),(YSize>>1),0,&FREEZE_IMAGE);
         initializeAwayFromWall(&(extraPoints._character), (XSize>>1), (YSize>>1), 0, &EXTRA_POINTS_IMAGE);

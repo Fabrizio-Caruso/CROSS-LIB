@@ -238,21 +238,17 @@ int main(void)
             #if defined(DEBUG_STRATEGY)
             ghostsOnScreen = 1;
             #else
-            if(level<=2)
+            if(level<=3) // 1, 2, 3
             {
                 ghostsOnScreen = 5;
             }
-            else if(level<=4)
+            else if((level<=6) || ((level&7)>2)) // 4, 5, 6, 7, 8, 11, 12, 13, 14, 15, 16
             {
                 ghostsOnScreen = 6;
             }
-            else if (level<=8)
+            else // 9, 10
             {
                 ghostsOnScreen = 7;
-            }
-            else
-            {
-                ghostsOnScreen = 8;
             }
             #endif
             

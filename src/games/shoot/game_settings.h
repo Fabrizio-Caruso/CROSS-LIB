@@ -61,12 +61,12 @@
     #define GHOSTS_NUMBER FORCE_GHOSTS_NUMBER
 #elif defined(TURN_BASED)
     #if !defined(TINY_GAME)
-        #define GHOSTS_NUMBER 9
+        #define GHOSTS_NUMBER 7
     #else
-        #define GHOSTS_NUMBER 8
+        #define GHOSTS_NUMBER 7
     #endif
 #else    
-    #define GHOSTS_NUMBER 8
+    #define GHOSTS_NUMBER 7
 #endif
 
 #define ROCKETS_NUMBER 2

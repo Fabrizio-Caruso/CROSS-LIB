@@ -190,7 +190,7 @@ extern uint8_t isInnerVerticalWallLevel;
 
     uint8_t rocketLevel(void)
     {
-        return ((level&7)==7) || ((level&7)==0);
+        return ((level&7)==3) || ((level&7)==6) || ((level&7)==7) || ((level&7)==0);
     }
 
     uint8_t missileLevel(void)

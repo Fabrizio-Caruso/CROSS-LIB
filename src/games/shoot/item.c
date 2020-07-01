@@ -93,7 +93,7 @@ extern uint8_t ghostsOnScreen;
     
 #if !defined(TINY_GAME)
 
-    void powerUpReached(Character * powerUpPtr)
+    void itemReached(Character * powerUpPtr)
     {
         ZAP_SOUND();
         deletePowerUp(powerUpPtr);
@@ -188,7 +188,7 @@ extern uint8_t ghostsOnScreen;
             if(areCharctersAtSamePosition(&player, (Character *) itemPtr))
             {
                 itemPtr->_effect();
-                powerUpReached((Character *) itemPtr);            
+                itemReached((Character *) itemPtr);            
             }
             else
             {

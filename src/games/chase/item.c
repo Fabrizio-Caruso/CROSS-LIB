@@ -66,7 +66,7 @@ extern Item extraPoints;
 	
 #if !defined(TINY_GAME)
 
-	void powerUpReached(Character * powerUpPtr)
+	void itemReached(Character * powerUpPtr)
 	{
 		ZAP_SOUND();
 		#if defined(TURN_BASED)
@@ -154,7 +154,7 @@ extern Item extraPoints;
 			if(areCharctersAtSamePosition(&player, (Character *) itemPtr))
 			{
 				itemPtr->_effect();
-				powerUpReached((Character *) itemPtr);			
+				itemReached((Character *) itemPtr);			
 			}
 			else
 			{

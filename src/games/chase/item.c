@@ -66,27 +66,27 @@ extern Item extraPoints;
 	
 #if !defined(TINY_GAME)
 
-	void itemReached(Character * powerUpPtr)
+	void itemReached(Character * itemPtr)
 	{
 		ZAP_SOUND();
 		#if defined(TURN_BASED)
 			displayPlayer(&player);
 		#endif
-		powerUpPtr->_status = 0;
+		itemPtr->_status = 0;
 		displayStats();
 	}
 
-	void relocatePowerUp(Character * powerUpPtr)
+	void relocateItem(Character * itemPtr)
 	{
-			powerUpPtr->_status = 1;
+			itemPtr->_status = 1;
 			
 			#if defined(FULL_GAME)
 			do
 			{
-				relocateCharacter(powerUpPtr);
-			} while(innerWallReached(powerUpPtr));		
+				relocateCharacter(itemPtr);
+			} while(innerWallReached(itemPtr));		
 			#else
-				relocateCharacter(powerUpPtr);
+				relocateCharacter(itemPtr);
 			#endif	
 	}	
 	
@@ -163,7 +163,7 @@ extern Item extraPoints;
 		}
 		else if (itemPtr->_coolDown == 0)
 		{
-			relocatePowerUp((Character *) itemPtr);
+			relocateItem((Character *) itemPtr);
 		}
 		else
 		{

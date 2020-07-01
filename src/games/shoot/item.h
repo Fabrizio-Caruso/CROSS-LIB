@@ -45,9 +45,9 @@
 
     void reducePowerUpsCoolDowns(void);
     
-    void itemReached(Character * powerUpPtr);
+    void itemReached(Character * itemPtr);
     
-    void relocatePowerUp(Character * powerUpPtr);
+    void relocateItem(Character * itemPtr);
     
     void _commonPowerUpEffect(void);
 

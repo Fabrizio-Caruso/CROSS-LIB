@@ -93,26 +93,26 @@ extern uint8_t ghostsOnScreen;
     
 #if !defined(TINY_GAME)
 
-    void itemReached(Character * powerUpPtr)
+    void itemReached(Character * itemPtr)
     {
         ZAP_SOUND();
-        deletePowerUp(powerUpPtr);
+        deletePowerUp(itemPtr);
         displayPlayer(&player);
-        powerUpPtr->_status = 0;
+        itemPtr->_status = 0;
         displayStats();
     }
 
-    void relocatePowerUp(Character * powerUpPtr)
+    void relocateItem(Character * itemPtr)
     {
-            powerUpPtr->_status = 1;
+            itemPtr->_status = 1;
             
             #if defined(FULL_GAME)
             do
             {
-                relocateCharacter(powerUpPtr);
-            } while(nearInnerWall(powerUpPtr)||nearInnerHorizontalWall(powerUpPtr));        
+                relocateCharacter(itemPtr);
+            } while(nearInnerWall(itemPtr)||nearInnerHorizontalWall(itemPtr));        
             #else
-                relocateCharacter(powerUpPtr);
+                relocateCharacter(itemPtr);
             #endif    
     }    
     
@@ -197,7 +197,7 @@ extern uint8_t ghostsOnScreen;
         }
         else if (itemPtr->_coolDown <= 0)
         {
-            relocatePowerUp((Character *) itemPtr);
+            relocateItem((Character *) itemPtr);
 
             _blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
         }

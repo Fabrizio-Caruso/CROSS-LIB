@@ -137,11 +137,11 @@ extern uint8_t isInnerVerticalWallLevel;
         else
         {
             #if defined(WIDE)
-                innerVerticalWallLength = YSize-8-lvmod;
+                innerVerticalWallLength = YSize-9-lvmod;
             #elif YSize<=12
                 innerVerticalWallLength = 4;
             #else
-                innerVerticalWallLength = YSize-6-lvmod;            
+                innerVerticalWallLength = YSize-7-lvmod;            
             #endif
         }
 
@@ -161,11 +161,11 @@ extern uint8_t isInnerVerticalWallLevel;
         else
         {
             #if defined(WIDE)
-                innerHorizontalWallLength = XSize-12-lvmod;
+                innerHorizontalWallLength = XSize-13-lvmod;
             #elif YSize<=12
                 innerHorizontalWallLength = 8;
             #else
-                innerHorizontalWallLength = XSize-10-lvmod;            
+                innerHorizontalWallLength = XSize-11-lvmod;            
             #endif
         }
 

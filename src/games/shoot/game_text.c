@@ -279,20 +279,20 @@ void displayStats(void)
 
 
 
-#if !defined(NO_HINTS)) || !defined(NO_INITIAL_SCREEN)
-    #if !defined(NO_HINTS)
+// #if !defined(NO_HINTS)) || !defined(NO_INITIAL_SCREEN)
+    // #if !defined(NO_HINTS)
     void _printCrossShoot(void)
     {
         printCenteredMessageOnRowWithCol(3, COLOR_RED,  CROSS_SHOOT_STRING);        
         SET_COLOR(TEXT_COLOR);
         
     }
-    #else
-        #define _printCrossShoot() \
-            printCenteredMessageOnRowWithCol(3, COLOR_RED,  CROSS_SHOOT_STRING);    \
-            SET_COLOR(TEXT_COLOR);    
-    #endif
-#endif
+    // #else
+        // #define _printCrossShoot() \
+            // printCenteredMessageOnRowWithCol(3, COLOR_RED,  CROSS_SHOOT_STRING);    \
+            // SET_COLOR(TEXT_COLOR);    
+    // #endif
+// #endif
 
 
 #if !defined(NO_HINTS)

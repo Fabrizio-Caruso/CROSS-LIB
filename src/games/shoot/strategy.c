@@ -315,7 +315,7 @@ void chaseCharacter(Character *preyPtr, uint16_t slowDown)
     {
         for(i=0;i<ghostsOnScreen;++i)
         {
-             if((ghosts[i]._status || (zombieActive && loop&1)) && GHOST_RANDOM_CONDITION)
+             if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)
             {
                 deleteGhost(&ghosts[i]);
                 #if !defined(SIMPLE_STRATEGY)

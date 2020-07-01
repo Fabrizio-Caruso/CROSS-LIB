@@ -278,9 +278,9 @@ void zombieEffect(void)
     missileBasesDestroyed = 1;
     zombie._coolDown = SECOND_ZOMBIE_COOL_DOWN; 
     zombie_count_down = ZOMBIE_COUNT_DOWN;
-    for(i=0;i<ghostsOnScreen;++i)
+    for(i=0;(i<ghostsOnScreen)&&(i<ghostCount);++i)
     {
-        if((i<=ghostCount) && (ghosts[i]._status))
+        if(ghosts[i]._status)
         {
             deleteGhost(&ghosts[i]);
             ghostDies(&ghosts[i]);

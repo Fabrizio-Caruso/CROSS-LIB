@@ -221,7 +221,7 @@ int main(void)
             }
             else 
             {
-                ghostsOnScreen = 9;
+                ghostsOnScreen = GHOSTS_NUMBER;
             }
             #endif
             

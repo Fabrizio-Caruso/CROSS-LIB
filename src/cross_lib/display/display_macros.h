@@ -59,7 +59,13 @@ typedef struct ImageStruct Image;
     void _draw(uint8_t x, uint8_t y, Image * image);
 #else
     void _draw(uint8_t x, uint8_t y, Image * image);    
+
+    #if (X_OFFSET==0) && (Y_OFFSET==0)
+        #define _draw_stat _draw
+    #endif
 #endif
+
+
 
 #if defined(Z88DK_SPRITES) && defined(ALT_PRINT)
     void _draw_ch(uint8_t x, uint8_t y, uint8_t ch);

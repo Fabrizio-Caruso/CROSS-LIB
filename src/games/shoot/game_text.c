@@ -123,9 +123,6 @@ extern Image BULLET_IMAGE;
         
         SET_COLOR(TEXT_COLOR);
         
-        #if (X_OFFSET==0) && (Y_OFFSET==0)
-            #define _draw_stat _draw
-        #endif
     
         _draw_stat(BULLET_IMAGE_X, BULLET_IMAGE_Y, &BULLET_IMAGE);
         _draw_stat(GHOST_IMAGE_X, GHOST_IMAGE_Y, &GHOST_IMAGE);
@@ -147,7 +144,7 @@ extern Image BULLET_IMAGE;
     
     void printFirePowerStats(void)
     {
-        #if !defined(NO_COLOR)
+        #if !defined(NO_TEXT_COLOR)
         if(bulletStrength<4)
         {
             SET_COLOR(TEXT_COLOR);
@@ -159,7 +156,7 @@ extern Image BULLET_IMAGE;
         #endif
         
         #if defined(WIDE)
-            PRINTD(FIRE_POWER_IMAGE_X+1,FIRE_POWER_IMAGE_Y,1,bulletStrength);
+            PRINTD(FIRE_POWER_IMAGE_X+2,FIRE_POWER_IMAGE_Y,1,bulletStrength);
         #else
             PRINTD(FIRE_POWER_IMAGE_X+0,FIRE_POWER_IMAGE_Y,1,bulletStrength);
         #endif

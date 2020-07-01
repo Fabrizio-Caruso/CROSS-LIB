@@ -280,7 +280,7 @@ void zombieEffect(void)
     zombie_count_down = ZOMBIE_COUNT_DOWN;
     for(i=0;i<ghostsOnScreen;++i)
     {
-        if(ghosts[i]._status)
+        if((i<=ghostCount) && (ghosts[i]._status))
         {
             deleteGhost(&ghosts[i]);
             ghostDies(&ghosts[i]);

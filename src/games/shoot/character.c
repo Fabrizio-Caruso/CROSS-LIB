@@ -57,7 +57,10 @@ extern Character skulls[SKULLS_NUMBER];
 
 extern Character player;
 
-extern     uint8_t ghostsOnScreen;
+extern uint8_t ghostsOnScreen;
+
+extern uint8_t isInnerHorizontalWallLevel;
+extern uint8_t isInnerVerticalWallLevel;
 
 void displayCharacter(register Character * characterPtr)
 {
@@ -192,7 +195,7 @@ uint8_t innerWallReached(Character *characterPtr)
 
 uint8_t nearInnerWall(register Character *characterPtr)
 {
-    return innerVerticalWallLevel() && (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
+    return isInnerVerticalWallLevel && (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
            (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));
 }
 
@@ -205,7 +208,7 @@ uint8_t innerHorizontalWallReached(Character *characterPtr)
 
 uint8_t nearInnerHorizontalWall(register Character *characterPtr)
 {
-    return innerHorizontalWallLevel() && (characterPtr->_y>=innerHorizontalWallY-1) && (characterPtr->_y<=innerHorizontalWallY+1) &&
+    return isInnerHorizontalWallLevel && (characterPtr->_y>=innerHorizontalWallY-1) && (characterPtr->_y<=innerHorizontalWallY+1) &&
            (characterPtr->_x >= innerHorizontalWallX-1) && (characterPtr->_x<= (innerHorizontalWallX + innerHorizontalWallLength));
 }    
 

@@ -172,9 +172,9 @@ extern Image PLAYER_IMAGE;
 		SET_COLOR(TEXT_COLOR);		
 		
 		#if defined(WIDE) && !defined(TINY_GAME)
-			PRINTD(GHOST_IMAGE_X+2,+0,1,ghostCount);
+			PRINTD(GHOST_IMAGE_X+2,GHOST_IMAGE_Y,1,ghostCount);
 		#else
-			PRINTD(GHOST_IMAGE_X+1,+0,1,ghostCount);	
+			PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,1,ghostCount);	
 		#endif	
 	}
 

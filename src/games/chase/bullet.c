@@ -259,8 +259,8 @@ void moveBullet(register Character * bulletPtr)
 					}
 				}
 			}			
-		#endif		
 		DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
+		#endif
 	}
 	else
 	{

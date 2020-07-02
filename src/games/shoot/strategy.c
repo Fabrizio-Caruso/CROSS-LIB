@@ -50,11 +50,13 @@ extern uint8_t isInnerVerticalWallLevel;
 
 extern uint8_t zombieActive;
 
+extern uint16_t ghostSlowDown;
+
 
 #if defined(__NCURSES__)
-    #define GHOST_RANDOM_CONDITION ((rand()&0x7fff)>slowDown)
+    #define GHOST_RANDOM_CONDITION ((rand()&0x7fff)>ghostSlowDown)
 #else
-    #define GHOST_RANDOM_CONDITION (rand()>slowDown)
+    #define GHOST_RANDOM_CONDITION (rand()>ghostSlowDown)
 #endif
 
 
@@ -296,7 +298,7 @@ void computeStrategy(void)
 
 
 // Ghosts move to new positions if they get their chanche
-void chaseCharacter(uint16_t slowDown)
+void chaseCharacter(void)
 {
     uint8_t i;
     

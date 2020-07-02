@@ -71,36 +71,34 @@ void checkBombsVsGhosts(void)
 
 void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
 {
-    if(!isBossLevel)
+
+    switch(ghostIndex % 8)
     {
-        switch(ghostIndex % 8)
-        {
-            case 0:
-                initializeCharacter(ghostPtr  , 2      ,     2, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 1:
-                initializeCharacter(ghostPtr, XSize-3, YSize-3, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 2:
-                initializeCharacter(ghostPtr, 2      , YSize-3, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 3:
-                initializeCharacter(ghostPtr, XSize-3,       2, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 4:
-                initializeCharacter(ghostPtr  , 2    , YSize/2, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 5:
-                initializeCharacter(ghostPtr, XSize/2, YSize-3, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 6:
-                initializeCharacter(ghostPtr, XSize-3, YSize/2, GHOST_LIFE, &GHOST_IMAGE);
-            break;
-            case 7:
-                initializeCharacter(ghostPtr, XSize/2,       2, GHOST_LIFE, &GHOST_IMAGE);
-            break;    
-        }\
-    }
+        case 0:
+            initializeCharacter(ghostPtr  , 2      ,     2, GHOST_LIFE, &GHOST_IMAGE);
+        break;
+        case 1:
+            initializeCharacter(ghostPtr, XSize-3, YSize-3, GHOST_LIFE, &GHOST_IMAGE);
+        break;
+        case 2:
+            initializeCharacter(ghostPtr, 2      , YSize-3, GHOST_LIFE, &GHOST_IMAGE);
+        break;
+        case 3:
+            initializeCharacter(ghostPtr, XSize-3,       2, GHOST_LIFE, &GHOST_IMAGE);
+        break;
+        case 4:
+            initializeCharacter(ghostPtr  , 2    , YSize/2, GHOST_LIFE, &GHOST_IMAGE);
+        break;
+        case 5:
+            initializeCharacter(ghostPtr, XSize/2, YSize-3, GHOST_LIFE, &GHOST_IMAGE);
+        break;
+        case 6:
+            initializeCharacter(ghostPtr, XSize-3, YSize/2, GHOST_LIFE, &GHOST_IMAGE);
+        break;
+        case 7:
+            initializeCharacter(ghostPtr, XSize/2,       2, GHOST_LIFE, &GHOST_IMAGE);
+        break;    
+    }\
 }
 
 
@@ -166,22 +164,6 @@ void displayBombs(void)
         }
     }
 }    
-
-/*
-uint8_t firstAlive(void)
-{
-    uint8_t i;
-    
-    i=0;
-    while(i<GHOSTS_NUMBER)
-    {
-        if(ghosts[i]._status)
-            return i;
-        ++i;
-    }
-    return GHOSTS_NUMBER;
-}
-*/
 
 
 uint8_t sameLocationAsAnyGhostLocation(uint8_t x, uint8_t y, Character *ghostList, uint8_t length)

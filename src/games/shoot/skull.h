@@ -27,7 +27,7 @@
 
 #include "character.h"
 
-void handle_skull(Character *skullPtr);
+void handle_skull(Character *skullPtr, uint8_t strategy);
 
 void handle_skulls(void);
 

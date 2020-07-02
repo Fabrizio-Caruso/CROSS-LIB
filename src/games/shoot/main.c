@@ -359,13 +359,12 @@ int main(void)
                 {
                     if(ghostCount)
                     {
-                        chaseCharacter(ghostSlowDown);
+                        chaseCharacter();
                     }
                     ++ghostLevel;            
                     
                 }
                 handle_skulls();
-
             
                 // This detects collisions of ghosts that have just moved
                 checkBullets();

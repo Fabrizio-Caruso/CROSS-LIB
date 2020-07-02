@@ -89,7 +89,7 @@ void computeSkullParameters(void)
 #endif
 
 
-void handle_skull(Character *skullPtr)
+void handle_skull(Character *skullPtr, uint8_t strategy)
 {
     if(skullPtr->_status)
     {
@@ -97,7 +97,7 @@ void handle_skull(Character *skullPtr)
         {
             TOCK_SOUND();
             deleteSkull(skullPtr);
-            skullMoveTowardCharacter(skullPtr, 3);
+            skullMoveTowardCharacter(skullPtr, strategy);
         }
         displaySkull(skullPtr);
         if (playerKilledBy(skullPtr))
@@ -135,7 +135,7 @@ void handle_skulls(void)
 
             for(i=0;i<SKULLS_NUMBER;++i)
             {
-                handle_skull(&skulls[i]);
+                handle_skull(&skulls[i],i*2);
             }
         }
 

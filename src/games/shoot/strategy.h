@@ -63,7 +63,7 @@ void skullMoveTowardCharacter(Character *hunterPtr, uint8_t strategy);
 #endif
 
 
-void chaseCharacter(uint16_t slowDown);    
+void chaseCharacter(void);    
 
     
 #endif // _STRATEGY

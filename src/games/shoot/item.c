@@ -284,7 +284,7 @@ void zombieEffect(void)
         {
             deleteGhost(&ghosts[i]);
             ghostDies(&ghosts[i]);
-            points+=GHOSTS_VS_ZOMBIE_BONUS;
+            points+=GHOST_VS_BOMBS_BONUS;
         }
     }
 }

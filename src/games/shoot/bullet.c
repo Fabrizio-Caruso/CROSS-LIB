@@ -274,12 +274,13 @@ void checkBulletVsGhost(Character * bulletPtr,
 
         if((ghostPtr->_status)<=bulletStrength)
         {
-            ghostPtr->_status=0;
-            deleteGhost((Character *) ghostPtr);
-            EXPLOSION_SOUND();
-            points+=GHOST_VS_MISSILE;
             ghostDies(ghostPtr);
+            points+=GHOST_VS_MISSILE;
             displayStats();
+            if(ghostCount>=ghostsOnScreen)
+            {
+                spawnGhost(ghostPtr,ghostCount);
+            }
         }
         else
         {
@@ -296,6 +297,11 @@ void checkBulletVsGhost(Character * bulletPtr,
                     ghostDies(ghostPtr);
                     points+=GHOST_VS_WALL_BONUS;
                     displayStats();
+                    DRAW_BROKEN_BRICK(ghostPtr->_x, ghostPtr->_y);
+                    if(ghostCount>=ghostsOnScreen)
+                    {
+                        spawnGhost(ghostPtr,ghostCount);
+                    }
                     break;
                 }
                 displayGhost((Character *) ghostPtr);

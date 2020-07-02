@@ -280,7 +280,7 @@ void fillLevelWithCharacters(void)
     for(i=0;i<count;++i)
     {
         #if defined(DEBUG)
-        gotoxy(0,0);cprintf("count %d", count);SLEEP(3);
+        gotoxy(0,0);cprintf("count %d", count);SLEEP(2);
         gotoxy(1,1);cprintf("spawning ghost......");        
         #endif
         spawnGhost(&ghosts[i],i);

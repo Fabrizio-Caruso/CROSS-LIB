@@ -52,6 +52,8 @@ extern uint8_t isBossLevel;
 
 extern uint8_t confuseActive;
 
+extern uint8_t freezeActive;
+
 uint16_t computeSkullSlowDown(void)
 {
     if(loop<MAX_SKULL_LOOP)
@@ -91,7 +93,7 @@ void handle_skull(Character *skullPtr)
 {
     if(skullPtr->_status)
     {
-        if(SKULL_RAND_CONDITION)
+        if(!freezeActive && SKULL_RAND_CONDITION)
         {
             TOCK_SOUND();
             deleteSkull(skullPtr);

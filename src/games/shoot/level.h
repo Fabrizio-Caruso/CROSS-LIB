@@ -232,8 +232,6 @@ uint8_t bossLevel(void);
 
 void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr);
 
-void spawnGhost(Character *ghostPtr, unsigned char ghostIndex); 
-
 void placeBombs(void);
 
 #endif // _LEVEL

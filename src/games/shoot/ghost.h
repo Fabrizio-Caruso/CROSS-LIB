@@ -49,8 +49,6 @@ void displayGhosts(void);
 
 void displayBombs(void);
 
-// uint8_t firstAlive(void);
-
 #define playerReachedGhosts() (sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, ghostsOnScreen)<ghostsOnScreen)
 
 #endif // _GHOST_H

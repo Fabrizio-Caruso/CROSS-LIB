@@ -213,11 +213,11 @@ int main(void)
             #else
             if(isMissileLevel && isRocketLevel)
             {
-                ghostsOnScreen = 6;
+                ghostsOnScreen = GHOSTS_NUMBER-3;
             }
             else if(isMissileLevel || isRocketLevel)
             {
-                ghostsOnScreen = 7;
+                ghostsOnScreen = GHOSTS_NUMBER-2;
             }
             else 
             {
@@ -361,20 +361,11 @@ int main(void)
                     {
                         chaseCharacter(&player, ghostSlowDown);
                     }
-
-                    
-                    handle_skulls();
-                    
                     ++ghostLevel;            
                     
                 }
-                else
-                {
-                    if(skullActive)
-                    {
-                        displaySkulls();
-                    }
-                }
+                handle_skulls();
+
             
                 // This detects collisions of ghosts that have just moved
                 checkBullets();
@@ -386,7 +377,7 @@ int main(void)
                 {
                     checkBombsVsSkulls();
                 }
-                if(freezeActive || !skullActive)
+                if(freezeActive || !skullActive || (ghostCount < 5) )
                 {
                     #if SLOW_DOWN>0
                         DO_SLOW_DOWN(SLOW_DOWN);

@@ -47,11 +47,13 @@ void checkBombsVsGhost(register Character * ghostPtr)
     if(ghostPtr->_status && reachedBombInd<BOMBS_NUMBER)
     {
         points+=GHOST_VS_BOMBS_BONUS;
-
         bombs[reachedBombInd]._status = 0;
-        deleteBomb(&bombs[reachedBombInd]);
 
         ghostDies(ghostPtr);
+        if(ghostCount>=ghostsOnScreen)
+        {
+            spawnGhost(ghostPtr,ghostCount);
+        }
     }
 }
 
@@ -69,48 +71,50 @@ void checkBombsVsGhosts(void)
 
 void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
 {
-    switch(ghostIndex % 8)
+    if(!isBossLevel)
     {
-        case 0:
-            initializeCharacter(ghostPtr  , 2      ,     2, GHOST_LIFE, &GHOST_IMAGE);
-        break;
-        case 1:
-            initializeCharacter(ghostPtr, XSize-3, YSize-3, GHOST_LIFE, &GHOST_IMAGE);
-        break;
-        case 2:
-            initializeCharacter(ghostPtr, 2      , YSize-3, GHOST_LIFE, &GHOST_IMAGE);
-        break;
-        case 3:
-            initializeCharacter(ghostPtr, XSize-3,       2, GHOST_LIFE, &GHOST_IMAGE);
-        break;
-        case 4:
-            initializeCharacter(ghostPtr  , 2    , YSize/2, GHOST_LIFE, &GHOST_IMAGE);
-        break;
-        case 5:
-            initializeCharacter(ghostPtr, XSize/2, YSize-3, GHOST_LIFE, &GHOST_IMAGE);
-        break;
-        case 6:
-            initializeCharacter(ghostPtr, XSize-3, YSize/2, GHOST_LIFE, &GHOST_IMAGE);
-        break;
-        case 7:
-            initializeCharacter(ghostPtr, XSize/2,       2, GHOST_LIFE, &GHOST_IMAGE);
-        break;    
-    }        
+        switch(ghostIndex % 8)
+        {
+            case 0:
+                initializeCharacter(ghostPtr  , 2      ,     2, GHOST_LIFE, &GHOST_IMAGE);
+            break;
+            case 1:
+                initializeCharacter(ghostPtr, XSize-3, YSize-3, GHOST_LIFE, &GHOST_IMAGE);
+            break;
+            case 2:
+                initializeCharacter(ghostPtr, 2      , YSize-3, GHOST_LIFE, &GHOST_IMAGE);
+            break;
+            case 3:
+                initializeCharacter(ghostPtr, XSize-3,       2, GHOST_LIFE, &GHOST_IMAGE);
+            break;
+            case 4:
+                initializeCharacter(ghostPtr  , 2    , YSize/2, GHOST_LIFE, &GHOST_IMAGE);
+            break;
+            case 5:
+                initializeCharacter(ghostPtr, XSize/2, YSize-3, GHOST_LIFE, &GHOST_IMAGE);
+            break;
+            case 6:
+                initializeCharacter(ghostPtr, XSize-3, YSize/2, GHOST_LIFE, &GHOST_IMAGE);
+            break;
+            case 7:
+                initializeCharacter(ghostPtr, XSize/2,       2, GHOST_LIFE, &GHOST_IMAGE);
+            break;    
+        }\
+    }
 }
 
 
 void ghostDies(Character * ghostPtr)
 {
+    ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
+    displayGhost(ghostPtr);
     EXPLOSION_SOUND();
     
     ghostPtr->_status=0;
     displayStats();
     
     --ghostCount;
-    if(!isBossLevel && (ghostCount>=ghostsOnScreen))
-    {
-        spawnGhost(ghostPtr, ghostCount % ghostsOnScreen);
-    }
+    deleteGhost(ghostPtr);
     printGhostCountStats();
 }
 

@@ -110,7 +110,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 #endif
 
 
-uint8_t inCorridor(Character *hunterPtr)
+uint8_t inHorizontalCorridor(Character *hunterPtr)
 {
     return (hunterPtr->_y<innerVerticalWallY-1) || (hunterPtr->_y>YSize-innerVerticalWallY);
 }
@@ -135,7 +135,7 @@ uint8_t sameSide(Character *hunterPtr)
 // 4 means do no prefer horizontal to vertical movement
 // 0 means always horizontal
 // 9 means always vertical
-void moveTowardCharacter(register Character *hunterPtr, uint8_t strategy)
+void verticalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t strategy)
 {
     if(sameSide(hunterPtr)) // same side
     {
@@ -151,7 +151,7 @@ void moveTowardCharacter(register Character *hunterPtr, uint8_t strategy)
                 blindChaseCharacterYStrategy(hunterPtr);
             }            
     }
-    else if(inCorridor(hunterPtr)) // hunter in vertical corridor
+    else if(inHorizontalCorridor(hunterPtr)) // hunter in vertical corridor
     {
         #if defined(DEBUG_STRATEGY)   
         gotoxy(4,1);cprintf("in horizontal corridor  ");           
@@ -263,7 +263,6 @@ void horizontalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t st
 }
 
 
-
 void skullMoveTowardCharacter(Character *hunterPtr, uint8_t strategy)
 {
     if(rand()&7 > strategy) // Select blind chase strategy
@@ -310,9 +309,9 @@ void chaseCharacter(void)
             {
                 deleteGhost(&ghosts[i]);
                 #if !defined(SIMPLE_STRATEGY)
-                    moveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
+                    verticalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
                 #else
-                    moveTowardCharacter((Character *)&ghosts[i]);        
+                    verticalWallMoveTowardCharacter((Character *)&ghosts[i]);        
                 #endif
             }
         }

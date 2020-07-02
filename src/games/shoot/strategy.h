@@ -49,11 +49,6 @@ uint8_t moveCharacter(uint8_t *hunterOffsetPtr, uint8_t *preyOffsetPtr);
     void blindChaseCharacterYStrategy(Character* hunterPtr);
 #endif
 
-#if !defined(SIMPLE_STRATEGY)
-    void moveTowardCharacter(Character *hunterPtr, uint8_t strategy);
-#else 
-    void moveTowardCharacter(Character *hunterPtr);
-#endif
 
 void skullMoveTowardCharacter(Character *hunterPtr, uint8_t strategy);
 

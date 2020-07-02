@@ -59,15 +59,15 @@ extern uint8_t zombieActive;
 
 
 // Required by horizontal missile
-uint8_t moveCharacter(Character* hunterPtr, Character* preyPtr, uint8_t offset)
+uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyOffsetPtr)
 {
-    if((uint8_t) *((uint8_t *)hunterPtr+offset) < (uint8_t) *((uint8_t *)preyPtr+offset))
+    if((uint8_t) *((uint8_t *)hunterOffsetPtr) < (uint8_t) *((uint8_t *)preyOffsetPtr))
     {
-        ++(*((uint8_t *) hunterPtr+offset));        
+        ++(*((uint8_t *) hunterOffsetPtr));
     }
-    else if((uint8_t) *((uint8_t *) hunterPtr+offset) > (uint8_t) *((uint8_t *)preyPtr+offset))
+    else if((uint8_t) *((uint8_t *) hunterOffsetPtr) > (uint8_t) *((uint8_t *)preyOffsetPtr))
     {
-        --(*((uint8_t *) hunterPtr+offset));        
+        --(*((uint8_t *) hunterOffsetPtr));
     }    
     else
     {
@@ -77,28 +77,33 @@ uint8_t moveCharacter(Character* hunterPtr, Character* preyPtr, uint8_t offset)
 }
 
 
+
 #if !defined(SIMPLE_STRATEGY)
     void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
     {
-        if(moveCharacter(hunterPtr, preyPtr,X_MOVE))
+        if(moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
+                         (uint8_t *)preyPtr + X_MOVE))
         {
             return;
         }
         else
         {
-            moveCharacter(hunterPtr, preyPtr,Y_MOVE);
+            (void) moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
+                          (uint8_t *)preyPtr + Y_MOVE);
         }
     }
 
     void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
     {
-        if(moveCharacter(hunterPtr, preyPtr,Y_MOVE))
+        if(moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
+                         (uint8_t *)preyPtr + Y_MOVE))
         {
             return;
         }
         else
         {
-            moveCharacter(hunterPtr, preyPtr,X_MOVE);
+            (void) moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
+                          (uint8_t *)preyPtr + X_MOVE);
         }
     }
 #endif

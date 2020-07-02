@@ -63,7 +63,7 @@ extern uint8_t isBossLevel;
                 {
                     if(player._x>=leftHorizontalMissile._x)
                     {
-                        moveCharacter(&leftHorizontalMissile, &player, Y_MOVE);            
+                        (void) moveCharacter((uint8_t *)&leftHorizontalMissile+Y_MOVE, (uint8_t *)&player+Y_MOVE);			
                     }
                 }
             }
@@ -93,7 +93,7 @@ extern uint8_t isBossLevel;
                 {
                     if(player._x<= rightHorizontalMissile._x)    
                     {
-                        moveCharacter(&rightHorizontalMissile, &player,Y_MOVE);            
+                        (void) moveCharacter((uint8_t *)&rightHorizontalMissile+Y_MOVE, (uint8_t *)&player+Y_MOVE);			
                     }
                 }
             }

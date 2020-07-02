@@ -22,6 +22,7 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+
 #include "settings.h"
 #include "character.h"
 #include "strategy.h"

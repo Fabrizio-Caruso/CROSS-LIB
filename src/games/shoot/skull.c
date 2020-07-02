@@ -171,7 +171,7 @@ void checkBombsVsSkull(register Character * skullPtr)
         deleteBomb(&bombs[reachedBombInd]);
         EXPLOSION_SOUND();
         
-        if(skullPtr->_status<=10)
+        if(skullPtr->_status<=SKULL_BOMB_THRESHOLD)
         {
             skullDies(skullPtr);
         }

@@ -35,6 +35,7 @@
 #endif
 
 // TODO: REMOVE THIS
+// #define DEBUG_STRATEGY
 // #define DEBUG_ITEMS
 // #define DEBUG_END
 
@@ -364,7 +365,9 @@ int main(void)
                     ++ghostLevel;            
                     
                 }
+                #if !defined(DEBUG_STRATEGY)
                 handle_skulls();
+                #endif
             
                 // This detects collisions of ghosts that have just moved
                 checkBullets();
@@ -376,7 +379,21 @@ int main(void)
                 {
                     checkBombsVsSkulls();
                 }
-                if(freezeActive || !skullActive || (ghostCount < 5) )
+                if(freezeActive)
+                {
+                    #if SLOW_DOWN>0
+                        DO_SLOW_DOWN(SLOW_DOWN);
+                    #endif
+                }
+                
+                if(!skullActive)
+                {
+                    #if SLOW_DOWN>0
+                        DO_SLOW_DOWN(SLOW_DOWN);
+                    #endif
+                }
+                
+                if(ghostCount < 5) 
                 {
                     #if SLOW_DOWN>0
                         DO_SLOW_DOWN(SLOW_DOWN);

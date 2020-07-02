@@ -22,6 +22,10 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+// #define DEBUG_STRATEGY
+// #define DEBUG_ITEMS
+// #define DEBUG_END
+
 #if !defined(_GAME_SETTINGS)
 #define _GAME_SETTINGS
 
@@ -29,10 +33,8 @@
 
 #include "speed_game_settings.h"
 
-#if !defined(FORCE_LEVEL)
+#if !defined(INITIAL_LEVEL)
     #define INITIAL_LEVEL 1
-#else
-    #define INITIAL_LEVEL FORCE_LEVEL
 #endif
 
 // Final level 
@@ -47,6 +49,8 @@
 #define MAX_GUNS 99
 
 #define BULLET_GUNS 30
+
+#define SKULL_BOMB_THRESHOLD 7
 
 #define MAX_TURN_BASES_LOOP 400
 
@@ -107,18 +111,28 @@
 
 #define BOSS_HITS 254
 
-#if defined(TURN_BASED)
-    #define INITIAL_GHOST_SLOWDOWN 16000
-    #define INITIAL_SKULL_SLOWDOWN 15000
-#elif defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
-    #define INITIAL_GHOST_SLOWDOWN 32500
-    #define INITIAL_SKULL_SLOWDOWN 31000    
-#elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
-    #define INITIAL_GHOST_SLOWDOWN 30000
-    #define INITIAL_SKULL_SLOWDOWN 29000    
-#else
-    #define INITIAL_GHOST_SLOWDOWN 31000
-    #define INITIAL_SKULL_SLOWDOWN 30000
+#if !defined(INITIAL_GHOST_SLOWDOWN)
+    #if defined(TURN_BASED)
+        #define INITIAL_GHOST_SLOWDOWN 16000
+    #elif defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+        #define INITIAL_GHOST_SLOWDOWN 32500
+    #elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
+        #define INITIAL_GHOST_SLOWDOWN 30000
+    #else
+        #define INITIAL_GHOST_SLOWDOWN 31000
+    #endif
+#endif
+
+#if !defined(INITIAL_SKULL_SLOWDOWN)
+    #if defined(TURN_BASED)
+        #define INITIAL_SKULL_SLOWDOWN 15000
+    #elif defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
+        #define INITIAL_SKULL_SLOWDOWN 31000    
+    #elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
+        #define INITIAL_SKULL_SLOWDOWN 29000    
+    #else
+        #define INITIAL_SKULL_SLOWDOWN 30000
+    #endif
 #endif
 
 

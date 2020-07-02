@@ -39,23 +39,23 @@
 
 #include "character.h"
 
-uint8_t innerWallBetween(Character *prePtr, Character *hunterPtr);
+uint8_t innerWallBetween(Character *hunterPtr);
 
 // Required by horizontal missile
 uint8_t moveCharacter(uint8_t *hunterOffsetPtr, uint8_t *preyOffsetPtr);
 
 #if !defined(SIMPLE_STRATEGY)
-    void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr);
-    void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr);
+    void blindChaseCharacterXStrategy(Character* hunterPtr);
+    void blindChaseCharacterYStrategy(Character* hunterPtr);
 #endif
 
 #if !defined(SIMPLE_STRATEGY)
-    void moveTowardCharacter(Character *preyPtr, Character *hunterPtr, uint8_t strategy);
+    void moveTowardCharacter(Character *hunterPtr, uint8_t strategy);
 #else 
-    void moveTowardCharacter(Character *preyPtr, Character *hunterPtr);
+    void moveTowardCharacter(Character *hunterPtr);
 #endif
 
-void skullMoveTowardCharacter(Character *preyPtr, Character *hunterPtr, uint8_t strategy);
+void skullMoveTowardCharacter(Character *hunterPtr, uint8_t strategy);
 
 
 #if !defined(SIMPLE_STRATEGY)
@@ -63,7 +63,7 @@ void skullMoveTowardCharacter(Character *preyPtr, Character *hunterPtr, uint8_t 
 #endif
 
 
-void chaseCharacter(Character *preyPtr, uint16_t slowDown);    
+void chaseCharacter(uint16_t slowDown);    
 
     
 #endif // _STRATEGY

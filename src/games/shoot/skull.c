@@ -97,7 +97,7 @@ void handle_skull(Character *skullPtr)
         {
             TOCK_SOUND();
             deleteSkull(skullPtr);
-            skullMoveTowardCharacter(&player, skullPtr, 4);
+            skullMoveTowardCharacter(skullPtr, 3);
         }
         displaySkull(skullPtr);
         if (playerKilledBy(skullPtr))

@@ -77,33 +77,32 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 }
 
 
-
 #if !defined(SIMPLE_STRATEGY)
-    void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
+    void blindChaseCharacterXStrategy(Character* hunterPtr)
     {
         if(moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
-                         (uint8_t *)preyPtr + X_MOVE))
+                         (uint8_t *)&player + X_MOVE))
         {
             return;
         }
         else
         {
             (void) moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
-                          (uint8_t *)preyPtr + Y_MOVE);
+                          (uint8_t *)&player + Y_MOVE);
         }
     }
 
-    void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
+    void blindChaseCharacterYStrategy(Character* hunterPtr)
     {
         if(moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
-                         (uint8_t *)preyPtr + Y_MOVE))
+                         (uint8_t *)&player + Y_MOVE))
         {
             return;
         }
         else
         {
             (void) moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
-                          (uint8_t *)preyPtr + X_MOVE);
+                          (uint8_t *)&player + X_MOVE);
         }
     }
 #endif
@@ -124,9 +123,9 @@ uint8_t rightSide(Character *characterPtr)
     return characterPtr->_x > (XSize/2);
 }
 
-uint8_t sameSide(Character *preyPtr, Character *hunterPtr)
+uint8_t sameSide(Character *hunterPtr)
 {
-    return ((leftSide(preyPtr) && leftSide(hunterPtr)) || (rightSide(preyPtr) && rightSide(hunterPtr)));
+    return ((leftSide(&player) && leftSide(hunterPtr)) || (rightSide(&player) && rightSide(hunterPtr)));
 }
 
 
@@ -134,20 +133,20 @@ uint8_t sameSide(Character *preyPtr, Character *hunterPtr)
 // 4 means do no prefer horizontal to vertical movement
 // 0 means always horizontal
 // 9 means always vertical
-void moveTowardCharacter(Character* preyPtr, register Character *hunterPtr, uint8_t strategy)
+void moveTowardCharacter(register Character *hunterPtr, uint8_t strategy)
 {
-    if(sameSide(preyPtr, hunterPtr)) // same side
+    if(sameSide(hunterPtr)) // same side
     {
         #if defined(DEBUG_STRATEGY)
         gotoxy(4,1);cprintf("same vertical side      ");           
         #endif
         if(rand()&7 > strategy) // Select blind chase strategy
             { // 0 - 4
-                blindChaseCharacterXStrategy(hunterPtr, preyPtr);    
+                blindChaseCharacterXStrategy(hunterPtr);    
             }
             else
             { // 5 - 9
-                blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+                blindChaseCharacterYStrategy(hunterPtr);
             }            
     }
     else if(inCorridor(hunterPtr)) // hunter in vertical corridor
@@ -155,9 +154,9 @@ void moveTowardCharacter(Character* preyPtr, register Character *hunterPtr, uint
         #if defined(DEBUG_STRATEGY)   
         gotoxy(4,1);cprintf("in horizontal corridor  ");           
         #endif
-        blindChaseCharacterXStrategy(hunterPtr, preyPtr);            
+        blindChaseCharacterXStrategy(hunterPtr);            
     }
-    else if((preyPtr->_x)!=(XSize/2)) // hunter behind the wall
+    else if((player._x)!=(XSize/2)) // hunter behind the wall
     {
         #if defined(DEBUG_STRATEGY)        
         gotoxy(4,1);cprintf("behind the wall         ");
@@ -182,7 +181,7 @@ void moveTowardCharacter(Character* preyPtr, register Character *hunterPtr, uint
         }
         else
         {
-            blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+            blindChaseCharacterYStrategy(hunterPtr);
         }            
     }
 }
@@ -202,26 +201,26 @@ uint8_t bottomSide(Character *characterPtr)
     return characterPtr->_y > (YSize/2);
 }
 
-uint8_t sameHorizontalSide(Character *preyPtr, Character *hunterPtr)
+uint8_t sameHorizontalSide(Character *hunterPtr)
 {
-    return ((topSide(preyPtr) && topSide(hunterPtr)) || (bottomSide(preyPtr) && bottomSide(hunterPtr)));
+    return ((topSide(&player) && topSide(hunterPtr)) || (bottomSide(&player) && bottomSide(hunterPtr)));
 }
 
 
-void horizontalWallMoveTowardCharacter(Character* preyPtr, register Character *hunterPtr, uint8_t strategy)
+void horizontalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t strategy)
 {
-    if(sameHorizontalSide(preyPtr, hunterPtr))
+    if(sameHorizontalSide(hunterPtr))
     {
         #if defined(DEBUG_STRATEGY)
         gotoxy(4,1);cprintf("same horizontal side  ");   
         #endif
         if(rand()&7 > strategy) // Select blind chase strategy
             { // 0 - 4
-                blindChaseCharacterXStrategy(hunterPtr, preyPtr);    
+                blindChaseCharacterXStrategy(hunterPtr);    
             }
             else
             { // 5 - 9
-                blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+                blindChaseCharacterYStrategy(hunterPtr);
             }            
     }
     else if(inVerticalCorridor(hunterPtr))
@@ -229,9 +228,9 @@ void horizontalWallMoveTowardCharacter(Character* preyPtr, register Character *h
         #if defined(DEBUG_STRATEGY) 
         gotoxy(4,1);cprintf("in vertical corridor  ");        
         #endif
-        blindChaseCharacterYStrategy(hunterPtr, preyPtr);            
+        blindChaseCharacterYStrategy(hunterPtr);            
     }
-    else if((preyPtr->_y)!=(YSize/2))
+    else if((player._y)!=(YSize/2))
     {
         #if defined(DEBUG_STRATEGY)        
         gotoxy(4,1);cprintf("behind the wall       ");          
@@ -256,22 +255,22 @@ void horizontalWallMoveTowardCharacter(Character* preyPtr, register Character *h
         }
         else
         {
-            blindChaseCharacterXStrategy(hunterPtr, preyPtr);
+            blindChaseCharacterXStrategy(hunterPtr);
         }            
     }
 }
 
 
 
-void skullMoveTowardCharacter(Character *preyPtr, Character *hunterPtr, uint8_t strategy)
+void skullMoveTowardCharacter(Character *hunterPtr, uint8_t strategy)
 {
     if(rand()&7 > strategy) // Select blind chase strategy
         { // 0 - 4
-            blindChaseCharacterXStrategy(hunterPtr, preyPtr);    
+            blindChaseCharacterXStrategy(hunterPtr);    
         }
         else
         { // 5 - 9
-            blindChaseCharacterYStrategy(hunterPtr, preyPtr);
+            blindChaseCharacterYStrategy(hunterPtr);
         }    
 }
 
@@ -297,7 +296,7 @@ void computeStrategy(void)
 
 
 // Ghosts move to new positions if they get their chanche
-void chaseCharacter(Character *preyPtr, uint16_t slowDown)
+void chaseCharacter(uint16_t slowDown)
 {
     uint8_t i;
     
@@ -309,9 +308,9 @@ void chaseCharacter(Character *preyPtr, uint16_t slowDown)
             {
                 deleteGhost(&ghosts[i]);
                 #if !defined(SIMPLE_STRATEGY)
-                    moveTowardCharacter(preyPtr, (Character *)&ghosts[i], strategyArray[i]);    
+                    moveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
                 #else
-                    moveTowardCharacter(preyPtr, (Character *)&ghosts[i]);        
+                    moveTowardCharacter((Character *)&ghosts[i]);        
                 #endif
             }
         }
@@ -324,11 +323,12 @@ void chaseCharacter(Character *preyPtr, uint16_t slowDown)
             {
                 deleteGhost(&ghosts[i]);
                 #if !defined(SIMPLE_STRATEGY)
-                    horizontalWallMoveTowardCharacter(preyPtr, (Character *)&ghosts[i], strategyArray[i]);    
+                    horizontalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
                 #else
-                    horizontalWallMoveTowardCharacter(preyPtr, (Character *)&ghosts[i]);        
+                    horizontalWallMoveTowardCharacter((Character *)&ghosts[i]);        
                 #endif
             }
         }  
     }        
 }
+

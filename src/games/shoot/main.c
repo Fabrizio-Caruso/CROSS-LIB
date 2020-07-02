@@ -359,7 +359,7 @@ int main(void)
                 {
                     if(ghostCount)
                     {
-                        chaseCharacter(&player, ghostSlowDown);
+                        chaseCharacter(ghostSlowDown);
                     }
                     ++ghostLevel;            
                     

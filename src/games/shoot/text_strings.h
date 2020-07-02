@@ -34,7 +34,8 @@
         #define CROSS_SHOOT_STRING "c r o s s  s h o o t"    
         #define AUTHOR_STRING "by fabrizio caruso"
     #endif
-    #define KILL_THE_SKULL_STRING "kill the skulls"
+    #define KILL_THE_SKULLS_STRING "kill the skulls"
+    #define KILL_THE_BOSS "kill the boss"
     #define DESTROY_MISSILES_STRING "destroy the missiles"
     #define LURE_THE_ENEMIES_STRING "kill all enemies"
     #define INTO_THE_MINES_STRING     ""
@@ -49,7 +50,8 @@
 #elif defined(__PC6001__)
     #define CROSS_SHOOT_STRING "C R O S S  S H O O T"        
     #define AUTHOR_STRING "BY FABRIZIO CARUSO"
-    #define KILL_THE_SKULL_STRING "KILL THE SKULLS"    
+    #define KILL_THE_SKULLS_STRING "KILL THE SKULLS"    
+    #define KILL_THE_BOSS "KILL THE BOSS"
     #define DESTROY_MISSILES_STRING "destroy the missiles"    
     #define LURE_THE_ENEMIES_STRING "KILL ALL ENEMIES"
     #define INTO_THE_MINES_STRING     ""

@@ -89,8 +89,9 @@ extern Image BULLET_IMAGE;
 
 void printKillTheSkull(void)
 {
-    printCenteredMessage(KILL_THE_SKULL_STRING);    
-    printCenteredMessageOnRow(((uint8_t)YSize)/2+2,DESTROY_MISSILES_STRING);
+    printCenteredMessage(KILL_THE_BOSS);    
+    printCenteredMessageOnRow(((uint8_t)YSize)/2+2,KILL_THE_SKULLS_STRING);    
+    printCenteredMessageOnRow(((uint8_t)YSize)/2+4,DESTROY_MISSILES_STRING);
 }
 
 

@@ -41,6 +41,7 @@ void checkBombsVsSkulls(void);
 
 void displaySkulls(void);
 
+void skullDies(register Character * skullPtr);
 
 #endif // SKULL
 

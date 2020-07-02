@@ -28,6 +28,8 @@
 #include "skull.h"
 #include "level.h"
 #include "strategy.h"
+#include "game_text.h"
+
 
 extern uint8_t level;
 extern uint16_t loop;
@@ -87,6 +89,21 @@ void computeSkullParameters(void)
 #else
     #define SKULL_RAND_CONDITION (rand()>skullSlowDown)
 #endif
+
+
+void skullDies(register Character * skullPtr)
+{
+        skullPtr->_status=0;
+        deleteSkull(skullPtr);
+        if(!(--skullsCount))
+        {
+            skullActive = 0;
+        }
+        EXPLOSION_SOUND();
+        points+=SKULL_POINTS;
+        displayStats();
+        EXPLOSION_SOUND();
+}
 
 
 void handle_skull(Character *skullPtr, uint8_t strategy)
@@ -156,9 +173,7 @@ void checkBombsVsSkull(register Character * skullPtr)
         
         if(skullPtr->_status<=10)
         {
-            skullPtr->_status=0;
-            --skullsCount;
-            EXPLOSION_SOUND();
+            skullDies(skullPtr);
         }
         else
         {

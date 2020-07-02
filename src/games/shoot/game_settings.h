@@ -30,13 +30,13 @@
 #include "speed_game_settings.h"
 
 #if !defined(FORCE_LEVEL)
-    #define INITIAL_LEVEL 1
+    #define INITIAL_LEVEL 16
 #else
     #define INITIAL_LEVEL FORCE_LEVEL
 #endif
 
 // Final level 
-#define FINAL_LEVEL 16
+#define FINAL_LEVEL 1
 
 #define GHOST_LIFE (30)
 
@@ -47,7 +47,6 @@
 #define MAX_GUNS 99
 
 #define BULLET_GUNS 30
-
 
 #define MAX_TURN_BASES_LOOP 400
 
@@ -105,6 +104,8 @@
 #else
     #define MIN_SKULL_HITS (45)
 #endif    
+
+#define BOSS_HITS 254
 
 #if defined(TURN_BASED)
     #define INITIAL_GHOST_SLOWDOWN 16000

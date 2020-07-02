@@ -13,13 +13,15 @@
 	#include "ghost.h"
 	
 	extern Character player;
-	extern Character skull[];
+	extern Character skulls[];
 	extern Character ghosts[GHOSTS_NUMBER];
 	extern Character bullet;
 	extern uint8_t playerFire;
 	extern uint8_t level;
 	extern uint8_t guns;
 	extern uint8_t ind;
+    
+    extern uint8_t ghostsOnScreen;
 #endif
 
 
@@ -52,10 +54,10 @@
 #endif
 
 #if YSize < 20
-	#define MESSAGE_START 1
+	#define MESSAGE_START 3
 	#define MESSAGE_RANGE 7
 #else
-	#define MESSAGE_START 4
+	#define MESSAGE_START 7
 	#define MESSAGE_RANGE 15
 #endif
 
@@ -65,26 +67,27 @@
 		level = 1;
 		
 		CLEAR_SCREEN();
-        ghostCount = GHOSTS_NUMBER;
-		fillLevelWithCharacters();	
+        ghostCount = 8;
+        ghostsOnScreen = 8;
+		fillLevelWithCharacters();
 
 		playerFire = 0;
-		skull[0]._x = player._x-4;
-		skull[0]._y = player._y;	
+		skulls[0]._x = player._x-4;
+		skulls[0]._y = player._y;	
 		bullet._status = 0;
 		guns = 1;
 		while(!playerFire && !wallReached(&player))
 		{
 			++bulletDirection;
 			displayBombs();
-			for(ind=0;ind<GHOSTS_NUMBER;++ind)
+			for(ind=0;ind<ghostsOnScreen;++ind)
 			{
 				dance(&ghosts[ind]);
 			}
 			
 			displayPlayer(&player);
 			
-			dance(skull);
+			dance(&skulls[0]);
 		
 			printCenteredMessageOnRow(MESSAGE_START,  YOU_MADE_IT_STRING);		
 			#if SLOW_DOWN>0

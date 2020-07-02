@@ -31,6 +31,7 @@
 #include "item.h"
 #include "ghost.h"
 #include "strategy.h"
+#include "skull.h"
 
 extern uint8_t bombCount;
 extern Character bombs[BOMBS_NUMBER];
@@ -341,15 +342,7 @@ void checkBulletVsSkull(register Character *bulletPtr, Character *skullPtr)
         
         if((skullPtr->_status)<=bulletStrength)
         {
-            skullPtr->_status=0;
-            deleteSkull(skullPtr);
-            if(!(--skullsCount))
-            {
-                skullActive = 0;
-            }
-            EXPLOSION_SOUND();
-            points+=SKULL_POINTS;
-            displayStats();
+            skullDies(skullPtr);
         }
         else
         {

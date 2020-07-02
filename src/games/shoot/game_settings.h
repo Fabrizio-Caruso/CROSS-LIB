@@ -36,7 +36,7 @@
 #endif
 
 // Final level 
-#define FINAL_LEVEL 1
+#define FINAL_LEVEL 16
 
 #define GHOST_LIFE (30)
 

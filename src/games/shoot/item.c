@@ -104,7 +104,7 @@ void relocateItem(Character * itemPtr)
         do
         {
             relocateCharacter(itemPtr);
-        } while(nearInnerWall(itemPtr)||nearInnerHorizontalWall(itemPtr));        
+        } while(nearInnerVerticalWall(itemPtr)||nearInnerHorizontalWall(itemPtr));        
 
 }    
 

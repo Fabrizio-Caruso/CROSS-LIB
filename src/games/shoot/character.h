@@ -181,9 +181,9 @@ void relocateCharacter(register Character * characterPtr);
 
 uint8_t sameLocationAsAnyLocation(uint8_t x, uint8_t y, Character *characterList, uint8_t length);
 
-uint8_t innerWallReached(Character *characterPtr);
+uint8_t innerVerticalWallReached(Character *characterPtr);
 uint8_t innerHorizontalWallReached(Character *characterPtr);
-uint8_t nearInnerWall(register Character *characterPtr);
+uint8_t nearInnerVerticalWall(register Character *characterPtr);
 uint8_t nearInnerHorizontalWall(register Character *characterPtr);    
 
 void DRAW_BROKEN_BRICK(uint8_t x, uint8_t y);

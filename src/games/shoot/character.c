@@ -187,13 +187,13 @@ void relocateCharacter(register Character * characterPtr)
     characterPtr->_y = y;
 }
 
-uint8_t innerWallReached(Character *characterPtr)
+uint8_t innerVerticalWallReached(Character *characterPtr)
 {
     return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
 }
 
 
-uint8_t nearInnerWall(register Character *characterPtr)
+uint8_t nearInnerVerticalWall(register Character *characterPtr)
 {
     return isInnerVerticalWallLevel && (characterPtr->_x>=innerVerticalWallX-1) && (characterPtr->_x<=innerVerticalWallX+1) &&
            (characterPtr->_y >= innerVerticalWallY-1) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength));

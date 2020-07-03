@@ -440,7 +440,7 @@ int main(void)
                 
                 
                 if(wallReached(&player) || 
-                   (!invincibilityActive && (playerReachedGhosts() || innerWallReached(&player) || innerHorizontalWallReached(&player)))
+                   (!invincibilityActive && (playerReachedGhosts() || innerVerticalWallReached(&player) || innerHorizontalWallReached(&player)))
                   )
                 {
                     playerDies();

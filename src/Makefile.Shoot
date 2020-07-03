@@ -92,7 +92,7 @@ plus4: c16_32k
 
 c16_32k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
-	--config $(CFG_PATH)/cc65/c16-16k_GFX_2.cfg \
+	--config $(CFG_PATH)/cc65/c16-32k_GFX.cfg \
 	-DFORCE_NO_CONIO_LIB \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
@@ -105,7 +105,7 @@ c16_32k:
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DDANCE -DEND_SCREEN \
+	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -142,3 +142,4 @@ vic20_exp_16k:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
+

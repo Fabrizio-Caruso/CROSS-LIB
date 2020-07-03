@@ -71,7 +71,8 @@
         #define CROSS_SHOOT_STRING "C R O S S  S H O O T"        
         #define AUTHOR_STRING "by Fabrizio Caruso"
     #endif
-    #define KILL_THE_SKULL_STRING "Kill the skulls"    
+    #define KILL_THE_SKULLS_STRING "Kill the skulls"
+    #define KILL_THE_BOSS "kill the boss"
     #define DESTROY_MISSILES_STRING "Destroy the missiles"    
     #define LURE_THE_ENEMIES_STRING "Kill all enemies"
     #define INTO_THE_MINES_STRING ""

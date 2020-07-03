@@ -177,7 +177,7 @@ void playerDies(void);
 
 uint8_t safeLocation(uint8_t x, uint8_t y);
 
-void relocateCharacter(register Character * characterPtr);
+void relocateNearBy(register Character * characterPtr);
 
 uint8_t sameLocationAsAnyLocation(uint8_t x, uint8_t y, Character *characterList, uint8_t length);
 

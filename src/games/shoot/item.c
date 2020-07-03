@@ -101,7 +101,7 @@ void relocateAwayFromWalls(Character * itemPtr)
 {        
         do
         {
-            relocateCharacter(itemPtr);
+            relocateNearBy(itemPtr);
         } while(nearInnerVerticalWall(itemPtr)||nearInnerHorizontalWall(itemPtr));        
 
 }    

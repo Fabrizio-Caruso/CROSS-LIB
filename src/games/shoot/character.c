@@ -125,21 +125,6 @@ uint8_t wallReached(register Character *characterPtr)
 }
 
 
-uint8_t sameLocationAsAnyLocation(uint8_t x, uint8_t y, Character *characterList, uint8_t length)
-{
-    uint8_t i;
-
-    for(i=0;i<length;++i)
-    {
-        if(isCharacterAtLocation(x,y,&characterList[i]))
-        {
-            return i;
-        }
-    }    
-    return length;
-}
-
-
 uint8_t sameLocationAsAnyActiveLocation(uint8_t x, uint8_t y, Character *characterList, uint8_t length)
 {
     uint8_t i;
@@ -165,13 +150,11 @@ uint8_t sameLocationAsAnyActiveLocation(uint8_t x, uint8_t y, Character *charact
 // also used with things different from global bombs
 uint8_t safeLocation(uint8_t x, uint8_t y)
 {
-    return !((sameLocationAsAnyGhostLocation(x,y,ghosts,ghostsOnScreen)<ghostsOnScreen)
-          || (sameLocationAsAnyLocation(x,y,bombs, BOMBS_NUMBER)<BOMBS_NUMBER)
-          || (x<SAFETY) || (x>XSize-SAFETY) || (y<=SAFETY) || (y>YSize-SAFETY));
+       return (x>=SAFETY) && (x<=XSize-SAFETY) && (y>SAFETY) && (y<=YSize-SAFETY);
 }
 
 
-void relocateCharacter(register Character * characterPtr)
+void relocateNearBy(register Character * characterPtr)
 {
     uint8_t x; 
     uint8_t y;  

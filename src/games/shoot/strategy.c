@@ -191,9 +191,9 @@ void verticalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t stra
 
 uint8_t inVerticalCorridor(Character *hunterPtr)
 {
-    return (hunterPtr->_x<innerHorizontalWallX-1) || (hunterPtr->_x>XSize-innerHorizontalWallX);
+    return (hunterPtr->_x<innerHorizontalWallX-1) || (hunterPtr->_x>XSize-innerHorizontalWallX+1); // TODO: To check this
 }
-    
+
 uint8_t topSide(Character *characterPtr)
 {
     return characterPtr->_y < (YSize/2);
@@ -238,7 +238,7 @@ void horizontalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t st
         #if defined(DEBUG_STRATEGY)        
         gotoxy(4,1);cprintf("behind the wall       ");          
         #endif
-        if(hunterPtr->_y>(YSize/2))
+        if(hunterPtr->_x>(XSize/2))
         {
             ++(hunterPtr->_x);
         } 

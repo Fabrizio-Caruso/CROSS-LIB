@@ -66,10 +66,10 @@ c64:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_c64.prg
-	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_c64.prg -o $(BUILD_PATH)/FULL_c64_exomized.prg
-	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_c64_exomized.prg  $(BUILD_PATH)/FULL_c64_exomized.crt
-	rm $(BUILD_PATH)/FULL_c64.prg
+	-o $(BUILD_PATH)/FULL_XShoot_c64.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_XShoot_c64.prg -o $(BUILD_PATH)/FULL_XShoot_c64_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_XShoot_c64_exomized.prg  $(BUILD_PATH)/FULL_XShoot_c64_exomized.crt
+	rm $(BUILD_PATH)/FULL_XShoot_c64.prg
 
 
 #################################################################
@@ -101,7 +101,7 @@ c16_32k:
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/graphics_data/cc65/udc_63chars.s \
-	-o $(BUILD_PATH)/FULL_c16_32k.prg
+	-o $(BUILD_PATH)/FULL_XShoot_c16_32k.prg
 
 
 #################################################################
@@ -119,5 +119,5 @@ vic20_exp_16k:
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
+	-o $(BUILD_PATH)/FULL_XShoot_vic20_exp_16k.prg
 

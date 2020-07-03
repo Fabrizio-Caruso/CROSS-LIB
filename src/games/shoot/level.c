@@ -197,10 +197,8 @@ uint8_t bossLevel(void)
 
 void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr)
 {
-    do{
     initializeCharacter(characterPtr, x, y, status, imagePtr);
-    relocateCharacter(characterPtr);
-    } while(nearInnerVerticalWall(characterPtr)||nearInnerHorizontalWall(characterPtr));
+    relocateAwayFromWalls(characterPtr);
 }
 
 

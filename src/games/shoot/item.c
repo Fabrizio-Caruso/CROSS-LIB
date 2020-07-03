@@ -98,9 +98,7 @@ void itemReached(Character * itemPtr)
 }
 
 void relocateAwayFromWalls(Character * itemPtr)
-{
-        itemPtr->_status = 1;
-        
+{        
         do
         {
             relocateCharacter(itemPtr);
@@ -190,6 +188,7 @@ void handle_item(register Item *itemPtr)
     }
     else if (itemPtr->_coolDown <= 0)
     {
+        itemPtr->_character._status = 1;
         relocateAwayFromWalls((Character *) itemPtr);
 
         _blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));

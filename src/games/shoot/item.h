@@ -46,7 +46,7 @@ void reduceItemCoolDowns(void);
 
 void itemReached(Character * itemPtr);
 
-void relocateItem(Character * itemPtr);
+void relocateAwayFromWalls(Character * itemPtr);
 
 void _freezeEffect(void);
 

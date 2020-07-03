@@ -76,19 +76,7 @@ c64:
 
 plus4: c16_32k
 
-# c16_32k: 
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
-	# -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS \
-	# -DEND_SCREEN -DBETWEEN_LEVEL \
-	# -DREDEFINED_CHARS \
-	# -DCONIO \
-	# -DUSE_MEMORY_BUFFERS \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
-	# $(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
-	# $(SOURCE_PATH)/end_screen.c \
-	# $(FULL_FILES) \
-	# $(SOURCE_PATH)/memory/c16_memory.s \
-	# -o $(BUILD_PATH)/FULL_c16_32k.prg
+c16: c16_32k
 
 c16_32k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
@@ -114,16 +102,6 @@ c16_32k:
 	$(SOURCE_PATH)/end_screen.c \
 	$(SOURCE_PATH)/graphics_data/cc65/udc_63chars.s \
 	-o $(BUILD_PATH)/FULL_c16_32k.prg
-
-c16_32k_conio: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg $(EXTRA_DRAW_SKIP) \
-	-DANIMATE_PLAYER \
-	-DREDEFINED_CHARS \
-	-DCONIO \
-	-DSLOW_DOWN=200 \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_c16_32k_conio.prg
 
 
 #################################################################

@@ -193,7 +193,7 @@ int main(void)
         level = INITIAL_LEVEL;     
         lives = LIVES_NUMBER;
         
-        ghostCount = GHOSTS_NUMBER + 2*level; 
+        ghostCount = GHOSTS_NUMBER; 
          
         
         missileBasesDestroyed = 0;
@@ -212,7 +212,11 @@ int main(void)
             #if defined(DEBUG_STRATEGY)
             ghostsOnScreen = 1;
             #else
-            if(isMissileLevel && isRocketLevel)
+            if(isBossLevel)
+            {
+                ghostsOnScreen = BOSS_LEVEL_GHOSTS_NUMBER;
+            }
+            else if(isMissileLevel && isRocketLevel)
             {
                 ghostsOnScreen = GHOSTS_NUMBER-3;
             }
@@ -220,7 +224,7 @@ int main(void)
             {
                 ghostsOnScreen = GHOSTS_NUMBER-2;
             }
-            else 
+            else
             {
                 ghostsOnScreen = GHOSTS_NUMBER;
             }
@@ -290,7 +294,7 @@ int main(void)
             {
                 printKillTheSkull();
                 SLEEP(2);
-                ghostCount = 4;
+                ghostCount = 0;
             }
             CLEAR_SCREEN();
             
@@ -393,7 +397,7 @@ int main(void)
                     #endif
                 }
                 
-                if(ghostCount < 5) 
+                if(ghostCount < GHOST_SLOW_DOWN_THRESHOLD) 
                 {
                     #if SLOW_DOWN>0
                         DO_SLOW_DOWN(SLOW_DOWN);
@@ -497,7 +501,6 @@ int main(void)
                 SLEEP(2);
                 CLEAR_SCREEN();                        
 
-                ghostCount = GHOSTS_NUMBER + 2*level; 
                 
                 if(isBossLevel)
                 {    
@@ -521,6 +524,7 @@ int main(void)
                     missileBasesDestroyed+=dead_rockets;
                 }
                 ++level;
+                ghostCount = GHOSTS_NUMBER + 2*level;
 
             }
             else // if dead

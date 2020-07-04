@@ -56,6 +56,13 @@ extern uint8_t confuseActive;
 
 extern uint8_t freezeActive;
 
+extern uint8_t ghostsOnScreen;
+
+extern Character ghosts[]; 
+
+extern Image GHOST_IMAGE;
+
+
 uint16_t computeSkullSlowDown(void)
 {
     if(loop<MAX_SKULL_LOOP)
@@ -155,7 +162,22 @@ void handle_skulls(void)
                 handle_skull(&skulls[i],i*2);
             }
         }
-
+        
+        if(isBossLevel && skulls[BOSS_INDEX]._status && !(loop&127) && (ghostCount<ghostsOnScreen) && safeLocation(skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y))
+        {
+            i=0;
+            while((i<ghostsOnScreen)&&(ghosts[i]._status))
+            {
+                ++i;
+            }
+            if(i<ghostsOnScreen)
+            {
+                ++ghostCount;
+                initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,GHOST_LIFE,&GHOST_IMAGE);
+                printGhostCountStats();
+            }
+            
+        }
     }
 }
 

@@ -293,7 +293,7 @@ void fillLevelWithCharacters(void)
         #if defined(DEBUG)
         gotoxy(1,1);cprintf("initialized dead ghost......."); 
         #endif        
-        initializeCharacter(&ghosts[i],0,0,0,&DEAD_GHOST_IMAGE);
+        initializeCharacter(&ghosts[i],0,0,0,NULL);
         #if defined(DEBUG)
             displayCharacter((Character *)&ghosts[i]);
         #endif        
@@ -341,11 +341,11 @@ void fillLevelWithCharacters(void)
     initializeCharacter(&skulls[1],2,YSize-3, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
     if(isBossLevel)
     {
-        initializeCharacter(&skulls[2],XSize-3,2, BOSS_HITS, &DEAD_GHOST_IMAGE);
+        initializeCharacter(&skulls[BOSS_INDEX],XSize-3,2, BOSS_HITS, &DEAD_GHOST_IMAGE);
     }
     else
     {
-        initializeCharacter(&skulls[2],XSize-3,2, MIN_SKULL_HITS, &SKULL_IMAGE);
+        initializeCharacter(&skulls[BOSS_INDEX],XSize-3,2, MIN_SKULL_HITS, &SKULL_IMAGE);
     }
     initializeCharacter(&skulls[3],2,2, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
     

@@ -117,7 +117,11 @@
     #define GHOST_LIFE (20)
 #endif    
 
+#define BOSS_INDEX 2
 
+#define BOSS_LEVEL_GHOSTS_NUMBER 5
+
+#define GHOST_SLOW_DOWN_THRESHOLD 5
 
 #if !defined(INITIAL_GHOST_SLOWDOWN)
     #if defined(TURN_BASED)

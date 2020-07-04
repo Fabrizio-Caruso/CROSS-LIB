@@ -278,7 +278,7 @@ void suicideEffect(void)
     missileBasesDestroyed = 1;
     suicide._coolDown = SECOND_SUICIDE_COOL_DOWN; 
     suicide_count_down = SUICIDE_COUNT_DOWN;
-    for(i=0;(i<ghostsOnScreen)&&(i<ghostCount);++i)
+    for(i=0;i<ghostsOnScreen;++i)
     {
         if(ghosts[i]._status)
         {

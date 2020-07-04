@@ -337,8 +337,8 @@ void fillLevelWithCharacters(void)
     }
     
 
-    initializeCharacter(&skulls[0],XSize-3,YSize-3, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
-    initializeCharacter(&skulls[1],2,YSize-3, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
+    initializeCharacter(&skulls[0],XSize-3,YSize-3, MIN_SKULL_HITS+(isBossLevel<<BOSS_LEVEL_SKULL_INCREASE), &SKULL_IMAGE);
+    initializeCharacter(&skulls[1],2,YSize-3, MIN_SKULL_HITS+(isBossLevel<<BOSS_LEVEL_SKULL_INCREASE), &SKULL_IMAGE);
     if(isBossLevel)
     {
         initializeCharacter(&skulls[BOSS_INDEX],XSize-3,2, BOSS_HITS, &DEAD_GHOST_IMAGE);
@@ -347,7 +347,7 @@ void fillLevelWithCharacters(void)
     {
         initializeCharacter(&skulls[BOSS_INDEX],XSize-3,2, MIN_SKULL_HITS, &SKULL_IMAGE);
     }
-    initializeCharacter(&skulls[3],2,2, MIN_SKULL_HITS+(isBossLevel<<6), &SKULL_IMAGE);
+    initializeCharacter(&skulls[3],2,2, MIN_SKULL_HITS+(isBossLevel<<BOSS_LEVEL_SKULL_INCREASE), &SKULL_IMAGE);
     
 }
 

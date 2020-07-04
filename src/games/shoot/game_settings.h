@@ -98,11 +98,13 @@
 
 #define GHOSTS_VS_SUICIDE_BONUS 10UL
 
-// Extra points for the power up
+// Extra points for fire charge (more bullets)
 #define FIRE_CHARGE_BONUS 20UL
 
-// Extra points for the power up
+// Extra points for the fire power (more powerful bullets)
 #define FIRE_POWER_BONUS 30UL
+
+#define FREEZE_BONUS 10UL
 
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 25U
@@ -119,9 +121,17 @@
 
 #define BOSS_INDEX 2
 
-#define BOSS_LEVEL_GHOSTS_NUMBER 5
 
 #define GHOST_SLOW_DOWN_THRESHOLD 5
+
+#if defined(WIDE) || defined(FORCE_NARROW)
+    #define BOSS_LEVEL_SKULL_INCREASE 6
+    #define BOSS_LEVEL_GHOSTS_NUMBER 8
+#else
+    #define BOSS_LEVEL_SKULL_INCREASE 4
+    #define BOSS_LEVEL_GHOSTS_NUMBER 5
+#endif
+
 
 #if !defined(INITIAL_GHOST_SLOWDOWN)
     #if defined(TURN_BASED)

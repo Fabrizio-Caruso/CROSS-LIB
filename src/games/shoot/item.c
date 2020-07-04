@@ -109,9 +109,10 @@ void relocateAwayFromWalls(Character * itemPtr)
 
 void _freezeEffect(void)
 {
-    points+=FIRE_CHARGE_BONUS;
     decreaseGhostLevel();
     freezeActive = 1;    
+    points+=FREEZE_BONUS;
+    printFirePowerStats();
     freeze_count_down += FROZEN_COUNT_DOWN;    
 }
 
@@ -134,7 +135,8 @@ void _increaseBullets(uint8_t bullets)
 void fireChargeEffect(void)
 {
     _increaseBullets(BULLET_GUNS);
-
+    points+=FIRE_CHARGE_BONUS;
+    printFirePowerStats();
     fireCharge._coolDown = FIRE_CHARGE_COOL_DOWN;        
 }
 
@@ -218,10 +220,10 @@ void handle_count_down(uint8_t * flagPtr, uint16_t * countDownPtr)
     
 void reduceItemCoolDowns(void)
 {
-    extraPoints._coolDown-=extraPoints._coolDown/8;
-    invincibility._coolDown-=invincibility._coolDown/16;
-    freeze._coolDown-=freeze._coolDown/32;
-    fireCharge._coolDown-=fireCharge._coolDown/64;
+    extraPoints._coolDown-=extraPoints._coolDown/4;
+    invincibility._coolDown-=invincibility._coolDown/8;
+    freeze._coolDown-=freeze._coolDown/16;
+    fireCharge._coolDown-=fireCharge._coolDown/32;
     TICK_SOUND();        
 }
 

@@ -28,7 +28,6 @@
 #include "game_text.h"
 #include "level.h"
 #include "character.h"
-#include "sound_macros.h"
 
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
@@ -75,7 +74,6 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
 
     if(!isBossLevel)
     {
-        TICK_SOUND();
         switch(ghostIndex % 8)
         {
             case 0:

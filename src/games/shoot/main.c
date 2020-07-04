@@ -383,26 +383,35 @@ int main(void)
                 {
                     checkBombsVsSkulls();
                 }
+                
+                #if SLOW_DOWN>0
                 if(freezeActive)
                 {
-                    #if SLOW_DOWN>0
                         DO_SLOW_DOWN(SLOW_DOWN);
-                    #endif
                 }
+                #endif
                 
+                #if SLOW_DOWN>0
+                if(invincibilityActive)
+                {
+                        DO_SLOW_DOWN(SLOW_DOWN);
+                }
+                #endif
+                
+                #if SLOW_DOWN>0
                 if(!skullActive)
                 {
-                    #if SLOW_DOWN>0
                         DO_SLOW_DOWN(SLOW_DOWN);
-                    #endif
                 }
+                #endif
                 
+                #if SLOW_DOWN>0
                 if(ghostCount < GHOST_SLOW_DOWN_THRESHOLD) 
                 {
-                    #if SLOW_DOWN>0
                         DO_SLOW_DOWN(SLOW_DOWN);
-                    #endif
                 }
+                #endif
+                
                 handle_extraPoints_item();
                 handle_firePower_item();
                 handle_fireCharge_item();

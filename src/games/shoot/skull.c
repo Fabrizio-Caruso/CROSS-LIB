@@ -62,6 +62,8 @@ extern Character ghosts[];
 
 extern Image GHOST_IMAGE;
 
+extern uint8_t skullsKilled;
+
 
 uint16_t computeSkullSlowDown(void)
 {
@@ -70,7 +72,7 @@ uint16_t computeSkullSlowDown(void)
         #if defined(TURN_BASED)
             return INITIAL_SKULL_SLOWDOWN - level * 256 - ghostLevel*8;                
         #else
-            return INITIAL_SKULL_SLOWDOWN - level * 256 - ghostLevel*16;        
+            return INITIAL_SKULL_SLOWDOWN - level * 256 - ghostLevel*8;        
         #endif
     }
     return SKULL_MIN_SLOWDOWN; // You must die!
@@ -163,7 +165,7 @@ void handle_skulls(void)
             }
         }
         
-        if(isBossLevel && skulls[BOSS_INDEX]._status && !(loop&127) && (ghostCount<ghostsOnScreen) && safeLocation(skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y))
+        if(isBossLevel && skulls[BOSS_INDEX]._status && !(loop&31) && (ghostCount<=ghostsOnScreen))
         {
             i=0;
             while((i<ghostsOnScreen)&&(ghosts[i]._status))

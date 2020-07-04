@@ -52,6 +52,12 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
 #################################################################
 
+all: cc65_targets
+
+cc65_targets: c16 c64 vic20
+
+#################################################################
+
 	# -DSLOW_DOWN=990 -DINITIAL_GHOST_SLOWDOWN=31000 
 c64: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(EXTRA_DRAW_SKIP) \
@@ -93,6 +99,7 @@ c16_32k:
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
+	-DSLOW_DOWN=100 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -112,7 +119,7 @@ vic20_exp_16k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
-	-DSLOW_DOWN=500 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
+	-DSLOW_DOWN=600 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \

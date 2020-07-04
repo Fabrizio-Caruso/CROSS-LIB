@@ -47,17 +47,17 @@ extern uint8_t bulletStrength;
 
 extern uint8_t invincibilityActive;
 extern uint8_t confuseActive;
-extern uint8_t zombieActive;
+extern uint8_t suicideActive;
 
 extern uint16_t invincibility_count_down;
 extern uint16_t confuse_count_down;
-extern uint16_t zombie_count_down;
+extern uint16_t suicide_count_down;
 
 extern uint8_t missileBasesDestroyed;
 extern uint8_t skullsKilled;    
 
 extern uint8_t extraLife_present_on_level;
-extern uint8_t zombie_present_on_level;
+extern uint8_t suicide_present_on_level;
 
 extern Image DEAD_GHOST_IMAGE;
 
@@ -74,6 +74,7 @@ extern Item extraPoints;
 
 extern uint8_t ghostsOnScreen;
 
+extern uint8_t isBossLevel;
 
 extern Character *chasedEnemyPtr;
 
@@ -85,7 +86,7 @@ extern Item super;
 extern Item extraLife;
 
 extern Item confuse;
-extern Item zombie;
+extern Item suicide;
 
 
 void itemReached(Character * itemPtr)
@@ -269,14 +270,14 @@ void confuseEffect(void)
     confuse_count_down = CONFUSE_COUNT_DOWN;
 }
 
-void zombieEffect(void)
+void suicideEffect(void)
 {
     uint8_t i;
     
-    zombieActive = 1;
+    suicideActive = 1;
     missileBasesDestroyed = 1;
-    zombie._coolDown = SECOND_ZOMBIE_COOL_DOWN; 
-    zombie_count_down = ZOMBIE_COUNT_DOWN;
+    suicide._coolDown = SECOND_SUICIDE_COOL_DOWN; 
+    suicide_count_down = SUICIDE_COUNT_DOWN;
     for(i=0;(i<ghostsOnScreen)&&(i<ghostCount);++i)
     {
         if(ghosts[i]._status)
@@ -284,7 +285,7 @@ void zombieEffect(void)
             deleteGhost(&ghosts[i]);
             ghostDies(&ghosts[i]);
             points+=GHOST_VS_BOMBS_BONUS;
-            if(ghostCount>=ghostsOnScreen)
+            if(!isBossLevel && (ghostCount>=ghostsOnScreen))
             {
                 spawnGhost(&ghosts[i],ghostCount);
             }

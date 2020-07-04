@@ -49,8 +49,6 @@ extern uint8_t ghostsOnScreen;
 
 extern uint8_t isInnerVerticalWallLevel;
 
-extern uint8_t zombieActive;
-
 extern uint16_t ghostSlowDown;
 
 

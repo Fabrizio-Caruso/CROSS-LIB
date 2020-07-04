@@ -41,7 +41,7 @@ extern Image EXTRA_LIFE_IMAGE;
 extern Image INVINCIBILITY_IMAGE;
 extern Image SUPER_IMAGE;	
 extern Image CONFUSE_IMAGE;
-extern Image ZOMBIE_IMAGE;
+extern Image SUICIDE_IMAGE;
 
 extern Image BROKEN_BRICK_IMAGE;
 
@@ -88,7 +88,7 @@ void INIT_IMAGES(void)
         INVINCIBILITY_IMAGE._color = _INVINCIBILITY_COLOR;
         SUPER_IMAGE._color = _SUPER_COLOR;
         CONFUSE_IMAGE._color = _CONFUSE_COLOR;
-        ZOMBIE_IMAGE._color = _ZOMBIE_COLOR;
+        SUICIDE_IMAGE._color = _SUICIDE_COLOR;
         
         BROKEN_BRICK_IMAGE._color = _BRICK_COLOR;
 	#endif	
@@ -143,16 +143,16 @@ void INIT_IMAGES(void)
     EXTRA_LIFE_IMAGE._imageData = _TILE_19;
     INVINCIBILITY_IMAGE._imageData = _TILE_20;
     
-    // #if defined(NO_BLINKING) && defined(_CONFUSE) && defined(_ZOMBIE)
+    // #if defined(NO_BLINKING) && defined(_CONFUSE) && defined(_SUICIDE)
         // CONFUSE_IMAGE._imageData = _CONFUSE;
-        // ZOMBIE_IMAGE._imageData = _ZOMBIE;
+        // SUICIDE_IMAGE._imageData = _SUICIDE;
     // #else
         // CONFUSE_IMAGE._imageData = _SKULL;
-        // ZOMBIE_IMAGE._imageData = _GHOST;
+        // SUICIDE_IMAGE._imageData = _GHOST;
     // #endif
     
     CONFUSE_IMAGE._imageData = _TILE_21;
-    ZOMBIE_IMAGE._imageData = _TILE_22;
+    SUICIDE_IMAGE._imageData = _TILE_22;
     
     BROKEN_BRICK_IMAGE._imageData = _TILE_23;
 #endif 

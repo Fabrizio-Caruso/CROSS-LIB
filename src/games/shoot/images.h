@@ -65,7 +65,7 @@
     
     extern Image SUPER_IMAGE;
     extern Image CONFUSE_IMAGE;
-    extern Image ZOMBIE_IMAGE;
+    extern Image SUICIDE_IMAGE;
     
     extern Image BROKEN_BRICK_IMAGE;
 
@@ -85,7 +85,7 @@
     
     Image SUPER_IMAGE;
     Image CONFUSE_IMAGE;
-    Image ZOMBIE_IMAGE;
+    Image SUICIDE_IMAGE;
     
     Image BROKEN_BRICK_IMAGE;
 #endif

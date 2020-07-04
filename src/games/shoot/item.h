@@ -78,13 +78,13 @@ void superEffect(void);
 
 void confuseEffect(void);
 
-void zombieEffect(void);
+void suicideEffect(void);
 
     void chaseEffect(void);
     
     #define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)    
     #define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
-    #define handle_zombie_count_down() handle_count_down(&zombieActive,&zombie_count_down)
+    #define handle_suicide_count_down() handle_count_down(&suicideActive,&suicide_count_down)
 
     #define handle_firePower_item() handle_item(&firePower);
     #define handle_fireCharge_item() handle_item(&fireCharge);
@@ -95,7 +95,7 @@ void zombieEffect(void);
 
     #define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)    
     #define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
-    #define handle_zombie_count_down() handle_count_down(&zombieActive,&zombie_count_down)
+    #define handle_suicide_count_down() handle_count_down(&suicideActive,&suicide_count_down)
 
     #define handle_freeze_item() handle_item(&freeze);    
     #define handle_invincibility_item() handle_item(&invincibility)
@@ -106,7 +106,7 @@ void zombieEffect(void);
     #define handle_extraLife_item() handle_item(&extraLife)
     
     #define handle_confuse_item() handle_item(&confuse);
-    #define handle_zombie_item() handle_item(&zombie);
+    #define handle_suicide_item() handle_item(&suicide);
     
     #define handle_firePower_item() handle_item(&firePower);
     #define handle_fireCharge_item() handle_item(&fireCharge);

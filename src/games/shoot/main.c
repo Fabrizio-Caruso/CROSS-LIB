@@ -107,7 +107,7 @@ void resetItems()
     extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
     
     confuse._coolDown = CONFUSE_COOL_DOWN;
-    zombie._coolDown = ZOMBIE_COOL_DOWN;                
+    suicide._coolDown = SUICIDE_COOL_DOWN;                
 }
 
 
@@ -123,7 +123,7 @@ void constructItems()
     invincibility._effect = &invincibilityEffect;
     super._effect = &superEffect;
     confuse._effect = &confuseEffect;
-    zombie._effect = &zombieEffect;
+    suicide._effect = &suicideEffect;
 }    
 
 
@@ -145,7 +145,7 @@ void initialScreen(void)
 void handle_special_triggers(void)
 {
     // confuse_present_on_level_condition is defined as missileBasesDestroyed
-    zombie_present_on_level = missileBasesDestroyed>=2;
+    suicide_present_on_level = missileBasesDestroyed>=2;
     super_present_on_level = skullsKilled>=2;
     extraLife_present_on_level = super_present_on_level && confuse_present_on_level_condition;
 }
@@ -244,7 +244,7 @@ int main(void)
                 freezeActive = 0;
             #endif
             confuseActive = 0;
-            zombieActive = 0; 
+            suicideActive = 0; 
 
             #if defined(DEBUG_ITEMS)
                 missileBasesDestroyed = 2;
@@ -425,13 +425,13 @@ int main(void)
                 {
                     handle_confuse_item();
                     handle_confuse_count_down();
-                    if(zombie_present_on_level)
+                    if(suicide_present_on_level)
                     {
-                        handle_zombie_item();
-                        handle_zombie_count_down();    
-                        if(zombieActive && !(loop&15))
+                        handle_suicide_item();
+                        handle_suicide_count_down();    
+                        if(suicideActive && !(loop&15))
                         {
-                            points+=ZOMBIE_BONUS;
+                            points+=SUICIDE_BONUS;
                             displayStats();
                             reduceItemCoolDowns();
                         }
@@ -491,8 +491,8 @@ int main(void)
                     CLEAR_SCREEN();
                 #endif
 
-                points+= LEVEL_BONUS*level+ghostCount*GHOSTS_VS_ZOMBIE_BONUS;
-                printLevelBonus(LEVEL_BONUS*level+ghostCount*GHOSTS_VS_ZOMBIE_BONUS);
+                points+= LEVEL_BONUS*level+ghostCount*GHOSTS_VS_SUICIDE_BONUS;
+                printLevelBonus(LEVEL_BONUS*level+ghostCount*GHOSTS_VS_SUICIDE_BONUS);
 
                 SLEEP(2);
                 CLEAR_SCREEN();                        

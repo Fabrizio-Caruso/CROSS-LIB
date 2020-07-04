@@ -82,7 +82,7 @@ extern uint8_t innerHorizontalWallX;
 extern uint8_t innerHorizontalWallY;
 extern uint8_t innerHorizontalWallLength;
 
-extern uint8_t zombieActive;    
+extern uint8_t suicideActive;    
 
 void playerDies(void)
 {

@@ -122,7 +122,7 @@ extern Image DEAD_GHOST_IMAGE;
     extern Item extraLife;
     extern Item super;
     extern Item confuse;
-    extern Item zombie;
+    extern Item suicide;
     extern Item chase;	
 
     extern Character leftHorizontalMissile;
@@ -135,7 +135,7 @@ extern Image DEAD_GHOST_IMAGE;
 
     extern uint8_t extraLife_present_on_level;
     extern uint8_t super_present_on_level;
-    extern uint8_t zombie_present_on_level;
+    extern uint8_t suicide_present_on_level;
     
     extern uint8_t dead_rockets;
     
@@ -151,7 +151,7 @@ extern Image DEAD_GHOST_IMAGE;
     
     extern uint8_t confuseActive; 
     
-    extern uint8_t zombieActive; 		
+    extern uint8_t suicideActive; 		
     
     extern uint8_t innerVerticalWallY; 
     extern uint8_t innerVerticalWallX; 
@@ -164,7 +164,7 @@ extern Image DEAD_GHOST_IMAGE;
     Item extraLife;
     Item super;
     Item confuse;
-    Item zombie;
+    Item suicide;
     Item chase;
     
     Character leftHorizontalMissile;
@@ -177,7 +177,7 @@ extern Image DEAD_GHOST_IMAGE;
     
     uint8_t extraLife_present_on_level;
     uint8_t super_present_on_level;
-    uint8_t zombie_present_on_level;
+    uint8_t suicide_present_on_level;
     
     uint8_t dead_rockets;
     
@@ -193,7 +193,7 @@ extern Image DEAD_GHOST_IMAGE;
     
     uint8_t confuseActive; 
     
-    uint8_t zombieActive; 
+    uint8_t suicideActive; 
 
     uint8_t innerVerticalWallY; 
     uint8_t innerVerticalWallX; 
@@ -211,7 +211,7 @@ extern Image DEAD_GHOST_IMAGE;
 
     extern uint16_t confuse_count_down;
 
-    extern uint16_t zombie_count_down;		
+    extern uint16_t suicide_count_down;		
 #else
     Character rockets[ROCKETS_NUMBER];
 
@@ -219,7 +219,7 @@ extern Image DEAD_GHOST_IMAGE;
 
     uint16_t confuse_count_down;
 
-    uint16_t zombie_count_down;	
+    uint16_t suicide_count_down;	
 #endif
 	
 

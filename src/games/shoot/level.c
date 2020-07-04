@@ -128,12 +128,10 @@ void updateInnerVerticalWall(void)
     }
     else
     {
-        #if defined(WIDE)
+        #if YSize>14
             innerVerticalWallLength = YSize-9-lvmod;
-        #elif YSize<=12
-            innerVerticalWallLength = 4;
         #else
-            innerVerticalWallLength = YSize-7-lvmod;            
+            innerVerticalWallLength = 4;
         #endif
     }
 

@@ -40,8 +40,6 @@
 // Final level 
 #define FINAL_LEVEL 16
 
-#define GHOST_LIFE (30)
-
 #define SKULLS_NUMBER 4
 
 #define BULLETS_NUMBER 6
@@ -60,7 +58,13 @@
     #define BOMBS_NUMBER 3
 #endif
 
-#define GHOSTS_NUMBER 10
+#if !defined(GHOSTS_NUMBER)
+    #if defined(WIDE) || defined(FORCE_NARROW)
+        #define GHOSTS_NUMBER 10
+    #else
+        #define GHOSTS_NUMBER 8
+    #endif
+#endif
 
 #define ROCKETS_NUMBER 2
 
@@ -105,11 +109,15 @@
 
 #if defined(WIDE) || defined(FORCE_NARROW)
     #define MIN_SKULL_HITS (60)
+    #define BOSS_HITS 254
+    #define GHOST_LIFE (30)
 #else
-    #define MIN_SKULL_HITS (45)
+    #define MIN_SKULL_HITS (40)
+    #define BOSS_HITS 160
+    #define GHOST_LIFE (20)
 #endif    
 
-#define BOSS_HITS 254
+
 
 #if !defined(INITIAL_GHOST_SLOWDOWN)
     #if defined(TURN_BASED)
@@ -127,7 +135,7 @@
     #if defined(TURN_BASED)
         #define INITIAL_SKULL_SLOWDOWN 15000
     #elif defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
-        #define INITIAL_SKULL_SLOWDOWN 31000    
+        #define INITIAL_SKULL_SLOWDOWN 32500    
     #elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
         #define INITIAL_SKULL_SLOWDOWN 29000    
     #else

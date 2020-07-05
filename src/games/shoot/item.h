@@ -60,6 +60,8 @@ void _firePowerEffect(void);
 
 void firePowerEffect(void);
 
+void calmDownEffect(void);
+
 void extraPointsEffect(void);
 
 void handle_item(register Item *itemPtr);
@@ -86,6 +88,7 @@ void suicideEffect(void);
     #define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
     #define handle_suicide_count_down() handle_count_down(&suicideActive,&suicide_count_down)
 
+    #define handle_calmDown_item() handle_item(&calmDown);
     #define handle_firePower_item() handle_item(&firePower);
     #define handle_fireCharge_item() handle_item(&fireCharge);
     #define handle_bombCharge_item() handle_item(&bombCharge);

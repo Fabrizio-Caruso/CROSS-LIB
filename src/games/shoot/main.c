@@ -95,6 +95,7 @@ uint8_t ghostsOnScreen;
 
 void resetItems()
 {
+    calmDown._coolDown = CALM_DOWN_COOL_DOWN;
     firePower._coolDown = FIRE_POWER_COOL_DOWN;
     fireCharge._coolDown = FIRE_CHARGE_COOL_DOWN;
     bombCharge._coolDown = BOMB_CHARGE_COOL_DOWN;
@@ -114,6 +115,7 @@ void resetItems()
 // Constructor for all items
 void constructItems()
 {
+    calmDown._effect = &calmDownEffect;
     fireCharge._effect = &fireChargeEffect;
     bombCharge._effect = &bombChargeEffect;
     firePower._effect = &firePowerEffect;
@@ -412,6 +414,7 @@ int main(void)
                 }
                 #endif
                 
+                handle_calmDown_item();
                 handle_extraPoints_item();
                 handle_firePower_item();
                 handle_fireCharge_item();

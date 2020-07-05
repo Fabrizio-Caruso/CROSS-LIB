@@ -30,6 +30,7 @@
 #endif
 
 #if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
+    extern Image CALM_DOWN_IMAGE;
     extern Image FIRE_CHARGE_IMAGE;
     extern Image BULLET_IMAGE;
     extern Image FIRE_POWER_IMAGE;	
@@ -39,6 +40,7 @@
     extern Image HORIZONTAL_BRICK_IMAGE;
     extern Image VERTICAL_BRICK_IMAGE;	
 #else
+    Image CALM_DOWN_IMAGE;
     Image FIRE_CHARGE_IMAGE;
     Image BULLET_IMAGE;
     Image FIRE_POWER_IMAGE;	

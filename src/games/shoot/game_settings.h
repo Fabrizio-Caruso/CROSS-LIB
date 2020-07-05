@@ -99,12 +99,15 @@
 #define GHOSTS_VS_SUICIDE_BONUS 10UL
 
 // Extra points for fire charge (more bullets)
+#define CALM_DOWN_BONUS 10UL
+
+// Extra points for fire charge (more bullets)
 #define FIRE_CHARGE_BONUS 20UL
 
 // Extra points for the fire power (more powerful bullets)
 #define FIRE_POWER_BONUS 30UL
 
-#define FREEZE_BONUS 10UL
+#define FREEZE_BONUS 15UL
 
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 25U
@@ -205,9 +208,12 @@
     
 #define FIRE_CHARGE_COOL_DOWN (110/WAIT_SCALE)
 
-#define BOMB_CHARGE_COOL_DOWN (350/WAIT_SCALE)
+#define BOMB_CHARGE_COOL_DOWN (400/WAIT_SCALE)
 
-#define FREEZE_COOL_DOWN (180/WAIT_SCALE)
+#define CALM_DOWN_COOL_DOWN (130/WAIT_SCALE)
+
+
+#define FREEZE_COOL_DOWN (320/WAIT_SCALE)
 
 #define FIRE_POWER_COOL_DOWN (180/WAIT_SCALE)    
 
@@ -219,7 +225,7 @@
 #define SUICIDE_COOL_DOWN (100/WAIT_SCALE)
 #define SECOND_SUICIDE_COOL_DOWN 500
 
-#define CHASE_COOL_DOWN (250/WAIT_SCALE)
+#define CALM_DOWN_EFFECT_FACTOR 30
 
 #define EXTRA_POINTS_COOL_DOWN (2000/WAIT_SCALE)
 #define SECOND_EXTRA_POINTS_COOL_DOWN 20000
@@ -228,11 +234,11 @@
 
 #define EXTRA_LIFE_COOL_DOWN (1200/WAIT_SCALE)
 
-#define FROZEN_COUNT_DOWN (50/EFFECT_SCALE)
+#define FREEZE_COUNT_DOWN (45/EFFECT_SCALE)
 
 #define INITIAL_FROZEN_COUNT_DOWN FROZEN_COUNT_DOWN
 
-#define CONFUSE_COUNT_DOWN (300/EFFECT_SCALE)
+#define CONFUSE_COUNT_DOWN (200/EFFECT_SCALE)
 
 #define INVINCIBILITY_COUNT_DOWN (120/EFFECT_SCALE)
 

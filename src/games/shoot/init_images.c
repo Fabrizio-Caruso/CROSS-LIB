@@ -69,6 +69,7 @@ void INIT_IMAGES(void)
 		#endif
 		
         SKULL_IMAGE._color = _SKULL_COLOR;
+        CALM_DOWN_IMAGE._color = _CALM_DOWN_COLOR;
         FIRE_CHARGE_IMAGE._color = _FIRE_CHARGE_COLOR;
         FIRE_POWER_IMAGE._color = _GUN_COLOR;
         EXTRA_POINTS_IMAGE._color = _EXTRA_POINTS_COLOR;
@@ -112,7 +113,8 @@ void INIT_IMAGES(void)
 	
     SKULL_IMAGE._imageData = _TILE_7;
 
-    FIRE_CHARGE_IMAGE._imageData = _TILE_8;
+    CALM_DOWN_IMAGE._imageData = _TILE_8;
+    FIRE_CHARGE_IMAGE._imageData = _TILE_11;
     FIRE_POWER_IMAGE._imageData = _TILE_9;
     EXTRA_POINTS_IMAGE._imageData = _TILE_10;
     

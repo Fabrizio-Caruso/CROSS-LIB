@@ -67,6 +67,7 @@ extern Character skull;
 
 extern Character player;
 
+extern Item calmDown;
 extern Item fireCharge;
 extern Item bombCharge;
 extern Item firePower;
@@ -112,7 +113,7 @@ void _freezeEffect(void)
     decreaseGhostLevel();
     freezeActive = 1;    
     points+=FREEZE_BONUS;
-    freeze_count_down += FROZEN_COUNT_DOWN;    
+    freeze_count_down += FREEZE_COUNT_DOWN;    
 }
 
 void _increaseBullets(uint8_t bullets)
@@ -151,6 +152,20 @@ void bombChargeEffect(void)
     bombCount = 0;
     // TODO: delete Bombs
     bombCharge._coolDown = BOMB_CHARGE_COOL_DOWN;    
+}
+
+void calmDownEffect(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<CALM_DOWN_EFFECT_FACTOR;++i)
+    {
+        decreaseGhostLevel();
+    }
+    points+=CALM_DOWN_BONUS;
+    freezeActive = 1;
+    freeze_count_down += 10;
+    calmDown._coolDown = CALM_DOWN_COOL_DOWN*8;    
 }
 
 void _firePowerEffect(void)

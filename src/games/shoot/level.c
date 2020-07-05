@@ -84,6 +84,7 @@ extern unsigned char innerHorizontalWallLength;
 
 extern Image ROCKET_IMAGE;
 
+extern Image CALM_DOWN_IMAGE;
 extern Image FREEZE_IMAGE;
 extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
 extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
@@ -97,6 +98,7 @@ extern Image SUICIDE_IMAGE;
 extern Character leftHorizontalMissile;
 extern Character rightHorizontalMissile;
 
+extern Item calmDown;
 extern Item freeze;
 extern Item extraLife;
 extern Item invincibility;
@@ -302,6 +304,7 @@ void fillLevelWithCharacters(void)
     
     placeBombs();
     
+        initializeAwayFromWall(&(calmDown._character),(XSize>>1),(YSize>>1),0,&CALM_DOWN_IMAGE);
         initializeAwayFromWall(&(fireCharge._character),(XSize>>1),(YSize>>1),1,&BULLET_IMAGE);
         initializeAwayFromWall(&(bombCharge._character),(XSize>>1),(YSize>>1),0,&BOMB_IMAGE);
         initializeAwayFromWall(&(freeze._character),(XSize>>1),(YSize>>1),0,&FREEZE_IMAGE);

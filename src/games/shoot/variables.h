@@ -116,6 +116,7 @@ extern Image DEAD_GHOST_IMAGE;
 
 
 #if defined(USE_MEMORY_BUFFERS)
+    extern Item calmDown;
     extern Item bombCharge;
     extern Item freeze;
     extern Item invincibility;
@@ -123,7 +124,6 @@ extern Image DEAD_GHOST_IMAGE;
     extern Item super;
     extern Item confuse;
     extern Item suicide;
-    extern Item chase;	
 
     extern Character leftHorizontalMissile;
     extern Character rightHorizontalMissile;
@@ -158,6 +158,7 @@ extern Image DEAD_GHOST_IMAGE;
     extern uint8_t innerVerticalWallLength;
 
 #else
+    Item calmDown; 
     Item bombCharge;		
     Item freeze;
     Item invincibility;
@@ -165,7 +166,6 @@ extern Image DEAD_GHOST_IMAGE;
     Item super;
     Item confuse;
     Item suicide;
-    Item chase;
     
     Character leftHorizontalMissile;
     Character rightHorizontalMissile;
@@ -201,7 +201,6 @@ extern Image DEAD_GHOST_IMAGE;
     
 #endif
 
-#define chase_present_on_level_condition skullsKilled
 #define confuse_present_on_level_condition missileBasesDestroyed
 
 #if defined(USE_MEMORY_BUFFERS)

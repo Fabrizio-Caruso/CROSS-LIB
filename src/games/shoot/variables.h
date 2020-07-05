@@ -132,6 +132,7 @@ extern Image DEAD_GHOST_IMAGE;
     extern Character * chasedEnemyPtr;
     extern Character * chasedByGhosts;
     extern uint8_t rockets_x[];
+    extern uint8_t rocketsOnScreen;
 
     extern uint8_t extraLife_present_on_level;
     extern uint8_t super_present_on_level;
@@ -180,6 +181,7 @@ extern Image DEAD_GHOST_IMAGE;
     uint8_t suicide_present_on_level;
     
     uint8_t dead_rockets;
+    uint8_t rocketsOnScreen;
     
     uint8_t arrowRange;
     

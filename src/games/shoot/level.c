@@ -119,6 +119,7 @@ extern uint8_t isRocketLevel;
 extern uint8_t isInnerHorizontalWallLevel;
 extern uint8_t isInnerVerticalWallLevel;
 
+extern uint8_t rocketsOnScreen;
 
 void updateInnerVerticalWall(void)
 {    
@@ -265,11 +266,28 @@ void fillLevelWithCharacters(void)
     #if defined(DEBUG)
     gotoxy(1,1);cprintf("filling level.........");
     #endif
+    
+    if(isRocketLevel)
+    {
+        if(isBossLevel)
+        {
+            rocketsOnScreen = ROCKETS_NUMBER;
+        }
+        else if(isInnerHorizontalWallLevel)
+        {
+            rocketsOnScreen = 3;
+        }
+        else 
+        {
+            rocketsOnScreen = 2;
+        }
+    }
+    
     if(isRocketLevel || isBossLevel)
     {
-        for(i=0;i<ROCKETS_NUMBER;i++)
+        for(i=0;i<rocketsOnScreen;i++)
         {
-            rockets_x[i] = (uint8_t) (i+1)*(XSize/(ROCKETS_NUMBER+1));
+            rockets_x[i] = (uint8_t) (i+1)*(XSize/(rocketsOnScreen+1));
             initializeCharacter(&rockets[i],(uint8_t) rockets_x[i],(uint8_t)(YSize-1),1,&ROCKET_IMAGE);
             displayRocket(&rockets[i]);
         }

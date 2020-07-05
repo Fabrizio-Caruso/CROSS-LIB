@@ -102,6 +102,7 @@ void computeSkullParameters(void)
 
 void skullDies(register Character * skullPtr)
 {
+        DRAW_BROKEN_BRICK(skullPtr->_x, skullPtr->_y);
         skullPtr->_status=0;
         if(!(--skullsCount))
         {
@@ -110,8 +111,7 @@ void skullDies(register Character * skullPtr)
         EXPLOSION_SOUND();
         points+=SKULL_POINTS;
         displayScoreStats();
-        EXPLOSION_SOUND();
-        DRAW_BROKEN_BRICK(skullPtr->_x, skullPtr->_y);
+        deleteSkull(skullPtr);
 }
 
 

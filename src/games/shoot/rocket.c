@@ -29,6 +29,8 @@
 #include "character.h"
 #include "level.h"
 
+extern uint8_t rocketsOnScreen;
+
 extern Character rockets[ROCKETS_NUMBER];
 
 extern uint8_t ghostCount;
@@ -42,7 +44,7 @@ extern uint8_t isBossLevel;
         { 
             uint8_t i;
 
-            for(i=0;i<ROCKETS_NUMBER;++i)
+            for(i=0;i<rocketsOnScreen;++i)
             {
                 if(rockets[i]._status)
                 {
@@ -65,7 +67,7 @@ extern uint8_t isBossLevel;
                     if(rockets[i]._y<=1)
                     {    
                         deleteRocket(&rockets[i]);
-                        rockets[i]._x = (i+1)*(XSize/(ROCKETS_NUMBER+1));
+                        rockets[i]._x = (i+1)*(XSize/(rocketsOnScreen+1));
                         rockets[i]._y = YSize-2;                            
                     }
                 }

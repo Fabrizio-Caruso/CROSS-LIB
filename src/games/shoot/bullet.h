@@ -31,34 +31,34 @@
     #include "definitions.h"
     #include "ghost.h"
 
-    unsigned char availableBullet(void);
+    uint8_t availableBullet(void);
         
-    void handle_bullet(unsigned char bulletIndex);
+    void handle_bullet(uint8_t bulletIndex);
     
     void handle_bullets(void);
 
     void handle_bomb(void);
 
-    void checkBullet(Character *bulletPtr, unsigned char bulletDirection);
+    void checkBullet(Character *bulletPtr, uint8_t bulletDirection);
 
     void checkBullets(void);
     
-    void checkBulletVsGhost(Character * bulletPtr, unsigned char bulletDirection,
+    void checkBulletVsGhost(Character * bulletPtr, uint8_t bulletDirection,
                             Character * ghostPtr);
         
-    void checkBulletVsGhosts(Character * bulletPtr, unsigned char bulletDirection);
+    void checkBulletVsGhosts(Character * bulletPtr, uint8_t bulletDirection);
 
     void checkBulletVsSkull(register Character *bulletPtr, Character *skullPtr);
     
     void checkBulletVsSkulls(Character *bulletPtr);
                 
-    void _moveBullet(register Character * bulletPtr, unsigned char bulletDirection);
+    void _moveBullet(register Character * bulletPtr, uint8_t bulletDirection);
         
-    void moveBullet(register Character * bulletPtr, unsigned char bulletDirection);
+    void moveBullet(register Character * bulletPtr, uint8_t bulletDirection);
 
     void handle_chasing_bullet(void);
         
-    void pushGhost(Character * ghostPtr, unsigned char bulletDirection);    
+    void pushGhost(Character * ghostPtr, uint8_t bulletDirection);    
         
 
 #endif //_MISSILE

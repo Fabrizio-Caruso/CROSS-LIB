@@ -66,7 +66,7 @@
     #endif
 #endif
 
-#define ROCKETS_NUMBER 2
+#define ROCKETS_NUMBER 4
 
 #define LIVES_NUMBER 5
 #define GUNS_NUMBER 40
@@ -140,7 +140,7 @@
     #if defined(TURN_BASED)
         #define INITIAL_GHOST_SLOWDOWN 16000
     #elif defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
-        #define INITIAL_GHOST_SLOWDOWN 32500
+        #define INITIAL_GHOST_SLOWDOWN 32000
     #elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
         #define INITIAL_GHOST_SLOWDOWN 30000
     #else
@@ -152,7 +152,7 @@
     #if defined(TURN_BASED)
         #define INITIAL_SKULL_SLOWDOWN 15000
     #elif defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
-        #define INITIAL_SKULL_SLOWDOWN 32500    
+        #define INITIAL_SKULL_SLOWDOWN 32000    
     #elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
         #define INITIAL_SKULL_SLOWDOWN 29000    
     #else

@@ -71,6 +71,7 @@ extern Character player;
 
 extern uint8_t ghostsOnScreen;
 
+extern uint8_t rocketsOnScreen;
 
 extern Item freeze;
 extern Item extraLife;
@@ -431,7 +432,7 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
         if((isRocketLevel || isBossLevel) && bulletPtr->_y==YSize-1)
         {
             uint8_t i;
-            for(i=0;i<ROCKETS_NUMBER;++i)
+            for(i=0;i<rocketsOnScreen;++i)
             {
                 if(bulletPtr->_x==rockets_x[i] && rockets[i]._status)
                 {

@@ -321,16 +321,8 @@ int main(void)
             displayStatsTitles();
 
             
-            #if !defined(NO_STATS)
-                displayScoreStats();            
-                printLevelStats();
-                printLivesStats();
-            #endif
+            displayStats();
             
-            //
-            printGunsStats();
-            printFirePowerStats();
-            printGhostCountStats();
             
             while(player._status && (( ((ghostCount>0)&&(skullsCount)) && !isBossLevel) || (skullsCount && isBossLevel))) // while alive && there are still ghosts
             {                

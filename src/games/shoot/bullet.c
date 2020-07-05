@@ -299,6 +299,10 @@ void checkBulletVsGhost(Character * bulletPtr,
                     points+=GHOST_VS_WALL_BONUS;
                     displayScoreStats();
                     DRAW_BROKEN_BRICK(ghostPtr->_x, ghostPtr->_y);
+                    #if !defined(WIDE) && !defined(FORCE_NARROW)
+                        displayStatsTitles();
+                        displayStats();
+                    #endif
                     if(ghostCount>=ghostsOnScreen)
                     {
                         spawnGhost(ghostPtr,ghostCount);
@@ -441,6 +445,10 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
             }
         }            
         DRAW_BROKEN_BRICK(bulletPtr->_x, bulletPtr->_y);
+        #if !defined(WIDE) && !defined(FORCE_NARROW)
+            displayStatsTitles();
+            displayStats();
+        #endif
     }
     else
     {

@@ -49,7 +49,7 @@ void printGunsStats(void);
 
 void printFirePowerStats(void);
 
-
+void displayStats(void);
 
 #if !defined(NO_STATS)
 	void printLevelStats(void);

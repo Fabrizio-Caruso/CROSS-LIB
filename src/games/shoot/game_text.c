@@ -131,6 +131,17 @@ void displayStatsTitles(void)
 }
 
 
+void displayStats(void)
+{
+    displayScoreStats();            
+    printLevelStats();
+    printLivesStats();
+    printGunsStats();
+    printFirePowerStats();
+    printGhostCountStats();
+}
+
+
 void printGunsStats(void)
 {
     SET_COLOR(TEXT_COLOR);    

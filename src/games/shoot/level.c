@@ -40,9 +40,9 @@
 
 // #define DEBUG
 
-extern unsigned char level;
+extern uint8_t level;
 
-extern unsigned char ghostsOnScreen;
+extern uint8_t ghostsOnScreen;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -74,13 +74,13 @@ extern Character bombs[BOMBS_NUMBER];
 extern Item chase;
 extern Character chasingBullet;
 
-extern unsigned char innerVerticalWallX;
-extern unsigned char innerVerticalWallY;
-extern unsigned char innerVerticalWallLength;
+extern uint8_t innerVerticalWallX;
+extern uint8_t innerVerticalWallY;
+extern uint8_t innerVerticalWallLength;
 
-extern unsigned char innerHorizontalWallX;
-extern unsigned char innerHorizontalWallY;
-extern unsigned char innerHorizontalWallLength;
+extern uint8_t innerHorizontalWallX;
+extern uint8_t innerHorizontalWallY;
+extern uint8_t innerHorizontalWallLength;
 
 extern Image ROCKET_IMAGE;
 
@@ -122,18 +122,27 @@ extern uint8_t isInnerVerticalWallLevel;
 
 void updateInnerVerticalWall(void)
 {    
-    unsigned char lvmod = level&7;
+    uint8_t lvmod;
+
+    lvmod = level&7;
     
     if(!isInnerVerticalWallLevel)
     {
         innerVerticalWallLength = 0;
     }
+    else if(isBossLevel)
+    {
+        innerVerticalWallLength = 6;
+    }
     else
     {
-        #if YSize>14
-            innerVerticalWallLength = YSize-9-lvmod;
+        #if YSize>17
+            innerVerticalWallLength = YSize-11-lvmod;
+        #elif YSize>9
+        
+            innerVerticalWallLength = 6;
         #else
-            innerVerticalWallLength = 4;
+            innerVerticalWallLength = 3;
         #endif
     }
 
@@ -144,7 +153,7 @@ void updateInnerVerticalWall(void)
 
 void updateInnerHorizontalWall(void)
 {    
-    unsigned char lvmod = level&7;
+    uint8_t lvmod = level&7;
     
     if(!isInnerHorizontalWallLevel)
     {
@@ -172,7 +181,7 @@ uint8_t innerHorizontalWallLevel(void)
 
 uint8_t innerVerticalWallLevel(void)
 {
-    return ((level&7)==1) || ((level&7)==3) || ((level&7)==5);
+    return ((level&7)==1) || ((level&7)==3) || ((level&7)==5) || bossLevel();
 }    
 
 uint8_t oneMissileLevel(void)
@@ -195,7 +204,7 @@ uint8_t bossLevel(void)
     return !(level&7);
 }
 
-void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned char y, unsigned char status, Image *imagePtr)
+void initializeAwayFromWall(Character * characterPtr, uint8_t x, uint8_t y, uint8_t status, Image *imagePtr)
 {
     initializeCharacter(characterPtr, x, y, status, imagePtr);
     relocateAwayFromWalls(characterPtr);
@@ -206,15 +215,15 @@ void initializeAwayFromWall(Character * characterPtr, unsigned char x, unsigned 
 
 void _spiral_slow_down()
 {
-    unsigned char k;
+    uint8_t k;
     
     for(k=0;k<254;++k){};
 }
 
-void spiral(register Character *characterPtr, unsigned char length)
+void spiral(register Character *characterPtr, uint8_t length)
 {
-    unsigned char i;
-    unsigned char j;
+    uint8_t i;
+    uint8_t j;
     
     characterPtr->_x = XSize/2;
     characterPtr->_y = YSize/2;
@@ -225,11 +234,11 @@ void spiral(register Character *characterPtr, unsigned char length)
                 displayCharacter(characterPtr);        
                 if(i&2)
                 {
-                    ++(*((unsigned char *) characterPtr + (i&1)));
+                    ++(*((uint8_t *) characterPtr + (i&1)));
                 }
                 else
                 {
-                    --(*((unsigned char *) characterPtr + (i&1)));                
+                    --(*((uint8_t *) characterPtr + (i&1)));                
                 }
                 #if defined(SLOW_DOWN)
                 _spiral_slow_down();    
@@ -242,7 +251,7 @@ void spiral(register Character *characterPtr, unsigned char length)
 
 void placeBombs(void)
 {
-    unsigned char i;
+    uint8_t i;
     
     PLACE_BOMBS();
 }
@@ -250,8 +259,8 @@ void placeBombs(void)
 
 void fillLevelWithCharacters(void)
 {
-    unsigned char i;
-    unsigned char count;
+    uint8_t i;
+    uint8_t count;
     
     #if defined(DEBUG)
     gotoxy(1,1);cprintf("filling level.........");
@@ -260,8 +269,8 @@ void fillLevelWithCharacters(void)
     {
         for(i=0;i<ROCKETS_NUMBER;i++)
         {
-            rockets_x[i] = (unsigned char) (i+1)*(XSize/(ROCKETS_NUMBER+1));
-            initializeCharacter(&rockets[i],(unsigned char) rockets_x[i],(unsigned char)(YSize-1),1,&ROCKET_IMAGE);
+            rockets_x[i] = (uint8_t) (i+1)*(XSize/(ROCKETS_NUMBER+1));
+            initializeCharacter(&rockets[i],(uint8_t) rockets_x[i],(uint8_t)(YSize-1),1,&ROCKET_IMAGE);
             displayRocket(&rockets[i]);
         }
     }
@@ -315,7 +324,7 @@ void fillLevelWithCharacters(void)
         
         initializeAwayFromWall(&(firePower._character),(XSize>>1), (YSize>>1), 0, &FIRE_POWER_IMAGE);
 
-        initializeAwayFromWall(&player,(unsigned char) ((XSize>>1)+(rand()&1)),(unsigned char) ((YSize>>1)+(rand()&1)),1,&PLAYER_IMAGE);
+        initializeAwayFromWall(&player,(uint8_t) ((XSize>>1)+(rand()&1)),(uint8_t) ((YSize>>1)+(rand()&1)),1,&PLAYER_IMAGE);
                 
         initializeAwayFromWall(&(extraLife._character), (XSize>>1), (YSize>>1), 0, &EXTRA_LIFE_IMAGE);
 

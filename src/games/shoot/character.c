@@ -96,7 +96,7 @@ void playerDies(void)
 
 uint8_t playerKilledBy(Character *enemyPtr)
 {
-    return !invincibilityActive && areCharctersAtSamePosition(enemyPtr,&player);
+    return (!invincibilityActive) && areCharctersAtSamePosition(enemyPtr,&player);
 }
 
 void initializeCharacter(register Character* characterPtr, uint8_t x, uint8_t y, uint8_t status, Image * imagePtr)

@@ -89,6 +89,10 @@ extern Item extraLife;
 extern Item confuse;
 extern Item suicide;
 
+extern uint8_t dead_rockets;
+extern uint8_t destroyerActivated;
+extern uint8_t destroyerActive;
+extern uint8_t destroyer_count_down;
 
 void itemReached(Character * itemPtr)
 {
@@ -219,7 +223,7 @@ void handle_count_down(uint8_t * flagPtr, uint16_t * countDownPtr)
 {
     if(*flagPtr)
     {
-        if(*countDownPtr<=0)
+        if(*countDownPtr==0)
         {
             *flagPtr=0;
         }
@@ -261,7 +265,7 @@ void extraLifeEffect(void)
 void _invincibilityEffect(void)
 {
     invincibilityActive = 1;
-    invincibility_count_down = INVINCIBILITY_COUNT_DOWN;            
+    invincibility_count_down += INVINCIBILITY_COUNT_DOWN;            
 }
 
 void invincibilityEffect(void)
@@ -307,4 +311,17 @@ void suicideEffect(void)
         }
     }
 }
+
+void handle_destroyer_trigger(void)
+{
+    if((dead_rockets>=DESTROYER_TRIGGER_DEAD_ROCKETS)&& !destroyerActivated)
+    {
+        destroyerActive = 1;
+        destroyerActivated = 1;
+        invincibilityActive = 1;
+        invincibility_count_down+= DESTROYER_COUNT_DOWN+INVINCIBILITY_COUNT_DOWN/2;
+        destroyer_count_down = DESTROYER_COUNT_DOWN;
+    }
+}
+
 

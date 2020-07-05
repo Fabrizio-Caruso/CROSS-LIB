@@ -63,6 +63,9 @@ extern uint16_t points;
 
 extern uint8_t ghostCount;
 
+extern Image BROKEN_BRICK_IMAGE;
+extern Image INVINCIBILITY_IMAGE;
+
 uint8_t playerKilledBy(Character *enemyPtr);
 
 void displayCharacter(Character * characterPtr);
@@ -100,9 +103,13 @@ void deleteCharacter(Character * characterPtr);
 
 #if defined(NO_BLINKING)
     #define _DRAW_PLAYER() \
-        if(invincibilityActive) \
+        if(destroyerActive)\
         { \
-            DRAW_PLAYER(player._x, player._y, skull._imagePtr); \
+            DRAW_PLAYER(player._x, player._y, &BROKEN_BRICK_IMAGE); \
+        } \
+        else if(invincibilityActive) \
+        { \
+            DRAW_PLAYER(player._x, player._y, &INVINCIBILITY_IMAGE); \
         } \
         else \
         { \
@@ -110,7 +117,11 @@ void deleteCharacter(Character * characterPtr);
         }    
 #else
     #define _DRAW_PLAYER() \
-        if(invincibilityActive) \
+        if(destroyerActive)\
+        { \
+            DRAW_PLAYER(player._x, player._y, &BROKEN_BRICK_IMAGE); \
+        } \
+        else if(invincibilityActive) \
         { \
             DRAW_BLINKING_PLAYER(player._x, player._y, player._imagePtr); \
         } \

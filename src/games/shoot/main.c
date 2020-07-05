@@ -76,12 +76,11 @@ uint8_t bulletStrength;
 
 uint8_t bombCount;
 
+uint8_t reachedByGhost;
     
 Character bullets[BULLETS_NUMBER];
 
 Character skulls[SKULLS_NUMBER];
-
-
 
 
 uint8_t innerHorizontalWallY; 
@@ -89,8 +88,6 @@ uint8_t innerHorizontalWallX;
 uint8_t innerHorizontalWallLength;
 
 uint8_t ghostsOnScreen;
-
-
 
 
 void resetItems()
@@ -245,6 +242,9 @@ int main(void)
             
             invincibilityActive = 1;                
             invincibility_count_down = INITIAL_INVINCIBILITY_COUNT_DOWN;
+            
+            destroyerActive = 0;
+            destroyerActivated = 0;
             
             #if !defined(INITIAL_GHOST_FREEZE)
                 freezeActive = 0;
@@ -418,6 +418,8 @@ int main(void)
                 handle_invincibility_item();
                 handle_invincibility_count_down();                    
 
+                handle_destroyer_trigger();
+                handle_destroyer_count_down();
                     
                 if(super_present_on_level)
                 {
@@ -446,9 +448,22 @@ int main(void)
                     }
                 }
                 
+                reachedByGhost = sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, ghostsOnScreen);
+                
+                if(destroyerActive && reachedByGhost < ghostsOnScreen)
+                {
+                    ghostDies(&ghosts[reachedByGhost]);
+                    points += GHOST_VS_BOMBS_BONUS;
+                    displayScoreStats();
+                    if(ghostCount>=ghostsOnScreen)
+                    {
+                        spawnGhost(&ghosts[reachedByGhost],ghostCount);
+                    }
+                }
+                
                 
                 if(wallReached(&player) || 
-                   (!invincibilityActive && (playerReachedGhosts() || innerVerticalWallReached(&player) || innerHorizontalWallReached(&player)))
+                   (!invincibilityActive && ((reachedByGhost<ghostsOnScreen) || innerVerticalWallReached(&player) || innerHorizontalWallReached(&player)))
                   )
                 {
                     playerDies();

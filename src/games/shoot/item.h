@@ -54,8 +54,6 @@ void fireChargeEffect(void);
 
 void bombChargeEffect(void);
 
-#define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
-
 void _firePowerEffect(void);
 
 void firePowerEffect(void);
@@ -82,39 +80,28 @@ void confuseEffect(void);
 
 void suicideEffect(void);
 
-    void chaseEffect(void);
-    
-    #define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)    
-    #define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
-    #define handle_suicide_count_down() handle_count_down(&suicideActive,&suicide_count_down)
 
-    #define handle_calmDown_item() handle_item(&calmDown);
-    #define handle_firePower_item() handle_item(&firePower);
-    #define handle_fireCharge_item() handle_item(&fireCharge);
-    #define handle_bombCharge_item() handle_item(&bombCharge);
-    #define handle_extraPoints_item() handle_item(&extraPoints);
-    
-    #define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
 
-    #define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)    
-    #define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
-    #define handle_suicide_count_down() handle_count_down(&suicideActive,&suicide_count_down)
+#define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
+#define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)    
+#define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
+#define handle_suicide_count_down() handle_count_down(&suicideActive,&suicide_count_down)
+#define handle_destroyer_count_down() handle_count_down(&destroyerActive,&destroyer_count_down)
 
-    #define handle_freeze_item() handle_item(&freeze);    
-    #define handle_invincibility_item() handle_item(&invincibility)
-    
-    #define handle_chase_item() handle_item(&chase);
-    
-    #define handle_super_item() handle_item(&super)
-    #define handle_extraLife_item() handle_item(&extraLife)
-    
-    #define handle_confuse_item() handle_item(&confuse);
-    #define handle_suicide_item() handle_item(&suicide);
-    
-    #define handle_firePower_item() handle_item(&firePower);
-    #define handle_fireCharge_item() handle_item(&fireCharge);
-    #define handle_bombCharge_item() handle_item(&bombCharge);
-    #define handle_extraPoints_item() handle_item(&extraPoints);
+#define handle_calmDown_item() handle_item(&calmDown);
+#define handle_freeze_item() handle_item(&freeze);    
+#define handle_super_item() handle_item(&super)
+#define handle_firePower_item() handle_item(&firePower);
+#define handle_fireCharge_item() handle_item(&fireCharge);
+#define handle_bombCharge_item() handle_item(&bombCharge);
+#define handle_invincibility_item() handle_item(&invincibility)
+#define handle_extraPoints_item() handle_item(&extraPoints);
+#define handle_confuse_item() handle_item(&confuse);
+#define handle_suicide_item() handle_item(&suicide);
+#define handle_extraLife_item() handle_item(&extraLife)
+
+
+void handle_destroyer_trigger(void);
 
 #endif // _item.h
 

@@ -277,7 +277,7 @@ void checkBulletVsGhost(Character * bulletPtr,
         {
             ghostDies(ghostPtr);
             points+=GHOST_VS_MISSILE;
-            displayStats();
+            displayScoreStats();
             if(ghostCount>=ghostsOnScreen)
             {
                 spawnGhost(ghostPtr,ghostCount);
@@ -297,7 +297,7 @@ void checkBulletVsGhost(Character * bulletPtr,
                 {
                     ghostDies(ghostPtr);
                     points+=GHOST_VS_WALL_BONUS;
-                    displayStats();
+                    displayScoreStats();
                     DRAW_BROKEN_BRICK(ghostPtr->_x, ghostPtr->_y);
                     if(ghostCount>=ghostsOnScreen)
                     {
@@ -394,7 +394,7 @@ void destroyHorizontalMissile(Character * horizontalMissilePtr)
     EXPLOSION_SOUND();
     deleteHorizontalMissile(horizontalMissilePtr);
     points+=HORIZONTAL_MISSILE_BONUS;
-    displayStats();                
+    displayScoreStats();                
     ++dead_rockets;
     reduceItemCoolDowns();        
 }
@@ -436,7 +436,7 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
                     EXPLOSION_SOUND();
                     deleteRocket(&rockets[i]);
                     points+=VERTICAL_MISSILE_BONUS;
-                    displayStats();        
+                    displayScoreStats();        
                 }
             }
         }            

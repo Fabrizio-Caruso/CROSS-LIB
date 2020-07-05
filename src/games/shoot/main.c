@@ -320,7 +320,7 @@ int main(void)
 
             
             #if !defined(NO_STATS)
-                displayStats();            
+                displayScoreStats();            
                 printLevelStats();
                 printLivesStats();
             #endif
@@ -445,7 +445,7 @@ int main(void)
                         if(suicideActive && !(loop&15))
                         {
                             points+=SUICIDE_BONUS;
-                            displayStats();
+                            displayScoreStats();
                             reduceItemCoolDowns();
                         }
                     }

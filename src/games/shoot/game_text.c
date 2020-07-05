@@ -208,7 +208,7 @@ void printFirePowerStats(void)
 #endif
 
 
-void displayStats(void)
+void displayScoreStats(void)
 {    
     SET_COLOR(TEXT_COLOR);
     

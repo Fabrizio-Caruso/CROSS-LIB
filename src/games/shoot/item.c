@@ -95,7 +95,7 @@ void itemReached(Character * itemPtr)
     deleteItem(itemPtr);
     displayPlayer(&player);
     itemPtr->_status = 0;
-    displayStats();
+    displayScoreStats();
 }
 
 void relocateAwayFromWalls(Character * itemPtr)
@@ -112,7 +112,6 @@ void _freezeEffect(void)
     decreaseGhostLevel();
     freezeActive = 1;    
     points+=FREEZE_BONUS;
-    printFirePowerStats();
     freeze_count_down += FROZEN_COUNT_DOWN;    
 }
 
@@ -136,7 +135,6 @@ void fireChargeEffect(void)
 {
     _increaseBullets(BULLET_GUNS);
     points+=FIRE_CHARGE_BONUS;
-    printFirePowerStats();
     fireCharge._coolDown = FIRE_CHARGE_COOL_DOWN;        
 }
 

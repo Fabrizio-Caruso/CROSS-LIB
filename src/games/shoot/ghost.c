@@ -112,7 +112,7 @@ void ghostDies(Character * ghostPtr)
     EXPLOSION_SOUND();
     
     ghostPtr->_status=0;
-    displayStats();
+    displayScoreStats();
     
     --ghostCount;
     deleteGhost(ghostPtr);

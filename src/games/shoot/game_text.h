@@ -41,7 +41,7 @@
 
 
 // game_stat
-void displayStats(void);
+void displayScoreStats(void);
 
 void displayStatsTitles(void);
 

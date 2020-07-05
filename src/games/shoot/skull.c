@@ -110,7 +110,7 @@ void skullDies(register Character * skullPtr)
         }
         EXPLOSION_SOUND();
         points+=SKULL_POINTS;
-        displayStats();
+        displayScoreStats();
         EXPLOSION_SOUND();
 }
 

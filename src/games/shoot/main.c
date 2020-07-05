@@ -149,7 +149,7 @@ void handle_special_triggers(void)
     // confuse_present_on_level_condition is defined as missileBasesDestroyed
     suicide_present_on_level = missileBasesDestroyed>=2;
     super_present_on_level = skullsKilled>=2;
-    extraLife_present_on_level = super_present_on_level && confuse_present_on_level_condition;
+    extraLife_present_on_level = super_present_on_level && suicide_present_on_level;
 }
 
 

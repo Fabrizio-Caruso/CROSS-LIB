@@ -273,7 +273,7 @@ void fillLevelWithCharacters(void)
         {
             rocketsOnScreen = ROCKETS_NUMBER;
         }
-        else if(isInnerHorizontalWallLevel)
+        else if(!isInnerVerticalWallLevel)
         {
             rocketsOnScreen = 3;
         }

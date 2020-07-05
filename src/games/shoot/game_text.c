@@ -57,15 +57,15 @@ extern uint8_t bulletStrength;
     #define PLAYER_IMAGE_Y 1
     #define LEVEL_X 6
 #else
-    #define BULLET_IMAGE_X 11
+    #define BULLET_IMAGE_X 10
     #define BULLET_IMAGE_Y 0
-    #define FIRE_POWER_IMAGE_X (XSize-1)
+    #define FIRE_POWER_IMAGE_X 17
     #define FIRE_POWER_IMAGE_Y 0
-    #define GHOST_IMAGE_X 8
+    #define GHOST_IMAGE_X 6
     #define GHOST_IMAGE_Y 0
     #define PLAYER_IMAGE_X 14
     #define PLAYER_IMAGE_Y 0
-    #define LEVEL_X 18
+    #define LEVEL_X (XSize-2)
 #endif
 
 #if defined(ALT_DISPLAY_STATS)
@@ -138,7 +138,7 @@ void printGunsStats(void)
     #if defined(WIDE)
         PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
     #else
-        PRINTD(BULLET_IMAGE_X+0,BULLET_IMAGE_Y,2,guns);
+        PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
     #endif
 }
 
@@ -158,7 +158,7 @@ void printFirePowerStats(void)
     #if defined(WIDE)
         PRINTD(FIRE_POWER_IMAGE_X+2,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
     #else
-        PRINTD(FIRE_POWER_IMAGE_X+0,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
+        PRINTD(FIRE_POWER_IMAGE_X+1,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
     #endif
 }
 
@@ -168,9 +168,9 @@ void printFirePowerStats(void)
         SET_COLOR(TEXT_COLOR);
     
         #if defined(WIDE)
-            PRINTD(LEVEL_X,1+0,2,level);
+            PRINTD(LEVEL_X,1,2,level);
         #else
-            PRINTD(LEVEL_X,+0,2,level);    
+            PRINTD(LEVEL_X,0,2,level);    
         #endif    
     }
 
@@ -182,7 +182,7 @@ void printFirePowerStats(void)
         #if defined(WIDE)
             PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);
         #else
-            PRINTD(GHOST_IMAGE_X+0,GHOST_IMAGE_Y,2,ghostCount);    
+            PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);    
         #endif    
     }
 
@@ -194,7 +194,7 @@ void printFirePowerStats(void)
         #if defined(WIDE)
             PRINTD(PLAYER_IMAGE_X+1,+0+1,2,lives);
         #else
-            PRINTD(PLAYER_IMAGE_X+0,+0,2,lives);    
+            PRINTD(PLAYER_IMAGE_X+1,+0,1,lives);    
         #endif
     }    
     
@@ -215,7 +215,7 @@ void displayStats(void)
     #if defined(WIDE)
         PRINTD(6,+0,5,points);
     #else
-        PRINTD(1,0,5,points);    
+        PRINTD(0,0,5,points);    
     #endif    
 }
 

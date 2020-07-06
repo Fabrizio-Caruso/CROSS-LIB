@@ -35,9 +35,14 @@
 			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))		
 			#define INIT_INPUT() { POKE(0xF3DB,0); }
         // Enable key-repeat on all VIC 20 targets that use the keyboard
-		#elif defined(__VIC20__)
+		#elif defined(__VIC20__) || defined(__C64__)
 			#include <peekpoke.h>
-			#define INIT_INPUT() POKE(0x028A ,0xFF)
+			#define INIT_INPUT() \
+            do \
+            { \
+                POKE(0x028A ,0xFF) \
+                POKE(657,128); \
+            } while(0)
 		#elif defined(__NCURSES__) && !defined(TURN_BASED)
 			#define INIT_INPUT() nodelay(stdscr,TRUE)
 		#elif defined(__M5__)
@@ -68,7 +73,17 @@
 		#if defined(__SUPERVISION__)
 			#include <supervision.h>
 		#endif
-		#define INIT_INPUT() { joy_install(joy_static_stddrv); };
+        #if defined(__VIC20__) || defined(__C64__)
+            #include <peekpoke.h>
+            #define INIT_INPUT() \
+                do \
+                { \
+                joy_install(joy_static_stddrv); \
+                POKE(657,128); \
+                } while(0);
+        #else
+            #define INIT_INPUT() { joy_install(joy_static_stddrv); };
+        #endif
 	#endif // defined(Z88DK_JOYSTICK)
 
 #if defined(JOYSTICK_CONTROL)

@@ -76,7 +76,7 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
 
 -------------------------------------------
 
-## HOW TO COMPILE THE CROSS CHASE
+## HOW TO COMPILE CROSS CHASE
 In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
 
 For more details we refer to: 
@@ -146,7 +146,7 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
 
 -------------------------------------------
 
-## HOW TO COMPILE THE CROSS SHOOT
+## HOW TO COMPILE CROSS SHOOT
 
 *Cross Shoot* can be compiled similarly as *Cross Chase* but you need to use the specific Makefile `Makefile.Shoot`.
 
@@ -155,7 +155,6 @@ Exmaples:
 - `make vic20 -f Makefile.Shoot` builds the default Commodore Vic 20 binary.
 - `make c16 -f Makefile.Shoot` builds the default Commodore 16 binary.
 - `make all -f Makefile.Shoot` builds all currently available targets for *Cross Shoot*.
-
 
 
 -------------------------------------------

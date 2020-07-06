@@ -27,29 +27,6 @@
 
 
 #if defined(END_SCREEN) || defined(DANCE)
-	extern uint8_t bulletDirection;
-
-	void dance(Character * characterPtr)
-	{
-		deleteCharacter(characterPtr);
-		if(!(bulletDirection&3))
-		{
-			++(characterPtr->_x);
-		}
-		else if((bulletDirection&3)==1)
-		{
-			++(characterPtr->_y);			
-		}
-		else if ((bulletDirection&3)==2)
-		{
-			--(characterPtr->_x);			
-		}
-		else
-		{
-			--(characterPtr->_y);			
-		}
-		displayCharacter(characterPtr);	
-	}
 
 #endif
 
@@ -78,16 +55,13 @@
 		guns = 1;
 		while(!playerFire && !wallReached(&player))
 		{
-			++bulletDirection;
-			displayBombs();
 			for(ind=0;ind<ghostsOnScreen;++ind)
 			{
-				dance(&ghosts[ind]);
+				displayCharacter(&ghosts[ind]);
 			}
 			
 			displayPlayer(&player);
 			
-			dance(&skulls[0]);
 		
 			printCenteredMessageOnRow(MESSAGE_START,  YOU_MADE_IT_STRING);		
 			#if SLOW_DOWN>0

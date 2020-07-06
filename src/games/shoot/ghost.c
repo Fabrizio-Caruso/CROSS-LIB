@@ -52,10 +52,6 @@ void checkBombsVsGhost(register Character * ghostPtr)
         bombs[reachedBombInd]._status = 0;
 
         ghostDies(ghostPtr);
-        if(ghostCount>=ghostsOnScreen)
-        {
-            spawnGhost(ghostPtr,ghostCount);
-        }
     }
 }
 
@@ -118,6 +114,10 @@ void ghostDies(Character * ghostPtr)
     
     --ghostCount;
     deleteGhost(ghostPtr);
+    if((!isBossLevel) && (ghostCount>=ghostsOnScreen))
+    {
+        spawnGhost(ghostPtr,ghostCount);
+    }
     printGhostCountStats();
 }
 

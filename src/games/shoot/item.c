@@ -316,10 +316,6 @@ void suicideEffect(void)
             deleteGhost(&ghosts[i]);
             ghostDies(&ghosts[i]);
             points+=GHOST_VS_BOMBS_BONUS;
-            if(!isBossLevel && (ghostCount>=ghostsOnScreen))
-            {
-                spawnGhost(&ghosts[i],ghostCount);
-            }
         }
     }
 }

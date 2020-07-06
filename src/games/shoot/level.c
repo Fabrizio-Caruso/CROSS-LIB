@@ -187,12 +187,12 @@ uint8_t innerVerticalWallLevel(void)
 
 uint8_t oneMissileLevel(void)
 {
-    return ((level&7)==3) || ((level&7)==7);
+    return ((level&7)==3) || ((level&7)==7) || (level==9);
 }
 
 uint8_t rocketLevel(void)
 {
-    return ((level&7)==3) || ((level&7)==6) || ((level&7)==7) || ((level&7)==0);
+    return ((level==3) || (level>=6));
 }
 
 uint8_t missileLevel(void)
@@ -273,7 +273,7 @@ void fillLevelWithCharacters(void)
         {
             rocketsOnScreen = ROCKETS_NUMBER;
         }
-        else if(!isInnerVerticalWallLevel)
+        else if((level>=6) && !isInnerVerticalWallLevel)
         {
             rocketsOnScreen = 3;
         }

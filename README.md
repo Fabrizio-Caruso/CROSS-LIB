@@ -7,13 +7,16 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
 This is a personal project whose goal is the creation of:
 1. *CrossLib*, a *retro-hardware abstraction layer* for coding "universal" (mostly 8-bit) games
-2. *Cross Chase*, a "universal" 8-bit game that can be compiled to run
-on (nearly) ALL 8 bit computers, game consoles, hand-held game consoles and scientific calculators. 
-The game will be a proof of concept for *CrossLib*'s flexibility.
+2. Writing "universal" 8-bit games" such as *Cross Chase* and *Cross Shoot*. These games are the proof of the flexibility of *CrossLib*.
+3. "Cross Chase" can be compiled for and run
+on (nearly) ALL 8-bit computers, game consoles, hand-held game consoles and scientific calculators. 
+It can be parametrized in a way to make it run on systems with as little as 3k or 4k of available memory for the code.
+4. "Cross Shoot" can also be compiled on a multitude of 8-bit computers and consoles. It requires more memory than "Cross Chase" but it should be equally universal as long as the required memory is available.
+
 
 -------------------------------------------
 
-## THE GAME 
+## CROSS CHASE - THE GAME 
 The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
 You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.
 All flashing items have positive effects and can grant you some special powers. Discover the 10 items.
@@ -73,7 +76,7 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
 
 -------------------------------------------
 
-## HOW TO COMPILE THE GAME
+## HOW TO COMPILE THE CROSS CHASE
 In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
 
 For more details we refer to: 
@@ -140,9 +143,24 @@ Exampeles:
 For more details on how to build either run `make help` or look at 
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
 
+
 -------------------------------------------
 
-## LOADING THE GAME
+## HOW TO COMPILE THE CROSS SHOOT
+
+*Cross Shoot* can be compiled similarly as *Cross Chase* but you need to use the specific Makefile `Makefile.Shoot`.
+
+Exmaples:
+- `make c64 -f Makefile.Shoot` builds the default Commodore 64 binary.
+- `make vic20 -f Makefile.Shoot` builds the default Commodore Vic 20 binary.
+- `make c16 -f Makefile.Shoot` builds the default Commodore 16 binary.
+- `make all -f Makefile.Shoot` builds all currently available targets for *Cross Shoot*.
+
+
+
+-------------------------------------------
+
+## LOADING THE GAMES
 In order to run the game you will have to follow a different procedure depending on whether you want to load it into an emulated system or a real system.
 
 ### Loading the game into an emulated vintage system

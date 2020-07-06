@@ -327,6 +327,7 @@ int main(void)
             arrowRange = computeArrowRange();
         
             bulletStrength = 2;
+            
         
             if(isBossLevel)
             {
@@ -487,13 +488,8 @@ int main(void)
                 
                 if(destroyerActive && reachedByGhost < ghostsOnScreen)
                 {
-                    ghostDies(&ghosts[reachedByGhost]);
+                    ghostDiesAndSpawns(&ghosts[reachedByGhost]);
                     points += GHOST_VS_BOMBS_BONUS;
-                    displayScoreStats();
-                    if(ghostCount>=ghostsOnScreen)
-                    {
-                        spawnGhost(&ghosts[reachedByGhost],ghostCount);
-                    }
                 }
                 
                 

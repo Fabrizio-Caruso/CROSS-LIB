@@ -50,7 +50,6 @@ void checkBombsVsGhost(register Character * ghostPtr)
     {
         points+=GHOST_VS_BOMBS_BONUS;
         bombs[reachedBombInd]._status = 0;
-
         ghostDies(ghostPtr);
     }
 }
@@ -102,7 +101,6 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex)
     }
 }
 
-
 void ghostDies(Character * ghostPtr)
 {
     ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
@@ -114,11 +112,17 @@ void ghostDies(Character * ghostPtr)
     
     --ghostCount;
     deleteGhost(ghostPtr);
+    printGhostCountStats();
+}
+
+
+void ghostDiesAndSpawns(Character * ghostPtr)
+{
+    ghostDies(ghostPtr);
     if((!isBossLevel) && (ghostCount>=ghostsOnScreen))
     {
         spawnGhost(ghostPtr,ghostCount);
     }
-    printGhostCountStats();
 }
 
 

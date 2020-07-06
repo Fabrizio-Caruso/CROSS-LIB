@@ -33,6 +33,8 @@ void spawnGhost(Character *ghostPtr, uint8_t ghostIndex);
 
 void ghostDies(Character * ghostPtr);
 
+void ghostDiesAndSpawns(Character * ghostPtr);
+
 void checkBombsVsGhost(register Character * ghostPtr);
 
 void checkBombsVsSkull(register Character * skullPtr);

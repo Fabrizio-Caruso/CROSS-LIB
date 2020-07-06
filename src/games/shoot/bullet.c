@@ -276,9 +276,8 @@ void checkBulletVsGhost(Character * bulletPtr,
 
         if((ghostPtr->_status)<=bulletStrength)
         {
-            ghostDies(ghostPtr);
+            ghostDiesAndSpawns(ghostPtr);
             points+=GHOST_VS_MISSILE;
-            displayScoreStats();
         }
         else
         {
@@ -288,20 +287,24 @@ void checkBulletVsGhost(Character * bulletPtr,
             for(i=0;i<bulletStrength/2;++i)
             {
 
-                deleteGhost((Character *) ghostPtr);
-                pushGhost((Character *) ghostPtr, bulletDirection);
-                if(wallReached((Character *) ghostPtr) || innerVerticalWallReached((Character *) ghostPtr) || innerHorizontalWallReached((Character *) ghostPtr))
+                deleteGhost(ghostPtr);
+                pushGhost(ghostPtr, bulletDirection);
+                if(wallReached(ghostPtr) || innerVerticalWallReached(ghostPtr) || innerHorizontalWallReached(ghostPtr))
                 {
                     ghostDies(ghostPtr);
                     points+=GHOST_VS_WALL_BONUS;
                     DRAW_BROKEN_BRICK(ghostPtr->_x, ghostPtr->_y);
+                    if((!isBossLevel) && (ghostCount>=ghostsOnScreen))
+                        {
+                            spawnGhost(ghostPtr,ghostCount);
+                        }
                     #if !defined(WIDE) && !defined(FORCE_NARROW)
                         displayStatsTitles();
                         displayStats();
                     #endif
                     break;
                 }
-                displayGhost((Character *) ghostPtr);
+                displayGhost(ghostPtr);
             }
         }
     }

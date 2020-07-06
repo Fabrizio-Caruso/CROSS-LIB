@@ -313,8 +313,7 @@ void suicideEffect(void)
     {
         if(ghosts[i]._status)
         {
-            deleteGhost(&ghosts[i]);
-            ghostDies(&ghosts[i]);
+            ghostDiesAndSpawns(&ghosts[i]);
             points+=GHOST_VS_BOMBS_BONUS;
         }
     }

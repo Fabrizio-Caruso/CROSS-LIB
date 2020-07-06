@@ -35,13 +35,14 @@ You can play the game on-line for different systems:
 -------------------------------------------
 
 ## CROSS SHOOT - THE GAME 
-The game's goal is to kill all enemies but shooting at them. Common enemies can be killed quickly if pushed with the bullets against the walls.
-The skulls and the boss cannot be pushed and harder to kill.
+The game's goal is to kill all common enemies or kill all 4 "skulls". 
+Common enemies can be killed quickly if pushed against the walls by shooting at them.
+The "skulls" and the boss cannot be pushed and are harder to kill.
 You have to avoid all enemies, all walls, rockets and chasing missiles.
 All flashing items have positive effects and can grant you special powers. 
-Your bullets have a limited power that can be increased by catching a special item. 
+Your bullets have a limited power that can be improved by catching the multiple times special fire power item. 
 You can also fetch the mine item that grants you 3 powerful mines to use against all your enemies.
-Discover the 11 items and 12 secrets.
+Discover the 11 items. Some items are secret. In total the game has 12 secrets.
 You can unlock the 12 secrets by shooting at the skulls and at the missile and rocket bases in different ways.
 The game has 16 different levels including 2 boss levels.
 

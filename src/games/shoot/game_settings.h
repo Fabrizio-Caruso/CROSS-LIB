@@ -160,18 +160,6 @@
     #endif
 #endif
 
-#if !defined(INITIAL_SKULL_SLOWDOWN)
-    #if defined(TURN_BASED)
-        #define INITIAL_SKULL_SLOWDOWN 15000
-    #elif defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
-        #define INITIAL_SKULL_SLOWDOWN 32000    
-    #elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
-        #define INITIAL_SKULL_SLOWDOWN 29000    
-    #else
-        #define INITIAL_SKULL_SLOWDOWN 30000
-    #endif
-#endif
-
 
 #define FIRST_HORIZONTAL_WALLS_LEVEL 6
 

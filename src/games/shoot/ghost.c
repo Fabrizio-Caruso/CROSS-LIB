@@ -41,6 +41,8 @@ extern Character bombs[BOMBS_NUMBER];
 
 extern uint8_t isBossLevel;
 
+extern uint16_t levelSlowDown;
+
 void checkBombsVsGhost(register Character * ghostPtr)
 {
     uint8_t reachedBombInd = characterReachedBombs(ghostPtr);
@@ -125,9 +127,9 @@ uint16_t computeGhostSlowDown(void)
     if(ghostLevel<MAX_GHOST_LEVEL)
     {
         #if defined(TURN_BASED)
-            return INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256-ghostLevel*4;        
+            return levelSlowDown-ghostLevel*4;        
         #else
-            return INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256-ghostLevel*8;
+            return levelSlowDown-ghostLevel*8;
         #endif
     }
     return GHOST_MIN_SLOWDOWN;

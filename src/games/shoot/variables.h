@@ -278,4 +278,5 @@ uint8_t isRocketLevel;
 uint8_t isInnerHorizontalWallLevel;
 uint8_t isInnerVerticalWallLevel;
 
+uint16_t levelSlowDown;
 #endif // _VARIABLES_H

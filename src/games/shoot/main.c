@@ -309,6 +309,8 @@ int main(void)
             #endif
             
             computeSkullParameters();                
+            
+            levelSlowDown = INITIAL_GHOST_SLOWDOWN;
             ghostSlowDown = computeGhostSlowDown();
             
             CLEAR_SCREEN();

@@ -260,6 +260,7 @@ int main(void)
             #if !defined(FULL_GAME)
                 ghostSlowDown = INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256;
             #else
+                levelSlowDown = INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256;
                 ghostSlowDown = computeGhostSlowDown();
             #endif
             

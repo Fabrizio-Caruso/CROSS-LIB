@@ -33,15 +33,19 @@ extern uint16_t loop;
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 
+
 #if defined(FULL_GAME)
+
+extern uint16_t levelSlowDown;
+
 uint16_t computeGhostSlowDown(void)
 {
 	if((loop<MAX_GHOST_LOOP) && (ghostLevel<MAX_GHOST_LEVEL))
 	{
 		#if defined(TURN_BASED)
-			return INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256-ghostLevel*8;		
+			return levelSlowDown-ghostLevel*8;		
 		#else
-			return INITIAL_GHOST_SLOWDOWN-(uint16_t)level*256-ghostLevel*16;
+			return levelSlowDown-ghostLevel*16;
 		#endif
 	}
 	return GHOST_MIN_SLOWDOWN;

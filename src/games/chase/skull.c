@@ -52,15 +52,20 @@ extern uint8_t isBossLevel;
 	extern uint8_t confuseActive;
 #endif
 
+
 #if defined(FULL_GAME)
+
+extern uint16_t levelSlowDown;
+
+
 uint16_t computeSkullSlowDown(void)
 {
 	if(loop<MAX_SKULL_LOOP)
 	{
 		#if defined(TURN_BASED)
-			return INITIAL_SKULL_SLOWDOWN - level * 256 - ghostLevel*8;				
+			return levelSlowDown - ghostLevel*8;				
 		#else
-			return INITIAL_SKULL_SLOWDOWN - level * 256 - ghostLevel*16;		
+			return levelSlowDown - ghostLevel*16;		
 		#endif
 	}
 	return SKULL_MIN_SLOWDOWN; // You must die!

@@ -289,7 +289,8 @@ void superEffect(void)
 {
     _freezeEffect();
     _firePowerEffect();
-    _invincibilityEffect();
+    invincibilityActive = 1;
+    invincibility_count_down += INVINCIBILITY_COUNT_DOWN/2;
     super._coolDown = ((uint16_t) (SUPER_COOL_DOWN)*8);
 }
 

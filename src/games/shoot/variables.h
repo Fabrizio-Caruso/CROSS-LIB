@@ -206,7 +206,7 @@ extern Image DEAD_GHOST_IMAGE;
 
     uint8_t destroyerActivated;
     uint8_t destroyerActive;
-    uint16_t destroyer_count_down;
+    uint8_t destroyer_count_down;
 #endif
 
 #define confuse_present_on_level_condition missileBasesDestroyed
@@ -214,19 +214,19 @@ extern Image DEAD_GHOST_IMAGE;
 #if defined(USE_MEMORY_BUFFERS)
     extern Character rockets[];
 
-    extern uint16_t invincibility_count_down;	
+    extern uint8_t invincibility_count_down;	
 
-    extern uint16_t confuse_count_down;
+    extern uint8_t confuse_count_down;
 
-    extern uint16_t suicide_count_down;		
+    extern uint8_t suicide_count_down;		
 #else
     Character rockets[ROCKETS_NUMBER];
 
-    uint16_t invincibility_count_down;	
+    uint8_t invincibility_count_down;	
 
-    uint16_t confuse_count_down;
+    uint8_t confuse_count_down;
 
-    uint16_t suicide_count_down;	
+    uint8_t suicide_count_down;	
 #endif
 	
 
@@ -240,13 +240,13 @@ extern Image DEAD_GHOST_IMAGE;
 
 
 #if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
-    extern uint16_t freeze_count_down;
+    extern uint8_t freeze_count_down;
     
     extern uint8_t playerDirection; // 0: right, 1: down, 2: left, 3: up
     extern uint8_t freezeActive; // freezeActive			
     extern uint8_t extraLifeThroughPointsCounter;			
 #else
-    uint16_t freeze_count_down;
+    uint8_t freeze_count_down;
     
     uint8_t playerDirection; // 0: right, 1: down, 2: left, 3: up
     uint8_t freezeActive; // freezeActive	

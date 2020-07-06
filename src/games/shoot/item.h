@@ -40,7 +40,7 @@ struct ItemStruct
 
 typedef struct ItemStruct Item;
 
-void handle_count_down(uint8_t * flagPtr, uint16_t * countDownPtr);    
+void handle_count_down(uint8_t * flagPtr, uint8_t * countDownPtr);    
 
 void reduceItemCoolDowns(void);
 
@@ -88,14 +88,19 @@ void suicideEffect(void);
 #define handle_suicide_count_down() handle_count_down(&suicideActive,&suicide_count_down)
 #define handle_destroyer_count_down() handle_count_down(&destroyerActive,&destroyer_count_down)
 
+// Standard items
 #define handle_calmDown_item() handle_item(&calmDown);
 #define handle_freeze_item() handle_item(&freeze);    
-#define handle_super_item() handle_item(&super)
 #define handle_firePower_item() handle_item(&firePower);
 #define handle_fireCharge_item() handle_item(&fireCharge);
 #define handle_bombCharge_item() handle_item(&bombCharge);
+
+// To be Triggered 
 #define handle_invincibility_item() handle_item(&invincibility)
 #define handle_extraPoints_item() handle_item(&extraPoints);
+
+// Secret
+#define handle_super_item() handle_item(&super)
 #define handle_confuse_item() handle_item(&confuse);
 #define handle_suicide_item() handle_item(&suicide);
 #define handle_extraLife_item() handle_item(&extraLife)

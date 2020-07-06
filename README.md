@@ -7,10 +7,10 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
 This is a personal project whose goal is the creation of:
 1. *CrossLib*, a *retro-hardware abstraction layer* for coding "universal" (mostly 8-bit) games. These games are the proof of the flexibility of *CrossLib*.
-3. "Cross Chase" is a "universal" 8-bit game that can be compiled for and run
+3. *Cross Chase* is a "universal" 8-bit game that can be compiled for and run
 on (nearly) ALL 8-bit computers, game consoles, hand-held game consoles and scientific calculators. 
 It can be parametrized in a way to make it run on systems with as little as 3k or 4k of available memory for the code.
-4. "Cross Shoot" is a second "universal" 8-bit game that can also be compiled on a multitude of 8-bit computers and consoles. 
+4. *Cross Shoot* is a second "universal" 8-bit game that can also be compiled on a multitude of 8-bit computers and consoles. 
 It requires more memory than "Cross Chase" but it should be equally universal as long as the required memory is available.
 
 

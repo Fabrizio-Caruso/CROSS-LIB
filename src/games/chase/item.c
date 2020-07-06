@@ -13,7 +13,7 @@ extern uint8_t lives;
 extern uint8_t level;
 
 extern uint8_t freezeActive;
-extern uint16_t freeze_count_down;
+extern uint8_t freeze_count_down;
 
 
 #if defined(FULL_GAME)
@@ -21,9 +21,9 @@ extern uint16_t freeze_count_down;
 	extern uint8_t confuseActive;
 	extern uint8_t zombieActive;
 	
-	extern uint16_t invincibility_count_down;
-	extern uint16_t confuse_count_down;
-	extern uint16_t zombie_count_down;
+	extern uint8_t invincibility_count_down;
+	extern uint8_t confuse_count_down;
+	extern uint8_t zombie_count_down;
 	
 	extern uint8_t missileBasesDestroyed;
 	extern uint8_t skullsKilled;	
@@ -171,7 +171,7 @@ extern Item extraPoints;
 		}
 	}
 
-	void handle_count_down(uint8_t * activeItemFlagPtr, uint16_t * countDownPtr)
+	void handle_count_down(uint8_t * activeItemFlagPtr, uint8_t * countDownPtr)
 	{
 		if(*activeItemFlagPtr)
 		{

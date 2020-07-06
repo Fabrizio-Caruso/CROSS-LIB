@@ -219,19 +219,19 @@
 	#if defined(USE_MEMORY_BUFFERS)
 		extern Character rockets[];
 
-		extern uint16_t invincibility_count_down;	
+		extern uint8_t invincibility_count_down;	
 	
-		extern uint16_t confuse_count_down;
+		extern uint8_t confuse_count_down;
 	
-		extern uint16_t zombie_count_down;		
+		extern uint8_t zombie_count_down;		
 	#else
 		Character rockets[ROCKETS_NUMBER];
 	
-		uint16_t invincibility_count_down;	
+		uint8_t invincibility_count_down;	
 	
-		uint16_t confuse_count_down;
+		uint8_t confuse_count_down;
 	
-		uint16_t zombie_count_down;	
+		uint8_t zombie_count_down;	
 	#endif
 	
 #endif
@@ -246,13 +246,13 @@
 
 #if !defined(TINY_GAME)
 	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
-		extern uint16_t freeze_count_down;
+		extern uint8_t freeze_count_down;
 		
 		extern uint8_t playerDirection; // 0: right, 1: down, 2: left, 3: up
 		extern uint8_t freezeActive; // freezeActive			
 		extern uint8_t extraLifeThroughPointsCounter;			
 	#else
-		uint16_t freeze_count_down;
+		uint8_t freeze_count_down;
 		
 		uint8_t playerDirection; // 0: right, 1: down, 2: left, 3: up
 		uint8_t freezeActive; // freezeActive	

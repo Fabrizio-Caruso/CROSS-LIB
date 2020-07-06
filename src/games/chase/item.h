@@ -18,7 +18,7 @@
 
 	typedef struct ItemStruct Item;
 
-	void handle_count_down(uint8_t * activeItemFlagPtr, uint16_t * countDownPtr);	
+	void handle_count_down(uint8_t * activeItemFlagPtr, uint8_t * countDownPtr);	
 
 	void reducePowerUpsCoolDowns(void);
 	

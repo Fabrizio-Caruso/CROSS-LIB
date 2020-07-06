@@ -21,6 +21,7 @@ The game's goal is to lure the "ghosts" into the mines and possibly kill the "sk
 You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.
 All flashing items have positive effects and can grant you some special powers. Discover the 10 items.
 If you use the gun against the skull and/or the missiles and rockets, you can unlock some special secret items.
+There are 20 different levels including 4 boss levels.
 
 You can play the game on-line for different systems:
 
@@ -30,7 +31,23 @@ You can play the game on-line for different systems:
 4. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
 5. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_chase
 
+
 -------------------------------------------
+
+## CROSS SHOOT - THE GAME 
+The game's goal is to kill all enemies but shooting at them. Common enemies can be killed quickly if pushed with the bullets against the walls.
+The skulls and the boss cannot be pushed and harder to kill.
+You have to avoid all enemies, all walls, rockets and chasing missiles.
+All flashing items have positive effects and can grant you special powers. 
+Your bullets have a limited power that can be increased by catching a special item. 
+You can also fetch the mine item that grants you 3 powerful mines to use against all your enemies.
+Discover the 11 items and 12 secrets.
+You can unlock the 12 secrets by shooting at the skulls and at the missile and rocket bases in different ways.
+The game has 16 different levels including 2 boss levels.
+
+
+-------------------------------------------
+
 
 ## CURRENTLY SUPPORTED ARCHITECTURES
 The main goal is to get the library and game to work on most 8-bit architectures as well as many other architectures:

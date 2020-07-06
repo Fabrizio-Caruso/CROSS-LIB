@@ -89,17 +89,37 @@ uint8_t innerHorizontalWallLength;
 
 uint8_t ghostsOnScreen;
 
+uint8_t firePowerSecret;
+uint8_t fireChargeSecret;
+uint8_t calmDownSecret;
+uint8_t extraPointsSecret;
+uint8_t freezeSecret;
+
+
+#define handle_secret(secretFlag, item) \
+    if(secretFlag) \
+    { \
+        item._coolDown = 4; \
+        secretFlag = 0; \
+    }\
 
 void resetItems()
 {
+
     calmDown._coolDown = CALM_DOWN_COOL_DOWN;
     firePower._coolDown = FIRE_POWER_COOL_DOWN;
     fireCharge._coolDown = FIRE_CHARGE_COOL_DOWN;
+    freeze._coolDown = FREEZE_COOL_DOWN;
     bombCharge._coolDown = BOMB_CHARGE_COOL_DOWN;
-    extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;        
     
-    freeze._coolDown = FREEZE_COOL_DOWN;                
+    extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;
     invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
+
+    handle_secret(calmDownSecret, calmDown);
+    handle_secret(freezeSecret, freeze);
+    handle_secret(extraPointsSecret, extraPoints);
+    
+    handle_secret(firePowerSecret, firePower);
 
     super._coolDown = SUPER_COOL_DOWN;
     extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
@@ -198,6 +218,11 @@ int main(void)
         missileBasesDestroyed = 0;
         skullsKilled = 0;
         
+        firePowerSecret = 0;
+        calmDownSecret = 0;
+        extraPointsSecret = 0;
+        freezeSecret = 0;
+        fireChargeSecret = 0;
         
         do // Level (Re-)Start
         {
@@ -265,7 +290,16 @@ int main(void)
                             
             
             skullActive = 0;
-            guns = 0;
+            
+            if(fireChargeSecret)
+            {
+                guns = SECRET_GUNS;
+                fireChargeSecret = 0;
+            }
+            else
+            {
+                guns = 0;
+            }
             
             resetItems();
             
@@ -315,7 +349,6 @@ int main(void)
             
             fillLevelWithCharacters();            
             
-
             constructItems();    
             
             displayStatsTitles();
@@ -516,6 +549,19 @@ int main(void)
 
                 points+= LEVEL_BONUS*level+ghostCount*GHOSTS_VS_SUICIDE_BONUS;
                 printLevelBonus(LEVEL_BONUS*level+ghostCount*GHOSTS_VS_SUICIDE_BONUS);
+
+                if(ghostCount>=CALM_DOWN_SECRET_THRESHOLD)
+                {
+                    calmDownSecret = 1;
+                    if(ghostCount>=EXTRA_POINTS_SECRET_THRESHOLD)
+                    {
+                        extraPointsSecret = 1;
+                        if(ghostCount>=FREEZE_SECRET_THRESHOLD)
+                        {
+                            freezeSecret = 1;
+                        }
+                    }
+                }
 
                 SLEEP(2);
                 CLEAR_SCREEN();                        

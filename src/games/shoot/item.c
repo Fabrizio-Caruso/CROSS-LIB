@@ -94,6 +94,9 @@ extern uint8_t destroyerActivated;
 extern uint8_t destroyerActive;
 extern uint8_t destroyer_count_down;
 
+extern uint8_t firePowerSecret;
+extern uint8_t fireChargeSecret;
+
 void itemReached(Character * itemPtr)
 {
     ZAP_SOUND();
@@ -131,6 +134,7 @@ void _increaseBullets(uint8_t bullets)
     else
     {
         guns=MAX_GUNS;
+        fireChargeSecret = 1;
     }
     printGunsStats();
 }
@@ -174,7 +178,14 @@ void calmDownEffect(void)
 
 void _firePowerEffect(void)
 {
-    ++bulletStrength;
+    if(bulletStrength<9)
+    {
+        ++bulletStrength;
+    }
+    if(bulletStrength==FIRE_POWER_THRESHOLD)
+    {
+        firePowerSecret = 1;
+    }
     points+=FIRE_POWER_BONUS;
     printFirePowerStats();
 }

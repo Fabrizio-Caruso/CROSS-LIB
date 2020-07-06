@@ -308,13 +308,14 @@ out            stb res
         }
     #else
         #include<joystick.h>
-
+        
+        
         void WAIT_PRESS(void)
         {
-            while ((joy_read(JOY_1) & JOY_BTN_1_MASK))
+            while ((joy_read(STANDARD_JOY) & JOY_BTN_1_MASK))
             {
             }
-            while (! (joy_read(JOY_1) & JOY_BTN_1_MASK))
+            while (! (joy_read(STANDARD_JOY) & JOY_BTN_1_MASK))
             {
             }
         }    

@@ -176,13 +176,10 @@ extern uint8_t playerBlink;
         #endif
     }
 #else
-    #if defined(__ATARI__) || defined(__ATARIXL__)
-        #include <peekpoke.h>
-        #define INPUT_POST_PROC() POKE(77,0)
-    #else
-        #define INPUT_POST_PROC()
-    #endif
-    void MOVE_PLAYER(void) { movePlayerByJoystick(joy_read(JOY_1));    INPUT_POST_PROC();}
+    void MOVE_PLAYER(void) 
+    { 
+        movePlayerByJoystick(JOY_INPUT());    
+    }
 #endif
 
 

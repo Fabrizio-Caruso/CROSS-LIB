@@ -86,7 +86,15 @@
         #endif
 	#endif // defined(Z88DK_JOYSTICK)
 
+
 #if defined(JOYSTICK_CONTROL)
+
+        #if defined(__C64__) || defined(__C128__)
+            #define STANDARD_JOY JOY_2
+        #else
+            #define STANDARD_JOY JOY_1
+        #endif
+
     #if defined(Z88DK_JOYSTICK)
         #include <games.h>
         
@@ -129,7 +137,7 @@
     #elif defined(__LCC1802__)
         #define JOY_INPUT() get_stick(0)
     #else
-        #define JOY_INPUT() joy_read(JOY_1)
+        #define JOY_INPUT() joy_read(STANDARD_JOY)
     #endif // defined(Z88DK_JOYSTICK)
     
 #endif

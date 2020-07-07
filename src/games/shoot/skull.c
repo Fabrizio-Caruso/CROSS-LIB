@@ -164,7 +164,7 @@ void handle_skulls(void)
             }
         }
         
-        if(isBossLevel && skulls[BOSS_INDEX]._status && !(loop&31) && (ghostCount<=ghostsOnScreen))
+        if(isBossLevel && skulls[BOSS_INDEX]._status && !(loop&63) && (ghostCount<=ghostsOnScreen))
         {
             i=0;
             while((i<ghostsOnScreen)&&(ghosts[i]._status))

@@ -172,7 +172,7 @@ void calmDownEffect(void)
     }
     points+=CALM_DOWN_BONUS;
     freezeActive = 1;
-    freeze_count_down += 10;
+    freeze_count_down += FREEZE_COUNT_DOWN/4;
     calmDown._coolDown = CALM_DOWN_COOL_DOWN*8;    
 }
 
@@ -276,7 +276,10 @@ void extraLifeEffect(void)
 void _invincibilityEffect(void)
 {
     invincibilityActive = 1;
-    invincibility_count_down += INVINCIBILITY_COUNT_DOWN;            
+    if(invincibility_count_down<INVINCIBILITY_COUNT_DOWN)
+    {
+        invincibility_count_down = INVINCIBILITY_COUNT_DOWN;
+    }
 }
 
 void invincibilityEffect(void)
@@ -289,8 +292,7 @@ void superEffect(void)
 {
     _freezeEffect();
     _firePowerEffect();
-    invincibilityActive = 1;
-    invincibility_count_down += INVINCIBILITY_COUNT_DOWN/2;
+    _invincibilityEffect();
     super._coolDown = ((uint16_t) (SUPER_COOL_DOWN)*8);
 }
 
@@ -326,7 +328,7 @@ void handle_destroyer_trigger(void)
         destroyerActive = 1;
         destroyerActivated = 1;
         invincibilityActive = 1;
-        invincibility_count_down+= DESTROYER_COUNT_DOWN+INVINCIBILITY_COUNT_DOWN/4;
+        invincibility_count_down= DESTROYER_COUNT_DOWN+INVINCIBILITY_COUNT_DOWN/4;
         destroyer_count_down = DESTROYER_COUNT_DOWN;
     }
 }

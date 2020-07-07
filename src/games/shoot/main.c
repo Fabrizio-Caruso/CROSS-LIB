@@ -99,7 +99,7 @@ uint8_t freezeSecret;
 #define handle_secret(secretFlag, item) \
     if(secretFlag) \
     { \
-        item._coolDown = 4; \
+        item._coolDown = 2; \
         secretFlag = 0; \
     }\
 
@@ -602,11 +602,17 @@ int main(void)
                 {
                     player._status = 1;
                 }
+                firePowerSecret = 0;
+                calmDownSecret = 0;
+                extraPointsSecret = 0;
+                freezeSecret = 0;
+                fireChargeSecret = 0;
             }
             #if defined(BETWEEN_LEVEL)
                 spiral(chasedEnemyPtr, 2*MIN_SIZE-18);
                 SLEEP(1);
-            #endif                
+            #endif
+            
         } while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 
             
         if(level==FINAL_LEVEL+1) // if completed game

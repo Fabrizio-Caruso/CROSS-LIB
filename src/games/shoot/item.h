@@ -108,5 +108,8 @@ void suicideEffect(void);
 
 void handle_destroyer_trigger(void);
 
+void setSecret(uint8_t secretIndex);
+
+
 #endif // _item.h
 

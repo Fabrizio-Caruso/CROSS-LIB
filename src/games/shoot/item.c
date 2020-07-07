@@ -97,6 +97,8 @@ extern uint8_t destroyer_count_down;
 extern uint8_t firePowerSecret;
 extern uint8_t fireChargeSecret;
 
+extern uint8_t discoveredSecrets[];
+
 void itemReached(Character * itemPtr)
 {
     ZAP_SOUND();
@@ -200,6 +202,7 @@ void extraPointsEffect(void)
 {
     points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
     extraPoints._coolDown = SECOND_EXTRA_POINTS_COOL_DOWN;//(EXTRA_POINTS_COOL_DOWN<<4); // second time is harder        
+    setSecret(EXTRA_POINTS_EFFECT_SECRET_INDEX);
 }
 
 void handle_item(register Item *itemPtr)
@@ -271,6 +274,7 @@ void extraLifeEffect(void)
     extraLife_present_on_level = 0;
     // extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*10; // second time must be impossible
     printLivesStats();        
+    setSecret(EXTRA_LIFE_EFFECT_SECRET_INDEX);
 }
 
 void _invincibilityEffect(void)
@@ -286,6 +290,7 @@ void invincibilityEffect(void)
 {
     _invincibilityEffect();
     invincibility._coolDown = ((uint16_t) (INVINCIBILITY_COOL_DOWN)*4);
+    setSecret(INVINCIBILITY_EFFECT_SECRET_INDEX);
 }
 
 void superEffect(void)
@@ -294,6 +299,7 @@ void superEffect(void)
     _firePowerEffect();
     _invincibilityEffect();
     super._coolDown = ((uint16_t) (SUPER_COOL_DOWN)*8);
+    setSecret(SUPER_EFFECT_SECRET_INDEX);
 }
 
 void confuseEffect(void)
@@ -301,6 +307,7 @@ void confuseEffect(void)
     confuseActive = 1;
     confuse._coolDown = SECOND_CONFUSE_COOL_DOWN; //20000UL;//(CONFUSE_COOL_DOWN<<4);
     confuse_count_down = CONFUSE_COUNT_DOWN;
+    setSecret(CONFUSE_EFFECT_SECRET_INDEX);
 }
 
 void suicideEffect(void)
@@ -311,6 +318,7 @@ void suicideEffect(void)
     destroyed_bases_in_completed_levels = 1;
     suicide._coolDown = SECOND_SUICIDE_COOL_DOWN; 
     suicide_count_down = SUICIDE_COUNT_DOWN;
+    setSecret(SUICIDE_EFFECT_SECRET_INDEX);
     for(i=0;i<ghostsOnScreen;++i)
     {
         if(ghosts[i]._status)
@@ -330,7 +338,16 @@ void handle_destroyer_trigger(void)
         invincibilityActive = 1;
         invincibility_count_down= DESTROYER_COUNT_DOWN+INVINCIBILITY_COUNT_DOWN/4;
         destroyer_count_down = DESTROYER_COUNT_DOWN;
+        setSecret(MISSILE_DESTROYER_SECRET_INDEX);
     }
 }
 
+void setSecret(uint8_t secretIndex)
+{   if(!discoveredSecrets[secretIndex])
+    {
+        TOCK_SOUND();
+        discoveredSecrets[secretIndex] = 1;
+        TOCK_SOUND();
+    }
+}
 

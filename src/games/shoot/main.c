@@ -97,11 +97,11 @@ uint8_t freezeSecret;
 
 uint8_t discoveredSecrets[SECRETS_NUMBER];
 
-#define handle_secret(secretFlag, item, secretIndex) \
+#define handle_secret_at_start_up(secretFlag, item, secretIndex) \
     if(secretFlag) \
     { \
         item._coolDown = 2; \
-        discoveredSecrets[secretIndex]=1; \
+        setSecret(secretIndex); \
         secretFlag = 0; \
     }\
 
@@ -129,11 +129,11 @@ void resetItems()
     extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;
     invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
 
-    handle_secret(calmDownSecret, calmDown, CALM_DOWN_AT_START_SECRET_INDEX);
-    handle_secret(extraPointsSecret, extraPoints, EXTRA_POINTS_AT_START_SECRET_INDEX);
-    handle_secret(freezeSecret, freeze, FREEZE_AT_START_SECRET_INDEX);
+    handle_secret_at_start_up(calmDownSecret, calmDown, CALM_DOWN_AT_START_SECRET_INDEX);
+    handle_secret_at_start_up(extraPointsSecret, extraPoints, EXTRA_POINTS_AT_START_SECRET_INDEX);
+    handle_secret_at_start_up(freezeSecret, freeze, FREEZE_AT_START_SECRET_INDEX);
 
-    handle_secret(firePowerSecret, firePower, FIRE_POWER_AT_START_SECRET_INDEX);
+    handle_secret_at_start_up(firePowerSecret, firePower, FIRE_POWER_AT_START_SECRET_INDEX);
 
     super._coolDown = SUPER_COOL_DOWN;
     extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
@@ -303,15 +303,13 @@ int main(void)
             if(fireChargeSecret)
             {
                 guns = SECRET_GUNS;
-                discoveredSecrets[FIRE_CHARGE_AT_START_SECRET_INDEX] = 1;
+                setSecret(FIRE_CHARGE_AT_START_SECRET_INDEX);
                 fireChargeSecret = 0;
             }
             else
             {
                 guns = 0;
             }
-            
-            resetItems();
             
             #if defined(INITIAL_GHOST_FREEZE)
                 freezeActive = 1;
@@ -369,7 +367,7 @@ int main(void)
             
             displayStats();
             
-            
+            resetItems();
             while(player._status && (( ((ghostCount>0)&&(skullsCount)) && !isBossLevel) || (skullsCount && isBossLevel))) // while alive && there are still ghosts
             {                
                 #if defined(DEBUG_END)

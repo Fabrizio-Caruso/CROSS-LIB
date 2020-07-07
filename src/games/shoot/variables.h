@@ -138,7 +138,7 @@ extern Image DEAD_GHOST_IMAGE;
     extern uint8_t super_present_on_level;
     extern uint8_t suicide_present_on_level;
     
-    extern uint8_t dead_rockets;
+    extern uint8_t destroyed_bases;
     
     extern uint8_t arrowRange;
     
@@ -183,7 +183,7 @@ extern Image DEAD_GHOST_IMAGE;
     uint8_t super_present_on_level;
     uint8_t suicide_present_on_level;
     
-    uint8_t dead_rockets;
+    uint8_t destroyed_bases;
     uint8_t rocketsOnScreen;
     
     uint8_t arrowRange;

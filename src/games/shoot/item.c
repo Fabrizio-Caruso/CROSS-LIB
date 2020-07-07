@@ -89,7 +89,7 @@ extern Item extraLife;
 extern Item confuse;
 extern Item suicide;
 
-extern uint8_t dead_rockets;
+extern uint8_t destroyed_bases;
 extern uint8_t destroyerActivated;
 extern uint8_t destroyerActive;
 extern uint8_t destroyer_count_down;
@@ -321,7 +321,7 @@ void suicideEffect(void)
 
 void handle_destroyer_trigger(void)
 {
-    if((dead_rockets>=DESTROYER_TRIGGER_DEAD_ROCKETS)&& !destroyerActivated)
+    if((destroyed_bases>=DEAD_BASES_DESTROYER_TRIGGER)&& !destroyerActivated)
     {
         destroyerActive = 1;
         destroyerActivated = 1;

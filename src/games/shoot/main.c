@@ -263,7 +263,7 @@ int main(void)
             ghostLevel = 0;
         
             
-            dead_rockets = 0;
+            destroyed_bases = 0;
             
             invincibilityActive = 1;                
             invincibility_count_down = INITIAL_INVINCIBILITY_COUNT_DOWN;
@@ -584,7 +584,7 @@ int main(void)
                     {
                         ++skullsKilled;
                     }
-                    missileBasesDestroyed+=dead_rockets;
+                    missileBasesDestroyed+=destroyed_bases;
                 }
                 ++level;
                 ghostCount = GHOSTS_NUMBER + 2*level;

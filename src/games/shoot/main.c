@@ -89,7 +89,9 @@ uint8_t innerHorizontalWallLength;
 
 uint8_t ghostsOnScreen;
 
-uint8_t firePowerSecret;
+uint8_t firePowerItemSecret;
+uint8_t firePowerLevelSecret;
+
 uint8_t fireChargeSecret;
 uint8_t calmDownSecret;
 uint8_t extraPointsSecret;
@@ -133,7 +135,7 @@ void resetItems()
     handle_secret_item_at_start_up(extraPointsSecret, extraPoints, EXTRA_POINTS_AT_START_SECRET_INDEX);
     handle_secret_item_at_start_up(freezeSecret, freeze, FREEZE_AT_START_SECRET_INDEX);
 
-    handle_secret_item_at_start_up(firePowerSecret, firePower, FIRE_POWER_AT_START_SECRET_INDEX);
+    handle_secret_item_at_start_up(firePowerItemSecret, firePower, FIRE_POWER_AT_START_SECRET_INDEX);
 
     super._coolDown = SUPER_COOL_DOWN;
     extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
@@ -225,7 +227,7 @@ int main(void)
         destroyed_bases_in_completed_levels = 0;
         all_skulls_killed_in_completed_levels = 0;
         
-        firePowerSecret = 0;
+        firePowerItemSecret = 0;
         calmDownSecret = 0;
         extraPointsSecret = 0;
         freezeSecret = 0;
@@ -335,9 +337,17 @@ int main(void)
             
                         
             arrowRange = computeArrowRange();
-        
-            bulletStrength = 2;
             
+            if(firePowerLevelSecret)
+            {
+                bulletStrength = firePowerLevelSecret;
+                setSecret(FIRE_POWER_LEVEL_SECRET_INDEX);
+                firePowerLevelSecret = 0;
+            }
+            else
+            {
+                bulletStrength = 2;
+            }
         
             if(isBossLevel)
             {
@@ -612,7 +622,7 @@ int main(void)
                 {
                     player._status = 1;
                 }
-                firePowerSecret = 0;
+                firePowerItemSecret = 0;
                 calmDownSecret = 0;
                 extraPointsSecret = 0;
                 freezeSecret = 0;

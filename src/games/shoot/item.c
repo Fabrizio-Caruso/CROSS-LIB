@@ -96,7 +96,8 @@ extern uint8_t bombDestroyerActivated;
 extern uint8_t destroyerActive;
 extern uint8_t destroyer_count_down;
 
-extern uint8_t firePowerSecret;
+extern uint8_t firePowerItemSecret;
+extern uint8_t firePowerLevelSecret;
 extern uint8_t fireChargeSecret;
 
 extern uint8_t discoveredSecrets[];
@@ -186,9 +187,13 @@ void _firePowerEffect(void)
     {
         ++bulletStrength;
     }
-    if(bulletStrength==FIRE_POWER_THRESHOLD)
+    if(bulletStrength==FIRE_POWER_ITEM_THRESHOLD)
     {
-        firePowerSecret = 1;
+        firePowerItemSecret = 1;
+    }
+    if(bulletStrength==FIRE_POWER_LEVEL_THRESHOLD)
+    {
+        firePowerLevelSecret = bulletStrength-FIRE_POWER_LEVEL_THRESHOLD+1;
     }
     points+=FIRE_POWER_BONUS;
     printFirePowerStats();

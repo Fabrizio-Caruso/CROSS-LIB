@@ -344,9 +344,7 @@ int main(void)
                     handle_horizontal_missiles();
                 #endif
                 
-                #if !defined(TINY_GAME) || defined(TURN_BASED)
-                ++loop;
-                #endif
+
                 #if !defined(TINY_GAME)
                 if(points>(extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS))
                 {
@@ -362,8 +360,6 @@ int main(void)
                     {
                         --ghostSlowDown;
                     }
-                #else
-                    ghostSlowDown = computeGhostSlowDown();
                 #endif
                 #if !defined(TINY_GAME)
                     handle_bullet();
@@ -489,6 +485,10 @@ int main(void)
                     }
                     SKIP_WALL_DRAW
                     {                        
+                    
+                        #if defined(FULL_GAME)
+                            ghostSlowDown = computeGhostSlowDown();
+                        #endif
                         DRAW_VERTICAL_LINE(XSize/2, YSize/2-(innerVerticalWallLength/2), innerVerticalWallLength);            
                 
                         if(isHorizontalWallsLevel)
@@ -521,6 +521,9 @@ int main(void)
                     }                    
                     _DRAW_PLAYER();    
                 #endif    
+                #if !defined(TINY_GAME) || defined(TURN_BASED)
+                    ++loop;
+                #endif
                 REFRESH();
             }; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
     

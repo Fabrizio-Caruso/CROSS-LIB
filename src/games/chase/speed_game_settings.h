@@ -5,19 +5,19 @@
 #if defined(TINY_GAME) || defined(TURN_BASED) || !defined(GHOST_DRAW_SKIP)
     #define SKIP_GHOST_DRAW 
 #else
-    #define SKIP_GHOST_DRAW if((loop&(GHOST_DRAW_SKIP))==1)
+    #define SKIP_GHOST_DRAW if((!(loop&(GHOST_DRAW_SKIP)))
 #endif
 
 #if defined(TINY_GAME) || defined(TURN_BASED) || !defined(BOMB_DRAW_SKIP)
     #define SKIP_BOMB_DRAW 
 #else
-    #define SKIP_BOMB_DRAW if((loop&(BOMB_DRAW_SKIP))==1)
+    #define SKIP_BOMB_DRAW if(!(loop&(BOMB_DRAW_SKIP)))
 #endif
 
 #if defined(TURN_BASED) || !defined(WALL_DRAW_SKIP)
     #define SKIP_WALL_DRAW 
 #else
-    #define SKIP_WALL_DRAW if((loop&(WALL_DRAW_SKIP))==1)
+    #define SKIP_WALL_DRAW if((!(loop&(WALL_DRAW_SKIP))))
 #endif
 
 

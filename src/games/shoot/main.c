@@ -384,10 +384,7 @@ int main(void)
                     printLivesStats();
                 }
                 
-                if(!(loop&63))
-                {
-                    ghostSlowDown = computeGhostSlowDown();
-                }
+
                 handle_bullets();
                 handle_bomb();
                 
@@ -517,6 +514,7 @@ int main(void)
                     
                 SKIP_WALL_DRAW
                 {
+                    ghostSlowDown = computeGhostSlowDown();
                     
                     if(isInnerVerticalWallLevel)
                     {

@@ -108,7 +108,7 @@ extern Character bombs[BOMBS_NUMBER];
 
     extern uint8_t rockets_x[ROCKETS_NUMBER];
     
-    extern uint8_t skullsKilled;
+    extern uint8_t all_skulls_killed_in_completed_levels;
 #endif
 
 

@@ -137,10 +137,10 @@ void initialScreen(void)
     
     void handle_special_triggers(void)
     {
-        // confuse_present_on_level_condition is defined as missileBasesDestroyed
-        zombie_present_on_level = missileBasesDestroyed>=MISSILES_FOR_ZOMBIE;
-        super_present_on_level = skullsKilled>=SKULLS_FOR_SUPER;
-        // chase_present_on_level_condition is defined as skullsKilled;
+        // confuse_present_on_level_condition is defined as destroyed_bases_in_completed_leveles
+        zombie_present_on_level = destroyed_bases_in_completed_leveles>=MISSILES_FOR_ZOMBIE;
+        super_present_on_level = all_skulls_killed_in_completed_levels>=SKULLS_FOR_SUPER;
+        // chase_present_on_level_condition is defined as all_skulls_killed_in_completed_levels;
         extraLife_present_on_level = super_present_on_level && zombie_present_on_level;
     }
     
@@ -188,11 +188,11 @@ int main(void)
         ghostCount = GHOSTS_NUMBER;
         #if defined(FULL_GAME)
             #if defined(DEBUG_ITEMS)
-                missileBasesDestroyed = 99;
-                skullsKilled = 99;
+                destroyed_bases_in_completed_leveles = 99;
+                all_skulls_killed_in_completed_levels = 99;
             #else
-                missileBasesDestroyed = 0;
-                skullsKilled = 0;            
+                destroyed_bases_in_completed_leveles = 0;
+                all_skulls_killed_in_completed_levels = 0;            
             #endif            
         #endif
         
@@ -218,7 +218,7 @@ int main(void)
             #if defined(FULL_GAME)
                 ghostLevel = 0;
                 
-                dead_rockets = 0;
+                destroyed_bases = 0;
                 
                 invincibilityActive = 1;                
                 invincibility_count_down = INITIAL_INVINCIBILITY_COUNT_DOWN;
@@ -253,7 +253,7 @@ int main(void)
                 skullXCountDown = SKULL_COUNT_DOWN;
                 skullYCountDown = SKULL_COUNT_DOWN;        
                 #if !defined(FULL_GAME)
-                    skullSlowDown = INITIAL_SKULL_SLOWDOWN;
+                    skullSlowDown = INITIAL_GHOST_SLOWDOWN;
                 #endif
             #endif
 
@@ -563,16 +563,16 @@ int main(void)
                             SLEEP(2);
                         #endif
                         ++lives;
-                        skullsKilled = 1;
-                        missileBasesDestroyed/=2;
+                        all_skulls_killed_in_completed_levels = 1;
+                        destroyed_bases_in_completed_leveles/=2;
                     }
                     else
                     {
                         if(!skull._status)
                         {
-                            ++skullsKilled;
+                            ++all_skulls_killed_in_completed_levels;
                         }
-                        missileBasesDestroyed+=dead_rockets;
+                        destroyed_bases_in_completed_leveles+=destroyed_bases;
                     }
                 #endif
                 ++level;

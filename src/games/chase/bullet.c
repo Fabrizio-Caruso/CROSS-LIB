@@ -67,8 +67,8 @@ extern Character player;
 	extern Character rightHorizontalMissile;
 	extern uint8_t rockets_x[ROCKETS_NUMBER];
 	extern Character rockets[ROCKETS_NUMBER];
-	extern uint8_t dead_rockets;
-	extern uint8_t missileBasesDestroyed;
+	extern uint8_t destroyed_bases;
+	extern uint8_t destroyed_bases_in_completed_leveles;
 
 	extern Character *chasedEnemyPtr;	
     
@@ -200,7 +200,7 @@ void _moveBullet(register Character *bulletPtr)
 		deleteHorizontalMissile(horizontalMissilePtr);
 		points+=HORIZONTAL_MISSILE_BONUS;
 		displayStats();				
-		++dead_rockets;
+		++destroyed_bases;
 		reducePowerUpsCoolDowns();		
 	}
 #endif
@@ -251,7 +251,7 @@ void moveBullet(register Character * bulletPtr)
 					if(bulletPtr->_x==rockets_x[i] && rockets[i]._status)
 					{
 						rockets[i]._status = 0;
-						++dead_rockets;
+						++destroyed_bases;
 						EXPLOSION_SOUND();
 						deleteRocket(&rockets[i]);
 						points+=VERTICAL_MISSILE_BONUS;

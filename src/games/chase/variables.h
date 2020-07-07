@@ -148,13 +148,13 @@
 		extern uint8_t super_present_on_level;
 		extern uint8_t zombie_present_on_level;
 		
-		extern uint8_t dead_rockets;
+		extern uint8_t destroyed_bases;
 		
 		extern uint8_t arrowRange;
 		
-		extern uint8_t skullsKilled;
+		extern uint8_t all_skulls_killed_in_completed_levels;
 		
-		extern uint8_t missileBasesDestroyed;
+		extern uint8_t destroyed_bases_in_completed_leveles;
 		
 		extern uint8_t horizontalWallsLength;
 		
@@ -190,13 +190,13 @@
 		uint8_t super_present_on_level;
 		uint8_t zombie_present_on_level;
 		
-		uint8_t dead_rockets;
+		uint8_t destroyed_bases;
 		
 		uint8_t arrowRange;
 		
-		uint8_t skullsKilled;
+		uint8_t all_skulls_killed_in_completed_levels;
 		
-		uint8_t missileBasesDestroyed;
+		uint8_t destroyed_bases_in_completed_leveles;
 		
 		uint8_t horizontalWallsLength;
 		
@@ -213,8 +213,8 @@
 		
 	#endif
 
-	#define chase_present_on_level_condition skullsKilled
-	#define confuse_present_on_level_condition missileBasesDestroyed
+	#define chase_present_on_level_condition all_skulls_killed_in_completed_levels
+	#define confuse_present_on_level_condition destroyed_bases_in_completed_leveles
 	
 	#if defined(USE_MEMORY_BUFFERS)
 		extern Character rockets[];

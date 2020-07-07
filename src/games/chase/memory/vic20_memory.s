@@ -135,20 +135,20 @@ _super_present_on_level = _extraLife_present_on_level + $1
 .export _zombie_present_on_level;
 _zombie_present_on_level = _super_present_on_level + $1
 
-.export _dead_rockets;
-_dead_rockets = _zombie_present_on_level + $1
+.export _destroyed_bases;
+_destroyed_bases = _zombie_present_on_level + $1
 
 .export _arrowRange;
-_arrowRange = _dead_rockets + $1
+_arrowRange = _destroyed_bases + $1
 
-.export _skullsKilled;
-_skullsKilled = _arrowRange + $1
+.export _all_skulls_killed_in_completed_levels;
+_all_skulls_killed_in_completed_levels = _arrowRange + $1
 
-.export _missileBasesDestroyed;
-_missileBasesDestroyed = _skullsKilled + $1
+.export _destroyed_bases_in_completed_leveles;
+_destroyed_bases_in_completed_leveles = _all_skulls_killed_in_completed_levels + $1
 
 .export _horizontalWallsLength;
-_horizontalWallsLength = _missileBasesDestroyed + $1
+_horizontalWallsLength = _destroyed_bases_in_completed_leveles + $1
 
 .export _invincibilityActive;
 _invincibilityActive = _horizontalWallsLength + $1

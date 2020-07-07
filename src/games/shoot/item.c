@@ -90,7 +90,9 @@ extern Item confuse;
 extern Item suicide;
 
 extern uint8_t destroyed_bases;
-extern uint8_t destroyerActivated;
+extern uint8_t exploded_bombs;
+extern uint8_t missileDestroyerActivated;
+extern uint8_t bombDestroyerActivated;
 extern uint8_t destroyerActive;
 extern uint8_t destroyer_count_down;
 
@@ -329,16 +331,28 @@ void suicideEffect(void)
     }
 }
 
-void handle_destroyer_trigger(void)
+void activate_destroyer(void)
 {
-    if((destroyed_bases>=DEAD_BASES_DESTROYER_TRIGGER)&& !destroyerActivated)
+    destroyerActive = 1;
+    invincibilityActive = 1;
+    invincibility_count_down= DESTROYER_COUNT_DOWN+INVINCIBILITY_COUNT_DOWN/4;
+    destroyer_count_down = DESTROYER_COUNT_DOWN;
+}
+
+void handle_destroyer_triggers(void)
+{
+    if((destroyed_bases>=MISSILE_DESTROYER_TRIGGER)&& !missileDestroyerActivated)
     {
-        destroyerActive = 1;
-        destroyerActivated = 1;
-        invincibilityActive = 1;
-        invincibility_count_down= DESTROYER_COUNT_DOWN+INVINCIBILITY_COUNT_DOWN/4;
-        destroyer_count_down = DESTROYER_COUNT_DOWN;
+        missileDestroyerActivated = 1;
+        activate_destroyer();
         setSecret(MISSILE_DESTROYER_SECRET_INDEX);
+    }
+    
+    if((exploded_bombs>=BOMB_DESTROYER_TRIGGER)&& !bombDestroyerActivated)
+    {
+        bombDestroyerActivated = 1;
+        activate_destroyer();
+        setSecret(BOMB_DESTROYER_SECRET_INDEX);
     }
 }
 

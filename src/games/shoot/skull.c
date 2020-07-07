@@ -64,6 +64,8 @@ extern Image GHOST_IMAGE;
 
 extern uint16_t levelSlowDown;
 
+extern uint8_t exploded_bombs;
+
 uint16_t computeSkullSlowDown(void)
 {
     if(loop<MAX_SKULL_LOOP)
@@ -192,6 +194,7 @@ void checkBombsVsSkull(register Character * skullPtr)
         
         bombs[reachedBombInd]._status = 0;
         deleteBomb(&bombs[reachedBombInd]);
+        ++exploded_bombs;
         EXPLOSION_SOUND();
         
         if(skullPtr->_status<=SKULL_BOMB_THRESHOLD)

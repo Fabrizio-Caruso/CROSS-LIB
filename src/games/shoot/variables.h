@@ -158,9 +158,12 @@ extern Image DEAD_GHOST_IMAGE;
     extern uint8_t innerVerticalWallX; 
     extern uint8_t innerVerticalWallLength;
 
-    extern uint8_t destroyerActivated;
+    extern uint8_t missileDestroyerActivated;
+    extern uint8_t bombDestroyerActivated;
     extern uint8_t destroyerActive;
     extern uint8_t destroyer_count_down;
+    extern uint8_t exploded_bombs;
+
 #else
     Item calmDown; 
     Item bombCharge;		
@@ -204,9 +207,11 @@ extern Image DEAD_GHOST_IMAGE;
     uint8_t innerVerticalWallX; 
     uint8_t innerVerticalWallLength;
 
-    uint8_t destroyerActivated;
+    uint8_t missileDestroyerActivated;
+    uint8_t bombDestroyerActivated;
     uint8_t destroyerActive;
     uint8_t destroyer_count_down;
+    uint8_t exploded_bombs;
 #endif
 
 #define confuse_present_on_level_condition destroyed_bases_in_completed_levels

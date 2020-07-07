@@ -43,6 +43,9 @@ extern uint8_t isBossLevel;
 
 extern uint16_t levelSlowDown;
 
+extern uint8_t exploded_bombs;
+
+
 void checkBombsVsGhost(register Character * ghostPtr)
 {
     uint8_t reachedBombInd = characterReachedBombs(ghostPtr);
@@ -51,6 +54,7 @@ void checkBombsVsGhost(register Character * ghostPtr)
         points+=GHOST_VS_BOMBS_BONUS;
         bombs[reachedBombInd]._status = 0;
         ghostDies(ghostPtr);
+        ++exploded_bombs;
     }
 }
 

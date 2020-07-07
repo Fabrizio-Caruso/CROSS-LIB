@@ -97,7 +97,7 @@ uint8_t freezeSecret;
 
 uint8_t discoveredSecrets[SECRETS_NUMBER];
 
-#define handle_secret_at_start_up(secretFlag, item, secretIndex) \
+#define handle_secret_item_at_start_up(secretFlag, item, secretIndex) \
     if(secretFlag) \
     { \
         item._coolDown = 2; \
@@ -129,11 +129,11 @@ void resetItems()
     extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;
     invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
 
-    handle_secret_at_start_up(calmDownSecret, calmDown, CALM_DOWN_AT_START_SECRET_INDEX);
-    handle_secret_at_start_up(extraPointsSecret, extraPoints, EXTRA_POINTS_AT_START_SECRET_INDEX);
-    handle_secret_at_start_up(freezeSecret, freeze, FREEZE_AT_START_SECRET_INDEX);
+    handle_secret_item_at_start_up(calmDownSecret, calmDown, CALM_DOWN_AT_START_SECRET_INDEX);
+    handle_secret_item_at_start_up(extraPointsSecret, extraPoints, EXTRA_POINTS_AT_START_SECRET_INDEX);
+    handle_secret_item_at_start_up(freezeSecret, freeze, FREEZE_AT_START_SECRET_INDEX);
 
-    handle_secret_at_start_up(firePowerSecret, firePower, FIRE_POWER_AT_START_SECRET_INDEX);
+    handle_secret_item_at_start_up(firePowerSecret, firePower, FIRE_POWER_AT_START_SECRET_INDEX);
 
     super._coolDown = SUPER_COOL_DOWN;
     extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
@@ -273,12 +273,14 @@ int main(void)
         
             
             destroyed_bases = 0;
+            exploded_bombs = 0;
             
             invincibilityActive = 1;                
             invincibility_count_down = INITIAL_INVINCIBILITY_COUNT_DOWN;
             
             destroyerActive = 0;
-            destroyerActivated = 0;
+            missileDestroyerActivated = 0;
+            bombDestroyerActivated = 0;
             
             #if !defined(INITIAL_GHOST_FREEZE)
                 freezeActive = 0;
@@ -461,7 +463,7 @@ int main(void)
                 handle_invincibility_item();
                 handle_invincibility_count_down();                    
 
-                handle_destroyer_trigger();
+                handle_destroyer_triggers();
                 handle_destroyer_count_down();
                     
                 if(super_present_on_level)

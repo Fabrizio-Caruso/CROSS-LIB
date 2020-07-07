@@ -106,7 +106,7 @@ void suicideEffect(void);
 #define handle_extraLife_item() handle_item(&extraLife)
 
 
-void handle_destroyer_trigger(void);
+void handle_destroyer_triggers(void);
 
 void setSecret(uint8_t secretIndex);
 

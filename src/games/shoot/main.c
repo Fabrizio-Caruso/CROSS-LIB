@@ -383,9 +383,11 @@ int main(void)
                     ++lives;
                     printLivesStats();
                 }
-
-                ghostSlowDown = computeGhostSlowDown();
-            
+                
+                if(!(loop&63))
+                {
+                    ghostSlowDown = computeGhostSlowDown();
+                }
                 handle_bullets();
                 handle_bomb();
                 

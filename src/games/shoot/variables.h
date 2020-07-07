@@ -279,4 +279,8 @@ uint8_t isInnerHorizontalWallLevel;
 uint8_t isInnerVerticalWallLevel;
 
 uint16_t levelSlowDown;
+
+// #define SECRETS_NUMBER 12
+// uint8_t foundSecrets[SECRETS_NUMBER];
+
 #endif // _VARIABLES_H

@@ -95,13 +95,27 @@ uint8_t calmDownSecret;
 uint8_t extraPointsSecret;
 uint8_t freezeSecret;
 
+uint8_t discoveredSecrets[SECRETS_NUMBER];
 
-#define handle_secret(secretFlag, item) \
+#define handle_secret(secretFlag, item, secretIndex) \
     if(secretFlag) \
     { \
         item._coolDown = 2; \
+        discoveredSecrets[secretIndex]=1; \
         secretFlag = 0; \
     }\
+
+
+void resetSecrets(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<SECRETS_NUMBER;++i)
+    {
+        discoveredSecrets[i]=0;
+    }
+}
+
 
 void resetItems()
 {
@@ -115,11 +129,11 @@ void resetItems()
     extraPoints._coolDown = EXTRA_POINTS_COOL_DOWN;
     invincibility._coolDown = INVINCIBILITY_COOL_DOWN;
 
-    handle_secret(calmDownSecret, calmDown);
-    handle_secret(freezeSecret, freeze);
-    handle_secret(extraPointsSecret, extraPoints);
-    
-    handle_secret(firePowerSecret, firePower);
+    handle_secret(calmDownSecret, calmDown, CALM_DOWN_AT_START_SECRET_INDEX);
+    handle_secret(extraPointsSecret, extraPoints, EXTRA_POINTS_AT_START_SECRET_INDEX);
+    handle_secret(freezeSecret, freeze, FREEZE_AT_START_SECRET_INDEX);
+
+    handle_secret(firePowerSecret, firePower, FIRE_POWER_AT_START_SECRET_INDEX);
 
     super._coolDown = SUPER_COOL_DOWN;
     extraLife._coolDown = EXTRA_LIFE_COOL_DOWN;
@@ -199,13 +213,6 @@ int main(void)
             printPressKeyToStart();                
         #endif
 
-        #if !defined(LESS_TEXT) || defined(ALT_HIGHSCORE)
-            highScoreScreen();
-            WAIT_PRESS();    
-        #endif
-
-        CLEAR_SCREEN();
-
         
         extraLifeThroughPointsCounter = 1;
         points = 0;
@@ -223,6 +230,8 @@ int main(void)
         extraPointsSecret = 0;
         freezeSecret = 0;
         fireChargeSecret = 0;
+        
+        resetSecrets();
         
         do // Level (Re-)Start
         {
@@ -294,6 +303,7 @@ int main(void)
             if(fireChargeSecret)
             {
                 guns = SECRET_GUNS;
+                discoveredSecrets[FIRE_CHARGE_AT_START_SECRET_INDEX] = 1;
                 fireChargeSecret = 0;
             }
             else
@@ -627,6 +637,10 @@ int main(void)
 
         // GAME OVER    
         CLEAR_SCREEN();
+        printAchievements();
+        SLEEP(1);
+        WAIT_PRESS();
+        CLEAR_SCREEN();
         printGameOver();
         
         #if !defined(NO_SLEEP)
@@ -635,17 +649,6 @@ int main(void)
             WAIT_PRESS();
         #endif
         
-        #if !defined(LESS_TEXT)
-            CLEAR_SCREEN();
-            finalScore();
-        
-            #if !defined(NO_SLEEP)
-                SLEEP(1);
-            #else
-                WAIT_PRESS();
-            #endif
-        
-        #endif
         if(points>highScore)
         {
             highScore = points;

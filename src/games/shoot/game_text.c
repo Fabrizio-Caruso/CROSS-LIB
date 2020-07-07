@@ -87,6 +87,9 @@ extern uint16_t highScore;
 
 extern Image BULLET_IMAGE;
 
+extern uint8_t discoveredSecrets[];
+
+
 void printKillTheSkull(void)
 {
     printCenteredMessage(KILL_THE_BOSS);    
@@ -349,5 +352,44 @@ void displayScoreStats(void)
     }
 #endif
 
+
+uint8_t countDiscoveredSecrets(void)
+{
+    uint8_t total;
+    uint8_t i;
+    
+    total = 0;
+    
+    for(i=0;i<SECRETS_NUMBER;++i)
+    {
+        if(discoveredSecrets[i])
+        {
+            ++total;
+        }
+    }
+    return total;
+}
+
+
+void printAchievements(void)
+{
+    
+    SET_COLOR(TEXT_COLOR);    
+
+    PRINT(3, (YSize>>1)-4, SCORE_STRING);
+
+    PRINT(3, (YSize>>1)-2, LEVEL_STRING);
+
+    PRINT(3, (YSize>>1), DISCOVERED_SECRETS_STRING);
+    
+    SET_COLOR(COLOR_RED);    
+
+    PRINTD(11, (YSize>>1)-4, 5, points);
+
+    PRINTD(11, (YSize>>1)-2, 2, level);
+
+    PRINTD(11, (YSize>>1), 2, countDiscoveredSecrets());
+    
+}
 
 

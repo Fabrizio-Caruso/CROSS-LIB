@@ -105,10 +105,12 @@
 #if defined(LESS_TEXT)
     #if defined(NO_CASE_LETTERS)
         #define PRESS_STRING "go"
+        #define DISCOVERED_SECRETS_STRING "secrets"
         #define GAME_OVER_STRING "game over"
         #define YOU_MADE_IT_STRING "the end"        
     #else
         #define PRESS_STRING "GO"    
+        #define DISCOVERED_SECRETS_STRING "SECRETS"
         #define GAME_OVER_STRING "GAME OVER"
         #define YOU_MADE_IT_STRING "THE END"        
     #endif
@@ -119,6 +121,7 @@
         #else
             #define PRESS_STRING "press a key"
         #endif
+        #define DISCOVERED_SECRETS_STRING "secrets"
         #define GAME_OVER_STRING "game over"
         #define DEFEAT_STRING "you lost"
         #define VICTORY_STRING "you won"
@@ -130,6 +133,7 @@
         #else
             #define PRESS_STRING "PRESS A KEY"
         #endif
+        #define DISCOVERED_SECRETS_STRING "DISCOVERED_SECRETS_STRING"
         #define GAME_OVER_STRING "GAME OVER"
         #define DEFEAT_STRING "YOU LOST"    
         #define VICTORY_STRING "YOU WON"

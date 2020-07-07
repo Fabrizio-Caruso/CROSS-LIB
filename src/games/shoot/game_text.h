@@ -119,6 +119,8 @@ void printStartMessage(void);
 
 void printHints(void);
 
+void printAchievements(void);
+
 	
 #endif // _GAME_TEXT
 

@@ -370,25 +370,30 @@ uint8_t countDiscoveredSecrets(void)
     return total;
 }
 
+#define OF_STRING "of " 
 
 void printAchievements(void)
 {
     
-    SET_COLOR(TEXT_COLOR);    
-
-    PRINT(3, (YSize>>1)-4, SCORE_STRING);
-
-    PRINT(3, (YSize>>1)-2, LEVEL_STRING);
-
-    PRINT(3, (YSize>>1), DISCOVERED_SECRETS_STRING);
-    
     SET_COLOR(COLOR_RED);    
 
-    PRINTD(11, (YSize>>1)-4, 5, points);
+    PRINT(2, (YSize>>1)-4, SCORE_STRING);
 
-    PRINTD(11, (YSize>>1)-2, 2, level);
+    PRINT(2, (YSize>>1)-2, LEVEL_STRING);
 
-    PRINTD(11, (YSize>>1), 2, countDiscoveredSecrets());
+    PRINT(2, (YSize>>1), DISCOVERED_SECRETS_STRING);
+    
+    PRINT(13, (YSize>>1), OF_STRING );
+    
+    PRINTD(16, (YSize>>1), 2, SECRETS_NUMBER);
+
+    SET_COLOR(TEXT_COLOR);    
+
+    PRINTD(10, (YSize>>1)-4, 5, points);
+
+    PRINTD(10, (YSize>>1)-2, 2, level);
+
+    PRINTD(10, (YSize>>1), 2, countDiscoveredSecrets());
     
 }
 

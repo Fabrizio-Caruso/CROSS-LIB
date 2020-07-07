@@ -82,7 +82,7 @@ extern Character rightHorizontalMissile;
 extern uint8_t rockets_x[ROCKETS_NUMBER];
 extern Character rockets[ROCKETS_NUMBER];
 extern uint8_t destroyed_bases;
-extern uint8_t missileBasesDestroyed;
+extern uint8_t destroyed_bases_in_completed_levels;
 
 
 uint8_t availableBullet(void)

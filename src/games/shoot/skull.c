@@ -62,8 +62,6 @@ extern Character ghosts[];
 
 extern Image GHOST_IMAGE;
 
-extern uint8_t skullsKilled;
-
 extern uint16_t levelSlowDown;
 
 uint16_t computeSkullSlowDown(void)

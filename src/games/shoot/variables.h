@@ -142,9 +142,9 @@ extern Image DEAD_GHOST_IMAGE;
     
     extern uint8_t arrowRange;
     
-    extern uint8_t skullsKilled;
+    extern uint8_t all_skulls_killed_in_completed_levels;
     
-    extern uint8_t missileBasesDestroyed;
+    extern uint8_t destroyed_bases_in_completed_levels;
     
     extern uint8_t horizontalWallsLength;
     
@@ -188,9 +188,9 @@ extern Image DEAD_GHOST_IMAGE;
     
     uint8_t arrowRange;
     
-    uint8_t skullsKilled;
+    uint8_t all_skulls_killed_in_completed_levels;
     
-    uint8_t missileBasesDestroyed;
+    uint8_t destroyed_bases_in_completed_levels;
     
     uint8_t horizontalWallsLength;
     
@@ -209,7 +209,7 @@ extern Image DEAD_GHOST_IMAGE;
     uint8_t destroyer_count_down;
 #endif
 
-#define confuse_present_on_level_condition missileBasesDestroyed
+#define confuse_present_on_level_condition destroyed_bases_in_completed_levels
 
 #if defined(USE_MEMORY_BUFFERS)
     extern Character rockets[];

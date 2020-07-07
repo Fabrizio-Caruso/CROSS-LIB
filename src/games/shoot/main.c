@@ -163,9 +163,9 @@ void initialScreen(void)
 
 void handle_special_triggers(void)
 {
-    // confuse_present_on_level_condition is defined as missileBasesDestroyed
-    suicide_present_on_level = missileBasesDestroyed>=2;
-    super_present_on_level = skullsKilled>=2;
+    // confuse_present_on_level_condition is defined as destroyed_bases_in_completed_levels
+    suicide_present_on_level = destroyed_bases_in_completed_levels>=2;
+    super_present_on_level = all_skulls_killed_in_completed_levels>=2;
     extraLife_present_on_level = super_present_on_level && suicide_present_on_level;
 }
 
@@ -215,8 +215,8 @@ int main(void)
         ghostCount = GHOSTS_NUMBER; 
          
         
-        missileBasesDestroyed = 0;
-        skullsKilled = 0;
+        destroyed_bases_in_completed_levels = 0;
+        all_skulls_killed_in_completed_levels = 0;
         
         firePowerSecret = 0;
         calmDownSecret = 0;
@@ -278,8 +278,8 @@ int main(void)
             suicideActive = 0; 
 
             #if defined(DEBUG_ITEMS)
-                missileBasesDestroyed = 2;
-                skullsKilled = 2;
+                destroyed_bases_in_completed_levels = 2;
+                all_skulls_killed_in_completed_levels = 2;
             #endif
 
             handle_special_triggers();
@@ -575,16 +575,16 @@ int main(void)
                     #endif
                     SLEEP(2);
                     ++lives;
-                    skullsKilled = 1;
-                    missileBasesDestroyed/=2;
+                    all_skulls_killed_in_completed_levels = 1;
+                    destroyed_bases_in_completed_levels/=2;
                 }
                 else
                 {
                     if(!skullsCount)
                     {
-                        ++skullsKilled;
+                        ++all_skulls_killed_in_completed_levels;
                     }
-                    missileBasesDestroyed+=destroyed_bases;
+                    destroyed_bases_in_completed_levels+=destroyed_bases;
                 }
                 ++level;
                 ghostCount = GHOSTS_NUMBER + 2*level;

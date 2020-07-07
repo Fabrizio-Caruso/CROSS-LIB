@@ -110,8 +110,6 @@ extern Character rockets[ROCKETS_NUMBER];
 
 extern char rockets_x[ROCKETS_NUMBER];
 
-extern char skullsKilled;
-
 extern uint8_t isBossLevel;
 extern uint8_t isOneMissileLevel;
 extern uint8_t isMissileLevel;

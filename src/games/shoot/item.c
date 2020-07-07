@@ -53,8 +53,8 @@ extern uint8_t invincibility_count_down;
 extern uint8_t confuse_count_down;
 extern uint8_t suicide_count_down;
 
-extern uint8_t missileBasesDestroyed;
-extern uint8_t skullsKilled;    
+extern uint8_t destroyed_bases_in_completed_levels;
+extern uint8_t all_skulls_killed_in_completed_levels;    
 
 extern uint8_t extraLife_present_on_level;
 extern uint8_t suicide_present_on_level;
@@ -266,8 +266,8 @@ void freezeEffect(void)
 void extraLifeEffect(void)
 {
     ++lives;
-    skullsKilled=1;
-    // missileBasesDestroyed = 0;
+    all_skulls_killed_in_completed_levels=1;
+    // destroyed_bases_in_completed_levels = 0;
     extraLife_present_on_level = 0;
     // extraLife._coolDown = EXTRA_LIFE_COOL_DOWN*10; // second time must be impossible
     printLivesStats();        
@@ -306,7 +306,7 @@ void suicideEffect(void)
     uint8_t i;
     
     suicideActive = 1;
-    missileBasesDestroyed = 1;
+    destroyed_bases_in_completed_levels = 1;
     suicide._coolDown = SECOND_SUICIDE_COOL_DOWN; 
     suicide_count_down = SUICIDE_COUNT_DOWN;
     for(i=0;i<ghostsOnScreen;++i)

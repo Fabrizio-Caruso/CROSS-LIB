@@ -350,7 +350,8 @@ void printAchievements(void)
 
     PRINTD(10, (YSize>>1), 2,   level);
 
-    for(i=0;i<countDiscoveredSecrets();++i)
+    i=0;
+    do
     {
         PRINTD(10, (YSize>>1)+2, 2, i);
         for(j=0;j<i;++j)
@@ -359,7 +360,8 @@ void printAchievements(void)
             DO_SLOW_DOWN(SLOW_DOWN);
         }
         SHOOT_SOUND();
-    }
+        ++i;
+    } while(i<countDiscoveredSecrets());
     
 }
 

@@ -120,8 +120,9 @@ vic20_exp_16k:
 	-DSLOW_DOWN=600 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
-	$(FULL_FILES) \
+	$(LIGHT_FILES) \
 	--code-name CODE2 \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \

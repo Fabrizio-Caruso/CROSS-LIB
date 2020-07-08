@@ -53,7 +53,7 @@ void checkBombsVsGhost(register Character * ghostPtr)
     {
         points+=GHOST_VS_BOMBS_BONUS;
         bombs[reachedBombInd]._status = 0;
-        ghostDies(ghostPtr);
+        ghostDiesAndSpawns(ghostPtr);
         ++exploded_bombs;
     }
 }

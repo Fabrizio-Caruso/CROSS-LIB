@@ -295,6 +295,7 @@ int main(void)
             #if defined(DEBUG_ITEMS)
                 destroyed_bases_in_completed_levels = 2;
                 all_skulls_killed_in_completed_levels = 2;
+                
             #endif
 
             handle_special_triggers();
@@ -571,15 +572,18 @@ int main(void)
                 points+= LEVEL_BONUS*level+ghostCount*GHOSTS_VS_SUICIDE_BONUS;
                 printLevelBonus(LEVEL_BONUS*level+ghostCount*GHOSTS_VS_SUICIDE_BONUS);
 
-                if(ghostCount>=CALM_DOWN_SECRET_THRESHOLD)
+                if(!isBossLevel)
                 {
-                    calmDownSecret = 1;
-                    if(ghostCount>=EXTRA_POINTS_SECRET_THRESHOLD)
+                    if(ghostCount>=CALM_DOWN_SECRET_THRESHOLD)
                     {
-                        extraPointsSecret = 1;
-                        if(ghostCount>=FREEZE_SECRET_THRESHOLD)
+                        calmDownSecret = 1;
+                        if(ghostCount>=EXTRA_POINTS_SECRET_THRESHOLD)
                         {
-                            freezeSecret = 1;
+                            extraPointsSecret = 1;
+                            if(ghostCount>=FREEZE_SECRET_THRESHOLD)
+                            {
+                                freezeSecret = 1;
+                            }
                         }
                     }
                 }

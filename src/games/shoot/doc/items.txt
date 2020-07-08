@@ -10,7 +10,7 @@ Secret items triggered by hitting the skulls/bases/suicide
 - Invincibility (invincible player)
 - Extra Points  (extra points that depend on level)
 
-Secret items triggered by killing 2 times all 4 skulls in non-boss levels 
+Secret item triggered by killing 2 times all 4 skulls in non-boss levels 
 - Super         (Fire Power + Freeze + Invincibility)\
 
 Secret items triggered by completing levels with destroyed bases 
@@ -19,3 +19,6 @@ Secret items triggered by completing levels with destroyed bases
 
 Secret items triggered by both killing 2 times all 4 skulls in non-boss levels and by completing levels with a total of at least 3 destroyed bases 
 - Extra Life    (+1 life)
+
+Secret item triggered by exploding 6 bombs or by destroying 3 missile/rocket bases
+- Destroyer     (long invincibility, destroy common enemies)

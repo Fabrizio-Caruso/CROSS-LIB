@@ -94,6 +94,7 @@ extern Image INVINCIBILITY_IMAGE;
 extern Image SUPER_IMAGE;
 extern Image CONFUSE_IMAGE;
 extern Image SUICIDE_IMAGE;
+extern Image BROKEN_BRICK_IMAGE;
 
 extern Character leftHorizontalMissile;
 extern Character rightHorizontalMissile;
@@ -105,6 +106,7 @@ extern Item invincibility;
 extern Item super;
 extern Item confuse;
 extern Item suicide;
+extern Item destroyer;
 
 extern Character rockets[ROCKETS_NUMBER];
 
@@ -337,6 +339,8 @@ void fillLevelWithCharacters(void)
         initializeAwayFromWall(&(super._character), (XSize>>1), (YSize>>1), 0, &SUPER_IMAGE);
         initializeAwayFromWall(&(confuse._character), (XSize>>1), (YSize>>1), 0, &CONFUSE_IMAGE);        
         initializeAwayFromWall(&(suicide._character), (XSize>>1), (YSize>>1), 0, &SUICIDE_IMAGE);    
+        initializeAwayFromWall(&(destroyer._character), (XSize>>1), (YSize>>1), 0, &BROKEN_BRICK_IMAGE);    
+
         
         initializeAwayFromWall(&(firePower._character),(XSize>>1), (YSize>>1), 0, &FIRE_POWER_IMAGE);
 

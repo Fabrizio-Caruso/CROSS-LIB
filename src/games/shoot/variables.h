@@ -124,6 +124,7 @@ extern Image DEAD_GHOST_IMAGE;
     extern Item super;
     extern Item confuse;
     extern Item suicide;
+    extern Item destroyer;
 
     extern Character leftHorizontalMissile;
     extern Character rightHorizontalMissile;
@@ -173,6 +174,7 @@ extern Image DEAD_GHOST_IMAGE;
     Item super;
     Item confuse;
     Item suicide;
+    Item destroyer;
     
     Character leftHorizontalMissile;
     Character rightHorizontalMissile;

@@ -142,6 +142,7 @@ void resetItems()
     
     confuse._coolDown = CONFUSE_COOL_DOWN;
     suicide._coolDown = SUICIDE_COOL_DOWN;                
+    destroyer._coolDown = DESTROYER_COOL_DOWN;
 }
 
 
@@ -159,6 +160,7 @@ void constructItems()
     super._effect = &superEffect;
     confuse._effect = &confuseEffect;
     suicide._effect = &suicideEffect;
+    destroyer._effect = &destroyerEffect;
 }    
 
 
@@ -474,6 +476,7 @@ int main(void)
                 handle_invincibility_count_down();                    
 
                 handle_destroyer_triggers();
+                handle_destroyer_item();
                 handle_destroyer_count_down();
                     
                 if(super_present_on_level)

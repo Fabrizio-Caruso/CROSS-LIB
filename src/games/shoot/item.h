@@ -80,7 +80,7 @@ void confuseEffect(void);
 
 void suicideEffect(void);
 
-
+void destroyerEffect(void);
 
 #define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
 #define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)    
@@ -101,10 +101,10 @@ void suicideEffect(void);
 
 // Secret
 #define handle_super_item() handle_item(&super)
-#define handle_confuse_item() handle_item(&confuse);
-#define handle_suicide_item() handle_item(&suicide);
+#define handle_confuse_item() handle_item(&confuse)
+#define handle_suicide_item() handle_item(&suicide)
 #define handle_extraLife_item() handle_item(&extraLife)
-
+#define handle_destroyer_item() handle_item(&destroyer)
 
 void handle_destroyer_triggers(void);
 

@@ -29,7 +29,8 @@
 #include "character.h"
 #include "settings.h"
 #include "text_strings.h"
-
+#include "sound_macros.h"
+#include "sleep_macros.h"
 
 extern Image GHOST_IMAGE;
 extern Image BULLET_IMAGE;
@@ -370,10 +371,10 @@ uint8_t countDiscoveredSecrets(void)
     return total;
 }
 
-#define OF_STRING "of " 
 
 void printAchievements(void)
 {
+    uint8_t i;
     
     SET_COLOR(COLOR_RED);    
 
@@ -393,7 +394,11 @@ void printAchievements(void)
 
     PRINTD(10, (YSize>>1)-2, 2, level);
 
-    PRINTD(10, (YSize>>1), 2, countDiscoveredSecrets());
+    for(i=0;i<countDiscoveredSecrets();++i)
+    {
+        PRINTD(10, (YSize>>1), 2, i);
+        SHOOT_SOUND();
+    }
     
 }
 

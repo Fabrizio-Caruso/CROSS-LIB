@@ -362,7 +362,9 @@ Type "run"
 ---------------------------------------------------------
 ### NES 
 
-Use mednafen and run the following command:
+Use FCEUX (https://tasvideos.github.io/fceux/web/home.html)
+
+Alternatively Use mednafen and run the following command:
 mednafen.exe -fs  1 FULL_nes.nes
 
 ---------------------------------------------------------

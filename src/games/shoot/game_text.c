@@ -326,6 +326,7 @@ uint8_t countDiscoveredSecrets(void)
 void printAchievements(void)
 {
     uint8_t i;
+    uint8_t j;
     
     SET_COLOR(COLOR_RED);    
 
@@ -352,7 +353,11 @@ void printAchievements(void)
     for(i=0;i<countDiscoveredSecrets();++i)
     {
         PRINTD(10, (YSize>>1)+2, 2, i);
-        DO_SLOW_DOWN(SLOW_DOWN);
+        for(j=0;j<i;++j)
+        {
+            DO_SLOW_DOWN(SLOW_DOWN);
+            DO_SLOW_DOWN(SLOW_DOWN);
+        }
         SHOOT_SOUND();
     }
     

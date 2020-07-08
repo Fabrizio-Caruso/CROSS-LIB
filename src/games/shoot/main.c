@@ -372,6 +372,7 @@ int main(void)
                 DRAW_BORDERS();
             #endif
             
+            playerFire = 0;
             fillLevelWithCharacters();            
             
             constructItems();    

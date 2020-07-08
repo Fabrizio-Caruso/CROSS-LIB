@@ -55,12 +55,13 @@
         usleep((t)*800);
 #else
     #define DO_SLOW_DOWN(t) \
-    { \
+    do { \
         uint16_t i; \
+        \
         for(i=0;i<(t);++i) \
         { \
         } \
-    }
+    } while(0)
 #endif
 
 #if defined(TURN_BASED)

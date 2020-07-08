@@ -199,6 +199,7 @@ int main(void)
         
         do // Level (Re-)Start
         {
+            
             #if defined(FULL_GAME)
                 isBossLevel = bossLevel();
                 isRocketLevel = rocketLevel();
@@ -327,6 +328,10 @@ int main(void)
                 while(player._status && (ghostCount>0) )
             #endif
             {
+                #if defined(SLOW_DOWN)
+                    DO_SLOW_DOWN(SLOW_DOWN);
+                #endif
+                
                 #if defined(BENCHMARK)
                     ++benchmark_count;
                 #endif

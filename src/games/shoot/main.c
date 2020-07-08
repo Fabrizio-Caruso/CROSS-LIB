@@ -306,16 +306,6 @@ int main(void)
             
             skullActive = 0;
             
-            if(fireChargeSecret)
-            {
-                guns = SECRET_GUNS;
-                setSecret(FIRE_CHARGE_AT_START_SECRET_INDEX);
-                fireChargeSecret = 0;
-            }
-            else
-            {
-                guns = 0;
-            }
             
             #if defined(INITIAL_GHOST_FREEZE)
                 freezeActive = 1;
@@ -340,16 +330,6 @@ int main(void)
                         
             arrowRange = computeArrowRange();
             
-            if(firePowerLevelSecret)
-            {
-                bulletStrength = firePowerLevelSecret;
-                setSecret(FIRE_POWER_LEVEL_SECRET_INDEX);
-                firePowerLevelSecret = 0;
-            }
-            else
-            {
-                bulletStrength = 2;
-            }
         
             if(isBossLevel)
             {
@@ -375,6 +355,17 @@ int main(void)
             playerFire = 0;
             fillLevelWithCharacters();            
             
+            if(firePowerLevelSecret)
+            {
+                bulletStrength = firePowerLevelSecret;
+                setSecret(FIRE_POWER_LEVEL_SECRET_INDEX);
+                firePowerLevelSecret = 0;
+            }
+            else
+            {
+                bulletStrength = 2;
+            }
+            
             constructItems();    
             
             displayStatsTitles();
@@ -383,6 +374,17 @@ int main(void)
             displayStats();
             
             resetItems();
+            
+            if(fireChargeSecret)
+            {
+                guns = SECRET_GUNS;
+                setSecret(FIRE_CHARGE_AT_START_SECRET_INDEX);
+                fireChargeSecret = 0;
+            }
+            else
+            {
+                guns = 0;
+            }
             while(player._status && (( ((ghostCount>0)&&(skullsCount)) && !isBossLevel) || (skullsCount && isBossLevel))) // while alive && there are still ghosts
             {                
                 #if defined(DEBUG_END)
@@ -631,6 +633,7 @@ int main(void)
                 extraPointsSecret = 0;
                 freezeSecret = 0;
                 fireChargeSecret = 0;
+                firePowerLevelSecret = 0;
             }
             #if defined(BETWEEN_LEVEL)
                 spiral(chasedEnemyPtr, 2*MIN_SIZE-18);

@@ -47,27 +47,6 @@ extern uint8_t bulletStrength;
     #define SET_COLOR(c)
 #endif
 
-#if defined(WIDE)
-    #define BULLET_IMAGE_X 13
-    #define BULLET_IMAGE_Y 0
-    #define FIRE_POWER_IMAGE_X 17
-    #define FIRE_POWER_IMAGE_Y 0
-    #define GHOST_IMAGE_X 13
-    #define GHOST_IMAGE_Y 1
-    #define PLAYER_IMAGE_X 17
-    #define PLAYER_IMAGE_Y 1
-    #define LEVEL_X 6
-#else
-    #define BULLET_IMAGE_X 10
-    #define BULLET_IMAGE_Y 0
-    #define FIRE_POWER_IMAGE_X 17
-    #define FIRE_POWER_IMAGE_Y 0
-    #define GHOST_IMAGE_X 6
-    #define GHOST_IMAGE_Y 0
-    #define PLAYER_IMAGE_X 14
-    #define PLAYER_IMAGE_Y 0
-    #define LEVEL_X (XSize-2)
-#endif
 
 #if defined(ALT_DISPLAY_STATS)
     #define printCenteredMessageOnRow(row, text) PRINT(6,row,text)
@@ -97,25 +76,6 @@ void printKillTheSkull(void)
     printCenteredMessageOnRow(((uint8_t)YSize)/2+2,KILL_THE_SKULLS_STRING);    
     printCenteredMessageOnRow(((uint8_t)YSize)/2+4,DESTROY_MISSILES_STRING);
 }
-
-
-#if defined(NO_TITLE_LINE)
-    #define TITLE_Y 0
-    #define TITLE_LINE()
-#else
-    #define TITLE_Y 1
-    #define TITLE_LINE() PRINT(XSize-11,+0,  "-----------")
-#endif
-
-
-#define PRINT_WIDE_TITLE() \
-    SET_COLOR(COLOR_CYAN); \
-    PRINT(0, +0,   SCORE_STRING); \
-    PRINT(0, +0+1, LEVEL_STRING); \
-    \
-    SET_COLOR(COLOR_RED); \
-    TITLE_LINE(); \
-    PRINT(XSize-11,TITLE_Y,"cross shoot");    
 
 
 // TODO: This is SLOW
@@ -397,6 +357,7 @@ void printAchievements(void)
     for(i=0;i<countDiscoveredSecrets();++i)
     {
         PRINTD(10, (YSize>>1), 2, i);
+        DO_SLOW_DOWN(SLOW_DOWN);
         SHOOT_SOUND();
     }
     

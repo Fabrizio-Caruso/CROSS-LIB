@@ -29,9 +29,11 @@
 #if defined(NO_CASE_LETTERS)
     #if defined(TINY_TEXT)
         #define CROSS_SHOOT_STRING "cross shoot"
+        #define CROSS_SHOOT_SHORT_STRING CROSS_SHOOT_STRING
         #define AUTHOR_STRING "fabrizio caruso"
     #else
         #define CROSS_SHOOT_STRING "c r o s s  s h o o t"    
+        #define CROSS_SHOOT_SHORT_STRING "cross shoot"
         #define AUTHOR_STRING "by fabrizio caruso"
     #endif
     #define KILL_THE_SKULLS_STRING "kill the skulls"
@@ -49,6 +51,7 @@
     #define EXTRA_POWERUPS__STRING "and items"
 #elif defined(__PC6001__)
     #define CROSS_SHOOT_STRING "C R O S S  S H O O T"        
+    #define CROSS_SHOOT_SHORT_STRING "CROSS SHOOT"
     #define AUTHOR_STRING "BY FABRIZIO CARUSO"
     #define KILL_THE_SKULLS_STRING "KILL THE SKULLS"    
     #define KILL_THE_BOSS "KILL THE BOSS"
@@ -66,9 +69,11 @@
 #else
     #if defined(TINY_TEXT)
         #define CROSS_SHOOT_STRING "CROSS SHOOT"
+        #define CROSS_SHOOT_SHORT_STRING CROSS_SHOOT_STRING
         #define AUTHOR_STRING "Fabrizio Caruso"
     #else
         #define CROSS_SHOOT_STRING "C R O S S  S H O O T"        
+        #define CROSS_SHOOT_SHORT_STRING "CROSS SHOOT"
         #define AUTHOR_STRING "by Fabrizio Caruso"
     #endif
     #define KILL_THE_SKULLS_STRING "Kill the skulls"

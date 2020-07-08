@@ -29,7 +29,9 @@
 #include "ghost.h"
 #include "game_text.h"
 #include "level.h"
-#include "game_text.h"
+#include "text_strings.h"
+
+#include "cross_lib.h"
 
 extern uint16_t points;
 
@@ -193,9 +195,9 @@ void _firePowerEffect(void)
     {
         firePowerItemSecret = 1;
     }
-    if(bulletStrength==FIRE_POWER_LEVEL_THRESHOLD)
+    if(bulletStrength>=FIRE_POWER_LEVEL_THRESHOLD)
     {
-        firePowerLevelSecret = bulletStrength-FIRE_POWER_LEVEL_THRESHOLD+1;
+        firePowerLevelSecret = bulletStrength-FIRE_POWER_LEVEL_THRESHOLD+3;
     }
     points+=FIRE_POWER_BONUS;
     printFirePowerStats();
@@ -364,12 +366,24 @@ void handle_destroyer_triggers(void)
     }
 }
 
+
 void setSecret(uint8_t secretIndex)
 {   if(!discoveredSecrets[secretIndex])
     {
+        uint8_t i;
+        
         TOCK_SOUND();
+        TICK_SOUND();
+        for(i=0;i<50;++i)
+        {
+            _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
+            DO_SLOW_DOWN(SLOW_DOWN);
+            _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
+        }
+        DO_SLOW_DOWN(SLOW_DOWN);
         discoveredSecrets[secretIndex] = 1;
-        TOCK_SOUND();
+        SHOOT_SOUND();
+        DO_SLOW_DOWN(SLOW_DOWN);
     }
 }
 

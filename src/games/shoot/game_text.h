@@ -26,9 +26,7 @@
 #define _GAME_TEXT
 
 #include "settings.h"
-#include "../cross_lib/cross_lib.h"
-#include "../cross_lib/text/text_macros.h"
-
+#include "cross_lib.h"
 
 
 #if defined(__CMOC__) && !defined(__WINCMOC__)
@@ -38,6 +36,51 @@
 	#include <stdlib.h>
 	#include <string.h>	
 #endif
+
+#if defined(WIDE)
+    #define BULLET_IMAGE_X 13
+    #define BULLET_IMAGE_Y 0
+    #define FIRE_POWER_IMAGE_X 17
+    #define FIRE_POWER_IMAGE_Y 0
+    #define GHOST_IMAGE_X 13
+    #define GHOST_IMAGE_Y 1
+    #define PLAYER_IMAGE_X 17
+    #define PLAYER_IMAGE_Y 1
+    #define LEVEL_X 6
+#else
+    #define BULLET_IMAGE_X 10
+    #define BULLET_IMAGE_Y 0
+    #define FIRE_POWER_IMAGE_X 17
+    #define FIRE_POWER_IMAGE_Y 0
+    #define GHOST_IMAGE_X 6
+    #define GHOST_IMAGE_Y 0
+    #define PLAYER_IMAGE_X 14
+    #define PLAYER_IMAGE_Y 0
+    #define LEVEL_X (XSize-2)
+#endif
+
+
+
+#if defined(NO_TITLE_LINE)
+    #define TITLE_Y 0
+    #define TITLE_LINE()
+#else
+    #define TITLE_Y 1
+    #define TITLE_LINE() PRINT(XSize-11,+0,  "-----------")
+#endif
+
+
+#define PRINT_WIDE_TITLE() \
+    do \
+    { \
+        SET_COLOR(COLOR_CYAN); \
+        PRINT(0, +0,   SCORE_STRING); \
+        PRINT(0, +0+1, LEVEL_STRING); \
+        \
+        SET_COLOR(COLOR_RED); \
+        TITLE_LINE(); \
+        PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
+    } while(0)
 
 
 // game_stat

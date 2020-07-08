@@ -40,6 +40,8 @@
 #define _TILE_15 ((uint8_t)0x7D)
 #define _TILE_16 ((uint8_t)0x60)
 
-#define _TILE_23 _TILE_5
+// TODO: Change it to something else
+// #define _TILE_23 _TILE_5
+#define _TILE_23 'X'
 
 #endif // _MSX_REDEFINED_CHARS_SETTINGS

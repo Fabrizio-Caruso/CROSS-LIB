@@ -65,6 +65,6 @@
 
 #define _TILE_22 _TILE_4
 
-#define _TILE_23 _TILE_5
+#define _TILE_23 'X'
 
 

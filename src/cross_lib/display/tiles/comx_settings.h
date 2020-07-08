@@ -77,7 +77,7 @@
 
 #define _TILE_13 ('z'+PALETTE_SWITCH)
 
-#define _TILE_23 _TILE_5
+#define _TILE_23 'X'
 
 #endif // _COMX_GRAPHICS_SETTINGS
 

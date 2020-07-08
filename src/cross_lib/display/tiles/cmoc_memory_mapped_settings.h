@@ -67,7 +67,7 @@
 
 #define _TILE_12 ('#'+NOT_INVERTED)
 #define _TILE_13 ('-'+NOT_INVERTED)
-#define _TILE_23 _TILE_5
+#define _TILE_23 'X'
 
 
 #endif // _CMOC_GRAPHICS_SETTINGS

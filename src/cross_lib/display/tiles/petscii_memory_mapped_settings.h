@@ -70,7 +70,12 @@
 
 #define _TILE_12 ('|'-128)
 #define _TILE_13 '-'
-#define _TILE_23 _TILE_5	
+
+#if !defined(NO_COLOR)
+    #define _TILE_23 _TILE_5	
+#else
+    #define _TILE_23 '8'
+#endif
 
 
 #endif // _PETSCII_MEMORY_MAPPED_SETTINGS

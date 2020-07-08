@@ -41,7 +41,7 @@
 #if defined(END_SCREEN) && !defined(NO_MESSAGE)
 	void gameCompleted(void)
 	{
-		level = 1;
+		level = 16;
 		
 		CLEAR_SCREEN();
         ghostCount = 8;

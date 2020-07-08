@@ -370,8 +370,8 @@ int main(void)
             constructItems();    
             
             displayStatsTitles();
-
             
+            guns = 0;
             displayStats();
             
             resetItems();
@@ -386,6 +386,8 @@ int main(void)
             {
                 guns = 0;
             }
+            displayStats();
+
             while(player._status && (( ((ghostCount>0)&&(skullsCount)) && !isBossLevel) || (skullsCount && isBossLevel))) // while alive && there are still ghosts
             {                
                 #if defined(DEBUG_END)

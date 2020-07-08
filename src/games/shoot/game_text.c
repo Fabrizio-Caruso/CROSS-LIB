@@ -31,6 +31,7 @@
 #include "text_strings.h"
 #include "sound_macros.h"
 #include "sleep_macros.h"
+#include "item.h"
 
 extern Image GHOST_IMAGE;
 extern Image BULLET_IMAGE;
@@ -304,21 +305,37 @@ void _printCrossShoot(void)
     }
 #endif
 
-
 uint8_t countDiscoveredSecrets(void)
 {
     uint8_t total;
     uint8_t i;
     
     total = 0;
-    
+    #if defined(DEBUG_SECRETS)
+    SET_COLOR(TEXT_COLOR);    
+    #endif
     for(i=0;i<SECRETS_NUMBER;++i)
     {
+        #if defined(DEBUG_SECRETS)
+        PRINTD(3,i,2,i);
+        #endif
+
         if(discoveredSecrets[i])
         {
             ++total;
+            #if defined(DEBUG_SECRETS)
+                PRINT(8,i,"done");
+            #endif
         }
+        #if defined(DEBUG_SECRETS)
+            else
+            {
+
+                PRINT(8,i,"NOPE");
+            }
+        #endif
     }
+
     return total;
 }
 

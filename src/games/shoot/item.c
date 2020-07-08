@@ -197,7 +197,7 @@ void _firePowerEffect(void)
     }
     if(bulletStrength>=FIRE_POWER_LEVEL_THRESHOLD)
     {
-        firePowerLevelSecret = bulletStrength-FIRE_POWER_LEVEL_THRESHOLD+2;
+        firePowerLevelSecret = bulletStrength-FIRE_POWER_LEVEL_THRESHOLD+3;
     }
     points+=FIRE_POWER_BONUS;
     printFirePowerStats();

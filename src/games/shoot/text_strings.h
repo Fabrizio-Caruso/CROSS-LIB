@@ -152,13 +152,13 @@
 #endif
 
 #if defined(NO_CASE_LETTERS)
-    #define BONUS_COLON_STRING "bonus "
-    #define SCORE_COLON__STRING "score "
-    #define HIGH_SCORE_COLON_STRING "high score "
+    #define BONUS_STRING "bonus "
+    #define SCORE_STRING "score "
+    #define HIGH_SCORE_STRING "hiscore "
 #else
-    #define BONUS_COLON_STRING "BONUS "
-    #define SCORE_COLON__STRING "SCORE "
-    #define HIGH_SCORE_COLON_STRING "HIGH SCORE "
+    #define BONUS_STRING "BONUS "
+    #define SCORE_STRING "SCORE "
+    #define HIGH_SCORE_STRING "HISCORE "
 #endif
 
 #define BONUS_DIGITS "%u0"

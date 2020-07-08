@@ -182,7 +182,7 @@ void calmDownEffect(void)
     points+=CALM_DOWN_BONUS;
     freezeActive = 1;
     freeze_count_down += FREEZE_COUNT_DOWN/4;
-    calmDown._coolDown = CALM_DOWN_COOL_DOWN*8;    
+    calmDown._coolDown = CALM_DOWN_COOL_DOWN*4;    
 }
 
 void _firePowerEffect(void)

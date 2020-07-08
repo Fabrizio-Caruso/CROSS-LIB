@@ -453,18 +453,15 @@ int main(void)
                 #endif
                 
                 #if SLOW_DOWN>0
-                if(!skullActive)
-                {
-                        DO_SLOW_DOWN(SLOW_DOWN);
-                }
-                #endif
                 
                 #if SLOW_DOWN>0
                 if(ghostCount < GHOST_SLOW_DOWN_THRESHOLD) 
                 {
                         DO_SLOW_DOWN(SLOW_DOWN);
+                        DO_SLOW_DOWN(SLOW_DOWN);
                 }
                 #endif
+                DO_SLOW_DOWN(SLOW_DOWN);
                 
                 handle_calmDown_item();
                 handle_extraPoints_item();
@@ -653,6 +650,10 @@ int main(void)
         }
 
         // GAME OVER    
+        if(points>highScore)
+        {
+            highScore = points;
+        }
         CLEAR_SCREEN();
         printAchievements();
         SLEEP(1);
@@ -666,10 +667,7 @@ int main(void)
             WAIT_PRESS();
         #endif
         
-        if(points>highScore)
-        {
-            highScore = points;
-        }
+
         
     } // while(1) -> restart from the beginning
 

@@ -254,21 +254,12 @@ void displayScoreStats(void)
 #endif
 
 
-
-// #if !defined(NO_HINTS)) || !defined(NO_INITIAL_SCREEN)
-    // #if !defined(NO_HINTS)
-    void _printCrossShoot(void)
-    {
-        printCenteredMessageOnRowWithCol(3, COLOR_RED,  CROSS_SHOOT_STRING);        
-        SET_COLOR(TEXT_COLOR);
-        
-    }
-    // #else
-        // #define _printCrossShoot() \
-            // printCenteredMessageOnRowWithCol(3, COLOR_RED,  CROSS_SHOOT_STRING);    \
-            // SET_COLOR(TEXT_COLOR);    
-    // #endif
-// #endif
+void _printCrossShoot(void)
+{
+    printCenteredMessageOnRowWithCol(3, COLOR_RED,  CROSS_SHOOT_STRING);        
+    SET_COLOR(TEXT_COLOR);
+    
+}
 
 
 #if !defined(NO_HINTS)
@@ -338,25 +329,29 @@ void printAchievements(void)
     
     SET_COLOR(COLOR_RED);    
 
-    PRINT(2, (YSize>>1)-4, SCORE_STRING);
+    PRINT(2, (YSize>>1)-4,  HIGH_SCORE_STRING);
 
-    PRINT(2, (YSize>>1)-2, LEVEL_STRING);
+    PRINT(2, (YSize>>1)-2,  SCORE_STRING);
 
-    PRINT(2, (YSize>>1), DISCOVERED_SECRETS_STRING);
+    PRINT(2, (YSize>>1),    LEVEL_STRING);
+
+    PRINT(2, (YSize>>1)+2,  DISCOVERED_SECRETS_STRING);
     
-    PRINT(13, (YSize>>1), OF_STRING );
+    PRINT(13, (YSize>>1)+2, OF_STRING );
     
-    PRINTD(16, (YSize>>1), 2, SECRETS_NUMBER);
+    PRINTD(16, (YSize>>1)+2, 2, SECRETS_NUMBER);
 
     SET_COLOR(TEXT_COLOR);    
 
-    PRINTD(10, (YSize>>1)-4, 5, points);
+    PRINTD(10, (YSize>>1)-4, 5, highScore );
 
-    PRINTD(10, (YSize>>1)-2, 2, level);
+    PRINTD(10, (YSize>>1)-2, 5, points);
+
+    PRINTD(10, (YSize>>1), 2,   level);
 
     for(i=0;i<countDiscoveredSecrets();++i)
     {
-        PRINTD(10, (YSize>>1), 2, i);
+        PRINTD(10, (YSize>>1)+2, 2, i);
         DO_SLOW_DOWN(SLOW_DOWN);
         SHOOT_SOUND();
     }

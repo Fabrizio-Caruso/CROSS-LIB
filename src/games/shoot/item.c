@@ -111,6 +111,7 @@ extern Character skulls[];
 extern Image SKULL_IMAGE;
 extern Image CONFUSE_IMAGE;
 
+extern uint8_t skullActive;
 
 void itemReached(Character * itemPtr)
 {
@@ -327,7 +328,14 @@ void _invincibilityEffect(void)
 void invincibilityEffect(void)
 {
     _invincibilityEffect();
-    invincibility._coolDown = ((uint16_t) (INVINCIBILITY_COOL_DOWN)*4);
+    if(level)
+    {
+        invincibility._coolDown = ((uint16_t) (INVINCIBILITY_COOL_DOWN)*4);
+    }
+    else
+    {
+        invincibility._coolDown = SECRET_LEVEL_INVINCIBILITY_COOL_DOWN;
+    }
     setSecret(INVINCIBILITY_EFFECT_SECRET_INDEX);
 }
 
@@ -347,18 +355,21 @@ void confuseEffect(void)
     uint8_t i;
     uint8_t j;
     
-    for(j=0;j<8;++j)
+    if(skullActive)
     {
-        for(i=0;i<SKULLS_NUMBER;++i)
+        for(j=0;j<8;++j)
         {
-            if(skulls[i]._status && (skulls[i]._imagePtr==&SKULL_IMAGE))
+            for(i=0;i<SKULLS_NUMBER;++i)
             {
-                skulls[i]._imagePtr=&CONFUSE_IMAGE;
-                displaySkull(&skulls[i]);
-                SHORT_SLEEP(2);
-                skulls[i]._imagePtr=&SKULL_IMAGE;
-                displaySkull(&skulls[i]);
-                SHORT_SLEEP(1);
+                if(skulls[i]._status && (skulls[i]._imagePtr==&SKULL_IMAGE))
+                {
+                    skulls[i]._imagePtr=&CONFUSE_IMAGE;
+                    displaySkull(&skulls[i]);
+                    SHORT_SLEEP(2);
+                    skulls[i]._imagePtr=&SKULL_IMAGE;
+                    displaySkull(&skulls[i]);
+                    SHORT_SLEEP(1);
+                }
             }
         }
     }

@@ -400,7 +400,7 @@ void printAchievements(void)
     if(secretLevelActivated)
     {
         SET_COLOR(COLOR_YELLOW);    
-        PRINT(2, (YSize>>1)+4, SECRET_LEVEL_FOUND_STRING);
+        PRINT(1, (YSize>>1)+4, SECRET_LEVEL_FOUND_STRING);
     }
 
 }

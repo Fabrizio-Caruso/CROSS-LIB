@@ -120,6 +120,7 @@ void resetItems()
     {
         isBossLevel = 0;
         extraPoints._coolDown = 4;
+        invincibility._coolDown = 4;
     }
     
     if(isBossLevel)

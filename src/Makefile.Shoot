@@ -32,7 +32,7 @@ NO_CHASE_FILES ?= \
 	$(SOURCE_PATH)/main.c \
 	$(SOURCE_PATH)/init_images.c
 
-TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/sleep.c
+TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c 
 
 #
 TEST_FILES ?= $(NO_CHASE_FILES)
@@ -41,7 +41,7 @@ TEST_FILES ?= $(NO_CHASE_FILES)
 LIGHT_ONLY_FILES ?= $(SOURCE_PATH)/item.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c 
 
 #
-FULL_ONLY_FILES ?= $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c 
+FULL_ONLY_FILES ?= $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/sleep.c
 
 #
 LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES) 
@@ -97,7 +97,7 @@ c16_32k:
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DSLOW_DOWN=250 \
+	-DSLOW_DOWN=300 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -117,12 +117,12 @@ vic20_exp_16k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
-	-DSLOW_DOWN=700 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
+	-DSLOW_DOWN=750 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
 	$(LIGHT_FILES) \
 	--code-name CODE2 \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/sleep.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \

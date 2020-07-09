@@ -344,6 +344,9 @@ void printAchievements(void)
 {
     uint8_t i;
     uint8_t j;
+    uint8_t foundSecrets;
+    
+    foundSecrets = countDiscoveredSecrets();
     
     SET_COLOR(COLOR_RED);    
 
@@ -353,7 +356,7 @@ void printAchievements(void)
 
     if(level<=FINAL_LEVEL)
     {
-    PRINT(2, (YSize>>1),    LEVEL_STRING);
+        PRINT(2, (YSize>>1),    LEVEL_STRING);
     }
     else
     {
@@ -389,7 +392,7 @@ void printAchievements(void)
         }
         SHOOT_SOUND();
         ++i;
-    } while(i<countDiscoveredSecrets());
+    } while(i<=foundSecrets);
     
 }
 

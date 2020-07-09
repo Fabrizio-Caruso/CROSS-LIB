@@ -29,7 +29,7 @@
 #include "level.h"
 #include "strategy.h"
 #include "game_text.h"
-
+#include "item.h"
 
 extern uint8_t level;
 extern uint16_t loop;
@@ -145,6 +145,11 @@ void handle_skulls(void)
             #if !defined(DEBUG_NO_SKULL)
             skullActive = 1;
             #endif
+            
+            if(!isBossLevel && INACTIVITY_COUNT_DOWN_REACHED)
+            {
+                setSecret(SKULLS_ACTIVATED_SECRET_INDEX);
+            }
         }
         else
         {

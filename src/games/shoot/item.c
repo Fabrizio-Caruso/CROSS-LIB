@@ -318,6 +318,7 @@ void confuseEffect(void)
     confuseActive = 1;
     confuse._coolDown = SECOND_CONFUSE_COOL_DOWN; //20000UL;//(CONFUSE_COOL_DOWN<<4);
     confuse_count_down = CONFUSE_COUNT_DOWN;
+
     setSecret(CONFUSE_EFFECT_SECRET_INDEX);
 }
 
@@ -373,8 +374,9 @@ void setSecret(uint8_t secretIndex)
         uint8_t i;
         
         TOCK_SOUND();
+        DO_SLOW_DOWN(SLOW_DOWN);
         TICK_SOUND();
-        for(i=0;i<50;++i)
+        for(i=0;i<30;++i)
         {
             _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
             DO_SLOW_DOWN(SLOW_DOWN);

@@ -85,7 +85,6 @@ void destroyerEffect(void);
 #define handle_freeze_count_down() handle_count_down(&freezeActive,&freeze_count_down)
 #define handle_invincibility_count_down() handle_count_down(&invincibilityActive, &invincibility_count_down)    
 #define handle_confuse_count_down() handle_count_down(&confuseActive, &confuse_count_down)
-#define handle_suicide_count_down() handle_count_down(&suicideActive,&suicide_count_down)
 #define handle_destroyer_count_down() handle_count_down(&destroyerActive,&destroyer_count_down)
 
 // Standard items

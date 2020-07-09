@@ -224,8 +224,6 @@ extern Image DEAD_GHOST_IMAGE;
     extern uint8_t invincibility_count_down;	
 
     extern uint8_t confuse_count_down;
-
-    extern uint8_t suicide_count_down;		
 #else
     Character rockets[ROCKETS_NUMBER];
 
@@ -233,7 +231,6 @@ extern Image DEAD_GHOST_IMAGE;
 
     uint8_t confuse_count_down;
 
-    uint8_t suicide_count_down;	
 #endif
 	
 

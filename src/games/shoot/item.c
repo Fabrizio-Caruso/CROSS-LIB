@@ -54,7 +54,6 @@ extern uint8_t suicideActive;
 
 extern uint8_t invincibility_count_down;
 extern uint8_t confuse_count_down;
-extern uint8_t suicide_count_down;
 
 extern uint8_t destroyed_bases_in_completed_levels;
 extern uint8_t all_skulls_killed_in_completed_levels;    
@@ -321,37 +320,37 @@ void superEffect(void)
 
 void confuseEffect(void)
 {
-    // uint8_t i;
+    uint8_t i;
+    uint8_t j;
     
-    // for(i=0;i<SKULLS_NUMBER;++i)
-    // {
-        // if(skulls[i]._imagePtr==&SKULL_IMAGE)
-        // {
-            // skulls[i]._imagePtr=&CONFUSE_IMAGE;
-        // }
-    // }
+    for(j=0;j<8;++j)
+    {
+        for(i=0;i<SKULLS_NUMBER;++i)
+        {
+            if(skulls[i]._status && (skulls[i]._imagePtr==&SKULL_IMAGE))
+            {
+                skulls[i]._imagePtr=&CONFUSE_IMAGE;
+                displaySkull(&skulls[i]);
+                SHORT_SLEEP(3);
+                skulls[i]._imagePtr=&SKULL_IMAGE;
+                displaySkull(&skulls[i]);
+            }
+        }
+    }
     confuseActive = 1;
     confuse._coolDown = SECOND_CONFUSE_COOL_DOWN; //20000UL;//(CONFUSE_COOL_DOWN<<4);
     confuse_count_down = CONFUSE_COUNT_DOWN;
 
     setSecret(CONFUSE_EFFECT_SECRET_INDEX);
-    // for(i=0;i<SKULLS_NUMBER;++i)
-    // {
-        // if(skulls[i]._imagePtr==&CONFUSE_IMAGE)
-        // {
-            // skulls[i]._imagePtr=&SKULL_IMAGE;
-        // }
-    // }
 }
+
 
 void suicideEffect(void)
 {
     uint8_t i;
     
-    suicideActive = 1;
     destroyed_bases_in_completed_levels = 1;
     suicide._coolDown = SECOND_SUICIDE_COOL_DOWN; 
-    suicide_count_down = SUICIDE_COUNT_DOWN;
     setSecret(SUICIDE_EFFECT_SECRET_INDEX);
     for(i=0;i<ghostsOnScreen;++i)
     {
@@ -396,17 +395,17 @@ void setSecret(uint8_t secretIndex)
         uint8_t i;
         
         TOCK_SOUND();
-        DO_SLEEP(1);
+        SHORT_SLEEP(1);
         TICK_SOUND();
         for(i=0;i<30;++i)
         {
             _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
-            DO_SLEEP(1);
+            SHORT_SLEEP(1);
             _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
         }
-        DO_SLEEP(1);
+        SHORT_SLEEP(1);
         discoveredSecrets[secretIndex] = 1;
-        DO_SLEEP(2);
+        SHORT_SLEEP(2);
     }
 }
 

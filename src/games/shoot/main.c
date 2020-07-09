@@ -454,14 +454,14 @@ int main(void)
                 #if SLOW_DOWN>0
                 if(freezeActive)
                 {
-                        DO_SLEEP(1);
+                        SHORT_SLEEP(1);
                 }
                 #endif
                 
                 #if SLOW_DOWN>0
                 if(invincibilityActive)
                 {
-                         DO_SLEEP(1);
+                         SHORT_SLEEP(1);
                 }
                 #endif
                 
@@ -469,10 +469,10 @@ int main(void)
                 #if SLOW_DOWN>0
                 if(ghostCount < GHOST_SLOW_DOWN_THRESHOLD) 
                 {
-                    DO_SLEEP(1);
+                    SHORT_SLEEP(1);
                 }
                 #endif
-                DO_SLEEP(1);
+                SHORT_SLEEP(1);
                 
                 handle_calmDown_item();
                 handle_extraPoints_item();
@@ -507,13 +507,6 @@ int main(void)
                     if(suicide_present_on_level)
                     {
                         handle_suicide_item();
-                        handle_suicide_count_down();    
-                        if(suicideActive && !(loop&15))
-                        {
-                            points+=SUICIDE_BONUS;
-                            displayScoreStats();
-                            reduceItemCoolDowns();
-                        }
                     }
                 }
                 

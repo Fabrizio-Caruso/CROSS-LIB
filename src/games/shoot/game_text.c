@@ -388,7 +388,7 @@ void printAchievements(void)
         PRINTD(10, (YSize>>1)+2, 2, i);
         for(j=0;j<i;++j)
         {
-            DO_SLEEP(2);
+            SHORT_SLEEP(2);
         }
         SHOOT_SOUND();
         ++i;

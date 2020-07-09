@@ -208,7 +208,14 @@ void checkBombsVsSkull(register Character * skullPtr)
         }
         else
         {
-            (skullPtr->_status)>>=1;
+            if(skullPtr->_status<SKULL_BOMB_EXTRA_DAMAGE_THRESHOLD)
+            {
+                (skullPtr->_status)>>=1;
+            }
+            else
+            {
+                skullPtr->_status-=SKULL_BOMB_NORMAL_DAMAGE;
+            }
         }
     }
 }

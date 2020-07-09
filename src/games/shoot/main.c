@@ -143,6 +143,15 @@ void resetItems()
     confuse._coolDown = CONFUSE_COOL_DOWN;
     suicide._coolDown = SUICIDE_COOL_DOWN;                
     destroyer._coolDown = DESTROYER_COOL_DOWN;
+    
+    if(isBossLevel)
+    {
+        firePower._coolDown<<=1;
+        freeze._coolDown<<=1;
+        bombCharge._coolDown<<=1;
+        super._coolDown<<=1;
+        confuse._coolDown<<=1;
+    }
 }
 
 
@@ -594,7 +603,7 @@ int main(void)
                 CLEAR_SCREEN();                        
 
                 
-                if(isBossLevel)
+                if(isBossLevel && !(level==FINAL_LEVEL))
                 {    
                     CLEAR_SCREEN();
                     SLEEP(1);

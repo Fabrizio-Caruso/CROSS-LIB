@@ -91,7 +91,7 @@ void INIT_IMAGES(void)
         CONFUSE_IMAGE._color = _CONFUSE_COLOR;
         SUICIDE_IMAGE._color = _SUICIDE_COLOR;
         
-        BROKEN_BRICK_IMAGE._color = _BRICK_COLOR;
+        BROKEN_BRICK_IMAGE._color = _BROKEN_BRICK_COLOR;
 	#endif	
 
 	// Set Image Data

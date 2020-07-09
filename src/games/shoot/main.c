@@ -49,6 +49,7 @@
 #include "level.h"
 #include "ghost.h"
 #include "move_player.h"
+#include "sleep.h"
 
 #include "text_strings.h"
 
@@ -453,27 +454,25 @@ int main(void)
                 #if SLOW_DOWN>0
                 if(freezeActive)
                 {
-                        DO_SLOW_DOWN(SLOW_DOWN);
+                        DO_SLEEP(1);
                 }
                 #endif
                 
                 #if SLOW_DOWN>0
                 if(invincibilityActive)
                 {
-                        DO_SLOW_DOWN(SLOW_DOWN);
+                         DO_SLEEP(1);
                 }
                 #endif
                 
-                #if SLOW_DOWN>0
                 
                 #if SLOW_DOWN>0
                 if(ghostCount < GHOST_SLOW_DOWN_THRESHOLD) 
                 {
-                        DO_SLOW_DOWN(SLOW_DOWN);
-                        DO_SLOW_DOWN(SLOW_DOWN);
+                    DO_SLEEP(1);
                 }
                 #endif
-                DO_SLOW_DOWN(SLOW_DOWN);
+                DO_SLEEP(1);
                 
                 handle_calmDown_item();
                 handle_extraPoints_item();

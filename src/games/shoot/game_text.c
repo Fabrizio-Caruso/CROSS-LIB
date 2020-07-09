@@ -32,6 +32,7 @@
 #include "sound_macros.h"
 #include "sleep_macros.h"
 #include "item.h"
+#include "sleep.h"
 
 extern Image GHOST_IMAGE;
 extern Image BULLET_IMAGE;
@@ -387,8 +388,7 @@ void printAchievements(void)
         PRINTD(10, (YSize>>1)+2, 2, i);
         for(j=0;j<i;++j)
         {
-            DO_SLOW_DOWN(SLOW_DOWN);
-            DO_SLOW_DOWN(SLOW_DOWN);
+            DO_SLEEP(2);
         }
         SHOOT_SOUND();
         ++i;

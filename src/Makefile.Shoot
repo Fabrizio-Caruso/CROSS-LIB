@@ -32,7 +32,7 @@ NO_CHASE_FILES ?= \
 	$(SOURCE_PATH)/main.c \
 	$(SOURCE_PATH)/init_images.c
 
-TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c
+TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c $(SOURCE_PATH)/sleep.c
 
 #
 TEST_FILES ?= $(NO_CHASE_FILES)

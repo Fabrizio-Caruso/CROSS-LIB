@@ -30,6 +30,7 @@
 #include "game_text.h"
 #include "level.h"
 #include "text_strings.h"
+#include "sleep.h"
 
 #include "cross_lib.h"
 
@@ -395,18 +396,17 @@ void setSecret(uint8_t secretIndex)
         uint8_t i;
         
         TOCK_SOUND();
-        DO_SLOW_DOWN(SLOW_DOWN);
+        DO_SLEEP(1);
         TICK_SOUND();
         for(i=0;i<30;++i)
         {
             _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
-            DO_SLOW_DOWN(SLOW_DOWN);
+            DO_SLEEP(1);
             _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
         }
-        DO_SLOW_DOWN(SLOW_DOWN);
+        DO_SLEEP(1);
         discoveredSecrets[secretIndex] = 1;
-        SHOOT_SOUND();
-        DO_SLOW_DOWN(SLOW_DOWN);
+        DO_SLEEP(2);
     }
 }
 

@@ -111,6 +111,7 @@ extern Character skulls[];
 extern Image SKULL_IMAGE;
 extern Image CONFUSE_IMAGE;
 
+
 void itemReached(Character * itemPtr)
 {
     ZAP_SOUND();
@@ -119,6 +120,7 @@ void itemReached(Character * itemPtr)
     itemPtr->_status = 0;
     displayScoreStats();
 }
+
 
 void relocateAwayFromWalls(Character * itemPtr)
 {        
@@ -129,6 +131,7 @@ void relocateAwayFromWalls(Character * itemPtr)
 
 }    
 
+
 void _freezeEffect(void)
 {
     decreaseGhostLevel();
@@ -136,6 +139,7 @@ void _freezeEffect(void)
     points+=FREEZE_BONUS;
     freeze_count_down += FREEZE_COUNT_DOWN;    
 }
+
 
 void _increaseBullets(uint8_t bullets)
 {
@@ -161,6 +165,7 @@ void fireChargeEffect(void)
     fireCharge._coolDown = FIRE_CHARGE_COOL_DOWN;        
 }
 
+
 void bombChargeEffect(void)
 {
     uint8_t i;
@@ -176,6 +181,7 @@ void bombChargeEffect(void)
     bombCharge._coolDown = BOMB_CHARGE_COOL_DOWN;    
 }
 
+
 void calmDownEffect(void)
 {
     uint8_t i;
@@ -189,6 +195,7 @@ void calmDownEffect(void)
     freeze_count_down += FREEZE_COUNT_DOWN/4;
     calmDown._coolDown = CALM_DOWN_COOL_DOWN*4;    
 }
+
 
 void _firePowerEffect(void)
 {
@@ -208,23 +215,35 @@ void _firePowerEffect(void)
     printFirePowerStats();
 }
 
+
 void firePowerEffect(void)
 {
     _firePowerEffect();
     firePower._coolDown = FIRE_POWER_COOL_DOWN*2;    
 }
 
+
 void extraPointsEffect(void)
 {
-    points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
-    extraPoints._coolDown = SECOND_EXTRA_POINTS_COOL_DOWN;//(EXTRA_POINTS_COOL_DOWN<<4); // second time is harder        
+    
+    if(level)
+    {
+        points+=EXTRA_POINTS+level*EXTRA_POINTS_LEVEL_INCREASE;
+        extraPoints._coolDown = SECOND_EXTRA_POINTS_COOL_DOWN;
+    }
+    else
+    {
+        points+=SECRET_LEVEL_EXTRA_POINTS;
+        extraPoints._coolDown = 4;
+    }
     setSecret(EXTRA_POINTS_EFFECT_SECRET_INDEX);
 }
+
 
 void handle_item(register Item *itemPtr)
 {
     // Manage item
-    if(itemPtr->_character._status == 1)
+    if(itemPtr->_character._status)
     {    
         if(areCharctersAtSamePosition(&player, (Character *) itemPtr))
         {
@@ -236,7 +255,7 @@ void handle_item(register Item *itemPtr)
             _blink_draw(itemPtr->_character._x, itemPtr->_character._y, itemPtr->_character._imagePtr, &(itemPtr->_blink));
         }        
     }
-    else if (itemPtr->_coolDown <= 0)
+    else if (itemPtr->_coolDown == 0)
     {
         itemPtr->_character._status = 1;
         relocateAwayFromWalls((Character *) itemPtr);
@@ -248,6 +267,7 @@ void handle_item(register Item *itemPtr)
         --itemPtr->_coolDown;
     }
 }
+
 
 void handle_count_down(uint8_t * flagPtr, uint8_t * countDownPtr)
 {
@@ -264,7 +284,7 @@ void handle_count_down(uint8_t * flagPtr, uint8_t * countDownPtr)
     }
 }    
 
-    
+
 void reduceItemCoolDowns(void)
 {
     extraPoints._coolDown-=extraPoints._coolDown/4;
@@ -293,6 +313,7 @@ void extraLifeEffect(void)
     setSecret(EXTRA_LIFE_EFFECT_SECRET_INDEX);
 }
 
+
 void _invincibilityEffect(void)
 {
     invincibilityActive = 1;
@@ -302,12 +323,14 @@ void _invincibilityEffect(void)
     }
 }
 
+
 void invincibilityEffect(void)
 {
     _invincibilityEffect();
     invincibility._coolDown = ((uint16_t) (INVINCIBILITY_COOL_DOWN)*4);
     setSecret(INVINCIBILITY_EFFECT_SECRET_INDEX);
 }
+
 
 void superEffect(void)
 {
@@ -317,6 +340,7 @@ void superEffect(void)
     super._coolDown = ((uint16_t) (SUPER_COOL_DOWN)*8);
     setSecret(SUPER_EFFECT_SECRET_INDEX);
 }
+
 
 void confuseEffect(void)
 {
@@ -363,6 +387,7 @@ void suicideEffect(void)
     }
 }
 
+
 void destroyerEffect(void)
 {
     destroyerActive = 1;
@@ -371,6 +396,7 @@ void destroyerEffect(void)
     destroyer_count_down = DESTROYER_COUNT_DOWN;
     destroyer._coolDown = DESTROYER_COOL_DOWN;
 }
+
 
 void handle_destroyer_triggers(void)
 {
@@ -395,8 +421,6 @@ void setSecret(uint8_t secretIndex)
     {
         uint8_t i;
         
-        TOCK_SOUND();
-        SHORT_SLEEP(1);
         TICK_SOUND();
         for(i=0;i<20;++i)
         {

@@ -284,7 +284,39 @@ uint8_t isInnerVerticalWallLevel;
 
 uint16_t levelSlowDown;
 
-// #define SECRETS_NUMBER 12
-// uint8_t foundSecrets[SECRETS_NUMBER];
 
+uint8_t skullsCount;
+
+uint8_t bulletStrength;
+
+uint8_t bombCount;
+
+uint8_t reachedByGhost;
+    
+Character bullets[BULLETS_NUMBER];
+
+Character skulls[SKULLS_NUMBER];
+
+
+uint8_t innerHorizontalWallY; 
+uint8_t innerHorizontalWallX; 
+uint8_t innerHorizontalWallLength;
+
+uint8_t ghostsOnScreen;
+
+uint8_t firePowerItemSecret;
+uint8_t firePowerLevelSecret;
+
+uint8_t fireChargeSecret;
+uint8_t calmDownSecret;
+uint8_t extraPointsSecret;
+uint8_t freezeSecret;
+
+uint8_t discoveredSecrets[SECRETS_NUMBER];
+
+uint8_t secretLevelActivated;
+uint8_t zeroLevelSecret;
+
+uint8_t nextLevel;
 #endif // _VARIABLES_H
+

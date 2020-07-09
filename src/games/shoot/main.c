@@ -71,35 +71,6 @@
 
 #include "variables.h"
 
-uint8_t skullsCount;
-
-uint8_t bulletStrength;
-
-uint8_t bombCount;
-
-uint8_t reachedByGhost;
-    
-Character bullets[BULLETS_NUMBER];
-
-Character skulls[SKULLS_NUMBER];
-
-
-uint8_t innerHorizontalWallY; 
-uint8_t innerHorizontalWallX; 
-uint8_t innerHorizontalWallLength;
-
-uint8_t ghostsOnScreen;
-
-uint8_t firePowerItemSecret;
-uint8_t firePowerLevelSecret;
-
-uint8_t fireChargeSecret;
-uint8_t calmDownSecret;
-uint8_t extraPointsSecret;
-uint8_t freezeSecret;
-
-uint8_t discoveredSecrets[SECRETS_NUMBER];
-
 #define handle_secret_item_at_start_up(secretFlag, item, secretIndex) \
     if(secretFlag) \
     { \
@@ -144,6 +115,12 @@ void resetItems()
     confuse._coolDown = CONFUSE_COOL_DOWN;
     suicide._coolDown = SUICIDE_COOL_DOWN;                
     destroyer._coolDown = DESTROYER_COOL_DOWN;
+    
+    if(!level)
+    {
+        isBossLevel = 0;
+        extraPoints._coolDown = 4;
+    }
     
     if(isBossLevel)
     {
@@ -233,7 +210,7 @@ int main(void)
         level = INITIAL_LEVEL;     
         lives = LIVES_NUMBER;
         
-        ghostCount = GHOSTS_NUMBER; 
+        ghostCount = FIRST_LEVEL_GHOSTS_NUMBER; 
          
         
         destroyed_bases_in_completed_levels = 0;
@@ -244,6 +221,9 @@ int main(void)
         extraPointsSecret = 0;
         freezeSecret = 0;
         fireChargeSecret = 0;
+        
+        secretLevelActivated = 0;
+        zeroLevelSecret = 0;
         
         resetSecrets();
         
@@ -259,7 +239,11 @@ int main(void)
             #if defined(DEBUG_STRATEGY)
             ghostsOnScreen = 1;
             #else
-            if(isBossLevel)
+            if(!level)
+            {
+                ghostsOnScreen = GHOSTS_NUMBER;
+            }
+            else if(isBossLevel)
             {
                 ghostsOnScreen = BOSS_LEVEL_GHOSTS_NUMBER;
             }
@@ -586,6 +570,10 @@ int main(void)
                             if(ghostCount>=FREEZE_SECRET_THRESHOLD)
                             {
                                 freezeSecret = 1;
+                                if((ghostCount>=SECRET_LEVEL_THRESHOLD) && !secretLevelActivated)
+                                {
+                                    zeroLevelSecret = 1;
+                                }
                             }
                         }
                     }
@@ -616,8 +604,29 @@ int main(void)
                     }
                     destroyed_bases_in_completed_levels+=destroyed_bases;
                 }
-                ++level;
-                ghostCount = GHOSTS_NUMBER + 2*level;
+                
+                if(zeroLevelSecret)
+                {
+                    nextLevel = level+1;
+                    level = 0;
+                    secretLevelActivated = 1;
+                    zeroLevelSecret = 0;
+                    setSecret(ZERO_LEVEL_SECRET_INDEX);
+                    ghostCount = ZERO_LEVEL_GHOSTS_NUMBER;
+                }
+                else
+                {
+                    ghostCount = GHOSTS_NUMBER + 2*level;
+                    if(!level)
+                    {
+                        level = nextLevel;
+                    }
+                    else
+                    {
+                        ++level;
+                    }
+                }
+                
 
             }
             else // if dead
@@ -638,6 +647,7 @@ int main(void)
                 freezeSecret = 0;
                 fireChargeSecret = 0;
                 firePowerLevelSecret = 0;
+                zeroLevelSecret = 0;
             }
             #if defined(BETWEEN_LEVEL)
                 spiral(chasedEnemyPtr, 2*MIN_SIZE-18);

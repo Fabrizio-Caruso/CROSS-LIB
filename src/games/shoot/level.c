@@ -181,7 +181,7 @@ uint8_t innerHorizontalWallLevel(void)
 
 uint8_t innerVerticalWallLevel(void)
 {
-    return ((level&7)==1) || ((level&7)==3) || ((level&7)==5) || bossLevel();
+    return !level || ((level&7)==1) || ((level&7)==3) || ((level&7)==5) || bossLevel();
 }    
 
 uint8_t oneMissileLevel(void)
@@ -191,7 +191,7 @@ uint8_t oneMissileLevel(void)
 
 uint8_t rocketLevel(void)
 {
-    return ((level==3) || (level>=6));
+    return !level || ((level==3) || (level>=6));
 }
 
 uint8_t missileLevel(void)
@@ -201,7 +201,7 @@ uint8_t missileLevel(void)
 
 uint8_t bossLevel(void)
 {
-    return !(level&7);
+    return level && !(level&7);
 }
 
 void initializeAwayFromWall(Character * characterPtr, uint8_t x, uint8_t y, uint8_t status, Image *imagePtr)
@@ -262,6 +262,12 @@ void fillLevelWithCharacters(void)
     uint8_t i;
     uint8_t count;
     
+
+    // if(!level)
+    // {
+        // ghostCount =99;
+        // ghostsOnScreen = GHOSTS_NUMBER;
+    // }
 
     
     if(isRocketLevel)

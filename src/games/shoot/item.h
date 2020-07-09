@@ -109,7 +109,7 @@ void handle_destroyer_triggers(void);
 
 void setSecret(uint8_t secretIndex);
 
-#define SECRETS_NUMBER 15
+#define SECRETS_NUMBER 16
 
 #define EXTRA_POINTS_EFFECT_SECRET_INDEX 0
 #define INVINCIBILITY_EFFECT_SECRET_INDEX 1 
@@ -126,6 +126,7 @@ void setSecret(uint8_t secretIndex);
 #define BOMB_DESTROYER_SECRET_INDEX 12
 #define FIRE_POWER_LEVEL_SECRET_INDEX 13
 #define SKULLS_ACTIVATED_SECRET_INDEX 14
+#define ZERO_LEVEL_SECRET_INDEX 15
 
 #endif // _item.h
 

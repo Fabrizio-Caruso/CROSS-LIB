@@ -106,6 +106,11 @@ extern uint8_t fireChargeSecret;
 
 extern uint8_t discoveredSecrets[];
 
+extern Character skulls[];
+
+extern Image SKULL_IMAGE;
+extern Image CONFUSE_IMAGE;
+
 void itemReached(Character * itemPtr)
 {
     ZAP_SOUND();
@@ -315,11 +320,27 @@ void superEffect(void)
 
 void confuseEffect(void)
 {
+    // uint8_t i;
+    
+    // for(i=0;i<SKULLS_NUMBER;++i)
+    // {
+        // if(skulls[i]._imagePtr==&SKULL_IMAGE)
+        // {
+            // skulls[i]._imagePtr=&CONFUSE_IMAGE;
+        // }
+    // }
     confuseActive = 1;
     confuse._coolDown = SECOND_CONFUSE_COOL_DOWN; //20000UL;//(CONFUSE_COOL_DOWN<<4);
     confuse_count_down = CONFUSE_COUNT_DOWN;
 
     setSecret(CONFUSE_EFFECT_SECRET_INDEX);
+    // for(i=0;i<SKULLS_NUMBER;++i)
+    // {
+        // if(skulls[i]._imagePtr==&CONFUSE_IMAGE)
+        // {
+            // skulls[i]._imagePtr=&SKULL_IMAGE;
+        // }
+    // }
 }
 
 void suicideEffect(void)

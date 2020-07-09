@@ -244,9 +244,9 @@
 
 #define SUICIDE_BONUS 5
 
-#define SKULL_LOOP_TRIGGER (100-(level<<2))
+#define SKULL_LOOP_TRIGGER 40
 
-#define SKULL_COUNT_DOWN 100
+#define SKULL_COUNT_DOWN 130
 
 #if defined(WIDE)
     #define SKULL_MIN_SLOWDOWN 5000

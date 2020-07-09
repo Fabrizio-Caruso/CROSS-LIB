@@ -331,9 +331,10 @@ void confuseEffect(void)
             {
                 skulls[i]._imagePtr=&CONFUSE_IMAGE;
                 displaySkull(&skulls[i]);
-                SHORT_SLEEP(3);
+                SHORT_SLEEP(2);
                 skulls[i]._imagePtr=&SKULL_IMAGE;
                 displaySkull(&skulls[i]);
+                SHORT_SLEEP(1);
             }
         }
     }
@@ -397,15 +398,14 @@ void setSecret(uint8_t secretIndex)
         TOCK_SOUND();
         SHORT_SLEEP(1);
         TICK_SOUND();
-        for(i=0;i<30;++i)
+        for(i=0;i<20;++i)
         {
             _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
-            SHORT_SLEEP(1);
+            SHORT_SLEEP(2);
             _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
+            SHORT_SLEEP(2);
         }
-        SHORT_SLEEP(1);
         discoveredSecrets[secretIndex] = 1;
-        SHORT_SLEEP(2);
     }
 }
 

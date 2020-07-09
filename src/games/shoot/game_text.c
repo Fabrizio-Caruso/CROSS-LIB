@@ -71,6 +71,7 @@ extern Image BULLET_IMAGE;
 
 extern uint8_t discoveredSecrets[];
 
+extern uint8_t  secretLevelActivated;
 
 void printKillTheSkull(void)
 {
@@ -351,41 +352,41 @@ void printAchievements(void)
     
     SET_COLOR(COLOR_RED);    
 
-    PRINT(2, (YSize>>1)-4,  HIGH_SCORE_STRING);
+    PRINT(1, (YSize>>1)-4,  HIGH_SCORE_STRING);
 
-    PRINT(2, (YSize>>1)-2,  SCORE_STRING);
+    PRINT(1, (YSize>>1)-2,  SCORE_STRING);
 
     if(level<=FINAL_LEVEL)
     {
-        PRINT(2, (YSize>>1),    LEVEL_STRING);
+        PRINT(1, (YSize>>1),    LEVEL_STRING);
     }
     else
     {
         SET_COLOR(COLOR_YELLOW);
-        PRINT(2, (YSize>>1), GAME_COMPLETED_STRING);
+        PRINT(1, (YSize>>1), GAME_COMPLETED_STRING);
         SET_COLOR(COLOR_RED);    
     }
-    PRINT(2, (YSize>>1)+2,  DISCOVERED_SECRETS_STRING);
+    PRINT(1, (YSize>>1)+2,  DISCOVERED_SECRETS_STRING);
     
-    PRINT(13, (YSize>>1)+2, OF_STRING );
+    PRINT(12, (YSize>>1)+2, OF_STRING );
     
-    PRINTD(16, (YSize>>1)+2, 2, SECRETS_NUMBER);
+    PRINTD(15, (YSize>>1)+2, 2, SECRETS_NUMBER);
 
     SET_COLOR(TEXT_COLOR);    
 
-    PRINTD(10, (YSize>>1)-4, 5, highScore );
+    PRINTD(9, (YSize>>1)-4, 5, highScore );
 
-    PRINTD(10, (YSize>>1)-2, 5, points);
+    PRINTD(9, (YSize>>1)-2, 5, points);
 
     if(level<=FINAL_LEVEL)
     {
-        PRINTD(10, (YSize>>1), 2,   level);
+        PRINTD(9, (YSize>>1), 2,   level);
     }
 
     i=0;
     do
     {
-        PRINTD(10, (YSize>>1)+2, 2, i);
+        PRINTD(9, (YSize>>1)+2, 2, i);
         for(j=0;j<i;++j)
         {
             SHORT_SLEEP(2);
@@ -394,6 +395,14 @@ void printAchievements(void)
         ++i;
     } while(i<=foundSecrets);
     
+    
+    SHORT_SLEEP(10);
+    if(secretLevelActivated)
+    {
+        SET_COLOR(COLOR_YELLOW);    
+        PRINT(2, (YSize>>1)+4, SECRET_LEVEL_FOUND_STRING);
+    }
+
 }
 
 

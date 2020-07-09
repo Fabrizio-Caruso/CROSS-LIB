@@ -645,15 +645,7 @@ int main(void)
             
         } while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 
             
-        if(level==FINAL_LEVEL+1) // if completed game
-        {
-            gameCompleted();
-            #if !defined(NO_SLEEP)
-                SLEEP(1);
-            #else
-                WAIT_PRESS();
-            #endif
-        }
+
 
         // GAME OVER    
         if(points>highScore)
@@ -664,6 +656,18 @@ int main(void)
         printAchievements();
         SLEEP(1);
         WAIT_PRESS();
+        
+        if(level==FINAL_LEVEL+1) // if completed game
+        {
+            gameCompleted();
+            SLEEP(1);
+            #if !defined(NO_SLEEP)
+                SLEEP(1);
+            #else
+                WAIT_PRESS();
+            #endif
+        }
+        
         CLEAR_SCREEN();
         printGameOver();
         

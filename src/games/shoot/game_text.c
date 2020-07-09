@@ -351,8 +351,16 @@ void printAchievements(void)
 
     PRINT(2, (YSize>>1)-2,  SCORE_STRING);
 
+    if(level<=FINAL_LEVEL)
+    {
     PRINT(2, (YSize>>1),    LEVEL_STRING);
-
+    }
+    else
+    {
+        SET_COLOR(COLOR_YELLOW);
+        PRINT(2, (YSize>>1), GAME_COMPLETED_STRING);
+        SET_COLOR(COLOR_RED);    
+    }
     PRINT(2, (YSize>>1)+2,  DISCOVERED_SECRETS_STRING);
     
     PRINT(13, (YSize>>1)+2, OF_STRING );
@@ -365,7 +373,10 @@ void printAchievements(void)
 
     PRINTD(10, (YSize>>1)-2, 5, points);
 
-    PRINTD(10, (YSize>>1), 2,   level);
+    if(level<=FINAL_LEVEL)
+    {
+        PRINTD(10, (YSize>>1), 2,   level);
+    }
 
     i=0;
     do

@@ -22,6 +22,8 @@
 	extern uint8_t ind;
     
     extern uint8_t ghostsOnScreen;
+    
+    extern uint8_t isBossLevel;
 #endif
 
 
@@ -41,16 +43,17 @@
 #if defined(END_SCREEN) && !defined(NO_MESSAGE)
 	void gameCompleted(void)
 	{
-		level = 16;
 		
 		CLEAR_SCREEN();
         ghostCount = 8;
         ghostsOnScreen = 8;
+        level = 1;
+        isBossLevel = 0;
 		fillLevelWithCharacters();
 
 		playerFire = 0;
 		skulls[0]._x = player._x-4;
-		skulls[0]._y = player._y;	
+		skulls[0]._y = player._y;
 		bullet._status = 0;
 		guns = 1;
 		while(!playerFire && !wallReached(&player))
@@ -61,7 +64,7 @@
 			}
 			
 			displayPlayer(&player);
-			
+			displaySkull(&skulls[0]);
 		
 			printCenteredMessageOnRow(MESSAGE_START,  YOU_MADE_IT_STRING);		
 			#if SLOW_DOWN>0

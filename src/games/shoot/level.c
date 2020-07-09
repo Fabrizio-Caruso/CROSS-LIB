@@ -38,7 +38,6 @@
 
 #include "level.h"
 
-// #define DEBUG
 
 extern uint8_t level;
 
@@ -263,9 +262,7 @@ void fillLevelWithCharacters(void)
     uint8_t i;
     uint8_t count;
     
-    #if defined(DEBUG)
-    gotoxy(1,1);cprintf("filling level.........");
-    #endif
+
     
     if(isRocketLevel)
     {
@@ -304,26 +301,22 @@ void fillLevelWithCharacters(void)
     
     for(i=0;i<count;++i)
     {
-        #if defined(DEBUG)
-        gotoxy(0,0);cprintf("count %d", count);SLEEP(2);
-        gotoxy(1,1);cprintf("spawning ghost......");        
-        #endif
         spawnGhost(&ghosts[i],i);
-        #if defined(DEBUG)
-        gotoxy(1,1);cprintf("ghost spawned.......");        
+        #if defined(DEBUG_LEVEL)
+        PRINT(0,i,"ghost spawned.......");        
         #endif
-        #if defined(DEBUG)
+        #if defined(DEBUG_LEVEL)
             displayCharacter((Character *)&ghosts[i]);
         #endif          
     }
     
     for(i=count;i<GHOSTS_NUMBER;++i)
     {
-        #if defined(DEBUG)
-        gotoxy(1,1);cprintf("initialized dead ghost......."); 
+        #if defined(DEBUG_LEVEL)
+        PRINT(0,i,"initialized dead ghost......."); 
         #endif        
         initializeCharacter(&ghosts[i],0,0,0,NULL);
-        #if defined(DEBUG)
+        #if defined(DEBUG_LEVEL)
             displayCharacter((Character *)&ghosts[i]);
         #endif        
     }
@@ -380,6 +373,8 @@ void fillLevelWithCharacters(void)
         initializeCharacter(&skulls[BOSS_INDEX],XSize-3,2, MIN_SKULL_HITS, &SKULL_IMAGE);
     }
     initializeCharacter(&skulls[3],2,2, MIN_SKULL_HITS+(isBossLevel<<BOSS_LEVEL_SKULL_INCREASE), &SKULL_IMAGE);
+    
+    displayGhosts();
     
 }
 

@@ -50,7 +50,6 @@ extern uint8_t bulletStrength;
 
 extern uint8_t invincibilityActive;
 extern uint8_t confuseActive;
-extern uint8_t suicideActive;
 
 extern uint8_t invincibility_count_down;
 extern uint8_t confuse_count_down;

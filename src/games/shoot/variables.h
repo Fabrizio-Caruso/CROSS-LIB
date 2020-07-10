@@ -153,9 +153,7 @@ extern Image DEAD_GHOST_IMAGE;
     extern uint8_t invincibilityActive;
     
     extern uint8_t confuseActive; 
-    
-    extern uint8_t suicideActive; 		
-    
+        
     extern uint8_t innerVerticalWallY; 
     extern uint8_t innerVerticalWallX; 
     extern uint8_t innerVerticalWallLength;
@@ -206,8 +204,6 @@ extern Image DEAD_GHOST_IMAGE;
     
     uint8_t confuseActive; 
     
-    uint8_t suicideActive; 
-
     uint8_t innerVerticalWallY; 
     uint8_t innerVerticalWallX; 
     uint8_t innerVerticalWallLength;

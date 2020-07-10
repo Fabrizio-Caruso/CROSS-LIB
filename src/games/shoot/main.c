@@ -284,7 +284,6 @@ int main(void)
                 freezeActive = 0;
             #endif
             confuseActive = 0;
-            suicideActive = 0; 
 
             #if defined(DEBUG_ITEMS)
                 destroyed_bases_in_completed_levels = 2;

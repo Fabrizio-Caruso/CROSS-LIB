@@ -130,10 +130,6 @@ void updateInnerVerticalWall(void)
     {
         innerVerticalWallLength = 0;
     }
-    else if(isBossLevel)
-    {
-        innerVerticalWallLength = 6;
-    }
     else
     {
         #if YSize>17

@@ -51,7 +51,10 @@ The game has 16 different levels including 2 boss levels.
 
 
 ## CURRENTLY SUPPORTED ARCHITECTURES
-The main goal is to get the library and game to work on most 8-bit architectures as well as many other architectures:
+The main goal is to get the library and game to work on most vintage systems with possibly all 8-bit architectures as well as some 16 and 32-bit architectures.
+A partial list of the supported systems is found in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+
+The most significant supported CPU architecture are described below.
 
 ### 8-BIT ARCHITECTURES
 - COSMAC RCA 1802 and derivates

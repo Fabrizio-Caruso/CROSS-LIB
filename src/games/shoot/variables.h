@@ -137,6 +137,7 @@ extern Image DEAD_GHOST_IMAGE;
 
     extern uint8_t extraLife_present_on_level;
     extern uint8_t super_present_on_level;
+    extern uint8_t confuse_present_on_level;
     extern uint8_t suicide_present_on_level;
     
     extern uint8_t destroyed_bases;
@@ -187,6 +188,8 @@ extern Image DEAD_GHOST_IMAGE;
     uint8_t extraLife_present_on_level;
     uint8_t super_present_on_level;
     uint8_t suicide_present_on_level;
+    uint8_t confuse_present_on_level;
+
     
     uint8_t destroyed_bases;
     uint8_t rocketsOnScreen;
@@ -215,8 +218,6 @@ extern Image DEAD_GHOST_IMAGE;
     uint8_t destroyer_count_down;
     uint8_t exploded_bombs;
 #endif
-
-#define confuse_present_on_level_condition destroyed_bases_in_completed_levels
 
 #if defined(USE_MEMORY_BUFFERS)
     extern Character rockets[];

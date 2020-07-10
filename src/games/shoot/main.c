@@ -166,11 +166,10 @@ void initialScreen(void)
 }
 #endif
 
-
 void handle_special_triggers(void)
 {
-    // confuse_present_on_level_condition is defined as destroyed_bases_in_completed_levels
-    suicide_present_on_level = destroyed_bases_in_completed_levels>=2;
+    confuse_present_on_level = !level || destroyed_bases_in_completed_levels;
+    suicide_present_on_level = !level || (destroyed_bases_in_completed_levels>=2);
     super_present_on_level = all_skulls_killed_in_completed_levels>=2;
     extraLife_present_on_level = super_present_on_level && suicide_present_on_level;
 }
@@ -485,7 +484,7 @@ int main(void)
                 }
                 
                                     
-                if(confuse_present_on_level_condition)
+                if(confuse_present_on_level)
                 {
                     handle_confuse_item();
                     handle_confuse_count_down();
@@ -617,7 +616,6 @@ int main(void)
                 }
                 else
                 {
-                    ghostCount = GHOSTS_NUMBER + 2*level;
                     if(!level)
                     {
                         level = nextLevel;
@@ -626,6 +624,7 @@ int main(void)
                     {
                         ++level;
                     }
+                    ghostCount = GHOSTS_NUMBER + 2*level;
                 }
                 
 

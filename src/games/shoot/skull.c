@@ -202,20 +202,13 @@ void checkBombsVsSkull(register Character * skullPtr)
         ++exploded_bombs;
         EXPLOSION_SOUND();
         
-        if(skullPtr->_status<=SKULL_BOMB_THRESHOLD)
+        if(skullPtr->_status<=SKULL_BOMB_DAMAGE)
         {
             skullDies(skullPtr);
         }
         else
         {
-            if(skullPtr->_status<SKULL_BOMB_EXTRA_DAMAGE_THRESHOLD)
-            {
-                (skullPtr->_status)>>=1;
-            }
-            else
-            {
-                skullPtr->_status-=SKULL_BOMB_NORMAL_DAMAGE;
-            }
+            skullPtr->_status-=SKULL_BOMB_DAMAGE;
         }
     }
 }

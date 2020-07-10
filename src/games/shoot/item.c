@@ -194,7 +194,7 @@ void calmDownEffect(void)
     points+=CALM_DOWN_BONUS;
     freezeActive = 1;
     freeze_count_down += FREEZE_COUNT_DOWN/4;
-    calmDown._coolDown = CALM_DOWN_COOL_DOWN*4;    
+    calmDown._coolDown = CALM_DOWN_COOL_DOWN*2;    
 }
 
 
@@ -429,17 +429,13 @@ void handle_destroyer_triggers(void)
 
 void setSecret(uint8_t secretIndex)
 {   if(!discoveredSecrets[secretIndex])
-    {
-        uint8_t i;
-        
+    {        
         TICK_SOUND();
-        for(i=0;i<20;++i)
-        {
-            _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
-            SHORT_SLEEP(2);
-            _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
-            SHORT_SLEEP(2);
-        }
+        _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
+        printCenteredMessageWithCol(COLOR_YELLOW, SECRET_FOUND_STRING);
+        SLEEP(1);
+        _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
+        printCenteredMessageWithCol(COLOR_YELLOW, EMPTY_STRING);
         discoveredSecrets[secretIndex] = 1;
     }
 }

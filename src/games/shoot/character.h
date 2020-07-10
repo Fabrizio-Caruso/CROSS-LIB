@@ -192,8 +192,8 @@ void relocateNearBy(register Character * characterPtr);
 
 uint8_t sameLocationAsAnyLocation(uint8_t x, uint8_t y, Character *characterList, uint8_t length);
 
-uint8_t innerVerticalWallReached(Character *characterPtr);
-uint8_t innerHorizontalWallReached(Character *characterPtr);
+uint8_t innerVerticalWallReached(uint8_t x, uint8_t y);
+uint8_t innerHorizontalWallReached(uint8_t x, uint8_t y);
 uint8_t nearInnerVerticalWall(register Character *characterPtr);
 uint8_t nearInnerHorizontalWall(register Character *characterPtr);    
 

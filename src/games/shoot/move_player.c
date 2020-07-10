@@ -105,24 +105,29 @@ extern uint8_t playerBlink;
         playerFire = 0;
 #endif
 
+uint8_t innerWallReached(uint8_t x, uint8_t y)
+{
+    return innerVerticalWallReached(x,y) || innerHorizontalWallReached(x,y);
+}
+
 #if defined(JOYSTICK_CONTROL)
     #include <joystick.h>
     
     void movePlayerByJoystick(uint8_t joyInput)
     {
-        if(JOY_UP(joyInput))
+        if(JOY_UP(joyInput) && (player._y>1) && !innerWallReached(player._x,player._y-1))
         {
             _DO_MOVE_UP
         }
-        else if(JOY_DOWN(joyInput))
+        else if(JOY_DOWN(joyInput) && (player._y<YSize-2) && !innerWallReached(player._x,player._y+1))
         {
             _DO_MOVE_DOWN
         }
-        else if(JOY_LEFT(joyInput))
+        else if(JOY_LEFT(joyInput) && (player._x>1) && !innerWallReached(player._x-1,player._y))
         {
             _DO_MOVE_LEFT
         }
-        else if(JOY_RIGHT(joyInput))
+        else if(JOY_RIGHT(joyInput) && (player._x<XSize-2) && !innerWallReached(player._x+1,player._y))
         {
             _DO_MOVE_RIGHT
         }
@@ -137,19 +142,19 @@ extern uint8_t playerBlink;
         #if defined(ALT_MOVE)
             deletePlayer(&player);
         #endif
-        if(kbInput==_MOVE_UP)
+        if(kbInput==_MOVE_UP && (player._y>1) && !innerWallReached(player._x,player._y-1))
         {
             _DO_MOVE_UP
         }
-        else if(kbInput==_MOVE_DOWN)
+        else if(kbInput==_MOVE_DOWN && (player._y<YSize-2) && !innerWallReached(player._x,player._y+1))
         {
             _DO_MOVE_DOWN
         }
-        else if(kbInput==_MOVE_LEFT)
+        else if(kbInput==_MOVE_LEFT && (player._x>1) && !innerWallReached(player._x-1,player._y))
         {
             _DO_MOVE_LEFT
         }
-        else if(kbInput==_MOVE_RIGHT)
+        else if(kbInput==_MOVE_RIGHT && (player._x<XSize-2) && !innerWallReached(player._x+1,player._y))
         {
             _DO_MOVE_RIGHT
         }

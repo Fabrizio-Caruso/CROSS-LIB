@@ -168,9 +168,9 @@ void relocateNearBy(register Character * characterPtr)
     characterPtr->_y = y;
 }
 
-uint8_t innerVerticalWallReached(Character *characterPtr)
+uint8_t innerVerticalWallReached(uint8_t x, uint8_t y)
 {
-    return (characterPtr->_x==innerVerticalWallX) && (characterPtr->_y >= innerVerticalWallY) && (characterPtr->_y<= (innerVerticalWallY + innerVerticalWallLength-1));
+    return (x==innerVerticalWallX) && (y >= innerVerticalWallY) && (y <= (innerVerticalWallY + innerVerticalWallLength-1));
 }
 
 
@@ -181,9 +181,10 @@ uint8_t nearInnerVerticalWall(register Character *characterPtr)
 }
 
 
-uint8_t innerHorizontalWallReached(Character *characterPtr)
+
+uint8_t innerHorizontalWallReached(uint8_t x, uint8_t y)
 {
-    return (characterPtr->_y==innerHorizontalWallY) && (characterPtr->_x >= innerHorizontalWallX) && (characterPtr->_x<= (innerHorizontalWallX + innerHorizontalWallLength-1));
+    return (y==innerHorizontalWallY) && (x >= innerHorizontalWallX) && (x<= (innerHorizontalWallX + innerHorizontalWallLength-1));
 }
 
 

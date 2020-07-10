@@ -289,7 +289,7 @@ void checkBulletVsGhost(Character * bulletPtr,
 
                 deleteGhost(ghostPtr);
                 pushGhost(ghostPtr, bulletDirection);
-                if(wallReached(ghostPtr) || innerVerticalWallReached(ghostPtr) || innerHorizontalWallReached(ghostPtr))
+                if(wallReached(ghostPtr) || innerVerticalWallReached(ghostPtr->_x, ghostPtr->_y) || innerHorizontalWallReached(ghostPtr->_x, ghostPtr->_y))
                 {
                     ghostDies(ghostPtr);
                     points+=GHOST_VS_WALL_BONUS;
@@ -401,7 +401,7 @@ void destroyHorizontalMissile(Character * horizontalMissilePtr)
 
 void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
 {
-    if((wallReached(bulletPtr) || innerVerticalWallReached(bulletPtr) || innerHorizontalWallReached(bulletPtr)) && bulletPtr->_status)
+    if(bulletPtr->_status && (wallReached(bulletPtr) || innerVerticalWallReached(bulletPtr->_x, bulletPtr->_y) || innerHorizontalWallReached(bulletPtr->_x, bulletPtr->_y)))
     {
         bulletPtr->_status=0;
 

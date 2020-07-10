@@ -502,9 +502,7 @@ int main(void)
                 }
                 
                 
-                if(wallReached(&player) || 
-                   (!invincibilityActive && ((reachedByGhost<ghostsOnScreen) || innerVerticalWallReached(&player) || innerHorizontalWallReached(&player)))
-                  )
+                if((!invincibilityActive && ((reachedByGhost<ghostsOnScreen))))
                 {
                     playerDies();
                 }
@@ -513,13 +511,6 @@ int main(void)
                 SKIP_GHOST_DRAW
                     displayGhosts();
                     
-                #if defined(TURN_BASED) 
-                    if((loop<TURN_BASED_MAX_LOOP) || loop&1)
-                    {
-                        MOVE_PLAYER();
-                    }                    
-                    _DRAW_PLAYER();    
-                #endif
                 
                     
                 SKIP_WALL_DRAW

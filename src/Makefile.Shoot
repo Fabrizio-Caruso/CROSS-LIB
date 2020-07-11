@@ -54,81 +54,23 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
 all: cc65_targets z88dk_targets
 
-cc65_targets: c16 c64 vic20 oric atari atari5200
+cc65_targets: \
+    atari \
+    atari5200 \
+    c16 \
+    c64 \
+    oric  \
+    nes \
+    vic20 
 
-z88dk_targets: spectrum cpc
-
-#################################################################
-
-	# -DSLOW_DOWN=990 -DINITIAL_GHOST_SLOWDOWN=31000 
-c64: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
-	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
-	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
-	-DCBM_SCREEN_CODES \
-	-DMEMORY_MAPPED \
-	-DSLOW_DOWN=250 \
-	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(SOURCE_PATH)/graphics_data/cc65/graphics.s \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_XShoot_c64.prg
-	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_XShoot_c64.prg -o $(BUILD_PATH)/FULL_XShoot_c64_exomized.prg
-	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_XShoot_c64_exomized.prg  $(BUILD_PATH)/FULL_XShoot_c64_exomized.crt
-	rm $(BUILD_PATH)/FULL_XShoot_c64.prg
+z88dk_targets: \
+    cpc \
+    msx \
+    spectrum
 
 
 #################################################################
-
-plus4: c16_32k
-
-c16: c16_32k
-
-c16_32k:
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
-	--config $(CFG_PATH)/cc65/c16-32k_GFX.cfg \
-	-DFORCE_NO_CONIO_LIB \
-	-DFULL_GAME \
-	-DREDEFINED_CHARS \
-	-DSOUNDS \
-	-DALT_PRINT \
-	-DANIMATE_PLAYER \
-	-DMEMORY_MAPPED \
-	-DC16_UNEXPANDED \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_SLEEP \
-	-DSLOW_DOWN=300 \
-	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/graphics_data/cc65/udc_63chars.s \
-	-o $(BUILD_PATH)/FULL_XShoot_c16_32k.prg
-
-
-#################################################################
-
-vic20: vic20_exp_16k
-
-vic20_exp_16k: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
-	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
-	-DCONIO -DVIC20_EXP_16K \
-	-DSLOW_DOWN=750 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
-	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
-	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
-	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  $(SOURCE_PATH)/sleep.c \
-	--code-name CODE2 \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_XShoot_vic20_exp_16k.prg
+# CC65
 
 #################################################################
 
@@ -171,6 +113,80 @@ atari5200:
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
 	-o $(BUILD_PATH)/FULL_XShoot_atari5200.rom
 
+
+#################################################################
+
+c16: c16_32k
+
+
+plus4: c16_32k
+
+
+c16_32k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
+	--config $(CFG_PATH)/cc65/c16-32k_GFX.cfg \
+	-DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME \
+	-DREDEFINED_CHARS \
+	-DSOUNDS \
+	-DALT_PRINT \
+	-DANIMATE_PLAYER \
+	-DMEMORY_MAPPED \
+	-DC16_UNEXPANDED \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_SLEEP \
+	-DSLOW_DOWN=300 \
+	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/graphics_data/cc65/udc_63chars.s \
+	-o $(BUILD_PATH)/FULL_XShoot_c16_32k.prg
+
+
+#################################################################
+
+	# -DSLOW_DOWN=990 -DINITIAL_GHOST_SLOWDOWN=31000 
+c64: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DCBM_SCREEN_CODES \
+	-DMEMORY_MAPPED \
+	-DSLOW_DOWN=250 \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(SOURCE_PATH)/graphics_data/cc65/graphics.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_XShoot_c64.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_XShoot_c64.prg -o $(BUILD_PATH)/FULL_XShoot_c64_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_XShoot_c64_exomized.prg  $(BUILD_PATH)/FULL_XShoot_c64_exomized.crt
+	rm $(BUILD_PATH)/FULL_XShoot_c64.prg
+
+
+#################################################################
+
+# Graphics for fire power and ghost needs to be updated
+nes:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
+	--config $(CFG_PATH)/cc65/nes_fx.cfg \
+	-DFULL_GAME \
+	-DBETWEEN_LEVEL -DEND_SCREEN -DNO_COLOR \
+	-DCONIO \
+	-DANIMATE_PLAYER \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(SOURCE_PATH)/graphics_data/cc65/nes_tiles.s \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_XShoot_nes.nes
+
+
 #################################################################
 
 oric: oric_atmos
@@ -195,30 +211,28 @@ oric_atmos:
 
 #################################################################
 
+vic20: vic20_exp_16k
 
-spectrum: spectrum_48k
-
-spectrum_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-pragma-redirect:getk=getk_inkey \
-	-DFULL_GAME \
-	-DANIMATE_PLAYER \
-	-DSOUNDS \
-	-DSLOW_DOWN=200 \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-D__SPECTRUM__ \
-	-lndos -create-app \
-	-DCONIO \
-	-DUDG_GRAPHICS \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/FULL_XShoot_spectrum_48k.prg \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+vic20_exp_16k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
+	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
+	-DCONIO -DVIC20_EXP_16K \
+	-DSLOW_DOWN=750 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
+	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
+	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
+	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  $(SOURCE_PATH)/sleep.c \
+	--code-name CODE2 \
+	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_XShoot_spectrum_48k.prg
-	rm $(BUILD_PATH)/FULL_XShoot_spectrum_48k_BANK_7.bin
+	-o $(BUILD_PATH)/FULL_XShoot_vic20_exp_16k.prg
+
+
+#################################################################
+# Z88DK
+
+
 
 #################################################################
 
@@ -228,6 +242,7 @@ cpc:
 	-D__CPC__ \
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB \
+	-DZ88DK_JOYSTICK \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_XShoot_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \
@@ -248,3 +263,59 @@ cpc:
 	rm basic.rom
 	rm $(BUILD_PATH)/FULL_XShoot_cpc.cpc 
 	rm $(BUILD_PATH)/FULL_XShoot_cpc.prg
+
+#################################################################
+
+msx: msx_32k_rom
+
+msx_32k_rom:
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
+	-DUSE_MSX_BIOS \
+	-DINITIAL_SLOWDOWN=29000 \
+	-DSOUNDS -DANIMATE_PLAYER \
+	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -subtype=rom \
+	-create-app -o $(BUILD_PATH)/FULL_XShoot_msx_32k.rom \
+	-DMEMORY_MAPPED \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	-DLESS_TEXT \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=500 \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_XShoot_msx_32k_BSS.bin
+	rm $(BUILD_PATH)/FULL_XShoot_msx_32k_DATA.bin
+
+
+#################################################################
+
+spectrum: spectrum_48k
+
+spectrum_48k:
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DFULL_GAME \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=200 \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__SPECTRUM__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/FULL_XShoot_spectrum_48k.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_XShoot_spectrum_48k.prg
+	rm $(BUILD_PATH)/FULL_XShoot_spectrum_48k_BANK_7.bin
+
+

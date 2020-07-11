@@ -129,7 +129,7 @@ uint8_t innerWallReached(uint8_t x, uint8_t y)
         {
             _DO_MOVE_RIGHT
         }
-        else if(JOY_BTN_1(joyInput) && (bombCount<BOMBS_NUMBER || (guns>0 && availableBullet()<BULLETS_NUMBER)))
+        else if(JOY_FIRE(joyInput) && (bombCount<BOMBS_NUMBER || (guns>0 && availableBullet()<BULLETS_NUMBER)))
         {
             playerFire = 1;
         }

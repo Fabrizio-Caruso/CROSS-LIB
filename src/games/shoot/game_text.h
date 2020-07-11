@@ -95,7 +95,11 @@ void printFirePowerStats(void);
 void displayStats(void);
 
 #if !defined(NO_STATS)
-	void printLevelStats(void);
+    #if XSize>20
+        void printLevelStats(void);
+    #else
+        #define printLevelStats()
+    #endif
 	void printGhostCountStats(void);
 	void printLivesStats(void);		
 #else

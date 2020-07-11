@@ -141,6 +141,7 @@ void printFirePowerStats(void)
 }
 
 #if !defined(NO_STATS)
+    #if XSize>20
     void printLevelStats(void)
     {    
         SET_COLOR(TEXT_COLOR);
@@ -151,6 +152,7 @@ void printFirePowerStats(void)
             PRINTD(LEVEL_X,0,2,level);    
         #endif    
     }
+    #endif
 
 
     void printGhostCountStats(void)

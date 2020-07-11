@@ -242,7 +242,7 @@ cpc:
 	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_XShoot_cpc.dsk -p $(BUILD_PATH)/FULL_XShoot_cpc.cpc xshoot
 	mv FULL_XShoot_cpc.dsk $(BUILD_PATH)/
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_XShoot_cpc.dsk  $(BUILD_PATH)/FULL_gx4000.cpr   -c 'run"xshoot'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_XShoot_cpc.dsk  $(BUILD_PATH)/FULL_XShoot_gx4000.cpr   -c 'run"xshoot'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom

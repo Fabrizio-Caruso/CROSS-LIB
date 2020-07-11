@@ -258,7 +258,7 @@ Type "RUN"
 Use EightOne emulator.
 
 For the FULL version game 
-"0 0 bload full"
+"0 0 bload ace"
 Open the FULL .wav version with 
 Tools->Wav Loader.
 

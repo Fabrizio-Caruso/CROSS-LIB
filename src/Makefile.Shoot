@@ -64,6 +64,7 @@ cc65_targets: \
     vic20 
 
 z88dk_targets: \
+    ace \
     cpc \
     msx \
     spectrum
@@ -263,6 +264,32 @@ cpc:
 	rm basic.rom
 	rm $(BUILD_PATH)/FULL_XShoot_cpc.cpc 
 	rm $(BUILD_PATH)/FULL_XShoot_cpc.prg
+
+
+#################################################################
+
+jupiter_ace: ace
+
+ace: ace_exp_16k
+
+ace_exp_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DSOUNDS \
+	-DCONIO \
+	-clib=default \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o ace -Cz--audio -create-app	
+	cp ace.wav $(BUILD_PATH)/FULL_XShoot_ace_exp_16k.wav
+	rm ace.wav
+	rm ace.tap
+	rm ace
+
 
 #################################################################
 

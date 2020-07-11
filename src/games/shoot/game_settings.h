@@ -118,34 +118,34 @@
 #define GHOST_VS_MISSILE 5UL
 
 // If a ghost bumps into a bomb
-#define GHOST_VS_BOMBS_BONUS 15UL
+#define GHOST_VS_BOMBS_BONUS 15U
 
-#define GHOST_VS_WALL_BONUS 30UL
+#define GHOST_VS_WALL_BONUS 30U
 
-#define GHOSTS_VS_SUICIDE_BONUS 10UL
-
-// Extra points for fire charge (more bullets)
-#define CALM_DOWN_BONUS 10UL
+#define GHOSTS_VS_SUICIDE_BONUS 10U
 
 // Extra points for fire charge (more bullets)
-#define FIRE_CHARGE_BONUS 20UL
+#define CALM_DOWN_BONUS 10U
+
+// Extra points for fire charge (more bullets)
+#define FIRE_CHARGE_BONUS 20U
 
 // Extra points for the fire power (more powerful bullets)
-#define FIRE_POWER_BONUS 30UL
+#define FIRE_POWER_BONUS 30U
 
-#define FREEZE_BONUS 15UL
+#define FREEZE_BONUS 15U
 
 // Points gained at the end of each level (to be multipled by level)
 #define LEVEL_BONUS 25U
 
 #if defined(WIDE) || defined(FORCE_NARROW)
-    #define MIN_SKULL_HITS (60)
+    #define MIN_SKULL_HITS 60
     #define BOSS_HITS 254
-    #define GHOST_LIFE (30)
+    #define GHOST_LIFE 30
 #else
-    #define MIN_SKULL_HITS (40)
-    #define BOSS_HITS 160
-    #define GHOST_LIFE (20)
+    #define MIN_SKULL_HITS 48
+    #define BOSS_HITS 190
+    #define GHOST_LIFE 25
 #endif    
 
 #define BOSS_INDEX 2
@@ -164,7 +164,7 @@
 
 #if !defined(INITIAL_GHOST_SLOWDOWN)
     #  if defined(__PC6001__) || defined(__GAMATE__) || defined(__VZ__) || defined(__CBM610__) || defined(__VIC20__) || defined(__ATARI5200__) || ((defined(__ATARI__) || defined(__ATARIXL__)) && defined(ATARI_MODE1)) || defined(__APPLE2__) || defined(__APPLE2ENH__)
-        #define INITIAL_GHOST_SLOWDOWN 32000
+        #define INITIAL_GHOST_SLOWDOWN 31500
     #elif defined(__VG5K__) || defined(__MSX__) || defined(__WINCMOC__) || defined(__CMOC__)
         #define INITIAL_GHOST_SLOWDOWN 30000
     #else

@@ -52,9 +52,11 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
 #################################################################
 
-all: cc65_targets
+all: cc65_targets z88dk_targets
 
-cc65_targets: c16 c64 vic20
+cc65_targets: c16 c64 vic20 oric atari 
+
+z88dk_targets: spectrum
 
 #################################################################
 
@@ -198,7 +200,7 @@ oric_atmos:
 spectrum: spectrum_48k
 
 spectrum_48k:
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -v \
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DFULL_GAME \

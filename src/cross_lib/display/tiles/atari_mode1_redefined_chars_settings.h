@@ -58,9 +58,9 @@
 #define _TILE_12 (5 + _ATARI_MODE1_YELLOW)
 #define _TILE_13 (6 + _ATARI_MODE1_YELLOW)
 
-#define _TILE_23 _TILE_5
+#define _TILE_23 (_TILE_5 + _ATARI_MODE1_YELLOW)
 
-#define _TILE_22 _TILE_4
+#define _TILE_22 _TILE_4 
 
 #endif // _ATARI_MODE1_ANIMATE_PLAYER_SETTINGS
 

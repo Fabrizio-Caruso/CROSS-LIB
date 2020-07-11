@@ -153,7 +153,7 @@
         #else
             #define PRESS_STRING "PRESS A KEY"
         #endif
-        #define DISCOVERED_SECRETS_STRING "DISCOVERED_SECRETS_STRING"
+        #define DISCOVERED_SECRETS_STRING "SECRETS"
         #define OF_STRING "OF " 
         #define GAME_OVER_STRING "GAME OVER"
         #define DEFEAT_STRING "YOU LOST"    

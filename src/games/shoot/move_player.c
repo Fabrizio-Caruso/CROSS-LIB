@@ -110,9 +110,7 @@ uint8_t innerWallReached(uint8_t x, uint8_t y)
     return innerVerticalWallReached(x,y) || innerHorizontalWallReached(x,y);
 }
 
-#if defined(JOYSTICK_CONTROL)
-    #include <joystick.h>
-    
+#if defined(JOYSTICK_CONTROL)    
     void movePlayerByJoystick(uint8_t joyInput)
     {
         if(JOY_UP(joyInput) && (player._y>1) && !innerWallReached(player._x,player._y-1))

@@ -128,6 +128,9 @@ vic20_exp_16k:
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_XShoot_vic20_exp_16k.prg
 
+#################################################################
+
+atari: atari_color
 
 atari_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
@@ -139,6 +142,7 @@ atari_color:
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
+	-DSLOW_DOWN=200 \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
@@ -146,4 +150,37 @@ atari_color:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_XShoot_atari_color.xex
+
+#################################################################
+
+# Memory issue
+atari5200: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 \
+	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
+	-D__ATARI5200__ \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DMEMORY_MAPPED \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DSLOW_DOWN=200 \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
+	-o $(BUILD_PATH)/FULL_XShoot_atari5200.rom
+
+#################################################################
+
+oric_atmos: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-t atmos \
+	-DALT_MOVE \
+	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
+	-o $(BUILD_PATH)/FULL_XShoot_atmos_and_oric1_48k.tap
+
 

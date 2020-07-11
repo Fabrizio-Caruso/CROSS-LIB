@@ -100,7 +100,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
     void moveTowardCharacter(Character* preyPtr, Character *hunterPtr, uint8_t strategy)
     {
-        if(rand()&7 > strategy) // Select blind chase strategy
+        if((rand()&7) > strategy) // Select blind chase strategy
             { // 0 - 4
                 blindChaseCharacterXStrategy(hunterPtr, preyPtr);    
             }

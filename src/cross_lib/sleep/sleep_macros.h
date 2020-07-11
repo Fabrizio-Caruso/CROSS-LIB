@@ -135,8 +135,6 @@
 		#define SLOW_DOWN 30000U
 	#elif defined(__M5__)
 		#define SLOW_DOWN 900		
-	#elif !defined(SLOW_DOWN)
-		#define SLOW_DOWN 0
 	#endif
 #endif
 

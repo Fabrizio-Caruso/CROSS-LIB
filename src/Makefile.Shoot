@@ -234,38 +234,6 @@ vic20_exp_16k:
 # Z88DK
 
 
-
-#################################################################
-
-# Graphics for fire power and ghost needs to be updated
-cpc:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
-	-D__CPC__ \
-	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCPCRSLIB \
-	-DZ88DK_JOYSTICK \
-	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o 	$(BUILD_PATH)/FULL_XShoot_cpc.prg \
-	-DCPCRSLIB_GRAPHICS \
-	$(SOURCE_PATH)/graphics_data/z88dk/cpc_Chars8.asm \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_shoot $(BUILD_PATH)/FULL_XShoot_cpc.cpc  $(BUILD_PATH)/FULL_XShoot_cpc.cdt
-	rm -rf FULL_XShoot_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_XShoot_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_XShoot_cpc.dsk -p $(BUILD_PATH)/FULL_XShoot_cpc.cpc xshoot
-	mv FULL_XShoot_cpc.dsk $(BUILD_PATH)/
-	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_XShoot_cpc.dsk  $(BUILD_PATH)/FULL_XShoot_gx4000.cpr   -c 'run"xshoot'
-	rm os.rom
-	rm amsdos.rom
-	rm basic.rom
-	rm $(BUILD_PATH)/FULL_XShoot_cpc.cpc 
-	rm $(BUILD_PATH)/FULL_XShoot_cpc.prg
-
-
 #################################################################
 
 jupiter_ace: ace
@@ -289,6 +257,38 @@ ace_exp_16k:
 	rm ace.wav
 	rm ace.tap
 	rm ace
+
+
+#################################################################
+
+cpc:
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
+	-D__CPC__ \
+	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCPCRSLIB \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=100 \
+	-pragma-define:REGISTER_SP=-1 \
+	-lndos -create-app -o 	$(BUILD_PATH)/FULL_XShoot_cpc.prg \
+	-DCPCRSLIB_GRAPHICS \
+	$(SOURCE_PATH)/graphics_data/z88dk/cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_shoot $(BUILD_PATH)/FULL_XShoot_cpc.cpc  $(BUILD_PATH)/FULL_XShoot_cpc.cdt
+	rm -rf FULL_XShoot_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_XShoot_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_XShoot_cpc.dsk -p $(BUILD_PATH)/FULL_XShoot_cpc.cpc xshoot
+	mv FULL_XShoot_cpc.dsk $(BUILD_PATH)/
+	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_XShoot_cpc.dsk  $(BUILD_PATH)/FULL_XShoot_gx4000.cpr   -c 'run"xshoot'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
+	rm $(BUILD_PATH)/FULL_XShoot_cpc.cpc 
+	rm $(BUILD_PATH)/FULL_XShoot_cpc.prg
+
 
 
 #################################################################

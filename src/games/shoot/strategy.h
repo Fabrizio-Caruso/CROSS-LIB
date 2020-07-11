@@ -44,10 +44,12 @@ uint8_t innerWallBetween(Character *hunterPtr);
 // Required by horizontal missile
 uint8_t moveCharacter(uint8_t *hunterOffsetPtr, uint8_t *preyOffsetPtr);
 
-#if !defined(SIMPLE_STRATEGY)
-    void blindChaseCharacterXStrategy(Character* hunterPtr);
-    void blindChaseCharacterYStrategy(Character* hunterPtr);
-#endif
+void blindChaseCharacterXStrategy(Character* hunterPtr);
+void blindChaseCharacterYStrategy(Character* hunterPtr);
+
+
+void verticalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t strategy);
+void horizontalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t strategy);
 
 
 void skullMoveTowardCharacter(Character *hunterPtr, uint8_t strategy);

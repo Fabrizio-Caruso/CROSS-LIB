@@ -380,3 +380,24 @@ spectrum_48k:
 	rm $(BUILD_PATH)/FULL_XShoot_spectrum_48k_BANK_7.bin
 
 
+#################################################################
+
+
+vg5k: vg5k_exp_16k
+
+vg5k_exp_16k:
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
+	-lndos -create-app -o $(BUILD_PATH)/FULL_XShoot_vg5k_exp_16k.prg \
+	-DCONIO \
+	-DSLOW_DOWN=300 \
+	-DINITIAL_SLOWDOWN=29000 \
+	-clib=default \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_XShoot_vg5k_exp_16k.prg

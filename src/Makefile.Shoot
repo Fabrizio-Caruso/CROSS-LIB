@@ -71,6 +71,7 @@ z88dk_targets: \
     ace \
     c128_z80_80col \
     cpc \
+    mc1000 \
     msx \
     spectrum \
     vg5k
@@ -326,6 +327,30 @@ cpc:
 	rm $(BUILD_PATH)/FULL_XShoot_cpc.cpc 
 	rm $(BUILD_PATH)/FULL_XShoot_cpc.prg
 
+
+#################################################################
+
+mc1000: mc1000_exp_48k
+
+mc1000_exp_48k:
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-subtype=gaming \
+	-DZ88DK_JOYSTICK \
+	-DFULL_GAME  \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-vn  -lndos -Cz--audio \
+	-create-app -o mc1000.bin \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES)
+	mv mc1000.wav $(BUILD_PATH)/FULL_XShoot_mc1000_exp_48k_joystick.wav
+	rm mc1000.bin
+	rm mc1000.cas
 
 
 #################################################################

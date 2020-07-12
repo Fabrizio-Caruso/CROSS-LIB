@@ -50,6 +50,8 @@ LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES)
 FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
 
+SCCZ80_OPTS ?= -O3
+
 #################################################################
 
 all: cc65_targets z88dk_targets
@@ -65,6 +67,7 @@ cc65_targets: \
 
 z88dk_targets: \
     ace \
+    c128_z80_80col \
     cpc \
     msx \
     spectrum
@@ -259,7 +262,8 @@ ace_exp_16k:
 	rm ace
 
 
-
+# -DSOUNDS 
+# -DFORCE_BIT_BANG 
 #################################################################
 
 c128_z80_80col:
@@ -270,11 +274,9 @@ c128_z80_80col:
 	-DZ88DK_SPRITES -DANIMATE_PLAYER \
 	-DFULL_GAME -DEND_SCREEN \
 	-DLESS_TEXT \
-	-DSOUNDS \
 	-DNO_BLINKING \
-	-DFORCE_BIT_BANG \
 	-DZ88DK_JOYSTICK \
-	-DFORCE_GHOSTS_NUMBER=8 \
+	-DFORCE_GHOSTS_NUMBER=7 \
 	-DALT_PRINT \
 	-DNO_COLOR \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

@@ -87,14 +87,14 @@ __asm
 	defb    @00111100 	 
 
 	defb 8,8
-	defb    @10111101
-	defb    @01000010
-	defb    @10100101
-	defb    @10000001
-	defb    @10000001
-	defb    @10011001
-	defb    @10000001
-	defb    @01111110 
+    defb    @00111100
+    defb    @01111110
+    defb    @11111111
+    defb    @10011001
+    defb    @01111110
+    defb    @00111100
+    defb    @01111110
+    defb    @11011011 
 
 	defb 8,8
 	defb    @00111100
@@ -316,15 +316,15 @@ __asm
 	defb    @00101000
 	defb    @00101000
 
-	defb 8,8
-	defb    @00000000
-	defb    @10000000
-	defb    @01111110
-	defb    @11001000
-	defb    @11111000
-	defb    @11000000
-	defb    @10000000	 
-	defb    @00000000
+    defb 8,8
+    defb    @10000001
+    defb    @01000010
+    defb    @00011000
+    defb    @00110100
+    defb    @00101100
+    defb    @00011000
+    defb    @01000010
+    defb    @10000001
 
 	defb    8,8
 	defb %"########"
@@ -596,15 +596,15 @@ __asm
 	defb %"-######-"
 	defb %"--------"
 
-	defb 8,8
-	defb    @10111101
-	defb    @01000010
-	defb    @10100101
-	defb    @10100101
-	defb    @10000001
-	defb    @10011001
-	defb    @10000001
-	defb    @01111110 
+    defb 8,8
+    defb    @00111100
+    defb    @01111110
+    defb    @11111111
+    defb    @10011001
+    defb    @01111110
+    defb    @00111100
+    defb    @01111110
+    defb    @11011011 
 
 #if !defined(FEWER_SPRITES)
 	defb 8,8

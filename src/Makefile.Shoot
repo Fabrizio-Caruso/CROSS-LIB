@@ -54,7 +54,9 @@ SCCZ80_OPTS ?= -O3
 
 #################################################################
 
-all: cc65_targets z88dk_targets
+all: \
+    cc65_targets \
+    z88dk_targets
 
 cc65_targets: \
     atari \
@@ -70,7 +72,8 @@ z88dk_targets: \
     c128_z80_80col \
     cpc \
     msx \
-    spectrum
+    spectrum \
+    vg5k
 
 
 #################################################################

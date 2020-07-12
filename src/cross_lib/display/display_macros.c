@@ -155,7 +155,7 @@ extern uint16_t BASE_ADDR;
     void _draw_ch(uint8_t x, uint8_t y, uint8_t ch)
     {
         __DELETE(x,y);
-        putsprite(spr_or,x*(SPRITE_X_STEP),y*(SPRITE_Y_STEP),sprites + (uint8_t *) ((ch-32)*(2+SPRITE_Y_SIZE))); \
+        putsprite(spr_or,x*(SPRITE_X_STEP),y*(SPRITE_Y_STEP),sprites + ((ch-32)*(2+SPRITE_Y_SIZE))); \
     }
 #endif
 

@@ -40,11 +40,6 @@ struct CharacterStruct
 typedef struct CharacterStruct Character;
 
 
-#if defined(__CMOC__) && !defined(__WINCMOC__)
-    #include <cmoc.h>
-#else
-    #include <stdlib.h>
-#endif
 
 #include "settings.h"
 

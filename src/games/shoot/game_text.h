@@ -29,14 +29,6 @@
 #include "cross_lib.h"
 
 
-#if defined(__CMOC__) && !defined(__WINCMOC__)
-	#include <cmoc.h>
-#else
-	#include <stdio.h>
-	#include <stdlib.h>
-	#include <string.h>	
-#endif
-
 #if defined(WIDE)
     #define BULLET_IMAGE_X 13
     #define BULLET_IMAGE_Y 0

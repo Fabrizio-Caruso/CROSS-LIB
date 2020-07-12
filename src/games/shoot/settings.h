@@ -22,16 +22,12 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+
 #ifndef _SETTINGS
 #define _SETTINGS
 
-// #define DEBUG_STRATEGY
-// #define DEBUG_NO_SKULL
-// #define FORCE_LEVEL 2
-
-#include "../cross_lib/cross_lib.h"
+#include "cross_lib.h"
 
 #include "game_settings.h"
 
 #endif // _SETTINGS
-

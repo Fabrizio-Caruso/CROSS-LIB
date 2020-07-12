@@ -28,12 +28,6 @@
 #include "settings.h"
 #include "ghost.h"
 
-#if defined(__CMOC__) && !defined(__WINCMOC__)
-    #include <cmoc.h>
-#else
-    #include <stdlib.h>
-#endif
-
 #include "../cross_lib/cross_lib.h"
 
 #include "level.h"

@@ -33,7 +33,7 @@
 #if !defined(_GAME_SETTINGS)
 #define _GAME_SETTINGS
 
-#include "../cross_lib/cross_lib.h"
+#include "cross_lib.h"
 
 #include "speed_game_settings.h"
 
@@ -76,6 +76,7 @@
 #define ZERO_LEVEL_GHOSTS_NUMBER 99
 
 #define ROCKETS_NUMBER 4
+
 
 #define MISSILE_DESTROYER_TRIGGER 3
 #define BOMB_DESTROYER_TRIGGER 6

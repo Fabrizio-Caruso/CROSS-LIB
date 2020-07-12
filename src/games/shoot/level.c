@@ -28,10 +28,9 @@
 #include "settings.h"
 #include "ghost.h"
 
-#include "../cross_lib/cross_lib.h"
+#include "cross_lib.h"
 
 #include "level.h"
-
 
 extern uint8_t level;
 
@@ -311,7 +310,7 @@ void fillLevelWithCharacters(void)
         #if defined(DEBUG_LEVEL)
         PRINT(0,i,"initialized dead ghost......."); 
         #endif        
-        initializeCharacter(&ghosts[i],0,0,0,NULL);
+        initializeCharacter(&ghosts[i],0,0,0,0);
         #if defined(DEBUG_LEVEL)
             displayCharacter((Character *)&ghosts[i]);
         #endif        

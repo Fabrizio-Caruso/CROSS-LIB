@@ -32,7 +32,8 @@
 	#define _TILE_13_UDG             { 0, 0, 0,63,63,00,00,00, NINTH_EMPTY_LINE}
 	#define _TILE_10_UDG             
     
-
+	#define _TILE_17_UDG    _TILE_8_UDG
+	#define _TILE_18_UDG    _TILE_8_UDG
 
 #endif // _6x8_CHARS
 

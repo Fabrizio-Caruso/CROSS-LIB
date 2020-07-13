@@ -45,12 +45,12 @@
     extern uint16_t skullSlowDown;
     extern uint8_t skullXCountDown;
     extern uint8_t skullYCountDown;
-    extern uint8_t bulletDirection;		
+    extern uint8_t bulletDirection[BULLETS_NUMBER];		
 #else
     uint16_t skullSlowDown;		
     uint8_t skullXCountDown;
     uint8_t skullYCountDown;
-    uint8_t bulletDirection;
+    uint8_t bulletDirection[BULLETS_NUMBER];
 #endif
 
 

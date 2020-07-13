@@ -102,7 +102,7 @@ extern Item destroyer;
 
 extern Character rockets[ROCKETS_NUMBER];
 
-extern char rockets_x[ROCKETS_NUMBER];
+extern uint8_t rockets_x[ROCKETS_NUMBER];
 
 extern uint8_t isBossLevel;
 extern uint8_t isOneMissileLevel;

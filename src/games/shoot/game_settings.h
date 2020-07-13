@@ -111,12 +111,12 @@
 
 // Points given by extra points bonus: 
 // EXTRA_POINTS + level X EXTRA_POINTS_LEVEL_INCREASE
-#define EXTRA_POINTS 10UL 
-#define EXTRA_POINTS_LEVEL_INCREASE 5UL
-#define SECRET_LEVEL_EXTRA_POINTS 25UL
+#define EXTRA_POINTS 10U 
+#define EXTRA_POINTS_LEVEL_INCREASE 5U
+#define SECRET_LEVEL_EXTRA_POINTS 25U
 
 // Points for shooting a ghost
-#define GHOST_VS_MISSILE 5UL
+#define GHOST_VS_MISSILE 5U
 
 // If a ghost bumps into a bomb
 #define GHOST_VS_BOMBS_BONUS 15U

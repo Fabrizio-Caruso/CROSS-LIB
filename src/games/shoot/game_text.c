@@ -140,7 +140,7 @@ void printFirePowerStats(void)
     #endif
 }
 
-#if !defined(NO_STATS)
+#if !defined(NO_STATS) || defined(LESS_TEXT)
     #if XSize>20
     void printLevelStats(void)
     {    
@@ -308,6 +308,7 @@ void _printCrossShoot(void)
         #endif
     }
 #endif
+
 
 uint8_t countDiscoveredSecrets(void)
 {

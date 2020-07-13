@@ -526,19 +526,20 @@ REDUCED_TINY_MACROS ?= \
 
 full_comx: comx
 
-comx: full_lcc1802_combo.c
+#	-DSIMPLE_STRATEGY 
+comx: reduced_full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
 	-DNO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
+	-DLESS_TEXT -DNO_HINTS \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(COMX_MACROS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
-	$(SOURCE_PATH)/../full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
+	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_comx.hex
 
 

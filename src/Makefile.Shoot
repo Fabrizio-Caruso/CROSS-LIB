@@ -540,7 +540,7 @@ comx: reduced_full_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_comx.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_XShoot_comx.hex
 
 
 ###############################################################################
@@ -562,7 +562,7 @@ pecom: full_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_pecom.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_XShoot_pecom.hex
 
 
 ###############################################################################
@@ -572,33 +572,18 @@ pecom: full_lcc1802_combo.c
 full_tmc600: tmc600_37k
 tmc600: tmc600_37k
 
-tmc600_37k: full_lcc1802_combo.c
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
-	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
-	-DFULL_GAME \
-	-DLCC1802_JOYSTICK \
-	$(COMX_MACROS) \
-	-DFORCE_GHOSTS_NUMBER=7 \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
-	$(SOURCE_PATH)/../full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_tmc600_37k.hex
-
-
-tmc600_no_end: tmc600_24k
-
 # -DNO_PRINT -DNO_MESSAGE -DNO_TITLE 
-tmc600_24k: reduced_full_lcc1802_combo.c
+tmc600_37k: reduced_full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
-	-DFULL_GAME \
+	-DFULL_GAME -DSIMPLE_STRATEGY \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK -DNO_HINTS \
 	$(COMX_MACROS) \
-	-DFORCE_GHOSTS_NUMBER=8  \
+	-DGHOSTS_NUMBER=5  \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_tmc600_24k.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_XShoot_tmc600_37k.hex
 
 
 ###############################################################################
@@ -620,7 +605,7 @@ cidelsa_draco: full_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_cidelsa_draco_32K.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_XShoot_cidelsa_draco_32K.hex
 
 
 

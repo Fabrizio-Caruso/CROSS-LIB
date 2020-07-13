@@ -56,7 +56,8 @@ SCCZ80_OPTS ?= -O3
 
 all: \
     cc65_targets \
-    z88dk_targets
+    z88dk_targets \
+    lcc1802_targets
 
 cc65_targets: \
     atari \
@@ -76,6 +77,8 @@ z88dk_targets: \
     spectrum \
     vg5k
 
+lcc1802_targets: \
+    tmc600
 
 #################################################################
 # CC65
@@ -460,7 +463,7 @@ DESTROYER_8K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DESTROYER=1" "-Wa-D DATALOC=0x2000" 
 
 ################################################################################
 
-lcc1802_targets: 
+debug_lcc1802_targets: 
 	make comx_targets 
 	make pecom_targets 
 	make tmc600_targets
@@ -616,18 +619,8 @@ comx_targets: comx
 
 pecom_targets: pecom
 
-tmc600_targets:
-	make tmc600_8k
-	make tmc600_16k
-	make tmc600_24k
-	make tmc600_37k
+tmc600_targets: tmc600_37k
 
-cidelsa_targets:
-	make cidelsa_draco_16k
-	make cidelsa_draco_32k
-	make cidelsa_altair_12k
-	make cidelsa_altair_24k
-	make cidelsa_destroyer_8k
-	make cidelsa_destroyer_12k
+cidelsa_targets: make cidelsa_draco_32k
 
 

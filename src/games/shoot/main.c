@@ -320,7 +320,7 @@ int main(void)
         
             if(isBossLevel)
             {
-                printKillTheSkull();
+                printKillTheSkulls();
                 SLEEP(2);
                 ghostCount = 0;
             }

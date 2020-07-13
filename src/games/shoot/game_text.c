@@ -73,12 +73,14 @@ extern uint8_t discoveredSecrets[];
 
 extern uint8_t  secretLevelActivated;
 
-void printKillTheSkull(void)
+#if !defined(LESS_TEXT)
+void printKillTheSkulls(void)
 {
     printCenteredMessage(KILL_THE_BOSS);    
     printCenteredMessageOnRow(((uint8_t)YSize)/2+2,KILL_THE_SKULLS_STRING);    
     printCenteredMessageOnRow(((uint8_t)YSize)/2+4,DESTROY_MISSILES_STRING);
 }
+#endif
 
 
 // TODO: This is SLOW

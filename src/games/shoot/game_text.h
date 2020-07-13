@@ -132,14 +132,19 @@ void printStartMessage(void);
 	#define printPressKeyToStart()
 #endif
 
+#if !defined(LESS_TEXT)
+	void printKillTheSkulls(void);
+#else
+	#define printKillTheSkulls()
+#endif
+
 #if !defined(NO_MESSAGE)
 	void _printScoreOnRow(uint8_t row, uint16_t score);
 	void _printScore(uint16_t score);
-	void printKillTheSkull(void);
+
 #else
 	#define _printScoreOnRow(r,score)
 	#define _printScore(s)
-	#define printKillTheSkull()
 #endif
 
 #define _printTopScore() _printScoreOnRow(0,highScore);

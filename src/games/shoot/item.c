@@ -172,7 +172,14 @@ void bombChargeEffect(void)
     
     for(i=0;i<BOMBS_NUMBER;++i)
     {
-        deleteBomb(&bombs[i]);
+        if(wallReached(&bombs[i]))
+        {
+            DRAW_BROKEN_BRICK(bombs[i]._x, bombs[i]._y);
+        }
+        else
+        {
+            deleteBomb(&bombs[i]);
+        }
     }
 
     placeBombs();
@@ -385,7 +392,14 @@ void suicideEffect(void)
     uint8_t i;
     
     destroyed_bases_in_completed_levels = 1;
-    suicide._coolDown = SECOND_SUICIDE_COOL_DOWN; 
+    if(!level)
+    {
+        suicide._coolDown = SECOND_SUICIDE_COOL_DOWN/2;
+    }
+    else
+    {
+    suicide._coolDown = SECOND_SUICIDE_COOL_DOWN;
+    }    
     setSecret(SUICIDE_EFFECT_SECRET_INDEX);
     for(i=0;i<ghostsOnScreen;++i)
     {

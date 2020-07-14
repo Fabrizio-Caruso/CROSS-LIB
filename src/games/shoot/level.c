@@ -87,6 +87,7 @@ extern Image SUPER_IMAGE;
 extern Image CONFUSE_IMAGE;
 extern Image SUICIDE_IMAGE;
 extern Image BROKEN_BRICK_IMAGE;
+extern Image VERTICAL_BRICK_IMAGE;
 
 extern Character leftHorizontalMissile;
 extern Character rightHorizontalMissile;
@@ -321,7 +322,12 @@ void fillLevelWithCharacters(void)
     
         initializeAwayFromWall(&(calmDown._character),(XSize>>1),(YSize>>1),0,&CALM_DOWN_IMAGE);
         initializeAwayFromWall(&(fireCharge._character),(XSize>>1),(YSize>>1),1,&BULLET_IMAGE);
-        initializeAwayFromWall(&(bombCharge._character),(XSize>>1),(YSize>>1),0,&BOMB_IMAGE);
+        
+        #if defined(NO_BLINKING)
+            initializeAwayFromWall(&(bombCharge._character),(XSize>>1),(YSize>>1),0,&VERTICAL_BRICK_IMAGE);
+        #else
+            initializeAwayFromWall(&(bombCharge._character),(XSize>>1),(YSize>>1),0,&BOMB_IMAGE);
+        #endif
         initializeAwayFromWall(&(freeze._character),(XSize>>1),(YSize>>1),0,&FREEZE_IMAGE);
         initializeAwayFromWall(&(extraPoints._character), (XSize>>1), (YSize>>1), 0, &EXTRA_POINTS_IMAGE);
         initializeAwayFromWall(&(super._character), (XSize>>1), (YSize>>1), 0, &SUPER_IMAGE);

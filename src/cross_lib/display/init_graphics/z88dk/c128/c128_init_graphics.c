@@ -6,10 +6,17 @@ void INIT_GRAPHICS(void)
 {
 	clg();
 	
-	// Disable VIC to get a little speed-up (about 7%)
+	// Disable VIC-IIe to get a little speed-up (about 7%)
 	__asm
+    
+    ; Disable VIC-IIe chip
 	ld a,0
 	ld bc,$d011
 	out (c),a
+    
+    ; Set fast mode
+    ld a,1
+    ld bc,$d030
+    out (c),a
 	__endasm;
 }

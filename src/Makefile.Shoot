@@ -295,7 +295,7 @@ c128_z80_80col:
 	-DLESS_TEXT \
 	-DNO_BLINKING -DSIMPLE_STRATEGY \
 	-DZ88DK_JOYSTICK \
-	-DGHOSTS_NUMBER=5 \
+	-DGHOSTS_NUMBER=6 \
 	-DALT_PRINT \
 	-DNO_COLOR \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -592,6 +592,7 @@ full_tmc600: tmc600_37k
 tmc600: tmc600_37k
 
 # -DNO_PRINT -DNO_MESSAGE -DNO_TITLE 
+# -savetemps -S
 tmc600_37k: reduced_full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) \

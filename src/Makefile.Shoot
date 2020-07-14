@@ -55,9 +55,15 @@ SCCZ80_OPTS ?= -O3
 #################################################################
 
 all: \
+    gcc_targets \
     cc65_targets \
     z88dk_targets \
-    lcc1802_targets
+    lcc1802_targets 
+
+
+gcc_targets: \
+	ncurses  
+
 
 cc65_targets: \
     atari \
@@ -68,6 +74,7 @@ cc65_targets: \
     nes \
     vic20 
 
+
 z88dk_targets: \
     ace \
     c128_z80_80col \
@@ -77,8 +84,12 @@ z88dk_targets: \
     spectrum \
     vg5k
 
+
 lcc1802_targets: \
     tmc600
+
+
+
 
 #################################################################
 # CC65
@@ -435,7 +446,11 @@ vg5k_exp_16k:
 	rm $(BUILD_PATH)/FULL_XShoot_vg5k_exp_16k.prg
 
 
-################################################################################
+#################################################################
+# LCC1802
+
+
+#################################################################
 
 include makefiles/auxiliary/Makefile_combo
 
@@ -623,5 +638,38 @@ pecom_targets: pecom
 tmc600_targets: tmc600_37k
 
 cidelsa_targets: make cidelsa_draco_32k
+
+
+
+
+
+###############################################################################################
+# GCC
+#
+
+
+ncurses_targets: \
+	ncurses
+    
+###############################################################################################
+
+
+ncurses:
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO  \
+	-DALT_PRINT \
+	-DNO_TITLE_LINE \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_XShoot_ncurses$(COMPILEDEXT)
+    
+    
+
+##
 
 

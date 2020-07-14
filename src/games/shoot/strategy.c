@@ -372,7 +372,7 @@ void horizontalWallMoveTowardCharacter(register Character *hunterPtr)
 
 void skullMoveTowardCharacter(Character *hunterPtr, uint8_t strategy)
 {
-    if(rand()&7 > strategy) // Select blind chase strategy
+    if((rand()&7) > strategy) // Select blind chase strategy
         { // 0 - 4
             blindChaseCharacterXStrategy(hunterPtr);    
         }

@@ -109,8 +109,10 @@ extern Character skulls[];
 
 extern Image SKULL_IMAGE;
 extern Image CONFUSE_IMAGE;
+extern Image PLAYER_IMAGE;
 
 extern uint8_t skullActive;
+
 
 void itemReached(Character * itemPtr)
 {

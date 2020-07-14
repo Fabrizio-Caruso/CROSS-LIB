@@ -83,7 +83,6 @@ void printKillTheSkulls(void)
 #endif
 
 
-// TODO: This is SLOW
 void displayStatsTitles(void)
 {                
     #if defined(WIDE)
@@ -261,12 +260,15 @@ void displayScoreStats(void)
 #endif
 
 
+#if !defined(NO_INITIAL_SCREEN)
+
 void _printCrossShoot(void)
 {
     printCenteredMessageOnRowWithCol(3, COLOR_RED,  CROSS_SHOOT_STRING);        
     SET_COLOR(TEXT_COLOR);
     
 }
+#endif
 
 
 #if !defined(NO_HINTS)

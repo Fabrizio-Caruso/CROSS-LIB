@@ -29,7 +29,18 @@
 #include "cross_lib.h"
 
 
-#if defined(WIDE)
+#if defined(WIDE) && XSize>64
+    #define BULLET_IMAGE_X 13
+    #define BULLET_IMAGE_Y 0
+    #define FIRE_POWER_IMAGE_X 18
+    #define FIRE_POWER_IMAGE_Y 0
+    #define GHOST_IMAGE_X 23
+    #define GHOST_IMAGE_Y 0
+    #define PLAYER_IMAGE_X 28
+    #define PLAYER_IMAGE_Y 0
+    #define LEVEL_X (XSize-16)
+    #define LEVEL_Y 0
+#elif defined(WIDE)
     #define BULLET_IMAGE_X 13
     #define BULLET_IMAGE_Y 0
     #define FIRE_POWER_IMAGE_X 17
@@ -39,6 +50,7 @@
     #define PLAYER_IMAGE_X 17
     #define PLAYER_IMAGE_Y 1
     #define LEVEL_X 6
+    #define LEVEL_Y 1
 #else
     #define BULLET_IMAGE_X 10
     #define BULLET_IMAGE_Y 0
@@ -49,11 +61,15 @@
     #define PLAYER_IMAGE_X 14
     #define PLAYER_IMAGE_Y 0
     #define LEVEL_X (XSize-2)
+    #define LEVEL_Y 0
 #endif
 
 
 
 #if defined(NO_TITLE_LINE)
+    #define TITLE_Y 0
+    #define TITLE_LINE()
+#elif XSize>64
     #define TITLE_Y 0
     #define TITLE_LINE()
 #else
@@ -62,18 +78,30 @@
 #endif
 
 
-#define PRINT_WIDE_TITLE() \
-    do \
-    { \
-        SET_COLOR(COLOR_CYAN); \
-        PRINT(0, +0,   SCORE_STRING); \
-        PRINT(0, +0+1, LEVEL_STRING); \
-        \
-        SET_COLOR(COLOR_RED); \
-        TITLE_LINE(); \
-        PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
-    } while(0)
+#if XSize>64
+    #define PRINT_WIDE_TITLE() \
+        do \
+        { \
+            SET_COLOR(COLOR_CYAN); \
+            PRINT(0, +0,   SCORE_STRING); \
+            \
+            SET_COLOR(COLOR_RED); \
+            PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
+        } while(0)
 
+#else
+    #define PRINT_WIDE_TITLE() \
+        do \
+        { \
+            SET_COLOR(COLOR_CYAN); \
+            PRINT(0, +0,   SCORE_STRING); \
+            PRINT(0, LEVEL_Y, LEVEL_STRING); \
+            \
+            SET_COLOR(COLOR_RED); \
+            TITLE_LINE(); \
+            PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
+        } while(0)
+#endif
 
 // game_stat
 void displayScoreStats(void);

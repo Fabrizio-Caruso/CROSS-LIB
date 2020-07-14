@@ -46,7 +46,9 @@
 
 #define SKULLS_NUMBER 4
 
-#define BULLETS_NUMBER 6
+#if !defined(BULLETS_NUMBER)
+    #define BULLETS_NUMBER 6
+#endif
 
 #define MAX_GUNS 99
 

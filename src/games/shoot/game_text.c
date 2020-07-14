@@ -147,11 +147,7 @@ void printFirePowerStats(void)
     {    
         SET_COLOR(TEXT_COLOR);
     
-        #if defined(WIDE)
-            PRINTD(LEVEL_X,1,2,level);
-        #else
-            PRINTD(LEVEL_X,0,2,level);    
-        #endif    
+        PRINTD(LEVEL_X,LEVEL_Y,2,level);
     }
     #endif
 
@@ -173,9 +169,9 @@ void printFirePowerStats(void)
         SET_COLOR(TEXT_COLOR);
         
         #if defined(WIDE)
-            PRINTD(PLAYER_IMAGE_X+1,+0+1,2,lives);
+            PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,2,lives);
         #else
-            PRINTD(PLAYER_IMAGE_X+1,+0,1,lives);    
+            PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,1,lives);    
         #endif
     }    
     

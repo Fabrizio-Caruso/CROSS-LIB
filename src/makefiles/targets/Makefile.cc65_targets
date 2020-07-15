@@ -483,6 +483,7 @@ pce_16k:
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
+	-DANIMATE_PLAYER $(SOURCE_PATH)/graphics_data/cc65/pce_tiles.s \
 	-o $(BUILD_PATH)/FULL_PCE.bin
 	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_PCE_LOW.bin
 	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_PCE_HIGH.bin
@@ -495,9 +496,10 @@ pce_16k:
 pce_8k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t pce \
 	-DTINY_GAME \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DANIMATE_PLAYER -DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_8k_less_stack.cfg \
 	$(TINY_FILES) \
+	$(SOURCE_PATH)/graphics_data/cc65/pce_tiles.s \
 	-o $(BUILD_PATH)/TINY_PCE_8k.pce
 
 

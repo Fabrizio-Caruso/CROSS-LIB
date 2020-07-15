@@ -45,6 +45,8 @@
 	#include "comx_settings.h"
 #elif defined(UDG_GRAPHICS)
 	#include "udg_settings.h"
+#elif defined(__PCE__)
+	#include "pce_settings.h"
 #else
 	#include "default_image_settings.h"
 #endif 

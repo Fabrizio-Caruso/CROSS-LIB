@@ -29,41 +29,30 @@
 
 #define _TILE_0 3
 #define _TILE_1 4
-#define _TILE_3 '('
-#define _TILE_2 '\''
 
+#define _TILE_2 5
+#define _TILE_3 6
 
 // RED
-#define _TILE_5 'X'
+#define _TILE_5 7
 
 // WHITE
-#if defined(__LCC1802__) 
-    #define _TILE_4 'O'
-#else
-    #define _TILE_4 'o'
-#endif
+#define _TILE_4 'o'
 
-#if defined(__ALPHATRO__)
-	#define _TILE_6 _TILE_4
-#else
-	#define _TILE_6 '#'
-#endif
 
-// BLUE
-#if defined(__ZX80__) || defined(__CIDELSA__)
-	#define _TILE_9 'G'
-#else
-	#define _TILE_9 '!'
-#endif
+
+#define _TILE_6 '#'
+
+
+// CYAN
+#define _TILE_9 '!'
+
 
 // YELLOW
-#if !defined(__CIDELSA__)
-    #define _TILE_7 '+'
-    #define _TILE_21 '+'
-#else
-    #define _TILE_7 'A'
-    #define _TILE_21 'A'
-#endif
+
+#define _TILE_7 8
+#define _TILE_21 _TILE_7
+
 
 #define _TILE_22 'O'	
 
@@ -85,27 +74,17 @@
 
 #define _TILE_15 '<'
 
-#if defined(__ZX80__) || defined(__ZX81__)
-	#define _TILE_16 'I'
-#else
-	#define _TILE_16 ('^')
-#endif
 
-#if defined(__C128_Z80__) || defined(__ZX80__) || defined(__ZX81__) || defined(__GAL__)  
-	#define _TILE_12 'i'
-#elif defined(__ATARI_LYNX__) || defined(__ABC80__) || defined(__OSIC1P__) || defined(__TMC600__)
-	#define _TILE_12 'I' 
-#else
-	#define _TILE_12 ('|')
-#endif 
+#define _TILE_16 ('^')
 
-#define _TILE_13 '-'
 
-#if !defined(NO_COLOR)
-    #define _TILE_23 _TILE_5
-#else
-    #define _TILE_23 '8'
-#endif
+#define _TILE_12 2
+
+#define _TILE_13 1
+
+
+#define _TILE_23 _TILE_5
+
 
 #endif // _PCE_GRAPHICS_SETTINGS
 

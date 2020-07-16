@@ -16,7 +16,7 @@
 #define _TILE_10 '*'
 
 // GREEN
-#define _TILE_8  0x7A;
+#define _TILE_8  0x7A
 
 // RED
 #define _TILE_5 0x78
@@ -45,6 +45,9 @@
 
 #define _TILE_22 _TILE_4
 
-#define _TILE_17 _TILE_8
+// 0x79
+#define _TILE_17 (_TILE_8-1)
 
-#define _TILE_18 _TILE_8
+// 0x75
+#define _TILE_18 (_TILE_8-5)
+

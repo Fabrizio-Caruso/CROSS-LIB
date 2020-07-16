@@ -16,7 +16,7 @@
 #elif defined(__C16__) && defined(REDEFINED_CHARS) && !defined(C16_UNEXPANDED)
 	#include "c264_redefined_chars_settings.h"
 #elif defined(__C16__) && defined(REDEFINED_CHARS) && defined(C16_UNEXPANDED)
-	#include "c264_unexpanded_redefined_chars_settings.h"
+	#include "c264_link_time_redefined_chars_settings.h"
 #elif defined(__CBM__) && defined(MEMORY_MAPPED)
 	#include "petscii_memory_mapped_settings.h"
 #elif defined(__MO5__)

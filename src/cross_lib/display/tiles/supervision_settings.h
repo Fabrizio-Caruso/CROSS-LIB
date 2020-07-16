@@ -24,7 +24,7 @@
 
 #define _TILE_7 (char) (0x77 - 0x20)
 
-#define _TILE_6 'X'
+#define _TILE_6 'O'
 #define _TILE_19 _TILE_0
 #define _CONFUSE _TILE_7
 
@@ -33,7 +33,7 @@
 #define _TILE_13 (0xC3-128)
 
 // TODO: Replace this with something else
-#define _TILE_23 '8'
+#define _TILE_23 'X'
 
 
 #define _TILE_21 _TILE_7

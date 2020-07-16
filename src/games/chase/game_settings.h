@@ -25,6 +25,9 @@
 #if !defined(_GAME_SETTINGS)
 #define _GAME_SETTINGS
 
+// #define DEBUG_ITEMS
+// #define DEBUG_END
+
 #include "cross_lib.h"
 
 #include "speed_game_settings.h"

@@ -27,10 +27,6 @@
     #define EXIT_SUCCESS 0
 #endif
 
-// TODO: REMOVE THIS
-// #define DEBUG_ITEMS
-// #define DEBUG_END
-
 #include "settings.h"
 
 #include "character.h"

@@ -114,7 +114,7 @@
           defined(__ACE__) || defined(__BEE__) || defined(__AQUARIUS__) && !defined(ALT_PRINT) || defined(__PET__)
 		#define SLOW_DOWN 1000
 	#elif defined(__PCE__)
-		#define SLOW_DOWN 4200U	
+		#define SLOW_DOWN 5500U	
 	#elif defined(__SPECTRUM__) && !defined(__TS2068__)
 		#define SLOW_DOWN 1400
 	#elif defined(__TS2068__)

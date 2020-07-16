@@ -41,11 +41,11 @@
 
 
 
-#define _TILE_6 '#'
+#define _TILE_6 _TILE_4
 
 
 // CYAN
-#define _TILE_9 '!'
+#define _TILE_9 14
 
 
 // YELLOW
@@ -59,22 +59,24 @@
 #define _TILE_10 '$'
 
 // GREEN
-#define _TILE_8  'S'
+#define _TILE_8  11
 
-#define _TILE_17 'F'
+#define _TILE_17 12
 
-#define _TILE_18 'H'
+// 13
+#define _TILE_18 15
 
 // CYAN
-#define _TILE_20 'V'
-#define _TILE_11 '.'
+#define _TILE_20 17
 
-#define _TILE_14 '>'
+#define _TILE_11 16
 
-#define _TILE_15 '<'
+#define _TILE_14 19
+
+#define _TILE_15 20
 
 
-#define _TILE_16 ('^')
+#define _TILE_16 18
 
 
 #define _TILE_12 2

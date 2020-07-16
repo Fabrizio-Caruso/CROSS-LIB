@@ -86,7 +86,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	FCB %00111110
 	FCB %00001000
 
-; S power-up ???
+; power-up F
 	 FCB    %00000000 ; 
 	 FCB    %00111100 ;  ####
 	 FCB    %01000010 ; #    #

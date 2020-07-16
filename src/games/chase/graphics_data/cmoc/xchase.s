@@ -46,6 +46,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	FCB %00000000
 	FCB %00000000
 
+; invincibility
 	 FCB    %00011000
 	 FCB    %00100100
 	 FCB    %00000000
@@ -55,6 +56,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00100100
 	 FCB    %01100110
 
+; right missile
 	 FCB    %00000000
 	 FCB    %00000000
 	 FCB    %11110000
@@ -64,6 +66,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00000000
 	 FCB    %00000000
 
+; bullet
 	 FCB    %00000000
 	 FCB    %00000000
 	 FCB    %00001000
@@ -73,6 +76,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00000000
 	 FCB    %00000000
 
+; dollar $
 	FCB %00000000
 	FCB %00001000
 	FCB %00111110
@@ -82,15 +86,17 @@ _udgs	EQU	*		udgs: uint8_t[]
 	FCB %00111110
 	FCB %00001000
 
-	 FCB    %00000000
-	 FCB    %00111100
-	 FCB    %01000010
-	 FCB    %11001111
-	 FCB    %11000011
-	 FCB    %01100110
-	 FCB    %00100100
-	 FCB    %00011000
+; S power-up ???
+	 FCB    %00000000 ; 
+	 FCB    %00111100 ;  ####
+	 FCB    %01000010 ; #    #
+	 FCB    %11001111 ;##  ####
+	 FCB    %11000011 ;##    ##
+	 FCB    %01100110 ; ##  ## 
+	 FCB    %00100100 ;  #  # 
+	 FCB    %00011000 ;   ##
 
+; vertical brick
 	 FCB    %00011000
 	 FCB    %00011000
 	 FCB    %01111000
@@ -100,6 +106,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00011000
 	 FCB    %00011000
 
+; skull
 	 FCB    %00111100
 	 FCB    %01000010
 	 FCB    %10100101
@@ -109,6 +116,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00100100
 	 FCB    %00111100 	 
 
+; ghost
 	 FCB    %10111101
 	 FCB    %01000010
 	 FCB    %10100101
@@ -118,6 +126,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %10000001
 	 FCB    %01111110 
 
+; 
 	 FCB    %00111100
 	 FCB    %01000010
 	 FCB    %10100101
@@ -127,6 +136,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %01000010
 	 FCB    %00111100
 
+; player down
 	 FCB    %00011000
 	 FCB    %00100100
 	 FCB    %00011000
@@ -136,6 +146,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00100100
 	 FCB    %01100110
 
+; horizontal breck
 	 FCB    %00000000
 	 FCB    %00000000
 	 FCB    %00000000
@@ -145,14 +156,15 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00000000
 	 FCB    %00000000
 
-	 FCB    %00000000
-	 FCB    %00111100
-	 FCB    %01100110
-	 FCB    %11011111
-	 FCB    %11100111
-	 FCB    %01111010
-	 FCB    %00100100
-	 FCB    %00011000
+; power-up S
+	 FCB    %00000000 ;
+	 FCB    %00111100 ;  ####   
+	 FCB    %01100110 ; ##  ## 
+	 FCB    %11011111 ;## #####
+	 FCB    %11100111 ;###  ###
+	 FCB    %01111010 ; #### # 
+	 FCB    %00100100 ;  #  #  
+	 FCB    %00011000 ;   ##
 
 	FCB %00000000
 	FCB %00000000
@@ -163,6 +175,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	FCB %00000000
 	FCB %00000000
 
+; leff missile
 	 FCB    %00000000
 	 FCB    %00000000
 	 FCB    %00001111
@@ -172,6 +185,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00000000
 	 FCB    %00000000
 
+; rocket
 	 FCB    %00011000
 	 FCB    %00111100
 	 FCB    %00111100
@@ -181,13 +195,13 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %01011010
 	 FCB    %01000010
 
-	FCB %00000000
-	FCB %00111100
-	FCB %01000110
-	FCB %01001010
-	FCB %01010010
-	FCB %01100010
-	FCB %00111100
+	FCB %00000000 ; 
+	FCB %00111100 ;  ####
+	FCB %01000110 ; #   ## 
+	FCB %01001010 ; #  # # 
+	FCB %01010010 ; # #  # 
+	FCB %01100010 ; ##   #
+	FCB %00111100 ;  ####
 	FCB %00000000
 
 	FCB %00000000
@@ -271,6 +285,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	FCB %00111100
 	FCB %00000000
 
+; ghost
 	 FCB    %10111101
 	 FCB    %01000010
 	 FCB    %10100101
@@ -280,15 +295,17 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %10000001
 	 FCB    %01111110 
 
-	 FCB    %00000000
-	 FCB    %00111100
-	 FCB    %01011010
-	 FCB    %11011011
-	 FCB    %11000011
-	 FCB    %01011010
-	 FCB    %00111100
-	 FCB    %00011000
+; power-up H
+	 FCB    %00000000 ; 
+	 FCB    %00111100 ;  ####
+	 FCB    %01011010 ; # ## # 
+	 FCB    %11011011 ;## ## ##
+	 FCB    %11000011 ;##    ##
+	 FCB    %01011010 ; # ## # 
+	 FCB    %00111100 ;  ####
+	 FCB    %00011000 ;   ##
 
+; player up
 	 FCB    %00011000
 	 FCB    %00111100
 	 FCB    %00011000
@@ -298,6 +315,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00100100
 	 FCB    %01100110
 
+; player right
 	 FCB    %00011000
 	 FCB    %00110100
 	 FCB    %00011001
@@ -307,6 +325,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00010100
 	 FCB    %00010100
 
+; player left
 	 FCB    %00011000
 	 FCB    %00101100
 	 FCB    %10011000
@@ -316,6 +335,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00101000
 	 FCB    %00101000
 
+; gun
 	 FCB    %00000000
 	 FCB    %10000000
 	 FCB    %01111110
@@ -325,13 +345,13 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %10000000	 
 	 FCB    %00000000
 
-	FCB %00000000
-	FCB %00111100
-	FCB %01001010
-	FCB %01010110
-	FCB %01011110
-	FCB %01000000
-	FCB %00111100
+	FCB %00000000 ;
+	FCB %00111100 ;  ####
+	FCB %01001010 ; #  # # 
+	FCB %01010110 ; # # ## 
+	FCB %01011110 ; # ####
+	FCB %01000000 ; #
+	FCB %00111100 ;  ####
 	FCB %00000000
 
 	FCB %00000000
@@ -568,6 +588,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	FCB %01111110
 	FCB %00000000
 
+; dead ghost ?
 	 FCB    %10111101
 	 FCB    %01000010
 	 FCB    %10100101

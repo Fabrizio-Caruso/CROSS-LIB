@@ -169,15 +169,11 @@ const struct redefine_struct redefine_map[] =
 		#if defined(_TILE_19)
 			{_TILE_19_OFFSET_, _TILE_19_UDG},
 		#endif
-		
-		#if defined(_TILE_18)
-			{_TILE_18_OFFSET_, _TILE_18_UDG},
-		#endif
-		
-		#if defined(_TILE_17)
-			{_TILE_17_OFFSET_, _TILE_17_UDG},
-		#endif
 	#endif
+
+    {_TILE_18_OFFSET_, _TILE_18_UDG},
+    {_TILE_17_OFFSET_, _TILE_17_UDG},
+
 };
 
 

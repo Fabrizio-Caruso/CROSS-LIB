@@ -23,7 +23,6 @@
 // RED
 #define _TILE_5 0x5E
 #define _TILE_6 0x5B
-#define _TILE_18 0x5C
 #define _TILE_21 0x5A
 #define _TILE_19 0x5D
 
@@ -31,7 +30,9 @@
 // CYAN
 #define _TILE_20 0x08
 #define _TILE_11 0x09
+
 #define _TILE_17 0x0A
+#define _TILE_18 0x5C
 
 // WHITE
 #define _TILE_4 0x7E

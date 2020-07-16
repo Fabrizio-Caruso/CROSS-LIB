@@ -56,6 +56,7 @@ __asm
 	defb %"--#####-"
 	defb %"----#---"
 
+; power-up F
 	defb    8,8
 	defb    @00000000
 	defb    @00111100

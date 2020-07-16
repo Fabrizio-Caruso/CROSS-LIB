@@ -41,4 +41,8 @@
 
 #define _TILE_17 _TILE_8
 #define _TILE_18 _TILE_8
+
+// #define _TILE_17 0x3A
+// #define _TILE_18 0x25
+
 #define _TILE_22 _TILE_4

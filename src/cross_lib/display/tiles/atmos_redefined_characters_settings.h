@@ -62,7 +62,7 @@
 	#define _TILE_14_OFFSET '>'	
 	#define _TILE_16_OFFSET 0x23	
 	
-	#define _TILE_23 _TILE_5
+	#define _TILE_23 'X'
 	
 	// #define _CHASE _BULLET
 	#define _TILE_14 _TILE_14_OFFSET

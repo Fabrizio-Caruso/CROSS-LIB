@@ -49,7 +49,7 @@
 #endif
 
 #if defined(__ALPHATRO__)
-	#define _TILE_6 _TILE_4
+	#define _TILE_6 'm'
 #else
 	#define _TILE_6 '#'
 #endif

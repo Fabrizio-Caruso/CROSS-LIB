@@ -42,7 +42,7 @@
 #define _TILE_16 ((uint8_t)0x60)
 
 // TODO: Change it to somwthing different
-// #define _TILE_23 _TILE_15
+// #define _TILE_23 _TILE_5
 #define _TILE_23 'X'
 
 #endif // _CREATIVISION_REDEFINED_CHARS_SETTINGS

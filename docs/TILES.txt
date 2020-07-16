@@ -7,11 +7,11 @@ TILE |   CAN HAVE              | CAN BE         | EXAMPLE CHARACTER
 --------------------------------------------------------------------------------
    0 |                    CYAN |                | PLAYER DOWN
 --------------------------------------------------------------------------------
-   1 |                    CYAN |              0 | PLAYER UP
+   1 |                    CYAN |                | PLAYER UP
 --------------------------------------------------------------------------------
-   2 |                    CYAN |              0 | PLAYER RIGHT
+   2 |                    CYAN |                | PLAYER RIGHT
 --------------------------------------------------------------------------------
-   3 |                    CYAN |              0 | PLAYER LEFT
+   3 |                    CYAN |                | PLAYER LEFT
 --------------------------------------------------------------------------------
    4 |                   WHITE |                | GHOST
 --------------------------------------------------------------------------------
@@ -57,5 +57,5 @@ TILE |   CAN HAVE              | CAN BE         | EXAMPLE CHARACTER
 
 (*)  Some systems have tiles/characters with pre-assigned colors. The intrinsic color is the pre-assigned color to a tile (on most systems).
 
-(**) Under some conditions (i.e., colors available for tiles 6,17,18,21,22,23 or ASCII/ATASCII/PETSCII mode for tiles 0,1,2,3) some tiles can be mapped to the same tile. This means that they will have the same shape but not necessarily the same color.
+(**) Under some conditions (i.e., colors available for tiles 6,17,18,21,22,23) some tiles can be mapped to the same tile. This means that they will have the same shape but not necessarily the same color.
 

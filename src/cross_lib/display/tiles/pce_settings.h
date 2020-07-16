@@ -37,7 +37,7 @@
 #define _TILE_5 7
 
 // WHITE
-#define _TILE_4 'o'
+#define _TILE_4 9
 
 
 
@@ -51,10 +51,9 @@
 // YELLOW
 
 #define _TILE_7 8
+
 #define _TILE_21 _TILE_7
-
-
-#define _TILE_22 'O'	
+#define _TILE_22 _TILE_4
 
 #define _TILE_19 _TILE_0
 #define _TILE_10 '$'

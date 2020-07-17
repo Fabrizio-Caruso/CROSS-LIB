@@ -48,7 +48,7 @@ c64_alt_targets: \
 #############################
 # CREATIVISION
 creativision_alt_targets: \
-    creativision_32k \
+    creativision_24k \
     creativision_8k_tiny \
     creativision_16k_no_gfx
 
@@ -225,14 +225,31 @@ creativision_16k_no_gfx:
 	rm $(BUILD_PATH)/ALT_FULL_creativision_16k_LOW.bin
 	rm $(BUILD_PATH)/ALT_FULL_creativision_16k_HIGH.bin	
 
-creativision_32k:
+creativision_18k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/ALT_FULL_creativision_18k.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_18k.bin bs=8k skip=1 > $(BUILD_PATH)/ALT_FULL_creativision_18k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_18k.bin bs=8k count=1 >> $(BUILD_PATH)/ALT_FULL_creativision_18k_SWAPPED.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_18k.bin
+
+creativision_24k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
-	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
+	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/ALT_FULL_creativision_32k.bin
-
+	-o $(BUILD_PATH)/ALT_FULL_creativision_24k.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_24k.bin bs=8k skip=1 > $(BUILD_PATH)/ALT_FULL_creativision_24k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/ALT_FULL_creativision_24k_SWAPPED.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_24k.bin
 
 creativision_8k_tiny: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \

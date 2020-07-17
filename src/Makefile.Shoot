@@ -251,9 +251,10 @@ pce_32k:
 
 #################################################################
 
-creativision: creativision_32k
+creativision: creativision_18k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
+
 creativision_32k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -261,7 +262,29 @@ creativision_32k:
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/ALT_FULL_creativision_32k.bin
+	-o $(BUILD_PATH)/FULL_XShoot_creativision_32k.bin
+
+creativision_24k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
+	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
+	-o $(BUILD_PATH)/FULL_XShoot_creativision_24k.bin
+	dd if=$(BUILD_PATH)/FULL_XShoot_creativision_24k.bin bs=8k skip=1 > $(BUILD_PATH)/FULL_XShoot_creativision_24k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/FULL_XShoot_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_XShoot_creativision_24k_SWAPPED.bin
+	rm $(BUILD_PATH)/FULL_XShoot_creativision_24k.bin
+
+creativision_18k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
+	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
+	-o $(BUILD_PATH)/FULL_XShoot_creativision_18k.bin
+
 
 #################################################################
 

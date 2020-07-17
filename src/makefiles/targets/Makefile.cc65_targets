@@ -397,13 +397,17 @@ creativision_16k:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
-	-o $(BUILD_PATH)/FULL_creativision_16k.bin	
-	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_creativision_16k_LOW.bin
-	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
-	rm $(BUILD_PATH)/FULL_creativision_16k.bin 
-	cat $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin $(BUILD_PATH)/FULL_creativision_16k_LOW.bin > $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
-	rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
-	rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
+	-o $(BUILD_PATH)/FULL_creativision_16k.bin
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/FULL_creativision_16k.bin
+
+# dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_creativision_16k_LOW.bin
+# dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
+# rm $(BUILD_PATH)/FULL_creativision_16k.bin 
+# cat $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin $(BUILD_PATH)/FULL_creativision_16k_LOW.bin > $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
+# rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
+# rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
 
 
 creativision_8k_light: 

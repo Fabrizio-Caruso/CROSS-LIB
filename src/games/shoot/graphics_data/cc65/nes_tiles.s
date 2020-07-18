@@ -633,24 +633,13 @@ _Charset:
         .byte   %00000000       ; 022E 1-45:         
         .byte   %00000000       ; 022F 1-45:         
 
+; ghost
 
-	 .byte    %10111101
-	 .byte    %01000010
-	 .byte    %10100101
-	 .byte    %10000001
-	 .byte    %10000001
-	 .byte    %10011001
-	 .byte    %10000001
-	 .byte    %01111110
+.byte $3c,$7e,$ff,$99,$7e,$3c,$7e,$db
 
-	 .byte    %10111101
-	 .byte    %01000010
-	 .byte    %10100101
-	 .byte    %10000001
-	 .byte    %10000001
-	 .byte    %10011001
-	 .byte    %10000001
-	 .byte    %01111110 	 
+
+.byte $3c,$7e,$ff,$99,$7e,$3c,$7e,$db
+
     
 
         .byte   %00011000       ; 0240 1-48:    **   
@@ -4289,6 +4278,7 @@ _Charset:
         .byte   %10011100       ; 0EDE 2-db: *  ***  
         .byte   %11111111       ; 0EDF 2-db: ********
 
+; invincibility
 	 .byte    %00011000
 	 .byte    %00100100
 	 .byte    %00000000
@@ -4308,6 +4298,7 @@ _Charset:
 	 .byte    %01100110
 	 
 
+; rocket
 	 .byte    %00011000
 	 .byte    %00111100
 	 .byte    %00111100
@@ -4326,6 +4317,8 @@ _Charset:
 	 .byte    %01011010
 	 .byte    %01000010	 
 
+
+; left missile
 	 .byte    %00000000
 	 .byte    %00000000
 	 .byte    %00001111
@@ -4344,6 +4337,8 @@ _Charset:
 	 .byte    %00000000
 	 .byte    %00000000	 
 
+
+; right missile
 	 .byte    %00000000
 	 .byte    %00000000
 	 .byte    %11110000
@@ -4362,6 +4357,8 @@ _Charset:
 	 .byte    %00000000
 	 .byte    %00000000	 
 
+
+; bullet
 	 .byte    %00000000
 	 .byte    %00000000
 	 .byte    %00001000
@@ -4380,6 +4377,8 @@ _Charset:
 	 .byte    %00000000
 	 .byte    %00000000
 
+
+; power-up F
 	 .byte    %00000000
 	 .byte    %00111100
 	 .byte    %01000010
@@ -4397,7 +4396,9 @@ _Charset:
 	 .byte    %01100110
 	 .byte    %00100100
 	 .byte    %00011000
-	 
+
+
+; horizontal brick
 	 .byte    %00000000
 	 .byte    %00000000
 	 .byte    %00000000
@@ -4417,6 +4418,7 @@ _Charset:
 	 .byte    %00000000
 	  
 
+; power-up H
 	 .byte    %00000000
 	 .byte    %00111100
 	 .byte    %01011010
@@ -4435,6 +4437,8 @@ _Charset:
 	 .byte    %00000000
 	 .byte    %00000000	
 
+
+; gun
 	 .byte    %00000000
 	 .byte    %00000000
 	 .byte    %00000000
@@ -4442,25 +4446,13 @@ _Charset:
 	 .byte    %00000000
 	 .byte    %00000000
 	 .byte    %00000000
-	 .byte    %00000000			
+	 .byte    %00000000
 	
-	 .byte    %00000000
-	 .byte    %10000000
-	 .byte    %01111110
-	 .byte    %11001000
-	 .byte    %11111000
-	 .byte    %11000000
-	 .byte    %10000000	 
-	 .byte    %00000000
+.byte $81,$42,$18,$34,$2c,$18,$42,$81
 
-	 .byte    %10111101
-	 .byte    %01000010
-	 .byte    %10100101
-	 .byte    %10100101
-	 .byte    %10000001
-	 .byte    %10011001
-	 .byte    %10000001
-	 .byte    %01111110 
+
+; dead ghost
+.byte $3c,$7e,$ff,$99,$7e,$3c,$7e,$db
 
 	 .byte    %00000000
 	 .byte    %00000000
@@ -4469,9 +4461,9 @@ _Charset:
 	 .byte    %00000000
 	 .byte    %00000000
 	 .byte    %00000000
-	 .byte    %00000000		 
-	 
-		
+	 .byte    %00000000
+
+
 	 .byte    %00000000
 	 .byte    %00000000
 	 .byte    %00000000

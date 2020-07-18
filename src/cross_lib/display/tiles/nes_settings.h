@@ -34,7 +34,7 @@
 #include "display_macros.h"
 
 #define _TILE_8 248
-#define _TILE_4 (char) 35
+#define _TILE_4 35
 #define _TILE_5 251
 #define _TILE_9 246
 

@@ -2,8 +2,7 @@
 
 #define _TILE_8 (char) (0x7A-0x20)
 
-#define _TILE_17 _TILE_8
-#define _TILE_18 _TILE_8
+
 
 #define _TILE_4 (char) (0x76-0x20)
 #define _TILE_5 (char) (0x78-0x20)
@@ -38,4 +37,14 @@
 
 #define _TILE_21 _TILE_7
 #define _TILE_22 _TILE_4
+
+
+// #define _TILE_17 _TILE_8
+// #define _TILE_18 _TILE_8
+
+// 0x79
+#define _TILE_17 (_TILE_8-1)
+
+// 0x75
+#define _TILE_18 (_TILE_8-5)
 

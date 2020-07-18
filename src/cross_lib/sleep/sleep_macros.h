@@ -135,6 +135,8 @@
 		#define SLOW_DOWN 30000U
 	#elif defined(__M5__)
 		#define SLOW_DOWN 900		
+	#elif defined(__SUPERVISION__)
+		#define SLOW_DOWN 2000		
 	#endif
 #endif
 

@@ -11,7 +11,7 @@ GLOBAL first_char8
 .cpc_Chars8   ;each bit of each byte is a pixel, same way as SYMBOL function of Locomotive BASIC.
 
 ;; KEY SET BY ANJUEL & NA_TH_AN FROM NANAKO CPC GAME.
-   DEFB     0,  0,  0,  0,  0,  0,  0,  0
+   DEFB     0,  0,  0,  0,  0,  0,  0,  0 ; (32)
    DEFB    24, 36, 24,102,153, 24, 36,102
    DEFB    24, 60, 24,102,153, 24, 36,102
    DEFB    24, 52, 25,118,152, 24, 20, 20
@@ -26,11 +26,11 @@ GLOBAL first_char8
    DEFB    60, 66,165,153,153,165, 66, 60
    DEFB    24, 60, 60, 60,126, 90, 66, 66
    DEFB    24, 36, 24,  0,153,  0, 36,102
-   DEFB    24, 24, 24, 48, 24, 12, 24, 24
-   DEFB     0,  0,  0,255,  0,  0,  0,  0
-   DEFB    16, 62, 32, 60,  4,124,  8,  0
-   DEFB    62, 34,  2, 62, 32, 34, 62,  0
-   DEFB    62, 36,  4, 28,  4, 36, 62,  0
+   DEFB    24, 24, 24, 48, 24, 12, 24, 24 ; TILE 12 (47)
+   DEFB     0,  0,  0,255,  0,  0,  0,  0 ; TILE 13 (48)
+   DEFB    16, 62, 32, 60,  4,124,  8,  0 ; (49)
+   DEFB   $00,$3C,$42,$CF,$C3,$66,$24,$14 ; TILE 17 (50)
+   DEFB   $00,$3c,$5a,$db,$c3,$5A,$3c,$18 ; TILE 18 (51)
    DEFB    32, 32, 36, 62,  4,  4, 14,  0
    DEFB    62, 32, 32, 62,  2, 34, 62,  0
    DEFB    62, 32, 32, 62, 34, 34, 62,  0

@@ -8,7 +8,7 @@ _Charset:
 .byte $18,$3c,$18,$66,$99,$18,$24,$66
 
 ; 0xED gun
-.byte 0,128,126,200,248,192,128,  0
+.byte $81,$42,$18,$34,$2c,$18,$42,$81
 
 ; 0xEE pound - invincibility
 .byte 24, 36, 24,  0,153,  0, 36,102
@@ -35,7 +35,7 @@ _Charset:
 .byte  0,  0,  0,255,  0,  0,  0,  0
 
 ; 0xF6 ghost
-.byte $bd,$42,$a5,$81,$81,$99,$81,$7e
+.byte $3c,$7e,$ff,$99,$7e,$3c,$7e,$db
 
 ; 0xF7 skull
 .byte 60, 66,165,129, 90, 36, 36, 60
@@ -56,12 +56,13 @@ _Charset:
 .byte $00,$00,$0f,$fe,$fe,$0f,$00,$00
 
 
-; 0xFD dead ghost
-.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+; 0xFD freeze
+.byte $00,$3C,$42,$CF,$C3,$66,$24,$14
+
 
 ; 0xFE super
-.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+.byte $00,$3c,$5a,$db,$c3,$5A,$3c,$18
 
 
-; 0xFF freeze
+; 0xFF dead ghost
 .byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff

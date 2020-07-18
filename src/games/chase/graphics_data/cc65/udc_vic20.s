@@ -56,11 +56,12 @@ _Charset:
 .byte $00,$00,$0f,$fe,$fe,$0f,$00,$00
 
 
-; 0xFD dead ghost
-.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+; 0xFD freeze
+.byte $00,$3C,$42,$CF,$C3,$66,$24,$14
 
-; 0xFE super
-.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+
+; 0xFF super
+.byte $00,$3c,$5a,$db,$c3,$5A,$3c,$18
 
 
 ; 0xFF freeze

@@ -39,9 +39,9 @@
 
 #define _TILE_16 0x70
 
-#define _TILE_17 _TILE_8
+#define _TILE_17 0x7D
 
-#define _TILE_18 _TILE_8
+#define _TILE_18 0x7E
 
 #define _TILE_22 _TILE_4
 

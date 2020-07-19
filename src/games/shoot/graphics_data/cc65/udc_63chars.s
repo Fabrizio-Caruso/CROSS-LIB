@@ -101,9 +101,12 @@ _Charset:
 ; ------------------------------------------------------------------------
 ; Unused - Conflict
 
-.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+; 0xFD freeze
+.byte $00,$3C,$42,$CF,$C3,$66,$24,$14
 
-.byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
+
+; 0xFE super
+.byte $00,$3c,$5a,$db,$c3,$5A,$3c,$18
 
 .byte $ff,$ff,$ff,$ff,$ff,$ff,$ff,$ff
 

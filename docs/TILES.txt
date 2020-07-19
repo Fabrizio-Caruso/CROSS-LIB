@@ -39,9 +39,9 @@ TILE |   CAN HAVE              | CAN BE         | EXAMPLE CHARACTER
 --------------------------------------------------------------------------------
   16 |                    WHITE |                 | ROCKET
 --------------------------------------------------------------------------------
-  17 |                     CYAN |               8 | FREEZE
+  17 |                     CYAN |                 | FREEZE
 --------------------------------------------------------------------------------
-  18 |                      RED |               8 | SUPER
+  18 |                      RED |                 | SUPER
 --------------------------------------------------------------------------------
   19 |                    WHITE | 0 (PLAYER DOWN) | EXTRA LIFE
 --------------------------------------------------------------------------------
@@ -57,5 +57,17 @@ TILE |   CAN HAVE              | CAN BE         | EXAMPLE CHARACTER
 
 (*)  Some systems have tiles/characters with pre-assigned colors. The intrinsic color is the pre-assigned color to a tile (on most systems).
 
-(**) Under some conditions (i.e., colors available for tiles 6,17,18,21,22,23) some tiles can be mapped to the same tile. This means that they will have the same shape but not necessarily the same color.
+(**) Under some conditions (i.e., colors available for tiles 6,17,18,21,22,23) some tiles can be mapped to the same tile. 
+This means that they will have the same shape but not necessarily the same color.
+In particular we have two groups:
+
+1) Tiles with varying shapes:
+- TILE_6 is mapped to  TILE_4 if a different color can be chosen. Otherwise an ASCII character is shown at its place (in most cases '#')
+- TILE_23 is mapped to TILE_5 if a different color can be chosen. Otherwise an ASCII character is shown at its place (im most cases 'X')
+
+2) Tiles with fixed shapes:
+- TILE_19 is mapped to TILE_0. If possible a different color is chosen.
+- TILE_21 is mapped to TILE_7. If possible a different color is chosen.
+- TILE_22 is mapped to TILE_4. If possible a different color is chosen.
+
 

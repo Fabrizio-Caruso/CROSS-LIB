@@ -6,12 +6,12 @@ tile=[]
 
 #read tile0
 for i in [0,NUMBER_OF_TILES-1]:
-    with open('tile'+str(i)+'.txt', 'r') as myfile:
+    with open('./tiles/tile'+str(i)+'.txt', 'r') as myfile:
         tile.append(myfile.read())
 
 
 #input file
-fin = open("template_8x8_chars.txt", "rt")
+fin = open("./templates/template_8x8_chars.txt", "rt")
 
 #output file to write the result to
 fout = open("./generated_assets/8x8_chars.h", "wt")

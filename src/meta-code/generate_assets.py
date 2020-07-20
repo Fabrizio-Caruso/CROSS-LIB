@@ -1,6 +1,6 @@
 #!/bin/python
 
-NUMBER_OF_TILES = 4
+NUMBER_OF_TILES = 24
 
 tile=[]
 
@@ -20,14 +20,13 @@ fout = open("./generated_assets/8x8_chars.h", "wt")
 #for each line in the input file
 for line in fin:
     newline = line
-    print("initial line: "+newline)
+    # print("initial line: "+newline)
     for i in range(NUMBER_OF_TILES):
-        print("Handling tile["+str(i)+"]")
         #read replace the string
         newline = newline.replace('<tile_'+str(i)+'>', tile[i])
-        print("new line : " + newline)
-    print("")
     fout.write(newline)
+    if line != newline:
+        print("changing \n"+line+"with\n"+newline)
 #close input and output files
 fin.close()
 fout.close()

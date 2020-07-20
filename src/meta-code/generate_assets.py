@@ -1,12 +1,13 @@
 #!/bin/python
 
-NUMBER_OF_TILES = 1
+NUMBER_OF_TILES = 4
 
 tile=[]
 
 #read tile0
-for i in [0,NUMBER_OF_TILES-1]:
+for i in range(NUMBER_OF_TILES):
     with open('./tiles/tile'+str(i)+'.txt', 'r') as myfile:
+        print("Opening file tile"+str(i)+".txt")
         tile.append(myfile.read())
 
 
@@ -17,10 +18,16 @@ fin = open("./templates/template_8x8_chars.txt", "rt")
 fout = open("./generated_assets/8x8_chars.h", "wt")
 
 #for each line in the input file
-for i in [0,NUMBER_OF_TILES-1]:
-    for line in fin:
-            #read replace the string and write to output file
-            fout.write(line.replace('<tile_'+str(i)+'>', tile[i]))
+for line in fin:
+    newline = line
+    print("initial line: "+newline)
+    for i in range(NUMBER_OF_TILES):
+        print("Handling tile["+str(i)+"]")
+        #read replace the string
+        newline = newline.replace('<tile_'+str(i)+'>', tile[i])
+        print("new line : " + newline)
+    print("")
+    fout.write(newline)
 #close input and output files
 fin.close()
 fout.close()

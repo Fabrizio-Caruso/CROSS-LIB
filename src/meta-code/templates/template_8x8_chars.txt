@@ -3,8 +3,8 @@
 
 #define _TILE_0_UDG     { <tile_0>}
 #define _TILE_1_UDG     { <tile_1>}
-#define _TILE_3_UDG     { <tile_2>}
-#define _TILE_2_UDG     { <tile_3>}
+#define _TILE_3_UDG     { <tile_3>}
+#define _TILE_2_UDG     { <tile_2>}
 
 #define _TILE_4_UDG     {<tile_4>}
 

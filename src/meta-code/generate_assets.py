@@ -17,23 +17,22 @@ for i in range(NUMBER_OF_TILES):
         print("Opening file tile"+str(i)+".txt")
         tile.append(myfile.read())
 
+file_names = ["8x8_chars.h", "xchase.asm"]
 
-#input file
-fin = open("./templates/template_8x8_chars.txt", "rt")
+for file_name in file_names:
 
-#output file to write the result to
-fout = open("./generated_assets/"+game_dir+"/8x8_chars.h", "wt")
+    fin = open("./templates/"+file_name+".template", "rt")
+    fout = open("./generated_assets/"+game_dir+"/"+file_name, "wt")
 
-#for each line in the input file
-for line in fin:
-    newline = line
-    # print("initial line: "+newline)
-    for i in range(NUMBER_OF_TILES):
-        #read replace the string
-        newline = newline.replace('<tile_'+str(i)+'>', tile[i])
-    fout.write(newline)
-    if line != newline:
-        print("changing \n"+line+"with\n"+newline)
-#close input and output files
-fin.close()
-fout.close()
+    for line in fin:
+        newline = line
+        # print("initial line: "+newline)
+        for i in range(NUMBER_OF_TILES):
+            #read replace the string
+            newline = newline.replace('<tile_'+str(i)+'>', tile[i])
+        fout.write(newline)
+        if line != newline:
+            print("changing \n"+line+"with\n"+newline)
+    #close input and output files
+    fin.close()
+    fout.close()

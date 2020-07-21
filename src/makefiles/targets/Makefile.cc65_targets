@@ -306,7 +306,7 @@ c16: c16_16k
 
 c16_16k:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
-	--config $(CFG_PATH)/cc65/c16-16k_GFX_2.cfg \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
 	-DFORCE_NO_CONIO_LIB \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \

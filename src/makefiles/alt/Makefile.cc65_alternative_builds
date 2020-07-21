@@ -164,7 +164,7 @@ c16_16k_full_no_gfx:
 
 c16_16k_light: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 \
-	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
+	--config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DANIMATE_PLAYER  -DSOUNDS \
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS \

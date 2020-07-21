@@ -19,7 +19,7 @@ tile=[]
 
 #read tile0
 for i in range(NUMBER_OF_TILES):
-    with open('./tiles/8x8/'+game_dir+'/tile'+str(i)+'.txt', 'r') as myfile:
+    with open("./tiles/"+game_dir+"/8x8//tile"+str(i)+".txt", 'r') as myfile:
         print("Opening file tile"+str(i)+".txt")
         tile.append(myfile.read())
 

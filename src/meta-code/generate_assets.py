@@ -17,7 +17,7 @@ for i in range(NUMBER_OF_TILES):
         print("Opening file tile"+str(i)+".txt")
         tile.append(myfile.read())
 
-file_names = ["8x8_chars.h", "xchase.asm"]
+file_names = ["8x8_chars.h", "xchase.asm", "cpc_Chars8.asm"]
 
 for file_name in file_names:
 

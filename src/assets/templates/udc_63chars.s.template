@@ -19,57 +19,57 @@ _Charset:
 .byte $7e,$06,$0c,$18,$30,$60,$7e,$00
 
 ; gun
-.byte 0,128,126,200,248,192,128,  0
+.byte <tile_9>
 
 ; pound - invincibility
-.byte 24, 36, 24,  0,153,  0, 36,102
+.byte <tile_20>
 
 ; powerup
-.byte 0, 60, 54,223,231,122, 36, 24
+.byte <tile_8>
 
 ; rocket
-.byte $18,$3c,$3c,$3c,$7e,$7e,$5a,$42
+.byte <tile_16>
 
 ; cbm left arrow - left missile
-.byte 0,  0,240, 63, 63,240,  0,  0
+.byte <tile_14>
 
 ; space
 .byte $00,$00,$00,$00,$00,$00,$00,$00
 
 ; bullet
-.byte 0,  0,  8, 56, 28, 16,  0,  0
+.byte <tile_11>
 
 ; vertical brick
-.byte 24, 24, 24, 48, 24, 12, 24, 24
+.byte <tile_12>
 
 ; horizontal brick
-.byte  0,  0,  0,255,  0,  0,  0,  0
+.byte  <tile_13>
 
 ; ghost
-.byte $bd,$42,$a5,$81,$81,$99,$81,$7e
+.byte <tile_4>
 
 ; skull
 ;  { 60, 66,165,129, 90, 36, 36, 60}
-.byte 60, 66,165,129, 90, 36, 36, 60
+.byte <tile_7>
 ;.byte $3c,$42,$a5,$a5,$42,$42,$66,$3c
 
 ; bomb
-.byte $3c,$42,$a5,$99,$99,$a5,$42,$3c
+.byte <tile_5>
 
 ; player down 
-.byte $18,$24,$18,$66,$99,$18,$24,$66
+.byte <tile_0>
 
 ; player left
-.byte $18,$ac,$d8,$2e,$19,$18,$28,$28
+.byte <tile_3>
 
 ; player right 
-.byte $18,$35,$1b,$74,$98,$18,$14,$14
+.byte <tile_2>
 
 ; extraPoints
 .byte $18,$3e,$60,$3c,$06,$7c,$18,$00
 
 ; player up
-.byte $18,$3c,$18,$66,$99,$18,$24,$66
+.byte <tile_1>
 
 ; comma
 .byte $00,$00,$00,$00,$00,$18,$18,$30
@@ -93,14 +93,14 @@ _Charset:
 .byte $3c,$66,$66,$3e,$06,$66,$3c,$00
 
 ; right missile
-.byte $00,$00,$0f,$fe,$fe,$0f,$00,$00
+.byte <tile_15>
 
 
 ; 0xFD freeze
-.byte $00,$3C,$42,$CF,$C3,$66,$24,$14
+.byte <tile_17>
 
 ; 0xFE super
-.byte $00,$3c,$5a,$db,$c3,$5A,$3c,$18
+.byte <tile_18>
 
 
 

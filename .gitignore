@@ -3,7 +3,7 @@ deliverables
 *.def
 *.swp
 build/*
-src/meta-code/generated_assets/*
+src/assets/generated_assets/*
 src/test/*.exe
 src/*.asm
 src/experiments/*

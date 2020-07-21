@@ -1,0 +1,67 @@
+		.segment "UDCCHAR"
+		.export _Charset
+
+_Charset:
+
+
+; 0xEC player up
+.byte <tile_1>
+
+; 0xED gun
+.byte <tile_9>
+
+; 0xEE pound - invincibility
+.byte <tile_20>
+
+; 0xEF powerup
+.byte <tile_8>
+
+; 0xF0 rocket
+.byte <tile_16>
+
+; 0xF1 left missile
+.byte <tile_14>
+
+; 0xF2 space
+.byte $00,$00,$00,$00,$00,$00,$00,$00
+
+; 0xF3 bullet
+.byte <tile_11>
+
+; 0xF4 vertical
+.byte <tile_12>
+
+; 0xF5 horizontal
+.byte  <tile_13>
+
+; 0xF6 ghost
+.byte <tile_4>
+
+; 0xF7 skull
+.byte <tile_7>
+
+; 0xF8 bomb
+.byte <tile_5>
+
+; 0xF9 player down 
+.byte <tile_0>
+
+; 0xFA player left
+.byte <tile_3>
+
+; 0xFB player right 
+.byte <tile_2>
+
+; 0xFC right missile from the right
+.byte <tile_15>
+
+
+; 0xFD freeze
+.byte <tile_17>
+
+
+; 0xFE super
+.byte <tile_18>
+
+; 0xFF dead ghsot
+.byte <tile_6>

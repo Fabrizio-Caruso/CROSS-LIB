@@ -38,6 +38,9 @@ def generate_assets():
 
     for stripped_file_name in stripped_file_names:
         matches = 0
+        print("")
+        print("Handling "+stripped_file_name)
+        print("")
         fin = open("./templates/"+stripped_file_name+".template", "rt")
         fout = open("./generated_assets/"+game_dir+"/"+stripped_file_name, "wt")
 
@@ -54,6 +57,7 @@ def generate_assets():
                 matches = matches+1
                 print("Changing \n"+line+"with\n"+newline)
         print("Number of tiles found: "+str(matches)) 
+        print("")
         print("")
         #close input and output files
         fin.close()

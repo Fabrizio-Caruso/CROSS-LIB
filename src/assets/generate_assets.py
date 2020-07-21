@@ -45,8 +45,10 @@ def generate_assets():
             newline = line
             # print("initial line: "+newline)
             for i in range(NUMBER_OF_TILES):
-                #read replace the string
-                newline = newline.replace('<tile_'+str(i)+'>', tile[i])
+                if stripped_file_name == "xchase.s":
+                    newline = newline.replace('<tile_'+str(i)+'>', tile[i].replace(","," "))
+                else:
+                    newline = newline.replace('<tile_'+str(i)+'>', tile[i])
             fout.write(newline)
             if line != newline:
                 matches = matches+1

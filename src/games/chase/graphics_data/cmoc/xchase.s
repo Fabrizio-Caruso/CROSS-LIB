@@ -146,7 +146,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	 FCB    %00100100
 	 FCB    %01100110
 
-; horizontal breck
+; horizontal brick
 	 FCB    %00000000
 	 FCB    %00000000
 	 FCB    %00000000

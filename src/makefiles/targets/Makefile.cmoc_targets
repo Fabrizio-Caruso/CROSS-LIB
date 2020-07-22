@@ -336,7 +336,7 @@ mo5:
 	-c $(SOURCE_PATH)/end_screen.c	
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/graphics_data/cmoc/xchase.s	
+	-c $(ASSETS_PATH)/xchase.s	
 	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \

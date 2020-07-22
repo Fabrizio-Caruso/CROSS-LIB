@@ -188,7 +188,7 @@ mc1000_48k:
 	-create-app -o mc1000.bin \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv mc1000.wav $(BUILD_PATH)/FULL_mc1000_48k_joystick.wav
@@ -293,7 +293,7 @@ svi_328:
 	-create-app -o svi_328 \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c  \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv svi_328.cas $(BUILD_PATH)/FULL_svi_328.cas
@@ -314,7 +314,7 @@ vg5k_exp_16k:
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg
@@ -338,7 +338,7 @@ vg5k:
 	-create-app -o $(BUILD_PATH)/FULL_vg5k_less_text.prg \
 	-DCONIO \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/xchase.asm \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_vg5k_less_text.prg
 

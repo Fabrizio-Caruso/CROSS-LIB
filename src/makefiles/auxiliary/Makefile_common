@@ -21,6 +21,10 @@ CROSS_LIB_PATH := cross_lib
 
 BUILD_PATH ?= ../build
 
+######################################
+
+ASSETS_PATH := $(SOURCE_PATH)/assets
+
 #######################################################################
 # Cross Lib includes + game's graphics data
 
@@ -43,10 +47,9 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/rand \
 -I$(CROSS_LIB_PATH)/display/redefine_characters \
 -I$(CROSS_LIB_PATH)/display/tiles \
--I$(SOURCE_PATH)/graphics_data \
--I$(SOURCE_PATH)/graphics_data/cc65 \
--I$(SOURCE_PATH)/graphics_data/z88dk \
+-I$(ASSETS_PATH) \
 -I$(SOURCE_PATH)/
+
 
 TOOLS_PATH ?= ../tools
 

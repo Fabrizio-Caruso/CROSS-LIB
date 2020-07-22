@@ -191,7 +191,7 @@ m5:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(FULL_FILES) \
@@ -292,7 +292,7 @@ mtx:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c
@@ -325,7 +325,7 @@ multi8:
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -648,7 +648,7 @@ pc6001_32k:
 	-DFORCE_SCREEN_MODE=2 \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/xchase.asm \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_pc6001_32k.prg \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c
@@ -774,7 +774,7 @@ pv2000:
 	-DLESS_TEXT \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_pv2000.bin

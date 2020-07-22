@@ -329,7 +329,7 @@ c16_16k:
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/graphics_data/cc65/udc_63chars.s \
+	$(ASSETS_PATH)/udc_63chars.s \
 	-o $(BUILD_PATH)/FULL_c16_16k.prg	
 
 
@@ -343,7 +343,7 @@ c64:
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
+	$(ASSETS_PATH)/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -469,7 +469,7 @@ nes:
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/graphics_data/cc65/nes_tiles.s \
+	$(ASSETS_PATH)/nes_tiles.s \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_nes.nes
 
@@ -487,7 +487,7 @@ pce_16k:
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg -DANIMATE_PLAYER  \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/graphics_data/cc65/pce_tiles.s \
+	$(ASSETS_PATH)/pce_tiles.s \
 	-o $(BUILD_PATH)/FULL_PCE.bin
 	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_PCE_LOW.bin
 	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_PCE_HIGH.bin
@@ -503,7 +503,7 @@ pce_8k:
 	-DANIMATE_PLAYER -DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_8k_less_stack.cfg \
 	$(TINY_FILES) \
-	$(SOURCE_PATH)/graphics_data/cc65/pce_tiles.s \
+	$(ASSETS_PATH)/pce_tiles.s \
 	-o $(BUILD_PATH)/TINY_PCE_8k.pce
 
 
@@ -645,7 +645,7 @@ osic1p_8k_turn_based:
 supervision:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
-	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
+	$(ASSETS_PATH)/udc.s \
 	-DNO_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -686,7 +686,7 @@ vic20_exp_16k:
 	-DCONIO -DVIC20_EXP_16K \
 	-DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \
-	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
+	$(ASSETS_PATH)/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -717,7 +717,7 @@ vic20_exp_3k:
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(LIGHT_FILES) \
-	$(SOURCE_PATH)/graphics_data/cc65/udc_3k.s \
+	$(ASSETS_PATH)/udc_3k.s \
 	$(SOURCE_PATH)/memory/vic20_memory.s \
 	-o $(BUILD_PATH)/LIGHT_vic20_exp_3k.prg
 
@@ -741,7 +741,7 @@ vic20_exp_8k:
 	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
-	$(SOURCE_PATH)/graphics_data/cc65/udc_vic20.s \
+	$(ASSETS_PATH)/udc_vic20.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
@@ -796,7 +796,7 @@ vic20_unexpanded:
 	$(SOURCE_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
-	$(SOURCE_PATH)/graphics_data/cc65/udc_6chars.s \
+	$(ASSETS_PATH)/udc_6chars.s \
 	-o $(BUILD_PATH)/TINY_vic20_unexpanded.prg
 
 

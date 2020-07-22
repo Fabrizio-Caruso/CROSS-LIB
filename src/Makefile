@@ -4,6 +4,7 @@
 
 SOURCE_PATH := games/chase
 
+
 #####################################################################
 # Compilers variables
 include makefiles/auxiliary/Makefile_compilers

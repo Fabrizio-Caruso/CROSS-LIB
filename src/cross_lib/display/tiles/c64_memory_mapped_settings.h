@@ -62,7 +62,9 @@
 #define _TILE_13 (0xC3-128)
 #define _TILE_23 _TILE_5
 
-#define _TILE_17 (0x7E-0x20)
-#define _TILE_18 (0x80-0x20)
+
+#define _TILE_17 (_TILE_8-1)
+#define _TILE_18 (_TILE_8-5)
+
 #define _TILE_22 _TILE_4
 

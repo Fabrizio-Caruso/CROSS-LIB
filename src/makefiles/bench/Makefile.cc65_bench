@@ -6,7 +6,7 @@ c64_bench:
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/graphics.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \

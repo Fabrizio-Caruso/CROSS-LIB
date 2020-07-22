@@ -1,4 +1,4 @@
-		.segment "UDCCHAR"
+		.segment "GFX"
 		.export _udgs
 
 _udgs:

@@ -30,6 +30,7 @@
 // WHITE
 #define _TILE_4 0x76
 
+// TODO: this has to be different
 #define _TILE_6 _TILE_4
 
 

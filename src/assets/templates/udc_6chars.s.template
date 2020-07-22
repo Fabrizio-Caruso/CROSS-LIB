@@ -5,22 +5,22 @@
 _Charset:
 
 ; ghost
-.byte $bd,$42,$a5,$81,$81,$99,$81,$7e
+.byte <tile_4>
 
 ; bomb
-.byte $3c,$42,$a5,$99,$99,$a5,$42,$3c
+.byte <tile_5>
 
 ; player up
-.byte $18,$3c,$18,$66,$99,$18,$24,$66
+.byte <tile_1>
 
 ; player down 
-.byte $18,$24,$18,$66,$99,$18,$24,$66
+.byte <tile_0>
 
 ; player left
-.byte $18,$ac,$d8,$2e,$19,$18,$28,$28
+.byte <tile_3>
 
 ; player right 
-.byte $18,$35,$1b,$74,$98,$18,$14,$14
+.byte <tile_2>
 
 ; 
 ;.byte $00,$00,$00,$00,$00,$00,$00,$00

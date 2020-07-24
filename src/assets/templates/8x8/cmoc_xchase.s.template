@@ -47,7 +47,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	FCB %00000000
 
 ; invincibility
-    FCB <tile_20>
+    FCB <tile_10>
 
 ; left missile
     FCB <tile_14>
@@ -456,7 +456,7 @@ _udgs	EQU	*		udgs: uint8_t[]
 	FCB %00000000
 
 ; confuse
-    FCB <tile_22>
+    FCB <tile_4>
 
 	FCB %00000000
 	FCB %00000000

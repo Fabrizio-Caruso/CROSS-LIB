@@ -21,13 +21,13 @@
 #define _TILE_12 0x3E
 #define _TILE_13 0x3D
 #define _TILE_19 _PLAYER_DOWN
-#define _TILE_10 ('$'+128)
+#define _DOLLAR_TILE ('$'+128)
 
 // GREEN
 #define _TILE_8  0x3C
 
 // CYAN
-#define _TILE_20 0x6E
+#define _TILE_10 0x6E
 #define _TILE_11 0x3B
 
 #define _TILE_21 _TILE_7

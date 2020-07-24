@@ -25,7 +25,7 @@ GLOBAL first_char8
    DEFB     <tile_11>
    DEFB    <tile_5>
    DEFB    <tile_16>
-   DEFB    <tile_20>
+   DEFB    <tile_10>
    DEFB    <tile_12> ; TILE 12 (47)
    DEFB     <tile_13> ; TILE 13 (48)
    DEFB    16, 62, 32, 60,  4,124,  8,  0 ; (49)

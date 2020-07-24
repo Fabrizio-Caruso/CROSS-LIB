@@ -141,7 +141,7 @@ _pce_font:
 
 ;        .byte   $02, $0E, $3E, $FE, $3E, $0E, $02, $00
 ; .byte 24, 36, 24,  0,153,  0, 36,102
-.byte <tile_20>
+.byte <tile_10>
 
 ; rocket
 ; .byte   $18, $3C, $7E, $18, $18, $7E, $3C, $18

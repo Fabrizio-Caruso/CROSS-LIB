@@ -8,8 +8,8 @@
 #define _TILE_11 4*2
 #define _TILE_8 5*2
 #define _TILE_9 6*2
-#define _TILE_10 7*2
-#define _TILE_20 8*2
+#define _DOLLAR_TILE 7*2
+#define _TILE_10 8*2
 
 #define _TILE_14 10*2
 #define _TILE_15 11*2

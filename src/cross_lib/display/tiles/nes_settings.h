@@ -46,10 +46,10 @@
 
 #define _TILE_11 242
 #define _TILE_16 239
-#define _TILE_10 '$'
+#define _DOLLAR_TILE '$'
 #define _TILE_14 241
 #define _TILE_15 240
-#define _TILE_20 238
+#define _TILE_10 238
 
 #define _TILE_7 250
 

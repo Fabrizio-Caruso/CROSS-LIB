@@ -11,6 +11,9 @@ void set_group_color(uint8_t group, uint8_t color)
 	DISPLAY_POKE((uint16_t) COLOR_DEF + (uint16_t) group, ((uint16_t) color)<<4);
 }
 
+
+const uint8_t dollar[8] = {16, 62, 32, 60,  4,124,  8,  0}; 
+
 void set_udg_colors(void)
 {
 	uint8_t i;
@@ -56,6 +59,8 @@ void INIT_GRAPHICS(void)
 {
     
     SET_UDG_IMAGES();
+    
+    redefine(0x24, dollar);
 
     set_udg_colors();  
 }

@@ -73,7 +73,7 @@
 #define _TILE_22 'O'	
 
 #define _TILE_19 _TILE_0
-#define _TILE_10 '$'
+#define _DOLLAR_TILE '$'
 
 // GREEN
 #define _TILE_8  'S'
@@ -83,7 +83,7 @@
 #define _TILE_18 'H'
 
 // CYAN
-#define _TILE_20 'V'
+#define _TILE_10 'V'
 #define _TILE_11 '.'
 
 #define _TILE_14 '>'

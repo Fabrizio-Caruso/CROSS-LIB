@@ -116,7 +116,7 @@ void INIT_IMAGES(void)
     CALM_DOWN_IMAGE._imageData = _TILE_8;
     FIRE_CHARGE_IMAGE._imageData = _TILE_11;
     FIRE_POWER_IMAGE._imageData = _TILE_9;
-    EXTRA_POINTS_IMAGE._imageData = _TILE_10;
+    EXTRA_POINTS_IMAGE._imageData = _DOLLAR_TILE;
     
     BULLET_IMAGE._imageData = _TILE_11;
     
@@ -143,7 +143,7 @@ void INIT_IMAGES(void)
     SUPER_IMAGE._imageData = _TILE_18;
 
     EXTRA_LIFE_IMAGE._imageData = _TILE_19;
-    INVINCIBILITY_IMAGE._imageData = _TILE_20;
+    INVINCIBILITY_IMAGE._imageData = _TILE_10;
     
     // #if defined(NO_BLINKING) && defined(_CONFUSE) && defined(_SUICIDE)
         // CONFUSE_IMAGE._imageData = _CONFUSE;

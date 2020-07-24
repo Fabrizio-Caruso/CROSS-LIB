@@ -89,11 +89,7 @@ const struct redefine_struct
 #else
 	#define _TILE_16_OFFSET_ _TILE_16_OFFSET
 #endif
-#ifndef _TILE_20_OFFSET
-	#define _TILE_20_OFFSET_ _TILE_20
-#else
-	#define _TILE_20_OFFSET_ _TILE_20_OFFSET
-#endif
+
 #ifndef _TILE_15_OFFSET
 	#define _TILE_15_OFFSET_ _TILE_15
 #else
@@ -155,21 +151,21 @@ const struct redefine_struct redefine_map[] =
 	
 	#if defined(FULL_GAME)
 		{_TILE_16_OFFSET_, _TILE_16_UDG},
-		{_TILE_20_OFFSET_, _TILE_20_UDG},
+		{_TILE_10_OFFSET_, _TILE_10_UDG},
 		{_TILE_15_OFFSET_, _TILE_15_UDG},
 		{_TILE_14_OFFSET_, _TILE_14_UDG},
 	#endif
 
 	
-	#if defined(__MSX__)
-		#if defined(_TILE_10) 
-			{_TILE_10_OFFSET_, _TILE_10_UDG},
-		#endif	
+	// #if defined(__MSX__)
+		// #if defined(_TILE_10) 
+			// {_TILE_10_OFFSET_, _TILE_10_UDG},
+		// #endif	
 	
-		#if defined(_TILE_19)
-			{_TILE_19_OFFSET_, _TILE_19_UDG},
-		#endif
-	#endif
+		// #if defined(_TILE_19)
+			// {_TILE_19_OFFSET_, _TILE_19_UDG},
+		// #endif
+	// #endif
 
     {_TILE_18_OFFSET_, _TILE_18_UDG},
     {_TILE_17_OFFSET_, _TILE_17_UDG},

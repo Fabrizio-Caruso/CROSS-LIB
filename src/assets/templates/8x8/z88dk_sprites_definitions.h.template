@@ -17,7 +17,7 @@ __asm
 	
 
 	defb    8,8
-    defb <tile_20>
+    defb <tile_10>
 	// defb    @00011000
 	// defb    @00100100
 	// defb    @00000000

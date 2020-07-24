@@ -19,7 +19,7 @@
 	#define _TILE_16_UDG    {<tile_16>}
 	#define _TILE_14_UDG    {<tile_14>}
 	#define _TILE_15_UDG    {<tile_15>}
-	#define _TILE_20_UDG    {<tile_20>}
+	#define _TILE_10_UDG    {<tile_10>}
 	#define _TILE_12_UDG    {<tile_12>}
 	#define _TILE_13_UDG    {<tile_13>}
 	#define _TILE_17_UDG    {<tile_17>}

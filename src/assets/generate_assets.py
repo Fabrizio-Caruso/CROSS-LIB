@@ -8,12 +8,9 @@ if len(sys.argv)<2:
     game_dir = "chase"
 else:
     game_dir = sys.argv[1]
-    if len(sys.argv)>2:
-        templates = True 
-        template_name = argv[2]
 
 
-NUMBER_OF_TILES = 24
+NUMBER_OF_TILES = 19
 
 tile=[]
 

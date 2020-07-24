@@ -53,13 +53,13 @@
 #define _TILE_22 'O'	
 
 #define _TILE_19 ('*'+128)
-#define _TILE_10 '$'
+#define _DOLLAR_TILE '$'
 
 #define _TILE_8  'S'
 #define _TILE_17 'F'
 #define _TILE_18 'H'
 
-#define _TILE_20 'V'
+#define _TILE_10 'V'
 #define _TILE_11 '.'
 
 #define _TILE_14 '>'

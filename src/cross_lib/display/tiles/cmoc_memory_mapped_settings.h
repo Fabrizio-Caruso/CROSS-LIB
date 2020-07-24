@@ -41,7 +41,7 @@
 #define _TILE_7 ('+'+NOT_INVERTED)
 
 #define _TILE_19 '*'
-#define _TILE_10 '$'
+#define _DOLLAR_TILE '$'
 
 // GREEN
 #define _TILE_8  ('S'+INVERTED)
@@ -52,7 +52,7 @@
 #define _TILE_5 ('X'+INVERTED)
 #define _TILE_6 '#'
 
-#define _TILE_20 'I'
+#define _TILE_10 'I'
 #define _TILE_11 ('.'+NOT_INVERTED)
 
 #define _TILE_4 'O'

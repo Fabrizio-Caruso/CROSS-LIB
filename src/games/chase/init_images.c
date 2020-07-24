@@ -123,7 +123,7 @@ void INIT_IMAGES(void)
 
 		POWERUP_IMAGE._imageData = _TILE_8;
 		GUN_IMAGE._imageData = _TILE_9;
-		EXTRA_POINTS_IMAGE._imageData = _TILE_10;
+		EXTRA_POINTS_IMAGE._imageData = _DOLLAR_TILE;
 		
 		BULLET_IMAGE._imageData = _TILE_11;
 		
@@ -142,7 +142,7 @@ void INIT_IMAGES(void)
         SUPER_IMAGE._imageData = _TILE_18;
 
 		EXTRA_LIFE_IMAGE._imageData = _TILE_19;
-		INVINCIBILITY_IMAGE._imageData = _TILE_20;
+		INVINCIBILITY_IMAGE._imageData = _TILE_10;
         
         CONFUSE_IMAGE._imageData = _TILE_21;
         ZOMBIE_IMAGE._imageData = _TILE_22;

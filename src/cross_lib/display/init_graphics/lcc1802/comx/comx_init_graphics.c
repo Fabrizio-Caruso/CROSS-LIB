@@ -23,7 +23,7 @@
     }
 
 
-    const uint8_t tile_20_udg[9] =  _TILE_20_UDG;
+    const uint8_t tile_10_udg[9] =  _TILE_10_UDG;
     const uint8_t tile_0_udg[9] = _TILE_0_UDG;
     const uint8_t tile_1_udg[9] = _TILE_1_UDG;
     const uint8_t tile_2_udg[9] = _TILE_2_UDG;
@@ -58,7 +58,7 @@ void INIT_GRAPHICS(void)
     #endif
     
     #if defined(__COMX__) || defined(__PECOM__) || defined(REDEFINED_CHARS) 
-        redefine_char(106, tile_20_udg, 3);
+        redefine_char(106, tile_10_udg, 3);
         redefine_char(107, tile_0_udg, 3);
         redefine_char(108, tile_1_udg, 3);
         redefine_char(109, tile_2_udg, 3);

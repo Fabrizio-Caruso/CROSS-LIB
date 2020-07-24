@@ -53,7 +53,7 @@
 #define _TILE_22 'p'
 
 #define _TILE_19 ('*')
-#define _TILE_10 '$'
+#define _DOLLAR_TILE '$'
 
 // GREEN
 #define _TILE_8 'r'
@@ -63,7 +63,7 @@
 #define _TILE_18 ('z'+2+PALETTE_SWITCH)
 
 // CYAN
-#define _TILE_20 'j'
+#define _TILE_10 'j'
 #define _TILE_11 ('t'+PALETTE_SWITCH)
 
 #define _TILE_14 ('w'+PALETTE_SWITCH)

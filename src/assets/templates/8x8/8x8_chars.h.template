@@ -24,8 +24,6 @@
 
 #define _TILE_14_UDG    { <tile_14>}
 
-#define _TILE_20_UDG    { <tile_20>}
-
 // TODO: Make it different 
 #define _TILE_6_UDG     {<tile_6>}
 

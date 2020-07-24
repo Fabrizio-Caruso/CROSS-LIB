@@ -11,7 +11,7 @@ _Charset:
 .byte <tile_9>
 
 ; 0xEE pound - invincibility
-.byte <tile_20>
+.byte <tile_10>
 
 ; 0xEF powerup
 .byte <tile_8>

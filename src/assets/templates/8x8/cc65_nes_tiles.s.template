@@ -4291,7 +4291,7 @@ _Charset:
         .byte   %10011100       ; 0EDE 2-db: *  ***  
         .byte   %11111111       ; 0EDF 2-db: ********
 
-    .byte <tile_20>
+    .byte <tile_10>
 	 ; .byte    %00011000
 	 ; .byte    %00100100
 	 ; .byte    %00000000
@@ -4301,7 +4301,7 @@ _Charset:
 	 ; .byte    %00100100
 	 ; .byte    %01100110
 	 
-     .byte <tile_20>
+     .byte <tile_10>
 	 ; .byte    %00011000
 	 ; .byte    %00100100
 	 ; .byte    %00000000
@@ -4556,7 +4556,7 @@ _Charset:
 	 
 
 ; zombie
-    .byte <tile_22>
+    .byte <tile_4>
 	 ; .byte    %00111100
 	 ; .byte    %01000010
 	 ; .byte    %10100101

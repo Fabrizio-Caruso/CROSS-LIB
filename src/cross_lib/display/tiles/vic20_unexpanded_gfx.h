@@ -12,7 +12,7 @@
 #define _TILE_12 0x62
 #define _TILE_13 0x63
 #define _TILE_19 _TILE_0
-#define _TILE_10 0x6A
+#define _DOLLAR_TILE 0x6A
 
 // GREEN
 #define _TILE_8  0x5D
@@ -21,7 +21,7 @@
 #define _TILE_5 59
 
 // CYAN
-#define _TILE_20 0x5C
+#define _TILE_10 0x5C
 #define _TILE_11 0x61
 
 #define _TILE_21 _SKULL

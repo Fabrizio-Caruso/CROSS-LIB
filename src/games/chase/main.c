@@ -60,6 +60,37 @@
 
 #include "cross_lib.h"
 
+#if defined(DEBUG_ITEMS)
+    #if defined(ANIMATE_PLAYER)
+        extern Image PLAYER_DOWN_IMAGE;
+        extern Image PLAYER_UP_IMAGE;
+        extern Image PLAYER_RIGHT_IMAGE;
+        extern Image PLAYER_LEFT_IMAGE;
+    #else
+        extern Image PLAYER_IMAGE;
+    #endif
+    extern Image GHOST_IMAGE;
+    extern Image BOMB_IMAGE;
+    extern Image DEAD_GHOST_IMAGE;
+    extern Image SKULL_IMAGE;
+    extern Image POWERUP_IMAGE;
+    extern Image GUN_IMAGE;
+    extern Image EXTRA_POINTS_IMAGE;
+    extern Image BULLET_IMAGE;
+    extern Image VERTICAL_BRICK_IMAGE;
+    extern Image HORIZONTAL_BRICK_IMAGE;
+    extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+    extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
+    extern Image ROCKET_IMAGE;
+    extern Image FREEZE_IMAGE;
+    extern Image SUPER_IMAGE;
+    extern Image EXTRA_LIFE_IMAGE;
+    extern Image INVINCIBILITY_IMAGE;
+    extern Image CONFUSE_IMAGE;
+    extern Image ZOMBIE_IMAGE;
+    extern Image BROKEN_BRICK_IMAGE;
+#endif
+
 // Level
 // The level affects:
 // 1. powerUpCoolDown (how long before a new powerUp is spawned)
@@ -312,6 +343,45 @@ int main(void)
                 #endif
                 printGhostCountStats();
             #endif        
+            
+            #if defined(DEBUG_ITEMS)
+                #if defined(ANIMATE_PLAYER)
+                _draw_stat(1, 0,&PLAYER_DOWN_IMAGE);
+                _draw_stat(1, 1,&PLAYER_UP_IMAGE);
+                _draw_stat(1, 2,&PLAYER_RIGHT_IMAGE);
+                _draw_stat(1, 3,&PLAYER_LEFT_IMAGE);
+                #else
+                _draw_stat(1, 0,&PLAYER_IMAGE);
+                #endif
+                _draw_stat(1, 4,&GHOST_IMAGE);
+                _draw_stat(1, 5,&BOMB_IMAGE);
+                #if !defined(NO_DEAD_GHOST)
+                _draw_stat(1, 6,&DEAD_GHOST_IMAGE);
+                #endif
+                #if !defined(TINY_GAME)
+                _draw_stat(1, 7,&SKULL_IMAGE);
+                _draw_stat(1, 8,&POWERUP_IMAGE);
+                _draw_stat(1, 9,&GUN_IMAGE);
+                _draw_stat(1,10,&EXTRA_POINTS_IMAGE);
+                _draw_stat(1,11,&BULLET_IMAGE);
+                _draw_stat(1,12,&VERTICAL_BRICK_IMAGE);
+                _draw_stat(1,13,&HORIZONTAL_BRICK_IMAGE);
+                #if defined(FULL_GAME)
+                _draw_stat(1,14,&LEFT_HORIZONTAL_MISSILE_IMAGE);
+                _draw_stat(1,15,&RIGHT_HORIZONTAL_MISSILE_IMAGE);
+                _draw_stat(1,16,&ROCKET_IMAGE);
+                _draw_stat(1,17,&FREEZE_IMAGE);
+                _draw_stat(1,18,&SUPER_IMAGE);
+                _draw_stat(1,19,&EXTRA_LIFE_IMAGE);
+                _draw_stat(1,20,&INVINCIBILITY_IMAGE);
+                _draw_stat(1,21,&CONFUSE_IMAGE);
+                _draw_stat(1,22,&ZOMBIE_IMAGE);
+                _draw_stat(1,23,&BROKEN_BRICK_IMAGE);
+                #endif
+                #endif
+                while(1){};
+            #endif
+            
             #if defined(FULL_GAME)
                 #if !defined(BENCHMARK)
                     while(player._status && ((ghostCount>0 && !isBossLevel) || (skull._status && isBossLevel))) // while alive && there are still ghosts

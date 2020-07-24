@@ -25,7 +25,7 @@
 #define _TILE_5 (_TILE_5_OFFSET + _INVERTED)
 #define _TILE_8 ( _TILE_8_OFFSET + _INVERTED)
 #define _TILE_9 (_TILE_9_OFFSET + _INVERTED)
-#define _TILE_10 '$'
+#define _DOLLAR_TILE '$'
 	
 #define _TILE_11 _TILE_11_OFFSET
 
@@ -45,14 +45,14 @@
 #if defined(FULL_GAME)
 	// #define _TILE_17_OFFSET 'F'
 	#define _TILE_19_OFFSET _TILE_0
-	#define _TILE_20_OFFSET 0x3B  
+	#define _TILE_10_OFFSET 0x3B  
 	// #define _TILE_21_OFFSET 'C'
 	// #define _TILE_18_OFFSET 'H'		
 	// #define _TILE_22_OFFSET 'Z' 
 
 	#define _TILE_17 ('F' +_INVERTED)
 	#define _TILE_19 (_TILE_0 + _INVERTED)
-	#define _TILE_20 (_TILE_20_OFFSET + _INVERTED) 
+	#define _TILE_10 (_TILE_10_OFFSET + _INVERTED) 
 	#define _TILE_21 (_TILE_7 + _INVERTED)
 	#define _TILE_18 ('H' + _INVERTED)		
 	#define _TILE_22 (_TILE_4 + _INVERTED)

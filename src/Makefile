@@ -13,6 +13,10 @@ include makefiles/auxiliary/Makefile_compilers
 # Common includes and targets
 include makefiles/auxiliary/Makefile_common
 
+#####################################################################
+# Assets
+include makefiles/auxiliary/Makefile_assets
+
 
 #####################################################################
 # Draw skip

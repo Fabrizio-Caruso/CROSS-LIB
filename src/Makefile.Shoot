@@ -14,6 +14,16 @@ include makefiles/auxiliary/Makefile_compilers
 # Common includes and targets
 include makefiles/auxiliary/Makefile_common
 
+
+#####################################################################
+# Assets
+
+
+game_assets:
+	cd ."/assets" && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+
+
 #####################################################################
 # Draw skip
 LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3

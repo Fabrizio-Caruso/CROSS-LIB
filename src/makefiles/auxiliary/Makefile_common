@@ -104,7 +104,8 @@ clean_build:
 
 clean: \
 	clean_obj \
-	clean_build
+	clean_build \
+	clean_game_assets
 
 
 help:

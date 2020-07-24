@@ -279,7 +279,7 @@ vectrex:
 vectrex_targets: \
 	vectrex
 
-mo5: 
+mo5: $(ASSETS_PATH)/cmoc_xchase.s
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 

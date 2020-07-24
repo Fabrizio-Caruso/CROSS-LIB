@@ -565,7 +565,7 @@ oric1_16k: $(ASSETS_PATH)/8x8_chars.h
 
 atmos: oric_atmos
 
-oric_atmos: 
+oric_atmos: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-t atmos \
 	-DALT_MOVE \

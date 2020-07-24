@@ -2,7 +2,6 @@
 
 import os,sys
 
-templates = False
 
 if len(sys.argv)<2:
     game_dir = "chase"

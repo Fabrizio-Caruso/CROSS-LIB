@@ -57,7 +57,7 @@ INDEX  |   #  |   INTRINSIC COLOR (*)    | IN CROSS CHASE AND CROSS SHOOT
 ----------------------------------------------------------------------------------------------
   7_B  |   7  |                      RED | CONFUSE       (SKULL)
 ----------------------------------------------------------------------------------------------
-DOLLAR |      |                   YELLOW | DOLLAR SYMBOL [FIXED]
+DOLLAR |DOLLAR|                   YELLOW | DOLLAR SYMBOL [FIXED SHAPE]
 ----------------------------------------------------------------------------------------------
 
 (*)  Some systems have tiles/characters with pre-assigned colors. The intrinsic color is the pre-assigned color to a tile (on most systems).

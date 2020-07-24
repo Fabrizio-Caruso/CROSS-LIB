@@ -175,7 +175,7 @@ mc1000_16k_no_gfx:
 
 mc1000: mc1000_48k
 
-mc1000_48k:
+mc1000_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
@@ -278,7 +278,7 @@ svi_318:
 
 svi: svi_328
 
-svi_328:
+svi_328: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +svi $(SCCZ80_OPTS) \
 	-DZ88DK_JOYSTICK \
 	-DUDG_GRAPHICS \
@@ -303,7 +303,7 @@ svi_328:
 #############################
 # VG5K
 
-vg5k_exp_16k:
+vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
@@ -320,7 +320,7 @@ vg5k_exp_16k:
 	rm $(BUILD_PATH)/FULL_vg5k_exp_16k.prg
 
 
-vg5k:
+vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(ZSDCC_OPTS) \
 	-compiler=sdcc \
 	$(INCLUDE_OPTS) \
@@ -388,7 +388,7 @@ vz200_8k:
 	rm $(BUILD_PATH)/TINY_vz200_8k.cas
 
 
-vz200_sprites_18k:
+vz200_sprites_18k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS \
@@ -428,7 +428,7 @@ zx81_16k:
 	rm $(BUILD_PATH)/FULL_zx81_16k.prg
 
 
-zx81_32k_wrx_turn_based:
+zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \

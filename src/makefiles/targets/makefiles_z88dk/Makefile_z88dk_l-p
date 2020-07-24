@@ -176,7 +176,7 @@ laser500_bitmap:
 #############################
 # M5
 
-m5:
+m5: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-lm -create-app -Cz--audio -subtype=tape \
@@ -214,7 +214,7 @@ microbee_16k_no_gfx:
 
 microbee: microbee_32k
 
-microbee_32k:
+microbee_32k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +bee $(SCCZ80_OPTS) -lgfxnc100 \
 	$(INCLUDE_OPTS) \
 	-D__NC100__ \
@@ -281,7 +281,7 @@ msx_32k_rom:
 #############################
 # MTX
 
-mtx:
+mtx: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ \
 	-create-app -o MTX.bin -vn \
@@ -304,7 +304,7 @@ mtx:
 #############################
 # MULTI8
 
-multi8:
+multi8: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	$(CROSS_LIB_PATH)/boot/multi8/bootstrap.c \
@@ -447,7 +447,7 @@ nascom_32k:
 #############################
 # NC100
 
-nc100:
+nc100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_ROM_OPTS) -lgfxnc100 \
 	$(INCLUDE_OPTS) \
 	-D__NC100__ \
@@ -467,7 +467,7 @@ nc100:
 #############################
 # NC200
 
-nc200:
+nc200: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +nc $(SCCZ80_ROM_OPTS) -lgfxnc200 \
 	$(INCLUDE_OPTS) \
 	-D__NC200__ \
@@ -561,7 +561,7 @@ osborne1_chars:
 	rm $(BUILD_PATH)/FULL_osborne1_chars.bin
 
 
-osborne1:
+osborne1: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -lgfxosborne1 -subtype=osborne1 \
 	$(INCLUDE_OPTS) \
 	-D__OSBORNE1__ \
@@ -639,7 +639,7 @@ pc6001_16k:
 
 pc6001: pc6001_32k
 
-pc6001_32k:
+pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -DFULL_GAME \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -760,7 +760,7 @@ primo:
 # PV2000
 
 # -SO3 necessary to build a 16k rom image
-pv2000:
+pv2000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +pv2000 $(SCCZ80_ROM_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__PV2000__ \
@@ -786,7 +786,7 @@ pv2000:
 #############################
 # PX4
 
-px4:
+px4: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_ROM_OPTS) -lpx4 \
 	$(INCLUDE_OPTS) \
 	-D__PX4__ \
@@ -809,7 +809,7 @@ px4:
 #############################
 # PX8
 
-px8:
+px8: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_ROM_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__PX8__ \

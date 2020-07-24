@@ -167,7 +167,7 @@ rc700:
 #############################
 # RX78
 
-rx78:
+rx78: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +rx78 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__RX78__ \
 	-DFULL_GAME  \
@@ -228,7 +228,7 @@ sc3000_16k:
 
 sc3000: sc3000_32k
 
-sc3000_32k:
+sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__SC3000__ \
@@ -254,7 +254,7 @@ sc3000_32k:
 #############################
 # SG1000
 
-sg1000:
+sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 $(SCCZ80_ROM_OPTS) -subtype=rom \
 	$(INCLUDE_OPTS) \
 	-D__SC3000__ \
@@ -398,7 +398,7 @@ sos_tiny_buffered:
 #############################
 # SPC1000
 
-spc1000:
+spc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +spc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__SPC1000__ \
 	-DFULL_GAME  \
@@ -420,7 +420,7 @@ spc1000:
 #############################
 # SPECTRUM
 
-spectrum_16k:
+spectrum_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -zorg=24055 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
@@ -443,7 +443,7 @@ spectrum_16k:
 
 spectrum: spectrum_48k
 
-spectrum_48k:
+spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -v \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
@@ -469,7 +469,7 @@ spectrum_48k:
 #############################
 # SRR
 
-srr:
+srr: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
 	-DFULL_GAME -DSOUNDS \
@@ -515,7 +515,7 @@ super80:
 #############################
 # SUPER80R
 
-super80r:
+super80r: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +super80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=vduem \
 	-D__SUPER80R__ \
 	-DFORCE_XSIZE=80 \
@@ -561,7 +561,7 @@ sv8000:
 #############################
 # TI82
 
-ti82:
+ti82: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__TI82__ \
@@ -583,7 +583,7 @@ ti82:
 #############################
 # TI82
 
-ti83:
+ti83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__TI83__ \
@@ -605,7 +605,7 @@ ti83:
 #############################
 # TI85
 
-ti85:
+ti85: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__TI85__ \
@@ -651,7 +651,7 @@ ti86_light:
 #############################
 # TI8X
 
-ti8x:
+ti8x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +ti8x $(SCCZ80_OPTS) -clib=ansi  -subtype=ion -Cz--altfmt \
 	$(INCLUDE_OPTS) \
 	-D__TI8X__ \
@@ -675,7 +675,7 @@ ti: ti82 ti83 ti85 ti86 ti8x
 #############################
 # TIKI100
 
-tiki100: 
+tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=tiki100 -ltiki100 \
 	$(INCLUDE_OPTS) \
 	-D__TIKI100__ \
@@ -704,7 +704,7 @@ tiki100:
 #############################
 # TRS80
 
-trs80:
+trs80: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -lndos -subtype=disk \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-pragma-redirect:getk=getk_inkey \
@@ -743,7 +743,7 @@ trs80_chars:
 #############################
 # TS2068
 
-ts2068:
+ts2068: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +ts2068 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-clib=ansi \
 	-D__TS2068__ \
@@ -882,7 +882,7 @@ z80tvgame:
 #############################
 # Z88
 
-z88:
+z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -subtype=app \
 	$(INCLUDE_OPTS) \
 	-D__Z88__ \

@@ -256,7 +256,7 @@ mikro80:
 
 msx: msx_32k_rom 
 
-msx_32k_rom:
+msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DINITIAL_SLOWDOWN=29000 \

@@ -4,6 +4,8 @@ deliverables
 *.swp
 build/*
 src/assets/generated_assets/*
+src/games/chase/assets/*
+src/games/shoot/assets/*
 src/test/*.exe
 src/*.asm
 src/experiments/*

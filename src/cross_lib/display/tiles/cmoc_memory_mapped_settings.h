@@ -40,7 +40,7 @@
 // YELLOW
 #define _TILE_7 ('+'+NOT_INVERTED)
 
-#define _TILE_19 '*'
+#define _TILE_0_B '*'
 #define _DOLLAR_TILE '$'
 
 // GREEN
@@ -62,12 +62,12 @@
 #define _TILE_16 ('^'+NOT_INVERTED)
 
 #define _TILE_18 ('H'+INVERTED)
-#define _TILE_21 ('C'+INVERTED)
-#define _TILE_22 ('Z'+INVERTED)	
+#define _TILE_7_B ('C'+INVERTED)
+#define _TILE_4_B ('Z'+INVERTED)	
 
 #define _TILE_12 ('#'+NOT_INVERTED)
 #define _TILE_13 ('-'+NOT_INVERTED)
-#define _TILE_23 'X'
+#define _TILE_5_B 'X'
 
 
 #endif // _CMOC_GRAPHICS_SETTINGS

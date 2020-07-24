@@ -64,15 +64,15 @@
 // YELLOW
 #if !defined(__CIDELSA__)
     #define _TILE_7 '+'
-    #define _TILE_21 '+'
+    #define _TILE_7_B '+'
 #else
     #define _TILE_7 'A'
-    #define _TILE_21 'A'
+    #define _TILE_7_B 'A'
 #endif
 
-#define _TILE_22 'O'	
+#define _TILE_4_B 'O'	
 
-#define _TILE_19 _TILE_0
+#define _TILE_0_B _TILE_0
 #define _DOLLAR_TILE '$'
 
 // GREEN
@@ -107,9 +107,9 @@
 #define _TILE_13 '-'
 
 #if !defined(NO_COLOR)
-    #define _TILE_23 _TILE_5
+    #define _TILE_5_B _TILE_5
 #else
-    #define _TILE_23 '8'
+    #define _TILE_5_B '8'
 #endif
 
 #endif // _DEFAULT_GRAPHICS_SETTINGS

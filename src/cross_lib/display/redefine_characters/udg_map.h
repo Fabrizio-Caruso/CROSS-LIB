@@ -107,10 +107,10 @@ const struct redefine_struct
 	#define _TILE_10_OFFSET_ _TILE_10_OFFSET
 #endif
 
-#ifndef _TILE_19_OFFSET
-	#define _TILE_19_OFFSET_ _TILE_19
+#ifndef _TILE_0_B_OFFSET
+	#define _TILE_0_B_OFFSET_ _TILE_0_B
 #else
-	#define _TILE_19_OFFSET_ _TILE_19_OFFSET
+	#define _TILE_0_B_OFFSET_ _TILE_0_B_OFFSET
 #endif
 
 #ifndef _TILE_18_OFFSET
@@ -162,8 +162,8 @@ const struct redefine_struct redefine_map[] =
 			// {_TILE_10_OFFSET_, _TILE_10_UDG},
 		// #endif	
 	
-		// #if defined(_TILE_19)
-			// {_TILE_19_OFFSET_, _TILE_19_UDG},
+		// #if defined(_TILE_0_B)
+			// {_TILE_0_B_OFFSET_, _TILE_0_B_UDG},
 		// #endif
 	// #endif
 

@@ -15,7 +15,7 @@
 #define _TILE_12 0x26
 #define _TILE_13 0x22
 #define _DOLLAR_TILE 0x24
-#define _TILE_22 _TILE_4
+#define _TILE_4_B _TILE_4
 
 // GREEN
 #define _TILE_8  0x2C
@@ -23,8 +23,8 @@
 // RED
 #define _TILE_5 0x5E
 #define _TILE_6 0x5B
-#define _TILE_21 _TILE_7
-#define _TILE_19 _TILE_0
+#define _TILE_7_B _TILE_7
+#define _TILE_0_B _TILE_0
 
 
 // CYAN
@@ -42,7 +42,7 @@
 #define _TILE_16 ((uint8_t)0x60)
 
 // TODO: Change it to something else
-// #define _TILE_23 _TILE_5
-#define _TILE_23 'X'
+// #define _TILE_5_B _TILE_5
+#define _TILE_5_B 'X'
 
 #endif // _MSX_REDEFINED_CHARS_SETTINGS

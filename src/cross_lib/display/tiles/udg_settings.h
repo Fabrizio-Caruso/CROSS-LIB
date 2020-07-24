@@ -37,7 +37,7 @@
 #define _TILE_7  (0x27 - _Z88DK_SPRITE_OFFSET)
 #define _TILE_12 (0x26 -_Z88DK_SPRITE_OFFSET)
 #define _TILE_13 (0x2B -_Z88DK_SPRITE_OFFSET)
-#define _TILE_19 _TILE_0
+#define _TILE_0_B _TILE_0
 #define _DOLLAR_TILE (0x24 - _Z88DK_SPRITE_OFFSET)
 
 // GREEN
@@ -54,12 +54,12 @@
 #define _TILE_10 (0x21 - _Z88DK_SPRITE_OFFSET)
 #define _TILE_11 (0x23 - _Z88DK_SPRITE_OFFSET)
 
-#define _TILE_21 _TILE_7
+#define _TILE_7_B _TILE_7
 
 #if !defined(NO_COLOR)
-    #define _TILE_23 _TILE_5
+    #define _TILE_5_B _TILE_5
 #else
-    #define _TILE_23 'X'
+    #define _TILE_5_B 'X'
 #endif
 
 // WHITE
@@ -77,7 +77,7 @@
 
 #define _TILE_16 (0x2F - _Z88DK_SPRITE_OFFSET)
 
-#define _TILE_22 _TILE_4
+#define _TILE_4_B _TILE_4
 
 
 #endif // _UDG_SETTINGS

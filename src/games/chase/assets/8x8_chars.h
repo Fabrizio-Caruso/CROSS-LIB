@@ -24,7 +24,6 @@
 
 #define _TILE_14_UDG    { 0,  0,240, 63, 63,240,  0,  0}
 
-// TODO: Make it different 
 #define _TILE_6_UDG     {189,66,165,165,129,153,129,126}
 
 #define _TILE_12_UDG    { 24, 24, 24, 48, 24, 12, 24, 24}
@@ -37,8 +36,6 @@
 #define _TILE_17_UDG    { 0,60,66,207,195,102,36,20}
 
 #define _TILE_18_UDG    { 0,60,90,219,195,90,60,24}
-
-#define _TILE_19_UDG    { <tile_19>}
 
 #endif // _8x8_CHARS
 

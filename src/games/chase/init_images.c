@@ -141,13 +141,13 @@ void INIT_IMAGES(void)
         FREEZE_IMAGE._imageData = _TILE_17;
         SUPER_IMAGE._imageData = _TILE_18;
 
-		EXTRA_LIFE_IMAGE._imageData = _TILE_19;
+		EXTRA_LIFE_IMAGE._imageData = _TILE_0_B;
 		INVINCIBILITY_IMAGE._imageData = _TILE_10;
         
-        CONFUSE_IMAGE._imageData = _TILE_21;
-        ZOMBIE_IMAGE._imageData = _TILE_22;
+        CONFUSE_IMAGE._imageData = _TILE_7_B;
+        ZOMBIE_IMAGE._imageData = _TILE_4_B;
 		
-		BROKEN_BRICK_IMAGE._imageData = _TILE_23;
+		BROKEN_BRICK_IMAGE._imageData = _TILE_5_B;
 	#endif
 #endif 
 }

@@ -54,8 +54,8 @@
 #define _TILE_7 250
 
 #define _TILE_6 247
-#define _TILE_19 _TILE_0
-#define _TILE_21 _TILE_7
+#define _TILE_0_B _TILE_0
+#define _TILE_7_B _TILE_7
 
 #define _TILE_18 245
 #define _TILE_17 243
@@ -63,8 +63,8 @@
 #define _TILE_12 249
 #define _TILE_13 244
 
-#define _TILE_22 _TILE_4
+#define _TILE_4_B _TILE_4
 
-#define _TILE_23 'X'
+#define _TILE_5_B 'X'
 
 

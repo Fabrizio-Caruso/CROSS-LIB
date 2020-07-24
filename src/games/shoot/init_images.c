@@ -129,34 +129,18 @@ void INIT_IMAGES(void)
     RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_15;
     
     ROCKET_IMAGE._imageData = _TILE_16;
-
-    // If colors are present FIRE_CHARGE/FREEZE/SUPER can be differentiated by the color attribute -> same _FIRE_CHARGE for all of them
-    // #if !defined(NO_COLOR) && !defined(UDG_GRAPHICS) && !defined(__NES__) && !defined(__MO5__)
-        // FREEZE_IMAGE._imageData = _FIRE_CHARGE;
-        // SUPER_IMAGE._imageData = _FIRE_CHARGE;
-    // #else
-        // FREEZE_IMAGE._imageData = _FREEZE;
-        // SUPER_IMAGE._imageData = _SUPER;
-    // #endif
     
     FREEZE_IMAGE._imageData = _TILE_17;
     SUPER_IMAGE._imageData = _TILE_18;
 
-    EXTRA_LIFE_IMAGE._imageData = _TILE_19;
+    EXTRA_LIFE_IMAGE._imageData = _TILE_0_B;
     INVINCIBILITY_IMAGE._imageData = _TILE_10;
+
     
-    // #if defined(NO_BLINKING) && defined(_CONFUSE) && defined(_SUICIDE)
-        // CONFUSE_IMAGE._imageData = _CONFUSE;
-        // SUICIDE_IMAGE._imageData = _SUICIDE;
-    // #else
-        // CONFUSE_IMAGE._imageData = _SKULL;
-        // SUICIDE_IMAGE._imageData = _GHOST;
-    // #endif
+    CONFUSE_IMAGE._imageData = _TILE_7_B;
+    SUICIDE_IMAGE._imageData = _TILE_4_B;
     
-    CONFUSE_IMAGE._imageData = _TILE_21;
-    SUICIDE_IMAGE._imageData = _TILE_22;
-    
-    BROKEN_BRICK_IMAGE._imageData = _TILE_23;
+    BROKEN_BRICK_IMAGE._imageData = _TILE_5_B;
 #endif 
 }
 

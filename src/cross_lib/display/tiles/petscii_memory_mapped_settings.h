@@ -49,10 +49,10 @@
 #define _TILE_9 '!'
 
 #define _TILE_7 '+'
-#define _TILE_21 ('+'+128)
-#define _TILE_22 'O'	
+#define _TILE_7_B ('+'+128)
+#define _TILE_4_B 'O'	
 
-#define _TILE_19 ('*'+128)
+#define _TILE_0_B ('*'+128)
 #define _DOLLAR_TILE '$'
 
 #define _TILE_8  'S'
@@ -72,9 +72,9 @@
 #define _TILE_13 '-'
 
 #if !defined(NO_COLOR)
-    #define _TILE_23 _TILE_5	
+    #define _TILE_5_B _TILE_5	
 #else
-    #define _TILE_23 '8'
+    #define _TILE_5_B '8'
 #endif
 
 

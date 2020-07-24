@@ -44,25 +44,25 @@
 
 #if defined(FULL_GAME)
 	// #define _TILE_17_OFFSET 'F'
-	#define _TILE_19_OFFSET _TILE_0
+	#define _TILE_0_B_OFFSET _TILE_0
 	#define _TILE_10_OFFSET 0x3B  
-	// #define _TILE_21_OFFSET 'C'
+	// #define _TILE_7_B_OFFSET 'C'
 	// #define _TILE_18_OFFSET 'H'		
-	// #define _TILE_22_OFFSET 'Z' 
+	// #define _TILE_4_B_OFFSET 'Z' 
 
 	#define _TILE_17 ('F' +_INVERTED)
-	#define _TILE_19 (_TILE_0 + _INVERTED)
+	#define _TILE_0_B (_TILE_0 + _INVERTED)
 	#define _TILE_10 (_TILE_10_OFFSET + _INVERTED) 
-	#define _TILE_21 (_TILE_7 + _INVERTED)
+	#define _TILE_7_B (_TILE_7 + _INVERTED)
 	#define _TILE_18 ('H' + _INVERTED)		
-	#define _TILE_22 (_TILE_4 + _INVERTED)
+	#define _TILE_4_B (_TILE_4 + _INVERTED)
 
 	// #define _CHASE_OFFSET _BULLET
 	#define _TILE_15_OFFSET '<'
 	#define _TILE_14_OFFSET '>'	
 	#define _TILE_16_OFFSET 0x23	
 	
-	#define _TILE_23 'X'
+	#define _TILE_5_B 'X'
 	
 	// #define _CHASE _BULLET
 	#define _TILE_14 _TILE_14_OFFSET

@@ -27,11 +27,11 @@
 #define _TILE_18 20*2
 
 // SPECIAL
-#define _TILE_19 _TILE_0
-#define _TILE_23 _TILE_5
+#define _TILE_0_B _TILE_0
+#define _TILE_5_B _TILE_5
 #define _TILE_6 _TILE_4
-#define _TILE_21 _TILE_7
-#define _TILE_22 _TILE_4
+#define _TILE_7_B _TILE_7
+#define _TILE_4_B _TILE_4
 #endif // _CPC_CPCRSLIB_SETTINGS
 
 

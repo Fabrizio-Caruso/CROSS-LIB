@@ -49,10 +49,10 @@
 
 // YELLOW
 #define _TILE_7 ('q'+PALETTE_SWITCH)
-#define _TILE_21 'q'
-#define _TILE_22 'p'
+#define _TILE_7_B 'q'
+#define _TILE_4_B 'p'
 
-#define _TILE_19 ('*')
+#define _TILE_0_B (_TILE_0+PALETTE_SWITCH)
 #define _DOLLAR_TILE '$'
 
 // GREEN
@@ -77,7 +77,7 @@
 
 #define _TILE_13 ('z'+PALETTE_SWITCH)
 
-#define _TILE_23 'X'
+#define _TILE_5_B ('X'+PALETTE_SWITCH)
 
 #endif // _COMX_GRAPHICS_SETTINGS
 

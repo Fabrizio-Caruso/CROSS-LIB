@@ -336,14 +336,14 @@ mo5:
 	-c $(SOURCE_PATH)/end_screen.c	
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(ASSETS_PATH)/xchase.s	
+	-c $(ASSETS_PATH)/cmoc_xchase.s	
 	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o \
 	mo5_init_graphics.o \
 	display_macros.o \
-	xchase.o \
+	cmoc_xchase.o \
 	init_images.o \
 	ghost.o \
 	move_player.o \
@@ -355,7 +355,7 @@ mo5:
 	rocket.o horizontal_missile.o end_screen.o
 	rm \
 	mo5_alt_print.o \
-	xchase.o \
+	cmoc_xchase.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	init_images.o \

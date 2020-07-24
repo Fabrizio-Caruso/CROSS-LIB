@@ -459,7 +459,7 @@ multi8_light_udg:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(LIGHT_FILES) \
 	-create-app -o$(BUILD_PATH)/ALT_LIGHT_multi8.bin
 	rm $(BUILD_PATH)/ALT_LIGHT_multi8.bin
@@ -476,7 +476,7 @@ multi8_tiny_udg:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(TINY_FILES) \
 	-create-app -o$(BUILD_PATH)/ALT_TINY_multi8.bin
 	rm $(BUILD_PATH)/ALT_TINY_multi8.bin

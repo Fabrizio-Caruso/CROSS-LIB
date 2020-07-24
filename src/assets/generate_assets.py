@@ -17,38 +17,45 @@ NUMBER_OF_TILES = 24
 
 tile=[]
 
-#read tile0
-for i in range(NUMBER_OF_TILES):
-    with open("./tiles/"+game_dir+"/8x8//tile"+str(i)+".txt", 'r') as myfile:
-        print("Opening file tile"+str(i)+".txt")
-        tile.append(myfile.read())
+def read_tiles_from_dir(dir_name):
+    global tile
+    tile = []
+    for i in range(NUMBER_OF_TILES):
+        file_to_open = "./tiles/"+game_dir+"/"+dir_name+"/tile"+str(i)+".txt"
+        with open(file_to_open, 'r') as myfile:
+            print("Opening file tile"+file_to_open)
+            tile.append(myfile.read())
 
-file_names = os.listdir("./templates")
+def read_templates_from_dir(dir_name):
 
-stripped_file_names = []
-for file_name in file_names:
-    if file_name.endswith(".template"):
-        stripped_file_name = file_name[:-9]
-        print("file_name: "+file_name)
-        print("stripped file name: "+stripped_file_name)
-        stripped_file_names.append(stripped_file_name)
-print("Templates found: "+str(len(stripped_file_names)))
+    global stripped_file_names
 
-def generate_assets():
+    file_names = os.listdir("./templates/"+dir_name)
+
+    stripped_file_names = []
+    for file_name in file_names:
+        if file_name.endswith(".template"):
+            stripped_file_name = file_name[:-9]
+            print("file_name: "+file_name)
+            print("stripped file name: "+stripped_file_name)
+            stripped_file_names.append(stripped_file_name)
+    print("Templates found: "+str(len(stripped_file_names)))
+
+def generate_assets_from_dir(dir_name):
 
     for stripped_file_name in stripped_file_names:
         matches = 0
         print("")
         print("Handling "+stripped_file_name)
         print("")
-        fin = open("./templates/"+stripped_file_name+".template", "rt")
+        fin = open("./templates/"+dir_name+"/"+stripped_file_name+".template", "rt")
         fout = open("./generated_assets/"+game_dir+"/"+stripped_file_name, "wt")
 
         for line in fin:
             newline = line
             # print("initial line: "+newline)
             for i in range(NUMBER_OF_TILES):
-                if stripped_file_name == "xchase.s":
+                if stripped_file_name.startswith("cmoc"):
                     newline = newline.replace('<tile_'+str(i)+'>', tile[i].replace(","," "))
                 else:
                     newline = newline.replace('<tile_'+str(i)+'>', tile[i])
@@ -64,30 +71,13 @@ def generate_assets():
         fout.close()
 
 
-def generate_template():
-
-    fin = open("./templates/"+template_name, "rt")
-    fout = open("./templates/"+template_name+".template",  "wt")
-
-    for line in fin:
-        newline = line
-        # print("initial line: "+newline)
-        for i in range(NUMBER_OF_TILES):
-            #read replace the string
-            newline = newline.replace(tile[i],'<tile_'+str(i)+'>', tile[i])
-        fout.write(newline)
-        if line != newline:
-            print("changing \n"+line+"with\n"+newline)
-    #close input and output files
-    fin.close()
-    fout.close()
-
-
 def main():
-    if not templates:
-        generate_assets()
-    else:
-        generate_template()
+
+    for dir_name in ["8x8","6x8","6x9"]:
+        read_tiles_from_dir(dir_name)
+        read_templates_from_dir(dir_name)
+        generate_assets_from_dir(dir_name)
+
 
 if __name__ == "__main__":
     # execute only if run as a script

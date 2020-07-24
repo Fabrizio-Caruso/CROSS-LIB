@@ -31,7 +31,8 @@
 // WHITE
 #define _TILE_4 0x64
 
-#define _TILE_6 _TILE_4
+// #define _TILE_6 0x7D
+#define _TILE_6 0x6C
 
 #define _TILE_14 0x5F
 

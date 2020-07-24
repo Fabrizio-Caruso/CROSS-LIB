@@ -15,7 +15,7 @@
 #define _TILE_12 0x26
 #define _TILE_13 0x24
 #define _TILE_10 0x22
-#define _TILE_22 0x28
+#define _TILE_22 _TILE_4
 
 // GREEN
 #define _TILE_8  0x2C
@@ -23,7 +23,7 @@
 // RED
 #define _TILE_5 0x5E
 #define _TILE_6 0x5B
-#define _TILE_21 0x5A
+#define _TILE_21 _TILE_7
 #define _TILE_19 0x5D
 
 

@@ -29,9 +29,9 @@
 #define _TILE_23 _TILE_5
 
 // WHITE
-#define _TILE_4 0x28
+#define _TILE_4 0x1F
 
-#define _TILE_6 _TILE_4
+#define _TILE_6 0x28
 
 #define _TILE_14 0x22
 

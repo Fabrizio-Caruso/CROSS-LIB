@@ -31,7 +31,7 @@
 
 #if !defined(NO_DEAD_GHOST)
 	#define _TILE_6_OFFSET 0x5a
-	#define _TILE_6 (_TILE_6_OFFSET + _INVERTED)
+	#define _TILE_6 _TILE_6_OFFSET
 #endif
 
 #if !defined(TINY_GAME)
@@ -43,19 +43,19 @@
 #endif
 
 #if defined(FULL_GAME)
-	#define _TILE_17_OFFSET 'F'
+	// #define _TILE_17_OFFSET 'F'
 	#define _TILE_19_OFFSET _TILE_0
 	#define _TILE_20_OFFSET 0x3B  
-	#define _TILE_21_OFFSET 'C'
-	#define _TILE_18_OFFSET 'H'		
-	#define _TILE_22_OFFSET 'Z' 
+	// #define _TILE_21_OFFSET 'C'
+	// #define _TILE_18_OFFSET 'H'		
+	// #define _TILE_22_OFFSET 'Z' 
 
-	#define _TILE_17 (_TILE_17_OFFSET +_INVERTED)
+	#define _TILE_17 ('F' +_INVERTED)
 	#define _TILE_19 (_TILE_0 + _INVERTED)
 	#define _TILE_20 (_TILE_20_OFFSET + _INVERTED) 
-	#define _TILE_21 (_TILE_21_OFFSET + _INVERTED)
-	#define _TILE_18 (_TILE_18_OFFSET + _INVERTED)		
-	#define _TILE_22 (_TILE_22_OFFSET + _INVERTED)
+	#define _TILE_21 (_TILE_7 + _INVERTED)
+	#define _TILE_18 ('H' + _INVERTED)		
+	#define _TILE_22 (_TILE_4 + _INVERTED)
 
 	// #define _CHASE_OFFSET _BULLET
 	#define _TILE_15_OFFSET '<'

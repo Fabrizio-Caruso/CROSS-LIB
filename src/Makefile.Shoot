@@ -166,7 +166,7 @@ c16_32k:
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/graphics_data/cc65/udc_63chars.s \
+	$(ASSETS_PATH)/cc65_udc_63chars.s \
 	-o $(BUILD_PATH)/FULL_XShoot_c16_32k.prg
 
 
@@ -181,7 +181,7 @@ c64:
 	-DMEMORY_MAPPED \
 	-DSLOW_DOWN=250 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
+	$(ASSETS_PATH)/cc65_udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -205,7 +205,7 @@ nes:
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/graphics_data/cc65/nes_tiles.s \
+	$(ASSETS_PATH)/cc65_nes_tiles.s \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_XShoot_nes.nes
 
@@ -222,7 +222,7 @@ pce_16k:
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg -DANIMATE_PLAYER  \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/graphics_data/cc65/pce_tiles.s \
+	$(ASSETS_PATH)/cc65_pce_tiles.s \
 	-o $(BUILD_PATH)/FULL_XShoot_PCE.bin
 	dd if=$(BUILD_PATH)/FULL_XShoot_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_XShoot_PCE_LOW.bin
 	dd if=$(BUILD_PATH)/FULL_XShoot_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_XShoot_PCE_HIGH.bin
@@ -240,7 +240,7 @@ pce_32k:
 	--config $(CFG_PATH)/cc65/pce_32k.cfg -DANIMATE_PLAYER  \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	$(SOURCE_PATH)/graphics_data/cc65/pce_tiles.s \
+	$(ASSETS_PATH)/cc65_pce_tiles.s \
 	-o $(BUILD_PATH)/FULL_XShoot_PCE.bin
 	dd if=$(BUILD_PATH)/FULL_XShoot_PCE.bin ibs=1 count=24576 of=$(BUILD_PATH)/FULL_XShoot_PCE_LOW.bin
 	dd if=$(BUILD_PATH)/FULL_XShoot_PCE.bin ibs=1 skip=24576 of=$(BUILD_PATH)/FULL_XShoot_PCE_HIGH.bin
@@ -318,7 +318,7 @@ vic20_exp_16k:
 	-DCONIO -DVIC20_EXP_16K \
 	-DSLOW_DOWN=750 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
-	$(SOURCE_PATH)/graphics_data/cc65/udc.s \
+	$(ASSETS_PATH)/cc65_udc.s \
 	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  $(SOURCE_PATH)/sleep.c \
 	--code-name CODE2 \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c \
@@ -347,7 +347,7 @@ ace_exp_16k:
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o ace -Cz--audio -create-app	
@@ -401,7 +401,7 @@ cpc:
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_XShoot_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \
-	$(SOURCE_PATH)/graphics_data/z88dk/cpc_Chars8.asm \
+	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -437,7 +437,7 @@ mc1000_exp_48k:
 	-create-app -o mc1000.bin \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv mc1000.wav $(BUILD_PATH)/FULL_XShoot_mc1000_exp_48k_joystick.wav
@@ -493,7 +493,7 @@ spectrum_48k:
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/FULL_XShoot_spectrum_48k.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_XShoot_spectrum_48k.prg
@@ -517,7 +517,7 @@ vg5k_exp_16k:
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_XShoot_vg5k_exp_16k.prg

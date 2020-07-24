@@ -180,7 +180,7 @@ rx78:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
@@ -243,7 +243,7 @@ sc3000_32k:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-o $(BUILD_PATH)/FULL_sc3000_32k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -269,7 +269,7 @@ sg1000:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-o $(BUILD_PATH)/FULL_sg1000.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -410,7 +410,7 @@ spc1000:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_spc1000.bin
@@ -435,7 +435,7 @@ spectrum_16k:
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/TINY_spectrum_16k.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(TINY_FILES)
 	rm $(BUILD_PATH)/TINY_spectrum_16k.prg
 	rm $(BUILD_PATH)/TINY_spectrum_16k_BANK_7.bin
@@ -459,7 +459,7 @@ spectrum_48k:
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/FULL_spectrum_48k.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_spectrum_48k.prg
@@ -481,7 +481,7 @@ srr:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	-create-app -o srr \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
@@ -527,7 +527,7 @@ super80r:
 	-DCONIO \
 	-DCONIO_VT52 \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-lndos \

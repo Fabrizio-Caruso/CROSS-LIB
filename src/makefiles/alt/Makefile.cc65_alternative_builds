@@ -193,7 +193,7 @@ c64_8k_cart:
 	-DMEMORY_MAPPED \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/udc.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/cc65_udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -371,7 +371,7 @@ vic20_exp_3k_tiny:
 	-DUSE_TINY_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
-	$(SOURCE_PATH)/graphics_data/cc65/udc_3k.s \
+	$(SOURCE_PATH)/graphics_data/cc65/cc65_udc_3k.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(TINY_FILES) \
 	$(SOURCE_PATH)/memory/vic20_memory.s \

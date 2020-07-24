@@ -176,7 +176,7 @@ ace_exp_16k:
 	-DUDG_GRAPHICS \
 	-DANIMATE_PLAYER \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o ace -Cz--audio -create-app	
@@ -392,7 +392,7 @@ coleco:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -414,7 +414,7 @@ cpc:
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \
-	$(ASSETS_PATH)/cpc_Chars8.asm \
+	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -492,7 +492,7 @@ eg2k:
 	-DLESS_TEXT -DSOUNDS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -745,7 +745,7 @@ kc_light:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(LIGHT_FILES) \
 	-create-app -o$(BUILD_PATH)/LIGHT_kc.bin
 	rm $(BUILD_PATH)/LIGHT_kc.bin
@@ -762,7 +762,7 @@ kc_tiny:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(TINY_FILES) \
 	-create-app -o$(BUILD_PATH)/TINY_kc.bin
 	rm $(BUILD_PATH)/TINY_kc.bin
@@ -780,7 +780,7 @@ kc:
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_kc.bin

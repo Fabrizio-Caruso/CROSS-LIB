@@ -1,7 +1,7 @@
 #include <devkit/video/vis_video.h>
 #include <devkit/system/system.h>
 
-#include "6x8_chars.h"
+#include "6x9_chars.h"
 #include "standard_libs.h"
 
 #if defined(__CIDELSA__)

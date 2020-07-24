@@ -1,4 +1,66 @@
 
 game_assets:
-	cd ."/assets" && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+clean_game_assets:
+	cd ."/games/chase/assets" && rm -rf *
+
+ASSETS_LIST = \
+    6x8_chars.h \
+    6x9_chars.h \
+    8x8_chars.h \
+    cc65_nes_tiles.s \
+    cc65_pce_tiles.s \
+    cc65_udc.s \
+    cc65_udc_3k.s \
+    cc65_udc_63chars.s \
+    cc65_udc_6chars.s \
+    cc65_udc_vic20.s \
+    cmoc_xchase.s \
+    z88dk_cpc_Chars8.asm \
+    z88dk_sprites_definitions.h \
+    z88dk_xchase.asm 
+
+$(ASSETS_PATH)/6x8_chars.h:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+$(ASSETS_PATH)/6x9_chars.h:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+$(ASSETS_PATH)/8x8_chars.h:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+$(ASSETS_PATH)/cc65_nes_tiles.s:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+    
+$(ASSETS_PATH)/cc65_pce_tiles.s:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+$(ASSETS_PATH)/cc65_udc.s:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+$(ASSETS_PATH)/cc65_udc_3k.s:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+$(ASSETS_PATH)/cc65_udc_63chars.s:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+$(ASSETS_PATH)/cc65_udc_6chars.s:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+    
+$(ASSETS_PATH)/cc65_udc_vic20.s:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+$(ASSETS_PATH)/cmoc_xchase.s:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+$(ASSETS_PATH)/z88dk_cpc_Chars8.asm:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+$(ASSETS_PATH)/z88dk_sprites_definitions.h:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
+$(ASSETS_PATH)/z88dk_xchase.asm:
+	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+
 

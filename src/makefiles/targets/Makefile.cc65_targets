@@ -185,7 +185,7 @@ apple2enh_80col:
 
 atari: atari_color
 
-atari_color: 
+atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -216,7 +216,7 @@ atari_no_color:
 #######################################################################################
 # ATARI5200
 
-atari5200: 
+atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
 	-D__ATARI5200__ \
@@ -286,7 +286,7 @@ c128_80col:
 
 plus4: c16_32k
 
-c16_32k: 
+c16_32k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DANIMATE_PLAYER -DFULL_GAME -DSOUNDS \
 	-DFORCE_GHOSTS_NUMBER=8 \
@@ -387,7 +387,7 @@ cbm510:
 
 creativision: creativision_16k
 
-creativision_16k:
+creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
@@ -460,7 +460,7 @@ gamate:
 #######################################################################################
 # NES
 
-nes:
+nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
 	-DFULL_GAME \
@@ -480,7 +480,7 @@ nes:
 
 pce: pce_16k
 
-pce_16k:
+pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -498,7 +498,7 @@ pce_16k:
 	rm $(BUILD_PATH)/FULL_PCE_HIGH.bin
 
 
-pce_8k:
+pce_8k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t pce \
 	-DTINY_GAME \
 	-DANIMATE_PLAYER -DCONIO -DNO_INIT_GRAPHICS \
@@ -547,7 +547,7 @@ oric: oric1
 
 oric1: oric1_16k
 
-oric1_16k: 
+oric1_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -D__ORIC1__ -DSOUNDS \
 	-DANIMATE_PLAYER -DFULL_GAME \
 	-DLESS_TEXT -DNO_SLEEP \

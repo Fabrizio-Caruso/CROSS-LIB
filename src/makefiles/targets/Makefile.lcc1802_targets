@@ -106,7 +106,7 @@ REDUCED_TINY_MACROS ?= \
 ###############################################################################
 # COMX
 
-tiny_comx: tiny_lcc1802_combo.c
+tiny_comx: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS) \
 	-D__COMX__  $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \
@@ -121,7 +121,7 @@ tiny_comx: tiny_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_comx.hex
 
 
-light_comx: light_lcc1802_combo.c
+light_comx: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__   $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
@@ -138,7 +138,7 @@ light_comx: light_lcc1802_combo.c
 
 full_comx: comx
 
-comx: full_lcc1802_combo.c
+comx: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
@@ -157,7 +157,7 @@ comx: full_lcc1802_combo.c
 ###############################################################################
 # PECOM
 
-tiny_pecom: tiny_lcc1802_combo.c
+tiny_pecom: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS) \
 	-D__PECOM__  $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \
@@ -172,7 +172,7 @@ tiny_pecom: tiny_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_pecom.hex
 
 
-light_pecom: light_lcc1802_combo.c
+light_pecom: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__  $(EXTRA_DRAW_SKIP) \
 	-DLIGHT_GAME \
@@ -189,7 +189,7 @@ light_pecom: light_lcc1802_combo.c
 
 full_pecom: pecom
 
-pecom: full_lcc1802_combo.c
+pecom: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \

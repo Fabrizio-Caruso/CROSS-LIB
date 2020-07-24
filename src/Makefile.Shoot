@@ -22,7 +22,50 @@ include makefiles/auxiliary/Makefile_common
 game_assets:
 	cd ."/assets" && python ./generate_assets.py shoot && ./copy_assets.py shoot
 
+clean_game_assets:
+	cd ."/games/shoot/assets" && rm -rf *
 
+$(ASSETS_PATH)/6x8_chars.h:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+$(ASSETS_PATH)/6x9_chars.h:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+$(ASSETS_PATH)/8x8_chars.h:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+$(ASSETS_PATH)/cc65_nes_tiles.s:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+    
+$(ASSETS_PATH)/cc65_pce_tiles.s:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+$(ASSETS_PATH)/cc65_udc.s:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+$(ASSETS_PATH)/cc65_udc_3k.s:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+$(ASSETS_PATH)/cc65_udc_63chars.s:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+$(ASSETS_PATH)/cc65_udc_6chars.s:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+    
+$(ASSETS_PATH)/cc65_udc_vic20.s:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+$(ASSETS_PATH)/cmoc_xchase.s:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+$(ASSETS_PATH)/z88dk_cpc_Chars8.asm:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+$(ASSETS_PATH)/z88dk_sprites_definitions.h:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
+
+$(ASSETS_PATH)/z88dk_xchase.asm:
+	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot
 
 #####################################################################
 # Draw skip
@@ -109,7 +152,7 @@ lcc1802_targets: \
 
 atari: atari_color
 
-atari_color: 
+atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -130,7 +173,7 @@ atari_color:
 
 #################################################################
 
-atari5200: 
+atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
 	-D__ATARI5200__ \
@@ -155,7 +198,7 @@ c16: c16_32k
 plus4: c16_32k
 
 
-c16_32k:
+c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
 	--config $(CFG_PATH)/cc65/c16-32k_GFX.cfg \
 	-DFORCE_NO_CONIO_LIB \
@@ -183,7 +226,7 @@ c16_32k:
 #################################################################
 
 	# -DSLOW_DOWN=990 -DINITIAL_GHOST_SLOWDOWN=31000 
-c64: 
+c64: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
 	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
@@ -205,7 +248,7 @@ c64:
 #################################################################
 
 # Graphics for fire power and ghost needs to be updated
-nes:
+nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
 	-DFULL_GAME \
@@ -224,7 +267,7 @@ nes:
 
 pce: pce_32k
 
-pce_16k:
+pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -242,7 +285,7 @@ pce_16k:
 	rm $(BUILD_PATH)/FULL_XShoot_PCE_HIGH.bin
 
 
-pce_32k:
+pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
@@ -265,7 +308,7 @@ creativision: creativision_18k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
-creativision_32k:
+creativision_32k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
@@ -274,7 +317,7 @@ creativision_32k:
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_XShoot_creativision_32k.bin
 
-creativision_24k:
+creativision_24k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
@@ -286,7 +329,7 @@ creativision_24k:
 	dd if=$(BUILD_PATH)/FULL_XShoot_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_XShoot_creativision_24k_SWAPPED.bin
 	rm $(BUILD_PATH)/FULL_XShoot_creativision_24k.bin
 
-creativision_18k:
+creativision_18k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
@@ -306,7 +349,7 @@ oric1: oric_atmos
 
 oric1_48k: oric_atmos
 
-oric_atmos: 
+oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-t atmos \
 	-DALT_MOVE \
@@ -322,7 +365,7 @@ oric_atmos:
 
 vic20: vic20_exp_16k
 
-vic20_exp_16k: 
+vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
@@ -348,7 +391,7 @@ jupiter_ace: ace
 
 ace: ace_exp_16k
 
-ace_exp_16k:
+ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DSOUNDS \
@@ -371,7 +414,7 @@ ace_exp_16k:
 # -DFORCE_BIT_BANG 
 #################################################################
 
-c128_z80_80col:
+c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-lndos -subtype=disk \
@@ -401,7 +444,7 @@ c128_z80_80col:
 
 #################################################################
 
-cpc:
+cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -434,7 +477,7 @@ cpc:
 
 mc1000: mc1000_exp_48k
 
-mc1000_exp_48k:
+mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
@@ -459,7 +502,7 @@ mc1000_exp_48k:
 
 msx: msx_32k_rom
 
-msx_32k_rom:
+msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h 
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DINITIAL_SLOWDOWN=29000 \
@@ -486,7 +529,7 @@ msx_32k_rom:
 
 spectrum: spectrum_48k
 
-spectrum_48k:
+spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
@@ -515,7 +558,7 @@ spectrum_48k:
 
 vg5k: vg5k_exp_16k
 
-vg5k_exp_16k:
+vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \

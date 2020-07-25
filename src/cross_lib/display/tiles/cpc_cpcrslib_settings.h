@@ -21,6 +21,7 @@
 #define _TILE_12 17*2
 #define _TILE_13 18*2
 
+#define _TILE_6 9*2
 
 // TODO: UNIMPLEMENTED
 #define _TILE_17 19*2
@@ -29,7 +30,7 @@
 // SPECIAL
 #define _TILE_0_B _TILE_0
 #define _TILE_5_B _TILE_5
-#define _TILE_6 _TILE_4
+
 #define _TILE_7_B _TILE_7
 #define _TILE_4_B _TILE_4
 #endif // _CPC_CPCRSLIB_SETTINGS

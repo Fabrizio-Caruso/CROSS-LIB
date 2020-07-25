@@ -27,32 +27,32 @@ def read_templates_from_dir(dir_name):
 
     global stripped_template_file_names
 
-    file_names = os.listdir("./templates/"+dir_name)
+    template_file_names = os.listdir("./templates/"+dir_name)
 
     stripped_template_file_names = []
-    for file_name in file_names:
-        if file_name.endswith(".template"):
-            stripped_file_name = file_name[:-9]
-            print("file_name: "+file_name)
-            print("stripped file name: "+stripped_file_name)
-            stripped_template_file_names.append(stripped_file_name)
+    for template_file_name in template_file_names:
+        if template_file_name.endswith(".template"):
+            stripped_template_file_name = template_file_name[:-9]
+            print("template_file_name: "+template_file_name)
+            print("stripped file name: "+stripped_template_file_name)
+            stripped_template_file_names.append(stripped_template_file_name)
     print("Templates found: "+str(len(stripped_template_file_names)))
     print("")
 
 
-def generate_asset_from_template(dir_name, stripped_file_name):
+def generate_asset_from_template(dir_name, stripped_template_file_name):
         matches = 0
         print("")
-        print("Handling "+stripped_file_name)
+        print("Handling "+stripped_template_file_name)
         print("")
-        fin = open("./templates/"+dir_name+"/"+stripped_file_name+".template", "rt")
-        fout = open("./generated_assets/"+game_dir+"/"+stripped_file_name, "wt")
+        fin = open("./templates/"+dir_name+"/"+stripped_template_file_name+".template", "rt")
+        fout = open("./generated_assets/"+game_dir+"/"+stripped_template_file_name, "wt")
 
         for line in fin:
             newline = line
             # print("initial line: "+newline)
             for i in range(NUMBER_OF_TILES):
-                if stripped_file_name.startswith("cmoc"):
+                if stripped_template_file_name.startswith("cmoc"):
                     newline = newline.replace('<tile_'+str(i)+'>', tile[i].replace(","," "))
                 else:
                     newline = newline.replace('<tile_'+str(i)+'>', tile[i])
@@ -70,8 +70,8 @@ def generate_asset_from_template(dir_name, stripped_file_name):
 
 def generate_assets_from_dir(dir_name):
 
-    for stripped_file_name in stripped_template_file_names:
-        generate_asset_from_template(dir_name, stripped_file_name)
+    for stripped_template_file_name in stripped_template_file_names:
+        generate_asset_from_template(dir_name, stripped_template_file_name)
 
 
 def main():

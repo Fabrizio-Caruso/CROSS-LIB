@@ -22,8 +22,6 @@ include makefiles/auxiliary/Makefile_common
 game_assets:
 	cd ."/assets" && python ./generate_assets.py shoot && ./copy_assets.py shoot
 
-clean_game_assets:
-	cd ."/games/shoot/assets" && rm -rf *
 
 $(ASSETS_PATH)/6x8_chars.h:
 	cd ./assets && python ./generate_assets.py shoot && ./copy_assets.py shoot

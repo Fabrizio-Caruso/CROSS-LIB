@@ -19,7 +19,7 @@ for file_name in file_names:
     print("Copying: ", file_name)
     source_path = "./generated_assets/"+game_dir+"/"+file_name
     print("from: " + source_path)
-    dest_path = "../games/"+game_dir+"/assets"
+    dest_path = "../games/"+game_dir+"/generated_assets"
     print("to: " + dest_path)
     shutil.copy(source_path, dest_path )
 

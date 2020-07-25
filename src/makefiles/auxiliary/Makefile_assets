@@ -2,8 +2,7 @@
 game_assets:
 	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
 
-clean_game_assets:
-	cd ."/games/chase/assets" && rm -rf *
+
 
 ASSETS_LIST = \
     6x8_chars.h \

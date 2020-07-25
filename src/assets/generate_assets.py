@@ -17,7 +17,7 @@ def read_tiles_from_dir(dir_name):
     global tile
     tile = []
     for i in range(NUMBER_OF_TILES):
-        file_to_open = "./tiles/"+game_dir+"/"+dir_name+"/tile"+str(i)+".txt"
+        file_to_open = "../games/"+game_dir+"/tiles/"+dir_name+"/tile"+str(i)+".txt"
         with open(file_to_open, 'r') as myfile:
             print("Opening file tile"+file_to_open)
             tile.append(myfile.read())
@@ -37,6 +37,7 @@ def read_templates_from_dir(dir_name):
             print("stripped file name: "+stripped_file_name)
             stripped_template_file_names.append(stripped_file_name)
     print("Templates found: "+str(len(stripped_template_file_names)))
+    print("")
 
 
 def generate_asset_from_template(dir_name, stripped_file_name):

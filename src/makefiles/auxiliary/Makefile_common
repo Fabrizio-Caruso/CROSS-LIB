@@ -23,7 +23,7 @@ BUILD_PATH ?= ../build
 
 ######################################
 
-ASSETS_PATH := $(SOURCE_PATH)/assets
+ASSETS_PATH := $(SOURCE_PATH)/generated_assets
 
 #######################################################################
 # Cross Lib includes + game's graphics data
@@ -68,6 +68,9 @@ BASIC_CROSS_LIB_FILES ?= \
 # Clean targets
 clean_chase_obj:
 	rm -rf $(SOURCE_PATH)/*.o
+
+clean_game_assets:
+	cd $(ASSETS_PATH) && rm -rf *
 
 clean_chase_temp:
 	rm -rf $(SOURCE_PATH)/wincmoc_main.c

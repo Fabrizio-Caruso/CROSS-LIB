@@ -50,11 +50,14 @@
 	// #define _TILE_18_OFFSET 'H'		
 	// #define _TILE_4_B_OFFSET 'Z' 
 
-	#define _TILE_17 ('F' +_INVERTED)
+   #define _TILE_17_OFFSET 0x28
+   #define _TILE_18_OFFSET 0x29
+
+	#define _TILE_17 (_TILE_17_OFFSET +_INVERTED)
 	#define _TILE_0_B (_TILE_0 + _INVERTED)
 	#define _TILE_10 (_TILE_10_OFFSET + _INVERTED) 
 	#define _TILE_7_B (_TILE_7 + _INVERTED)
-	#define _TILE_18 ('H' + _INVERTED)		
+	#define _TILE_18 (_TILE_18_OFFSET + _INVERTED)		
 	#define _TILE_4_B (_TILE_4 + _INVERTED)
 
 	// #define _CHASE_OFFSET _BULLET

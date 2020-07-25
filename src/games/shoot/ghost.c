@@ -32,7 +32,7 @@
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
 
-extern uint8_t ghostsOnScreen;
+extern uint8_t maxGhostsOnScreen;
 extern uint16_t ghostLevel;
 extern uint8_t level;
 
@@ -63,7 +63,7 @@ void checkBombsVsGhost(register Character * ghostPtr)
 void checkBombsVsGhosts(void)
 {
     uint8_t i;
-    for(i=0;i<ghostsOnScreen;++i)
+    for(i=0;i<maxGhostsOnScreen;++i)
       {
          checkBombsVsGhost(&ghosts[i]);
       }
@@ -123,7 +123,7 @@ void ghostDies(Character * ghostPtr)
 void ghostDiesAndSpawns(Character * ghostPtr)
 {
     ghostDies(ghostPtr);
-    if((!isBossLevel) && (ghostCount>=ghostsOnScreen))
+    if((!isBossLevel) && (ghostCount>=maxGhostsOnScreen))
     {
         spawnGhost(ghostPtr,ghostCount);
     }

@@ -45,7 +45,7 @@ extern uint8_t innerHorizontalWallX;
 extern uint8_t innerHorizontalWallY;
 extern uint8_t innerHorizontalWallLength;
 
-extern uint8_t ghostsOnScreen;
+extern uint8_t maxGhostsOnScreen;
 
 extern uint8_t isInnerVerticalWallLevel;
 
@@ -395,7 +395,7 @@ void computeStrategy(void)
         strategyArray[3-i] = 2-skew; // 3,2,1,0 prefer X (60%, 70%, 80%, 90%)
             
     }
-    for(i=4;i<ghostsOnScreen;++i)
+    for(i=4;i<maxGhostsOnScreen;++i)
     {
         strategyArray[i] = 3;
     }
@@ -410,7 +410,7 @@ void chaseCharacter(void)
     
     if(isInnerVerticalWallLevel)
     {
-        for(i=0;i<ghostsOnScreen;++i)
+        for(i=0;i<maxGhostsOnScreen;++i)
         {
             if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)    
             {
@@ -425,7 +425,7 @@ void chaseCharacter(void)
     }
     else
     {
-        for(i=0;i<ghostsOnScreen;++i)
+        for(i=0;i<maxGhostsOnScreen;++i)
         {
              if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)
             {

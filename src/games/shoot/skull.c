@@ -56,7 +56,7 @@ extern uint8_t confuseActive;
 
 extern uint8_t freezeActive;
 
-extern uint8_t ghostsOnScreen;
+extern uint8_t maxGhostsOnScreen;
 
 extern Character ghosts[]; 
 
@@ -171,14 +171,14 @@ void handle_skulls(void)
             }
         }
         
-        if(isBossLevel && skulls[BOSS_INDEX]._status && !(loop&63) && (ghostCount<=ghostsOnScreen))
+        if(isBossLevel && skulls[BOSS_INDEX]._status && !(loop&63) && (ghostCount<=maxGhostsOnScreen))
         {
             i=0;
-            while((i<ghostsOnScreen)&&(ghosts[i]._status))
+            while((i<maxGhostsOnScreen)&&(ghosts[i]._status))
             {
                 ++i;
             }
-            if(i<ghostsOnScreen)
+            if(i<maxGhostsOnScreen)
             {
                 ++ghostCount;
                 initializeCharacter(&ghosts[i],skulls[BOSS_INDEX]._x, skulls[BOSS_INDEX]._y,GHOST_LIFE,&GHOST_IMAGE);

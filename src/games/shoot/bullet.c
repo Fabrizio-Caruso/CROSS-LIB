@@ -69,7 +69,7 @@ extern uint8_t bulletDirection[BULLETS_NUMBER];
 extern Character bullets[BULLETS_NUMBER];
 extern Character player;
 
-extern uint8_t ghostsOnScreen;
+extern uint8_t maxGhostsOnScreen;
 
 extern uint8_t rocketsOnScreen;
 
@@ -294,7 +294,7 @@ void checkBulletVsGhost(Character * bulletPtr,
                     ghostDies(ghostPtr);
                     points+=GHOST_VS_WALL_BONUS;
                     DRAW_BROKEN_BRICK(ghostPtr->_x, ghostPtr->_y);
-                    if((!isBossLevel) && (ghostCount>=ghostsOnScreen))
+                    if((!isBossLevel) && (ghostCount>=maxGhostsOnScreen))
                         {
                             spawnGhost(ghostPtr,ghostCount);
                         }
@@ -315,7 +315,7 @@ void checkBulletVsGhosts(Character * bulletPtr, uint8_t bulletDirection)
 {
     uint8_t i = 0;
     
-    for(;i<ghostsOnScreen;++i)
+    for(;i<maxGhostsOnScreen;++i)
     {
         if(ghosts[i]._status)
         {

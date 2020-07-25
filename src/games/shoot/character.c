@@ -50,7 +50,7 @@ extern Character skulls[SKULLS_NUMBER];
 
 extern Character player;
 
-extern uint8_t ghostsOnScreen;
+extern uint8_t maxGhostsOnScreen;
 
 extern uint8_t isInnerHorizontalWallLevel;
 extern uint8_t isInnerVerticalWallLevel;

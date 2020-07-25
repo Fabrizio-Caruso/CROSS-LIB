@@ -230,27 +230,27 @@ int main(void)
             isInnerVerticalWallLevel = innerVerticalWallLevel();
             
             #if defined(DEBUG_STRATEGY)
-            ghostsOnScreen = 1;
+            maxGhostsOnScreen = 1;
             #else
             if(!level)
             {
-                ghostsOnScreen = GHOSTS_NUMBER;
+                maxGhostsOnScreen = GHOSTS_NUMBER;
             }
             else if(isBossLevel)
             {
-                ghostsOnScreen = BOSS_LEVEL_GHOSTS_NUMBER;
+                maxGhostsOnScreen = BOSS_LEVEL_GHOSTS_NUMBER;
             }
             else if(isMissileLevel && isRocketLevel)
             {
-                ghostsOnScreen = GHOSTS_NUMBER-3;
+                maxGhostsOnScreen = GHOSTS_NUMBER-3;
             }
             else if(isMissileLevel || isRocketLevel)
             {
-                ghostsOnScreen = GHOSTS_NUMBER-2;
+                maxGhostsOnScreen = GHOSTS_NUMBER-2;
             }
             else
             {
-                ghostsOnScreen = GHOSTS_NUMBER;
+                maxGhostsOnScreen = GHOSTS_NUMBER;
             }
             #endif
             
@@ -486,16 +486,16 @@ int main(void)
                     }
                 }
                 
-                reachedByGhost = sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, ghostsOnScreen);
+                reachedByGhost = sameLocationAsAnyGhostLocation(player._x, player._y, ghosts, maxGhostsOnScreen);
                 
-                if(destroyerActive && reachedByGhost < ghostsOnScreen)
+                if(destroyerActive && reachedByGhost < maxGhostsOnScreen)
                 {
                     ghostDiesAndSpawns(&ghosts[reachedByGhost]);
                     points += GHOST_VS_BOMBS_BONUS;
                 }
                 
                 
-                if((!invincibilityActive && ((reachedByGhost<ghostsOnScreen))))
+                if((!invincibilityActive && ((reachedByGhost<maxGhostsOnScreen))))
                 {
                     playerDies();
                 }

@@ -299,7 +299,7 @@ uint8_t innerHorizontalWallY;
 uint8_t innerHorizontalWallX; 
 uint8_t innerHorizontalWallLength;
 
-uint8_t ghostsOnScreen;
+uint8_t maxGhostsOnScreen;
 
 uint8_t firePowerItemSecret;
 uint8_t firePowerLevelSecret;

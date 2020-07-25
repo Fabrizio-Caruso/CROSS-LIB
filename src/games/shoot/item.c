@@ -74,7 +74,7 @@ extern Item bombCharge;
 extern Item firePower;
 extern Item extraPoints;
 
-extern uint8_t ghostsOnScreen;
+extern uint8_t maxGhostsOnScreen;
 
 extern uint8_t isBossLevel;
 
@@ -403,7 +403,7 @@ void suicideEffect(void)
     suicide._coolDown = SECOND_SUICIDE_COOL_DOWN;
     }    
     setSecret(SUICIDE_EFFECT_SECRET_INDEX);
-    for(i=0;i<ghostsOnScreen;++i)
+    for(i=0;i<maxGhostsOnScreen;++i)
     {
         if(ghosts[i]._status)
         {

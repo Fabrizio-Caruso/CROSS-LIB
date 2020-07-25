@@ -34,7 +34,7 @@
 
 extern uint8_t level;
 
-extern uint8_t ghostsOnScreen;
+extern uint8_t maxGhostsOnScreen;
 
 extern Image PLAYER_IMAGE;
 extern Image GHOST_IMAGE;
@@ -256,7 +256,7 @@ void fillLevelWithCharacters(void)
     // if(!level)
     // {
         // ghostCount =99;
-        // ghostsOnScreen = GHOSTS_NUMBER;
+        // maxGhostsOnScreen = GHOSTS_NUMBER;
     // }
 
     
@@ -286,9 +286,9 @@ void fillLevelWithCharacters(void)
         }
     }
     
-    if(ghostCount>ghostsOnScreen)
+    if(ghostCount>maxGhostsOnScreen)
     {
-        count = ghostsOnScreen;
+        count = maxGhostsOnScreen;
     }
     else
     {

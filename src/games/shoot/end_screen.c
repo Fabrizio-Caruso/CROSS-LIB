@@ -21,7 +21,7 @@
 	extern uint8_t guns;
 	extern uint8_t ind;
     
-    extern uint8_t ghostsOnScreen;
+    extern uint8_t maxGhostsOnScreen;
     
     extern uint8_t isBossLevel;
 #endif
@@ -46,7 +46,7 @@
 		
 		CLEAR_SCREEN();
         ghostCount = 8;
-        ghostsOnScreen = 8;
+        maxGhostsOnScreen = 8;
         level = 1;
         isBossLevel = 0;
 		fillLevelWithCharacters();
@@ -58,7 +58,7 @@
 		guns = 1;
 		while(!playerFire && !wallReached(&player))
 		{
-			for(ind=0;ind<ghostsOnScreen;++ind)
+			for(ind=0;ind<maxGhostsOnScreen;++ind)
 			{
 				displayCharacter(&ghosts[ind]);
 			}

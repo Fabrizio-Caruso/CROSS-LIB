@@ -89,7 +89,7 @@ void computeSkullParameters(void)
 
 // Redability macros
 #define INACTIVITY_COUNT_DOWN_REACHED ((skullXCountDown==0) || (skullYCountDown==0))
-#define GHOST_COUNT_TRIGGER_REACHED (ghostCount<=SKULL_TRIGGER)
+#define GHOST_COUNT_TRIGGER_REACHED (ghostCount<=SKULL_TRIGGER+(level/4))
 #define BOSS_LOOP_TRIGGER_REACHED (loop>=SKULL_LOOP_TRIGGER)
 
 #define NON_BOSS_TRIGGER_REACHED (INACTIVITY_COUNT_DOWN_REACHED || GHOST_COUNT_TRIGGER_REACHED)

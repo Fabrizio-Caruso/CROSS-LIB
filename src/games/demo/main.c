@@ -67,11 +67,6 @@
 #endif
 
 
-#if defined(Z88DK_JOYSTICK)
-	uint8_t stick;
-#endif
-
-
 int main(void)
 {        
     INIT_GRAPHICS();

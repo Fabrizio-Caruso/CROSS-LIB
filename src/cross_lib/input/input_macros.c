@@ -28,6 +28,10 @@
 
 #include "input_macros.h"
 
+#if defined(Z88DK_JOYSTICK)
+	uint8_t stick;
+#endif
+
 
 #if defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB)
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)

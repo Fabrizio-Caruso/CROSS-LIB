@@ -13,10 +13,6 @@
     uint16_t benchmark_count;
 #endif
 
-#if defined(Z88DK_JOYSTICK)
-	uint8_t stick;
-#endif
-
 
 #if !defined(TINY_GAME) || defined(TURN_BASED)
 	#if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS) || (defined(USE_TINY_MEMORY_BUFFERS) && defined(TURN_BASED))

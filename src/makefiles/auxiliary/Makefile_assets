@@ -1,4 +1,9 @@
 
+######################################
+
+ASSETS_PATH := $(SOURCE_PATH)/generated_assets
+
+
 game_assets:
 	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 

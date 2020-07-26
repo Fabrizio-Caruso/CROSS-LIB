@@ -4,8 +4,6 @@
 
 GAME_NAME := shoot
 
-SOURCE_PATH := games/$(GAME_NAME)
-
 
 #####################################################################
 # Compilers variables

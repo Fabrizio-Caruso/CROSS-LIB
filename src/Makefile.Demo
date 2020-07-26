@@ -3,9 +3,6 @@
 
 GAME_NAME := demo
 
-SOURCE_PATH := games/$(GAME_NAME)
-
-
 
 #####################################################################
 # Compilers variables

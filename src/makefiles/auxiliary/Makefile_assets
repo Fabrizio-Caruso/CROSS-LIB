@@ -1,48 +1,48 @@
 
 game_assets:
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 
 $(ASSETS_PATH)/6x8_chars.h: $(6X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 $(ASSETS_PATH)/6x9_chars.h: $(6X9_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 $(ASSETS_PATH)/8x8_chars.h: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 $(ASSETS_PATH)/cc65_nes_tiles.s: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
     
 $(ASSETS_PATH)/cc65_pce_tiles.s: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 $(ASSETS_PATH)/cc65_udc.s: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 $(ASSETS_PATH)/cc65_udc_3k.s: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 $(ASSETS_PATH)/cc65_udc_63chars.s: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 $(ASSETS_PATH)/cc65_udc_6chars.s: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
     
 $(ASSETS_PATH)/cc65_udc_vic20.s: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 $(ASSETS_PATH)/cmoc_xchase.s: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 $(ASSETS_PATH)/z88dk_cpc_Chars8.asm: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 $(ASSETS_PATH)/z88dk_sprites_definitions.h: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 $(ASSETS_PATH)/z88dk_xchase.asm: $(8X8_TILES)
-	cd ./assets && python ./generate_assets.py chase && ./copy_assets.py chase
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME)
 
 

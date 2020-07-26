@@ -1,10 +1,10 @@
 ######################################################################
-# Makefile for CROSS-SHOOT 
+# Makefile for CROSS-BOMBER
 
-
-GAME_NAME := shoot
+GAME_NAME := demo
 
 SOURCE_PATH := games/$(GAME_NAME)
+
 
 
 #####################################################################
@@ -19,8 +19,8 @@ include makefiles/auxiliary/Makefile_common
 
 #####################################################################
 # Assets
-
 include makefiles/auxiliary/Makefile_assets
+
 
 
 #####################################################################
@@ -34,40 +34,21 @@ ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1
 ######################################################################
 # Cross-Shoot files
 #
-NO_CHASE_FILES ?= \
+FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
-	$(SOURCE_PATH)/move_player.c \
-	$(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
 	$(SOURCE_PATH)/main.c \
 	$(SOURCE_PATH)/init_images.c
 
-TINY_FILES ?= $(NO_CHASE_FILES) $(SOURCE_PATH)/strategy.c 
 
-#
-TEST_FILES ?= $(NO_CHASE_FILES)
-
-#
-LIGHT_ONLY_FILES ?= $(SOURCE_PATH)/item.c $(SOURCE_PATH)/skull.c $(SOURCE_PATH)/bullet.c 
-
-#
-FULL_ONLY_FILES ?= $(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c $(SOURCE_PATH)/sleep.c
-
-#
-LIGHT_FILES ?= $(TINY_FILES) $(LIGHT_ONLY_FILES) 
-
-#
-FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
-
-
-SCCZ80_OPTS ?= -O3
+SCCZ80_OPTS ?= -O0
 
 #################################################################
+#     lcc1802_targets 
 
 all: \
     gcc_targets \
     cc65_targets \
-    z88dk_targets \
-    lcc1802_targets 
+    z88dk_targets
 
 
 gcc_targets: \
@@ -123,7 +104,6 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari_color.xex
 
@@ -139,7 +119,6 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DSLOW_DOWN=200 \
-	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
@@ -174,7 +153,6 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_udc_63chars.s \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c16_32k.prg
 
@@ -193,7 +171,6 @@ c64: $(ASSETS_PATH)/cc65_udc.s
 	$(ASSETS_PATH)/cc65_udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c64.prg
 	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c64_exomized.prg
@@ -213,7 +190,6 @@ nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	-DANIMATE_PLAYER \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
-	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_nes_tiles.s \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_nes.nes
@@ -230,7 +206,6 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg -DANIMATE_PLAYER  \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_pce_tiles.s \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin
 	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin
@@ -248,7 +223,6 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_32k.cfg -DANIMATE_PLAYER  \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_pce_tiles.s \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin
 	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin ibs=1 count=24576 of=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin
@@ -270,7 +244,6 @@ creativision_32k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_32k.bin
 
 creativision_24k: $(ASSETS_PATH)/cc65_8x8_chars.h
@@ -279,7 +252,6 @@ creativision_24k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
 	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin
 	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin bs=8k skip=1 > $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k_SWAPPED.bin
 	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k_SWAPPED.bin
@@ -291,7 +263,6 @@ creativision_18k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_18k.bin
 
 
@@ -313,7 +284,6 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	-DMEMORY_MAPPED \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
-	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atmos_and_oric1_48k.tap
 
 
@@ -328,12 +298,10 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
 	-DSLOW_DOWN=750 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(ASSETS_PATH)/cc65_udc.s \
-	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  $(SOURCE_PATH)/sleep.c \
+	$(FULL_FILES) \
 	--code-name CODE2 \
-	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_vic20_exp_16k.prg
 
 
@@ -357,7 +325,6 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o ace -Cz--audio -create-app	
 	cp ace.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_ace_exp_16k.wav
@@ -386,7 +353,6 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DNO_COLOR \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -oa80.bin
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_X$(GAME_NAME)_c128_z80_80col.d64
@@ -413,15 +379,14 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_shoot $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cdt
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_bomber $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cdt
 	rm -rf FULL_X$(GAME_NAME)_cpc.dsk
 	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_X$(GAME_NAME)_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc xshoot
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc xbomber
 	mv FULL_X$(GAME_NAME)_cpc.dsk $(BUILD_PATH)/
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/FULL_X$(GAME_NAME)_gx4000.cpr   -c 'run"xshoot'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/FULL_X$(GAME_NAME)_gx4000.cpr   -c 'run"xbomber'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
@@ -447,7 +412,6 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	mv mc1000.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_mc1000_exp_48k_joystick.wav
 	rm mc1000.bin
@@ -475,7 +439,6 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_msx_32k_DATA.bin
@@ -503,7 +466,6 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_spectrum_48k.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_spectrum_48k.prg
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_spectrum_48k_BANK_7.bin
@@ -527,7 +489,6 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_vg5k_exp_16k.prg
 
@@ -749,7 +710,6 @@ ncurses:
 	-DALT_PRINT \
 	-DNO_TITLE_LINE \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
-	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses

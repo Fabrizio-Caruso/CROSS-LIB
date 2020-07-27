@@ -36,7 +36,7 @@ extern Image VERTICAL_BRICK_IMAGE;
 #endif
 
 
-#include "graphics_settings.h"
+// #include "graphics_settings.h"
 
 #if defined(__ATARI__) && defined(ATARI_MODE1)
 extern uint16_t BASE_ADDR;

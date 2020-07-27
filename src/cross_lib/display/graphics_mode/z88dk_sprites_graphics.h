@@ -7,7 +7,7 @@
 #include <stdint.h>
 
 // #if !defined(SEPARATE_SPRITE_DEFINITIONS)
-#include "z88dk_sprites_definitions.h"
+// #include "z88dk_sprites_definitions.h"
 // #endif
 #include "display_target_geometry.h"
 

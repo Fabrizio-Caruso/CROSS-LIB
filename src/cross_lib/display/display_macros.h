@@ -51,21 +51,24 @@ struct ImageStruct
 typedef struct ImageStruct Image;
 
 
-#if !defined(NO_STATS) \
-    || X_OFFSET!=0 || Y_OFFSET!=0
 
-    void _draw_stat(uint8_t x, uint8_t y, Image * image);
+#define _draw_stat(x, y, image) \
+    __DRAW(X_OFFSET+(x),(y),(image))
 
-    void _draw(uint8_t x, uint8_t y, Image * image);
-#else
-    void _draw(uint8_t x, uint8_t y, Image * image);    
+#define _draw(x, y, image) \
+    __DRAW(X_OFFSET+(x),Y_OFFSET+(y),(image))
+    
 
-    #if (X_OFFSET==0) && (Y_OFFSET==0)
-        #define _draw_stat _draw
-    #endif
+
+#define _delete_stat(x, y) \
+    __DELETE(X_OFFSET+(x),(y))
+
+#define _delete(x, y) \
+    __DELETE(X_OFFSET+(x),Y_OFFSET+(y))
+
+#if defined(BUFFERED)
+    extern uint8_t video_buffer[YSize+Y_OFFSET][XSize];
 #endif
-
-
 
 #if defined(Z88DK_SPRITES) && defined(ALT_PRINT)
     void _draw_ch(uint8_t x, uint8_t y, uint8_t ch);
@@ -96,7 +99,6 @@ typedef struct ImageStruct Image;
     #define _blink_draw(x,y,image,blinkCounter) _draw(x,y,image)
 #endif
 
-void _delete(uint8_t x, uint8_t y);
 
 // VERTICAL AND HORIZONTAL BORDER
 #if !defined(TINY_GAME)

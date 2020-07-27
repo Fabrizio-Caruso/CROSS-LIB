@@ -224,7 +224,7 @@ attache_chars:
 	rm $(BUILD_PATH)/FULL_attache_chars.bin
 
 attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache -v \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-D__ATTACHE__ \
 	-DFULL_GAME \
@@ -240,6 +240,22 @@ attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(FULL_FILES)	
 	rm $(BUILD_PATH)/FULL_attache.bin
 
+
+debug_attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache -v \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
+	-D__ATTACHE__ \
+	-DFULL_GAME \
+	-DNO_PRINT \
+	-DFULL_GAME \
+	-DZ88DK_SPRITES \
+	-DLESS_TEXT \
+	-DANIMATE_PLAYER \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-create-app -o$(BUILD_PATH)/FULL_attache.bin \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES)	
+	rm $(BUILD_PATH)/FULL_attache.bin
 
 #############################
 # AUSSIE
@@ -312,6 +328,34 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	rm A80
 	rm a80.bin
 
+
+debug_c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
+	-lndos -subtype=disk \
+	-D__C128_Z80__ \
+	-DZ88DK_SPRITES -DANIMATE_PLAYER \
+	-DFULL_GAME -DEND_SCREEN \
+	-DLESS_TEXT \
+	-DSOUNDS \
+	-DNO_BLINKING \
+	-DFORCE_BIT_BANG \
+	-DZ88DK_JOYSTICK \
+	-DSIMPLE_STRATEGY \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	-DNO_PRINT \
+	-DNO_COLOR \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-create-app -oa80.bin
+	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_80col.d64
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_80col.d64 -write a80.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_80col.d64 -write a80
+	mv FULL_c128_z80_80col.d64 $(BUILD_PATH)/
+	rm A80.LDR
+	rm A80
+	rm a80.bin
 
 c128_z80: c128_z80_40col
 

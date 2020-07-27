@@ -496,7 +496,9 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
-include makefiles/auxiliary/Makefile_combo
+
+full_combo_rand.c: 
+	cat  $(FULL_FILES) > $(SOURCE_PATH)/../full_combo_rand.c
 
 # ------------------------------------------------------------------------------------------
 # LCC1802
@@ -549,7 +551,7 @@ COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
 
 reduced_full_lcc1802_combo.c: full_combo_rand.c
 	cat \
-	$(COMX_EXTRA_FILES) \
+	$(COMX_REDUCED_EXTRA_FILES) \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm $(SOURCE_PATH)/../full_combo_rand.c
 

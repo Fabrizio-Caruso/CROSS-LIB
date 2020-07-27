@@ -70,6 +70,10 @@ typedef struct ImageStruct Image;
     extern uint8_t video_buffer[YSize+Y_OFFSET][XSize];
 #endif
 
+#if defined(Z88DK_SPRITES)
+    extern uint8_t sprites[];
+#endif
+
 #if defined(Z88DK_SPRITES) && defined(ALT_PRINT)
     void _draw_ch(uint8_t x, uint8_t y, uint8_t ch);
 #endif

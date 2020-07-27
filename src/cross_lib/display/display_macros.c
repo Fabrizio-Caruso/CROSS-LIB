@@ -55,6 +55,8 @@ extern uint16_t BASE_ADDR;
 #elif defined(Z88DK_SPRITES)
 
     #include "z88dk_sprites_definitions.h"
+    extern uint8_t sprites[];
+
 
 #elif defined(BUFFERED)
     uint8_t video_buffer[YSize+Y_OFFSET][XSize];

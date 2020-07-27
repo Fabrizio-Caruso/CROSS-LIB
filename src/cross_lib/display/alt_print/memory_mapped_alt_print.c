@@ -1,5 +1,7 @@
 
-#include "memory_mapped_graphics.h"
+#if !defined(Z88DK_SPRITES)
+    #include "memory_mapped_graphics.h"
+#endif
 #include "memory_mapped_alt_print.h"
 
 #include "standard_libs.h"

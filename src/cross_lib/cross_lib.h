@@ -100,17 +100,22 @@
 	#define TEXT_COLOR COLOR_WHITE
 #endif
 
+
 #include "input_target_settings.h"
 #include "input_macros.h"
 
 #include "display_target_color.h"
-#include "display_macros.h"
 
 #include "sound_macros.h"
 
 #include "sleep_macros.h"
 
 #include "text_macros.h"
+
+#include "graphics_settings.h"
+
+#include "display_macros.h"
+
 
 #if !defined(__LCC1802__)
     #include "rand.h"

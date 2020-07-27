@@ -36,8 +36,6 @@ extern Image VERTICAL_BRICK_IMAGE;
 #endif
 
 
-#include "graphics_settings.h"
-
 #if defined(__ATARI__) && defined(ATARI_MODE1)
 extern uint16_t BASE_ADDR;
 #endif
@@ -54,7 +52,9 @@ extern uint16_t BASE_ADDR;
 
 #elif defined(Z88DK_SPRITES)
 
+    #include "z88dk_sprites_definitions.h"
     extern uint8_t sprites[];
+
 
 #elif defined(BUFFERED)
     uint8_t video_buffer[YSize+Y_OFFSET][XSize];
@@ -156,43 +156,6 @@ extern uint16_t BASE_ADDR;
     {
         __DELETE(x,y);
         putsprite(spr_or,x*(SPRITE_X_STEP),y*(SPRITE_Y_STEP),sprites + ((ch-32)*(2+SPRITE_Y_SIZE))); \
-    }
-#endif
-
-#if !defined(NO_STATS) \
-    || X_OFFSET!=0 || Y_OFFSET!=0
-    
-    void _draw_stat(uint8_t x, uint8_t y, Image * image) 
-    {
-        __DRAW((X_OFFSET+x),(y),image);
-    }
-
-    void _draw(uint8_t x, uint8_t y, Image * image) 
-    {
-        _draw_stat(x,Y_OFFSET+y,image);
-    }
-#else
-    void _draw(uint8_t x, uint8_t y, Image * image) 
-    {
-        __DRAW(x,y,image);
-    }    
-#endif
-
-#if !defined(NO_STATS) \
-    || X_OFFSET!=0 || Y_OFFSET!=0
-    void _delete_stat(uint8_t x, uint8_t y)
-    {
-        __DELETE(X_OFFSET+x,y);
-    }
-    
-    void _delete(uint8_t x, uint8_t y)
-    {
-        _delete_stat(x,Y_OFFSET+y);
-    }    
-#else
-    void _delete(uint8_t x, uint8_t y)
-    {
-        __DELETE(x,y);
     }
 #endif
 

@@ -224,7 +224,7 @@ attache_chars:
 	rm $(BUILD_PATH)/FULL_attache_chars.bin
 
 attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache -v \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-D__ATTACHE__ \
 	-DFULL_GAME \

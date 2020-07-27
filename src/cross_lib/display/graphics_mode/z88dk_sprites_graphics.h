@@ -6,10 +6,6 @@
 
 #include <stdint.h>
 
-// #if !defined(SEPARATE_SPRITE_DEFINITIONS)
-// #include "z88dk_sprites_definitions.h"
-// #endif
-
 extern uint8_t sprites[];
 
 #include "display_target_geometry.h"

@@ -28,8 +28,6 @@
 
 #include "cross_lib.h"
 
-
-
 extern uint16_t points;
 
 extern uint8_t ghostCount;

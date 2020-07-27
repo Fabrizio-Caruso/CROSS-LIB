@@ -15,13 +15,13 @@ int rand(void) // RAND_MAX assumed to be 32767
 */
 
 
-#if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
+#if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__) || defined(__MICRO__)
     #include <devkit/system/rand.h>
 #else
-static unsigned long int next = 1;
-int rand(void) // RAND_MAX assumed to be 32767
-{
-    next = next * 1103515245 + 12345;
-    return (unsigned int)(next>>16)&0x7FFF;
-}
+    static unsigned long int next = 1;
+    int rand(void) // RAND_MAX assumed to be 32767
+    {
+        next = next * 1103515245 + 12345;
+        return (unsigned int)(next>>16)&0x7FFF;
+    }
 #endif

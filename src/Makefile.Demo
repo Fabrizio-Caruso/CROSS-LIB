@@ -45,7 +45,8 @@ SCCZ80_OPTS ?= -O0
 all: \
     gcc_targets \
     cc65_targets \
-    z88dk_targets
+    z88dk_targets \
+    lcc1802_targets
 
 
 gcc_targets: \
@@ -74,7 +75,7 @@ z88dk_targets: \
 
 
 lcc1802_targets: \
-    tmc600
+    comx
 
 
 
@@ -380,10 +381,10 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_bomber $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cdt
 	rm -rf FULL_X$(GAME_NAME)_cpc.dsk
 	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_X$(GAME_NAME)_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc xbomber
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc x$(GAME_NAME)
 	mv FULL_X$(GAME_NAME)_cpc.dsk $(BUILD_PATH)/
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/FULL_X$(GAME_NAME)_gx4000.cpr   -c 'run"xbomber'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/FULL_X$(GAME_NAME)_gx4000.cpr   -c 'run"x$(GAME_NAME)'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
@@ -580,6 +581,10 @@ COMX_MACROS ?= \
 	-DALT_SLEEP \
 
 
+COMX_MACROS_NO_SOUNDS ?= \
+	$(LCC1802_MACROS) \
+	-DALT_SLEEP \
+
 REDUCED_TINY_MACROS ?= \
 	$(LCC1802_MACROS) \
 	-DNO_SLEEP \
@@ -591,8 +596,10 @@ REDUCED_TINY_MACROS ?= \
 
 full_comx: comx
 
+comx: comx_no_sounds
+
 #	-DSIMPLE_STRATEGY 
-comx: reduced_full_lcc1802_combo.c
+comx_no_sounds: reduced_full_lcc1802_combo.c
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DFORCE_NARROW \
@@ -601,7 +608,7 @@ comx: reduced_full_lcc1802_combo.c
 	-DLCC1802_JOYSTICK \
 	-DLESS_TEXT -DNO_HINTS -DNO_TITLE -DNO_SET_SCREEN_COLORS -DNO_MESSAGE -DNO_INITIAL_SCREEN \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
-	$(COMX_MACROS) \
+	$(COMX_MACROS_NO_SOUNDS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c

@@ -46,7 +46,19 @@ def generate_asset_from_template(dir_name, stripped_template_file_name):
         print("Handling "+stripped_template_file_name)
         print("")
         fin = open("./templates/"+dir_name+"/"+stripped_template_file_name+".template", "rt")
-        fout = open("./generated_assets/"+game_dir+"/"+stripped_template_file_name, "wt")
+        
+        parent_path = "./generated_assets/"
+        
+        if not os.path.exists(parent_path):
+            print("creating: " + parent_path)
+            os.makedirs(parent_path)
+        
+        dest_path = parent_path+game_dir
+        if not os.path.exists(dest_path):
+            print("creating: " + dest_path)
+            os.makedirs(dest_path)
+        
+        fout = open(dest_path+"/"+stripped_template_file_name, "wt")
 
         for line in fin:
             newline = line

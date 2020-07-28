@@ -20,6 +20,10 @@ for file_name in file_names:
     source_path = "./generated_assets/"+game_dir+"/"+file_name
     print("from: " + source_path)
     dest_path = "../games/"+game_dir+"/generated_assets"
+    
+    if not os.path.exists(dest_path):
+        print("creating: " + dest_path)
+        os.makedirs(dest_path)
     print("to: " + dest_path)
     shutil.copy(source_path, dest_path )
 

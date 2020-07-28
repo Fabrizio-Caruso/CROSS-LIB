@@ -621,8 +621,8 @@ comx_no_sounds: reduced_full_lcc1802_combo.c
 micro: micro_no_sounds
 
 micro_no_sounds: reduced_full_lcc1802_combo.c
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_OPTS)  \
-	-D__COMX__ $(EXTRA_DRAW_SKIP) \
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
+	-D__MICRO__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DFORCE_NARROW \
 	-DNO_COLOR -DSIMPLE_STRATEGY \
 	-DNO_BLINKING -DTINY_TEXT \

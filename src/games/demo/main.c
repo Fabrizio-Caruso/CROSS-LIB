@@ -86,33 +86,33 @@ int main(void)
         
         for(i=1;i<XSize-1;++i)
         {
-            _draw_stat(i, 0,&PLAYER_DOWN_IMAGE);
-            _draw_stat(i, 1,&PLAYER_UP_IMAGE);
-            _draw_stat(i, 2,&PLAYER_RIGHT_IMAGE);
-            _draw_stat(i, 3,&PLAYER_LEFT_IMAGE);
-            _draw_stat(i, 4,&GHOST_IMAGE);
-            _draw_stat(i, 5,&BOMB_IMAGE);
-            _draw_stat(i, 6,&DEAD_GHOST_IMAGE);
-            _draw_stat(i, 7,&SKULL_IMAGE);
-            _draw_stat(i, 8,&CALM_DOWN_IMAGE);
-            _draw_stat(i, 9,&FIRE_POWER_IMAGE);
-            _draw_stat(i,10,&EXTRA_POINTS_IMAGE);
-            _draw_stat(i,11,&BULLET_IMAGE);
-            _draw_stat(i,12,&VERTICAL_BRICK_IMAGE);
-            _draw_stat(i,13,&HORIZONTAL_BRICK_IMAGE);
-            _draw_stat(i,14,&LEFT_HORIZONTAL_MISSILE_IMAGE);
-            _draw_stat(i,15,&RIGHT_HORIZONTAL_MISSILE_IMAGE);
+            _XLIB_DRAW(i, 0,&PLAYER_DOWN_IMAGE);
+            _XLIB_DRAW(i, 1,&PLAYER_UP_IMAGE);
+            _XLIB_DRAW(i, 2,&PLAYER_RIGHT_IMAGE);
+            _XLIB_DRAW(i, 3,&PLAYER_LEFT_IMAGE);
+            _XLIB_DRAW(i, 4,&GHOST_IMAGE);
+            _XLIB_DRAW(i, 5,&BOMB_IMAGE);
+            _XLIB_DRAW(i, 6,&DEAD_GHOST_IMAGE);
+            _XLIB_DRAW(i, 7,&SKULL_IMAGE);
+            _XLIB_DRAW(i, 8,&CALM_DOWN_IMAGE);
+            _XLIB_DRAW(i, 9,&FIRE_POWER_IMAGE);
+            _XLIB_DRAW(i,10,&EXTRA_POINTS_IMAGE);
+            _XLIB_DRAW(i,11,&BULLET_IMAGE);
+            _XLIB_DRAW(i,12,&VERTICAL_BRICK_IMAGE);
+            _XLIB_DRAW(i,13,&HORIZONTAL_BRICK_IMAGE);
+            _XLIB_DRAW(i,14,&LEFT_HORIZONTAL_MISSILE_IMAGE);
+            _XLIB_DRAW(i,15,&RIGHT_HORIZONTAL_MISSILE_IMAGE);
             #if YSize>16
-                _draw_stat(i,16,&ROCKET_IMAGE);
-                _draw_stat(i,17,&FREEZE_IMAGE);
-                _draw_stat(i,18,&SUPER_IMAGE);
-                _draw_stat(i,19,&EXTRA_LIFE_IMAGE);
-                _draw_stat(i,20,&INVINCIBILITY_IMAGE);
+                _XLIB_DRAW(i,16,&ROCKET_IMAGE);
+                _XLIB_DRAW(i,17,&FREEZE_IMAGE);
+                _XLIB_DRAW(i,18,&SUPER_IMAGE);
+                _XLIB_DRAW(i,19,&EXTRA_LIFE_IMAGE);
+                _XLIB_DRAW(i,20,&INVINCIBILITY_IMAGE);
                 #if YSize>21
-                    _draw_stat(i,21,&CONFUSE_IMAGE);
-                    _draw_stat(i,22,&SUICIDE_IMAGE);
+                    _XLIB_DRAW(i,21,&CONFUSE_IMAGE);
+                    _XLIB_DRAW(i,22,&SUICIDE_IMAGE);
                     #if YSize>23
-                        _draw_stat(i,23,&BROKEN_BRICK_IMAGE);
+                        _XLIB_DRAW(i,23,&BROKEN_BRICK_IMAGE);
                     #endif
                 #endif
             #endif

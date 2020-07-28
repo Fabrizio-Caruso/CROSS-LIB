@@ -602,7 +602,7 @@ full_comx: comx
 comx: comx_no_sounds
 
 #	-DSIMPLE_STRATEGY 
-comx_no_sounds: reduced_full_lcc1802_combo.c
+comx_no_sounds: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DFORCE_NARROW \

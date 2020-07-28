@@ -93,7 +93,7 @@ void INIT_GRAPHICS(void)
         shapecolor(36, 22, 2); // to reshape the numbers
         shapecolor(65, 26, 3); // to reshape the capitals
     #endif
-    #ifdef __CIDELSA__
+    #if defined(__CIDELSA__) || defined(__MICRO__)
         character_set(4);
     #endif
 }

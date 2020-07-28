@@ -82,7 +82,11 @@ int main(void)
         CLEAR_SCREEN();
         
         SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(4,0,"press fire");
+        #if defined(__LCC1802__)
+            PRINT(4,0,"PRESS FIRE");
+        #else
+            PRINT(4,0,"press fire");
+        #endif
         
         for(i=1;i<XSize-1;++i)
         {

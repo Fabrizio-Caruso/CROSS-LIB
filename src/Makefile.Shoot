@@ -630,7 +630,7 @@ REDUCED_LCC1802_C_OPTS ?= \
 full_comx: comx
 
 #	-DSIMPLE_STRATEGY 
-comx: reduced_full_lcc1802_combo.c
+comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DFORCE_NARROW \
@@ -652,7 +652,7 @@ comx: reduced_full_lcc1802_combo.c
 
 full_pecom: pecom
 
-pecom: full_lcc1802_combo.c
+pecom: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \

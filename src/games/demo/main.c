@@ -82,6 +82,7 @@ int main(void)
         CLEAR_SCREEN();
         
         SET_TEXT_COLOR(COLOR_WHITE);
+        // This should be handled throw generic CAPITAL_CASE_ONLY, SMALL_CASE_ONLY, ALL_CASES macros
         #if defined(__LCC1802__)
             PRINT(4,0,"PRESS FIRE");
         #else

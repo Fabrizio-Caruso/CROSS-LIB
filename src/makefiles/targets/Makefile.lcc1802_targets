@@ -20,7 +20,7 @@ DESTROYER_12K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x3000" "-Wa-D STACKLOC=0x3
 DESTROYER_8K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x2000" "-Wa-D STACKLOC=0x20ff"
 
 MICROBOARD_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x8000" "-Wa-D STACKLOC=0x9fff"
-MICROBOARD_PAL_2_OPTS ?= $(MICROBOARD_OPTS) "-Wa-D PAL=2"
+MICROBOARD_PAL_2_OPTS ?= $(MICROBOARD_OPTS) "-DPAL=2"
 
 ################################################################################
 
@@ -450,23 +450,23 @@ reduced_tiny_cidelsa_destroyer: reduced_tiny_lcc1802_combo.c
 
 ###############################################################################
 
-micro: micro_pal_2
+micro: micro_pal2
 
-full_micro_pal_2: comx
+full_micro_pal2: comx
 
-micro_pal_2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_chars.h
+micro_pal2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ $(EXTRA_DRAW_SKIP)  \
 	-DFULL_GAME \
 	-DNO_COLOR \
-	-DNO_BLINKING \
+	-DNO_BLINKING -DNO_WAIT -DNO_SLEEP \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
 	$(REDUCED_LCC1802_C_OPTS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo_no_sounds.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo_no_sounds.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_microboard_pal_2.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_microboard_pal2.hex
 
 
 

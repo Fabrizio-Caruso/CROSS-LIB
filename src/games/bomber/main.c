@@ -27,14 +27,11 @@
     #define EXIT_SUCCESS 0
 #endif
 
-// TODO: REMOVE THIS
-#define DEBUG_ITEMS
 
-
-// #include "images.h"
 #include "cross_lib.h"
 
 #include "init_images.h"
+
 extern Image WALL_1_IMAGE;
 extern Image WALL_2_IMAGE;
 
@@ -81,9 +78,9 @@ int main(void)
         
         for(i=FIRST_BULDING_X_POS;i<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++i)
         {
-            bulding_height[i] = (uint8_t) 4+(rand()&15);
+            bulding_height[i] = (uint8_t) 4+(RAND()&15);
             // PRINTD(2,2,2,0);WAIT_PRESS();PRINTD(2,2,2,bulding_height[i]); SLEEP(1);WAIT_PRESS();
-            r = rand()&7;
+            r = RAND()&7;
             if(r==0)
             {
                 buildingTypePtr = &WALL_1_IMAGE;

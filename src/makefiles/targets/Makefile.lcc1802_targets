@@ -228,7 +228,7 @@ tmc600_8k: reduced_tiny_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_tmc600_8k.hex
 
 
-tiny_tmc600: tiny_lcc1802_combo.c
+tiny_tmc600: tiny_lcc1802_combo.c 
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS) \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
 	-DTINY_GAME \

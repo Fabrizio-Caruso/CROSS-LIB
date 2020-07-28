@@ -45,8 +45,7 @@ SCCZ80_OPTS ?= -O0
 all: \
     gcc_targets \
     cc65_targets \
-    z88dk_targets \
-    lcc1802_targets
+    z88dk_targets 
 
 
 gcc_targets: \
@@ -236,7 +235,7 @@ creativision: creativision_18k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
-creativision_32k: $(ASSETS_PATH)/cc65_8x8_chars.h
+creativision_32k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
@@ -244,7 +243,7 @@ creativision_32k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_32k.bin
 
-creativision_24k: $(ASSETS_PATH)/cc65_8x8_chars.h
+creativision_24k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
@@ -255,7 +254,7 @@ creativision_24k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k_SWAPPED.bin
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin
 
-creativision_18k: $(ASSETS_PATH)/cc65_8x8_chars.h
+creativision_18k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
@@ -602,7 +601,7 @@ full_comx: comx
 comx: comx_no_sounds
 
 #	-DSIMPLE_STRATEGY 
-comx_no_sounds: reduced_full_lcc1802_combo.c
+comx_no_sounds: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DFORCE_NARROW \
@@ -620,7 +619,7 @@ comx_no_sounds: reduced_full_lcc1802_combo.c
 
 micro: micro_no_sounds
 
-micro_no_sounds: reduced_full_lcc1802_combo.c
+micro_no_sounds: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DFORCE_NARROW \
@@ -641,7 +640,7 @@ micro_no_sounds: reduced_full_lcc1802_combo.c
 
 full_pecom: pecom
 
-pecom: full_lcc1802_combo.c
+pecom: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME \
@@ -672,7 +671,7 @@ tmc600_37k: reduced_full_lcc1802_combo.c
 	-DFULL_GAME -DSIMPLE_STRATEGY \
 	-DNO_BLINKING -DBULLETS_NUMBER=4 -DINITIAL_GHOST_SLOWDOWN=25000 \
 	-DLCC1802_JOYSTICK -DNO_HINTS \
-	$(LCC1802_C_OPTS) \
+	$(REDUCED_LCC1802_C_OPTS) \
 	-DGHOSTS_NUMBER=6  \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c

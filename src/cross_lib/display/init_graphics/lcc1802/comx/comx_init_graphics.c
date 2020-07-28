@@ -9,7 +9,7 @@
 #endif
 
 
-#if defined(__COMX__) || defined(__PECOM__) || defined(REDEFINED_CHARS)
+#if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS)
     void redefine_char(uint8_t ch, const uint8_t * shapelocation, int color)
     {
         uint8_t colored_shape[9];
@@ -57,7 +57,7 @@ void INIT_GRAPHICS(void)
     	textcolor(5);
     #endif
     
-    #if defined(__COMX__) || defined(__PECOM__) || defined(REDEFINED_CHARS) 
+    #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS) 
         redefine_char(106, tile_10_udg, 3);
         redefine_char(107, tile_0_udg, 3);
         redefine_char(108, tile_1_udg, 3);
@@ -80,7 +80,7 @@ void INIT_GRAPHICS(void)
         redefine_char(123, tile_17_udg, 3);
         redefine_char(124, tile_18_udg, 0);
     #endif
-    #if defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__)
+    #if defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
         disableinterrupt();
     
         (void) bgcolor(0);

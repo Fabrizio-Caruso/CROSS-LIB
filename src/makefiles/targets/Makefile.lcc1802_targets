@@ -450,11 +450,11 @@ reduced_tiny_cidelsa_destroyer: reduced_tiny_lcc1802_combo.c
 
 ###############################################################################
 
-microboard: microboard_pal_2
+micro: micro_pal_2
 
-full_microboard_pal_2: comx
+full_micro_pal_2: comx
 
-microboard_pal_2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_chars.h
+micro_pal_2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ $(EXTRA_DRAW_SKIP)  \
 	-DFULL_GAME \
@@ -462,7 +462,6 @@ microboard_pal_2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_char
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(REDUCED_LCC1802_C_OPTS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo_no_sounds.c

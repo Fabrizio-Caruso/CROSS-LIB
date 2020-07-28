@@ -34,7 +34,7 @@
 
 
 #if defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB)
-    #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
+    #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
         #if !defined(LCC1802_JOYSTICK)
             #include <devkit/input/keyboard_encoder.h>
         #endif
@@ -65,7 +65,7 @@
             return 0;
 
     // Code by Marcel van Tongeren
-    #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__)
+    #elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
         return getkey();
         
     #elif defined(__ATMOS__) || defined(__TELESTRAT__)

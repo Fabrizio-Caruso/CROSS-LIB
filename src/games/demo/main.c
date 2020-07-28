@@ -36,33 +36,31 @@
 
 #include "init_images.h"
 
-#if defined(DEBUG_ITEMS)
-    extern Image PLAYER_DOWN_IMAGE;
-    extern Image PLAYER_UP_IMAGE;
-    extern Image PLAYER_RIGHT_IMAGE;
-    extern Image PLAYER_LEFT_IMAGE;
+extern Image PLAYER_DOWN_IMAGE;
+extern Image PLAYER_UP_IMAGE;
+extern Image PLAYER_RIGHT_IMAGE;
+extern Image PLAYER_LEFT_IMAGE;
 
-    extern Image GHOST_IMAGE;
-    extern Image BOMB_IMAGE;
-    extern Image DEAD_GHOST_IMAGE;
-    extern Image SKULL_IMAGE;
-    extern Image CALM_DOWN_IMAGE;
-    extern Image FIRE_POWER_IMAGE;
-    extern Image EXTRA_POINTS_IMAGE;
-    extern Image BULLET_IMAGE;
-    extern Image VERTICAL_BRICK_IMAGE;
-    extern Image HORIZONTAL_BRICK_IMAGE;
-    extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
-    extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
-    extern Image ROCKET_IMAGE;
-    extern Image FREEZE_IMAGE;
-    extern Image SUPER_IMAGE;
-    extern Image EXTRA_LIFE_IMAGE;
-    extern Image INVINCIBILITY_IMAGE;
-    extern Image CONFUSE_IMAGE;
-    extern Image SUICIDE_IMAGE;
-    extern Image BROKEN_BRICK_IMAGE;
-#endif
+extern Image GHOST_IMAGE;
+extern Image BOMB_IMAGE;
+extern Image DEAD_GHOST_IMAGE;
+extern Image SKULL_IMAGE;
+extern Image CALM_DOWN_IMAGE;
+extern Image FIRE_POWER_IMAGE;
+extern Image EXTRA_POINTS_IMAGE;
+extern Image BULLET_IMAGE;
+extern Image VERTICAL_BRICK_IMAGE;
+extern Image HORIZONTAL_BRICK_IMAGE;
+extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
+extern Image ROCKET_IMAGE;
+extern Image FREEZE_IMAGE;
+extern Image SUPER_IMAGE;
+extern Image EXTRA_LIFE_IMAGE;
+extern Image INVINCIBILITY_IMAGE;
+extern Image CONFUSE_IMAGE;
+extern Image SUICIDE_IMAGE;
+extern Image BROKEN_BRICK_IMAGE;
 
 
 int main(void)

@@ -65,12 +65,13 @@ def generate_asset_from_template(dir_name, stripped_template_file_name):
             # print("initial line: "+newline)
             for i in range(NUMBER_OF_TILES):
                 if stripped_template_file_name.startswith("cmoc"):
-                    newline = newline.replace('<tile_'+str(i)+'>', tile[i].replace(","," "))
+                    tile_data = tile[i].replace(","," ")
                 else:
                     if stripped_template_file_name.endswith(".h"):
-                        newline = newline.replace('<tile_'+str(i)+'>', tile[i].replace("$","0x"))
+                        tile_data = tile[i].replace("$","0x")
                     else:
-                        newline = newline.replace('<tile_'+str(i)+'>', tile[i])
+                        tile_data = tile[i]
+                newline = newline.replace('<tile_'+str(i)+'>', tile_data)
             fout.write(newline)
             if line != newline:
                 matches = matches+1

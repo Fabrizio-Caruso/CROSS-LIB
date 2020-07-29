@@ -67,7 +67,10 @@ def generate_asset_from_template(dir_name, stripped_template_file_name):
                 if stripped_template_file_name.startswith("cmoc"):
                     newline = newline.replace('<tile_'+str(i)+'>', tile[i].replace(","," "))
                 else:
-                    newline = newline.replace('<tile_'+str(i)+'>', tile[i])
+                    if stripped_template_file_name.endswith(".h"):
+                        newline = newline.replace('<tile_'+str(i)+'>', tile[i].replace("$","0x"))
+                    else:
+                        newline = newline.replace('<tile_'+str(i)+'>', tile[i])
             fout.write(newline)
             if line != newline:
                 matches = matches+1

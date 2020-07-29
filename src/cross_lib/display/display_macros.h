@@ -57,6 +57,9 @@ typedef struct ImageStruct Image;
 #define _XLIB_DRAW(x,y,image) \
     _draw_stat(x, y, image) 
 
+#define _XLIB_DELETE(x,y) \
+    _delete_stat(x, y) 
+
 #define _draw(x, y, image) \
     __DRAW(X_OFFSET+(x),Y_OFFSET+(y),(image))
     

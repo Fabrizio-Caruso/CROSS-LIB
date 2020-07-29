@@ -116,7 +116,7 @@ REDUCED_LCC1802_C_OPTS ?= \
 tiny_comx: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS) \
 	-D__COMX__  $(EXTRA_DRAW_SKIP) \
-	-DTINY_GAME \
+	-DTINY_GAME -DREDEFINED_CHARS \
 	-DNO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
@@ -131,7 +131,7 @@ tiny_comx: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 light_comx: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__   $(EXTRA_DRAW_SKIP) \
-	-DLIGHT_GAME \
+	-DLIGHT_GAME -DREDEFINED_CHARS \
 	-DNO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
@@ -148,7 +148,7 @@ full_comx: comx
 comx: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
-	-DFULL_GAME \
+	-DFULL_GAME -DREDEFINED_CHARS \
 	-DNO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
@@ -167,7 +167,7 @@ comx: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 tiny_pecom: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS) \
 	-D__PECOM__  $(EXTRA_DRAW_SKIP) \
-	-DTINY_GAME \
+	-DTINY_GAME -DREDEFINED_CHARS \
 	-DNO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
@@ -182,7 +182,7 @@ tiny_pecom: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 light_pecom: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__  $(EXTRA_DRAW_SKIP) \
-	-DLIGHT_GAME \
+	-DLIGHT_GAME -DREDEFINED_CHARS \
 	-DNO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
@@ -199,7 +199,7 @@ full_pecom: pecom
 pecom: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
-	-DFULL_GAME \
+	-DFULL_GAME -DREDEFINED_CHARS \
 	-DNO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
@@ -457,7 +457,7 @@ full_micro_pal2: comx
 micro_pal2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ $(EXTRA_DRAW_SKIP)  \
-	-DFULL_GAME \
+	-DFULL_GAME -DREDEFINED_CHARS \
 	-DNO_COLOR \
 	-DNO_BLINKING -DNO_WAIT -DNO_SLEEP \
 	-DLCC1802_JOYSTICK \

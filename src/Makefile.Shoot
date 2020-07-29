@@ -93,8 +93,8 @@ z88dk_targets: \
     vg5k
 
 
-lcc1802_targets: \
-    tmc600
+lcc1802_targets: 
+	make tmc600
 
 
 
@@ -633,7 +633,7 @@ full_comx: comx
 comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
-	-DFULL_GAME -DFORCE_NARROW \
+	-DFULL_GAME -DFORCE_NARROW -DREDEFINED_CHARS \
 	-DNO_COLOR -DSIMPLE_STRATEGY \
 	-DNO_BLINKING -DTINY_TEXT \
 	-DLCC1802_JOYSTICK \
@@ -655,7 +655,7 @@ full_pecom: pecom
 pecom: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
-	-DFULL_GAME \
+	-DFULL_GAME -DFORCE_NARROW -DREDEFINED_CHARS \
 	-DNO_COLOR \
 	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \

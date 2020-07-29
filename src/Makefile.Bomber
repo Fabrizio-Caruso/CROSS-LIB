@@ -45,7 +45,8 @@ SCCZ80_OPTS ?= -O0
 all: \
     gcc_targets \
     cc65_targets \
-    z88dk_targets 
+    z88dk_targets \
+    lcc1802_targets
 
 
 gcc_targets: \
@@ -73,8 +74,10 @@ z88dk_targets: \
     vg5k
 
 
-lcc1802_targets: \
-    comx
+lcc1802_targets: 
+	make comx
+	make pecom
+	make tmc600
 
 
 

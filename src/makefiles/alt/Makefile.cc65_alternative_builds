@@ -251,6 +251,17 @@ creativision_24k:
 	dd if=$(BUILD_PATH)/ALT_FULL_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/ALT_FULL_creativision_24k_SWAPPED.bin
 	rm $(BUILD_PATH)/ALT_FULL_creativision_24k.bin
 
+creativision_32k:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DMEMORY_MAPPED -DNO_INIT_GRAPHICS \
+	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
+	-o $(BUILD_PATH)/ALT_FULL_creativision_32k.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_32k.bin bs=16k skip=1 > $(BUILD_PATH)/ALT_FULL_creativision_32k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/ALT_FULL_creativision_32k.bin bs=16k count=1 >> $(BUILD_PATH)/ALT_FULL_creativision_32k_SWAPPED.bin
+	rm $(BUILD_PATH)/ALT_FULL_creativision_32k.bin
+
 creativision_8k_tiny: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	--config $(CFG_PATH)/cc65/creativision-8k.cfg \

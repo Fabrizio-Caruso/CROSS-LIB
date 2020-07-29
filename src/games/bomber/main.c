@@ -96,13 +96,25 @@ int main(void)
             PING_SOUND();
         }
         SLEEP(1);
-        for(j=0;j<XSize-2;++j)
+        for(j=0;j<XSize/2-1;++j)
         {
             _XLIB_DRAW(j,2,&PLANE_BACK_IMAGE);
             _XLIB_DRAW(j+1,2,&PLANE_FRONT_IMAGE);
             SLEEP(1);
             _XLIB_DELETE(j,2);
             _XLIB_DELETE(j+1,2);
+        }
+        i=3;
+        for(j=XSize/2;j<XSize-2;++j)
+        {
+            _XLIB_DRAW(j,2,&PLANE_BACK_IMAGE);
+            _XLIB_DRAW(j+1,2,&PLANE_FRONT_IMAGE);
+            _XLIB_DRAW(XSize/2,i,&BOMB_IMAGE);
+            SLEEP(1);
+            _XLIB_DELETE(j,2);
+            _XLIB_DELETE(j+1,2);
+            _XLIB_DELETE(XSize/2,i);
+            ++i;
         }
         WAIT_PRESS();
     } // while(1) -> restart from the beginning

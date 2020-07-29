@@ -44,15 +44,22 @@ extern Image THREE_WINDOW_WALL_2_IMAGE;
 extern Image SMALL_TWO_WINDOW_WALL_1_IMAGE;
 extern Image SMALL_TWO_WINDOW_WALL_2_IMAGE;
 
+extern Image PLANE_BACK_IMAGE;
+extern Image PLANE_FRONT_IMAGE;
+
+extern Image BOMB_IMAGE;
+
 #define BUILDINGS_NUMBER (XSize-9)
 #define FIRST_BULDING_X_POS 5
 uint16_t bulding_height[XSize];
+
+Image *image[] = {&WALL_1_IMAGE, &WALL_2_IMAGE, &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE};
+
 
 int main(void)
 {        
     uint8_t i;
     uint8_t j;
-    uint8_t r;
     Image *buildingTypePtr;
 
     INIT_GRAPHICS();
@@ -79,40 +86,7 @@ int main(void)
         for(i=FIRST_BULDING_X_POS;i<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++i)
         {
             bulding_height[i] = (uint8_t) 4+(RAND()&15);
-            // PRINTD(2,2,2,0);WAIT_PRESS();PRINTD(2,2,2,bulding_height[i]); SLEEP(1);WAIT_PRESS();
-            r = RAND()&7;
-            if(r==0)
-            {
-                buildingTypePtr = &WALL_1_IMAGE;
-            }
-            else if(r==1)
-            {
-                buildingTypePtr = &WALL_2_IMAGE;
-            }
-            else if(r==3)
-            {
-                buildingTypePtr = &TWO_WINDOW_WALL_1_IMAGE;
-            }
-            else if(r==3)
-            {
-                buildingTypePtr = &TWO_WINDOW_WALL_1_IMAGE;
-            }
-            else if(r==4)
-            {
-                buildingTypePtr = &THREE_WINDOW_WALL_1_IMAGE;
-            }
-            else if(r==5)
-            {
-                buildingTypePtr = &THREE_WINDOW_WALL_2_IMAGE;
-            }
-            else if(r==6)
-            {
-                buildingTypePtr = &SMALL_TWO_WINDOW_WALL_1_IMAGE;
-            }
-            else if(r==7)
-            {
-                buildingTypePtr = &SMALL_TWO_WINDOW_WALL_2_IMAGE;
-            }
+            buildingTypePtr=image[RAND()&7];
             
             for(j=0;j<bulding_height[i];++j)
             {
@@ -122,6 +96,14 @@ int main(void)
             PING_SOUND();
         }
         SLEEP(1);
+        for(j=0;j<XSize-2;++j)
+        {
+            _XLIB_DRAW(j,2,&PLANE_BACK_IMAGE);
+            _XLIB_DRAW(j+1,2,&PLANE_FRONT_IMAGE);
+            SLEEP(1);
+            _XLIB_DELETE(j,2);
+            _XLIB_DELETE(j+1,2);
+        }
         WAIT_PRESS();
     } // while(1) -> restart from the beginning
 

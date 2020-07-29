@@ -8,8 +8,8 @@
 
 
 extern Image THREE_WINDOW_WALL_1_IMAGE;
-extern Image PLAYER_UP_IMAGE;
-extern Image PLAYER_RIGHT_IMAGE;
+extern Image PLANE_BACK_IMAGE;
+extern Image PLANE_FRONT_IMAGE;
 extern Image PLAYER_LEFT_IMAGE;	
 
 	
@@ -30,7 +30,7 @@ extern Image VERTICAL_BRICK_IMAGE;
 extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
 extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
-extern Image ROCKET_IMAGE;
+extern Image BOMB_IMAGE;
 
 extern Image FREEZE_IMAGE;
 extern Image THREE_WINDOW_WALL_2_IMAGE;
@@ -47,10 +47,10 @@ void INIT_IMAGES(void)
 	// Set color data 
 	#if !defined(NO_COLOR)
 
-        THREE_WINDOW_WALL_1_IMAGE._color = _PLAYER_COLOR;
-        PLAYER_UP_IMAGE._color = _PLAYER_COLOR;
-        PLAYER_RIGHT_IMAGE._color = _PLAYER_COLOR;
-        PLAYER_LEFT_IMAGE._color = _PLAYER_COLOR;
+        THREE_WINDOW_WALL_1_IMAGE._color = _PLANE_COLOR;
+        PLANE_BACK_IMAGE._color = _PLANE_COLOR;
+        PLANE_FRONT_IMAGE._color = _PLANE_COLOR;
+        PLAYER_LEFT_IMAGE._color = _PLANE_COLOR;
 
 
         WALL_1_IMAGE._color = _WALL_1_COLOR;
@@ -71,7 +71,7 @@ void INIT_IMAGES(void)
         RIGHT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;		
         LEFT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;
 
-        ROCKET_IMAGE._color = _ROCKET_COLOR;
+        BOMB_IMAGE._color = _BOMB_COLOR;
 
         FREEZE_IMAGE._color = _FREEZE_COLOR;
         THREE_WINDOW_WALL_2_IMAGE._color = _THREE_WINDOW_WALL_2_COLOR;
@@ -86,8 +86,8 @@ void INIT_IMAGES(void)
 
 	// Set Image Data
     THREE_WINDOW_WALL_1_IMAGE._imageData = _TILE_0;
-    PLAYER_UP_IMAGE._imageData = _TILE_1;
-    PLAYER_RIGHT_IMAGE._imageData = _TILE_2;
+    PLANE_BACK_IMAGE._imageData = _TILE_1;
+    PLANE_FRONT_IMAGE._imageData = _TILE_2;
     PLAYER_LEFT_IMAGE._imageData = _TILE_3;	
 
 
@@ -113,7 +113,7 @@ void INIT_IMAGES(void)
 
     RIGHT_HORIZONTAL_MISSILE_IMAGE._imageData = _TILE_15;
 
-    ROCKET_IMAGE._imageData = _TILE_16;
+    BOMB_IMAGE._imageData = _TILE_16;
 
     FREEZE_IMAGE._imageData = _TILE_17;
     SUPER_IMAGE._imageData = _TILE_18;

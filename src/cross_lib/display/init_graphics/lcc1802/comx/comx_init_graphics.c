@@ -11,6 +11,10 @@
     #include <devkit/video/cidelsa_char.h>
 #endif
 
+#if defined(__MICRO__)
+    #include "devkit/video/vis_char.h"
+#endif
+
 
 #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS)
     void redefine_char(uint8_t ch, const uint8_t * shapelocation, int color)

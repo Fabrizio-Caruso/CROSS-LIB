@@ -75,7 +75,7 @@ z9001_alt_targets: \
 
 #############################
 # OZ
-oz_tiny:
+oz_tiny:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__OZ__ \
@@ -274,7 +274,7 @@ ti85_chars:
 	rm ti85ch
 
 
-ti85_turn_based:
+ti85_turn_based:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__TI85__ \
@@ -397,7 +397,7 @@ vz200_24k:
 
 #############################
 # Z88
-z88_tiny:
+z88_tiny: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -subtype=app \
 	$(INCLUDE_OPTS) \
 	-D__Z88__ \

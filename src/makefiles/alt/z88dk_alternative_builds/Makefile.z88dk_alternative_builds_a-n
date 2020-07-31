@@ -400,7 +400,7 @@ microbee_32k_wav:
 
 #############################
 # MSX
-msx_32k_cas:
+msx_32k_cas: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DINITIAL_SLOWDOWN=29000 \
@@ -449,7 +449,7 @@ mtx_16k_no_gfx:
 
 #############################
 # MULTI
-multi8_light_udg:
+multi8_light_udg: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MULTI8__ \
 	-DCONIO_VT52 \
@@ -465,7 +465,7 @@ multi8_light_udg:
 	rm $(BUILD_PATH)/ALT_LIGHT_multi8.bin
 
 
-multi8_tiny_udg:
+multi8_tiny_udg: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MULTI8__ \
 	-DTINY_GAME  \

@@ -1,7 +1,7 @@
 # -----------------------------------------------
 # CC65
 
-
+#     oric1_alt_targets 
 cc65_alt_targets: \
     atari_alt_targets \
     atari_lynx_alt_targets \
@@ -9,7 +9,6 @@ cc65_alt_targets: \
     creativision_alt_targets \
     gamate_alt_targets \
     nes_alt_targets \
-    oric1_alt_targets \
     pet_alt_targets \
     vic20_alt_targets
 
@@ -33,8 +32,8 @@ atari_lynx_alt_targets: \
 # C16
 
 # All tested OK
+# except INIT overflow by 21 for    c16_16k_full_no_gfx 
 c16_alt_targets: \
-    c16_16k_full_no_gfx \
     c16_16k_light
 
 
@@ -69,6 +68,7 @@ nes_alt_targets: \
 
 #############################
 # ORIC1
+# KO: undefined tiles 17 and 18 
 oric1_alt_targets: \
     oric1_16k_light
 
@@ -85,12 +85,12 @@ pet_alt_targets: \
 # VIC 20
 
 # All tested OK
+# vic20_unexpanded_turn_based
 vic20_alt_targets: \
     vic20_exp_3k_tiny \
     vic20_exp_3k_light_no_gfx \
     vic20_exp_8k_full \
-    vic20_unexpanded_no_gfx \
-    vic20_unexpanded_turn_based
+    vic20_unexpanded_no_gfx 
 
 
 
@@ -162,7 +162,7 @@ c16_16k_full_no_gfx:
 	$(SOURCE_PATH)/memory/c16_memory.s \
 	$(FULL_FILES) -o $(BUILD_PATH)/ALT_FULL_c16_16k_no_gfx.prg
 
-c16_16k_light: 
+c16_16k_light: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 \
 	--config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DANIMATE_PLAYER  -DSOUNDS \
@@ -314,7 +314,7 @@ nes_no_fx:
 #############################
 # ORIC1
 
-oric1_16k_light: 
+oric1_16k_light: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O -D__ORIC1__ -DSOUNDS -DANIMATE_PLAYER \
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
@@ -367,7 +367,7 @@ vic20_exp_3k_light_no_gfx:
 	-o $(BUILD_PATH)/ALT_LIGHT_vic20_exp_3k_no_gfx.prg
 
 
-vic20_exp_3k_tiny:
+vic20_exp_3k_tiny: $(ASSETS_PATH)/cc65_udc_3k.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -382,7 +382,7 @@ vic20_exp_3k_tiny:
 	-DUSE_TINY_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
-	$(SOURCE_PATH)/graphics_data/cc65/cc65_udc_3k.s \
+	$(ASSETS_PATH)/cc65_udc_3k.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(TINY_FILES) \
 	$(SOURCE_PATH)/memory/vic20_memory.s \

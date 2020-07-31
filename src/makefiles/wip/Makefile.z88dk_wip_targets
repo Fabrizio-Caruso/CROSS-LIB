@@ -166,8 +166,9 @@ special:
 
 # --list -m --c-code-in-asm
 # -compiler=sdcc -SO0
+#  --peep-file "" --list -m --c-code-in-asm
 spectrum_16k_light:
-	$(Z88DK_PATH)$(MYZ88DK) +zx --peep-file "" --list -m --c-code-in-asm   \
+	$(Z88DK_PATH)$(MYZ88DK) +zx -v   \
 	$(INCLUDE_OPTS) -compiler=sdcc -SO0 \
 	-zorg=24055 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -188,7 +189,7 @@ spectrum_16k_light:
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-o $(BUILD_PATH)/WIP_LIGHT_spectrum_16k.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(LIGHT_FILES)
 	rm $(BUILD_PATH)/WIP_LIGHT_spectrum_16k.prg
 	rm $(BUILD_PATH)/WIP_LIGHT_spectrum_16k_BANK_7.bin

@@ -88,13 +88,13 @@ void printStartMessage(void);
 	void _printScore(uint16_t score);
 	void printKillTheSkull(void);
 #else
-	#define _printScoreOnRow(score)
+	#define _printScoreOnRow(row, score)
 	#define _printScore(s)
 	#define printKillTheSkull()
 #endif
 
 #if !defined(TINY_GAME)
-	#define _printTopScore() _printScoreOnRow(0,highScore);
+	#define _printTopScore() _printScoreOnRow(0,highScore)
 #endif
 
 #if defined(TINY_GAME)

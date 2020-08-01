@@ -63,10 +63,22 @@ extern Image SUICIDE_IMAGE;
 extern Image BROKEN_BRICK_IMAGE;
 
 
+static const Image* image[19] = {
+		&PLAYER_DOWN_IMAGE, &PLAYER_UP_IMAGE, &PLAYER_RIGHT_IMAGE, &PLAYER_LEFT_IMAGE, 
+		&GHOST_IMAGE, &BOMB_IMAGE, &DEAD_GHOST_IMAGE, &SKULL_IMAGE, 
+		&CALM_DOWN_IMAGE, &FIRE_POWER_IMAGE, &BULLET_IMAGE, &VERTICAL_BRICK_IMAGE, 
+		&HORIZONTAL_BRICK_IMAGE, &LEFT_HORIZONTAL_MISSILE_IMAGE, &RIGHT_HORIZONTAL_MISSILE_IMAGE, &ROCKET_IMAGE, 
+		&FREEZE_IMAGE, &SUPER_IMAGE, &INVINCIBILITY_IMAGE
+		};
+
+		
 int main(void)
 {        
     uint8_t i;
-    
+    uint8_t j;
+    uint8_t k;
+    uint8_t max_j;
+	
     INIT_GRAPHICS();
 
     INIT_INPUT();
@@ -87,44 +99,18 @@ int main(void)
             PRINT(4,0,"press fire");
         #endif
         
-        for(i=1;i<XSize-1;++i)
-        {
-            _XLIB_DRAW(i, 0,&PLAYER_DOWN_IMAGE);
-            _XLIB_DRAW(i, 1,&PLAYER_UP_IMAGE);
-            _XLIB_DRAW(i, 2,&PLAYER_RIGHT_IMAGE);
-            _XLIB_DRAW(i, 3,&PLAYER_LEFT_IMAGE);
-            _XLIB_DRAW(i, 4,&GHOST_IMAGE);
-            _XLIB_DRAW(i, 5,&BOMB_IMAGE);
-            _XLIB_DRAW(i, 6,&DEAD_GHOST_IMAGE);
-            _XLIB_DRAW(i, 7,&SKULL_IMAGE);
-            _XLIB_DRAW(i, 8,&CALM_DOWN_IMAGE);
-            _XLIB_DRAW(i, 9,&FIRE_POWER_IMAGE);
-            _XLIB_DRAW(i,10,&EXTRA_POINTS_IMAGE);
-            _XLIB_DRAW(i,11,&BULLET_IMAGE);
-            _XLIB_DRAW(i,12,&VERTICAL_BRICK_IMAGE);
-            _XLIB_DRAW(i,13,&HORIZONTAL_BRICK_IMAGE);
-            _XLIB_DRAW(i,14,&LEFT_HORIZONTAL_MISSILE_IMAGE);
-            _XLIB_DRAW(i,15,&RIGHT_HORIZONTAL_MISSILE_IMAGE);
-            #if YSize>16
-                _XLIB_DRAW(i,16,&ROCKET_IMAGE);
-                _XLIB_DRAW(i,17,&FREEZE_IMAGE);
-                _XLIB_DRAW(i,18,&SUPER_IMAGE);
-                _XLIB_DRAW(i,19,&EXTRA_LIFE_IMAGE);
-                _XLIB_DRAW(i,20,&INVINCIBILITY_IMAGE);
-                #if YSize>21
-                    _XLIB_DRAW(i,21,&CONFUSE_IMAGE);
-                    _XLIB_DRAW(i,22,&SUICIDE_IMAGE);
-                    #if YSize>23
-                        _XLIB_DRAW(i,23,&BROKEN_BRICK_IMAGE);
-                    #endif
-                #endif
-            #endif
-            WAIT_PRESS();
-            #if defined(SOUNDS)
-                EXPLOSION_SOUND();
-            #endif
+		while(1)
+		{
+			i = RAND() % (XSize-1); 
+			max_j = RAND() & (YSize-1);
+			for(j=0;j<max_j;++j)
+			{
+				_XLIB_DRAW(i,j,image[j]);
+				for(k=0;k<254;++k)
+				{
+				}
+			}
         }
-        
     } // while(1) -> restart from the beginning
 
     return EXIT_SUCCESS;

@@ -556,7 +556,7 @@ COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
 
 reduced_full_lcc1802_combo.c: full_combo_rand.c
 	cat \
-	$(COMX_REDUCED_EXTRA_FILES) \
+	$(COMX_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm $(SOURCE_PATH)/../full_combo_rand.c
 

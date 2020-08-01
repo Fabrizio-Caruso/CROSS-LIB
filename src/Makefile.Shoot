@@ -94,7 +94,7 @@ z88dk_targets: \
 
 
 lcc1802_targets: 
-	make tmc600 -f Makefile.Shoot
+	make tmc600 -f Makefile.$(GAME_NAME)
 
 
 
@@ -413,13 +413,13 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_shoot $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cdt
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_$(GAME_NAME) $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cdt
 	rm -rf FULL_X$(GAME_NAME)_cpc.dsk
 	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_X$(GAME_NAME)_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc xshoot
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc x$(GAME_NAME)
 	mv FULL_X$(GAME_NAME)_cpc.dsk $(BUILD_PATH)/
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/FULL_X$(GAME_NAME)_gx4000.cpr   -c 'run"xshoot'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/FULL_X$(GAME_NAME)_gx4000.cpr   -c 'run"x$(GAME_NAME)'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom

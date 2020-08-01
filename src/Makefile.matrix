@@ -1,7 +1,7 @@
 ######################################################################
 # Makefile for CROSS-BOMBER
 
-GAME_NAME := demo
+GAME_NAME := matrix
 
 
 #####################################################################
@@ -75,9 +75,9 @@ z88dk_targets: \
 
 
 lcc1802_targets: 
-	make comx -f Makefile.Demo
-	make pecom -f Makefile.Demo
-	make tmc600 -f Makefile.Demo
+	make comx -f Makefile.$(GAME_NAME)
+	make pecom -f Makefile.$(GAME_NAME)
+	make tmc600 -f Makefile.$(GAME_NAME)
 
 
 

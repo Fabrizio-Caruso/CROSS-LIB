@@ -75,9 +75,9 @@ z88dk_targets: \
 
 
 lcc1802_targets: 
-	make comx -f Makefile.Bomber
-	make pecom -f Makefile.Bomber
-	make tmc600 -f Makefile.Bomber
+	make comx -f Makefile.$(GAME_NAME)
+	make pecom -f Makefile.$(GAME_NAME)
+	make tmc600 -f Makefile.$(GAME_NAME)
 
 
 

@@ -6,7 +6,7 @@ build/*
 src/assets/generated_assets/*
 src/games/chase/generated_assets/*
 src/games/shoot/generated_assets/*
-src/games/demo/generated_assets/*
+src/games/matrix/generated_assets/*
 src/games/bomber/generated_assets/*
 src/test/*.exe
 src/*.asm

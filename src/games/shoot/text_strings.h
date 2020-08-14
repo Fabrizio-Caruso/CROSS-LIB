@@ -26,7 +26,7 @@
 #define _TEXT_STRINGS_H
 
 
-#if defined(NO_CASE_LETTERS)
+#if defined(ONLY_SMALL_LETTERS)
     #if defined(TINY_TEXT)
         #define CROSS_SHOOT_STRING "cross shoot"
         #define CROSS_SHOOT_SHORT_STRING CROSS_SHOOT_STRING
@@ -120,7 +120,7 @@
 #endif    
 
 #if defined(LESS_TEXT)
-    #if defined(NO_CASE_LETTERS)
+    #if defined(ONLY_SMALL_LETTERS)
         #define PRESS_STRING "go"
         #define DISCOVERED_SECRETS_STRING "secrets"
         #define OF_STRING "of " 
@@ -134,7 +134,7 @@
         #define YOU_MADE_IT_STRING "THE END"        
     #endif
 #else
-    #if defined(NO_CASE_LETTERS)
+    #if defined(ONLY_SMALL_LETTERS)
         #if defined(JOYSTICK_CONTROL) || defined(__MSX__)
             #define PRESS_STRING "press fire"
         #else
@@ -163,7 +163,7 @@
     #endif
 #endif
 
-#if defined(NO_CASE_LETTERS)
+#if defined(ONLY_SMALL_LETTERS)
     #define BONUS_STRING "bonus "
     #define SCORE_STRING "score "
     #define HIGH_SCORE_STRING "hiscore "

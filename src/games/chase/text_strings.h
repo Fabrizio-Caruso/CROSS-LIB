@@ -27,7 +27,7 @@
 #define _TEXT_STRINGS_H
 
 
-#if defined(NO_CASE_LETTERS)
+#if defined(ONLY_SMALL_LETTERS)
 	#  if defined(NO_SPACE_TEXT)
 		#define CROSS_CHASE_STRING "cross" "\xA0" "chase"
 		//"cross" "\xA0" "chase"
@@ -56,7 +56,7 @@
 	#define MISSILE_BASES_STRING "missile bases"
 	#define FOR_POINTS_AND___STRING "for points"
 	#define EXTRA_POWERUPS__STRING "and items"
-#elif defined(NO_SMALL_LETTERS)
+#elif defined(ONLY_CAPITAL_LETTERS)
 	#if defined(TINY_GAME) || XSize<20
 		#define CROSS_CHASE_STRING "CROSS CHASE"
 		#define AUTHOR_STRING "FABRIZIO CARUSO"
@@ -106,7 +106,7 @@
 	#define EXTRA_POWERUPS__STRING "and items"	
 #endif
 
-#if defined(NO_CASE_LETTERS)
+#if defined(ONLY_SMALL_LETTERS)
 	#if defined(JOYSTICK_CONTROL)
 		#define USE_STRING "use the joystick"
 	#elif defined(TINY_GAME) 
@@ -116,7 +116,7 @@
 	#else
 		#define USE_STRING "use i j k l space"	
 	#endif	
-#elif defined(NO_SMALL_LETTERS) 
+#elif defined(ONLY_CAPITAL_LETTERS) 
 	#if defined(JOYSTICK_CONTROL)
 		#define USE_STRING "USE THE JOYSTICK"
 	#elif defined(TINY_GAME) 
@@ -143,14 +143,14 @@
     #define USE_STRING "USE Q A O P M"
 #endif    
 
-#if defined(NO_SMALL_LETTERS)
+#if defined(ONLY_CAPITAL_LETTERS)
     #define TITLE_LINE_STRING "CROSS CHASE"
 #else
     #define TITLE_LINE_STRING "cross chase"
 #endif
 
 #if defined(LESS_TEXT)
-	#if defined(NO_CASE_LETTERS)
+	#if defined(ONLY_SMALL_LETTERS)
 		#define PRESS_STRING "go"
 		#if defined(NO_SPACE_TEXT)
 			#define GAME_OVER_STRING "game" "\xA0" "over"
@@ -165,7 +165,7 @@
 		#define YOU_MADE_IT_STRING "THE END"		
 	#endif
 #else
-	#if defined(NO_CASE_LETTERS)
+	#if defined(ONLY_SMALL_LETTERS)
 		#if defined(JOYSTICK_CONTROL)
 			#define PRESS_STRING "press fire"
 		#else
@@ -190,7 +190,7 @@
 	#endif
 #endif
 
-#if defined(NO_CASE_LETTERS)
+#if defined(ONLY_SMALL_LETTERS)
 	#define BONUS_COLON_STRING "bonus "
 	#define SCORE_COLON__STRING "score "
 	#define HIGH_SCORE_COLON_STRING "high score "

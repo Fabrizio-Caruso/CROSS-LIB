@@ -101,7 +101,6 @@ zx81_16k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
 	-DFEWER_SPRITES \
-	-DNO_SMALL_LETTERS \
 	-create-app -o  $(BUILD_PATH)/ALT_LIGHT_zx81_16k_wrx_qaopm.prg \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
@@ -135,7 +134,6 @@ zx81_32k_wrx_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
 	-DFEWER_SPRITES \
-	-DNO_SMALL_LETTERS \
 	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx_qaopm.prg \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
@@ -169,7 +167,6 @@ zx81_32k_wrx_turn_based_qaopm:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
 	-DFEWER_SPRITES \
-	-DNO_SMALL_LETTERS \
 	-create-app -o  $(BUILD_PATH)/ALT_FULL_zx81_32k_wrx_turn_based_qaopm.prg \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \

@@ -85,9 +85,11 @@
 	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MO5__) || defined(__GAMATE__) \
     || defined(__APPLE2__) || defined(__C64__) || defined(__ATARI__)  \
 	|| defined(__ZX80__) || (defined(__C16__) && defined(ALT_PRINT))
-	#define NO_CASE_LETTERS
+	#define ONLY_SMALL_LETTERS
+#elif defined(__PET__) || defined(__LCC1802__) || defined(FEWER_SPRITES)
+	#define ONLY_CAPITAL_LETTERS
 #else
-	#define CASE_LETTERS
+	#define SMALL_AND_CAPITAL_LETTERS
 #endif
 
 #if defined(__GAMATE__)

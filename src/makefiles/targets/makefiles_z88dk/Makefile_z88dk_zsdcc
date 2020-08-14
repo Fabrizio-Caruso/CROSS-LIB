@@ -452,7 +452,6 @@ zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
 	-DFEWER_SPRITES \
-	-DNO_SMALL_LETTERS \
 	-create-app -o  $(BUILD_PATH)/FULL_zx81_32k_wrx_turn_based.prg \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \

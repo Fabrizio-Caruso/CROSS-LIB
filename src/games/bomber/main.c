@@ -51,15 +51,32 @@ extern Image BOMB_IMAGE;
 
 #define BUILDINGS_NUMBER (XSize-9)
 #define FIRST_BULDING_X_POS 5
-uint16_t bulding_height[XSize];
+
+uint16_t building_height[XSize];
 
 Image *image[] = {&WALL_1_IMAGE, &WALL_2_IMAGE, &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE};
+
+uint8_t i;
+uint8_t j;
+
+
+void deletePlane(void)
+{
+    _XLIB_DELETE(j,i);
+    _XLIB_DELETE(j+1,i);
+}
+
+
+void drawPlane(void)
+{
+    _XLIB_DRAW(j,i,&PLANE_BACK_IMAGE);
+    _XLIB_DRAW(j+1,i,&PLANE_FRONT_IMAGE);
+}
 
 
 int main(void)
 {        
-    uint8_t i;
-    uint8_t j;
+    
     Image *buildingTypePtr;
 
     INIT_GRAPHICS();
@@ -75,7 +92,6 @@ int main(void)
         CLEAR_SCREEN();
         
         SET_TEXT_COLOR(COLOR_WHITE);
-        // This should be handled throw generic CAPITAL_CASE_ONLY, SMALL_CASE_ONLY, ALL_CASES macros
         #if !defined(ONLY_SMALL_LETTERS)
             PRINT(4,0,"PRESS FIRE");
         #else
@@ -85,10 +101,10 @@ int main(void)
         
         for(i=FIRST_BULDING_X_POS;i<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++i)
         {
-            bulding_height[i] = (uint8_t) 4+(RAND()&15);
+            building_height[i] = (uint8_t) 4+(RAND()&15);
             buildingTypePtr=image[RAND()&7];
             
-            for(j=0;j<bulding_height[i];++j)
+            for(j=0;j<building_height[i];++j)
             {
                 _XLIB_DRAW(i,YSize-1-j,buildingTypePtr);
                 TOCK_SOUND();
@@ -96,27 +112,58 @@ int main(void)
             PING_SOUND();
         }
         SLEEP(1);
-        for(j=0;j<XSize/2-1;++j)
+        i = 2;
+        j = FIRST_BULDING_X_POS;
+        
+        while((i<YSize-building_height[j]))
         {
-            _XLIB_DRAW(j,2,&PLANE_BACK_IMAGE);
-            _XLIB_DRAW(j+1,2,&PLANE_FRONT_IMAGE);
-            SLEEP(1);
-            _XLIB_DELETE(j,2);
-            _XLIB_DELETE(j+1,2);
+            gotoxy(0,0);cprintf("%d %d", j,i);
+            drawPlane();
+            DO_SLOW_DOWN(5000);
+            
+
+            deletePlane();
+            if(j<FIRST_BULDING_X_POS+BUILDINGS_NUMBER)
+            {
+                ++j;
+            }
+            else
+            {
+                j=FIRST_BULDING_X_POS;
+                ++i;
+            }
+            
+            #if defined(KEYBOARD_CONTROL)
+            if(kbhit())
+            #else
+            if(JOY_INPUT())
+            #endif
+            {
+                gotoxy(0,1);cprintf("fire!");sleep(1);gotoxy(0,1);cprintf("     ");
+            }
+            
         }
-        i=3;
-        for(j=XSize/2;j<XSize-2;++j)
-        {
-            _XLIB_DRAW(j,2,&PLANE_BACK_IMAGE);
-            _XLIB_DRAW(j+1,2,&PLANE_FRONT_IMAGE);
-            _XLIB_DRAW(XSize/2,i,&BOMB_IMAGE);
-            SLEEP(1);
-            _XLIB_DELETE(j,2);
-            _XLIB_DELETE(j+1,2);
-            _XLIB_DELETE(XSize/2,i);
-            ++i;
-        }
-        WAIT_PRESS();
+        // for(j=0;j<XSize/2-1;++j)
+        // {
+            // _XLIB_DRAW(j,2,&PLANE_BACK_IMAGE);
+            // _XLIB_DRAW(j+1,2,&PLANE_FRONT_IMAGE);
+            // SLEEP(1);
+            // _XLIB_DELETE(j,2);
+            // _XLIB_DELETE(j+1,2);
+        // }
+        // i=3;
+        // for(j=XSize/2;j<XSize-2;++j)
+        // {
+            // _XLIB_DRAW(j,2,&PLANE_BACK_IMAGE);
+            // _XLIB_DRAW(j+1,2,&PLANE_FRONT_IMAGE);
+            // _XLIB_DRAW(XSize/2,i,&BOMB_IMAGE);
+            // SLEEP(1);
+            // _XLIB_DELETE(j,2);
+            // _XLIB_DELETE(j+1,2);
+            // _XLIB_DELETE(XSize/2,i);
+            // ++i;
+        // }
+        // WAIT_PRESS();
     } // while(1) -> restart from the beginning
 
     return EXIT_SUCCESS;

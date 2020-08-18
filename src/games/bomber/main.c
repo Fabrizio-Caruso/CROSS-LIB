@@ -32,6 +32,8 @@
 
 #include "init_images.h"
 
+#include "key_pressed.h"
+
 extern Image WALL_1_IMAGE;
 extern Image WALL_2_IMAGE;
 
@@ -133,11 +135,7 @@ int main(void)
                 ++i;
             }
             
-            #if defined(KEYBOARD_CONTROL)
-            if(kbhit())
-            #else
-            if(JOY_INPUT())
-            #endif
+            if(KEY_PRESSED())
             {
                 gotoxy(0,1);cprintf("fire!");sleep(1);gotoxy(0,1);cprintf("     ");
             }

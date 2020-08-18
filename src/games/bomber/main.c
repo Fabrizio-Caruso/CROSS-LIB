@@ -9,7 +9,7 @@
 // the use of this software.
 
 // Permission is granted to anyone to use this software for non-commercial applications, 
-// subject to the following restrictions:
+// subxect to the following restrictions:
 
 // 1. The origin of this software must not be misrepresented; you must not
 // claim that you wrote the original software. If you use this software in
@@ -58,21 +58,26 @@ uint16_t building_height[XSize];
 
 Image *image[] = {&WALL_1_IMAGE, &WALL_2_IMAGE, &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE};
 
-uint8_t i;
-uint8_t j;
+
+uint8_t x;
+uint8_t y;
+
+uint8_t bombActive;
+uint8_t bomb_x;
+uint8_t bomb_y;
 
 
 void deletePlane(void)
 {
-    _XLIB_DELETE(j,i);
-    _XLIB_DELETE(j+1,i);
+    _XLIB_DELETE(x,y);
+    _XLIB_DELETE(x+1,y);
 }
 
 
 void drawPlane(void)
 {
-    _XLIB_DRAW(j,i,&PLANE_BACK_IMAGE);
-    _XLIB_DRAW(j+1,i,&PLANE_FRONT_IMAGE);
+    _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE);
+    _XLIB_DRAW(x+1,y,&PLANE_FRONT_IMAGE);
 }
 
 
@@ -85,10 +90,14 @@ int main(void)
 
     INIT_INPUT();
 
+
     
     while(1)
     {
-
+        bombActive = 0;
+        bomb_x = 0;
+        bomb_y = 0;
+        
         INIT_IMAGES();
         
         CLEAR_SCREEN();
@@ -101,63 +110,78 @@ int main(void)
         #endif
         WAIT_PRESS();
         
-        for(i=FIRST_BULDING_X_POS;i<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++i)
+        for(y=FIRST_BULDING_X_POS;y<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++y)
         {
-            building_height[i] = (uint8_t) 4+(RAND()&15);
+            building_height[y] = (uint8_t) 4+(RAND()&15);
             buildingTypePtr=image[RAND()&7];
             
-            for(j=0;j<building_height[i];++j)
+            for(x=0;x<building_height[y];++x)
             {
-                _XLIB_DRAW(i,YSize-1-j,buildingTypePtr);
+                _XLIB_DRAW(y,YSize-1-x,buildingTypePtr);
                 TOCK_SOUND();
             }
             PING_SOUND();
         }
         SLEEP(1);
-        i = 2;
-        j = FIRST_BULDING_X_POS;
+        y = 2;
+        x = FIRST_BULDING_X_POS;
         
-        while((i<YSize-building_height[j]))
+        while((y<YSize-building_height[x]))
         {
-            gotoxy(0,0);cprintf("%d %d", j,i);
+            // gotoxy(0,0);cprintf("%d %d", x,y);
             drawPlane();
             DO_SLOW_DOWN(5000);
             
 
             deletePlane();
-            if(j<FIRST_BULDING_X_POS+BUILDINGS_NUMBER)
+            if(x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER)
             {
-                ++j;
+                ++x;
             }
             else
             {
-                j=FIRST_BULDING_X_POS;
-                ++i;
+                x=FIRST_BULDING_X_POS;
+                ++y;
             }
             
-            if(KEY_PRESSED())
+            if(!bombActive && KEY_PRESSED())
+            {   
+                ++bombActive;
+                bomb_x = x;
+                bomb_y = y;
+                // gotoxy(0,1);cprintf("fire!");sleep(1);gotoxy(0,1);cprintf("     ");
+            }
+            
+            if(bombActive)
             {
-                gotoxy(0,1);cprintf("fire!");sleep(1);gotoxy(0,1);cprintf("     ");
+                _XLIB_DELETE(bomb_x,bomb_y);
+                ++bomb_y;
+                _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
+            
+                if(bomb_y>YSize-2)
+                {
+                    bombActive = 0;
+                }
             }
             
         }
-        // for(j=0;j<XSize/2-1;++j)
+        // for(x=0;x<XSize/2-1;++x)
         // {
-            // _XLIB_DRAW(j,2,&PLANE_BACK_IMAGE);
-            // _XLIB_DRAW(j+1,2,&PLANE_FRONT_IMAGE);
+            // _XLIB_DRAW(x,2,&PLANE_BACK_IMAGE);
+            // _XLIB_DRAW(x+1,2,&PLANE_FRONT_IMAGE);
             // SLEEP(1);
-            // _XLIB_DELETE(j,2);
-            // _XLIB_DELETE(j+1,2);
+            // _XLIB_DELETE(x,2);
+            // _XLIB_DELETE(x+1,2);
         // }
         // i=3;
-        // for(j=XSize/2;j<XSize-2;++j)
+        // for(x=XSize/2;x<XSize-2;++x)
         // {
-            // _XLIB_DRAW(j,2,&PLANE_BACK_IMAGE);
-            // _XLIB_DRAW(j+1,2,&PLANE_FRONT_IMAGE);
+            // _XLIB_DRAW(x,2,&PLANE_BACK_IMAGE);
+            // _XLIB_DRAW(x+1,2,&PLANE_FRONT_IMAGE);
             // _XLIB_DRAW(XSize/2,i,&BOMB_IMAGE);
             // SLEEP(1);
-            // _XLIB_DELETE(j,2);
-            // _XLIB_DELETE(j+1,2);
+            // _XLIB_DELETE(x,2);
+            // _XLIB_DELETE(x+1,2);
             // _XLIB_DELETE(XSize/2,i);
             // ++i;
         // }

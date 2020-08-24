@@ -109,6 +109,7 @@ int main(void)
             PRINT(4,0,"press fire");
         #endif
         WAIT_PRESS();
+        CLEAR_SCREEN();
         
         for(y=FIRST_BULDING_X_POS;y<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++y)
         {
@@ -178,26 +179,6 @@ int main(void)
             #endif
             SLEEP(3);
         }
-        // for(x=0;x<XSize/2-1;++x)
-        // {
-            // _XLIB_DRAW(x,2,&PLANE_BACK_IMAGE);
-            // _XLIB_DRAW(x+1,2,&PLANE_FRONT_IMAGE);
-            // SLEEP(1);
-            // _XLIB_DELETE(x,2);
-            // _XLIB_DELETE(x+1,2);
-        // }
-        // i=3;
-        // for(x=XSize/2;x<XSize-2;++x)
-        // {
-            // _XLIB_DRAW(x,2,&PLANE_BACK_IMAGE);
-            // _XLIB_DRAW(x+1,2,&PLANE_FRONT_IMAGE);
-            // _XLIB_DRAW(XSize/2,i,&BOMB_IMAGE);
-            // SLEEP(1);
-            // _XLIB_DELETE(x,2);
-            // _XLIB_DELETE(x+1,2);
-            // _XLIB_DELETE(XSize/2,i);
-            // ++i;
-        // }
         WAIT_PRESS();
     } // while(1) -> restart from the beginning
 

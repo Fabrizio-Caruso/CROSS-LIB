@@ -112,7 +112,7 @@ int main(void)
         
         for(y=FIRST_BULDING_X_POS;y<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++y)
         {
-            building_height[y] = (uint8_t) 4+(RAND()&15);
+            building_height[y] = (uint8_t) 3+(RAND()&7);
             buildingTypePtr=image[RAND()&7];
             
             for(x=0;x<building_height[y];++x)
@@ -124,23 +124,23 @@ int main(void)
         }
         SLEEP(1);
         y = 2;
-        x = FIRST_BULDING_X_POS;
+        x = FIRST_BULDING_X_POS-4;
         
-        while((y<YSize-building_height[x]))
+        while((y<YSize-building_height[x+1]) && y<YSize-1)
         {
             // gotoxy(0,0);cprintf("%d %d", x,y);
             drawPlane();
-            DO_SLOW_DOWN(5000);
+            DO_SLOW_DOWN(7000);
             
 
             deletePlane();
-            if(x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER)
+            if(x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER+2)
             {
                 ++x;
             }
             else
             {
-                x=FIRST_BULDING_X_POS;
+                x=FIRST_BULDING_X_POS-3;
                 ++y;
             }
             
@@ -149,6 +149,7 @@ int main(void)
                 ++bombActive;
                 bomb_x = x;
                 bomb_y = y;
+                building_height[x]=0;
                 // gotoxy(0,1);cprintf("fire!");sleep(1);gotoxy(0,1);cprintf("     ");
             }
             
@@ -164,6 +165,18 @@ int main(void)
                 }
             }
             
+        }
+        drawPlane();
+        SLEEP(1);
+        if(y==YSize-1)
+        {
+            CLEAR_SCREEN();
+            #if !defined(ONLY_SMALL_LETTERS)
+                PRINT(4,0,"YOU WON");
+            #else
+                PRINT(4,0,"you won");
+            #endif
+            SLEEP(3);
         }
         // for(x=0;x<XSize/2-1;++x)
         // {
@@ -185,7 +198,7 @@ int main(void)
             // _XLIB_DELETE(XSize/2,i);
             // ++i;
         // }
-        // WAIT_PRESS();
+        WAIT_PRESS();
     } // while(1) -> restart from the beginning
 
     return EXIT_SUCCESS;

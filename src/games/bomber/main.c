@@ -32,8 +32,6 @@
 
 #include "init_images.h"
 
-#include "key_pressed.h"
-
 extern Image WALL_1_IMAGE;
 extern Image WALL_2_IMAGE;
 

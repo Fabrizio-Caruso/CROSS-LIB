@@ -174,5 +174,11 @@
         #define WAIT_PRESS()
     #endif // !defined(NO_INPUT)
 
+#if defined(KEYBOARD_CONTROL)
+    #define KEY_PRESSED() (GET_CHAR())
+#else
+    #define KEY_PRESSED() (JOY_INPUT())
+#endif
+
 #endif // _INPUT_MACROS
 

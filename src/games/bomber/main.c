@@ -124,7 +124,7 @@ int main(void)
         while((y<YSize-building_height[x+1]) && y<YSize-1)
         {
             drawPlane();
-            DO_SLOW_DOWN(7000);
+            DO_SLOW_DOWN(SLOW_DOWN*20);
             
             deletePlane();
             if(x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER+2)
@@ -139,6 +139,7 @@ int main(void)
             
             if(!bombActive && KEY_PRESSED())
             {   
+                SHOOT_SOUND();
                 ++bombActive;
                 bomb_x = x;
                 bomb_y = y;
@@ -154,6 +155,8 @@ int main(void)
                 if(bomb_y>YSize-2)
                 {
                     bombActive = 0;
+                    EXPLOSION_SOUND();
+                    _XLIB_DELETE(bomb_x,bomb_y);
                 }
             }
             

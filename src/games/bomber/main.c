@@ -101,11 +101,7 @@ int main(void)
         CLEAR_SCREEN();
         
         SET_TEXT_COLOR(COLOR_WHITE);
-        #if !defined(ONLY_SMALL_LETTERS)
-            PRINT(4,0,"PRESS FIRE");
-        #else
-            PRINT(4,0,"press fire");
-        #endif
+            PRINT(4,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
         WAIT_PRESS();
         CLEAR_SCREEN();
         
@@ -127,11 +123,9 @@ int main(void)
         
         while((y<YSize-building_height[x+1]) && y<YSize-1)
         {
-            // gotoxy(0,0);cprintf("%d %d", x,y);
             drawPlane();
             DO_SLOW_DOWN(7000);
             
-
             deletePlane();
             if(x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER+2)
             {
@@ -149,7 +143,6 @@ int main(void)
                 bomb_x = x;
                 bomb_y = y;
                 building_height[x]=0;
-                // gotoxy(0,1);cprintf("fire!");sleep(1);gotoxy(0,1);cprintf("     ");
             }
             
             if(bombActive)
@@ -170,11 +163,7 @@ int main(void)
         if(y==YSize-1)
         {
             CLEAR_SCREEN();
-            #if !defined(ONLY_SMALL_LETTERS)
-                PRINT(4,0,"YOU WON");
-            #else
-                PRINT(4,0,"you won");
-            #endif
+            PRINT(4,0,_XL_Y _XL_O _XL_U _XL_SPACE _XL_W _XL_O _XL_N);
             SLEEP(3);
         }
         WAIT_PRESS();

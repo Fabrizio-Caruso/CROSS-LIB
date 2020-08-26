@@ -92,6 +92,7 @@ uint8_t level;
 
 uint16_t score;
 uint16_t bonus;
+uint16_t bonus_ind;
 
 uint8_t remaining_buildings;
 
@@ -228,9 +229,9 @@ int main(void)
             ++level;
             score+=bonus;
             PRINT(1,4,_XL_B _XL_O _XL_N _XL_U _XL_S);
-            for(x=10;x<=bonus;x+=10)
+            for(bonus_ind=10;bonus_ind<=bonus;bonus_ind+=10)
             {
-                PRINTD(7,4,5,x);
+                PRINTD(7,4,5,bonus_ind);
                 SHOOT_SOUND();
                 DO_SLOW_DOWN(SLOW_DOWN);
             }

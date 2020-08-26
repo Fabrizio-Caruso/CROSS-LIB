@@ -32,6 +32,30 @@
 
 #include "init_images.h"
 
+#if !defined(SLOW_DOWN)
+    #define SLOW_DOWN 0
+#endif
+
+# if SLOW_DOWN<100
+    #define LEVEL_SPEED_UP 0
+#elif SLOW_DOWN<200
+    #define LEVEL_SPEED_UP 8
+#elif SLOW_DOWN<400
+    #define LEVEL_SPEED_UP 16
+#elif SLOW_DOWN<800
+    #define LEVEL_SPEED_UP 32
+#elif SLOW_DOWN<1600
+    #define LEVEL_SPEED_UP 64
+#elif SLOW_DOWN<3200
+    #define LEVEL_SPEED_UP 128
+#else
+    #define LEVEL_SPEED_UP 256
+#endif 
+
+
+
+#define MIN_BUILDING_HEIGHT 3
+
 extern Image WALL_1_IMAGE;
 extern Image WALL_2_IMAGE;
 
@@ -67,7 +91,9 @@ uint8_t bomb_y;
 uint8_t level;
 
 uint16_t score;
+uint16_t bonus;
 
+uint8_t remaining_buildings;
 
 void deletePlane(void)
 {
@@ -99,8 +125,9 @@ int main(void)
         bombActive = 0;
         bomb_x = 0;
         bomb_y = 0;
+        bonus = 0;
         
-
+        remaining_buildings = BUILDINGS_NUMBER;
         
         INIT_IMAGES();
         
@@ -117,7 +144,7 @@ int main(void)
         }
         for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
         {
-            building_height[x] = (uint8_t) 3+(RAND()&7);
+            building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/2+(RAND()&7);
             buildingTypePtr=image[RAND()&7];
             
             for(y=0;y<building_height[x];++y)
@@ -128,17 +155,22 @@ int main(void)
             PING_SOUND();
         }
         SLEEP(1);
-        y = 1+level/2;
+        y = 1;
         x = 0;
         
         SET_TEXT_COLOR(COLOR_WHITE);
-        PRINTD(0,0,2,score);
-        while((y<YSize-building_height[x+1]) && y<YSize-1)
+        PRINTD(0,0,5,score);
+        while((y<YSize-building_height[x+1]) && y<YSize-2)
         {
+
+            if(!remaining_buildings)
+            {
+                ++y;
+            }
             drawPlane();
             
-            DO_SLOW_DOWN(SLOW_DOWN-level*64);
-            
+            DO_SLOW_DOWN(SLOW_DOWN-level*LEVEL_SPEED_UP);
+
             deletePlane();
             if(x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER+2)
             {
@@ -159,9 +191,14 @@ int main(void)
                 if(building_height[x]>0)
                 {
                     building_height[x] = 0;
-                    ++score;
+                    score+=10;
+                    --remaining_buildings;
+                    if(!remaining_buildings)
+                    {
+                        bonus = 20*(YSize-y)+level*50;
+                    }
                     SET_TEXT_COLOR(COLOR_WHITE);
-                    PRINTD(0,0,2,score);
+                    PRINTD(0,0,5,score);
                 }
             }
             
@@ -181,13 +218,18 @@ int main(void)
             
         }
         drawPlane();
-        SLEEP(1);
-        if(y==YSize-1)
+        SLEEP(2);
+        WAIT_PRESS();
+        if(y==YSize-2)
         {
             CLEAR_SCREEN();
             PRINT(4,2,_XL_N _XL_E _XL_X _XL_T _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L);
-            SLEEP(2);
+            SLEEP(1);
             ++level;
+            score+=bonus;
+            PRINT(4,4,_XL_B _XL_O _XL_N _XL_U _XL_S);
+            PRINTD(10,4,5,bonus);
+            SLEEP(1);
         }
         else
         {

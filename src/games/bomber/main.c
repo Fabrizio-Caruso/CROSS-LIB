@@ -160,7 +160,7 @@ int main(void)
         
         SET_TEXT_COLOR(COLOR_WHITE);
         PRINTD(0,0,5,score);
-        while((y<YSize-building_height[x+1]) && y<YSize-2)
+        while((y<YSize-building_height[x+1]) && y<YSize-1)
         {
 
             if(!remaining_buildings)
@@ -195,7 +195,7 @@ int main(void)
                     --remaining_buildings;
                     if(!remaining_buildings)
                     {
-                        bonus = 20*(YSize-y)+level*50;
+                        bonus = 10*(YSize-y)+level*30;
                     }
                     SET_TEXT_COLOR(COLOR_WHITE);
                     PRINTD(0,0,5,score);
@@ -220,15 +220,20 @@ int main(void)
         drawPlane();
         SLEEP(2);
         WAIT_PRESS();
-        if(y==YSize-2)
+        if(!remaining_buildings)
         {
             CLEAR_SCREEN();
-            PRINT(4,2,_XL_N _XL_E _XL_X _XL_T _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L);
+            PRINT(1,2,_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_L _XL_E _XL_T _XL_E _XL_T _XL_E _XL_D);
             SLEEP(1);
             ++level;
             score+=bonus;
-            PRINT(4,4,_XL_B _XL_O _XL_N _XL_U _XL_S);
-            PRINTD(10,4,5,bonus);
+            PRINT(1,4,_XL_B _XL_O _XL_N _XL_U _XL_S);
+            for(x=10;x<=bonus;x+=10)
+            {
+                PRINTD(7,4,5,x);
+                SHOOT_SOUND();
+                DO_SLOW_DOWN(SLOW_DOWN);
+            }
             SLEEP(1);
         }
         else

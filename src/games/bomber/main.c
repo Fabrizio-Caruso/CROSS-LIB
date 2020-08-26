@@ -64,6 +64,10 @@ uint8_t bombActive;
 uint8_t bomb_x;
 uint8_t bomb_y;
 
+uint8_t level;
+
+uint16_t score;
+
 
 void deletePlane(void)
 {
@@ -86,45 +90,54 @@ int main(void)
 
     INIT_GRAPHICS();
 
-    INIT_INPUT();
-
-
-    
+    INIT_INPUT();    
+    score = 0;
+    level = 0;
+        
     while(1)
     {
         bombActive = 0;
         bomb_x = 0;
         bomb_y = 0;
         
+
+        
         INIT_IMAGES();
         
         CLEAR_SCREEN();
         
         SET_TEXT_COLOR(COLOR_WHITE);
-            PRINT(4,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+        PRINT(4,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
         WAIT_PRESS();
         CLEAR_SCREEN();
         
-        for(y=FIRST_BULDING_X_POS;y<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++y)
+        for(x=0;x<XSize-2;++x)
         {
-            building_height[y] = (uint8_t) 3+(RAND()&7);
+            building_height[x] = 0;
+        }
+        for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
+        {
+            building_height[x] = (uint8_t) 3+(RAND()&7);
             buildingTypePtr=image[RAND()&7];
             
-            for(x=0;x<building_height[y];++x)
+            for(y=0;y<building_height[x];++y)
             {
-                _XLIB_DRAW(y,YSize-1-x,buildingTypePtr);
+                _XLIB_DRAW(x,YSize-1-y,buildingTypePtr);
                 TOCK_SOUND();
             }
             PING_SOUND();
         }
         SLEEP(1);
-        y = 2;
-        x = FIRST_BULDING_X_POS-4;
+        y = 1+level/2;
+        x = 0;
         
+        SET_TEXT_COLOR(COLOR_WHITE);
+        PRINTD(0,0,2,score);
         while((y<YSize-building_height[x+1]) && y<YSize-1)
         {
             drawPlane();
-            DO_SLOW_DOWN(SLOW_DOWN*20);
+            
+            DO_SLOW_DOWN(SLOW_DOWN-level*64);
             
             deletePlane();
             if(x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER+2)
@@ -133,7 +146,7 @@ int main(void)
             }
             else
             {
-                x=FIRST_BULDING_X_POS-3;
+                x=0;
                 ++y;
             }
             
@@ -143,7 +156,13 @@ int main(void)
                 ++bombActive;
                 bomb_x = x;
                 bomb_y = y;
-                building_height[x]=0;
+                if(building_height[x]>0)
+                {
+                    building_height[x] = 0;
+                    ++score;
+                    SET_TEXT_COLOR(COLOR_WHITE);
+                    PRINTD(0,0,2,score);
+                }
             }
             
             if(bombActive)
@@ -166,8 +185,14 @@ int main(void)
         if(y==YSize-1)
         {
             CLEAR_SCREEN();
-            PRINT(4,0,_XL_Y _XL_O _XL_U _XL_SPACE _XL_W _XL_O _XL_N);
-            SLEEP(3);
+            PRINT(4,2,_XL_N _XL_E _XL_X _XL_T _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L);
+            SLEEP(2);
+            ++level;
+        }
+        else
+        {
+            level = 0;
+            score = 0;
         }
         WAIT_PRESS();
     } // while(1) -> restart from the beginning

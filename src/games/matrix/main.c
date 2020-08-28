@@ -28,10 +28,10 @@
 #endif
 
 // TODO: REMOVE THIS
-#define DEBUG_ITEMS
+#define MAX_INIT_Y_POS ((YSize)-17)
 
 
-// #include "images.h"
+
 #include "cross_lib.h"
 
 #include "init_images.h"
@@ -76,7 +76,7 @@ int main(void)
 {        
     uint8_t i;
     uint8_t j;
-    uint8_t k;
+    uint8_t init_y;
     uint8_t max_j;
 	
     INIT_GRAPHICS();
@@ -92,23 +92,22 @@ int main(void)
         CLEAR_SCREEN();
         
         SET_TEXT_COLOR(COLOR_WHITE);
-        // This should be handled throw generic CAPITAL_CASE_ONLY, SMALL_CASE_ONLY, ALL_CASES macros
-        #if !defined(ONLY_SMALL_LETTERS)
-            PRINT(4,0,"PRESS FIRE");
-        #else
-            PRINT(4,0,"press fire");
-        #endif
+        PRINT(4,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+        WAIT_PRESS();
+        CLEAR_SCREEN();
+
         
 		while(1)
 		{
-			i = RAND() % (XSize-1); 
-			max_j = RAND() & (YSize-1);
+			i = RAND() % XSize;
+            
+            
+			max_j = RAND() % 19;
+            init_y = RAND() % MAX_INIT_Y_POS;
 			for(j=0;j<max_j;++j)
 			{
-				_XLIB_DRAW(i,j,image[j]);
-				for(k=0;k<254;++k)
-				{
-				}
+				_XLIB_DRAW(i,j+init_y,image[j]);
+                DO_SLOW_DOWN(900);
 			}
         }
     } // while(1) -> restart from the beginning

@@ -28,7 +28,7 @@
 #endif
 
 // TODO: REMOVE THIS
-#define MAX_INIT_Y_POS ((YSize)-17)
+#define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)+1
 
 
 

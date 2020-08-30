@@ -30,7 +30,7 @@
 
     Image BOMB_IMAGE;
 
-    Image FREEZE_IMAGE;	
+    Image ROAD_IMAGE;	
 
     Image THREE_WINDOW_WALL_2_IMAGE;
     Image INVINCIBILITY_IMAGE;	

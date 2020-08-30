@@ -72,6 +72,7 @@ extern Image PLANE_BACK_IMAGE;
 extern Image PLANE_FRONT_IMAGE;
 
 extern Image BOMB_IMAGE;
+extern Image ROAD_IMAGE;
 
 #define BUILDINGS_NUMBER (XSize-9)
 #define FIRST_BULDING_X_POS 5
@@ -155,13 +156,17 @@ int main(void)
             }
             PING_SOUND();
         }
+        for(x=0;x<XSize-1;++x)
+        {
+            _XLIB_DRAW(x,YSize-1,&ROAD_IMAGE);
+        }
         SLEEP(1);
         y = 1;
         x = 0;
         
         SET_TEXT_COLOR(COLOR_WHITE);
         PRINTD(0,0,5,score);
-        while((y<YSize-building_height[x+1]) && y<YSize-1)
+        while((y<YSize-building_height[x+1]) && y<YSize-2)
         {
 
             if(!remaining_buildings)
@@ -209,7 +214,7 @@ int main(void)
                 ++bomb_y;
                 _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
             
-                if(bomb_y>YSize-2)
+                if(bomb_y>YSize-3)
                 {
                     bombActive = 0;
                     EXPLOSION_SOUND();

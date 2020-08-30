@@ -32,7 +32,7 @@ extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
 
 extern Image BOMB_IMAGE;
 
-extern Image FREEZE_IMAGE;
+extern Image ROAD_IMAGE;
 extern Image THREE_WINDOW_WALL_2_IMAGE;
 extern Image INVINCIBILITY_IMAGE;
 extern Image SUPER_IMAGE;	
@@ -73,7 +73,7 @@ void INIT_IMAGES(void)
 
         BOMB_IMAGE._color = _BOMB_COLOR;
 
-        FREEZE_IMAGE._color = _FREEZE_COLOR;
+        ROAD_IMAGE._color = _ROAD_COLOR;
         THREE_WINDOW_WALL_2_IMAGE._color = _THREE_WINDOW_WALL_2_COLOR;
 
         INVINCIBILITY_IMAGE._color = _INVINCIBILITY_COLOR;
@@ -115,7 +115,7 @@ void INIT_IMAGES(void)
 
     BOMB_IMAGE._imageData = _TILE_16;
 
-    FREEZE_IMAGE._imageData = _TILE_17;
+    ROAD_IMAGE._imageData = _TILE_17;
     SUPER_IMAGE._imageData = _TILE_18;
 
     THREE_WINDOW_WALL_2_IMAGE._imageData = _TILE_0_B;

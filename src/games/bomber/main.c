@@ -52,7 +52,7 @@
     #define LEVEL_SPEED_UP 256
 #endif 
 
-
+#define MAX_Y ((YSize)+(Y_OFFSET))
 
 #define MIN_BUILDING_HEIGHT 2
 
@@ -122,7 +122,7 @@ int main(void)
     INIT_INPUT();    
     score = 0;
     hiscore = 0;
-    level = 0;
+    level = 1;
         
     while(1)
     {
@@ -136,10 +136,17 @@ int main(void)
         INIT_IMAGES();
         
         CLEAR_SCREEN();
-        
+        SET_TEXT_COLOR(COLOR_RED);
+        PRINT(2,2, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_B _XL_O _XL_M _XL_B _XL_E _XL_R);
+        SET_TEXT_COLOR(COLOR_CYAN);
+        PRINT(2,4, _XL_B _XL_Y _XL_SPACE _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O);
         SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(4,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+        PRINT(2,8, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
         WAIT_PRESS();
+        CLEAR_SCREEN();
+        PRINT(2,2, _XL_L _XL_E _XL_V _XL_E _XL_L);
+        PRINTD(8,2,2,level);
+        SLEEP(1);
         CLEAR_SCREEN();
         
         for(x=0;x<XSize-2;++x)
@@ -151,16 +158,16 @@ int main(void)
             building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/2+(RAND()&7);
             buildingTypePtr=image[RAND()&7];
             
-            for(y=1;y<building_height[x];++y)
+            for(y=0;y<building_height[x];++y)
             {
-                _XLIB_DRAW(x,YSize-1-y,buildingTypePtr);
+                _XLIB_DRAW(x,MAX_Y-1-y,buildingTypePtr);
                 TOCK_SOUND();
             }
             PING_SOUND();
         }
-        for(x=0;x<XSize-1;++x)
+        for(x=0;x<XSize;++x)
         {
-            _XLIB_DRAW(x,YSize-1,&ROAD_IMAGE);
+            _XLIB_DRAW(x,MAX_Y-1,&ROAD_IMAGE);
         }
         SLEEP(1);
         y = 1;
@@ -169,12 +176,15 @@ int main(void)
         SET_TEXT_COLOR(COLOR_WHITE);
         PRINTD(0,0,5,score);
         PRINT(XSize-9,0,_XL_H _XL_I);
+        PRINT(XSize-16,0, _XL_L _XL_V);
+        SET_TEXT_COLOR(COLOR_YELLOW);
+        PRINTD(XSize-13,0,2,level);
         SET_TEXT_COLOR(COLOR_CYAN);
         PRINTD(XSize-6,0,5,hiscore);
-        while((y<YSize-building_height[x+1]) && y<YSize-1)
+        while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-4))
         {
 
-            if(!remaining_buildings)
+            if(!remaining_buildings && y<MAX_Y-2)
             {
                 ++y;
             }
@@ -206,7 +216,7 @@ int main(void)
                     --remaining_buildings;
                     if(!remaining_buildings)
                     {
-                        bonus = 10*(YSize-y)+level*30;
+                        bonus = 10*(MAX_Y-y)+level*30;
                     }
                     SET_TEXT_COLOR(COLOR_WHITE);
                     PRINTD(0,0,5,score);
@@ -219,7 +229,7 @@ int main(void)
                 ++bomb_y;
                 _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
             
-                if(bomb_y>YSize-3)
+                if(bomb_y>MAX_Y-3)
                 {
                     bombActive = 0;
                     EXPLOSION_SOUND();
@@ -233,7 +243,6 @@ int main(void)
         WAIT_PRESS();
         if(!remaining_buildings)
         {
-            CLEAR_SCREEN();
             PRINT(1,2,_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_L _XL_E _XL_T _XL_E _XL_T _XL_E _XL_D);
             SLEEP(1);
             ++level;
@@ -250,7 +259,7 @@ int main(void)
         }
         else
         {
-            level = 0;
+            level = 1;
             if(score>hiscore)
             {
                 hiscore = score;

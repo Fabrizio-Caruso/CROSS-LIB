@@ -74,9 +74,12 @@ extern Image PLANE_FRONT_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image ROAD_IMAGE;
 
-#if XSize>27
+#if XSize>32
     #define BUILDINGS_NUMBER (XSize-10)
     #define FIRST_BULDING_X_POS 5
+#elif XSize>27
+    #define BUILDINGS_NUMBER (XSize-8)
+    #define FIRST_BULDING_X_POS 4
 #else
     #define BUILDINGS_NUMBER (XSize-7)
     #define FIRST_BULDING_X_POS 3
@@ -238,7 +241,7 @@ int main(void)
                         --remaining_buildings;
                         if(!remaining_buildings)
                         {
-                            bonus = 10*(MAX_Y-y)+level*30;
+                            bonus = 20*(MAX_Y-y)+level*30;
                         }
                         SET_TEXT_COLOR(COLOR_WHITE);
                         PRINTD(0,0,5,score);

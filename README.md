@@ -172,10 +172,10 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
 *Cross Shoot* can be compiled similarly as *Cross Chase* but you need to use the specific Makefile `Makefile.Shoot`.
 
 Exmaples:
-- `make c64 -f Makefile.Shoot` builds the default Commodore 64 binary.
-- `make vic20 -f Makefile.Shoot` builds the default Commodore Vic 20 binary.
-- `make c16 -f Makefile.Shoot` builds the default Commodore 16 binary.
-- `make all -f Makefile.Shoot` builds all currently available targets for *Cross Shoot*.
+- `make c64 -f Makefile.shoot` builds the default Commodore 64 binary.
+- `make vic20 -f Makefile.shoot` builds the default Commodore Vic 20 binary.
+- `make c16 -f Makefile.shoot` builds the default Commodore 16 binary.
+- `make all -f Makefile.shoot` builds all currently available targets for *Cross Shoot*.
 
 
 -------------------------------------------

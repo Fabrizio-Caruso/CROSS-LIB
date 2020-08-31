@@ -54,7 +54,7 @@
 
 
 
-#define MIN_BUILDING_HEIGHT 3
+#define MIN_BUILDING_HEIGHT 2
 
 extern Image WALL_1_IMAGE;
 extern Image WALL_2_IMAGE;
@@ -94,6 +94,7 @@ uint8_t level;
 uint16_t score;
 uint16_t bonus;
 uint16_t bonus_ind;
+uint16_t hiscore;
 
 uint8_t remaining_buildings;
 
@@ -120,6 +121,7 @@ int main(void)
 
     INIT_INPUT();    
     score = 0;
+    hiscore = 0;
     level = 0;
         
     while(1)
@@ -149,7 +151,7 @@ int main(void)
             building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/2+(RAND()&7);
             buildingTypePtr=image[RAND()&7];
             
-            for(y=0;y<building_height[x];++y)
+            for(y=1;y<building_height[x];++y)
             {
                 _XLIB_DRAW(x,YSize-1-y,buildingTypePtr);
                 TOCK_SOUND();
@@ -166,7 +168,10 @@ int main(void)
         
         SET_TEXT_COLOR(COLOR_WHITE);
         PRINTD(0,0,5,score);
-        while((y<YSize-building_height[x+1]) && y<YSize-2)
+        PRINT(XSize-9,0,_XL_H _XL_I);
+        SET_TEXT_COLOR(COLOR_CYAN);
+        PRINTD(XSize-6,0,5,hiscore);
+        while((y<YSize-building_height[x+1]) && y<YSize-1)
         {
 
             if(!remaining_buildings)
@@ -239,12 +244,19 @@ int main(void)
                 PRINTD(7,4,5,bonus_ind);
                 SHOOT_SOUND();
                 DO_SLOW_DOWN(SLOW_DOWN);
+                DO_SLOW_DOWN(SLOW_DOWN);
             }
             SLEEP(1);
         }
         else
         {
             level = 0;
+            if(score>hiscore)
+            {
+                hiscore = score;
+                PRINT(1,2,_XL_N _XL_E _XL_W _XL_SPACE _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E);
+                SLEEP(1);
+            }
             score = 0;
         }
         WAIT_PRESS();

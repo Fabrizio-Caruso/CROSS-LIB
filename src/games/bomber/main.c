@@ -163,6 +163,10 @@ int main(void)
             SLEEP(1);
             CLEAR_SCREEN();
             
+            for(x=0;x<XSize;++x)
+            {
+                _XLIB_DRAW(x,MAX_Y-1,&ROAD_IMAGE);
+            }
             for(x=0;x<XSize-2;++x)
             {
                 building_height[x] = 0;
@@ -179,10 +183,7 @@ int main(void)
                 }
                 PING_SOUND();
             }
-            for(x=0;x<XSize;++x)
-            {
-                _XLIB_DRAW(x,MAX_Y-1,&ROAD_IMAGE);
-            }
+
             SLEEP(1);
             y = 1;
             x = 0;

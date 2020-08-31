@@ -302,7 +302,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_vic20_exp_16k.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_vic20_exp_8k.prg
 
 
 #################################################################

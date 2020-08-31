@@ -74,8 +74,14 @@ extern Image PLANE_FRONT_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image ROAD_IMAGE;
 
-#define BUILDINGS_NUMBER (XSize-9)
-#define FIRST_BULDING_X_POS 5
+#if XSize>27
+    #define BUILDINGS_NUMBER (XSize-10)
+    #define FIRST_BULDING_X_POS 5
+#else
+    #define BUILDINGS_NUMBER (XSize-7)
+    #define FIRST_BULDING_X_POS 3
+#endif
+
 
 uint16_t building_height[XSize];
 
@@ -97,6 +103,8 @@ uint16_t bonus_ind;
 uint16_t hiscore;
 
 uint8_t remaining_buildings;
+
+uint8_t alive;
 
 void deletePlane(void)
 {
@@ -120,156 +128,177 @@ int main(void)
     INIT_GRAPHICS();
 
     INIT_INPUT();    
-    score = 0;
     hiscore = 0;
-    level = 1;
-        
+
+
     while(1)
     {
-        bombActive = 0;
-        bomb_x = 0;
-        bomb_y = 0;
-        bonus = 0;
-        
-        remaining_buildings = BUILDINGS_NUMBER;
-        
+        alive = 1;
+        score = 0;
+        level = 1;
+
         INIT_IMAGES();
-        
         CLEAR_SCREEN();
+            
         SET_TEXT_COLOR(COLOR_RED);
         PRINT(2,2, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_B _XL_O _XL_M _XL_B _XL_E _XL_R);
         SET_TEXT_COLOR(COLOR_CYAN);
         PRINT(2,4, _XL_B _XL_Y _XL_SPACE _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O);
-        SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(2,8, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
-        WAIT_PRESS();
-        CLEAR_SCREEN();
-        PRINT(2,2, _XL_L _XL_E _XL_V _XL_E _XL_L);
-        PRINTD(8,2,2,level);
-        SLEEP(1);
-        CLEAR_SCREEN();
-        
-        for(x=0;x<XSize-2;++x)
+        while(alive)
         {
-            building_height[x] = 0;
-        }
-        for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
-        {
-            building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/2+(RAND()&7);
-            buildingTypePtr=image[RAND()&7];
-            
-            for(y=0;y<building_height[x];++y)
-            {
-                _XLIB_DRAW(x,MAX_Y-1-y,buildingTypePtr);
-                TOCK_SOUND();
-            }
-            PING_SOUND();
-        }
-        for(x=0;x<XSize;++x)
-        {
-            _XLIB_DRAW(x,MAX_Y-1,&ROAD_IMAGE);
-        }
-        SLEEP(1);
-        y = 1;
-        x = 0;
-        
-        SET_TEXT_COLOR(COLOR_WHITE);
-        PRINTD(0,0,5,score);
-        PRINT(XSize-9,0,_XL_H _XL_I);
-        PRINT(XSize-16,0, _XL_L _XL_V);
-        SET_TEXT_COLOR(COLOR_YELLOW);
-        PRINTD(XSize-13,0,2,level);
-        SET_TEXT_COLOR(COLOR_CYAN);
-        PRINTD(XSize-6,0,5,hiscore);
-        while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-4))
-        {
+            bombActive = 0;
+            bomb_x = 0;
+            bomb_y = 0;
+            bonus = 0;
+            remaining_buildings = BUILDINGS_NUMBER;
 
-            if(!remaining_buildings && y<MAX_Y-2)
+            
+
+            SET_TEXT_COLOR(COLOR_WHITE);
+            PRINT(2,8, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+            WAIT_PRESS();
+            CLEAR_SCREEN();
+            PRINT(2,2, _XL_L _XL_E _XL_V _XL_E _XL_L);
+            PRINTD(8,2,2,level);
+            SLEEP(1);
+            CLEAR_SCREEN();
+            
+            for(x=0;x<XSize-2;++x)
             {
-                ++y;
+                building_height[x] = 0;
+            }
+            for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
+            {
+                building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/2+(RAND()&7);
+                buildingTypePtr=image[RAND()&7];
+                
+                for(y=1;y<building_height[x];++y)
+                {
+                    _XLIB_DRAW(x,MAX_Y-1-y,buildingTypePtr);
+                    TOCK_SOUND();
+                }
+                PING_SOUND();
+            }
+            for(x=0;x<XSize;++x)
+            {
+                _XLIB_DRAW(x,MAX_Y-1,&ROAD_IMAGE);
+            }
+            SLEEP(1);
+            y = 1;
+            x = 0;
+            
+            SET_TEXT_COLOR(COLOR_WHITE);
+            PRINTD(0,0,5,score);
+            PRINT(XSize-7,0,_XL_H _XL_I);
+            #if XSize>20
+                PRINT(XSize-15,0, _XL_L _XL_V);
+            #endif
+            #if XSize>27
+                _XLIB_DRAW(XSize-21,0,&TWO_WINDOW_WALL_2_IMAGE);
+                PRINTD(XSize-20,0,2,remaining_buildings);
+            #endif
+            
+            SET_TEXT_COLOR(COLOR_YELLOW);
+            PRINTD(XSize-13,0,2,level);
+            SET_TEXT_COLOR(COLOR_CYAN);
+            PRINTD(XSize-5,0,5,hiscore);
+            while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-4))
+            {
+
+                if(!remaining_buildings && y<MAX_Y-2)
+                {
+                    ++y;
+                }
+                drawPlane();
+                
+                DO_SLOW_DOWN(SLOW_DOWN-level*LEVEL_SPEED_UP);
+
+                deletePlane();
+                if(x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER+2)
+                {
+                    ++x;
+                }
+                else if(y<=MAX_Y-2)
+                {
+                    x=0;
+                    ++y;
+                }
+                
+                if(!bombActive && KEY_PRESSED())
+                {   
+                    SHOOT_SOUND();
+                    ++bombActive;
+                    bomb_x = x;
+                    bomb_y = y;
+                    if(building_height[x]>0)
+                    {
+                        building_height[x] = 0;
+                        score+=10;
+                        --remaining_buildings;
+                        if(!remaining_buildings)
+                        {
+                            bonus = 10*(MAX_Y-y)+level*30;
+                        }
+                        SET_TEXT_COLOR(COLOR_WHITE);
+                        PRINTD(0,0,5,score);
+                    }
+                }
+                
+                if(bombActive)
+                {
+                    _XLIB_DELETE(bomb_x,bomb_y);
+                    ++bomb_y;
+                    _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
+                
+                    if(bomb_y>MAX_Y-3)
+                    {
+                        bombActive = 0;
+                        EXPLOSION_SOUND();
+                        _XLIB_DELETE(bomb_x,bomb_y);
+                        #if XSize>27
+                            PRINTD(XSize-20,0,2,remaining_buildings);
+                        #endif
+                    }
+                }
+                
             }
             drawPlane();
-            
-            DO_SLOW_DOWN(SLOW_DOWN-level*LEVEL_SPEED_UP);
-
-            deletePlane();
-            if(x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER+2)
+            if(!remaining_buildings)
             {
-                ++x;
+                PRINT(1,2,_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_L _XL_E _XL_T _XL_E _XL_T _XL_E _XL_D);
+                SLEEP(1);
+                ++level;
+                score+=bonus;
+                PRINT(1,4,_XL_B _XL_O _XL_N _XL_U _XL_S);
+                for(bonus_ind=10;bonus_ind<=bonus;bonus_ind+=10)
+                {
+                    PRINTD(7,4,5,bonus_ind);
+                    SHOOT_SOUND();
+                    DO_SLOW_DOWN(SLOW_DOWN);
+                    DO_SLOW_DOWN(SLOW_DOWN);
+                }
+                SET_TEXT_COLOR(COLOR_WHITE);
+                PRINTD(0,0,5,score);
+                SLEEP(1);
             }
             else
             {
-                x=0;
-                ++y;
-            }
-            
-            if(!bombActive && KEY_PRESSED())
-            {   
-                SHOOT_SOUND();
-                ++bombActive;
-                bomb_x = x;
-                bomb_y = y;
-                if(building_height[x]>0)
+                EXPLOSION_SOUND();
+                PRINT(1,2,_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R);
+                SLEEP(2);
+                alive = 0;
+                if(score>hiscore)
                 {
-                    building_height[x] = 0;
-                    score+=10;
-                    --remaining_buildings;
-                    if(!remaining_buildings)
-                    {
-                        bonus = 10*(MAX_Y-y)+level*30;
-                    }
-                    SET_TEXT_COLOR(COLOR_WHITE);
-                    PRINTD(0,0,5,score);
+                    hiscore = score;
+                    SET_TEXT_COLOR(COLOR_RED);
+                    PRINT(1,4,_XL_N _XL_E _XL_W _XL_SPACE _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E);
+                    SLEEP(1);
                 }
+                score = 0;
             }
-            
-            if(bombActive)
-            {
-                _XLIB_DELETE(bomb_x,bomb_y);
-                ++bomb_y;
-                _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
-            
-                if(bomb_y>MAX_Y-3)
-                {
-                    bombActive = 0;
-                    EXPLOSION_SOUND();
-                    _XLIB_DELETE(bomb_x,bomb_y);
-                }
-            }
-            
-        }
-        drawPlane();
-        SLEEP(2);
-        WAIT_PRESS();
-        if(!remaining_buildings)
-        {
-            PRINT(1,2,_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_L _XL_E _XL_T _XL_E _XL_T _XL_E _XL_D);
-            SLEEP(1);
-            ++level;
-            score+=bonus;
-            PRINT(1,4,_XL_B _XL_O _XL_N _XL_U _XL_S);
-            for(bonus_ind=10;bonus_ind<=bonus;bonus_ind+=10)
-            {
-                PRINTD(7,4,5,bonus_ind);
-                SHOOT_SOUND();
-                DO_SLOW_DOWN(SLOW_DOWN);
-                DO_SLOW_DOWN(SLOW_DOWN);
-            }
-            SLEEP(1);
-        }
-        else
-        {
-            level = 1;
-            if(score>hiscore)
-            {
-                hiscore = score;
-                PRINT(1,2,_XL_N _XL_E _XL_W _XL_SPACE _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E);
-                SLEEP(1);
-            }
-            score = 0;
-        }
-        WAIT_PRESS();
-    } // while(1) -> restart from the beginning
+            WAIT_PRESS();
+        } // while(alive) -> restart level
+    } // while(1) -> restart from level 1
 
     return EXIT_SUCCESS;
 }

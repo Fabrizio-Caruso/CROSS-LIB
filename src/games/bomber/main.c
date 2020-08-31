@@ -199,6 +199,7 @@ int main(void)
             #endif
             #if XSize>27
                 _XLIB_DRAW(XSize-21,0,&TWO_WINDOW_WALL_2_IMAGE);
+                SET_TEXT_COLOR(COLOR_WHITE);
                 PRINTD(XSize-20,0,2,remaining_buildings);
             #endif
             
@@ -209,7 +210,7 @@ int main(void)
             while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-4))
             {
 
-                if(!remaining_buildings && y<MAX_Y-2)
+                if(!remaining_buildings && (y<MAX_Y-2) && (x<XSize-3) )
                 {
                     ++y;
                 }

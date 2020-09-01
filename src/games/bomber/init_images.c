@@ -95,7 +95,7 @@ void INIT_IMAGES(void)
     TWO_WINDOW_WALL_2_IMAGE._imageData = _TILE_7_B;
     SMALL_TWO_WINDOW_WALL_2_IMAGE._imageData = _TILE_4_B;
 
-    WALL_2_IMAGE._imageData = _TILE_5_B;
+    WALL_2_IMAGE._imageData = _TILE_11;
 }
 
 

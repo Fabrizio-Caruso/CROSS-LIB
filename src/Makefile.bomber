@@ -435,7 +435,7 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	-DALT_PRINT \
 	-DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=800 \
+	-DSLOW_DOWN=1000 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \

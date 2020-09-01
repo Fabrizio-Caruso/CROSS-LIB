@@ -177,7 +177,7 @@
 #if defined(KEYBOARD_CONTROL)
     #define KEY_PRESSED() (GET_CHAR())
 #else
-    #define KEY_PRESSED() (JOY_INPUT())
+    #define KEY_PRESSED() (JOY_FIRE(JOY_INPUT()))
 #endif
 
 #endif // _INPUT_MACROS

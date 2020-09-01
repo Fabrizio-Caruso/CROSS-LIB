@@ -50,7 +50,7 @@ void INIT_IMAGES(void)
         THREE_WINDOW_WALL_1_IMAGE._color = _PLANE_COLOR;
         PLANE_BACK_IMAGE._color = _PLANE_COLOR;
         PLANE_FRONT_IMAGE._color = _PLANE_COLOR;
-        PLAYER_LEFT_IMAGE._color = _PLANE_COLOR;
+        CONTROL_TOWER_IMAGE._color = _PLANE_COLOR;
 
         WALL_1_IMAGE._color = _WALL_1_COLOR;
         SMALL_TWO_WINDOW_WALL_1_IMAGE._color = _SMALL_TWO_WINDOW_WALL_1_COLOR;		
@@ -75,7 +75,7 @@ void INIT_IMAGES(void)
     THREE_WINDOW_WALL_1_IMAGE._imageData = _TILE_0;
     PLANE_BACK_IMAGE._imageData = _TILE_1;
     PLANE_FRONT_IMAGE._imageData = _TILE_2;
-    PLAYER_LEFT_IMAGE._imageData = _TILE_3;	
+    CONTROL_TOWER_IMAGE._imageData = _TILE_3;	
 
 
     SMALL_TWO_WINDOW_WALL_1_IMAGE._imageData = _TILE_4;

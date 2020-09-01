@@ -74,6 +74,8 @@ extern Image PLANE_FRONT_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image ROAD_IMAGE;
 
+extern Image CONTROL_TOWER_IMAGE;
+
 #if XSize>32
     #define BUILDINGS_NUMBER (XSize-10)
     #define FIRST_BULDING_X_POS 5
@@ -170,6 +172,7 @@ int main(void)
             {
                 _XLIB_DRAW(x,MAX_Y-1,&ROAD_IMAGE);
             }
+            _XLIB_DRAW(XSize-1,MAX_Y-2,&CONTROL_TOWER_IMAGE);
             for(x=0;x<XSize-2;++x)
             {
                 building_height[x] = 0;

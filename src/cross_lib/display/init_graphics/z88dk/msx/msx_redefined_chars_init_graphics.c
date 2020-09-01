@@ -45,8 +45,8 @@ void set_udg_colors(void)
 	set_group_color(3,11);
 	set_group_color(4,10);
 	set_group_color(5,2);
-	set_group_color(6,4);
-	set_group_color(7,4);
+	set_group_color(6,7);
+	set_group_color(7,7);
 	
 	for(i=8;i<=11;++i)
 	{

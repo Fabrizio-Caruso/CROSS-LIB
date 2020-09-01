@@ -266,10 +266,11 @@ int main(void)
                     }
                 }
                 
-            }
-            drawPlane();
+            } // while flying
+            // drawPlane();
             if(!remaining_buildings)
             {
+                drawPlane();
                 PRINT(1,2,_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_L _XL_E _XL_T _XL_E _XL_T _XL_E _XL_D);
                 SLEEP(1);
                 ++level;
@@ -288,6 +289,7 @@ int main(void)
             }
             else
             {
+                _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE);
                 EXPLOSION_SOUND();
                 PRINT(1,2,_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R);
                 SLEEP(2);

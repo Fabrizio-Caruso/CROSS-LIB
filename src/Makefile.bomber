@@ -372,7 +372,7 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=100 \
+	-DSLOW_DOWN=900 \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \

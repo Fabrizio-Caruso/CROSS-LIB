@@ -23,6 +23,8 @@
     Image VERTICAL_BRICK_IMAGE;	
 
     Image BOMB_IMAGE;
+    Image ANIMATED_BOMB_UP_IMAGE;
+    Image ANIMATED_BOMB_DOWN_IMAGE;
 
     Image ROAD_IMAGE;	
 

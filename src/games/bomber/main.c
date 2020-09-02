@@ -76,6 +76,9 @@ extern Image ANIMATED_PLANE_CENTER_IMAGE;
 extern Image ANIMATED_PLANE_FRONT_IMAGE;
 
 extern Image BOMB_IMAGE;
+extern Image ANIMATED_BOMB_UP_IMAGE;
+extern Image ANIMATED_BOMB_DOWN_IMAGE;
+
 extern Image ROAD_IMAGE;
 
 
@@ -277,25 +280,39 @@ int main(void)
                         PRINTD(0,0,5,score);
                     }
                 }
-                _XLIB_DELETE(x,y);
+
 
                 if(bombActive)
                 {
-                    _XLIB_DELETE(bomb_x,bomb_y);
+                    // Draw animated bomb
+                    _XLIB_DRAW(bomb_x,bomb_y,&ANIMATED_BOMB_UP_IMAGE);
+                    _XLIB_DRAW(bomb_x,bomb_y+1,&ANIMATED_BOMB_DOWN_IMAGE);
+                    DO_SLOW_DOWN(SLOW_DOWN/2);
+                    
                     ++bomb_y;
-                    _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
                 
-                    if(bomb_y>MAX_Y-3)
+                    if(bomb_y>MAX_Y-3) // Bomb reaches the ground
                     {
                         bombActive = 0;
+                        
+                        // Delete animated bomb
+                        _XLIB_DELETE(bomb_x,bomb_y-1);
                         _XLIB_DELETE(bomb_x,bomb_y);
+                        
                         #if XSize>27
                             SET_TEXT_COLOR(COLOR_WHITE);
                             PRINTD(XSize-20,0,2,remaining_buildings);
                         #endif
                     }
+                    else
+                    {
+                        // Delete upper part of the animated bomb
+                        _XLIB_DELETE(bomb_x,bomb_y-1);
+                        // Draw bomb
+                        _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
+                    }
                 }
-                
+                _XLIB_DELETE(x,y);
             } // while flying
             if(!remaining_buildings)
             {

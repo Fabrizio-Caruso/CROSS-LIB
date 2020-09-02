@@ -63,6 +63,8 @@ void INIT_IMAGES(void)
         // HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;			
 
         BOMB_IMAGE._color = _BOMB_COLOR;
+        ANIMATED_BOMB_UP_IMAGE._color = _BOMB_COLOR;
+        ANIMATED_BOMB_DOWN_IMAGE._color = _BOMB_COLOR;
         
         ROAD_IMAGE._color = _ROAD_COLOR;
         
@@ -90,7 +92,9 @@ void INIT_IMAGES(void)
     // VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
     // HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
 
-    BOMB_IMAGE._imageData = _TILE_16;
+    BOMB_IMAGE._imageData = _TILE_10;
+    ANIMATED_BOMB_UP_IMAGE._imageData = _TILE_12;
+    ANIMATED_BOMB_DOWN_IMAGE._imageData = _TILE_13;
 
     ROAD_IMAGE._imageData = _TILE_8;
 

@@ -11,7 +11,7 @@
 #define _TILE_7 0x77
 
 #define _TILE_12 '|'
-#define _TILE_13 ('z'+1)
+#define _TILE_13 0xC3
 #define _TILE_0_B _TILE_0
 #define _DOLLAR_TILE '*'
 

@@ -83,6 +83,7 @@ Reset
 Use the MESS emulator
 Use File Manager to attach the WAV file
 In BASIC do: TLOAD
+Start the tape: Tape Control -> Tape
 
 ---------------------------------------------------------
 

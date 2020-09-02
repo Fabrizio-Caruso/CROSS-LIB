@@ -204,6 +204,7 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
+	-DSLOW_DOWN=400 \
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg -DANIMATE_PLAYER  \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_pce_tiles.s \
@@ -234,36 +235,24 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 
 #################################################################
 
-creativision: creativision_18k
+creativision: creativision_16k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
-creativision_32k: $(ASSETS_PATH)/8x8_chars.h
+creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
-	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-DSLOW_DOWN=1000 \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_32k.bin
-
-creativision_24k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
-	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin
-	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin bs=8k skip=1 > $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k_SWAPPED.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin
-
-creativision_18k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
-	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_18k.bin
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/FULL_creativision_16k.bin
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/FULL_creativision_16k.bin
 
 
 #################################################################

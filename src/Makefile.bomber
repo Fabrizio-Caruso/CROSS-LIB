@@ -403,7 +403,7 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
-	mv mc1000.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_mc1000_exp_48k_joystick.wav
+	mv mc1000.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_mc1000_joystick.wav
 	rm mc1000.bin
 	rm mc1000.cas
 

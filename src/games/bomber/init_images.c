@@ -47,22 +47,25 @@ void INIT_IMAGES(void)
 	// Set color data 
 	#if !defined(NO_COLOR)
 
-        THREE_WINDOW_WALL_1_IMAGE._color = _PLANE_COLOR;
+        THREE_WINDOW_WALL_1_IMAGE._color = _THREE_WINDOW_WALL_1_COLOR;
         PLANE_BACK_IMAGE._color = _PLANE_COLOR;
         PLANE_FRONT_IMAGE._color = _PLANE_COLOR;
-        CONTROL_TOWER_IMAGE._color = _PLANE_COLOR;
+        ANIMATED_PLANE_BACK_IMAGE._color = _PLANE_COLOR;
+        ANIMATED_PLANE_CENTER_IMAGE._color = _PLANE_COLOR;
+        ANIMATED_PLANE_FRONT_IMAGE._color = _PLANE_COLOR;
 
         WALL_1_IMAGE._color = _WALL_1_COLOR;
         SMALL_TWO_WINDOW_WALL_1_IMAGE._color = _SMALL_TWO_WINDOW_WALL_1_COLOR;		
 
         TWO_WINDOW_WALL_1_IMAGE._color = _TWO_WINDOW_WALL_1_COLOR;
 
-        VERTICAL_BRICK_IMAGE._color = _BRICK_COLOR;
-        HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;			
+        // VERTICAL_BRICK_IMAGE._color = _BRICK_COLOR;
+        // HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;			
 
         BOMB_IMAGE._color = _BOMB_COLOR;
-
+        
         ROAD_IMAGE._color = _ROAD_COLOR;
+        
         THREE_WINDOW_WALL_2_IMAGE._color = _THREE_WINDOW_WALL_2_COLOR;
 
         TWO_WINDOW_WALL_2_IMAGE._color = _TWO_WINDOW_WALL_2_COLOR;
@@ -72,25 +75,26 @@ void INIT_IMAGES(void)
 	#endif	
 
 	// Set Image Data
-    THREE_WINDOW_WALL_1_IMAGE._imageData = _TILE_0;
+    THREE_WINDOW_WALL_1_IMAGE._imageData = _TILE_15;
     PLANE_BACK_IMAGE._imageData = _TILE_1;
     PLANE_FRONT_IMAGE._imageData = _TILE_2;
-    CONTROL_TOWER_IMAGE._imageData = _TILE_3;	
-
+    ANIMATED_PLANE_BACK_IMAGE._imageData = _TILE_0;
+    ANIMATED_PLANE_CENTER_IMAGE._imageData = _TILE_3;
+    ANIMATED_PLANE_FRONT_IMAGE._imageData = _TILE_17;
 
     SMALL_TWO_WINDOW_WALL_1_IMAGE._imageData = _TILE_4;
     WALL_1_IMAGE._imageData = _TILE_5;
 
     TWO_WINDOW_WALL_1_IMAGE._imageData = _TILE_7;
 
-    VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
-    HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
+    // VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
+    // HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
 
     BOMB_IMAGE._imageData = _TILE_16;
 
-    ROAD_IMAGE._imageData = _TILE_17;
+    ROAD_IMAGE._imageData = _TILE_8;
 
-    THREE_WINDOW_WALL_2_IMAGE._imageData = _TILE_0_B;
+    THREE_WINDOW_WALL_2_IMAGE._imageData = _TILE_15;
 
     TWO_WINDOW_WALL_2_IMAGE._imageData = _TILE_7_B;
     SMALL_TWO_WINDOW_WALL_2_IMAGE._imageData = _TILE_4_B;

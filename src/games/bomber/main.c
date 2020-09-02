@@ -71,10 +71,13 @@ extern Image SMALL_TWO_WINDOW_WALL_2_IMAGE;
 extern Image PLANE_BACK_IMAGE;
 extern Image PLANE_FRONT_IMAGE;
 
+extern Image ANIMATED_PLANE_BACK_IMAGE;
+extern Image ANIMATED_PLANE_CENTER_IMAGE;
+extern Image ANIMATED_PLANE_FRONT_IMAGE;
+
 extern Image BOMB_IMAGE;
 extern Image ROAD_IMAGE;
 
-extern Image CONTROL_TOWER_IMAGE;
 
 #if XSize>32
     #define BUILDINGS_NUMBER (XSize-10)
@@ -84,9 +87,24 @@ extern Image CONTROL_TOWER_IMAGE;
     #define FIRST_BULDING_X_POS 4
 #else
     #define BUILDINGS_NUMBER (XSize-7)
-    #define FIRST_BULDING_X_POS 3
+    #define FIRST_BULDING_X_POS 4
 #endif
 
+// #define BUILDINGS_NUMBER 1
+// #define FIRST_BULDING_X_POS XSize-4
+
+#define deletePlane() \
+    _XLIB_DELETE(x+1,y);
+
+
+#define drawPlane() \
+{ \
+    _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE); \
+    _XLIB_DRAW(x+1,y,&PLANE_FRONT_IMAGE); \
+}
+
+#define deleteAnimatedPlane() \
+    _XLIB_DELETE(x-1,y); 
 
 uint16_t building_height[XSize];
 
@@ -111,17 +129,14 @@ uint8_t remaining_buildings;
 
 uint8_t alive;
 
-void deletePlane(void)
-{
-    _XLIB_DELETE(x,y);
-    _XLIB_DELETE(x+1,y);
-}
 
 
-void drawPlane(void)
+
+void drawAnimatedPlane(void)
 {
-    _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE);
-    _XLIB_DRAW(x+1,y,&PLANE_FRONT_IMAGE);
+    _XLIB_DRAW(x-1,y,&ANIMATED_PLANE_BACK_IMAGE);
+    _XLIB_DRAW(x,y,&ANIMATED_PLANE_CENTER_IMAGE);
+    _XLIB_DRAW(x+1,y,&ANIMATED_PLANE_FRONT_IMAGE);
 }
 
 
@@ -172,7 +187,6 @@ int main(void)
             {
                 _XLIB_DRAW(x,MAX_Y-1,&ROAD_IMAGE);
             }
-            _XLIB_DRAW(XSize-1,MAX_Y-2,&CONTROL_TOWER_IMAGE);
             for(x=0;x<XSize-2;++x)
             {
                 building_height[x] = 0;
@@ -192,7 +206,7 @@ int main(void)
 
             SLEEP(1);
             y = 1;
-            x = 0;
+            x = 1;
             
             SET_TEXT_COLOR(COLOR_WHITE);
             PRINTD(0,0,5,score);
@@ -213,24 +227,31 @@ int main(void)
             while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-4))
             {
 
-                if(!remaining_buildings && (y<MAX_Y-2) && (x<XSize-3) )
+                if(!remaining_buildings && (y<MAX_Y-2) && (x<XSize-4) )
                 {
+                    _XLIB_DELETE(x-1,y);
                     ++y;
                 }
+                drawAnimatedPlane();
+                DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
+                deleteAnimatedPlane();
                 drawPlane();
                 
-                DO_SLOW_DOWN(SLOW_DOWN-level*LEVEL_SPEED_UP);
-
+                DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
                 deletePlane();
-                if(x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER+2)
+
+                
+                if(x<XSize-4)
                 {
                     ++x;
                 }
-                else if(y<=MAX_Y-2)
+                else if(y<MAX_Y-2)
                 {
-                    x=0;
+                    _XLIB_DELETE(x,y);
+                    x=1;
                     ++y;
                 }
+
                 
                 if(!bombActive && KEY_PRESSED())
                 {   
@@ -264,6 +285,7 @@ int main(void)
                         EXPLOSION_SOUND();
                         _XLIB_DELETE(bomb_x,bomb_y);
                         #if XSize>27
+                            SET_TEXT_COLOR(COLOR_WHITE);
                             PRINTD(XSize-20,0,2,remaining_buildings);
                         #endif
                     }
@@ -272,6 +294,7 @@ int main(void)
             } // while flying
             if(!remaining_buildings)
             {
+                _XLIB_DELETE(x-1,y);
                 drawPlane();
                 PRINT(1,2,_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_L _XL_E _XL_T _XL_E _XL_D);
                 SLEEP(1);
@@ -291,6 +314,7 @@ int main(void)
             }
             else
             {
+                _XLIB_DELETE(x-1,y);
                 _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE);
                 EXPLOSION_SOUND();
                 PRINT(1,2,_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R);

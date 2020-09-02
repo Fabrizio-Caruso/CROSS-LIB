@@ -9,7 +9,7 @@ In the code we use the name tiles for different things:
 
 ----------------------------------------------------------------------------------------------
 TILE   | TILE |   CAN HAVE               | EXAMPLE CHARACTER
-INDEX  |   #  |   INTRINSIC COLOR (*)    | IN CROSS CHASE AND CROSS SHOOT
+INDEX  |   #  |   INTRINSIC COLOR (*)    | IN CROSS CHASE AND CROSS SHOOT                     
 ----------------------------------------------------------------------------------------------
    0   |   0  |                     CYAN | PLAYER DOWN
 ----------------------------------------------------------------------------------------------

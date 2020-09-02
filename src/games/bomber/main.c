@@ -91,9 +91,12 @@ extern Image ROAD_IMAGE;
 #endif
 
 // #define BUILDINGS_NUMBER 1
-// #define FIRST_BULDING_X_POS XSize-4
+// #define FIRST_BULDING_X_POS XSize-15
 
-#define deletePlane() \
+#define deletePlaneBack() \
+    _XLIB_DELETE(x,y);
+
+#define deletePlaneFront() \
     _XLIB_DELETE(x+1,y);
 
 
@@ -103,7 +106,7 @@ extern Image ROAD_IMAGE;
     _XLIB_DRAW(x+1,y,&PLANE_FRONT_IMAGE); \
 }
 
-#define deleteAnimatedPlane() \
+#define deleteAnimatedPlaneBack() \
     _XLIB_DELETE(x-1,y); 
 
 uint16_t building_height[XSize];
@@ -224,30 +227,32 @@ int main(void)
             PRINTD(XSize-14,0,2,level);
             SET_TEXT_COLOR(COLOR_CYAN);
             PRINTD(XSize-5,0,5,hiscore);
-            while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-4))
+            while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-3))
             {
 
-                if(!remaining_buildings && (y<MAX_Y-2) && (x<XSize-4) )
+                // Land safely
+                if(!remaining_buildings && (y<MAX_Y-2) && (x<XSize-3) )
                 {
                     _XLIB_DELETE(x-1,y);
                     ++y;
                 }
                 drawAnimatedPlane();
                 DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
-                deleteAnimatedPlane();
+                deleteAnimatedPlaneBack();
                 drawPlane();
                 
                 DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
-                deletePlane();
 
                 
-                if(x<XSize-4)
+                if(x<XSize-3)
                 {
                     ++x;
                 }
                 else if(y<MAX_Y-2)
                 {
-                    _XLIB_DELETE(x,y);
+                    deletePlaneFront();
+                    
+                    deletePlaneBack();
                     x=1;
                     ++y;
                 }
@@ -259,7 +264,7 @@ int main(void)
                     ++bombActive;
                     bomb_x = x;
                     bomb_y = y;
-                    if(building_height[x]>0)
+                    if(building_height[x])
                     {
                         building_height[x] = 0;
                         score+=10;
@@ -272,7 +277,8 @@ int main(void)
                         PRINTD(0,0,5,score);
                     }
                 }
-                
+                _XLIB_DELETE(x,y);
+
                 if(bombActive)
                 {
                     _XLIB_DELETE(bomb_x,bomb_y);
@@ -282,7 +288,6 @@ int main(void)
                     if(bomb_y>MAX_Y-3)
                     {
                         bombActive = 0;
-                        EXPLOSION_SOUND();
                         _XLIB_DELETE(bomb_x,bomb_y);
                         #if XSize>27
                             SET_TEXT_COLOR(COLOR_WHITE);

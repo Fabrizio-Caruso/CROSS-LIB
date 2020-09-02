@@ -198,7 +198,7 @@ int main(void)
             PRINTD(0,0,5,score);
             PRINT(XSize-7,0,_XL_H _XL_I);
             #if XSize>20
-                PRINT(XSize-15,0, _XL_L _XL_V);
+                PRINT(XSize-16,0, _XL_L _XL_V);
             #endif
             #if XSize>27
                 _XLIB_DRAW(XSize-21,0,&TWO_WINDOW_WALL_2_IMAGE);
@@ -207,7 +207,7 @@ int main(void)
             #endif
             
             SET_TEXT_COLOR(COLOR_YELLOW);
-            PRINTD(XSize-13,0,2,level);
+            PRINTD(XSize-14,0,2,level);
             SET_TEXT_COLOR(COLOR_CYAN);
             PRINTD(XSize-5,0,5,hiscore);
             while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-4))

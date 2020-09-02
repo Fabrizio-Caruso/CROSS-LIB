@@ -250,10 +250,10 @@ creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
-	-o $(BUILD_PATH)/FULL_creativision_16k.bin
-	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
-	rm $(BUILD_PATH)/FULL_creativision_16k.bin
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin
 
 
 #################################################################

@@ -29,11 +29,6 @@
 	
 // BLUE
 #define _TILE_0 ('*'+NOT_INVERTED)
-// #define _PLAYER_DOWN 0
-// #define _PLAYER_UP 1
-// #define _PLAYER_RIGHT 2
-// #define _PLAYER_LEFT 3
-
 
 #define _TILE_9 '!'
 

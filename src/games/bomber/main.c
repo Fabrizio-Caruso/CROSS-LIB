@@ -27,7 +27,6 @@
     #define EXIT_SUCCESS 0
 #endif
 
-
 #include "cross_lib.h"
 
 #include "init_images.h"
@@ -266,12 +265,8 @@ int main(void)
             _XLIB_DRAW(0,0,&SCORE_TEXT_LEFT_IMAGE);
             _XLIB_DRAW(1,0,&SCORE_TEXT_RIGHT_IMAGE);
 
-            // SET_TEXT_COLOR(COLOR_CYAN);
-            // PRINT(XSize-7,0,_XL_H _XL_I);
             _XLIB_DRAW(XSize-6,0,&HI_TEXT_IMAGE);
             #if XSize>=20
-                // SET_TEXT_COLOR(COLOR_YELLOW);
-                // PRINT(XSize-16,0, _XL_L _XL_V);
                 _XLIB_DRAW(XSize-10,0,&LV_TEXT_IMAGE);
             #endif
             #if XSize>=22

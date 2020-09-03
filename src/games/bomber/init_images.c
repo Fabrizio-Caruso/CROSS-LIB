@@ -83,6 +83,7 @@ void INIT_IMAGES(void)
 
 	// Set Image Data
     THREE_WINDOW_WALL_1_IMAGE._imageData = _TILE_15;
+    
     PLANE_BACK_IMAGE._imageData = _TILE_1;
     PLANE_FRONT_IMAGE._imageData = _TILE_2;
     ANIMATED_PLANE_BACK_IMAGE._imageData = _TILE_0;
@@ -107,7 +108,7 @@ void INIT_IMAGES(void)
 
     WALL_2_IMAGE._imageData = _TILE_11;
     
-    SCORE_TEXT_LEFT_IMAGE._imageData = _TILE_14;;
+    SCORE_TEXT_LEFT_IMAGE._imageData = _TILE_14;
     SCORE_TEXT_RIGHT_IMAGE._imageData = _TILE_16;
     
     HI_TEXT_IMAGE._imageData = _TILE_6;;

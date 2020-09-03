@@ -25,91 +25,148 @@
 #ifndef _DEFAULT_GRAPHICS_SETTINGS
 #define _DEFAULT_GRAPHICS_SETTINGS
 
+#if defined(NO_UDG)
+    #include "char_tiles.h"
+#endif
 
+#if !defined(_TILE_1)
+    #define _TILE_1 ')'
+#endif 
 
+#if !defined(_TILE_3)
+    #define _TILE_3 '('
+#endif
 
-#define _TILE_1 ')'
-#define _TILE_3 '('
-#define _TILE_2 '\''
+#if !defined(_TILE_2)
+    #define _TILE_2 '\''
+#endif
 
-#if !defined(__CIDELSA__)
-    #define _TILE_0 '*'
-#else
-    #define _TILE_0 'H'
-
+#if !defined(_TILE_0)
+    #if !defined(__CIDELSA__)
+        #define _TILE_0 '*'
+    #else
+        #define _TILE_0 'H'
+    #endif
 #endif
 // RED
-#define _TILE_5 'X'
 
-// WHITE
-#if defined(__LCC1802__) 
-    #define _TILE_4 'O'
-#else
-    #define _TILE_4 'o'
+#if !defined(_TILE_5)
+    #define _TILE_5 'X'
 #endif
 
-#if defined(__ALPHATRO__)
-	#define _TILE_6 'm'
-#else
-	#define _TILE_6 '#'
+// WHITE
+#if !defined(_TILE_4)
+    #if defined(__LCC1802__) 
+        #define _TILE_4 'O'
+    #else
+        #define _TILE_4 'o'
+    #endif
+#endif
+
+#if !defined(_TILE_6)
+    #if defined(__ALPHATRO__)
+        #define _TILE_6 'm'
+    #else
+        #define _TILE_6 '#'
+    #endif
 #endif
 
 // BLUE
-#if defined(__ZX80__) || defined(__CIDELSA__)
-	#define _TILE_9 'G'
-#else
-	#define _TILE_9 '!'
+#if !defined(_TILE_9)
+    #if defined(__ZX80__) || defined(__CIDELSA__)
+        #define _TILE_9 'G'
+    #else
+        #define _TILE_9 '!'
+    #endif
 #endif
 
 // YELLOW
-#if !defined(__CIDELSA__)
-    #define _TILE_7 '+'
-    #define _TILE_7_B '+'
-#else
-    #define _TILE_7 'A'
-    #define _TILE_7_B 'A'
+#if !defined(_TILE_7)
+    #if !defined(__CIDELSA__)
+        #define _TILE_7 '+'
+    #else
+        #define _TILE_7 'A'
+    #endif
 #endif
 
-#define _TILE_4_B 'O'	
+#if !defined(_TILE_7_B)
+    #if !defined(__CIDELSA__)
+        #define _TILE_7_B '+'
+    #else
+        #define _TILE_7_B 'A'
+    #endif
+#endif
 
-#define _TILE_0_B _TILE_0
-#define _DOLLAR_TILE '$'
+#if !defined(_TILE_4_B)
+    #define _TILE_4_B 'O'	
+#endif
+
+#if !defined(_TILE_0_B)
+    #define _TILE_0_B _TILE_0
+#endif
+
+#if !defined(_DOLLAR_TILE)
+    #define _DOLLAR_TILE '$'
+#endif
 
 // GREEN
-#define _TILE_8  'S'
-
-#define _TILE_17 'F'
-
-#define _TILE_18 'H'
-
-// CYAN
-#define _TILE_10 'V'
-#define _TILE_11 '.'
-
-#define _TILE_14 '>'
-
-#define _TILE_15 '<'
-
-#if defined(__ZX80__) || defined(__ZX81__)
-	#define _TILE_16 'I'
-#else
-	#define _TILE_16 ('^')
+#if !defined(_TILE_8)
+    #define _TILE_8  'S'
 #endif
 
-#if defined(__C128_Z80__) || defined(__ZX80__) || defined(__ZX81__) || defined(__GAL__)  
-	#define _TILE_12 'i'
-#elif defined(__ATARI_LYNX__) || defined(__ABC80__) || defined(__OSIC1P__) || defined(__TMC600__)
-	#define _TILE_12 'I' 
-#else
-	#define _TILE_12 ('|')
-#endif 
+#if !defined(_TILE_17)
+    #define _TILE_17 'F'
+#endif
 
-#define _TILE_13 '-'
+#if !defined(_TILE_18)
+    #define _TILE_18 'H'
+#endif
 
-#if !defined(NO_COLOR)
-    #define _TILE_5_B _TILE_5
-#else
-    #define _TILE_5_B '8'
+// CYAN
+#if !defined(_TILE_10)
+    #define _TILE_10 'V'
+#endif
+
+#if !defined(_TILE_11)
+    #define _TILE_11 '.'
+#endif
+
+#if !defined(_TILE_14)
+    #define _TILE_14 '>'
+#endif
+
+#if !defined(_TILE_15)
+    #define _TILE_15 '<'
+#endif
+
+#if !defined(_TILE_16)
+    #if defined(__ZX80__) || defined(__ZX81__)
+        #define _TILE_16 'I'
+    #else
+        #define _TILE_16 ('^')
+    #endif
+#endif
+
+#if !defined(_TILE_12)
+    #if defined(__C128_Z80__) || defined(__ZX80__) || defined(__ZX81__) || defined(__GAL__)  
+        #define _TILE_12 'i'
+    #elif defined(__ATARI_LYNX__) || defined(__ABC80__) || defined(__OSIC1P__) || defined(__TMC600__)
+        #define _TILE_12 'I' 
+    #else
+        #define _TILE_12 ('|')
+    #endif 
+#endif
+
+#if !defined(_TILE_13)
+    #define _TILE_13 '-'
+#endif
+
+#if !defined(_TILE_5_B)
+    #if !defined(NO_COLOR)
+        #define _TILE_5_B _TILE_5
+    #else
+        #define _TILE_5_B '8'
+    #endif
 #endif
 
 #endif // _DEFAULT_GRAPHICS_SETTINGS

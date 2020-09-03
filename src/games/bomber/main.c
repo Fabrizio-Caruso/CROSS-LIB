@@ -275,24 +275,6 @@ int main(void)
                 }
                 drawAnimatedPlane();
                 DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
-                deleteAnimatedPlaneBack();
-                drawPlane();
-                
-                DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
-
-                
-                if(x<XSize-3)
-                {
-                    ++x;
-                }
-                else if(y<MAX_Y-2)
-                {
-                    deletePlaneFront();
-                    deletePlaneBack();
-                    x=1;
-                    ++y;
-                }
-
                 
                 if(!bombActive && KEY_PRESSED())
                 {   
@@ -319,7 +301,6 @@ int main(void)
                 {
                     // Draw animated bomb
                     drawAnimatedBomb();
-                    DO_SLOW_DOWN(BOMB_SLOW_DOWN);
                     
                     ++bomb_y;
                 
@@ -336,15 +317,37 @@ int main(void)
                         // Delete animated bomb
                         deleteAnimatedBomb();
                     }
-                    else
-                    {
-                        // Draw bomb
-                        drawBomb();
-                        // Delete upper part of the animated bomb
-                        deleteAnimatedBombUp();
 
-                    }
                 }
+                deleteAnimatedPlaneBack();
+                drawPlane();
+                
+                DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
+
+                if(bombActive)
+                {
+                    // Draw bomb
+                    drawBomb();
+                    // Delete upper part of the animated bomb
+                    deleteAnimatedBombUp();
+
+                }
+
+                
+                if(x<XSize-3)
+                {
+                    ++x;
+                }
+                else if(y<MAX_Y-2)
+                {
+                    deletePlaneFront();
+                    deletePlaneBack();
+                    x=1;
+                    ++y;
+                }
+
+                
+
                 deletePlaneBack();
             } // while flying
             if(!remaining_buildings)
@@ -381,7 +384,7 @@ int main(void)
                 if(score>hiscore)
                 {
                     hiscore = score;
-                    SET_TEXT_COLOR(COLOR_RED);
+                    SET_TEXT_COLOR(COLOR_YELLOW);
                     PRINT(1,4,_XL_N _XL_E _XL_W _XL_SPACE _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E);
                     SLEEP(1);
                 }

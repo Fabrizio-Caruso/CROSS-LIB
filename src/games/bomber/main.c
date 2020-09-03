@@ -384,7 +384,7 @@ int main(void)
                 if(score>hiscore)
                 {
                     hiscore = score;
-                    SET_TEXT_COLOR(COLOR_YELLOW);
+                    SET_TEXT_COLOR(COLOR_CYAN);
                     PRINT(1,4,_XL_N _XL_E _XL_W _XL_SPACE _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E);
                     SLEEP(1);
                 }

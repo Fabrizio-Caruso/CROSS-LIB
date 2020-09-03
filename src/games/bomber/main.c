@@ -93,8 +93,15 @@ extern Image ROAD_IMAGE;
     #define FIRST_BULDING_X_POS 4
 #endif
 
-// #define BUILDINGS_NUMBER 1
-// #define FIRST_BULDING_X_POS XSize-15
+
+#define drawPlane() \
+{ \
+    _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE); \
+    _XLIB_DRAW(x+1,y,&PLANE_FRONT_IMAGE); \
+}
+
+#define drawPlaneBack() \
+    _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE);
 
 #define deletePlaneBack() \
     _XLIB_DELETE(x,y);
@@ -103,14 +110,45 @@ extern Image ROAD_IMAGE;
     _XLIB_DELETE(x+1,y);
 
 
-#define drawPlane() \
+
+#define drawAnimatedPlane() \
 { \
-    _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE); \
-    _XLIB_DRAW(x+1,y,&PLANE_FRONT_IMAGE); \
+    _XLIB_DRAW(x-1,y,&ANIMATED_PLANE_BACK_IMAGE); \
+    _XLIB_DRAW(x,y,&ANIMATED_PLANE_CENTER_IMAGE); \
+    _XLIB_DRAW(x+1,y,&ANIMATED_PLANE_FRONT_IMAGE); \
 }
 
 #define deleteAnimatedPlaneBack() \
     _XLIB_DELETE(x-1,y); 
+
+#define drawRoad() \
+    _XLIB_DRAW(x,MAX_Y-1,&ROAD_IMAGE);
+
+#define drawBuilding() \
+    _XLIB_DRAW(x,MAX_Y-1-y,buildingTypePtr);
+
+#define drawBomb() \
+    _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
+
+#define drawAnimatedBomb() \
+{ \
+    _XLIB_DRAW(bomb_x,bomb_y,&ANIMATED_BOMB_UP_IMAGE); \
+    _XLIB_DRAW(bomb_x,bomb_y+1,&ANIMATED_BOMB_DOWN_IMAGE); \
+}
+
+#define deleteAnimatedBomb() \
+{ \
+    _XLIB_DELETE(bomb_x,bomb_y-1); \
+    _XLIB_DELETE(bomb_x,bomb_y); \
+}
+
+#define deleteAnimatedBombUp() \
+{ \
+    _XLIB_DELETE(bomb_x,bomb_y-1); \
+}
+
+
+#define BOMB_SLOW_DOWN (20+(SLOW_DOWN/2))
 
 uint16_t building_height[XSize];
 
@@ -138,12 +176,7 @@ uint8_t alive;
 
 
 
-void drawAnimatedPlane(void)
-{
-    _XLIB_DRAW(x-1,y,&ANIMATED_PLANE_BACK_IMAGE);
-    _XLIB_DRAW(x,y,&ANIMATED_PLANE_CENTER_IMAGE);
-    _XLIB_DRAW(x+1,y,&ANIMATED_PLANE_FRONT_IMAGE);
-}
+
 
 
 int main(void)
@@ -191,7 +224,7 @@ int main(void)
             
             for(x=0;x<XSize;++x)
             {
-                _XLIB_DRAW(x,MAX_Y-1,&ROAD_IMAGE);
+                drawRoad();
             }
             for(x=0;x<XSize-2;++x)
             {
@@ -204,7 +237,7 @@ int main(void)
                 
                 for(y=1;y<building_height[x];++y)
                 {
-                    _XLIB_DRAW(x,MAX_Y-1-y,buildingTypePtr);
+                    drawBuilding();
                     TOCK_SOUND();
                 }
                 PING_SOUND();
@@ -216,8 +249,11 @@ int main(void)
             
             SET_TEXT_COLOR(COLOR_WHITE);
             PRINTD(0,0,5,score);
+            SET_TEXT_COLOR(COLOR_CYAN);
+
             PRINT(XSize-7,0,_XL_H _XL_I);
             #if XSize>20
+                SET_TEXT_COLOR(COLOR_YELLOW);
                 PRINT(XSize-16,0, _XL_L _XL_V);
             #endif
             #if XSize>27
@@ -226,9 +262,7 @@ int main(void)
                 PRINTD(XSize-20,0,2,remaining_buildings);
             #endif
             
-            SET_TEXT_COLOR(COLOR_YELLOW);
             PRINTD(XSize-14,0,2,level);
-            SET_TEXT_COLOR(COLOR_CYAN);
             PRINTD(XSize-5,0,5,hiscore);
             while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-3))
             {
@@ -236,7 +270,7 @@ int main(void)
                 // Land safely
                 if(!remaining_buildings && (y<MAX_Y-2) && (x<XSize-3) )
                 {
-                    _XLIB_DELETE(x-1,y);
+                    deleteAnimatedPlaneBack();
                     ++y;
                 }
                 drawAnimatedPlane();
@@ -254,7 +288,6 @@ int main(void)
                 else if(y<MAX_Y-2)
                 {
                     deletePlaneFront();
-                    
                     deletePlaneBack();
                     x=1;
                     ++y;
@@ -285,9 +318,8 @@ int main(void)
                 if(bombActive)
                 {
                     // Draw animated bomb
-                    _XLIB_DRAW(bomb_x,bomb_y,&ANIMATED_BOMB_UP_IMAGE);
-                    _XLIB_DRAW(bomb_x,bomb_y+1,&ANIMATED_BOMB_DOWN_IMAGE);
-                    DO_SLOW_DOWN(SLOW_DOWN/2);
+                    drawAnimatedBomb();
+                    DO_SLOW_DOWN(BOMB_SLOW_DOWN);
                     
                     ++bomb_y;
                 
@@ -295,33 +327,36 @@ int main(void)
                     {
                         bombActive = 0;
                         
-                        // Delete animated bomb
-                        _XLIB_DELETE(bomb_x,bomb_y-1);
-                        _XLIB_DELETE(bomb_x,bomb_y);
+
                         
                         #if XSize>27
                             SET_TEXT_COLOR(COLOR_WHITE);
                             PRINTD(XSize-20,0,2,remaining_buildings);
                         #endif
+                        // Delete animated bomb
+                        deleteAnimatedBomb();
                     }
                     else
                     {
-                        // Delete upper part of the animated bomb
-                        _XLIB_DELETE(bomb_x,bomb_y-1);
                         // Draw bomb
-                        _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
+                        drawBomb();
+                        // Delete upper part of the animated bomb
+                        deleteAnimatedBombUp();
+
                     }
                 }
-                _XLIB_DELETE(x,y);
+                deletePlaneBack();
             } // while flying
             if(!remaining_buildings)
             {
-                _XLIB_DELETE(x-1,y);
+                deleteAnimatedPlaneBack();
                 drawPlane();
+                SET_TEXT_COLOR(COLOR_YELLOW);
                 PRINT(1,2,_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_L _XL_E _XL_T _XL_E _XL_D);
                 SLEEP(1);
                 ++level;
                 score+=bonus;
+                SET_TEXT_COLOR(COLOR_WHITE);
                 PRINT(1,4,_XL_B _XL_O _XL_N _XL_U _XL_S);
                 for(bonus_ind=10;bonus_ind<=bonus;bonus_ind+=10)
                 {
@@ -336,9 +371,10 @@ int main(void)
             }
             else
             {
-                _XLIB_DELETE(x-1,y);
-                _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE);
+                deleteAnimatedPlaneBack();
+                drawPlaneBack();
                 EXPLOSION_SOUND();
+                SET_TEXT_COLOR(COLOR_RED);
                 PRINT(1,2,_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R);
                 SLEEP(2);
                 alive = 0;

@@ -35,7 +35,13 @@
 
     Image WALL_2_IMAGE;
 
-
+    Image SCORE_TEXT_LEFT_IMAGE;
+    Image SCORE_TEXT_RIGHT_IMAGE;
+    
+    Image HI_TEXT_IMAGE;
+    Image LV_TEXT_IMAGE;
+    
+    Image EXPLOSION_IMAGE;
 
 #endif // _IMAGES_H
 

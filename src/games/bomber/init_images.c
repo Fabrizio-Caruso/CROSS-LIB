@@ -59,9 +59,6 @@ void INIT_IMAGES(void)
 
         TWO_WINDOW_WALL_1_IMAGE._color = _TWO_WINDOW_WALL_1_COLOR;
 
-        // VERTICAL_BRICK_IMAGE._color = _BRICK_COLOR;
-        // HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;			
-
         BOMB_IMAGE._color = _BOMB_COLOR;
         ANIMATED_BOMB_UP_IMAGE._color = _BOMB_COLOR;
         ANIMATED_BOMB_DOWN_IMAGE._color = _BOMB_COLOR;
@@ -74,6 +71,14 @@ void INIT_IMAGES(void)
         SMALL_TWO_WINDOW_WALL_2_IMAGE._color = _SMALL_TWO_WINDOW_WALL_2_COLOR;
 
         WALL_2_IMAGE._color = _WALL_2_COLOR;
+        
+        SCORE_TEXT_LEFT_IMAGE._color = COLOR_WHITE;
+        SCORE_TEXT_RIGHT_IMAGE._color = COLOR_WHITE;
+        
+        HI_TEXT_IMAGE._color = COLOR_RED;;
+        LV_TEXT_IMAGE._color = COLOR_YELLOW;
+        
+        EXPLOSION_IMAGE._color = COLOR_RED;
 	#endif	
 
 	// Set Image Data
@@ -89,9 +94,6 @@ void INIT_IMAGES(void)
 
     TWO_WINDOW_WALL_1_IMAGE._imageData = _TILE_7;
 
-    // VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
-    // HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
-
     BOMB_IMAGE._imageData = _TILE_10;
     ANIMATED_BOMB_UP_IMAGE._imageData = _TILE_12;
     ANIMATED_BOMB_DOWN_IMAGE._imageData = _TILE_13;
@@ -104,6 +106,14 @@ void INIT_IMAGES(void)
     SMALL_TWO_WINDOW_WALL_2_IMAGE._imageData = _TILE_4_B;
 
     WALL_2_IMAGE._imageData = _TILE_11;
+    
+    SCORE_TEXT_LEFT_IMAGE._imageData = _TILE_14;;
+    SCORE_TEXT_RIGHT_IMAGE._imageData = _TILE_16;
+    
+    HI_TEXT_IMAGE._imageData = _TILE_6;;
+    LV_TEXT_IMAGE._imageData = _TILE_9;
+    
+    EXPLOSION_IMAGE._imageData = _TILE_18;
 }
 
 

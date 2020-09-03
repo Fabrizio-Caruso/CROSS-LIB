@@ -82,7 +82,19 @@ extern Image ANIMATED_BOMB_DOWN_IMAGE;
 extern Image ROAD_IMAGE;
 
 
-#if XSize>32
+extern Image SCORE_TEXT_LEFT_IMAGE;
+extern Image SCORE_TEXT_RIGHT_IMAGE;
+
+extern Image HI_TEXT_IMAGE;
+extern Image LV_TEXT_IMAGE;
+
+extern Image EXPLOSION_IMAGE;
+
+
+#if XSize>48
+    #define BUILDINGS_NUMBER (XSize-14)
+    #define FIRST_BULDING_X_POS 8
+#elif XSize>32
     #define BUILDINGS_NUMBER (XSize-10)
     #define FIRST_BULDING_X_POS 5
 #elif XSize>27
@@ -207,7 +219,7 @@ int main(void)
         {
             bombActive = 0;
             bomb_x = 0;
-            bomb_y = 0;
+            bomb_y = MAX_Y-2;
             bonus = 0;
             remaining_buildings = BUILDINGS_NUMBER;
 
@@ -218,6 +230,7 @@ int main(void)
             WAIT_PRESS();
             CLEAR_SCREEN();
             PRINT(2,2, _XL_L _XL_E _XL_V _XL_E _XL_L);
+            SET_TEXT_COLOR(COLOR_WHITE);
             PRINTD(8,2,2,level);
             SLEEP(1);
             CLEAR_SCREEN();
@@ -248,21 +261,28 @@ int main(void)
             x = 1;
             
             SET_TEXT_COLOR(COLOR_WHITE);
-            PRINTD(0,0,5,score);
-            SET_TEXT_COLOR(COLOR_CYAN);
+            PRINTD(2,0,5,score);
+            
+            _XLIB_DRAW(0,0,&SCORE_TEXT_LEFT_IMAGE);
+            _XLIB_DRAW(1,0,&SCORE_TEXT_RIGHT_IMAGE);
 
-            PRINT(XSize-7,0,_XL_H _XL_I);
-            #if XSize>20
-                SET_TEXT_COLOR(COLOR_YELLOW);
-                PRINT(XSize-16,0, _XL_L _XL_V);
+            // SET_TEXT_COLOR(COLOR_CYAN);
+            // PRINT(XSize-7,0,_XL_H _XL_I);
+            _XLIB_DRAW(XSize-6,0,&HI_TEXT_IMAGE);
+            #if XSize>=20
+                // SET_TEXT_COLOR(COLOR_YELLOW);
+                // PRINT(XSize-16,0, _XL_L _XL_V);
+                _XLIB_DRAW(XSize-10,0,&LV_TEXT_IMAGE);
             #endif
-            #if XSize>27
-                _XLIB_DRAW(XSize-21,0,&TWO_WINDOW_WALL_2_IMAGE);
+            #if XSize>=22
+                _XLIB_DRAW(8,0,&TWO_WINDOW_WALL_2_IMAGE);
                 SET_TEXT_COLOR(COLOR_WHITE);
-                PRINTD(XSize-20,0,2,remaining_buildings);
+                PRINTD(9,0,2,remaining_buildings);
             #endif
             
-            PRINTD(XSize-14,0,2,level);
+            PRINTD(XSize-9,0,2,level);
+            
+            SET_TEXT_COLOR(COLOR_WHITE);
             PRINTD(XSize-5,0,5,hiscore);
             while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-3))
             {
@@ -276,6 +296,11 @@ int main(void)
                 drawAnimatedPlane();
                 DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
                 
+                if(!bombActive)
+                {
+                    _XLIB_DELETE(bomb_x,bomb_y);
+                }
+
                 if(!bombActive && KEY_PRESSED())
                 {   
                     SHOOT_SOUND();
@@ -292,7 +317,7 @@ int main(void)
                             bonus = 20*(MAX_Y-y)+level*30;
                         }
                         SET_TEXT_COLOR(COLOR_WHITE);
-                        PRINTD(0,0,5,score);
+                        PRINTD(2,0,5,score);
                     }
                 }
 
@@ -306,16 +331,18 @@ int main(void)
                 
                     if(bomb_y>MAX_Y-3) // Bomb reaches the ground
                     {
+                        _XLIB_DRAW(bomb_x,bomb_y,&EXPLOSION_IMAGE);
+                        DO_SLOW_DOWN(SLOW_DOWN/4);
                         bombActive = 0;
                         
-
                         
-                        #if XSize>27
+                        #if XSize>=22
                             SET_TEXT_COLOR(COLOR_WHITE);
-                            PRINTD(XSize-20,0,2,remaining_buildings);
+                            PRINTD(9,0,2,remaining_buildings);
                         #endif
                         // Delete animated bomb
-                        deleteAnimatedBomb();
+                        deleteAnimatedBombUp();
+                        _XLIB_DRAW(bomb_x,bomb_y,&EXPLOSION_IMAGE);
                     }
 
                 }
@@ -369,7 +396,7 @@ int main(void)
                     DO_SLOW_DOWN(SLOW_DOWN);
                 }
                 SET_TEXT_COLOR(COLOR_WHITE);
-                PRINTD(0,0,5,score);
+                PRINTD(2,0,5,score);
                 SLEEP(1);
             }
             else

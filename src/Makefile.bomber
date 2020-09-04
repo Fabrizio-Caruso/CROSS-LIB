@@ -61,6 +61,7 @@ cc65_targets: \
     creativision \
     oric  \
     nes \
+    pet \
     pce \
     vic20 
 
@@ -450,6 +451,19 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_msx_32k_DATA.bin
+
+
+#################################################################
+
+
+pet: pet_16k
+
+pet_16k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet \
+	-DFULL_GAME -DSLOW_DOWN=400 \
+	-DNO_INIT_GRAPHICS -DCONIO -DNO_UDG \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_pet_16k.prg
 
 
 #################################################################

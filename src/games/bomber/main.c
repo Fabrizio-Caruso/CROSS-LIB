@@ -111,8 +111,8 @@ extern Image EXPLOSION_IMAGE;
     #define FIRST_BULDING_X_POS 4
 #endif
 
-    // #define BUILDINGS_NUMBER 1
-    // #define FIRST_BULDING_X_POS 10
+// #define BUILDINGS_NUMBER 1
+// #define FIRST_BULDING_X_POS 10
 
 
 // String definitions

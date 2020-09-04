@@ -134,15 +134,49 @@ do  {\
 } while(0)  
 
 
-#define drawAnimatedPlane() \
-do { \
-    _XLIB_DRAW(x-1,y,&ANIMATED_PLANE_BACK_IMAGE); \
-    _XLIB_DRAW(x,y,&ANIMATED_PLANE_CENTER_IMAGE); \
-    _XLIB_DRAW(x+1,y,&ANIMATED_PLANE_FRONT_IMAGE); \
-} while(0)
+#if !defined(NO_ANIMATION)
+    #define drawAnimatedPlane() \
+        do { \
+            _XLIB_DRAW(x-1,y,&ANIMATED_PLANE_BACK_IMAGE); \
+            _XLIB_DRAW(x,y,&ANIMATED_PLANE_CENTER_IMAGE); \
+            _XLIB_DRAW(x+1,y,&ANIMATED_PLANE_FRONT_IMAGE); \
+        } while(0)
 
-#define deleteAnimatedPlaneBack() \
-    _XLIB_DELETE(x-1,y); 
+    #define deleteAnimatedPlaneBack() \
+        _XLIB_DELETE(x-1,y); 
+        
+    #define drawAnimatedBomb() \
+    do { \
+        _XLIB_DRAW(bomb_x,bomb_y,&ANIMATED_BOMB_UP_IMAGE); \
+        _XLIB_DRAW(bomb_x,bomb_y+1,&ANIMATED_BOMB_DOWN_IMAGE); \
+    } while(0)
+
+    #define deleteAnimatedBomb() \
+    do { \
+        _XLIB_DELETE(bomb_x,bomb_y-1); \
+        _XLIB_DELETE(bomb_x,bomb_y); \
+    } while(0)
+
+    #define deleteAnimatedBombUp() \
+        _XLIB_DELETE(bomb_x,bomb_y-1);
+#else 
+    #define drawAnimatedPlane() 
+
+    #define deleteAnimatedPlaneBack() \
+        _XLIB_DELETE(x-1,y); 
+        
+    #define drawAnimatedBomb() 
+
+    #define deleteAnimatedBomb() \
+    do { \
+        _XLIB_DELETE(bomb_x,bomb_y-1); \
+        _XLIB_DELETE(bomb_x,bomb_y); \
+    } while(0)
+
+    #define deleteAnimatedBombUp() \
+        _XLIB_DELETE(bomb_x,bomb_y-1);
+    
+#endif
 
 #define drawRoad() \
     _XLIB_DRAW(x,MAX_Y-1,&ROAD_IMAGE);
@@ -153,20 +187,6 @@ do { \
 #define drawBomb() \
     _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
 
-#define drawAnimatedBomb() \
-do { \
-    _XLIB_DRAW(bomb_x,bomb_y,&ANIMATED_BOMB_UP_IMAGE); \
-    _XLIB_DRAW(bomb_x,bomb_y+1,&ANIMATED_BOMB_DOWN_IMAGE); \
-} while(0)
-
-#define deleteAnimatedBomb() \
-do { \
-    _XLIB_DELETE(bomb_x,bomb_y-1); \
-    _XLIB_DELETE(bomb_x,bomb_y); \
-} while(0)
-
-#define deleteAnimatedBombUp() \
-    _XLIB_DELETE(bomb_x,bomb_y-1);
 
 #define drawExplosion() \
     _XLIB_DRAW(bomb_x,bomb_y,&EXPLOSION_IMAGE);

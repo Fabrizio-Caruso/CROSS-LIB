@@ -329,18 +329,16 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 # -DFORCE_BIT_BANG 
 #################################################################
 
+c128: c128_z80_80col
+
 c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-lndos -subtype=disk \
-	-D__C128_Z80__ \
-	-DINITIAL_SLOWDOWN=10000 -DBULLETS_NUMBER=3 \
-	-DZ88DK_SPRITES -DANIMATE_PLAYER \
-	-DFULL_GAME -DEND_SCREEN \
-	-DLESS_TEXT \
-	-DNO_BLINKING -DSIMPLE_STRATEGY \
+	-D__C128_Z80__ -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 -DSLOW_DOWN=1 \
+	-DZ88DK_SPRITES \
+	-DFULL_GAME \
 	-DZ88DK_JOYSTICK \
-	-DGHOSTS_NUMBER=6 \
 	-DALT_PRINT \
 	-DNO_COLOR \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -496,7 +494,6 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 #################################################################
 
 
-
 vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
@@ -512,6 +509,39 @@ vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_vg5k.prg
+
+
+#################################################################
+
+zx81: zx81_32k_wrx
+
+
+zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+	-pragma-define:hrgpage=36096 \
+	-DSLOW_DOWN=10 -DNO_ANIMATION \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=22 \
+	-vn \
+	-D__ZX81__ \
+	-DZ88DK_SPRITES -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 \
+	-DLESS_PRINT \
+	-DFULL_GAME \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DFEWER_SPRITES \
+	-create-app -o  $(BUILD_PATH)/FULL_X$(GAME_NAME)_zx81_32k_wrx.prg \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_zx81_32k_wrx.prg
 
 
 #################################################################

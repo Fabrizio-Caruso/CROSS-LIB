@@ -147,7 +147,7 @@ mame64.exe kaypro2x -flop1 ..\disk\kaypro\k10hald1.td0 -uimodekey DEL
 mame64.exe dmv -flop1 ..\disk\dmv\dm5-cpm.td0 -uimodekey DEL
 mame64.exe aussieby -flop1 ..\disk\aussie_byte\knight2000_boot.dsk -uimodekey DEL
 
-WAIT for the operating system to full load.
+WAIT for the operating system to fully load.
 Use the quickload option to load the .COM file.
 
 If you want to create a disk image you need to follow the instructions in the Z88DK wiki.

@@ -36,19 +36,19 @@
 #endif
 
 # if SLOW_DOWN<100
-    #define LEVEL_SPEED_UP 0
+    #define LEVEL_SPEED_UP 2
 #elif SLOW_DOWN<200
-    #define LEVEL_SPEED_UP 8
+    #define LEVEL_SPEED_UP 4
 #elif SLOW_DOWN<400
-    #define LEVEL_SPEED_UP 16
+    #define LEVEL_SPEED_UP 8
 #elif SLOW_DOWN<800
-    #define LEVEL_SPEED_UP 32
+    #define LEVEL_SPEED_UP 16
 #elif SLOW_DOWN<1600
-    #define LEVEL_SPEED_UP 64
+    #define LEVEL_SPEED_UP 32
 #elif SLOW_DOWN<3200
-    #define LEVEL_SPEED_UP 128
+    #define LEVEL_SPEED_UP 64
 #else
-    #define LEVEL_SPEED_UP 256
+    #define LEVEL_SPEED_UP 128
 #endif 
 
 #define MAX_Y ((YSize)+(Y_OFFSET))
@@ -111,10 +111,10 @@ extern Image EXPLOSION_IMAGE;
 
 
 #define drawPlane() \
-{ \
+do { \
     _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE); \
     _XLIB_DRAW(x+1,y,&PLANE_FRONT_IMAGE); \
-}
+} while(0)
 
 
 
@@ -128,18 +128,18 @@ extern Image EXPLOSION_IMAGE;
     _XLIB_DELETE(x+1,y);
 
 #define deletePlane() \
-{ \
+do  {\
     deletePlaneBack() ; \
     deletePlaneFront() ; \
-}    
+} while(0)  
 
 
 #define drawAnimatedPlane() \
-{ \
+do { \
     _XLIB_DRAW(x-1,y,&ANIMATED_PLANE_BACK_IMAGE); \
     _XLIB_DRAW(x,y,&ANIMATED_PLANE_CENTER_IMAGE); \
     _XLIB_DRAW(x+1,y,&ANIMATED_PLANE_FRONT_IMAGE); \
-}
+} while(0)
 
 #define deleteAnimatedPlaneBack() \
     _XLIB_DELETE(x-1,y); 
@@ -154,21 +154,19 @@ extern Image EXPLOSION_IMAGE;
     _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
 
 #define drawAnimatedBomb() \
-{ \
+do { \
     _XLIB_DRAW(bomb_x,bomb_y,&ANIMATED_BOMB_UP_IMAGE); \
     _XLIB_DRAW(bomb_x,bomb_y+1,&ANIMATED_BOMB_DOWN_IMAGE); \
-}
+} while(0)
 
 #define deleteAnimatedBomb() \
-{ \
+do { \
     _XLIB_DELETE(bomb_x,bomb_y-1); \
     _XLIB_DELETE(bomb_x,bomb_y); \
-}
+} while(0)
 
 #define deleteAnimatedBombUp() \
-{ \
-    _XLIB_DELETE(bomb_x,bomb_y-1); \
-}
+    _XLIB_DELETE(bomb_x,bomb_y-1);
 
 #define drawExplosion() \
     _XLIB_DRAW(bomb_x,bomb_y,&EXPLOSION_IMAGE);
@@ -177,36 +175,67 @@ extern Image EXPLOSION_IMAGE;
     _XLIB_DELETE(bomb_x,bomb_y);
 
 #define displayScore() \
-{ \
+do { \
     SET_TEXT_COLOR(COLOR_WHITE); \
     PRINTD(2,0,5,score); \
-}
+} while(0)
 
 #define displayRemainingBuilings() \
-{ \
+do { \
     SET_TEXT_COLOR(COLOR_WHITE); \
     PRINTD(9,0,2,remaining_buildings); \
-}
+} while(0)
 
 #define displayHiScore() \
-{ \
+do { \
     SET_TEXT_COLOR(COLOR_WHITE); \
     PRINTD(XSize-5,0,5,hiscore); \
-}
+} while(0)
 
 
 #define displayLevel() \
-{ \
+do { \
     SET_TEXT_COLOR(COLOR_WHITE); \
-    PRINTD(XSize-9,0,2,level); \
-}
+    PRINTD(XSize-8,0,1,level); \
+} while(0)
 
 #define displayLevelMessage() \
-{ \
+do { \
     SET_TEXT_COLOR(COLOR_WHITE); \
     PRINTD(XSize/2+2,4,2,level); \
-}
+} while(0)
 
+#define displayNewHiScoreMessage() \
+do { \
+    SET_TEXT_COLOR(COLOR_CYAN); \
+    PRINT(1,4,_XL_N _XL_E _XL_W _XL_SPACE _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E); \
+} while(0)
+
+#define displayGameOverMessage() \
+do { \
+    SET_TEXT_COLOR(COLOR_RED); \
+    printCenteredMessage(_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R); \
+} while(0)
+
+#define handle_hiscore() \
+do { \
+    if(score>hiscore) \
+    { \
+        hiscore = score; \
+        displayNewHiScoreMessage(); \
+        SLEEP(1); \
+    } \
+} while(0)
+
+#if MAX_Y<24
+    #define LEVEL_FACTOR_SPEED_UP 3
+#else
+    #define LEVEL_FACTOR_SPEED_UP 2
+#endif 
+
+
+#define INITIAL_LEVEL 1
+#define FINAL_LEVEL 8
 
 uint16_t building_height[XSize];
 
@@ -233,7 +262,6 @@ uint8_t alive;
 uint8_t explosion;
 
 
-
 int main(void)
 {        
     
@@ -249,7 +277,7 @@ int main(void)
     {
         alive = 1;
         score = 0;
-        level = 1;
+        level = INITIAL_LEVEL;
         explosion = 0;
 
         INIT_IMAGES();
@@ -264,7 +292,7 @@ int main(void)
         SET_TEXT_COLOR(COLOR_WHITE);
         printCenteredMessageOnRow(MAX_Y-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
         WAIT_PRESS();
-        while(alive)
+        while(alive && (level < FINAL_LEVEL+1))
         {
             bombActive = 0;
             bomb_x = 0;
@@ -289,7 +317,7 @@ int main(void)
             }
             for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
             {
-                building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/2+(RAND()&7);
+                building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/LEVEL_FACTOR_SPEED_UP+(RAND()&7);
                 buildingTypePtr=image[RAND()&7];
                 
                 for(y=1;y<building_height[x];++y)
@@ -311,14 +339,14 @@ int main(void)
 
             _XLIB_DRAW(XSize-6,0,&HI_TEXT_IMAGE);
             #if XSize>=20
-                _XLIB_DRAW(XSize-10,0,&LV_TEXT_IMAGE);
+                _XLIB_DRAW(XSize-9,0,&LV_TEXT_IMAGE);
+                displayLevel();
             #endif
-            #if XSize>=22
+            #if XSize>=20
                 _XLIB_DRAW(8,0,&TWO_WINDOW_WALL_2_IMAGE);
                 displayRemainingBuilings();
             #endif
             
-            displayLevel();
             
             displayHiScore();
             while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-3))
@@ -377,7 +405,7 @@ int main(void)
                         explosion = 1;
                         
                         
-                        #if XSize>=22
+                        #if XSize>=20
                             displayRemainingBuilings();
                         #endif
                         // Delete animated bomb
@@ -437,21 +465,34 @@ int main(void)
             {
                 drawPlaneBack();
                 EXPLOSION_SOUND();
-                SET_TEXT_COLOR(COLOR_RED);
-                PRINT(1,2,_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R);
+                displayGameOverMessage();
                 SLEEP(2);
                 alive = 0;
-                if(score>hiscore)
-                {
-                    hiscore = score;
-                    SET_TEXT_COLOR(COLOR_CYAN);
-                    PRINT(1,4,_XL_N _XL_E _XL_W _XL_SPACE _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E);
-                    SLEEP(1);
-                }
-                score = 0;
+                handle_hiscore();
             }
             WAIT_PRESS();
-        } // while(alive) -> restart level
+        } // while(alive || (level>FINAL})) -> restart level
+        if(alive) // Game completed
+        {
+            SET_TEXT_COLOR(COLOR_YELLOW);
+            printCenteredMessage(_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_C _XL_O _XL_M _XL_P _XL_E _XL_T _XL_E _XL_D);
+            SLEEP(1);
+            WAIT_PRESS();
+            for(y=2;y<MAX_Y-1;++y)
+            {
+                for(x=1;x<XSize-2;x+=2)
+                {
+                    drawPlane();
+                }
+            }
+            SLEEP(3);
+            CLEAR_SCREEN();
+            displayGameOverMessage();
+            SLEEP(2);
+            handle_hiscore();
+            SLEEP(1);
+            WAIT_PRESS();
+        }
     } // while(1) -> restart from level 1
 
     return EXIT_SUCCESS;

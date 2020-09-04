@@ -16,8 +16,12 @@ void INIT_GRAPHICS(void)
 	#endif
 	
 	POKE(646,1);
-	POKE(36879L,9);
-	
+    #if !defined(VIC20_WHITE_BORDER)
+        POKE(36879L,8);
+    #else
+        POKE(36879L,9);
+	#endif 
+    
 	#if defined(DEBUG)
 		#if defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K)
 			#define BASE_ADDR 0x1000

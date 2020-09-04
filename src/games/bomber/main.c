@@ -89,9 +89,12 @@ extern Image LV_TEXT_IMAGE;
 
 extern Image EXPLOSION_IMAGE;
 
-#if XSize>63
+#if XSize>78
     #define BUILDINGS_NUMBER (XSize-24)
     #define FIRST_BULDING_X_POS 12
+#elif XSize>63
+    #define BUILDINGS_NUMBER (XSize-22)
+    #define FIRST_BULDING_X_POS 10
 #elif XSize>48
     #define BUILDINGS_NUMBER (XSize-14)
     #define FIRST_BULDING_X_POS 8

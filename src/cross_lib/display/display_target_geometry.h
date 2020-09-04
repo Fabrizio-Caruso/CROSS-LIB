@@ -12,18 +12,21 @@
 	#define EXTRA_TINY_X
 #endif
 
+#if !defined(SPRITE_Y_STEP)
 	#if !defined(EXTRA_TINY_Y)
 		#define SPRITE_Y_STEP 5	
 	#else
 		#define SPRITE_Y_STEP 3
 	#endif
-	
+#endif
 
+#if !defined(SPRITE_X_STEP)
 	#if !defined(EXTRA_TINY_X)
 		#define SPRITE_X_STEP 7	
 	#else
 		#define SPRITE_X_STEP 6
 	#endif	
+#endif
 
 	#define SPRITE_X_SIZE 8
 	#define SPRITE_Y_SIZE 8

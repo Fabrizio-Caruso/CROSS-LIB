@@ -205,7 +205,7 @@ void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter)
 #endif
 
 
-#if !defined(TINY_GAME) 
+#if !defined(TINY_GAME) && !defined(NO_WALL)
 
     void DRAW_HORIZONTAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
     {

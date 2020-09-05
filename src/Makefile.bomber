@@ -545,6 +545,169 @@ zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 
 
 #################################################################
+# CMOC
+
+
+#################################################################
+
+COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME 
+
+COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
+
+CMOC_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
+COCO_OPTS       ?= -D__COCO__ $(CMOC_OPTS)
+
+DRAGON_OPTS     ?= --dragon -D__DRAGON__ $(COCO_OPTS) 
+
+VECTREX_OPTS    ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
+MO5_OPTS        ?= -O2 -DANIMATE_PLAYER -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
+TO7_OPTS        ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
+################################################################################
+
+
+cmoc_targets: \
+	coco_targets dragon_targets mo5_targets
+
+
+#############################################################################################
+
+
+dragon:
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	text_macros.o \
+	input_macros.o \
+	rm 	display_macros.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	text_macros.o \
+	input_macros.o 
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_Dragon.cas -D $(BUILD_PATH)/xchase.bin -A
+	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
+	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/FULL_X$(GAME_NAME)_Dragon.vdk
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/FULL_X$(GAME_NAME)_Dragon.bin
+
+dragon_targets: \
+	dragon
+
+	
+coco:
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	text_macros.o input_macros.o
+	rm 	display_macros.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	text_macros.o input_macros.o 
+	rm -rf $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.dsk
+	cp $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.bin XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.cas -C XCHASE.BIN -A
+	rm XCHASE.BIN
+	
+
+coco_targets: \
+	coco
+
+
+mo5: $(ASSETS_PATH)/cmoc_xchase.s
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_xchase.s	
+	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	cmoc_xchase.o \
+	init_images.o \
+	text_macros.o \
+	input_macros.o
+	rm \
+	mo5_alt_print.o \
+	cmoc_xchase.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o \
+	text_macros.o \
+	input_macros.o
+	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin
+	mv $(BUILD_PATH)/FULL_MO5.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c FULL_MO5.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add FULL_MO5.sap FULL_MO5.bin
+	mv ./FULL_MO5.bin $(BUILD_PATH)
+	mv ./FULL_MO5.sap $(BUILD_PATH)
+	mv ./FILE.k5 $(BUILD_PATH)/FULL_X$(GAME_NAME)_MO5.k5
+	
+
+
+mo5_targets: \
+	mo5
+
+
+#################################################################
 # LCC1802
 
 

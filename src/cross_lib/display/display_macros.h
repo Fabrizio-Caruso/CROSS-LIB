@@ -280,6 +280,8 @@ typedef struct ImageStruct Image;
     #include "memory_mapped_graphics.h"
     
     #define CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
+#elif defined(__MO5__)
+    #define CLEAR_SCREEN() PUTCH(12);
 #else // CONIO case
     #define CLEAR_SCREEN() clrscr()
 #endif

@@ -192,7 +192,8 @@ do { \
         
     #define drawAnimatedBomb() 
 
-    #define deletePlane() deletePlaneFront(); 
+    #define deletePlane() \
+        deletePlaneFront(); 
         
     #define deleteAnimatedBomb() \
         _XLIB_DELETE(bomb_x,bomb_y-1);
@@ -479,7 +480,9 @@ int main(void)
                 }
                 else if(y<MAX_Y-2)
                 {
-                    deletePlaneBack();
+                    #if defined(NO_ANIMATION) // Required because deletePlane() in this case only deletes the front
+                        deletePlaneBack();
+                    #endif
                     deletePlane();
                     x=1;
                     ++y;

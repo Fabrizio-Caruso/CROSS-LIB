@@ -197,7 +197,7 @@
         void SWITCH_COLOR_BANK_OFF(void);
         void SWITCH_COLOR_BANK_ON(void);
         
-        void PUTCH(char ch);
+        void PUTCH(unsigned char ch);
         
         #define cputc(c) \
             PUTCH(c)

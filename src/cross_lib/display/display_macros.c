@@ -94,7 +94,7 @@ extern uint16_t BASE_ADDR;
         }    
     }    
     
-    void PUTCH(char ch)
+    void PUTCH(unsigned char ch)
     {
         POKE(0x201B,0);
         asm
@@ -106,11 +106,11 @@ extern uint16_t BASE_ADDR;
     }
     
 
-    void gotoxy(uint8_t xx, uint8_t yy)
+    void gotoxy(uint8_t x, uint8_t y)
     {
         PUTCH(0x1F);
-        PUTCH(0x40+yy);
-        PUTCH(0x41+xx);
+        PUTCH(0x40+y);
+        PUTCH(0x41+x);
     }    
     
 #elif defined(__TO7__)

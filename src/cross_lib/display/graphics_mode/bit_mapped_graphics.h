@@ -49,6 +49,7 @@ extern uint8_t udgs[];
 		uint8_t delta = 0; \
 		uint8_t offset = (8*(uint8_t)(image)->_imageData) ; \
 		\
+		SWITCH_COLOR_BANK_OFF(); \
 		for(i=0;i<7;++i) \
 		{ \
 			SV_VIDEO[base+delta]  = udgs[offset+i]; \

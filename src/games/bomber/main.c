@@ -376,9 +376,10 @@ int main(void)
             
             displayScore();
             
+            
             _XLIB_DRAW(0,0,&SCORE_TEXT_LEFT_IMAGE);
             _XLIB_DRAW(1,0,&SCORE_TEXT_RIGHT_IMAGE);
-
+            
             _XLIB_DRAW(XSize-6,0,&HI_TEXT_IMAGE);
             #if XSize>=20
                 _XLIB_DRAW(XSize-9,0,&LV_TEXT_IMAGE);

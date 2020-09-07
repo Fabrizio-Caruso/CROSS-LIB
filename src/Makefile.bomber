@@ -68,7 +68,9 @@ cc65_targets: \
 
 
 cmoc_targets: \
-	coco_targets dragon_targets mo5_targets
+	coco_targets \
+    dragon_targets \
+    mo5_targets
 
 
 z88dk_targets: \
@@ -559,7 +561,7 @@ COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME
 
 COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
-CMOC_OPTS       ?= -O0 -Wno-const  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+CMOC_OPTS       ?= -O0 -Wno-const  -DNO_SLEEP -DNO_WAIT -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 COCO_OPTS       ?= -D__COCO__ $(CMOC_OPTS)
 
@@ -599,7 +601,7 @@ dragon:
 	init_images.o \
 	memory_mapped_alt_print.o \
 	text_macros.o \
-	input_macros.o \
+	input_macros.o
 	rm 	display_macros.o \
 	init_images.o \
 	memory_mapped_alt_print.o \
@@ -616,22 +618,22 @@ dragon_targets: \
 	
 coco:
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c	
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
 	init_images.o \
@@ -642,7 +644,7 @@ coco:
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o 
 	rm -rf $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.dsk
-	cp $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.bin XCHASE.BIN
+	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.cas -C XCHASE.BIN -A

@@ -28,9 +28,13 @@
 #endif
 
 // TODO: REMOVE THIS
-#define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)+1
+#define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)
 
-
+#if YSize+Y_OFFSET>=19
+    #define MAX_TILES 19
+#else
+    #define MAX_TILES (YSize+Y_OFFSET)
+#endif
 
 #include "cross_lib.h"
 
@@ -96,14 +100,17 @@ int main(void)
         WAIT_PRESS();
         CLEAR_SCREEN();
 
+        // DRAW_HORIZONTAL_LINE(0,0,XSize-1);
+        // DRAW_HORIZONTAL_LINE(0,YSize-1,XSize-1);
+
         
 		while(1)
 		{
-			i = RAND() % XSize;
+			i = (uint8_t) (RAND() % XSize);
             
             
-			max_j = RAND() % 19;
-            init_y = RAND() % MAX_INIT_Y_POS;
+			max_j = (uint8_t) (RAND() % MAX_TILES);
+            init_y = (uint8_t) (RAND() % MAX_INIT_Y_POS);
 			for(j=0;j<max_j;++j)
 			{
 				_XLIB_DRAW(i,j+init_y,image[j]);

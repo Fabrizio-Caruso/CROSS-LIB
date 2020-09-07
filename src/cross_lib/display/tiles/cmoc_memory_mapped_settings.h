@@ -28,7 +28,22 @@
 
 	
 // BLUE
+#if !defined(_TILE_0)
 #define _TILE_0 ('*'+NOT_INVERTED)
+#endif
+
+#if !defined(_TILE_1)
+#define _TILE_1 ('*'+NOT_INVERTED)
+#endif
+
+#if !defined(_TILE_2)
+#define _TILE_2 ('*'+NOT_INVERTED)
+#endif
+
+#if !defined(_TILE_3)
+#define _TILE_3 ('*'+NOT_INVERTED)
+#endif
+
 
 #define _TILE_9 '!'
 

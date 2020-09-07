@@ -29,9 +29,18 @@
 
 
 #define _TILE_0 ('k')
-#define _TILE_1 ('l')
-#define _TILE_3 ('m')
-#define _TILE_2 ('n')
+
+#if !defined(_TILE_1)
+    #define _TILE_1 ('l')
+#endif 
+
+#if !defined(_TILE_2)
+    #define _TILE_3 ('m')
+#endif
+
+#if !defined(_TILE_3)
+    #define _TILE_2 ('n')
+#endif
 
 
 // RED

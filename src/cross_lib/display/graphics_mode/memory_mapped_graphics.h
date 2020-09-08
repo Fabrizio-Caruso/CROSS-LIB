@@ -81,13 +81,13 @@
 	#define __DRAW(x,y,image) \
 	do \
 	{ \
-		DISPLAY_POKE(loc(x,y), image->_imageData); \
-		COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),image->_color); \
+		DISPLAY_POKE(loc(x,y), (image)->_imageData); \
+		COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),(image)->_color); \
 	} \
 	while(0)
 #else
 	#define __DRAW(x,y,image) \
-		DISPLAY_POKE((uint16_t) loc(x,y), image->_imageData);
+		DISPLAY_POKE((uint16_t) loc(x,y), (image)->_imageData);
 #endif
 
 #define __DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)

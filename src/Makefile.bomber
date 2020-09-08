@@ -68,7 +68,7 @@ cc65_targets: \
 
 
 cmoc_targets: \
-	coco_targets \
+    coco_targets \
     dragon_targets \
     mo5_targets
 
@@ -116,6 +116,44 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari_color.xex
+
+atari_test1: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
+	-DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
+	-DMEMORY_MAPPED \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DSLOW_DOWN=600 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
+	$(SOURCE_PATH)/test.c \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari_color_test1.xex
+
+
+ATARI_TEST_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+	$(SOURCE_PATH)/atari_test.c \
+	$(SOURCE_PATH)/init_images.c
+
+atari_test2: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
+	-DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
+	-DMEMORY_MAPPED \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DSLOW_DOWN=600 \
+	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
+	$(ATARI_TEST_FILES) \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari_color_test2.xex
 
 #################################################################
 

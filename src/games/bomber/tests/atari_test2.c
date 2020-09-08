@@ -64,21 +64,7 @@ int main(void)
     while(1)
     {
 
-        // INIT_IMAGES();
-        // _graphics(1+16);
-        
-        // _setcolor_low(0, TGI_COLOR_RED);
-        // _setcolor_low(1, TGI_COLOR_WHITE);
-        // _setcolor_low(2, TGI_COLOR_CYAN); 	
-        // _setcolor_low(3, TGI_COLOR_BROWN);
-        // _setcolor_low(4, TGI_COLOR_BLACK);
         // CLEAR_SCREEN();
-        clrscr();
-
-
-        // SET_TEXT_COLOR(COLOR_YELLOW);
-        PRINT(3,7,"game completed");
-        cgetc();
         gotoxy(0,0);
         for(y=2;y<YSize-1;++y)
         {
@@ -90,7 +76,10 @@ int main(void)
         cgetc();
         PRINT(3,9,"game over");
         cgetc();
-
+        CLEAR_SCREEN(); sleep(2);
+        // cgetc();
+        PRINT(3,7,"game completed"); while(1); sleep(2); while(1);
+        cgetc();
     } // while(1) -> restart from level 1
 
     return 0;

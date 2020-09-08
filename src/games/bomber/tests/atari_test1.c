@@ -41,6 +41,7 @@ void CLEAR_SCREEN(void)
             _delete(i,j);
         }
     }
+    *(unsigned char *)0x5d = 0;
 }
 
 

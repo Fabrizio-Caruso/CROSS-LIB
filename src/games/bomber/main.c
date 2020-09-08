@@ -534,8 +534,7 @@ int main(void)
                     drawPlane();
                 }
             }
-            SLEEP(3);
-            CLEAR_SCREEN();
+            SLEEP(1);
             displayGameOverMessage();
             SLEEP(2);
             handle_hiscore();

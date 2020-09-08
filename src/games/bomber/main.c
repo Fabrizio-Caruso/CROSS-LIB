@@ -407,7 +407,7 @@ int main(void)
                 DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
                 
 
-                if(!bombActive)
+                if(!bombActive )
                 {   
                     if(explosion)
                     {
@@ -415,7 +415,7 @@ int main(void)
                         explosion = 0;
                     }
                     
-                    if(KEY_PRESSED())
+                    if((y<MAX_Y-2) && KEY_PRESSED())
                     {
                         SHOOT_SOUND();
                         ++bombActive;

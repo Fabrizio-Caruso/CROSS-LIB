@@ -206,8 +206,25 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
 
 #################################################################
 
-	# -DSLOW_DOWN=990 -DINITIAL_GHOST_SLOWDOWN=31000 
-c64: $(ASSETS_PATH)/cc65_udc.s
+c64: c64_exomized
+
+
+c64_uncompressed: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DCBM_SCREEN_CODES \
+	-DMEMORY_MAPPED \
+	-DSLOW_DOWN=440 \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c64.prg
+
+
+c64_exomized: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
 	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \

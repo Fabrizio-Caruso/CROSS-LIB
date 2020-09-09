@@ -10,8 +10,8 @@
 .proc   setcursor
 
         ldy     #0
-        lda     OLDCHR
-        sta     (OLDADR),y
+        ;lda     OLDCHR
+        ;sta     (OLDADR),y
 
         lda     ROWCRS
         jsr     _mul40

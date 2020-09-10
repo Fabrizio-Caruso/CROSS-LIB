@@ -282,13 +282,6 @@ typedef struct ImageStruct Image;
     #define CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
 #elif defined(__MO5__)
     #define CLEAR_SCREEN() PUTCH(12);
-#elif defined(__ATARI__) && defined(ATARI_MODE1)
-    #define CLEAR_SCREEN() \
-    do \
-    { \
-        *(unsigned char *)0x5d = 0; \
-        clrscr(); \
-    } while(0)
 #else // CONIO case
     #define CLEAR_SCREEN() clrscr()
 #endif

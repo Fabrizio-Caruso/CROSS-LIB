@@ -27,18 +27,19 @@
     #define EXIT_SUCCESS 0
 #endif
 
-// TODO: REMOVE THIS
-#define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)
-
-#if YSize+Y_OFFSET>=19
-    #define MAX_TILES 19
-#else
-    #define MAX_TILES (YSize+Y_OFFSET)
-#endif
-
 #include "cross_lib.h"
 
 #include "init_images.h"
+
+// TODO: REMOVE THIS
+#define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)
+
+#if ((YSize)+(Y_OFFSET)-1)>19
+    #define MAX_TILES 19
+#else
+    #define MAX_TILES ((YSize)+(Y_OFFSET)-1)
+#endif
+
 
 extern Image PLAYER_DOWN_IMAGE;
 extern Image PLAYER_UP_IMAGE;
@@ -75,7 +76,7 @@ static const Image* image[19] = {
 		&FREEZE_IMAGE, &SUPER_IMAGE, &INVINCIBILITY_IMAGE
 		};
 
-		
+
 int main(void)
 {        
     uint8_t i;
@@ -99,17 +100,12 @@ int main(void)
         PRINT(4,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
         WAIT_PRESS();
         CLEAR_SCREEN();
-
-        // DRAW_HORIZONTAL_LINE(0,0,XSize-1);
-        // DRAW_HORIZONTAL_LINE(0,YSize-1,XSize-1);
-
-        
 		while(1)
 		{
 			i = (uint8_t) (RAND() % XSize);
             
             
-			max_j = (uint8_t) (RAND() % MAX_TILES);
+			max_j = (uint8_t) (RAND() % (MAX_TILES+1));
             init_y = (uint8_t) (RAND() % MAX_INIT_Y_POS);
 			for(j=0;j<max_j;++j)
 			{

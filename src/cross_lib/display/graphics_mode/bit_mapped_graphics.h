@@ -13,74 +13,74 @@ extern uint8_t udgs[];
 #if defined(NO_COLOR)
 	#define __DRAW(x,y,image) \
 	{ \
-		uint8_t i; \
-		uint16_t base = (x)+(XSize)*8*(y); \
-		uint8_t delta = 0; \
-		uint8_t offset = (8*(uint8_t)(image)->_imageData) ; \
+		uint8_t __i; \
+		uint16_t __base = (x)+(XSize)*8*(y); \
+		uint8_t __delta = 0; \
+		uint8_t __offset = (8*(uint8_t)(image)->_imageData) ; \
 		\
-		for(i=0;i<7;++i) \
+		for(__i=0;__i<7;++__i) \
 		{ \
-			SV_VIDEO[base+delta]  = udgs[offset+i]; \
-			delta+=XSize; \
+			SV_VIDEO[__base+__delta]  = udgs[__offset+__i]; \
+			__delta+=XSize; \
 		} \
-		SV_VIDEO[base+(XSize)*7] = udgs[offset+7]; \
+		SV_VIDEO[__base+(XSize)*7] = udgs[__offset+7]; \
 	}
 
 
 	#define __DELETE(x,y) \
 	{ \
-		uint8_t i; \
-		uint16_t base = (x)+(XSize)*8*(y); \
-		uint8_t delta = 0; \
+		uint8_t __i; \
+		uint16_t __base = (x)+(XSize)*8*(y); \
+		uint8_t __delta = 0; \
 		\
-		for(i=0;i<7;++i) \
+		for(__i=0;__i<7;++__i) \
 		{ \
-			SV_VIDEO[(uint16_t) base+delta] = 0; \
-			delta+=XSize; \
+			SV_VIDEO[(uint16_t) __base+__delta] = 0; \
+			__delta+=XSize; \
 		} \
-		SV_VIDEO[base+(XSize)*7] = 0; \
+		SV_VIDEO[__base+(XSize)*7] = 0; \
 	}
 #elif defined(__MO5__)
 	#include "conio_patch.h"
 	#define __DRAW(x,y,image) \
 	{ \
-		uint8_t i; \
-		uint16_t base = (x)+(XSize)*8*(y); \
-		uint8_t delta = 0; \
-		uint8_t offset = (8*(uint8_t)(image)->_imageData) ; \
+		uint8_t __i; \
+		uint16_t __base = (x)+(XSize)*8*(y); \
+		uint8_t __delta = 0; \
+		uint8_t __offset = (8*(uint8_t)(image)->_imageData) ; \
 		\
 		SWITCH_COLOR_BANK_OFF(); \
-		for(i=0;i<7;++i) \
+		for(__i=0;__i<7;++__i) \
 		{ \
-			SV_VIDEO[base+delta]  = udgs[offset+i]; \
-			delta+=XSize; \
+			SV_VIDEO[__base+__delta]  = udgs[__offset+__i]; \
+			__delta+=XSize; \
 		} \
-		SV_VIDEO[base+(XSize)*7] = udgs[offset+7]; \
+		SV_VIDEO[__base+(XSize)*7] = udgs[__offset+7]; \
 		\
-		delta = 0; \
+		__delta = 0; \
 		SWITCH_COLOR_BANK_ON(); \
-		for(i=0;i<7;++i) \
+		for(__i=0;__i<7;++__i) \
 		{ \
-			SV_VIDEO[base+delta]  = (image)->_color; \
-			delta+=XSize; \
+			SV_VIDEO[__base+__delta]  = (image)->_color; \
+			__delta+=XSize; \
 		} \
-		SV_VIDEO[base+(XSize)*7] = (image)->_color; \
+		SV_VIDEO[__base+(XSize)*7] = (image)->_color; \
 		SWITCH_COLOR_BANK_OFF(); \
 	}
 
 
 	#define __DELETE(x,y) \
 	{ \
-		uint8_t i; \
-		uint16_t base = (x)+(XSize)*8*(y); \
-		uint8_t delta = 0; \
+		uint8_t __i; \
+		uint16_t __base = (x)+(XSize)*8*(y); \
+		uint8_t __delta = 0; \
 		\
-		for(i=0;i<7;++i) \
+		for(__i=0;__i<7;++__i) \
 		{ \
-			SV_VIDEO[(uint16_t) base+delta] = 0; \
-			delta+=XSize; \
+			SV_VIDEO[(uint16_t) __base+__delta] = 0; \
+			__delta+=XSize; \
 		} \
-		SV_VIDEO[base+(XSize)*7] = 0; \
+		SV_VIDEO[__base+(XSize)*7] = 0; \
 	}	
 #endif
 	

@@ -206,22 +206,21 @@ void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter)
 
 
 #if !defined(TINY_GAME) && !defined(NO_WALL)
-// CMOC will generate bad code if I use "i" instead of "ii"
     void DRAW_HORIZONTAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
     {
-        uint8_t ii;
-        for(ii=0;ii<length;++ii)
+        uint8_t i;
+        for(i=0;i<length;++i)
         {
-            _draw(x+ii,y,&HORIZONTAL_BRICK_IMAGE);
+            _draw(x+i,y,&HORIZONTAL_BRICK_IMAGE);
         }
     }
 
     void DRAW_VERTICAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
     {
-        uint8_t ii;
-        for(ii=0;ii<length;++ii)
+        uint8_t i;
+        for(i=0;i<length;++i)
         {
-            _draw(x,y+ii,&VERTICAL_BRICK_IMAGE);
+            _draw(x,y+i,&VERTICAL_BRICK_IMAGE);
         }        
     }
 #endif

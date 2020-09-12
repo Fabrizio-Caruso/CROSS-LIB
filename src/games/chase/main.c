@@ -394,7 +394,7 @@ int main(void)
                 while(player._status && (ghostCount>0) )
             #endif
             {
-                #if defined(SLOW_DOWN)
+                #if defined(SLOW_DOWN) && SLOW_DOWN>0
                     DO_SLOW_DOWN(SLOW_DOWN);
                 #endif
                 

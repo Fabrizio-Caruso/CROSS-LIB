@@ -16,7 +16,7 @@ VECTREX_OPTS    ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wn
 # -DDEFAULT_CLEAR_SCREEN
 MO5_OPTS        ?= -O0 -DANIMATE_PLAYER -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -Wno-const  -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-TO7_OPTS        ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+TO7_OPTS        ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
 ################################################################################
 
@@ -377,63 +377,72 @@ mo5: $(ASSETS_PATH)/cmoc_xchase.s
 	mv ./FILE.k5 $(BUILD_PATH)/FULL_MO5.k5
 	
 
-to7:
+
+to7: $(ASSETS_PATH)/cmoc_xchase.s
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c	
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_player.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/ghost.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/level.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/character.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/strategy.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/item.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/bullet.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/skull.c	
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/horizontal_missile.c
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/rocket.c 
 	$(CMOC) \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_xchase.s	
 	$(CMOC) -o $(BUILD_PATH)/FULL_TO7.bin \
-	$(TO7_OPTS) $(INCLUDE_OPTS) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o \
 	mo5_init_graphics.o \
 	display_macros.o \
+	cmoc_xchase.o \
 	init_images.o \
 	ghost.o \
 	move_player.o \
@@ -444,6 +453,8 @@ to7:
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
 	rm \
+	mo5_alt_print.o \
+	cmoc_xchase.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	init_images.o \
@@ -454,13 +465,14 @@ to7:
 	strategy.o \
 	input_macros.o \
 	item.o bullet.o skull.o \
-	rocket.o horizontal_missile.o end_screen.o	
+	rocket.o horizontal_missile.o end_screen.o
 	mv $(BUILD_PATH)/FULL_TO7.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c FULL_TO7.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add FULL_TO7.sap FULL_TO7.bin
 	mv ./FULL_TO7.bin $(BUILD_PATH)
 	mv ./FULL_TO7.sap $(BUILD_PATH)
-	
+
+
 
 to7_targets: \
 	to7

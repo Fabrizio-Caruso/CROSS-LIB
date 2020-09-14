@@ -114,7 +114,26 @@ extern uint16_t BASE_ADDR;
     }    
     
 #elif defined(__TO7__)
-    void PUTCH(char ch)
+
+    void SWITCH_COLOR_BANK_ON(void)
+    {
+    // asm
+    // {
+        // swi
+        // .byte 4
+    // }    
+    }
+    
+    void SWITCH_COLOR_BANK_OFF(void)
+    {
+        // asm
+        // {
+            // swi
+            // .byte 6
+        // }    
+    }    
+
+    void PUTCH(unsigned char ch)
     {
         asm
         {
@@ -122,6 +141,16 @@ extern uint16_t BASE_ADDR;
             jsr    0xE803
         }
     }
+    
+    void gotoxy(uint8_t x, uint8_t y)
+    {
+        PUTCH(0x1F);
+        PUTCH(0x40+y);
+        PUTCH(0x41+x);
+    }    
+    
+    
+
 #elif defined(__SUPERVISION__)
     uint8_t reversed_map_one_to_two_lookup[16] = 
     {

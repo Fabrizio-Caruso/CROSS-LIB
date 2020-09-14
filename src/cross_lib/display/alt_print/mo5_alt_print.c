@@ -11,6 +11,7 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 		PUTCH(str[i]);
 		++i;
 	}
+    
 	SWITCH_COLOR_BANK_OFF();
 }
 

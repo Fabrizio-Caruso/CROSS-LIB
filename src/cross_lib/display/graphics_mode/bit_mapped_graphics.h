@@ -10,37 +10,7 @@
 
 extern uint8_t udgs[];
 
-#if defined(NO_COLOR)
-	#define __DRAW(x,y,image) \
-	{ \
-		uint8_t __i; \
-		uint16_t __base = (x)+(XSize)*8*(y); \
-		uint8_t __delta = 0; \
-		uint8_t __offset = (8*(uint8_t)(image)->_imageData) ; \
-		\
-		for(__i=0;__i<7;++__i) \
-		{ \
-			SV_VIDEO[__base+__delta]  = udgs[__offset+__i]; \
-			__delta+=XSize; \
-		} \
-		SV_VIDEO[__base+(XSize)*7] = udgs[__offset+7]; \
-	}
-
-
-	#define __DELETE(x,y) \
-	{ \
-		uint8_t __i; \
-		uint16_t __base = (x)+(XSize)*8*(y); \
-		uint8_t __delta = 0; \
-		\
-		for(__i=0;__i<7;++__i) \
-		{ \
-			SV_VIDEO[(uint16_t) __base+__delta] = 0; \
-			__delta+=XSize; \
-		} \
-		SV_VIDEO[__base+(XSize)*7] = 0; \
-	}
-#elif defined(__MO5__)
+#if defined(__MO5__) || defined(__TO7__)
 	#include "conio_patch.h"
 	#define __DRAW(x,y,image) \
 	{ \

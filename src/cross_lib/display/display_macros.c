@@ -117,12 +117,12 @@ extern uint16_t BASE_ADDR;
 
     void SWITCH_COLOR_BANK_ON(void)
     {
-    asm
-    {
-        LDA $E7C3
-        ORA #1
-        STA $E7C3
-    }    
+        asm
+        {
+            LDA $E7C3
+            ORA #1
+            STA $E7C3
+        }    
     }
     
     void SWITCH_COLOR_BANK_OFF(void)
@@ -140,7 +140,7 @@ extern uint16_t BASE_ADDR;
         asm
         {
             ldb ch
-            jsr    0xE803
+            jsr 0xE803
         }
     }
     

@@ -117,20 +117,22 @@ extern uint16_t BASE_ADDR;
 
     void SWITCH_COLOR_BANK_ON(void)
     {
-    // asm
-    // {
-        // swi
-        // .byte 4
-    // }    
+    asm
+    {
+        LDA $E7C3
+        ORA #1
+        STA $E7C3
+    }    
     }
     
     void SWITCH_COLOR_BANK_OFF(void)
     {
-        // asm
-        // {
-            // swi
-            // .byte 6
-        // }    
+        asm
+        {
+            LDA $E7C3
+            ANDA #$FE
+            STA $E7C3
+        }    
     }    
 
     void PUTCH(unsigned char ch)

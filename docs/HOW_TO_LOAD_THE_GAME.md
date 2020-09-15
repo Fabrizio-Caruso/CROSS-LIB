@@ -679,9 +679,9 @@ EXEC
 
 ### Thomson To7/To8/To9
 
-clear, &ha700 (par exemple),
+clear &ha700
 loadm "hellowor.bin",&ha700
-puis exec
+exec
 
 -----------------------------------------------------------
 

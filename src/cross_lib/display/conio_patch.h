@@ -219,7 +219,7 @@
     #endif
 
     #if !defined(NO_COLOR)
-        #if defined(__MO5__) || defined(__TO7__)
+        #if defined(__MO5__)||defined(__TO7__)
             #define COLOR_BLACK 0
             #define COLOR_RED 16
             #define COLOR_GREEN 32

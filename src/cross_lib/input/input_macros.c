@@ -101,6 +101,8 @@
             stb res
         }
         return res; 
+        #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))    
+        #define PEEK(addr)         (*(uint8_t*) (addr))    
     
     #elif defined(__MO5__) 
         #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))    

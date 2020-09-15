@@ -3,7 +3,7 @@
 
 
 #  if defined(__NASCOM__) || defined(__MC1000__) || defined(__OSIC1P__) \
-	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MO5__) \
+	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__DRAGON__) || defined(__TO7__) ||defined(__MO5__) \
 	||  defined(__GAL__)  || defined(__Z9001__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
 	|| defined(__VZ__) || defined(__ATMOS__) || defined(__MZ__) || defined(__MTX__) || defined(__SC3000__) \
 	|| defined(__Z1013__) || defined(__KC__) || defined(__C128_Z80__) \

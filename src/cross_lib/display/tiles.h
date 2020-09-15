@@ -19,7 +19,7 @@
 	#include "c264_link_time_redefined_chars_settings.h"
 #elif defined(__CBM__) && defined(MEMORY_MAPPED)
 	#include "petscii_memory_mapped_settings.h"
-#elif defined(__MO5__) || defined(__TO7__)
+#elif defined(__MO5__)||defined(__TO7__)
 	#include "udg_settings.h"
 #elif defined(__COCO__) || defined(__DRAGON__)
 	#include "cmoc_memory_mapped_settings.h"

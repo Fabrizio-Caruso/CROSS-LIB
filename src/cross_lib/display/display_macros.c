@@ -114,24 +114,25 @@ extern uint16_t BASE_ADDR;
     }    
     
 #elif defined(__TO7__)
+    #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 
     void SWITCH_COLOR_BANK_ON(void)
     {
         asm
-        {
+            {
             LDA $E7C3
-            ORA #1
-            STA $E7C3
-        }    
+            ANDA #254
+            STA $E7C3	
+            }  
     }
     
     void SWITCH_COLOR_BANK_OFF(void)
     {
-        asm
+       asm
         {
-            LDA $E7C3
-            ANDA #$FE
-            STA $E7C3
+        LDA $E7C3
+        ORA #1
+        STA $E7C3
         }    
     }    
 
@@ -140,7 +141,7 @@ extern uint16_t BASE_ADDR;
         asm
         {
             ldb ch
-            jsr 0xE803
+            jsr    0xE803
         }
     }
     

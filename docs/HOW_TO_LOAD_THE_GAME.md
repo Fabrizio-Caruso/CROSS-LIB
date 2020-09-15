@@ -679,8 +679,12 @@ EXEC
 
 ### Thomson To7/To8/To9
 
-clear &ha700
-loadm "hellowor.bin",&ha700
+- Disk .sap image
+Use DCMOTO
+Select T08D
+Attach .sap image
+Type
+loadm "FULL_TO7.bin"
 exec
 
 -----------------------------------------------------------

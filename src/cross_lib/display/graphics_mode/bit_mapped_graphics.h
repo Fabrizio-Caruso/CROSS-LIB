@@ -10,7 +10,8 @@
 
 extern uint8_t udgs[];
 
-#if defined(__MO5__) || defined(__TO7__)
+
+#if defined(__MO5__)||defined(__TO7__)
 	#include "conio_patch.h"
 	#define __DRAW(x,y,image) \
 	{ \
@@ -45,6 +46,7 @@ extern uint8_t udgs[];
 		uint16_t __base = (x)+(XSize)*8*(y); \
 		uint8_t __delta = 0; \
 		\
+		SWITCH_COLOR_BANK_OFF(); \
 		for(__i=0;__i<7;++__i) \
 		{ \
 			SV_VIDEO[(uint16_t) __base+__delta] = 0; \

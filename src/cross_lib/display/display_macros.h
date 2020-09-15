@@ -186,7 +186,7 @@ typedef struct ImageStruct Image;
 #  if defined(NO_COLOR) \
     || defined(__ATARI5200__) \
     || (defined(__ATARI__) && defined(ATARI_MODE1)) \
-    || defined(__COCO__) || defined(__DRAGON__) || defined(__MO5__) || defined(__TO7__) || defined(__WINCMOC__) \
+    || defined(__COCO__) || defined(__DRAGON__) || defined(__MO5__) || defined(__TO7__)|| defined(__WINCMOC__) \
     || (defined(__SVI__) && defined(MSX_MODE0)) || defined(__MSX__) \
     || defined(__ATMOS__) \
     || defined(Z88DK_SPRITES)
@@ -222,7 +222,7 @@ typedef struct ImageStruct Image;
     #define SET_TEXT_COLOR(c) textcolor(c)
 #endif
 
-#if defined(Z88DK_SPRITES) || defined(__MO5__) || defined(__TO7__)
+#if defined(Z88DK_SPRITES) || defined(__MO5__)||defined(__TO7__)
 	#define _Z88DK_SPRITE_OFFSET 0x20
 #else
 	
@@ -280,7 +280,7 @@ typedef struct ImageStruct Image;
     #include "memory_mapped_graphics.h"
     
     #define CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
-#elif defined(__MO5__) || defined(__TO7__)
+#elif defined(__MO5__)||defined(__TO7__)
     #define CLEAR_SCREEN() PUTCH(12);
 #else // CONIO case
     #define CLEAR_SCREEN() clrscr()

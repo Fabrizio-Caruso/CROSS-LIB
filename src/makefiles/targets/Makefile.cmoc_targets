@@ -436,7 +436,7 @@ to7: $(ASSETS_PATH)/cmoc_xchase.s
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(ASSETS_PATH)/cmoc_xchase.s	
-	$(CMOC) --org=a000 --data=dffe -o $(BUILD_PATH)/FULL_TO7.bin \
+	$(CMOC) --org=a000 --data=effe -o $(BUILD_PATH)/FULL_TO7.BIN \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o \
@@ -466,10 +466,10 @@ to7: $(ASSETS_PATH)/cmoc_xchase.s
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	mv $(BUILD_PATH)/FULL_TO7.bin .
+	mv $(BUILD_PATH)/FULL_TO7.BIN .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs -c FULL_TO7.sap
-	$(TOOLS_PATH)/cmoc/mo5/sapfs --add FULL_TO7.sap FULL_TO7.bin
-	mv ./FULL_TO7.bin $(BUILD_PATH)
+	$(TOOLS_PATH)/cmoc/mo5/sapfs --add FULL_TO7.sap FULL_TO7.BIN
+	mv ./FULL_TO7.BIN $(BUILD_PATH)
 	mv ./FULL_TO7.sap $(BUILD_PATH)
 
 

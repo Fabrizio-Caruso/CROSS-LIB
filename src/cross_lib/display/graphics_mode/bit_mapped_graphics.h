@@ -13,7 +13,7 @@ extern uint8_t udgs[];
 
 
 
-#if defined(__MO5__)
+#if defined(__MO5__) || defined(__TO7__)
 	#include "conio_patch.h"
 	#define __DRAW(x,y,image) \
 	{ \

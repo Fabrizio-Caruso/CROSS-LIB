@@ -449,6 +449,8 @@ reduced_tiny_cidelsa_destroyer: reduced_tiny_lcc1802_combo.c
 
 ###############################################################################
 
+microboard: micro
+
 micro: micro_pal2
 
 full_micro_pal2: comx

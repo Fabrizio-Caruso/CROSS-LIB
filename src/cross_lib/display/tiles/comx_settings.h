@@ -30,17 +30,12 @@
 
 #define _TILE_0 ('k')
 
-#if !defined(_TILE_1)
-    #define _TILE_1 ('l')
-#endif 
+#define _TILE_1 ('l')
 
-#if !defined(_TILE_2)
-    #define _TILE_3 ('m')
-#endif
+#define _TILE_3 ('m')
 
-#if !defined(_TILE_3)
-    #define _TILE_2 ('n')
-#endif
+#define _TILE_2 ('n')
+
 
 
 // RED

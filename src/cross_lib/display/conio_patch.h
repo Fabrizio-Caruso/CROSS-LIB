@@ -219,7 +219,7 @@
     #endif
 
     #if !defined(NO_COLOR)
-        #if defined(__MO5__)||defined(__TO7__)
+        #if defined(__MO5__)
             #define COLOR_BLACK 0
             #define COLOR_RED 16
             #define COLOR_GREEN 32
@@ -228,6 +228,16 @@
             #define COLOR_MAGENTA 80
             #define COLOR_CYAN 96
             #define COLOR_WHITE 112	
+        #elif defined(__TO7__)
+            #define TO7_PASTEL_OFF 192
+            #define COLOR_BLACK (0+TO7_PASTEL_OFF)
+            #define COLOR_RED (8+TO7_PASTEL_OFF)
+            #define COLOR_GREEN (16+TO7_PASTEL_OFF)
+            #define COLOR_YELLOW (24+TO7_PASTEL_OFF)
+            #define COLOR_BLUE (64+TO7_PASTEL_OFF)
+            #define COLOR_MAGENTA (40+TO7_PASTEL_OFF)
+            #define COLOR_CYAN (48+TO7_PASTEL_OFF)
+            #define COLOR_WHITE (56+TO7_PASTEL_OFF)
         #endif
 
         #ifndef COLOR_BLACK

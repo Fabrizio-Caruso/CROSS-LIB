@@ -64,6 +64,10 @@ void INIT_GRAPHICS(void)
     	textcolor(5);
     #endif
     
+    #if defined(__CIDELSA__) || defined(__MICRO__)
+        character_set(4);
+    #endif
+    
     #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS) 
         redefine_char(106, tile_10_udg, 3);
         redefine_char(107, tile_0_udg, 3);
@@ -100,9 +104,7 @@ void INIT_GRAPHICS(void)
         shapecolor(36, 22, 2); // to reshape the numbers
         shapecolor(65, 26, 3); // to reshape the capitals
     #endif
-    #if defined(__CIDELSA__) || defined(__MICRO__)
-        character_set(4);
-    #endif
+
 }
 
 #if defined(__CIDELSA__)

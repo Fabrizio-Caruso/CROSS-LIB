@@ -95,6 +95,7 @@ z88dk_targets: \
 
 lcc1802_targets: 
 	make tmc600 -f Makefile.$(GAME_NAME)
+	make comx -f Makefile.$(GAME_NAME)
 
 
 

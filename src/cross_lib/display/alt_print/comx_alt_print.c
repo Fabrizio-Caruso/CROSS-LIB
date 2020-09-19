@@ -56,10 +56,6 @@ void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		digits[i] = (uint8_t) ((val)%10);
 		val-= digits[i];
 		val/=10;
-	}
-	
-	for(i=0;i<length;++i)
-	{
 		_DISPLAY(x+length-1-i,y, (uint8_t) (digits[i]));
 	}
 }	

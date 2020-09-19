@@ -63,7 +63,7 @@
         __asm__("cli"); \
     } while(0)
         
-#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__)
+#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__) || defined(__MICRO__)
     #include <devkit/video/vis_video.h>
     #define DISPLAY_POKE(addr,val) vidchar(addr,val)
 #else

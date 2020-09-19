@@ -28,14 +28,23 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 #endif
 }
 
-#define CHAR_OFFSET 48
+#if defined(__CIDELSA__) || defined(__PECOM__) || defined(__TMC600__)
+    #define CHAR_OFFSET 48 
+#elif defined(__COMX__)
+    #define CHAR_OFFSET 96
+#else
+    #define CHAR_OFFSET 0
+#endif
 
 #if !defined(__CIDELSA__)
     #define _DISPLAY(x,y,ch) vidchar((uint16_t)BASE_ADDR+(x)+(y)*40, (uint8_t) (ch+CHAR_OFFSET))
 #else
-    #define _DISPLAY(x,y,ch) vidchar((uint16_t)0xF800+XSize*YSize-YSize -x*40+y, (uint8_t) (ch+CHAR_OFFSET))
+    #define _DISPLAY(__x,__y,__ch) vidchar((uint16_t)0xF800+XSize*YSize-YSize -__x*40+__y, (uint8_t) (__ch+CHAR_OFFSET))
 #endif
 
+
+#if defined(__COMX__)
+#endif
 
 void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 {
@@ -51,11 +60,9 @@ void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 	
 	for(i=0;i<length;++i)
 	{
-        #if defined(__COMX__) 
-		_DISPLAY(x+length-1-i,y, (uint8_t) (digits[i]+CHAR_OFFSET));
-        #elif defined(__PECOM__) || defined(__TMC600__)
-        vidchar((uint16_t)BASE_ADDR+x+length-1-i+y*40, (uint8_t) (digits[i]+CHAR_OFFSET));
-        #elif defined(__CIDELSA__)
+        #if !defined(__CIDELSA__)
+		_DISPLAY(x+length-1-i,y, (uint8_t) (digits[i]));
+        #else
         vidchar((uint16_t)0xF800+XSize*YSize-YSize-(x+length-1-i)*40+y, (uint8_t) (digits[i])+CHAR_OFFSET);
         #endif
 	}

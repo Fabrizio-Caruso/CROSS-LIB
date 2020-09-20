@@ -77,6 +77,11 @@ void INIT_GRAPHICS(void)
         redefine_char(109, tile_2_udg, 3);
         redefine_char(110, tile_3_udg, 3);
         redefine_char(111, tile_5_udg, 0);
+        redefine_char(122, tile_13_udg, 2);
+        redefine_char(123, tile_17_udg, 3);
+        redefine_char(124, tile_18_udg, 0);
+    #endif
+    #if !defined(__MICRO__) && defined(REDEFINED_CHARS) 
         redefine_char(112, tile_4_udg, 3);
 
         redefine_char(113, tile_7_udg, 2);
@@ -89,9 +94,19 @@ void INIT_GRAPHICS(void)
         redefine_char(119, tile_14_udg, 3);
         redefine_char(120, tile_15_udg, 3);
         redefine_char(121, tile_12_udg, 2);
-        redefine_char(122, tile_13_udg, 2);
-        redefine_char(123, tile_17_udg, 3);
-        redefine_char(124, tile_18_udg, 0);
+    #elif defined(__MICRO__)
+        redefine_char(0, tile_4_udg, 3);
+
+        redefine_char(2, tile_7_udg, 2);
+        redefine_char(3, tile_8_udg, 2);
+        redefine_char(4, tile_9_udg, 1);
+        redefine_char(5, tile_11_udg, 3);
+        redefine_char(1, tile_6_udg, 0);
+
+        redefine_char(9, tile_16_udg, 3);
+        redefine_char(7, tile_14_udg, 3);
+        redefine_char(8, tile_15_udg, 3);
+        redefine_char(6, tile_12_udg, 2);
     #endif
     #if defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
     

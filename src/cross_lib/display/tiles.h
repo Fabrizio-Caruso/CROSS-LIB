@@ -41,8 +41,10 @@
 	#include "supervision_settings.h"
 #elif defined(__NES__) && defined(ANIMATE_PLAYER)
 	#include "nes_settings.h"
-#elif defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || (defined(__CIDELSA__) && defined(REDEFINED_CHARS))
+#elif defined(__COMX__) || defined(__PECOM__) || (defined(__CIDELSA__) && defined(REDEFINED_CHARS))
 	#include "comx_settings.h"
+#elif defined(__MICRO__)
+	#include "micro_settings.h"
 #elif defined(UDG_GRAPHICS)
 	#include "udg_settings.h"
 #elif defined(__PCE__)

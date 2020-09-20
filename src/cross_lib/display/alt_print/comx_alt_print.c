@@ -30,12 +30,10 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 #endif
 }
 
-#if defined(__CIDELSA__) || defined(__PECOM__) || defined(__TMC600__)
-    #define CHAR_OFFSET 48 
-#elif defined(__COMX__)
+#if defined(__COMX__)
     #define CHAR_OFFSET 96
 #else
-    #define CHAR_OFFSET 0
+    #define CHAR_OFFSET 48
 #endif
 
 #if !defined(__CIDELSA__)

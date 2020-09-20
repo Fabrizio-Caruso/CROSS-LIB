@@ -188,7 +188,6 @@ extern Character player;
 #else
     
 
-
     #if defined(TURN_BASED)
         void MOVE_PLAYER(void) 
         { 

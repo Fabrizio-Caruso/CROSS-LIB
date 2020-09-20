@@ -6,16 +6,18 @@
 #include "memory_mapped_graphics.h"
 
 #if !defined(NO_STATS)
-unsigned char strlen(const char *s)
+unsigned int strlen(char *str)
 {
-    unsigned char count = 0;
-    
-    while(*s)
-    {
-        ++count;
-        ++s;
-    };
-    return count;
+    asm(
+        " ldi 0xff\n"
+        " plo R15\n"
+        " phi R15\n"
+        "$$loop:\n"
+        " inc R15\n"
+        " lda R12\n"
+        " bnz $$loop\n"
+        " Cretn\n");
+    return 0;
 }
 #endif
 

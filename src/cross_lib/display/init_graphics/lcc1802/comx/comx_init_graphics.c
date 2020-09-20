@@ -36,26 +36,37 @@
         shapechar(colored_shape, ch, 1);
     }
 
+    const struct redefine_struct
+    {
+       const uint8_t _ascii;
+       const uint8_t _bitmap[9];
+       const uint8_t _color;
+    } ;
 
-    const uint8_t tile_10_udg[9] =  _TILE_10_UDG;
-    const uint8_t tile_0_udg[9] = _TILE_0_UDG;
-    const uint8_t tile_1_udg[9] = _TILE_1_UDG;
-    const uint8_t tile_2_udg[9] = _TILE_2_UDG;
-    const uint8_t tile_3_udg[9] = _TILE_3_UDG;
-    const uint8_t tile_5_udg[9] =  _TILE_5_UDG;
-    const uint8_t tile_4_udg[9] = _TILE_4_UDG;
-    const uint8_t tile_7_udg[9] = _TILE_7_UDG;
-    const uint8_t tile_8_udg[9] = _TILE_8_UDG;
-    const uint8_t tile_9_udg[9] =  _TILE_9_UDG;
-    const uint8_t tile_11_udg[9] =  _TILE_11_UDG;
-    const uint8_t tile_6_udg[9] = _TILE_6_UDG;
-    const uint8_t tile_16_udg[9] = _TILE_16_UDG;
-    const uint8_t tile_14_udg[9] = _TILE_14_UDG;
-    const uint8_t tile_15_udg[9] =  _TILE_15_UDG;
-    const uint8_t tile_12_udg[9] =  _TILE_12_UDG;
-    const uint8_t tile_13_udg[9] = _TILE_13_UDG;
-    const uint8_t tile_17_udg[9] = _TILE_17_UDG;
-    const uint8_t tile_18_udg[9] = _TILE_18_UDG;
+
+const struct redefine_struct redefine_map[] =
+{
+    {_TILE_0, _TILE_0_UDG, 3},
+    {_TILE_1, _TILE_1_UDG, 3},
+    {_TILE_2, _TILE_2_UDG, 3},
+    {_TILE_3, _TILE_3_UDG, 3},
+    {_TILE_4, _TILE_4_UDG, 3},
+    {_TILE_5, _TILE_5_UDG, 0},
+    {_TILE_6, _TILE_6_UDG, 0},
+    {_TILE_7, _TILE_7_UDG, 2},
+    {_TILE_8, _TILE_8_UDG, 2},
+    {_TILE_9, _TILE_9_UDG, 1},
+    {_TILE_10, _TILE_10_UDG, 3},
+    {_TILE_11, _TILE_11_UDG, 3},
+    {_TILE_12, _TILE_12_UDG, 2},
+    {_TILE_13, _TILE_13_UDG, 2},
+    {_TILE_14, _TILE_14_UDG, 3},
+    {_TILE_15, _TILE_15_UDG, 3},
+    {_TILE_16, _TILE_16_UDG, 3},
+    {_TILE_17, _TILE_17_UDG, 3},
+    {_TILE_18, _TILE_18_UDG, 0}
+};
+
 
 
 #endif
@@ -64,6 +75,8 @@
 
 void INIT_GRAPHICS(void)
 {
+    uint8_t i;
+    
     initvideo();
     setvideobase(BASE_ADDR);
     
@@ -78,32 +91,14 @@ void INIT_GRAPHICS(void)
     #endif
     
     #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS) 
-        redefine_char(_TILE_10, tile_10_udg, 3);
-        redefine_char(_TILE_0, tile_0_udg, 3);
-        redefine_char(_TILE_1, tile_1_udg, 3);
-        redefine_char(_TILE_2, tile_2_udg, 3);
-        redefine_char(_TILE_3, tile_3_udg, 3);
-        redefine_char(_TILE_5, tile_5_udg, 0);
-        redefine_char(_TILE_13, tile_13_udg, 2);
-        redefine_char(_TILE_17, tile_17_udg, 3);
-        redefine_char(_TILE_18, tile_18_udg, 0);
-        
-        redefine_char(_TILE_14, tile_14_udg, 3);
-        redefine_char(_TILE_15, tile_15_udg, 3);
-        redefine_char(_TILE_12, tile_12_udg, 2);
-        redefine_char(_TILE_4, tile_4_udg, 3);
-        redefine_char(_TILE_7, tile_7_udg, 2);
-        redefine_char(_TILE_8, tile_8_udg, 2);
-        redefine_char(_TILE_9, tile_9_udg, 1);
-        redefine_char(_TILE_11, tile_11_udg, 3);
-        redefine_char(_TILE_6, tile_6_udg, 0);
-        redefine_char(_TILE_16, tile_16_udg, 3);
-        
+        for(i=0;i<19;++i)
+        {
+            redefine_char(redefine_map[i]._ascii, redefine_map[i]._bitmap, redefine_map[i]._color);
+        }
     #endif
-    #if defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
     
+    #if defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
         (void) bgcolor(0);
-
     	textcolordefinition(3);
         monochrome(0);
     #endif

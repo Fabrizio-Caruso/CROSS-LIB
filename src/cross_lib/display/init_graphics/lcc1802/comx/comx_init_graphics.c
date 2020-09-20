@@ -60,6 +60,8 @@ void INIT_GRAPHICS(void)
     initvideo();
     setvideobase(BASE_ADDR);
     
+    disableinterrupt();
+    
     #if defined(__TMC600__)
     	textcolor(5);
     #endif
@@ -92,7 +94,6 @@ void INIT_GRAPHICS(void)
         redefine_char(124, tile_18_udg, 0);
     #endif
     #if defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
-        disableinterrupt();
     
         (void) bgcolor(0);
 

@@ -5,6 +5,13 @@
     #include "6x9_chars.h"
 #endif
 
+#if !defined(__MICRO__)
+    #include "comx_settings.h"
+#else
+    #include "micro_settings.h"
+
+#endif
+
 #include "standard_libs.h"
 
 #if defined(__CIDELSA__)
@@ -71,42 +78,27 @@ void INIT_GRAPHICS(void)
     #endif
     
     #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS) 
-        redefine_char(106, tile_10_udg, 3);
-        redefine_char(107, tile_0_udg, 3);
-        redefine_char(108, tile_1_udg, 3);
-        redefine_char(109, tile_2_udg, 3);
-        redefine_char(110, tile_3_udg, 3);
-        redefine_char(111, tile_5_udg, 0);
-        redefine_char(122, tile_13_udg, 2);
-        redefine_char(123, tile_17_udg, 3);
-        redefine_char(124, tile_18_udg, 0);
-    #endif
-    #if !defined(__MICRO__) && defined(REDEFINED_CHARS) 
-        redefine_char(112, tile_4_udg, 3);
-
-        redefine_char(113, tile_7_udg, 2);
-        redefine_char(114, tile_8_udg, 2);
-        redefine_char(115, tile_9_udg, 1);
-        redefine_char(116, tile_11_udg, 3);
-        redefine_char(117, tile_6_udg, 0);
-
-        redefine_char(118, tile_16_udg, 3);
-        redefine_char(119, tile_14_udg, 3);
-        redefine_char(120, tile_15_udg, 3);
-        redefine_char(121, tile_12_udg, 2);
-    #elif defined(__MICRO__)
-        redefine_char(0, tile_4_udg, 3);
-
-        redefine_char(2, tile_7_udg, 2);
-        redefine_char(3, tile_8_udg, 2);
-        redefine_char(4, tile_9_udg, 1);
-        redefine_char(5, tile_11_udg, 3);
-        redefine_char(1, tile_6_udg, 0);
-
-        redefine_char(9, tile_16_udg, 3);
-        redefine_char(7, tile_14_udg, 3);
-        redefine_char(8, tile_15_udg, 3);
-        redefine_char(6, tile_12_udg, 2);
+        redefine_char(_TILE_10, tile_10_udg, 3);
+        redefine_char(_TILE_0, tile_0_udg, 3);
+        redefine_char(_TILE_1, tile_1_udg, 3);
+        redefine_char(_TILE_2, tile_2_udg, 3);
+        redefine_char(_TILE_3, tile_3_udg, 3);
+        redefine_char(_TILE_5, tile_5_udg, 0);
+        redefine_char(_TILE_13, tile_13_udg, 2);
+        redefine_char(_TILE_17, tile_17_udg, 3);
+        redefine_char(_TILE_18, tile_18_udg, 0);
+        
+        redefine_char(_TILE_14, tile_14_udg, 3);
+        redefine_char(_TILE_15, tile_15_udg, 3);
+        redefine_char(_TILE_12, tile_12_udg, 2);
+        redefine_char(_TILE_4, tile_4_udg, 3);
+        redefine_char(_TILE_7, tile_7_udg, 2);
+        redefine_char(_TILE_8, tile_8_udg, 2);
+        redefine_char(_TILE_9, tile_9_udg, 1);
+        redefine_char(_TILE_11, tile_11_udg, 3);
+        redefine_char(_TILE_6, tile_6_udg, 0);
+        redefine_char(_TILE_16, tile_16_udg, 3);
+        
     #endif
     #if defined(__COMX__) || defined(__PECOM__) || defined(__CIDELSA__) || defined(__MICRO__)
     

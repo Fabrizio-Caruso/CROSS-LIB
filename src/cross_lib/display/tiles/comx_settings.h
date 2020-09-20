@@ -32,9 +32,9 @@
 
 #define _TILE_1 ('l')
 
-#define _TILE_3 ('m')
+#define _TILE_2 ('m')
 
-#define _TILE_2 ('n')
+#define _TILE_3 ('n')
 
 
 

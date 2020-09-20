@@ -29,7 +29,9 @@ lcc1802_targets:
 	make pecom_targets 
 	make tmc600_targets
 	make cidelsa_targets
- 
+	make micro_targets
+
+
 ################################################################################
 
 
@@ -492,4 +494,6 @@ cidelsa_targets:
 	make cidelsa_destroyer_8k
 	make cidelsa_destroyer_12k
 
+micro_targets:
+	make micro_pal2
 

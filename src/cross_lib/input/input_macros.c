@@ -33,12 +33,15 @@
 #endif
 
 
+
+// GET_CHAR() definitions
 #if defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB)
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
         #if !defined(LCC1802_JOYSTICK)
             #include <devkit/input/keyboard.h>
         #endif
     #endif 
+    
     
     char GET_CHAR(void)
     {
@@ -217,7 +220,10 @@ out            stb res
     #endif
     }
 #endif    
-    
+
+
+
+// WAIT_PRESS() definitions
 #if defined(NO_WAIT) && !defined(NO_SLEEP)
     void WAIT_PRESS(void)
     {
@@ -314,7 +320,6 @@ out            stb res
         }
     #else
         #include<joystick.h>
-        
         
         void WAIT_PRESS(void)
         {

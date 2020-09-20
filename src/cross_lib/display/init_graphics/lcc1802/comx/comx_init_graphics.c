@@ -5,9 +5,9 @@
     #include "6x9_chars.h"
 #endif
 
-#if !defined(__MICRO__)
+#if defined(__COMX__) || defined(__PECOM__) || (defined(__CIDELSA__) && defined(REDEFINED_CHARS))
     #include "comx_settings.h"
-#else
+#elif defined(__MICRO__)
     #include "micro_settings.h"
 
 #endif

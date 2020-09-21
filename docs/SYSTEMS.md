@@ -32,6 +32,7 @@ For most systems, more than one version is built, in order to support different 
 - `cbm510`: Commodore CBM 510
 - `cbm610`: Commodore CBM 610
 - `camputers_lynx`: Camputers Lynx 48k/96k/128k
+- `cidelsa`: Cidelsa arcade boards Altair/Destroyer/Draco
 - `coco`: Color Computer
 - `coleco`: Colecovision
 - `coleco_adam`: Colecovision Adam (work in progress)
@@ -64,9 +65,10 @@ For most systems, more than one version is built, in order to support different 
 - `m100`: TRS-80 M100
 - `m5`: Sord M5
 - `mc1000`: CCE MC-1000
+- `microboard`: Microboard Computer Development Board
 - `microbee`: Microobee
 - `mikro80`: Mikro 80 (work in progress)
-- `mo5`: Thomson Mo5/Mo6/Prodest PC128 (work in progress)
+- `mo5`: Thomson Mo5 / Thomson Mo6 / Olivetti Prodest PC 128
 - `msx`: MSX
 - `mtx`: Memotech MTX 512
 - `multi8`: Mitsubishi Multi 8
@@ -124,7 +126,7 @@ For most systems, more than one version is built, in order to support different 
 - `ti85`: Texas TI 85
 - `ti86`: Texas TI 86
 - `tiki100`: TIKI 100
-- `to7`: Thomson To7(/70)/To8/To8d/To8+/To9/To9+ (work in progress)
+- `to7`: Thomson To7(/70)/To8/To8d/To8+/To9/To9+
 - `trs80`: TRS-80 Model I/III/IV
 - `ts2068`: Timex TS 2068
 - `tvc`: Videoton TV Computer (work in progress)

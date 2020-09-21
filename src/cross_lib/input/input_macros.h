@@ -27,6 +27,7 @@
 
 	#include "input_target_settings.h"
 
+    // INIT_INPUT
 	#if defined(KEYBOARD_CONTROL)
 		#if defined(__ATMOS__)
 			#include <peekpoke.h>
@@ -87,6 +88,7 @@
 	#endif // defined(Z88DK_JOYSTICK)
 
 
+// JOY_UP/DOWN/LEFT/RIGHT/FIRE
 #if defined(JOYSTICK_CONTROL)
 
         #if defined(__C64__) || defined(__C128__)
@@ -143,6 +145,7 @@
 #endif
 
 
+// TURN_BASED_INPUT definitions
 	#  if defined(__NCURSES__) || defined(STDLIB)
 		#define TURN_BASED_INPUT() getchar()
 	#elif defined(Z88DK)
@@ -156,8 +159,10 @@
 	#endif	// TURN_BASED_INPUT definitions
 	
 
+
 	#if !defined(NO_INPUT)
         #if defined(KEYBOARD_CONTROL)
+        // GET_CHAR
             #if defined(ACK) || defined(STDLIB)
                 #define GET_CHAR() getchar()
             #else
@@ -165,6 +170,7 @@
             #endif
         #endif // defined(KEYBOARD_CONTROL)
 
+        // WAIT_PRESS
         #if !defined(NO_WAIT) || !defined(NO_SLEEP)
             void WAIT_PRESS(void);
         #else // NO_WAIT + NO_SLEEP
@@ -174,6 +180,8 @@
         #define WAIT_PRESS()
     #endif // !defined(NO_INPUT)
 
+
+// KEY_PRESSED definitions
 #if defined(KEYBOARD_CONTROL)
     #define KEY_PRESSED() (GET_CHAR())
 #else

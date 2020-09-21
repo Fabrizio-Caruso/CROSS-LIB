@@ -26,6 +26,10 @@
 
 #include "cross_lib.h"
 
+#if defined(NO_UDG)
+    #include "char_tiles.h"
+#endif
+
 	
 // BLUE
 #if !defined(_TILE_0)
@@ -44,40 +48,87 @@
 #define _TILE_3 ('*'+NOT_INVERTED)
 #endif
 
+#if !defined(_TILE_9)
+    #define _TILE_9 '!'
+#endif 
 
-#define _TILE_9 '!'
+#if !defined(_TILE_7)
+    #define _TILE_7 ('+'+NOT_INVERTED)
+#endif
 
-// YELLOW
-#define _TILE_7 ('+'+NOT_INVERTED)
+#if !defined(TILE_0_B)
+    #define _TILE_0_B '*'
+#endif 
 
-#define _TILE_0_B '*'
 #define _DOLLAR_TILE '$'
 
-// GREEN
-#define _TILE_8  ('S'+INVERTED)
-#define _TILE_17 ('F'+INVERTED)
-#define _TILE_18 ('H'+INVERTED)
+#if !defined(_TILE_8)
+    #define _TILE_8  ('S'+INVERTED)
+#endif
 
-// RED
-#define _TILE_5 ('X'+INVERTED)
-#define _TILE_6 '#'
+#if !defined(_TILE_17)
+    #define _TILE_17 ('F'+INVERTED)
+#endif 
 
-#define _TILE_10 'I'
-#define _TILE_11 ('.'+NOT_INVERTED)
+#if !defined(_TILE_18)
+    #define _TILE_18 ('H'+INVERTED)
+#endif
 
-#define _TILE_4 'O'
+#if !defined(_TILE_5)
+    #define _TILE_5 ('X'+INVERTED)
+#endif 
 
-#define _TILE_14 ('>'+NOT_INVERTED)
-#define _TILE_15 ('<'+NOT_INVERTED)
-#define _TILE_16 ('^'+NOT_INVERTED)
+#if !defined(_TILE_6)
+    #define _TILE_6 '#'
+#endif
 
-#define _TILE_18 ('H'+INVERTED)
-#define _TILE_7_B ('C'+INVERTED)
-#define _TILE_4_B ('Z'+INVERTED)	
+#if !defined(_TILE_10)
+    #define _TILE_10 'I'
+#endif
 
-#define _TILE_12 ('#'+NOT_INVERTED)
-#define _TILE_13 ('-'+NOT_INVERTED)
-#define _TILE_5_B 'X'
+#if !defined(_TILE_11)
+    #define _TILE_11 ('.'+NOT_INVERTED)
+#endif
+
+#if !defined(_TILE_4)
+    #define _TILE_4 'O'
+#endif
+
+#if !defined(_TILE_14)
+    #define _TILE_14 ('>'+NOT_INVERTED)
+#endif
+
+#if !defined(_TILE_15)
+    #define _TILE_15 ('<'+NOT_INVERTED)
+#endif
+
+#if !defined(_TILE_16)
+    #define _TILE_16 ('^'+NOT_INVERTED)
+#endif
+
+#if !defined(_TILE_18)
+    #define _TILE_18 ('H'+INVERTED)
+#endif 
+
+#if !defined(_TILE_7_B)
+    #define _TILE_7_B ('C'+INVERTED)
+#endif 
+
+#if !defined(_TILE_4_B)
+    #define _TILE_4_B ('Z'+INVERTED)	
+#endif
+
+#if !defined(_TILE_12)
+    #define _TILE_12 ('#'+NOT_INVERTED)
+#endif
+
+#if !defined(_TILE_13)
+    #define _TILE_13 ('-'+NOT_INVERTED)
+#endif
+
+#if !defined(_TILE_5_B)
+    #define _TILE_5_B 'X'
+#endif
 
 
 #endif // _CMOC_GRAPHICS_SETTINGS

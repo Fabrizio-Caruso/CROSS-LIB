@@ -22,7 +22,7 @@ MO5_OPTS        ?= -O0 -DANIMATE_PLAYER -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAI
 TO7_OPTS        ?= -O2 -DANIMATE_PLAYER -DSLOW_DOWN=700 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -Wno-const  -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME
 
 TO7_ORG_DATA    ?= --org=a000 
-£--data=D400
+# £--data=D400
 
 ################################################################################
 

@@ -70,7 +70,8 @@ cc65_targets: \
 cmoc_targets: \
     coco_targets \
     dragon_targets \
-    mo5_targets
+    mo5_targets \
+    to7_targets
 
 
 z88dk_targets: \
@@ -615,9 +616,9 @@ COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME
 
 COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
 
-CMOC_OPTS       ?= -O0 -Wno-const  -DNO_SLEEP -DNO_WAIT -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+CMOC_OPTS       ?= -O0 -Wno-const  -DNO_SLEEP -DNO_WAIT -DSLOW_DOWN=1600 -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-COCO_OPTS       ?= -D__COCO__ $(CMOC_OPTS)
+COCO_OPTS       ?= -D__COCO__ $(CMOC_OPTS) -DNO_UDG
 
 DRAGON_OPTS     ?= --dragon -D__DRAGON__ $(COCO_OPTS) 
 
@@ -626,8 +627,9 @@ VECTREX_OPTS    ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wn
 # -DDEFAULT_CLEAR_SCREEN 
 MO5_OPTS        ?= -O2 -DANIMATE_PLAYER -DSLOW_DOWN=1600 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -Wno-const -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
-TO7_OPTS        ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+TO7_OPTS        ?= -O2 -DANIMATE_PLAYER -DSLOW_DOWN=700 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -DNO_WAIT -Wno-const  -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME
 
+TO7_ORG_DATA    ?= --org=a000 
 
 #############################################################################################
 
@@ -751,10 +753,10 @@ mo5: $(ASSETS_PATH)/cmoc_xchase.s
 	input_macros.o
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin
 	mv $(BUILD_PATH)/FULL_MO5.bin .
-	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c FULL_MO5.sap
-	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add FULL_MO5.sap FULL_MO5.bin
-	mv ./FULL_MO5.bin $(BUILD_PATH)
-	mv ./FULL_MO5.sap $(BUILD_PATH)
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c FULL_X$(GAME_NAME)_MO5.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add FULL_X$(GAME_NAME)_MO5.sap FULL_MO5.bin
+	rm ./FULL_MO5.bin
+	mv ./FULL_X$(GAME_NAME)_MO5.sap $(BUILD_PATH)
 	mv ./FILE.k5 $(BUILD_PATH)/FULL_X$(GAME_NAME)_MO5.k5
 	
 
@@ -762,6 +764,54 @@ mo5: $(ASSETS_PATH)/cmoc_xchase.s
 mo5_targets: \
 	mo5
 
+to7: $(ASSETS_PATH)/cmoc_xchase.s
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_xchase.s	
+	$(CMOC) $(TO7_ORG_DATA) -o $(BUILD_PATH)/FULL_TO7.bin \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	cmoc_xchase.o \
+	init_images.o \
+	text_macros.o \
+	input_macros.o
+	rm \
+	mo5_alt_print.o \
+	cmoc_xchase.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o \
+	text_macros.o \
+	input_macros.o
+	mv $(BUILD_PATH)/FULL_TO7.BIN .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs -c FULL_X$(GAME_NAME)_TO7.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs --add FULL_X$(GAME_NAME)_TO7.sap FULL_TO7.BIN
+	rm ./FULL_TO7.BIN
+	mv ./FULL_X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
+
+to7_targets: \
+	to7
 
 #################################################################
 # LCC1802
@@ -925,13 +975,13 @@ pecom: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 # TMC600
 
 
-full_tmc600: tmc600_37k
-tmc600: tmc600_37k
+full_tmc600: tmc600_16k
+tmc600: tmc600_16k
 
 # -DNO_PRINT -DNO_MESSAGE -DNO_TITLE 
 # -savetemps -S
-tmc600_37k: reduced_full_lcc1802_combo.c
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS)  \
+tmc600_16k: reduced_full_lcc1802_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS) -DNO_UDG -DSLOW_DOWN=600  \
 	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DSIMPLE_STRATEGY \
 	-DNO_BLINKING -DBULLETS_NUMBER=4 -DINITIAL_GHOST_SLOWDOWN=25000 \
@@ -940,7 +990,7 @@ tmc600_37k: reduced_full_lcc1802_combo.c
 	-DGHOSTS_NUMBER=6  \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_tmc600_37k.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_tmc600_16k.hex
 
 
 ###############################################################################

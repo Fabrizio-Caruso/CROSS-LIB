@@ -387,6 +387,26 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm ace
 
 
+#################################################################
+
+
+aquarius: aquarius_exp_16k
+
+aquarius_exp_16k: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__AQUARIUS__ \
+	-lndos -DSLOW_DOWN=1000 -DNO_UDG \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app	\
+	-o FULL_X$(GAME_NAME)_aquarius_exp_16k
+	rm FULL_X$(GAME_NAME)_aquarius_exp_16k
+	tar czvf FULL_X$(GAME_NAME)_aquarius_exp_16k.tar.zip FULL_X$(GAME_NAME)_aquarius_exp_16k.caq _FULL_X$(GAME_NAME)_aquarius_exp_16k.caq
+	rm FULL_X$(GAME_NAME)_aquarius_exp_16k.caq
+	rm _FULL_X$(GAME_NAME)_aquarius_exp_16k.caq
+	mv FULL_X$(GAME_NAME)_aquarius_exp_16k.tar.zip $(BUILD_PATH)	
+
+
 # -DSOUNDS 
 # -DFORCE_BIT_BANG 
 #################################################################

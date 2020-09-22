@@ -103,7 +103,7 @@ z88dk_full_tests: \
 ####################################################################################################################
 # Z88DK Compilation Tests with several minimal versions of the game
 # 
-include makefiles/tests/Makefile.z88dk_tests
+include makefiles.chase/tests/Makefile.z88dk_tests
 
 
 

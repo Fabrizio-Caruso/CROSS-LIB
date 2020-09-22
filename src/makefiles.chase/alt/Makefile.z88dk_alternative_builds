@@ -1,0 +1,24 @@
+# ALTERNATIVE VERSIONS
+
+
+
+# -----------------------------------------------------
+# Z88DK
+
+
+include makefiles.chase/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds_a-n
+
+include makefiles.chase/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds_o-z
+
+include makefiles.chase/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds_zsdcc
+
+include makefiles.chase/alt/z88dk_alternative_builds/Makefile.z88dk_alternative_builds_qaopm
+
+z88dk_alt_targets_sccz80:
+	make $(Z88DK_MAKE_OPTS) z88dk_alt_targets_a-n
+	make $(Z88DK_MAKE_OPTS) z88dk_alt_targets_o-z
+
+z88dk_alt_targets:
+	make $(Z88DK_MAKE_OPTS) z88dk_alt_targets_zsdcc
+	make $(Z88DK_MAKE_OPTS) z88dk_alt_targets_sccz80
+

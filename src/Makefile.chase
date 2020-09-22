@@ -9,15 +9,15 @@ SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
 #####################################################################
 # Compilers variables
-include makefiles/auxiliary/Makefile_compilers
+include makefiles.common/auxiliary/Makefile_compilers
 
 #####################################################################
 # Common includes and targets
-include makefiles/auxiliary/Makefile_common
+include makefiles.common/auxiliary/Makefile_common
 
 #####################################################################
 # Assets
-include makefiles/auxiliary/Makefile_assets
+include makefiles.common/auxiliary/Makefile_assets
 
 
 #####################################################################
@@ -61,7 +61,7 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 # Auxiliary targets
 
 # - Combine source files
-include makefiles/auxiliary/Makefile_combo
+include makefiles.common/auxiliary/Makefile_combo
 
 
 #############################################################################################################################################
@@ -84,7 +84,7 @@ all: \
 # TESTS
 
 
-include makefiles/tests/Makefile.tests
+include makefiles.chase/tests/Makefile.tests
 
 
 ####################################################################################################################
@@ -94,128 +94,128 @@ include makefiles/tests/Makefile.tests
 # ------------------------------------------------------------------------------------------
 # - CC65 
 
-include makefiles/targets/Makefile.cc65_targets
+include makefiles.chase/targets/Makefile.cc65_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - Z88DK 
 
-include makefiles/targets/Makefile.z88dk_targets
+include makefiles.chase/targets/Makefile.z88dk_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - CMOC
 
-include makefiles/targets/Makefile.cmoc_targets
+include makefiles.chase/targets/Makefile.cmoc_targets
 
 # ------------------------------------------------------------------------------------------
 # - ACK
 
-include makefiles/targets/Makefile.ack_targets
+include makefiles.chase/targets/Makefile.ack_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC
 
-include makefiles/targets/Makefile.gcc_targets
+include makefiles.chase/targets/Makefile.gcc_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC AMIGA
 
-include makefiles/targets/Makefile.gcc_amiga_targets
+include makefiles.chase/targets/Makefile.gcc_amiga_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC ATARI_ST
 
-include makefiles/targets/Makefile.gcc_atari_st_targets
+include makefiles.chase/targets/Makefile.gcc_atari_st_targets
 
 # ------------------------------------------------------------------------------------------
 # - XTC68
 
-include makefiles/targets/Makefile.xtc68_targets
+include makefiles.chase/targets/Makefile.xtc68_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - LCC1802
 
-include makefiles/targets/Makefile.lcc1802_targets
+include makefiles.chase/targets/Makefile.lcc1802_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC Z8K PCOS
 
-include makefiles/targets/Makefile.gcc_z8k_pcos_targets
+include makefiles.chase/targets/Makefile.gcc_z8k_pcos_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - EMCC
 
-include makefiles/targets/Makefile.emcc_targets
+include makefiles.chase/targets/Makefile.emcc_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC TMS9900
 
-include makefiles/targets/Makefile.gcc_tms9900_targets
+include makefiles.chase/targets/Makefile.gcc_tms9900_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - SDCC
 
-include makefiles/targets/Makefile.sdcc_targets
+include makefiles.chase/targets/Makefile.sdcc_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - WINCMOC
 #
 
-#include makefiles/targets/Makefile.wincmoc_targets
+#include makefiles.chase/targets/Makefile.wincmoc_targets
 
 
 
 #############################################################################################################################################
 # Cross dev-kit 
-#include makefiles/targets/Makefile.cross-dev-kit_targets
+#include makefiles.chase/targets/Makefile.cross-dev-kit_targets
 
 
 ####################################################################################################################
 # Alternative builds	
 
 # - Z88DK
-include makefiles/alt/Makefile.z88dk_alternative_builds
+include makefiles.chase/alt/Makefile.z88dk_alternative_builds
 
 # - CC65
-include makefiles/alt/Makefile.cc65_alternative_builds
+include makefiles.chase/alt/Makefile.cc65_alternative_builds
 
 ####################################################################################################################
 # WIP
 
 # - Z88DK
-include makefiles/wip/Makefile.z88dk_wip_targets
+include makefiles.chase/wip/Makefile.z88dk_wip_targets
 
 # - CC65
-include makefiles/wip/Makefile.cc65_wip_targets
+include makefiles.chase/wip/Makefile.cc65_wip_targets
 
 # - ACK
-include makefiles/wip/Makefile.ack_wip_targets
+include makefiles.chase/wip/Makefile.ack_wip_targets
 
 ####################################################################################################################
 # EXPERIMENTAL
 
-include makefiles/experimental/Makefile.z88dk_experimental_targets
+include makefiles.chase/experimental/Makefile.z88dk_experimental_targets
 
 
 ####################################################################################################################
 # DEBUG	
 
 # - Z88DK
-#include makefiles/debug/Makefile.cc65_debug
+#include makefiles.common/debug/Makefile.cc65_debug
 
 # - CC65
-#include makefiles/debug/Makefile.z88dk_debug
+#include makefiles.common/debug/Makefile.z88dk_debug
 
 # - LCC1802
-include makefiles/debug/Makefile.lcc1802_debug
+include makefiles.common/debug/Makefile.lcc1802_debug
 

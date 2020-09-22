@@ -10,18 +10,18 @@ SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
 #####################################################################
 # Compilers variables
-include makefiles/auxiliary/Makefile_compilers
+include makefiles.common/auxiliary/Makefile_compilers
 
 
 #####################################################################
 # Common includes and targets
-include makefiles/auxiliary/Makefile_common
+include makefiles.common/auxiliary/Makefile_common
 
 
 #####################################################################
 # Assets
 
-include makefiles/auxiliary/Makefile_assets
+include makefiles.common/auxiliary/Makefile_assets
 
 
 #####################################################################
@@ -557,7 +557,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
-include makefiles/auxiliary/Makefile_combo
+include makefiles.common/auxiliary/Makefile_combo
 
 # ------------------------------------------------------------------------------------------
 # LCC1802

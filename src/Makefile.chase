@@ -3,6 +3,9 @@
 
 GAME_NAME = chase
 
+PARENT_DIR = games
+
+SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
 #####################################################################
 # Compilers variables

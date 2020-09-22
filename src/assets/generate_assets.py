@@ -8,6 +8,10 @@ if len(sys.argv)<2:
 else:
     game_dir = sys.argv[1]
 
+if len(sys.argv)<3:
+    parent_dir = "games"
+else:
+    parent_dir = sys.argv[2]
 
 NUMBER_OF_TILES = 19
 
@@ -17,7 +21,7 @@ def read_tiles_from_dir(dir_name):
     global tile
     tile = []
     for i in range(NUMBER_OF_TILES):
-        file_to_open = "../games/"+game_dir+"/tiles/"+dir_name+"/tile"+str(i)+".txt"
+        file_to_open = "../"+parent_dir+"/"+game_dir+"/tiles/"+dir_name+"/tile"+str(i)+".txt"
         with open(file_to_open, 'r') as myfile:
             print("Opening file tile"+file_to_open)
             tile.append(myfile.read())

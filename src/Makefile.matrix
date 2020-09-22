@@ -3,6 +3,9 @@
 
 GAME_NAME := matrix
 
+PARENT_DIR = demos
+
+SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
 #####################################################################
 # Compilers variables

@@ -69,8 +69,6 @@ TOOLS_PATH ?= ../tools
 
 CFG_PATH ?= $(CROSS_LIB_PATH)/cfg/
 
-SOURCE_PATH := games/$(GAME_NAME)
-
 
 #####################################################################
 # CrossLib files

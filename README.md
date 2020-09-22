@@ -1,4 +1,4 @@
-# CROSS-LIB & CROSS-CHASE
+# CROSS LIB & CROSS CHASE
 Cross Lib and games that use it (Cross Chase and Cross Shoot)
 
 by Fabrizio Caruso (fabrizio_caruso@hotmail.com)

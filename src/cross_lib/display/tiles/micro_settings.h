@@ -28,61 +28,61 @@
 #define PALETTE_SWITCH 128
 
 
-#define _TILE_0 ('k')
+#define _TILE_0 0
 
-#define _TILE_1 ('l')
+#define _TILE_1 27
 
-#define _TILE_3 ('m')
+#define _TILE_3 29
 
-#define _TILE_2 ('n')
+#define _TILE_2 28
 
 
 
 // RED
-#define _TILE_5 ('o'+PALETTE_SWITCH)
+#define _TILE_5 (31+PALETTE_SWITCH)
 
 // WHITE
-#define _TILE_4 0
+#define _TILE_4 (30+PALETTE_SWITCH)
 //('p'+PALETTE_SWITCH)
 
-#define _TILE_6 1
+#define _TILE_6 (33+PALETTE_SWITCH)
 
 
 // BLUE
-#define _TILE_9 4
+#define _TILE_9 46
 
 
 // YELLOW
-#define _TILE_7 2
-#define _TILE_7_B 2
-#define _TILE_4_B 0
+#define _TILE_7 (34+PALETTE_SWITCH)
+#define _TILE_7_B 34
+#define _TILE_4_B 30
 
 #define _TILE_0_B (_TILE_0+PALETTE_SWITCH)
-#define _DOLLAR_TILE '$'
+#define _DOLLAR_TILE ('$'+PALETTE_SWITCH)
 
 // GREEN
-#define _TILE_8 3
+#define _TILE_8 35
 
-#define _TILE_17 ('z'+1)
+#define _TILE_17 44
 
-#define _TILE_18 ('z'+2+PALETTE_SWITCH)
+#define _TILE_18 (45+PALETTE_SWITCH)
 
 // CYAN
-#define _TILE_10 'j'
-#define _TILE_11 5
+#define _TILE_10 37
+#define _TILE_11 (38+PALETTE_SWITCH)
 
-#define _TILE_14 7
+#define _TILE_14 (41+PALETTE_SWITCH)
 
-#define _TILE_15 8
+#define _TILE_15 (42+PALETTE_SWITCH)
 
-#define _TILE_16 9
+#define _TILE_16 (43+PALETTE_SWITCH)
 
-#define _TILE_12 6
+#define _TILE_12 (39+PALETTE_SWITCH)
  
 
-#define _TILE_13 ('z'+PALETTE_SWITCH)
+#define _TILE_13 (40+PALETTE_SWITCH)
 
-#define _TILE_5_B ('X'+PALETTE_SWITCH)
+#define _TILE_5_B 31
 
 #endif // _MICRO_GRAPHICS_SETTINGS
 

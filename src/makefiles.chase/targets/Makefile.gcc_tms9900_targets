@@ -27,29 +27,32 @@ OBJECT_LIST= \
   $(CROSS_LIB_PATH)/display/init_images.o \
   $(CROSS_LIB_PATH)/input/input_macros.o \
   $(CROSS_LIB_PATH)/text/text_macros.o \
-  $(SOURCE_PATH)/move_player.c \
-  $(SOURCE_PATH)/ghost.c  $(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c $(SOURCE_PATH)/game_text.c \
-  $(SOURCE_PATH)/main.c
+  $(SOURCE_PATH)/move_player.o \
+  $(SOURCE_PATH)/ghost.o  $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/game_text.o \
+  $(SOURCE_PATH)/main.o
   
 
 # Recipes to compile individual files
 %.o: %.asm
 	$(GAS) $< -o $@
 %.o: %.c
-	$(TI99CC) -c $< -O2 -o $@
+	$(TI99CC) $(INCLUDE_OPTS) -c $< -O2 -o $@
 %.o: %.cpp
 	$(CXX) -c $< -O2 -o $@
 
 # List of all files needed in executable
 PREREQUISITES=\
   $(OBJECT_LIST)
-  
+
+ti99_cross_chase.elf: $(PREREQUISITES)
+	$(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@
+
+
 # Recipe to compile the executable
 ti99: ti99_cross_chase.elf
 	$(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart
 
-ti99_cross_chase.elf: $(PREREQUISITES)
-	$(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@
+
 
 # Recipe to clean all compiled objects
 .phony ti99clean:
@@ -76,18 +79,20 @@ ti99_tiny_no_graphics:
 	-DNO_INPUT \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
+	-DNO_SET_SCREEN_COLORS \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/rand/rand.c \
 	$(TOOLS_PATH)/ti99/cart_header.o \
 	$(TOOLS_PATH)/ti99/crt0.o
-	
+
 cc_tiny_no_graphics:
 	$(_CC) \
 	$(INCLUDE_OPTS) -I$(SOURCE_PATH) \
 	-D__GCC_BUFFERED__ \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
+	-DNO_SET_SCREEN_COLORS \
 	-DNO_SLEEP \
 	-DNO_COLOR \
 	-DNO_PRINT \

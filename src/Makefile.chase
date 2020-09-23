@@ -207,15 +207,3 @@ include makefiles.chase/wip/Makefile.ack_wip_targets
 include makefiles.chase/experimental/Makefile.z88dk_experimental_targets
 
 
-####################################################################################################################
-# DEBUG	
-
-# - Z88DK
-#include makefiles.common/debug/Makefile.cc65_debug
-
-# - CC65
-#include makefiles.common/debug/Makefile.z88dk_debug
-
-# - LCC1802
-include makefiles.common/debug/Makefile.lcc1802_debug
-

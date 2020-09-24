@@ -236,7 +236,7 @@ In BASIC run: RUN
 ---------------------------------------------------------
 ### GAMATE
 
-Use MAME/MESS (e.g., Mess 0.148)
+Use MESS/MAME (e.g., Mess 0.148)
 Run mess.exe gamate
 File Manager -> Select cartridge -> Choose the .bin file
 

@@ -23,6 +23,9 @@ $(ASSETS_PATH)/cc65_nes_tiles.s: $(8X8_TILES)
 $(ASSETS_PATH)/cc65_pce_tiles.s: $(8X8_TILES)
 	cd ./assets && python ./generate_assets.py $(GAME_NAME) $(PARENT_DIR) && ./copy_assets.py $(GAME_NAME) $(PARENT_DIR)
 
+$(ASSETS_PATH)/cc65_gamate_tiles.s: $(8X8_TILES)
+	cd ./assets && python ./generate_assets.py $(GAME_NAME) $(PARENT_DIR) && ./copy_assets.py $(GAME_NAME) $(PARENT_DIR)
+
 $(ASSETS_PATH)/cc65_udc.s: $(8X8_TILES)
 	cd ./assets && python ./generate_assets.py $(GAME_NAME) $(PARENT_DIR) && ./copy_assets.py $(GAME_NAME) $(PARENT_DIR)
 

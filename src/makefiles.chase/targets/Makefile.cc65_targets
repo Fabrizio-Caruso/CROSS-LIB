@@ -445,14 +445,27 @@ cx16:
 #######################################################################################
 # GAMATE
 
-gamate: 
+gamate_no_udg:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
-	-DFULL_GAME \
+	-DFULL_GAME -DSLOW_DOWN=1300 -DANIMATE_PLAYER \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY \
 	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_gamate_no_udg.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/FULL_gamate_no_udg.bin
+
+
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	-DFULL_GAME -DSLOW_DOWN=3500 -DANIMATE_PLAYER -DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DSIMPLE_STRATEGY \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_gamate_tiles.s \
 	-o $(BUILD_PATH)/FULL_gamate.bin
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
 
@@ -482,7 +495,7 @@ pce: pce_16k
 
 pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
-	-DFULL_GAME \
+	-DFULL_GAME -DSLOW_DOWN=3500 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg -DANIMATE_PLAYER  \

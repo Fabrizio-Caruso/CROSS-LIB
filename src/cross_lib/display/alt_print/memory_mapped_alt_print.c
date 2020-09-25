@@ -82,6 +82,13 @@
 #elif defined(NO_GRAPHICS)
 	#define _DISPLAY(x,y,ch)
 		
+#elif (defined(__C16__) && defined(C16_UNEXPANDED))  && defined(NO_SCREEN_CODES)
+	#define _DISPLAY(x,y,ch) \
+		do \
+		{ \
+			DISPLAY_POKE((loc(x,y)), ch); \
+			DISPLAY_POKE((loc(x,y)-1024), PEEK(0x053B)); \
+		} while(0)
 #elif (defined(__C16__) && defined(C16_UNEXPANDED)) 
 	#define _DISPLAY(x,y,ch) \
 		do \

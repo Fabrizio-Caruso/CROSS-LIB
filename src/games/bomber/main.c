@@ -456,7 +456,7 @@ int main(void)
                         // Delete animated bomb
                         deleteAnimatedBombUp();
                         drawExplosion();
-                        DO_SLOW_DOWN(10+SLOW_DOWN/8);
+                        DO_SLOW_DOWN(5+SLOW_DOWN/4);
                     }
 
                 }

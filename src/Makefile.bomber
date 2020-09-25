@@ -178,10 +178,34 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 
 #################################################################
 
-c16: c16_32k
+c16: c16_16k
 
 
 plus4: c16_32k
+
+
+c16_16k: $(ASSETS_PATH)/cc65_udc_63chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
+	-DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME \
+	-DREDEFINED_CHARS \
+	-DSOUNDS \
+	-DALT_PRINT \
+	-DANIMATE_PLAYER \
+	-DMEMORY_MAPPED \
+	-DC16_UNEXPANDED -DNO_SCREEN_CODES -DNO_SET_SCREEN_COLORS \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_SLEEP \
+	-DSLOW_DOWN=550 \
+	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=15 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_63chars.s \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c16_16k.prg
 
 
 c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
@@ -197,7 +221,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DSLOW_DOWN=380 \
+	-DSLOW_DOWN=450 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \

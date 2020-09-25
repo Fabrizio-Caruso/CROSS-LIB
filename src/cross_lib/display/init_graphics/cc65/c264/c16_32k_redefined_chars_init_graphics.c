@@ -13,7 +13,7 @@
 
 #include <stdint.h>
 
-#if defined(FULL_GAME)
+#if defined(FULL_GAME) && !defined(UDG_BASE_FACTOR)
 	#define UDG_BASE_FACTOR 29
 #else
 	#define UDG_BASE_FACTOR 15
@@ -24,6 +24,11 @@ void INIT_GRAPHICS(void)
 {
 	uint16_t i;
 	
+	#if defined(FORCE_NO_CONIO_LIB)
+		POKE(65301u,0);
+		POKE(65305u,0);
+	#endif
+    
 	POKE(1177,62); // disable switch to RAM in PEEK
 	for(i=0;i<1023;++i)
 	{

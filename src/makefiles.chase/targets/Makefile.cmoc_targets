@@ -25,7 +25,10 @@ TO7_ORG_DATA    ?= --org=a000
 
 
 cmoc_targets: \
-	coco_targets dragon_targets mo5_targets to7_targets
+	coco_targets \
+	dragon_targets \
+	mo5_targets \
+	to7_targets
 
 
 #############################################################################################

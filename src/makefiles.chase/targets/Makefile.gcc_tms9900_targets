@@ -61,6 +61,7 @@ OBJECT_LIST= \
   $(CROSS_LIB_PATH)/text/text_macros.o \
   $(SOURCE_PATH)/init_images.o \
   $(SOURCE_PATH)/move_player.o \
+  $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \
   $(SOURCE_PATH)/ghost.o  $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/game_text.o \
   $(SOURCE_PATH)/main.o
   

@@ -1,6 +1,5 @@
-// #include <cross_lib.h>
 
-#include "system.h"
+#include <system.h>
 #include <conio.h>
 
 void INIT_GRAPHICS(void)

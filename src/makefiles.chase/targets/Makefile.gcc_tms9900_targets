@@ -70,7 +70,7 @@ TI99_INCLUDE_OPTS ?= $(INCLUDE_OPTS) -I$(TMS9900-GCC_PATH)/../include
 
 # Recipes to compile individual files
 %.o: %.asm
-	$(GAS) $< -o $@  -lti99
+	$(GAS) $< -o $@
 %.o: %.c
 	$(TI99CC) $(TI99_INCLUDE_OPTS)  $(TI99_OPTS) -c $< -O2 -o $@
 %.o: %.cpp

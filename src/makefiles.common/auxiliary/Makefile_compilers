@@ -12,6 +12,7 @@ _ACK_OPTS ?= -O6
 ###########################
 # CC65
 CC65_PATH ?= 
+
 #/home/fabri/CC65_FIX/cc65/bin/
 
 MYCC65 ?= cl65$(EXEEXT)
@@ -50,6 +51,12 @@ _CC_OPTS ?=
 
 GCC ?= gcc
 GCC_OPTS ?= -Wpedantic -Wall
+
+
+
+###########################
+# GCC TMS9900 
+TMS9900-GCC_PATH ?= /opt/gcc4ti/bin
 
 
 

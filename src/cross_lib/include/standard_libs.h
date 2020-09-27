@@ -1,11 +1,17 @@
+#ifndef _STANDARD_LIBS_H
+#define _STANDARD_LIBS_H
+
 #if defined(__CMOC__) && !defined(__WINCMOC__)
 	#include <cmoc.h>
     #include <coco.h>
 #elif defined(__BBC__) && defined(NO_GRAPHICS)
     #include <stdint.h>
     #include <stdlib.h>
-#elif defined(__LCC1802__)
+#elif defined(__LCC1802__) 
     #include <stdint.h>
+#elif defined(__TI99__)
+        typedef unsigned char uint8_t;
+        typedef unsigned int uint16_t;
 #elif defined(NO_GRAPHICS) 
     #if !defined(_STDINT)
         #define _STDINT
@@ -30,3 +36,6 @@
 #if defined(ALT_RAND) && !defined(__LCC1802__)
     int rand(void);
 #endif
+
+#endif // _STANDARD_LIBS_H
+

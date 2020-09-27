@@ -38,7 +38,6 @@ TILES_PATH ?= $(SOURCE_PATH)/tiles
 6X9_TILES = \
     $(6X9_TILES_PATH)/tile0.txt $(6X9_TILES_PATH)/tile1.txt $(6X9_TILES_PATH)/tile2.txt $(6X9_TILES_PATH)/tile3.txt $(6X9_TILES_PATH)/tile4.txt $(6X9_TILES_PATH)/tile5.txt $(6X9_TILES_PATH)/tile6.txt $(6X9_TILES_PATH)/tile7.txt $(6X9_TILES_PATH)/tile7.txt $(6X9_TILES_PATH)/tile9.txt $(6X9_TILES_PATH)/tile10.txt $(6X9_TILES_PATH)/tile11.txt $(6X9_TILES_PATH)/tile12.txt $(6X9_TILES_PATH)/tile13.txt $(6X9_TILES_PATH)/tile14.txt $(6X9_TILES_PATH)/tile15.txt $(6X9_TILES_PATH)/tile16.txt $(6X9_TILES_PATH)/tile17.txt $(6X9_TILES_PATH)/tile18.txt
 
-
 #######################################################################
 # Cross Lib includes + game's graphics data
 

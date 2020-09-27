@@ -4,8 +4,7 @@
 
 TI99_CC ?= tms9900-gcc
 TI99_OPTS ?= \
-	-nostdlib -DNO_RANDOM_LEVEL \
-	-D__GCC_BUFFERED__ \
+	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
 	-DNO_SLEEP \
@@ -14,12 +13,28 @@ TI99_OPTS ?= \
 	-DTINY_GAME \
 	-DNO_WAIT \
 	-DTURN_BASED \
-	-DNO_GRAPHICS \
-	-DNO_INPUT \
+	-DNO_INPUT -DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DNO_SET_SCREEN_COLORS \
-	-DDEFAULT_CLEAR_SCREEN -DNO_CHASE \
+	-DDEFAULT_CLEAR_SCREEN -DNO_CHASE 
+
+	# -nostdlib -DNO_RANDOM_LEVEL \
+	# -D__GCC_BUFFERED__ \
+	# -DFORCE_XSIZE=79 \
+	# -DFORCE_YSIZE=22 \
+	# -DNO_SLEEP \
+	# -DNO_COLOR \
+	# -DNO_PRINT \
+	# -DTINY_GAME \
+	# -DNO_WAIT \
+	# -DTURN_BASED \
+	# -DNO_GRAPHICS \
+	# -DNO_INPUT \
+	# -DNO_INIT_GRAPHICS \
+	# -DALT_PRINT \
+	# -DNO_SET_SCREEN_COLORS \
+	# -DDEFAULT_CLEAR_SCREEN -DNO_CHASE 
 
 ##################################################################################################
 
@@ -30,12 +45,12 @@ TI99CC=tms9900-gcc
 CXX=tms9900-c++
 OBJCOPY=tms9900-objcopy
 
-
+LIB_TI99_PATH=$(TMS9900-GCC_PATH)/../lib
 
 # Flags used during linking
 # Refer to the linker rules in an external file
 LDFLAGS=\
-  --script=$(CFG_PATH)gcc4ti99/linkfile.cfg
+  --script=$(CFG_PATH)gcc4ti99/linkfile.cfg -L$(LIB_TI99_PATH) -lti99
 
 # List of compiled objects used in executable
 OBJECT_LIST= \
@@ -50,11 +65,13 @@ OBJECT_LIST= \
   $(SOURCE_PATH)/main.o
   
 
+TI99_INCLUDE_OPTS ?= $(INCLUDE_OPTS) -I$(TMS9900-GCC_PATH)/../include
+
 # Recipes to compile individual files
 %.o: %.asm
-	$(GAS) $< -o $@
+	$(GAS) $< -o $@  -lti99
 %.o: %.c
-	$(TI99CC) $(INCLUDE_OPTS) $(TI99_OPTS) -c $< -O2 -o $@
+	$(TI99CC) $(TI99_INCLUDE_OPTS)  $(TI99_OPTS) -c $< -O2 -o $@
 %.o: %.cpp
 	$(CXX) -c $< -O2 -o $@
 
@@ -63,14 +80,14 @@ PREREQUISITES=\
   $(OBJECT_LIST)
 
 ti99_cross_chase.elf: $(PREREQUISITES)
-	$(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@
+	$(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
 
 
 
 
 # Recipe to compile the executable
 ti99: ti99_cross_chase.elf
-	$(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart
+	$(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart 
 	mv ti99_cross_chase.cart $(BUILD_PATH)
 	mv ti99_cross_chase.elf $(BUILD_PATH)
 
@@ -84,32 +101,32 @@ ti99: ti99_cross_chase.elf
 
     
     
-ti99_tiny_no_graphics:
-	$(TI99_CC) $(TI99_OPTS) \
-	$(INCLUDE_OPTS) -I$(SOURCE_PATH) \
-	$(TI99_OPTS) \
-	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/rand/rand.c \
-	$(TOOLS_PATH)/ti99/cart_header.o \
-	$(TOOLS_PATH)/ti99/crt0.o
+# ti99_tiny_no_graphics:
+	# $(TI99_CC) $(TI99_OPTS) \
+	# $(INCLUDE_OPTS) -I$(SOURCE_PATH) \
+	# $(TI99_OPTS) \
+	# $(TINY_FILES) \
+	# $(CROSS_LIB_PATH)/rand/rand.c \
+	# $(TOOLS_PATH)/ti99/cart_header.o \
+	# $(TOOLS_PATH)/ti99/crt0.o
 
-cc_tiny_no_graphics:
-	$(_CC) \
-	$(INCLUDE_OPTS) -I$(SOURCE_PATH) \
-	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_SLEEP \
-	-DNO_COLOR \
-	-DNO_PRINT \
-	-DTINY_GAME \
-	-DNO_WAIT \
-	-DTURN_BASED \
-	-DNO_GRAPHICS \
-	-DNO_INPUT \
-	-DNO_INIT_GRAPHICS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
-	$(TINY_FILES)
-	
+# cc_tiny_no_graphics:
+	# $(_CC) \
+	# $(INCLUDE_OPTS) -I$(SOURCE_PATH) \
+	# -D__GCC_BUFFERED__ \
+	# -DFORCE_XSIZE=79 \
+	# -DFORCE_YSIZE=22 \
+	# -DNO_SET_SCREEN_COLORS \
+	# -DNO_SLEEP \
+	# -DNO_COLOR \
+	# -DNO_PRINT \
+	# -DTINY_GAME \
+	# -DNO_WAIT \
+	# -DTURN_BASED \
+	# -DNO_GRAPHICS \
+	# -DNO_INPUT \
+	# -DNO_INIT_GRAPHICS \
+	# -DALT_PRINT \
+	# -DDEFAULT_CLEAR_SCREEN \
+	# $(TINY_FILES)
+

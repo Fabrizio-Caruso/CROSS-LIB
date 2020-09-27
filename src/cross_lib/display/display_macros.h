@@ -28,10 +28,9 @@
 #include "cross_lib.h"
 #include "display_target_color.h"
 
-
 #if !defined(NO_GRAPHICS)
     #if defined(CONIO_LIB)
-        #include<conio.h>
+        #include <conio.h>
     #elif defined(__CMOC__) && !defined(__WINCMOC__)
         #include <coco.h>
     #endif

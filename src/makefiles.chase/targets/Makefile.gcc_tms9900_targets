@@ -46,8 +46,8 @@ TI99_CC ?= tms9900-gcc
 TI99_OPTS ?= \
 	$(C_FLAGS) \
 	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
-	-DFORCE_XSIZE=79 \
-	-DFORCE_YSIZE=22 \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
 	-DNO_SLEEP \
 	-DNO_COLOR \
 	-DNO_PRINT \
@@ -58,7 +58,8 @@ TI99_OPTS ?= \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DNO_SET_SCREEN_COLORS \
-	-DDEFAULT_CLEAR_SCREEN -DNO_CHASE 
+	-DDEFAULT_CLEAR_SCREEN \
+	-DSLOW_DOWN=2000
 
 
 
@@ -84,8 +85,10 @@ OBJECT_LIST= \
   $(CROSS_LIB_PATH)/display/display_macros.o \
   $(CROSS_LIB_PATH)/input/input_macros.o \
   $(CROSS_LIB_PATH)/text/text_macros.o \
+  $(CROSS_LIB_PATH)/rand/rand.o \
   $(SOURCE_PATH)/init_images.o \
   $(SOURCE_PATH)/move_player.o \
+  $(SOURCE_PATH)/strategy.o \
   $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \
   $(SOURCE_PATH)/ghost.o  $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/game_text.o \
   $(SOURCE_PATH)/main.o

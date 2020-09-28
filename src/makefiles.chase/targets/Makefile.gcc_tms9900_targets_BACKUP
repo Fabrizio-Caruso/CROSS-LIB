@@ -2,49 +2,8 @@
 # TMS9000-GCC
 #   
 
-
-# Paths to TMS9900 compilation tools 
-# ( Set in environment to override paths )
-TMS9900_DIR?=/opt/gcc4ti/bin
-ELF2EA5_DIR?=/home/fabri/Retro/GCC4TI/elf2ea5
-EA5_SPLIT_DIR?=/home/fabri/Retro/GCC4TI/ea5split
-CLASSIC99_DSK1?=/home/fabri/Retro/GCC4TI/DSK1
-
-
-# Full paths to the executables used
-GAS=$(TMS9900_DIR)/tms9900-as
-LD=$(TMS9900_DIR)/tms9900-ld
-CC=$(TMS9900_DIR)/tms9900-gcc
-AR=$(TMS9900_DIR)/tms9900-ar
-ELF2EA5=$(ELF2EA5_DIR)/elf2ea5
-EA5_SPLIT=$(EA5_SPLIT_DIR)/ea5split
-
-LDFLAGS_EA5=\
-  --section-start .text=a000 --section-start .data=2080 -M
-
-
-
-C_FLAGS=\
-  -O2 -std=c99 -s -I./ -fno-builtin
-
-
-
-test: library testlib.o $(OBJECT_LIST_EA5) 
-	$(LD) $(OBJECT_LIST_EA5) testlib.o $(LDFLAGS_EA5) -L. -lti99 -o testlib.ea5.elf > ea5.map
-	$(ELF2EA5) testlib.ea5.elf testlib.ea5.bin
-	$(EA5_SPLIT) testlib.ea5.bin
-	cp TESTLI* $(CLASSIC99_DSK1)
-
-
-
-
-
-
-
-
 TI99_CC ?= tms9900-gcc
 TI99_OPTS ?= \
-	$(C_FLAGS) \
 	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=22 \
@@ -76,11 +35,12 @@ LIB_TI99_PATH=$(TMS9900-GCC_PATH)/../lib
 # Flags used during linking
 # Refer to the linker rules in an external file
 LDFLAGS=\
-  --script=$(CFG_PATH)gcc4ti99/linkfile.cfg 
+  --script=$(CFG_PATH)gcc4ti99/linkfile.cfg -L$(LIB_TI99_PATH) -lti99
 
 # List of compiled objects used in executable
 OBJECT_LIST= \
-  $(TOOLS_PATH)/ti99/crt0_ea5.o \
+  $(TOOLS_PATH)/ti99/cart_header.o \
+  $(TOOLS_PATH)/ti99/crt0.o \
   $(CROSS_LIB_PATH)/display/display_macros.o \
   $(CROSS_LIB_PATH)/input/input_macros.o \
   $(CROSS_LIB_PATH)/text/text_macros.o \
@@ -97,7 +57,7 @@ TI99_INCLUDE_OPTS ?= $(INCLUDE_OPTS) -I$(TMS9900-GCC_PATH)/../include
 %.o: %.asm
 	$(GAS) $< -o $@
 %.o: %.c
-	$(TI99CC) $(TI99_INCLUDE_OPTS) $(TI99_OPTS) -c $< -o $@
+	$(TI99CC) $(TI99_INCLUDE_OPTS)  $(TI99_OPTS) -c $< -O2 -o $@
 %.o: %.cpp
 	$(CXX) -c $< -O2 -o $@
 
@@ -106,26 +66,16 @@ PREREQUISITES=\
   $(OBJECT_LIST)
 
 ti99_cross_chase.elf: $(PREREQUISITES)
-	$(LD) $(OBJECT_LIST) $(LDFLAGS_EA5) -L$(LIB_TI99_PATH) -lti99 -o xchase.ea5.elf > xchase.map
-	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
+	$(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
 
 
 
 
 # Recipe to compile the executable
 ti99: ti99_cross_chase.elf
-	$(ELF2EA5) xchase.ea5.elf xchase.ea5.bin
-	$(EA5_SPLIT) xchase.ea5.bin
-	rm -rf xchase.ea5.bin
-	rm -rf xchase.map
-	rm -rf ea5.map
-	mv xchase.ea5.elf $(BUILD_PATH)
-	mv XCHASE $(BUILD_PATH)
-
-
-	# $(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart 
-	# mv ti99_cross_chase.cart $(BUILD_PATH)
-	# mv ti99_cross_chase.elf $(BUILD_PATH)
+	$(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart 
+	mv ti99_cross_chase.cart $(BUILD_PATH)
+	mv ti99_cross_chase.elf $(BUILD_PATH)
 
 
 # Recipe to clean all compiled objects
@@ -134,4 +84,35 @@ ti99: ti99_cross_chase.elf
 	rm -f *.elf
 	rm -f *.cart
 
+
+    
+    
+# ti99_tiny_no_graphics:
+	# $(TI99_CC) $(TI99_OPTS) \
+	# $(INCLUDE_OPTS) -I$(SOURCE_PATH) \
+	# $(TI99_OPTS) \
+	# $(TINY_FILES) \
+	# $(CROSS_LIB_PATH)/rand/rand.c \
+	# $(TOOLS_PATH)/ti99/cart_header.o \
+	# $(TOOLS_PATH)/ti99/crt0.o
+
+# cc_tiny_no_graphics:
+	# $(_CC) \
+	# $(INCLUDE_OPTS) -I$(SOURCE_PATH) \
+	# -D__GCC_BUFFERED__ \
+	# -DFORCE_XSIZE=79 \
+	# -DFORCE_YSIZE=22 \
+	# -DNO_SET_SCREEN_COLORS \
+	# -DNO_SLEEP \
+	# -DNO_COLOR \
+	# -DNO_PRINT \
+	# -DTINY_GAME \
+	# -DNO_WAIT \
+	# -DTURN_BASED \
+	# -DNO_GRAPHICS \
+	# -DNO_INPUT \
+	# -DNO_INIT_GRAPHICS \
+	# -DALT_PRINT \
+	# -DDEFAULT_CLEAR_SCREEN \
+	# $(TINY_FILES)
 

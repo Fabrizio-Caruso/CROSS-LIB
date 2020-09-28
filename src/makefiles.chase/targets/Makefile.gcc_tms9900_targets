@@ -116,11 +116,12 @@ ti99_cross_chase.elf: $(PREREQUISITES)
 ti99: ti99_cross_chase.elf
 	$(ELF2EA5) xchase.ea5.elf xchase.ea5.bin
 	$(EA5_SPLIT) xchase.ea5.bin
-	rm -rf xchase.ea5.bin
 	rm -rf xchase.map
 	rm -rf ea5.map
-	mv xchase.ea5.elf $(BUILD_PATH)
+	rm -rf xchase.ea5.elf
 	mv XCHASE $(BUILD_PATH)
+	mv xchase.ea5.bin $(BUILD_PATH)
+
 
 
 	# $(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart 

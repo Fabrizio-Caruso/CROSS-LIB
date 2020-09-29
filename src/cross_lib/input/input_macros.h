@@ -169,16 +169,15 @@
                 char GET_CHAR(void);
             #endif
         #endif // defined(KEYBOARD_CONTROL)
-
-        // WAIT_PRESS
-        #if !defined(NO_WAIT) || !defined(NO_SLEEP)
-            void WAIT_PRESS(void);
-        #else // NO_WAIT + NO_SLEEP
-            #define WAIT_PRESS()
-        #endif // !defined(NO_WAIT) || !defined(NO_SLEEP)
-    #else
-        #define WAIT_PRESS()
     #endif // !defined(NO_INPUT)
+    
+    // WAIT_PRESS
+    #if !defined(NO_WAIT) || !defined(NO_SLEEP)
+        void WAIT_PRESS(void);
+    #else // NO_WAIT + NO_SLEEP
+        #define WAIT_PRESS()
+    #endif // !defined(NO_WAIT) || !defined(NO_SLEEP)
+
 
 
 // KEY_PRESSED definitions

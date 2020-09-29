@@ -48,18 +48,17 @@ TI99_OPTS ?= \
 	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=24 \
-	-DNO_SLEEP \
 	-DNO_COLOR \
+	-DALT_SLEEP \
 	-DNO_PRINT \
 	-DTINY_GAME \
 	-DNO_WAIT \
-	-DTURN_BASED \
 	-DNO_INPUT -DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-DALT_PRINT \
 	-DNO_SET_SCREEN_COLORS \
 	-DDEFAULT_CLEAR_SCREEN \
-	-DSLOW_DOWN=2000
+	-DSLOW_DOWN=50000
 
 
 
@@ -86,6 +85,7 @@ OBJECT_LIST= \
   $(CROSS_LIB_PATH)/input/input_macros.o \
   $(CROSS_LIB_PATH)/text/text_macros.o \
   $(CROSS_LIB_PATH)/rand/rand.o \
+  $(CROSS_LIB_PATH)/sleep/sleep_macros.o \
   $(SOURCE_PATH)/init_images.o \
   $(SOURCE_PATH)/move_player.o \
   $(SOURCE_PATH)/strategy.o \

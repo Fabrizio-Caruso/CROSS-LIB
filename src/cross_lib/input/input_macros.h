@@ -157,27 +157,24 @@
 	#else
 		#define TURN_BASED_INPUT() cgetc()
 	#endif	// TURN_BASED_INPUT definitions
-	
 
 
-	#if !defined(NO_INPUT)
-        #if defined(KEYBOARD_CONTROL)
-        // GET_CHAR
-            #if defined(ACK) || defined(STDLIB)
-                #define GET_CHAR() getchar()
-            #else
-                char GET_CHAR(void);
-            #endif
-        #endif // defined(KEYBOARD_CONTROL)
+    // GET_CHAR
+	#if !defined(NO_INPUT) && defined(KEYBOARD_CONTROL)
+        #if defined(ACK) || defined(STDLIB)
+            #define GET_CHAR() getchar()
+        #else
+            char GET_CHAR(void);
+        #endif
     #endif // !defined(NO_INPUT)
-    
+
+
     // WAIT_PRESS
     #if !defined(NO_WAIT) || !defined(NO_SLEEP)
         void WAIT_PRESS(void);
     #else // NO_WAIT + NO_SLEEP
         #define WAIT_PRESS()
     #endif // !defined(NO_WAIT) || !defined(NO_SLEEP)
-
 
 
 // KEY_PRESSED definitions

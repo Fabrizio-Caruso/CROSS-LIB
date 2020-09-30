@@ -320,6 +320,9 @@ light_cidelsa_draco: light_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/LIGHT_cidelsa_draco_16K.hex
 
 
+cidelsa: cidelsa_draco
+
+
 cidelsa_draco_32k: cidelsa_draco
 
 # -DREDEFINED_CHARS

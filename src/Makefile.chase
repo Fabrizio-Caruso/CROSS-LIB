@@ -76,6 +76,7 @@ all: \
     gcc_targets \
     gcc_atari_st_targets \
     gcc_amiga_targets \
+    gcc_ti99 \
     z88dk_targets
 
 

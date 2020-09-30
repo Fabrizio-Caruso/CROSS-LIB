@@ -173,6 +173,13 @@ ti99_turn_based: ti99_cross_chase_turn_based.elf
 	rm -rf xchase_tb.ea5.bin
 
 
+ti99_targets: \
+	ti99 \
+	ti99_turn_based
+
+gcc_ti99_targets: \
+	ti99_targets
+
 	# $(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart 
 	# mv ti99_cross_chase.cart $(BUILD_PATH)
 	# mv ti99_cross_chase.elf $(BUILD_PATH)

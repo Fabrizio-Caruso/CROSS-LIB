@@ -51,6 +51,20 @@ The most significant supported CPU architecture are described below.
 ### 32/64-BIT ARCHITECTURE
 We also support any current architecture for which GCC can produce a working binary.
 
+
+-------------------------------------------
+
+## SUPPORTED SYSTEMS 
+
+
+For most vintage systems (more than 200 different systems), you can build a version of the game with some graphics, sounds and real time input.
+In principle you can compile the game in turn-based mode with minimal input and output (*stdlib*) for any architecture for which there is an ANSI C capable compiler.
+You can also compile the game in action mode with minimal input and output for any architecture for which there an ANCI C compiler with *ncurses* or *conio* libraries.
+
+For a complete list look at:
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+
+
 -------------------------------------------
 
 ## THE TOOL-CHAIN
@@ -68,7 +82,7 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
 
 -------------------------------------------
 
-## HOW TO COMPILE CROSS CHASE
+## HOW TO COMPILE THE GAMES
 In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
 
 For more details we refer to: 
@@ -92,61 +106,59 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TESTS.md
 If you just want to build the game only for a specific system without choosing a specific version, 
 you can build the default target for a given system with
 
-`make [system_name]`
+`make [system_name] -f Makefile.[game name]`
+
+where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`
 
 For the list of systems either run `make list` or look at 
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
 
 Examples: 
-- `make c64` builds the default Commodore 64 binary.
-- `make nes` builds the default binary for the Nintendo NES videogame console.
-- `make ti83` builds the default binary for the Texas Instrument TI 83 scientific calculator.
-- `make spectrum` builds the default binary for the Sinclair ZX Spectrum.
+- `make c64` (or equivalently `make c64 -f Makefile.chase`) builds the default binary of *Cross Chase* for Commodore 64.
+- `make nes -f Makefile.shoot` builds the default binary of *Cross Shoot* for the Nintendo NES videogame console.
+- `make spectrum -f Makefile.bomber` builds the default binary of *Cross Bomber* for the Sinclair ZX Spectrum.
+- `make ti83` builds the default binary of *Cross Chase* for the Texas Instrument TI 83 scientific calculator.
 
 
-### Build all targets for a given system
+### Build all targets for a given system 
 
 You can build all targets for a given system with
 
 `make [system_name]_targets`
 
+These targets currently exist mostly for Cross Chase*. 
+
 See the list of systems above or run `make list`.
 
 Examples:
-- `make vic20_targets` builds the binaries for the Commodore Vic 20.
-- `make spectrum_targets` builds the binaries for the Sinclair ZX Spectrum.
+- `make vic20_targets` builds all *Cross Chase* binaries for the Commodore Vic 20.
+- `make spectrum_targets` builds all *Cross Chase* binaries for the Sinclair ZX Spectrum.
 
 
 ### Build all targets that are built by a given compiler or devkit:
 
-`make [compiler_name]_targets`
+`make [compiler_name]_targets -f Makefile.[game name]`
+
+where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`
 
 You can find the list of compilers and dev-kit if you either run `make help` or look at 
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILER_NAMES.md
 
 
-Exampeles:
-- `make gcc_targets` builds all targets by using GCC for the native host console (e.g., CYGWIN, Linux, etc. console).
-- `make cc65_targets` builds all targets that are built with the CC65 cross-compiler for the MOS 6502 systems.
-- `make z88dk_targets` [EXTREMELY SLOW] builds all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80 and Intel 8080 systems.
+Examples:
+- `make gcc_targets` builds *Cross Chase* for all targets by using GCC for the native host console (e.g., CYGWIN, Linux, etc. console).
+- `make cc65_targets` builds *Cross Chase* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
+- `make cmoc_targets` builds *Cross Chase* for all targets that are built with the CMOC cross-compiler for the Motorola 6809-based systems.
+- `make z88dk_targets` builds *Cross Chase* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
+- `make cc65_targets -f Makefile.shoot` builds *Cross Shoot* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
+- `make z88dk_targets -f Makefile.bomber` builds *Cross Bomber* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.
+- `make lcc1802_targets -f Makefile.bomber` builds *Cross Bomber* for all targets that are built with the LCC1802 cross-compiler for the RCA COSMAC 1802-based systems.
+
 
 ### Detailed build instructions 
 
 For more details on how to build either run `make help` or look at 
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
-
-
--------------------------------------------
-
-## HOW TO COMPILE CROSS SHOOT
-
-*Cross Shoot* can be compiled similarly as *Cross Chase* but you need to use the specific Makefile `Makefile.Shoot`.
-
-Exmaples:
-- `make c64 -f Makefile.shoot` builds the default Commodore 64 binary.
-- `make vic20 -f Makefile.shoot` builds the default Commodore Vic 20 binary.
-- `make c16 -f Makefile.shoot` builds the default Commodore 16 binary.
-- `make all -f Makefile.shoot` builds all currently available targets for *Cross Shoot*.
 
 
 -------------------------------------------
@@ -220,17 +232,6 @@ Some target(s) may get specific graphic code with re-defined characters, softwar
 
 The game code is in: 
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/src/chase
-
--------------------------------------------
-
-## SUPPORTED SYSTEMS 
-
-In principle you can compile the game in turn-based mode with minimal input and output (*stdlib*) for any architecture for which there is an ANSI C capable compiler.
-You can also compile the game in action mode with minimal input and output for any architecture for which there an ANCI C compiler with *ncurses* or *conio* libraries.
-For most vintage systems, you can build a version of the game with some graphics, sounds and real time input.
-
-For a complete list look at:
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
 
 
 -------------------------------------------

@@ -38,10 +38,6 @@ C_FLAGS=\
 
 
 
-
-
-
-
 TI99_CC ?= tms9900-gcc
 TI99_TURN_BASED_OPTS ?= \
 	$(C_FLAGS) \

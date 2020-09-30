@@ -16,71 +16,71 @@ FAST_ZSDCC_TEST_OPTS ?= -SO0 $(FAST_TEST_OPTS)
 
 ####################################################################################################################
 
-zsdcc_test: \
-	aquarius_zsdcc_test \
-	c128_z80_zsdcc_test \
-	mc1000_zsdcc_test \
-	spectrum_zsdcc_test \
-	svi_zsdcc_test \
-	vz200_zsdcc_test \
-	vg5k_zsdcc_test \
-	zx81_zsdcc_test 
+zsdcc_quick_test: \
+	aquarius_zsdcc_quick_test \
+	c128_z80_zsdcc_quick_test \
+	mc1000_zsdcc_quick_test \
+	spectrum_zsdcc_quick_test \
+	svi_zsdcc_quick_test \
+	vz200_zsdcc_quick_test \
+	vg5k_zsdcc_quick_test \
+	zx81_zsdcc_quick_test 
 
 
-sccz80_test: \
-	abc80_test \
-	ace_test \
-	aquarius_test \
-	c128_z80_test \
-	cpc_test \
-	cpm_test \
- 	eg2k_test \
-	einstein_test \
-	gal_test \
-	kc_test \
-	lambda_test \
-	m5_test \
-	mc1000_test \
-	microbee_test \
-	msx_test \
-	mtx_test \
-	mz_test \
-	nascom_test \
-	nc100_test \
-	p2000_test \
-	pc6001_test \
-	pps_test \
-	pv2000_test \
-	px4_test \
-	px8_test \
-	samcoupe_test \
-	sc3000_test \
-	sg1000_test \
-	spectrum_test \
-	srr_test \
-	svi_test \
-	ti82_test \
-	ti83_test \
-	ti85_test \
-	trs80_test \
-	vg5k_test \
-	vz200_test \
-	x1_test \
-	z1013_test \
-	z9001_test \
-	zx80_test \
-	zx81_test 
+sccz80_quick_test: \
+	abc80_quick_test \
+	ace_quick_test \
+	aquarius_quick_test \
+	c128_z80_quick_test \
+	cpc_quick_test \
+	cpm_quick_test \
+ 	eg2k_quick_test \
+	einstein_quick_test \
+	gal_quick_test \
+	kc_quick_test \
+	lambda_quick_test \
+	m5_quick_test \
+	mc1000_quick_test \
+	microbee_quick_test \
+	msx_quick_test \
+	mtx_quick_test \
+	mz_quick_test \
+	nascom_quick_test \
+	nc100_quick_test \
+	p2000_quick_test \
+	pc6001_quick_test \
+	pps_quick_test \
+	pv2000_quick_test \
+	px4_quick_test \
+	px8_quick_test \
+	samcoupe_quick_test \
+	sc3000_quick_test \
+	sg1000_quick_test \
+	spectrum_quick_test \
+	srr_quick_test \
+	svi_quick_test \
+	ti82_quick_test \
+	ti83_quick_test \
+	ti85_quick_test \
+	trs80_quick_test \
+	vg5k_quick_test \
+	vz200_quick_test \
+	x1_quick_test \
+	z1013_quick_test \
+	z9001_quick_test \
+	zx80_quick_test \
+	zx81_quick_test 
 
 
-z88dk_test: \
-	sccz80_test \
-	zsdcc_test	
+z88dk_quick_test: \
+	sccz80_quick_test \
+	zsdcc_quick_test	
 	
 
 ####################################################################################################################
 
 
-abc80_test: 
+abc80_quick_test: 
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 -lm -subtype=hex -zorg=49200 \
 	-D__ABC80__ -clib=ansi -vn -DSOUNDS  -lndos \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -93,7 +93,7 @@ abc80_test:
 	mv abc80t.ihx $(BUILD_PATH)/TEST_abc80.ihx 	
 
 
-ace_test:
+ace_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +ace \
 	-D__ACE__ \
 	-DSOUNDS \
@@ -109,7 +109,7 @@ ace_test:
 	rm acet.bin
 
 
-aquarius_test: 
+aquarius_quick_test: 
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius -clib=ansi -vn \
 	-DSOUNDS -D__AQUARIUS__  -DTINY_GAME \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -123,7 +123,7 @@ aquarius_test:
 	mv _TEST_aquarius.caq $(BUILD_PATH)	
 
 
-c128_z80_test:	
+c128_z80_quick_test:	
 	$(Z88DK_PATH)$(MYZ88DK) +c128 \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \
@@ -142,17 +142,16 @@ c128_z80_test:
 	rm c128t.bin
 
 
-cpc_test:
+cpc_quick_test: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpc -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ -DSOUNDS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCPCRSLIB \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/TEST_cpc.prg \
-	$(SOURCE_PATH)/graphics_data/z88dk/cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
-	$(TEST_FILES)
+	$(TEST_FILES) $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/TEST_cpc.cpc  $(BUILD_PATH)/TEST_cpc.cdt
 	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd TEST_cpc.dsk
 	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw TEST_cpc.dsk -p $(BUILD_PATH)/TEST_cpc.cpc xchase
@@ -161,7 +160,7 @@ cpc_test:
 	rm $(BUILD_PATH)/TEST_cpc.prg	
 
 
-cpm_test:
+cpm_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm \
 	-DCONIO_ADM3A \
 	-DCONIO \
@@ -174,7 +173,7 @@ cpm_test:
 	rm $(BUILD_PATH)/TEST_cpm.bin
 
 
-eg2k_test:
+eg2k_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 \
 	-D__EG2K__ \
 	-DCONIO \
@@ -191,7 +190,7 @@ eg2k_test:
 	rm eg2kt.bin
 
 
-einstein_test:
+einstein_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -leinstein  -v \
 	-D__EINSTEIN__ \
 	-DFORCE_CONIO_LIB \
@@ -204,7 +203,7 @@ einstein_test:
 	rm $(BUILD_PATH)/TEST_einstein.bin
 
 
-gal_test:
+gal_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +gal \
 	-pragma-need=ansiterminal \
 	-D__GAL__ \
@@ -217,21 +216,23 @@ gal_test:
 	rm $(BUILD_PATH)/TEST_galaksija.wav
 
 
-kc_test:
+kc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +kc -subtype=tap \
 	-D__KC__ \
 	-DNO_INIT_GRAPHICS \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
-	-DZ88DK_SPRITES \
+	-DUDG_GRAPHICS \
+	-DCONIO_VT52 \
+	-DCONIO \
 	-DNO_SLEEP \
 	-DNO_WAIT \
 	-DANIMATE_PLAYER \
 	-create-app -o$(BUILD_PATH)/TEST_kc_sprites.bin \
-	$(TEST_FILES)
+	$(TEST_FILES) $(ASSETS_PATH)/z88dk_xchase.asm 
 	rm $(BUILD_PATH)/TEST_kc_sprites.bin	
 
 
-lambda_test:
+lambda_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +lambda \
 	-vn -D__LAMBDA__ \
 	-DCONIO \
@@ -242,7 +243,7 @@ lambda_test:
 	rm $(BUILD_PATH)/TEST_lambda.prg		
 
 
-m5_test:
+m5_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
@@ -256,7 +257,7 @@ m5_test:
 	rm $(BUILD_PATH)/TEST_m5.cas
 
 
-mc1000_test:
+mc1000_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 \
 	-subtype=gaming -pragma-define:ansicolumns=32 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -272,7 +273,7 @@ mc1000_test:
 	rm mc1kt.cas	
 
 
-microbee_test:
+microbee_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +bee \
 	-D__BEE__ -clib=ansi -vn -DSOUNDS  \
 	-DCONIO \
@@ -283,7 +284,7 @@ microbee_test:
 	rm $(BUILD_PATH)/TEST_microbee.prg
 
 
-msx_test:
+msx_quick_test: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx -zorg=49200 \
 	-DSOUNDS -DANIMATE_PLAYER -create-app -vn -DMSX_VPOKE -D__MSX__ -lndos \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -300,7 +301,7 @@ msx_test:
 	rm $(BUILD_PATH)/TEST_msx.prg 	
 
 
-mtx_test:
+mtx_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx -startup=2 \
 	-D__MTX__ -clib=ansi -pragma-define:ansicolumns=32 -create-app -o TEST_mtx.bin -vn \
 	-DSOUNDS \
@@ -314,7 +315,7 @@ mtx_test:
 	rm TEST_mtx
 
 
-mz_test:	
+mz_quick_test:	
 	$(Z88DK_PATH)$(MYZ88DK) +mz \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DSOUNDS \
@@ -327,7 +328,7 @@ mz_test:
 	mv $(BUILD_PATH)/TEST_mz.mzt $(BUILD_PATH)/TEST_mz.mzf
 
 
-nascom_test:
+nascom_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +nascom -clib=ansi -vn -lndos \
 	-D__NASCOM__ \
 	-DCONIO \
@@ -339,7 +340,7 @@ nascom_test:
 	rm $(BUILD_PATH)/TEST_nascom.prg
 
 
-nc100_test:
+nc100_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +nc -lgfxnc100 \
 	-DNO_INIT_GRAPHICS \
 	-D__NC100__ \
@@ -355,7 +356,7 @@ nc100_test:
 	rm $(BUILD_PATH)/TEST_nc100.bin	
 
 
-p2000_test:
+p2000_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +p2000 -clib=ansi -D__P2000__ -vn \
 	-DSOUNDS  \
 	-DCONIO \
@@ -366,7 +367,7 @@ p2000_test:
 	rm $(BUILD_PATH)/TEST_p2000.prg
 
 
-pc6001_test:
+pc6001_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +pc6001 -Cz--audio -clib=ansi -subtype=32k \
 	-D__PC6001__ -v \
 	-DCONIO \
@@ -380,7 +381,7 @@ pc6001_test:
 	mv $(BUILD_PATH)/TEST_pc6001_32k.cas $(BUILD_PATH)/TEST_pc6001_32k.cp6	
 
 
-pps_test:	
+pps_quick_test:	
 	$(Z88DK_PATH)$(MYZ88DK) +pps -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__PPS__ -vn \
 	-DCONIO_VT52 \
@@ -393,7 +394,7 @@ pps_test:
 	mv ppst.bin $(BUILD_PATH)/TEST_pps.exe		
 
 
-pv2000_test:
+pv2000_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +pv2000 -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
 	-DCONIO \
@@ -411,7 +412,7 @@ pv2000_test:
 	rm pv2kt_DATA.bin
 
 
-px4_test:
+px4_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -lpx4 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-D__PX4__ \
@@ -426,7 +427,7 @@ px4_test:
 	mv PX4.ROM $(BUILD_PATH)/TEST_px4.ROM
 
 
-px8_test:
+px8_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=px8 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-D__PX8__ \
@@ -440,7 +441,7 @@ px8_test:
 	mv PX8.ROM $(BUILD_PATH)/TEST_px8.ROM
 
 
-samcoupe_test:
+samcoupe_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +sam \
 	-D__SAM__ \
 	-DCONIO \
@@ -455,7 +456,7 @@ samcoupe_test:
 	rm $(BUILD_PATH)/FULL_samcoupe.bin
 
 
-sc3000_test:
+sc3000_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
@@ -469,7 +470,7 @@ sc3000_test:
 	rm $(BUILD_PATH)/TEST_sc3000_16k.tap	
 
 
-sg1000_test:
+sg1000_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +sc3000 -subtype=rom \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
@@ -484,7 +485,7 @@ sg1000_test:
 	rm $(BUILD_PATH)/TEST_sg1000_DATA.bin
 
 
-spectrum_test:
+spectrum_quick_test: 
 	$(Z88DK_PATH)$(MYZ88DK) +zx -clib=ansi -vn  \
 	-pragma-define:ansicolumns=32 \
 	-DSOUNDS -DCLIB_ANSI -D__SPECTRUM__ \
@@ -497,7 +498,7 @@ spectrum_test:
 	rm $(BUILD_PATH)/TEST_spectrum_BANK_7.bin
 
 
-srr_test:
+srr_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +srr -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SRR__ -vn \
 	-DCONIO \
@@ -514,7 +515,7 @@ srr_test:
 	mv srrt.wav $(BUILD_PATH)/TEST_srr.wav
 
 
-svi_test:
+svi_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
 	 -vn -lndos \
 	-DSOUNDS \
@@ -535,7 +536,7 @@ svi_test:
 	rm svit.bin
 
 
-ti82_test:
+ti82_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +ti82 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) -D__TI82__ \
 	-DCONIO \
@@ -550,7 +551,7 @@ ti82_test:
 	rm ti82t.bin
 
 
-ti83_test:
+ti83_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +ti83 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) -D__TI83__ \
 	-DCONIO \
@@ -565,7 +566,7 @@ ti83_test:
 	rm ti83t.bin
 
 
-ti85_test:
+ti85_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +ti85 \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) -D__TI85__ \
 	-DCONIO \
@@ -580,7 +581,7 @@ ti85_test:
 	rm ti85t.bin
 
 
-trs80_test:
+trs80_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 -lndos \
 	-lm -create-app \
 	-D__TRS80__ \
@@ -594,7 +595,7 @@ trs80_test:
 	rm $(BUILD_PATH)/TEST_trs80.bin	
 
 
-vg5k_test:
+vg5k_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	$(FAST_SCCZ80_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
@@ -605,7 +606,7 @@ vg5k_test:
 	rm $(BUILD_PATH)/TEST_vg5k.prg	
 
 
-vz200_test:
+vz200_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +vz -vn \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-D__VZ__ -clib=ansi \
@@ -618,7 +619,7 @@ vz200_test:
 	rm $(BUILD_PATH)/TEST_vz200.cas	
 
 
-x1_test:
+x1_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 \
 	-D__X1__ \
 	-DCONIO \
@@ -630,7 +631,7 @@ x1_test:
 	rm $(BUILD_PATH)/TEST_x1.bin
 
 
-z1013_test:
+z1013_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 -clib=ansi \
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
@@ -643,7 +644,7 @@ z1013_test:
 	rm z1013t.bin
 
 
-z9001_test:
+z9001_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +z9001 -clib=ansi \
 	-D__Z9001__ -vn   \
 	-DCONIO \
@@ -654,7 +655,7 @@ z9001_test:
 	rm $(BUILD_PATH)/TEST_z9001.z80	
 
 
-zx80_test:
+zx80_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +zx80 -vn \
 	-D__ZX80__ \
 	-DCONIO \
@@ -669,7 +670,7 @@ zx80_test:
 	rm $(BUILD_PATH)/TEST_zx80.prg
 
 
-zx81_test:
+zx81_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 -vn \
 	-D__ZX81__ \
 	-DTURN_BASED \
@@ -687,7 +688,7 @@ zx81_test:
 ###############################################################################
 
 
-zx81_zsdcc_test:
+zx81_zsdcc_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 \
 	-compiler=sdcc \
 	-vn \
@@ -703,7 +704,7 @@ zx81_zsdcc_test:
 	rm $(BUILD_PATH)/TEST_ZSDCC_zx81.prg
 
 
-aquarius_zsdcc_test:
+aquarius_zsdcc_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-compiler=sdcc \
@@ -721,7 +722,7 @@ aquarius_zsdcc_test:
 	mv _TEST_ZSDCC_aquarius.caq $(BUILD_PATH)	
 
 
-vz200_zsdcc_test:
+vz200_zsdcc_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +vz -vn \
 	-DTINY_GAME \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
@@ -744,7 +745,7 @@ vz200_zsdcc_test:
 	rm $(BUILD_PATH)/TEST_ZSDCC_vz200.cas
 
 
-spectrum_zsdcc_test:
+spectrum_zsdcc_quick_test: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +zx  -v -zorg=24055 \
 	-compiler=sdcc \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
@@ -760,7 +761,7 @@ spectrum_zsdcc_test:
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-create-app -o $(BUILD_PATH)/TEST_ZSDCC_spectrum.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(SOURCE_PATH)/graphics_data/z88dk/xchase.asm \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \
 	-DCONIO \
 	$(TEST_FILES)
@@ -768,7 +769,7 @@ spectrum_zsdcc_test:
 	rm $(BUILD_PATH)/TEST_ZSDCC_spectrum_BANK_7.bin
 
 
-svi_zsdcc_test:
+svi_zsdcc_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +svi \
 	-compiler=sdcc \
 	$(FAST_ZSDCC_TEST_OPTS) $(INCLUDE_OPTS) \
@@ -790,7 +791,7 @@ svi_zsdcc_test:
 	rm svizt.bin
 	
 	
-vg5k_zsdcc_test:
+vg5k_zsdcc_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k \
 	-compiler=sdcc \
 	--reserve-regs-iy \
@@ -807,7 +808,7 @@ vg5k_zsdcc_test:
 	rm $(BUILD_PATH)/TEST_ZSDCC_vg5k.prg
 
 
-mc1000_zsdcc_test:
+mc1000_zsdcc_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc \
 	-subtype=gaming -pragma-define:ansicolumns=32 \
 	-DLESS_TEXT \
@@ -828,7 +829,7 @@ mc1000_zsdcc_test:
 	rm mc1kzt.cas
 
 
-c128_z80_zsdcc_test:
+c128_z80_zsdcc_quick_test:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 \
 	-compiler=sdcc \
 	-lndos -subtype=disk \

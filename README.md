@@ -91,11 +91,11 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/PREREQUISITES.md
 
 ### Compilation tests
 
-You can test many targets if you have installed `GCC` by simply running `make simple_test`, which will build targets that only depend on `GCC`.
+You can test many targets if you have installed `GCC` by simply running `make simple_test`, which will build targets for *Cross Chase* that only depend on `GCC`.
 
-If you want to run multiple tests that depend on several cross-compilers, not including Z88DK, you can run `make no_z88dk_test`.
+If you want to run multiple tests (based on the code of *Cross Chase*) that depend on several cross-compilers, not including Z88DK, you can run `make no_z88dk_test`.
 
-If you want to run multiple tests that depend on several cross-compilers, including Z88DK, you can run`make test` (very long execution time).
+If you want to run multiple tests (based on the code of *Cross Chase*) that depend on several cross-compilers, including Z88DK, you can run`make test` (very long execution time).
 
 More details on tests are in:  
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TESTS.md
@@ -108,16 +108,16 @@ you can build the default target for a given system with
 
 `make [system_name] -f Makefile.[game name]`
 
-where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`
+where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`.
 
 For the list of systems either run `make list` or look at 
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
 
 Examples: 
-- `make c64` (or equivalently `make c64 -f Makefile.chase`) builds the default binary of *Cross Chase* for Commodore 64.
+- `make c64 -f Makefile.chase` (or equivalently `make c64`) builds the default binary of *Cross Chase* for Commodore 64.
 - `make nes -f Makefile.shoot` builds the default binary of *Cross Shoot* for the Nintendo NES videogame console.
 - `make spectrum -f Makefile.bomber` builds the default binary of *Cross Bomber* for the Sinclair ZX Spectrum.
-- `make ti83` builds the default binary of *Cross Chase* for the Texas Instrument TI 83 scientific calculator.
+- `make ti83 -f Makefile.chase` (or equivalently `make ti83`) builds the default binary of *Cross Chase* for the Texas Instrument TI 83 scientific calculator.
 
 
 ### Build all targets for a given system 
@@ -126,13 +126,13 @@ You can build all targets for a given system with
 
 `make [system_name]_targets`
 
-These targets currently exist mostly for Cross Chase*. 
+These targets currently exist mostly for *Cross Chase*. 
 
 See the list of systems above or run `make list`.
 
 Examples:
-- `make vic20_targets` builds all *Cross Chase* binaries for the Commodore Vic 20.
-- `make spectrum_targets` builds all *Cross Chase* binaries for the Sinclair ZX Spectrum.
+- `make vic20_targets -f Makefile.chase` (or equivalently `make vic20_targets`) builds all *Cross Chase* binaries for the Commodore Vic 20.
+- `make spectrum_targets -f Makefile.chase` (or equivalently `make spectrum_targets`) builds all *Cross Chase* binaries for the Sinclair ZX Spectrum.
 
 
 ### Build all targets that are built by a given compiler or devkit:
@@ -146,7 +146,7 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILER_NAMES.m
 
 
 Examples:
-- `make gcc_targets` builds *Cross Chase* for all targets by using GCC for the native host console (e.g., CYGWIN, Linux, etc. console).
+- `make gcc_targets -f Makefile.chase` (or equivalently `make gcc_targets`) builds *Cross Chase* for all targets by using GCC for the native host console (e.g., CYGWIN, Linux, etc. console).
 - `make cc65_targets` builds *Cross Chase* for all targets that are built with the CC65 cross-compiler for the MOS 6502-based systems.
 - `make cmoc_targets` builds *Cross Chase* for all targets that are built with the CMOC cross-compiler for the Motorola 6809-based systems.
 - `make z88dk_targets` builds *Cross Chase* for all targets that are built with the SCCZ80 and ZSDCC cross-compilers of the Z88DK dev-kit for Zilog 80-based and Intel 8080-based systems.

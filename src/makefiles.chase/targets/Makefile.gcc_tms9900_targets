@@ -29,11 +29,11 @@ C_FLAGS=\
 
 
 
-test: library testlib.o $(OBJECT_LIST_EA5) 
-	$(LD) $(OBJECT_LIST_EA5) testlib.o $(LDFLAGS_EA5) -L. -lti99 -o testlib.ea5.elf > ea5.map
-	$(ELF2EA5) testlib.ea5.elf testlib.ea5.bin
-	$(EA5_SPLIT) testlib.ea5.bin
-	cp TESTLI* $(CLASSIC99_DSK1)
+# test: library testlib.o $(OBJECT_LIST_EA5) 
+	# $(LD) $(OBJECT_LIST_EA5) testlib.o $(LDFLAGS_EA5) -L. -lti99 -o testlib.ea5.elf > ea5.map
+	# $(ELF2EA5) testlib.ea5.elf testlib.ea5.bin
+	# $(EA5_SPLIT) testlib.ea5.bin
+	# cp TESTLI* $(CLASSIC99_DSK1)
 
 
 

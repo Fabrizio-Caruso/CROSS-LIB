@@ -1,6 +1,6 @@
 ## SUPPORTED SYSTEMS 
 
-(as of 2020/05/04)
+(as of 2020/09/30)
 
 In principle you can compile the game with minimal input and output for any recent or old/ancient architecture for which there is an ANSI C capable compiler.
 For most vintage systems, you can build a version of the game with some graphics, sounds and real time input.

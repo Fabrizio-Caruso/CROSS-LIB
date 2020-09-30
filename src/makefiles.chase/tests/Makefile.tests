@@ -84,7 +84,9 @@ lcc1802_full_tests: \
 
 .PHONY: test z88dk_test
 
-test: no_z88dk_test z88dk_test
+test:
+	make -j 8 z88dk_test
+	make no_z88dk_test 
 
 
 z88dk_test: \

@@ -82,12 +82,12 @@ lcc1802_full_tests: \
 # - lcc1802
 # - z88dk 
 
-.PHONY: test z88dk_full_tests
+.PHONY: test z88dk_full_test
 
-test: test_without_z88dk z88dk_full_tests
+test: test_without_z88dk z88dk_full_test
 
 
-z88dk_full_tests: \
+z88dk_full_test: \
     aquarius_exp_4k \
     c128_z80_80col \
     cpc \

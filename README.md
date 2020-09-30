@@ -97,17 +97,12 @@ You can test many targets if you have installed `GCC` by simply running
 
 which will build targets for the full version of *Cross Chase* that only depend on `GCC`.
 
-If you want to run multiple tests (based on the full code of *Cross Chase*) that depend on several cross-compilers, not including Z88DK, you can run 
+If you want to run multiple tests (based on the code of *Cross Chase*) you can use: 
 
-`make test_without_z88dk`
-
-If you want to run multiple tests (based on very reduced version of *Cross Chase*) that depend on only Z88DK, you can run
-
-`make z88dk_quick_test`
-
-If you want to run multiple tests (based on the full code of *Cross Chase*) that depend on several cross-compilers, including Z88DK, you can run
-
-`make test`
+`make test_without_z88dk` -> runs tests on many targets except the ones that use Z88DK on the full code of *Cross Chase*
+`make test`               -> runs tests on few targets including the ones that use Z88DK on the full code of *Cross Chase*
+`make z88dk_full_test`   -> runs tests on few targets that use Z88DK on the full code of *Cross Chase*
+`make z88dk_quick_test`   -> runs tests on many targets that only use Z88DK on a very reduced version of *Cross Chase*
 
 More details on tests are in:  
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TESTS.md

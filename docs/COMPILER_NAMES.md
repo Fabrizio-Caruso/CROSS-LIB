@@ -7,6 +7,7 @@
 - `gcc`
 - `gcc_amiga`
 - `gcc_atari_st`
+- `gcc_ti99`
 - `gcc_z8k` (currently buildable only under Linux)
 - `lcc1802`
 - `xtc68`

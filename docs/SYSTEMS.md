@@ -152,9 +152,8 @@ For most systems, more than one version is built, in order to support different 
 - `olivetti_m20`: Olivetti M20 
 - `pc8086`: Intel 8088/8086 PC
 - `pdp`: PDP 11 v7 (work in progress)
-- `ti99`: Texas Instruments TI99/4A
 - `sinclair_ql`: Sinclair QL (work in progress)
-
+- `ti99`: Texas Instruments TI99/4A (work in progress)
 
 
 

@@ -43,7 +43,7 @@ test: library testlib.o $(OBJECT_LIST_EA5)
 
 
 TI99_CC ?= tms9900-gcc
-TI99_OPTS ?= \
+TI99_TURN_BASED_OPTS ?= \
 	$(C_FLAGS) \
 	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
 	-DFORCE_XSIZE=32 \
@@ -59,6 +59,22 @@ TI99_OPTS ?= \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DSLOW_DOWN=50000
 
+
+TI99_OPTS ?= \
+	$(C_FLAGS) \
+	-D__TI99__ -nostdlib -DNO_RANDOM_LEVEL \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DALT_SLEEP \
+	-DNO_PRINT -DALT_MOVE \
+	-DTINY_GAME \
+	-DNO_WAIT \
+	-DNO_COLOR \
+	-DCONIO \
+	-DALT_PRINT \
+	-DNO_SET_SCREEN_COLORS \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DSLOW_DOWN=65000
 
 
 ##################################################################################################
@@ -93,6 +109,20 @@ OBJECT_LIST= \
   $(SOURCE_PATH)/main.o
   
 
+OBJECT_LIST_TURN_BASED= \
+  $(TOOLS_PATH)/ti99/crt0_ea5.o \
+  $(CROSS_LIB_PATH)/display/display_macros.o \
+  $(CROSS_LIB_PATH)/input/input_macros_turn_based.o \
+  $(CROSS_LIB_PATH)/text/text_macros.o \
+  $(CROSS_LIB_PATH)/rand/rand.o \
+  $(CROSS_LIB_PATH)/sleep/sleep_macros.o \
+  $(SOURCE_PATH)/init_images.o \
+  $(SOURCE_PATH)/move_player_turn_based.o \
+  $(SOURCE_PATH)/strategy_turn_based.o \
+  $(CROSS_LIB_PATH)/display/init_graphics/gcc4ti99/gcc4ti99_init_graphics.o \
+  $(SOURCE_PATH)/ghost_turn_based.o  $(SOURCE_PATH)/level.o $(SOURCE_PATH)/character.o $(SOURCE_PATH)/game_text.o \
+  $(SOURCE_PATH)/main_turn_based.o
+
 TI99_INCLUDE_OPTS ?= $(INCLUDE_OPTS) -I$(TMS9900-GCC_PATH)/../include
 
 # Recipes to compile individual files
@@ -100,17 +130,25 @@ TI99_INCLUDE_OPTS ?= $(INCLUDE_OPTS) -I$(TMS9900-GCC_PATH)/../include
 	$(GAS) $< -o $@
 %.o: %.c
 	$(TI99CC) $(TI99_INCLUDE_OPTS) $(TI99_OPTS) -c $< -o $@
-%.o: %.cpp
-	$(CXX) -c $< -O2 -o $@
+
+%_turn_based.o: %.c
+	$(TI99CC) $(TI99_INCLUDE_OPTS) $(TI99_TURN_BASED_OPTS) -c $< -o $@
 
 # List of all files needed in executable
 PREREQUISITES=\
   $(OBJECT_LIST)
 
+PREREQUISITES_TURN_BASED=\
+  $(OBJECT_LIST_TURN_BASED)
+
 ti99_cross_chase.elf: $(PREREQUISITES)
 	$(LD) $(OBJECT_LIST) $(LDFLAGS_EA5) -L$(LIB_TI99_PATH) -lti99 -o xchase.ea5.elf > xchase.map
 	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
 
+
+ti99_cross_chase_turn_based.elf: $(PREREQUISITES_TURN_BASED)
+	$(LD) $(OBJECT_LIST_TURN_BASED) $(LDFLAGS_EA5) -L$(LIB_TI99_PATH) -lti99 -o xchase_tb.ea5.elf > xchase_tb.map
+	# $(LD) $(OBJECT_LIST) $(LDFLAGS) -o $@ -allow-multiple-definition
 
 
 
@@ -122,8 +160,17 @@ ti99: ti99_cross_chase.elf
 	rm -rf ea5.map
 	rm -rf xchase.ea5.elf
 	mv XCHASE $(BUILD_PATH)
-	mv xchase.ea5.bin $(BUILD_PATH)
+	rm -rf xchase.ea5.bin
 
+
+ti99_turn_based: ti99_cross_chase_turn_based.elf
+	$(ELF2EA5) xchase_tb.ea5.elf xchase_tb.ea5.bin
+	$(EA5_SPLIT) xchase_tb.ea5.bin
+	rm -rf xchase_tb.map
+	rm -rf ea5.map
+	rm -rf xchase_tb.ea5.elf
+	mv XCHASE_TB $(BUILD_PATH)
+	rm -rf xchase_tb.ea5.bin
 
 
 	# $(OBJCOPY) -O binary -j .text -j .data -j .ctors ti99_cross_chase.elf ti99_cross_chase.cart 

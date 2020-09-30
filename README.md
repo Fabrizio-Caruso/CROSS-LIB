@@ -131,13 +131,13 @@ You can build all targets for a given system with
 
 `make [system_name]_targets`
 
-These targets currently exist mostly for *Cross Chase*. 
+These targets currently exist mostly for *Cross Chase*. So no need to specify `-f Makefile.chase`.
 
-See the list of systems above or run `make list`.
+See the list of the supported systems follow the link above or run `make list`.
 
 Examples:
-- `make vic20_targets -f Makefile.chase` (or equivalently `make vic20_targets`) builds all *Cross Chase* binaries for the Commodore Vic 20.
-- `make spectrum_targets -f Makefile.chase` (or equivalently `make spectrum_targets`) builds all *Cross Chase* binaries for the Sinclair ZX Spectrum.
+- `make vic20_targets` builds all *Cross Chase* binaries for the Commodore Vic 20.
+- `make spectrum_targets` builds all *Cross Chase* binaries for the Sinclair ZX Spectrum.
 
 
 ### Build all targets that are built by a given compiler or devkit:

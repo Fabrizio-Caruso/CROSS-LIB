@@ -225,6 +225,8 @@ out            stb res
         
     #elif defined(__SRR__)
         return getk_inkey();     
+    #elif defined(__TI99__)
+        return cgetc();     
     #else
         #if defined(ALT_MOVE)
             return getch();

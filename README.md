@@ -1,5 +1,5 @@
 # CROSS LIB
-Cross Lib and games that use it (e.g., Cross Chase and Cross Shoot)
+Cross Lib and games that use it (e.g., Cross Chase, Cross Shoot, Cross Bomber)
 
 by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
@@ -12,39 +12,9 @@ on (nearly) ALL 8-bit computers, game consoles, hand-held game consoles and scie
 It can be parametrized in a way to make it run on systems with as little as 3k or 4k of available memory for the code.
 4. *Cross Shoot* is a second "universal" 8-bit game that can also be compiled on a multitude of 8-bit computers and consoles. 
 It requires more memory than "Cross Chase" but it should be equally universal as long as the required memory is available.
-
-
--------------------------------------------
-
-## CROSS CHASE - THE GAME 
-The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
-You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.
-All flashing items have positive effects and can grant you some special powers. Discover the 10 items.
-If you use the gun against the skull and/or the missiles and rockets, you can unlock some special secret items.
-There are 20 different levels including 4 boss levels.
-
-You can play the game on-line for different systems:
-
-1. MSX version: https://homebrew.file-hunter.com/index.php?id=crosschase
-2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
-3. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
-4. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
-5. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_chase
-
-
--------------------------------------------
-
-## CROSS SHOOT - THE GAME 
-The game's goal is to kill all common enemies or kill all 4 "skulls". 
-Common enemies can be killed quickly if pushed against the walls by shooting at them.
-The "skulls" and the boss cannot be pushed and are harder to kill.
-You have to avoid all enemies, rockets and chasing missiles.
-All flashing items have positive effects and can grant you special powers. 
-Your bullets have a limited power that can be improved by catching the special fire power item. 
-You can also fetch the mine item that grants you 3 powerful mines to use against all your enemies.
-Discover the 12 items. Some items are secret. In total the game has 16 secrets.
-You can unlock the 16 secrets by shooting at the skulls and at the missile and rocket bases in different ways.
-The game has 16 different levels including 2 boss levels + 1 secret level.
+4. *Cross Bomber* is a third "universal" 8-bit game that can also be compiled on a multitude of 8-bit computers and consoles. 
+It is a mini-game and clone of Air Attack (aka Blitz). So it requires much less memory than "Cross Chase".
+Its code is almost entirely in a single file. It uses pre-shifted tiles to produce smoother movements on graphics-enabled targets.
 
 
 -------------------------------------------
@@ -192,6 +162,49 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/HOW_TO_LOAD_THE_
 ### Loading the game into a real vintage system
 This depends on the systems and the format used to store the game. For some hints on this take a look at:
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/HOW_TO_LOAD_THE_GAME_ON_REAL_HARDWARE.md
+
+-------------------------------------------
+
+## CROSS CHASE - THE GAME 
+The game's goal is to lure the "ghosts" into the mines and possibly kill the "skull" by repeatedly using the gun.
+You have to avoid all enemies, the mines, all walls, rockets and chasing missiles.
+All flashing items have positive effects and can grant you some special powers. Discover the 10 items.
+If you use the gun against the skull and/or the missiles and rockets, you can unlock some special secret items.
+There are 20 different levels including 4 boss levels.
+
+You can play the game on-line for different systems:
+
+1. MSX version: https://homebrew.file-hunter.com/index.php?id=crosschase
+2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
+3. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
+4. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
+5. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_chase
+
+
+-------------------------------------------
+
+## CROSS SHOOT - THE GAME 
+The game's goal is to kill all common enemies or kill all 4 "skulls". 
+Common enemies can be killed quickly if pushed against the walls by shooting at them.
+The "skulls" and the boss cannot be pushed and are harder to kill.
+You have to avoid all enemies, rockets and chasing missiles.
+All flashing items have positive effects and can grant you special powers. 
+Your bullets have a limited power that can be improved by catching the special fire power item. 
+You can also fetch the mine item that grants you 3 powerful mines to use against all your enemies.
+Discover the 12 items. Some items are secret. In total the game has 16 secrets.
+You can unlock the 16 secrets by shooting at the skulls and at the missile and rocket bases in different ways.
+The game has 16 different levels including 2 boss levels + 1 secret level.
+
+
+-------------------------------------------
+
+## CROSS BOMBER - THE GAME 
+The game's goal is to destroy all buildings so that you can land on an empty road.
+The game is a clone of Air Attack (aka Blitz) game that was first developed on the Commodore Pet.
+The game is controlled by the single fire button (first joystick button for targets with joystick input and space key for targets with keyboard input).
+Your score depends on the number of building destroyed, the level reached and how fast you complete each single level.
+The game has 8 levels and it ends after the eighth level.
+
 
 -------------------------------------------
 

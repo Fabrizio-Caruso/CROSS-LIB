@@ -65,11 +65,12 @@ The most significant supported CPU architecture are described below.
 
 
 ### 16-BIT ARCHITECTURES
-- Motorola 68000/68008
-- Zilog Z8000
 - Intel 8088/8086 
-- PDP11
 - MOS 65816
+- Motorola 68000/68008
+- PDP11
+- TMS 9900
+- Zilog Z8000
 
 ### 32-BIT ARCHITECTURES
 - PowerPC

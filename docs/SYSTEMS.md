@@ -146,13 +146,14 @@ For most systems, more than one version is built, in order to support different 
 
 
 ### 16-BIT versions
-- `sinclair_ql`: Sinclair QL (work in progress)
+- `amiga`: Amiga (work in progress)
+- `atari_st`: Atari ST (work in progress)
+- `cx16`: Commander X16 (work in progress)
 - `olivetti_m20`: Olivetti M20 
 - `pc8086`: Intel 8088/8086 PC
 - `pdp`: PDP 11 v7 (work in progress)
-- `atari_st`: Atari ST (work in progress)
-- `amiga`: Amiga (work in progress)
-- `cx16`: Commander X16 (work in progress)
+- `ti99`: Texas Instruments TI99/4A
+- `sinclair_ql`: Sinclair QL (work in progress)
 
 
 

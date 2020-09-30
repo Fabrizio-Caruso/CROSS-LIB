@@ -99,16 +99,13 @@ which will build targets for the full version of *Cross Chase* that only depend 
 
 If you want to run multiple tests (based on the code of *Cross Chase*) you can use: 
 
-`make no_z88dk_test` -> runs tests on some targets except the ones that use Z88DK on the full code of *Cross Chase*
+`make no_z88dk_test`    -> runs tests on few targets excluding the ones that use Z88DK on the full code
 
-`make test`               -> runs tests on few targets including the ones that use Z88DK on the full code of *Cross Chase*
+`make z88dk_test`       -> runs tests on few targets that use Z88DK on the full code
 
-`make z88dk_test`   -> runs tests on few targets that use Z88DK on the full code of *Cross Chase*
+`make test`             -> runs tests on few targets including the ones that use Z88DK on the full code
 
-`make z88dk_quick_test`   -> runs tests on many targets that only use Z88DK on a very reduced version of *Cross Chase*
-
-More details on tests are in:  
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/TESTS.md
+`make z88dk_quick_test` -> runs tests on many targets that only use Z88DK on a sub-set of the code
 
 
 ### Build the default target for a given system

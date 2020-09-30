@@ -106,18 +106,3 @@ z88dk_test: \
 include makefiles.chase/tests/Makefile.z88dk_tests
 
 
-
-#######################################################
-# HARD (EXTREMELY LONG) TESTS
-# Compilers and Dev-kits covered:
-# - gcc
-# - cmoc
-# - cc65
-# - ack
-# - gcc_amiga
-# - gcc_atari_st
-# - xtc68
-# - z88dk 
-
-hard_test: test z88dk_test
-

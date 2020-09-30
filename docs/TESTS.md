@@ -18,7 +18,3 @@ If you have installed `Z88DK` you can test lots of Z80 systems and targets by
 - `make zsdcc_test` to test the compilation of different targets with `ZSDCC`
 - `make z88dk_test` to cover both cross-compilers.
 
-Compilation for these tests will be very long.
-
-### EXTRA TESTS
-You can run all of the above tests by running `make hard_test` (extremely long compilation time).

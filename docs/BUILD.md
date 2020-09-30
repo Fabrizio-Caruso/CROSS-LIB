@@ -3,6 +3,19 @@
 
 # BUILD INSTRUCTIONS
 
+If you just want to build the game only for a specific system without choosing a specific version, 
+you can build the default target for a given system with
+
+`make [system_name] -f Makefile.[game name]`
+
+where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`.
+
+For the list of systems either run `make list` or look at 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+
+The following sections are meant for *Cross Chase* and so the commands can omit `-f Makefile.[game name]`.
+For the other games the same target names are used but fewer targets exist.
+
 ## Compile a specific target
 For this you may need to look inside the Makefile file to have the exact target name to use with the "make" command. 
 The name of the default target for a given system is given by `[system name]`. For the list of systems either run `make list` or look at 

@@ -22,7 +22,7 @@ simple_test: gcc_buffered
 # - xtc68
 # - lcc1802
 
-test_without_z88dk: \
+no_z88dk_test: \
     gcc_full_tests \
     cc65_full_tests \
     cmoc_full_tests \
@@ -82,12 +82,12 @@ lcc1802_full_tests: \
 # - lcc1802
 # - z88dk 
 
-.PHONY: test z88dk_full_test
+.PHONY: test z88dk_test
 
-test: test_without_z88dk z88dk_full_test
+test: no_z88dk_test z88dk_test
 
 
-z88dk_full_test: \
+z88dk_test: \
     aquarius_exp_4k \
     c128_z80_80col \
     cpc \

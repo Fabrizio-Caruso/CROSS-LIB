@@ -190,6 +190,8 @@ typedef struct ImageStruct Image;
     || defined(__ATMOS__) \
     || defined(Z88DK_SPRITES)
     #define SET_TEXT_COLOR(c) 
+#elif defined(__ATARI_LYNX__)
+    #define SET_TEXT_COLOR(c) tgi_setcolor(c)
 #elif defined(__NCURSES__)
     #if defined(__ATARI_ST__)
         #include <ncurses/curses.h>

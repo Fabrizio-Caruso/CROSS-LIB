@@ -1,13 +1,20 @@
 CREDITS
 
-I have been helped by people who are involved in the cross compilers Z88Dk, CC65, CMOC development, as well as other people from different 8 bit "scenes".
+I have been helped by people who are involved in the cross compilers Z88Dk, CC65, CMOC, ACK, LCC1802, GCC for TI99 development.
 
-This is just a partial list.
+In particular I must thank:
 
-Stefano Bodrato: lots of help on all Z80 targets including development on the Z88Dk to support my game.
+- Stefano Bodrato for lots of help on all Z80 targets including development on the Z88Dk to support my library and games.
 
-Simon Jonassen: Help on getting a good routine for the keyboard input for all CoCo and Dragon models.
+- Bill Rowe for improving LCC1802 and supporting my library
 
-Christian Groessler: has helped me to improve the Makefile and fix an issue on the Atari 8-bit color version.
+- Marcen van Tongeren: for implementing the dev-kit in LCC1802 and supporting CrossLib
+
+- Christian Groessler: has helped me to improve the Makefile and fix an issue on the Atari 8-bit color version.
+
+- Simon Jonassen: Help on getting a good routine for the keyboard input for all CoCo and Dragon models.
+
+- Mike Brent for helping me support CrossLib his libti99 TI99 library
+
 
 

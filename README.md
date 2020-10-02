@@ -296,6 +296,14 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/CROSSLIB.md
 
 -------------------------------------------
 
+## ACKNOLEDGEMENTS
+
+CrossLib would not exist without the cross-compilers and the support of their developers and the support of some people who have helped me handle the input/output of some targets.
+
+A partial list of the people who have helped in found in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/CREDITS.txt
+
+-------------------------------------------
+
 ## LICENCE
 
 This software is provided 'as-is', without any express or implied warranty.

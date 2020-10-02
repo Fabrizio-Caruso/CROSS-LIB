@@ -379,12 +379,13 @@ int main(void)
                         _draw_stat(1,23,&BROKEN_BRICK_IMAGE);
                     #endif
                 #endif
-                PRINTD(4,3,5,1234);
-                PRINTD(4,5,5,56789);
+                PRINTD(4,3,5,01234u);
+                PRINTD(4,5,5,56789u);
                 PRINT(4,7,"abcdefghijklmnopqrstuvwxyz");
                 PRINT(4,9,"ABCDEFGHIJKLMNOPQRSTUVWXYZ");
                 while(1){};
-            #endif
+            // #endif
+            #else
             
             #if defined(FULL_GAME)
                 #if !defined(BENCHMARK)
@@ -678,6 +679,8 @@ int main(void)
                 spiral(chasedEnemyPtr);
                 SLEEP(1);
             #endif                
+            
+            #endif
         } while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 
             
         if(level==FINAL_LEVEL+1) // if completed game

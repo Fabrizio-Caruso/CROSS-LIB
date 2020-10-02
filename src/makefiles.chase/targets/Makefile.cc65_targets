@@ -656,6 +656,19 @@ osic1p_8k_turn_based:
 #######################################################################################
 # SUPERVISION
 
+supervision_reduced: $(ASSETS_PATH)/cc65_udc.s 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
+	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
+	$(ASSETS_PATH)/cc65_udc.s \
+	-DNO_PRINT -DFULL_GAME -DNO_SLEEP \
+	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_WAIT \
+	-DNO_SLEEP \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
+	-o $(BUILD_PATH)/FULL_supervision.sv
+
 supervision: $(ASSETS_PATH)/cc65_udc.s 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
 	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \

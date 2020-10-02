@@ -23,7 +23,8 @@
 
 #define _TILE_7 (char) (0x77 - 0x20)
 
-#define _TILE_6 'O'
+#define _TILE_6 (_TILE_16+1)
+
 #define _TILE_0_B _TILE_0
 #define _CONFUSE _TILE_7
 

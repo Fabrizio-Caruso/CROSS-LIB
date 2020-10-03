@@ -15,7 +15,7 @@
 #endif
 
 
-#if defined(CBM_SCREEN_CODES)
+#if defined(CBM_SCREEN_CODES) || defined(__SUPERVISION__)
 	char screenCode(char ch)
 	{
 		if(ch<64)
@@ -40,7 +40,7 @@
 			return ch-32;
 		}	
 	}
-#elif (defined(__VIC20__) && defined(VIC20_EXP_8K))
+#elif (defined(__VIC20__) && defined(VIC20_EXP_8K)) 
 	char screenCode(char ch)
 	{
 		if(ch<64)
@@ -52,7 +52,7 @@
 			return 64+ch;
 		}	
 	}
-#elif (defined(__C16__) && defined(C16_UNEXPANDED))
+#elif ((defined(__C16__) && defined(C16_UNEXPANDED))) 
 	char screenCode(char ch)
 	{
 		if(ch<64)
@@ -138,7 +138,7 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 
 	while(str[i]!='\0')
 	{
-		#if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__) 
+		#if defined(CBM_SCREEN_CODES) || defined(__COCO__) || defined(__DRAGON__) || defined(__SUPERVISION__)
 			_DISPLAY(x+i,y, screenCode(str[i]));
 		#else
 			_DISPLAY(x+i,y, str[i]);

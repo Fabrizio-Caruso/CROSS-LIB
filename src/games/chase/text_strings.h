@@ -33,7 +33,7 @@
 		//"cross" "\xA0" "chase"
 		#define AUTHOR_STRING "fabrizio" "\xA0" "caruso"
 		// "fabrizio" "\xA0" "caruso"	
-	#elif defined(TINY_GAME) || XSize<20
+	#elif defined(TINY_GAME) || XSize<=20
 		#define CROSS_CHASE_STRING "cross chase"
 		#define AUTHOR_STRING "fabrizio caruso"
 	#else
@@ -41,7 +41,7 @@
 		#define AUTHOR_STRING "by fabrizio caruso"
 	#endif
 	#define KILL_THE_SKULL_STRING       "kill the skull"
-	#if XSize<20
+	#if XSize<=20
 		#define DESTROY_MISSILES_STRING "destroy missiles"		
 	#else
 		#define DESTROY_MISSILES_STRING "destroy the missiles"
@@ -57,7 +57,7 @@
 	#define FOR_POINTS_AND___STRING "for points"
 	#define EXTRA_POWERUPS__STRING "and items"
 #elif defined(ONLY_CAPITAL_LETTERS)
-	#if defined(TINY_GAME) || XSize<20
+	#if defined(TINY_GAME) || XSize<=20
 		#define CROSS_CHASE_STRING "CROSS CHASE"
 		#define AUTHOR_STRING "FABRIZIO CARUSO"
 	#else
@@ -65,7 +65,7 @@
 		#define AUTHOR_STRING "BY FABRIZIO CARUSO"
 	#endif
 	#define KILL_THE_SKULL_STRING       "KILL THE SKULL"
-	#if XSize<20
+	#if XSize<=20
 		#define DESTROY_MISSILES_STRING "DESTROY MISSILES"		
 	#else
 		#define DESTROY_MISSILES_STRING "DESTROY THE MISSILES"
@@ -81,7 +81,7 @@
 	#define FOR_POINTS_AND___STRING "FOR POINTS"
 	#define EXTRA_POWERUPS__STRING "AND ITEMS"
 #else
-	#if defined(TINY_GAME) || XSize<20
+	#if defined(TINY_GAME) || XSize<=20
 		#define CROSS_CHASE_STRING "CROSS CHASE"
 		#define AUTHOR_STRING "Fabrizio Caruso"
 	#else
@@ -89,7 +89,7 @@
 		#define AUTHOR_STRING "by Fabrizio Caruso"
 	#endif
 	#define KILL_THE_SKULL_STRING   "Kill the skull"	
-	#if XSize<20
+	#if XSize<=20
 		#define DESTROY_MISSILES_STRING "Destroy missiles"		
 	#else
 		#define DESTROY_MISSILES_STRING "Destroy the missiles"	

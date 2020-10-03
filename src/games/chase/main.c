@@ -379,7 +379,7 @@ int main(void)
                         _draw_stat(1,23,&BROKEN_BRICK_IMAGE);
                     #endif
                 #endif
-                PRINTD(4,3,5,01234u);
+                PRINTD(4,3,5, 1234u);
                 PRINTD(4,5,5,56789u);
                 PRINT(4,7,"abcdefghijklmnopqrstuvwxyz");
                 PRINT(4,9,"ABCDEFGHIJKLMNOPQRSTUVWXYZ");

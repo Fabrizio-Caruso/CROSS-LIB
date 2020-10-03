@@ -106,8 +106,9 @@ fontdata:
 	 ; .byte    %01111110
 
 
-; unused gun
-.byte $00,$80,$7e,$c8,$f8,$c0,$80,$00
+; dead ghost
+.byte <tile_6>
+;.byte $00,$80,$7e,$c8,$f8,$c0,$80,$00
 
 ; power-up S
     .byte <tile_8>
@@ -151,7 +152,10 @@ fontdata:
 ; .byte   $7F, $DB, $DB, $7B, $1B, $1B, $1B, $00
 .byte <tile_15>
 
-        .byte   $3E, $63, $38, $6C, $6C, $38, $CC, $78
+;        .byte   $3E, $63, $38, $6C, $6C, $38, $CC, $78
+; dead ghost
+.byte <tile_6>
+
         .byte   $00, $00, $00, $00, $7E, $7E, $7E, $00
         .byte   $18, $3C, $7E, $18, $7E, $3C, $18, $FF
         .byte   $18, $3C, $7E, $18, $18, $18, $18, $00

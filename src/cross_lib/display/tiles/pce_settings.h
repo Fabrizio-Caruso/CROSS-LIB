@@ -41,7 +41,7 @@
 
 
 
-#define _TILE_6 _TILE_4
+#define _TILE_6 21
 
 
 // CYAN

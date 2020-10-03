@@ -283,10 +283,25 @@ Use the ABC80SIM emulator (https://www.abc80.org/pub/abc80sim/, https://git.zyto
 Pass the ihx file as a parameter to the emulator
 Run it directly with the command “A=CALL(49200)”
 
-.bac
-abc80 --memfile program.bac
-Then "run mem:"
+.bac 
+abc80 --casfile program.bac
+run cas:
 
+or 
+
+put the .bac file in the right directory (abcdir), 
+then run prb:xchase
+
+.dsk
+Rename the image to mo0
+Put the image in abcdisk
+run xchase
+
+or 
+Rename the image to mo0
+Put the image in <mydir>
+Run abc80 -Dd <mydir>
+run xchase
 
 Use ABC80Win
 Attach .dsk image
@@ -297,10 +312,28 @@ run
 
 ### Luxor ABC 800
 
+Use the ABC80SIM emulator (https://www.abc80.org/pub/abc80sim/, https://git.zytor.com/abc80/abc80sim.git/)
+
+
 .bac
 abc80 --abc802 --memfile program.bac
 Then "run mem:"
 
+.dsk
+Rename the image to mo0
+Put the image in abcdisk
+run xchase
+
+or 
+Rename the image to mo0
+Put the image in <mydir>
+Run abc80 -Dd <mydir>
+run xchase
+
+Use ABC80Win
+Attach .dsk image
+load"xchase"
+run
 ---------------------------------------------------------
 
 ### Memotech MTX

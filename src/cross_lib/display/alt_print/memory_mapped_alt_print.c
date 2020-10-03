@@ -110,6 +110,22 @@
 			DISPLAY_POKE((loc(x,y)), screenCode(ch)); \
 			DISPLAY_POKE((0x1800+loc(x,y)), PEEK(0x0286)); \
 		} while(0)
+#elif defined(__SUPERVISION__)
+    #include "bit_mapped_4_graphics.h"
+    #include "cross_lib.h"
+    #define _DISPLAY(x,y,ch) \
+		do \
+		{ \
+            uint8_t __k; \
+            uint16_t __base = (x)+(XSize)*8*(y); \
+            uint16_t __offset = (8*(uint8_t)(ch)) ; \
+            \
+            for(__k=0;__k<8;++__k) \
+            { \
+                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)]    = left_map_one_to_two(udgs[__offset+__k]); \
+                SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)+1]  = right_map_one_to_two(udgs[__offset+__k]); \
+            } \
+		} while(0)
 #else
 	#define _DISPLAY(x,y,ch) \
 		DISPLAY_POKE((loc(x,y)), (ch))

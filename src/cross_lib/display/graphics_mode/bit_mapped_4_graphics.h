@@ -20,7 +20,6 @@ uint8_t right_map_one_to_two(uint8_t n);
     #define __DRAW(x,y,image) \
     { \
         uint8_t k; \
-        uint16_t base = (x)+(XSize)*8*(y); \
         uint16_t offset = (8*(uint8_t)(image)->_imageData) ; \
         \
         for(k=0;k<8;++k) \

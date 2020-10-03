@@ -151,7 +151,7 @@ gal_6k:
 # MC1000
 
 mc1000_16k_no_gfx:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff  \
 	-subtype=gaming -pragma-define:ansicolumns=32 \
 	-DFULL_GAME  \
 	-DLESS_TEXT \

@@ -564,7 +564,7 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 mc1000: mc1000_exp_48k
 
 mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME  \

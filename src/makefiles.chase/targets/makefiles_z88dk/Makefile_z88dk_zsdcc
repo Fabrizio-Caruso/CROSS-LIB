@@ -26,7 +26,7 @@ gal_targets: \
 	gal_6k gal_22k
 
 mc1000_targets: \
-	mc1000_16k mc1000_48k
+	mc1000_16k mc1000_exp_48k
 
 oz_targets: \
 	oz_tiny_buffered
@@ -151,51 +151,52 @@ gal_6k:
 # MC1000
 
 
-mc1000_16k_no_gfx_old:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff  \
-	-subtype=gaming -pragma-define:ansicolumns=32 \
-	-DFULL_GAME  \
-	-DLESS_TEXT \
-	-DNO_BLINKING \
-	-DNO_HINTS \
-	-clib=ansi \
-	-D__MC1000__ -DSOUNDS \
-	-DEND_SCREEN \
-	-DALT_SLEEP \
-	-DCONIO -DNO_INIT_GRAPHICS \
-	-vn  -lndos -Cz--audio \
-	-create-app -o mc1000ng.bin \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES)
-	mv mc1000ng.wav $(BUILD_PATH)/FULL_mc1000_16k_no_gfx.wav
-	rm mc1000ng.bin
-	rm mc1000ng.cas
+# mc1000_16k_no_gfx_old:
+	# $(Z88DK_PATH)$(MYZ88DK) +mc1000 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff  \
+	# -subtype=gaming -pragma-define:ansicolumns=32 \
+	# -DFULL_GAME  \
+	# -DLESS_TEXT \
+	# -DNO_BLINKING \
+	# -DNO_HINTS \
+	# -clib=ansi \
+	# -D__MC1000__ -DSOUNDS \
+	# -DEND_SCREEN \
+	# -DALT_SLEEP \
+	# -DCONIO -DNO_INIT_GRAPHICS \
+	# -vn  -lndos -Cz--audio \
+	# -create-app -o mc1000ng.bin \
+	# $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	# $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	# $(SOURCE_PATH)/end_screen.c \
+	# $(FULL_FILES)
+	# mv mc1000ng.wav $(BUILD_PATH)/FULL_mc1000_16k_no_gfx.wav
+	# rm mc1000ng.bin
+	# rm mc1000ng.cas
 
 
-mc1000_16k_no_gfx:
+# mc1000_16k_no_gfx:
+	# $(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc -SO3 $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff  \
+	# -subtype=gaming \
+	# -DZ88DK_JOYSTICK \
+	# -DFULL_GAME  \
+	# -D__MC1000__ -DSOUNDS -DNO_BLINKING -DNO_COLOR -DNO_HINTS -DNO_SET_SCREEN_COLORS -DSIMPLE_STRATEGY \
+	# -DCONIO -DLESS_TEXT -DNO_INIT_GRAPHICS \
+	# -vn  -lndos -Cz--audio \
+	# -create-app -o mc1000ng.bin \
+	# -clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	# $(FULL_FILES)
+	# mv mc1000ng.wav $(BUILD_PATH)/FULL_mc1000_16k_no_gfx.wav
+	# rm mc1000ng.bin
+	# rm mc1000ng.cas
+
+
+mc1000_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc -SO3 $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff  \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME  \
-	-D__MC1000__ -DSOUNDS -DNO_BLINKING -DNO_COLOR -DNO_HINTS -DNO_SET_SCREEN_COLORS -DSIMPLE_STRATEGY \
-	-DCONIO -DLESS_TEXT -DNO_INIT_GRAPHICS \
-	-vn  -lndos -Cz--audio \
-	-create-app -o mc1000ng.bin \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(FULL_FILES)
-	mv mc1000ng.wav $(BUILD_PATH)/FULL_mc1000_16k_no_gfx.wav
-	rm mc1000ng.bin
-	rm mc1000ng.cas
-
-
-mc1000_16k:
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc -SO3 $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff  \
-	-subtype=gaming \
-	-DZ88DK_JOYSTICK \
-	-DFULL_GAME  \
+	-DFULL_GAME -DSLOW_DOWN=400 \
 	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
 	-D__MC1000__ -DSOUNDS -DNO_BLINKING -DNO_COLOR -DNO_HINTS -DNO_SET_SCREEN_COLORS -DSIMPLE_STRATEGY \
 	-DCONIO -DLESS_TEXT  \
 	-vn  -lndos -Cz--audio \
@@ -211,14 +212,14 @@ mc1000_16k:
 
 mc1000: mc1000_16k
 
-mc1000_48k: $(ASSETS_PATH)/z88dk_xchase.asm
+mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
-	-DFULL_GAME  \
+	-DFULL_GAME -DSLOW_DOWN=400 \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
-	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__MC1000__ -DSOUNDS -DEND_SCREEN \
 	-DCONIO \
 	-vn  -lndos -Cz--audio \
 	-create-app -o mc1000.bin \
@@ -227,7 +228,7 @@ mc1000_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	mv mc1000.wav $(BUILD_PATH)/FULL_mc1000_48k.wav
+	mv mc1000.wav $(BUILD_PATH)/FULL_mc1000_exp_48k.wav
 	rm mc1000.bin
 	rm mc1000.cas
 

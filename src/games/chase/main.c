@@ -173,6 +173,64 @@ void initialScreen(void)
     
 #endif
 
+#if defined(DEBUG_ITEMS)
+
+void DO_DEBUG_ITEMS(void)
+{
+    #if defined(ANIMATE_PLAYER)
+        _draw_stat(1, 0,&PLAYER_DOWN_IMAGE);
+        _draw_stat(1, 1,&PLAYER_UP_IMAGE);
+        _draw_stat(1, 2,&PLAYER_RIGHT_IMAGE);
+        _draw_stat(1, 3,&PLAYER_LEFT_IMAGE);
+    #else
+        _draw_stat(1, 0,&PLAYER_IMAGE);
+    #endif
+    _draw_stat(1, 4,&GHOST_IMAGE);
+    _draw_stat(1, 5,&BOMB_IMAGE);
+    #if !defined(NO_DEAD_GHOST)
+        _draw_stat(1, 6,&DEAD_GHOST_IMAGE);
+    #endif
+    #if !defined(TINY_GAME)
+        _draw_stat(1, 7,&SKULL_IMAGE);
+        _draw_stat(1, 8,&POWERUP_IMAGE);
+        _draw_stat(1, 9,&GUN_IMAGE);
+        _draw_stat(1,10,&EXTRA_POINTS_IMAGE);
+        _draw_stat(1,11,&BULLET_IMAGE);
+        _draw_stat(1,12,&VERTICAL_BRICK_IMAGE);
+        _draw_stat(1,13,&HORIZONTAL_BRICK_IMAGE);
+        #if defined(FULL_GAME)
+            _draw_stat(1,14,&LEFT_HORIZONTAL_MISSILE_IMAGE);
+            _draw_stat(1,15,&RIGHT_HORIZONTAL_MISSILE_IMAGE);
+            #if (YSize+Y_OFFSET)>18
+            _draw_stat(1,16,&ROCKET_IMAGE);
+            _draw_stat(1,17,&FREEZE_IMAGE);
+            _draw_stat(1,18,&SUPER_IMAGE);
+            _draw_stat(1,19,&EXTRA_LIFE_IMAGE);
+            _draw_stat(1,20,&INVINCIBILITY_IMAGE);
+            _draw_stat(1,21,&CONFUSE_IMAGE);
+            _draw_stat(1,22,&ZOMBIE_IMAGE);
+            _draw_stat(1,23,&BROKEN_BRICK_IMAGE);
+            #else
+            _draw_stat(3,7,&ROCKET_IMAGE);
+            _draw_stat(3,8,&FREEZE_IMAGE);
+            _draw_stat(3,9,&SUPER_IMAGE);
+            _draw_stat(3,10,&EXTRA_LIFE_IMAGE);
+            _draw_stat(3,11,&INVINCIBILITY_IMAGE);
+            _draw_stat(3,12,&CONFUSE_IMAGE);
+            _draw_stat(3,13,&ZOMBIE_IMAGE);
+            _draw_stat(3,14,&BROKEN_BRICK_IMAGE);
+            #endif
+        #endif
+    #endif
+    PRINTD(4,3,5, 1234U);
+    PRINTD(4,5,5,56789U);
+    PRINT(4,7,"abcdefghijklmnopqrstuvwxyz,./|-");
+    PRINT(4,9,"ABCDEFGHIJKLMNOPQRSTUVWXYZ;+{}=");
+    while(1){};
+}
+#endif
+
+
 int main(void)
 {        
     INIT_GRAPHICS();
@@ -345,46 +403,7 @@ int main(void)
             #endif        
             
             #if defined(DEBUG_ITEMS)
-                #if defined(ANIMATE_PLAYER)
-                    _draw_stat(1, 0,&PLAYER_DOWN_IMAGE);
-                    _draw_stat(1, 1,&PLAYER_UP_IMAGE);
-                    _draw_stat(1, 2,&PLAYER_RIGHT_IMAGE);
-                    _draw_stat(1, 3,&PLAYER_LEFT_IMAGE);
-                #else
-                    _draw_stat(1, 0,&PLAYER_IMAGE);
-                #endif
-                _draw_stat(1, 4,&GHOST_IMAGE);
-                _draw_stat(1, 5,&BOMB_IMAGE);
-                #if !defined(NO_DEAD_GHOST)
-                    _draw_stat(1, 6,&DEAD_GHOST_IMAGE);
-                #endif
-                #if !defined(TINY_GAME)
-                    _draw_stat(1, 7,&SKULL_IMAGE);
-                    _draw_stat(1, 8,&POWERUP_IMAGE);
-                    _draw_stat(1, 9,&GUN_IMAGE);
-                    _draw_stat(1,10,&EXTRA_POINTS_IMAGE);
-                    _draw_stat(1,11,&BULLET_IMAGE);
-                    _draw_stat(1,12,&VERTICAL_BRICK_IMAGE);
-                    _draw_stat(1,13,&HORIZONTAL_BRICK_IMAGE);
-                    #if defined(FULL_GAME)
-                        _draw_stat(1,14,&LEFT_HORIZONTAL_MISSILE_IMAGE);
-                        _draw_stat(1,15,&RIGHT_HORIZONTAL_MISSILE_IMAGE);
-                        _draw_stat(1,16,&ROCKET_IMAGE);
-                        _draw_stat(1,17,&FREEZE_IMAGE);
-                        _draw_stat(1,18,&SUPER_IMAGE);
-                        _draw_stat(1,19,&EXTRA_LIFE_IMAGE);
-                        _draw_stat(1,20,&INVINCIBILITY_IMAGE);
-                        _draw_stat(1,21,&CONFUSE_IMAGE);
-                        _draw_stat(1,22,&ZOMBIE_IMAGE);
-                        _draw_stat(1,23,&BROKEN_BRICK_IMAGE);
-                    #endif
-                #endif
-                PRINTD(4,3,5, 1234U);
-                PRINTD(4,5,5,56789U);
-                PRINT(4,7,"abcdefghijklmnopqrstuvwxyz");
-                PRINT(4,9,"ABCDEFGHIJKLMNOPQRSTUVWXYZ");
-                while(1){};
-            // #endif
+                DO_DEBUG_ITEMS();
             #else
             
             #if defined(FULL_GAME)

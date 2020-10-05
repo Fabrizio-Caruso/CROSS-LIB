@@ -614,7 +614,9 @@ g800_turn_based:
 # $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c 
 # $(ASSETS_PATH)/z88dk_xchase.asm 
 
-gb:
+gb: gb_no_gfx
+
+gb_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
 	-DFORCE_XSIZE=20 \
@@ -622,15 +624,14 @@ gb:
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_COLOR \
 	-DFULL_GAME  \
-	-DCONIO_VT52 \
 	-DCONIO -DNO_INIT_GRAPHICS -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=900 \
+	-lndos -DSLOW_DOWN=1400 \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_gb.bin
-	rm $(BUILD_PATH)/FULL_gb.bin
-	rm $(BUILD_PATH)/FULL_gb_BSS.bin
-	rm $(BUILD_PATH)/FULL_gb_DATA.bin
-	rm $(BUILD_PATH)/FULL_gb_BANK_1F.bin
+	-create-app -o$(BUILD_PATH)/FULL_gb_no_gfx.bin
+	rm $(BUILD_PATH)/FULL_gb_no_gfx.bin
+	rm $(BUILD_PATH)/FULL_gb_no_gfx_BSS.bin
+	rm $(BUILD_PATH)/FULL_gb_no_gfx_DATA.bin
+	rm $(BUILD_PATH)/FULL_gb_no_gfx_BANK_1F.bin
 
 
 gb_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
@@ -639,11 +640,10 @@ gb_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=18 \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
+	-DNO_COLOR -DANIMATE_PLAYER \
 	-DFULL_GAME \
-	-DCONIO_VT52 \
 	-DCONIO -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=900 \
+	-lndos -DSLOW_DOWN=1400 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \

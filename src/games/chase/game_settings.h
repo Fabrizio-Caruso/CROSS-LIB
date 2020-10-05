@@ -25,8 +25,8 @@
 #if !defined(_GAME_SETTINGS)
 #define _GAME_SETTINGS
 
-// #define DEBUG_ITEMS
 // #define DEBUG_END
+// #define DEBUG_ITEMS
 
 #include "cross_lib.h"
 

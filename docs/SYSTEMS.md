@@ -50,6 +50,7 @@ For most systems, more than one version is built, in order to support different 
 - `fp1100`: Casio FP-1100
 - `g800`: Sharp PC-G800
 - `gal`: Galaksija
+- `gal_plus`: Galaksija Plus (work in progress)
 - `gamate`: Gamate
 - `gb`: Game Boy
 - `gx4000`: Amstrad GX-4000
@@ -71,6 +72,7 @@ For most systems, more than one version is built, in order to support different 
 - `mo5`: Thomson Mo5 / Thomson Mo6 / Olivetti Prodest PC 128
 - `msx`: MSX
 - `mtx`: Memotech MTX 512
+- `mtx500`: Memotech MTX 500 (work in progress)
 - `multi8`: Mitsubishi Multi 8
 - `myvision`: Nichibutsu My Vision (work in progress)
 - `mz`: Sharp MZ 80/700
@@ -80,6 +82,7 @@ For most systems, more than one version is built, in order to support different 
 - `nc200`: Amstrad NC-200
 - `nes`: Nintendo Enterteinment System
 - `newbrain`: Grundy Newbrain
+- `ondra`: Tesla Ondra (work in progress)
 - `oric`: Tangerine Oric 1/Atmos
 - `osborne1`: Osborne 1
 - `osca`: OSCA v6z80p

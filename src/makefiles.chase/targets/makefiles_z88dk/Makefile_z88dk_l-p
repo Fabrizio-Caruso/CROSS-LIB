@@ -18,6 +18,7 @@ z88dk_targets_l-p: \
 	nc100_targets \
 	nc200_targets \
 	newbrain_targets \
+	ondra_targets \
 	osborne1_targets \
 	osca_targets \
 	pasopia7_targets \
@@ -66,7 +67,7 @@ mz_targets: \
 	mz
 
 mz2500_targets: \
-	mz2500_tiny_buffered
+	mz2500 mz2500_tiny_buffered
 
 nc100_targets: \
 	nc100
@@ -79,6 +80,9 @@ nascom_targets: \
 
 newbrain_targets: \
 	newbrain
+
+ondra_targets: \
+	ondra
 
 osborne1_targets: \
 	osborne1 osborne1_chars
@@ -400,7 +404,7 @@ mz:
 #############################
 # MZ2500
 
-mz2500: mz2500_tiny_buffered
+# mz2500: mz2500_tiny_buffered
 
 # It almost works except for TURN_BASED
 mz2500_tiny_buffered:
@@ -436,6 +440,15 @@ mz2500_tiny_buffered:
 	mv mz2500.dsk $(BUILD_PATH)/TINY_mz2500_buffered.dsk
 	rm mz2500
 
+
+mz2500:
+	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__MZ2500__ -DFORCE_XSIZE=40 -DFORXE_YSIZE=24  \
+	-DCONIO -DNO_COLOR -DNO_INIT_GRAPHICS -DNO_WAIT \
+	-create-app -o $(BUILD_PATH)/FULL_mz2500.prg \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_mz2500.prg
 
 #############################
 # NASCOM
@@ -543,6 +556,18 @@ newbrain:
 	rm newbrain.bas
 	rm newbrain.dat
 	rm newbrain
+
+
+#############################
+# ONDRA
+ondra:
+	$(Z88DK_PATH)$(MYZ88DK) +ondra $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__ONDRA__ -DFORCE_XSIZE=40 -DFORXE_YSIZE=32  \
+	-DCONIO -DNO_COLOR -DNO_INIT_GRAPHICS \
+	-create-app -o $(BUILD_PATH)/FULL_ondra.prg \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/FULL_ondra.prg
 
 
 #############################

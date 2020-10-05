@@ -23,7 +23,7 @@ aquarius_targets: \
 	aquarius_exp_4k aquarius_exp_16k
 
 gal_targets: \
-	gal_6k gal_22k
+	gal_6k gal_22k gal_plus
 
 mc1000_targets: \
 	mc1000_16k mc1000_exp_48k
@@ -147,47 +147,21 @@ gal_6k:
 	#rm $(BUILD_PATH)/TINY_galaksija_6k.wav
 
 
+gal_plus: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +gal -subtype=galaxyp $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-pragma-need=ansiterminal \
+	-D__GAL__ -D__GAL_PLUS__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DUDG_GRAPHICS \
+	-vn -lndos -create-app -o  $(BUILD_PATH)/FULL_galaksija_plus.prg \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c
+	rm $(BUILD_PATH)/FULL_galaksija_plus.prg
+
+
 #############################
 # MC1000
-
-
-# mc1000_16k_no_gfx_old:
-	# $(Z88DK_PATH)$(MYZ88DK) +mc1000 $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff  \
-	# -subtype=gaming -pragma-define:ansicolumns=32 \
-	# -DFULL_GAME  \
-	# -DLESS_TEXT \
-	# -DNO_BLINKING \
-	# -DNO_HINTS \
-	# -clib=ansi \
-	# -D__MC1000__ -DSOUNDS \
-	# -DEND_SCREEN \
-	# -DALT_SLEEP \
-	# -DCONIO -DNO_INIT_GRAPHICS \
-	# -vn  -lndos -Cz--audio \
-	# -create-app -o mc1000ng.bin \
-	# $(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	# $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	# $(SOURCE_PATH)/end_screen.c \
-	# $(FULL_FILES)
-	# mv mc1000ng.wav $(BUILD_PATH)/FULL_mc1000_16k_no_gfx.wav
-	# rm mc1000ng.bin
-	# rm mc1000ng.cas
-
-
-# mc1000_16k_no_gfx:
-	# $(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc -SO3 $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff  \
-	# -subtype=gaming \
-	# -DZ88DK_JOYSTICK \
-	# -DFULL_GAME  \
-	# -D__MC1000__ -DSOUNDS -DNO_BLINKING -DNO_COLOR -DNO_HINTS -DNO_SET_SCREEN_COLORS -DSIMPLE_STRATEGY \
-	# -DCONIO -DLESS_TEXT -DNO_INIT_GRAPHICS \
-	# -vn  -lndos -Cz--audio \
-	# -create-app -o mc1000ng.bin \
-	# -clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	# $(FULL_FILES)
-	# mv mc1000ng.wav $(BUILD_PATH)/FULL_mc1000_16k_no_gfx.wav
-	# rm mc1000ng.bin
-	# rm mc1000ng.cas
 
 
 mc1000_16k: $(ASSETS_PATH)/z88dk_xchase.asm

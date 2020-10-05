@@ -263,6 +263,44 @@ aussie:
 
 
 #############################
+# ALTAIR 8800
+
+altair8800: altair8800_tiny_buffered
+
+altair8800_tiny_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +altair8800 $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DFORCE_XSIZE=16 \
+	-DFORCE_YSIZE=12 \
+	-DFORCE_GHOSTS_NUMBER=6 \
+	-DFORCE_BOMBS_NUMBER=4 \
+	-D__ALTAIR8800__ \
+	-vn \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DNO_BLINKING \
+	-DNO_CONTROL_INSTRUCTIONS \
+	-DNO_DEAD_GHOSTS \
+	-DNO_SLEEP \
+	-DNO_INITIAL_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-lndos \
+	-DBUFFERED -DNO_INIT_GRAPHICS \
+	-DFORCE_NARROW \
+	-DNO_STATS \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DSTDLIB \
+	-DNO_WAIT \
+	-DTURN_BASED \
+	$(TINY_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o altair8800
+	mv altair8800.dsk $(BUILD_PATH)/TINY_altair8800_buffered.dsk
+	rm altair8800
+
+
+#############################
 # BIC
 
 bic:

@@ -53,12 +53,6 @@
         #define cputc(c) fputc_cons(c)	
     #endif
 
-    // TODO: BOGUS! Implement this
-    #if defined(__MZ2500__)
-        #define gotoxy(x,y)
-            
-        #define clrscr() printf("--------------------\n");
-    #endif
     #  if defined(CONIO_ADM3A)
         #define gotoxy(x,y) printf("\033=%c%c",y+32,x+32);
         #define clrscr() printf("\032")

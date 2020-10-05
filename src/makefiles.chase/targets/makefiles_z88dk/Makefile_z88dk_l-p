@@ -445,7 +445,7 @@ mz2500:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__MZ2500__ -DFORCE_XSIZE=40 -DFORXE_YSIZE=24  \
-	-DCONIO -DNO_COLOR -DNO_INIT_GRAPHICS -DNO_WAIT \
+	-DCONIO -DNO_COLOR -DNO_INIT_GRAPHICS -DFORCE_CONIO_LIB \
 	-create-app -o $(BUILD_PATH)/FULL_mz2500.prg \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_mz2500.prg

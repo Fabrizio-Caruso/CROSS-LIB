@@ -54,7 +54,7 @@ msx_targets: \
 	msx_32k_rom
 
 mtx_targets: \
-	mtx
+	mtx mtx500
 
 multi8_targets: \
 	multi8
@@ -281,7 +281,9 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 #############################
 # MTX
 
-mtx: $(ASSETS_PATH)/z88dk_xchase.asm
+mtx: mtx512
+
+mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
 	-D__MTX__ \
 	-create-app -o MTX.bin -vn \
@@ -299,6 +301,25 @@ mtx: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm MTX.bin
 	mv MTX.wav $(BUILD_PATH)/FULL_mtx.wav
 	mv MTX $(BUILD_PATH)/FULL_mtx.mtx
+
+mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__MTX__ \
+	-create-app -o MTX500.bin -vn \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-lndos -DSOUNDS -DFORCE_PSG \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c
+	rm MTX500.bin
+	mv MTX500.wav $(BUILD_PATH)/FULL_mtx500.wav
+	mv MTX500 $(BUILD_PATH)/FULL_mtx500.mtx
 
 
 #############################

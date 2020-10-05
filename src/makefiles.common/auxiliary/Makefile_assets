@@ -9,6 +9,9 @@ game_assets:
 	cd ./assets && python ./generate_assets.py $(GAME_NAME) && ./copy_assets.py $(GAME_NAME) $(PARENT_DIR)
 
 
+$(ASSETS_PATH)/z88dk_gameboy.asm: $(8X8_TILES)
+	$(CREATE_ASSET)
+
 $(ASSETS_PATH)/6x8_chars.h: $(6X8_TILES)
 	$(CREATE_ASSET)
 

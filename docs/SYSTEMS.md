@@ -51,7 +51,7 @@ For most systems, more than one version is built, in order to support different 
 - `g800`: Sharp PC-G800
 - `gal`: Galaksija
 - `gamate`: Gamate
-- `gb`: Game Boy (work in progress)
+- `gb`: Game Boy
 - `gx4000`: Amstrad GX-4000
 - `hemc`: HueblerEvertMC (work in progress)
 - `hgmc`: HueblerGrafikMC (work in progress)
@@ -126,7 +126,7 @@ For most systems, more than one version is built, in order to support different 
 - `ti85`: Texas TI 85
 - `ti86`: Texas TI 86
 - `tiki100`: TIKI 100
-- `to7`: Thomson To7(/70)/To8/To8d/To8+/To9/To9+
+- `to7`: Thomson To7 / To7/70 / To8 / To8d / To8+ / To9 / To9+
 - `trs80`: TRS-80 Model I/III/IV
 - `ts2068`: Timex TS 2068
 - `tvc`: Videoton TV Computer (work in progress)
@@ -147,12 +147,12 @@ For most systems, more than one version is built, in order to support different 
 
 ### 16-BIT versions
 - `amiga`: Amiga (work in progress)
-- `atari_st`: Atari ST (work in progress)
+- `atari_st`: Atari ST
 - `cx16`: Commander X16 (work in progress)
 - `olivetti_m20`: Olivetti M20 
 - `pc8086`: Intel 8088/8086 PC
 - `pdp`: PDP 11 v7 (work in progress)
-- `sinclair_ql`: Sinclair QL (work in progress)
+- `sinclair_ql`: Sinclair QL
 - `ti99`: Texas Instruments TI99/4A (work in progress)
 
 

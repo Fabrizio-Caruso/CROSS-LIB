@@ -39,6 +39,7 @@ extern uint8_t level;
 extern Image DEAD_GHOST_IMAGE;
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
+extern Image SKULL_IMAGE;
 extern Image BROKEN_BRICK_IMAGE;
 
 extern Character ghosts[GHOSTS_NUMBER];

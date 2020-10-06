@@ -7,6 +7,7 @@ z88dk_targets_a-k: \
 	abc80_targets \
 	ace_targets \
 	alphatro_targets \
+	altair8800_targets \
 	attache_targets \
 	aussie_targets \
 	bic_targets \
@@ -42,6 +43,9 @@ ace_targets: \
 
 alphatro_targets: \
 	alphatro
+
+altair8800_targets: \
+	altair8800
 
 attache_targets: \
 	attache attache_chars
@@ -295,9 +299,12 @@ altair8800_tiny_buffered:
 	-DTURN_BASED \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o altair8800
-	mv altair8800.dsk $(BUILD_PATH)/TINY_altair8800_buffered.dsk
-	rm altair8800
+	-create-app -oaltair8800.rom
+	rm -rf altair8800.bin 
+	rm -rf altair8800_DATA.bin 
+	rm -rf altair8800_BSS.bin 
+	mv altair8800.rom $(BUILD_PATH)/TINY_altair8800_buffered.rom
+
 
 
 #############################

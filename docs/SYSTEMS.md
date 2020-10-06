@@ -15,7 +15,7 @@ For most systems, more than one version is built, in order to support different 
 - `abc800`: Luxor ABC 800 (work in progress)
 - `ace`: Jupiter Ace
 - `alphatro`: Alphatronic
-- `altair`: MITS Altair 8800
+- `altair8800`: MITS Altair 8800 (work in progress)
 - `apple2`: Apple //
 - `apple2enh`: Enhanced Apple //e
 - `aquarius`: Mattel Aquarius 

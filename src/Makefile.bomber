@@ -272,6 +272,29 @@ c64_exomized: $(ASSETS_PATH)/cc65_udc.s
 
 #################################################################
 
+
+gb: $(ASSETS_PATH)/z88dk_gameboy.asm
+	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__GB__ \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=18 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR -DANIMATE_PLAYER \
+	-DFULL_GAME \
+	-DCONIO -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=1400 \
+	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_gameboy.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_gb_X$(GAME_NAME).bin
+	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME).bin
+	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_BSS.bin
+	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_DATA.bin
+	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_BANK_1F.bin
+
+
+#################################################################
+
 # Graphics for fire power and ghost needs to be updated
 nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \

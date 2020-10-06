@@ -300,10 +300,10 @@ altair8800_tiny_buffered:
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -oaltair8800.rom
-	rm -rf altair8800.bin 
 	rm -rf altair8800_DATA.bin 
 	rm -rf altair8800_BSS.bin 
 	mv altair8800.rom $(BUILD_PATH)/TINY_altair8800_buffered.rom
+	mv altair8800.bin $(BUILD_PATH)/TINY_altair8800_buffered.bin
 
 
 

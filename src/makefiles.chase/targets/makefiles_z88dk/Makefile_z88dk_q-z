@@ -302,11 +302,47 @@ smc777:
 
 sms: sms_buffered
 
+sms_no_gfx:
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SMS__ \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=18 \
+	-DNO_SET_SCREEN_COLORS \
+	-DFULL_GAME \
+	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=1400 \
+	-DNO_INIT_GRAPHICS -DNO_WAIT -DNO_SLEEP \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_sms_no_gfx.bin
+	rm $(BUILD_PATH)/FULL_sms_no_gfx.bin
+	rm $(BUILD_PATH)/FULL_sms_no_gfx_BSS.bin
+	rm $(BUILD_PATH)/FULL_sms_no_gfx_DATA.bin
+	rm $(BUILD_PATH)/FULL_sms_no_gfx_BANK_1F.bin
+
+sms_gfx: $(ASSETS_PATH)/z88dk_gameboy.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SMS__ \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=18 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR -DANIMATE_PLAYER \
+	-DFULL_GAME \
+	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=1400 \
+	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_gameboy.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_sms.bin
+	rm $(BUILD_PATH)/FULL_sms.bin
+	rm $(BUILD_PATH)/FULL_sms_BSS.bin
+	rm $(BUILD_PATH)/FULL_sms_DATA.bin
+	rm $(BUILD_PATH)/FULL_sms_BANK_1F.bin
+
 sms_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -clib=sdcc_iy -startup=17 \
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
-	-D__SMS__ \
+	-D__SMS__ -DNEW_LIB \
 	-DNO_COLOR \
 	-DFULL_GAME \
 	-DSTDLIB \
@@ -332,7 +368,7 @@ sms_buffered:
 	# $(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -clib=sdcc_iy -startup=17 \
 	# $(INCLUDE_OPTS) \
 	# -pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
-	# -D__SMS__ \
+	# -D__SMS__ -DNEW_LIB \
 	# -DNO_COLOR \
 	# -DTINY_GAME \
 	# -DSTDLIB \

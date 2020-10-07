@@ -31,7 +31,7 @@
     #endif
 
 
-    #if defined(__SMS__)
+    #if defined(__SMS__) && defined(NEW_LIB)
         #include <stdio.h>
         #include <stropts.h>
         #include <arch/sms.h>

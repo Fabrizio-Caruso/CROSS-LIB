@@ -131,6 +131,7 @@ px4_tiny_putc4x6:
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/WIP_TINY_px4_putc4x6.ROM
 
+experimental_targets: rc2014 yaz180 vgl dai hbios rcmx000 scz180
 
 rc2014:
 	$(Z88DK_PATH)$(MYZ88DK) +rc2014 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
@@ -158,6 +159,104 @@ yaz180:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	-create-app -o$(BUILD_PATH)/FULL_yaz180_buffered.bin
+
+vgl:
+	$(Z88DK_PATH)$(MYZ88DK) +vgl $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__VGL__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/FULL_vgl_buffered.bin
+
+
+dai:
+	$(Z88DK_PATH)$(MYZ88DK) +dai $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__DAI__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/FULL_dai_buffered.bin
+
+
+hbios:
+	$(Z88DK_PATH)$(MYZ88DK) +hbios $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__HBIOS__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/FULL_hbios_buffered.bin
+
+
+rcmx000:
+	$(Z88DK_PATH)$(MYZ88DK) +rcmx000 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__RCMX000__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/FULL_rcmx000_buffered.bin
+
+
+scz180:
+	$(Z88DK_PATH)$(MYZ88DK) +scz180 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__SCZ180__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/FULL_scz180_buffered.bin
+
+
+s1mp3:
+	$(Z88DK_PATH)$(MYZ88DK) +s1mp3 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__S1MP3__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/FULL_s1mp3_buffered.bin
+
+
+pacman:
+	$(Z88DK_PATH)$(MYZ88DK) +pacman $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__PACMAN__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/FULL_pacman_buffered.bin
+
 
 special:
 	$(Z88DK_PATH)$(MYZ88DK) +special $(SCCZ80_OPTS) $(INCLUDE_OPTS) \

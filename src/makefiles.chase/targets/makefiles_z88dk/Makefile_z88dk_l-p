@@ -67,7 +67,7 @@ mz_targets: \
 	mz
 
 mz2500_targets: \
-	mz2500 mz2500_tiny_buffered
+	mz2500
 
 nc100_targets: \
 	nc100
@@ -407,38 +407,38 @@ mz:
 # mz2500: mz2500_tiny_buffered
 
 # It almost works except for TURN_BASED
-mz2500_tiny_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
-	$(INCLUDE_OPTS) \
-	-DFORCE_XSIZE=16 \
-	-DFORCE_YSIZE=12 \
-	-DFORCE_GHOSTS_NUMBER=6 \
-	-DFORCE_BOMBS_NUMBER=4 \
-	-D__MZ2500__ \
-	-vn \
-	-DNO_COLOR \
-	-DTINY_GAME \
-	-DNO_BLINKING \
-	-DNO_CONTROL_INSTRUCTIONS \
-	-DNO_DEAD_GHOSTS \
-	-DNO_SLEEP \
-	-DNO_INITIAL_SCREEN \
-	-DNO_SET_SCREEN_COLORS \
-	-lndos \
-	-DBUFFERED -DNO_INIT_GRAPHICS \
-	-DFORCE_NARROW \
-	-DNO_STATS \
-	-DALT_PRINT \
-	-DDEFAULT_CLEAR_SCREEN \
-	-DSTDLIB \
-	-DNO_WAIT \
-	-DTURN_BASED \
-	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o mz2500
-	mv mz2500.dsk $(BUILD_PATH)/TINY_mz2500_buffered.dsk
-	rm mz2500
+# mz2500_tiny_buffered:
+	# $(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) \
+	# $(INCLUDE_OPTS) \
+	# -DFORCE_XSIZE=16 \
+	# -DFORCE_YSIZE=12 \
+	# -DFORCE_GHOSTS_NUMBER=6 \
+	# -DFORCE_BOMBS_NUMBER=4 \
+	# -D__MZ2500__ \
+	# -vn \
+	# -DNO_COLOR \
+	# -DTINY_GAME \
+	# -DNO_BLINKING \
+	# -DNO_CONTROL_INSTRUCTIONS \
+	# -DNO_DEAD_GHOSTS \
+	# -DNO_SLEEP \
+	# -DNO_INITIAL_SCREEN \
+	# -DNO_SET_SCREEN_COLORS \
+	# -lndos \
+	# -DBUFFERED -DNO_INIT_GRAPHICS \
+	# -DFORCE_NARROW \
+	# -DNO_STATS \
+	# -DALT_PRINT \
+	# -DDEFAULT_CLEAR_SCREEN \
+	# -DSTDLIB \
+	# -DNO_WAIT \
+	# -DTURN_BASED \
+	# -pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	# $(TINY_FILES) \
+	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	# -create-app -o mz2500
+	# mv mz2500.dsk $(BUILD_PATH)/TINY_mz2500_buffered.dsk
+	# rm mz2500
 
 
 mz2500:

@@ -143,8 +143,21 @@ rc2014:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_rc2014.bin
+	-create-app -o$(BUILD_PATH)/FULL_rc2014_buffered.bin
 
+
+yaz180:
+	$(Z88DK_PATH)$(MYZ88DK) +yaz180 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__YAZ80__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/FULL_yaz180_buffered.bin
 
 special:
 	$(Z88DK_PATH)$(MYZ88DK) +special $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -211,21 +224,6 @@ spectrum_buffered:
 	rm $(BUILD_PATH)/WIP_TINY_spectrum_buffered.prg
 	rm $(BUILD_PATH)/WIP_TINY_spectrum_buffered_BANK_7.bin
 
-
-yaz180:
-	$(Z88DK_PATH)$(MYZ88DK) +yaz180 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__ZXN__ \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=24 \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
-	-DFULL_GAME  \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
-	-DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/WIP_FULL_yaz180.bin
 
 
 zx80_16k:

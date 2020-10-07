@@ -344,6 +344,17 @@ In Basic do:
 LOAD"FULL"
 RUN
 
+
+-----------------------------------------------------------
+### MITS Altair 8800
+
+Use
+http://www.classiccmp.org/altair32/
+
+Witch it ON
+Load the .bin y File -> Read Image File -> Select File -> Address: $0000
+Click on STOP/RUN
+
 -----------------------------------------------------------
 
 ### MITSUBISHI MULTI 8

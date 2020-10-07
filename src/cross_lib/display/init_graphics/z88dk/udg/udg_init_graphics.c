@@ -16,9 +16,9 @@ void INIT_GRAPHICS(void)
 	{
 		#if defined(FORCE_SCREEN_MODE)
 			#define SCREEN_MODE FORCE_SCREEN_MODE
-		#elif defined(__MC1000__) || defined(__GB__) || defined(__SMS__)
+		#elif defined(__MC1000__) || defined(__GB__) 
 			#define SCREEN_MODE 1
-		#elif defined(__SPC1000__) 
+		#elif defined(__SPC1000__) || defined(__SMS__)
 			#define SCREEN_MODE 2
 		#else
 			#define SCREEN_MODE 2

@@ -150,7 +150,7 @@ For most systems, more than one version is built, in order to support different 
 - `z9001`: Robotron Z9001, Robotron KC 85/1, Robotron KC 87 
 - `zx80`: Sinclair ZX80
 - `zx81`: Sinclair ZX81
-
+- `zxn` : ZX Spectrum Next
 
 ### 16-BIT targets
 - `amiga`: Amiga 

@@ -15,7 +15,7 @@ target name         | long target name                                     | wor
 *aquarius*          | Mattel Aquarius                                      | YES     | 
 *atari5200*         | Atari 5200                                           | YES     | 
 *atari*             | Atari 400/800/600XL/800XL/1200XL/65XE/130XE          | YES     | 
-*atari_lynx         | Atari Lynx                                           | YES     | 
+*atari_lynx*        | Atari Lynx                                           | YES     | 
 *attache*           | Otrona Attache                                       | YES     | 
 *aussie*            | Aussie Byte                                          | YES     | 
 *bic*               | BIC/A5105                                            |  ?      | 

@@ -5,7 +5,6 @@
 
 
 ack_targets: \
-    cpm_8080_targets \
     pc8086_targets \
     linux386_targets \
     linux68k_targets \
@@ -34,7 +33,7 @@ pc8086_tiny_buffered:
 	$(TINY_FILES)
 	mv pc86.img $(BUILD_PATH)/TINY_pc8086_turn_based.img
 
-cpm_8080_buffered:
+cpm_8080_buffered_ack:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
 	-DFORCE_XSIZE=39 \
 	-DFORCE_YSIZE=23 \
@@ -57,7 +56,7 @@ cpm_8080_buffered:
 	rm $(SOURCE_PATH)/../../*.o
 
 	
-cpm_8080_adm3a:
+cpm_8080_adm3a_ack:
 	$(_ACK) $(_ACK_OPTS) $(INCLUDE_OPTS) -mcpm \
 	-DFORCE_XSIZE=78 \
 	-DFORCE_YSIZE=22 \
@@ -75,8 +74,8 @@ cpm_8080_adm3a:
 	mv cpm.com $(BUILD_PATH)/FULL_cpm8080_adm3a.com
 	rm $(SOURCE_PATH)/../../*.o
 
-cpm_8080_targets: \
-	cpm_8080_buffered
+cpm_8080_ack_targets: \
+	cpm_8080_ack_buffered
 
 
 # buffered	

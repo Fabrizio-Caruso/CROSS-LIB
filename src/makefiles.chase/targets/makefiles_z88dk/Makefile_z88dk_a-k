@@ -310,7 +310,6 @@ altair8800_tiny_buffered:
 	mv altair8800.bin $(BUILD_PATH)/TINY_altair8800_buffered.bin
 
 
-
 #############################
 # BIC
 
@@ -329,6 +328,32 @@ bic:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_bic.bin
 
+
+#############################
+# BIT90
+
+
+bit90: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__COLECO__ \
+	-DZ88DK_JOYSTICK \
+	-DFULL_GAME  \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	-create-app -o$(BUILD_PATH)/FULL_bit90.bin
+	rm $(BUILD_PATH)/FULL_bit90.bin
+	rm $(BUILD_PATH)/FULL_bit90_DATA.bin
+	rm $(BUILD_PATH)/FULL_bit90_BSS.bin
 
 #############################
 # C128_Z80
@@ -452,28 +477,6 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm $(BUILD_PATH)/FULL_coleco_BSS.bin
 
 
-bit90: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__COLECO__ \
-	-DZ88DK_JOYSTICK \
-	-DFULL_GAME  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
-	-DANIMATE_PLAYER \
-	-DUDG_GRAPHICS \
-	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/z88dk_xchase.asm \
-	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	-create-app -o$(BUILD_PATH)/FULL_bit90.bin
-	rm $(BUILD_PATH)/FULL_bit90.bin
-	rm $(BUILD_PATH)/FULL_bit90_DATA.bin
-	rm $(BUILD_PATH)/FULL_bit90_BSS.bin
-
 #############################
 # CPC
 
@@ -508,9 +511,11 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 #############################
 # CPM (Z80)
 
-cpm_targets: cpm_z80 cpm_8080 cpm_8080_buffered
+cpm_targets: cpm_z80_targets cpm_8080_targets
 
 cpm: cpm_z80
+
+cpm_z80_targets: cpm_z80
 
 cpm_z80: cpm_z80_adm3a
 
@@ -527,8 +532,10 @@ cpm_z80_adm3a:
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_$@.bin
 
+cpm_8080_targets: cpm_8080 cpm_8080_buffered
 
-cpm_8080: cpm_8080_adm3a
+
+cpm_8080: cpm_8080_adm3a cpm_8080_buffered
 
 cpm_8080_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -clib=8080 \
@@ -563,7 +570,8 @@ cpm_8080_buffered:
 	-create-app -o$(BUILD_PATH)/FULL_$@.bin \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	rm $(BUILD_PATH)/FULL_$@.bin
+	rm $(BUILD_PATH)/FULL_CPM_8080_BUFFERED.bin
+
 
 #############################
 # DMV

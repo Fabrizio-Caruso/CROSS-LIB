@@ -62,13 +62,13 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
 SCCZ80_OPTS ?= -O3
 
+
+# Parallel compilation for Z88DK targets
+Z88DK_MAKE_OPTS ?= -j 8
+
+
 #################################################################
 
-all: \
-    gcc_targets \
-    cc65_targets \
-    z88dk_targets \
-    lcc1802_targets 
 
 
 gcc_targets: \
@@ -92,6 +92,7 @@ z88dk_targets: \
     cpc \
     mc1000 \
     msx \
+    sms \
     spectrum \
     vg5k
 
@@ -101,7 +102,11 @@ lcc1802_targets:
 	make comx -f Makefile.$(GAME_NAME)
 	make cidelsa -f Makefile.$(GAME_NAME)
 
-
+all:
+	make gcc_targets -f Makefile.$(GAME_NAME) 
+	make cc65_targets -f Makefile.$(GAME_NAME) 
+	make lcc1802_targets -f Makefile.$(GAME_NAME) 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets -f Makefile.$(GAME_NAME) 
 
 #################################################################
 # CC65
@@ -222,29 +227,6 @@ c64_uncompressed: $(ASSETS_PATH)/cc65_udc.s
 
 #################################################################
 
-
-gb: $(ASSETS_PATH)/z88dk_gameboy.asm
-	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__GB__ \
-	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR -DANIMATE_PLAYER \
-	-DFULL_GAME \
-	-DCONIO -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=1400 \
-	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
-	$(ASSETS_PATH)/z88dk_gameboy.asm \
-	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_gb_X$(GAME_NAME).bin
-	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME).bin
-	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_BSS.bin
-	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_DATA.bin
-	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_BANK_1F.bin
-
-
-#################################################################
-
 # Graphics for fire power and ghost needs to be updated
 nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
@@ -357,6 +339,7 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atmos_and_oric1_48k.tap
+
 
 
 #################################################################
@@ -473,6 +456,31 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 
 #################################################################
 
+
+gb: $(ASSETS_PATH)/z88dk_gameboy.asm
+	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__GB__ \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=18 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR -DANIMATE_PLAYER \
+	-DFULL_GAME \
+	-DCONIO -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=1400 \
+	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_gameboy.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_gb_X$(GAME_NAME).bin
+	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME).bin
+	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_BSS.bin
+	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_DATA.bin
+	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_BANK_1F.bin
+
+
+
+
+#################################################################
+
 mc1000: mc1000_exp_48k
 
 mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
@@ -491,7 +499,7 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	mv mc1000.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_mc1000_exp_48k_joystick.wav
+	mv mc1000.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_mc1000_X$(GAME_NAME)_exp_48k_joystick.wav
 	rm mc1000.bin
 	rm mc1000.cas
 
@@ -522,6 +530,29 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_msx_32k_DATA.bin
 
+
+#################################################################
+
+sms: sms_gfx
+
+sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SMS__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SET_SCREEN_COLORS \
+	-DANIMATE_PLAYER \
+	-DFULL_GAME \
+	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=1400 \
+	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_BSS.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_BANK_1F.bin
 
 #################################################################
 

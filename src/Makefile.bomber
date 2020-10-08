@@ -42,15 +42,28 @@ FULL_FILES ?= \
 
 SCCZ80_OPTS ?= -O0
 
+
+# Parallel compilation for Z88DK targets
+Z88DK_MAKE_OPTS ?= -j 8
+
+
 #################################################################
 #     lcc1802_targets 
 
-all: \
-    gcc_targets \
-    cc65_targets \
-    cmoc_targets \
-    z88dk_targets \
-    lcc1802_targets
+# all: \
+    # gcc_targets \
+    # cc65_targets \
+    # cmoc_targets \
+    # z88dk_targets \
+    # lcc1802_targets
+
+
+all:
+	make gcc_targets -f Makefile.$(GAME_NAME) 
+	make cc65_targets -f Makefile.$(GAME_NAME) 
+	make lcc1802_targets -f Makefile.$(GAME_NAME) 
+	make cmoc_targets -f Makefile.$(GAME_NAME) 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets -f Makefile.$(GAME_NAME) 
 
 
 gcc_targets: \
@@ -84,6 +97,7 @@ z88dk_targets: \
     cpm \
     mc1000 \
     msx \
+    sms \
     spectrum \
     vg5k
 
@@ -348,6 +362,33 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin
 	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_HIGH.bin
 
+
+#################################################################
+
+sms: sms_gfx
+
+
+sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SMS__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SET_SCREEN_COLORS \
+	-DANIMATE_PLAYER \
+	-DFULL_GAME \
+	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=1400 \
+	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_BSS.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_BANK_1F.bin
+
+
+
 #################################################################
 
 creativision: creativision_16k
@@ -525,8 +566,8 @@ cpm_z80_adm3a:
 	$(INCLUDE_OPTS) \
 	-DSLOW_DOWN=1000 \
 	-DCONIO_ADM3A \
-	-D__CPM_80X24__ -DNO_UDG -DFORCE_XSIZE=79 \
-	-DFULL_GAME \
+	-D__CPM_80X24__ \
+	-DFULL_GAME -DLESS_TEXT -DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_cpm_adm3a.bin \
 	$(FULL_FILES)

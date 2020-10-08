@@ -132,7 +132,6 @@ target name         | long target name                                     | wor
 *trs80*             | TRS-80 Model I/III/IV                                | YES     | 
 *ts2068*            | Timex TS 2068                                        | YES     | 
 *tvc*               | Videoton TV Computer                                 |  ?      | 
-*tvz80game*         | TV Z80 Game                                          |  ?      | 
 *vector06*          | Вектор-06Ц Vector06c                                 |  ?      | 
 *vg5k*              | VG-5000                                              | YES     | 
 *vic20*             | Commodore Vic 20                                     | YES     | 
@@ -152,7 +151,7 @@ OK       : 106
 
 KO       :   4
 
-UNKNOWN  :  31
+UNKNOWN  :  30
 
 
 -----------------------------------------------------------------------------------------

@@ -33,7 +33,7 @@ target name        | long target name                                      | wor
 *cidelsa_draco*     | Cidelsa Draco arcade board                             YES
 *coco*              | Color Computer                                         YES
 *coleco*            | Colecovision                                           YES
-*coleco_adam        | Colecovision Adam                                       ? 
+*coleco_adam*       | Colecovision Adam                                       ? 
 *comx*              | COMX-35                                                YES
 *cpc*               | Amstrad CPC                                            YES
 *cpm_8080*          | CP/M Intel 8080                                        YES

@@ -34,7 +34,9 @@ For most systems, more than one version is built, in order to support different 
 - `cbm510`: Commodore CBM 510
 - `cbm610`: Commodore CBM 610
 - `camputers_lynx`: Camputers Lynx 48k/96k/128k
-- `cidelsa`: Cidelsa arcade boards Altair/Destroyer/Draco
+- `cidelsa_altair`: Cidelsa Altair arcade board
+- `cidelsa_destroyer`: Cidelsa Destroyer arcade board
+- `cidelsa_draco`: Cidelsa Draco arcade board
 - `coco`: Color Computer
 - `coleco`: Colecovision
 - `coleco_adam`: Colecovision Adam (work in progress)

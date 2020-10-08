@@ -131,7 +131,7 @@ px4_tiny_putc4x6:
 	rm a.bin
 	mv A.ROM $(BUILD_PATH)/WIP_TINY_px4_putc4x6.ROM
 
-experimental_targets: rc2014 yaz180 vgl dai hbios rcmx000 scz180
+new_retro_targets: rc2014 yaz180 vgl dai hbios rcmx000 scz180
 
 rc2014:
 	$(Z88DK_PATH)$(MYZ88DK) +rc2014 $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
@@ -144,7 +144,10 @@ rc2014:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_rc2014_buffered.bin
+	-create-app -o$(BUILD_PATH)/FULL_$@_buffered.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_CODE.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_UNASSIGNED.bin
 
 
 yaz180:
@@ -158,7 +161,10 @@ yaz180:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_yaz180_buffered.bin
+	-create-app -o$(BUILD_PATH)/FULL_$@_buffered.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_CODE.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_UNASSIGNED.bin
 
 vgl:
 	$(Z88DK_PATH)$(MYZ88DK) +vgl $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
@@ -171,7 +177,11 @@ vgl:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_vgl_buffered.bin
+	-create-app -o$(BUILD_PATH)/FULL_$@_buffered.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_DATA.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_interrupt_vectors.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_CODE.bin
 
 
 dai:
@@ -185,7 +195,8 @@ dai:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_dai_buffered.bin
+	-create-app -o$(BUILD_PATH)/FULL_$@_buffered.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered.bin
 
 
 hbios:
@@ -199,7 +210,10 @@ hbios:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_hbios_buffered.bin
+	-create-app -o$(BUILD_PATH)/FULL_$@_buffered.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_CODE.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_UNASSIGNED.bin
 
 
 rcmx000:
@@ -227,7 +241,10 @@ scz180:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_scz180_buffered.bin
+	-create-app -o$(BUILD_PATH)/FULL_$@_buffered.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_CODE.bin
+	rm $(BUILD_PATH)/FULL_$@_buffered_UNASSIGNED.bin
 
 
 s1mp3:

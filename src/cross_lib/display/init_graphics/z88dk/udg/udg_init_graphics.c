@@ -25,6 +25,15 @@ void INIT_GRAPHICS(void)
 		#endif
 		int mode = SCREEN_MODE;
 		console_ioctl(IOCTL_GENCON_SET_MODE, &mode);
+        
+    // #if defined(__GAME_GEAR__)
+    // {
+        // #include <sms.h>
+        // static unsigned char pal[] = { 0x00, 0x00, 0x08, 0x0c, 0x10, 0x30, 0x01, 0x3c, 0x02, 0x03, 0x05, 0x0f, 0x04, 0x33, 0x15, 0x3f };
+
+        // load_palette(&pal,0,16);
+    // }
+    // #endif
 	}
 	#elif defined(__SPECTRUM__)
 	printf("\x01\x20");

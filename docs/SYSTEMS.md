@@ -6,7 +6,7 @@ In principle you can compile the game with minimal input and output for any rece
 For most vintage systems, you can build a version of the game with some graphics, sounds and real time input.
 
 
-### 8-BIT versions
+### 8-BIT targets
 
 For most systems, more than one version is built, in order to support different hardware configurations and expansions 
 (e.g., memory expansions, second CPU, 80-col display card, etc.).
@@ -45,7 +45,7 @@ For most systems, more than one version is built, in order to support different 
 - `cpm_8080`: CP/M Intel 8080
 - `cpm`: CP/M Z80 with adm3a/vt52/vt100 terminals
 - `creativision`: VTech Creativision
-- `dmv`: Decision Mate V (work in progress)
+- `dmv`: Decision Mate V
 - `dragon`: Dragon 32/64
 - `eg2k`: EACA EG2000 Color Genie
 - `einstein`: Tatung Einstein
@@ -122,7 +122,7 @@ For most systems, more than one version is built, in order to support different 
 - `srr`: Exidy Sorcerer
 - `super80`: Super 80/80d/80e/80m (work in progress)
 - `super80r`: Super 80r/Super80v (work in progress)
-- `supervision`: Watara Supervision (work in progress)
+- `supervision`: Watara Supervision
 - `sv8000`: Bandai Supervision 8000 (work in progress)
 - `svi`: Spectravideo 318/328
 - `telestrat`: Oric Telestrat (work in progress)
@@ -152,26 +152,26 @@ For most systems, more than one version is built, in order to support different 
 - `zx81`: Sinclair ZX81
 
 
-### 16-BIT versions
-- `amiga`: Amiga (work in progress)
+### 16-BIT targets
+- `amiga`: Amiga 
 - `atari_st`: Atari ST
 - `cx16`: Commander X16 (work in progress)
 - `olivetti_m20`: Olivetti M20 
 - `pc8086`: Intel 8088/8086 PC
 - `pdp`: PDP 11 v7 (work in progress)
 - `sinclair_ql`: Sinclair QL
-- `ti99`: Texas Instruments TI99/4A (work in progress)
+- `ti99`: Texas Instruments TI99/4A 
 
 
 
-### 32-BIT versions
+### 32-BIT targets
 - `linux386`:  ELF linux for Intel 386
 - `linux68k`:  ELF linux for Motorola 68020
 - `linuxppc`:  ELF linux for PPC
 - `linuxmips`: ELF linux for little endian MIPS32r2 (work in progress)
 
 
-### Modern 32/64-BIT PC versions
+### Modern 32/64-BIT PC targets
 
 There are a plain stdlib (turn based) and an ncurses (action) version that can be compiled for multiple platforms for which an ANSI C compiler and ncurses are available, including Windows and Linux.
 For example:

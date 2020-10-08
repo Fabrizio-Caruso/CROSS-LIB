@@ -138,19 +138,29 @@ Type RUN
 
 ### CP/M (generic system) with ADM-3A control sequences
 
+.COM binaries:
+
 Examples of CP/M systems with ADM-3A support:
 multiple Kaypro systems, Aussie Byte (Knight 2000), Decision Mate V
 
 Use MAME emulator with correct roms and CP/M disks
 Examples:
 mame64.exe kaypro2x -flop1 ..\disk\kaypro\k10hald1.td0 -uimodekey DEL
-mame64.exe dmv -flop1 ..\disk\dmv\dm5-cpm.td0 -uimodekey DEL
 mame64.exe aussieby -flop1 ..\disk\aussie_byte\knight2000_boot.dsk -uimodekey DEL
 
 WAIT for the operating system to fully load.
 Use the quickload option to load the .COM file.
 
 If you want to create a disk image you need to follow the instructions in the Z88DK wiki.
+
+.DSK images:
+Use MAME emulator with correct roms and CP/M disks
+Examples:
+mame64.exe dmv -flop1 ..\disk\dmv\dm5-cpm.td0 -uimodekey DEL
+
+Attach image as disk B:
+Run B:
+<binari name without .COM>
 
 -----------------------------------------------------------
 
@@ -525,6 +535,15 @@ Select HEX Files
 Chose the .hex file
 Type RUN
 [equivalent to CALL(&0201)]
+
+
+---------------------------------------------------------
+
+### Hanimex Pencil II 
+
+Use Mame emulator
+Run mame64.exe pencil2 -window -uimodekey DEL
+Attach the ROM image
 
 -----------------------------------------------------------
 

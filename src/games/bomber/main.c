@@ -366,7 +366,6 @@ int main(void)
                 for(y=1;y<building_height[x];++y)
                 {
                     drawBuilding();
-                    TOCK_SOUND();
                 }
                 PING_SOUND();
             }

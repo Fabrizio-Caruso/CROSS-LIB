@@ -147,9 +147,13 @@ target name         | long target name                                     | wor
 *zx81*              | Sinclair ZX81                                        | YES     | 
 *zxn*               | ZX Spectrum Next                                     |  ?      | 
 
+
 OK       : 106
+
 KO       :   4
+
 UNKNOWN  :  31
+
 
 -----------------------------------------------------------------------------------------
 
@@ -165,7 +169,9 @@ UNKNOWN  :  31
 
 
 OK       :   6
+
 KO       :   0
+
 UNKNOWN  :   2
 
 
@@ -179,16 +185,22 @@ UNKNOWN  :   2
 
 
 OK       :   3
+
 KO       :   0
+
 UNKNOWN  :   1
 
 
 -----------------------------------------------------------------------------------------
 
+
 TOTAL STATS excluding modern PC and WebAssembly (Emscripten)
 
+
 OK       : 115
+
 KO       :   4
+
 UNKNOWN  :  33
 
 

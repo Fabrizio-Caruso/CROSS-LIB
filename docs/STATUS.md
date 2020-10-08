@@ -1,7 +1,8 @@
 ## STATUS
 
 ### 8-BIT targets
-                    |                                                      |         | 
+
+
 target name         | long target name                                     | working | 
 --------------------|------------------------------------------------------|---------| 
 *abc80*             | Luxor ABC 80                                         | YES     | 

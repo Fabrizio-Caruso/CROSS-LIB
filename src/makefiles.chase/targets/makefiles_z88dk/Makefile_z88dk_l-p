@@ -725,20 +725,19 @@ pc88:
 #############################
 # PENCIL2
 
+# SOUNDS is broken (sound never stops)
 pencil2:
 	$(Z88DK_PATH)$(MYZ88DK) +pencil2 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__PENCIL2__ \
 	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=24 \
+	-DFORCE_YSIZE=22 \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \
-	-lndos -DSOUNDS -DFORCE_PSG \
+	-lndos -DFORCE_BIT_BANG -DSOUNDS \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_pencil2.bin
 	rm $(BUILD_PATH)/FULL_pencil2.bin
 	rm $(BUILD_PATH)/FULL_pencil2_BSS.bin

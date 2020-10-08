@@ -22,7 +22,11 @@ Its code is almost entirely in a single file. It uses pre-shifted tiles to produ
 
 ## CURRENTLY SUPPORTED ARCHITECTURES
 The main goal is to get the library and game to work on most vintage systems with possibly all 8-bit architectures as well as some 16 and 32-bit architectures.
-A partial list of the supported systems is found in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+A partial list of the supported systems is found in: 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+
+For a status of the targets we refer to:
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/STATUS.md
 
 The most significant supported CPU architecture are described below.
 

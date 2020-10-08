@@ -346,6 +346,7 @@ RUN
 
 
 -----------------------------------------------------------
+-----------------------------------------------------------
 ### MITS Altair 8800
 
 Use
@@ -592,7 +593,14 @@ CMT -> Play button
 
 ---------------------------------------------------------
 
-### SC 3000
+### SEGA MSTER SYSTEM
+
+Use Kega Fusion Emulator (https://segaretro.org/Kega_Fusion)
+File -> Load MasterSystem ROM
+
+---------------------------------------------------------
+
+### SEGA SC 3000
 
 Use the MESS emulator
 

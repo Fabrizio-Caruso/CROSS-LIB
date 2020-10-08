@@ -146,9 +146,9 @@ zx80               | Sinclair ZX80                                         | YES
 zx81               | Sinclair ZX81                                         | YES
 
 
-YES : 106
-NO  :   4
-?   :  30
+OK : 106
+KO :   4
+?  :  30
 
 -----------------------------------------------------------------------------------------
 
@@ -163,9 +163,9 @@ NO  :   4
 - `ti99`: Texas Instruments TI99/4A 
 
 
-YES : 6
-NO  : 0
-?   : 2
+OK :   6
+KO :   0
+?  :   2
 
 
 -----------------------------------------------------------------------------------------
@@ -177,17 +177,17 @@ NO  : 0
 - `linuxmips`: ELF linux for little endian MIPS32r2 (work in progress)
 
 
-YES : 3
-NO  : 0
-?   : 1
+OK :   3
+KO :   0
+?  :   1
 
 
 -----------------------------------------------------------------------------------------
 
 TOTAL STATS excluding modern PC and WebAssembly (Emscripten)
 
-YES : 115
-NO  :   4
-?   :  33
+OK : 115
+KO :   4
+?  :  33
 
 

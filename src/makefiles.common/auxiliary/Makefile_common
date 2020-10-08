@@ -130,3 +130,6 @@ help:
 
 list:
 	cat ../docs/SYSTEMS.md
+    
+status:
+	cat ../docs/STATUS.txt

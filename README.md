@@ -22,11 +22,9 @@ Its code is almost entirely in a single file. It uses pre-shifted tiles to produ
 
 ## CURRENTLY SUPPORTED ARCHITECTURES
 The main goal is to get the library and game to work on most vintage systems with possibly all 8-bit architectures as well as some 16 and 32-bit architectures.
-A partial list of the supported systems is found in: 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
-
-For a status of the targets we refer to:
+A partial list of the supported systems with their status is in: 
 https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/STATUS.md
+
 
 The most significant supported CPU architecture are described below.
 
@@ -58,15 +56,15 @@ We also support any current architecture for which GCC can produce a working bin
 
 -------------------------------------------
 
-## SUPPORTED SYSTEMS 
+## SUPPORTED SYSTEMS AND THEIR STATUS
 
 
-For most vintage systems (more than 200 different systems), you can build a version of the game with some graphics, sounds and real time input.
+For most vintage systems (more than 200 different systems and sub-systems), you can build a version of the game with some graphics, sounds and real time input.
 In principle you can compile the game in turn-based mode with minimal input and output (*stdlib*) for any architecture for which there is an ANSI C capable compiler.
 You can also compile the game in action mode with minimal input and output for any architecture for which there an ANCI C compiler with *ncurses* or *conio* libraries.
 
-For a complete list look at:
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+For a complete list of the supported systems and their statuslook at:
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/STATUS.md
 
 
 -------------------------------------------
@@ -119,8 +117,8 @@ you can build the default target for a given system with
 
 where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`.
 
-For the list of systems either run `make list` or look at 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SYSTEMS.md
+For the list of systems either run `make status`or look at 
+https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/STATUS.md
 
 Examples: 
 - `make c64 -f Makefile.chase` (or equivalently `make c64`) builds the default binary of *Cross Chase* for Commodore 64.

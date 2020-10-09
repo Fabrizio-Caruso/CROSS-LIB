@@ -236,8 +236,13 @@ vgl:
 hello_s1mp3:
 	$(Z88DK_PATH)$(MYZ88DK) +s1mp3 \
 	./test/helloworld.c \
-	-create-app -o$(BUILD_PATH)/hello_s1mp3.bin
+	-o$(BUILD_PATH)/hello_s1mp3.bin
 
+
+hello_getchar_s1mp3:
+	$(Z88DK_PATH)$(MYZ88DK) +s1mp3 \
+	./test/helloworld_getchar.c \
+	-o$(BUILD_PATH)/hello_getchar_s1mp3.bin
 
 s1mp3:
 	$(Z88DK_PATH)$(MYZ88DK) +s1mp3 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -246,11 +251,11 @@ s1mp3:
 	-DFORCE_YSIZE=9 \
 	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED  \
 	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
-	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DNO_INPUT -DNO_WAIT -DDEFAULT_CLEAR_SCREEN \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DDEFAULT_CLEAR_SCREEN \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_s1mp3_buffered.bin
+	-o$(BUILD_PATH)/FULL_s1mp3_buffered.bin
 
 
 pacman:

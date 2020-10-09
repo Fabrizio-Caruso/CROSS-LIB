@@ -45,6 +45,7 @@ For most systems, more than one version is built, in order to support different 
 - `cpm_8080`: CP/M Intel 8080
 - `cpm_z80`: CP/M Z80 with adm3a/vt52/vt100 terminals
 - `creativision`: VTech Creativision
+- `dai`: DAI
 - `dmv`: Decision Mate V
 - `dragon`: Dragon 32/64
 - `eg2k`: EACA EG2000 Color Genie

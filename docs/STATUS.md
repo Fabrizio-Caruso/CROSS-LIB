@@ -39,6 +39,7 @@ target name         | long target name                                     | wor
 *cpm_8080*          | CP/M Intel 8080                                      | YES     | 
 *cpm_z80*           | CP/M Z80 with adm3a/vt52/vt100 terminals             | YES     | 
 *creativision*      | VTech Creativision                                   | YES     | 
+*dai*               | DAI                                                  |  ?      | 
 *dmv*               | Decision Mate V                                      | YES     | 
 *dragon*            | Dragon 32/64                                         | YES     | 
 *eg2k*              | EACA EG2000 Color Genie                              | YES     | 
@@ -48,7 +49,7 @@ target name         | long target name                                     | wor
 *fp1100*            | Casio FP-1100                                        | YES     | 
 *g800*              | Sharp PC-G800                                        | YES     | 
 *gal*               | Galaksija                                            | YES     | 
-*gal_plus*          | Galaksija Plus                                       |  ?      | 
+*gal_plus*          | Galaksija Plus                                       | YES     | 
 *gamate*            | Gamate                                               | YES     | 
 *gamegear*          | Game Gear                                            |  NO lib | 
 *gb*                | Game Boy                                             | YES     | 
@@ -133,7 +134,7 @@ target name         | long target name                                     | wor
 *trs80*             | TRS-80 Model I/III/IV                                | YES     | 
 *ts2068*            | Timex TS 2068                                        | YES     | 
 *tvc*               | Videoton TV Computer                                 |  ?      | 
-*vector06c*         | Вектор-06Ц Vector06c                                | YES     | 
+*vector06c*         | Вектор-06Ц Vector06c                                 | YES     | 
 *vg5k*              | VG-5000                                              | YES     | 
 *vic20*             | Commodore Vic 20                                     | YES     | 
 *vz200*             | VTech VZ200                                          | YES     | 
@@ -148,11 +149,47 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     | YES     | 
 
 
+TOTAL    : 142
+
 OK       : 115
 
 KO       :   4
 
-UNKNOWN  :  22
+UNKNOWN  :  23
+
+
+-----------------------------------------------------------------------------------------
+### 8-BIT targets for new-retro with no known emulators
+
+
+target name         | long target name                                     | working | 
+--------------------|------------------------------------------------------|---------| 
+*hbios*             | HBIOS generic target                                 |  ? emu  | 
+*scz180*            | SC126 and SC130 boards                               |  ? emu  | 
+*rc2014*            | RC 2014 board                                        |  ? emu  | 
+*rcmx00*            | Rabbit Control Module                                |  ? emu  | 
+*yaz180*            | YAZ 180 board                                        |  ? emu  | 
+
+
+-----------------------------------------------------------------------------------------
+### 8-BIT new-retro targets with no known emulators
+
+
+target name         | long target name                                     | working | 
+--------------------|------------------------------------------------------|---------| 
+*hbios*             | HBIOS generic target                                 |  ? emu  | 
+*scz180*            | SC126 and SC130 boards                               |  ? emu  | 
+*rc2014*            | RC 2014 board                                        |  ? emu  | 
+*rcmx00*            | Rabbit Control Module                                |  ? emu  | 
+*yaz180*            | YAZ 180 board                                        |  ? emu  | 
+
+
+-----------------------------------------------------------------------------------------
+### 8-BIT new hacks with no known emulators
+target name         | long target name                                     | working | 
+--------------------|------------------------------------------------------|---------| 
+*vgl*               | VTech Genius Leader                                  |  ? emu  | 
+*s1mp3*             | S1 MP3                                               |  ? emu  | 
 
 
 -----------------------------------------------------------------------------------------
@@ -200,13 +237,14 @@ UNKNOWN  :   1
 -----------------------------------------------------------------------------------------
 
 
-TOTAL STATS excluding modern 32/64 bit PC, WebAssembly (Emscripten) and some modern "new retro" systems
+TOTAL STATS excluding modern 32/64 bit PC, WebAssembly (Emscripten)
 
+TOTAL    : 164
 
-OK       : 124
+OK       : 125
 
 KO       :   4
 
-UNKNOWN  :  25
+UNKNOWN  :  37
 
 

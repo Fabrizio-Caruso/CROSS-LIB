@@ -157,14 +157,17 @@ UNKNOWN  :  28
 -----------------------------------------------------------------------------------------
 
 ### 16-BIT targets
-- `amiga`: Amiga 
-- `atari_st`: Atari ST
-- `cx16`: Commander X16 (work in progress)
-- `olivetti_m20`: Olivetti M20 
-- `pc8086`: Intel 8088/8086 PC
-- `pdp`: PDP 11 v7 (work in progress)
-- `sinclair_ql`: Sinclair QL
-- `ti99`: Texas Instruments TI99/4A 
+
+target name         | long target name                                     | working | 
+--------------------|------------------------------------------------------|---------| 
+*amiga*             | Commodore Amiga                                      | YES     | 
+*atari_st*          | Atari ST                                             | YES     | 
+*cx16*              | Commander CX 16                                      |  ?      | 
+*olivetti_m20*      | Olivetti M20                                         | YES     | 
+*pc8086*            | PC 8088/86                                           | YES     | 
+*pdp11v7*           | PDP 11 V7                                            |  ?      | 
+*sinclair_ql*       | Jupiter Ace                                          | YES     | 
+*ti99*              | Texas Instruments TI99/4                             | YES     | 
 
 
 OK       :   6
@@ -177,10 +180,13 @@ UNKNOWN  :   2
 -----------------------------------------------------------------------------------------
 
 ### 32-BIT targets
-- `linux386`:  ELF linux for Intel 386
-- `linux68k`:  ELF linux for Motorola 68020
-- `linuxppc`:  ELF linux for PPC
-- `linuxmips`: ELF linux for little endian MIPS32r2 (work in progress)
+
+target name         | long target name                                     | working | 
+--------------------|------------------------------------------------------|---------| 
+*linux386*          | ELF linux for Intel 386                              | YES     | 
+*linux68k*          | ELF linux for Motorola 68020                         | YES     | 
+*linuxppc*          | ELF linux for PPC                                    | YES     | 
+*linuxmips*         | ELF linux for little endian MIPS32r2 (not tested)    |  ?      | 
 
 
 OK       :   3
@@ -193,13 +199,13 @@ UNKNOWN  :   1
 -----------------------------------------------------------------------------------------
 
 
-TOTAL STATS excluding modern PC and WebAssembly (Emscripten)
+TOTAL STATS excluding modern 32/64 bit PC and WebAssembly (Emscripten)
 
 
-OK       : 115
+OK       : 117
 
 KO       :   4
 
-UNKNOWN  :  33
+UNKNOWN  :  31
 
 

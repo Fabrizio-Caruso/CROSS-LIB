@@ -282,6 +282,22 @@ Type "RUN"
 
 
 ---------------------------------------------------------
+### HOMELAB 2
+
+Use MAME emulator
+Use quickload to select the .htp file (and load it into memory)
+CALL 17152
+
+
+---------------------------------------------------------
+### HOMELAB 3/4
+
+Use MAME emulator 
+Use quickload to select the .htp file (and load it into memory)
+CALL $4300
+
+
+---------------------------------------------------------
 ### HUEBLER/EVERT-MC
 
 Use JKCEmu
@@ -595,8 +611,20 @@ RUN
 Type CLOAD
 Select the game file
 
-----------------------------------------------------------
 
+----------------------------------------------------------
+### PMD-85
+
+Use Borik's PMD-85 Emulator (https://pmd85.borik.net/wiki/Emulator)
+Select the .ptp image file.
+Run
+MGLD 00
+Press the flash button.
+Click on the play button.
+JUMP 0000
+
+
+----------------------------------------------------------
 ### Robotron KC 85/2, 85/3, 85/4, 85/5, HC 900
 
 Use the JKCEMU emulator.

@@ -55,8 +55,8 @@ target name         | long target name                                     | wor
 *gx4000*            | Amstrad GX-4000                                      | YES     | 
 *hemc*              | Huebler/Evert-MC                                     | YES     | 
 *hgmc*              | Huebler-Grafik-MC                                    | YES     | 
-*homelab*           | Homelab 4                                            |  ?      | 
-*homelab2*          | Homelab 2                                            |  ?      | 
+*homelab*           | Homelab 4                                            | YES     | 
+*homelab2*          | Homelab 2                                            | YES     | 
 *kaypro*            | Kaypro 2X                                            | YES     | 
 *kramermc*          | Kramer-MC                                            |  ?      | 
 *kc*                | Robotron KC-85/2/3/4                                 | YES     | 
@@ -95,7 +95,7 @@ target name         | long target name                                     | wor
 *pecom*             | Pecom 32/64                                          | YES     | 
 *pencil2*           | Hanimex Pencil II                                    | YES     | 
 *pet*               | Commodore Pet                                        | YES     | 
-*pmd85*             | PMD85                                                |  ?      | 
+*pmd85*             | PMD85                                                | YES     | 
 *pps*               | Peters Plus Sprinter                                 | YES     | 
 *primo*             | Primo                                                |  ?      | 
 *pv1000*            | Casio PV1000                                         | YES     | 
@@ -147,11 +147,11 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     |  ?      | 
 
 
-OK       : 108
+OK       : 111
 
 KO       :   4
 
-UNKNOWN  :  28
+UNKNOWN  :  25
 
 
 -----------------------------------------------------------------------------------------
@@ -202,10 +202,10 @@ UNKNOWN  :   1
 TOTAL STATS excluding modern 32/64 bit PC and WebAssembly (Emscripten)
 
 
-OK       : 117
+OK       : 120
 
 KO       :   4
 
-UNKNOWN  :  31
+UNKNOWN  :  28
 
 

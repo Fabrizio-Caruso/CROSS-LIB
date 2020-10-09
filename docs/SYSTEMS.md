@@ -60,8 +60,8 @@ For most systems, more than one version is built, in order to support different 
 - `gx4000`: Amstrad GX-4000
 - `hemc`: Huebler/Evert-MC
 - `hgmc`: Huebler-Grafik-MC
-- `homelab`: Homelab 4 (work in progress)
-- `homelab2`: Homelab 2 (work in progress)
+- `homelab`: Homelab 4
+- `homelab2`: Homelab 2
 - `kaypro`: Kaypro 2X
 - `kramermc`: Kramer-MC (work in progress)
 - `kc`: Robotron KC-85/2/3/4
@@ -100,7 +100,7 @@ For most systems, more than one version is built, in order to support different 
 - `pecom`: Pecom 32/64
 - `pencil2`: Hanimex Pencil II
 - `pet`: Commodore Pet
-- `pmd85`: PMD85 (work in progress)
+- `pmd85`: PMD85
 - `pps`: Peters Plus Sprinter
 - `primo`: Primo (work in progress)
 - `pv1000`: Casio PV1000

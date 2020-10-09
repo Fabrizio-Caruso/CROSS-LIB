@@ -280,6 +280,30 @@ File -> Tape Management -> Select directory with the game's files
 Type "LOAD"
 Type "RUN"
 
+
+---------------------------------------------------------
+### HUEBLER/EVERT-MC
+
+Use JKCEmu
+Einstellungen
+Select HUEBLER/EVERT-MC
+Uebernehmen
+Schliessen
+Datei -> Lauden -> Select binary
+GO 0000
+
+
+---------------------------------------------------------
+### HUEBLER-GRAFIK-MC
+
+Einstellungen
+Select HUEBLER-GRAFIK-MC
+Uebernehmen
+Schliessen
+Datei -> Lauden -> Select binary
+GO 0000
+
+
 ---------------------------------------------------------
 ### JUPITER ACE
 
@@ -544,6 +568,7 @@ Type RUN
 Use Mame emulator
 Run mame64.exe pencil2 -window -uimodekey DEL
 Attach the ROM image
+
 
 -----------------------------------------------------------
 

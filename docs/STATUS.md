@@ -53,8 +53,8 @@ target name         | long target name                                     | wor
 *gamegear*          | Game Gear                                            |  NO lib | 
 *gb*                | Game Boy                                             | YES     | 
 *gx4000*            | Amstrad GX-4000                                      | YES     | 
-*hemc*              | HueblerEvertMC                                       |  ?      | 
-*hgmc*              | HueblerGrafikMC                                      |  ?      | 
+*hemc*              | Huebler/Evert-MC                                     | YES     | 
+*hgmc*              | Huebler-Grafik-MC                                    | YES     | 
 *homelab*           | Homelab 4                                            |  ?      | 
 *homelab2*          | Homelab 2                                            |  ?      | 
 *kaypro*            | Kaypro 2X                                            | YES     | 
@@ -147,11 +147,11 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     |  ?      | 
 
 
-OK       : 106
+OK       : 108
 
 KO       :   4
 
-UNKNOWN  :  30
+UNKNOWN  :  28
 
 
 -----------------------------------------------------------------------------------------

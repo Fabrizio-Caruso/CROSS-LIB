@@ -818,12 +818,11 @@ homelab2:
 # HEMC
 
 hemc:
-	$(Z88DK_PATH)$(MYZ88DK) +hemc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +hemc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__HEMC__ \
 	-DFORCE_XSIZE=64 \
-	-DFORCE_YSIZE=24 \
+	-DFORCE_YSIZE=22 \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \
@@ -838,12 +837,11 @@ hemc:
 # HGMC
 
 hgmc:
-	$(Z88DK_PATH)$(MYZ88DK) +hgmc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +hgmc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__HGMC__ \
 	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=32 \
+	-DFORCE_YSIZE=30 \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \

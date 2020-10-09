@@ -58,8 +58,8 @@ For most systems, more than one version is built, in order to support different 
 - `gamate`: Gamate
 - `gb`: Game Boy
 - `gx4000`: Amstrad GX-4000
-- `hemc`: HueblerEvertMC (work in progress)
-- `hgmc`: HueblerGrafikMC (work in progress)
+- `hemc`: Huebler/Evert-MC
+- `hgmc`: Huebler-Grafik-MC
 - `homelab`: Homelab 4 (work in progress)
 - `homelab2`: Homelab 2 (work in progress)
 - `kaypro`: Kaypro 2X

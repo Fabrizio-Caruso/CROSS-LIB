@@ -930,18 +930,18 @@ kc: $(ASSETS_PATH)/z88dk_xchase.asm
 
 
 #############################
-# KRAMERMC
+# KRAMER-MC
 
 kramermc:
 	$(Z88DK_PATH)$(MYZ88DK) +kramermc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__KRAMERMC__ \
 	-DFORCE_XSIZE=64 \
 	-DFORCE_YSIZE=16 \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
-	-DCONIO \
+	-DCONIO -DSTDLIB -DTURN_BASED \
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \

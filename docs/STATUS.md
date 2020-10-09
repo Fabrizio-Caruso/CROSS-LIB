@@ -59,7 +59,7 @@ target name         | long target name                                     | wor
 *homelab*           | Homelab 4                                            | YES     | 
 *homelab2*          | Homelab 2                                            | YES     | 
 *kaypro*            | Kaypro 2X                                            | YES     | 
-*kramermc*          | Kramer-MC                                            |  ?      | 
+*kramermc*          | Kramer-MC                                            | YES     | 
 *kc*                | Robotron KC-85/2/3/4                                 | YES     | 
 *lambda*            | Lambda 8300                                          | YES     | 
 *laser500*          | Laser 500                                            | YES     | 
@@ -151,11 +151,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 142
 
-OK       : 115
+OK       : 116
 
 KO       :   4
 
-UNKNOWN  :  22
+UNKNOWN  :  21
 
 
 -----------------------------------------------------------------------------------------
@@ -242,10 +242,10 @@ KO       :   1
 
 TOTAL    : 165
 
-OK       : 126
+OK       : 127
 
 KO       :   5
 
-UNKNOWN  :  32
+UNKNOWN  :  31
 
 

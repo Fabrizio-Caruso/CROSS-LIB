@@ -64,7 +64,7 @@ For most systems, more than one version is built, in order to support different 
 - `homelab`: Homelab 4
 - `homelab2`: Homelab 2
 - `kaypro`: Kaypro 2X
-- `kramermc`: Kramer-MC (work in progress)
+- `kramermc`: Kramer-MCs
 - `kc`: Robotron KC-85/2/3/4
 - `lambda`: Lambda 8300
 - `laser500`: Laser 500

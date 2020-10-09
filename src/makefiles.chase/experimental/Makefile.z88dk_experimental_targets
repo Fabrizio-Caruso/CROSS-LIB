@@ -206,7 +206,10 @@ rex_buffered:
 	rm $(BUILD_PATH)/FULL_rex_buffered.bin
 
 
+
 # Z88DK target is broken
+x07: x07_tiny
+
 x07_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-Cz--audio \

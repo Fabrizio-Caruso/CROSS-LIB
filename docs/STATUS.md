@@ -24,7 +24,7 @@ target name         | long target name                                     | wor
 *c128_z80*          | Commodore 128 [Z80 CPU]                              | YES     | 
 *c16*               | Commodore 264 series (16/116/+4)                     | YES     | 
 *c64*               | Commodore 64                                         | YES     | 
-*c7420*             | Philips VideoPac C7420 module (work in progress)     |  NO lib | 
+*c7420*             | Philips VideoPac C7420 module                        |  NO lib | 
 *cbm510*            | Commodore CBM 510                                    | YES     | 
 *cbm610*            | Commodore CBM 610                                    | YES     | 
 *camputers_lynx*    | Camputers Lynx 48k/96k/128k                          | YES     | 

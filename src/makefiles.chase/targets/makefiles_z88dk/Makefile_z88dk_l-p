@@ -241,8 +241,8 @@ microbee_32k: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 mikro80:
 	$(Z88DK_PATH)$(MYZ88DK) +mikro80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MIKRO80__ \
-	-DFORCE_XSIZE=48 \
-	-DFORCE_YSIZE=32 \
+	-DFORCE_XSIZE=64 \
+	-DFORCE_YSIZE=30 \
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_COLOR \
 	-DFULL_GAME  \

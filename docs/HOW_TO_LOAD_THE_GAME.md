@@ -440,6 +440,17 @@ Type "GC000"
 
 Use Nanowasp emulator: http://nanowasp.org/
 
+
+-----------------------------------------------------------
+
+
+### MIKRO-80
+
+Use E3000 emulator http://www.emulator3000.org/e3.htm
+
+Select the binary to load and run it.
+
+
 -----------------------------------------------------------
 
 ### MSX

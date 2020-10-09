@@ -67,7 +67,7 @@ target name         | long target name                                     | wor
 *mc1000*            | CCE MC-1000                                          | YES     | 
 *microboard*        | Microboard Computer Development Board                | YES     | 
 *microbee*          | Microobee                                            | YES     | 
-*mikro80*           | Mikro 80                                             |  ?      | 
+*mikro80*           | Mikro 80                                             | YES     | 
 *mo5*               | Thomson Mo5 / Thomson Mo6 / Olivetti Prodest PC 128  | YES     | 
 *msx*               | MSX 1/MSX 2/2+/Turbo                                 | YES     | 
 *mtx*               | Memotech MTX 512                                     | YES     | 
@@ -147,11 +147,11 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     | YES     | 
 
 
-OK       : 112
+OK       : 113
 
 KO       :   4
 
-UNKNOWN  :  24
+UNKNOWN  :  23
 
 
 -----------------------------------------------------------------------------------------
@@ -199,13 +199,13 @@ UNKNOWN  :   1
 -----------------------------------------------------------------------------------------
 
 
-TOTAL STATS excluding modern 32/64 bit PC and WebAssembly (Emscripten)
+TOTAL STATS excluding modern 32/64 bit PC, WebAssembly (Emscripten) and some modern "new retro" systems
 
 
-OK       : 121
+OK       : 122
 
 KO       :   4
 
-UNKNOWN  :  27
+UNKNOWN  :  26
 
 

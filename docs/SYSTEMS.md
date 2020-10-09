@@ -72,7 +72,7 @@ For most systems, more than one version is built, in order to support different 
 - `mc1000`: CCE MC-1000
 - `microboard`: Microboard Computer Development Board
 - `microbee`: Microobee
-- `mikro80`: Mikro 80 (work in progress)
+- `mikro80`: Mikro 80
 - `mo5`: Thomson Mo5 / Thomson Mo6 / Olivetti Prodest PC 128
 - `msx`: MSX
 - `mtx`: Memotech MTX 512

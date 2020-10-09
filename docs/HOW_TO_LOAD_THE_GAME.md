@@ -183,6 +183,17 @@ Use MAME/MESS
 Mess 0.148 with crvision works fine:
 mess64.exe crvision -window -cart1 c:\Retro\CROSS-CHASE\build\FULL_creativision_16k_SWAPPED.bin
 
+
+-------------------------------------------------------------
+### DAI
+
+Use Mame emulator
+mame64.exe dai -window
+Attach tape file
+UT (to enter monitor)
+R (to load)
+G0800 (to start the game)
+
 -------------------------------------------------------------
 
 ### Dragon

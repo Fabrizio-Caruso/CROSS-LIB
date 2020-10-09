@@ -16,6 +16,7 @@ z88dk_targets_a-k: \
 	coleco_targets \
 	cpc_targets \
 	cpm_targets \
+	dai_targets \
 	dmv_targets \
  	eg2k_targets \
 	einstein_targets \
@@ -74,6 +75,8 @@ cpm_z80_targets: \
 cpm_8080_targets: \
 	cpm_8080
 
+dai_targets: \
+	dai
 
 dmv_targets: \
 	dmv
@@ -578,6 +581,26 @@ cpm_8080_buffered:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	rm $(BUILD_PATH)/FULL_CPM_8080_BUFFERED.bin
+
+
+#############################
+# DAI
+
+dai: dai_buffered
+
+dai_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +dai $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__DAI__ \
+	-DFORCE_XSIZE=47 \
+	-DFORCE_YSIZE=21 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/FULL_$@.bin
+	rm $(BUILD_PATH)/FULL_$@.bin
 
 
 #############################

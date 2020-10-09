@@ -39,7 +39,7 @@ target name         | long target name                                     | wor
 *cpm_8080*          | CP/M Intel 8080                                      | YES     | 
 *cpm_z80*           | CP/M Z80 with adm3a/vt52/vt100 terminals             | YES     | 
 *creativision*      | VTech Creativision                                   | YES     | 
-*dai*               | DAI                                                  |  ?      | 
+*dai*               | DAI                                                  | YES     | 
 *dmv*               | Decision Mate V                                      | YES     | 
 *dragon*            | Dragon 32/64                                         | YES     | 
 *eg2k*              | EACA EG2000 Color Genie                              | YES     | 
@@ -151,11 +151,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 142
 
-OK       : 117
+OK       : 118
 
 KO       :   4
 
-UNKNOWN  :  20
+UNKNOWN  :  19
 
 
 -----------------------------------------------------------------------------------------
@@ -242,10 +242,10 @@ KO       :   1
 
 TOTAL    : 165
 
-OK       : 128
+OK       : 129
 
 KO       :   5
 
-UNKNOWN  :  30
+UNKNOWN  :  29
 
 

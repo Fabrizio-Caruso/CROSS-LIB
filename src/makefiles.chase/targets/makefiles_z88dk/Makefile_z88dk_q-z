@@ -373,32 +373,6 @@ sms_buffered:
 	rm $(BUILD_PATH)/FULL_sms_buffered_UNASSIGNED.bin
 
 
-# sms_tiny_buffered:
-	# $(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -clib=sdcc_iy -startup=17 \
-	# $(INCLUDE_OPTS) \
-	# -pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
-	# -D__SMS__ -DNEW_LIB \
-	# -DNO_COLOR \
-	# -DTINY_GAME \
-	# -DSTDLIB \
-	# -DLESS_TEXT \
-	# -create-app \
-	# -DBUFFERED \
-	# -DTURN_BASED \
-	# -DALT_PRINT \
-	# -DDEFAULT_CLEAR_SCREEN \
-	# -DNO_SLEEP \
-	# -DNO_WAIT \
-	# -o $(BUILD_PATH)/TINY_sms_buffered.bin \
-	# $(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	# $(TINY_FILES) 
-	# rm $(BUILD_PATH)/TINY_sms_buffered_CODE.bin
-	# rm $(BUILD_PATH)/TINY_sms_buffered_DATA.bin
-	# rm $(BUILD_PATH)/TINY_sms_buffered_BSS.bin
-	# rm $(BUILD_PATH)/TINY_sms_buffered_UNASSIGNED.bin
-
-
 #############################
 # SOS
 

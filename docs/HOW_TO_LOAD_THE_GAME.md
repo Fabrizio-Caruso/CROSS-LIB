@@ -67,6 +67,19 @@ Type RUN
 Type CLOAD
 Then load the other file
 
+
+
+-----------------------------------------------------------
+### BIC / A5105
+
+Use JKCEMU
+(If not already selected) Einstellungen -> Select BIC 
+Datei->Diskettenstation->Laufwerk 1->Open->Diskettenabbilddatei oeffnen->select file .dumb file->Nur lesen
+Datei->Schliessen
+
+Run file by its name (e.g., BULD/FU)
+Run DIR to see disk content/view/3/4/
+
 -----------------------------------------------------------
 
 ### CASIO FP-1100

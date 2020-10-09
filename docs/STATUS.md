@@ -18,7 +18,7 @@ target name         | long target name                                     | wor
 *atari_lynx*        | Atari Lynx                                           | YES     | 
 *attache*           | Otrona Attache                                       | YES     | 
 *aussie*            | Aussie Byte                                          | YES     | 
-*bic*               | BIC/A5105                                            |  ?      | 
+*bic*               | BIC/A5105                                            | YES     | 
 *bit90*             | Bit Corporation BIT 90                               |  ?      | 
 *c128_8502*         | Commodore 128 [8502 CPU]                             | YES     | 
 *c128_z80*          | Commodore 128 [Z80 CPU]                              | YES     | 
@@ -151,11 +151,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 142
 
-OK       : 116
+OK       : 117
 
 KO       :   4
 
-UNKNOWN  :  21
+UNKNOWN  :  20
 
 
 -----------------------------------------------------------------------------------------
@@ -242,10 +242,10 @@ KO       :   1
 
 TOTAL    : 165
 
-OK       : 127
+OK       : 128
 
 KO       :   5
 
-UNKNOWN  :  31
+UNKNOWN  :  30
 
 

@@ -172,19 +172,6 @@ target name         | long target name                                     | wor
 
 
 -----------------------------------------------------------------------------------------
-### 8-BIT new-retro targets with no known emulators
-
-
-target name         | long target name                                     | working | 
---------------------|------------------------------------------------------|---------| 
-*hbios*             | HBIOS generic target                                 |  ? emu  | 
-*scz180*            | SC126 and SC130 boards                               |  ? emu  | 
-*rc2014*            | RC 2014 board                                        |  ? emu  | 
-*rcmx00*            | Rabbit Control Module                                |  ? emu  | 
-*yaz180*            | YAZ 180 board                                        |  ? emu  | 
-
-
------------------------------------------------------------------------------------------
 ### 8-BIT new hacks with no known emulators
 target name         | long target name                                     | working | 
 --------------------|------------------------------------------------------|---------| 

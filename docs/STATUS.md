@@ -155,7 +155,7 @@ OK       : 115
 
 KO       :   4
 
-UNKNOWN  :  23
+UNKNOWN  :  22
 
 
 -----------------------------------------------------------------------------------------
@@ -220,18 +220,32 @@ KO       :   0
 
 UNKNOWN  :   1
 
+-----------------------------------------------------------------------------------------
+
+### 32-BIT and 64-BIT targets on modern systems
+
+target name         | long target name                                     | working | 
+--------------------|------------------------------------------------------|---------| 
+*gcc*               | Native Console version (with or without ncurses)     | YES     | 
+*emcc*              | Emscripten (WebAssembly version)                     |  NO     | 
+
+
+OK       :   1
+
+KO       :   1
+
 
 -----------------------------------------------------------------------------------------
 
 
-TOTAL STATS excluding modern 32/64 bit PC, WebAssembly (Emscripten)
+GLOBAL STATISTICS
 
-TOTAL    : 164
+TOTAL    : 165
 
-OK       : 125
+OK       : 126
 
-KO       :   4
+KO       :   5
 
-UNKNOWN  :  37
+UNKNOWN  :  32
 
 

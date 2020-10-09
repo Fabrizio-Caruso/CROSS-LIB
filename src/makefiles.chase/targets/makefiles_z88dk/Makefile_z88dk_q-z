@@ -463,6 +463,27 @@ spc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 
 
 #############################
+# SPECIALIST
+
+special:
+	$(Z88DK_PATH)$(MYZ88DK) +special $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SPECIAL__ \
+	-DFORCE_XSIZE=48 \
+	-DFORCE_YSIZE=30 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR -DNO_SLEEP -DTURN_BASED -DSTDLIB -DNO_WAIT \
+	-DFULL_GAME  \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_special.bin
+	rm $(BUILD_PATH)/FULL_special.bin
+
+
+#############################
 # SPECTRUM
 
 spectrum_16k: $(ASSETS_PATH)/z88dk_xchase.asm
@@ -837,9 +858,8 @@ vector06c:
 	$(Z88DK_PATH)$(MYZ88DK) +vector06c $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__VECTOR06C__ \
 	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=32 \
+	-DFORCE_YSIZE=30 \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \

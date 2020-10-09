@@ -113,6 +113,7 @@ target name         | long target name                                     | wor
 *sms*               | Sega Master System                                   | YES     | 
 *sos*               | S-OS                                                 | YES     | 
 *spc1000*           | Samsung SPC 1000                                     | YES     | 
+*special*           | Specialist                                           | YES     | 
 *spectrum*          | Sinclair Spectrum 16k/48k/128k                       | YES     | 
 *srr*               | Exidy Sorcerer                                       | YES     | 
 *super80*           | Super 80/80d/80e/80m                                 |  ?      | 
@@ -132,7 +133,7 @@ target name         | long target name                                     | wor
 *trs80*             | TRS-80 Model I/III/IV                                | YES     | 
 *ts2068*            | Timex TS 2068                                        | YES     | 
 *tvc*               | Videoton TV Computer                                 |  ?      | 
-*vector06*          | Вектор-06Ц Vector06c                                 |  ?      | 
+*vector06c*         | Вектор-06Ц Vector06c                                | YES     | 
 *vg5k*              | VG-5000                                              | YES     | 
 *vic20*             | Commodore Vic 20                                     | YES     | 
 *vz200*             | VTech VZ200                                          | YES     | 
@@ -147,11 +148,11 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     | YES     | 
 
 
-OK       : 113
+OK       : 115
 
 KO       :   4
 
-UNKNOWN  :  23
+UNKNOWN  :  22
 
 
 -----------------------------------------------------------------------------------------
@@ -202,10 +203,10 @@ UNKNOWN  :   1
 TOTAL STATS excluding modern 32/64 bit PC, WebAssembly (Emscripten) and some modern "new retro" systems
 
 
-OK       : 122
+OK       : 124
 
 KO       :   4
 
-UNKNOWN  :  26
+UNKNOWN  :  25
 
 

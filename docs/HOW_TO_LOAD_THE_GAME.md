@@ -1021,6 +1021,16 @@ Get to BASIC prompt
 File->Run-> Select .cmd file
 
 
+-----------------------------------------------------------
+
+
+### VECTOR 06C
+
+Use E3000 emulator http://www.emulator3000.org/e3.htm
+
+Select the binary to load and run it.
+
+
 ----------------------------------------------------------
 
 ### VTECH Laser 500

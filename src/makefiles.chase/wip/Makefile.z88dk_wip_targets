@@ -275,22 +275,6 @@ pacman:
 	-create-app -o$(BUILD_PATH)/FULL_pacman_buffered.bin
 
 
-special:
-	$(Z88DK_PATH)$(MYZ88DK) +special $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__SPECIAL__ \
-	-DFORCE_XSIZE=48 \
-	-DFORCE_YSIZE=32 \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
-	-DFULL_GAME  \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
-	-DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/WIP_FULL_special.bin
-	rm $(BUILD_PATH)/WIP_FULL_special.bin
-
 # --list -m --c-code-in-asm
 # -compiler=sdcc -SO0
 #  --peep-file "" --list -m --c-code-in-asm

@@ -118,6 +118,7 @@ For most systems, more than one version is built, in order to support different 
 - `sms`: Sega Master System
 - `sos`: S-OS 
 - `spc1000`: Samsung SPC 1000
+- `special`: Specialist
 - `spectrum`: Sinclair Spectrum 16k/48k/128k
 - `srr`: Exidy Sorcerer
 - `super80`: Super 80/80d/80e/80m (work in progress)
@@ -137,7 +138,7 @@ For most systems, more than one version is built, in order to support different 
 - `trs80`: TRS-80 Model I/III/IV
 - `ts2068`: Timex TS 2068
 - `tvc`: Videoton TV Computer (work in progress)
-- `vector06`: Вектор-06Ц - Vector06c (work in progress)
+- `vector06c`: Вектор-06Ц - Vector06c
 - `vg5k`: VG-5000
 - `vic20`: Commodore Vic 20
 - `vz200`: VTech VZ200

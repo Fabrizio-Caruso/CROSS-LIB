@@ -159,7 +159,7 @@ UNKNOWN  :  22
 
 
 -----------------------------------------------------------------------------------------
-### 8-BIT targets for new-retro with no known emulators
+### 8-BIT "new-retro" targets with no known emulators
 
 
 target name         | long target name                                     | working | 
@@ -238,7 +238,7 @@ KO       :   1
 -----------------------------------------------------------------------------------------
 
 
-GLOBAL STATISTICS
+### GLOBAL STATISTICS
 
 TOTAL    : 165
 

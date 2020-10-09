@@ -186,7 +186,7 @@ target name         | long target name                                     | wor
 *linux386*          | ELF linux for Intel 386                              | YES     | 
 *linux68k*          | ELF linux for Motorola 68020                         | YES     | 
 *linuxppc*          | ELF linux for PPC                                    | YES     | 
-*linuxmips*         | ELF linux for little endian MIPS32r2 (not tested)    |  ?      | 
+*linuxmips*         | ELF linux for little endian MIPS32r2                 |  ?      | 
 
 
 OK       :   3

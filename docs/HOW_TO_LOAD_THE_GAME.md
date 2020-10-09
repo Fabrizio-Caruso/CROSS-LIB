@@ -726,6 +726,13 @@ g800.exe -machine=200 c:\Retro\CROSS-CHASE\build\FULL_g800_turn_based.ihx
 Type "G100"
 
 
+-----------------------------------------------------------
+
+### ZX SPECTRUM NEXT
+Use CSPECT emulator (http://www.cspect.org/)
+Press F2
+Select .nex binary to load and start it
+
 -------------------------------------------------------------
 
 ### Sinclair QL

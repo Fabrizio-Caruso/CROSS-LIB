@@ -960,11 +960,10 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 zxn:
 	$(Z88DK_PATH)$(MYZ88DK) +zxn $(SCCZ80_OPTS) -clib=classic -subtype=nex $(INCLUDE_OPTS) \
 	-D__ZXN__ \
-	-DFORCE_XSIZE=32 \
+	-DFORCE_XSIZE=64 \
 	-DFORCE_YSIZE=22 \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
-	-DFULL_GAME  \
+	-DFULL_GAME -DNO_COLOR -DSLOW_DOWN=9000 \
 	-DCONIO_VT52 \
 	-DCONIO -DSOUNDS -DFORCE_PSG \
 	-lndos \

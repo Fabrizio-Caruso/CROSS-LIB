@@ -144,14 +144,14 @@ target name         | long target name                                     | wor
 *z9001*             | Robotron Z9001, Robotron KC 85/1, Robotron KC 87     | YES     | 
 *zx80*              | Sinclair ZX80                                        | YES     | 
 *zx81*              | Sinclair ZX81                                        | YES     | 
-*zxn*               | ZX Spectrum Next                                     |  ?      | 
+*zxn*               | ZX Spectrum Next                                     | YES     | 
 
 
-OK       : 111
+OK       : 112
 
 KO       :   4
 
-UNKNOWN  :  25
+UNKNOWN  :  24
 
 
 -----------------------------------------------------------------------------------------
@@ -202,10 +202,10 @@ UNKNOWN  :   1
 TOTAL STATS excluding modern 32/64 bit PC and WebAssembly (Emscripten)
 
 
-OK       : 120
+OK       : 121
 
 KO       :   4
 
-UNKNOWN  :  28
+UNKNOWN  :  27
 
 

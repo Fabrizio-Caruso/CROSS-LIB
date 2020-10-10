@@ -230,11 +230,11 @@ KO       :   1
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 164
+TOTAL    : 159
 
-OK       : 129
+OK       : 130
 
-KO       :   5
+KO       :   1
 
 UNKNOWN  :  28
 

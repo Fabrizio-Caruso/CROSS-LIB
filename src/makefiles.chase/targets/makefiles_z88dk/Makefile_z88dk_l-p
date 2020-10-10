@@ -364,20 +364,19 @@ multi8: $(ASSETS_PATH)/z88dk_xchase.asm
 #############################
 # MYVISION
 
-myvision:
+myvision: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +myvision $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MYVISION__ \
 	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=24 \
+	-DFORCE_YSIZE=22 \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
-	-DFULL_GAME  \
-	-DCONIO_VT52 \
-	-DCONIO \
+	-DFULL_GAME -DZ88DK_JOYSTICK \
+	-DCONIO_VT52 -DUDG_GRAPHICS \
+	-DCONIO -DANIMATE_PLAYER \
 	-lndos -DSOUNDS -DFORCE_PSG \
-	-DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
+	$(FULL_FILES) $(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	-create-app -o$(BUILD_PATH)/FULL_myvision.bin
 	rm $(BUILD_PATH)/FULL_myvision.bin
 	rm $(BUILD_PATH)/FULL_myvision_BSS.bin

@@ -79,7 +79,7 @@ For most systems, more than one version is built, in order to support different 
 - `mtx`: Memotech MTX 512
 - `mtx500`: Memotech MTX 500 (work in progress)
 - `multi8`: Mitsubishi Multi 8
-- `myvision`: Nichibutsu My Vision (work in progress)
+- `myvision`: Nichibutsu My Vision
 - `mz`: Sharp MZ 80/700
 - `mz2500`: Sharp MZ 2500
 - `nascom`: Nascom

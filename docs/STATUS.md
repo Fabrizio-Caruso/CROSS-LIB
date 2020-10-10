@@ -72,7 +72,7 @@ target name         | long target name                                     | wor
 *mtx*               | Memotech MTX 512                                     | YES     | 
 *mtx500*            | Memotech MTX 500                                     |  ?      | 
 *multi8*            | Mitsubishi Multi 8                                   | YES     | 
-*myvision*          | Nichibutsu My Vision                                 |  ?      | 
+*myvision*          | Nichibutsu My Vision                                 | YES     | 
 *mz*                | Sharp MZ 80/700                                      | YES     | 
 *mz2500*            | Sharp MZ 2500                                        | YES     | 
 *nascom*            | Nascom                                               | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 121
+OK       : 122
 
 KO       :   0
 
-UNKNOWN  :  19
+UNKNOWN  :  18
 
 
 -----------------------------------------------------------------------------------------
@@ -232,10 +232,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 131
+OK       : 132
 
 KO       :   1
 
-UNKNOWN  :  27
+UNKNOWN  :  26
 
 

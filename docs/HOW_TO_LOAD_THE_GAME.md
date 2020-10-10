@@ -495,6 +495,15 @@ Run bload"cas:",r
 
 -----------------------------------------------------------
 
+### NICHIBUTSU MY VISION
+
+Use Mame emulator
+e.g., mame64.exe myvision -window  -uimodekey DEL
+
+Attach the .rom image file as a cartridge
+
+-----------------------------------------------------------
+
 ### NASCOM
 
 Use Virtual-Nascom (http://repo.or.cz/w/virtual-nascom.git)

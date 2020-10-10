@@ -758,6 +758,60 @@ g800_turn_based:
 	mv g800.ihx $(BUILD_PATH)/FULL_g800_turn_based.ihx
 
 
+
+#############################
+# GAME GEAR
+
+gamegear: gamegear_tiny_buffered
+
+gamegear_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +sms -subtype=gamegear $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SMS__ -D__GAME_GEAR__ \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=16 \
+	-DNO_SET_SCREEN_COLORS \
+	-DANIMATE_PLAYER \
+	-DFULL_GAME -DNO_SLEEP -DNO_WAIT \
+	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=1400 \
+	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/FULL_gamegear.bin
+	rm $(BUILD_PATH)/FULL_gamegear.bin
+	rm $(BUILD_PATH)/FULL_gamegear_BSS.bin
+	rm $(BUILD_PATH)/FULL_gamegear_DATA.bin
+	rm $(BUILD_PATH)/FULL_gamegear_BANK_1F.bin
+
+
+gamegear_tiny_buffered:
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -subtype=gamegear -clib=sdcc_iy -startup=17 \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=15 \
+	-D__SMS__ \
+	-DNO_COLOR \
+	-DTINY_GAME \
+	-DSTDLIB \
+	-DLESS_TEXT \
+	-create-app \
+	-DBUFFERED \
+	-DTURN_BASED \
+	-DALT_PRINT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_SLEEP \
+	-DNO_WAIT \
+	-o $(BUILD_PATH)/TINY_gamegear_buffered.bin \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(TINY_FILES)
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_CODE.bin
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_DATA.bin
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_BSS.bin
+	rm $(BUILD_PATH)/TINY_gamegear_buffered_UNASSIGNED.bin
+
+
 #############################
 # GB
 

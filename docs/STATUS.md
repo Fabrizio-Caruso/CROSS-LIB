@@ -24,7 +24,6 @@ target name         | long target name                                     | wor
 *c128_z80*          | Commodore 128 [Z80 CPU]                              | YES     | 
 *c16*               | Commodore 264 series (16/116/+4)                     | YES     | 
 *c64*               | Commodore 64                                         | YES     | 
-*c7420*             | Philips VideoPac C7420 module                        |  NO lib | 
 *cbm510*            | Commodore CBM 510                                    | YES     | 
 *cbm610*            | Commodore CBM 610                                    | YES     | 
 *camputers_lynx*    | Camputers Lynx 48k/96k/128k                          | YES     | 
@@ -51,7 +50,7 @@ target name         | long target name                                     | wor
 *gal*               | Galaksija                                            | YES     | 
 *gal_plus*          | Galaksija Plus                                       | YES     | 
 *gamate*            | Gamate                                               | YES     | 
-*gamegear*          | Game Gear                                            |  NO lib | 
+*gamegear*          | Game Gear                                            | YES     | 
 *gb*                | Game Boy                                             | YES     | 
 *gx4000*            | Amstrad GX-4000                                      | YES     | 
 *hemc*              | Huebler/Evert-MC                                     | YES     | 
@@ -63,7 +62,6 @@ target name         | long target name                                     | wor
 *kc*                | Robotron KC-85/2/3/4                                 | YES     | 
 *lambda*            | Lambda 8300                                          | YES     | 
 *laser500*          | Laser 500                                            | YES     | 
-*m100*              | TRS-80 M100                                          |  NO lib | 
 *m5*                | Sord M5                                              | YES     | 
 *mc1000*            | CCE MC-1000                                          | YES     | 
 *microboard*        | Microboard Computer Development Board                | YES     | 
@@ -136,9 +134,9 @@ target name         | long target name                                     | wor
 *tvc*               | Videoton TV Computer                                 |  ?      | 
 *vector06c*         | Вектор-06Ц Vector06c                                 | YES     | 
 *vg5k*              | VG-5000                                              | YES     | 
+*vgl*               | VTech Genius Leader                                  |  ?      | 
 *vic20*             | Commodore Vic 20                                     | YES     | 
 *vz200*             | VTech VZ200                                          | YES     | 
-*x07*               | Casio X-07                                           |  NO lib | 
 *x1*                | Sharp X1                                             | YES     | 
 *z1013*             | Robotron Z1013                                       | YES     | 
 *z80tvgame*         | ZX80 TV Game                                         |  ?      | 
@@ -149,13 +147,13 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     | YES     | 
 
 
-TOTAL    : 142
+TOTAL    : 140
 
-OK       : 118
+OK       : 120
 
-KO       :   4
+KO       :   0
 
-UNKNOWN  :  19
+UNKNOWN  :  20
 
 
 -----------------------------------------------------------------------------------------
@@ -172,14 +170,6 @@ target name         | long target name                                     | wor
 
 
 -----------------------------------------------------------------------------------------
-### 8-BIT new hacks with no known emulators
-target name         | long target name                                     | working | 
---------------------|------------------------------------------------------|---------| 
-*vgl*               | VTech Genius Leader                                  |  ? emu  | 
-*s1mp3*             | S1 MP3                                               |  ? emu  | 
-
-
------------------------------------------------------------------------------------------
 
 ### 16-BIT targets
 
@@ -192,7 +182,7 @@ target name         | long target name                                     | wor
 *pc8086*            | PC 8088/86                                           | YES     | 
 *pdp11v7*           | PDP 11 V7                                            |  ?      | 
 *sinclair_ql*       | Jupiter Ace                                          | YES     | 
-*ti99*              | Texas Instruments TI99/4                             | YES     | 
+*ti99*              | Texas Instruments TI99/4A                            | YES     | 
 
 
 OK       :   6
@@ -240,12 +230,12 @@ KO       :   1
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 165
+TOTAL    : 164
 
 OK       : 129
 
 KO       :   5
 
-UNKNOWN  :  29
+UNKNOWN  :  28
 
 

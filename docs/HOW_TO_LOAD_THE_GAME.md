@@ -273,6 +273,7 @@ Use Mess
 Attach the .wav file
 Type LOADG
 
+
 ---------------------------------------------------------
 
 ### Galaksija
@@ -284,12 +285,20 @@ In BASIC run: OLD
 Start the tape
 In BASIC run: RUN
 
+
 ---------------------------------------------------------
 ### GAMATE
 
 Use MESS/MAME (e.g., Mess 0.148)
 Run mess.exe gamate
 File Manager -> Select cartridge -> Choose the .bin file
+
+
+---------------------------------------------------------
+### GAMATE
+
+Use Emulitious (https://emulicious.net/)
+File -> Open File -> Select .gg file
 
 ------------------------------------------------------------
 

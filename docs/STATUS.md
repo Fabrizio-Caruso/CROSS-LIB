@@ -96,7 +96,7 @@ target name         | long target name                                     | wor
 *pet*               | Commodore Pet                                        | YES     | 
 *pmd85*             | PMD85                                                | YES     | 
 *pps*               | Peters Plus Sprinter                                 | YES     | 
-*primo*             | Primo                                                |  ?      | 
+*primo*             | Primo                                                | YES     | 
 *pv1000*            | Casio PV1000                                         | YES     | 
 *pv2000*            | Casio PV2000                                         | YES     | 
 *px4*               | Epson PX-4/HC-40                                     | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 120
+OK       : 121
 
 KO       :   0
 
-UNKNOWN  :  20
+UNKNOWN  :  19
 
 
 -----------------------------------------------------------------------------------------
@@ -232,10 +232,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 130
+OK       : 131
 
 KO       :   1
 
-UNKNOWN  :  28
+UNKNOWN  :  27
 
 

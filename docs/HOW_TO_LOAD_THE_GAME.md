@@ -669,6 +669,15 @@ JUMP 0000
 
 
 ----------------------------------------------------------
+### PRIMO
+
+Use Mame
+e.g., mame64.exe primoa64 -window  -uimodekey DEL
+
+Use Quickload to load the .pp image
+
+
+----------------------------------------------------------
 ### Robotron KC 85/2, 85/3, 85/4, 85/5, HC 900
 
 Use the JKCEMU emulator.

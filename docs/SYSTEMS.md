@@ -15,7 +15,7 @@ For most systems, more than one version is built, in order to support different 
 - `abc800`: Luxor ABC 800 (work in progress)
 - `ace`: Jupiter Ace
 - `alphatro`: Alphatronic
-- `altair8800`: MITS Altair 8800 (work in progress)
+- `altair8800`: MITS Altair 8800
 - `apple2`: Apple //
 - `apple2enh`: Enhanced Apple //e
 - `aquarius`: Mattel Aquarius 
@@ -55,7 +55,7 @@ For most systems, more than one version is built, in order to support different 
 - `fp1100`: Casio FP-1100
 - `g800`: Sharp PC-G800
 - `gal`: Galaksija
-- `gal_plus`: Galaksija Plus (work in progress)
+- `gal_plus`: Galaksija Plus
 - `gamate`: Gamate
 - `gb`: Game Boy
 - `gx4000`: Amstrad GX-4000
@@ -103,7 +103,7 @@ For most systems, more than one version is built, in order to support different 
 - `pet`: Commodore Pet
 - `pmd85`: PMD85
 - `pps`: Peters Plus Sprinter
-- `primo`: Primo (work in progress)
+- `primo`: Primo
 - `pv1000`: Casio PV1000
 - `pv2000`: Casio PV2000
 - `px4`: Epson PX-4/HC-40

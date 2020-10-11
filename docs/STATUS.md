@@ -181,7 +181,7 @@ target name         | long target name                                     | wor
 *olivetti_m20*      | Olivetti M20                                         | YES     | 
 *pc8086*            | PC 8088/86                                           | YES     | 
 *pdp11v7*           | PDP 11 V7                                            |  ?      | 
-*sinclair_ql*       | Jupiter Ace                                          | YES     | 
+*sinclair_ql*       | Sinclair QL                                          | YES     | 
 *ti99*              | Texas Instruments TI99/4A                            | YES     | 
 
 

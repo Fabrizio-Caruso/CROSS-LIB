@@ -25,7 +25,7 @@ For most systems, more than one version is built, in order to support different 
 - `attache`: Otrona Attache
 - `aussie`: Aussie Byte
 - `bic`: BIC/A5105 (work in progress)
-- `bit90`: Bit Corporation BIT 90 (work in progress)
+- `bit90`: Bit Corporation BIT 90
 - `c128_8502`: Commodore 128 [8502 CPU]
 - `c128_z80`: Commodore 128 [Z80 CPU]
 - `c16`: Commodore 264 series (16/116/+4)

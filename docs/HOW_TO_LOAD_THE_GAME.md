@@ -68,7 +68,6 @@ Type CLOAD
 Then load the other file
 
 
-
 -----------------------------------------------------------
 ### BIC / A5105
 
@@ -79,6 +78,17 @@ Datei->Schliessen
 
 Run file by its name (e.g., BULD/FU)
 Run DIR to see disk content/view/3/4/
+
+
+
+-----------------------------------------------------------
+### BIT90
+
+Use Mame emulator
+e.g., 
+mame64.exe bit90 -window -uimodekey DEL
+
+Attach the .rom as a cartridge to load and run the game
 
 -----------------------------------------------------------
 

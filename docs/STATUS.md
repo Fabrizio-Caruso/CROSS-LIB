@@ -19,7 +19,7 @@ target name         | long target name                                     | wor
 *attache*           | Otrona Attache                                       | YES     | 
 *aussie*            | Aussie Byte                                          | YES     | 
 *bic*               | BIC/A5105                                            | YES     | 
-*bit90*             | Bit Corporation BIT 90                               |  ?      | 
+*bit90*             | Bit Corporation BIT 90                               | YES     | 
 *c128_8502*         | Commodore 128 [8502 CPU]                             | YES     | 
 *c128_z80*          | Commodore 128 [Z80 CPU]                              | YES     | 
 *c16*               | Commodore 264 series (16/116/+4)                     | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 126
+OK       : 127
 
 KO       :   0
 
-UNKNOWN  :  14
+UNKNOWN  :  13
 
 
 -----------------------------------------------------------------------------------------
@@ -232,10 +232,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 136
+OK       : 137
 
 KO       :   1
 
-UNKNOWN  :  22
+UNKNOWN  :  21
 
 

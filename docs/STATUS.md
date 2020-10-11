@@ -88,7 +88,7 @@ target name         | long target name                                     | wor
 *oz*                | Sharp OZ-700                                         | YES     | 
 *p2000*             | Philips P2000                                        | YES     | 
 *pc6001*            | NEC PC 6001                                          | YES     | 
-*pasaopia7*         | Toshiba Pasopia 7                                    |  ?      | 
+*pasaopia7*         | Toshiba Pasopia 7                                    | YES     | 
 *pc88*              | NEC PC 8801                                          |  ?      | 
 *pce*               | PCEngine                                             | YES     | 
 *pecom*             | Pecom 32/64                                          | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 122
+OK       : 123
 
 KO       :   0
 
-UNKNOWN  :  18
+UNKNOWN  :  17
 
 
 -----------------------------------------------------------------------------------------
@@ -232,10 +232,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 132
+OK       : 133
 
 KO       :   1
 
-UNKNOWN  :  26
+UNKNOWN  :  25
 
 

@@ -95,7 +95,7 @@ For most systems, more than one version is built, in order to support different 
 - `oz`: Sharp OZ-700
 - `p2000`: Philips P2000
 - `pc6001`: NEC PC 6001
-- `pasaopia7`: Toshiba Pasopia 7 (work in progress)
+- `pasaopia7`: Toshiba Pasopia 7
 - `pc88`: NEC PC 8801 (work in progress)
 - `pce`: PCEngine
 - `pecom`: Pecom 32/64

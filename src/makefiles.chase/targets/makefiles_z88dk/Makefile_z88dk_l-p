@@ -705,20 +705,39 @@ pc6001_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 #############################
 # PC88
 
-pc88:
+pc88: pc88_tiny
+
+pc88_full_exp:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
 	-DSOUNDS -D__PC88__ -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	-lndos \
-	-DCONIO -DNO_INIT_GRAPHICS -DSOUNDS -DFORCE_BIT_BANG \
+	-lndos -DFORCE_XSIZE=80 -DFORCE_YSEIZE=23 -DSLOW_DOWN=2500 \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-DCONIO -DNO_INIT_GRAPHICS -DFORCE_BIT_BANG -DDEFAULT_CLEAR_SCREEN \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app	\
-	-o FULL_pc88
-	rm FULL_pc88
-	tar czvf FULL_pc88.tar.zip FULL_pc88.t88 FULL_pc88.wav
-	rm FULL_pc88.t88
-	rm FULL_pc88.wav
-	mv FULL_pc88.tar.zip $(BUILD_PATH)
+	-o FULL_$@
+	rm FULL_$@
+	mv FULL_$@.wav $(BUILD_PATH)
+	mv FULL_$@.t88 $(BUILD_PATH)
+
+pc88_tiny:
+	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
+	-D__PC88__ -DTINY_GAME  \
+	-lndos -DFORCE_XSIZE=80 -DFORCE_YSEIZE=23 -DSLOW_DOWN=2500  \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \
+	$(TINY_FILES) \
+	-create-app	\
+	-o TINY_$@
+	rm TINY_$@
+	mv TINY_$@.wav $(BUILD_PATH)
+	mv TINY_$@.t88 $(BUILD_PATH)
+
+# tar czvf FULL_pc88.tar.zip FULL_pc88.t88 FULL_pc88.wav
+# rm FULL_pc88.t88
+# rm FULL_pc88.wav
+# mv FULL_pc88.tar.zip $(BUILD_PATH)
 
 
 #############################

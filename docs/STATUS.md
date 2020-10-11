@@ -89,7 +89,7 @@ target name         | long target name                                     | wor
 *p2000*             | Philips P2000                                        | YES     | 
 *pc6001*            | NEC PC 6001                                          | YES     | 
 *pasaopia7*         | Toshiba Pasopia 7                                    | YES     | 
-*pc88*              | NEC PC 8801                                          |  ?      | 
+*pc88*              | NEC PC 8801                                          | YES     | 
 *pce*               | PCEngine                                             | YES     | 
 *pecom*             | Pecom 32/64                                          | YES     | 
 *pencil2*           | Hanimex Pencil II                                    | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 128
+OK       : 129
 
 KO       :   0
 
-UNKNOWN  :  12
+UNKNOWN  :  11
 
 
 -----------------------------------------------------------------------------------------
@@ -232,10 +232,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 138
+OK       : 139
 
 KO       :   1
 
-UNKNOWN  :  20
+UNKNOWN  :  19
 
 

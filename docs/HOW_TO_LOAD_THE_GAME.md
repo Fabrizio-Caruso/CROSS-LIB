@@ -672,6 +672,17 @@ Attach the ROM image
 
 -----------------------------------------------------------
 
+### NEC PC 8801
+
+Use the M88 emulator (https://illusioncity.net/nec-pc-88-series-emulators-tools-lists/)
+Type:
+MON
+R
+Select the tape file
+G8A00 to start
+
+-----------------------------------------------------------
+
 ### PETERS PLUS SPRINTER
 
 Use SPRINT (http://web.archive.org/web/20040905083237/http://shaos.ru/nedopc/sprinter/sprint.htm)

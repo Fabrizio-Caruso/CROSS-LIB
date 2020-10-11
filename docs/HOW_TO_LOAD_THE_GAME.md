@@ -1139,3 +1139,14 @@ Select the binary to load and run it.
 Use the online Laser500emu (https://nippur72.github.io/laser500emu/)
 Drop the .bin or .wav file onto the browser window
 
+
+----------------------------------------------------------
+
+### Z80 TV GAME
+Use Takeda emulator with Mame roms
+
+Start the game: Cart -> Insert -> Select .rom image file 
+Input: Host -> Input -> Joystick1 -> Redefine keys
+
+
+

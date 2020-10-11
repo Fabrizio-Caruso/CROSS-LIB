@@ -806,21 +806,21 @@ ts2068: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 #############################
 # TVC
 
-tvc:
+tvc: tvc_buffered
+
+tvc_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +tvc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__TVC__ \
-	-DFORCE_XSIZE=40 \
-	-DFORCE_YSIZE=23 \
-	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR \
-	-DFULL_GAME  \
-	-DCONIO_VT52 \
-	-DCONIO \
-	-lndos \
+	-DFORCE_XSIZE=12 \
+	-DFORCE_YSIZE=12 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_tvc.bin
-	rm $(BUILD_PATH)/FULL_tvc.bin
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/FULL_$@.bin
+	rm $(BUILD_PATH)/FULL_$@.bin
 
 
 #############################
@@ -923,7 +923,7 @@ z80tvgame:
 	$(Z88DK_PATH)$(MYZ88DK) +z80tvgame $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__Z80TVGAME__ \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR -DFORCE_XSIZE=21 -DFORCE_YSIZE=24 \
+	-DNO_COLOR -DFORCE_XSIZE=21 -DFORCE_YSIZE=26 -DZ88DK_JOYSTICK \
 	-DFULL_GAME  \
 	-DCONIO_VT52 \
 	-DCONIO \

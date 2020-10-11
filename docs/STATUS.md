@@ -139,7 +139,7 @@ target name         | long target name                                     | wor
 *vz200*             | VTech VZ200                                          | YES     | 
 *x1*                | Sharp X1                                             | YES     | 
 *z1013*             | Robotron Z1013                                       | YES     | 
-*z80tvgame*         | ZX80 TV Game                                         |  ?      | 
+*z80tvgame*         | ZX80 TV Game                                         | YES     | 
 *z88*               | Cambridge Z88                                        | YES     | 
 *z9001*             | Robotron Z9001, Robotron KC 85/1, Robotron KC 87     | YES     | 
 *zx80*              | Sinclair ZX80                                        | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 127
+OK       : 128
 
 KO       :   0
 
-UNKNOWN  :  13
+UNKNOWN  :  12
 
 
 -----------------------------------------------------------------------------------------
@@ -232,10 +232,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 137
+OK       : 138
 
 KO       :   1
 
-UNKNOWN  :  21
+UNKNOWN  :  20
 
 

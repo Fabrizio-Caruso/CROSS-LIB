@@ -848,6 +848,25 @@ Use Potator (https://emulationrealm.net/downloads/file/235-potator)
 
 Use arrows for movements and C for fire
 
+
+---------------------------------------------------------
+
+### DICK SMITH SUPER 80
+
+Use the Mame emulator
+e.g., mame64.exe super80 -window -uimodekey DEL
+
+Use quickload to load and start the game
+
+---------------------------------------------------------
+
+### DICK SMITH SUPER 80R
+
+Use the Mame emulator
+e.g., mame64.exe super80r -window -uimodekey DEL
+
+Ues quickload to load and start the game
+
 -----------------------------------------------------------
 
 ### TATUNG EINSTEIN

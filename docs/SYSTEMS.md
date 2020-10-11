@@ -122,8 +122,8 @@ For most systems, more than one version is built, in order to support different 
 - `special`: Specialist
 - `spectrum`: Sinclair Spectrum 16k/48k/128k
 - `srr`: Exidy Sorcerer
-- `super80`: Super 80/80d/80e/80m (work in progress)
-- `super80r`: Super 80r/Super80v (work in progress)
+- `super80`: Super 80/80d/80e/80m
+- `super80r`: Super 80r/Super80v
 - `supervision`: Watara Supervision
 - `sv8000`: Bandai Supervision 8000 (work in progress)
 - `svi`: Spectravideo 318/328

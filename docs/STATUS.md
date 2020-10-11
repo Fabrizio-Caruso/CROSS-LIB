@@ -115,8 +115,8 @@ target name         | long target name                                     | wor
 *special*           | Specialist                                           | YES     | 
 *spectrum*          | Sinclair Spectrum 16k/48k/128k                       | YES     | 
 *srr*               | Exidy Sorcerer                                       | YES     | 
-*super80*           | Super 80/80d/80e/80m                                 |  ?      | 
-*super80r*          | Super 80r/Super80v                                   |  ?      | 
+*super80*           | Dick Smith Super 80/80d/80e/80m                      | YES     | 
+*super80r*          | Dick Smith Super 80r/80v                             | YES     | 
 *supervision*       | Watara Supervision                                   | YES     | 
 *sv8000*            | Bandai Supervision 8000                              |  ? emu  | 
 *svi*               | Spectravideo 318/328                                 | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 123
+OK       : 125
 
 KO       :   0
 
-UNKNOWN  :  17
+UNKNOWN  :  15
 
 
 -----------------------------------------------------------------------------------------
@@ -232,10 +232,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 133
+OK       : 135
 
 KO       :   1
 
-UNKNOWN  :  25
+UNKNOWN  :  23
 
 

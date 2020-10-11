@@ -510,15 +510,16 @@ srr: $(ASSETS_PATH)/z88dk_xchase.asm
 #############################
 # SUPER80
 
-super80:
+super80: super80_no_col
+
+super80_no_col:
 	$(Z88DK_PATH)$(MYZ88DK) +super80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__SUPER80__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=16 \
 	-DFULL_GAME  \
-	-DSOUNDS -DFORCE_BIT_BANG  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO \
+	-DCONIO -DNO_COLOR \
 	-DCONIO_VT52 \
 	-DNO_INIT_GRAPHICS \
 	-lndos \
@@ -532,15 +533,35 @@ super80:
 #############################
 # SUPER80R
 
-super80r: $(ASSETS_PATH)/z88dk_xchase.asm
+super80r: super80r_no_gfx_no_col
+
+super80r_no_gfx_no_col:
 	$(Z88DK_PATH)$(MYZ88DK) +super80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=vduem \
 	-D__SUPER80R__ \
 	-DFORCE_XSIZE=80 \
 	-DFORCE_YSIZE=23 \
+	-DFULL_GAME  \
+	-DSOUNDS -DFORCE_BIT_BANG  \
+	-DEND_SCREEN -DNO_COLOR -DBETWEEN_LEVEL \
+	-DCONIO \
+	-DCONIO_VT52 -DNO_INIT_GRAPHICS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-lndos \
+	-create-app -o super80r
+	mv super80r.ql $(BUILD_PATH)/FULL_super80r.ql
+	rm super80r
+
+
+super80r_gfx_no_col: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +super80 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -clib=vduem \
+	-D__SUPER80R__ \
+	-DFORCE_XSIZE=80 \
+	-DFORCE_YSIZE=24 \
 	-DUDG_GRAPHICS \
 	-DFULL_GAME  \
 	-DSOUNDS -DFORCE_BIT_BANG  \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DEND_SCREEN -DNO_COLOR -DBETWEEN_LEVEL \
 	-DCONIO \
 	-DCONIO_VT52 \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

@@ -151,7 +151,7 @@
     #if defined(__C128_Z80__) || defined(__ZX80__) || defined(__ZX81__) || defined(__GAL__)  
         #define _TILE_12 'i'
     #elif defined(__ATARI_LYNX__) || defined(__ABC80__) || defined(__OSIC1P__) || defined(__TMC600__) \
-    || defined(__MIKRO80__) || defined(__BIC__)
+    || defined(__MIKRO80__) || defined(__BIC__) || defined(__SUPER80__)
         #define _TILE_12 'I' 
     #else
         #define _TILE_12 ('|')

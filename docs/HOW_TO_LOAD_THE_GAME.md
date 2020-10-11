@@ -598,6 +598,17 @@ Drag <program>.wzd on the emulator's windows
 Choose the program 'slot' from the emulator's dialog window
 Press F5 to select the custom program
 
+
+-----------------------------------------------------------
+
+### PASOPIA 7
+
+Use Takeda emulator (http://takeda-toshiya.my.coocan.jp/) with the Mame romset
+
+Attach the disk image
+
+Reset to start the game
+
 -----------------------------------------------------------
 
 ### PC 8088/8086

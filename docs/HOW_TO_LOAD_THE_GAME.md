@@ -566,6 +566,16 @@ aout.cmd
 
 ------------------------------------------------------------
 
+### TESLA ONDRA VILI
+Use Mame emulator with the ondrav target
+e.g., mame64.exe ondrav -window -uimodekey DEL
+Press ENTER
+Attach .wav image as tape
+Start tape to load and autostart the game
+
+
+------------------------------------------------------------
+
 ### ORIC 1 / ORIC ATMOS
 
 Use the Oricutron emulator (https://github.com/pete-gordon/oricutron)

@@ -80,7 +80,7 @@ target name         | long target name                                     | wor
 *nc200*             | Amstrad NC-200                                       | YES     | 
 *nes*               | Nintendo Enterteinment System                        | YES     | 
 *newbrain*          | Grundy Newbrain                                      | YES     | 
-*ondra*             | Tesla Ondra                                          |  ?      | 
+*ondra*             | Tesla Ondra Vili                                     | YES     | 
 *oric*              | Tangerine Oric 1/Atmos                               | YES     | 
 *osborne1*          | Osborne 1                                            | YES     | 
 *osca*              | OSCA v6z80p                                          | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 125
+OK       : 126
 
 KO       :   0
 
-UNKNOWN  :  15
+UNKNOWN  :  14
 
 
 -----------------------------------------------------------------------------------------
@@ -232,10 +232,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 135
+OK       : 136
 
 KO       :   1
 
-UNKNOWN  :  23
+UNKNOWN  :  22
 
 

@@ -30,7 +30,7 @@ For most systems, more than one version is built, in order to support different 
 - `c128_z80`: Commodore 128 [Z80 CPU]
 - `c16`: Commodore 264 series (16/116/+4)
 - `c64`: Commodore 64
-- `c7420`: Philips VideoPac C7420 module (work in progress)
+- `c7420`: Philips VideoPac C7420 module (z88dk lib incomplete, work in progress)
 - `cbm510`: Commodore CBM 510
 - `cbm610`: Commodore CBM 610
 - `camputers_lynx`: Camputers Lynx 48k/96k/128k
@@ -68,7 +68,7 @@ For most systems, more than one version is built, in order to support different 
 - `kc`: Robotron KC-85/2/3/4
 - `lambda`: Lambda 8300
 - `laser500`: Laser 500
-- `m100`: TRS-80 M100
+- `m100`: TRS-80 M100 (z88dk lib incomplete, work in progress)
 - `m5`: Sord M5
 - `mc1000`: CCE MC-1000
 - `microboard`: Microboard Computer Development Board
@@ -87,7 +87,7 @@ For most systems, more than one version is built, in order to support different 
 - `nc200`: Amstrad NC-200
 - `nes`: Nintendo Enterteinment System
 - `newbrain`: Grundy Newbrain
-- `ondra`: Tesla Ondra (work in progress)
+- `ondra`: Tesla Ondra Vili
 - `oric`: Tangerine Oric 1/Atmos
 - `osborne1`: Osborne 1
 - `osca`: OSCA v6z80p
@@ -109,7 +109,7 @@ For most systems, more than one version is built, in order to support different 
 - `px4`: Epson PX-4/HC-40
 - `px8`: Epson PX-8/HC-80
 - `qc10`: Epson QC-10/QX-10 (work in progress)
-- `rex`: Xircom Rex 6000 (work in progress)
+- `rex`: Xircom Rex 6000 (no available emulator, work in progress)
 - `rc700`: Regnecentralen RC700
 - `rx78`: Bandai RX-78
 - `samcoupe`: Sam Coupe
@@ -143,7 +143,7 @@ For most systems, more than one version is built, in order to support different 
 - `vg5k`: VG-5000
 - `vic20`: Commodore Vic 20
 - `vz200`: VTech VZ200
-- `x07`: Casio X-07 (work in progress)
+- `x07`: Casio X-07 (z88dk lib incomplete, work in progress)
 - `x1`: Sharp X1
 - `z1013`: Robotron Z1013
 - `z80tvgame`: ZX80 TV Game (work in progress)

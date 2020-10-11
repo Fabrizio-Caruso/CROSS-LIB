@@ -562,10 +562,10 @@ newbrain:
 ondra:
 	$(Z88DK_PATH)$(MYZ88DK) +ondra $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -lndos \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__ONDRA__ -DFORCE_XSIZE=40 -DFORXE_YSIZE=32  \
+	-D__ONDRA__ -DFORCE_XSIZE=40 -DFORCE_YSIZE=30 -DFULL_GAME  \
 	-DCONIO -DNO_COLOR -DNO_INIT_GRAPHICS \
-	-create-app -o $(BUILD_PATH)/FULL_ondra.prg \
-	$(FULL_FILES)
+	$(FULL_FILES) \
+	-create-app -o $(BUILD_PATH)/FULL_ondra.prg
 	rm $(BUILD_PATH)/FULL_ondra.prg
 
 

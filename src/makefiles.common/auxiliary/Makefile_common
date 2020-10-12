@@ -132,4 +132,4 @@ list:
 	cat ../docs/SYSTEMS.md
     
 status:
-	cat ../docs/STATUS.txt
+	cat ../docs/STATUS.md

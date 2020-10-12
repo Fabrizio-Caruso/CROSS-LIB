@@ -125,7 +125,7 @@ For most systems, more than one version is built, in order to support different 
 - `super80`: Super 80/80d/80e/80m
 - `super80r`: Super 80r/Super80v
 - `supervision`: Watara Supervision
-- `sv8000`: Bandai Supervision 8000 (work in progress)
+- `sv8000`: Bandai Supervision 8000
 - `svi`: Spectravideo 318/328
 - `telestrat`: Oric Telestrat (work in progress)
 - `tmc600`: Telmac TMC-600

@@ -882,6 +882,15 @@ Use arrows for movements and C for fire
 
 ---------------------------------------------------------
 
+### SONY SV 8000
+
+Use the Mame emulator
+e.g., mame64.exe sv8000 -window -uimodekey DEL
+
+Attach the .rom cartridge image to start the game.
+
+---------------------------------------------------------
+
 ### DICK SMITH SUPER 80
 
 Use the Mame emulator

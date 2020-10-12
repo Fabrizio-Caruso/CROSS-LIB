@@ -56,7 +56,7 @@
 
 // WHITE
 #if !defined(_TILE_4)
-    #if defined(__LCC1802__) 
+    #if defined(__LCC1802__) || defined(__SV8000__)
         #define _TILE_4 'O'
     #else
         #define _TILE_4 'o'

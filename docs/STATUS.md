@@ -117,7 +117,7 @@ target name         | long target name                                     | wor
 *super80*           | Dick Smith Super 80/80d/80e/80m                      | YES     | 
 *super80r*          | Dick Smith Super 80r/80v                             | YES     | 
 *supervision*       | Watara Supervision                                   | YES     | 
-*sv8000*            | Bandai Supervision 8000                              |  ? emu  | 
+*sv8000*            | Bandai Supervision 8000                              | YES     | 
 *svi*               | Spectravideo 318/328                                 | YES     | 
 *telestrat*         | Oric Telestrat                                       |  ?      | 
 *tmc600*            | Telmac TMC-600                                       | YES     | 
@@ -148,9 +148,9 @@ target name         | long target name                                     | wor
 
 TOTAL    : 139
 
-OK       : 130
+OK       : 131
 
-UNKNOWN  :   9
+UNKNOWN  :   8
 
 
 -----------------------------------------------------------------------------------------
@@ -236,10 +236,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 140
+OK       : 141
 
 KO       :   1
 
-UNKNOWN  :  18
+UNKNOWN  :  17
 
 

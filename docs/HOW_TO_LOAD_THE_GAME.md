@@ -1133,6 +1133,16 @@ Get to BASIC prompt
 File->Run-> Select .cmd file
 
 
+----------------------------------------------------------
+
+### VIDEOTON TVC
+ 
+Use WinTVC emulator (http://gaia.atilia.eu/downloads/)
+Start the emulator and wait until the BASIC prompt
+Load the .cas file with "CAS direkt betoeltese"
+Type "run" to start
+
+
 -----------------------------------------------------------
 
 

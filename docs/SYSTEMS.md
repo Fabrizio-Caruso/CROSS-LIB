@@ -138,7 +138,7 @@ For most systems, more than one version is built, in order to support different 
 - `to7`: Thomson To7 / To7/70 / To8 / To8d / To8+ / To9 / To9+
 - `trs80`: TRS-80 Model I/III/IV
 - `ts2068`: Timex TS 2068
-- `tvc`: Videoton TV Computer (work in progress)
+- `tvc`: Videoton TV Computer
 - `vector06c`: Вектор-06Ц - Vector06c
 - `vg5k`: VG-5000
 - `vic20`: Commodore Vic 20

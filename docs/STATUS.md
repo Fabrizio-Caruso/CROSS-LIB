@@ -131,7 +131,7 @@ target name         | long target name                                     | wor
 *to7*               | Thomson To7 / To7/70 / To8 / To8d / To8+ / To9 / To9+| YES     | 
 *trs80*             | TRS-80 Model I/III/IV                                | YES     | 
 *ts2068*            | Timex TS 2068                                        | YES     | 
-*tvc*               | Videoton TV Computer                                 |  ?      | 
+*tvc*               | Videoton TV Computer                                 | YES     | 
 *vector06c*         | Вектор-06Ц Vector06c                                 | YES     | 
 *vg5k*              | VG-5000                                              | YES     | 
 *vgl*               | VTech Genius Leader                                  |  ?      | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 129
+OK       : 130
 
 KO       :   0
 
-UNKNOWN  :  11
+UNKNOWN  :  10
 
 
 -----------------------------------------------------------------------------------------
@@ -232,10 +232,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 139
+OK       : 140
 
 KO       :   1
 
-UNKNOWN  :  19
+UNKNOWN  :  18
 
 

@@ -12,7 +12,7 @@ For most systems, more than one version is built, in order to support different 
 (e.g., memory expansions, second CPU, 80-col display card, etc.).
 
 - `abc80`: Luxor ABC 80
-- `abc800`: Luxor ABC 800 (work in progress)
+- `abc800`: Luxor ABC 800
 - `ace`: Jupiter Ace
 - `alphatro`: Alphatronic
 - `altair8800`: MITS Altair 8800
@@ -24,7 +24,7 @@ For most systems, more than one version is built, in order to support different 
 - `atari_lynx`: Atari Lynx
 - `attache`: Otrona Attache
 - `aussie`: Aussie Byte
-- `bic`: BIC/A5105 (work in progress)
+- `bic`: BIC/A5105
 - `bit90`: Bit Corporation BIT 90
 - `c128_8502`: Commodore 128 [8502 CPU]
 - `c128_z80`: Commodore 128 [Z80 CPU]

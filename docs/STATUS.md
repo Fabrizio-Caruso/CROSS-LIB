@@ -6,7 +6,7 @@
 target name         | long target name                                     | working | 
 --------------------|------------------------------------------------------|---------| 
 *abc80*             | Luxor ABC 80                                         | YES     | 
-*abc800*            | Luxor ABC 800                                        |  ?      | 
+*abc800*            | Luxor ABC 800                                        | YES     | 
 *ace*               | Jupiter Ace                                          | YES     | 
 *alphatro*          | Alphatronic                                          | YES     | 
 *altair8800*        | MITS Altair 8800                                     | YES     | 
@@ -148,9 +148,9 @@ target name         | long target name                                     | wor
 
 TOTAL    : 139
 
-OK       : 131
+OK       : 132
 
-UNKNOWN  :   8
+UNKNOWN  :   7
 
 
 -----------------------------------------------------------------------------------------
@@ -236,10 +236,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 141
+OK       : 142
 
 KO       :   1
 
-UNKNOWN  :  17
+UNKNOWN  :  16
 
 

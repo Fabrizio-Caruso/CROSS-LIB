@@ -102,7 +102,6 @@ target name         | long target name                                     | wor
 *px4*               | Epson PX-4/HC-40                                     | YES     | 
 *px8*               | Epson PX-8/HC-80                                     | YES     | 
 *qc10*              | Epson QC-10/QX-10                                    |  ?      | 
-*rex*               | Xircom Rex 6000                                      |  ? emu  | 
 *rc700*             | Regnecentralen RC700                                 | YES     | 
 *rx78*              | Bandai RX-78                                         | YES     | 
 *samcoupe*          | Sam Coupe                                            | YES     | 
@@ -122,11 +121,11 @@ target name         | long target name                                     | wor
 *svi*               | Spectravideo 318/328                                 | YES     | 
 *telestrat*         | Oric Telestrat                                       |  ?      | 
 *tmc600*            | Telmac TMC-600                                       | YES     | 
-*ti82*              | Texas TI 82                                          | YES     | 
-*ti83*              | Texas TI 83                                          | YES     | 
-*ti8x*              | Texas TI 83 Plus                                     | YES     | 
-*ti85*              | Texas TI 85                                          | YES     | 
-*ti86*              | Texas TI 86                                          | YES     | 
+*ti82*              | Texas Instruments TI 82                              | YES     | 
+*ti83*              | Texas Instruments TI 83                              | YES     | 
+*ti8x*              | Texas Instruments TI 83 Plus                         | YES     | 
+*ti85*              | Texas Instruments TI 85                              | YES     | 
+*ti86*              | Texas Instruments TI 86                              | YES     | 
 *tiki100*           | TIKI 100                                             | YES     | 
 *to7*               | Thomson To7 / To7/70 / To8 / To8d / To8+ / To9 / To9+| YES     | 
 *trs80*             | TRS-80 Model I/III/IV                                | YES     | 
@@ -147,13 +146,20 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     | YES     | 
 
 
-TOTAL    : 140
+TOTAL    : 139
 
 OK       : 130
 
-KO       :   0
+UNKNOWN  :   9
 
-UNKNOWN  :  10
+
+-----------------------------------------------------------------------------------------
+### 8-BIT vintage targets with no known emulators
+
+
+target name         | long target name                                     | working | 
+--------------------|------------------------------------------------------|---------| 
+*rex*               | Xircom Rex 6000                                      |  ? emu  | 
 
 
 -----------------------------------------------------------------------------------------
@@ -186,8 +192,6 @@ target name         | long target name                                     | wor
 
 
 OK       :   6
-
-KO       :   0
 
 UNKNOWN  :   2
 

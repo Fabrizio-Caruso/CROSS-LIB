@@ -193,15 +193,15 @@ abc800_buffered:
 	-DBUFFERED -DALT_PRINT \
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT -DDEFAULT_CLEAR_SCREEN \
 	-DNO_INIT_GRAPHICS \
-	-lndos -create-app \
+	-lndos -create-app -oa800.bin \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/xchase.bac 49200
+	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a800.bin $(BUILD_PATH)/xc800.bac 49200
 	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_$@.dsk 
-	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_$@.dsk -b $(BUILD_PATH)/xchase.bac
-	rm a.bin 
-	rm $(BUILD_PATH)/xchase.bac
-	mv a.ihx $(BUILD_PATH)/FULL_$@.ihx 	
+	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_$@.dsk -b $(BUILD_PATH)/xc800.bac
+	rm a800.bin 
+	rm $(BUILD_PATH)/xc800.bac
+	mv a800.ihx $(BUILD_PATH)/FULL_$@.ihx 	
 
 
 #############################

@@ -25,6 +25,7 @@ z88dk_targets_q-z: \
 	ts2068_targets \
 	tvc_targets \
 	vector06c_targets \
+	vgl_targets \
 	x1_targets \
 	z1013_targets \
 	z80tvgame_targets \
@@ -103,6 +104,9 @@ tvc_targets: \
 
 vector06c_targets: \
 	vector06c
+
+vgl_targets: \
+	vgl
 
 x1_targets: \
 	x1

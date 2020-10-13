@@ -57,6 +57,11 @@ extern uint16_t BASE_ADDR;
 
 
 #elif defined(BUFFERED)
+    #if defined(NO_LOWER_BORDER)
+        #define LOWER_BORDER_OFFSET 2
+    #else
+        #define LOWER_BORDER_OFFSET 1
+    #endif
     uint8_t video_buffer[YSize+Y_OFFSET][XSize];
     
     void display_all(void)
@@ -64,7 +69,7 @@ extern uint16_t BASE_ADDR;
         uint8_t j; 
         uint8_t i;
         
-        for(j=0;j<YSize+Y_OFFSET-1;++j)
+        for(j=0;j<YSize+Y_OFFSET-LOWER_BORDER_OFFSET;++j)
         {
             for(i=0;i<XSize;++i)
             {
@@ -74,7 +79,7 @@ extern uint16_t BASE_ADDR;
         }
         for(i=0;i<XSize;++i)
         {
-            putchar(video_buffer[YSize+Y_OFFSET-1][i]);
+            putchar(video_buffer[YSize+Y_OFFSET-LOWER_BORDER_OFFSET][i]);
         }
     }
 #elif defined(__MO5__)

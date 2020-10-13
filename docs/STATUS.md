@@ -87,8 +87,9 @@ target name         | long target name                                     | wor
 *osic1p*            | Ohio Scientific Challenger 1P                        | YES     | 
 *oz*                | Sharp OZ-700                                         | YES     | 
 *p2000*             | Philips P2000                                        | YES     | 
-*pc6001*            | NEC PC 6001                                          | YES     | 
+*pacman*            | Pacman                                               |  ?      | 
 *pasaopia7*         | Toshiba Pasopia 7                                    | YES     | 
+*pc6001*            | NEC PC 6001                                          | YES     | 
 *pc88*              | NEC PC 8801                                          | YES     | 
 *pce*               | PCEngine                                             | YES     | 
 *pecom*             | Pecom 32/64                                          | YES     | 
@@ -133,7 +134,7 @@ target name         | long target name                                     | wor
 *tvc*               | Videoton TV Computer                                 | YES     | 
 *vector06c*         | Вектор-06Ц Vector06c                                 | YES     | 
 *vg5k*              | VG-5000                                              | YES     | 
-*vgl*               | VTech Genius Leader                                  |  ?      | 
+*vgl*               | VTech Genius Leader                                  | YES     | 
 *vic20*             | Commodore Vic 20                                     | YES     | 
 *vz200*             | VTech VZ200                                          | YES     | 
 *x1*                | Sharp X1                                             | YES     | 
@@ -146,9 +147,9 @@ target name         | long target name                                     | wor
 *zxn*               | ZX Spectrum Next                                     | YES     | 
 
 
-TOTAL    : 139
+TOTAL    : 140
 
-OK       : 133
+OK       : 134
 
 UNKNOWN  :   6
 
@@ -234,12 +235,12 @@ KO       :   1
 
 ### GLOBAL STATISTICS
 
-TOTAL    : 159
+TOTAL    : 160
 
-OK       : 143
+OK       : 144
 
 KO       :   1
 
-UNKNOWN  :  14
+UNKNOWN  :  15
 
 

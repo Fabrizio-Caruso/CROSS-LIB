@@ -70,7 +70,7 @@ target name         | long target name                                     | wor
 *mo5*               | Thomson Mo5 / Thomson Mo6 / Olivetti Prodest PC 128  | YES     | 
 *msx*               | MSX 1/MSX 2/2+/Turbo                                 | YES     | 
 *mtx*               | Memotech MTX 512                                     | YES     | 
-*mtx500*            | Memotech MTX 500                                     |  ?      | 
+*mtx500*            | Memotech MTX 500                                     | YES     | 
 *multi8*            | Mitsubishi Multi 8                                   | YES     | 
 *myvision*          | Nichibutsu My Vision                                 | YES     | 
 *mz*                | Sharp MZ 80/700                                      | YES     | 
@@ -148,9 +148,9 @@ target name         | long target name                                     | wor
 
 TOTAL    : 139
 
-OK       : 132
+OK       : 133
 
-UNKNOWN  :   7
+UNKNOWN  :   6
 
 
 -----------------------------------------------------------------------------------------
@@ -236,10 +236,10 @@ KO       :   1
 
 TOTAL    : 159
 
-OK       : 142
+OK       : 143
 
 KO       :   1
 
-UNKNOWN  :  16
+UNKNOWN  :  14
 
 

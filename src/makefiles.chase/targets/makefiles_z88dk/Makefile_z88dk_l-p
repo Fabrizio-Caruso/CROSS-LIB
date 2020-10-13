@@ -288,9 +288,9 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 mtx: mtx512
 
 mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -startup=2 $(INCLUDE_OPTS) \
-	-D__MTX__ \
-	-create-app -o MTX.bin -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -clib=ansi -startup=2 $(INCLUDE_OPTS) \
+	-D__MTX__ -DFORCE_SCREEN_MODE=2 \
+	-create-app -oMTX.bin -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-lndos -DSOUNDS -DFORCE_PSG \
@@ -309,7 +309,7 @@ mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MTX__ \
-	-create-app -o MTX500.bin -vn \
+	-create-app -oMTX500.bin -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO \
 	-lndos -DSOUNDS -DFORCE_PSG \

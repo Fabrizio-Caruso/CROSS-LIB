@@ -77,7 +77,7 @@ For most systems, more than one version is built, in order to support different 
 - `mo5`: Thomson Mo5 / Thomson Mo6 / Olivetti Prodest PC 128
 - `msx`: MSX
 - `mtx`: Memotech MTX 512
-- `mtx500`: Memotech MTX 500 (work in progress)
+- `mtx500`: Memotech MTX 500
 - `multi8`: Mitsubishi Multi 8
 - `myvision`: Nichibutsu My Vision
 - `mz`: Sharp MZ 80/700

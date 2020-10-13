@@ -446,7 +446,29 @@ load"xchase"
 run
 ---------------------------------------------------------
 
-### Memotech MTX
+### Memotech MTX 500 and 512
+
+Use Bill's MEMU (http://www.primrosebank.net/computers/mtx/emulators/Bills_MEMU_ds.htm)
+Place the .mtx binary into the directory "tapes"
+Use memu-cfg.exe 
+F11 to enter the menu
+Select MTX model if necessary (MTX500 or MTX512)
+Select tape -> Choose the .mtx binary
+Restart
+
+
+
+MTX500 binary on MTX512
+POKE 64122,0
+NEW
+LOAD""
+RUN
+
+MTX500 binary on MTX500 or MTX 512 binary n MTX512
+LOAD""
+RUN
+
+
 
 Use the MESS 0.118 emulator
 Rename FULL_MTX.mtx to FULL and place it in the same folder as the Mess emulator

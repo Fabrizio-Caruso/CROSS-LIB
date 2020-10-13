@@ -59,6 +59,22 @@ hello_abc800:
 	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/HELLO_abc800.dsk -b $(BUILD_PATH)/hello.bac
     
 
+hello_mtx512:
+	$(Z88DK_PATH)$(MYZ88DK) +mtx -clib=ansi -startup=2 $(SCCZ80_OPTS)  \
+	-lndos -create-app \
+	./test/helloworld_getchar.c
+	mv a $(BUILD_PATH)
+	mv a.wav $(BUILD_PATH)
+	rm a.bin
+
+hello_mtx500:
+	$(Z88DK_PATH)$(MYZ88DK) +mtx -clib=ansi $(SCCZ80_OPTS)  \
+	-lndos -create-app \
+	./test/helloworld_getchar.c
+	mv a $(BUILD_PATH)
+	mv a.wav $(BUILD_PATH)
+	rm a.bin
+
 
 abc800_conio:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 \

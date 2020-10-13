@@ -193,6 +193,11 @@ hello_s1mp3:
 	-o$(BUILD_PATH)/hello_s1mp3.bin
 
 
+hello_getchar_pacman:
+	$(Z88DK_PATH)$(MYZ88DK) +pacman \
+	./test/helloworld_getchar.c \
+	-o$(BUILD_PATH)/$@.bin
+
 hello_getchar_s1mp3:
 	$(Z88DK_PATH)$(MYZ88DK) +s1mp3 \
 	./test/helloworld_getchar.c \

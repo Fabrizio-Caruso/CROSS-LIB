@@ -64,13 +64,17 @@ extern uint16_t BASE_ADDR;
         uint8_t j; 
         uint8_t i;
         
-        for(j=0;j<YSize+Y_OFFSET;++j)
+        for(j=0;j<YSize+Y_OFFSET-1;++j)
         {
             for(i=0;i<XSize;++i)
             {
                 putchar(video_buffer[j][i]);
             }
             putchar('\n');
+        }
+        for(i=0;i<XSize;++i)
+        {
+            putchar(video_buffer[YSize+Y_OFFSET-1][i]);
         }
     }
 #elif defined(__MO5__)

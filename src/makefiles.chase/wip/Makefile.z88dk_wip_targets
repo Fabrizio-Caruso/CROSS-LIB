@@ -217,20 +217,6 @@ s1mp3:
 	-o$(BUILD_PATH)/FULL_s1mp3_buffered.bin
 
 
-pacman:
-	$(Z88DK_PATH)$(MYZ88DK) +pacman $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
-	-D__PACMAN__ \
-	-DFORCE_XSIZE=32 \
-	-DFORCE_YSIZE=24 \
-	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
-	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
-	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
-	-DNO_INIT_GRAPHICS \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_pacman_buffered.bin
-
-
 # --list -m --c-code-in-asm
 # -compiler=sdcc -SO0
 #  --peep-file "" --list -m --c-code-in-asm

@@ -327,6 +327,8 @@ mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 	mv MTX500 $(BUILD_PATH)/FULL_mtx500.mtx
 	cp $(BUILD_PATH)/FULL_mtx500.mtx /cygdrive/c/Emulation/TEST/memu/tapes/mtx500.mtx
 
+htron_mtx: 
+	zcc +mtx -pragma-redirect:fputc_cons=fputc_cons_generic -clib=ansi -create-app -startup=2 ./test/htron.c
 
 #############################
 # MULTI8
@@ -622,6 +624,34 @@ osborne1: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	rm $(BUILD_PATH)/FULL_osborne1.bin
+
+
+
+#############################
+# PACMAN
+pacman:
+	mkdir $(BUILD_PATH)/puckmod
+	$(Z88DK_PATH)$(MYZ88DK) +pacman $(SCCZ80_OPTS)  $(INCLUDE_OPTS) \
+	-D__PACMAN__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS -DBUFFERED -DTURN_BASED \
+	-DNO_COLOR -DALT_PRINT -DSTDLIB -DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME -DNO_WAIT  -DNO_SLEEP -DDEFAULT_CLEAR_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	-create-app -o$(BUILD_PATH)/FULL_pacman_buffered.bin
+	cp $(TOOLS_PATH)/z88dk/pacman/pacman.5e $(BUILD_PATH)/puckmod
+	cp $(TOOLS_PATH)/z88dk/pacman/pacman.5f $(BUILD_PATH)/puckmod
+	mv $(BUILD_PATH)/FULL_pacman_buffered.0a $(BUILD_PATH)/puckmod/namcopac.6e
+	mv $(BUILD_PATH)/FULL_pacman_buffered.0b $(BUILD_PATH)/puckmod/namcopac.6f
+	mv $(BUILD_PATH)/FULL_pacman_buffered.0c $(BUILD_PATH)/puckmod/namcopac.6h
+	mv $(BUILD_PATH)/FULL_pacman_buffered.0d $(BUILD_PATH)/puckmod/npacmod.6j
+	rm $(BUILD_PATH)/FULL_pacman_buffered.bin
+	rm $(BUILD_PATH)/FULL_pacman_buffered.rom
+	rm $(BUILD_PATH)/FULL_pacman_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_pacman_buffered_DATA.bin
 
 
 #############################

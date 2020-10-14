@@ -94,8 +94,9 @@ For most systems, more than one version is built, in order to support different 
 - `osic1p`: Ohio Scientific Challenger 1P
 - `oz`: Sharp OZ-700
 - `p2000`: Philips P2000
-- `pc6001`: NEC PC 6001
+- `pacman`: Pacman (work in progress)
 - `pasaopia7`: Toshiba Pasopia 7
+- `pc6001`: NEC PC 6001
 - `pc88`: NEC PC 8801
 - `pce`: PCEngine
 - `pecom`: Pecom 32/64

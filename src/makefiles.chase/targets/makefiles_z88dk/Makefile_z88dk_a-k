@@ -732,7 +732,7 @@ enterprise_buffered:
 #############################
 # EXCALIBUR64
 
-excalibur64:
+excalibur64_turn_bsed:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=excali64 -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(INCLUDE_OPTS) \
 	-D__CPM_80X24__ \
@@ -744,11 +744,27 @@ excalibur64:
 	-create-app -o$(GAME_NAME).bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
-	mv $(GAME_NAME).img $(BUILD_PATH)/FULL_excalibur64_turn_based.img
+	mv $(GAME_NAME).img $(BUILD_PATH)/FULL_$@.img
 	rm $(GAME_NAME)_HIMEM.bin
 	rm $(GAME_NAME).bin
 
 
+excalibur64:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=excali64 -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-pragma-redirect:getk=getk_inkey \
+	$(INCLUDE_OPTS) \
+	-D__CPM_80X24__ \
+	-DFORCE_CONIO_LIB \
+	-D__EXCALI64__ -DSLOW_DOWN=1600 \
+	-DFULL_GAME -DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-create-app -o$(GAME_NAME).bin \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) 
+	mv $(GAME_NAME).img $(BUILD_PATH)/FULL_$@.img
+	rm $(GAME_NAME)_HIMEM.bin
+	rm $(GAME_NAME).bin
 #############################
 # FP1100
 

@@ -276,6 +276,15 @@ Rename the binary into BASIC.ROM and replace the original BASIC.ROM that
 should be (or have been) in the same directory as the HC-80 emulator executable.
 
 
+----------------------------------------------------------
+
+### EPSON QC-10 / QX-10
+
+Use Mame emulator
+e.g., mame64.exe qx10 -window -uimodekey DEL -flop1 c:\Emulation\TEST\0.196\disk\qc10\EPSNQX10.dsk
+
+Attach the disk image and type the binary name (run DIR to see name).
+
 -----------------------------------------------------------
 
 ### BGR COMPUTERS EXCALIBUR 64

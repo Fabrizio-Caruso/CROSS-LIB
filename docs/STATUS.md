@@ -102,7 +102,7 @@ target name         | long target name                                     | wor
 *pv2000*            | Casio PV2000                                         | YES     | 
 *px4*               | Epson PX-4/HC-40                                     | YES     | 
 *px8*               | Epson PX-8/HC-80                                     | YES     | 
-*qc10*              | Epson QC-10/QX-10                                    |  ?      | 
+*qc10*              | Epson QC-10/QX-10                                    | YES     | 
 *rc700*             | Regnecentralen RC700                                 | YES     | 
 *rx78*              | Bandai RX-78                                         | YES     | 
 *samcoupe*          | Sam Coupe                                            | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 135
+OK       : 136
 
 KO       :   1
 
-UNKNOWN  :   4
+UNKNOWN  :   3
 
 
 -----------------------------------------------------------------------------------------
@@ -239,10 +239,10 @@ KO       :   1
 
 TOTAL    : 160
 
-OK       : 145
+OK       : 146
 
 KO       :   2
 
-UNKNOWN  :  13
+UNKNOWN  :  12
 
 

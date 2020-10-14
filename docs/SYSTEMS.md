@@ -51,7 +51,7 @@ For most systems, more than one version is built, in order to support different 
 - `eg2k`: EACA EG2000 Color Genie
 - `einstein`: Tatung Einstein
 - `enterprise`: Enterprise 64/128
-- `excalibur64`: Excalibur64 (work in progress)
+- `excalibur64`: Excalibur64
 - `fp1100`: Casio FP-1100
 - `g800`: Sharp PC-G800
 - `gal`: Galaksija
@@ -109,7 +109,7 @@ For most systems, more than one version is built, in order to support different 
 - `pv2000`: Casio PV2000
 - `px4`: Epson PX-4/HC-40
 - `px8`: Epson PX-8/HC-80
-- `qc10`: Epson QC-10/QX-10 (work in progress)
+- `qc10`: Epson QC-10/QX-10
 - `rex`: Xircom Rex 6000 (no available emulator, work in progress)
 - `rc700`: Regnecentralen RC700
 - `rx78`: Bandai RX-78

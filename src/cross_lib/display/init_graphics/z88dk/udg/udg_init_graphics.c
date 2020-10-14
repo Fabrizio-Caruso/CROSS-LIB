@@ -13,7 +13,7 @@ void INIT_GRAPHICS(void)
 	console_ioctl(IOCTL_GENCON_SET_FONT32, &param);
 	
 	#if defined(__MC1000__) || defined(__PC6001__) || defined(__CPC__) || defined(__MULTI8__) || defined(__SPC1000__) \
-    || defined(__GB__) || defined(__SMS__) || defined(__GAL_PLUS__) || defined(__GAME_GEAR__)
+    || defined(__GB__) || defined(__SMS__) || defined(__GAL_PLUS__) || defined(__GAME_GEAR__) || defined(__MTX__)
 	{
 		#if defined(FORCE_SCREEN_MODE)
 			#define SCREEN_MODE FORCE_SCREEN_MODE

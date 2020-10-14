@@ -44,7 +44,7 @@ target name         | long target name                                     | wor
 *eg2k*              | EACA EG2000 Color Genie                              | YES     | 
 *einstein*          | Tatung Einstein                                      | YES     | 
 *enterprise*        | Enterprise 64/128                                    | YES     | 
-*excalibur64*       | Excalibur64                                          |  ?      | 
+*excalibur64*       | Excalibur64                                          | YES     | 
 *fp1100*            | Casio FP-1100                                        | YES     | 
 *g800*              | Sharp PC-G800                                        | YES     | 
 *gal*               | Galaksija                                            | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 134
+OK       : 135
 
 KO       :   1
 
-UNKNOWN  :   5
+UNKNOWN  :   4
 
 
 -----------------------------------------------------------------------------------------
@@ -239,10 +239,10 @@ KO       :   1
 
 TOTAL    : 160
 
-OK       : 144
+OK       : 145
 
 KO       :   2
 
-UNKNOWN  :  14
+UNKNOWN  :  13
 
 

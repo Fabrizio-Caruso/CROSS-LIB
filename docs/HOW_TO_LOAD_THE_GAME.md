@@ -275,6 +275,18 @@ Use Takeda emulator for HC-80 with the right SYS.ROM file.
 Rename the binary into BASIC.ROM and replace the original BASIC.ROM that
 should be (or have been) in the same directory as the HC-80 emulator executable.
 
+
+-----------------------------------------------------------
+
+### BGR COMPUTERS EXCALIBUR 64
+
+Use Mame emulator with the CP/M boot disk
+e.g., mame64.exe excali64 -window -uimodekey DEL -flop1 c:\Emulation\TEST\0.196\disk\excali64\excalibur_cpm_system.raw
+
+Attach the game image
+B:
+CHASE  (or othe game name)
+
 -----------------------------------------------------------
 
 ### EXIDY SORCERER

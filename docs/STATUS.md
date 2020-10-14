@@ -32,7 +32,7 @@ target name         | long target name                                     | wor
 *cidelsa_draco*     | Cidelsa Draco arcade board                           | YES     | 
 *coco*              | Color Computer                                       | YES     | 
 *coleco*            | Colecovision                                         | YES     | 
-*coleco_adam*       | Colecovision Adam                                    |  ?      | 
+*coleco_adam*       | Colecovision Adam                                    | YES     | 
 *comx*              | COMX-35                                              | YES     | 
 *cpc*               | Amstrad CPC                                          | YES     | 
 *cpm_8080*          | CP/M Intel 8080                                      | YES     | 
@@ -102,7 +102,7 @@ target name         | long target name                                     | wor
 *pv2000*            | Casio PV2000                                         | YES     | 
 *px4*               | Epson PX-4/HC-40                                     | YES     | 
 *px8*               | Epson PX-8/HC-80                                     | YES     | 
-*qc10*              | Epson QC-10/QX-10                                    | YES     | 
+*qc10*              | Epson QX-10/QC-10                                    | YES     | 
 *rc700*             | Regnecentralen RC700                                 | YES     | 
 *rx78*              | Bandai RX-78                                         | YES     | 
 *samcoupe*          | Sam Coupe                                            | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 137
+OK       : 138
 
 KO       :   1
 
-UNKNOWN  :   2
+UNKNOWN  :   1
 
 
 -----------------------------------------------------------------------------------------
@@ -237,10 +237,10 @@ KO       :   1
 
 TOTAL    : 160
 
-OK       : 147
+OK       : 148
 
 KO       :   2
 
-UNKNOWN  :  11
+UNKNOWN  :  10
 
 

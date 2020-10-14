@@ -122,6 +122,17 @@ There must be a bug in WinVice disk drive emulation for this target.
 
 Use ColEm: https://fms.komkon.org/ColEm/
 
+
+-----------------------------------------------------------
+
+### COLECO ADAM
+
+Use Mame emulator
+e.g., mame64.exe adam -window -flop1 .\disk\adam\cpm2.2_1.50.dsk -flop2 c:\Retro\CROSS-CHASE\build\FULL_coleco_adam.img
+
+B:
+Type the binary name (no extension) contained in B:
+
 -------------------------------------------------------------
 
 ### Color Computer

@@ -39,7 +39,7 @@ For most systems, more than one version is built, in order to support different 
 - `cidelsa_draco`: Cidelsa Draco arcade board
 - `coco`: Color Computer
 - `coleco`: Colecovision
-- `coleco_adam`: Colecovision Adam (work in progress)
+- `coleco_adam`: Colecovision Adam
 - `comx`: COMX-35
 - `cpc`: Amstrad CPC
 - `cpm_8080`: CP/M Intel 8080

@@ -481,14 +481,14 @@ coleco_adam:
 	-DFULL_GAME  \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO_VT52 \
-	-DCONIO \
+	-DCONIO -DFORCE_XSIZE=29 -DFORCE_YSIZE=20 \
 	-DNO_INIT_GRAPHICS \
 	-lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	-create-app -o$(BUILD_PATH)/FULL_coleco_adam.bin
-	rm $(BUILD_PATH)/FULL_coleco_adam.bin
+	-create-app -oxcadam.bin
+	rm xcadam.bin
+	mv xcadam.img $(BUILD_PATH)/FULL_$@.img
 
 
 #############################

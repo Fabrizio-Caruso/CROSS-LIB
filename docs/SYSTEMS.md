@@ -116,7 +116,7 @@ For most systems, more than one version is built, in order to support different 
 - `samcoupe`: Sam Coupe
 - `sc3000`: Sega SC 3000
 - `sg1000`: Sega SG 1000
-- `smc777`: Sony SMC-70 / SMC-777 (work in progress)
+- `smc777`: Sony SMC-70 / SMC-777
 - `sms`: Sega Master System
 - `sos`: S-OS 
 - `spc1000`: Samsung SPC 1000

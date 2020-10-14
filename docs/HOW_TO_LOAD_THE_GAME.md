@@ -294,7 +294,7 @@ e.g., mame64.exe excali64 -window -uimodekey DEL -flop1 c:\Emulation\TEST\0.196\
 
 Attach the game image
 B:
-CHASE  (or othe game name)
+Run the binary in B: with its plain name (no extension)
 
 -----------------------------------------------------------
 
@@ -911,6 +911,18 @@ SEXEC ram1_<name given to the binary inside the QL>,mem,l,<dataspace value (*)>
 A possible value is 4096.
 
 Now the ram1 disk has the executable binary inside the QL. Select ram1 and then the game to start
+
+
+-----------------------------------------------------------
+
+
+### SONY SMC-77
+
+Use Takeda emulator with Mame roms
+Insert the boot disk into the first floppy drive and the game disk in the second one
+B:
+Run the binary inside B: (no extension)
+
 
 -----------------------------------------------------------
 

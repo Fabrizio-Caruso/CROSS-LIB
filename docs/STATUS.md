@@ -108,7 +108,7 @@ target name         | long target name                                     | wor
 *samcoupe*          | Sam Coupe                                            | YES     | 
 *sc3000*            | Sega SC 3000                                         | YES     | 
 *sg1000*            | Sega SG 1000                                         | YES     | 
-*smc777*            | Sony SMC-70 / SMC-777                                |  ?      | 
+*smc777*            | Sony SMC-70 / SMC-777                                | YES     | 
 *sms*               | Sega Master System                                   | YES     | 
 *sos*               | S-OS                                                 | YES     | 
 *spc1000*           | Samsung SPC 1000                                     | YES     | 
@@ -149,11 +149,11 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 136
+OK       : 137
 
 KO       :   1
 
-UNKNOWN  :   3
+UNKNOWN  :   2
 
 
 -----------------------------------------------------------------------------------------
@@ -237,10 +237,10 @@ KO       :   1
 
 TOTAL    : 160
 
-OK       : 146
+OK       : 147
 
 KO       :   2
 
-UNKNOWN  :  12
+UNKNOWN  :  11
 
 

@@ -741,12 +741,12 @@ excalibur64_turn_bsed:
 	-DFULL_GAME -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(GAME_NAME).bin \
+	-create-app -oxcex64tb.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
-	mv $(GAME_NAME).img $(BUILD_PATH)/FULL_$@.img
-	rm $(GAME_NAME)_HIMEM.bin
-	rm $(GAME_NAME).bin
+	mv xcex64tb.img $(BUILD_PATH)/FULL_$@.img
+	rm xcex64tb_HIMEM.bin
+	rm xcex64tb.bin
 
 
 excalibur64:
@@ -759,12 +759,12 @@ excalibur64:
 	-DFULL_GAME -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(GAME_NAME).bin \
+	-create-app -oxcexca64.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
-	mv $(GAME_NAME).img $(BUILD_PATH)/FULL_$@.img
-	rm $(GAME_NAME)_HIMEM.bin
-	rm $(GAME_NAME).bin
+	mv xcexca64.img $(BUILD_PATH)/FULL_$@.img
+	rm xcexca64_HIMEM.bin
+	rm xcexca64.bin
 #############################
 # FP1100
 

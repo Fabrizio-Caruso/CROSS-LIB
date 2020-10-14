@@ -59,21 +59,23 @@ hello_abc800:
 	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/HELLO_abc800.dsk -b $(BUILD_PATH)/hello.bac
     
 
-hello_mtx512:
-	$(Z88DK_PATH)$(MYZ88DK) +mtx -clib=ansi -startup=2 $(SCCZ80_OPTS)  \
-	-lndos -create-app \
-	./test/helloworld_getchar.c
-	mv a $(BUILD_PATH)
-	mv a.wav $(BUILD_PATH)
-	rm a.bin
+# hello_mtx512:
+	# $(Z88DK_PATH)$(MYZ88DK) +mtx -clib=ansi -startup=2 $(SCCZ80_OPTS)  \
+	# -lndos -create-app \
+	# ./test/helloworld_getchar.c
+	# mv a $(BUILD_PATH)
+	# mv a.wav $(BUILD_PATH)
+	# rm a.bin
 
-hello_mtx500:
-	$(Z88DK_PATH)$(MYZ88DK) +mtx -clib=ansi $(SCCZ80_OPTS)  \
-	-lndos -create-app \
-	./test/helloworld_getchar.c
+hello_mtx:
+	$(Z88DK_PATH)$(MYZ88DK) +mtx -clib=ansi $(SCCZ80_OPTS)  \ zcc +mtx world.c -startup=2 -create-app
+	-create-app \
+	./test/helloworld.c
 	mv a $(BUILD_PATH)
 	mv a.wav $(BUILD_PATH)
 	rm a.bin
+	cp $(BUILD_PATH)/a /cygdrive/c/Emulation/TEST/memu/tapes/HELLO_MTX.MTX
+	cp $(BUILD_PATH)/a /cygdrive/c/Emulation/TEST/mess0118b/A
 
 
 abc800_conio:

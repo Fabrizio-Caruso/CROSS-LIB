@@ -305,6 +305,7 @@ mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm MTX.bin
 	mv MTX.wav $(BUILD_PATH)/FULL_mtx.wav
 	mv MTX $(BUILD_PATH)/FULL_mtx.mtx
+	cp $(BUILD_PATH)/FULL_mtx.mtx /cygdrive/c/Emulation/TEST/memu/tapes/mtx512.mtx
 
 mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -324,6 +325,7 @@ mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm MTX500.bin
 	mv MTX500.wav $(BUILD_PATH)/FULL_mtx500.wav
 	mv MTX500 $(BUILD_PATH)/FULL_mtx500.mtx
+	cp $(BUILD_PATH)/FULL_mtx500.mtx /cygdrive/c/Emulation/TEST/memu/tapes/mtx500.mtx
 
 
 #############################

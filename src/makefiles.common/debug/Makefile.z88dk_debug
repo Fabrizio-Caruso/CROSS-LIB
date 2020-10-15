@@ -1,5 +1,7 @@
 # Z88DK Debugging Tests
 
+TEST_PATH ?= $(SOURCE_PATH)/test
+
 newbrain_newline:
 	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-lndos \
@@ -333,3 +335,8 @@ conio_nascom:
 
 error_z88dk:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) $(SOURCE_PATH)/../test/error.c -o $(BUILD_PATH)/error_z88dk.prg
+
+
+coleco_sound_test: 
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=adam -lndos -create-app  -vn ./test/psg_test.c
+

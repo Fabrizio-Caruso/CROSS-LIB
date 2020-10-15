@@ -190,14 +190,12 @@ m5: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DFULL_GAME -DLESS_TEXT \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO \
-	-DSOUNDS -DFORCE_PSG\
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(FULL_FILES) \
 	-o$(BUILD_PATH)/FULL_m5.bin	
 	rm $(BUILD_PATH)/FULL_m5.bin
@@ -264,7 +262,7 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DINITIAL_SLOWDOWN=29000 \
-	-DSOUNDS -DANIMATE_PLAYER \
+	-DSOUNDS -DFORCE_PSG -DANIMATE_PLAYER \
 	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/FULL_msx_32k.rom \
@@ -399,12 +397,11 @@ mz:
 	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
 	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DCONIO -DNO_INIT_GRAPHICS -DSOUNDS -DFORCE_PSG \
+	-DCONIO -DNO_INIT_GRAPHICS  \
 	-pragma-define:REGISTER_SP=0xd000 \
 	-lndos -create-app -o $(BUILD_PATH)/FULL_mz.prg \
 	$(SOURCE_PATH)/end_screen.c \
-	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c
+	$(FULL_FILES)
 	rm $(BUILD_PATH)/FULL_mz.prg
 	mv $(BUILD_PATH)/FULL_mz.mzt $(BUILD_PATH)/FULL_mz.mzf
 

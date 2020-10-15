@@ -15,6 +15,7 @@ z88dk_targets_a-k: \
 	c128_z80_targets \
 	camputers_lynx_targets \
 	coleco_targets \
+	coleco_adam_targets \
 	cpc_targets \
 	cpm_targets \
 	dai_targets \
@@ -68,7 +69,10 @@ camputers_lynx_targets: \
 	camputers_lynx
 
 coleco_targets: \
-	coleco coleco_adam bit90
+	coleco bit90
+
+coleco_adam_targets: \
+	coleco_adam
 
 cpc_targets: \
 	cpc
@@ -389,7 +393,6 @@ bit90: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_bit90.bin
 	rm $(BUILD_PATH)/FULL_bit90.bin
 	rm $(BUILD_PATH)/FULL_bit90_DATA.bin
@@ -510,7 +513,6 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	-create-app -o$(BUILD_PATH)/FULL_coleco.bin
 	rm $(BUILD_PATH)/FULL_coleco.bin
 	rm $(BUILD_PATH)/FULL_coleco_DATA.bin
@@ -524,8 +526,8 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \
 	-DZ88DK_JOYSTICK \
-	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
-	-DCPCRSLIB \
+	-DSOUNDS -DFORCE_PSG -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCPCRSLIB -DSLOW_DOWN=600 \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \

@@ -1,11 +1,11 @@
 #include<stdio.h>
+int main(){
 
-int main()
-{
-
-    printf("Hello World!\n");
-    getchar();
-    while(1){};
+    while(1){
+        printf("Hello World!\n");
+        getchar();
+    };
+    return 0;
 }
 
 

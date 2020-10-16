@@ -1,3 +1,10 @@
+# CC65 Debugging Tests
+
+
+
+TEST_PATH ?= $(SOURCE_PATH)/../../test
+
+
 creativision_hello:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	$(SOURCE_PATH)/../experiments/hello.c \
@@ -116,3 +123,18 @@ gamate_test:
 	$(SOURCE_PATH)/../test/gamate_test.c \
 	-o $(BUILD_PATH)/gamate_test.bin 
 	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/gamate_test.bin
+
+
+c64_hello_test:
+	$(CC65_PATH)$(MYCC65) -O -t c64 \
+	$(TEST_PATH)/helloworld_getchar.c -o $(BUILD_PATH)/$@.prg
+
+
+telestrat_hello_test:
+	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	$(TEST_PATH)/helloworld_getchar.c -o $(BUILD_PATH)/$@
+
+
+telestrat_hello_test0:
+	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	$(TEST_PATH)/helloworld.c -o $(BUILD_PATH)/$@

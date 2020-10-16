@@ -702,7 +702,24 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 #######################################################################################
 # TELESTRAT
 
-telestrat: 
+telestrat: telestrat_buffered
+
+telestrat_buffered: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
+	-D__TELESTRAT__ \
+	-DBUFFERED -DTURN_BASED -DSTDLIB -DFORCE_XSIZE=38 -DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS -DSLOW_DOWN=800 \
+	-DFULL_GAME -DCC65_JOYSTICK \
+	-DNO_COLOR -DALT_SLEEP -DALT_PRINT -DDEFAULT_CLEAR_SCREEN \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_telestrat
+
+telestrat_exp: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
 	-DFORCE_CONIO_LIB \
 	-DNO_WAIT \

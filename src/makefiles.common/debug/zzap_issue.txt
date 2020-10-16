@@ -1,3 +1,11 @@
+Are PSG sound routines on the Spectrum target suppose to work as on other A&-3-8910 targets?
+
+I am testing with the Spectrum 128 emulated by Fuse and EightyOne emulators.
+Fuse: black screen freezze
+EightyOne: no freeze but the border flashes when I run the zap function
+
+I am using the following code (which works on CPC):
+```
 #include <stdio.h>
 #include <conio.h>
 #include <psg.h>
@@ -80,37 +88,37 @@ void ZAP_SOUND(void) {
 #define PING_SOUND() _ping_sound(0xF0);	
 #define TOCK_SOUND() _ping_sound(0x02);
 #define TICK_SOUND() _ping_sound(0x60);
-
 #define SHOOT_SOUND() _explosion_sound(0xF0);
 #define EXPLOSION_SOUND() _explosion_sound(0x80);
-
-
 int main()
 {
-    while(1)
-    {
+    while(1) {
         clrscr();
         printf("press a key\n");
-        getchar();
+        getch();
         
         clrscr();
         printf("ping sound");
-        // PING_SOUND();
+        PING_SOUND();
         
-        getchar();
+        getch();
         clrscr();
         printf("explosion");
-        // EXPLOSION_SOUND();
-        getchar();
+        EXPLOSION_SOUND();
+        getch();
         
         clrscr();
         printf("zzzapp!!\n");
-        // ZAP_SOUND();
+        ZAP_SOUND();
         getch();
-    
-}   ;
-
-    
+    };
     return 0;
 }
 
+
+```
+
+which I compile with:
+```
+	$(Z88DK_PATH)$(MYZ88DK) +zx -lndos -create-app  -vn  $(TEST_PATH)/psg_test.c
+```

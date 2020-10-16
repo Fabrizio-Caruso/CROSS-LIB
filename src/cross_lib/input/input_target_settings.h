@@ -26,7 +26,7 @@
 #endif
 
 
-#if defined(__VIC20__) || defined(__CREATIVISION__) \
+#if defined(CC65_JOYSTICK) || defined(__VIC20__) || defined(__CREATIVISION__) \
 		|| defined(__SUPERVISION__) || defined(__ATARI_LYNX__) || defined(__GAMATE__) \
 		|| defined(__C64__) || defined(__C16__) || defined(__PLUS4__) \
 		|| defined(__CBM510__) || defined(__PET__) \

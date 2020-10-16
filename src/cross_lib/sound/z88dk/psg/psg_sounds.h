@@ -22,6 +22,8 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+// PSG code for AY-3-8910
+
 #ifndef _PSG_SOUNDS
 #define _PSG_SOUNDS
 

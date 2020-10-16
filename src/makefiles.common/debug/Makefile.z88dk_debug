@@ -1,26 +1,15 @@
 # Z88DK Debugging Tests
 
-TEST_PATH ?= $(SOURCE_PATH)/test
-
-newbrain_newline:
-	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-lndos \
-	$(SOURCE_PATH)/../experiments/newline_test.c \
-	-create-app
-	tar czvf newline_test.tar.zip _dir.txt a.bas a.dat
-	mv newline_test.tar.zip $(BUILD_PATH)
-	rm _dir.txt
-	rm a.bas
-	rm a.dat
-	rm a.bin	
+TEST_PATH ?= $(SOURCE_PATH)/../../test
 
 
 newbrain_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +newbrain $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-lndos \
-	$(SOURCE_PATH)/../experiments/hello.c \
+	$(TEST_PATH)/helloworld.c \
 	-create-app
 	tar czvf xchase.tar.zip _dir.txt a.bas a.dat
+	mv xchase.tar.zip $(BUILD_PATH)
 	rm _dir.txt
 	rm a.bas
 	rm a.dat
@@ -31,49 +20,48 @@ msx_mode1_test:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -subtype=rom \
 	-vn \
 	-lndos \
-	$(SOURCE_PATH)/../test/msx_test.c \
+	$(TEST_PATH)//msx_test.c \
 	-create-app -o $(BUILD_PATH)/TEST_msx.prg
 	rm $(BUILD_PATH)/TEST_msx.prg
-
-
-mz2500_random:
-	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(ZSDCC_OPTS) -compiler=sdcc -SO3 $(INCLUDE_OPTS) \
-	$(SOURCE_PATH)/../experiments/random_test.c \
-	-create-app -o $(BUILD_PATH)/mz2500_random_test.bin
 
 
 c7420_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-lndos \
-	$(SOURCE_PATH)/../experiments/hello.c \
-	-create-app	
-	
+	$(TEST_PATH)/helloworld.c \
+	-create-app
+	mv a.bin $(BUILD_PATH)
+	mv _a.bas $(BUILD_PATH)
+
+
 oz_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	$(SOURCE_PATH)/../experiments/hello.c 
+	$(TEST_PATH)/helloworld.c 
 	$(TOOLS_PATH)/z88dk/oz/makewzd.exe a
 	rm a.bin
 	mv a.wzd $(BUILD_PATH)/oz_hello.wzd
-	
+
 
 z88_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -D__Z88__ -create-app -subtype=app \
-	$(SOURCE_PATH)/../experiments/hello.c
+	$(TEST_PATH)/helloworld.c 
 	rm a.bin
 	rm a_BSS.bin
 	rm a_DATA.bin
 	mv a.63 $(BUILD_PATH)/
 	mv a.epr $(BUILD_PATH)/
-	
+
+
 x07_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +x07 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-Cz--audio \
-	$(SOURCE_PATH)/../experiments/hello.c \
+	$(TEST_PATH)/helloworld.c \
 	-create-app 
+
 
 cpm_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	$(SOURCE_PATH)/../experiments/hello.c \
+	$(TEST_PATH)/hello.c \
 	-create-app
 	rm a.bin
 	mv A.COM $(BUILD_PATH)/CPMHELLO.COM
@@ -82,13 +70,13 @@ cpm_hello:
 
 aquarius_hello_world:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
-	$(SOURCE_PATH)/../test/hello_conio.c \
+	$(TEST_PATH)/hello_conio.c \
 	-create-app
 
 
 aquarius_hello_stack:
 	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic -pragma-output:STACKPTR=20000 $(INCLUDE_OPTS) -vn \
-	$(SOURCE_PATH)/../test/hello_fputc.c \
+	$(TEST_PATH)/hello_fputc.c \
 	-create-app -o minimal_hello
 
     
@@ -96,7 +84,7 @@ getk_test:
 	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(ZSDCC_OPTS) \
 	-compiler=sdcc \
 	-create-app -o  $(BUILD_PATH)/getk_test.prg \
-	$(SOURCE_PATH)/../test/getk_test.c
+	$(TEST_PATH)/getk_test.c
 	rm $(BUI
 
 sms_libctest:
@@ -104,12 +92,12 @@ sms_libctest:
 	-vn -lndos \
 	-create-app \
 	-o $(BUILD_PATH)/sms_libctest.sms \
-	$(SOURCE_PATH)/../test/libctest.c
+	$(TEST_PATH)/libctest.c
 
 m5_sounds:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) -create-app \
 	-vn -lndos \
-	$(SOURCE_PATH)/../test/sounds.c
+	$(TEST_PATH)/sounds.c
 	rm -f a.bin
 	rm -f A_BSS.bin
 	rm -f A_DATA.bin
@@ -118,14 +106,14 @@ m5_sounds:
 mz2500_getchar:
 	$(Z88DK_PATH)$(MYZ88DK) +mz2500 $(SCCZ80_OPTS) -create-app \
 	-vn -lndos \
-	$(SOURCE_PATH)/../test/getchar_test.c
+	$(TEST_PATH)/getchar_test.c
 	rm -f a.bin
 	mv a.2D $(BUILD_PATH)/mz2500_getchar.2D
 	
 spectrum_sounds:
 	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) -create-app \
 	-vn -lndos \
-	$(SOURCE_PATH)/../test/sounds.c
+	$(TEST_PATH)/sounds.c
 	rm -f a.bin
 	rm -f a_BANK_7.bin
 	mv a.tap $(BUILD_PATH)/spectrum_sounds.tap
@@ -136,7 +124,7 @@ sms_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -startup=1 -clib=new -O3 \
 	-vn -pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-create-app	\
-	$(SOURCE_PATH)/../test/z88dk_hello.c 
+	$(TEST_PATH)/z88dk_hello.c 
 	rm a_BSS.bin
 	rm a_CODE.bin
 	rm a_DATA.bin
@@ -147,7 +135,7 @@ sms_hello:
 abc80_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) \
 	-vn -lndos \
-	$(SOURCE_PATH)/../test/hello.c
+	$(TEST_PATH)/hello.c
 	perl $(TOOLS_PATH)/z88dk/abc80/bin2bac.pl $(SOURCE_PATH)/../a.bin > a.bac	
 	# $(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a.bin $(BUILD_PATH)/abc80_hello.bac 49200
 	rm a.bin	
@@ -155,7 +143,7 @@ abc80_hello:
 abc800_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +abc800 $(SCCZ80_OPTS) -Ca --reloc-info \
 	-vn -lndos \
-	$(SOURCE_PATH)/../test/hello.c
+	$(TEST_PATH)/hello.c
 	perl $(TOOLS_PATH)/z88dk/abc80/bin2bac.pl -800 $(SOURCE_PATH)/../a.bin $(SOURCE_PATH)/../a.reloc > a.bac
 	mv a.bac $(BUILD_PATH)/abc800_hello.bac
 	rm a.reloc
@@ -164,13 +152,13 @@ abc800_hello:
 rex_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +rex $(SCCZ80_OPTS) \
 	-vn -lndos \
-	$(SOURCE_PATH)/../test/hello.c \
+	$(TEST_PATH)/hello.c \
 	-create-app	
 	
 mtx_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) \
 	-vn -lndos \
-	$(SOURCE_PATH)/../test/hello.c \
+	$(TEST_PATH)/hello.c \
 	-create-app	
 	mv a.wav $(BUILD_PATH)/hello.wav
 	mv a $(BUILD_PATH)/hello.mtx
@@ -179,7 +167,7 @@ mtx_hello:
 c128_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) \
 	-vn -lndos \
-	$(SOURCE_PATH)/../test/hello.c \
+	$(TEST_PATH)/hello.c \
 	-create-app
 
 # -pragma-redirect:getk=getk_inkey
@@ -193,7 +181,7 @@ trs80_test_getch:
 vg5k_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(ZSDCC_OPTS) -compiler=sdcc \
 	-vn -lndos \
-	$(SOURCE_PATH)/../test/vg5k_hello.c \
+	$(TEST_PATH)/vg5k_hello.c \
 	-create-app
 
 sms_chicken:
@@ -201,14 +189,14 @@ sms_chicken:
 	-vn -lndos \
 	-create-app \
 	-o $(BUILD_PATH)/sms_chicken.sms \
-	$(SOURCE_PATH)/../test/chicken/chicken.c \
-	$(SOURCE_PATH)/../test/chicken/chicken_graphics.asm	
+	$(TEST_PATH)/chicken/chicken.c \
+	$(TEST_PATH)/chicken/chicken_graphics.asm	
 
 sms_joy_test:
 	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_OPTS) -clib=sdcc_iy -startup=17 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_sms.inc \
 	-create-app \
-	$(SOURCE_PATH)/../test/sms_joy_test.c \
+	$(TEST_PATH)/sms_joy_test.c \
 	-o $(BUILD_PATH)/sms_joy_test.bin
 	rm $(BUILD_PATH)/sms_joy_test_CODE.bin
 	rm $(BUILD_PATH)/sms_joy_test_DATA.bin
@@ -219,34 +207,34 @@ sms_joy_test:
 m5_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +m5 $(SCCZ80_OPTS) \
 	-create-app -vn -o$(BUILD_PATH)/m5_hello -lndos \
-	$(SOURCE_PATH)/../test/hello.c
+	$(TEST_PATH)/hello.c
 
 
 trs80_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) \
 	-create-app -vn -o$(BUILD_PATH)/trs80_hello -lndos \
-	$(SOURCE_PATH)/../test/hello.c	
+	$(TEST_PATH)/hello.c	
 	
 x1_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
 	-o $(BUILD_PATH)/x1_hello.bin -vn -lndos \
-	$(SOURCE_PATH)/../test/hello.c
+	$(TEST_PATH)/hello.c
 	
 
 x1_wait_press:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
 	-o $(BUILD_PATH)/x1_wait_press.bin -vn -lndos \
-	$(SOURCE_PATH)/../test/wait_press.c
+	$(TEST_PATH)/wait_press.c
 
 z1013_getk:
 	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) \
 	-o $(BUILD_PATH)/z1013_getk.bin -vn -lndos \
-	$(SOURCE_PATH)/../test/wait_press.c	
+	$(TEST_PATH)/wait_press.c	
 	
 x1_getk:
 	$(Z88DK_PATH)$(MYZ88DK) +x1 $(SCCZ80_OPTS) \
 	-o $(BUILD_PATH)/x1_getk.bin -vn -lndos \
-	$(SOURCE_PATH)/../test/test_getk.c
+	$(TEST_PATH)/test_getk.c
     
 
 
@@ -257,19 +245,19 @@ gal_hello:
 	-pragma-need=ansiterminal \
 	-pragma-include:$(SOURCE_PATH)/../cfg/z88dk/zpragma.inc \
 	-vn -lndos -create-app -Cz--audio \
-	$(SOURCE_PATH)/../test/hello.c \
+	$(TEST_PATH)/hello.c \
 	-o  $(BUILD_PATH)/hello.prg
 	rm $(BUILD_PATH)/hello.prg
 	
 	
 ti85_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +ti85 $(SCCZ80_OPTS) $(SOURCE_PATH)/../test/hello.c \
+	$(Z88DK_PATH)$(MYZ88DK) +ti85 $(SCCZ80_OPTS) $(TEST_PATH)/hello.c \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/ti85_hello.bin
 	rm $(BUILD_PATH)/ti85_hello.bin
 	
 cpc_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) $(SOURCE_PATH)/../test/hello.c \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) $(TEST_PATH)/hello.c \
 	-lndos \
 	-create-app -o $(BUILD_PATH)/hello.prg
 	$(SOURCE_PATH)/../tools/2cdt.exe -n -r cross_chase $(BUILD_PATH)/hello.cpc $(BUILD_PATH)/hello.cdt
@@ -279,20 +267,20 @@ cpc_hello:
 pps_vt52_test:
 	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/../test/vt52_test.c \
+	$(TEST_PATH)/vt52_test.c \
 	-lndos -vn
 	
 g800_vt52_test:
 	$(Z88DK_PATH)$(MYZ88DK) +g800 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/../test/vt52_test.c \
+	$(TEST_PATH)/vt52_test.c \
 	-lndos -vn  \
 	-create-app -o	
 	
 srr_vt52_test:
 	$(Z88DK_PATH)$(MYZ88DK) +srr $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	$(SOURCE_PATH)/../test/vt52_test.c \
+	$(TEST_PATH)/vt52_test.c \
 	-lndos -vn  \
 	-create-app -o
 	rm a.srr 
@@ -300,24 +288,24 @@ srr_vt52_test:
 
 eg2k_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +trs80 $(SCCZ80_OPTS) -subtype=eg2000disk -create-app $(INCLUDE_OPTS) \
-	$(SOURCE_PATH)/../test/hello.c
+	$(TEST_PATH)/hello.c
 	mv a.cmd $(BUILD_PATH)/eg2k_hello.cmd
 	
 z1013_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) $(INCLUDE_OPTS) $(SOURCE_PATH)/../test/hello.c \
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS) $(INCLUDE_OPTS) $(TEST_PATH)/hello.c \
 	-lndos -vn -clib=ansi \
 	-create-app -o
 	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/z1013_hello.z80
 	rm $(BUILD_PATH)/../a.bin
 
 vg5k_wait_press:
-	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) $(SOURCE_PATH)/../test/wait_press.c \
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) $(TEST_PATH)/wait_press.c \
 	-lndos -vn  -zorg=19000 \
 	-create-app -o $(BUILD_PATH)/vg5k_wait_press.prg
 
 
 z1013_wait_press:
-	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS)  $(SOURCE_PATH)/../test/wait_press.c \
+	$(Z88DK_PATH)$(MYZ88DK) +z1013 $(SCCZ80_OPTS)  $(TEST_PATH)/wait_press.c \
 	-lndos -vn -clib=ansi \
 	-create-app -o
 	mv $(BUILD_PATH)/../A.Z80 $(BUILD_PATH)/z1013_wait_press.z80
@@ -334,9 +322,16 @@ conio_nascom:
 			
 
 error_z88dk:
-	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) $(SOURCE_PATH)/../test/error.c -o $(BUILD_PATH)/error_z88dk.prg
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) $(TEST_PATH)/error.c -o $(BUILD_PATH)/error_z88dk.prg
 
 
 coleco_sound_test: 
-	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=adam -lndos -create-app  -vn ./test/psg_test.c
+	$(Z88DK_PATH)$(MYZ88DK) +cpm -subtype=adam -lndos -create-app  -vn \
+	$(TEST_PATH)/psg_test.c
 
+spectrum_sound_test: 
+	$(Z88DK_PATH)$(MYZ88DK) +zx -lndos -create-app  -vn \
+	$(TEST_PATH)/psg_test.c
+	rm a.bin
+	rm a_BANK_7.bin
+	mv a.tap $(BUILD_PATH)/spectrum_sound_test.tap

@@ -87,7 +87,7 @@ target name         | long target name                                     | wor
 *osic1p*            | Ohio Scientific Challenger 1P                        | YES     | 
 *oz*                | Sharp OZ-700                                         | YES     | 
 *p2000*             | Philips P2000                                        | YES     | 
-*pacman*            | Pacman                                               |  NO     | 
+*pacman*            | Pacman Namco arcade board                            |  NO     | 
 *pasaopia7*         | Toshiba Pasopia 7                                    | YES     | 
 *pc6001*            | NEC PC 6001                                          | YES     | 
 *pc88*              | NEC PC 8801                                          | YES     | 

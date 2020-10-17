@@ -120,7 +120,7 @@ target name         | long target name                                     | wor
 *supervision*       | Watara Supervision                                   | YES     | 
 *sv8000*            | Bandai Supervision 8000                              | YES     | 
 *svi*               | Spectravideo 318/328                                 | YES     | 
-*telestrat*         | Oric Telestrat                                       |  ?      | 
+*telestrat*         | Oric Telestrat                                       | YES     | 
 *tmc600*            | Telmac TMC-600                                       | YES     | 
 *ti82*              | Texas Instruments TI 82                              | YES     | 
 *ti83*              | Texas Instruments TI 83                              | YES     | 
@@ -149,11 +149,9 @@ target name         | long target name                                     | wor
 
 TOTAL    : 140
 
-OK       : 138
+OK       : 139
 
 KO       :   1
-
-UNKNOWN  :   1
 
 
 -----------------------------------------------------------------------------------------
@@ -237,10 +235,10 @@ KO       :   1
 
 TOTAL    : 160
 
-OK       : 148
+OK       : 149
 
 KO       :   2
 
-UNKNOWN  :  10
+UNKNOWN  :   9
 
 

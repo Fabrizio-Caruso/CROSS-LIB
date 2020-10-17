@@ -146,7 +146,10 @@
 
 
 // TURN_BASED_INPUT definitions
-	#  if defined(__NCURSES__) || defined(STDLIB)
+	#  if defined(__TELESTRAT__)
+		#include <conio.h>
+		#define TURN_BASED_INPUT() cgetc;
+	#elif defined(__NCURSES__) || defined(STDLIB)
 		#define TURN_BASED_INPUT() getchar()
 	#elif defined(Z88DK)
 		#define TURN_BASED_INPUT() getch()
@@ -161,7 +164,10 @@
 
     // GET_CHAR
 	#if !defined(NO_INPUT) && defined(KEYBOARD_CONTROL)
-        #if defined(ACK) || defined(STDLIB)
+        #if defined(__TELESTRAT__)
+            #include<conio.h>
+            #define GET_CHAR() cgetc()
+        #elif defined(ACK) || defined(STDLIB)
             #define GET_CHAR() getchar()
         #else
             char GET_CHAR(void);

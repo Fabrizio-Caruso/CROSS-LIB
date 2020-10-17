@@ -33,7 +33,6 @@
 #endif
 
 
-
 // GET_CHAR() definitions
 #if defined(KEYBOARD_CONTROL) && !defined(ACK) && !defined(STDLIB)
     #if defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__MICRO__)
@@ -41,7 +40,6 @@
             #include <devkit/input/keyboard.h>
         #endif
     #endif 
-    
     
     char GET_CHAR(void)
     {
@@ -240,7 +238,7 @@ out            stb res
 
 
 // WAIT_PRESS() definitions
-#if defined(NO_WAIT) && !defined(NO_SLEEP)
+#  if defined(NO_WAIT) && !defined(NO_SLEEP)
     void WAIT_PRESS(void)
     {
         SLEEP(2);

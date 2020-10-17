@@ -128,7 +128,7 @@ For most systems, more than one version is built, in order to support different 
 - `supervision`: Watara Supervision
 - `sv8000`: Bandai Supervision 8000
 - `svi`: Spectravideo 318/328
-- `telestrat`: Oric Telestrat (work in progress)
+- `telestrat`: Oric Telestrat
 - `tmc600`: Telmac TMC-600
 - `ti82`: Texas TI 82
 - `ti83`: Texas TI 83

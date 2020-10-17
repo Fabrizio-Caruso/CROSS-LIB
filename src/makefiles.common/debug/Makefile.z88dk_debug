@@ -257,7 +257,7 @@ ti85_hello:
 	rm $(BUILD_PATH)/ti85_hello.bin
 	
 cpc_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -lndos -pragma-define:REGISTER_SP=-1 -clib=ansi  -create-app -o$(BUILD_PATH)/HELLO_cpc.cpc  -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -lndos -pragma-define:REGISTER_SP=-1 -clib=ansi  -create-app -subtype=wav -o$(BUILD_PATH)/HELLO_cpc.cpc  -vn \
 	$(TEST_PATH)/helloworld.c
 	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/HELLO_cpc.cpc  $(BUILD_PATH)/HELLO_cpc.cdt
 	rm -rf HELLO_cpc.dsk

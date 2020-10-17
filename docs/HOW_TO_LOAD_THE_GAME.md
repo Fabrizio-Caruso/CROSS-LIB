@@ -649,6 +649,18 @@ Run CLOAD""
 
 ------------------------------------------------------------
 
+### ORIC TELESTRAT
+
+Use the modified version of Oricutron emulator: http://orix.oric.org/download/
+Use the instructions on the link above to boot Orix operating system
+
+Rename the binary file to a short name with no extension
+Copy it into sdcard/bin
+Run the binary by typing its name 
+
+
+------------------------------------------------------------
+
 ### OSCA 
 
 Use the OSCA emulator (http://www.basoft.co.uk/wordpress/emulation/computer-system-emulation/v6z80p/osca-emulator/)

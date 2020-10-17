@@ -134,7 +134,23 @@ telestrat_hello_test:
 	$(CC65_PATH)$(MYCC65) -O -t telestrat \
 	$(TEST_PATH)/helloworld_getchar.c -o $(BUILD_PATH)/$@
 
+telestrat_hello_cgetc_test:
+	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	$(TEST_PATH)/hello_cgetc.c -o $(BUILD_PATH)/$@
+
 
 telestrat_hello_test0:
 	$(CC65_PATH)$(MYCC65) -O -t telestrat \
 	$(TEST_PATH)/helloworld.c -o $(BUILD_PATH)/$@
+
+telestrat_conio:
+	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	$(TEST_PATH)/conio.c -o $(BUILD_PATH)/$@
+
+telestrat_conio0:
+	$(CC65_PATH)$(MYCC65) -O -t telestrat \
+	$(TEST_PATH)/conio0.c -o $(BUILD_PATH)/$@
+
+c64_conio:
+	$(CC65_PATH)$(MYCC65) -O -t c64 \
+	$(TEST_PATH)/conio.c -o $(BUILD_PATH)/$@

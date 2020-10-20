@@ -92,12 +92,23 @@ typedef struct ImageStruct Image;
 #else
     #include "buffered_graphics.h"
     
-    #define REFRESH() \
+    #define _REFRESH() \
         do \
         { \
             putchar('\n'); \
             display_all(); \
         } while(0);
+        
+    #if !defined(__EMCC__)
+        #define REFRESH() _REFRESH()
+    #else
+        #define REFRESH() \
+            do \
+            { \
+                _REFRESH(); \
+                fflush(stdout); \
+            } while(0)
+    #endif
 #endif
 
     

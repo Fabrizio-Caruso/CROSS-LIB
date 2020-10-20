@@ -18,8 +18,8 @@ emcc_buffered:
 	$(EM_CC) $(INCLUDE_OPTS)  \
 	-D__EMCC__ \
 	-D__GCC_BUFFERED__ \
-	-DFORCE_XSIZE=80 \
-	-DFORCE_YSIZE=24 \
+	-DFORCE_XSIZE=48 \
+	-DFORCE_YSIZE=9 \
 	-DSTDLIB \
 	-DNO_COLOR \
 	-DNO_SLEEP \
@@ -27,7 +27,7 @@ emcc_buffered:
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
-	-DALT_PRINT \
+	-DALT_PRINT -DNO_WAIT  \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
@@ -35,6 +35,7 @@ emcc_buffered:
 	mv FULL_emcc_buffered.js $(BUILD_PATH)
 	mv FULL_emcc_buffered.wasm $(BUILD_PATH)
 	mv FULL_emcc_buffered.html $(BUILD_PATH)
+	cp $(BUILD_PATH)/FULL_emcc_buffered.* /home/fcaruso/build/emsdk
 
 emcc_exp:
 	$(EM_CC) $(INCLUDE_OPTS)  \

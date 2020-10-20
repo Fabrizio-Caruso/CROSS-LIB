@@ -144,11 +144,48 @@
     
 #endif
 
+/*
+#if defined(__EMCC__)
+#include <emscripten.h>
+void js_getchar(void)
+{
+window.addEventListener("keydown", function (event) {
+  if (event.defaultPrevented) {
+    return; // Do nothing if the event was already processed
+  }
+
+  switch (event.key) {
+    case "ArrowDown":
+      // code for "down arrow" key press.
+      break;
+    case "ArrowUp":
+      // code for "up arrow" key press.
+      break;
+    case "ArrowLeft":
+      // code for "left arrow" key press.
+      break;
+    case "ArrowRight":
+      // code for "right arrow" key press.
+      break;
+    default:
+      return; // Quit when this doesn't handle the key event.
+  }
+
+  // Cancel the default action to avoid it being handled twice
+  event.preventDefault();
+}, true);
+// the last option dispatches the event to the listener first,
+// then dispatches event to window
+
+#endif
+*/
 
 // TURN_BASED_INPUT definitions
 	#  if defined(__TELESTRAT__)
 		#include <conio.h>
 		#define TURN_BASED_INPUT() cgetc;
+	#elif defined(__EMCC__)
+		#define TURN_BASED_INPUT() getchar()
 	#elif defined(__NCURSES__) || defined(STDLIB)
 		#define TURN_BASED_INPUT() getchar()
 	#elif defined(Z88DK)

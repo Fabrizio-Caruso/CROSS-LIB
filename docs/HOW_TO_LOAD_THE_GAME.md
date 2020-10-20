@@ -253,11 +253,23 @@ In order to run a game built for this target you need to run an HTTP server:
 1. python -m SimpleHTTPServer
 
 You can then run your program by using the following URL:
-http://localhost:8080/<html file name>
-
+e.g., http://localhost:8000/FULL_emcc_buffered.html
 
 For more info on Emscripten installation:
 See https://emscripten.org/docs/getting_started/downloads.html
+
+In particular: 
+# Make the "latest" SDK "active" for the current user. (writes .emscripten file)
+./emsdk activate latest
+
+# Activate PATH and other environment variables in the current terminal
+source ./emsdk_env.sh
+
+Note
+
+On Windows, run emsdk instead of ./emsdk, and emsdk_env.bat instead of source ./emsdk_env.sh.
+
+
 ------------------------------------------------------------
 
 ### ENTERPRISE

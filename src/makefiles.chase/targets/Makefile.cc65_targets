@@ -716,12 +716,29 @@ telestrat_buffered:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_telestrat
+	-o $(BUILD_PATH)/FULL_$@
+	cp $(BUILD_PATH)/FULL_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
+
+
+telestrat_joy_buffered: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
+	-D__TELESTRAT__ -DCC65_JOYSTICK \
+	-DBUFFERED -DTURN_BASED -DSTDLIB -DFORCE_XSIZE=38 -DFORCE_YSIZE=24 \
+	-DNO_SET_SCREEN_COLORS -DSLOW_DOWN=800 \
+	-DFULL_GAME -DNO_WAIT -DNO_SLEEP \
+	-DNO_COLOR -DALT_PRINT -DDEFAULT_CLEAR_SCREEN \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DNO_INIT_GRAPHICS \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_$@
+	cp $(BUILD_PATH)/FULL_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
 
 telestrat_exp: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
-	-DFORCE_CONIO_LIB \
-	-DNO_WAIT \
+	-D__TELESTRAT__ -DFORCE_CONIO_LIB \
+	-DNO_WAIT -DCC65_JOYSTICK -DFORCE_XSIZE=38 -DFORCE_YSIZE=24  \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_SLEEP \
 	-DFULL_GAME \
@@ -731,7 +748,8 @@ telestrat_exp:
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_telestrat.prg	
+	-o $(BUILD_PATH)/FULL_$@
+	cp $(BUILD_PATH)/FULL_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
 
 
 #######################################################################################

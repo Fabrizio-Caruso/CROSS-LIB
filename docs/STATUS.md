@@ -220,7 +220,7 @@ UNKNOWN  :   1
 target name         | long target name                                     | working | 
 --------------------|------------------------------------------------------|---------| 
 *gcc*               | Native Console version (with or without ncurses)     | YES     | 
-*emcc*              | Emscripten (WebAssembly version)                     |  NO     | 
+*emcc*              | Emscripten (WebAssembly version)                     | YES     | 
 
 
 OK       :   1
@@ -235,9 +235,9 @@ KO       :   1
 
 TOTAL    : 160
 
-OK       : 149
+OK       : 150
 
-KO       :   2
+KO       :   1
 
 UNKNOWN  :   9
 

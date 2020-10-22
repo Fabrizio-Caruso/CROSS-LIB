@@ -71,16 +71,18 @@ aquarius_exp_4k:
 	-DFORCE_NARROW \
 	-DDEFAULT_CLEAR_SCREEN \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-lndos -o TINY_aquarius_exp_4k -create-app \
+	-lndos \
 	-DMEMORY_MAPPED \
 	$(TINY_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/aquarius_init_graphics.c
-	rm TINY_aquarius_exp_4k
-	tar czvf TINY_aquarius_exp_4k.tar.zip TINY_aquarius_exp_4k.caq _TINY_aquarius_exp_4k.caq
-	rm TINY_aquarius_exp_4k.caq
-	rm _TINY_aquarius_exp_4k.caq
-	mv TINY_aquarius_exp_4k.tar.zip $(BUILD_PATH)
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/aquarius/aquarius_init_graphics.c \
+	-create-app -o $(BUILD_PATH)/TINY_aquarius_exp_16k
+	rm $(BUILD_PATH)/TINY_aquarius_exp_16k
+	# rm TINY_aquarius_exp_4k
+	# tar czvf TINY_aquarius_exp_4k.tar.zip TINY_aquarius_exp_4k.caq _TINY_aquarius_exp_4k.caq
+	# rm TINY_aquarius_exp_4k.caq
+	# rm _TINY_aquarius_exp_4k.caq
+	# mv TINY_aquarius_exp_4k.tar.zip $(BUILD_PATH)
 
 
 aquarius: aquarius_exp_16k
@@ -93,12 +95,13 @@ aquarius_exp_16k:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app	\
-	-o FULL_aquarius_exp_16k
-	rm FULL_aquarius_exp_16k
-	tar czvf FULL_aquarius_exp_16k.tar.zip FULL_aquarius_exp_16k.caq _FULL_aquarius_exp_16k.caq
-	rm FULL_aquarius_exp_16k.caq
-	rm _FULL_aquarius_exp_16k.caq
-	mv FULL_aquarius_exp_16k.tar.zip $(BUILD_PATH)	
+	-o $(BUILD_PATH)/FULL_aquarius_exp_16k
+	rm $(BUILD_PATH)/FULL_aquarius_exp_16k
+	# rm FULL_aquarius_exp_16k
+	# tar czvf FULL_aquarius_exp_16k.tar.zip FULL_aquarius_exp_16k.caq _FULL_aquarius_exp_16k.caq
+	# rm FULL_aquarius_exp_16k.caq
+	# rm _FULL_aquarius_exp_16k.caq
+	# mv FULL_aquarius_exp_16k.tar.zip $(BUILD_PATH)
 
 
 #############################

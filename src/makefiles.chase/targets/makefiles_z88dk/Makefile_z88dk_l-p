@@ -145,7 +145,9 @@ lambda_16k:
 #############################
 # LASER500
 
-laser500:
+laser500: laser500_gfx
+
+laser500_no_gfx:
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
 	-create-app -o laser500.bin \
 	$(INCLUDE_OPTS) \
@@ -155,26 +157,31 @@ laser500:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-lndos \
 	$(FULL_FILES)
-	mv laser500.bin $(BUILD_PATH)/FULL_laser500.bin
+	mv laser500.bin $(BUILD_PATH)/FULL_laser500_no_gfx.bin
 	rm laser500.cas
-	mv laser500.wav $(BUILD_PATH)/FULL_laser500.wav
+	mv laser500.wav $(BUILD_PATH)/FULL_laser500_no_gfx.wav
 
 
 	# -compiler=sdcc 
-laser500_bitmap: 	
-	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio -v \
+laser500_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
 	-create-app -o laser500bm.bin \
 	$(INCLUDE_OPTS) \
-	-D__LASER500__ -DLASER500_BITMAP \
-	-DFORCE_BIT_BANG -DSOUNDS -DNO_STATS \
-	-DTINY_GAME \
-	-DNO_GRAPHICS -DNO_PRINT -DNO_INPUT -DNO_SET_SCREEN_COLORS \
+	-D__LASER500__ -DUDG_GRAPHICS -DFORCE_XSIZE=40 -DFORCE_YSIZE=22 -DFORCE_SCREEN_MODE=2 \
+	-DFORCE_BIT_BANG -DSOUNDS \
+	-DFULL_GAME -DLESS_TEXT \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCONIO \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
 	-lndos \
-	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/laser500/laser500_bitmap_init_graphics.c
-	mv laser500bm.bin $(BUILD_PATH)/TINY_laser500_bitmap.bin
+	$(FULL_FILES) \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm 
+	mv laser500bm.bin $(BUILD_PATH)/FULL_laser500.bin
 	rm laser500bm.cas
-	mv laser500bm.wav $(BUILD_PATH)/TINY_laser500_bitmap.wav
+	mv laser500bm.wav $(BUILD_PATH)/FULL_laser500.wav
 
 
 #############################

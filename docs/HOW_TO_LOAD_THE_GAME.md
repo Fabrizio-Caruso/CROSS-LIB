@@ -269,7 +269,8 @@ Note
 
 On Windows, run emsdk instead of ./emsdk, and emsdk_env.bat instead of source ./emsdk_env.sh.
 
-
+WSL mounted on:
+C:\Users\fabri\AppData\Local\Packages\CanonicalGroupLimited.Ubuntu18.04onWindows_79rhkp1fndgsc\LocalState\rootfs
 ------------------------------------------------------------
 
 ### ENTERPRISE

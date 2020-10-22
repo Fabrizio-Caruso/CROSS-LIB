@@ -23,7 +23,7 @@ Its code is almost entirely in a single file. It uses pre-shifted tiles to produ
 ## CURRENTLY SUPPORTED ARCHITECTURES
 The main goal is to get the library and game to work on most vintage systems with possibly all 8-bit architectures as well as some 16 and 32-bit architectures.
 A partial list of the supported systems with their status is in: 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/STATUS.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
 
 The most significant supported CPU architecture are described below.
@@ -64,7 +64,7 @@ In principle you can compile the game in turn-based mode with minimal input and 
 You can also compile the game in action mode with minimal input and output for any architecture for which there an ANCI C compiler with *ncurses* or *conio* libraries.
 
 For a complete list of the supported systems and their statuslook at:
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/STATUS.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
 
 -------------------------------------------
@@ -80,7 +80,7 @@ The game and library code are  separated:
 The tool-chain currently supports: *CC65*, *Z88DK* (*SCCZ80* and *ZSDCC*), *CMOC*, *LCC1802*, *ACK*, *XTC68*, *GCC*, *GCC-Z8K*, *GCC-ATARI-ST*, *GCC-AMIGA*, *GCC-TI*.
 
 For more details look at: 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILERS.md
 
 -------------------------------------------
 
@@ -88,7 +88,7 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILERS.md
 In order to compile the game you need to be in a POSIX environment such as Windows+Cygwin, Linux, FreeBSD, MacOS or any Unix-like environment that supports the "make" command.
 
 For more details we refer to: 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/PREREQUISITES.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/PREREQUISITES.md
 
 
 ### Compilation tests
@@ -118,7 +118,7 @@ you can build the default target for a given system with
 where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`.
 
 For the list of systems either run `make status`or look at 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/STATUS.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
 Examples: 
 - `make c64 -f Makefile.chase` (or equivalently `make c64`) builds the default binary of *Cross Chase* for Commodore 64.
@@ -149,7 +149,7 @@ Examples:
 where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`
 
 You can find the list of compilers and dev-kit if you either run `make help` or look at 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/COMPILER_NAMES.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/COMPILER_NAMES.md
 
 
 Examples:
@@ -165,7 +165,7 @@ Examples:
 ### Detailed build instructions 
 
 For more details on how to build either run `make help` or look at 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/BUILD.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD.md
 
 
 -------------------------------------------
@@ -176,11 +176,11 @@ In order to run the game you will have to follow a different procedure depending
 ### Loading the game into an emulated vintage system
 In most cases loading an executable into an emulator is straightforward. 
 For a detailed guide on how to load the game on several emulated systems for which the procedure is not obvious, we refer to: 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/HOW_TO_LOAD_THE_GAME.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GAME.md
 
 ### Loading the game into a real vintage system
 This depends on the systems and the format used to store the game. For some hints on this take a look at:
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/HOW_TO_LOAD_THE_GAME_ON_REAL_HARDWARE.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/HOW_TO_LOAD_THE_GAME_ON_REAL_HARDWARE.md
 
 -------------------------------------------
 
@@ -191,12 +191,12 @@ All flashing items have positive effects and can grant you some special powers. 
 If you use the gun against the skull and/or the missiles and rockets, you can unlock some special secret items.
 There are 20 different levels including 4 boss levels.
 
-You can play the game on-line for different systems:
+You can play the game online for different systems:
 
-1. MSX version: https://homebrew.file-hunter.com/index.php?id=crosschase
+1. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
 2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
-3. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
-4. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
+3. MSX version: https://homebrew.file-hunter.com/index.php?id=crosschase
+4. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
 5. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_chase
 
 
@@ -215,6 +215,12 @@ You can unlock the 16 secrets by shooting at the skulls and at the missile and r
 The game has 16 different levels including 2 boss levels + 1 secret level.
 
 
+You can play the gamne online:
+
+1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_shoot
+2. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_shoot
+
+
 -------------------------------------------
 
 ## CROSS BOMBER - THE GAME 
@@ -223,6 +229,11 @@ The game is a clone of Air Attack (aka Blitz) game that was first developed on t
 The game is controlled by the single fire button (first joystick button for targets with joystick input and space key for targets with keyboard input).
 Your score depends on the number of building destroyed, the level reached and how fast you complete each single level.
 The game has 8 levels and it ends after the eighth level.
+
+You can play the game online:
+
+1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_bomber
+2. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_bomber
 
 
 -------------------------------------------
@@ -238,7 +249,7 @@ Therefore the following coding choices and design decisions have been made:
 Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects but the game code is hardware-agnostic.
 
 The game code is in: 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/src/chase
+https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/chase
 
 
 -------------------------------------------
@@ -271,7 +282,7 @@ If colors, graphics and sounds are available the tool-chain and CrossLib will pr
 ![C16 first level](snapshots/c264_level1.jpg)
 
 For more snapshots we refer to: 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SNAPSHOTS.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/SNAPSHOTS.md
 
 -------------------------------------------
 
@@ -279,7 +290,7 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/SNAPSHOTS.md
 CrossLib provides a *retro-hardware abstraction layer* for display, sound, input, etc.
 
 CrossLib code is in: 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/tree/master/src/cross_lib
+https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/cross_lib
 
 ### Sound
 Sound abstraction is achieved by providing common APIs for the (few) sounds that CrossLib provides.
@@ -293,7 +304,7 @@ Display abstraction is provided by (at least) two levels of abstraction:
 - Generic graphics modes that may be shared among a few targets.
 
 For more details on CrossLib we refer to: 
-https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/CROSSLIB.md
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CROSSLIB.md
 
 
 -------------------------------------------
@@ -302,7 +313,7 @@ https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/CROSSLIB.md
 
 CrossLib would not exist without the cross-compilers and the support of their developers and the support of some people who have helped me handle the input/output of some targets.
 
-A partial list of the people who have helped in found in: https://github.com/Fabrizio-Caruso/CROSS-CHASE/blob/master/docs/CREDITS.txt
+A partial list of the people who have helped in found in: https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CREDITS.txt
 
 -------------------------------------------
 

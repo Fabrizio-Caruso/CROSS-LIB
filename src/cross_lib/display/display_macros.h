@@ -86,8 +86,12 @@ typedef struct ImageStruct Image;
     void laser500_gr4_draw(unsigned char x, unsigned char y, unsigned char *image, unsigned char color);
 #endif
 
+
+
 #if defined(USE_WAIT_V_SYNC)
-    #if defined(__VIC20__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__)
+    #if defined(__VIC20__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) || \
+        defined(__APPLE2ENH__) || defined(__PCE__) || defined(__NES__) || \
+        defined(__GAMATE__) || defined(__CBM510__) || defined(__CX16__)
         #define WAIT_V_SYNC() waitvsync()
     #else
         #define WAIT_V_SYNC() 

@@ -73,7 +73,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
         else
         {
             (void) moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
-                          (uint8_t *)preyPtr + Y_MOVE);
+                                 (uint8_t *)preyPtr + Y_MOVE);
         }
     }
 
@@ -87,7 +87,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
         else
         {
             (void) moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
-                          (uint8_t *)preyPtr + X_MOVE);
+                                 (uint8_t *)preyPtr + X_MOVE);
         }
     }
 #endif

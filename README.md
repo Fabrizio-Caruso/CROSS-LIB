@@ -195,9 +195,10 @@ You can play the game online for different systems:
 
 1. Atari LYNX: https://atarigamer.com/lynx/play/CrossChase/675300242
 2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
-3. MSX version: https://homebrew.file-hunter.com/index.php?id=crosschase
-4. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
-5. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_chase
+3. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=fabrizio-caruso/FULL_XChase_vic20_exp_8k
+4. MSX version: https://homebrew.file-hunter.com/index.php?id=crosschase
+5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
+6. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_chase
 
 
 -------------------------------------------
@@ -218,7 +219,9 @@ The game has 16 different levels including 2 boss levels + 1 secret level.
 You can play the gamne online:
 
 1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_shoot
-2. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_shoot
+2. Commodore VIC 20: https://nippur72.github.io/vic20-emu/?joy=1&load=fabrizio-caruso/FULL_XShoot_vic20_exp_16k
+3. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_shoot
+
 
 
 -------------------------------------------
@@ -233,7 +236,8 @@ The game has 8 levels and it ends after the eighth level.
 You can play the game online:
 
 1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_bomber
-2. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_bomber
+2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=fabrizio-caruso/FULL_Xbomber_vic20_exp_8k
+3. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_bomber
 
 
 -------------------------------------------

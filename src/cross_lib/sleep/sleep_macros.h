@@ -50,22 +50,6 @@
     #endif
 
 
-#if defined(__NCURSES__)
-    #define DO_SLOW_DOWN(t) \
-        usleep((t)*800);
-#elif defined(SLOW_DOWN) && SLOW_DOWN>0
-    #define DO_SLOW_DOWN(t) \
-    do { \
-        uint16_t i; \
-        \
-        for(i=0;i<(t);++i) \
-        { \
-        } \
-    } while(0)
-#else 
-    #define DO_SLOW_DOWN(t)
-#endif
-
 #if !defined(SLOW_DOWN)
     #if defined(TURN_BASED)
             #define SLOW_DOWN 0
@@ -89,7 +73,7 @@
         #elif defined(__SAM__)
             #define SLOW_DOWN 500
         #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED)
-            #define SLOW_DOWN 0	
+            #define SLOW_DOWN 0
         #elif defined(__PC6001__)
             #define SLOW_DOWN 500	
         #elif defined(__NASCOM__)
@@ -99,9 +83,17 @@
         #elif defined(__VZ__)
             #define SLOW_DOWN 3000U
         #elif defined(__TI82__) || defined(__TI83__) || defined(__TI85__) || defined(__TI8X__) || defined(__TI86__)
-            #define SLOW_DOWN 6000U		
-        #elif (defined(__VIC20__) && !defined(VIC20_UNEXPANDED)) || defined(__NES__) || defined(__MZ__) || defined(__Z9001__) || \
-              defined(__WINCMOC__) || defined(__CMOC__) || defined(__CBM610__) || defined(__MSX__) || defined(__LASER500__)
+            #define SLOW_DOWN 6000U
+        #elif defined(__C64__)
+            #if defined(USE_WAIT_V_SYNC)
+                #define SLOW_DOWN 100
+            #else
+                #define SLOW_DOWN 300
+            #endif
+        #elif (defined(__VIC20__) && !defined(VIC20_UNEXPANDED)) 
+            #define SLOW_DOWN 600
+        #elif defined(__NES__) || defined(__MZ__) || defined(__Z9001__) || defined(__WINCMOC__) || defined(__CMOC__) || \
+              defined(__CBM610__) || defined(__MSX__) || defined(__LASER500__)
             #define SLOW_DOWN 800
         #elif defined(__APPLE2__) || defined(__APPLE2ENH__) || (defined(__C16__) || defined(__PLUS4__))
             #define SLOW_DOWN 250
@@ -142,6 +134,22 @@
             #define SLOW_DOWN 2000		
         #endif
     #endif
+#endif
+
+#if defined(__NCURSES__)
+    #define DO_SLOW_DOWN(t) \
+        usleep((t)*800);
+#elif defined(SLOW_DOWN) && SLOW_DOWN>0
+    #define DO_SLOW_DOWN(t) \
+    do { \
+        uint16_t i; \
+        \
+        for(i=0;i<(t);++i) \
+        { \
+        } \
+    } while(0)
+#else 
+    #define DO_SLOW_DOWN(t)
 #endif
 
 #endif // _SLEEP_MACROS

@@ -418,9 +418,6 @@ int main(void)
                 while(player._status && (ghostCount>0) )
             #endif
             {
-                #if defined(SLOW_DOWN) && SLOW_DOWN>0
-                    DO_SLOW_DOWN(SLOW_DOWN);
-                #endif
                 
                 #if defined(BENCHMARK)
                     ++benchmark_count;
@@ -508,6 +505,17 @@ int main(void)
                         chaseCharacter(ghostSlowDown);
                     #endif
                 #endif
+                
+                // Display ghosts
+                SKIP_GHOST_DRAW
+                {
+                    WAIT_V_SYNC();
+                    for(ind=0;ind<GHOSTS_NUMBER;++ind)
+                    {
+                        displayGhost(&ghosts[ind]);
+                    }
+                }
+                
                 
                 // Check collisions bombs vs ghosts
                 for(ind=0;ind<GHOSTS_NUMBER;++ind)
@@ -600,14 +608,6 @@ int main(void)
                     }
                 #endif
                 
-                // Display ghosts
-                SKIP_GHOST_DRAW
-                {
-                    for(ind=0;ind<GHOSTS_NUMBER;++ind)
-                    {
-                        displayGhost(&ghosts[ind]);
-                    }
-                }
                     
                 #if defined(TURN_BASED) 
                     if((loop<TURN_BASED_MAX_LOOP) || loop&1)
@@ -619,7 +619,15 @@ int main(void)
                 #if !defined(TINY_GAME) || defined(TURN_BASED)
                     ++loop;
                 #endif
+                
+                #if defined(SLOW_DOWN) && SLOW_DOWN>0
+                    DO_SLOW_DOWN(SLOW_DOWN);
+                #endif
+                // TODO: DEBUG WAIT_V_SYNC
+                // POKE(53280u,0);
+                // WAIT_V_SYNC();
                 REFRESH();
+                // POKE(53280u,1);
             }; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
     
             #if defined(BENCHMARK)

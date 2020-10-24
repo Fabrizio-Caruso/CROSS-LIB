@@ -80,6 +80,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 
 void blindChaseCharacterXStrategy(Character* hunterPtr)
 {
+    deleteGhost(hunterPtr);
     if(moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
                      (uint8_t *)&player + X_MOVE))
     {
@@ -95,6 +96,7 @@ void blindChaseCharacterXStrategy(Character* hunterPtr)
 
 void blindChaseCharacterYStrategy(Character* hunterPtr)
 {
+    deleteGhost(hunterPtr);
     if(moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
                      (uint8_t *)&player + Y_MOVE))
     {
@@ -162,6 +164,7 @@ void verticalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t stra
         #if defined(DEBUG_STRATEGY)        
         gotoxy(4,1);cprintf("behind the wall         ");
         #endif
+        deleteGhost(hunterPtr);
         if(hunterPtr->_y>(YSize/2))
         {
             ++(hunterPtr->_y);
@@ -178,6 +181,7 @@ void verticalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t stra
         #endif
         if(hunterPtr->_x==XSize/2) // both aligned with the wall
         {
+            deleteGhost(hunterPtr);
             ++(hunterPtr->_x);
         }
         else
@@ -215,6 +219,7 @@ void verticalWallMoveTowardCharacter(register Character *hunterPtr)
         #if defined(DEBUG_STRATEGY)        
         gotoxy(4,1);cprintf("behind the wall         ");
         #endif
+        deleteGhost(hunterPtr);
         if(hunterPtr->_y>(YSize/2))
         {
             ++(hunterPtr->_y);
@@ -231,6 +236,7 @@ void verticalWallMoveTowardCharacter(register Character *hunterPtr)
         #endif
         if(hunterPtr->_x==XSize/2) // both aligned with the wall
         {
+            deleteGhost(hunterPtr);
             ++(hunterPtr->_x);
         }
         else
@@ -291,6 +297,7 @@ void horizontalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t st
         #if defined(DEBUG_STRATEGY)        
         gotoxy(4,1);cprintf("behind the wall       ");          
         #endif
+        deleteGhost(hunterPtr);
         if(hunterPtr->_x>(XSize/2))
         {
             ++(hunterPtr->_x);
@@ -307,6 +314,7 @@ void horizontalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t st
         #endif
         if(hunterPtr->_y==YSize/2)
         {
+            deleteGhost(hunterPtr);
             ++(hunterPtr->_y);
         }
         else
@@ -344,6 +352,7 @@ void horizontalWallMoveTowardCharacter(register Character *hunterPtr)
         #if defined(DEBUG_STRATEGY)        
         gotoxy(4,1);cprintf("behind the wall       ");          
         #endif
+        deleteGhost(hunterPtr);
         if(hunterPtr->_x>(XSize/2))
         {
             ++(hunterPtr->_x);
@@ -360,6 +369,7 @@ void horizontalWallMoveTowardCharacter(register Character *hunterPtr)
         #endif
         if(hunterPtr->_y==YSize/2)
         {
+            deleteGhost(hunterPtr);
             ++(hunterPtr->_y);
         }
         else
@@ -414,7 +424,6 @@ void chaseCharacter(void)
         {
             if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)    
             {
-                deleteGhost(&ghosts[i]);
                 #if !defined(SIMPLE_STRATEGY)
                     verticalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
                 #else
@@ -429,7 +438,6 @@ void chaseCharacter(void)
         {
              if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)
             {
-                deleteGhost(&ghosts[i]);
                 #if !defined(SIMPLE_STRATEGY)
                     horizontalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
                 #else

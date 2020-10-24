@@ -396,6 +396,7 @@ int main(void)
             {
 
                 // Land safely
+                WAIT_V_SYNC();
                 if(!remaining_buildings && (y<MAX_Y-2) && (x<XSize-3) )
                 {
                     deleteAnimatedPlaneBack();
@@ -459,6 +460,7 @@ int main(void)
                     }
 
                 }
+                WAIT_V_SYNC();
                 deleteAnimatedPlaneBack();
                 drawPlane();
                 

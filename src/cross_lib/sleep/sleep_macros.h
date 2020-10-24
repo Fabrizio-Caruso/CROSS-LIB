@@ -86,7 +86,7 @@
             #define SLOW_DOWN 6000U
         #elif defined(__C64__)
             #if defined(USE_WAIT_V_SYNC)
-                #define SLOW_DOWN 100
+                #define SLOW_DOWN 0
             #else
                 #define SLOW_DOWN 300
             #endif

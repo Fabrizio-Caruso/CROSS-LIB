@@ -123,7 +123,6 @@ void handle_skull(Character *skullPtr, uint8_t strategy)
         if(!freezeActive && SKULL_RAND_CONDITION)
         {
             TOCK_SOUND();
-            deleteSkull(skullPtr);
             skullMoveTowardCharacter(skullPtr, strategy);
         }
         displaySkull(skullPtr);

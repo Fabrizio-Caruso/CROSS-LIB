@@ -231,6 +231,30 @@ void DO_DEBUG_ITEMS(void)
 #endif
 
 
+void DISPLAY_GHOSTS(void)
+{
+    #if !defined(SPLIT_GHOSTS_DISPLAY)
+    
+        for(ind=0;ind<GHOSTS_NUMBER;++ind)
+        {
+            displayGhost(&ghosts[ind]);
+        }
+    #else
+    
+        for(ind=0;ind<GHOSTS_NUMBER/2;++ind)
+        {
+            displayGhost(&ghosts[ind]);
+        }
+
+        WAIT_V_SYNC();
+        for(ind=GHOSTS_NUMBER/2;ind<GHOSTS_NUMBER;++ind)
+        {
+            displayGhost(&ghosts[ind]);
+        }
+    #endif
+}
+
+
 int main(void)
 {        
     INIT_GRAPHICS();
@@ -400,6 +424,8 @@ int main(void)
                 printGunsStats();
                 #endif
                 printGhostCountStats();
+
+                DISPLAY_GHOSTS();
             #endif        
             
             #if defined(DEBUG_ITEMS)
@@ -469,13 +495,12 @@ int main(void)
                             {
                                 chasedByGhosts=&player;
                             }
-                            chaseCharacter(chasedByGhosts, ghostSlowDown);
-
+                            
+                            chaseCharacter(chasedByGhosts);
 
                             #if BOMBS_NUMBER==4
                                 if((level==15 || level==20) && ghostCount<=2)
                                 {
-                                    deleteCharacter(&bombs[loop&3]);
                                     #if defined(SIMPLE_STRATEGY)
                                         moveTowardCharacter(chasedByGhosts, &bombs[loop&3]);
                                     #else
@@ -485,9 +510,17 @@ int main(void)
                             #endif                            
                             ++ghostLevel;
                         #else
-                            chaseCharacter(ghostSlowDown);
+                            chaseCharacter();
                         #endif
                         
+                    }
+                    else // Frozen ghsots must be redisplayed anyway
+                    {
+                        // Display ghosts
+                        SKIP_GHOST_DRAW
+                        {
+                            DISPLAY_GHOSTS();
+                        }
                     }
                     
                     if(skull._status)
@@ -502,19 +535,11 @@ int main(void)
                     }
                 #else
                     #if !defined(NO_CHASE)
-                        chaseCharacter(ghostSlowDown);
+                        chaseCharacter();
                     #endif
                 #endif
                 
-                // Display ghosts
-                SKIP_GHOST_DRAW
-                {
-                    WAIT_V_SYNC();
-                    for(ind=0;ind<GHOSTS_NUMBER;++ind)
-                    {
-                        displayGhost(&ghosts[ind]);
-                    }
-                }
+
                 
                 
                 // Check collisions bombs vs ghosts
@@ -623,11 +648,7 @@ int main(void)
                 #if defined(SLOW_DOWN) && SLOW_DOWN>0
                     DO_SLOW_DOWN(SLOW_DOWN);
                 #endif
-                // TODO: DEBUG WAIT_V_SYNC
-                // POKE(53280u,0);
-                // WAIT_V_SYNC();
                 REFRESH();
-                // POKE(53280u,1);
             }; // end inner while [while (player._alive && ghostCount>0), i.e., exit on death or end of level]
     
             #if defined(BENCHMARK)

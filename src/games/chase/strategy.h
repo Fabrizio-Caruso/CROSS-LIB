@@ -53,9 +53,9 @@ uint8_t moveCharacter(uint8_t *hunterOffsetPtr, uint8_t *preyOffsetPtr);
 #endif
 
 #if defined(FULL_GAME)
-	void chaseCharacter(Character *preyPtr, uint16_t slowDown);	
+	void chaseCharacter(Character *preyPtr);	
 #else
-	void chaseCharacter(uint16_t slowDown);	
+	void chaseCharacter(void);	
 #endif
 	
 #endif // _STRATEGY

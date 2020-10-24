@@ -336,22 +336,41 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_63chars.s
 #######################################################################################
 # C64
 
-c64: $(ASSETS_PATH)/cc65_udc.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
+# -DDEBUG_GHOST_DISPLAY
+c64_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c64 \
 	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
-	-DCBM_SCREEN_CODES \
-	-DMEMORY_MAPPED -DUSE_WAIT_V_SYNC \
+	-DCBM_SCREEN_CODES -DFORCE_GHOSTS_NUMBER=8 \
+	-DMEMORY_MAPPED -DUSE_WAIT_V_SYNC -DSPLIT_GHOSTS_DISPLAY \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_c64.prg
-	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_c64.prg -o $(BUILD_PATH)/FULL_c64_exomized.prg
-	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_c64_exomized.prg  $(BUILD_PATH)/FULL_c64_exomized.crt
-	rm $(BUILD_PATH)/FULL_c64.prg
+	-o $(BUILD_PATH)/FULL_$@.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_$@.prg -o $(BUILD_PATH)/FULL_$@_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_$@_exomized.prg  $(BUILD_PATH)/FULL_$@_exomized.crt
+	rm $(BUILD_PATH)/FULL_$@.prg
+
+c64: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c64 \
+	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DCBM_SCREEN_CODES \
+	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_$@.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_$@.prg -o $(BUILD_PATH)/FULL_$@_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_$@_exomized.prg  $(BUILD_PATH)/FULL_$@_exomized.crt
+	rm $(BUILD_PATH)/FULL_$@.prg
+
 
 
 #######################################################################################
@@ -755,8 +774,8 @@ telestrat_exp:
 #######################################################################################
 # VIC20
 
-vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+vic20_exp_16k_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
 	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
 	-DREDEFINED_CHARS -DUSE_WAIT_V_SYNC \
@@ -766,7 +785,24 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_vic20_exp_16k.prg
+	-o $(BUILD_PATH)/FULL_$@.prg
+
+
+vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 -DANIMATE_PLAYER -DFULL_GAME -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	--config $(CFG_PATH)/cc65/vic20-16k_GFX.cfg \
+	-DCONIO -DVIC20_EXP_16K -DSLOW_DOWN=2300 \
+	-DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 \
+	$(ASSETS_PATH)/cc65_udc.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	$(SOURCE_PATH)/end_screen.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_$@.prg
+
+test_vsync:
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t vic20 $(TEST_PATH)/test_vsync.c -o $(BUILD_PATH)/test_vsync.prg
 
 
 vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_3k.s
@@ -804,7 +840,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20.s
 	--config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DCC65_GOTO \
+	-DCC65_GOTO -DSLOW_DOWN=2300 \
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	-DFULL_GAME \
 	-DSIMPLE_STRATEGY \

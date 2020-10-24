@@ -112,7 +112,6 @@ void handle_skull(void)
 		if(SKULL_RAND_CONDITION)
 		{
 			TOCK_SOUND();
-			deleteSkull(&skull);
 			#if defined(FULL_GAME)
 				if(!confuseActive || !(loop&3))
 				{
@@ -126,7 +125,6 @@ void handle_skull(void)
 				moveTowardCharacter(&skull);
 			#endif
 		}
-		displaySkull(&skull);
 		#if defined(FULL_GAME)
 		if (playerKilledBy(&skull))
 		#else

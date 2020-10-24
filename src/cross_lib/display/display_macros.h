@@ -87,6 +87,17 @@ typedef struct ImageStruct Image;
 #endif
 
 
+#if defined(__VIC20__)
+    #define SET_DEBUG_BORDER()     POKE(36879u, 12)
+    #define UNSET_DEBUG_BORDER()   POKE(36879u,  8)
+#elif defined(__C64__)
+    #define SET_DEBUG_BORDER()     POKE(53280u,  1)
+    #define UNSET_DEBUG_BORDER()   POKE(53280u,  0)
+#else
+    #define SET_DEBUG_BORDER() 
+    #define UNSET_DEBUG_BORDER() 
+#endif
+
 
 #if defined(USE_WAIT_V_SYNC)
     #if defined(__VIC20__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) || \

@@ -412,6 +412,11 @@ int main(void)
                     ++ghostLevel;            
                     
                 }
+                                
+                // Display ghosts
+                SKIP_GHOST_DRAW
+                    displayGhosts();
+                
                 #if !defined(DEBUG_STRATEGY)
                 handle_skulls();
                 #endif
@@ -448,7 +453,7 @@ int main(void)
                     SHORT_SLEEP(1);
                 }
                 #endif
-                SHORT_SLEEP(1);
+                SHORT_SLEEP(2);
                 
                 handle_calmDown_item();
                 handle_extraPoints_item();
@@ -499,10 +504,7 @@ int main(void)
                 {
                     playerDies();
                 }
-                
-                // Display ghosts
-                SKIP_GHOST_DRAW
-                    displayGhosts();
+
                     
                 
                     

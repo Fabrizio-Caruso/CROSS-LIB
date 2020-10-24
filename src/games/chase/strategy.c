@@ -39,6 +39,8 @@ extern Character ghosts[GHOSTS_NUMBER];
 
 extern uint8_t strategyArray[GHOSTS_NUMBER];
 
+extern uint16_t ghostSlowDown;
+
 #if defined(FULL_GAME)
     extern uint8_t zombieActive;
 #endif
@@ -65,6 +67,8 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
     void blindChaseCharacterXStrategy(Character* hunterPtr, Character* preyPtr)
     {
+        deleteGhost(hunterPtr);
+
         if(moveCharacter((uint8_t *)hunterPtr + X_MOVE, 
                          (uint8_t *)preyPtr + X_MOVE))
         {
@@ -79,6 +83,9 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 
     void blindChaseCharacterYStrategy(Character* hunterPtr, Character* preyPtr)
     {
+        
+        deleteGhost(hunterPtr);
+
         if(moveCharacter((uint8_t *)hunterPtr + Y_MOVE, 
                          (uint8_t *)preyPtr + Y_MOVE))
         {
@@ -108,22 +115,27 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
             { // 5 - 9
                 blindChaseCharacterYStrategy(hunterPtr, preyPtr);
             }
+        displayGhost(hunterPtr);
     }
 #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
     void moveTowardCharacter(Character* preyPtr, Character *hunterPtr)
     {
         uint8_t offset = (uint8_t) rand()&1;
         
+        deleteGhost(hunterPtr);
         (void) moveCharacter((uint8_t *)hunterPtr + offset, 
                       (uint8_t *)preyPtr + offset);
+        displayGhost(hunterPtr);
     }    
 #else
     void moveTowardCharacter(Character *hunterPtr)
     {
         uint8_t offset = (uint8_t) rand()&1;
         
+        deleteGhost(hunterPtr);
         (void) moveCharacter((uint8_t *)hunterPtr + offset,
                       (uint8_t *)(&player) + offset);
+        displayGhost(hunterPtr);
     }
 #endif
 
@@ -146,19 +158,23 @@ void computeStrategy(void)
 }
 #endif
 
-#define GHOST_RANDOM_CONDITION (RAND()>slowDown)
+#define GHOST_RANDOM_CONDITION (RAND()>ghostSlowDown)
 
 
 // #if defined(FULL_GAME)
 // Ghosts move to new positions if they get their chanche
 #if defined(FULL_GAME)
-void chaseCharacter(Character *preyPtr, uint16_t slowDown)
+void chaseCharacter(Character *preyPtr)
 #else
-void chaseCharacter(uint16_t slowDown)    
+void chaseCharacter(void)    
 #endif
 {
     uint8_t i;
     
+    WAIT_V_SYNC();
+    #if defined(DEBUG_GHOST_DISPLAY)
+        SET_DEBUG_BORDER();
+    #endif
     for(i=0;i<GHOSTS_NUMBER;++i)
     {
         #if defined(FULL_GAME)
@@ -167,7 +183,6 @@ void chaseCharacter(uint16_t slowDown)
             if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)    
         #endif
             {
-                deleteGhost(&ghosts[i]);
                 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
                     moveTowardCharacter(preyPtr, &ghosts[i], strategyArray[i]);    
                 #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
@@ -176,5 +191,12 @@ void chaseCharacter(uint16_t slowDown)
                     moveTowardCharacter(&ghosts[i]);    
                 #endif
             }
+            else
+            {
+                displayGhost(&ghosts[i]);
+            }
     }
+    #if defined(DEBUG_GHOST_DISPLAY)
+        UNSET_DEBUG_BORDER();
+    #endif
 }

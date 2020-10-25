@@ -564,11 +564,11 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_gb_X$(GAME_NAME).bin
-	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME).bin
-	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_BSS.bin
-	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_DATA.bin
-	rm $(BUILD_PATH)/FULL_gb_X$(GAME_NAME)_BANK_1F.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_gb.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_BSS.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_BANK_1F.bin
 
 
 #################################################################
@@ -588,9 +588,9 @@ laser500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm 
-	mv laser500bm.bin $(BUILD_PATH)/FULL_$@_X$(GAME_NAME).bin
+	mv laser500bm.bin $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
 	rm laser500bm.cas
-	mv laser500bm.wav $(BUILD_PATH)/FULL_$@_X$(GAME_NAME).wav
+	mv laser500bm.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.wav
 
 
 #################################################################

@@ -104,6 +104,9 @@ typedef struct ImageStruct Image;
         defined(__APPLE2ENH__) || defined(__PCE__) || defined(__NES__) || \
         defined(__GAMATE__) || defined(__CBM510__) || defined(__CX16__)
         #define WAIT_V_SYNC() waitvsync()
+    #elif defined(__GB__)
+        #include <gb/gb.h>
+        #define WAIT_V_SYNC() wait_vbl_done()
     #else
         #define WAIT_V_SYNC() 
     #endif 

@@ -375,7 +375,5 @@ void fillLevelWithCharacters(void)
     }
     initializeCharacter(&skulls[3],2,2, MIN_SKULL_HITS+(isBossLevel<<BOSS_LEVEL_SKULL_INCREASE), &SKULL_IMAGE);
     
-    displayGhosts();
-    
 }
 

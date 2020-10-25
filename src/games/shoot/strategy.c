@@ -244,6 +244,7 @@ void verticalWallMoveTowardCharacter(register Character *hunterPtr)
             blindChaseCharacterYStrategy(hunterPtr);
         }            
     }
+    
 }
 #endif
 
@@ -389,7 +390,8 @@ void skullMoveTowardCharacter(Character *hunterPtr, uint8_t strategy)
         else
         { // 5 - 9
             blindChaseCharacterYStrategy(hunterPtr);
-        }    
+        }
+    displaySkull(hunterPtr);
 }
 
 
@@ -422,13 +424,17 @@ void chaseCharacter(void)
     {
         for(i=0;i<maxGhostsOnScreen;++i)
         {
-            if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)    
+            if(ghosts[i]._status)    
             {
-                #if !defined(SIMPLE_STRATEGY)
-                    verticalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
-                #else
-                    verticalWallMoveTowardCharacter((Character *)&ghosts[i]);        
-                #endif
+                if(GHOST_RANDOM_CONDITION)
+                {
+                    #if !defined(SIMPLE_STRATEGY)
+                        verticalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
+                    #else
+                        verticalWallMoveTowardCharacter((Character *)&ghosts[i]);        
+                    #endif
+                }
+                displayGhost(&ghosts[i]);
             }
         }
     }
@@ -436,13 +442,17 @@ void chaseCharacter(void)
     {
         for(i=0;i<maxGhostsOnScreen;++i)
         {
-             if((ghosts[i]._status) && GHOST_RANDOM_CONDITION)
+            if(ghosts[i]._status)
             {
-                #if !defined(SIMPLE_STRATEGY)
-                    horizontalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
-                #else
-                    horizontalWallMoveTowardCharacter((Character *)&ghosts[i]);        
-                #endif
+                if(GHOST_RANDOM_CONDITION)
+                {
+                    #if !defined(SIMPLE_STRATEGY)
+                        horizontalWallMoveTowardCharacter((Character *)&ghosts[i], strategyArray[i]);    
+                    #else
+                        horizontalWallMoveTowardCharacter((Character *)&ghosts[i]);        
+                    #endif
+                }
+                displayGhost(&ghosts[i]);
             }
         }  
     }        

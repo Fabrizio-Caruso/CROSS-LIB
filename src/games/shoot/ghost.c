@@ -152,19 +152,6 @@ void decreaseGhostLevel(void)
         ghostLevel=0;
 }
 
-void displayGhosts(void)
-{
-    uint8_t i;
-
-    for(i=0;i<GHOSTS_NUMBER;++i)
-    {
-        if (ghosts[i]._status)
-        {
-            displayGhost(&ghosts[i]);
-        }
-    }
-}
-
 void displayBombs(void)
 {
     uint8_t i;

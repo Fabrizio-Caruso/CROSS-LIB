@@ -413,9 +413,6 @@ int main(void)
                     
                 }
                                 
-                // Display ghosts
-                SKIP_GHOST_DRAW
-                    displayGhosts();
                 
                 #if !defined(DEBUG_STRATEGY)
                 handle_skulls();

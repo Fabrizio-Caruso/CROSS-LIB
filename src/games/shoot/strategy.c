@@ -391,7 +391,6 @@ void skullMoveTowardCharacter(Character *hunterPtr, uint8_t strategy)
         { // 5 - 9
             blindChaseCharacterYStrategy(hunterPtr);
         }
-    displaySkull(hunterPtr);
 }
 
 

@@ -135,7 +135,10 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
         deleteGhost(hunterPtr);
         (void) moveCharacter((uint8_t *)hunterPtr + offset,
                       (uint8_t *)(&player) + offset);
+                      
+        #if !defined(TINY_GAME)
         displayGhost(hunterPtr);
+        #endif
     }
 #endif
 
@@ -191,10 +194,14 @@ void chaseCharacter(void)
                     moveTowardCharacter(&ghosts[i]);    
                 #endif
             }
+            #if !defined(TINY_GAME)
             else
             {
                 displayGhost(&ghosts[i]);
             }
+            #else
+            displayGhost(&ghosts[i]);
+            #endif
     }
     #if defined(DEBUG_GHOST_DISPLAY)
         UNSET_DEBUG_BORDER();

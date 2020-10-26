@@ -62,6 +62,7 @@ FULL_FILES ?= $(LIGHT_FILES) $(FULL_ONLY_FILES)
 
 SCCZ80_OPTS ?= -O3
 
+SCCZ80_ROM_OPTS ?= -O3
 
 # Parallel compilation for Z88DK targets
 Z88DK_MAKE_OPTS ?= -j 8
@@ -496,15 +497,15 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 
 
 gb: $(ASSETS_PATH)/z88dk_gameboy.asm
-	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +gb $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=18 \
 	-DNO_SET_SCREEN_COLORS \
-	-DNO_COLOR -DANIMATE_PLAYER -DUSE_WAIT_V_SYNC \
+	-DNO_COLOR -DANIMATE_PLAYER  \
 	-DFULL_GAME \
 	-DCONIO -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=1400 \
+	-lndos -DSLOW_DOWN=450 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
 	$(FULL_FILES) \

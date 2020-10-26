@@ -878,7 +878,7 @@ gb_no_gfx:
 	-DNO_COLOR \
 	-DFULL_GAME  \
 	-DCONIO -DNO_INIT_GRAPHICS -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=1400 \
+	-lndos -DSLOW_DOWN=1200 \
 	$(FULL_FILES) \
 	-create-app -o$(BUILD_PATH)/FULL_gb_no_gfx.bin
 	rm $(BUILD_PATH)/FULL_gb_no_gfx.bin

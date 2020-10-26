@@ -396,13 +396,13 @@ int main(void)
             {
 
                 // Land safely
-                WAIT_V_SYNC();
                 if(!remaining_buildings && (y<MAX_Y-2) && (x<XSize-3) )
                 {
                     deleteAnimatedPlaneBack();
                     deleteAnimatedPlaneCenter();
                     ++y;
                 }
+                
                 drawAnimatedPlane();
                 DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
                 
@@ -434,9 +434,7 @@ int main(void)
                         }
                     }
                 }
-
-
-                if(bombActive)
+                else
                 {
                     // Draw animated bomb
                     drawAnimatedBomb();
@@ -460,7 +458,6 @@ int main(void)
                     }
 
                 }
-                WAIT_V_SYNC();
                 deleteAnimatedPlaneBack();
                 drawPlane();
                 

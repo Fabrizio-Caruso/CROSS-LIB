@@ -412,6 +412,16 @@ int main(void)
                     ++ghostLevel;            
                     
                 }
+                else // Frozen ghosts have to be displayed anyway
+                {
+                    for(ind=0;ind<GHOSTS_NUMBER;++ind)
+                    {
+                        if(ghosts[ind]._status)
+                        {
+                            displayGhost(&ghosts[ind]);
+                        }
+                    }
+                }
                                 
                 
                 #if !defined(DEBUG_STRATEGY)

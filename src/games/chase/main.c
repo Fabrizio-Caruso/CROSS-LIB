@@ -231,30 +231,6 @@ void DO_DEBUG_ITEMS(void)
 #endif
 
 
-void DISPLAY_GHOSTS(void)
-{
-    #if !defined(SPLIT_GHOSTS_DISPLAY)
-    
-        for(ind=0;ind<GHOSTS_NUMBER;++ind)
-        {
-            displayGhost(&ghosts[ind]);
-        }
-    #else
-    
-        for(ind=0;ind<GHOSTS_NUMBER/2;++ind)
-        {
-            displayGhost(&ghosts[ind]);
-        }
-
-        WAIT_V_SYNC();
-        for(ind=GHOSTS_NUMBER/2;ind<GHOSTS_NUMBER;++ind)
-        {
-            displayGhost(&ghosts[ind]);
-        }
-    #endif
-}
-
-
 int main(void)
 {        
     INIT_GRAPHICS();
@@ -425,7 +401,6 @@ int main(void)
                 #endif
                 printGhostCountStats();
 
-                DISPLAY_GHOSTS();
             #endif        
             
             #if defined(DEBUG_ITEMS)
@@ -514,12 +489,15 @@ int main(void)
                         #endif
                         
                     }
-                    else // Frozen ghsots must be redisplayed anyway
+                    else // Frozen ghosts must be redisplayed anyway
                     {
                         // Display ghosts
                         SKIP_GHOST_DRAW
                         {
-                            DISPLAY_GHOSTS();
+                            for(ind=0;ind<GHOSTS_NUMBER;++ind)
+                            {
+                                displayGhost(&ghosts[ind]);
+                            }
                         }
                     }
                     

@@ -53,7 +53,7 @@ extern uint16_t ghostSlowDown;
 
 
 #if defined(__NCURSES__)
-    #define GHOST_RANDOM_CONDITION ((rand()&0x7fff)>ghostSlowDown)
+    #define GHOST_RANDOM_CONDITION (rand()&0x7fff)>ghostSlowDown)
 #else
     #define GHOST_RANDOM_CONDITION (rand()>ghostSlowDown)
 #endif
@@ -419,6 +419,10 @@ void chaseCharacter(void)
 {
     uint8_t i;
     
+    WAIT_V_SYNC();
+    #if defined(DEBUG_GHOST_DISPLAY)
+        SET_DEBUG_BORDER();
+    #endif
     if(isInnerVerticalWallLevel)
     {
         for(i=0;i<maxGhostsOnScreen;++i)
@@ -454,6 +458,9 @@ void chaseCharacter(void)
                 displayGhost(&ghosts[i]);
             }
         }  
-    }        
+    }
+    #if defined(DEBUG_GHOST_DISPLAY)
+        UNSET_DEBUG_BORDER();
+    #endif
 }
 

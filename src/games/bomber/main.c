@@ -371,7 +371,7 @@ int main(void)
             }
 
             SLEEP(1);
-            y = 1;
+            y = 2;
             x = 1;
             
             displayScore();
@@ -402,7 +402,9 @@ int main(void)
                     deleteAnimatedPlaneCenter();
                     ++y;
                 }
-                
+                #if defined(DEBUG_GHOST_DISPLAY)
+                    UNSET_DEBUG_BORDER();
+                #endif
                 drawAnimatedPlane();
                 DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
                 
@@ -458,8 +460,15 @@ int main(void)
                     }
 
                 }
+                WAIT_V_SYNC();
+                #if defined(DEBUG_GHOST_DISPLAY)
+                    SET_DEBUG_BORDER();
+                #endif
                 deleteAnimatedPlaneBack();
                 drawPlane();
+                #if defined(DEBUG_GHOST_DISPLAY)
+                    UNSET_DEBUG_BORDER();
+                #endif
                 
                 #if !defined(NO_ANIMATION)
                     DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
@@ -486,8 +495,15 @@ int main(void)
                     ++y;
                 }
                 
+                WAIT_V_SYNC();
+                #if defined(DEBUG_GHOST_DISPLAY)
+                    SET_DEBUG_BORDER();
+                #endif
                 deleteAnimatedPlaneBack();
             } // while flying
+            #if defined(DEBUG_GHOST_DISPLAY)
+                UNSET_DEBUG_BORDER();
+            #endif
             if(!remaining_buildings)
             {
                 drawPlane();

@@ -575,7 +575,7 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DNO_COLOR -DANIMATE_PLAYER \
 	-DFULL_GAME \
 	-DCONIO -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=1600 \
+	-lndos -DSLOW_DOWN=1700 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
 	$(FULL_FILES) \
@@ -595,7 +595,7 @@ gb_wait_vsync: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DNO_COLOR -DANIMATE_PLAYER -DUSE_WAIT_V_SYNC \
 	-DFULL_GAME \
 	-DCONIO -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=1600 \
+	-lndos -DSLOW_DOWN=1700 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
 	$(FULL_FILES) \

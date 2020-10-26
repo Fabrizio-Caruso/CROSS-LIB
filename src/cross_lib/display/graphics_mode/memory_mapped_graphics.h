@@ -93,7 +93,12 @@
 #define __DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
 
 
-uint16_t loc(uint8_t x, uint8_t y);
+#if !defined(INLINE_LOC)
+    uint16_t loc(uint8_t x, uint8_t y);
+#else
+    #include "cross_lib.h"
+    #define loc(x,y) ((uint16_t) BASE_ADDR)+(x)+(uint8_t)(y)*((uint16_t) (XSize + X_OFFSET))
+#endif
 
 #endif // _MEMORY_MAPPED_GRAPHICS
 

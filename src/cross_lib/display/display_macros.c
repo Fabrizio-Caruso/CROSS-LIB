@@ -40,7 +40,7 @@ extern Image VERTICAL_BRICK_IMAGE;
 extern uint16_t BASE_ADDR;
 #endif
 
-#if defined(MEMORY_MAPPED)
+#if defined(MEMORY_MAPPED) && !defined(INLINE_LOC)
     uint16_t loc(uint8_t x, uint8_t y)
     {
         #if !defined(__CIDELSA__)

@@ -79,6 +79,12 @@ void SET_UDG_IMAGES(void)
 #include <conio.h>
 void INIT_GRAPHICS(void)
 {
+    
+    #if defined(VDP_WAIT_V_SYNC)
+        #include <interrupt.h>
+        add_raster_int(tick_count_isr);
+    #endif
+
 	set_mode(TEXT_MODE_32x40);
     
 	set_color(15, 1, 1);	

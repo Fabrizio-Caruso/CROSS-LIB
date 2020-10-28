@@ -100,13 +100,23 @@ typedef struct ImageStruct Image;
 
 
 #if defined(USE_WAIT_V_SYNC)
+
+    #if defined(__MSX__) || defined(__SVI__) || defined(__M5__) || defined(__MTX__)
+        #define VDP_WAIT_V_SYNC
+    #endif
+
     #if defined(__VIC20__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) || \
         defined(__APPLE2ENH__) || defined(__PCE__) || defined(__NES__) || \
-        defined(__GAMATE__) || defined(__CBM510__) || defined(__CX16__)
+        defined(__GAMATE__) || defined(__CBM510__) || defined(__CX16__) || \
+        defined(__ATARI__) || defined(__ATARI5200__)
         #define WAIT_V_SYNC() waitvsync()
     #elif defined(__GB__)
         #include <gb/gb.h>
         #define WAIT_V_SYNC() wait_vbl_done()
+    #elif defined(VDP_WAIT_V_SYNC)
+        void vdp_waitvsync(void);
+        #include <interrupt.h>
+        #define WAIT_V_SYNC() vdp_waitvsync()
     #else
         #define WAIT_V_SYNC() 
     #endif 

@@ -40,6 +40,20 @@ extern Image VERTICAL_BRICK_IMAGE;
 extern uint16_t BASE_ADDR;
 #endif
 
+#if defined(VDP_WAIT_V_SYNC)
+    void vdp_waitvsync(void)
+    { 
+        #asm 
+            ld hl,_tick_count 
+            ld a,(hl) 
+        loop: 
+            cp (hl) 
+            jr nz,loop 
+        #endasm 
+        return;
+    }
+#endif
+
 #if defined(MEMORY_MAPPED) && !defined(INLINE_LOC)
     uint16_t loc(uint8_t x, uint8_t y)
     {
@@ -54,7 +68,6 @@ extern uint16_t BASE_ADDR;
 
     #include "z88dk_sprites_definitions.h"
     extern uint8_t sprites[];
-
 
 #elif defined(BUFFERED)
     #if defined(NO_LOWER_BORDER)

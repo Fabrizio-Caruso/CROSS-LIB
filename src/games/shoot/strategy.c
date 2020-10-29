@@ -53,7 +53,7 @@ extern uint16_t ghostSlowDown;
 
 
 #if defined(__NCURSES__)
-    #define GHOST_RANDOM_CONDITION (rand()&0x7fff)>ghostSlowDown)
+    #define GHOST_RANDOM_CONDITION ((rand()&0x7fff)>ghostSlowDown)
 #else
     #define GHOST_RANDOM_CONDITION (rand()>ghostSlowDown)
 #endif

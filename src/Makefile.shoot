@@ -101,9 +101,11 @@ z88dk_targets: \
 
 
 lcc1802_targets: 
-	make tmc600 -f Makefile.$(GAME_NAME)
 	make comx -f Makefile.$(GAME_NAME)
+	make pecom -f Makefile.$(GAME_NAME)
+	make tmc600 -f Makefile.$(GAME_NAME)
 	make cidelsa -f Makefile.$(GAME_NAME)
+	make micro -f Makefile.$(GAME_NAME)
 
 all:
 	make gcc_targets -f Makefile.$(GAME_NAME) 
@@ -777,7 +779,7 @@ comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_comx.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.hex
 
 
 ###############################################################################
@@ -786,20 +788,40 @@ comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 
 full_pecom: pecom
 
-pecom: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+pecom: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
 	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DFORCE_NARROW -DREDEFINED_CHARS \
-	-DNO_COLOR \
-	-DNO_BLINKING \
+	-DNO_COLOR -DSIMPLE_STRATEGY \
+	-DNO_BLINKING -DTINY_TEXT \
+	-DLCC1802_JOYSTICK \
+	-DLESS_TEXT -DNO_HINTS -DNO_TITLE -DNO_SET_SCREEN_COLORS -DNO_MESSAGE -DNO_INITIAL_SCREEN \
+	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
+	$(REDUCED_LCC1802_C_OPTS) \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.hex
+
+
+###############################################################################
+# MICRO
+
+micro: micro_pal2
+
+micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
+	-D__MICRO__ \
+	-DFULL_GAME -DREDEFINED_CHARS \
+	-DNO_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
+	-DNO_BLINKING -DSOUNDS \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
-	$(LCC1802_C_OPTS) \
-	-DFORCE_GHOSTS_NUMBER=7 \
-	$(SOURCE_PATH)/../full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_pecom.hex
+	$(REDUCED_LCC1802_C_OPTS) \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.hex
 
 
 ###############################################################################

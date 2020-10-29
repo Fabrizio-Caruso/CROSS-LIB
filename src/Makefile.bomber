@@ -1088,10 +1088,8 @@ REDUCED_LCC1802_C_OPTS ?= \
 
 full_comx: comx
 
-comx: comx_no_sounds
 
-#	-DSIMPLE_STRATEGY 
-comx_no_sounds: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	-DFULL_GAME -DFORCE_NARROW -DREDEFINED_CHARS \
@@ -1102,23 +1100,6 @@ comx_no_sounds: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
 	$(LCC1802_C_OPTS_NO_SOUNDS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
-	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_comx.hex
-
-
-micro: micro_pal2
-
-micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
-	-D__MICRO__ \
-	-DFULL_GAME -DREDEFINED_CHARS \
-	-DNO_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
-	-DNO_BLINKING -DSOUNDS \
-	-DLCC1802_JOYSTICK \
-	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
-	$(REDUCED_LCC1802_C_OPTS) \
-	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.hex
@@ -1191,9 +1172,24 @@ cidelsa_draco: reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_cidelsa_draco_32K.hex
 
 
-
 ###############################################################################
+# MICRO
 
+micro: micro_pal2
+
+micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
+	-D__MICRO__ \
+	-DFULL_GAME -DREDEFINED_CHARS \
+	-DNO_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
+	-DNO_BLINKING -DSOUNDS \
+	-DLCC1802_JOYSTICK \
+	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
+	$(REDUCED_LCC1802_C_OPTS) \
+	-DFORCE_GHOSTS_NUMBER=8 \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.hex
 
 comx_targets: comx
 

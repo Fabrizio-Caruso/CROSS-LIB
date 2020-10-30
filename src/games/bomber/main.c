@@ -281,7 +281,12 @@ do { \
 
 uint16_t building_height[XSize];
 
-Image *image[] = {&WALL_1_IMAGE, &WALL_2_IMAGE, &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE};
+Image *building_images[] = {
+    &WALL_1_IMAGE, &WALL_2_IMAGE, 
+    &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, 
+    &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, 
+    &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE
+    };
 
 
 uint8_t x;
@@ -361,11 +366,13 @@ int main(void)
             for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
             {
                 building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/LEVEL_FACTOR_SPEED_UP+(RAND()&7);
-                buildingTypePtr=image[RAND()&7];
+                buildingTypePtr=building_images[RAND()&7];
                 
                 for(y=1;y<building_height[x];++y)
                 {
-                    drawBuilding();
+                    drawBuilding();     
+                    // _XLIB_DRAW(x,MAX_Y-1-y,&WALL_1_IMAGE);
+                    // _XLIB_DRAW(x,MAX_Y-1-y,building_images[0]);
                 }
                 PING_SOUND();
             }

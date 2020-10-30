@@ -30,15 +30,27 @@
 #endif
 
 #if !defined(_TILE_1)
-    #define _TILE_1 ')'
+    #if !defined(__CIDELSA__)
+        #define _TILE_0 '*'
+    #else
+        #define _TILE_0 'H'
+    #endif
 #endif 
 
 #if !defined(_TILE_3)
-    #define _TILE_3 '('
+    #if !defined(__CIDELSA__)
+        #define _TILE_0 '*'
+    #else
+        #define _TILE_0 'H'
+    #endif
 #endif
 
 #if !defined(_TILE_2)
-    #define _TILE_2 '\''
+    #if !defined(__CIDELSA__)
+        #define _TILE_0 '*'
+    #else
+        #define _TILE_0 'H'
+    #endif
 #endif
 
 #if !defined(_TILE_0)
@@ -56,7 +68,7 @@
 
 // WHITE
 #if !defined(_TILE_4)
-    #if defined(__LCC1802__) || defined(__SV8000__)
+    #if defined(__LCC1802__) || defined(__SV8000__) || defined(__CIDELSA__)
         #define _TILE_4 'O'
     #else
         #define _TILE_4 'o'
@@ -66,6 +78,8 @@
 #if !defined(_TILE_6)
     #if defined(__ALPHATRO__)
         #define _TILE_6 'm'
+    #elif defined(__CIDELSA__)
+        #define _TILE_6 'M'
     #else
         #define _TILE_6 '#'
     #endif
@@ -98,7 +112,7 @@
 #endif
 
 #if !defined(_TILE_4_B)
-    #define _TILE_4_B 'O'	
+    #define _TILE_4_B 'O'
 #endif
 
 #if !defined(_TILE_0_B)

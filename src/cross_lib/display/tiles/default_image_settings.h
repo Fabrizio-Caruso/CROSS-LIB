@@ -128,7 +128,11 @@
 #endif
 
 #if !defined(_TILE_11)
-    #define _TILE_11 '.'
+    #if defined(__CIDELSA__)
+        #define _TILE_11 'O'
+    #else
+        #define _TILE_11 '.'
+    #endif
 #endif
 
 #if !defined(_TILE_14)
@@ -140,7 +144,7 @@
 #endif
 
 #if !defined(_TILE_16)
-    #if defined(__ZX80__) || defined(__ZX81__)
+    #if defined(__ZX80__) || defined(__ZX81__) || defined(__CIDELSA__)
         #define _TILE_16 'I'
     #else
         #define _TILE_16 ('^')
@@ -151,7 +155,7 @@
     #if defined(__C128_Z80__) || defined(__ZX80__) || defined(__ZX81__) || defined(__GAL__)  
         #define _TILE_12 'i'
     #elif defined(__ATARI_LYNX__) || defined(__ABC80__) || defined(__OSIC1P__) || defined(__TMC600__) \
-    || defined(__MIKRO80__) || defined(__BIC__) || defined(__SUPER80__)
+    || defined(__MIKRO80__) || defined(__BIC__) || defined(__SUPER80__) || defined(__CIDELSA__)
         #define _TILE_12 'I' 
     #else
         #define _TILE_12 ('|')
@@ -159,7 +163,11 @@
 #endif
 
 #if !defined(_TILE_13)
-    #define _TILE_13 '-'
+    #if defined(__CIDELSA__)
+        #define _TILE_13 'I'
+    #else
+        #define _TILE_13 '-'
+    #endif
 #endif
 
 #if !defined(_TILE_5_B)

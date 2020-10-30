@@ -49,6 +49,8 @@
 	#include "udg_settings.h"
 #elif defined(__PCE__) || ( defined(__GAMATE__) && defined(REDEFINED_CHARS))
 	#include "pce_settings.h"
+#elif defined(__CIDELSA__) && !defined(REDEFINED_CHARS)
+    #include "cidelsa_no_gfx.h"
 #else
 	#include "default_image_settings.h"
 #endif 

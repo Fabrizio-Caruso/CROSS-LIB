@@ -698,6 +698,10 @@ DESTROYER_8K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x2000" "-Wa-D STACKLOC=0x20
 #-target=xr18CX -O "-Wf-volatile" "-Wa-D CODELOC=0x4401" "-Wa-D LCCCX=1"
 #-Wf-volatile -target=xr18CX
 
+MICROBOARD_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x8000" "-Wa-D STACKLOC=0x9fff"
+MICROBOARD_PAL_2_OPTS ?= $(MICROBOARD_OPTS) "-DPAL=2"
+
+
 ################################################################################
 
 debug_lcc1802_targets: 
@@ -813,8 +817,8 @@ micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ \
 	-DFULL_GAME -DREDEFINED_CHARS \
-	-DNO_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
-	-DNO_BLINKING -DSOUNDS \
+	-DNO_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=50 \
+	-DNO_BLINKING \
 	-DLCC1802_JOYSTICK \
 	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
 	$(REDUCED_LCC1802_C_OPTS) \

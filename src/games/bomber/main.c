@@ -281,12 +281,7 @@ do { \
 
 uint16_t building_height[XSize];
 
-Image *building_images[] = {
-    &WALL_1_IMAGE, &WALL_2_IMAGE, 
-    &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, 
-    &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, 
-    &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE
-    };
+
 
 
 uint8_t x;
@@ -313,7 +308,19 @@ int main(void)
 {        
     
     Image *buildingTypePtr;
+    Image *building_images[8];
 
+    building_images[0] =  &WALL_1_IMAGE;
+    building_images[1] =  &WALL_2_IMAGE;
+    building_images[2] =  &TWO_WINDOW_WALL_1_IMAGE;
+    building_images[3] =  &TWO_WINDOW_WALL_2_IMAGE;
+    building_images[4] =  &THREE_WINDOW_WALL_1_IMAGE;
+    building_images[5] =  &THREE_WINDOW_WALL_2_IMAGE;
+    building_images[6] =  &SMALL_TWO_WINDOW_WALL_1_IMAGE;
+    building_images[7] =  &SMALL_TWO_WINDOW_WALL_2_IMAGE;
+    
+
+    
     INIT_GRAPHICS();
 
     INIT_INPUT();    

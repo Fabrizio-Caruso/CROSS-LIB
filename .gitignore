@@ -8,6 +8,7 @@ src/games/chase/generated_assets/*
 src/games/shoot/generated_assets/*
 src/demos/matrix/generated_assets/*
 src/games/bomber/generated_assets/*
+src/games/conan/generated_assets/*
 src/test/*.exe
 src/*.asm
 src/experiments/*

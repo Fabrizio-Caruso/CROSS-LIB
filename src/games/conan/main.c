@@ -64,7 +64,7 @@
 
 #define set_name(_character_ptr, _name)  strcpy((_character_ptr)->name,_name)
 
-#define get_stat(_character_ptr, _stat_index) _character_ptr->stat[_stat_index]
+#define get_stat(_character_ptr, _stat_index) (_character_ptr)->stat[_stat_index]
 
 #define get_name(_character_ptr) _character_ptr->name
 #define get_life(_character_ptr) get_stat(_character_ptr,LIFE)
@@ -108,6 +108,34 @@ char *stats_names[NUM_OF_STATS] = {
 #define VERBOSE_OFF 0
 #define VERBOSE_ON  1
 
+
+#ifdef WIN32
+#include <windows.h>
+#elif _POSIX_C_SOURCE >= 199309L
+#include <time.h>   // for nanosleep
+#else
+#include <unistd.h> // for usleep
+#endif
+
+void sleep_ms(int milliseconds){ // cross-platform sleep function
+#ifdef WIN32
+    Sleep(milliseconds);
+#elif _POSIX_C_SOURCE >= 199309L
+    struct timespec ts;
+    ts.tv_sec = milliseconds / 1000;
+    ts.tv_nsec = (milliseconds % 1000) * 1000000;
+    nanosleep(&ts, NULL);
+#elif defined(__CBM__)
+    uint16_t i;
+    for(i=1;i<milliseconds;++i){};
+#else
+    if (milliseconds >= 1000)
+      sleep(milliseconds / 1000);
+    usleep((milliseconds % 1000) * 1000);
+#endif
+}
+
+#define SLEEP(n) sleep_ms(200*n)
 
 char *race_names[NUM_OF_RACES] = {
     "human", "orc", "elf"
@@ -240,26 +268,30 @@ void showAllStats(const Character* character_ptr)
 }
 
 
-
-void _showCharacters(void (*showCharacterFunction) (const Character *))
+void _showParty(Character **party, uint8_t party_size, void (*showCharacterFunction) (const Character *))
 {
     uint8_t i;
     
+    for(i=0;i<party_size;++i)
+    {
+        showCharacterFunction(party[i]);
+    }
     printf("\n");
+}
+
+
+void _showCharacters(void (*showCharacterFunction) (const Character *))
+{
+    printf("\n");
+    
     printf("Humans: \n");
     printf("\n");
-    for(i=0;i<player_party_size;++i)
-    {
-        showCharacterFunction(player_party[i]);
-    }
+    _showParty(player_party, player_party_size, showCharacterFunction);
     
-    printf("\n");
     printf("Orcs: \n");
     printf("\n");
-    for(i=0;i<enemy_party_size;++i)
-    {
-        showCharacterFunction(enemy_party[i]);
-    }
+    _showParty(enemy_party, enemy_party_size, showCharacterFunction);
+
 }
 
 void showFightStatsForAllCharacters(void)
@@ -292,7 +324,7 @@ uint8_t fight_stat(uint8_t stat_value, uint8_t stamina)
     return stat_value/(1+(rand()&3))/(1+low_stamina(stamina));
 }
 
-uint8_t attack(Character *attacker_ptr, Character* defender_ptr)
+uint8_t _attack(Character *attacker_ptr, Character* defender_ptr)
 {
     uint8_t attacker_stamina = get_stat(attacker_ptr,STAMINA);
     uint8_t blow_hits;
@@ -319,18 +351,22 @@ uint8_t attack(Character *attacker_ptr, Character* defender_ptr)
     return blow_hits;
 }
 
-void attack_string(Character *attacker, Character *defender)
+void attack(Character *attacker, Character *defender, uint8_t verbose)
 {
-    uint8_t attack_force = attack(attacker, defender);
-    if(attack_force)
+    uint8_t attack_force = _attack(attacker, defender);
+    
+    if(verbose)
     {
-        printf("%s hits %s with force=%d\n", attacker->name, defender->name, attack_force);
+        if(attack_force)
+        {
+            printf("%s hits %s with force=%d\n", attacker->name, defender->name, attack_force);
+        }
+        else
+        {
+            printf("%s attacks but %s fends off the attack\n", attacker->name, defender->name);
+        }
+        SLEEP(1);
     }
-    else
-    {
-        printf("%s attacks but %s fends off the attack\n", attacker->name, defender->name);
-    }
-    sleep(1);
 }
 
 
@@ -340,26 +376,11 @@ void fight_round(Character* first_ptr, Character* second_ptr, uint8_t verbose)
 // TODO: DEBUG
     // verbose = 1;
     
-    if(verbose)
-    {
-        attack_string(first_ptr, second_ptr);
-    }
-    else
-    {
-        attack(first_ptr, second_ptr);
-    }
-    
+    attack(first_ptr, second_ptr, verbose);
     
     if(get_life(second_ptr))
     {
-        if(verbose)
-        {
-            attack_string(second_ptr, first_ptr);
-        }
-        else
-        {
-            attack(second_ptr, first_ptr);
-        }
+        attack(second_ptr, first_ptr, verbose);
         if(!get_life(first_ptr)) // first_ptr is dead
         {
             if(!verbose)
@@ -368,7 +389,7 @@ void fight_round(Character* first_ptr, Character* second_ptr, uint8_t verbose)
             }
             printf("%s kills %s!\n\n", second_ptr->name, first_ptr->name);
             increase_experience(second_ptr,1+get_experience(first_ptr)/20);
-            sleep(1);
+            SLEEP(1);
         }
     }
     else // second_ptr is dead
@@ -419,7 +440,7 @@ void print_stamina_string(const Character *character_ptr)
         {
             printf("%s has low stamina\n\n", get_name(character_ptr));
         }
-    sleep(1);
+    SLEEP(1);
 }
 
 
@@ -505,6 +526,40 @@ void set_stats(Character *character_ptr, const char* name, uint8_t race, uint8_t
     set_gold(character_ptr, gold);
 }
 
+// output: new size 
+uint8_t removeDeadMembers(Character **party_ptr, uint8_t max_size)
+{
+    Character** search_ptr;
+    Character** store_ptr;
+    Character** aux_ptr;
+    uint8_t count = 0;
+    uint8_t new_size = max_size;
+    
+    while(count<=max_size)
+    {
+        while((count<max_size) && get_life(*(++party_ptr)))
+        {
+            ++count;
+        }
+        // store_ptr points to a dead member
+        store_ptr = party_ptr;
+        while((count<max_size) && !get_life(*(++party_ptr)))
+        {
+            --new_size;
+            ++count;
+        }
+        // search_ptr points to an alive member
+        search_ptr = party_ptr;
+        
+        // switch values (pointers to Character) in party array 
+        *aux_ptr = *store_ptr;
+        *store_ptr = *search_ptr;
+        *search_ptr = *aux_ptr;
+    }
+    return new_size;
+}
+
+
 void initPlayerParty(void)
 {
     uint8_t i;
@@ -547,6 +602,7 @@ void initEnemyParty(void)
 
 }
 
+
 int main(void)
 {
 
@@ -579,6 +635,10 @@ int main(void)
     printf("\n\n");
     printf("-------------\n\n");
     showFightStatsForAllCharacters();
+
+    // player_party_size = removeDeadMembers(player_party, player_party_size);
+    
+    // enemy_party_size = removeDeadMembers(enemy_party, enemy_party_size);
 
     return EXIT_SUCCESS;
 }

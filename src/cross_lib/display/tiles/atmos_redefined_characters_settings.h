@@ -1,14 +1,15 @@
 
+
 #define _INVERTED 128u
 
 
-#define _TILE_2_OFFSET '*'
-#define _TILE_3_OFFSET ','
+#define _TILE_2_OFFSET ','
+#define _TILE_3_OFFSET '*'
 #define _TILE_1_OFFSET '.'
 #define _TILE_0_OFFSET '/'
 
-#define _TILE_2 _TILE_3_OFFSET
-#define _TILE_3 _TILE_2_OFFSET
+#define _TILE_2 _TILE_2_OFFSET
+#define _TILE_3 _TILE_3_OFFSET
 #define _TILE_1 _TILE_1_OFFSET
 #define _TILE_0 _TILE_0_OFFSET
 
@@ -39,7 +40,7 @@
 	#define _TILE_13_OFFSET '-'
 	
 	#define _TILE_12 _TILE_12_OFFSET
-	#define _TILE_13 _TILE_13_OFFSET	
+	#define _TILE_13 _TILE_13_OFFSET
 #endif
 
 #if defined(FULL_GAME)
@@ -53,11 +54,25 @@
    #define _TILE_17_OFFSET 0x28
    #define _TILE_18_OFFSET 0x29
 
+#if !defined(_TILE_17_COLOR)
 	#define _TILE_17 (_TILE_17_OFFSET +_INVERTED)
+#else
+    #define _TILE_17 (_TILE_17_OFFSET + _TILE_17_COLOR)
+#endif
 	#define _TILE_0_B (_TILE_0 + _INVERTED)
+
+#if !defined(_TILE_10_COLOR)
 	#define _TILE_10 (_TILE_10_OFFSET + _INVERTED) 
+#else
+    #define _TILE_10 (_TILE_10_OFFSET + _TILE_10_COLOR)
+#endif
 	#define _TILE_7_B (_TILE_7 + _INVERTED)
-	#define _TILE_18 (_TILE_18_OFFSET + _INVERTED)		
+
+#if !defined(_TILE_18_COLOR)
+	#define _TILE_18 (_TILE_18_OFFSET + _INVERTED)
+#else
+	#define _TILE_18 (_TILE_18_OFFSET + _TILE_18_COLOR)
+#endif
 	#define _TILE_4_B (_TILE_4 + _INVERTED)
 
 	// #define _CHASE_OFFSET _BULLET

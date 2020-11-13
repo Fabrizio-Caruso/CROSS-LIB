@@ -3,6 +3,8 @@
 
 #include "standard_libs.h"
 
+#if defined(MEMORY_MAPPED)
+
 #  if defined(__C64__) || defined(__C128__)
 	#define BASE_ADDR 0xC000
 	#define COLOR_ADDR 0xD800
@@ -98,6 +100,8 @@
 #else
     #include "cross_lib.h"
     #define loc(x,y) ((uint16_t) BASE_ADDR)+(x)+(uint8_t)(y)*((uint16_t) (XSize + X_OFFSET))
+#endif
+
 #endif
 
 #endif // _MEMORY_MAPPED_GRAPHICS

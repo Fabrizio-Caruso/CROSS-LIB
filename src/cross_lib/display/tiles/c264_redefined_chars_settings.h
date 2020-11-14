@@ -1,4 +1,11 @@
 
+#ifndef _C264_REDEFINED_CHARS_H
+#define _C264_REDEFINED_CHARS_H
+
+
+// Still available:
+// 0x80-.... ?
+
 // BLUE
 #define _TILE_0 0x3B
 #define _TILE_1 0x3C
@@ -43,3 +50,7 @@
 #define _TILE_18 0x25
 
 #define _TILE_4_B _TILE_4
+
+
+#endif // _C264_REDEFINED_CHARS_H
+

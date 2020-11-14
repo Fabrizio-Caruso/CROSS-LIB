@@ -2,6 +2,9 @@
 #ifndef _MSX_REDEFINED_CHARS_SETTINGS
 #define _MSX_REDEFINED_CHARS_SETTINGS
 
+// Still available:
+// 0x80-.... ?
+
 // BLUE
 #define _TILE_0 0x3B
 #define _TILE_1 0x3C

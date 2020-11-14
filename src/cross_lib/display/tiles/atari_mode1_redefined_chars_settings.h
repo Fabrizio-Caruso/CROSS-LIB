@@ -2,6 +2,12 @@
 #ifndef _ATARI_MODE1_ANIMATE_PLAYER_SETTINGS
 #define _ATARI_MODE1_ANIMATE_PLAYER_SETTINGS
 
+// Still available:
+// 3,25,26,27,31,32
+// 15-24 (0-9)
+// 33-58 (A-Z)
+// 13 (-)
+
 #define _ATARI_MODE1_RED 0
 #define _ATARI_MODE1_WHITE	64
 #define _ATARI_MODE1_BLUE 128

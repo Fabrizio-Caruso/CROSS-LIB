@@ -31,25 +31,25 @@
 
 #if !defined(_TILE_1)
     #if !defined(__CIDELSA__)
-        #define _TILE_0 '*'
+        #define _TILE_1 '*'
     #else
-        #define _TILE_0 'H'
+        #define _TILE_1 'H'
     #endif
 #endif 
 
 #if !defined(_TILE_3)
     #if !defined(__CIDELSA__)
-        #define _TILE_0 '*'
+        #define _TILE_3 '*'
     #else
-        #define _TILE_0 'H'
+        #define _TILE_3 'H'
     #endif
 #endif
 
 #if !defined(_TILE_2)
     #if !defined(__CIDELSA__)
-        #define _TILE_0 '*'
+        #define _TILE_2 '*'
     #else
-        #define _TILE_0 'H'
+        #define _TILE_2 'H'
     #endif
 #endif
 

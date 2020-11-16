@@ -51,6 +51,23 @@
 
 #define _TILE_4_B _TILE_4
 
+// OK
+#define _TILE_19 0
+
+// OK
+#define _TILE_20 28
+
+// OK
+#define _TILE_21 30
+
+// ok
+#define _TILE_22 0x2A
+
+// KO:
+#define _TILE_23 ('{')
+
+// KO: 
+#define _TILE_24 ('}')
 
 #endif // _C264_REDEFINED_CHARS_H
 

@@ -301,18 +301,17 @@ uint8_t remaining_buildings;
 uint8_t alive;
 uint8_t explosion;
 
+Image *building_images[] = {
+    &WALL_1_IMAGE, &WALL_2_IMAGE, 
+    &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, 
+    &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, 
+    &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE
+    };
 
 int main(void)
 {        
     
     Image *buildingTypePtr;
-
-    Image *building_images[] = {
-        &WALL_1_IMAGE, &WALL_2_IMAGE, 
-        &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, 
-        &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, 
-        &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE
-        };
 
     INIT_GRAPHICS();
 

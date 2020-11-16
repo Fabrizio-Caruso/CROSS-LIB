@@ -43,7 +43,12 @@
 
     Image BROKEN_BRICK_IMAGE;
 
-
-
+    Image EXTRA1_IMAGE;
+    Image EXTRA2_IMAGE;
+    Image EXTRA3_IMAGE;
+    Image EXTRA4_IMAGE;
+    Image EXTRA5_IMAGE;
+    Image EXTRA6_IMAGE;
+    
 #endif // _IMAGES_H
 

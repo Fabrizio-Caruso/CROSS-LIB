@@ -139,6 +139,19 @@ c16: c16_32k
 
 plus4: c16_32k
 
+c16_redefined: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
+	-DANIMATE_PLAYER -DFULL_GAME -DSOUNDS \
+	-DFORCE_GHOSTS_NUMBER=8 -DINIT_SET_COLOR \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DREDEFINED_CHARS \
+	-DCONIO \
+	-DUSE_MEMORY_BUFFERS \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
+
+
 
 c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
@@ -161,7 +174,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_63chars.s \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c16_32k.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
 
 
 #################################################################
@@ -241,13 +254,28 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 
 #################################################################
 
-creativision: creativision_18k
+creativision: creativision_16k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
+creativision_16k: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-DSLOW_DOWN=1000 \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin
+
 creativision_32k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DREDEFINED_CHARS \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
 	$(FULL_FILES) \
@@ -266,7 +294,7 @@ creativision_24k: $(ASSETS_PATH)/8x8_chars.h
 
 creativision_18k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
-	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DNO_COLOR -DNO_SLEEP -DLESS_TEXT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DREDEFINED_CHARS \
 	-DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_COLOR -DGHOSTS_NUMBER=2 -DBULLETS_NUMBER=1 \
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
 	$(FULL_FILES) \
@@ -292,6 +320,22 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atmos_and_oric1_48k.tap
+
+
+#################################################################
+
+supervision: $(ASSETS_PATH)/cc65_udc.s 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
+	--config $(CFG_PATH)/cc65/supervision-16k_GFX.cfg \
+	$(ASSETS_PATH)/cc65_udc.s \
+	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
+	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
+	-DDEFAULT_CLEAR_SCREEN  -DSLOW_DOWN=300 \
+	-DANIMATE_PLAYER \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_supervision.sv
 
 
 #################################################################

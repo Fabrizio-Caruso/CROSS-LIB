@@ -48,4 +48,11 @@
 // #define _TILE_5_B _TILE_5
 #define _TILE_5_B 'X'
 
+#define _TILE_19 0x80
+#define _TILE_20 0x81
+#define _TILE_21 0x82
+#define _TILE_22 0x83
+#define _TILE_23 0x84
+#define _TILE_24 0x85
+
 #endif // _MSX_REDEFINED_CHARS_SETTINGS

@@ -177,6 +177,14 @@ void initialScreen(void)
 
 void DO_DEBUG_ITEMS(void)
 {
+    
+    // POKE(3072,0x80);
+    // POKE(3073,0x81);
+    // POKE(3074,0x82);
+    // POKE(3075,0x83);
+    // POKE(3076,0x84);
+    // POKE(3077,0x85);
+    
     #if defined(ANIMATE_PLAYER)
         _draw_stat(1, 0,&PLAYER_DOWN_IMAGE);
         _draw_stat(1, 1,&PLAYER_UP_IMAGE);

@@ -125,6 +125,58 @@ const struct redefine_struct
 	#define _TILE_17_OFFSET_ _TILE_17_OFFSET
 #endif
 
+#ifndef _TILE_19_OFFSET
+	#define _TILE_19_OFFSET_ _TILE_19
+#else
+	#define _TILE_19_OFFSET_ _TILE_19_OFFSET
+#endif
+
+#ifndef _TILE_20_OFFSET
+	#define _TILE_20_OFFSET_ _TILE_20
+#else
+	#define _TILE_20_OFFSET_ _TILE_20_OFFSET
+#endif
+
+#ifndef _TILE_21_OFFSET
+	#define _TILE_21_OFFSET_ _TILE_21
+#else
+	#define _TILE_21_OFFSET_ _TILE_21_OFFSET
+#endif
+
+#ifndef _TILE_22_OFFSET
+	#define _TILE_22_OFFSET_ _TILE_22
+#else
+	#define _TILE_22_OFFSET_ _TILE_22_OFFSET
+#endif
+
+#ifndef _TILE_23_OFFSET
+	#define _TILE_23_OFFSET_ _TILE_23
+#else
+	#define _TILE_23_OFFSET_ _TILE_23_OFFSET
+#endif
+
+#ifndef _TILE_24_OFFSET
+	#define _TILE_24_OFFSET_ _TILE_24
+#else
+	#define _TILE_24_OFFSET_ _TILE_24_OFFSET
+#endif
+
+#if defined(__C16__) && defined(CONIO)
+	char screenCode(char ch)
+	{
+		if(ch<64)
+		{
+			return ch;
+		}
+		else
+		{
+			return ch-64;
+		}
+		return ch;
+	}
+#else
+    #define screenCode(ch) ch
+#endif
 
 const struct redefine_struct redefine_map[] =
 {
@@ -157,15 +209,14 @@ const struct redefine_struct redefine_map[] =
 	#endif
 
 	
-	// #if defined(__MSX__)
-		// #if defined(_TILE_10) 
-			// {_TILE_10_OFFSET_, _TILE_10_UDG},
-		// #endif	
-	
-		// #if defined(_TILE_0_B)
-			// {_TILE_0_B_OFFSET_, _TILE_0_B_UDG},
-		// #endif
-	// #endif
+    #if defined(FULL_GAME)
+		{_TILE_19_OFFSET_, _TILE_19_UDG},
+		{_TILE_20_OFFSET_, _TILE_20_UDG},
+		{_TILE_21_OFFSET_, _TILE_21_UDG},
+		{_TILE_22_OFFSET_, _TILE_22_UDG},
+		{_TILE_23_OFFSET_, _TILE_23_UDG},
+		{_TILE_24_OFFSET_, _TILE_24_UDG},
+    #endif
 
     {_TILE_18_OFFSET_, _TILE_18_UDG},
     {_TILE_17_OFFSET_, _TILE_17_UDG},
@@ -179,7 +230,7 @@ const struct redefine_struct redefine_map[] =
 	\
 	for (i = 0; i < (sizeof(redefine_map)/sizeof(*redefine_map)); ++i) \
 	{ \
-		memcpy((uint8_t *)(addr) + (redefine_map[i].ascii)*8, redefine_map[i].bitmap, 8); \
+		memcpy((uint8_t *)(addr) + screenCode((redefine_map[i].ascii))*8, redefine_map[i].bitmap, 8); \
 	} \
 }
 

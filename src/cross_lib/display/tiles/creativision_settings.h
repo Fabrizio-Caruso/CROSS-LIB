@@ -52,4 +52,11 @@
 // #define _TILE_5_B _TILE_5
 #define _TILE_5_B (_TILE_12)
 
+#define _TILE_19 0x41
+#define _TILE_20 0x42
+#define _TILE_21 0x43
+#define _TILE_22 0x44
+#define _TILE_23 0x45
+#define _TILE_24 0x46
+
 #endif // _CREATIVISION_REDEFINED_CHARS_SETTINGS

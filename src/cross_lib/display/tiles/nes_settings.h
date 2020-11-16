@@ -67,4 +67,11 @@
 
 #define _TILE_5_B 'X'
 
+#define _TILE_19 1
+#define _TILE_20 2
 
+#define _TILE_21 3
+#define _TILE_22 4
+
+#define _TILE_23 5
+#define _TILE_24 6

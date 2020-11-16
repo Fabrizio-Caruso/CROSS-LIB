@@ -63,5 +63,5 @@ _Charset:
 ; 0xFE super
 .byte <tile_18>
 
-; 0xFF dead ghsot
+; 0xFF dead ghost
 .byte <tile_6>

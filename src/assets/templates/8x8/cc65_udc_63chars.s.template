@@ -49,9 +49,7 @@ _Charset:
 .byte <tile_4>
 
 ; skull
-;  { 60, 66,165,129, 90, 36, 36, 60}
 .byte <tile_7>
-;.byte $3c,$42,$a5,$a5,$42,$42,$66,$3c
 
 ; bomb
 .byte <tile_5>

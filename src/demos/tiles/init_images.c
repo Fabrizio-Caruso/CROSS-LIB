@@ -41,6 +41,13 @@ extern Image SUICIDE_IMAGE;
 
 extern Image BROKEN_BRICK_IMAGE;
 
+extern Image EXTRA1_IMAGE;
+extern Image EXTRA2_IMAGE;
+extern Image EXTRA3_IMAGE;
+extern Image EXTRA4_IMAGE;
+extern Image EXTRA5_IMAGE;
+extern Image EXTRA6_IMAGE;
+
 
 void INIT_IMAGES(void)
 {
@@ -82,6 +89,15 @@ void INIT_IMAGES(void)
         SUICIDE_IMAGE._color = _SUICIDE_COLOR;
 
         BROKEN_BRICK_IMAGE._color = _BROKEN_BRICK_COLOR;
+        
+        EXTRA1_IMAGE._color = _PLAYER_COLOR;
+        EXTRA2_IMAGE._color = _PLAYER_COLOR;
+        EXTRA3_IMAGE._color = _PLAYER_COLOR;
+        EXTRA4_IMAGE._color = _PLAYER_COLOR;
+        EXTRA5_IMAGE._color = _PLAYER_COLOR;
+        EXTRA6_IMAGE._color = _PLAYER_COLOR;
+    
+    
 	#endif	
 
 	// Set Image Data
@@ -126,6 +142,14 @@ void INIT_IMAGES(void)
     SUICIDE_IMAGE._imageData = _TILE_4_B;
 
     BROKEN_BRICK_IMAGE._imageData = _TILE_5_B;
+    
+    EXTRA1_IMAGE._imageData = _TILE_19;
+    EXTRA2_IMAGE._imageData = _TILE_20;
+    EXTRA3_IMAGE._imageData = _TILE_21;
+    EXTRA4_IMAGE._imageData = _TILE_22;
+    EXTRA5_IMAGE._imageData = _TILE_23;
+    EXTRA6_IMAGE._imageData = _TILE_24;
+    
 }
 
 

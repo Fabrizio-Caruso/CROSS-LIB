@@ -13,7 +13,7 @@
 #define _TILE_12 '|'
 #define _TILE_13 0xC3
 #define _TILE_0_B _TILE_0
-#define _DOLLAR_TILE '*'
+#define _DOLLAR_TILE '$'
 
 // GREEN
 #define _TILE_8  0x7A
@@ -52,3 +52,9 @@
 // 0x75
 #define _TILE_18 (_TILE_8-5)
 
+#define _TILE_19 42
+#define _TILE_20 43
+#define _TILE_21 37
+#define _TILE_22 38
+#define _TILE_23 40
+#define _TILE_24 41

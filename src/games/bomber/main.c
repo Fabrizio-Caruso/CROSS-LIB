@@ -301,7 +301,7 @@ uint8_t remaining_buildings;
 uint8_t alive;
 uint8_t explosion;
 
-Image *building_images[] = {
+const Image *building_images[] = {
     &WALL_1_IMAGE, &WALL_2_IMAGE, 
     &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, 
     &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, 
@@ -311,7 +311,7 @@ Image *building_images[] = {
 int main(void)
 {        
     
-    Image *buildingTypePtr;
+    const Image *buildingTypePtr;
 
     INIT_GRAPHICS();
 

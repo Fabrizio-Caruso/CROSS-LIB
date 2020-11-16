@@ -341,7 +341,7 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 creativision: creativision_16k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
-
+#  -m mapfile.txt
 creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \

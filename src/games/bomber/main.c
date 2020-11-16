@@ -304,14 +304,14 @@ uint8_t explosion;
 
 int main(void)
 {        
-    static const Image *building_images[] = {
+    const Image *building_images[] = {
         &WALL_1_IMAGE, &WALL_2_IMAGE, 
         &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, 
         &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, 
         &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE
         };
 
-    static const Image *buildingTypePtr;
+    const Image *buildingTypePtr;
 
     INIT_GRAPHICS();
 

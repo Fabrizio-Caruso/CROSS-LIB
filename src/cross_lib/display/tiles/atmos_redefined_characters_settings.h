@@ -45,7 +45,8 @@
 #define _TILE_11 _TILE_11_OFFSET
 
 #if !defined(NO_DEAD_GHOST)
-	#define _TILE_6_OFFSET 0x5a
+// 0x5a
+	#define _TILE_6_OFFSET ('Z'+2)
 	#define _TILE_6 _TILE_6_OFFSET
 #endif
 

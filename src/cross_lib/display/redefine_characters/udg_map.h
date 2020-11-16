@@ -210,12 +210,12 @@ const struct redefine_struct redefine_map[] =
 
 	
     #if defined(FULL_GAME)
-		{_TILE_19_OFFSET_, _TILE_19_UDG},
-		{_TILE_20_OFFSET_, _TILE_20_UDG},
-		{_TILE_21_OFFSET_, _TILE_21_UDG},
-		{_TILE_22_OFFSET_, _TILE_22_UDG},
-		{_TILE_23_OFFSET_, _TILE_23_UDG},
-		{_TILE_24_OFFSET_, _TILE_24_UDG},
+		// {_TILE_19_OFFSET_, _TILE_19_UDG},
+		// {_TILE_20_OFFSET_, _TILE_20_UDG},
+		// {_TILE_21_OFFSET_, _TILE_21_UDG},
+		// {_TILE_22_OFFSET_, _TILE_22_UDG},
+		// {_TILE_23_OFFSET_, _TILE_23_UDG},
+		// {_TILE_24_OFFSET_, _TILE_24_UDG},
     #endif
 
     {_TILE_18_OFFSET_, _TILE_18_UDG},

@@ -25,5 +25,12 @@
 	#define _TILE_17_UDG    {<tile_17>}
 	#define _TILE_18_UDG    {<tile_18>}
 
+	#define _TILE_19_UDG    {<tile_19>}
+	#define _TILE_20_UDG    {<tile_20>}
+	#define _TILE_21_UDG    {<tile_21>}
+	#define _TILE_22_UDG    {<tile_22>}
+	#define _TILE_23_UDG    {<tile_23>}
+	#define _TILE_24_UDG    {<tile_24>}
+
 #endif // _6x9_CHARS
 

@@ -84,5 +84,15 @@
 
 #define _TILE_5_B 31
 
+#define _TILE_19 (47)
+#define _TILE_20 (58)
+
+#define _TILE_21 (59)
+
+#define _TILE_22 (60)
+
+#define _TILE_23 (61)
+#define _TILE_24 (62)
+
 #endif // _MICRO_GRAPHICS_SETTINGS
 

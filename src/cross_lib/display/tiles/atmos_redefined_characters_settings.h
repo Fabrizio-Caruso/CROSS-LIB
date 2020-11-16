@@ -3,6 +3,20 @@
 #define _INVERTED 128u
 
 
+// #define _TILE_19_OFFSET 0x81
+// #define _TILE_20_OFFSET 0x82
+// #define _TILE_21_OFFSET 0x83
+// #define _TILE_22_OFFSET 0x84
+// #define _TILE_23_OFFSET 0x85
+// #define _TILE_24_OFFSET 0x86
+
+// #define _TILE_19 _TILE_19_OFFSET
+// #define _TILE_20 _TILE_20_OFFSET
+// #define _TILE_21 _TILE_21_OFFSET
+// #define _TILE_22 _TILE_22_OFFSET
+// #define _TILE_23 _TILE_23_OFFSET
+// #define _TILE_24 _TILE_24_OFFSET
+
 #define _TILE_2_OFFSET ','
 #define _TILE_3_OFFSET '*'
 #define _TILE_1_OFFSET '.'
@@ -19,7 +33,7 @@
 #define _TILE_5_OFFSET 0x5b
 #define _TILE_8_OFFSET 0x5d
 #define _TILE_9_OFFSET 0x5e
-#define _TILE_11_OFFSET 0x5f	
+#define _TILE_11_OFFSET 0x5f
 	
 #define _TILE_4 _TILE_4_OFFSET
 #define _TILE_7 _TILE_7_OFFSET

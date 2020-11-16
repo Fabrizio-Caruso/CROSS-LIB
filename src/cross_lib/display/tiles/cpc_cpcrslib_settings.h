@@ -33,6 +33,15 @@
 
 #define _TILE_7_B _TILE_7
 #define _TILE_4_B _TILE_4
+
+#define _TILE_19 21*2
+#define _TILE_20 22*2
+#define _TILE_21 23*2
+#define _TILE_22 24*2
+#define _TILE_23 25*2
+#define _TILE_24 26*2
+
+
 #endif // _CPC_CPCRSLIB_SETTINGS
 
 

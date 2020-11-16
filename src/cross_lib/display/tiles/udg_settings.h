@@ -79,6 +79,22 @@
 
 #define _TILE_4_B _TILE_4
 
+// 0x50 -> 0
+#if defined(__MO5__)||defined(__TO7__)
+    #define _TILE_19 49
+    #define _TILE_20 50
+    #define _TILE_21 51
+    #define _TILE_22 52
+    #define _TILE_23 53
+    #define _TILE_24 54
+#else
+    #define _TILE_19 (0x3A - _Z88DK_SPRITE_OFFSET)
+    #define _TILE_20 (0x40 -  _Z88DK_SPRITE_OFFSET)
+    #define _TILE_21 (0x5C - _Z88DK_SPRITE_OFFSET)
+    #define _TILE_22 (0x5D - _Z88DK_SPRITE_OFFSET)
+    #define _TILE_23 (0x5E - _Z88DK_SPRITE_OFFSET)
+    #define _TILE_24 (0x5F - _Z88DK_SPRITE_OFFSET)
+#endif
 
 #endif // _UDG_SETTINGS
 

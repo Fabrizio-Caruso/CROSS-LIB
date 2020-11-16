@@ -273,8 +273,6 @@ typedef struct ImageStruct Image;
 
 #if defined(Z88DK_SPRITES) || defined(__MO5__)||defined(__TO7__) 
 	#define _Z88DK_SPRITE_OFFSET 0x20
-// #elif defined(__GB__)
-	// #define _Z88DK_SPRITE_OFFSET 0x40
 #else
 	
 	#define _Z88DK_SPRITE_OFFSET 0x00

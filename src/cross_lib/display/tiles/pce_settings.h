@@ -86,6 +86,12 @@
 
 #define _TILE_5_B _TILE_5
 
+#define _TILE_19 22
+#define _TILE_20 23
+#define _TILE_21 24
+#define _TILE_22 25
+#define _TILE_23 26
+#define _TILE_24 27
 
 #endif // _PCE_GRAPHICS_SETTINGS
 

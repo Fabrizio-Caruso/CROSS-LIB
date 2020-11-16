@@ -44,3 +44,13 @@
 #define _TILE_18 0x7C
 
 #define _TILE_4_B _TILE_4
+
+#define _TILE_19 0x6E
+#define _TILE_20 0x6F
+
+#define _TILE_21 0x7D
+#define _TILE_22 0x7E
+#define _TILE_23 0x7F
+// TO FIX
+#define _TILE_24 0x7F
+

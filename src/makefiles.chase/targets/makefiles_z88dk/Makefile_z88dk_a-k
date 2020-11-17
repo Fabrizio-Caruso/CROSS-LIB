@@ -580,7 +580,7 @@ cpm_8080_targets: cpm_8080 cpm_8080_buffered
 cpm_8080: cpm_8080_adm3a cpm_8080_buffered
 
 cpm_8080_adm3a:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -clib=8080 \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -m8080 -clib=8080 \
 	$(INCLUDE_OPTS) \
 	-DCONIO_ADM3A \
 	-D__CPM_80X24__ \
@@ -595,7 +595,7 @@ cpm_8080_adm3a:
 cpm_buffered: cpm_8080_buffered
 
 cpm_8080_buffered:
-	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -clib=8080 \
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -m8080 -clib=8080 \
 	$(INCLUDE_OPTS) \
 	-DFORCE_XSIZE=39 \
 	-DFORCE_YSIZE=23 \

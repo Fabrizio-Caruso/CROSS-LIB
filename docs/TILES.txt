@@ -1,11 +1,10 @@
 TILES
 
-
 In the code we use the name tiles for different things:
-- tile absolute offset (_TILE_{index}), i.e., and index in memory that points to the tile data
-- tile relative offset (_TILE_{index}_OFFSET), i.e. a relative index in memory (e.g., Atari 8-bit mode 1 characters are repeated 4 times)
-- tile data            (_TILE_{tile #}), i.e., this is the data that defines the shape of tiles 
-
+- tile absolute index  [used to display]  "_TILE_{index}", i.e., and index in memory that points to the tile data
+- tile relative index  [used to redefine] "_TILE_{index}_OFFSET", i.e. a relative index in memory (e.g., Atari 8-bit mode 1 characters are repeated 4 times)
+- tile data (in template files)           "<TILE_{tile #}>", i.e., this is the data that defines the shape of tiles 
+- tile data in C code (in header files)   "_TILE_{tile #}_UDG" contains "<TILE_{tile #}>"
 
 ----------------------------------------------------------------------------------------------
 TILE   | TILE |   CAN HAVE               | EXAMPLE CHARACTER

@@ -193,7 +193,8 @@ c16: c16_16k
 
 plus4: c16_32k
 
-
+# TODO: This should use
+# c16_linked_redefined_chars_init_graphics
 c16_16k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
@@ -209,7 +210,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	-DALT_SLEEP \
 	-DSLOW_DOWN=550 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=15 \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
@@ -233,7 +234,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	-DALT_SLEEP \
 	-DSLOW_DOWN=450 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \

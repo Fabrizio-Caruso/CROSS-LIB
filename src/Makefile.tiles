@@ -134,12 +134,11 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 
 #################################################################
 
-c16: c16_32k
-
+c16_redefined: c16_redefined
 
 plus4: c16_32k
 
-c16_redefined: $(ASSETS_PATH)/8x8_chars.h
+c16: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t c16 --config $(CFG_PATH)/cc65/c16-32k.cfg \
 	-DANIMATE_PLAYER -DFULL_GAME -DSOUNDS \
 	-DFORCE_GHOSTS_NUMBER=8 -DINIT_SET_COLOR \
@@ -147,7 +146,7 @@ c16_redefined: $(ASSETS_PATH)/8x8_chars.h
 	-DREDEFINED_CHARS \
 	-DCONIO \
 	-DUSE_MEMORY_BUFFERS \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_32k_redefined_chars_init_graphics.c  \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
 
@@ -168,7 +167,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	-DALT_SLEEP \
 	-DSLOW_DOWN=300 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \

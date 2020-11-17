@@ -155,7 +155,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	-DALT_SLEEP \
 	-DSLOW_DOWN=300 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_16k_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \

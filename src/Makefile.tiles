@@ -152,7 +152,7 @@ c16: $(ASSETS_PATH)/8x8_chars.h
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
 
-# TILE_21 and TILE_22 are corrupted
+# TILE_21 and TILE_22 are corrupted on the UNEXPANDED C16
 c16_16k_linked: $(ASSETS_PATH)/cc65_udc_63chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \

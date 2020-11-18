@@ -3,6 +3,12 @@
 
 _Charset:
 
+.byte <tile_21>
+
+.byte <tile_22>
+
+.byte <tile_23>
+
 .byte <tile_24>
 
 ; A-Z
@@ -109,9 +115,5 @@ _Charset:
 ; ------------------------------------------------------------------------
 ; Unused - Conflict?
 
-.byte <tile_21>
 
-.byte <tile_22>
-
-.byte <tile_23>
 

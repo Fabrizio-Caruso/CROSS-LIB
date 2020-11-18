@@ -1,4 +1,10 @@
 
+#define _TILE_21 0x3D
+#define _TILE_22 0x3E
+#define _TILE_23 0x3F
+// TO FIX
+#define _TILE_24 0x40
+
 // BLUE
 #define _TILE_0 0x67
 #define _TILE_1 0x6B
@@ -48,9 +54,5 @@
 #define _TILE_19 0x6E
 #define _TILE_20 0x6F
 
-#define _TILE_21 0x7D
-#define _TILE_22 0x7E
-#define _TILE_23 0x7F
-// TO FIX
-#define _TILE_24 0x7F
+
 

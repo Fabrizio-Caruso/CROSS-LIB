@@ -399,7 +399,7 @@ pet_16k:
 
 vic20: vic20_exp_16k
 
-vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
@@ -415,7 +415,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
 
 vic20_wait_vsync: vic20_exp_16k_wait_vsync
 
-vic20_exp_16k_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
+vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \

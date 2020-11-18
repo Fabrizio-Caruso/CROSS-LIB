@@ -397,7 +397,7 @@ pet_16k:
 
 #################################################################
 
-vic20: vic20_exp_16k
+vic20: vic20_exp_8k
 
 vic20_exp_8k: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \

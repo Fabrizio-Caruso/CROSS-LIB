@@ -113,7 +113,7 @@ If you want to run multiple tests (based on the code of *Cross Chase*) you can u
 If you just want to build the game only for a specific system without choosing a specific version, 
 you can build the default target for a given system with
 
-`make [system_name] -f Makefile.[game name]`
+`make [system_name] -f Makefile.[game_name]`
 
 where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`.
 
@@ -144,7 +144,7 @@ Examples:
 
 ### Build all targets that are built by a given compiler or devkit:
 
-`make [compiler_name]_targets -f Makefile.[game name]`
+`make [compiler_name]_targets -f Makefile.[game_name]`
 
 where current possible game names are `chase`, `shoot`, `bomber`. For *Cross Chase* you can always omit `-f Makefile.chase`
 
@@ -313,7 +313,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CROSSLIB.md
 
 -------------------------------------------
 
-## ACKNOLEDGEMENTS
+## ACKNOWLEDGEMENTS
 
 CrossLib would not exist without the cross-compilers and the support of their developers and the support of some people who have helped me handle the input/output of some targets.
 

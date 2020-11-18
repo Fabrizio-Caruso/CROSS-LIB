@@ -364,12 +364,12 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 
 #################################################################
 
-vic20: vic20_exp_16k
+vic20: vic20_exp_8k
 
-vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
-	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
-	-DCONIO -DVIC20_EXP_16K \
+	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
+	-DCONIO -DVIC20_EXP_8K \
 	-DSLOW_DOWN=750 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(ASSETS_PATH)/cc65_udc.s \
@@ -377,7 +377,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
 	--code-name CODE2 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_vic20_exp_16k.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
 
 
 #################################################################

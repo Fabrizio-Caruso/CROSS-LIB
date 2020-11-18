@@ -29,6 +29,54 @@
     #include "char_tiles.h"
 #endif
 
+#if !defined(_TILE_19)
+    #if !defined(__CIDELSA__)
+        #define _TILE_19 '*'
+    #else
+        #define _TILE_19 'H'
+    #endif
+#endif 
+
+#if !defined(_TILE_20)
+    #if !defined(__CIDELSA__)
+        #define _TILE_20 '*'
+    #else
+        #define _TILE_20 'H'
+    #endif
+#endif 
+
+#if !defined(_TILE_21)
+    #if !defined(__CIDELSA__)
+        #define _TILE_21 '*'
+    #else
+        #define _TILE_21 'H'
+    #endif
+#endif 
+
+#if !defined(_TILE_22)
+    #if !defined(__CIDELSA__)
+        #define _TILE_22 '*'
+    #else
+        #define _TILE_22 'H'
+    #endif
+#endif 
+
+#if !defined(_TILE_23)
+    #if !defined(__CIDELSA__)
+        #define _TILE_23 '*'
+    #else
+        #define _TILE_23 'H'
+    #endif
+#endif 
+
+#if !defined(_TILE_24)
+    #if !defined(__CIDELSA__)
+        #define _TILE_24 '*'
+    #else
+        #define _TILE_24 'H'
+    #endif
+#endif 
+
 #if !defined(_TILE_1)
     #if !defined(__CIDELSA__)
         #define _TILE_1 '*'

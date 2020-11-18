@@ -283,7 +283,7 @@ typedef struct ImageStruct Image;
     #define INVERTED -64
 #endif
 
-#  if defined(__VIC20__) && defined(VIC20_EXP_8K) && defined(REDEFINED_CHARS)
+#  if defined(__VIC20__) && (defined(VIC20_EXP_8K) && !defined(CONIO)) && defined(REDEFINED_CHARS)
     #define _SPACE 0x72
 #elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(REDEFINED_CHARS)
     #define _SPACE 0xA0

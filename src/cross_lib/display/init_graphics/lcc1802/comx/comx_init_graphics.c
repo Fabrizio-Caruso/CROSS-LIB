@@ -13,6 +13,7 @@
 #endif
 
 #include "standard_libs.h"
+#include "cross_lib.h"
 
 #if defined(__CIDELSA__)
     #include <devkit/video/cidelsa_char.h>
@@ -21,9 +22,6 @@
 #if defined(__MICRO__)
     #include "devkit/video/vis_char.h"
 #endif
-
-
-#define NUM_UDGS 25
 
 #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS)
     void redefine_char(uint8_t ch, const uint8_t * shapelocation, int color)
@@ -67,12 +65,24 @@ const struct redefine_struct redefine_map[] =
     {_TILE_16, _TILE_16_UDG, 3},
     {_TILE_17, _TILE_17_UDG, 3},
     {_TILE_18, _TILE_18_UDG, 0},
+    #if NUM_OF_TILES>=20
     {_TILE_19, _TILE_19_UDG, 3},
+    #if NUM_OF_TILES>=21
     {_TILE_20, _TILE_20_UDG, 3},
+    #if NUM_OF_TILES>=22
     {_TILE_21, _TILE_21_UDG, 3},
+    #if NUM_OF_TILES>=23
     {_TILE_22, _TILE_22_UDG, 3},
+    #if NUM_OF_TILES>=24
     {_TILE_23, _TILE_23_UDG, 3},
+    #if NUM_OF_TILES>=25
     {_TILE_24, _TILE_24_UDG, 3},
+    #endif
+    #endif
+    #endif
+    #endif
+    #endif
+    #endif
     
 };
 
@@ -104,7 +114,7 @@ void INIT_GRAPHICS(void)
     #endif
     
     #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS) 
-        for(i=0;i<NUM_UDGS;++i)
+        for(i=0;i<NUM_OF_TILES;++i)
         {
             redefine_char(redefine_map[i]._ascii, redefine_map[i]._bitmap, redefine_map[i]._color);
         }

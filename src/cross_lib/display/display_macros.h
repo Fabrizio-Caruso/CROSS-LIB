@@ -39,6 +39,10 @@
 #include "conio_patch.h"
 #include "standard_libs.h"
 
+#if !defined(NUM_OF_TILES)
+    #define NUM_OF_TILES 25
+#endif
+
 struct ImageStruct
 {
     uint8_t _imageData;

@@ -29,6 +29,30 @@
     #include "char_tiles.h"
 #endif
 
+#if !defined(_TILE_19)
+    #define _TILE_19 'T'
+#endif 
+
+#if !defined(_TILE_20)
+    #define _TILE_20 'W'
+#endif 
+
+#if !defined(_TILE_21)
+    #define _TILE_21 'H'
+#endif 
+
+#if !defined(_TILE_22)
+    #define _TILE_22 'E'
+#endif 
+
+#if !defined(_TILE_23)
+    #define _TILE_23 'L'
+#endif 
+
+#if !defined(_TILE_24)
+    #define _TILE_25 'D'
+#endif 
+
 
 #if !defined(_TILE_1)
     #define _TILE_1 'H'

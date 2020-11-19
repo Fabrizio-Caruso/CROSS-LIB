@@ -12,6 +12,8 @@ src/games/bomber/generated_assets/*
 src/games/conan/generated_assets/*
 src/test/*.exe
 src/*.asm
+src/demos/full_lcc1802_combo.c
+src/games/full_lcc1802_combo.c
 src/experiments/*
 src/wincmoc_main.c
 src/*.asm

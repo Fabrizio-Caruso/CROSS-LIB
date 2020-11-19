@@ -367,7 +367,7 @@ vic20_exp_3k_light_no_gfx:
 	-o $(BUILD_PATH)/ALT_LIGHT_vic20_exp_3k_no_gfx.prg
 
 
-vic20_exp_3k_tiny: $(ASSETS_PATH)/cc65_udc_3k.s
+vic20_exp_3k_tiny: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	-DREDEFINED_CHARS \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -382,7 +382,7 @@ vic20_exp_3k_tiny: $(ASSETS_PATH)/cc65_udc_3k.s
 	-DUSE_TINY_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
-	$(ASSETS_PATH)/cc65_udc_3k.s \
+	$(ASSETS_PATH)/cc65_udc_vic20_64_chars.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(TINY_FILES) \
 	$(SOURCE_PATH)/memory/vic20_memory.s \

@@ -47,10 +47,10 @@
 
 #define _TILE_5_B _TILE_5
 
-#define _TILE_19 42
-#define _TILE_20 43
-#define _TILE_21 37
-#define _TILE_22 38
-#define _TILE_23 40
-#define _TILE_24 41
+// #define _TILE_19 0x73
+// #define _TILE_20 0x74
+// #define _TILE_21 0x75
+// #define _TILE_22 0x76
+// #define _TILE_23 0x77
+// #define _TILE_24 0x78
 

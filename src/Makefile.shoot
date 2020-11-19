@@ -166,7 +166,7 @@ c16: c16_32k
 plus4: c16_32k
 
 
-c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
+c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
 	--config $(CFG_PATH)/cc65/c16-32k_GFX.cfg \
 	-DFORCE_NO_CONIO_LIB \
@@ -187,7 +187,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	$(ASSETS_PATH)/cc65_udc_63chars.s \
+	$(ASSETS_PATH)/cc65_udc_63_chars.s \
 	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c16_32k.prg
 
 

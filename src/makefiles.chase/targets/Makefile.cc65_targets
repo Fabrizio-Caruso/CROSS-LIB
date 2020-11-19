@@ -304,7 +304,7 @@ c16_32k: $(ASSETS_PATH)/8x8_chars.h
 
 c16: c16_16k
 
-c16_16k: $(ASSETS_PATH)/cc65_udc_63chars.s
+c16_16k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
 	-DFORCE_NO_CONIO_LIB \
@@ -329,7 +329,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_63chars.s
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	$(ASSETS_PATH)/cc65_udc_63chars.s \
+	$(ASSETS_PATH)/cc65_udc_63_chars.s \
 	-o $(BUILD_PATH)/FULL_c16_16k.prg	
 
 
@@ -807,7 +807,7 @@ test_vsync:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t vic20 $(TEST_PATH)/test_vsync.c -o $(BUILD_PATH)/test_vsync.prg
 
 
-vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_3k.s
+vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-3k_GFX.cfg \
 	-DANIMATE_PLAYER -DFORCE_GHOSTS_NUMBER=8 \
@@ -830,14 +830,14 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_3k.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(LIGHT_FILES) \
-	$(ASSETS_PATH)/cc65_udc_3k.s \
+	$(ASSETS_PATH)/cc65_udc_vic20_64_chars.s \
 	$(SOURCE_PATH)/memory/vic20_memory.s \
 	-o $(BUILD_PATH)/LIGHT_$@.prg
 
 
 vic20: vic20_exp_8k
 
-vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20.s
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	-DSOUNDS -DANIMATE_PLAYER \
@@ -854,7 +854,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20.s
 	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
-	$(ASSETS_PATH)/cc65_udc_vic20.s \
+	$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \
@@ -877,7 +877,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20.s
 	-o $(BUILD_PATH)/FULL_$@.prg
 
 
-vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20.s
+vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	-DSOUNDS -DANIMATE_PLAYER \
@@ -894,7 +894,7 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20.s
 	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
-	$(ASSETS_PATH)/cc65_udc_vic20.s \
+	$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(SOURCE_PATH)/level.c $(SOURCE_PATH)/character.c \
 	$(SOURCE_PATH)/game_text.c  $(CROSS_LIB_PATH)/text/text_macros.c \

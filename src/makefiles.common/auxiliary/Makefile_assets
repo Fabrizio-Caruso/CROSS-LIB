@@ -33,22 +33,25 @@ $(ASSETS_PATH)/cc65_gamate_tiles.s: $(8X8_TILES)
 $(ASSETS_PATH)/cc65_udc.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_3k.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_vic20_64_chars.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_63chars.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_63_chars.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cc65_udc_64chars.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_64_chars.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
 $(ASSETS_PATH)/cc65_udc_6chars.s: $(8X8_TILES)
 	$(CREATE_ASSET)
     
-$(ASSETS_PATH)/cc65_udc_vic20.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
-$(ASSETS_PATH)/cmoc_xchase.s: $(8X8_TILES)
+$(ASSETS_PATH)/cc65_udc_vic20_25_tiles.s: $(8X8_TILES)
+	$(CREATE_ASSET)
+
+$(ASSETS_PATH)/cmoc_udc_25_tiles.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
 $(ASSETS_PATH)/z88dk_cpc_Chars8.asm: $(8X8_TILES)

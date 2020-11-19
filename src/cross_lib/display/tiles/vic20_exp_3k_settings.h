@@ -11,5 +11,5 @@
 // WHITE
 #define _TILE_4 0x1C
 
-#define _TILE_6 _GHOST
+#define _TILE_6 _TILE_4
 

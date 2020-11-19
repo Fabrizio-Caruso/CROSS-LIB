@@ -105,7 +105,7 @@ _Charset:
 
 
 ; ------------------------------------------------------------------------
-; Unused - Conflict?
+; Unused - Conflict if put at the end of the unexpanded Commodore 16 ram memory 
 
 .byte <tile_21>
 

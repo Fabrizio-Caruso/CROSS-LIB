@@ -96,6 +96,7 @@ int main(void)
 {        
 
     uint8_t i;
+    uint8_t j;
 
     INIT_GRAPHICS();
 
@@ -104,34 +105,42 @@ int main(void)
     
     INIT_IMAGES();
     
-    CLEAR_SCREEN();
     
-    SET_TEXT_COLOR(COLOR_WHITE);
-    PRINT(COL_OFFSET,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
-    
-    PRINT(COL_OFFSET, 2,"01234567890");
-    PRINT(COL_OFFSET, 4,"abcdefghij-");
-    PRINT(COL_OFFSET, 5,"klmnopqrst-");
-    PRINT(COL_OFFSET, 6,"uvwxyz");
-    PRINT(COL_OFFSET, 8,"ABCDEFGHIJ-");
-    PRINT(COL_OFFSET, 9,"KLMNOPQRST-");
-    PRINT(COL_OFFSET,10,"UVWXYZ");
-    
-    WAIT_PRESS();
-    CLEAR_SCREEN();
-
-    for(i=0;i<NUM_OF_TILES+1;++i)
+    for(j=0;j<3;++j)
     {
-        _XLIB_DRAW((i&7)*2+COL_OFFSET,(i/8)*2+ROW_OFFSET,image[i]);
-        DO_SLOW_DOWN(900);
+        CLEAR_SCREEN();
+        
+        SET_TEXT_COLOR(COLOR_WHITE);
+        PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+        
+        PRINT(COL_OFFSET, 2,"01234567890");
+        PRINT(COL_OFFSET, 4,"abcdefghij-");
+        PRINT(COL_OFFSET, 5,"klmnopqrst-");
+        PRINT(COL_OFFSET, 6,"uvwxyz");
+        PRINT(COL_OFFSET, 8,"ABCDEFGHIJ-");
+        PRINT(COL_OFFSET, 9,"KLMNOPQRST-");
+        PRINT(COL_OFFSET,10,"UVWXYZ");
+        
+        WAIT_PRESS();
+        CLEAR_SCREEN();
+
+        for(i=0;i<NUM_OF_TILES+1;++i)
+        {
+            _XLIB_DRAW((i&7)*2+COL_OFFSET,(i/8)*2+ROW_OFFSET,image[i]);
+            DO_SLOW_DOWN(900);
+        }
+
+        
+        
+        SET_TEXT_COLOR(COLOR_WHITE);
+        PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+        WAIT_PRESS();
     }
 
-    
-    
-    SET_TEXT_COLOR(COLOR_WHITE);
-    PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
-    WAIT_PRESS();
+    PRINT(COL_OFFSET,YSize-5, _XL_E _XL_N _XL_D _XL_SPACE _XL_O _XL_F _XL_SPACE _XL_D _XL_E _XL_M _XL_O);
 
+    while(1){};
+    
     return EXIT_SUCCESS;
 }
 

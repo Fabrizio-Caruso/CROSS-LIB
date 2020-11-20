@@ -50,7 +50,7 @@
 #endif 
 
 #if !defined(_TILE_24)
-    #define _TILE_25 'D'
+    #define _TILE_24 'D'
 #endif 
 
 

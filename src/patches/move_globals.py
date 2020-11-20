@@ -32,10 +32,13 @@ pattern = '<global>(.*)</global>'
 
 init_code = re.search(pattern, file_content, re.DOTALL).group(1)
 
-no_global_init = re.sub(pattern, '', file_content, flags=re.DOTALL)
+without_global_init = re.sub(pattern, '', file_content, flags=re.DOTALL)
 
 
-print(no_global_init)
+print(without_global_init)
 
 print(init_code)
 
+index = without_global_init.find('main(void)')+14
+
+print(without_global_init[:index]+init_code+without_global_init[index:])

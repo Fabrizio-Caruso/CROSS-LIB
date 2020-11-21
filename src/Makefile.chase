@@ -85,7 +85,7 @@ all: \
 # TESTS
 
 
-include makefiles.chase/tests/Makefile.tests
+include makefiles.other/chase/tests/Makefile.tests
 
 
 ####################################################################################################################
@@ -95,116 +95,116 @@ include makefiles.chase/tests/Makefile.tests
 # ------------------------------------------------------------------------------------------
 # - CC65 
 
-include makefiles.chase/targets/Makefile.cc65_targets
+include makefiles.chase/Makefile.cc65_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - Z88DK 
 
-include makefiles.chase/targets/Makefile.z88dk_targets
+include makefiles.chase/Makefile.z88dk_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - CMOC
 
-include makefiles.chase/targets/Makefile.cmoc_targets
+include makefiles.chase/Makefile.cmoc_targets
 
 # ------------------------------------------------------------------------------------------
 # - ACK
 
-include makefiles.chase/targets/Makefile.ack_targets
+include makefiles.chase/Makefile.ack_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC
 
-include makefiles.chase/targets/Makefile.gcc_targets
+include makefiles.chase/Makefile.gcc_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC AMIGA
 
-include makefiles.chase/targets/Makefile.gcc_amiga_targets
+include makefiles.chase/Makefile.gcc_amiga_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC ATARI_ST
 
-include makefiles.chase/targets/Makefile.gcc_atari_st_targets
+include makefiles.chase/Makefile.gcc_atari_st_targets
 
 # ------------------------------------------------------------------------------------------
 # - XTC68
 
-include makefiles.chase/targets/Makefile.xtc68_targets
+include makefiles.chase/Makefile.xtc68_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - LCC1802
 
-include makefiles.chase/targets/Makefile.lcc1802_targets
+include makefiles.chase/Makefile.lcc1802_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC Z8K PCOS
 
-include makefiles.chase/targets/Makefile.gcc_z8k_pcos_targets
+include makefiles.chase/Makefile.gcc_z8k_pcos_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - EMCC
 
-include makefiles.chase/targets/Makefile.emcc_targets
+include makefiles.chase/Makefile.emcc_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - GCC TMS9900
 
-include makefiles.chase/targets/Makefile.gcc_tms9900_targets
+include makefiles.chase/Makefile.gcc_tms9900_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - SDCC
 
-include makefiles.chase/targets/Makefile.sdcc_targets
+include makefiles.chase/Makefile.sdcc_targets
 
 
 # ------------------------------------------------------------------------------------------
 # - WINCMOC
 #
 
-#include makefiles.chase/targets/Makefile.wincmoc_targets
+#include makefiles.chase/Makefile.wincmoc_targets
 
 
 
 #############################################################################################################################################
 # Cross dev-kit 
-#include makefiles.chase/targets/Makefile.cross-dev-kit_targets
+#include makefiles.chase/Makefile.cross-dev-kit_targets
 
 
 ####################################################################################################################
 # Alternative builds	
 
 # - Z88DK
-include makefiles.chase/alt/Makefile.z88dk_alternative_builds
+include makefiles.other/chase/alt/Makefile.z88dk_alternative_builds
 
 # - CC65
-include makefiles.chase/alt/Makefile.cc65_alternative_builds
+include makefiles.other/chase/alt/Makefile.cc65_alternative_builds
 
 ####################################################################################################################
 # WIP
 
 # - Z88DK
-include makefiles.chase/wip/Makefile.z88dk_wip_targets
+include makefiles.other/chase/wip/Makefile.z88dk_wip_targets
 
 # - CC65
-include makefiles.chase/wip/Makefile.cc65_wip_targets
+include makefiles.other/chase/wip/Makefile.cc65_wip_targets
 
 # - ACK
-include makefiles.chase/wip/Makefile.ack_wip_targets
+include makefiles.other/chase/wip/Makefile.ack_wip_targets
 
 ####################################################################################################################
 # EXPERIMENTAL
 
-include makefiles.chase/experimental/Makefile.z88dk_experimental_targets
+include makefiles.other/chase/experimental/Makefile.z88dk_experimental_targets
 
 

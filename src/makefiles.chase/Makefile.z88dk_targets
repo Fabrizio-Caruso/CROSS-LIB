@@ -38,13 +38,13 @@ z88dk_targets:
 
 ##################################################################
 
-include makefiles.chase/targets/makefiles_z88dk/Makefile_z88dk_a-k
+include makefiles.chase/makefiles_z88dk/Makefile_z88dk_a-k
 
-include makefiles.chase/targets/makefiles_z88dk/Makefile_z88dk_l-p
+include makefiles.chase/makefiles_z88dk/Makefile_z88dk_l-p
 
-include makefiles.chase/targets/makefiles_z88dk/Makefile_z88dk_q-z
+include makefiles.chase/makefiles_z88dk/Makefile_z88dk_q-z
 
-include makefiles.chase/targets/makefiles_z88dk/Makefile_z88dk_zsdcc
+include makefiles.chase/makefiles_z88dk/Makefile_z88dk_zsdcc
 
 # ----------------------------------------------------------------
 

@@ -252,14 +252,6 @@ void fillLevelWithCharacters(void)
     uint8_t i;
     uint8_t count;
     
-
-    // if(!level)
-    // {
-        // ghostCount =99;
-        // maxGhostsOnScreen = GHOSTS_NUMBER;
-    // }
-
-    
     if(isRocketLevel)
     {
         if(isBossLevel)

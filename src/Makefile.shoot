@@ -137,7 +137,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari_color.xex
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atari_color.xex
 
 #################################################################
 
@@ -155,7 +155,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari5200.rom
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atari5200.rom
 
 
 #################################################################
@@ -188,7 +188,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_udc_63_chars.s \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c16_32k.prg
+	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_32k.prg
 
 
 #################################################################
@@ -209,10 +209,10 @@ c64_exomized: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c64.prg
-	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c64_exomized.prg
-	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/FULL_X$(GAME_NAME)_c64_exomized.crt
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_c64.prg
+	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
+	rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 
 c64_uncompressed: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
@@ -227,7 +227,7 @@ c64_uncompressed: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c64.prg
+	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 
 
 #################################################################
@@ -245,7 +245,7 @@ nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_nes_tiles.s \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_nes.nes
+	-o $(BUILD_PATH)/X$(GAME_NAME)_nes.nes
 
 
 #################################################################
@@ -261,13 +261,13 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_pce_tiles.s \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin
-	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin
-	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_HIGH.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin 
-	cat $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_HIGH.bin $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin > $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_SWAPPED.pce
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_HIGH.bin
+	-o $(BUILD_PATH)/X$(GAME_NAME)_PCE.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE.bin 
+	cat $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin $(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin > $(BUILD_PATH)/X$(GAME_NAME)_PCE_SWAPPED.pce
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
 
 
 pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
@@ -279,13 +279,13 @@ pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_pce_tiles.s \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin
-	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin ibs=1 count=24576 of=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin
-	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin ibs=1 skip=24576 of=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_HIGH.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin 
-	cat $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_HIGH.bin $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin > $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_SWAPPED.pce
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_HIGH.bin
+	-o $(BUILD_PATH)/X$(GAME_NAME)_PCE.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_PCE.bin ibs=1 count=24576 of=$(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_PCE.bin ibs=1 skip=24576 of=$(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE.bin 
+	cat $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin $(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin > $(BUILD_PATH)/X$(GAME_NAME)_PCE_SWAPPED.pce
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
 
 #################################################################
 
@@ -300,7 +300,7 @@ creativision_32k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	--config $(CFG_PATH)/cc65/creativision-32k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_32k.bin
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_32k.bin
 
 creativision_24k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
@@ -309,10 +309,10 @@ creativision_24k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	--config $(CFG_PATH)/cc65/creativision-24k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin
-	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin bs=8k skip=1 > $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k_SWAPPED.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_24k.bin
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k_SWAPPED.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_24k.bin
 
 creativision_18k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
@@ -321,7 +321,7 @@ creativision_18k: $(ASSETS_PATH)/cc65_8x8_chars.h
 	--config $(CFG_PATH)/cc65/creativision-18k.cfg \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_18k.bin
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_18k.bin
 
 
 #################################################################
@@ -343,7 +343,7 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atmos_and_oric1_48k.tap
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atmos_and_oric1_48k.tap
 
 
 
@@ -364,7 +364,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 vic20_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
@@ -379,7 +379,7 @@ vic20_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
 #################################################################
@@ -405,7 +405,7 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o ace -Cz--audio -create-app	
-	cp ace.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_ace_exp_16k.wav
+	cp ace.wav $(BUILD_PATH)/X$(GAME_NAME)_ace_exp_16k.wav
 	rm ace.wav
 	rm ace.tap
 	rm ace
@@ -423,12 +423,12 @@ aquarius_exp_32k:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	-create-app \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_aquarius_exp_32k
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_aquarius_exp_32k
-	# tar czvf FULL_X$(GAME_NAME)_aquarius_exp_16k.zip FULL_X$(GAME_NAME)_aquarius_exp_16k.caq _FULL_X$(GAME_NAME)_aquarius_exp_16k.caq
-	# rm FULL_X$(GAME_NAME)_aquarius_exp_16k.caq
-	# rm _FULL_X$(GAME_NAME)_aquarius_exp_16k.caq
-	# mv FULL_X$(GAME_NAME)_aquarius_exp_16k.zip $(BUILD_PATH)
+	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_32k
+	rm $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_32k
+	# tar czvf X$(GAME_NAME)_aquarius_exp_16k.zip X$(GAME_NAME)_aquarius_exp_16k.caq _X$(GAME_NAME)_aquarius_exp_16k.caq
+	# rm X$(GAME_NAME)_aquarius_exp_16k.caq
+	# rm _X$(GAME_NAME)_aquarius_exp_16k.caq
+	# mv X$(GAME_NAME)_aquarius_exp_16k.zip $(BUILD_PATH)
 
 
 
@@ -455,10 +455,10 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -oa80.bin
-	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_X$(GAME_NAME)_c128_z80_80col.d64
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_X$(GAME_NAME)_c128_z80_80col.d64 -write a80.ldr
-	$(TOOLS_PATH)/generic/c1541 -attach FULL_X$(GAME_NAME)_c128_z80_80col.d64 -write a80
-	mv FULL_X$(GAME_NAME)_c128_z80_80col.d64 $(BUILD_PATH)/
+	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 X$(GAME_NAME)_c128_z80_80col.d64
+	$(TOOLS_PATH)/generic/c1541 -attach X$(GAME_NAME)_c128_z80_80col.d64 -write a80.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach X$(GAME_NAME)_c128_z80_80col.d64 -write a80
+	mv X$(GAME_NAME)_c128_z80_80col.d64 $(BUILD_PATH)/
 	rm A80.LDR
 	rm A80
 	rm a80.bin
@@ -474,25 +474,25 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-DZ88DK_JOYSTICK \
 	-DSLOW_DOWN=100 \
 	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o 	$(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.prg \
+	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \
 	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_$(GAME_NAME) $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cdt
-	rm -rf FULL_X$(GAME_NAME)_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_X$(GAME_NAME)_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc x$(GAME_NAME)
-	mv FULL_X$(GAME_NAME)_cpc.dsk $(BUILD_PATH)/
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_$(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)_cpc.cdt
+	rm -rf X$(GAME_NAME)_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc x$(GAME_NAME)
+	mv X$(GAME_NAME)_cpc.dsk $(BUILD_PATH)/
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/FULL_X$(GAME_NAME)_gx4000.cpr   -c 'run"x$(GAME_NAME)'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/X$(GAME_NAME)_gx4000.cpr   -c 'run"x$(GAME_NAME)'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc 
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.prg
+	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc 
+	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.prg
 
 
 #################################################################
@@ -511,11 +511,11 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_gb.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_BSS.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_DATA.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_BANK_1F.bin
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_gb.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_gb.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_gb_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_gb_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_gb_BANK_1F.bin
 
 
 
@@ -536,9 +536,9 @@ laser500: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm 
-	mv laser500bm.bin $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
+	mv laser500bm.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm laser500bm.cas
-	mv laser500bm.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.wav
+	mv laser500bm.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
 
 
 #################################################################
@@ -561,7 +561,7 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	mv mc1000.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_mc1000_X$(GAME_NAME)_exp_48k_joystick.wav
+	mv mc1000.wav $(BUILD_PATH)/X$(GAME_NAME)_mc1000_X$(GAME_NAME)_exp_48k_joystick.wav
 	rm mc1000.bin
 	rm mc1000.cas
 
@@ -577,7 +577,7 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	-DSOUNDS -DANIMATE_PLAYER \
 	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
-	-create-app -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_msx_32k.rom \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
 	-DMEMORY_MAPPED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
@@ -589,8 +589,8 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_msx_32k_BSS.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_msx_32k_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
 
 
 #################################################################
@@ -610,11 +610,11 @@ sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_sms.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_BSS.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_DATA.bin
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_BANK_1F.bin
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms_BANK_1F.bin
 
 #################################################################
 
@@ -635,13 +635,13 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_spectrum_48k.prg \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_spectrum_48k.prg
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_spectrum_48k_BANK_7.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg
+	rm $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k_BANK_7.bin
 
 
 #################################################################
@@ -653,7 +653,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
-	-lndos -create-app -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_vg5k_exp_16k.prg \
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg \
 	-DCONIO \
 	-DSLOW_DOWN=300 \
 	-DINITIAL_SLOWDOWN=29000 \
@@ -664,7 +664,7 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_vg5k_exp_16k.prg
+	rm $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg
 
 
 #################################################################
@@ -782,7 +782,7 @@ comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 
 ###############################################################################
@@ -804,7 +804,7 @@ pecom: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 
 ###############################################################################
@@ -824,7 +824,7 @@ micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 
 ###############################################################################
@@ -846,7 +846,7 @@ tmc600_37k: reduced_full_lcc1802_combo.c
 	-DGHOSTS_NUMBER=6  \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_tmc600_37k.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_tmc600_37k.hex
 
 
 ###############################################################################
@@ -870,7 +870,7 @@ cidelsa_draco: full_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_cidelsa_draco_32K.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_cidelsa_draco_32K.hex
 
 
 
@@ -912,7 +912,7 @@ ncurses:
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
-	mv a$(COMPILEDEXT) $(BUILD_PATH)/FULL_X$(GAME_NAME)_ncurses$(COMPILEDEXT)
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses$(COMPILEDEXT)
     
     
 

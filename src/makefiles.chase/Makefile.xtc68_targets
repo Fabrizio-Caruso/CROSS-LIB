@@ -53,6 +53,6 @@ sinclair_ql_tiny_buffered:
 	$(XTC68) $(XTC68_ALL_OPTS) /usr/local/qdos/lib/crt.o \
 	level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o 
 	rm level.o init_images.o display_macros.o input_macros.o text_macros.o move_player.o ghost.o character.o game_test.o strategy.o main.o
-	mv a_out $(BUILD_PATH)/TINY_X$(GAME_NAME)_SinclairQL_buffered.out
+	mv a_out $(BUILD_PATH)/X$(GAME_NAME)_TINY_SinclairQL_buffered.out
 
 

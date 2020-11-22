@@ -35,4 +35,4 @@ amiga_buffered:
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv a.out $(BUILD_PATH)/FULL_X$(GAME_NAME)_amiga_buffered.exe
+	mv a.out $(BUILD_PATH)/X$(GAME_NAME)_amiga_buffered.exe

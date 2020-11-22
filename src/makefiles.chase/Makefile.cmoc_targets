@@ -111,10 +111,10 @@ dragon:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_Dragon.cas -D $(BUILD_PATH)/xchase.bin -A
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_Dragon.cas -D $(BUILD_PATH)/xchase.bin -A
 	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
-	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/FULL_X$(GAME_NAME)_Dragon.vdk
-	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/FULL_X$(GAME_NAME)_Dragon.bin
+	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_Dragon.vdk
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_Dragon.bin
 
 dragon_targets: \
 	dragon
@@ -172,7 +172,7 @@ coco:
 	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
-	$(CMOC) -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.bin \
+	$(CMOC) -o $(BUILD_PATH)/X$(GAME_NAME)_CoCo.bin \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
@@ -197,11 +197,11 @@ coco:
 	input_macros.o \
 	item.o bullet.o skull.o \
 	rocket.o horizontal_missile.o end_screen.o
-	rm -rf $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.dsk
-	cp $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.bin XCHASE.BIN
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
+	cp $(BUILD_PATH)/X$(GAME_NAME)_CoCo.bin XCHASE.BIN
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
-	mv XCHASE.DSK $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.dsk
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_CoCo.cas -C XCHASE.BIN -A
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_CoCo.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 	
 
@@ -259,7 +259,7 @@ vectrex:
 	$(CMOC) \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/end_screen.c	
-	$(CMOC) -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_Vectrex.bin \
+	$(CMOC) -o $(BUILD_PATH)/X$(GAME_NAME)_Vectrex.bin \
 	$(VECTREX_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
@@ -378,9 +378,9 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs -c FULL_MO5.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs --add FULL_MO5.sap FULL_MO5.bin
-	mv ./FULL_MO5.bin $(BUILD_PATH)/FULL_X$(GAME_NAME)_MO5.bin
-	mv ./FULL_MO5.sap $(BUILD_PATH)/FULL_X$(GAME_NAME)_MO5.sap
-	mv ./FILE.K5 $(BUILD_PATH)/FULL_X$(GAME_NAME)_MO5.k5
+	mv ./FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_MO5.bin
+	mv ./FULL_MO5.sap $(BUILD_PATH)/X$(GAME_NAME)_MO5.sap
+	mv ./FILE.K5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
 	
 
 
@@ -477,8 +477,8 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mv $(BUILD_PATH)/FULL_TO7.BIN .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs -c FULL_TO7.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs --add FULL_TO7.sap FULL_TO7.BIN
-	mv ./FULL_TO7.BIN $(BUILD_PATH)/FULL_X$(GAME_NAME)_TO7.BIN
-	mv ./FULL_TO7.sap $(BUILD_PATH)/FULL_X$(GAME_NAME)_TO7.sap
+	mv ./FULL_TO7.BIN $(BUILD_PATH)/X$(GAME_NAME)_TO7.BIN
+	mv ./FULL_TO7.sap $(BUILD_PATH)/X$(GAME_NAME)_TO7.sap
 
 
 

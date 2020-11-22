@@ -125,7 +125,7 @@ tiny_comx: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../tiny_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_comx.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_X$(GAME_NAME)_comx.hex
 
 
 light_comx: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
@@ -140,7 +140,7 @@ light_comx: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../light_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../light_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_comx.hex
+	mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_comx.hex
 
 
 full_comx: comx
@@ -158,7 +158,7 @@ comx: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_comx.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_comx.hex
 
 
 ###############################################################################
@@ -176,7 +176,7 @@ tiny_pecom: tiny_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../tiny_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_pecom.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_X$(GAME_NAME)_pecom.hex
 
 
 light_pecom: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
@@ -191,7 +191,7 @@ light_pecom: light_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../light_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../light_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/LIGHT_pecom.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_pecom.hex
 
 
 full_pecom: pecom
@@ -209,7 +209,7 @@ pecom: full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_pecom.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_pecom.hex
 
 
 ###############################################################################
@@ -225,7 +225,7 @@ tmc600_8k: reduced_tiny_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../reduced_tiny_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_tiny_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_tmc600_8k.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_X$(GAME_NAME)_tmc600_8k.hex
 
 
 tiny_tmc600: tiny_lcc1802_combo.c 
@@ -237,7 +237,7 @@ tiny_tmc600: tiny_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../tiny_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_tmc600.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_X$(GAME_NAME)_tmc600.hex
 
 
 light_tmc600: tmc600_16k
@@ -252,7 +252,7 @@ tmc600_16k: light_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../light_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../light_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/LIGHT_tmc600_16k.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_tmc600_16k.hex
 
 
 full_tmc600: tmc600_37k
@@ -268,7 +268,7 @@ tmc600_37k: full_lcc1802_combo.c
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_tmc600_37k.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_tmc600_37k.hex
 
 
 tmc600_no_end: tmc600_24k
@@ -284,7 +284,7 @@ tmc600_24k: reduced_full_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=8  \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_tmc600_24k.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_tmc600_24k.hex
 
 
 ###############################################################################
@@ -301,7 +301,7 @@ tiny_cidelsa_draco: tiny_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../tiny_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_cidelsa_draco_16K.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_X$(GAME_NAME)_cidelsa_draco_16K.hex
 
 
 cidelsa_draco_16k: light_cidelsa_draco
@@ -316,7 +316,7 @@ light_cidelsa_draco: light_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../light_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../light_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/LIGHT_cidelsa_draco_16K.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_cidelsa_draco_16K.hex
 
 
 cidelsa: cidelsa_draco
@@ -337,7 +337,7 @@ cidelsa_draco: full_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_cidelsa_draco_32K.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_cidelsa_draco_32K.hex
 
 
 ###############################################################################
@@ -356,7 +356,7 @@ tiny_cidelsa_altair: tiny_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../tiny_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_cidelsa_altair_12K.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_X$(GAME_NAME)_cidelsa_altair_12K.hex
 
 cidelsa_altair: cidelsa_altair_24k
 
@@ -372,7 +372,7 @@ light_cidelsa_altair: light_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../light_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../light_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/LIGHT_cidelsa_altair_24K.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_cidelsa_altair_24K.hex
 
 # full_altair: full_lcc1802_combo.c
 	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(ALTAIR_24K_OPTS)  \
@@ -385,7 +385,7 @@ light_cidelsa_altair: light_lcc1802_combo.c
 	# -DFORCE_GHOSTS_NUMBER=8 \
 	# $(SOURCE_PATH)/../full_lcc1802_combo.c
 	# rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	# mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_altair.hex
+	# mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_altair.hex
 
 
 ###############################################################################
@@ -406,7 +406,7 @@ tiny_cidelsa_destroyer: tiny_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../tiny_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../tiny_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_cidelsa_destroyer_12K.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_X$(GAME_NAME)_cidelsa_destroyer_12K.hex
 
 cidelsa_destroyer_8k: reduced_tiny_cidelsa_destroyer
 
@@ -422,7 +422,7 @@ reduced_tiny_cidelsa_destroyer: reduced_tiny_lcc1802_combo.c
 	-DFORCE_GHOSTS_NUMBER=6 \
 	$(SOURCE_PATH)/../reduced_tiny_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_tiny_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_cidelsa_destroyer_8K.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/TINY_X$(GAME_NAME)_cidelsa_destroyer_8K.hex
 
 
 # full_destroyer: full_lcc1802_combo.c
@@ -436,7 +436,7 @@ reduced_tiny_cidelsa_destroyer: reduced_tiny_lcc1802_combo.c
 	# -DFORCE_GHOSTS_NUMBER=8 \
 	# $(SOURCE_PATH)/../full_lcc1802_combo.c
 	# rm -rf $(SOURCE_PATH)/../full_lcc1802_combo.c
-	# mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_destroyer.hex
+	# mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_destroyer.hex
 
 # light_destroyer: light_lcc1802_combo.c
 	# $(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DESTROYER_12K_OPTS)  \
@@ -448,7 +448,7 @@ reduced_tiny_cidelsa_destroyer: reduced_tiny_lcc1802_combo.c
 	# -DFORCE_GHOSTS_NUMBER=8 \
 	# $(SOURCE_PATH)/../light_lcc1802_combo.c
 	# rm -rf $(SOURCE_PATH)/../light_lcc1802_combo.c
-	# mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_destroyer.hex
+	# mv $(SOURCE_PATH)/../a.hex $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_destroyer.hex
 
 
 ###############################################################################
@@ -471,7 +471,7 @@ micro_pal2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=8 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo_no_sounds.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo_no_sounds.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_microboard_pal2.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/FULL_X$(GAME_NAME)_microboard_pal2.hex
 
 
 

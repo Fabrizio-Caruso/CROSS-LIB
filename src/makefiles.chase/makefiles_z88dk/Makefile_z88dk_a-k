@@ -157,11 +157,11 @@ abc80:
 	$(FULL_FILES)
 	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) abc80.bin $(BUILD_PATH)/xchase.bac 49200
 	$(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 abc80.bin	
-	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk 
-	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_abc80.dsk -b $(BUILD_PATH)/xchase.bac
+	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_X$(GAME_NAME)_abc80.dsk 
+	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_X$(GAME_NAME)_abc80.dsk -b $(BUILD_PATH)/xchase.bac
 	rm abc80.bin 
-	mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/FULL_abc80.bac
-	mv abc80.ihx $(BUILD_PATH)/FULL_abc80.ihx 
+	mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/FULL_X$(GAME_NAME)_abc80.bac
+	mv abc80.ihx $(BUILD_PATH)/FULL_X$(GAME_NAME)_abc80.ihx 
 
 
 abc80_light:
@@ -172,14 +172,14 @@ abc80_light:
 	-DNO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o abc80light.bin  \
 	$(LIGHT_FILES)
-	# mv abc80.bin $(BUILD_PATH)/LIGHT_abc80.bin
-	mv abc80light.ihx $(BUILD_PATH)/LIGHT_abc80.ihx 
+	# mv abc80.bin $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_abc80.bin
+	mv abc80light.ihx $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_abc80.ihx 
 	$(TOOLS_PATH)/z88dk/abc80/bin2abc --bac80 -o $(BUILD_PATH)/xchase.bac -s 49200 abc80light.bin
-	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/LIGHT_abc80.dsk 
-	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/LIGHT_abc80.dsk -b $(BUILD_PATH)/xchase.bac
+	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_abc80.dsk 
+	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_abc80.dsk -b $(BUILD_PATH)/xchase.bac
 	rm abc80light.bin 
-	mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/LIGHT_abc80.bac
-	# mv abc80light.bin $(BUILD_PATH)/LIGHT_abc80.bin
+	mv $(BUILD_PATH)/xchase.bac $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_abc80.bac
+	# mv abc80light.bin $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_abc80.bin
 
 
 #############################
@@ -201,11 +201,11 @@ abc800_buffered:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(TOOLS_PATH)/z88dk/abc80/bin2bac2$(COMPILEDEXT) a800.bin $(BUILD_PATH)/xc800.bac 49200
-	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_$@.dsk 
-	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_$@.dsk -b $(BUILD_PATH)/xc800.bac
+	$(TOOLS_PATH)/z88dk/abc80/dosgen$(COMPILEDEXT) $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.dsk 
+	$(TOOLS_PATH)/z88dk/abc80/doscopy$(COMPILEDEXT) $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.dsk -b $(BUILD_PATH)/xc800.bac
 	rm a800.bin 
 	rm $(BUILD_PATH)/xc800.bac
-	mv a800.ihx $(BUILD_PATH)/FULL_$@.ihx 	
+	mv a800.ihx $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.ihx 	
 
 
 #############################
@@ -226,7 +226,7 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-o ace -Cz--audio -create-app	
-	cp ace.wav $(BUILD_PATH)/FULL_ace_exp_16k.wav
+	cp ace.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_ace_exp_16k.wav
 	rm ace.wav
 	rm ace.tap
 	rm ace
@@ -248,10 +248,10 @@ alphatro:
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_alphatro.bin
-	rm $(BUILD_PATH)/FULL_alphatro.bin
-	rm $(BUILD_PATH)/FULL_alphatro_DATA.bin
-	rm $(BUILD_PATH)/FULL_alphatro_BSS.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_alphatro.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_alphatro.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_alphatro_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_alphatro_BSS.bin
 
 
 #############################
@@ -264,10 +264,10 @@ attache_chars:
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_attache_chars.bin \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_attache_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_attache_chars.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_attache_chars.bin
 
 attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) -subtype=attache \
@@ -280,11 +280,11 @@ attache: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	-DANIMATE_PLAYER \
 	-DFORCE_GHOSTS_NUMBER=8 \
-	-create-app -o$(BUILD_PATH)/FULL_attache.bin \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_attache.bin \
 	-DNO_INIT_GRAPHICS \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)	
-	rm $(BUILD_PATH)/FULL_attache.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_attache.bin
 
 
 #############################
@@ -301,10 +301,10 @@ aussie:
 	-DFULL_GAME -DLESS_TEXT -DNO_SLEEP -DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_aussie.bin \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_aussie.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_aussie.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_aussie.bin
 
 
 #############################
@@ -343,8 +343,8 @@ altair8800_tiny_buffered:
 	-create-app -oaltair8800.rom
 	rm -rf altair8800_DATA.bin 
 	rm -rf altair8800_BSS.bin 
-	mv altair8800.rom $(BUILD_PATH)/TINY_altair8800_buffered.rom
-	mv altair8800.bin $(BUILD_PATH)/TINY_altair8800_buffered.bin
+	mv altair8800.rom $(BUILD_PATH)/TINY_X$(GAME_NAME)_altair8800_buffered.rom
+	mv altair8800.bin $(BUILD_PATH)/TINY_X$(GAME_NAME)_altair8800_buffered.bin
 
 
 #############################
@@ -367,10 +367,10 @@ bic_buffered:
 	-DNO_SLEEP \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
-	-create-app -o$(BUILD_PATH)/FULL_$@.bin \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_$@.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
 
 
 #############################
@@ -393,10 +393,10 @@ bit90: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_bit90.bin
-	rm $(BUILD_PATH)/FULL_bit90.bin
-	rm $(BUILD_PATH)/FULL_bit90_DATA.bin
-	rm $(BUILD_PATH)/FULL_bit90_BSS.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_bit90.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_bit90.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_bit90_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_bit90_BSS.bin
 
 #############################
 # C128_Z80
@@ -425,7 +425,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_80col.d64
 	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_80col.d64 -write a80.ldr
 	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_80col.d64 -write a80
-	mv FULL_c128_z80_80col.d64 $(BUILD_PATH)/
+	mv FULL_c128_z80_80col.d64 $(BUILD_PATH)/FULL_X$(GAME_NAME)_c128_z80_80col.d64
 	rm A80.LDR
 	rm A80
 	rm a80.bin
@@ -449,7 +449,7 @@ c128_z80_40col:
 	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64
 	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40.ldr
 	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40
-	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/
+	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/FULL_X$(GAME_NAME)_c128_z80_40col.d64
 	rm A40.LDR
 	rm A40
 	rm a40.bin
@@ -471,8 +471,8 @@ camputers_lynx:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app -o $(BUILD_PATH)/FULL_camputers_lynx.bin
-	rm $(BUILD_PATH)/FULL_camputers_lynx.bin
+	-create-app -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_camputers_lynx.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_camputers_lynx.bin
 
 
 #############################
@@ -491,7 +491,7 @@ coleco_adam:
 	$(FULL_FILES) \
 	-create-app -oxcadam.bin
 	rm xcadam.bin
-	mv xcadam.img $(BUILD_PATH)/FULL_$@.img
+	mv xcadam.img $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.img
 
 
 #############################
@@ -513,10 +513,10 @@ coleco: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_coleco.bin
-	rm $(BUILD_PATH)/FULL_coleco.bin
-	rm $(BUILD_PATH)/FULL_coleco_DATA.bin
-	rm $(BUILD_PATH)/FULL_coleco_BSS.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_coleco.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_coleco.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_coleco_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_coleco_BSS.bin
 
 
 #############################
@@ -529,25 +529,25 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-DSOUNDS -DFORCE_PSG -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB -DSLOW_DOWN=600 \
 	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o 	$(BUILD_PATH)/FULL_cpc.prg \
+	-lndos -create-app -o 	$(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \
 	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_cpc.cpc  $(BUILD_PATH)/FULL_cpc.cdt
-	rm -rf FULL_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_cpc.dsk -p $(BUILD_PATH)/FULL_cpc.cpc xchase
-	mv FULL_cpc.dsk $(BUILD_PATH)/
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cdt
+	rm -rf FULL_X$(GAME_NAME)_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd FULL_X$(GAME_NAME)_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw FULL_X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc xchase
+	mv FULL_X$(GAME_NAME)_cpc.dsk $(BUILD_PATH)/
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_cpc.dsk  $(BUILD_PATH)/FULL_gx4000.cpr   -c 'run"xchase'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/FULL_X$(GAME_NAME)_gx4000.cpr   -c 'run"xchase'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
-	rm $(BUILD_PATH)/FULL_cpc.cpc 
-	rm $(BUILD_PATH)/FULL_cpc.prg
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.cpc 
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_cpc.prg
 
 
 #############################
@@ -569,10 +569,10 @@ cpm_z80_adm3a:
 	-DFULL_GAME -DLESS_TEXT -DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_$@.bin \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_$@.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
 
 cpm_8080_targets: cpm_8080 cpm_8080_buffered
 
@@ -587,10 +587,10 @@ cpm_8080_adm3a:
 	-DFULL_GAME -DLESS_TEXT -DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_$@.bin \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_$@.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
 
 cpm_buffered: cpm_8080_buffered
 
@@ -609,10 +609,10 @@ cpm_8080_buffered:
 	-DNO_SLEEP \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
-	-create-app -o$(BUILD_PATH)/FULL_$@.bin \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	rm $(BUILD_PATH)/FULL_CPM_8080_BUFFERED.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_CPM_8080_BUFFERED.bin
 
 
 #############################
@@ -631,8 +631,8 @@ dai_buffered:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_$@.bin
-	rm $(BUILD_PATH)/FULL_$@.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
 
 
 #############################
@@ -648,10 +648,10 @@ dmv:
 	-DFULL_GAME -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_dmv.bin \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_dmv.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_dmv.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_dmv.bin
 
 
 #############################
@@ -679,8 +679,8 @@ eg2k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	-create-app -o$(BUILD_PATH)/FULL_eg2k.bin
-	rm $(BUILD_PATH)/FULL_eg2k.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_eg2k.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_eg2k.bin
 
 
 #############################
@@ -695,9 +695,9 @@ einstein:
 	-DFULL_GAME -DLESS_TEXT \
 	-clib=ansi \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app -o$(BUILD_PATH)/FULL_einstein.bin \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_einstein.bin \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_einstein.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_einstein.bin
 
 
 #############################
@@ -728,7 +728,7 @@ enterprise_buffered:
 	rm enterprise.bin
 	tar czvf FULL_enterprise.tar.zip FULL_enterprise.app
 	rm FULL_enterprise.app
-	mv FULL_enterprise.tar.zip $(BUILD_PATH)
+	mv FULL_enterprise.tar.zip $(BUILD_PATH)/FULL_X$(GAME_NAME)_enterprise.tar.zip
 
 
 #############################
@@ -746,7 +746,7 @@ excalibur64_turn_bsed:
 	-create-app -oxcex64tb.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
-	mv xcex64tb.img $(BUILD_PATH)/FULL_$@.img
+	mv xcex64tb.img $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.img
 	rm xcex64tb_HIMEM.bin
 	rm xcex64tb.bin
 
@@ -764,7 +764,7 @@ excalibur64:
 	-create-app -oxcexca64.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) 
-	mv xcexca64.img $(BUILD_PATH)/FULL_$@.img
+	mv xcexca64.img $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.img
 	rm xcexca64_HIMEM.bin
 	rm xcexca64.bin
 #############################
@@ -781,7 +781,7 @@ fp1100:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o fp1100.bin
-	mv fp1100.d88 $(BUILD_PATH)/FULL_fp1100.d88
+	mv fp1100.d88 $(BUILD_PATH)/FULL_X$(GAME_NAME)_fp1100.d88
 	rm fp1100.bin
 	rm fp1100_BOOTSTRAP.bin
 
@@ -804,7 +804,7 @@ g800_turn_based:
 	-create-app -o g800.bin
 	rm g800.bin 
 	rm g800.rom
-	mv g800.ihx $(BUILD_PATH)/FULL_g800_turn_based.ihx
+	mv g800.ihx $(BUILD_PATH)/FULL_X$(GAME_NAME)_g800_turn_based.ihx
 
 
 
@@ -826,11 +826,11 @@ gamegear_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_gamegear.bin
-	rm $(BUILD_PATH)/FULL_gamegear.bin
-	rm $(BUILD_PATH)/FULL_gamegear_BSS.bin
-	rm $(BUILD_PATH)/FULL_gamegear_DATA.bin
-	rm $(BUILD_PATH)/FULL_gamegear_BANK_1F.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_gamegear.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gamegear.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gamegear_BSS.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gamegear_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gamegear_BANK_1F.bin
 
 
 gamegear_tiny_buffered:
@@ -851,14 +851,14 @@ gamegear_tiny_buffered:
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SLEEP \
 	-DNO_WAIT \
-	-o $(BUILD_PATH)/TINY_gamegear_buffered.bin \
+	-o $(BUILD_PATH)/TINY_X$(GAME_NAME)_gamegear_buffered.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_gamegear_buffered_CODE.bin
-	rm $(BUILD_PATH)/TINY_gamegear_buffered_DATA.bin
-	rm $(BUILD_PATH)/TINY_gamegear_buffered_BSS.bin
-	rm $(BUILD_PATH)/TINY_gamegear_buffered_UNASSIGNED.bin
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_gamegear_buffered_CODE.bin
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_gamegear_buffered_DATA.bin
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_gamegear_buffered_BSS.bin
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_gamegear_buffered_UNASSIGNED.bin
 
 
 #############################
@@ -880,11 +880,11 @@ gb_no_gfx:
 	-DCONIO -DNO_INIT_GRAPHICS -DZ88DK_JOYSTICK \
 	-lndos -DSLOW_DOWN=1200 \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_gb_no_gfx.bin
-	rm $(BUILD_PATH)/FULL_gb_no_gfx.bin
-	rm $(BUILD_PATH)/FULL_gb_no_gfx_BSS.bin
-	rm $(BUILD_PATH)/FULL_gb_no_gfx_DATA.bin
-	rm $(BUILD_PATH)/FULL_gb_no_gfx_BANK_1F.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_no_gfx.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_no_gfx.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_no_gfx_BSS.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_no_gfx_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_no_gfx_BANK_1F.bin
 
 
 gb_gfx: $(ASSETS_PATH)/z88dk_gameboy.asm
@@ -900,11 +900,11 @@ gb_gfx: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_gb.bin
-	rm $(BUILD_PATH)/FULL_gb.bin
-	rm $(BUILD_PATH)/FULL_gb_BSS.bin
-	rm $(BUILD_PATH)/FULL_gb_DATA.bin
-	rm $(BUILD_PATH)/FULL_gb_BANK_1F.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_gb.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_BSS.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_gb_BANK_1F.bin
 
 
 #############################
@@ -923,8 +923,8 @@ homelab:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_homelab.bin
-	rm $(BUILD_PATH)/FULL_homelab.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_homelab.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_homelab.bin
 
 
 #############################
@@ -943,8 +943,8 @@ homelab2:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_homelab2.bin
-	rm $(BUILD_PATH)/FULL_homelab2.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_homelab2.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_homelab2.bin
 
 
 #############################
@@ -962,8 +962,8 @@ hemc:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_hemc.bin
-	rm $(BUILD_PATH)/FULL_hemc.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_hemc.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_hemc.bin
 
 
 #############################
@@ -981,8 +981,8 @@ hgmc:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_hgmc.bin
-	rm $(BUILD_PATH)/FULL_hgmc.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_hgmc.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_hgmc.bin
 
 
 #############################
@@ -997,14 +997,14 @@ kaypro: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DZ88DK_SPRITES \
 	-DLESS_TEXT \
 	-DANIMATE_PLAYER \
-	-create-app -o$(BUILD_PATH)/FULL_kaypro.bin \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_kaypro.bin \
 	-DNO_INIT_GRAPHICS \
 	-DINITIAL_GHOST_FREEZE \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_kaypro.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_kaypro.bin
 
 
 #############################
@@ -1022,8 +1022,8 @@ kc_light: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(LIGHT_FILES) \
-	-create-app -o$(BUILD_PATH)/LIGHT_kc.bin
-	rm $(BUILD_PATH)/LIGHT_kc.bin
+	-create-app -o$(BUILD_PATH)/LIGHT_X$(GAME_NAME)_kc.bin
+	rm $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_kc.bin
 
 
 kc_tiny: $(ASSETS_PATH)/z88dk_xchase.asm 
@@ -1039,8 +1039,8 @@ kc_tiny: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(TINY_FILES) \
-	-create-app -o$(BUILD_PATH)/TINY_kc.bin
-	rm $(BUILD_PATH)/TINY_kc.bin
+	-create-app -o$(BUILD_PATH)/TINY_X$(GAME_NAME)_kc.bin
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_kc.bin
 
 
 kc: $(ASSETS_PATH)/z88dk_xchase.asm 
@@ -1058,8 +1058,8 @@ kc: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_kc.bin
-	rm $(BUILD_PATH)/FULL_kc.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_kc.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_kc.bin
 
 
 #############################
@@ -1078,7 +1078,7 @@ kramermc:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_kramermc.bin
-	rm $(BUILD_PATH)/FULL_kramermc.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_kramermc.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_kramermc.bin
 
 

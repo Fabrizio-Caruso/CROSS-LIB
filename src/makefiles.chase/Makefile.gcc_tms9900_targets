@@ -155,7 +155,7 @@ ti99: ti99_cross_chase.elf
 	rm -rf xchase.map
 	rm -rf ea5.map
 	rm -rf xchase.ea5.elf
-	mv XCHASE $(BUILD_PATH)
+	mv XCHASE $(BUILD_PATH)/TINY_X$(GAME_NAME)_ti99a
 	rm -rf xchase.ea5.bin
 
 
@@ -165,7 +165,7 @@ ti99_turn_based: ti99_cross_chase_turn_based.elf
 	rm -rf xchase_tb.map
 	rm -rf ea5.map
 	rm -rf xchase_tb.ea5.elf
-	mv XCHASE_TB $(BUILD_PATH)
+	mv XCHASE_TB $(BUILD_PATH)/TINY_X$(GAME_NAME)_ti99a_turn_based
 	rm -rf xchase_tb.ea5.bin
 
 

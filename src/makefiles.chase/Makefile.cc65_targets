@@ -137,8 +137,8 @@ apple2:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/apple2.bin
-	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_apple2.dsk
-	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/FULL_apple2.dsk aschase < $(BUILD_PATH)/apple2.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_X$(GAME_NAME)_apple2.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/FULL_X$(GAME_NAME)_apple2.dsk aschase < $(BUILD_PATH)/apple2.bin
 	rm $(BUILD_PATH)/apple2.bin
 
 
@@ -156,8 +156,8 @@ apple2enh:
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/apple2enh.bin
-	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_apple2enh.dsk
-	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/FULL_apple2enh.dsk aschase < $(BUILD_PATH)/apple2enh.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_X$(GAME_NAME)_apple2enh.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/FULL_X$(GAME_NAME)_apple2enh.dsk aschase < $(BUILD_PATH)/apple2enh.bin
 	rm $(BUILD_PATH)/apple2enh.bin
 
 
@@ -175,8 +175,8 @@ apple2enh_80col:
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/apple2enh/apple2enh_80col_init_graphics.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	-o $(BUILD_PATH)/apple2enh_80col.bin
-	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_apple2enh_80col.dsk
-	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/FULL_apple2enh_80col.dsk aschase < $(BUILD_PATH)/apple2enh_80col.bin
+	cp $(TOOLS_PATH)/cc65/apple2/MASTER_BOOT_ASCHASE.DSK $(BUILD_PATH)/FULL_X$(GAME_NAME)_apple2enh_80col.dsk
+	java -jar $(TOOLS_PATH)/cc65/apple2/ac.jar -as $(BUILD_PATH)/FULL_X$(GAME_NAME)_apple2enh_80col.dsk aschase < $(BUILD_PATH)/apple2enh_80col.bin
 	rm $(BUILD_PATH)/apple2enh_80col.bin	
 
 
@@ -201,7 +201,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_atari_color.xex
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari_color.xex
 
 atari_no_color: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
@@ -210,7 +210,7 @@ atari_no_color:
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_atari_no_color.xex
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari_no_color.xex
 
 
 #######################################################################################
@@ -229,7 +229,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
-	-o $(BUILD_PATH)/FULL_atari5200.rom
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari5200.rom
 
 
 #######################################################################################
@@ -246,7 +246,7 @@ atari_lynx:
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari_lynx/atari_lynx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/tgi_alt_print.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_ATARI_LYNX.lnx
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_ATARI_LYNX.lnx
 
 
 #######################################################################################
@@ -265,7 +265,7 @@ c128_40col:
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_c128_40col.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c128_40col.prg
 
 c128_80col: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c128  \
@@ -278,7 +278,7 @@ c128_80col:
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_c128_80col.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c128_80col.prg
 
 
 #######################################################################################
@@ -299,7 +299,7 @@ c16_32k: $(ASSETS_PATH)/8x8_chars.h
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/memory/c16_memory.s \
-	-o $(BUILD_PATH)/FULL_c16_32k.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c16_32k.prg
 
 
 c16: c16_16k
@@ -330,7 +330,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_udc_63_chars.s \
-	-o $(BUILD_PATH)/FULL_c16_16k.prg	
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_c16_16k.prg	
 
 
 #######################################################################################
@@ -349,10 +349,10 @@ c64_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_$@.prg
-	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_$@.prg -o $(BUILD_PATH)/FULL_$@_exomized.prg
-	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_$@_exomized.prg  $(BUILD_PATH)/FULL_$@_exomized.crt
-	rm $(BUILD_PATH)/FULL_$@.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_exomized.prg  $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_exomized.crt
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
 
 c64: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c64 \
@@ -366,10 +366,10 @@ c64: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_$@.prg
-	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_$@.prg -o $(BUILD_PATH)/FULL_$@_exomized.prg
-	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_$@_exomized.prg  $(BUILD_PATH)/FULL_$@_exomized.crt
-	rm $(BUILD_PATH)/FULL_$@.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_exomized.prg  $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_exomized.crt
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
 
 
 
@@ -384,7 +384,7 @@ cbm610:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_cbm610.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_cbm610.prg
 
 
 #######################################################################################
@@ -397,7 +397,7 @@ cbm510:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_cbm510.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_cbm510.prg
 
 
 #######################################################################################
@@ -417,17 +417,17 @@ creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
-	-o $(BUILD_PATH)/FULL_creativision_16k.bin
-	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
-	dd if=$(BUILD_PATH)/FULL_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
-	rm $(BUILD_PATH)/FULL_creativision_16k.bin
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin
 
-# dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_creativision_16k_LOW.bin
-# dd if=$(BUILD_PATH)/FULL_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
-# rm $(BUILD_PATH)/FULL_creativision_16k.bin 
-# cat $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin $(BUILD_PATH)/FULL_creativision_16k_LOW.bin > $(BUILD_PATH)/FULL_creativision_16k_SWAPPED.bin
-# rm $(BUILD_PATH)/FULL_creativision_16k_LOW.bin
-# rm $(BUILD_PATH)/FULL_creativision_16k_HIGH.bin
+# dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_LOW.bin
+# dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_HIGH.bin
+# rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k.bin 
+# cat $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_HIGH.bin $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_LOW.bin > $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+# rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_LOW.bin
+# rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_creativision_16k_HIGH.bin
 
 
 creativision_8k_light: 
@@ -445,7 +445,7 @@ creativision_8k_light:
 	--config $(CFG_PATH)/cc65/creativision-8k_less_stack.cfg \
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	-o $(BUILD_PATH)/LIGHT_creativision_8k_less_text.bin	
+	-o $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_creativision_8k_less_text.bin	
 
 
 #######################################################################################
@@ -458,7 +458,7 @@ cx16:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_cx16.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_cx16.prg
 
 
 #######################################################################################
@@ -472,8 +472,8 @@ gamate_no_udg:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DSIMPLE_STRATEGY \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_gamate_no_udg.bin
-	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/FULL_gamate_no_udg.bin
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_gamate_no_udg.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/FULL_X$(GAME_NAME)_gamate_no_udg.bin
 
 
 gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
@@ -485,8 +485,8 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
 	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -DNO_SET_SCREEN_COLORS -DNO_COLOR \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_gamate_tiles.s \
-	-o $(BUILD_PATH)/FULL_gamate.bin
-	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/FULL_gamate.bin
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/FULL_X$(GAME_NAME)_gamate.bin
 
 
 #######################################################################################
@@ -504,7 +504,7 @@ nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	$(SOURCE_PATH)/end_screen.c \
 	$(ASSETS_PATH)/cc65_nes_tiles.s \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_nes.nes
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_nes.nes
 
 
 #######################################################################################
@@ -521,13 +521,13 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_pce_tiles.s \
-	-o $(BUILD_PATH)/FULL_PCE.bin
-	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_PCE_LOW.bin
-	dd if=$(BUILD_PATH)/FULL_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_PCE_HIGH.bin
-	rm $(BUILD_PATH)/FULL_PCE.bin 
-	cat $(BUILD_PATH)/FULL_PCE_HIGH.bin $(BUILD_PATH)/FULL_PCE_LOW.bin > $(BUILD_PATH)/FULL_PCE_SWAPPED.pce
-	rm $(BUILD_PATH)/FULL_PCE_LOW.bin
-	rm $(BUILD_PATH)/FULL_PCE_HIGH.bin
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin
+	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin
+	dd if=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_HIGH.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE.bin 
+	cat $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_HIGH.bin $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin > $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_SWAPPED.pce
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_LOW.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_PCE_HIGH.bin
 
 
 pce_8k: $(ASSETS_PATH)/cc65_pce_tiles.s
@@ -537,7 +537,7 @@ pce_8k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	--config $(CFG_PATH)/cc65/pce_8k_less_stack.cfg \
 	$(TINY_FILES) \
 	$(ASSETS_PATH)/cc65_pce_tiles.s \
-	-o $(BUILD_PATH)/TINY_PCE_8k.pce
+	-o $(BUILD_PATH)/TINY_X$(GAME_NAME)_PCE_8k.pce
 
 
 #######################################################################################
@@ -552,7 +552,7 @@ pet_16k:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_pet_16k.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_pet_16k.prg
 
 
 pet_8k_light:
@@ -569,7 +569,7 @@ pet_8k_light:
 	$(LIGHT_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/memory/pet_memory.s \
-	-o $(BUILD_PATH)/LIGHT_pet_8k_less_text.prg
+	-o $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_pet_8k_less_text.prg
 
 
 #######################################################################################
@@ -593,7 +593,7 @@ oric1_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/memory/oric1.s \
-	-o $(BUILD_PATH)/FULL_oric1_16k_less_text.tap
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_oric1_16k_less_text.tap
 
 atmos: oric_atmos
 
@@ -606,7 +606,7 @@ oric_atmos: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_atmos_and_oric1_48k.tap
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_atmos_and_oric1_48k.tap
 
 
 #######################################################################################
@@ -624,10 +624,10 @@ osic1p_32k:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	-o $(BUILD_PATH)/FULL_osic1p_32k.lod
-	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/FULL_osic1p_32k.lod -binary -offset 0x200 -o $(BUILD_PATH)/FULL_osic1p_32k.c1p -Ohio_Scientific -execution-start-address=0x200	
-	rm $(BUILD_PATH)/FULL_osic1p_32k.lod
-	mv $(BUILD_PATH)/FULL_osic1p_32k.c1p $(BUILD_PATH)/FULL_osic1p_32k.lod
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k.lod
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k.lod -binary -offset 0x200 -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k.lod
+	mv $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k.c1p $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k.lod
 
 
 osic1p_32k_turn_based: 
@@ -641,10 +641,10 @@ osic1p_32k_turn_based:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	-o $(BUILD_PATH)/FULL_osic1p_32k_turn_based.lod
-	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/FULL_osic1p_32k_turn_based.lod -binary -offset 0x200 -o $(BUILD_PATH)/FULL_osic1p_32k_turn_based.c1p -Ohio_Scientific -execution-start-address=0x200	
-	rm $(BUILD_PATH)/FULL_osic1p_32k_turn_based.lod
-	mv $(BUILD_PATH)/FULL_osic1p_32k_turn_based.c1p $(BUILD_PATH)/FULL_osic1p_32k_turn_based.lod
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k_turn_based.lod
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k_turn_based.lod -binary -offset 0x200 -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k_turn_based.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k_turn_based.lod
+	mv $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k_turn_based.c1p $(BUILD_PATH)/FULL_X$(GAME_NAME)_osic1p_32k_turn_based.lod
 
 
 osic1p_8k: 
@@ -653,10 +653,10 @@ osic1p_8k:
 	-DFORCE_GHOSTS_NUMBER=8 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES) \
-	-o $(BUILD_PATH)/TINY_osic1p_8k.lod	
-	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/TINY_osic1p_8k.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p_8k.c1p -Ohio_Scientific -execution-start-address=0x200	
-	rm $(BUILD_PATH)/TINY_osic1p_8k.lod
-	mv $(BUILD_PATH)/TINY_osic1p_8k.c1p $(BUILD_PATH)/TINY_osic1p_8k.lod
+	-o $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k.lod	
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k.lod
+	mv $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k.c1p $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k.lod
 
 
 osic1p_8k_turn_based: 
@@ -666,10 +666,10 @@ osic1p_8k_turn_based:
 	-DFORCE_GHOSTS_NUMBER=9 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES) \
-	-o $(BUILD_PATH)/TINY_osic1p_8k_turn_based.lod	
-	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/TINY_osic1p_8k_turn_based.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_osic1p_8k_turn_based.c1p -Ohio_Scientific -execution-start-address=0x200	
-	rm $(BUILD_PATH)/TINY_osic1p_8k_turn_based.lod
-	mv $(BUILD_PATH)/TINY_osic1p_8k_turn_based.c1p $(BUILD_PATH)/TINY_osic1p_8k_turn_based.lod
+	-o $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k_turn_based.lod	
+	$(TOOLS_PATH)/cc65/osic1p/srec_cat $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k_turn_based.lod -binary -offset 0x200 -o $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k_turn_based.c1p -Ohio_Scientific -execution-start-address=0x200	
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k_turn_based.lod
+	mv $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k_turn_based.c1p $(BUILD_PATH)/TINY_X$(GAME_NAME)_osic1p_8k_turn_based.lod
 
 
 #######################################################################################
@@ -686,7 +686,7 @@ supervision_reduced: $(ASSETS_PATH)/cc65_udc.s
 	-DNO_SLEEP \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
-	-o $(BUILD_PATH)/FULL_supervision.sv
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_supervision.sv
 
 supervision_no_print: $(ASSETS_PATH)/cc65_udc.s 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t supervision  \
@@ -701,7 +701,7 @@ supervision_no_print: $(ASSETS_PATH)/cc65_udc.s
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
-	-o $(BUILD_PATH)/FULL_supervision.sv
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_supervision.sv
 
 
 supervision: $(ASSETS_PATH)/cc65_udc.s 
@@ -716,7 +716,7 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
-	-o $(BUILD_PATH)/FULL_supervision.sv
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_supervision.sv
 
 #######################################################################################
 # TELESTRAT
@@ -735,8 +735,8 @@ telestrat_buffered:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_$@
-	cp $(BUILD_PATH)/FULL_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@
+	cp $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
 
 
 telestrat_joy_buffered: 
@@ -751,8 +751,8 @@ telestrat_joy_buffered:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_$@
-	cp $(BUILD_PATH)/FULL_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@
+	cp $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
 
 telestrat_exp: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t telestrat \
@@ -767,8 +767,8 @@ telestrat_exp:
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_$@
-	cp $(BUILD_PATH)/FULL_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@
+	cp $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@ /cygdrive/C/Emulation/Computers/Oricutron_win64-20200515/sdcard/bin/xchase
 
 
 #######################################################################################
@@ -787,7 +787,7 @@ vic20_exp_16k_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_$@.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
 
 
 vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
@@ -801,7 +801,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/FULL_$@.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
 
 test_vsync:
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -t vic20 $(TEST_PATH)/test_vsync.c -o $(BUILD_PATH)/test_vsync.prg
@@ -832,7 +832,7 @@ vic20_exp_3k: $(ASSETS_PATH)/cc65_udc_vic20_64_chars.s
 	$(LIGHT_FILES) \
 	$(ASSETS_PATH)/cc65_udc_vic20_64_chars.s \
 	$(SOURCE_PATH)/memory/vic20_memory.s \
-	-o $(BUILD_PATH)/LIGHT_$@.prg
+	-o $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_$@.prg
 
 
 vic20: vic20_exp_8k
@@ -874,7 +874,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(SOURCE_PATH)/main.c \
 	$(SOURCE_PATH)/memory/vic20_memory.s \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_$@.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
 
 
 vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
@@ -914,7 +914,7 @@ vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(SOURCE_PATH)/main.c \
 	$(SOURCE_PATH)/memory/vic20_memory.s \
 	$(SOURCE_PATH)/end_screen.c \
-	-o $(BUILD_PATH)/FULL_$@.prg
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
 
 
 vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
@@ -950,6 +950,6 @@ vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \
 	$(ASSETS_PATH)/cc65_udc_6chars.s \
-	-o $(BUILD_PATH)/TINY_$@.prg
+	-o $(BUILD_PATH)/TINY_X$(GAME_NAME)_$@.prg
 
 

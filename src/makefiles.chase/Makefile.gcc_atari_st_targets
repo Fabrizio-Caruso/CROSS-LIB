@@ -28,7 +28,7 @@ atari_st_buffered:
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv a.out $(BUILD_PATH)/FULL_atari_st_buffered.tos
+	mv a.out $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari_st_buffered.tos
 
 atari_st: atari_st_ncurses
 
@@ -47,7 +47,7 @@ atari_st_ncurses:
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
-	mv a.out $(BUILD_PATH)/FULL_atari_st_ncurses.tos
+	mv a.out $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari_st_ncurses.tos
 
 
 
@@ -69,6 +69,6 @@ atari_st_ncurses_turn_based:
 	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
 	$(FULL_FILES) \
 	-lncurses
-	mv a.out $(BUILD_PATH)/FULL_atari_st_ncurses_turn_based.tos
+	mv a.out $(BUILD_PATH)/FULL_X$(GAME_NAME)_atari_st_ncurses_turn_based.tos
     
     

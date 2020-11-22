@@ -35,7 +35,7 @@ emcc_buffered:
 	mv FULL_emcc_buffered.js $(BUILD_PATH)
 	mv FULL_emcc_buffered.wasm $(BUILD_PATH)
 	mv FULL_emcc_buffered.html $(BUILD_PATH)
-	cp $(BUILD_PATH)/FULL_emcc_buffered.* /home/fcaruso/build/emsdk
+	cp $(BUILD_PATH)/FULL_X$(GAME_NAME)_emcc_buffered.* /home/fcaruso/build/emsdk
 
 emcc_exp:
 	$(EM_CC) $(INCLUDE_OPTS)  \
@@ -58,5 +58,5 @@ emcc_exp:
 	mv FULL_emcc_buffered.js $(BUILD_PATH)
 	mv FULL_emcc_buffered.wasm $(BUILD_PATH)
 	mv FULL_emcc_buffered.html $(BUILD_PATH)
-	cp $(BUILD_PATH)/FULL_emcc_buffered.* /home/fcaruso/build/emsdk
+	cp $(BUILD_PATH)/FULL_X$(GAME_NAME)_emcc_buffered.* /home/fcaruso/build/emsdk
 

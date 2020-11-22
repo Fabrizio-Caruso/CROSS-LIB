@@ -149,7 +149,7 @@ qc10_turn_based:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
 	rm xcqc10.bin	
-	mv xcqc10.dsk $(BUILD_PATH)/FULL_$@.dsk
+	mv xcqc10.dsk $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.dsk
 
 
 #############################
@@ -168,8 +168,8 @@ rc700:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_rc700.bin
-	rm $(BUILD_PATH)/FULL_rc700.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_rc700.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_rc700.bin
 
 
 #############################
@@ -190,10 +190,10 @@ rx78: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_rx78.bin
-	rm $(BUILD_PATH)/FULL_rx78.bin
-	rm $(BUILD_PATH)/FULL_rx78_DATA.bin
-	rm $(BUILD_PATH)/FULL_rx78_BSS.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_rx78.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_rx78.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_rx78_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_rx78_BSS.bin
 
 
 #############################
@@ -210,7 +210,7 @@ samcoupe:
 	$(FULL_FILES)
 	cp $(TOOLS_PATH)/z88dk/samcoupe/samdos2_empty $(TOOLS_PATH)/z88dk/samcoupe/samdos2
 	$(TOOLS_PATH)/z88dk/samcoupe/pyz80.py -I $(TOOLS_PATH)/z88dk/samcoupe/samdos2 $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.asm
-	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/FULL_samcoupe.dsk
+	mv $(TOOLS_PATH)/z88dk/samcoupe/sam_wrapper.dsk $(BUILD_PATH)/FULL_X$(GAME_NAME)_samcoupe.dsk
 	rm $(BUILD_PATH)/FULL_samcoupe.bin
 
 
@@ -226,10 +226,10 @@ sc3000_16k:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-pragma-define:ansicolumns=32 \
 	-vn -lndos -create-app -Cz--audio \
-	-o $(BUILD_PATH)/LIGHT_sc3000_16k.prg \
+	-o $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_sc3000_16k.prg \
 	$(LIGHT_FILES)
-	rm $(BUILD_PATH)/LIGHT_sc3000_16k.prg
-	rm $(BUILD_PATH)/LIGHT_sc3000_16k.tap
+	rm $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_sc3000_16k.prg
+	rm $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_sc3000_16k.tap
 
 
 sc3000: sc3000_32k
@@ -250,11 +250,11 @@ sc3000_32k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	-o $(BUILD_PATH)/FULL_sc3000_32k.prg \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_sc3000_32k.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_sc3000_32k.prg
-	rm $(BUILD_PATH)/FULL_sc3000_32k.tap
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sc3000_32k.prg
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sc3000_32k.tap
 
 
 #############################
@@ -276,12 +276,12 @@ sg1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
-	-o $(BUILD_PATH)/FULL_sg1000.prg \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_sg1000.prg \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_sg1000.prg
-	rm $(BUILD_PATH)/FULL_sg1000_BSS.bin
-	rm $(BUILD_PATH)/FULL_sg1000_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sg1000.prg
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sg1000_BSS.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sg1000_DATA.bin
 
 
 #############################
@@ -303,7 +303,7 @@ smc777_turn_based:
 	$(FULL_FILES) \
 	-create-app -oxcsmc777.bin
 	rm xcsmc777.bin
-	mv xcsmc777.dsk $(BUILD_PATH)/FULL_$@.dsk
+	mv xcsmc777.dsk $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.dsk
 
 
 #############################
@@ -326,11 +326,11 @@ sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_sms.bin
-	rm $(BUILD_PATH)/FULL_sms.bin
-	rm $(BUILD_PATH)/FULL_sms_BSS.bin
-	rm $(BUILD_PATH)/FULL_sms_DATA.bin
-	rm $(BUILD_PATH)/FULL_sms_BANK_1F.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_BSS.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_BANK_1F.bin
 
 
 sms_buffered:
@@ -349,14 +349,14 @@ sms_buffered:
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SLEEP \
 	-DNO_WAIT \
-	-o $(BUILD_PATH)/FULL_sms_buffered.bin \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_buffered.bin \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/sms/sms_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) 
-	rm $(BUILD_PATH)/FULL_sms_buffered_CODE.bin
-	rm $(BUILD_PATH)/FULL_sms_buffered_DATA.bin
-	rm $(BUILD_PATH)/FULL_sms_buffered_BSS.bin
-	rm $(BUILD_PATH)/FULL_sms_buffered_UNASSIGNED.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_buffered_CODE.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_buffered_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_sms_buffered_UNASSIGNED.bin
 
 
 #############################
@@ -379,7 +379,7 @@ sos_buffered:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
 	rm sos_buffered
-	mv sos_buffered.obj $(BUILD_PATH)/FULL_sos_buffered.obj
+	mv sos_buffered.obj $(BUILD_PATH)/FULL_X$(GAME_NAME)_sos_buffered.obj
 
 
 sos_tiny_buffered:
@@ -397,7 +397,7 @@ sos_tiny_buffered:
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(TINY_FILES)
 	rm sos_tiny_buffered
-	mv sos_tiny_buffered.obj $(BUILD_PATH)/TINY_sos_buffered.obj
+	mv sos_tiny_buffered.obj $(BUILD_PATH)/TINY_X$(GAME_NAME)_sos_buffered.obj
 
 
 #############################
@@ -418,8 +418,8 @@ spc1000: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_spc1000.bin
-	rm $(BUILD_PATH)/FULL_spc1000.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_spc1000.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_spc1000.bin
 
 
 #############################
@@ -439,8 +439,8 @@ special:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_special.bin
-	rm $(BUILD_PATH)/FULL_special.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_special.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_special.bin
 
 
 #############################
@@ -459,12 +459,12 @@ spectrum_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/TINY_spectrum_16k.prg \
+	-o $(BUILD_PATH)/TINY_X$(GAME_NAME)_spectrum_16k.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(TINY_FILES)
-	rm $(BUILD_PATH)/TINY_spectrum_16k.prg
-	rm $(BUILD_PATH)/TINY_spectrum_16k_BANK_7.bin
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_spectrum_16k.prg
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_spectrum_16k_BANK_7.bin
 
 
 spectrum: spectrum_48k
@@ -483,13 +483,13 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/FULL_$@.prg \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_$@.prg
-	rm $(BUILD_PATH)/FULL_$@_BANK_7.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_BANK_7.bin
 
 
 spectrum_128k: $(ASSETS_PATH)/z88dk_xchase.asm
@@ -506,14 +506,14 @@ spectrum_128k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DCONIO \
 	-DUDG_GRAPHICS \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
-	-o $(BUILD_PATH)/FULL_$@.prg \
+	-o $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_$@.prg
-	rm $(BUILD_PATH)/FULL_$@_BANK_7.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.prg
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_BANK_7.bin
 
 
 #############################
@@ -537,7 +537,7 @@ srr: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES)
 	rm srr
 	rm srr.srr
-	mv srr.wav $(BUILD_PATH)/FULL_srr.wav
+	mv srr.wav $(BUILD_PATH)/FULL_X$(GAME_NAME)_srr.wav
 
 
 #############################
@@ -559,7 +559,7 @@ super80_no_col:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o super80
-	mv super80.ql $(BUILD_PATH)/FULL_super80.ql
+	mv super80.ql $(BUILD_PATH)/FULL_X$(GAME_NAME)_super80.ql
 	rm super80
 
 
@@ -582,7 +582,7 @@ super80r_no_gfx_no_col:
 	$(FULL_FILES) \
 	-lndos \
 	-create-app -o super80r
-	mv super80r.ql $(BUILD_PATH)/FULL_super80r.ql
+	mv super80r.ql $(BUILD_PATH)/FULL_X$(GAME_NAME)_super80r.ql
 	rm super80r
 
 
@@ -603,7 +603,7 @@ super80r_gfx_no_col: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES) \
 	-lndos \
 	-create-app -o super80r
-	mv super80r.ql $(BUILD_PATH)/FULL_super80r.ql
+	mv super80r.ql $(BUILD_PATH)/FULL_X$(GAME_NAME)_super80r.ql
 	rm super80r
 
 
@@ -620,11 +620,11 @@ sv8000_tiny:
 	-D__SV8000__ -DDEFAULT_CLEAR_SCREEN \
 	-DTINY_GAME -DNO_PRINT \
 	-DCONIO -DNO_WAIT -DSLOW_DOWN=2000 -DNO_INIT_GRAPHICS \
-	-create-app -o$(BUILD_PATH)/TINY_$@.bin \
+	-create-app -o$(BUILD_PATH)/TINY_X$(GAME_NAME)_$@.bin \
 	$(TINY_FILES) 
-	rm $(BUILD_PATH)/TINY_$@.bin
-	rm $(BUILD_PATH)/TINY_$@_BSS.bin
-	rm $(BUILD_PATH)/TINY_$@_DATA.bin
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_$@_BSS.bin
+	rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_$@_DATA.bin
 
 
 # sv8000_tiny:
@@ -638,10 +638,10 @@ sv8000_tiny:
 	# -DTINY_GAME -DNO_WAIT -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN \
 	# -DNO_INIT_GRAPHICS \
 	# $(TINY_FILES) \
-	# -create-app -o$(BUILD_PATH)/TINY_$@.bin
-	# rm $(BUILD_PATH)/TINY_$@.bin
-	# rm $(BUILD_PATH)/TINY_$@_BSS.bin
-	# rm $(BUILD_PATH)/TINY_$@_DATA.bin
+	# -create-app -o$(BUILD_PATH)/TINY_X$(GAME_NAME)_$@.bin
+	# rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_$@.bin
+	# rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_$@_BSS.bin
+	# rm $(BUILD_PATH)/TINY_X$(GAME_NAME)_$@_DATA.bin
 
 sv8000_32k:
 	$(Z88DK_PATH)$(MYZ88DK) +sv8000 $(SCCZ80_OPTS) -subtype=32k \
@@ -653,13 +653,13 @@ sv8000_32k:
 	-DFULL_GAME -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
-	-create-app -o$(BUILD_PATH)/FULL_$@.bin \
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c
-	rm $(BUILD_PATH)/FULL_$@.bin
-	rm $(BUILD_PATH)/FULL_$@_BSS.bin
-	rm $(BUILD_PATH)/FULL_$@_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_BSS.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_DATA.bin
 
 
 #############################
@@ -680,7 +680,7 @@ ti82: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -o ti82 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../../ti82.82p $(BUILD_PATH)/FULL_ti82.82p
+	mv $(SOURCE_PATH)/../../ti82.82p $(BUILD_PATH)/FULL_X$(GAME_NAME)_ti82.82p
 	rm $(SOURCE_PATH)/../../ti82
 
 
@@ -702,7 +702,7 @@ ti83: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -oxchase \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../../xchase.83p $(BUILD_PATH)/FULL_ti83.83p
+	mv $(SOURCE_PATH)/../../xchase.83p $(BUILD_PATH)/FULL_X$(GAME_NAME)_ti83.83p
 	rm $(SOURCE_PATH)/../../xchase
 
 
@@ -724,7 +724,7 @@ ti85: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -oti85 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../../ti85.85s $(BUILD_PATH)/FULL_ti85.85s
+	mv $(SOURCE_PATH)/../../ti85.85s $(BUILD_PATH)/FULL_X$(GAME_NAME)_ti85.85s
 	rm $(SOURCE_PATH)/../../ti85
 
 
@@ -748,7 +748,7 @@ ti86_light:
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-create-app  -oti86 \
 	$(LIGHT_FILES)
-	mv $(SOURCE_PATH)/../../ti86.86p $(BUILD_PATH)/LIGHT_ti86.86p	
+	mv $(SOURCE_PATH)/../../ti86.86p $(BUILD_PATH)/LIGHT_X$(GAME_NAME)_ti86.86p	
 	rm $(SOURCE_PATH)/../../ti86
 
 
@@ -770,8 +770,8 @@ ti8x: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-create-app -oxchase8x \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	mv $(SOURCE_PATH)/../../xchase8x.8xp $(BUILD_PATH)/FULL_ti8x.8xp	
-	mv $(SOURCE_PATH)/../../xchase8x $(BUILD_PATH)/FULL_ti8x.bin
+	mv $(SOURCE_PATH)/../../xchase8x.8xp $(BUILD_PATH)/FULL_X$(GAME_NAME)_ti8x.8xp	
+	mv $(SOURCE_PATH)/../../xchase8x $(BUILD_PATH)/FULL_X$(GAME_NAME)_ti8x.bin
 
 ti: ti82 ti83 ti85 ti86 ti8x
 
@@ -800,7 +800,7 @@ tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
-	mv $(SOURCE_PATH)/../../tiki100.dsk $(BUILD_PATH)/FULL_tiki100.dsk
+	mv $(SOURCE_PATH)/../../tiki100.dsk $(BUILD_PATH)/FULL_X$(GAME_NAME)_tiki100.dsk
 	rm $(SOURCE_PATH)/../../tiki100
 	rm $(SOURCE_PATH)/../../tiki100_HIMEM.bin
 
@@ -823,10 +823,10 @@ trs80: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DLESS_TEXT \
 	-create-app \
 	-DBETWEEN_LEVEL \
-	-o$(BUILD_PATH)/FULL_trs80.bin \
+	-o$(BUILD_PATH)/FULL_X$(GAME_NAME)_trs80.bin \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_trs80.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_trs80.bin
 
 
 trs80_chars:
@@ -838,10 +838,10 @@ trs80_chars:
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO_VT52 \
 	-DCONIO -DNO_INIT_GRAPHICS -DSOUNDS -DFORCE_BIT_BANG \
-	-o$(BUILD_PATH)/FULL_trs80_chars.bin \
+	-o$(BUILD_PATH)/FULL_X$(GAME_NAME)_trs80_chars.bin \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_trs80_chars.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_trs80_chars.bin
 
 
 #############################
@@ -864,9 +864,9 @@ ts2068: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o $(BUILD_PATH)/FULL_ts2068.bin 
-	rm $(BUILD_PATH)/FULL_ts2068.bin
-	rm $(BUILD_PATH)/FULL_ts2068_BANK_7.bin
+	-create-app -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_ts2068.bin 
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_ts2068.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_ts2068_BANK_7.bin
 
 
 #############################
@@ -886,8 +886,8 @@ tvc_exp:
 	-lndos  \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_$@.bin
-	rm $(BUILD_PATH)/FULL_$@.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
 
 tvc_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +tvc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
@@ -900,8 +900,8 @@ tvc_buffered:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_$@.bin
-	rm $(BUILD_PATH)/FULL_$@.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@.bin
 
 
 #############################
@@ -919,8 +919,8 @@ vector06c:
 	-lndos \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_vector06c.bin
-	rm $(BUILD_PATH)/FULL_vector06c.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_vector06c.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_vector06c.bin
 
 
 #############################
@@ -936,11 +936,11 @@ vgl:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	-create-app -o$(BUILD_PATH)/FULL_$@_buffered.bin
-	rm $(BUILD_PATH)/FULL_$@_buffered_BSS.bin
-	rm $(BUILD_PATH)/FULL_$@_buffered_DATA.bin
-	rm $(BUILD_PATH)/FULL_$@_buffered_interrupt_vectors.bin
-	rm $(BUILD_PATH)/FULL_$@_buffered_CODE.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_buffered.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_buffered_BSS.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_buffered_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_buffered_interrupt_vectors.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_$@_buffered_CODE.bin
 
 
 #############################
@@ -953,11 +953,11 @@ x1:
 	-DFULL_GAME -DSOUNDS -DFORCE_PSG \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-create-app -o $(BUILD_PATH)/FULL_x1.bin -vn -lndos \
+	-create-app -o $(BUILD_PATH)/FULL_X$(GAME_NAME)_x1.bin -vn -lndos \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_x1.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_x1.bin
 
 
 #############################
@@ -974,11 +974,11 @@ zx80_16k_turn_based:
 	-DCONIO \
 	-DNO_INIT_GRAPHICS \
 	-lndos \
-	-create-app -o  $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg \
+	-create-app -o  $(BUILD_PATH)/FULL_X$(GAME_NAME)_zx80_16k_turn_based.prg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/FULL_zx80_16k_turn_based.prg
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_zx80_16k_turn_based.prg
 
 
 #############################
@@ -992,7 +992,7 @@ z1013:
 	$(SOURCE_PATH)/end_screen.c \
 	$(FULL_FILES) \
 	-create-app -o z1013
-	mv $(SOURCE_PATH)/../../Z1013.Z80 $(BUILD_PATH)/FULL_z1013.z80
+	mv $(SOURCE_PATH)/../../Z1013.Z80 $(BUILD_PATH)/FULL_X$(GAME_NAME)_z1013.z80
 	rm $(SOURCE_PATH)/../../z1013
 
 
@@ -1010,10 +1010,10 @@ z80tvgame:
 	-lndos -DSOUNDS -DFORCE_BIT_BANG \
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
-	-create-app -o$(BUILD_PATH)/FULL_z80tvgame.bin
-	rm $(BUILD_PATH)/FULL_z80tvgame.bin
-	rm $(BUILD_PATH)/FULL_z80tvgame_DATA.bin
-	rm $(BUILD_PATH)/FULL_z80tvgame_BSS.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_z80tvgame.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_z80tvgame.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_z80tvgame_DATA.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_z80tvgame_BSS.bin
 
 
 #############################
@@ -1042,8 +1042,8 @@ z88: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	rm z88_BSS.bin
 	rm z88_DATA.bin
 	rm z88_bss_fardata.bin
-	mv z88.63 $(BUILD_PATH)/FULL_z88.63
-	mv z88.epr $(BUILD_PATH)/FULL_z88.epr
+	mv z88.63 $(BUILD_PATH)/FULL_X$(GAME_NAME)_z88.63
+	mv z88.epr $(BUILD_PATH)/FULL_X$(GAME_NAME)_z88.epr
 
 
 #############################
@@ -1062,8 +1062,8 @@ zxn:
 	-DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
-	-create-app -o$(BUILD_PATH)/FULL_zxn.bin
-	rm $(BUILD_PATH)/FULL_zxn.bin
-	rm $(BUILD_PATH)/FULL_zxn_UNASSIGNED.bin
+	-create-app -o$(BUILD_PATH)/FULL_X$(GAME_NAME)_zxn.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_zxn.bin
+	rm $(BUILD_PATH)/FULL_X$(GAME_NAME)_zxn_UNASSIGNED.bin
 
 

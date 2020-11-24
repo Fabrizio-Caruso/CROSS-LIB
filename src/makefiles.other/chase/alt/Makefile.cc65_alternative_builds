@@ -180,7 +180,7 @@ c16_16k_light: $(ASSETS_PATH)/8x8_chars.h
 #############################
 # C64
 
-c64_8k_cart: 
+c64_8k_cart: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t c64 \
 	-DFULL_GAME -DANIMATE_PLAYER -DSOUNDS \
 	-DLESS_TEXT \
@@ -193,7 +193,7 @@ c64_8k_cart:
 	-DMEMORY_MAPPED \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/cc65_udc.s \
+	$(ASSETS_PATH)/cc65_udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \

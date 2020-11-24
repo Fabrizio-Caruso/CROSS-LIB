@@ -46,14 +46,16 @@
 
 #define _TILE_11 (char) (0x7C-0x20)
 #define _TILE_16 ('^'-0x40)
-#define _DOLLAR_TILE '*'
+#define _DOLLAR_TILE '$'
 #define _TILE_14 '>'
 #define _TILE_15 '<'
 #define _TILE_10 (0x73 - 0x20)
 
 #define _TILE_7 (0x77 - 0x20)
 
-#define _TILE_6 (0x76-0x60+14)
+#define _TILE_6 (_TILE_16+1)
+//(0x76-0x60+14)
+
 #define _TILE_0_B _TILE_0
 #define _TILE_7_B _TILE_7
 

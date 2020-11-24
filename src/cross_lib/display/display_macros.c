@@ -58,7 +58,13 @@ extern uint16_t BASE_ADDR;
     uint16_t loc(uint8_t x, uint8_t y)
     {
         #if !defined(__CIDELSA__)
-        return ((uint16_t) BASE_ADDR)+x+(uint8_t)y*((uint16_t) (XSize + X_OFFSET));
+            // #if defined(__CC65__) && XSize==40 && X_OFFSET==0
+                // #include <conio.h>
+                // #include <cc65.h>
+                // return ((uint16_t) BASE_ADDR)+x+mul40(y);
+            // #else
+                return ((uint16_t) BASE_ADDR)+x+(uint8_t)y*((uint16_t) (XSize + X_OFFSET));
+            // #endif
         #else
         return ((uint16_t) 0xF800+XSize*YSize-YSize)-x*YSize+(uint8_t)y;
     #endif

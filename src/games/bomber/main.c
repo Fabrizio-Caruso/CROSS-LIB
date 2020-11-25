@@ -116,7 +116,7 @@ extern Image EXPLOSION_IMAGE;
 
 
 // String definitions
-#define _CROSS_CHASE__STRING _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_B _XL_O _XL_M _XL_B _XL_E _XL_R
+#define _CROSS_BOMBER__STRING _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_B _XL_O _XL_M _XL_B _XL_E _XL_R
 #define _BY_FABRIZIO_CARUSO__STRING _XL_B _XL_Y _XL_SPACE _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O
 #define _DESTROY_ALL__STRING _XL_D _XL_E _XL_S _XL_T _XL_R _XL_O _XL_Y _XL_SPACE _XL_A _XL_L _XL_L
 #define _BUILDINGS__STRING _XL_B _XL_U _XL_I _XL_L _XL_D _XL_I _XL_N _XL_G _XL_S
@@ -330,7 +330,7 @@ int main(void)
         CLEAR_SCREEN();
             
         SET_TEXT_COLOR(COLOR_RED);
-        printCenteredMessageOnRow(2, _CROSS_CHASE__STRING);
+        printCenteredMessageOnRow(2, _CROSS_BOMBER__STRING);
         SET_TEXT_COLOR(COLOR_CYAN);
         printCenteredMessageOnRow(4, _BY_FABRIZIO_CARUSO__STRING);
         SET_TEXT_COLOR(COLOR_YELLOW);

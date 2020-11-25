@@ -1,0 +1,1235 @@
+######################################################################
+# Makefile for CROSS-SPACE
+
+GAME_NAME := space
+
+PARENT_DIR = demos
+
+SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
+
+GLOBAL_OPTS = -DNO_WALL
+
+#####################################################################
+# Compilers variables
+include makefiles.common/auxiliary/Makefile_compilers
+
+
+#####################################################################
+# Common includes and targets
+include makefiles.common/auxiliary/Makefile_common
+
+
+#####################################################################
+# Assets
+include makefiles.common/auxiliary/Makefile_assets
+
+
+
+#####################################################################
+# Draw skip
+LIGHT_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=3
+DRAW_SKIP ?=       -DBOMB_DRAW_SKIP=1 -DWALL_DRAW_SKIP=7
+EXTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=3 -DWALL_DRAW_SKIP=15
+ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1 
+
+
+######################################################################
+# Cross-Shoot files
+#
+FULL_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/init_images.c
+
+
+SCCZ80_OPTS ?= -O0
+
+
+# Parallel compilation for Z88DK targets
+Z88DK_MAKE_OPTS ?= -j 8
+
+
+#################################################################
+#     lcc1802_targets 
+
+
+all:
+	make gcc_targets -f Makefile.$(GAME_NAME) 
+	make cc65_targets -f Makefile.$(GAME_NAME) 
+	make lcc1802_targets -f Makefile.$(GAME_NAME) 
+	make cmoc_targets -f Makefile.$(GAME_NAME) 
+	make $(Z88DK_MAKE_OPTS) z88dk_targets -f Makefile.$(GAME_NAME) 
+
+
+gcc_targets: \
+	ncurses  
+
+
+cc65_targets: \
+    atari \
+    atari5200 \
+    c16 \
+    c64 \
+    creativision \
+    oric  \
+    nes \
+    pet \
+    pce \
+    vic20 
+
+
+cmoc_targets: \
+    coco_targets \
+    dragon_targets \
+    mo5_targets \
+    to7_targets
+
+
+z88dk_targets: \
+    aquarius \
+    ace \
+    c128_z80_80col \
+    cpc \
+    cpm \
+    gb \
+    laser500 \
+    mc1000 \
+    msx \
+    sms \
+    spectrum \
+    vg5k
+
+
+lcc1802_targets: 
+	make comx -f Makefile.$(GAME_NAME)
+	make pecom -f Makefile.$(GAME_NAME)
+	make tmc600 -f Makefile.$(GAME_NAME)
+	make cidelsa -f Makefile.$(GAME_NAME)
+	make micro -f Makefile.$(GAME_NAME)
+
+
+#################################################################
+# CC65
+
+#################################################################
+
+atari: atari_color
+
+atari_color: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
+	-DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
+	-DMEMORY_MAPPED \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DSLOW_DOWN=600 \
+	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atari_color.xex
+
+atari_test1: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
+	-DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
+	-DMEMORY_MAPPED \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DSLOW_DOWN=600 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
+	$(SOURCE_PATH)/tests/atari_test1.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atari_color_test1.xex
+
+
+ATARI_TEST2_FILES ?= \
+	$(BASIC_CROSS_LIB_FILES) \
+	$(SOURCE_PATH)/tests/atari_test2.c \
+	$(SOURCE_PATH)/init_images.c
+
+atari_test2: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
+	-DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
+	-DMEMORY_MAPPED \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DSLOW_DOWN=600 \
+	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
+	$(ATARI_TEST2_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atari_color_test2.xex
+
+#################################################################
+
+atari5200: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 \
+	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
+	-D__ATARI5200__ \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DMEMORY_MAPPED \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DSLOW_DOWN=600 \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atari5200.rom
+
+
+#################################################################
+
+c16: c16_16k
+
+
+plus4: c16_32k
+
+# TODO: This should use
+# c16_linked_redefined_chars_init_graphics
+c16_16k: $(ASSETS_PATH)/cc65_udc_63_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
+	-DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME \
+	-DREDEFINED_CHARS \
+	-DSOUNDS \
+	-DALT_PRINT \
+	-DANIMATE_PLAYER \
+	-DMEMORY_MAPPED \
+	-DC16_UNEXPANDED -DNO_SCREEN_CODES -DNO_SET_SCREEN_COLORS \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_SLEEP \
+	-DSLOW_DOWN=550 \
+	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=15 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_63_chars.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_16k.prg
+
+
+c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
+	--config $(CFG_PATH)/cc65/c16-32k_GFX.cfg \
+	-DFORCE_NO_CONIO_LIB \
+	-DFULL_GAME \
+	-DREDEFINED_CHARS \
+	-DSOUNDS \
+	-DALT_PRINT \
+	-DANIMATE_PLAYER \
+	-DMEMORY_MAPPED \
+	-DC16_UNEXPANDED \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_SLEEP \
+	-DSLOW_DOWN=450 \
+	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_udc_63_chars.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_32k.prg
+
+
+#################################################################
+
+c64: c64_exomized
+
+
+c64_uncompressed: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DCBM_SCREEN_CODES \
+	-DMEMORY_MAPPED \
+	-DSLOW_DOWN=440 \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+
+
+c64_exomized: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	-DCBM_SCREEN_CODES \
+	-DMEMORY_MAPPED \
+	-DSLOW_DOWN=440 \
+	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	$(ASSETS_PATH)/cc65_udc.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
+	rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+
+
+#################################################################
+
+# Graphics for fire power and ghost needs to be updated
+nes: $(ASSETS_PATH)/cc65_nes_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
+	--config $(CFG_PATH)/cc65/nes_fx.cfg \
+	-DFULL_GAME \
+	-DBETWEEN_LEVEL -DEND_SCREEN -DNO_COLOR \
+	-DCONIO \
+	-DANIMATE_PLAYER \
+	-DDEFAULT_CLEAR_SCREEN \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
+	$(ASSETS_PATH)/cc65_nes_tiles.s \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_nes.nes
+
+
+#################################################################
+
+pce: pce_32k
+
+pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DSLOW_DOWN=400 \
+	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg -DANIMATE_PLAYER  \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_pce_tiles.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_PCE.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_PCE.bin ibs=1 count=8192 of=$(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_PCE.bin ibs=1 skip=8192 of=$(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE.bin 
+	cat $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin $(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin > $(BUILD_PATH)/X$(GAME_NAME)_PCE_SWAPPED.pce
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
+
+
+pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pce \
+	-DFULL_GAME \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	--config $(CFG_PATH)/cc65/pce_32k.cfg -DANIMATE_PLAYER  \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_pce_tiles.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_PCE.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_PCE.bin ibs=1 count=24576 of=$(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_PCE.bin ibs=1 skip=24576 of=$(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE.bin 
+	cat $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin $(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin > $(BUILD_PATH)/X$(GAME_NAME)_PCE_SWAPPED.pce
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_LOW.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_PCE_HIGH.bin
+
+
+#################################################################
+
+creativision: creativision_16k
+
+# Segment 'BSS' overflows memory area 'RAM' by 40 bytes
+#  -m mapfile.txt
+creativision_16k: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
+	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
+	-DSLOW_DOWN=1000 \
+	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k count=1 >> $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
+
+
+#################################################################
+
+oric: oric_atmos
+
+atmos: oric_atmos
+
+oric1: oric_atmos
+
+oric1_48k: oric_atmos
+
+oric_atmos: $(ASSETS_PATH)/6x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-t atmos \
+	-DALT_MOVE -DSLOW_DOWN=400 \
+	-D_TILE_17_COLOR=0 -D_TILE_10_COLOR=0 -D_TILE_18_COLOR=0 \
+	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	-DMEMORY_MAPPED \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atmos_and_oric1_48k.tap
+
+
+#################################################################
+
+
+pet: pet_16k
+
+pet_16k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet \
+	-DFULL_GAME -DSLOW_DOWN=400 \
+	-DNO_INIT_GRAPHICS -DCONIO -DNO_UDG -DASCII_SOUNDS \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_pet_16k.prg
+
+
+
+#################################################################
+
+vic20: vic20_exp_8k
+
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
+	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
+	-DCONIO -DVIC20_EXP_8K \
+	-DSLOW_DOWN=500 -DCC65_GOTO \
+	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
+	$(ASSETS_PATH)/cc65_udc.s \
+	$(FULL_FILES) \
+	--code-name CODE2 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+
+vic20_wait_vsync: vic20_exp_16k_wait_vsync
+
+vic20_exp_8k_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
+	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
+	-DCONIO -DVIC20_EXP_8K -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
+	-DSLOW_DOWN=500 -DCC65_GOTO \
+	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
+	$(ASSETS_PATH)/cc65_udc.s \
+	$(FULL_FILES) \
+	--code-name CODE2 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+#################################################################
+# Z88DK
+
+
+#################################################################
+
+jupiter_ace: ace
+
+ace: ace_exp_16k
+
+ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DSOUNDS \
+	-DCONIO \
+	-clib=default \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-o ace -Cz--audio -create-app	
+	cp ace.wav $(BUILD_PATH)/X$(GAME_NAME)_ace_exp_16k.wav
+	rm ace.wav
+	rm ace.tap
+	rm ace
+
+
+#################################################################
+
+
+aquarius: aquarius_exp_16k
+
+aquarius_exp_16k: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__AQUARIUS__ \
+	-lndos -DSLOW_DOWN=1050 -DNO_UDG \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app	\
+	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
+	rm $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
+	# rm X$(GAME_NAME)_aquarius_exp_16k
+	# tar czvf X$(GAME_NAME)_aquarius_exp_16k.tar.zip X$(GAME_NAME)_aquarius_exp_16k.caq _X$(GAME_NAME)_aquarius_exp_16k.caq
+	# rm X$(GAME_NAME)_aquarius_exp_16k.caq
+	# rm _X$(GAME_NAME)_aquarius_exp_16k.caq
+	# mv X$(GAME_NAME)_aquarius_exp_16k.tar.zip $(BUILD_PATH)
+
+# experimental
+aquarius_exp_4k: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius -SO3 -compiler=sdcc -clib=ansi $(INCLUDE_OPTS) -vn \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-D__AQUARIUS__ \
+	-lndos -DSLOW_DOWN=1050 -DNO_UDG \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app	\
+	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_4k
+	rm $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_4k
+
+
+# -DSOUNDS 
+# -DFORCE_BIT_BANG 
+#################################################################
+
+c128: c128_z80_80col
+
+c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
+	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
+	-lndos -subtype=disk \
+	-D__C128_Z80__ -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 -DSLOW_DOWN=1 \
+	-DZ88DK_SPRITES \
+	-DFULL_GAME \
+	-DZ88DK_JOYSTICK \
+	-DALT_PRINT \
+	-DNO_COLOR \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/c128/c128_init_graphics.c \
+	$(FULL_FILES) \
+	-create-app -oa80.bin
+	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 X$(GAME_NAME)_c128_z80_80col.d64
+	$(TOOLS_PATH)/generic/c1541 -attach X$(GAME_NAME)_c128_z80_80col.d64 -write a80.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach X$(GAME_NAME)_c128_z80_80col.d64 -write a80
+	mv X$(GAME_NAME)_c128_z80_80col.d64 $(BUILD_PATH)/
+	rm A80.LDR
+	rm A80
+	rm a80.bin
+
+
+#################################################################
+
+cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
+	-D__CPC__ \
+	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-DCPCRSLIB \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=900 \
+	-pragma-define:REGISTER_SP=-1 \
+	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_cpc.prg \
+	-DCPCRSLIB_GRAPHICS \
+	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
+	$(FULL_FILES)
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_$(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)_cpc.cdt
+	rm -rf X$(GAME_NAME)_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_cpc.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc x$(GAME_NAME)
+	mv X$(GAME_NAME)_cpc.dsk $(BUILD_PATH)/
+	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/X$(GAME_NAME)_gx4000.cpr   -c 'run"x$(GAME_NAME)'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
+	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc 
+	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.prg
+
+
+#################################################################
+
+cpm: cpm_z80_adm3a
+
+cpm_z80_adm3a:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DSLOW_DOWN=1000 \
+	-DCONIO_ADM3A \
+	-D__CPM_80X24__ \
+	-DFULL_GAME -DLESS_TEXT -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_cpm_adm3a.bin \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_cpm_adm3a.bin
+
+
+#################################################################
+
+
+gb: $(ASSETS_PATH)/z88dk_gameboy.asm
+	$(Z88DK_PATH)$(MYZ88DK) +gb -compiler=sdcc $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__GB__ \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=18 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR -DANIMATE_PLAYER \
+	-DFULL_GAME \
+	-DCONIO -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=2000 \
+	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_gameboy.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_1F.bin
+
+
+gb_wait_vsync: $(ASSETS_PATH)/z88dk_gameboy.asm
+	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__GB__ \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=18 \
+	-DNO_SET_SCREEN_COLORS \
+	-DNO_COLOR -DANIMATE_PLAYER -DUSE_WAIT_V_SYNC \
+	-DFULL_GAME \
+	-DCONIO -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=1700 \
+	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_gameboy.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_1F.bin
+
+#################################################################
+
+
+laser500: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
+	-create-app -o laser500bm.bin \
+	$(INCLUDE_OPTS) \
+	-D__LASER500__ -DUDG_GRAPHICS -DFORCE_XSIZE=40 -DFORCE_YSIZE=22 -DFORCE_SCREEN_MODE=2 \
+	-DFORCE_BIT_BANG -DSOUNDS \
+	-DFULL_GAME -DLESS_TEXT -DSLOW_DOWN=800 \
+	-DCONIO \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-lndos \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm 
+	mv laser500bm.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm laser500bm.cas
+	mv laser500bm.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+
+
+#################################################################
+
+
+mc1000: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS) -pragma-define:REGISTER_SP=0x3fff \
+	-subtype=gaming -DSLOW_DOWN=750 \
+	-DZ88DK_JOYSTICK \
+	-DFULL_GAME  \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-D__MC1000__ -DSOUNDS -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO \
+	-vn  -lndos -Cz--audio \
+	-create-app -o mc1000.bin \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	mv mc1000.wav $(BUILD_PATH)/X$(GAME_NAME)_mc1000_joystick.wav
+	rm mc1000.bin
+	rm mc1000.cas
+
+
+#################################################################
+
+msx: msx_32k_rom
+
+msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h 
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
+	-DUSE_MSX_BIOS \
+	-DINITIAL_SLOWDOWN=29000 \
+	-DSOUNDS -DANIMATE_PLAYER \
+	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -subtype=rom \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
+	-DMEMORY_MAPPED \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_PRINT \
+	-DLESS_TEXT \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=1000 \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
+
+
+#################################################################
+
+sms: sms_gfx
+
+
+sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SMS__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SET_SCREEN_COLORS \
+	-DANIMATE_PLAYER \
+	-DFULL_GAME \
+	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=1400 \
+	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms_BANK_1F.bin
+
+
+#################################################################
+
+spectrum: spectrum_48k
+
+spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DFULL_GAME \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=1200 \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__SPECTRUM__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg
+	rm $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k_BANK_7.bin
+
+
+#################################################################
+
+
+vg5k: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k.prg \
+	-DCONIO \
+	-DSLOW_DOWN=750 \
+	-DINITIAL_SLOWDOWN=29000 \
+	-clib=default \
+	-DUDG_GRAPHICS \
+	-DANIMATE_PLAYER \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_vg5k.prg
+
+
+#################################################################
+
+zx81: zx81_32k_wrx
+
+
+zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+	-pragma-define:hrgpage=36096 \
+	-DSLOW_DOWN=10 -DNO_ANIMATION \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=22 \
+	-vn \
+	-D__ZX81__ \
+	-DZ88DK_SPRITES -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 \
+	-DLESS_PRINT \
+	-DFULL_GAME \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DFEWER_SPRITES \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_32k_wrx.prg \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/X$(GAME_NAME)_zx81_32k_wrx.prg
+
+
+#################################################################
+# CMOC
+
+
+#################################################################
+
+COCO_OPTS_TINY  ?= -O0 -Wno-const  -D__COCO__ -DTINY_GAME 
+
+COCO_OPTS_LIGHT ?= -O0 -Wno-const -D__COCO__
+
+CMOC_OPTS       ?= -O0 -Wno-const  -DNO_SLEEP -DNO_WAIT -DSLOW_DOWN=1600 -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
+COCO_OPTS       ?= -D__COCO__ $(CMOC_OPTS) -DNO_UDG
+
+DRAGON_OPTS     ?= --dragon -D__DRAGON__ $(COCO_OPTS) 
+
+VECTREX_OPTS    ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
+# -DDEFAULT_CLEAR_SCREEN 
+MO5_OPTS        ?= -O2 -DANIMATE_PLAYER -DSLOW_DOWN=1600 -DFORCE_NO_CONIO_LIB -DMACRO_SLEEP  -DNO_WAIT -Wno-const -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+
+TO7_OPTS        ?= -O2 -DANIMATE_PLAYER -DSLOW_DOWN=1600 -DMACRO_SLEEP -DFORCE_NO_CONIO_LIB -DNO_WAIT -Wno-const  -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME
+
+TO7_ORG_DATA    ?= --org=a000 
+
+#############################################################################################
+
+
+dragon:
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	text_macros.o \
+	input_macros.o
+	rm 	display_macros.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	text_macros.o \
+	input_macros.o 
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_Dragon.cas -D $(BUILD_PATH)/xchase.bin -A
+	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
+	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_Dragon.vdk
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_Dragon.bin
+
+dragon_targets: \
+	dragon
+
+	
+coco:
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	display_macros.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	text_macros.o input_macros.o
+	rm 	display_macros.o \
+	init_images.o \
+	memory_mapped_alt_print.o \
+	text_macros.o input_macros.o 
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
+	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
+	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_CoCo.cas -C XCHASE.BIN -A
+	rm XCHASE.BIN
+	
+
+coco_targets: \
+	coco
+
+
+mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	$(CMOC) \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_25_tiles.s	
+	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
+	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	cmoc_udc_25_tiles.o \
+	init_images.o \
+	text_macros.o \
+	input_macros.o
+	rm \
+	mo5_alt_print.o \
+	cmoc_udc_25_tiles.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o \
+	text_macros.o \
+	input_macros.o
+	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin
+	mv $(BUILD_PATH)/FULL_MO5.bin .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c X$(GAME_NAME)_MO5.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add X$(GAME_NAME)_MO5.sap FULL_MO5.bin
+	rm ./FULL_MO5.bin
+	mv ./X$(GAME_NAME)_MO5.sap $(BUILD_PATH)
+	mv ./FILE.k5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
+	
+
+
+mo5_targets: \
+	mo5
+
+to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	$(CMOC) \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_25_tiles.s	
+	$(CMOC) $(TO7_ORG_DATA) -o $(BUILD_PATH)/FULL_TO7.bin \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	cmoc_udc_25_tiles.o \
+	init_images.o \
+	text_macros.o \
+	input_macros.o
+	rm \
+	mo5_alt_print.o \
+	cmoc_udc_25_tiles.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o \
+	text_macros.o \
+	input_macros.o
+	mv $(BUILD_PATH)/FULL_TO7.BIN .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs -c X$(GAME_NAME)_TO7.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs --add X$(GAME_NAME)_TO7.sap FULL_TO7.BIN
+	rm ./FULL_TO7.BIN
+	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
+
+to7_targets: \
+	to7
+
+#################################################################
+# LCC1802
+
+
+#################################################################
+
+
+full_combo_rand.c: 
+	cat  $(FULL_FILES) > $(SOURCE_PATH)/../full_combo_rand.c
+
+# ------------------------------------------------------------------------------------------
+# LCC1802
+#    -target=xr18CX
+# https://sites.google.com/site/lcc1802/downloads/Quarrantine.zip?attredirects=0&d=1
+
+
+#/cygdrive/c/lcc42/bat/caCX.bat
+#/cygdrive/c/lcc42/bin/lcc.exe
+LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" -DNUM_OF_TILES=19
+BASIC_OPTS ?= $(LCC1802_OPTS) "-Wa-D LCCCX=1"
+COMX_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x4401" 
+PECOM_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x201" 
+TMC600_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x6300" "-Wf-mulcall"
+CIDELSA_OPTS ?= $(LCC1802_OPTS)  "-Wa-D CODELOC=0"  "-Wa-D NOFILLBSS=1" "-Wf-mulcall"
+DRACO_32K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x8000" "-Wa-D STACKLOC=0x83ff"
+DRACO_16K_OPTS ?= $(CIDELSA_OPTS)  "-Wa-D DATALOC=0x4000" "-Wa-D STACKLOC=0x43ff"
+ALTAIR_24K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x6000" "-Wa-D STACKLOC=0x60ff"
+ALTAIR_12K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x3000" "-Wa-D STACKLOC=0x30ff"
+DESTROYER_12K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x3000" "-Wa-D STACKLOC=0x30ff"
+DESTROYER_8K_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x2000" "-Wa-D STACKLOC=0x20ff"
+
+
+MICROBOARD_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x8000" "-Wa-D STACKLOC=0x9fff"
+MICROBOARD_PAL_2_OPTS ?= $(MICROBOARD_OPTS) "-DPAL=2"
+
+
+ 
+################################################################################
+
+
+
+COMX_REDUCED_EXTRA_FILES ?= \
+	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c 
+
+COMX_EXTRA_FILES ?= \
+	$(COMX_REDUCED_EXTRA_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
+
+COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
+	$(COMX_EXTRA_FILES) \
+	$(SOURCE_PATH)/end_screen.c 
+
+
+reduced_full_lcc1802_combo.c: full_combo_rand.c
+	cat \
+	$(COMX_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c $(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	rm $(SOURCE_PATH)/../full_combo_rand.c
+
+full_lcc1802_combo.c: full_combo_rand.c
+	cat \
+	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
+	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_lcc1802_combo.c
+	rm $(SOURCE_PATH)/../full_combo_rand.c
+
+
+LCC1802_BASIC_C_OPTS ?= \
+	-D__LCC1802__ \
+	-DFORCE_NO_CONIO_LIB \
+	-DNO_SET_SCREEN_COLORS \
+	-DLESS_TEXT \
+	-DALT_RAND \
+	-DMEMORY_MAPPED \
+	-DALT_PRINT \
+	-DINITIAL_SLOWDOWN=21150
+
+
+LCC1802_C_OPTS ?= \
+	$(LCC1802_BASIC_C_OPTS) \
+	-DSOUNDS \
+	-DALT_SLEEP \
+
+
+LCC1802_C_OPTS_NO_SOUNDS ?= \
+	$(LCC1802_BASIC_C_OPTS) \
+	-DALT_SLEEP \
+
+REDUCED_LCC1802_C_OPTS ?= \
+	$(LCC1802_BASIC_C_OPTS) \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL
+
+
+###############################################################################
+# COMX
+
+full_comx: comx
+
+
+comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
+	-D__COMX__ $(EXTRA_DRAW_SKIP) \
+	-DFULL_GAME -DFORCE_NARROW -DREDEFINED_CHARS \
+	-DNO_COLOR -DSIMPLE_STRATEGY -DSLOW_DOWN=300 \
+	-DNO_BLINKING -DTINY_TEXT \
+	-DLCC1802_JOYSTICK \
+	-DLESS_TEXT -DNO_HINTS -DNO_TITLE -DNO_SET_SCREEN_COLORS -DNO_INITIAL_SCREEN \
+	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
+	$(LCC1802_C_OPTS_NO_SOUNDS) \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+###############################################################################
+# PECOM
+
+
+full_pecom: pecom
+
+pecom: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(PECOM_OPTS)  \
+	-D__PECOM__ $(EXTRA_DRAW_SKIP) \
+	-DFULL_GAME -DREDEFINED_CHARS \
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DLCC1802_JOYSTICK \
+	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	$(LCC1802_C_OPTS_NO_SOUNDS) \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+###############################################################################
+# TMC600
+
+
+full_tmc600: tmc600_16k
+tmc600: tmc600_16k
+
+# -DNO_PRINT -DNO_MESSAGE -DNO_TITLE 
+# -savetemps -S
+tmc600_16k: reduced_full_lcc1802_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(TMC600_OPTS) -DNO_UDG -DSLOW_DOWN=600  \
+	-D__TMC600__  $(EXTRA_DRAW_SKIP) \
+	-DFULL_GAME -DSIMPLE_STRATEGY \
+	-DNO_BLINKING -DBULLETS_NUMBER=4 -DINITIAL_GHOST_SLOWDOWN=25000 \
+	-DLCC1802_JOYSTICK -DNO_HINTS \
+	$(REDUCED_LCC1802_C_OPTS) \
+	-DGHOSTS_NUMBER=6  \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+###############################################################################
+# CIDELSA DRACO
+
+
+cidelsa: cidelsa_draco
+
+cidelsa_draco: cidelsa_draco_32k
+
+# -DREDEFINED_CHARS
+cidelsa_draco_32k: reduced_full_lcc1802_combo.c
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(DRACO_32K_OPTS)  \
+	-D__CIDELSA__ -D__DRACO__ $(EXTRA_DRAW_SKIP) \
+	-DNO_COLOR \
+	-DNO_BLINKING \
+	-DLCC1802_JOYSTICK -DSLOW_DOWN=400 \
+	$(REDUCED_LCC1802_C_OPTS) \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+###############################################################################
+# MICRO
+
+micro: micro_pal2
+
+micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
+	-D__MICRO__ \
+	-DFULL_GAME -DREDEFINED_CHARS \
+	-DNO_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
+	-DNO_BLINKING -DSOUNDS \
+	-DLCC1802_JOYSTICK \
+	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
+	$(REDUCED_LCC1802_C_OPTS) \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+comx_targets: comx
+
+pecom_targets: pecom
+
+tmc600_targets: tmc600_37k
+
+cidelsa_targets: make cidelsa_draco_32k
+
+
+
+
+
+###############################################################################################
+# GCC
+#
+
+
+ncurses_targets: \
+	ncurses
+    
+###############################################################################################
+
+
+ncurses:
+	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
+	-DFULL_GAME -DSLOW_DOWN=120 \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_UDG \
+	-DALT_PRINT \
+	-DNO_TITLE_LINE \
+	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/gcc/ncurses_init_graphics.c \
+	$(FULL_FILES) \
+	-lncurses
+	mv a$(COMPILEDEXT) $(BUILD_PATH)/X$(GAME_NAME)_ncurses$(COMPILEDEXT)
+    
+    
+
+##
+
+

@@ -10,6 +10,8 @@ src/demos/matrix/generated_assets/*
 src/demos/tiles/generated_assets/*
 src/games/bomber/generated_assets/*
 src/games/conan/generated_assets/*
+src/games/space/generated_assets/*
+src/demos/space/generated_assets/*
 src/test/*.exe
 src/*.asm
 src/demos/full_lcc1802_combo.c

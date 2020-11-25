@@ -4,7 +4,7 @@
 
 ###########################
 # ACK
-_ACK ?= ack
+_ACK ?= ack $(GLOBAL_OPTS)
 _ACK_OPTS ?= -O6 
 
 
@@ -15,26 +15,26 @@ CC65_PATH ?=
 
 #/home/fabri/CC65_FIX/cc65/bin/
 
-MYCC65 ?= cl65$(EXEEXT)
+MYCC65 ?= cl65$(EXEEXT) $(GLOBAL_OPTS)
 
 
 
 ###########################
 # CMOC
-CMOC ?= cmoc
+CMOC ?= cmoc $(GLOBAL_OPTS)
 
 
 
 ###########################
 # GCC AMIGA
-AMIGA_CC ?= m68k-amigaos-gcc
+AMIGA_CC ?= m68k-amigaos-gcc $(GLOBAL_OPTS)
 AMIGA_OPTS ?= 
 
 
 
 ###########################
 # GCC ATARI ST
-ATARI_ST_CC ?= m68k-atari-mint-gcc
+ATARI_ST_CC ?= m68k-atari-mint-gcc $(GLOBAL_OPTS)
 ATARI_ST_OPTS ?=
 
 
@@ -43,13 +43,13 @@ ATARI_ST_OPTS ?=
 
 # For cygwin posix build: use gcc
 # For windows 32 non-posix build: x86_64-w64-mingw32-gcc
-_CC ?= gcc
+_CC ?= gcc $(GLOBAL_OPTS)
 _CC_OPTS ?= 
 
 #############
 
 
-GCC ?= gcc
+GCC ?= gcc $(GLOBAL_OPTS)
 GCC_OPTS ?= -Wpedantic -Wall
 
 
@@ -62,7 +62,7 @@ TMS9900-GCC_PATH ?= /opt/gcc4ti/bin
 
 ###########################
 # GCC Z8K_PCOS 
-Z8K-PCOS-GCC ?= /opt/z8kgcc-jan-19-2009/bin/z8k-pcos-gcc
+Z8K-PCOS-GCC ?= /opt/z8kgcc-jan-19-2009/bin/z8k-pcos-gcc $(GLOBAL_OPTS)
 Z8K-PCOS-GCC_OPTS ?= -Wno-cpg 
 
 
@@ -70,21 +70,21 @@ Z8K-PCOS-GCC_OPTS ?= -Wno-cpg
 ###########################
 # LCC1802 
 LCC1802_PATH ?= /cygdrive/c/lcc42/bin/
-LCC1802_EXE ?= lcc$(EXEEXT)
+LCC1802_EXE ?= lcc$(EXEEXT) 
 LCC1802 ?= $(LCC1802_PATH)$(LCC1802_EXE)
 
 
 
 ###########################
 # XTC68 
-XTC68 ?= qcc
+XTC68 ?= qcc $(GLOBAL_OPTS)
 
 
 Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
 Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
 Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
 
-MYZ88DK ?= zcc$(EXEEXT)
+MYZ88DK ?= zcc$(EXEEXT) $(GLOBAL_OPTS)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 
 

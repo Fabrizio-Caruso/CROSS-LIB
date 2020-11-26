@@ -56,15 +56,18 @@
 #define MAX_Y ((YSize)+(Y_OFFSET))
 
 
-extern Image SPACE_SHIP_1_NW_IMAGE;
-extern Image SPACE_SHIP_1_NE_IMAGE;
-extern Image SPACE_SHIP_1_SW_IMAGE;
-extern Image SPACE_SHIP_1_SE_IMAGE;
+extern Image SPACE_SHIP_1_W_IMAGE;
+extern Image SPACE_SHIP_1_E_IMAGE;
 
-extern Image SPACE_SHIP_2_N_IMAGE;
-extern Image SPACE_SHIP_2_SW_IMAGE;
-extern Image SPACE_SHIP_2_S_IMAGE;
-extern Image SPACE_SHIP_2_SE_IMAGE;
+extern Image SPACE_SHIP_2_W_IMAGE;
+extern Image SPACE_SHIP_2_E_IMAGE;
+
+extern Image SPACE_SHIP_3_W_IMAGE;
+extern Image SPACE_SHIP_3_C_IMAGE;
+extern Image SPACE_SHIP_3_E_IMAGE;
+
+extern Image SPACE_SHIP_4_W_IMAGE;
+extern Image SPACE_SHIP_4_E_IMAGE;
 
 uint8_t x;
 
@@ -75,48 +78,44 @@ uint8_t ship_fire;
 
 #define SPACE_SHIP_Y (MAX_Y-4)
 
-// SQUARE
 void draw_ship_1(void) 
 {
-    _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_1_NW_IMAGE);
-    _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_1_NE_IMAGE);
-    _XLIB_DRAW(x,SPACE_SHIP_Y+1,&SPACE_SHIP_1_SW_IMAGE);
-    _XLIB_DRAW(x+1,SPACE_SHIP_Y+1,&SPACE_SHIP_1_SE_IMAGE);
+    _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_1_W_IMAGE);
+    _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_1_E_IMAGE);
 }
 
 
-void delete_ship_1(void)
-{
-    _XLIB_DELETE(x,SPACE_SHIP_Y);
-    _XLIB_DELETE(x+1,SPACE_SHIP_Y);
-}
-
-// PYRAMID
 void draw_ship_2(void)
 {
-    _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_2_N_IMAGE);
-    _XLIB_DRAW(x,SPACE_SHIP_Y+1,&SPACE_SHIP_2_SW_IMAGE);
-    _XLIB_DRAW(x+1,SPACE_SHIP_Y+1,&SPACE_SHIP_2_S_IMAGE);
-    _XLIB_DRAW(x+2,SPACE_SHIP_Y+1,&SPACE_SHIP_2_SE_IMAGE);
+    _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_2_W_IMAGE);
+    _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_2_E_IMAGE);
 }
 
-void delete_ship_2(void)
+void draw_ship_3(void) 
 {
-    _XLIB_DELETE(x,SPACE_SHIP_Y+1);
-    _XLIB_DELETE(x+2,SPACE_SHIP_Y+1);
+    _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_3_W_IMAGE);
+    _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_3_C_IMAGE);
+    _XLIB_DRAW(x+2,SPACE_SHIP_Y,&SPACE_SHIP_3_E_IMAGE);
 }
+
+
+void draw_ship_4(void)
+{
+    _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_4_W_IMAGE);
+    _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_4_E_IMAGE);
+}
+
+
+
 
 void delete_ship(void)
 {
-    if(ship_x&1)
-    {
-        delete_ship_1();
-    }
-    else
-    {
-        delete_ship_2();
-    }
+    _XLIB_DELETE(x,SPACE_SHIP_Y);
+    _XLIB_DELETE(x+1,SPACE_SHIP_Y);
+    _XLIB_DELETE(x+2,SPACE_SHIP_Y);
+    
 }
+
 
 int main(void)
 {        
@@ -140,24 +139,37 @@ int main(void)
         while(x<XSize-4)
         {
             WAIT_V_SYNC();
+            // WAIT_PRESS();
 
-            delete_ship_2();
-            ++x;
+            delete_ship();
             draw_ship_1();
             DO_SLOW_DOWN(1500);
 
-            // WAIT_PRESS();
             WAIT_V_SYNC();
-
-            delete_ship_1();
-            draw_ship_2();
             // WAIT_PRESS();
+
+            delete_ship();
+            draw_ship_2();
             DO_SLOW_DOWN(1500);
+            
+            WAIT_V_SYNC();
+            // WAIT_PRESS();
+
+            delete_ship();
+            draw_ship_3();
+            DO_SLOW_DOWN(1500);
+            
+            WAIT_V_SYNC();
+            // WAIT_PRESS();
+
+            delete_ship();
+            ++x;
+            draw_ship_4();
+            DO_SLOW_DOWN(1500);
+
         }
-        _XLIB_DELETE(x+1,SPACE_SHIP_Y);
-        _XLIB_DELETE(x,SPACE_SHIP_Y+1);
-        _XLIB_DELETE(x+1,SPACE_SHIP_Y+1);
-        _XLIB_DELETE(x+2,SPACE_SHIP_Y+1);
+        WAIT_PRESS();
+        delete_ship();
     }
 
 

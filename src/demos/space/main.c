@@ -67,6 +67,12 @@ extern Image SPACE_SHIP_2_S_IMAGE;
 extern Image SPACE_SHIP_2_SE_IMAGE;
 
 uint8_t x;
+
+uint8_t ship_x;
+
+uint8_t ship_fire;
+
+
 #define SPACE_SHIP_Y (MAX_Y-4)
 
 // SQUARE
@@ -100,6 +106,18 @@ void delete_ship_2(void)
     _XLIB_DELETE(x+2,SPACE_SHIP_Y+1);
 }
 
+void delete_ship(void)
+{
+    if(ship_x&1)
+    {
+        delete_ship_1();
+    }
+    else
+    {
+        delete_ship_2();
+    }
+}
+
 int main(void)
 {        
 
@@ -109,23 +127,38 @@ int main(void)
     
     INIT_IMAGES();
     
-    x = 2;
+    ship_x = 1;
+
 
     CLEAR_SCREEN();
 
     PRINT(0,SPACE_SHIP_Y-3,"01234567890123456789");
 
-    while(x<XSize-4)
+    while(1)
     {
-        delete_ship_2();
-        ++x;
-        draw_ship_1();
-        WAIT_PRESS();
-        delete_ship_1();
-        draw_ship_2();
-        WAIT_PRESS();
-    }
+        x = 0;
+        while(x<XSize-4)
+        {
+            WAIT_V_SYNC();
 
+            delete_ship_2();
+            ++x;
+            draw_ship_1();
+            DO_SLOW_DOWN(1500);
+
+            // WAIT_PRESS();
+            WAIT_V_SYNC();
+
+            delete_ship_1();
+            draw_ship_2();
+            // WAIT_PRESS();
+            DO_SLOW_DOWN(1500);
+        }
+        _XLIB_DELETE(x+1,SPACE_SHIP_Y);
+        _XLIB_DELETE(x,SPACE_SHIP_Y+1);
+        _XLIB_DELETE(x+1,SPACE_SHIP_Y+1);
+        _XLIB_DELETE(x+2,SPACE_SHIP_Y+1);
+    }
 
 
     return EXIT_SUCCESS;

@@ -3,6 +3,7 @@
 
 #if !defined(NO_COLOR)
     #define _SPACE_SHIP_COLOR COLOR_CYAN
+    #define _INVADER_COLOR COLOR_WHITE
 #endif
 
 void INIT_IMAGES(void);

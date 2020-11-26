@@ -69,7 +69,15 @@ extern Image SPACE_SHIP_3_E_IMAGE;
 extern Image SPACE_SHIP_4_W_IMAGE;
 extern Image SPACE_SHIP_4_E_IMAGE;
 
+extern Image MID_INVADER_CLOSED_W_IMAGE;
+extern Image MID_INVADER_CLOSED_E_IMAGE;
+
+extern Image MID_INVADER_OPEN_W_IMAGE;
+extern Image MID_INVADER_OPEN_E_IMAGE;
+
 uint8_t x;
+
+uint8_t mid_invader_x;
 
 uint8_t ship_x;
 
@@ -77,6 +85,7 @@ uint8_t ship_fire;
 
 
 #define SPACE_SHIP_Y (MAX_Y-4)
+#define MID_INVADER_Y (MAX_Y-9)
 
 void draw_ship_1(void) 
 {
@@ -106,14 +115,32 @@ void draw_ship_4(void)
 }
 
 
-
-
 void delete_ship(void)
 {
     _XLIB_DELETE(x,SPACE_SHIP_Y);
     _XLIB_DELETE(x+1,SPACE_SHIP_Y);
     _XLIB_DELETE(x+2,SPACE_SHIP_Y);
     
+}
+
+
+void draw_mid_invader_closed(void)
+{
+    _XLIB_DRAW(mid_invader_x,MID_INVADER_Y,&MID_INVADER_CLOSED_W_IMAGE);
+    _XLIB_DRAW(mid_invader_x+1,MID_INVADER_Y,&MID_INVADER_CLOSED_E_IMAGE);
+}
+
+void draw_mid_invader_open(void)
+{
+    _XLIB_DRAW(mid_invader_x,MID_INVADER_Y,&MID_INVADER_OPEN_W_IMAGE);
+    _XLIB_DRAW(mid_invader_x+1,MID_INVADER_Y,&MID_INVADER_OPEN_E_IMAGE);
+}
+
+
+void delete_mid_invader(void)
+{
+    _XLIB_DELETE(mid_invader_x,MID_INVADER_Y);
+    _XLIB_DELETE(mid_invader_x+1,MID_INVADER_Y);
 }
 
 
@@ -136,6 +163,8 @@ int main(void)
     while(1)
     {
         x = 0;
+        mid_invader_x = 0;
+        
         while(x<XSize-4)
         {
             WAIT_V_SYNC();
@@ -143,21 +172,31 @@ int main(void)
 
             delete_ship();
             draw_ship_1();
-            DO_SLOW_DOWN(1500);
+            
+            delete_mid_invader();
+            
+            ++mid_invader_x;
+            draw_mid_invader_closed();
+            
+            DO_SLOW_DOWN(2000);
 
             WAIT_V_SYNC();
             // WAIT_PRESS();
 
             delete_ship();
             draw_ship_2();
-            DO_SLOW_DOWN(1500);
+            DO_SLOW_DOWN(2000);
             
             WAIT_V_SYNC();
             // WAIT_PRESS();
 
             delete_ship();
             draw_ship_3();
-            DO_SLOW_DOWN(1500);
+            
+            delete_mid_invader();
+            draw_mid_invader_open();
+            
+            DO_SLOW_DOWN(2000);
             
             WAIT_V_SYNC();
             // WAIT_PRESS();
@@ -165,11 +204,12 @@ int main(void)
             delete_ship();
             ++x;
             draw_ship_4();
-            DO_SLOW_DOWN(1500);
+            DO_SLOW_DOWN(2000);
 
         }
-        WAIT_PRESS();
+        // WAIT_PRESS();
         delete_ship();
+        delete_mid_invader();
     }
 
 

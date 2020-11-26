@@ -75,6 +75,12 @@ extern Image MID_INVADER_CLOSED_E_IMAGE;
 extern Image MID_INVADER_OPEN_W_IMAGE;
 extern Image MID_INVADER_OPEN_E_IMAGE;
 
+extern Image LOW_INVADER_CLOSED_W_IMAGE;
+extern Image LOW_INVADER_CLOSED_E_IMAGE;
+
+extern Image LOW_INVADER_OPEN_W_IMAGE;
+extern Image LOW_INVADER_OPEN_E_IMAGE;
+
 uint8_t x;
 
 uint8_t mid_invader_x;
@@ -85,7 +91,8 @@ uint8_t ship_fire;
 
 
 #define SPACE_SHIP_Y (MAX_Y-4)
-#define MID_INVADER_Y (MAX_Y-9)
+#define MID_INVADER_Y (MAX_Y-12)
+#define LOW_INVADER_Y (MAX_Y-10)
 
 void draw_ship_1(void) 
 {
@@ -144,6 +151,26 @@ void delete_mid_invader(void)
 }
 
 
+void draw_low_invader_open(void)
+{
+    _XLIB_DRAW(mid_invader_x,LOW_INVADER_Y,&LOW_INVADER_OPEN_W_IMAGE);
+    _XLIB_DRAW(mid_invader_x+1,LOW_INVADER_Y,&LOW_INVADER_OPEN_E_IMAGE);
+}
+
+void draw_low_invader_closed(void)
+{
+    _XLIB_DRAW(mid_invader_x,LOW_INVADER_Y,&LOW_INVADER_CLOSED_W_IMAGE);
+    _XLIB_DRAW(mid_invader_x+1,LOW_INVADER_Y,&LOW_INVADER_CLOSED_E_IMAGE);
+}
+
+
+void delete_low_invader(void)
+{
+    _XLIB_DELETE(mid_invader_x,LOW_INVADER_Y);
+    _XLIB_DELETE(mid_invader_x+1,LOW_INVADER_Y);
+}
+
+
 int main(void)
 {        
 
@@ -174,9 +201,11 @@ int main(void)
             draw_ship_1();
             
             delete_mid_invader();
+            delete_low_invader();
             
             ++mid_invader_x;
             draw_mid_invader_closed();
+            draw_low_invader_open();
             
             DO_SLOW_DOWN(2000);
 
@@ -188,18 +217,21 @@ int main(void)
             DO_SLOW_DOWN(2000);
             
             WAIT_V_SYNC();
-            // WAIT_PRESS();
+            WAIT_PRESS();
 
             delete_ship();
             draw_ship_3();
             
             delete_mid_invader();
+            delete_low_invader();
+            
             draw_mid_invader_open();
+            draw_low_invader_closed();
             
             DO_SLOW_DOWN(2000);
             
             WAIT_V_SYNC();
-            // WAIT_PRESS();
+            WAIT_PRESS();
 
             delete_ship();
             ++x;
@@ -210,6 +242,7 @@ int main(void)
         // WAIT_PRESS();
         delete_ship();
         delete_mid_invader();
+        delete_low_invader();
     }
 
 

@@ -36,6 +36,12 @@ void INIT_IMAGES(void)
 
         MID_INVADER_OPEN_W_IMAGE._color = _INVADER_COLOR;
         MID_INVADER_OPEN_E_IMAGE._color = _INVADER_COLOR;
+        
+        LOW_INVADER_CLOSED_W_IMAGE._color = _INVADER_COLOR;
+        LOW_INVADER_CLOSED_E_IMAGE._color = _INVADER_COLOR;
+
+        LOW_INVADER_OPEN_W_IMAGE._color = _INVADER_COLOR;
+        LOW_INVADER_OPEN_E_IMAGE._color = _INVADER_COLOR;
 	#endif	
 
 	// Set Image Data
@@ -56,7 +62,13 @@ void INIT_IMAGES(void)
     MID_INVADER_CLOSED_E_IMAGE._imageData = _TILE_14;
 
     MID_INVADER_OPEN_W_IMAGE._imageData = _TILE_15;
-    MID_INVADER_OPEN_E_IMAGE._imageData = _TILE_16;    
+    MID_INVADER_OPEN_E_IMAGE._imageData = _TILE_16;
+
+    LOW_INVADER_CLOSED_W_IMAGE._imageData = _TILE_7;
+    LOW_INVADER_CLOSED_E_IMAGE._imageData = _TILE_24;
+
+    LOW_INVADER_OPEN_W_IMAGE._imageData = _TILE_12;
+    LOW_INVADER_OPEN_E_IMAGE._imageData = _TILE_13;    
 }
 
 

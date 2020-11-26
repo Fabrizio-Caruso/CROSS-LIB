@@ -357,7 +357,6 @@ int main(void)
             
             displayStatsTitles();
             
-            guns = 0;
             displayStats();
             
             resetItems();
@@ -502,8 +501,8 @@ int main(void)
                 
                 if(destroyerActive && reachedByGhost < maxGhostsOnScreen)
                 {
-                    ghostDiesAndSpawns(&ghosts[reachedByGhost]);
                     points += GHOST_VS_BOMBS_BONUS;
+                    ghostDiesAndSpawns(&ghosts[reachedByGhost]);
                 }
                 
                 

@@ -291,8 +291,8 @@ void checkBulletVsGhost(Character * bulletPtr,
                 pushGhost(ghostPtr, bulletDirection);
                 if(wallReached(ghostPtr) || innerVerticalWallReached(ghostPtr->_x, ghostPtr->_y) || innerHorizontalWallReached(ghostPtr->_x, ghostPtr->_y))
                 {
-                    ghostDies(ghostPtr);
                     points+=GHOST_VS_WALL_BONUS;
+                    ghostDies(ghostPtr);
                     DRAW_BROKEN_BRICK(ghostPtr->_x, ghostPtr->_y);
                     if((!isBossLevel) && (ghostCount>=maxGhostsOnScreen))
                         {
@@ -300,7 +300,6 @@ void checkBulletVsGhost(Character * bulletPtr,
                         }
                     #if !defined(WIDE) && !defined(FORCE_NARROW)
                         displayStatsTitles();
-                        displayStats();
                     #endif
                     break;
                 }

@@ -81,6 +81,11 @@ extern Image LOW_INVADER_CLOSED_E_IMAGE;
 extern Image LOW_INVADER_OPEN_W_IMAGE;
 extern Image LOW_INVADER_OPEN_E_IMAGE;
 
+extern Image TOP_INVADER_OPEN_W_IMAGE;
+extern Image TOP_INVADER_OPEN_E_IMAGE;
+
+extern Image TOP_INVADER_CLOSED_IMAGE;
+
 uint8_t x;
 
 uint8_t mid_invader_x;
@@ -91,6 +96,7 @@ uint8_t ship_fire;
 
 
 #define SPACE_SHIP_Y (MAX_Y-4)
+#define TOP_INVADER_Y (MAX_Y-14)
 #define MID_INVADER_Y (MAX_Y-12)
 #define LOW_INVADER_Y (MAX_Y-10)
 
@@ -171,6 +177,24 @@ void delete_low_invader(void)
 }
 
 
+void draw_top_invader_closed(void)
+{
+    _XLIB_DRAW(mid_invader_x,TOP_INVADER_Y,&TOP_INVADER_CLOSED_IMAGE);
+}
+
+void draw_top_invader_open(void)
+{
+    _XLIB_DRAW(mid_invader_x,TOP_INVADER_Y,&TOP_INVADER_OPEN_W_IMAGE);
+    _XLIB_DRAW(mid_invader_x+1,TOP_INVADER_Y,&TOP_INVADER_OPEN_E_IMAGE);
+}
+
+
+void delete_top_invader(void)
+{
+    _XLIB_DELETE(mid_invader_x,TOP_INVADER_Y);
+    _XLIB_DELETE(mid_invader_x+1,TOP_INVADER_Y);
+}
+
 int main(void)
 {        
 
@@ -202,8 +226,10 @@ int main(void)
             
             delete_mid_invader();
             delete_low_invader();
+            delete_top_invader();
             
             ++mid_invader_x;
+            draw_top_invader_closed();
             draw_mid_invader_closed();
             draw_low_invader_open();
             
@@ -217,21 +243,23 @@ int main(void)
             DO_SLOW_DOWN(2000);
             
             WAIT_V_SYNC();
-            WAIT_PRESS();
+            // WAIT_PRESS();
 
             delete_ship();
             draw_ship_3();
             
+            delete_top_invader();
             delete_mid_invader();
             delete_low_invader();
             
+            draw_top_invader_open();
             draw_mid_invader_open();
             draw_low_invader_closed();
             
             DO_SLOW_DOWN(2000);
             
             WAIT_V_SYNC();
-            WAIT_PRESS();
+            // WAIT_PRESS();
 
             delete_ship();
             ++x;
@@ -241,6 +269,7 @@ int main(void)
         }
         // WAIT_PRESS();
         delete_ship();
+        delete_top_invader();
         delete_mid_invader();
         delete_low_invader();
     }

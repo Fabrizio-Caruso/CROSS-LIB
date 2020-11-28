@@ -2,26 +2,6 @@
 # Z88DK
 #
 
-
-SCCZ80_OPTS ?=
-#-O0
-#-O3
-
-SCCZ80_ROMS_OPTS ?= -O3
-#-O0
-#-O3
-
-ZSDCC_OPTS ?= -SO0
-#-SO0
-# -SO3 --max-allocs-per-node200000
-
-ZSDCC_ROM_OPTS ?= -SO3
-# -SO3
-# -SO3 --max-allocs-per-node200000
-
-
-Z88DK_MAKE_OPTS ?= -j 8
-
 ################################################################################
 
 # missing: abc800, xo7, c7420, rex

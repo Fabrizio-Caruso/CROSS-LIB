@@ -70,7 +70,7 @@ Z8K-PCOS-GCC_OPTS ?= -Wno-cpg
 ###########################
 # LCC1802 
 LCC1802_PATH ?= /cygdrive/c/lcc42/bin/
-LCC1802_EXE ?= lcc$(EXEEXT) 
+LCC1802_EXE ?= lcc$(EXEEXT) $(GLOBAL_OPTS)
 LCC1802 ?= $(LCC1802_PATH)$(LCC1802_EXE)
 
 
@@ -80,11 +80,34 @@ LCC1802 ?= $(LCC1802_PATH)$(LCC1802_EXE)
 XTC68 ?= qcc $(GLOBAL_OPTS)
 
 
+###########################
+# Z88DK
 Z88DK_PATH ?= /cygdrive/c/z88dk/bin/
 Z88DK_PATH_20171210 ?= /cygdrive/c/z88dk_20171210/bin/
-Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include
+Z88DK_INCLUDE ?= /cygdrive/c/z88dk/include  
 
-MYZ88DK ?= zcc$(EXEEXT) $(GLOBAL_OPTS)
+
+SCCZ80_OPTS ?= $(GLOBAL_OPTS)
+#-O0
+#-O3
+
+SCCZ80_ROMS_OPTS ?= -O3 $(GLOBAL_OPTS)
+#-O0
+#-O3
+
+ZSDCC_OPTS ?= -SO0 $(GLOBAL_OPTS)
+#-SO0
+# -SO3 --max-allocs-per-node200000
+
+ZSDCC_ROM_OPTS ?= -SO3 $(GLOBAL_OPTS)
+# -SO3
+# -SO3 --max-allocs-per-node200000
+
+
+Z88DK_MAKE_OPTS ?= -j 8
+
+
+MYZ88DK ?= zcc$(EXEEXT)
 MYZ88DKASM ?= z80asm$(EXEEXT)
 
 

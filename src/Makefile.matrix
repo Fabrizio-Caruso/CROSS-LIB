@@ -7,6 +7,8 @@ PARENT_DIR = demos
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
+GLOBAL_OPTS = -DNO_WALL
+
 #####################################################################
 # Compilers variables
 include makefiles.common/auxiliary/Makefile_compilers

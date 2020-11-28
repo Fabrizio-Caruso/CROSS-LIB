@@ -571,7 +571,7 @@ cpm_z80_adm3a:
 
 
 gb: $(ASSETS_PATH)/z88dk_gameboy.asm
-	$(Z88DK_PATH)$(MYZ88DK) +gb -compiler=sdcc $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +gb -compiler=sdcc $(SCCZ80_ROMS_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=18 \
@@ -591,7 +591,7 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 
 
 gb_wait_vsync: $(ASSETS_PATH)/z88dk_gameboy.asm
-	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROMS_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=18 \
@@ -686,7 +686,7 @@ sms: sms_gfx
 
 
 sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROMS_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__SMS__ \
 	-DFORCE_XSIZE=32 \
 	-DFORCE_YSIZE=22 \

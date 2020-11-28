@@ -39,3 +39,6 @@ src/cross_lib/display/*.s
 src/chase/wincmoc*
 a.exe
 a.out
+demos/reduced_full_lcc1802_combo.c
+games/reduced_full_lcc1802_combo.c
+

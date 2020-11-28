@@ -7,6 +7,8 @@ PARENT_DIR = demos
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
+GLOBAL_OPTS = -DNO_WALL
+
 #####################################################################
 # Compilers variables
 include makefiles.common/auxiliary/Makefile_compilers
@@ -632,7 +634,7 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 
 
 gb: $(ASSETS_PATH)/z88dk_gameboy.asm
-	$(Z88DK_PATH)$(MYZ88DK) +gb -compiler=sdcc $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +gb -compiler=sdcc $(SCCZ80_ROMS_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=18 \

@@ -195,7 +195,7 @@ void delete_top_invader(uint8_t x, uint8_t y)
     _XLIB_DELETE(x+1,y);
 }
 
-#define INVADERS_PER_LINE 6
+#define INVADERS_PER_LINE 7
 #define SPACE_BETWEEN_INVADERS 2
 
 int main(void)
@@ -296,7 +296,7 @@ int main(void)
 
 
             delete_ship();
-            if(++x==XSize-1)
+            if(++x==XSize-2)
             {
                 x=0;
             };

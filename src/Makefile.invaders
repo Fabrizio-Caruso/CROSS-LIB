@@ -210,7 +210,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	-DC16_UNEXPANDED -DNO_SCREEN_CODES -DNO_SET_SCREEN_COLORS \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DSLOW_DOWN=550 \
+	-DSLOW_DOWN=3000 -DINVADERS_PER_LINE=7 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=15 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -704,9 +704,9 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	-DMEMORY_MAPPED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_PRINT \
-	-DLESS_TEXT \
+	-DLESS_TEXT -DALL_COLOR=15 \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=1000 \
+	-DSLOW_DOWN=4000 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \

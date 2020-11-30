@@ -228,98 +228,86 @@ int main(void)
     x = 0;
     while(1)
     {
-
         mid_invader_x = 0;
         
         CLEAR_SCREEN();
-        REFRESH();
-        // WAIT_PRESS();
-        
+        REFRESH();        
         
         while(mid_invader_x<XSize-INVADERS_PER_LINE*SPACE_BETWEEN_INVADERS)
         {
 
-
-
-            // delete_ship();
             draw_ship_1();
             
-            // WAIT_V_SYNC();
+            WAIT_V_SYNC();
             REFRESH();
+            DO_SLOW_DOWN(SLOW_DOWN);
             
-            // WAIT_V_SYNC();
-            for(i=0;i<INVADERS_PER_LINE*SPACE_BETWEEN_INVADERS;i+=SPACE_BETWEEN_INVADERS)
+            if(!(x&3))
             {
-                delete_top_invader(mid_invader_x+i,TOP_INVADER_Y);
+                for(i=0;i<INVADERS_PER_LINE*SPACE_BETWEEN_INVADERS;i+=SPACE_BETWEEN_INVADERS)
+                {
+                    delete_top_invader(mid_invader_x+i,TOP_INVADER_Y);
 
-                delete_mid_invader(mid_invader_x+i,MID_INVADER_Y);
-                delete_mid_invader(mid_invader_x+i,MID_INVADER_Y+2);
+                    delete_mid_invader(mid_invader_x+i,MID_INVADER_Y);
+                    delete_mid_invader(mid_invader_x+i,MID_INVADER_Y+2);
 
-                delete_low_invader(mid_invader_x+i,LOW_INVADER_Y);
-                delete_low_invader(mid_invader_x+i,LOW_INVADER_Y+2);
-                
+                    delete_low_invader(mid_invader_x+i,LOW_INVADER_Y);
+                    delete_low_invader(mid_invader_x+i,LOW_INVADER_Y+2);
+                    
+                }
+                ++mid_invader_x;
             }
             
-
             
-            ++mid_invader_x;
-            
-            // CLEAR_SCREEN();
-            
-            for(i=0;i<INVADERS_PER_LINE*SPACE_BETWEEN_INVADERS;i+=SPACE_BETWEEN_INVADERS)
+            if(!(x&3))
             {
-                // WAIT_PRESS();
-                draw_top_invader_closed(mid_invader_x+i,TOP_INVADER_Y);
+                for(i=0;i<INVADERS_PER_LINE*SPACE_BETWEEN_INVADERS;i+=SPACE_BETWEEN_INVADERS)
+                {
+                    draw_top_invader_closed(mid_invader_x+i,TOP_INVADER_Y);
 
-                draw_mid_invader_closed(mid_invader_x+i,MID_INVADER_Y);
-                draw_mid_invader_closed(mid_invader_x+i,MID_INVADER_Y+2);
+                    draw_mid_invader_closed(mid_invader_x+i,MID_INVADER_Y);
+                    draw_mid_invader_closed(mid_invader_x+i,MID_INVADER_Y+2);
 
-                draw_low_invader_open(mid_invader_x+i,LOW_INVADER_Y);
-                draw_low_invader_open(mid_invader_x+i,LOW_INVADER_Y+2);
+                    draw_low_invader_open(mid_invader_x+i,LOW_INVADER_Y);
+                    draw_low_invader_open(mid_invader_x+i,LOW_INVADER_Y+2);
+                }
             }
-
-
-            // WAIT_PRESS();
 
             delete_ship();
             draw_ship_2();
             
-            // WAIT_V_SYNC();
             WAIT_V_SYNC();
             REFRESH();
             DO_SLOW_DOWN(SLOW_DOWN);
             
-            // WAIT_PRESS();
-
             
             delete_ship();
             draw_ship_3();
             
-            for(i=0;i<INVADERS_PER_LINE*SPACE_BETWEEN_INVADERS;i+=SPACE_BETWEEN_INVADERS)
-            {
-                draw_top_invader_open(mid_invader_x+i,TOP_INVADER_Y);
-
-                draw_mid_invader_open(mid_invader_x+i,MID_INVADER_Y);
-                draw_mid_invader_open(mid_invader_x+i,MID_INVADER_Y+2);
-                
-                draw_low_invader_closed(mid_invader_x+i,LOW_INVADER_Y);
-                draw_low_invader_closed(mid_invader_x+i,LOW_INVADER_Y+2);
-
-            }
             
             WAIT_V_SYNC();
             REFRESH();
             DO_SLOW_DOWN(SLOW_DOWN);
             
-
-
+            if((x&3)==1)
+            {
+                for(i=0;i<INVADERS_PER_LINE*SPACE_BETWEEN_INVADERS;i+=SPACE_BETWEEN_INVADERS)
+                {
+                    draw_top_invader_open(mid_invader_x+i,TOP_INVADER_Y);
+                    
+                    draw_mid_invader_open(mid_invader_x+i,MID_INVADER_Y);
+                    draw_mid_invader_open(mid_invader_x+i,MID_INVADER_Y+2);
+                    
+                    draw_low_invader_closed(mid_invader_x+i,LOW_INVADER_Y);
+                    draw_low_invader_closed(mid_invader_x+i,LOW_INVADER_Y+2);
+                }
+            }
             delete_ship();
             if(++x==XSize-2)
             {
                 x=0;
                 CLEAR_SCREEN();
                 REFRESH();
-                // WAIT_PRESS();
             };
             draw_ship_4();
             
@@ -328,15 +316,6 @@ int main(void)
             DO_SLOW_DOWN(SLOW_DOWN);
         }
         
-
-        // for(i=0;i<INVADERS_PER_LINE*SPACE_BETWEEN_INVADERS;i+=SPACE_BETWEEN_INVADERS)
-        // {
-            // delete_top_invader(mid_invader_x+i,TOP_INVADER_Y);
-            // delete_mid_invader(mid_invader_x+i,MID_INVADER_Y);
-            // delete_mid_invader(mid_invader_x+i,MID_INVADER_Y+2);
-            // delete_low_invader(mid_invader_x+i,LOW_INVADER_Y);
-            // delete_low_invader(mid_invader_x+i,LOW_INVADER_Y+2);
-        // }
     }
 
 

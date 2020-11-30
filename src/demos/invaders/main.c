@@ -287,12 +287,9 @@ int main(void)
                     delete_low_invader(mid_invader_x+i,LOW_INVADER_Y+2);
                     
                 }
+                
                 ++mid_invader_x;
-            }
-            
-            
-            if(!(x&3))
-            {
+
                 for(i=0;i<INVADERS_PER_LINE*SPACE_BETWEEN_INVADERS;i+=SPACE_BETWEEN_INVADERS)
                 {
                     draw_top_invader_closed(mid_invader_x+i,TOP_INVADER_Y);
@@ -306,10 +303,22 @@ int main(void)
             }
 
             delete_ship();
+            
+            #if defined(CHAR_GRAPHICS)
+            if(++x==XSize-2)
+            {
+                x=0;
+                CLEAR_SCREEN();
+                REFRESH();
+            };
+            #endif
+            
             draw_ship_2();
+            PRINTD(0,0,2,x);
             
             WAIT_V_SYNC();
             REFRESH();
+            // WAIT_PRESS();
             DO_SLOW_DOWN(SLOW_DOWN);
             
             
@@ -344,10 +353,12 @@ int main(void)
                 REFRESH();
             };
             draw_ship_4();
+            PRINTD(0,0,2,x);
             
             WAIT_V_SYNC();
             REFRESH();
             DO_SLOW_DOWN(SLOW_DOWN);
+            // WAIT_PRESS();
         }
         
     }

@@ -128,8 +128,22 @@ typedef struct ImageStruct Image;
     #define WAIT_V_SYNC() 
 #endif 
 
-#if !defined(BUFFERED)
+
+#if !defined(BUFFERED) && !defined(DOUBLE_BUFFER)
     #define REFRESH()
+#elif defined(DOUBLE_BUFFER)
+    #define REFRESH() \
+    do \
+    { \
+        uint16_t i; \
+        \
+        WAIT_V_SYNC(); \
+        for(i=0;i<1000;++i) \
+        { \
+            POKE(REAL_BASE_ADDR+i,PEEK(BASE_ADDR+i)); \
+            POKE(REAL_COLOR_ADDR+i,PEEK(COLOR_ADDR+i)); \
+        } \
+    } while(0)
 #else
     #include "buffered_graphics.h"
     

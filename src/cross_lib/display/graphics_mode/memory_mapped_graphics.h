@@ -6,8 +6,15 @@
 #if defined(MEMORY_MAPPED)
 
 #  if defined(__C64__) || defined(__C128__)
-	#define BASE_ADDR 0xC000
-	#define COLOR_ADDR 0xD800
+    #if defined(DOUBLE_BUFFER)
+        #define BASE_ADDR 0xB800
+        #define COLOR_ADDR 0xBC00
+        #define REAL_BASE_ADDR 0xC000
+        #define REAL_COLOR_ADDR 0xD800
+    #else
+        #define BASE_ADDR 0xC000
+        #define COLOR_ADDR 0xD800
+    #endif
 #elif defined(__VIC20__) && defined(MEMORY_MAPPED) && (defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K))
 	#define BASE_ADDR 0x1000
 	#define COLOR_ADDR 0x9400

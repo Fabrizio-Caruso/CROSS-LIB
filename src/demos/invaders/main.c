@@ -195,7 +195,7 @@ void delete_top_invader(uint8_t x, uint8_t y)
     _XLIB_DELETE(x+1,y);
 }
 
-#define INVADERS_PER_LINE 7
+#define INVADERS_PER_LINE (XSize/3)
 #define SPACE_BETWEEN_INVADERS 2
 
 int main(void)
@@ -260,7 +260,7 @@ int main(void)
                 draw_low_invader_open(mid_invader_x+i,LOW_INVADER_Y+2);
             }
 
-            
+            REFRESH();
             DO_SLOW_DOWN(SLOW_DOWN);
 
             WAIT_V_SYNC();
@@ -268,6 +268,8 @@ int main(void)
 
             delete_ship();
             draw_ship_2();
+            
+            REFRESH();
             DO_SLOW_DOWN(SLOW_DOWN);
             
             // WAIT_PRESS();
@@ -289,7 +291,7 @@ int main(void)
                 draw_low_invader_closed(mid_invader_x+i,LOW_INVADER_Y+2);
 
             }
-            
+            REFRESH();
             
             DO_SLOW_DOWN(SLOW_DOWN);
             
@@ -301,8 +303,9 @@ int main(void)
                 x=0;
             };
             draw_ship_4();
+            
+            REFRESH();
             DO_SLOW_DOWN(SLOW_DOWN);
-
         }
 
         
@@ -314,7 +317,6 @@ int main(void)
             delete_mid_invader(mid_invader_x+i,MID_INVADER_Y+2);
             delete_low_invader(mid_invader_x+i,LOW_INVADER_Y);
             delete_low_invader(mid_invader_x+i,LOW_INVADER_Y+2);
-
         }
     }
 

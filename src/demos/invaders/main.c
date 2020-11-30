@@ -100,108 +100,138 @@ uint8_t ship_fire;
 #define MID_INVADER_Y (MAX_Y-19)
 #define LOW_INVADER_Y (MAX_Y-15)
 
-// void draw_ship_1(void) 
-#define draw_ship_1() \
-{ \
-    _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_1_W_IMAGE); \
-    _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_1_E_IMAGE); \
-}
+#if !defined(CHAR_GRAPHICS)
+    #define draw_ship_1() \
+    { \
+        _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_1_W_IMAGE); \
+        _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_1_E_IMAGE); \
+    }
 
 
-// void draw_ship_2(void)
-#define draw_ship_2() \
-{ \
-    _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_2_W_IMAGE); \
-    _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_2_E_IMAGE); \
-}
+    #define draw_ship_2() \
+    { \
+        _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_2_W_IMAGE); \
+        _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_2_E_IMAGE); \
+    }
 
-// void draw_ship_3(void) 
-#define draw_ship_3() \
-{ \
-    _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_3_W_IMAGE); \
-    _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_3_C_IMAGE); \
-    _XLIB_DRAW(x+2,SPACE_SHIP_Y,&SPACE_SHIP_3_E_IMAGE); \
-}
+    #define draw_ship_3() \
+    { \
+        _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_3_W_IMAGE); \
+        _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_3_C_IMAGE); \
+        _XLIB_DRAW(x+2,SPACE_SHIP_Y,&SPACE_SHIP_3_E_IMAGE); \
+    }
 
 
-// void draw_ship_4(void)
-#define draw_ship_4() \
-{ \
-    _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_4_W_IMAGE); \
-    _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_4_E_IMAGE); \
-}
+    #define draw_ship_4() \
+    { \
+        _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_4_W_IMAGE); \
+        _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_4_E_IMAGE); \
+    }
 
 
-// void delete_ship()
-#define delete_ship() \
-{ \
-    _XLIB_DELETE(x,SPACE_SHIP_Y); \
-}
+    #define delete_ship() \
+    { \
+        _XLIB_DELETE(x,SPACE_SHIP_Y); \
+    }
 
 
-// void draw_mid_invader_closed(uint8_t x, uint8_t y)
-#define draw_mid_invader_closed(x,y) \
-{ \
-    _XLIB_DRAW(x,y,&MID_INVADER_CLOSED_W_IMAGE); \
-    _XLIB_DRAW(x+1,y,&MID_INVADER_CLOSED_E_IMAGE); \
-}
+    #define draw_mid_invader_closed(x,y) \
+    { \
+        _XLIB_DRAW(x,y,&MID_INVADER_CLOSED_W_IMAGE); \
+        _XLIB_DRAW(x+1,y,&MID_INVADER_CLOSED_E_IMAGE); \
+    }
 
-// void draw_mid_invader_open(uint8_t x, uint8_t y)
-#define draw_mid_invader_open(x,y) \
-{ \
-    _XLIB_DRAW(x,y,&MID_INVADER_OPEN_W_IMAGE); \
-    _XLIB_DRAW(x+1,y,&MID_INVADER_OPEN_E_IMAGE); \
-}
+    #define draw_mid_invader_open(x,y) \
+    { \
+        _XLIB_DRAW(x,y,&MID_INVADER_OPEN_W_IMAGE); \
+        _XLIB_DRAW(x+1,y,&MID_INVADER_OPEN_E_IMAGE); \
+    }
 
 
-// void delete_mid_invader(uint8_t x, uint8_t y)
-#define delete_mid_invader(x,y) \
-{ \
-    _XLIB_DELETE(x,y); \
-}
+    #define delete_mid_invader(x,y) \
+    { \
+        _XLIB_DELETE(x,y); \
+    }
 
 
-// void draw_low_invader_open(uint8_t x, uint8_t y)
-#define draw_low_invader_open(x,y) \
-{ \
-    _XLIB_DRAW(x,y,&LOW_INVADER_OPEN_W_IMAGE); \
-    _XLIB_DRAW(x+1,y,&LOW_INVADER_OPEN_E_IMAGE); \
-}
+    #define draw_low_invader_open(x,y) \
+    { \
+        _XLIB_DRAW(x,y,&LOW_INVADER_OPEN_W_IMAGE); \
+        _XLIB_DRAW(x+1,y,&LOW_INVADER_OPEN_E_IMAGE); \
+    }
 
-// void draw_low_invader_closed(uint8_t x, uint8_t y)
-#define draw_low_invader_closed(x,y) \
-{ \
-    _XLIB_DRAW(x,y,&LOW_INVADER_CLOSED_W_IMAGE); \
-    _XLIB_DRAW(x+1,y,&LOW_INVADER_CLOSED_E_IMAGE); \
-}
+    #define draw_low_invader_closed(x,y) \
+    { \
+        _XLIB_DRAW(x,y,&LOW_INVADER_CLOSED_W_IMAGE); \
+        _XLIB_DRAW(x+1,y,&LOW_INVADER_CLOSED_E_IMAGE); \
+    }
 
 
-// void delete_low_invader(uint8_t x, uint8_t y)
-#define delete_low_invader(x,y) \
-{ \
-    _XLIB_DELETE(x,y); \
-}
+    #define delete_low_invader(x,y) \
+    { \
+        _XLIB_DELETE(x,y); \
+    }
 
 
-// void draw_top_invader_closed(uint8_t x, uint8_t y)
-#define draw_top_invader_closed(x,y) \
-{ \
-    _XLIB_DRAW(x,y,&TOP_INVADER_CLOSED_IMAGE); \
-}
+    #define draw_top_invader_closed(x,y) \
+    { \
+        _XLIB_DRAW(x,y,&TOP_INVADER_CLOSED_IMAGE); \
+    }
 
-// void draw_top_invader_open(uint8_t x, uint8_t y)
-#define draw_top_invader_open(x,y) \
-{ \
-    _XLIB_DRAW(x,y,&TOP_INVADER_OPEN_W_IMAGE); \
-    _XLIB_DRAW(x+1,y,&TOP_INVADER_OPEN_E_IMAGE); \
-}
+    #define draw_top_invader_open(x,y) \
+    { \
+        _XLIB_DRAW(x,y,&TOP_INVADER_OPEN_W_IMAGE); \
+        _XLIB_DRAW(x+1,y,&TOP_INVADER_OPEN_E_IMAGE); \
+    }
 
 
-// void delete_top_invader(uint8_t x, uint8_t y)
-#define delete_top_invader(x,y) \
-{ \
-    _XLIB_DELETE(x,y); \
-}
+    #define delete_top_invader(x,y) \
+    { \
+        _XLIB_DELETE(x,y); \
+    }
+#else
+    #define draw_ship() \
+        _XLIB_DRAW(x,SPACE_SHIP_Y,&SPACE_SHIP_1_W_IMAGE); \
+        _XLIB_DRAW(x+1,SPACE_SHIP_Y,&SPACE_SHIP_1_E_IMAGE); \
+        
+    #define draw_ship_2() \
+        draw_ship()
+        
+    #define draw_ship_4() \
+        draw_ship() 
+        
+    #define delete_ship() \
+        _XLIB_DELETE(x,SPACE_SHIP_Y); \
+
+    #define draw_top_invader_closed(x,y) \
+        _XLIB_DRAW(x,y,&TOP_INVADER_CLOSED_IMAGE)
+
+    #define draw_top_invader_open(x,y) \
+        _XLIB_DRAW(x,y,&TOP_INVADER_OPEN_W_IMAGE)
+
+    #define draw_mid_invader_closed(x,y) \
+        _XLIB_DRAW(x,y,&MID_INVADER_CLOSED_W_IMAGE)
+
+    #define draw_mid_invader_open(x,y) \
+        _XLIB_DRAW(x,y,&MID_INVADER_OPEN_W_IMAGE)
+
+    #define draw_low_invader_closed(x,y) \
+        _XLIB_DRAW(x,y,&LOW_INVADER_CLOSED_W_IMAGE)
+
+    #define draw_low_invader_open(x,y) \
+        _XLIB_DRAW(x,y,&LOW_INVADER_OPEN_W_IMAGE)
+    
+    #define delete_top_invader(x,y) \
+        _XLIB_DELETE(x,y)
+
+    #define delete_mid_invader(x,y) \
+        _XLIB_DELETE(x,y)
+
+    #define delete_low_invader(x,y) \
+        _XLIB_DELETE(x,y)
+
+
+#endif
 
 #if !defined(INVADERS_PER_LINE)
     #define INVADERS_PER_LINE (XSize/4)
@@ -236,11 +266,13 @@ int main(void)
         while(mid_invader_x<XSize-INVADERS_PER_LINE*SPACE_BETWEEN_INVADERS)
         {
 
+            #if !defined(CHAR_GRAPHICS)
             draw_ship_1();
             
             WAIT_V_SYNC();
             REFRESH();
             DO_SLOW_DOWN(SLOW_DOWN);
+            #endif
             
             if(!(x&3))
             {
@@ -281,6 +313,7 @@ int main(void)
             DO_SLOW_DOWN(SLOW_DOWN);
             
             
+            #if !defined(CHAR_GRAPHICS)
             delete_ship();
             draw_ship_3();
             
@@ -288,6 +321,7 @@ int main(void)
             WAIT_V_SYNC();
             REFRESH();
             DO_SLOW_DOWN(SLOW_DOWN);
+            #endif
             
             if((x&3)==1)
             {

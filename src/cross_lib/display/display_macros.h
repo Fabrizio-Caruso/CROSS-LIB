@@ -132,18 +132,28 @@ typedef struct ImageStruct Image;
 #if !defined(BUFFERED) && !defined(DOUBLE_BUFFER)
     #define REFRESH()
 #elif defined(DOUBLE_BUFFER)
-    #define REFRESH() \
-    do \
-    { \
-        uint16_t i; \
-        \
-        WAIT_V_SYNC(); \
-        for(i=0;i<1000;++i) \
+    #if defined(__CC65__)
+        #define REFRESH() \
+            do \
+            { \
+                memcpy((uint8_t *)REAL_BASE_ADDR, (uint8_t *)BASE_ADDR,1000); \
+                memcpy((uint8_t *)REAL_COLOR_ADDR, (uint8_t *)COLOR_ADDR,1000); \
+            } while(0)
+    
+    #else
+        #define REFRESH() \
+        do \
         { \
-            POKE(REAL_BASE_ADDR+i,PEEK(BASE_ADDR+i)); \
-            POKE(REAL_COLOR_ADDR+i,PEEK(COLOR_ADDR+i)); \
-        } \
-    } while(0)
+            uint16_t i; \
+            \
+            WAIT_V_SYNC(); \
+            for(i=0;i<1000;++i) \
+            { \
+                POKE(REAL_BASE_ADDR+i,PEEK(BASE_ADDR+i)); \
+                POKE(REAL_COLOR_ADDR+i,PEEK(COLOR_ADDR+i)); \
+            } \
+        } while(0)
+    #endif
 #else
     #include "buffered_graphics.h"
     

@@ -235,7 +235,7 @@ uint8_t ship_fire;
 
 
 #if !defined(INVADERS_PER_LINE)
-    #define INVADERS_PER_LINE (XSize/4)
+    #define INVADERS_PER_LINE (XSize/5)
 #endif
 #define SPACE_BETWEEN_INVADERS 2
 

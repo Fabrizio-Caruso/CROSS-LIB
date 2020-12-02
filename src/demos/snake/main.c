@@ -47,7 +47,7 @@ extern Image RIGHT_HEAD_IMAGE;
 extern Image LEFT_HEAD_IMAGE; 	
 
 
-extern Image VERTICAL_BODY_IMAGE; 
+extern Image BODY_IMAGE; 
 extern Image BOTTOM_TAIL_IMAGE; 
 
 extern Image DEAD_GHOST_IMAGE; 
@@ -94,12 +94,70 @@ extern Image TOP_TAIL_IMAGE;
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
+#define INIT_SNAKE_LENGTH 10
+#define MAX_SNAKE_LENGTH 20
+
+struct SnakeBodyStruct
+{
+    uint8_t x;
+    uint8_t y;
+};
+
+enum Direction {UP, DOWN, LEFT, RIGHT};
+
+enum Direction direction;
+
+typedef struct SnakeBodyStruct SnakeBody;
+
+SnakeBody snake[MAX_SNAKE_LENGTH];
+
+uint8_t snake_length;
+
+Image *head_image_ptr;
+
+void draw_head(void)
+{
+    _XLIB_DRAW(snake[0].x,snake[0].y,head_image_ptr);
+}
+
+void draw_body(uint8_t i)
+{
+    _XLIB_DRAW(snake[i].x,snake[i].y,&BODY_IMAGE);
+}
+
+void init_snake(void)
+{
+
+    uint8_t i;
+    
+    snake_length = INIT_SNAKE_LENGTH;
+    
+    for(i=0;i<INIT_SNAKE_LENGTH;++i)
+    {
+        snake[i].x = XSize/2+snake_length/2-i;
+        snake[i].y = YSize/2;
+        
+    }
+    
+    head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
+    
+    draw_head();
+
+    for(i=1;i<INIT_SNAKE_LENGTH;++i)
+    {
+        draw_body(i);
+    }
+    
+    
+    
+}
+
 
 int main(void)
 {        
 
-    // uint8_t i;
     uint8_t j;
+
 
     INIT_GRAPHICS();
 
@@ -125,24 +183,25 @@ int main(void)
         WAIT_PRESS();
         CLEAR_SCREEN();
 
-
-        _XLIB_DRAW(COL_OFFSET,YSize/2, &LEFT_HEAD_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+1,YSize/2,&LEFT_HEAD_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+2,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+3,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+4,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+5,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+6,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+7,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+8,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+9,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+10,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+11,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+12,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+13,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+14,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+15,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        _XLIB_DRAW(COL_OFFSET+16,YSize/2,&LEFT_TAIL_IMAGE);
+        init_snake();
+        
+        // _XLIB_DRAW(COL_OFFSET,YSize/2, &LEFT_HEAD_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+1,YSize/2,&LEFT_HEAD_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+2,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+3,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+4,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+5,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+6,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+7,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+8,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+9,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+10,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+11,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+12,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+13,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+14,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+15,YSize/2,&HORIZONTAL_JOINT_IMAGE);
+        // _XLIB_DRAW(COL_OFFSET+16,YSize/2,&LEFT_TAIL_IMAGE);
 
 
 

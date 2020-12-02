@@ -59,7 +59,7 @@ void INIT_IMAGES(void)
         RIGHT_HEAD_IMAGE._color = _SNAKE_COLOR;
         LEFT_HEAD_IMAGE._color = _SNAKE_COLOR;
 
-        VERTICAL_BODY_IMAGE._color = _SNAKE_COLOR;
+        BODY_IMAGE._color = _SNAKE_COLOR;
         BOTTOM_TAIL_IMAGE._color = _SNAKE_COLOR;		
 
         DEAD_GHOST_IMAGE._color = _SNAKE_COLOR;
@@ -106,7 +106,7 @@ void INIT_IMAGES(void)
     LEFT_HEAD_IMAGE._imageData = _TILE_3;	
 
 
-    VERTICAL_BODY_IMAGE._imageData = _TILE_4;
+    BODY_IMAGE._imageData = _TILE_4;
     BOTTOM_TAIL_IMAGE._imageData = _TILE_5;
 
     DEAD_GHOST_IMAGE._imageData = _TILE_6;

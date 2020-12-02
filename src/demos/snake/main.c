@@ -50,19 +50,9 @@ extern Image LEFT_HEAD_IMAGE;
 extern Image BODY_IMAGE; 
 extern Image BOTTOM_TAIL_IMAGE; 
 
-extern Image DEAD_GHOST_IMAGE; 
-
-extern Image SKULL_IMAGE; 
-
-extern Image CALM_DOWN_IMAGE; 
 extern Image HORIZONTAL_JOINT_IMAGE; 
-extern Image FIRE_POWER_IMAGE; 
+
 extern Image EXTRA_POINTS_IMAGE; 
-
-extern Image BULLET_IMAGE; 
-
-extern Image VERTICAL_BRICK_IMAGE; 
-extern Image HORIZONTAL_BRICK_IMAGE; 
 
 extern Image LEFT_TAIL_IMAGE; 
 
@@ -70,18 +60,6 @@ extern Image RIGHT_TAIL_IMAGE;
 
 extern Image VERTICAL_JOINT_IMAGE; 
 
-extern Image BOTTOM_HEAD_IMAGE; 
-extern Image SUPER_IMAGE; 
-
-extern Image EXTRA_LIFE_IMAGE; 
-extern Image INVINCIBILITY_IMAGE; 
-
-
-extern Image CONFUSE_IMAGE; 
-extern Image SUICIDE_IMAGE; 
-
-extern Image BROKEN_BRICK_IMAGE; 
-    
 extern Image TOP_HEAD_IMAGE; 
 extern Image TOP_HEAD_JOINT_IMAGE; 
 extern Image BOTTOM_HEAD_JOINT_IMAGE; 
@@ -138,6 +116,8 @@ void draw_snake(void)
     }
 }
 
+
+
 void init_snake(void)
 {
 
@@ -155,6 +135,44 @@ void init_snake(void)
     head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
     
     draw_snake();
+}
+
+
+
+void move(enum Direction direction)
+{
+    uint8_t tail = (snake_head+snake_length-1)%snake_length;
+    
+    _XLIB_DELETE(snake[tail].x,snake[tail].y);
+    
+    switch(direction)
+    {
+        case RIGHT:
+            snake[tail].x = snake[snake_head].x+1;
+            snake[tail].y = snake[snake_head].y;
+            head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
+        break;
+        case LEFT:
+            snake[tail].x = snake[snake_head].x-1;
+            snake[tail].y = snake[snake_head].y;
+            head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
+        break;
+        case UP:
+            snake[tail].x = snake[snake_head].x;
+            snake[tail].y = snake[snake_head].y-1;
+            head_image_ptr = &VERTICAL_HEAD_IMAGE;
+        break;
+        case DOWN:
+            snake[tail].x = snake[snake_head].x;
+            snake[tail].y = snake[snake_head].y+1;
+            head_image_ptr = &VERTICAL_HEAD_IMAGE;
+        break;
+    }
+    draw_body_part(snake_head);
+    
+    snake_head = tail;
+    
+    draw_head();
 }
 
 
@@ -191,6 +209,22 @@ int main(void)
 
         init_snake();
         
+        WAIT_PRESS();
+        move(RIGHT);
+        WAIT_PRESS();
+        move(RIGHT);
+        WAIT_PRESS();
+        move(UP);
+        WAIT_PRESS();
+        move(UP);
+        WAIT_PRESS();
+        move(LEFT);
+        WAIT_PRESS();
+        move(LEFT);
+        WAIT_PRESS();
+        move(DOWN);
+        WAIT_PRESS();
+        move(DOWN);
         // _XLIB_DRAW(COL_OFFSET,YSize/2, &LEFT_HEAD_IMAGE);
         // _XLIB_DRAW(COL_OFFSET+1,YSize/2,&LEFT_HEAD_JOINT_IMAGE);
         // _XLIB_DRAW(COL_OFFSET+2,YSize/2,&HORIZONTAL_JOINT_IMAGE);

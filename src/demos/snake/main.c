@@ -123,7 +123,7 @@ int main(void)
         while(1)
         {
             MOVE_PLAYER();
-            WAIT_PRESS();
+            SLEEP(1);
         }
         // WAIT_PRESS();
         // move_snake(SNAKE_RIGHT);

@@ -3,7 +3,7 @@
 
 GAME_NAME := snake
 
-PARENT_DIR = demos
+PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 

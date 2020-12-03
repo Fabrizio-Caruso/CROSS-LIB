@@ -14,8 +14,8 @@ extern uint8_t snake_head;
 
 extern Image *head_image_ptr;
 
+extern uint8_t snake_direction;
 
-void delete_ship(void);
 
 
 #if defined(JOYSTICK_CONTROL)
@@ -23,20 +23,21 @@ void delete_ship(void);
     {
         if(JOY_LEFT(joyInput))
         {
-            move_snake(SNAKE_LEFT);
+            snake_direction = SNAKE_LEFT;
         }
         else if(JOY_RIGHT(joyInput))
         {
-            move_snake(SNAKE_RIGHT);
+            snake_direction = SNAKE_RIGHT;
         }
         else if(JOY_UP(joyInput))
         {
-            move_snake(SNAKE_UP);
+            snake_direction = SNAKE_UP;
         }
         else if(JOY_DOWN(joyInput))
         {
-            move_snake(SNAKE_DOWN);
+            snake_direction = SNAKE_DOWN;
         }
+        move_snake();
     }
 #else
     void movePlayerByKeyboard(uint8_t kbInput)
@@ -47,20 +48,23 @@ void delete_ship(void);
 
         if(kbInput==_MOVE_LEFT)
         {
-            move_snake(SNAKE_LEFT);
+            snake_direction = SNAKE_LEFT;
         }
         else if(kbInput==_MOVE_RIGHT)
         {
-            move_snake(SNAKE_RIGHT);
+            snake_direction = SNAKE_RIGHT;
         }
         else if(kbInput==_MOVE_UP)
         {
-            move_snake(SNAKE_UP);
+            snake_direction = SNAKE_UP;
         }
         else if(kbInput==_MOVE_DOWN)
         {
-            move_snake(SNAKE_DOWN);
+            snake_direction = SNAKE_DOWN;
         }
+
+        move_snake();
+
     }
 #endif
 

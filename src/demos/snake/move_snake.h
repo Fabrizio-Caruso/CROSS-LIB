@@ -10,7 +10,7 @@
 
 #define SNAKE_RIGHT 3
 
-void move_snake(uint8_t direction);
+void move_snake(void);
 
 #endif // _MOVE_SNAKE_H
 

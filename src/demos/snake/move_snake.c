@@ -1,7 +1,6 @@
 #include "cross_lib.h"
 #include "snake.h"
 #include "move_snake.h"
-#include "images.h"
 
 extern SnakeBody snake[MAX_SNAKE_LENGTH];
 
@@ -16,13 +15,15 @@ extern Image* head_image_ptr;
 extern Image VERTICAL_HEAD_IMAGE;
 extern Image HORIZONTAL_HEAD_IMAGE;
 
-void move_snake(uint8_t direction)
+extern uint8_t snake_direction;
+
+void move_snake(void)
 {
     uint8_t tail = (snake_head+snake_length-1)%snake_length;
     
-    _XLIB_DELETE(snake[tail].x,snake[tail].y);
+    delete_body_part(tail);
     
-    switch(direction)
+    switch(snake_direction)
     {
         case SNAKE_RIGHT:
             snake[tail].x = snake[snake_head].x+1;
@@ -45,7 +46,8 @@ void move_snake(uint8_t direction)
             head_image_ptr = &VERTICAL_HEAD_IMAGE;
         break;
     }
-    draw_body_part(snake_head);
+    
+    draw_body_part(snake_head); // Draw old tail as body part
     
     snake_head = tail;
     

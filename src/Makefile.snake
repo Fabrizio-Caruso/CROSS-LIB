@@ -7,7 +7,8 @@ PARENT_DIR = demos
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
-GLOBAL_OPTS = -DNO_WALL
+GLOBAL_OPTS = 
+#-DNO_WALL
 
 #####################################################################
 # Compilers variables
@@ -376,7 +377,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
-	-DSLOW_DOWN=750 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
+	-DSLOW_DOWN=3000 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
 	$(ASSETS_PATH)/cc65_udc.s \
 	$(FULL_FILES) \

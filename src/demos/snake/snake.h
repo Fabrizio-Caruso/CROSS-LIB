@@ -19,9 +19,13 @@ void draw_head(void);
 
 void draw_body_part(uint8_t i);
 
+void delete_body_part(uint8_t i);
+
 void draw_snake(void);
 
 void init_snake(void);
+
+void init_map(void);
 
 #endif // _SNAKE_H
 

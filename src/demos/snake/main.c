@@ -81,24 +81,36 @@ extern uint8_t snake_head;
 
 extern Image *head_image_ptr;
 
+extern uint8_t map[XSize][YSize];
+
+extern Image VERTICAL_BRICK_IMAGE;
+extern Image HORIZONTAL_BRICK_IMAGE;
+
+static uint8_t snake_head_x;
+static uint8_t snake_head_y;
+
+static uint8_t points;
 
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
+#define snake_hits_wall(snake_head_x,snake_head_y) \
+    (snake_head_x)<1 || (snake_head_x)>=XSize-1 || (snake_head_y)<1 || (snake_head_y)>=YSize-1
 
-
+#define snake_hits_itself(snake_head_x,snake_head_y) \
+    map[snake_head_x][snake_head_y] 
 
 int main(void)
 {        
 
     uint8_t j;
 
-
     INIT_GRAPHICS();
 
     INIT_INPUT();
     
     INIT_IMAGES();
+    
     
     for(j=0;j<3;++j)
     {
@@ -107,46 +119,30 @@ int main(void)
         SET_TEXT_COLOR(COLOR_WHITE);
         PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
         
-        PRINT(COL_OFFSET, 2,"01234567890");
-        PRINT(COL_OFFSET, 4, _XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j "-");
-        PRINT(COL_OFFSET, 5, _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t "-");
-        PRINT(COL_OFFSET, 6, _XL_u _XL_v _XL_w _XL_x _XL_y _XL_z);
-        PRINT(COL_OFFSET, 8, _XL_A _XL_B _XL_C _XL_D _XL_E _XL_F _XL_G _XL_H _XL_I _XL_J "-");
-        PRINT(COL_OFFSET, 9, _XL_K _XL_L _XL_M _XL_N _XL_O _XL_P _XL_Q _XL_R _XL_S _XL_T "-");
-        PRINT(COL_OFFSET,10, _XL_U _XL_V _XL_W _XL_X _XL_Y _XL_Z);
-        
         WAIT_PRESS();
         CLEAR_SCREEN();
 
+        DRAW_BORDERS();
+
+        init_map();
+        
+        points = 0;
+        
         init_snake();
         
+        WAIT_PRESS();
         while(1)
         {
             MOVE_PLAYER();
-            SLEEP(1);
+            DO_SLOW_DOWN(SLOW_DOWN);
+            snake_head_x = snake[snake_head].x;
+            snake_head_y = snake[snake_head].y;
+            
+            if(snake_hits_itself(snake_head_x,snake_head_y) || snake_hits_wall(snake_head_x,snake_head_y))
+            {
+                break;
+            }
         }
-        // WAIT_PRESS();
-        // move_snake(SNAKE_RIGHT);
-        // WAIT_PRESS();
-        // move_snake(SNAKE_RIGHT);
-        // WAIT_PRESS();
-        // move_snake(SNAKE_UP);
-        // WAIT_PRESS();
-        // move_snake(SNAKE_UP);
-        // WAIT_PRESS();
-        // move_snake(SNAKE_LEFT);
-        // WAIT_PRESS();
-        // move_snake(SNAKE_LEFT);
-        // WAIT_PRESS();
-        // move_snake(SNAKE_DOWN);
-        // WAIT_PRESS();
-        // move_snake(SNAKE_DOWN);
-
-
-
-
-
-        
         
         SET_TEXT_COLOR(COLOR_WHITE);
         PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);

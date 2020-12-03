@@ -34,6 +34,8 @@
 #include "snake.h"
 #include "move_snake.h"
 
+#include "control_player.h"
+
 // TODO: REMOVE THIS
 #define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)
 
@@ -118,39 +120,28 @@ int main(void)
 
         init_snake();
         
-        WAIT_PRESS();
-        move_snake(SNAKE_RIGHT);
-        WAIT_PRESS();
-        move_snake(SNAKE_RIGHT);
-        WAIT_PRESS();
-        move_snake(SNAKE_UP);
-        WAIT_PRESS();
-        move_snake(SNAKE_UP);
-        WAIT_PRESS();
-        move_snake(SNAKE_LEFT);
-        WAIT_PRESS();
-        move_snake(SNAKE_LEFT);
-        WAIT_PRESS();
-        move_snake(SNAKE_DOWN);
-        WAIT_PRESS();
-        move_snake(SNAKE_DOWN);
-        // _XLIB_DRAW(COL_OFFSET,YSize/2, &LEFT_HEAD_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+1,YSize/2,&LEFT_HEAD_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+2,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+3,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+4,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+5,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+6,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+7,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+8,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+9,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+10,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+11,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+12,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+13,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+14,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+15,YSize/2,&HORIZONTAL_JOINT_IMAGE);
-        // _XLIB_DRAW(COL_OFFSET+16,YSize/2,&LEFT_TAIL_IMAGE);
+        while(1)
+        {
+            MOVE_PLAYER();
+            WAIT_PRESS();
+        }
+        // WAIT_PRESS();
+        // move_snake(SNAKE_RIGHT);
+        // WAIT_PRESS();
+        // move_snake(SNAKE_RIGHT);
+        // WAIT_PRESS();
+        // move_snake(SNAKE_UP);
+        // WAIT_PRESS();
+        // move_snake(SNAKE_UP);
+        // WAIT_PRESS();
+        // move_snake(SNAKE_LEFT);
+        // WAIT_PRESS();
+        // move_snake(SNAKE_LEFT);
+        // WAIT_PRESS();
+        // move_snake(SNAKE_DOWN);
+        // WAIT_PRESS();
+        // move_snake(SNAKE_DOWN);
+
 
 
 

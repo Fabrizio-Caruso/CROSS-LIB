@@ -31,6 +31,9 @@
 
 #include "init_images.h"
 
+#include "snake.h"
+#include "move_snake.h"
+
 // TODO: REMOVE THIS
 #define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)
 
@@ -68,112 +71,18 @@ extern Image RIGHT_HEAD_JOINT_IMAGE;
 extern Image TOP_TAIL_IMAGE; 
 
 
+extern SnakeBody snake[MAX_SNAKE_LENGTH];
+
+extern uint8_t snake_length;
+
+extern uint8_t snake_head;
+
+extern Image *head_image_ptr;
+
 
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
-#define INIT_SNAKE_LENGTH 10
-#define MAX_SNAKE_LENGTH 20
-
-struct SnakeBodyStruct
-{
-    uint8_t x;
-    uint8_t y;
-};
-typedef struct SnakeBodyStruct SnakeBody;
-
-SnakeBody snake[MAX_SNAKE_LENGTH];
-
-enum Direction {UP, DOWN, LEFT, RIGHT};
-
-enum Direction direction;
-
-uint8_t snake_length;
-
-uint8_t snake_head;
-
-Image *head_image_ptr;
-
-void draw_head(void)
-{
-    _XLIB_DRAW(snake[snake_head].x,snake[snake_head].y,head_image_ptr);
-}
-
-void draw_body_part(uint8_t i)
-{
-    _XLIB_DRAW(snake[i].x,snake[i].y,&BODY_IMAGE);
-}
-
-void draw_snake(void)
-{
-    uint8_t i;
-    
-    draw_head();
-
-    for(i=1;i<snake_length;++i)
-    {
-        draw_body_part((i+snake_head) % snake_length);
-    }
-}
-
-
-
-void init_snake(void)
-{
-
-    uint8_t i;
-    
-    snake_length = INIT_SNAKE_LENGTH;
-    snake_head = 0;
-    
-    for(i=0;i<snake_length;++i)
-    {
-        snake[(i+snake_head)%snake_length].x = XSize/2+snake_length/2-i;
-        snake[(i+snake_head)%snake_length].y = YSize/2;
-    }
-    
-    head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
-    
-    draw_snake();
-}
-
-
-
-void move(enum Direction direction)
-{
-    uint8_t tail = (snake_head+snake_length-1)%snake_length;
-    
-    _XLIB_DELETE(snake[tail].x,snake[tail].y);
-    
-    switch(direction)
-    {
-        case RIGHT:
-            snake[tail].x = snake[snake_head].x+1;
-            snake[tail].y = snake[snake_head].y;
-            head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
-        break;
-        case LEFT:
-            snake[tail].x = snake[snake_head].x-1;
-            snake[tail].y = snake[snake_head].y;
-            head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
-        break;
-        case UP:
-            snake[tail].x = snake[snake_head].x;
-            snake[tail].y = snake[snake_head].y-1;
-            head_image_ptr = &VERTICAL_HEAD_IMAGE;
-        break;
-        case DOWN:
-            snake[tail].x = snake[snake_head].x;
-            snake[tail].y = snake[snake_head].y+1;
-            head_image_ptr = &VERTICAL_HEAD_IMAGE;
-        break;
-    }
-    draw_body_part(snake_head);
-    
-    snake_head = tail;
-    
-    draw_head();
-}
 
 
 
@@ -210,21 +119,21 @@ int main(void)
         init_snake();
         
         WAIT_PRESS();
-        move(RIGHT);
+        move_snake(SNAKE_RIGHT);
         WAIT_PRESS();
-        move(RIGHT);
+        move_snake(SNAKE_RIGHT);
         WAIT_PRESS();
-        move(UP);
+        move_snake(SNAKE_UP);
         WAIT_PRESS();
-        move(UP);
+        move_snake(SNAKE_UP);
         WAIT_PRESS();
-        move(LEFT);
+        move_snake(SNAKE_LEFT);
         WAIT_PRESS();
-        move(LEFT);
+        move_snake(SNAKE_LEFT);
         WAIT_PRESS();
-        move(DOWN);
+        move_snake(SNAKE_DOWN);
         WAIT_PRESS();
-        move(DOWN);
+        move_snake(SNAKE_DOWN);
         // _XLIB_DRAW(COL_OFFSET,YSize/2, &LEFT_HEAD_IMAGE);
         // _XLIB_DRAW(COL_OFFSET+1,YSize/2,&LEFT_HEAD_JOINT_IMAGE);
         // _XLIB_DRAW(COL_OFFSET+2,YSize/2,&HORIZONTAL_JOINT_IMAGE);

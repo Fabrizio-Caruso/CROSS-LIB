@@ -39,6 +39,9 @@ ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1
 FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
 	$(SOURCE_PATH)/main.c \
+	$(SOURCE_PATH)/control_player.c \
+	$(SOURCE_PATH)/move_snake.c \
+	$(SOURCE_PATH)/snake.c \
 	$(SOURCE_PATH)/init_images.c
 
 

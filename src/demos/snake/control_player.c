@@ -21,19 +21,19 @@ extern uint8_t snake_direction;
 #if defined(JOYSTICK_CONTROL)
     void movePlayerByJoystick(uint8_t joyInput)
     {
-        if(JOY_LEFT(joyInput))
+        if(JOY_LEFT(joyInput) && (snake_direction != SNAKE_RIGHT))
         {
             snake_direction = SNAKE_LEFT;
         }
-        else if(JOY_RIGHT(joyInput))
+        else if(JOY_RIGHT(joyInput) && (snake_direction != SNAKE_LEFT))
         {
             snake_direction = SNAKE_RIGHT;
         }
-        else if(JOY_UP(joyInput))
+        else if(JOY_UP(joyInput) && (snake_direction != SNAKE_DOWN))
         {
             snake_direction = SNAKE_UP;
         }
-        else if(JOY_DOWN(joyInput))
+        else if(JOY_DOWN(joyInput) && (snake_direction != SNAKE_UP))
         {
             snake_direction = SNAKE_DOWN;
         }
@@ -46,19 +46,19 @@ extern uint8_t snake_direction;
             delete_ship();
         #endif
 
-        if(kbInput==_MOVE_LEFT)
+        if((kbInput==_MOVE_LEFT) && (snake_direction != SNAKE_RIGHT))
         {
             snake_direction = SNAKE_LEFT;
         }
-        else if(kbInput==_MOVE_RIGHT)
+        else if((kbInput==_MOVE_RIGHT) && (snake_direction != SNAKE_LEFT))
         {
             snake_direction = SNAKE_RIGHT;
         }
-        else if(kbInput==_MOVE_UP)
+        else if((kbInput==_MOVE_UP) && (snake_direction != SNAKE_DOWN)))
         {
             snake_direction = SNAKE_UP;
         }
-        else if(kbInput==_MOVE_DOWN)
+        else if((kbInput==_MOVE_DOWN) && (snake_direction != SNAKE_UP))
         {
             snake_direction = SNAKE_DOWN;
         }

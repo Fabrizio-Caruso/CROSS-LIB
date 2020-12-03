@@ -91,6 +91,7 @@ static uint8_t snake_head_y;
 
 static uint8_t points;
 
+
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
@@ -99,6 +100,13 @@ static uint8_t points;
 
 #define snake_hits_itself(snake_head_x,snake_head_y) \
     map[snake_head_x][snake_head_y] 
+
+void PRESS_KEY(void)
+{
+    SET_TEXT_COLOR(COLOR_WHITE);
+    PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+    WAIT_PRESS();
+}
 
 int main(void)
 {        
@@ -116,10 +124,7 @@ int main(void)
     {
         CLEAR_SCREEN();
         
-        SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
-        
-        WAIT_PRESS();
+        PRESS_KEY();
         CLEAR_SCREEN();
 
         DRAW_BORDERS();
@@ -135,18 +140,28 @@ int main(void)
         {
             MOVE_PLAYER();
             DO_SLOW_DOWN(SLOW_DOWN);
+            if(points==10 && snake_length<MAX_SNAKE_LENGTH)
+            {
+                snake_grows(); 
+                points = 0;
+            }
+            
             snake_head_x = snake[snake_head].x;
             snake_head_y = snake[snake_head].y;
             
+            ++points;
+            
+
+            PRINTD(0,0,3,map[snake_head_x][snake_head_y]);
+            PRINTD(0,1,3,snake_head);
+            // SLEEP(1);
             if(snake_hits_itself(snake_head_x,snake_head_y) || snake_hits_wall(snake_head_x,snake_head_y))
             {
                 break;
             }
         }
         
-        SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
-        WAIT_PRESS();
+        PRESS_KEY();
     }
 
     PRINT(COL_OFFSET,YSize-5, _XL_E _XL_N _XL_D _XL_SPACE _XL_O _XL_F _XL_SPACE _XL_D _XL_E _XL_M _XL_O);

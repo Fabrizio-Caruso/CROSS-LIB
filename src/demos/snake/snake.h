@@ -5,8 +5,8 @@
 #include "cross_lib.h"
 
 
-#define INIT_SNAKE_LENGTH 10
-#define MAX_SNAKE_LENGTH 20
+#define INIT_SNAKE_LENGTH 4
+#define MAX_SNAKE_LENGTH 240
 
 struct SnakeBodyStruct
 {
@@ -26,6 +26,8 @@ void draw_snake(void);
 void init_snake(void);
 
 void init_map(void);
+
+void snake_grows(void);
 
 #endif // _SNAKE_H
 

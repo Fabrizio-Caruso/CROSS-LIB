@@ -20,37 +20,51 @@ extern uint8_t snake_direction;
 void move_snake(void)
 {
     uint8_t tail = (snake_head+snake_length-1)%snake_length;
+    uint8_t x;
+    uint8_t y;
     
-    delete_body_part(tail);
     
     switch(snake_direction)
     {
         case SNAKE_RIGHT:
-            snake[tail].x = snake[snake_head].x+1;
-            snake[tail].y = snake[snake_head].y;
-            head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
+            x = snake[snake_head].x+1;
+            y = snake[snake_head].y;
         break;
         case SNAKE_LEFT:
-            snake[tail].x = snake[snake_head].x-1;
-            snake[tail].y = snake[snake_head].y;
-            head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
+            x = snake[snake_head].x-1;
+            y = snake[snake_head].y;
         break;
         case SNAKE_UP:
-            snake[tail].x = snake[snake_head].x;
-            snake[tail].y = snake[snake_head].y-1;
-            head_image_ptr = &VERTICAL_HEAD_IMAGE;
+            x = snake[snake_head].x;
+            y = snake[snake_head].y-1;
         break;
         case SNAKE_DOWN:
-            snake[tail].x = snake[snake_head].x;
-            snake[tail].y = snake[snake_head].y+1;
-            head_image_ptr = &VERTICAL_HEAD_IMAGE;
+            x = snake[snake_head].x;
+            y = snake[snake_head].y+1;
         break;
     }
+    if(!hits_wall(x,y))
+    {
+        delete_body_part(tail);
+        snake[tail].x = x;
+        snake[tail].y = y;
+        
+        if(HORIZONTAL(snake_direction))
+        {
+            head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
+        }
+        else
+        {
+            head_image_ptr = &VERTICAL_HEAD_IMAGE;
+        }
+        
+        draw_body_part(snake_head); // Draw old head as body part
+        
+        snake_head = tail; // new head uses tail index
+        
+        draw_head(); // draw new head
+    }
     
-    draw_body_part(snake_head); // Draw old head as body part
-    
-    snake_head = tail; // new head uses tail index
-    
-    draw_head(); // draw new head
+
 }
 

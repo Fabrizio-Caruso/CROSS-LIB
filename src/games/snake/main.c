@@ -100,9 +100,6 @@ static uint16_t slow_down;
 
 #define GROWTH_THRESHOLD 20
 
-#define hits_wall(x,y) \
-    ((x)<1 || ((x)>=XSize-1) || (y)<1 || ((y)>=YSize-1))
-
 #define hits_snake(x,y) \
     (map[x][y]==SNAKE)
 
@@ -187,7 +184,6 @@ int main(void)
             DO_SLOW_DOWN(slow_down);
             if(speed_increase_counter==GROWTH_THRESHOLD && snake_length<MAX_SNAKE_LENGTH)
             {
-                // snake_grows(); 
                 speed_increase_counter = 0;
                 if(RAND()&1)
                 {
@@ -217,7 +213,8 @@ int main(void)
                 IF_POSSIBLE_DECREASE_SPEED();
             }
             
-            if(hits_snake(snake_head_x,snake_head_y) || hits_wall(snake_head_x,snake_head_y))
+            // if(hits_snake(snake_head_x,snake_head_y) || hits_wall(snake_head_x,snake_head_y))
+            if(hits_snake(snake_head_x,snake_head_y))
             {
                 break;
             }

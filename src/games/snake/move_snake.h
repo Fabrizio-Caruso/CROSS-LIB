@@ -10,6 +10,13 @@
 
 #define SNAKE_RIGHT 3
 
+#define HORIZONTAL(movement) ((movement)>SNAKE_DOWN)
+#define VERTICAL(movement) ((movement)<SNAKE_LEFT)
+
+#define hits_wall(x,y) \
+    ((x)<1 || ((x)>=XSize-1) || (y)<1 || ((y)>=YSize-1))
+
+
 void move_snake(void);
 
 #endif // _MOVE_SNAKE_H

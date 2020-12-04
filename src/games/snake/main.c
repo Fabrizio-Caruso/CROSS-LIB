@@ -174,30 +174,38 @@ void DISPLAY_APPLE_COUNT(void)
     PRINTD(9,0,2,apple_count);
 }
 
-#define INITIAL_LEVEL 2
+#define INITIAL_LEVEL 3
 
 static uint16_t level_walls[] = 
-{ 
+{
+// level 1
     2, 
         XSize/3,       YSize/3,     XSize/3,
         XSize/3,     2*YSize/3,     XSize/3,
     2,  
-        XSize/5,             1,   YSize/4,
-        4*XSize/5,   3*YSize/4,   YSize/4,
-    // 0,
-    // 2,
-    // 1, 2, 3,
-    // 4, 5, 6
+        XSize/5,             1,     YSize/4,
+        4*XSize/5,   3*YSize/4,     YSize/4,
+
+// level 2
     0,
     2,
-        XSize/3,             0,   4*YSize/5,
+        XSize/3,             0,    4*YSize/5,
        2*XSize/3,       YSize/5,   4*YSize/5,
-    
+
+// level 3
+    4,
+        0,              YSize/4,     XSize/4,
+       3*XSize/4,       YSize/4,     XSize/4,
+        0,            3*YSize/4,     XSize/4,
+       3*XSize/4,     3*YSize/4,     XSize/4,
+    2,
+        XSize/2,              0,     YSize/4,
+        XSize/2,      3*YSize/4-1,   YSize/4
 };
 
 #define NUM_OF_LEVELS 2
 
-static uint8_t level_walls_index[] = {0,14};
+static uint8_t level_walls_index[] = {0,14,22};
 
 
 void build_horizontal_wall(uint8_t x, uint8_t y, uint8_t length)

@@ -96,15 +96,15 @@ static uint16_t record;
     (map[x][y]==BONUS)
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
-    if(slow_down>SLOW_DOWN/25) \
+    if(slow_down>SLOW_DOWN/40) \
     { \
-        slow_down -= SLOW_DOWN/25; \
+        slow_down -= SLOW_DOWN/40; \
     }
 
 #define IF_POSSIBLE_DECREASE_SPEED() \
     if(slow_down<SLOW_DOWN) \
     { \
-        slow_down += SLOW_DOWN/5; \
+        slow_down += SLOW_DOWN/8; \
     }
 
 
@@ -245,11 +245,18 @@ int main(void)
                         IF_POSSIBLE_DECREASE_SPEED();
                     }
                     
-                    // if(hits_snake(snake_head_x,snake_head_y) || hits_wall(snake_head_x,snake_head_y))
                     if(hits_snake(snake_head_x,snake_head_y))
                     {
                         --lives;
                         break;
+                    }
+                }
+                else
+                {
+                    if(speed_increase_counter)
+                    {
+                        IF_POSSIBLE_INCREASE_SPEED();
+                        speed_increase_counter = 0;
                     }
                 }
             }

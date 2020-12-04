@@ -47,9 +47,10 @@ void move_snake(void)
         break;
     }
     
-    draw_body_part(snake_head); // Draw old tail as body part
+    draw_body_part(snake_head); // Draw old head as body part
     
-    snake_head = tail;
+    snake_head = tail; // new head uses tail index
     
-    draw_head();
+    draw_head(); // draw new head
 }
+

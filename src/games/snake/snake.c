@@ -30,13 +30,13 @@ void draw_head(void)
 void delete_body_part(uint8_t i)
 {
     _XLIB_DELETE(snake[i].x,snake[i].y);
-    map[snake[i].x][snake[i].y] = 0;
+    map[snake[i].x][snake[i].y] = EMPTY;
 }
 
 void draw_body_part(uint8_t i)
 {
     _XLIB_DRAW(snake[i].x,snake[i].y,&BODY_IMAGE);
-    map[snake[i].x][snake[i].y] = 1;
+    map[snake[i].x][snake[i].y] = SNAKE;
 }
 
 
@@ -49,7 +49,7 @@ void init_map(void)
     {
         for(j=0;j<YSize;++j)
         {
-            map[i][j]=0;
+            map[i][j]=EMPTY;
         }
     }
 }
@@ -62,7 +62,6 @@ void init_snake(void)
     
     snake_length = INIT_SNAKE_LENGTH;
     snake_head = 0;
-    // draw_head();
     
     for(i=0;i<snake_length;++i)
     {

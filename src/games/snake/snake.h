@@ -8,6 +8,10 @@
 #define INIT_SNAKE_LENGTH 4
 #define MAX_SNAKE_LENGTH 240
 
+#define EMPTY 0
+#define SNAKE 1
+#define BONUS 2
+
 struct SnakeBodyStruct
 {
     uint8_t x;

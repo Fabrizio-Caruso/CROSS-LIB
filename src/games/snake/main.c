@@ -98,11 +98,16 @@ static uint8_t snake_growth_counter;
 
 #define GROWTH_THRESHOLD 20
 
-#define snake_hits_wall(snake_head_x,snake_head_y) \
-    (snake_head_x)<1 || (snake_head_x)>=XSize-1 || (snake_head_y)<1 || (snake_head_y)>=YSize-1
+#define hits_wall(x,y) \
+    ((x)<1 || ((x)>=XSize-1) || (y)<1 || ((y)>=YSize-1))
 
-#define snake_hits_itself(snake_head_x,snake_head_y) \
-    map[snake_head_x][snake_head_y] 
+#define hits_snake(x,y) \
+    (map[x][y]==SNAKE)
+
+#define hits_bonus(x,y) \
+    (map[x][y]==BONUS)
+
+#define BONUS_POINTS 10
 
 void PRESS_KEY(void)
 {
@@ -110,6 +115,27 @@ void PRESS_KEY(void)
     PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
     WAIT_PRESS();
 }
+
+void spawn_bonus(void)
+{
+    uint8_t x;
+    uint8_t y;
+    
+    while(1)
+    {
+        x = RAND()%XSize;
+        y = RAND()%YSize;
+        
+        if(!(map[x][y]) && !hits_wall(x,y))
+        {
+            break;
+        }
+    }
+    map[x][y]=BONUS;
+    
+    _XLIB_DRAW(x,y,&EXTRA_POINTS_IMAGE);
+}
+
 
 int main(void)
 {        
@@ -122,19 +148,18 @@ int main(void)
     
     INIT_IMAGES();
     
-    
+    points = 0;
+
     for(j=0;j<3;++j)
     {
         CLEAR_SCREEN();
         
         PRESS_KEY();
         CLEAR_SCREEN();
-
         DRAW_BORDERS();
 
         init_map();
         
-        points = 0;
         snake_growth_counter = 0;
         
         init_snake();
@@ -148,23 +173,31 @@ int main(void)
             {
                 snake_grows(); 
                 snake_growth_counter = 0;
+                spawn_bonus();
+                TICK_SOUND();
+                ++points;
             }
             
             snake_head_x = snake[snake_head].x;
             snake_head_y = snake[snake_head].y;
             
-            ++points;
             ++snake_growth_counter;
 
             SET_TEXT_COLOR(COLOR_WHITE);
             PRINTD(0,0,5,points);
-            // SLEEP(1);
-            if(snake_hits_itself(snake_head_x,snake_head_y) || snake_hits_wall(snake_head_x,snake_head_y))
+            
+            if(hits_bonus(snake_head_x,snake_head_y))
+            {
+                points+=BONUS_POINTS;
+                ZAP_SOUND();
+            }
+            
+            if(hits_snake(snake_head_x,snake_head_y) || hits_wall(snake_head_x,snake_head_y))
             {
                 break;
             }
         }
-        
+        EXPLOSION_SOUND();
         PRESS_KEY();
     }
 

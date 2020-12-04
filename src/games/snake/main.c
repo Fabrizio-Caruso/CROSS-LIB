@@ -93,6 +93,8 @@ static uint16_t points;
 
 static uint8_t snake_growth_counter;
 
+static uint16_t slow_down;
+
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
@@ -162,13 +164,15 @@ int main(void)
         
         snake_growth_counter = 0;
         
+        slow_down = SLOW_DOWN;
+        
         init_snake();
         
         WAIT_PRESS();
         while(1)
         {
             MOVE_PLAYER();
-            DO_SLOW_DOWN(SLOW_DOWN);
+            DO_SLOW_DOWN(slow_down);
             if(snake_growth_counter==GROWTH_THRESHOLD && snake_length<MAX_SNAKE_LENGTH)
             {
                 snake_grows(); 
@@ -176,6 +180,10 @@ int main(void)
                 spawn_bonus();
                 TICK_SOUND();
                 ++points;
+                if(slow_down>SLOW_DOWN/20)
+                {
+                    slow_down -= SLOW_DOWN/20;
+                }
             }
             
             snake_head_x = snake[snake_head].x;
@@ -190,6 +198,10 @@ int main(void)
             {
                 points+=BONUS_POINTS;
                 ZAP_SOUND();
+                if(slow_down<SLOW_DOWN)
+                {
+                    slow_down += SLOW_DOWN/5;
+                }
             }
             
             if(hits_snake(snake_head_x,snake_head_y) || hits_wall(snake_head_x,snake_head_y))

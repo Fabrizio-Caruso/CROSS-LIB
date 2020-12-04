@@ -88,6 +88,8 @@ static uint16_t record;
 
 static uint8_t apple_count;
 
+static uint8_t level;
+
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
@@ -117,7 +119,7 @@ static uint8_t apple_count;
 #define BONUS_POINTS 10
 #define APPLE_POINTS 20
 
-#define INIT_APPLE_COUNT 40
+#define INIT_APPLE_COUNT 10
 
 void PRESS_KEY(void)
 {
@@ -193,6 +195,7 @@ int main(void)
         points = 0;
         apple_count = INIT_APPLE_COUNT;
         lives = INIT_LIVES;
+        level = 1;
 
         while(lives)
         {
@@ -205,10 +208,12 @@ int main(void)
             _XLIB_DRAW(1,0,&SCORE_TEXT_RIGHT_IMAGE);
             _XLIB_DRAW(XSize-10,0,&HI_TEXT_IMAGE);
             _XLIB_DRAW(8,0,&APPLE_IMAGE);
+            _XLIB_DRAW(0,YSize-1,&LV_TEXT_IMAGE);
             
             SET_TEXT_COLOR(COLOR_WHITE);
             
             PRINTD(XSize-2,0,2,lives);
+            PRINTD(1,YSize-1,2,level);
             
             DISPLAY_APPLE_COUNT();
 
@@ -225,9 +230,8 @@ int main(void)
             init_snake();
             spawn(APPLE, &APPLE_IMAGE);
             
-            
             WAIT_PRESS();
-            while(1)
+            while(apple_count)
             {
                 if(MOVE_PLAYER())
                 {
@@ -279,9 +283,8 @@ int main(void)
                         IF_POSSIBLE_DECREASE_SPEED();
                     }
                     
-                    if(hits_snake(snake_head_x,snake_head_y))
+                    if(hits_snake(snake_head_x,snake_head_y) || !apple_count)
                     {
-                        --lives;
                         break;
                     }
                 }
@@ -294,8 +297,20 @@ int main(void)
                     }
                 }
             }
-            EXPLOSION_SOUND();
-            PRESS_KEY();
+            if(apple_count)
+            {
+                --lives;
+                EXPLOSION_SOUND();
+                PRESS_KEY();
+            }
+            else
+            {
+                SET_TEXT_COLOR(COLOR_RED);
+                PRINT(COL_OFFSET,YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
+                ++level;
+                apple_count=INIT_APPLE_COUNT+level*5;
+                WAIT_PRESS();
+            }
         }
 
         PRINT(COL_OFFSET,YSize/2, _XL_SPACE _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R _XL_SPACE);

@@ -156,6 +156,7 @@ c16: $(ASSETS_PATH)/8x8_chars.h
 	-DCONIO \
 	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
+	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 

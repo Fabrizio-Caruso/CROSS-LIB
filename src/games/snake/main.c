@@ -95,6 +95,8 @@ static uint8_t speed_increase_counter;
 
 static uint16_t slow_down;
 
+static uint8_t lives;
+
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
@@ -119,6 +121,7 @@ static uint16_t slow_down;
     }
 
 
+#define INIT_LIVES 3
 #define BONUS_POINTS 10
 
 void PRESS_KEY(void)
@@ -152,83 +155,90 @@ void spawn_bonus(void)
 int main(void)
 {        
 
-    uint8_t j;
 
     INIT_GRAPHICS();
 
     INIT_INPUT();
     
     INIT_IMAGES();
-    
-    points = 0;
 
-    for(j=0;j<3;++j)
+    while(1)
     {
-        CLEAR_SCREEN();
-        
-        PRESS_KEY();
-        CLEAR_SCREEN();
-        DRAW_BORDERS();
+        points = 0;
 
-        init_map();
-        
-        speed_increase_counter = 0;
-        
-        slow_down = SLOW_DOWN;
-        
-        init_snake();
-        
-        WAIT_PRESS();
-        while(1)
+        lives = INIT_LIVES;
+
+        while(lives)
         {
-            if(MOVE_PLAYER())
+            CLEAR_SCREEN();
+            
+            PRESS_KEY();
+            CLEAR_SCREEN();
+            DRAW_BORDERS();
+
+            SET_TEXT_COLOR(COLOR_WHITE);
+            _XLIB_DRAW(XSize-3,0,&VERTICAL_HEAD_IMAGE);
+            PRINTD(XSize-2,0,2,lives);
+            init_map();
+            
+            speed_increase_counter = 0;
+            
+            slow_down = SLOW_DOWN;
+            
+            init_snake();
+            
+            WAIT_PRESS();
+            while(1)
             {
-                DO_SLOW_DOWN(slow_down);
-                ++speed_increase_counter;
-                if(speed_increase_counter==SPEED_INCREASE_THRESHOLD && snake_length<MAX_SNAKE_LENGTH)
+                if(MOVE_PLAYER())
                 {
-                    speed_increase_counter = 0;
-                    if(RAND()&3)
+                    DO_SLOW_DOWN(slow_down);
+                    ++speed_increase_counter;
+                    if(speed_increase_counter==SPEED_INCREASE_THRESHOLD && snake_length<MAX_SNAKE_LENGTH)
                     {
-                        spawn_bonus();
+                        speed_increase_counter = 0;
+                        if(RAND()&3)
+                        {
+                            spawn_bonus();
+                        }
+                        TICK_SOUND();
+                        ++points;
+                        IF_POSSIBLE_INCREASE_SPEED();
                     }
-                    TICK_SOUND();
-                    ++points;
-                    IF_POSSIBLE_INCREASE_SPEED();
-                }
-                
-                snake_head_x = snake[snake_head].x;
-                snake_head_y = snake[snake_head].y;
-                
-                
-                SET_TEXT_COLOR(COLOR_WHITE);
-                PRINTD(0,0,5,points);
-                
-                if(hits_bonus(snake_head_x,snake_head_y))
-                {
-                    snake_grows();
+                    
                     snake_head_x = snake[snake_head].x;
                     snake_head_y = snake[snake_head].y;
                     
-                    points+=BONUS_POINTS;
-                    ZAP_SOUND();
-                    IF_POSSIBLE_DECREASE_SPEED();
-                }
-                
-                // if(hits_snake(snake_head_x,snake_head_y) || hits_wall(snake_head_x,snake_head_y))
-                if(hits_snake(snake_head_x,snake_head_y))
-                {
-                    break;
+                    
+                    SET_TEXT_COLOR(COLOR_WHITE);
+                    PRINTD(0,0,5,points);
+                    
+                    if(hits_bonus(snake_head_x,snake_head_y))
+                    {
+                        snake_grows();
+                        snake_head_x = snake[snake_head].x;
+                        snake_head_y = snake[snake_head].y;
+                        
+                        points+=BONUS_POINTS;
+                        ZAP_SOUND();
+                        IF_POSSIBLE_DECREASE_SPEED();
+                    }
+                    
+                    // if(hits_snake(snake_head_x,snake_head_y) || hits_wall(snake_head_x,snake_head_y))
+                    if(hits_snake(snake_head_x,snake_head_y))
+                    {
+                        --lives;
+                        break;
+                    }
                 }
             }
+            EXPLOSION_SOUND();
+            PRESS_KEY();
         }
-        EXPLOSION_SOUND();
-        PRESS_KEY();
+
+        PRINT(COL_OFFSET,YSize/2, _XL_SPACE _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R _XL_SPACE);
+        WAIT_PRESS();
     }
-
-    PRINT(COL_OFFSET,YSize-5, _XL_E _XL_N _XL_D _XL_SPACE _XL_O _XL_F _XL_SPACE _XL_D _XL_E _XL_M _XL_O);
-
-    while(1){};
     
     return EXIT_SUCCESS;
 }

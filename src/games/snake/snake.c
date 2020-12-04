@@ -74,8 +74,6 @@ void init_snake(void)
     
     head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
     
-    // draw_snake();
-    
     snake_direction = SNAKE_RIGHT;
     
     draw_head();

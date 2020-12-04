@@ -100,7 +100,7 @@ static uint8_t lives;
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
-#define SPEED_INCREASE_THRESHOLD 20
+#define SPEED_INCREASE_THRESHOLD 10
 
 #define hits_snake(x,y) \
     (map[x][y]==SNAKE)
@@ -164,6 +164,16 @@ int main(void)
 
     while(1)
     {
+        CLEAR_SCREEN();
+        SET_TEXT_COLOR(COLOR_RED);
+        PRINT(COL_OFFSET+3,YSize/5, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E);
+
+        SET_TEXT_COLOR(COLOR_WHITE);
+        PRINT(COL_OFFSET+8,YSize/5+2, _XL_b _XL_y);
+        PRINT(COL_OFFSET+1,YSize/5+4, _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o);
+
+        PRESS_KEY();
+        
         points = 0;
 
         lives = INIT_LIVES;
@@ -171,13 +181,10 @@ int main(void)
         while(lives)
         {
             CLEAR_SCREEN();
-            
-            PRESS_KEY();
-            CLEAR_SCREEN();
             DRAW_BORDERS();
 
-            SET_TEXT_COLOR(COLOR_WHITE);
             _XLIB_DRAW(XSize-3,0,&VERTICAL_HEAD_IMAGE);
+            SET_TEXT_COLOR(COLOR_WHITE);
             PRINTD(XSize-2,0,2,lives);
             init_map();
             
@@ -194,14 +201,14 @@ int main(void)
                 {
                     DO_SLOW_DOWN(slow_down);
                     ++speed_increase_counter;
-                    if(speed_increase_counter==SPEED_INCREASE_THRESHOLD && snake_length<MAX_SNAKE_LENGTH)
+                    if((speed_increase_counter>SPEED_INCREASE_THRESHOLD) && (snake_length<MAX_SNAKE_LENGTH))
                     {
                         speed_increase_counter = 0;
-                        if(RAND()&3)
+                        if(!(RAND()&3))
                         {
+                            TICK_SOUND();
                             spawn_bonus();
                         }
-                        TICK_SOUND();
                         ++points;
                         IF_POSSIBLE_INCREASE_SPEED();
                     }

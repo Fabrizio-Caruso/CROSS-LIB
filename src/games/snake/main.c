@@ -91,7 +91,7 @@ static uint8_t snake_head_y;
 
 static uint16_t points;
 
-static uint8_t snake_growth_counter;
+static uint8_t speed_increase_counter;
 
 static uint16_t slow_down;
 
@@ -162,7 +162,7 @@ int main(void)
 
         init_map();
         
-        snake_growth_counter = 0;
+        speed_increase_counter = 0;
         
         slow_down = SLOW_DOWN;
         
@@ -173,11 +173,14 @@ int main(void)
         {
             MOVE_PLAYER();
             DO_SLOW_DOWN(slow_down);
-            if(snake_growth_counter==GROWTH_THRESHOLD && snake_length<MAX_SNAKE_LENGTH)
+            if(speed_increase_counter==GROWTH_THRESHOLD && snake_length<MAX_SNAKE_LENGTH)
             {
-                snake_grows(); 
-                snake_growth_counter = 0;
-                spawn_bonus();
+                // snake_grows(); 
+                speed_increase_counter = 0;
+                if(RAND()&1)
+                {
+                    spawn_bonus();
+                }
                 TICK_SOUND();
                 ++points;
                 if(slow_down>SLOW_DOWN/20)
@@ -189,13 +192,17 @@ int main(void)
             snake_head_x = snake[snake_head].x;
             snake_head_y = snake[snake_head].y;
             
-            ++snake_growth_counter;
+            ++speed_increase_counter;
 
             SET_TEXT_COLOR(COLOR_WHITE);
             PRINTD(0,0,5,points);
             
             if(hits_bonus(snake_head_x,snake_head_y))
             {
+                snake_grows();
+                snake_head_x = snake[snake_head].x;
+                snake_head_y = snake[snake_head].y;
+                
                 points+=BONUS_POINTS;
                 ZAP_SOUND();
                 if(slow_down<SLOW_DOWN)

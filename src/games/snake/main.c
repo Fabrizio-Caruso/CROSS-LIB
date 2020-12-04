@@ -174,6 +174,32 @@ void DISPLAY_APPLE_COUNT(void)
     PRINTD(9,0,2,apple_count);
 }
 
+#define INITIAL_LEVEL 2
+
+static uint16_t level_walls[] = 
+{ 
+    2, 
+        XSize/3,       YSize/3,     XSize/3,
+        XSize/3,     2*YSize/3,     XSize/3,
+    2,  
+        XSize/5,             1,   YSize/4,
+        4*XSize/5,   3*YSize/4,   YSize/4,
+    // 0,
+    // 2,
+    // 1, 2, 3,
+    // 4, 5, 6
+    0,
+    2,
+        XSize/3,             0,   4*YSize/5,
+       2*XSize/3,       YSize/5,   4*YSize/5,
+    
+};
+
+#define NUM_OF_LEVELS 2
+
+static uint8_t level_walls_index[] = {0,14};
+
+
 void build_horizontal_wall(uint8_t x, uint8_t y, uint8_t length)
 {
     uint8_t i;
@@ -199,22 +225,30 @@ void build_vertical_wall(uint8_t x, uint8_t y, uint8_t length)
 
 void build_level(uint8_t level)
 {
-    switch(level)
+    uint16_t index = level_walls_index[level-1];
+
+    uint16_t i;
+    uint16_t max;
+    
+    // printf("level: %u\n", level);
+    
+    // printf("horizontal index: %u\n", index);
+
+    max = level_walls[index]; // Number of horizontal walls
+    // printf("Number of horizontal walls: %u\n", max);
+    for(i=0;i<3*max;i+=3)
     {
-        case 1:
-            build_horizontal_wall(XSize/3,YSize/3,XSize/3);
-            build_horizontal_wall(XSize/3,2*YSize/3,XSize/3);
-            build_vertical_wall(XSize/5,1,YSize/4);
-            build_vertical_wall(4*XSize/5,3*YSize/4,YSize/4);
-        break;
-        
-        case 2:
-            build_horizontal_wall(XSize/5,YSize/5,3*XSize/5);
-            build_horizontal_wall(XSize/5,2*YSize/5,3*XSize/5);
-            build_horizontal_wall(XSize/5,3*YSize/5,3*XSize/5);
-            build_horizontal_wall(XSize/5,4*YSize/5,3*XSize/5);
-            build_vertical_wall(XSize/2,YSize/8,7*YSize/8);
-        break;
+        // printf("\n%u %u %u\n", level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
+        build_horizontal_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
+    }
+    index = index+max*3+1;
+    // printf("vertical index: %u\n", index);
+    max = level_walls[index]; // Number of vertical walls
+    // printf("Number of vertical walls: %u\n", max);
+    for(i=0;i<3*max;i+=3)
+    {
+        // printf("%u %u %u\n", level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
+        build_vertical_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
     }
 }
 
@@ -252,7 +286,7 @@ int main(void)
         points = 0;
         apple_count = INIT_APPLE_COUNT;
         lives = INIT_LIVES;
-        level = 1;
+        level = INITIAL_LEVEL;
 
         while(lives)
         {

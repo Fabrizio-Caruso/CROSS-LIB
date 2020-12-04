@@ -16,6 +16,8 @@
 #define hits_wall(x,y) \
     ((x)<1 || ((x)>=XSize-1) || (y)<1 || ((y)>=YSize-1))
 
+#define hits_snake(x,y) \
+    (map[x][y]==SNAKE)
 
 uint8_t move_snake(void);
 

@@ -20,6 +20,7 @@ Image SCORE_TEXT_RIGHT_IMAGE;
 Image HI_TEXT_IMAGE;
 Image LV_TEXT_IMAGE;
 
+Image APPLE_IMAGE;
 
 void INIT_IMAGES(void)
 {
@@ -41,7 +42,8 @@ void INIT_IMAGES(void)
         
         HI_TEXT_IMAGE._color = COLOR_RED;;
         LV_TEXT_IMAGE._color = COLOR_GREEN;
-    
+        
+        APPLE_IMAGE._color = COLOR_RED;
 	#endif	
 
 	// Set Image Data
@@ -49,6 +51,7 @@ void INIT_IMAGES(void)
     HORIZONTAL_HEAD_IMAGE._imageData = _TILE_1;
 
     BODY_IMAGE._imageData = _TILE_4;
+    APPLE_IMAGE._imageData = _TILE_5;
 
     EXTRA_POINTS_IMAGE._imageData = _DOLLAR_TILE;
 

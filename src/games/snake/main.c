@@ -58,6 +58,8 @@ extern Image SCORE_TEXT_RIGHT_IMAGE;
 extern Image HI_TEXT_IMAGE;
 extern Image LV_TEXT_IMAGE;
 
+extern Image APPLE_IMAGE;
+
 extern SnakeBody snake[MAX_SNAKE_LENGTH];
 
 extern uint8_t snake_length;
@@ -84,16 +86,19 @@ static uint8_t lives;
 
 static uint16_t record;
 
+static uint8_t apple_count;
+
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
-#define SPEED_INCREASE_THRESHOLD 10
-
-#define hits_snake(x,y) \
-    (map[x][y]==SNAKE)
+#define SPEED_INCREASE_THRESHOLD 15
 
 #define hits_bonus(x,y) \
     (map[x][y]==BONUS)
+
+#define hits_apple(x,y) \
+    (map[x][y]==APPLE)
+
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
     if(slow_down>SLOW_DOWN/40) \
@@ -110,6 +115,9 @@ static uint16_t record;
 
 #define INIT_LIVES 3
 #define BONUS_POINTS 10
+#define APPLE_POINTS 20
+
+#define INIT_APPLE_COUNT 40
 
 void PRESS_KEY(void)
 {
@@ -118,7 +126,7 @@ void PRESS_KEY(void)
     WAIT_PRESS();
 }
 
-void spawn_bonus(void)
+void spawn(uint8_t item, Image *image_ptr)
 {
     uint8_t x;
     uint8_t y;
@@ -134,15 +142,22 @@ void spawn_bonus(void)
             break;
         }
     }
-    map[x][y]=BONUS;
+    map[x][y]=item;
     
-    _XLIB_DRAW(x,y,&EXTRA_POINTS_IMAGE);
+    _XLIB_DRAW(x,y,image_ptr);
 }
+
 
 void DISPLAY_POINTS(void)
 {
     SET_TEXT_COLOR(COLOR_WHITE);
     PRINTD(2,0,5,points);
+}
+
+void DISPLAY_APPLE_COUNT(void)
+{
+    SET_TEXT_COLOR(COLOR_WHITE);
+    PRINTD(9,0,2,apple_count);
 }
 
 
@@ -176,7 +191,7 @@ int main(void)
         }
         
         points = 0;
-
+        apple_count = INIT_APPLE_COUNT;
         lives = INIT_LIVES;
 
         while(lives)
@@ -189,12 +204,13 @@ int main(void)
             _XLIB_DRAW(0,0,&SCORE_TEXT_LEFT_IMAGE);
             _XLIB_DRAW(1,0,&SCORE_TEXT_RIGHT_IMAGE);
             _XLIB_DRAW(XSize-10,0,&HI_TEXT_IMAGE);
+            _XLIB_DRAW(8,0,&APPLE_IMAGE);
             
             SET_TEXT_COLOR(COLOR_WHITE);
             
             PRINTD(XSize-2,0,2,lives);
             
-
+            DISPLAY_APPLE_COUNT();
 
             DISPLAY_POINTS();
             
@@ -207,7 +223,7 @@ int main(void)
             slow_down = SLOW_DOWN;
             
             init_snake();
-            spawn_bonus();
+            spawn(APPLE, &APPLE_IMAGE);
             
             
             WAIT_PRESS();
@@ -222,7 +238,14 @@ int main(void)
                         speed_increase_counter = 0;
                         if(!(RAND()&3))
                         {
-                            spawn_bonus();
+                            if(!(RAND()&7))
+                            {
+                                spawn(BONUS, &EXTRA_POINTS_IMAGE);
+                            }
+                            else
+                            {
+                                spawn(APPLE, &APPLE_IMAGE);
+                            }
                         }
                         ++points;
                         IF_POSSIBLE_INCREASE_SPEED();
@@ -241,6 +264,17 @@ int main(void)
                         snake_head_y = snake[snake_head].y;
                         
                         points+=BONUS_POINTS;
+                        ZAP_SOUND();
+                    }
+                    if(hits_apple(snake_head_x,snake_head_y))
+                    {
+                        snake_grows();
+                        snake_head_x = snake[snake_head].x;
+                        snake_head_y = snake[snake_head].y;
+                        
+                        --apple_count;
+                        DISPLAY_APPLE_COUNT();
+                        points+=APPLE_POINTS;
                         ZAP_SOUND();
                         IF_POSSIBLE_DECREASE_SPEED();
                     }

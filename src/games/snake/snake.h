@@ -11,6 +11,7 @@
 #define EMPTY 0
 #define SNAKE 1
 #define BONUS 2
+#define APPLE 3
 
 struct SnakeBodyStruct
 {

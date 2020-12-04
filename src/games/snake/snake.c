@@ -110,7 +110,7 @@ void snake_grows(void)
         break;
     }
     
-    if(!hits_wall(x,y))
+    if(!hits_wall(x,y) && !hits_snake(x,y))
     {
         
         snake_copy[0].x = x;

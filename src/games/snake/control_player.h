@@ -8,14 +8,14 @@
 
 
 #if defined(JOYSTICK_CONTROL)
-    void movePlayerByJoystick(uint8_t joyInput);
+    uint8_t movePlayerByJoystick(uint8_t joyInput);
 #else
-    void movePlayerByKeyboard(uint8_t kbInput);
+    uint8_t movePlayerByKeyboard(uint8_t kbInput);
 #endif
 
     
 
-void MOVE_PLAYER(void);
+uint8_t MOVE_PLAYER(void);
 
 
 #endif // _CONTROL_PLAYER

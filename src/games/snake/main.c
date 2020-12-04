@@ -98,7 +98,7 @@ static uint16_t slow_down;
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
-#define GROWTH_THRESHOLD 20
+#define SPEED_INCREASE_THRESHOLD 20
 
 #define hits_snake(x,y) \
     (map[x][y]==SNAKE)
@@ -107,16 +107,17 @@ static uint16_t slow_down;
     (map[x][y]==BONUS)
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
+    if(slow_down>SLOW_DOWN/25) \
+    { \
+        slow_down -= SLOW_DOWN/25; \
+    }
+
+#define IF_POSSIBLE_DECREASE_SPEED() \
     if(slow_down<SLOW_DOWN) \
     { \
         slow_down += SLOW_DOWN/5; \
     }
 
-#define IF_POSSIBLE_DECREASE_SPEED() \
-    if(slow_down>SLOW_DOWN/20) \
-    { \
-        slow_down -= SLOW_DOWN/20; \
-    }
 
 #define BONUS_POINTS 10
 
@@ -180,43 +181,45 @@ int main(void)
         WAIT_PRESS();
         while(1)
         {
-            MOVE_PLAYER();
-            DO_SLOW_DOWN(slow_down);
-            if(speed_increase_counter==GROWTH_THRESHOLD && snake_length<MAX_SNAKE_LENGTH)
+            if(MOVE_PLAYER())
             {
-                speed_increase_counter = 0;
-                if(RAND()&1)
+                DO_SLOW_DOWN(slow_down);
+                ++speed_increase_counter;
+                if(speed_increase_counter==SPEED_INCREASE_THRESHOLD && snake_length<MAX_SNAKE_LENGTH)
                 {
-                    spawn_bonus();
+                    speed_increase_counter = 0;
+                    if(RAND()&3)
+                    {
+                        spawn_bonus();
+                    }
+                    TICK_SOUND();
+                    ++points;
+                    IF_POSSIBLE_INCREASE_SPEED();
                 }
-                TICK_SOUND();
-                ++points;
-                IF_POSSIBLE_INCREASE_SPEED();
-            }
-            
-            snake_head_x = snake[snake_head].x;
-            snake_head_y = snake[snake_head].y;
-            
-            ++speed_increase_counter;
-
-            SET_TEXT_COLOR(COLOR_WHITE);
-            PRINTD(0,0,5,points);
-            
-            if(hits_bonus(snake_head_x,snake_head_y))
-            {
-                snake_grows();
+                
                 snake_head_x = snake[snake_head].x;
                 snake_head_y = snake[snake_head].y;
                 
-                points+=BONUS_POINTS;
-                ZAP_SOUND();
-                IF_POSSIBLE_DECREASE_SPEED();
-            }
-            
-            // if(hits_snake(snake_head_x,snake_head_y) || hits_wall(snake_head_x,snake_head_y))
-            if(hits_snake(snake_head_x,snake_head_y))
-            {
-                break;
+                
+                SET_TEXT_COLOR(COLOR_WHITE);
+                PRINTD(0,0,5,points);
+                
+                if(hits_bonus(snake_head_x,snake_head_y))
+                {
+                    snake_grows();
+                    snake_head_x = snake[snake_head].x;
+                    snake_head_y = snake[snake_head].y;
+                    
+                    points+=BONUS_POINTS;
+                    ZAP_SOUND();
+                    IF_POSSIBLE_DECREASE_SPEED();
+                }
+                
+                // if(hits_snake(snake_head_x,snake_head_y) || hits_wall(snake_head_x,snake_head_y))
+                if(hits_snake(snake_head_x,snake_head_y))
+                {
+                    break;
+                }
             }
         }
         EXPLOSION_SOUND();

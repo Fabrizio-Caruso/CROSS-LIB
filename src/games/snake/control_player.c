@@ -19,7 +19,7 @@ extern uint8_t snake_direction;
 
 
 #if defined(JOYSTICK_CONTROL)
-    void movePlayerByJoystick(uint8_t joyInput)
+    uint8_t movePlayerByJoystick(uint8_t joyInput)
     {
         if(JOY_LEFT(joyInput) && (snake_direction != SNAKE_RIGHT))
         {
@@ -37,10 +37,10 @@ extern uint8_t snake_direction;
         {
             snake_direction = SNAKE_DOWN;
         }
-        move_snake();
+        return move_snake();
     }
 #else
-    void movePlayerByKeyboard(uint8_t kbInput)
+    uint8_t movePlayerByKeyboard(uint8_t kbInput)
     {
         #if defined(ALT_MOVE)
             delete_ship();
@@ -63,31 +63,31 @@ extern uint8_t snake_direction;
             snake_direction = SNAKE_DOWN;
         }
 
-        move_snake();
+        return move_snake();
 
     }
 #endif
 
     
 #if defined(NO_INPUT)
-    void MOVE_PLAYER(void) {}
+    uint8_t MOVE_PLAYER(void) {}
 #elif defined(KEYBOARD_CONTROL)
-    void MOVE_PLAYER(void) 
+    uint8_t MOVE_PLAYER(void) 
     { 
         #if defined(ALT_MOVE)
             if(kbhit())
             {
         #endif
-                movePlayerByKeyboard(GET_CHAR()); 
+                return movePlayerByKeyboard(GET_CHAR()); 
         #if defined(ALT_MOVE)
             }
         #endif
     }
 #else
     
-    void MOVE_PLAYER(void)
+    uint8_t MOVE_PLAYER(void)
     { 
-        movePlayerByJoystick(JOY_INPUT()); 
+        return movePlayerByJoystick(JOY_INPUT()); 
     }
 #endif
 

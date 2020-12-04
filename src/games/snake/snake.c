@@ -85,54 +85,63 @@ void init_snake(void)
 void snake_grows(void)
 {
     uint8_t i;
+    uint8_t x;
+    uint8_t y;
     
-    
-    // Copy snake body starting at index 1
-    for(i=0;i<snake_length;++i)
-    {
-        snake_copy[i+1].x=snake[(i+snake_head)%snake_length].x;
-        snake_copy[i+1].y=snake[(i+snake_head)%snake_length].y;
-    }
     
     // Generate head at index 0
     switch(snake_direction)
     {
         case SNAKE_RIGHT:
-            snake_copy[0].x = snake[snake_head].x+1;
-            snake_copy[0].y = snake[snake_head].y;
+            x = snake[snake_head].x+1;
+            y = snake[snake_head].y;
         break;
         case SNAKE_LEFT:
-            snake_copy[0].x = snake[snake_head].x-1;
-            snake_copy[0].y = snake[snake_head].y;
+            x = snake[snake_head].x-1;
+            y = snake[snake_head].y;
         break;
         case SNAKE_UP:
-            snake_copy[0].x = snake[snake_head].x;
-            snake_copy[0].y = snake[snake_head].y-1;
+            x = snake[snake_head].x;
+            y = snake[snake_head].y-1;
         break;
         case SNAKE_DOWN:
-            snake_copy[0].x = snake[snake_head].x;
-            snake_copy[0].y = snake[snake_head].y+1;
+            x = snake[snake_head].x;
+            y = snake[snake_head].y+1;
         break;
     }
     
-    // New head is at index 0
-    snake_head = 0;
-    
-    // New length = old length + 1
-    ++snake_length;
-    
-    // Copy the new snake into snake array
-    for(i=0;i<snake_length;++i)
+    if(!hits_wall(x,y))
     {
-        snake[i].x = snake_copy[i].x;
-        snake[i].y = snake_copy[i].y;
         
-        if(i)
+        snake_copy[0].x = x;
+        snake_copy[0].y = y;
+    
+        // Copy snake body starting at index 1
+        for(i=0;i<snake_length;++i)
         {
-            draw_body_part(i);
+            snake_copy[i+1].x=snake[(i+snake_head)%snake_length].x;
+            snake_copy[i+1].y=snake[(i+snake_head)%snake_length].y;
         }
+        
+        // New head is at index 0
+        snake_head = 0;
+        
+        // New length = old length + 1
+        ++snake_length;
+        
+        // Copy the new snake into snake array
+        for(i=0;i<snake_length;++i)
+        {
+            snake[i].x = snake_copy[i].x;
+            snake[i].y = snake_copy[i].y;
+            
+            if(i)
+            {
+                draw_body_part(i);
+            }
+        }
+        draw_head();
     }
-    draw_head();
 }
 
 

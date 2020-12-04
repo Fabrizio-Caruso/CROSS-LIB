@@ -17,7 +17,7 @@
     ((x)<1 || ((x)>=XSize-1) || (y)<1 || ((y)>=YSize-1))
 
 
-void move_snake(void);
+uint8_t move_snake(void);
 
 #endif // _MOVE_SNAKE_H
 

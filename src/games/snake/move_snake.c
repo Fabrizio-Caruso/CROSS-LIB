@@ -17,7 +17,9 @@ extern Image HORIZONTAL_HEAD_IMAGE;
 
 extern uint8_t snake_direction;
 
-void move_snake(void)
+extern uint8_t map[XSize][YSize];
+
+uint8_t move_snake(void)
 {
     uint8_t tail = (snake_head+snake_length-1)%snake_length;
     uint8_t x;
@@ -43,7 +45,7 @@ void move_snake(void)
             y = snake[snake_head].y+1;
         break;
     }
-    if(!hits_wall(x,y))
+    if(!hits_wall(x,y)) // can move
     {
         delete_body_part(tail);
         snake[tail].x = x;
@@ -63,8 +65,13 @@ void move_snake(void)
         snake_head = tail; // new head uses tail index
         
         draw_head(); // draw new head
+        return 1;
     }
-    
+    else
+    {
+        map[snake[snake_head].x][snake[snake_head].y]=EMPTY;
+        return 0;
+    }
 
 }
 

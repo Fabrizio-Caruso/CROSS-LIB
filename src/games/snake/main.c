@@ -136,6 +136,7 @@ void spawn_bonus(void)
     uint8_t x;
     uint8_t y;
     
+    TICK_SOUND();
     while(1)
     {
         x = RAND()%XSize;
@@ -149,6 +150,12 @@ void spawn_bonus(void)
     map[x][y]=BONUS;
     
     _XLIB_DRAW(x,y,&EXTRA_POINTS_IMAGE);
+}
+
+void DISPLAY_POINTS(void)
+{
+    SET_TEXT_COLOR(COLOR_WHITE);
+    PRINTD(0,0,5,points);
 }
 
 
@@ -183,6 +190,8 @@ int main(void)
             CLEAR_SCREEN();
             DRAW_BORDERS();
 
+            DISPLAY_POINTS();
+
             _XLIB_DRAW(XSize-3,0,&VERTICAL_HEAD_IMAGE);
             SET_TEXT_COLOR(COLOR_WHITE);
             PRINTD(XSize-2,0,2,lives);
@@ -193,6 +202,8 @@ int main(void)
             slow_down = SLOW_DOWN;
             
             init_snake();
+            spawn_bonus();
+            
             
             WAIT_PRESS();
             while(1)
@@ -206,7 +217,6 @@ int main(void)
                         speed_increase_counter = 0;
                         if(!(RAND()&3))
                         {
-                            TICK_SOUND();
                             spawn_bonus();
                         }
                         ++points;
@@ -217,8 +227,7 @@ int main(void)
                     snake_head_y = snake[snake_head].y;
                     
                     
-                    SET_TEXT_COLOR(COLOR_WHITE);
-                    PRINTD(0,0,5,points);
+                    DISPLAY_POINTS();
                     
                     if(hits_bonus(snake_head_x,snake_head_y))
                     {

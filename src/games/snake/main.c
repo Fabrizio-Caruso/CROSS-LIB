@@ -48,30 +48,15 @@
 
 extern Image VERTICAL_HEAD_IMAGE;  
 extern Image HORIZONTAL_HEAD_IMAGE; 
-extern Image RIGHT_HEAD_IMAGE; 
-extern Image LEFT_HEAD_IMAGE; 	
-
 
 extern Image BODY_IMAGE; 
-extern Image BOTTOM_TAIL_IMAGE; 
-
-extern Image HORIZONTAL_JOINT_IMAGE; 
 
 extern Image EXTRA_POINTS_IMAGE; 
 
-extern Image LEFT_TAIL_IMAGE; 
-
-extern Image RIGHT_TAIL_IMAGE; 
-
-extern Image VERTICAL_JOINT_IMAGE; 
-
-extern Image TOP_HEAD_IMAGE; 
-extern Image TOP_HEAD_JOINT_IMAGE; 
-extern Image BOTTOM_HEAD_JOINT_IMAGE; 
-extern Image LEFT_HEAD_JOINT_IMAGE; 
-extern Image RIGHT_HEAD_JOINT_IMAGE; 
-extern Image TOP_TAIL_IMAGE; 
-
+extern Image SCORE_TEXT_LEFT_IMAGE;
+extern Image SCORE_TEXT_RIGHT_IMAGE;
+extern Image HI_TEXT_IMAGE;
+extern Image LV_TEXT_IMAGE;
 
 extern SnakeBody snake[MAX_SNAKE_LENGTH];
 
@@ -96,6 +81,8 @@ static uint8_t speed_increase_counter;
 static uint16_t slow_down;
 
 static uint8_t lives;
+
+static uint16_t record;
 
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
@@ -155,7 +142,7 @@ void spawn_bonus(void)
 void DISPLAY_POINTS(void)
 {
     SET_TEXT_COLOR(COLOR_WHITE);
-    PRINTD(0,0,5,points);
+    PRINTD(2,0,5,points);
 }
 
 
@@ -169,6 +156,8 @@ int main(void)
     
     INIT_IMAGES();
 
+    record = 0;
+
     while(1)
     {
         CLEAR_SCREEN();
@@ -181,6 +170,11 @@ int main(void)
 
         PRESS_KEY();
         
+        if(points>record)
+        {
+            record = points;
+        }
+        
         points = 0;
 
         lives = INIT_LIVES;
@@ -189,12 +183,23 @@ int main(void)
         {
             CLEAR_SCREEN();
             DRAW_BORDERS();
+            
+            _XLIB_DRAW(XSize-3,0,&VERTICAL_HEAD_IMAGE);
+            
+            _XLIB_DRAW(0,0,&SCORE_TEXT_LEFT_IMAGE);
+            _XLIB_DRAW(1,0,&SCORE_TEXT_RIGHT_IMAGE);
+            _XLIB_DRAW(XSize-10,0,&HI_TEXT_IMAGE);
+            
+            SET_TEXT_COLOR(COLOR_WHITE);
+            
+            PRINTD(XSize-2,0,2,lives);
+            
+
 
             DISPLAY_POINTS();
-
-            _XLIB_DRAW(XSize-3,0,&VERTICAL_HEAD_IMAGE);
-            SET_TEXT_COLOR(COLOR_WHITE);
-            PRINTD(XSize-2,0,2,lives);
+            
+            PRINTD(XSize-9,0,5,record);
+            
             init_map();
             
             speed_increase_counter = 0;

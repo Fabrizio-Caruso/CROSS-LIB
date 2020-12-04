@@ -15,6 +15,12 @@ Image EXTRA_POINTS_IMAGE;
 Image HORIZONTAL_BRICK_IMAGE;
 Image VERTICAL_BRICK_IMAGE;
 
+Image SCORE_TEXT_LEFT_IMAGE;
+Image SCORE_TEXT_RIGHT_IMAGE;
+Image HI_TEXT_IMAGE;
+Image LV_TEXT_IMAGE;
+
+
 void INIT_IMAGES(void)
 {
 	// Set color data 
@@ -29,7 +35,12 @@ void INIT_IMAGES(void)
         
         VERTICAL_BRICK_IMAGE._color = _WALL_COLOR;
         HORIZONTAL_BRICK_IMAGE._color = _WALL_COLOR;
-    
+        
+        SCORE_TEXT_LEFT_IMAGE._color = COLOR_CYAN;
+        SCORE_TEXT_RIGHT_IMAGE._color = COLOR_CYAN;
+        
+        HI_TEXT_IMAGE._color = COLOR_RED;;
+        LV_TEXT_IMAGE._color = COLOR_GREEN;
     
 	#endif	
 
@@ -44,7 +55,10 @@ void INIT_IMAGES(void)
     VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
     HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
 
-    
+    SCORE_TEXT_LEFT_IMAGE._imageData = _TILE_14;
+    SCORE_TEXT_RIGHT_IMAGE._imageData = _TILE_16;
+    HI_TEXT_IMAGE._imageData = _TILE_6;;
+    LV_TEXT_IMAGE._imageData = _TILE_9;
 }
 
 

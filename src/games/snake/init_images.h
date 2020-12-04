@@ -3,6 +3,8 @@
 
 #if !defined(NO_COLOR)
     #define _SNAKE_COLOR COLOR_GREEN
+    
+    #define _WALL_COLOR COLOR_YELLOW
 #endif
 
 

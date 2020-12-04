@@ -25,10 +25,10 @@ void INIT_IMAGES(void)
 
         BODY_IMAGE._color = _SNAKE_COLOR;
 
-        EXTRA_POINTS_IMAGE._color = _SNAKE_COLOR;
+        EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
         
-        VERTICAL_BRICK_IMAGE._color = _SNAKE_COLOR;
-        HORIZONTAL_BRICK_IMAGE._color = _SNAKE_COLOR;
+        VERTICAL_BRICK_IMAGE._color = _WALL_COLOR;
+        HORIZONTAL_BRICK_IMAGE._color = _WALL_COLOR;
     
     
 	#endif	

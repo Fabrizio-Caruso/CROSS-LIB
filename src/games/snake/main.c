@@ -89,11 +89,14 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 static uint8_t snake_head_x;
 static uint8_t snake_head_y;
 
-static uint8_t points;
+static uint16_t points;
 
+static uint8_t snake_growth_counter;
 
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
+
+#define GROWTH_THRESHOLD 20
 
 #define snake_hits_wall(snake_head_x,snake_head_y) \
     (snake_head_x)<1 || (snake_head_x)>=XSize-1 || (snake_head_y)<1 || (snake_head_y)>=YSize-1
@@ -132,6 +135,7 @@ int main(void)
         init_map();
         
         points = 0;
+        snake_growth_counter = 0;
         
         init_snake();
         
@@ -140,20 +144,20 @@ int main(void)
         {
             MOVE_PLAYER();
             DO_SLOW_DOWN(SLOW_DOWN);
-            if(points==10 && snake_length<MAX_SNAKE_LENGTH)
+            if(snake_growth_counter==GROWTH_THRESHOLD && snake_length<MAX_SNAKE_LENGTH)
             {
                 snake_grows(); 
-                points = 0;
+                snake_growth_counter = 0;
             }
             
             snake_head_x = snake[snake_head].x;
             snake_head_y = snake[snake_head].y;
             
             ++points;
-            
+            ++snake_growth_counter;
 
-            PRINTD(0,0,3,map[snake_head_x][snake_head_y]);
-            PRINTD(0,1,3,snake_head);
+            SET_TEXT_COLOR(COLOR_WHITE);
+            PRINTD(0,0,5,points);
             // SLEEP(1);
             if(snake_hits_itself(snake_head_x,snake_head_y) || snake_hits_wall(snake_head_x,snake_head_y))
             {

@@ -162,6 +162,50 @@ void DISPLAY_APPLE_COUNT(void)
     PRINTD(9,0,2,apple_count);
 }
 
+void build_horizontal_wall(uint8_t x, uint8_t y, uint8_t length)
+{
+    uint8_t i;
+    
+    for(i=0;i<length;++i)
+    {
+        map[x+i][y]=WALL;
+    }
+    DRAW_HORIZONTAL_LINE(x,y,length);
+}
+
+void build_vertical_wall(uint8_t x, uint8_t y, uint8_t length)
+{
+    uint8_t i;
+    
+    for(i=0;i<length;++i)
+    {
+        map[x][y+i]=WALL;
+    }
+    DRAW_VERTICAL_LINE(x,y,length);
+}
+
+
+void build_level(uint8_t level)
+{
+    switch(level)
+    {
+        case 1:
+            build_horizontal_wall(XSize/3,YSize/3,XSize/3);
+            build_horizontal_wall(XSize/3,2*YSize/3,XSize/3);
+            build_vertical_wall(XSize/5,1,YSize/4);
+            build_vertical_wall(4*XSize/5,3*YSize/4,YSize/4);
+        break;
+        
+        case 2:
+            build_horizontal_wall(XSize/5,YSize/5,3*XSize/5);
+            build_horizontal_wall(XSize/5,2*YSize/5,3*XSize/5);
+            build_horizontal_wall(XSize/5,3*YSize/5,3*XSize/5);
+            build_horizontal_wall(XSize/5,4*YSize/5,3*XSize/5);
+            build_vertical_wall(XSize/2,YSize/8,7*YSize/8);
+        break;
+    }
+}
+
 
 int main(void)
 {        
@@ -228,6 +272,10 @@ int main(void)
             slow_down = SLOW_DOWN;
             
             init_snake();
+            
+            build_level(level);
+            
+            spawn(APPLE, &APPLE_IMAGE);
             spawn(APPLE, &APPLE_IMAGE);
             
             WAIT_PRESS();

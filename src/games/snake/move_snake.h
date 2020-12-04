@@ -14,7 +14,7 @@
 #define VERTICAL(movement) ((movement)<SNAKE_LEFT)
 
 #define hits_wall(x,y) \
-    ((x)<1 || ((x)>=XSize-1) || (y)<1 || ((y)>=YSize-1))
+    ((x)<1 || ((x)>=XSize-1) || (y)<1 || ((y)>=YSize-1) || (map[x][y]==WALL))
 
 #define hits_snake(x,y) \
     (map[x][y]==SNAKE)

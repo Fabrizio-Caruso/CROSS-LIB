@@ -12,6 +12,7 @@
 #define SNAKE 1
 #define BONUS 2
 #define APPLE 3
+#define WALL  4
 
 struct SnakeBodyStruct
 {

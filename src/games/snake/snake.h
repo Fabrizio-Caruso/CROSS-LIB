@@ -5,7 +5,7 @@
 #include "cross_lib.h"
 
 
-#define INIT_SNAKE_LENGTH 4
+#define INITIAL_SNAKE_LENGTH 3
 #define MAX_SNAKE_LENGTH 240
 
 #define EMPTY 0

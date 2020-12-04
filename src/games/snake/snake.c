@@ -20,7 +20,7 @@ extern Image BODY_IMAGE;
 extern Image HORIZONTAL_HEAD_IMAGE;
 extern Image VERTICAL_HEAD_IMAGE;
 
-#define SNAKE_OFFSET 5
+#define SNAKE_OFFSET 2
 
 void draw_head(void)
 {
@@ -60,7 +60,7 @@ void init_snake(void)
 
     uint8_t i;
     
-    snake_length = INIT_SNAKE_LENGTH;
+    snake_length = INITIAL_SNAKE_LENGTH;
     snake_head = 0;
     
     for(i=0;i<snake_length;++i)

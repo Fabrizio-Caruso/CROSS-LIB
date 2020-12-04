@@ -109,6 +109,18 @@ static uint16_t slow_down;
 #define hits_bonus(x,y) \
     (map[x][y]==BONUS)
 
+#define IF_POSSIBLE_INCREASE_SPEED() \
+    if(slow_down<SLOW_DOWN) \
+    { \
+        slow_down += SLOW_DOWN/5; \
+    }
+
+#define IF_POSSIBLE_DECREASE_SPEED() \
+    if(slow_down>SLOW_DOWN/20) \
+    { \
+        slow_down -= SLOW_DOWN/20; \
+    }
+
 #define BONUS_POINTS 10
 
 void PRESS_KEY(void)
@@ -183,10 +195,7 @@ int main(void)
                 }
                 TICK_SOUND();
                 ++points;
-                if(slow_down>SLOW_DOWN/20)
-                {
-                    slow_down -= SLOW_DOWN/20;
-                }
+                IF_POSSIBLE_INCREASE_SPEED();
             }
             
             snake_head_x = snake[snake_head].x;
@@ -205,10 +214,7 @@ int main(void)
                 
                 points+=BONUS_POINTS;
                 ZAP_SOUND();
-                if(slow_down<SLOW_DOWN)
-                {
-                    slow_down += SLOW_DOWN/5;
-                }
+                IF_POSSIBLE_DECREASE_SPEED();
             }
             
             if(hits_snake(snake_head_x,snake_head_y) || hits_wall(snake_head_x,snake_head_y))

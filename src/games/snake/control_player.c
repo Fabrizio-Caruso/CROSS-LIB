@@ -37,21 +37,24 @@ uint8_t _MOVE_PLAYER(uint8_t control_input)
     #endif
     if(LEFT_CONTROL() && (snake_direction != SNAKE_RIGHT))
     {
-        snake_direction = SNAKE_LEFT;
+        return move_snake(SNAKE_LEFT);
     }
     else if(RIGHT_CONTROL() && (snake_direction != SNAKE_LEFT))
     {
-        snake_direction = SNAKE_RIGHT;
+        return move_snake(SNAKE_RIGHT);
     }
     else if(UP_CONTROL() && (snake_direction != SNAKE_DOWN))
     {
-        snake_direction = SNAKE_UP;
+        return move_snake(SNAKE_UP);
     }
     else if(DOWN_CONTROL() && (snake_direction != SNAKE_UP))
     {
-        snake_direction = SNAKE_DOWN;
+        return move_snake(SNAKE_DOWN);
     }
-    return move_snake();
+    else
+    {
+        return move_snake(snake_direction);
+    }
 }
 
 

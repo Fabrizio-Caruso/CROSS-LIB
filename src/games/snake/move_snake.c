@@ -19,14 +19,14 @@ extern uint8_t snake_direction;
 
 extern uint8_t map[XSize][YSize];
 
-uint8_t move_snake(void)
+uint8_t move_snake(uint8_t wished_direction)
 {
     uint8_t tail = (snake_head+snake_length-1)%snake_length;
     uint8_t x;
     uint8_t y;
     
     
-    switch(snake_direction)
+    switch(wished_direction)
     {
         case SNAKE_RIGHT:
             x = snake[snake_head].x+1;
@@ -47,6 +47,7 @@ uint8_t move_snake(void)
     }
     if(!hits_wall(x,y)) // can move
     {
+        snake_direction = wished_direction;
         delete_body_part(tail);
         snake[tail].x = x;
         snake[tail].y = y;

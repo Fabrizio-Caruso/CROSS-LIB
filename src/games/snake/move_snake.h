@@ -19,7 +19,7 @@
 #define hits_snake(x,y) \
     (map[x][y]==SNAKE)
 
-uint8_t move_snake(void);
+uint8_t move_snake(uint8_t wished_direction);
 
 #endif // _MOVE_SNAKE_H
 

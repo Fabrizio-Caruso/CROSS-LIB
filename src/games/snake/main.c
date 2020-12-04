@@ -90,6 +90,8 @@ static uint8_t apple_count;
 
 static uint8_t level;
 
+static uint8_t energy;
+
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
@@ -103,15 +105,21 @@ static uint8_t level;
 
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
-    if(slow_down>SLOW_DOWN/40) \
+    if(slow_down>SLOW_DOWN/50) \
     { \
-        slow_down -= SLOW_DOWN/40; \
+        slow_down -= SLOW_DOWN/50; \
+    } \
+    else \
+    { \
+       --energy; \
+       SET_TEXT_COLOR(COLOR_RED); \
+       PRINTD(XSize/2-1,YSize-1,2,energy); \
     }
 
 #define IF_POSSIBLE_DECREASE_SPEED() \
     if(slow_down<SLOW_DOWN) \
     { \
-        slow_down += SLOW_DOWN/8; \
+        slow_down += SLOW_DOWN/6; \
     }
 
 
@@ -120,6 +128,10 @@ static uint8_t level;
 #define APPLE_POINTS 20
 
 #define INIT_APPLE_COUNT 10
+
+#define INIT_APPLES_ON_SCREEN 3
+
+
 
 void PRESS_KEY(void)
 {
@@ -210,7 +222,8 @@ void build_level(uint8_t level)
 int main(void)
 {        
 
-
+    uint8_t i;
+    
     INIT_GRAPHICS();
 
     INIT_INPUT();
@@ -265,6 +278,8 @@ int main(void)
             
             PRINTD(XSize-9,0,5,record);
             
+            energy = 99;
+            PRINTD(XSize/2-1,YSize-1,2,energy);
             init_map();
             
             speed_increase_counter = 0;
@@ -275,8 +290,12 @@ int main(void)
             
             build_level(level);
             
-            spawn(APPLE, &APPLE_IMAGE);
-            spawn(APPLE, &APPLE_IMAGE);
+            for(i=0;i<INIT_APPLES_ON_SCREEN;++i)
+            {
+                spawn(APPLE, &APPLE_IMAGE);
+            }
+            
+            energy = 99;
             
             WAIT_PRESS();
             while(apple_count)
@@ -343,6 +362,13 @@ int main(void)
                         IF_POSSIBLE_INCREASE_SPEED();
                         speed_increase_counter = 0;
                     }
+                }
+                if(!energy)
+                {
+                    SET_TEXT_COLOR(COLOR_RED);
+                    PRINT(COL_OFFSET,YSize/2, _XL_SPACE _XL_N _XL_O _XL_SPACE _XL_E _XL_N _XL_E _XL_R _XL_G _XL_Y _XL_SPACE);
+                    
+                    break;
                 }
             }
             if(apple_count)

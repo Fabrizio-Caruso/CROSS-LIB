@@ -124,13 +124,14 @@ static uint8_t energy;
 
 
 #define INIT_LIVES 3
-#define BONUS_POINTS 10
+#define BONUS_POINTS 30
 #define APPLE_POINTS 20
 
 #define INIT_APPLE_COUNT 10
 
 #define INIT_APPLES_ON_SCREEN 3
 
+#define APPLE_COUNT_INCREASE 5
 
 
 void PRESS_KEY(void)
@@ -174,7 +175,7 @@ void DISPLAY_APPLE_COUNT(void)
     PRINTD(9,0,2,apple_count);
 }
 
-#define INITIAL_LEVEL 4
+#define INITIAL_LEVEL 1
 
 static uint16_t level_walls[] = 
 {
@@ -357,7 +358,7 @@ int main(void)
                     if((speed_increase_counter>SPEED_INCREASE_THRESHOLD) && (snake_length<MAX_SNAKE_LENGTH))
                     {
                         speed_increase_counter = 0;
-                        if(!(RAND()&3))
+                        if(!(RAND()&1))
                         {
                             if(!(RAND()&7))
                             {
@@ -432,7 +433,7 @@ int main(void)
                 SET_TEXT_COLOR(COLOR_RED);
                 PRINT(COL_OFFSET,YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
                 ++level;
-                apple_count=INIT_APPLE_COUNT+level*5;
+                apple_count=INIT_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
                 WAIT_PRESS();
             }
         }

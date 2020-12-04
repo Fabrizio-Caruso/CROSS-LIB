@@ -86,6 +86,7 @@ void snake_grows(void)
 {
     uint8_t i;
     
+    
     // Copy snake body starting at index 1
     for(i=0;i<snake_length;++i)
     {
@@ -99,22 +100,18 @@ void snake_grows(void)
         case SNAKE_RIGHT:
             snake_copy[0].x = snake[snake_head].x+1;
             snake_copy[0].y = snake[snake_head].y;
-            head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
         break;
         case SNAKE_LEFT:
             snake_copy[0].x = snake[snake_head].x-1;
             snake_copy[0].y = snake[snake_head].y;
-            head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
         break;
         case SNAKE_UP:
             snake_copy[0].x = snake[snake_head].x;
             snake_copy[0].y = snake[snake_head].y-1;
-            head_image_ptr = &VERTICAL_HEAD_IMAGE;
         break;
         case SNAKE_DOWN:
             snake_copy[0].x = snake[snake_head].x;
             snake_copy[0].y = snake[snake_head].y+1;
-            head_image_ptr = &VERTICAL_HEAD_IMAGE;
         break;
     }
     

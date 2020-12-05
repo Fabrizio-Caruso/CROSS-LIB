@@ -60,6 +60,8 @@ extern Image LV_TEXT_IMAGE;
 
 extern Image APPLE_IMAGE;
 
+extern Image CENTRAL_BRICK_IMAGE;
+
 extern SnakeBody snake[MAX_SNAKE_LENGTH];
 
 extern uint8_t snake_length;
@@ -98,8 +100,6 @@ static uint8_t bonus_count;
 
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
-
-#define SPEED_INCREASE_THRESHOLD 15
 
 #define hits_bonus(x,y) \
     (map[x][y]==BONUS)
@@ -140,6 +140,8 @@ static uint8_t bonus_count;
 #define MAX_BONUS_COUNT 5
 
 #define BONUS_THRESHOLD 30
+
+#define SPEED_INCREASE_THRESHOLD 20
 
 void PRESS_KEY(void)
 {
@@ -182,6 +184,7 @@ void DISPLAY_REMAINING_APPLES_COUNT(void)
     PRINTD(9,0,2,remaining_apples);
 }
 
+
 #define INITIAL_LEVEL 1
 
 static uint8_t apples_on_screen_count;
@@ -195,12 +198,14 @@ static uint8_t level_walls[] =
     2,  
         XSize/5,             1,     YSize/4,
         4*XSize/5,   3*YSize/4,     YSize/4,
+    0,
 
 // level 2
     0,
     2,
         XSize/3,                      0,    4*YSize/5,
        2*XSize/3,               YSize/5,    4*YSize/5,
+    0,
 
 // level 3
     4,
@@ -211,6 +216,7 @@ static uint8_t level_walls[] =
     2,
         XSize/2,                      1,      YSize/4,
         XSize/2,        YSize-1-YSize/4,      YSize/4,
+    0,
         
 // level 4
     4,
@@ -218,6 +224,7 @@ static uint8_t level_walls[] =
        XSize-1-XSize/2,       2*YSize/5,      XSize/2,
              0,               3*YSize/5,      XSize/2,
        XSize-1-XSize/2,       4*YSize/5,      XSize/2,
+    0,
     0,
 // level 5
     4,
@@ -230,27 +237,29 @@ static uint8_t level_walls[] =
         XSize-1-XSize/4,YSize/4,                      YSize/8,
         XSize/4,     YSize-1-YSize/4-YSize/8,         YSize/8,
         XSize-1-XSize/4,YSize-1-YSize/4-YSize/8,      YSize/8,
+    0,
 // level 6
-    8, 
-        0, 1, XSize/2,
-        0, 2, XSize/2,
-        0, 3, XSize/2,
-        0, 4, XSize/2,
-        
-        XSize-1-XSize/2,YSize-5,XSize/2,
-        XSize-1-XSize/2,YSize-4,XSize/2,
-        XSize-1-XSize/2,YSize-3,XSize/2,
-        XSize-1-XSize/2,YSize-2,XSize/2,
+    0,
     2,
         XSize/3,                      0,    4*YSize/5,
        2*XSize/3,               YSize/5,    4*YSize/5,
+    2,
+        1,1,XSize/8,YSize/8,
+        XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,
 // level 7
     2,
         0, YSize/2, XSize/4,
         XSize-XSize/4, YSize/2,XSize/4,
-    2,
+    4,
         XSize/2, 3, YSize/4,
         XSize/2, YSize-4-YSize/4, YSize/4,
+        XSize/2-1, 3, YSize/4,
+        XSize/2-1, YSize-4-YSize/4, YSize/4,
+    4,
+        1,1,XSize/6,YSize/6,
+        1,YSize-1-YSize/6,XSize/6,YSize/6,
+        XSize-1-XSize/6,YSize-1-YSize/6,XSize/6,YSize/6,
+        XSize-1-XSize/6,1,XSize/6,YSize/6,
 // level 8
     0,
     4, 
@@ -258,9 +267,48 @@ static uint8_t level_walls[] =
         2*XSize/6, 3, YSize-1-6,
         XSize-1-2*XSize/6, 3, YSize-1-6,
         XSize-1-XSize/6, 3, YSize-1-6,
+    0,
+// level 9
+    0,
+    0,
+    4,
+        2,2,XSize/3,YSize/3,
+        2,YSize-2-YSize/3,XSize/3,YSize/3,
+        XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,
+        XSize-2-XSize/3,2,XSize/3,YSize/3,
+// level 10
+    2, 
+        XSize/3,       YSize/3,     XSize/2-1,
+        XSize/3,     2*YSize/3,     XSize/2-1,
+    0,
+    0,
+// level 11
+    2,
+        XSize/4, YSize/2-2,XSize/2,
+        XSize/4, YSize/2+2,XSize/2,
+    0,
+    4,
+        2,2,XSize/3,YSize/3,
+        2,YSize-2-YSize/3,XSize/3,YSize/3,
+        XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,
+        XSize-2-XSize/3,2,XSize/3,YSize/3,
+// level 12
+    1,
+        2,YSize/2-1,XSize-4,
+    0,
+    0,
+// level 13
+    0,
+    4,
+        XSize/5,                      0,    4*YSize/5,
+       2*XSize/5,               YSize/5,    4*YSize/5,
+       3*XSize/5,                      0,    4*YSize/5,
+       4*XSize/5,               YSize/5,    4*YSize/5,
+    0,
 };
 
-static uint8_t level_walls_index[] = {0,14,22,42,56,82,114,128};
+
+static uint8_t level_walls_index[] = {0,15,24,45,60,87,104,141,156,175,184,209,215};
 
 
 void build_horizontal_wall(uint8_t x, uint8_t y, uint8_t length)
@@ -285,34 +333,58 @@ void build_vertical_wall(uint8_t x, uint8_t y, uint8_t length)
     DRAW_VERTICAL_LINE(x,y,length);
 }
 
+void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length)
+{
+    uint8_t i;
+    uint8_t j;
+    
+    for(i=0;i<x_length;++i)
+    {
+        for(j=0;j<y_length;++j)
+        {
+            map[x+i][y+j]=WALL;
+            _XLIB_DRAW(x+i,y+j,&CENTRAL_BRICK_IMAGE);
+        }
+    }
+}
+
 
 void build_level(uint8_t level)
 {
-    uint16_t index = level_walls_index[(level-1)&7];
+    uint16_t index = level_walls_index[(level-1)%NUMBER_OF_LEVELS];
 
     uint16_t i;
-    uint16_t max;
+    uint16_t number_of_elements;
     
     // printf("level: %u\n", level);
     
     // printf("horizontal index: %u\n", index);
 
-    max = level_walls[index]; // Number of horizontal walls
-    // printf("Number of horizontal walls: %u\n", max);
-    for(i=0;i<3*max;i+=3)
+    number_of_elements = level_walls[index]; // Number of horizontal walls
+    // printf("Number of horizontal walls: %u\n", number_of_elements);
+    for(i=0;i<3*number_of_elements;i+=3)
     {
         // printf("\n%u %u %u\n", level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
         build_horizontal_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
     }
-    index = index+max*3+1;
+    index = index+number_of_elements*3+1;
     // printf("vertical index: %u\n", index);
-    max = level_walls[index]; // Number of vertical walls
-    // printf("Number of vertical walls: %u\n", max);
-    for(i=0;i<3*max;i+=3)
+    number_of_elements = level_walls[index]; // Number of vertical walls
+    // printf("Number of vertical walls: %u\n", number_of_elements);
+    for(i=0;i<3*number_of_elements;i+=3)
     {
         // printf("%u %u %u\n", level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
         build_vertical_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
     }
+    
+    index = index+number_of_elements*3+1;
+    
+    number_of_elements = level_walls[index];
+    for(i=0;i<4*number_of_elements;i+=4)
+    {
+        build_box_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i],level_walls[index+4+i]);
+    }
+    
 }
 
 
@@ -407,9 +479,9 @@ int main(void)
                     if((speed_increase_counter>SPEED_INCREASE_THRESHOLD) && (snake_length<MAX_SNAKE_LENGTH))
                     {
                         speed_increase_counter = 0;
-                        if(!(RAND()&1) && (apples_on_screen_count<remaining_apples))
+                        if(!(RAND()&1) && ((!apples_on_screen_count) || (apples_on_screen_count<remaining_apples)))
                         {
-                            if(!(RAND()&7) && (remaining_apples < BONUS_THRESHOLD))
+                            if(!(RAND()&7))
                             {
                                 spawn(BONUS, &EXTRA_POINTS_IMAGE);
                             }

@@ -22,6 +22,8 @@ Image LV_TEXT_IMAGE;
 
 Image APPLE_IMAGE;
 
+Image CENTRAL_BRICK_IMAGE;
+
 void INIT_IMAGES(void)
 {
 	// Set color data 
@@ -36,6 +38,7 @@ void INIT_IMAGES(void)
         
         VERTICAL_BRICK_IMAGE._color = _WALL_COLOR;
         HORIZONTAL_BRICK_IMAGE._color = _WALL_COLOR;
+        CENTRAL_BRICK_IMAGE._color = _WALL_COLOR;
         
         SCORE_TEXT_LEFT_IMAGE._color = COLOR_CYAN;
         SCORE_TEXT_RIGHT_IMAGE._color = COLOR_CYAN;
@@ -57,7 +60,8 @@ void INIT_IMAGES(void)
 
     VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
     HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
-
+    CENTRAL_BRICK_IMAGE._imageData = _TILE_7;
+    
     SCORE_TEXT_LEFT_IMAGE._imageData = _TILE_14;
     SCORE_TEXT_RIGHT_IMAGE._imageData = _TILE_16;
     HI_TEXT_IMAGE._imageData = _TILE_6;;

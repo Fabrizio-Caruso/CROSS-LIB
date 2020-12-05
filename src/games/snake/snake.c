@@ -20,7 +20,7 @@ extern Image BODY_IMAGE;
 extern Image HORIZONTAL_HEAD_IMAGE;
 extern Image VERTICAL_HEAD_IMAGE;
 
-uint8_t initial_snake_length[] = {XSize/2,XSize/4,XSize/2,XSize/2,2*XSize/3,XSize/4,XSize/2-2,XSize/4};
+uint8_t initial_snake_length[] = {XSize/2,XSize/4,XSize/2,XSize/2,2*XSize/3,XSize/4,XSize/2-2,XSize/4,3*XSize/4,XSize-5,XSize-5,XSize-5,3};
 
 
 void draw_head(void)
@@ -55,14 +55,13 @@ void init_map(void)
     }
 }
 
-#define normal_level(level) ((level)!=1)
 
 void init_snake(uint8_t level)
 {
 
     uint8_t i;
     
-    snake_length = initial_snake_length[(level-1)&7];
+    snake_length = initial_snake_length[(level-1)%NUMBER_OF_LEVELS];
     
     snake_head = 0;
     

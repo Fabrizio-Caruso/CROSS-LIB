@@ -14,6 +14,8 @@
 #define APPLE 3
 #define WALL  4
 
+#define NUMBER_OF_LEVELS 13
+
 struct SnakeBodyStruct
 {
     uint8_t x;

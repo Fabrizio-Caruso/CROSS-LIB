@@ -175,7 +175,7 @@ void DISPLAY_APPLE_COUNT(void)
     PRINTD(9,0,2,apple_count);
 }
 
-#define INITIAL_LEVEL 8
+#define INITIAL_LEVEL 1
 
 static uint16_t level_walls[] = 
 {

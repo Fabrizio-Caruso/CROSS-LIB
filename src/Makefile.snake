@@ -227,7 +227,7 @@ c64: $(ASSETS_PATH)/cc65_udc.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
-	rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 
 
 #################################################################

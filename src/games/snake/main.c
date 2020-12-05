@@ -105,9 +105,9 @@ static uint8_t energy;
 
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
-    if(slow_down>SLOW_DOWN/50) \
+    if(slow_down>SLOW_DOWN/40) \
     { \
-        slow_down -= SLOW_DOWN/50; \
+        slow_down -= SLOW_DOWN/40; \
     } \
     else \
     { \
@@ -129,7 +129,7 @@ static uint8_t energy;
 
 #define INIT_APPLE_COUNT 10
 
-#define INIT_APPLES_ON_SCREEN 3
+#define INIT_APPLES_ON_SCREEN 4
 
 #define APPLE_COUNT_INCREASE 5
 
@@ -379,7 +379,7 @@ int main(void)
             
             build_level(level);
             
-            for(i=0;i<INIT_APPLES_ON_SCREEN;++i)
+            for(i=0;i<INIT_APPLES_ON_SCREEN+level/4;++i)
             {
                 spawn(APPLE, &APPLE_IMAGE);
             }

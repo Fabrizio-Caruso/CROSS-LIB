@@ -175,7 +175,7 @@ void DISPLAY_APPLE_COUNT(void)
     PRINTD(9,0,2,apple_count);
 }
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 8
 
 static uint16_t level_walls[] = 
 {
@@ -190,31 +190,69 @@ static uint16_t level_walls[] =
 // level 2
     0,
     2,
-        XSize/3,             0,    4*YSize/5,
-       2*XSize/3,       YSize/5,   4*YSize/5,
+        XSize/3,                      0,    4*YSize/5,
+       2*XSize/3,               YSize/5,    4*YSize/5,
 
 // level 3
     4,
-        0,              YSize/4,     XSize/4,
-       3*XSize/4,       YSize/4,     XSize/4,
-        0,            3*YSize/4,     XSize/4,
-       3*XSize/4,     3*YSize/4,     XSize/4,
+        0,                      YSize/4,      XSize/4,
+       3*XSize/4,               YSize/4,      XSize/4,
+        0,                    3*YSize/4,      XSize/4,
+       3*XSize/4,             3*YSize/4,      XSize/4,
     2,
-        XSize/2,              1,     YSize/4,
-        XSize/2,  YSize-1-YSize/4,   YSize/4,
+        XSize/2,                      1,      YSize/4,
+        XSize/2,        YSize-1-YSize/4,      YSize/4,
         
 // level 4
     4,
-             0,                 YSize/5,     XSize/2,
-       XSize-1-XSize/2,       2*YSize/5,     XSize/2,
-             0,               3*YSize/5,     XSize/2,
-       XSize-1-XSize/2,       4*YSize/5,     XSize/2,
+             0,                 YSize/5,      XSize/2,
+       XSize-1-XSize/2,       2*YSize/5,      XSize/2,
+             0,               3*YSize/5,      XSize/2,
+       XSize-1-XSize/2,       4*YSize/5,      XSize/2,
     0,
+// level 5
+    4,
+        XSize/4,                YSize/4,              XSize/8,
+        XSize/4+XSize/2-XSize/8,        YSize/4,      XSize/8,
+        XSize/4,        YSize-1-YSize/4,              XSize/8,
+        XSize/4+XSize/2-XSize/8,YSize-1-YSize/4,      XSize/8,
+    4,  
+        XSize/4,                YSize/4,              YSize/8,
+        XSize-1-XSize/4,YSize/4,                      YSize/8,
+        XSize/4,     YSize-1-YSize/4-YSize/8,         YSize/8,
+        XSize-1-XSize/4,YSize-1-YSize/4-YSize/8,      YSize/8,
+// level 6
+    8, 
+        0, 1, XSize/2,
+        0, 2, XSize/2,
+        0, 3, XSize/2,
+        0, 4, XSize/2,
+        
+        XSize-1-XSize/2,YSize-5,XSize/2,
+        XSize-1-XSize/2,YSize-4,XSize/2,
+        XSize-1-XSize/2,YSize-3,XSize/2,
+        XSize-1-XSize/2,YSize-2,XSize/2,
+    2,
+        XSize/3,                      0,    4*YSize/5,
+       2*XSize/3,               YSize/5,    4*YSize/5,
+// level 7
+    2,
+        0, YSize/2, XSize/4,
+        XSize-XSize/4, YSize/2,XSize/4,
+    1,
+        XSize/2, 3, YSize-1-6,
+// level 8
+    0,
+    4, 
+        XSize/6, 3, YSize-1-6,
+        2*XSize/6, 3, YSize-1-6,
+        XSize-1-2*XSize/6, 3, YSize-1-6,
+        XSize-1-XSize/6, 3, YSize-1-6,
 };
 
 #define NUM_OF_LEVELS 1
 
-static uint8_t level_walls_index[] = {0,14,22,42};
+static uint8_t level_walls_index[] = {0,14,22,42,56,82,114,125};
 
 
 void build_horizontal_wall(uint8_t x, uint8_t y, uint8_t length)
@@ -242,7 +280,7 @@ void build_vertical_wall(uint8_t x, uint8_t y, uint8_t length)
 
 void build_level(uint8_t level)
 {
-    uint16_t index = level_walls_index[(level-1)&3];
+    uint16_t index = level_walls_index[(level-1)&7];
 
     uint16_t i;
     uint16_t max;

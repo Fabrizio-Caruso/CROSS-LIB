@@ -32,9 +32,6 @@ extern uint8_t snake_direction;
 
 uint8_t _MOVE_PLAYER(uint8_t control_input)
 {
-    #if defined(ALT_MOVE)
-        delete_ship();
-    #endif
     if(LEFT_CONTROL() && (snake_direction != SNAKE_RIGHT))
     {
         return move_snake(SNAKE_LEFT);
@@ -64,14 +61,7 @@ uint8_t _MOVE_PLAYER(uint8_t control_input)
 #elif defined(KEYBOARD_CONTROL)
     uint8_t MOVE_PLAYER(void) 
     { 
-        #if defined(ALT_MOVE)
-            if(kbhit())
-            {
-        #endif
-                return _MOVE_PLAYER(GET_CHAR()); 
-        #if defined(ALT_MOVE)
-            }
-        #endif
+        return _MOVE_PLAYER(GET_CHAR()); 
     }
 #else
     

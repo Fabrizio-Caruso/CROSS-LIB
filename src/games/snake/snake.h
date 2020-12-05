@@ -6,7 +6,7 @@
 
 
 #define INITIAL_SNAKE_LENGTH 3
-#define MAX_SNAKE_LENGTH 240
+#define MAX_SNAKE_LENGTH 254
 
 #define EMPTY 0
 #define SNAKE 1
@@ -29,7 +29,7 @@ void delete_body_part(uint8_t i);
 
 void draw_snake(void);
 
-void init_snake(void);
+void init_snake(uint8_t level);
 
 void init_map(void);
 

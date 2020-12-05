@@ -86,11 +86,15 @@ static uint8_t lives;
 
 static uint16_t record;
 
-static uint8_t apple_count;
+static uint8_t remaining_apples;
 
 static uint8_t level;
 
 static uint8_t energy;
+
+static uint8_t total_apples_on_level;
+
+static uint8_t bonus_count;
 
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
@@ -124,15 +128,18 @@ static uint8_t energy;
 
 
 #define INIT_LIVES 3
-#define BONUS_POINTS 30
+#define BONUS_POINTS 5
 #define APPLE_POINTS 20
 
-#define INIT_APPLE_COUNT 10
+#define INIT_APPLE_COUNT 5
 
 #define INIT_APPLES_ON_SCREEN 4
 
 #define APPLE_COUNT_INCREASE 5
 
+#define MAX_BONUS_COUNT 5
+
+#define BONUS_THRESHOLD 30
 
 void PRESS_KEY(void)
 {
@@ -149,8 +156,8 @@ void spawn(uint8_t item, Image *image_ptr)
     TICK_SOUND();
     while(1)
     {
-        x = RAND()%XSize;
-        y = RAND()%YSize;
+        x = (uint8_t)(RAND()%XSize);
+        y = (uint8_t)(RAND()%YSize);
         
         if(!(map[x][y]) && !hits_wall(x,y))
         {
@@ -169,15 +176,17 @@ void DISPLAY_POINTS(void)
     PRINTD(2,0,5,points);
 }
 
-void DISPLAY_APPLE_COUNT(void)
+void DISPLAY_REMAINING_APPLES_COUNT(void)
 {
     SET_TEXT_COLOR(COLOR_WHITE);
-    PRINTD(9,0,2,apple_count);
+    PRINTD(9,0,2,remaining_apples);
 }
 
 #define INITIAL_LEVEL 1
 
-static uint16_t level_walls[] = 
+static uint8_t apples_on_screen_count;
+
+static uint8_t level_walls[] = 
 {
 // level 1
     2, 
@@ -239,8 +248,9 @@ static uint16_t level_walls[] =
     2,
         0, YSize/2, XSize/4,
         XSize-XSize/4, YSize/2,XSize/4,
-    1,
-        XSize/2, 3, YSize-1-6,
+    2,
+        XSize/2, 3, YSize/4,
+        XSize/2, YSize-4-YSize/4, YSize/4,
 // level 8
     0,
     4, 
@@ -250,9 +260,7 @@ static uint16_t level_walls[] =
         XSize-1-XSize/6, 3, YSize-1-6,
 };
 
-#define NUM_OF_LEVELS 1
-
-static uint8_t level_walls_index[] = {0,14,22,42,56,82,114,125};
+static uint8_t level_walls_index[] = {0,14,22,42,56,82,114,128};
 
 
 void build_horizontal_wall(uint8_t x, uint8_t y, uint8_t length)
@@ -310,8 +318,6 @@ void build_level(uint8_t level)
 
 int main(void)
 {        
-
-    uint8_t i;
     
     INIT_GRAPHICS();
 
@@ -339,7 +345,8 @@ int main(void)
         }
         
         points = 0;
-        apple_count = INIT_APPLE_COUNT;
+        total_apples_on_level=INIT_APPLE_COUNT+APPLE_COUNT_INCREASE;
+        remaining_apples = total_apples_on_level;
         lives = INIT_LIVES;
         level = INITIAL_LEVEL;
 
@@ -347,6 +354,8 @@ int main(void)
         {
             CLEAR_SCREEN();
             DRAW_BORDERS();
+            
+            bonus_count = 0;
             
             _XLIB_DRAW(XSize-3,0,&VERTICAL_HEAD_IMAGE);
             
@@ -361,7 +370,7 @@ int main(void)
             PRINTD(XSize-2,0,2,lives);
             PRINTD(1,YSize-1,2,level);
             
-            DISPLAY_APPLE_COUNT();
+            DISPLAY_REMAINING_APPLES_COUNT();
 
             DISPLAY_POINTS();
             
@@ -375,20 +384,22 @@ int main(void)
             
             slow_down = SLOW_DOWN;
             
-            init_snake();
+            init_snake(level);
             
             build_level(level);
             
-            for(i=0;i<INIT_APPLES_ON_SCREEN+level/4;++i)
-            {
-                spawn(APPLE, &APPLE_IMAGE);
-            }
+            apples_on_screen_count = 1;
+            spawn(APPLE, &APPLE_IMAGE);
+
             
             energy = 99;
             
             WAIT_PRESS();
-            while(apple_count)
+            while(remaining_apples)
             {
+                # if defined(DEBUG_APPLES)
+                PRINTD(XSize-8,YSize-1,2,apples_on_screen_count);
+                #endif
                 if(MOVE_PLAYER())
                 {
                     DO_SLOW_DOWN(slow_down);
@@ -396,14 +407,15 @@ int main(void)
                     if((speed_increase_counter>SPEED_INCREASE_THRESHOLD) && (snake_length<MAX_SNAKE_LENGTH))
                     {
                         speed_increase_counter = 0;
-                        if(!(RAND()&1))
+                        if(!(RAND()&1) && (apples_on_screen_count<remaining_apples))
                         {
-                            if(!(RAND()&7))
+                            if(!(RAND()&7) && (remaining_apples < BONUS_THRESHOLD))
                             {
                                 spawn(BONUS, &EXTRA_POINTS_IMAGE);
                             }
                             else
                             {
+                                ++apples_on_screen_count;
                                 spawn(APPLE, &APPLE_IMAGE);
                             }
                         }
@@ -423,23 +435,30 @@ int main(void)
                         snake_head_x = snake[snake_head].x;
                         snake_head_y = snake[snake_head].y;
                         
-                        points+=BONUS_POINTS;
+
+                        points+=BONUS_POINTS<<bonus_count;
+                        if(bonus_count<MAX_BONUS_COUNT)
+                        {
+                            ++bonus_count;
+                        }
+                        _XLIB_DRAW(XSize-3-MAX_BONUS_COUNT+bonus_count,YSize-1,&EXTRA_POINTS_IMAGE);
                         ZAP_SOUND();
                     }
                     if(hits_apple(snake_head_x,snake_head_y))
                     {
+                        --apples_on_screen_count;
                         snake_grows();
                         snake_head_x = snake[snake_head].x;
                         snake_head_y = snake[snake_head].y;
                         
-                        --apple_count;
-                        DISPLAY_APPLE_COUNT();
+                        --remaining_apples;
+                        DISPLAY_REMAINING_APPLES_COUNT();
                         points+=APPLE_POINTS;
                         ZAP_SOUND();
                         IF_POSSIBLE_DECREASE_SPEED();
                     }
                     
-                    if(hits_snake(snake_head_x,snake_head_y) || !apple_count)
+                    if(hits_snake(snake_head_x,snake_head_y) || !remaining_apples)
                     {
                         break;
                     }
@@ -460,7 +479,7 @@ int main(void)
                     break;
                 }
             }
-            if(apple_count)
+            if(remaining_apples)
             {
                 --lives;
                 EXPLOSION_SOUND();
@@ -471,7 +490,8 @@ int main(void)
                 SET_TEXT_COLOR(COLOR_RED);
                 PRINT(COL_OFFSET,YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
                 ++level;
-                apple_count=INIT_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
+                total_apples_on_level=INIT_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
+                remaining_apples = total_apples_on_level;
                 WAIT_PRESS();
             }
         }

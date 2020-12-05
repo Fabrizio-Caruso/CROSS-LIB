@@ -20,7 +20,8 @@ extern Image BODY_IMAGE;
 extern Image HORIZONTAL_HEAD_IMAGE;
 extern Image VERTICAL_HEAD_IMAGE;
 
-#define SNAKE_OFFSET 2
+uint8_t initial_snake_length[] = {XSize/2,XSize/4,XSize/2,XSize/2,2*XSize/3,XSize/4,XSize/2-2,XSize/4};
+
 
 void draw_head(void)
 {
@@ -54,18 +55,20 @@ void init_map(void)
     }
 }
 
+#define normal_level(level) ((level)!=1)
 
-void init_snake(void)
+void init_snake(uint8_t level)
 {
 
     uint8_t i;
     
-    snake_length = INITIAL_SNAKE_LENGTH;
+    snake_length = initial_snake_length[(level-1)&7];
+    
     snake_head = 0;
     
     for(i=0;i<snake_length;++i)
     {
-        snake[(i+snake_head)%snake_length].x = XSize/2+snake_length/2-SNAKE_OFFSET-i;
+        snake[(i+snake_head)%snake_length].x = XSize/2+snake_length/2-i;
         snake[(i+snake_head)%snake_length].y = YSize/2;
         draw_body_part((i+snake_head) % snake_length);
         DO_SLOW_DOWN(SLOW_DOWN);
@@ -77,6 +80,7 @@ void init_snake(void)
     snake_direction = SNAKE_RIGHT;
     
     draw_head();
+    
 
 }
 
@@ -108,7 +112,7 @@ void snake_grows(void)
         break;
     }
     
-    if(!hits_wall(x,y) && !hits_snake(x,y))
+    if(!map[x][y] && !on_borders(x,y))
     {
         
         snake_copy[0].x = x;

@@ -83,12 +83,21 @@
 
 #define _TILE_5_B ('X'+PALETTE_SWITCH)
 
+#if !defined(__COMX__)
 #define _TILE_19 ('a')
 #define _TILE_20 ('b')
 #define _TILE_21 ('c')
 #define _TILE_22 ('d')
 #define _TILE_23 ('e')
 #define _TILE_24 ('f')
+#else
+#define _TILE_19 ('/')
+#define _TILE_20 ('=')
+#define _TILE_21 (';')
+#define _TILE_22 ('+')
+#define _TILE_23 ('*')
+#define _TILE_24 ('!')
+#endif
 
 #endif // _COMX_GRAPHICS_SETTINGS
 

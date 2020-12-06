@@ -102,6 +102,7 @@ static uint8_t bonus_count;
 
 static uint8_t extra_life_counter;
 
+static uint8_t active_mines;
 
 
 #define FINAL_LEVEL 32
@@ -115,6 +116,21 @@ static uint8_t extra_life_counter;
 #define hits_apple(x,y) \
     (map[x][y]==APPLE)
 
+#define RED_ENERGY_THRESHOLD 80
+
+void DISPLAY_ENERGY(void)
+{
+   if(energy<RED_ENERGY_THRESHOLD)
+   {
+       SET_TEXT_COLOR(COLOR_RED);
+   }
+   else
+   {
+       SET_TEXT_COLOR(COLOR_WHITE);
+   }
+   PRINTD(XSize/2-1,YSize-1,2,energy); 
+}
+
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
     if(slow_down>SLOW_DOWN/40) \
@@ -124,8 +140,7 @@ static uint8_t extra_life_counter;
     else \
     { \
        --energy; \
-       SET_TEXT_COLOR(COLOR_RED); \
-       PRINTD(XSize/2-1,YSize-1,2,energy); \
+       DISPLAY_ENERGY(); \
     }
 
 #define IF_POSSIBLE_DECREASE_SPEED() \
@@ -136,7 +151,7 @@ static uint8_t extra_life_counter;
 
 
 #define INITIAL_LIVES 5
-#define BONUS_POINTS 25
+#define BONUS_POINTS 50
 #define APPLE_POINTS 20
 #define EXTRA_LIFE_THRESHOLD 5000U
 
@@ -144,7 +159,7 @@ static uint8_t extra_life_counter;
 
 #define APPLE_COUNT_INCREASE 2
 
-#define MAX_BONUS_COUNT 4
+#define MAX_BONUS_COUNT 3
 
 #define SPEED_INCREASE_THRESHOLD 20
 
@@ -466,6 +481,7 @@ void build_level(void)
 
     uint16_t i;
     uint16_t number_of_elements;
+    uint8_t j;
     
     // printf("level: %u\n", level);
     
@@ -500,13 +516,13 @@ void build_level(void)
     
     mines_on_current_level = mines_on_level[level-1];
     
-    for(i=0;i<mines_on_current_level;++i)
+    for(j=0;j<mines_on_current_level;++j)
     {
-        mine_x[i] = XSize/2;
-        mine_y[i] = YSize/2 - 2 - i;
-        mine_direction[i] = MINE_RIGHT;
-        _XLIB_DRAW(mine_x[i],mine_y[i],&MINE_IMAGE);
-        map[mine_x[i]][mine_y[i]]=MINE;
+        mine_x[j] = XSize/2;
+        mine_y[j] = YSize/2 - 2u - j;
+        mine_direction[j] = MINE_RIGHT;
+        _XLIB_DRAW(mine_x[j],mine_y[j],&MINE_IMAGE);
+        map[mine_x[j]][mine_y[j]]=MINE;
     }
     
     
@@ -632,7 +648,7 @@ int main(void)
             PRINTD(XSize-9,0,5,record);
             
             energy = 99;
-            PRINTD(XSize/2-1,YSize-1,2,energy);
+            DISPLAY_ENERGY();
             init_map();
             
             speed_increase_counter = 0;
@@ -656,9 +672,11 @@ int main(void)
                 goto debug_levels;
             #endif
             
+            active_mines = 1;
+            
             while(remaining_apples)
             {
-                if(points>extra_life_counter*5000)
+                if(points>extra_life_counter*EXTRA_LIFE_THRESHOLD)
                 {
                     ++extra_life_counter;
                     ++lives;
@@ -671,7 +689,10 @@ int main(void)
                 
                 if(MOVE_PLAYER())
                 {
-                    handle_mines();
+                    if(active_mines)
+                    {
+                        handle_mines();
+                    }
                     DO_SLOW_DOWN(slow_down);
                     ++speed_increase_counter;
                     if((!(apples_on_screen_count) || (speed_increase_counter>SPEED_INCREASE_THRESHOLD)))
@@ -706,7 +727,7 @@ int main(void)
                         snake_head_y = snake[snake_head].y;
                         
 
-                        points+=BONUS_POINTS<<bonus_count;
+                        points+=(BONUS_POINTS<<bonus_count);
                         if(bonus_count<MAX_BONUS_COUNT)
                         {
                             ++bonus_count;
@@ -714,6 +735,10 @@ int main(void)
                         else
                         {
                             slow_down = 2*SLOW_DOWN;
+                            energy = 99;
+                            DISPLAY_ENERGY();
+                            active_mines = 0;
+                            TOCK_SOUND();
                         }
                         _XLIB_DRAW(XSize-3-MAX_BONUS_COUNT+bonus_count,YSize-1,&EXTRA_POINTS_IMAGE);
                         ZAP_SOUND();

@@ -185,7 +185,7 @@ void DISPLAY_REMAINING_APPLES_COUNT(void)
 }
 
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 15
 
 static uint8_t apples_on_screen_count;
 
@@ -302,13 +302,29 @@ static uint8_t level_walls[] =
     4,
         XSize/5,                      0,    4*YSize/5,
        2*XSize/5,               YSize/5,    4*YSize/5,
-       3*XSize/5,                      0,    4*YSize/5,
+       3*XSize/5,                      0,   4*YSize/5,
        4*XSize/5,               YSize/5,    4*YSize/5,
+    0,
+// level 14
+    4,
+        0,                      YSize/4,      XSize/4,
+       3*XSize/4,               YSize/4,      XSize/4,
+        0,                    3*YSize/4,      XSize/4,
+       3*XSize/4,             3*YSize/4,      XSize/4,
+// level 15
+    1,
+        5,YSize/2-1,XSize-10,
+    0,
+    1,
+        XSize/2-3,YSize/2+2,6,6,
+// level 16
+    0,
+    0,
     0,
 };
 
 
-static uint8_t level_walls_index[] = {0,15,24,45,60,87,104,141,156,175,184,209,215};
+static uint8_t level_walls_index[] = {0,15,24,45,60,87,104,141,156,175,184,209,215,230,243,253};
 
 
 void build_horizontal_wall(uint8_t x, uint8_t y, uint8_t length)
@@ -351,7 +367,7 @@ void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length)
 
 void build_level(uint8_t level)
 {
-    uint16_t index = level_walls_index[(level-1)%NUMBER_OF_LEVELS];
+    uint16_t index = level_walls_index[(level-1)&15];
 
     uint16_t i;
     uint16_t number_of_elements;
@@ -476,7 +492,7 @@ int main(void)
                 {
                     DO_SLOW_DOWN(slow_down);
                     ++speed_increase_counter;
-                    if((speed_increase_counter>SPEED_INCREASE_THRESHOLD) && (snake_length<MAX_SNAKE_LENGTH))
+                    if((speed_increase_counter>SPEED_INCREASE_THRESHOLD))
                     {
                         speed_increase_counter = 0;
                         if(!(RAND()&1) && ((!apples_on_screen_count) || (apples_on_screen_count<remaining_apples)))

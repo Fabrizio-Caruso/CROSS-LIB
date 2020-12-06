@@ -140,7 +140,7 @@ static uint8_t extra_life_counter;
 #define APPLE_POINTS 20
 #define EXTRA_LIFE_THRESHOLD 5000U
 
-#define INITIAL_APPLE_COUNT 5
+#define INITIAL_APPLE_COUNT 10
 
 #define APPLE_COUNT_INCREASE 2
 

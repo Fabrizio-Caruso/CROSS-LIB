@@ -373,8 +373,33 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 
 vic20: vic20_exp_16k
 
-vic20_exp_8k: $(ASSETS_PATH)/cc65_udc.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
+vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
+	--config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
+	-DSOUNDS -DANIMATE_PLAYER \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DCC65_GOTO -DSLOW_DOWN=2300 \
+	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
+	-DFULL_GAME \
+	-DSIMPLE_STRATEGY \
+	-DREDEFINED_CHARS \
+	-DALT_PRINT \
+	-DNO_HINTS \
+	-DLESS_TEXT \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DALT_SLEEP \
+	-DUSE_MEMORY_BUFFERS \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
+	$(FULL_FILES) \
+	--code-name CODE2 \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
+
+vic20_exp_8k_included_gfx: $(ASSETS_PATH)/cc65_udc.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
 	-DSLOW_DOWN=1800 \

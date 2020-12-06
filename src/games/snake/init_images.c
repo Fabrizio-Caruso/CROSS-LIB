@@ -71,7 +71,8 @@ void INIT_IMAGES(void)
     HI_TEXT_IMAGE._imageData = _TILE_6;;
     LV_TEXT_IMAGE._imageData = _TILE_9;
     
-    MINE_IMAGE._imageData = _TILE_19;
+    
+    MINE_IMAGE._imageData = _TILE_17;
 }
 
 

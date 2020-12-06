@@ -602,7 +602,7 @@ int main(void)
         lives = INITIAL_LIVES;
         level = INITIAL_LEVEL;
 
-        while(lives && (level<FINAL_LEVEL))
+        while(lives && (level<FINAL_LEVEL+1))
         {
             #if defined(DEBUG_LEVELS)
             debug_levels:
@@ -771,6 +771,7 @@ int main(void)
         }
         if(level>FINAL_LEVEL)
         {
+            SET_TEXT_COLOR(COLOR_WHITE);
             printCenteredMessageOnRow(YSize/2-3, _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_E _XL_N _XL_D _XL_SPACE);
         }
 

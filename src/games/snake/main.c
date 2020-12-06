@@ -62,6 +62,8 @@ extern Image APPLE_IMAGE;
 
 extern Image CENTRAL_BRICK_IMAGE;
 
+extern Image MINE_IMAGE;
+
 extern SnakeBody snake[MAX_SNAKE_LENGTH];
 
 extern uint8_t snake_length;
@@ -98,6 +100,7 @@ static uint8_t total_apples_on_level;
 
 static uint8_t bonus_count;
 
+
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
 
@@ -128,26 +131,38 @@ static uint8_t bonus_count;
 
 
 #define INIT_LIVES 3
-#define BONUS_POINTS 5
+#define BONUS_POINTS 25
 #define APPLE_POINTS 20
 
 #define INIT_APPLE_COUNT 5
 
 #define INIT_APPLES_ON_SCREEN 4
 
-#define APPLE_COUNT_INCREASE 5
+#define APPLE_COUNT_INCREASE 3
 
-#define MAX_BONUS_COUNT 5
-
-#define BONUS_THRESHOLD 30
+#define MAX_BONUS_COUNT 4
 
 #define SPEED_INCREASE_THRESHOLD 20
+
+
 
 void PRESS_KEY(void)
 {
     SET_TEXT_COLOR(COLOR_WHITE);
     PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
     WAIT_PRESS();
+}
+
+uint8_t empty_around(uint8_t x, uint8_t y)
+{
+return 
+!map[x][y] && 
+       (map[x-1][y-1]!=MINE) && (map[x][y-1]!=MINE) && (map[x+1][y-1]!=MINE) &&
+       (map[x-1][y]!=MINE) && (map[x+1][y]!=MINE) &&
+       (map[x-1][y+1]!=MINE) && (map[x][y+1]!=MINE) && (map[x+1][y+1]!=MINE);
+    // !(map[x-1][y-1]) && !(map[x][y-1]) && !(map[x+1][y-1]) && 
+    // !(map[x-1][y])    && !(map[x][y])   && !(map[x+1][y]) &&
+    // !(map[x-1][y+1]) && !(map[x][y+1]) && !(map[x+1][y+1]);
 }
 
 void spawn(uint8_t item, Image *image_ptr)
@@ -158,10 +173,10 @@ void spawn(uint8_t item, Image *image_ptr)
     TICK_SOUND();
     while(1)
     {
-        x = (uint8_t)(RAND()%XSize);
-        y = (uint8_t)(RAND()%YSize);
+        x = (uint8_t)(RAND()%(XSize-2)+1);
+        y = (uint8_t)(RAND()%(YSize-2)+1);
         
-        if(!(map[x][y]) && !hits_wall(x,y))
+        if(empty_around(x,y))
         {
             break;
         }
@@ -186,6 +201,7 @@ void DISPLAY_REMAINING_APPLES_COUNT(void)
 
 
 #define INITIAL_LEVEL 1
+// #define DEBUG_LEVELS
 
 static uint8_t apples_on_screen_count;
 
@@ -244,8 +260,8 @@ static uint8_t level_walls[] =
         XSize/3,                      0,    4*YSize/5,
        2*XSize/3,               YSize/5,    4*YSize/5,
     2,
-        1,1,XSize/8,YSize/8,
-        XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,
+        1,1,XSize/8,YSize/8,MINE,
+        XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,MINE,
 // level 7
     2,
         0, YSize/2, XSize/4,
@@ -256,10 +272,10 @@ static uint8_t level_walls[] =
         XSize/2-1, 3, YSize/4,
         XSize/2-1, YSize-4-YSize/4, YSize/4,
     4,
-        1,1,XSize/6,YSize/6,
-        1,YSize-1-YSize/6,XSize/6,YSize/6,
-        XSize-1-XSize/6,YSize-1-YSize/6,XSize/6,YSize/6,
-        XSize-1-XSize/6,1,XSize/6,YSize/6,
+        1,1,XSize/6,YSize/6,MINE,
+        1,YSize-1-YSize/6,XSize/6,YSize/6,MINE,
+        XSize-1-XSize/6,YSize-1-YSize/6,XSize/6,YSize/6,MINE,
+        XSize-1-XSize/6,1,XSize/6,YSize/6,MINE,
 // level 8
     0,
     4, 
@@ -272,10 +288,10 @@ static uint8_t level_walls[] =
     0,
     0,
     4,
-        2,2,XSize/3,YSize/3,
-        2,YSize-2-YSize/3,XSize/3,YSize/3,
-        XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,
-        XSize-2-XSize/3,2,XSize/3,YSize/3,
+        2,2,XSize/3,YSize/3,WALL,
+        2,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
+        XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
+        XSize-2-XSize/3,2,XSize/3,YSize/3,WALL,
 // level 10
     2, 
         XSize/3,       YSize/3,     XSize/2-1,
@@ -288,10 +304,10 @@ static uint8_t level_walls[] =
         XSize/4, YSize/2+2,XSize/2,
     0,
     4,
-        2,2,XSize/3,YSize/3,
-        2,YSize-2-YSize/3,XSize/3,YSize/3,
-        XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,
-        XSize-2-XSize/3,2,XSize/3,YSize/3,
+        2,2,XSize/3,YSize/3,WALL,
+        2,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
+        XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
+        XSize-2-XSize/3,2,XSize/3,YSize/3,WALL,
 // level 12
     1,
         2,YSize/2-1,XSize-4,
@@ -311,12 +327,14 @@ static uint8_t level_walls[] =
        3*XSize/4,               YSize/4,      XSize/4,
         0,                    3*YSize/4,      XSize/4,
        3*XSize/4,             3*YSize/4,      XSize/4,
+    0,
+    0,
 // level 15
     1,
         5,YSize/2-1,XSize-10,
     0,
     1,
-        XSize/2-3,YSize/2+2,6,6,
+        XSize/2-3,YSize/2+2,6,6,MINE,
 // level 16
     0,
     0,
@@ -324,7 +342,25 @@ static uint8_t level_walls[] =
 };
 
 
-static uint8_t level_walls_index[] = {0,15,24,45,60,87,104,141,156,175,184,209,215,230,243,253};
+static uint16_t level_walls_index[] = 
+    {
+        0,   // 1
+        15,  // 2
+        24,  // 3
+        45,  // 4
+        60,  // 5
+        87,  // 6
+        106, // 7
+        147, // 8
+        162, // 9
+        185, // 10
+        194, // 11
+        223, // 12
+        229, // 13 
+        244, // 14
+        259, // 15
+        270, // 16
+        };
 
 
 void build_horizontal_wall(uint8_t x, uint8_t y, uint8_t length)
@@ -349,7 +385,7 @@ void build_vertical_wall(uint8_t x, uint8_t y, uint8_t length)
     DRAW_VERTICAL_LINE(x,y,length);
 }
 
-void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length)
+void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
 {
     uint8_t i;
     uint8_t j;
@@ -358,11 +394,29 @@ void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length)
     {
         for(j=0;j<y_length;++j)
         {
-            map[x+i][y+j]=WALL;
-            _XLIB_DRAW(x+i,y+j,&CENTRAL_BRICK_IMAGE);
+            map[x+i][y+j]=type;
+            if(type==WALL)
+            {
+                _XLIB_DRAW(x+i,y+j,&CENTRAL_BRICK_IMAGE);
+            }
+            else
+            {
+                _XLIB_DRAW(x+i,y+j,&MINE_IMAGE);
+            }
         }
     }
 }
+
+#define NUMBER_OF_MINES 4
+
+#define MAX_APPLES 50
+
+static uint8_t mine_x[NUMBER_OF_MINES];
+static uint8_t mine_y[NUMBER_OF_MINES];
+static uint8_t mine_direction[NUMBER_OF_MINES];
+
+#define MINE_RIGHT 0
+#define MINE_LEFT 1
 
 
 void build_level(uint8_t level)
@@ -396,13 +450,68 @@ void build_level(uint8_t level)
     index = index+number_of_elements*3+1;
     
     number_of_elements = level_walls[index];
-    for(i=0;i<4*number_of_elements;i+=4)
+    for(i=0;i<5*number_of_elements;i+=5)
     {
-        build_box_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i],level_walls[index+4+i]);
+        build_box_wall(level_walls[index+1+i],level_walls[index+2+i],
+                       level_walls[index+3+i],level_walls[index+4+i],
+                       level_walls[index+5+i]);
+    }
+    
+    for(i=0;i<NUMBER_OF_MINES;++i)
+    {
+        mine_x[i] = XSize/2;
+        mine_y[i] = YSize/2 - 2 - i;
+        mine_direction[i] = MINE_RIGHT;
+        _XLIB_DRAW(mine_x[i],mine_y[i],&MINE_IMAGE);
+        map[mine_x[i]][mine_y[i]]=MINE;
+    }
+}
+
+
+void handle_horizontal_mine(uint8_t index)
+{
+    if(mine_direction[index]==MINE_LEFT)
+    {
+        if(!map[mine_x[index]-1][mine_y[index]] && mine_x[index]-1)
+        {
+            map[mine_x[index]][mine_y[index]]=0;
+            _XLIB_DELETE(mine_x[index],mine_y[index]);
+            --mine_x[index];
+            _XLIB_DRAW(mine_x[index],mine_y[index],&MINE_IMAGE);
+            map[mine_x[index]][mine_y[index]]=MINE;
+        }
+        else //if (mine_x[index]==1)
+        {
+            mine_direction[index] = MINE_RIGHT;
+        }
+    }
+    else
+    {
+        if(!map[mine_x[index]+1][mine_y[index]] && mine_x[index]<XSize-2)
+        {
+            map[mine_x[index]][mine_y[index]]=0;
+            _XLIB_DELETE(mine_x[index],mine_y[index]);
+            ++mine_x[index];
+            _XLIB_DRAW(mine_x[index],mine_y[index],&MINE_IMAGE);
+            map[mine_x[index]][mine_y[index]]=MINE;
+        }
+        else //if (mine_x[index]==XSize-2)
+        {
+            mine_direction[index] = MINE_LEFT;
+        }
     }
     
 }
 
+void handle_mines(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<NUMBER_OF_MINES;++i)
+    {
+        handle_horizontal_mine(i);
+    }
+}
 
 int main(void)
 {        
@@ -434,18 +543,25 @@ int main(void)
         
         points = 0;
         total_apples_on_level=INIT_APPLE_COUNT+APPLE_COUNT_INCREASE;
+        if(total_apples_on_level>MAX_APPLES)
+        {
+            total_apples_on_level = MAX_APPLES;
+        }
         remaining_apples = total_apples_on_level;
         lives = INIT_LIVES;
         level = INITIAL_LEVEL;
 
         while(lives)
         {
+            #if defined(DEBUG_LEVELS)
+            debug_levels:
+            #endif
             CLEAR_SCREEN();
             DRAW_BORDERS();
             
             bonus_count = 0;
             
-            _XLIB_DRAW(XSize-3,0,&VERTICAL_HEAD_IMAGE);
+            _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE);
             
             _XLIB_DRAW(0,0,&SCORE_TEXT_LEFT_IMAGE);
             _XLIB_DRAW(1,0,&SCORE_TEXT_RIGHT_IMAGE);
@@ -455,7 +571,7 @@ int main(void)
             
             SET_TEXT_COLOR(COLOR_WHITE);
             
-            PRINTD(XSize-2,0,2,lives);
+            PRINTD(XSize-1,0,1,lives);
             PRINTD(1,YSize-1,2,level);
             
             DISPLAY_REMAINING_APPLES_COUNT();
@@ -483,19 +599,28 @@ int main(void)
             energy = 99;
             
             WAIT_PRESS();
+            
+            #if defined(DEBUG_LEVELS)
+                ++level;
+                goto debug_levels;
+            #endif
+            
             while(remaining_apples)
             {
                 # if defined(DEBUG_APPLES)
                 PRINTD(XSize-8,YSize-1,2,apples_on_screen_count);
                 #endif
+                
+                
                 if(MOVE_PLAYER())
                 {
+                    handle_mines();
                     DO_SLOW_DOWN(slow_down);
                     ++speed_increase_counter;
-                    if((speed_increase_counter>SPEED_INCREASE_THRESHOLD))
+                    if((!(apples_on_screen_count) || (speed_increase_counter>SPEED_INCREASE_THRESHOLD)))
                     {
                         speed_increase_counter = 0;
-                        if(!(RAND()&1) && ((!apples_on_screen_count) || (apples_on_screen_count<remaining_apples)))
+                        if(!(RAND()&1) && (apples_on_screen_count<remaining_apples))
                         {
                             if(!(RAND()&7))
                             {
@@ -528,6 +653,10 @@ int main(void)
                         if(bonus_count<MAX_BONUS_COUNT)
                         {
                             ++bonus_count;
+                        }
+                        else
+                        {
+                            slow_down = 2*SLOW_DOWN;
                         }
                         _XLIB_DRAW(XSize-3-MAX_BONUS_COUNT+bonus_count,YSize-1,&EXTRA_POINTS_IMAGE);
                         ZAP_SOUND();

@@ -67,7 +67,7 @@ void init_snake(uint8_t level)
     
     for(i=0;i<snake_length;++i)
     {
-        snake[(i+snake_head)%snake_length].x = XSize/2+snake_length/2-i;
+        snake[(i+snake_head)%snake_length].x = XSize/2+snake_length/2-i-1;
         snake[(i+snake_head)%snake_length].y = YSize/2;
         draw_body_part((i+snake_head) % snake_length);
         DO_SLOW_DOWN(SLOW_DOWN);

@@ -92,7 +92,7 @@ static uint16_t record;
 
 static uint8_t remaining_apples;
 
-static uint8_t level;
+uint8_t level;
 
 static uint8_t energy;
 
@@ -100,6 +100,11 @@ static uint8_t total_apples_on_level;
 
 static uint8_t bonus_count;
 
+static uint8_t extra_life_counter;
+
+
+
+#define FINAL_LEVEL 32
 
 #define COL_OFFSET ((XSize-16)/2-1)
 #define ROW_OFFSET 3
@@ -130,15 +135,14 @@ static uint8_t bonus_count;
     }
 
 
-#define INIT_LIVES 3
+#define INITIAL_LIVES 5
 #define BONUS_POINTS 25
 #define APPLE_POINTS 20
+#define EXTRA_LIFE_THRESHOLD 5000U
 
-#define INIT_APPLE_COUNT 5
+#define INITIAL_APPLE_COUNT 5
 
-#define INIT_APPLES_ON_SCREEN 4
-
-#define APPLE_COUNT_INCREASE 3
+#define APPLE_COUNT_INCREASE 2
 
 #define MAX_BONUS_COUNT 4
 
@@ -149,7 +153,7 @@ static uint8_t bonus_count;
 void PRESS_KEY(void)
 {
     SET_TEXT_COLOR(COLOR_WHITE);
-    PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+    printCenteredMessageOnRow(YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
     WAIT_PRESS();
 }
 
@@ -160,9 +164,7 @@ return
        (map[x-1][y-1]!=MINE) && (map[x][y-1]!=MINE) && (map[x+1][y-1]!=MINE) &&
        (map[x-1][y]!=MINE) && (map[x+1][y]!=MINE) &&
        (map[x-1][y+1]!=MINE) && (map[x][y+1]!=MINE) && (map[x+1][y+1]!=MINE);
-    // !(map[x-1][y-1]) && !(map[x][y-1]) && !(map[x+1][y-1]) && 
-    // !(map[x-1][y])    && !(map[x][y])   && !(map[x+1][y]) &&
-    // !(map[x-1][y+1]) && !(map[x][y+1]) && !(map[x+1][y+1]);
+
 }
 
 void spawn(uint8_t item, Image *image_ptr)
@@ -200,7 +202,7 @@ void DISPLAY_REMAINING_APPLES_COUNT(void)
 }
 
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 16
 // #define DEBUG_LEVELS
 
 static uint8_t apples_on_screen_count;
@@ -273,9 +275,9 @@ static uint8_t level_walls[] =
         XSize/2-1, YSize-4-YSize/4, YSize/4,
     4,
         1,1,XSize/6,YSize/6,MINE,
-        1,YSize-1-YSize/6,XSize/6,YSize/6,MINE,
+        1,YSize-1-YSize/6,XSize/6,YSize/6,WALL,
         XSize-1-XSize/6,YSize-1-YSize/6,XSize/6,YSize/6,MINE,
-        XSize-1-XSize/6,1,XSize/6,YSize/6,MINE,
+        XSize-1-XSize/6,1,XSize/6,YSize/6,WALL,
 // level 8
     0,
     4, 
@@ -407,19 +409,58 @@ void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, ui
     }
 }
 
-#define NUMBER_OF_MINES 4
+#define MAX_NUMBER_OF_MINES 4
 
 #define MAX_APPLES 50
 
-static uint8_t mine_x[NUMBER_OF_MINES];
-static uint8_t mine_y[NUMBER_OF_MINES];
-static uint8_t mine_direction[NUMBER_OF_MINES];
+static uint8_t mine_x[MAX_NUMBER_OF_MINES];
+static uint8_t mine_y[MAX_NUMBER_OF_MINES];
+static uint8_t mine_direction[MAX_NUMBER_OF_MINES];
+static uint8_t mines_on_current_level;
+static uint8_t mines_on_level[2*NUMBER_OF_LEVELS] = 
+    {
+        0, // 1
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        0,
+        1, // 10
+        0,
+        1, // 12
+        0,
+        1, // 14
+        2,
+        3, // 16
+        1, // 17
+        1,
+        1,
+        0, // 20
+        0,
+        1,
+        0, // 23
+        1,
+        0, // 25
+        1,
+        0, // 27
+        1,
+        0, // 29
+        2,
+        3,
+        4
+    };
+       
 
 #define MINE_RIGHT 0
 #define MINE_LEFT 1
+#define MINE_UP 2
+#define MINE_DOWN 3
 
 
-void build_level(uint8_t level)
+void build_level(void)
 {
     uint16_t index = level_walls_index[(level-1)&15];
 
@@ -457,7 +498,9 @@ void build_level(uint8_t level)
                        level_walls[index+5+i]);
     }
     
-    for(i=0;i<NUMBER_OF_MINES;++i)
+    mines_on_current_level = mines_on_level[level-1];
+    
+    for(i=0;i<mines_on_current_level;++i)
     {
         mine_x[i] = XSize/2;
         mine_y[i] = YSize/2 - 2 - i;
@@ -465,6 +508,8 @@ void build_level(uint8_t level)
         _XLIB_DRAW(mine_x[i],mine_y[i],&MINE_IMAGE);
         map[mine_x[i]][mine_y[i]]=MINE;
     }
+    
+    
 }
 
 
@@ -507,10 +552,15 @@ void handle_mines(void)
 {
     uint8_t i;
     
-    for(i=0;i<NUMBER_OF_MINES;++i)
+    for(i=0;i<mines_on_current_level;++i)
     {
         handle_horizontal_mine(i);
     }
+}
+
+void DISPLAY_LIVES(void)
+{
+    PRINTD(XSize-1,0,1,lives);
 }
 
 int main(void)
@@ -528,11 +578,11 @@ int main(void)
     {
         CLEAR_SCREEN();
         SET_TEXT_COLOR(COLOR_RED);
-        PRINT(COL_OFFSET+3,YSize/5, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E);
+        printCenteredMessageOnRow(YSize/5, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E);
 
         SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(COL_OFFSET+8,YSize/5+2, _XL_b _XL_y);
-        PRINT(COL_OFFSET+1,YSize/5+4, _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o);
+        printCenteredMessageOnRow(YSize/5+2, _XL_b _XL_y);
+        printCenteredMessageOnRow(YSize/5+4, _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o);
 
         PRESS_KEY();
         
@@ -541,17 +591,18 @@ int main(void)
             record = points;
         }
         
+        extra_life_counter = 1;
         points = 0;
-        total_apples_on_level=INIT_APPLE_COUNT+APPLE_COUNT_INCREASE;
+        total_apples_on_level=INITIAL_APPLE_COUNT+APPLE_COUNT_INCREASE;
         if(total_apples_on_level>MAX_APPLES)
         {
             total_apples_on_level = MAX_APPLES;
         }
         remaining_apples = total_apples_on_level;
-        lives = INIT_LIVES;
+        lives = INITIAL_LIVES;
         level = INITIAL_LEVEL;
 
-        while(lives)
+        while(lives && (level<FINAL_LEVEL))
         {
             #if defined(DEBUG_LEVELS)
             debug_levels:
@@ -571,7 +622,7 @@ int main(void)
             
             SET_TEXT_COLOR(COLOR_WHITE);
             
-            PRINTD(XSize-1,0,1,lives);
+            DISPLAY_LIVES();
             PRINTD(1,YSize-1,2,level);
             
             DISPLAY_REMAINING_APPLES_COUNT();
@@ -588,9 +639,9 @@ int main(void)
             
             slow_down = SLOW_DOWN;
             
-            init_snake(level);
+            init_snake();
             
-            build_level(level);
+            build_level();
             
             apples_on_screen_count = 1;
             spawn(APPLE, &APPLE_IMAGE);
@@ -607,6 +658,12 @@ int main(void)
             
             while(remaining_apples)
             {
+                if(points>extra_life_counter*5000)
+                {
+                    ++extra_life_counter;
+                    ++lives;
+                    DISPLAY_LIVES();
+                }
                 # if defined(DEBUG_APPLES)
                 PRINTD(XSize-8,YSize-1,2,apples_on_screen_count);
                 #endif
@@ -620,7 +677,7 @@ int main(void)
                     if((!(apples_on_screen_count) || (speed_increase_counter>SPEED_INCREASE_THRESHOLD)))
                     {
                         speed_increase_counter = 0;
-                        if(!(RAND()&1) && (apples_on_screen_count<remaining_apples))
+                        if(apples_on_screen_count<remaining_apples)
                         {
                             if(!(RAND()&7))
                             {
@@ -691,7 +748,7 @@ int main(void)
                 if(!energy)
                 {
                     SET_TEXT_COLOR(COLOR_RED);
-                    PRINT(COL_OFFSET,YSize/2, _XL_SPACE _XL_N _XL_O _XL_SPACE _XL_E _XL_N _XL_E _XL_R _XL_G _XL_Y _XL_SPACE);
+                    printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_N _XL_O _XL_SPACE _XL_E _XL_N _XL_E _XL_R _XL_G _XL_Y _XL_SPACE);
                     
                     break;
                 }
@@ -705,15 +762,19 @@ int main(void)
             else
             {
                 SET_TEXT_COLOR(COLOR_RED);
-                PRINT(COL_OFFSET,YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
+                printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
                 ++level;
-                total_apples_on_level=INIT_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
+                total_apples_on_level=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
                 remaining_apples = total_apples_on_level;
                 WAIT_PRESS();
             }
         }
+        if(level>FINAL_LEVEL)
+        {
+            printCenteredMessageOnRow(YSize/2-3, _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_E _XL_N _XL_D _XL_SPACE);
+        }
 
-        PRINT(COL_OFFSET,YSize/2, _XL_SPACE _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R _XL_SPACE);
+        printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R _XL_SPACE);
         WAIT_PRESS();
     }
     

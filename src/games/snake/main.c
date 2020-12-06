@@ -185,7 +185,7 @@ void DISPLAY_REMAINING_APPLES_COUNT(void)
 }
 
 
-#define INITIAL_LEVEL 15
+#define INITIAL_LEVEL 1
 
 static uint8_t apples_on_screen_count;
 
@@ -228,15 +228,15 @@ static uint8_t level_walls[] =
     0,
 // level 5
     4,
-        XSize/4,                YSize/4,              XSize/8,
-        XSize/4+XSize/2-XSize/8,        YSize/4,      XSize/8,
-        XSize/4,        YSize-1-YSize/4,              XSize/8,
-        XSize/4+XSize/2-XSize/8,YSize-1-YSize/4,      XSize/8,
+        XSize/4,                YSize/4,              XSize/5,
+        XSize/4+XSize/2-XSize/5,        YSize/4,      XSize/5,
+        XSize/4,        YSize-1-YSize/4,              XSize/5,
+        XSize/4+XSize/2-XSize/5,YSize-1-YSize/4,      XSize/5,
     4,  
-        XSize/4,                YSize/4,              YSize/8,
-        XSize-1-XSize/4,YSize/4,                      YSize/8,
-        XSize/4,     YSize-1-YSize/4-YSize/8,         YSize/8,
-        XSize-1-XSize/4,YSize-1-YSize/4-YSize/8,      YSize/8,
+        XSize/4,                YSize/4,              YSize/5,
+        XSize-1-XSize/4,YSize/4,                      YSize/5,
+        XSize/4,     YSize-YSize/4-YSize/5,         YSize/5,
+        XSize-1-XSize/4,YSize-YSize/4-YSize/5,      YSize/5,
     0,
 // level 6
     0,

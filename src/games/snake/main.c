@@ -520,7 +520,7 @@ void build_level(void)
     {
         mine_x[j] = XSize/2;
         mine_y[j] = YSize/2 - 2u - j;
-        mine_direction[j] = MINE_RIGHT;
+        mine_direction[j] = j&1;
         _XLIB_DRAW(mine_x[j],mine_y[j],&MINE_IMAGE);
         map[mine_x[j]][mine_y[j]]=MINE;
     }
@@ -681,6 +681,7 @@ int main(void)
                     ++extra_life_counter;
                     ++lives;
                     DISPLAY_LIVES();
+                    SHOOT_SOUND();
                 }
                 # if defined(DEBUG_APPLES)
                 PRINTD(XSize-8,YSize-1,2,apples_on_screen_count);

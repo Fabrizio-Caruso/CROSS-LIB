@@ -387,56 +387,36 @@ static uint16_t level_walls_index[] =
         };
 
 
-void build_horizontal_wall(uint8_t x, uint8_t y, uint8_t length)
-{
-    uint8_t i;
-    
-    for(i=0;i<length;++i)
-    {
-        map[x+i][y]=WALL;
-    }
-    DRAW_HORIZONTAL_LINE(x,y,length);
-}
-
-void build_vertical_wall(uint8_t x, uint8_t y, uint8_t length)
-{
-    uint8_t i;
-    
-    for(i=0;i<length;++i)
-    {
-        map[x][y+i]=WALL;
-    }
-    DRAW_VERTICAL_LINE(x,y,length);
-}
-
+static Image* images[] = {NULL, &MINE_IMAGE, NULL, NULL, &CENTRAL_BRICK_IMAGE, &HORIZONTAL_BRICK_IMAGE, &VERTICAL_BRICK_IMAGE, &TRANSPARENT_BRICK_IMAGE};
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
 {
     uint8_t i;
     uint8_t j;
-    Image *image_ptr;
     
     for(i=0;i<x_length;++i)
     {
         for(j=0;j<y_length;++j)
         {
             map[x+i][y+j]=type;
-            if(type==WALL)
-            {
-                image_ptr = &CENTRAL_BRICK_IMAGE;
-            }
-            else if (type==DEADLY)
-            {
-                image_ptr = &MINE_IMAGE;
-            }
-            else
-            {
-                image_ptr = &TRANSPARENT_BRICK_IMAGE;
-            }
-            _XLIB_DRAW(x+i,y+j,image_ptr);
+            _XLIB_DRAW(x+i,y+j,images[type]);
 
         }
     }
+}
+
+#define build_horizontal_wall(x,y,length) \
+    build_box_wall(x, y, length, 1, HORIZONTAL_WALL)
+
+#define build_vertical_wall(x,y,length) \
+    build_box_wall(x, y, 1, length, VERTICAL_WALL)
+
+void DRAW_GAME_BORDERS(void)
+{
+    build_horizontal_wall(0,0,XSize);
+    build_horizontal_wall(0,YSize-1,XSize);
+    build_vertical_wall(0,0,YSize);
+    build_vertical_wall(XSize-1,0,YSize);
 }
 
 #define MAX_NUMBER_OF_MINES 4
@@ -505,28 +485,24 @@ void build_level(void)
     uint8_t j;
     uint8_t y_offset;
     
-    // printf("level: %u\n", level);
-    
-    // printf("horizontal index: %u\n", index);
 
-    number_of_elements = level_walls[index]; // Number of horizontal walls
-    // printf("Number of horizontal walls: %u\n", number_of_elements);
-    for(i=0;i<3*number_of_elements;i+=3)
+    for(j=0;j<2;++j)
     {
-        // printf("\n%u %u %u\n", level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
-        build_horizontal_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
+        number_of_elements = level_walls[index]; // Number of horizontal walls
+        for(i=0;i<3*number_of_elements;i+=3)
+        {
+            if(j)
+            {
+                build_vertical_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
+            }
+            else
+            {
+                build_horizontal_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
+            }
+        }
+        index = index+number_of_elements*3+1;
     }
-    index = index+number_of_elements*3+1;
-    // printf("vertical index: %u\n", index);
-    number_of_elements = level_walls[index]; // Number of vertical walls
-    // printf("Number of vertical walls: %u\n", number_of_elements);
-    for(i=0;i<3*number_of_elements;i+=3)
-    {
-        // printf("%u %u %u\n", level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
-        build_vertical_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
-    }
-    
-    index = index+number_of_elements*3+1;
+
     
     number_of_elements = level_walls[index];
     for(i=0;i<5*number_of_elements;i+=5)
@@ -677,7 +653,7 @@ int main(void)
             debug_levels:
             #endif
             CLEAR_SCREEN();
-            DRAW_BORDERS();
+            DRAW_GAME_BORDERS();
             
             bonus_count = 0;
             

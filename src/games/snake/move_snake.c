@@ -68,11 +68,6 @@ uint8_t move_snake(uint8_t wished_direction)
         draw_head(); // draw new head
         return 1;
     }
-    else
-    {
-        map[snake[snake_head].x][snake[snake_head].y]=EMPTY;
-        return 0;
-    }
-
+    return 0;
 }
 

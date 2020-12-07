@@ -60,6 +60,8 @@ extern Image APPLE_IMAGE;
 
 extern Image CENTRAL_BRICK_IMAGE;
 
+extern Image TRANSPARENT_BRICK_IMAGE;
+
 extern Image MINE_IMAGE;
 
 extern Image LEFT_MINE_IMAGE;
@@ -322,10 +324,10 @@ static uint8_t level_walls[] =
         XSize/4, YSize/2+2,XSize/2,
     0,
     4,
-        2,2,XSize/3,YSize/3,WALL,
-        2,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
-        XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
-        XSize-2-XSize/3,2,XSize/3,YSize/3,WALL,
+        2,2,XSize/3,YSize/3,TRANSPARENT,
+        2,YSize-2-YSize/3,XSize/3,YSize/3,TRANSPARENT,
+        XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,TRANSPARENT,
+        XSize-2-XSize/3,2,XSize/3,YSize/3,TRANSPARENT,
 // level 12
     1,
         2,YSize/2-1,XSize-4,
@@ -407,10 +409,12 @@ void build_vertical_wall(uint8_t x, uint8_t y, uint8_t length)
     DRAW_VERTICAL_LINE(x,y,length);
 }
 
+
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
 {
     uint8_t i;
     uint8_t j;
+    Image *image_ptr;
     
     for(i=0;i<x_length;++i)
     {
@@ -419,12 +423,18 @@ void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, ui
             map[x+i][y+j]=type;
             if(type==WALL)
             {
-                _XLIB_DRAW(x+i,y+j,&CENTRAL_BRICK_IMAGE);
+                image_ptr = &CENTRAL_BRICK_IMAGE;
+            }
+            else if (type==DEADLY)
+            {
+                image_ptr = &MINE_IMAGE;
             }
             else
             {
-                _XLIB_DRAW(x+i,y+j,&MINE_IMAGE);
+                image_ptr = &TRANSPARENT_BRICK_IMAGE;
             }
+            _XLIB_DRAW(x+i,y+j,image_ptr);
+
         }
     }
 }

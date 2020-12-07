@@ -17,7 +17,7 @@
     ((x)<1 || ((x)>=XSize-1) || (y)<1 || ((y)>=YSize-1))
 
 #define hits_wall(x,y) \
-    (on_borders(x,y) || (map[x][y]==WALL))
+    (on_borders(x,y) || (map[x][y]>=WALL))
 
 #define hits_deadly_item(x,y) \
     (map[x][y]==DEADLY)

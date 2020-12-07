@@ -14,6 +14,7 @@
 #define BONUS 2
 #define APPLE 3
 #define WALL  4
+#define TRANSPARENT 5
 
 #define NUMBER_OF_LEVELS 16
 

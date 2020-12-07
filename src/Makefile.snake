@@ -425,8 +425,11 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	-DUSE_MEMORY_BUFFERS \
 	-DBETWEEN_LEVEL -DEND_SCREEN \
 	$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
-	$(FULL_FILES) \
+	$(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/main.c   \
+	$(SOURCE_PATH)/control_player.c \
+	$(SOURCE_PATH)/snake.c  \
 	--code-name CODE2 \
+	$(SOURCE_PATH)/init_images.c  $(SOURCE_PATH)/move_snake.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \

@@ -6,7 +6,8 @@
 
 
 #define INITIAL_SNAKE_LENGTH 3
-#define MAX_SNAKE_LENGTH 254
+#define MAX_SNAKE_LENGTH 150
+//254
 
 #define EMPTY 0
 #define DEADLY 1

@@ -36,8 +36,6 @@
 
 #include "control_player.h"
 
-// TODO: REMOVE THIS
-#define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)
 
 #if ((YSize)+(Y_OFFSET)-1)>19
     #define MAX_TILES 19
@@ -81,7 +79,6 @@ extern Image VERTICAL_BRICK_IMAGE;
 extern Image HORIZONTAL_BRICK_IMAGE;
 
 
-
 static uint8_t snake_head_x;
 static uint8_t snake_head_y;
 
@@ -100,8 +97,6 @@ static uint8_t remaining_apples;
 uint8_t level;
 
 static uint8_t energy;
-
-// static uint8_t total_apples_on_level;
 
 static uint8_t bonus_count;
 
@@ -457,7 +452,7 @@ static uint8_t mines_on_level[2*NUMBER_OF_LEVELS] =
         0,
         1, // 10
         0,
-        1, // 12
+        2, // 12
         0,
         2, // 14
         2,
@@ -613,55 +608,6 @@ void handle_horizontal_mine(register uint8_t index)
     }
 }
 
-        // if(mine_x[index]-1)
-        // {
-            // if(!mine_transition[index])
-            // {
-                // _XLIB_DRAW(mine_x[index],mine_y[index],&RIGHT_MINE_IMAGE);
-                // _XLIB_DRAW(mine_x[index]-1,mine_y[index],&LEFT_MINE_IMAGE);
-                // map[mine_x[index]-1][mine_y[index]]=DEADLY;
-                // ++mine_transition[index];
-            // }
-            // else
-            // {
-                // mine_transition[index]=0;
-                // map[mine_x[index]][mine_y[index]]=EMPTY;
-                // _XLIB_DELETE(mine_x[index],mine_y[index]);
-                // --mine_x[index];
-                // _XLIB_DRAW(mine_x[index],mine_y[index],&MINE_IMAGE);
-            // }
-        // }
-        // else //if (mine_x[index]==1)
-        // {
-            // mine_direction[index] = MINE_RIGHT;
-        // }
-    // }
-    // else
-    // {
-        // if(!map[mine_x[index]+1][mine_y[index]] && mine_x[index]<XSize-2)
-        // {
-            // if(!mine_transition[index])
-            // {
-                // _XLIB_DRAW(mine_x[index],mine_y[index],&LEFT_MINE_IMAGE);
-                // _XLIB_DRAW(mine_x[index]+1,mine_y[index],&RIGHT_MINE_IMAGE);
-                // map[mine_x[index]+1][mine_y[index]]=DEADLY;
-                // ++mine_transition[index];
-            // }
-            // else
-            // {
-                // mine_transition[index]=0;
-                // map[mine_x[index]][mine_y[index]]=EMPTY;
-               // _XLIB_DELETE(mine_x[index],mine_y[index]);
-               // ++mine_x[index];
-               // _XLIB_DRAW(mine_x[index],mine_y[index],&MINE_IMAGE);
-            // }
-        // }
-        // else //if (mine_x[index]==XSize-2)
-        // {
-            // mine_direction[index] = MINE_LEFT;
-        // }
-    // }
-
 
 void handle_mines(void)
 {
@@ -709,9 +655,6 @@ int main(void)
         
         extra_life_counter = 1;
         points = 0;
-        // total_apples_on_level=INITIAL_APPLE_COUNT+APPLE_COUNT_INCREASE;
-
-        // remaining_apples = total_apples_on_level;
         
         remaining_apples=INITIAL_APPLE_COUNT+APPLE_COUNT_INCREASE;
         
@@ -898,19 +841,10 @@ int main(void)
                 printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
                 level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)) +(((uint16_t) bonus_count)<<5) + (((uint16_t) level)<<3);
                 SET_TEXT_COLOR(COLOR_WHITE);
-                // PRINTD(0,2,5,(((uint16_t) snake_length)<<1));
-                // PRINTD(0,3,5,(((uint16_t) energy)));
-                // PRINTD(0,4,5,(((uint16_t) bonus_count)<<5));
-                // PRINTD(0,5,5,(((uint16_t) level)<<3));
+
                 printCenteredMessageOnRow(YSize/2+2, _XL_SPACE _XL_B _XL_O _XL_N _XL_U _XL_S _XL_SPACE);
                 PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
                 ++level;
-                // total_apples_on_level=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
-                // if(total_apples_on_level>MAX_APPLES)
-                // {
-                    // total_apples_on_level = MAX_APPLES;
-                // }
-                // remaining_apples = total_apples_on_level;
                 
                 remaining_apples=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
                 if(remaining_apples>MAX_APPLES)

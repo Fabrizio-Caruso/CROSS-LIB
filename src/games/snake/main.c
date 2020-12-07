@@ -653,6 +653,9 @@ int main(void)
             debug_levels:
             #endif
             CLEAR_SCREEN();
+            
+            init_map();
+            
             DRAW_GAME_BORDERS();
             
             bonus_count = 0;
@@ -678,7 +681,6 @@ int main(void)
             
             energy = 99;
             DISPLAY_ENERGY();
-            init_map();
             
             speed_increase_counter = 0;
             

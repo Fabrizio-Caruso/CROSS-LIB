@@ -114,7 +114,7 @@ void snake_grows(void)
             break;
         }
         
-        if(!map[x][y] && !on_borders(x,y))
+        if(!(map[x][y]))
         {
             
             snake_copy[0].x = x;

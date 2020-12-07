@@ -13,11 +13,8 @@
 #define HORIZONTAL(movement) ((movement)>SNAKE_DOWN)
 #define VERTICAL(movement) ((movement)<SNAKE_LEFT)
 
-#define on_borders(x,y) \
-    ((x)<1 || ((x)>=XSize-1) || (y)<1 || ((y)>=YSize-1))
-
 #define hits_wall(x,y) \
-    (on_borders(x,y) || (map[x][y]>=WALL))
+    (map[x][y]>=WALL)
 
 #define hits_deadly_item(x,y) \
     (map[x][y]==DEADLY)

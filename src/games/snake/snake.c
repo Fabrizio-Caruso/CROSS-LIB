@@ -94,22 +94,22 @@ void snake_grows(void)
     if(snake_length<MAX_SNAKE_LENGTH)
     {
         // Generate head at index 0
+        
+        x = snake[snake_head].x;
+        y = snake[snake_head].y;
+
         switch(snake_direction)
         {
             case SNAKE_RIGHT:
                 x = snake[snake_head].x+1;
-                y = snake[snake_head].y;
             break;
             case SNAKE_LEFT:
                 x = snake[snake_head].x-1;
-                y = snake[snake_head].y;
             break;
             case SNAKE_UP:
-                x = snake[snake_head].x;
                 y = snake[snake_head].y-1;
             break;
             case SNAKE_DOWN:
-                x = snake[snake_head].x;
                 y = snake[snake_head].y+1;
             break;
         }

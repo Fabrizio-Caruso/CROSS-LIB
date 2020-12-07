@@ -247,6 +247,22 @@ nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_nes.nes
 
 
+
+
+#################################################################
+
+
+pet: pet_16k
+
+pet_16k: 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t pet \
+	-DFULL_GAME -DSLOW_DOWN=400 \
+	-DNO_INIT_GRAPHICS -DCONIO -DNO_UDG -DASCII_SOUNDS \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_pet_16k.prg
+
+
+
 #################################################################
 
 pce: pce_32k
@@ -1073,7 +1089,7 @@ ncurses_targets: \
 ncurses:
 	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DEND_SCREEN -DBETWEEN_LEVEL -DSLOW_DOWN=50 \
 	-DCONIO  \
 	-DALT_PRINT \
 	-DNO_TITLE_LINE \

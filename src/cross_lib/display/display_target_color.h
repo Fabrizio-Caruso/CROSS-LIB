@@ -7,11 +7,11 @@
 
 
 #if defined(__GAL__) || defined(__GAMATE__) \
-    || (defined(__PC6001__) && !(FORCE_SCREEN_MODE==2)) || defined(__ATARI5200__) || defined(__CREATIVISION__) \
+    || (defined(__PC6001__) && !(FORCE_SCREEN_MODE==2)) || (defined(__ATARI5200__) && !defined(ATARI_MODE_1_COLOR)) || defined(__CREATIVISION__) \
 	|| defined(__WINCMOC__) || defined(__COCO__) || defined(__DRAGON__) || defined(__OSIC1P__) || defined(__MC1000__) \
 	|| defined(__LAMBDA__) || defined(__MSX__) \
 	|| defined(__VZ__) || defined(__VG5k__) \
-	|| defined(__ATARI__) \
+	|| (defined(__ATARI__) && !defined(ATARI_MODE_1_COLOR)) \
 	|| defined(__PET__) || defined(__CBM610__) || defined(__APPLE2__) || defined(__APPLE2ENH__) \
 	|| defined(__ZX81__) || defined(__ZX80__) || defined(__ACE__) \
 	|| defined(__TRS80__) || defined(__CPM_80X24__) || defined(__PX8__) || defined(__PX4__) \

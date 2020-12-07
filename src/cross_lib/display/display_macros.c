@@ -36,7 +36,11 @@ extern Image VERTICAL_BRICK_IMAGE;
 #endif
 
 
-#if defined(__ATARI__) && defined(ATARI_MODE1)
+#if defined(__ATARI__) && (defined(ATARI_MODE1) ) 
+extern uint16_t BASE_ADDR;
+#endif
+
+#if defined(ATARI_MODE_1_COLOR)
 extern uint16_t BASE_ADDR;
 #endif
 

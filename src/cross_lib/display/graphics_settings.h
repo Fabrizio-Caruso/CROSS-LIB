@@ -5,6 +5,8 @@
 	#include "memory_mapped_graphics.h"
 #elif defined(CONIO)
 	#include "conio_graphics.h"
+#elif defined(ATARI_MODE_1_COLOR)
+    #include "atari_mode_1_graphics.h"
 #elif defined(VECTORIAL)
 	#include "vectorial_graphics.h"
 #elif defined(BUFFERED)

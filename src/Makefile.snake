@@ -104,6 +104,23 @@ lcc1802_targets:
 
 atari: atari_color
 
+atari_test: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
+	-DREDEFINED_CHARS -DINLINE_LOC \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE_1_COLOR -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
+	-DDEFAULT_CLEAR_SCREEN \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DSLOW_DOWN=600 \
+	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
+
 atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
 	-DREDEFINED_CHARS \
@@ -120,7 +137,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_atari_color.xex
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
 
 #################################################################
 

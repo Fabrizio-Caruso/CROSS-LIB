@@ -110,8 +110,8 @@ int main(void)
         
         SET_TEXT_COLOR(COLOR_WHITE);
         PRINT(COL_OFFSET,   2,"0123456789");
-        PRINTD(COL_OFFSET  ,3,5, 1234);
-        PRINTD(COL_OFFSET+5,3,5,56789);
+        PRINTD(COL_OFFSET  ,3,5, 1234U);
+        PRINTD(COL_OFFSET+5,3,5,56789U);
         PRINT(COL_OFFSET, 5, _XL_a _XL_b _XL_c _XL_d _XL_e _XL_f _XL_g _XL_h _XL_i _XL_j "-");
         PRINT(COL_OFFSET, 6, _XL_k _XL_l _XL_m _XL_n _XL_o _XL_p _XL_q _XL_r _XL_s _XL_t "-");
         PRINT(COL_OFFSET, 7, _XL_u _XL_v _XL_w _XL_x _XL_y _XL_z);

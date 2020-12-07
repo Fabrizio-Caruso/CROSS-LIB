@@ -48,7 +48,7 @@ void INIT_IMAGES(void)
         SCORE_TEXT_LEFT_IMAGE._color = COLOR_CYAN;
         SCORE_TEXT_RIGHT_IMAGE._color = COLOR_CYAN;
         
-        HI_TEXT_IMAGE._color = COLOR_RED;;
+        HI_TEXT_IMAGE._color = COLOR_RED;
         LV_TEXT_IMAGE._color = COLOR_GREEN;
         
         APPLE_IMAGE._color = COLOR_RED;
@@ -73,7 +73,7 @@ void INIT_IMAGES(void)
     
     SCORE_TEXT_LEFT_IMAGE._imageData = _TILE_14;
     SCORE_TEXT_RIGHT_IMAGE._imageData = _TILE_16;
-    HI_TEXT_IMAGE._imageData = _TILE_6;;
+    HI_TEXT_IMAGE._imageData = _TILE_6;
     LV_TEXT_IMAGE._imageData = _TILE_9;
     
     

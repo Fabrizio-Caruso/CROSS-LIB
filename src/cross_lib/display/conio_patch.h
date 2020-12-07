@@ -323,5 +323,30 @@
 #endif
 
 
+#define _ATARI_MODE1_RED 0
+#define _ATARI_MODE1_WHITE 64
+#define _ATARI_MODE1_BLUE 128
+#define _ATARI_MODE1_YELLOW 192
+
+#if defined(ATARI_MODE_1_COLOR)
+    #undef COLOR_RED
+    #define COLOR_RED _ATARI_MODE1_RED
+    
+    #undef COLOR_WHITE
+    #define COLOR_WHITE _ATARI_MODE1_WHITE
+
+    #undef COLOR_BLUE
+    #define COLOR_BLUE _ATARI_MODE1_BLUE
+    
+    #undef COLOR_YELLOW
+    #define COLOR_YELLOW _ATARI_MODE1_YELLOW
+    
+    #undef COLOR_GREEN
+    #define COLOR_GREEN _ATARI_MODE1_YELLOW
+    
+    #undef COLOR_CYAN
+    #define COLOR_CYAN _ATARI_MODE1_WHITE
+#endif
+
 #endif // _CONIO_PATH_H
 

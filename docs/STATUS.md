@@ -223,10 +223,7 @@ target name         | long target name                                     | wor
 *emcc*              | Emscripten (WebAssembly version)                     | YES     | 
 
 
-OK       :   1
-
-KO       :   1
-
+OK       :   2
 
 -----------------------------------------------------------------------------------------
 

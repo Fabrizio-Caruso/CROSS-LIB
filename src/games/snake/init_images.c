@@ -26,6 +26,9 @@ Image CENTRAL_BRICK_IMAGE;
 
 Image MINE_IMAGE;
 
+Image LEFT_MINE_IMAGE;
+Image RIGHT_MINE_IMAGE;
+
 void INIT_IMAGES(void)
 {
 	// Set color data 
@@ -51,6 +54,8 @@ void INIT_IMAGES(void)
         APPLE_IMAGE._color = COLOR_RED;
         
         MINE_IMAGE._color = COLOR_CYAN;
+        LEFT_MINE_IMAGE._color = COLOR_CYAN;
+        RIGHT_MINE_IMAGE._color = COLOR_CYAN;
 	#endif	
 
 	// Set Image Data
@@ -73,6 +78,8 @@ void INIT_IMAGES(void)
     
     
     MINE_IMAGE._imageData = _TILE_17;
+    LEFT_MINE_IMAGE._imageData = _TILE_2;
+    RIGHT_MINE_IMAGE._imageData = _TILE_3;
 }
 
 

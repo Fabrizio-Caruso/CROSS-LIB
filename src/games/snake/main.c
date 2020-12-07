@@ -64,6 +64,9 @@ extern Image CENTRAL_BRICK_IMAGE;
 
 extern Image MINE_IMAGE;
 
+extern Image LEFT_MINE_IMAGE;
+extern Image RIGHT_MINE_IMAGE;
+
 extern SnakeBody snake[MAX_SNAKE_LENGTH];
 
 extern uint8_t snake_length;
@@ -76,6 +79,8 @@ extern uint8_t map[XSize][YSize];
 
 extern Image VERTICAL_BRICK_IMAGE;
 extern Image HORIZONTAL_BRICK_IMAGE;
+
+
 
 static uint8_t snake_head_x;
 static uint8_t snake_head_y;
@@ -218,7 +223,7 @@ void DISPLAY_REMAINING_APPLES_COUNT(void)
 }
 
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 16
 // #define DEBUG_LEVELS
 
 static uint8_t apples_on_screen_count;
@@ -356,10 +361,10 @@ static uint8_t level_walls[] =
 // level 16
     0,
     4,
-        XSize/6, YSize-1-YSize/4, YSize/4,
-        XSize-1-XSize/6, YSize-1-YSize/4, YSize/4,
-        XSize/3, YSize-1-YSize/4, YSize/4,
-        XSize-1-XSize/3, YSize-1-YSize/4, YSize/4,
+        XSize/6, YSize-1-YSize/3, YSize/3,
+        XSize-1-XSize/6, YSize-1-YSize/3, YSize/3,
+        XSize/3, YSize-1-YSize/3, YSize/3,
+        XSize-1-XSize/3, YSize-1-YSize/3, YSize/3,
     0,
 };
 
@@ -437,6 +442,8 @@ static uint8_t mine_x[MAX_NUMBER_OF_MINES];
 static uint8_t mine_y[MAX_NUMBER_OF_MINES];
 static uint8_t mine_direction[MAX_NUMBER_OF_MINES];
 static uint8_t mines_on_current_level;
+static uint8_t mine_transition[MAX_NUMBER_OF_MINES];
+
 static uint8_t mines_on_level[2*NUMBER_OF_LEVELS] = 
     {
         0, // 1
@@ -528,46 +535,119 @@ void build_level(void)
         mine_direction[j] = j&1;
         _XLIB_DRAW(mine_x[j],mine_y[j],&MINE_IMAGE);
         map[mine_x[j]][mine_y[j]]=DEADLY;
+        mine_transition[j] = 0;
     }
     
     
 }
 
 
-void handle_horizontal_mine(uint8_t index)
+void handle_horizontal_mine(register uint8_t index)
 {
     if(mine_direction[index]==MINE_LEFT)
     {
-        if(!map[mine_x[index]-1][mine_y[index]] && mine_x[index]-1)
+        
+        if(!mine_transition[index]) // transition not performed, yet
         {
-            map[mine_x[index]][mine_y[index]]=0;
+            if(!map[mine_x[index]-1][mine_y[index]] && mine_x[index]-1)
+            {
+                // Do left transition
+                _XLIB_DRAW(mine_x[index],mine_y[index],&RIGHT_MINE_IMAGE);
+                _XLIB_DRAW(mine_x[index]-1,mine_y[index],&LEFT_MINE_IMAGE);
+                map[mine_x[index]-1][mine_y[index]]=DEADLY;
+                ++mine_transition[index];
+            }
+            else
+            {
+                mine_direction[index]=MINE_RIGHT;
+            }
+        }
+        else // transition already performed
+        {
+            mine_transition[index]=0;
+            map[mine_x[index]][mine_y[index]]=EMPTY;
             _XLIB_DELETE(mine_x[index],mine_y[index]);
             --mine_x[index];
             _XLIB_DRAW(mine_x[index],mine_y[index],&MINE_IMAGE);
-            map[mine_x[index]][mine_y[index]]=DEADLY;
-        }
-        else //if (mine_x[index]==1)
-        {
-            mine_direction[index] = MINE_RIGHT;
         }
     }
     else
     {
-        if(!map[mine_x[index]+1][mine_y[index]] && mine_x[index]<XSize-2)
+        if(!mine_transition[index]) // transition not performed, yet
         {
-            map[mine_x[index]][mine_y[index]]=0;
+            if(!map[mine_x[index]+1][mine_y[index]] && mine_x[index]<XSize-2)
+            {
+                // Do right transition
+                _XLIB_DRAW(mine_x[index],mine_y[index],&LEFT_MINE_IMAGE);
+                _XLIB_DRAW(mine_x[index]+1,mine_y[index],&RIGHT_MINE_IMAGE);
+                map[mine_x[index]+1][mine_y[index]]=DEADLY;
+                ++mine_transition[index];
+            }
+            else
+            {
+                mine_direction[index]=MINE_LEFT;
+            }
+        }
+        else // transition already performed
+        {
+            mine_transition[index]=0;
+            map[mine_x[index]][mine_y[index]]=EMPTY;
             _XLIB_DELETE(mine_x[index],mine_y[index]);
             ++mine_x[index];
             _XLIB_DRAW(mine_x[index],mine_y[index],&MINE_IMAGE);
-            map[mine_x[index]][mine_y[index]]=DEADLY;
-        }
-        else //if (mine_x[index]==XSize-2)
-        {
-            mine_direction[index] = MINE_LEFT;
         }
     }
-    
 }
+
+        // if(mine_x[index]-1)
+        // {
+            // if(!mine_transition[index])
+            // {
+                // _XLIB_DRAW(mine_x[index],mine_y[index],&RIGHT_MINE_IMAGE);
+                // _XLIB_DRAW(mine_x[index]-1,mine_y[index],&LEFT_MINE_IMAGE);
+                // map[mine_x[index]-1][mine_y[index]]=DEADLY;
+                // ++mine_transition[index];
+            // }
+            // else
+            // {
+                // mine_transition[index]=0;
+                // map[mine_x[index]][mine_y[index]]=EMPTY;
+                // _XLIB_DELETE(mine_x[index],mine_y[index]);
+                // --mine_x[index];
+                // _XLIB_DRAW(mine_x[index],mine_y[index],&MINE_IMAGE);
+            // }
+        // }
+        // else //if (mine_x[index]==1)
+        // {
+            // mine_direction[index] = MINE_RIGHT;
+        // }
+    // }
+    // else
+    // {
+        // if(!map[mine_x[index]+1][mine_y[index]] && mine_x[index]<XSize-2)
+        // {
+            // if(!mine_transition[index])
+            // {
+                // _XLIB_DRAW(mine_x[index],mine_y[index],&LEFT_MINE_IMAGE);
+                // _XLIB_DRAW(mine_x[index]+1,mine_y[index],&RIGHT_MINE_IMAGE);
+                // map[mine_x[index]+1][mine_y[index]]=DEADLY;
+                // ++mine_transition[index];
+            // }
+            // else
+            // {
+                // mine_transition[index]=0;
+                // map[mine_x[index]][mine_y[index]]=EMPTY;
+               // _XLIB_DELETE(mine_x[index],mine_y[index]);
+               // ++mine_x[index];
+               // _XLIB_DRAW(mine_x[index],mine_y[index],&MINE_IMAGE);
+            // }
+        // }
+        // else //if (mine_x[index]==XSize-2)
+        // {
+            // mine_direction[index] = MINE_LEFT;
+        // }
+    // }
+
 
 void handle_mines(void)
 {

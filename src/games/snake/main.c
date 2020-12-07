@@ -355,7 +355,11 @@ static uint8_t level_walls[] =
         XSize/2-3,YSize/2+2,6,6,DEADLY,
 // level 16
     0,
-    0,
+    4,
+        XSize/6, YSize-1-YSize/4, YSize/4,
+        XSize-1-XSize/6, YSize-1-YSize/4, YSize/4,
+        XSize/3, YSize-1-YSize/4, YSize/4,
+        XSize-1-XSize/3, YSize-1-YSize/4, YSize/4,
     0,
 };
 

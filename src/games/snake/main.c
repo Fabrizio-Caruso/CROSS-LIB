@@ -101,7 +101,7 @@ uint8_t level;
 
 static uint8_t energy;
 
-static uint8_t total_apples_on_level;
+// static uint8_t total_apples_on_level;
 
 static uint8_t bonus_count;
 
@@ -317,8 +317,8 @@ static uint8_t level_walls[] =
         XSize-2-XSize/3,2,XSize/3,YSize/3,WALL,
 // level 10
     2, 
-        XSize/3,       YSize/3,     XSize/2-1,
-        XSize/3,     2*YSize/3,     XSize/2-1,
+        XSize/3-1,       YSize/3,     XSize/2-1,
+        XSize/3-1,     2*YSize/3,     XSize/2-1,
     0,
     0,
 // level 11
@@ -459,22 +459,22 @@ static uint8_t mines_on_level[2*NUMBER_OF_LEVELS] =
         0,
         1, // 12
         0,
-        1, // 14
+        2, // 14
         2,
         3, // 16
         1, // 17
         1,
         1,
-        0, // 20
-        0,
+        1, // 20
         1,
-        0, // 23
         1,
-        0, // 25
+        1, // 23
         1,
-        0, // 27
-        1,
-        0, // 29
+        1, // 25
+        2,
+        1, // 27
+        3,
+        1, // 29
         2,
         3,
         4
@@ -486,14 +486,19 @@ static uint8_t mines_on_level[2*NUMBER_OF_LEVELS] =
 #define MINE_UP 2
 #define MINE_DOWN 3
 
+uint8_t tight_level(void) 
+{
+    return (level==20) || (level==26) || (level==27) || (level==29);
+}
 
 void build_level(void)
 {
-    uint16_t index = level_walls_index[(level-1)&15];
+    register uint16_t index = level_walls_index[(level-1)&15];
 
-    uint16_t i;
+    register uint16_t i;
     uint16_t number_of_elements;
     uint8_t j;
+    uint8_t y_offset;
     
     // printf("level: %u\n", level);
     
@@ -528,10 +533,19 @@ void build_level(void)
     
     mines_on_current_level = mines_on_level[level-1];
     
+    if(!tight_level())
+    {
+        y_offset = 3u;
+    }
+    else
+    {
+        y_offset = 1u;
+    }
+    
     for(j=0;j<mines_on_current_level;++j)
     {
         mine_x[j] = XSize/2;
-        mine_y[j] = YSize/2 - 2u - j;
+        mine_y[j] = YSize/2 - y_offset - j;
         mine_direction[j] = j&1;
         _XLIB_DRAW(mine_x[j],mine_y[j],&MINE_IMAGE);
         map[mine_x[j]][mine_y[j]]=DEADLY;
@@ -666,6 +680,7 @@ void DISPLAY_LIVES(void)
 
 int main(void)
 {        
+    uint8_t i;
     
     INIT_GRAPHICS();
 
@@ -694,12 +709,12 @@ int main(void)
         
         extra_life_counter = 1;
         points = 0;
-        total_apples_on_level=INITIAL_APPLE_COUNT+APPLE_COUNT_INCREASE;
-        if(total_apples_on_level>MAX_APPLES)
-        {
-            total_apples_on_level = MAX_APPLES;
-        }
-        remaining_apples = total_apples_on_level;
+        // total_apples_on_level=INITIAL_APPLE_COUNT+APPLE_COUNT_INCREASE;
+
+        // remaining_apples = total_apples_on_level;
+        
+        remaining_apples=INITIAL_APPLE_COUNT+APPLE_COUNT_INCREASE;
+        
         lives = INITIAL_LIVES;
         level = INITIAL_LEVEL;
 
@@ -747,6 +762,13 @@ int main(void)
             apples_on_screen_count = 1;
             spawn(APPLE, &APPLE_IMAGE);
 
+            if(tight_level())
+            {
+                for(i=0;i<MAX_BONUS_COUNT;++i)
+                {
+                    spawn(BONUS, &EXTRA_POINTS_IMAGE);
+                }
+            }
             
             energy = 99;
             
@@ -883,8 +905,19 @@ int main(void)
                 printCenteredMessageOnRow(YSize/2+2, _XL_SPACE _XL_B _XL_O _XL_N _XL_U _XL_S _XL_SPACE);
                 PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
                 ++level;
-                total_apples_on_level=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
-                remaining_apples = total_apples_on_level;
+                // total_apples_on_level=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
+                // if(total_apples_on_level>MAX_APPLES)
+                // {
+                    // total_apples_on_level = MAX_APPLES;
+                // }
+                // remaining_apples = total_apples_on_level;
+                
+                remaining_apples=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
+                if(remaining_apples>MAX_APPLES)
+                {
+                    remaining_apples = MAX_APPLES;
+                }
+                
                 points+=level_bonus;
                 WAIT_PRESS();
             }

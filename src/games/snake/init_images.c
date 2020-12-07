@@ -29,6 +29,8 @@ Image MINE_IMAGE;
 Image LEFT_MINE_IMAGE;
 Image RIGHT_MINE_IMAGE;
 
+Image TRANSPARENT_BRICK_IMAGE;
+
 void INIT_IMAGES(void)
 {
 	// Set color data 
@@ -39,7 +41,6 @@ void INIT_IMAGES(void)
 
         BODY_IMAGE._color = _SNAKE_COLOR;
 
-        EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
         
         VERTICAL_BRICK_IMAGE._color = _WALL_COLOR;
         HORIZONTAL_BRICK_IMAGE._color = _WALL_COLOR;
@@ -56,6 +57,11 @@ void INIT_IMAGES(void)
         MINE_IMAGE._color = COLOR_CYAN;
         LEFT_MINE_IMAGE._color = COLOR_CYAN;
         RIGHT_MINE_IMAGE._color = COLOR_CYAN;
+        
+        EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
+
+        TRANSPARENT_BRICK_IMAGE._color = COLOR_YELLOW;
+
 	#endif	
 
 	// Set Image Data
@@ -64,8 +70,6 @@ void INIT_IMAGES(void)
 
     BODY_IMAGE._imageData = _TILE_4;
     APPLE_IMAGE._imageData = _TILE_5;
-
-    EXTRA_POINTS_IMAGE._imageData = _DOLLAR_TILE;
 
     VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
     HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
@@ -80,6 +84,11 @@ void INIT_IMAGES(void)
     MINE_IMAGE._imageData = _TILE_17;
     LEFT_MINE_IMAGE._imageData = _TILE_2;
     RIGHT_MINE_IMAGE._imageData = _TILE_3;
+    
+    TRANSPARENT_BRICK_IMAGE._imageData = _TILE_10;
+    
+    EXTRA_POINTS_IMAGE._imageData = _DOLLAR_TILE;
+
 }
 
 

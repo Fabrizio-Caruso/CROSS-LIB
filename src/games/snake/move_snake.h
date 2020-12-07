@@ -19,8 +19,8 @@
 #define hits_wall(x,y) \
     (on_borders(x,y) || (map[x][y]==WALL))
 
-#define hits_snake(x,y) \
-    (map[x][y]==SNAKE)
+#define hits_deadly_item(x,y) \
+    (map[x][y]==DEADLY)
 
 uint8_t move_snake(uint8_t wished_direction);
 

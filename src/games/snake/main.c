@@ -177,9 +177,9 @@ uint8_t empty_around(uint8_t x, uint8_t y)
 {
 return 
 !map[x][y] && 
-       (map[x-1][y-1]!=MINE) && (map[x][y-1]!=MINE) && (map[x+1][y-1]!=MINE) &&
-       (map[x-1][y]!=MINE) && (map[x+1][y]!=MINE) &&
-       (map[x-1][y+1]!=MINE) && (map[x][y+1]!=MINE) && (map[x+1][y+1]!=MINE);
+       (map[x-1][y-1]!=DEADLY) && (map[x][y-1]!=DEADLY) && (map[x+1][y-1]!=DEADLY) &&
+       (map[x-1][y]!=DEADLY) && (map[x+1][y]!=DEADLY) &&
+       (map[x-1][y+1]!=DEADLY) && (map[x][y+1]!=DEADLY) && (map[x+1][y+1]!=DEADLY);
 
 }
 
@@ -278,8 +278,8 @@ static uint8_t level_walls[] =
         XSize/3,                      0,    4*YSize/5,
        2*XSize/3,               YSize/5,    4*YSize/5,
     2,
-        1,1,XSize/8,YSize/8,MINE,
-        XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,MINE,
+        1,1,XSize/8,YSize/8,DEADLY,
+        XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,DEADLY,
 // level 7
     2,
         0, YSize/2, XSize/4,
@@ -290,9 +290,9 @@ static uint8_t level_walls[] =
         XSize/2-1, 3, YSize/4,
         XSize/2-1, YSize-4-YSize/4, YSize/4,
     4,
-        1,1,XSize/6,YSize/6,MINE,
+        1,1,XSize/6,YSize/6,DEADLY,
         1,YSize-1-YSize/6,XSize/6,YSize/6,WALL,
-        XSize-1-XSize/6,YSize-1-YSize/6,XSize/6,YSize/6,MINE,
+        XSize-1-XSize/6,YSize-1-YSize/6,XSize/6,YSize/6,DEADLY,
         XSize-1-XSize/6,1,XSize/6,YSize/6,WALL,
 // level 8
     0,
@@ -352,7 +352,7 @@ static uint8_t level_walls[] =
         5,YSize/2-1,XSize-10,
     0,
     1,
-        XSize/2-3,YSize/2+2,6,6,MINE,
+        XSize/2-3,YSize/2+2,6,6,DEADLY,
 // level 16
     0,
     0,
@@ -523,7 +523,7 @@ void build_level(void)
         mine_y[j] = YSize/2 - 2u - j;
         mine_direction[j] = j&1;
         _XLIB_DRAW(mine_x[j],mine_y[j],&MINE_IMAGE);
-        map[mine_x[j]][mine_y[j]]=MINE;
+        map[mine_x[j]][mine_y[j]]=DEADLY;
     }
     
     
@@ -540,7 +540,7 @@ void handle_horizontal_mine(uint8_t index)
             _XLIB_DELETE(mine_x[index],mine_y[index]);
             --mine_x[index];
             _XLIB_DRAW(mine_x[index],mine_y[index],&MINE_IMAGE);
-            map[mine_x[index]][mine_y[index]]=MINE;
+            map[mine_x[index]][mine_y[index]]=DEADLY;
         }
         else //if (mine_x[index]==1)
         {
@@ -555,7 +555,7 @@ void handle_horizontal_mine(uint8_t index)
             _XLIB_DELETE(mine_x[index],mine_y[index]);
             ++mine_x[index];
             _XLIB_DRAW(mine_x[index],mine_y[index],&MINE_IMAGE);
-            map[mine_x[index]][mine_y[index]]=MINE;
+            map[mine_x[index]][mine_y[index]]=DEADLY;
         }
         else //if (mine_x[index]==XSize-2)
         {
@@ -759,7 +759,7 @@ int main(void)
                         IF_POSSIBLE_DECREASE_SPEED();
                     }
                     
-                    if(hits_snake(snake_head_x,snake_head_y) || !remaining_apples)
+                    if(hits_deadly_item(snake_head_x,snake_head_y) || !remaining_apples)
                     {
                         break;
                     }

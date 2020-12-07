@@ -39,7 +39,7 @@ void delete_body_part(uint8_t i)
 void draw_body_part(uint8_t i)
 {
     _XLIB_DRAW(snake[i].x,snake[i].y,&BODY_IMAGE);
-    map[snake[i].x][snake[i].y] = SNAKE;
+    map[snake[i].x][snake[i].y] = DEADLY;
 }
 
 

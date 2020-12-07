@@ -122,9 +122,10 @@ void snake_grows(void)
         
             // Copy snake body starting at index 1
             for(i=0;i<snake_length;++i)
-            {
-                snake_copy[i+1].x=snake[(i+snake_head)%snake_length].x;
-                snake_copy[i+1].y=snake[(i+snake_head)%snake_length].y;
+            {   
+                x = (i+snake_head)%snake_length; // store
+                snake_copy[i+1].x=snake[x].x;
+                snake_copy[i+1].y=snake[x].y;
             }
             
             // New head is at index 0

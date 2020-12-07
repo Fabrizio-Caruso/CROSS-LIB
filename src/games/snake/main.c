@@ -104,6 +104,7 @@ static uint8_t extra_life_counter;
 
 static uint8_t active_mines;
 
+static uint16_t level_bonus;
 
 #define FINAL_LEVEL 32
 
@@ -333,10 +334,10 @@ static uint8_t level_walls[] =
 // level 13
     0,
     4,
-        XSize/5,                      0,    4*YSize/5,
-       2*XSize/5,               YSize/5,    4*YSize/5,
-       3*XSize/5,                      0,   4*YSize/5,
-       4*XSize/5,               YSize/5,    4*YSize/5,
+        XSize/5,                      1,    4*YSize/5,
+       2*XSize/5,               YSize/5-1,    4*YSize/5,
+       3*XSize/5,                      1,   4*YSize/5,
+       4*XSize/5,               YSize/5-1,    4*YSize/5,
     0,
 // level 14
     4,
@@ -789,14 +790,24 @@ int main(void)
             {
                 SET_TEXT_COLOR(COLOR_RED);
                 printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
+                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)) +(((uint16_t) bonus_count)<<5) + (((uint16_t) level)<<3);
+                SET_TEXT_COLOR(COLOR_WHITE);
+                // PRINTD(0,2,5,(((uint16_t) snake_length)<<1));
+                // PRINTD(0,3,5,(((uint16_t) energy)));
+                // PRINTD(0,4,5,(((uint16_t) bonus_count)<<5));
+                // PRINTD(0,5,5,(((uint16_t) level)<<3));
+                printCenteredMessageOnRow(YSize/2+2, _XL_SPACE _XL_B _XL_O _XL_N _XL_U _XL_S _XL_SPACE);
+                PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
                 ++level;
                 total_apples_on_level=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
                 remaining_apples = total_apples_on_level;
+                points+=level_bonus;
                 WAIT_PRESS();
             }
         }
         if(level>FINAL_LEVEL)
         {
+            CLEAR_SCREEN();
             SET_TEXT_COLOR(COLOR_WHITE);
             printCenteredMessageOnRow(YSize/2-3, _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_E _XL_N _XL_D _XL_SPACE);
         }

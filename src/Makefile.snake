@@ -70,6 +70,7 @@ cc65_targets: \
     c64 \
     oric  \
     nes \
+    pet \
     pce \
     vic20 
 

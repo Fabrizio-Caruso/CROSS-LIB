@@ -431,13 +431,14 @@ void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, ui
 #define build_vertical_wall(x,y,length) \
     build_box_wall(x, y, 1, length, VERTICAL_WALL)
 
-void DRAW_GAME_BORDERS(void)
-{
-    build_horizontal_wall(0,0,XSize);
-    build_horizontal_wall(0,YSize-1,XSize);
-    build_vertical_wall(0,0,YSize);
-    build_vertical_wall(XSize-1,0,YSize);
-}
+#define DRAW_MAP_BORDERS() \
+do \
+{ \
+    build_horizontal_wall(0,0,XSize); \
+    build_horizontal_wall(0,YSize-1,XSize); \
+    build_vertical_wall(0,0,YSize); \
+    build_vertical_wall(XSize-1,0,YSize); \
+} while(0)
 
 #define MAX_NUMBER_OF_MINES 4
 
@@ -729,7 +730,7 @@ int main(void)
             
             init_map();
             
-            DRAW_GAME_BORDERS();
+            DRAW_MAP_BORDERS();
             
             bonus_count = 0;
             

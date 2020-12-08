@@ -6,7 +6,10 @@
 
 
 #define INITIAL_SNAKE_LENGTH 3
-#define MAX_SNAKE_LENGTH 150
+
+#define MAX_APPLES 50
+
+#define MAX_SNAKE_LENGTH ((XSize)+(MAX_APPLES)+((MAX_APPLES)/8)+10)
 //254
 
 #define EMPTY 0
@@ -20,12 +23,6 @@
 
 #define NUMBER_OF_LEVELS 16
 
-struct CoordinateStruct
-{
-    uint8_t x;
-    uint8_t y;
-};
-typedef struct CoordinateStruct Coordinate;
 
 void draw_head(void);
 

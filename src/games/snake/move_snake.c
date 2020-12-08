@@ -2,7 +2,8 @@
 #include "snake.h"
 #include "move_snake.h"
 
-extern Coordinate snake[MAX_SNAKE_LENGTH];
+extern uint8_t snake_x[MAX_SNAKE_LENGTH];
+extern uint8_t snake_y[MAX_SNAKE_LENGTH];
 
 extern uint8_t snake_length;
 
@@ -29,28 +30,28 @@ uint8_t move_snake(uint8_t wished_direction)
     switch(wished_direction)
     {
         case SNAKE_RIGHT:
-            candidate_x = snake[snake_head].x+1;
-            candidate_y = snake[snake_head].y;
+            candidate_x = snake_x[snake_head]+1;
+            candidate_y = snake_y[snake_head];
         break;
         case SNAKE_LEFT:
-            candidate_x = snake[snake_head].x-1;
-            candidate_y = snake[snake_head].y;
+            candidate_x = snake_x[snake_head]-1;
+            candidate_y = snake_y[snake_head];
         break;
         case SNAKE_UP:
-            candidate_x = snake[snake_head].x;
-            candidate_y = snake[snake_head].y-1;
+            candidate_x = snake_x[snake_head];
+            candidate_y = snake_y[snake_head]-1;
         break;
         case SNAKE_DOWN:
-            candidate_x = snake[snake_head].x;
-            candidate_y = snake[snake_head].y+1;
+            candidate_x = snake_x[snake_head];
+            candidate_y = snake_y[snake_head]+1;
         break;
     }
     if(!hits_wall(candidate_x,candidate_y)) // can move
     {
         snake_direction = wished_direction;
         delete_body_part(tail);
-        snake[tail].x = candidate_x;
-        snake[tail].y = candidate_y;
+        snake_x[tail] = candidate_x;
+        snake_y[tail] = candidate_y;
         
         if(HORIZONTAL(snake_direction))
         {

@@ -67,7 +67,8 @@ extern Image MINE_IMAGE;
 extern Image LEFT_MINE_IMAGE;
 extern Image RIGHT_MINE_IMAGE;
 
-extern Coordinate snake[MAX_SNAKE_LENGTH];
+extern uint8_t snake_x[MAX_SNAKE_LENGTH];
+extern uint8_t snake_y[MAX_SNAKE_LENGTH];
 
 extern uint8_t snake_length;
 
@@ -332,10 +333,10 @@ static uint8_t level_walls[] =
         XSize/4, YSize/2+2,XSize/2,
     0,
     4,
-        2,2,XSize/3,YSize/3,TRANSPARENT,
-        2,YSize-2-YSize/3,XSize/3,YSize/3,TRANSPARENT,
-        XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,TRANSPARENT,
-        XSize-2-XSize/3,2,XSize/3,YSize/3,TRANSPARENT,
+        2,2,XSize/3,YSize/3,WALL,
+        2,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
+        XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
+        XSize-2-XSize/3,2,XSize/3,YSize/3,WALL,
 // level 12
     1,
         2,YSize/2-1,XSize-4,
@@ -446,8 +447,6 @@ do \
 } while(0)
 
 #define MAX_NUMBER_OF_MINES 6
-
-#define MAX_APPLES 50
 
 static uint8_t mine_x[MAX_NUMBER_OF_MINES];
 static uint8_t mine_y[MAX_NUMBER_OF_MINES];
@@ -873,8 +872,8 @@ int main(void)
                     DO_SLOW_DOWN(slow_down);
                     ++speed_increase_counter;
                     
-                    snake_head_x = snake[snake_head].x;
-                    snake_head_y = snake[snake_head].y;
+                    snake_head_x = snake_x[snake_head];
+                    snake_head_y = snake_y[snake_head];
                     
                     if((!(apples_on_screen_count) || (speed_increase_counter>SPEED_INCREASE_THRESHOLD)))
                     {
@@ -907,8 +906,8 @@ int main(void)
                     if(hits_bonus(snake_head_x,snake_head_y))
                     {
                         snake_grows();
-                        snake_head_x = snake[snake_head].x;
-                        snake_head_y = snake[snake_head].y;
+                        snake_head_x = snake_x[snake_head];
+                        snake_head_y = snake_y[snake_head];
                         
 
                         points+=(BONUS_POINTS<<bonus_count);
@@ -931,8 +930,8 @@ int main(void)
                     {
                         --apples_on_screen_count;
                         snake_grows();
-                        snake_head_x = snake[snake_head].x;
-                        snake_head_y = snake[snake_head].y;
+                        snake_head_x = snake_x[snake_head];
+                        snake_head_y = snake_y[snake_head];
                         
                         --remaining_apples;
                         DISPLAY_REMAINING_APPLES_COUNT();

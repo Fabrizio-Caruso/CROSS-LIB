@@ -2,7 +2,8 @@
 #include "snake.h"
 #include "move_snake.h"
 
-Coordinate snake[MAX_SNAKE_LENGTH];
+uint8_t snake_x[MAX_SNAKE_LENGTH];
+uint8_t snake_y[MAX_SNAKE_LENGTH];
 
 uint8_t snake_length;
 
@@ -11,8 +12,8 @@ uint8_t snake_head;
 Image *head_image_ptr;
 
 uint8_t map[XSize][YSize];
-Coordinate snake_copy[MAX_SNAKE_LENGTH];
-
+uint8_t snake_copy_x[MAX_SNAKE_LENGTH];
+uint8_t snake_copy_y[MAX_SNAKE_LENGTH];
 
 uint8_t snake_direction;
 
@@ -27,19 +28,19 @@ uint8_t initial_snake_length[] = {XSize/2,XSize/4,XSize/2,XSize/2,2*XSize/3,XSiz
 
 void draw_head(void)
 {
-    _XLIB_DRAW(snake[snake_head].x,snake[snake_head].y,head_image_ptr);
+    _XLIB_DRAW(snake_x[snake_head],snake_y[snake_head],head_image_ptr);
 }
 
 void delete_body_part(uint8_t i)
 {
-    _XLIB_DELETE(snake[i].x,snake[i].y);
-    map[snake[i].x][snake[i].y] = EMPTY;
+    _XLIB_DELETE(snake_x[i],snake_y[i]);
+    map[snake_x[i]][snake_y[i]] = EMPTY;
 }
 
 void draw_body_part(uint8_t i)
 {
-    _XLIB_DRAW(snake[i].x,snake[i].y,&BODY_IMAGE);
-    map[snake[i].x][snake[i].y] = DEADLY;
+    _XLIB_DRAW(snake_x[i],snake_y[i],&BODY_IMAGE);
+    map[snake_x[i]][snake_y[i]] = DEADLY;
 }
 
 
@@ -69,8 +70,8 @@ void init_snake(void)
     
     for(i=0;i<snake_length;++i)
     {
-        snake[(i+snake_head)%snake_length].x = XSize/2+snake_length/2-i-1;
-        snake[(i+snake_head)%snake_length].y = YSize/2;
+        snake_x[(i+snake_head)%snake_length] = XSize/2+snake_length/2-i-1;
+        snake_y[(i+snake_head)%snake_length] = YSize/2;
         draw_body_part((i+snake_head) % snake_length);
         DO_SLOW_DOWN(SLOW_DOWN);
     }
@@ -95,37 +96,37 @@ void snake_grows(void)
     {
         // Generate head at index 0
         
-        x = snake[snake_head].x;
-        y = snake[snake_head].y;
+        x = snake_x[snake_head];
+        y = snake_y[snake_head];
 
         switch(snake_direction)
         {
             case SNAKE_RIGHT:
-                x = snake[snake_head].x+1;
+                x = snake_x[snake_head]+1;
             break;
             case SNAKE_LEFT:
-                x = snake[snake_head].x-1;
+                x = snake_x[snake_head]-1;
             break;
             case SNAKE_UP:
-                y = snake[snake_head].y-1;
+                y = snake_y[snake_head]-1;
             break;
             case SNAKE_DOWN:
-                y = snake[snake_head].y+1;
+                y = snake_y[snake_head]+1;
             break;
         }
         
         if(!(map[x][y]))
         {
             
-            snake_copy[0].x = x;
-            snake_copy[0].y = y;
+            snake_copy_x[0] = x;
+            snake_copy_y[0] = y;
         
             // Copy snake body starting at index 1
             for(i=0;i<snake_length;++i)
             {   
                 x = (i+snake_head)%snake_length; // store
-                snake_copy[i+1].x=snake[x].x;
-                snake_copy[i+1].y=snake[x].y;
+                snake_copy_x[i+1]=snake_x[x];
+                snake_copy_y[i+1]=snake_y[x];
             }
             
             // New head is at index 0
@@ -137,8 +138,8 @@ void snake_grows(void)
             // Copy the new snake into snake array
             for(i=0;i<snake_length;++i)
             {
-                snake[i].x = snake_copy[i].x;
-                snake[i].y = snake_copy[i].y;
+                snake_x[i] = snake_copy_x[i];
+                snake_y[i] = snake_copy_y[i];
                 
                 if(i)
                 {

@@ -6,7 +6,8 @@
 extern uint8_t ship_x;
 extern uint8_t ship_fire;
 
-extern Coordinate snake[MAX_SNAKE_LENGTH];
+extern uint8_t snake_x[MAX_SNAKE_LENGTH];
+extern uint8_t snake_y[MAX_SNAKE_LENGTH];
 
 extern uint8_t snake_length;
 

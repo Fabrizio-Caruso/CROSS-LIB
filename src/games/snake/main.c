@@ -156,7 +156,7 @@ void DISPLAY_ENERGY(void)
 
 
 #define INITIAL_LIVES 5
-#define BONUS_POINTS 50
+#define BONUS_POINTS 25
 #define APPLE_POINTS 20
 #define EXTRA_LIFE_THRESHOLD 5000U
 
@@ -440,7 +440,7 @@ do \
     build_vertical_wall(XSize-1,0,YSize); \
 } while(0)
 
-#define MAX_NUMBER_OF_MINES 4
+#define MAX_NUMBER_OF_MINES 6
 
 #define MAX_APPLES 50
 
@@ -450,42 +450,124 @@ static uint8_t mine_direction[MAX_NUMBER_OF_MINES];
 static uint8_t mines_on_current_level;
 static uint8_t mine_transition[MAX_NUMBER_OF_MINES];
 
-static uint8_t mines_on_level[2*NUMBER_OF_LEVELS] = 
+
+static uint8_t mines_on_level[] = 
     {
-        0, // 1
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        0,
-        1, // 10
-        0,
-        2, // 12
-        0,
-        2, // 14
-        2,
-        3, // 16
-        1, // 17
-        1,
-        1,
-        1, // 20
-        1,
-        1,
-        1, // 23
-        1,
-        1, // 25
-        2,
-        1, // 27
-        3,
-        1, // 29
-        2,
-        3,
-        4
+        0,0,0,0,0,0,0,0,0,
+        2, // 10 (9)
+            YSize/3 - 2,
+            2*YSize/3+2,
+        0, // 11 (12)
+        2, // 12 (13)
+            YSize/2 - 4,
+            YSize/2 + 4,
+        0, // 13 (16)
+        2, // 14 (17)
+            YSize/2 - 2,
+            YSize/2 + 2,
+        3, // 15 (20)
+            YSize/2 - 3,
+            YSize/2 - 4,
+            YSize/2 - 5,
+        3, // 16 (24)
+            YSize/2 - 4,
+            YSize/2 - 5,
+            YSize/2 - 6,
+        2, // 17 (28)
+            YSize/2 - 3,
+            YSize/2 + 3,
+        2, // 18 (31)
+            3,
+            YSize - 3,
+        2, // 19 (34)
+            YSize/2 - 3,
+            YSize/2 + 3,
+        1, // 20 (37)
+            YSize/2 - 1,
+        2, // 21 (39)
+            3,
+            YSize - 3,
+        1, // 22 (42)
+            YSize/2 - 3,
+        2, // 23 (44)
+            YSize/2 - 2,
+            YSize/2 + 2,
+        1, // 24 (47)
+            YSize/2 - 3,
+        1, // 25 (49)
+            YSize/2 - 3,
+        2, // 26 (51)
+            3,
+            YSize - 3,
+        1, // 27 (54)
+            YSize/2 - 1,
+        6, // 28 (56)
+            3,
+            YSize - 4,
+            4,
+            YSize - 5,
+            5,
+            YSize - 6,
+        1, // 29 (63)
+            2,
+        4, // 30 (65)
+            YSize/2 - 4,
+            YSize/2 - 5,
+            YSize/2 + 4,
+            YSize/2 + 5,
+        5, // 31 (70)
+            YSize/2 - 3,
+            YSize/2 - 4,
+            YSize/2 - 5,
+            YSize/2 - 6,
+            YSize/2 - 7,
+        6, // 32 (76)
+            YSize/2 - 3,
+            YSize/2 - 4,
+            YSize/2 - 5,
+            YSize/2 - 6,
+            YSize/2 - 7,
+            YSize/2 - 8,
     };
-       
+
+
+
+static uint8_t mines_on_level_index[2*NUMBER_OF_LEVELS] =
+    {
+        0,
+        1,
+        2,
+        3,
+        4,
+        5,
+        6,
+        7,
+        8,
+        9,  // 10
+        12, // 11,
+        13, // 12
+        16, // 13
+        17, // 14
+        20, // 15
+        24, // 16
+        28, // 17
+        31, // 18
+        34, // 19
+        37, // 20
+        39, // 21
+        42, // 22
+        44, // 23
+        47, // 24
+        49, // 25
+        51, // 26
+        54, // 27
+        56, // 28
+        63, // 29
+        65, // 30
+        70, // 31
+        76  // 32
+    };
+
 
 #define MINE_RIGHT 0
 #define MINE_LEFT 1
@@ -508,11 +590,10 @@ uint8_t tight_level(void)
 void build_level(void)
 {
     register uint16_t index = level_walls_index[(level-1)&15];
-
     register uint16_t i;
     uint16_t number_of_elements;
     uint8_t j;
-    uint8_t y_offset;
+    // uint8_t y_offset;
     
 
     for(j=0;j<2;++j)
@@ -543,21 +624,25 @@ void build_level(void)
 
     }
     
-    mines_on_current_level = mines_on_level[level-1];
+    index = mines_on_level_index[(level-1)];
+    mines_on_current_level = mines_on_level[index];
     
-    if(!tight_level())
-    {
-        y_offset = 3u;
-    }
-    else
-    {
-        y_offset = 1u;
-    }
+
+    // mines_on_current_level = mines_on_level[level-1];
     
+    // if(!tight_level())
+    // {
+        // y_offset = 3u;
+    // }
+    // else
+    // {
+        // y_offset = 1u;
+    // }
+    ++index;
     for(j=0;j<mines_on_current_level;++j)
     {
         mine_x[j] = XSize/2;
-        mine_y[j] = YSize/2 - y_offset - j;
+        mine_y[j] = mines_on_level[index+j];
         mine_direction[j] = j&1;
         _XLIB_DRAW(mine_x[j],mine_y[j],&MINE_IMAGE);
         map[mine_x[j]][mine_y[j]]=DEADLY;

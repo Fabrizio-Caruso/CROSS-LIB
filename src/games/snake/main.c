@@ -400,9 +400,9 @@ static uint16_t level_walls_index[] =
 #define transparent_vertical_wall_level() (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14))
 
 const Image *images[] = {
-    &MINE_IMAGE, 
-    &MINE_IMAGE, &MINE_IMAGE, 
-    &MINE_IMAGE, &CENTRAL_BRICK_IMAGE, 
+    0, 
+    &MINE_IMAGE, 0, 
+    0, &CENTRAL_BRICK_IMAGE, 
     &HORIZONTAL_BRICK_IMAGE, 
     &VERTICAL_BRICK_IMAGE, 
     &TRANSPARENT_BRICK_IMAGE};

@@ -138,9 +138,9 @@ void DISPLAY_ENERGY(void)
 
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
-    if(slow_down>SLOW_DOWN/40) \
+    if(slow_down>SLOW_DOWN/10) \
     { \
-        slow_down -= SLOW_DOWN/40; \
+        slow_down -= SLOW_DOWN/10; \
     } \
     else \
     { \
@@ -151,7 +151,7 @@ void DISPLAY_ENERGY(void)
 #define IF_POSSIBLE_DECREASE_SPEED() \
     if(slow_down<SLOW_DOWN) \
     { \
-        slow_down += SLOW_DOWN/6; \
+        slow_down += SLOW_DOWN/4; \
     }
 
 
@@ -177,10 +177,11 @@ void PRESS_KEY(void)
     WAIT_PRESS();
 }
 
-uint8_t empty_around(uint8_t x, uint8_t y)
+// Maybe only horizontal and vertical checks are necessary
+uint8_t safe_around(uint8_t x, uint8_t y)
 {
 return 
-!map[x][y] && 
+    !map[x][y] && 
        (map[x-1][y-1]!=DEADLY) && (map[x][y-1]!=DEADLY) && (map[x+1][y-1]!=DEADLY) &&
        (map[x-1][y]!=DEADLY) && (map[x+1][y]!=DEADLY) &&
        (map[x-1][y+1]!=DEADLY) && (map[x][y+1]!=DEADLY) && (map[x+1][y+1]!=DEADLY);
@@ -198,7 +199,7 @@ void spawn(uint8_t item, Image *image_ptr)
         x = (uint8_t)(RAND()%(XSize-2)+1);
         y = (uint8_t)(RAND()%(YSize-2)+1);
         
-        if(empty_around(x,y))
+        if(safe_around(x,y))
         {
             break;
         }
@@ -219,6 +220,11 @@ void DISPLAY_REMAINING_APPLES_COUNT(void)
 {
     SET_TEXT_COLOR(COLOR_WHITE);
     PRINTD(9,0,2,remaining_apples);
+}
+
+void DISPLAY_LIVES(void)
+{
+    PRINTD(XSize-1,0,1,lives);
 }
 
 
@@ -391,7 +397,8 @@ static uint16_t level_walls_index[] =
 
 #define TRANSPARENT_WALLS_INDEX (194+9)
 #define TRANSPARENT_TRIGGER 20
-#define transparent_wall_level() ((level==11)||(level==27))
+#define transparent_wall_level() ((level&15)==11)
+#define transparent_vertical_wall_level() (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14))
 
 static Image* images[] = {NULL, &MINE_IMAGE, NULL, NULL, &CENTRAL_BRICK_IMAGE, &HORIZONTAL_BRICK_IMAGE, &VERTICAL_BRICK_IMAGE, &TRANSPARENT_BRICK_IMAGE};
 
@@ -484,6 +491,18 @@ static uint8_t mines_on_level[2*NUMBER_OF_LEVELS] =
 #define MINE_UP 2
 #define MINE_DOWN 3
 
+
+// static uint8_t transparent_wall_x;
+// static uint8_t transparent_wall_y;
+// static uint8_t transparent_wall_length;
+
+static uint8_t transparent_wall_level_flag;
+static uint8_t transparent_vertical_wall_level_flag;
+
+#define TRANSPARENT_VERTICAL_WALL_X ((XSize)/2)
+#define TRANSPARENT_VERTICAL_WALL_Y (((YSize)/3)+1)
+#define TRANSPARENT_VERTICAL_WALL_LENGTH ((YSize)/3)
+
 uint8_t tight_level(void) 
 {
     return (level==20) || (level==26) || (level==27) || (level==29);
@@ -546,7 +565,6 @@ void build_level(void)
         mine_transition[j] = 0;
     }
     
-    
 }
 
 
@@ -608,7 +626,7 @@ void handle_horizontal_mine(register uint8_t index)
 }
 
 
-void handle_mines(void)
+void handle_horizontal_mines(void)
 {
     uint8_t i;
     
@@ -618,15 +636,57 @@ void handle_mines(void)
     }
 }
 
-void DISPLAY_LIVES(void)
+void handle_transparent_block_walls(void)
 {
-    PRINTD(XSize-1,0,1,lives);
+    uint8_t i;
+    
+    if(!transparent_wall_triggered && (remaining_apples<TRANSPARENT_TRIGGER))
+    {
+        transparent_wall_triggered = 1;
+        for(i=TRANSPARENT_WALLS_INDEX;i<TRANSPARENT_WALLS_INDEX+20;i+=5)
+        {
+            TOCK_SOUND();
+            build_box_wall(level_walls[i],level_walls[i+1],level_walls[i+2],level_walls[i+3],EMPTY);
+        }
+    }
+}
+
+
+uint8_t empty_wall_area(void)
+{
+    uint8_t i = 0;
+    
+    while(i<TRANSPARENT_VERTICAL_WALL_LENGTH)
+    {
+        if(map[TRANSPARENT_VERTICAL_WALL_X][TRANSPARENT_VERTICAL_WALL_Y+i++])
+        {
+            return 0;
+        }
+    }
+    return 1;
+}
+
+void handle_transparent_vertical_wall(void)
+{
+    if(!transparent_wall_triggered)
+    {
+        if(empty_wall_area())
+        {
+            transparent_wall_triggered = 1;
+            TOCK_SOUND();
+            build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,TRANSPARENT);
+        }
+    }
+    else
+    {   
+        transparent_wall_triggered = 0;
+        TOCK_SOUND();
+        build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,EMPTY);
+    }
 }
 
 int main(void)
-{        
-    uint8_t i;
-    
+{            
     INIT_GRAPHICS();
 
     INIT_INPUT();
@@ -708,10 +768,7 @@ int main(void)
 
             if(tight_level())
             {
-                for(i=0;i<MAX_BONUS_COUNT;++i)
-                {
-                    spawn(BONUS, &EXTRA_POINTS_IMAGE);
-                }
+                spawn(BONUS, &EXTRA_POINTS_IMAGE);
             }
             
             energy = 99;
@@ -726,6 +783,8 @@ int main(void)
             active_mines = 1;
             
             transparent_wall_triggered = 0;
+            transparent_vertical_wall_level_flag = transparent_vertical_wall_level();
+            transparent_wall_level_flag = transparent_wall_level();
             
             while(remaining_apples)
             {
@@ -743,30 +802,26 @@ int main(void)
                 
                 if(MOVE_PLAYER())
                 {
-                    if(transparent_wall_level())
+                    if(transparent_wall_level_flag)
                     {
-                        if(!transparent_wall_triggered && (remaining_apples<TRANSPARENT_TRIGGER))
-                        {
-                            transparent_wall_triggered = 1;
-                            for(i=TRANSPARENT_WALLS_INDEX;i<TRANSPARENT_WALLS_INDEX+20;i+=5)
-                            {
-                                TOCK_SOUND();
-                                build_box_wall(level_walls[i],level_walls[i+1],level_walls[i+2],level_walls[i+3],EMPTY);
-                            }
-                        }
+                        handle_transparent_block_walls();
                     }
                     if(active_mines)
                     {
-                        handle_mines();
+                        handle_horizontal_mines();
                     }
                     DO_SLOW_DOWN(slow_down);
                     ++speed_increase_counter;
                     if((!(apples_on_screen_count) || (speed_increase_counter>SPEED_INCREASE_THRESHOLD)))
                     {
-                        speed_increase_counter = 0;
-                        if(apples_on_screen_count<remaining_apples)
+                        if(transparent_vertical_wall_level_flag)
                         {
-                            if(!(RAND()&7))
+                            handle_transparent_vertical_wall();
+                        }
+                        speed_increase_counter = 0;
+                        if(RAND()&1 && (apples_on_screen_count<remaining_apples))
+                        {
+                            if(!(RAND()&7) && apples_on_screen_count)
                             {
                                 spawn(BONUS, &EXTRA_POINTS_IMAGE);
                             }
@@ -828,14 +883,14 @@ int main(void)
                         break;
                     }
                 }
-                else
-                {
-                    if(speed_increase_counter)
-                    {
-                        IF_POSSIBLE_INCREASE_SPEED();
-                        speed_increase_counter = 0;
-                    }
-                }
+                // else
+                // {
+                    // if(speed_increase_counter)
+                    // {
+                        // IF_POSSIBLE_INCREASE_SPEED();
+                        // speed_increase_counter = 0;
+                    // }
+                // }
                 if(!energy)
                 {
                     SET_TEXT_COLOR(COLOR_RED);

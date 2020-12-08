@@ -22,35 +22,35 @@ extern uint8_t map[XSize][YSize];
 uint8_t move_snake(uint8_t wished_direction)
 {
     uint8_t tail = (snake_head+snake_length-1)%snake_length;
-    uint8_t x;
-    uint8_t y;
+    uint8_t candidate_x;
+    uint8_t candidate_y;
     
-    
+    // TODO: Memory might be saved by using two GOTO's
     switch(wished_direction)
     {
         case SNAKE_RIGHT:
-            x = snake[snake_head].x+1;
-            y = snake[snake_head].y;
+            candidate_x = snake[snake_head].x+1;
+            candidate_y = snake[snake_head].y;
         break;
         case SNAKE_LEFT:
-            x = snake[snake_head].x-1;
-            y = snake[snake_head].y;
+            candidate_x = snake[snake_head].x-1;
+            candidate_y = snake[snake_head].y;
         break;
         case SNAKE_UP:
-            x = snake[snake_head].x;
-            y = snake[snake_head].y-1;
+            candidate_x = snake[snake_head].x;
+            candidate_y = snake[snake_head].y-1;
         break;
         case SNAKE_DOWN:
-            x = snake[snake_head].x;
-            y = snake[snake_head].y+1;
+            candidate_x = snake[snake_head].x;
+            candidate_y = snake[snake_head].y+1;
         break;
     }
-    if(!hits_wall(x,y)) // can move
+    if(!hits_wall(candidate_x,candidate_y)) // can move
     {
         snake_direction = wished_direction;
         delete_body_part(tail);
-        snake[tail].x = x;
-        snake[tail].y = y;
+        snake[tail].x = candidate_x;
+        snake[tail].y = candidate_y;
         
         if(HORIZONTAL(snake_direction))
         {

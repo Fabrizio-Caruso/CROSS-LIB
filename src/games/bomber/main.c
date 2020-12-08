@@ -302,14 +302,15 @@ uint8_t alive;
 uint8_t explosion;
 
 
+const Image *building_images[] = {
+    &WALL_1_IMAGE, &WALL_2_IMAGE, 
+    &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, 
+    &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, 
+    &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE
+    };
+
 int main(void)
 {        
-    const Image *building_images[] = {
-        &WALL_1_IMAGE, &WALL_2_IMAGE, 
-        &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, 
-        &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, 
-        &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE
-        };
 
     const Image *buildingTypePtr;
 
@@ -400,7 +401,6 @@ int main(void)
             displayHiScore();
             while((y<MAX_Y-building_height[x+1]) && (y<MAX_Y-2 || x<XSize-3))
             {
-
                 // Land safely
                 if(!remaining_buildings && (y<MAX_Y-2) && (x<XSize-3) )
                 {

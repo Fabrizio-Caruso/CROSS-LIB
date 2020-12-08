@@ -397,10 +397,15 @@ static uint16_t level_walls_index[] =
 
 #define TRANSPARENT_WALLS_INDEX (194+9)
 #define TRANSPARENT_TRIGGER 20
-#define transparent_wall_level() ((level&15)==11)
 #define transparent_vertical_wall_level() (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14))
 
-static Image* images[] = {NULL, &MINE_IMAGE, NULL, NULL, &CENTRAL_BRICK_IMAGE, &HORIZONTAL_BRICK_IMAGE, &VERTICAL_BRICK_IMAGE, &TRANSPARENT_BRICK_IMAGE};
+const Image *images[] = {
+    &MINE_IMAGE, 
+    &MINE_IMAGE, &MINE_IMAGE, 
+    &MINE_IMAGE, &CENTRAL_BRICK_IMAGE, 
+    &HORIZONTAL_BRICK_IMAGE, 
+    &VERTICAL_BRICK_IMAGE, 
+    &TRANSPARENT_BRICK_IMAGE};
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
 {
@@ -575,7 +580,6 @@ static uint8_t mines_on_level_index[2*NUMBER_OF_LEVELS] =
 #define MINE_DOWN 3
 
 
-static uint8_t transparent_wall_level_flag;
 static uint8_t transparent_vertical_wall_level_flag;
 
 #define TRANSPARENT_VERTICAL_WALL_X ((XSize)/2)
@@ -593,7 +597,6 @@ void build_level(void)
     register uint16_t i;
     uint16_t number_of_elements;
     uint8_t j;
-    // uint8_t y_offset;
     
 
     for(j=0;j<2;++j)
@@ -627,17 +630,6 @@ void build_level(void)
     index = mines_on_level_index[(level-1)];
     mines_on_current_level = mines_on_level[index];
     
-
-    // mines_on_current_level = mines_on_level[level-1];
-    
-    // if(!tight_level())
-    // {
-        // y_offset = 3u;
-    // }
-    // else
-    // {
-        // y_offset = 1u;
-    // }
     ++index;
     for(j=0;j<mines_on_current_level;++j)
     {
@@ -720,41 +712,30 @@ void handle_horizontal_mines(void)
     }
 }
 
-void handle_transparent_block_walls(void)
+
+uint8_t empty_vertical_wall_area(void)
 {
     uint8_t i;
-    
-    if(!transparent_wall_triggered && (remaining_apples<TRANSPARENT_TRIGGER))
-    {
-        transparent_wall_triggered = 1;
-        for(i=TRANSPARENT_WALLS_INDEX;i<TRANSPARENT_WALLS_INDEX+20;i+=5)
-        {
-            TOCK_SOUND();
-            build_box_wall(level_walls[i],level_walls[i+1],level_walls[i+2],level_walls[i+3],EMPTY);
-        }
-    }
-}
 
-
-uint8_t empty_wall_area(void)
-{
-    uint8_t i = 0;
+    i = 0;
     
     while(i<TRANSPARENT_VERTICAL_WALL_LENGTH)
     {
-        if(map[TRANSPARENT_VERTICAL_WALL_X][TRANSPARENT_VERTICAL_WALL_Y+i++])
+        if(map[TRANSPARENT_VERTICAL_WALL_X][TRANSPARENT_VERTICAL_WALL_Y+i])
         {
             return 0;
         }
+        ++i;
     }
-    return 1;
+    return (TRANSPARENT_VERTICAL_WALL_X!=snake_head_x)||
+           !((snake_head_y>=TRANSPARENT_VERTICAL_WALL_Y)&&(snake_head_y<TRANSPARENT_VERTICAL_WALL_Y+TRANSPARENT_VERTICAL_WALL_LENGTH));
 }
 
 void handle_transparent_vertical_wall(void)
 {
     if(!transparent_wall_triggered)
     {
-        if(empty_wall_area())
+        if(empty_vertical_wall_area())
         {
             transparent_wall_triggered = 1;
             TOCK_SOUND();
@@ -770,7 +751,7 @@ void handle_transparent_vertical_wall(void)
 }
 
 int main(void)
-{            
+{
     INIT_GRAPHICS();
 
     INIT_INPUT();
@@ -868,7 +849,6 @@ int main(void)
             
             transparent_wall_triggered = 0;
             transparent_vertical_wall_level_flag = transparent_vertical_wall_level();
-            transparent_wall_level_flag = transparent_wall_level();
             
             while(remaining_apples)
             {
@@ -886,16 +866,16 @@ int main(void)
                 
                 if(MOVE_PLAYER())
                 {
-                    if(transparent_wall_level_flag)
-                    {
-                        handle_transparent_block_walls();
-                    }
                     if(active_mines)
                     {
                         handle_horizontal_mines();
                     }
                     DO_SLOW_DOWN(slow_down);
                     ++speed_increase_counter;
+                    
+                    snake_head_x = snake[snake_head].x;
+                    snake_head_y = snake[snake_head].y;
+                    
                     if((!(apples_on_screen_count) || (speed_increase_counter>SPEED_INCREASE_THRESHOLD)))
                     {
                         if(transparent_vertical_wall_level_flag)
@@ -919,8 +899,7 @@ int main(void)
                         IF_POSSIBLE_INCREASE_SPEED();
                     }
                     
-                    snake_head_x = snake[snake_head].x;
-                    snake_head_y = snake[snake_head].y;
+
                     
                     
                     DISPLAY_POINTS();

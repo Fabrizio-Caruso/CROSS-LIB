@@ -20,12 +20,12 @@
 
 #define NUMBER_OF_LEVELS 16
 
-struct SnakeBodyStruct
+struct CoordinateStruct
 {
     uint8_t x;
     uint8_t y;
 };
-typedef struct SnakeBodyStruct SnakeBody;
+typedef struct CoordinateStruct Coordinate;
 
 void draw_head(void);
 

@@ -67,7 +67,7 @@ extern Image MINE_IMAGE;
 extern Image LEFT_MINE_IMAGE;
 extern Image RIGHT_MINE_IMAGE;
 
-extern SnakeBody snake[MAX_SNAKE_LENGTH];
+extern Coordinate snake[MAX_SNAKE_LENGTH];
 
 extern uint8_t snake_length;
 
@@ -493,10 +493,6 @@ static uint8_t mines_on_level[2*NUMBER_OF_LEVELS] =
 #define MINE_DOWN 3
 
 
-// static uint8_t transparent_wall_x;
-// static uint8_t transparent_wall_y;
-// static uint8_t transparent_wall_length;
-
 static uint8_t transparent_wall_level_flag;
 static uint8_t transparent_vertical_wall_level_flag;
 
@@ -538,11 +534,13 @@ void build_level(void)
 
     
     number_of_elements = level_walls[index];
-    for(i=0;i<5*number_of_elements;i+=5)
+    i = index+1;
+    for(j=0;j<5*number_of_elements;j+=5,i+=5)
     {
-        build_box_wall(level_walls[index+1+i],level_walls[index+2+i],
-                       level_walls[index+3+i],level_walls[index+4+i],
-                       level_walls[index+5+i]);
+        build_box_wall(level_walls[i],level_walls[1u+i],
+                       level_walls[2u+i],level_walls[3u+i],
+                       level_walls[4u+i]);
+
     }
     
     mines_on_current_level = mines_on_level[level-1];
@@ -884,14 +882,6 @@ int main(void)
                         break;
                     }
                 }
-                // else
-                // {
-                    // if(speed_increase_counter)
-                    // {
-                        // IF_POSSIBLE_INCREASE_SPEED();
-                        // speed_increase_counter = 0;
-                    // }
-                // }
                 if(!energy)
                 {
                     SET_TEXT_COLOR(COLOR_RED);
@@ -910,7 +900,7 @@ int main(void)
             {
                 SET_TEXT_COLOR(COLOR_RED);
                 printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
-                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)) +(((uint16_t) bonus_count)<<5) + (((uint16_t) level)<<3);
+                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<1) +(((uint16_t) bonus_count)<<5) + (((uint16_t) level)<<3);
                 SET_TEXT_COLOR(COLOR_WHITE);
 
                 printCenteredMessageOnRow(YSize/2+2, _XL_SPACE _XL_B _XL_O _XL_N _XL_U _XL_S _XL_SPACE);

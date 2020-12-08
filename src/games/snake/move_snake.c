@@ -2,7 +2,7 @@
 #include "snake.h"
 #include "move_snake.h"
 
-extern SnakeBody snake[MAX_SNAKE_LENGTH];
+extern Coordinate snake[MAX_SNAKE_LENGTH];
 
 extern uint8_t snake_length;
 

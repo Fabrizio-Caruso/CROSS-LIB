@@ -2,7 +2,7 @@
 #include "snake.h"
 #include "move_snake.h"
 
-SnakeBody snake[MAX_SNAKE_LENGTH];
+Coordinate snake[MAX_SNAKE_LENGTH];
 
 uint8_t snake_length;
 
@@ -11,7 +11,7 @@ uint8_t snake_head;
 Image *head_image_ptr;
 
 uint8_t map[XSize][YSize];
-SnakeBody snake_copy[MAX_SNAKE_LENGTH];
+Coordinate snake_copy[MAX_SNAKE_LENGTH];
 
 
 uint8_t snake_direction;

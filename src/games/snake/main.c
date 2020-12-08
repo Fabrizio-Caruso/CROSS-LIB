@@ -108,6 +108,8 @@ static uint8_t active_mines;
 
 static uint16_t level_bonus;
 
+static uint8_t transparent_wall_triggered;
+
 #define FINAL_LEVEL 32
 
 #define COL_OFFSET ((XSize-16)/2-1)
@@ -220,7 +222,7 @@ void DISPLAY_REMAINING_APPLES_COUNT(void)
 }
 
 
-#define INITIAL_LEVEL 1
+#define INITIAL_LEVEL 10
 // #define DEBUG_LEVELS
 
 static uint8_t apples_on_screen_count;
@@ -387,6 +389,10 @@ static uint16_t level_walls_index[] =
         };
 
 
+#define TRANSPARENT_WALLS_INDEX (194+9)
+#define TRANSPARENT_TRIGGER 20
+#define transparent_wall_level() ((level==11)||(level==27))
+
 static Image* images[] = {NULL, &MINE_IMAGE, NULL, NULL, &CENTRAL_BRICK_IMAGE, &HORIZONTAL_BRICK_IMAGE, &VERTICAL_BRICK_IMAGE, &TRANSPARENT_BRICK_IMAGE};
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
@@ -399,7 +405,14 @@ void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, ui
         for(j=0;j<y_length;++j)
         {
             map[x+i][y+j]=type;
-            _XLIB_DRAW(x+i,y+j,images[type]);
+            if(type)
+            {
+                _XLIB_DRAW(x+i,y+j,images[type]);
+            }
+            else
+            {
+                _XLIB_DELETE(x+i,y+j);
+            }
 
         }
     }
@@ -712,6 +725,8 @@ int main(void)
             
             active_mines = 1;
             
+            transparent_wall_triggered = 0;
+            
             while(remaining_apples)
             {
                 if(points>extra_life_counter*EXTRA_LIFE_THRESHOLD)
@@ -728,6 +743,18 @@ int main(void)
                 
                 if(MOVE_PLAYER())
                 {
+                    if(transparent_wall_level())
+                    {
+                        if(!transparent_wall_triggered && (remaining_apples<TRANSPARENT_TRIGGER))
+                        {
+                            transparent_wall_triggered = 1;
+                            for(i=TRANSPARENT_WALLS_INDEX;i<TRANSPARENT_WALLS_INDEX+20;i+=5)
+                            {
+                                TOCK_SOUND();
+                                build_box_wall(level_walls[i],level_walls[i+1],level_walls[i+2],level_walls[i+3],EMPTY);
+                            }
+                        }
+                    }
                     if(active_mines)
                     {
                         handle_mines();

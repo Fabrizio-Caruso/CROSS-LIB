@@ -222,7 +222,7 @@ void DISPLAY_REMAINING_APPLES_COUNT(void)
 }
 
 
-#define INITIAL_LEVEL 10
+#define INITIAL_LEVEL 1
 // #define DEBUG_LEVELS
 
 static uint8_t apples_on_screen_count;

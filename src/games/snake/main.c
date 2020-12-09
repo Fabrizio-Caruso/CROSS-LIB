@@ -211,7 +211,7 @@ void DISPLAY_ENERGY(void)
 
 #define SPEED_INCREASE_THRESHOLD 20
 
-#define COIN_APPLE_THRESHOLD 5
+#define COIN_APPLE_THRESHOLD 6
 
 void PRESS_KEY(void)
 {
@@ -1169,7 +1169,7 @@ int main(void)
                         speed_increase_counter = 0;
                         if(RAND()&1 && (apples_on_screen_count<remaining_apples))
                         {
-                            if(!(RAND()&3) && (apples_on_screen_count<COIN_APPLE_THRESHOLD))
+                            if(!(RAND()&7) && (apples_on_screen_count<COIN_APPLE_THRESHOLD))
                             {
                                 spawn(COIN);
                             }
@@ -1183,10 +1183,10 @@ int main(void)
                         IF_POSSIBLE_INCREASE_SPEED();
                     }
                     
-                    
-                    
+                    // TODO: This could be optimized by performing the display only when points are updated
                     DISPLAY_POINTS();
                     
+                    // TODO: All these IFs are mutually exclusive
                     if(hits_coin(snake_head_x,snake_head_y))
                     {
                         snake_grows();

@@ -14,12 +14,14 @@
 
 #define EMPTY 0
 #define DEADLY 1
-#define BONUS 2
-#define APPLE 3
-#define WALL  4
-#define HORIZONTAL_WALL 5
-#define VERTICAL_WALL 6
-#define TRANSPARENT 7
+#define COIN 2
+#define SUPER_COIN 3
+#define EXTRA_POINTS 4
+#define APPLE 5
+#define WALL  6
+#define HORIZONTAL_WALL 7
+#define VERTICAL_WALL 8
+#define TRANSPARENT 9
 
 #define NUMBER_OF_LEVELS 16
 

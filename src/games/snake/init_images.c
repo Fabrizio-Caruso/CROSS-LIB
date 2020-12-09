@@ -20,7 +20,8 @@ Image MINE_IMAGE;
 Image LEFT_MINE_IMAGE;
 Image RIGHT_MINE_IMAGE;
 Image TRANSPARENT_BRICK_IMAGE;
-
+Image COIN_IMAGE;
+Image SUPER_COIN_IMAGE;
 Image EXTRA_POINTS_IMAGE; 
 
 
@@ -52,7 +53,8 @@ void INIT_IMAGES(void)
         RIGHT_MINE_IMAGE._color = COLOR_CYAN;
         
         EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
-
+        COIN_IMAGE._color = COLOR_WHITE;
+        SUPER_COIN_IMAGE._color = COLOR_RED;
         TRANSPARENT_BRICK_IMAGE._color = COLOR_YELLOW;
 
 	#endif	
@@ -60,26 +62,23 @@ void INIT_IMAGES(void)
 	// Set Image Data
     VERTICAL_HEAD_IMAGE._imageData = _TILE_0;
     HORIZONTAL_HEAD_IMAGE._imageData = _TILE_1;
-
+    LEFT_MINE_IMAGE._imageData = _TILE_2;
+    RIGHT_MINE_IMAGE._imageData = _TILE_3;
     BODY_IMAGE._imageData = _TILE_4;
     APPLE_IMAGE._imageData = _TILE_5;
+    HI_TEXT_IMAGE._imageData = _TILE_6;
+    CENTRAL_BRICK_IMAGE._imageData = _TILE_7;
+    COIN_IMAGE._imageData = _TILE_8;
+    LV_TEXT_IMAGE._imageData = _TILE_9;
+    TRANSPARENT_BRICK_IMAGE._imageData = _TILE_10;
 
     VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
     HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
-    CENTRAL_BRICK_IMAGE._imageData = _TILE_7;
-    
     SCORE_TEXT_LEFT_IMAGE._imageData = _TILE_14;
+    
     SCORE_TEXT_RIGHT_IMAGE._imageData = _TILE_16;
-    HI_TEXT_IMAGE._imageData = _TILE_6;
-    LV_TEXT_IMAGE._imageData = _TILE_9;
-    
-    
     MINE_IMAGE._imageData = _TILE_17;
-    LEFT_MINE_IMAGE._imageData = _TILE_2;
-    RIGHT_MINE_IMAGE._imageData = _TILE_3;
-    
-    TRANSPARENT_BRICK_IMAGE._imageData = _TILE_10;
-    
+    SUPER_COIN_IMAGE._imageData = _TILE_18;
     EXTRA_POINTS_IMAGE._imageData = _DOLLAR_TILE;
 
 }

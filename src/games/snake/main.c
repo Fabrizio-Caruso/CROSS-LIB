@@ -81,6 +81,8 @@ extern uint8_t map[XSize][YSize];
 extern Image VERTICAL_BRICK_IMAGE;
 extern Image HORIZONTAL_BRICK_IMAGE;
 
+extern Image COIN_IMAGE;
+extern Image SUPER_COIN_IMAGE;
 
 static uint8_t snake_head_x;
 static uint8_t snake_head_y;
@@ -117,7 +119,7 @@ static uint8_t transparent_wall_triggered;
 #define ROW_OFFSET 3
 
 #define hits_bonus(x,y) \
-    (map[x][y]==BONUS)
+    (map[x][y]==COIN)
 
 #define hits_apple(x,y) \
     (map[x][y]==APPLE)
@@ -157,7 +159,7 @@ void DISPLAY_ENERGY(void)
 
 
 #define INITIAL_LIVES 5
-#define BONUS_POINTS 25
+#define COIN_POINTS 25
 #define APPLE_POINTS 20
 #define EXTRA_LIFE_THRESHOLD 5000U
 
@@ -165,7 +167,7 @@ void DISPLAY_ENERGY(void)
 
 #define APPLE_COUNT_INCREASE 2
 
-#define MAX_BONUS_COUNT 3
+#define MAX_COIN_COUNT 3
 
 #define SPEED_INCREASE_THRESHOLD 20
 
@@ -400,13 +402,33 @@ static uint16_t level_walls_index[] =
 #define TRANSPARENT_TRIGGER 20
 #define transparent_vertical_wall_level() (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14))
 
+/*
+#define EMPTY 0
+#define DEADLY 1
+#define COIN 2
+#define SUPER_COIN 3
+#define EXTRA_POINTS 4
+#define APPLE 5
+#define WALL  6
+#define HORIZONTAL_WALL 7
+#define VERTICAL_WALL 8
+#define TRANSPARENT 9
+
+*/
+
+
 const Image *images[] = {
     0, 
-    &MINE_IMAGE, 0, 
-    0, &CENTRAL_BRICK_IMAGE, 
+    &MINE_IMAGE, 
+    &COIN_IMAGE, 
+    &SUPER_COIN_IMAGE, 
+    &EXTRA_POINTS_IMAGE, 
+    &APPLE_IMAGE,
+    &CENTRAL_BRICK_IMAGE, 
     &HORIZONTAL_BRICK_IMAGE, 
     &VERTICAL_BRICK_IMAGE, 
-    &TRANSPARENT_BRICK_IMAGE};
+    &TRANSPARENT_BRICK_IMAGE
+    };
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
 {
@@ -832,7 +854,7 @@ int main(void)
 
             if(tight_level())
             {
-                spawn(BONUS, &EXTRA_POINTS_IMAGE);
+                spawn(COIN, &COIN_IMAGE);
             }
             
             energy = 99;
@@ -886,7 +908,7 @@ int main(void)
                         {
                             if(!(RAND()&7) && apples_on_screen_count)
                             {
-                                spawn(BONUS, &EXTRA_POINTS_IMAGE);
+                                spawn(COIN, &COIN_IMAGE);
                             }
                             else
                             {
@@ -910,8 +932,8 @@ int main(void)
                         snake_head_y = snake_y[snake_head];
                         
 
-                        points+=(BONUS_POINTS<<bonus_count);
-                        if(bonus_count<MAX_BONUS_COUNT)
+                        points+=(COIN_POINTS<<bonus_count);
+                        if(bonus_count<MAX_COIN_COUNT)
                         {
                             ++bonus_count;
                         }
@@ -923,7 +945,7 @@ int main(void)
                             active_mines = 0;
                             TOCK_SOUND();
                         }
-                        _XLIB_DRAW(XSize-3-MAX_BONUS_COUNT+bonus_count,YSize-1,&EXTRA_POINTS_IMAGE);
+                        _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+bonus_count,YSize-1,&COIN_IMAGE);
                         ZAP_SOUND();
                     }
                     if(hits_apple(snake_head_x,snake_head_y))

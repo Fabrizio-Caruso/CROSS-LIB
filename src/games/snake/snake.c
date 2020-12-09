@@ -21,6 +21,9 @@ extern Image BODY_IMAGE;
 extern Image HORIZONTAL_HEAD_IMAGE;
 extern Image VERTICAL_HEAD_IMAGE;
 
+extern uint8_t snake_head_x;
+extern uint8_t snake_head_y;
+
 extern uint8_t level;
 
 uint8_t initial_snake_length[] = {XSize/2,XSize/4,XSize/2,XSize/2,2*XSize/3,XSize/4,XSize/2-2,XSize/4,3*XSize/4,2*XSize/3,5*XSize/6,XSize-5,3,XSize-5,XSize-5,XSize-5};
@@ -82,6 +85,9 @@ void init_snake(void)
     snake_direction = SNAKE_RIGHT;
     
     draw_head();
+    
+    snake_head_x = snake_x[snake_head];
+    snake_head_y = snake_y[snake_head];
     
 
 }
@@ -147,6 +153,8 @@ void snake_grows(void)
                 }
             }
             draw_head();
+            snake_head_x = snake_x[snake_head];
+            snake_head_y = snake_y[snake_head];
         }
     }
 }

@@ -87,8 +87,8 @@ extern Image SUPER_COIN_IMAGE;
 extern Image UP_MINE_IMAGE;
 extern Image DOWN_MINE_IMAGE;
 
-static uint8_t snake_head_x;
-static uint8_t snake_head_y;
+uint8_t snake_head_x;
+uint8_t snake_head_y;
 
 static uint16_t points;
 
@@ -153,6 +153,9 @@ const Image *images[] = {
 #define hits_coin(x,y) \
     (map[x][y]==COIN)
 
+#define hits_super_coin(x,y) \
+    (map[x][y]==SUPER_COIN)
+
 #define hits_apple(x,y) \
     (map[x][y]==APPLE)
 
@@ -192,6 +195,7 @@ void DISPLAY_ENERGY(void)
 
 #define INITIAL_LIVES 5
 #define COIN_POINTS 25
+#define SUPER_COIN_POINTS 250
 #define APPLE_POINTS 20
 #define EXTRA_LIFE_THRESHOLD 5000U
 
@@ -203,7 +207,7 @@ void DISPLAY_ENERGY(void)
 
 #define SPEED_INCREASE_THRESHOLD 20
 
-#define COIN_APPLE_THRESHOLD 10
+#define COIN_APPLE_THRESHOLD 5
 
 void PRESS_KEY(void)
 {
@@ -1116,6 +1120,9 @@ int main(void)
             transparent_horizontal_wall_triggered = 0;
             transparent_horizontal_wall_level_flag = transparent_horizontal_wall_level();
             
+            // snake_head_x = snake_x[snake_head];
+            // snake_head_y = snake_y[snake_head];
+            
             while(remaining_apples)
             {
                 if(points>extra_life_counter*EXTRA_LIFE_THRESHOLD)
@@ -1157,9 +1164,7 @@ int main(void)
                         speed_increase_counter = 0;
                         if(RAND()&1 && (apples_on_screen_count<remaining_apples))
                         {
-                            //                             ((!(RAND()&7) && (!coin_count)) || (!(RAND()&15))) 
-
-                            if(!(RAND()&7) && (remaining_apples>COIN_APPLE_THRESHOLD) && apples_on_screen_count)
+                            if(!(RAND()&7) && (apples_on_screen_count>COIN_APPLE_THRESHOLD))
                             {
                                 spawn(COIN);
                             }
@@ -1181,8 +1186,8 @@ int main(void)
                     if(hits_coin(snake_head_x,snake_head_y))
                     {
                         snake_grows();
-                        snake_head_x = snake_x[snake_head];
-                        snake_head_y = snake_y[snake_head];
+                        // snake_head_x = snake_x[snake_head];
+                        // snake_head_y = snake_y[snake_head];
                         
 
                         points+=(COIN_POINTS<<coin_count);
@@ -1192,21 +1197,27 @@ int main(void)
                         }
                         else
                         {
-                            slow_down = 2*SLOW_DOWN;
-                            energy = 99;
-                            DISPLAY_ENERGY();
-                            active_mines = 0;
-                            TOCK_SOUND();
+                            spawn(SUPER_COIN);
                         }
                         _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE);
                         ZAP_SOUND();
+                    }
+                    
+                    if(hits_super_coin(snake_head_x,snake_head_y))
+                    {
+                        points+=SUPER_COIN_POINTS;
+                        slow_down = 2*SLOW_DOWN;
+                        energy = 99;
+                        DISPLAY_ENERGY();
+                        active_mines = 0;
+                        TOCK_SOUND();
                     }
                     if(hits_apple(snake_head_x,snake_head_y))
                     {
                         --apples_on_screen_count;
                         snake_grows();
-                        snake_head_x = snake_x[snake_head];
-                        snake_head_y = snake_y[snake_head];
+                        // snake_head_x = snake_x[snake_head];
+                        // snake_head_y = snake_y[snake_head];
                         
                         --remaining_apples;
                         DISPLAY_REMAINING_APPLES_COUNT();

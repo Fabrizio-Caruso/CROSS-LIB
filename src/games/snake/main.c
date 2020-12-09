@@ -1014,7 +1014,6 @@ void handle_transparent_horizontal_wall(void)
             transparent_horizontal_wall_triggered = 1;
             TOCK_SOUND();
             type = TRANSPARENT;
-            // build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,TRANSPARENT);
         }
         else
         {

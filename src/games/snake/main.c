@@ -213,6 +213,8 @@ void DISPLAY_ENERGY(void)
 
 #define COIN_APPLE_THRESHOLD 6
 
+#define MAX_ENERGY 99
+
 void PRESS_KEY(void)
 {
     SET_TEXT_COLOR(COLOR_WHITE);
@@ -220,7 +222,7 @@ void PRESS_KEY(void)
     WAIT_PRESS();
 }
 
-// Maybe only horizontal and vertical checks are necessary
+// TODO: Maybe only horizontal and vertical checks are necessary
 uint8_t safe_around(uint8_t x, uint8_t y)
 {
 return 
@@ -442,8 +444,8 @@ static uint16_t level_walls_index[] =
 
 
 #define TRANSPARENT_TRIGGER 20
-#define transparent_vertical_wall_level() (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14)||(!level))
-#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==7)||((level&15)==8)||(!level))
+#define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14)||(!level))
+#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==7)||((level&15)== 8)||(!level))
 
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
@@ -738,7 +740,7 @@ void build_level(void)
 {
     register uint16_t index;
     register uint16_t i;
-    uint16_t number_of_elements;
+    register uint16_t number_of_elements;
     uint8_t j;
     
     if(level>16)
@@ -950,9 +952,7 @@ void handle_vertical_mines(void)
 
 uint8_t empty_vertical_wall_area(void)
 {
-    uint8_t i;
-
-    i = 0;
+    uint8_t i = 0;
     
     while(i<TRANSPARENT_VERTICAL_WALL_LENGTH)
     {
@@ -969,9 +969,8 @@ uint8_t empty_vertical_wall_area(void)
 
 uint8_t empty_horizontal_wall_area(void)
 {
-    uint8_t i;
+    uint8_t i = 0;
 
-    i = 0;
     
     while(i<TRANSPARENT_HORIZONTAL_WALL_LENGTH)
     {
@@ -1094,7 +1093,7 @@ int main(void)
             
             PRINTD(XSize-9,0,5,record);
             
-            energy = 99;
+            energy = MAX_ENERGY;
             DISPLAY_ENERGY();
             
             speed_increase_counter = 0;
@@ -1107,9 +1106,6 @@ int main(void)
             
             apples_on_screen_count = 1;
             spawn(APPLE);
-
-            
-            energy = 99;
             
             WAIT_PRESS();
             
@@ -1209,7 +1205,7 @@ int main(void)
                     {
                         points+=SUPER_COIN_POINTS;
                         slow_down = 2*SLOW_DOWN;
-                        energy = 99;
+                        energy = MAX_ENERGY;
                         DISPLAY_ENERGY();
                         active_mines = 0;
                         TOCK_SOUND();

@@ -743,17 +743,8 @@ void build_level(void)
     register uint16_t number_of_elements;
     uint8_t j;
     
-    if(level>16)
-    {
-        index = level_walls_index[level-16];
-    }
-    else
-    {
-        index = level_walls_index[level];
-    }
-
+    index = level_walls_index[level-((level>16)<<4)];
     
-
     for(j=0;j<2;++j)
     {
         number_of_elements = level_walls[index]; // Number of horizontal walls
@@ -988,40 +979,55 @@ uint8_t empty_horizontal_wall_area(void)
 
 void handle_transparent_vertical_wall(void)
 {
+    uint8_t type;
+    
     if(!transparent_vertical_wall_triggered)
     {
         if(empty_vertical_wall_area())
         {
             transparent_vertical_wall_triggered = 1;
             TOCK_SOUND();
-            build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,TRANSPARENT);
+            type = TRANSPARENT;
+        }
+        else
+        {
+            return;
         }
     }
     else
     {   
         transparent_vertical_wall_triggered = 0;
-        TOCK_SOUND();
-        build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,EMPTY);
+        type = EMPTY;
     }
+    build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,type);
+
 }
 
 void handle_transparent_horizontal_wall(void)
 {
+    uint8_t type;
+    
     if(!transparent_horizontal_wall_triggered)
     {
         if(empty_horizontal_wall_area())
         {
             transparent_horizontal_wall_triggered = 1;
             TOCK_SOUND();
-            build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,TRANSPARENT);
+            type = TRANSPARENT;
+            // build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,TRANSPARENT);
+        }
+        else
+        {
+            return;
         }
     }
     else
     {   
         transparent_horizontal_wall_triggered = 0;
-        TOCK_SOUND();
-        build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,EMPTY);
+        type = EMPTY;
     }
+    build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,type);
+
 }
 
 int main(void)

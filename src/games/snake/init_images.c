@@ -78,7 +78,7 @@ void INIT_IMAGES(void)
     VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
     HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
     SCORE_TEXT_LEFT_IMAGE._imageData = _TILE_14;
-    DOWN_MINE_IMAGE._imageData = _TILE_18;
+    DOWN_MINE_IMAGE._imageData = _TILE_15;
     SCORE_TEXT_RIGHT_IMAGE._imageData = _TILE_16;
     MINE_IMAGE._imageData = _TILE_17;
     SUPER_COIN_IMAGE._imageData = _TILE_18;

@@ -471,19 +471,21 @@ do \
     build_vertical_wall(XSize-1,0,YSize); \
 } while(0)
 
-#define MAX_NUMBER_OF_MINES 6
+#define MAX_NUMBER_OF_HORIZONTAL_MINES 6
+#define MAX_NUMBER_OF_VERTICAL_MINES 2
 
-static uint8_t horizontal_mine_x[MAX_NUMBER_OF_MINES];
-static uint8_t horizontal_mine_y[MAX_NUMBER_OF_MINES];
-static uint8_t horizontal_mine_direction[MAX_NUMBER_OF_MINES];
+
+static uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
+static uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
+static uint8_t horizontal_mine_direction[MAX_NUMBER_OF_HORIZONTAL_MINES];
 static uint8_t horizontal_mines_on_current_level;
-static uint8_t horizontal_mine_transition[MAX_NUMBER_OF_MINES];
+static uint8_t horizontal_mine_transition[MAX_NUMBER_OF_HORIZONTAL_MINES];
 
-// static uint8_t vertical_mine_x[MAX_NUMBER_OF_MINES];
-// static uint8_t vertical_mine_y[MAX_NUMBER_OF_MINES];
-// static uint8_t vertical_mine_direction[MAX_NUMBER_OF_MINES];
-// static uint8_t vertical_mines_on_current_level;
-// static uint8_t vertical_mine_transition[MAX_NUMBER_OF_MINES];
+static uint8_t vertical_mine_x[MAX_NUMBER_OF_VERTICAL_MINES];
+static uint8_t vertical_mine_y[MAX_NUMBER_OF_VERTICAL_MINES];
+static uint8_t vertical_mine_direction[MAX_NUMBER_OF_VERTICAL_MINES];
+static uint8_t vertical_mines_on_current_level;
+static uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
 
 
 static uint8_t horizontal_mines_on_level[] = 
@@ -566,7 +568,6 @@ static uint8_t horizontal_mines_on_level[] =
     };
 
 
-
 static uint8_t horizontal_mines_on_level_index[2*NUMBER_OF_LEVELS] =
     {
         0,
@@ -602,6 +603,113 @@ static uint8_t horizontal_mines_on_level_index[2*NUMBER_OF_LEVELS] =
         70, // 31
         76  // 32
     };
+
+
+static uint8_t vertical_mines_on_level[] = 
+    {
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+        1,
+            XSize/2+1,
+    };
+
+
+static uint8_t vertical_mines_on_level_index[2*NUMBER_OF_LEVELS] =
+    {
+        0,
+        2,
+        4,
+        6,
+        8,
+        10,
+        12,
+        14,
+        16,
+        18,  // 10
+        20, // 11,
+        22, // 12
+        24, // 13
+        26, // 14
+        28, // 15
+        30, // 16
+        32, // 17
+        34, // 18
+        36, // 19
+        38, // 20
+        40, // 21
+        42, // 22
+        44, // 23
+        46, // 24
+        48, // 25
+        50, // 26
+        52, // 27
+        54, // 28
+        56, // 29
+        58, // 30
+        60, // 31
+        62  // 32
+    };
+
 
 
 #define MINE_RIGHT 0
@@ -654,7 +762,6 @@ void build_level(void)
         build_box_wall(level_walls[i],level_walls[1u+i],
                        level_walls[2u+i],level_walls[3u+i],
                        level_walls[4u+i]);
-
     }
     
     index = horizontal_mines_on_level_index[(level-1)];
@@ -670,7 +777,21 @@ void build_level(void)
         map[horizontal_mine_x[j]][horizontal_mine_y[j]]=DEADLY;
         horizontal_mine_transition[j] = 0;
     }
+
+    index = vertical_mines_on_level_index[(level-1)];
+    vertical_mines_on_current_level = vertical_mines_on_level[index];
     
+    ++index;
+    for(j=0;j<vertical_mines_on_current_level;++j)
+    {
+        vertical_mine_y[j] = YSize/2-5;
+        vertical_mine_x[j] = vertical_mines_on_level[index+j];
+        vertical_mine_direction[j] = j&1;
+        _XLIB_DRAW(vertical_mine_x[j],vertical_mine_y[j],&MINE_IMAGE);
+        map[vertical_mine_x[j]][vertical_mine_y[j]]=DEADLY;
+        vertical_mine_transition[j] = 0;
+    }
+
 }
 
 
@@ -703,7 +824,7 @@ void handle_horizontal_mine(register uint8_t index)
             _XLIB_DRAW(horizontal_mine_x[index],horizontal_mine_y[index],&MINE_IMAGE);
         }
     }
-    else
+    else // direction is RIGHT
     {
         if(!horizontal_mine_transition[index]) // transition not performed, yet
         {
@@ -732,6 +853,8 @@ void handle_horizontal_mine(register uint8_t index)
 }
 
 
+
+
 void handle_horizontal_mines(void)
 {
     uint8_t i;
@@ -739,6 +862,77 @@ void handle_horizontal_mines(void)
     for(i=0;i<horizontal_mines_on_current_level;++i)
     {
         handle_horizontal_mine(i);
+    }
+}
+
+
+
+void handle_vertical_mine(register uint8_t index)
+{
+    if(vertical_mine_direction[index]==MINE_UP)
+    {
+        
+        if(!vertical_mine_transition[index]) // transition not performed, yet
+        {
+            if(!map[vertical_mine_x[index]][vertical_mine_y[index]-1] && vertical_mine_y[index]-1)
+            {
+                // Do up transition
+                _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index]-1,&UP_MINE_IMAGE);
+                _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index],&DOWN_MINE_IMAGE);
+                map[vertical_mine_x[index]][vertical_mine_y[index]-1]=DEADLY;
+                ++vertical_mine_transition[index];
+            }
+            else
+            {
+                vertical_mine_direction[index]=MINE_DOWN;
+            }
+        }
+        else // transition already performed
+        {
+            vertical_mine_transition[index]=0;
+            map[vertical_mine_x[index]][vertical_mine_y[index]]=EMPTY;
+            _XLIB_DELETE(vertical_mine_x[index],vertical_mine_y[index]);
+            --vertical_mine_y[index];
+            _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index],&MINE_IMAGE);
+        }
+    }
+    else // direction is DOWN
+    {
+        if(!vertical_mine_transition[index]) // transition not performed, yet
+        {
+            if(!map[vertical_mine_x[index]][vertical_mine_y[index]+1] && vertical_mine_y[index]<YSize-2)
+            {
+                // Do right transition
+                _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index],&UP_MINE_IMAGE);
+                _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index]+1,&DOWN_MINE_IMAGE);
+                map[vertical_mine_x[index]][vertical_mine_y[index]+1]=DEADLY;
+                ++vertical_mine_transition[index];
+            }
+            else
+            {
+                vertical_mine_direction[index]=MINE_UP;
+            }
+        }
+        else // transition already performed
+        {
+            vertical_mine_transition[index]=0;
+            map[vertical_mine_x[index]][vertical_mine_y[index]]=EMPTY;
+            _XLIB_DELETE(vertical_mine_x[index],vertical_mine_y[index]);
+            ++vertical_mine_y[index];
+            _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index],&MINE_IMAGE);
+        }
+    }
+}
+
+
+
+void handle_vertical_mines(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<vertical_mines_on_current_level;++i)
+    {
+        handle_vertical_mine(i);
     }
 }
 
@@ -899,6 +1093,7 @@ int main(void)
                     if(active_mines)
                     {
                         handle_horizontal_mines();
+                        handle_vertical_mines();
                     }
                     DO_SLOW_DOWN(slow_down);
                     ++speed_increase_counter;

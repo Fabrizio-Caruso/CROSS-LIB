@@ -113,6 +113,34 @@ static uint16_t level_bonus;
 
 static uint8_t transparent_wall_triggered;
 
+/*
+#define EMPTY 0
+#define DEADLY 1
+#define COIN 2
+#define SUPER_COIN 3
+#define EXTRA_POINTS 4
+#define APPLE 5
+#define WALL  6
+#define HORIZONTAL_WALL 7
+#define VERTICAL_WALL 8
+#define TRANSPARENT 9
+
+*/
+
+
+const Image *images[] = {
+    0, 
+    &MINE_IMAGE, 
+    &COIN_IMAGE, 
+    &SUPER_COIN_IMAGE, 
+    &EXTRA_POINTS_IMAGE, 
+    &APPLE_IMAGE,
+    &CENTRAL_BRICK_IMAGE, 
+    &HORIZONTAL_BRICK_IMAGE, 
+    &VERTICAL_BRICK_IMAGE, 
+    &TRANSPARENT_BRICK_IMAGE
+    };
+
 #define FINAL_LEVEL 32
 
 #define COL_OFFSET ((XSize-16)/2-1)
@@ -191,7 +219,7 @@ return
 
 }
 
-void spawn(uint8_t item, Image *image_ptr)
+void spawn(uint8_t type)
 {
     uint8_t x;
     uint8_t y;
@@ -207,9 +235,9 @@ void spawn(uint8_t item, Image *image_ptr)
             break;
         }
     }
-    map[x][y]=item;
+    map[x][y]=type;
     
-    _XLIB_DRAW(x,y,image_ptr);
+    _XLIB_DRAW(x,y,images[type]);
 }
 
 
@@ -401,34 +429,6 @@ static uint16_t level_walls_index[] =
 #define TRANSPARENT_WALLS_INDEX (194+9)
 #define TRANSPARENT_TRIGGER 20
 #define transparent_vertical_wall_level() (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14))
-
-/*
-#define EMPTY 0
-#define DEADLY 1
-#define COIN 2
-#define SUPER_COIN 3
-#define EXTRA_POINTS 4
-#define APPLE 5
-#define WALL  6
-#define HORIZONTAL_WALL 7
-#define VERTICAL_WALL 8
-#define TRANSPARENT 9
-
-*/
-
-
-const Image *images[] = {
-    0, 
-    &MINE_IMAGE, 
-    &COIN_IMAGE, 
-    &SUPER_COIN_IMAGE, 
-    &EXTRA_POINTS_IMAGE, 
-    &APPLE_IMAGE,
-    &CENTRAL_BRICK_IMAGE, 
-    &HORIZONTAL_BRICK_IMAGE, 
-    &VERTICAL_BRICK_IMAGE, 
-    &TRANSPARENT_BRICK_IMAGE
-    };
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
 {
@@ -850,11 +850,11 @@ int main(void)
             build_level();
             
             apples_on_screen_count = 1;
-            spawn(APPLE, &APPLE_IMAGE);
+            spawn(APPLE);
 
             if(tight_level())
             {
-                spawn(COIN, &COIN_IMAGE);
+                spawn(COIN);
             }
             
             energy = 99;
@@ -908,12 +908,12 @@ int main(void)
                         {
                             if(!(RAND()&7) && apples_on_screen_count)
                             {
-                                spawn(COIN, &COIN_IMAGE);
+                                spawn(COIN);
                             }
                             else
                             {
                                 ++apples_on_screen_count;
-                                spawn(APPLE, &APPLE_IMAGE);
+                                spawn(APPLE);
                             }
                         }
                         ++points;

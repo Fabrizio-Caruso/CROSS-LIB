@@ -270,7 +270,11 @@ static uint8_t apples_on_screen_count;
 
 static uint8_t level_walls[] = 
 {
-// level 1
+// level 0 (0)
+    0,
+    0,
+    0,
+// level 1 (3) 
     2, 
         XSize/3,       YSize/3,     XSize/3,
         XSize/3,     2*YSize/3,     XSize/3,
@@ -279,14 +283,14 @@ static uint8_t level_walls[] =
         4*XSize/5,   3*YSize/4,     YSize/4,
     0,
 
-// level 2
-    0,
+// level 2 (18) 
+    0, 
     2,
         XSize/3,                      0,    4*YSize/5,
        2*XSize/3,               YSize/5,    4*YSize/5,
     0,
 
-// level 3
+// level 3 (27)
     4,
         0,                      YSize/4,      XSize/4,
        3*XSize/4,               YSize/4,      XSize/4,
@@ -394,15 +398,13 @@ static uint8_t level_walls[] =
     0,
 // level 15
     1,
-        5,YSize/2-1,XSize-10,
+        5,YSize/2+1,XSize-10,
     0,
     1,
         XSize/2-3,YSize/2+2,6,6,DEADLY,
 // level 16
     0,
-    4,
-        XSize/6, YSize-1-YSize/3, YSize/3,
-        XSize-1-XSize/6, YSize-1-YSize/3, YSize/3,
+    2,
         XSize/3, YSize-1-YSize/3, YSize/3,
         XSize-1-XSize/3, YSize-1-YSize/3, YSize/3,
     0,
@@ -411,28 +413,29 @@ static uint8_t level_walls[] =
 
 static uint16_t level_walls_index[] = 
     {
-        0,   // 1
-        15,  // 2
-        24,  // 3
-        45,  // 4
-        60,  // 5
-        87,  // 6
-        106, // 7
-        147, // 8
-        162, // 9
-        185, // 10
-        194, // 11
-        223, // 12
-        229, // 13 
-        244, // 14
-        259, // 15
-        270, // 16
+        0,   // 0
+        3,   // 1
+        18,  // 2
+        27,  // 3
+        48,  // 4
+        63,  // 5
+        90,  // 6
+        109, // 7
+        150, // 8
+        165, // 9
+        188, // 10
+        197, // 11
+        226, // 12
+        232, // 13 
+        247, // 14
+        262, // 15
+        273, // 16
         };
 
 
 #define TRANSPARENT_TRIGGER 20
 #define transparent_vertical_wall_level() (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14))
-#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==8))
+#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==7)||((level&15)==8))
 
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
@@ -473,7 +476,7 @@ do \
     build_vertical_wall(XSize-1,0,YSize); \
 } while(0)
 
-#define MAX_NUMBER_OF_HORIZONTAL_MINES 6
+#define MAX_NUMBER_OF_HORIZONTAL_MINES 5
 #define MAX_NUMBER_OF_VERTICAL_MINES 2
 
 
@@ -492,75 +495,77 @@ static uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
 
 static uint8_t horizontal_mines_on_level[] = 
     {
+        4, // 0 (0)
+            YSize/5,
+            2*YSize/5,
+            3*YSize/5,
+            4*YSize/5,
         0,0,0,0,0,0,0,0,0,
-        2, // 10 (9)
+        2, // 10 (14)
             YSize/3 - 2,
             2*YSize/3+2,
-        0, // 11 (12)
-        2, // 12 (13)
+        0, // 11 (17)
+        2, // 12 (18)
             YSize/2 - 4,
             YSize/2 + 4,
-        0, // 13 (16)
-        2, // 14 (17)
+        0, // 13 (21)
+        2, // 14 (22)
             YSize/2 - 2,
             YSize/2 + 2,
-        3, // 15 (20)
+        3, // 15 (25)
             YSize/2 - 3,
             YSize/2 - 4,
             YSize/2 - 5,
-        3, // 16 (24)
+        3, // 16 (29)
             YSize/2 - 4,
             YSize/2 - 5,
             YSize/2 - 6,
-        2, // 17 (28)
+        2, // 17 (33)
             YSize/2 - 3,
             YSize/2 + 3,
-        2, // 18 (31)
+        2, // 18 (36)
             3,
             YSize - 3,
-        2, // 19 (34)
+        2, // 19 (39)
             YSize/2 - 3,
             YSize/2 + 3,
-        1, // 20 (37)
+        1, // 20 (42)
             YSize/2 - 1,
-        2, // 21 (39)
+        2, // 21 (44)
             3,
             YSize - 3,
-        1, // 22 (42)
+        1, // 22 (47)
             YSize/2 - 3,
-        2, // 23 (44)
-            YSize/2 - 2,
+        2, // 23 (49)
+            YSize/2 - 3,
             YSize/2 + 2,
-        1, // 24 (47)
+        1, // 24 (52)
             YSize/2 - 3,
-        1, // 25 (49)
-            YSize/2 - 3,
-        2, // 26 (51)
+        1, // 25 (54)
+            YSize/2,
+        2, // 26 (56)
             3,
             YSize - 3,
-        1, // 27 (54)
+        1, // 27 (58)
             YSize/2 - 1,
-        6, // 28 (56)
+        4, // 28 (61)
             3,
             YSize - 4,
-            4,
-            YSize - 5,
             5,
             YSize - 6,
-        1, // 29 (63)
-            2,
-        4, // 30 (65)
+        0, // 29 (66)
+        4, // 30 (67)
             YSize/2 - 4,
             YSize/2 - 5,
             YSize/2 + 4,
             YSize/2 + 5,
-        5, // 31 (70)
+        5, // 31 (72)
             YSize/2 - 3,
             YSize/2 - 4,
             YSize/2 - 5,
             YSize/2 - 6,
             YSize/2 - 7,
-        4, // 32 (76)
+        4, // 32 (78)
             YSize/2 - 5,
             YSize/2 - 6,
             YSize/2 - 7,
@@ -568,146 +573,138 @@ static uint8_t horizontal_mines_on_level[] =
     };
 
 
-static uint8_t horizontal_mines_on_level_index[2*NUMBER_OF_LEVELS] =
+static uint8_t horizontal_mines_on_level_index[] =
     {
         0,
-        1,
-        2,
-        3,
-        4,
         5,
         6,
         7,
         8,
-        9,  // 10
-        12, // 11,
-        13, // 12
-        16, // 13
-        17, // 14
-        20, // 15
-        24, // 16
-        28, // 17
-        31, // 18
-        34, // 19
-        37, // 20
-        39, // 21
-        42, // 22
-        44, // 23
-        47, // 24
-        49, // 25
-        51, // 26
-        54, // 27
-        56, // 28
-        63, // 29
-        65, // 30
-        70, // 31
-        76  // 32
+        9,
+        10,
+        11,
+        12,
+        13,
+        14,  // 10
+        17, // 11,
+        18, // 12
+        21, // 13
+        22, // 14
+        25, // 15
+        29, // 16
+        33, // 17
+        36, // 18
+        39, // 19
+        42, // 20
+        44, // 21
+        47, // 22
+        49, // 23
+        52, // 24
+        54, // 25
+        56, // 26
+        58, // 27
+        61, // 28
+        66, // 29
+        67, // 30
+        72, // 31
+        78  // 32
     };
 
 
 static uint8_t vertical_mines_on_level[] = 
     {
-        1,
+        2, // 0  (0)
+            XSize/3,
+            2*XSize/3,
+        1, //  1 (3)
+            XSize/2-1,
+        1, //  2 (5)
+            XSize/2-1,
+        0, //  3 (7) 
+        0, //  4 (8)
+        1, //  5 (9)
             XSize/2,
-        1,
+        1, //  6 (11)
+            XSize/2-1,
+        0, //  7 (13)
+        1, //  8 (14)
+            XSize/2-1,
+        0, //  9 (16)
+        0, // 10 (17)
+        0, // 11 (18)
+        0, // 12 (19)
+        1, // 13 (20)
+            XSize/2-1,
+        1, // 14 (22)
+            XSize/2,
+        1, // 15 (24)
+            XSize/2-1,
+        1, // 16 (26),
+            XSize/2-1,
+        1, // 17 (28)
+            XSize/2-1,
+        1, // 18 (30)
+            XSize/2-1,
+        0, // 19 (32) 
+        0, // 20 (33)
+        1, // 21 (34)
+            XSize/2,
+        1, // 22 (36)
+            XSize/2-1,
+        0, // 23 (38)
+        1, // 24 (39)
+            XSize/2,
+        0, // 25 (41)
+        0, // 26 (42)
+        0, // 27 (43)
+        0, // 28 (44)
+        1, // 29 (45)
+            XSize/2,
+        1, // 30 (47)
+            XSize/2,
+        1, // 31 (49)
             XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
-        1,
-            XSize/2+1,
+        2, // 32 (51),
+            XSize/6,
+            XSize-1-XSize/6
     };
 
 
-static uint8_t vertical_mines_on_level_index[2*NUMBER_OF_LEVELS] =
+static uint8_t vertical_mines_on_level_index[] =
     {
         0,
-        2,
-        4,
-        6,
+        3,
+        5,
+        7,
         8,
-        10,
-        12,
+        9,
+        11,
+        13,
         14,
-        16,
-        18,  // 10
-        20, // 11,
-        22, // 12
-        24, // 13
-        26, // 14
-        28, // 15
-        30, // 16
-        32, // 17
-        34, // 18
-        36, // 19
-        38, // 20
-        40, // 21
-        42, // 22
-        44, // 23
-        46, // 24
-        48, // 25
-        50, // 26
-        52, // 27
-        54, // 28
-        56, // 29
-        58, // 30
-        60, // 31
-        62  // 32
+        16, // 9
+        17, // 10
+        18, // 11,
+        19, // 12
+        20, // 13
+        22, // 14
+        24, // 15
+        26, // 16
+        28, // 17
+        30, // 18
+        32, // 19
+        33, // 20
+        34, // 21
+        36, // 22
+        38, // 23
+        39, // 24
+        41, // 25
+        42, // 26
+        43, // 27
+        44, // 28
+        45, // 29
+        47, // 30
+        49, // 31
+        51  // 32
     };
 
 
@@ -727,14 +724,24 @@ static uint8_t transparent_horizontal_wall_level_flag;
 
 #define TRANSPARENT_HORIZONTAL_WALL_LENGTH ((XSize)/5)
 #define TRANSPARENT_HORIZONTAL_WALL_X (((XSize)/2)-((TRANSPARENT_HORIZONTAL_WALL_LENGTH)/2))
-#define TRANSPARENT_HORIZONTAL_WALL_Y (((YSize)/2)+1)
+#define TRANSPARENT_HORIZONTAL_WALL_Y (((YSize)/2))
 
 void build_level(void)
 {
-    register uint16_t index = level_walls_index[(level-1)&15];
+    register uint16_t index;
     register uint16_t i;
     uint16_t number_of_elements;
     uint8_t j;
+    
+    if(level>16)
+    {
+        index = level_walls_index[level-16];
+    }
+    else
+    {
+        index = level_walls_index[level];
+    }
+
     
 
     for(j=0;j<2;++j)
@@ -764,7 +771,7 @@ void build_level(void)
                        level_walls[4u+i]);
     }
     
-    index = horizontal_mines_on_level_index[(level-1)];
+    index = horizontal_mines_on_level_index[level];
     horizontal_mines_on_current_level = horizontal_mines_on_level[index];
     
     ++index;
@@ -776,7 +783,7 @@ void build_level(void)
         horizontal_mine_transition[j] = 0;
     }
 
-    index = vertical_mines_on_level_index[(level-1)];
+    index = vertical_mines_on_level_index[level];
     vertical_mines_on_current_level = vertical_mines_on_level[index];
     
     ++index;

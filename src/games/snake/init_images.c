@@ -22,6 +22,8 @@ Image RIGHT_MINE_IMAGE;
 Image TRANSPARENT_BRICK_IMAGE;
 Image COIN_IMAGE;
 Image SUPER_COIN_IMAGE;
+Image UP_MINE_IMAGE;
+Image DOWN_MINE_IMAGE;
 Image EXTRA_POINTS_IMAGE; 
 
 
@@ -51,7 +53,8 @@ void INIT_IMAGES(void)
         MINE_IMAGE._color = COLOR_CYAN;
         LEFT_MINE_IMAGE._color = COLOR_CYAN;
         RIGHT_MINE_IMAGE._color = COLOR_CYAN;
-        
+        DOWN_MINE_IMAGE._color = COLOR_CYAN;
+        UP_MINE_IMAGE._color = COLOR_CYAN;
         EXTRA_POINTS_IMAGE._color = COLOR_YELLOW;
         COIN_IMAGE._color = COLOR_WHITE;
         SUPER_COIN_IMAGE._color = COLOR_RED;
@@ -71,11 +74,11 @@ void INIT_IMAGES(void)
     COIN_IMAGE._imageData = _TILE_8;
     LV_TEXT_IMAGE._imageData = _TILE_9;
     TRANSPARENT_BRICK_IMAGE._imageData = _TILE_10;
-
+    UP_MINE_IMAGE._imageData = _TILE_11;
     VERTICAL_BRICK_IMAGE._imageData = _TILE_12;
     HORIZONTAL_BRICK_IMAGE._imageData = _TILE_13;
     SCORE_TEXT_LEFT_IMAGE._imageData = _TILE_14;
-    
+    DOWN_MINE_IMAGE._imageData = _TILE_18;
     SCORE_TEXT_RIGHT_IMAGE._imageData = _TILE_16;
     MINE_IMAGE._imageData = _TILE_17;
     SUPER_COIN_IMAGE._imageData = _TILE_18;

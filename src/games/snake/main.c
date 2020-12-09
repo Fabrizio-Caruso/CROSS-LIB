@@ -84,6 +84,9 @@ extern Image HORIZONTAL_BRICK_IMAGE;
 extern Image COIN_IMAGE;
 extern Image SUPER_COIN_IMAGE;
 
+extern Image UP_MINE_IMAGE;
+extern Image DOWN_MINE_IMAGE;
+
 static uint8_t snake_head_x;
 static uint8_t snake_head_y;
 

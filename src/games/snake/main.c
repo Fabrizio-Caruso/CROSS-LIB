@@ -106,7 +106,7 @@ uint8_t level;
 
 static uint8_t energy;
 
-static uint8_t bonus_count;
+static uint8_t coin_count;
 
 static uint8_t extra_life_counter;
 
@@ -114,7 +114,8 @@ static uint8_t active_mines;
 
 static uint16_t level_bonus;
 
-static uint8_t transparent_wall_triggered;
+static uint8_t transparent_vertical_wall_triggered;
+static uint8_t transparent_horizontal_wall_triggered;
 
 /*
 #define EMPTY 0
@@ -202,7 +203,7 @@ void DISPLAY_ENERGY(void)
 
 #define SPEED_INCREASE_THRESHOLD 20
 
-
+#define COIN_APPLE_THRESHOLD 10
 
 void PRESS_KEY(void)
 {
@@ -429,9 +430,10 @@ static uint16_t level_walls_index[] =
         };
 
 
-#define TRANSPARENT_WALLS_INDEX (194+9)
 #define TRANSPARENT_TRIGGER 20
 #define transparent_vertical_wall_level() (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14))
+#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==8))
+
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
 {
@@ -558,9 +560,7 @@ static uint8_t horizontal_mines_on_level[] =
             YSize/2 - 5,
             YSize/2 - 6,
             YSize/2 - 7,
-        6, // 32 (76)
-            YSize/2 - 3,
-            YSize/2 - 4,
+        4, // 32 (76)
             YSize/2 - 5,
             YSize/2 - 6,
             YSize/2 - 7,
@@ -608,7 +608,7 @@ static uint8_t horizontal_mines_on_level_index[2*NUMBER_OF_LEVELS] =
 static uint8_t vertical_mines_on_level[] = 
     {
         1,
-            XSize/2+1,
+            XSize/2,
         1,
             XSize/2+1,
         1,
@@ -719,15 +719,15 @@ static uint8_t vertical_mines_on_level_index[2*NUMBER_OF_LEVELS] =
 
 
 static uint8_t transparent_vertical_wall_level_flag;
+static uint8_t transparent_horizontal_wall_level_flag;
 
+#define TRANSPARENT_VERTICAL_WALL_LENGTH ((YSize)/3)
 #define TRANSPARENT_VERTICAL_WALL_X ((XSize)/2)
 #define TRANSPARENT_VERTICAL_WALL_Y (((YSize)/3)+1)
-#define TRANSPARENT_VERTICAL_WALL_LENGTH ((YSize)/3)
 
-uint8_t tight_level(void) 
-{
-    return (level==20) || (level==26) || (level==27) || (level==29);
-}
+#define TRANSPARENT_HORIZONTAL_WALL_LENGTH ((XSize)/5)
+#define TRANSPARENT_HORIZONTAL_WALL_X (((XSize)/2)-((TRANSPARENT_HORIZONTAL_WALL_LENGTH)/2))
+#define TRANSPARENT_HORIZONTAL_WALL_Y (((YSize)/2)+1)
 
 void build_level(void)
 {
@@ -773,8 +773,6 @@ void build_level(void)
         horizontal_mine_x[j] = XSize/2;
         horizontal_mine_y[j] = horizontal_mines_on_level[index+j];
         horizontal_mine_direction[j] = j&1;
-        _XLIB_DRAW(horizontal_mine_x[j],horizontal_mine_y[j],&MINE_IMAGE);
-        map[horizontal_mine_x[j]][horizontal_mine_y[j]]=DEADLY;
         horizontal_mine_transition[j] = 0;
     }
 
@@ -784,11 +782,9 @@ void build_level(void)
     ++index;
     for(j=0;j<vertical_mines_on_current_level;++j)
     {
-        vertical_mine_y[j] = YSize/2-5;
+        vertical_mine_y[j] = YSize/2-1;
         vertical_mine_x[j] = vertical_mines_on_level[index+j];
         vertical_mine_direction[j] = j&1;
-        _XLIB_DRAW(vertical_mine_x[j],vertical_mine_y[j],&MINE_IMAGE);
-        map[vertical_mine_x[j]][vertical_mine_y[j]]=DEADLY;
         vertical_mine_transition[j] = 0;
     }
 
@@ -955,22 +951,62 @@ uint8_t empty_vertical_wall_area(void)
            !((snake_head_y>=TRANSPARENT_VERTICAL_WALL_Y)&&(snake_head_y<TRANSPARENT_VERTICAL_WALL_Y+TRANSPARENT_VERTICAL_WALL_LENGTH));
 }
 
+
+uint8_t empty_horizontal_wall_area(void)
+{
+    uint8_t i;
+
+    i = 0;
+    
+    while(i<TRANSPARENT_HORIZONTAL_WALL_LENGTH)
+    {
+        if(map[TRANSPARENT_HORIZONTAL_WALL_X+i][TRANSPARENT_HORIZONTAL_WALL_Y])
+        {
+            return 0;
+        }
+        ++i;
+    }
+    return (TRANSPARENT_HORIZONTAL_WALL_Y!=snake_head_y)||
+           !((snake_head_y>=TRANSPARENT_HORIZONTAL_WALL_X)&&(snake_head_y<TRANSPARENT_HORIZONTAL_WALL_X+TRANSPARENT_HORIZONTAL_WALL_LENGTH));
+}
+
+
+
 void handle_transparent_vertical_wall(void)
 {
-    if(!transparent_wall_triggered)
+    if(!transparent_vertical_wall_triggered)
     {
         if(empty_vertical_wall_area())
         {
-            transparent_wall_triggered = 1;
+            transparent_vertical_wall_triggered = 1;
             TOCK_SOUND();
             build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,TRANSPARENT);
         }
     }
     else
     {   
-        transparent_wall_triggered = 0;
+        transparent_vertical_wall_triggered = 0;
         TOCK_SOUND();
         build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,EMPTY);
+    }
+}
+
+void handle_transparent_horizontal_wall(void)
+{
+    if(!transparent_horizontal_wall_triggered)
+    {
+        if(empty_horizontal_wall_area())
+        {
+            transparent_horizontal_wall_triggered = 1;
+            TOCK_SOUND();
+            build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,TRANSPARENT);
+        }
+    }
+    else
+    {   
+        transparent_horizontal_wall_triggered = 0;
+        TOCK_SOUND();
+        build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,EMPTY);
     }
 }
 
@@ -1020,7 +1056,7 @@ int main(void)
             
             DRAW_MAP_BORDERS();
             
-            bonus_count = 0;
+            coin_count = 0;
             
             _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE);
             
@@ -1055,10 +1091,6 @@ int main(void)
             apples_on_screen_count = 1;
             spawn(APPLE);
 
-            if(tight_level())
-            {
-                spawn(COIN);
-            }
             
             energy = 99;
             
@@ -1071,8 +1103,11 @@ int main(void)
             
             active_mines = 1;
             
-            transparent_wall_triggered = 0;
+            transparent_vertical_wall_triggered = 0;
             transparent_vertical_wall_level_flag = transparent_vertical_wall_level();
+            
+            transparent_horizontal_wall_triggered = 0;
+            transparent_horizontal_wall_level_flag = transparent_horizontal_wall_level();
             
             while(remaining_apples)
             {
@@ -1107,10 +1142,17 @@ int main(void)
                         {
                             handle_transparent_vertical_wall();
                         }
+                        if(transparent_horizontal_wall_level_flag)
+                        {
+                            handle_transparent_horizontal_wall();
+                        }
+                        
                         speed_increase_counter = 0;
                         if(RAND()&1 && (apples_on_screen_count<remaining_apples))
                         {
-                            if(!(RAND()&7) && apples_on_screen_count)
+                            //                             ((!(RAND()&7) && (!coin_count)) || (!(RAND()&15))) 
+
+                            if(!(RAND()&7) && (remaining_apples>COIN_APPLE_THRESHOLD) && apples_on_screen_count)
                             {
                                 spawn(COIN);
                             }
@@ -1136,10 +1178,10 @@ int main(void)
                         snake_head_y = snake_y[snake_head];
                         
 
-                        points+=(COIN_POINTS<<bonus_count);
-                        if(bonus_count<MAX_COIN_COUNT)
+                        points+=(COIN_POINTS<<coin_count);
+                        if(coin_count<MAX_COIN_COUNT)
                         {
-                            ++bonus_count;
+                            ++coin_count;
                         }
                         else
                         {
@@ -1149,7 +1191,7 @@ int main(void)
                             active_mines = 0;
                             TOCK_SOUND();
                         }
-                        _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+bonus_count,YSize-1,&COIN_IMAGE);
+                        _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE);
                         ZAP_SOUND();
                     }
                     if(hits_apple(snake_head_x,snake_head_y))
@@ -1189,7 +1231,7 @@ int main(void)
             {
                 SET_TEXT_COLOR(COLOR_RED);
                 printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
-                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<1) +(((uint16_t) bonus_count)<<5) + (((uint16_t) level)<<3);
+                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<1) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<3);
                 SET_TEXT_COLOR(COLOR_WHITE);
 
                 printCenteredMessageOnRow(YSize/2+2, _XL_SPACE _XL_B _XL_O _XL_N _XL_U _XL_S _XL_SPACE);

@@ -162,6 +162,9 @@ const Image *images[] = {
 
 #define hits_apple(x,y) \
     (map[x][y]==APPLE)
+    
+#define hits_extra_points(x,y) \
+    (map[x][y]==EXTRA_POINTS)
 
 #define RED_ENERGY_THRESHOLD 80
 
@@ -198,9 +201,13 @@ void DISPLAY_ENERGY(void)
 
 
 #define INITIAL_LIVES 5
-#define COIN_POINTS 25
-#define SUPER_COIN_POINTS 250
+
+#define DOLLAR_POINTS 5
 #define APPLE_POINTS 20
+#define COIN_POINTS 25
+#define SUPER_COIN_POINTS 150
+
+
 #define EXTRA_LIFE_THRESHOLD 5000U
 
 #define INITIAL_APPLE_COUNT 10
@@ -1158,6 +1165,10 @@ int main(void)
                     
                     if((!(apples_on_screen_count) || (speed_increase_counter>SPEED_INCREASE_THRESHOLD)))
                     {
+                        if(!(level&15))
+                        {
+                            spawn(EXTRA_POINTS);
+                        }
                         if(transparent_vertical_wall_level_flag)
                         {
                             handle_transparent_vertical_wall();
@@ -1168,6 +1179,7 @@ int main(void)
                         }
                         
                         speed_increase_counter = 0;
+                        
                         if(RAND()&1 && (apples_on_screen_count<remaining_apples))
                         {
                             if(!(RAND()&7) && (apples_on_screen_count<COIN_APPLE_THRESHOLD))
@@ -1204,6 +1216,12 @@ int main(void)
                             spawn(SUPER_COIN);
                         }
                     
+                    }
+                    
+                    if(hits_extra_points(snake_head_x,snake_head_y))
+                    {
+                        ZAP_SOUND();
+                        points+=DOLLAR_POINTS;
                     }
                     
                     if(hits_super_coin(snake_head_x,snake_head_y))

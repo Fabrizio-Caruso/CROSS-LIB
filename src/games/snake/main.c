@@ -117,6 +117,10 @@ static uint16_t level_bonus;
 static uint8_t transparent_vertical_wall_triggered;
 static uint8_t transparent_horizontal_wall_triggered;
 
+static uint8_t secret_level_active;
+static uint8_t secret_level_never_activated;
+static uint8_t next_level;
+
 /*
 #define EMPTY 0
 #define DEADLY 1
@@ -1056,6 +1060,8 @@ int main(void)
         lives = INITIAL_LIVES;
         level = INITIAL_LEVEL;
 
+        secret_level_never_activated = 1;
+        
         while(lives && (level<FINAL_LEVEL+1))
         {
             #if defined(DEBUG_LEVELS)
@@ -1120,8 +1126,7 @@ int main(void)
             transparent_horizontal_wall_triggered = 0;
             transparent_horizontal_wall_level_flag = transparent_horizontal_wall_level();
             
-            // snake_head_x = snake_x[snake_head];
-            // snake_head_y = snake_y[snake_head];
+            secret_level_active = 0;
             
             while(remaining_apples)
             {
@@ -1164,7 +1169,7 @@ int main(void)
                         speed_increase_counter = 0;
                         if(RAND()&1 && (apples_on_screen_count<remaining_apples))
                         {
-                            if(!(RAND()&7) && (apples_on_screen_count>COIN_APPLE_THRESHOLD))
+                            if(!(RAND()&3) && (apples_on_screen_count<COIN_APPLE_THRESHOLD))
                             {
                                 spawn(COIN);
                             }
@@ -1178,7 +1183,6 @@ int main(void)
                         IF_POSSIBLE_INCREASE_SPEED();
                     }
                     
-
                     
                     
                     DISPLAY_POINTS();
@@ -1186,21 +1190,19 @@ int main(void)
                     if(hits_coin(snake_head_x,snake_head_y))
                     {
                         snake_grows();
-                        // snake_head_x = snake_x[snake_head];
-                        // snake_head_y = snake_y[snake_head];
                         
-
                         points+=(COIN_POINTS<<coin_count);
+                        ZAP_SOUND();
                         if(coin_count<MAX_COIN_COUNT)
                         {
                             ++coin_count;
+                            _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE);
                         }
                         else
                         {
                             spawn(SUPER_COIN);
                         }
-                        _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE);
-                        ZAP_SOUND();
+                    
                     }
                     
                     if(hits_super_coin(snake_head_x,snake_head_y))
@@ -1211,13 +1213,15 @@ int main(void)
                         DISPLAY_ENERGY();
                         active_mines = 0;
                         TOCK_SOUND();
+                        if(secret_level_never_activated)
+                        {
+                            secret_level_active = 1;
+                        }
                     }
                     if(hits_apple(snake_head_x,snake_head_y))
                     {
                         --apples_on_screen_count;
                         snake_grows();
-                        // snake_head_x = snake_x[snake_head];
-                        // snake_head_y = snake_y[snake_head];
                         
                         --remaining_apples;
                         DISPLAY_REMAINING_APPLES_COUNT();
@@ -1249,12 +1253,30 @@ int main(void)
             {
                 SET_TEXT_COLOR(COLOR_RED);
                 printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
-                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<1) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<3);
+                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<1) +(((uint16_t) coin_count)<<6) + (((uint16_t) level)<<4);
                 SET_TEXT_COLOR(COLOR_WHITE);
 
                 printCenteredMessageOnRow(YSize/2+2, _XL_SPACE _XL_B _XL_O _XL_N _XL_U _XL_S _XL_SPACE);
                 PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
-                ++level;
+                
+                if(level)
+                {
+                    if(!secret_level_active)
+                    {
+                        
+                        ++level;
+                    }
+                    else
+                    {
+                        secret_level_never_activated = 0;
+                        next_level = level + 1;
+                        level = 0;
+                    }
+                }
+                else
+                {
+                    level = next_level;
+                }
                 
                 remaining_apples=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
                 if(remaining_apples>MAX_APPLES)

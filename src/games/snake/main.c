@@ -1286,8 +1286,6 @@ int main(void)
                     // TODO: All these IFs are mutually exclusive
                     if(hits_coin(snake_head_x,snake_head_y))
                     {
-                        snake_grows();
-                        
                         points+=(COIN_POINTS<<coin_count);
                         ZAP_SOUND();
                         if(coin_count<MAX_COIN_COUNT)

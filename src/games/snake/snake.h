@@ -7,9 +7,9 @@
 
 #define INITIAL_SNAKE_LENGTH 3
 
-#define MAX_APPLES 50
+#define MAX_APPLES 30
 
-#define MAX_SNAKE_LENGTH ((XSize)+(MAX_APPLES)+((MAX_APPLES)/8)+10)
+#define MAX_SNAKE_LENGTH ((XSize)+(MAX_APPLES))
 //254
 
 #define EMPTY 0

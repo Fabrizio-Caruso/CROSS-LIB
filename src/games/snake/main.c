@@ -1085,7 +1085,6 @@ int main(void)
         printCenteredMessageOnRow(YSize/8, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E);
 
         SET_TEXT_COLOR(COLOR_WHITE);
-        // printCenteredMessageOnRow(YSize/5+2, _XL_b _XL_y);
         printCenteredMessageOnRow(YSize/8+2, _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o);
 
         #if !defined(SIMPLE_TITLE)
@@ -1102,15 +1101,7 @@ int main(void)
             _XLIB_DRAW(XSize/3+XSize/3-2,YSize/8+5,&HORIZONTAL_HEAD_IMAGE);
             _XLIB_DRAW(XSize/3+XSize/3,YSize/8+5,&APPLE_IMAGE);
             
-            // WAIT_PRESS();
             
-            // CLEAR_SCREEN();
-            
-
-            // SET_TEXT_COLOR(COLOR_WHITE);
-            // PRINT(XSize/2-5, YSize/6, _XL_I _XL_N _XL_S _XL_T _XL_R _XL_U _XL_C _XL_T _XL_I _XL_O _XL_N _XL_S);
-            
-
             for(i=0;i<NUMBER_OF_STRINGS;++i)
             {
                 _XLIB_DRAW(XSize/2-6,YSize/8+8+2*i, images[NUMBER_OF_STRINGS-i]);
@@ -1144,6 +1135,13 @@ int main(void)
             debug_levels:
             #endif
             CLEAR_SCREEN();
+            
+            if(!level)
+            {
+                printCenteredMessage(_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE "0" );
+                WAIT_PRESS();
+                CLEAR_SCREEN();
+            }
             
             init_map();
             

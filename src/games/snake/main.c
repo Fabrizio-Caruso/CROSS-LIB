@@ -225,7 +225,7 @@ void DISPLAY_ENERGY(void)
 void PRESS_KEY(void)
 {
     SET_TEXT_COLOR(COLOR_WHITE);
-    printCenteredMessageOnRow(YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+    printCenteredMessageOnRow(YSize-2, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
     WAIT_PRESS();
 }
 
@@ -356,10 +356,10 @@ static uint8_t level_walls[] =
         XSize/2-1, 3, YSize/4,
         XSize/2-1, YSize-4-YSize/4, YSize/4,
     4,
-        1,1,XSize/6,YSize/6,DEADLY,
-        1,YSize-1-YSize/6,XSize/6,YSize/6,WALL,
-        XSize-1-XSize/6,YSize-1-YSize/6,XSize/6,YSize/6,DEADLY,
-        XSize-1-XSize/6,1,XSize/6,YSize/6,WALL,
+        1,1,XSize/7,YSize/7,DEADLY,
+        1,YSize-1-YSize/7,XSize/7,YSize/7,WALL,
+        XSize-1-XSize/7,YSize-1-YSize/7,XSize/7,YSize/7,DEADLY,
+        XSize-1-XSize/7,1,XSize/7,YSize/7,WALL,
 // level 8
     0,
     4, 
@@ -418,7 +418,7 @@ static uint8_t level_walls[] =
         5,YSize/2+1,XSize-10,
     0,
     1,
-        XSize/2-3,YSize/2+2,6,6,DEADLY,
+        XSize/2-2,YSize/2+3,4,4,DEADLY,
 // level 16
     0,
     2,
@@ -1082,11 +1082,11 @@ int main(void)
     {
         CLEAR_SCREEN();
         SET_TEXT_COLOR(COLOR_RED);
-        printCenteredMessageOnRow(YSize/7, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E);
+        printCenteredMessageOnRow(YSize/8, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E);
 
         SET_TEXT_COLOR(COLOR_WHITE);
         // printCenteredMessageOnRow(YSize/5+2, _XL_b _XL_y);
-        printCenteredMessageOnRow(YSize/7+2, _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o);
+        printCenteredMessageOnRow(YSize/8+2, _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o);
 
         #if !defined(SIMPLE_TITLE)
         
@@ -1095,12 +1095,12 @@ int main(void)
             
             for(i=0;i<XSize/3-2;++i)
             {
-                _XLIB_DRAW(XSize/3+i,YSize/7+4,&BODY_IMAGE);
+                _XLIB_DRAW(XSize/3+i,YSize/8+5,&BODY_IMAGE);
                 
             }
 
-            _XLIB_DRAW(XSize/3+XSize/3-2,YSize/7+4,&HORIZONTAL_HEAD_IMAGE);
-            _XLIB_DRAW(XSize/3+XSize/3,YSize/7+4,&APPLE_IMAGE);
+            _XLIB_DRAW(XSize/3+XSize/3-2,YSize/8+5,&HORIZONTAL_HEAD_IMAGE);
+            _XLIB_DRAW(XSize/3+XSize/3,YSize/8+5,&APPLE_IMAGE);
             
             // WAIT_PRESS();
             
@@ -1113,30 +1113,11 @@ int main(void)
 
             for(i=0;i<NUMBER_OF_STRINGS;++i)
             {
-                _XLIB_DRAW(XSize/2-6,YSize/7+8+2*i, images[NUMBER_OF_STRINGS-i]);
+                _XLIB_DRAW(XSize/2-6,YSize/8+8+2*i, images[NUMBER_OF_STRINGS-i]);
                 SET_TEXT_COLOR(COLOR_WHITE);
-                PRINT(XSize/2-4,YSize/7+8+2*i, strings[NUMBER_OF_STRINGS-1-i] );
+                PRINT(XSize/2-4,YSize/8+8+2*i, strings[NUMBER_OF_STRINGS-1-i] );
                 WAIT_PRESS();
             }
-            // _XLIB_DRAW(XSize/2-6,YSize/6+6, &COIN_IMAGE);
-            // SET_TEXT_COLOR(COLOR_WHITE);
-            // PRINT(XSize/2-4,YSize/6+6, _XL_B _XL_o _XL_n _XL_u _XL_s  );
-            // WAIT_PRESS();
-            
-            // _XLIB_DRAW(XSize/2-6,YSize/6+8, &MINE_IMAGE);
-            // SET_TEXT_COLOR(COLOR_WHITE);
-            // PRINT(XSize/2-4,YSize/6+8, _XL_M _XL_i _XL_n _XL_e _XL_s );
-            // WAIT_PRESS();
-
-            // _XLIB_DRAW(XSize/2-6,YSize/6+10, &VERTICAL_BRICK_IMAGE);
-            // SET_TEXT_COLOR(COLOR_WHITE);
-            // PRINT(XSize/2-4,YSize/6+10, _XL_S _XL_t _XL_o _XL_p _XL_SPACE _XL_s _XL_n _XL_a _XL_k _XL_e);
-            // WAIT_PRESS();
-            
-            // _XLIB_DRAW(XSize/2-6,YSize/6+12, &SUPER_COIN_IMAGE);
-            // SET_TEXT_COLOR(COLOR_WHITE);
-            // PRINT(XSize/2-4,YSize/6+12, _XL_S _XL_e _XL_c _XL_r _XL_e _XL_t);
-            // WAIT_PRESS();
         }
         #endif 
 

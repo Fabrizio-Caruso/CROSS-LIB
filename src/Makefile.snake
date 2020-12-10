@@ -177,6 +177,7 @@ c16_included_gfx: $(ASSETS_PATH)/8x8_chars.h
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
+#	-DSIMPLE_TITLE 
 # TILE_21 and TILE_22 are corrupted on the UNEXPANDED C16
 c16: $(ASSETS_PATH)/cc65_udc_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
@@ -185,7 +186,6 @@ c16: $(ASSETS_PATH)/cc65_udc_64_chars.s
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
 	-DSOUNDS \
-	-DSIMPLE_TITLE \
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
@@ -407,6 +407,7 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 
 vic20: vic20_exp_16k
 
+# 	-DSIMPLE_TITLE 
 vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
@@ -418,7 +419,6 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	-DSIMPLE_STRATEGY \
 	-DREDEFINED_CHARS \
 	-DALT_PRINT \
-	-DSIMPLE_TITLE \
 	-DLESS_TEXT \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \

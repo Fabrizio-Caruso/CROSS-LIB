@@ -1092,22 +1092,22 @@ int main(void)
         {
             uint8_t i;
             
-            for(i=0;i<XSize/3-2;++i)
+            for(i=0;i<XSize/2-2;++i)
             {
-                _XLIB_DRAW(XSize/3+i,YSize/8+5,&BODY_IMAGE);
+                _XLIB_DRAW(XSize/4+i,YSize/8+5,&BODY_IMAGE);
                 
             }
 
-            _XLIB_DRAW(XSize/3+XSize/3-2,YSize/8+5,&HORIZONTAL_HEAD_IMAGE);
-            _XLIB_DRAW(XSize/3+XSize/3,YSize/8+5,&APPLE_IMAGE);
+            _XLIB_DRAW(XSize/4+XSize/2-2,YSize/8+5,&HORIZONTAL_HEAD_IMAGE);
+            _XLIB_DRAW(XSize/4+XSize/2,YSize/8+5,&APPLE_IMAGE);
             
             
             for(i=0;i<NUMBER_OF_STRINGS;++i)
             {
+                WAIT_PRESS();
                 _XLIB_DRAW(XSize/2-6,YSize/8+8+2*i, images[NUMBER_OF_STRINGS-i]);
                 SET_TEXT_COLOR(COLOR_WHITE);
                 PRINT(XSize/2-4,YSize/8+8+2*i, strings[NUMBER_OF_STRINGS-1-i] );
-                WAIT_PRESS();
             }
         }
         #endif 
@@ -1136,12 +1136,12 @@ int main(void)
             #endif
             CLEAR_SCREEN();
             
-            if(!level)
-            {
-                printCenteredMessage(_XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE "0" );
-                WAIT_PRESS();
-                CLEAR_SCREEN();
-            }
+
+            PRINT(XSize/2-4,YSize/2, _XL_L _XL_E _XL_V _XL_E _XL_L);
+            PRINTD(XSize/2-4+6,YSize/2,2,level);
+            WAIT_PRESS();
+            CLEAR_SCREEN();
+
             
             init_map();
             

@@ -1050,6 +1050,24 @@ void handle_transparent_horizontal_wall(void)
 
 }
 
+
+#if !defined(SIMPLE_TITLE)
+
+#define NUMBER_OF_STRINGS 5
+
+
+#define MAX_STRING_SIZE (6+1)
+
+char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
+{
+    _XL_M _XL_i _XL_n _XL_e _XL_s,
+    _XL_B _XL_o _XL_n _XL_u _XL_s,
+    _XL_S _XL_e _XL_c _XL_r _XL_e _XL_t,
+    _XL_P _XL_o _XL_i _XL_n _XL_t _XL_s,
+    _XL_A _XL_p _XL_p _XL_l _XL_e,
+};
+#endif
+
 int main(void)
 {
     INIT_GRAPHICS();
@@ -1064,11 +1082,11 @@ int main(void)
     {
         CLEAR_SCREEN();
         SET_TEXT_COLOR(COLOR_RED);
-        printCenteredMessageOnRow(YSize/5, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E);
+        printCenteredMessageOnRow(YSize/7, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E);
 
         SET_TEXT_COLOR(COLOR_WHITE);
-        printCenteredMessageOnRow(YSize/5+2, _XL_b _XL_y);
-        printCenteredMessageOnRow(YSize/5+4, _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o);
+        // printCenteredMessageOnRow(YSize/5+2, _XL_b _XL_y);
+        printCenteredMessageOnRow(YSize/7+2, _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o);
 
         #if !defined(SIMPLE_TITLE)
         
@@ -1077,45 +1095,49 @@ int main(void)
             
             for(i=0;i<XSize/3-2;++i)
             {
-                _XLIB_DRAW(XSize/3+i,YSize/5+6,&BODY_IMAGE);
+                _XLIB_DRAW(XSize/3+i,YSize/7+4,&BODY_IMAGE);
                 
             }
+
+            _XLIB_DRAW(XSize/3+XSize/3-2,YSize/7+4,&HORIZONTAL_HEAD_IMAGE);
+            _XLIB_DRAW(XSize/3+XSize/3,YSize/7+4,&APPLE_IMAGE);
+            
+            // WAIT_PRESS();
+            
+            // CLEAR_SCREEN();
+            
+
+            // SET_TEXT_COLOR(COLOR_WHITE);
+            // PRINT(XSize/2-5, YSize/6, _XL_I _XL_N _XL_S _XL_T _XL_R _XL_U _XL_C _XL_T _XL_I _XL_O _XL_N _XL_S);
+            
+
+            for(i=0;i<NUMBER_OF_STRINGS;++i)
+            {
+                _XLIB_DRAW(XSize/2-6,YSize/7+8+2*i, images[NUMBER_OF_STRINGS-i]);
+                SET_TEXT_COLOR(COLOR_WHITE);
+                PRINT(XSize/2-4,YSize/7+8+2*i, strings[NUMBER_OF_STRINGS-1-i] );
+                WAIT_PRESS();
+            }
+            // _XLIB_DRAW(XSize/2-6,YSize/6+6, &COIN_IMAGE);
+            // SET_TEXT_COLOR(COLOR_WHITE);
+            // PRINT(XSize/2-4,YSize/6+6, _XL_B _XL_o _XL_n _XL_u _XL_s  );
+            // WAIT_PRESS();
+            
+            // _XLIB_DRAW(XSize/2-6,YSize/6+8, &MINE_IMAGE);
+            // SET_TEXT_COLOR(COLOR_WHITE);
+            // PRINT(XSize/2-4,YSize/6+8, _XL_M _XL_i _XL_n _XL_e _XL_s );
+            // WAIT_PRESS();
+
+            // _XLIB_DRAW(XSize/2-6,YSize/6+10, &VERTICAL_BRICK_IMAGE);
+            // SET_TEXT_COLOR(COLOR_WHITE);
+            // PRINT(XSize/2-4,YSize/6+10, _XL_S _XL_t _XL_o _XL_p _XL_SPACE _XL_s _XL_n _XL_a _XL_k _XL_e);
+            // WAIT_PRESS();
+            
+            // _XLIB_DRAW(XSize/2-6,YSize/6+12, &SUPER_COIN_IMAGE);
+            // SET_TEXT_COLOR(COLOR_WHITE);
+            // PRINT(XSize/2-4,YSize/6+12, _XL_S _XL_e _XL_c _XL_r _XL_e _XL_t);
+            // WAIT_PRESS();
         }
-        _XLIB_DRAW(XSize/3+XSize/3-2,YSize/5+6,&HORIZONTAL_HEAD_IMAGE);
-        _XLIB_DRAW(XSize/3+XSize/3,YSize/5+6,&APPLE_IMAGE);
-        
-        WAIT_PRESS();
-        
-        CLEAR_SCREEN();
-        
-        SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(XSize/2-5, YSize/6, _XL_I _XL_N _XL_S _XL_T _XL_R _XL_U _XL_C _XL_T _XL_I _XL_O _XL_N _XL_S);
-        
-
-        _XLIB_DRAW(XSize/2-6,YSize/6+4, &APPLE_IMAGE);
-        SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(XSize/2-4,YSize/6+4, _XL_E _XL_a _XL_t _XL_SPACE _XL_a _XL_p _XL_p _XL_l _XL_e _XL_s );
-        WAIT_PRESS();
-        
-        _XLIB_DRAW(XSize/2-6,YSize/6+6, &COIN_IMAGE);
-        SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(XSize/2-4,YSize/6+6, _XL_B _XL_o _XL_n _XL_u _XL_s  );
-        WAIT_PRESS();
-        
-        _XLIB_DRAW(XSize/2-6,YSize/6+8, &MINE_IMAGE);
-        SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(XSize/2-4,YSize/6+8, _XL_A _XL_v _XL_o _XL_i _XL_d _XL_SPACE _XL_m _XL_i _XL_n _XL_e _XL_s );
-        WAIT_PRESS();
-
-        _XLIB_DRAW(XSize/2-6,YSize/6+10, &VERTICAL_BRICK_IMAGE);
-        SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(XSize/2-4,YSize/6+10, _XL_S _XL_t _XL_o _XL_p _XL_SPACE _XL_s _XL_n _XL_a _XL_k _XL_e);
-        WAIT_PRESS();
-        
-        _XLIB_DRAW(XSize/2-6,YSize/6+12, &SUPER_COIN_IMAGE);
-        SET_TEXT_COLOR(COLOR_WHITE);
-        PRINT(XSize/2-4,YSize/6+12, _XL_S _XL_e _XL_c _XL_r _XL_e _XL_t);
-        WAIT_PRESS();
         #endif 
 
         PRESS_KEY();

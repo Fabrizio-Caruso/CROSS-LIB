@@ -16,7 +16,7 @@
 #define DEADLY 1
 #define COIN 2
 #define SUPER_COIN 3
-#define EXTRA_POINTS 4
+#define EXTRA 4
 #define APPLE 5
 #define WALL  6
 #define HORIZONTAL_WALL 7

@@ -938,7 +938,7 @@ uint8_t empty_vertical_wall_area(void)
         ++i;
     }
     return (TRANSPARENT_VERTICAL_WALL_X!=snake_head_x)||
-           !((snake_head_y>=TRANSPARENT_VERTICAL_WALL_Y)&&(snake_head_y<TRANSPARENT_VERTICAL_WALL_Y+TRANSPARENT_VERTICAL_WALL_LENGTH));
+           !((snake_head_y>=TRANSPARENT_VERTICAL_WALL_Y)&&(snake_head_y<TRANSPARENT_VERTICAL_WALL_Y+TRANSPARENT_VERTICAL_WALL_LENGTH-1));
 }
 
 
@@ -956,7 +956,7 @@ uint8_t empty_horizontal_wall_area(void)
         ++i;
     }
     return (TRANSPARENT_HORIZONTAL_WALL_Y!=snake_head_y)||
-           !((snake_head_y>=TRANSPARENT_HORIZONTAL_WALL_X)&&(snake_head_y<TRANSPARENT_HORIZONTAL_WALL_X+TRANSPARENT_HORIZONTAL_WALL_LENGTH));
+           !((snake_head_x>=TRANSPARENT_HORIZONTAL_WALL_X)&&(snake_head_x<TRANSPARENT_HORIZONTAL_WALL_X+TRANSPARENT_HORIZONTAL_WALL_LENGTH-1));
 }
 
 

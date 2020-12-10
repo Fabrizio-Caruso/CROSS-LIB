@@ -751,21 +751,27 @@ void build_level(void)
     register uint16_t i;
     register uint16_t number_of_elements;
     uint8_t j;
+    uint8_t x;
+    uint8_t y;
+    uint8_t type;
     
     index = level_walls_index[level-((level>16)<<4)];
     
     for(j=0;j<2;++j)
     {
         number_of_elements = level_walls[index]; // Number of horizontal walls
-        for(i=0;i<3*number_of_elements;i+=3)
+        for(i=1;i<3*number_of_elements;i+=3)
         {
+            x=level_walls[index+i];
+            y=level_walls[index+1+i];
+            type=level_walls[index+2+i];
             if(j)
             {
-                build_vertical_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
+                build_vertical_wall(x,y,type);
             }
             else
             {
-                build_horizontal_wall(level_walls[index+1+i],level_walls[index+2+i],level_walls[index+3+i]);
+                build_horizontal_wall(x,y,type);
             }
         }
         index = index+number_of_elements*3+1;
@@ -1255,12 +1261,12 @@ int main(void)
                     
                     if(hits_super_coin(snake_head_x,snake_head_y))
                     {
+                        ZAP_SOUND();
                         points+=SUPER_COIN_POINTS;
                         slow_down = 2*SLOW_DOWN;
                         energy = MAX_ENERGY;
                         DISPLAY_ENERGY();
                         active_mines = 0;
-                        TOCK_SOUND();
                         if(secret_level_never_activated)
                         {
                             secret_level_active = 1;

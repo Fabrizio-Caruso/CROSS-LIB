@@ -785,17 +785,20 @@ void build_level(void)
 
 void handle_horizontal_mine(register uint8_t index)
 {
+    register uint8_t x = horizontal_mine_x[index];
+    register uint8_t y = horizontal_mine_y[index];
+    
     if(horizontal_mine_direction[index]==MINE_LEFT)
     {
         
         if(!horizontal_mine_transition[index]) // transition not performed, yet
         {
-            if(!map[horizontal_mine_x[index]-1][horizontal_mine_y[index]] && horizontal_mine_x[index]-1)
+            if(!map[x-1][y] && (x-1))
             {
                 // Do left transition
-                _XLIB_DRAW(horizontal_mine_x[index],horizontal_mine_y[index],&RIGHT_MINE_IMAGE);
-                _XLIB_DRAW(horizontal_mine_x[index]-1,horizontal_mine_y[index],&LEFT_MINE_IMAGE);
-                map[horizontal_mine_x[index]-1][horizontal_mine_y[index]]=DEADLY;
+                _XLIB_DRAW(x,y,&RIGHT_MINE_IMAGE);
+                _XLIB_DRAW(x-1,y,&LEFT_MINE_IMAGE);
+                map[x-1][y]=DEADLY;
                 ++horizontal_mine_transition[index];
             }
             else
@@ -806,22 +809,22 @@ void handle_horizontal_mine(register uint8_t index)
         else // transition already performed
         {
             horizontal_mine_transition[index]=0;
-            map[horizontal_mine_x[index]][horizontal_mine_y[index]]=EMPTY;
-            _XLIB_DELETE(horizontal_mine_x[index],horizontal_mine_y[index]);
+            map[x][y]=EMPTY;
+            _XLIB_DELETE(x,y);
             --horizontal_mine_x[index];
-            _XLIB_DRAW(horizontal_mine_x[index],horizontal_mine_y[index],&MINE_IMAGE);
+            _XLIB_DRAW(horizontal_mine_x[index],y,&MINE_IMAGE);
         }
     }
     else // direction is RIGHT
     {
         if(!horizontal_mine_transition[index]) // transition not performed, yet
         {
-            if(!map[horizontal_mine_x[index]+1][horizontal_mine_y[index]] && horizontal_mine_x[index]<XSize-2)
+            if(!map[x+1][y] && x<XSize-2)
             {
                 // Do right transition
-                _XLIB_DRAW(horizontal_mine_x[index],horizontal_mine_y[index],&LEFT_MINE_IMAGE);
-                _XLIB_DRAW(horizontal_mine_x[index]+1,horizontal_mine_y[index],&RIGHT_MINE_IMAGE);
-                map[horizontal_mine_x[index]+1][horizontal_mine_y[index]]=DEADLY;
+                _XLIB_DRAW(x,y,&LEFT_MINE_IMAGE);
+                _XLIB_DRAW(x+1,y,&RIGHT_MINE_IMAGE);
+                map[x+1][y]=DEADLY;
                 ++horizontal_mine_transition[index];
             }
             else
@@ -832,15 +835,13 @@ void handle_horizontal_mine(register uint8_t index)
         else // transition already performed
         {
             horizontal_mine_transition[index]=0;
-            map[horizontal_mine_x[index]][horizontal_mine_y[index]]=EMPTY;
-            _XLIB_DELETE(horizontal_mine_x[index],horizontal_mine_y[index]);
+            map[x][y]=EMPTY;
+            _XLIB_DELETE(x,y);
             ++horizontal_mine_x[index];
             _XLIB_DRAW(horizontal_mine_x[index],horizontal_mine_y[index],&MINE_IMAGE);
         }
     }
 }
-
-
 
 
 void handle_horizontal_mines(void)
@@ -857,17 +858,20 @@ void handle_horizontal_mines(void)
 
 void handle_vertical_mine(register uint8_t index)
 {
+    register uint8_t x = vertical_mine_x[index];
+    register uint8_t y = vertical_mine_y[index];
+    
     if(vertical_mine_direction[index]==MINE_UP)
     {
         
         if(!vertical_mine_transition[index]) // transition not performed, yet
         {
-            if(!map[vertical_mine_x[index]][vertical_mine_y[index]-1] && vertical_mine_y[index]-1)
+            if(!map[x][y-1] && (y-1))
             {
                 // Do up transition
-                _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index]-1,&UP_MINE_IMAGE);
-                _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index],&DOWN_MINE_IMAGE);
-                map[vertical_mine_x[index]][vertical_mine_y[index]-1]=DEADLY;
+                _XLIB_DRAW(x,y-1,&UP_MINE_IMAGE);
+                _XLIB_DRAW(x,y,&DOWN_MINE_IMAGE);
+                map[x][y-1]=DEADLY;
                 ++vertical_mine_transition[index];
             }
             else
@@ -878,22 +882,22 @@ void handle_vertical_mine(register uint8_t index)
         else // transition already performed
         {
             vertical_mine_transition[index]=0;
-            map[vertical_mine_x[index]][vertical_mine_y[index]]=EMPTY;
-            _XLIB_DELETE(vertical_mine_x[index],vertical_mine_y[index]);
+            map[x][y]=EMPTY;
+            _XLIB_DELETE(x,y);
             --vertical_mine_y[index];
-            _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index],&MINE_IMAGE);
+            _XLIB_DRAW(x,vertical_mine_y[index],&MINE_IMAGE);
         }
     }
     else // direction is DOWN
     {
         if(!vertical_mine_transition[index]) // transition not performed, yet
         {
-            if(!map[vertical_mine_x[index]][vertical_mine_y[index]+1] && vertical_mine_y[index]<YSize-2)
+            if(!map[x][vertical_mine_y[index]+1] && vertical_mine_y[index]<YSize-2)
             {
                 // Do right transition
-                _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index],&UP_MINE_IMAGE);
-                _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index]+1,&DOWN_MINE_IMAGE);
-                map[vertical_mine_x[index]][vertical_mine_y[index]+1]=DEADLY;
+                _XLIB_DRAW(x,y,&UP_MINE_IMAGE);
+                _XLIB_DRAW(x,y+1,&DOWN_MINE_IMAGE);
+                map[x][y+1]=DEADLY;
                 ++vertical_mine_transition[index];
             }
             else
@@ -904,14 +908,13 @@ void handle_vertical_mine(register uint8_t index)
         else // transition already performed
         {
             vertical_mine_transition[index]=0;
-            map[vertical_mine_x[index]][vertical_mine_y[index]]=EMPTY;
-            _XLIB_DELETE(vertical_mine_x[index],vertical_mine_y[index]);
+            map[x][y]=EMPTY;
+            _XLIB_DELETE(x,y);
             ++vertical_mine_y[index];
-            _XLIB_DRAW(vertical_mine_x[index],vertical_mine_y[index],&MINE_IMAGE);
+            _XLIB_DRAW(x,vertical_mine_y[index],&MINE_IMAGE);
         }
     }
 }
-
 
 
 void handle_vertical_mines(void)
@@ -945,7 +948,6 @@ uint8_t empty_vertical_wall_area(void)
 uint8_t empty_horizontal_wall_area(void)
 {
     uint8_t i = 0;
-
     
     while(i<TRANSPARENT_HORIZONTAL_WALL_LENGTH)
     {

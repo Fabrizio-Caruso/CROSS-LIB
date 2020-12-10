@@ -42,6 +42,7 @@ FULL_FILES ?= \
 	$(SOURCE_PATH)/control_player.c \
 	$(SOURCE_PATH)/move_snake.c \
 	$(SOURCE_PATH)/snake.c \
+	$(SOURCE_PATH)/game_text.c \
 	$(SOURCE_PATH)/init_images.c
 
 
@@ -427,6 +428,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/main.c   \
 	$(SOURCE_PATH)/snake.c  \
 	--code-name CODE2 \
+	$(SOURCE_PATH)/game_text.c  \
 	$(SOURCE_PATH)/control_player.c \
 	$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
 	$(SOURCE_PATH)/init_images.c  $(SOURCE_PATH)/move_snake.c \
@@ -505,13 +507,16 @@ dragon:
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c
 	$(CMOC) \
-	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/snake.c
 	$(CMOC) \
-	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_snake.c
 	$(CMOC) \
-	$(COCO_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/control_player.c
 	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
@@ -528,11 +533,11 @@ dragon:
 	display_macros.o \
 	init_images.o \
 	memory_mapped_alt_print.o \
-	text_macros.o \
+	text_macros.o game_text.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o
 	rm 	display_macros.o \
-	init_images.o \
+	init_images.o game_text.o \
 	memory_mapped_alt_print.o \
 	text_macros.o \
 	control_player.o snake.o move_snake.o \
@@ -567,21 +572,27 @@ coco:
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
-	$(SOURCE_PATH)/main.c \
+	main.o \
 	display_macros.o \
-	init_images.o \
+	init_images.o game_text.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
-	rm 	display_macros.o \
+	rm main.o display_macros.o \
 	init_images.o \
-	memory_mapped_alt_print.o \
+	memory_mapped_alt_print.o game_text.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
@@ -616,6 +627,9 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/control_player.c
 	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
 	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c
 	$(CMOC) \
@@ -636,7 +650,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	cmoc_udc_25_tiles.o \
 	init_images.o \
 	text_macros.o \
-	input_macros.o \
+	input_macros.o game_text.o \
 	control_player.o snake.o move_snake.o
 	rm \
 	mo5_alt_print.o \
@@ -644,7 +658,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mo5_init_graphics.o \
 	display_macros.o \
 	init_images.o \
-	text_macros.o \
+	text_macros.o game_text.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin

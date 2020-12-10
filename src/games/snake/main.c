@@ -35,7 +35,7 @@
 #include "move_snake.h"
 
 #include "control_player.h"
-
+#include "game_text.h"
 
 #if ((YSize)+(Y_OFFSET)-1)>19
     #define MAX_TILES 19
@@ -90,21 +90,21 @@ extern Image DOWN_MINE_IMAGE;
 uint8_t snake_head_x;
 uint8_t snake_head_y;
 
-static uint16_t points;
+uint16_t points;
 
 static uint8_t speed_increase_counter;
 
 static uint16_t slow_down;
 
-static uint8_t lives;
+uint8_t lives;
 
 static uint16_t record;
 
-static uint8_t remaining_apples;
+uint8_t remaining_apples;
 
 uint8_t level;
 
-static uint8_t energy;
+uint8_t energy;
 
 static uint8_t coin_count;
 
@@ -166,20 +166,6 @@ const Image *images[] = {
 #define hits_extra_points(x,y) \
     (map[x][y]==EXTRA)
 
-#define RED_ENERGY_THRESHOLD 80
-
-void DISPLAY_ENERGY(void)
-{
-   if(energy<RED_ENERGY_THRESHOLD)
-   {
-       SET_TEXT_COLOR(COLOR_RED);
-   }
-   else
-   {
-       SET_TEXT_COLOR(COLOR_WHITE);
-   }
-   PRINTD(XSize/2-1,YSize-1,2,energy); 
-}
 
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
@@ -222,12 +208,7 @@ void DISPLAY_ENERGY(void)
 
 #define MAX_ENERGY 99
 
-void PRESS_KEY(void)
-{
-    SET_TEXT_COLOR(COLOR_WHITE);
-    printCenteredMessageOnRow(YSize-2, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
-    WAIT_PRESS();
-}
+
 
 // TODO: Maybe only horizontal and vertical checks are necessary
 uint8_t safe_around(uint8_t x, uint8_t y)
@@ -259,24 +240,6 @@ void spawn(uint8_t type)
     map[x][y]=type;
     
     _XLIB_DRAW(x,y,images[type]);
-}
-
-
-void DISPLAY_POINTS(void)
-{
-    SET_TEXT_COLOR(COLOR_WHITE);
-    PRINTD(2,0,5,points);
-}
-
-void DISPLAY_REMAINING_APPLES_COUNT(void)
-{
-    SET_TEXT_COLOR(COLOR_WHITE);
-    PRINTD(9,0,2,remaining_apples);
-}
-
-void DISPLAY_LIVES(void)
-{
-    PRINTD(XSize-1,0,1,lives);
 }
 
 

@@ -1232,6 +1232,11 @@ int main(void)
                             handle_transparent_horizontal_wall();
                         }
                         
+                        if(slow_down<SLOW_DOWN)
+                        {
+                            active_mines = 1;
+                        }
+                        
                         speed_increase_counter = 0;
                         
                         if(RAND()&1 && (apples_on_screen_count<remaining_apples))

@@ -7,7 +7,7 @@
 
 #define INITIAL_SNAKE_LENGTH 3
 
-#define MAX_APPLES 30
+#define MAX_APPLES 25
 
 // This is to accout for extra length gained by eating extra points ($)
 #define EXTRA_LENGTH 10

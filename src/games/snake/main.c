@@ -245,6 +245,8 @@ void spawn(uint8_t type)
 
 #define INITIAL_LEVEL 1
 // #define DEBUG_LEVELS
+// #define DEBUG_SLOWDOWN
+// #define DEBUG_APPLES
 
 static uint8_t apples_on_screen_count;
 
@@ -1220,7 +1222,7 @@ int main(void)
                     snake_head_x = snake_x[snake_head];
                     snake_head_y = snake_y[snake_head];
                     
-                    if((!(apples_on_screen_count) || (speed_increase_counter>SPEED_INCREASE_THRESHOLD)))
+                    if(speed_increase_counter>SPEED_INCREASE_THRESHOLD)
                     {
                         if(!(level&15))
                         {
@@ -1242,9 +1244,9 @@ int main(void)
                         
                         speed_increase_counter = 0;
                         
-                        if(RAND()&1 && (apples_on_screen_count<remaining_apples))
+                        if((!apples_on_screen_count || (RAND()&1)) && (apples_on_screen_count<remaining_apples))
                         {
-                            if(!(RAND()&7) && (apples_on_screen_count<COIN_APPLE_THRESHOLD))
+                            if(!(RAND()&7) && apples_on_screen_count && (apples_on_screen_count<COIN_APPLE_THRESHOLD))
                             {
                                 spawn(COIN);
                             }
@@ -1260,6 +1262,10 @@ int main(void)
                     
                     // TODO: This could be optimized by performing the display only when points are updated
                     DISPLAY_POINTS();
+                    
+                    #if defined(DEBUG_SLOWDOWN)
+                    PRINTD(XSize+4,YSize-2,5,slow_down);
+                    #endif
                     
                     // TODO: All these IFs are mutually exclusive
                     if(hits_coin(snake_head_x,snake_head_y))

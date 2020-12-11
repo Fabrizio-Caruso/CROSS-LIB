@@ -407,7 +407,7 @@ static uint16_t level_walls_index[] =
 
 #define TRANSPARENT_TRIGGER 20
 #define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14)||(!level))
-#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==7)||((level&15)== 8)||(!level))
+#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==7)||((level&15)==13)||((level&15)== 8)||(!level))
 
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
@@ -602,13 +602,13 @@ static uint8_t vertical_mines_on_level[] =
             XSize/2-1,
         0, //  7 (12)
         1, //  8 (13)
-            XSize/2-1,
+            XSize/2,
         0, //  9 (15)
         0, // 10 (16)
         0, // 11 (17)
         0, // 12 (18)
         1, // 13 (19)
-            XSize/2-1,
+            XSize/2+1,
         1, // 14 (21)
             XSize/2,
         1, // 15 (23)
@@ -618,7 +618,7 @@ static uint8_t vertical_mines_on_level[] =
         1, // 17 (27)
             XSize/2-1,
         1, // 18 (29)
-            XSize/2-1,
+            XSize/2,
         0, // 19 (31) 
         0, // 20 (32)
         1, // 21 (33)
@@ -632,13 +632,14 @@ static uint8_t vertical_mines_on_level[] =
         0, // 26 (41)
         0, // 27 (42)
         0, // 28 (43)
-        1, // 29 (44)
+        2, // 29 (44)
+            XSize/2+1,
+            XSize/2+2,
+        1, // 30 (47)
             XSize/2,
-        1, // 30 (46)
+        1, // 31 (49)
             XSize/2,
-        1, // 31 (48)
-            XSize/2,
-        2, // 32 (50),
+        2, // 32 (51),
             XSize/6,
             XSize-1-XSize/6
     };
@@ -676,9 +677,9 @@ static uint8_t vertical_mines_on_level_index[] =
         42, // 27
         43, // 28
         44, // 29
-        46, // 30
-        48, // 31
-        50  // 32
+        47, // 30
+        49, // 31
+        51  // 32
     };
 
 
@@ -1132,9 +1133,10 @@ int main(void)
             
             slow_down = SLOW_DOWN;
             
-            #if !defined(DEBUG_LEVELS)
-            init_snake();
+            #if defined(DEBUG_LEVELS)
+            WAIT_PRESS();
             #endif
+            init_snake();
             
             build_level();
             
@@ -1243,6 +1245,7 @@ int main(void)
                     // TODO: All these IFs are mutually exclusive
                     if(hits_coin(snake_head_x,snake_head_y))
                     {
+                        snake_grows();
                         points+=(COIN_POINTS<<coin_count);
                         ZAP_SOUND();
                         if(coin_count<MAX_COIN_COUNT)
@@ -1259,6 +1262,7 @@ int main(void)
                     
                     if(hits_extra_points(snake_head_x,snake_head_y))
                     {
+                        snake_grows();
                         ZAP_SOUND();
                         points+=EXTRA_POINTS;
                     }

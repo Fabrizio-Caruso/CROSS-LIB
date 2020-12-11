@@ -26,8 +26,6 @@ extern uint8_t snake_head_y;
 
 extern uint8_t level;
 
-uint8_t initial_snake_length[] = {XSize/2,XSize/4,XSize/2,XSize/2,2*XSize/3,XSize/4,XSize/2-2,XSize/4,3*XSize/4,2*XSize/3,5*XSize/6,XSize-5,3,XSize-5,XSize-5,XSize-5};
-
 
 void draw_head(void)
 {
@@ -67,7 +65,7 @@ void init_snake(void)
 
     uint8_t i;
     
-    snake_length = initial_snake_length[(level-1)&15];
+    snake_length = XSize/4 + (level&15)/4;
     
     snake_head = 0;
     

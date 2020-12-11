@@ -65,7 +65,7 @@ void init_snake(void)
 
     uint8_t i;
     
-    snake_length = XSize/4 + (level&15)/4;
+    snake_length = XSize/4 - 1 + (level&15)/4;
     
     snake_head = 0;
     

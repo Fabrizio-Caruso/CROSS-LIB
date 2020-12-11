@@ -96,6 +96,8 @@ static uint8_t speed_increase_counter;
 
 static uint16_t slow_down;
 
+static uint8_t spawned_apples;
+
 uint8_t lives;
 
 static uint16_t record;
@@ -171,7 +173,7 @@ const Image *images[] = {
 #define IF_POSSIBLE_INCREASE_SPEED() \
     if(slow_down>SLOW_DOWN/2) \
     { \
-        slow_down -= SLOW_DOWN/9; \
+        slow_down -= SLOW_DOWN/12; \
     } \
     else \
     { \
@@ -204,20 +206,18 @@ const Image *images[] = {
 
 #define SPEED_INCREASE_THRESHOLD 20
 
-#define COIN_APPLE_THRESHOLD 6
+#define COIN_APPLE_THRESHOLD 3
 
 #define MAX_ENERGY 99
 
-
+#define SPAWNED_APPLE_START 2
 
 // TODO: Maybe only horizontal and vertical checks are necessary
 uint8_t safe_around(uint8_t x, uint8_t y)
 {
 return 
     !map[x][y] && 
-       (map[x-1][y-1]!=DEADLY) && (map[x][y-1]!=DEADLY) && (map[x+1][y-1]!=DEADLY) &&
-       (map[x-1][y]!=DEADLY) && (map[x+1][y]!=DEADLY) &&
-       (map[x-1][y+1]!=DEADLY) && (map[x][y+1]!=DEADLY) && (map[x+1][y+1]!=DEADLY);
+       (map[x][y-1]!=DEADLY) && (map[x-1][y]!=DEADLY) && (map[x+1][y]!=DEADLY) && (map[x][y+1]!=DEADLY);
 
 }
 
@@ -1159,22 +1159,25 @@ int main(void)
             apples_on_screen_count = 1;
             spawn(APPLE);
             
+            spawned_apples = 1;
+            
             if((vertical_mines_on_current_level+horizontal_mines_on_current_level)>2)
             {
                 spawn(COIN);
                 spawn(COIN);
             }
             
+            
             #if defined(DEBUG_LEVELS)
                 WAIT_PRESS();
                 if(transparent_horizontal_wall_level())
                 {
-                build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,TRANSPARENT);
+                    build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,TRANSPARENT);
                 }
                 
                 if(transparent_vertical_wall_level())
                 {
-                build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,TRANSPARENT);
+                    build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,TRANSPARENT);
                 }
             #endif
             
@@ -1246,15 +1249,15 @@ int main(void)
                         
                         if((!apples_on_screen_count || (RAND()&1)) && (apples_on_screen_count<remaining_apples))
                         {
-                            if(!(RAND()&7) && apples_on_screen_count && (apples_on_screen_count<COIN_APPLE_THRESHOLD))
-                            {
-                                spawn(COIN);
-                            }
-                            else
-                            {
-                                ++apples_on_screen_count;
-                                spawn(APPLE);
-                            }
+                            ++apples_on_screen_count;
+                            
+                            if((spawned_apples&7)==SPAWNED_APPLE_START)
+                                {
+                                    spawn(COIN);
+                                }
+                            
+                            spawn(APPLE);
+                            ++spawned_apples;
                         }
                         ++points;
                         IF_POSSIBLE_INCREASE_SPEED();

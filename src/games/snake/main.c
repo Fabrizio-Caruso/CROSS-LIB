@@ -702,9 +702,9 @@ static uint8_t transparent_horizontal_wall_level_flag;
 
 void build_level(void)
 {
-    register uint16_t index;
-    register uint16_t i;
-    register uint16_t number_of_elements;
+    register uint8_t index;
+    uint8_t i;
+    uint8_t number_of_elements;
     uint8_t j;
     uint8_t x;
     uint8_t y;

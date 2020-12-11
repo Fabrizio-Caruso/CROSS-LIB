@@ -293,9 +293,9 @@ static uint8_t level_walls[] =
     0,
 // level 5
     4,
-        XSize/4,                YSize/4,              XSize/5,
+        XSize/4,                YSize/4,              XSize/5+1,
         XSize/4+XSize/2-XSize/5,        YSize/4,      XSize/5,
-        XSize/4,        YSize-1-YSize/4,              XSize/5,
+        XSize/4,        YSize-1-YSize/4,              XSize/5+1,
         XSize/4+XSize/2-XSize/5,YSize-1-YSize/4,      XSize/5,
     4,  
         XSize/4,                YSize/4,              YSize/5,
@@ -364,9 +364,9 @@ static uint8_t level_walls[] =
     0,
 // level 14 (219)
     4,
-        0,                      YSize/4,      XSize/4,
+        0,                      YSize/4,      XSize/4+1,
        3*XSize/4,               YSize/4,      XSize/4,
-        0,                    3*YSize/4,      XSize/4,
+        0,                    3*YSize/4,      XSize/4+1,
        3*XSize/4,             3*YSize/4,      XSize/4,
     0,
     0,

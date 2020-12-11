@@ -192,7 +192,7 @@ const Image *images[] = {
 
 #define EXTRA_POINTS 10
 #define APPLE_POINTS 20
-#define COIN_POINTS 25
+#define COIN_POINTS 50
 #define SUPER_COIN_POINTS 150
 
 
@@ -215,13 +215,10 @@ const Image *images[] = {
 #define EXTRA_COIN_SPAWN 2
 
 // TODO: Maybe only horizontal and vertical checks are necessary
-uint8_t safe_around(uint8_t x, uint8_t y)
-{
-return 
-    !map[x][y] && 
-       (map[x][y-1]!=DEADLY) && (map[x-1][y]!=DEADLY) && (map[x+1][y]!=DEADLY) && (map[x][y+1]!=DEADLY);
+#define safe_around(x,y) \
+    (!map[x][y] && \
+       (map[x][(y)-1]!=DEADLY) && (map[(x)-1][y]!=DEADLY) && (map[(x)+1][y]!=DEADLY) && (map[x][(y)+1]!=DEADLY))
 
-}
 
 void spawn(uint8_t type)
 {

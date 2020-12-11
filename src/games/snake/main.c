@@ -212,6 +212,8 @@ const Image *images[] = {
 
 #define SPAWNED_APPLE_START 2
 
+#define EXTRA_COIN_SPAWN 2
+
 // TODO: Maybe only horizontal and vertical checks are necessary
 uint8_t safe_around(uint8_t x, uint8_t y)
 {
@@ -317,8 +319,8 @@ static uint8_t level_walls[] =
         XSize-XSize/4, YSize/2, XSize/4,
     0,
     2,
-        1,1,XSize/7,YSize/7,DEADLY,
-        XSize-1-XSize/7,YSize-1-YSize/7,XSize/7,YSize/7,DEADLY,
+        XSize/2-XSize/8,1,XSize/4,YSize/4,DEADLY,
+        XSize/2-XSize/8,YSize-1-YSize/4,XSize/4,YSize/4,DEADLY,
 // level 8
     0,
     4, 
@@ -1161,9 +1163,8 @@ int main(void)
             
             spawned_apples = 1;
             
-            if((vertical_mines_on_current_level+horizontal_mines_on_current_level)>2)
+            if((vertical_mines_on_current_level+horizontal_mines_on_current_level)>EXTRA_COIN_SPAWN)
             {
-                spawn(COIN);
                 spawn(COIN);
             }
             

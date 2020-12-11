@@ -1057,6 +1057,13 @@ int main(void)
     while(1)
     {
         CLEAR_SCREEN();
+        
+        
+        
+        _XLIB_DRAW(XSize/2-3,0,&HI_TEXT_IMAGE);
+        SET_TEXT_COLOR(COLOR_WHITE);
+        PRINTD(XSize/2-2,0,5,record);
+        
         SET_TEXT_COLOR(COLOR_RED);
         printCenteredMessageOnRow(YSize/8, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E);
 
@@ -1342,7 +1349,7 @@ int main(void)
             {
                 SET_TEXT_COLOR(COLOR_RED);
                 printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
-                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<1) +(((uint16_t) coin_count)<<6) + (((uint16_t) level)<<4);
+                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<1) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2);
                 SET_TEXT_COLOR(COLOR_WHITE);
 
                 printCenteredMessageOnRow(YSize/2+2, _XL_SPACE _XL_B _XL_O _XL_N _XL_U _XL_S _XL_SPACE);

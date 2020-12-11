@@ -173,7 +173,7 @@ const Image *images[] = {
 #define IF_POSSIBLE_INCREASE_SPEED() \
     if(slow_down>SLOW_DOWN/2) \
     { \
-        slow_down -= SLOW_DOWN/12; \
+        slow_down -= SLOW_DOWN/10; \
     } \
     else \
     { \
@@ -184,7 +184,7 @@ const Image *images[] = {
 #define IF_POSSIBLE_DECREASE_SPEED() \
     if(slow_down<SLOW_DOWN) \
     { \
-        slow_down += SLOW_DOWN/4; \
+        slow_down += SLOW_DOWN/5; \
     }
 
 

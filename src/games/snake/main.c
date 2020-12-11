@@ -1024,7 +1024,23 @@ char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] =
     _XL_P _XL_o _XL_i _XL_n _XL_t _XL_s,
     _XL_A _XL_p _XL_p _XL_l _XL_e,
 };
+
+void show_intro_snake(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<XSize/2-2;++i)
+    {
+        _XLIB_DRAW(XSize/4+i,YSize/8+5,&BODY_IMAGE);
+        
+    }
+
+    _XLIB_DRAW(XSize/4+XSize/2-2,YSize/8+5,&HORIZONTAL_HEAD_IMAGE);
+}
+
 #endif
+
+
 
 int main(void)
 {
@@ -1050,13 +1066,8 @@ int main(void)
         {
             uint8_t i;
             
-            for(i=0;i<XSize/2-2;++i)
-            {
-                _XLIB_DRAW(XSize/4+i,YSize/8+5,&BODY_IMAGE);
-                
-            }
-
-            _XLIB_DRAW(XSize/4+XSize/2-2,YSize/8+5,&HORIZONTAL_HEAD_IMAGE);
+            show_intro_snake();
+            
             _XLIB_DRAW(XSize/4+XSize/2,YSize/8+5,&APPLE_IMAGE);
             
             
@@ -1353,8 +1364,10 @@ int main(void)
         if(level>FINAL_LEVEL)
         {
             CLEAR_SCREEN();
+            build_box_wall(0,1,XSize-2,YSize-2,APPLE);
+            show_intro_snake();
             SET_TEXT_COLOR(COLOR_WHITE);
-            printCenteredMessageOnRow(YSize/2-3, _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_E _XL_N _XL_D _XL_SPACE);
+            printCenteredMessageOnRow(YSize/8+3, _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_E _XL_N _XL_D _XL_SPACE);
         }
 
         printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R _XL_SPACE);

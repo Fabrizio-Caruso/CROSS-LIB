@@ -171,6 +171,7 @@ c16_included_gfx: $(ASSETS_PATH)/8x8_chars.h
 	-DFORCE_GHOSTS_NUMBER=8 -DINIT_SET_COLOR \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DREDEFINED_CHARS \
+	-DSLOW_DOWN=2000 \
 	-DCONIO \
 	-DUSE_MEMORY_BUFFERS \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_redefined_chars_init_graphics.c  \
@@ -193,7 +194,7 @@ c16: $(ASSETS_PATH)/cc65_udc_64_chars.s
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DSLOW_DOWN=500 \
+	-DSLOW_DOWN=2000 \
 	-DUDG_BASE_FACTOR=15 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -217,7 +218,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	-DC16_UNEXPANDED \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DALT_SLEEP \
-	-DSLOW_DOWN=500 \
+	-DSLOW_DOWN=2000 \
 	-DDANCE -DEND_SCREEN -DUDG_BASE_FACTOR=23 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
@@ -237,7 +238,7 @@ c64: $(ASSETS_PATH)/cc65_udc.s
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
 	-DCBM_SCREEN_CODES \
 	-DMEMORY_MAPPED \
-	-DSLOW_DOWN=900 \
+	-DSLOW_DOWN=2000 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
 	$(ASSETS_PATH)/cc65_udc.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
@@ -414,7 +415,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	--config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-DINITIAL_SLOWDOWN=31500 \
-	-DCC65_GOTO -DSLOW_DOWN=2300 \
+	-DCC65_GOTO -DSLOW_DOWN=2500 \
 	-DMEMORY_MAPPED -D__VIC20__ -DVIC20_EXP_8K \
 	-DFULL_GAME \
 	-DSIMPLE_STRATEGY \
@@ -441,7 +442,7 @@ vic20_exp_8k_included_gfx: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS \
 	--config $(CFG_PATH)/cc65/vic20-8k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
-	-DSLOW_DOWN=1800 \
+	-DSLOW_DOWN=2500 \
 	-DREDEFINED_CHARS \
 	$(FULL_FILES) \
 	--code-name CODE2 \

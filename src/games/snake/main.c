@@ -124,8 +124,8 @@ static uint8_t next_level;
 /*
 #define EMPTY 0
 #define DEADLY 1
-#define COIN 2
-#define SUPER_COIN 3
+#define SUPER_COIN 2
+#define COIN 3
 #define EXTRA 4
 #define APPLE 5
 #define WALL  6
@@ -139,8 +139,8 @@ static uint8_t next_level;
 const Image *images[] = {
     0, 
     &MINE_IMAGE, 
-    &COIN_IMAGE, 
     &SUPER_COIN_IMAGE, 
+    &COIN_IMAGE, 
     &EXTRA_IMAGE, 
     &APPLE_IMAGE,
     &CENTRAL_BRICK_IMAGE, 
@@ -1019,8 +1019,8 @@ void handle_transparent_horizontal_wall(void)
 char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
 {
     _XL_M _XL_i _XL_n _XL_e _XL_s,
-    _XL_B _XL_o _XL_n _XL_u _XL_s,
     _XL_S _XL_e _XL_c _XL_r _XL_e _XL_t,
+    _XL_B _XL_o _XL_n _XL_u _XL_s,
     _XL_P _XL_o _XL_i _XL_n _XL_t _XL_s,
     _XL_A _XL_p _XL_p _XL_l _XL_e,
 };
@@ -1105,8 +1105,11 @@ int main(void)
             #endif
             CLEAR_SCREEN();
             
-
-            PRINT(XSize/2-4,YSize/2, _XL_L _XL_E _XL_V _XL_E _XL_L);
+            if(!level)
+            {
+                PRINT(XSize/2-4,YSize/2-2, _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T);
+            }
+            PRINT(XSize/2-4,YSize/2,       _XL_L _XL_E _XL_V _XL_E _XL_L);
             PRINTD(XSize/2-4+6,YSize/2,2,level);
             WAIT_PRESS();
             CLEAR_SCREEN();
@@ -1287,7 +1290,7 @@ int main(void)
                     {
                         ZAP_SOUND();
                         points+=SUPER_COIN_POINTS;
-                        slow_down = 2*SLOW_DOWN;
+                        slow_down = SLOW_DOWN + SLOW_DOWN/2;
                         energy = MAX_ENERGY;
                         DISPLAY_ENERGY();
                         active_mines = 0;
@@ -1308,9 +1311,9 @@ int main(void)
                         IF_POSSIBLE_DECREASE_SPEED();
                     }
                     
-                    if(hits_deadly_item(snake_head_x,snake_head_y) || !remaining_apples)
+                    if(hits_deadly_item(snake_head_x,snake_head_y) || !remaining_apples) // death or level finished
                     {
-                        break;
+                        break; 
                     }
                 }
                 if(!energy)

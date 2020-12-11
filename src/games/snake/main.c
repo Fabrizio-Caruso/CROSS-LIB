@@ -309,20 +309,14 @@ static uint8_t level_walls[] =
     2,
         1,1,XSize/8,YSize/8,DEADLY,
         XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,DEADLY,
-// level 7
+// level 7 (109)
     2,
         0, YSize/2, XSize/4,
-        XSize-XSize/4, YSize/2,XSize/4,
-    4,
-        XSize/2, 3, YSize/4,
-        XSize/2, YSize-4-YSize/4, YSize/4,
-        XSize/2-1, 3, YSize/4,
-        XSize/2-1, YSize-4-YSize/4, YSize/4,
-    4,
+        XSize-XSize/4, YSize/2, XSize/4,
+    0,
+    2,
         1,1,XSize/7,YSize/7,DEADLY,
-        1,YSize-1-YSize/7,XSize/7,YSize/7,WALL,
         XSize-1-XSize/7,YSize-1-YSize/7,XSize/7,YSize/7,DEADLY,
-        XSize-1-XSize/7,1,XSize/7,YSize/7,WALL,
 // level 8
     0,
     4, 
@@ -331,7 +325,7 @@ static uint8_t level_walls[] =
         XSize-1-2*XSize/6, 3, YSize-1-6,
         XSize-1-XSize/6, 3, YSize-1-6,
     0,
-// level 9
+// level 9 (143)
     0,
     0,
     4,
@@ -360,15 +354,13 @@ static uint8_t level_walls[] =
         2,YSize/2-1,XSize-4,
     0,
     0,
-// level 13
+// level 13 (210)
     0,
-    4,
-        XSize/5,                      1,    4*YSize/5,
-       2*XSize/5,               YSize/5-1,    4*YSize/5,
-       3*XSize/5,                      1,   4*YSize/5,
-       4*XSize/5,               YSize/5-1,    4*YSize/5,
+    2,
+         XSize/5,                      1,   4*YSize/5,
+       4*XSize/5,                      YSize-1-4*YSize/5,   4*YSize/5,
     0,
-// level 14
+// level 14 (219)
     4,
         0,                      YSize/4,      XSize/4,
        3*XSize/4,               YSize/4,      XSize/4,
@@ -376,13 +368,13 @@ static uint8_t level_walls[] =
        3*XSize/4,             3*YSize/4,      XSize/4,
     0,
     0,
-// level 15
+// level 15 (234)
     1,
         5,YSize/2+1,XSize-10,
     0,
     1,
         XSize/2-2,YSize/2+3,4,4,DEADLY,
-// level 16
+// level 16 (245)
     0,
     2,
         XSize/3, YSize-1-YSize/3, YSize/3,
@@ -401,15 +393,15 @@ static uint16_t level_walls_index[] =
         63,  // 5
         90,  // 6
         109, // 7
-        150, // 8
-        165, // 9
-        188, // 10
-        197, // 11
-        226, // 12
-        232, // 13 
-        247, // 14
-        262, // 15
-        273, // 16
+        128, // 8
+        143, // 9
+        166, // 10
+        175, // 11
+        204, // 12
+        210, // 13
+        219, // 14
+        234, // 15
+        245, // 16
         };
 
 
@@ -737,17 +729,17 @@ void build_level(void)
                 build_horizontal_wall(x,y,type);
             }
         }
-        index = index+number_of_elements*3+1;
+        index += number_of_elements*3+1;
     }
 
     
     number_of_elements = level_walls[index];
-    i = index+1;
-    for(j=0;j<5*number_of_elements;j+=5,i+=5)
+    ++index;
+    for(j=0;j<5*number_of_elements;j+=5,index+=5)
     {
-        build_box_wall(level_walls[i],level_walls[1u+i],
-                       level_walls[2u+i],level_walls[3u+i],
-                       level_walls[4u+i]);
+        build_box_wall(level_walls[index],level_walls[1u+index],
+                       level_walls[2u+index],level_walls[3u+index],
+                       level_walls[4u+index]);
     }
     
     index = horizontal_mines_on_level_index[level];

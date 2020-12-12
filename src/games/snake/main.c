@@ -1071,7 +1071,10 @@ int main(void)
     {
         CLEAR_SCREEN();
         
-        
+        if(points>record)
+        {
+            record = points;
+        }
         
         _XLIB_DRAW(XSize/2-3,0,&HI_TEXT_IMAGE);
         SET_TEXT_COLOR(COLOR_WHITE);
@@ -1105,10 +1108,7 @@ int main(void)
 
         PRESS_KEY();
         
-        if(points>record)
-        {
-            record = points;
-        }
+\
         
         extra_life_counter = 1;
         points = 0;

@@ -756,6 +756,9 @@ void build_level(void)
     horizontal_mines_on_current_level = horizontal_mines_on_level[index];
     
     ++index;
+    #if defined(DEBUG_LEVELS)
+        PRINTD(4,4,1,horizontal_mines_on_current_level);
+    #endif
     for(j=0;j<horizontal_mines_on_current_level;++j)
     {
         horizontal_mine_x[j] = XSize/2;
@@ -770,6 +773,9 @@ void build_level(void)
     index = vertical_mines_on_level_index[level];
     vertical_mines_on_current_level = vertical_mines_on_level[index];
     
+    #if defined(DEBUG_LEVELS)
+        PRINTD(4,8,1,vertical_mines_on_current_level);
+    #endif
     ++index;
     for(j=0;j<vertical_mines_on_current_level;++j)
     {

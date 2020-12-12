@@ -7,7 +7,7 @@ The game concept is inspired by Nibbler (arcade game by Rock-Ola) and Snake (arc
 1. GOAL
 Eat all apples on each level while avoiding being killed by:
 - biting yourself
-- consuming all energy (if you do not apples for too long)
+- consuming all energy (if you do not eat apples for too long)
 - bumping into mines
 
 2. SUB-GOALS

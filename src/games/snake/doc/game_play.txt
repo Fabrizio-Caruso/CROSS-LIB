@@ -1,11 +1,8 @@
-CROSS SNAKE
 
-This is an original concept by Fabrizio Caruso written in C + Cross-Lib for hundreds of different computer and console systems.
-For more details we refer to https://github.com/Fabrizio-Caruso/CROSS-LIB
-
-The game concept is inspired by Nibbler (arcade game by Rock-Ola) and Snake (arcade and cell phone game).
 
 GAME PLAY:
+
+The game concept is inspired by Nibbler (arcade game by Rock-Ola) and Snake (arcade and cell phone game).
 
 1. GOAL
 Eat all apples on each level while avoiding being killed by:

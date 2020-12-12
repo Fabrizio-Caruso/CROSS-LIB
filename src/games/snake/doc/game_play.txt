@@ -25,7 +25,7 @@ Once the snake has reached maximum speed, its energy starts decreasing.
 Hint: Keep an eye on the energy before you decide to go collect bonus items instead of apples.
 
 4. COLLECTABLE ITEMS
-- Apple: slows you down and avoits energy from decreasing;
+- Apple: slows you down and avoids energy from decreasing;
 - Ring: bonus points + secrets unlocked if you collect many;
 - $: extra points;
 - Special item: secret effect(s).

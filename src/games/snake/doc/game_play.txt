@@ -1,0 +1,60 @@
+CROSS SNAKE
+
+This is an original concept by Fabrizio Caruso written in C + Cross-Lib for hundreds of different computer and console systems.
+For more details we refer to https://github.com/Fabrizio-Caruso/CROSS-LIB
+
+The game concept is inspired by Nibbler (arcade game by Rock-Ola) and Snake (arcade and cell phone game).
+
+GAME PLAY:
+
+1. GOAL
+Eat all apples on each level while avoiding being killed by:
+- biting yourself
+- consuming all energy (if you do not apples for too long)
+- bumping into mines
+
+2. SUB-GOALS
+- Collect the rings for points
+- Collect 3 rings on the same level without being killed, you may unlock a secret item
+- Unlock the secret level (Hint: keeping on collecting rings...)
+
+3. ENERGY
+You start with maximum energy and a slow snake. 
+If you do not eat apples, the snake starts moving faster. 
+Once the snake has reached maximum speed, its energy starts decreasing.
+Hint: Keep an eye on the energy before you decide to go collect bonus items instead of apples.
+
+4. COLLECTABLE ITEMS
+- Apple: slows you down and avoits energy from decreasing;
+- Ring: bonus points + secrets unlocked if you collect many;
+- $: extra points;
+- Special item: secret effect(s).
+IMPORTANT: eating items (usually) makes your snake grow, which may make your life harder.
+
+5. ENEMIES
+The mines are your enemy. They can be both fixed or moving.
+Moving mines bounce any time that bump into anything.
+If the snake's HEAD touches the mine, the snake dies instantly.
+The body of the snake CAN touch the mines. The snake's body CAN be used as a shield against mines.
+Hint: collecting several rings may help you against the mines.
+
+6. WALLS
+Hitting against walls or magic walls (walls that constantly disappear and reappear) pauses the snake and the game.
+This gives you the time to think about your next move. Your snake does NOT starve while paused on a wall.
+
+7. LEVELS
+The game has 32 normal levels + 1 secret level. The game has an end.
+There are 17 different maps. Normal levels use 16 different maps. The secret level has its own map.
+Levels 17-32 use the same maps as levels 1-16 but have more mines and apples to collect.
+Completing a level gives you a bonus that depends on:
+- snake length
+- energy left
+- number of rings collected
+- level
+
+8. EXTRA LIVES
+Every 5000 points you are awarded an extra life.
+Hint: Collecting the rings and keeping maximum energy is a good strategy to maximize your score.
+
+
+

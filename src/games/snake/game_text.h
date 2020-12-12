@@ -1,7 +1,9 @@
 #ifndef _GAME_TEXT_H
 #define _GAME_TEXT_H
 
-#define RED_ENERGY_THRESHOLD 80
+#define MAX_ENERGY 20
+
+#define RED_ENERGY_THRESHOLD ((MAX_ENERGY)/2)
 
 void DISPLAY_ENERGY(void);
 

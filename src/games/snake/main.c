@@ -173,7 +173,7 @@ const Image *images[] = {
 #define IF_POSSIBLE_INCREASE_SPEED() \
     if(slow_down>SLOW_DOWN/2) \
     { \
-        slow_down -= SLOW_DOWN/10; \
+        slow_down -= SLOW_DOWN/8; \
     } \
     else \
     { \
@@ -207,8 +207,6 @@ const Image *images[] = {
 #define SPEED_INCREASE_THRESHOLD 20
 
 #define COIN_APPLE_THRESHOLD 3
-
-#define MAX_ENERGY 99
 
 #define SPAWNED_APPLE_START 2
 
@@ -1059,6 +1057,8 @@ void show_intro_snake(void)
 
 int main(void)
 {
+    uint8_t i;
+    
     INIT_GRAPHICS();
 
     INIT_INPUT();
@@ -1176,10 +1176,12 @@ int main(void)
             
             build_level();
             
-            apples_on_screen_count = 1;
-            spawn(APPLE);
-            
-            spawned_apples = 1;
+            apples_on_screen_count = 1+(remaining_apples>>3);
+            for(i=0;i<apples_on_screen_count;++i)
+            {
+                spawn(APPLE);
+            }
+            spawned_apples = 0;
             
             if((vertical_mines_on_current_level+horizontal_mines_on_current_level)>EXTRA_COIN_SPAWN)
             {
@@ -1318,7 +1320,7 @@ int main(void)
                     {
                         ZAP_SOUND();
                         points+=SUPER_COIN_POINTS;
-                        slow_down = SLOW_DOWN + SLOW_DOWN/2;
+                        slow_down = SLOW_DOWN + SLOW_DOWN/3;
                         energy = MAX_ENERGY;
                         DISPLAY_ENERGY();
                         active_mines = 0;
@@ -1362,7 +1364,7 @@ int main(void)
             {
                 SET_TEXT_COLOR(COLOR_RED);
                 printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
-                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<1) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2);
+                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<3) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2);
                 SET_TEXT_COLOR(COLOR_WHITE);
 
                 printCenteredMessageOnRow(YSize/2+2, _XL_SPACE _XL_B _XL_O _XL_N _XL_U _XL_S _XL_SPACE);

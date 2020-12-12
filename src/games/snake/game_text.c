@@ -7,8 +7,6 @@ extern uint8_t remaining_apples;
 extern uint8_t lives;
 extern uint16_t points;
 
-#define RED_ENERGY_THRESHOLD 80
-
 
 void DISPLAY_ENERGY(void)
 {

@@ -90,8 +90,8 @@
 	#define __DRAW(x,y,image) \
 	do \
 	{ \
-		DISPLAY_POKE(loc(x,y), (image)->_imageData); \
 		COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),(image)->_color); \
+		DISPLAY_POKE(loc(x,y), (image)->_imageData); \
 	} \
 	while(0)
 #else

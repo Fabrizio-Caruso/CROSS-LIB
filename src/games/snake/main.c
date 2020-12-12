@@ -190,7 +190,7 @@ const Image *images[] = {
 
 #define INITIAL_LIVES 5
 
-#define EXTRA_POINTS 10
+#define EXTRA_POINTS 5
 #define APPLE_POINTS 20
 #define COIN_POINTS 50
 #define SUPER_COIN_POINTS 150
@@ -1248,7 +1248,7 @@ int main(void)
                     
                     if(speed_increase_counter>SPEED_INCREASE_THRESHOLD)
                     {
-                        if(!(level&15))
+                        if(!(level&3))
                         {
                             spawn(EXTRA);
                         }

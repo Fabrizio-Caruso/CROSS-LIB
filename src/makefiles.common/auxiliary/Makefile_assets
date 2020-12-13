@@ -45,6 +45,9 @@ $(ASSETS_PATH)/cc65_udc_63_chars.s: $(8X8_TILES)
 $(ASSETS_PATH)/cc65_udc_64_chars.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
+$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s: $(8X8_TILES)
+	$(CREATE_ASSET)
+
 $(ASSETS_PATH)/cc65_udc_6chars.s: $(8X8_TILES)
 	$(CREATE_ASSET)
     

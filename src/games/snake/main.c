@@ -1147,7 +1147,7 @@ int main(void)
             
             _XLIB_DRAW(0,0,&SCORE_TEXT_LEFT_IMAGE);
             _XLIB_DRAW(1,0,&SCORE_TEXT_RIGHT_IMAGE);
-            _XLIB_DRAW(XSize-10,0,&HI_TEXT_IMAGE);
+            _XLIB_DRAW(XSize-10+HISCORE_OFFSET,0,&HI_TEXT_IMAGE);
             _XLIB_DRAW(8,0,&APPLE_IMAGE);
             _XLIB_DRAW(0,YSize-1,&LV_TEXT_IMAGE);
             
@@ -1157,10 +1157,8 @@ int main(void)
             PRINTD(1,YSize-1,2,level);
             
             DISPLAY_REMAINING_APPLES_COUNT();
-
-            DISPLAY_POINTS();
             
-            PRINTD(XSize-9,0,5,record);
+            PRINTD(XSize-9+HISCORE_OFFSET,0,5,record);
             
             energy = MAX_ENERGY;
             DISPLAY_ENERGY();
@@ -1175,6 +1173,8 @@ int main(void)
             init_snake();
             
             build_level();
+            
+            DISPLAY_POINTS();
             
             apples_on_screen_count = 1+(remaining_apples>>3);
             for(i=0;i<apples_on_screen_count;++i)

@@ -3,6 +3,12 @@
 
 #define MAX_ENERGY 20
 
+#if XSize<22
+    #define HISCORE_OFFSET 2
+#else
+    #define HISCORE_OFFSET 0
+#endif
+
 #define RED_ENERGY_THRESHOLD ((MAX_ENERGY)/2)
 
 void DISPLAY_ENERGY(void);

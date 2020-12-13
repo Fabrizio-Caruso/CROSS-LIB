@@ -59,7 +59,7 @@ Completing a level gives you a bonus that depends on:
 - special item : 150 points
 - third ring   : 200 points
 - fourth ring  : 400 points
-- level bonus  : (snake length X 2) + (energy X 8) + (32 X coins up to 3) + (level X 4) 
+- level bonus  : (snake length X 2) + (energy X 8) + (32 X rings up to 3) + (level X 4) 
 
 
 9. EXTRA LIVES

@@ -49,7 +49,20 @@ Completing a level gives you a bonus that depends on:
 - number of rings collected
 - level
 
-8. EXTRA LIVES
+8. SCORE
+
+- time         :   1 point (score slowly increases by 1 point)
+- $            :   5 points
+- Apple        :  20 points
+- first ring   :  50 points
+- second ring  : 100 points
+- special item : 150 points
+- third ring   : 200 points
+- fourth ring  : 400 points
+- level bonus  : (snake length X 2) + (energy X 8) + (32 X coins up to 3) + (level X 4) 
+
+
+9. EXTRA LIVES
 Every 5000 points you are awarded an extra life.
 Hint: Collecting the rings and keeping maximum energy is a good strategy to maximize your score.
 

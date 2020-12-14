@@ -1031,7 +1031,7 @@ void handle_transparent_horizontal_wall(void)
 
 char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
 {
-    _XL_M _XL_i _XL_n _XL_e _XL_s,
+    _XL_M _XL_i _XL_n _XL_e,
     _XL_S _XL_e _XL_c _XL_r _XL_e _XL_t,
     _XL_B _XL_o _XL_n _XL_u _XL_s,
     _XL_P _XL_o _XL_i _XL_n _XL_t _XL_s,

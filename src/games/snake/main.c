@@ -286,17 +286,17 @@ static uint8_t level_walls[] =
        XSize-1-XSize/2,       4*YSize/5,      XSize/2,
     0,
     0,
-// level 5
+// level 5 (Z88DK partial work-around for preprocessor bug on division with integer litterals)
     4,
-        XSize/4,                YSize/4,              XSize/5+1,
-        XSize/4+XSize/2-XSize/5,        YSize/4,      XSize/5,
-        XSize/4,        YSize-1-YSize/4,              XSize/5+1,
-        XSize/4+XSize/2-XSize/5,YSize-1-YSize/4,      XSize/5,
+        ((uint8_t) (XSize/4)),                ((uint8_t) (YSize/4)),              ((uint8_t) (XSize/5))+1,
+        XSize-((uint8_t) (XSize/4))-((uint8_t) (XSize/5)),        ((uint8_t) (YSize/4)),      ((uint8_t) (XSize/5))+1, // (1)
+        ((uint8_t) (XSize/4)),        YSize-1-((uint8_t) (YSize/4)),              ((uint8_t) (XSize/5))+1,
+        XSize-((uint8_t) (XSize/4))-((uint8_t) (XSize/5)),YSize-1-((uint8_t) (YSize/4)),      ((uint8_t) (XSize/5))+1, // (2)
     4,  
-        XSize/4,                YSize/4,              YSize/5,
-        XSize-1-XSize/4,YSize/4,                      YSize/5,
-        XSize/4,     YSize-YSize/4-YSize/5,         YSize/5,
-        XSize-1-XSize/4,YSize-YSize/4-YSize/5,      YSize/5,
+        ((uint8_t) (XSize/4)),                ((uint8_t) (YSize/4)),              ((uint8_t) (YSize/5)),
+        XSize-((uint8_t) (XSize/4)),((uint8_t) (YSize/4)),                      ((uint8_t) (YSize/5)), // (1)
+        ((uint8_t) (XSize/4)),        YSize-((uint8_t) (YSize/4))-((uint8_t) (YSize/5)),        ((uint8_t) (YSize/5)),
+        XSize-((uint8_t) (XSize/4)),YSize-((uint8_t) (YSize/4))-((uint8_t) (YSize/5)),        ((uint8_t) (YSize/5)), // (2)
     0,
 // level 6
     0,

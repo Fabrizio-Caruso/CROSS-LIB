@@ -15,6 +15,12 @@ newbrain_hello:
 	rm a.dat
 	rm a.bin
 
+spectrum_litterals:
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS)  \
+	-vn \
+	-lndos \
+	$(TEST_PATH)/litterals.c \
+	-create-app
 
 msx_mode1_test:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -subtype=rom \

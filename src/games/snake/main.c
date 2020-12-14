@@ -1139,7 +1139,6 @@ int main(void)
             
             for(i=0;i<NUMBER_OF_STRINGS;++i)
             {
-                WAIT_PRESS();
                 _XLIB_DRAW(XSize/2-6,YSize/8+8+2*i, images[NUMBER_OF_STRINGS-i]);
                 SET_TEXT_COLOR(COLOR_WHITE);
                 PRINT(XSize/2-4,YSize/8+8+2*i, strings[NUMBER_OF_STRINGS-1-i] );
@@ -1170,8 +1169,17 @@ int main(void)
             
             if(!level)
             {
+                SET_TEXT_COLOR(COLOR_YELLOW);
                 PRINT(XSize/2-4,YSize/2-2, _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T);
             }
+            else if(!(level&3))
+            {
+                for(i=0;i<10;++i)
+                {
+                    build_box_wall(XSize/2-5,YSize/2-2,10,1,EXTRA);
+                }
+            }
+            SET_TEXT_COLOR(COLOR_WHITE);
             PRINT(XSize/2-4,YSize/2,       _XL_L _XL_E _XL_V _XL_E _XL_L);
             PRINTD(XSize/2-4+6,YSize/2,2,level);
             WAIT_PRESS();

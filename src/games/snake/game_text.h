@@ -22,3 +22,4 @@ void DISPLAY_REMAINING_APPLES_COUNT(void);
 void DISPLAY_LIVES(void);
 
 #endif // _GAME_TEXT_H
+

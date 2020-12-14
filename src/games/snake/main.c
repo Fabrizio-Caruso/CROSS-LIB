@@ -382,7 +382,7 @@ static uint8_t level_walls[] =
 };
 
 
-static uint16_t level_walls_index[] = 
+static uint8_t level_walls_index[] = 
     {
         0,   // 0
         3,   // 1

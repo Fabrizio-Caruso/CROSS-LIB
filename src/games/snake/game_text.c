@@ -44,3 +44,4 @@ void DISPLAY_LIVES(void)
 {
     PRINTD(XSize-1,0,1,lives);
 }
+

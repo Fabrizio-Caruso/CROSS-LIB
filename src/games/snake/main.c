@@ -1266,7 +1266,7 @@ int main(void)
             
             while(remaining_apples)
             {
-                if((!active_mines)||not_many_mines)
+                if(not_many_mines)
                 {
                     DO_SLOW_DOWN(FEW_MINES_SLOWDOWN);
                 }

@@ -173,7 +173,7 @@ const Image *images[] = {
 #define IF_POSSIBLE_INCREASE_SPEED() \
     if(slow_down>SLOW_DOWN/2) \
     { \
-        slow_down -= SLOW_DOWN/8; \
+        slow_down -= SLOW_DOWN/7; \
     } \
     else \
     { \
@@ -188,29 +188,27 @@ const Image *images[] = {
     }
 
 
-#define INITIAL_LIVES 5
+#define INITIAL_LIVES 5U
 
-#define EXTRA_POINTS 5
-#define APPLE_POINTS 20
-#define COIN_POINTS 50
-#define SUPER_COIN_POINTS 150
+#define EXTRA_POINTS 5U
+#define APPLE_POINTS 20U
+#define COIN_POINTS 50U
+#define SUPER_COIN_POINTS 150U
 
 
 #define EXTRA_LIFE_THRESHOLD 5000U
 
-#define INITIAL_APPLE_COUNT 10
+#define INITIAL_APPLE_COUNT 10U
 
-#define APPLE_COUNT_INCREASE 2
+#define APPLE_COUNT_INCREASE 2U
 
-#define MAX_COIN_COUNT 3
+#define MAX_COIN_COUNT 3U
 
-#define SPEED_INCREASE_THRESHOLD 20
+#define SPEED_INCREASE_THRESHOLD 20U
 
-#define COIN_APPLE_THRESHOLD 3
+#define SPAWNED_APPLE_START 2U
 
-#define SPAWNED_APPLE_START 2
-
-#define EXTRA_COIN_SPAWN 2
+#define EXTRA_COIN_SPAWN_THRESHOLD 3U
 
 // TODO: Maybe only horizontal and vertical checks are necessary
 #define safe_around(x,y) \
@@ -451,6 +449,8 @@ do \
 #define MAX_NUMBER_OF_VERTICAL_MINES 2
 
 
+#define FEW_MINES_SLOWDOWN ((SLOW_DOWN)/8)
+
 static uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
 static uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
 static uint8_t horizontal_mine_direction[MAX_NUMBER_OF_HORIZONTAL_MINES];
@@ -471,83 +471,110 @@ static uint8_t horizontal_mines_on_level[] =
             4*YSize/5,
         0, // 1  (3)
         0, // 2  (4)
-        1, // 3  (5)
+        2, // 3  (5)
             YSize/2 - 3,
-        1, // 4  (7)
+            YSize/2 + 3,
+        3, // 4  (8)
             YSize/2 - 1,
-        0, // 5  (9)
-        0, // 6  (10)
-        0, // 7  (11)
-        0, // 8  (12)
-        1, // 9  (13)
+            2,
+            YSize-3,
+        0, // 5  (12)
+        3, // 6  (13)
+            2,
+            YSize-3,
+            YSize/2-2,
+        0, // 7  (17)
+        2, // 8  (18)
+            2,
+            YSize-3,
+        1, // 9  (21)
             YSize/2-1,
-        2, // 10 (15)
+        2, // 10 (23)
             YSize/3 - 2,
             2*YSize/3+2,
-        1, // 11 (18)
+        1, // 11 (26)
             YSize/2 - 3,
-        2, // 12 (20)
-            YSize/2 - 4,
-            YSize/2 + 4,
-        0, // 13 (23)
-        2, // 14 (24)
+        3, // 12 (28)
+            YSize/2 - 5,
+            YSize/2 + 3,
+            YSize/2 + 6,
+        2, // 13 (32)
+            2,
+            YSize-3,
+        4, // 14 (35)
             YSize/2 - 2,
             YSize/2 + 2,
-        3, // 15 (27)
+            YSize/2 - 4,
+            YSize/2 + 4,
+        3, // 15 (40)
             YSize/2 - 3,
             YSize/2 - 4,
             YSize/2 - 5,
-        3, // 16 (31)
+        3, // 16 (44)
             YSize/2 - 4,
             YSize/2 - 5,
             YSize/2 - 6,
-        2, // 17 (35)
+        2, // 17 (48)
             YSize/2 - 3,
             YSize/2 + 3,
-        2, // 18 (38)
+        2, // 18 (51)
             3,
             YSize - 3,
-        2, // 19 (41)
+        4, // 19 (54)
             YSize/2 - 3,
             YSize/2 + 3,
-        2, // 20 (44)
+            YSize/2 - 2,
+            YSize/2 + 2,
+        4, // 20 (59)
             YSize/2 - 1,
             YSize/2 + 1,
-        2, // 21 (47)
+            2,
+            YSize-3,
+        2, // 21 (64)
             3,
             YSize - 3,
-        1, // 22 (50)
-            YSize/2 - 3,
-        2, // 23 (52)
+        4, // 22 (67)
+            2,
+            YSize-3,
+            YSize/2-3,
+            YSize/2+3,
+        2, // 23 (72)
             YSize/2 - 3,
             YSize/2 + 2,
-        1, // 24 (55)
+        3, // 24 (75)
+            2,
+            YSize-3,
             YSize/2 - 3,
-        2, // 25 (57)
+        2, // 25 (79)
             YSize/2+1,
             YSize/2-1,
-        3, // 26 (60)
-            3,
-            YSize/2-1,
-            YSize - 3,
-        2, // 27 (64)
+        4, // 26 (82)
+            2,
+            YSize-3,
+            4,
+            YSize-5,
+        2, // 27 (87)
             YSize/2 - 3,
             YSize/2 + 3,
-        4, // 28 (67)
+        4, // 28 (90)
             3,
             YSize - 4,
             5,
             YSize - 6,
-        0, // 29 (72)
-        2, // 30 (73)
+        2, // 29 (95)
+            2,
+            YSize-3,
+        4, // 30 (98)
+            YSize/2 - 2,
+            YSize/2 + 2,
             YSize/2 - 4,
             YSize/2 + 4,
-        4, // 31 (76)
+        4, // 31 (103)
             YSize/2 - 4,
             YSize/2 - 5,
             YSize/2 - 6,
             YSize/2 - 7,
-        4, // 32 (81)
+        4, // 32 (108)
             YSize/2 - 5,
             YSize/2 - 6,
             YSize/2 - 7,
@@ -561,35 +588,35 @@ static uint8_t horizontal_mines_on_level_index[] =
         3,  //  1
         4,  //  2
         5,  //  3
-        7,  //  4
-        9,  //  5
-        10,  //  6
-        11,  //  7
-        12, //  8
-        13, //  9
-        15, // 10
-        18, // 11
-        20, // 12
-        23, // 13
-        24, // 14
-        27, // 15
-        31, // 16
-        35, // 17
-        38, // 18
-        41, // 19
-        44, // 20
-        47, // 21
-        50, // 22
-        52, // 23
-        55, // 24
-        57, // 25
-        60, // 26
-        64, // 27
-        67, // 28
-        72, // 29
-        73, // 30
-        76, // 31
-        81  // 32
+        8,  //  4
+        12, //  5
+        13, //  6
+        17, //  7
+        18, //  8
+        21, //  9
+        23, // 10
+        26, // 11
+        28, // 12
+        32, // 13
+        35, // 14
+        40, // 15
+        44, // 16
+        48, // 17
+        51, // 18
+        54, // 19
+        59, // 20
+        64, // 21
+        67, // 22
+        72, // 23
+        75, // 24
+        79, // 25
+        82, // 26
+        87, // 27
+        90, // 28
+        95, // 29
+        98, // 30
+       103, // 31
+       108  // 32
     };
 
 
@@ -603,50 +630,61 @@ static uint8_t vertical_mines_on_level[] =
             XSize/2-1,
         0, //  3 (6) 
         0, //  4 (7)
-        1, //  5 (8)
+        2, //  5 (8)
             XSize/2,
-        1, //  6 (10)
             XSize/2-1,
-        1, //  7 (12)
-            XSize/2,
-        1, //  8 (14)
-            XSize/2,
-        0, //  9 (16)
-        0, // 10 (17)
-        0, // 11 (18)
-        0, // 12 (19)
-        1, // 13 (20)
+        1, //  6 (11)
+            XSize/2-1,
+        2, //  7 (13)
             XSize/2+1,
-        0, // 14 (22)
-        1, // 15 (23)
-            XSize/2-1,
-        1, // 16 (25),
-            XSize/2-1,
-        1, // 17 (27)
-            XSize/2-1,
-        1, // 18 (29)
+            XSize/2-2,
+        1, //  8 (16)
             XSize/2,
-        0, // 19 (31) 
-        0, // 20 (32)
-        1, // 21 (33)
-            XSize/2,
-        1, // 22 (35)
-            XSize/2-1,
-        0, // 23 (37)
-        1, // 24 (38)
-            XSize/2,
-        0, // 25 (40)
-        0, // 26 (41)
-        0, // 27 (42)
-        0, // 28 (43)
-        2, // 29 (44)
+        2, //  9 (18)
             XSize/2+1,
             XSize/2-1,
-        1, // 30 (47)
+        1, // 10 (21)
+            XSize/2-1,
+        0, // 11 (23)
+        0, // 12 (24)
+        1, // 13 (25)
+            XSize/2+1,
+        0, // 14 (27)
+        1, // 15 (28)
+            XSize/2-1,
+        1, // 16 (30),
+            XSize/2-1,
+        1, // 17 (32)
+            XSize/2-1,
+        1, // 18 (34)
             XSize/2,
-        1, // 31 (49)
+        0, // 19 (36) 
+        0, // 20 (37)
+        2, // 21 (38)
             XSize/2,
-        2, // 32 (51),
+            XSize/2-1,
+        1, // 22 (41)
+            XSize/2-1,
+        2, // 23 (43)
+            XSize/2+1,
+            XSize/2-1,
+        1, // 24 (46)
+            XSize/2,
+        2, // 25 (48)
+            XSize/2,
+            XSize/2-1,
+        1, // 26 (51)
+            XSize/2-1,
+        0, // 27 (53)
+        0, // 28 (54)
+        2, // 29 (55)
+            XSize/2+1,
+            XSize/2-1,
+        1, // 30 (58)
+            XSize/2,
+        1, // 31 (60)
+            XSize/2,
+        2, // 32 (62),
             XSize/6,
             XSize-1-XSize/6
     };
@@ -654,39 +692,39 @@ static uint8_t vertical_mines_on_level[] =
 
 static uint8_t vertical_mines_on_level_index[] =
     {
-        0,
-        2,
-        4,
-        6,
-        7,
-        8,
-        10,
-        12, // 7
-        14, // 8
-        16, // 9
-        17, // 10
-        18, // 11
-        19, // 12
-        20, // 13
-        22, // 14
-        23, // 15
-        25, // 16
-        27, // 17
-        29, // 18
-        31, // 19
-        32, // 20
-        33, // 21
-        35, // 22
-        37, // 23
-        38, // 24
-        40, // 25
-        41, // 26
-        42, // 27
-        43, // 28
-        44, // 29
-        47, // 30
-        49, // 31
-        51  // 32
+         0,
+         2,
+         4,
+         6,
+         7,
+         8,
+        11,
+        13, // 7
+        16, // 8
+        18, // 9
+        21, // 10
+        23, // 11
+        24, // 12
+        25, // 13
+        27, // 14
+        28, // 15
+        30, // 16
+        32, // 17
+        34, // 18
+        36, // 19
+        37, // 20
+        38, // 21
+        41, // 22
+        43, // 23
+        46, // 24
+        48, // 25
+        51, // 26
+        53, // 27
+        54, // 28
+        55, // 29
+        58, // 30
+        60, // 31
+        62  // 32
     };
 
 
@@ -707,6 +745,9 @@ static uint8_t transparent_horizontal_wall_level_flag;
 #define TRANSPARENT_HORIZONTAL_WALL_LENGTH ((XSize)/5)
 #define TRANSPARENT_HORIZONTAL_WALL_X (((XSize)/2)-((TRANSPARENT_HORIZONTAL_WALL_LENGTH)/2))
 #define TRANSPARENT_HORIZONTAL_WALL_Y (((YSize)/2))
+
+static uint8_t not_many_mines;
+static uint8_t total_mines_on_current_level;
 
 void build_level(void)
 {
@@ -1183,7 +1224,11 @@ int main(void)
             }
             spawned_apples = 0;
             
-            if((vertical_mines_on_current_level+horizontal_mines_on_current_level)>EXTRA_COIN_SPAWN)
+            total_mines_on_current_level = vertical_mines_on_current_level+horizontal_mines_on_current_level;
+            
+            not_many_mines = total_mines_on_current_level<=EXTRA_COIN_SPAWN_THRESHOLD;
+            
+            if(!not_many_mines)
             {
                 spawn(COIN);
             }
@@ -1221,6 +1266,10 @@ int main(void)
             
             while(remaining_apples)
             {
+                if((!active_mines)||not_many_mines)
+                {
+                    DO_SLOW_DOWN(FEW_MINES_SLOWDOWN);
+                }
                 if(points>extra_life_counter*EXTRA_LIFE_THRESHOLD)
                 {
                     ++extra_life_counter;
@@ -1329,6 +1378,7 @@ int main(void)
                             secret_level_active = 1;
                         }
                     }
+                    
                     if(hits_apple(snake_head_x,snake_head_y))
                     {
                         --apples_on_screen_count;

@@ -74,7 +74,6 @@ void init_snake(void)
         snake_x[(i+snake_head)%snake_length] = XSize/2+snake_length/2-i-1;
         snake_y[(i+snake_head)%snake_length] = YSize/2;
         draw_body_part((i+snake_head) % snake_length);
-        DO_SLOW_DOWN(SLOW_DOWN);
     }
     
     

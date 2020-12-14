@@ -700,9 +700,9 @@ static uint8_t vertical_mines_on_level_index[] =
 static uint8_t transparent_vertical_wall_level_flag;
 static uint8_t transparent_horizontal_wall_level_flag;
 
-#define TRANSPARENT_VERTICAL_WALL_LENGTH ((YSize)/3)
+#define TRANSPARENT_VERTICAL_WALL_LENGTH (YSize - 2*(YSize/4) - 4)
 #define TRANSPARENT_VERTICAL_WALL_X ((XSize)/2)
-#define TRANSPARENT_VERTICAL_WALL_Y (((YSize)/3)+1)
+#define TRANSPARENT_VERTICAL_WALL_Y (((YSize)/4)+2)
 
 #define TRANSPARENT_HORIZONTAL_WALL_LENGTH ((XSize)/5)
 #define TRANSPARENT_HORIZONTAL_WALL_X (((XSize)/2)-((TRANSPARENT_HORIZONTAL_WALL_LENGTH)/2))

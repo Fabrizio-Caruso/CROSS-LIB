@@ -186,7 +186,7 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
 	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB \
-	-DFULL_GAME \
+	-DFULL_GAME -DNO_INIT_GRAPHICS \
 	-DREDEFINED_CHARS \
 	-DSOUNDS -DUSE_MEMORY_BUFFERS \
 	-DALT_PRINT \
@@ -416,7 +416,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
 	--config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
 	-DSOUNDS -DANIMATE_PLAYER \
-	-DSLOW_DOWN=4700 \
+	-DSLOW_DOWN=4500 \
 	-DMEMORY_MAPPED -DCC65_GOTO -D__VIC20__ -DVIC20_EXP_8K \
 	-DFULL_GAME \
 	-DSIMPLE_STRATEGY \
@@ -429,6 +429,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/main.c   \
 	$(SOURCE_PATH)/game_text.c  \
 	$(SOURCE_PATH)/init_images.c \
+    $(SOURCE_PATH)/memory/vic20_memory.s \
 	--code-name CODE2 \
 	$(SOURCE_PATH)/snake.c  \
 	$(SOURCE_PATH)/control_player.c \
@@ -485,7 +486,7 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
-	-DSLOW_DOWN=4700 \
+	-DSLOW_DOWN=4500 \
 	-DREDEFINED_CHARS \
 	$(FULL_FILES) \
 	--code-name CODE2 \

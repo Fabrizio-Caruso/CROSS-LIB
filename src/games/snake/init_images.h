@@ -8,8 +8,6 @@
 #endif
 
 
-void INIT_IMAGES(void);
-
 
 #endif // _INIT_IMAGES_H
 

@@ -14,5 +14,3 @@ _snake_copy_x = _snake_y + 45
 .export _snake_copy_y;
 _snake_copy_y = _snake_copy_x + 45
 
-E_IMAGE + $2
-

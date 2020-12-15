@@ -53,7 +53,7 @@ void DISPLAY_ENERGY(void)
 void PRESS_KEY(void)
 {
     SET_TEXT_COLOR(COLOR_WHITE);
-    printCenteredMessageOnRow(YSize-2, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+    printCenteredMessageOnRow(YSize-2, _PRESS_FIRE_STRING);
     WAIT_PRESS();
 }
 

@@ -19,6 +19,11 @@
 #define __BONUS__STRING _XL_SPACE _XL_B _XL_O _XL_N _XL_U _XL_S _XL_SPACE
 #define __THE_END__STRING _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_E _XL_N _XL_D _XL_SPACE
 #define __GAME_OVER__STRING _XL_SPACE _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R _XL_SPACE
+#define _SECRET_STRING _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T
+#define _LEVEL_STRING _XL_L _XL_E _XL_V _XL_E _XL_L
+#define _CROSS_SNAKE_STRING _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E
+#define _Fabrizio_Caruso_STRING _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o
+#define _PRESS_FIRE_STRING _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E
 
 #if !defined(NO_EXTRA_TITLE)
 
@@ -45,33 +50,10 @@ extern char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE];
     SET_TEXT_COLOR(COLOR_WHITE); \
     PRINTD(XSize/2-2,0,5,record); \
     SET_TEXT_COLOR(COLOR_RED); \
-    printCenteredMessageOnRow(YSize/8, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E); \
+    printCenteredMessageOnRow(YSize/8, _CROSS_SNAKE_STRING); \
     SET_TEXT_COLOR(COLOR_WHITE); \
-    printCenteredMessageOnRow(YSize/8+2, _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o); \
+    printCenteredMessageOnRow(YSize/8+2, _Fabrizio_Caruso_STRING); \
     extra_title();
-
-
-#define initialize_map() \
-{ \
-    CLEAR_SCREEN(); \
-    init_map_to_empty(); \
-    DRAW_MAP_BORDERS(); \
-    _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE); \
-    _XLIB_DRAW(0,0,&SCORE_TEXT_LEFT_IMAGE); \
-    _XLIB_DRAW(1,0,&SCORE_TEXT_RIGHT_IMAGE); \
-    _XLIB_DRAW(XSize-10+HISCORE_OFFSET,0,&HI_TEXT_IMAGE); \
-    _XLIB_DRAW(8,0,&APPLE_IMAGE); \
-    _XLIB_DRAW(0,YSize-1,&LV_TEXT_IMAGE); \
-    SET_TEXT_COLOR(COLOR_WHITE); \
-    DISPLAY_LIVES(); \
-    PRINTD(1,YSize-1,2,level); \
-    DISPLAY_REMAINING_APPLES_COUNT(); \
-    PRINTD(XSize-9+HISCORE_OFFSET,0,5,record); \
-    DISPLAY_ENERGY(); \
-    init_snake(); \
-    build_level(); \
-    DISPLAY_POINTS(); \
-}
 
 
 #define RED_ENERGY_THRESHOLD ((MAX_ENERGY)/2)

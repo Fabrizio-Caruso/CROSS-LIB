@@ -3,11 +3,17 @@
 
 #include "settings.h"
 
-uint8_t snake_x[MAX_SNAKE_LENGTH];
-uint8_t snake_y[MAX_SNAKE_LENGTH];
+#if defined(USE_MEMORY_BUFFERS)
+    #define _EXTERN extern
+#else
+    #define _EXTERN
+#endif
 
-uint8_t snake_copy_x[MAX_SNAKE_LENGTH];
-uint8_t snake_copy_y[MAX_SNAKE_LENGTH];
+_EXTERN uint8_t snake_x[MAX_SNAKE_LENGTH];
+_EXTERN uint8_t snake_y[MAX_SNAKE_LENGTH];
+
+_EXTERN uint8_t snake_copy_x[MAX_SNAKE_LENGTH];
+_EXTERN uint8_t snake_copy_y[MAX_SNAKE_LENGTH];
 
 uint8_t snake_head_x;
 uint8_t snake_head_y;

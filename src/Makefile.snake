@@ -188,7 +188,7 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DFORCE_NO_CONIO_LIB \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
-	-DSOUNDS \
+	-DSOUNDS -DUSE_MEMORY_BUFFERS \
 	-DALT_PRINT \
 	-DANIMATE_PLAYER \
 	-DMEMORY_MAPPED \
@@ -197,6 +197,7 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-DALT_SLEEP \
 	-DSLOW_DOWN=3000 \
 	-DUDG_BASE_FACTOR=15 \
+	$(SOURCE_PATH)/memory/c16_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -328,7 +329,7 @@ creativision: creativision_16k
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 
 creativision_16k: $(ASSETS_PATH)/8x8_chars.h
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DMAX_SNAKE_LENGTH=20 -DNO_EXTRA_TITLE \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
 	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \

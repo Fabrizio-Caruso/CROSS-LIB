@@ -31,14 +31,14 @@
 
 #define FEW_MINES_SLOWDOWN ((SLOW_DOWN)/8)
 
-#define INITIAL_SNAKE_LENGTH 3
-
 #define MAX_APPLES 24
 
 // This is to accout for extra length gained by eating extra points ($)
 #define EXTRA_LENGTH 10
 
-#define MAX_SNAKE_LENGTH ((XSize/4)+((NUMBER_OF_LEVELS-1)/4)+(MAX_APPLES)+((MAX_APPLES)/8)+EXTRA_LENGTH)
+#if !defined(MAX_SNAKE_LENGTH)
+    #define MAX_SNAKE_LENGTH ((XSize/4)+((NUMBER_OF_LEVELS-1)/4)+(MAX_APPLES)+((MAX_APPLES)/8)+EXTRA_LENGTH)
+#endif
 
 #define MAX_NUMBER_OF_HORIZONTAL_MINES 4
 #define MAX_NUMBER_OF_VERTICAL_MINES 2

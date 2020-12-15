@@ -73,16 +73,13 @@ extern Image MINE_IMAGE;
 extern Image LEFT_MINE_IMAGE;
 extern Image RIGHT_MINE_IMAGE;
 
-extern uint8_t snake_x[MAX_SNAKE_LENGTH];
-extern uint8_t snake_y[MAX_SNAKE_LENGTH];
+extern uint8_t map[XSize][YSize];
 
 extern uint8_t snake_length;
 
 extern uint8_t snake_head;
 
 extern Image *head_image_ptr;
-
-extern uint8_t map[XSize][YSize];
 
 extern Image VERTICAL_BRICK_IMAGE;
 extern Image HORIZONTAL_BRICK_IMAGE;
@@ -93,41 +90,6 @@ extern Image SUPER_COIN_IMAGE;
 extern Image UP_MINE_IMAGE;
 extern Image DOWN_MINE_IMAGE;
 
-uint8_t snake_head_x;
-uint8_t snake_head_y;
-
-uint16_t points;
-
-static uint8_t speed_increase_counter;
-
-static uint16_t slow_down;
-
-static uint8_t spawned_apples;
-
-uint8_t lives;
-
-static uint16_t record;
-
-uint8_t remaining_apples;
-
-uint8_t level;
-
-uint8_t energy;
-
-static uint8_t coin_count;
-
-static uint8_t extra_life_counter;
-
-static uint8_t active_mines;
-
-static uint16_t level_bonus;
-
-static uint8_t transparent_vertical_wall_triggered;
-static uint8_t transparent_horizontal_wall_triggered;
-
-static uint8_t secret_level_active;
-static uint8_t secret_level_never_activated;
-static uint8_t next_level;
 
 /*
 #define EMPTY 0
@@ -173,7 +135,6 @@ const Image *images[] = {
     
 #define hits_extra_points(x,y) \
     (map[x][y]==EXTRA)
-
 
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
@@ -420,21 +381,40 @@ void DRAW_MAP_BORDERS(void)
     build_vertical_wall(XSize-1,0,YSize);
 }
 
-#define MAX_NUMBER_OF_HORIZONTAL_MINES 4
-#define MAX_NUMBER_OF_VERTICAL_MINES 2
+#include "variables.h"
 
-
-static uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
-static uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
-static uint8_t horizontal_mine_direction[MAX_NUMBER_OF_HORIZONTAL_MINES];
-static uint8_t horizontal_mines_on_current_level;
-static uint8_t horizontal_mine_transition[MAX_NUMBER_OF_HORIZONTAL_MINES];
-
-static uint8_t vertical_mine_x[MAX_NUMBER_OF_VERTICAL_MINES];
-static uint8_t vertical_mine_y[MAX_NUMBER_OF_VERTICAL_MINES];
-static uint8_t vertical_mine_direction[MAX_NUMBER_OF_VERTICAL_MINES];
-static uint8_t vertical_mines_on_current_level;
-static uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
+extern uint8_t snake_x[MAX_SNAKE_LENGTH];
+extern uint8_t snake_y[MAX_SNAKE_LENGTH];
+extern uint8_t snake_head_x;
+extern uint8_t snake_head_y;
+extern uint16_t points;
+extern uint8_t speed_increase_counter;
+extern uint16_t slow_down;
+extern uint8_t spawned_apples;
+extern uint8_t lives;
+extern uint16_t record;
+extern uint8_t remaining_apples;
+extern uint8_t level;
+extern uint8_t energy;
+extern uint8_t coin_count;
+extern uint8_t extra_life_counter;
+extern uint8_t active_mines;
+extern uint16_t level_bonus;
+extern uint8_t transparent_vertical_wall_triggered;
+extern uint8_t transparent_horizontal_wall_triggered;
+extern uint8_t secret_level_active;
+extern uint8_t secret_level_never_activated;
+extern uint8_t next_level;
+extern uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
+extern uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
+extern uint8_t horizontal_mine_direction[MAX_NUMBER_OF_HORIZONTAL_MINES];
+extern uint8_t horizontal_mines_on_current_level;
+extern uint8_t horizontal_mine_transition[MAX_NUMBER_OF_HORIZONTAL_MINES];
+extern uint8_t vertical_mine_x[MAX_NUMBER_OF_VERTICAL_MINES];
+extern uint8_t vertical_mine_y[MAX_NUMBER_OF_VERTICAL_MINES];
+extern uint8_t vertical_mine_direction[MAX_NUMBER_OF_VERTICAL_MINES];
+extern uint8_t vertical_mines_on_current_level;
+extern uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
 
 
 static uint8_t horizontal_mines_on_level[] = 
@@ -1010,7 +990,6 @@ uint8_t empty_horizontal_wall_area(void)
     return (TRANSPARENT_HORIZONTAL_WALL_Y!=snake_head_y)||
            !((snake_head_x>=TRANSPARENT_HORIZONTAL_WALL_X)&&(snake_head_x<TRANSPARENT_HORIZONTAL_WALL_X+TRANSPARENT_HORIZONTAL_WALL_LENGTH-1));
 }
-
 
 
 void handle_transparent_vertical_wall(void)

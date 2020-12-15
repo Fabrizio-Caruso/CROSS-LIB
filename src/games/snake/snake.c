@@ -3,8 +3,11 @@
 #include "move_snake.h"
 #include "settings.h"
 
-uint8_t snake_x[MAX_SNAKE_LENGTH];
-uint8_t snake_y[MAX_SNAKE_LENGTH];
+extern uint8_t snake_x[MAX_SNAKE_LENGTH];
+extern uint8_t snake_y[MAX_SNAKE_LENGTH];
+
+extern uint8_t snake_copy_x[MAX_SNAKE_LENGTH];
+extern uint8_t snake_copy_y[MAX_SNAKE_LENGTH];
 
 uint8_t snake_length;
 
@@ -13,8 +16,7 @@ uint8_t snake_head;
 Image *head_image_ptr;
 
 uint8_t map[XSize][YSize];
-uint8_t snake_copy_x[MAX_SNAKE_LENGTH];
-uint8_t snake_copy_y[MAX_SNAKE_LENGTH];
+
 
 uint8_t snake_direction;
 

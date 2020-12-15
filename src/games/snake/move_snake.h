@@ -3,11 +3,8 @@
 
 
 #define SNAKE_UP 0
-
 #define SNAKE_DOWN 1
-
 #define SNAKE_LEFT 2
-
 #define SNAKE_RIGHT 3
 
 #define HORIZONTAL(movement) ((movement)>SNAKE_DOWN)

@@ -5,14 +5,6 @@
 #include "cross_lib.h"
 
 
-#define INITIAL_SNAKE_LENGTH 3
-
-#define MAX_APPLES 24
-
-// This is to accout for extra length gained by eating extra points ($)
-#define EXTRA_LENGTH 10
-
-#define MAX_SNAKE_LENGTH ((XSize/4)+((NUMBER_OF_LEVELS-1)/4)+(MAX_APPLES)+((MAX_APPLES)/8)+EXTRA_LENGTH)
 //254
 
 #define EMPTY 0

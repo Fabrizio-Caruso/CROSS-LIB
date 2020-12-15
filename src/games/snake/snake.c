@@ -1,6 +1,7 @@
 #include "cross_lib.h"
 #include "snake.h"
 #include "move_snake.h"
+#include "settings.h"
 
 uint8_t snake_x[MAX_SNAKE_LENGTH];
 uint8_t snake_y[MAX_SNAKE_LENGTH];
@@ -45,24 +46,8 @@ void draw_body_part(uint8_t i)
 }
 
 
-void init_map(void)
-{
-    uint8_t i;
-    uint8_t j;
-    
-    for(i=0;i<XSize;++i)
-    {
-        for(j=0;j<YSize;++j)
-        {
-            map[i][j]=EMPTY;
-        }
-    }
-}
-
-
 void init_snake(void)
 {
-
     uint8_t i;
     
     snake_length = XSize/4 - 1 + (level&15)/4;
@@ -76,7 +61,6 @@ void init_snake(void)
         draw_body_part((i+snake_head) % snake_length);
     }
     
-    
     head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
     
     snake_direction = SNAKE_RIGHT;
@@ -86,7 +70,6 @@ void init_snake(void)
     snake_head_x = snake_x[snake_head];
     snake_head_y = snake_y[snake_head];
     
-
 }
 
 void snake_grows(void)

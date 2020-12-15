@@ -1,6 +1,8 @@
 #include "cross_lib.h"
 #include "snake.h"
 #include "move_snake.h"
+#include "settings.h"
+
 
 extern uint8_t snake_x[MAX_SNAKE_LENGTH];
 extern uint8_t snake_y[MAX_SNAKE_LENGTH];

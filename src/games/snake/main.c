@@ -37,11 +37,17 @@
 #include "control_player.h"
 #include "game_text.h"
 
+
+#include "settings.h"
+
 #if ((YSize)+(Y_OFFSET)-1)>19
     #define MAX_TILES 19
 #else
     #define MAX_TILES ((YSize)+(Y_OFFSET)-1)
 #endif
+
+#define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14)||(!level))
+#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==7)||((level&15)== 8)||((level&15)==13)||(!level))
 
 
 extern Image VERTICAL_HEAD_IMAGE;  
@@ -188,28 +194,6 @@ const Image *images[] = {
     }
 
 
-#define INITIAL_LIVES 5U
-
-#define EXTRA_POINTS 5U
-#define APPLE_POINTS 20U
-#define COIN_POINTS 50U
-#define SUPER_COIN_POINTS 150U
-
-
-#define EXTRA_LIFE_THRESHOLD 5000U
-
-#define INITIAL_APPLE_COUNT 10U
-
-#define APPLE_COUNT_INCREASE 2U
-
-#define MAX_COIN_COUNT 3U
-
-#define SPEED_INCREASE_THRESHOLD 20U
-
-#define SPAWNED_APPLE_START 2U
-
-#define EXTRA_COIN_SPAWN_THRESHOLD 3U
-
 // TODO: Maybe only horizontal and vertical checks are necessary
 #define safe_around(x,y) \
     (!map[x][y] && \
@@ -237,11 +221,6 @@ void spawn(uint8_t type)
     _XLIB_DRAW(x,y,images[type]);
 }
 
-
-#define INITIAL_LEVEL 1
-// #define DEBUG_LEVELS
-// #define DEBUG_SLOWDOWN
-// #define DEBUG_APPLES
 
 static uint8_t apples_on_screen_count;
 
@@ -402,9 +381,6 @@ static uint8_t level_walls_index[] =
         };
 
 
-#define TRANSPARENT_TRIGGER 20
-#define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14)||(!level))
-#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==7)||((level&15)== 8)||((level&15)==13)||(!level))
 
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
@@ -448,8 +424,6 @@ do \
 #define MAX_NUMBER_OF_HORIZONTAL_MINES 4
 #define MAX_NUMBER_OF_VERTICAL_MINES 2
 
-
-#define FEW_MINES_SLOWDOWN ((SLOW_DOWN)/8)
 
 static uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
 static uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
@@ -1063,47 +1037,233 @@ void handle_transparent_horizontal_wall(void)
 }
 
 
-#if !defined(SIMPLE_TITLE)
-
-#define NUMBER_OF_STRINGS 5
-
-
-#define MAX_STRING_SIZE (6+1)
-
-char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
-{
-    _XL_M _XL_i _XL_n _XL_e,
-    _XL_S _XL_e _XL_c _XL_r _XL_e _XL_t,
-    _XL_B _XL_o _XL_n _XL_u _XL_s,
-    _XL_P _XL_o _XL_i _XL_n _XL_t _XL_s,
-    _XL_A _XL_p _XL_p _XL_l _XL_e,
-};
-
-void show_intro_snake(void)
+void init_map_to_empty(void)
 {
     uint8_t i;
+    uint8_t j;
     
-    for(i=0;i<XSize/2-2;++i)
+    for(i=0;i<XSize;++i)
     {
-        _XLIB_DRAW(XSize/4+i,YSize/8+5,&BODY_IMAGE);
-        
+        for(j=0;j<YSize;++j)
+        {
+            map[i][j]=EMPTY;
+        }
     }
-
-    _XLIB_DRAW(XSize/4+XSize/2-2,YSize/8+5,&HORIZONTAL_HEAD_IMAGE);
 }
 
-#endif
+#define handle_transparent_walls() \
+    if(transparent_vertical_wall_level_flag) \
+    { \
+        handle_transparent_vertical_wall(); \
+    } \
+    if(transparent_horizontal_wall_level_flag) \
+    { \
+        handle_transparent_horizontal_wall(); \
+    }
+
+#define handle_record() \
+    if(points>record) \
+    { \
+        record = points; \
+    }
+
+#define initialize_variables() \
+    extra_life_counter = 1; \
+    points = 0; \
+    lives = INITIAL_LIVES; \
+    level = INITIAL_LEVEL; \
+    remaining_apples=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE; \
+    secret_level_never_activated = 1;
+
+#define DISPLAY_LEVEL_SCREEN() \
+    CLEAR_SCREEN(); \
+    if(!level) \
+    { \
+        SET_TEXT_COLOR(COLOR_YELLOW); \
+        PRINT(XSize/2-4,YSize/2-2, _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T); \
+    } \
+    else if(!(level&3)) \
+    { \
+        for(i=0;i<10;++i) \
+        { \
+            build_box_wall(XSize/2-5,YSize/2-2,10,1,EXTRA); \
+        } \
+    } \
+    SET_TEXT_COLOR(COLOR_WHITE); \
+    PRINT(XSize/2-4,YSize/2,       _XL_L _XL_E _XL_V _XL_E _XL_L); \
+    PRINTD(XSize/2-4+6,YSize/2,2,level);
+
+#define initialize_level_variables() \
+    energy = MAX_ENERGY; \
+    coin_count = 0; \
+    speed_increase_counter = 0; \
+    slow_down = SLOW_DOWN; \
+    apples_on_screen_count = 1+(remaining_apples>>3); \
+    spawned_apples = 0; \
+    total_mines_on_current_level = vertical_mines_on_current_level+horizontal_mines_on_current_level; \
+    not_many_mines = total_mines_on_current_level<=EXTRA_COIN_SPAWN_THRESHOLD; \
+    active_mines = 1; \
+    transparent_vertical_wall_triggered = 0; \
+    transparent_vertical_wall_level_flag = transparent_vertical_wall_level(); \
+    transparent_horizontal_wall_triggered = 0; \
+    transparent_horizontal_wall_level_flag = transparent_horizontal_wall_level(); \
+    secret_level_active = 0;
 
 
+#define spawn_items_at_level_startup() \
+    for(i=0;i<apples_on_screen_count;++i) \
+    { \
+        spawn(APPLE); \
+    } \
+    if(!not_many_mines) \
+    { \
+        spawn(COIN); \
+    }
+
+#define debug_transparent_walls() \
+    WAIT_PRESS(); \
+    if(transparent_horizontal_wall_level()) \
+    { \
+        build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,TRANSPARENT); \
+    } \
+    if(transparent_vertical_wall_level()) \
+    { \
+        build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,TRANSPARENT); \
+    }
+
+#define handle_extra_life() \
+    if(points>extra_life_counter*EXTRA_LIFE_THRESHOLD) \
+    { \
+        ++extra_life_counter; \
+        ++lives; \
+        DISPLAY_LIVES(); \
+        PING_SOUND(); \
+        _XLIB_DRAW(XSize-2,0,&HORIZONTAL_HEAD_IMAGE); \
+        PING_SOUND(); \
+        DO_SLOW_DOWN(SLOW_DOWN*5); \
+        _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE); \
+        PING_SOUND(); \
+    }
+
+#define handle_mines() \
+    if(active_mines) \
+    { \
+        handle_horizontal_mines(); \
+        handle_vertical_mines(); \
+    }
+
+
+#define handle_items_to_spawn() \
+    if(!(level&3)) \
+    { \
+        spawn(EXTRA); \
+    } \
+    if((!apples_on_screen_count || (RAND()&1)) && (apples_on_screen_count<remaining_apples)) \
+    { \
+        ++apples_on_screen_count; \
+        if((spawned_apples&7)==SPAWNED_APPLE_START) \
+            { \
+                spawn(COIN); \
+            } \
+        spawn(APPLE); \
+        ++spawned_apples; \
+    }
+
+#define handle_coin_effect() \
+    snake_grows(); \
+    points+=(COIN_POINTS<<coin_count); \
+    ZAP_SOUND(); \
+    if(coin_count<MAX_COIN_COUNT) \
+    { \
+        ++coin_count; \
+        _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE); \
+    } \
+    if(coin_count==MAX_COIN_COUNT) \
+    { \
+        spawn(SUPER_COIN); \
+    }
+
+#define handle_extra_points_effect() \
+    snake_grows(); \
+    ZAP_SOUND(); \
+    points+=EXTRA_POINTS;
+
+#define handle_super_coin_effect() \
+    ZAP_SOUND(); \
+    points+=SUPER_COIN_POINTS; \
+    slow_down = SLOW_DOWN + SLOW_DOWN/3; \
+    energy = MAX_ENERGY; \
+    DISPLAY_ENERGY(); \
+    active_mines = 0; \
+    if(secret_level_never_activated) \
+    { \
+        secret_level_active = 1; \
+    }
+
+
+#define handle_apple_effect() \
+    --apples_on_screen_count; \
+    snake_grows(); \
+    --remaining_apples; \
+    DISPLAY_REMAINING_APPLES_COUNT(); \
+    points+=APPLE_POINTS; \
+    ZAP_SOUND(); \
+    IF_POSSIBLE_DECREASE_SPEED();
+
+// TODO: All these IFs are mutually exclusive
+#define handle_collisions_with_objects() \
+    if(hits_coin(snake_head_x,snake_head_y)) \
+    { \
+        handle_coin_effect(); \
+    } \
+    if(hits_extra_points(snake_head_x,snake_head_y)) \
+    { \
+        handle_extra_points_effect(); \
+    } \
+    if(hits_super_coin(snake_head_x,snake_head_y)) \
+    { \
+        handle_super_coin_effect(); \
+    } \
+    if(hits_apple(snake_head_x,snake_head_y)) \
+    { \
+        handle_apple_effect(); \
+    } \
+    if(hits_deadly_item(snake_head_x,snake_head_y) || !remaining_apples) \
+    { \
+        break; \
+    }
+
+#define update_snake_head() \
+    snake_head_x = snake_x[snake_head]; \
+    snake_head_y = snake_y[snake_head];
+
+#define handle_mine_reactivation() \
+    if(slow_down<SLOW_DOWN) \
+    { \
+        active_mines = 1; \
+    }
+
+#define update_remaining_apples() \
+    remaining_apples=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE; \
+    if(remaining_apples>MAX_APPLES) \
+    { \
+        remaining_apples = MAX_APPLES; \
+    }
+
+#define handle_no_energy() \
+    if(!energy) \
+    { \
+        SET_TEXT_COLOR(COLOR_RED); \
+        printCenteredMessageOnRow(YSize/2, __NO_ENERGY__STRING); \
+        break; \
+    }
 
 int main(void)
 {
     uint8_t i;
     
     INIT_GRAPHICS();
-
     INIT_INPUT();
-    
     INIT_IMAGES();
 
     record = 0;
@@ -1112,165 +1272,38 @@ int main(void)
     {
         CLEAR_SCREEN();
         
-        if(points>record)
-        {
-            record = points;
-        }
+        handle_record();
         
-        _XLIB_DRAW(XSize/2-3,0,&HI_TEXT_IMAGE);
-        SET_TEXT_COLOR(COLOR_WHITE);
-        PRINTD(XSize/2-2,0,5,record);
-        
-        SET_TEXT_COLOR(COLOR_RED);
-        printCenteredMessageOnRow(YSize/8, _XL_C _XL_R _XL_O _XL_S _XL_S _XL_SPACE _XL_S _XL_N _XL_A _XL_K _XL_E);
-
-        SET_TEXT_COLOR(COLOR_WHITE);
-        printCenteredMessageOnRow(YSize/8+2, _XL_F _XL_a _XL_b _XL_r _XL_i _XL_z _XL_i _XL_o _XL_SPACE _XL_C _XL_a _XL_r _XL_u _XL_s _XL_o);
-
-        #if !defined(SIMPLE_TITLE)
-        
-        {
-            uint8_t i;
-            
-            show_intro_snake();
-            
-            _XLIB_DRAW(XSize/4+XSize/2,YSize/8+5,&APPLE_IMAGE);
-            
-            
-            for(i=0;i<NUMBER_OF_STRINGS;++i)
-            {
-                _XLIB_DRAW(XSize/2-6,YSize/8+8+2*i, images[NUMBER_OF_STRINGS-i]);
-                SET_TEXT_COLOR(COLOR_WHITE);
-                PRINT(XSize/2-4,YSize/8+8+2*i, strings[NUMBER_OF_STRINGS-1-i] );
-            }
-        }
-        #endif 
-
+        title();
         PRESS_KEY();
-        
-\
-        
-        extra_life_counter = 1;
-        points = 0;
-        
-        remaining_apples=INITIAL_APPLE_COUNT+APPLE_COUNT_INCREASE;
-        
-        lives = INITIAL_LIVES;
-        level = INITIAL_LEVEL;
-
-        secret_level_never_activated = 1;
+        initialize_variables();
         
         while(lives && (level<FINAL_LEVEL+1))
         {
             #if defined(DEBUG_LEVELS)
             debug_levels:
             #endif
-            CLEAR_SCREEN();
             
-            if(!level)
-            {
-                SET_TEXT_COLOR(COLOR_YELLOW);
-                PRINT(XSize/2-4,YSize/2-2, _XL_S _XL_E _XL_C _XL_R _XL_E _XL_T);
-            }
-            else if(!(level&3))
-            {
-                for(i=0;i<10;++i)
-                {
-                    build_box_wall(XSize/2-5,YSize/2-2,10,1,EXTRA);
-                }
-            }
-            SET_TEXT_COLOR(COLOR_WHITE);
-            PRINT(XSize/2-4,YSize/2,       _XL_L _XL_E _XL_V _XL_E _XL_L);
-            PRINTD(XSize/2-4+6,YSize/2,2,level);
+            DISPLAY_LEVEL_SCREEN();
+            
             WAIT_PRESS();
-            CLEAR_SCREEN();
-
             
-            init_map();
+            initialize_level_variables();
             
-            DRAW_MAP_BORDERS();
+            initialize_map();
             
-            coin_count = 0;
             
-            _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE);
+            spawn_items_at_level_startup();
             
-            _XLIB_DRAW(0,0,&SCORE_TEXT_LEFT_IMAGE);
-            _XLIB_DRAW(1,0,&SCORE_TEXT_RIGHT_IMAGE);
-            _XLIB_DRAW(XSize-10+HISCORE_OFFSET,0,&HI_TEXT_IMAGE);
-            _XLIB_DRAW(8,0,&APPLE_IMAGE);
-            _XLIB_DRAW(0,YSize-1,&LV_TEXT_IMAGE);
-            
-            SET_TEXT_COLOR(COLOR_WHITE);
-            
-            DISPLAY_LIVES();
-            PRINTD(1,YSize-1,2,level);
-            
-            DISPLAY_REMAINING_APPLES_COUNT();
-            
-            PRINTD(XSize-9+HISCORE_OFFSET,0,5,record);
-            
-            energy = MAX_ENERGY;
-            DISPLAY_ENERGY();
-            
-            speed_increase_counter = 0;
-            
-            slow_down = SLOW_DOWN;
+            WAIT_PRESS();
             
             #if defined(DEBUG_LEVELS)
-            WAIT_PRESS();
-            #endif
-            init_snake();
-            
-            build_level();
-            
-            DISPLAY_POINTS();
-            
-            apples_on_screen_count = 1+(remaining_apples>>3);
-            for(i=0;i<apples_on_screen_count;++i)
-            {
-                spawn(APPLE);
-            }
-            spawned_apples = 0;
-            
-            total_mines_on_current_level = vertical_mines_on_current_level+horizontal_mines_on_current_level;
-            
-            not_many_mines = total_mines_on_current_level<=EXTRA_COIN_SPAWN_THRESHOLD;
-            
-            if(!not_many_mines)
-            {
-                spawn(COIN);
-            }
-            
-            
-            #if defined(DEBUG_LEVELS)
+                debug_transparent_walls();
                 WAIT_PRESS();
-                if(transparent_horizontal_wall_level())
-                {
-                    build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,TRANSPARENT);
-                }
-                
-                if(transparent_vertical_wall_level())
-                {
-                    build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,TRANSPARENT);
-                }
-            #endif
-            
-            WAIT_PRESS();
-            
-            #if defined(DEBUG_LEVELS)
                 ++level;
                 goto debug_levels;
             #endif
             
-            active_mines = 1;
-            
-            transparent_vertical_wall_triggered = 0;
-            transparent_vertical_wall_level_flag = transparent_vertical_wall_level();
-            
-            transparent_horizontal_wall_triggered = 0;
-            transparent_horizontal_wall_level_flag = transparent_horizontal_wall_level();
-            
-            secret_level_active = 0;
             
             while(remaining_apples)
             {
@@ -1278,65 +1311,26 @@ int main(void)
                 {
                     DO_SLOW_DOWN(FEW_MINES_SLOWDOWN);
                 }
-                if(points>extra_life_counter*EXTRA_LIFE_THRESHOLD)
-                {
-                    ++extra_life_counter;
-                    ++lives;
-                    DISPLAY_LIVES();
-                    SHOOT_SOUND();
-                }
-                # if defined(DEBUG_APPLES)
-                PRINTD(XSize-8,YSize-1,2,apples_on_screen_count);
-                #endif
-                
+                handle_extra_life();
                 
                 if(MOVE_PLAYER())
                 {
-                    if(active_mines)
-                    {
-                        handle_horizontal_mines();
-                        handle_vertical_mines();
-                    }
+                    handle_mines();
+                    
                     DO_SLOW_DOWN(slow_down);
                     ++speed_increase_counter;
                     
-                    snake_head_x = snake_x[snake_head];
-                    snake_head_y = snake_y[snake_head];
+                    update_snake_head();
                     
                     if(speed_increase_counter>SPEED_INCREASE_THRESHOLD)
                     {
-                        if(!(level&3))
-                        {
-                            spawn(EXTRA);
-                        }
-                        if(transparent_vertical_wall_level_flag)
-                        {
-                            handle_transparent_vertical_wall();
-                        }
-                        if(transparent_horizontal_wall_level_flag)
-                        {
-                            handle_transparent_horizontal_wall();
-                        }
+                        handle_transparent_walls();
                         
-                        if(slow_down<SLOW_DOWN)
-                        {
-                            active_mines = 1;
-                        }
+                        handle_mine_reactivation();
                         
                         speed_increase_counter = 0;
                         
-                        if((!apples_on_screen_count || (RAND()&1)) && (apples_on_screen_count<remaining_apples))
-                        {
-                            ++apples_on_screen_count;
-                            
-                            if((spawned_apples&7)==SPAWNED_APPLE_START)
-                                {
-                                    spawn(COIN);
-                                }
-                            
-                            spawn(APPLE);
-                            ++spawned_apples;
-                        }
+                        handle_items_to_spawn();
                         ++points;
                         IF_POSSIBLE_INCREASE_SPEED();
                     }
@@ -1348,69 +1342,9 @@ int main(void)
                     PRINTD(XSize+4,YSize-2,5,slow_down);
                     #endif
                     
-                    // TODO: All these IFs are mutually exclusive
-                    if(hits_coin(snake_head_x,snake_head_y))
-                    {
-                        snake_grows();
-                        points+=(COIN_POINTS<<coin_count);
-                        ZAP_SOUND();
-                        if(coin_count<MAX_COIN_COUNT)
-                        {
-                            ++coin_count;
-                            _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE);
-                        }
-                        if(coin_count==MAX_COIN_COUNT)
-                        {
-                            spawn(SUPER_COIN);
-                        }
-                    
-                    }
-                    
-                    if(hits_extra_points(snake_head_x,snake_head_y))
-                    {
-                        snake_grows();
-                        ZAP_SOUND();
-                        points+=EXTRA_POINTS;
-                    }
-                    
-                    if(hits_super_coin(snake_head_x,snake_head_y))
-                    {
-                        ZAP_SOUND();
-                        points+=SUPER_COIN_POINTS;
-                        slow_down = SLOW_DOWN + SLOW_DOWN/3;
-                        energy = MAX_ENERGY;
-                        DISPLAY_ENERGY();
-                        active_mines = 0;
-                        if(secret_level_never_activated)
-                        {
-                            secret_level_active = 1;
-                        }
-                    }
-                    
-                    if(hits_apple(snake_head_x,snake_head_y))
-                    {
-                        --apples_on_screen_count;
-                        snake_grows();
-                        
-                        --remaining_apples;
-                        DISPLAY_REMAINING_APPLES_COUNT();
-                        points+=APPLE_POINTS;
-                        ZAP_SOUND();
-                        IF_POSSIBLE_DECREASE_SPEED();
-                    }
-                    
-                    if(hits_deadly_item(snake_head_x,snake_head_y) || !remaining_apples) // death or level finished
-                    {
-                        break; 
-                    }
+                    handle_collisions_with_objects();
                 }
-                if(!energy)
-                {
-                    SET_TEXT_COLOR(COLOR_RED);
-                    printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_N _XL_O _XL_SPACE _XL_E _XL_N _XL_E _XL_R _XL_G _XL_Y _XL_SPACE);
-                    
-                    break;
-                }
+                handle_no_energy();
             }
             if(remaining_apples)
             {
@@ -1421,11 +1355,11 @@ int main(void)
             else
             {
                 SET_TEXT_COLOR(COLOR_RED);
-                printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_L _XL_E _XL_V _XL_E _XL_L _XL_SPACE _XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D _XL_SPACE);
+                printCenteredMessageOnRow(YSize/2, __LEVEL_CLEARED__STRING);
                 level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<3) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2);
                 SET_TEXT_COLOR(COLOR_WHITE);
 
-                printCenteredMessageOnRow(YSize/2+2, _XL_SPACE _XL_B _XL_O _XL_N _XL_U _XL_S _XL_SPACE);
+                printCenteredMessageOnRow(YSize/2+2, __BONUS__STRING);
                 PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
                 
                 if(level)
@@ -1447,11 +1381,7 @@ int main(void)
                     level = next_level;
                 }
                 
-                remaining_apples=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE;
-                if(remaining_apples>MAX_APPLES)
-                {
-                    remaining_apples = MAX_APPLES;
-                }
+                update_remaining_apples();
                 
                 points+=level_bonus;
                 WAIT_PRESS();
@@ -1463,10 +1393,10 @@ int main(void)
             build_box_wall(0,1,XSize-2,YSize-2,APPLE);
             show_intro_snake();
             SET_TEXT_COLOR(COLOR_WHITE);
-            printCenteredMessageOnRow(YSize/8+3, _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_E _XL_N _XL_D _XL_SPACE);
+            printCenteredMessageOnRow(YSize/8+3, __THE_END__STRING);
         }
 
-        printCenteredMessageOnRow(YSize/2, _XL_SPACE _XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R _XL_SPACE);
+        printCenteredMessageOnRow(YSize/2, __GAME_OVER__STRING);
         WAIT_PRESS();
     }
     

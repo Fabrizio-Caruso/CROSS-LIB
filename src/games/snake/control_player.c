@@ -2,6 +2,7 @@
 #include "snake.h"
 #include "move_snake.h"
 
+#include "settings.h"
 
 extern uint8_t ship_x;
 extern uint8_t ship_fire;

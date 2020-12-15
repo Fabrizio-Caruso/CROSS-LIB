@@ -1258,6 +1258,48 @@ void init_map_to_empty(void)
         break; \
     }
 
+#define handle_level_cleared() \
+    SET_TEXT_COLOR(COLOR_RED); \
+    printCenteredMessageOnRow(YSize/2, __LEVEL_CLEARED__STRING); \
+    level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<3) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2); \
+    SET_TEXT_COLOR(COLOR_WHITE); \
+    printCenteredMessageOnRow(YSize/2+2, __BONUS__STRING); \
+    PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
+
+#define handle_next_level() \
+    if(level) \
+    { \
+        if(!secret_level_active) \
+        { \
+            ++level; \
+        } \
+        else \
+        { \
+            secret_level_never_activated = 0; \
+            next_level = level + 1; \
+            level = 0; \
+        } \
+    } \
+    else \
+    { \
+        level = next_level; \
+    } \
+    update_remaining_apples(); \
+    points+=level_bonus; \
+    WAIT_PRESS();
+
+#define handle_final_screen() \
+    CLEAR_SCREEN(); \
+    build_box_wall(0,1,XSize-2,YSize-2,APPLE); \
+    show_intro_snake(); \
+    SET_TEXT_COLOR(COLOR_WHITE); \
+    printCenteredMessageOnRow(YSize/8+3, __THE_END__STRING);
+
+#define handle_lost_life() \
+    --lives; \
+    EXPLOSION_SOUND(); \
+    PRESS_KEY();
+
 int main(void)
 {
     uint8_t i;
@@ -1271,9 +1313,7 @@ int main(void)
     while(1)
     {
         CLEAR_SCREEN();
-        
         handle_record();
-        
         title();
         PRESS_KEY();
         initialize_variables();
@@ -1285,16 +1325,11 @@ int main(void)
             #endif
             
             DISPLAY_LEVEL_SCREEN();
-            
             WAIT_PRESS();
             
             initialize_level_variables();
-            
             initialize_map();
-            
-            
             spawn_items_at_level_startup();
-            
             WAIT_PRESS();
             
             #if defined(DEBUG_LEVELS)
@@ -1303,7 +1338,6 @@ int main(void)
                 ++level;
                 goto debug_levels;
             #endif
-            
             
             while(remaining_apples)
             {
@@ -1316,20 +1350,15 @@ int main(void)
                 if(MOVE_PLAYER())
                 {
                     handle_mines();
-                    
                     DO_SLOW_DOWN(slow_down);
                     ++speed_increase_counter;
-                    
                     update_snake_head();
                     
                     if(speed_increase_counter>SPEED_INCREASE_THRESHOLD)
                     {
                         handle_transparent_walls();
-                        
                         handle_mine_reactivation();
-                        
                         speed_increase_counter = 0;
-                        
                         handle_items_to_spawn();
                         ++points;
                         IF_POSSIBLE_INCREASE_SPEED();
@@ -1338,64 +1367,28 @@ int main(void)
                     // TODO: This could be optimized by performing the display only when points are updated
                     DISPLAY_POINTS();
                     
+                    handle_collisions_with_objects();
+                    
                     #if defined(DEBUG_SLOWDOWN)
                     PRINTD(XSize+4,YSize-2,5,slow_down);
                     #endif
-                    
-                    handle_collisions_with_objects();
                 }
                 handle_no_energy();
             }
             if(remaining_apples)
             {
-                --lives;
-                EXPLOSION_SOUND();
-                PRESS_KEY();
+                handle_lost_life();
             }
             else
             {
-                SET_TEXT_COLOR(COLOR_RED);
-                printCenteredMessageOnRow(YSize/2, __LEVEL_CLEARED__STRING);
-                level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<3) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2);
-                SET_TEXT_COLOR(COLOR_WHITE);
-
-                printCenteredMessageOnRow(YSize/2+2, __BONUS__STRING);
-                PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
-                
-                if(level)
-                {
-                    if(!secret_level_active)
-                    {
-                        
-                        ++level;
-                    }
-                    else
-                    {
-                        secret_level_never_activated = 0;
-                        next_level = level + 1;
-                        level = 0;
-                    }
-                }
-                else
-                {
-                    level = next_level;
-                }
-                
-                update_remaining_apples();
-                
-                points+=level_bonus;
-                WAIT_PRESS();
+                handle_level_cleared();
+                handle_next_level();
             }
         }
         if(level>FINAL_LEVEL)
         {
-            CLEAR_SCREEN();
-            build_box_wall(0,1,XSize-2,YSize-2,APPLE);
-            show_intro_snake();
-            SET_TEXT_COLOR(COLOR_WHITE);
-            printCenteredMessageOnRow(YSize/8+3, __THE_END__STRING);
+            handle_final_screen();
         }
-
         printCenteredMessageOnRow(YSize/2, __GAME_OVER__STRING);
         WAIT_PRESS();
     }

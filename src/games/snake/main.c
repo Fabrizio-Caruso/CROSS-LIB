@@ -1339,6 +1339,8 @@ int main(void)
     INIT_GRAPHICS();
     INIT_INPUT();
 
+    INIT_IMAGES();
+
     record = 0;
 
     while(1)

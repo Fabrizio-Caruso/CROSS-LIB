@@ -412,14 +412,13 @@ void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, ui
 #define build_vertical_wall(x,y,length) \
     build_box_wall(x, y, 1, length, VERTICAL_WALL)
 
-#define DRAW_MAP_BORDERS() \
-do \
-{ \
-    build_horizontal_wall(0,0,XSize); \
-    build_horizontal_wall(0,YSize-1,XSize); \
-    build_vertical_wall(0,0,YSize); \
-    build_vertical_wall(XSize-1,0,YSize); \
-} while(0)
+void DRAW_MAP_BORDERS(void)
+{
+    build_horizontal_wall(0,0,XSize);
+    build_horizontal_wall(0,YSize-1,XSize);
+    build_vertical_wall(0,0,YSize);
+    build_vertical_wall(XSize-1,0,YSize);
+}
 
 #define MAX_NUMBER_OF_HORIZONTAL_MINES 4
 #define MAX_NUMBER_OF_VERTICAL_MINES 2
@@ -844,11 +843,11 @@ void handle_horizontal_mine(register uint8_t index)
         
         if(!horizontal_mine_transition[index]) // transition not performed, yet
         {
-            if(!map[x-1][y] && (x-1))
+            if(!map[x-1][y])
             {
                 // Do left transition
-                _XLIB_DRAW(x,y,&RIGHT_MINE_IMAGE);
                 _XLIB_DRAW(x-1,y,&LEFT_MINE_IMAGE);
+                _XLIB_DRAW(x,y,&RIGHT_MINE_IMAGE);
                 map[x-1][y]=DEADLY;
                 ++horizontal_mine_transition[index];
             }
@@ -870,7 +869,7 @@ void handle_horizontal_mine(register uint8_t index)
     {
         if(!horizontal_mine_transition[index]) // transition not performed, yet
         {
-            if(!map[x+1][y] && x<XSize-2)
+            if(!map[x+1][y])
             {
                 // Do right transition
                 _XLIB_DRAW(x,y,&LEFT_MINE_IMAGE);
@@ -917,7 +916,7 @@ void handle_vertical_mine(register uint8_t index)
         
         if(!vertical_mine_transition[index]) // transition not performed, yet
         {
-            if(!map[x][y-1] && (y-1))
+            if(!map[x][y-1])
             {
                 // Do up transition
                 _XLIB_DRAW(x,y-1,&UP_MINE_IMAGE);
@@ -943,7 +942,7 @@ void handle_vertical_mine(register uint8_t index)
     {
         if(!vertical_mine_transition[index]) // transition not performed, yet
         {
-            if(!map[x][vertical_mine_y[index]+1] && vertical_mine_y[index]<YSize-2)
+            if(!map[x][vertical_mine_y[index]+1])
             {
                 // Do right transition
                 _XLIB_DRAW(x,y,&UP_MINE_IMAGE);
@@ -1315,15 +1314,19 @@ void handle_transparent_horizontal_wall(void)
 
 #if XSize<32
     #define ANIMATION_SLOW_FACTOR 4
-#else
+#elif XSize<64
     #define ANIMATION_SLOW_FACTOR 8
+#else
+    #define ANIMATION_SLOW_FACTOR 16
 #endif 
 
 #define DISPLAY_LEVEL_ANIMATION() \
 { \
     uint8_t i; \
+    \
     build_horizontal_mines(31); \
     init_map_to_empty(); \
+    DRAW_MAP_BORDERS(); \
     for(i=0;i<XSize*2-5;++i) \
     { \
         handle_horizontal_mines(); \

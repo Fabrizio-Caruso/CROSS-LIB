@@ -13,10 +13,11 @@
 #define COIN 3
 #define EXTRA 4
 #define APPLE 5
-#define WALL  6
-#define HORIZONTAL_WALL 7
-#define VERTICAL_WALL 8
-#define TRANSPARENT 9
+#define EXTRA_LIFE 6
+#define WALL  7
+#define HORIZONTAL_WALL 8
+#define VERTICAL_WALL 9
+#define TRANSPARENT 10
 
 #define NUMBER_OF_LEVELS 16
 

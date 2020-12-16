@@ -17,7 +17,7 @@ extern const Image APPLE_IMAGE;
 char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
 {
     _XL_M _XL_i _XL_n _XL_e,
-    _XL_S _XL_e _XL_c _XL_r _XL_e _XL_t,
+    _XL_F _XL_r _XL_e _XL_e _XL_z _XL_e,
     _XL_B _XL_o _XL_n _XL_u _XL_s,
     _XL_P _XL_o _XL_i _XL_n _XL_t _XL_s,
     _XL_A _XL_p _XL_p _XL_l _XL_e,

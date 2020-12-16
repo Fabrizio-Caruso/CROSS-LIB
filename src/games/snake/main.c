@@ -69,6 +69,20 @@ extern uint8_t transparent_horizontal_wall_level_flag;
 extern uint8_t not_many_mines;
 extern uint8_t total_mines_on_current_level;
 
+uint8_t extra_count;
+
+// It records if one extra life was taken in bonus/secret levels
+uint8_t extra_life_achievement[9];
+
+// It records if the magic wall was created in bonus/secret levels
+uint8_t magic_wall_achievement[9];
+
+// It records if the super coin was spawned in bonus/secret/levels
+uint8_t super_coin_achievement[9];
+
+uint8_t third_coin_achievement;
+uint8_t fourth_coin_achievement;
+
 /*
 #define EMPTY 0
 #define DEADLY 1
@@ -76,10 +90,11 @@ extern uint8_t total_mines_on_current_level;
 #define COIN 3
 #define EXTRA 4
 #define APPLE 5
-#define WALL  6
-#define HORIZONTAL_WALL 7
-#define VERTICAL_WALL 8
-#define TRANSPARENT 9
+#define EXTRA_LIFE 6
+#define WALL  7
+#define HORIZONTAL_WALL 8
+#define VERTICAL_WALL 9
+#define TRANSPARENT 10
 
 */
 
@@ -91,13 +106,14 @@ const Image *images[] = {
     &COIN_IMAGE, 
     &EXTRA_IMAGE, 
     &APPLE_IMAGE,
+    &VERTICAL_HEAD_IMAGE,
     &CENTRAL_BRICK_IMAGE, 
     &HORIZONTAL_BRICK_IMAGE, 
     &VERTICAL_BRICK_IMAGE, 
-    &TRANSPARENT_BRICK_IMAGE
+    &TRANSPARENT_BRICK_IMAGE,
     };
 
-#define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14)||(!level))
+#define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14))
 #define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==7)||((level&15)== 8)||((level&15)==13)||(!level))
 
 
@@ -113,6 +129,8 @@ const Image *images[] = {
 #define hits_extra_points(x,y) \
     (map[x][y]==EXTRA)
 
+#define hits_extra_life(x,y) \
+    (map[x][y]==EXTRA_LIFE)
 
 #define IF_POSSIBLE_INCREASE_SPEED() \
     if(slow_down>SLOW_DOWN/2) \
@@ -618,8 +636,14 @@ void handle_transparent_horizontal_wall(void)
     points = 0; \
     lives = INITIAL_LIVES; \
     level = INITIAL_LEVEL; \
-    remaining_apples=INITIAL_APPLE_COUNT+level*APPLE_COUNT_INCREASE; \
-    secret_level_never_activated = 1;
+    remaining_apples=INITIAL_APPLE_COUNT+1*APPLE_COUNT_INCREASE; \
+    secret_level_never_activated = 1; \
+    for(i=0;i<9;++i) \
+    { \
+        extra_life_achievement[i] = 0; \
+    } \
+    third_coin_achievement = 0; \
+    fourth_coin_achievement = 0;
 
 #define DISPLAY_LEVEL_SCREEN() \
     CLEAR_SCREEN(); \
@@ -650,7 +674,8 @@ void handle_transparent_horizontal_wall(void)
     not_many_mines = total_mines_on_current_level<=EXTRA_COIN_SPAWN_THRESHOLD; \
     transparent_vertical_wall_level_flag = transparent_vertical_wall_level(); \
     transparent_horizontal_wall_level_flag = transparent_horizontal_wall_level(); \
-    secret_level_active = 0;
+    secret_level_active = 0; \
+    extra_count = 0
 
 
 #define spawn_items_at_level_startup() \
@@ -674,18 +699,23 @@ void handle_transparent_horizontal_wall(void)
         build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,TRANSPARENT); \
     }
 
+void one_up(void)
+{
+    ++lives;
+    DISPLAY_LIVES();
+    PING_SOUND();
+    _XLIB_DRAW(XSize-2,0,&HORIZONTAL_HEAD_IMAGE);
+    PING_SOUND();
+    DO_SLOW_DOWN(SLOW_DOWN*5);
+    _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE);
+    PING_SOUND();
+}
+
 #define handle_extra_life() \
     if(points>extra_life_counter*EXTRA_LIFE_THRESHOLD) \
     { \
         ++extra_life_counter; \
-        ++lives; \
-        DISPLAY_LIVES(); \
-        PING_SOUND(); \
-        _XLIB_DRAW(XSize-2,0,&HORIZONTAL_HEAD_IMAGE); \
-        PING_SOUND(); \
-        DO_SLOW_DOWN(SLOW_DOWN*5); \
-        _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE); \
-        PING_SOUND(); \
+        one_up(); \
     }
 
 #define handle_mines() \
@@ -716,20 +746,103 @@ void handle_transparent_horizontal_wall(void)
     snake_grows(); \
     points+=(COIN_POINTS<<coin_count); \
     ZAP_SOUND(); \
-    if(coin_count<MAX_COIN_COUNT) \
+    _XLIB_DRAW(XSize-5-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE); \
+    if(coin_count==3) \
     { \
-        ++coin_count; \
-        _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE); \
-    } \
-    if(coin_count==MAX_COIN_COUNT) \
-    { \
+        third_coin_achievement = 1; \
         spawn(SUPER_COIN); \
+    } \
+    else if(coin_count>MAX_COIN_COUNT) \
+    { \
+        fourth_coin_achievement = 1; \
+        spawn_many_extra(); \
+    } \
+    ++coin_count;
+
+
+/*
+level 4
+             0,                 YSize/5,      XSize/2,
+       XSize-1-XSize/2,       2*YSize/5,      XSize/2,
+             0,               3*YSize/5,      XSize/2,
+       XSize-1-XSize/2,       4*YSize/5,      XSize/2,
+       
+level 8
+        XSize/6, 3, YSize-1-6,
+        2*XSize/6, 3, YSize-1-6,
+        XSize-1-2*XSize/6, 3, YSize-1-6,
+        XSize-1-XSize/6, 3, YSize-1-6,
+level 12:
+        2,YSize/2-1,XSize-4,
+        
+level 16:
+        XSize/3, YSize-1-YSize/3, YSize/3,
+        XSize-1-XSize/3, YSize-1-YSize/3, YSize/3,
+*/
+
+void spawn_many_extra()
+{
+    uint8_t i;
+    
+    for(i=0;i<MANY_EXTRA;++i)
+    {
+        spawn(EXTRA);
     }
+}
+
+
+void magic_wall(void)
+{
+    magic_wall_achievement[level>>2] = 1;
+    switch(level)
+    {
+        case 0:
+            spawn_many_extra();
+        break;
+        case 4: 
+        case 20:
+            build_box_wall(1,YSize/5,XSize/2-1,1,EXTRA);
+            build_box_wall(XSize-1-XSize/2,4*YSize/5,XSize/2,1,EXTRA);
+        break;
+        case 8: 
+        case 24:
+            build_box_wall(XSize/6,3,1,YSize-1-6,EXTRA);
+            build_box_wall(XSize-1-XSize/6, 3, 1, YSize-1-6, EXTRA);
+        break;
+        case 12: 
+        case 28:
+            build_box_wall(2,YSize/2-1,XSize-4,1,EXTRA);
+        break;
+        case 16: 
+        case 32:
+            build_box_wall(XSize/3, YSize-1-YSize/3, 1,YSize/3,EXTRA);
+            build_box_wall(XSize-1-XSize/3, YSize-1-YSize/3, 1, YSize/3,EXTRA);
+        break;
+    } 
+}
+
 
 #define handle_extra_points_effect() \
     snake_grows(); \
     ZAP_SOUND(); \
-    points+=EXTRA_POINTS;
+    points+=EXTRA_POINTS; \
+    if(extra_count==MAGIC_WALL_THRESHOLD) \
+    { \
+        magic_wall(); \
+    } \
+    if(extra_count==SUPER_COIN_THRESHOLD) \
+    { \
+        super_coin_achievement[level>>2] = 1; \
+        spawn(SUPER_COIN); \
+    } \
+    if(extra_count==EXTRA_1UP_THRESHOLD) \
+    { \
+        if(!extra_life_achievement[level>>2]) \
+        { \
+            spawn(EXTRA_LIFE); \
+        } \
+    } \
+    ++extra_count
 
 #define handle_super_coin_effect() \
     ZAP_SOUND(); \
@@ -753,27 +866,36 @@ void handle_transparent_horizontal_wall(void)
     ZAP_SOUND(); \
     IF_POSSIBLE_DECREASE_SPEED();
 
+#define handle_extra_life_effect() \
+    ZAP_SOUND(); \
+    one_up(); \
+    extra_life_achievement[level>>2]=1;
+
 // TODO: All these IFs are mutually exclusive
 #define handle_collisions_with_objects() \
     if(hits_coin(snake_head_x,snake_head_y)) \
     { \
         handle_coin_effect(); \
     } \
-    if(hits_extra_points(snake_head_x,snake_head_y)) \
+    else if(hits_extra_points(snake_head_x,snake_head_y)) \
     { \
         handle_extra_points_effect(); \
     } \
-    if(hits_super_coin(snake_head_x,snake_head_y)) \
+    else if(hits_super_coin(snake_head_x,snake_head_y)) \
     { \
         handle_super_coin_effect(); \
     } \
-    if(hits_apple(snake_head_x,snake_head_y)) \
+    else if(hits_apple(snake_head_x,snake_head_y)) \
     { \
         handle_apple_effect(); \
     } \
-    if(hits_deadly_item(snake_head_x,snake_head_y) || !remaining_apples) \
+    else if(hits_deadly_item(snake_head_x,snake_head_y) || !remaining_apples) \
     { \
         break; \
+    } \
+    else if(hits_extra_life(snake_head_x,snake_head_y)) \
+    { \
+        handle_extra_life_effect(); \
     }
 
 #define update_snake_head() \
@@ -884,7 +1006,49 @@ void handle_transparent_horizontal_wall(void)
     DISPLAY_POINTS(); \
 }
 
+// #define DEBUG_ACHIEVEMENTS
 
+void display_achievements(void)
+{
+    uint8_t i;
+    
+    uint8_t achievements = 0;
+    
+    for(i=0;i<9;++i)
+    {
+        #if defined(DEBUG_ACHIEVEMENTS)
+        printf("%d %d %d\n",extra_life_achievement[i], super_coin_achievement[i],magic_wall_achievement[i]);
+        WAIT_PRESS();
+        #endif
+        achievements+=extra_life_achievement[i]+super_coin_achievement[i]+magic_wall_achievement[i];
+    }
+    
+    
+    
+    achievements+=(!secret_level_never_activated)+third_coin_achievement+fourth_coin_achievement;
+    
+    CLEAR_SCREEN();
+    
+    SET_TEXT_COLOR(COLOR_WHITE);
+    PRINT(XSize/7,YSize/3,_SECRET_STRING _XL_S);
+    // PRINTD(XSize/5+8,YSize/3,2,0);
+    PRINT(XSize/7+3,YSize/3+2,_XL_O _XL_F _XL_SPACE "30");
+    for(i=0;i<=achievements;++i)
+    {
+        PRINTD(XSize/7,YSize/3+2,2,i);
+        SHOOT_SOUND();
+        DO_SLOW_DOWN((SLOW_DOWN/5)*i);
+    }
+    
+    // PRINT(XSize/7, YSize/3+2, _LEVEL_STRING _XL_S _XL_SPACE "00" _XL_SPACE _XL_O _XL_OF _XL_SPACE "32");
+    // PRINTD(XSize/7+8,YSize/3+2,level);
+    
+    // if(!secret_level_never_activated)
+    // {
+        // SET_TEXT_COLOR(COLOR_YELLOW);
+        // PRINT(XSize/7,YSize/3+4,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
+    // }
+}
 
 int main(void)
 {
@@ -913,7 +1077,6 @@ int main(void)
             
             DISPLAY_LEVEL_SCREEN();
             WAIT_PRESS();
-            // 
             
             active_mines = 1;
             DISPLAY_LEVEL_ANIMATION();
@@ -983,6 +1146,8 @@ int main(void)
             handle_final_screen();
         }
         printCenteredMessageOnRow(YSize/2, __GAME_OVER__STRING);
+        WAIT_PRESS();
+        display_achievements();
         WAIT_PRESS();
     }
     

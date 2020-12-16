@@ -90,6 +90,11 @@ extern const Image SUPER_COIN_IMAGE;
 extern const Image UP_MINE_IMAGE;
 extern const Image DOWN_MINE_IMAGE;
 
+extern uint8_t apples_on_screen_count;
+extern uint8_t transparent_vertical_wall_level_flag;
+extern uint8_t transparent_horizontal_wall_level_flag;
+extern uint8_t not_many_mines;
+extern uint8_t total_mines_on_current_level;
 
 /*
 #define EMPTY 0
@@ -182,8 +187,6 @@ void spawn(uint8_t type)
     _XLIB_DRAW(x,y,images[type]);
 }
 
-
-static uint8_t apples_on_screen_count;
 
 static uint8_t level_walls[] = 
 {
@@ -340,8 +343,6 @@ static uint8_t level_walls_index[] =
         234, // 15
         245, // 16
         };
-
-
 
 
 void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, uint8_t type)
@@ -688,9 +689,6 @@ static const uint8_t vertical_mines_on_level_index[] =
 #define MINE_DOWN 3
 
 
-static uint8_t transparent_vertical_wall_level_flag;
-static uint8_t transparent_horizontal_wall_level_flag;
-
 #define TRANSPARENT_VERTICAL_WALL_LENGTH (YSize - 2*(YSize/4) - 4)
 #define TRANSPARENT_VERTICAL_WALL_X ((XSize)/2)
 #define TRANSPARENT_VERTICAL_WALL_Y (((YSize)/4)+2)
@@ -699,8 +697,6 @@ static uint8_t transparent_horizontal_wall_level_flag;
 #define TRANSPARENT_HORIZONTAL_WALL_X (((XSize)/2)-((TRANSPARENT_HORIZONTAL_WALL_LENGTH)/2))
 #define TRANSPARENT_HORIZONTAL_WALL_Y (((YSize)/2))
 
-static uint8_t not_many_mines;
-static uint8_t total_mines_on_current_level;
 
 void build_horizontal_mines(uint8_t level)
 {
@@ -1331,6 +1327,8 @@ void handle_transparent_horizontal_wall(void)
     init_snake(); \
     DISPLAY_POINTS(); \
 }
+
+
 
 int main(void)
 {

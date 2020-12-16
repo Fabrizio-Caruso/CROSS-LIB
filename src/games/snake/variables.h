@@ -64,5 +64,11 @@ uint8_t vertical_mine_direction[MAX_NUMBER_OF_VERTICAL_MINES];
 uint8_t vertical_mines_on_current_level;
 uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
 
+uint8_t apples_on_screen_count;
+uint8_t transparent_vertical_wall_level_flag;
+uint8_t transparent_horizontal_wall_level_flag;
+uint8_t not_many_mines;
+uint8_t total_mines_on_current_level;
+
 #endif // _VARIABLES_H
 

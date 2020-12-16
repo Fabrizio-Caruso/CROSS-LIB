@@ -6,6 +6,8 @@
 // #define DEBUG_SLOWDOWN
 // #define DEBUG_APPLES
 
+#define FINAL_LEVEL 32
+
 #define INITIAL_LIVES       5U
 
 #define EXTRA_POINTS       10U

@@ -22,9 +22,10 @@
 
 #include "cross_lib.h"
 
+#if !defined(NO_WALL)
 extern Image HORIZONTAL_BRICK_IMAGE;
 extern Image VERTICAL_BRICK_IMAGE;
-
+#endif
 
 #if !defined(NO_SET_SCREEN_COLORS) && !defined(NO_GRAPHICS)
     void setScreenColors(void)

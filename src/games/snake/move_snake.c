@@ -11,12 +11,10 @@ extern uint8_t snake_length;
 
 extern uint8_t snake_head;
 
-extern Image *head_image_ptr;
+extern const Image *head_image_ptr;
 
-extern Image* head_image_ptr;
-
-extern Image VERTICAL_HEAD_IMAGE;
-extern Image HORIZONTAL_HEAD_IMAGE;
+extern const Image VERTICAL_HEAD_IMAGE;
+extern const Image HORIZONTAL_HEAD_IMAGE;
 
 extern uint8_t snake_direction;
 

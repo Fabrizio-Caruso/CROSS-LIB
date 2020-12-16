@@ -105,6 +105,9 @@ clean_chase_temp:
 
 clean_lib_obj:
 	find -type f -name '*.o' -delete
+
+clean_i_files:
+	find -type f -name '*.i' -delete
     
 clean_lis:
 	find -type f -name '*.lis' -delete

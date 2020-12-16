@@ -13,16 +13,16 @@ uint8_t snake_length;
 
 uint8_t snake_head;
 
-Image *head_image_ptr;
+const Image *head_image_ptr;
 
 uint8_t map[XSize][YSize];
 
 
 uint8_t snake_direction;
 
-extern Image BODY_IMAGE;
-extern Image HORIZONTAL_HEAD_IMAGE;
-extern Image VERTICAL_HEAD_IMAGE;
+extern const Image BODY_IMAGE;
+extern const Image HORIZONTAL_HEAD_IMAGE;
+extern const Image VERTICAL_HEAD_IMAGE;
 
 extern uint8_t snake_head_x;
 extern uint8_t snake_head_y;

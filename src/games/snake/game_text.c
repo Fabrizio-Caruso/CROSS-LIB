@@ -7,9 +7,9 @@ extern uint8_t remaining_apples;
 extern uint8_t lives;
 extern uint16_t points;
 
-extern Image BODY_IMAGE;
-extern Image HORIZONTAL_HEAD_IMAGE;
-extern Image APPLE_IMAGE;
+extern const Image BODY_IMAGE;
+extern const Image HORIZONTAL_HEAD_IMAGE;
+extern const Image APPLE_IMAGE;
 
 
 #if !defined(SIMPLE_TITLE)

@@ -14,7 +14,7 @@ extern uint8_t snake_length;
 
 extern uint8_t snake_head;
 
-extern Image *head_image_ptr;
+extern const Image *head_image_ptr;
 
 extern uint8_t snake_direction;
 

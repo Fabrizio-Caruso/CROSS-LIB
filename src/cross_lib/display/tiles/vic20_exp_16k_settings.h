@@ -1,6 +1,6 @@
 // BLUE
-#define _TILE_0 '\'';
-#define _TILE_0 '\'';
+
+#define _TILE_0 '\''
 #define _TILE_1 0x70
 #define _TILE_2 0x74 
 #define _TILE_3 0x72

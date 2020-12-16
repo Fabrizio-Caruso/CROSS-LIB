@@ -50,28 +50,28 @@
 #define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==7)||((level&15)== 8)||((level&15)==13)||(!level))
 
 
-extern Image VERTICAL_HEAD_IMAGE;  
-extern Image HORIZONTAL_HEAD_IMAGE; 
+extern const Image VERTICAL_HEAD_IMAGE;  
+extern const Image HORIZONTAL_HEAD_IMAGE; 
 
-extern Image BODY_IMAGE; 
+extern const Image BODY_IMAGE; 
 
-extern Image EXTRA_IMAGE; 
+extern const Image EXTRA_IMAGE; 
 
-extern Image SCORE_TEXT_LEFT_IMAGE;
-extern Image SCORE_TEXT_RIGHT_IMAGE;
-extern Image HI_TEXT_IMAGE;
-extern Image LV_TEXT_IMAGE;
+extern const Image SCORE_TEXT_LEFT_IMAGE;
+extern const Image SCORE_TEXT_RIGHT_IMAGE;
+extern const Image HI_TEXT_IMAGE;
+extern const Image LV_TEXT_IMAGE;
 
-extern Image APPLE_IMAGE;
+extern const Image APPLE_IMAGE;
 
-extern Image CENTRAL_BRICK_IMAGE;
+extern const Image CENTRAL_BRICK_IMAGE;
 
-extern Image TRANSPARENT_BRICK_IMAGE;
+extern const Image TRANSPARENT_BRICK_IMAGE;
 
-extern Image MINE_IMAGE;
+extern const Image MINE_IMAGE;
 
-extern Image LEFT_MINE_IMAGE;
-extern Image RIGHT_MINE_IMAGE;
+extern const Image LEFT_MINE_IMAGE;
+extern const Image RIGHT_MINE_IMAGE;
 
 extern uint8_t map[XSize][YSize];
 
@@ -79,16 +79,16 @@ extern uint8_t snake_length;
 
 extern uint8_t snake_head;
 
-extern Image *head_image_ptr;
+extern const Image *head_image_ptr;
 
-extern Image VERTICAL_BRICK_IMAGE;
-extern Image HORIZONTAL_BRICK_IMAGE;
+extern const Image VERTICAL_BRICK_IMAGE;
+extern const Image HORIZONTAL_BRICK_IMAGE;
 
-extern Image COIN_IMAGE;
-extern Image SUPER_COIN_IMAGE;
+extern const Image COIN_IMAGE;
+extern const Image SUPER_COIN_IMAGE;
 
-extern Image UP_MINE_IMAGE;
-extern Image DOWN_MINE_IMAGE;
+extern const Image UP_MINE_IMAGE;
+extern const Image DOWN_MINE_IMAGE;
 
 
 /*
@@ -417,7 +417,7 @@ extern uint8_t vertical_mines_on_current_level;
 extern uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
 
 
-static uint8_t horizontal_mines_on_level[] = 
+static const uint8_t horizontal_mines_on_level[] = 
     {
         2, // 0  (0)
             YSize/5,
@@ -535,7 +535,7 @@ static uint8_t horizontal_mines_on_level[] =
     };
 
 
-static uint8_t horizontal_mines_on_level_index[] =
+static const uint8_t horizontal_mines_on_level_index[] =
     {
         0,  //  0
         3,  //  1
@@ -573,7 +573,7 @@ static uint8_t horizontal_mines_on_level_index[] =
     };
 
 
-static uint8_t vertical_mines_on_level[] = 
+static const uint8_t vertical_mines_on_level[] = 
     {
         1, // 0  (0)
             XSize/2,
@@ -643,7 +643,7 @@ static uint8_t vertical_mines_on_level[] =
     };
 
 
-static uint8_t vertical_mines_on_level_index[] =
+static const uint8_t vertical_mines_on_level_index[] =
     {
          0,
          2,

@@ -80,6 +80,7 @@ cmoc_targets: \
     dragon_targets \
     mo5_targets
 
+
 z88dk_targets: \
     ace \
     c128_z80_80col \
@@ -483,10 +484,10 @@ vic20_exp_8k_included_gfx: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 
 vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_8K \
-	-DSLOW_DOWN=4500 -DNO_CONST_IMAGES  \
+	-DSLOW_DOWN=4500 \
 	-DREDEFINED_CHARS \
 	$(FULL_FILES) \
 	--code-name CODE2 \
@@ -935,7 +936,8 @@ full_combo_rand.c:
 
 #/cygdrive/c/lcc42/bat/caCX.bat
 #/cygdrive/c/lcc42/bin/lcc.exe
-LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" -DNUM_OF_TILES=19 -DNO_CONST_IMAGES
+# -DNO_CONST_IMAGES
+LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" -DNUM_OF_TILES=19  $(GLOBAL_OPTS)
 BASIC_OPTS ?= $(LCC1802_OPTS) "-Wa-D LCCCX=1"
 COMX_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x4401" 
 PECOM_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x201" 
@@ -1038,7 +1040,7 @@ comx_no_sounds: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802_C_OPTS_NO_SOUNDS) \
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	# rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_comx.hex
 
 

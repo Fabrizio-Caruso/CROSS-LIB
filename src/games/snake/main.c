@@ -672,13 +672,13 @@ void one_up(void)
     snake_grows(); \
     points+=(COIN_POINTS<<coin_count); \
     ZAP_SOUND(); \
-    _XLIB_DRAW(XSize-5-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE); \
+    _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE); \
     if(coin_count==3) \
     { \
         third_coin_achievement = 1; \
         spawn(SUPER_COIN); \
     } \
-    else if(coin_count>MAX_COIN_COUNT) \
+    if(coin_count>MAX_COIN_COUNT) \
     { \
         fourth_coin_achievement = 1; \
         spawn_many_extra(); \
@@ -956,16 +956,47 @@ void display_achievements(void)
     CLEAR_SCREEN();
     
     SET_TEXT_COLOR(COLOR_YELLOW);
-    PRINT(XSize/7,YSize/3,_SECRET_STRING _XL_S);
+    PRINT(XSize/6,YSize/3-1,_SECRET_STRING _XL_S);
+    
+
     SET_TEXT_COLOR(COLOR_WHITE);
-    PRINT(XSize/7+3,YSize/3+2,_XL_O _XL_F _XL_SPACE "30");
+    PRINT(XSize/6+3,YSize/3+1,_XL_O _XL_F _XL_SPACE "30");
     for(i=0;i<=achievements;++i)
     {
-        PRINTD(XSize/7,YSize/3+2,2,i);
+        PRINTD(XSize/6,YSize/3+1,2,i);
         SHOOT_SOUND();
         DO_SLOW_DOWN((SLOW_DOWN/5)*i);
     }
     
+    SET_TEXT_COLOR(COLOR_WHITE);
+    if(!level)
+    {
+        level = next_level;
+    }
+    --level;
+    DO_SLOW_DOWN(SLOW_DOWN*4);
+
+    SET_TEXT_COLOR(COLOR_CYAN);
+    PRINT(XSize/6,YSize/3+5,_LEVEL_STRING _XL_S);
+
+    SET_TEXT_COLOR(COLOR_WHITE);
+    PRINT(XSize/6+3,YSize/3+7,_XL_O _XL_F _XL_SPACE "32");
+    
+    for(i=0;i<=level;++i)
+    {
+        PRINTD(XSize/6,YSize/3+7,2,i);
+        SHOOT_SOUND();
+        DO_SLOW_DOWN((SLOW_DOWN/5)*i);
+    }
+    
+    DO_SLOW_DOWN(SLOW_DOWN*4);
+    
+    
+    if(!secret_level_never_activated)
+    {
+        SET_TEXT_COLOR(COLOR_YELLOW);
+        PRINT(XSize/6,YSize/3+9,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
+    }
 }
 
 int main(void)

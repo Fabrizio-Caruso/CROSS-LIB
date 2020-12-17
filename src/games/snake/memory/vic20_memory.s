@@ -35,7 +35,6 @@ _horizontal_mine_direction = _horizontal_mine_y + 4
 .export _horizontal_mine_transition;
 _horizontal_mine_transition = _horizontal_mine_direction + 4
 
-
 .export _vertical_mine_x;
 _vertical_mine_x = _horizontal_mine_transition + 4
 

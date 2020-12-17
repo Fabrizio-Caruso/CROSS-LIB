@@ -441,7 +441,7 @@ void handle_horizontal_mine(register uint8_t index)
             map[x][y]=EMPTY;
             _XLIB_DELETE(x,y);
             ++horizontal_mine_x[index];
-            _XLIB_DRAW(horizontal_mine_x[index],horizontal_mine_y[index],&MINE_IMAGE);
+            _XLIB_DRAW(horizontal_mine_x[index],y,&MINE_IMAGE);
         }
     }
 }

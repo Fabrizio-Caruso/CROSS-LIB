@@ -43,7 +43,9 @@ FULL_FILES ?= \
 	$(SOURCE_PATH)/move_snake.c \
 	$(SOURCE_PATH)/snake.c \
 	$(SOURCE_PATH)/game_text.c \
-	$(SOURCE_PATH)/init_images.c
+	$(SOURCE_PATH)/init_images.c \
+	$(SOURCE_PATH)/variables.c
+
 
 
 SCCZ80_OPTS ?= -O0
@@ -208,9 +210,9 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 # Lacks one tile
-c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
+c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
-	--config $(CFG_PATH)/cc65/c16-32k_GFX.cfg \
+	--config $(CFG_PATH)/cc65/c16-32k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
@@ -228,7 +230,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
-	$(ASSETS_PATH)/cc65_udc_63_chars.s \
+	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
@@ -430,7 +432,8 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/main.c   \
 	$(SOURCE_PATH)/game_text.c  \
 	$(SOURCE_PATH)/init_images.c \
-    $(SOURCE_PATH)/memory/vic20_memory.s \
+	$(SOURCE_PATH)/memory/vic20_memory.s \
+	$(SOURCE_PATH)/variables.c \
 	--code-name CODE2 \
 	$(SOURCE_PATH)/snake.c  \
 	$(SOURCE_PATH)/control_player.c \
@@ -552,6 +555,9 @@ dragon:
 	-c $(SOURCE_PATH)/control_player.c
 	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
@@ -563,7 +569,7 @@ dragon:
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
-	init_images.o \
+	init_images.o variables.o \
 	memory_mapped_alt_print.o \
 	text_macros.o game_text.o \
 	control_player.o snake.o move_snake.o \
@@ -571,7 +577,7 @@ dragon:
 	rm 	display_macros.o \
 	init_images.o game_text.o \
 	memory_mapped_alt_print.o \
-	text_macros.o \
+	text_macros.o variables.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o 
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_Dragon.cas -D $(BUILD_PATH)/xchase.bin -A
@@ -601,6 +607,9 @@ coco:
 	-c $(SOURCE_PATH)/control_player.c
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
@@ -619,11 +628,11 @@ coco:
 	main.o \
 	display_macros.o \
 	init_images.o game_text.o \
-	memory_mapped_alt_print.o \
+	memory_mapped_alt_print.o variables.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm main.o display_macros.o \
-	init_images.o \
+	init_images.o variables.o \
 	memory_mapped_alt_print.o game_text.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
@@ -662,6 +671,9 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
 	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c
 	$(CMOC) \
@@ -681,7 +693,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	display_macros.o \
 	cmoc_udc_25_tiles.o \
 	init_images.o \
-	text_macros.o \
+	text_macros.o variables.o \
 	input_macros.o game_text.o \
 	control_player.o snake.o move_snake.o
 	rm \
@@ -689,7 +701,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	cmoc_udc_25_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
-	init_images.o \
+	init_images.o variables.o \
 	text_macros.o game_text.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o

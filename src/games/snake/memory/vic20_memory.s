@@ -60,3 +60,24 @@ _record = _slow_down + 2
 
 .export _level_bonus;
 _level_bonus = _record + 2
+
+.segment "ZEROPAGE"
+
+.exportzp _snake_head_x;
+_snake_head_x = 43
+
+.exportzp _snake_head_y;
+_snake_head_y = 44
+
+.exportzp _speed_increase_counter;
+_speed_increase_counter = 45
+
+.exportzp _spawned_apples;
+_spawned_apples = 46
+
+.exportzp _remaining_apples;
+_remaining_apples = 47
+
+.exportzp _level;
+_level = 48
+

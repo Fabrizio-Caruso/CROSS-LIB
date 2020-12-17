@@ -2,17 +2,11 @@
 #include "cross_lib.h"
 #include "game_text.h"
 
-extern uint8_t energy;
-extern uint8_t remaining_apples;
-extern uint8_t lives;
-extern uint16_t points;
-
-extern const Image BODY_IMAGE;
-extern const Image HORIZONTAL_HEAD_IMAGE;
-extern const Image APPLE_IMAGE;
+#include "variables.h"
 
 
-#if !defined(SIMPLE_TITLE)
+
+#if !defined(NO_EXTRA_TITLE)
 
 char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
 {

@@ -3,69 +3,117 @@
 
 #include "settings.h"
 
+
+extern uint8_t snake_head_x;
 #if defined(USE_MEMORY_BUFFERS)
-    #define _EXTERN extern
-#else
-    #define _EXTERN
+#pragma zpsym("snake_head_x")
 #endif
 
+extern uint8_t snake_head_y;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("snake_head_y")
+#endif
 
-uint8_t snake_head_x;
-uint8_t snake_head_y;
-uint8_t speed_increase_counter;
-uint8_t spawned_apples;
-uint8_t remaining_apples;
-uint8_t level;
-uint8_t energy;
-uint8_t lives;
+extern uint8_t speed_increase_counter;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("speed_increase_counter")
+#endif
 
-uint8_t horizontal_mines_on_current_level;
-uint8_t vertical_mines_on_current_level;
-uint8_t coin_count;
-uint8_t extra_life_counter;
-uint8_t active_mines;
-uint8_t transparent_vertical_wall_triggered;
-uint8_t transparent_horizontal_wall_triggered;
-uint8_t secret_level_active;
-uint8_t secret_level_never_activated;
-uint8_t next_level;
-uint8_t apples_on_screen_count;
-uint8_t transparent_vertical_wall_level_flag;
-uint8_t transparent_horizontal_wall_level_flag;
-uint8_t not_many_mines;
-uint8_t total_mines_on_current_level;
+extern uint8_t spawned_apples;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("spawned_apples")
+#endif
+
+extern uint8_t remaining_apples;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("remaining_apples")
+#endif
+
+extern uint8_t level;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("level")
+#endif
+
+extern uint8_t energy;
+extern uint8_t lives;
+
+extern uint8_t horizontal_mines_on_current_level;
+extern uint8_t vertical_mines_on_current_level;
+extern uint8_t coin_count;
+extern uint8_t extra_life_counter;
+extern uint8_t active_mines;
+extern uint8_t transparent_vertical_wall_triggered;
+extern uint8_t transparent_horizontal_wall_triggered;
+extern uint8_t secret_level_active;
+extern uint8_t secret_level_never_activated;
+extern uint8_t next_level;
+extern uint8_t apples_on_screen_count;
+extern uint8_t transparent_vertical_wall_level_flag;
+extern uint8_t transparent_horizontal_wall_level_flag;
+extern uint8_t not_many_mines;
+extern uint8_t total_mines_on_current_level;
 
 
-_EXTERN uint8_t snake_x[MAX_SNAKE_LENGTH];
-_EXTERN uint8_t snake_y[MAX_SNAKE_LENGTH];
-_EXTERN uint8_t snake_copy_x[MAX_SNAKE_LENGTH];
-_EXTERN uint8_t snake_copy_y[MAX_SNAKE_LENGTH];
+extern uint8_t snake_x[MAX_SNAKE_LENGTH];
+extern uint8_t snake_y[MAX_SNAKE_LENGTH];
+extern uint8_t snake_copy_x[MAX_SNAKE_LENGTH];
+extern uint8_t snake_copy_y[MAX_SNAKE_LENGTH];
 
-_EXTERN uint16_t points;
-_EXTERN uint16_t slow_down;
-_EXTERN uint16_t record;
-_EXTERN uint16_t level_bonus;
+extern uint16_t points;
+extern uint16_t slow_down;
+extern uint16_t record;
+extern uint16_t level_bonus;
 
 
-_EXTERN uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
-_EXTERN uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
-_EXTERN uint8_t horizontal_mine_direction[MAX_NUMBER_OF_HORIZONTAL_MINES];
-_EXTERN uint8_t horizontal_mine_transition[MAX_NUMBER_OF_HORIZONTAL_MINES];
+extern uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
+extern uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
+extern uint8_t horizontal_mine_direction[MAX_NUMBER_OF_HORIZONTAL_MINES];
+extern uint8_t horizontal_mine_transition[MAX_NUMBER_OF_HORIZONTAL_MINES];
 
-_EXTERN uint8_t vertical_mine_x[MAX_NUMBER_OF_VERTICAL_MINES];
-_EXTERN uint8_t vertical_mine_y[MAX_NUMBER_OF_VERTICAL_MINES];
-_EXTERN uint8_t vertical_mine_direction[MAX_NUMBER_OF_VERTICAL_MINES];
-_EXTERN uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
+extern uint8_t vertical_mine_x[MAX_NUMBER_OF_VERTICAL_MINES];
+extern uint8_t vertical_mine_y[MAX_NUMBER_OF_VERTICAL_MINES];
+extern uint8_t vertical_mine_direction[MAX_NUMBER_OF_VERTICAL_MINES];
+extern uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
 
 
 // It records if one extra life was taken in bonus/secret levels
-_EXTERN uint8_t extra_life_achievement[9];
+extern uint8_t extra_life_achievement[9];
 
 // It records if the magic wall was created in bonus/secret levels
-_EXTERN uint8_t magic_wall_achievement[9];
+extern uint8_t magic_wall_achievement[9];
 
 // It records if the super coin was spawned in bonus/secret/levels
-_EXTERN uint8_t super_coin_achievement[9];
+extern uint8_t super_coin_achievement[9];
+
+extern uint8_t snake_length;
+extern uint8_t snake_head;
+extern const Image *head_image_ptr;
+extern uint8_t map[XSize][YSize];
+extern uint8_t snake_direction;
+
+
+extern const Image VERTICAL_HEAD_IMAGE;
+extern const Image HORIZONTAL_HEAD_IMAGE;
+extern const Image LEFT_MINE_IMAGE;
+extern const Image RIGHT_MINE_IMAGE;
+extern const Image BODY_IMAGE;
+extern const Image APPLE_IMAGE;
+extern const Image HI_TEXT_IMAGE;
+extern const Image CENTRAL_BRICK_IMAGE;
+extern const Image COIN_IMAGE;
+extern const Image LV_TEXT_IMAGE;
+extern const Image TRANSPARENT_BRICK_IMAGE;
+extern const Image UP_MINE_IMAGE;
+extern const Image VERTICAL_BRICK_IMAGE;
+extern const Image HORIZONTAL_BRICK_IMAGE;
+extern const Image SCORE_TEXT_LEFT_IMAGE;
+extern const Image DOWN_MINE_IMAGE;
+extern const Image SCORE_TEXT_RIGHT_IMAGE;
+extern const Image MINE_IMAGE;
+extern const Image SUPER_COIN_IMAGE;
+extern const Image EXTRA_IMAGE;
+
+extern char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE];
 
 #endif // _VARIABLES_H
 

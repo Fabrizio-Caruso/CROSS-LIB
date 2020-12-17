@@ -4,19 +4,8 @@
 
 #include "settings.h"
 
-extern uint8_t ship_x;
-extern uint8_t ship_fire;
+#include "variables.h"
 
-extern uint8_t snake_x[MAX_SNAKE_LENGTH];
-extern uint8_t snake_y[MAX_SNAKE_LENGTH];
-
-extern uint8_t snake_length;
-
-extern uint8_t snake_head;
-
-extern const Image *head_image_ptr;
-
-extern uint8_t snake_direction;
 
 
 #if defined(JOYSTICK_CONTROL)

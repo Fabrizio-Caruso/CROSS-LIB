@@ -3,7 +3,7 @@
 
 
 #include "cross_lib.h"
-
+#include "settings.h"
 
 //254
 
@@ -19,7 +19,6 @@
 #define VERTICAL_WALL 9
 #define TRANSPARENT 10
 
-#define NUMBER_OF_LEVELS 16
 
 
 void draw_head(void);

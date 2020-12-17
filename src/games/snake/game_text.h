@@ -9,9 +9,6 @@
     #define HISCORE_OFFSET 0
 #endif
 
-#define NUMBER_OF_STRINGS 5
-
-#define MAX_STRING_SIZE (6+1)
 
 
 #define __NO_ENERGY__STRING _XL_SPACE _XL_N _XL_O _XL_SPACE _XL_E _XL_N _XL_E _XL_R _XL_G _XL_Y _XL_SPACE
@@ -27,7 +24,6 @@
 
 #if !defined(NO_EXTRA_TITLE)
 
-extern char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE];
 
 #define extra_title() \
 { \

@@ -27,6 +27,7 @@
 
 // #define DEBUG_END
 // #define DEBUG_ITEMS
+// #define DEBUG_ITEMS_IN_GAME
 
 #include "cross_lib.h"
 

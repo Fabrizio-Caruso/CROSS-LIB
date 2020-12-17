@@ -280,7 +280,7 @@ int main(void)
         lives = LIVES_NUMBER;
         ghostCount = GHOSTS_NUMBER;
         #if defined(FULL_GAME)
-            #if defined(DEBUG_ITEMS)
+            #if defined(DEBUG_ITEMS_IN_GAME)
                 destroyed_bases_in_completed_leveles = 99;
                 all_skulls_killed_in_completed_levels = 99;
             #else

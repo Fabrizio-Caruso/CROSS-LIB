@@ -1,4 +1,6 @@
 
+#define _TILE_18 0x3C
+
 #define _TILE_21 0x3D
 #define _TILE_22 0x3E
 #define _TILE_23 0x3F
@@ -47,7 +49,6 @@
 #define _TILE_16 0x5E
 
 #define _TILE_17 0x7B
-#define _TILE_18 0x7C
 
 #define _TILE_4_B _TILE_4
 

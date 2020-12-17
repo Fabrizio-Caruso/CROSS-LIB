@@ -3,6 +3,9 @@
 
 _Charset:
 
+; 0xFE super
+.byte <tile_18>
+
 .byte <tile_21>
 
 .byte <tile_22>
@@ -108,8 +111,6 @@ _Charset:
 ; 0xFD freeze
 .byte <tile_17>
 
-; 0xFE super
-.byte <tile_18>
 
 
 ; ------------------------------------------------------------------------

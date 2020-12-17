@@ -800,7 +800,7 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 
 
 gb: $(ASSETS_PATH)/z88dk_gameboy.asm
-	$(Z88DK_PATH)$(MYZ88DK) +gb -compiler=sdcc $(ZSDCC_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__GB__ \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=18 \
@@ -824,7 +824,7 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 mc1000: mc1000_exp_48k
 
 mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +mc1000 -compiler=sdcc $(ZSDCC_OPTS) $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff \
+	$(Z88DK_PATH)$(MYZ88DK) +mc1000 $(SCCZ80_OPTS) $(INCLUDE_OPTS)  -pragma-define:REGISTER_SP=0x3fff \
 	-subtype=gaming \
 	-DZ88DK_JOYSTICK \
 	-DFULL_GAME -DSLOW_DOWN=3000 \
@@ -874,7 +874,7 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 spectrum: spectrum_48k
 
 spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +zx $(ZSDCC_OPTS) -compiler=sdcc $(INCLUDE_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
 	-pragma-redirect:getk=getk_inkey \
 	-DFULL_GAME \
@@ -902,7 +902,7 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 vg5k: vg5k_exp_16k
 
 vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
-	$(Z88DK_PATH)$(MYZ88DK) +vg5k -compiler=sdcc $(ZSDCC_OPTS) \
+	$(Z88DK_PATH)$(MYZ88DK) +vg5k $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -vn -DFULL_GAME -D__VG5K__ -DBETWEEN_LEVEL -DEND_SCREEN -DASM_DISPLAY \
 	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg \

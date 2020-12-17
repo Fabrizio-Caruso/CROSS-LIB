@@ -72,13 +72,13 @@ extern uint8_t total_mines_on_current_level;
 uint8_t extra_count;
 
 // It records if one extra life was taken in bonus/secret levels
-uint8_t extra_life_achievement[9];
+extern uint8_t extra_life_achievement[9];
 
 // It records if the magic wall was created in bonus/secret levels
-uint8_t magic_wall_achievement[9];
+extern uint8_t magic_wall_achievement[9];
 
 // It records if the super coin was spawned in bonus/secret/levels
-uint8_t super_coin_achievement[9];
+extern uint8_t super_coin_achievement[9];
 
 uint8_t third_coin_achievement;
 uint8_t fourth_coin_achievement;

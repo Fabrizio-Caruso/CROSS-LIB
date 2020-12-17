@@ -8,6 +8,8 @@ PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
+GLOBAL_OPTS = -DFULL_LOWER_BORDER 
+
 #####################################################################
 # Compilers variables
 include makefiles.common/auxiliary/Makefile_compilers
@@ -166,9 +168,9 @@ c16: c16_32k
 plus4: c16_32k
 
 
-c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
+c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 $(DRAW_SKIP) \
-	--config $(CFG_PATH)/cc65/c16-32k_GFX.cfg \
+	--config $(CFG_PATH)/cc65/c16-32k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB \
 	-DFULL_GAME \
 	-DREDEFINED_CHARS \
@@ -187,7 +189,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	$(ASSETS_PATH)/cc65_udc_63_chars.s \
+	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_32k.prg
 
 
@@ -196,7 +198,7 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 c64: c64_exomized
 
 	# -DSLOW_DOWN=990 -DINITIAL_GHOST_SLOWDOWN=31000 
-c64_exomized: $(ASSETS_PATH)/cc65_udc.s
+c64_exomized: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
 	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
@@ -204,7 +206,7 @@ c64_exomized: $(ASSETS_PATH)/cc65_udc.s
 	-DMEMORY_MAPPED \
 	-DSLOW_DOWN=250 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(ASSETS_PATH)/cc65_udc.s \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -212,9 +214,9 @@ c64_exomized: $(ASSETS_PATH)/cc65_udc.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
-	rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 
-c64_uncompressed: $(ASSETS_PATH)/cc65_udc.s
+c64_uncompressed: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
 	-DANIMATE_PLAYER -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
@@ -222,7 +224,7 @@ c64_uncompressed: $(ASSETS_PATH)/cc65_udc.s
 	-DMEMORY_MAPPED \
 	-DSLOW_DOWN=250 \
 	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(ASSETS_PATH)/cc65_udc.s \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(SOURCE_PATH)/end_screen.c \
@@ -351,13 +353,13 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 
 vic20: vic20_exp_16k
 
-vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
+vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
 	-DSLOW_DOWN=800 -DCC65_GOTO -DGHOSTS_NUMBER=8 \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
-	$(ASSETS_PATH)/cc65_udc.s \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  $(SOURCE_PATH)/sleep.c \
 	--code-name CODE2 \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c \
@@ -366,13 +368,13 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc.s
 	$(SOURCE_PATH)/end_screen.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-vic20_wait_vsync: $(ASSETS_PATH)/cc65_udc.s
+vic20_wait_vsync: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
 	--config $(CFG_PATH)/cc65/vic20-16k_CODE2_GFX.cfg \
 	-DCONIO -DVIC20_EXP_16K \
 	-DSLOW_DOWN=800 -DCC65_GOTO -DGHOSTS_NUMBER=8 -DUSE_WAIT_V_SYNC -DDEBUG_GHOST_DISPLAY \
 	-DREDEFINED_CHARS -DBETWEEN_LEVEL -DEND_SCREEN \
-	$(ASSETS_PATH)/cc65_udc.s \
+	$(ASSETS_PATH)/cc65_udc_arcade.s \
 	$(TINY_FILES) $(SOURCE_PATH)/item.c $(SOURCE_PATH)/bullet.c  $(SOURCE_PATH)/sleep.c \
 	--code-name CODE2 \
 	$(SOURCE_PATH)/horizontal_missile.c $(SOURCE_PATH)/rocket.c  $(SOURCE_PATH)/skull.c \
@@ -683,7 +685,7 @@ include makefiles.common/auxiliary/Makefile_combo
 
 #/cygdrive/c/lcc42/bat/caCX.bat
 #/cygdrive/c/lcc42/bin/lcc.exe
-LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall" -DNUM_OF_TILES=19
+LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" "-Wf-mulcall" -DNUM_OF_TILES=19 $(GLOBAL_OPTS)
 BASIC_OPTS ?= $(LCC1802_OPTS) "-Wa-D LCCCX=1"
 COMX_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x4401" 
 PECOM_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x201" 

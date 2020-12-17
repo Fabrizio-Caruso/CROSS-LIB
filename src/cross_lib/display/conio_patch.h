@@ -299,7 +299,7 @@
     #define COLOR_BLUE CPC_WHITE
     
     #undef COLOR_CYAN
-    #define COLOR_CYAN CPC_YELLOW
+    #define COLOR_CYAN CPC_WHITE
     
     #undef COLOR_RED 
     #define COLOR_RED CPC_RED

@@ -934,24 +934,39 @@ void magic_wall(void)
 
 // #define DEBUG_ACHIEVEMENTS
 
-void display_achievements(void)
+void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
 {
     uint8_t i;
     
-    uint8_t achievements = 0;
+    SET_TEXT_COLOR(COLOR_WHITE);
+    PRINT(XSize/6+3,row,_XL_O _XL_F);
+    PRINTD(XSize/6+6,row,2,max);
+    for(i=0;i<=achievements;++i)
+    {
+        PRINTD(XSize/6,row,2,i);
+        SHOOT_SOUND();
+        DO_SLOW_DOWN((SLOW_DOWN/5)*i);
+    }
+    DO_SLOW_DOWN(SLOW_DOWN*4);
+
+}
+
+
+void display_stats(void)
+{
+    uint8_t i;
     
     for(i=0;i<9;++i)
     {
         #if defined(DEBUG_ACHIEVEMENTS)
-        printf("%d %d %d\n",extra_life_achievement[i], super_coin_achievement[i],magic_wall_achievement[i]);
+        PRINTD(2,1+i,1,extra_life_achievement[i]); PRINTD(4,1+i,1, super_coin_achievement[i]); PRINTD(6,1+i,1,magic_wall_achievement[i]);
         WAIT_PRESS();
         #endif
-        achievements+=extra_life_achievement[i]+super_coin_achievement[i]+magic_wall_achievement[i];
+        lives+=extra_life_achievement[i]+super_coin_achievement[i]+magic_wall_achievement[i];
     }
     
     
-    
-    achievements+=(!secret_level_never_activated)+third_coin_achievement+fourth_coin_achievement;
+    lives+=(!secret_level_never_activated)+third_coin_achievement+fourth_coin_achievement;
     
     CLEAR_SCREEN();
     
@@ -959,42 +974,23 @@ void display_achievements(void)
     PRINT(XSize/6,YSize/3-1,_SECRET_STRING _XL_S);
     
 
-    SET_TEXT_COLOR(COLOR_WHITE);
-    PRINT(XSize/6+3,YSize/3+1,_XL_O _XL_F _XL_SPACE "30");
-    for(i=0;i<=achievements;++i)
-    {
-        PRINTD(XSize/6,YSize/3+1,2,i);
-        SHOOT_SOUND();
-        DO_SLOW_DOWN((SLOW_DOWN/5)*i);
-    }
+    display_achievements(YSize/3+1,lives, 30);
     
-    SET_TEXT_COLOR(COLOR_WHITE);
     if(!level)
     {
         level = next_level;
     }
     --level;
-    DO_SLOW_DOWN(SLOW_DOWN*4);
 
     SET_TEXT_COLOR(COLOR_CYAN);
     PRINT(XSize/6,YSize/3+5,_LEVEL_STRING _XL_S);
 
-    SET_TEXT_COLOR(COLOR_WHITE);
-    PRINT(XSize/6+3,YSize/3+7,_XL_O _XL_F _XL_SPACE "32");
-    
-    for(i=0;i<=level;++i)
-    {
-        PRINTD(XSize/6,YSize/3+7,2,i);
-        SHOOT_SOUND();
-        DO_SLOW_DOWN((SLOW_DOWN/5)*i);
-    }
-    
-    DO_SLOW_DOWN(SLOW_DOWN*4);
+    display_achievements(YSize/3+7,level,32);
     
     
     if(!secret_level_never_activated)
     {
-        SET_TEXT_COLOR(COLOR_YELLOW);
+        SET_TEXT_COLOR(COLOR_RED);
         PRINT(XSize/6,YSize/3+9,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
     }
 }
@@ -1096,7 +1092,7 @@ int main(void)
         }
         printCenteredMessageOnRow(YSize/2, __GAME_OVER__STRING);
         WAIT_PRESS();
-        display_achievements();
+        display_stats();
         WAIT_PRESS();
     }
     

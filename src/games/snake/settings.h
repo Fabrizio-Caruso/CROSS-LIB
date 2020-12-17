@@ -6,6 +6,7 @@
 // #define DEBUG_SLOWDOWN
 // #define DEBUG_APPLES
 // #define DEBUG_ACHIEVEMENTS
+// #define NO_EXTRA_TITLE
 
 #define FINAL_LEVEL 32
 

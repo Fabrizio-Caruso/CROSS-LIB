@@ -382,6 +382,11 @@ void build_level(void)
     build_vertical_mines(level);
 }
 
+void display_horizontal_transition_mine(uint8_t x, uint8_t y)
+{
+    _XLIB_DRAW(x-1,y,&LEFT_MINE_IMAGE);
+    _XLIB_DRAW(x,y,&RIGHT_MINE_IMAGE);
+}
 
 void handle_horizontal_mine(register uint8_t index)
 {
@@ -396,8 +401,7 @@ void handle_horizontal_mine(register uint8_t index)
             if(!map[x-1][y])
             {
                 // Do left transition
-                _XLIB_DRAW(x-1,y,&LEFT_MINE_IMAGE);
-                _XLIB_DRAW(x,y,&RIGHT_MINE_IMAGE);
+                display_horizontal_transition_mine(x,y);
                 map[x-1][y]=DEADLY;
                 ++horizontal_mine_transition[index];
             }
@@ -422,8 +426,7 @@ void handle_horizontal_mine(register uint8_t index)
             if(!map[x+1][y])
             {
                 // Do right transition
-                _XLIB_DRAW(x,y,&LEFT_MINE_IMAGE);
-                _XLIB_DRAW(x+1,y,&RIGHT_MINE_IMAGE);
+                display_horizontal_transition_mine(x+1,y);
                 map[x+1][y]=DEADLY;
                 ++horizontal_mine_transition[index];
             }
@@ -455,6 +458,12 @@ void handle_horizontal_mines(void)
 }
 
 
+void display_vertical_transition_mine(uint8_t x, uint8_t y)
+{
+    _XLIB_DRAW(x,y-1,&UP_MINE_IMAGE);
+    _XLIB_DRAW(x,y,&DOWN_MINE_IMAGE);
+}
+
 
 void handle_vertical_mine(register uint8_t index)
 {
@@ -469,8 +478,7 @@ void handle_vertical_mine(register uint8_t index)
             if(!map[x][y-1])
             {
                 // Do up transition
-                _XLIB_DRAW(x,y-1,&UP_MINE_IMAGE);
-                _XLIB_DRAW(x,y,&DOWN_MINE_IMAGE);
+                display_vertical_transition_mine(x,y);
                 map[x][y-1]=DEADLY;
                 ++vertical_mine_transition[index];
             }
@@ -495,8 +503,7 @@ void handle_vertical_mine(register uint8_t index)
             if(!map[x][vertical_mine_y[index]+1])
             {
                 // Do right transition
-                _XLIB_DRAW(x,y,&UP_MINE_IMAGE);
-                _XLIB_DRAW(x,y+1,&DOWN_MINE_IMAGE);
+                display_vertical_transition_mine(x,y+1);
                 map[x][y+1]=DEADLY;
                 ++vertical_mine_transition[index];
             }

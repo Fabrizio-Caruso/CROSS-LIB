@@ -8,7 +8,7 @@
 
 #define FINAL_LEVEL 32
 
-#define INITIAL_LIVES       2U
+#define INITIAL_LIVES       5U
 
 #define EXTRA_POINTS       10U
 #define APPLE_POINTS       20U

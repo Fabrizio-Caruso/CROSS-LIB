@@ -1036,9 +1036,9 @@ void display_achievements(void)
     
     CLEAR_SCREEN();
     
-    SET_TEXT_COLOR(COLOR_WHITE);
+    SET_TEXT_COLOR(COLOR_YELLOW);
     PRINT(XSize/7,YSize/3,_SECRET_STRING _XL_S);
-    // PRINTD(XSize/5+8,YSize/3,2,0);
+    SET_TEXT_COLOR(COLOR_WHITE);
     PRINT(XSize/7+3,YSize/3+2,_XL_O _XL_F _XL_SPACE "30");
     for(i=0;i<=achievements;++i)
     {
@@ -1047,14 +1047,6 @@ void display_achievements(void)
         DO_SLOW_DOWN((SLOW_DOWN/5)*i);
     }
     
-    // PRINT(XSize/7, YSize/3+2, _LEVEL_STRING _XL_S _XL_SPACE "00" _XL_SPACE _XL_O _XL_OF _XL_SPACE "32");
-    // PRINTD(XSize/7+8,YSize/3+2,level);
-    
-    // if(!secret_level_never_activated)
-    // {
-        // SET_TEXT_COLOR(COLOR_YELLOW);
-        // PRINT(XSize/7,YSize/3+4,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
-    // }
 }
 
 int main(void)

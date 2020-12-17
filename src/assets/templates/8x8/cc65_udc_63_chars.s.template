@@ -97,12 +97,6 @@ _Charset:
 .byte <tile_15>
 
 
-; 0xFD freeze
-.byte <tile_17>
-
-; 0xFE super
-.byte <tile_18>
-
 
 ; ------------------------------------------------------------------------
 ; Unused - Conflict if put at the end of the unexpanded Commodore 16 ram memory 

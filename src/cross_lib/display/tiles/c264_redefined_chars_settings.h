@@ -2,7 +2,6 @@
 #ifndef _C264_REDEFINED_CHARS_H
 #define _C264_REDEFINED_CHARS_H
 
-
 // Still available:
 // 0x80-.... ?
 

@@ -304,9 +304,9 @@ c16_32k: $(ASSETS_PATH)/8x8_chars.h
 
 c16: c16_16k
 
-c16_16k: $(ASSETS_PATH)/cc65_udc_63_chars.s
+c16_16k: $(ASSETS_PATH)/cc65_udc_64_chars.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t c16 \
-	--config $(CFG_PATH)/cc65/c16-16k_GFX.cfg \
+	--config $(CFG_PATH)/cc65/c16-16k_GFX_64chars.cfg \
 	-DFORCE_NO_CONIO_LIB \
 	-DFULL_GAME -DSLOW_DOWN=2000 \
 	-DREDEFINED_CHARS \
@@ -329,7 +329,7 @@ c16_16k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \
-	$(ASSETS_PATH)/cc65_udc_63_chars.s \
+	$(ASSETS_PATH)/cc65_udc_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c16_16k.prg	
 
 

@@ -107,11 +107,19 @@ void INIT_GRAPHICS(void)
         _setcolor_low(3, TGI_COLOR_BROWN);
         _setcolor_low(4, TGI_COLOR_BLACK);
     #else
+        #if !defined(__ATARI5200__)
         _setcolor_low(0, GTIA_COLOR_RED);
         _setcolor_low(1, TGI_COLOR_WHITE);
-        _setcolor_low(2, GTIA_COLOR_GREEN); 	
-        _setcolor_low(3, GTIA_COLOR_BROWN     );
+        _setcolor_low(2, GTIA_COLOR_GREEN); 
+        _setcolor_low(3, GTIA_COLOR_BROWN);
         _setcolor_low(4, TGI_COLOR_BLACK);
+        #else
+        _setcolor_low(0, COLOR_RED);
+        _setcolor_low(1, TGI_COLOR_WHITE);
+        _setcolor_low(2, COLOR_GREEN);
+        _setcolor_low(3, GTIA_COLOR_BROWN);
+        _setcolor_low(4, TGI_COLOR_BLACK);
+        #endif
     #endif
 	#if defined(REDEFINED_CHARS)
 	set_udg();

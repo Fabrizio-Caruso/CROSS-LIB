@@ -567,6 +567,8 @@ void handle_transparent_horizontal_wall(void)
     for(i=0;i<9;++i) \
     { \
         extra_life_achievement[i] = 0; \
+        super_coin_achievement[i] = 0; \
+        magic_wall_achievement[i] = 0; \
     } \
     third_coin_achievement = 0; \
     fourth_coin_achievement = 0;

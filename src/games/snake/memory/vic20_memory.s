@@ -2,8 +2,13 @@
 ;0334-033B    820-827       ??
 ;*033C-03FB   828-1019      Cassette buffer
 
+; $200 - $276 (512-630)
+;*0200-0258  512-600  Basic input buffer
+;*0259-0262  601-610  Logical file table
+;*0263-026C  611-620  Device # table
+;*026D-0276  621-630  Secondary Address table
 .export _snake_x;
-_snake_x = $334
+_snake_x = $33C
 
 .export _snake_y;
 _snake_y = _snake_x + 45 
@@ -21,10 +26,10 @@ _extra_life_achievement = _snake_copy_y + 45
 _magic_wall_achievement = _extra_life_achievement + 9
 
 .export _super_coin_achievement;
-_super_coin_achievement = $200
+_super_coin_achievement = _magic_wall_achievement + 9
 
 .export _horizontal_mine_x;
-_horizontal_mine_x = _super_coin_achievement + 9
+_horizontal_mine_x = $259
 
 .export _horizontal_mine_y;
 _horizontal_mine_y = _horizontal_mine_x + 4
@@ -59,6 +64,8 @@ _record = _slow_down + 2
 
 .export _level_bonus;
 _level_bonus = _record + 2
+
+
 
 .segment "ZEROPAGE"
 

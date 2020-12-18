@@ -117,7 +117,7 @@ atari_test: $(ASSETS_PATH)/8x8_chars.h
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
-	-DSLOW_DOWN=4600 \
+	-DSLOW_DOWN=5000 \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
@@ -135,7 +135,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
-	-DSLOW_DOWN=4600 \
+	-DSLOW_DOWN=5000 \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/atari_mode1_redefined_chars_init_graphics.c \
@@ -154,7 +154,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	-DMEMORY_MAPPED \
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
-	-DSLOW_DOWN=4600 \
+	-DSLOW_DOWN=5000 \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \

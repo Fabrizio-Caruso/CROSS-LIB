@@ -1038,6 +1038,10 @@ int main(void)
             
             spawn_items_at_level_startup();
             WAIT_PRESS();
+
+            #if defined(DEBUG_FREEZE)
+                spawn(SUPER_COIN);
+            #endif
             
             #if defined(DEBUG_LEVELS)
                 debug_transparent_walls();
@@ -1048,10 +1052,6 @@ int main(void)
             
             while(remaining_apples)
             {
-                if(not_many_mines)
-                {
-                    DO_SLOW_DOWN(FEW_MINES_SLOWDOWN);
-                }
                 handle_extra_life();
                 
                 if(MOVE_PLAYER())

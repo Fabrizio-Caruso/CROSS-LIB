@@ -7,6 +7,7 @@
 // #define DEBUG_APPLES
 // #define DEBUG_ACHIEVEMENTS
 // #define NO_EXTRA_TITLE
+// #define DEBUG_FREEZE
 
 #define FINAL_LEVEL 32
 

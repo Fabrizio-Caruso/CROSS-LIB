@@ -61,12 +61,19 @@ void INIT_GRAPHICS(void)
 	// Mode 12 with no last monochromatic lines (12+16)
 	_graphics(GRAPHICS_MODE_1);
 	
-	_setcolor_low(0, TGI_COLOR_RED);
-	_setcolor_low(1, TGI_COLOR_WHITE);
-	_setcolor_low(2, TGI_COLOR_CYAN); 	
-	_setcolor_low(3, TGI_COLOR_BROWN);
-	_setcolor_low(4, TGI_COLOR_BLACK);
-
+    #if !defined(ALTERNATE_COLORS)
+        _setcolor_low(0, TGI_COLOR_RED);
+        _setcolor_low(1, TGI_COLOR_WHITE);
+        _setcolor_low(2, TGI_COLOR_CYAN); 	
+        _setcolor_low(3, TGI_COLOR_BROWN);
+        _setcolor_low(4, TGI_COLOR_BLACK);
+    #else
+        _setcolor_low(0, TGI_COLOR_RED);
+        _setcolor_low(1, TGI_COLOR_WHITE);
+        _setcolor_low(2, TGI_COLOR_GREEN); 	
+        _setcolor_low(3, TGI_COLOR_BROWN);
+        _setcolor_low(4, TGI_COLOR_BLACK);
+    #endif
 	#if defined(REDEFINED_CHARS)
 	set_udg();
 	#endif

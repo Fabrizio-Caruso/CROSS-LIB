@@ -230,7 +230,7 @@ typedef struct ImageStruct Image;
 #elif defined(__ATARI__) && defined(ATARI_MODE1)
     void _GOTOXY(uint8_t x, uint8_t y);
     void PRINT(uint8_t x, uint8_t y, char * str);
-    #define PRINTD(x,y,length,val) do {_GOTOXY(x,y); cprintf("%0" #length "u",val); } while(0);
+    void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
 #elif defined(__NCURSES__)
     void PRINT(uint8_t x, uint8_t y, char * str);
     #define PRINTD(x,y,length,val) \
@@ -243,8 +243,19 @@ typedef struct ImageStruct Image;
     void PRINT(uint8_t x, uint8_t y, char * str);
     void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
 #else
-    #define PRINT(x,y,str) do {gotoxy(x+X_OFFSET,y); cprintf(str); } while(0);
-    #define PRINTD(x,y,length,val) do {gotoxy(x+X_OFFSET,y); cprintf("%0" #length "u",val); } while(0);
+    #define PRINT(x,y,str) \
+    do \
+    { \
+        gotoxy(x+X_OFFSET,y); \
+        cprintf(str); \
+    } while(0)
+    
+    #define PRINTD(x,y,length,val) \
+    do \
+    { \
+        gotoxy(x+X_OFFSET,y); \
+        cprintf("%0" #length "u",val); \
+    } while(0)
 #endif
 
 

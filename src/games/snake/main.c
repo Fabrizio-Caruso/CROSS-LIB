@@ -544,14 +544,6 @@ void handle_transparent_horizontal_wall(void)
         handle_transparent_horizontal_wall(); \
     }
 
-#define handle_record() \
-    if(points>record) \
-    { \
-        record = points; \
-        SET_TEXT_COLOR(COLOR_RED); \
-        PRINT(XSize/4+9,YSize/4, _XL_R _XL_E _XL_C _XL_O _XL_R _XL_D); \
-    }
-
 #define initialize_variables() \
     extra_life_counter = 1; \
     points = 0; \
@@ -928,23 +920,35 @@ void magic_wall(void)
     DISPLAY_POINTS(); \
 }
 
-// #define DEBUG_ACHIEVEMENTS
+#define ACHIEVEMENTS_X_OFFSET ((XSize)/5)
+#define ACHIEVEMENTS_Y_OFFSET ((YSize)/6)
+
 
 void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
 {
     uint8_t i;
     
     SET_TEXT_COLOR(COLOR_WHITE);
-    PRINT(XSize/6+3,row,_XL_O _XL_F);
-    PRINTD(XSize/6+6,row,2,max);
+    PRINT(ACHIEVEMENTS_X_OFFSET+3,row,_XL_O _XL_F);
+    PRINTD(ACHIEVEMENTS_X_OFFSET+6,row,2,max);
     for(i=0;i<=achievements;++i)
     {
-        PRINTD(XSize/6,row,2,i);
+        PRINTD(ACHIEVEMENTS_X_OFFSET,row,2,i);
         SHOOT_SOUND();
         DO_SLOW_DOWN((SLOW_DOWN/5)*i);
     }
     DO_SLOW_DOWN(SLOW_DOWN*4);
 }
+
+
+
+#define handle_record() \
+    if(points>record) \
+    { \
+        record = points; \
+        SET_TEXT_COLOR(COLOR_RED); \
+        PRINT(ACHIEVEMENTS_X_OFFSET+9,ACHIEVEMENTS_Y_OFFSET, _XL_R _XL_E _XL_C _XL_O _XL_R _XL_D); \
+    }
 
 
 void display_stats(void)
@@ -953,9 +957,9 @@ void display_stats(void)
     
     CLEAR_SCREEN();
     
-    PRINTD(XSize/6+3,YSize/4,5,points);
-    _XLIB_DRAW(XSize/6,YSize/4,&SCORE_TEXT_LEFT_IMAGE);
-    _XLIB_DRAW(XSize/6+1,YSize/4,&SCORE_TEXT_RIGHT_IMAGE);
+    PRINTD(ACHIEVEMENTS_X_OFFSET+3,ACHIEVEMENTS_Y_OFFSET,5,points);
+    _XLIB_DRAW(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET,&SCORE_TEXT_LEFT_IMAGE);
+    _XLIB_DRAW(ACHIEVEMENTS_X_OFFSET+1,ACHIEVEMENTS_Y_OFFSET,&SCORE_TEXT_RIGHT_IMAGE);
 
     handle_record();
 
@@ -974,10 +978,10 @@ void display_stats(void)
     
     
     SET_TEXT_COLOR(COLOR_YELLOW);
-    PRINT(XSize/6,YSize/4+3,_SECRET_STRING _XL_S);
+    PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+3,_SECRET_STRING _XL_S);
     
 
-    display_achievements(YSize/4+5,lives, 30);
+    display_achievements(ACHIEVEMENTS_Y_OFFSET+5,lives, 30);
     
     if(!level)
     {
@@ -986,15 +990,15 @@ void display_stats(void)
     --level;
 
     SET_TEXT_COLOR(COLOR_CYAN);
-    PRINT(XSize/6,YSize/4+8,_LEVEL_STRING _XL_S);
+    PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+8,_LEVEL_STRING _XL_S);
 
-    display_achievements(YSize/4+10,level,32);
+    display_achievements(ACHIEVEMENTS_Y_OFFSET+10,level,32);
     
     
     if(!secret_level_never_activated)
     {
         SET_TEXT_COLOR(COLOR_RED);
-        PRINT(XSize/6,YSize/4+12,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
+        PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+12,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
     }
 }
 

@@ -26,7 +26,7 @@ _extra_life_achievement = _snake_copy_y + 45
 _magic_wall_achievement = _extra_life_achievement + 9
 
 .export _super_coin_achievement;
-_super_coin_achievement = $259
+_super_coin_achievement = $200
 
 .export _horizontal_mine_x;
 _horizontal_mine_x = _super_coin_achievement + 9
@@ -66,7 +66,6 @@ _record = _slow_down + 2
 _level_bonus = _record + 2
 
 
-
 .segment "ZEROPAGE"
 
 .exportzp _snake_head_x;
@@ -86,4 +85,65 @@ _remaining_apples = 47
 
 .exportzp _level;
 _level = 48
+
+
+.exportzp _energy;
+_energy = 49
+
+.exportzp _lives;
+_lives = 50
+
+.exportzp _snake_head;
+_snake_head = 51
+
+.exportzp _snake_length;
+_snake_length = 52
+
+.exportzp _snake_direction;
+_snake_direction = 53
+
+.exportzp _apples_on_screen_count;
+_apples_on_screen_count = 54
+
+.exportzp _coin_count;
+_coin_count = 55
+
+.exportzp _extra_life_counter;
+_extra_life_counter = 56
+
+.exportzp _active_mines;
+_active_mines = 57
+
+.exportzp _horizontal_mines_on_current_level;
+_horizontal_mines_on_current_level = 58
+
+.exportzp _vertical_mines_on_current_level;
+_vertical_mines_on_current_level = 59
+
+.exportzp _transparent_vertical_wall_triggered;
+_transparent_vertical_wall_triggered = 60
+
+.exportzp _transparent_horizontal_wall_triggered;
+_transparent_horizontal_wall_triggered = 61
+
+.exportzp _secret_level_active;
+_secret_level_active = 62
+
+.exportzp _secret_level_never_activated;
+_secret_level_never_activated = 63
+
+.exportzp _next_level;
+_next_level = 64
+
+.exportzp _transparent_vertical_wall_level_flag;
+_transparent_vertical_wall_level_flag = 65
+
+.exportzp _transparent_horizontal_wall_level_flag;
+_transparent_horizontal_wall_level_flag = 66
+
+.exportzp _not_many_mines;
+_not_many_mines = 67
+
+.exportzp _total_mines_on_current_level;
+_total_mines_on_current_level = 68
 

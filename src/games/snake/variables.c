@@ -40,32 +40,48 @@ uint8_t magic_wall_achievement[9];
 // It records if the super coin was spawned in bonus/secret/levels
 uint8_t super_coin_achievement[9];
 
-#endif
-
 uint8_t energy;
+
 uint8_t lives;
 
-uint8_t horizontal_mines_on_current_level;
-uint8_t vertical_mines_on_current_level;
+uint8_t snake_length;
+uint8_t snake_head;
+uint8_t snake_direction;
+
+uint8_t apples_on_screen_count;
 uint8_t coin_count;
 uint8_t extra_life_counter;
 uint8_t active_mines;
+
+
+uint8_t horizontal_mines_on_current_level;
+uint8_t vertical_mines_on_current_level;
 uint8_t transparent_vertical_wall_triggered;
 uint8_t transparent_horizontal_wall_triggered;
 uint8_t secret_level_active;
 uint8_t secret_level_never_activated;
 uint8_t next_level;
-uint8_t apples_on_screen_count;
 uint8_t transparent_vertical_wall_level_flag;
 uint8_t transparent_horizontal_wall_level_flag;
 uint8_t not_many_mines;
 uint8_t total_mines_on_current_level;
 
+#endif
 
-uint8_t snake_length;
-uint8_t snake_head;
+#if !defined(NO_EXTRA_TITLE)
+
+char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE] = 
+{
+    _XL_M _XL_i _XL_n _XL_e,
+    _XL_F _XL_r _XL_e _XL_e _XL_z _XL_e,
+    _XL_B _XL_o _XL_n _XL_u _XL_s,
+    _XL_P _XL_o _XL_i _XL_n _XL_t _XL_s,
+    _XL_A _XL_p _XL_p _XL_l _XL_e,
+};
+#endif
+
+
 const Image *head_image_ptr;
 uint8_t map[XSize][YSize];
-uint8_t snake_direction;
 
 

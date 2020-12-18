@@ -35,24 +35,106 @@ extern uint8_t level;
 #endif
 
 extern uint8_t energy;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("energy")
+#endif
+
 extern uint8_t lives;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("lives")
+#endif
+
+extern uint8_t snake_length;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("snake_length")
+#endif
+
+extern uint8_t snake_head;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("snake_head")
+#endif
+
+extern uint8_t snake_direction;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("snake_direction")
+#endif
+
+extern uint8_t apples_on_screen_count;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("apples_on_screen_count")
+#endif
+
+extern uint8_t coin_count;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("coin_count")
+#endif
+
+extern uint8_t extra_life_counter;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("extra_life_counter")
+#endif
+
+extern uint8_t active_mines;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("active_mines")
+#endif
 
 extern uint8_t horizontal_mines_on_current_level;
-extern uint8_t vertical_mines_on_current_level;
-extern uint8_t coin_count;
-extern uint8_t extra_life_counter;
-extern uint8_t active_mines;
-extern uint8_t transparent_vertical_wall_triggered;
-extern uint8_t transparent_horizontal_wall_triggered;
-extern uint8_t secret_level_active;
-extern uint8_t secret_level_never_activated;
-extern uint8_t next_level;
-extern uint8_t apples_on_screen_count;
-extern uint8_t transparent_vertical_wall_level_flag;
-extern uint8_t transparent_horizontal_wall_level_flag;
-extern uint8_t not_many_mines;
-extern uint8_t total_mines_on_current_level;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("horizontal_mines_on_current_level")
+#endif
 
+extern uint8_t vertical_mines_on_current_level;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("vertical_mines_on_current_level")
+#endif
+
+extern uint8_t transparent_vertical_wall_triggered;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("transparent_vertical_wall_triggered")
+#endif
+
+extern uint8_t transparent_horizontal_wall_triggered;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("transparent_horizontal_wall_triggered")
+#endif
+
+extern uint8_t secret_level_active;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("secret_level_active")
+#endif
+
+extern uint8_t secret_level_never_activated;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("secret_level_never_activated")
+#endif
+
+extern uint8_t next_level;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("next_level")
+#endif
+
+extern uint8_t transparent_vertical_wall_level_flag;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("transparent_vertical_wall_level_flag")
+#endif
+
+extern uint8_t transparent_horizontal_wall_level_flag;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("transparent_horizontal_wall_level_flag")
+#endif
+
+extern uint8_t not_many_mines;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("not_many_mines")
+#endif
+
+extern uint8_t total_mines_on_current_level;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("total_mines_on_current_level")
+#endif
+
+extern char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE];
 
 extern uint8_t snake_x[MAX_SNAKE_LENGTH];
 extern uint8_t snake_y[MAX_SNAKE_LENGTH];
@@ -85,11 +167,10 @@ extern uint8_t magic_wall_achievement[9];
 // It records if the super coin was spawned in bonus/secret/levels
 extern uint8_t super_coin_achievement[9];
 
-extern uint8_t snake_length;
-extern uint8_t snake_head;
+
+
 extern const Image *head_image_ptr;
 extern uint8_t map[XSize][YSize];
-extern uint8_t snake_direction;
 
 
 extern const Image VERTICAL_HEAD_IMAGE;
@@ -113,7 +194,6 @@ extern const Image MINE_IMAGE;
 extern const Image SUPER_COIN_IMAGE;
 extern const Image EXTRA_IMAGE;
 
-extern char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE];
 
 #endif // _VARIABLES_H
 

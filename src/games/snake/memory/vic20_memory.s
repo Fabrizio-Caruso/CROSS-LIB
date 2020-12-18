@@ -26,10 +26,10 @@ _extra_life_achievement = _snake_copy_y + 45
 _magic_wall_achievement = _extra_life_achievement + 9
 
 .export _super_coin_achievement;
-_super_coin_achievement = _magic_wall_achievement + 9
+_super_coin_achievement = $259
 
 .export _horizontal_mine_x;
-_horizontal_mine_x = $259
+_horizontal_mine_x = _super_coin_achievement + 9
 
 .export _horizontal_mine_y;
 _horizontal_mine_y = _horizontal_mine_x + 4

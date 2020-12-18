@@ -961,7 +961,7 @@ void display_stats(void)
     for(i=0;i<9;++i)
     {
         #if defined(DEBUG_ACHIEVEMENTS)
-        PRINTD(2,1+i,1,extra_life_achievement[i]); PRINTD(4,1+i,1, super_coin_achievement[i]); PRINTD(6,1+i,1,magic_wall_achievement[i]);
+        PRINTD(2,1+i,3,extra_life_achievement[i]); PRINTD(6,1+i,3, super_coin_achievement[i]); PRINTD(10,1+i,3,magic_wall_achievement[i]);
         WAIT_PRESS();
         #endif
         lives+=extra_life_achievement[i]+super_coin_achievement[i]+magic_wall_achievement[i];
@@ -996,6 +996,7 @@ void display_stats(void)
         PRINT(XSize/6,YSize/3+9,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
     }
 }
+
 
 int main(void)
 {

@@ -148,7 +148,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
-	-D__ATARI5200__ \
+	-D__ATARI5200__ -DALTERNATE_COLORS \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
 	-DMEMORY_MAPPED \

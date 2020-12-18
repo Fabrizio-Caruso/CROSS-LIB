@@ -585,8 +585,7 @@ void handle_transparent_horizontal_wall(void)
     slow_down = SLOW_DOWN; \
     apples_on_screen_count = 1+(remaining_apples>>3); \
     spawned_apples = 0; \
-    total_mines_on_current_level = vertical_mines_on_current_level+horizontal_mines_on_current_level; \
-    not_many_mines = total_mines_on_current_level<=EXTRA_COIN_SPAWN_THRESHOLD; \
+    not_many_mines = horizontal_mines_on_current_level<=EXTRA_COIN_SPAWN_THRESHOLD; \
     transparent_vertical_wall_level_flag = transparent_vertical_wall_level(); \
     transparent_horizontal_wall_level_flag = transparent_horizontal_wall_level(); \
     secret_level_active = 0; \

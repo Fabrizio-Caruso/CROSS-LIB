@@ -143,7 +143,5 @@ _transparent_horizontal_wall_level_flag = 66
 .exportzp _not_many_mines;
 _not_many_mines = 67
 
-.exportzp _total_mines_on_current_level;
-_total_mines_on_current_level = 68
 
 

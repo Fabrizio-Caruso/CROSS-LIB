@@ -64,8 +64,6 @@ uint8_t next_level;
 uint8_t transparent_vertical_wall_level_flag;
 uint8_t transparent_horizontal_wall_level_flag;
 uint8_t not_many_mines;
-uint8_t total_mines_on_current_level;
-
 #endif
 
 

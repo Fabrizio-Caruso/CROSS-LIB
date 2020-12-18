@@ -129,11 +129,6 @@ extern uint8_t not_many_mines;
 #pragma zpsym("not_many_mines")
 #endif
 
-extern uint8_t total_mines_on_current_level;
-#if defined(USE_MEMORY_BUFFERS)
-#pragma zpsym("total_mines_on_current_level")
-#endif
-
 extern char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE];
 
 extern uint8_t snake_x[MAX_SNAKE_LENGTH];

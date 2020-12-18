@@ -5,6 +5,8 @@
 ; ESTARL    $0437-0454      1079-1108
 ; ESTAKH    $0455-0472      1109-1138
 
+; ZP candidates: $D0-$E8 
+
 .export _snake_x;
 _snake_x = $333
 
@@ -99,7 +101,6 @@ _snake_length = 52
 
 .exportzp _snake_direction;
 _snake_direction = 53
-
 
 .exportzp _apples_on_screen_count;
 _apples_on_screen_count = 54

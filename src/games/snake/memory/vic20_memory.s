@@ -23,10 +23,10 @@ _snake_copy_y = _snake_copy_x + 45
 _extra_life_achievement = _snake_copy_y + 45
 
 .export _magic_wall_achievement;
-_magic_wall_achievement = _extra_life_achievement + 9
+_magic_wall_achievement =  $200
 
 .export _super_coin_achievement;
-_super_coin_achievement = $200
+_super_coin_achievement = _magic_wall_achievement + 9
 
 .export _horizontal_mine_x;
 _horizontal_mine_x = _super_coin_achievement + 9
@@ -85,7 +85,6 @@ _remaining_apples = 47
 
 .exportzp _level;
 _level = 48
-
 
 .exportzp _energy;
 _energy = 49

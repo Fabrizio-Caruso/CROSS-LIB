@@ -535,28 +535,18 @@ int main(void)
                     checkBombsVsSkulls();
                 }
                 
-                #if SLOW_DOWN>0
-                if(freezeActive)
-                {
-                        SHORT_SLEEP(1);
-                }
-                #endif
+
                 
                 #if SLOW_DOWN>0
                 if(invincibilityActive)
                 {
-                         SHORT_SLEEP(1);
+                         SHORT_SLEEP(2);
                 }
                 #endif
                 
                 
-                #if SLOW_DOWN>0
-                if(ghostCount < GHOST_SLOW_DOWN_THRESHOLD) 
-                {
-                    SHORT_SLEEP(1);
-                }
-                #endif
-                SHORT_SLEEP(2);
+
+                SHORT_SLEEP(6);
                 
                 handle_calmDown_item();
                 handle_extraPoints_item();

@@ -28,16 +28,18 @@ void draw_body_part(uint8_t i)
 void init_snake(void)
 {
     uint8_t i;
+    uint8_t aux;
     
-    snake_length = XSize/4 - 1 + (level&15)/4;
+    snake_length = XSize/4 - 1; // + (level&15)/4;
     
     snake_head = 0;
     
     for(i=0;i<snake_length;++i)
     {
-        snake_x[(i+snake_head)%snake_length] = XSize/2+snake_length/2-i-1;
-        snake_y[(i+snake_head)%snake_length] = YSize/2;
-        draw_body_part((i+snake_head) % snake_length);
+        aux = (i+snake_head)%snake_length;
+        snake_x[aux] = XSize/2+snake_length/2-i-1;
+        snake_y[aux] = YSize/2;
+        draw_body_part(aux);
     }
     
     head_image_ptr = &HORIZONTAL_HEAD_IMAGE;

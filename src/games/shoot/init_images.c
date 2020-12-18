@@ -39,7 +39,7 @@ extern Image ROCKET_IMAGE;
 extern Image FREEZE_IMAGE;
 extern Image EXTRA_LIFE_IMAGE;
 extern Image INVINCIBILITY_IMAGE;
-extern Image SUPER_IMAGE;	
+extern Image SUPER_IMAGE;
 extern Image CONFUSE_IMAGE;
 extern Image SUICIDE_IMAGE;
 

@@ -90,7 +90,7 @@
         #define _TILE_12 (5 + _ATARI_MODE1_YELLOW)
         #define _TILE_13 (6 + _ATARI_MODE1_YELLOW)
 
-        #define _TILE_5_B _TILE_5_OFFSET
+        #define _TILE_5_B (_TILE_5_OFFSET+_ATARI_MODE1_YELLOW)
 
         #define _TILE_4_B _TILE_4_OFFSET
     #else
@@ -130,7 +130,7 @@
 
 
 
-        #define _TILE_5_B _TILE_5_OFFSET
+        #define _TILE_5_B (_TILE_5_OFFSET+_ATARI_MODE1_YELLOW)
 
         #define _TILE_4_B _TILE_4_OFFSET
     #endif

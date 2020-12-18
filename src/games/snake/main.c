@@ -489,16 +489,13 @@ uint8_t empty_horizontal_wall_area(void)
 
 
 void handle_transparent_vertical_wall(void)
-{
-    uint8_t type;
-    
+{   
     if(!transparent_vertical_wall_triggered)
     {
         if(empty_vertical_wall_area())
         {
-            transparent_vertical_wall_triggered = 1;
             TOCK_SOUND();
-            type = TRANSPARENT;
+            transparent_vertical_wall_triggered = TRANSPARENT;
         }
         else
         {
@@ -507,24 +504,21 @@ void handle_transparent_vertical_wall(void)
     }
     else
     {   
-        transparent_vertical_wall_triggered = 0;
-        type = EMPTY;
+        transparent_vertical_wall_triggered = EMPTY;
     }
-    build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,type);
+    build_box_wall(TRANSPARENT_VERTICAL_WALL_X,TRANSPARENT_VERTICAL_WALL_Y,1,TRANSPARENT_VERTICAL_WALL_LENGTH,transparent_vertical_wall_triggered);
 
 }
 
 void handle_transparent_horizontal_wall(void)
 {
-    uint8_t type;
     
     if(!transparent_horizontal_wall_triggered)
     {
         if(empty_horizontal_wall_area())
         {
-            transparent_horizontal_wall_triggered = 1;
             TOCK_SOUND();
-            type = TRANSPARENT;
+            transparent_horizontal_wall_triggered = TRANSPARENT;
         }
         else
         {
@@ -533,10 +527,9 @@ void handle_transparent_horizontal_wall(void)
     }
     else
     {   
-        transparent_horizontal_wall_triggered = 0;
-        type = EMPTY;
+        transparent_horizontal_wall_triggered = EMPTY;
     }
-    build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,type);
+    build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,transparent_horizontal_wall_triggered);
 
 }
 
@@ -555,6 +548,8 @@ void handle_transparent_horizontal_wall(void)
     if(points>record) \
     { \
         record = points; \
+        SET_TEXT_COLOR(COLOR_RED); \
+        PRINT(XSize/4+9,YSize/4, _XL_R _XL_E _XL_C _XL_O _XL_R _XL_D); \
     }
 
 #define initialize_variables() \
@@ -633,7 +628,6 @@ void one_up(void)
     DISPLAY_LIVES();
     PING_SOUND();
     _XLIB_DRAW(XSize-2,0,&HORIZONTAL_HEAD_IMAGE);
-    PING_SOUND();
     DO_SLOW_DOWN(SLOW_DOWN*5);
     _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE);
     PING_SOUND();
@@ -847,13 +841,13 @@ void magic_wall(void)
     if(!energy) \
     { \
         SET_TEXT_COLOR(COLOR_RED); \
-        printCenteredMessageOnRow(YSize/2, __NO_ENERGY__STRING); \
+        printCenteredMessageOnRow(YSize/2, _NO_ENERGY_STRING); \
         break; \
     }
 
 #define handle_level_cleared() \
     SET_TEXT_COLOR(COLOR_RED); \
-    printCenteredMessageOnRow(YSize/2, __LEVEL_CLEARED__STRING); \
+    printCenteredMessageOnRow(YSize/2, __CLEARED__STRING); \
     level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<3) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2); \
     SET_TEXT_COLOR(COLOR_WHITE); \
     printCenteredMessageOnRow(YSize/2+2, __BONUS__STRING); \
@@ -886,7 +880,7 @@ void magic_wall(void)
     build_box_wall(0,1,XSize-2,YSize-2,APPLE); \
     show_intro_snake(); \
     SET_TEXT_COLOR(COLOR_WHITE); \
-    printCenteredMessageOnRow(YSize/8+3, __THE_END__STRING);
+    printCenteredMessageOnRow(YSize/8+3, _THE_END_STRING);
 
 #define handle_lost_life() \
     --lives; \
@@ -950,13 +944,21 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
         DO_SLOW_DOWN((SLOW_DOWN/5)*i);
     }
     DO_SLOW_DOWN(SLOW_DOWN*4);
-
 }
 
 
 void display_stats(void)
 {
     uint8_t i;
+    
+    CLEAR_SCREEN();
+    
+    PRINTD(XSize/6+3,YSize/4,5,points);
+    _XLIB_DRAW(XSize/6,YSize/4,&SCORE_TEXT_LEFT_IMAGE);
+    _XLIB_DRAW(XSize/6+1,YSize/4,&SCORE_TEXT_RIGHT_IMAGE);
+
+    handle_record();
+
     
     for(i=0;i<9;++i)
     {
@@ -970,13 +972,12 @@ void display_stats(void)
     
     lives+=(!secret_level_never_activated)+third_coin_achievement+fourth_coin_achievement;
     
-    CLEAR_SCREEN();
     
     SET_TEXT_COLOR(COLOR_YELLOW);
-    PRINT(XSize/6,YSize/3-1,_SECRET_STRING _XL_S);
+    PRINT(XSize/6,YSize/4+3,_SECRET_STRING _XL_S);
     
 
-    display_achievements(YSize/3+1,lives, 30);
+    display_achievements(YSize/4+5,lives, 30);
     
     if(!level)
     {
@@ -985,15 +986,15 @@ void display_stats(void)
     --level;
 
     SET_TEXT_COLOR(COLOR_CYAN);
-    PRINT(XSize/6,YSize/3+5,_LEVEL_STRING _XL_S);
+    PRINT(XSize/6,YSize/4+8,_LEVEL_STRING _XL_S);
 
-    display_achievements(YSize/3+7,level,32);
+    display_achievements(YSize/4+10,level,32);
     
     
     if(!secret_level_never_activated)
     {
         SET_TEXT_COLOR(COLOR_RED);
-        PRINT(XSize/6,YSize/3+9,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
+        PRINT(XSize/6,YSize/4+12,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
     }
 }
 
@@ -1012,7 +1013,6 @@ int main(void)
     while(1)
     {
         CLEAR_SCREEN();
-        handle_record();
         title();
         PRESS_KEY();
         initialize_variables();

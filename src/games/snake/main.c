@@ -964,7 +964,7 @@ void display_stats(void)
     _XLIB_DRAW(ACHIEVEMENTS_X_OFFSET+1,ACHIEVEMENTS_Y_OFFSET,&SCORE_TEXT_RIGHT_IMAGE);
 
     handle_record();
-
+    lives = 0;
     
     for(i=0;i<9;++i)
     {
@@ -975,7 +975,10 @@ void display_stats(void)
         lives+=extra_life_achievement[i]+super_coin_achievement[i]+magic_wall_achievement[i];
     }
     
-    
+    #if defined(DEBUG_ACHIEVEMENTS)
+        PRINTD(2,1+i,3,!secret_level_never_activated); PRINTD(6,1+i,3, third_coin_achievement); PRINTD(10,1+i,3,fourth_coin_achievement);
+    #endif
+
     lives+=(!secret_level_never_activated)+third_coin_achievement+fourth_coin_achievement;
     
     

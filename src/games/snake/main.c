@@ -661,7 +661,7 @@ void one_up(void)
     points+=(COIN_POINTS<<coin_count); \
     ZAP_SOUND(); \
     _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE); \
-    if(coin_count==2) \
+    if(coin_count>=MAX_COIN_COUNT-1) \
     { \
         third_coin_achievement = 1; \
         spawn(SUPER_COIN); \
@@ -707,8 +707,6 @@ void spawn_many_extra()
 
 void magic_wall(void)
 {
-    PING_SOUND();
-    DO_SLOW_DOWN(SLOW_DOWN*5);
     magic_wall_achievement[level>>2] = 1;
     switch(level)
     {
@@ -735,7 +733,6 @@ void magic_wall(void)
             build_box_wall(XSize-1-XSize/3, YSize-1-YSize/3, 1, YSize/3,EXTRA);
         break;
     } 
-    PING_SOUND();
 }
 
 
@@ -1026,9 +1023,13 @@ int main(void)
         PRESS_KEY();
         initialize_variables();
         #if INITIAL_LEVEL>1
-            remaining_apples = INITIAL_APPLE_COUNT + level * APPLE_COUNT_INCREASE;
+            #if INITIAL_LEVEL<8
+                remaining_apples = INITIAL_APPLE_COUNT + level * APPLE_COUNT_INCREASE;
+            #else
+                remaining_apples = MAX_APPLES;
+            #endif
         #else
-            remaining_apples=INITIAL_APPLE_COUNT+1*APPLE_COUNT_INCREASE;
+            remaining_apples = INITIAL_APPLE_COUNT+1*APPLE_COUNT_INCREASE;
         #endif
         
         while(lives && (level<FINAL_LEVEL+1))

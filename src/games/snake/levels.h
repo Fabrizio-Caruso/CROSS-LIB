@@ -371,7 +371,7 @@ const uint8_t vertical_mines_on_level[] =
             XSize/2,
             XSize/2-1,
         1, // 26 (51)
-            XSize/2-1,
+            XSize/2,
         0, // 27 (53)
         0, // 28 (54)
         2, // 29 (55)

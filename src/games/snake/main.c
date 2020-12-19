@@ -669,7 +669,7 @@ void one_up(void)
     if(coin_count>=MAX_COIN_COUNT) \
     { \
         fourth_coin_achievement = 1; \
-        spawn_many_extra(); \
+        spawn_extra(SOME_EXTRA); \
     } \
     ++coin_count;
 
@@ -694,11 +694,11 @@ level 16:
         XSize-1-XSize/3, YSize-1-YSize/3, YSize/3,
 */
 
-void spawn_many_extra()
+void spawn_extra(uint8_t quantity)
 {
     uint8_t i;
     
-    for(i=0;i<MANY_EXTRA;++i)
+    for(i=0;i<quantity;++i)
     {
         spawn(EXTRA);
     }
@@ -711,7 +711,7 @@ void magic_wall(void)
     switch(level)
     {
         case 0:
-            spawn_many_extra();
+            spawn_extra(MANY_EXTRA);
         break;
         case 4: 
         case 20:

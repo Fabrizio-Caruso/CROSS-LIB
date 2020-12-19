@@ -155,7 +155,6 @@ void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, ui
             {
                 _XLIB_DELETE(x+i,y+j);
             }
-
         }
     }
 }
@@ -803,10 +802,6 @@ void magic_wall(void)
     { \
         handle_apple_effect(); \
     } \
-    else if(hits_deadly_item(snake_head_x,snake_head_y) || !remaining_apples) \
-    { \
-        break; \
-    } \
     else if(hits_extra_life(snake_head_x,snake_head_y)) \
     { \
         handle_extra_life_effect(); \
@@ -1069,10 +1064,10 @@ int main(void)
             {
                 handle_extra_life();
                 
+                handle_mines();
+                DO_SLOW_DOWN(slow_down);
                 if(MOVE_PLAYER())
                 {
-                    handle_mines();
-                    DO_SLOW_DOWN(slow_down);
                     ++speed_increase_counter;
                     update_snake_head();
                     
@@ -1087,7 +1082,6 @@ int main(void)
                     }
                     
                     // TODO: This could be optimized by performing the display only when points are updated
-                    DISPLAY_POINTS();
                     
                     handle_collisions_with_objects();
                     
@@ -1095,6 +1089,11 @@ int main(void)
                     PRINTD(XSize+4,YSize-2,5,slow_down);
                     #endif
                 }
+                if(hits_deadly_item(snake_head_x,snake_head_y) || !remaining_apples)
+                {
+                    break;
+                }
+                DISPLAY_POINTS();
                 handle_no_energy();
             }
             if(remaining_apples)

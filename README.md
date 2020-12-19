@@ -15,7 +15,9 @@ It requires more memory than "Cross Chase" but it should be equally universal as
 4. *Cross Bomber* is a third "universal" 8-bit game that can also be compiled on a multitude of 8-bit computers and consoles. 
 It is a mini-game and clone of Air Attack (aka Blitz). So it requires much less memory than "Cross Chase".
 Its code is almost entirely in a single file. It uses pre-shifted tiles to produce smoother movements on graphics-enabled targets.
-
+5. *Cross Snake* is a fourth "universal" 8-bit game. 
+Its size is similar to Cross Chase and can be run on an unexpanded Commodore 16 or a Commodore Vic 20 with +8k memory expansion.
+It a my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements.
 
 -------------------------------------------
 

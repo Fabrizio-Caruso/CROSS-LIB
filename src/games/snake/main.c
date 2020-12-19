@@ -189,6 +189,10 @@ void DRAW_MAP_BORDERS(void)
 #define TRANSPARENT_HORIZONTAL_WALL_X (((XSize)/2)-((TRANSPARENT_HORIZONTAL_WALL_LENGTH)/2))
 #define TRANSPARENT_HORIZONTAL_WALL_Y (((YSize)/2))
 
+void DRAW_MINE(uint8_t x, uint8_t y)
+{
+    _XLIB_DRAW(x,y,&MINE_IMAGE);
+}
 
 void build_horizontal_mines(uint8_t level)
 {
@@ -205,9 +209,7 @@ void build_horizontal_mines(uint8_t level)
     {
         horizontal_mine_x[j] = XSize/2;
         horizontal_mine_y[j] = horizontal_mines_on_level[index+j];
-        #if defined(DEBUG_LEVELS)
-        _XLIB_DRAW(horizontal_mine_x[j],horizontal_mine_y[j],&MINE_IMAGE);
-        #endif
+        DRAW_MINE(XSize/2,horizontal_mine_y[j]);
         horizontal_mine_direction[j] = j&1;
         horizontal_mine_transition[j] = 0;
     }
@@ -228,9 +230,7 @@ void build_vertical_mines(uint8_t level)
     {
         vertical_mine_y[j] = YSize/2-1;
         vertical_mine_x[j] = vertical_mines_on_level[index+j];
-        #if defined(DEBUG_LEVELS)
-        _XLIB_DRAW(vertical_mine_x[j],vertical_mine_y[j],&MINE_IMAGE);
-        #endif
+        DRAW_MINE(vertical_mine_x[j],YSize/2-1);
         vertical_mine_direction[j] = j&1;
         vertical_mine_transition[j] = 0;
     }
@@ -334,7 +334,7 @@ void handle_horizontal_mine(register uint8_t index)
             map[x][y]=EMPTY;
             _XLIB_DELETE(x,y);
             --horizontal_mine_x[index];
-            _XLIB_DRAW(horizontal_mine_x[index],y,&MINE_IMAGE);
+            DRAW_MINE(horizontal_mine_x[index],y);
         }
     }
     else // direction is RIGHT
@@ -359,7 +359,7 @@ void handle_horizontal_mine(register uint8_t index)
             map[x][y]=EMPTY;
             _XLIB_DELETE(x,y);
             ++horizontal_mine_x[index];
-            _XLIB_DRAW(horizontal_mine_x[index],y,&MINE_IMAGE);
+            DRAW_MINE(horizontal_mine_x[index],y);
         }
     }
 }
@@ -411,7 +411,7 @@ void handle_vertical_mine(register uint8_t index)
             map[x][y]=EMPTY;
             _XLIB_DELETE(x,y);
             --vertical_mine_y[index];
-            _XLIB_DRAW(x,vertical_mine_y[index],&MINE_IMAGE);
+            DRAW_MINE(x,vertical_mine_y[index]);
         }
     }
     else // direction is DOWN
@@ -436,7 +436,7 @@ void handle_vertical_mine(register uint8_t index)
             map[x][y]=EMPTY;
             _XLIB_DELETE(x,y);
             ++vertical_mine_y[index];
-            _XLIB_DRAW(x,vertical_mine_y[index],&MINE_IMAGE);
+            DRAW_MINE(x,vertical_mine_y[index]);
         }
     }
 }
@@ -886,9 +886,9 @@ void magic_wall(void)
 { \
     uint8_t i; \
     \
-    build_horizontal_mines(31); \
     init_map_to_empty(); \
     DRAW_MAP_BORDERS(); \
+    build_horizontal_mines(31); \
     for(i=0;i<XSize*2-5;++i) \
     { \
         handle_horizontal_mines(); \

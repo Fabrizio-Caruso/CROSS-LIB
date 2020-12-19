@@ -242,6 +242,35 @@ You can play the game online:
 
 -------------------------------------------
 
+## CROSS SNAKE - THE GAME
+
+This my own re-interpretation of Nibbler (arcade) and Snake (primarily a cell phone game), to which I have added many more game elements.
+
+You have to go through 32 levels (with 16 different maps) + an optional secret level (with its own map).
+To complete a level you have to eat all the apples while:
+- avoiding your own tail and body
+- avoiding the fixed and bouncing mines
+- avoiding to starve by losing your energy (eat apples to prevent this)
+As you starve, the snake moves faster and faster.
+
+Walls do not kill you and let you pause the game and think about your next move.
+
+You can also catch special items that will help in your quest:
+- ring (collect 3 or even 4 for extra points and to spawn more special items such as "freeze")
+- freeze (special item that freezes the mines and restores your energy
+- $ (extra points... but also some secret effects if you collect many)
+- 1up item (special and hard to unlock item that gives 1 extra life)
+
+
+You can play the game online:
+
+1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_snake
+2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http%3A%2F%2Fgithub.com%2FFabrizio-Caruso%2FCROSS-LIB%2Freleases%2Fdownload%2FXSnake1.0%2FXsnake_vic20_exp_16k.prg&fbclid=IwAR1KaJiZ21DbqkGG7aQb37v14pm1wRy29WcLAzlfai1Hp3C8KJxCseLVQuo
+
+
+-------------------------------------------
+
+
 ## THE GAME CODE
 
 The game code is *hardware-agnostic* and has to be as portable as possible.

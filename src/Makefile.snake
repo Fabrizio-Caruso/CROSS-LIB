@@ -855,14 +855,14 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 
 #################################################################
 
-
+#  -DZ88DK_JOYSTICK 
 laser500: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
 	-create-app -o laser500bm.bin \
 	$(INCLUDE_OPTS) \
 	-D__LASER500__ -DUDG_GRAPHICS -DFORCE_XSIZE=40 -DFORCE_YSIZE=22 -DFORCE_SCREEN_MODE=2 \
 	-DFORCE_BIT_BANG -DSOUNDS \
-	-DFULL_GAME -DLESS_TEXT -DSLOW_DOWN=800 -DZ88DK_JOYSTICK \
+	-DFULL_GAME -DLESS_TEXT -DSLOW_DOWN=800 \
 	-DCONIO \
 	-DANIMATE_PLAYER \
 	-DUDG_GRAPHICS \

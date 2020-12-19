@@ -64,10 +64,11 @@ uint8_t next_level;
 uint8_t transparent_vertical_wall_level_flag;
 uint8_t transparent_horizontal_wall_level_flag;
 uint8_t not_many_mines;
+const Image *head_image_ptr;
+
 #endif
 
 
-const Image *head_image_ptr;
 uint8_t map[XSize][YSize];
 
 

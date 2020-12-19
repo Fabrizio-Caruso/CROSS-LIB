@@ -143,4 +143,6 @@ _transparent_horizontal_wall_level_flag = 66
 .exportzp _not_many_mines;
 _not_many_mines = 67
 
+.exportzp _head_image_ptr;
+_head_image_ptr = 68;
 

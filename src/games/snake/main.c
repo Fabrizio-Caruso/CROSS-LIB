@@ -549,7 +549,6 @@ void handle_transparent_horizontal_wall(void)
     points = 0; \
     lives = INITIAL_LIVES; \
     level = INITIAL_LEVEL; \
-    remaining_apples=INITIAL_APPLE_COUNT+1*APPLE_COUNT_INCREASE; \
     secret_level_never_activated = 1; \
     for(i=0;i<9;++i) \
     { \
@@ -587,6 +586,8 @@ void handle_transparent_horizontal_wall(void)
     spawned_apples = 0; \
     not_many_mines = horizontal_mines_on_current_level<=EXTRA_COIN_SPAWN_THRESHOLD; \
     transparent_vertical_wall_level_flag = transparent_vertical_wall_level(); \
+    transparent_vertical_wall_triggered = EMPTY; \
+    transparent_horizontal_wall_triggered = EMPTY; \
     transparent_horizontal_wall_level_flag = transparent_horizontal_wall_level(); \
     secret_level_active = 0; \
     extra_count = 0
@@ -660,12 +661,12 @@ void one_up(void)
     points+=(COIN_POINTS<<coin_count); \
     ZAP_SOUND(); \
     _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE); \
-    if(coin_count==3) \
+    if(coin_count==2) \
     { \
         third_coin_achievement = 1; \
         spawn(SUPER_COIN); \
     } \
-    if(coin_count>MAX_COIN_COUNT) \
+    if(coin_count>=MAX_COIN_COUNT) \
     { \
         fourth_coin_achievement = 1; \
         spawn_many_extra(); \
@@ -706,6 +707,8 @@ void spawn_many_extra()
 
 void magic_wall(void)
 {
+    PING_SOUND();
+    DO_SLOW_DOWN(SLOW_DOWN*5);
     magic_wall_achievement[level>>2] = 1;
     switch(level)
     {
@@ -732,6 +735,7 @@ void magic_wall(void)
             build_box_wall(XSize-1-XSize/3, YSize-1-YSize/3, 1, YSize/3,EXTRA);
         break;
     } 
+    PING_SOUND();
 }
 
 
@@ -919,6 +923,8 @@ void magic_wall(void)
     DISPLAY_POINTS(); \
 }
 
+#if !defined(NO_ACHIEVEMENTS_SCREEN)
+
 #define ACHIEVEMENTS_X_OFFSET ((XSize)/5)
 #define ACHIEVEMENTS_Y_OFFSET ((YSize)/6)
 
@@ -1000,7 +1006,7 @@ void display_stats(void)
         PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+12,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
     }
 }
-
+#endif
 
 int main(void)
 {
@@ -1019,6 +1025,11 @@ int main(void)
         title();
         PRESS_KEY();
         initialize_variables();
+        #if INITIAL_LEVEL>1
+            remaining_apples = INITIAL_APPLE_COUNT + level * APPLE_COUNT_INCREASE;
+        #else
+            remaining_apples=INITIAL_APPLE_COUNT+1*APPLE_COUNT_INCREASE;
+        #endif
         
         while(lives && (level<FINAL_LEVEL+1))
         {
@@ -1098,7 +1109,9 @@ int main(void)
         }
         printCenteredMessageOnRow(YSize/2, __GAME_OVER__STRING);
         WAIT_PRESS();
+        #if !defined(NO_ACHIEVEMENTS_SCREEN)
         display_stats();
+        #endif
         WAIT_PRESS();
     }
     

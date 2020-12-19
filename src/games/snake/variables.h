@@ -129,6 +129,11 @@ extern uint8_t not_many_mines;
 #pragma zpsym("not_many_mines")
 #endif
 
+extern const Image *head_image_ptr;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("head_image_ptr")
+#endif
+
 extern char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE];
 
 extern uint8_t snake_x[MAX_SNAKE_LENGTH];
@@ -164,7 +169,6 @@ extern uint8_t super_coin_achievement[9];
 
 
 
-extern const Image *head_image_ptr;
 extern uint8_t map[XSize][YSize];
 
 

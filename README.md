@@ -259,7 +259,7 @@ You can also catch special items that will help in your quest:
 - ring (collect 3 or even 4 for extra points and to spawn more special items such as "freeze")
 - freeze (special item that freezes the mines and restores your energy
 - $ (extra points... but also some secret effects if you collect many)
-- 1up item (special and hard to unlock item that gives 1 extra life)
+- extra life (special and hard to unlock item that gives 1 extra life)
 
 
 You can play the game online:

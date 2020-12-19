@@ -87,6 +87,8 @@ z88dk_targets: \
     ace \
     c128_z80_80col \
     cpc \
+    cpm \
+    laser500 \
     mc1000 \
     msx \
     spectrum \
@@ -808,6 +810,25 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.prg
 
 
+
+
+#################################################################
+
+cpm: cpm_z80_adm3a
+
+cpm_z80_adm3a:
+	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
+	$(INCLUDE_OPTS) \
+	-DSLOW_DOWN=3000 \
+	-DCONIO_ADM3A \
+	-D__CPM_80X24__ \
+	-DFULL_GAME -DLESS_TEXT -DNO_WAIT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_cpm_adm3a.bin \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_cpm_adm3a.bin
+
+
 #################################################################
 
 
@@ -829,6 +850,29 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_DATA.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BANK_1F.bin
+
+
+
+#################################################################
+
+
+laser500: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +laser500 $(SCCZ80_OPTS) -vn -Cz--audio \
+	-create-app -o laser500bm.bin \
+	$(INCLUDE_OPTS) \
+	-D__LASER500__ -DUDG_GRAPHICS -DFORCE_XSIZE=40 -DFORCE_YSIZE=22 -DFORCE_SCREEN_MODE=2 \
+	-DFORCE_BIT_BANG -DSOUNDS \
+	-DFULL_GAME -DLESS_TEXT -DSLOW_DOWN=800 -DZ88DK_JOYSTICK \
+	-DCONIO \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-lndos \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm 
+	mv laser500bm.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+	rm laser500bm.cas
+	mv laser500bm.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
 
 
 #################################################################

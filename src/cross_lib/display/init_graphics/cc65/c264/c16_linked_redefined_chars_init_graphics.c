@@ -37,13 +37,7 @@ void INIT_GRAPHICS(void)
 		POKE(65305u,0);
 	#endif
 
-    {
-        uint16_t j;
-        
-        for(j=0;j<1000;++j)
-        {
-            POKE(2048+j,0x71);
-        }
-    }
+    // clear screen and color ram
+    __asm__("jsr $D88B");
 }
 

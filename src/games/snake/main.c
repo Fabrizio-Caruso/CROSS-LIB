@@ -1067,7 +1067,6 @@ int main(void)
             {
                 handle_extra_life();
                 
-                handle_mines();
                 DO_SLOW_DOWN(slow_down);
                 if(MOVE_PLAYER())
                 {
@@ -1084,7 +1083,6 @@ int main(void)
                         IF_POSSIBLE_INCREASE_SPEED();
                     }
                     
-                    // TODO: This could be optimized by performing the display only when points are updated
                     
                     handle_collisions_with_objects();
                     
@@ -1092,6 +1090,8 @@ int main(void)
                     PRINTD(XSize+4,YSize-2,5,slow_down);
                     #endif
                 }
+                handle_mines();
+
                 if(hits_deadly_item(snake_head_x,snake_head_y) || !remaining_apples)
                 {
                     break;

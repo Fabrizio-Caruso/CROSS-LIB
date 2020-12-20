@@ -58,7 +58,7 @@ uint8_t move_snake(uint8_t wished_direction)
         draw_head(); // draw new head
         return 1;
     }
-    else if (wished_direction != snake_direction)
+    if (wished_direction != snake_direction)
     {
         wished_direction = snake_direction;
         goto candidate;

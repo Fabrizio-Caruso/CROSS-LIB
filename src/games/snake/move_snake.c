@@ -11,7 +11,9 @@ uint8_t move_snake(uint8_t wished_direction)
     uint8_t candidate_x;
     uint8_t candidate_y;
     
-    // TODO: Memory might be saved by using two GOTO's
+    // Memory can be saved by using two GOTO's
+    
+    candidate:
     switch(wished_direction)
     {
         case SNAKE_RIGHT:
@@ -55,6 +57,11 @@ uint8_t move_snake(uint8_t wished_direction)
         
         draw_head(); // draw new head
         return 1;
+    }
+    else if (wished_direction != snake_direction)
+    {
+        wished_direction = snake_direction;
+        goto candidate;
     }
     return 0;
 }

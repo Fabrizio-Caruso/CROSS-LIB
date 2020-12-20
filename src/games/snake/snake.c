@@ -69,15 +69,15 @@ void snake_grows(void)
         switch(snake_direction)
         {
             case SNAKE_RIGHT:
-                x = snake_head_x+1;
+                ++x;
             case SNAKE_LEFT:
-                x = snake_head_x-1;
+                --x;
             break;
             case SNAKE_UP:
-                y = snake_head_y-1;
+                --y;
             break;
             case SNAKE_DOWN:
-                y = snake_head_y+1;
+                ++y;
             break;
         }
         

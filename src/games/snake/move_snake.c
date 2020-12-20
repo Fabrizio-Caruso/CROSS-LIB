@@ -14,25 +14,23 @@ uint8_t move_snake(uint8_t wished_direction)
     // Memory can be saved by using two GOTO's
     
     candidate:
+    
+    candidate_x = snake_head_x;
+    candidate_y = snake_head_y;
     switch(wished_direction)
     {
+        
         case SNAKE_RIGHT:
-            candidate_x = snake_head_x+1;
-            goto same_y;
+            ++candidate_x; 
         break;
         case SNAKE_LEFT:
-            candidate_x = snake_head_x-1;
-            same_y:
-            candidate_y = snake_head_y;
+            --candidate_x; 
         break;
         case SNAKE_UP:
-            candidate_y = snake_head_y-1;
-            goto same_x;
+            --candidate_y;
         break;
         case SNAKE_DOWN:
-            candidate_y = snake_head_y+1;
-            same_x:
-            candidate_x = snake_head_x;
+            ++candidate_y;
         break;
     }
     if(!hits_wall(candidate_x,candidate_y)) // can move

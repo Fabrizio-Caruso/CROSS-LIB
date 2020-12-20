@@ -10,10 +10,8 @@ uint8_t move_snake(uint8_t wished_direction)
     uint8_t tail = (snake_head+snake_length-1)%snake_length;
     uint8_t candidate_x;
     uint8_t candidate_y;
-    
-    // Memory can be saved by using two GOTO's
-    
-    candidate:
+        
+    candidate_selection:
     
     candidate_x = snake_head_x;
     candidate_y = snake_head_y;
@@ -59,7 +57,7 @@ uint8_t move_snake(uint8_t wished_direction)
     if (wished_direction != snake_direction)
     {
         wished_direction = snake_direction;
-        goto candidate;
+        goto candidate_selection;
     }
     return 0;
 }

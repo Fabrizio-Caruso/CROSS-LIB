@@ -42,6 +42,7 @@
 #endif
 
 #define title() \
+    CLEAR_SCREEN(); \
     _XLIB_DRAW(XSize/2-3,0,&HI_TEXT_IMAGE); \
     SET_TEXT_COLOR(COLOR_WHITE); \
     PRINTD(XSize/2-2,0,5,record); \
@@ -49,7 +50,9 @@
     printCenteredMessageOnRow(YSize/8, _CROSS_SNAKE_STRING); \
     SET_TEXT_COLOR(COLOR_WHITE); \
     printCenteredMessageOnRow(YSize/8+2, _Fabrizio_Caruso_STRING); \
-    extra_title();
+    extra_title(); \
+    PRESS_KEY();
+ 
 
 
 #define RED_ENERGY_THRESHOLD ((MAX_ENERGY)/2)

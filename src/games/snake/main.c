@@ -556,7 +556,21 @@ void handle_transparent_horizontal_wall(void)
         magic_wall_achievement[i] = 0; \
     } \
     third_coin_achievement = 0; \
-    fourth_coin_achievement = 0;
+    fourth_coin_achievement = 0; \
+    initialize_remaining_apples();
+
+#if INITIAL_LEVEL>1
+    #if INITIAL_LEVEL<8
+        #define initialize_remaining_apples() \
+            remaining_apples = INITIAL_APPLE_COUNT + level * APPLE_COUNT_INCREASE;
+    #else
+        #define initialize_remaining_apples() \
+            remaining_apples = MAX_APPLES;
+    #endif
+#else
+    #define initialize_remaining_apples() \
+        remaining_apples = INITIAL_APPLE_COUNT+1*APPLE_COUNT_INCREASE;
+#endif
 
 #define DISPLAY_LEVEL_SCREEN() \
     CLEAR_SCREEN(); \
@@ -574,7 +588,8 @@ void handle_transparent_horizontal_wall(void)
     } \
     SET_TEXT_COLOR(COLOR_WHITE); \
     PRINT(XSize/2-4,YSize/2+2,       _LEVEL_STRING); \
-    PRINTD(XSize/2-4+6,YSize/2+2,2,level);
+    PRINTD(XSize/2-4+6,YSize/2+2,2,level); \
+    WAIT_PRESS();
 
 #define initialize_level_variables() \
     energy = MAX_ENERGY; \
@@ -886,6 +901,7 @@ void magic_wall(void)
 { \
     uint8_t i; \
     \
+    active_mines = 1; \
     init_map_to_empty(); \
     DRAW_MAP_BORDERS(); \
     build_horizontal_mines(31); \
@@ -1003,32 +1019,23 @@ void display_stats(void)
 }
 #endif
 
-int main(void)
-{
-    uint8_t i;
-    
-    INIT_GRAPHICS();
-    INIT_INPUT();
-
-    INIT_IMAGES();
-
+#define INITIALIZE() \
+    uint8_t i; \
+    INIT_GRAPHICS(); \
+    INIT_INPUT(); \
+    INIT_IMAGES(); \
     record = 0;
 
+
+
+int main(void)
+{
+    INITIALIZE();
+    
     while(1)
     {
-        CLEAR_SCREEN();
         title();
-        PRESS_KEY();
         initialize_variables();
-        #if INITIAL_LEVEL>1
-            #if INITIAL_LEVEL<8
-                remaining_apples = INITIAL_APPLE_COUNT + level * APPLE_COUNT_INCREASE;
-            #else
-                remaining_apples = MAX_APPLES;
-            #endif
-        #else
-            remaining_apples = INITIAL_APPLE_COUNT+1*APPLE_COUNT_INCREASE;
-        #endif
         
         while(lives && (level<FINAL_LEVEL+1))
         {
@@ -1037,18 +1044,13 @@ int main(void)
             #endif
             
             DISPLAY_LEVEL_SCREEN();
-            WAIT_PRESS();
-            
-            active_mines = 1;
             DISPLAY_LEVEL_ANIMATION();
-            
             build_level();
             initialize_level_variables();
             initialize_map();
-            
             spawn_items_at_level_startup();
+            
             WAIT_PRESS();
-
             #if defined(DEBUG_FREEZE)
                 spawn(SUPER_COIN);
             #endif

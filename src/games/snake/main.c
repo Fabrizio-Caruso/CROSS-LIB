@@ -752,7 +752,7 @@ void magic_wall(void)
 
 #define handle_extra_points_effect() \
     snake_grows(); \
-    ZAP_SOUND(); \
+    PING_SOUND(); \
     points+=EXTRA_POINTS; \
     if(extra_count==MAGIC_WALL_THRESHOLD) \
     { \

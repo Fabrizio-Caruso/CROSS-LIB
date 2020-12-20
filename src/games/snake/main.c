@@ -1031,6 +1031,7 @@ void display_stats(void)
 int main(void)
 {
     INITIALIZE();
+    setScreenColors();
     
     while(1)
     {

@@ -11,6 +11,8 @@
     #define UDG_BASE_FACTOR 15
 #endif
 
+// #define DEBUG
+
 void INIT_GRAPHICS(void)
 {
 

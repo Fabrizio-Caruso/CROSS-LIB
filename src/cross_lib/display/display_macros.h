@@ -268,8 +268,12 @@ typedef struct ImageStruct Image;
     #define DRAW_VERTICAL_LINE(x,y,length)
 #endif
 
-#if !defined(NO_SET_SCREEN_COLORS)
+#if !defined(NO_SET_SCREEN_COLORS) && !defined(NO_GRAPHICS)
     void setScreenColors(void);
+#endif
+
+#if defined(NO_SET_SCREEN_COLORS) || defined(NO_GRAPHICS)
+    #define setScreenColors()
 #endif
 
 
@@ -377,7 +381,7 @@ typedef struct ImageStruct Image;
     #define CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
 #elif defined(__MO5__)||defined(__TO7__)
     #define CLEAR_SCREEN() PUTCH(12);
-#elif defined(USE_KERNAL)
+#elif defined(USE_KERNAL_CLEAR_SCREEN)
     #if defined(__C16__)
         #define CLEAR_SCREEN() __asm__("jsr $D88B")
     #elif defined(__VIC20__)

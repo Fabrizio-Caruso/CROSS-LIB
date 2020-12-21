@@ -265,6 +265,8 @@ void build_level(void)
     uint8_t x;
     uint8_t y;
     uint8_t length;
+    uint8_t wall_index;
+    uint8_t secret_wall_index;
     
     init_map_to_empty();
     CLEAR_SCREEN();
@@ -274,7 +276,8 @@ void build_level(void)
     for(j=0;j<2;++j)
     {
         number_of_elements = level_walls[index]; // Number of horizontal walls
-        for(i=1;i<3*number_of_elements;i+=3)
+        secret_wall_index = (rand()%(number_of_elements));
+        for(i=1, wall_index=0;i<3*number_of_elements;i+=3,++wall_index)
         {
             x=level_walls[index+i];
             y=level_walls[index+1+i];
@@ -286,9 +289,9 @@ void build_level(void)
             else
             {
                 build_horizontal_wall(x,y,length);
-                if(i==1)
+                if(secret_wall_index==wall_index)
                 {
-                    map[x+1+rand()%(length-2)][y] = SECRET;
+                    map[x+2+rand()%(length-3)][y] = SECRET;
                     #if defined(DEBUG_SECRET_HOLES)
                     _XLIB_DRAW(x+1+rand()%(length-2),y,&CENTRAL_BRICK_IMAGE);
                     #endif

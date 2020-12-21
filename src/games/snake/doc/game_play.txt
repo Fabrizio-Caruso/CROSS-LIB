@@ -57,8 +57,8 @@ Completing a level gives you a bonus that depends on:
 - Apple        :  20 points
 - first ring   :  25 points
 - second ring  :  50 points
+- freeze       :  80 points
 - third ring   : 100 points
-- freeze       : 100 points
 - fourth ring  : 200 points
 - level bonus  : (snake length X 2) + (energy X 8) + (32 X rings) + (level X 4) 
 

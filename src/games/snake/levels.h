@@ -69,8 +69,8 @@ const uint8_t level_walls[] =
         XSize-XSize/4, YSize/2, XSize/4,
     0,
     2,
-        XSize/2-XSize/8,1,XSize/4,YSize/4,DEADLY,
-        XSize/2-XSize/8,YSize-1-YSize/4,XSize/4,YSize/4,DEADLY,
+        XSize/2-XSize/10,1,XSize/5,YSize/5,DEADLY,
+        XSize/2-XSize/10,YSize-1-YSize/5,XSize/5,YSize/5,DEADLY,
 // level 8
     0,
     4, 

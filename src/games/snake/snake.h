@@ -5,21 +5,6 @@
 #include "cross_lib.h"
 #include "settings.h"
 
-//254
-
-#define EMPTY 0
-#define DEADLY 1
-#define SUPER_COIN 2
-#define COIN 3
-#define EXTRA 4
-#define APPLE 5
-#define EXTRA_LIFE 6
-#define WALL  7
-#define HORIZONTAL_WALL 8
-#define VERTICAL_WALL 9
-#define TRANSPARENT 10
-
-
 
 void draw_head(void);
 

@@ -66,6 +66,7 @@ const Image *images[] = {
     &EXTRA_IMAGE, 
     &APPLE_IMAGE,
     &VERTICAL_HEAD_IMAGE,
+    0,
     &CENTRAL_BRICK_IMAGE, 
     &HORIZONTAL_BRICK_IMAGE, 
     &VERTICAL_BRICK_IMAGE, 
@@ -78,6 +79,9 @@ const Image *images[] = {
 
 #define hits_coin(x,y) \
     (map[x][y]==COIN)
+
+#define hits_secret(x,y) \
+    (map[x][y]==SECRET)
 
 #define hits_super_coin(x,y) \
     (map[x][y]==SUPER_COIN)
@@ -260,7 +264,7 @@ void build_level(void)
     uint8_t j;
     uint8_t x;
     uint8_t y;
-    uint8_t type;
+    uint8_t length;
     
     init_map_to_empty();
     CLEAR_SCREEN();
@@ -274,14 +278,21 @@ void build_level(void)
         {
             x=level_walls[index+i];
             y=level_walls[index+1+i];
-            type=level_walls[index+2+i];
+            length=level_walls[index+2+i];
             if(j)
             {
-                build_vertical_wall(x,y,type);
+                build_vertical_wall(x,y,length);
             }
             else
             {
-                build_horizontal_wall(x,y,type);
+                build_horizontal_wall(x,y,length);
+                if(i==1)
+                {
+                    map[x+1+rand()%(length-2)][y] = SECRET;
+                    #if defined(DEBUG_SECRET_HOLES)
+                    _XLIB_DRAW(x+1+rand()%(length-2),y,&CENTRAL_BRICK_IMAGE);
+                    #endif
+                }
             }
         }
         index += number_of_elements*3+1;
@@ -298,6 +309,7 @@ void build_level(void)
     
     build_horizontal_mines(level);
     build_vertical_mines(level);
+    
 }
 
 void display_horizontal_transition_mine(uint8_t x, uint8_t y)
@@ -569,6 +581,10 @@ void handle_transparent_horizontal_wall(void)
         super_coin_achievement[i] = 0; \
         magic_wall_achievement[i] = 0; \
     } \
+    for(i=0;i<32;++i) \
+    { \
+        secret_passage[i] = 0; \
+    } \
     third_coin_achievement = 0; \
     fourth_coin_achievement = 0; \
     initialize_remaining_apples();
@@ -671,6 +687,10 @@ void one_up(void)
         spawn(APPLE); \
         ++spawned_apples; \
     }
+
+#define handle_secret() \
+    spawn_extra(SOME_EXTRA); \
+    secret_passage[level] = 1;
 
 #define handle_coin_effect() \
     snake_grows(); \
@@ -822,6 +842,10 @@ void magic_wall(void)
     else if(hits_extra_life(snake_head_x,snake_head_y)) \
     { \
         handle_extra_life_effect(); \
+    } \
+    else if(hits_secret(snake_head_x,snake_head_y)) \
+    { \
+        handle_secret(); \
     }
 
 #define update_snake_head() \
@@ -988,8 +1012,17 @@ void display_stats(void)
         lives+=extra_life_achievement[i]+super_coin_achievement[i]+magic_wall_achievement[i];
     }
     
+    for(i=0;i<32;++i)
+    {
+        lives+=secret_passage[i];
+        #if defined(DEBUG_ACHIEVEMENTS)
+        PRINTD(2+i,10,2,secret_passage[i]);
+        #endif
+
+    }
+    
     #if defined(DEBUG_ACHIEVEMENTS)
-        PRINTD(2,1+i,3,!secret_level_never_activated); PRINTD(6,1+i,3, third_coin_achievement); PRINTD(10,1+i,3,fourth_coin_achievement);
+        PRINTD(2,12,3,!secret_level_never_activated); PRINTD(6,1+i,3, third_coin_achievement); PRINTD(10,1+i,3,fourth_coin_achievement);
     #endif
 
     lives+=(!secret_level_never_activated)+third_coin_achievement+fourth_coin_achievement;
@@ -999,7 +1032,7 @@ void display_stats(void)
     PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+3,_SECRET_STRING _XL_S);
     
 
-    display_achievements(ACHIEVEMENTS_Y_OFFSET+5,lives, 30);
+    display_achievements(ACHIEVEMENTS_Y_OFFSET+5,lives, 50);
     
     if(!level)
     {

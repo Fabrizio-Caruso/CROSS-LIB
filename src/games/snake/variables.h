@@ -142,9 +142,24 @@ extern uint8_t snake_copy_x[MAX_SNAKE_LENGTH];
 extern uint8_t snake_copy_y[MAX_SNAKE_LENGTH];
 
 extern uint16_t points;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("points")
+#endif
+
 extern uint16_t slow_down;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("slow_down")
+#endif
+
 extern uint16_t record;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("record")
+#endif
+
 extern uint16_t level_bonus;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("level_bonus")
+#endif
 
 
 extern uint8_t horizontal_mine_x[MAX_NUMBER_OF_HORIZONTAL_MINES];
@@ -153,10 +168,24 @@ extern uint8_t horizontal_mine_direction[MAX_NUMBER_OF_HORIZONTAL_MINES];
 extern uint8_t horizontal_mine_transition[MAX_NUMBER_OF_HORIZONTAL_MINES];
 
 extern uint8_t vertical_mine_x[MAX_NUMBER_OF_VERTICAL_MINES];
-extern uint8_t vertical_mine_y[MAX_NUMBER_OF_VERTICAL_MINES];
-extern uint8_t vertical_mine_direction[MAX_NUMBER_OF_VERTICAL_MINES];
-extern uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("vertical_mine_x")
+#endif
 
+extern uint8_t vertical_mine_y[MAX_NUMBER_OF_VERTICAL_MINES];
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("vertical_mine_y")
+#endif
+
+extern uint8_t vertical_mine_direction[MAX_NUMBER_OF_VERTICAL_MINES];
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("vertical_mine_direction")
+#endif
+
+extern uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("vertical_mine_transition")
+#endif
 
 // It records if one extra life was taken in bonus/secret levels
 extern uint8_t extra_life_achievement[9];
@@ -193,6 +222,6 @@ extern const Image MINE_IMAGE;
 extern const Image SUPER_COIN_IMAGE;
 extern const Image EXTRA_IMAGE;
 
-
+extern uint8_t secret_passage[2*NUMBER_OF_MAPS];
 #endif // _VARIABLES_H
 

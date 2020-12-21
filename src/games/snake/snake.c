@@ -30,7 +30,7 @@ void init_snake(void)
     uint8_t i;
     uint8_t aux;
     
-    snake_length = XSize/5;
+    snake_length = INITIAL_SNAKE_LENGTH;
     
     snake_head = 0;
     

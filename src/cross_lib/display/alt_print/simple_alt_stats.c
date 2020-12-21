@@ -37,7 +37,6 @@
 	}
 
     #if defined(__VIC20__) && defined(VIC20_EXP_3K) && !defined(TINY_GAME) && defined(REDEFINED_CHARS)
-
         char screenCode(char ch)
         {
             if(ch<64)
@@ -47,7 +46,7 @@
             else
             {
                 return 64+ch;
-            }	
+            }
         }
     #endif
 

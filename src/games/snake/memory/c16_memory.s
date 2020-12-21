@@ -41,30 +41,9 @@ _horizontal_mine_direction = _horizontal_mine_y + 4
 _horizontal_mine_transition = _horizontal_mine_direction + 4
 
 
-.export _vertical_mine_x;
-_vertical_mine_x = _horizontal_mine_transition + 4
+.export _secret_passage;
+_secret_passage = _horizontal_mine_transition + 4
 
-.export _vertical_mine_y;
-_vertical_mine_y = _vertical_mine_x + 2
-
-.export _vertical_mine_direction;
-_vertical_mine_direction = _vertical_mine_y + 2
-
-.export _vertical_mine_transition;
-_vertical_mine_transition = _vertical_mine_direction + 2
-
-
-.export _points;
-_points = _vertical_mine_transition + 2
-
-.export _slow_down;
-_slow_down = _points + 2
-
-.export _record;
-_record = _slow_down + 2
-
-.export _level_bonus;
-_level_bonus = _record + 2
 
 
 .segment "ZEROPAGE"
@@ -146,4 +125,31 @@ _not_many_mines = 67
 
 .exportzp _head_image_ptr;
 _head_image_ptr = 68;
+
+
+
+.export _vertical_mine_x;
+_vertical_mine_x = $D0
+
+.exportzp _vertical_mine_y;
+_vertical_mine_y = $D2
+
+.exportzp _vertical_mine_direction;
+_vertical_mine_direction = $D4
+
+.exportzp _vertical_mine_transition;
+_vertical_mine_transition = $D6
+
+.exportzp _points;
+_points = $D8
+
+.exportzp _slow_down;
+_slow_down = $DA
+
+.exportzp _record;
+_record = $DC
+
+.exportzp _level_bonus;
+_level_bonus = $DE
+
 

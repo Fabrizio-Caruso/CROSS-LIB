@@ -10,15 +10,18 @@
 // #define DEBUG_FREEZ
 // #define NO_ACHIEVEMENTS_SCREEN
 // #define NO_DISPLAY_LEVEL_ANIMATION
+// #define DEBUG_SECRET_HOLES
 
 #define FINAL_LEVEL 32
 
 #define INITIAL_LIVES       5U
 
+#define INITIAL_SNAKE_LENGTH (XSize/5)
+
 #define EXTRA_POINTS        5U
 #define APPLE_POINTS       20U
 #define COIN_POINTS        25U
-#define SUPER_COIN_POINTS 100U
+#define SUPER_COIN_POINTS  80U
 
 #define EXTRA_LIFE_THRESHOLD 5000U
 
@@ -40,7 +43,7 @@
 // BONUS/SECRET LEVELS THRESHOLD
 #define MAGIC_WALL_THRESHOLD 12
 #define SUPER_COIN_THRESHOLD (10+(XSize))
-#define EXTRA_1UP_THRESHOLD ((SUPER_COIN_THRESHOLD)+20)
+#define EXTRA_1UP_THRESHOLD ((SUPER_COIN_THRESHOLD)+25)
 
 #define TRANSPARENT_TRIGGER 20
 
@@ -63,6 +66,21 @@
 #define NUMBER_OF_STRINGS 5
 
 #define MAX_STRING_SIZE (6+1)
+
+#define EMPTY 0
+#define DEADLY 1
+#define SUPER_COIN 2
+#define COIN 3
+#define EXTRA 4
+#define APPLE 5
+#define EXTRA_LIFE 6
+#define SECRET 7
+#define WALL  8
+#define HORIZONTAL_WALL 9
+#define VERTICAL_WALL 10
+#define TRANSPARENT 11
+
+
 
 
 #endif // _SETTINGS_H

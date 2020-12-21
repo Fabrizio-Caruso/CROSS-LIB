@@ -14,10 +14,10 @@
 
 #define INITIAL_LIVES       5U
 
-#define EXTRA_POINTS       10U
+#define EXTRA_POINTS        5U
 #define APPLE_POINTS       20U
-#define COIN_POINTS        50U
-#define SUPER_COIN_POINTS 150U
+#define COIN_POINTS        25U
+#define SUPER_COIN_POINTS 100U
 
 #define EXTRA_LIFE_THRESHOLD 5000U
 

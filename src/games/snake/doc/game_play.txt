@@ -25,7 +25,8 @@ Hint: Keep an eye on the energy before you decide to go collect bonus items inst
 - Apple: slows you down and avoids energy from decreasing;
 - Ring: bonus points + secrets unlocked if you collect many;
 - $: extra points;
-- Special item: secret effect(s).
+- Freeze: freeze mine and restore energy;
+- Extra life: secret extra life item.
 IMPORTANT: eating items (usually) makes your snake grow, which may make your life harder.
 
 5. ENEMIES
@@ -54,12 +55,12 @@ Completing a level gives you a bonus that depends on:
 - time         :   1 point (score slowly increases by 1 point)
 - $            :   5 points
 - Apple        :  20 points
-- first ring   :  50 points
-- second ring  : 100 points
-- special item : 150 points
-- third ring   : 200 points
-- fourth ring  : 400 points
-- level bonus  : (snake length X 2) + (energy X 8) + (32 X rings up to 3) + (level X 4) 
+- first ring   :  25 points
+- second ring  :  50 points
+- third ring   : 100 points
+- freeze       : 100 points
+- fourth ring  : 200 points
+- level bonus  : (snake length X 2) + (energy X 8) + (32 X rings) + (level X 4) 
 
 
 9. EXTRA LIVES

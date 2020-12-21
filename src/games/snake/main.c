@@ -849,10 +849,10 @@ void magic_wall(void)
 
 #define handle_level_cleared() \
     SET_TEXT_COLOR(COLOR_RED); \
-    printCenteredMessageOnRow(YSize/2, __CLEARED__STRING); \
+    printCenteredMessageOnRow(YSize/2, _CLEARED_STRING); \
     level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<3) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2); \
     SET_TEXT_COLOR(COLOR_WHITE); \
-    printCenteredMessageOnRow(YSize/2+2, __BONUS__STRING); \
+    printCenteredMessageOnRow(YSize/2+2, _BONUS_STRING); \
     PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
 
 #define handle_next_level() \
@@ -1113,7 +1113,7 @@ int main(void)
         {
             handle_final_screen();
         }
-        printCenteredMessageOnRow(YSize/2, __GAME_OVER__STRING);
+        printCenteredMessageOnRow(YSize/2, _GAME_OVER_STRING);
         WAIT_PRESS();
         #if !defined(NO_ACHIEVEMENTS_SCREEN)
         display_stats();

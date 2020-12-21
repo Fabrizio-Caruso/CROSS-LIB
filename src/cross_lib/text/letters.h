@@ -120,10 +120,14 @@
         #define _XL_z "z"
     #endif
 
-    #if !defined(NO_SPACE_TEXT)
-        #define _XL_SPACE " "
-    #else
+    #if defined(NO_SPACE_TEXT)
         #define _XL_SPACE "\xA0"
     #endif
+
+    #if !defined(_XL_SPACE)
+        #define _XL_SPACE " "
+    #endif
+
+
 #endif // _LETTERS_H
 

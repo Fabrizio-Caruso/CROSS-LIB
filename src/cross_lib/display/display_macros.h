@@ -381,6 +381,14 @@ typedef struct ImageStruct Image;
     #define CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
 #elif defined(__MO5__)||defined(__TO7__)
     #define CLEAR_SCREEN() PUTCH(12);
+#elif defined(USE_ASSEMBLY_CLEAR_SCREEN)
+    #if defined(__C16__)
+        #define CLEAR_SCREEN() \
+            __asm__("LDX #$04"); \
+            __asm__("LDY #$0C"); \
+            __asm__("LDA #$60"); \
+            __asm__("JSR $C5A7");
+    #endif
 #elif defined(USE_KERNAL_CLEAR_SCREEN)
     #if defined(__C16__)
         #define CLEAR_SCREEN() __asm__("jsr $D88B")

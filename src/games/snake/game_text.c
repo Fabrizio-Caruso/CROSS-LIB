@@ -63,6 +63,7 @@ void DISPLAY_REMAINING_APPLES_COUNT(void)
 
 void DISPLAY_LIVES(void)
 {
+    SET_TEXT_COLOR(COLOR_WHITE);
     PRINTD(XSize-1,0,1,lives);
 }
 

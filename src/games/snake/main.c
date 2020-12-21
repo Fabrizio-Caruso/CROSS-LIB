@@ -1045,7 +1045,12 @@ int main(void)
             #endif
             
             DISPLAY_LEVEL_SCREEN();
-            DISPLAY_LEVEL_ANIMATION();
+            
+            #if !defined(NO_DISPLAY_LEVEL_ANIMATION)
+                DISPLAY_LEVEL_ANIMATION();
+            #else
+                active_mines = 1;
+            #endif
             build_level();
             initialize_level_variables();
             initialize_map();

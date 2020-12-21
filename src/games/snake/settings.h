@@ -9,6 +9,7 @@
 // #define NO_EXTRA_TITLE
 // #define DEBUG_FREEZ
 // #define NO_ACHIEVEMENTS_SCREEN
+// #define NO_DISPLAY_LEVEL_ANIMATION
 
 #define FINAL_LEVEL 32
 

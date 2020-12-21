@@ -311,7 +311,7 @@ const uint8_t horizontal_mines_on_level_index[] =
         80, // 25
         83, // 26
         88, // 27
-        99, // 28
+        93, // 28
         98, // 29
        101, // 30
        106, // 31

@@ -29,10 +29,8 @@
 
 #if defined(ONLY_SMALL_LETTERS)
 	#  if defined(NO_SPACE_TEXT)
-		#define CROSS_CHASE_STRING "cross" "\xA0" "chase"
-		//"cross" "\xA0" "chase"
-		#define AUTHOR_STRING "fabrizio" "\xA0" "caruso"
-		// "fabrizio" "\xA0" "caruso"	
+		#define CROSS_CHASE_STRING "cross" _XL_SPACE "chase"
+		#define AUTHOR_STRING "fabrizio" _XL_SPACE "caruso"
 	#elif defined(TINY_GAME) || XSize<=20
 		#define CROSS_CHASE_STRING "cross chase"
 		#define AUTHOR_STRING "fabrizio caruso"
@@ -47,7 +45,7 @@
 		#define DESTROY_MISSILES_STRING "destroy the missiles"
 	#endif
 	#define LURE_THE_ENEMIES_STRING     "lure the enemies"
-	#define INTO_THE_MINES_STRING 	    "into the mines"
+	#define INTO_THE_MINES_STRING       "into the mines"
 	#define SCORE_STRING "score"
 	#define LEVEL_STRING "level"
 	#define START_LEVEL_STRING "level "
@@ -153,8 +151,8 @@
 	#if defined(ONLY_SMALL_LETTERS)
 		#define PRESS_STRING "go"
 		#if defined(NO_SPACE_TEXT)
-			#define GAME_OVER_STRING "game" "\xA0" "over"
-			#define YOU_MADE_IT_STRING "the" "\xA0" "end"			
+			#define GAME_OVER_STRING "game" _XL_SPACE "over"
+			#define YOU_MADE_IT_STRING "the" _XL_SPACE "end"			
 		#else
 			#define GAME_OVER_STRING "game over"
 			#define YOU_MADE_IT_STRING "the end"	

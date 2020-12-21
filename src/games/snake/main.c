@@ -543,6 +543,20 @@ void handle_transparent_horizontal_wall(void)
         handle_transparent_horizontal_wall(); \
     }
 
+#if INITIAL_LEVEL!=1
+    #if INITIAL_LEVEL<8
+        #define initialize_remaining_apples() \
+            remaining_apples = INITIAL_APPLE_COUNT + level * APPLE_COUNT_INCREASE;
+    #else
+        #define initialize_remaining_apples() \
+            remaining_apples = MAX_APPLES;
+    #endif
+#else
+    #define initialize_remaining_apples() \
+        remaining_apples = INITIAL_APPLE_COUNT+1*APPLE_COUNT_INCREASE;
+#endif
+
+
 #define initialize_variables() \
     extra_life_counter = 1; \
     points = 0; \
@@ -559,18 +573,6 @@ void handle_transparent_horizontal_wall(void)
     fourth_coin_achievement = 0; \
     initialize_remaining_apples();
 
-#if INITIAL_LEVEL>1
-    #if INITIAL_LEVEL<8
-        #define initialize_remaining_apples() \
-            remaining_apples = INITIAL_APPLE_COUNT + level * APPLE_COUNT_INCREASE;
-    #else
-        #define initialize_remaining_apples() \
-            remaining_apples = MAX_APPLES;
-    #endif
-#else
-    #define initialize_remaining_apples() \
-        remaining_apples = INITIAL_APPLE_COUNT+1*APPLE_COUNT_INCREASE;
-#endif
 
 #define DISPLAY_LEVEL_SCREEN() \
     CLEAR_SCREEN(); \

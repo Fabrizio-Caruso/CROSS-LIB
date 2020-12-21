@@ -19,9 +19,9 @@
 #define INITIAL_SNAKE_LENGTH (XSize/5)
 
 #define EXTRA_POINTS        5U
+#define COIN_POINTS        10U
 #define APPLE_POINTS       20U
-#define COIN_POINTS        25U
-#define SUPER_COIN_POINTS  80U
+#define SUPER_COIN_POINTS  50U
 
 #define EXTRA_LIFE_THRESHOLD 5000U
 
@@ -29,7 +29,7 @@
 
 #define APPLE_COUNT_INCREASE 2U
 
-#define SOME_EXTRA 10
+#define SOME_EXTRA 15
 #define MANY_EXTRA (10+(XSize)+(XSize)/2)
 
 #define MAX_COIN_COUNT 3U

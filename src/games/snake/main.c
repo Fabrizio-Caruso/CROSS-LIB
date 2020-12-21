@@ -693,6 +693,7 @@ void one_up(void)
 
 #define handle_secret() \
     spawn_extra(SOME_EXTRA); \
+    spawn(COIN); \
     secret_passage[level] = 1;
 
 #define handle_coin_effect() \

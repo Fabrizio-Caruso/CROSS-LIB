@@ -55,11 +55,12 @@ Completing a level gives you a bonus that depends on:
 - time         :   1 point (score slowly increases by 1 point)
 - $            :   5 points
 - Apple        :  20 points
-- first ring   :  25 points
-- second ring  :  50 points
-- freeze       :  80 points
-- third ring   : 100 points
-- fourth ring  : 200 points
+- first ring   :  10 points
+- second ring  :  20 points
+- third ring   :  40 points
+- freeze       :  50 points
+- fourth ring  :  80 points
+- fifth ring   : 160 points
 - level bonus  : (snake length X 2) + (energy X 8) + (32 X rings) + (level X 4) 
 
 

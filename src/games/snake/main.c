@@ -718,16 +718,23 @@ void one_up(void)
     snake_grows(); \
     points+=(COIN_POINTS<<coin_count); \
     ZAP_SOUND(); \
-    _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE); \
-    if(coin_count>=MAX_COIN_COUNT-1) \
+    _XLIB_DRAW(XSize-6+coin_count,YSize-1,&COIN_IMAGE); \
+    if(coin_count>=2) \
     { \
         set_secret(&third_coin_achievement); \
         spawn(SUPER_COIN); \
     } \
-    if(coin_count>=MAX_COIN_COUNT) \
+    if(coin_count>=3) \
     { \
         set_secret(&fourth_coin_achievement); \
         spawn_extra(SOME_EXTRA); \
+    } \
+    if(coin_count>=4) \
+    { \
+        if(secret_level_never_activated) \
+        { \
+            secret_level_active = 1; \
+        } \
     } \
     ++coin_count;
 
@@ -830,10 +837,6 @@ void magic_wall(void)
     energy = MAX_ENERGY; \
     DISPLAY_ENERGY(); \
     active_mines = 0; \
-    if(secret_level_never_activated) \
-    { \
-        secret_level_active = 1; \
-    }
 
 
 #define handle_apple_effect() \

@@ -32,8 +32,6 @@
 #define SOME_EXTRA 15
 #define MANY_EXTRA (15+(XSize)+(XSize)/2)
 
-#define MAX_COIN_COUNT 3U
-
 #define SPEED_INCREASE_THRESHOLD 20U
 
 #define SPAWNED_APPLE_START 2U

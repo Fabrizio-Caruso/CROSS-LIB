@@ -5,7 +5,13 @@
 
 #include "variables.h"
 
-
+void DO_SLOW_DOWN(uint16_t t)
+{
+    uint16_t i;
+    for(i=0;i<(t);++i) 
+    { 
+    } 
+}
 
 void draw_head(void)
 {

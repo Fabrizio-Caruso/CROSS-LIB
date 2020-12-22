@@ -136,21 +136,23 @@
     #endif
 #endif
 
-#if defined(__NCURSES__)
-    #define DO_SLOW_DOWN(t) \
-        usleep((t)*800);
-#elif defined(SLOW_DOWN) && SLOW_DOWN>0
-    #define DO_SLOW_DOWN(t) \
-    do { \
-        uint16_t i; \
-        \
-        for(i=0;i<(t);++i) \
-        { \
-        } \
-    } while(0)
-#else 
-    #define DO_SLOW_DOWN(t)
-#endif
+#if !defined(NO_DO_SLOW_DOWN_MACRO)
+    #if defined(__NCURSES__)
+        #define DO_SLOW_DOWN(t) \
+            usleep((t)*800);
+    #elif defined(SLOW_DOWN) && SLOW_DOWN>0
+        #define DO_SLOW_DOWN(t) \
+        do { \
+            uint16_t i; \
+            \
+            for(i=0;i<(t);++i) \
+            { \
+            } \
+        } while(0)
+    #else 
+        #define DO_SLOW_DOWN(t)
+    #endif
+#endif 
 
 #endif // _SLEEP_MACROS
 

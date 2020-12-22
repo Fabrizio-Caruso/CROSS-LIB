@@ -213,6 +213,7 @@ void DRAW_MAP_BORDERS(void)
 void DRAW_MINE(uint8_t x, uint8_t y)
 {
     _XLIB_DRAW(x,y,&MINE_IMAGE);
+    map[x][y] = DEADLY;
 }
 
 void build_horizontal_mines(uint8_t level)

@@ -58,6 +58,18 @@ static uint8_t fourth_coin_achievement;
 */
 
 
+void set_secret(uint8_t *secret_ptr)
+{
+    if(!(*secret_ptr))
+    {
+        (*secret_ptr)=1;
+        SET_TEXT_COLOR(COLOR_CYAN);
+        PRINT(4,YSize-1,_SECRET_STRING);
+        SHOOT_SOUND();
+    }
+}
+
+
 const Image *images[] = {
     0, 
     &MINE_IMAGE, 
@@ -694,7 +706,7 @@ void one_up(void)
 #define handle_secret_hole() \
     spawn_extra(SOME_EXTRA); \
     spawn(COIN); \
-    secret_passage[level] = 1;
+    set_secret(&secret_passage[level]);
 
 #define handle_coin_effect() \
     snake_grows(); \
@@ -703,12 +715,12 @@ void one_up(void)
     _XLIB_DRAW(XSize-3-MAX_COIN_COUNT+coin_count,YSize-1,&COIN_IMAGE); \
     if(coin_count>=MAX_COIN_COUNT-1) \
     { \
-        third_coin_achievement = 1; \
+        set_secret(&third_coin_achievement); \
         spawn(SUPER_COIN); \
     } \
     if(coin_count>=MAX_COIN_COUNT) \
     { \
-        fourth_coin_achievement = 1; \
+        set_secret(&fourth_coin_achievement); \
         spawn_extra(SOME_EXTRA); \
     } \
     ++coin_count;
@@ -752,7 +764,7 @@ void build_magic_column(uint8_t x, uint8_t y, uint8_t length)
 
 void magic_wall(void)
 {
-    magic_wall_achievement[level>>2] = 1;
+    set_secret(&magic_wall_achievement[level>>2]);
     switch(level)
     {
         case 0:
@@ -765,22 +777,16 @@ void magic_wall(void)
         break;
         case 8: 
         case 24:
-            // build_box_wall(XSize/6,3,1,YSize-1-6,EXTRA);
-            // build_box_wall(XSize-1-XSize/6, 3, 1, YSize-1-6, EXTRA);
             build_magic_column(XSize/6,3,YSize-1-6);
             build_magic_column(XSize-1-XSize/6, 3, YSize-1-6);
         break;
         case 12: 
         case 28:
-            // build_box_wall(XSize/5,                      1,  1, 4*YSize/5,EXTRA);
-            // build_box_wall(4*XSize/5,                      YSize-1-4*YSize/5,   1,4*YSize/5,EXTRA);
             build_magic_column(XSize/5, 1, 4*YSize/5);
             build_magic_column(4*XSize/5, YSize-1-4*YSize/5,4*YSize/5);
         break;
         case 16: 
         case 32:
-            // build_box_wall(XSize/3, YSize-1-YSize/3, 1,YSize/3,EXTRA);
-            // build_box_wall(XSize-1-XSize/3, YSize-1-YSize/3, 1, YSize/3,EXTRA);
             build_magic_column(XSize/3, YSize-1-YSize/3,YSize/3);
             build_magic_column(XSize-1-XSize/3, YSize-1-YSize/3, YSize/3);
         break;
@@ -798,7 +804,7 @@ void magic_wall(void)
     } \
     if(extra_count==SUPER_COIN_THRESHOLD) \
     { \
-        super_coin_achievement[level>>2] = 1; \
+        set_secret(&super_coin_achievement[level>>2]); \
         spawn(COIN); \
     } \
     if(extra_count==EXTRA_1UP_THRESHOLD) \
@@ -835,7 +841,7 @@ void magic_wall(void)
 #define handle_extra_life_effect() \
     ZAP_SOUND(); \
     one_up(); \
-    extra_life_achievement[level>>2]=1;
+    set_secret(&extra_life_achievement[level>>2]);
 
 // TODO: All these IFs are mutually exclusive
 #define handle_collisions_with_objects() \
@@ -977,6 +983,7 @@ void magic_wall(void)
 
 #define ACHIEVEMENTS_X_OFFSET ((XSize)/4)
 #define ACHIEVEMENTS_Y_OFFSET ((YSize)/6)
+
 
 
 void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)

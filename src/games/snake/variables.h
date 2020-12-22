@@ -167,6 +167,7 @@ extern uint8_t horizontal_mine_y[MAX_NUMBER_OF_HORIZONTAL_MINES];
 extern uint8_t horizontal_mine_direction[MAX_NUMBER_OF_HORIZONTAL_MINES];
 extern uint8_t horizontal_mine_transition[MAX_NUMBER_OF_HORIZONTAL_MINES];
 
+
 extern uint8_t vertical_mine_x[MAX_NUMBER_OF_VERTICAL_MINES];
 #if defined(USE_MEMORY_BUFFERS)
 #pragma zpsym("vertical_mine_x")
@@ -195,7 +196,6 @@ extern uint8_t magic_wall_achievement[9];
 
 // It records if the super coin was spawned in bonus/secret/levels
 extern uint8_t super_coin_achievement[9];
-
 
 
 extern uint8_t map[XSize][YSize];

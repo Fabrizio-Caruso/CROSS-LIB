@@ -81,7 +81,5 @@
 #define TRANSPARENT 11
 
 
-
-
 #endif // _SETTINGS_H
 

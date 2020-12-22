@@ -7,7 +7,7 @@ PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
-GLOBAL_OPTS = -DFORCE_NARROW -DFULL_LOWER_BORDER -DNO_WALL
+GLOBAL_OPTS = -DFORCE_NARROW -DFULL_LOWER_BORDER -DNO_WALL -DNO_DO_SLOW_DOWN_MACRO
 
 #####################################################################
 # Compilers variables

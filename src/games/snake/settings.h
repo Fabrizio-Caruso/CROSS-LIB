@@ -30,7 +30,7 @@
 #define APPLE_COUNT_INCREASE 2U
 
 #define SOME_EXTRA 15
-#define MANY_EXTRA (10+(XSize)+(XSize)/2)
+#define MANY_EXTRA (15+(XSize)+(XSize)/2)
 
 #define MAX_COIN_COUNT 3U
 

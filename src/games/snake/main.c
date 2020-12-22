@@ -73,8 +73,8 @@ const Image *images[] = {
     &TRANSPARENT_BRICK_IMAGE,
     };
 
-#define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==5)||((level&15)==9)||((level&15)==14))
-#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==6)||((level&15)==7)||((level&15)== 8)||((level&15)==13)||(!level))
+#define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==6)||((level&15)==9)||((level&15)==14))
+#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==4)||((level&15)==7)||((level&15)== 8)||((level&15)==13)||(!level))
 
 
 #define hits_coin(x,y) \
@@ -691,7 +691,7 @@ void one_up(void)
         ++spawned_apples; \
     }
 
-#define handle_secret() \
+#define handle_secret_hole() \
     spawn_extra(SOME_EXTRA); \
     spawn(COIN); \
     secret_passage[level] = 1;
@@ -744,6 +744,11 @@ void spawn_extra(uint8_t quantity)
     }
 }
 
+void build_magic_column(uint8_t x, uint8_t y, uint8_t length)
+{
+    build_box_wall(x,y,1,length,EXTRA);
+}
+
 
 void magic_wall(void)
 {
@@ -755,22 +760,29 @@ void magic_wall(void)
         break;
         case 4: 
         case 20:
-            build_box_wall(1,YSize/5,XSize/2-1,1,EXTRA);
-            build_box_wall(XSize-1-XSize/2,4*YSize/5,XSize/2,1,EXTRA);
+            build_box_wall(1,1,XSize/8,YSize/8,EXTRA);
+            build_box_wall(XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,EXTRA);
         break;
         case 8: 
         case 24:
-            build_box_wall(XSize/6,3,1,YSize-1-6,EXTRA);
-            build_box_wall(XSize-1-XSize/6, 3, 1, YSize-1-6, EXTRA);
+            // build_box_wall(XSize/6,3,1,YSize-1-6,EXTRA);
+            // build_box_wall(XSize-1-XSize/6, 3, 1, YSize-1-6, EXTRA);
+            build_magic_column(XSize/6,3,YSize-1-6);
+            build_magic_column(XSize-1-XSize/6, 3, YSize-1-6);
         break;
         case 12: 
         case 28:
-            build_box_wall(2,YSize/2-1,XSize-4,1,EXTRA);
+            // build_box_wall(XSize/5,                      1,  1, 4*YSize/5,EXTRA);
+            // build_box_wall(4*XSize/5,                      YSize-1-4*YSize/5,   1,4*YSize/5,EXTRA);
+            build_magic_column(XSize/5, 1, 4*YSize/5);
+            build_magic_column(4*XSize/5, YSize-1-4*YSize/5,4*YSize/5);
         break;
         case 16: 
         case 32:
-            build_box_wall(XSize/3, YSize-1-YSize/3, 1,YSize/3,EXTRA);
-            build_box_wall(XSize-1-XSize/3, YSize-1-YSize/3, 1, YSize/3,EXTRA);
+            // build_box_wall(XSize/3, YSize-1-YSize/3, 1,YSize/3,EXTRA);
+            // build_box_wall(XSize-1-XSize/3, YSize-1-YSize/3, 1, YSize/3,EXTRA);
+            build_magic_column(XSize/3, YSize-1-YSize/3,YSize/3);
+            build_magic_column(XSize-1-XSize/3, YSize-1-YSize/3, YSize/3);
         break;
     } 
 }
@@ -787,7 +799,7 @@ void magic_wall(void)
     if(extra_count==SUPER_COIN_THRESHOLD) \
     { \
         super_coin_achievement[level>>2] = 1; \
-        spawn(SUPER_COIN); \
+        spawn(COIN); \
     } \
     if(extra_count==EXTRA_1UP_THRESHOLD) \
     { \
@@ -849,7 +861,7 @@ void magic_wall(void)
     } \
     else if(hits_secret(snake_head_x,snake_head_y)) \
     { \
-        handle_secret(); \
+        handle_secret_hole(); \
     }
 
 #define update_snake_head() \

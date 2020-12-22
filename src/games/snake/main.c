@@ -779,6 +779,7 @@ void magic_wall(void)
         case 20:
             build_box_wall(1,1,XSize/8,YSize/8,EXTRA);
             build_box_wall(XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,EXTRA);
+            spawn_extra(SOME_EXTRA);
         break;
         case 8: 
         case 24:

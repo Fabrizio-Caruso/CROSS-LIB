@@ -592,6 +592,7 @@ void handle_transparent_horizontal_wall(void)
 #define initialize_variables() \
     extra_life_counter = 1; \
     points = 0; \
+    rings = 0; \
     lives = INITIAL_LIVES; \
     level = INITIAL_LEVEL; \
     secret_level_never_activated = 1; \
@@ -913,6 +914,7 @@ void magic_wall(void)
         if(!secret_level_active) \
         { \
             ++level; \
+            rings+=coin_count; \
         } \
         else \
         { \
@@ -995,11 +997,11 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
     uint8_t i;
     
     SET_TEXT_COLOR(COLOR_WHITE);
-    PRINT(ACHIEVEMENTS_X_OFFSET+3,row,_XL_O _XL_F);
-    PRINTD(ACHIEVEMENTS_X_OFFSET+6,row,2,max);
+    PRINT(ACHIEVEMENTS_X_OFFSET+5,row,_XL_O _XL_F);
+    PRINTD(ACHIEVEMENTS_X_OFFSET+8,row,2,max);
     for(i=0;i<=achievements;++i)
     {
-        PRINTD(ACHIEVEMENTS_X_OFFSET,row,2,i);
+        PRINTD(ACHIEVEMENTS_X_OFFSET+2,row,2,i);
         SHOOT_SOUND();
         DO_SLOW_DOWN((SLOW_DOWN/4)*i);
     }
@@ -1032,7 +1034,13 @@ void display_stats(void)
     _XLIB_DRAW(ACHIEVEMENTS_X_OFFSET+1,ACHIEVEMENTS_Y_OFFSET,&SCORE_TEXT_RIGHT_IMAGE);
 
     handle_record();
-    lives = 0;
+    
+    _XLIB_DRAW(ACHIEVEMENTS_X_OFFSET+1, ACHIEVEMENTS_Y_OFFSET+3, &COIN_IMAGE);
+    
+    SET_TEXT_COLOR(COLOR_WHITE);
+    PRINTD(ACHIEVEMENTS_X_OFFSET+5,ACHIEVEMENTS_Y_OFFSET+3,3,rings);
+    
+    lives = 0; // re-used variable
     
     for(i=0;i<9;++i)
     {
@@ -1049,9 +1057,10 @@ void display_stats(void)
         #if defined(DEBUG_ACHIEVEMENTS)
         PRINTD(2+i,10,2,secret_passage[i]);
         #endif
-
     }
     
+
+
     #if defined(DEBUG_ACHIEVEMENTS)
         PRINTD(2,12,3,!secret_level_never_activated); PRINTD(6,1+i,3, third_coin_achievement); PRINTD(10,1+i,3,fourth_coin_achievement);
     #endif
@@ -1060,10 +1069,9 @@ void display_stats(void)
     
     
     SET_TEXT_COLOR(COLOR_YELLOW);
-    PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+3,_SECRET_STRING _XL_S);
-    
+    PRINT(ACHIEVEMENTS_X_OFFSET+2,ACHIEVEMENTS_Y_OFFSET+7,_SECRET_STRING _XL_S);
 
-    display_achievements(ACHIEVEMENTS_Y_OFFSET+5,lives, 50);
+    display_achievements(ACHIEVEMENTS_Y_OFFSET+9,lives, 50);
     
     if(!level)
     {
@@ -1071,16 +1079,14 @@ void display_stats(void)
     }
     --level;
 
-    SET_TEXT_COLOR(COLOR_CYAN);
-    PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+8,_LEVEL_STRING _XL_S);
-
-    display_achievements(ACHIEVEMENTS_Y_OFFSET+10,level,32);
+    _XLIB_DRAW(ACHIEVEMENTS_X_OFFSET, ACHIEVEMENTS_Y_OFFSET+14,&LV_TEXT_IMAGE);    
+    display_achievements(ACHIEVEMENTS_Y_OFFSET+14,level,32);
     
     
     if(!secret_level_never_activated)
     {
         SET_TEXT_COLOR(COLOR_RED);
-        PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+12,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
+        PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+16,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
     }
 }
 #endif

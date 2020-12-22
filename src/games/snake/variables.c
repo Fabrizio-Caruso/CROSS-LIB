@@ -69,6 +69,7 @@ uint8_t secret_passage[2*NUMBER_OF_MAPS];
 #endif
 
 
+uint8_t rings;
 uint8_t map[XSize][YSize];
 
 

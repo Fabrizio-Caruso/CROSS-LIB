@@ -218,5 +218,8 @@ extern const Image SUPER_COIN_IMAGE;
 extern const Image EXTRA_IMAGE;
 
 extern uint8_t secret_passage[2*NUMBER_OF_MAPS];
+
+extern uint8_t rings;
+
 #endif // _VARIABLES_H
 

@@ -283,8 +283,9 @@ nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 
 pet: pet_16k
 
+# -m my_map.txt
 pet_16k: 
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t pet \
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl -t pet \
 	-DFULL_GAME -DSLOW_DOWN=4000 -DNO_UDG \
 	-DNO_INIT_GRAPHICS -DCONIO -DNO_UDG -DASCII_SOUNDS \
 	$(FULL_FILES) \

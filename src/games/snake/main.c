@@ -57,6 +57,11 @@ static uint8_t fourth_coin_achievement;
 
 */
 
+#if XSize<22
+    #define SECRET_X 3
+#else
+    #define SECRET_X 4
+#endif
 
 void set_secret(uint8_t *secret_ptr)
 {
@@ -64,7 +69,7 @@ void set_secret(uint8_t *secret_ptr)
     {
         (*secret_ptr)=1;
         SET_TEXT_COLOR(COLOR_CYAN);
-        PRINT(4,YSize-1,_SECRET_STRING);
+        PRINT(SECRET_X,YSize-1,_SECRET_STRING);
         SHOOT_SOUND();
     }
 }

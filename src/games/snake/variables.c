@@ -66,10 +66,12 @@ uint8_t transparent_horizontal_wall_level_flag;
 const Image *head_image_ptr;
 uint8_t secret_passage[2*NUMBER_OF_MAPS];
 
+uint8_t rings;
+
 #endif
 
 
-uint8_t rings;
+
 uint8_t map[XSize][YSize];
 
 

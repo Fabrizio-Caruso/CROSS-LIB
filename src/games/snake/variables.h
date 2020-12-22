@@ -183,6 +183,12 @@ extern uint8_t vertical_mine_transition[MAX_NUMBER_OF_VERTICAL_MINES];
 #pragma zpsym("vertical_mine_transition")
 #endif
 
+
+extern uint8_t rings;
+#if defined(USE_MEMORY_BUFFERS)
+#pragma zpsym("rings")
+#endif
+
 // It records if one extra life was taken in bonus/secret levels
 extern uint8_t extra_life_achievement[9];
 
@@ -219,7 +225,6 @@ extern const Image EXTRA_IMAGE;
 
 extern uint8_t secret_passage[2*NUMBER_OF_MAPS];
 
-extern uint8_t rings;
 
 #endif // _VARIABLES_H
 

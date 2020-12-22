@@ -435,13 +435,13 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
 	$(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/main.c   \
-	$(SOURCE_PATH)/game_text.c  \
-	$(SOURCE_PATH)/init_images.c \
 	$(SOURCE_PATH)/memory/vic20_memory.s \
-	$(SOURCE_PATH)/variables.c \
+	$(SOURCE_PATH)/init_images.c \
 	--code-name CODE2 \
-	$(SOURCE_PATH)/snake.c  \
+	$(SOURCE_PATH)/game_text.c  \
+	$(SOURCE_PATH)/variables.c \
 	$(SOURCE_PATH)/control_player.c \
+	$(SOURCE_PATH)/snake.c  \
 	$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
 	$(SOURCE_PATH)/move_snake.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \

@@ -124,7 +124,8 @@ _transparent_horizontal_wall_level_flag = 66
 .exportzp _head_image_ptr;
 _head_image_ptr = 67;
 
-
+.exportzp _rings;
+_rings = 69
 
 .export _vertical_mine_x;
 _vertical_mine_x = $D0

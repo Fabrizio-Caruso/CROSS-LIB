@@ -148,3 +148,6 @@ _record = 81
 .exportzp _level_bonus;
 _level_bonus = 83
 
+
+.exportzp _rings;
+_rings = 85

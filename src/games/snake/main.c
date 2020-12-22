@@ -598,7 +598,7 @@ void handle_transparent_horizontal_wall(void)
     for(i=0;i<9;++i) \
     { \
         extra_life_achievement[i] = 0; \
-        super_coin_achievement[i] = 0; \
+        coin_achievement[i] = 0; \
         magic_wall_achievement[i] = 0; \
     } \
     for(i=0;i<32;++i) \
@@ -636,7 +636,6 @@ void handle_transparent_horizontal_wall(void)
     slow_down = SLOW_DOWN; \
     apples_on_screen_count = 1+(remaining_apples>>3); \
     spawned_apples = 0; \
-    not_many_mines = horizontal_mines_on_current_level<=EXTRA_COIN_SPAWN_THRESHOLD; \
     transparent_vertical_wall_level_flag = transparent_vertical_wall_level(); \
     transparent_vertical_wall_triggered = EMPTY; \
     transparent_horizontal_wall_triggered = EMPTY; \
@@ -650,7 +649,7 @@ void handle_transparent_horizontal_wall(void)
     { \
         spawn(APPLE); \
     } \
-    if(!not_many_mines) \
+    if((!level) || (horizontal_mines_on_current_level>EXTRA_COIN_SPAWN_THRESHOLD)) \
     { \
         spawn(COIN); \
     }
@@ -807,14 +806,14 @@ void magic_wall(void)
     { \
         magic_wall(); \
     } \
-    if(extra_count==SUPER_COIN_THRESHOLD) \
+    if(extra_count==COIN_THRESHOLD) \
     { \
-        set_secret(&super_coin_achievement[level>>2]); \
+        set_secret(&(coin_achievement[level>>2])); \
         spawn(COIN); \
     } \
     if(extra_count==EXTRA_1UP_THRESHOLD) \
     { \
-        if(!extra_life_achievement[level>>2]) \
+        if(!(extra_life_achievement[level>>2])) \
         { \
             spawn(EXTRA_LIFE); \
         } \
@@ -1038,10 +1037,10 @@ void display_stats(void)
     for(i=0;i<9;++i)
     {
         #if defined(DEBUG_ACHIEVEMENTS)
-        PRINTD(2,1+i,3,extra_life_achievement[i]); PRINTD(6,1+i,3, super_coin_achievement[i]); PRINTD(10,1+i,3,magic_wall_achievement[i]);
+        PRINTD(2,1+i,3,extra_life_achievement[i]); PRINTD(6,1+i,3, coin_achievement[i]); PRINTD(10,1+i,3,magic_wall_achievement[i]);
         WAIT_PRESS();
         #endif
-        lives+=extra_life_achievement[i]+super_coin_achievement[i]+magic_wall_achievement[i];
+        lives+=extra_life_achievement[i]+coin_achievement[i]+magic_wall_achievement[i];
     }
     
     for(i=0;i<32;++i)

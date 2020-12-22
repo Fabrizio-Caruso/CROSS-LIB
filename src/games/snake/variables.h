@@ -124,11 +124,6 @@ extern uint8_t transparent_horizontal_wall_level_flag;
 #pragma zpsym("transparent_horizontal_wall_level_flag")
 #endif
 
-extern uint8_t not_many_mines;
-#if defined(USE_MEMORY_BUFFERS)
-#pragma zpsym("not_many_mines")
-#endif
-
 extern const Image *head_image_ptr;
 #if defined(USE_MEMORY_BUFFERS)
 #pragma zpsym("head_image_ptr")
@@ -195,7 +190,7 @@ extern uint8_t extra_life_achievement[9];
 extern uint8_t magic_wall_achievement[9];
 
 // It records if the super coin was spawned in bonus/secret/levels
-extern uint8_t super_coin_achievement[9];
+extern uint8_t coin_achievement[9];
 
 
 extern uint8_t map[XSize][YSize];

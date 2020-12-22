@@ -38,7 +38,7 @@ uint8_t extra_life_achievement[9];
 uint8_t magic_wall_achievement[9];
 
 // It records if the super coin was spawned in bonus/secret/levels
-uint8_t super_coin_achievement[9];
+uint8_t coin_achievement[9];
 
 uint8_t energy;
 
@@ -63,7 +63,6 @@ uint8_t secret_level_never_activated;
 uint8_t next_level;
 uint8_t transparent_vertical_wall_level_flag;
 uint8_t transparent_horizontal_wall_level_flag;
-uint8_t not_many_mines;
 const Image *head_image_ptr;
 uint8_t secret_passage[2*NUMBER_OF_MAPS];
 

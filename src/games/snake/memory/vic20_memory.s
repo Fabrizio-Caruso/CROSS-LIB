@@ -25,11 +25,11 @@ _extra_life_achievement = _snake_copy_y + 45
 .export _magic_wall_achievement;
 _magic_wall_achievement =  $200
 
-.export _super_coin_achievement;
-_super_coin_achievement = _magic_wall_achievement + 9
+.export _coin_achievement;
+_coin_achievement = _magic_wall_achievement + 9
 
 .export _horizontal_mine_x;
-_horizontal_mine_x = _super_coin_achievement + 9
+_horizontal_mine_x = _coin_achievement + 9
 
 .export _horizontal_mine_y;
 _horizontal_mine_y = _horizontal_mine_x + 4
@@ -119,35 +119,32 @@ _transparent_vertical_wall_level_flag = 65
 .exportzp _transparent_horizontal_wall_level_flag;
 _transparent_horizontal_wall_level_flag = 66
 
-.exportzp _not_many_mines;
-_not_many_mines = 67
-
 .exportzp _head_image_ptr;
-_head_image_ptr = 68;
+_head_image_ptr = 67;
 
 
 
 .export _vertical_mine_x;
-_vertical_mine_x = 70
+_vertical_mine_x = 69
 
 .exportzp _vertical_mine_y;
-_vertical_mine_y = 72
+_vertical_mine_y = 71
 
 .exportzp _vertical_mine_direction;
-_vertical_mine_direction = 74
+_vertical_mine_direction = 73
 
 .exportzp _vertical_mine_transition;
-_vertical_mine_transition = 76
+_vertical_mine_transition = 75
 
 .exportzp _points;
-_points = 78
+_points = 77
 
 .exportzp _slow_down;
-_slow_down = 80
+_slow_down = 79
 
 .exportzp _record;
-_record = 82
+_record = 81
 
 .exportzp _level_bonus;
-_level_bonus = 84
+_level_bonus = 83
 

@@ -141,7 +141,7 @@ void spawn(uint8_t type)
     uint8_t x;
     uint8_t y;
     
-    TICK_SOUND();
+    PING_SOUND();
     while(1)
     {
         x = (uint8_t)(RAND()%(XSize-2)+1);
@@ -810,7 +810,7 @@ void magic_wall(void)
 
 #define handle_extra_points_effect() \
     snake_grows(); \
-    PING_SOUND(); \
+    TICK_SOUND(); \
     points+=EXTRA_POINTS; \
     if(extra_count==MAGIC_WALL_THRESHOLD) \
     { \

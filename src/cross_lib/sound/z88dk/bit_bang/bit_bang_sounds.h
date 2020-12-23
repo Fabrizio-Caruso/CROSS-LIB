@@ -77,13 +77,13 @@ extern void __LIB__ bit_beep(int duration, int period) __smallc;
 	
 	// TODO: Remove these HACKS
 	#if defined(__ACE__) 
-		#define EXPLOSION_SOUND() bit_fx3(3)	
+		#define EXPLOSION_SOUND() bit_fx3(3)
 	#elif defined(__MC1000__)
 		#define EXPLOSION_SOUND() bit_fx(1)
 	#elif defined(__SC3000__)
 		#define EXPLOSION_SOUND() bit_fx3(3)
 	#else
-		#define EXPLOSION_SOUND() bit_fx3(0)	// TODO: Improve this sound
+		#define EXPLOSION_SOUND() bit_fx3(0) // TODO: Improve this sound
 	#endif
 	
 	// TODO: Remove these HACKS
@@ -92,13 +92,14 @@ extern void __LIB__ bit_beep(int duration, int period) __smallc;
 		#define SHOOT_SOUND() bit_fx3(0)
 	#else
 		#define ZAP_SOUND() bit_fx(7)
-		#define SHOOT_SOUND() bit_fx(1)	
+		#define SHOOT_SOUND() bit_fx(1)
 	#endif
-	#define PING_SOUND() bit_fx3(3)
+	#define PING_SOUND() bit_beep(80,3)
+	// bit_fx3(3)
 	// bit_beep(40,20)
-	//
-	
-	#define TICK_SOUND() bit_fx(0)
+
+	#define TICK_SOUND() bit_beep(25,20)
+	// bit_fx(0)
 	// bit_beep(40,40)
 	
 	#define TOCK_SOUND() bit_beep(50,20)

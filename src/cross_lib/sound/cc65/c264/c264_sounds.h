@@ -31,16 +31,11 @@
 	#define VOICE_1 16
 	#define MAX_VOLUME 15
 	
-	#define LO_FREQ_1 0xFF0E 
-	#define HI_FREQ_1 0xFF12 	
+	#define LO_FREQ_1 0xFF0E
+	#define HI_FREQ_1 0xFF12
 	#define SELECT 0xFF11 
-
 	
 	void _noise_sound(uint8_t type);
-	
-	// void EXPLOSION_SOUND(void);
-	
-	// void SHOOT_SOUND(void);
 	
 	#define EXPLOSION_SOUND() _noise_sound(220)
 	
@@ -48,12 +43,6 @@
 	
 	void _short_sound(uint8_t freq);
 	
-	// void PING_SOUND(void);
-	
-	// void TOCK_SOUND(void);
-	
-    // void TICK_SOUND(void);
-
 	#define PING_SOUND() _short_sound(200)
 	
 	#define TOCK_SOUND() _short_sound(150)

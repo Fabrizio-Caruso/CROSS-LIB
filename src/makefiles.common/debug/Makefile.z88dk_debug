@@ -22,6 +22,14 @@ spectrum_litterals:
 	$(TEST_PATH)/litterals.c \
 	-create-app
 
+spectrum_extern:
+	$(Z88DK_PATH)$(MYZ88DK)  +zx -compiler=sdcc \
+	-vn \
+	-lndos \
+	$(TEST_PATH)/foo.c \
+	$(TEST_PATH)/bar.c \
+	-create-app
+
 msx_mode1_test:
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -subtype=rom \
 	-vn \

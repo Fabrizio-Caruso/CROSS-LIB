@@ -7,7 +7,7 @@ PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
-GLOBAL_OPTS = -DFORCE_NARROW -DFULL_LOWER_BORDER -DNO_WALL -DNO_DO_SLOW_DOWN_MACRO
+GLOBAL_OPTS = -DFORCE_NARROW -DFULL_LOWER_BORDER -DNO_WALL -DNO_DO_SLOW_DOWN_MACRO -DNO_SLEEP
 
 #####################################################################
 # Compilers variables
@@ -1217,7 +1217,7 @@ ncurses:
 	$(GCC) $(GCC_OPTS) $(INCLUDE_OPTS) -D__NCURSES__ \
 	-DFULL_GAME \
 	-DEND_SCREEN -DBETWEEN_LEVEL -DSLOW_DOWN=150 -DNO_UDG \
-	-DCONIO  \
+	-DCONIO \
 	-DALT_PRINT \
 	-DNO_TITLE_LINE \
 	$(CROSS_LIB_PATH)/display/alt_print/ncurses_alt_print.c \

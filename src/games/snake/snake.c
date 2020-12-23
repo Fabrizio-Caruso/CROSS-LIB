@@ -76,6 +76,7 @@ void snake_grows(void)
         {
             case SNAKE_RIGHT:
                 ++x;
+            break;
             case SNAKE_LEFT:
                 --x;
             break;
@@ -89,7 +90,6 @@ void snake_grows(void)
         
         if(!(map[x][y]))
         {
-            
             snake_copy_x[0] = x;
             snake_copy_y[0] = y;
         

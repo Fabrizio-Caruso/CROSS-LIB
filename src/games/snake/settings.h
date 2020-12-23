@@ -14,7 +14,7 @@
 
 #define FINAL_LEVEL 32
 
-#define INITIAL_LIVES       1U
+#define INITIAL_LIVES       5U
 
 #define INITIAL_SNAKE_LENGTH (XSize/5)
 
@@ -29,7 +29,7 @@
 
 #define APPLE_COUNT_INCREASE 2U
 
-#define SOME_EXTRA 15
+#define SOME_EXTRA 10
 #define MANY_EXTRA (15+(XSize)+(XSize)/2)
 
 #define SPEED_INCREASE_THRESHOLD 20U

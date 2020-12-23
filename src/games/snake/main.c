@@ -925,12 +925,12 @@ void magic_wall(void)
     PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
 
 #define handle_next_level() \
+    rings+=coin_count; \
     if(level) \
     { \
         if(!secret_level_active) \
         { \
             ++level; \
-            rings+=coin_count; \
         } \
         else \
         { \

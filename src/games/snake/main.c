@@ -785,9 +785,17 @@ void magic_wall(void)
         break;
         case 4: 
         case 20:
-            build_box_wall(1,1,XSize/8,YSize/8,EXTRA);
-            build_box_wall(XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,EXTRA);
-            spawn_extra(SOME_EXTRA);
+        /*
+        XSize/3,                      0,    4*YSize/5,
+       2*XSize/3,               YSize/5,    4*YSize/5,
+       */
+            // build_box_wall(1,1,XSize/8,YSize/8,EXTRA);
+
+            // build_box_wall(XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,EXTRA);
+            // spawn_extra(SOME_EXTRA);
+            
+            build_magic_column(XSize/3,                      1,    4*YSize/5);
+            build_magic_column(2*XSize/3,               YSize/5,    4*YSize/5);
         break;
         case 8: 
         case 24:

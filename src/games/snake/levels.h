@@ -35,7 +35,7 @@ const uint8_t level_walls[] =
         XSize/2,        YSize-1-YSize/4,      YSize/4,
     0,
         
-// level 6 -> 4 (48)
+// level 4 (48)
     0,
     2,
         XSize/3,                      0,    4*YSize/5,
@@ -44,7 +44,7 @@ const uint8_t level_walls[] =
         1,1,XSize/8,YSize/8,DEADLY,
         XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,DEADLY,
 
-// level 4 -> 5 (67)
+// level 5 (67)
     4,
              0,                 YSize/5,      XSize/2,
        XSize-1-XSize/2,       2*YSize/5,      XSize/2,
@@ -53,7 +53,7 @@ const uint8_t level_walls[] =
     0,
     0,
 
-// level 5 -> 6 (82) (Z88DK partial work-around for preprocessor bug on division with integer litterals)
+// level 6 (82) (Z88DK partial work-around for preprocessor bug on division with integer litterals)
     4,
         ((uint8_t) (XSize/4)),                ((uint8_t) (YSize/4)),              ((uint8_t) (XSize/5))+1,
         XSize-((uint8_t) (XSize/4))-((uint8_t) (XSize/5)),        ((uint8_t) (YSize/4)),      ((uint8_t) (XSize/5))+1, // (1)
@@ -106,13 +106,13 @@ const uint8_t level_walls[] =
         2,YSize-2-YSize/4,XSize/4,YSize/4,WALL,
         XSize-2-XSize/4,YSize-2-YSize/4,XSize/4,YSize/4,WALL,
         XSize-2-XSize/4,2,XSize/4,YSize/4,WALL,
-// level 13 -> 12(204)
+// level 12(204)
     0,
     2,
          XSize/5,                      1,   4*YSize/5,
        4*XSize/5,                      YSize-1-4*YSize/5,   4*YSize/5,
     0,
-// level 12 -> 13 (213)
+// level 13 (213)
     1,
         2,YSize/2-1,XSize-4,
     0,
@@ -230,12 +230,12 @@ const uint8_t horizontal_mines_on_level[] =
             YSize-3,
             YSize/2-3,
             YSize/2+3,
-        4, // 20 -> 21(64)
+        4, // 21(64)
             YSize/2 - 1,
             YSize/2 + 1,
             2,
             YSize-3,
-        2, // 21 -> 22(69)
+        2, // 22(69)
             3,
             YSize - 3,
         2, // 23 (72)

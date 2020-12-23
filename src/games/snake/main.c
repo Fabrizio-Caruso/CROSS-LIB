@@ -309,7 +309,7 @@ void build_level(void)
                 build_horizontal_wall(x,y,length);
                 if(secret_wall_index==wall_index)
                 {
-                    map[x+2+rand()%(length-3)][y] = SECRET;
+                    map[x+1+rand()%(length-2)][y] = SECRET;
                     #if defined(DEBUG_SECRET_HOLES)
                     _XLIB_DRAW(x+1+rand()%(length-2),y,&CENTRAL_BRICK_IMAGE);
                     #endif
@@ -651,8 +651,13 @@ void handle_transparent_horizontal_wall(void)
     { \
         spawn(APPLE); \
     } \
-    if((!level) || (horizontal_mines_on_current_level>EXTRA_COIN_SPAWN_THRESHOLD)) \
+    if(level>=EXTRA_COIN_SPAWN_THRESHOLD) \
     { \
+        spawn(COIN); \
+    } \
+    if(!level) \
+    { \
+        spawn(COIN); \
         spawn(COIN); \
     }
 
@@ -785,17 +790,8 @@ void magic_wall(void)
         break;
         case 4: 
         case 20:
-        /*
-        XSize/3,                      0,    4*YSize/5,
-       2*XSize/3,               YSize/5,    4*YSize/5,
-       */
-            // build_box_wall(1,1,XSize/8,YSize/8,EXTRA);
-
-            // build_box_wall(XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,EXTRA);
-            // spawn_extra(SOME_EXTRA);
-            
-            build_magic_column(XSize/3,                      1,    4*YSize/5);
-            build_magic_column(2*XSize/3,               YSize/5,    4*YSize/5);
+            build_magic_column(XSize/3, 1, 4*YSize/5);
+            build_magic_column(2*XSize/3, YSize/5, 4*YSize/5);
         break;
         case 8: 
         case 24:
@@ -817,31 +813,38 @@ void magic_wall(void)
 
 
 #define handle_extra_points_effect() \
-    snake_grows(); \
-    TICK_SOUND(); \
-    points+=EXTRA_POINTS; \
-    if(extra_count==MAGIC_WALL_THRESHOLD) \
+    do \
     { \
-        magic_wall(); \
-    } \
-    if(extra_count==COIN_THRESHOLD) \
-    { \
-        set_secret(&(coin_achievement[level>>2])); \
-        spawn(COIN); \
-    } \
-    if(extra_count==EXTRA_1UP_THRESHOLD) \
-    { \
-        if(!(extra_life_achievement[level>>2])) \
+        snake_grows(); \
+        TICK_SOUND(); \
+        points+=EXTRA_POINTS; \
+        if(!(level&3)) \
         { \
-            spawn(EXTRA_LIFE); \
+            if(extra_count==MAGIC_WALL_THRESHOLD) \
+            { \
+                magic_wall(); \
+            } \
+            if(extra_count==COIN_THRESHOLD) \
+            { \
+                set_secret(&(coin_achievement[level>>2])); \
+                spawn(COIN); \
+            } \
+            if(extra_count==EXTRA_1UP_THRESHOLD) \
+            { \
+                if(!(extra_life_achievement[level>>2])) \
+                { \
+                    spawn(EXTRA_LIFE); \
+                } \
+            } \
+            ++extra_count; \
         } \
-    } \
-    ++extra_count
+    } while(0)
+
 
 #define handle_super_coin_effect() \
     ZAP_SOUND(); \
     points+=SUPER_COIN_POINTS; \
-    slow_down = SLOW_DOWN + SLOW_DOWN/3; \
+    slow_down = SLOW_DOWN + SLOW_DOWN/4; \
     energy = MAX_ENERGY; \
     DISPLAY_ENERGY(); \
     active_mines = 0; \
@@ -1031,6 +1034,12 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
         PRINT(ACHIEVEMENTS_X_OFFSET+9,ACHIEVEMENTS_Y_OFFSET, _XL_R _XL_E _XL_C _XL_O _XL_R _XL_D); \
     }
 
+#define DISPLAY_COINS() \
+{ \
+    _XLIB_DRAW(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, &COIN_IMAGE); \
+    SET_TEXT_COLOR(COLOR_WHITE); \
+    PRINTD(ACHIEVEMENTS_X_OFFSET+5,ACHIEVEMENTS_Y_OFFSET+3,3,rings); \
+}
 
 void display_stats(void)
 {
@@ -1048,10 +1057,7 @@ void display_stats(void)
 
     handle_record();
     
-    _XLIB_DRAW(ACHIEVEMENTS_X_OFFSET+1, ACHIEVEMENTS_Y_OFFSET+3, &COIN_IMAGE);
-    
-    SET_TEXT_COLOR(COLOR_WHITE);
-    PRINTD(ACHIEVEMENTS_X_OFFSET+5,ACHIEVEMENTS_Y_OFFSET+3,3,rings);
+    DISPLAY_COINS();
     
     lives = 0; // re-used variable
     

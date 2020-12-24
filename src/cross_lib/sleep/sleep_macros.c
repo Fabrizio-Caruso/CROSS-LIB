@@ -22,12 +22,15 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
+#include "sleep_macros.h"
+
+#include "cross_lib.h" 
+
+#include "standard_libs.h"
 
 #if !defined(NO_SLEEP)
 
-	#include "sleep_macros.h"
-    
-    #include "standard_libs.h"
+
 
 	#if defined(__OSIC1P__)
 		#define CYCLES 500
@@ -45,3 +48,24 @@
 	}
 
 #endif
+
+#if defined(NO_DO_SLOW_DOWN_MACRO)
+    #if defined(__NCURSES__)
+        #include <stdint.h>
+        #include <time.h>
+        #include <unistd.h>
+        void DO_SLOW_DOWN(uint16_t t)
+        {
+            usleep((t)*800);
+        }
+    #else
+        void DO_SLOW_DOWN(uint16_t t)
+        {
+            uint16_t i;
+            for(i=0;i<(t);++i)
+            {
+            }
+        }
+    #endif
+#endif
+

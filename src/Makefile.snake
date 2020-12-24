@@ -7,7 +7,9 @@ PARENT_DIR = games
 
 SOURCE_PATH := $(PARENT_DIR)/$(GAME_NAME)
 
-GLOBAL_OPTS = -DFORCE_NARROW -DFULL_LOWER_BORDER -DNO_WALL -DNO_DO_SLOW_DOWN_MACRO -DNO_SLEEP
+GLOBAL_OPTS_WITH_SLEEP_MACRO = -DFORCE_NARROW -DFULL_LOWER_BORDER -DNO_WALL -DNO_SLEEP
+
+GLOBAL_OPTS =                  $(GLOBAL_OPTS_WITH_SLEEP_MACRO) -DNO_DO_SLOW_DOWN_MACRO 
 
 #####################################################################
 # Compilers variables
@@ -38,6 +40,7 @@ ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1
 #
 FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/main.c \
 	$(SOURCE_PATH)/control_player.c \
 	$(SOURCE_PATH)/move_snake.c \
@@ -62,7 +65,7 @@ all: \
 
 
 gcc_targets: \
-	ncurses  
+    ncurses  
 
 
 cc65_targets: \
@@ -208,7 +211,6 @@ c16: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
@@ -232,7 +234,6 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_arcade_64_chars.s
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c264/c16_linked_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/cc65/c264/c264_sounds.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(FULL_FILES) \
 	$(ASSETS_PATH)/cc65_udc_arcade_64_chars.s \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
@@ -442,6 +443,7 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(SOURCE_PATH)/variables.c \
 	$(SOURCE_PATH)/control_player.c \
 	$(SOURCE_PATH)/snake.c  \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c  \
 	$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
 	$(SOURCE_PATH)/move_snake.c \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
@@ -462,13 +464,13 @@ vic20_test: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	-DALT_PRINT \
 	-DLESS_TEXT \
 	-DDEFAULT_CLEAR_SCREEN \
-	-DALT_SLEEP \
 	-DUSE_MEMORY_BUFFERS \
 	$(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/main.c   \
 	$(SOURCE_PATH)/game_text.c  \
 	$(SOURCE_PATH)/init_images.c \
 	--code-name CODE2 \
 	$(SOURCE_PATH)/snake.c  \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c  \
 	$(SOURCE_PATH)/control_player.c \
 	$(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
 	$(SOURCE_PATH)/move_snake.c \
@@ -560,6 +562,9 @@ dragon:
 	-c $(SOURCE_PATH)/control_player.c
 	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/variables.c
 	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
@@ -573,13 +578,13 @@ dragon:
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
-	display_macros.o \
+	display_macros.o sleep_macros.o \
 	init_images.o variables.o \
 	memory_mapped_alt_print.o \
 	text_macros.o game_text.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o
-	rm 	display_macros.o \
+	rm 	display_macros.o sleep_macros.o \
 	init_images.o game_text.o \
 	memory_mapped_alt_print.o \
 	text_macros.o variables.o \
@@ -609,6 +614,9 @@ coco:
 	-c $(SOURCE_PATH)/move_snake.c
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/control_player.c
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
@@ -632,11 +640,11 @@ coco:
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	main.o \
 	display_macros.o \
-	init_images.o game_text.o \
+	init_images.o game_text.o sleep_macros.o \
 	memory_mapped_alt_print.o variables.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
-	rm main.o display_macros.o \
+	rm main.o display_macros.o sleep_macros.o \
 	init_images.o variables.o \
 	memory_mapped_alt_print.o game_text.o \
 	text_macros.o input_macros.o \
@@ -674,6 +682,9 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	-c $(SOURCE_PATH)/control_player.c
 	$(CMOC) \
 	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	$(CMOC) \
 	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
@@ -693,7 +704,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(CMOC) -o $(BUILD_PATH)/FULL_MO5.bin \
 	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
-	mo5_alt_print.o \
+	mo5_alt_print.o sleep_macros.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	cmoc_udc_25_tiles.o \
@@ -702,7 +713,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	input_macros.o game_text.o \
 	control_player.o snake.o move_snake.o
 	rm \
-	mo5_alt_print.o \
+	mo5_alt_print.o sleep_macros.o \
 	cmoc_udc_25_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
@@ -996,7 +1007,7 @@ full_combo_rand.c:
 #/cygdrive/c/lcc42/bat/caCX.bat
 #/cygdrive/c/lcc42/bin/lcc.exe
 # -DNO_CONST_IMAGES
-LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" -DNUM_OF_TILES=19  $(GLOBAL_OPTS)
+LCC1802_OPTS ?= -target=xr18CX "-Wf-volatile" -O "-Wp-D nofloats" "-Wa-D LCCNOLONG" -DNUM_OF_TILES=19
 BASIC_OPTS ?= $(LCC1802_OPTS) "-Wa-D LCCCX=1"
 COMX_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x4401" 
 PECOM_OPTS ?= $(BASIC_OPTS) "-Wa-D CODELOC=0x201" 

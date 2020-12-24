@@ -139,7 +139,7 @@
 #if !defined(NO_DO_SLOW_DOWN_MACRO)
     #if defined(__NCURSES__)
         #define DO_SLOW_DOWN(t) \
-            usleep((t)*800);
+            usleep((t)*800)
     #elif defined(SLOW_DOWN) && SLOW_DOWN>0
         #define DO_SLOW_DOWN(t) \
         do { \
@@ -152,7 +152,9 @@
     #else 
         #define DO_SLOW_DOWN(t)
     #endif
-#endif 
+#else
+    void DO_SLOW_DOWN(uint16_t t);
+#endif
 
 #endif // _SLEEP_MACROS
 

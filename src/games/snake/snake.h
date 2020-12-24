@@ -20,7 +20,5 @@ void init_map(void);
 
 void snake_grows(void);
 
-void DO_SLOW_DOWN(uint16_t t);
-
 #endif // _SNAKE_H
 

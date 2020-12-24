@@ -294,7 +294,7 @@ void build_level(void)
     for(j=0;j<2;++j)
     {
         number_of_elements = level_walls[index]; // Number of horizontal walls
-        secret_wall_index = (rand()%(number_of_elements));
+        secret_wall_index = (uint8_t) (rand()%(number_of_elements));
         for(i=1, wall_index=0;i<3*number_of_elements;i+=3,++wall_index)
         {
             x=level_walls[index+i];

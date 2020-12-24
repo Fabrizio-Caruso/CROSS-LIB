@@ -91,7 +91,7 @@ const Image *images[] = {
     };
 
 #define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==6)||((level&15)==9)||((level&15)==14))
-#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==4)||((level&15)==7)||((level&15)== 8)||((level&15)==13)||(!level))
+#define transparent_horizontal_wall_level() (((level&15)==2)||((level&15)==4)||((level&15)==7)||((level&15)== 8)||((level&15)==12)||(!level))
 
 
 #define hits_coin(x,y) \

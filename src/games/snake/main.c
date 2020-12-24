@@ -311,7 +311,13 @@ void build_level(void)
                 {
                     map[x+1+rand()%(length-2)][y] = SECRET;
                     #if defined(DEBUG_SECRET_HOLES)
-                    _XLIB_DRAW(x+1+rand()%(length-2),y,&CENTRAL_BRICK_IMAGE);
+                    {
+                        uint8_t k;
+                        for(k=0;k<20;++k)
+                        {
+                            _XLIB_DRAW(x+1+rand()%(length-2),y,&CENTRAL_BRICK_IMAGE);
+                        }
+                    }
                     #endif
                 }
             }

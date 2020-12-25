@@ -57,23 +57,18 @@ void set_udg(void)
 
 void INIT_GRAPHICS(void)
 {
+    // NTSC (A5200 is only NTSC)
     #if !defined(ALTERNATE_COLORS)
-        POKE(COLOR0,GTIA_COLOR_RED);
+        POKE(COLOR0,_gtia_mkcolor(HUE_REDORANGE,2));
         POKE(COLOR1,GTIA_COLOR_WHITE);
         POKE(COLOR2,GTIA_COLOR_CYAN);
-        POKE(COLOR3,GTIA_COLOR_BROWN);
+        POKE(COLOR3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
         POKE(COLOR4,GTIA_COLOR_BLACK);
     #else
-        // POKE(COLOR0,GTIA_COLOR_RED);
-        // POKE(COLOR1,GTIA_COLOR_WHITE);
-        // POKE(COLOR2,GTIA_COLOR_GREEN);
-        // POKE(COLOR3,GTIA_COLOR_BROWN);
-        // POKE(COLOR4,GTIA_COLOR_BLACK);
-        
-        SETCOLOR_LOW(0,GTIA_COLOR_RED);
+        SETCOLOR_LOW(0,_gtia_mkcolor(HUE_REDORANGE,2));
         SETCOLOR_LOW(1,GTIA_COLOR_WHITE);
-        SETCOLOR_LOW(2,GTIA_COLOR_GREEN);
-        SETCOLOR_LOW(3,GTIA_COLOR_BROWN);
+        SETCOLOR_LOW(2,_gtia_mkcolor(HUE_GREEN,3));
+        SETCOLOR_LOW(3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
         SETCOLOR_LOW(4,GTIA_COLOR_BLACK);
     #endif
 	set_udg();

@@ -745,6 +745,8 @@ void one_up(void)
         if(secret_level_never_activated) \
         { \
             secret_level_active = 1; \
+            SET_TEXT_COLOR(COLOR_RED); \
+            PRINT(XSize/2-2,0,_XL_O _XL_P _XL_E _XL_N); \
         } \
     } \
     ++coin_count;

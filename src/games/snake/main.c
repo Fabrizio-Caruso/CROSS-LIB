@@ -725,6 +725,15 @@ void one_up(void)
     spawn(COIN); \
     set_secret(&secret_passage[level]);
 
+
+#if XSize<30
+    #define OPEN_X SECRET_X
+    #define OPEN_Y ((YSize)-1)
+#else
+    #define OPEN_X (((XSize)/2)-3)
+    #define OPEN_Y 0
+#endif 
+
 #define handle_coin_effect() \
     snake_grows(); \
     points+=(COIN_POINTS<<coin_count); \
@@ -746,7 +755,7 @@ void one_up(void)
         { \
             secret_level_active = 1; \
             SET_TEXT_COLOR(COLOR_RED); \
-            PRINT(XSize/2-2,0,_XL_O _XL_P _XL_E _XL_N); \
+            PRINT(OPEN_X,OPEN_Y,_XL_O _XL_P _XL_E _XL_N "00"); \
         } \
     } \
     ++coin_count;

@@ -10,6 +10,9 @@
 // 2000 | 37FF | VRAM: Colormap
 // 3800 | 3FFF | VRAM: Sprite Patterns
 
+
+
+
 #if !defined(USE_MSX_BIOS)
     #define COLOR_DEF 0x1000
     #define CHAR_BASE 0x2000
@@ -34,25 +37,78 @@ void set_group_color(uint8_t group, uint8_t color)
 	msx_vpoke(COLOR_DEF+group, color<<4);
 }
 
+/*
+
+$00 	Transparent 	#000000
+$01 	Black 	#000000
+$02 	Medium Green 	#21C842
+$03 	Light Green 	#5EDC78
+$04 	Dark Blue 	#5455ED
+$05 	Light Blue 	#7D76FC
+$06 	Dark Red 	#D4524D
+$07 	Cyan 	#42EBF5
+$08 	Medium Red 	#FC5554
+$09 	Light Red 	#FF7978
+$0a 	Dark Yellow 	#D4C154
+$0b 	Light Yellow 	#E6CE80
+$0c 	Dark Green 	#21B03B
+$0d 	Magenta 	#C95BBA
+$0e 	Gray 	#CCCCCC
+$0f 	White 	#FFFFFF 
+
+*/
+
+#define MSX_COLOR_MEDIUM_GREEN 2
+#define MSX_COLOR_DARK_RED 6
+#define MSX_COLOR_CYAN 7
+#define MSX_COLOR_MEDIUM_RED 8
+#define MSX_COLOR_LIGHT_RED 9
+#define MSX_COLOR_DARK_YELLOW 10
+#define MSX_COLOR_LIGHT_YELLOW 11
+#define MSX_COLOR_WHITE 15
 
 void set_udg_colors(void)
 {
 	uint8_t i;
 	
     #if !defined(ALL_COLOR)
-        set_group_color(0,9);
-        set_group_color(1,7);
-        set_group_color(2,9);
-        set_group_color(3,11);
-        set_group_color(4,10);
-        set_group_color(5,2);
-        set_group_color(6,7);
-        set_group_color(7,7);
+        #if defined(ALTERNATIVE_COLOR)
+            set_group_color(0,MSX_COLOR_LIGHT_RED);
+            set_group_color(1,MSX_COLOR_CYAN);
+            set_group_color(2,MSX_COLOR_LIGHT_RED);
+            set_group_color(3,MSX_COLOR_LIGHT_YELLOW);
+            set_group_color(4,MSX_COLOR_DARK_YELLOW);
+            set_group_color(5,MSX_COLOR_MEDIUM_GREEN);
+            set_group_color(6,MSX_COLOR_CYAN);
+            set_group_color(7,MSX_COLOR_CYAN);
+            for(i=8;i<=11;++i)
+            {
+                set_group_color(i,MSX_COLOR_WHITE);
+            }
+            for(i=12;i<=20;++i)
+            {
+                set_group_color(i,MSX_COLOR_DARK_RED);
+            }
+            for(i=21;i<=31;++i)
+            {
+                set_group_color(i,MSX_COLOR_WHITE);
+            }
+        #else
+            set_group_color(0,MSX_COLOR_LIGHT_RED);
+            set_group_color(1,MSX_COLOR_CYAN);
+            set_group_color(2,MSX_COLOR_LIGHT_RED);
+            set_group_color(3,MSX_COLOR_LIGHT_YELLOW);
+            set_group_color(4,MSX_COLOR_DARK_YELLOW);
+            set_group_color(5,MSX_COLOR_MEDIUM_GREEN);
+            set_group_color(6,MSX_COLOR_CYAN);
+            set_group_color(7,MSX_COLOR_CYAN);
+            for(i=8;i<=11;++i)
+            {
+                set_group_color(i,MSX_COLOR_MEDIUM_RED);
+            }
+        #endif
         
-        for(i=8;i<=11;++i)
-        {
-            set_group_color(i,8);
-        }
+
 	#else
         for(i=0;i<=32;++i)
         {

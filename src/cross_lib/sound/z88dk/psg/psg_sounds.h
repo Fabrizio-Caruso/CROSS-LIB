@@ -32,7 +32,7 @@
 	void _ping_sound(uint8_t freq);
 	#define PING_SOUND() _ping_sound(0xF0);	
 	#define TOCK_SOUND() _ping_sound(0x02);
-	#define TICK_SOUND() _ping_sound(0x60);
+	#define TICK_SOUND() _ping_sound(0xA0);
 	
 	void _explosion_sound(uint8_t freq);
 	#define SHOOT_SOUND() _explosion_sound(0xF0);

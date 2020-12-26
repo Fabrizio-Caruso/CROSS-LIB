@@ -119,7 +119,10 @@ void _ping_sound(uint8_t freq)
 
 	set_psg(CONTROL, 0xFF - 0x01);
 	
-	for(i=0;i<220;++i)
+	for(i=0;i<250;++i)
+	{
+	}
+	for(i=0;i<250;++i)
 	{
 	}
 		

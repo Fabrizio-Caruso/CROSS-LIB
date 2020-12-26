@@ -57,20 +57,15 @@
     #define _TILE_24 0x85
 
 #else
-    // BLUE
-    // #define _TILE_0 0x3B
-    // #define _TILE_1 0x3C
-    // #define _TILE_2 0x3D 
-    // #define _TILE_3 0x3E
-    // #define _TILE_9 0x3F
-
-    #define _TILE_2 0x3B
-    #define _TILE_3 0x3C
-    #define _TILE_11 0x3D 
-    #define _TILE_15 0x3E
-    #define _TILE_17 0x3F
-    #define _TILE_18 0x3A
-
+    // CYAN
+    #define _TILE_2 0xEB
+    #define _TILE_3 0xEC
+    #define _TILE_11 0xED 
+    #define _TILE_15 0xEE
+    #define _TILE_17 0xEF
+    #define _TILE_18 0xEA
+    #define _TILE_14 0xF0
+    #define _TILE_16 0xF1
     // YELLOW
     #define _TILE_7 0x27
     #define _TILE_12 0x26
@@ -91,14 +86,8 @@
     #define _TILE_7_B _TILE_7
     #define _TILE_0_B _TILE_0
 
-
-    // #define _TILE_11 0x09
-    // #define _TILE_17 0x0A
-
     // WHITE
     #define _TILE_8 0xA9
-    #define _TILE_14 ((uint8_t)0xAA)
-    #define _TILE_16 ((uint8_t)0xAB)
 
     // TODO: Change it to something else
     #define _TILE_5_B 'X'

@@ -99,7 +99,7 @@ void set_udg_colors(void)
             }
         #else
             set_group_color(0,MSX_COLOR_LIGHT_RED);
-            set_group_color(1,MSX_COLOR_CYAN);
+            set_group_color(1,MSX_COLOR_WHITE);
             set_group_color(2,MSX_COLOR_LIGHT_RED);
             set_group_color(3,MSX_COLOR_LIGHT_YELLOW);
             set_group_color(4,MSX_COLOR_DARK_YELLOW);
@@ -108,7 +108,11 @@ void set_udg_colors(void)
             set_group_color(7,MSX_COLOR_CYAN);
             for(i=8;i<=11;++i)
             {
-                set_group_color(i,MSX_COLOR_MEDIUM_RED);
+                set_group_color(i,MSX_COLOR_WHITE);
+            }
+            for(i=21;i<=31;++i)
+            {
+                set_group_color(i,MSX_COLOR_LIGHT_RED);
             }
         #endif
         

@@ -232,8 +232,8 @@ void DO_DEBUG_ITEMS(void)
     #endif
     PRINTD(4,3,5, 1234U);
     PRINTD(4,5,5,56789U);
-    PRINT(4,7,"abcdefghijklmnopqrstuvwxyz,./|-");
-    PRINT(4,9,"ABCDEFGHIJKLMNOPQRSTUVWXYZ;+{}=");
+    // PRINT(4,7,"abcdefghijklmnopqrstuvwxyz,./|-");
+    // PRINT(4,9,"ABCDEFGHIJKLMNOPQRSTUVWXYZ;+{}=");
     while(1){};
 }
 #endif

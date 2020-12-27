@@ -99,21 +99,45 @@ void INIT_GRAPHICS(void)
 // GTIA_COLOR_LIGHTBLUE  = (HUE_BLUE << 4 | 6 << 1)
 // GTIA_COLOR_GRAY3      = (HUE_GREY << 4 | 5 << 1)
     
+    // #define SETCOLOR_LOW(reg, val) *((unsigned char *)12 + (reg)) = (val)
+
     
     #if !defined(ALTERNATE_COLORS)
-        // PAL Settings
-        _setcolor_low(0, TGI_COLOR_RED);
-        _setcolor_low(1, TGI_COLOR_WHITE);
-        _setcolor_low(2, TGI_COLOR_CYAN); 	
-        _setcolor_low(3, TGI_COLOR_BROWN);
-        _setcolor_low(4, TGI_COLOR_BLACK);
+        if(get_tv())
+        {
+            // PAL Settings
+            _setcolor_low(0, TGI_COLOR_RED);
+            _setcolor_low(1, TGI_COLOR_WHITE);
+            _setcolor_low(2, TGI_COLOR_CYAN); 	
+            _setcolor_low(3, TGI_COLOR_BROWN);
+            _setcolor_low(4, TGI_COLOR_BLACK);
+        }
+        else
+        {
+            _setcolor_low(0,_gtia_mkcolor(HUE_REDORANGE,2));
+            _setcolor_low(1,GTIA_COLOR_WHITE);
+            _setcolor_low(2,GTIA_COLOR_CYAN);
+            _setcolor_low(3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
+            _setcolor_low(4,GTIA_COLOR_BLACK);
+        }
     #else
-        // PAL Settings
-        _setcolor_low(0, GTIA_COLOR_RED);
-        _setcolor_low(1, TGI_COLOR_WHITE);
-        _setcolor_low(2, GTIA_COLOR_GREEN); 
-        _setcolor_low(3, GTIA_COLOR_BROWN);
-        _setcolor_low(4, TGI_COLOR_BLACK);
+        if(get_tv())
+        {
+            // PAL Settings
+            _setcolor_low(0, GTIA_COLOR_RED);
+            _setcolor_low(1, TGI_COLOR_WHITE);
+            _setcolor_low(2, GTIA_COLOR_GREEN); 
+            _setcolor_low(3, GTIA_COLOR_BROWN);
+            _setcolor_low(4, TGI_COLOR_BLACK);
+        }
+        else
+        {
+            _setcolor_low(0,_gtia_mkcolor(HUE_REDORANGE,2));
+            _setcolor_low(1,GTIA_COLOR_WHITE);
+            _setcolor_low(2,_gtia_mkcolor(HUE_GREEN,3));
+            _setcolor_low(3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
+            _setcolor_low(4,GTIA_COLOR_BLACK);
+        }
     #endif
 	#if defined(REDEFINED_CHARS)
 	set_udg();

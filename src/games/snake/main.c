@@ -1036,7 +1036,7 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
     {
         PRINTD(ACHIEVEMENTS_X_OFFSET+2,row,2,i);
         SHOOT_SOUND();
-        DO_SLOW_DOWN((SLOW_DOWN/9)*i);
+        DO_SLOW_DOWN((SLOW_DOWN/10)*i);
     }
     DO_SLOW_DOWN(SLOW_DOWN*4);
 }

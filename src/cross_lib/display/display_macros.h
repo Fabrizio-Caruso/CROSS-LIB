@@ -184,39 +184,6 @@ typedef struct ImageStruct Image;
 #endif
 
 
-// VERTICAL AND HORIZONTAL BORDER
-#if !defined(TINY_GAME)
-    #define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1)
-    
-    #if !defined(FULL_LOWER_BORDER)
-        #define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize-1)
-    #else
-        #define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize)
-    #endif
-#else    
-    #define DRAW_VERTICAL_BORDER(x)    
-    #define DRAW_HORIZONTAL_BORDER(y)
-#endif
-
-#define WALL_COLOR COLOR_YELLOW
-
-#if !defined(NO_WALL)
-    #define DRAW_BORDERS() \
-        SET_TEXT_COLOR(WALL_COLOR); \
-        DRAW_HORIZONTAL_BORDER(0); \
-        DRAW_HORIZONTAL_BORDER(YSize-1); \
-        DRAW_VERTICAL_BORDER(0); \
-        DRAW_VERTICAL_BORDER(XSize-1); 
-#else
-    #define DRAW_BORDERS()
-#endif
-
-
-#define DRAW_HORIZONTAL_WALLS(length) \
-    SET_TEXT_COLOR(WALL_COLOR); \
-    DRAW_HORIZONTAL_LINE(1,YSize/2,length); \
-    DRAW_HORIZONTAL_LINE(XSize-1-length,YSize/2,length);
-
 
 // PRINT AND PRINTD
 #  if defined(ALT_DISPLAY_STATS) 

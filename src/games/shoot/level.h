@@ -28,6 +28,34 @@
 #include "character.h"
 #include "ghost.h"
 
+// VERTICAL AND HORIZONTAL BORDER
+#if !defined(TINY_GAME)
+    #define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1)
+    
+    #if !defined(FULL_LOWER_BORDER)
+        #define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize-1)
+    #else
+        #define DRAW_HORIZONTAL_BORDER(y) DRAW_HORIZONTAL_LINE(0,y,XSize)
+    #endif
+#else    
+    #define DRAW_VERTICAL_BORDER(x)    
+    #define DRAW_HORIZONTAL_BORDER(y)
+#endif
+
+
+#define WALL_COLOR COLOR_YELLOW
+
+#if !defined(NO_WALL)
+    #define DRAW_BORDERS() \
+        SET_TEXT_COLOR(WALL_COLOR); \
+        DRAW_HORIZONTAL_BORDER(0); \
+        DRAW_HORIZONTAL_BORDER(YSize-1); \
+        DRAW_VERTICAL_BORDER(0); \
+        DRAW_VERTICAL_BORDER(XSize-1); 
+#else
+    #define DRAW_BORDERS()
+#endif
+
 #if defined(NO_DEAD_GHOSTS)
     #define PLACE_DEAD_GHOST() \
         initializeCharacter(&ghosts[count], 0,(uint8_t) 0,0,&GHOST_IMAGE);

@@ -25,9 +25,8 @@
 	Image BOMB_IMAGE;	
 #endif
 
-#if !defined(NO_DEAD_GHOSTS)
-	Image DEAD_GHOST_IMAGE;
-#endif
+Image DEAD_GHOST_IMAGE;
+
 
 #if defined(USE_MEMORY_BUFFERS) || defined(USE_LIGHT_MEMORY_BUFFERS)
     extern Image CALM_DOWN_IMAGE;

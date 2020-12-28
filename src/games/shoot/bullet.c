@@ -50,11 +50,9 @@ extern uint8_t isBossLevel;
 extern uint8_t isRocketLevel;
 
 extern Character ghosts[GHOSTS_NUMBER];
-#if !defined(NO_DEAD_GHOSTS)
+
 extern Image DEAD_GHOST_IMAGE;
-#else
-extern Image SKULL_IMAGE;    
-#endif
+
 extern uint8_t level;
 
 extern Item extraPoints;

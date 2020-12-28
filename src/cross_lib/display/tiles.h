@@ -39,7 +39,7 @@
 	#include "cpc_cpcrslib_settings.h"
 #elif defined(__SUPERVISION__)
 	#include "supervision_settings.h"
-#elif defined(__NES__) && defined(ANIMATE_PLAYER)
+#elif defined(__NES__)
 	#include "nes_settings.h"
 #elif defined(__COMX__) || defined(__PECOM__) || (defined(__CIDELSA__) && defined(REDEFINED_CHARS))
 	#include "comx_settings.h"

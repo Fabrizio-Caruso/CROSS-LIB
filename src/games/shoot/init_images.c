@@ -18,9 +18,7 @@
 extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 
-#if !defined(NO_DEAD_GHOSTS)
-	extern Image DEAD_GHOST_IMAGE;
-#endif
+extern Image DEAD_GHOST_IMAGE;
 
 extern Image SKULL_IMAGE;
 extern Image FIRE_CHARGE_IMAGE;
@@ -64,9 +62,8 @@ void INIT_IMAGES(void)
 		BOMB_IMAGE._color = _BOMB_COLOR;
 		GHOST_IMAGE._color = _GHOST_COLOR;		
 		
-		#if !defined(NO_DEAD_GHOSTS)
-			DEAD_GHOST_IMAGE._color = _DEAD_GHOST_COLOR;
-		#endif
+
+		DEAD_GHOST_IMAGE._color = _DEAD_GHOST_COLOR;
 		
         SKULL_IMAGE._color = _SKULL_COLOR;
         CALM_DOWN_IMAGE._color = _CALM_DOWN_COLOR;
@@ -107,9 +104,8 @@ void INIT_IMAGES(void)
 	GHOST_IMAGE._imageData = _TILE_4;
 	BOMB_IMAGE._imageData = _TILE_5;
 	
-	#if !defined(NO_DEAD_GHOSTS)
-		DEAD_GHOST_IMAGE._imageData = _TILE_6;
-	#endif
+
+	DEAD_GHOST_IMAGE._imageData = _TILE_6;
 	
     SKULL_IMAGE._imageData = _TILE_7;
 

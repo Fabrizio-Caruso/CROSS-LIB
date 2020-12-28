@@ -56,13 +56,9 @@
     #define DRAW_BORDERS()
 #endif
 
-#if defined(NO_DEAD_GHOSTS)
-    #define PLACE_DEAD_GHOST() \
-        initializeCharacter(&ghosts[count], 0,(uint8_t) 0,0,&GHOST_IMAGE);
-#else
-    #define PLACE_DEAD_GHOST() \
-        initializeCharacter(&ghosts[count],(uint8_t) (GHOSTS_NUMBER-count),(uint8_t) 1,0,&DEAD_GHOST_IMAGE);
-#endif
+
+#define PLACE_DEAD_GHOST() \
+    initializeCharacter(&ghosts[count],(uint8_t) (GHOSTS_NUMBER-count),(uint8_t) 1,0,&DEAD_GHOST_IMAGE);
 
 
 // Check XSize to avoid overflow

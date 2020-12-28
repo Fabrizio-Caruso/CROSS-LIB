@@ -184,37 +184,71 @@ const struct redefine_struct redefine_map[] =
 	{_TILE_1_OFFSET_, _TILE_1_UDG},
 	{_TILE_2_OFFSET_, _TILE_2_UDG},	
 	{_TILE_3_OFFSET_, _TILE_3_UDG},
-	
 	{_TILE_4_OFFSET_, _TILE_4_UDG},
 	{_TILE_5_OFFSET_, _TILE_5_UDG},
 	
-	#if !defined(NO_DEAD_GHOST)
+	#if !defined(NO_TILE_6)
 		{_TILE_6_OFFSET_, _TILE_6_UDG},
 	#endif
 	
-	#if !defined(TINY_GAME)
+    
+    
+	#if !defined(NO_TILE_7)
 		{_TILE_7_OFFSET_, _TILE_7_UDG},
+	#endif
+	#if !defined(NO_TILE_9)
 		{_TILE_9_OFFSET_, _TILE_9_UDG},
+	#endif
+	#if !defined(NO_TILE_8)
 		{_TILE_8_OFFSET_, _TILE_8_UDG},
+	#endif
+	#if !defined(NO_TILE_11)
 		{_TILE_11_OFFSET_, _TILE_11_UDG},
+	#endif
+	#if !defined(NO_TILE_12)
 		{_TILE_12_OFFSET_, _TILE_12_UDG},
+	#endif
+	#if !defined(NO_TILE_13)
 		{_TILE_13_OFFSET_, _TILE_13_UDG},
 	#endif	
 	
-	#if defined(FULL_GAME)
+    
+    
+	#if !defined(NO_TILE_16)
 		{_TILE_16_OFFSET_, _TILE_16_UDG},
+	#endif
+	#if !defined(NO_TILE_10)
 		{_TILE_10_OFFSET_, _TILE_10_UDG},
+	#endif
+    
+    #if !defined(NO_TILE_15)
 		{_TILE_15_OFFSET_, _TILE_15_UDG},
+    #endif
+    #if !defined(NO_TILE_14)
 		{_TILE_14_OFFSET_, _TILE_14_UDG},
 	#endif
-
 	
-    #if defined(FULL_GAME)
+    #if !defined(NO_TILE_19)
 		{_TILE_19_OFFSET_, _TILE_19_UDG},
+    #endif
+    
+    #if !defined(NO_TILE_20)
 		{_TILE_20_OFFSET_, _TILE_20_UDG},
+    #endif
+    
+    #if !defined(NO_TILE_21)
 		{_TILE_21_OFFSET_, _TILE_21_UDG},
+    #endif
+    
+    #if !defined(NO_TILE_22)
 		{_TILE_22_OFFSET_, _TILE_22_UDG},
+    #endif
+    
+    #if !defined(NO_TILE_23)
 		{_TILE_23_OFFSET_, _TILE_23_UDG},
+    #endif
+    
+    #if !defined(NO_TILE_24)
 		{_TILE_24_OFFSET_, _TILE_24_UDG},
     #endif
 

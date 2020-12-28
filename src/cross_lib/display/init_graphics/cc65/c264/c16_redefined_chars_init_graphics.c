@@ -13,7 +13,7 @@
 
 #include <stdint.h>
 
-#if defined(FULL_GAME) && !defined(UDG_BASE_FACTOR)
+#if !defined(UDG_BASE_FACTOR)
 	#define UDG_BASE_FACTOR 29
 #else
 	#define UDG_BASE_FACTOR 15

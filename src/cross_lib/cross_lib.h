@@ -57,7 +57,7 @@
 #endif
 
 
-#if defined(TURN_BASED) || defined(TINY_GAME)
+#if defined(TURN_BASED)
 	#if !defined(NO_BLINKING)
 		#define NO_BLINKING
 	#endif

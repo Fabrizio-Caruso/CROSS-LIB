@@ -429,7 +429,7 @@ mz:
 	# -D__MZ2500__ \
 	# -vn \
 	# -DNO_COLOR \
-	# -DTINY_GAME \
+	# -DTINY_GAME -DNO_BLINKING \
 	# -DNO_BLINKING \
 	# -DNO_CONTROL_INSTRUCTIONS \
 	# -DNO_DEAD_GHOSTS \
@@ -764,7 +764,7 @@ pc88_32k:
 
 pc88_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +pc88 $(SCCZ80_OPTS)  -Cz--audio $(INCLUDE_OPTS) -vn \
-	-D__PC88__ -DTINY_GAME  \
+	-D__PC88__ -DTINY_GAME -DNO_BLINKING  \
 	-lndos -DFORCE_XSIZE=80 -DFORCE_YSEIZE=23 -DSLOW_DOWN=2500  \
 	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DCONIO -DNO_INIT_GRAPHICS -DDEFAULT_CLEAR_SCREEN \

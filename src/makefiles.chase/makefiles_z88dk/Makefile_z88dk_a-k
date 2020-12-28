@@ -322,8 +322,7 @@ altair8800_tiny_buffered:
 	-D__ALTAIR8800__ \
 	-vn \
 	-DNO_COLOR \
-	-DTINY_GAME \
-	-DNO_BLINKING \
+	-DTINY_GAME -DNO_BLINKING \
 	-DNO_CONTROL_INSTRUCTIONS \
 	-DNO_DEAD_GHOSTS \
 	-DNO_SLEEP \
@@ -841,7 +840,7 @@ gamegear_tiny_buffered:
 	-DFORCE_YSIZE=15 \
 	-D__SMS__ \
 	-DNO_COLOR \
-	-DTINY_GAME \
+	-DTINY_GAME -DNO_BLINKING \
 	-DSTDLIB \
 	-DLESS_TEXT \
 	-create-app \
@@ -1029,7 +1028,7 @@ kc_light: $(ASSETS_PATH)/z88dk_xchase.asm
 kc_tiny: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +kc $(SCCZ80_OPTS) -subtype=tap $(INCLUDE_OPTS) \
 	-D__KC__ \
-	-DTINY_GAME  \
+	-DTINY_GAME -DNO_BLINKING  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \

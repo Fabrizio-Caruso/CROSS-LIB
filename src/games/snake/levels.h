@@ -131,7 +131,7 @@ const uint8_t level_walls[] =
         5,YSize/2+1,XSize-10,
     0,
     1,
-        XSize/2-2,YSize/2+4,4,4,DEADLY,
+        XSize/2-3,YSize/2+4,6,6,DEADLY,
 // map 16 (245)
     0,
     2,

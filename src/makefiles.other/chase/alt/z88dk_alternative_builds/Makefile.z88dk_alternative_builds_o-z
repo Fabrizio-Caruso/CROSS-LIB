@@ -79,7 +79,7 @@ oz_tiny:  $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +oz $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-D__OZ__ \
-	-DTINY_GAME \
+	-DTINY_GAME -DNO_WALL \
 	-vn -lndos \
 	-DFORCE_XSIZE=59 \
 	-DFORCE_YSIZE=9 \
@@ -341,7 +341,7 @@ trs80_tiny_cas:
 	-lm -create-app \
 	-D__TRS80__ \
 	-DCONIO_VT52 \
-	-DTINY_GAME -DLESS_TEXT -DNO_SLEEP \
+	-DTINY_GAME -DNO_WALL -DLESS_TEXT -DNO_SLEEP \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_TINY_trs80.bin \
 	$(TINY_FILES)
@@ -401,13 +401,13 @@ z88_tiny: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -subtype=app \
 	$(INCLUDE_OPTS) \
 	-D__Z88__ \
-	-DTINY_GAME \
+	-DTINY_GAME -DNO_WALL \
 	-vn -lndos \
 	-DALT_PRINT \
 	-DZ88DK_SPRITES \
 	-DANIMATE_PLAYER \
 	-DLESS_TEXT \
-	-DNO_WAIT \
+	-DNO_WAIT -DBAD_PAGES=1 \
 	-DNO_SLEEP \
 	-DNO_COLOR \
 	-DFORCE_BOMBS_NUMBER=2 \
@@ -430,7 +430,7 @@ z88_tiny_buffered:
 	$(Z88DK_PATH)$(MYZ88DK) +z88 $(SCCZ80_OPTS) -subtype=app \
 	$(INCLUDE_OPTS) \
 	-D__Z88__ \
-	-DTINY_GAME \
+	-DTINY_GAME -DNO_WALL \
 	-DFORCE_XSIZE=79 \
 	-DFORCE_YSIZE=6 \
 	-DFORCE_NARROW \

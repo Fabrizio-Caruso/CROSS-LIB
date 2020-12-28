@@ -93,7 +93,7 @@ nascom_alt_targets: \
 abc80_tiny:
 	$(Z88DK_PATH)$(MYZ88DK) +abc80 $(SCCZ80_OPTS) -lm -subtype=hex -zorg=49200 $(INCLUDE_OPTS) \
 	-DCONIO -DNO_INIT_GRAPHICS \
-	-DTINY_GAME \
+	-DTINY_GAME -DNO_WALL \
 	-DNO_WAIT \
 	-D__ABC80__ -clib=ansi -vn  -lndos -create-app -o abc80t.bin \
 	$(TINY_FILES)
@@ -174,7 +174,7 @@ camputers_lynx_tiny:
 	-vn \
 	-DCONIO_VT52 \
 	-DNO_COLOR \
-	-DTINY_GAME \
+	-DTINY_GAME -DNO_WALL \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES) \
@@ -193,7 +193,7 @@ cpm_z80_tiny_buffered:
 	-DFORCE_XSIZE=24 \
 	-DFORCE_YSIZE=16 \
 	-DNO_COLOR \
-	-DTINY_GAME \
+	-DTINY_GAME -DNO_WALL \
 	-DTURN_BASED \
 	-DBUFFERED \
 	-DNO_INIT_GRAPHICS \
@@ -280,7 +280,7 @@ fp1100_tiny:
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-D__FP1100__ -vn \
 	-DCONIO_VT52 \
-	-DTINY_GAME -DSOUNDS \
+	-DTINY_GAME -DNO_WALL -DSOUNDS \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES) \
@@ -299,7 +299,7 @@ g800_tiny_turn_based:
 	-DNO_BLINKING \
 	-vn \
 	-DFORCE_CONIO_LIB \
-	-DTINY_GAME \
+	-DTINY_GAME -DNO_WALL \
 	-lndos \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	$(TINY_FILES) \
@@ -312,7 +312,7 @@ g800_tiny_turn_based:
 #############################
 # LAMBDA
 lambda_8k:
-	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -D__LAMBDA__ -DTINY_GAME -DNO_SET_SCREEN_COLORS \
+	$(Z88DK_PATH)$(MYZ88DK) +lambda $(SCCZ80_OPTS) $(INCLUDE_OPTS) -vn -D__LAMBDA__ -DTINY_GAME -DNO_WALL -DNO_SET_SCREEN_COLORS \
 	-DLESS_TEXT -DNO_SLEEP -lndos -DCONIO -DNO_INIT_GRAPHICS \
 	-create-app -o  $(BUILD_PATH)/ALT_TINY_lambda_8k.prg \
 	$(TINY_FILES)
@@ -350,7 +350,7 @@ m5_tiny_no_gfx:
 	-lm -create-app -Cz--audio -subtype=tape \
 	-D__M5__ \
 	-clib=ansi -pragma-define:ansicolumns=32 \
-	-DTINY_GAME -DLESS_TEXT \
+	-DTINY_GAME -DNO_WALL -DLESS_TEXT \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-o$(BUILD_PATH)/ALT_TINY_m5_no_gfx.bin \
 	$(TINY_FILES)
@@ -470,7 +470,7 @@ multi8_light_udg: $(ASSETS_PATH)/z88dk_xchase.asm
 multi8_tiny_udg: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +multi8 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-D__MULTI8__ \
-	-DTINY_GAME  \
+	-DTINY_GAME -DNO_WALL  \
 	-DCONIO_VT52 \
 	-DCONIO \
 	-lndos \

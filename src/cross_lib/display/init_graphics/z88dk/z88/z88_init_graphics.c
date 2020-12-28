@@ -9,7 +9,7 @@
 
 #pragma -no-expandz88
 
-#if !defined(TINY_GAME)
+#if !defined(BAD_PAGES)
 	#define BAD_PAGES 2
 #else
 	#define BAD_PAGES 1

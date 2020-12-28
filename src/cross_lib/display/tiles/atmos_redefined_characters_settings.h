@@ -59,13 +59,9 @@
 	#define _TILE_6 _TILE_6_OFFSET
 #endif
 
-#if !defined(TINY_GAME)
-	#define _TILE_12_OFFSET '|'
-	#define _TILE_13_OFFSET '-'
-	
 	#define _TILE_12 _TILE_12_OFFSET
 	#define _TILE_13 _TILE_13_OFFSET
-#endif
+
 
 #if defined(FULL_GAME)
 	// #define _TILE_17_OFFSET 'F'

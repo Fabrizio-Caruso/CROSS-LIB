@@ -11,16 +11,16 @@
 _snake_x = $33C
 
 .export _snake_y;
-_snake_y = _snake_x + 45 
+_snake_y = _snake_x + 42 
 
 .export _snake_copy_x;
-_snake_copy_x = _snake_y + 45
+_snake_copy_x = _snake_y + 42
 
 .export _snake_copy_y;
-_snake_copy_y = _snake_copy_x + 45
+_snake_copy_y = _snake_copy_x + 42
 
 .export _extra_life_achievement;
-_extra_life_achievement = _snake_copy_y + 45
+_extra_life_achievement = _snake_copy_y + 42
 
 .export _magic_wall_achievement;
 _magic_wall_achievement =  $200

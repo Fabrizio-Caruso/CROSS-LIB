@@ -57,7 +57,9 @@
 #define EXTRA_LENGTH 4
 
 #if !defined(MAX_SNAKE_LENGTH)
-    #define MAX_SNAKE_LENGTH ((XSize/2)+((NUMBER_OF_MAPS-1)/4)+(MAX_APPLES)+((MAX_APPLES)/8)+EXTRA_LENGTH)
+    #define MAX_SNAKE_LENGTH ((XSize)+20)
+    
+    //((XSize/2)+((NUMBER_OF_MAPS-1)/4)+(MAX_APPLES)+((MAX_APPLES)/8)+EXTRA_LENGTH)
 #endif
 
 #define MAX_NUMBER_OF_HORIZONTAL_MINES 4

@@ -227,7 +227,7 @@ typedef struct ImageStruct Image;
 
 
 // DRAW HORIZONTAL AND VERTICAL LINES
-#if !defined(TINY_GAME) && !defined(NO_WALL)
+#if !defined(NO_WALL)
     void DRAW_HORIZONTAL_LINE(uint8_t x, uint8_t y, uint8_t length);
     void DRAW_VERTICAL_LINE(uint8_t x, uint8_t y, uint8_t length);    
 #else

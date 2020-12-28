@@ -38,8 +38,8 @@ const uint8_t level_walls[] =
 // map 4 (48)
     0,
     2,
-        XSize/3,                      0,    4*YSize/5,
-       2*XSize/3,               YSize/5,    4*YSize/5,
+        XSize/3,                      0,    YSize-YSize/5,
+       2*XSize/3,               YSize/5,  YSize-YSize/5-1,
     2,
         1,1,XSize/8,YSize/8,DEADLY,
         XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,DEADLY,
@@ -109,8 +109,8 @@ const uint8_t level_walls[] =
 // map 12(204)
     0,
     2,
-         XSize/5,                      1,   4*YSize/5,
-       4*XSize/5,                      YSize-1-4*YSize/5,   4*YSize/5,
+         XSize/5,                      1,   YSize-YSize/5,
+       4*XSize/5,                      YSize/5,   YSize-YSize/5-1,
     0,
 // map 13 (213)
     1,

@@ -279,7 +279,7 @@
 #endif
 
 
-#if defined(NARROW) || defined(TINY_GAME)
+#if defined(NARROW)
 	#define Y_OFFSET 0
 #elif defined(WIDE) && XSize>64
 	#define Y_OFFSET 1

@@ -64,7 +64,7 @@ aquarius_exp_4k:
 	-compiler=sdcc \
 	$(INCLUDE_OPTS) \
 	\
-	-D__AQUARIUS__ -DTINY_GAME -DNO_WALL -DNO_BLINKING \
+	-D__AQUARIUS__ -DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
 	-DALT_PRINT \
 	-DNO_DEAD_GHOSTS \
@@ -129,7 +129,7 @@ gal_6k:
 	-pragma-need=ansiterminal \
 	--reserve-regs-iy \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
-	-DTINY_GAME -DNO_WALL -DNO_BLINKING \
+	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
 	-DNO_SLEEP -DLESS_TEXT \
 	-D__GAL__ \
 	-DALT_MOVE \
@@ -232,7 +232,7 @@ oz_tiny_buffered:
 	-compiler=sdcc \
 	-ooz.bin \
 	-D__OZ__ \
-	-DTINY_GAME -DNO_WALL -DNO_BLINKING \
+	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
 	-DFORCE_XSIZE=59 \
 	-DFORCE_YSIZE=9 \
 	-DFORCE_NARROW \
@@ -389,7 +389,7 @@ vz200_18k:
 
 vz200_8k:
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) \
-	-DTINY_GAME -DNO_WALL -DNO_BLINKING \
+	-DTINY_GAME -DFORCE_NARROW -DNO_WALL -DNO_BLINKING \
 	-DINITIAL_SLOWDOWN=31500 \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma.inc \
 	-compiler=sdcc \

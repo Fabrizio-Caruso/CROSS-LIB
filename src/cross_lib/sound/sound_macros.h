@@ -72,10 +72,10 @@
 		#include "psg_sounds.h"
 	#elif defined(__VG5K__) && defined(SOUNDS)
 		#include "bit_bang_sounds.h"
-	#elif defined(__VIC20__) && !defined(TINY_GAME) && defined(SOUNDS)
+	#elif defined(__VIC20__) && !defined(VIC20_UNEXPANDED) && defined(SOUNDS)
 		#include "vic20_sounds.h"
-	#elif defined(__VIC20__) && defined(TINY_GAME) && defined(SOUNDS)
-		#include "vic20_sounds_3k.h"
+	#elif defined(__VIC20__) && defined(VIC20_UNEXPANDED) && defined(SOUNDS)
+		#include "vic20_explosion_sound.h"
 	#elif defined(__VZ__) && defined(SOUNDS)
 		#include "bit_bang_sounds.h"
 	#elif defined(__WINCMOC__) && defined(SOUNDS)

@@ -945,7 +945,7 @@ vic20_unexpanded: $(ASSETS_PATH)/cc65_udc_6chars.s
 	-DSIMPLE_RANDOM_LEVEL \
 	--config $(CFG_PATH)/cc65/vic20_unexpanded_gfx.cfg  \
 	$(TINY_FILES) \
-	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds_3k.c \
+	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_explosion_sound.c \
 	$(SOURCE_PATH)/memory/vic20_memory.s \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/simple_alt_stats.c \

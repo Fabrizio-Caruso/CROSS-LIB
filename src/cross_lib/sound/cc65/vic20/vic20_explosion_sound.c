@@ -24,7 +24,7 @@
 
 #include<vic20.h>
 
-#include "vic20_sounds_3k.h"
+#include "vic20_explosion_sound.h"
 
 	void _explosion_sound(uint8_t freq, uint8_t vol)
 	{ 

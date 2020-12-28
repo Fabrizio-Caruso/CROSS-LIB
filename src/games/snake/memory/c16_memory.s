@@ -11,16 +11,16 @@
 _snake_x = $333
 
 .export _snake_y;
-_snake_y = _snake_x + 50 
+_snake_y = _snake_x + 54 
 
 .export _snake_copy_x;
-_snake_copy_x = _snake_y + 50
+_snake_copy_x = _snake_y + 54
 
 .export _snake_copy_y;
-_snake_copy_y = _snake_copy_x + 50
+_snake_copy_y = _snake_copy_x + 54
 
 .export _extra_life_achievement;
-_extra_life_achievement = _snake_copy_y + 50
+_extra_life_achievement = _snake_copy_y + 54
 
 .export _magic_wall_achievement;
 _magic_wall_achievement = _extra_life_achievement + 9
@@ -39,7 +39,6 @@ _horizontal_mine_direction = _horizontal_mine_y + 4
 
 .export _horizontal_mine_transition;
 _horizontal_mine_transition = _horizontal_mine_direction + 4
-
 
 .export _secret_passage;
 _secret_passage = _horizontal_mine_transition + 4

@@ -1,14 +1,14 @@
 #ifndef _LEVELS_H
 #define _LEVELS_H
 
-// LEVEL WALLS
+// MAP WALLS
 const uint8_t level_walls[] = 
 {
-// level 0 (0)
+// map 0 (0)
     0,
     0,
     0,
-// level 1 (3) 
+// map 1 (3) 
     2, 
         XSize/3,       YSize/3,     XSize/3,
         XSize/3,     2*YSize/3,     XSize/3,
@@ -17,14 +17,14 @@ const uint8_t level_walls[] =
         4*XSize/5,   3*YSize/4,     YSize/4,
     0,
 
-// level 2 (18) 
+// map 2 (18) 
     0, 
     2,
         XSize/3,                      0,    4*YSize/5,
        2*XSize/3,               YSize/5,    4*YSize/5,
     0,
 
-// level 3 (27)
+// map 3 (27)
     4,
         0,                      YSize/4,      XSize/4,
        3*XSize/4,               YSize/4,      XSize/4,
@@ -35,7 +35,7 @@ const uint8_t level_walls[] =
         XSize/2,        YSize-1-YSize/4,      YSize/4,
     0,
         
-// level 4 (48)
+// map 4 (48)
     0,
     2,
         XSize/3,                      0,    4*YSize/5,
@@ -44,7 +44,7 @@ const uint8_t level_walls[] =
         1,1,XSize/8,YSize/8,DEADLY,
         XSize-1-XSize/8,YSize-1-YSize/8,XSize/8,YSize/8,DEADLY,
 
-// level 5 (67)
+// map 5 (67)
     4,
              0,                 YSize/5,      XSize/2,
        XSize-1-XSize/2,       2*YSize/5,      XSize/2,
@@ -53,7 +53,7 @@ const uint8_t level_walls[] =
     0,
     0,
 
-// level 6 (82) (Z88DK partial work-around for preprocessor bug on division with integer litterals)
+// map 6 (82) (Z88DK partial work-around for preprocessor bug on division with integer litterals)
     4,
         ((uint8_t) (XSize/4)),                ((uint8_t) (YSize/4)),              ((uint8_t) (XSize/5))+1,
         XSize-((uint8_t) (XSize/4))-((uint8_t) (XSize/5)),        ((uint8_t) (YSize/4)),      ((uint8_t) (XSize/5))+1, // (1)
@@ -66,7 +66,7 @@ const uint8_t level_walls[] =
         XSize-((uint8_t) (XSize/4)),YSize-((uint8_t) (YSize/4))-((uint8_t) (YSize/5)),        ((uint8_t) (YSize/5)), // (2)
     0,
 
-// level 7 (109)
+// map 7 (109)
     2,
         0, YSize/2, XSize/4,
         XSize-XSize/4, YSize/2, XSize/4,
@@ -74,7 +74,7 @@ const uint8_t level_walls[] =
     2,
         XSize/2-XSize/10,1,XSize/5,YSize/5,DEADLY,
         XSize/2-XSize/10,YSize-1-YSize/5,XSize/5,YSize/5,DEADLY,
-// level 8
+// map 8
     0,
     4, 
         XSize/6, 3, YSize-1-6,
@@ -82,7 +82,7 @@ const uint8_t level_walls[] =
         XSize-1-2*XSize/6, 3, YSize-1-6,
         XSize-1-XSize/6, 3, YSize-1-6,
     0,
-// level 9 (143)
+// map 9 (143)
     0,
     0,
     4,
@@ -90,13 +90,13 @@ const uint8_t level_walls[] =
         2,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
         XSize-2-XSize/3,YSize-2-YSize/3,XSize/3,YSize/3,WALL,
         XSize-2-XSize/3,2,XSize/3,YSize/3,WALL,
-// level 10
+// map 10
     2, 
         XSize/3-1,       YSize/3,     XSize/2-1,
         XSize/3-1,     2*YSize/3,     XSize/2-1,
     0,
     0,
-// level 11
+// map 11
     2,
         XSize/4, YSize/2-2,XSize/2,
         XSize/4, YSize/2+2,XSize/2,
@@ -106,19 +106,19 @@ const uint8_t level_walls[] =
         2,YSize-2-YSize/4,XSize/4,YSize/4,WALL,
         XSize-2-XSize/4,YSize-2-YSize/4,XSize/4,YSize/4,WALL,
         XSize-2-XSize/4,2,XSize/4,YSize/4,WALL,
-// level 12(204)
+// map 12(204)
     0,
     2,
          XSize/5,                      1,   4*YSize/5,
        4*XSize/5,                      YSize-1-4*YSize/5,   4*YSize/5,
     0,
-// level 13 (213)
+// map 13 (213)
     1,
         2,YSize/2-1,XSize-4,
     0,
     0,
 
-// level 14 (219)
+// map 14 (219)
     4,
         0,                      YSize/4,      XSize/4+1,
        3*XSize/4,               YSize/4,      XSize/4,
@@ -126,13 +126,13 @@ const uint8_t level_walls[] =
        3*XSize/4,             3*YSize/4,      XSize/4,
     0,
     0,
-// level 15 (234)
+// map 15 (234)
     1,
         5,YSize/2+1,XSize-10,
     0,
     1,
         XSize/2-2,YSize/2+4,4,4,DEADLY,
-// level 16 (245)
+// map 16 (245)
     0,
     2,
         XSize/3, YSize-1-YSize/3, YSize/3,

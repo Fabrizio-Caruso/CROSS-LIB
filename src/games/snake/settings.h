@@ -61,7 +61,7 @@
 #define EXTRA_LENGTH 4
 
 #if !defined(MAX_SNAKE_LENGTH)
-    #define MAX_SNAKE_LENGTH ((XSize)+20)
+    #define MAX_SNAKE_LENGTH ((XSize)-2+(YSize)-2-1)
     
     //((XSize/2)+((NUMBER_OF_MAPS-1)/4)+(MAX_APPLES)+((MAX_APPLES)/8)+EXTRA_LENGTH)
 #endif

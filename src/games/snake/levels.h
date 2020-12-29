@@ -2,7 +2,7 @@
 #define _LEVELS_H
 
 // MAP WALLS
-const uint8_t level_walls[] = 
+const uint8_t map_walls[] = 
 {
 // map 0 (0)
     0,
@@ -102,10 +102,10 @@ const uint8_t level_walls[] =
         XSize/4, YSize/2+2,XSize/2,
     0,
     4,
-        2,2,XSize/4,YSize/4,WALL,
-        2,YSize-2-YSize/4,XSize/4,YSize/4,WALL,
-        XSize-2-XSize/4,YSize-2-YSize/4,XSize/4,YSize/4,WALL,
-        XSize-2-XSize/4,2,XSize/4,YSize/4,WALL,
+        2,2,XSize/5,YSize/5,DEADLY,
+        2,YSize-2-YSize/5,XSize/5,YSize/5,DEADLY,
+        XSize-2-XSize/5,YSize-2-YSize/5,XSize/5,YSize/5,DEADLY,
+        XSize-2-XSize/5,2,XSize/5,YSize/5,DEADLY,
 // map 12(204)
     0,
     2,
@@ -141,7 +141,7 @@ const uint8_t level_walls[] =
 };
 
 
-const uint8_t level_walls_index[] = 
+const uint8_t map_walls_index[] = 
     {
         0,   // 0
         3,   // 1

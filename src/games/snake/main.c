@@ -289,17 +289,17 @@ void build_level(void)
     init_map_to_empty();
     CLEAR_SCREEN();
             
-    index = level_walls_index[level-((level>16)<<4)];
+    index = map_walls_index[level-((level>16)<<4)];
     
     for(j=0;j<2;++j)
     {
-        number_of_elements = level_walls[index]; // Number of horizontal walls
+        number_of_elements = map_walls[index]; // Number of horizontal walls
         secret_wall_index = (uint8_t) (rand()%(number_of_elements));
         for(i=1, wall_index=0;i<3*number_of_elements;i+=3,++wall_index)
         {
-            x=level_walls[index+i];
-            y=level_walls[index+1+i];
-            length=level_walls[index+2+i];
+            x=map_walls[index+i];
+            y=map_walls[index+1+i];
+            length=map_walls[index+2+i];
             if(j)
             {
                 build_vertical_wall(x,y,length);
@@ -325,13 +325,13 @@ void build_level(void)
         index += number_of_elements*3+1;
     }
     
-    number_of_elements = level_walls[index];
+    number_of_elements = map_walls[index];
     ++index;
     for(j=0;j<5*number_of_elements;j+=5,index+=5)
     {
-        build_box_wall(level_walls[index],level_walls[1u+index],
-                       level_walls[2u+index],level_walls[3u+index],
-                       level_walls[4u+index]);
+        build_box_wall(map_walls[index],map_walls[1u+index],
+                       map_walls[2u+index],map_walls[3u+index],
+                       map_walls[4u+index]);
     }
     
     build_horizontal_mines(level);

@@ -36,7 +36,11 @@
 #define SOME_EXTRA 10
 #define MANY_EXTRA (15+(XSize)+(XSize)/2)
 
-#define SPEED_INCREASE_THRESHOLD 18U
+#if XSize<30
+    #define SPEED_INCREASE_THRESHOLD 18U
+#else
+    #define SPEED_INCREASE_THRESHOLD 16U
+#endif
 
 #define SPAWNED_APPLE_START 2U
 

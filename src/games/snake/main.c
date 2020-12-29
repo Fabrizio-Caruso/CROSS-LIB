@@ -862,7 +862,14 @@ void magic_wall(void)
     ZAP_SOUND(); \
     points+=SUPER_COIN_POINTS; \
     slow_down = SLOW_DOWN + SLOW_DOWN/5; \
-    energy = MAX_ENERGY; \
+    if(energy>10) \
+    { \
+        energy = MAX_ENERGY; \
+    } \
+    else \
+    { \
+        energy+= 10; \
+    } \
     DISPLAY_ENERGY(); \
     active_mines = 0; \
 

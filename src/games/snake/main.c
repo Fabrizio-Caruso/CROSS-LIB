@@ -861,7 +861,7 @@ void magic_wall(void)
 #define handle_super_coin_effect() \
     ZAP_SOUND(); \
     points+=SUPER_COIN_POINTS; \
-    slow_down = SLOW_DOWN + SLOW_DOWN/4; \
+    slow_down = SLOW_DOWN + SLOW_DOWN/5; \
     energy = MAX_ENERGY; \
     DISPLAY_ENERGY(); \
     active_mines = 0; \

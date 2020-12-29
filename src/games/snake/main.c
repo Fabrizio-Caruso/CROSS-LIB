@@ -818,7 +818,7 @@ void magic_wall(void)
         case 12: 
         case 28:
             build_magic_column(XSize/5, 1, YSize-YSize/5);
-            build_magic_column(4*XSize/5, YSize-1-4*YSize/5, YSize-YSize/5-1);
+            build_magic_column(4*XSize/5, YSize/5, YSize-YSize/5-1);
         break;
         case 16: 
         case 32:

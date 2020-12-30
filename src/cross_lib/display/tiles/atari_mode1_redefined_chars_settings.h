@@ -9,10 +9,10 @@
 // 13 (-)
 // 4 ($)
 
-#define _ATARI_MODE1_RED 0
-#define _ATARI_MODE1_WHITE 64
-#define _ATARI_MODE1_BLUE 128
-#define _ATARI_MODE1_YELLOW 192
+// #define _ATARI_MODE1_RED 0
+// #define _ATARI_MODE1_WHITE 64
+// #define _ATARI_MODE1_BLUE 128
+// #define _ATARI_MODE1_YELLOW 192
 
 
 #define _TILE_0_OFFSET 60
@@ -135,7 +135,6 @@
         #define _TILE_4_B _TILE_4_OFFSET
     #endif
 #else
-
 
     #define _TILE_19 _TILE_19_OFFSET
     #define _TILE_20 _TILE_20_OFFSET

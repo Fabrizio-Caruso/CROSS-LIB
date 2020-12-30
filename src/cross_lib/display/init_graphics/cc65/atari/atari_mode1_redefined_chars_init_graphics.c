@@ -106,11 +106,11 @@ void INIT_GRAPHICS(void)
         if(get_tv())
         {
             // PAL Settings
-            _setcolor_low(0, TGI_COLOR_RED);
-            _setcolor_low(1, TGI_COLOR_WHITE);
-            _setcolor_low(2, TGI_COLOR_CYAN); 	
-            _setcolor_low(3, TGI_COLOR_BROWN);
-            _setcolor_low(4, TGI_COLOR_BLACK);
+            _setcolor_low(0, GTIA_COLOR_RED);
+            _setcolor_low(1, GTIA_COLOR_WHITE);
+            _setcolor_low(2, GTIA_COLOR_CYAN); 	
+            _setcolor_low(3, GTIA_COLOR_BROWN);
+            _setcolor_low(4, GTIA_COLOR_BLACK);
         }
         else
         {
@@ -125,10 +125,10 @@ void INIT_GRAPHICS(void)
         {
             // PAL Settings
             _setcolor_low(0, GTIA_COLOR_RED);
-            _setcolor_low(1, TGI_COLOR_WHITE);
+            _setcolor_low(1, GTIA_COLOR_WHITE);
             _setcolor_low(2, GTIA_COLOR_GREEN); 
             _setcolor_low(3, GTIA_COLOR_BROWN);
-            _setcolor_low(4, TGI_COLOR_BLACK);
+            _setcolor_low(4, GTIA_COLOR_BLACK);
         }
         else
         {

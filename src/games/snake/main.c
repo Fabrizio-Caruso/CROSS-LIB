@@ -45,8 +45,8 @@ static uint8_t fourth_coin_achievement;
 /*
 #define EMPTY 0
 #define DEADLY 1
-#define SUPER_COIN 2
-#define COIN 3
+#define SUPER_RING 2
+#define RING 3
 #define EXTRA 4
 #define APPLE 5
 #define EXTRA_LIFE 6
@@ -78,8 +78,8 @@ void set_secret(uint8_t *secret_ptr)
 const Image *images[] = {
     0, 
     &MINE_IMAGE, 
-    &SUPER_COIN_IMAGE, 
-    &COIN_IMAGE, 
+    &SUPER_RING_IMAGE, 
+    &RING_IMAGE, 
     &EXTRA_IMAGE, 
     &APPLE_IMAGE,
     &VERTICAL_HEAD_IMAGE,
@@ -95,13 +95,13 @@ const Image *images[] = {
 
 
 #define hits_coin(x,y) \
-    (map[x][y]==COIN)
+    (map[x][y]==RING)
 
 #define hits_secret(x,y) \
     (map[x][y]==SECRET)
 
 #define hits_super_coin(x,y) \
-    (map[x][y]==SUPER_COIN)
+    (map[x][y]==SUPER_RING)
 
 #define hits_apple(x,y) \
     (map[x][y]==APPLE)
@@ -657,14 +657,14 @@ void handle_transparent_horizontal_wall(void)
     { \
         spawn(APPLE); \
     } \
-    if(level>=EXTRA_COIN_SPAWN_THRESHOLD) \
+    if(level>=EXTRA_RING_SPAWN_THRESHOLD) \
     { \
-        spawn(COIN); \
+        spawn(RING); \
     } \
     if(!level) \
     { \
-        spawn(COIN); \
-        spawn(COIN); \
+        spawn(RING); \
+        spawn(RING); \
     }
 
 #define debug_transparent_walls() \
@@ -714,7 +714,7 @@ void one_up(void)
         ++apples_on_screen_count; \
         if((spawned_apples&7)==SPAWNED_APPLE_START) \
             { \
-                spawn(COIN); \
+                spawn(RING); \
             } \
         spawn(APPLE); \
         ++spawned_apples; \
@@ -722,7 +722,7 @@ void one_up(void)
 
 #define handle_secret_hole() \
     spawn_extra(SOME_EXTRA); \
-    spawn(COIN); \
+    spawn(RING); \
     set_secret(&secret_passage[level]);
 
 
@@ -736,13 +736,13 @@ void one_up(void)
 
 #define handle_coin_effect() \
     snake_grows(); \
-    points+=(COIN_POINTS<<coin_count); \
+    points+=(RING_POINTS<<coin_count); \
     ZAP_SOUND(); \
-    _XLIB_DRAW(XSize-6+coin_count,YSize-1,&COIN_IMAGE); \
+    _XLIB_DRAW(XSize-6+coin_count,YSize-1,&RING_IMAGE); \
     if(coin_count>=2) \
     { \
         set_secret(&third_coin_achievement); \
-        spawn(SUPER_COIN); \
+        spawn(SUPER_RING); \
     } \
     if(coin_count>=3) \
     { \
@@ -841,10 +841,10 @@ void magic_wall(void)
             { \
                 magic_wall(); \
             } \
-            if(extra_count==COIN_THRESHOLD) \
+            if(extra_count==RING_THRESHOLD) \
             { \
                 set_secret(&(coin_achievement[level>>2])); \
-                spawn(COIN); \
+                spawn(RING); \
             } \
             if(extra_count==EXTRA_1UP_THRESHOLD) \
             { \
@@ -860,7 +860,7 @@ void magic_wall(void)
 
 #define handle_super_coin_effect() \
     ZAP_SOUND(); \
-    points+=SUPER_COIN_POINTS; \
+    points+=SUPER_RING_POINTS; \
     slow_down = SLOW_DOWN + SLOW_DOWN/5; \
     if(energy>10) \
     { \
@@ -1058,9 +1058,9 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
         PRINT(ACHIEVEMENTS_X_OFFSET+9,ACHIEVEMENTS_Y_OFFSET, _XL_R _XL_E _XL_C _XL_O _XL_R _XL_D); \
     }
 
-#define DISPLAY_COINS() \
+#define DISPLAY_RINGS() \
 { \
-    _XLIB_DRAW(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, &COIN_IMAGE); \
+    _XLIB_DRAW(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, &RING_IMAGE); \
     SET_TEXT_COLOR(COLOR_WHITE); \
     PRINTD(ACHIEVEMENTS_X_OFFSET+5,ACHIEVEMENTS_Y_OFFSET+3,3,rings); \
 }
@@ -1081,7 +1081,7 @@ void display_stats(void)
 
     handle_record();
     
-    DISPLAY_COINS();
+    DISPLAY_RINGS();
     
     lives = 0; // re-used variable
     
@@ -1173,7 +1173,7 @@ int main(void)
             
             WAIT_PRESS();
             #if defined(DEBUG_FREEZE)
-                spawn(SUPER_COIN);
+                spawn(SUPER_RING);
             #endif
             
             #if defined(DEBUG_LEVELS)

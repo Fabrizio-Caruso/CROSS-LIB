@@ -210,7 +210,7 @@ extern const Image BODY_IMAGE;
 extern const Image APPLE_IMAGE;
 extern const Image HI_TEXT_IMAGE;
 extern const Image CENTRAL_BRICK_IMAGE;
-extern const Image COIN_IMAGE;
+extern const Image RING_IMAGE;
 extern const Image LV_TEXT_IMAGE;
 extern const Image TRANSPARENT_BRICK_IMAGE;
 extern const Image UP_MINE_IMAGE;
@@ -220,7 +220,7 @@ extern const Image SCORE_TEXT_LEFT_IMAGE;
 extern const Image DOWN_MINE_IMAGE;
 extern const Image SCORE_TEXT_RIGHT_IMAGE;
 extern const Image MINE_IMAGE;
-extern const Image SUPER_COIN_IMAGE;
+extern const Image SUPER_RING_IMAGE;
 extern const Image EXTRA_IMAGE;
 
 extern uint8_t secret_passage[2*NUMBER_OF_MAPS];

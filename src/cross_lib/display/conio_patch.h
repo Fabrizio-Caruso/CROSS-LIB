@@ -329,7 +329,7 @@
 #define _ATARI_MODE1_GREEN 128
 #define _ATARI_MODE1_YELLOW 192
 
-#if defined(ATARI_MODE_1_COLOR)
+#if defined(ATARI_MODE_1_COLOR) || defined(__ATARI5200__)
     #undef COLOR_RED
     #define COLOR_RED _ATARI_MODE1_RED
     

@@ -761,25 +761,6 @@ void one_up(void)
     ++coin_count;
 
 
-/*
-level 4
-             0,                 YSize/5,      XSize/2,
-       XSize-1-XSize/2,       2*YSize/5,      XSize/2,
-             0,               3*YSize/5,      XSize/2,
-       XSize-1-XSize/2,       4*YSize/5,      XSize/2,
-       
-level 8
-        XSize/6, 3, YSize-1-6,
-        2*XSize/6, 3, YSize-1-6,
-        XSize-1-2*XSize/6, 3, YSize-1-6,
-        XSize-1-XSize/6, 3, YSize-1-6,
-level 12:
-        2,YSize/2-1,XSize-4,
-        
-level 16:
-        XSize/3, YSize-1-YSize/3, YSize/3,
-        XSize-1-XSize/3, YSize-1-YSize/3, YSize/3,
-*/
 
 void spawn_extra(uint8_t quantity)
 {

@@ -121,7 +121,11 @@
     #endif
 
     #if defined(NO_SPACE_TEXT)
-        #define _XL_SPACE "\xA0"
+        #if !defined(__ATARI__)
+            #define _XL_SPACE "\xA0"
+        #else
+            #define _XL_SPACE "\x40"
+        #endif
     #endif
 
     #if !defined(_XL_SPACE)

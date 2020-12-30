@@ -4,7 +4,7 @@
 
 #include "cross_lib.h"
 
-
+#if !defined(ATARI_MODE_1_COLOR)
 void _GOTOXY(uint8_t x, uint8_t y)
 { 
 	if((y)&1) 
@@ -22,7 +22,20 @@ void PRINT(uint8_t x, uint8_t y, char * str)
     _GOTOXY(x,y);
     cprintf(str); 
 };
+#else
+extern uint8_t text_color;
 
+void PRINT(uint8_t x, uint8_t y, char * str)
+{
+    uint8_t i = 0;
+
+    while(str[i]!='\0')
+    {
+        DISPLAY_POKE(loc(x+i,y), str[i]+(text_color)-0x40u);
+        ++i;
+	}
+}
+#endif
 
 void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 {

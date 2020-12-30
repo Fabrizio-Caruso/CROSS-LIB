@@ -121,7 +121,7 @@ atari_test: $(ASSETS_PATH)/8x8_chars.h
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
-	-DALT_PRINT \
+	-DALT_PRINT -DNO_SPACE_TEXT \
 	-DSLOW_DOWN=6300 \
 	$(CROSS_LIB_PATH)/display/alt_print/atari_mode1_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari/disable_setcursor.s \

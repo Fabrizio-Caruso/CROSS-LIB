@@ -55,7 +55,8 @@ void set_udg(void)
 #endif
 
 uint16_t BASE_ADDR;
-    
+uint8_t text_color;
+
 void INIT_GRAPHICS(void)
 {
 	// Mode 12 with no last monochromatic lines (12+16)

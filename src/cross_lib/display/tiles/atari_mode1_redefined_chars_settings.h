@@ -135,7 +135,6 @@
         #define _TILE_4_B _TILE_4_OFFSET
     #endif
 #else
-
     #define _TILE_19 _TILE_19_OFFSET
     #define _TILE_20 _TILE_20_OFFSET
     #define _TILE_21 _TILE_21_OFFSET
@@ -177,5 +176,6 @@
 
     #define _TILE_4_B _TILE_4_OFFSET
 #endif
+
 #endif // _ATARI_MODE1_SETTINGS
 

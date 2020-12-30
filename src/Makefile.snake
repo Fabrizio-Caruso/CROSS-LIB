@@ -150,6 +150,20 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 
 #################################################################
 
+atari5200_test: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t atari5200 \
+	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
+	-D__ATARI5200__ -DALTERNATE_COLORS -DINLINE_LOC -DATARI_MODE_1_COLOR \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DSLOW_DOWN=6300 \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom
+
 atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
@@ -163,7 +177,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_atari5200.rom
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom
 
 
 #################################################################

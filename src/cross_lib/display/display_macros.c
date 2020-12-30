@@ -41,9 +41,6 @@ extern Image VERTICAL_BRICK_IMAGE;
 extern uint16_t BASE_ADDR;
 #endif
 
-#if defined(ATARI_MODE_1_COLOR)
-extern uint16_t BASE_ADDR;
-#endif
 
 #if defined(VDP_WAIT_V_SYNC)
     void vdp_waitvsync(void)

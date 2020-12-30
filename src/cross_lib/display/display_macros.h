@@ -312,7 +312,7 @@ typedef struct ImageStruct Image;
     #define _SPACE (0x40-_Z88DK_SPRITE_OFFSET)
 #elif defined(__COCO__) || defined(__DRAGON__)
     #define _SPACE (' '+NOT_INVERTED)
-#elif defined(__ATARI5200__) && defined(MEMORY_MAPPED)
+#elif defined(__ATARI5200__)
     #define _SPACE 0
 #elif defined(CPCRSLIB)
     #define _SPACE (19*2)

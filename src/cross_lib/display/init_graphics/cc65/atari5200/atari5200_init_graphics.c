@@ -50,10 +50,11 @@ void set_udg(void)
 	
 	REDEFINE_AT(_FONT_START__);
 	
-	*CHBASE = ((int)_FONT_START__ >> 8);  	
+	*CHBASE = ((int)_FONT_START__ >> 8);
 }
 
 #define SETCOLOR_LOW(reg, val) *((unsigned char *)12 + (reg)) = (val)
+
 
 void INIT_GRAPHICS(void)
 {
@@ -71,7 +72,8 @@ void INIT_GRAPHICS(void)
         SETCOLOR_LOW(3,_gtia_mkcolor(HUE_GOLDORANGE  ,4));
         SETCOLOR_LOW(4,GTIA_COLOR_BLACK);
     #endif
-	set_udg();
+    set_udg();
+    
 }
 
 

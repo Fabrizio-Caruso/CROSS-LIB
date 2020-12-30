@@ -25,7 +25,7 @@
 	#include "cmoc_memory_mapped_settings.h"
 #elif (defined(__ATARI__) && defined(ATARI_MODE1))
 	#include "atari_mode1_redefined_chars_settings.h"
-#elif defined(__ATARI5200__) && defined(MEMORY_MAPPED)
+#elif defined(__ATARI5200__)
 	#include "atari_mode1_redefined_chars_settings.h"
 #elif defined(__ATMOS__)
 	#include "atmos_redefined_characters_settings.h"

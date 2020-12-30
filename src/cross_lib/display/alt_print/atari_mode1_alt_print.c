@@ -47,7 +47,7 @@ void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 		digit = (uint8_t) ((val)%10);
 		val-= digit;
 		val/=10;
-		DISPLAY_POKE(loc(x+length-1-i,y), (uint8_t) (digit+(uint8_t) 80u));
+		DISPLAY_POKE(loc(x+length-1-i,y), (uint8_t) (digit+(uint8_t) 0x10 + text_color));
 	}
 }
 

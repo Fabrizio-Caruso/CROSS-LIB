@@ -12,8 +12,10 @@ Eat all apples on each level while avoiding being killed by:
 
 2. SUB-GOALS
 - Collect the rings for points
-- Collect 3 rings on the same level without being killed, you may unlock a secret item
-- Unlock the secret level (Hint: keeping on collecting rings...)
+- Collect 3 or more rings on the same level without being killed, to spawn an "energy" item
+- Find secrets and the secret level
+
+Remark: When you die you lose all the collected rings but you keep the apples.
 
 3. ENERGY
 You start with maximum energy and a slow snake. 
@@ -24,8 +26,8 @@ Hint: Keep an eye on the energy before you decide to go collect bonus items inst
 4. COLLECTABLE ITEMS
 - Apple: slows you down and avoids energy from decreasing;
 - Ring: bonus points + secrets unlocked if you collect many;
-- $: extra points;
-- Freeze: freeze mine and restore energy;
+- $: extra points and maybe some secrets;
+- Energy: restore 10 points of energy and freeze mines;
 - Extra life: secret extra life item.
 IMPORTANT: eating items (usually) makes your snake grow, which may make your life harder.
 
@@ -58,7 +60,7 @@ Completing a level gives you a bonus that depends on:
 - first ring   :  10 points
 - second ring  :  20 points
 - third ring   :  40 points
-- freeze       :  50 points
+- energy       :  50 points
 - fourth ring  :  80 points
 - fifth ring   : 160 points
 - level bonus  : (snake length X 2) + (energy X 8) + (32 X rings) + (level X 4) 
@@ -68,5 +70,17 @@ Completing a level gives you a bonus that depends on:
 Every 5000 points you are awarded an extra life.
 Hint: Collecting the rings and keeping maximum energy is a good strategy to maximize your score.
 
+10. SECRETS
+The game has 50 secrets most of which are only found on specific levels.
+Hint 1: collect rings wihout dying;
+Hint 2: on bonus levels, collect as many $ items as possible;
+Hint 3: examine horizontal walls.
+
+11. ACHIEVEMENTS
+At the end of your match, you get a screen with your achievements:
+- Points/Record
+- Number of total items obtained at the end of each completed level
+- Number of secrets found
+- Number of completed levels / Secret Level
 
 

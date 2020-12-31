@@ -952,15 +952,17 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
 
+msx_test: msx_32k_rom_2
 
 msx_32k_rom_2: $(ASSETS_PATH)/z88dk_xchase.asm  
-	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
-	-DINITIAL_SLOWDOWN=29000 \
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-DINITIAL_SLOWDOWN=5000 \
 	-DSOUNDS -DANIMATE_PLAYER \
 	-vn  -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
-	-DCONIO -DFORCE_SCREEN_MODE=1 -DFORCE_XSIZE=32 -DFORCE_YSIZE=24 \
+	-DCONIO -DFORCE_SCREEN_MODE=2 -DFORCE_NARROW -DFORCE_XSIZE=32 -DFORCE_YSIZE=24 \
 	-DUDG_GRAPHICS \
 	-DZ88DK_JOYSTICK \
 	-DSLOW_DOWN=2700 \

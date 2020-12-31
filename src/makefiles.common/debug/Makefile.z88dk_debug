@@ -38,6 +38,14 @@ msx_mode1_test:
 	-create-app -o $(BUILD_PATH)/TEST_msx.prg
 	rm $(BUILD_PATH)/TEST_msx.prg
 
+msx_mode2_test:
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) -subtype=rom \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-vn \
+	-lndos \
+	$(TEST_PATH)//msx_test2.c \
+	-create-app -o $(BUILD_PATH)/TEST_msx2.prg
+	rm $(BUILD_PATH)/TEST_msx2.prg
 
 c7420_hello:
 	$(Z88DK_PATH)$(MYZ88DK) +c7420 $(SCCZ80_OPTS) $(INCLUDE_OPTS) \

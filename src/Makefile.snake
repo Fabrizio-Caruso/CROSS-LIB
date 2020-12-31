@@ -816,7 +816,7 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-DCPCRSLIB \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=3000 \
+	-DSLOW_DOWN=1800 \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_cpc.prg \
 	-DCPCRSLIB_GRAPHICS \
@@ -944,7 +944,7 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	-DALT_PRINT \
 	-DLESS_TEXT \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=2700 \
+	-DSLOW_DOWN=1900 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
@@ -985,7 +985,7 @@ spectrum_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=3200 \
+	-DSLOW_DOWN=2400 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-D__SPECTRUM__ \
 	-lndos -create-app \

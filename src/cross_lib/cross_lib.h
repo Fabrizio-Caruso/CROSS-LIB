@@ -30,7 +30,7 @@
 #define _TARGET_SETTINGS
 
 #if !defined(__SMS__) && !defined(__COCO__) && !defined(__DRAGON__) && !defined(__SUPERVISION__) \
-	&& !defined(__ATARI_LYNX__) && !defined(__MSX__) \
+	&& !defined(__ATARI_LYNX__) && !(defined(__MSX__) && defined(MEMORY_MAPPED)) \
     && !defined(__SVI__) \
 	&& !defined(__ENTERPRISE__) \
 	&& !defined(__ABC800__) \

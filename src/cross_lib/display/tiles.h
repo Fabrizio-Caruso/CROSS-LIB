@@ -31,7 +31,7 @@
 	#include "atmos_redefined_characters_settings.h"
 #elif defined(Z88DK_SPRITES) 
 	#include "udg_settings.h"
-#elif defined(__MSX__)
+#elif defined(__MSX__) && defined(MEMORY_MAPPED)
 	#include "msx_redefined_chars_settings.h"
 #elif defined(CPCRSLIB)
 	#include "cpc_cpcrslib_settings.h"

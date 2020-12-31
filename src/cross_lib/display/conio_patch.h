@@ -50,7 +50,7 @@
 
     #if defined(Z88DK) && !defined(__SMS__) && !defined(Z88DK_PUTC4X6) && !defined(__ZX80__) && !defined(__ZX81__) && !defined(__LAMBDA__)
         #undef cputc
-        #define cputc(c) fputc_cons(c)	
+        #define cputc(c) fputc_cons(c)
     #endif
 
     #  if defined(CONIO_ADM3A)
@@ -162,7 +162,7 @@
         
 
      
-    #elif defined(__MSX__) || (defined(__SVI__) && defined(MSX_MODE0))
+    #elif (defined(__MSX__) && defined(MEMORY_MAPPED)) || (defined(__SVI__) && defined(MSX_MODE0))
         #define gotoxy(a,b)     printf("\033Y%c%c",b+31+1,a+31)
         #define clrscr() printf("\033E") 
 

@@ -946,7 +946,7 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	-DZ88DK_JOYSTICK \
 	-DSLOW_DOWN=1900 \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c	\
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/msx/msx_redefined_chars_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
@@ -954,18 +954,18 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 
 msx_test: msx_32k_rom_2
 
-msx_32k_rom_2: $(ASSETS_PATH)/z88dk_xchase.asm  
+msx_32k_rom_2: $(ASSETS_PATH)/z88dk_xchase.asm   
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DINITIAL_SLOWDOWN=5000 \
 	-DSOUNDS -DANIMATE_PLAYER \
-	-vn  -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-vn  -DFULL_GAME -D__MSX__  \
 	-lndos -subtype=rom \
 	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
-	-DCONIO -DFORCE_SCREEN_MODE=2 -DFORCE_NARROW -DFORCE_XSIZE=32 -DFORCE_YSIZE=24 \
+	-DCONIO  -DFORCE_NARROW -DFORCE_XSIZE=32 -DFORCE_YSIZE=24 \
 	-DUDG_GRAPHICS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=2700 \
+	-DSLOW_DOWN=1700 \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \

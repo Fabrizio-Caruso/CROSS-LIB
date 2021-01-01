@@ -276,6 +276,13 @@ out            stb res
         }
     #elif defined(NO_INPUT)
     //
+    #elif defined(__MO5__) || defined(__TO7__)
+        void WAIT_PRESS(void)
+        {
+            while(!GET_CHAR())
+            {
+            }
+        }
     #else 
         #if defined(CONIO_LIB)
             #include<conio.h>

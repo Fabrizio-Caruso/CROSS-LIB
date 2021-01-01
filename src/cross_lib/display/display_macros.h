@@ -291,7 +291,7 @@ typedef struct ImageStruct Image;
 #endif
 
 #if defined(Z88DK_SPRITES) || defined(__MO5__)||defined(__TO7__) 
-	#define _Z88DK_SPRITE_OFFSET 0x20
+	#define _Z88DK_SPRITE_OFFSET (0x20)
 #else
 	
 	#define _Z88DK_SPRITE_OFFSET 0x00
@@ -311,7 +311,11 @@ typedef struct ImageStruct Image;
 #elif defined(__C16__) && defined(REDEFINED_CHARS) && defined(C16_UNEXPANDED)
     #define _SPACE 0x60
 #elif defined(Z88DK_SPRITES)
-    #define _SPACE (0x40-_Z88DK_SPRITE_OFFSET)
+    #if defined(FEWER_SPRITES)
+        #define _SPACE 60
+    #else
+        #define _SPACE 96
+    #endif
 #elif defined(__COCO__) || defined(__DRAGON__)
     #define _SPACE (' '+NOT_INVERTED)
 #elif defined(__ATARI5200__)

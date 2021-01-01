@@ -23,22 +23,24 @@
 #define _PRESS_FIRE_STRING _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E
 
 #if !defined(NO_EXTRA_TITLE)
-
-
-#define extra_title() \
-{ \
-    uint8_t i; \
-    show_intro_snake(); \
-    _XLIB_DRAW(XSize/4+XSize/2,YSize/8+5,&APPLE_IMAGE); \
-    for(i=0;i<NUMBER_OF_STRINGS;++i) \
+    #define extra_title() \
     { \
-        _XLIB_DRAW(XSize/2-6,YSize/8+8+2*i, images[NUMBER_OF_STRINGS-i]); \
-        SET_TEXT_COLOR(COLOR_WHITE); \
-        PRINT(XSize/2-4,YSize/8+8+2*i, strings[NUMBER_OF_STRINGS-1-i] ); \
-    } \
-}
+        uint8_t i; \
+        show_intro_snake(); \
+        _XLIB_DRAW(XSize/4+XSize/2,YSize/8+5,&APPLE_IMAGE); \
+        for(i=0;i<NUMBER_OF_STRINGS;++i) \
+        { \
+            _XLIB_DRAW(XSize/2-6,YSize/8+8+2*i, images[NUMBER_OF_STRINGS-i]); \
+            SET_TEXT_COLOR(COLOR_WHITE); \
+            PRINT(XSize/2-4,YSize/8+8+2*i, strings[NUMBER_OF_STRINGS-1-i] ); \
+        } \
+    }
 #else
-    #define extra_title()
+    #define extra_title() \
+    { \
+        show_intro_snake(); \
+        _XLIB_DRAW(XSize/4+XSize/2,YSize/8+5,&APPLE_IMAGE); \
+    }
 #endif
 
 #define title() \

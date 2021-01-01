@@ -83,7 +83,8 @@ cc65_targets: \
 cmoc_targets: \
     coco_targets \
     dragon_targets \
-    mo5_targets
+    mo5_targets \
+    to7_targets
 
 
 z88dk_targets: \
@@ -542,15 +543,18 @@ DRAGON_COMPILE_OPTS   ?= $(DRAGON_OPTS)
 
 VECTREX_OPTS          ?= -O0 --vectrex  -DNO_SLEEP -DNO_WAIT -DNO_INPUT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__VECTREX__ -DVECTORIAL -DNO_INIT_GRAPHICS -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
 
+THOMSON_OPTS          ?= -O2 -DANIMATE_PLAYER -DSLOW_DOWN=3000 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -Wno-const -D__CMOC__ -DALT_PRINT -DBIT_MAPPED -DNO_EXTRA_TITLE
+
 # -DDEFAULT_CLEAR_SCREEN 
-MO5_OPTS              ?= -O2 -DANIMATE_PLAYER -DSLOW_DOWN=2500 -DFORCE_NO_CONIO_LIB -DNO_SLEEP -Wno-const -D__CMOC__ -D__MO5__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+MO5_OPTS              ?= $(THOMSON_OPTS) -D__MO5__ 
 
 MO5_COMPILE_OPTS      ?= $(MO5_OPTS)
 
-TO7_OPTS              ?= -O1 -DFORCE_NO_CONIO_LIB -DNO_INPUT -DNO_SLEEP -DNO_WAIT -DNO_PRINT -Wno-const -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -D__TO7__ -DBIT_MAPPED -DALT_PRINT -DLESS_TEXT -DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL
+TO7_OPTS              ?= $(THOMSON_OPTS) -D__TO7__
 
 TO7_COMPILE_OPTS      ?= $(TO7_OPTS)
 
+TO7_ORG_DATA          ?= --org=a000 
 
 #############################################################################################
 
@@ -748,6 +752,75 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 mo5_targets: \
 	mo5
 
+to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/mo5/mo5_init_graphics.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/snake.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_snake.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/control_player.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c	
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_25_tiles.s
+	$(CMOC) $(TO7_ORG_DATA) -o $(BUILD_PATH)/FULL_TO7.bin \
+	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
+	$(SOURCE_PATH)/main.c \
+	mo5_alt_print.o sleep_macros.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	cmoc_udc_25_tiles.o \
+	init_images.o \
+	text_macros.o variables.o \
+	input_macros.o game_text.o \
+	control_player.o snake.o move_snake.o
+	rm \
+	mo5_alt_print.o sleep_macros.o \
+	cmoc_udc_25_tiles.o \
+	mo5_init_graphics.o \
+	display_macros.o \
+	init_images.o variables.o \
+	text_macros.o game_text.o \
+	control_player.o snake.o move_snake.o \
+	input_macros.o
+	mv $(BUILD_PATH)/FULL_TO7.BIN .
+	$(TOOLS_PATH)/cmoc/mo5/sapfs -c X$(GAME_NAME)_TO7.sap
+	$(TOOLS_PATH)/cmoc/mo5/sapfs --add X$(GAME_NAME)_TO7.sap FULL_TO7.BIN
+	rm ./FULL_TO7.BIN
+	mv ./X$(GAME_NAME)_TO7.sap $(BUILD_PATH)
+    
+
+to7_targets: \
+	to7
 
 #################################################################
 # Z88DK

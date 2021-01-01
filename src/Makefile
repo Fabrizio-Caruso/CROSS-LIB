@@ -15,3 +15,5 @@ include makefiles.common/debug/Makefile.z88dk_debug
 # - LCC1802
 include makefiles.common/debug/Makefile.lcc1802_debug
 
+# - CMOC
+include makefiles.common/debug/Makefile.cmoc_debug

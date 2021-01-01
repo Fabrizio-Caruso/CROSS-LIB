@@ -100,6 +100,20 @@ extern uint16_t BASE_ADDR;
 #elif defined(__MO5__)
     #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 
+/*
+COLOR:
+lda $a7c0
+ anda #$f0
+ sta $a7c0
+
+
+FORMS:
+lda $a7c0
+ ora #$01
+ sta $a7c0
+*/
+
+
     void SWITCH_COLOR_BANK_ON(void)
     {
         asm

@@ -21,7 +21,7 @@ extern uint8_t udgs[];
 		uint8_t __i; \
 		uint16_t __base = (x)+(XSize)*8*(y); \
 		uint8_t __delta = 0; \
-		uint8_t __offset = (8*(uint8_t)(tile) ; \
+		uint8_t __offset = (8*(uint8_t)(tile)) ; \
 		\
 		SWITCH_COLOR_BANK_OFF(); \
 		for(__i=0;__i<7;++__i) \

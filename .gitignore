@@ -43,3 +43,5 @@ demos/reduced_full_lcc1802_combo.c
 games/reduced_full_lcc1802_combo.c
 src/games/snake/generated_assets/*
 src/demos/snake/generated_assets/*
+src/games/snake_exp/generated_assets/*
+

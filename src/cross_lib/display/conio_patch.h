@@ -252,7 +252,35 @@
             #define COLOR_MAGENTA MAGENTA
             #define COLOR_RED RED
             #define COLOR_YELLOW YELLOW
-        #endif	
+        #endif
+    #else
+        #ifndef COLOR_BLACK
+        #define COLOR_BLACK 0
+        #endif
+        
+        #ifndef COLOR_WHITE
+        #define COLOR_WHITE 0
+        #endif
+        
+        #ifndef COLOR_RED
+        #define COLOR_RED 0
+        #endif
+        
+        #ifndef COLOR_CYAN
+        #define COLOR_CYAN 0
+        #endif
+        
+        #ifndef COLOR_GREEN
+        #define COLOR_GREEN 0
+        #endif
+        
+        #ifndef COLOR_YELLOW
+        #define COLOR_YELLOW 0
+        #endif
+        
+        #ifndef COLOR_BLUE
+        #define COLOR_BLUE 0
+        #endif
     #endif
 #endif // defined(NO_GRAPHICS)
 

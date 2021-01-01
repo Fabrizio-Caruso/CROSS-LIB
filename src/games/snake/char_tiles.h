@@ -21,26 +21,26 @@
 
 #define _TILE_7 '='
 
-#define _TILE_8 'O'
+#define _TILE_8 'R'
 
 #define _TILE_9 'L'
 
 #define _TILE_10 '='
 
-#define _TILE_11 '|'
-#define _TILE_12 '|'
+#define _TILE_11 'I'
+#define _TILE_12 'I'
 
 #define _TILE_13 '-'
 
 #define _TILE_14 'S'
 
-#define _TILE_15 '|'
+#define _TILE_15 'I'
 
 #define _TILE_16 'C'
 
 #define _TILE_17 'X'
 
-#define _TILE_18 '~'
+#define _TILE_18 'S'
 
 #endif // _CHAR_TILES_H
 

@@ -247,7 +247,7 @@ typedef struct ImageStruct Image;
 // COLORS 
 #if defined(__ATARI5200__)
     #define SET_TEXT_COLOR(c) textcolor(c>>6)
-#elif defined(__ATARI__)
+#elif defined(__ATARI__) && (defined(ATARI_MODE_1_COLOR))
     extern uint8_t text_color;
     #define SET_TEXT_COLOR(c) text_color = (c)
 #elif defined(NO_COLOR) \

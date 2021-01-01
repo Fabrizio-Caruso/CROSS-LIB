@@ -16,6 +16,8 @@ extern uint8_t space_str[];
 
 #define _DRAW_AUX(color,str,x,y) cpc_PrintGphStrStdXY(color,str,(x*2),(y*8))
 
+#define _XLIB_DRAW_TILE(x,y,tile,color) _DRAW_AUX(color, char_list+tile, (x), (y))
+
 #define __DRAW(x,y,image) _DRAW_AUX(image->_color, char_list+image->_imageData, (x), (y))
 
 #define __DELETE(x,y) _DRAW_AUX(CPC_BLACK,space_str,(x),(y))

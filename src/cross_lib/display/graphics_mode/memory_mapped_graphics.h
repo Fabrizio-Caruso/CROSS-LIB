@@ -87,6 +87,15 @@
 #endif
 
 #if !defined(NO_COLOR)
+
+	#define _XLIB_DRAW_TILE(x,y,tile,color) \
+	do \
+	{ \
+		COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),(color); \
+		DISPLAY_POKE(loc(x,y), (tile); \
+	} \
+	while(0)
+
 	#define __DRAW(x,y,image) \
 	do \
 	{ \
@@ -95,6 +104,10 @@
 	} \
 	while(0)
 #else
+
+	#define _XLIB_DRAW_TILE(x,y,tile,color) \
+		DISPLAY_POKE((uint16_t) loc(x,y), tile);
+
 	#define __DRAW(x,y,image) \
 		DISPLAY_POKE((uint16_t) loc(x,y), (image)->_imageData);
 #endif

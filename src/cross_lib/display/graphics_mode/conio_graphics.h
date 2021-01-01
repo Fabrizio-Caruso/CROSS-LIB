@@ -4,6 +4,16 @@
 
 
 #if !defined(NO_COLOR)
+
+	#define _XLIB_DRAW_TILE(x,y,tile,color) \
+	do \
+	{ \
+		gotoxy((x),(y)); \
+		SET_TEXT_COLOR(color); \
+		cputc(tile); \
+	} \
+	while(0)
+
 	#define __DRAW(x,y,image) \
 	do \
 	{ \
@@ -14,6 +24,15 @@
 	while(0)
 		
 #else
+
+	#define _XLIB_DRAW_TILE(x,y,tile,color) \
+	do \
+	{ \
+		gotoxy((x),(y)); \
+		cputc(tile); \
+	} \
+	while(0)
+    
 	#define __DRAW(x,y,image) \
 	do \
 	{ \

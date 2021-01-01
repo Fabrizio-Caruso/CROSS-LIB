@@ -5,6 +5,9 @@
 
 void display_all(void);
 
+#define _XLIB_DRAW_TILE(x,y,tile,color) \
+	video_buffer[(y)][(x)]=tile;
+
 #define __DRAW(x,y,image) \
 	video_buffer[(y)][(x)]=image->_imageData;
 

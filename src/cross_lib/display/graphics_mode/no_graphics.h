@@ -3,13 +3,10 @@
 
 
 // TODO: to be implemented
-#if !defined(NO_COLOR)
-	#define __DRAW(x,y,image) 
-		
-#else
-	#define __DRAW(x,y,image) 
 
-#endif
+#define _XLIB_DRAW_TILE(x,y,tile,color)
+
+#define __DRAW(x,y,image) 
 
 #define __DELETE(x,y) 
 		

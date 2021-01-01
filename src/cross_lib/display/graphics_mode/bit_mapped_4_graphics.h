@@ -16,6 +16,19 @@ extern uint8_t udgs[];
 uint8_t left_map_one_to_two(uint8_t n);
 uint8_t right_map_one_to_two(uint8_t n);
 
+#define _XLIB_DRAW_TILE(x,y,tile,color) \
+    { \
+        uint8_t k; \
+        uint16_t offset = (8*(uint8_t)(tile)) ; \
+        \
+        for(k=0;k<8;++k) \
+        { \
+            SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)]    = left_map_one_to_two(udgs[offset+k]); \
+            SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)+1]  = right_map_one_to_two(udgs[offset+k]); \
+        } \
+    }
+
+
 #if defined(NO_COLOR)
     #define __DRAW(x,y,image) \
     { \

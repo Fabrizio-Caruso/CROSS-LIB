@@ -55,6 +55,7 @@ INCLUDE_OPTS ?= -I$(CROSS_LIB_PATH) -I$(CROSS_LIB_PATH)/sleep \
 -I$(CROSS_LIB_PATH)/sound/z88dk/bit_bang \
 -I$(CROSS_LIB_PATH)/sound/z88dk/psg \
 -I$(CROSS_LIB_PATH)/sound/lcc1802/comx \
+-I$(CROSS_LIB_PATH)/sound/cmoc/mo5 \
 -I$(CROSS_LIB_PATH)/sound/generic \
 -I$(CROSS_LIB_PATH)/text \
 -I$(CROSS_LIB_PATH)/input \

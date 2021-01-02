@@ -28,6 +28,8 @@
 		#include "bit_bang_sounds.h"
 	#elif defined(FORCE_PSG)
 		#include "psg_sounds.h"
+	#elif defined(__MO5__)
+		#include "mo5_sounds.h"
 	#elif defined(ASCII_SOUNDS)
 		#include "ascii_sounds.h"
 	#elif defined(__ACE__) && defined(SOUNDS)

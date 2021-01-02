@@ -743,10 +743,11 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mv $(BUILD_PATH)/FULL_MO5.bin .
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe -c FULL_MO5.sap
 	$(TOOLS_PATH)/cmoc/mo5/sapfs.exe --add FULL_MO5.sap FULL_MO5.bin
-	mv ./FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_MO5.bin
+	# mv ./FULL_MO5.bin $(BUILD_PATH)/X$(GAME_NAME)_MO5.bin
+	rm ./FULL_MO5.bin
 	mv ./FULL_MO5.sap $(BUILD_PATH)/X$(GAME_NAME)_MO5.sap
 	mv ./FILE.k5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
-	
+
 
 
 mo5_targets: \

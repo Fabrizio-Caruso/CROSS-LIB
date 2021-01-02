@@ -188,7 +188,7 @@
 	#elif defined(__VG5K__) || (defined(__APPLE2ENH__) && !defined(APPLE2ENH_80COL_VIDEO_MODE))|| defined(__APPLE2__) \
 		  || defined(__Z9001__) || defined(__P2000__) || defined(__ABC80__) \
 		  || defined(__X1__) || defined(__ATMOS__) \
-		  || defined(__CPC__) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
+		  || (defined(__CPC__) && defined(CPCRSLIB)) || defined(__C16__) || defined(__PLUS4__) || defined(__C64__) \
 		  || (defined(__C128__) && !defined(Z88DK_SPRITES) && !defined(C128_80COL_VIDEO_MODE)) \
 		  || defined(__AQUARIUS__) || (defined(__SVI__) && defined(MSX_MODE0)) \
 		  || defined(__ENTERPRISE__) \

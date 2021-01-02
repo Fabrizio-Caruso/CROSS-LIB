@@ -266,7 +266,7 @@ typedef struct ImageStruct Image;
         #include <ncurses.h>
     #endif
     #define SET_TEXT_COLOR(c) attron(COLOR_PAIR(c))
-#elif defined(__CPC__)
+#elif defined(__CPC__) && defined(CPCRSLIB)
     #define CPC_TEXT_WHITE 3
     #define CPC_TEXT_RED 4
     #define CPC_TEXT_BLACK 7
@@ -332,7 +332,7 @@ typedef struct ImageStruct Image;
     void CLEAR_SCREEN(void);
 #elif defined(__ATARI_LYNX__)
     #define CLEAR_SCREEN() tgi_clear()
-#elif defined(__CPC__) 
+#elif defined(__CPC__) && defined(CPCRSLIB)
     #define CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__ATMOS__)
     #define CLEAR_SCREEN() do {clrscr(); INIT_GRAPHICS(); } while(0)
@@ -377,9 +377,9 @@ typedef struct ImageStruct Image;
 #if defined(CC65) && !defined(__ATARI5200__) && !defined(__SUPERVISION__) && !(defined(FORCE_NO_CONIO_LIB) && defined(C16_UNEXPANDED))
     #define SET_BORDER_COLOR(c) (void) bordercolor(c)
     #define SET_BACKGROUND_COLOR(c) (void) bgcolor (c)
-#elif defined(__LASER500__)
+#elif defined(__LASER500__) || (defined(__CPC__) && !defined(CPCRSLIB))
     #define SET_BORDER_COLOR(c) (void) bordercolor(c)
-    #define SET_BACKGROUND_COLOR(c) {}
+    #define SET_BACKGROUND_COLOR(c) (void) textbackground(c)
 #else
     #define SET_BORDER_COLOR(c) {}
     #define SET_BACKGROUND_COLOR(c) {}

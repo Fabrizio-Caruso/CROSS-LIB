@@ -911,7 +911,68 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.prg
 
 
+cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DFULL_GAME -DFORCE_YSIZE=25 -DFORCE_XSIZE=20 -DFORCE_SCREEN_MODE=0 \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=1100 \
+	-D__CPC__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
+	rm -rf X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_$@.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc x$(GAME_NAME)
+	mv X$(GAME_NAME)_$@.dsk $(BUILD_PATH)/
+	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"x$(GAME_NAME)'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
+
+cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-DFULL_GAME -DFORCE_YSIZE=25 -DFORCE_XSIZE=80 -DFORCE_SCREEN_MODE=2 \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=1100 \
+	-D__CPC__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES)
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r $(GAME_NAME) $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
+	rm -rf X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_$@.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc x$(GAME_NAME)
+	mv X$(GAME_NAME)_$@.dsk $(BUILD_PATH)/
+	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"x$(GAME_NAME)'
+	rm os.rom
+	rm amsdos.rom
+	rm basic.rom
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 #################################################################
 

@@ -278,20 +278,40 @@ ti85_hello:
 	-create-app -o $(BUILD_PATH)/ti85_hello.bin
 	rm $(BUILD_PATH)/ti85_hello.bin
 	
+# load "hello.cpc",&1200
+    
 cpc_hello:
-	$(Z88DK_PATH)$(MYZ88DK) +cpc -lndos -pragma-define:REGISTER_SP=-1 -clib=ansi  -create-app -subtype=wav -o$(BUILD_PATH)/HELLO_cpc.cpc  -vn \
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -lndos -clib=ansi  -create-app -subtype=dsk -o$(BUILD_PATH)/HELLO  -vn \
 	$(TEST_PATH)/helloworld.c
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/HELLO_cpc.cpc  $(BUILD_PATH)/HELLO_cpc.cdt
-	rm -rf HELLO_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd HELLO_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw HELLO_cpc.dsk -p $(BUILD_PATH)/HELLO_cpc.cpc xchase
-	mv HELLO_cpc.dsk $(BUILD_PATH)/
-	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/HELLO_cpc.dsk  $(BUILD_PATH)/HELLO_gx4000.cpr   -c 'run"xchase'
-	rm os.rom
-	rm amsdos.rom
-	rm basic.rom
-	rm $(BUILD_PATH)/HELLO_cpc.cpc 
+	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/HELLO_cpc.cpc  $(BUILD_PATH)/HELLO_cpc.cdt
+	# rm -rf HELLO_cpc.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd HELLO_cpc.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw HELLO_cpc.dsk -p $(BUILD_PATH)/HELLO_cpc.cpc xchase
+	# mv HELLO_cpc.dsk $(BUILD_PATH)/
+	# cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	# $(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/HELLO_cpc.dsk  $(BUILD_PATH)/HELLO_gx4000.cpr   -c 'run"xchase'
+	# rm os.rom
+	# rm amsdos.rom
+	# rm basic.rom
+	# rm $(BUILD_PATH)/HELLO_cpc.cpc 
+
+# memory &11ff
+# load "color.cpc",&1200
+# call &1200
+cpc_test:
+	$(Z88DK_PATH)$(MYZ88DK) +cpc -lndos -pragma-define:REGISTER_SP=-1 -clib=ansi  -create-app -subtype=dsk -o$(BUILD_PATH)/COLOR  -vn \
+	$(TEST_PATH)/cpc_test.c
+	# $(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_chase $(BUILD_PATH)/HELLO_cpc.cpc  $(BUILD_PATH)/HELLO_cpc.cdt
+	# rm -rf HELLO_cpc.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd HELLO_cpc.dsk
+	# $(TOOLS_PATH)/z88dk/cpc/cpcxfsw HELLO_cpc.dsk -p $(BUILD_PATH)/HELLO_cpc.cpc xchase
+	# mv HELLO_cpc.dsk $(BUILD_PATH)/
+	# cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
+	# $(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/HELLO_cpc.dsk  $(BUILD_PATH)/HELLO_gx4000.cpr   -c 'run"xchase'
+	# rm os.rom
+	# rm amsdos.rom
+	# rm basic.rom
+	# rm $(BUILD_PATH)/HELLO_cpc.cpc 
 
 pps_vt52_test:
 	$(Z88DK_PATH)$(MYZ88DK) +pps $(SCCZ80_OPTS) $(INCLUDE_OPTS) \

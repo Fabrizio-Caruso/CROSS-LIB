@@ -1065,7 +1065,7 @@ Use DCMOTO
 Select T08D
 Attach .sap image
 Type
-loadm "FULL_TO7.bin"
+loadm "FULL_TO7.BIN"
 exec
 
 -----------------------------------------------------------

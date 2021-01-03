@@ -94,19 +94,6 @@
         }
         return '\0';
     #elif defined(__TO7__)
-        // Code by Thomas
-        
-        // unsigned char keypressed;
-        // keypressed=0;
-        // asm
-        // {
-            // jsr $e809
-            // bcc f_KEYPRESSFIN
-            // JSR $e806
-            // stb keypressed
-        // f_KEYPRESSFIN: 
-        // }
-        // return keypressed;
         
         uint8_t res;
         

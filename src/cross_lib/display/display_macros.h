@@ -290,7 +290,7 @@ typedef struct ImageStruct Image;
     #define SET_TEXT_COLOR(c) textcolor(c)
 #endif
 
-#if defined(Z88DK_SPRITES) || defined(__MO5__)||defined(__TO7__) 
+#if defined(Z88DK_SPRITES) || defined(__MO5__)||defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__)
 	#define _Z88DK_SPRITE_OFFSET (0x20)
 #else
 	

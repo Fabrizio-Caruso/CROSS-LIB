@@ -28,7 +28,7 @@
 		}
 		return ch;
 	}
-#elif defined(__COCO__) || defined(__DRAGON__)
+#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(MEMORY_MAPPED)
 	char screenCode(char ch)
 	{
 		if(ch==32) 
@@ -39,6 +39,13 @@
 		{
 			return ch-32;
 		}	
+	}
+#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
+	char screenCode(char ch)
+	{
+
+			return ch-32;
+
 	}
 #elif (defined(__VIC20__) && defined(VIC20_EXP_8K)) 
 	char screenCode(char ch)
@@ -129,7 +136,15 @@
 #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
     #include "bit_mapped_graphics.h"
     #include "cross_lib.h"
-    #define _DISPLAY(x,y,ch) 
+    #define _DISPLAY(x,y,ch) \
+        if(ch==0) \
+        { \
+            _XLIB_DELETE(x,y); \
+        } \
+        else \
+        { \
+            _XLIB_DRAW_TILE(x,y,(ch-13),0); \
+        }
 
 #else
 	#define _DISPLAY(x,y,ch) \

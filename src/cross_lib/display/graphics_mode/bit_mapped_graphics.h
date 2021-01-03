@@ -10,10 +10,8 @@
 	#define SV_VIDEO  ((uint8_t*)0x0E00)
 #endif
 
-// TODO: Remove if directive
-// #if defined(__MO5__) || defined(__TO7__)
 extern uint8_t udgs[];
-// # 
+
 
 #define BIT_MAP_DRAW() \
     for(__i=0;__i<7;++__i) \
@@ -92,20 +90,20 @@ extern uint8_t udgs[];
 
 	#define _XLIB_DRAW_TILE(x,y,tile,color) \
 	{ \
-		uint8_t __i; \
+		uint16_t __i; \
 		uint16_t __base = (x)+(XSize)*8*(y); \
 		uint8_t __delta = 0; \
-		uint8_t __offset = (8U*(uint8_t)(tile)) ; \
+		uint16_t __offset = (8U*((uint16_t) tile)) ; \
 		\
 		BIT_MAP_DRAW(); \
 	}
 	
 	#define __DRAW(x,y,image) \
 	{ \
-		uint8_t __i; \
+		uint16_t __i; \
 		uint16_t __base = (x)+(XSize)*8*(y); \
 		uint8_t __delta = 0; \
-		uint8_t __offset = (8U*(uint8_t)(image)->_imageData) ; \
+		uint16_t __offset = (8U*((uint16_t)(image)->_imageData)); \
 		\
         BIT_MAP_DRAW(); \
 	}

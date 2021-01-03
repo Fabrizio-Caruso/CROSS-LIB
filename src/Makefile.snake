@@ -684,13 +684,16 @@ coco:
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_CoCo.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 
-coco_gfx:
+coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c	
@@ -727,9 +730,11 @@ coco_gfx:
 	display_macros.o \
 	init_images.o game_text.o sleep_macros.o \
 	variables.o \
+	cmoc_udc_25_tiles.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm main.o coco_init_graphics.o display_macros.o sleep_macros.o \
+	cmoc_udc_25_tiles.o \
 	init_images.o variables.o \
 	game_text.o \
 	text_macros.o input_macros.o \

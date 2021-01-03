@@ -19,9 +19,9 @@
 	#include "c264_link_time_redefined_chars_settings.h"
 #elif defined(__CBM__) && defined(MEMORY_MAPPED)
 	#include "petscii_memory_mapped_settings.h"
-#elif defined(__MO5__)||defined(__TO7__)
+#elif defined(__MO5__) || defined(__TO7__) || ( (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED))
 	#include "udg_settings.h"
-#elif defined(__COCO__) || defined(__DRAGON__)
+#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(MEMORY_MAPPED)
 	#include "cmoc_memory_mapped_settings.h"
 #elif (defined(__ATARI__) && defined(ATARI_MODE1))
 	#include "atari_mode1_redefined_chars_settings.h"

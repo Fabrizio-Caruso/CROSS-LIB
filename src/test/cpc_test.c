@@ -10,6 +10,10 @@ int main(void)
     console_ioctl(IOCTL_GENCON_SET_MODE, &mode);
     
     textbackground(BLACK);
+    
+    printf("Hello world\n");
+    getchar();
+    
     bordercolor(BLACK);
     
     clrscr(); 

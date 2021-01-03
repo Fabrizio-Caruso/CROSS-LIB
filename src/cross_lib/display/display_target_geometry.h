@@ -145,6 +145,8 @@
 		#define YSize ((64/SPRITE_Y_STEP))
 	#elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
 		#define YSize 24
+	#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
+		#define YSize 24
 	#else
 		#define YSize 16
 	#endif
@@ -236,7 +238,7 @@
 		  || defined(__M5__) || defined(__COLECO__) \
 		  || defined(__PV2000__) || defined(__MZ__) \
 		  || defined(__CAMPUTERS_LYNX__)
-		#define XSize 32	
+		#define XSize 32
 	#elif defined(__PV1000__)
 		#define XSize 28
 	#elif defined(__DRACO__)

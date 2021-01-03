@@ -7,6 +7,50 @@
 
 extern uint8_t udgs[];
 
+// #if defined(__CPC__) && !defined(CPCRSLIB)
+    // void set_palette()
+    // { 
+    // #asm
+        // EXTERN firmware
+
+        // ld bc,$0000
+        // call firmware
+        // defw 0xbc38
+     
+        // ; black
+        // ld  a,$00
+        // ld  bc,$0000
+        // call firmware
+        // defw 0xbc32
+        
+        // ; white
+        // ld  a,$01
+        // ld  bc,$1a1a
+        // call firmware
+        // defw 0xbc32
+        
+        // ld  a,$03
+        // ld  bc,$0909
+        // call firmware
+        // defw 0xbc32
+        
+        // ; yellow
+        // ld  a,$02
+        // ld  bc,$1818
+        // call firmware
+        // defw 0xbc32
+        
+        // ld  a,$04
+        // ld  bc,$0909
+        // call firmware
+        // defw 0xbc32
+        
+
+        // defw 0xbc32
+    // #endasm 
+    // }
+// #endif
+
 void INIT_GRAPHICS(void)
 {
 	void *param = &udgs;
@@ -32,6 +76,10 @@ void INIT_GRAPHICS(void)
     zx_border(0);
     textbackground(COLOR_BLACK);
 	#endif
+    
+    // #if defined(__CPC__) && !defined(CPCRSLIB)
+        // set_palette();
+    // #endif
 }
 
 

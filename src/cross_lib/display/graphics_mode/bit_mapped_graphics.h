@@ -6,14 +6,17 @@
 	#define SV_VIDEO  ((uint8_t*)0x0000)
 #elif defined(__TO7__)
 	#define SV_VIDEO  ((uint8_t*)0x4000)
+#elif defined(__COCO__) || defined(__DRAGON__)
+	#define SV_VIDEO  ((uint8_t*)0x0E00)
 #endif
 
-extern uint8_t udgs[];
-
-
-
-
+// TODO: Remove if directive
 #if defined(__MO5__) || defined(__TO7__)
+extern uint8_t udgs[];
+#endif
+
+
+#if defined(__MO5__) || defined(__TO7__) 
 	#include "conio_patch.h"
     
 	#define _XLIB_DRAW_TILE(x,y,tile,color) \
@@ -83,6 +86,54 @@ extern uint8_t udgs[];
 		} \
 		SV_VIDEO[__base+(XSize)*(uint16_t)7] = 0; \
 	}
+
+#elif defined(__COCO__) || defined(__DRAGON__)
+
+	#define _XLIB_DRAW_TILE(x,y,tile,color) \
+	{ \
+		uint8_t __i; \
+		uint16_t __base = (x)+(XSize)*8*(y); \
+		uint8_t __delta = 0; \
+		uint8_t __offset = (8*(uint8_t)(tile)) ; \
+		\
+		for(__i=0;__i<7;++__i) \
+		{ \
+			SV_VIDEO[__base+__delta]  = 255; \
+			__delta+=XSize; \
+		} \
+		SV_VIDEO[__base+(XSize)*7] = 255; \
+	}
+    
+	#define __DRAW(x,y,image) \
+	{ \
+		uint8_t __i; \
+		uint16_t __base = (x)+(XSize)*8*(y); \
+		uint8_t __delta = 0; \
+		uint8_t __offset = (8*(uint8_t)(image)->_imageData) ; \
+		\
+		for(__i=0;__i<7;++__i) \
+		{ \
+			SV_VIDEO[__base+__delta]  = 255; \
+			__delta+=XSize; \
+		} \
+		SV_VIDEO[__base+(XSize)*7] = 255; \
+	}
+
+
+	#define __DELETE(x,y) \
+	{ \
+		uint8_t __i; \
+		uint16_t __base = (x)+(XSize)*8*(y); \
+		uint8_t __delta = 0; \
+		\
+		for(__i=0;__i<7;++__i) \
+		{ \
+			SV_VIDEO[(uint16_t) __base+__delta] = 0; \
+			__delta+=XSize; \
+		} \
+		SV_VIDEO[__base+(XSize)*(uint16_t)7] = 0; \
+	}
+
 #endif
 	
 #endif // _MO5_BIT_MAPPED_GRAPHICS

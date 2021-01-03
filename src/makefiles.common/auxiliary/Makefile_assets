@@ -60,6 +60,9 @@ $(ASSETS_PATH)/cc65_udc_vic20_25_tiles.s: $(8X8_TILES)
 $(ASSETS_PATH)/cmoc_udc_25_tiles.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 
+$(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s: $(8X8_TILES)
+	$(CREATE_ASSET)
+
 $(ASSETS_PATH)/z88dk_cpc_Chars8.asm: $(8X8_TILES)
 	$(CREATE_ASSET)
 

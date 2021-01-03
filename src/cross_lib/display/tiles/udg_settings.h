@@ -65,7 +65,7 @@
 // WHITE
 #define _TILE_4  (0x28 - _Z88DK_SPRITE_OFFSET)
 
-#if defined(__MO5__)||defined(__TO7__)
+#if defined(__MO5__)||defined(__TO7__)||defined(__COCO__)||defined(__DRAGON__)
 	#define _TILE_6 (0x3A - _Z88DK_SPRITE_OFFSET)
 #else
 	#define _TILE_6 (0x5B - _Z88DK_SPRITE_OFFSET)
@@ -80,7 +80,7 @@
 #define _TILE_4_B _TILE_4
 
 // 0x50 -> 0
-#if defined(__MO5__)||defined(__TO7__)
+#if defined(__MO5__)||defined(__TO7__)||defined(__COCO__)||defined(__DRAGON__)
     #define _TILE_19 49
     #define _TILE_20 50
     #define _TILE_21 51

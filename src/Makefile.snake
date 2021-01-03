@@ -527,11 +527,11 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 #################################################################
 
-CMOC_OPTS               ?= -O0 -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__ -DSLOW_DOWN=4000
+CMOC_OPTS               ?= -O0 -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__ 
 
-NO_UDG_OPS              ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT 
+NO_UDG_OPS              ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -DSLOW_DOWN=4000
 
-GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DNO_PRINT
+GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -DSLOW_DOWN=2500 -DNO_EXTRA_TITLE
 
 COCO_OPTS               ?= -D__COCO__ $(NO_UDG_OPS)
 
@@ -684,7 +684,7 @@ coco:
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_CoCo.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 
-coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
+coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -693,7 +693,10 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
-	-c $(ASSETS_PATH)/cmoc_udc_25_tiles.s
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c	
@@ -728,15 +731,15 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	main.o coco_init_graphics.o \
 	display_macros.o \
-	init_images.o game_text.o sleep_macros.o \
+	init_images.o memory_mapped_alt_print.o game_text.o sleep_macros.o \
 	variables.o \
-	cmoc_udc_25_tiles.o \
+	cmoc_udc_25_tiles_and_fonts.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm main.o coco_init_graphics.o display_macros.o sleep_macros.o \
-	cmoc_udc_25_tiles.o \
+	cmoc_udc_25_tiles_and_fonts.o \
 	init_images.o variables.o \
-	game_text.o \
+	memory_mapped_alt_print.o game_text.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk

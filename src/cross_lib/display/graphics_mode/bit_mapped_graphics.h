@@ -40,10 +40,10 @@ extern uint8_t udgs[];
 		uint8_t __i; \
 		uint16_t __base = (x)+(XSize)*8*(y); \
 		uint8_t __delta = 0; \
-		uint8_t __offset = (8*(uint8_t)(tile)) ; \
+		uint8_t __offset = (8U*(uint8_t)(tile)) ; \
 		\
 		SWITCH_COLOR_BANK_OFF(); \
-        BIT_MAP_DRAW(); \
+		BIT_MAP_DRAW(); \
 		\
 		__delta = 0; \
 		SWITCH_COLOR_BANK_ON(); \
@@ -61,7 +61,7 @@ extern uint8_t udgs[];
 		uint8_t __i; \
 		uint16_t __base = (x)+(XSize)*8*(y); \
 		uint8_t __delta = 0; \
-		uint8_t __offset = (8*(uint8_t)(image)->_imageData) ; \
+		uint8_t __offset = (8U*(uint8_t)(image)->_imageData) ; \
 		\
 		SWITCH_COLOR_BANK_OFF(); \
 		BIT_MAP_DRAW(); \
@@ -95,17 +95,17 @@ extern uint8_t udgs[];
 		uint8_t __i; \
 		uint16_t __base = (x)+(XSize)*8*(y); \
 		uint8_t __delta = 0; \
-		uint8_t __offset = (8*(uint8_t)(tile)) ; \
+		uint8_t __offset = (8U*(uint8_t)(tile)) ; \
 		\
-        BIT_MAP_DRAW(); \
+		BIT_MAP_DRAW(); \
 	}
-    
+	
 	#define __DRAW(x,y,image) \
 	{ \
 		uint8_t __i; \
 		uint16_t __base = (x)+(XSize)*8*(y); \
 		uint8_t __delta = 0; \
-		uint8_t __offset = (8*(uint8_t)(image)->_imageData) ; \
+		uint8_t __offset = (8U*(uint8_t)(image)->_imageData) ; \
 		\
         BIT_MAP_DRAW(); \
 	}
@@ -117,7 +117,7 @@ extern uint8_t udgs[];
 		uint16_t __base = (x)+(XSize)*8*(y); \
 		uint8_t __delta = 0; \
 		\
-        BIT_MAP_DELETE(); \
+		BIT_MAP_DELETE(); \
 	}
 
 #endif

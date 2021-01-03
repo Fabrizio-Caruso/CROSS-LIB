@@ -126,6 +126,11 @@
                 SV_VIDEO[2*(x)+BYTES_PER_LINE*__k+BYTES_PER_LINE*8*(y)+1]  = right_map_one_to_two(udgs[__offset+__k]); \
             } \
 		} while(0)
+#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
+    #include "bit_mapped_graphics.h"
+    #include "cross_lib.h"
+    #define _DISPLAY(x,y,ch) 
+
 #else
 	#define _DISPLAY(x,y,ch) \
 		DISPLAY_POKE((loc(x,y)), (ch))

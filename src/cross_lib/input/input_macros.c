@@ -266,6 +266,9 @@ out            stb res
     #elif defined(__MO5__) || defined(__TO7__)
         void WAIT_PRESS(void)
         {
+            while(GET_CHAR())
+            {
+            };
             while(!GET_CHAR())
             {
             }

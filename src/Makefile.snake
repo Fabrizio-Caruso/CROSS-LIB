@@ -1230,7 +1230,7 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 msx: msx_32k_rom
 
-msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h 
+msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h 
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS -DALTERNATIVE_COLOR \
 	-DINITIAL_SLOWDOWN=29000 \
@@ -1251,9 +1251,9 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
 
-msx_test: msx_32k_rom_2
+msx_test: msx_32k_rom_fixed_colors
 
-msx_32k_rom_2: $(ASSETS_PATH)/z88dk_xchase.asm   
+msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm   
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
 	-pragma-redirect:fputc_cons=fputc_cons_generic \
 	-DINITIAL_SLOWDOWN=5000 \

@@ -73,6 +73,8 @@ gcc_targets: \
 
 
 cc65_targets: \
+    ace \
+    aquarius \
     atari \
     atari5200 \
     c16 \
@@ -100,6 +102,7 @@ z88dk_targets: \
     laser500 \
     mc1000 \
     msx \
+    sms \
     spectrum \
     vg5k
 
@@ -320,7 +323,7 @@ pce: pce_32k
 
 pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t pce \
-	-DFULL_GAME \
+	-DFULL_GAME -DSLOW_DOWN=6000 \
 	-DEND_SCREEN -DBETWEEN_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_16k_less_stack.cfg -DANIMATE_PLAYER  \
@@ -338,7 +341,7 @@ pce_16k: $(ASSETS_PATH)/cc65_pce_tiles.s
 pce_32k: $(ASSETS_PATH)/cc65_pce_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t pce \
 	-DFULL_GAME \
-	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DSLOW_DOWN=6000 \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	--config $(CFG_PATH)/cc65/pce_32k.cfg -DANIMATE_PLAYER  \
 	$(FULL_FILES) \
@@ -360,12 +363,12 @@ creativision: creativision_16k
 creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t creativision -DMAX_SNAKE_LENGTH=20 -DNO_EXTRA_TITLE \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
-	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
+	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP -DFORCE_XSIZE=20 -DFORCE_YSZIE=12 \
 	-DMEMORY_MAPPED -DLESS_TEXT -DANIMATE_PLAYER -DNO_TITLE_LINE \
 	-DSLOW_DOWN=4000 \
 	--config $(CFG_PATH)/cc65/creativision-16k.cfg \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
-	$(FULL_FILES) \
+	$(FULL_FILES_NO_SLEEP) \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/creativision/creativision_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 	dd if=$(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin bs=8k skip=1 > $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k_SWAPPED.bin
@@ -915,7 +918,7 @@ ace: ace_exp_16k
 
 ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(Z88DK_PATH)$(MYZ88DK) +ace $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
-	-D__ACE__ -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
+	-D__ACE__ -DFULL_GAME -DSLOW_DOWN=3000 \
 	-DSOUNDS \
 	-DCONIO \
 	-clib=default \
@@ -929,6 +932,21 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm ace.wav
 	rm ace.tap
 	rm ace
+
+
+#################################################################
+
+aquarius: aquarius_exp_16k
+
+aquarius_exp_16k: 
+	$(Z88DK_PATH)$(MYZ88DK) +aquarius $(SCCZ80_OPTS) -clib=ansi $(INCLUDE_OPTS) -vn \
+	-DSOUNDS -D__AQUARIUS__ \
+	-lndos -DSLOW_DOWN=3000 -DNO_UDG \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	$(FULL_FILES) \
+	-create-app	\
+	-o $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
+	rm $(BUILD_PATH)/X$(GAME_NAME)_aquarius_exp_16k
 
 
 # -DSOUNDS 
@@ -999,7 +1017,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=1100 \
+	-DSLOW_DOWN=1500 \
 	-D__CPC__ \
 	-lndos -create-app \
 	-DCONIO \
@@ -1031,7 +1049,7 @@ cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=1100 \
+	-DSLOW_DOWN=1000 \
 	-D__CPC__ \
 	-lndos -create-app \
 	-DCONIO \
@@ -1187,6 +1205,33 @@ msx_32k_rom_2: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
+
+
+#################################################################
+
+sms: sms_gfx
+
+
+sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +sms $(SCCZ80_ROMS_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SMS__ \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=22 \
+	-DNO_SET_SCREEN_COLORS \
+	-DANIMATE_PLAYER \
+	-DFULL_GAME \
+	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=4000 \
+	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_sms_BANK_1F.bin
+
+
 
 #################################################################
 

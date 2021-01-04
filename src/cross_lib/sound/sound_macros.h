@@ -28,9 +28,8 @@
 		#include "bit_bang_sounds.h"
 	#elif defined(FORCE_PSG)
 		#include "psg_sounds.h"
-	#elif defined(__MO5__)
-		#include "mo5_sounds.h"
 	#elif defined(ASCII_SOUNDS)
+		#define INIT_SOUND()
 		#include "ascii_sounds.h"
 	#elif defined(__ACE__) && defined(SOUNDS)
 		#include "bit_bang_sounds.h"
@@ -82,6 +81,10 @@
 		#include "bit_bang_sounds.h"
 	#elif defined(__WINCMOC__) && defined(SOUNDS)
 		#include "wincmoc_sounds.h"
+	#elif (defined(__COCO__) || defined(__DRAGON__)) && defined(SOUNDS) 
+		#include "dac_sounds.h"
+	#elif (defined(__MO5__) || defined(__TO7__)) && defined(SOUNDS)
+		#include "dac_sounds.h"
 	#else
 		#define EXPLOSION_SOUND() 
 		#define PING_SOUND() 
@@ -90,5 +93,13 @@
 		#define TOCK_SOUND() 
 		#define ZAP_SOUND() 
 	#endif
+    
+    #if defined(SOUNDS) && (defined(__MO5__) || defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__))
+    //
+    #else
+        #define INIT_SOUND()
+    #endif
 #endif // _SOUNDS_MACROS
+
+
 

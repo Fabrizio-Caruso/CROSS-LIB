@@ -3,7 +3,11 @@
 #ifndef  __ASCII_SOUNDS
 #define  __ASCII_SOUNDS
 
-#define BEEP_ASCII() putchar('\a')
+#if defined(__MO5__) || defined(__TO7__)
+    #define BEEP_ASCII() PUTCH(7)
+#else
+    #define BEEP_ASCII() putchar('\a')
+#endif
 
 #define EXPLOSION_SOUND() BEEP_ASCII()
 

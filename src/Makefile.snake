@@ -122,7 +122,7 @@ lcc1802_targets:
 
 atari: atari_color
 
-atari_test: $(ASSETS_PATH)/8x8_chars.h
+atari_color: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
 	-DREDEFINED_CHARS -DINLINE_LOC -DALTERNATE_COLORS \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -139,7 +139,7 @@ atari_test: $(ASSETS_PATH)/8x8_chars.h
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.xex
 
-atari_color: $(ASSETS_PATH)/8x8_chars.h
+atari_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -Cl -t atari \
 	-DREDEFINED_CHARS -DALTERNATE_COLORS \
 	-DINITIAL_SLOWDOWN=31500 \
@@ -159,7 +159,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 
 #################################################################
 
-atari5200_test: $(ASSETS_PATH)/8x8_chars.h
+atari5200: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
 	-D__ATARI5200__ -DALTERNATE_COLORS -DINLINE_LOC -DATARI_MODE_1_COLOR \
@@ -173,7 +173,7 @@ atari5200_test: $(ASSETS_PATH)/8x8_chars.h
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.rom
 
-atari5200: $(ASSETS_PATH)/8x8_chars.h
+atari5200_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
 	-D__ATARI5200__ -DALTERNATE_COLORS \
@@ -535,11 +535,11 @@ vic20_exp_16k: $(ASSETS_PATH)/cc65_udc_arcade.s
 
 #################################################################
 
-CMOC_OPTS               ?= -O0 -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__ 
+CMOC_OPTS               ?= -O0 -Wno-const  -DNO_SLEEP  -DDEFAULT_CLEAR_SCREEN -D__CMOC__  -DNO_EXTRA_TITLE
 
 NO_UDG_OPS              ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_UDG -DALT_PRINT -DSLOW_DOWN=4000
 
-GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -DSLOW_DOWN=2500 -DNO_EXTRA_TITLE
+GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -DSLOW_DOWN=2500
 
 COCO_OPTS               ?= -D__COCO__ $(NO_UDG_OPS)
 
@@ -577,39 +577,39 @@ TO7_ORG_DATA          ?= --org=a000
 #############################################################################################
 
 
-dragon:
+dragon_no_gfx:
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/init_images.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/snake.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/move_snake.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/game_text.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/control_player.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(SOURCE_PATH)/variables.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/text/text_macros.c	
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
@@ -628,14 +628,78 @@ dragon:
 	input_macros.o 
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_Dragon.cas -D $(BUILD_PATH)/xchase.bin -A
 	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
-	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_Dragon.vdk
-	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_Dragon.bin
+	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
+
+dragon: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/display_macros.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/init_graphics/cmoc/coco/coco_init_graphics.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/init_images.c	
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/snake.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/move_snake.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sleep/sleep_macros.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/control_player.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/variables.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/game_text.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/input/input_macros.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/text/text_macros.c
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(SOURCE_PATH)/main.c
+	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
+	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
+	main.o coco_init_graphics.o \
+	display_macros.o \
+	init_images.o memory_mapped_alt_print.o game_text.o sleep_macros.o \
+	variables.o \
+	cmoc_udc_25_tiles_and_fonts.o \
+	text_macros.o input_macros.o \
+	control_player.o snake.o move_snake.o
+	rm main.o coco_init_graphics.o display_macros.o sleep_macros.o \
+	cmoc_udc_25_tiles_and_fonts.o \
+	init_images.o variables.o \
+	memory_mapped_alt_print.o game_text.o \
+	text_macros.o input_macros.o
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -D $(BUILD_PATH)/xchase.bin -A
+	$(TOOLS_PATH)/cmoc/dragon/File2VDK.exe $(BUILD_PATH)/xchase.bin
+	mv $(BUILD_PATH)/xchase.bin.vdk $(BUILD_PATH)/X$(GAME_NAME)_$@.vdk
+	mv $(BUILD_PATH)/xchase.bin $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
+
 
 dragon_targets: \
-	dragon
-
+	dragon \
+	dragon_no_gfx
 	
-coco:
+coco_no_gfx:
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -685,14 +749,14 @@ coco:
 	memory_mapped_alt_print.o game_text.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
-	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
+	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
-	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_CoCo.cas -C XCHASE.BIN -A
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 
-coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+coco: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -754,13 +818,13 @@ coco_gfx: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
 	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
-	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_CoCo.cas -C XCHASE.BIN -A
+	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 
 
 coco_targets: \
-	coco
-
+	coco \
+	coco_no_gfx
 
 mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(CMOC) \
@@ -982,7 +1046,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 
 #################################################################
 
-cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
+cpc_mode1_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \
 	-DSOUNDS -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
@@ -990,25 +1054,27 @@ cpc: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-DZ88DK_JOYSTICK \
 	-DSLOW_DOWN=1800 \
 	-pragma-define:REGISTER_SP=-1 \
-	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_cpc.prg \
+	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	-DCPCRSLIB_GRAPHICS \
 	$(ASSETS_PATH)/z88dk_cpc_Chars8.asm \
 	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
 	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/cpc/cpc_cpcrslib_init_graphics.c \
 	$(FULL_FILES)
-	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_bomber $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc  $(BUILD_PATH)/X$(GAME_NAME)_cpc.cdt
-	rm -rf X$(GAME_NAME)_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_cpc.dsk
-	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_cpc.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc x$(GAME_NAME)
-	mv X$(GAME_NAME)_cpc.dsk $(BUILD_PATH)/
+	$(TOOLS_PATH)/z88dk/cpc/2cdt.exe -n -r cross_bomber $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc  $(BUILD_PATH)/X$(GAME_NAME)_$@.cdt
+	rm -rf X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw -nd X$(GAME_NAME)_$@.dsk
+	$(TOOLS_PATH)/z88dk/cpc/cpcxfsw X$(GAME_NAME)_$@.dsk -p $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc x$(GAME_NAME)
+	mv X$(GAME_NAME)_$@.dsk $(BUILD_PATH)/
 	cp $(TOOLS_PATH)/z88dk/cpc/nocart/*.rom .
-	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_cpc.dsk  $(BUILD_PATH)/X$(GAME_NAME)_gx4000.cpr   -c 'run"x$(GAME_NAME)'
+	$(TOOLS_PATH)/z88dk/cpc/nocart/nocart.exe  $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk  $(BUILD_PATH)/X$(GAME_NAME)_$@_gx4000.cpr   -c 'run"x$(GAME_NAME)'
 	rm os.rom
 	rm amsdos.rom
 	rm basic.rom
-	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.cpc 
-	rm $(BUILD_PATH)/X$(GAME_NAME)_cpc.prg
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cpc 
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
+
+cpc: cpc_mode0
 
 cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) \

@@ -11,22 +11,56 @@
 
 #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 
+#if defined(__COCO__) || defined(__DRAGON__)
 void INIT_SOUND(void)
+{
+    asm
     {
-        asm
-        {
-            LDA $FF01
-            ANDA #$F7
-            STA $FF01
-            LDA $FF03
-            ANDA #$F7
-            STA $FF03
-            LDA $FF23
-            ORA #8
-            STA $FF23
-        }
+        LDA $FF01
+        ANDA #$F7
+        STA $FF01
+        LDA $FF03
+        ANDA #$F7
+        STA $FF03
+        LDA $FF23
+        ORA #8
+        STA $FF23
     }
+}
+#elif defined(__MO5__)
+void INIT_SOUND(void)
+{
+    asm 
+    {
+        LDA   <$C0          ; PIA systeme
+        ANDA  #$FB          ; clear mute bit
+        STA   <$C0          ; modification PIA
+        LDA   <$CF          ; lecture registre de ctrl B
+        ANDA  #$FB          ; raz bit 2
+        STA   <$CF          ; selection DDRB
+        LDB   #$3F          ; set bits 0-5
+        STB   <$A7          ; bits CNA en sortie
+        ORA   #$04          ; set b2
+        STA   <$CF          ; selection PB
+    }
+}
 
+#elif defined(__TO7__)
+void INIT_SOUND(void)
+    asm 
+    { 
+        LDA   <$C0          ; PIA systeme 
+        ANDA  #$FB          ; clear mute bit
+        STA   <$C0          ; modification PIA 
+        LDA   <$CF          ; lecture registre de ctrl B 
+        ANDA  #$FB          ; raz bit 2 
+        STA   <$CF          ; selection DDRB 
+        LDB   #$3F          ; set bits 0-5 
+        STB   <$E7          ; bits CNA en sortie 
+        ORA   #$04          ; set b2 
+        STA   <$CF          ; selection PB         
+    }
+#endif
 
 
 

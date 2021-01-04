@@ -38,9 +38,8 @@ ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1
 ######################################################################
 # Cross-Shoot files
 #
-FULL_FILES ?= \
+FULL_FILES_NO_SLEEP ?= \
 	$(BASIC_CROSS_LIB_FILES) \
-	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(SOURCE_PATH)/main.c \
 	$(SOURCE_PATH)/control_player.c \
 	$(SOURCE_PATH)/move_snake.c \
@@ -48,6 +47,11 @@ FULL_FILES ?= \
 	$(SOURCE_PATH)/game_text.c \
 	$(SOURCE_PATH)/init_images.c \
 	$(SOURCE_PATH)/variables.c
+
+FULL_FILES ?= \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(FULL_FILES_NO_SLEEP)
+
 
 
 
@@ -92,6 +96,7 @@ z88dk_targets: \
     c128_z80_80col \
     cpc \
     cpm \
+    gb \
     laser500 \
     mc1000 \
     msx \
@@ -423,7 +428,7 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 	$(ASSETS_PATH)/cc65_udc.s \
 	-DALT_PRINT -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DNO_SLEEP \
 	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
-	-DDEFAULT_CLEAR_SCREEN  -DSLOW_DOWN=4000 -DNO_COLOR \
+	-DDEFAULT_CLEAR_SCREEN  -DSLOW_DOWN=4000 -DNO_COLOR -DNO_EXTRA_TITLE \
 	-DANIMATE_PLAYER -DNO_EXTRA_TITLE \
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
@@ -934,7 +939,7 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \
 	$(INCLUDE_OPTS) $(ULTRA_DRAW_SKIP) \
 	-lndos -subtype=disk \
-	-D__C128_Z80__ -DSLOW_DOWN=100 \
+	-D__C128_Z80__ -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 -DSLOW_DOWN=100 \
 	-DINITIAL_SLOWDOWN=10000 -DBULLETS_NUMBER=3 \
 	-DZ88DK_SPRITES -DANIMATE_PLAYER \
 	-DFULL_GAME -DEND_SCREEN \
@@ -1079,10 +1084,10 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DNO_COLOR -DANIMATE_PLAYER \
 	-DFULL_GAME \
 	-DCONIO -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=3000 \
+	-lndos -DSLOW_DOWN=4000 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
-	$(FULL_FILES) \
+	$(FULL_FILES_NO_SLEEP) \
 	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_$@_BSS.bin

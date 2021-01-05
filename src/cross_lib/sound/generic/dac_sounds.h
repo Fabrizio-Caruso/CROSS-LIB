@@ -47,13 +47,15 @@ void INIT_SOUND(void)
         lda $a7cf
         ora #$04
         sta $a7cf
+        andcc #$af
     }
 }
 
 #elif defined(__TO7__)
 void INIT_SOUND(void)
+{
     asm 
-    { 
+    {
         orcc #$50
         lda $e7c0
         anda #$fb
@@ -66,7 +68,9 @@ void INIT_SOUND(void)
         lda $e7cf
         ora #$04
         sta $e7cf
+        andcc #$af
     }
+}
 #endif
 
 
@@ -81,6 +85,7 @@ void CLICK(uint8_t duration, uint8_t period)
         POKE(DAC,63<<SHIFT);
         for(j=0;j<period;++j){};
         POKE(DAC,0); \
+        for(j=0;j<period;++j){};
     }
 }
 
@@ -94,15 +99,16 @@ void NOISE(uint8_t duration, uint16_t period)
         POKE(DAC,(63)<<SHIFT);
         for(j=0;j<period;++j){};
         POKE(DAC,i&31); \
+        for(j=0;j<period;++j){};
     }
     POKE(DAC,0);
 }
 
-#define EXPLOSION_SOUND() NOISE(80,1600)
+#define EXPLOSION_SOUND() NOISE(80,200)
 
 #define ZAP_SOUND() CLICK(30,100)
 
-#define SHOOT_SOUND() NOISE(10,800)
+#define SHOOT_SOUND() NOISE(10,150)
 
 #define PING_SOUND() CLICK(20,20)
 

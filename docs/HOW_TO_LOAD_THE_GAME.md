@@ -1046,19 +1046,26 @@ Type RUN
 
 -------------------------------------------------------------
 
-### Thomson Mo5/Mo6/Prodest PC 128
+### Thomson MO5/Mo6/Prodest PC 128
 
 - Tape
 Use DCMOTO
 Select Mo5 or Mo6 or Prodest PC 128
+BASIC 1.0
 Attach .k7 image
 Type
 LOADM
 EXEC
 
+BASIC 128 (Mo6/Prodest PC 128)
+Attach .k7 image
+Type
+LOADM"CASS:",&H600
+EXEC
+
 -------------------------------------------------------------
 
-### Thomson To7/To8/To9
+### Thomson TO7/To8/To9
 
 - Disk .sap image
 Use DCMOTO

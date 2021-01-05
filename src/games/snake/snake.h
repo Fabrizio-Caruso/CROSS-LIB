@@ -18,7 +18,11 @@ void init_snake(void);
 
 void init_map(void);
 
-void snake_grows(void);
+#if !defined(NO_GROWTH)
+    void snake_grows(void);
+#else
+    #define snake_grows()
+#endif
 
 #endif // _SNAKE_H
 

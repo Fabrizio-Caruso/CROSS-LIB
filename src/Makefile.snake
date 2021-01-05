@@ -291,7 +291,7 @@ nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
 	-DFULL_GAME \
 	-DBETWEEN_LEVEL -DEND_SCREEN -DNO_COLOR \
-	-DCONIO \
+	-DCONIO -DSLOW_DOWN=5000 \
 	-DANIMATE_PLAYER \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
@@ -1161,9 +1161,9 @@ cpm_z80_adm3a:
 
 gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__GB__ \
+	-D__GB__ -DNO_GROWTH \
 	-DFORCE_XSIZE=20 \
-	-DFORCE_YSIZE=18 \
+	-DFORCE_YSIZE=18 -DNO_EXTRA_TITLE \
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_COLOR -DANIMATE_PLAYER \
 	-DFULL_GAME \

@@ -568,7 +568,7 @@ MO5_OPTS              ?= $(THOMSON_OPTS) -D__MO5__
 
 MO5_COMPILE_OPTS      ?= $(MO5_OPTS)
 
-TO7_OPTS              ?= $(THOMSON_OPTS) -D__TO7__ -DASCII_SOUNDS
+TO7_OPTS              ?= $(THOMSON_OPTS) -D__TO7__ 
 
 TO7_COMPILE_OPTS      ?= $(TO7_OPTS)
 
@@ -578,6 +578,9 @@ TO7_ORG_DATA          ?= --org=a000
 
 
 dragon_no_gfx:
+	$(CMOC) \
+	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(DRAGON_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -614,13 +617,13 @@ dragon_no_gfx:
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
-	display_macros.o sleep_macros.o \
+	display_macros.o  dac_sounds.o  sleep_macros.o \
 	init_images.o variables.o \
 	memory_mapped_alt_print.o \
 	text_macros.o game_text.o \
 	control_player.o snake.o move_snake.o \
 	input_macros.o
-	rm 	display_macros.o sleep_macros.o \
+	rm 	display_macros.o  dac_sounds.o sleep_macros.o \
 	init_images.o game_text.o \
 	memory_mapped_alt_print.o \
 	text_macros.o variables.o \
@@ -634,6 +637,9 @@ dragon_no_gfx:
 
 
 dragon: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	$(CMOC) \
+	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(DRAGON_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -678,14 +684,14 @@ dragon: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(DRAGON_GFX_OPTS) $(INCLUDE_OPTS) \
-	main.o coco_init_graphics.o \
+	main.o  dac_sounds.o  coco_init_graphics.o \
 	display_macros.o \
 	init_images.o memory_mapped_alt_print.o game_text.o sleep_macros.o \
 	variables.o \
 	cmoc_udc_25_tiles_and_fonts.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
-	rm main.o coco_init_graphics.o display_macros.o sleep_macros.o \
+	rm main.o  dac_sounds.o  coco_init_graphics.o display_macros.o sleep_macros.o \
 	cmoc_udc_25_tiles_and_fonts.o \
 	init_images.o variables.o \
 	memory_mapped_alt_print.o game_text.o \
@@ -699,9 +705,12 @@ dragon: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 
 dragon_targets: \
 	dragon \
-	dragon_no_gfx
-	
+
+
 coco_no_gfx:
+	$(CMOC) \
+	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(COCO_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -740,13 +749,13 @@ coco_no_gfx:
 	-c $(SOURCE_PATH)/main.c
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
-	main.o \
+	main.o  dac_sounds.o  \
 	display_macros.o \
 	init_images.o game_text.o sleep_macros.o \
 	memory_mapped_alt_print.o variables.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
-	rm main.o display_macros.o sleep_macros.o \
+	rm main.o  dac_sounds.o  display_macros.o sleep_macros.o \
 	init_images.o variables.o \
 	memory_mapped_alt_print.o game_text.o \
 	text_macros.o input_macros.o \
@@ -759,6 +768,9 @@ coco_no_gfx:
 	rm XCHASE.BIN
 
 coco: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
+	$(CMOC) \
+	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(COCO_GFX_COMPILE_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
@@ -804,13 +816,13 @@ coco: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	$(CMOC) -o $(BUILD_PATH)/xchase.bin \
 	$(COCO_GFX_OPTS) $(INCLUDE_OPTS) \
 	main.o coco_init_graphics.o \
-	display_macros.o \
+	display_macros.o dac_sounds.o \
 	init_images.o memory_mapped_alt_print.o game_text.o sleep_macros.o \
 	variables.o \
 	cmoc_udc_25_tiles_and_fonts.o \
 	text_macros.o input_macros.o \
 	control_player.o snake.o move_snake.o
-	rm main.o coco_init_graphics.o display_macros.o sleep_macros.o \
+	rm main.o dac_sounds.o coco_init_graphics.o display_macros.o sleep_macros.o \
 	cmoc_udc_25_tiles_and_fonts.o \
 	init_images.o variables.o \
 	memory_mapped_alt_print.o game_text.o \
@@ -819,16 +831,18 @@ coco: $(ASSETS_PATH)/cmoc_udc_25_tiles_and_fonts.s
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
 	cp $(BUILD_PATH)/xchase.bin XCHASE.BIN
 	$(TOOLS_PATH)/cmoc/coco/file2dsk XCHASE.BIN
-	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
+	mv XCHASE.DSK $(BUILD_PATH)/X$(GAME_NAME)_$@.dsk
 	$(TOOLS_PATH)/cmoc/dragon/bin2cas.pl -o $(BUILD_PATH)/X$(GAME_NAME)_$@.cas -C XCHASE.BIN -A
 	rm XCHASE.BIN
 
 
 coco_targets: \
 	coco \
-	coco_no_gfx
 
 mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
+	$(CMOC) \
+	$(MO5_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
@@ -872,7 +886,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(MO5_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o sleep_macros.o \
-	mo5_init_graphics.o \
+	mo5_init_graphics.o  dac_sounds.o  \
 	display_macros.o \
 	cmoc_udc_25_tiles.o \
 	init_images.o \
@@ -881,7 +895,7 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	control_player.o snake.o move_snake.o
 	rm \
 	mo5_alt_print.o sleep_macros.o \
-	cmoc_udc_25_tiles.o \
+	 dac_sounds.o  cmoc_udc_25_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
 	init_images.o variables.o \
@@ -898,11 +912,14 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mv ./FILE.k5 $(BUILD_PATH)/X$(GAME_NAME)_MO5.k5
 
 
-
 mo5_targets: \
 	mo5
 
+
 to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
+	$(CMOC) \
+	$(TO7_COMPILE_OPTS) $(INCLUDE_OPTS) \
+	-c $(CROSS_LIB_PATH)/sound/generic/dac_sounds.c
 	$(CMOC) \
 	$(TO7_COMPILE_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/mo5_alt_print.c 
@@ -947,7 +964,7 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	$(SOURCE_PATH)/main.c \
 	mo5_alt_print.o sleep_macros.o \
 	mo5_init_graphics.o \
-	display_macros.o \
+	display_macros.o  dac_sounds.o  \
 	cmoc_udc_25_tiles.o \
 	init_images.o \
 	text_macros.o variables.o \
@@ -955,7 +972,7 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	control_player.o snake.o move_snake.o
 	rm \
 	mo5_alt_print.o sleep_macros.o \
-	cmoc_udc_25_tiles.o \
+	cmoc_udc_25_tiles.o  dac_sounds.o  \
 	mo5_init_graphics.o \
 	display_macros.o \
 	init_images.o variables.o \

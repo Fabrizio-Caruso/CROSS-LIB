@@ -4,7 +4,10 @@
 #if defined(__COCO__) || defined(__DRAGON__)
     #define DAC 0xFF20
     #define SHIFT 2
-#elif defined(__MO5__) || defined(__TO7__)
+#elif defined(__MO5__)
+    #define DAC 0xA7CD
+    #define SHIFT 0
+#elif defined(__TO7__)
     #define DAC 0xE7CD
     #define SHIFT 0
 #endif
@@ -32,16 +35,18 @@ void INIT_SOUND(void)
 {
     asm 
     {
-        LDA   <$C0          ; PIA systeme
-        ANDA  #$FB          ; clear mute bit
-        STA   <$C0          ; modification PIA
-        LDA   <$CF          ; lecture registre de ctrl B
-        ANDA  #$FB          ; raz bit 2
-        STA   <$CF          ; selection DDRB
-        LDB   #$3F          ; set bits 0-5
-        STB   <$A7          ; bits CNA en sortie
-        ORA   #$04          ; set b2
-        STA   <$CF          ; selection PB
+        orcc #$50
+        lda $a7c0
+        anda #$fb
+        sta $a7c0
+        lda $a7cf
+        anda #$fb
+        sta $a7cf
+        lda #$3f
+        sta $a7cd
+        lda $a7cf
+        ora #$04
+        sta $a7cf
     }
 }
 
@@ -49,16 +54,18 @@ void INIT_SOUND(void)
 void INIT_SOUND(void)
     asm 
     { 
-        LDA   <$C0          ; PIA systeme 
-        ANDA  #$FB          ; clear mute bit
-        STA   <$C0          ; modification PIA 
-        LDA   <$CF          ; lecture registre de ctrl B 
-        ANDA  #$FB          ; raz bit 2 
-        STA   <$CF          ; selection DDRB 
-        LDB   #$3F          ; set bits 0-5 
-        STB   <$E7          ; bits CNA en sortie 
-        ORA   #$04          ; set b2 
-        STA   <$CF          ; selection PB         
+        orcc #$50
+        lda $e7c0
+        anda #$fb
+        sta $e7c0
+        lda $e7cf
+        anda #$fb
+        sta $e7cf
+        lda #$3f
+        sta $e7cd
+        lda $e7cf
+        ora #$04
+        sta $e7cf
     }
 #endif
 

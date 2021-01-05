@@ -238,7 +238,7 @@ c64_uncompressed: $(ASSETS_PATH)/cc65_udc_arcade.s
 nes: $(ASSETS_PATH)/cc65_nes_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
-	-DFULL_GAME \
+	-DFULL_GAME -DSLOW_DOWN=100 \
 	-DBETWEEN_LEVEL -DEND_SCREEN -DNO_COLOR \
 	-DCONIO \
 	-DANIMATE_PLAYER \

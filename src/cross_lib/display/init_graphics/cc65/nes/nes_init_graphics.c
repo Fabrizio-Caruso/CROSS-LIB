@@ -58,13 +58,22 @@ void INIT_GRAPHICS(void)
 	set_color(0,3,_WHITE);
 
 	set_color(1,2,_DARK_YELLOW);
-	set_color(1,1,_GREEN_BROWN);
-	set_color(1,3,_RED);
+	set_color(1,1,_RED);
+	set_color(1,3,_WHITE);
 
 
 	set_color(3,2,_DARK_YELLOW);
-	set_color(3,1,_BROWN);
-	set_color(3,3,_CYAN);	
+	set_color(3,1,_RED);
+	set_color(3,3,_WHITE);
+
+	// set_color(1,2,_DARK_YELLOW);
+	// set_color(1,1,_GREEN_BROWN);
+	// set_color(1,3,_RED);
+
+
+	// set_color(3,2,_DARK_YELLOW);
+	// set_color(3,1,_BROWN);
+	// set_color(3,3,_CYAN);
 	
 	{
 		uint8_t j;

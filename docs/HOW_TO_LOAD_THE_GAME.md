@@ -602,7 +602,7 @@ Type "run"
 
 
 ---------------------------------------------------------
-### NES 
+### Nintendo NES / Famicom 
 
 Use FCEUX (https://tasvideos.github.io/fceux/web/home.html)
 

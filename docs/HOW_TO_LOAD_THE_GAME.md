@@ -1046,7 +1046,7 @@ Type RUN
 
 -------------------------------------------------------------
 
-### Thomson MO5/Mo6/Prodest PC 128
+### Thomson MO5/MO6/Prodest PC 128
 
 - Tape
 Use DCMOTO
@@ -1065,7 +1065,7 @@ EXEC
 
 -------------------------------------------------------------
 
-### Thomson TO7/To8/To9
+### Thomson TO7/TO8/TO9
 
 - Disk .sap image
 Use DCMOTO

@@ -568,7 +568,7 @@ MO5_OPTS              ?= $(THOMSON_OPTS) -D__MO5__
 
 MO5_COMPILE_OPTS      ?= $(MO5_OPTS)
 
-TO7_OPTS              ?= $(THOMSON_OPTS) -D__TO7__
+TO7_OPTS              ?= $(THOMSON_OPTS) -D__TO7__ -DASCII_SOUNDS
 
 TO7_COMPILE_OPTS      ?= $(TO7_OPTS)
 

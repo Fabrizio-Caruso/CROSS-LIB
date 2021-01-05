@@ -112,8 +112,8 @@ void snake_grows(void)
                 }
             }
             draw_head();
-            snake_head_x = snake_x[snake_head];
-            snake_head_y = snake_y[snake_head];
+            snake_head_x = snake_x[0];
+            snake_head_y = snake_y[0];
         }
     }
 }

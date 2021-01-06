@@ -134,7 +134,6 @@ lda $a7c0
     
     void PUTCH(unsigned char ch)
     {
-        // POKE(0x201B,0);
         asm
         {
             ldb ch

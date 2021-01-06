@@ -51,6 +51,7 @@ void init_snake(void)
     
 }
 
+#if !defined(NO_GROWTH)
 void snake_grows(void)
 {
     uint8_t i;
@@ -116,5 +117,5 @@ void snake_grows(void)
         }
     }
 }
-
+#endif
 

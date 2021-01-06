@@ -1123,7 +1123,7 @@ void display_stats(void)
     INIT_SOUND(); \
     record = 0;
 
-void increase_points(uint8_t value)
+void increase_points(uint16_t value)
 {
     points+=value;
     DISPLAY_POINTS();

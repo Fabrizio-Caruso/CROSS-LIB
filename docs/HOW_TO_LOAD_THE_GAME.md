@@ -1075,6 +1075,11 @@ Type
 loadm "FULL_TO7.BIN"
 exec
 
+In order to load at lower address then $A000, you need to use CLEAR:
+CLEAR ,,,&h8000
+loadm "FULL_TO7.BIN",<offset>
+exec
+
 -----------------------------------------------------------
 
 ### TI-82

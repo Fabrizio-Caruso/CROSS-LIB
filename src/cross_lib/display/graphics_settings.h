@@ -3,6 +3,8 @@
 
 #  if defined(MEMORY_MAPPED)
 	#include "memory_mapped_graphics.h"
+#elif defined(NES_CONIO)
+	#include "nes_conio_graphics.h"
 #elif defined(CONIO)
 	#include "conio_graphics.h"
 #elif defined(ATARI_MODE_1_COLOR)

@@ -38,10 +38,10 @@
 #define _TILE_5 251
 #define _TILE_9 246
 
-#define _TILE_0 252
-#define _TILE_1 255
-#define _TILE_2 254
-#define _TILE_3 253
+#define _TILE_0 1
+#define _TILE_1 4
+#define _TILE_2 7
+#define _TILE_3 10
 	
 
 #define _TILE_11 242

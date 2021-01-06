@@ -380,5 +380,32 @@
     #define COLOR_CYAN _ATARI_MODE1_WHITE
 #endif
 
+#define _NES_RED 0
+#define _NES_YELLOW 1
+#define _NES_WHITE 2
+
+#if defined(__NES__) && defined(NES_CONIO)
+    #undef COLOR_RED
+    #define COLOR_RED _NES_RED
+    
+    #undef COLOR_WHITE
+    #define COLOR_WHITE _NES_WHITE
+
+    #undef COLOR_BLUE
+    #define COLOR_BLUE _NES_WHITE
+    
+    #undef COLOR_YELLOW
+    #define COLOR_YELLOW _NES_YELLOW
+    
+    #undef COLOR_GREEN
+    #define COLOR_GREEN _NES_YELLOW
+    
+    #undef COLOR_GREEN
+    #define COLOR_GREEN _NES_YELLOW
+    
+    #undef COLOR_CYAN
+    #define COLOR_CYAN _NES_WHITE
+#endif
+
 #endif // _CONIO_PATH_H
 

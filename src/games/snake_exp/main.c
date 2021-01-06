@@ -764,7 +764,7 @@ void one_up(void)
 
 #define handle_coin_effect() \
     snake_grows(); \
-    points+=(RING_POINTS<<coin_count); \
+    increase_points(RING_POINTS<<coin_count); \
     ZAP_SOUND(); \
     _XLIB_DRAW_TILE(XSize-6+coin_count,YSize-1,RING_TILE,COLOR_WHITE); \
     if(coin_count>=2) \
@@ -843,7 +843,7 @@ void magic_wall(void)
     { \
         snake_grows(); \
         TICK_SOUND(); \
-        points+=EXTRA_POINTS; \
+        increase_points(EXTRA_POINTS); \
         if(!(level&3)) \
         { \
             if(extra_count==MAGIC_WALL_THRESHOLD) \
@@ -869,7 +869,7 @@ void magic_wall(void)
 
 #define handle_super_coin_effect() \
     ZAP_SOUND(); \
-    points+=SUPER_RING_POINTS; \
+    increase_points(SUPER_RING_POINTS); \
     slow_down = SLOW_DOWN + SLOW_DOWN/5; \
     if(energy>10) \
     { \
@@ -888,7 +888,7 @@ void magic_wall(void)
     snake_grows(); \
     --remaining_apples; \
     DISPLAY_REMAINING_APPLES_COUNT(); \
-    points+=APPLE_POINTS; \
+    increase_points(APPLE_POINTS); \
     ZAP_SOUND(); \
     IF_POSSIBLE_DECREASE_SPEED();
 
@@ -977,7 +977,7 @@ void magic_wall(void)
         level = next_level; \
     } \
     update_remaining_apples(); \
-    points+=level_bonus; \
+    increase_points(level_bonus); \
     WAIT_PRESS();
 
 #define handle_final_screen() \
@@ -1148,8 +1148,14 @@ void display_stats(void)
     INIT_GRAPHICS(); \
     INIT_INPUT(); \
     INIT_IMAGES(); \
+    INIT_SOUND(); \
     record = 0;
 
+void increase_points(uint8_t value)
+{
+    points+=value;
+    DISPLAY_POINTS();
+}
 
 
 int main(void)
@@ -1208,7 +1214,7 @@ int main(void)
                         handle_mine_reactivation();
                         speed_increase_counter = 0;
                         handle_items_to_spawn();
-                        ++points;
+                        increase_points(1);
                         IF_POSSIBLE_INCREASE_SPEED();
                     }
                     
@@ -1225,7 +1231,6 @@ int main(void)
                 {
                     break;
                 }
-                DISPLAY_POINTS();
                 handle_no_energy();
             }
             if(remaining_apples)

@@ -7,8 +7,8 @@ void INIT_GRAPHICS(void)
 	clg();
 	
 	// Disable VIC-IIe to get a little speed-up (about 7%)
+    /*
 	__asm
-    
     ; Disable VIC-IIe chip
 	ld a,0
 	ld bc,$d011
@@ -19,4 +19,5 @@ void INIT_GRAPHICS(void)
     ld bc,$d030
     out (c),a
 	__endasm;
+    */
 }

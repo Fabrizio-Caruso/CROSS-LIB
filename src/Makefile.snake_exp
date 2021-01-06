@@ -94,15 +94,20 @@ z88dk_targets: \
     ace \
     aquarius \
     c128_z80_80col \
+    coleco \
     cpc \
     cpm \
     gb \
     laser500 \
     mc1000 \
     msx \
+    mtx500 \
+    mtx512 \
+    mz \
     sms \
     spectrum \
     vg5k \
+    vz200 \
     zx81
 
 
@@ -1074,6 +1079,28 @@ c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 
 #################################################################
 
+coleco: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +coleco $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__COLECO__ \
+	-DZ88DK_JOYSTICK \
+	-DFULL_GAME -DSLOW_DOWN=2500 \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO_VT52 \
+	-DCONIO \
+	-lndos \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_coleco.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_coleco.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_coleco_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_coleco_BSS.bin
+
+
+#################################################################
+
 cpc_mode1_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	$(Z88DK_PATH)$(MYZ88DK) +cpc $(SCCZ80_OPTS) $(INCLUDE_OPTS) -DANIMATE_PLAYER -vn  -clib=ansi \
 	-D__CPC__ \
@@ -1299,6 +1326,60 @@ msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
 
 
+#################################################################
+
+mtx: mtx512
+
+mtx512: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) -clib=ansi -startup=2 $(INCLUDE_OPTS) \
+	-D__MTX__ -DFORCE_SCREEN_MODE=2 \
+	-create-app -oMTX.bin -vn \
+	-DFULL_GAME -DSOUNDS \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) 
+	rm MTX.bin
+	mv MTX.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	mv MTX.mtx $(BUILD_PATH)/X$(GAME_NAME)_$@.mtx
+
+
+mtx500: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +mtx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__MTX__ \
+	-create-app -oMTX500.bin -vn \
+	-DFULL_GAME -DSOUNDS  \
+	-DCONIO \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DUDG_GRAPHICS \
+	-clib=default -pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) 
+	rm MTX500.bin
+	mv MTX500.wav $(BUILD_PATH)/X$(GAME_NAME)_$@.wav
+	mv MTX500.mtx $(BUILD_PATH)/X$(GAME_NAME)_$@.mtx
+
+
+#################################################################
+
+
+mz:
+	$(Z88DK_PATH)$(MYZ88DK) +mz $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-D__MZ__ -clib=ansi -pragma-define:ansicolumns=32 -vn \
+	-DFULL_GAME -DSOUNDS  -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DCONIO -DNO_INIT_GRAPHICS -DSLOW_DOWN=2500 \
+	-pragma-define:REGISTER_SP=0xd000 \
+	-lndos -create-app -o $(BUILD_PATH)/X$(GAME_NAME)_mz.prg \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_mz.prg
+	mv $(BUILD_PATH)/X$(GAME_NAME)_mz.mzt $(BUILD_PATH)/X$(GAME_NAME)_mz.mzf
+
 
 #################################################################
 
@@ -1373,6 +1454,22 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg
 
+
+#################################################################
+
+vz200: vz200_18k
+
+vz200_18k: 	
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) -vn \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-DSOUNDS -D__VZ__ -clib=ansi \
+	-DFULL_GAME -DSLOW_DOWN=5000 \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.vz \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.cas
 
 
 #################################################################

@@ -1368,6 +1368,41 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 
 #################################################################
+
+zx81: zx81_32k_wrx
+
+
+zx81_32k_wrx: $(ASSETS_PATH)/z88dk_sprites_definitions.h
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
+	-pragma-define:hrgpage=36096 \
+	-DSLOW_DOWN=200 -DNO_ANIMATION \
+	-DFORCE_XSIZE=32 \
+	-DFORCE_YSIZE=22 \
+	-vn \
+	-D__ZX81__ \
+	-DZ88DK_SPRITES -DSPRITE_X_STEP=8 -DSPRITE_Y_STEP=8 \
+	-DLESS_PRINT \
+	-DFULL_GAME \
+	-lndos \
+	-DANIMATE_PLAYER \
+	-DLESS_TEXT \
+	-DNO_COLOR \
+	-DSIMPLE_STRATEGY \
+	-DNO_SET_SCREEN_COLORS \
+	-DALT_PRINT \
+	-DFEWER_SPRITES \
+	-create-app -o  $(BUILD_PATH)/X$(GAME_NAME)_zx81_32k_wrx.prg \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/zx81/zx81_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
+	rm $(BUILD_PATH)/X$(GAME_NAME)_zx81_32k_wrx.prg
+
+
+
+
+#################################################################
 # LCC1802
 
 

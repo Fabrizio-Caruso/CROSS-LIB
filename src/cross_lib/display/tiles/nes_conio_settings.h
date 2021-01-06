@@ -33,10 +33,10 @@
 
 #include "display_macros.h"
 
-#define _TILE_8 248
-#define _TILE_4 35
-#define _TILE_5 251
-#define _TILE_9 246
+#define _TILE_8 25
+#define _TILE_4 13
+#define _TILE_5 16
+#define _TILE_9 28
 
 #define _TILE_0 1
 #define _TILE_1 4
@@ -44,34 +44,34 @@
 #define _TILE_3 10
 	
 
-#define _TILE_11 242
-#define _TILE_16 239
+#define _TILE_11 37
+#define _TILE_16 94
 #define _DOLLAR_TILE '$'
-#define _TILE_14 241
-#define _TILE_15 240
-#define _TILE_10 238
+#define _TILE_14 61
+#define _TILE_15 91
+#define _TILE_10 33
 
-#define _TILE_7 250
+#define _TILE_7 22
 
-#define _TILE_6 247
+#define _TILE_6 19
 #define _TILE_0_B _TILE_0
 #define _TILE_7_B _TILE_7
 
-#define _TILE_18 245
-#define _TILE_17 243
+#define _TILE_18 126
+#define _TILE_17 123
 
-#define _TILE_12 249
-#define _TILE_13 244
+#define _TILE_12 40
+#define _TILE_13 58
 
 #define _TILE_4_B _TILE_4
 
 #define _TILE_5_B 'X'
 
-#define _TILE_19 1
-#define _TILE_20 2
+#define _TILE_19 129
+#define _TILE_20 132
 
-#define _TILE_21 3
-#define _TILE_22 4
+#define _TILE_21 135
+#define _TILE_22 138
 
-#define _TILE_23 5
-#define _TILE_24 6
+#define _TILE_23 141
+#define _TILE_24 144

@@ -39,8 +39,10 @@
 	#include "cpc_cpcrslib_settings.h"
 #elif defined(__SUPERVISION__)
 	#include "supervision_settings.h"
-#elif defined(__NES__)
+#elif defined(__NES__) && defined(CONIO)
 	#include "nes_settings.h"
+#elif defined(__NES__) && defined(NES_CONIO)
+	#include "nes_conio_settings.h"
 #elif defined(__COMX__) || defined(__PECOM__) || (defined(__CIDELSA__) && defined(REDEFINED_CHARS))
 	#include "comx_settings.h"
 #elif defined(__MICRO__)

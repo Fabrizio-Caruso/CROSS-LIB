@@ -23,7 +23,11 @@ $(ASSETS_PATH)/8x8_chars.h: $(8X8_TILES)
 
 $(ASSETS_PATH)/cc65_nes_tiles.s: $(8X8_TILES)
 	$(CREATE_ASSET)
-    
+
+
+$(ASSETS_PATH)/cc65_nes_color_tiles.s: $(8X8_TILES)
+	$(CREATE_ASSET)
+
 $(ASSETS_PATH)/cc65_pce_tiles.s: $(8X8_TILES)
 	$(CREATE_ASSET)
 

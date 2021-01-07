@@ -1559,13 +1559,26 @@ COMX_REDUCED_EXTRA_FILES ?= \
 	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_init_graphics.c \
 	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c 
 
+COMX_COLOR_REDUCED_EXTRA_FILES ?= \
+	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/comx_color_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c 
+
 COMX_EXTRA_FILES ?= \
 	$(COMX_REDUCED_EXTRA_FILES) \
 	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
 	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
 
+COMX_COLOR_EXTRA_FILES ?= \
+	$(COMX_COLOR_REDUCED_EXTRA_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
+
 COMX_EXTRA_FILES_WTIH_END_SCREEN ?= \
 	$(COMX_EXTRA_FILES) \
+	$(SOURCE_PATH)/end_screen.c 
+
+COMX_COLOR_EXTRA_FILES_WTIH_END_SCREEN ?= \
+	$(COMX_COLOR_EXTRA_FILES) \
 	$(SOURCE_PATH)/end_screen.c 
 
 
@@ -1575,12 +1588,28 @@ reduced_full_lcc1802_combo.c: full_combo_rand.c
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm $(SOURCE_PATH)/../full_combo_rand.c
 
+reduced_full_lcc1802_color_combo.c: full_combo_rand.c
+	cat \
+	$(COMX_COLOR_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c \
+	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	rm $(SOURCE_PATH)/../full_combo_rand.c
+
 full_lcc1802_combo.c: full_combo_rand.c
 	cat \
 	$(COMX_EXTRA_FILES_WTIH_END_SCREEN) \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../full_lcc1802_combo.c
 	rm $(SOURCE_PATH)/../full_combo_rand.c
 
+
+LCC1802_COLOR_BASIC_C_OPTS ?= \
+	-D__LCC1802__ \
+	-DFORCE_NO_CONIO_LIB \
+	-DNO_SET_SCREEN_COLORS \
+	-DLESS_TEXT \
+	-DALT_RAND \
+	-DCOMX_COLOR \
+	-DALT_PRINT \
+	-DINITIAL_SLOWDOWN=21150
 
 LCC1802_BASIC_C_OPTS ?= \
 	-D__LCC1802__ \
@@ -1608,6 +1637,21 @@ REDUCED_LCC1802_C_OPTS ?= \
 	-DNO_SLEEP \
 	-DNO_RANDOM_LEVEL
 
+LCC1802_COLOR_C_OPTS ?= \
+	$(LCC1802_COLOR_BASIC_C_OPTS) \
+	-DSOUNDS \
+	-DALT_SLEEP \
+
+
+LCC1802_COLOR_C_OPTS_NO_SOUNDS ?= \
+	$(LCC1802_COLOR_BASIC_C_OPTS) \
+	-DALT_SLEEP \
+
+REDUCED_LCC1802_COLOR_C_OPTS ?= \
+	$(LCC1802_COLOR_BASIC_C_OPTS) \
+	-DNO_SLEEP \
+	-DNO_RANDOM_LEVEL
+
 
 ###############################################################################
 # COMX
@@ -1632,6 +1676,20 @@ comx_no_sounds: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_comx.hex
 
+
+comx_color: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
+	-D__COMX__ $(EXTRA_DRAW_SKIP) \
+	-DFORCE_NARROW -DREDEFINED_CHARS \
+	-DNO_BLINKING -DTINY_TEXT -DSLOW_DOWN=100 \
+	-DLCC1802_JOYSTICK \
+	-DNO_TITLE -DNO_SET_SCREEN_COLORS  -DNO_INITIAL_SCREEN \
+	-DNINTH_CHAR_LINE -DCOMX_COLOR \
+	$(LCC1802_COLOR_C_OPTS_NO_SOUNDS) \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_comx.hex
 
 ###############################################################################
 # MICRO

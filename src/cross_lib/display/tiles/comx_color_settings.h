@@ -25,80 +25,63 @@
 #ifndef _COMX_GRAPHICS_SETTINGS
 #define _COMX_GRAPHICS_SETTINGS
 
-#define PALETTE_SWITCH 128
+#define _TILE_0 0
 
+#define _TILE_1 3
 
-#define _TILE_0 ('k')
+#define _TILE_2 6
 
-#define _TILE_1 ('l')
+#define _TILE_3 9
 
-#define _TILE_2 ('m')
+#define _TILE_4 12
 
-#define _TILE_3 ('n')
+#define _TILE_5 15
 
+#define _TILE_6 18
 
+#define _TILE_7 21
 
-// RED
-#define _TILE_5 ('o'+PALETTE_SWITCH)
+#define _TILE_8 24
 
-// WHITE
-#define _TILE_4 ('p'+PALETTE_SWITCH)
+#define _TILE_9 27
 
-#define _TILE_6 ('u'+PALETTE_SWITCH)
+#define _TILE_10 33
 
+#define _TILE_11 37
 
-// BLUE
-#define _TILE_9 ('s')
-//('s'+PALETTE_SWITCH)
+#define _TILE_12 40
 
+#define _TILE_13 58
 
-// YELLOW
-#define _TILE_7 ('q'+PALETTE_SWITCH)
-#define _TILE_7_B 'q'
-#define _TILE_4_B 'p'
+#define _TILE_14 91
 
-#define _TILE_0_B (_TILE_0+PALETTE_SWITCH)
+#define _TILE_15 94
+
+#define _TILE_16 97
+
+#define _TILE_17 100
+
+#define _TILE_18 103
+
+#define _TILE_19 106
+
+#define _TILE_20 109
+
+#define _TILE_21 112
+
+#define _TILE_22 115
+
+#define _TILE_23 118
+
+#define _TILE_24 121
+
 #define _DOLLAR_TILE '$'
 
-// GREEN
-#define _TILE_8 'r'
+#define _TILE_0_B _TILE_0
+#define _TILE_4_B _TILE_4
+#define _TILE_5_B _TILE_5
+#define _TILE_7_B _TILE_7
 
-#define _TILE_17 ('z'+1)
-
-#define _TILE_18 ('z'+2+PALETTE_SWITCH)
-
-// CYAN
-#define _TILE_10 'j'
-#define _TILE_11 ('t'+PALETTE_SWITCH)
-
-#define _TILE_14 ('w'+PALETTE_SWITCH)
-
-#define _TILE_15 ('x'+PALETTE_SWITCH)
-
-#define _TILE_16 ('v'+PALETTE_SWITCH)
-
-#define _TILE_12 ('y'+PALETTE_SWITCH)
- 
-
-#define _TILE_13 ('z'+PALETTE_SWITCH)
-
-#define _TILE_5_B ('X'+PALETTE_SWITCH)
-
-#if !defined(__COMX__)
-#define _TILE_19 ('a')
-#define _TILE_20 ('b')
-#define _TILE_21 ('c')
-#define _TILE_22 ('d')
-#define _TILE_23 ('e')
-#define _TILE_24 ('f')
-#else
-#define _TILE_19 ('/')
-#define _TILE_20 ('=')
-#define _TILE_21 (';')
-#define _TILE_22 ('+')
-#define _TILE_23 ('*')
-#define _TILE_24 ('!')
-#endif
 
 #endif // _COMX_GRAPHICS_SETTINGS
 

@@ -351,13 +351,14 @@
 #endif
 
 
-#define _ATARI_MODE1_RED 0
-#define _ATARI_MODE1_WHITE 64
-#define _ATARI_MODE1_BLUE 128
-#define _ATARI_MODE1_GREEN 128
-#define _ATARI_MODE1_YELLOW 192
-
 #if defined(ATARI_MODE_1_COLOR) || defined(__ATARI5200__)
+
+    #define _ATARI_MODE1_RED 0
+    #define _ATARI_MODE1_WHITE 64
+    #define _ATARI_MODE1_BLUE 128
+    #define _ATARI_MODE1_GREEN 128
+    #define _ATARI_MODE1_YELLOW 192
+
     #undef COLOR_RED
     #define COLOR_RED _ATARI_MODE1_RED
     
@@ -373,18 +374,16 @@
     #undef COLOR_GREEN
     #define COLOR_GREEN _ATARI_MODE1_GREEN
     
-    #undef COLOR_GREEN
-    #define COLOR_GREEN _ATARI_MODE1_GREEN
-    
     #undef COLOR_CYAN
     #define COLOR_CYAN _ATARI_MODE1_WHITE
 #endif
 
-#define _NES_RED 0
-#define _NES_YELLOW 1
-#define _NES_WHITE 2
-
 #if defined(__NES__) && defined(NES_CONIO)
+
+    #define _NES_RED 0
+    #define _NES_YELLOW 1
+    #define _NES_WHITE 2
+
     #undef COLOR_RED
     #define COLOR_RED _NES_RED
     
@@ -400,11 +399,38 @@
     #undef COLOR_GREEN
     #define COLOR_GREEN _NES_YELLOW
     
-    #undef COLOR_GREEN
-    #define COLOR_GREEN _NES_YELLOW
-    
     #undef COLOR_CYAN
     #define COLOR_CYAN _NES_WHITE
+#endif
+
+#if defined(COMX_COLOR)
+
+    #define _COMX_BLUE 0
+    #define _COMX_GREEN 1
+    #define _COMX_CYAN 2
+    #define _COMX_PURPLE (0+128)
+    #define _COMX_YELLOW (1+128)
+    #define _COMX_WHITE  (2+128) 
+
+    #undef COLOR_RED
+    #define COLOR_RED _COMX_PURPLE
+
+    #undef COLOR_WHITE
+    #define COLOR_WHITE _COMX_WHITE
+
+    #undef COLOR_BLUE
+    #define COLOR_BLUE _COMX_BLUE
+
+    #undef COLOR_YELLOW
+    #define COLOR_YELLOW _COMX_YELLOW
+
+    #undef COLOR_GREEN
+    #define COLOR_GREEN _COMX_GREEN
+
+
+    #undef COLOR_CYAN
+    #define COLOR_CYAN _COMX_CYAN
+
 #endif
 
 #endif // _CONIO_PATH_H

@@ -30,8 +30,10 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 #endif
 }
 
-#if defined(__COMX__)
+#if defined(__COMX__) && !defined(COMX_COLOR)
     #define CHAR_OFFSET 96
+#elif defined(__COMX__)
+    #define CHAR_OFFSET 48
 #else
     #define CHAR_OFFSET 48
 #endif
@@ -42,9 +44,6 @@ void PRINT(uint8_t x, uint8_t y, char * str)
     #define _DISPLAY(__x,__y,__ch) vidchar((uint16_t)0xF800+XSize*YSize-YSize -(__x)*40+(__y), (uint8_t) (__ch+CHAR_OFFSET))
 #endif
 
-
-#if defined(__COMX__)
-#endif
 
 void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 {

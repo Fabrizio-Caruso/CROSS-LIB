@@ -32,8 +32,6 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 
 #if defined(__COMX__) && !defined(COMX_COLOR)
     #define CHAR_OFFSET 96
-#elif defined(__COMX__)
-    #define CHAR_OFFSET 48
 #else
     #define CHAR_OFFSET 48
 #endif

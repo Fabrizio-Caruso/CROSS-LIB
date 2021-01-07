@@ -120,8 +120,8 @@ _transparent_vertical_wall_level_flag = 65
 _transparent_horizontal_wall_level_flag = 66
 
 
-.exportzp _head_image_ptr;
-_head_image_ptr = 67;
+.exportzp _head_tile;
+_head_tile = 67;
 
 .exportzp _rings;
 _rings = 69

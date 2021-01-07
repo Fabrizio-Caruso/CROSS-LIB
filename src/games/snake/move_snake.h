@@ -1,6 +1,7 @@
 #ifndef _MOVE_SNAKE_H
 #define _MOVE_SNAKE_H
 
+#include "init_images.h"
 
 #define SNAKE_UP 0
 #define SNAKE_DOWN 1

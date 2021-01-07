@@ -63,7 +63,7 @@ uint8_t secret_level_never_activated;
 uint8_t next_level;
 uint8_t transparent_vertical_wall_level_flag;
 uint8_t transparent_horizontal_wall_level_flag;
-const Image *head_image_ptr;
+uint8_t head_tile;
 uint8_t secret_passage[2*NUMBER_OF_MAPS];
 
 uint8_t rings;

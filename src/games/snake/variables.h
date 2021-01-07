@@ -124,9 +124,9 @@ extern uint8_t transparent_horizontal_wall_level_flag;
 #pragma zpsym("transparent_horizontal_wall_level_flag")
 #endif
 
-extern const Image *head_image_ptr;
+extern uint8_t head_tile;
 #if defined(USE_MEMORY_BUFFERS)
-#pragma zpsym("head_image_ptr")
+#pragma zpsym("head_tile")
 #endif
 
 extern char strings[NUMBER_OF_STRINGS][MAX_STRING_SIZE];
@@ -202,26 +202,26 @@ extern uint8_t coin_achievement[9];
 extern uint8_t map[XSize][YSize];
 
 
-extern const Image VERTICAL_HEAD_IMAGE;
-extern const Image HORIZONTAL_HEAD_IMAGE;
-extern const Image LEFT_MINE_IMAGE;
-extern const Image RIGHT_MINE_IMAGE;
-extern const Image BODY_IMAGE;
-extern const Image APPLE_IMAGE;
-extern const Image HI_TEXT_IMAGE;
-extern const Image CENTRAL_BRICK_IMAGE;
-extern const Image RING_IMAGE;
-extern const Image LV_TEXT_IMAGE;
-extern const Image TRANSPARENT_BRICK_IMAGE;
-extern const Image UP_MINE_IMAGE;
-extern const Image VERTICAL_BRICK_IMAGE;
-extern const Image HORIZONTAL_BRICK_IMAGE;
-extern const Image SCORE_TEXT_LEFT_IMAGE;
-extern const Image DOWN_MINE_IMAGE;
-extern const Image SCORE_TEXT_RIGHT_IMAGE;
-extern const Image MINE_IMAGE;
-extern const Image SUPER_RING_IMAGE;
-extern const Image EXTRA_IMAGE;
+// extern const Image VERTICAL_HEAD_IMAGE;
+// extern const Image HORIZONTAL_HEAD_IMAGE;
+// extern const Image LEFT_MINE_IMAGE;
+// extern const Image RIGHT_MINE_IMAGE;
+// extern const Image BODY_IMAGE;
+// extern const Image APPLE_IMAGE;
+// extern const Image HI_TEXT_IMAGE;
+// extern const Image CENTRAL_BRICK_IMAGE;
+// extern const Image RING_IMAGE;
+// extern const Image LV_TEXT_IMAGE;
+// extern const Image TRANSPARENT_BRICK_IMAGE;
+// extern const Image UP_MINE_IMAGE;
+// extern const Image VERTICAL_BRICK_IMAGE;
+// extern const Image HORIZONTAL_BRICK_IMAGE;
+// extern const Image SCORE_TEXT_LEFT_IMAGE;
+// extern const Image DOWN_MINE_IMAGE;
+// extern const Image SCORE_TEXT_RIGHT_IMAGE;
+// extern const Image MINE_IMAGE;
+// extern const Image SUPER_RING_IMAGE;
+// extern const Image EXTRA_IMAGE;
 
 extern uint8_t secret_passage[2*NUMBER_OF_MAPS];
 

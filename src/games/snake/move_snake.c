@@ -5,6 +5,8 @@
 
 #include "variables.h"
 
+#include "tiles.h"
+
 uint8_t move_snake(uint8_t wished_direction)
 {
     uint8_t tail = (snake_head+snake_length-1)%snake_length;
@@ -40,11 +42,11 @@ uint8_t move_snake(uint8_t wished_direction)
         
         if(HORIZONTAL(snake_direction))
         {
-            head_image_ptr = &HORIZONTAL_HEAD_IMAGE;
+            head_tile = HORIZONTAL_HEAD_TILE;
         }
         else
         {
-            head_image_ptr = &VERTICAL_HEAD_IMAGE;
+            head_tile = VERTICAL_HEAD_TILE;
         }
         
         draw_body_part(snake_head); // Draw old head as body part

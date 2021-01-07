@@ -286,16 +286,16 @@ c64_exomized: $(ASSETS_PATH)/cc65_udc.s
 #################################################################
 
 # Graphics for fire power and ghost needs to be updated
-nes: $(ASSETS_PATH)/cc65_nes_tiles.s
+nes: $(ASSETS_PATH)/cc65_nes_color_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
 	-DFULL_GAME \
-	-DBETWEEN_LEVEL -DEND_SCREEN -DNO_COLOR \
-	-DCONIO \
+	-DBETWEEN_LEVEL -DEND_SCREEN \
+	-DNES_CONIO \
 	-DANIMATE_PLAYER \
 	-DDEFAULT_CLEAR_SCREEN \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/nes/nes_init_graphics.c \
-	$(ASSETS_PATH)/cc65_nes_tiles.s \
+	$(ASSETS_PATH)/cc65_nes_color_tiles.s \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_nes.nes
 

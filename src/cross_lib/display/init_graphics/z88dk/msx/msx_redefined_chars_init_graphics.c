@@ -161,7 +161,7 @@ void INIT_GRAPHICS(void)
 
 	set_mode(TEXT_MODE_32x40);
     
-	set_color(15, 1, 1);	
+	set_color(15, 1, 1);
     
 	set_udg_colors();
     

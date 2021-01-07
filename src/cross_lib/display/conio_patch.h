@@ -427,7 +427,6 @@
     #undef COLOR_GREEN
     #define COLOR_GREEN _COMX_GREEN
 
-
     #undef COLOR_CYAN
     #define COLOR_CYAN _COMX_CYAN
 

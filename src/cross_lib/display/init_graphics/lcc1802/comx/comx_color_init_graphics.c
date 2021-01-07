@@ -39,10 +39,8 @@
             for(i=0;i<9;++i)
             {
                colored_shape[i]=shapelocation[i]+COLOR_OFFSET+color*64;
-               // colored_shape[i]=shapelocation[i]+COLOR_OFFSET+color*64;
             }
             shapechar(colored_shape, ch+color, 1);
-            // shapechar(colored_shape, ch+color, 1);
         }
     }
 
@@ -53,8 +51,10 @@
     } ;
 
 
+// {0,16, 62, 32, 60,  4,124,  8,  0}},
 const struct redefine_struct redefine_map[] =
 {
+    {_DOLLAR_TILE, {0,8, 31, 16, 30,  2,62,  4,  0}},
     {_TILE_0, _TILE_0_UDG},
     {_TILE_1, _TILE_1_UDG},
     {_TILE_2, _TILE_2_UDG},
@@ -123,7 +123,7 @@ void INIT_GRAPHICS(void)
     #endif
     
     #if defined(__COMX__) || defined(__PECOM__) || defined(__MICRO__) || defined(REDEFINED_CHARS) 
-        for(i=0;i<NUM_OF_TILES;++i)
+        for(i=0;i<NUM_OF_TILES+1;++i)
         {
             redefine_char(redefine_map[i]._ascii, redefine_map[i]._bitmap);
         }

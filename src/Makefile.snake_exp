@@ -1658,10 +1658,9 @@ REDUCED_LCC1802_COLOR_C_OPTS ?= \
 
 full_comx: comx
 
-comx: comx_no_sounds
 
 #	-DSIMPLE_STRATEGY 
-comx_no_sounds: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+comx: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
 	-D__COMX__ $(EXTRA_DRAW_SKIP) \
 	 -DFORCE_NARROW -DREDEFINED_CHARS \
@@ -1674,7 +1673,7 @@ comx_no_sounds: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_comx.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 
 comx_color: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
@@ -1689,7 +1688,7 @@ comx_color: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	-DFORCE_GHOSTS_NUMBER=7 \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
-	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_comx.hex
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 ###############################################################################
 # MICRO

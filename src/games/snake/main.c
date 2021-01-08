@@ -308,38 +308,41 @@ void build_level(void)
     
     init_map_to_empty();
     CLEAR_SCREEN();
-            
     index = map_walls_index[level-((level>16)<<4)];
     
     for(j=0;j<2;++j)
     {
         number_of_elements = map_walls[index]; // Number of horizontal walls
-        secret_wall_index = (uint8_t) (rand()%(number_of_elements));
-        for(i=1, wall_index=0;i<3*number_of_elements;i+=3,++wall_index)
+        
+        if(number_of_elements)
         {
-            x=map_walls[index+i];
-            y=map_walls[index+1+i];
-            length=map_walls[index+2+i];
-            if(j)
+            secret_wall_index = (uint8_t) (rand()%(number_of_elements));
+            for(i=1, wall_index=0;i<3*number_of_elements;i+=3,++wall_index)
             {
-                build_vertical_wall(x,y,length);
-            }
-            else
-            {
-                build_horizontal_wall(x,y,length);
-                if(secret_wall_index==wall_index)
+                x=map_walls[index+i];
+                y=map_walls[index+1+i];
+                length=map_walls[index+2+i];
+                if(j)
                 {
-                    map[x+1+rand()%(length-2)][y] = SECRET;
-                    #if defined(DEBUG_SECRET_HOLES)
+                    build_vertical_wall(x,y,length);
+                }
+                else
+                {
+                    build_horizontal_wall(x,y,length);
+                    if(secret_wall_index==wall_index)
                     {
-                        uint8_t k;
-                        for(k=0;k<20;++k)
+                        map[x+1+rand()%(length-2)][y] = SECRET;
+                        #if defined(DEBUG_SECRET_HOLES)
                         {
-                            // _XLIB_DRAW(x+1+rand()%(length-2),y,&CENTRAL_BRICK_IMAGE);
-                            _XLIB_DRAW_TILE(x+1+rand()%(length-2),y,CENTRAL_BRICK_TILE, COLOR_YELLOW);
+                            uint8_t k;
+                            for(k=0;k<20;++k)
+                            {
+                                // _XLIB_DRAW(x+1+rand()%(length-2),y,&CENTRAL_BRICK_IMAGE);
+                                _XLIB_DRAW_TILE(x+1+rand()%(length-2),y,CENTRAL_BRICK_TILE, COLOR_YELLOW);
+                            }
                         }
+                        #endif
                     }
-                    #endif
                 }
             }
         }

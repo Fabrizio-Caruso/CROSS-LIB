@@ -432,5 +432,30 @@
 
 #endif
 
+#if defined(ORIC_COLOR)
+
+    #define _ORIC_NORMAL 0
+    #define _ORIC_INVERSE 128
+    
+    #undef COLOR_RED
+    #define COLOR_RED _ORIC_INVERSE
+
+    #undef COLOR_WHITE
+    #define COLOR_WHITE _ORIC_INVERSE
+
+    #undef COLOR_BLUE
+    #define COLOR_BLUE _ORIC_INVERSE
+
+    #undef COLOR_YELLOW
+    #define COLOR_YELLOW _ORIC_NORMAL
+
+    #undef COLOR_GREEN
+    #define COLOR_GREEN _ORIC_NORMAL
+
+    #undef COLOR_CYAN
+    #define COLOR_CYAN _ORIC_NORMAL
+
+#endif
+
 #endif // _CONIO_PATH_H
 

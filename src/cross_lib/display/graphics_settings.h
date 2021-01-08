@@ -8,6 +8,8 @@
 	#include "nes_conio_graphics.h"
 #elif defined(COMX_COLOR)
 	#include "lcc1802_color_graphics.h"
+#elif defined(ORIC_COLOR)
+	#include "oric_color_graphics.h"
 #elif defined(CONIO)
 	#include "conio_graphics.h"
 #elif defined(ATARI_MODE_1_COLOR)

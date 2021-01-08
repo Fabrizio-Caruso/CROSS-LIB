@@ -417,9 +417,11 @@ atmos: oric_atmos
 
 oric1: oric_atmos
 
-oric1_48k: oric_atmos
+oric_atmos: oric1_48k
 
-oric_atmos: $(ASSETS_PATH)/6x8_chars.h
+oric1_48k: oric_48k
+
+oric1_fixed_colors: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -DSOUNDS -DANIMATE_PLAYER   \
 	-t atmos -DINLINE_LOC \
 	-D_TILE_17_COLOR=0 -D_TILE_10_COLOR=0 \
@@ -428,8 +430,17 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	-DMEMORY_MAPPED -DSLOW_DOWN=3500 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_atmos_and_oric1_48k.tap
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
 
+
+oric_48k: $(ASSETS_PATH)/6x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -DSOUNDS -DANIMATE_PLAYER   \
+	-t atmos -DINLINE_LOC -DORIC_COLOR \
+	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
+	-DSLOW_DOWN=3500 \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
+	$(FULL_FILES) \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.tap
 
 #################################################################
 

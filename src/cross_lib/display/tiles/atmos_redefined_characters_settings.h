@@ -1,6 +1,11 @@
 
 
-#define _INVERTED 128u
+#if !defined(ORIC_COLOR)
+    #define _INVERTED 128u
+#else
+    #define _INVERTED 0
+#endif
+
 
 // OK
 #define _TILE_19_OFFSET ('Z'+35)

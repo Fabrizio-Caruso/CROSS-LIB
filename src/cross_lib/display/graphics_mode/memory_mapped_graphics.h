@@ -104,9 +104,8 @@
 	} \
 	while(0)
 #else
-
 	#define _XLIB_DRAW_TILE(x,y,tile,color) \
-		DISPLAY_POKE((uint16_t) loc(x,y), tile);
+		DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), tile);
 
 	#define __DRAW(x,y,image) \
 		DISPLAY_POKE((uint16_t) loc(x,y), (image)->_imageData);

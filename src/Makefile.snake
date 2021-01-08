@@ -1218,7 +1218,7 @@ cpm_z80_adm3a:
 
 gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	$(Z88DK_PATH)$(MYZ88DK) +gb $(SCCZ80_ROMS_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
-	-D__GB__ -DNO_GROWTH \
+	-D__GB__ \
 	-DFORCE_XSIZE=20 \
 	-DFORCE_YSIZE=18 -DNO_EXTRA_TITLE \
 	-DNO_SET_SCREEN_COLORS \

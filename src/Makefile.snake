@@ -115,6 +115,7 @@ z88dk_targets: \
 
 lcc1802_targets: 
 	make comx -f Makefile.$(GAME_NAME)
+	make comx_ntsc -f Makefile.$(GAME_NAME)
 	make pecom -f Makefile.$(GAME_NAME)
 	make tmc600 -f Makefile.$(GAME_NAME)
 	make cidelsa -f Makefile.$(GAME_NAME)
@@ -1701,6 +1702,21 @@ comx: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
+
+comx_ntsc: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x8_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(COMX_OPTS)  \
+	-D__COMX__ $(EXTRA_DRAW_SKIP) -DNTSC \
+	-DFORCE_NARROW -DREDEFINED_CHARS \
+	-DNO_BLINKING -DTINY_TEXT -DSLOW_DOWN=300 \
+	-DLCC1802_JOYSTICK \
+	-DNO_TITLE -DNO_SET_SCREEN_COLORS  -DNO_INITIAL_SCREEN \
+	-DNINTH_CHAR_LINE -DCOMX_COLOR \
+	$(LCC1802_COLOR_C_OPTS_NO_SOUNDS) \
+	-DFORCE_GHOSTS_NUMBER=7 \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
 ###############################################################################
 # MICRO
 
@@ -1803,7 +1819,7 @@ cidelsa_draco_32k: reduced_full_lcc1802_combo.c
 ###############################################################################
 
 
-comx_targets: comx
+comx_targets: comx comx_ntsc
 
 pecom_targets: pecom
 

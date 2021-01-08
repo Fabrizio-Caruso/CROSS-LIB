@@ -423,7 +423,7 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -Or -Cl  -DSOUNDS -DANIMATE_PLAYER   \
 	-t atmos \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	-DMEMORY_MAPPED \
+	-DMEMORY_MAPPED -DSLOW_DOWN=3500 \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_atmos_and_oric1_48k.tap
@@ -1223,7 +1223,6 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DFORCE_YSIZE=18 -DNO_EXTRA_TITLE \
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_COLOR -DANIMATE_PLAYER \
-	 \
 	-DCONIO -DZ88DK_JOYSTICK \
 	-lndos -DSLOW_DOWN=4000 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \

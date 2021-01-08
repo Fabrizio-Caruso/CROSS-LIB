@@ -2,28 +2,28 @@
 #define _6X8_CHARS
 
 
-	#define _TILE_0_UDG     {12,18,12,51,45,12,18,51}
-	#define _TILE_1_UDG     {12,30,12,51,45,12,18,51}
-	#define _TILE_2_UDG     {12,22,12,62,13,12,20,20}
-	#define _TILE_3_UDG     {12,26,12,31,44,12,10,10}
+	#define _TILE_0_UDG     {12,30,63,45,45,63,30,12}
+	#define _TILE_1_UDG     {12,30,51,63,63,51,30,12}
+	#define _TILE_2_UDG     {0,0,7,4,2,2,3,0}
+	#define _TILE_3_UDG     {0,48,16,16,8,56,0,0}
 
-	#define _TILE_4_UDG     {12,30,63,45,30,12,30,51}
-	#define _TILE_7_UDG     {30,33,51,33,33,18,18,12}
-	#define _TILE_9_UDG     {33,18,12,26,22,12,18,33}
-	#define _TILE_8_UDG     {0,30,51,55,51,26,18,12}
-	#define _TILE_11_UDG    {0, 0, 4,28,14, 8, 0, 0}
-	#define _TILE_5_UDG     {30,33,51,45,45,51,33,30}
+	#define _TILE_4_UDG     {12,30,63,63,63,63,30,12}
+	#define _TILE_7_UDG     {63,42,63,42,63,42,63,42}
+	#define _TILE_9_UDG     {0,37,37,37,37,50,0,0}
+	#define _TILE_8_UDG     {0,12,18,33,33,18,12,0}
+	#define _TILE_11_UDG    {0,0,0,0,0,6,58,34}
+	#define _TILE_5_UDG     {0,24,4,30,61,61,63,30}
 
-	#define _TILE_6_UDG     {45,30,63,45,30,12,30,51}
+	#define _TILE_6_UDG     {0,42,42,58,42,42,0,0}
 	
-	#define _TILE_16_UDG    {12,30,30,30,63,45,33,33}
-	#define _TILE_14_UDG    {0, 0,56,31,31,56, 0, 0}
-	#define _TILE_15_UDG    {0, 0, 7,62,62, 7, 0, 0}
-	#define _TILE_10_UDG    {12,18,12,51, 0,12, 0,51}
-	#define _TILE_12_UDG    {12,12,28,12,12,14,12,12}
-	#define _TILE_13_UDG    {0, 0, 0,63,63,00,00,00}
-	#define _TILE_17_UDG    {0,30,51,55,51,22,20,12}
-	#define _TILE_18_UDG    {0,30,43,43,35,42,30,12}
+	#define _TILE_16_UDG    {0,46,8,4,2,14,0,0}
+	#define _TILE_14_UDG    {0,59,41,41,57,33,0,0}
+	#define _TILE_15_UDG    {17,23,24,0,0,0,0,0}
+	#define _TILE_10_UDG    {42,21,42,21,42,21,42,21}
+	#define _TILE_12_UDG    {63,45,63,45,63,45,63,45}
+	#define _TILE_13_UDG    {0,63,21,63,63,21,63,0}
+	#define _TILE_17_UDG    {0,6,58,34,17,23,24,0}
+	#define _TILE_18_UDG    {0,12,18,45,45,18,12,0}
 
 	#define _TILE_19_UDG    {31,21,31,21,31,21,31,21}
 	#define _TILE_20_UDG    {63,49,63,35,63,49,63,35}

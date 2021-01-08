@@ -20,14 +20,14 @@ void init_colors(void)
 	
 	// Initialize colors 	
 	#if !defined(FORCE_NARROW)
-	for(i=0;i<2;++i)
-	{
-		// red on black (inverted: cyan on white)		
-		POKE(0xBB80+i*40,16);
-		POKE(0xBB81+i*40,1); 
-	}
+    for(i=0;i<2;++i)
+    {
+        // red on black (inverted: cyan on white)		
+        POKE(0xBB80+i*40,16);
+        POKE(0xBB81+i*40,1); 
+    }
 
-	for(i=2;i<28;++i)
+    for(i=2;i<28;++i)
 	#else
 	for(i=0;i<28;++i)
 	#endif

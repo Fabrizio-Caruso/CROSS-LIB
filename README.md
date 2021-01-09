@@ -5,17 +5,19 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
 ## THE GOAL
 
-This is a personal project whose goal is the creation of:
-1. *CrossLib*, a *retro-hardware abstraction layer* for coding "universal" (mostly 8-bit) games. These games are the proof of the flexibility of *CrossLib*.
-3. *Cross Chase* is a "universal" 8-bit game that can be compiled for and run
+*CrossLib*, a *retro-hardware abstraction layer* for coding "universal" demos, games and programs for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, handheld consoles, arcade boards, hacked computer toys, etc.). 
+
+These games are the proof of the flexibility of *CrossLib*:
+
+1. *Cross Chase* is a "universal" 8-bit game that can be compiled for and run
 on (nearly) ALL 8-bit computers, game consoles, hand-held game consoles and scientific calculators. 
 It can be parametrized in a way to make it run on systems with as little as 3k or 4k of available memory for the code.
-4. *Cross Shoot* is a second "universal" 8-bit game that can also be compiled on a multitude of 8-bit computers and consoles. 
+2. *Cross Shoot* is a second "universal" 8-bit game that can also be compiled on a multitude of 8-bit computers and consoles. 
 It requires more memory than "Cross Chase" but it should be equally universal as long as the required memory is available.
-4. *Cross Bomber* is a third "universal" 8-bit game that can also be compiled on a multitude of 8-bit computers and consoles. 
+3. *Cross Bomber* is a third "universal" 8-bit game that can also be compiled on a multitude of 8-bit computers and consoles. 
 It is a mini-game and clone of Air Attack (aka Blitz). So it requires much less memory than "Cross Chase".
 Its code is almost entirely in a single file. It uses pre-shifted tiles to produce smoother movements on graphics-enabled targets.
-5. *Cross Snake* is a fourth "universal" 8-bit game. 
+4. *Cross Snake* is a fourth "universal" 8-bit game. 
 Its size is similar to Cross Chase and can be run on an unexpanded Commodore 16 or a Commodore Vic 20 with +8k memory expansion.
 It a my personal re-interpretation of Nibbler (arcade game) to which I have added more game elements.
 
@@ -65,7 +67,7 @@ For most vintage systems (more than 200 different systems and sub-systems), you 
 In principle you can compile the game in turn-based mode with minimal input and output (*stdlib*) for any architecture for which there is an ANSI C capable compiler.
 You can also compile the game in action mode with minimal input and output for any architecture for which there an ANCI C compiler with *ncurses* or *conio* libraries.
 
-For a complete list of the supported systems and their statuslook at:
+For a complete list of the supported systems and their status look at:
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/STATUS.md
 
 

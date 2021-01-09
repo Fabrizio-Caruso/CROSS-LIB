@@ -1,0 +1,70 @@
+
+// https://www.msx.org/wiki/Category:VDP_Registers
+
+#include "8x8_chars.h"
+
+#include "udg_map.h"
+
+#include "memory_mapped_graphics.h"
+
+
+void set_group_color(uint8_t group, uint8_t color)
+{
+	DISPLAY_POKE((uint16_t) COLOR_DEF + (uint16_t) group, ((uint16_t) color)<<4);
+}
+
+
+const uint8_t dollar[8] = {16, 62, 32, 60,  4,124,  8,  0}; 
+
+void set_udg_colors(void)
+{
+	uint8_t i;
+	
+	set_group_color(0,9);
+	set_group_color(1,7);
+	set_group_color(2,9);
+	set_group_color(3,11);
+	set_group_color(4,10);
+	set_group_color(5,2);
+	set_group_color(6,4);
+	set_group_color(7,4);
+	
+	for(i=8;i<=11;++i)
+	{
+		set_group_color(i,8);
+	}
+}
+
+void redefine(const uint8_t ch, const uint8_t* image) 
+{ 
+    uint8_t i; 
+    
+    for(i=0;i<8;++i) 
+    { 
+        DISPLAY_POKE(CHAR_BASE +(uint16_t)(ch<<3)+i,image[i]); 
+    } 
+} 
+
+
+void SET_UDG_IMAGES(void) 
+{ 
+	uint8_t i;
+    
+	for (i = 0; i < sizeof(redefine_map) / sizeof(*redefine_map); ++i) 
+	{ 
+	   redefine(redefine_map[i].ascii, redefine_map[i].bitmap); 
+	} 
+}
+
+
+void INIT_GRAPHICS(void)
+{
+    
+    SET_UDG_IMAGES();
+    
+    redefine(0x24, dollar);
+
+    set_udg_colors();  
+}
+
+

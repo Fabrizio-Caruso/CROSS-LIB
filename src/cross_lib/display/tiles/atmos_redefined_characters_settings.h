@@ -79,7 +79,7 @@
 #define _TILE_6 _TILE_6_OFFSET
 
 #define _TILE_12_OFFSET '|'
-#define _TILE_13_OFFSET '-'
+#define _TILE_13_OFFSET 0x26
 
 #define _TILE_12 _TILE_12_OFFSET
 #define _TILE_13 _TILE_13_OFFSET
@@ -98,7 +98,6 @@
     #define _TILE_17 (_TILE_17_OFFSET + _TILE_17_COLOR)
 #endif
 
-#define _TILE_0_B (_TILE_0 + _INVERTED)
 
 #if !defined(_TILE_10_COLOR)
     #define _TILE_10 (_TILE_10_OFFSET + _INVERTED) 
@@ -106,7 +105,6 @@
     #define _TILE_10 (_TILE_10_OFFSET + _TILE_10_COLOR)
 #endif
 
-#define _TILE_7_B (_TILE_7 + _INVERTED)
 
 #if !defined(_TILE_18_COLOR)
     #define _TILE_18 (_TILE_18_OFFSET + _INVERTED)
@@ -114,16 +112,18 @@
     #define _TILE_18 (_TILE_18_OFFSET + _TILE_18_COLOR)
 #endif
 
-#define _TILE_4_B (_TILE_4 + _INVERTED)
 
 #define _TILE_15_OFFSET '<'
 #define _TILE_14_OFFSET '>'
 #define _TILE_16_OFFSET 0x23
 
-#define _TILE_5_B 'X'
 
 #define _TILE_14 _TILE_14_OFFSET
 #define _TILE_15 _TILE_15_OFFSET
 #define _TILE_16 _TILE_16_OFFSET
 
 
+// #define _TILE_0_B (_TILE_0 + _INVERTED)
+// #define _TILE_4_B (_TILE_4 + _INVERTED)
+// #define _TILE_5_B 'X'
+// #define _TILE_7_B (_TILE_7 + _INVERTED)

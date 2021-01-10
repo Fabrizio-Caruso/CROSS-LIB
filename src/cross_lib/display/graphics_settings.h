@@ -4,6 +4,8 @@
 
 #  if defined(MEMORY_MAPPED)
 	#include "memory_mapped_graphics.h"
+#elif defined(CREATIVISION_COLOR)
+	#include "creativision_color_graphics.h"
 #elif defined(NES_CONIO)
 	#include "nes_conio_graphics.h"
 #elif defined(COMX_COLOR)

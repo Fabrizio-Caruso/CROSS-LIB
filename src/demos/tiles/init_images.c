@@ -53,7 +53,6 @@ void INIT_IMAGES(void)
 {
 	// Set color data 
 	#if !defined(NO_COLOR)
-
         PLAYER_DOWN_IMAGE._color = _PLAYER_COLOR;
         PLAYER_UP_IMAGE._color = _PLAYER_COLOR;
         PLAYER_RIGHT_IMAGE._color = _PLAYER_COLOR;
@@ -61,7 +60,7 @@ void INIT_IMAGES(void)
 
 
         BOMB_IMAGE._color = _BOMB_COLOR;
-        GHOST_IMAGE._color = _GHOST_COLOR;		
+        GHOST_IMAGE._color = _GHOST_COLOR;
 
         DEAD_GHOST_IMAGE._color = _DEAD_GHOST_COLOR;
 
@@ -73,22 +72,22 @@ void INIT_IMAGES(void)
         BULLET_IMAGE._color = _BULLET_COLOR;
 
         VERTICAL_BRICK_IMAGE._color = _BRICK_COLOR;
-        HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;			
+        HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;
 
-        RIGHT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;		
+        RIGHT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;
         LEFT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;
 
         ROCKET_IMAGE._color = _ROCKET_COLOR;
 
         FREEZE_IMAGE._color = _FREEZE_COLOR;
-        EXTRA_LIFE_IMAGE._color = _EXTRA_LIFE_COLOR;
+        // EXTRA_LIFE_IMAGE._color = _EXTRA_LIFE_COLOR;
 
         INVINCIBILITY_IMAGE._color = _INVINCIBILITY_COLOR;
         SUPER_IMAGE._color = _SUPER_COLOR;
-        CONFUSE_IMAGE._color = _CONFUSE_COLOR;
-        SUICIDE_IMAGE._color = _SUICIDE_COLOR;
+        // CONFUSE_IMAGE._color = _CONFUSE_COLOR;
+        // SUICIDE_IMAGE._color = _SUICIDE_COLOR;
 
-        BROKEN_BRICK_IMAGE._color = _BROKEN_BRICK_COLOR;
+        // BROKEN_BRICK_IMAGE._color = _BROKEN_BRICK_COLOR;
         
         EXTRA1_IMAGE._color = _PLAYER_COLOR;
         EXTRA2_IMAGE._color = _PLAYER_COLOR;
@@ -98,7 +97,7 @@ void INIT_IMAGES(void)
         EXTRA6_IMAGE._color = _PLAYER_COLOR;
     
     
-	#endif	
+	#endif
 
 	// Set Image Data
     PLAYER_DOWN_IMAGE._imageData = _TILE_0;
@@ -134,14 +133,7 @@ void INIT_IMAGES(void)
     FREEZE_IMAGE._imageData = _TILE_17;
     SUPER_IMAGE._imageData = _TILE_18;
 
-    EXTRA_LIFE_IMAGE._imageData = _TILE_0_B;
     INVINCIBILITY_IMAGE._imageData = _TILE_10;
-
-
-    CONFUSE_IMAGE._imageData = _TILE_7_B;
-    SUICIDE_IMAGE._imageData = _TILE_4_B;
-
-    BROKEN_BRICK_IMAGE._imageData = _TILE_5_B;
     
     EXTRA1_IMAGE._imageData = _TILE_19;
     EXTRA2_IMAGE._imageData = _TILE_20;

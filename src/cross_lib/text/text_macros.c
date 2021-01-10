@@ -13,22 +13,22 @@
 
 
 	#if !defined(NO_TEXT_COLOR)
-		#if defined(__ATMOS__)
-			#include <peekpoke.h>
-			void printCenteredMessageOnRowWithCol(uint8_t row, uint8_t col, char *Text)
-			{
-				POKE(0xBB80+3+(row)*40,16);POKE(0xBB80+3+1+(row)*40,col);
-				printCenteredMessageOnRow(row, Text);
-				POKE(0xBB80+35+(row)*40,16);POKE(0xBB80+35+1+(row)*40,3);
-			}			
-		#else	
+		// #if defined(__ATMOS__)
+			// #include <peekpoke.h>
+			// void printCenteredMessageOnRowWithCol(uint8_t row, uint8_t col, char *Text)
+			// {
+				// POKE(0xBB80+3+(row)*40,16);POKE(0xBB80+3+1+(row)*40,col);
+				// printCenteredMessageOnRow(row, Text);
+				// POKE(0xBB80+35+(row)*40,16);POKE(0xBB80+35+1+(row)*40,3);
+			// }			
+		// #else	
 			void printCenteredMessageOnRowWithCol(uint8_t row, uint8_t col, char *Text)
 			{
 				SET_TEXT_COLOR(col);
 				printCenteredMessageOnRow(row, Text);
 			}
 					
-		#endif
+		// #endif
 	#endif
 
 #endif

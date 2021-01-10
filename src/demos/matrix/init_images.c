@@ -54,7 +54,7 @@ void INIT_IMAGES(void)
 
 
         BOMB_IMAGE._color = _BOMB_COLOR;
-        GHOST_IMAGE._color = _GHOST_COLOR;		
+        GHOST_IMAGE._color = _GHOST_COLOR;
 
         DEAD_GHOST_IMAGE._color = _DEAD_GHOST_COLOR;
 
@@ -66,9 +66,9 @@ void INIT_IMAGES(void)
         BULLET_IMAGE._color = _BULLET_COLOR;
 
         VERTICAL_BRICK_IMAGE._color = _BRICK_COLOR;
-        HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;			
+        HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;
 
-        RIGHT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;		
+        RIGHT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;
         LEFT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;
 
         ROCKET_IMAGE._color = _ROCKET_COLOR;
@@ -88,7 +88,7 @@ void INIT_IMAGES(void)
     PLAYER_DOWN_IMAGE._imageData = _TILE_0;
     PLAYER_UP_IMAGE._imageData = _TILE_1;
     PLAYER_RIGHT_IMAGE._imageData = _TILE_2;
-    PLAYER_LEFT_IMAGE._imageData = _TILE_3;	
+    PLAYER_LEFT_IMAGE._imageData = _TILE_3;
 
 
     GHOST_IMAGE._imageData = _TILE_4;
@@ -118,14 +118,7 @@ void INIT_IMAGES(void)
     FREEZE_IMAGE._imageData = _TILE_17;
     SUPER_IMAGE._imageData = _TILE_18;
 
-    EXTRA_LIFE_IMAGE._imageData = _TILE_0_B;
     INVINCIBILITY_IMAGE._imageData = _TILE_10;
-
-
-    CONFUSE_IMAGE._imageData = _TILE_7_B;
-    SUICIDE_IMAGE._imageData = _TILE_4_B;
-
-    BROKEN_BRICK_IMAGE._imageData = _TILE_5_B;
 }
 
 

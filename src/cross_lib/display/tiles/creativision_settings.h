@@ -1,6 +1,6 @@
 
-#ifndef _CREATIVISION_REDEFINED_CHARS_SETTINGS
-#define _CREATIVISION_REDEFINED_CHARS_SETTINGS
+#ifndef _CREATIVISION_COLOR_REDEFINED_CHARS_SETTINGS
+#define _CREATIVISION_COLOR_REDEFINED_CHARS_SETTINGS
 
 // Still available:
 // 0x80-.... ?
@@ -48,7 +48,7 @@
 #define _TILE_15 ((uint8_t)0x7D)
 #define _TILE_16 ((uint8_t)0x60)
 
-// TODO: Change it to somwthing different
+// TODO: Change it to something different
 // #define _TILE_5_B _TILE_5
 #define _TILE_5_B (_TILE_12)
 
@@ -59,4 +59,5 @@
 #define _TILE_23 0x45
 #define _TILE_24 0x46
 
-#endif // _CREATIVISION_REDEFINED_CHARS_SETTINGS
+#endif // _CREATIVISION_COLOR_REDEFINED_CHARS_SETTINGS
+

@@ -106,7 +106,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	-DINITIAL_SLOWDOWN=31500 \
 	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
-	-DMEMORY_MAPPED \
+	-DATARI_MODE_1_COLOR -DINLINE_LOC \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
@@ -126,7 +126,7 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	-D__ATARI5200__ \
 	-DINITIAL_SLOWDOWN=31500 \
 	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
-	-DMEMORY_MAPPED \
+	-DATARI_MODE_1_COLOR -DINLINE_LOC \
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DSLOW_DOWN=200 \
@@ -307,9 +307,9 @@ oric1_48k: oric_atmos
 oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-t atmos \
-	-DALT_MOVE \
+	-DALT_MOVE -DFORCE_NARROW \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	-DMEMORY_MAPPED \
+	-DORIC_COLOR -DINLINE_LOC \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_atmos_and_oric1_48k.tap
@@ -608,7 +608,7 @@ mc1000_exp_48k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 msx: msx_32k_rom
 
-msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h 
+msx_32k_rom_fixed_colors: $(ASSETS_PATH)/8x8_chars.h 
 	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) -lmsxbios \
 	-DUSE_MSX_BIOS \
 	-DINITIAL_SLOWDOWN=29000 \
@@ -629,6 +629,24 @@ msx_32k_rom: $(ASSETS_PATH)/8x8_chars.h
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
 	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
 
+
+msx_32k_rom: $(ASSETS_PATH)/z88dk_xchase.asm
+	$(Z88DK_PATH)$(MYZ88DK) +msx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-DINITIAL_SLOWDOWN=29000 \
+	-DSOUNDS -DANIMATE_PLAYER \
+	-vn -DMSX_VPOKE -DFULL_GAME -D__MSX__ -DEND_SCREEN -DBETWEEN_LEVEL \
+	-lndos -subtype=rom \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_msx_32k.rom \
+	-DCONIO -DUDG_GRAPHICS \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=800 \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(CROSS_LIB_PATH)/sound/z88dk/psg/psg_sounds.c \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_msx_32k_DATA.bin
 
 #################################################################
 

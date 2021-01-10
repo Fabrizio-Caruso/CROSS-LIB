@@ -103,8 +103,8 @@ void INIT_IMAGES(void)
 
     THREE_WINDOW_WALL_2_IMAGE._imageData = _TILE_15;
 
-    TWO_WINDOW_WALL_2_IMAGE._imageData = _TILE_7_B;
-    SMALL_TWO_WINDOW_WALL_2_IMAGE._imageData = _TILE_4_B;
+    TWO_WINDOW_WALL_2_IMAGE._imageData = _TILE_7;
+    SMALL_TWO_WINDOW_WALL_2_IMAGE._imageData = _TILE_4;
 
     WALL_2_IMAGE._imageData = _TILE_11;
     

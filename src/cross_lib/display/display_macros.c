@@ -56,7 +56,8 @@ extern uint16_t BASE_ADDR;
     }
 #endif
 
-#if defined(MEMORY_MAPPED) && !defined(INLINE_LOC)
+#if !defined(INLINE_LOC) && \
+    (defined(CREATIVISION_COLOR) || defined(MEMORY_MAPPED) || defined(ORIC_COLOR))
     uint16_t loc(uint8_t x, uint8_t y)
     {
         #if !defined(__CIDELSA__)

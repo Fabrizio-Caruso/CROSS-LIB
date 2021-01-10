@@ -55,7 +55,6 @@ void INIT_IMAGES(void)
 # if !defined(NO_GRAPHICS)
 	// Set color data 
 	#if !defined(NO_COLOR)
-		
 		#if defined(ANIMATE_PLAYER)
 			PLAYER_DOWN_IMAGE._color = _PLAYER_COLOR;
 			PLAYER_UP_IMAGE._color = _PLAYER_COLOR;
@@ -80,11 +79,11 @@ void INIT_IMAGES(void)
 			BULLET_IMAGE._color = _BULLET_COLOR;
 			
 			VERTICAL_BRICK_IMAGE._color = _BRICK_COLOR;
-			HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;			
+			HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;
 		#endif
 		
 		#if defined(FULL_GAME)
-			RIGHT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;		
+			RIGHT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;
 			LEFT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;
 			
 			ROCKET_IMAGE._color = _ROCKET_COLOR;
@@ -141,13 +140,13 @@ void INIT_IMAGES(void)
         FREEZE_IMAGE._imageData = _TILE_17;
         SUPER_IMAGE._imageData = _TILE_18;
 
-		EXTRA_LIFE_IMAGE._imageData = _TILE_0_B;
+		EXTRA_LIFE_IMAGE._imageData = _TILE_0;
 		INVINCIBILITY_IMAGE._imageData = _TILE_10;
         
-        CONFUSE_IMAGE._imageData = _TILE_7_B;
-        ZOMBIE_IMAGE._imageData = _TILE_4_B;
+        CONFUSE_IMAGE._imageData = _TILE_7;
+        ZOMBIE_IMAGE._imageData = _TILE_4;
 		
-		BROKEN_BRICK_IMAGE._imageData = _TILE_5_B;
+		BROKEN_BRICK_IMAGE._imageData = _TILE_5;
 	#endif
 #endif 
 }

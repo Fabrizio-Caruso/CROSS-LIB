@@ -1,6 +1,8 @@
 
 #  if defined(__C64__)
 	#include "c64_memory_mapped_settings.h"
+#elif defined(__CREATIVISION__) && defined(CREATIVISION_COLOR) && defined(REDEFINED_CHARS)
+    #include "creativision_color_settings.h"
 #elif defined(__CREATIVISION__) && defined(REDEFINED_CHARS)
     #include "creativision_settings.h"
 #elif defined(__VIC20__) && defined(VIC20_EXP_3K) && !defined(REDEFINED_CHARS)
@@ -27,7 +29,7 @@
 	#include "atari_mode1_redefined_chars_settings.h"
 #elif defined(__ATARI5200__)
 	#include "atari_mode1_redefined_chars_settings.h"
-#elif defined(__ATMOS__)
+#elif defined(__ATMOS__) && !defined(NO_UDG)
 	#include "atmos_redefined_characters_settings.h"
 #elif defined(Z88DK_SPRITES) 
 	#include "udg_settings.h"

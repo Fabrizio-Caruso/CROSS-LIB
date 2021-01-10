@@ -28,31 +28,32 @@
 
 #if defined(ONLY_SMALL_LETTERS)
     #if defined(TINY_TEXT)
-        #define CROSS_SHOOT_STRING "cross shoot"
+        #define CROSS_SHOOT_STRING "cross" _XL_SPACE "shoot"
         #define CROSS_SHOOT_SHORT_STRING CROSS_SHOOT_STRING
-        #define AUTHOR_STRING "fabrizio caruso"
+        #define AUTHOR_STRING "fabrizio" _XL_SPACE "caruso"
     #else
-        #define CROSS_SHOOT_STRING "c r o s s  s h o o t"    
-        #define CROSS_SHOOT_SHORT_STRING "cross shoot"
-        #define AUTHOR_STRING "by fabrizio caruso"
+        #define CROSS_SHOOT_STRING \
+            "c" _XL_SPACE "r" _XL_SPACE "o" _XL_SPACE "s" _XL_SPACE "s" _XL_SPACE _XL_SPACE "s" _XL_SPACE "h" _XL_SPACE "o" _XL_SPACE "o" _XL_SPACE "t"
+        #define CROSS_SHOOT_SHORT_STRING "cross" _XL_SPACE "shoot"
+        #define AUTHOR_STRING "by" _XL_SPACE "fabrizio" _XL_SPACE "caruso"
     #endif
-    #define KILL_THE_SKULLS_STRING "kill the skulls"
-    #define KILL_THE_BOSS "kill the boss"
-    #define DESTROY_MISSILES_STRING "destroy the missiles"
-    #define LURE_THE_ENEMIES_STRING "kill all enemies"
-    #define INTO_THE_MINES_STRING     ""
-    #define SCORE_STRING "score "
+    #define KILL_THE_SKULLS_STRING "kill" _XL_SPACE "the" _XL_SPACE "skulls"
+    #define KILL_THE_BOSS "kill" _XL_SPACE "the" _XL_SPACE "boss"
+    #define DESTROY_MISSILES_STRING "destroy" _XL_SPACE "the" _XL_SPACE "missiles"
+    #define LURE_THE_ENEMIES_STRING "kill" _XL_SPACE "all" _XL_SPACE "enemies"
+    #define INTO_THE_MINES_STRING ""
+    #define SCORE_STRING "score" _XL_SPACE
     #define LEVEL_STRING "level"
-    #define GAME_COMPLETED_STRING "game completed"
-    #define SECRET_LEVEL_FOUND_STRING "secret level found"
-    #define SECRET_FOUND_STRING "secret found"
-    #define EMPTY_STRING        "            "
+    #define GAME_COMPLETED_STRING "game" _XL_SPACE "completed"
+    #define SECRET_LEVEL_FOUND_STRING "secret" _XL_SPACE "level" _XL_SPACE "found"
+    #define SECRET_FOUND_STRING "secret" _XL_SPACE "found"
+    #define EMPTY_STRING        _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE _XL_SPACE
     #define START_LEVEL_STRING "level"
-    #define USE_THE_GUN_AGAINST_STRING "shoot at"
-    #define THE_SKULL_AND_STRING "the skulls and"
-    #define MISSILE_BASES_STRING "missile bases"
-    #define FOR_POINTS_AND___STRING "for points"
-    #define EXTRA_POWERUPS__STRING "and items"
+    #define USE_THE_GUN_AGAINST_STRING "shoot" _XL_SPACE "at"
+    #define THE_SKULL_AND_STRING "the" _XL_SPACE "skulls" _XL_SPACE "and"
+    #define MISSILE_BASES_STRING "missile" _XL_SPACE "bases"
+    #define FOR_POINTS_AND___STRING "for" _XL_SPACE "points"
+    #define EXTRA_POWERUPS__STRING "and" _XL_SPACE "items"
 #elif defined(__PC6001__)
     #define CROSS_SHOOT_STRING "C R O S S  S H O O T"        
     #define CROSS_SHOOT_SHORT_STRING "CROSS SHOOT"
@@ -104,7 +105,7 @@
 #endif
 
 #if defined(JOYSTICK_CONTROL) || defined(__MSX__) || defined(__CPC_JOYSTICK__)
-    #define USE_STRING "use the joystick"
+    #define USE_STRING "use" _XL_SPACE "the" _XL_SPACE "joystick"
 #elif !defined(TINY_TEXT)        
     #if !defined(__PC6001__)
         #define USE_STRING "use i j k l space"
@@ -125,28 +126,28 @@
         #define DISCOVERED_SECRETS_STRING "secrets"
         #define OF_STRING "of " 
         #define GAME_OVER_STRING "game over"
-        #define YOU_MADE_IT_STRING "the end"        
+        #define YOU_MADE_IT_STRING "the end"
     #else
         #define PRESS_STRING "GO"    
         #define DISCOVERED_SECRETS_STRING "SECRETS"
         #define OF_STRING "OF " 
         #define GAME_OVER_STRING "GAME OVER"
-        #define YOU_MADE_IT_STRING "THE END"        
+        #define YOU_MADE_IT_STRING "THE END"
     #endif
 #else
     #if defined(ONLY_SMALL_LETTERS)
         #if defined(JOYSTICK_CONTROL) || defined(__MSX__)
-            #define PRESS_STRING "press fire"
+            #define PRESS_STRING "press" _XL_SPACE "fire"
         #else
             #define PRESS_STRING "press a key"
         #endif
         #define DISCOVERED_SECRETS_STRING "secrets"
-        #define OF_STRING "of " 
-        #define GAME_OVER_STRING "game over"
-        #define DEFEAT_STRING "you lost"
-        #define VICTORY_STRING "you won"
-        #define EXTRA_LIFE_STRING "extra life"
-        #define YOU_MADE_IT_STRING "you made it"
+        #define OF_STRING "of" _XL_SPACE 
+        #define GAME_OVER_STRING "game" _XL_SPACE "over"
+        #define DEFEAT_STRING "you" _XL_SPACE "lost"
+        #define VICTORY_STRING "you" _XL_SPACE "won"
+        #define EXTRA_LIFE_STRING "extra" _XL_SPACE "life"
+        #define YOU_MADE_IT_STRING "you" _XL_SPACE "made" _XL_SPACE "it"
     #else
         #if defined(JOYSTICK_CONTROL) || defined(__MSX__)
             #define PRESS_STRING "PRESS FIRE"
@@ -165,8 +166,8 @@
 
 #if defined(ONLY_SMALL_LETTERS)
     #define BONUS_STRING "bonus "
-    #define SCORE_STRING "score "
-    #define HIGH_SCORE_STRING "hiscore "
+    #define SCORE_STRING "score" _XL_SPACE
+    #define HIGH_SCORE_STRING "hiscore" _XL_SPACE
 #else
     #define BONUS_STRING "BONUS "
     #define SCORE_STRING "SCORE "

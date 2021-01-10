@@ -3,25 +3,17 @@
 
 #include "standard_libs.h"
 
-	#define BASE_ADDR 0xBB80
-
+#define BASE_ADDR 0xBB80
 
 
 #define DISPLAY_POKE(addr,val) (*(uint8_t*) (addr) = (val))
-
-#if defined(__TMC600__)
-    #include <devkit/video/vis_video.h>
-    #define COLOR_POKE(addr,val) setcolor(addr,val)
-#else
-    #define COLOR_POKE(addr, val) DISPLAY_POKE(addr,val)
-#endif
 
 
 #define _XLIB_DRAW_TILE(x,y,tile,color) \
     DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), (tile)+(color));
 
 #define __DRAW(x,y,image) \
-    DISPLAY_POKE((uint16_t) loc(x,y), (image)->_imageData);
+    DISPLAY_POKE((uint16_t) loc(x,y), ((image)->_imageData) + ((image)->_color));
 
 #define __DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
 

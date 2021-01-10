@@ -246,7 +246,7 @@
             #endif
         #endif
         
-        #ifndef COLOR_RED
+        #if !defined(COLOR_RED) && defined(Z88DK)
             #define COLOR_GREEN GREEN
             #define COLOR_CYAN CYAN
             #define COLOR_MAGENTA MAGENTA
@@ -284,16 +284,6 @@
     #endif
 #endif // defined(NO_GRAPHICS)
 
-#define CPC_WHITE 1
-#define CPC_YELLOW 2 
-#define CPC_RED 3
-#define CPC_BLACK 4
-
-#define CPC_TEXT_WHITE 3
-#define CPC_TEXT_RED 4
-#define CPC_TEXT_BLACK 7
-#define CPC_TEXT_YELLOW 0
-
 #if defined(NO_GRAPHICS) || defined(NO_PRINT)
     #if !defined(COLOR_RED)
         #define COLOR_RED 0
@@ -323,6 +313,17 @@
 
 
 #if defined(CPCRSLIB)
+
+    #define CPC_WHITE 1
+    #define CPC_YELLOW 2 
+    #define CPC_RED 3
+    #define CPC_BLACK 4
+
+    #define CPC_TEXT_WHITE 3
+    #define CPC_TEXT_RED 4
+    #define CPC_TEXT_BLACK 7
+    #define CPC_TEXT_YELLOW 0
+
     #undef COLOR_BLUE
     #define COLOR_BLUE CPC_WHITE
     
@@ -351,13 +352,13 @@
 #endif
 
 
-#if defined(ATARI_MODE_1_COLOR) || defined(__ATARI5200__)
+#define _ATARI_MODE1_RED 0
+#define _ATARI_MODE1_WHITE 64
+#define _ATARI_MODE1_CYAN 128
+#define _ATARI_MODE1_GREEN 128
+#define _ATARI_MODE1_YELLOW 192
 
-    #define _ATARI_MODE1_RED 0
-    #define _ATARI_MODE1_WHITE 64
-    #define _ATARI_MODE1_BLUE 128
-    #define _ATARI_MODE1_GREEN 128
-    #define _ATARI_MODE1_YELLOW 192
+#if defined(ATARI_MODE_1_COLOR) || defined(__ATARI5200__)
 
     #undef COLOR_RED
     #define COLOR_RED _ATARI_MODE1_RED
@@ -366,16 +367,25 @@
     #define COLOR_WHITE _ATARI_MODE1_WHITE
 
     #undef COLOR_BLUE
-    #define COLOR_BLUE _ATARI_MODE1_BLUE
+    #define COLOR_BLUE _ATARI_MODE1_CYAN
     
     #undef COLOR_YELLOW
     #define COLOR_YELLOW _ATARI_MODE1_YELLOW
     
     #undef COLOR_GREEN
-    #define COLOR_GREEN _ATARI_MODE1_GREEN
+    #if defined(ALTERNATE_COLORS)
+        #define COLOR_GREEN _ATARI_MODE1_GREEN
+    #else
+        #define COLOR_GREEN _ATARI_MODE1_YELLOW
+    #endif
     
-    #undef COLOR_CYAN
-    #define COLOR_CYAN _ATARI_MODE1_WHITE
+    #if defined(ALTERNATE_COLORS)
+        #undef COLOR_CYAN
+        #define COLOR_CYAN _ATARI_MODE1_WHITE
+    #else
+        #undef COLOR_CYAN
+        #define COLOR_CYAN _ATARI_MODE1_CYAN
+    #endif
 #endif
 
 #if defined(__NES__) && defined(NES_CONIO)
@@ -441,7 +451,7 @@
     #define COLOR_RED _ORIC_INVERSE
 
     #undef COLOR_WHITE
-    #define COLOR_WHITE _ORIC_INVERSE
+    #define COLOR_WHITE _ORIC_NORMAL
 
     #undef COLOR_BLUE
     #define COLOR_BLUE _ORIC_INVERSE
@@ -454,6 +464,47 @@
 
     #undef COLOR_CYAN
     #define COLOR_CYAN _ORIC_NORMAL
+
+#endif
+
+#if defined(CREATIVISION_COLOR)
+
+
+    #define _CREAT_WHITE 0
+    #define _CREAT_CYAN 32
+    #define _CREAT_RED 64
+    // #define _CREAT_YELLOW 96
+    // #define _CREAT_GREEN 128
+    #define _CREAT_YELLOW 0
+    #define _CREAT_GREEN 32
+    #define _CREAT_BLUE _CREAT_CYAN
+
+
+    // #define one_color 0
+    // #define _CREAT_WHITE one_color
+    // #define _CREAT_CYAN one_color
+    // #define _CREAT_RED one_color
+    // #define _CREAT_YELLOW one_color
+    // #define _CREAT_GREEN one_color
+    // #define _CREAT_BLUE _CREAT_CYAN
+
+    #undef COLOR_RED
+    #define COLOR_RED _CREAT_RED
+
+    #undef COLOR_WHITE
+    #define COLOR_WHITE _CREAT_WHITE
+
+    #undef COLOR_BLUE
+    #define COLOR_BLUE _CREAT_BLUE
+
+    #undef COLOR_YELLOW
+    #define COLOR_YELLOW _CREAT_YELLOW
+
+    #undef COLOR_GREEN
+    #define COLOR_GREEN _CREAT_GREEN
+
+    #undef COLOR_CYAN
+    #define COLOR_CYAN _CREAT_CYAN
 
 #endif
 

@@ -191,7 +191,7 @@ atari_color: $(ASSETS_PATH)/8x8_chars.h
 	-DINITIAL_SLOWDOWN=31500 \
 	-DANIMATE_PLAYER -DFULL_GAME -DATARI_MODE1 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/atari_mode1_redefined_chars.cfg \
-	-DMEMORY_MAPPED \
+	-DATARI_MODE_1_COLOR -DINLINE_LOC -DNO_SPACE_TEXT \
 	-DDEFAULT_CLEAR_SCREEN \
 	-DNO_SET_SCREEN_COLORS \
 	-DALT_PRINT \
@@ -216,7 +216,7 @@ atari_no_color:
 #######################################################################################
 # ATARI5200
 
-atari5200: $(ASSETS_PATH)/8x8_chars.h
+atari5200_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 \
 	--config $(CFG_PATH)/cc65/atari5200_redefined_chars.cfg \
 	-D__ATARI5200__ \
@@ -225,6 +225,22 @@ atari5200: $(ASSETS_PATH)/8x8_chars.h
 	-DMEMORY_MAPPED \
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
+	$(SOURCE_PATH)/end_screen.c \
+	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
+	$(FULL_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atari5200/atari5200_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_atari5200.rom
+
+atari5200: $(ASSETS_PATH)/8x8_chars.h
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari5200 \
+	--config $(CFG_PATH)/cc65/atari5200_redefined_chars_32k.cfg \
+	-D__ATARI5200__ \
+	-DINITIAL_SLOWDOWN=31500 \
+	-DFULL_GAME -DEND_SCREEN -DBETWEEN_LEVEL \
+	-DATARI_MODE_1_COLOR -DINLINE_LOC -DNO_SPACE_TEXT \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DSLOW_DOWN=200 \
 	$(SOURCE_PATH)/end_screen.c \
 	$(CROSS_LIB_PATH)/sound/cc65/pokey/pokey_sounds.c \
 	$(FULL_FILES) \
@@ -586,7 +602,7 @@ oric1_16k: $(ASSETS_PATH)/8x8_chars.h
 	-DSIMPLE_STRATEGY -DNO_HINTS -DFORCE_GHOSTS_NUMBER=8 \
 	-DNO_BLINKING \
 	-t atmos \
-	-DMEMORY_MAPPED \
+	-DORIC_COLOR \
 	-DALT_MOVE \
 	-DUSE_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
@@ -602,7 +618,7 @@ oric_atmos: $(ASSETS_PATH)/8x8_chars.h
 	-t atmos \
 	-DALT_MOVE \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
-	-DMEMORY_MAPPED \
+	-DORIC_COLOR -DINLINE_LOC \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
 	$(FULL_FILES) \
 	$(SOURCE_PATH)/end_screen.c \

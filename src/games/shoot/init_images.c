@@ -73,7 +73,7 @@ void INIT_IMAGES(void)
         BULLET_IMAGE._color = _BULLET_COLOR;
         
         VERTICAL_BRICK_IMAGE._color = _BRICK_COLOR;
-        HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;			
+        HORIZONTAL_BRICK_IMAGE._color = _BRICK_COLOR;
     
         RIGHT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;		
         LEFT_HORIZONTAL_MISSILE_IMAGE._color = _MISSILE_COLOR;
@@ -129,14 +129,14 @@ void INIT_IMAGES(void)
     FREEZE_IMAGE._imageData = _TILE_17;
     SUPER_IMAGE._imageData = _TILE_18;
 
-    EXTRA_LIFE_IMAGE._imageData = _TILE_0_B;
+    EXTRA_LIFE_IMAGE._imageData = _TILE_0;
     INVINCIBILITY_IMAGE._imageData = _TILE_10;
 
     
-    CONFUSE_IMAGE._imageData = _TILE_7_B;
-    SUICIDE_IMAGE._imageData = _TILE_4_B;
+    CONFUSE_IMAGE._imageData = _TILE_7;
+    SUICIDE_IMAGE._imageData = _TILE_4;
     
-    BROKEN_BRICK_IMAGE._imageData = _TILE_5_B;
+    BROKEN_BRICK_IMAGE._imageData = _TILE_5;
 #endif 
 }
 

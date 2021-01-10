@@ -123,8 +123,6 @@
     #if defined(NO_SPACE_TEXT)
         #if !defined(__ATARI__)
             #define _XL_SPACE "\xA0"
-        // #elif (defined(__COCO__) || defined(__DRAGON__)) && defined(BIT_MAPPED)
-            // #define _XL_SPACE ""
         #else
             #define _XL_SPACE "\x40"
         #endif

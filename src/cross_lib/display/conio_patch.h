@@ -470,15 +470,20 @@
 #if defined(CREATIVISION_COLOR)
 
 
-    #define _CREAT_WHITE 0
-    #define _CREAT_CYAN 32
-    #define _CREAT_RED 64
-    // #define _CREAT_YELLOW 96
-    // #define _CREAT_GREEN 128
-    #define _CREAT_YELLOW 0
-    #define _CREAT_GREEN 32
-    #define _CREAT_BLUE _CREAT_CYAN
+    // #define _CREAT_WHITE 0
+    // #define _CREAT_CYAN 32
+    // #define _CREAT_RED 64
+    // #define _CREAT_YELLOW 0
+    // #define _CREAT_GREEN 32
+    // #define _CREAT_BLUE _CREAT_CYAN
 
+    #define _CREAT_YELLOW 32
+    #define _CREAT_GREEN   0
+    #define _CREAT_WHITE  64
+    #define _CREAT_CYAN   96
+    #define _CREAT_RED   128
+
+    #define _CREAT_BLUE _CREAT_CYAN
 
     // #define one_color 0
     // #define _CREAT_WHITE one_color

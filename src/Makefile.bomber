@@ -345,7 +345,7 @@ creativision: creativision_16k
 
 # Segment 'BSS' overflows memory area 'RAM' by 40 bytes
 #  -m mapfile.txt
-creativision_16k: $(ASSETS_PATH)/8x8_chars.h
+creativision_16k_fixed_colors: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \
@@ -361,7 +361,7 @@ creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	rm $(BUILD_PATH)/X$(GAME_NAME)_creativision_16k.bin
 
 
-creativision_color: $(ASSETS_PATH)/8x8_chars.h
+creativision_16k: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t creativision \
 	-DNO_SET_SCREEN_COLORS -D__CREATIVISION__ -DREDEFINED_CHARS \
 	-DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN -DALT_SLEEP \

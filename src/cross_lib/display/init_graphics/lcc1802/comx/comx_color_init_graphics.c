@@ -11,11 +11,12 @@
     #define NINTH_DOLLAR_LINE
 #endif
 
-#define _DOLLAR_DEFINITION {0,8, 31, 16, 30,  2,62,  4,NINTH_DOLLAR_LINE}
+#define _DOLLAR_DEFINITION {0, 8, 31, 16, 30,  2, 62,  4, NINTH_DOLLAR_LINE}
 
-
-#if defined(__COMX__) || defined(__PECOM__) || (defined(__CIDELSA__) && defined(REDEFINED_CHARS))
+#if defined(__COMX__) || defined(__PECOM__) 
     #include "comx_color_settings.h"
+#elif defined(__CIDELSA__) && !defined(REDEFINED_CHARS)
+    // #include "cidelsa_no_gfx.h"
 #elif defined(__MICRO__)
     #include "micro_settings.h"
 #endif

@@ -441,7 +441,32 @@
         #undef COLOR_CYAN
         #define COLOR_CYAN _COMX_CYAN
     
-    
+    #elif defined(__CIDELSA__)
+        #define _COMX_BLUE 0
+        #define _COMX_GREEN 0
+        #define _COMX_CYAN 0
+        #define _COMX_PURPLE 0
+        #define _COMX_YELLOW 0
+        #define _COMX_WHITE  0
+
+        #undef COLOR_RED
+        #define COLOR_RED _COMX_PURPLE
+
+        #undef COLOR_WHITE
+        #define COLOR_WHITE _COMX_WHITE
+
+        #undef COLOR_BLUE
+        #define COLOR_BLUE _COMX_BLUE
+
+        #undef COLOR_YELLOW
+        #define COLOR_YELLOW _COMX_YELLOW
+
+        #undef COLOR_GREEN
+        #define COLOR_GREEN _COMX_GREEN
+
+        #undef COLOR_CYAN
+        #define COLOR_CYAN _COMX_CYAN
+        
     #else
         #define _COMX_BLUE 0
         #define _COMX_GREEN 1
@@ -497,14 +522,6 @@
 
 #if defined(CREATIVISION_COLOR)
 
-
-    // #define _CREAT_WHITE 0
-    // #define _CREAT_CYAN 32
-    // #define _CREAT_RED 64
-    // #define _CREAT_YELLOW 0
-    // #define _CREAT_GREEN 32
-    // #define _CREAT_BLUE _CREAT_CYAN
-
     #define _CREAT_YELLOW 32
     #define _CREAT_GREEN   0
     #define _CREAT_WHITE  64
@@ -512,14 +529,6 @@
     #define _CREAT_RED   128
 
     #define _CREAT_BLUE _CREAT_CYAN
-
-    // #define one_color 0
-    // #define _CREAT_WHITE one_color
-    // #define _CREAT_CYAN one_color
-    // #define _CREAT_RED one_color
-    // #define _CREAT_YELLOW one_color
-    // #define _CREAT_GREEN one_color
-    // #define _CREAT_BLUE _CREAT_CYAN
 
     #undef COLOR_RED
     #define COLOR_RED _CREAT_RED

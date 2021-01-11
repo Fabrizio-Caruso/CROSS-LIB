@@ -347,9 +347,8 @@ typedef struct ImageStruct Image;
         #include <ncurses.h>
     #endif
     #define CLEAR_SCREEN() clear()
-#elif defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__) || defined(__MICRO__)
+#elif (defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__) || defined(__MICRO__))
     #include <devkit/video/vis_video.h>
-    #include "memory_mapped_graphics.h"
     
     #define CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
 #elif defined(__MO5__)||defined(__TO7__)

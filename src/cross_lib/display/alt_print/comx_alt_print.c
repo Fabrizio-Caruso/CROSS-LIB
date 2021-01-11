@@ -3,8 +3,6 @@
 
 #include "standard_libs.h"
 
-#include "memory_mapped_graphics.h"
-
 #if !defined(NO_STATS)
 unsigned int strlen(char *str)
 {

@@ -1,3 +1,5 @@
+#ifndef _TILES_H
+#define _TILES_h
 
 #  if defined(__C64__)
 	#include "c64_memory_mapped_settings.h"
@@ -45,12 +47,12 @@
 	#include "nes_settings.h"
 #elif defined(__NES__) && defined(NES_CONIO)
 	#include "nes_conio_settings.h"
-#elif defined(COMX_COLOR)
+#elif defined(COMX_COLOR) && !defined(__MICRO__)
 	#include "comx_color_settings.h"
-#elif defined(__COMX__) || defined(__PECOM__) || (defined(__CIDELSA__) && defined(REDEFINED_CHARS))
+#elif defined(__COMX__) || defined(__PECOM__) || ((defined(__CIDELSA__) && defined(REDEFINED_CHARS)))
 	#include "comx_settings.h"
 #elif defined(__MICRO__)
-	#include "micro_settings.h"
+	// #include "micro_settings.h"
 #elif defined(UDG_GRAPHICS)
 	#include "udg_settings.h"
 #elif defined(__PCE__) || ( defined(__GAMATE__) && defined(REDEFINED_CHARS))
@@ -61,4 +63,6 @@
 	#include "default_image_settings.h"
 #endif 
 
+
+#endif // _TILES_H
 

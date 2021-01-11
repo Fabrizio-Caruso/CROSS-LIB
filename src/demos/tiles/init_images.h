@@ -23,6 +23,27 @@
 #define _CONFUSE_COLOR COLOR_RED
 #define _SUICIDE_COLOR COLOR_YELLOW
 
+// #define _PLAYER_COLOR 0
+// #define _GHOST_COLOR 0
+// #define _DEAD_GHOST_COLOR 0
+// #define _SKULL_COLOR 0
+// #define _BOMB_COLOR 0
+// #define _MISSILE_COLOR 0
+// #define _ROCKET_COLOR 0
+// #define _CALM_DOWN_COLOR 0
+// #define _FIRE_CHARGE_COLOR 0
+// #define _FREEZE_COLOR 0
+// #define _SUPER_COLOR 0
+// #define _GUN_COLOR 0
+// #define _BULLET_COLOR 0
+// #define _BRICK_COLOR 0
+// #define _BROKEN_BRICK_COLOR 0
+// #define _EXTRA_POINTS_COLOR 0
+// #define _EXTRA_LIFE_COLOR 0
+// #define _INVINCIBILITY_COLOR 0
+// #define _CONFUSE_COLOR 0
+// #define _SUICIDE_COLOR 0
+
 
 void INIT_IMAGES(void);
 

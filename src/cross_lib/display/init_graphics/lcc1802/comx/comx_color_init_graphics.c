@@ -1,16 +1,14 @@
 #include <devkit/video/vis_video.h>
 #include <devkit/system/system.h>
 
-#if defined(REDEFINED_CHARS)
-    #if !defined(NTSC)
-        #define NUMBER_OF_LINES 9
-        #define NINTH_DOLLAR_LINE 0 
-        #include "6x9_chars.h"
-    #else
-        #define NUMBER_OF_LINES 8
-        #include "6x8_chars.h"
-        #define NINTH_DOLLAR_LINE
-    #endif
+#if !defined(NTSC)
+    #define NUMBER_OF_LINES 9
+    #define NINTH_DOLLAR_LINE 0 
+    #include "6x9_chars.h"
+#else
+    #define NUMBER_OF_LINES 8
+    #include "6x8_chars.h"
+    #define NINTH_DOLLAR_LINE
 #endif
 
 #define _DOLLAR_DEFINITION {0,8, 31, 16, 30,  2,62,  4,NINTH_DOLLAR_LINE}
@@ -20,7 +18,6 @@
     #include "comx_color_settings.h"
 #elif defined(__MICRO__)
     #include "micro_settings.h"
-
 #endif
 
 #include "standard_libs.h"
@@ -60,8 +57,6 @@
        const uint8_t _ascii;
        const uint8_t _bitmap[9];
     } ;
-
-
 
 
 // {0,16, 62, 32, 60,  4,124,  8,  0}},
@@ -112,11 +107,6 @@ const struct redefine_struct redefine_map[] =
 
 #endif
 
-#if defined(MEMORY_MAPPED)
-    #include "memory_mapped_graphics.h"
-#elif defined(LCC1802_GRAPHICS)
-    #include "lcc1802_graphics.h"
-#endif
 
 void INIT_GRAPHICS(void)
 {

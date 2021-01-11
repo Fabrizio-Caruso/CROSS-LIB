@@ -460,7 +460,8 @@ micro: micro_pal2
 full_micro_pal2: comx
 
 micro_pal2: reduced_full_lcc1802_combo_no_sounds.c $(ASSETS_PATH)/6x9_chars.h
-	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS) -DLCC1802_GRAPHICS \
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS) \
+	-DLCC1802_GRAPHICS \
 	-D__MICRO__ \
 	-DFULL_GAME -DREDEFINED_CHARS \
 	-DNO_COLOR -DNO_TITLE_LINE \

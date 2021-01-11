@@ -415,31 +415,59 @@
 
 #if defined(COMX_COLOR)
 
-    #define _COMX_BLUE 0
-    #define _COMX_GREEN 1
-    #define _COMX_CYAN 2
-    #define _COMX_PURPLE (0+128)
-    #define _COMX_YELLOW (1+128)
-    #define _COMX_WHITE  (2+128) 
+    #if defined(__MICRO__) && !defined(NTSC)
+        #define _COMX_BLUE 0
+        #define _COMX_GREEN 0
+        #define _COMX_CYAN 0
+        #define _COMX_PURPLE 128
+        #define _COMX_YELLOW 128
+        #define _COMX_WHITE  128
 
-    #undef COLOR_RED
-    #define COLOR_RED _COMX_PURPLE
+        #undef COLOR_RED
+        #define COLOR_RED _COMX_PURPLE
 
-    #undef COLOR_WHITE
-    #define COLOR_WHITE _COMX_WHITE
+        #undef COLOR_WHITE
+        #define COLOR_WHITE _COMX_WHITE
 
-    #undef COLOR_BLUE
-    #define COLOR_BLUE _COMX_BLUE
+        #undef COLOR_BLUE
+        #define COLOR_BLUE _COMX_BLUE
 
-    #undef COLOR_YELLOW
-    #define COLOR_YELLOW _COMX_YELLOW
+        #undef COLOR_YELLOW
+        #define COLOR_YELLOW _COMX_YELLOW
 
-    #undef COLOR_GREEN
-    #define COLOR_GREEN _COMX_GREEN
+        #undef COLOR_GREEN
+        #define COLOR_GREEN _COMX_GREEN
 
-    #undef COLOR_CYAN
-    #define COLOR_CYAN _COMX_CYAN
+        #undef COLOR_CYAN
+        #define COLOR_CYAN _COMX_CYAN
+    
+    
+    #else
+        #define _COMX_BLUE 0
+        #define _COMX_GREEN 1
+        #define _COMX_CYAN 2
+        #define _COMX_PURPLE (0+128)
+        #define _COMX_YELLOW (1+128)
+        #define _COMX_WHITE  (2+128) 
 
+        #undef COLOR_RED
+        #define COLOR_RED _COMX_PURPLE
+
+        #undef COLOR_WHITE
+        #define COLOR_WHITE _COMX_WHITE
+
+        #undef COLOR_BLUE
+        #define COLOR_BLUE _COMX_BLUE
+
+        #undef COLOR_YELLOW
+        #define COLOR_YELLOW _COMX_YELLOW
+
+        #undef COLOR_GREEN
+        #define COLOR_GREEN _COMX_GREEN
+
+        #undef COLOR_CYAN
+        #define COLOR_CYAN _COMX_CYAN
+    #endif
 #endif
 
 #if defined(ORIC_COLOR)

@@ -22,61 +22,78 @@
 // 3. This notice may not be removed or altered from any source distribution.
 /* --------------------------------------------------------------------------------------- */ 
 
-#ifndef _COMX_COLOR_GRAPHICS_SETTINGS
-#define _COMX_COLOR_GRAPHICS_SETTINGS
+#ifndef _MICRO_COLOR_GRAPHICS_SETTINGS
+#define _MICRO_COLOR_GRAPHICS_SETTINGS
+
+#define PALETTE_SWITCH 0
+
 
 #define _TILE_0 0
 
-#define _TILE_1 3
+#define _TILE_1 27
 
-#define _TILE_2 6
+#define _TILE_3 29
 
-#define _TILE_3 9
-
-#define _TILE_4 12
-
-#define _TILE_5 15
-
-#define _TILE_6 18
-
-#define _TILE_7 21
-
-#define _TILE_8 24
-
-#define _TILE_9 27
-
-#define _TILE_10 33
-
-#define _TILE_11 39
-
-#define _TILE_12 42
-
-#define _TILE_13 58
-
-#define _TILE_14 91
-
-#define _TILE_15 94
-
-#define _TILE_16 97
-
-#define _TILE_17 100
-
-#define _TILE_18 103
-
-#define _TILE_19 106
-
-#define _TILE_20 109
-
-#define _TILE_21 112
-
-#define _TILE_22 115
-
-#define _TILE_23 118
-
-#define _TILE_24 121
-
-#define _DOLLAR_TILE 36
+#define _TILE_2 28
 
 
-#endif // _COMX_COLOR_GRAPHICS_SETTINGS
+
+// RED
+#define _TILE_5 (31)
+
+// WHITE
+#define _TILE_4 (30)
+//('p')
+
+#define _TILE_6 (33)
+
+
+// BLUE
+#define _TILE_9 46
+
+
+// YELLOW
+#define _TILE_7 (34)
+
+
+#define _DOLLAR_TILE ('$')
+
+// GREEN
+#define _TILE_8 35
+
+#define _TILE_17 44
+
+#define _TILE_18 (45)
+
+// CYAN
+#define _TILE_10 37
+#define _TILE_11 (38)
+
+#define _TILE_14 (41)
+
+#define _TILE_15 (42)
+
+#define _TILE_16 (43)
+
+#define _TILE_12 (39)
+ 
+
+#define _TILE_13 (40)
+
+#define _TILE_19 (47)
+#define _TILE_20 (58)
+
+#define _TILE_21 (59)
+
+#define _TILE_22 (60)
+
+#define _TILE_23 (61)
+#define _TILE_24 (62)
+
+// #define _TILE_0_B (_TILE_0)
+// #define _TILE_4_B 30
+// #define _TILE_5_B 31
+// #define _TILE_7_B 34
+
+#endif // _MICRO_COLOR_GRAPHICS_SETTINGS
 

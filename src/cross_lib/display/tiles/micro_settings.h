@@ -54,10 +54,8 @@
 
 // YELLOW
 #define _TILE_7 (34+PALETTE_SWITCH)
-#define _TILE_7_B 34
-#define _TILE_4_B 30
 
-#define _TILE_0_B (_TILE_0+PALETTE_SWITCH)
+
 #define _DOLLAR_TILE ('$'+PALETTE_SWITCH)
 
 // GREEN
@@ -82,8 +80,6 @@
 
 #define _TILE_13 (40+PALETTE_SWITCH)
 
-#define _TILE_5_B 31
-
 #define _TILE_19 (47)
 #define _TILE_20 (58)
 
@@ -93,6 +89,11 @@
 
 #define _TILE_23 (61)
 #define _TILE_24 (62)
+
+// #define _TILE_0_B (_TILE_0+PALETTE_SWITCH)
+// #define _TILE_4_B 30
+// #define _TILE_5_B 31
+// #define _TILE_7_B 34
 
 #endif // _MICRO_GRAPHICS_SETTINGS
 

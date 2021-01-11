@@ -858,11 +858,11 @@ MICROBOARD_PAL_2_OPTS ?= $(MICROBOARD_OPTS) "-DPAL=2"
 
 ################################################################################
 
-debug_lcc1802_targets: 
-	make comx_targets 
-	make pecom_targets 
-	make tmc600_targets
-	make cidelsa_targets
+# debug_lcc1802_targets: 
+	# make comx_targets 
+	# make pecom_targets 
+	# make tmc600_targets
+	# make cidelsa_targets
  
 ################################################################################
 
@@ -895,6 +895,19 @@ COMX_COLOR_EXTRA_FILES_WTIH_END_SCREEN ?= \
 	$(SOURCE_PATH)/end_screen.c 
 
 
+MICRO_COLOR_REDUCED_EXTRA_FILES ?= \
+	$(CROSS_LIB_PATH)/display/init_graphics/lcc1802/comx/micro_color_init_graphics.c \
+	$(CROSS_LIB_PATH)/display/alt_print/comx_alt_print.c 
+
+MICRO_COLOR_EXTRA_FILES ?= \
+	$(MICRO_COLOR_REDUCED_EXTRA_FILES) \
+	$(CROSS_LIB_PATH)/sleep/sleep_macros.c \
+	$(CROSS_LIB_PATH)/sound/lcc1802/comx/comx_sounds.c
+
+MICRO_COLOR_EXTRA_FILES_WTIH_END_SCREEN ?= \
+	$(MICRO_COLOR_EXTRA_FILES) \
+	$(SOURCE_PATH)/end_screen.c
+
 
 
 reduced_full_lcc1802_combo.c: full_combo_rand.c
@@ -908,6 +921,12 @@ reduced_full_lcc1802_color_combo.c: full_combo_rand.c
 	cat \
 	$(COMX_COLOR_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c \
 	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_color_combo.c
+	rm $(SOURCE_PATH)/../full_combo_rand.c
+
+reduced_full_lcc1802_micro_combo.c: full_combo_rand.c
+	cat \
+	$(MICRO_COLOR_REDUCED_EXTRA_FILES) $(CROSS_LIB_PATH)/rand/rand.c \
+	$(SOURCE_PATH)/../full_combo_rand.c > $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	rm $(SOURCE_PATH)/../full_combo_rand.c
 
 
@@ -1013,7 +1032,7 @@ comx: reduced_full_lcc1802_color_combo.c $(ASSETS_PATH)/6x9_chars.h
 
 micro: micro_pal2
 
-micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
+micro_pal2_fixed_colors: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
 	-D__MICRO__ \
 	-DFULL_GAME -DREDEFINED_CHARS \
@@ -1024,6 +1043,20 @@ micro_pal2: reduced_full_lcc1802_combo.c $(ASSETS_PATH)/6x9_chars.h
 	$(REDUCED_LCC1802_C_OPTS) \
 	$(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
 	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_combo.c
+	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
+
+
+micro_pal2: reduced_full_lcc1802_micro_combo.c $(ASSETS_PATH)/6x9_chars.h
+	$(LCC1802) $(INCLUDE_OPTS) -I$(SOURCE_PATH) $(MICROBOARD_PAL_2_OPTS)  \
+	-D__MICRO__ \
+	-DFULL_GAME -DREDEFINED_CHARS \
+	-DCOMX_COLOR -DNO_TITLE_LINE -DSLOW_DOWN=600 \
+	-DNO_BLINKING -DSOUNDS \
+	-DLCC1802_JOYSTICK \
+	-DANIMATE_PLAYER -DNINTH_CHAR_LINE \
+	$(LCC1802_COLOR_C_OPTS_NO_SOUNDS) \
+	$(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
+	rm -rf $(SOURCE_PATH)/../reduced_full_lcc1802_micro_combo.c
 	mv $(SOURCE_PATH)/../../a.hex $(BUILD_PATH)/X$(GAME_NAME)_$@.hex
 
 

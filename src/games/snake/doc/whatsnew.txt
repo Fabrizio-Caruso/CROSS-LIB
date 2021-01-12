@@ -7,5 +7,7 @@ Cross Snake 2.0
 - More rings to collect with visible effects after 3, 4 and 5 rings collected without dying
 - Improved levels (many more mines, some walls have been re-designed)
 - SECRET and OPEN00 strings shown when a secret is found and when the secret level is unlocked
+- New secret extra life item can be unlocked on bonus and secret levels
+
 
 

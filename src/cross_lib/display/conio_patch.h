@@ -415,7 +415,8 @@
 
 #if defined(COMX_COLOR)
 
-    #if defined(__MICRO__) && !defined(NTSC)
+    #if defined(__MICRO__) 
+    //&& (defined(PAL) && PAL==2)
         #define _COMX_BLUE 0
         #define _COMX_GREEN 0
         #define _COMX_CYAN 0

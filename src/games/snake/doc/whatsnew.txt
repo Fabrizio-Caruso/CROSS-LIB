@@ -6,5 +6,6 @@ Cross Snake 2.0
 - Achievements final screen: game ends with the number of different achievements and secrets obtained during the game
 - More rings to collect with visible effects after 3, 4 and 5 rings collected without dying
 - Improved levels (many more mines, some walls have been re-designed)
+- SECRET and OPEN00 strings shown when a secret is found and when the secret level is unlocked
 
 

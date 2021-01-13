@@ -93,6 +93,7 @@ cmoc_targets: \
 z88dk_targets: \
     ace \
     aquarius \
+    c128_z80_40col \
     c128_z80_80col \
     coleco \
     cpc \
@@ -1064,6 +1065,30 @@ aquarius_exp_16k:
 # -DSOUNDS 
 # -DFORCE_BIT_BANG 
 #################################################################
+
+#################################################################
+
+
+
+c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \
+	$(INCLUDE_OPTS) \
+	-lndos -subtype=disk \
+	-D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-DSOUNDS -DONLY_CAPITAL_LETTERS \
+	-DFORCE_BIT_BANG -DSLOW_DOWN=1600 \
+	-DCONIO -DFORCE_CONIO_LIB -DUDG_GRAPHICS \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	-create-app -oa40.bin
+	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40
+	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.d64
+	rm A40.LDR
+	rm A40
+	rm a40.bin
 
 c128_z80_80col: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -lgfx128hr \

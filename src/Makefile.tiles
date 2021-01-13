@@ -626,8 +626,7 @@ ace_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 c128_z80: c128_z80_40col
 
 c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm 
-	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS) -zorg=16384 \
-	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \
 	$(INCLUDE_OPTS) \
 	-lndos -subtype=disk \
 	-D__C128_Z80__ -DFORCE_XSIZE=40 \

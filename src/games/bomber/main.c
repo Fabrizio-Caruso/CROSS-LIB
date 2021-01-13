@@ -316,7 +316,10 @@ int main(void)
 
     INIT_GRAPHICS();
 
-    INIT_INPUT();    
+    INIT_INPUT();
+    
+    INIT_SOUND();
+    
     hiscore = 0;
 
 

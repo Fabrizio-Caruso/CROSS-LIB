@@ -94,7 +94,7 @@
 		#define ZAP_SOUND() 
 	#endif
     
-    #if defined(SOUNDS) && (defined(__MO5__) || defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__))
+    #if defined(SOUNDS) && (defined(__MO5__) || defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MSX__))
     //
     #else
         #define INIT_SOUND()

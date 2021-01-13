@@ -29,6 +29,10 @@
 
 #include <stdint.h>
 
+    #if defined(__MSX__)
+        void INIT_SOUND(void);
+    #endif
+
 	void _ping_sound(uint8_t freq);
 	#define PING_SOUND() _ping_sound(0xF0);	
 	#define TOCK_SOUND() _ping_sound(0x02);

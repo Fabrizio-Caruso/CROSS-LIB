@@ -82,7 +82,14 @@ Sel	Pulse
 #define ENV_PERIOD_HI 12
 
 #define ENV_WAVE 13
-		
+
+
+#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
+
+void INIT_SOUND(void)
+{
+    POKE(0xF3DB,0);
+}
 
 void ZAP_SOUND(void) 
 {

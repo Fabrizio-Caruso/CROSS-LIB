@@ -268,6 +268,8 @@ int main(void)
 
     INIT_INPUT();
 
+    INIT_SOUND();
+
     highScore = 0;
     
     while(1)

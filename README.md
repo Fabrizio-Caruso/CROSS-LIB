@@ -274,7 +274,7 @@ You can also catch special items that will help in your quest:
 You can play the game online:
 
 1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_snake_2_0
-2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_vic20_exp_16k.prg
+2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_vic20_exp_16k.prg
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_c64.prg
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosssnake
 

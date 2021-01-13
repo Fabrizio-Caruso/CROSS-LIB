@@ -201,7 +201,7 @@ You can play the game online for different systems:
 2. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_chase_32k_v0_9
 3. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=fabrizio-caruso/FULL_XChase_vic20_exp_16k.prg
 4. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/I8080/Xchase_c64.prg
-5. MSX version: https://homebrew.file-hunter.com/index.php?id=crosschase
+5. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosschase
 6. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
 7. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_chase
 
@@ -226,7 +226,8 @@ You can play the gamne online:
 1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_shoot
 2. Commodore VIC 20: https://nippur72.github.io/vic20-emu/?joy=1&load=fabrizio-caruso/FULL_XShoot_vic20_exp_16k
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_c64.prg 
-4. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_shoot
+4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossshoot
+5. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_shoot
 
 
 
@@ -244,7 +245,8 @@ You can play the game online:
 1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_bomber
 2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=fabrizio-caruso/FULL_Xbomber_vic20_exp_8k
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_c64.prg
-4. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_bomber
+4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossbomber
+5. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_bomber
 
 
 -------------------------------------------
@@ -274,6 +276,7 @@ You can play the game online:
 1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_snake_2_0
 2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_vic20_exp_16k.prg
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_c64.prg
+4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosssnake
 
 -------------------------------------------
 

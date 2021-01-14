@@ -347,6 +347,23 @@ oric_atmos: $(ASSETS_PATH)/6x8_chars.h
 	-o $(BUILD_PATH)/X$(GAME_NAME)_atmos_and_oric1_48k.tap
 
 
+#################################################################
+
+
+supervision: $(ASSETS_PATH)/cc65_udc.s 
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t supervision  \
+	--config $(CFG_PATH)/cc65/supervision-16k_GFX_3.cfg \
+	$(ASSETS_PATH)/cc65_udc.s \
+	-DALT_PRINT   -DNO_SLEEP \
+	-DBIT_MAPPED_4 $(LIGHT_DRAW_SKIP) \
+	-DDEFAULT_CLEAR_SCREEN  -DSLOW_DOWN=1000 -DNO_COLOR \
+	-DANIMATE_PLAYER -DNO_EXTRA_TITLE \
+	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	$(FULL_ONLY_FILES) \
+	--code-name CODE0 \
+	$(LIGHT_FILES) \
+	$(CROSS_LIB_PATH)/display/init_graphics/cc65/supervision/supervision_init_graphics.c \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_supervision.sv
 
 #################################################################
 

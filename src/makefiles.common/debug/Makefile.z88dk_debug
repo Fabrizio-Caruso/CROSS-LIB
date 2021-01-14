@@ -400,3 +400,42 @@ cpc_sound_test:
 	rm basic.rom
 	rm $(BUILD_PATH)/SOUND_cpc.cpc 
 
+
+spectrum_bitbang:
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DFULL_GAME \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=200 \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__SPECTRUM__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg \
+	$(SOURCE_PATH)/../../test/bitbang.c \
+
+	rm $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg
+	rm $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k_BANK_7.bin
+
+c128_bitbang: 
+	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \
+	$(INCLUDE_OPTS) \
+	-lndos -subtype=disk \
+	-D__C128_Z80__ -DFORCE_XSIZE=40 \
+	-DSOUNDS \
+	-DFORCE_BIT_BANG \
+	-DCONIO -DFORCE_CONIO_LIB -DUDG_GRAPHICS \
+	$(SOURCE_PATH)/../../test/bitbang.c \
+	-create-app -oa40.bin
+	$(TOOLS_PATH)/generic/c1541 -format "crosschase,0" d64 FULL_c128_z80_40col.d64
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40.ldr
+	$(TOOLS_PATH)/generic/c1541 -attach FULL_c128_z80_40col.d64 -write a40
+	mv FULL_c128_z80_40col.d64 $(BUILD_PATH)/X$(GAME_NAME)_c128_z80_40col.d64
+	rm A40.LDR
+	rm A40
+	rm a40.bin

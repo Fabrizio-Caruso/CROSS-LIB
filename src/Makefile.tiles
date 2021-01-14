@@ -658,6 +658,27 @@ c128_z80_40col: $(ASSETS_PATH)/z88dk_xchase.asm
 	rm A40
 	rm a40.bin
 
+spectrum_bitbang:
+	$(Z88DK_PATH)$(MYZ88DK) +zx $(SCCZ80_OPTS) $(INCLUDE_OPTS) \
+	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib.inc \
+	-pragma-redirect:getk=getk_inkey \
+	-DFULL_GAME \
+	-DANIMATE_PLAYER \
+	-DSOUNDS \
+	-DZ88DK_JOYSTICK \
+	-DSLOW_DOWN=200 \
+	-DEND_SCREEN -DBETWEEN_LEVEL \
+	-D__SPECTRUM__ \
+	-lndos -create-app \
+	-DCONIO \
+	-DUDG_GRAPHICS \
+	-pragma-redirect:fputc_cons=fputc_cons_generic \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg \
+	$(SOURCE_PATH)/../../test/bitbang.c \
+
+	rm $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k.prg
+	rm $(BUILD_PATH)/X$(GAME_NAME)_spectrum_48k_BANK_7.bin
+
 c128_bitbang: 
 	$(Z88DK_PATH)$(MYZ88DK) +c128 $(SCCZ80_OPTS)  \
 	$(INCLUDE_OPTS) \

@@ -454,7 +454,7 @@ zx81_16k:
 
 
 zx81_32k_wrx_turn_based: $(ASSETS_PATH)/z88dk_sprites_definitions.h
-	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -subtype=wrx -clib=wrx \
+	$(Z88DK_PATH)$(MYZ88DK) +zx81 $(SCCZ80_OPTS) -O3 -subtype=wrx -clib=wrx \
 	$(INCLUDE_OPTS) \
 	-pragma-include:$(CFG_PATH)/z88dk/zpragma_clib_no_printf.inc \
 	-pragma-define:hrgpage=36096 \

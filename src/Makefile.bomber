@@ -282,7 +282,20 @@ c64_exomized: $(ASSETS_PATH)/cc65_udc.s
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
 	# rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 
+#################################################################
 
+gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
+	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t gamate   --config $(CFG_PATH)/cc65/gamate_reduced_stack.cfg \
+	-DFULL_GAME -DSLOW_DOWN=1200 -DANIMATE_PLAYER -DREDEFINED_CHARS \
+	-DINITIAL_SLOWDOWN=31500 -DNO_EXTRA_TITLE \
+	-DLESS_TEXT \
+	-DCONIO -DNO_INIT_GRAPHICS \
+	-DSIMPLE_STRATEGY -DNO_HINTS -DNO_BLINKING -DNO_SET_SCREEN_COLORS -DNO_COLOR \
+	$(FULL_FILES) \
+	$(ASSETS_PATH)/cc65_gamate_tiles.s \
+	-o $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+	$(TOOLS_PATH)/cc65/gamate/gamate-fixcart $(BUILD_PATH)/X$(GAME_NAME)_gamate.bin
+    
 #################################################################
 
 # Graphics for fire power and ghost needs to be updated

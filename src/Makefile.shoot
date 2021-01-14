@@ -86,6 +86,7 @@ cc65_targets: \
     oric  \
     nes \
     pce \
+    supervision \
     vic20 
 
 

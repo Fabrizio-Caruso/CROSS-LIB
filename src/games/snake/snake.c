@@ -7,7 +7,7 @@
 
 void draw_head(void)
 {
-    _XLIB_DRAW_TILE(snake_x[snake_head],snake_y[snake_head],head_tile,COLOR_GREEN);
+    _XLIB_DRAW_TILE(snake_x[snake_head],snake_y[snake_head],head_tile,_XL_GREEN);
 }
 
 void delete_body_part(uint8_t i)
@@ -18,7 +18,7 @@ void delete_body_part(uint8_t i)
 
 void draw_body_part(uint8_t i)
 {
-    _XLIB_DRAW_TILE(snake_x[i],snake_y[i],BODY_TILE,COLOR_GREEN);
+    _XLIB_DRAW_TILE(snake_x[i],snake_y[i],BODY_TILE,_XL_GREEN);
     map[snake_x[i]][snake_y[i]] = DEADLY;
 }
 

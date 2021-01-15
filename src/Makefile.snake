@@ -312,7 +312,6 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
 nes: $(ASSETS_PATH)/cc65_nes_color_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
-	-DNO_COLOR \
 	-DNES_CONIO -DSLOW_DOWN=8000 \
 	-DANIMATE_PLAYER \
 	-DDEFAULT_CLEAR_SCREEN \
@@ -605,9 +604,9 @@ NO_UDG_OPS              ?= $(CMOC_OPTS) -DMEMORY_MAPPED -DNO_INIT_GRAPHICS -DNO_
 
 GFX_OPTS                ?= $(CMOC_OPTS) -DBIT_MAPPED -DALT_PRINT -DSLOW_DOWN=2500
 
-COCO_OPTS               ?= -D__COCO__ $(NO_UDG_OPS)
+COCO_OPTS               ?= -D__COCO__ $(NO_UDG_OPS) -DNO_COLOR
 
-COCO_GFX_OPTS           ?= -D__COCO__ $(GFX_OPTS)
+COCO_GFX_OPTS           ?= -D__COCO__ $(GFX_OPTS) -DNO_COLOR
 
 COCO_COMPILE_OPTS       ?= $(COCO_OPTS)
 
@@ -1286,7 +1285,7 @@ cpm_z80_adm3a:
 	$(Z88DK_PATH)$(MYZ88DK) +cpm $(SCCZ80_OPTS) \
 	$(INCLUDE_OPTS) \
 	-DSLOW_DOWN=3000 \
-	-DCONIO_ADM3A \
+	-DCONIO_ADM3A -DNO_COLOR \
 	-D__CPM_80X24__ \
 	 -DLESS_TEXT -DNO_WAIT \
 	-DCONIO -DNO_INIT_GRAPHICS \

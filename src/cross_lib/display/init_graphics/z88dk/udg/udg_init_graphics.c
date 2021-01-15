@@ -74,7 +74,7 @@ void INIT_GRAPHICS(void)
 	#elif defined(__SPECTRUM__)
 	printf("\x01\x20");
     zx_border(0);
-    textbackground(COLOR_BLACK);
+    textbackground(_XL_BLACK);
 	#endif
     
     // #if defined(__CPC__) && !defined(CPCRSLIB)

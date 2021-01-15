@@ -74,7 +74,8 @@
     #define TITLE_LINE()
 #else
     #define TITLE_Y 1
-    #define TITLE_LINE() PRINT(XSize-11,+0,  "-----------")
+    #define TITLE_LINE() 
+    //PRINT(XSize-11,+0,  "-----------")
 #endif
 
 
@@ -82,10 +83,10 @@
     #define PRINT_WIDE_TITLE() \
         do \
         { \
-            SET_COLOR(COLOR_CYAN); \
+            SET_COLOR(_XL_CYAN); \
             PRINT(0, +0,   SCORE_STRING); \
             \
-            SET_COLOR(COLOR_RED); \
+            SET_COLOR(_XL_RED); \
             PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
         } while(0)
 
@@ -93,11 +94,11 @@
     #define PRINT_WIDE_TITLE() \
         do \
         { \
-            SET_COLOR(COLOR_CYAN); \
+            SET_COLOR(_XL_CYAN); \
             PRINT(0, +0,   SCORE_STRING); \
             PRINT(0, LEVEL_Y, LEVEL_STRING); \
             \
-            SET_COLOR(COLOR_RED); \
+            SET_COLOR(_XL_RED); \
             TITLE_LINE(); \
             PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
         } while(0)

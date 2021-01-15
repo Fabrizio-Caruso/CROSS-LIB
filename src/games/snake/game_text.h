@@ -27,11 +27,11 @@
     { \
         uint8_t i; \
         show_intro_snake(); \
-        _XLIB_DRAW_TILE(XSize/4+XSize/2,YSize/8+5,APPLE_TILE,COLOR_RED); \
+        _XLIB_DRAW_TILE(XSize/4+XSize/2,YSize/8+5,APPLE_TILE,_XL_RED); \
         for(i=0;i<NUMBER_OF_STRINGS;++i) \
         { \
             _XLIB_DRAW_TILE(XSize/2-6,YSize/8+8+2*i, images[NUMBER_OF_STRINGS-i], image_colors[NUMBER_OF_STRINGS-i]); \
-            SET_TEXT_COLOR(COLOR_WHITE); \
+            SET_TEXT_COLOR(_XL_WHITE); \
             PRINT(XSize/2-4,YSize/8+8+2*i, strings[NUMBER_OF_STRINGS-1-i] ); \
         } \
     }
@@ -39,18 +39,18 @@
     #define extra_title() \
     { \
         show_intro_snake(); \
-        _XLIB_DRAW_TILE(XSize/4+XSize/2,YSize/8+5,APPLE_TILE,COLOR_RED); \
+        _XLIB_DRAW_TILE(XSize/4+XSize/2,YSize/8+5,APPLE_TILE,_XL_RED); \
     }
 #endif
 
 #define title() \
     CLEAR_SCREEN(); \
-    _XLIB_DRAW_TILE(XSize/2-3,0,HI_TEXT_TILE,COLOR_RED); \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    _XLIB_DRAW_TILE(XSize/2-3,0,HI_TEXT_TILE,_XL_RED); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     PRINTD(XSize/2-2,0,5,record); \
-    SET_TEXT_COLOR(COLOR_RED); \
+    SET_TEXT_COLOR(_XL_RED); \
     printCenteredMessageOnRow(YSize/8, _CROSS_SNAKE_STRING); \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     printCenteredMessageOnRow(YSize/8+2, _Fabrizio_Caruso_STRING); \
     extra_title(); \
     PRESS_KEY();

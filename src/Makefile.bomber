@@ -302,8 +302,6 @@ gamate: $(ASSETS_PATH)/cc65_gamate_tiles.s
 nes: $(ASSETS_PATH)/cc65_nes_color_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t nes \
 	--config $(CFG_PATH)/cc65/nes_fx.cfg \
-	-DFULL_GAME \
-	-DBETWEEN_LEVEL -DEND_SCREEN \
 	-DNES_CONIO \
 	-DANIMATE_PLAYER \
 	-DDEFAULT_CLEAR_SCREEN \

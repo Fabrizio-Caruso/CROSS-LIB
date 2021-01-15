@@ -68,7 +68,7 @@ void set_secret(uint8_t *secret_ptr)
     if(!(*secret_ptr))
     {
         (*secret_ptr)=1;
-        SET_TEXT_COLOR(COLOR_CYAN);
+        SET_TEXT_COLOR(_XL_CYAN);
         PRINT(SECRET_X,YSize-1,_SECRET_STRING);
         SHOOT_SOUND();
     }
@@ -93,17 +93,17 @@ const uint8_t images[] = {
 
 const uint8_t image_colors[] = {
     0, 
-    COLOR_CYAN, 
-    COLOR_CYAN, 
-    COLOR_WHITE, 
-    COLOR_YELLOW, 
-    COLOR_RED,
-    COLOR_GREEN,
+    _XL_CYAN, 
+    _XL_CYAN, 
+    _XL_WHITE, 
+    _XL_YELLOW, 
+    _XL_RED,
+    _XL_GREEN,
     0,
-    COLOR_YELLOW, 
-    COLOR_YELLOW, 
-    COLOR_YELLOW, 
-    COLOR_YELLOW,
+    _XL_YELLOW, 
+    _XL_YELLOW, 
+    _XL_YELLOW, 
+    _XL_YELLOW,
     };
 
 #define transparent_vertical_wall_level()   (((level&15)==3)||((level&15)==6)||((level&15)==9)||((level&15)==14))
@@ -231,7 +231,7 @@ void DRAW_MAP_BORDERS(void)
 void DRAW_MINE(uint8_t x, uint8_t y)
 {
     // _XLIB_DRAW(x,y,&MINE_IMAGE);
-    _XLIB_DRAW_TILE(x,y,MINE_TILE, COLOR_CYAN);
+    _XLIB_DRAW_TILE(x,y,MINE_TILE, _XL_CYAN);
 
     map[x][y] = DEADLY;
 }
@@ -338,7 +338,7 @@ void build_level(void)
                             for(k=0;k<20;++k)
                             {
                                 // _XLIB_DRAW(x+1+rand()%(length-2),y,&CENTRAL_BRICK_IMAGE);
-                                _XLIB_DRAW_TILE(x+1+rand()%(length-2),y,CENTRAL_BRICK_TILE, COLOR_YELLOW);
+                                _XLIB_DRAW_TILE(x+1+rand()%(length-2),y,CENTRAL_BRICK_TILE, _XL_YELLOW);
                             }
                         }
                         #endif
@@ -367,8 +367,8 @@ void display_horizontal_transition_mine(uint8_t x, uint8_t y)
 {
     // _XLIB_DRAW(x-1,y,&LEFT_MINE_IMAGE);
     // _XLIB_DRAW(x,y,&RIGHT_MINE_IMAGE);
-    _XLIB_DRAW_TILE(x-1,y,LEFT_MINE_TILE, COLOR_CYAN);
-    _XLIB_DRAW_TILE(x,y,RIGHT_MINE_TILE, COLOR_CYAN);
+    _XLIB_DRAW_TILE(x-1,y,LEFT_MINE_TILE, _XL_CYAN);
+    _XLIB_DRAW_TILE(x,y,RIGHT_MINE_TILE, _XL_CYAN);
 }
 
 void handle_horizontal_mine(register uint8_t index)
@@ -445,8 +445,8 @@ void display_vertical_transition_mine(uint8_t x, uint8_t y)
 {
     // _XLIB_DRAW(x,y-1,&UP_MINE_IMAGE);
     // _XLIB_DRAW(x,y,&DOWN_MINE_IMAGE);
-    _XLIB_DRAW_TILE(x,y-1,UP_MINE_TILE,COLOR_CYAN);
-    _XLIB_DRAW_TILE(x,y,DOWN_MINE_TILE,COLOR_CYAN);
+    _XLIB_DRAW_TILE(x,y-1,UP_MINE_TILE,_XL_CYAN);
+    _XLIB_DRAW_TILE(x,y,DOWN_MINE_TILE,_XL_CYAN);
 }
 
 
@@ -650,7 +650,7 @@ void handle_transparent_horizontal_wall(void)
     CLEAR_SCREEN(); \
     if(!level) \
     { \
-        SET_TEXT_COLOR(COLOR_YELLOW); \
+        SET_TEXT_COLOR(_XL_YELLOW); \
         PRINT(XSize/2-4,YSize/2, _SECRET_STRING); \
     } \
     else if(!(level&3)) \
@@ -660,7 +660,7 @@ void handle_transparent_horizontal_wall(void)
             build_box_wall(XSize/2-5,YSize/2,10,1,EXTRA); \
         } \
     } \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     PRINT(XSize/2-4,YSize/2+2,       _LEVEL_STRING); \
     PRINTD(XSize/2-4+6,YSize/2+2,2,level); \
     WAIT_PRESS();
@@ -712,10 +712,10 @@ void one_up(void)
     DISPLAY_LIVES();
     PING_SOUND();
     // _XLIB_DRAW(XSize-2,0,&HORIZONTAL_HEAD_IMAGE);
-    _XLIB_DRAW_TILE(XSize-2,0,HORIZONTAL_HEAD_TILE,COLOR_GREEN);
+    _XLIB_DRAW_TILE(XSize-2,0,HORIZONTAL_HEAD_TILE,_XL_GREEN);
     DO_SLOW_DOWN(SLOW_DOWN*5);
     // _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE);
-    _XLIB_DRAW_TILE(XSize-2,0,VERTICAL_HEAD_TILE, COLOR_GREEN);
+    _XLIB_DRAW_TILE(XSize-2,0,VERTICAL_HEAD_TILE, _XL_GREEN);
 
     PING_SOUND();
 }
@@ -769,7 +769,7 @@ void one_up(void)
     snake_grows(); \
     increase_points(RING_POINTS<<coin_count); \
     ZAP_SOUND(); \
-    _XLIB_DRAW_TILE(XSize-6+coin_count,YSize-1,RING_TILE,COLOR_WHITE); \
+    _XLIB_DRAW_TILE(XSize-6+coin_count,YSize-1,RING_TILE,_XL_WHITE); \
     if(coin_count>=2) \
     { \
         set_secret(&third_coin_achievement); \
@@ -785,7 +785,7 @@ void one_up(void)
         if(secret_level_never_activated) \
         { \
             secret_level_active = 1; \
-            SET_TEXT_COLOR(COLOR_RED); \
+            SET_TEXT_COLOR(_XL_RED); \
             PRINT(OPEN_X,OPEN_Y,_XL_O _XL_P _XL_E _XL_N "00"); \
         } \
     } \
@@ -947,16 +947,16 @@ void magic_wall(void)
 #define handle_no_energy() \
     if(!energy) \
     { \
-        SET_TEXT_COLOR(COLOR_RED); \
+        SET_TEXT_COLOR(_XL_RED); \
         printCenteredMessageOnRow(YSize/2, _NO_ENERGY_STRING); \
         break; \
     }
 
 #define handle_level_cleared() \
-    SET_TEXT_COLOR(COLOR_RED); \
+    SET_TEXT_COLOR(_XL_RED); \
     printCenteredMessageOnRow(YSize/2, _CLEARED_STRING); \
     level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<3) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2); \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     printCenteredMessageOnRow(YSize/2+2, _BONUS_STRING); \
     PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
 
@@ -987,7 +987,7 @@ void magic_wall(void)
     CLEAR_SCREEN(); \
     build_box_wall(0,1,XSize-2,YSize-2,APPLE); \
     show_intro_snake(); \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     printCenteredMessageOnRow(YSize/8+3, _THE_END_STRING);
 
 #define handle_lost_life() \
@@ -1021,13 +1021,13 @@ void magic_wall(void)
 #define initialize_map() \
 { \
     DRAW_MAP_BORDERS(); \
-    _XLIB_DRAW_TILE(XSize-2,0,VERTICAL_HEAD_TILE,COLOR_GREEN); \
-    _XLIB_DRAW_TILE(0,0,SCORE_TEXT_LEFT_TILE,COLOR_GREEN); \
-    _XLIB_DRAW_TILE(1,0,SCORE_TEXT_RIGHT_TILE,COLOR_GREEN); \
-    _XLIB_DRAW_TILE(XSize-10+HISCORE_OFFSET,0,HI_TEXT_TILE, COLOR_GREEN); \
-    _XLIB_DRAW_TILE(8,0,APPLE_TILE,COLOR_RED); \
-    _XLIB_DRAW_TILE(0,YSize-1,LV_TEXT_TILE,COLOR_GREEN); \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    _XLIB_DRAW_TILE(XSize-2,0,VERTICAL_HEAD_TILE,_XL_GREEN); \
+    _XLIB_DRAW_TILE(0,0,SCORE_TEXT_LEFT_TILE,_XL_GREEN); \
+    _XLIB_DRAW_TILE(1,0,SCORE_TEXT_RIGHT_TILE,_XL_GREEN); \
+    _XLIB_DRAW_TILE(XSize-10+HISCORE_OFFSET,0,HI_TEXT_TILE, _XL_GREEN); \
+    _XLIB_DRAW_TILE(8,0,APPLE_TILE,_XL_RED); \
+    _XLIB_DRAW_TILE(0,YSize-1,LV_TEXT_TILE,_XL_GREEN); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     DISPLAY_LIVES(); \
     PRINTD(1,YSize-1,2,level); \
     DISPLAY_REMAINING_APPLES_COUNT(); \
@@ -1048,7 +1048,7 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
 {
     uint8_t i;
     
-    SET_TEXT_COLOR(COLOR_WHITE);
+    SET_TEXT_COLOR(_XL_WHITE);
     PRINT(ACHIEVEMENTS_X_OFFSET+5,row,_XL_O _XL_F);
     PRINTD(ACHIEVEMENTS_X_OFFSET+8,row,2,max);
     for(i=0;i<=achievements;++i)
@@ -1066,14 +1066,14 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
     if(points>record) \
     { \
         record = points; \
-        SET_TEXT_COLOR(COLOR_RED); \
+        SET_TEXT_COLOR(_XL_RED); \
         PRINT(ACHIEVEMENTS_X_OFFSET+9,ACHIEVEMENTS_Y_OFFSET, _XL_R _XL_E _XL_C _XL_O _XL_R _XL_D); \
     }
 
 #define DISPLAY_RINGS() \
 { \
-    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, RING_TILE, COLOR_WHITE); \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, RING_TILE, _XL_WHITE); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     PRINTD(ACHIEVEMENTS_X_OFFSET+5,ACHIEVEMENTS_Y_OFFSET+3,3,rings); \
 }
 
@@ -1083,13 +1083,13 @@ void display_stats(void)
     
     CLEAR_SCREEN();
     
-    SET_TEXT_COLOR(COLOR_GREEN);
+    SET_TEXT_COLOR(_XL_GREEN);
     printCenteredMessageOnRow(ACHIEVEMENTS_Y_OFFSET-2, _XL_A _XL_C _XL_H _XL_I _XL_E _XL_V _XL_E _XL_M _XL_E _XL_N _XL_T _XL_S);
     
-    SET_TEXT_COLOR(COLOR_WHITE);
+    SET_TEXT_COLOR(_XL_WHITE);
     PRINTD(ACHIEVEMENTS_X_OFFSET+3,ACHIEVEMENTS_Y_OFFSET,5,points);
-    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET,SCORE_TEXT_LEFT_TILE,COLOR_GREEN);
-    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET+1,ACHIEVEMENTS_Y_OFFSET,SCORE_TEXT_RIGHT_TILE, COLOR_GREEN);
+    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET,SCORE_TEXT_LEFT_TILE,_XL_GREEN);
+    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET+1,ACHIEVEMENTS_Y_OFFSET,SCORE_TEXT_RIGHT_TILE, _XL_GREEN);
 
     handle_record();
     
@@ -1123,7 +1123,7 @@ void display_stats(void)
     lives+=(!secret_level_never_activated)+third_coin_achievement+fourth_coin_achievement;
     
     
-    SET_TEXT_COLOR(COLOR_YELLOW);
+    SET_TEXT_COLOR(_XL_YELLOW);
     PRINT(ACHIEVEMENTS_X_OFFSET+2,ACHIEVEMENTS_Y_OFFSET+7,_SECRET_STRING _XL_S);
 
     display_achievements(ACHIEVEMENTS_Y_OFFSET+9,lives, 50);
@@ -1134,13 +1134,13 @@ void display_stats(void)
     }
     --level;
 
-    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET, ACHIEVEMENTS_Y_OFFSET+14,LV_TEXT_TILE,COLOR_GREEN);    
+    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET, ACHIEVEMENTS_Y_OFFSET+14,LV_TEXT_TILE,_XL_GREEN);    
     display_achievements(ACHIEVEMENTS_Y_OFFSET+14,level,32);
     
     
     if(!secret_level_never_activated)
     {
-        SET_TEXT_COLOR(COLOR_RED);
+        SET_TEXT_COLOR(_XL_RED);
         PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+16,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
     }
 }

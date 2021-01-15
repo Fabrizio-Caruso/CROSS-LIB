@@ -110,16 +110,17 @@ extern Image PLAYER_IMAGE;
 	#define TITLE_LINE()
 #else
 	#define TITLE_Y 1
-	#define TITLE_LINE() PRINT(XSize-11,+0,  "-----------")
+	#define TITLE_LINE() 
+    //PRINT(XSize-11,+0,  "-----------")
 #endif
 
 
 #define PRINT_WIDE_TITLE() \
-	SET_COLOR(COLOR_CYAN); \
+	SET_COLOR( _XL_CYAN); \
 	PRINT(0,       0, SCORE_STRING); \
 	PRINT(0, LEVEL_Y, LEVEL_STRING); \
 	\
-	SET_COLOR(COLOR_RED); \
+	SET_COLOR( _XL_RED); \
 	TITLE_LINE(); \
 	PRINT(XSize-11,TITLE_Y,TITLE_LINE_STRING);	
 
@@ -246,12 +247,12 @@ void displayStats(void)
 #if !defined(LESS_TEXT)
 	void printExtraLife(void)
 	{
-		printCenteredMessageWithCol(COLOR_RED, EXTRA_LIFE_STRING); 
+		printCenteredMessageWithCol(_XL_RED, EXTRA_LIFE_STRING); 
 	}
 
 	void printVictoryMessage(void)
 	{
-		printCenteredMessageWithCol(COLOR_RED, VICTORY_STRING);
+		printCenteredMessageWithCol(_XL_RED, VICTORY_STRING);
 	}	
 #endif
 
@@ -259,7 +260,7 @@ void displayStats(void)
 #if !defined(LESS_TEXT)	
 	void printDefeatMessage(void)
 	{			
-		printCenteredMessageWithCol(COLOR_RED, DEFEAT_STRING);
+		printCenteredMessageWithCol(_XL_RED, DEFEAT_STRING);
 	}	
 #endif
 	
@@ -267,7 +268,7 @@ void displayStats(void)
 #if !defined(NO_MESSAGE)
 	void printGameOver(void)
 	{
-		printCenteredMessageWithCol(COLOR_RED, GAME_OVER_STRING);
+		printCenteredMessageWithCol(_XL_RED, GAME_OVER_STRING);
 	}	
 #endif
 
@@ -298,13 +299,13 @@ void displayStats(void)
 	#if defined(FULL_GAME) && !defined(NO_HINTS)
 	void _printCrossChase(void)
 	{
-		printCenteredMessageOnRowWithCol(CROSS_CHASE_Y, COLOR_RED,  CROSS_CHASE_STRING);		
+		printCenteredMessageOnRowWithCol(CROSS_CHASE_Y, _XL_RED,  CROSS_CHASE_STRING);		
 		SET_COLOR(TEXT_COLOR);
 		
 	}
 	#else
 		#define _printCrossChase() \
-			printCenteredMessageOnRowWithCol(CROSS_CHASE_Y, COLOR_RED,  CROSS_CHASE_STRING);	\
+			printCenteredMessageOnRowWithCol(CROSS_CHASE_Y, _XL_RED,  CROSS_CHASE_STRING);	\
 			SET_COLOR(TEXT_COLOR);	
 	#endif
 #endif
@@ -339,7 +340,7 @@ void displayStats(void)
 		#if !defined(TINY_GAME) && !defined(NO_TITLE_INFO)
 			_printTopScore();
 			
-			SET_COLOR(COLOR_CYAN);
+			SET_COLOR(_XL_CYAN);
 			
 			printCenteredMessageOnRow(AUTHOR_Y+1*INTERLINE+EXTRA_Y,  LURE_THE_ENEMIES_STRING);
 			printCenteredMessageOnRow(AUTHOR_Y+2*INTERLINE+EXTRA_Y,  INTO_THE_MINES_STRING);			

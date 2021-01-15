@@ -273,11 +273,11 @@ typedef struct ImageStruct Image;
     #define CPC_TEXT_YELLOW 0
 
     #define SET_TEXT_COLOR(c) \
-    if(c==COLOR_WHITE) \
+    if(c==_XL_WHITE) \
     { \
         textcolor(CPC_TEXT_WHITE); \
     } \
-    else if(c==COLOR_RED) \
+    else if(c==_XL_RED) \
     { \
         textcolor(CPC_TEXT_RED); \
     } \

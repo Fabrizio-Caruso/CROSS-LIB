@@ -43,7 +43,7 @@
 #endif
 
 
-#define WALL_COLOR COLOR_YELLOW
+#define WALL_COLOR _XL_YELLOW
 
 #if !defined(NO_WALL)
     #define DRAW_BORDERS() \

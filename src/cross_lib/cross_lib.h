@@ -95,11 +95,11 @@
 #if defined(__GAMATE__)
 	#define TEXT_COLOR 3
 #elif defined(__PC6001__) && FORCE_SCREEN_MODE==2
-	#define TEXT_COLOR COLOR_YELLOW
+	#define TEXT_COLOR _XL_YELLOW
 #elif defined(__SPC1000__) 
-	#define TEXT_COLOR COLOR_BLUE
+	#define TEXT_COLOR _XL_BLUE
 #else
-	#define TEXT_COLOR COLOR_WHITE
+	#define TEXT_COLOR _XL_WHITE
 #endif
 
 
@@ -107,6 +107,8 @@
 #include "input_macros.h"
 
 #include "display_target_color.h"
+
+#include "color_definitions.h"
 
 #include "sound_macros.h"
 

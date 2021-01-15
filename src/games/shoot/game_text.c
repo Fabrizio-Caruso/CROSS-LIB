@@ -130,7 +130,7 @@ void printFirePowerStats(void)
     }
     else
     {
-        SET_COLOR(COLOR_RED);
+        SET_COLOR(_XL_RED);
     }
     #endif
     
@@ -230,12 +230,12 @@ void displayScoreStats(void)
 #if !defined(LESS_TEXT)
     void printExtraLife(void)
     {
-        printCenteredMessageWithCol(COLOR_RED, EXTRA_LIFE_STRING); 
+        printCenteredMessageWithCol(_XL_RED, EXTRA_LIFE_STRING); 
     }
 
     void printVictoryMessage(void)
     {
-        printCenteredMessageWithCol(COLOR_RED, VICTORY_STRING);
+        printCenteredMessageWithCol(_XL_RED, VICTORY_STRING);
     }    
 #endif
 
@@ -243,7 +243,7 @@ void displayScoreStats(void)
 #if !defined(LESS_TEXT)    
     void printDefeatMessage(void)
     {            
-        printCenteredMessageWithCol(COLOR_RED, DEFEAT_STRING);
+        printCenteredMessageWithCol(_XL_RED, DEFEAT_STRING);
     }    
 #endif
     
@@ -251,7 +251,7 @@ void displayScoreStats(void)
 #if !defined(NO_MESSAGE)
     void printGameOver(void)
     {
-        printCenteredMessageWithCol(COLOR_RED, GAME_OVER_STRING);
+        printCenteredMessageWithCol(_XL_RED, GAME_OVER_STRING);
     }    
 #endif
 
@@ -260,7 +260,7 @@ void displayScoreStats(void)
 
 void _printCrossShoot(void)
 {
-    printCenteredMessageOnRowWithCol(3, COLOR_RED,  CROSS_SHOOT_STRING);        
+    printCenteredMessageOnRowWithCol(3, _XL_RED,  CROSS_SHOOT_STRING);        
     SET_COLOR(TEXT_COLOR);
     
 }
@@ -294,7 +294,7 @@ void _printCrossShoot(void)
         #if !defined(NO_TITLE_INFO)
             _printTopScore();
             
-            SET_COLOR(COLOR_CYAN);
+            SET_COLOR(_XL_CYAN);
             
             printCenteredMessageOnRow((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
             printCenteredMessageOnRow((YSize>>1)+1, INTO_THE_MINES_STRING);
@@ -353,7 +353,7 @@ void printAchievements(void)
     
     foundSecrets = countDiscoveredSecrets();
     
-    SET_COLOR(COLOR_RED);    
+    SET_COLOR(_XL_RED);    
 
     PRINT(1, (YSize>>1)-4,  HIGH_SCORE_STRING);
 
@@ -365,9 +365,9 @@ void printAchievements(void)
     }
     else
     {
-        SET_COLOR(COLOR_YELLOW);
+        SET_COLOR(_XL_YELLOW);
         PRINT(1, (YSize>>1), GAME_COMPLETED_STRING);
-        SET_COLOR(COLOR_RED);    
+        SET_COLOR(_XL_RED);    
     }
     PRINT(1, (YSize>>1)+2,  DISCOVERED_SECRETS_STRING);
     
@@ -402,7 +402,7 @@ void printAchievements(void)
     SHORT_SLEEP(10);
     if(secretLevelActivated)
     {
-        SET_COLOR(COLOR_YELLOW);    
+        SET_COLOR(_XL_YELLOW);    
         PRINT(1, (YSize>>1)+4, SECRET_LEVEL_FOUND_STRING);
     }
 

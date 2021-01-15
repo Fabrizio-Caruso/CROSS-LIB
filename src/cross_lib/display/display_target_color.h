@@ -19,7 +19,7 @@
     || defined(__TRS80__) || defined(__CPM_80X24__) || defined(__PX8__) || defined(__PX4__) \
     || defined(__ABC80__) || defined(__ABC800__) || defined(__SRR__) \
     || defined(__KC__) || (defined(__ATMOS__) && !defined(ORIC_COLOR))|| defined(__SUPERVISION__) \
-    || defined(__VECTREX__) \
+    || defined(__VECTREX__) || defined(__GB__) \
     || defined(__NC100__) || defined(__NC200__)
     #if !defined(NO_COLOR)
         #define NO_COLOR 
@@ -40,9 +40,9 @@
 	#endif
 #endif
 
-#define BACKGROUND_COLOR COLOR_BLACK
+#define BACKGROUND_COLOR _XL_BLACK
 
-#define BORDER_COLOR COLOR_BLACK
+#define BORDER_COLOR _XL_BLACK
 
 
 #endif // _DISPLAY_TARGET_COLOR

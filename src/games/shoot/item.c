@@ -448,12 +448,12 @@ void setSecret(uint8_t secretIndex)
         TICK_SOUND();
         _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
         #if !defined(NO_MESSAGE)
-            printCenteredMessageWithCol(COLOR_YELLOW, SECRET_FOUND_STRING);
+            printCenteredMessageWithCol(_XL_YELLOW, SECRET_FOUND_STRING);
         #endif
         SLEEP(1);
         _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
         #if !defined(NO_MESSAGE)
-            printCenteredMessageWithCol(COLOR_YELLOW, EMPTY_STRING);
+            printCenteredMessageWithCol(_XL_YELLOW, EMPTY_STRING);
         #endif
         discoveredSecrets[secretIndex] = 1;
     }

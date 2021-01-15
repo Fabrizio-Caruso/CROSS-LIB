@@ -218,44 +218,44 @@ do { \
 
 #define displayScore() \
 do { \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     PRINTD(2,0,5,score); \
 } while(0)
 
 #define displayRemainingBuilings() \
 do { \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     PRINTD(9,0,2,remaining_buildings); \
 } while(0)
 
 #define displayHiScore() \
 do { \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     PRINTD(XSize-5,0,5,hiscore); \
 } while(0)
 
 
 #define displayLevel() \
 do { \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     PRINTD(XSize-8,0,1,level); \
 } while(0)
 
 #define displayLevelMessage() \
 do { \
-    SET_TEXT_COLOR(COLOR_WHITE); \
+    SET_TEXT_COLOR(_XL_WHITE); \
     PRINTD(XSize/2+2,4,2,level); \
 } while(0)
 
 #define displayNewHiScoreMessage() \
 do { \
-    SET_TEXT_COLOR(COLOR_CYAN); \
+    SET_TEXT_COLOR(_XL_CYAN); \
     PRINT(1,4,_NEW_HISCORE__STRING); \
 } while(0)
 
 #define displayGameOverMessage() \
 do { \
-    SET_TEXT_COLOR(COLOR_RED); \
+    SET_TEXT_COLOR(_XL_RED); \
     printCenteredMessage(_GAME_OVER__STRING); \
 } while(0)
 
@@ -333,14 +333,14 @@ int main(void)
         INIT_IMAGES();
         CLEAR_SCREEN();
             
-        SET_TEXT_COLOR(COLOR_RED);
+        SET_TEXT_COLOR(_XL_RED);
         printCenteredMessageOnRow(2, _CROSS_BOMBER__STRING);
-        SET_TEXT_COLOR(COLOR_CYAN);
+        SET_TEXT_COLOR(_XL_CYAN);
         printCenteredMessageOnRow(4, _BY_FABRIZIO_CARUSO__STRING);
-        SET_TEXT_COLOR(COLOR_YELLOW);
+        SET_TEXT_COLOR(_XL_YELLOW);
         printCenteredMessageOnRow(8, _DESTROY_ALL__STRING);
         printCenteredMessageOnRow(9, _BUILDINGS__STRING);
-        SET_TEXT_COLOR(COLOR_WHITE);
+        SET_TEXT_COLOR(_XL_WHITE);
         printCenteredMessageOnRow(14, _PRESS_FIRE__STRING);
         WAIT_PRESS();
         while(alive && (level < FINAL_LEVEL+1))
@@ -516,12 +516,12 @@ int main(void)
             if(!remaining_buildings)
             {
                 drawPlane();
-                SET_TEXT_COLOR(COLOR_YELLOW);
+                SET_TEXT_COLOR(_XL_YELLOW);
                 PRINT(1,2,_LEVEL_COMPLETED__STRING);
                 SLEEP(1);
                 ++level;
                 score+=bonus;
-                SET_TEXT_COLOR(COLOR_WHITE);
+                SET_TEXT_COLOR(_XL_WHITE);
                 PRINT(1,4,_BONUS__STRING);
                 for(bonus_ind=10;bonus_ind<=bonus;bonus_ind+=10)
                 {
@@ -546,7 +546,7 @@ int main(void)
         } // while(alive || (level>FINAL})) -> restart level
         if(alive) // Game completed
         {
-            SET_TEXT_COLOR(COLOR_YELLOW);
+            SET_TEXT_COLOR(_XL_YELLOW);
             printCenteredMessage(_GAME_COMPLETED__STRING);
             SLEEP(1);
             WAIT_PRESS();

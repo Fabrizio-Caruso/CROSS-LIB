@@ -55,7 +55,7 @@ void INIT_IMAGES(void)
         ANIMATED_PLANE_FRONT_IMAGE._color = _PLANE_COLOR;
 
         WALL_1_IMAGE._color = _WALL_1_COLOR;
-        SMALL_TWO_WINDOW_WALL_1_IMAGE._color = _SMALL_TWO_WINDOW_WALL_1_COLOR;		
+        SMALL_TWO_WINDOW_WALL_1_IMAGE._color = _SMALL_TWO_WINDOW_WALL_1_COLOR;
 
         TWO_WINDOW_WALL_1_IMAGE._color = _TWO_WINDOW_WALL_1_COLOR;
 
@@ -72,13 +72,13 @@ void INIT_IMAGES(void)
 
         WALL_2_IMAGE._color = _WALL_2_COLOR;
         
-        SCORE_TEXT_LEFT_IMAGE._color = COLOR_WHITE;
-        SCORE_TEXT_RIGHT_IMAGE._color = COLOR_WHITE;
+        SCORE_TEXT_LEFT_IMAGE._color = _XL_WHITE;
+        SCORE_TEXT_RIGHT_IMAGE._color = _XL_WHITE;
         
-        HI_TEXT_IMAGE._color = COLOR_RED;;
-        LV_TEXT_IMAGE._color = COLOR_YELLOW;
+        HI_TEXT_IMAGE._color = _XL_RED;;
+        LV_TEXT_IMAGE._color = _XL_YELLOW;
         
-        EXPLOSION_IMAGE._color = COLOR_RED;
+        EXPLOSION_IMAGE._color = _XL_RED;
 	#endif	
 
 	// Set Image Data

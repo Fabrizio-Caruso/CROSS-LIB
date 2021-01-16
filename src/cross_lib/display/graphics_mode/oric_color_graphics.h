@@ -9,13 +9,13 @@
 #define DISPLAY_POKE(addr,val) (*(uint8_t*) (addr) = (val))
 
 
-#define _XLIB_DRAW_TILE(x,y,tile,color) \
+#define _XL_DRAW(x,y,tile,color) \
     DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), (tile)+(color));
 
 #define __DRAW(x,y,image) \
-    DISPLAY_POKE((uint16_t) loc(x,y), ((image)->_imageData) + ((image)->_color));
+    DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), ((image)->_imageData) + ((image)->_color));
 
-#define __DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
+#define _XL_DELETE(x,y) DISPLAY_POKE(loc(x+X_OFFSET,y), _SPACE)
 
 
 #if !defined(INLINE_LOC)

@@ -171,7 +171,7 @@ void spawn(uint8_t type)
     map[x][y]=type;
     
     // _XLIB_DRAW(x,y,images[type]);
-    _XLIB_DRAW_TILE(x,y,images[type],image_colors[type]);
+    _XL_DRAW(x,y,images[type],image_colors[type]);
 
 }
 
@@ -188,11 +188,11 @@ void build_box_wall(uint8_t x, uint8_t y, uint8_t x_length, uint8_t y_length, ui
             map[x+i][y+j]=type;
             if(type)
             {
-                _XLIB_DRAW_TILE(x+i,y+j,images[type],image_colors[type]);
+                _XL_DRAW(x+i,y+j,images[type],image_colors[type]);
             }
             else
             {
-                _XLIB_DELETE(x+i,y+j);
+                _XL_DELETE(x+i,y+j);
             }
         }
     }
@@ -231,7 +231,7 @@ void DRAW_MAP_BORDERS(void)
 void DRAW_MINE(uint8_t x, uint8_t y)
 {
     // _XLIB_DRAW(x,y,&MINE_IMAGE);
-    _XLIB_DRAW_TILE(x,y,MINE_TILE, _XL_CYAN);
+    _XL_DRAW(x,y,MINE_TILE, _XL_CYAN);
 
     map[x][y] = DEADLY;
 }
@@ -338,7 +338,7 @@ void build_level(void)
                             for(k=0;k<20;++k)
                             {
                                 // _XLIB_DRAW(x+1+rand()%(length-2),y,&CENTRAL_BRICK_IMAGE);
-                                _XLIB_DRAW_TILE(x+1+rand()%(length-2),y,CENTRAL_BRICK_TILE, _XL_YELLOW);
+                                _XL_DRAW(x+1+rand()%(length-2),y,CENTRAL_BRICK_TILE, _XL_YELLOW);
                             }
                         }
                         #endif
@@ -367,8 +367,8 @@ void display_horizontal_transition_mine(uint8_t x, uint8_t y)
 {
     // _XLIB_DRAW(x-1,y,&LEFT_MINE_IMAGE);
     // _XLIB_DRAW(x,y,&RIGHT_MINE_IMAGE);
-    _XLIB_DRAW_TILE(x-1,y,LEFT_MINE_TILE, _XL_CYAN);
-    _XLIB_DRAW_TILE(x,y,RIGHT_MINE_TILE, _XL_CYAN);
+    _XL_DRAW(x-1,y,LEFT_MINE_TILE, _XL_CYAN);
+    _XL_DRAW(x,y,RIGHT_MINE_TILE, _XL_CYAN);
 }
 
 void handle_horizontal_mine(register uint8_t index)
@@ -397,7 +397,7 @@ void handle_horizontal_mine(register uint8_t index)
         {
             horizontal_mine_transition[index]=0;
             map[x][y]=EMPTY;
-            _XLIB_DELETE(x,y);
+            _XL_DELETE(x,y);
             --horizontal_mine_x[index];
             DRAW_MINE(horizontal_mine_x[index],y);
         }
@@ -422,7 +422,7 @@ void handle_horizontal_mine(register uint8_t index)
         {
             horizontal_mine_transition[index]=0;
             map[x][y]=EMPTY;
-            _XLIB_DELETE(x,y);
+            _XL_DELETE(x,y);
             ++horizontal_mine_x[index];
             DRAW_MINE(horizontal_mine_x[index],y);
         }
@@ -445,8 +445,8 @@ void display_vertical_transition_mine(uint8_t x, uint8_t y)
 {
     // _XLIB_DRAW(x,y-1,&UP_MINE_IMAGE);
     // _XLIB_DRAW(x,y,&DOWN_MINE_IMAGE);
-    _XLIB_DRAW_TILE(x,y-1,UP_MINE_TILE,_XL_CYAN);
-    _XLIB_DRAW_TILE(x,y,DOWN_MINE_TILE,_XL_CYAN);
+    _XL_DRAW(x,y-1,UP_MINE_TILE,_XL_CYAN);
+    _XL_DRAW(x,y,DOWN_MINE_TILE,_XL_CYAN);
 }
 
 
@@ -476,7 +476,7 @@ void handle_vertical_mine(register uint8_t index)
         {
             vertical_mine_transition[index]=0;
             map[x][y]=EMPTY;
-            _XLIB_DELETE(x,y);
+            _XL_DELETE(x,y);
             --vertical_mine_y[index];
             DRAW_MINE(x,vertical_mine_y[index]);
         }
@@ -501,7 +501,7 @@ void handle_vertical_mine(register uint8_t index)
         {
             vertical_mine_transition[index]=0;
             map[x][y]=EMPTY;
-            _XLIB_DELETE(x,y);
+            _XL_DELETE(x,y);
             ++vertical_mine_y[index];
             DRAW_MINE(x,vertical_mine_y[index]);
         }
@@ -712,10 +712,10 @@ void one_up(void)
     DISPLAY_LIVES();
     PING_SOUND();
     // _XLIB_DRAW(XSize-2,0,&HORIZONTAL_HEAD_IMAGE);
-    _XLIB_DRAW_TILE(XSize-2,0,HORIZONTAL_HEAD_TILE,_XL_GREEN);
+    _XL_DRAW(XSize-2,0,HORIZONTAL_HEAD_TILE,_XL_GREEN);
     DO_SLOW_DOWN(SLOW_DOWN*5);
     // _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE);
-    _XLIB_DRAW_TILE(XSize-2,0,VERTICAL_HEAD_TILE, _XL_GREEN);
+    _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE, _XL_GREEN);
 
     PING_SOUND();
 }
@@ -769,7 +769,7 @@ void one_up(void)
     snake_grows(); \
     increase_points(RING_POINTS<<coin_count); \
     ZAP_SOUND(); \
-    _XLIB_DRAW_TILE(XSize-6+coin_count,YSize-1,RING_TILE,_XL_WHITE); \
+    _XL_DRAW(XSize-6+coin_count,YSize-1,RING_TILE,_XL_WHITE); \
     if(coin_count>=2) \
     { \
         set_secret(&third_coin_achievement); \
@@ -1021,12 +1021,12 @@ void magic_wall(void)
 #define initialize_map() \
 { \
     DRAW_MAP_BORDERS(); \
-    _XLIB_DRAW_TILE(XSize-2,0,VERTICAL_HEAD_TILE,_XL_GREEN); \
-    _XLIB_DRAW_TILE(0,0,SCORE_TEXT_LEFT_TILE,_XL_GREEN); \
-    _XLIB_DRAW_TILE(1,0,SCORE_TEXT_RIGHT_TILE,_XL_GREEN); \
-    _XLIB_DRAW_TILE(XSize-10+HISCORE_OFFSET,0,HI_TEXT_TILE, _XL_GREEN); \
-    _XLIB_DRAW_TILE(8,0,APPLE_TILE,_XL_RED); \
-    _XLIB_DRAW_TILE(0,YSize-1,LV_TEXT_TILE,_XL_GREEN); \
+    _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE,_XL_GREEN); \
+    _XL_DRAW(0,0,SCORE_TEXT_LEFT_TILE,_XL_GREEN); \
+    _XL_DRAW(1,0,SCORE_TEXT_RIGHT_TILE,_XL_GREEN); \
+    _XL_DRAW(XSize-10+HISCORE_OFFSET,0,HI_TEXT_TILE, _XL_GREEN); \
+    _XL_DRAW(8,0,APPLE_TILE,_XL_RED); \
+    _XL_DRAW(0,YSize-1,LV_TEXT_TILE,_XL_GREEN); \
     SET_TEXT_COLOR(_XL_WHITE); \
     DISPLAY_LIVES(); \
     PRINTD(1,YSize-1,2,level); \
@@ -1072,7 +1072,7 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
 
 #define DISPLAY_RINGS() \
 { \
-    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, RING_TILE, _XL_WHITE); \
+    _XL_DRAW(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, RING_TILE, _XL_WHITE); \
     SET_TEXT_COLOR(_XL_WHITE); \
     PRINTD(ACHIEVEMENTS_X_OFFSET+5,ACHIEVEMENTS_Y_OFFSET+3,3,rings); \
 }
@@ -1088,8 +1088,8 @@ void display_stats(void)
     
     SET_TEXT_COLOR(_XL_WHITE);
     PRINTD(ACHIEVEMENTS_X_OFFSET+3,ACHIEVEMENTS_Y_OFFSET,5,points);
-    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET,SCORE_TEXT_LEFT_TILE,_XL_GREEN);
-    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET+1,ACHIEVEMENTS_Y_OFFSET,SCORE_TEXT_RIGHT_TILE, _XL_GREEN);
+    _XL_DRAW(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET,SCORE_TEXT_LEFT_TILE,_XL_GREEN);
+    _XL_DRAW(ACHIEVEMENTS_X_OFFSET+1,ACHIEVEMENTS_Y_OFFSET,SCORE_TEXT_RIGHT_TILE, _XL_GREEN);
 
     handle_record();
     
@@ -1134,7 +1134,7 @@ void display_stats(void)
     }
     --level;
 
-    _XLIB_DRAW_TILE(ACHIEVEMENTS_X_OFFSET, ACHIEVEMENTS_Y_OFFSET+14,LV_TEXT_TILE,_XL_GREEN);    
+    _XL_DRAW(ACHIEVEMENTS_X_OFFSET, ACHIEVEMENTS_Y_OFFSET+14,LV_TEXT_TILE,_XL_GREEN);    
     display_achievements(ACHIEVEMENTS_Y_OFFSET+14,level,32);
     
     

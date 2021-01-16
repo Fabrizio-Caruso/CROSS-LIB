@@ -3,7 +3,7 @@
 
 #include <tgi.h>
 
-#define _XLIB_DRAW_TILE(x,y,tile,color) \
+#define _XL_DRAW(x,y,tile,color) \
 { \
     char chString[2]; \
     chString[0] = tile; \
@@ -22,7 +22,7 @@
 }
     
 
-#define __DELETE(x,y) \
+#define _XL_DELETE(x,y) \
 { \
     tgi_outtextxy((x*8),(y*8)," "); \
 }    

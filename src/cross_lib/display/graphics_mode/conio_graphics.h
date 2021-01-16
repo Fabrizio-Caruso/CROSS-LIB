@@ -5,7 +5,7 @@
 
 #if !defined(NO_COLOR)
 
-	#define _XLIB_DRAW_TILE(x,y,tile,color) \
+	#define _XL_DRAW(x,y,tile,color) \
 	do \
 	{ \
 		gotoxy((x),(y)); \
@@ -25,7 +25,7 @@
 		
 #else
 
-	#define _XLIB_DRAW_TILE(x,y,tile,color) \
+	#define _XL_DRAW(x,y,tile,color) \
 	do \
 	{ \
 		gotoxy((x),(y)); \
@@ -43,7 +43,7 @@
 
 #endif
 
-#define __DELETE(x,y) \
+#define _XL_DELETE(x,y) \
 	do \
 	{ \
 		gotoxy((x),(y)); \

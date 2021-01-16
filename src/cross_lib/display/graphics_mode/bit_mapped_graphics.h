@@ -33,7 +33,7 @@ extern uint8_t udgs[];
 #if defined(__MO5__) || defined(__TO7__) 
 	#include "conio_patch.h"
     
-	#define _XLIB_DRAW_TILE(x,y,tile,color) \
+	#define _XL_DRAW(x,y,tile,color) \
 	{ \
 		uint8_t __i; \
 		uint16_t __base = (x)+(XSize)*8*(y); \
@@ -76,7 +76,7 @@ extern uint8_t udgs[];
 	}
 
 
-	#define __DELETE(x,y) \
+	#define _XL_DELETE(x,y) \
 	{ \
 		uint8_t __i; \
 		uint16_t __base = (x)+(XSize)*8*(y); \
@@ -88,7 +88,7 @@ extern uint8_t udgs[];
 
 #elif defined(__COCO__) || defined(__DRAGON__)
 
-	#define _XLIB_DRAW_TILE(x,y,tile,color) \
+	#define _XL_DRAW(x,y,tile,color) \
 	{ \
 		uint16_t __i; \
 		uint16_t __base = (x)+(XSize)*8*(y); \
@@ -109,7 +109,7 @@ extern uint8_t udgs[];
 	}
 
 
-	#define __DELETE(x,y) \
+	#define _XL_DELETE(x,y) \
 	{ \
 		uint8_t __i; \
 		uint16_t __base = (x)+(XSize)*8*(y); \

@@ -55,7 +55,7 @@ typedef struct ImageStruct Image;
 
 
 #define _draw_stat(x, y, image) \
-    __DRAW(X_OFFSET+(x),(y),(image))
+    __DRAW((x),(y),(image))
 
 #define _XLIB_DRAW(x,y,image) \
     _draw_stat(x, y, image) 
@@ -64,15 +64,13 @@ typedef struct ImageStruct Image;
     _delete_stat(x, y) 
 
 #define _draw(x, y, image) \
-    __DRAW(X_OFFSET+(x),Y_OFFSET+(y),(image))
-    
-
+    __DRAW((x),Y_OFFSET+(y),(image))
 
 #define _delete_stat(x, y) \
-    __DELETE(X_OFFSET+(x),(y))
+    _XL_DELETE((x),(y))
 
 #define _delete(x, y) \
-    __DELETE(X_OFFSET+(x),Y_OFFSET+(y))
+    _XL_DELETE((x),Y_OFFSET+(y))
 
 #if defined(BUFFERED)
     extern uint8_t video_buffer[YSize+Y_OFFSET][XSize];

@@ -88,7 +88,7 @@
 
 #if !defined(NO_COLOR)
 
-	#define _XLIB_DRAW_TILE(x,y,tile,color) \
+	#define _XL_DRAW(x,y,tile,color) \
 	do \
 	{ \
 		COLOR_POKE((uint16_t) ((uint16_t) (COLOR_ADDR+(x)) +(uint16_t)(y)*(XSize)),(color)); \
@@ -104,14 +104,14 @@
 	} \
 	while(0)
 #else
-	#define _XLIB_DRAW_TILE(x,y,tile,color) \
+	#define _XL_DRAW(x,y,tile,color) \
 		DISPLAY_POKE((uint16_t) loc(x+X_OFFSET,y), tile);
 
 	#define __DRAW(x,y,image) \
 		DISPLAY_POKE((uint16_t) loc(x,y), (image)->_imageData);
 #endif
 
-#define __DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
+#define _XL_DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
 
 
 #if !defined(INLINE_LOC)

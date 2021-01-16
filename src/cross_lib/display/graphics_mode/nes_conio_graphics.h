@@ -2,7 +2,7 @@
 #define _CONIO_GRAPHICS
 
 
-#define _XLIB_DRAW_TILE(x,y,tile,color) \
+#define _XL_DRAW(x,y,tile,color) \
 do \
 { \
     gotoxy((x),(y)); \
@@ -19,7 +19,7 @@ do \
 while(0)
 
 
-#define __DELETE(x,y) \
+#define _XL_DELETE(x,y) \
 do \
 { \
     gotoxy((x),(y)); \

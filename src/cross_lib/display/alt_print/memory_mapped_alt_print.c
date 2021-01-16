@@ -143,7 +143,7 @@
         } \
         else \
         { \
-            _XLIB_DRAW_TILE(x,y,(ch-13),0); \
+            _XL_DRAW(x,y,(ch-13),0); \
         }
 
 #else

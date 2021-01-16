@@ -23,7 +23,7 @@ do { \
 
 
 
-#define _XLIB_DRAW_TILE(x,y,tile,color) \
+#define _XL_DRAW(x,y,tile,color) \
 do \
 { \
     DISPLAY_POKE(loc(x,y), (tile)+(color)); \
@@ -38,7 +38,7 @@ do \
 while(0)
 
 
-#define __DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
+#define _XL_DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
 
 
 #if !defined(INLINE_LOC)

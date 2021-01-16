@@ -16,7 +16,7 @@ extern uint8_t udgs[];
 uint8_t left_map_one_to_two(uint8_t n);
 uint8_t right_map_one_to_two(uint8_t n);
 
-#define _XLIB_DRAW_TILE(x,y,tile,color) \
+#define _XL_DRAW(x,y,tile,color) \
     { \
         uint8_t k; \
         uint16_t offset = (8*(uint8_t)(tile)) ; \
@@ -42,7 +42,7 @@ uint8_t right_map_one_to_two(uint8_t n);
         } \
     }
 
-    #define __DELETE(x,y) \
+    #define _XL_DELETE(x,y) \
     { \
         uint16_t k; \
         for(k=0;k<8;++k) \

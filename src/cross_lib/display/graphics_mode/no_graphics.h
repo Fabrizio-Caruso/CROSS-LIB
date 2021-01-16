@@ -4,11 +4,11 @@
 
 // TODO: to be implemented
 
-#define _XLIB_DRAW_TILE(x,y,tile,color)
+#define _XL_DRAW(x,y,tile,color)
 
 #define __DRAW(x,y,image) 
 
-#define __DELETE(x,y) 
+#define _XL_DELETE(x,y) 
 		
 #endif // _NO_GRAPHICS
 

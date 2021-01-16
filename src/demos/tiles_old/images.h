@@ -1,0 +1,54 @@
+#ifndef _IMAGES_H
+#define _IMAGES_H
+
+#include "cross_lib.h"
+
+
+    Image PLAYER_DOWN_IMAGE;
+    Image PLAYER_UP_IMAGE;
+    Image PLAYER_RIGHT_IMAGE;
+    Image PLAYER_LEFT_IMAGE;
+
+    Image GHOST_IMAGE;
+    Image BOMB_IMAGE;	
+
+    Image DEAD_GHOST_IMAGE;
+
+    Image CALM_DOWN_IMAGE;
+    Image FIRE_CHARGE_IMAGE;
+    Image BULLET_IMAGE;
+    Image FIRE_POWER_IMAGE;	
+    Image SKULL_IMAGE;		
+    Image EXTRA_POINTS_IMAGE;	
+
+    Image HORIZONTAL_BRICK_IMAGE;
+    Image VERTICAL_BRICK_IMAGE;	
+
+
+    Image LEFT_HORIZONTAL_MISSILE_IMAGE;
+    Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
+
+    Image ROCKET_IMAGE;
+
+    Image FREEZE_IMAGE;	
+
+    Image EXTRA_LIFE_IMAGE;
+    Image INVINCIBILITY_IMAGE;	
+
+    Image CHASE_IMAGE;
+
+    Image SUPER_IMAGE;
+    Image CONFUSE_IMAGE;
+    Image SUICIDE_IMAGE;
+
+    Image BROKEN_BRICK_IMAGE;
+
+    Image EXTRA1_IMAGE;
+    Image EXTRA2_IMAGE;
+    Image EXTRA3_IMAGE;
+    Image EXTRA4_IMAGE;
+    Image EXTRA5_IMAGE;
+    Image EXTRA6_IMAGE;
+    
+#endif // _IMAGES_H
+

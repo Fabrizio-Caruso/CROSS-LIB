@@ -29,7 +29,7 @@
 
 #include "cross_lib.h"
 
-#include "init_images.h"
+#include "images.h"
 
 // TODO: REMOVE THIS
 #define MAX_INIT_Y_POS ((YSize)+(Y_OFFSET)-19)
@@ -41,39 +41,20 @@
 #endif
 
 
-extern Image PLAYER_DOWN_IMAGE;
-extern Image PLAYER_UP_IMAGE;
-extern Image PLAYER_RIGHT_IMAGE;
-extern Image PLAYER_LEFT_IMAGE;
+static const uint8_t tiles[19] = {
+		PLAYER_DOWN_TILE, PLAYER_UP_TILE, PLAYER_RIGHT_TILE, PLAYER_LEFT_TILE, 
+		GHOST_TILE, BOMB_TILE, DEAD_GHOST_TILE, SKULL_TILE, 
+		CALM_DOWN_TILE, FIRE_POWER_TILE, BULLET_TILE, VERTICAL_BRICK_TILE, 
+		HORIZONTAL_BRICK_TILE, LEFT_HORIZONTAL_MISSILE_TILE, RIGHT_HORIZONTAL_MISSILE_TILE, ROCKET_TILE, 
+		FREEZE_TILE, SUPER_TILE, INVINCIBILITY_TILE
+		};
 
-extern Image GHOST_IMAGE;
-extern Image BOMB_IMAGE;
-extern Image DEAD_GHOST_IMAGE;
-extern Image SKULL_IMAGE;
-extern Image CALM_DOWN_IMAGE;
-extern Image FIRE_POWER_IMAGE;
-extern Image EXTRA_POINTS_IMAGE;
-extern Image BULLET_IMAGE;
-extern Image VERTICAL_BRICK_IMAGE;
-extern Image HORIZONTAL_BRICK_IMAGE;
-extern Image LEFT_HORIZONTAL_MISSILE_IMAGE;
-extern Image RIGHT_HORIZONTAL_MISSILE_IMAGE;
-extern Image ROCKET_IMAGE;
-extern Image FREEZE_IMAGE;
-extern Image SUPER_IMAGE;
-extern Image EXTRA_LIFE_IMAGE;
-extern Image INVINCIBILITY_IMAGE;
-extern Image CONFUSE_IMAGE;
-extern Image SUICIDE_IMAGE;
-extern Image BROKEN_BRICK_IMAGE;
-
-
-static const Image* image[19] = {
-		&PLAYER_DOWN_IMAGE, &PLAYER_UP_IMAGE, &PLAYER_RIGHT_IMAGE, &PLAYER_LEFT_IMAGE, 
-		&GHOST_IMAGE, &BOMB_IMAGE, &DEAD_GHOST_IMAGE, &SKULL_IMAGE, 
-		&CALM_DOWN_IMAGE, &FIRE_POWER_IMAGE, &BULLET_IMAGE, &VERTICAL_BRICK_IMAGE, 
-		&HORIZONTAL_BRICK_IMAGE, &LEFT_HORIZONTAL_MISSILE_IMAGE, &RIGHT_HORIZONTAL_MISSILE_IMAGE, &ROCKET_IMAGE, 
-		&FREEZE_IMAGE, &SUPER_IMAGE, &INVINCIBILITY_IMAGE
+static const uint8_t tile_colors[19] = {
+		_XL_CYAN, _XL_CYAN, _XL_CYAN, _XL_CYAN, 
+		_XL_WHITE, _XL_RED, _XL_RED, _XL_YELLOW, 
+		_XL_GREEN, _XL_YELLOW, _XL_WHITE, _XL_YELLOW, 
+		_XL_YELLOW, _XL_WHITE, _XL_WHITE, _XL_WHITE, 
+		_XL_CYAN, _XL_RED, _XL_YELLOW
 		};
 
 
@@ -91,8 +72,6 @@ int main(void)
     
     while(1)
     {
-
-        INIT_IMAGES();
         
         CLEAR_SCREEN();
         
@@ -109,7 +88,7 @@ int main(void)
             init_y = (uint8_t) (RAND() % MAX_INIT_Y_POS);
 			for(j=0;j<max_j;++j)
 			{
-				_XLIB_DRAW(i,j+init_y,image[j]);
+				_XL_DRAW(i,j+init_y,tiles[j],tile_colors[j]);
                 DO_SLOW_DOWN(900);
 			}
         }

@@ -38,8 +38,7 @@ ULTRA_DRAW_SKIP ?= -DBOMB_DRAW_SKIP=7 -DWALL_DRAW_SKIP=15 -DGHOST_DRAW_SKIP=1
 #
 FULL_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
-	$(SOURCE_PATH)/main.c \
-	$(SOURCE_PATH)/init_images.c
+	$(SOURCE_PATH)/main.c
 
 
 SCCZ80_OPTS ?= -O0
@@ -168,8 +167,7 @@ atari_test1: $(ASSETS_PATH)/8x8_chars.h
 
 ATARI_TEST2_FILES ?= \
 	$(BASIC_CROSS_LIB_FILES) \
-	$(SOURCE_PATH)/tests/atari_test2.c \
-	$(SOURCE_PATH)/init_images.c
+	$(SOURCE_PATH)/tests/atari_test2.c
 
 atari_test2: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -O -t atari \
@@ -887,9 +885,6 @@ dragon:
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/init_images.c	
-	$(CMOC) \
-	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
@@ -901,12 +896,10 @@ dragon:
 	$(DRAGON_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
-	init_images.o \
 	memory_mapped_alt_print.o \
 	text_macros.o \
 	input_macros.o
 	rm 	display_macros.o \
-	init_images.o \
 	memory_mapped_alt_print.o \
 	text_macros.o \
 	input_macros.o 
@@ -925,9 +918,6 @@ coco:
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/init_images.c	
-	$(CMOC) \
-	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c
 	$(CMOC) \
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
@@ -939,11 +929,9 @@ coco:
 	$(COCO_OPTS) $(INCLUDE_OPTS) \
 	$(SOURCE_PATH)/main.c \
 	display_macros.o \
-	init_images.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o
 	rm 	display_macros.o \
-	init_images.o \
 	memory_mapped_alt_print.o \
 	text_macros.o input_macros.o 
 	rm -rf $(BUILD_PATH)/X$(GAME_NAME)_CoCo.dsk
@@ -970,9 +958,6 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/init_images.c	
-	$(CMOC) \
-	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(MO5_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -987,7 +972,6 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mo5_init_graphics.o \
 	display_macros.o \
 	cmoc_udc_25_tiles.o \
-	init_images.o \
 	text_macros.o \
 	input_macros.o
 	rm \
@@ -995,7 +979,6 @@ mo5: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	cmoc_udc_25_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
-	init_images.o \
 	text_macros.o \
 	input_macros.o
 	$(TOOLS_PATH)/cmoc/mo5/f2k5.exe $(BUILD_PATH)/FULL_MO5.bin
@@ -1023,9 +1006,6 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	-c $(CROSS_LIB_PATH)/display/display_macros.c
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
-	-c $(SOURCE_PATH)/init_images.c	
-	$(CMOC) \
-	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
 	-c $(CROSS_LIB_PATH)/input/input_macros.c
 	$(CMOC) \
 	$(TO7_OPTS) $(DRAW_SKIP) $(INCLUDE_OPTS) \
@@ -1040,7 +1020,6 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	mo5_init_graphics.o \
 	display_macros.o \
 	cmoc_udc_25_tiles.o \
-	init_images.o \
 	text_macros.o \
 	input_macros.o
 	rm \
@@ -1048,7 +1027,6 @@ to7: $(ASSETS_PATH)/cmoc_udc_25_tiles.s
 	cmoc_udc_25_tiles.o \
 	mo5_init_graphics.o \
 	display_macros.o \
-	init_images.o \
 	text_macros.o \
 	input_macros.o
 	mv $(BUILD_PATH)/FULL_TO7.BIN .

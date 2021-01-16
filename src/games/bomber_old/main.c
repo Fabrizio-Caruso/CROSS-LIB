@@ -29,8 +29,7 @@
 
 #include "cross_lib.h"
 
-#include "images.h"
-
+#include "init_images.h"
 
 #if !defined(SLOW_DOWN)
     #define SLOW_DOWN 0
@@ -58,6 +57,39 @@
 
 #define MIN_BUILDING_HEIGHT 2
 
+extern Image WALL_1_IMAGE;
+extern Image WALL_2_IMAGE;
+
+extern Image TWO_WINDOW_WALL_1_IMAGE;
+extern Image TWO_WINDOW_WALL_2_IMAGE;
+
+extern Image THREE_WINDOW_WALL_1_IMAGE;
+extern Image THREE_WINDOW_WALL_2_IMAGE;
+
+extern Image SMALL_TWO_WINDOW_WALL_1_IMAGE;
+extern Image SMALL_TWO_WINDOW_WALL_2_IMAGE;
+
+extern Image PLANE_BACK_IMAGE;
+extern Image PLANE_FRONT_IMAGE;
+
+extern Image ANIMATED_PLANE_BACK_IMAGE;
+extern Image ANIMATED_PLANE_CENTER_IMAGE;
+extern Image ANIMATED_PLANE_FRONT_IMAGE;
+
+extern Image BOMB_IMAGE;
+extern Image ANIMATED_BOMB_UP_IMAGE;
+extern Image ANIMATED_BOMB_DOWN_IMAGE;
+
+extern Image ROAD_IMAGE;
+
+
+extern Image SCORE_TEXT_LEFT_IMAGE;
+extern Image SCORE_TEXT_RIGHT_IMAGE;
+
+extern Image HI_TEXT_IMAGE;
+extern Image LV_TEXT_IMAGE;
+
+extern Image EXPLOSION_IMAGE;
 
 #if XSize>78
     #define BUILDINGS_NUMBER (XSize-24)
@@ -99,47 +131,47 @@
 
 #define drawPlane() \
 do { \
-    _XL_DRAW(x,y,PLANE_BACK_TILE, _PLANE_COLOR); \
-    _XL_DRAW(x+1,y,PLANE_FRONT_TILE, _PLANE_COLOR); \
+    _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE); \
+    _XLIB_DRAW(x+1,y,&PLANE_FRONT_IMAGE); \
 } while(0)
 
 
 
 #define drawPlaneBack() \
-    _XL_DRAW(x,y,PLANE_BACK_TILE,_PLANE_COLOR);
+    _XLIB_DRAW(x,y,&PLANE_BACK_IMAGE);
 
 #define deletePlaneBack() \
-    _XL_DELETE(x,y);
+    _XLIB_DELETE(x,y);
 
 #define deletePlaneFront() \
-    _XL_DELETE(x+1,y);
+    _XLIB_DELETE(x+1,y);
 
 
 
 #define deleteAnimatedPlaneBack() \
-    _XL_DELETE(x-1,y); 
+    _XLIB_DELETE(x-1,y); 
 
 #define deleteAnimatedPlaneCenter() \
     deletePlaneBack(); 
 
 
 #define deleteAnimatedBombUp() \
-    _XL_DELETE(bomb_x,bomb_y-1);
+    _XLIB_DELETE(bomb_x,bomb_y-1);
 
 #if !defined(NO_ANIMATION)
     #define drawAnimatedPlane() \
         do { \
-            _XL_DRAW(x-1,y,ANIMATED_PLANE_BACK_TILE,_PLANE_COLOR); \
-            _XL_DRAW(x,y,ANIMATED_PLANE_CENTER_TILE,_PLANE_COLOR); \
-            _XL_DRAW(x+1,y,ANIMATED_PLANE_FRONT_TILE, _PLANE_COLOR); \
+            _XLIB_DRAW(x-1,y,&ANIMATED_PLANE_BACK_IMAGE); \
+            _XLIB_DRAW(x,y,&ANIMATED_PLANE_CENTER_IMAGE); \
+            _XLIB_DRAW(x+1,y,&ANIMATED_PLANE_FRONT_IMAGE); \
         } while(0)
 
 
         
     #define drawAnimatedBomb() \
     do { \
-        _XL_DRAW(bomb_x,bomb_y,ANIMATED_BOMB_UP_TILE, _BOMB_COLOR); \
-        _XL_DRAW(bomb_x,bomb_y+1,ANIMATED_BOMB_DOWN_TILE,_BOMB_COLOR); \
+        _XLIB_DRAW(bomb_x,bomb_y,&ANIMATED_BOMB_UP_IMAGE); \
+        _XLIB_DRAW(bomb_x,bomb_y+1,&ANIMATED_BOMB_DOWN_IMAGE); \
     } while(0)
 
     #define deletePlane() \
@@ -150,8 +182,8 @@ do { \
 
     #define deleteAnimatedBomb() \
     do { \
-        _XL_DELETE(bomb_x,bomb_y-1); \
-        _XL_DELETE(bomb_x,bomb_y); \
+        _XLIB_DELETE(bomb_x,bomb_y-1); \
+        _XLIB_DELETE(bomb_x,bomb_y); \
     } while(0)
         
 #else 
@@ -164,25 +196,25 @@ do { \
         deletePlaneFront(); 
         
     #define deleteAnimatedBomb() \
-        _XL_DELETE(bomb_x,bomb_y-1);
+        _XLIB_DELETE(bomb_x,bomb_y-1);
     
 #endif
 
 #define drawRoad() \
-    _XL_DRAW(x,MAX_Y-1,ROAD_TILE,_ROAD_COLOR);
+    _XLIB_DRAW(x,MAX_Y-1,&ROAD_IMAGE);
 
 #define drawBuilding() \
-    _XL_DRAW(x,MAX_Y-1-y,buildingType,buildingColor);
+    _XLIB_DRAW(x,MAX_Y-1-y,buildingTypePtr);
 
 #define drawBomb() \
-    _XL_DRAW(bomb_x,bomb_y,BOMB_TILE,_BOMB_COLOR);
+    _XLIB_DRAW(bomb_x,bomb_y,&BOMB_IMAGE);
 
 
 #define drawExplosion() \
-    _XL_DRAW(bomb_x,bomb_y,EXPLOSION_TILE,_XL_RED);
+    _XLIB_DRAW(bomb_x,bomb_y,&EXPLOSION_IMAGE);
 
 #define deleteExplosion() \
-    _XL_DELETE(bomb_x,bomb_y);
+    _XLIB_DELETE(bomb_x,bomb_y);
 
 #define displayScore() \
 do { \
@@ -270,26 +302,17 @@ uint8_t alive;
 uint8_t explosion;
 
 
-const uint8_t building_tiles[] = {
-    WALL_1_TILE, WALL_2_TILE, 
-    TWO_WINDOW_WALL_1_TILE, TWO_WINDOW_WALL_2_TILE, 
-    THREE_WINDOW_WALL_1_TILE, THREE_WINDOW_WALL_2_TILE, 
-    SMALL_TWO_WINDOW_WALL_1_TILE, SMALL_TWO_WINDOW_WALL_2_TILE
-    };
-
-const uint8_t building_colors[] = {
-    _WALL_1_COLOR, _WALL_2_COLOR, 
-    _TWO_WINDOW_WALL_1_COLOR, _TWO_WINDOW_WALL_2_COLOR, 
-    _THREE_WINDOW_WALL_1_COLOR, _THREE_WINDOW_WALL_2_COLOR, 
-    _SMALL_TWO_WINDOW_WALL_1_COLOR, _SMALL_TWO_WINDOW_WALL_2_COLOR
+const Image *building_images[] = {
+    &WALL_1_IMAGE, &WALL_2_IMAGE, 
+    &TWO_WINDOW_WALL_1_IMAGE, &TWO_WINDOW_WALL_2_IMAGE, 
+    &THREE_WINDOW_WALL_1_IMAGE, &THREE_WINDOW_WALL_2_IMAGE, 
+    &SMALL_TWO_WINDOW_WALL_1_IMAGE, &SMALL_TWO_WINDOW_WALL_2_IMAGE
     };
 
 int main(void)
 {        
 
-    uint8_t buildingType;
-    uint8_t buildingColor;
-    uint8_t rnd;
+    const Image *buildingTypePtr;
 
     INIT_GRAPHICS();
 
@@ -307,6 +330,7 @@ int main(void)
         level = INITIAL_LEVEL;
         explosion = 0;
 
+        INIT_IMAGES();
         CLEAR_SCREEN();
             
         SET_TEXT_COLOR(_XL_RED);
@@ -345,13 +369,13 @@ int main(void)
             for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
             {
                 building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/LEVEL_FACTOR_SPEED_UP+(RAND()&7);
-                rnd = ((uint8_t) RAND())&7;
-                buildingType=building_tiles[rnd];
-                buildingColor=building_colors[rnd];
+                buildingTypePtr=building_images[RAND()&7];
                 
                 for(y=1;y<building_height[x];++y)
                 {
                     drawBuilding();     
+                    // _XLIB_DRAW(x,MAX_Y-1-y,&WALL_1_IMAGE);
+                    // _XLIB_DRAW(x,MAX_Y-1-y,building_images[0]);
                 }
                 PING_SOUND();
             }
@@ -363,16 +387,16 @@ int main(void)
             displayScore();
             
             
-            _XL_DRAW(0,0,SCORE_TEXT_LEFT_TILE, _XL_CYAN);
-            _XL_DRAW(1,0,SCORE_TEXT_RIGHT_TILE, _XL_CYAN);
+            _XLIB_DRAW(0,0,&SCORE_TEXT_LEFT_IMAGE);
+            _XLIB_DRAW(1,0,&SCORE_TEXT_RIGHT_IMAGE);
             
-            _XL_DRAW(XSize-6,0,HI_TEXT_TILE, _XL_RED);
+            _XLIB_DRAW(XSize-6,0,&HI_TEXT_IMAGE);
             #if XSize>=20
-                _XL_DRAW(XSize-9,0,LV_TEXT_TILE, _XL_GREEN);
+                _XLIB_DRAW(XSize-9,0,&LV_TEXT_IMAGE);
                 displayLevel();
             #endif
             #if XSize>=20
-                _XL_DRAW(8,0,TWO_WINDOW_WALL_2_TILE, _XL_YELLOW);
+                _XLIB_DRAW(8,0,&TWO_WINDOW_WALL_2_IMAGE);
                 displayRemainingBuilings();
             #endif
             

@@ -120,6 +120,7 @@
 
 #include "display_macros.h"
 
+#include "tiles.h"
 
 #if !defined(__LCC1802__)
     #include "rand.h"

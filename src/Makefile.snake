@@ -1557,19 +1557,19 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 
 #################################################################
 
-vz200: vz200_18k
+vz200: vz200_24k
 
-vz200_18k: 	
+vz200_24k: 	
 	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) -vn \
 	-compiler=sdcc \
 	$(INCLUDE_OPTS) \
 	-DSOUNDS -D__VZ__ -clib=ansi \
-	 -DSLOW_DOWN=5000 \
-	-DCONIO -DNO_INIT_GRAPHICS \
+	-DNO_EXTRA_TITLE -DSLOW_DOWN=5500 \
+	-DCONIO -DNO_INIT_GRAPHICS  -DNO_UDG \
 	-lndos \
-	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.vz \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \
 	$(FULL_FILES)
-	rm $(BUILD_PATH)/X$(GAME_NAME)_vz200_18k.cas
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
 
 #################################################################

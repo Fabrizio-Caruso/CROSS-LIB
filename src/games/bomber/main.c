@@ -402,7 +402,7 @@ int main(void)
                         explosion = 0;
                     }
                     
-                    if((y<MAX_Y-2) && KEY_PRESSED())
+                    if((y<MAX_Y-2) && _XL_KEY_PRESSED())
                     {
                         SHOOT_SOUND();
                         ++bombActive;

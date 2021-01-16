@@ -90,7 +90,7 @@
 
 // JOY_UP/DOWN/LEFT/RIGHT/FIRE
 #if defined(JOYSTICK_CONTROL)
-
+    
         #if defined(__C64__) || defined(__C128__)
             #define STANDARD_JOY JOY_2
         #else
@@ -128,6 +128,7 @@
         #endif
     #endif // defined(Z88DK_JOYSTICK)
     
+    
     #if defined(Z88DK_JOYSTICK)
         extern uint8_t stick;
         
@@ -143,6 +144,9 @@
     #endif // defined(Z88DK_JOYSTICK)
     
 #endif
+
+
+
 
 /*
 #if defined(__EMCC__)
@@ -185,7 +189,7 @@ window.addEventListener("keydown", function (event) {
 		#include <conio.h>
 		#define TURN_BASED_INPUT() cgetc;
 	#elif defined(__EMCC__)
-		#define TURN_BASED_INPUT() getchar()
+		#define __() getchar()
 	#elif defined(__NCURSES__) || defined(STDLIB)
 		#define TURN_BASED_INPUT() getchar()
 	#elif defined(Z88DK)
@@ -198,6 +202,29 @@ window.addEventListener("keydown", function (event) {
 		#define TURN_BASED_INPUT() cgetc()
 	#endif	// TURN_BASED_INPUT definitions
 
+#if defined(TURN_BASED)
+    #define _XL_INPUT() TURN_BASED_INPUT()
+#elif defined(JOYSTICK_CONTROL)
+    #define _XL_INPUT() JOY_INPUT()
+#else
+    #define _XL_INPUT() GET_CHAR()
+#endif
+
+
+#if defined(KEYBOARD_CONTROL)
+    #define _XL_UP(input) ((input)==_MOVE_UP)
+    #define _XL_DOWN(input) ((input)==_MOVE_DOWN)
+    #define _XL_LEFT(input) ((input)==_MOVE_LEFT)
+    #define _XL_RIGHT(input) ((input)==_MOVE_RIGHT)
+    #define _XL_FIRE(input) ((input)==_FIRE)
+
+#else
+    #define _XL_UP(input) JOY_UP(input)
+    #define _XL_DOWN(input)  JOY_DOWN(input)
+    #define _XL_LEFT(input)  JOY_LEFT(input)
+    #define _XL_RIGHT(input)  JOY_RIGHT(input)
+    #define _XL_FIRE(input)  JOY_FIRE(input)
+#endif
 
     // GET_CHAR
 	#if !defined(NO_INPUT) && defined(KEYBOARD_CONTROL)
@@ -222,9 +249,9 @@ window.addEventListener("keydown", function (event) {
 
 // KEY_PRESSED definitions
 #if defined(KEYBOARD_CONTROL)
-    #define KEY_PRESSED() (GET_CHAR())
+    #define _XL_KEY_PRESSED() (GET_CHAR())
 #else
-    #define KEY_PRESSED() (JOY_FIRE(JOY_INPUT()))
+    #define _XL_KEY_PRESSED() (JOY_FIRE(JOY_INPUT()))
 #endif
 
 #endif // _INPUT_MACROS

@@ -8,12 +8,6 @@
 #define _WALL_COLOR _XL_YELLOW
 
 
-#if defined(NO_CONST_IMAGES)
-    void INIT_IMAGES();
-#else
-    #define INIT_IMAGES()
-#endif
-
 #define VERTICAL_HEAD_TILE  _TILE_0
 #define HORIZONTAL_HEAD_TILE _TILE_1
 #define LEFT_MINE_TILE _TILE_2

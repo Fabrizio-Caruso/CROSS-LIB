@@ -1150,7 +1150,6 @@ void display_stats(void)
     uint8_t i; \
     INIT_GRAPHICS(); \
     INIT_INPUT(); \
-    INIT_IMAGES(); \
     INIT_SOUND(); \
     record = 0;
 

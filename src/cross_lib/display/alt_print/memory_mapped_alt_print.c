@@ -139,7 +139,7 @@
     #define _DISPLAY(x,y,ch) \
         if(ch==0) \
         { \
-            _XLIB_DELETE(x,y); \
+            _XL_DELETE(x,y); \
         } \
         else \
         { \

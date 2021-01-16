@@ -10,14 +10,6 @@ do \
 } \
 while(0)
 
-#define __DRAW(x,y,image) \
-do \
-{ \
-    gotoxy((x),(y)); \
-    cputc(((image)->_imageData) + ((image)->_color)); \
-} \
-while(0)
-
 
 #define _XL_DELETE(x,y) \
 do \

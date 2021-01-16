@@ -81,6 +81,7 @@ cbm610_targets: \
 
 
 creativision_targets: \
+	creativision_16k \
 	creativision_8k_light creativision_16k
 
 
@@ -471,7 +472,6 @@ creativision_8k_light:
 	-DLESS_TEXT \
 	-DNO_SET_SCREEN_COLORS \
 	-DFLAT_ENEMIES \
-	-DNO_BLINKING \
 	-DNO_RANDOM_LEVEL \
 	-DCONIO -DNO_INIT_GRAPHICS \
 	-DFORCE_NARROW \

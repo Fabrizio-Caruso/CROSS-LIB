@@ -120,7 +120,6 @@ lcc1802_targets:
 	make comx_ntsc -f Makefile.$(GAME_NAME)
 	make pecom -f Makefile.$(GAME_NAME)
 	make tmc600 -f Makefile.$(GAME_NAME)
-	make cidelsa -f Makefile.$(GAME_NAME)
 	make micro -f Makefile.$(GAME_NAME)
 
 
@@ -1641,14 +1640,7 @@ MICROBOARD_OPTS ?= $(CIDELSA_OPTS) "-Wa-D DATALOC=0x8000" "-Wa-D STACKLOC=0x9fff
 MICROBOARD_PAL_2_OPTS ?= $(MICROBOARD_OPTS) "-DPAL=2"
 
 
-################################################################################
 
-debug_lcc1802_targets: 
-	make comx_targets 
-	make pecom_targets 
-	make tmc600_targets
-	make cidelsa_targets
- 
 ################################################################################
 
 

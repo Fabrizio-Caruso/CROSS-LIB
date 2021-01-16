@@ -14,15 +14,7 @@
 	} \
 	while(0)
 
-	#define __DRAW(x,y,image) \
-	do \
-	{ \
-		gotoxy((x),(y)); \
-		SET_TEXT_COLOR(image->_color); \
-		cputc(image->_imageData); \
-	} \
-	while(0)
-		
+
 #else
 
 	#define _XL_DRAW(x,y,tile,color) \
@@ -33,13 +25,6 @@
 	} \
 	while(0)
     
-	#define __DRAW(x,y,image) \
-	do \
-	{ \
-		gotoxy((x),(y)); \
-		cputc(image->_imageData); \
-	} \
-	while(0)
 
 #endif
 

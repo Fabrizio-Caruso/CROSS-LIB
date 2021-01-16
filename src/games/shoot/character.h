@@ -86,6 +86,27 @@ void deleteCharacter(Character * characterPtr);
     #define SHOW_DOWN() { }        
 #endif
 
+#define __DRAW(x,y,image) \
+    _XL_DRAW(x,y, (image)->_imageData,(image)->_color) 
+
+#define _draw_stat(x, y, image) \
+    __DRAW((x),(y),(image))
+
+#define _XLIB_DRAW(x,y,image) \
+    _draw_stat(x, y, image) 
+
+#define _XLIB_DELETE(x,y) \
+    _delete_stat(x, y) 
+
+#define _draw(x, y, image) \
+    __DRAW((x),Y_OFFSET+(y),(image))
+
+#define _delete_stat(x, y) \
+    _XL_DELETE((x),(y))
+
+#define _delete(x, y) \
+    _XL_DELETE((x),Y_OFFSET+(y))
+
 #define DRAW_CHARACTER(x,y,image) _draw(x,y,image)
 
 #define DRAW_PLAYER(x,y,image) DRAW_CHARACTER(x,y,image)
@@ -125,6 +146,15 @@ void deleteCharacter(Character * characterPtr);
             DRAW_PLAYER(player._x, player._y, player._imagePtr); \
         }
 #endif
+
+
+#if !defined(NO_BLINKING)
+void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter);
+#endif
+
+void DRAW_HORIZONTAL_LINE(uint8_t x,uint8_t y, uint8_t length);
+
+void DRAW_VERTICAL_LINE(uint8_t x,uint8_t y, uint8_t length);
 
 
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)

@@ -18,8 +18,6 @@ extern uint8_t space_str[];
 
 #define _XL_DRAW(x,y,tile,color) _DRAW_AUX(color, char_list+(tile), (x), (y))
 
-#define __DRAW(x,y,image) _DRAW_AUX(image->_color, char_list+image->_imageData, (x), (y))
-
 #define _XL_DELETE(x,y) _DRAW_AUX(CPC_BLACK,space_str,(x),(y))
 
 

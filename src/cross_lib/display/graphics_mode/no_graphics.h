@@ -6,8 +6,6 @@
 
 #define _XL_DRAW(x,y,tile,color)
 
-#define __DRAW(x,y,image) 
-
 #define _XL_DELETE(x,y) 
 		
 #endif // _NO_GRAPHICS

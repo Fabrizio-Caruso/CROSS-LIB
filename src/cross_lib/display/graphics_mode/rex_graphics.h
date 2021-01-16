@@ -11,8 +11,6 @@ extern uint8_t space_str[];
 
 #define _XL_DRAW(x,y,tile,color) DsPrintf((x),(y),16,char_list+tile)
 
-#define __DRAW(x,y,image) DsPrintf((x),(y),16,char_list+image->_imageData)
-
 #define _XL_DELETE(x,y) DsPrintf((x),(y),16,space_str)
 
 #endif // _REX_GRAPHICS

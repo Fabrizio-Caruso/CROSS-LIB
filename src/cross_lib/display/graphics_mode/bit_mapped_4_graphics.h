@@ -30,18 +30,6 @@ uint8_t right_map_one_to_two(uint8_t n);
 
 
 #if defined(NO_COLOR)
-    #define __DRAW(x,y,image) \
-    { \
-        uint8_t k; \
-        uint16_t offset = (8*(uint8_t)(image)->_imageData) ; \
-        \
-        for(k=0;k<8;++k) \
-        { \
-            SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)]    = left_map_one_to_two(udgs[offset+k]); \
-            SV_VIDEO[2*(x)+BYTES_PER_LINE*k+BYTES_PER_LINE*8*(y)+1]  = right_map_one_to_two(udgs[offset+k]); \
-        } \
-    }
-
     #define _XL_DELETE(x,y) \
     { \
         uint16_t k; \

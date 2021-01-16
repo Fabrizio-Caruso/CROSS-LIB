@@ -15,9 +15,6 @@
 #define _XL_DRAW(x,y, tile,color) \
     DISPLAY_POKE((uint16_t) loc(x,y), tile+color);
 
-#define __DRAW(x,y,image) \
-    DISPLAY_POKE((uint16_t) loc(x,y), ((image)->_imageData) + ((image)->_color)); //  + (image)->_color
-
 
 #define _XL_DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
 

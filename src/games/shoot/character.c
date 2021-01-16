@@ -44,6 +44,9 @@ extern Image GHOST_IMAGE;
 extern Image BOMB_IMAGE;
 extern Image BROKEN_BRICK_IMAGE;
 
+extern Image HORIZONTAL_BRICK_IMAGE;
+extern Image VERTICAL_BRICK_IMAGE;
+
 extern Character ghosts[GHOSTS_NUMBER];
 extern Character bombs[BOMBS_NUMBER];
 extern Character skulls[SKULLS_NUMBER];
@@ -54,6 +57,45 @@ extern uint8_t maxGhostsOnScreen;
 
 extern uint8_t isInnerHorizontalWallLevel;
 extern uint8_t isInnerVerticalWallLevel;
+
+
+
+#if !defined(NO_BLINKING)
+void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter) 
+{
+    if(*blinkCounter) 
+    {
+        _draw(x,y,image);
+        *blinkCounter=0;
+    } 
+    else 
+    {
+        _delete(x,y);
+        *blinkCounter=1;
+    }    
+}
+#endif
+
+#if !defined(NO_WALL)
+    void DRAW_HORIZONTAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
+    {
+        uint8_t i;
+        for(i=0;i<length;++i)
+        {
+            _draw(x+i,y,&HORIZONTAL_BRICK_IMAGE);
+        }
+    }
+
+    void DRAW_VERTICAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
+    {
+        uint8_t i;
+        for(i=0;i<length;++i)
+        {
+            _draw(x,y+i,&VERTICAL_BRICK_IMAGE);
+        }        
+    }
+#endif
+
 
 void displayCharacter(register Character * characterPtr)
 {

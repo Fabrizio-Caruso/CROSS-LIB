@@ -28,10 +28,5 @@ extern uint8_t sprites[];
 #endif
 
 
-#define __DRAW(x,y,image) \
-	putsprite(BLIT_OPERATION,(x)*(SPRITE_X_STEP),(y)*(SPRITE_Y_STEP),sprites + ((image)->_imageData*(2+SPRITE_Y_SIZE)))
-
-
-
 #endif // __Z88DK_SPRITES_GRAPHICS
 

@@ -30,13 +30,6 @@ do \
 } \
 while(0)
 
-#define __DRAW(x,y,image) \
-do \
-{ \
-    DISPLAY_POKE(loc(x,y), ((image)->_imageData)+((image)->_color)); \
-} \
-while(0)
-
 
 #define _XL_DELETE(x,y) DISPLAY_POKE(loc(x,y), _SPACE)
 

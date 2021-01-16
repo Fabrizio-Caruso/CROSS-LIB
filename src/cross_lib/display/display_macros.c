@@ -230,22 +230,6 @@ lda $a7c0
 #endif
 
 
-#if !defined(NO_BLINKING)
-void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter) 
-{
-    if(*blinkCounter) 
-    {
-        _draw(x,y,image);
-        *blinkCounter=0;
-    } 
-    else 
-    {
-        _delete(x,y);
-        *blinkCounter=1;
-    }    
-}
-#endif
-
 
 #if defined(DEFAULT_CLEAR_SCREEN)
     void CLEAR_SCREEN(void)
@@ -256,44 +240,17 @@ void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter)
         for(i=0;i<XSize;++i)
         {
 
-        #if !defined(NO_STATS) \
-            || X_OFFSET!=0 || Y_OFFSET!=0    
-            
             for(j=0;j<YSize+Y_OFFSET;++j)
             {
-                _delete_stat(i,j);
+                _XL_DELETE(i,j);
             }
-        #else
-            for(j=0;j<YSize;++j)
-            {
-                _delete(i,j);
-            }
-        #endif
         }
     }
     
 #endif
 
 
-#if !defined(NO_WALL)
-    void DRAW_HORIZONTAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
-    {
-        uint8_t i;
-        for(i=0;i<length;++i)
-        {
-            _draw(x+i,y,&HORIZONTAL_BRICK_IMAGE);
-        }
-    }
 
-    void DRAW_VERTICAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
-    {
-        uint8_t i;
-        for(i=0;i<length;++i)
-        {
-            _draw(x,y+i,&VERTICAL_BRICK_IMAGE);
-        }        
-    }
-#endif
 
 
 

@@ -60,7 +60,7 @@ uint16_t BASE_ADDR;
 uint8_t text_color;
 #endif
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
 	// Mode 12 with no last monochromatic lines (12+16)
 	_graphics(GRAPHICS_MODE_1);

@@ -151,7 +151,7 @@ void SET_UDG_IMAGES(void)
 }
 
 #include <conio.h>
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
     
     #if defined(VDP_WAIT_V_SYNC)

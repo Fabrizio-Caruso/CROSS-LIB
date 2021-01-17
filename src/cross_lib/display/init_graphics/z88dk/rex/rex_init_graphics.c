@@ -29,7 +29,7 @@ char char_list[UDG_N*2] =
 
 char space_str[2] = {' ', '\0'};
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
 	DsEventClear();
 	DsClearScreen();

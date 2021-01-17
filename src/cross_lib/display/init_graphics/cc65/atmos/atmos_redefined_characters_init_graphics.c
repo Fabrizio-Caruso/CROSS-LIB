@@ -38,7 +38,7 @@ void init_colors(void)
 	}		
 }
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {		
 	REDEFINE_AT(((uint8_t *)UDG_BASE_ADDR));
 

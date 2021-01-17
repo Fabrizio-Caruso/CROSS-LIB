@@ -3,7 +3,7 @@
 #include "dac_sounds.h"
 
 #if defined(__COCO__) || defined(__DRAGON__)
-void INIT_SOUND(void)
+void _XL_INIT_SOUND(void)
 {
     asm
     {
@@ -19,7 +19,7 @@ void INIT_SOUND(void)
     }
 }
 #elif defined(__MO5__)
-void INIT_SOUND(void)
+void _XL_INIT_SOUND(void)
 {
     asm 
     {
@@ -40,7 +40,7 @@ void INIT_SOUND(void)
 }
 
 #elif defined(__TO7__)
-void INIT_SOUND(void)
+void _XL_INIT_SOUND(void)
 {
     asm 
     {

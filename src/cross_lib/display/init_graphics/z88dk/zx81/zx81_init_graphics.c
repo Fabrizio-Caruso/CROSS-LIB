@@ -1,5 +1,5 @@
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
     #if !defined(Z88DK_SPRITES)
 	clg();

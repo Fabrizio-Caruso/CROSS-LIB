@@ -13,7 +13,7 @@
 
 // #define DEBUG
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
 
     // __asm__ ("STA $FF3F");

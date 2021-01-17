@@ -29,7 +29,7 @@
 	#elif defined(FORCE_PSG)
 		#include "psg_sounds.h"
 	#elif defined(ASCII_SOUNDS)
-		#define INIT_SOUND()
+		#define _XL_INIT_SOUND()
 		#include "ascii_sounds.h"
 	#elif defined(__ACE__) && defined(SOUNDS)
 		#include "bit_bang_sounds.h"
@@ -97,7 +97,7 @@
     #if defined(SOUNDS) && (defined(__MO5__) || defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MSX__))
     //
     #else
-        #define INIT_SOUND()
+        #define _XL_INIT_SOUND()
     #endif
 #endif // _SOUNDS_MACROS
 

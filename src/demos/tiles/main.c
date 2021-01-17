@@ -73,7 +73,7 @@ int main(void)
     uint8_t i;
     uint8_t j;
 
-    INIT_GRAPHICS();
+    _XL_INIT_GRAPHICS();
 
     INIT_INPUT();
     
@@ -93,7 +93,7 @@ int main(void)
         PRINT(COL_OFFSET,11, _XL_K _XL_L _XL_M _XL_N _XL_O _XL_P _XL_Q _XL_R _XL_S _XL_T "-");
         PRINT(COL_OFFSET,12, _XL_U _XL_V _XL_W _XL_X _XL_Y _XL_Z);
         
-        WAIT_PRESS();
+        _XL_WAIT_FOR_INPUT();
         CLEAR_SCREEN();
 
         for(i=0;i<NUM_OF_TILES+1;++i)
@@ -106,7 +106,7 @@ int main(void)
         
         SET_TEXT_COLOR(_XL_WHITE);
         PRINT(COL_OFFSET,YSize-5, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
-        WAIT_PRESS();
+        _XL_WAIT_FOR_INPUT();
     }
 
     PRINT(COL_OFFSET,YSize-5, _XL_E _XL_N _XL_D _XL_SPACE _XL_O _XL_F _XL_SPACE _XL_D _XL_E _XL_M _XL_O);

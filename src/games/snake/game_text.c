@@ -24,11 +24,9 @@ void show_intro_snake(void)
     
     for(i=0;i<XSize/2-2;++i)
     {
-        // _XLIB_DRAW(XSize/4+i,YSize/8+5,&BODY_IMAGE);
         _XL_DRAW(XSize/4+i,YSize/8+5,BODY_TILE, _XL_GREEN);
         
     }
-    // _XLIB_DRAW(XSize/4+XSize/2-2,YSize/8+5,&HORIZONTAL_HEAD_IMAGE);
     _XL_DRAW(XSize/4+XSize/2-2,YSize/8+5,HORIZONTAL_HEAD_TILE, _XL_GREEN);
 
 }
@@ -51,7 +49,7 @@ void PRESS_KEY(void)
 {
     SET_TEXT_COLOR(_XL_WHITE);
     printCenteredMessageOnRow(YSize-2, _PRESS_FIRE_STRING);
-    WAIT_PRESS();
+    _XL_WAIT_FOR_INPUT();
 }
 
 void DISPLAY_POINTS(void)

@@ -152,7 +152,7 @@ void initialScreen(void)
     printStartMessage();
     
     #if defined(FULL_GAME) && !defined(NO_HINTS)
-        WAIT_PRESS();
+        _XL_WAIT_FOR_INPUT();
         CLEAR_SCREEN();
         printHints();    
     #endif
@@ -241,11 +241,11 @@ void DO_DEBUG_ITEMS(void)
 
 int main(void)
 {        
-    INIT_GRAPHICS();
+    _XL_INIT_GRAPHICS();
 
     INIT_INPUT();
 
-    INIT_SOUND();
+    _XL_INIT_SOUND();
 
     highScore = 0;
     
@@ -264,12 +264,12 @@ int main(void)
         #else
             printPressKeyToStart();                
         #endif
-        WAIT_PRESS();
+        _XL_WAIT_FOR_INPUT();
         CLEAR_SCREEN();
 
         #if !defined(LESS_TEXT) || defined(ALT_HIGHSCORE)
             highScoreScreen();
-            WAIT_PRESS();
+            _XL_WAIT_FOR_INPUT();
             CLEAR_SCREEN();
         #endif
 
@@ -383,7 +383,7 @@ int main(void)
             #endif
             
             printPressKeyToStart();
-            WAIT_PRESS();
+            _XL_WAIT_FOR_INPUT();
             CLEAR_SCREEN();
             
             #if !defined(TINY_GAME) && !defined(NO_BORDERS)
@@ -725,7 +725,7 @@ int main(void)
             #if !defined(NO_SLEEP)
                 SLEEP(1);
             #else
-                WAIT_PRESS();
+                _XL_WAIT_FOR_INPUT();
             #endif
         }
 
@@ -736,7 +736,7 @@ int main(void)
         #if !defined(NO_SLEEP)
             SLEEP(1);
         #else
-            WAIT_PRESS();
+            _XL_WAIT_FOR_INPUT();
         #endif
         
         #if !defined(TINY_GAME) && !defined(LESS_TEXT)
@@ -746,7 +746,7 @@ int main(void)
             #if !defined(NO_SLEEP)
                 SLEEP(2);
             #else
-                WAIT_PRESS();
+                _XL_WAIT_FOR_INPUT();
             #endif
         
         #endif

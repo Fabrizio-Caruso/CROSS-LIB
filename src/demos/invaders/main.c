@@ -235,7 +235,7 @@ int main(void)
     
     uint8_t line_counter;
     
-    INIT_GRAPHICS();
+    _XL_INIT_GRAPHICS();
 
     INIT_INPUT();    
     
@@ -336,7 +336,7 @@ int main(void)
             
             WAIT_V_SYNC();
             REFRESH();
-            // WAIT_PRESS();
+            // _XL_WAIT_FOR_INPUT();
             DO_SLOW_DOWN(SLOW_DOWN);
             
             

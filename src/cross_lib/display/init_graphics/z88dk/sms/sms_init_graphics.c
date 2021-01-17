@@ -14,7 +14,7 @@ const uint8_t palette[] = {0x00,0x01,0x05,0x15,0x24,0x25,0x29,0x39,0x16,0x1a,0x1
 
 const struct r_Rect8 rect = {0, 32, 0, 24};
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
 	sms_memcpy_mem_to_cram(0, palette, 16);
 	sms_memcpy_mem_to_cram(16, palette, 16);

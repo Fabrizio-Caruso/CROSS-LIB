@@ -291,11 +291,11 @@ int main(void)
     uint8_t buildingColor;
     uint8_t rnd;
 
-    INIT_GRAPHICS();
+    _XL_INIT_GRAPHICS();
 
     INIT_INPUT();
     
-    INIT_SOUND();
+    _XL_INIT_SOUND();
     
     hiscore = 0;
 
@@ -318,7 +318,7 @@ int main(void)
         printCenteredMessageOnRow(9, _BUILDINGS__STRING);
         SET_TEXT_COLOR(_XL_WHITE);
         printCenteredMessageOnRow(14, _PRESS_FIRE__STRING);
-        WAIT_PRESS();
+        _XL_WAIT_FOR_INPUT();
         while(alive && (level < FINAL_LEVEL+1))
         {
             bombActive = 0;
@@ -331,7 +331,7 @@ int main(void)
             PRINT(XSize/2-4, 4, _LEVEL__STRING);
             displayLevelMessage();
             SLEEP(1);
-            WAIT_PRESS();
+            _XL_WAIT_FOR_INPUT();
             CLEAR_SCREEN();
             
             for(x=0;x<XSize;++x)
@@ -518,14 +518,14 @@ int main(void)
                 alive = 0;
                 handle_hiscore();
             }
-            WAIT_PRESS();
+            _XL_WAIT_FOR_INPUT();
         } // while(alive || (level>FINAL})) -> restart level
         if(alive) // Game completed
         {
             SET_TEXT_COLOR(_XL_YELLOW);
             printCenteredMessage(_GAME_COMPLETED__STRING);
             SLEEP(1);
-            WAIT_PRESS();
+            _XL_WAIT_FOR_INPUT();
             for(y=2;y<MAX_Y-1;++y)
             {
                 for(x=1;x<XSize-2;x+=2)
@@ -538,7 +538,7 @@ int main(void)
             SLEEP(2);
             handle_hiscore();
             SLEEP(1);
-            WAIT_PRESS();
+            _XL_WAIT_FOR_INPUT();
         }
     } // while(1) -> restart from level 1
 

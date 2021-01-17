@@ -2,7 +2,7 @@
 
 #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
 	clg();
 	

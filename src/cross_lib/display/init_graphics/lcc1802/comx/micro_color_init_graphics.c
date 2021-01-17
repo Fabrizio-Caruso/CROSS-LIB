@@ -93,7 +93,7 @@ const struct redefine_struct redefine_map[] =
 #include "lcc1802_color_graphics.h"
 
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
     uint8_t i;
     

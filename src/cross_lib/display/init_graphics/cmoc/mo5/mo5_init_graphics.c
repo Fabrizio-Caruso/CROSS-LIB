@@ -1,7 +1,7 @@
 #include "conio_patch.h"
 
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {               
 		// Hide blinking cursor
 		PUTCH(0x14);	

@@ -67,7 +67,7 @@ void set_palette()
 #endasm 
 }
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
 	set_palette();
 }

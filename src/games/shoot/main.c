@@ -244,7 +244,7 @@ void initialScreen(void)
 {    
     CLEAR_SCREEN();                    
     printStartMessage();
-    WAIT_PRESS();
+    _XL_WAIT_FOR_INPUT();
     
     #if !defined(NO_HINTS)
         CLEAR_SCREEN();
@@ -264,11 +264,11 @@ void handle_special_triggers(void)
 
 int main(void)
 {        
-    INIT_GRAPHICS();
+    _XL_INIT_GRAPHICS();
 
     INIT_INPUT();
 
-    INIT_SOUND();
+    _XL_INIT_SOUND();
 
     highScore = 0;
     
@@ -285,7 +285,7 @@ int main(void)
         #if !defined(NO_INITIAL_SCREEN)
             initialScreen();
             
-            WAIT_PRESS();
+            _XL_WAIT_FOR_INPUT();
             CLEAR_SCREEN();    
         #else
             CLEAR_SCREEN();    
@@ -430,7 +430,7 @@ int main(void)
             updateInnerHorizontalWall();                
             
             printPressKeyToStart();
-            WAIT_PRESS();
+            _XL_WAIT_FOR_INPUT();
             CLEAR_SCREEN();
             
             
@@ -746,7 +746,7 @@ int main(void)
         CLEAR_SCREEN();
         printAchievements();
         SLEEP(1);
-        WAIT_PRESS();
+        _XL_WAIT_FOR_INPUT();
         
         if(level==FINAL_LEVEL+1) // if completed game
         {
@@ -755,7 +755,7 @@ int main(void)
             #if !defined(NO_SLEEP)
                 SLEEP(1);
             #else
-                WAIT_PRESS();
+                _XL_WAIT_FOR_INPUT();
             #endif
         }
         
@@ -765,7 +765,7 @@ int main(void)
         #if !defined(NO_SLEEP)
             SLEEP(1);
         #else
-            WAIT_PRESS();
+            _XL_WAIT_FOR_INPUT();
         #endif
         
 

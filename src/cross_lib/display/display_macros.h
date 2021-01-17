@@ -308,7 +308,7 @@ typedef struct ImageStruct Image;
 #elif defined(__CPC__) && defined(CPCRSLIB)
     #define CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__ATMOS__)
-    #define CLEAR_SCREEN() do {clrscr(); INIT_GRAPHICS(); } while(0)
+    #define CLEAR_SCREEN() do {clrscr(); _XL_INIT_GRAPHICS(); } while(0)
 #elif defined(Z88DK_SPRITES)
     #include <games.h>
     #include <graphics.h>
@@ -360,9 +360,9 @@ typedef struct ImageStruct Image;
 
 
 #if !defined(NO_INIT_GRAPHICS)
-    void INIT_GRAPHICS(void);
+    void _XL_INIT_GRAPHICS(void);
 #else
-    #define INIT_GRAPHICS() 
+    #define _XL_INIT_GRAPHICS() 
 #endif
     
 #endif // _DISPLAY_MACROS

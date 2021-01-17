@@ -1,6 +1,6 @@
 #include <peekpoke.h>
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
 	// Select video bank and set the character set pointer to point to $C800
 	// where the redefined charset has been placed by the linker

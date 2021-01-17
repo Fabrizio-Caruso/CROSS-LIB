@@ -56,7 +56,7 @@ void set_udg(void)
 #define SETCOLOR_LOW(reg, val) *((unsigned char *)12 + (reg)) = (val)
 
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
     // NTSC (A5200 is only NTSC)
     #if !defined(ALTERNATE_COLORS)

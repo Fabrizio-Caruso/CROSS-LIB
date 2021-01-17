@@ -7,7 +7,7 @@
 
 #include <conio.h>
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
 	
     int mode = mode_2;

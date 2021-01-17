@@ -30,7 +30,7 @@
 #include <stdint.h>
 
     #if defined(__MSX__)
-        void INIT_SOUND(void);
+        void _XL_INIT_SOUND(void);
     #endif
 
 	void _ping_sound(uint8_t freq);

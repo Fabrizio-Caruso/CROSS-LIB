@@ -55,7 +55,7 @@ void SET_UDG_IMAGES(void)
 }
 
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
     
     SET_UDG_IMAGES();

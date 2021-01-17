@@ -2,7 +2,7 @@
 #include <vic20.h>
 #include <stdint.h>
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
 	#if defined(REDEFINED_CHARS)
 		#if defined(VIC20_EXP_8K) || defined(VIC20_EXP_16K)

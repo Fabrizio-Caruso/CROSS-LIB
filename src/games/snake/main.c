@@ -663,7 +663,7 @@ void handle_transparent_horizontal_wall(void)
     SET_TEXT_COLOR(_XL_WHITE); \
     PRINT(XSize/2-4,YSize/2+2,       _LEVEL_STRING); \
     PRINTD(XSize/2-4+6,YSize/2+2,2,level); \
-    WAIT_PRESS();
+    _XL_WAIT_FOR_INPUT();
 
 #define initialize_level_variables() \
     energy = MAX_ENERGY; \
@@ -696,7 +696,7 @@ void handle_transparent_horizontal_wall(void)
     }
 
 #define debug_transparent_walls() \
-    WAIT_PRESS(); \
+    _XL_WAIT_FOR_INPUT(); \
     if(transparent_horizontal_wall_level()) \
     { \
         build_box_wall(TRANSPARENT_HORIZONTAL_WALL_X,TRANSPARENT_HORIZONTAL_WALL_Y,TRANSPARENT_HORIZONTAL_WALL_LENGTH,1,TRANSPARENT); \
@@ -981,7 +981,7 @@ void magic_wall(void)
     } \
     update_remaining_apples(); \
     increase_points(level_bonus); \
-    WAIT_PRESS();
+    _XL_WAIT_FOR_INPUT();
 
 #define handle_final_screen() \
     CLEAR_SCREEN(); \
@@ -1101,7 +1101,7 @@ void display_stats(void)
     {
         #if defined(DEBUG_ACHIEVEMENTS)
         PRINTD(2,1+i,3,extra_life_achievement[i]); PRINTD(6,1+i,3, coin_achievement[i]); PRINTD(10,1+i,3,magic_wall_achievement[i]);
-        WAIT_PRESS();
+        _XL_WAIT_FOR_INPUT();
         #endif
         lives+=extra_life_achievement[i]+coin_achievement[i]+magic_wall_achievement[i];
     }
@@ -1148,9 +1148,9 @@ void display_stats(void)
 
 #define INITIALIZE() \
     uint8_t i; \
-    INIT_GRAPHICS(); \
+    _XL_INIT_GRAPHICS(); \
     INIT_INPUT(); \
-    INIT_SOUND(); \
+    _XL_INIT_SOUND(); \
     record = 0;
 
 void increase_points(uint16_t value)
@@ -1188,14 +1188,14 @@ int main(void)
             initialize_map();
             spawn_items_at_level_startup();
             
-            WAIT_PRESS();
+            _XL_WAIT_FOR_INPUT();
             #if defined(DEBUG_FREEZE)
                 spawn(SUPER_RING);
             #endif
             
             #if defined(DEBUG_LEVELS)
                 debug_transparent_walls();
-                WAIT_PRESS();
+                _XL_WAIT_FOR_INPUT();
                 ++level;
                 goto debug_levels;
             #endif
@@ -1250,11 +1250,11 @@ int main(void)
             handle_final_screen();
         }
         printCenteredMessageOnRow(YSize/2, _GAME_OVER_STRING);
-        WAIT_PRESS();
+        _XL_WAIT_FOR_INPUT();
         #if !defined(NO_ACHIEVEMENTS_SCREEN)
         display_stats();
         #endif
-        WAIT_PRESS();
+        _XL_WAIT_FOR_INPUT();
     }
     
     return EXIT_SUCCESS;

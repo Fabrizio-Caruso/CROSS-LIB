@@ -65,7 +65,7 @@ int main(void)
     uint8_t init_y;
     uint8_t max_j;
 	
-    INIT_GRAPHICS();
+    _XL_INIT_GRAPHICS();
 
     INIT_INPUT();
 
@@ -77,7 +77,7 @@ int main(void)
         
         SET_TEXT_COLOR(_XL_WHITE);
         PRINT(4,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
-        WAIT_PRESS();
+        _XL_WAIT_FOR_INPUT();
         CLEAR_SCREEN();
 		while(1)
 		{

@@ -5,7 +5,7 @@
 
 #define CLI() asm("\tcli")
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {
 	
     tgi_install (tgi_static_stddrv);

@@ -1,6 +1,6 @@
 #include <c128.h>
 
-void INIT_GRAPHICS(void)
+void _XL_INIT_GRAPHICS(void)
 {			
 	fast();
 	videomode(80);

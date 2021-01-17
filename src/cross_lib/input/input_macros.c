@@ -220,9 +220,9 @@ out            stb res
 
 
 
-// WAIT_PRESS() definitions
+// _XL_WAIT_FOR_INPUT() definitions
 #  if defined(NO_WAIT) && !defined(NO_SLEEP)
-    void WAIT_PRESS(void)
+    void _XL_WAIT_FOR_INPUT(void)
     {
         SLEEP(2);
     }
@@ -230,7 +230,7 @@ out            stb res
 //
 #elif defined(WAIT_FOR_KEY)
     #  if defined(__GCC_BUFFERED__) || defined(STDLIB)
-        void WAIT_PRESS(void)
+        void _XL_WAIT_FOR_INPUT(void)
         {
             getchar();
         }
@@ -241,7 +241,7 @@ out            stb res
             #include <ncurses.h>
         #endif
         
-        void WAIT_PRESS(void)
+        void _XL_WAIT_FOR_INPUT(void)
         {
             #if !defined(TURN_BASED)
                 while(getch()==ERR)
@@ -253,14 +253,14 @@ out            stb res
     #elif defined(__COCO__) || defined(__DRAGON__)
         #include <cmoc.h>
         
-        void WAIT_PRESS(void)
+        void _XL_WAIT_FOR_INPUT(void)
         {
             waitkey(0);
         }
     #elif defined(NO_INPUT)
     //
     #elif defined(__MO5__) || defined(__TO7__)
-        void WAIT_PRESS(void)
+        void _XL_WAIT_FOR_INPUT(void)
         {
             while(GET_CHAR())
             {
@@ -279,7 +279,7 @@ out            stb res
             #define cgetc() getch()
         #endif 
 
-        void WAIT_PRESS(void)
+        void _XL_WAIT_FOR_INPUT(void)
         {
             while(kbhit())
                 (void) cgetc();
@@ -295,7 +295,7 @@ out            stb res
         
         extern uint8_t stick;
         
-        void WAIT_PRESS(void)
+        void _XL_WAIT_FOR_INPUT(void)
         {
             while ((joystick(stick) & MOVE_FIRE))
             {
@@ -307,7 +307,7 @@ out            stb res
     #elif defined(__SMS__)
         #include <arch/sms/SMSlib.h>
                 
-        void WAIT_PRESS(void)
+        void _XL_WAIT_FOR_INPUT(void)
         {
             while ((SMS_getKeysStatus() | PORT_A_KEY_1))
             {
@@ -319,7 +319,7 @@ out            stb res
     #elif defined(__LCC1802__)
         #include <devkit/input/joystick.h>
         
-        void WAIT_PRESS(void)
+        void _XL_WAIT_FOR_INPUT(void)
         {
             while(!get_stick(0))
             {
@@ -328,7 +328,7 @@ out            stb res
     #else
         #include<joystick.h>
         
-        void WAIT_PRESS(void)
+        void _XL_WAIT_FOR_INPUT(void)
         {
             while ((joy_read(STANDARD_JOY) & JOY_BTN_1_MASK))
             {

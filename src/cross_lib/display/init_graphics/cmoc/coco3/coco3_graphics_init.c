@@ -4,7 +4,7 @@
 #define PEEK(addr)         (*(uint8_t*) (addr))
 #define PEEKW(addr)        (*(unsigned*) (addr))
 
-void GRAPHICS_INIT(void)
+void _XL_INIT_GRAPHICS(void)
 {
     // Set 256x192x16 mode
     POKE(0xFF99,0x1A);

@@ -2,6 +2,8 @@
 #include <vic20.h>
 #include <stdint.h>
 
+#include "display_macros.h"
+
 void _XL_INIT_GRAPHICS(void)
 {
 	#if defined(REDEFINED_CHARS)
@@ -40,6 +42,7 @@ void _XL_INIT_GRAPHICS(void)
 			while(1);
 		}
 	#endif
-	
+
+    setScreenColors();
 }
 

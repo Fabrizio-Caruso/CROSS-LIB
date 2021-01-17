@@ -131,7 +131,10 @@ void _XL_INIT_GRAPHICS(void)
         shapecolor(65, 26, 3); // to reshape the capitals
     #endif
 
+    setScreenColors();
+
 }
+
 
 #if defined(__CIDELSA__)
 #include <devkit/video/cidelsa_char.c>

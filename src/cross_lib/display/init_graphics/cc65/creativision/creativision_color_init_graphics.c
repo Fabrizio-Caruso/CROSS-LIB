@@ -6,6 +6,7 @@
 #include "udg_map.h"
 
 #include "memory_mapped_graphics.h"
+#include "display_macros.h"
 
 
 void set_group_color(uint8_t group, uint8_t color)
@@ -141,7 +142,10 @@ void _XL_INIT_GRAPHICS(void)
     
     // redefine(0x24, dollar);
 
-    set_udg_colors();  
+    set_udg_colors();
+
+    setScreenColors();
+
 }
 
 

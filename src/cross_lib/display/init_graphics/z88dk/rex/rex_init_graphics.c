@@ -1,5 +1,6 @@
 
 #include <rex/rex.h>
+#include "display_macros.h"
 
 
 #define UDG_N 20
@@ -33,5 +34,8 @@ void _XL_INIT_GRAPHICS(void)
 {
 	DsEventClear();
 	DsClearScreen();
+    
+    setScreenColors();
+
 }
 

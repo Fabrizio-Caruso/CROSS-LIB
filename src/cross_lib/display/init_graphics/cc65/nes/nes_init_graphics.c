@@ -1,4 +1,5 @@
 #include <peekpoke.h>
+#include "display_macros.h"
 
 #include <stdint.h>
 
@@ -105,5 +106,6 @@ void _XL_INIT_GRAPHICS(void)
 	Reset_Scroll();
 	All_On();
 
+    setScreenColors();
 }
 

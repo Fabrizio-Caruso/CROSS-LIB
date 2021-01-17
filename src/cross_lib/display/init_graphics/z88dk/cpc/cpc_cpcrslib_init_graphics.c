@@ -1,4 +1,5 @@
 
+#include "display_macros.h"
 
 #define UDG_N 26
 
@@ -70,4 +71,8 @@ void set_palette()
 void _XL_INIT_GRAPHICS(void)
 {
 	set_palette();
+
+    setScreenColors();
+
 }
+

@@ -1,5 +1,6 @@
 
 #include <msx/gfx.h>
+#include "display_macros.h"
 
 // 0000 | 07FF | VRAM: Main Tile Patterns (1/3)
 // 0800 | 0FFF | VRAM: Extra Tile Patterns (2/3)
@@ -166,4 +167,7 @@ void _XL_INIT_GRAPHICS(void)
 	set_udg_colors();
     
 	SET_UDG_IMAGES();
+    
+    setScreenColors();
 }
+

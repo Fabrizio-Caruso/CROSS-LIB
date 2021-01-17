@@ -33,7 +33,8 @@ void _XL_INIT_GRAPHICS(void)
     zx_border(0);
     textbackground(_XL_BLACK);
 	#endif
-    
+
+    setScreenColors();
 }
 
 

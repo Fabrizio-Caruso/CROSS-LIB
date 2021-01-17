@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 #include "graphics_settings.h"
+#include "display_macros.h"
 
 #include "8x8_chars.h"
 
@@ -39,5 +40,8 @@ void _XL_INIT_GRAPHICS(void)
 	POKE(65298ul,PEEK(65298ul)&251); // make graphics chip get characters from RAM
 		
 	REDEFINE_AT(UDG_BASE_FACTOR*1024);
+    
+    setScreenColors();
+
 }
 

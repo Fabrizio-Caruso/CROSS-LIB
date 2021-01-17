@@ -2,6 +2,9 @@
 #include <pce.h>
 #include <_vdc.h>
 
+#include "display_macros.h"
+
+
 #define VDC_CTRL     0x0000
 #define VDC_DATA_LO  0x0002
 #define VDC_DATA_HI  0x0003
@@ -31,7 +34,9 @@ void _XL_INIT_GRAPHICS(void)
 			// POKE(VDC_MAWR,0x00+i);
 			// POKE(VDC_VWR,i);
 		}
-	
+
+    setScreenColors();
+
 }
 
 

@@ -4,6 +4,9 @@
 #define PEEK(addr)         (*(uint8_t*) (addr))
 #define PEEKW(addr)        (*(unsigned*) (addr))
 
+#include "display_macros.h"
+
+
 void _XL_INIT_GRAPHICS(void)
 {
     // Set 256x192x16 mode
@@ -30,6 +33,8 @@ void _XL_INIT_GRAPHICS(void)
         
     // TODO: Remove this
     
-    while(1){}
+    // while(1){}
+    setScreenColors();
+
 }
 

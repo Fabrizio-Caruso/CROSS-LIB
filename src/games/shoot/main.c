@@ -277,10 +277,6 @@ int main(void)
 
         INIT_IMAGES();
         
-        #if !defined(NO_SET_SCREEN_COLORS)
-            // Set Screen Colors
-            setScreenColors();                
-        #endif
         
         #if !defined(NO_INITIAL_SCREEN)
             initialScreen();

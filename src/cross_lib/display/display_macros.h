@@ -208,12 +208,16 @@ typedef struct ImageStruct Image;
 #endif
 
 
-#if !defined(NO_SET_SCREEN_COLORS) && !defined(NO_GRAPHICS)
-    void setScreenColors(void);
-#endif
-
 #if defined(NO_SET_SCREEN_COLORS) || defined(NO_GRAPHICS)
     #define setScreenColors()
+#else
+    #define setScreenColors() \
+    do \
+    { \
+        SET_TEXT_COLOR(TEXT_COLOR); \
+        SET_BORDER_COLOR(BORDER_COLOR); \
+        SET_BACKGROUND_COLOR(BACKGROUND_COLOR); \
+    } while(0)
 #endif
 
 

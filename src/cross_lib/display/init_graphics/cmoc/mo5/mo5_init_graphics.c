@@ -1,4 +1,5 @@
 #include "conio_patch.h"
+#include "display_macros.h"
 
 
 void _XL_INIT_GRAPHICS(void)
@@ -16,4 +17,8 @@ void _XL_INIT_GRAPHICS(void)
         
 		// SCREEN ,,,0 (Fix attributes)
 		PUTCH(0x1B);PUTCH(118);
-}	
+
+    setScreenColors();
+
+}
+

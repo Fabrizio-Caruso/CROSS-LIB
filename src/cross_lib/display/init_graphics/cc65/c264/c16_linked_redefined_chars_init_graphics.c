@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 #include "graphics_settings.h"
+#include "display_macros.h"
 
 #if !defined(UDG_BASE_FACTOR)
     #define UDG_BASE_FACTOR 15
@@ -41,5 +42,7 @@ void _XL_INIT_GRAPHICS(void)
 
     // clear screen and color ram
     __asm__("jsr $D88B");
+    
+    setScreenColors();
 }
 

@@ -1,4 +1,6 @@
 #include <peekpoke.h>
+#include "display_macros.h"
+
 
 void _XL_INIT_GRAPHICS(void)
 {
@@ -13,4 +15,6 @@ void _XL_INIT_GRAPHICS(void)
 	
 	// Background color = BLACK
 	POKE(53281u,0);
+    
+    setScreenColors();
 }

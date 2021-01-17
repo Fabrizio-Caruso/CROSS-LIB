@@ -6,6 +6,7 @@
 #include <unistd.h>
 
 #include "graphics_settings.h"
+#include "display_macros.h"
 
 #include "6x8_chars.h"
 
@@ -35,12 +36,14 @@ void init_colors(void)
 		// yellow on black (inverted: blue on white)
 		POKE(0xBB80+i*40,16);
 		POKE(0xBB81+i*40,3); 
-	}		
+	}
 }
 
 void _XL_INIT_GRAPHICS(void)
-{		
-	REDEFINE_AT(((uint8_t *)UDG_BASE_ADDR));
+{
+    REDEFINE_AT(((uint8_t *)UDG_BASE_ADDR));
 
-	init_colors();
+    init_colors();
+    
+    setScreenColors();
 }

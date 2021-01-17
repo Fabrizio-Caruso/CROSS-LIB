@@ -29,6 +29,7 @@ void _XL_INIT_GRAPHICS(void)
     printf("d");
     
     while(1){};
+    setScreenColors();
 }
 
 

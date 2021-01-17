@@ -20,4 +20,6 @@ void _XL_INIT_GRAPHICS(void)
 	tgi_setbgcolor(TGI_COLOR_BLACK);
 
 	CLEAR_SCREEN();
+    
+    setScreenColors();
 }

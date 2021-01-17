@@ -1163,7 +1163,6 @@ void increase_points(uint16_t value)
 int main(void)
 {
     INITIALIZE();
-    setScreenColors();
     
     while(1)
     {

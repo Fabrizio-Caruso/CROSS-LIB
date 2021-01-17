@@ -22,20 +22,6 @@
 
 #include "cross_lib.h"
 
-#if !defined(NO_WALL)
-extern Image HORIZONTAL_BRICK_IMAGE;
-extern Image VERTICAL_BRICK_IMAGE;
-#endif
-
-#if !defined(NO_SET_SCREEN_COLORS) && !defined(NO_GRAPHICS)
-    void setScreenColors(void)
-    {
-        SET_TEXT_COLOR(TEXT_COLOR);
-        SET_BORDER_COLOR(BORDER_COLOR);
-        SET_BACKGROUND_COLOR(BACKGROUND_COLOR);
-    }
-#endif
-
 
 #if defined(__ATARI__) && (defined(ATARI_MODE1) ) 
 extern uint16_t BASE_ADDR;
@@ -248,12 +234,6 @@ lda $a7c0
     }
     
 #endif
-
-
-
-
-
-
 
 
 

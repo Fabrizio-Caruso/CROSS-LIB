@@ -69,6 +69,8 @@
 
 #include <graphics.h> 
 
+#include "display_macros.h"
+
 void _XL_INIT_GRAPHICS(void) 
 { 
 	#if defined(Z88DK_SPRITES)
@@ -79,5 +81,6 @@ void _XL_INIT_GRAPHICS(void)
 		win.number='4'; 
 		window(win); 
 	#endif
+    setScreenColors();
 }
 

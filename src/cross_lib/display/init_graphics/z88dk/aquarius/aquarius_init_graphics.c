@@ -27,6 +27,7 @@
 #define _AQUARIUS_CYAN (16+128)
 
 #include "memory_mapped_graphics.h"
+#include "display_macros.h"
 
 #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 #define POKEW(addr,val)    (*(unsigned*) (addr) = (val))
@@ -46,6 +47,8 @@ void _XL_INIT_GRAPHICS(void)
 		POKE((uint16_t) (COLOR_ADDR+250+i),128);
 		POKE((uint16_t) (COLOR_ADDR+500+i),128);
 		POKE((uint16_t) (COLOR_ADDR+749+i),128);
-	}	
+	}
+
+    setScreenColors();
 }
 

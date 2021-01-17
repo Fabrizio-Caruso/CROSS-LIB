@@ -4,6 +4,9 @@
 #include <rect.h>
 #include <input.h>
 
+#include "display_macros.h"
+
+
 const uint8_t author[] = "z88dk";
 const uint8_t name[] = "Hello World";
 const uint8_t description[] = "Test program for the output terminal.";
@@ -34,4 +37,7 @@ void _XL_INIT_GRAPHICS(void)
 	ioctl(1, IOCTL_OTERM_CLS);
 	ioctl(1, IOCTL_OTERM_PAUSE, 0);
 
+    setScreenColors();
+
 }
+

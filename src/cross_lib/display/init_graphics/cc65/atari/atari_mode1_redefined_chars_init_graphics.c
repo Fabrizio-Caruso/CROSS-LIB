@@ -31,6 +31,8 @@
 #include <string.h>
 #include <unistd.h>
 
+#include "display_macros.h"
+
 #include "graphics_settings.h"
 
 #include "8x8_chars.h"
@@ -149,6 +151,7 @@ void _XL_INIT_GRAPHICS(void)
     
     BASE_ADDR = BASE_ADDR_VALUE;
 
+    setScreenColors();
 }
 
 

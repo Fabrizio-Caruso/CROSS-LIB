@@ -1,4 +1,5 @@
 #include <graphics.h>
+#include "display_macros.h"
 
 #define POKE(addr,val)     (*(uint8_t*) (addr) = (val))
 
@@ -20,4 +21,6 @@ void _XL_INIT_GRAPHICS(void)
     out (c),a
 	__endasm;
     */
+    
+    setScreenColors();
 }

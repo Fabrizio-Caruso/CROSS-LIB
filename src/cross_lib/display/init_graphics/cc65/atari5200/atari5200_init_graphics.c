@@ -26,6 +26,9 @@
 #include <peekpoke.h>
 #include <atari5200.h>
 
+#include "display_macros.h"
+
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -73,7 +76,8 @@ void _XL_INIT_GRAPHICS(void)
         SETCOLOR_LOW(4,GTIA_COLOR_BLACK);
     #endif
     set_udg();
-    
+
+    setScreenColors();
 }
 
 

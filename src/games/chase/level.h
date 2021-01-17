@@ -29,6 +29,16 @@
 #include "cross_lib.h"
 
 
+// DRAW HORIZONTAL AND VERTICAL LINES
+#if !defined(NO_WALL)
+    void DRAW_HORIZONTAL_LINE(uint8_t x, uint8_t y, uint8_t length);
+    void DRAW_VERTICAL_LINE(uint8_t x, uint8_t y, uint8_t length);    
+#else
+    #define DRAW_HORIZONTAL_LINE(x,y,length)
+    #define DRAW_VERTICAL_LINE(x,y,length)
+#endif
+
+
 // VERTICAL AND HORIZONTAL BORDER
 #if !defined(TINY_GAME)
     #define DRAW_VERTICAL_BORDER(x) DRAW_VERTICAL_LINE(x,0,YSize-1)

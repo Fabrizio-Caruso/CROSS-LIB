@@ -183,10 +183,6 @@ void deleteCharacter(Character * characterPtr);
 void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter);
 #endif
 
-void DRAW_HORIZONTAL_LINE(uint8_t x,uint8_t y, uint8_t length);
-
-void DRAW_VERTICAL_LINE(uint8_t x,uint8_t y, uint8_t length);
-
 void initializeCharacter(register Character* characterPtr, uint8_t x, uint8_t y, uint8_t status, Image * imagePtr);
 
 uint8_t isCharacterAtLocation(uint8_t x, uint8_t y, Character * characterPtr);
@@ -196,7 +192,7 @@ uint8_t wallReached(register Character *characterPtr);
 void playerDies(void);
 
 void checkBombsVsGhost(register Character * ghostPtr);
-						
+
 uint8_t safeLocation(uint8_t x, uint8_t y);
 
 void relocateCharacter(register Character * characterPtr);

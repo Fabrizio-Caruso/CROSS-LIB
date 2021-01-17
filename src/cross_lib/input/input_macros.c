@@ -213,11 +213,7 @@ out            stb res
     #elif defined(__TI99__)
         return cgetc();     
     #else
-        #if defined(ALT_MOVE)
-            return getch();
-        #else
-            return getk();
-        #endif
+        return getk();
     #endif
     }
 #endif    
@@ -230,7 +226,7 @@ out            stb res
     {
         SLEEP(2);
     }
-#elif defined(NO_WAIT)
+#elif defined(NO_WAIT) 
 //
 #elif defined(WAIT_FOR_KEY)
     #  if defined(__GCC_BUFFERED__) || defined(STDLIB)

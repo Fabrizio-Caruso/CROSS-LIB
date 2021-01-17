@@ -58,7 +58,7 @@ sos_targets: \
 	sos_buffered sos_tiny_buffered
 
 sms_targets: \
-	sms_buffered
+	sms
 
 smc777_targets: \
 	smc777
@@ -790,7 +790,6 @@ tiki100: $(ASSETS_PATH)/z88dk_sprites_definitions.h
 	-DANIMATE_PLAYER \
 	-DINITIAL_GHOST_FREEZE \
 	-DNO_COLOR \
-	-DALT_MOVE \
 	-DNO_RANDOM_LEVEL \
 	-DNO_SLEEP \
 	-DNO_HINTS -DSOUNDS -DFORCE_PSG \

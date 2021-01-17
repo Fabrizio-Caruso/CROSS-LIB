@@ -152,10 +152,6 @@ void deleteCharacter(Character * characterPtr);
 void _blink_draw(uint8_t x, uint8_t y, Image * image, uint8_t *blinkCounter);
 #endif
 
-void DRAW_HORIZONTAL_LINE(uint8_t x,uint8_t y, uint8_t length);
-
-void DRAW_VERTICAL_LINE(uint8_t x,uint8_t y, uint8_t length);
-
 
 #define DRAW_BLINKING_PLAYER(x, y, image) _blink_draw(x,y,image, &playerBlink)
 

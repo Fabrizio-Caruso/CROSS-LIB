@@ -53,29 +53,6 @@ extern uint8_t udgs[];
 		SV_VIDEO[__base+(XSize)*(uint16_t)7] = (color); \
 		SWITCH_COLOR_BANK_OFF(); \
 	}
-    
-	#define __DRAW(x,y,image) \
-	{ \
-		uint8_t __i; \
-		uint16_t __base = (x)+(XSize)*8*(y); \
-		uint8_t __delta = 0; \
-		uint8_t __offset = (8U*(uint8_t)(image)->_imageData) ; \
-		\
-		SWITCH_COLOR_BANK_OFF(); \
-		BIT_MAP_DRAW(); \
-		\
-		__delta = 0; \
-		SWITCH_COLOR_BANK_ON(); \
-		for(__i=0;__i<7;++__i) \
-		{ \
-			SV_VIDEO[__base+__delta]  = (image)->_color; \
-			__delta+=XSize; \
-		} \
-		SV_VIDEO[__base+(XSize)*(uint16_t)7] = (image)->_color; \
-		SWITCH_COLOR_BANK_OFF(); \
-	}
-
-
 	#define _XL_DELETE(x,y) \
 	{ \
 		uint8_t __i; \
@@ -98,15 +75,6 @@ extern uint8_t udgs[];
 		BIT_MAP_DRAW(); \
 	}
 	
-	#define __DRAW(x,y,image) \
-	{ \
-		uint16_t __i; \
-		uint16_t __base = (x)+(XSize)*8*(y); \
-		uint8_t __delta = 0; \
-		uint16_t __offset = (8U*((uint16_t)(image)->_imageData)); \
-		\
-        BIT_MAP_DRAW(); \
-	}
 
 
 	#define _XL_DELETE(x,y) \

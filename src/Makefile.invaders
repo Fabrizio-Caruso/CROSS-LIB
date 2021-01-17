@@ -423,7 +423,7 @@ oric1_48k: oric_atmos
 oric_atmos: 
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O  -DSOUNDS  -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-t atmos \
-	-DALT_MOVE -DSLOW_DOWN=400 \
+	-DSLOW_DOWN=400 \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	-DCONIO -DNO_UDG -DNO_INIT_GRAPHICS \
 	$(FULL_FILES) \

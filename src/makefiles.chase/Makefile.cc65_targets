@@ -622,7 +622,6 @@ oric1_16k: $(ASSETS_PATH)/8x8_chars.h
 	-DNO_BLINKING \
 	-t atmos \
 	-DORIC_COLOR \
-	-DALT_MOVE \
 	-DUSE_MEMORY_BUFFERS \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \
@@ -635,7 +634,6 @@ atmos: oric_atmos
 oric_atmos: $(ASSETS_PATH)/8x8_chars.h
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS)  -O  -DSOUNDS -DANIMATE_PLAYER -DFULL_GAME -DBETWEEN_LEVEL -DEND_SCREEN \
 	-t atmos \
-	-DALT_MOVE \
 	--config $(CFG_PATH)/cc65/atmos_better_tap.cfg \
 	-DORIC_COLOR -DINLINE_LOC \
 	$(CROSS_LIB_PATH)/display/init_graphics/cc65/atmos/atmos_redefined_characters_init_graphics.c \

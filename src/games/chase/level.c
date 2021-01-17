@@ -112,6 +112,30 @@ extern Character bombs[BOMBS_NUMBER];
 #endif
 
 
+#if !defined(NO_WALL)
+
+    extern Image HORIZONTAL_BRICK_IMAGE;
+    extern Image VERTICAL_BRICK_IMAGE;
+    
+    void DRAW_HORIZONTAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
+    {
+        uint8_t i;
+        for(i=0;i<length;++i)
+        {
+            _draw(x+i,y,&HORIZONTAL_BRICK_IMAGE);
+        }
+    }
+
+    void DRAW_VERTICAL_LINE(uint8_t x,uint8_t y, uint8_t length) 
+    {
+        uint8_t i;
+        for(i=0;i<length;++i)
+        {
+            _draw(x,y+i,&VERTICAL_BRICK_IMAGE);
+        }        
+    }
+#endif
+
 #if defined(FULL_GAME)
     void updateInnerWallVerticalData(void)
     {    

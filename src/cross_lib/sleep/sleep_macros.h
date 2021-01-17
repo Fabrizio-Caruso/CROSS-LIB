@@ -136,8 +136,12 @@
     #endif
 #endif
 
-#if !defined(NO__XL_SLOW_DOWN_MACRO)
+
+#if !defined(NO_SLOW_DOWN_MACRO)
     #if defined(__NCURSES__)
+        #include <stdint.h>
+        #include <time.h>
+        #include <unistd.h>
         #define _XL_SLOW_DOWN(t) \
             usleep((t)*800)
     #elif defined(SLOW_DOWN) && SLOW_DOWN>0

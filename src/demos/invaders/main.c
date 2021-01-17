@@ -261,7 +261,7 @@ int main(void)
             
             WAIT_V_SYNC();
             REFRESH();
-            DO_SLOW_DOWN(SLOW_DOWN);
+            _XL_SLOW_DOWN(SLOW_DOWN);
             #endif
             
             if(!(x&1))
@@ -337,7 +337,7 @@ int main(void)
             WAIT_V_SYNC();
             REFRESH();
             // _XL_WAIT_FOR_INPUT();
-            DO_SLOW_DOWN(SLOW_DOWN);
+            _XL_SLOW_DOWN(SLOW_DOWN);
             
             
             #if !defined(CHAR_GRAPHICS)
@@ -347,7 +347,7 @@ int main(void)
             
             WAIT_V_SYNC();
             REFRESH();
-            DO_SLOW_DOWN(SLOW_DOWN);
+            _XL_SLOW_DOWN(SLOW_DOWN);
             #endif
             
             if(x&1)
@@ -386,7 +386,7 @@ int main(void)
             
             WAIT_V_SYNC();
             REFRESH();
-            DO_SLOW_DOWN(SLOW_DOWN);
+            _XL_SLOW_DOWN(SLOW_DOWN);
         }
         
     }

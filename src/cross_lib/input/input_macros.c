@@ -224,7 +224,7 @@ out            stb res
 #  if defined(NO_WAIT) && !defined(NO_SLEEP)
     void _XL_WAIT_FOR_INPUT(void)
     {
-        SLEEP(2);
+        _XL_SLEEP(2);
     }
 #elif defined(NO_WAIT) 
 //

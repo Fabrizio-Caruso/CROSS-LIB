@@ -89,7 +89,7 @@ int main(void)
 			for(j=0;j<max_j;++j)
 			{
 				_XL_DRAW(i,j+init_y,tiles[j],tile_colors[j]);
-                DO_SLOW_DOWN(900);
+                _XL_SLOW_DOWN(900);
 			}
         }
     } // while(1) -> restart from the beginning

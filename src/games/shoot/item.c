@@ -450,7 +450,7 @@ void setSecret(uint8_t secretIndex)
         #if !defined(NO_MESSAGE)
             printCenteredMessageWithCol(_XL_YELLOW, SECRET_FOUND_STRING);
         #endif
-        SLEEP(1);
+        _XL_SLEEP(1);
         _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &PLAYER_IMAGE);
         #if !defined(NO_MESSAGE)
             printCenteredMessageWithCol(_XL_YELLOW, EMPTY_STRING);

@@ -408,7 +408,7 @@ int main(void)
                 // Clear the screen, put cursor in upper left corner
 
                 printLevel();
-                SLEEP(1);
+                _XL_SLEEP(1);
                 CLEAR_SCREEN();
             #endif
                 
@@ -420,7 +420,7 @@ int main(void)
             if(isBossLevel)
             {
                 printKillTheSkulls();
-                SLEEP(2);
+                _XL_SLEEP(2);
                 ghostCount = 0;
             }
             CLEAR_SCREEN();
@@ -629,9 +629,9 @@ int main(void)
                 #endif
                 
                 #if !defined(LESS_TEXT)
-                    SLEEP(1);
+                    _XL_SLEEP(1);
                     printVictoryMessage();
-                    SLEEP(2);
+                    _XL_SLEEP(2);
 
                     CLEAR_SCREEN();
                 #endif
@@ -659,19 +659,19 @@ int main(void)
                     }
                 }
 
-                SLEEP(2);
+                _XL_SLEEP(2);
                 CLEAR_SCREEN();                        
 
                 
                 if(isBossLevel && !(level==FINAL_LEVEL))
                 {    
                     CLEAR_SCREEN();
-                    SLEEP(1);
+                    _XL_SLEEP(1);
                     PING_SOUND();
                     #if !defined(LESS_TEXT)
                         printExtraLife();
                     #endif
-                    SLEEP(2);
+                    _XL_SLEEP(2);
                     ++lives;
                     all_skulls_killed_in_completed_levels = 1;
                     destroyed_bases_in_completed_levels/=2;
@@ -731,7 +731,7 @@ int main(void)
             }
             #if defined(BETWEEN_LEVEL)
                 spiral(chasedEnemyPtr, 2*MIN_SIZE-18);
-                SLEEP(1);
+                _XL_SLEEP(1);
             #endif
             
         } while (player._status && (level<(FINAL_LEVEL+1))); // lives left and not completed game game 
@@ -745,15 +745,15 @@ int main(void)
         }
         CLEAR_SCREEN();
         printAchievements();
-        SLEEP(1);
+        _XL_SLEEP(1);
         _XL_WAIT_FOR_INPUT();
         
         if(level==FINAL_LEVEL+1) // if completed game
         {
             gameCompleted();
-            SLEEP(1);
+            _XL_SLEEP(1);
             #if !defined(NO_SLEEP)
-                SLEEP(1);
+                _XL_SLEEP(1);
             #else
                 _XL_WAIT_FOR_INPUT();
             #endif
@@ -763,7 +763,7 @@ int main(void)
         printGameOver();
         
         #if !defined(NO_SLEEP)
-            SLEEP(1);
+            _XL_SLEEP(1);
         #else
             _XL_WAIT_FOR_INPUT();
         #endif

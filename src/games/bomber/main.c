@@ -233,7 +233,7 @@ do { \
     { \
         hiscore = score; \
         displayNewHiScoreMessage(); \
-        SLEEP(1); \
+        _XL_SLEEP(1); \
     } \
 } while(0)
 
@@ -330,7 +330,7 @@ int main(void)
             CLEAR_SCREEN();
             PRINT(XSize/2-4, 4, _LEVEL__STRING);
             displayLevelMessage();
-            SLEEP(1);
+            _XL_SLEEP(1);
             _XL_WAIT_FOR_INPUT();
             CLEAR_SCREEN();
             
@@ -356,7 +356,7 @@ int main(void)
                 PING_SOUND();
             }
 
-            SLEEP(1);
+            _XL_SLEEP(1);
             y = 2;
             x = 1;
             
@@ -391,7 +391,7 @@ int main(void)
                     UNSET_DEBUG_BORDER();
                 #endif
                 drawAnimatedPlane();
-                DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
+                _XL_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
                 
 
                 if(!bombActive )
@@ -441,7 +441,7 @@ int main(void)
                         // Delete animated bomb
                         deleteAnimatedBombUp();
                         drawExplosion();
-                        DO_SLOW_DOWN(5+SLOW_DOWN/4);
+                        _XL_SLOW_DOWN(5+SLOW_DOWN/4);
                     }
 
                 }
@@ -456,7 +456,7 @@ int main(void)
                 #endif
                 
                 #if !defined(NO_ANIMATION)
-                    DO_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
+                    _XL_SLOW_DOWN(SLOW_DOWN/2-level*LEVEL_SPEED_UP);
                 #endif
                 
                 if(bombActive)
@@ -494,7 +494,7 @@ int main(void)
                 drawPlane();
                 SET_TEXT_COLOR(_XL_YELLOW);
                 PRINT(1,2,_LEVEL_COMPLETED__STRING);
-                SLEEP(1);
+                _XL_SLEEP(1);
                 ++level;
                 score+=bonus;
                 SET_TEXT_COLOR(_XL_WHITE);
@@ -503,18 +503,18 @@ int main(void)
                 {
                     PRINTD(7,4,5,bonus_ind);
                     SHOOT_SOUND();
-                    DO_SLOW_DOWN(SLOW_DOWN);
-                    DO_SLOW_DOWN(SLOW_DOWN);
+                    _XL_SLOW_DOWN(SLOW_DOWN);
+                    _XL_SLOW_DOWN(SLOW_DOWN);
                 }
                 displayScore();
-                SLEEP(1);
+                _XL_SLEEP(1);
             }
             else
             {
                 drawPlaneBack();
                 EXPLOSION_SOUND();
                 displayGameOverMessage();
-                SLEEP(2);
+                _XL_SLEEP(2);
                 alive = 0;
                 handle_hiscore();
             }
@@ -524,7 +524,7 @@ int main(void)
         {
             SET_TEXT_COLOR(_XL_YELLOW);
             printCenteredMessage(_GAME_COMPLETED__STRING);
-            SLEEP(1);
+            _XL_SLEEP(1);
             _XL_WAIT_FOR_INPUT();
             for(y=2;y<MAX_Y-1;++y)
             {
@@ -533,11 +533,11 @@ int main(void)
                     drawPlane();
                 }
             }
-            SLEEP(1);
+            _XL_SLEEP(1);
             displayGameOverMessage();
-            SLEEP(2);
+            _XL_SLEEP(2);
             handle_hiscore();
-            SLEEP(1);
+            _XL_SLEEP(1);
             _XL_WAIT_FOR_INPUT();
         }
     } // while(1) -> restart from level 1

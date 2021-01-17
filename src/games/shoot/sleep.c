@@ -13,7 +13,7 @@ void _do_sleep(uint8_t t)
     
     for(i=0;i<t;++i)
     {
-        DO_SLOW_DOWN(SLOW_DOWN);
+        _XL_SLOW_DOWN(SLOW_DOWN);
     }
 }
 #endif

@@ -713,7 +713,7 @@ void one_up(void)
     PING_SOUND();
     // _XLIB_DRAW(XSize-2,0,&HORIZONTAL_HEAD_IMAGE);
     _XL_DRAW(XSize-2,0,HORIZONTAL_HEAD_TILE,_XL_GREEN);
-    DO_SLOW_DOWN(SLOW_DOWN*5);
+    _XL_SLOW_DOWN(SLOW_DOWN*5);
     // _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE);
     _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE, _XL_GREEN);
 
@@ -1014,7 +1014,7 @@ void magic_wall(void)
     for(i=0;i<XSize*2-5;++i) \
     { \
         handle_horizontal_mines(); \
-        DO_SLOW_DOWN(SLOW_DOWN/ANIMATION_SLOW_FACTOR); \
+        _XL_SLOW_DOWN(SLOW_DOWN/ANIMATION_SLOW_FACTOR); \
     }; \
 }
 
@@ -1055,9 +1055,9 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
     {
         PRINTD(ACHIEVEMENTS_X_OFFSET+2,row,2,i);
         SHOOT_SOUND();
-        DO_SLOW_DOWN((SLOW_DOWN/10)*i);
+        _XL_SLOW_DOWN((SLOW_DOWN/10)*i);
     }
-    DO_SLOW_DOWN(SLOW_DOWN*4);
+    _XL_SLOW_DOWN(SLOW_DOWN*4);
 }
 
 
@@ -1204,7 +1204,7 @@ int main(void)
             {
                 handle_extra_life();
                 
-                DO_SLOW_DOWN(slow_down);
+                _XL_SLOW_DOWN(slow_down);
                 if(MOVE_PLAYER())
                 {
                     ++speed_increase_counter;

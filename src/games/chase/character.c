@@ -101,7 +101,7 @@ void playerDies(void)
 	#if !defined(LESS_TEXT)
 		printDefeatMessage();
 	#endif
-	SLEEP(1);	
+	_XL_SLEEP(1);
 }
 
 #if defined(FULL_GAME)

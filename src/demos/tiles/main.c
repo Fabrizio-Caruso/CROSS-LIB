@@ -99,7 +99,7 @@ int main(void)
         for(i=0;i<NUM_OF_TILES+1;++i)
         {
             _XL_DRAW((i&7)*2+COL_OFFSET,(i/8)*2+ROW_OFFSET,tiles[i],tile_colors[i]);
-            DO_SLOW_DOWN(900);
+            _XL_SLOW_DOWN(900);
         }
 
         

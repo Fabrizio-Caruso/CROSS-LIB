@@ -40,13 +40,13 @@
     #endif
 
     #if defined(NO_SLEEP)
-        #define SLEEP(s)
+        #define _XL_SLEEP(s)
     #elif defined(MACRO_SLEEP)
-        #define SLEEP(sec)  do {uint16_t ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
+        #define _XL_SLEEP(sec)  do {uint16_t ii; for(ii=0;ii<ALT_SLEEP_SCALE*sec; ++ii){ii=ii;};} while(0)
     #elif defined(ALT_SLEEP)
-        void SLEEP(uint8_t s);
+        void _XL_SLEEP(uint8_t s);
     #else
-        #define SLEEP(s) sleep(s)
+        #define _XL_SLEEP(s) sleep(s)
     #endif
 
 
@@ -136,12 +136,12 @@
     #endif
 #endif
 
-#if !defined(NO_DO_SLOW_DOWN_MACRO)
+#if !defined(NO__XL_SLOW_DOWN_MACRO)
     #if defined(__NCURSES__)
-        #define DO_SLOW_DOWN(t) \
+        #define _XL_SLOW_DOWN(t) \
             usleep((t)*800)
     #elif defined(SLOW_DOWN) && SLOW_DOWN>0
-        #define DO_SLOW_DOWN(t) \
+        #define _XL_SLOW_DOWN(t) \
         do { \
             uint16_t i; \
             \
@@ -150,10 +150,10 @@
             } \
         } while(0)
     #else 
-        #define DO_SLOW_DOWN(t)
+        #define _XL_SLOW_DOWN(t)
     #endif
 #else
-    void DO_SLOW_DOWN(uint16_t t);
+    void _XL_SLOW_DOWN(uint16_t t);
 #endif
 
 #endif // _SLEEP_MACROS

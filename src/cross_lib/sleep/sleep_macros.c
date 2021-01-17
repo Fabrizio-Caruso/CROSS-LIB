@@ -40,7 +40,7 @@
 		#define CYCLES 1000
 	#endif
 
-	void SLEEP(uint8_t sec)
+	void _XL_SLEEP(uint8_t sec)
 	{
 		uint16_t ii;
 		
@@ -49,17 +49,17 @@
 
 #endif
 
-#if defined(NO_DO_SLOW_DOWN_MACRO)
+#if defined(NO__XL_SLOW_DOWN_MACRO)
     #if defined(__NCURSES__)
         #include <stdint.h>
         #include <time.h>
         #include <unistd.h>
-        void DO_SLOW_DOWN(uint16_t t)
+        void _XL_SLOW_DOWN(uint16_t t)
         {
             usleep((t)*800);
         }
     #else
-        void DO_SLOW_DOWN(uint16_t t)
+        void _XL_SLOW_DOWN(uint16_t t)
         {
             uint16_t i;
             for(i=0;i<(t);++i)

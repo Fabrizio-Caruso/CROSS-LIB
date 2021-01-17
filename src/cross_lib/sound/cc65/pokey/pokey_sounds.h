@@ -34,14 +34,15 @@
 	#endif
 		
 	void _ping_sound(uint8_t freq);
-	#define PING_SOUND() _ping_sound(0xF0);	
-	#define TOCK_SOUND() _ping_sound(0x02);
-	#define TICK_SOUND() _ping_sound(0x60);
+	#define _XL_PING_SOUND() _ping_sound(0xF0);	
+	#define _XL_TOCK_SOUND() _ping_sound(0x02);
+	#define _XL_TICK_SOUND() _ping_sound(0x60);
 	
 	void _explosion_sound(uint8_t freq);
-	#define SHOOT_SOUND() _explosion_sound(0xF0);
-	#define EXPLOSION_SOUND() _explosion_sound(0x80);
+	#define _XL_SHOOT_SOUND() _explosion_sound(0xF0);
+	#define _XL_EXPLOSION_SOUND() _explosion_sound(0x80);
 	
-	void ZAP_SOUND(void);	
+	void _XL_ZAP_SOUND(void);	
 
 #endif // _ATARI_SOUNDS
+

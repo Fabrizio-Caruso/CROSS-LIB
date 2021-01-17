@@ -9,17 +9,17 @@
     #define BEEP_ASCII() putchar('\a')
 #endif
 
-#define EXPLOSION_SOUND() BEEP_ASCII()
+#define _XL_EXPLOSION_SOUND() BEEP_ASCII()
 
-#define ZAP_SOUND() BEEP_ASCII()
+#define _XL_ZAP_SOUND() BEEP_ASCII()
 
-#define SHOOT_SOUND() BEEP_ASCII()
+#define _XL_SHOOT_SOUND() BEEP_ASCII()
 
-#define PING_SOUND() BEEP_ASCII()
+#define _XL_PING_SOUND() BEEP_ASCII()
 
-#define TICK_SOUND() BEEP_ASCII()
+#define _XL_TICK_SOUND() BEEP_ASCII()
 
-#define TOCK_SOUND() BEEP_ASCII()
+#define _XL_TOCK_SOUND() BEEP_ASCII()
 
 #endif // __ASCII_SOUNDS
 

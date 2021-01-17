@@ -23,7 +23,7 @@ void _explosion_sound(uint8_t range)
     generatenoise(0,0);
 }
 
-void ZAP_SOUND(void)
+void _XL_ZAP_SOUND(void)
 {
     uint16_t i;
     

@@ -394,7 +394,7 @@ void printAchievements(void)
         {
             SHORT_SLEEP(2);
         }
-        SHOOT_SOUND();
+        _XL_SHOOT_SOUND();
         ++i;
     } while(i<=foundSecrets);
     

@@ -26,10 +26,10 @@
 #define __ATMOS_SOUNDS
 	#include <atmos.h>
 	
-	#define EXPLOSION_SOUND() atmos_explode();
-	#define PING_SOUND() atmos_ping();
-	#define SHOOT_SOUND() atmos_shoot();
-	#define TICK_SOUND() atmos_tick();
-	#define TOCK_SOUND() atmos_tock();
-	#define ZAP_SOUND() atmos_zap();
+	#define _XL_EXPLOSION_SOUND() atmos_explode();
+	#define _XL_PING_SOUND() atmos_ping();
+	#define _XL_SHOOT_SOUND() atmos_shoot();
+	#define _XL_TICK_SOUND() atmos_tick();
+	#define _XL_TOCK_SOUND() atmos_tock();
+	#define _XL_ZAP_SOUND() atmos_zap();
 #endif // __ATMOS_SOUNDS

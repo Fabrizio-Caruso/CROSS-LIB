@@ -27,7 +27,7 @@ void _short_sound(void)
 	SID.v3.ctrl  = 0x08; 	
 }
 
-void SHOOT_SOUND(void) 
+void _XL_SHOOT_SOUND(void) 
 { 
 	uint16_t i; 
 	
@@ -42,7 +42,7 @@ void SHOOT_SOUND(void)
 };	
 	
 
-void EXPLOSION_SOUND(void)
+void _XL_EXPLOSION_SOUND(void)
 { 
 	uint16_t i; 
 	uint16_t j; 
@@ -67,26 +67,26 @@ void EXPLOSION_SOUND(void)
 };
 
 
-void PING_SOUND(void)
+void _XL_PING_SOUND(void)
 { 
 	SID.flt_freq = 0x3500; 
 	_short_sound();
 };
 
 
-void TICK_SOUND(void) 
+void _XL_TICK_SOUND(void) 
 { 
 	SID.flt_freq = 0x2000; 
 	_short_sound();
 };
 
-void TOCK_SOUND(void) 
+void _XL_TOCK_SOUND(void) 
 {
 	SID.flt_freq = 0x1000; 
 	_short_sound();
 };
 
-void ZAP_SOUND(void) 
+void _XL_ZAP_SOUND(void) 
 { 
 	uint8_t i;
 	uint8_t j;

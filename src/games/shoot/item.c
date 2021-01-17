@@ -116,7 +116,7 @@ extern uint8_t skullActive;
 
 void itemReached(Character * itemPtr)
 {
-    ZAP_SOUND();
+    _XL_ZAP_SOUND();
     deleteItem(itemPtr);
     displayPlayer(&player);
     itemPtr->_status = 0;
@@ -300,7 +300,7 @@ void reduceItemCoolDowns(void)
     invincibility._coolDown-=invincibility._coolDown/8;
     freeze._coolDown-=freeze._coolDown/16;
     fireCharge._coolDown-=fireCharge._coolDown/32;
-    TICK_SOUND();        
+    _XL_TICK_SOUND();        
 }
 
 
@@ -445,7 +445,7 @@ void handle_destroyer_triggers(void)
 void setSecret(uint8_t secretIndex)
 {   if(!discoveredSecrets[secretIndex])
     {        
-        TICK_SOUND();
+        _XL_TICK_SOUND();
         _draw_stat(PLAYER_IMAGE_X, PLAYER_IMAGE_Y, &INVINCIBILITY_IMAGE);
         #if !defined(NO_MESSAGE)
             printCenteredMessageWithCol(_XL_YELLOW, SECRET_FOUND_STRING);

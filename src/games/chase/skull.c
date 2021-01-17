@@ -111,7 +111,7 @@ void handle_skull(void)
 
 		if(SKULL_RAND_CONDITION)
 		{
-			TOCK_SOUND();
+			_XL_TOCK_SOUND();
 			#if defined(FULL_GAME)
 				if(!confuseActive || !(loop&3))
 				{

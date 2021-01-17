@@ -63,7 +63,7 @@ void _short_sound(uint8_t type)
 
 
 
-void ZAP_SOUND(void) 
+void _XL_ZAP_SOUND(void) 
 { 
 	uint8_t freq; 
 

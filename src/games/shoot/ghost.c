@@ -109,7 +109,7 @@ void ghostDies(Character * ghostPtr)
 {
     ghostPtr->_imagePtr = &DEAD_GHOST_IMAGE;
     displayGhost(ghostPtr);
-    EXPLOSION_SOUND();
+    _XL_EXPLOSION_SOUND();
     
     ghostPtr->_status=0;
     displayScoreStats();

@@ -58,7 +58,7 @@ int main(void)
     
     INIT_GRAPHICS();
 
-    INIT_INPUT();    
+    _XL_INIT_INPUT();    
 
 
     while(1)

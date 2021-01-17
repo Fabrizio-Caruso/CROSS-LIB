@@ -34,17 +34,17 @@
 		#include <cbm510.h>
 	#endif
 	
-	void EXPLOSION_SOUND(void);
+	void _XL_EXPLOSION_SOUND(void);
 	
-	void PING_SOUND(void);
+	void _XL_PING_SOUND(void);
 	
-	void SHOOT_SOUND(void);
+	void _XL_SHOOT_SOUND(void);
 
-	void TICK_SOUND(void);
+	void _XL_TICK_SOUND(void);
 	
-	void TOCK_SOUND(void);
+	void _XL_TOCK_SOUND(void);
 	
-	void ZAP_SOUND(void);
+	void _XL_ZAP_SOUND(void);
 
 #endif // SID_SOUNDS
 

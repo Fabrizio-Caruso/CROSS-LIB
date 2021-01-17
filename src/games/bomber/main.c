@@ -293,7 +293,7 @@ int main(void)
 
     _XL_INIT_GRAPHICS();
 
-    INIT_INPUT();
+    _XL_INIT_INPUT();
     
     _XL_INIT_SOUND();
     
@@ -353,7 +353,7 @@ int main(void)
                 {
                     drawBuilding();     
                 }
-                PING_SOUND();
+                _XL_PING_SOUND();
             }
 
             _XL_SLEEP(1);
@@ -404,7 +404,7 @@ int main(void)
                     
                     if((y<MAX_Y-2) && _XL_KEY_PRESSED())
                     {
-                        SHOOT_SOUND();
+                        _XL_SHOOT_SOUND();
                         ++bombActive;
                         bomb_x = x;
                         bomb_y = y;
@@ -502,7 +502,7 @@ int main(void)
                 for(bonus_ind=10;bonus_ind<=bonus;bonus_ind+=10)
                 {
                     PRINTD(7,4,5,bonus_ind);
-                    SHOOT_SOUND();
+                    _XL_SHOOT_SOUND();
                     _XL_SLOW_DOWN(SLOW_DOWN);
                     _XL_SLOW_DOWN(SLOW_DOWN);
                 }
@@ -512,7 +512,7 @@ int main(void)
             else
             {
                 drawPlaneBack();
-                EXPLOSION_SOUND();
+                _XL_EXPLOSION_SOUND();
                 displayGameOverMessage();
                 _XL_SLEEP(2);
                 alive = 0;

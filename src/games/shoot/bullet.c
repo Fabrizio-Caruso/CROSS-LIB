@@ -103,7 +103,7 @@ void handle_bomb(void)
     // Check if player has fired the gun
     if(playerFire && bombCount<BOMBS_NUMBER)
     {
-        SHOOT_SOUND();
+        _XL_SHOOT_SOUND();
         
         deleteCharacter(&bombs[bombCount]);
         
@@ -149,7 +149,7 @@ void handle_bullet_fire(uint8_t bulletIndex)
     // Check if player has fired the gun
     if(playerFire && bullets[bulletIndex]._status==0 && guns>0 && bombCount==BOMBS_NUMBER)
     {
-        SHOOT_SOUND();
+        _XL_SHOOT_SOUND();
         --guns;
         printGunsStats();
         bulletDirection[bulletIndex] = playerDirection;
@@ -327,7 +327,7 @@ void checkBulletVsSkull(register Character *bulletPtr, Character *skullPtr)
     if(skullPtr->_status && 
        areCharctersAtSamePosition(bulletPtr, skullPtr))
     {
-        PING_SOUND();
+        _XL_PING_SOUND();
         
         bulletPtr->_status=0;
         
@@ -387,7 +387,7 @@ void _moveBullet(register Character *bulletPtr, uint8_t bulletDirection)
 void destroyHorizontalMissile(Character * horizontalMissilePtr)
 {
     horizontalMissilePtr->_status = 0;
-    EXPLOSION_SOUND();
+    _XL_EXPLOSION_SOUND();
     deleteHorizontalMissile(horizontalMissilePtr);
     points+=HORIZONTAL_MISSILE_BONUS;
     displayScoreStats();                
@@ -429,7 +429,7 @@ void moveBullet(register Character * bulletPtr, uint8_t bulletDirection)
                 {
                     rockets[i]._status = 0;
                     ++destroyed_bases;
-                    EXPLOSION_SOUND();
+                    _XL_EXPLOSION_SOUND();
                     deleteRocket(&rockets[i]);
                     points+=VERTICAL_MISSILE_BONUS;
                     displayScoreStats();        

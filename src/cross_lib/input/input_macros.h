@@ -27,48 +27,48 @@
 
 	#include "input_target_settings.h"
 
-    // INIT_INPUT
+    // _XL_INIT_INPUT
 	#if defined(KEYBOARD_CONTROL)
 		#if defined(__ATMOS__)
 			#include <peekpoke.h>
-			#define INIT_INPUT() { POKE(0x26A,PEEK(0x26A) | 8); }
+			#define _XL_INIT_INPUT() { POKE(0x26A,PEEK(0x26A) | 8); }
 		#elif defined(__MSX__)
 			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))		
-			#define INIT_INPUT() { POKE(0xF3DB,0); }
+			#define _XL_INIT_INPUT() { POKE(0xF3DB,0); }
         // Enable key-repeat on all VIC 20 targets that use the keyboard
 		#elif defined(__VIC20__) || defined(__C64__)
 			#include <peekpoke.h>
-			#define INIT_INPUT() \
+			#define _XL_INIT_INPUT() \
             do \
             { \
                 POKE(0x028A ,0xFF) \
                 POKE(657,128); \
             } while(0)
 		#elif defined(__NCURSES__) && !defined(TURN_BASED)
-			#define INIT_INPUT() nodelay(stdscr,TRUE)
+			#define _XL_INIT_INPUT() nodelay(stdscr,TRUE)
 		#elif defined(__M5__)
 			#define POKE(addr,val)     (*(uint8_t*) (addr) = (val))	
 			#define PEEK(addr)         (*(uint8_t*) (addr))		
-			#define INIT_INPUT() { POKE(0x701A,PEEK(0x701A)&0x7F);}
+			#define _XL_INIT_INPUT() { POKE(0x701A,PEEK(0x701A)&0x7F);}
 		#else
-			#define INIT_INPUT()
+			#define _XL_INIT_INPUT()
 		#endif
 	#elif defined(Z88DK_JOYSTICK)
 		extern uint8_t stick;
 		
         #if !defined(__ZX81__)
-            #define INIT_INPUT() \
+            #define _XL_INIT_INPUT() \
             { \
                 stick = 1; \
             }
         #else
-            #define INIT_INPUT() \
+            #define _XL_INIT_INPUT() \
             { \
                 stick = 3; \
             }            
         #endif
 	#elif defined(__SMS__) || defined(__LCC1802__)
-		#define INIT_INPUT()
+		#define _XL_INIT_INPUT()
 	#else // All CBM except CBM610 + ATARI + ATARI XL + ATARI 5200
 		#include <joystick.h>
 		#if defined(__SUPERVISION__)
@@ -76,14 +76,14 @@
 		#endif
         #if defined(__VIC20__) || defined(__C64__)
             #include <peekpoke.h>
-            #define INIT_INPUT() \
+            #define _XL_INIT_INPUT() \
                 do \
                 { \
                 joy_install(joy_static_stddrv); \
                 POKE(657,128); \
                 } while(0);
         #else
-            #define INIT_INPUT() { joy_install(joy_static_stddrv); };
+            #define _XL_INIT_INPUT() { joy_install(joy_static_stddrv); };
         #endif
 	#endif // defined(Z88DK_JOYSTICK)
 

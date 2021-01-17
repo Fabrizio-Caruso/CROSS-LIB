@@ -237,7 +237,7 @@ int main(void)
     
     _XL_INIT_GRAPHICS();
 
-    INIT_INPUT();    
+    _XL_INIT_INPUT();    
     
     ship_x = 1;
     line_counter = 0;

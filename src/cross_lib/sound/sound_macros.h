@@ -86,12 +86,12 @@
 	#elif (defined(__MO5__) || defined(__TO7__)) && defined(SOUNDS)
 		#include "dac_sounds.h"
 	#else
-		#define EXPLOSION_SOUND() 
-		#define PING_SOUND() 
-		#define SHOOT_SOUND() 
-		#define TICK_SOUND() 
-		#define TOCK_SOUND() 
-		#define ZAP_SOUND() 
+		#define _XL_EXPLOSION_SOUND() 
+		#define _XL_PING_SOUND() 
+		#define _XL_SHOOT_SOUND() 
+		#define _XL_TICK_SOUND() 
+		#define _XL_TOCK_SOUND() 
+		#define _XL_ZAP_SOUND() 
 	#endif
     
     #if defined(SOUNDS) && (defined(__MO5__) || defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__) || defined(__MSX__))

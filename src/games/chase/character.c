@@ -96,7 +96,7 @@ void deleteCharacter(Character * characterPtr)
 
 void playerDies(void)
 {
-	EXPLOSION_SOUND();
+	_XL_EXPLOSION_SOUND();
 	player._status=0;
 	#if !defined(LESS_TEXT)
 		printDefeatMessage();
@@ -135,7 +135,7 @@ uint8_t wallReached(register Character *characterPtr)
 
 void ghostDies(Character * ghostPtr)
 {
-	EXPLOSION_SOUND();
+	_XL_EXPLOSION_SOUND();
 	
 	ghostPtr->_status=0;
 	displayStats();

@@ -42,8 +42,3 @@
 		VIC.volume_color &= 0x00; 
 	};	
 
-
-		
-	
-	
-	

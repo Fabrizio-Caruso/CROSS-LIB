@@ -243,7 +243,7 @@ int main(void)
 {        
     _XL_INIT_GRAPHICS();
 
-    INIT_INPUT();
+    _XL_INIT_INPUT();
 
     _XL_INIT_SOUND();
 
@@ -447,7 +447,7 @@ int main(void)
                 if(points>(extraLifeThroughPointsCounter*EXTRA_LIFE_THROUGH_POINTS))
                 {
                     ++extraLifeThroughPointsCounter;
-                    PING_SOUND();
+                    _XL_PING_SOUND();
                     ++lives;
                     printLivesStats();
                 }
@@ -664,7 +664,7 @@ int main(void)
                 #if defined(FULL_GAME)            
                     if(isBossLevel)
                     {    
-                        PING_SOUND();
+                        _XL_PING_SOUND();
                         #if !defined(LESS_TEXT)
                             printExtraLife();
                             _XL_SLEEP(2);

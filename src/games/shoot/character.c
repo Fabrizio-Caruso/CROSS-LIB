@@ -99,12 +99,12 @@ extern uint8_t innerHorizontalWallLength;
 
 void playerDies(void)
 {
-    EXPLOSION_SOUND();
+    _XL_EXPLOSION_SOUND();
     player._status=0;
     #if !defined(LESS_TEXT)
         printDefeatMessage();
     #endif
-    SLEEP(1);    
+    _XL_SLEEP(1);    
 }
 
 uint8_t playerKilledBy(Character *enemyPtr)

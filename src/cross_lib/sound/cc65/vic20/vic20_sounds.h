@@ -27,14 +27,15 @@
 #include <stdint.h>
 
 	void _ping_sound(uint8_t freq);
-	#define PING_SOUND() _ping_sound(0xF0);	
-	#define TOCK_SOUND() _ping_sound(0x08);
-	#define TICK_SOUND() _ping_sound(0xC0);	
+	#define _XL_PING_SOUND() _ping_sound(0xF0);	
+	#define _XL_TOCK_SOUND() _ping_sound(0x08);
+	#define _XL_TICK_SOUND() _ping_sound(0xC0);	
 	
 	void _explosion_sound(uint8_t freq, uint8_t vol);
-	#define SHOOT_SOUND() _explosion_sound(0xF0, 0x0A);
-	#define EXPLOSION_SOUND() _explosion_sound(0x80, 0x08);
+	#define _XL_SHOOT_SOUND() _explosion_sound(0xF0, 0x0A);
+	#define _XL_EXPLOSION_SOUND() _explosion_sound(0x80, 0x08);
 	
-	void ZAP_SOUND();	
+	void _XL_ZAP_SOUND();
 	
 #endif // _VIC_SOUNDS
+

@@ -37,18 +37,18 @@
 	
 	void _noise_sound(uint8_t type);
 	
-	#define EXPLOSION_SOUND() _noise_sound(220)
+	#define _XL_EXPLOSION_SOUND() _noise_sound(220)
 	
-	#define SHOOT_SOUND() _noise_sound(160)
+	#define _XL_SHOOT_SOUND() _noise_sound(160)
 	
 	void _short_sound(uint8_t freq);
 	
-	#define PING_SOUND() _short_sound(200)
+	#define _XL_PING_SOUND() _short_sound(200)
 	
-	#define TOCK_SOUND() _short_sound(150)
+	#define _XL_TOCK_SOUND() _short_sound(150)
 	
-	#define TICK_SOUND() _short_sound(250)
+	#define _XL_TICK_SOUND() _short_sound(250)
 	
-	void ZAP_SOUND(void);
+	void _XL_ZAP_SOUND(void);
 		
 #endif // __C264_SOUNDS

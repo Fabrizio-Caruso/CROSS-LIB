@@ -93,7 +93,7 @@ void _XL_INIT_SOUND(void)
 }
 #endif
 
-void ZAP_SOUND(void) 
+void _XL_ZAP_SOUND(void) 
 {
 	uint8_t i;
 	uint8_t j;

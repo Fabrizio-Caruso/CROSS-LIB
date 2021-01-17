@@ -100,7 +100,7 @@ void handle_bullet(void)
 	// Check if player has fired the gun
 	if(playerFire && bullet._status==0 && guns>0)
 	{
-		SHOOT_SOUND();
+		_XL_SHOOT_SOUND();
 		--guns;
 		#if !defined(NO_STATS)
 		printGunsStats();
@@ -153,7 +153,7 @@ void checkBulletVsSkull(register Character *bulletPtr)
 	if(skullActive && skull._status &&
 	   areCharctersAtSamePosition(bulletPtr, &skull))
 	{
-		PING_SOUND();
+		_XL_PING_SOUND();
 		bulletPtr->_status=0;
 		#if defined(FULL_GAME)
 		decreaseGhostLevel();
@@ -163,7 +163,7 @@ void checkBulletVsSkull(register Character *bulletPtr)
 		if(!(--skull._status))
 		{
 			deleteSkull(&skull);
-			EXPLOSION_SOUND();
+			_XL_EXPLOSION_SOUND();
 			points+=SKULL_POINTS;
 			displayStats();
 		}
@@ -196,7 +196,7 @@ void _moveBullet(register Character *bulletPtr)
 	void destroyHorizontalMissile(Character * horizontalMissilePtr)
 	{
 		horizontalMissilePtr->_status = 0;
-		EXPLOSION_SOUND();
+		_XL_EXPLOSION_SOUND();
 		deleteHorizontalMissile(horizontalMissilePtr);
 		points+=HORIZONTAL_MISSILE_BONUS;
 		displayStats();				
@@ -252,7 +252,7 @@ void moveBullet(register Character * bulletPtr)
 					{
 						rockets[i]._status = 0;
 						++destroyed_bases;
-						EXPLOSION_SOUND();
+						_XL_EXPLOSION_SOUND();
 						deleteRocket(&rockets[i]);
 						points+=VERTICAL_MISSILE_BONUS;
 						displayStats();		

@@ -68,7 +68,7 @@ extern Item extraPoints;
 
 	void itemReached(Character * itemPtr)
 	{
-		ZAP_SOUND();
+		_XL_ZAP_SOUND();
 		#if defined(TURN_BASED)
 			displayPlayer(&player);
 		#endif
@@ -195,13 +195,13 @@ extern Item extraPoints;
 		extraPoints._coolDown/=2;
 		invincibility._coolDown/=2;
 		freeze._coolDown/=2;
-		TICK_SOUND();		
+		_XL_TICK_SOUND();		
 	}
 #elif !defined(TINY_GAME)
 	void reducePowerUpsCoolDowns(void)
 	{
 		extraPoints._coolDown/=2;
-		TICK_SOUND();		
+		_XL_TICK_SOUND();		
 	}
 #else	
 #endif	

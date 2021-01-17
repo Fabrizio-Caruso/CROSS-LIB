@@ -70,7 +70,7 @@ void set_secret(uint8_t *secret_ptr)
         (*secret_ptr)=1;
         SET_TEXT_COLOR(_XL_CYAN);
         PRINT(SECRET_X,YSize-1,_SECRET_STRING);
-        SHOOT_SOUND();
+        _XL_SHOOT_SOUND();
     }
 }
 
@@ -157,7 +157,7 @@ void spawn(uint8_t type)
     uint8_t x;
     uint8_t y;
     
-    PING_SOUND();
+    _XL_PING_SOUND();
     while(1)
     {
         x = (uint8_t)(RAND()%(XSize-2)+1);
@@ -560,7 +560,7 @@ void handle_transparent_vertical_wall(void)
     {
         if(empty_vertical_wall_area())
         {
-            TOCK_SOUND();
+            _XL_TOCK_SOUND();
             transparent_vertical_wall_triggered = TRANSPARENT;
         }
         else
@@ -583,7 +583,7 @@ void handle_transparent_horizontal_wall(void)
     {
         if(empty_horizontal_wall_area())
         {
-            TOCK_SOUND();
+            _XL_TOCK_SOUND();
             transparent_horizontal_wall_triggered = TRANSPARENT;
         }
         else
@@ -710,14 +710,14 @@ void one_up(void)
 {
     ++lives;
     DISPLAY_LIVES();
-    PING_SOUND();
+    _XL_PING_SOUND();
     // _XLIB_DRAW(XSize-2,0,&HORIZONTAL_HEAD_IMAGE);
     _XL_DRAW(XSize-2,0,HORIZONTAL_HEAD_TILE,_XL_GREEN);
     _XL_SLOW_DOWN(SLOW_DOWN*5);
     // _XLIB_DRAW(XSize-2,0,&VERTICAL_HEAD_IMAGE);
     _XL_DRAW(XSize-2,0,VERTICAL_HEAD_TILE, _XL_GREEN);
 
-    PING_SOUND();
+    _XL_PING_SOUND();
 }
 
 #define handle_extra_life() \
@@ -768,7 +768,7 @@ void one_up(void)
 #define handle_coin_effect() \
     snake_grows(); \
     increase_points(RING_POINTS<<coin_count); \
-    ZAP_SOUND(); \
+    _XL_ZAP_SOUND(); \
     _XL_DRAW(XSize-6+coin_count,YSize-1,RING_TILE,_XL_WHITE); \
     if(coin_count>=2) \
     { \
@@ -845,7 +845,7 @@ void magic_wall(void)
     do \
     { \
         snake_grows(); \
-        TICK_SOUND(); \
+        _XL_TICK_SOUND(); \
         increase_points(EXTRA_POINTS); \
         if(!(level&3)) \
         { \
@@ -871,7 +871,7 @@ void magic_wall(void)
 
 
 #define handle_super_coin_effect() \
-    ZAP_SOUND(); \
+    _XL_ZAP_SOUND(); \
     increase_points(SUPER_RING_POINTS); \
     slow_down = SLOW_DOWN + SLOW_DOWN/5; \
     if(energy>10) \
@@ -892,11 +892,11 @@ void magic_wall(void)
     --remaining_apples; \
     DISPLAY_REMAINING_APPLES_COUNT(); \
     increase_points(APPLE_POINTS); \
-    ZAP_SOUND(); \
+    _XL_ZAP_SOUND(); \
     IF_POSSIBLE_DECREASE_SPEED();
 
 #define handle_extra_life_effect() \
-    ZAP_SOUND(); \
+    _XL_ZAP_SOUND(); \
     one_up(); \
     set_secret(&extra_life_achievement[level>>2]);
 
@@ -992,7 +992,7 @@ void magic_wall(void)
 
 #define handle_lost_life() \
     --lives; \
-    EXPLOSION_SOUND(); \
+    _XL_EXPLOSION_SOUND(); \
     PRESS_KEY();
 
 #if XSize<32
@@ -1054,7 +1054,7 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
     for(i=0;i<=achievements;++i)
     {
         PRINTD(ACHIEVEMENTS_X_OFFSET+2,row,2,i);
-        SHOOT_SOUND();
+        _XL_SHOOT_SOUND();
         _XL_SLOW_DOWN((SLOW_DOWN/10)*i);
     }
     _XL_SLOW_DOWN(SLOW_DOWN*4);
@@ -1149,7 +1149,7 @@ void display_stats(void)
 #define INITIALIZE() \
     uint8_t i; \
     _XL_INIT_GRAPHICS(); \
-    INIT_INPUT(); \
+    _XL_INIT_INPUT(); \
     _XL_INIT_SOUND(); \
     record = 0;
 

@@ -109,7 +109,7 @@ void skullDies(register Character * skullPtr)
         {
             skullActive = 0;
         }
-        EXPLOSION_SOUND();
+        _XL_EXPLOSION_SOUND();
         points+=SKULL_POINTS;
         displayScoreStats();
         deleteSkull(skullPtr);
@@ -122,7 +122,7 @@ void handle_skull(Character *skullPtr, uint8_t strategy)
     {
         if(!freezeActive && SKULL_RAND_CONDITION)
         {
-            TOCK_SOUND();
+            _XL_TOCK_SOUND();
             skullMoveTowardCharacter(skullPtr, strategy);
         }
         displaySkull(skullPtr);
@@ -199,7 +199,7 @@ void checkBombsVsSkull(register Character * skullPtr)
         bombs[reachedBombInd]._status = 0;
         deleteBomb(&bombs[reachedBombInd]);
         ++exploded_bombs;
-        EXPLOSION_SOUND();
+        _XL_EXPLOSION_SOUND();
         
         if(skullPtr->_status<=SKULL_BOMB_DAMAGE)
         {

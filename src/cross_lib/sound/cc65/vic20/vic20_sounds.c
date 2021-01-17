@@ -58,7 +58,7 @@ void _ping_sound(uint8_t freq)
 };
 
 
-void ZAP_SOUND() 
+void _XL_ZAP_SOUND() 
 { 
     uint8_t j;
     VIC.volume_color |= 0x0B; 

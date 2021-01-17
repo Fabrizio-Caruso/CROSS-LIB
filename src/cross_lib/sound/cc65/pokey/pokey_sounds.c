@@ -51,10 +51,10 @@ void _ping_sound(uint8_t freq)
     { 
     } 
     POKEY_WRITE.audc1 = 0x00; 
-};			
+};
 
 
-void ZAP_SOUND(void) 
+void _XL_ZAP_SOUND(void) 
 { 
     uint16_t i; 
     uint16_t j; 
@@ -68,4 +68,5 @@ void ZAP_SOUND(void)
         POKEY_WRITE.audf1 = 100+i; 
     } 
     POKEY_WRITE.audc1 = 0x00; 
-};	
+};
+

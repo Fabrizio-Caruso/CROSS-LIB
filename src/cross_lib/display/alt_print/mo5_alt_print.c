@@ -1,7 +1,7 @@
 #include "standard_libs.h"
 #include "display_macros.h"
 
-void PRINT(uint8_t x, uint8_t y, char * str)
+void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 {
 	uint8_t i = 0;
 	
@@ -16,7 +16,7 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 }
 
 
-void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
+void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 {
 	uint8_t i;
 	uint8_t digit;

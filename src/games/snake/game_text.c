@@ -42,7 +42,7 @@ void DISPLAY_ENERGY(void)
    {
        SET_TEXT_COLOR(_XL_WHITE);
    }
-   PRINTD(XSize/2-1,YSize-1,2,energy); 
+   _XL_PRINTD(XSize/2-1,YSize-1,2,energy); 
 }
 
 void PRESS_KEY(void)
@@ -55,18 +55,18 @@ void PRESS_KEY(void)
 void DISPLAY_POINTS(void)
 {
     SET_TEXT_COLOR(_XL_WHITE);
-    PRINTD(2,0,5,points);
+    _XL_PRINTD(2,0,5,points);
 }
 
 void DISPLAY_REMAINING_APPLES_COUNT(void)
 {
     SET_TEXT_COLOR(_XL_WHITE);
-    PRINTD(9,0,2,remaining_apples);
+    _XL_PRINTD(9,0,2,remaining_apples);
 }
 
 void DISPLAY_LIVES(void)
 {
     SET_TEXT_COLOR(_XL_WHITE);
-    PRINTD(XSize-1,0,1,lives);
+    _XL_PRINTD(XSize-1,0,1,lives);
 }
 

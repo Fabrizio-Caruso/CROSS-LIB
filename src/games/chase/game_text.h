@@ -99,7 +99,7 @@ void printStartMessage(void);
 
 #if defined(TINY_GAME)
 	#if !defined(NO_MESSAGE)
-		#define highScoreScreen() PRINTD((XSize-6)/2, 0, 5, highScore)
+		#define highScoreScreen() _XL_PRINTD((XSize-6)/2, 0, 5, highScore)
 	#else
 		#define highScoreScreen()
 	#endif

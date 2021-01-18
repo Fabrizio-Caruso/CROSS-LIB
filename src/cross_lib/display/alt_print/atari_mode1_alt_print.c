@@ -17,7 +17,7 @@ void _GOTOXY(uint8_t x, uint8_t y)
 	} 
 };
 
-void PRINT(uint8_t x, uint8_t y, char * str)
+void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 { 
     _GOTOXY(x,y);
     cprintf(str); 
@@ -25,7 +25,7 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 #else
 extern uint8_t text_color;
 
-void PRINT(uint8_t x, uint8_t y, char * str)
+void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 {
     uint8_t i = 0;
 
@@ -37,7 +37,7 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 }
 #endif
 
-void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
+void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 {
 	uint8_t i;
 	uint8_t digit;

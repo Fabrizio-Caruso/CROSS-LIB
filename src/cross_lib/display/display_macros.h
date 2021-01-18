@@ -169,37 +169,37 @@ typedef struct ImageStruct Image;
 
 // PRINT AND PRINTD
 #  if defined(ALT_DISPLAY_STATS) 
-    void PRINT(uint8_t x, uint8_t y, char * str);
-    #define PRINTD(x,y,length,val) _displayShort(val)
+    void _XL_PRINT(uint8_t x, uint8_t y, char * str);
+    #define _XL_PRINTD(x,y,length,val) _displayShort(val)
     void _displayShort(uint16_t val);
     uint16_t loc(uint8_t x, uint8_t y);
 #elif defined(NO_PRINT)
-    #define PRINT(x,y,str)
-    #define PRINTD(x,y,length, val)
+    #define _XL_PRINT(x,y,str)
+    #define _XL_PRINTD(x,y,length, val)
 #elif defined(__ATARI__) && defined(ATARI_MODE1)
     void _GOTOXY(uint8_t x, uint8_t y);
-    void PRINT(uint8_t x, uint8_t y, char * str);
-    void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
+    void _XL_PRINT(uint8_t x, uint8_t y, char * str);
+    void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
 #elif defined(__NCURSES__)
-    void PRINT(uint8_t x, uint8_t y, char * str);
-    #define PRINTD(x,y,length,val) \
+    void _XL_PRINT(uint8_t x, uint8_t y, char * str);
+    #define _XL_PRINTD(x,y,length,val) \
     do { \
         move(y,x); \
         printw("%0" #length "u",val); \
         refresh(); \
     } while(0)
 #elif defined(ALT_PRINT)
-    void PRINT(uint8_t x, uint8_t y, char * str);
-    void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
+    void _XL_PRINT(uint8_t x, uint8_t y, char * str);
+    void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val);
 #else
-    #define PRINT(x,y,str) \
+    #define _XL_PRINT(x,y,str) \
     do \
     { \
         gotoxy(x+X_OFFSET,y); \
         cprintf(str); \
     } while(0)
     
-    #define PRINTD(x,y,length,val) \
+    #define _XL_PRINTD(x,y,length,val) \
     do \
     { \
         gotoxy(x+X_OFFSET,y); \

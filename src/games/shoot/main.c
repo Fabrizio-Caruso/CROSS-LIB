@@ -159,10 +159,10 @@ void DO_DEBUG_ITEMS(void)
             #endif
         #endif
     #endif
-    PRINTD(4,3,5, 1234U);
-    PRINTD(4,5,5,56789U);
-    PRINT(4,7,"abcdefghijklmnopqrstuvwxyz,./|-");
-    PRINT(4,9,"ABCDEFGHIJKLMNOPQRSTUVWXYZ;+{}=");
+    _XL_PRINTD(4,3,5, 1234U);
+    _XL_PRINTD(4,5,5,56789U);
+    _XL_PRINT(4,7,"abcdefghijklmnopqrstuvwxyz,./|-");
+    _XL_PRINT(4,9,"ABCDEFGHIJKLMNOPQRSTUVWXYZ;+{}=");
     while(1){};
 }
 #endif

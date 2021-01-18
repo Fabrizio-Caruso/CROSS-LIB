@@ -19,7 +19,7 @@ unsigned int strlen(char *str)
 }
 #endif
 
-void PRINT(uint8_t x, uint8_t y, char * str)
+void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 {
 #if !defined(__CIDELSA__)
     vidstrcpy((uint16_t) BASE_ADDR+x+y*40,str);
@@ -41,7 +41,7 @@ void PRINT(uint8_t x, uint8_t y, char * str)
 #endif
 
 
-void PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
+void _XL_PRINTD(uint8_t x, uint8_t y, uint8_t length, uint16_t val)
 {
 	uint8_t i;
 	uint8_t digit;

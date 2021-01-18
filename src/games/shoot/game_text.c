@@ -51,7 +51,7 @@ extern uint8_t bulletStrength;
 
 
 #if defined(ALT_DISPLAY_STATS)
-    #define printCenteredMessageOnRow(row, text) PRINT(6,row,text)
+    #define printCenteredMessageOnRow(row, text) _XL_PRINT(6,row,text)
 #endif
 
 #if defined(NO_TEXT_COLOR)
@@ -117,7 +117,7 @@ void printGunsStats(void)
     #if defined(WIDE)
         PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
     #else
-        PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
+        _XL_PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
     #endif
 }
 
@@ -135,9 +135,9 @@ void printFirePowerStats(void)
     #endif
     
     #if defined(WIDE)
-        PRINTD(FIRE_POWER_IMAGE_X+2,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
+        _XL_PRINTD(FIRE_POWER_IMAGE_X+2,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
     #else
-        PRINTD(FIRE_POWER_IMAGE_X+1,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
+        _XL_PRINTD(FIRE_POWER_IMAGE_X+1,FIRE_POWER_IMAGE_Y,1,bulletStrength-1);
     #endif
 }
 
@@ -147,7 +147,7 @@ void printFirePowerStats(void)
     {    
         SET_COLOR(TEXT_COLOR);
     
-        PRINTD(LEVEL_X,LEVEL_Y,2,level);
+        _XL_PRINTD(LEVEL_X,LEVEL_Y,2,level);
     }
     #endif
 
@@ -157,9 +157,9 @@ void printFirePowerStats(void)
         SET_COLOR(TEXT_COLOR);        
         
         #if defined(WIDE)
-            PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);
+            _XL_PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);
         #else
-            PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);    
+            _XL_PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,2,ghostCount);    
         #endif    
     }
 
@@ -169,9 +169,9 @@ void printFirePowerStats(void)
         SET_COLOR(TEXT_COLOR);
         
         #if defined(WIDE)
-            PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,2,lives);
+            _XL_PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,2,lives);
         #else
-            PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,1,lives);    
+            _XL_PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,1,lives);    
         #endif
     }    
     
@@ -190,9 +190,9 @@ void displayScoreStats(void)
     SET_COLOR(TEXT_COLOR);
     
     #if defined(WIDE)
-        PRINTD(6,+0,5,points);
+        _XL_PRINTD(6,+0,5,points);
     #else
-        PRINTD(0,0,5,points);    
+        _XL_PRINTD(0,0,5,points);    
     #endif    
 }
 
@@ -200,8 +200,8 @@ void displayScoreStats(void)
     void printLevel(void)
     {
         SET_COLOR(TEXT_COLOR);
-        PRINT(((XSize -7)>>1), (YSize>>1), LEVEL_STRING);
-        PRINTD(((XSize -7)>>1)+6, (YSize>>1), 2, level);
+        _XL_PRINT(((XSize -7)>>1), (YSize>>1), LEVEL_STRING);
+        _XL_PRINTD(((XSize -7)>>1)+6, (YSize>>1), 2, level);
     }
 #endif
 
@@ -209,7 +209,7 @@ void displayScoreStats(void)
 #if !defined(NO_MESSAGE)
     void _printScoreOnRow(uint8_t row, uint16_t score)
     {
-        PRINTD((uint8_t) ((XSize)>>1)-2, row, 5, score);
+        _XL_PRINTD((uint8_t) ((XSize)>>1)-2, row, 5, score);
     }    
     
     void _printScore(uint16_t score)
@@ -322,21 +322,21 @@ uint8_t countDiscoveredSecrets(void)
     for(i=0;i<SECRETS_NUMBER;++i)
     {
         #if defined(DEBUG_SECRETS)
-        PRINTD(3,i,2,i);
+        _XL_PRINTD(3,i,2,i);
         #endif
 
         if(discoveredSecrets[i])
         {
             ++total;
             #if defined(DEBUG_SECRETS)
-                PRINT(8,i,"done");
+                _XL_PRINT(8,i,"done");
             #endif
         }
         #if defined(DEBUG_SECRETS)
             else
             {
 
-                PRINT(8,i,"NOPE");
+                _XL_PRINT(8,i,"NOPE");
             }
         #endif
     }
@@ -355,41 +355,41 @@ void printAchievements(void)
     
     SET_COLOR(_XL_RED);    
 
-    PRINT(1, (YSize>>1)-4,  HIGH_SCORE_STRING);
+    _XL_PRINT(1, (YSize>>1)-4,  HIGH_SCORE_STRING);
 
-    PRINT(1, (YSize>>1)-2,  SCORE_STRING);
+    _XL_PRINT(1, (YSize>>1)-2,  SCORE_STRING);
 
     if(level<=FINAL_LEVEL)
     {
-        PRINT(1, (YSize>>1),    LEVEL_STRING);
+        _XL_PRINT(1, (YSize>>1),    LEVEL_STRING);
     }
     else
     {
         SET_COLOR(_XL_YELLOW);
-        PRINT(1, (YSize>>1), GAME_COMPLETED_STRING);
+        _XL_PRINT(1, (YSize>>1), GAME_COMPLETED_STRING);
         SET_COLOR(_XL_RED);    
     }
-    PRINT(1, (YSize>>1)+2,  DISCOVERED_SECRETS_STRING);
+    _XL_PRINT(1, (YSize>>1)+2,  DISCOVERED_SECRETS_STRING);
     
-    PRINT(12, (YSize>>1)+2, OF_STRING );
+    _XL_PRINT(12, (YSize>>1)+2, OF_STRING );
     
-    PRINTD(15, (YSize>>1)+2, 2, SECRETS_NUMBER);
+    _XL_PRINTD(15, (YSize>>1)+2, 2, SECRETS_NUMBER);
 
     SET_COLOR(TEXT_COLOR);    
 
-    PRINTD(9, (YSize>>1)-4, 5, highScore );
+    _XL_PRINTD(9, (YSize>>1)-4, 5, highScore );
 
-    PRINTD(9, (YSize>>1)-2, 5, points);
+    _XL_PRINTD(9, (YSize>>1)-2, 5, points);
 
     if(level<=FINAL_LEVEL)
     {
-        PRINTD(9, (YSize>>1), 2,   level);
+        _XL_PRINTD(9, (YSize>>1), 2,   level);
     }
 
     i=0;
     do
     {
-        PRINTD(9, (YSize>>1)+2, 2, i);
+        _XL_PRINTD(9, (YSize>>1)+2, 2, i);
         for(j=0;j<i;++j)
         {
             SHORT_SLEEP(2);
@@ -403,7 +403,7 @@ void printAchievements(void)
     if(secretLevelActivated)
     {
         SET_COLOR(_XL_YELLOW);    
-        PRINT(1, (YSize>>1)+4, SECRET_LEVEL_FOUND_STRING);
+        _XL_PRINT(1, (YSize>>1)+4, SECRET_LEVEL_FOUND_STRING);
     }
 
 }

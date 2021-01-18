@@ -6,7 +6,7 @@
 #endif
 
 
-void PRINT(uint8_t x, uint8_t y, char * str)
+void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 {
 	move(y,x); 
 	printw(str); 

@@ -77,7 +77,7 @@ extern Image SKULL_IMAGE;
 
 #ifndef printCenteredMessageOnRow
     #if defined(ALT_DISPLAY_STATS)
-        #define printCenteredMessageOnRow(row, text) PRINT(2,row,text)
+        #define printCenteredMessageOnRow(row, text) _XL_PRINT(2,row,text)
     #endif
 #endif
 
@@ -111,18 +111,18 @@ extern Image PLAYER_IMAGE;
 #else
 	#define TITLE_Y 1
 	#define TITLE_LINE() 
-    //PRINT(XSize-11,+0,  "-----------")
+    //_XL_PRINT(XSize-11,+0,  "-----------")
 #endif
 
 
 #define PRINT_WIDE_TITLE() \
 	SET_COLOR( _XL_CYAN); \
-	PRINT(0,       0, SCORE_STRING); \
-	PRINT(0, LEVEL_Y, LEVEL_STRING); \
+	_XL_PRINT(0,       0, SCORE_STRING); \
+	_XL_PRINT(0, LEVEL_Y, LEVEL_STRING); \
 	\
 	SET_COLOR( _XL_RED); \
 	TITLE_LINE(); \
-	PRINT(XSize-11,TITLE_Y,TITLE_LINE_STRING);	
+	_XL_PRINT(XSize-11,TITLE_Y,TITLE_LINE_STRING);	
 
 
 // TODO: This is SLOW
@@ -146,9 +146,9 @@ extern Image PLAYER_IMAGE;
 		SET_COLOR(TEXT_COLOR);
 		
 		#if defined(WIDE)
-			PRINTD(GUN_IMAGE_X+2,GUN_IMAGE_Y,1,guns);
+			_XL_PRINTD(GUN_IMAGE_X+2,GUN_IMAGE_Y,1,guns);
 		#else
-			PRINTD(GUN_IMAGE_X+1,GUN_IMAGE_Y,1,guns);
+			_XL_PRINTD(GUN_IMAGE_X+1,GUN_IMAGE_Y,1,guns);
 		#endif
 	}
 #endif
@@ -159,9 +159,9 @@ extern Image PLAYER_IMAGE;
 		SET_COLOR(TEXT_COLOR);
 	
 		#if defined(WIDE) && !defined(TINY_GAME)
-			PRINTD(LEVEL_X,LEVEL_Y,2,level);
+			_XL_PRINTD(LEVEL_X,LEVEL_Y,2,level);
 		#elif XSize>16
-			PRINTD(LEVEL_X,LEVEL_Y,2,level);
+			_XL_PRINTD(LEVEL_X,LEVEL_Y,2,level);
 		#else
 			// No space for level
 		#endif	
@@ -173,9 +173,9 @@ extern Image PLAYER_IMAGE;
 		SET_COLOR(TEXT_COLOR);		
 		
 		#if defined(WIDE) && !defined(TINY_GAME)
-			PRINTD(GHOST_IMAGE_X+2,GHOST_IMAGE_Y,1,ghostCount);
+			_XL_PRINTD(GHOST_IMAGE_X+2,GHOST_IMAGE_Y,1,ghostCount);
 		#else
-			PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,1,ghostCount);	
+			_XL_PRINTD(GHOST_IMAGE_X+1,GHOST_IMAGE_Y,1,ghostCount);	
 		#endif	
 	}
 
@@ -185,9 +185,9 @@ extern Image PLAYER_IMAGE;
 		SET_COLOR(TEXT_COLOR);
 		
 		#if defined(WIDE) && !defined(TINY_GAME)
-			PRINTD(PLAYER_IMAGE_X+2,PLAYER_IMAGE_Y,2,lives);
+			_XL_PRINTD(PLAYER_IMAGE_X+2,PLAYER_IMAGE_Y,2,lives);
 		#else
-			PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,2,lives);	
+			_XL_PRINTD(PLAYER_IMAGE_X+1,PLAYER_IMAGE_Y,2,lives);	
 		#endif
 	}	
 	
@@ -206,17 +206,17 @@ void displayStats(void)
 	SET_COLOR(TEXT_COLOR);
 	
 	#if defined(WIDE) && !defined(TINY_GAME)
-		PRINTD(6,+0,5,points);
+		_XL_PRINTD(6,+0,5,points);
 	#else
-		PRINTD(!EXTRA_TINY,0,5,points);	
+		_XL_PRINTD(!EXTRA_TINY,0,5,points);	
 	#endif	
 }
 
 #if !defined(LESS_TEXT)	
 	void printLevel(void)
 	{
-		PRINT(((XSize -7)>>1), (YSize>>1), START_LEVEL_STRING);
-        PRINTD(((XSize -7)>>1)+6, (YSize>>1), 2, level);
+		_XL_PRINT(((XSize -7)>>1), (YSize>>1), START_LEVEL_STRING);
+        _XL_PRINTD(((XSize -7)>>1)+6, (YSize>>1), 2, level);
 	}
 #endif
 
@@ -224,7 +224,7 @@ void displayStats(void)
 #if !defined(TINY_GAME) && !defined(NO_MESSAGE)
 	void _printScoreOnRow(uint8_t row, uint16_t score)
 	{
-		PRINTD((uint8_t) ((XSize)>>1)-2, row, 5, score);
+		_XL_PRINTD((uint8_t) ((XSize)>>1)-2, row, 5, score);
 	}	
 	
 	#if !defined(LESS_TEXT)

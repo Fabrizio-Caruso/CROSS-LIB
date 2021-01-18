@@ -32,7 +32,7 @@
         { \
             _XL_DRAW(XSize/2-6,YSize/8+8+2*i, images[NUMBER_OF_STRINGS-i], image_colors[NUMBER_OF_STRINGS-i]); \
             SET_TEXT_COLOR(_XL_WHITE); \
-            PRINT(XSize/2-4,YSize/8+8+2*i, strings[NUMBER_OF_STRINGS-1-i] ); \
+            _XL_PRINT(XSize/2-4,YSize/8+8+2*i, strings[NUMBER_OF_STRINGS-1-i] ); \
         } \
     }
 #else
@@ -47,7 +47,7 @@
     CLEAR_SCREEN(); \
     _XL_DRAW(XSize/2-3,0,HI_TEXT_TILE,_XL_RED); \
     SET_TEXT_COLOR(_XL_WHITE); \
-    PRINTD(XSize/2-2,0,5,record); \
+    _XL_PRINTD(XSize/2-2,0,5,record); \
     SET_TEXT_COLOR(_XL_RED); \
     printCenteredMessageOnRow(YSize/8, _CROSS_SNAKE_STRING); \
     SET_TEXT_COLOR(_XL_WHITE); \

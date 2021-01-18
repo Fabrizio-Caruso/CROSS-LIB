@@ -187,38 +187,38 @@ do { \
 #define displayScore() \
 do { \
     SET_TEXT_COLOR(_XL_WHITE); \
-    PRINTD(2,0,5,score); \
+    _XL_PRINTD(2,0,5,score); \
 } while(0)
 
 #define displayRemainingBuilings() \
 do { \
     SET_TEXT_COLOR(_XL_WHITE); \
-    PRINTD(9,0,2,remaining_buildings); \
+    _XL_PRINTD(9,0,2,remaining_buildings); \
 } while(0)
 
 #define displayHiScore() \
 do { \
     SET_TEXT_COLOR(_XL_WHITE); \
-    PRINTD(XSize-5,0,5,hiscore); \
+    _XL_PRINTD(XSize-5,0,5,hiscore); \
 } while(0)
 
 
 #define displayLevel() \
 do { \
     SET_TEXT_COLOR(_XL_WHITE); \
-    PRINTD(XSize-8,0,1,level); \
+    _XL_PRINTD(XSize-8,0,1,level); \
 } while(0)
 
 #define displayLevelMessage() \
 do { \
     SET_TEXT_COLOR(_XL_WHITE); \
-    PRINTD(XSize/2+2,4,2,level); \
+    _XL_PRINTD(XSize/2+2,4,2,level); \
 } while(0)
 
 #define displayNewHiScoreMessage() \
 do { \
     SET_TEXT_COLOR(_XL_CYAN); \
-    PRINT(1,4,_NEW_HISCORE__STRING); \
+    _XL_PRINT(1,4,_NEW_HISCORE__STRING); \
 } while(0)
 
 #define displayGameOverMessage() \
@@ -328,7 +328,7 @@ int main(void)
             remaining_buildings = BUILDINGS_NUMBER;
             
             CLEAR_SCREEN();
-            PRINT(XSize/2-4, 4, _LEVEL__STRING);
+            _XL_PRINT(XSize/2-4, 4, _LEVEL__STRING);
             displayLevelMessage();
             _XL_SLEEP(1);
             _XL_WAIT_FOR_INPUT();
@@ -493,15 +493,15 @@ int main(void)
             {
                 drawPlane();
                 SET_TEXT_COLOR(_XL_YELLOW);
-                PRINT(1,2,_LEVEL_COMPLETED__STRING);
+                _XL_PRINT(1,2,_LEVEL_COMPLETED__STRING);
                 _XL_SLEEP(1);
                 ++level;
                 score+=bonus;
                 SET_TEXT_COLOR(_XL_WHITE);
-                PRINT(1,4,_BONUS__STRING);
+                _XL_PRINT(1,4,_BONUS__STRING);
                 for(bonus_ind=10;bonus_ind<=bonus;bonus_ind+=10)
                 {
-                    PRINTD(7,4,5,bonus_ind);
+                    _XL_PRINTD(7,4,5,bonus_ind);
                     _XL_SHOOT_SOUND();
                     _XL_SLOW_DOWN(SLOW_DOWN);
                     _XL_SLOW_DOWN(SLOW_DOWN);

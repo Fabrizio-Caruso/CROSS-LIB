@@ -7,7 +7,7 @@
 	#if !defined(ALT_DISPLAY_STATS)
 	void printCenteredMessageOnRow(uint8_t row, char *Text)
 	{
-		PRINT(((uint8_t) (XSize - (uint8_t) strlen(Text))>>1), row, Text);	
+		_XL_PRINT(((uint8_t) (XSize - (uint8_t) strlen(Text))>>1), row, Text);	
 	}
 	#endif
 

@@ -50,7 +50,7 @@
         }
     #endif
 
-	void PRINT(uint8_t x, uint8_t y, char * str)
+	void _XL_PRINT(uint8_t x, uint8_t y, char * str)
 	{
 		uint8_t i = 0;
 		while(str[i]!='\0')

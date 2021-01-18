@@ -20,7 +20,8 @@ XSize: Number of tiles that can be displayed horizontally on the (usable) screen
 YSize: Number of tiles that can be displayed vertically on the (usable) screen
 
 --------------------------------
-_TILE_1, ..., _TILE_24, _DOLLAR_TILE: tiles (uint8_t)
+_TILE_1, ..., _TILE_24, _DOLLAR_TILE
+Displayable tiles with _XL_DRAW
 
 
 --------------------------------
@@ -30,7 +31,7 @@ Currently available colors
 
 --------------------------------
 _XL_DRAW(X, Y, T, C)
-It displays tile T at position (X,Y) with color C (if color C is available or its "closest" match when C is not supposed by a target)
+It displays tile T at position (X,Y) with color C if color C is available or its "closest" match when C is not supported by a target.
 
 
 --------------------------------
@@ -39,16 +40,21 @@ It deletes a tile-sized area of the screen at position (X,Y)
 
 
 --------------------------------
+CLEAR_SCREEN()
+It clears the whole screen.
+
+
+--------------------------------
 _XL_WAIT_VSYNC()
 
-It waits for the vertical synch if this is supported by the specific target
+It waits for the vertical synch if this is supported by the target. It does nothing otherwise.
 
 --------------------------------------------------------------------------------------
 TEXT
 --------------------------------------------------------------------------------------
 
 --------------------------------
-PRINT(X,Y,S)
+_XL_PRINT(X,Y,S)
 It prints the "Cross-Lib" string S starting a position (X,Y).
 A Cross-Lib string is string formed with only the following 37 characters
 _XL_SPACE, _XL_a, ..., _XL_z, _XL_A, ..., _XL_Z, '0', ..., '9'
@@ -56,7 +62,7 @@ where capital/small letter may be displayed as the same character depending on t
 
 
 --------------------------------
-PRINTD(X,Y,L,N)
+_XL_PRINTD(X,Y,L,N)
 It prints the positive integer number N in L digits (1<=L<=5) starting at position (X,Y)
 
 
@@ -72,8 +78,8 @@ It initializes the input (joystick/keyboard). Necessary for any program that nee
 
 --------------------------------
 _XL_INPUT()
-It returns a value without any wait that represents the received input or absence of input
-
+It returns a value J that represents the specific received input or absence of input at the moment of its execution (keyboard may be buffered, though).
+The result J is meant to be used with the Boolean functions below.
 
 --------------------------------
 _XL_UP(J), _XL_DOWN(J), _XL_LEFT(J), _XL_RIGHT(J), _XL_FIRE(J)
@@ -101,7 +107,7 @@ It initializes the sound system. Necessary for any program that produces sound.
 
 --------------------------------
 _XL_ZAP_SOUND()
-Long raising sound
+Long rising sound
 
 --------------------------------
 _XL_PING_SOUND()

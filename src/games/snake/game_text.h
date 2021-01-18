@@ -44,7 +44,7 @@
 #endif
 
 #define title() \
-    CLEAR_SCREEN(); \
+    _XL_CLEAR_SCREEN(); \
     _XL_DRAW(XSize/2-3,0,HI_TEXT_TILE,_XL_RED); \
     SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(XSize/2-2,0,5,record); \

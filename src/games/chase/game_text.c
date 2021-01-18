@@ -238,7 +238,7 @@ void displayStats(void)
 #if !defined(END_SCREEN) && !defined(NO_MESSAGE)
 	void gameCompleted(void)	
 	{
-		CLEAR_SCREEN();
+		_XL_CLEAR_SCREEN();
 		printCenteredMessage(YOU_MADE_IT_STRING); 
 	}
 #endif

@@ -73,12 +73,12 @@ int main(void)
     while(1)
     {
         
-        CLEAR_SCREEN();
+        _XL_CLEAR_SCREEN();
         
         SET_TEXT_COLOR(_XL_WHITE);
-        PRINT(4,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
+        _XL_PRINT(4,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
         _XL_WAIT_FOR_INPUT();
-        CLEAR_SCREEN();
+        _XL_CLEAR_SCREEN();
 		while(1)
 		{
 			i = (uint8_t) (_XL_RAND() % XSize);

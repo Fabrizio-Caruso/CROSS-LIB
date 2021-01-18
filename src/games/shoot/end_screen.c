@@ -44,7 +44,7 @@
 	void gameCompleted(void)
 	{
 		
-		CLEAR_SCREEN();
+		_XL_CLEAR_SCREEN();
         ghostCount = 8;
         maxGhostsOnScreen = 8;
         level = 1;

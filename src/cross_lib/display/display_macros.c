@@ -218,7 +218,7 @@ lda $a7c0
 
 
 #if defined(DEFAULT_CLEAR_SCREEN)
-    void CLEAR_SCREEN(void)
+    void _XL_CLEAR_SCREEN(void)
     {
         uint8_t i;
         uint8_t j;

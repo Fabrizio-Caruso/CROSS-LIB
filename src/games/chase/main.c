@@ -148,12 +148,12 @@
 #if !defined(NO_INITIAL_SCREEN)            
 void initialScreen(void)
 {    
-    CLEAR_SCREEN();                    
+    _XL_CLEAR_SCREEN();                    
     printStartMessage();
     
     #if defined(FULL_GAME) && !defined(NO_HINTS)
         _XL_WAIT_FOR_INPUT();
-        CLEAR_SCREEN();
+        _XL_CLEAR_SCREEN();
         printHints();    
     #endif
 }
@@ -260,12 +260,12 @@ int main(void)
             printPressKeyToStart();                
         #endif
         _XL_WAIT_FOR_INPUT();
-        CLEAR_SCREEN();
+        _XL_CLEAR_SCREEN();
 
         #if !defined(LESS_TEXT) || defined(ALT_HIGHSCORE)
             highScoreScreen();
             _XL_WAIT_FOR_INPUT();
-            CLEAR_SCREEN();
+            _XL_CLEAR_SCREEN();
         #endif
 
         
@@ -355,12 +355,12 @@ int main(void)
                 ghostSlowDown = computeGhostSlowDown();
             #endif
             
-            CLEAR_SCREEN();
+            _XL_CLEAR_SCREEN();
             #if !defined(LESS_TEXT)
                 // Clear the screen, put cursor in upper left corner
                 printLevel();
                 _XL_SLEEP(1);
-                CLEAR_SCREEN();
+                _XL_CLEAR_SCREEN();
             #endif
                 
             #if defined(FULL_GAME)
@@ -372,14 +372,14 @@ int main(void)
                     printKillTheSkull();
                     _XL_SLEEP(2);
                 }
-                CLEAR_SCREEN();
+                _XL_CLEAR_SCREEN();
                 
                 updateInnerWallVerticalData();
             #endif
             
             printPressKeyToStart();
             _XL_WAIT_FOR_INPUT();
-            CLEAR_SCREEN();
+            _XL_CLEAR_SCREEN();
             
             #if !defined(TINY_GAME) && !defined(NO_BORDERS)
                 DRAW_BORDERS();
@@ -725,7 +725,7 @@ int main(void)
         }
 
         // GAME OVER    
-        CLEAR_SCREEN();
+        _XL_CLEAR_SCREEN();
         printGameOver();
         
         #if !defined(NO_SLEEP)
@@ -735,7 +735,7 @@ int main(void)
         #endif
         
         #if !defined(TINY_GAME) && !defined(LESS_TEXT)
-            CLEAR_SCREEN();
+            _XL_CLEAR_SCREEN();
             finalScore();
         
             #if !defined(NO_SLEEP)

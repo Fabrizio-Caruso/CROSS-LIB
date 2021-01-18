@@ -65,7 +65,7 @@
 	{
 		level = 1;
 		
-		CLEAR_SCREEN();
+		_XL_CLEAR_SCREEN();
         ghostCount = GHOSTS_NUMBER;
 		fillLevelWithCharacters();	
 

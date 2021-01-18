@@ -115,7 +115,7 @@ void printGunsStats(void)
     SET_COLOR(TEXT_COLOR);    
     
     #if defined(WIDE)
-        PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
+        _XL_PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
     #else
         _XL_PRINTD(BULLET_IMAGE_X+1,BULLET_IMAGE_Y,2,guns);
     #endif
@@ -221,7 +221,7 @@ void displayScoreStats(void)
 #if !defined(END_SCREEN) && !defined(NO_MESSAGE)
     void gameCompleted(void)    
     {
-        CLEAR_SCREEN();
+        _XL_CLEAR_SCREEN();
         printCenteredMessage(YOU_MADE_IT_STRING); 
     }
 #endif

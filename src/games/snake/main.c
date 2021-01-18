@@ -307,7 +307,7 @@ void build_level(void)
     uint8_t secret_wall_index;
     
     init_map_to_empty();
-    CLEAR_SCREEN();
+    _XL_CLEAR_SCREEN();
     index = map_walls_index[level-((level>16)<<4)];
     
     for(j=0;j<2;++j)
@@ -647,7 +647,7 @@ void handle_transparent_horizontal_wall(void)
 
 
 #define DISPLAY_LEVEL_SCREEN() \
-    CLEAR_SCREEN(); \
+    _XL_CLEAR_SCREEN(); \
     if(!level) \
     { \
         SET_TEXT_COLOR(_XL_YELLOW); \
@@ -984,7 +984,7 @@ void magic_wall(void)
     _XL_WAIT_FOR_INPUT();
 
 #define handle_final_screen() \
-    CLEAR_SCREEN(); \
+    _XL_CLEAR_SCREEN(); \
     build_box_wall(0,1,XSize-2,YSize-2,APPLE); \
     show_intro_snake(); \
     SET_TEXT_COLOR(_XL_WHITE); \
@@ -1081,7 +1081,7 @@ void display_stats(void)
 {
     uint8_t i;
     
-    CLEAR_SCREEN();
+    _XL_CLEAR_SCREEN();
     
     SET_TEXT_COLOR(_XL_GREEN);
     printCenteredMessageOnRow(ACHIEVEMENTS_Y_OFFSET-2, _XL_A _XL_C _XL_H _XL_I _XL_E _XL_V _XL_E _XL_M _XL_E _XL_N _XL_T _XL_S);

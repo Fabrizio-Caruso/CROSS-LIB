@@ -215,7 +215,7 @@ void redraw(void)
 {
     uint8_t i;
     
-    CLEAR_SCREEN();
+    _XL_CLEAR_SCREEN();
     
     for(i=0;i<INVADERS_PER_LINE*SPACE_BETWEEN_INVADERS;i+=SPACE_BETWEEN_INVADERS)
     {
@@ -242,7 +242,7 @@ int main(void)
     ship_x = 1;
     line_counter = 0;
 
-    CLEAR_SCREEN();
+    _XL_CLEAR_SCREEN();
 
     x = 0;
     while(1)
@@ -332,7 +332,7 @@ int main(void)
             #endif
             
             draw_ship_2();
-            PRINTD(0,0,2,x);
+            _XL_PRINTD(0,0,2,x);
             
             _XL_WAIT_VSYNC();
             REFRESH();
@@ -382,7 +382,7 @@ int main(void)
             };
             ++x;
             draw_ship_4();
-            PRINTD(0,0,2,x);
+            _XL_PRINTD(0,0,2,x);
             
             _XL_WAIT_VSYNC();
             REFRESH();

@@ -307,7 +307,7 @@ int main(void)
         level = INITIAL_LEVEL;
         explosion = 0;
 
-        CLEAR_SCREEN();
+        _XL_CLEAR_SCREEN();
             
         SET_TEXT_COLOR(_XL_RED);
         printCenteredMessageOnRow(2, _CROSS_BOMBER__STRING);
@@ -327,12 +327,12 @@ int main(void)
             bonus = 0;
             remaining_buildings = BUILDINGS_NUMBER;
             
-            CLEAR_SCREEN();
+            _XL_CLEAR_SCREEN();
             _XL_PRINT(XSize/2-4, 4, _LEVEL__STRING);
             displayLevelMessage();
             _XL_SLEEP(1);
             _XL_WAIT_FOR_INPUT();
-            CLEAR_SCREEN();
+            _XL_CLEAR_SCREEN();
             
             for(x=0;x<XSize;++x)
             {

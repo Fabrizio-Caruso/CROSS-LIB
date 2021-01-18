@@ -306,33 +306,33 @@ typedef struct ImageStruct Image;
 
 // CLEAR SCREEN
 #  if defined(ALT_CLEAR_SCREEN) || defined(DEFAULT_CLEAR_SCREEN)
-    void CLEAR_SCREEN(void);
+    void _XL_CLEAR_SCREEN(void);
 #elif defined(__ATARI_LYNX__)
-    #define CLEAR_SCREEN() tgi_clear()
+    #define _XL_CLEAR_SCREEN() tgi_clear()
 #elif defined(__CPC__) && defined(CPCRSLIB)
-    #define CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
+    #define _XL_CLEAR_SCREEN() printf("\x1B[37;40m\x1B[2J")
 #elif defined(__ATMOS__)
-    #define CLEAR_SCREEN() do {clrscr(); _XL_INIT_GRAPHICS(); } while(0)
+    #define _XL_CLEAR_SCREEN() do {clrscr(); _XL_INIT_GRAPHICS(); } while(0)
 #elif defined(Z88DK_SPRITES)
     #include <games.h>
     #include <graphics.h>
-    #define CLEAR_SCREEN() clg()
+    #define _XL_CLEAR_SCREEN() clg()
 #elif defined(__NCURSES__)
     #if defined(__ATARI_ST__)
         #include <ncurses/curses.h>
     #else
         #include <ncurses.h>
     #endif
-    #define CLEAR_SCREEN() clear()
+    #define _XL_CLEAR_SCREEN() clear()
 #elif (defined(__COMX__) || defined(__PECOM__) || defined(__TMC600__) || defined(__CIDELSA__) || defined(__MICRO__))
     #include <devkit/video/vis_video.h>
     
-    #define CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
+    #define _XL_CLEAR_SCREEN() vidclr(BASE_ADDR,XSize*40)
 #elif defined(__MO5__)||defined(__TO7__)
-    #define CLEAR_SCREEN() PUTCH(12);
+    #define _XL_CLEAR_SCREEN() PUTCH(12);
 #elif defined(USE_ASSEMBLY_CLEAR_SCREEN)
     #if defined(__C16__)
-        #define CLEAR_SCREEN() \
+        #define _XL_CLEAR_SCREEN() \
             __asm__("LDX #$04"); \
             __asm__("LDY #$0C"); \
             __asm__("LDA #$60"); \
@@ -340,12 +340,12 @@ typedef struct ImageStruct Image;
     #endif
 #elif defined(USE_KERNAL_CLEAR_SCREEN)
     #if defined(__C16__)
-        #define CLEAR_SCREEN() __asm__("jsr $D88B")
+        #define _XL_CLEAR_SCREEN() __asm__("jsr $D88B")
     #elif defined(__VIC20__)
-        #define CLEAR_SCREEN() __asm__("jsr $E55F")
+        #define _XL_CLEAR_SCREEN() __asm__("jsr $E55F")
     #endif
 #else // CONIO case
-    #define CLEAR_SCREEN() clrscr()
+    #define _XL_CLEAR_SCREEN() clrscr()
 #endif
 
 

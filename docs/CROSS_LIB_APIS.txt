@@ -12,7 +12,6 @@ _XL_INIT_GRAPHICS()
 It initializes the graphics. Necessary for any build that wants to show anything on the screen.
 
 
-
 --------------------------------
 XSize: Number of tiles that can be displayed horizontally on the (usable) screen
 
@@ -40,7 +39,7 @@ It deletes a tile-sized area of the screen at position (X,Y)
 
 
 --------------------------------
-CLEAR_SCREEN()
+_XL_CLEAR_SCREEN()
 It clears the whole screen.
 
 
@@ -66,6 +65,11 @@ _XL_PRINTD(X,Y,L,N)
 It prints the positive integer number N in L digits (1<=L<=5) starting at position (X,Y)
 
 
+--------------------------------
+SET_TEXT_COLOR(C)
+It sets the text color to C. Such color will be used on next PRINT and PRINTD for targets that support colored text.
+If any other display operation is present (e.g., _XL_DRAW), then there is no guarantee that the color C will be used afterwards.
+
 --------------------------------------------------------------------------------------
 INPUT
 --------------------------------------------------------------------------------------
@@ -73,7 +77,6 @@ INPUT
 --------------------------------
 _XL_INIT_INPUT()
 It initializes the input (joystick/keyboard). Necessary for any program that needs to receive an input
-
 
 
 --------------------------------

@@ -84,10 +84,10 @@
         do \
         { \
             SET_COLOR(_XL_CYAN); \
-            PRINT(0, +0,   SCORE_STRING); \
+            _XL_PRINT(0, +0,   SCORE_STRING); \
             \
             SET_COLOR(_XL_RED); \
-            PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
+            _XL_PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
         } while(0)
 
 #else
@@ -95,12 +95,12 @@
         do \
         { \
             SET_COLOR(_XL_CYAN); \
-            PRINT(0, +0,   SCORE_STRING); \
-            PRINT(0, LEVEL_Y, LEVEL_STRING); \
+            _XL_PRINT(0, +0,   SCORE_STRING); \
+            _XL_PRINT(0, LEVEL_Y, LEVEL_STRING); \
             \
             SET_COLOR(_XL_RED); \
             TITLE_LINE(); \
-            PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
+            _XL_PRINT(XSize-11,TITLE_Y,CROSS_SHOOT_SHORT_STRING); \
         } while(0)
 #endif
 

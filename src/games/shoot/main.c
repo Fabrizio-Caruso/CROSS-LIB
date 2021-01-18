@@ -242,12 +242,12 @@ void constructItems()
 #if !defined(NO_INITIAL_SCREEN)            
 void initialScreen(void)
 {    
-    CLEAR_SCREEN();                    
+    _XL_CLEAR_SCREEN();                    
     printStartMessage();
     _XL_WAIT_FOR_INPUT();
     
     #if !defined(NO_HINTS)
-        CLEAR_SCREEN();
+        _XL_CLEAR_SCREEN();
         printHints();    
     #endif
 }
@@ -281,9 +281,9 @@ int main(void)
             initialScreen();
             
             _XL_WAIT_FOR_INPUT();
-            CLEAR_SCREEN();    
+            _XL_CLEAR_SCREEN();    
         #else
-            CLEAR_SCREEN();    
+            _XL_CLEAR_SCREEN();    
             
             printPressKeyToStart();                
         #endif
@@ -398,13 +398,13 @@ int main(void)
             levelSlowDown = INITIAL_GHOST_SLOWDOWN;
             ghostSlowDown = computeGhostSlowDown();
             
-            CLEAR_SCREEN();
+            _XL_CLEAR_SCREEN();
             #if !defined(LESS_TEXT)
                 // Clear the screen, put cursor in upper left corner
 
                 printLevel();
                 _XL_SLEEP(1);
-                CLEAR_SCREEN();
+                _XL_CLEAR_SCREEN();
             #endif
                 
             
@@ -418,7 +418,7 @@ int main(void)
                 _XL_SLEEP(2);
                 ghostCount = 0;
             }
-            CLEAR_SCREEN();
+            _XL_CLEAR_SCREEN();
             
             updateInnerVerticalWall();    
             
@@ -426,7 +426,7 @@ int main(void)
             
             printPressKeyToStart();
             _XL_WAIT_FOR_INPUT();
-            CLEAR_SCREEN();
+            _XL_CLEAR_SCREEN();
             
             
             #if !defined(NO_BORDERS)
@@ -628,7 +628,7 @@ int main(void)
                     printVictoryMessage();
                     _XL_SLEEP(2);
 
-                    CLEAR_SCREEN();
+                    _XL_CLEAR_SCREEN();
                 #endif
 
                 points+= LEVEL_BONUS*level+ghostCount*GHOSTS_VS_SUICIDE_BONUS;
@@ -655,12 +655,12 @@ int main(void)
                 }
 
                 _XL_SLEEP(2);
-                CLEAR_SCREEN();                        
+                _XL_CLEAR_SCREEN();                        
 
                 
                 if(isBossLevel && !(level==FINAL_LEVEL))
                 {    
-                    CLEAR_SCREEN();
+                    _XL_CLEAR_SCREEN();
                     _XL_SLEEP(1);
                     _XL_PING_SOUND();
                     #if !defined(LESS_TEXT)
@@ -710,7 +710,7 @@ int main(void)
                     chasedEnemyPtr = &skulls[0];    
                 #endif
                 
-                CLEAR_SCREEN();
+                _XL_CLEAR_SCREEN();
                 --lives;
                 if(lives>0)
                 {
@@ -738,7 +738,7 @@ int main(void)
         {
             highScore = points;
         }
-        CLEAR_SCREEN();
+        _XL_CLEAR_SCREEN();
         printAchievements();
         _XL_SLEEP(1);
         _XL_WAIT_FOR_INPUT();
@@ -754,7 +754,7 @@ int main(void)
             #endif
         }
         
-        CLEAR_SCREEN();
+        _XL_CLEAR_SCREEN();
         printGameOver();
         
         #if !defined(NO_SLEEP)

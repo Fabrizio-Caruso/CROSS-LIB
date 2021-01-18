@@ -174,7 +174,7 @@ void chaseCharacter(void)
 {
     uint8_t i;
     
-    WAIT_V_SYNC();
+    _XL_WAIT_VSYNC();
     #if defined(DEBUG_GHOST_DISPLAY)
         SET_DEBUG_BORDER();
     #endif

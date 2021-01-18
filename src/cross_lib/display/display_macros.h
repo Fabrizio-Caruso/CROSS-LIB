@@ -95,19 +95,19 @@ typedef struct ImageStruct Image;
         defined(__APPLE2ENH__) || defined(__PCE__) || defined(__NES__) || \
         defined(__GAMATE__) || defined(__CBM510__) || defined(__CX16__) || \
         defined(__ATARI__) || defined(__ATARI5200__)
-        #define WAIT_V_SYNC() waitvsync()
+        #define _XL_WAIT_VSYNC() waitvsync()
     #elif defined(__GB__)
         #include <gb/gb.h>
-        #define WAIT_V_SYNC() wait_vbl_done()
+        #define _XL_WAIT_VSYNC() wait_vbl_done()
     #elif defined(VDP_WAIT_V_SYNC)
         void vdp_waitvsync(void);
         #include <interrupt.h>
-        #define WAIT_V_SYNC() vdp_waitvsync()
+        #define _XL_WAIT_VSYNC() vdp_waitvsync()
     #else
-        #define WAIT_V_SYNC() 
+        #define _XL_WAIT_VSYNC() 
     #endif 
 #else
-    #define WAIT_V_SYNC() 
+    #define _XL_WAIT_VSYNC() 
 #endif 
 
 
@@ -128,7 +128,7 @@ typedef struct ImageStruct Image;
         { \
             uint16_t i; \
             \
-            WAIT_V_SYNC(); \
+            _XL_WAIT_VSYNC(); \
             for(i=0;i<1000;++i) \
             { \
                 POKE(REAL_BASE_ADDR+i,PEEK(BASE_ADDR+i)); \

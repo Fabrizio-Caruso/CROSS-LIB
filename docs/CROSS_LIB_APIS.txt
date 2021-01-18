@@ -39,7 +39,7 @@ It deletes a tile-sized area of the screen at position (X,Y)
 
 
 --------------------------------
-WAIT_V_SYNC()
+_XL_WAIT_VSYNC()
 
 It waits for the vertical synch if this is supported by the specific target
 
@@ -128,9 +128,6 @@ Short noise
 SLEEP
 --------------------------------------------------------------------------------------
 
---------------------------------
-SLOW_DOWN
-Parameter passed to the compiler. It represents a number of loops to wait on a specific target.
 
 --------------------------------
 _XL_SLEEP(S)
@@ -148,3 +145,5 @@ RANDOM
 
 RAND()
 It generates a pseudo-random number in the range [0,32767]
+
+

@@ -445,7 +445,7 @@ int main(void)
                     }
 
                 }
-                WAIT_V_SYNC();
+                _XL_WAIT_VSYNC();
                 #if defined(DEBUG_GHOST_DISPLAY)
                     SET_DEBUG_BORDER();
                 #endif
@@ -480,7 +480,7 @@ int main(void)
                     ++y;
                 }
                 
-                WAIT_V_SYNC();
+                _XL_WAIT_VSYNC();
                 #if defined(DEBUG_GHOST_DISPLAY)
                     SET_DEBUG_BORDER();
                 #endif

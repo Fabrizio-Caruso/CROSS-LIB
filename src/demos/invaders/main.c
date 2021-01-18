@@ -259,7 +259,7 @@ int main(void)
             #if !defined(CHAR_GRAPHICS)
             draw_ship_1();
             
-            WAIT_V_SYNC();
+            _XL_WAIT_VSYNC();
             REFRESH();
             _XL_SLOW_DOWN(SLOW_DOWN);
             #endif
@@ -334,7 +334,7 @@ int main(void)
             draw_ship_2();
             PRINTD(0,0,2,x);
             
-            WAIT_V_SYNC();
+            _XL_WAIT_VSYNC();
             REFRESH();
             // _XL_WAIT_FOR_INPUT();
             _XL_SLOW_DOWN(SLOW_DOWN);
@@ -345,7 +345,7 @@ int main(void)
             draw_ship_3();
             
             
-            WAIT_V_SYNC();
+            _XL_WAIT_VSYNC();
             REFRESH();
             _XL_SLOW_DOWN(SLOW_DOWN);
             #endif
@@ -384,7 +384,7 @@ int main(void)
             draw_ship_4();
             PRINTD(0,0,2,x);
             
-            WAIT_V_SYNC();
+            _XL_WAIT_VSYNC();
             REFRESH();
             _XL_SLOW_DOWN(SLOW_DOWN);
         }

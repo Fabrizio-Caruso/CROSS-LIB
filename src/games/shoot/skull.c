@@ -95,9 +95,9 @@ void computeSkullParameters(void)
 #define NON_BOSS_TRIGGER_REACHED (INACTIVITY_COUNT_DOWN_REACHED || GHOST_COUNT_TRIGGER_REACHED)
 
 #if defined(__NCURSES__)
-    #define SKULL_RAND_CONDITION ((rand()&0x7fff)>skullSlowDown)
+    #define SKULL_RAND_CONDITION ((_XL_RAND())>skullSlowDown)
 #else
-    #define SKULL_RAND_CONDITION (rand()>skullSlowDown)
+    #define SKULL_RAND_CONDITION (_XL_RAND()>skullSlowDown)
 #endif
 
 

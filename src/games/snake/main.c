@@ -160,8 +160,8 @@ void spawn(uint8_t type)
     _XL_PING_SOUND();
     while(1)
     {
-        x = (uint8_t)(RAND()%(XSize-2)+1);
-        y = (uint8_t)(RAND()%(YSize-2)+1);
+        x = (uint8_t)(_XL_RAND()%(XSize-2)+1);
+        y = (uint8_t)(_XL_RAND()%(YSize-2)+1);
         
         if(safe_around(x,y))
         {
@@ -316,7 +316,7 @@ void build_level(void)
         
         if(number_of_elements)
         {
-            secret_wall_index = (uint8_t) (rand()%(number_of_elements));
+            secret_wall_index = (uint8_t) (_XL_RAND()%(number_of_elements));
             for(i=1, wall_index=0;i<3*number_of_elements;i+=3,++wall_index)
             {
                 x=map_walls[index+i];
@@ -331,14 +331,14 @@ void build_level(void)
                     build_horizontal_wall(x,y,length);
                     if(secret_wall_index==wall_index)
                     {
-                        map[x+1+rand()%(length-2)][y] = SECRET;
+                        map[x+1+_XL_RAND()%(length-2)][y] = SECRET;
                         #if defined(DEBUG_SECRET_HOLES)
                         {
                             uint8_t k;
                             for(k=0;k<20;++k)
                             {
-                                // _XLIB_DRAW(x+1+rand()%(length-2),y,&CENTRAL_BRICK_IMAGE);
-                                _XL_DRAW(x+1+rand()%(length-2),y,CENTRAL_BRICK_TILE, _XL_YELLOW);
+                                // _XLIB_DRAW(x+1+_XL_RAND()%(length-2),y,&CENTRAL_BRICK_IMAGE);
+                                _XL_DRAW(x+1+_XL_RAND()%(length-2),y,CENTRAL_BRICK_TILE, _XL_YELLOW);
                             }
                         }
                         #endif
@@ -740,7 +740,7 @@ void one_up(void)
     { \
         spawn(EXTRA); \
     } \
-    if((!apples_on_screen_count || (RAND()&1)) && (apples_on_screen_count<remaining_apples)) \
+    if((!apples_on_screen_count || (_XL_RAND()&1)) && (apples_on_screen_count<remaining_apples)) \
     { \
         ++apples_on_screen_count; \
         if((spawned_apples&7)==SPAWNED_APPLE_START) \

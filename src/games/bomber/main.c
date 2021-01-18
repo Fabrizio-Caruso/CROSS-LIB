@@ -344,8 +344,8 @@ int main(void)
             }
             for(x=FIRST_BULDING_X_POS;x<FIRST_BULDING_X_POS+BUILDINGS_NUMBER;++x)
             {
-                building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/LEVEL_FACTOR_SPEED_UP+(RAND()&7);
-                rnd = ((uint8_t) RAND())&7;
+                building_height[x] = (uint8_t) MIN_BUILDING_HEIGHT+level/LEVEL_FACTOR_SPEED_UP+(_XL_RAND()&7);
+                rnd = ((uint8_t) _XL_RAND())&7;
                 buildingType=building_tiles[rnd];
                 buildingColor=building_colors[rnd];
                 

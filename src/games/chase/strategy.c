@@ -107,7 +107,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 #if defined(FULL_GAME) && !defined(SIMPLE_STRATEGY)
     void moveTowardCharacter(Character* preyPtr, Character *hunterPtr, uint8_t strategy)
     {
-        if((rand()&7) > strategy) // Select blind chase strategy
+        if((_XL_RAND()&7) > strategy) // Select blind chase strategy
             { // 0 - 4
                 blindChaseCharacterXStrategy(hunterPtr, preyPtr);    
             }
@@ -120,7 +120,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 #elif defined(FULL_GAME) && defined(SIMPLE_STRATEGY)
     void moveTowardCharacter(Character* preyPtr, Character *hunterPtr)
     {
-        uint8_t offset = (uint8_t) rand()&1;
+        uint8_t offset = (uint8_t) _XL_RAND()&1;
         
         deleteGhost(hunterPtr);
         (void) moveCharacter((uint8_t *)hunterPtr + offset, 
@@ -130,7 +130,7 @@ uint8_t moveCharacter(register uint8_t *hunterOffsetPtr, register uint8_t *preyO
 #else
     void moveTowardCharacter(Character *hunterPtr)
     {
-        uint8_t offset = (uint8_t) rand()&1;
+        uint8_t offset = (uint8_t) _XL_RAND()&1;
         
         deleteGhost(hunterPtr);
         (void) moveCharacter((uint8_t *)hunterPtr + offset,
@@ -161,7 +161,7 @@ void computeStrategy(void)
 }
 #endif
 
-#define GHOST_RANDOM_CONDITION (RAND()>ghostSlowDown)
+#define GHOST_RANDOM_CONDITION (_XL_RAND()>ghostSlowDown)
 
 
 // #if defined(FULL_GAME)

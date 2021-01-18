@@ -354,7 +354,7 @@ void fillLevelWithCharacters(void)
         
         initializeAwayFromWall(&(firePower._character),(XSize>>1), (YSize>>1), 0, &FIRE_POWER_IMAGE);
 
-        initializeAwayFromWall(&player,(uint8_t) ((XSize>>1)+(rand()&1)),(uint8_t) ((YSize>>1)+(rand()&1)),1,&PLAYER_IMAGE);
+        initializeAwayFromWall(&player,(uint8_t) ((XSize>>1)+(_XL_RAND()&1)),(uint8_t) ((YSize>>1)+(_XL_RAND()&1)),1,&PLAYER_IMAGE);
                 
         initializeAwayFromWall(&(extraLife._character), (XSize>>1), (YSize>>1), 0, &EXTRA_LIFE_IMAGE);
 

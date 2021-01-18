@@ -80,7 +80,7 @@ uint16_t computeSkullSlowDown(void)
 
 #define NON_BOSS_TRIGGER_REACHED (INACTIVITY_COUNT_DOWN_REACHED || GHOST_COUNT_TRIGGER_REACHED)
 
-#define SKULL_RAND_CONDITION (RAND()>skullSlowDown)
+#define SKULL_RAND_CONDITION (_XL_RAND()>skullSlowDown)
 
 void handle_skull(void)
 {

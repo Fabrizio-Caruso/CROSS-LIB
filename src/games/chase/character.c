@@ -236,8 +236,8 @@ void relocateCharacter(register Character * characterPtr)
 	
 	do
 	{
-		x = characterPtr->_x  + (uint8_t)(rand() % RELOCATE_RANGE) - (uint8_t)(RELOCATE_RANGE/2);
-		y = characterPtr->_y  + (uint8_t)(rand() % RELOCATE_RANGE) - (uint8_t)(RELOCATE_RANGE/2);
+		x = characterPtr->_x  + (uint8_t)(_XL_RAND() % RELOCATE_RANGE) - (uint8_t)(RELOCATE_RANGE/2);
+		y = characterPtr->_y  + (uint8_t)(_XL_RAND() % RELOCATE_RANGE) - (uint8_t)(RELOCATE_RANGE/2);
 
 	} while(!safeLocation(x,y));
 

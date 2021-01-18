@@ -174,8 +174,8 @@ void relocateNearBy(register Character * characterPtr)
     
     do
     {
-        x = characterPtr->_x - (uint8_t)(RELOCATE_RANGE/2) + (uint8_t)(rand() % RELOCATE_RANGE);
-        y = characterPtr->_y - (uint8_t)(RELOCATE_RANGE/2) + (uint8_t)(rand() % RELOCATE_RANGE);
+        x = characterPtr->_x - (uint8_t)(RELOCATE_RANGE/2) + (uint8_t)(_XL_RAND() % RELOCATE_RANGE);
+        y = characterPtr->_y - (uint8_t)(RELOCATE_RANGE/2) + (uint8_t)(_XL_RAND() % RELOCATE_RANGE);
 
     } while(!safeLocation(x,y));
 

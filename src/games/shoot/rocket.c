@@ -56,7 +56,7 @@ extern uint8_t isBossLevel;
                     #if defined(TURNED_BASED)
                     if(1)
                     #else
-                    if(rand()&1)
+                    if(_XL_RAND()&1)
                     #endif
                     {
                         deleteRocket(&rockets[i]);

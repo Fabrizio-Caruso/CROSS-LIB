@@ -53,9 +53,9 @@ extern uint16_t ghostSlowDown;
 
 
 #if defined(__NCURSES__)
-    #define GHOST_RANDOM_CONDITION ((rand()&0x7fff)>ghostSlowDown)
+    #define GHOST_RANDOM_CONDITION ((_XL_RAND())>ghostSlowDown)
 #else
-    #define GHOST_RANDOM_CONDITION (rand()>ghostSlowDown)
+    #define GHOST_RANDOM_CONDITION ((_XL_RAND())>ghostSlowDown)
 #endif
 
 
@@ -143,7 +143,7 @@ void verticalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t stra
         #if defined(DEBUG_STRATEGY)
         gotoxy(4,1);cprintf("same vertical side      ");           
         #endif
-        if((rand()&7) > strategy) // Select blind chase strategy
+        if((_XL_RAND()&7) > strategy) // Select blind chase strategy
             { // 0 - 4
                 blindChaseCharacterXStrategy(hunterPtr);    
             }
@@ -198,7 +198,7 @@ void verticalWallMoveTowardCharacter(register Character *hunterPtr)
         #if defined(DEBUG_STRATEGY)
         gotoxy(4,1);cprintf("same vertical side      ");           
         #endif
-        if((rand()&7) > 3) // Select blind chase strategy
+        if((_XL_RAND()&7) > 3) // Select blind chase strategy
             { // 0 - 4
                 blindChaseCharacterXStrategy(hunterPtr);    
             }
@@ -277,7 +277,7 @@ void horizontalWallMoveTowardCharacter(register Character *hunterPtr, uint8_t st
         #if defined(DEBUG_STRATEGY)
         gotoxy(4,1);cprintf("same horizontal side  ");   
         #endif
-        if((rand()&7) > strategy) // Select blind chase strategy
+        if((_XL_RAND()&7) > strategy) // Select blind chase strategy
             { // 0 - 4
                 blindChaseCharacterXStrategy(hunterPtr);    
             }
@@ -332,7 +332,7 @@ void horizontalWallMoveTowardCharacter(register Character *hunterPtr)
         #if defined(DEBUG_STRATEGY)
         gotoxy(4,1);cprintf("same horizontal side  ");   
         #endif
-        if((rand()&7) > 3) // Select blind chase strategy
+        if((_XL_RAND()&7) > 3) // Select blind chase strategy
             { // 0 - 4
                 blindChaseCharacterXStrategy(hunterPtr);    
             }
@@ -383,7 +383,7 @@ void horizontalWallMoveTowardCharacter(register Character *hunterPtr)
 
 void skullMoveTowardCharacter(Character *hunterPtr, uint8_t strategy)
 {
-    if((rand()&7) > strategy) // Select blind chase strategy
+    if((_XL_RAND()&7) > strategy) // Select blind chase strategy
         { // 0 - 4
             blindChaseCharacterXStrategy(hunterPtr);    
         }

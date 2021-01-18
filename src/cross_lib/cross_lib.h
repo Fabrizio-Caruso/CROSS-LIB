@@ -124,6 +124,8 @@
 
 #if !defined(__LCC1802__)
     #include "rand.h"
+#else
+    #define _XL_RAND() rand()
 #endif
 
 #endif // _TARGET_SETTINGS

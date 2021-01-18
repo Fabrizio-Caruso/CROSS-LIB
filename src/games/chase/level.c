@@ -283,7 +283,7 @@ void fillLevelWithCharacters(void)
         
         initializeAwayFromWall(&(gun._character),(XSize>>1), (YSize>>1), (isBossLevel ? 1 : 0), &GUN_IMAGE);
 
-        initializeAwayFromWall(&player,(uint8_t) ((XSize>>1)+(rand()&1)),(uint8_t) ((YSize>>1)+(rand()&1)),1,&PLAYER_IMAGE);
+        initializeAwayFromWall(&player,(uint8_t) ((XSize>>1)+(_XL_RAND()&1)),(uint8_t) ((YSize>>1)+(_XL_RAND()&1)),1,&PLAYER_IMAGE);
                 
         initializeAwayFromWall(&(extraLife._character), (XSize>>1), (YSize>>1), 0, &EXTRA_LIFE_IMAGE);
 
@@ -311,8 +311,8 @@ void fillLevelWithCharacters(void)
         #if defined(NO_RANDOM_LEVEL) || defined(TINY_GAME) || defined(SIMPLE_RANDOM_LEVEL)
             initializeCharacter(&player,(uint8_t) ((XSize>>1)),(uint8_t) ((YSize>>1)),1,&PLAYER_IMAGE);            
         #else
-            initializeCharacter(&player,(uint8_t) ((XSize>>1)+(uint8_t) (rand()&1)),
-                                        (uint8_t) ((YSize>>1)+(uint8_t) (rand()&1)),1,&PLAYER_IMAGE);    
+            initializeCharacter(&player,(uint8_t) ((XSize>>1)+(uint8_t) (_XL_RAND()&1)),
+                                        (uint8_t) ((YSize>>1)+(uint8_t) (_XL_RAND()&1)),1,&PLAYER_IMAGE);    
         #endif
     #endif
     #if !defined(TINY_GAME)

@@ -81,11 +81,11 @@ int main(void)
         CLEAR_SCREEN();
 		while(1)
 		{
-			i = (uint8_t) (RAND() % XSize);
+			i = (uint8_t) (_XL_RAND() % XSize);
             
             
-			max_j = (uint8_t) (RAND() % (MAX_TILES+1));
-            init_y = (uint8_t) (RAND() % MAX_INIT_Y_POS);
+			max_j = (uint8_t) (_XL_RAND() % (MAX_TILES+1));
+            init_y = (uint8_t) (_XL_RAND() % MAX_INIT_Y_POS);
 			for(j=0;j<max_j;++j)
 			{
 				_XL_DRAW(i,j+init_y,tiles[j],tile_colors[j]);

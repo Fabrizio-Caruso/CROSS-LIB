@@ -11,9 +11,9 @@
 
 // Normalized 15-bit pseudo-random number generator
 #if defined(__NCURSES__)
-    #define RAND() (rand()&0x7FFF)
+    #define _XL_RAND() (rand()&0x7FFF)
 #else
-    #define RAND() (rand())
+    #define _XL_RAND() (rand())
 #endif
 
 #endif // _RAND_H

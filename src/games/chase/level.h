@@ -237,12 +237,12 @@
 		initializeCharacter(&bombs[count],(uint8_t) ((XSize/3)*i), (uint8_t) ((YSize/3)*j),0,&BOMB_IMAGE)
 #elif defined(TINY_GAME) || defined(SIMPLE_RANDOM_LEVEL)
 	#define PLACE_BOMB_4() \
-		initializeCharacter(&bombs[count],(uint8_t) (((XSize/3)*i)+(uint8_t)(rand()&1)), \
+		initializeCharacter(&bombs[count],(uint8_t) (((XSize/3)*i)+(uint8_t)(_XL_RAND()&1)), \
 													  (uint8_t) ((YSize/3)*j),0,&BOMB_IMAGE);
 #else
 	#define PLACE_BOMB_4() \
-		initializeCharacter(&bombs[count],(uint8_t) (((XSize/3)*i)-(uint8_t)(rand()&1)), \
-									  (uint8_t) (((YSize/3)*j)+(uint8_t)(rand()&1)),0,&BOMB_IMAGE);		
+		initializeCharacter(&bombs[count],(uint8_t) (((XSize/3)*i)-(uint8_t)(_XL_RAND()&1)), \
+									  (uint8_t) (((YSize/3)*j)+(uint8_t)(_XL_RAND()&1)),0,&BOMB_IMAGE);		
 #endif
 
 	
@@ -275,7 +275,7 @@
 	#define THREE_BOMBS() \
 		do \
 		{ \
-			uint8_t rnd = rand()&1; \
+			uint8_t rnd = _XL_RAND()&1; \
 			initializeCharacter(&bombs[0],XSize/3+rnd, (YSize/3)+rnd,0,&BOMB_IMAGE); \
 			initializeCharacter(&bombs[1],(XSize>>1)+rnd, ((YSize/3)*2)+rnd,0,&BOMB_IMAGE); \
 			initializeCharacter(&bombs[2],2*(XSize/3)+rnd, (YSize/3)-rnd,0,&BOMB_IMAGE); \
@@ -296,8 +296,8 @@
 	#define TWO_BOMBS() \
 		do \
 		{ \
-			initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3))+rand()%3,0,&BOMB_IMAGE); \
-			initializeCharacter(&bombs[1],(XSize>>1)-1+rand()%3, ((YSize/3)*2)-1+rand()%3,0,&BOMB_IMAGE); \
+			initializeCharacter(&bombs[0],(XSize>>1), ((YSize/3))+_XL_RAND()%3,0,&BOMB_IMAGE); \
+			initializeCharacter(&bombs[1],(XSize>>1)-1+_XL_RAND()%3, ((YSize/3)*2)-1+_XL_RAND()%3,0,&BOMB_IMAGE); \
 		} \
 		while(0)
 #endif	
@@ -308,7 +308,7 @@
 		initializeCharacter(&bombs[0],(XSize>>1), (YSize>>1),0,&BOMB_IMAGE);			
 #else
 	#define ONE_BOMB() \
-		initializeCharacter(&bombs[0],(XSize>>1)+rand()&1, (YSize>>1)+rand()&1,0,&BOMB_IMAGE);
+		initializeCharacter(&bombs[0],(XSize>>1)+_XL_RAND()&1, (YSize>>1)+_XL_RAND()&1,0,&BOMB_IMAGE);
 #endif
 
 #if defined(BETWEEN_LEVEL)

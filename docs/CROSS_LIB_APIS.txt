@@ -143,7 +143,7 @@ It waits T loops (0<=T<=65535)
 RANDOM
 --------------------------------------------------------------------------------------
 
-RAND()
+_XL_RAND()
 It generates a pseudo-random number in the range [0,32767]
 
 

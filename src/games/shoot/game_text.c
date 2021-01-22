@@ -43,11 +43,8 @@ extern uint8_t guns;
 
 extern uint8_t bulletStrength;
 
-#if !defined(NO_TEXT_COLOR)
-    #define SET_COLOR(c) SET_TEXT_COLOR(c)
-#else
-    #define SET_COLOR(c)
-#endif
+#define SET_COLOR(c) _XL_SET_TEXT_COLOR(c)
+
 
 
 #if defined(ALT_DISPLAY_STATS)

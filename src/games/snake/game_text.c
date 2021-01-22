@@ -36,37 +36,37 @@ void DISPLAY_ENERGY(void)
 {
    if(energy<RED_ENERGY_THRESHOLD)
    {
-       SET_TEXT_COLOR(_XL_RED);
+       _XL_SET_TEXT_COLOR(_XL_RED);
    }
    else
    {
-       SET_TEXT_COLOR(_XL_WHITE);
+       _XL_SET_TEXT_COLOR(_XL_WHITE);
    }
    _XL_PRINTD(XSize/2-1,YSize-1,2,energy); 
 }
 
 void PRESS_KEY(void)
 {
-    SET_TEXT_COLOR(_XL_WHITE);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
     printCenteredMessageOnRow(YSize-2, _PRESS_FIRE_STRING);
     _XL_WAIT_FOR_INPUT();
 }
 
 void DISPLAY_POINTS(void)
 {
-    SET_TEXT_COLOR(_XL_WHITE);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(2,0,5,points);
 }
 
 void DISPLAY_REMAINING_APPLES_COUNT(void)
 {
-    SET_TEXT_COLOR(_XL_WHITE);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(9,0,2,remaining_apples);
 }
 
 void DISPLAY_LIVES(void)
 {
-    SET_TEXT_COLOR(_XL_WHITE);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(XSize-1,0,1,lives);
 }
 

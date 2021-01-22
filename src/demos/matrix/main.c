@@ -75,7 +75,7 @@ int main(void)
         
         _XL_CLEAR_SCREEN();
         
-        SET_TEXT_COLOR(_XL_WHITE);
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT(4,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
         _XL_WAIT_FOR_INPUT();
         _XL_CLEAR_SCREEN();

@@ -66,7 +66,7 @@ It prints the positive integer number N in L digits (1<=L<=5) starting at positi
 
 
 --------------------------------
-SET_TEXT_COLOR(C)
+_XL_SET_TEXT_COLOR(C)
 It sets the text color to C. Such color will be used on next PRINT and PRINTD for targets that support colored text.
 If any other display operation is present (e.g., _XL_DRAW), then there is no guarantee that the color C will be used afterwards.
 

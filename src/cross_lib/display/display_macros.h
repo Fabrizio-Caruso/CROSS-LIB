@@ -214,7 +214,7 @@ typedef struct ImageStruct Image;
     #define setScreenColors() \
     do \
     { \
-        SET_TEXT_COLOR(TEXT_COLOR); \
+        _XL_SET_TEXT_COLOR(TEXT_COLOR); \
         SET_BORDER_COLOR(BORDER_COLOR); \
         SET_BACKGROUND_COLOR(BACKGROUND_COLOR); \
     } while(0)
@@ -223,33 +223,33 @@ typedef struct ImageStruct Image;
 
 // COLORS 
 #if defined(__ATARI5200__)
-    #define SET_TEXT_COLOR(c) textcolor(c>>6)
+    #define _XL_SET_TEXT_COLOR(c) textcolor(c>>6)
 #elif defined(__ATARI__) && (defined(ATARI_MODE_1_COLOR))
     extern uint8_t text_color;
-    #define SET_TEXT_COLOR(c) text_color = (c)
+    #define _XL_SET_TEXT_COLOR(c) text_color = (c)
 #elif defined(NO_COLOR) \
     || defined(__ATARI5200__) \
     || defined(__COCO__) || defined(__DRAGON__) || defined(__MO5__) || defined(__TO7__)|| defined(__WINCMOC__) \
     || (defined(__SVI__) && defined(MSX_MODE0)) || (defined(__MSX__) && defined(MEMORY_MAPPED)) \
     || defined(__ATMOS__) \
     || defined(Z88DK_SPRITES)
-    #define SET_TEXT_COLOR(c) 
+    #define _XL_SET_TEXT_COLOR(c) 
 #elif defined(__ATARI_LYNX__)
-    #define SET_TEXT_COLOR(c) tgi_setcolor(c)
+    #define _XL_SET_TEXT_COLOR(c) tgi_setcolor(c)
 #elif defined(__NCURSES__)
     #if defined(__ATARI_ST__)
         #include <ncurses/curses.h>
     #else
         #include <ncurses.h>
     #endif
-    #define SET_TEXT_COLOR(c) attron(COLOR_PAIR(c))
+    #define _XL_SET_TEXT_COLOR(c) attron(COLOR_PAIR(c))
 #elif defined(__CPC__) && defined(CPCRSLIB)
     #define CPC_TEXT_WHITE 3
     #define CPC_TEXT_RED 4
     #define CPC_TEXT_BLACK 7
     #define CPC_TEXT_YELLOW 0
 
-    #define SET_TEXT_COLOR(c) \
+    #define _XL_SET_TEXT_COLOR(c) \
     if(c==_XL_WHITE) \
     { \
         textcolor(CPC_TEXT_WHITE); \
@@ -264,7 +264,7 @@ typedef struct ImageStruct Image;
     }
      
 #else
-    #define SET_TEXT_COLOR(c) textcolor(c)
+    #define _XL_SET_TEXT_COLOR(c) textcolor(c)
 #endif
 
 #if defined(Z88DK_SPRITES) || defined(__MO5__)||defined(__TO7__) || defined(__COCO__) || defined(__DRAGON__)

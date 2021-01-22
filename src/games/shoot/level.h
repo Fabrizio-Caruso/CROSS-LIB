@@ -58,7 +58,7 @@
 
 #if !defined(NO_WALL)
     #define DRAW_BORDERS() \
-        SET_TEXT_COLOR(WALL_COLOR); \
+        _XL_SET_TEXT_COLOR(WALL_COLOR); \
         DRAW_HORIZONTAL_BORDER(0); \
         DRAW_HORIZONTAL_BORDER(YSize-1); \
         DRAW_VERTICAL_BORDER(0); \

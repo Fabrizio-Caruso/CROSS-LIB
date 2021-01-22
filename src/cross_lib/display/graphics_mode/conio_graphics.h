@@ -9,7 +9,7 @@
 	do \
 	{ \
 		gotoxy((x),(y)); \
-		SET_TEXT_COLOR(color); \
+		_XL_SET_TEXT_COLOR(color); \
 		cputc(tile); \
 	} \
 	while(0)

@@ -24,7 +24,7 @@
 		// #else	
 			void printCenteredMessageOnRowWithCol(uint8_t row, uint8_t col, char *Text)
 			{
-				SET_TEXT_COLOR(col);
+				_XL_SET_TEXT_COLOR(col);
 				printCenteredMessageOnRow(row, Text);
 			}
 					

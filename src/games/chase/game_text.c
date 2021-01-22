@@ -36,7 +36,7 @@ extern Image GUN_IMAGE;
 extern Image SKULL_IMAGE;
 
 #if !defined(NO_TEXT_COLOR) || defined(NO_GRAPHICS)
-	#define SET_COLOR(c) SET_TEXT_COLOR(c)
+	#define SET_COLOR(c) _XL_SET_TEXT_COLOR(c)
 #else
 	#define SET_COLOR(c)
 #endif

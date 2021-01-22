@@ -68,7 +68,7 @@ void set_secret(uint8_t *secret_ptr)
     if(!(*secret_ptr))
     {
         (*secret_ptr)=1;
-        SET_TEXT_COLOR(_XL_CYAN);
+        _XL_SET_TEXT_COLOR(_XL_CYAN);
         _XL_PRINT(SECRET_X,YSize-1,_SECRET_STRING);
         _XL_SHOOT_SOUND();
     }
@@ -650,7 +650,7 @@ void handle_transparent_horizontal_wall(void)
     _XL_CLEAR_SCREEN(); \
     if(!level) \
     { \
-        SET_TEXT_COLOR(_XL_YELLOW); \
+        _XL_SET_TEXT_COLOR(_XL_YELLOW); \
         _XL_PRINT(XSize/2-4,YSize/2, _SECRET_STRING); \
     } \
     else if(!(level&3)) \
@@ -660,7 +660,7 @@ void handle_transparent_horizontal_wall(void)
             build_box_wall(XSize/2-5,YSize/2,10,1,EXTRA); \
         } \
     } \
-    SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINT(XSize/2-4,YSize/2+2,       _LEVEL_STRING); \
     _XL_PRINTD(XSize/2-4+6,YSize/2+2,2,level); \
     _XL_WAIT_FOR_INPUT();
@@ -785,7 +785,7 @@ void one_up(void)
         if(secret_level_never_activated) \
         { \
             secret_level_active = 1; \
-            SET_TEXT_COLOR(_XL_RED); \
+            _XL_SET_TEXT_COLOR(_XL_RED); \
             _XL_PRINT(OPEN_X,OPEN_Y,_XL_O _XL_P _XL_E _XL_N "00"); \
         } \
     } \
@@ -947,16 +947,16 @@ void magic_wall(void)
 #define handle_no_energy() \
     if(!energy) \
     { \
-        SET_TEXT_COLOR(_XL_RED); \
+        _XL_SET_TEXT_COLOR(_XL_RED); \
         printCenteredMessageOnRow(YSize/2, _NO_ENERGY_STRING); \
         break; \
     }
 
 #define handle_level_cleared() \
-    SET_TEXT_COLOR(_XL_RED); \
+    _XL_SET_TEXT_COLOR(_XL_RED); \
     printCenteredMessageOnRow(YSize/2, _CLEARED_STRING); \
     level_bonus = (uint16_t) (((uint16_t) snake_length)<<1)+(((uint16_t) energy)<<3) +(((uint16_t) coin_count)<<5) + (((uint16_t) level)<<2); \
-    SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
     printCenteredMessageOnRow(YSize/2+2, _BONUS_STRING); \
     _XL_PRINTD(XSize/2-3,YSize/2+4,5,level_bonus);
 
@@ -987,7 +987,7 @@ void magic_wall(void)
     _XL_CLEAR_SCREEN(); \
     build_box_wall(0,1,XSize-2,YSize-2,APPLE); \
     show_intro_snake(); \
-    SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
     printCenteredMessageOnRow(YSize/8+3, _THE_END_STRING);
 
 #define handle_lost_life() \
@@ -1027,7 +1027,7 @@ void magic_wall(void)
     _XL_DRAW(XSize-10+HISCORE_OFFSET,0,HI_TEXT_TILE, _XL_GREEN); \
     _XL_DRAW(8,0,APPLE_TILE,_XL_RED); \
     _XL_DRAW(0,YSize-1,LV_TEXT_TILE,_XL_GREEN); \
-    SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
     DISPLAY_LIVES(); \
     _XL_PRINTD(1,YSize-1,2,level); \
     DISPLAY_REMAINING_APPLES_COUNT(); \
@@ -1048,7 +1048,7 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
 {
     uint8_t i;
     
-    SET_TEXT_COLOR(_XL_WHITE);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINT(ACHIEVEMENTS_X_OFFSET+5,row,_XL_O _XL_F);
     _XL_PRINTD(ACHIEVEMENTS_X_OFFSET+8,row,2,max);
     for(i=0;i<=achievements;++i)
@@ -1066,14 +1066,14 @@ void display_achievements(uint8_t row, uint8_t achievements, uint8_t max)
     if(points>record) \
     { \
         record = points; \
-        SET_TEXT_COLOR(_XL_RED); \
+        _XL_SET_TEXT_COLOR(_XL_RED); \
         _XL_PRINT(ACHIEVEMENTS_X_OFFSET+9,ACHIEVEMENTS_Y_OFFSET, _XL_R _XL_E _XL_C _XL_O _XL_R _XL_D); \
     }
 
 #define DISPLAY_RINGS() \
 { \
     _XL_DRAW(ACHIEVEMENTS_X_OFFSET+3, ACHIEVEMENTS_Y_OFFSET+3, RING_TILE, _XL_WHITE); \
-    SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(ACHIEVEMENTS_X_OFFSET+5,ACHIEVEMENTS_Y_OFFSET+3,3,rings); \
 }
 
@@ -1083,10 +1083,10 @@ void display_stats(void)
     
     _XL_CLEAR_SCREEN();
     
-    SET_TEXT_COLOR(_XL_GREEN);
+    _XL_SET_TEXT_COLOR(_XL_GREEN);
     printCenteredMessageOnRow(ACHIEVEMENTS_Y_OFFSET-2, _XL_A _XL_C _XL_H _XL_I _XL_E _XL_V _XL_E _XL_M _XL_E _XL_N _XL_T _XL_S);
     
-    SET_TEXT_COLOR(_XL_WHITE);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(ACHIEVEMENTS_X_OFFSET+3,ACHIEVEMENTS_Y_OFFSET,5,points);
     _XL_DRAW(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET,SCORE_TEXT_LEFT_TILE,_XL_GREEN);
     _XL_DRAW(ACHIEVEMENTS_X_OFFSET+1,ACHIEVEMENTS_Y_OFFSET,SCORE_TEXT_RIGHT_TILE, _XL_GREEN);
@@ -1123,7 +1123,7 @@ void display_stats(void)
     lives+=(!secret_level_never_activated)+third_coin_achievement+fourth_coin_achievement;
     
     
-    SET_TEXT_COLOR(_XL_YELLOW);
+    _XL_SET_TEXT_COLOR(_XL_YELLOW);
     _XL_PRINT(ACHIEVEMENTS_X_OFFSET+2,ACHIEVEMENTS_Y_OFFSET+7,_SECRET_STRING _XL_S);
 
     display_achievements(ACHIEVEMENTS_Y_OFFSET+9,lives, 50);
@@ -1140,7 +1140,7 @@ void display_stats(void)
     
     if(!secret_level_never_activated)
     {
-        SET_TEXT_COLOR(_XL_RED);
+        _XL_SET_TEXT_COLOR(_XL_RED);
         _XL_PRINT(ACHIEVEMENTS_X_OFFSET,ACHIEVEMENTS_Y_OFFSET+16,_SECRET_STRING _XL_SPACE _LEVEL_STRING);
     }
 }

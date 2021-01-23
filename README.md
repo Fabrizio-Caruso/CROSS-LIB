@@ -5,9 +5,9 @@ by Fabrizio Caruso (fabrizio_caruso@hotmail.com)
 
 ## THE GOAL
 
-*CrossLib*, a *retro-hardware abstraction layer* for coding "universal" demos, games and programs for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, handheld consoles, arcade boards, hacked computer toys, etc.). 
+*Cross-Lib*, a *retro-hardware abstraction layer* for coding "universal" demos, games and programs for hundreds of mostly 8-bit systems (consoles, computers, scientific calculators, hand-held consoles, arcade boards, hacked computer toys, etc.). 
 
-These games are the proof of the flexibility of *CrossLib*:
+These games are the proof of the flexibility of *Cross-Lib*:
 
 1. *Cross Chase* is a "universal" 8-bit game that can be compiled for and run
 on (nearly) ALL 8-bit computers, game consoles, hand-held game consoles and scientific calculators. 
@@ -171,6 +171,11 @@ Examples:
 For more details on how to build either run `make help` or look at 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/BUILD.md
 
+-------------------------------------------
+## CROSS-LIB APIs
+
+The currently available APIs are described at
+https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CROSS_LIB_APIS.md
 
 -------------------------------------------
 
@@ -288,8 +293,8 @@ You can play the game online:
 The game code is *hardware-agnostic* and has to be as portable as possible.
 Therefore the following coding choices and design decisions have been made:
 1. ANSI C (for the game logic);
-2. strictly separated input/output and hardware-dependent code (in CrossLib) from the game logic;
-3. input for keyboard/joystick and output for sound and display are provided by CrossLib
+2. strictly separated input/output and hardware-dependent code (in Cross-Lib) from the game logic;
+3. input for keyboard/joystick and output for sound and display are provided by Cross-Lib
 
 Some target(s) may get specific graphic code with re-defined characters, software/hardware sprites and music/sound effects but the game code is hardware-agnostic.
 
@@ -312,15 +317,15 @@ https://docs.google.com/spreadsheets/d/1qo2skBUtCUCAac3knEE2x-bUBdvxEA_6qvElacJ3
 The main future goals are
 - improving the exposed APIs 
 - supporting more cross-compilers, native compilers, systems and sub-targets
-- adding more features to CrossLib (e.g., more redefinable tiles, more sound effects, etc.)
+- adding more features to Cross-Lib (e.g., more redefinable tiles, more sound effects, etc.)
 - coding more universal games and demos
 
 -------------------------------------------
 
 ## ADAPTIVE GRAPHICS
 
-The tool-chain and CrossLib will produce a game with simple black and white ASCII graphics and no sound if none of these is available. 
-If colors, graphics and sounds are available the tool-chain and CrossLib will produce a game with some simple sound effects and with some possibly colored graphics.
+The tool-chain and Cross-Lib will produce a game with simple black and white ASCII graphics and no sound if none of these is available. 
+If colors, graphics and sounds are available the tool-chain and Cross-Lib will produce a game with some simple sound effects and with some possibly colored graphics.
 
 ![Vic 20 title](snapshots/vic20_title.jpg)
 ![ZX81](snapshots/zx81_1.jpg)
@@ -332,13 +337,13 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/SNAPSHOTS.md
 -------------------------------------------
 
 ## CROSSLIB
-CrossLib provides a *retro-hardware abstraction layer* for display, sound, input, etc.
+Cross-Lib provides a *retro-hardware abstraction layer* for display, sound, input, etc.
 
-CrossLib code is in: 
+Cross-Lib code is in: 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/tree/master/src/cross_lib
 
 ### Sound
-Sound abstraction is achieved by providing common APIs for the (few) sounds that CrossLib provides.
+Sound abstraction is achieved by providing common APIs for the (few) sounds that Cross-Lib provides.
 
 ### Input
 Input abstraction is also achieved by common APIs that support either keyboard and/or joystick input for each possible target.
@@ -348,7 +353,7 @@ Display abstraction is provided by (at least) two levels of abstraction:
 - Common APIs that, for each target, implement one of several graphics modes;
 - Generic graphics modes that may be shared among a few targets.
 
-For more details on CrossLib we refer to: 
+For more details on Cross-Lib we refer to: 
 https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CROSSLIB.md
 
 
@@ -356,7 +361,7 @@ https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CROSSLIB.md
 
 ## ACKNOWLEDGEMENTS
 
-CrossLib would not exist without the cross-compilers and the support of their developers and the support of some people who have helped me handle the input/output of some targets.
+Cross-Lib would not exist without the cross-compilers and the support of their developers and the support of some people who have helped me handle the input/output of some targets.
 
 A partial list of the people who have helped in found in: https://github.com/Fabrizio-Caruso/CROSS-LIB/blob/master/docs/CREDITS.txt
 

@@ -11,7 +11,7 @@
 
 It initializes the graphics. Necessary for any build that wants to show anything on the screen.
 
-
+--------------------------------------------------------
 
 `XSize`: Number of tiles that can be displayed horizontally on the (usable) screen
 
@@ -19,36 +19,36 @@ It initializes the graphics. Necessary for any build that wants to show anything
 `YSize`: Number of tiles that can be displayed vertically on the (usable) screen
 
 
-`_TILE_1`, ..., `_TILE_24`, `_DOLLAR_TILE`
-
-Displayable tiles with _XL_DRAW
+`_TILE_1`, ..., `_TILE_24`, `_DOLLAR_TILE`: Displayable tiles with _XL_DRAW
 
 
+`_XL_BLACK`, `_XL_WHITE`, `_XL_RED`, `_XL_CYAN`, `_XL_GREEN`, `_XL_YELLOW`, `_XL_BLUE`: Currently available colors
 
-`_XL_BLACK`, `_XL_WHITE`, `_XL_RED`, `_XL_CYAN`, `_XL_GREEN`, `_XL_YELLOW`, `_XL_BLUE`
-
-Currently available colors
-
+--------------------------------------------------------
 
 `_XL_DRAW(X, Y, T, C)`
 
 It displays tile T at position (X,Y) with color C if color C is available or its "closest" match when C is not supported by a target.
 
+--------------------------------------------------------
 
 `_XL_DELETE(X,Y)`
 
 It deletes a tile-sized area of the screen at position (X,Y)
 
+--------------------------------------------------------
 
 `_XL_CLEAR_SCREEN()`
 
 It clears the whole screen.
 
+--------------------------------------------------------
 
 `_XL_WAIT_VSYNC()`
 
 It waits for the vertical synch if this is supported by the target. It does nothing otherwise.
 
+--------------------------------------------------------
 
 ## TEXT
 

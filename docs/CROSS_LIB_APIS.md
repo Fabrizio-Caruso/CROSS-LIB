@@ -58,40 +58,51 @@ A "Cross-Lib string" is string formed with only the following 37 possible charac
 `_XL_SPACE`, `_XL_a`, ..., `_XL_z`, `_XL_A`, ..., `_XL_Z`, `'0'`, ..., `'9'`
 where capital/small letter may be displayed as the same character depending on whether the target supports different display for capital vs small letters.
 
+--------------------------------------------------------
+
 `_XL_PRINT(X,Y,S)`
 
 It prints the "Cross-Lib string" S starting a position (X,Y).
 
 
+--------------------------------------------------------
+
 `_XL_PRINT_CENTERED(S)`
 
 Same as `XL_PRINT` but it just displays the "Cross-Lib string" S at the center of the screen
+
+--------------------------------------------------------
 
 `_XL_PRINT_CENTERED_ON_ROW(Y,S)`
 
 Same as `XL_PRINT` but it just displays the "Cross-Lib string" S centered on row Y
 
+--------------------------------------------------------
 
 `_XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(Y,C,S)`
 
 Same as `_XL_PRINT_CENTERED_ON_ROW` but with color C (if the target supports text color)
 
+--------------------------------------------------------
 
 `_XL_PRINT_CENTERED_WITH_COLOR(C,S)`
 
 Same as `_XL_PRINT_CENTERED` but with color C (if the target supports text color)
 
+--------------------------------------------------------
 
 `_XL_PRINTD(X,Y,L,N)`
 
 It prints the positive integer number N in L digits (1<=L<=5) starting at position (X,Y)
 
+--------------------------------------------------------
 
 `_XL_SET_TEXT_COLOR(C)`
 
 It sets the text color to C. Such color will be used on next PRINT and PRINTD for targets that support colored text.
 If any other display operation is present (e.g., `_XL_DRAW`), then there is no guarantee that the color C will be used afterwards.
 
+--------------------------------------------------------
 
 ## INPUT
 
@@ -101,30 +112,32 @@ If any other display operation is present (e.g., `_XL_DRAW`), then there is no g
 
 It initializes the input (joystick/keyboard). Necessary for any program that needs to receive an input
 
-
+--------------------------------------------------------
 
 `_XL_INPUT()`
 
 It returns a value J that represents the specific received input or absence of input at the moment of its execution (keyboard may be buffered, though).
 The result J is meant to be used with the Boolean functions below.
 
+--------------------------------------------------------
 
 `_XL_UP(J)`, `_XL_DOWN(J)`, `_XL_LEFT(J)`, `_XL_RIGHT(J)`, `_XL_FIRE(J)`
 
 These Boolean functions return 1 (true) if J represents a specific movement or fire button/key, and 0 (false) otherwise.
 
+--------------------------------------------------------
 
 `_XL_KEY_PRESSED()`
 
 This Boolean function returns 1 (true) if any key or fire button is pressed.
 
-
+--------------------------------------------------------
 
 `_XL_WAIT_FOR_INPUT()`
 
 It waits for any key or fire button to be pressed.
 
-
+--------------------------------------------------------
 
 ## SOUND
 
@@ -134,36 +147,23 @@ It waits for any key or fire button to be pressed.
 
 It initializes the sound system. Necessary for any program that produces sound.
 
+--------------------------------------------------------
+
+`_XL_ZAP_SOUND()`: Long rising sound
+
+`_XL_PING_SOUND()`: Short high-pitched sound
 
 
-`_XL_ZAP_SOUND()`
-
-Long rising sound
+`_XL_TICK_SOUND()`: Very short high-pitched sound
 
 
-`_XL_PING_SOUND()`
-
-Short high-pitched sound
+`_XL_TOCK_SOUND()`: Very short low-pitched sound
 
 
-`_XL_TICK_SOUND()`
-
-Very short high-pitched sound
+`_XL_EXPLOSION_SOUND()`: Long noise
 
 
-`_XL_TOCK_SOUND()`
-
-Very short low-pitched sound
-
-
-`_XL_EXPLOSION_SOUND()`
-
-Long noise
-
-
-`_XL_SHOOT_SOUND()`
-
-Short noise
+`_XL_SHOOT_SOUND()`: Short noise
 
 
 
@@ -174,12 +174,13 @@ Short noise
 
 It waits  S seconds or an approximations of S seconds depending on the target
 
+--------------------------------------------------------
 
 `_XL_SLOW_DOWN(T)`
 
 It waits T loops (0<=T<=65535)
 
-
+--------------------------------------------------------
 
 ## RANDOM
 

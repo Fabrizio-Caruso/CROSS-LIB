@@ -51,9 +51,9 @@ It waits for the vertical synch if this is supported by the target. It does noth
 
 --------------------------------------------------------------------------------------
 ## TEXT
---------------------------------------------------------------------------------------
 
---------------------------------
+
+
 A "Cross-Lib string" is string formed with only the following 37 possible characters
 \_XL\_SPACE, \_XL\_a, ..., \_XL\_z, \_XL\_A, ..., \_XL\_Z, '0', ..., '9'
 where capital/small letter may be displayed as the same character depending on whether the target supports different display for capital vs small letters.
@@ -170,12 +170,9 @@ Short noise
 ## SLEEP
 
 
-
-
 - \_XL\_SLEEP(S)
 
 It waits  S seconds or an approximations of S seconds depending on the target
-
 
 
 - \_XL\_SLOW\_DOWN(T)

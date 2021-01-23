@@ -48,7 +48,7 @@ void DISPLAY_ENERGY(void)
 void PRESS_KEY(void)
 {
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-    printCenteredMessageOnRow(YSize-2, _PRESS_FIRE_STRING);
+    _XL_PRINT_CENTERED_ON_ROW(YSize-2, _PRESS_FIRE_STRING);
     _XL_WAIT_FOR_INPUT();
 }
 

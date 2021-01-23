@@ -224,7 +224,7 @@ do { \
 #define displayGameOverMessage() \
 do { \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    printCenteredMessage(_GAME_OVER__STRING); \
+    _XL_PRINT_CENTERED(_GAME_OVER__STRING); \
 } while(0)
 
 #define handle_hiscore() \
@@ -310,14 +310,14 @@ int main(void)
         _XL_CLEAR_SCREEN();
             
         _XL_SET_TEXT_COLOR(_XL_RED);
-        printCenteredMessageOnRow(2, _CROSS_BOMBER__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(2, _CROSS_BOMBER__STRING);
         _XL_SET_TEXT_COLOR(_XL_CYAN);
-        printCenteredMessageOnRow(4, _BY_FABRIZIO_CARUSO__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(4, _BY_FABRIZIO_CARUSO__STRING);
         _XL_SET_TEXT_COLOR(_XL_YELLOW);
-        printCenteredMessageOnRow(8, _DESTROY_ALL__STRING);
-        printCenteredMessageOnRow(9, _BUILDINGS__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(8, _DESTROY_ALL__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(9, _BUILDINGS__STRING);
         _XL_SET_TEXT_COLOR(_XL_WHITE);
-        printCenteredMessageOnRow(14, _PRESS_FIRE__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(14, _PRESS_FIRE__STRING);
         _XL_WAIT_FOR_INPUT();
         while(alive && (level < FINAL_LEVEL+1))
         {
@@ -523,7 +523,7 @@ int main(void)
         if(alive) // Game completed
         {
             _XL_SET_TEXT_COLOR(_XL_YELLOW);
-            printCenteredMessage(_GAME_COMPLETED__STRING);
+            _XL_PRINT_CENTERED(_GAME_COMPLETED__STRING);
             _XL_SLEEP(1);
             _XL_WAIT_FOR_INPUT();
             for(y=2;y<MAX_Y-1;++y)

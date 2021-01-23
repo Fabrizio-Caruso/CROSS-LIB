@@ -66,7 +66,7 @@
 			displayPlayer(&player);
 			displaySkull(&skulls[0]);
 		
-			printCenteredMessageOnRow(MESSAGE_START,  YOU_MADE_IT_STRING);		
+			_XL_PRINT_CENTERED_ON_ROW(MESSAGE_START,  YOU_MADE_IT_STRING);
 			#if SLOW_DOWN>0
 				for(ind=0;ind<254;++ind){};
 			#endif

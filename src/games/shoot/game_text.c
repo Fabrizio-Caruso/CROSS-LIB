@@ -23,7 +23,7 @@
 /* --------------------------------------------------------------------------------------- */ 
 
 #include "settings.h"
-#include "../cross_lib/cross_lib.h"
+#include "cross_lib.h"
 
 #include "game_text.h"
 #include "character.h"
@@ -47,14 +47,10 @@ extern uint8_t bulletStrength;
 
 
 
-#if defined(ALT_DISPLAY_STATS)
-    #define printCenteredMessageOnRow(row, text) _XL_PRINT(6,row,text)
-#endif
+// #if defined(ALT_DISPLAY_STATS)
+    // #define _XL_PRINT_CENTERED_ON_ROW(row, text) _XL_PRINT(6,row,text)
+// #endif
 
-#if defined(NO_TEXT_COLOR)
-
-    #define printCenteredMessageOnRowWithCol(row,col,text) printCenteredMessageOnRow(row,text)
-#endif    
 
 extern uint8_t level;
 extern uint8_t lives;
@@ -73,9 +69,9 @@ extern uint8_t  secretLevelActivated;
 #if !defined(LESS_TEXT)
 void printKillTheSkulls(void)
 {
-    printCenteredMessage(KILL_THE_BOSS);    
-    printCenteredMessageOnRow(((uint8_t)YSize)/2+2,KILL_THE_SKULLS_STRING);    
-    printCenteredMessageOnRow(((uint8_t)YSize)/2+4,DESTROY_MISSILES_STRING);
+    _XL_PRINT_CENTERED(KILL_THE_BOSS);    
+    _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+2,KILL_THE_SKULLS_STRING);    
+    _XL_PRINT_CENTERED_ON_ROW(((uint8_t)YSize)/2+4,DESTROY_MISSILES_STRING);
 }
 #endif
 
@@ -177,7 +173,7 @@ void printFirePowerStats(void)
 #if !defined(NO_MESSAGE)
     void printPressKeyToStart(void)
     {
-        printCenteredMessage(PRESS_STRING);
+        _XL_PRINT_CENTERED(PRESS_STRING);
     }    
 #endif
 
@@ -219,7 +215,7 @@ void displayScoreStats(void)
     void gameCompleted(void)    
     {
         _XL_CLEAR_SCREEN();
-        printCenteredMessage(YOU_MADE_IT_STRING); 
+        _XL_PRINT_CENTERED(YOU_MADE_IT_STRING); 
     }
 #endif
 
@@ -227,12 +223,12 @@ void displayScoreStats(void)
 #if !defined(LESS_TEXT)
     void printExtraLife(void)
     {
-        printCenteredMessageWithCol(_XL_RED, EXTRA_LIFE_STRING); 
+        _XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, EXTRA_LIFE_STRING); 
     }
 
     void printVictoryMessage(void)
     {
-        printCenteredMessageWithCol(_XL_RED, VICTORY_STRING);
+        _XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, VICTORY_STRING);
     }    
 #endif
 
@@ -240,7 +236,7 @@ void displayScoreStats(void)
 #if !defined(LESS_TEXT)    
     void printDefeatMessage(void)
     {            
-        printCenteredMessageWithCol(_XL_RED, DEFEAT_STRING);
+        _XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, DEFEAT_STRING);
     }    
 #endif
     
@@ -248,7 +244,7 @@ void displayScoreStats(void)
 #if !defined(NO_MESSAGE)
     void printGameOver(void)
     {
-        printCenteredMessageWithCol(_XL_RED, GAME_OVER_STRING);
+        _XL_PRINT_CENTERED_WITH_COLOR(_XL_RED, GAME_OVER_STRING);
     }    
 #endif
 
@@ -257,7 +253,7 @@ void displayScoreStats(void)
 
 void _printCrossShoot(void)
 {
-    printCenteredMessageOnRowWithCol(3, _XL_RED,  CROSS_SHOOT_STRING);        
+    _XL_PRINT_CENTERED_ON_ROW_WITH_COLOR(3, _XL_RED,  CROSS_SHOOT_STRING);        
     SET_COLOR(TEXT_COLOR);
     
 }
@@ -269,15 +265,15 @@ void _printCrossShoot(void)
     {
         _printCrossShoot();
         
-        printCenteredMessageOnRow(6,  USE_THE_GUN_AGAINST_STRING);
+        _XL_PRINT_CENTERED_ON_ROW(6,  USE_THE_GUN_AGAINST_STRING);
 
-        printCenteredMessageOnRow(8,  THE_SKULL_AND_STRING);
+        _XL_PRINT_CENTERED_ON_ROW(8,  THE_SKULL_AND_STRING);
 
-        printCenteredMessageOnRow(10, MISSILE_BASES_STRING);    
+        _XL_PRINT_CENTERED_ON_ROW(10, MISSILE_BASES_STRING);    
         
-        printCenteredMessageOnRow(12, FOR_POINTS_AND___STRING);
+        _XL_PRINT_CENTERED_ON_ROW(12, FOR_POINTS_AND___STRING);
 
-        printCenteredMessageOnRow(14, EXTRA_POWERUPS__STRING);
+        _XL_PRINT_CENTERED_ON_ROW(14, EXTRA_POWERUPS__STRING);
     }
 #endif
 
@@ -286,22 +282,22 @@ void _printCrossShoot(void)
     {
         _printCrossShoot();
         
-        printCenteredMessageOnRow(5, AUTHOR_STRING);    
+        _XL_PRINT_CENTERED_ON_ROW(5, AUTHOR_STRING);    
 
         #if !defined(NO_TITLE_INFO)
             _printTopScore();
             
             SET_COLOR(_XL_CYAN);
             
-            printCenteredMessageOnRow((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
-            printCenteredMessageOnRow((YSize>>1)+1, INTO_THE_MINES_STRING);
+            _XL_PRINT_CENTERED_ON_ROW((YSize>>1)-1, LURE_THE_ENEMIES_STRING);
+            _XL_PRINT_CENTERED_ON_ROW((YSize>>1)+1, INTO_THE_MINES_STRING);
             
             SET_COLOR(TEXT_COLOR);    
             
         #endif
 
         #if !defined(NO_CONTROL_INSTRUCTIONS)
-            printCenteredMessageOnRow(YSize-3, USE_STRING);
+            _XL_PRINT_CENTERED_ON_ROW(YSize-3, USE_STRING);
         #endif
     }
 #endif

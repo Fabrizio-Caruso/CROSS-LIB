@@ -49,9 +49,9 @@
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
     _XL_PRINTD(XSize/2-2,0,5,record); \
     _XL_SET_TEXT_COLOR(_XL_RED); \
-    printCenteredMessageOnRow(YSize/8, _CROSS_SNAKE_STRING); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/8, _CROSS_SNAKE_STRING); \
     _XL_SET_TEXT_COLOR(_XL_WHITE); \
-    printCenteredMessageOnRow(YSize/8+2, _Fabrizio_Caruso_STRING); \
+    _XL_PRINT_CENTERED_ON_ROW(YSize/8+2, _Fabrizio_Caruso_STRING); \
     extra_title(); \
     PRESS_KEY();
  

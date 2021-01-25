@@ -183,9 +183,15 @@ c64: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+
+
+c64_exomized: c64
 	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
+
+c64_crt: c64_exomized
 	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
-	rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+
+
 
 
 #################################################################

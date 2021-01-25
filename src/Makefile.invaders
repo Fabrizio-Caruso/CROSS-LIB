@@ -262,7 +262,6 @@ c16_32k: $(ASSETS_PATH)/cc65_udc_63_chars.s
 
 #################################################################
 
-c64: c64_exomized
 
 c64_test: c64_exomized_double_buffered
 
@@ -281,7 +280,7 @@ c64_double_buffered: $(ASSETS_PATH)/cc65_udc.s
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
 
-c64_uncompressed: $(ASSETS_PATH)/cc65_udc.s
+c64: $(ASSETS_PATH)/cc65_udc.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
 	 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
 	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg \
@@ -294,6 +293,14 @@ c64_uncompressed: $(ASSETS_PATH)/cc65_udc.s
 	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
 	$(FULL_FILES) \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+
+c64_exomized: c64
+	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
+
+c64_crt: c64_exomized
+	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
+
+
 
 
 c64_exomized_double_buffered: $(ASSETS_PATH)/cc65_udc.s
@@ -314,22 +321,22 @@ c64_exomized_double_buffered: $(ASSETS_PATH)/cc65_udc.s
 	rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 
 
-c64_exomized: $(ASSETS_PATH)/cc65_udc.s
-	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
-	 -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
-	--config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
-	-DCBM_SCREEN_CODES \
-	-DMEMORY_MAPPED \
-	-DSLOW_DOWN=10000 \
-	$(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
-	$(ASSETS_PATH)/cc65_udc.s \
-	$(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
-	$(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	$(FULL_FILES) \
-	-o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
-	$(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
-	python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
-	rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+# c64_exomized: $(ASSETS_PATH)/cc65_udc.s
+	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t  c64 $(DRAW_SKIP) \
+	 # -DSOUNDS -DBETWEEN_LEVEL -DEND_SCREEN \
+	# --config $(CFG_PATH)/cc65/c64_GFXat0xC000.cfg  \
+	# -DCBM_SCREEN_CODES \
+	# -DMEMORY_MAPPED \
+	# -DSLOW_DOWN=10000 \
+	# $(CROSS_LIB_PATH)/sound/cc65/sid/sid_sounds.c \
+	# $(ASSETS_PATH)/cc65_udc.s \
+	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/c64/c64_init_graphics.c \
+	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
+	# $(FULL_FILES) \
+	# -o $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
+	# $(TOOLS_PATH)/generic/exomizer sfx basic $(BUILD_PATH)/X$(GAME_NAME)_c64.prg -o $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg
+	# python $(TOOLS_PATH)/cc65/c64/prg2crt.py $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.prg  $(BUILD_PATH)/X$(GAME_NAME)_c64_exomized.crt
+	# rm $(BUILD_PATH)/X$(GAME_NAME)_c64.prg
 
 
 #################################################################

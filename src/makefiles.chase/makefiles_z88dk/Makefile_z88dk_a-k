@@ -810,6 +810,8 @@ g800_turn_based:
 #############################
 # GAME GEAR
 
+gg: gamegear
+
 gamegear: gamegear_gfx
 
 gamegear_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 

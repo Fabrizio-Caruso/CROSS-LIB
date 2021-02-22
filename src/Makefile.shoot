@@ -526,6 +526,31 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	rm $(BUILD_PATH)/X$(GAME_NAME)_gb_BANK_1F.bin
 
 
+#################################################################
+
+gg: gamegear
+
+gamegear: gamegear_gfx
+
+gamegear_gfx: $(ASSETS_PATH)/z88dk_xchase.asm 
+	$(Z88DK_PATH)$(MYZ88DK) +sms -subtype=gamegear $(SCCZ80_ROM_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \
+	-D__SMS__ -D__GAME_GEAR__ \
+	-DFORCE_XSIZE=20 \
+	-DFORCE_YSIZE=18 \
+	-DNO_SET_SCREEN_COLORS \
+	-DANIMATE_PLAYER \
+	-DFULL_GAME \
+	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
+	-lndos -DSLOW_DOWN=500 \
+	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
+	$(ASSETS_PATH)/z88dk_xchase.asm \
+	$(FULL_FILES) \
+	-create-app -o$(BUILD_PATH)/X$(GAME_NAME)_gamegear.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_gamegear.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_gamegear_BSS.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_gamegear_DATA.bin
+	rm $(BUILD_PATH)/X$(GAME_NAME)_gamegear_BANK_1F.bin
+
 
 #################################################################
 
@@ -633,7 +658,7 @@ sms_gfx: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DFULL_GAME \
 	-DCONIO -DFORCE_CONIO_LIB -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=1400 \
+	-lndos -DSLOW_DOWN=400 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_xchase.asm \
 	$(FULL_FILES) \

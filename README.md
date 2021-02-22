@@ -232,7 +232,8 @@ You can play the gamne online:
 2. Commodore VIC 20: https://nippur72.github.io/vic20-emu/?joy=1&load=fabrizio-caruso/FULL_XShoot_vic20_exp_16k
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_c64.prg 
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossshoot
-5. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_shoot
+5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=136085
+6. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_shoot
 
 
 
@@ -251,7 +252,8 @@ You can play the game online:
 2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=fabrizio-caruso/FULL_Xbomber_vic20_exp_8k
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_c64.prg
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossbomber
-5. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_bomber
+5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=136084
+6. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_bomber
 
 
 -------------------------------------------
@@ -282,7 +284,8 @@ You can play the game online:
 2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_vic20_exp_16k.prg
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake2.0/Xsnake_c64.prg
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosssnake
-5. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake1.0/Xsnake_laser500.bin
+5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=136087
+6. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XSnake1.0/Xsnake_laser500.bin
 
 
 -------------------------------------------

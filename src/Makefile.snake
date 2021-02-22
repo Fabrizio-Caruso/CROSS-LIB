@@ -1277,6 +1277,7 @@ cpm_z80_adm3a:
 	rm $(BUILD_PATH)/X$(GAME_NAME)_cpm_adm3a.bin
 #################################################################
 
+gg: gamegear
 
 gamegear: $(ASSETS_PATH)/z88dk_xchase.asm 
 	$(Z88DK_PATH)$(MYZ88DK) +sms -subtype=gamegear $(SCCZ80_ROMS_OPTS) $(INCLUDE_OPTS) -pragma-redirect:fputc_cons=fputc_cons_generic \

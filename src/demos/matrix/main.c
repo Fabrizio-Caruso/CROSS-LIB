@@ -42,20 +42,20 @@
 
 
 static const uint8_t tiles[19] = {
-		PLAYER_DOWN_TILE, PLAYER_UP_TILE, PLAYER_RIGHT_TILE, PLAYER_LEFT_TILE, 
-		GHOST_TILE, BOMB_TILE, DEAD_GHOST_TILE, SKULL_TILE, 
-		CALM_DOWN_TILE, FIRE_POWER_TILE, BULLET_TILE, VERTICAL_BRICK_TILE, 
-		HORIZONTAL_BRICK_TILE, LEFT_HORIZONTAL_MISSILE_TILE, RIGHT_HORIZONTAL_MISSILE_TILE, ROCKET_TILE, 
-		FREEZE_TILE, SUPER_TILE, INVINCIBILITY_TILE
-		};
+        PLAYER_DOWN_TILE, PLAYER_UP_TILE, PLAYER_RIGHT_TILE, PLAYER_LEFT_TILE, 
+        GHOST_TILE, BOMB_TILE, DEAD_GHOST_TILE, SKULL_TILE, 
+        CALM_DOWN_TILE, FIRE_POWER_TILE, BULLET_TILE, VERTICAL_BRICK_TILE, 
+        HORIZONTAL_BRICK_TILE, LEFT_HORIZONTAL_MISSILE_TILE, RIGHT_HORIZONTAL_MISSILE_TILE, ROCKET_TILE, 
+        FREEZE_TILE, SUPER_TILE, INVINCIBILITY_TILE
+        };
 
 static const uint8_t tile_colors[19] = {
-		_XL_CYAN, _XL_CYAN, _XL_CYAN, _XL_CYAN, 
-		_XL_WHITE, _XL_RED, _XL_RED, _XL_YELLOW, 
-		_XL_GREEN, _XL_YELLOW, _XL_WHITE, _XL_YELLOW, 
-		_XL_YELLOW, _XL_WHITE, _XL_WHITE, _XL_WHITE, 
-		_XL_CYAN, _XL_RED, _XL_YELLOW
-		};
+        _XL_CYAN, _XL_CYAN, _XL_CYAN, _XL_CYAN, 
+        _XL_WHITE, _XL_RED, _XL_RED, _XL_YELLOW, 
+        _XL_GREEN, _XL_YELLOW, _XL_WHITE, _XL_YELLOW, 
+        _XL_YELLOW, _XL_WHITE, _XL_WHITE, _XL_WHITE, 
+        _XL_CYAN, _XL_RED, _XL_YELLOW
+        };
 
 
 int main(void)
@@ -64,36 +64,29 @@ int main(void)
     uint8_t j;
     uint8_t init_y;
     uint8_t max_j;
-	
+    
     _XL_INIT_GRAPHICS();
-
     _XL_INIT_INPUT();
-
     
     while(1)
     {
-        
         _XL_CLEAR_SCREEN();
-        
         _XL_SET_TEXT_COLOR(_XL_WHITE);
         _XL_PRINT(4,0, _XL_P _XL_R _XL_E _XL_S _XL_S _XL_SPACE _XL_F _XL_I _XL_R _XL_E);
         _XL_WAIT_FOR_INPUT();
         _XL_CLEAR_SCREEN();
-		while(1)
-		{
-			i = (uint8_t) (_XL_RAND() % XSize);
-            
-            
-			max_j = (uint8_t) (_XL_RAND() % (MAX_TILES+1));
+        while(1)
+        {
+            i = (uint8_t) (_XL_RAND() % XSize);   
+            max_j = (uint8_t) (_XL_RAND() % (MAX_TILES+1));
             init_y = (uint8_t) (_XL_RAND() % MAX_INIT_Y_POS);
-			for(j=0;j<max_j;++j)
-			{
-				_XL_DRAW(i,j+init_y,tiles[j],tile_colors[j]);
+            for(j=0;j<max_j;++j)
+            {
+                _XL_DRAW(i,j+init_y,tiles[j],tile_colors[j]);
                 _XL_SLOW_DOWN(900);
-			}
+            }
         }
     } // while(1) -> restart from the beginning
-
     return EXIT_SUCCESS;
 }
 

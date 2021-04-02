@@ -4,16 +4,14 @@ deliverables
 *.swp
 build/*
 src/assets/generated_assets/*
-src/games/chase/generated_assets/*
-src/games/shoot/generated_assets/*
 src/demos/matrix/generated_assets/*
 src/demos/tiles/generated_assets/*
-src/games/bomber/generated_assets/*
-src/games/conan/generated_assets/*
-src/games/space/generated_assets/*
-src/demos/space/generated_assets/*
-src/games/invaders/generated_assets/*
 src/demos/invaders/generated_assets/*
+src/demos/zombies/generated_assets/*
+src/games/chase/generated_assets/*
+src/games/shoot/generated_assets/*
+src/games/bomber/generated_assets/*
+src/games/snake/generated_assets/*
 src/test/*.exe
 src/*.asm
 src/demos/full_lcc1802_combo.c
@@ -43,7 +41,6 @@ src/demos/reduced_full_lcc1802_combo.c
 src/demos/reduced_full_lcc1802_color_combo.c
 src/games/reduced_full_lcc1802_combo.c
 src/games/reduced_full_lcc1802_color_combo.c
-src/games/snake/generated_assets/*
-src/demos/snake/generated_assets/*
-src/games/snake_exp/generated_assets/*
+
+
 

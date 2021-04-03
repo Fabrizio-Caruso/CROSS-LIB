@@ -12,8 +12,9 @@
     #define ZOMBIE_TILE_5 _TILE_5
     #define ZOMBIE_TILE_6 _TILE_6
     
-    #define SKULL_TILE _TILE_7
-    #define CALM_DOWN_TILE _TILE_8
+    #define ZOMBIE_DEATH_TILE_0 _TILE_7
+    #define ZOMBIE_DEATH_TILE_1 _TILE_8
+    
     #define FIRE_POWER_TILE _TILE_9
     #define INVINCIBILITY_TILE _TILE_10
 

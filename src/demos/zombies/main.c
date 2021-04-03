@@ -31,8 +31,17 @@
 
 #include "images.h"
 
+
+// #define FRAME_0 0
+// #define FRAME_1 1
+// #define FRAME_2 2
+// #define FRAME_3 3
+
+
 static uint8_t zombie_pos[XSize];
 static uint8_t zombie_status[XSize];
+static uint8_t zombie_index;
+
 
 static const uint8_t zombie_tile[7+1] = 
 {
@@ -46,7 +55,7 @@ static const uint8_t zombie_tile[7+1] =
     ZOMBIE_TILE_6
 };
         
-void zombie_display(uint8_t zombie_index)
+void zombie_display(void)
 {
     uint8_t status = zombie_status[zombie_index];
     uint8_t pos = zombie_pos[zombie_index];
@@ -63,13 +72,38 @@ void zombie_display(uint8_t zombie_index)
     }
 }
 
-int main(void)
-{        
-    uint8_t zombie_index;
 
+void die(void)
+{
+    uint8_t pos = zombie_pos[zombie_index];
+    
+    _XL_DELETE(zombie_index,pos-1);    
+    _XL_DELETE(zombie_index,pos);
+    _XL_DELETE(zombie_index,pos+1);
+    _XL_DRAW(zombie_index,pos, ZOMBIE_DEATH_TILE_0, _XL_RED);
+    _XL_SHOOT_SOUND();
+    // _XL_WAIT_FOR_INPUT();
+    _XL_DRAW(zombie_index,pos, ZOMBIE_DEATH_TILE_1, _XL_RED);
+    // _XL_WAIT_FOR_INPUT();
+    _XL_EXPLOSION_SOUND();
+    _XL_DELETE(zombie_index,pos);
+    
+    // _XL_WAIT_FOR_INPUT();
+
+    zombie_status[zombie_index]=0;
+    zombie_pos[zombie_index]=1;
+}
+
+
+int main(void)
+{
+    uint8_t move_or_die;
+    
     _XL_INIT_GRAPHICS();
 
     _XL_INIT_INPUT();
+    
+    _XL_INIT_SOUND();
     
     for(zombie_index=0;zombie_index<XSize;++zombie_index)
     {
@@ -86,10 +120,17 @@ int main(void)
     while(1)
     {
         zombie_index=_XL_RAND()%XSize;
-        // zombie_index=XSize/2; // TODO: Remove this
         
-        _XL_PRINTD(4,2,3,zombie_status[zombie_index]);
-        zombie_display(zombie_index);
+        move_or_die=_XL_RAND()%XSize;
+        
+        if(move_or_die>XSize-2)
+        {
+            die();
+        }
+        else
+        {
+            zombie_display();
+        }
 
         if(zombie_pos[zombie_index]<YSize-1)
         {

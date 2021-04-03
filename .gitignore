@@ -12,6 +12,7 @@ src/games/chase/generated_assets/*
 src/games/shoot/generated_assets/*
 src/games/bomber/generated_assets/*
 src/games/snake/generated_assets/*
+src/games/horde/generated_assets/*
 src/test/*.exe
 src/*.asm
 src/demos/full_lcc1802_combo.c

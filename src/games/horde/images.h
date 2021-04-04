@@ -27,10 +27,10 @@
     #define EMPTY_BOW_LEFT_TILE_1 _TILE_15
     #define EMPTY_BOW_RIGHT_TILE_1 _TILE_16
 
-    #define FREEZE_TILE	 _TILE_17
-    #define SUPER_TILE _TILE_18
-
-    #define EXTRA1_TILE _TILE_19
+    #define ARROW_TILE_0 _TILE_17
+    #define ARROW_TILE_1 _TILE_18
+    #define DOUBLE_ARROW_TILE _TILE_19
+    
     #define EXTRA2_TILE _TILE_20
     #define EXTRA3_TILE _TILE_21
     #define EXTRA4_TILE _TILE_22

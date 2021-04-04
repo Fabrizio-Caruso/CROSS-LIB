@@ -32,12 +32,14 @@
 #include "images.h"
 
 
-// #define FRAME_0 0
-// #define FRAME_1 1
-// #define FRAME_2 2
-// #define FRAME_3 3
+#define PLAYER_Y ((YSize)-3)
+#define MAX_PLAYER_X ((XSize)*2-3)
 
-#define Y_PLAYER_POS ((YSize)-3)
+#define NUMBER_OF_ARROWS 5
+#define RELOAD_LOOPS 100
+
+#define AVAILABLE 0
+#define ACTIVE 1
 
 static uint8_t zombie_pos[XSize];
 static uint8_t zombie_status[XSize];
@@ -58,50 +60,65 @@ static const uint8_t zombie_tile[7+1] =
 
 static const uint8_t bow_tile[8] =
 {
-    LOADED_BOW_LEFT_TILE_0,
-    LOADED_BOW_RIGHT_TILE_0,
-    LOADED_BOW_LEFT_TILE_1,
-    LOADED_BOW_RIGHT_TILE_1,
     EMPTY_BOW_LEFT_TILE_0,
     EMPTY_BOW_RIGHT_TILE_0,
     EMPTY_BOW_LEFT_TILE_1,
     EMPTY_BOW_RIGHT_TILE_1,
+    LOADED_BOW_LEFT_TILE_0,
+    LOADED_BOW_RIGHT_TILE_0,
+    LOADED_BOW_LEFT_TILE_1,
+    LOADED_BOW_RIGHT_TILE_1,
 };
 
+static const uint8_t arrow_tile[2] =
+{
+    ARROW_TILE_0,
+    ARROW_TILE_1,
+};
 
-static uint8_t player_pos = XSize; // range: 0..2*XSize-2^M
+static uint8_t player_x = XSize; // range: 0..2*XSize-2^M
+static uint8_t player_shape_tile;
 
 static uint8_t input;
 
+static uint8_t loaded_bow;
+static uint8_t arrow_status[NUMBER_OF_ARROWS];
+static uint8_t arrow_shape[NUMBER_OF_ARROWS];
+static uint8_t arrow_x[NUMBER_OF_ARROWS];
+static uint8_t next_arrow;
+static uint8_t arrows_counter;
+static uint8_t bow_load_counter;
+
+void display_player(void)
+{
+    _XL_DRAW(player_x/2,PLAYER_Y,bow_tile[4*loaded_bow+0+player_shape_tile],_XL_GREEN);
+    _XL_DRAW(player_x/2+1,PLAYER_Y,bow_tile[1+4*loaded_bow+player_shape_tile],_XL_GREEN);  
+}
 
 void move_left(void)
 {
-   
-    uint8_t new_tile_shape;
-
-    new_tile_shape = 2*((--player_pos)&1);
-    _XL_PRINTD(2,2,3,new_tile_shape);
-    if(new_tile_shape)
+    player_shape_tile = 2*((--player_x)&1);
+    // _XL_PRINTD(2,2,3,new_tile_shape);
+    if(player_shape_tile)
     {
-        _XL_DELETE(player_pos/2+2,Y_PLAYER_POS);
+        _XL_DELETE(player_x/2+2,PLAYER_Y);
     }
-    _XL_DRAW(player_pos/2,Y_PLAYER_POS,bow_tile[0+new_tile_shape],_XL_GREEN);
-    _XL_DRAW(player_pos/2+1,Y_PLAYER_POS,bow_tile[1+new_tile_shape],_XL_GREEN);    
+    // _XL_DRAW(player_x/2,PLAYER_Y,bow_tile[4*loaded_bow+0+new_tile_shape],_XL_GREEN);
+    // _XL_DRAW(player_x/2+1,PLAYER_Y,bow_tile[1+4*loaded_bow+new_tile_shape],_XL_GREEN);   
+    display_player();
 }
 
 void move_right(void)
 {
-   
-    uint8_t new_tile_shape;
-
-    new_tile_shape = 2*((++player_pos)&1);
-    _XL_PRINTD(2,2,3,new_tile_shape);
-    if(!new_tile_shape)
+    player_shape_tile = 2*((++player_x)&1);
+    // _XL_PRINTD(2,2,3,new_tile_shape);
+    if(!player_shape_tile)
     {
-        _XL_DELETE(player_pos/2-1,Y_PLAYER_POS);
+        _XL_DELETE(player_x/2-1,PLAYER_Y);
     }
-    _XL_DRAW(player_pos/2,Y_PLAYER_POS,bow_tile[0+new_tile_shape],_XL_GREEN);
-    _XL_DRAW(player_pos/2+1,Y_PLAYER_POS,bow_tile[1+new_tile_shape],_XL_GREEN);    
+    // _XL_DRAW(player_x/2,PLAYER_Y,bow_tile[4*loaded_bow+new_tile_shape],_XL_GREEN);
+    // _XL_DRAW(player_x/2+1,PLAYER_Y,bow_tile[1+4*loaded_bow+new_tile_shape],_XL_GREEN);
+    display_player();
 }
 
 
@@ -135,7 +152,8 @@ void die(void)
     // _XL_WAIT_FOR_INPUT();
     _XL_DRAW(zombie_index,pos, ZOMBIE_DEATH_TILE_1, _XL_RED);
     // _XL_WAIT_FOR_INPUT();
-    _XL_EXPLOSION_SOUND();
+    _XL_SHOOT_SOUND();
+
     _XL_DELETE(zombie_index,pos);
     
     // _XL_WAIT_FOR_INPUT();
@@ -144,16 +162,50 @@ void die(void)
     zombie_pos[zombie_index]=1;
 }
 
+uint8_t compute_next_arrow(void)
+{
+    uint8_t i;
+    for(i=0;i<NUMBER_OF_ARROWS;++i)
+    {
+        if(arrow_status[i]==AVAILABLE)
+        {
+            return i;
+        }
+    }
+    return i;
+}
+
+
+void handle_arrows(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<NUMBER_OF_ARROWS;++i)
+    {
+        
+    }
+}
+
 
 int main(void)
-{
-    uint8_t move_or_die;
+{   
+    uint8_t i;
     
     _XL_INIT_GRAPHICS();
 
     _XL_INIT_INPUT();
     
     _XL_INIT_SOUND();
+    
+    
+    loaded_bow = 1;
+    next_arrow = 0;
+    arrows_counter = 0;
+    bow_load_counter = 0;
+    for(i=0;i<NUMBER_OF_ARROWS;++i)
+    {
+        arrow_status[i] = AVAILABLE;
+    }
     
     for(zombie_index=0;zombie_index<XSize;++zombie_index)
     {
@@ -167,24 +219,17 @@ int main(void)
 
     _XL_WAIT_FOR_INPUT();
     
+    _XL_DRAW(XSize/2,PLAYER_Y,LOADED_BOW_LEFT_TILE_0,_XL_GREEN);
+    _XL_DRAW(XSize/2+1,PLAYER_Y,LOADED_BOW_RIGHT_TILE_0,_XL_GREEN);
     
-    _XL_DRAW(XSize/2,Y_PLAYER_POS,LOADED_BOW_LEFT_TILE_0,_XL_GREEN);
-    _XL_DRAW(XSize/2+1,Y_PLAYER_POS,LOADED_BOW_RIGHT_TILE_0,_XL_GREEN);
+    _XL_SLEEP(1);
     
     while(1)
     {
         zombie_index=_XL_RAND()%XSize;
         
-        move_or_die=_XL_RAND()%XSize;
+        zombie_display();
         
-        if(move_or_die>XSize-2)
-        {
-            die();
-        }
-        else
-        {
-            zombie_display();
-        }
 
         if(zombie_pos[zombie_index]<YSize-1)
         {
@@ -195,18 +240,47 @@ int main(void)
                 ++zombie_pos[zombie_index];
             }
         }
-        // _XL_SLOW_DOWN(1500);
-        // _XL_WAIT_FOR_INPUT();
+
         input = _XL_INPUT();
         
-        if(_XL_LEFT(input))
+        if(_XL_LEFT(input) && player_x>0)
         {
             move_left();
         }
-        else if (_XL_RIGHT(input))
+        else if (_XL_RIGHT(input) && player_x<MAX_PLAYER_X)
         {
             move_right();
         }
+        else if (_XL_FIRE(input) && loaded_bow)
+        {
+            loaded_bow = 0;
+            arrow_status[next_arrow] = 1;
+            ++arrows_counter;
+            bow_load_counter = RELOAD_LOOPS;
+            arrow_shape[next_arrow] = arrow_tile[player_x&1];
+            arrow_x[next_arrow] = (player_x/2)+(player_x&1);
+            _XL_SHOOT_SOUND();
+            // _XL_PRINTD(0,0,3,player_x&1);
+            _XL_DRAW(arrow_x[next_arrow],PLAYER_Y-1,arrow_shape[next_arrow],_XL_YELLOW);
+            display_player();
+        }
+        
+        if(!loaded_bow && arrows_counter<NUMBER_OF_ARROWS && !bow_load_counter)
+        {
+            loaded_bow = 1;
+            next_arrow = compute_next_arrow();
+            display_player();
+        }
+        if(bow_load_counter)
+        {
+            --bow_load_counter;
+        }
+        
+        // handle_arrows();
+        
+        _XL_PRINTD(0,0,3,bow_load_counter);
+        _XL_PRINTD(6,0,3,arrows_counter);
+        // _XL_PRINTD(12,0,2,next_arrow);   
     }
 
 

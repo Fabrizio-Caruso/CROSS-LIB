@@ -100,7 +100,8 @@ z88dk_targets: \
     msx \
     sms \
     spectrum \
-    vg5k
+    vg5k \
+    vz200
 
 
 lcc1802_targets: 
@@ -740,6 +741,21 @@ vg5k_exp_16k: $(ASSETS_PATH)/z88dk_xchase.asm
 	$(FULL_FILES)
 	rm $(BUILD_PATH)/X$(GAME_NAME)_vg5k_exp_16k.prg
 
+
+#################################################################
+vz200: vz200_24k
+
+vz200_24k: 	
+	$(Z88DK_PATH)$(MYZ88DK) +vz $(ZSDCC_OPTS) -vn \
+	-compiler=sdcc \
+	$(INCLUDE_OPTS) \
+	-DSOUNDS -D__VZ__ -clib=ansi \
+	-DNO_EXTRA_TITLE -DSLOW_DOWN=400 \
+	-DCONIO -DNO_INIT_GRAPHICS  \
+	-lndos \
+	-create-app -o $(BUILD_PATH)/X$(GAME_NAME)_$@.vz \
+	$(FULL_FILES)
+	rm $(BUILD_PATH)/X$(GAME_NAME)_$@.cas
 
 #################################################################
 # LCC1802

@@ -32,11 +32,11 @@
 #include "images.h"
 
 
-#define PLAYER_Y ((YSize)-3)
+#define PLAYER_Y ((YSize)-1)
 #define MAX_PLAYER_X ((XSize)*2-3)
 
-#define NUMBER_OF_ARROWS 12
-#define RELOAD_LOOPS 10
+#define NUMBER_OF_ARROWS 3
+#define RELOAD_LOOPS 7
 
 #define AVAILABLE 0
 #define ACTIVE 1
@@ -189,6 +189,7 @@ void handle_arrows(void)
             if(arrow_y[i]<2)
             {
                 arrow_status[i]=0;
+                --arrows_counter;
             }
             else
             {

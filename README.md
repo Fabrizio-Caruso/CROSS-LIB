@@ -229,7 +229,7 @@ The game has 16 different levels including 2 boss levels + 1 secret level.
 You can play the gamne online:
 
 1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_shoot
-2. Commodore VIC 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_laser500.bin
+2. Commodore VIC 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_vic20_exp_16k.bin
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_c64.prg 
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossshoot
 5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=136085
@@ -249,7 +249,7 @@ The game has 8 levels and it ends after the eighth level.
 You can play the game online:
 
 1. Commodore 264 series (C16/C116/C+4): http://plus4world.powweb.com/play/cross_bomber
-2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_laser500.bin
+2. Commodore Vic 20: https://nippur72.github.io/vic20-emu/?joy=1&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_vic20_exp_8k.bin
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_c64.prg
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossbomber
 5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=136084

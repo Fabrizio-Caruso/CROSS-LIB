@@ -35,8 +35,8 @@
 #define PLAYER_Y ((YSize)-3)
 #define MAX_PLAYER_X ((XSize)*2-3)
 
-#define NUMBER_OF_ARROWS 5
-#define RELOAD_LOOPS 100
+#define NUMBER_OF_ARROWS 12
+#define RELOAD_LOOPS 10
 
 #define AVAILABLE 0
 #define ACTIVE 1
@@ -85,6 +85,7 @@ static uint8_t loaded_bow;
 static uint8_t arrow_status[NUMBER_OF_ARROWS];
 static uint8_t arrow_shape[NUMBER_OF_ARROWS];
 static uint8_t arrow_x[NUMBER_OF_ARROWS];
+static uint8_t arrow_y[NUMBER_OF_ARROWS];
 static uint8_t next_arrow;
 static uint8_t arrows_counter;
 static uint8_t bow_load_counter;
@@ -182,7 +183,18 @@ void handle_arrows(void)
     
     for(i=0;i<NUMBER_OF_ARROWS;++i)
     {
-        
+        if(arrow_status[i])
+        {
+            _XL_DELETE(arrow_x[i],arrow_y[i]);
+            if(arrow_y[i]<2)
+            {
+                arrow_status[i]=0;
+            }
+            else
+            {
+                _XL_DRAW(arrow_x[i],--arrow_y[i],arrow_shape[i],_XL_YELLOW);
+            }
+        }
     }
 }
 
@@ -205,6 +217,7 @@ int main(void)
     for(i=0;i<NUMBER_OF_ARROWS;++i)
     {
         arrow_status[i] = AVAILABLE;
+        // arrow_x[i] = (i/2)+(i&1);
     }
     
     for(zombie_index=0;zombie_index<XSize;++zombie_index)
@@ -258,8 +271,9 @@ int main(void)
             ++arrows_counter;
             bow_load_counter = RELOAD_LOOPS;
             arrow_shape[next_arrow] = arrow_tile[player_x&1];
-            arrow_x[next_arrow] = (player_x/2)+(player_x&1);
+            arrow_y[next_arrow] = PLAYER_Y-1;
             _XL_SHOOT_SOUND();
+            arrow_x[next_arrow] = (player_x/2)+(player_x&1);
             // _XL_PRINTD(0,0,3,player_x&1);
             _XL_DRAW(arrow_x[next_arrow],PLAYER_Y-1,arrow_shape[next_arrow],_XL_YELLOW);
             display_player();
@@ -276,7 +290,7 @@ int main(void)
             --bow_load_counter;
         }
         
-        // handle_arrows();
+        handle_arrows();
         
         _XL_PRINTD(0,0,3,bow_load_counter);
         _XL_PRINTD(6,0,3,arrows_counter);

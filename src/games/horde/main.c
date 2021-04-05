@@ -74,7 +74,7 @@ static const uint8_t arrow_tile[2] =
     ARROW_TILE_1,
 };
 
-static uint8_t player_x = XSize; // range: 0..2*XSize-2^M
+static uint8_t player_x; // range: 0..2*XSize-2^M
 static uint8_t player_shape_tile;
 
 static uint8_t input;
@@ -87,6 +87,8 @@ static uint8_t arrow_y[NUMBER_OF_ARROWS];
 static uint8_t next_arrow;
 static uint8_t arrows_counter;
 static uint8_t bow_load_counter;
+static uint8_t alive;
+
 
 void display_player(void)
 {
@@ -231,6 +233,10 @@ void handle_zombies(void)
             ++zombie_y[zombie_x];
         }
     }
+    else
+    {
+        alive = 0;
+    }
     
     for(zombie_x=0;zombie_x<XSize;++zombie_x)
     {
@@ -285,21 +291,30 @@ void handle_bow(void)
     }
 }
 
+void game_over(void)
+{
+    _XL_EXPLOSION_SOUND();
+    
+    _XL_PRINT_CENTERED(_XL_G _XL_A _XL_M _XL_E _XL_SPACE _XL_O _XL_V _XL_E _XL_R);
+    
+    _XL_SLEEP(1);
+    
+    _XL_WAIT_FOR_INPUT();
+    
+    _XL_CLEAR_SCREEN();
+}
 
-int main(void)
-{   
+
+void initialize_vars(void)
+{
     uint8_t i;
-    
-    _XL_INIT_GRAPHICS();
 
-    _XL_INIT_INPUT();
-    
-    _XL_INIT_SOUND();
-    
+    alive = 1;
     loaded_bow = 1;
     next_arrow = 0;
     arrows_counter = 0;
     bow_load_counter = 0;
+    player_x = XSize;
     for(i=0;i<NUMBER_OF_ARROWS;++i)
     {
         active_arrow[i] = 0;
@@ -310,37 +325,67 @@ int main(void)
         zombie_y[zombie_x]=1;
         zombie_shape[zombie_x]=0;
     }
-    
+}
+
+
+void display_initial_screen(void)
+{
     _XL_CLEAR_SCREEN();
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);
-
-    _XL_WAIT_FOR_INPUT();
     
-    _XL_DRAW(XSize/2,PLAYER_Y,LOADED_BOW_LEFT_TILE_0,_XL_GREEN);
-    _XL_DRAW(XSize/2+1,PLAYER_Y,LOADED_BOW_RIGHT_TILE_0,_XL_GREEN);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINT_CENTERED(_XL_C _XL_SPACE _XL_R _XL_SPACE _XL_O _XL_SPACE _XL_S _XL_SPACE _XL_S 
+                       _XL_SPACE _XL_SPACE 
+                       _XL_H _XL_SPACE _XL_O _XL_SPACE _XL_R _XL_SPACE _XL_D _XL_SPACE _XL_E);
     
     _XL_SLEEP(1);
+}
+
+
+int main(void)
+{       
+    _XL_INIT_GRAPHICS();
+
+    _XL_INIT_INPUT();
+    
+    _XL_INIT_SOUND();
     
     while(1)
     {
+        initialize_vars();
+        
+        display_initial_screen();
 
-        // if((_XL_RAND()&7)==0)
-        // {
+        _XL_WAIT_FOR_INPUT();
+        
+        _XL_CLEAR_SCREEN();
+        
+        // _XL_DRAW(XSize/2,PLAYER_Y,LOADED_BOW_LEFT_TILE_0,_XL_GREEN);
+        // _XL_DRAW(XSize/2+1,PLAYER_Y,LOADED_BOW_RIGHT_TILE_0,_XL_GREEN);
+        
+        display_player();
+        
+        _XL_SLEEP(1);
+        
+        while(alive)
+        {
+
+
             handle_zombies();
-        // }
 
-        handle_player_move();
-        
-        handle_bow();
-        
-        handle_arrows();
-        
-        _XL_PRINTD(0,0,3,bow_load_counter);
-        _XL_PRINTD(6,0,3,arrows_counter);
-        // _XL_PRINTD(12,0,2,next_arrow);   
+            handle_player_move();
+            
+            handle_bow();
+            
+            handle_arrows();
+            
+            // _XL_PRINTD(0,0,3,bow_load_counter);
+            // _XL_PRINTD(6,0,3,arrows_counter);
+            // _XL_PRINTD(12,0,2,next_arrow);   
+        }
+        game_over();
     }
-
 
     return EXIT_SUCCESS;
 }

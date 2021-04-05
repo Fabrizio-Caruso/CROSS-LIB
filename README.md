@@ -253,7 +253,7 @@ You can play the game online:
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_c64.prg
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossbomber
 5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=136084
-6. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/Bomber/Xsnake_bomber500.bin
+6. Video technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&?load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/bomber/Xbomber_laser500.bin
 
 
 -------------------------------------------

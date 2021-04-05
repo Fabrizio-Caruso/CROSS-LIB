@@ -233,7 +233,7 @@ You can play the gamne online:
 3. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_c64.prg 
 4. MSX 1: https://homebrew.file-hunter.com/index.php?id=crossshoot
 5. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=136085
-6. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_shoot
+6. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/XShoot/Xshoot_laser500.bin
 
 
 

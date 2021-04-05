@@ -35,15 +35,13 @@
 #define PLAYER_Y ((YSize)-1)
 #define MAX_PLAYER_X ((XSize)*2-3)
 
-#define NUMBER_OF_ARROWS 3
-#define RELOAD_LOOPS 7
+#define NUMBER_OF_ARROWS 1
+#define RELOAD_LOOPS 2
 
-#define AVAILABLE 0
-#define ACTIVE 1
 
-static uint8_t zombie_pos[XSize];
-static uint8_t zombie_status[XSize];
-static uint8_t zombie_index;
+static uint8_t zombie_y[XSize];
+static uint8_t zombie_shape[XSize];
+static uint8_t zombie_x;
 
 static const uint8_t zombie_tile[7+1] = 
 {
@@ -82,7 +80,7 @@ static uint8_t player_shape_tile;
 static uint8_t input;
 
 static uint8_t loaded_bow;
-static uint8_t arrow_status[NUMBER_OF_ARROWS];
+static uint8_t active_arrow[NUMBER_OF_ARROWS];
 static uint8_t arrow_shape[NUMBER_OF_ARROWS];
 static uint8_t arrow_x[NUMBER_OF_ARROWS];
 static uint8_t arrow_y[NUMBER_OF_ARROWS];
@@ -125,42 +123,42 @@ void move_right(void)
 
 void zombie_display(void)
 {
-    uint8_t status = zombie_status[zombie_index];
-    uint8_t pos = zombie_pos[zombie_index];
+    uint8_t status = zombie_shape[zombie_x];
+    uint8_t pos = zombie_y[zombie_x];
     
     if(!status)
     {
-        _XL_DELETE(zombie_index, pos-1);
-        _XL_DRAW(zombie_index, pos, ZOMBIE_TILE_0, _XL_WHITE);
+        _XL_DELETE(zombie_x, pos-1);
+        _XL_DRAW(zombie_x, pos, ZOMBIE_TILE_0, _XL_WHITE);
     }
     else
     {
-        _XL_DRAW(zombie_index, pos, zombie_tile[status<<1], _XL_WHITE);
-        _XL_DRAW(zombie_index,1 + pos, zombie_tile[1+(status<<1)], _XL_WHITE);
+        _XL_DRAW(zombie_x, pos, zombie_tile[status<<1], _XL_WHITE);
+        _XL_DRAW(zombie_x,1 + pos, zombie_tile[1+(status<<1)], _XL_WHITE);
     }
 }
 
 
 void die(void)
 {
-    uint8_t pos = zombie_pos[zombie_index];
+    uint8_t pos = zombie_y[zombie_x];
     
-    _XL_DELETE(zombie_index,pos-1);    
-    _XL_DELETE(zombie_index,pos);
-    _XL_DELETE(zombie_index,pos+1);
-    _XL_DRAW(zombie_index,pos, ZOMBIE_DEATH_TILE_0, _XL_RED);
+    _XL_DELETE(zombie_x,pos-1);    
+    _XL_DELETE(zombie_x,pos);
+    _XL_DELETE(zombie_x,pos+1);
+    _XL_DRAW(zombie_x,pos, ZOMBIE_DEATH_TILE_0, _XL_RED);
     _XL_SHOOT_SOUND();
     // _XL_WAIT_FOR_INPUT();
-    _XL_DRAW(zombie_index,pos, ZOMBIE_DEATH_TILE_1, _XL_RED);
+    _XL_DRAW(zombie_x,pos, ZOMBIE_DEATH_TILE_1, _XL_RED);
     // _XL_WAIT_FOR_INPUT();
     _XL_SHOOT_SOUND();
 
-    _XL_DELETE(zombie_index,pos);
+    _XL_DELETE(zombie_x,pos);
     
     // _XL_WAIT_FOR_INPUT();
 
-    zombie_status[zombie_index]=0;
-    zombie_pos[zombie_index]=1;
+    zombie_shape[zombie_x]=0;
+    zombie_y[zombie_x]=1;
 }
 
 uint8_t compute_next_arrow(void)
@@ -168,7 +166,7 @@ uint8_t compute_next_arrow(void)
     uint8_t i;
     for(i=0;i<NUMBER_OF_ARROWS;++i)
     {
-        if(arrow_status[i]==AVAILABLE)
+        if(!active_arrow[i])
         {
             return i;
         }
@@ -183,12 +181,12 @@ void handle_arrows(void)
     
     for(i=0;i<NUMBER_OF_ARROWS;++i)
     {
-        if(arrow_status[i])
+        if(active_arrow[i]) // ACTIVE
         {
             _XL_DELETE(arrow_x[i],arrow_y[i]);
             if(arrow_y[i]<2)
             {
-                arrow_status[i]=0;
+                active_arrow[i]=0;
                 --arrows_counter;
             }
             else
@@ -196,6 +194,94 @@ void handle_arrows(void)
                 _XL_DRAW(arrow_x[i],--arrow_y[i],arrow_shape[i],_XL_YELLOW);
             }
         }
+    }
+}
+
+uint8_t zombie_hit(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<NUMBER_OF_ARROWS;++i)
+    {
+        if(active_arrow[i] && arrow_x[i]==zombie_x
+          && zombie_y[zombie_x]>=arrow_y[i])
+           {
+               active_arrow[i]=0;
+                --arrows_counter;
+
+               _XL_DELETE(arrow_x[i],arrow_y[i]);
+               return 1;
+           }
+    }
+    return 0;
+}
+
+
+void handle_zombies(void)
+{
+    zombie_x=_XL_RAND()%XSize;
+    zombie_display();
+    
+    if(zombie_y[zombie_x]<YSize-1)
+    {
+        ++zombie_shape[zombie_x];
+        (zombie_shape[zombie_x])&=3;
+        if(!zombie_shape[zombie_x])
+        {
+            ++zombie_y[zombie_x];
+        }
+    }
+    
+    for(zombie_x=0;zombie_x<XSize;++zombie_x)
+    {
+        if(zombie_hit())
+        {
+            die();
+        }
+    }
+}
+
+
+void handle_player_move(void)
+{
+    input = _XL_INPUT();
+    
+    if(_XL_LEFT(input) && player_x>0)
+    {
+        move_left();
+    }
+    else if (_XL_RIGHT(input) && player_x<MAX_PLAYER_X)
+    {
+        move_right();
+    }
+    else if (_XL_FIRE(input) && loaded_bow)
+    {
+        loaded_bow = 0;
+        active_arrow[next_arrow] = 1;
+        ++arrows_counter;
+        bow_load_counter = RELOAD_LOOPS;
+        arrow_shape[next_arrow] = arrow_tile[player_x&1];
+        arrow_y[next_arrow] = PLAYER_Y-1;
+        _XL_SHOOT_SOUND();
+        arrow_x[next_arrow] = (player_x/2)+(player_x&1);
+        // _XL_PRINTD(0,0,3,player_x&1);
+        _XL_DRAW(arrow_x[next_arrow],PLAYER_Y-1,arrow_shape[next_arrow],_XL_YELLOW);
+        display_player();
+    }
+}
+
+
+void handle_bow(void)
+{
+    if(!loaded_bow && arrows_counter<NUMBER_OF_ARROWS && !bow_load_counter)
+    {
+        loaded_bow = 1;
+        next_arrow = compute_next_arrow();
+        display_player();
+    }
+    if(bow_load_counter)
+    {
+        --bow_load_counter;
     }
 }
 
@@ -210,21 +296,19 @@ int main(void)
     
     _XL_INIT_SOUND();
     
-    
     loaded_bow = 1;
     next_arrow = 0;
     arrows_counter = 0;
     bow_load_counter = 0;
     for(i=0;i<NUMBER_OF_ARROWS;++i)
     {
-        arrow_status[i] = AVAILABLE;
-        // arrow_x[i] = (i/2)+(i&1);
+        active_arrow[i] = 0;
     }
     
-    for(zombie_index=0;zombie_index<XSize;++zombie_index)
+    for(zombie_x=0;zombie_x<XSize;++zombie_x)
     {
-        zombie_pos[zombie_index]=1;
-        zombie_status[zombie_index]=0;
+        zombie_y[zombie_x]=1;
+        zombie_shape[zombie_x]=0;
     }
     
     _XL_CLEAR_SCREEN();
@@ -240,56 +324,15 @@ int main(void)
     
     while(1)
     {
-        zombie_index=_XL_RAND()%XSize;
-        
-        zombie_display();
-        
 
-        if(zombie_pos[zombie_index]<YSize-1)
-        {
-            ++zombie_status[zombie_index];
-            (zombie_status[zombie_index])&=3;
-            if(!zombie_status[zombie_index])
-            {
-                ++zombie_pos[zombie_index];
-            }
-        }
+        // if((_XL_RAND()&7)==0)
+        // {
+            handle_zombies();
+        // }
 
-        input = _XL_INPUT();
+        handle_player_move();
         
-        if(_XL_LEFT(input) && player_x>0)
-        {
-            move_left();
-        }
-        else if (_XL_RIGHT(input) && player_x<MAX_PLAYER_X)
-        {
-            move_right();
-        }
-        else if (_XL_FIRE(input) && loaded_bow)
-        {
-            loaded_bow = 0;
-            arrow_status[next_arrow] = 1;
-            ++arrows_counter;
-            bow_load_counter = RELOAD_LOOPS;
-            arrow_shape[next_arrow] = arrow_tile[player_x&1];
-            arrow_y[next_arrow] = PLAYER_Y-1;
-            _XL_SHOOT_SOUND();
-            arrow_x[next_arrow] = (player_x/2)+(player_x&1);
-            // _XL_PRINTD(0,0,3,player_x&1);
-            _XL_DRAW(arrow_x[next_arrow],PLAYER_Y-1,arrow_shape[next_arrow],_XL_YELLOW);
-            display_player();
-        }
-        
-        if(!loaded_bow && arrows_counter<NUMBER_OF_ARROWS && !bow_load_counter)
-        {
-            loaded_bow = 1;
-            next_arrow = compute_next_arrow();
-            display_player();
-        }
-        if(bow_load_counter)
-        {
-            --bow_load_counter;
-        }
+        handle_bow();
         
         handle_arrows();
         

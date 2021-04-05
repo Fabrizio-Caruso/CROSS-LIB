@@ -35,13 +35,14 @@
 #define PLAYER_Y ((YSize)-1)
 #define MAX_PLAYER_X ((XSize)*2-3)
 
-#define ZOMBIE_INITIAL_Y 2
+#define ZOMBIE_INITIAL_Y 3
 
 #define NUMBER_OF_ARROWS 4
-#define RELOAD_LOOPS 20
+#define RELOAD_LOOPS 10
 
-#define ZOMBIE_INITIAL_SPEED 5000U
-#define ZOMBIE_SPEED_INCREASE 100
+#define ZOMBIE_INITIAL_SPEED 9000U
+#define ZOMBIE_SPEED_INCREASE 100U
+#define ZOMBIE_POINTS 10
 
 static uint8_t zombie_y[XSize];
 static uint8_t zombie_shape[XSize];
@@ -94,6 +95,9 @@ static uint8_t arrows_counter;
 static uint8_t bow_load_counter;
 static uint8_t alive;
 
+static uint16_t score;
+static uint16_t hiscore;
+
 
 void display_player(void)
 {
@@ -145,6 +149,10 @@ void zombie_display(void)
     }
 }
 
+void show_score(void)
+{
+    _XL_PRINTD(5,0,5,score);
+}
 
 void die(void)
 {
@@ -167,6 +175,8 @@ void die(void)
     zombie_shape[zombie_x]=0;
     zombie_y[zombie_x]=ZOMBIE_INITIAL_Y;
     zombie_speed+=ZOMBIE_SPEED_INCREASE;
+    score+=ZOMBIE_POINTS;
+    show_score();
 }
 
 uint8_t compute_next_arrow(void)
@@ -321,6 +331,12 @@ void initialize_vars(void)
 {
     uint8_t i;
 
+    if(score>hiscore)
+    {
+        hiscore=score;
+    }
+    score = 0;
+    
     alive = 1;
     loaded_bow = 1;
     next_arrow = 0;
@@ -335,7 +351,7 @@ void initialize_vars(void)
     
     for(zombie_x=0;zombie_x<XSize;++zombie_x)
     {
-        zombie_y[zombie_x]=1;
+        zombie_y[zombie_x]=ZOMBIE_INITIAL_Y;
         zombie_shape[zombie_x]=0;
     }
 }
@@ -364,6 +380,9 @@ int main(void)
     
     _XL_INIT_SOUND();
     
+    score = 0;
+    hiscore = 0;
+    
     while(1)
     {
         initialize_vars();
@@ -378,6 +397,17 @@ int main(void)
         // _XL_DRAW(XSize/2+1,PLAYER_Y,LOADED_BOW_RIGHT_TILE_0,_XL_GREEN);
         
         display_player();
+        
+        _XL_SET_TEXT_COLOR(_XL_CYAN);
+        _XL_PRINT(0,0,_XL_S _XL_C _XL_O _XL_R _XL_E);
+        
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        show_score();
+        
+        _XL_SET_TEXT_COLOR(_XL_GREEN);
+        _XL_PRINT(XSize-8,0,_XL_H _XL_I);
+        _XL_SET_TEXT_COLOR(_XL_WHITE);
+        _XL_PRINTD(XSize-6,0,5,hiscore);
         
         _XL_SLEEP(1);
         

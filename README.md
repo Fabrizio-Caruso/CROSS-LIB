@@ -208,7 +208,7 @@ You can play the game online for different systems:
 4. Commodore 64: https://nippur72.github.io/c64-emu/?joy=3&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/I8080/Xchase_c64.prg
 5. MSX 1: https://homebrew.file-hunter.com/index.php?id=crosschase
 6. Sinclair ZX Spectrum 48K: https://spectrumcomputing.co.uk/playonline.php?eml=1&downid=112056
-7. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=cross_chase
+7. Video Technology Laser 500: https://nippur72.github.io/laser500emu/?restore=false&load=http://github.com/Fabrizio-Caruso/CROSS-LIB/releases/download/I8080/Xchase_laser500.bin
 
 
 -------------------------------------------

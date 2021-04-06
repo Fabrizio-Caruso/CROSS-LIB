@@ -37,17 +37,15 @@
 
 #define ZOMBIE_INITIAL_Y 3
 
-#define NUMBER_OF_ARROWS 4
+#define NUMBER_OF_ARROWS_ON_SCREEN 4
 #define RELOAD_LOOPS 10
 
 #define MAX_ZOMBIE_SPEED 40000U
 #define INITIAL_ZOMBIE_SPEED 8000U
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 4
-#define ZOMBIE_SPEED_INCREASE 200U
+#define ZOMBIE_SPEED_INCREASE 500U
 #define ZOMBIE_POINTS 10
 #define ARROW_RANGE ((ZOMBIE_INITIAL_Y)+6)
-
-static uint8_t level;
 
 static uint8_t zombie_y[XSize];
 static uint8_t zombie_shape[XSize];
@@ -93,17 +91,25 @@ static uint8_t player_shape_tile;
 static uint8_t input;
 
 static uint8_t loaded_bow;
-static uint8_t active_arrow[NUMBER_OF_ARROWS];
-static uint8_t arrow_shape[NUMBER_OF_ARROWS];
-static uint8_t arrow_x[NUMBER_OF_ARROWS];
-static uint8_t arrow_y[NUMBER_OF_ARROWS];
+static uint8_t active_arrow[NUMBER_OF_ARROWS_ON_SCREEN];
+static uint8_t arrow_shape[NUMBER_OF_ARROWS_ON_SCREEN];
+static uint8_t arrow_x[NUMBER_OF_ARROWS_ON_SCREEN];
+static uint8_t arrow_y[NUMBER_OF_ARROWS_ON_SCREEN];
+static uint8_t arrows;
+
 static uint8_t next_arrow;
-static uint8_t arrows_counter;
+static uint8_t arrows_on_screen_counter;
 static uint8_t bow_load_counter;
 static uint8_t alive;
 
 static uint16_t score;
 static uint16_t hiscore;
+
+
+void display_level(void)
+{
+    _XL_PRINTD(XSize-2,0,2,zombie_spawn_loops-INITIAL_ZOMBIE_SPAWN_LOOPS+1);
+}
 
 
 void display_player(void)
@@ -139,6 +145,13 @@ void move_right(void)
 }
 
 
+void display_remaining_arrows(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(7,0,2,arrows);
+}
+
+
 void display_zombie(void)
 {
     uint8_t status = zombie_shape[zombie_x];
@@ -171,14 +184,10 @@ void die(void)
     _XL_DELETE(zombie_x,pos+1);
     _XL_DRAW(zombie_x,pos, ZOMBIE_DEATH_TILE_0, _XL_RED);
     _XL_SHOOT_SOUND();
-    // _XL_WAIT_FOR_INPUT();
     _XL_DRAW(zombie_x,pos, ZOMBIE_DEATH_TILE_1, _XL_RED);
-    // _XL_WAIT_FOR_INPUT();
     _XL_SHOOT_SOUND();
-
     _XL_DELETE(zombie_x,pos);
     
-    // _XL_WAIT_FOR_INPUT();
 
     zombie_shape[zombie_x]=0;
     zombie_y[zombie_x]=ZOMBIE_INITIAL_Y;
@@ -190,6 +199,7 @@ void die(void)
     {
         zombie_speed=INITIAL_ZOMBIE_SPEED;
         ++zombie_spawn_loops;
+        display_level();
     }
     score+=ZOMBIE_POINTS;
     display_score();
@@ -198,7 +208,7 @@ void die(void)
 uint8_t compute_next_arrow(void)
 {
     uint8_t i;
-    for(i=0;i<NUMBER_OF_ARROWS;++i)
+    for(i=0;i<NUMBER_OF_ARROWS_ON_SCREEN;++i)
     {
         if(!active_arrow[i])
         {
@@ -213,7 +223,7 @@ void handle_arrows(void)
 {
     uint8_t i;
     
-    for(i=0;i<NUMBER_OF_ARROWS;++i)
+    for(i=0;i<NUMBER_OF_ARROWS_ON_SCREEN;++i)
     {
         if(active_arrow[i]) // ACTIVE
         {
@@ -221,7 +231,7 @@ void handle_arrows(void)
             if(arrow_y[i]<(ARROW_RANGE))
             {
                 active_arrow[i]=0;
-                --arrows_counter;
+                --arrows_on_screen_counter;
             }
             else
             {
@@ -231,7 +241,6 @@ void handle_arrows(void)
                 {
                     _XL_DRAW(arrow_x[i],arrow_y[i],arrow_shape[i],_XL_CYAN);
                 }
-                // _XL_SLEEP(1);
             }
         }
     }
@@ -241,13 +250,13 @@ uint8_t zombie_hit(void)
 {
     uint8_t i;
     
-    for(i=0;i<NUMBER_OF_ARROWS;++i)
+    for(i=0;i<NUMBER_OF_ARROWS_ON_SCREEN;++i)
     {
         if(active_arrow[i] && arrow_x[i]==zombie_x
           && zombie_y[zombie_x]>=arrow_y[i])
            {
                active_arrow[i]=0;
-                --arrows_counter;
+                --arrows_on_screen_counter;
 
                _XL_DELETE(arrow_x[i],arrow_y[i]);
                return 1;
@@ -309,13 +318,12 @@ void handle_player_move(void)
     {
         loaded_bow = 0;
         active_arrow[next_arrow] = 1;
-        ++arrows_counter;
+        ++arrows_on_screen_counter;
         bow_load_counter = RELOAD_LOOPS;
         arrow_shape[next_arrow] = arrow_tile[player_x&1];
         arrow_y[next_arrow] = PLAYER_Y-1;
         _XL_SHOOT_SOUND();
         arrow_x[next_arrow] = (player_x/2)+(player_x&1);
-        // _XL_PRINTD(0,0,3,player_x&1);
         _XL_DRAW(arrow_x[next_arrow],PLAYER_Y-1,arrow_shape[next_arrow],_XL_CYAN);
         display_player();
     }
@@ -324,11 +332,13 @@ void handle_player_move(void)
 
 void handle_bow(void)
 {
-    if(!loaded_bow && arrows_counter<NUMBER_OF_ARROWS && !bow_load_counter)
+    if(!loaded_bow && arrows_on_screen_counter<NUMBER_OF_ARROWS_ON_SCREEN && !bow_load_counter && arrows)
     {
         loaded_bow = 1;
         next_arrow = compute_next_arrow();
         display_player();
+        --arrows;
+        display_remaining_arrows();
     }
     if(bow_load_counter)
     {
@@ -361,17 +371,17 @@ void initialize_vars(void)
     }
     score = 0;
     
-    level = 0;
+    arrows = 99;
     alive = 1;
     loaded_bow = 1;
     next_arrow = 0;
-    arrows_counter = 0;
+    arrows_on_screen_counter = 0;
     bow_load_counter = 0;
     player_x = XSize;
     zombie_speed=INITIAL_ZOMBIE_SPEED;
     zombie_spawn_loops=INITIAL_ZOMBIE_SPAWN_LOOPS;
     
-    for(i=0;i<NUMBER_OF_ARROWS;++i)
+    for(i=0;i<NUMBER_OF_ARROWS_ON_SCREEN;++i)
     {
         active_arrow[i] = 0;
     }
@@ -410,13 +420,27 @@ void display_initial_screen(void)
 
 }
 
+void display_stats(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    display_score();
+    
+    _XL_SET_TEXT_COLOR(_XL_GREEN);
+    _XL_PRINT(XSize-10,0,_XL_H _XL_I);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(XSize-8,0,5, hiscore);
+    
+    _XL_DRAW(6,0,ARROW_TILE_0,_XL_CYAN);
+    display_remaining_arrows();
+    
+    display_level();
+}
+
 
 int main(void)
 {       
     _XL_INIT_GRAPHICS();
-
-    _XL_INIT_INPUT();
-    
+    _XL_INIT_INPUT();  
     _XL_INIT_SOUND();
     
     score = 0;
@@ -427,42 +451,21 @@ int main(void)
         initialize_vars();
         
         display_initial_screen();
-
         _XL_WAIT_FOR_INPUT();
         
         _XL_CLEAR_SCREEN();
-        
         display_player();
-        
-        _XL_SET_TEXT_COLOR(_XL_WHITE);
-        display_score();
-        
-        _XL_SET_TEXT_COLOR(_XL_GREEN);
-        _XL_PRINT(XSize-11,0,_XL_H _XL_I);
-        _XL_SET_TEXT_COLOR(_XL_WHITE);
-        _XL_PRINTD(XSize-9,0,5,hiscore);
-        
-        // _XL_SET_TEXT_COLOR(_XL_GREEN);
-        _XL_PRINTD(XSize-2,0,2,level);
-        
+        display_stats();
         _XL_SLEEP(1);
         
         while(alive)
         {
-
-
             handle_zombies();
-
             handle_player_move();
-            
             handle_bow();
-            
-            handle_arrows();
-            
+            handle_arrows();            
             _XL_SLOW_DOWN(600); // A8: 600
-            // _XL_PRINTD(0,0,3,bow_load_counter);
-            // _XL_PRINTD(6,0,3,arrows_counter);
-            // _XL_PRINTD(12,0,2,next_arrow);   
+
         }
         game_over();
     }

@@ -29,13 +29,13 @@
 
     #define ARROW_TILE_0 _TILE_17
     #define ARROW_TILE_1 _TILE_18
-    #define DOUBLE_ARROW_TILE _TILE_19
     
-    #define EXTRA2_TILE _TILE_20
-    #define EXTRA3_TILE _TILE_21
-    #define EXTRA4_TILE _TILE_22
-    #define EXTRA5_TILE _TILE_23
-    #define EXTRA6_TILE _TILE_24
+    #define BOSS_TILE_0 _TILE_19
+    #define BOSS_TILE_1 _TILE_20
+    #define BOSS_TILE_2 _TILE_21
+    #define WALL_TILE _TILE_22
+    #define RING_TILE _TILE_23
+    #define FREEZE_TILE _TILE_24
     
     #define EXTRA_POINTS_TILE _DOLLAR_TILE
 

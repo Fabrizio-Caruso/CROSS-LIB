@@ -35,7 +35,7 @@
 #define PLAYER_Y ((YSize)-1)
 #define MAX_PLAYER_X ((XSize)*2-3)
 
-#define ZOMBIE_INITIAL_Y 4
+#define ZOMBIE_INITIAL_Y 5
 
 #define NUMBER_OF_ARROWS_ON_SCREEN 4
 #define RELOAD_LOOPS 10
@@ -46,6 +46,7 @@
 #define MAX_ZOMBIE_SPAWN_LOOPS 10
 #define ZOMBIE_SPEED_INCREASE 500U
 #define ZOMBIE_POINTS 10
+#define ARROWS_RECHARGE_POINTS 50
 #define ARROW_RANGE ((ZOMBIE_INITIAL_Y)+6)
 #define ARROW_RECAHRGE 5
 #define ARROW_SPAWN_CHANCE 5000U
@@ -53,6 +54,7 @@
 static uint8_t item_x;
 static uint8_t item_y;
 static uint8_t item;
+static uint8_t item_counter;
 
 static uint8_t zombie_y[XSize];
 static uint8_t zombie_shape[XSize];
@@ -129,26 +131,22 @@ void display_player(void)
 void move_left(void)
 {
     player_shape_tile = 2*((--player_x)&1);
-    // _XL_PRINTD(2,2,3,new_tile_shape);
     if(player_shape_tile)
     {
         _XL_DELETE(player_x/2+2,PLAYER_Y);
     }
-    // _XL_DRAW(player_x/2,PLAYER_Y,bow_tile[4*loaded_bow+0+new_tile_shape],_XL_GREEN);
-    // _XL_DRAW(player_x/2+1,PLAYER_Y,bow_tile[1+4*loaded_bow+new_tile_shape],_XL_GREEN);   
+ 
     display_player();
 }
 
 void move_right(void)
 {
     player_shape_tile = 2*((++player_x)&1);
-    // _XL_PRINTD(2,2,3,new_tile_shape);
     if(!player_shape_tile)
     {
         _XL_DELETE(player_x/2-1,PLAYER_Y);
     }
-    // _XL_DRAW(player_x/2,PLAYER_Y,bow_tile[4*loaded_bow+new_tile_shape],_XL_GREEN);
-    // _XL_DRAW(player_x/2+1,PLAYER_Y,bow_tile[1+4*loaded_bow+new_tile_shape],_XL_GREEN);
+
     display_player();
 }
 
@@ -188,6 +186,7 @@ void spawn_item(void)
     item = 1;
     item_x = zombie_x;
     item_y = zombie_y[zombie_x]+1;
+    item_counter=20;
 }
 
 void recharge_arrows(void)
@@ -214,17 +213,32 @@ void handle_item(void)
             _XL_DRAW(item_x,item_y,ARROW_TILE_0,_XL_YELLOW);
         }
         
-        if(item_y==PLAYER_Y)
+        if((item_y==PLAYER_Y) && (item_counter>0))
         {
-            _XL_DRAW(item_x,item_y,ARROW_TILE_0,_XL_YELLOW);
+            if(item_counter&1)
+            {
+                _XL_DELETE(item_x,item_y);
+            }
+            else
+            {
+                _XL_DRAW(item_x,item_y,ARROW_TILE_0,_XL_YELLOW);
+
+            }
  
             if(item_x==(player_x/2)+(player_x&1))
             {
                 recharge_arrows();
                 _XL_ZAP_SOUND();
                 item=0;
+                score+=ARROWS_RECHARGE_POINTS;
+                display_score();
             }
             display_player();
+            --item_counter;
+            if(!item_counter)
+            {
+                item=0;
+            }
         }
 
     }
@@ -245,7 +259,7 @@ void zombie_die(void)
 
     zombie_shape[zombie_x]=0;
     
-    if(!item && _XL_RAND()<ARROW_SPAWN_CHANCE)
+    if((!item) && (_XL_RAND()<ARROW_SPAWN_CHANCE))
     {
         spawn_item();
     }
@@ -266,6 +280,8 @@ void zombie_die(void)
         {
             zombie_speed=INITIAL_ZOMBIE_SPEED*2;   
         }
+        _XL_TOCK_SOUND();
+        
         display_level();
         _XL_PING_SOUND();
     }
@@ -537,7 +553,7 @@ int main(void)
             handle_player_move();
             handle_bow();
             handle_arrows();            
-            _XL_SLOW_DOWN(SLOW_DOWN); // A8: 600
+            _XL_SLOW_DOWN(SLOW_DOWN);
 
         }
         game_over();

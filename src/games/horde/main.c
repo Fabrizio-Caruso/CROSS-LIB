@@ -40,14 +40,17 @@
 #define NUMBER_OF_ARROWS 4
 #define RELOAD_LOOPS 10
 
-#define ZOMBIE_INITIAL_SPEED 9000U
-#define ZOMBIE_SPEED_INCREASE 100U
+#define MAX_ZOMBIE_SPEED 40000U
+#define INITIAL_ZOMBIE_SPEED 10000U
+#define INITIAL_ZOMBIE_LEVEL 1
+#define ZOMBIE_SPEED_INCREASE 200U
 #define ZOMBIE_POINTS 10
 
 static uint8_t zombie_y[XSize];
 static uint8_t zombie_shape[XSize];
 static uint8_t zombie_x;
 static uint16_t zombie_speed;
+static uint8_t zombie_level;
 
 static const uint8_t zombie_tile[7+1] = 
 {
@@ -132,7 +135,7 @@ void move_right(void)
 }
 
 
-void zombie_display(void)
+void display_zombie(void)
 {
     uint8_t status = zombie_shape[zombie_x];
     uint8_t pos = zombie_y[zombie_x];
@@ -151,6 +154,7 @@ void zombie_display(void)
 
 void show_score(void)
 {
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(5,0,5,score);
 }
 
@@ -174,7 +178,15 @@ void die(void)
 
     zombie_shape[zombie_x]=0;
     zombie_y[zombie_x]=ZOMBIE_INITIAL_Y;
-    zombie_speed+=ZOMBIE_SPEED_INCREASE;
+    if(zombie_speed<MAX_ZOMBIE_SPEED-ZOMBIE_SPEED_INCREASE)
+    {
+        zombie_speed+=ZOMBIE_SPEED_INCREASE;
+    }
+    else
+    {
+        zombie_speed=INITIAL_ZOMBIE_SPEED;
+        ++zombie_level;
+    }
     score+=ZOMBIE_POINTS;
     show_score();
 }
@@ -239,23 +251,27 @@ uint8_t zombie_hit(void)
 
 void handle_zombies(void)
 {
-    zombie_x=_XL_RAND()%XSize;
-    zombie_display();
-    
-    if(_XL_RAND()<zombie_speed)
+    uint8_t i;
+
+    for(i=0;i<zombie_level;++i)
     {
-        if(zombie_y[zombie_x]<YSize-1)
+        zombie_x=_XL_RAND()%XSize;
+        display_zombie();
+        if(_XL_RAND()<zombie_speed)
         {
-            ++zombie_shape[zombie_x];
-            (zombie_shape[zombie_x])&=3;
-            if(!zombie_shape[zombie_x])
+            if(zombie_y[zombie_x]<YSize-1)
             {
-                ++zombie_y[zombie_x];
+                ++zombie_shape[zombie_x];
+                (zombie_shape[zombie_x])&=3;
+                if(!zombie_shape[zombie_x])
+                {
+                    ++zombie_y[zombie_x];
+                }
             }
-        }
-        else
-        {
-            alive = 0;
+            else
+            {
+                alive = 0;
+            }
         }
     }
     
@@ -343,7 +359,9 @@ void initialize_vars(void)
     arrows_counter = 0;
     bow_load_counter = 0;
     player_x = XSize;
-    zombie_speed=ZOMBIE_INITIAL_SPEED;
+    zombie_speed=INITIAL_ZOMBIE_SPEED;
+    zombie_level=INITIAL_ZOMBIE_LEVEL;
+    
     for(i=0;i<NUMBER_OF_ARROWS;++i)
     {
         active_arrow[i] = 0;

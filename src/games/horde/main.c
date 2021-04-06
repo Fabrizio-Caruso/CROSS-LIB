@@ -35,14 +35,14 @@
 #define PLAYER_Y ((YSize)-1)
 #define MAX_PLAYER_X ((XSize)*2-3)
 
-#define ZOMBIE_INITIAL_Y 3
+#define ZOMBIE_INITIAL_Y 4
 
 #define NUMBER_OF_ARROWS_ON_SCREEN 4
 #define RELOAD_LOOPS 10
 
 #define MAX_ZOMBIE_SPEED 40000U
-#define INITIAL_ZOMBIE_SPEED 8000U
-#define INITIAL_ZOMBIE_SPAWN_LOOPS 3
+#define INITIAL_ZOMBIE_SPEED 20000U
+#define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_SPAWN_LOOPS 10
 #define ZOMBIE_SPEED_INCREASE 500U
 #define ZOMBIE_POINTS 10
@@ -115,7 +115,8 @@ static uint16_t hiscore;
 
 void display_level(void)
 {
-    _XL_PRINTD(XSize-2,0,2,zombie_spawn_loops-INITIAL_ZOMBIE_SPAWN_LOOPS+1);
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(XSize-1,0,1,zombie_spawn_loops-INITIAL_ZOMBIE_SPAWN_LOOPS+1);
 }
 
 
@@ -157,7 +158,6 @@ void display_remaining_arrows(void)
     _XL_SET_TEXT_COLOR(_XL_WHITE);
     _XL_PRINTD(7,0,2,arrows);
 }
-
 
 void display_zombie(void)
 {
@@ -204,7 +204,7 @@ void handle_item(void)
 {
     if(item)
     {
-        if(item_y<=PLAYER_Y)
+        if(item_y<PLAYER_Y)
         {
             _XL_DELETE(item_x,item_y);
             if(_XL_RAND()&1)
@@ -245,7 +245,7 @@ void zombie_die(void)
 
     zombie_shape[zombie_x]=0;
     
-    if(_XL_RAND()<ARROW_SPAWN_CHANCE)
+    if(!item && _XL_RAND()<ARROW_SPAWN_CHANCE)
     {
         spawn_item();
     }
@@ -357,6 +357,7 @@ void handle_zombies(void)
             else
             {
                 alive = 0;
+                _XL_DRAW(zombie_x,PLAYER_Y,ZOMBIE_TILE_0,_XL_RED);
             }
         }
     }
@@ -535,7 +536,7 @@ int main(void)
             handle_player_move();
             handle_bow();
             handle_arrows();            
-            _XL_SLOW_DOWN(600); // A8: 600
+            _XL_SLOW_DOWN(SLOW_DOWN); // A8: 600
 
         }
         game_over();

@@ -45,6 +45,7 @@
 #define INITIAL_ZOMBIE_LEVEL 1
 #define ZOMBIE_SPEED_INCREASE 200U
 #define ZOMBIE_POINTS 10
+#define ARROW_RANGE ((ZOMBIE_INITIAL_Y)+6)
 
 static uint8_t zombie_y[XSize];
 static uint8_t zombie_shape[XSize];
@@ -213,16 +214,20 @@ void handle_arrows(void)
     {
         if(active_arrow[i]) // ACTIVE
         {
-            _XL_DELETE(arrow_x[i],arrow_y[i]);
-            if(arrow_y[i]<(ZOMBIE_INITIAL_Y+2))
+            
+            if(arrow_y[i]<(ARROW_RANGE))
             {
                 active_arrow[i]=0;
                 --arrows_counter;
             }
             else
             {
+                _XL_DELETE(arrow_x[i],arrow_y[i]);
                 --arrow_y[i];
-                _XL_DRAW(arrow_x[i],arrow_y[i],arrow_shape[i],_XL_YELLOW);
+                if(arrow_y[i]>=(ARROW_RANGE))
+                {
+                    _XL_DRAW(arrow_x[i],arrow_y[i],arrow_shape[i],_XL_YELLOW);
+                }
                 // _XL_SLEEP(1);
             }
         }

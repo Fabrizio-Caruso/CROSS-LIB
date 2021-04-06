@@ -42,10 +42,17 @@
 
 #define MAX_ZOMBIE_SPEED 40000U
 #define INITIAL_ZOMBIE_SPEED 8000U
-#define INITIAL_ZOMBIE_SPAWN_LOOPS 4
+#define INITIAL_ZOMBIE_SPAWN_LOOPS 3
+#define MAX_ZOMBIE_SPAWN_LOOPS 10
 #define ZOMBIE_SPEED_INCREASE 500U
 #define ZOMBIE_POINTS 10
 #define ARROW_RANGE ((ZOMBIE_INITIAL_Y)+6)
+#define ARROW_RECAHRGE 5
+#define ARROW_SPAWN_CHANCE 5000U
+
+static uint8_t item_x;
+static uint8_t item_y;
+static uint8_t item;
 
 static uint8_t zombie_y[XSize];
 static uint8_t zombie_shape[XSize];
@@ -175,7 +182,55 @@ void display_score(void)
     _XL_PRINTD(0,0,5,score);
 }
 
-void die(void)
+void spawn_item(void)
+{
+    _XL_TICK_SOUND();
+    item = 1;
+    item_x = zombie_x;
+    item_y = zombie_y[zombie_x]+1;
+}
+
+void recharge_arrows(void)
+{
+    arrows+=ARROW_RECAHRGE;
+    if(arrows>99)
+    {
+        arrows=99;
+    }
+    display_remaining_arrows();
+}
+
+void handle_item(void)
+{
+    if(item)
+    {
+        if(item_y<=PLAYER_Y)
+        {
+            _XL_DELETE(item_x,item_y);
+            if(_XL_RAND()&1)
+            {
+                ++item_y;
+            }
+            _XL_DRAW(item_x,item_y,ARROW_TILE_0,_XL_YELLOW);
+        }
+        
+        if(item_y==PLAYER_Y)
+        {
+            _XL_DRAW(item_x,item_y,ARROW_TILE_0,_XL_YELLOW);
+ 
+            if(item_x==(player_x/2)+(player_x&1))
+            {
+                recharge_arrows();
+                _XL_ZAP_SOUND();
+                item=0;
+            }
+            display_player();
+        }
+
+    }
+}
+
+void zombie_die(void)
 {
     uint8_t pos = zombie_y[zombie_x];
     
@@ -187,9 +242,14 @@ void die(void)
     _XL_DRAW(zombie_x,pos, ZOMBIE_DEATH_TILE_1, _XL_RED);
     _XL_SHOOT_SOUND();
     _XL_DELETE(zombie_x,pos);
-    
 
     zombie_shape[zombie_x]=0;
+    
+    if(_XL_RAND()<ARROW_SPAWN_CHANCE)
+    {
+        spawn_item();
+    }
+    
     zombie_y[zombie_x]=ZOMBIE_INITIAL_Y;
     if(zombie_speed<MAX_ZOMBIE_SPEED-ZOMBIE_SPEED_INCREASE)
     {
@@ -197,12 +257,21 @@ void die(void)
     }
     else
     {
-        zombie_speed=INITIAL_ZOMBIE_SPEED;
-        ++zombie_spawn_loops;
+        if(zombie_spawn_loops<MAX_ZOMBIE_SPAWN_LOOPS)
+        {
+            ++zombie_spawn_loops;
+            zombie_speed=INITIAL_ZOMBIE_SPEED;
+        }
+        else
+        {
+            zombie_speed=INITIAL_ZOMBIE_SPEED*2;   
+        }
         display_level();
+        _XL_PING_SOUND();
     }
     score+=ZOMBIE_POINTS;
     display_score();
+
 }
 
 uint8_t compute_next_arrow(void)
@@ -296,7 +365,7 @@ void handle_zombies(void)
     {
         if(zombie_hit())
         {
-            die();
+            zombie_die();
         }
     }
 }
@@ -371,6 +440,7 @@ void initialize_vars(void)
     }
     score = 0;
     
+    item = 0;
     arrows = 99;
     alive = 1;
     loaded_bow = 1;
@@ -460,6 +530,7 @@ int main(void)
         
         while(alive)
         {
+            handle_item();
             handle_zombies();
             handle_player_move();
             handle_bow();

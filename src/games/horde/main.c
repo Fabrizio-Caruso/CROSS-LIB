@@ -32,7 +32,7 @@
 #include "images.h"
 
 
-#define PLAYER_Y ((YSize)-2)
+#define PLAYER_Y ((YSize)-3)
 #define MAX_PLAYER_X ((XSize)*2-3)
 
 #define ZOMBIE_INITIAL_Y 5
@@ -371,7 +371,7 @@ void zombie_die(void)
     _XL_DRAW(zombie_x,pos, ZOMBIE_DEATH_TILE_1, _XL_RED);
     _XL_SHOOT_SOUND();
     _XL_DELETE(zombie_x,pos);
-    display_wall(YSize-1);
+    display_wall(YSize-2);
     
     if(boss[zombie_x])
     {
@@ -479,7 +479,7 @@ void handle_zombies(void)
         display_zombie();
         if(_XL_RAND()<zombie_speed)
         {
-            if(zombie_y[zombie_x]<YSize-1)
+            if(zombie_y[zombie_x]<PLAYER_Y)
             {
                 ++zombie_shape[zombie_x];
 
@@ -635,13 +635,13 @@ void display_initial_screen(void)
     _XL_CLEAR_SCREEN();
     
     display_wall(0);
-    display_wall(YSize-1);
+    display_wall(YSize-2);
 
     _XL_SET_TEXT_COLOR(_XL_CYAN);               
-    _XL_PRINT_CENTERED_ON_ROW(1, _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E); 
+    _XL_PRINT_CENTERED_ON_ROW(2, _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E); 
 
     _XL_SET_TEXT_COLOR(_XL_WHITE);                
-    _XL_PRINTD(XSize/2-3,2,5,hiscore);
+    _XL_PRINTD(XSize/2-3,3,5,hiscore);
     
     
     _XL_SET_TEXT_COLOR(_XL_RED);
@@ -695,7 +695,7 @@ int main(void)
         
         _XL_CLEAR_SCREEN();
         
-        display_wall(YSize-1);
+        display_wall(YSize-2);
         
         display_bow();
         display_stats();

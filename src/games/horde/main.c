@@ -48,17 +48,23 @@
 
 #define MINION_POINTS 5
 #define BOSS_POINTS 50
-#define ARROWS_RECHARGE_POINTS 20
+#define RECHARGE_POINTS 20
+#define FREEZE_POINTS 25
+#define POWERUP_POINTS 30
 
 #define ARROW_RANGE ((ZOMBIE_INITIAL_Y)+6)
 #define ARROW_RECAHRGE 5
 #define ARROW_SPAWN_CHANCE 5000U
-#define BOSS_ENERGY 8
+#define BOSS_ENERGY 6
 
-static uint8_t item_x;
-static uint8_t item_y;
-static uint8_t item;
-static uint8_t item_counter;
+#define MAX_ARROWS 99
+
+#define FREEZE_COUNTER_MAX 200;
+
+static uint8_t freeze;
+static uint8_t powerUp;
+
+// static uint8_t freeze_counter;
 
 static uint8_t zombie_y[XSize];
 static uint8_t zombie_shape[XSize];
@@ -132,6 +138,74 @@ static uint8_t alive;
 static uint16_t score;
 static uint16_t hiscore;
 
+struct ItemStruct
+{
+    uint8_t _x;
+    uint8_t _y;
+    uint8_t _tile;
+    uint8_t _color;
+    uint8_t _active;
+    uint8_t _counter;
+    void(*_effect)(void);
+};
+typedef struct ItemStruct Item;
+
+static Item rechargeItem;
+static Item freezeItem;
+static Item powerUpItem;
+
+void display_remaining_arrows(void)
+{
+    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    _XL_PRINTD(7,0,2,arrows);
+}
+
+void recharge_arrows(void)
+{
+    arrows+=ARROW_RECAHRGE;
+    if(arrows>MAX_ARROWS)
+    {
+        arrows=MAX_ARROWS;
+    }
+    display_remaining_arrows();
+}
+
+void recharge_effect(void)
+{
+    recharge_arrows();
+    score+=RECHARGE_POINTS;
+}
+
+void freeze_effect(void)
+{
+    freeze=FREEZE_COUNTER_MAX;
+    score+=FREEZE_POINTS;
+}
+
+void powerUp_effect(void)
+{
+    ++powerUp;
+    score+=POWERUP_POINTS;
+}
+
+void initialize_items(void)
+{
+    rechargeItem._active = 0;
+    rechargeItem._tile = ARROW_TILE_0;
+    rechargeItem._color = _XL_YELLOW;
+    rechargeItem._effect = recharge_effect;
+    
+    freezeItem._active = 0;
+    freezeItem._tile = FREEZE_TILE;
+    freezeItem._color = _XL_CYAN;
+    freezeItem._effect = freeze_effect;
+
+    powerUpItem._active = 0;
+    powerUpItem._tile = POWER_UP_TILE;
+    powerUpItem._color = _XL_YELLOW;
+    powerUpItem._effect = powerUp_effect;    
+}
+
 
 void display_level(void)
 {
@@ -168,12 +242,6 @@ void move_right(void)
     display_bow();
 }
 
-
-void display_remaining_arrows(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(7,0,2,arrows);
-}
 
 void display_minion(void)
 {
@@ -227,68 +295,63 @@ void display_score(void)
     _XL_PRINTD(0,0,5,score);
 }
 
-void spawn_item(void)
+void spawn_item(Item *item)
 {
     _XL_TICK_SOUND();
-    item = 1;
-    item_x = zombie_x;
-    item_y = zombie_y[zombie_x]+1;
-    item_counter=20;
+    item->_active = 1;
+    item->_x = zombie_x;
+    item->_y = zombie_y[zombie_x]+1;
+    item->_counter=20;
 }
 
-void recharge_arrows(void)
-{
-    arrows+=ARROW_RECAHRGE;
-    if(arrows>99)
-    {
-        arrows=99;
-    }
-    display_remaining_arrows();
-}
 
-void handle_item(void)
+void handle_item(Item* item)
 {
-    if(item)
+    if(item->_active)
     {
-        if(item_y<PLAYER_Y)
+        if(item->_y<PLAYER_Y)
         {
-            _XL_DELETE(item_x,item_y);
+            _XL_DELETE(item->_x,item->_y);
             if(_XL_RAND()&1)
             {
-                ++item_y;
+                ++(item->_y);
             }
-            _XL_DRAW(item_x,item_y,ARROW_TILE_0,_XL_YELLOW);
+            _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
         }
         
-        if((item_y==PLAYER_Y) && (item_counter>0))
+        if((item->_y==PLAYER_Y) && (item->_counter>0))
         {
-            if(item_counter&1)
+            if(item->_counter&1)
             {
-                _XL_DELETE(item_x,item_y);
+                _XL_DELETE(item->_x,item->_y);
             }
             else
             {
-                _XL_DRAW(item_x,item_y,ARROW_TILE_0,_XL_YELLOW);
-
+                _XL_DRAW(item->_x,item->_y,item->_tile,item->_color);
             }
  
-            if(item_x==(bow_x/2)+(bow_x&1))
+            if(item->_x==(bow_x/2)+(bow_x&1))
             {
-                recharge_arrows();
+                item->_effect();
                 _XL_ZAP_SOUND();
-                item=0;
-                score+=ARROWS_RECHARGE_POINTS;
+                item->_active=0;
                 display_score();
             }
             display_bow();
-            --item_counter;
-            if(!item_counter)
+            --item->_counter;
+            if(!(item->_counter))
             {
-                item=0;
+                item->_active=0;
             }
         }
+    }   
+}
 
-    }
+void handle_items(void)
+{
+    handle_item(&rechargeItem);
+    handle_item(&freezeItem);
+    handle_item(&powerUpItem);
 }
 
 void minion_spawn(void)
@@ -311,7 +374,7 @@ void boss_spawn(void)
 void zombie_spawn(void)
 {
     
-    if(!(_XL_RAND()&1))
+    if(!(_XL_RAND()&7))
     {
         boss[zombie_x]=BOSS_ENERGY;
         boss_spawn();
@@ -373,25 +436,29 @@ void zombie_die(void)
     _XL_DELETE(zombie_x,pos);
     display_wall(YSize-2);
     
-    if(boss[zombie_x])
+    if((_XL_RAND())&3)
     {
-        score+=BOSS_POINTS;
-        
-        if(!item)
+        if((!rechargeItem._active)&& (_XL_RAND()<ARROW_SPAWN_CHANCE))
         {
-            spawn_item();
+            spawn_item(&rechargeItem);
+        }
+    }
+    else if((_XL_RAND())&1)
+    {
+        if((!freezeItem._active)&& (_XL_RAND()<ARROW_SPAWN_CHANCE))
+        {
+            spawn_item(&freezeItem);
         }
     }
     else
     {
-        if((!item) && (_XL_RAND()<ARROW_SPAWN_CHANCE))
+        if((!powerUpItem._active)&& (_XL_RAND()<ARROW_SPAWN_CHANCE))
         {
-            spawn_item();
-        }
-        score+=MINION_POINTS;
+            spawn_item(&powerUpItem);
+        }  
     }
-    zombie_spawn();
 
+    zombie_spawn();
 
     display_score();
 }
@@ -469,7 +536,37 @@ void display_red_zombie(void)
 }
 
 
-void handle_zombies(void)
+void handle_zombie_collisions(void)
+{
+    for(zombie_x=0;zombie_x<XSize;++zombie_x)
+    {
+        if(zombie_hit())
+        {
+            if(boss[zombie_x])
+            {
+                display_red_zombie();
+                _XL_TOCK_SOUND();
+                --boss[zombie_x];
+                if(!boss[zombie_x])
+                {
+                    score+=BOSS_POINTS;  
+                    zombie_die();
+                }
+                else
+                {
+                    display_boss();
+                }
+            }
+            else
+            {
+                score+=MINION_POINTS;
+                zombie_die();
+            }
+        }
+    }
+}
+
+void move_zombies(void)
 {
     uint8_t i;
 
@@ -477,7 +574,7 @@ void handle_zombies(void)
     {
         zombie_x=_XL_RAND()%XSize;
         display_zombie();
-        if(_XL_RAND()<zombie_speed)
+        if(!freeze && (_XL_RAND()<zombie_speed))
         {
             if(zombie_y[zombie_x]<PLAYER_Y)
             {
@@ -498,40 +595,6 @@ void handle_zombies(void)
         }
     }
     
-    for(zombie_x=0;zombie_x<XSize;++zombie_x)
-    {
-        if(zombie_hit())
-        {
-            if(boss[zombie_x])
-            {
-                display_red_zombie();
-                _XL_TOCK_SOUND();
-                --boss[zombie_x];
-                if(!boss[zombie_x])
-                {
-                    score+=BOSS_POINTS;
-                    if(!item)
-                    {
-                        spawn_item();
-                    }    
-                    zombie_die();
-                }
-                else
-                {
-                    display_boss();
-                }
-            }
-            else
-            {
-                if((!item) && (_XL_RAND()<ARROW_SPAWN_CHANCE))
-                {
-                    spawn_item();
-                }
-                score+=MINION_POINTS;
-                zombie_die();
-            }
-        }
-    }
 }
 
 
@@ -604,8 +667,11 @@ void initialize_vars(void)
     }
     score = 0;
     
-    item = 0;
-    arrows = 99;
+    initialize_items();
+    
+    freeze = 0;
+    powerUp = 1;
+    arrows = MAX_ARROWS;
     alive = 1;
     loaded_bow = 1;
     next_arrow = 0;
@@ -703,8 +769,13 @@ int main(void)
         
         while(alive)
         {
-            handle_item();
-            handle_zombies();
+            handle_items();
+            move_zombies();
+            if(freeze)
+            {
+                --freeze;
+            }
+            handle_zombie_collisions();
             handle_bow_move();
             handle_bow_load();
             handle_arrows();            

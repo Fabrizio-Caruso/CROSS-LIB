@@ -42,7 +42,7 @@
     #define FREEZE_TILE _TILE_23
     #define WALL_TILE _TILE_24
     
-    #define EXTRA_POINTS_TILE _DOLLAR_TILE
+    #define POWER_UP_TILE _DOLLAR_TILE
 
 
     #define _PLAYER_COLOR _XL_CYAN

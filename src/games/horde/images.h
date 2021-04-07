@@ -32,10 +32,15 @@
     
     #define BOSS_TILE_0 _TILE_19
     #define BOSS_TILE_1 _TILE_20
-    #define BOSS_TILE_2 _TILE_21
-    #define WALL_TILE _TILE_22
+    #define BOSS_TILE_2 _TILE_2
+    #define BOSS_TILE_3 _TILE_21
+    #define BOSS_TILE_4 _TILE_4
+    #define BOSS_TILE_5 _TILE_22
+    #define BOSS_TILE_6 _TILE_6
+
+    
     #define RING_TILE _TILE_23
-    #define FREEZE_TILE _TILE_24
+    #define WALL_TILE _TILE_24
     
     #define EXTRA_POINTS_TILE _DOLLAR_TILE
 

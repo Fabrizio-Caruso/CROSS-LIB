@@ -81,11 +81,16 @@ static const uint8_t zombie_tile[7+1] =
 };
 
 
-static const uint8_t boss_tile[3+1] =
+static const uint8_t boss_tile[7+1] =
 {
+    BOSS_TILE_0,
     BOSS_TILE_0,
     BOSS_TILE_1,
     BOSS_TILE_2,
+    BOSS_TILE_3,
+    BOSS_TILE_4,
+    BOSS_TILE_5,
+    BOSS_TILE_6,
 };
 
 
@@ -199,8 +204,8 @@ void display_boss(void)
     }
     else
     {
-        _XL_DRAW(zombie_x, pos, boss_tile[1], _XL_GREEN);
-        _XL_DRAW(zombie_x,1 + pos, boss_tile[2], _XL_GREEN);
+        _XL_DRAW(zombie_x, pos, boss_tile[status<<1], _XL_GREEN);
+        _XL_DRAW(zombie_x,1 + pos, boss_tile[1+(status<<1)], _XL_GREEN);
     }
 }
 
@@ -297,10 +302,6 @@ void minion_spawn(void)
 void boss_spawn(void)
 {
     zombie_shape[zombie_x]=0;
-    // if(!item)
-    // {
-        // spawn_item();
-    // }
     
     boss[zombie_x] = BOSS_ENERGY;
     zombie_y[zombie_x]=ZOMBIE_INITIAL_Y+2;
@@ -310,7 +311,7 @@ void boss_spawn(void)
 void zombie_spawn(void)
 {
     
-    if((_XL_RAND()&3)==1)
+    if(!(_XL_RAND()&1))
     {
         boss[zombie_x]=BOSS_ENERGY;
         boss_spawn();
@@ -470,14 +471,9 @@ void handle_zombies(void)
             if(zombie_y[zombie_x]<YSize-1)
             {
                 ++zombie_shape[zombie_x];
-                if(!boss[zombie_x])
-                {
-                    (zombie_shape[zombie_x])&=3;
-                }
-                else
-                {
-                    (zombie_shape[zombie_x])&=1;
-                }
+
+                (zombie_shape[zombie_x])&=3;
+ 
                 if(!zombie_shape[zombie_x])
                     {
                         ++zombie_y[zombie_x];
@@ -507,25 +503,6 @@ void handle_zombies(void)
                     {
                         spawn_item();
                     }    
-                    /*
-                        if(boss[zombie_x])
-                        {
-                            score+=BOSS_POINTS;
-                            if(!item)
-                            {
-                                spawn_item();
-                            }
-                        }
-                        else
-                        {
-                            if((!item) && (_XL_RAND()<ARROW_SPAWN_CHANCE))
-                            {
-                                spawn_item();
-                            }
-                            score+=MINION_POINTS;
-                        }
-                        */
-    
                     zombie_die();
                 }
                 else

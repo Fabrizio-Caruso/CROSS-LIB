@@ -39,7 +39,7 @@
     #define BOSS_TILE_6 _TILE_6
 
     
-    #define RING_TILE _TILE_23
+    #define FREEZE_TILE _TILE_23
     #define WALL_TILE _TILE_24
     
     #define EXTRA_POINTS_TILE _DOLLAR_TILE

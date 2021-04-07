@@ -52,7 +52,7 @@
 #define FREEZE_POINTS 25
 #define POWERUP_POINTS 30
 
-#define ARROW_RANGE ((ZOMBIE_INITIAL_Y)+6)
+#define INITIAL_ARROW_RANGE ((ZOMBIE_INITIAL_Y)+6)
 #define ARROW_RECAHRGE 5
 #define ARROW_SPAWN_CHANCE 5000U
 #define BOSS_ENERGY 6
@@ -129,6 +129,7 @@ static uint8_t arrow_shape[NUMBER_OF_ARROWS_ON_SCREEN];
 static uint8_t arrow_x[NUMBER_OF_ARROWS_ON_SCREEN];
 static uint8_t arrow_y[NUMBER_OF_ARROWS_ON_SCREEN];
 static uint8_t arrows;
+static uint8_t arrow_range;
 
 static uint8_t next_arrow;
 static uint8_t arrows_on_screen_counter;
@@ -182,10 +183,19 @@ void freeze_effect(void)
     score+=FREEZE_POINTS;
 }
 
-void powerUp_effect(void)
+void power_up_effect(void)
 {
     ++powerUp;
     score+=POWERUP_POINTS;
+    
+    switch(powerUp)
+    {
+        case 1:
+            arrow_range-=4;
+        break;
+        default:
+        break;
+    }
 }
 
 void initialize_items(void)
@@ -203,7 +213,7 @@ void initialize_items(void)
     powerUpItem._active = 0;
     powerUpItem._tile = POWER_UP_TILE;
     powerUpItem._color = _XL_YELLOW;
-    powerUpItem._effect = powerUp_effect;    
+    powerUpItem._effect = power_up_effect;    
 }
 
 
@@ -486,7 +496,7 @@ void handle_arrows(void)
         if(active_arrow[i]) // ACTIVE
         {
             
-            if(arrow_y[i]<(ARROW_RANGE))
+            if(arrow_y[i]<(arrow_range))
             {
                 active_arrow[i]=0;
                 --arrows_on_screen_counter;
@@ -495,7 +505,7 @@ void handle_arrows(void)
             {
                 _XL_DELETE(arrow_x[i],arrow_y[i]);
                 --arrow_y[i];
-                if(arrow_y[i]>=(ARROW_RANGE))
+                if(arrow_y[i]>=(arrow_range))
                 {
                     _XL_DRAW(arrow_x[i],arrow_y[i],arrow_shape[i],_XL_CYAN);
                 }
@@ -670,13 +680,15 @@ void initialize_vars(void)
     initialize_items();
     
     freeze = 0;
-    powerUp = 1;
-    arrows = MAX_ARROWS;
-    alive = 1;
-    loaded_bow = 1;
+    powerUp = 0;
     next_arrow = 0;
     arrows_on_screen_counter = 0;
     bow_load_counter = 0;
+    
+    loaded_bow = 1;
+    alive = 1;
+    arrows = MAX_ARROWS;
+    arrow_range = INITIAL_ARROW_RANGE;
     bow_x = XSize;
     zombie_speed=INITIAL_ZOMBIE_SPEED;
     zombie_spawn_loops=INITIAL_ZOMBIE_SPAWN_LOOPS;

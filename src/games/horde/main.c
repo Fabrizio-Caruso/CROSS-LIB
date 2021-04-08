@@ -38,7 +38,7 @@
 #define ZOMBIE_INITIAL_Y 5
 
 #define NUMBER_OF_ARROWS_ON_SCREEN 4
-#define RELOAD_LOOPS 10
+#define INITIAL_BOW_RELOAD_LOOPS 14
 
 #define MAX_ZOMBIE_SPEED 40000U
 #define INITIAL_ZOMBIE_SPEED 20000U
@@ -53,8 +53,10 @@
 #define POWERUP_POINTS 30
 
 #define INITIAL_ARROW_RANGE ((ZOMBIE_INITIAL_Y)+6)
-#define ARROW_RECAHRGE 5
+#define ARROW_RECAHRGE 20
 #define ARROW_SPAWN_CHANCE 5000U
+
+
 #define BOSS_ENERGY 6
 
 #define MAX_ARROWS 99
@@ -130,6 +132,7 @@ static uint8_t arrow_x[NUMBER_OF_ARROWS_ON_SCREEN];
 static uint8_t arrow_y[NUMBER_OF_ARROWS_ON_SCREEN];
 static uint8_t arrows;
 static uint8_t arrow_range;
+static uint8_t bow_reload_loops;
 
 static uint8_t next_arrow;
 static uint8_t arrows_on_screen_counter;
@@ -185,16 +188,33 @@ void freeze_effect(void)
 
 void power_up_effect(void)
 {
+    uint8_t i;
+    
     ++powerUp;
     score+=POWERUP_POINTS;
+    
+    // _XL_PRINTD(0,YSize-1,2,powerUp);
     
     switch(powerUp)
     {
         case 1:
-            arrow_range-=4;
+            arrow_range-=5;
         break;
+        
+        case 2:
+            bow_reload_loops=INITIAL_BOW_RELOAD_LOOPS/2;
+        break;
+        
+        case 3:
+            bow_reload_loops=2;
+        break;
+        
         default:
         break;
+    }
+    for(i=0;i<powerUp;++i)
+    {
+        _XL_DRAW(XSize/2-powerUp/2+i,YSize-1,POWER_UP_TILE,_XL_YELLOW);
     }
 }
 
@@ -364,38 +384,36 @@ void handle_items(void)
     handle_item(&powerUpItem);
 }
 
-void minion_spawn(void)
-{
-    zombie_shape[zombie_x]=0;
+// void minion_spawn(void)
+// {
+    // zombie_shape[zombie_x]=0;
     
-    boss[zombie_x] = 0;
-    zombie_y[zombie_x]=ZOMBIE_INITIAL_Y;
-}
+    // boss[zombie_x] = 0;
+// }
 
-void boss_spawn(void)
-{
-    zombie_shape[zombie_x]=0;
+// void boss_spawn(void)
+// {
     
-    boss[zombie_x] = BOSS_ENERGY;
-    zombie_y[zombie_x]=ZOMBIE_INITIAL_Y+2;
+    // boss[zombie_x] = BOSS_ENERGY;
+    // zombie_y[zombie_x]=ZOMBIE_INITIAL_Y;
 
-}
+// }
 
 void zombie_spawn(void)
 {
     
-    if(!(_XL_RAND()&7))
+    if(!(_XL_RAND())&15)
     {
         boss[zombie_x]=BOSS_ENERGY;
-        boss_spawn();
+        // boss_spawn();
     }
     else
     {
         boss[zombie_x]=0;
-        minion_spawn();
+        // minion_spawn();
     }
-    
-
+    zombie_shape[zombie_x]=0;
+    zombie_y[zombie_x]=ZOMBIE_INITIAL_Y;
 }
 
 void update_zombie_speed(void)
@@ -446,26 +464,29 @@ void zombie_die(void)
     _XL_DELETE(zombie_x,pos);
     display_wall(YSize-2);
     
-    if((_XL_RAND())&3)
+    if(_XL_RAND()<ARROW_SPAWN_CHANCE)
     {
-        if((!rechargeItem._active)&& (_XL_RAND()<ARROW_SPAWN_CHANCE))
+        if((_XL_RAND())&3)
         {
-            spawn_item(&rechargeItem);
+            if(!rechargeItem._active)
+            {
+                spawn_item(&rechargeItem);
+            }
         }
-    }
-    else if((_XL_RAND())&1)
-    {
-        if((!freezeItem._active)&& (_XL_RAND()<ARROW_SPAWN_CHANCE))
+        else if((_XL_RAND())&1)
         {
-            spawn_item(&freezeItem);
+            if(!freezeItem._active)
+            {
+                spawn_item(&freezeItem);
+            }
         }
-    }
-    else
-    {
-        if((!powerUpItem._active)&& (_XL_RAND()<ARROW_SPAWN_CHANCE))
+        else
         {
-            spawn_item(&powerUpItem);
-        }  
+            if(!powerUpItem._active)
+            {
+                spawn_item(&powerUpItem);
+            }  
+        }
     }
 
     zombie_spawn();
@@ -473,9 +494,11 @@ void zombie_die(void)
     display_score();
 }
 
+
 uint8_t compute_next_arrow(void)
 {
     uint8_t i;
+    
     for(i=0;i<NUMBER_OF_ARROWS_ON_SCREEN;++i)
     {
         if(!active_arrow[i])
@@ -625,12 +648,13 @@ void handle_bow_move(void)
         loaded_bow = 0;
         active_arrow[next_arrow] = 1;
         ++arrows_on_screen_counter;
-        bow_load_counter = RELOAD_LOOPS;
+        bow_load_counter = bow_reload_loops;
         arrow_shape[next_arrow] = arrow_tile[bow_x&1];
         arrow_y[next_arrow] = PLAYER_Y-1;
         _XL_SHOOT_SOUND();
         arrow_x[next_arrow] = (bow_x/2)+(bow_x&1);
         _XL_DRAW(arrow_x[next_arrow],PLAYER_Y-1,arrow_shape[next_arrow],_XL_CYAN);
+        
         display_bow();
     }
 }
@@ -684,6 +708,7 @@ void initialize_vars(void)
     next_arrow = 0;
     arrows_on_screen_counter = 0;
     bow_load_counter = 0;
+    bow_reload_loops = INITIAL_BOW_RELOAD_LOOPS;
     
     loaded_bow = 1;
     alive = 1;

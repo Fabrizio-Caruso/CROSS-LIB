@@ -34,10 +34,14 @@
 
 #define PLAYER_Y ((YSize)-3)
 #define MAX_PLAYER_X ((XSize)*2-3)
+#define POWER_UPS_Y ((YSize)-1)
 
-#define ZOMBIE_INITIAL_Y 5
+#define ZOMBIE_INITIAL_Y 6
+#define BOTTOM_WALL_Y ((PLAYER_Y)+1)
 
-#define NUMBER_OF_ARROWS_ON_SCREEN 4
+#define POWER_THRESHOLD 4
+
+#define NUMBER_OF_ARROWS_ON_SCREEN 6
 #define INITIAL_BOW_RELOAD_LOOPS 14
 
 #define MAX_ZOMBIE_SPEED 40000U
@@ -50,11 +54,13 @@
 #define BOSS_POINTS 50
 #define RECHARGE_POINTS 20
 #define FREEZE_POINTS 25
-#define POWERUP_POINTS 30
+#define POWERUP_POINTS 40
+#define EXTRA_POINTS 15
+#define WALL_POINTS 30
 
 #define INITIAL_ARROW_RANGE ((ZOMBIE_INITIAL_Y)+6)
 #define ARROW_RECAHRGE 20
-#define ARROW_SPAWN_CHANCE 5000U
+#define ITEM_SPAWN_CHANCE 15000U
 
 
 #define BOSS_ENERGY 6
@@ -66,7 +72,7 @@
 static uint8_t freeze;
 static uint8_t powerUp;
 
-// static uint8_t freeze_counter;
+static uint8_t number_of_arrows;
 
 static uint8_t zombie_y[XSize];
 static uint8_t zombie_shape[XSize];
@@ -157,6 +163,8 @@ typedef struct ItemStruct Item;
 static Item rechargeItem;
 static Item freezeItem;
 static Item powerUpItem;
+static Item extraPointsItem;
+static Item wallItem;
 
 void display_remaining_arrows(void)
 {
@@ -186,9 +194,94 @@ void freeze_effect(void)
     score+=FREEZE_POINTS;
 }
 
+void display_power_ups(void)
+{
+    uint8_t range_color;
+    uint8_t speed_color;
+    uint8_t power_color;
+    
+    uint8_t i;
+    
+    if(powerUp)
+    {
+        range_color = _XL_GREEN;
+        if(powerUp==1)
+        {
+            speed_color = _XL_RED;
+        }
+        else if(powerUp==2)
+        {
+            speed_color = _XL_YELLOW;
+        }
+        else // >=3
+        {
+            speed_color = _XL_GREEN;
+        }
+        if(powerUp>=POWER_THRESHOLD)
+        {
+            power_color = _XL_GREEN;
+        }
+        else
+        {
+            power_color = _XL_RED;
+        }
+    }
+    else
+    {
+        range_color = _XL_RED;
+        speed_color = _XL_RED;
+        power_color = _XL_RED;
+    }
+    if(powerUp==POWER_THRESHOLD+1)
+    {
+        number_of_arrows=2;
+    }
+    else if(powerUp>=POWER_THRESHOLD+2)
+    {
+        number_of_arrows=3;
+    }
+    else
+    {
+        number_of_arrows=1;
+    }
+    
+    #if defined(COLOR)
+    _XL_SET_TEXT_COLOR(range_color);
+    _XL_PRINT(0,POWER_UPS_Y,_XL_R _XL_A _XL_N _XL_G _XL_E);
+    
+    _XL_SET_TEXT_COLOR(speed_color);
+    _XL_PRINT(6,POWER_UPS_Y,_XL_S _XL_P _XL_E _XL_E _XL_D);
+    
+    _XL_SET_TEXT_COLOR(power_color);
+    _XL_PRINT(XSize-5,POWER_UPS_Y, _XL_P _XL_O _XL_W _XL_E _XL_R);
+    #else
+        if(range_color!=_XL_RED)
+        {
+            _XL_PRINT(0,POWER_UPS_Y,_XL_R _XL_A _XL_N _XL_G _XL_E);
+        }
+        if(speed_color!=_XL_RED)
+        {
+            _XL_PRINT(6,POWER_UPS_Y,_XL_S _XL_P _XL_E _XL_E _XL_D);
+        }
+        if(power_color!=_XL_RED)
+        {
+            _XL_PRINT(XSize-5,POWER_UPS_Y, _XL_P _XL_O _XL_W _XL_E _XL_R);
+        }
+    #endif
+    
+    #if XSize>=20
+
+        for(i=0;i<number_of_arrows;++i)
+        {
+            _XL_DRAW(XSize-5-4+i,POWER_UPS_Y,ARROW_TILE_0,_XL_YELLOW);
+        }
+
+    #endif
+
+}
+
 void power_up_effect(void)
 {
-    uint8_t i;
     
     ++powerUp;
     score+=POWERUP_POINTS;
@@ -209,13 +302,32 @@ void power_up_effect(void)
             bow_reload_loops=2;
         break;
         
+        case 4:
+        
+        break;
+        
+        case 5:
+            number_of_arrows = 2;
+        break;
+        
+        case 6:
+            number_of_arrows = 3;
+        break;
+        
         default:
         break;
     }
-    for(i=0;i<powerUp;++i)
-    {
-        _XL_DRAW(XSize/2-powerUp/2+i,YSize-1,POWER_UP_TILE,_XL_YELLOW);
-    }
+    display_power_ups();
+}
+
+void extra_points_effect(void)
+{
+    score+=EXTRA_POINTS;
+}
+
+void wall_effect(void)
+{
+    // TODO: To be implemented
 }
 
 void initialize_items(void)
@@ -232,8 +344,18 @@ void initialize_items(void)
 
     powerUpItem._active = 0;
     powerUpItem._tile = POWER_UP_TILE;
-    powerUpItem._color = _XL_YELLOW;
+    powerUpItem._color = _XL_WHITE;
     powerUpItem._effect = power_up_effect;    
+
+    extraPointsItem._active = 0;
+    extraPointsItem._tile = EXTRA_POINTS_TILE;
+    extraPointsItem._color = _XL_YELLOW;
+    extraPointsItem._effect = extra_points_effect;
+
+    wallItem._active = 0;
+    wallItem._tile = WALL_TILE;
+    wallItem._color = _XL_YELLOW;
+    wallItem._effect = wall_effect; 
 }
 
 
@@ -382,35 +504,21 @@ void handle_items(void)
     handle_item(&rechargeItem);
     handle_item(&freezeItem);
     handle_item(&powerUpItem);
+    handle_item(&extraPointsItem);
+    handle_item(&wallItem);
 }
 
-// void minion_spawn(void)
-// {
-    // zombie_shape[zombie_x]=0;
-    
-    // boss[zombie_x] = 0;
-// }
-
-// void boss_spawn(void)
-// {
-    
-    // boss[zombie_x] = BOSS_ENERGY;
-    // zombie_y[zombie_x]=ZOMBIE_INITIAL_Y;
-
-// }
 
 void zombie_spawn(void)
 {
     
-    if(!(_XL_RAND())&15)
+    if(!((_XL_RAND())&15))
     {
         boss[zombie_x]=BOSS_ENERGY;
-        // boss_spawn();
     }
     else
     {
         boss[zombie_x]=0;
-        // minion_spawn();
     }
     zombie_shape[zombie_x]=0;
     zombie_y[zombie_x]=ZOMBIE_INITIAL_Y;
@@ -450,43 +558,76 @@ void display_wall(uint8_t y)
     }
 }
 
+void display_red_zombie(void)
+{
+    if(!boss[zombie_x])
+    {
+        _XL_DRAW(zombie_x,zombie_y[zombie_x],ZOMBIE_TILE_0,_XL_RED);
+    }
+    else
+    {
+        _XL_DRAW(zombie_x,zombie_y[zombie_x],BOSS_TILE_0,_XL_RED);
+    }
+}
+
+
 void zombie_die(void)
 {
     uint8_t pos = zombie_y[zombie_x];
     
+    uint16_t rnd;
+    
     _XL_DELETE(zombie_x,pos-1);    
     _XL_DELETE(zombie_x,pos);
     _XL_DELETE(zombie_x,pos+1);
-    _XL_DRAW(zombie_x,pos, ZOMBIE_DEATH_TILE_0, _XL_RED);
+    // _XL_DRAW(zombie_x,pos, ZOMBIE_DEATH_TILE, _XL_RED);
+    display_red_zombie();
     _XL_SHOOT_SOUND();
-    _XL_DRAW(zombie_x,pos, ZOMBIE_DEATH_TILE_1, _XL_RED);
+    _XL_DRAW(zombie_x,pos, ZOMBIE_DEATH_TILE, _XL_RED);
     _XL_SHOOT_SOUND();
     _XL_DELETE(zombie_x,pos);
-    display_wall(YSize-2);
+    display_wall(BOTTOM_WALL_Y);
     
-    if(_XL_RAND()<ARROW_SPAWN_CHANCE)
+    rnd = (_XL_RAND())&15;
+    
+    if(rnd<ITEM_SPAWN_CHANCE)
     {
-        if((_XL_RAND())&3)
+        if(rnd<6)
         {
             if(!rechargeItem._active)
             {
                 spawn_item(&rechargeItem);
             }
         }
-        else if((_XL_RAND())&1)
+        else if(rnd<11)
+        {
+            if(!extraPointsItem._active)
+            {
+                spawn_item(&extraPointsItem);
+            }
+        }
+        else if(rnd<13)
         {
             if(!freezeItem._active)
             {
                 spawn_item(&freezeItem);
             }
         }
-        else
+        else if(rnd<15)
+        {
+            if(!wallItem._active)
+            {
+                spawn_item(&wallItem);
+            }
+        }
+        else 
         {
             if(!powerUpItem._active)
             {
                 spawn_item(&powerUpItem);
             }  
         }
+
     }
 
     zombie_spawn();
@@ -556,19 +697,6 @@ uint8_t zombie_hit(void)
     return 0;
 }
 
-void display_red_zombie(void)
-{
-    if(!boss[zombie_x])
-    {
-        _XL_DRAW(zombie_x,PLAYER_Y,ZOMBIE_TILE_0,_XL_RED);
-    }
-    else
-    {
-        _XL_DRAW(zombie_x,zombie_y[zombie_x],BOSS_TILE_0,_XL_RED);
-    }
-}
-
-
 void handle_zombie_collisions(void)
 {
     for(zombie_x=0;zombie_x<XSize;++zombie_x)
@@ -579,6 +707,11 @@ void handle_zombie_collisions(void)
             {
                 display_red_zombie();
                 _XL_TOCK_SOUND();
+                
+                if(powerUp>=POWER_THRESHOLD)
+                {
+                    --boss[zombie_x];
+                }
                 --boss[zombie_x];
                 if(!boss[zombie_x])
                 {
@@ -702,6 +835,7 @@ void initialize_vars(void)
     score = 0;
     
     initialize_items();
+    number_of_arrows = 1;
     
     freeze = 0;
     powerUp = 0;
@@ -738,7 +872,7 @@ void display_initial_screen(void)
     _XL_CLEAR_SCREEN();
     
     display_wall(0);
-    display_wall(YSize-2);
+    display_wall(BOTTOM_WALL_Y);
 
     _XL_SET_TEXT_COLOR(_XL_CYAN);               
     _XL_PRINT_CENTERED_ON_ROW(2, _XL_H _XL_I _XL_S _XL_C _XL_O _XL_R _XL_E); 
@@ -777,6 +911,8 @@ void display_stats(void)
     display_remaining_arrows();
     
     display_level();
+    
+    display_power_ups();
 }
 
 
@@ -798,7 +934,7 @@ int main(void)
         
         _XL_CLEAR_SCREEN();
         
-        display_wall(YSize-2);
+        display_wall(BOTTOM_WALL_Y);
         
         display_bow();
         display_stats();

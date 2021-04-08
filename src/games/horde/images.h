@@ -12,8 +12,8 @@
     #define ZOMBIE_TILE_5 _TILE_5
     #define ZOMBIE_TILE_6 _TILE_6
     
-    #define ZOMBIE_DEATH_TILE_0 _TILE_7
-    #define ZOMBIE_DEATH_TILE_1 _TILE_8
+    #define ZOMBIE_DEATH_TILE _TILE_7
+    #define POWER_UP_TILE _TILE_8
     
     #define LOADED_BOW_LEFT_TILE_0 _TILE_9
     #define LOADED_BOW_RIGHT_TILE_0 _TILE_10
@@ -42,7 +42,7 @@
     #define FREEZE_TILE _TILE_23
     #define WALL_TILE _TILE_24
     
-    #define POWER_UP_TILE _DOLLAR_TILE
+    #define EXTRA_POINTS_TILE _DOLLAR_TILE
 
 
     #define _PLAYER_COLOR _XL_CYAN

@@ -38,12 +38,12 @@
     #define BOSS_TILE_5 _TILE_22
     #define BOSS_TILE_6 _TILE_6
 
+    #define TOP_BORDER_TILE BOSS_TILE_5
     
     #define FREEZE_TILE _TILE_23
     #define WALL_TILE _TILE_24
     
     #define EXTRA_POINTS_TILE _DOLLAR_TILE
-
 
     #define _PLAYER_COLOR _XL_CYAN
 

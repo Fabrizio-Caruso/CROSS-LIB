@@ -648,10 +648,16 @@ void zombie_die(void)
     _XL_DELETE(zombie_x,y_pos-1);    
     _XL_DELETE(zombie_x,y_pos);
     _XL_DELETE(zombie_x,y_pos+1);
-    display_red_zombie();
-    _XL_SHOOT_SOUND();
+    
     _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
+
     _XL_SHOOT_SOUND();
+    for(rnd=0;rnd<99;++rnd)
+    {
+        display_red_zombie();
+        _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
+    } 
+    _XL_SHOOT_SOUND();    
     _XL_DELETE(zombie_x,y_pos);
     display_wall(BOTTOM_WALL_Y);
     
@@ -1017,7 +1023,7 @@ void initialize_vars(void)
     
     for(zombie_x=0;zombie_x<XSize;++zombie_x)
     {
-        zombie_y[zombie_x]=ZOMBIE_INITIAL_Y+4;
+        zombie_y[zombie_x]=INITIAL_ARROW_RANGE-2;
         energy[zombie_x]=MINION_ENERGY;
         zombie_shape[zombie_x]=0;
         boss[zombie_x]=0;

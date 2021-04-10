@@ -500,7 +500,7 @@ supervision: $(ASSETS_PATH)/cc65_udc.s
 
 #################################################################
 
-vic20: vic20_exp_16k
+vic20: vic20_exp_8k
 
 vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl  -t vic20 -DANIMATE_PLAYER -DSOUNDS  \
@@ -515,36 +515,6 @@ vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_arcade.s
 	$(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
 	-o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
 
-# 	-DSIMPLE_TITLE 
-# vic20_exp_8k: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
-	# $(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
-	# --config $(CFG_PATH)/cc65/vic20-8k_GFX.cfg \
-	# -DSOUNDS -DANIMATE_PLAYER \
-	# -DSLOW_DOWN=4200 \
-	# -DMEMORY_MAPPED -DCC65_GOTO -D__VIC20__ -DVIC20_EXP_8K \
-	 # \
-	# -DSIMPLE_STRATEGY \
-	# -DREDEFINED_CHARS \
-	# -DALT_PRINT \
-	# -DLESS_TEXT \
-	# -DDEFAULT_CLEAR_SCREEN \
-	# -DALT_SLEEP \
-	# -DUSE_MEMORY_BUFFERS \
-	# $(BASIC_CROSS_LIB_FILES) $(SOURCE_PATH)/main.c   \
-	# $(SOURCE_PATH)/memory/vic20_memory.s \
-	# --code-name CODE2 \
-	# $(SOURCE_PATH)/game_text.c  \
-	# $(SOURCE_PATH)/variables.c \
-	# $(SOURCE_PATH)/control_player.c \
-	# $(SOURCE_PATH)/snake.c  \
-	# $(CROSS_LIB_PATH)/sleep/sleep_macros.c  \
-	# $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s \
-	# $(SOURCE_PATH)/move_snake.c \
-	# $(CROSS_LIB_PATH)/display/alt_print/memory_mapped_alt_print.c \
-	# $(CROSS_LIB_PATH)/display/init_graphics/cc65/vic20/vic20_init_graphics.c \
-	# $(CROSS_LIB_PATH)/sound/cc65/vic20/vic20_sounds.c \
-	# -o $(BUILD_PATH)/X$(GAME_NAME)_$@.prg
-
 
 vic20_test: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	$(CC65_PATH)$(MYCC65) $(INCLUDE_OPTS) -Or -Cl -t vic20 \
@@ -552,7 +522,6 @@ vic20_test: $(ASSETS_PATH)/cc65_udc_vic20_19_tiles.s
 	-DSOUNDS -DANIMATE_PLAYER \
 	-DSLOW_DOWN=4200 \
 	-DMEMORY_MAPPED -DCC65_GOTO -D__VIC20__ -DVIC20_EXP_8K \
-	 \
 	-DSIMPLE_STRATEGY \
 	-DREDEFINED_CHARS \
 	-DALT_PRINT \

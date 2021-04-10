@@ -62,7 +62,7 @@
 
 #define INITIAL_ARROW_RANGE ((ZOMBIE_INITIAL_Y)+7)
 #define ARROW_RECAHRGE 20
-#define ITEM_SPAWN_CHANCE 15000U
+#define ITEM_SPAWN_CHANCE 5000U
 
 #define MINION_ENERGY 3
 #define BOSS_ENERGY 7
@@ -512,7 +512,7 @@ void display_score(void)
     _XL_PRINTD(0,0,5,score);
 }
 
-void spawn_item(Item *item)
+void drop_item(Item *item)
 {
     _XL_TICK_SOUND();
     item->_active = 1;
@@ -655,43 +655,42 @@ void zombie_die(void)
     _XL_DELETE(zombie_x,y_pos);
     display_wall(BOTTOM_WALL_Y);
     
-    rnd = (_XL_RAND())&15;
-    
-    if(rnd<ITEM_SPAWN_CHANCE)
+    if(((_XL_RAND())<ITEM_SPAWN_CHANCE)||boss[zombie_x])
     {
+        rnd = (_XL_RAND())&15;
         if(rnd<6)
         {
             if(!rechargeItem._active)
             {
-                spawn_item(&rechargeItem);
+                drop_item(&rechargeItem);
             }
         }
         else if(rnd<11)
         {
             if(!extraPointsItem._active)
             {
-                spawn_item(&extraPointsItem);
+                drop_item(&extraPointsItem);
             }
         }
         else if((rnd<13)&&!freeze_appeared)
         {
             if(!freezeItem._active)
             {
-                spawn_item(&freezeItem);
+                drop_item(&freezeItem);
             }
         }
         else if((rnd<14)&&!wall_appeared)
         {
             if(!wallItem._active)
             {
-                spawn_item(&wallItem);
+                drop_item(&wallItem);
             }
         }
         else 
         {
             if(!powerUpItem._active)
             {
-                spawn_item(&powerUpItem);
+                drop_item(&powerUpItem);
             }  
         }
         

@@ -995,7 +995,7 @@ void initialize_vars(void)
     
     for(zombie_x=0;zombie_x<XSize;++zombie_x)
     {
-        zombie_y[zombie_x]=ZOMBIE_INITIAL_Y+4;
+        zombie_y[zombie_x]=ZOMBIE_INITIAL_Y+3;
         energy[zombie_x]=MINION_ENERGY;
         zombie_shape[zombie_x]=0;
         boss[zombie_x]=0;
@@ -1054,6 +1054,15 @@ void display_stats(void)
     display_power_ups();
 }
 
+void display_top_border(void)
+{
+    uint8_t i;
+    
+    for(i=0;i<XSize;++i)
+    {
+        _XL_DRAW(i,1,ZOMBIE_TILE_5,_XL_CYAN);
+    }
+}
 
 int main(void)
 {       
@@ -1073,6 +1082,7 @@ int main(void)
         
         _XL_CLEAR_SCREEN();
         
+        display_top_border();
         display_wall(BOTTOM_WALL_Y);
         
         display_bow();

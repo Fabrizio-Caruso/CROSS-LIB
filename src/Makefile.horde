@@ -1149,7 +1149,7 @@ cpc_mode1_cpcrslib: $(ASSETS_PATH)/z88dk_cpc_Chars8.asm
 	-DSOUNDS   \
 	-DCPCRSLIB \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=1800 \
+	-DSLOW_DOWN=600 \
 	-pragma-define:REGISTER_SP=-1 \
 	-lndos -create-app -o 	$(BUILD_PATH)/X$(GAME_NAME)_$@.prg \
 	-DCPCRSLIB_GRAPHICS \
@@ -1180,7 +1180,7 @@ cpc_mode0: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=1500 \
+	-DSLOW_DOWN=500 \
 	-D__CPC__ \
 	-lndos -create-app \
 	-DCONIO \
@@ -1212,7 +1212,7 @@ cpc_mode2: $(ASSETS_PATH)/z88dk_xchase.asm
 	-DANIMATE_PLAYER \
 	-DSOUNDS \
 	-DZ88DK_JOYSTICK \
-	-DSLOW_DOWN=1000 \
+	-DSLOW_DOWN=700 \
 	-D__CPC__ \
 	-lndos -create-app \
 	-DCONIO \
@@ -1285,7 +1285,7 @@ gb: $(ASSETS_PATH)/z88dk_gameboy.asm
 	-DNO_SET_SCREEN_COLORS \
 	-DNO_COLOR -DANIMATE_PLAYER \
 	-DCONIO -DZ88DK_JOYSTICK \
-	-lndos -DSLOW_DOWN=4000 \
+	-lndos -DSLOW_DOWN=1000 \
 	-DUDG_GRAPHICS $(CROSS_LIB_PATH)/display/init_graphics/z88dk/udg/udg_init_graphics.c \
 	$(ASSETS_PATH)/z88dk_gameboy.asm \
 	$(FULL_FILES_NO_SLEEP) \

@@ -66,7 +66,7 @@
 
 #define MINION_ENERGY 3
 #define BOSS_ENERGY 7
-#define WALL_ENERGY 9
+#define WALL_ENERGY 5
 
 #define MAX_ARROWS 99
 
@@ -338,8 +338,18 @@ void wall_effect(void)
     
     score+=WALL_POINTS;
     
-    for(i=0;i<(XSize)/6;++i)
+    for(i=3*(XSize)/8;i<1+3*(XSize)/8+(XSize)/4;++i)
     {
+        if(zombie_y[i]<WALL_Y-1)
+        {
+            wall[i]=WALL_ENERGY;
+            _XL_DRAW(i,WALL_Y,WALL_TILE,_XL_YELLOW);            
+        }
+        else
+        {
+            wall[i]=0;
+        }
+        /*
         if(zombie_y[i]<WALL_Y)
         {
             wall[i]=WALL_ENERGY;
@@ -358,7 +368,8 @@ void wall_effect(void)
         else
         {
             wall[XSize-1-i]=0;
-        }   
+        }
+*/        
     }
     wall_appeared = 1;
 }
@@ -764,11 +775,11 @@ void decrease_energy(void)
     }
 }
 
-void handle_wall(void)
+void redraw_wall(void)
 {
     uint8_t i;
     
-    for(i=0;i<XSize;++i)
+    for(i=3*(XSize)/8;i<1+3*(XSize)/8+(XSize)/4;++i)
     {
         if(wall[i])
         {
@@ -824,6 +835,12 @@ void move_zombies(void)
                     if(wall[zombie_x] && zombie_y[zombie_x]==WALL_Y-1)
                     {
                         --wall[zombie_x];
+                        if(!wall[zombie_x])
+                        {
+                            _XL_DRAW(zombie_x, WALL_Y, ZOMBIE_DEATH_TILE, _XL_RED);
+                            _XL_EXPLOSION_SOUND();
+                            _XL_DELETE(zombie_x, WALL_Y);
+                        }
                     }
                     else
                     {
@@ -866,6 +883,67 @@ void handle_bow_load(void)
     }
 }
 
+void fire(void)
+{
+    uint8_t i;
+    uint8_t new_arrow_x;  
+    uint8_t offset;
+    _XL_SHOOT_SOUND();
+
+    new_arrow_x = (bow_x/2)+(bow_x&1);
+    for(i=0;i<number_of_arrows_per_shot;++i)
+    {
+        if(remaining_arrows && arrows_on_screen<MAX_ARROWS_ON_SCREEN)
+        {
+            if((number_of_arrows_per_shot==2)&&i)
+            {
+                offset = i-2*(bow_x&1);
+            }
+            else
+            {
+                offset = i;
+            }
+            new_arrow_x+=offset;
+            if(i==2)
+            {
+                if(new_arrow_x>=4)
+                {
+                    new_arrow_x-=4; 
+                }
+                else
+                {
+                    continue;
+                }
+            }
+            if(new_arrow_x<XSize)
+            {
+                next_arrow = compute_next_available_arrow_index();
+
+                active_arrow[next_arrow] = 1;
+                ++arrows_on_screen;
+                if(number_of_arrows_per_shot==2)
+                {
+                    arrow_shape[next_arrow] = arrow_tile[!(bow_x&1)];
+                }
+                else
+                {
+                    arrow_shape[next_arrow] = arrow_tile[bow_x&1];
+                }
+                arrow_y[next_arrow] = BOW_Y-1;
+                arrow_x[next_arrow] = new_arrow_x;
+                --remaining_arrows;
+                display_remaining_arrows();
+            }
+        }
+    }
+    display_bow();
+    display_remaining_arrows();
+
+    bow_load_counter = bow_reload_loops;
+    loaded_bow = 0;
+
+    display_bow();
+}
 
 
 void handle_bow_move(void)
@@ -882,64 +960,7 @@ void handle_bow_move(void)
     }
     else if (_XL_FIRE(input) && loaded_bow)
     {
-        uint8_t i;
-        uint8_t new_arrow_x;  
-        uint8_t offset;
-        _XL_SHOOT_SOUND();
-
-        new_arrow_x = (bow_x/2)+(bow_x&1);
-        for(i=0;i<number_of_arrows_per_shot;++i)
-        {
-            if(remaining_arrows && arrows_on_screen<MAX_ARROWS_ON_SCREEN)
-            {
-                if((number_of_arrows_per_shot==2)&&i)
-                {
-                    offset = i-2*(bow_x&1);
-                }
-                else
-                {
-                    offset = i;
-                }
-                new_arrow_x+=offset;
-                if(i==2)
-                {
-                    if(new_arrow_x>=4)
-                    {
-                        new_arrow_x-=4; 
-                    }
-                    else
-                    {
-                        continue;
-                    }
-                }
-                if(new_arrow_x<XSize)
-                {
-                    next_arrow = compute_next_available_arrow_index();
-
-                    active_arrow[next_arrow] = 1;
-                    ++arrows_on_screen;
-                    if(number_of_arrows_per_shot==2)
-                    {
-                        arrow_shape[next_arrow] = arrow_tile[!(bow_x&1)];
-                    }
-                    else
-                    {
-                        arrow_shape[next_arrow] = arrow_tile[bow_x&1];
-                    }
-                    arrow_y[next_arrow] = BOW_Y-1;
-                    arrow_x[next_arrow] = new_arrow_x;
-                    --remaining_arrows;
-                    display_remaining_arrows();
-                }
-            }
-        }
-        display_bow();
-        display_remaining_arrows();
-
-        bow_load_counter = bow_reload_loops;
-        loaded_bow = 0;
-
-        display_bow();
+        fire();
     }
 }
 
@@ -997,7 +1018,7 @@ void initialize_vars(void)
     
     for(zombie_x=0;zombie_x<XSize;++zombie_x)
     {
-        zombie_y[zombie_x]=ZOMBIE_INITIAL_Y+3;
+        zombie_y[zombie_x]=ZOMBIE_INITIAL_Y+4;
         energy[zombie_x]=MINION_ENERGY;
         zombie_shape[zombie_x]=0;
         boss[zombie_x]=0;
@@ -1099,10 +1120,10 @@ int main(void)
                 --freeze;
             }
             handle_zombie_collisions();
-            handle_wall();
             handle_bow_move();
             handle_bow_load();
-            handle_arrows();            
+            handle_arrows(); 
+            redraw_wall();            
             _XL_SLOW_DOWN(SLOW_DOWN);
         }
         game_over();

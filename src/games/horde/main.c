@@ -44,6 +44,9 @@
 #define MAX_ARROWS_ON_SCREEN 12
 #define INITIAL_BOW_RELOAD_LOOPS 14
 
+#define AUTO_RECHARGE_COOL_DOWN 200
+#define MAX_RECHARGE_ARROWS 5
+
 #define MAX_ZOMBIE_SPEED 40000U
 #define INITIAL_ZOMBIE_SPEED 20000U
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 1
@@ -68,7 +71,7 @@
 #define BOSS_ENERGY 7
 #define WALL_ENERGY 5
 
-#define MAX_ARROWS 99
+#define MAX_ARROWS 9
 
 #define FREEZE_COUNTER_MAX 200;
 
@@ -89,7 +92,7 @@ static uint16_t bosses_to_kill;
 
 static const LevelDetails level_details[NUMBER_OF_LEVELS] = {
     {15,5,20000U,1},
-    {90,10,30000U,1},
+    {20,10,30000U,1},
     {120,40,20000U,2},
     {120,80,30000U,2},
     {100,100,35000U,2},
@@ -108,6 +111,8 @@ static uint8_t initially_spawned_bosses;
 static uint8_t initially_spawned_minions;
 static uint8_t bosses_to_spawn;
 static uint8_t minions_to_spawn;
+
+static uint8_t auto_recharge_counter;
 
 static uint8_t power_up_color[3] = {_XL_RED, _XL_YELLOW, _XL_GREEN};
 static uint8_t arrow_color[3] = {_XL_CYAN, _XL_YELLOW, _XL_GREEN};
@@ -1124,6 +1129,7 @@ void level_initialization(void)
     bow_reload_loops = INITIAL_BOW_RELOAD_LOOPS;
     wall_appeared = 0;
     freeze_appeared = 0;
+    auto_recharge_counter = AUTO_RECHARGE_COOL_DOWN;
     
     loaded_bow = 1;
     alive = 1;
@@ -1251,16 +1257,34 @@ void display_top_border(void)
     }
 }
 
-void check_victory(void)
-{
-    _XL_PRINTD(10,4,3,killed_minions);     _XL_PRINTD(16,4,3,minions_to_kill);
-    _XL_PRINTD(10,6,3,killed_bosses);     _XL_PRINTD(16,6,3,bosses_to_kill);
+// void check_victory(void)
+// {
+    // _XL_PRINTD(10,4,3,killed_minions);     _XL_PRINTD(16,4,3,minions_to_kill);
+    // _XL_PRINTD(10,6,3,killed_bosses);     _XL_PRINTD(16,6,3,bosses_to_kill);
 
-    if((killed_minions==minions_to_kill)&&(killed_bosses==bosses_to_kill))
+    // if((killed_minions==minions_to_kill)&&(killed_bosses==bosses_to_kill))
+    // {
+        // _XL_SET_TEXT_COLOR(_XL_RED);
+        // _XL_PRINT_CENTERED(_XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D);
+        // _XL_SLEEP(3);
+    // }
+// }
+
+void handle_auto_recharge(void)
+{
+    if(!remaining_arrows)
     {
-        _XL_SET_TEXT_COLOR(_XL_RED);
-        _XL_PRINT_CENTERED(_XL_C _XL_L _XL_E _XL_A _XL_R _XL_E _XL_D);
-        _XL_SLEEP(3);
+        if(auto_recharge_counter)
+        {
+            --auto_recharge_counter;
+        }
+        else
+        {
+            remaining_arrows+=4;
+            display_remaining_arrows();
+            auto_recharge_counter=AUTO_RECHARGE_COOL_DOWN;
+            _XL_PING_SOUND();
+        }
     }
 }
 
@@ -1307,7 +1331,7 @@ int main(void)
                 handle_bow_load();
                 handle_arrows(); 
                 redraw_wall();  
-                // check_victory();
+                handle_auto_recharge();
                 _XL_SLOW_DOWN(SLOW_DOWN);            
             }
             if(alive)

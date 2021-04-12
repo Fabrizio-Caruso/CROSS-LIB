@@ -79,8 +79,8 @@
 
 #define NUMBER_OF_LEVELS 20
 
-#define MIN_OCCUPIED_COLUMNS ((XSize)/8)
-#define MAX_OCCUPIED_COLUMNS (3*(XSize)/4)
+// #define MIN_OCCUPIED_COLUMNS ((XSize)/8)
+#define MAX_OCCUPIED_COLUMNS (4*(XSize)/5)
 
 struct LevelDetailsStruct
 {
@@ -95,16 +95,16 @@ static uint16_t minions_to_kill;
 static uint16_t bosses_to_kill;
 
 static const LevelDetails level_details[NUMBER_OF_LEVELS] = {
-    {15,5,10000U,2},
-    {20,10,15000U,2},
-    {25,15,20000U,2},
-    {120,80,30000U,2},
-    {100,100,35000U,2},
-    {120,120,25000U,3},
-    {200,150,30000U,3},
-    {200,200,35000U,3},
-    {250,250,38000U,3}, 
-    {250,400,39000U,3}, 
+    {20,5,7000U,2},
+    {22,10,8000U,2},
+    {25,15,9000U,2},
+    {30,20,9000U,2},
+    {40,25,9000U,2},
+    {50,30,9000U,2},
+    {60,40,9000U,2},
+    {70,50,9000U,2},
+    {80,60,9000U,3}, 
+    {99,99,9000U,3}, 
 };
 
 static uint8_t lives;
@@ -254,7 +254,7 @@ void freeze_effect(void)
 {
     freeze=FREEZE_COUNTER_MAX;
     score+=FREEZE_POINTS;
-    freeze_appeared = 1;
+    ++freeze_appeared;
 }
 
 void display_power_ups(void)
@@ -701,19 +701,20 @@ void update_zombie_speed(void)
     }
     else
     {
-        if(zombie_spawn_loops<MAX_ZOMBIE_SPAWN_LOOPS)
-        {
-            ++zombie_spawn_loops;
-            zombie_speed=INITIAL_ZOMBIE_SPEED;
-        }
-        else
-        {
-            zombie_speed=INITIAL_ZOMBIE_SPEED*2;   
-        }
-        _XL_TOCK_SOUND();
+        zombie_speed=MAX_ZOMBIE_SPEED;
+        // if(zombie_spawn_loops<MAX_ZOMBIE_SPAWN_LOOPS)
+        // {
+            // ++zombie_spawn_loops;
+            // zombie_speed=INITIAL_ZOMBIE_SPEED;
+        // }
+        // else
+        // {
+            // zombie_speed=INITIAL_ZOMBIE_SPEED*2;   
+        // }
+        // _XL_TOCK_SOUND();
         
-        display_level();
-        _XL_PING_SOUND();
+        // display_level();
+        // _XL_PING_SOUND();
     }
 }
 
@@ -753,7 +754,7 @@ void zombie_die(void)
     _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
 
     _XL_TICK_SOUND();
-    for(rnd=0;rnd<99;++rnd)
+    for(rnd=0;rnd<49;++rnd)
     {
         display_red_zombie();
         _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
@@ -776,7 +777,7 @@ void zombie_die(void)
     if(((_XL_RAND())<ITEM_SPAWN_CHANCE)||boss[zombie_x])
     {
         rnd = (_XL_RAND())&15;
-        if(rnd<6)
+        if(rnd<7)
         {
             if(!rechargeItem._active)
             {
@@ -790,7 +791,7 @@ void zombie_die(void)
                 drop_item(&extraPointsItem);
             }
         }
-        else if((rnd<13)&&!freeze_appeared)
+        else if((rnd<13)&&freeze_appeared<2)
         {
             if(!freezeItem._active)
             {
@@ -829,6 +830,7 @@ void zombie_die(void)
         zombie_y[zombie_x]=0;
     }
     display_score();
+    update_zombie_speed();
 }
 
 
@@ -1201,21 +1203,23 @@ void zombie_initialization(void)
         
     bosses_to_kill = level_details[level].bosses_to_kill-killed_bosses;
     
-    if(minions_to_spawn_initially<MIN_OCCUPIED_COLUMNS)
-    {
-        if(bosses_to_kill<MAX_OCCUPIED_COLUMNS)
-        {
-            bosses_to_spawn_initially = bosses_to_kill;
-        }
-        else
-        {
-            bosses_to_spawn_initially = MAX_OCCUPIED_COLUMNS;
-        }
-    }
-    else
-    {
-        bosses_to_spawn_initially = 0;
-    }
+    bosses_to_spawn_initially = MAX_OCCUPIED_COLUMNS - minions_to_spawn_initially;
+    
+    // if(minions_to_spawn_initially<MIN_OCCUPIED_COLUMNS)
+    // {
+        // if(bosses_to_kill+minions_to_spawn_initially<MAX_OCCUPIED_COLUMNS)
+        // {
+            // bosses_to_spawn_initially = bosses_to_kill;
+        // }
+        // else
+        // {
+            // bosses_to_spawn_initially = MAX_OCCUPIED_COLUMNS;
+        // }
+    // }
+    // else
+    // {
+        // bosses_to_spawn_initially = 0;
+    // }
 
     // _XL_PRINT(0,15,"bosses at start");
     // _XL_PRINTD(17,15,3,bosses_to_spawn_initially);
@@ -1344,11 +1348,12 @@ int main(void)
 
     while(1) // Game (re-)start
     {
+        global_initialization();
+
         display_initial_screen();
         _XL_WAIT_FOR_INPUT();
         
         _XL_CLEAR_SCREEN();
-        global_initialization();
         while(lives && level<=20) // Level (re)-start 
         {            
             _XL_CLEAR_SCREEN();

@@ -46,14 +46,14 @@
 #define MAX_ARROWS_ON_SCREEN 12
 #define INITIAL_BOW_RELOAD_LOOPS 14
 
-#define AUTO_RECHARGE_COOL_DOWN 200
+#define AUTO_RECHARGE_COOL_DOWN 100
 #define MAX_RECHARGE_ARROWS 5
 
 #define MAX_ZOMBIE_SPEED 40000U
 #define INITIAL_ZOMBIE_SPEED 20000U
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_SPAWN_LOOPS 10
-#define ZOMBIE_SPEED_INCREASE 500U
+#define ZOMBIE_SPEED_INCREASE 250U
 
 #define MINION_POINTS 5
 #define BOSS_POINTS 20
@@ -67,11 +67,11 @@
 
 #define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+7)
 #define ARROW_RECAHRGE 20
-#define ITEM_SPAWN_CHANCE 8000U
+#define ITEM_SPAWN_CHANCE 10000U
 
 #define MINION_ENERGY 3
-#define BOSS_ENERGY 7
-#define WALL_ENERGY 5
+#define BOSS_ENERGY 5
+#define WALL_ENERGY 12
 
 #define MAX_ARROWS 99
 
@@ -95,14 +95,14 @@ static uint16_t minions_to_kill;
 static uint16_t bosses_to_kill;
 
 static const LevelDetails level_details[NUMBER_OF_LEVELS] = {
-    {20,5,7000U,2},
-    {22,10,8000U,2},
-    {25,15,9000U,2},
-    {30,20,9000U,2},
-    {40,25,9000U,2},
-    {50,30,9000U,2},
-    {60,40,9000U,2},
-    {70,50,9000U,2},
+    {40, 5,7000U,2},
+    {45,10,8000U,2},
+    {50,15,9000U,2},
+    {55,20,9000U,2},
+    {60,25,9000U,2},
+    {65,30,9000U,2},
+    {70,40,9000U,2},
+    {75,50,9000U,2},
     {80,60,9000U,3}, 
     {99,99,9000U,3}, 
 };
@@ -966,6 +966,9 @@ void move_zombies(void)
                     if(wall[zombie_x] && zombie_y[zombie_x]==WALL_Y-1)
                     {
                         --wall[zombie_x];
+                        _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_RED);
+                        _XL_TICK_SOUND();
+                        _XL_DRAW(zombie_x, WALL_Y, WALL_TILE, _XL_YELLOW);
                         if(!wall[zombie_x])
                         {
                             _XL_DRAW(zombie_x, WALL_Y, ZOMBIE_DEATH_TILE, _XL_RED);
@@ -1203,8 +1206,15 @@ void zombie_initialization(void)
         
     bosses_to_kill = level_details[level].bosses_to_kill-killed_bosses;
     
-    bosses_to_spawn_initially = MAX_OCCUPIED_COLUMNS - minions_to_spawn_initially;
     
+    if(bosses_to_kill<MAX_OCCUPIED_COLUMNS - minions_to_spawn_initially)
+    {
+        bosses_to_spawn_initially = bosses_to_kill;  
+    }
+    else
+    {
+        bosses_to_spawn_initially = MAX_OCCUPIED_COLUMNS - minions_to_spawn_initially;
+    }
     // if(minions_to_spawn_initially<MIN_OCCUPIED_COLUMNS)
     // {
         // if(bosses_to_kill+minions_to_spawn_initially<MAX_OCCUPIED_COLUMNS)

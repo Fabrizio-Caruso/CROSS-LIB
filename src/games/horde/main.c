@@ -809,14 +809,14 @@ void zombie_die(void)
                 drop_item(&rechargeItem);
             }
         }
-        else if((rnd<8)&&(freeze_appeared<2)&&(powerUp>1))
+        else if((rnd<8)&&(freeze_appeared<3)&&(powerUp>2))
         {
             if(!freezeItem._active)
             {
                 drop_item(&freezeItem);
             }
         }
-        else if((rnd<9)&&!wall_appeared&&(powerUp>1))
+        else if((rnd<9)&&!wall_appeared&&(powerUp>3))
         {
             if(!wallItem._active)
             {
@@ -902,7 +902,7 @@ uint8_t zombie_hit(void)
         if(active_arrow[i] && arrow_x[i]==zombie_x
           && zombie_y[zombie_x]>=arrow_y[i])
            {
-               if(boss[zombie_x]<2 || zombie_shape[zombie_x])
+               if(freeze || boss[zombie_x]<2 || zombie_shape[zombie_x])
                {
                    active_arrow[i]=0;
                     --arrows_on_screen;

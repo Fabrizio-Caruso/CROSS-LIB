@@ -231,12 +231,16 @@ struct ItemStruct
     void(*_effect)(void);
 };
 typedef struct ItemStruct Item;
+typedef struct ItemStruct Missile;
 
 static Item rechargeItem;
 static Item freezeItem;
 static Item powerUpItem;
 static Item extraPointsItem;
 static Item wallItem;
+
+static Missile beamMissile;
+
 
 void display_remaining_arrows(void)
 {
@@ -418,6 +422,13 @@ void wall_effect(void)
     wall_appeared = 1;
 }
 
+
+void beam_effect(void)
+{
+    alive=0;
+}
+
+
 void initialize_items(void)
 {
     rechargeItem._active = 0;
@@ -444,6 +455,11 @@ void initialize_items(void)
     wallItem._tile = WALL_TILE;
     wallItem._color = _XL_YELLOW;
     wallItem._effect = wall_effect; 
+    
+    beamMissile._active = 0;
+    beamMissile._tile = BEAM_TILE;
+    beamMissile._color = _XL_CYAN;
+    beamMissile._effect = beam_effect;
 }
 
 
@@ -531,6 +547,20 @@ void display_boss(void)
     }
     else
     {
+        if(boss[zombie_x]==1)
+        {
+            color = _XL_GREEN;
+        }
+        else if(boss[zombie_x]==2)
+        {
+            tile = ZOMBIE_DEATH_TILE;
+            color = _XL_YELLOW;
+        }
+        else
+        {
+            color = _XL_RED;
+        }
+        /*
         if(boss[zombie_x]>1)
         {
             tile = ZOMBIE_DEATH_TILE;
@@ -549,6 +579,7 @@ void display_boss(void)
 
             color = _XL_GREEN;
         }
+        */
     }
 
     if(!status)

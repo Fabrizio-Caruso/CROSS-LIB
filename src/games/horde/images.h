@@ -39,6 +39,7 @@
     #define BOSS_TILE_6 _TILE_6
 
     #define TOP_BORDER_TILE BOSS_TILE_5
+    #define BEAM_TILE BOSS_TILE_5
     
     #define FREEZE_TILE _TILE_23
     #define WALL_TILE _TILE_24

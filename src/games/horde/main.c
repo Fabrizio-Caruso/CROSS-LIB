@@ -63,8 +63,8 @@
 #define EXTRA_POINTS 10
 #define RECHARGE_POINTS 15
 #define POWERUP_POINTS 25
-#define FREEZE_POINTS 30
-#define WALL_POINTS 35
+#define FREEZE_POINTS 35
+#define WALL_POINTS 45
 
 #define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+7)
 #define ARROW_RECHARGE 25
@@ -72,7 +72,7 @@
 
 #define MINION_ENERGY 3
 #define BOSS_ENERGY 5
-#define WALL_ENERGY 12
+#define WALL_ENERGY 20
 
 #define MAX_ARROWS 99
 
@@ -681,12 +681,6 @@ void spawn_minion(void)
 void spawn_boss(void)
 {
     uint8_t rank;
-    // uint8_t t;
-    
-    // t = (_XL_RAND())&3;
-    // _XL_PRINTD(0,5,3,t);    
-    
-    // rank = 1+t;
     
     if(!level)
     {
@@ -696,12 +690,15 @@ void spawn_boss(void)
     {
         rank = 1 + ((_XL_RAND())&1);
     }
-    else
+    else if(level==2)
     {
         rank = 1 + (rand()%3);   
     }
+    else
+    {
+        rank = 2 + ((_XL_RAND())&1); 
+    }
 
-    
     // _XL_PRINT_CENTERED("spawn boss");
     // _XL_PRINTD(0,6,3,rank);
     // _XL_WAIT_FOR_INPUT();
@@ -1447,6 +1444,10 @@ int main(void)
             else
             {
                 --lives;
+                _XL_SET_TEXT_COLOR(_XL_RED);
+                _XL_PRINT_CENTERED(_XL_D _XL_E _XL_A _XL_D);
+                _XL_SLEEP(1);
+                _XL_WAIT_FOR_INPUT();
             }
         }
         game_over();

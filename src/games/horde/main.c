@@ -46,8 +46,8 @@
 #define MAX_ARROWS_ON_SCREEN 12
 #define INITIAL_BOW_RELOAD_LOOPS 14
 
-#define AUTO_RECHARGE_COOL_DOWN 100
-#define MAX_RECHARGE_ARROWS 5
+#define AUTO_RECHARGE_COOL_DOWN 90
+#define AUTO_ARROW_RECAHRGE 5
 
 #define MAX_ZOMBIE_SPEED 40000U
 #define INITIAL_ZOMBIE_SPEED 20000U
@@ -67,7 +67,7 @@
 #define WALL_POINTS 35
 
 #define INITIAL_ARROW_RANGE ((INITIAL_ZOMBIE_Y)+7)
-#define ARROW_RECAHRGE 25
+#define ARROW_RECHARGE 25
 #define ITEM_SPAWN_CHANCE 11000U
 
 #define MINION_ENERGY 3
@@ -239,13 +239,23 @@ static Item wallItem;
 
 void display_remaining_arrows(void)
 {
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
+    uint8_t color;
+    
+    if(remaining_arrows<20)
+    {
+        color = _XL_RED;
+    }
+    else
+    {
+        color = _XL_WHITE;
+    }
+    _XL_SET_TEXT_COLOR(color);
     _XL_PRINTD(7,0,2,remaining_arrows);
 }
 
 void recharge_arrows(void)
 {
-    remaining_arrows+=ARROW_RECAHRGE;
+    remaining_arrows+=ARROW_RECHARGE;
     if(remaining_arrows>MAX_ARROWS)
     {
         remaining_arrows=MAX_ARROWS;
@@ -523,8 +533,15 @@ void display_boss(void)
         if(boss[zombie_x]>1)
         {
             tile = ZOMBIE_DEATH_TILE;
-
-            color = _XL_YELLOW;
+            
+            if(boss[zombie_x]>2)
+            {
+                color = _XL_RED;
+            }
+            else
+            {
+                color = _XL_YELLOW;
+            }
         }
         else
         {
@@ -778,21 +795,28 @@ void zombie_die(void)
     if(((_XL_RAND())<ITEM_SPAWN_CHANCE)||boss[zombie_x])
     {
         rnd = (_XL_RAND())&15;
-        if(rnd<6)
+        if(rnd<2)
+        {
+            if(!extraPointsItem._active)
+            {
+                drop_item(&extraPointsItem);
+            }
+        }
+        if(rnd<7)
         {
             if(!rechargeItem._active)
             {
                 drop_item(&rechargeItem);
             }
         }
-        else if((rnd<7)&&freeze_appeared<2)
+        else if((rnd<8)&&(freeze_appeared<2)&&(powerUp>1))
         {
             if(!freezeItem._active)
             {
                 drop_item(&freezeItem);
             }
         }
-        else if((rnd<8)&&!wall_appeared)
+        else if((rnd<9)&&!wall_appeared&&(powerUp>1))
         {
             if(!wallItem._active)
             {
@@ -1134,7 +1158,7 @@ void global_initialization(void)
         hiscore=score;
     }
     score = 0;
-    level = 0;
+    level = 9;
     killed_bosses = 0;
     killed_minions = 0;
     
@@ -1364,7 +1388,7 @@ void handle_auto_recharge(void)
         }
         else
         {
-            remaining_arrows+=4;
+            remaining_arrows+=AUTO_ARROW_RECAHRGE;
             display_remaining_arrows();
             auto_recharge_counter=AUTO_RECHARGE_COOL_DOWN;
             _XL_PING_SOUND();

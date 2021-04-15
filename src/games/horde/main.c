@@ -684,7 +684,7 @@ uint8_t find_inactive(void)
     index = _XL_RAND()%XSize;
     for(i=0;i<XSize;++i)
     {
-        index = (index+13)%XSize;
+        index = (index+1)%XSize;
         if(!zombie_active[index])
         {
             return index;
@@ -803,12 +803,13 @@ void zombie_die(void)
     _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
 
     _XL_TICK_SOUND();
-    for(rnd=0;rnd<49;++rnd)
+    for(rnd=0;rnd<29;++rnd)
     {
         display_red_zombie();
         _XL_DRAW(zombie_x,y_pos, ZOMBIE_DEATH_TILE, _XL_RED);
     } 
-    _XL_EXPLOSION_SOUND();    
+    // _XL_PING_SOUND();    
+    _XL_SHOOT_SOUND();
     _XL_DELETE(zombie_x,y_pos);
     display_wall(BOTTOM_WALL_Y);
     
@@ -833,14 +834,14 @@ void zombie_die(void)
                 drop_item(&extraPointsItem);
             }
         }
-        if(rnd<7)
+        else if(rnd<7)
         {
             if(!rechargeItem._active)
             {
                 drop_item(&rechargeItem);
             }
         }
-        else if((rnd<8)&&(freeze_appeared<3)&&(powerUp>2))
+        else if((rnd<8)&&(freeze_appeared<3)&&(powerUp>2)&&(!freeze))
         {
             if(!freezeItem._active)
             {
@@ -933,7 +934,7 @@ uint8_t zombie_hit(void)
         if(active_arrow[i] && arrow_x[i]==zombie_x
           && zombie_y[zombie_x]>=arrow_y[i])
            {
-               if(freeze || boss[zombie_x]<2 || zombie_shape[zombie_x])
+               if(freeze || boss[zombie_x]!=2 || zombie_shape[zombie_x])
                {
                    active_arrow[i]=0;
                     --arrows_on_screen;

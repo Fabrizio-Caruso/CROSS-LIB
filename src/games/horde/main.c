@@ -116,7 +116,7 @@ static const LevelDetails level_details[NUMBER_OF_LEVELS] = {
     {70,40,8000U},
     {75,50,8000U},
     {80,60,8000U}, 
-    {99,99,8000U}, 
+    {9,99,8000U}, 
 };
 
 static uint8_t lives;
@@ -141,11 +141,10 @@ static uint8_t zombie_y[XSize];
 static uint8_t zombie_shape[XSize];
 static uint8_t zombie_x;
 static uint16_t zombie_speed;
-// static uint8_t zombie_move_loops;
 static uint8_t zombie_active[XSize];
 
 static uint8_t energy[XSize];
-static uint8_t boss[XSize];
+static uint8_t zombie_level[XSize];
 
 static uint8_t fire_power;
 
@@ -549,11 +548,11 @@ void display_boss(void)
     }
     else
     {
-        if(boss[zombie_x]==1)
+        if(zombie_level[zombie_x]==1)
         {
             color = _XL_GREEN;
         }
-        else if(boss[zombie_x]==2)
+        else if(zombie_level[zombie_x]==2)
         {
             tile = ZOMBIE_DEATH_TILE;
             color = _XL_YELLOW;
@@ -563,11 +562,11 @@ void display_boss(void)
             color = _XL_RED;
         }
         /*
-        if(boss[zombie_x]>1)
+        if(zombie_level[zombie_x]>1)
         {
             tile = ZOMBIE_DEATH_TILE;
             
-            if(boss[zombie_x]>2)
+            if(zombie_level[zombie_x]>2)
             {
                 color = _XL_RED;
             }
@@ -599,7 +598,7 @@ void display_boss(void)
 
 void display_zombie(void)
 {
-    if(boss[zombie_x])
+    if(zombie_level[zombie_x])
     {
         display_boss();
     }
@@ -617,11 +616,13 @@ void display_score(void)
 
 void drop_item(Item *item)
 {
+
     _XL_TICK_SOUND();
     item->_active = 1;
     item->_x = zombie_x;
-    item->_y = zombie_y[zombie_x]+1;
+    item->_y = zombie_y[zombie_x]+2;
     item->_counter=20;
+
 }
 
 
@@ -674,6 +675,7 @@ void handle_items(void)
     handle_item(&powerUpItem);
     handle_item(&extraPointsItem);
     handle_item(&wallItem);
+    handle_item(&beamMissile);
 }
 
 uint8_t find_inactive(void)
@@ -706,7 +708,7 @@ void spawn_minion(void)
     // _XL_PRINT_CENTERED("spawn minion");
     // _XL_WAIT_FOR_INPUT();
     activate_zombie();
-    boss[zombie_x]=0;
+    zombie_level[zombie_x]=0;
     energy[zombie_x]=MINION_ENERGY;  
     --minions_to_spawn;
 }
@@ -737,7 +739,7 @@ void spawn_boss(void)
     // _XL_WAIT_FOR_INPUT();
     
     activate_zombie();
-    boss[zombie_x]=rank;
+    zombie_level[zombie_x]=rank;
     energy[zombie_x]=BOSS_ENERGY+rank;
     --bosses_to_spawn;
 }
@@ -779,7 +781,7 @@ void display_wall(uint8_t y)
 
 void display_red_zombie(void)
 {
-    if(!boss[zombie_x])
+    if(!zombie_level[zombie_x])
     {
         _XL_DRAW(zombie_x,zombie_y[zombie_x],ZOMBIE_TILE_0,_XL_RED);
     }
@@ -813,7 +815,7 @@ void zombie_die(void)
     _XL_DELETE(zombie_x,y_pos);
     display_wall(BOTTOM_WALL_Y);
     
-    if(boss[zombie_x])
+    if(zombie_level[zombie_x])
     {
         ++killed_bosses;
         --bosses_to_kill;
@@ -824,7 +826,7 @@ void zombie_die(void)
         --minions_to_kill;
     }
     
-    if(((_XL_RAND())<ITEM_SPAWN_CHANCE)||boss[zombie_x])
+    if(((_XL_RAND())<ITEM_SPAWN_CHANCE)||zombie_level[zombie_x])
     {
         rnd = (_XL_RAND())&15;
         if(rnd<2)
@@ -932,9 +934,9 @@ uint8_t zombie_hit(void)
     for(i=0;i<MAX_ARROWS_ON_SCREEN;++i)
     {
         if(active_arrow[i] && arrow_x[i]==zombie_x
-          && zombie_y[zombie_x]>=arrow_y[i])
+          && zombie_y[zombie_x]>=arrow_y[i] && zombie_y[zombie_x]<arrow_y[i]+2)
            {
-               if(freeze || boss[zombie_x]!=2 || zombie_shape[zombie_x])
+               if(freeze || (zombie_level[zombie_x]!=2) || zombie_shape[zombie_x])
                {
                    active_arrow[i]=0;
                     --arrows_on_screen;
@@ -1008,7 +1010,7 @@ void handle_zombie_collisions(void)
             }
             else
             {
-                score+=zombie_points[boss[zombie_x]];
+                score+=zombie_points[zombie_level[zombie_x]];
                 zombie_die();
             }
         }
@@ -1030,6 +1032,10 @@ void move_zombies(void)
             display_zombie();
             if(!freeze && (_XL_RAND()<zombie_speed))
             {
+                if(zombie_level[zombie_x]>2 && !beamMissile._active && zombie_y[zombie_x]<YSize-5)
+                {
+                    drop_item(&beamMissile);
+                }
                 if(zombie_y[zombie_x]<BOW_Y)
                 {
                     if(wall[zombie_x] && zombie_y[zombie_x]==WALL_Y-1)
@@ -1094,7 +1100,8 @@ void fire(void)
     uint8_t i;
     uint8_t new_arrow_x;  
     uint8_t offset;
-    _XL_SHOOT_SOUND();
+    // _XL_SHOOT_SOUND();
+    _XL_TICK_SOUND();
 
     new_arrow_x = (bow_x/2)+(bow_x&1);
     for(i=0;i<number_of_arrows_per_shot;++i)
@@ -1234,7 +1241,7 @@ void zombie_initialization(void)
     for(zombie_x=0;zombie_x<XSize;++zombie_x)
     {
         zombie_shape[zombie_x]=0;
-        boss[zombie_x]=0;
+        zombie_level[zombie_x]=0;
         wall[zombie_x]=0;
         zombie_active[zombie_x]=0;
     }
@@ -1261,7 +1268,7 @@ void zombie_initialization(void)
 
 /*
     activate_zombie();
-    boss[zombie_x]=0;
+    zombie_level[zombie_x]=0;
     energy[zombie_x]=MINION_ENERGY;  
     --minions_to_spawn;
     zombie_shape[zombie_x]=0;
@@ -1275,7 +1282,7 @@ void zombie_initialization(void)
         // {
             spawn_minion();
             // energy[zombie_x]=MINION_ENERGY;
-            // boss[zombie_x]=0;
+            // zombie_level[zombie_x]=0;
             zombie_y[zombie_x]=INITIAL_ARROW_RANGE-2;
             // zombie_active[zombie_x]=1;
             ++counter;

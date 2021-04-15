@@ -85,6 +85,8 @@
 
 #define ZOMBIE_MOVE_LOOPS 2
 
+static uint8_t loop;
+
 static const uint8_t zombie_points[] = 
 { 
     MINION_POINTS, 
@@ -630,7 +632,7 @@ void handle_item(Item* item)
         if(item->_y<BOW_Y)
         {
             _XL_DELETE(item->_x,item->_y);
-            if(_XL_RAND()&1)
+            if(loop&1)
             {
                 ++(item->_y);
             }
@@ -1460,6 +1462,7 @@ int main(void)
                 // _XL_SET_TEXT_COLOR(_XL_YELLOW);
                 // _XL_PRINTD(0,14,3,bosses_to_kill);
                 // _XL_PRINTD(6,16,3,killed_bosses);
+                ++loop;
             }
             _XL_SLEEP(1);
             if(alive)

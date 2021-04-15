@@ -31,7 +31,9 @@
 
 #include "images.h"
 
-#define INITIAL_LIVES 9
+#define INITIAL_LEVEL 0
+#define LAST_LEVEL 9
+#define INITIAL_LIVES 5
 
 #define BOW_Y ((YSize)-3)
 #define MAX_BOW_X ((XSize)*2-3)
@@ -53,7 +55,7 @@
 #define INITIAL_ZOMBIE_SPEED 20000U
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_LOOPS 3
-#define ZOMBIE_SPEED_INCREASE 250U
+#define ZOMBIE_SPEED_INCREASE 200U
 
 #define MINION_POINTS 5
 #define BOSS_1_POINTS 20
@@ -71,7 +73,7 @@
 #define ITEM_SPAWN_CHANCE 11000U
 
 #define MINION_ENERGY 3
-#define BOSS_ENERGY 5
+#define BOSS_BASE_ENERGY 5
 #define WALL_ENERGY 20
 
 #define MAX_ARROWS 99
@@ -91,10 +93,10 @@ static uint8_t loop;
 
 static const uint8_t zombie_points[] = 
 { 
-    MINION_POINTS, 
-    BOSS_1_POINTS, 
-    BOSS_2_POINTS, 
-    BOSS_3_POINTS,
+    MINION_POINTS, // Skeletons
+    BOSS_1_POINTS, // Ogre
+    BOSS_2_POINTS, // Ghosts
+    BOSS_3_POINTS, // Demons
 };
 
 struct LevelDetailsStruct
@@ -109,16 +111,16 @@ static uint16_t minions_to_kill;
 static uint16_t bosses_to_kill;
 
 static const LevelDetails level_details[NUMBER_OF_LEVELS] = {
-    {25,10,6000U},
-    {45,10,6000U},
-    {50,15,7000U},
-    {55,20,7000U},
-    {60,25,7000U},
-    {65,30,7000U},
-    {70,40,8000U},
-    {75,50,8000U},
-    {80,60,8000U}, 
-    {9,99,8000U}, 
+    {25,10,5000U}, 
+    {35,15,5500U},
+    {40,20,5500U},
+    {55,25,5500U},
+    {60,30,5500U},
+    {65,35,6000U},
+    {70,40,6000U},
+    {75,50,6000U},
+    {80,60,6000U}, 
+    {80,99,7000U}, 
 };
 
 static uint8_t lives;
@@ -754,7 +756,7 @@ void spawn_boss(void)
     
     activate_zombie();
     zombie_level[zombie_x]=rank;
-    energy[zombie_x]=BOSS_ENERGY+rank;
+    energy[zombie_x]=BOSS_BASE_ENERGY;
     --bosses_to_spawn;
 }
 
@@ -1242,7 +1244,7 @@ void global_initialization(void)
         hiscore=score;
     }
     score = 0;
-    level = 9;
+    level = INITIAL_LEVEL;
     killed_bosses = 0;
     killed_minions = 0;
     
@@ -1465,7 +1467,7 @@ int main(void)
         _XL_WAIT_FOR_INPUT();
         
         _XL_CLEAR_SCREEN();
-        while(lives && level<=20) // Level (re)-start 
+        while(lives && level<=LAST_LEVEL) // Level (re)-start 
         {            
             _XL_CLEAR_SCREEN();
             level_initialization();

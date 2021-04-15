@@ -52,7 +52,7 @@
 #define AUTO_ARROW_RECAHRGE 9
 
 #define MAX_ZOMBIE_SPEED 40000U
-#define INITIAL_ZOMBIE_SPEED 20000U
+#define INITIAL_ZOMBIE_SPEED 5500U
 #define INITIAL_ZOMBIE_SPAWN_LOOPS 2
 #define MAX_ZOMBIE_LOOPS 3
 #define ZOMBIE_SPEED_INCREASE 200U
@@ -99,6 +99,7 @@ static const uint8_t zombie_points[] =
     BOSS_3_POINTS, // Demons
 };
 
+/*
 struct LevelDetailsStruct
 {
     uint16_t minions_to_kill;
@@ -106,22 +107,25 @@ struct LevelDetailsStruct
     uint16_t initial_zombie_speed;
 };
 typedef struct LevelDetailsStruct LevelDetails;
+*/
 
 static uint16_t minions_to_kill;
 static uint16_t bosses_to_kill;
 
-static const LevelDetails level_details[NUMBER_OF_LEVELS] = {
-    {25,10,5000U}, 
-    {35,15,5500U},
-    {40,20,5500U},
-    {55,25,5500U},
-    {60,30,5500U},
-    {65,35,6000U},
-    {70,40,6000U},
-    {75,50,6000U},
-    {80,60,6000U}, 
-    {80,99,7000U}, 
-};
+#define MINIONS_ON_FIRST_LEVEL ((XSize)+2)
+#define BOSSES_ON_FIRST_LEVEL 10+(level<<3)
+// static const LevelDetails level_details[NUMBER_OF_LEVELS] = {
+    // {MINIONS_ON_FIRST_LEVEL,10,5000U},
+    // {MINIONS_ON_FIRST_LEVEL+5,15,5500U},
+    // {MINIONS_ON_FIRST_LEVEL+10,20,5500U},
+    // {MINIONS_ON_FIRST_LEVEL+15,25,5500U},
+    // {MINIONS_ON_FIRST_LEVEL+20,30,5500U},
+    // {MINIONS_ON_FIRST_LEVEL+25,35,6000U},
+    // {MINIONS_ON_FIRST_LEVEL+30,40,6000U},
+    // {MINIONS_ON_FIRST_LEVEL+35,50,6000U},
+    // {MINIONS_ON_FIRST_LEVEL+40,60,6000U}, 
+    // {MINIONS_ON_FIRST_LEVEL+45,99,7000U}, 
+// };
 
 static uint8_t lives;
 static uint8_t level;
@@ -570,26 +574,6 @@ void display_boss(void)
         {
             color = _XL_RED;
         }
-        /*
-        if(zombie_level[zombie_x]>1)
-        {
-            tile = ZOMBIE_DEATH_TILE;
-            
-            if(zombie_level[zombie_x]>2)
-            {
-                color = _XL_RED;
-            }
-            else
-            {
-                color = _XL_YELLOW;
-            }
-        }
-        else
-        {
-
-            color = _XL_GREEN;
-        }
-        */
     }
 
     if(!status)
@@ -625,7 +609,7 @@ void display_score(void)
 
 void drop_item(Item *item, uint8_t max_counter)
 {
-    if(zombie_y[zombie_x]<YSize-5)
+    if(zombie_y[zombie_x]<YSize-7)
     {
         _XL_TICK_SOUND();
         item->_active = 1;
@@ -963,6 +947,7 @@ uint8_t zombie_hit(void)
                else
                {
                    display_boss();
+                   // return 0;
                }
            }
     }
@@ -1020,9 +1005,11 @@ void handle_zombie_collisions(void)
             if(energy[zombie_x])
             {
                 display_red_zombie();
+                _XL_SLOW_DOWN(SLOW_DOWN);
+                
                 _XL_TOCK_SOUND();
-                display_zombie();
                 push_zombie();
+                display_zombie();
             }
             else
             {
@@ -1208,7 +1195,7 @@ void handle_bow_move(void)
 {
     input = _XL_INPUT();
     
-    if(_XL_LEFT(input) && bow_x>0)
+    if(_XL_LEFT(input) && bow_x)
     {
         move_left();
     }
@@ -1270,6 +1257,7 @@ void level_initialization(void)
     remaining_arrows = MAX_ARROWS;
     arrow_range = INITIAL_ARROW_RANGE;
     bow_x = XSize;
+    bow_shape_tile = 2*((bow_x)&1);
     
     number_of_arrows_per_shot = 1;
 
@@ -1291,11 +1279,7 @@ void zombie_initialization(void)
         zombie_active[zombie_x]=0;
     }
     
-    minions_to_kill = level_details[level].minions_to_kill-killed_minions; 
-
-    // _XL_PRINT(0,11,"minions to kill");
-    // _XL_PRINTD(17,11,3,minions_to_kill);
-
+    minions_to_kill = MINIONS_ON_FIRST_LEVEL+(level<<2)-killed_minions; 
 
     if(minions_to_kill<MAX_OCCUPIED_COLUMNS)
     {
@@ -1305,20 +1289,8 @@ void zombie_initialization(void)
     {
         minions_to_spawn_initially=MAX_OCCUPIED_COLUMNS;
     }
-    // _XL_PRINT(0,13,"minions at start");
-    // _XL_PRINTD(17,13,3,minions_to_spawn_initially);
-    // _XL_WAIT_FOR_INPUT();
     
     counter = 0;
-
-/*
-    activate_zombie();
-    zombie_level[zombie_x]=0;
-    energy[zombie_x]=MINION_ENERGY;  
-    --minions_to_spawn;
-    zombie_shape[zombie_x]=0;
-    zombie_y[zombie_x]=INITIAL_ZOMBIE_Y;
-*/
 
     while(counter<minions_to_spawn_initially)
     {
@@ -1338,7 +1310,7 @@ void zombie_initialization(void)
     
     minions_to_spawn = minions_to_kill-minions_to_spawn_initially;
         
-    bosses_to_kill = level_details[level].bosses_to_kill-killed_bosses;
+    bosses_to_kill = BOSSES_ON_FIRST_LEVEL-killed_bosses;
     
     
     if(bosses_to_kill<MAX_OCCUPIED_COLUMNS - minions_to_spawn_initially)
@@ -1363,7 +1335,7 @@ void zombie_initialization(void)
    
     bosses_to_spawn = bosses_to_kill-bosses_to_spawn_initially;
     
-    zombie_speed=level_details[level].initial_zombie_speed;//INITIAL_ZOMBIE_SPEED;
+    zombie_speed=INITIAL_ZOMBIE_SPEED;
     
     for(zombie_x=0;zombie_x<MAX_ARROWS_ON_SCREEN;++zombie_x)
     {
@@ -1391,45 +1363,43 @@ void display_initial_screen(void)
                        _XL_SPACE _XL_SPACE 
                        _XL_H _XL_SPACE _XL_O _XL_SPACE _XL_R _XL_SPACE _XL_D _XL_SPACE _XL_E);
 
-
     _XL_SET_TEXT_COLOR(_XL_WHITE);               
     _XL_PRINT_CENTERED_ON_ROW(YSize/3+2, _XL_F _XL_A _XL_B _XL_R _XL_I _XL_Z _XL_I _XL_O _XL_SPACE _XL_C _XL_A _XL_R _XL_U _XL_S _XL_O);
 
     _XL_SLEEP(1);
-    
+ 
     _XL_SET_TEXT_COLOR(_XL_GREEN);
     _XL_PRINT_CENTERED_ON_ROW(YSize/3+8, _XL_R _XL_E _XL_S _XL_I _XL_S _XL_T _XL_SPACE _XL_T _XL_H _XL_E _XL_SPACE _XL_H _XL_O _XL_R _XL_D _XL_E );
 
 }
 
-void display_stats(void)
-{
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    display_score();
-    
-    _XL_SET_TEXT_COLOR(_XL_GREEN);
-    _XL_PRINT(XSize-10,0,_XL_H _XL_I);
-    _XL_SET_TEXT_COLOR(_XL_WHITE);
-    _XL_PRINTD(XSize-8,0,5, hiscore);
-    
-    _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN);
-    display_remaining_arrows();
-    
-    // display_level();
-    display_lives();
-    
-    display_power_ups();
-}
 
-void display_top_border(void)
-{
-    uint8_t i;
-    
-    for(i=0;i<XSize;++i)
-    {
-        _XL_DRAW(i,1,TOP_BORDER_TILE,_XL_CYAN);
-    }
-}
+#define display_stats() \
+do \
+{ \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    display_score(); \
+    _XL_SET_TEXT_COLOR(_XL_GREEN); \
+    _XL_PRINT(XSize-10,0,_XL_H _XL_I); \
+    _XL_SET_TEXT_COLOR(_XL_WHITE); \
+    _XL_PRINTD(XSize-8,0,5, hiscore); \
+    _XL_DRAW(6,0,ARROW_TILE_1,_XL_CYAN); \
+    display_remaining_arrows(); \
+    display_lives(); \
+    display_power_ups(); \
+} while(0)
+
+
+#define display_top_border() \
+do \
+{ \
+    uint8_t i; \
+    \
+    for(i=0;i<XSize;++i) \
+    { \
+        _XL_DRAW(i,1,TOP_BORDER_TILE,_XL_CYAN); \
+    } \
+} while(0)
 
 
 void handle_auto_recharge(void)
@@ -1488,10 +1458,6 @@ int main(void)
             
             while(alive && (minions_to_kill || bosses_to_kill) )
             {
-        
-        // _XL_PRINTD(0,2,3,minions_to_kill);
-        // _XL_PRINTD(0,3,3,bosses_to_kill);
-        
                 handle_items();
                 move_zombies();
                 if(freeze)
@@ -1536,6 +1502,13 @@ int main(void)
                 _XL_SLEEP(1);
                 _XL_WAIT_FOR_INPUT();
             }
+        }
+        if(lives)
+        {
+            _XL_SET_TEXT_COLOR(_XL_RED);
+            _XL_PRINT_CENTERED(_XL_V _XL_I _XL_C _XL_T _XL_O _XL_R _XL_Y);
+            _XL_SLEEP(1);
+            _XL_WAIT_FOR_INPUT();
         }
         game_over();
     }
